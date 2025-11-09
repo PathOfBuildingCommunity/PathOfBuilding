@@ -1417,9 +1417,11 @@ local modTagList = {
 	["per (%d+)%% cold resistance above 75%%"] = function(num) return { tag  = { type = "PerStat", stat = "ColdResistOver75", div = num } } end,
 	["per (%d+)%% lightning resistance above 75%%"] = function(num) return { tag  = { type = "PerStat", stat = "LightningResistOver75", div = num } } end,
 	["per (%d+)%% fire resistance above 75%%"] = function(num) return { tag  = { type = "PerStat", stat = "FireResistOver75", div = num } } end,
+	["per (%d+)%% fire, cold, or lightning resistance above 75%%"] = function(num) return { tag  = { type = "PerStat", statList = { "FireResistOver75", "ColdResistOver75", "LightningResistOver75" }, div = num } } end,
 	["per (%d+) devotion"] = function(num) return { tag = { type = "PerStat", stat = "Devotion", actor = "parent", div = num } } end,
 	["per (%d+)%% missing fire resistance, up to a maximum of (%d+)%%"] = function(num, _, limit) return { tag = { type = "PerStat", stat = "MissingFireResist", div = num, globalLimit = tonumber(limit), globalLimitKey = "ReplicaNebulisFire" } } end,
 	["per (%d+)%% missing cold resistance, up to a maximum of (%d+)%%"] = function(num, _, limit) return { tag = { type = "PerStat", stat = "MissingColdResist", div = num, globalLimit = tonumber(limit), globalLimitKey = "ReplicaNebulisCold" } } end,
+	["per (%d+)%% missing fire, cold, or lightning resistance, up to a maximum of (%d+)%%"] = function(num, _, limit) return { tag = { type = "PerStat", statList = { "MissingFireResist", "MissingColdResist", "MissingFireResist" }, div = num, globalLimit = tonumber(limit), globalLimitKey = "ReplicaNebulisCold" } } end,
 	["per endurance, frenzy or power charge"] = { tag = { type = "PerStat", stat = "TotalCharges" } },
 	["per fortification"] = { tag = { type = "PerStat", stat = "FortificationStacks" } },
 	["per two fortification on you"] = { tag = { type = "PerStat", stat= "FortificationStacks", div = 2, actor = "player" } },
@@ -2270,6 +2272,10 @@ local specialModList = {
 	["adds (%d+) to (%d+) attack physical damage to melee skills per (%d+) dexterity while you are unencumbered"] = function(_, min, max, dex) return { -- Hollow Palm 3 suffixes
 		mod("PhysicalMin", "BASE", tonumber(min), nil, ModFlag.Melee, KeywordFlag.Attack, { type = "PerStat", stat = "Dex", div = tonumber(dex) }, { type = "Condition", var = "Unencumbered" }),
 		mod("PhysicalMax", "BASE", tonumber(max), nil, ModFlag.Melee, KeywordFlag.Attack, { type = "PerStat", stat = "Dex", div = tonumber(dex) }, { type = "Condition", var = "Unencumbered" }),
+	} end,
+	["adds (%d+) to (%d+) fire damage to attacks for every (%d+)%% your light radius is above base value"] = function(_, min, max, lightRadius) return { -- Eclipse Solaris
+		mod("FireMin", "BASE", tonumber(min), nil, ModFlag.Attack, { type = "PerStat", stat = "LightRadiusInc", div = tonumber(lightRadius) }),
+		mod("FireMax", "BASE", tonumber(max), nil, ModFlag.Attack, { type = "PerStat", stat = "LightRadiusInc", div = tonumber(lightRadius) }),
 	} end,
 	["(%d+)%% more attack damage if accuracy rating is higher than maximum life"] = function(num) return {
 		mod("Damage", "MORE", num, "Damage", ModFlag.Attack, { type = "Condition", var = "MainHandAccRatingHigherThanMaxLife" }, { type = "Condition", var = "MainHandAttack" }),
@@ -4206,6 +4212,7 @@ local specialModList = {
 	["spells [hf][ai][vr]e an additional projectile"] = { mod("ProjectileCount", "BASE", 1, nil, ModFlag.Spell) },
 	["spells [hf][ai][vr]e (%d+) additional projectiles"] = function(num) return { mod("ProjectileCount", "BASE", num, nil, ModFlag.Spell) } end,
 	["attacks fire an additional projectile"] = { mod("ProjectileCount", "BASE", 1, nil, ModFlag.Attack) },
+	["attacks [hf][ai][vr]e (%d+) additional projectiles? when in off hand"] = function(num) return { mod("ProjectileCount", "BASE", num, nil, ModFlag.Attack, { type = "SlotNumber", num = 2 }) } end,
 	["fire at most 1 projectile"] = { flag("SingleProjectile") },
 	["attacks have an additional projectile when in off hand"] = { mod("ProjectileCount", "BASE", 1, nil, ModFlag.Attack, { type = "SlotNumber", num = 2 }) },
 	["caustic arrow and scourge arrow fire (%d+)%% more projectiles"] = function(num) return { mod("ProjectileCount", "MORE", num, nil, { type = "SkillName", skillNameList = { "Caustic Arrow", "Scourge Arrow" }, includeTransfigured = true }) } end,
