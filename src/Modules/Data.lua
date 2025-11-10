@@ -664,6 +664,7 @@ data.itemTagSpecialExclusionPattern = {
 		["boots"] = {
 			"Enemy's Life", -- Legacy of Fury
 			"^Enemies Cannot Leech Life", -- Sin Trek
+			'their Life as Chaos Damage', -- Beacon of Madness
 			"when on Full Life",
 			"when on Low Life",
 			"^Allocates",
