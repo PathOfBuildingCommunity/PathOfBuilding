@@ -631,7 +631,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			end
 			if tag.searchCond then
 				for slot, item in pairs(items) do
-					if (not tag.allSlots or tag.allSlots and item.type ~= "Jewel") and slot ~= itemSlot or not tag.excludeSelf then
+					if (not tag.allSlots or tag.allSlots and (item.type ~= "Jewel" and item.type ~= "Graft")) and slot ~= itemSlot or not tag.excludeSelf then
 						t_insert(matches, item:FindModifierSubstring(tag.searchCond:lower(), slot:lower()))
 					end
 				end
