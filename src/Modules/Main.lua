@@ -518,6 +518,7 @@ end
 
 function main:LoadSettings(ignoreBuild)
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
+	self:OpenOneDriveErrPopup(self.userPath.."Settings.xml")
 	if errMsg and errMsg:match(".*file returns nil") then
 		self:OpenOneDriveErrPopup(self.userPath.."Settings.xml")
 		return true
@@ -1565,16 +1566,28 @@ function main:OpenNewFolderPopup(path, onClose)
 	main:OpenPopup(370, 100, "New Folder", controls, "create", "edit", "cancel")
 end
 
----Shows a OneDrive-specific error popup
+---Shows a OneDrive-specific read error popup with a help button that opens a browser to PoB's GitHub wiki.
 function main:OpenOneDriveErrPopup(fileName)
-	if fileName and fileName ~= "" then
-		fileName = "'"..fileName.."'"
-	else
-		fileName = ""
-	end
-	ConPrintf("Error: OneDrive: file unreadable: %s", fileName)
-	self:OpenMessagePopup(" Cannot read file ", "\nMake sure OneDrive is running then restart "..APP_NAME.." and try again.\n\n"..fileName)
+	ConPrintf("Error: OneDrive: file unreadable: %s", fileName or "?")
+	fileName = fileName and "\n\n'"..fileName.."'" or ""
+	local title = " Cannot read file "
+	local msg = "\nMake sure OneDrive is running then restart "..APP_NAME.." and try again."..fileName
+	local url = "https://github.com/PathOfBuildingCommunity/PathOfBuilding/wiki/OneDrive"
 	self.saveSettingsOnExit = false
+	local controls = { }
+	local numMsgLines = 0
+	for line in string.gmatch(msg .. "\n", "([^\n]*)\n") do
+		t_insert(controls, new("LabelControl", nil, {0, 20 + numMsgLines * 16, 0, 16}, line))
+		numMsgLines = numMsgLines + 1
+	end
+	controls.help = new("ButtonControl", nil, {-55, 40 + numMsgLines * 16, 80, 20}, "Help (web)", function()
+		OpenURL(url)
+	end)
+	controls.help.tooltipText = url
+	controls.close = new("ButtonControl", nil, {55, 40 + numMsgLines * 16, 80, 20}, "Ok", function()
+		main:ClosePopup()
+	end)
+	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls, "close")
 end
 
 function main:SetWindowTitleSubtext(subtext)
