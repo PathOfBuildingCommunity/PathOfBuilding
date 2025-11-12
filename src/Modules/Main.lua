@@ -518,7 +518,6 @@ end
 
 function main:LoadSettings(ignoreBuild)
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
-	self:OpenOneDriveErrPopup(self.userPath.."Settings.xml")
 	if errMsg and errMsg:match(".*file returns nil") then
 		self:OpenOneDriveErrPopup(self.userPath.."Settings.xml")
 		return true
