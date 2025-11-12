@@ -2854,7 +2854,10 @@ local specialModList = {
 	["elemental ailments cannot be inflicted on you if you have an equipped body armour with no socketed gems"] = { flag("ElementalAilmentImmune", { type = "MultiplierThreshold", var = "SocketedGemsInBody Armour", threshold = 0, upper = true }, { type = "Condition", var = "UsingBody Armour" }) },
 	["take no extra damage from critical strikes if you have equipped gloves with no socketed gems"] = { mod("ReduceCritExtraDamage", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "MultiplierThreshold", var = "SocketedGemsInGloves", threshold = 0, upper = true }, { type = "Condition", var = "UsingGloves" }) },
 	-- Delirious Bloodline
-	["while affected by glorious madness, inflict mania on nearby enemies every second"] = { flag("Condition:CanInflictMania", { type = "Condition", var = "AffectedByGloriousMadness" }) },
+	["while affected by glorious madness, inflict mania on nearby enemies every second"] = { 
+		flag("Condition:CanInflictMania", { type = "Condition", var = "AffectedByGloriousMadness" }),
+		mod("EnemyModifier", "LIST", { mod = flag("Condition:AfflictedByMania") }, { type = "Condition", var = "AffectedByGloriousMadness" }),
+	 },
 	-- Lycia Bloodline
 	["herald skills have (%d+)%% more buff effect for every (%d+)%% of maximum mana they reserve"] = function(_, num1, num2) return { mod("BuffEffect", "MORE", tonumber(num1), { type = "PerStat", stat = "ManaReservedPercent", div = tonumber(num2) }, { type = "SkillType", skillType = SkillType.Herald }) } end,
 	["herald skills and minions from herald skills deal (%d+)%% more damage for every (%d+)%% of maximum life those skills reserve"] = function(_, num1, num2) return { 
