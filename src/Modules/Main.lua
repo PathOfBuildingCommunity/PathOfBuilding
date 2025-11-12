@@ -519,9 +519,7 @@ end
 function main:LoadSettings(ignoreBuild)
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
 	if errMsg and errMsg:match(".*file returns nil") then
-		ConPrintf("Error: '%s'", errMsg)
-		main:OpenMessagePopup("Cannot read file", '\nMake sure OneDrive is running then restart PoB and try again.\n\n"'..errMsg..'"')
-		self.saveSettingsOnExit = false
+		self:OpenOneDriveErrPopup(self.userPath.."Settings.xml")
 		return true
 	elseif errMsg and not errMsg:match(".*No such file or directory") then
 		ConPrintf("Error: '%s'", errMsg)
@@ -665,9 +663,7 @@ end
 function main:LoadSharedItems()
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
 	if errMsg and errMsg:match(".*file returns nil") then
-		ConPrintf("Error: '%s'", errMsg)
-		main:OpenMessagePopup("Cannot read file", '\nMake sure OneDrive is running then restart PoB and try again.\n\n"'..errMsg..'"')
-		self.saveSettingsOnExit = false
+		self:OpenOneDriveErrPopup(self.userPath.."Settings.xml")
 		return true
 	elseif errMsg and not errMsg:match(".*No such file or directory") then
 		ConPrintf("Error: '%s'", errMsg)
@@ -1567,6 +1563,18 @@ function main:OpenNewFolderPopup(path, onClose)
 		main:ClosePopup()
 	end)
 	main:OpenPopup(370, 100, "New Folder", controls, "create", "edit", "cancel")
+end
+
+---Shows a OneDrive-specific error popup
+function main:OpenOneDriveErrPopup(fileName)
+	if fileName and fileName ~= "" then
+		fileName = "'"..fileName.."'"
+	else
+		fileName = ""
+	end
+	ConPrintf("Error: OneDrive: file unreadable: %s", fileName)
+	self:OpenMessagePopup(" Cannot read file ", "\nMake sure OneDrive is running then restart "..APP_NAME.." and try again.\n\n"..fileName)
+	self.saveSettingsOnExit = false
 end
 
 function main:SetWindowTitleSubtext(subtext)

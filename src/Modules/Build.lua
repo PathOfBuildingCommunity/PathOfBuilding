@@ -1821,8 +1821,7 @@ function buildMode:LoadDB(xmlText, fileName)
 	-- Parse the XML
 	local dbXML, errMsg = common.xml.ParseXML(xmlText)
 	if errMsg and errMsg:match(".*file returns nil") then
-		ConPrintf("Error: '%s'", errMsg)
-		main:OpenMessagePopup("Cannot read file", '\nMake sure OneDrive is running then restart PoB and try again.\n\n"'..errMsg..'"')
+		main:OpenOneDriveErrPopup(fileName)
 		return true
 	elseif errMsg then
 		ConPrintf("Error: '%s'", errMsg)
