@@ -11086,8 +11086,7 @@ c["Skills used by Traps have 20% increased Area of Effect"]={{[1]={flags=0,keywo
 c["Skills used by Traps have 50% increased Area of Effect"]={{[1]={flags=0,keywordFlags=4096,name="AreaOfEffect",type="INC",value=50}},nil}
 c["Skills which Exert an Attack have 40% chance to not count that Attack"]={nil,"Skills which Exert an Attack have 40% chance to not count that Attack "}
 c["Skills which Throw Traps have +1 Cooldown Use"]={nil,"Skills which Throw Traps have +1 Cooldown Use "}
-c["Skills which Throw Traps throw up to 2 additional Traps"]={nil,"Skills which Throw Traps throw up to 2 additional Traps "}
-c["Skills which Throw Traps throw up to 2 additional Traps Traps cannot be triggered by Enemies"]={nil,"Skills which Throw Traps throw up to 2 additional Traps Traps cannot be triggered by Enemies "}
+c["Skills which Throw Traps throw up to 2 additional Traps"]={{[1]={flags=0,keywordFlags=0,name="TrapThrowCount",type="BASE",value=2}},nil}
 c["Skills which create Brands have 35% chance to create an additional Brand"]={nil,"Skills which create Brands have 35% chance to create an additional Brand "}
 c["Skills which throw Mines throw up to 1 additional Mine if you have at least 800 Dexterity"]={nil,"Skills which throw Mines throw up to 1 additional Mine if you have at least 800 Dexterity "}
 c["Skills which throw Mines throw up to 1 additional Mine if you have at least 800 Dexterity Skills which throw Mines throw up to 1 additional Mine if you have at least 800 Intelligence"]={nil,"Skills which throw Mines throw up to 1 additional Mine if you have at least 800 Dexterity Skills which throw Mines throw up to 1 additional Mine if you have at least 800 Intelligence "}

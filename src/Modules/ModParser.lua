@@ -4003,6 +4003,7 @@ local specialModList = {
 		mod("TrapThrowCount", "BASE", tonumber(num) * tonumber(chance) / 100.0),
 		mod("MineThrowCount", "BASE", tonumber(num) * tonumber(chance) / 100.0),
 	} end,
+	["skills which throw traps throw up to (%d+) additional traps?"] = function(num) return { mod("TrapThrowCount", "BASE", tonumber(num)) } end,
 	-- Totems
 	["can have up to (%d+) additional totems? summoned at a time"] = function(num) return { mod("ActiveTotemLimit", "BASE", num) } end,
 	["attack skills can have (%d+) additional totems? summoned at a time"] = function(num) return { mod("ActiveTotemLimit", "BASE", num, nil, 0, KeywordFlag.Attack) } end,
