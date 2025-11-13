@@ -1568,9 +1568,9 @@ end
 ---Shows a OneDrive-specific read error popup with a help button that opens a browser to PoB's GitHub wiki.
 function main:OpenOneDriveErrPopup(fileName)
 	ConPrintf("Error: OneDrive: file unreadable: %s", fileName or "?")
-	fileName = fileName and "\n\n'"..fileName.."'" or ""
+	fileName = fileName and "\n\n^8'"..fileName.."'" or ""
 	local title = " Cannot read file "
-	local msg = "\nMake sure OneDrive is running then restart "..APP_NAME.." and try again."..fileName
+	local msg = "\nMake sure OneDrive is running then restart "..APP_NAME.." and try again."..fileName.."\n\n^8v"..launch.versionNumber
 	local url = "https://github.com/PathOfBuildingCommunity/PathOfBuilding/wiki/OneDrive"
 	self.saveSettingsOnExit = false
 	local controls = { }
