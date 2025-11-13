@@ -1569,8 +1569,9 @@ end
 function main:OpenOneDriveErrPopup(fileName)
 	ConPrintf("Error: OneDrive: file unreadable: %s", fileName or "?")
 	fileName = fileName and "\n\n^8'"..fileName.."'" or ""
+	local longVersion = "^8v"..launch.versionNumber..(launch.versionBranch == "dev" and " (Dev)" or launch.versionBranch == "beta" and " (Beta)" or "")
 	local title = " Cannot read file "
-	local msg = "\nMake sure OneDrive is running then restart "..APP_NAME.." and try again."..fileName.."\n\n^8v"..launch.versionNumber
+	local msg = "\nMake sure OneDrive is running then restart "..APP_NAME.." and try again."..fileName.."\n\n"..longVersion
 	local url = "https://github.com/PathOfBuildingCommunity/PathOfBuilding/wiki/OneDrive"
 	self.saveSettingsOnExit = false
 	local controls = { }
