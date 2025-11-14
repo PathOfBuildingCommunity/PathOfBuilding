@@ -720,19 +720,20 @@ function calcs.defence(env, actor)
 			if modDB:Flag(nil, "ExtremeLuck") then
 				blockRolls = blockRolls * 2
 			end
-			if modDB:Flag(nil, "Unexciting") then
-				blockRolls = 0
-			end
 		end
 		-- unlucky config to lower the value of block, dodge, evade etc for ehp
 		if env.configInput.EHPUnluckyWorstOf and env.configInput.EHPUnluckyWorstOf ~= 1 then
 			blockRolls = -env.configInput.EHPUnluckyWorstOf / 2
 		end
 		if blockRolls ~= 0 then
-			if blockRolls > 0 then
-				output["Effective"..blockType] = (1 - (1 - output["Effective"..blockType] / 100) ^ (blockRolls + 1)) * 100
+			local blockChance = output["Effective"..blockType] / 100
+			if modDB:Flag(nil, "Unexciting") then
+				-- Unexciting rolls three times and keeps the median result -> 3p^2 - 2p^3
+				output["Effective"..blockType] = (3 * blockChance ^ 2 - 2 * blockChance ^ 3) * 100
+			elseif blockRolls > 0 then
+				output["Effective"..blockType] = (1 - (1 - blockChance) ^ (blockRolls + 1)) * 100
 			else
-				output["Effective"..blockType] = (output["Effective"..blockType] / 100) ^ m_abs(blockRolls) * output["Effective"..blockType]
+				output["Effective"..blockType] = blockChance ^ m_abs(blockRolls) * output["Effective"..blockType]
 			end
 		end
 	end
@@ -1096,19 +1097,20 @@ function calcs.defence(env, actor)
 		if modDB:Flag(nil, "ExtremeLuck") then
 			suppressRolls = suppressRolls * 2
 		end
-		if modDB:Flag(nil, "Unexciting") then
-			suppressRolls = 0
-		end
 	end
 	-- unlucky config to lower the value of block, dodge, evade etc for ehp
 	if env.configInput.EHPUnluckyWorstOf and env.configInput.EHPUnluckyWorstOf ~= 1 then
 		suppressRolls = -env.configInput.EHPUnluckyWorstOf / 2
 	end
 	if suppressRolls ~= 0 then
-		if suppressRolls > 0 then
-			output.EffectiveSpellSuppressionChance = (1 - (1 - output.EffectiveSpellSuppressionChance / 100) ^ (suppressRolls + 1)) * 100
+		local suppressChance = output.EffectiveSpellSuppressionChance / 100
+		if modDB:Flag(nil, "Unexciting") then
+			-- Unexciting rolls three times and keeps the median result -> 3p^2 - 2p^3
+			output.EffectiveSpellSuppressionChance = (3 * suppressChance ^ 2 - 2 * suppressChance ^ 3) * 100
+		elseif suppressRolls > 0 then
+			output.EffectiveSpellSuppressionChance = (1 - (1 - suppressChance) ^ (suppressRolls + 1)) * 100
 		else
-			output.EffectiveSpellSuppressionChance = (output.EffectiveSpellSuppressionChance / 100) ^ m_abs(suppressRolls) * output.EffectiveSpellSuppressionChance
+			output.EffectiveSpellSuppressionChance = suppressChance ^ m_abs(suppressRolls) * output.EffectiveSpellSuppressionChance
 		end
 	end
 	
