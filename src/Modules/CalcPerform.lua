@@ -105,11 +105,21 @@ function doActorLifeMana(actor)
 		end
 	end
 	local manaConv = modDB:Sum("BASE", nil, "ManaConvertToArmour")
+	
+	if modDB:Flag(nil, "ManaIncreasedByHalfOvercappedLightningRes") then
+		for i, value in ipairs(modDB:Tabulate("FLAG", nil, "ManaIncreasedByHalfOvercappedLightningRes")) do
+			local mod = value.mod
+			modDB:NewMod("Mana", "INC", output.LightningResistOverCap/2, mod.source)
+			break
+		end
+	end
+	
 	output.Mana = round(calcLib.val(modDB, "Mana") * (1 - manaConv / 100))
-	local base = modDB:Sum("BASE", nil, "Mana")
-	local inc = modDB:Sum("INC", nil, "Mana")
-	local more = modDB:More(nil, "Mana")
+
 	if breakdown then
+		local base = modDB:Sum("BASE", nil, "Mana")
+		local inc = modDB:Sum("INC", nil, "Mana")
+		local more = modDB:More(nil, "Mana")
 		if inc ~= 0 or more ~= 1 or manaConv ~= 0 then
 			breakdown.Mana = { }
 			breakdown.Mana[1] = s_format("%g ^8(base)", base)
@@ -494,8 +504,6 @@ local function doActorAttribsConditions(env, actor)
 			end
 		end
 	end
-
-	doActorLifeMana(actor)
 end
 
 -- Calculate life/mana reservation
@@ -1026,12 +1034,13 @@ end
 -- 3. Initialises the main skill's minion, if present
 -- 4. Merges flask effects
 -- 5. Sets conditions and calculates attributes (doActorAttribsConditions)
--- 6. Calculates life and mana (doActorLifeMana)
--- 6. Calculates reservations
--- 7. Sets life/mana reservation (doActorLifeManaReservation)
--- 8. Processes buffs and debuffs
--- 9. Processes charges and misc buffs (doActorCharges, doActorMisc)
--- 10. Calculates defence and offence stats (calcs.defence, calcs.offence)
+-- 6. Calculates resistances (calcs.resistances)
+-- 7. Calculates life and mana (doActorLifeMana)
+-- 8. Calculates reservations
+-- 9. Sets life/mana reservation (doActorLifeManaReservation)
+-- 10. Processes buffs and debuffs
+-- 11. Processes charges and misc buffs (doActorCharges, doActorMisc)
+-- 12. Calculates defence and offence stats (calcs.defence, calcs.offence)
 function calcs.perform(env, skipEHP)
 	local modDB = env.modDB
 	local enemyDB = env.enemyDB
@@ -1645,8 +1654,9 @@ function calcs.perform(env, skipEHP)
 		modLib.mergeKeystones(env, env.modDB)
 	end
 
-	-- Calculate attributes and life/mana pools
+	-- Calculate attributes, resistances, and life/mana pools
 	doActorAttribsConditions(env, env.player)
+	calcs.resistances(env.player)
 	doActorLifeMana(env.player)
 	if env.minion then
 		for _, value in ipairs(env.player.mainSkill.skillModList:List(env.player.mainSkill.skillCfg, "MinionModifier")) do
@@ -3251,6 +3261,7 @@ function calcs.perform(env, skipEHP)
 	end
 
 	if env.minion then
+		calcs.resistances(env.minion)
 		calcs.defence(env, env.minion)
 		if not skipEHP then -- main.build.calcsTab.input.showMinion and -- should be disabled unless "calcsTab.input.showMinion" is true
 			calcs.buildDefenceEstimations(env, env.minion)
