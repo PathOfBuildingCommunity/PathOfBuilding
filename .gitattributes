@@ -67,3 +67,16 @@
 # (https://git-scm.com/docs/gitattributes#_executable)
 ###############################################################################
 runtime/*.exe binary
+
+###############################################################################
+# Hide statOrder churn inside specific exported data files when diffing
+###############################################################################
+src/Data/Mod*.lua diff=nostatorder
+src/Data/Crucible.lua diff=nostatorder
+src/Data/Uniques/Special/*.lua diff=nostatorder
+src/Data/ClusterJewels.lua diff=nostatorder
+src/Data/TattooPassives.lua diff=nostatorder
+src/Data/TimelessJewelData/LegionPassives.lua diff=nostatorder
+src/Data/StatDescriptions/*.lua diff=nostatorder
+src/Data/BeastCraft.lua diff=nostatorder
+src/Data/StatDescriptions/*/*.lua diff=nostatorder
