@@ -2435,14 +2435,14 @@ local specialModList = {
 			if node and not node.conqueredBy then 
 				getSimpleConv({ "PhysicalDamage","FireDamage","ColdDamage","LightningDamage","ChaosDamage","ElementalDamage" }, (dmgType:gsub("^%l", string.upper)).."Damage", "INC", true)(node, out, data)
 			end
-		end}, {type = "ItemCondition", itemSlot = "{SlotName}", rarityCond = "UNIQUE", neg = true}),
+		end}, {type = "ItemCondition", itemSlot = "{SlotName}", rarityCond = "UNIQUE", neg = true}, {type = "ItemCondition", itemSlot = "{SlotName}", rarityCond = "RELIC", neg = true}),
 	} end,
 	["non%-unique jewels cause small and notable passive skills in a (%a+) radius to also grant %+(%d+) to (%a+)"] = function(_, radius, val, attr) return {
 		mod("ExtraJewelFunc", "LIST", {radius = (radius:gsub("^%l", string.upper)), type = "Other", func = function(node, out, data)
 		if node and not node.conqueredBy and (node.type == "Notable" or node.type == "Normal") then
 			out:NewMod(firstToUpper(attr):match("^%a%l%l"), "BASE", tonumber(val), data.modSource)
 		end
-	end}, {type = "ItemCondition", itemSlot = "{SlotName}", rarityCond = "UNIQUE", neg = true}),
+	end}, {type = "ItemCondition", itemSlot = "{SlotName}", rarityCond = "UNIQUE", neg = true}, {type = "ItemCondition", itemSlot = "{SlotName}", rarityCond = "RELIC", neg = true}),
 	} end,
 	-- Deadeye
 	["projectiles pierce all nearby targets"] = { flag("PierceAllTargets") },
