@@ -5619,23 +5619,25 @@ local jewelOtherFuncs = {
 	["Increases and Reductions to Physical Damage in Radius are Transformed to apply to Cold Damage"] = getSimpleConv({ "PhysicalDamage" }, "ColdDamage", "INC", true),
 	["Increases and Reductions to Cold Damage in Radius are Transformed to apply to Physical Damage"] = getSimpleConv({ "ColdDamage" }, "PhysicalDamage", "INC", true),
 	["Increases and Reductions to other Damage Types in Radius are Transformed to apply to Fire Damage"] = getSimpleConv({ "PhysicalDamage","ColdDamage","LightningDamage","ChaosDamage","ElementalDamage" }, "FireDamage", "INC", true),
-	["Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant Chance to Block Spells at 35% of its value"] = getSimpleConv({ "LightningResist","ElementalResist" }, "SpellBlockChance", "BASE", false, 0.35),
-	["Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant Chance to Block Spell Damage at 35% of its value"] = getSimpleConv({ "LightningResist","ElementalResist" }, "SpellBlockChance", "BASE", false, 0.35),
-	["Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant Chance to Block Spell Damage at 50% of its value"] = getSimpleConv({ "LightningResist","ElementalResist" }, "SpellBlockChance", "BASE", false, 0.5),
+	["Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant Chance to Block Spells at 35% of its value"] = getSimpleConv({ "LightningResist","ElementalResist", "TotemLightningResist" }, "SpellBlockChance", "BASE", false, 0.35),
+	["Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant Chance to Block Spell Damage at (%d+)%%  of its value"] = function(num)
+		return getSimpleConv({ "LightningResist","ElementalResist", "TotemLightningResist", "TotemElementalResist" }, "SpellBlockChance", "BASE", false, num/100)
+	end,
 	["Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant increased Maximum Energy Shield at 100% of its value"] = getSimpleConv({ "LightningResist","ElementalResist" }, "EnergyShield", "INC", false, 1.0, "BASE"),
-	["Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant Lightning Damage converted to Chaos Damage at 100% of its value"] = getSimpleConv({ "LightningResist","ElementalResist" }, "LightningDamageConvertToChaos", "BASE", false, 1.0),
+	["Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant Lightning Damage converted to Chaos Damage at 100% of its value"] = getSimpleConv({ "LightningResist","ElementalResist", "TotemLightningResist", "TotemElementalResist" }, "LightningDamageConvertToChaos", "BASE", false, 1.0),
 	["Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Chance to Dodge Attacks at 35% of its value"] = getSimpleConv({ "ColdResist","ElementalResist" }, "AttackDodgeChance", "BASE", false, 0.35),
 	["Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Chance to Dodge Attack Hits at 35% of its value"] = getSimpleConv({ "ColdResist","ElementalResist" }, "AttackDodgeChance", "BASE", false, 0.35),
-	["Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Chance to Suppress Spell Damage at 35% of its value"] = getSimpleConv({ "ColdResist","ElementalResist" }, "SpellSuppressionChance", "BASE", false, 0.35),
-	["Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Chance to Suppress Spell Damage at 50% of its value"] = getSimpleConv({ "ColdResist","ElementalResist" }, "SpellSuppressionChance", "BASE", false, 0.5),
-	["Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Chance to Suppress Spell Damage at 70% of its value"] = getSimpleConv({ "ColdResist","ElementalResist" }, "SpellSuppressionChance", "BASE", false, 0.7),
+	["Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Chance to Suppress Spell Damage at (%d+)%% of its value"] = function(num)
+		return getSimpleConv({ "ColdResist","ElementalResist", "TotemColdResist", "TotemElementalResist" }, "SpellSuppressionChance", "BASE", false, num/100)
+	end,
 	["Passives granting Cold Resistance or all Elemental Resistances in Radius also grant increased Maximum Mana at 100% of its value"] = getSimpleConv({ "ColdResist","ElementalResist" }, "Mana", "INC", false, 1.0, "BASE"),
-	["Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Cold Damage converted to Chaos Damage at 100% of its value"] = getSimpleConv({ "ColdResist","ElementalResist" }, "ColdDamageConvertToChaos", "BASE", false, 1.0),
-	["Passives granting Fire Resistance or all Elemental Resistances in Radius also grant Chance to Block Attack Damage at 35% of its value"] = getSimpleConv({ "FireResist","ElementalResist" }, "BlockChance", "BASE", false, 0.35),
-	["Passives granting Fire Resistance or all Elemental Resistances in Radius also grant Chance to Block Attack Damage at 50% of its value"] = getSimpleConv({ "FireResist","ElementalResist" }, "BlockChance", "BASE", false, 0.5),
+	["Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Cold Damage converted to Chaos Damage at 100% of its value"] = getSimpleConv({ "ColdResist","ElementalResist", "TotemColdResist", "TotemElementalResist" }, "ColdDamageConvertToChaos", "BASE", false, 1.0),
+	["Passives granting Fire Resistance or all Elemental Resistances in Radius also grant Chance to Block Attack Damage at (%d+)%% of its value"] = function(num)
+		return getSimpleConv({ "FireResist","ElementalResist", "TotemFireResist", "TotemElementalResist" }, "BlockChance", "BASE", false, num/100)
+	end,
 	["Passives granting Fire Resistance or all Elemental Resistances in Radius also grant Chance to Block at 35% of its value"] = getSimpleConv({ "FireResist","ElementalResist" }, "BlockChance", "BASE", false, 0.35),
 	["Passives granting Fire Resistance or all Elemental Resistances in Radius also grant increased Maximum Life at 75% of its value"] = getSimpleConv({ "FireResist","ElementalResist" }, "Life", "INC", false, 0.75, "BASE"),
-	["Passives granting Fire Resistance or all Elemental Resistances in Radius also grant Fire Damage converted to Chaos Damage at 100% of its value"] = getSimpleConv({ "FireResist","ElementalResist" }, "FireDamageConvertToChaos", "BASE", false, 1.0),
+	["Passives granting Fire Resistance or all Elemental Resistances in Radius also grant Fire Damage converted to Chaos Damage at 100% of its value"] = getSimpleConv({ "FireResist","ElementalResist", "TotemFireResist", "TotemElementalResist" }, "FireDamageConvertToChaos", "BASE", false, 1.0),
 	["Melee and Melee Weapon Type modifiers in Radius are Transformed to Bow Modifiers"] = function(node, out, data)
 		if node then
 			local mask1 = bor(ModFlag.Axe, ModFlag.Claw, ModFlag.Dagger, ModFlag.Mace, ModFlag.Staff, ModFlag.Sword, ModFlag.Melee)
