@@ -899,7 +899,7 @@ local skills, mod, flag, skill = ...
 			skill("radiusExtra", nil, { type = "Multiplier", var = "CycloneofTumultStage" }),
 		},
 	},
-#baseMod skill("radius", 11)
+#baseMod skill("radius", 16)
 #mods
 
 #skill VaalCyclone
