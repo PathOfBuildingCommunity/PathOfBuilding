@@ -214,7 +214,7 @@ local function doActorAttribsConditions(env, actor)
 		if (actor.weaponData1.type == "Dagger" or actor.weaponData1.countsAsAll1H) and (actor.weaponData2.type == "Dagger" or actor.weaponData2.countsAsAll1H) then
 			condList["DualWieldingDaggers"] = true
 		end
-		if (env.data.weaponTypeInfo[actor.weaponData1.type].label or actor.weaponData1.type) ~= (env.data.weaponTypeInfo[actor.weaponData2.type].label or actor.weaponData2.type) then
+		if (env.data.weaponTypeInfo[actor.weaponData1.type].label or actor.weaponData1.subType or actor.weaponData1.type) ~= (env.data.weaponTypeInfo[actor.weaponData2.type].label or actor.weaponData2.subType or actor.weaponData2.type) then
 			local info1 = env.data.weaponTypeInfo[actor.weaponData1.type]
 			local info2 = env.data.weaponTypeInfo[actor.weaponData2.type]
 			if info1.oneHand and info2.oneHand then

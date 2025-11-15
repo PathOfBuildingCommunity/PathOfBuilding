@@ -144,7 +144,7 @@ itemBases["Ethereal Blade"] = {
 
 itemBases["Carving Knife"] = {
 	type = "Dagger",
-	subType = "Rune",
+	subType = "Rune Dagger",
 	socketLimit = 3,
 	tags = { dagger = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
@@ -155,7 +155,7 @@ itemBases["Carving Knife"] = {
 }
 itemBases["Boot Knife"] = {
 	type = "Dagger",
-	subType = "Rune",
+	subType = "Rune Dagger",
 	socketLimit = 3,
 	tags = { dagger = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
@@ -166,7 +166,7 @@ itemBases["Boot Knife"] = {
 }
 itemBases["Copper Kris"] = {
 	type = "Dagger",
-	subType = "Rune",
+	subType = "Rune Dagger",
 	socketLimit = 3,
 	tags = { dagger = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
@@ -177,7 +177,7 @@ itemBases["Copper Kris"] = {
 }
 itemBases["Skean"] = {
 	type = "Dagger",
-	subType = "Rune",
+	subType = "Rune Dagger",
 	socketLimit = 3,
 	tags = { dagger = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
@@ -188,7 +188,7 @@ itemBases["Skean"] = {
 }
 itemBases["Imp Dagger"] = {
 	type = "Dagger",
-	subType = "Rune",
+	subType = "Rune Dagger",
 	socketLimit = 3,
 	tags = { dagger = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
@@ -199,7 +199,7 @@ itemBases["Imp Dagger"] = {
 }
 itemBases["Butcher Knife"] = {
 	type = "Dagger",
-	subType = "Rune",
+	subType = "Rune Dagger",
 	socketLimit = 3,
 	tags = { dagger = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
@@ -210,7 +210,7 @@ itemBases["Butcher Knife"] = {
 }
 itemBases["Boot Blade"] = {
 	type = "Dagger",
-	subType = "Rune",
+	subType = "Rune Dagger",
 	socketLimit = 3,
 	tags = { dagger = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
@@ -221,7 +221,7 @@ itemBases["Boot Blade"] = {
 }
 itemBases["Golden Kris"] = {
 	type = "Dagger",
-	subType = "Rune",
+	subType = "Rune Dagger",
 	socketLimit = 3,
 	tags = { dagger = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
@@ -232,7 +232,7 @@ itemBases["Golden Kris"] = {
 }
 itemBases["Royal Skean"] = {
 	type = "Dagger",
-	subType = "Rune",
+	subType = "Rune Dagger",
 	socketLimit = 3,
 	tags = { dagger = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
@@ -243,7 +243,7 @@ itemBases["Royal Skean"] = {
 }
 itemBases["Fiend Dagger"] = {
 	type = "Dagger",
-	subType = "Rune",
+	subType = "Rune Dagger",
 	socketLimit = 3,
 	tags = { dagger = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
@@ -254,7 +254,7 @@ itemBases["Fiend Dagger"] = {
 }
 itemBases["Slaughter Knife"] = {
 	type = "Dagger",
-	subType = "Rune",
+	subType = "Rune Dagger",
 	socketLimit = 3,
 	tags = { dagger = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
@@ -265,7 +265,7 @@ itemBases["Slaughter Knife"] = {
 }
 itemBases["Ezomyte Dagger"] = {
 	type = "Dagger",
-	subType = "Rune",
+	subType = "Rune Dagger",
 	socketLimit = 3,
 	tags = { dagger = true, default = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
@@ -276,7 +276,7 @@ itemBases["Ezomyte Dagger"] = {
 }
 itemBases["Platinum Kris"] = {
 	type = "Dagger",
-	subType = "Rune",
+	subType = "Rune Dagger",
 	socketLimit = 3,
 	tags = { dagger = true, default = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
@@ -287,7 +287,7 @@ itemBases["Platinum Kris"] = {
 }
 itemBases["Imperial Skean"] = {
 	type = "Dagger",
-	subType = "Rune",
+	subType = "Rune Dagger",
 	socketLimit = 3,
 	tags = { dagger = true, default = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
@@ -298,7 +298,7 @@ itemBases["Imperial Skean"] = {
 }
 itemBases["Demon Dagger"] = {
 	type = "Dagger",
-	subType = "Rune",
+	subType = "Rune Dagger",
 	socketLimit = 3,
 	tags = { dagger = true, default = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
@@ -309,7 +309,7 @@ itemBases["Demon Dagger"] = {
 }
 itemBases["Flickerflame Blade"] = {
 	type = "Dagger",
-	subType = "Rune",
+	subType = "Rune Dagger",
 	socketLimit = 3,
 	tags = { dagger = true, default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
@@ -320,7 +320,7 @@ itemBases["Flickerflame Blade"] = {
 }
 itemBases["Flashfire Blade"] = {
 	type = "Dagger",
-	subType = "Rune",
+	subType = "Rune Dagger",
 	socketLimit = 3,
 	tags = { dagger = true, default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
@@ -331,7 +331,7 @@ itemBases["Flashfire Blade"] = {
 }
 itemBases["Infernal Blade"] = {
 	type = "Dagger",
-	subType = "Rune",
+	subType = "Rune Dagger",
 	socketLimit = 3,
 	tags = { dagger = true, default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "rune_dagger_shaper", elder = "rune_dagger_elder", adjudicator = "rune_dagger_adjudicator", basilisk = "rune_dagger_basilisk", crusader = "rune_dagger_crusader", eyrie = "rune_dagger_eyrie", cleansing = "rune_dagger_cleansing", tangle = "rune_dagger_tangle" },
