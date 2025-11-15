@@ -1600,7 +1600,7 @@ return {
 	{ label = "Avoid Chaos Chance", haveOutput = "AvoidChaosDamageChance", { format = "{0:output:AvoidChaosDamageChance}%", { modName = "AvoidChaosDamageChance" }, }, },
 	{ label = "Avoid Proj Ch.", haveOutput = "AvoidProjectilesChance", { format = "{0:output:AvoidProjectilesChance}%", { modName = "AvoidProjectilesChance" }, }, },
 } }, { defaultCollapsed = false, label = "Block", data = {
-	extra = "{0:output:EffectiveBlockChance}%/{0:output:EffectiveSpellBlockChance}%",
+	extra = "{3:output:EffectiveBlockChance}%/{3:output:EffectiveSpellBlockChance}%",
 	{ label = "Block Chance", { format = "{0:output:BlockChance}% (+{0:output:BlockChanceOverCap}%)",
 		{ breakdown = "BlockChance" },
 		{ modName = { "BlockChance", "ReplaceShieldBlock" } }, 
@@ -1629,7 +1629,7 @@ return {
 	}, },
 } },
 { defaultCollapsed = false, label = "Spell Suppression", data = {
-	extra = "{0:output:SpellSuppressionChance}%",
+	extra = "{2:output:EffectiveSpellSuppressionChance}%",
 	{ label = "Suppression Ch.", { format = "{0:output:SpellSuppressionChance}% (+{0:output:SpellSuppressionChanceOverCap}%)", { modName = "SpellSuppressionChance" }, }, },
 	{ label = "Suppression Effect", { format = "{0:output:SpellSuppressionEffect}%", { modName = "SpellSuppressionEffect" }, }, },
 	{ label = "Life on Suppression", haveOutput = "LifeOnSuppress", { format = "{0:output:LifeOnSuppress}", { modName = "LifeOnSuppress" }, }, },

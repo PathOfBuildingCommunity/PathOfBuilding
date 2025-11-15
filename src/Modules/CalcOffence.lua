@@ -2882,11 +2882,13 @@ function calcs.offence(env, actor, activeSkill)
 				if skillModList:Flag(skillCfg, "ExtremeLuck") then
 					critRolls = critRolls * 2
 				end
-				if skillModList:Flag(skillCfg, "Unexciting") then
-					critRolls = 0
-				end
 				if critRolls ~= 0 then
-					output.CritChance = (1 - (1 - output.CritChance / 100) ^ (critRolls + 1)) * 100
+					if modDB:Flag(nil, "Unexciting") then
+						-- Unexciting rolls three times and keeps the median result -> 3p^2 - 2p^3
+						output.CritChance = (3 * (output.CritChance / 100) ^ 2 - 2 * (output.CritChance / 100) ^ 3) * 100
+					else
+						output.CritChance = (1 - (1 - output.CritChance / 100) ^ (critRolls + 1)) * 100
+					end
 				end
 				local preHitCheckCritChance = output.CritChance
 				local preSkillUseCritChance= output.CritChance
@@ -2921,8 +2923,13 @@ function calcs.offence(env, actor, activeSkill)
 					end
 					if env.mode_effective and (critRolls ~= 0 or skillModList:Flag(skillCfg, "Every3UseCrit") or skillModList:Flag(skillCfg, "Every5UseCrit")) then
 						if critRolls ~= 0 then
-							t_insert(breakdown.CritChance, "Crit Chance is Lucky:")
-							t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f)^ %d", preLuckyCritChance / 100, critRolls + 1))
+							if skillModList:Flag(skillCfg, "Unexciting") then
+								t_insert(breakdown.CritChance, "Crit Chance is Unexciting:")
+								t_insert(breakdown.CritChance, s_format("(3 x %.4f^ 2) - (2 x %.4f^ 3)", preLuckyCritChance / 100, preLuckyCritChance / 100))
+							else
+								t_insert(breakdown.CritChance, "Crit Chance is Lucky:")
+								t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f)^ %d", preLuckyCritChance / 100, critRolls + 1))
+							end
 						end
 						if skillModList:Flag(skillCfg, "Every3UseCrit") then
 							t_insert(breakdown.CritChance, s_format("+ %.2f%% ^8(crit every 3rd use)", (2 * preSkillUseCritChance + 100) / 3 - preSkillUseCritChance))
@@ -3154,7 +3161,7 @@ function calcs.offence(env, actor, activeSkill)
 					damageTypeHitAvgUnlucky = ((rolls - 1) * damageTypeHitMin / rolls + damageTypeHitMax / rolls)
 					if damageTypeLuckyChance >= 0 then
 						damageTypeHitAvg = damageTypeHitAvgNotLucky * (1 - damageTypeLuckyChance) + damageTypeHitAvgLucky * damageTypeLuckyChance
-						else
+					else
 						damageTypeHitAvg = damageTypeHitAvgNotLucky * (1 - m_abs(damageTypeLuckyChance)) + damageTypeHitAvgUnlucky * m_abs(damageTypeLuckyChance)
 					end
 					if (damageTypeHitMin ~= 0 or damageTypeHitMax ~= 0) and env.mode_effective then

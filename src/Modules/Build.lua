@@ -1535,6 +1535,10 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal, colorOverride)
 	end
 	
 	local valStr = s_format("%"..statData.fmt, val)
+	local number, suffix = valStr:match("^([%+%-]?%d+%.%d+)(%D*)$")
+	if number then
+		valStr = number:gsub("0+$", ""):gsub("%.$", "") .. suffix
+	end
 	valStr:gsub("%.", main.decimalSeparator)
 	valStr = color .. formatNumSep(valStr)
 
