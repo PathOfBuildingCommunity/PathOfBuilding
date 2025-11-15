@@ -278,6 +278,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/BrequelGraftTypes.dat",
 		"Data/BrequelGraftSkillStats.dat",
 		"Data/BrequelGraftGrantedSkillLevels.dat",
+		"Data/VillageBalancePerLevelShared.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",

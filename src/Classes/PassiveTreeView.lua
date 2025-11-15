@@ -1230,9 +1230,17 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			end
 		end
 	end
+	local goldCost = data.goldRespecPrices[build.characterLevel]
+	if node.ascendancyName then
+		goldCost = goldCost * 5
+	end
 	if node.depends and #node.depends > 1 then
 		tooltip:AddSeparator(14)
 		tooltip:AddLine(14, "^7"..#node.depends .. " points gained from unallocating these nodes")
+		tooltip:AddLine(14, "^xFFD700"..formatNumSep(#node.depends * goldCost) .. " Gold ^7required to unallocate these nodes")
+		tooltip:AddLine(14, colorCodes.TIP)
+	elseif node.alloc then
+		tooltip:AddLine(14, "^xFFD700"..formatNumSep(#node.depends * goldCost) .. " Gold ^7required to unallocate this node")
 		tooltip:AddLine(14, colorCodes.TIP)
 	end
 	if node.type == "Socket" then
