@@ -3104,6 +3104,8 @@ function calcs.offence(env, actor, activeSkill)
 					or (pass == 1 and skillModList:Flag(skillCfg, "CritLucky"))
 					or (damageType == "Lightning" and modDB:Flag(nil, "LightningLuckHits"))
 					or (damageType == "Chaos" and modDB:Flag(nil, "ChaosLuckyHits"))
+					or (damageType == "Fire" and modDB:Flag(nil, "FireLuckyHits"))
+					or (damageType == "Cold" and modDB:Flag(nil, "ColdLuckyHits"))
 					or ((damageType == "Lightning" or damageType == "Cold" or damageType == "Fire") and skillModList:Flag(skillCfg, "ElementalLuckHits")) then
 						damageTypeLuckyChance = 1
 					else
