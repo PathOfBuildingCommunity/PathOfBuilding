@@ -864,6 +864,7 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("Multiplier:SoulEater", "BASE", 1, "Base", { type = "Multiplier", var = "SoulEaterStack", limit = max })
 		end
 	end
+	applyEnemyModifiers(actor) -- again to grab any new flags
 end
 
 -- Process charges
