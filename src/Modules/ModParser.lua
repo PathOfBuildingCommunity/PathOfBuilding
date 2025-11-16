@@ -5420,6 +5420,7 @@ local specialModList = {
 		return { mod("EnergyShield", "OVERRIDE", 1, { type = "PercentStat", stat = "Life", percent = num }) }
 	end,
 	["immun[ei]t?y? to elemental ailments while bleeding"] = { flag("ElementalAilmentImmune", { type = "Condition", var = "Bleeding" }) },
+	["mana is increased by (%d+)%% of overcapped lightning resistance"] = function(num) return { mod("Mana", "INC", num/100, { type = "PerStat", stat = "LightningResistOverCap" }) } end,
 }
 for _, name in pairs(data.keystones) do
 	specialModList[name:lower()] = { mod("Keystone", "LIST", name) }
