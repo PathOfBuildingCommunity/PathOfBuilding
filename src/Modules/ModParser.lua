@@ -5420,7 +5420,6 @@ local specialModList = {
 		return { mod("EnergyShield", "OVERRIDE", 1, { type = "PercentStat", stat = "Life", percent = num }) }
 	end,
 	["immun[ei]t?y? to elemental ailments while bleeding"] = { flag("ElementalAilmentImmune", { type = "Condition", var = "Bleeding" }) },
-
 }
 for _, name in pairs(data.keystones) do
 	specialModList[name:lower()] = { mod("Keystone", "LIST", name) }
