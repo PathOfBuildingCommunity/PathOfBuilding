@@ -5656,19 +5656,11 @@ local jewelOtherFuncs = {
 			end
 		end
 	end,
-	["50% increased Effect of non-Keystone Passive Skills in Radius"] = function(node, out, data)
-		if node and node.type ~= "Keystone" and node.type ~= "ClassStart" then
-			out:NewMod("PassiveSkillEffect", "INC", 50, data.modSource)
-		end
-	end,
-	["75% increased Effect of non-Keystone Passive Skills in Radius"] = function(node, out, data)
-		if node and node.type ~= "Keystone" and node.type ~= "ClassStart" then
-			out:NewMod("PassiveSkillEffect", "INC", 75, data.modSource)
-		end
-	end,
-	["100% increased Effect of non-Keystone Passive Skills in Radius"] = function(node, out, data)
-		if node and node.type ~= "Keystone" and node.type ~= "ClassStart" then
-			out:NewMod("PassiveSkillEffect", "INC", 100, data.modSource)
+	["(%d+)%% increased Effect of non%-Keystone Passive Skills in Radius"] = function(num)
+		return function(node, out, data)
+			if node and node.type ~= "Keystone" and node.type ~= "ClassStart" then
+				out:NewMod("PassiveSkillEffect", "INC", num, data.modSource)
+			end
 		end
 	end,
 	["Notable Passive Skills in Radius grant nothing"] = function(node, out, data)
