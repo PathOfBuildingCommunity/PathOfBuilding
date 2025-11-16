@@ -5416,9 +5416,6 @@ local specialModList = {
 	["physical skills have (%d+)%% increased duration per (%d+) intelligence"] = function(num1, _, num2)
 		return { mod("Duration", "INC", num1, nil, nil, KeywordFlag.Physical, { type = "PerStat", stat = "Int", div = tonumber(num2) }) }
 	 end,
-	["(%d+)%% of life regeneration also applies to energy shield if no equipped items are corrupted"] = function(num)
-	 	return { mod("EnergyShieldRegen", "BASE", 1, { type = "PercentStat", stat = "LifeRegen", percent = num }, { type = "MultiplierThreshold", var = "CorruptedItem", threshold = 0, upper = true }) }
-	end,
 	["y?o?u?r? ?maximum energy shield is equal to (%d+)%% of y?o?u?r? ?maximum life"] = function(num)
 		return { mod("EnergyShield", "OVERRIDE", 1, { type = "PercentStat", stat = "Life", percent = num }) }
 	end,
