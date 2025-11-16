@@ -1806,6 +1806,7 @@ local modTagList = {
 	["if you've shattered an enemy recently"] = { tag = { type = "Condition", var = "ShatteredEnemyRecently" } },
 	-- Enemy status conditions
 	["at close range"] = { tag = { type = "Condition", var = "AtCloseRange" } },
+	["not at close range"] = { tag = { type = "Condition", var = "AtCloseRange", neg = true } },
 	["against rare and unique enemies"] = { tag = { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" } },
 	["by s?l?a?i?n? rare [ao][nr]d? unique enemies"] = { tag = { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" } },
 	["against unique enemies"] = { tag = { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" } },
@@ -2051,6 +2052,7 @@ local specialModList = {
 	["dexterity provides no inherent bonus to evasion rating"] = { flag("NoDexBonusToEvasion") },
 	["strength's damage bonus applies to all spell damage as well"] = { flag("IronWill") },
 	["your hits can't be evaded"] = { flag("CannotBeEvaded") },
+	["your melee hits can't be evaded while wielding a sword"] = { flag("CannotBeEvaded", nil, bor(ModFlag.Melee, ModFlag.Hit), { type = "Condition", var = "UsingSword" }) },
 	["minion hits can't be evaded"] = { mod("MinionModifier", "LIST", { mod = flag("CannotBeEvaded") }) },
 	["never deal critical strikes"] = { flag("NeverCrit"), flag("Condition:NeverCrit") },
 	["minions never deal critical strikes"] = { mod("MinionModifier", "LIST", { mod = flag("NeverCrit") }), mod("MinionModifier", "LIST", { mod = flag("Condition:NeverCrit") }) },
@@ -3005,6 +3007,7 @@ local specialModList = {
 	["%+(%d+)%% to lightning resistance when socketed with a blue gem"] = function(num) return { mod("SocketProperty", "LIST", { value = mod("LightningResist", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}", keyword = "intelligence", sockets = {1} }) } end,
 	--Doomsower, Lion Sword
 	["attack skills gain (%d+)%% of physical damage as extra fire damage per socketed red gem"] = function(num) return { mod("SocketProperty", "LIST", { value = mod("PhysicalDamageGainAsFire", "BASE", num, nil, ModFlag.Attack) }, { type = "SocketedIn", slotName = "{SlotName}", keyword = "strength", sockets = {1,2,3,4,5,6} }) } end,
+	["(%d+)%% of damage taken recouped as life per socketed red gem"] = function(num) return { mod("SocketProperty", "LIST", { value = mod("LifeRecoup", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}", keyword = "strength", sockets = {1,2,3,4,5,6} }) } end,
 	["you have vaal pact while all socketed gems are red"] = { mod("GroupProperty", "LIST", { value = mod("Keystone", "LIST", "Vaal Pact") }, { type = "SocketedIn", slotName = "{SlotName}", socketColor = "R", sockets = "all" }) },
 	-- Mahuxotl's Machination Steel Kite Shield
 	["everlasting sacrifice"] = { 
@@ -3627,6 +3630,9 @@ local specialModList = {
 	["prevent %+(%d+)%% of suppressed spell damage"] = function(num) return { mod("SpellSuppressionEffect", "BASE", num) } end,
 	["prevent %+(%d+)%% of suppressed spell damage per hit suppressed recently"] = function(num) return {
 	    mod("SpellSuppressionEffect", "BASE", num, { type = "Multiplier", var = "HitsSuppressedRecently" })
+	} end,
+	["prevent %+(%d+)%% of suppressed spell damage if you have not suppressed spell damage recently"] = function(num) return {
+		mod("SpellSuppressionEffect", "BASE", num, { type = "Condition", var = "SuppressedRecently", neg = true })
 	} end,
 	["inflict fire, cold and lightning exposure on enemies when you suppress their spell damage"] = {
 	    mod("EnemyModifier", "LIST", { mod = mod("FireExposure", "BASE", -10) }, { type = "Condition", var = "Effective" }, { type = "Condition", var = "SuppressedRecently" }),
@@ -4455,6 +4461,7 @@ local specialModList = {
 	["armour is increased by uncapped fire resistance"] = { flag( "ArmourIncreasedByUncappedFireRes") },
 	["armour is increased by overcapped fire resistance"] = { flag( "ArmourIncreasedByOvercappedFireRes") },
 	["minion life is increased by t?h?e?i?r? ?overcapped fire resistance"] = { mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 1, { type = "PerStat", stat = "FireResistOverCap", div = 1 }) }) },
+	["totem life is increased by t?h?e?i?r? ?overcapped fire resistance"] = { mod("TotemLife", "INC", 1, { type = "PerStat", stat = "TotemFireResistOverCap", div = 1 }) },
 	["evasion rating is increased by uncapped cold resistance"] = { flag( "EvasionRatingIncreasedByUncappedColdRes") },
 	["evasion rating is increased by overcapped cold resistance"] = { flag( "EvasionRatingIncreasedByOvercappedColdRes") },
 	["reflects (%d+) physical damage to melee attackers"] = { },
@@ -4937,6 +4944,7 @@ local specialModList = {
 		flag("DisableSkill", { type = "SkillType", skillType = SkillType.Spell }),
 		flag("ForceEnableCurseApplication")
 	},
+	["your warcries are disabled"] = { flag("DisableSkill", { type = "SkillType", skillType = SkillType.Warcry }) },
 	["your travel skills are disabled"] = { flag("DisableSkill", { type = "SkillType", skillType = SkillType.Travel }) },
 	["aura skills other than ([%a%s]+) are disabled"] = function(_, name) return {
 		flag("DisableSkill", { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.RemoteMined, neg = true }),
@@ -5405,6 +5413,17 @@ local specialModList = {
 	["nearby allies have (%d+)%% chance to block attack damage per (%d+) strength you have"] = function(block, _, str) return {
 		mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("BlockChance", "BASE", block) }, { type = "PerStat", stat = "Str", div = tonumber(str) }),
 	} end,
+	["physical skills have (%d+)%% increased duration per (%d+) intelligence"] = function(num1, _, num2)
+		return { mod("Duration", "INC", num1, nil, nil, KeywordFlag.Physical, { type = "PerStat", stat = "Int", div = tonumber(num2) }) }
+	 end,
+	["(%d+)%% of life regeneration also applies to energy shield if no equipped items are corrupted"] = function(num)
+	 	return { mod("EnergyShieldRegen", "BASE", 1, { type = "PercentStat", stat = "LifeRegen", percent = num }, { type = "MultiplierThreshold", var = "CorruptedItem", threshold = 0, upper = true }) }
+	end,
+	["y?o?u?r? ?maximum energy shield is equal to (%d+)%% of y?o?u?r? ?maximum life"] = function(num)
+		return { mod("EnergyShield", "OVERRIDE", 1, { type = "PercentStat", stat = "Life", percent = num }) }
+	end,
+	["immun[ei]t?y? to elemental ailments while bleeding"] = { flag("ElementalAilmentImmune", { type = "Condition", var = "Bleeding" }) },
+
 }
 for _, name in pairs(data.keystones) do
 	specialModList[name:lower()] = { mod("Keystone", "LIST", name) }
