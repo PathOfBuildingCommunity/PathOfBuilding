@@ -69,7 +69,7 @@ return {
 	["Sirus Meteor"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
-			Physical = { 45.087560245599, 0.22541711316695 }
+			Physical = { 28.179207951973, 0.14090638379039 }
 		},
 		UberDamageMultiplier = 1.52,
 		speed = 1500,

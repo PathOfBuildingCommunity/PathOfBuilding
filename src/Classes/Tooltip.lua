@@ -120,14 +120,16 @@ function TooltipClass:AddSeparator(size)
 
 	if self.tooltipHeader then
 		local rarity = tostring(self.tooltipHeader):upper()
+		-- spell-checker: disable
 		local separatorConfigs = {
-			RELIC = "Assets/ItemsSeparatorFoil.png",
-			UNIQUE = "Assets/ItemsSeparatorUnique.png",
-			RARE = "Assets/ItemsSeparatorRare.png",
-			MAGIC = "Assets/ItemsSeparatorMagic.png",
-			NORMAL = "Assets/ItemsSeparatorWhite.png",
-			GEM = "Assets/ItemsSeparatorGem.png",
+			RELIC = "Assets/itemsseparatorfoil.png",
+			UNIQUE = "Assets/itemsseparatorunique.png",
+			RARE = "Assets/itemsseparatorrare.png",
+			MAGIC = "Assets/itemsseparatormagic.png",
+			NORMAL = "Assets/itemsseparatorwhite.png",
+			GEM = "Assets/itemsseparatorgem.png",
 		}
+		-- spell-checker: enable
 		local separatorPath = separatorConfigs[rarity] or separatorConfigs.NORMAL
 
 		if not self.separatorImage or self.separatorImagePath ~= separatorPath then
@@ -310,35 +312,38 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 			ttW = titleW + 50
 		end
 	end
+	-- spell-checker: disable
 	local headerInfluence = {
-		Fractured = "Assets/FracturedIcon.png",
-		Veiled = "Assets/VeiledIcon.png",
-		Shaper = "Assets/ShaperIcon.png",
-		Elder = "Assets/ElderIcon.png",
-		Redeemer = "Assets/RedeemerIcon.png",
-		Hunter = "Assets/HunterIcon.png",
-		Crusader = "Assets/CrusaderIcon.png",
-		Warlord = "Assets/WarlordIcon.png",
-		Eater = "Assets/EaterIcon.png",
-		Exarch = "Assets/ExarchIcon.png",
-		Synthesis = "Assets/SynthesisIcon.png",
-		Experimented = "Assets/ExperimentedIcon.png",
+		Fractured = "Assets/fracturedicon.png",
+		Veiled = "Assets/veiledicon.png",
+		Shaper = "Assets/shapericon.png",
+		Elder = "Assets/eldericon.png",
+		Redeemer = "Assets/redeemericon.png",
+		Hunter = "Assets/huntericon.png",
+		Crusader = "Assets/crusadericon.png",
+		Warlord = "Assets/warlordicon.png",
+		Eater = "Assets/eatericon.png",
+		Exarch = "Assets/exarchicon.png",
+		Synthesis = "Assets/synthesisicon.png",
+		Experimented = "Assets/experimentedicon.png",
+    Foulborn = "Assets/breachicon.png",
 	}
 	local headerConfigs = {
-		RELIC = {left="Assets/ItemsHeaderFoilLeft.png",middle="Assets/ItemsHeaderFoilMiddle.png",right="Assets/ItemsHeaderFoilRight.png",height=54,sideWidth=47,middleWidth=52,textYOffset=2},
-		UNIQUE = {left="Assets/ItemsHeaderUniqueLeft.png",middle="Assets/ItemsHeaderUniqueMiddle.png",right="Assets/ItemsHeaderUniqueRight.png",height=54,sideWidth=47,middleWidth=52,textYOffset=2},
-		RARE = {left="Assets/ItemsHeaderRareLeft.png",middle="Assets/ItemsHeaderRareMiddle.png",right="Assets/ItemsHeaderRareRight.png",height=54,sideWidth=47,middleWidth=52,textYOffset=2},
-		MAGIC = {left="Assets/ItemsHeaderMagicLeft.png",middle="Assets/ItemsHeaderMagicMiddle.png",right="Assets/ItemsHeaderMagicRight.png",height=38,sideWidth=32,middleWidth=32,textYOffset=4},
-		NORMAL = {left="Assets/ItemsHeaderWhiteLeft.png",middle="Assets/ItemsHeaderWhiteMiddle.png",right="Assets/ItemsHeaderWhiteRight.png",height=38,sideWidth=32,middleWidth=32,textYOffset=4},
-		GEM = {left="Assets/ItemsHeaderGemLeft.png",middle="Assets/ItemsHeaderGemMiddle.png",right="Assets/ItemsHeaderGemRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
-		JEWEL = {left="Assets/JewelPassiveHeaderLeft.png",middle="Assets/JewelPassiveHeaderMiddle.png",right="Assets/JewelPassiveHeaderRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
-		NOTABLE = {left="Assets/NotablePassiveHeaderLeft.png",middle="Assets/NotablePassiveHeaderMiddle.png",right="Assets/NotablePassiveHeaderRight.png",height=38,sideWidth=38,middleWidth=38,textYOffset=3},
-		PASSIVE = {left="Assets/NormalPassiveHeaderLeft.png",middle="Assets/NormalPassiveHeaderMiddle.png",right="Assets/NormalPassiveHeaderRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
-		KEYSTONE = {left="Assets/KeystonePassiveHeaderLeft.png",middle="Assets/KeystonePassiveHeaderMiddle.png",right="Assets/KeystonePassiveHeaderRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
-		ASCENDANCY = {left="Assets/AscendancyPassiveHeaderLeft.png",middle="Assets/AscendancyPassiveHeaderMiddle.png",right="Assets/AscendancyPassiveHeaderRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
-		MASTERY = {left="Assets/MasteryHeaderUnallocatedLeft.png",middle="Assets/MasteryHeaderUnallocatedMiddle.png",right="Assets/MasteryHeaderUnallocatedRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
-		MASTERYALLOC = {left="Assets/MasteryHeaderAllocatedLeft.png",middle="Assets/MasteryHeaderAllocatedMiddle.png",right="Assets/MasteryHeaderAllocatedRight.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
+		RELIC = {left="Assets/itemsheaderfoilleft.png",middle="Assets/itemsheaderfoilmiddle.png",right="Assets/itemsheaderfoilright.png",height=54,sideWidth=47,middleWidth=52,textYOffset=2},
+		UNIQUE = {left="Assets/itemsheaderuniqueleft.png",middle="Assets/itemsheaderuniquemiddle.png",right="Assets/itemsheaderuniqueright.png",height=54,sideWidth=47,middleWidth=52,textYOffset=2},
+		RARE = {left="Assets/itemsheaderrareleft.png",middle="Assets/itemsheaderraremiddle.png",right="Assets/itemsheaderrareright.png",height=54,sideWidth=47,middleWidth=52,textYOffset=2},
+		MAGIC = {left="Assets/itemsheadermagicleft.png",middle="Assets/itemsheadermagicmiddle.png",right="Assets/itemsheadermagicright.png",height=38,sideWidth=32,middleWidth=32,textYOffset=4},
+		NORMAL = {left="Assets/itemsheaderwhiteleft.png",middle="Assets/itemsheaderwhitemiddle.png",right="Assets/itemsheaderwhiteright.png",height=38,sideWidth=32,middleWidth=32,textYOffset=4},
+		GEM = {left="Assets/itemsheadergemleft.png",middle="Assets/itemsheadergemmiddle.png",right="Assets/itemsheadergemright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
+		JEWEL = {left="Assets/jewelpassiveheaderleft.png",middle="Assets/jewelpassiveheadermiddle.png",right="Assets/jewelpassiveheaderright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
+		NOTABLE = {left="Assets/notablepassiveheaderleft.png",middle="Assets/notablepassiveheadermiddle.png",right="Assets/notablepassiveheaderright.png",height=38,sideWidth=38,middleWidth=38,textYOffset=3},
+		PASSIVE = {left="Assets/normalpassiveheaderleft.png",middle="Assets/normalpassiveheadermiddle.png",right="Assets/normalpassiveheaderright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
+		KEYSTONE = {left="Assets/keystonepassiveheaderleft.png",middle="Assets/keystonepassiveheadermiddle.png",right="Assets/keystonepassiveheaderright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
+		ASCENDANCY = {left="Assets/ascendancypassiveheaderleft.png",middle="Assets/ascendancypassiveheadermiddle.png",right="Assets/ascendancypassiveheaderright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
+		MASTERY = {left="Assets/masteryheaderunallocatedleft.png",middle="Assets/masteryheaderunallocatedmiddle.png",right="Assets/masteryheaderunallocatedright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
+		MASTERYALLOC = {left="Assets/masteryheaderallocatedleft.png",middle="Assets/masteryheaderallocatedmiddle.png",right="Assets/masteryheaderallocatedright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
 	}
+	-- spell-checker: enable
 	local config
 	if self.tooltipHeader and main.showFlavourText and self.lines[1] and self.lines[1].text then
 		local rarity = tostring(self.tooltipHeader):upper()

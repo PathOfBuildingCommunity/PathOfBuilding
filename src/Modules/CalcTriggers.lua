@@ -905,6 +905,7 @@ local configTable = {
 	["the surging thoughts"] = function(env)
 		if env.player.mainSkill.activeEffect.grantedEffect.name == "Storm Cascade" then
 			return {
+				triggerOnUse = true,
 				triggerSkillCond = function(env, skill)
 					return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack])
 				end

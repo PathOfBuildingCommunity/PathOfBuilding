@@ -42,6 +42,7 @@ colorCodes = {
 	SHAPER = "^x55BBFF",
 	ELDER = "^xAA77CC",
 	FRACTURED = "^xA29160",
+	MUTATED = "^xCD2285",
 	ADJUDICATOR = "^xE9F831",
 	BASILISK = "^x00CB3A",
 	CRUSADER = "^x2946FC",
@@ -345,6 +346,7 @@ SkillType = {
 	ProjectileCannotReturn = 135,
 	Offering = 136,
 	SupportedByBane = 137,
+	WandAttack = 138,
 }
 
 GlobalCache = { 

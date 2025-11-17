@@ -166,7 +166,7 @@ skills["Barkskin"] = {
 	hidden = true,
 	color = 2,
 	description = "Adopt the power of the forest, gradually covering your body in bark. Getting hit by enemy attacks causes bark to be removed. You take reduced damage from physical attack hits the more bark builds up, but higher chance to evade when less covered in bark.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.ZeroReservation] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	fromTree = true,
@@ -195,8 +195,8 @@ skills["Barkskin"] = {
 		"chance_to_evade_attacks_+%_final_per_missing_barkskin_stack",
 	},
 	levels = {
-		[20] = { -30, 2, cooldown = 10, levelRequirement = 70, manaReservationPercent = 10, storedUses = 1, statInterpolation = { 1, 1, }, },
-		[30] = { -60, 3, cooldown = 10, levelRequirement = 90, manaReservationPercent = 10, storedUses = 1, statInterpolation = { 1, 1, }, },
+		[20] = { -30, 2, cooldown = 10, levelRequirement = 70, storedUses = 1, statInterpolation = { 1, 1, }, },
+		[30] = { -60, 3, cooldown = 10, levelRequirement = 90, storedUses = 1, statInterpolation = { 1, 1, }, },
 	},
 }
 skills["AilmentBearer"] = {
@@ -730,6 +730,54 @@ skills["CreateFungalGroundOnKill"] = {
 	},
 	levels = {
 		[10] = { cooldown = 1, levelRequirement = 1, storedUses = 1, },
+	},
+}
+skills["Convocation"] = {
+	name = "Convocation",
+	baseTypeName = "Convocation",
+	color = 4,
+	description = "Recalls all minions that are following you to your location, and grants them a temporary life regeneration effect.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Minion] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "buff_skill_stat_descriptions",
+	castTime = 0,
+	statMap = {
+		["base_life_regeneration_rate_per_minute"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 60,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("buffMinions", true),
+		skill("buffNotPlayer", true),
+	},
+	qualityStats = {
+		Default = {
+			{ "skill_effect_duration_+%", 1 },
+			{ "base_cooldown_speed_+%", 1 },
+		},
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 2000 },
+		{ "life_regeneration_rate_per_minute_%", 120 },
+	},
+	stats = {
+		"base_deal_no_damage",
+	},
+	levels = {
+		[1] = { cooldown = 3, levelRequirement = 31, storedUses = 1, cost = { Mana = 6, }, },
+		[2] = { cooldown = 3, levelRequirement = 31, storedUses = 1, cost = { Mana = 6, }, },
+		[3] = { cooldown = 3, levelRequirement = 31, storedUses = 1, cost = { Mana = 6, }, },
+		[4] = { cooldown = 3, levelRequirement = 31, storedUses = 1, cost = { Mana = 6, }, },
+		[5] = { cooldown = 3, levelRequirement = 31, storedUses = 1, cost = { Mana = 6, }, },
+		[6] = { cooldown = 3, levelRequirement = 31, storedUses = 1, cost = { Mana = 6, }, },
+		[7] = { cooldown = 3, levelRequirement = 31, storedUses = 1, cost = { Mana = 6, }, },
+		[8] = { cooldown = 3, levelRequirement = 31, storedUses = 1, cost = { Mana = 6, }, },
+		[9] = { cooldown = 3, levelRequirement = 31, storedUses = 1, cost = { Mana = 6, }, },
+		[10] = { cooldown = 3, levelRequirement = 31, storedUses = 1, cost = { Mana = 6, }, },
 	},
 }
 skills["CorpseWalk"] = {
@@ -1430,7 +1478,7 @@ skills["EmbraceMadness"] = {
 	},
 	constantStats = {
 		{ "embrace_madness_amount_of_cooldown_to_gain_ms", 8000 },
-		{ "glorious_madness_timer_ms", 1000 },
+		{ "glorious_madness_timer_ms", 2000 },
 	},
 	stats = {
 	},
@@ -1642,8 +1690,8 @@ skills["AtziriUniqueStaffFlameblast"] = {
 		skill("triggerSource", "Queen's Demand"),
 	},
 	constantStats = {
-		{ "base_chance_to_ignite_%", 50 },
-		{ "base_reduce_enemy_fire_resistance_%", 25 },
+		{ "base_chance_to_ignite_%", 100 },
+		{ "base_reduce_enemy_fire_resistance_%", 50 },
 		{ "base_skill_effect_duration", 2000 },
 	},
 	stats = {
@@ -3024,10 +3072,10 @@ skills["AtziriUniqueStaffStormCall"] = {
 		skill("triggerSource", "Queen's Demand"),
 	},
 	constantStats = {
-		{ "base_chance_to_shock_%", 50 },
+		{ "base_chance_to_shock_%", 100 },
 		{ "atziri_unique_staff_storm_call_number_of_markers_to_place", 12 },
 		{ "shock_effect_+%", 50 },
-		{ "base_reduce_enemy_lightning_resistance_%", 25 },
+		{ "base_reduce_enemy_lightning_resistance_%", 50 },
 		{ "base_skill_effect_duration", 2000 },
 	},
 	stats = {
@@ -3081,7 +3129,7 @@ skills["SummonBeastialRhoa"] = {
 	name = "Summon Bestial Rhoa",
 	hidden = true,
 	color = 3,
-	description = "Summons a Bestial Rhoa. In addition to its melee attack, the Bestial Rhoa uses a charge and has an aura that intimidates enemies. This minion's hits cannot be evaded. Enemies will not engage this minion directly, and they are immune to damage.",
+	description = "Summons a Bestial Rhoa. In addition to its melee attack, the Bestial Rhoa uses a charge and has an aura that intimidates enemies. Enemies will not engage this minion directly, and they are immune to damage.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
@@ -3120,7 +3168,7 @@ skills["SummonBeastialSnake"] = {
 	name = "Summon Bestial Snake",
 	hidden = true,
 	color = 3,
-	description = "Summons a Bestial Snake. The Bestial Snake fires powerful chaos projectile attacks. This minion's hits cannot be evaded. Enemies will not engage this minion directly, and they are immune to damage.",
+	description = "Summons a Bestial Snake. The Bestial Snake fires powerful chaos projectile attacks. Enemies will not engage this minion directly, and they are immune to damage.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Chains] = true, [SkillType.RangedAttack] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
@@ -3160,7 +3208,7 @@ skills["SummonBeastialUrsa"] = {
 	name = "Summon Bestial Ursa",
 	hidden = true,
 	color = 3,
-	description = "Summons a Bestial Ursa. In addition to its melee attack, the Bestial Ursa uses a powerful Ground Slam and Rallying Cry. This minion's hits cannot be evaded. Enemies will not engage this minion directly, and they are immune to damage.",
+	description = "Summons a Bestial Ursa. In addition to its melee attack, the Bestial Ursa uses a powerful Ground Slam and Rallying Cry. Enemies will not engage this minion directly, and they are immune to damage.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",

@@ -101,7 +101,6 @@ itemBases["Two-Stone Ring"] = {
 }
 itemBases["Two-Stone Ring"] = {
 	type = "Ring",
-	hidden = true,
 	tags = { default = true, ring = true, twostonering = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+(12-16)% to Cold and Lightning Resistances",
@@ -110,7 +109,6 @@ itemBases["Two-Stone Ring"] = {
 }
 itemBases["Two-Stone Ring"] = {
 	type = "Ring",
-	hidden = true,
 	tags = { default = true, ring = true, twostonering = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+(12-16)% to Fire and Cold Resistances",
@@ -309,6 +307,69 @@ itemBases["Nameless Ring"] = {
 	implicitModTypes = { { "elemental" }, { "elemental" }, },
 	req = { level = 24, },
 }
+itemBases["Cryonic Ring"] = {
+	type = "Ring",
+	tags = { default = true, not_for_sale = true, ring = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "+2% to maximum Cold Resistance\nCannot roll Modifiers of Non-Cold Damage Types",
+	implicitModTypes = { { "elemental", "cold", "resistance" }, { "elemental", "cold", "resistance" }, },
+	req = { level = 32, },
+	flavourText = {
+		"We lie eternal, eyes open, yet still.",
+	},
+}
+itemBases["Enthalpic Ring"] = {
+	type = "Ring",
+	tags = { default = true, not_for_sale = true, ring = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "+2% to maximum Fire Resistance\nCannot roll Modifiers of Non-Fire Damage Types",
+	implicitModTypes = { { "elemental", "fire", "resistance" }, { "elemental", "fire", "resistance" }, },
+	req = { level = 32, },
+	flavourText = {
+		"The embers of the Red Pyre yet glow.",
+	},
+}
+itemBases["Synaptic Ring"] = {
+	type = "Ring",
+	tags = { default = true, not_for_sale = true, ring = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "+2% to maximum Lightning Resistance\nCannot roll Modifiers of Non-Lightning Damage Types",
+	implicitModTypes = { { "elemental", "lightning", "resistance" }, { "elemental", "lightning", "resistance" }, },
+	req = { level = 32, },
+	flavourText = {
+		"Metallic thoughts whisper in the dark.",
+	},
+}
+itemBases["Organic Ring"] = {
+	type = "Ring",
+	tags = { default = true, not_for_sale = true, ring = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "3% additional Physical Damage Reduction\nCannot roll Modifiers of Non-Physical Damage Types",
+	implicitModTypes = { { "physical" }, { "physical" }, },
+	req = { level = 32, },
+	flavourText = {
+		"Our flesh longs to move as one.",
+	},
+}
+itemBases["Fugitive Ring"] = {
+	type = "Ring",
+	tags = { default = true, not_for_sale = true, ring = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "+2% to maximum Chaos Resistance\nCannot roll Modifiers of Non-Chaos Damage Types",
+	implicitModTypes = { { "chaos", "resistance" }, { "chaos", "resistance" }, },
+	req = { level = 32, },
+	flavourText = {
+		"We will seize back our wayward Dream.",
+	},
+}
+itemBases["Formless Ring"] = {
+	type = "Ring",
+	tags = { default = true, not_for_sale = true, ring = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "(5-7)% increased Global Defences",
+	implicitModTypes = { { "defences" }, },
+	req = { level = 42, },
+}
 itemBases["Ring"] = {
 	type = "Ring",
 	tags = { default = true, not_for_sale = true, ring = true, },
@@ -335,7 +396,6 @@ itemBases["Golden Hoop"] = {
 }
 itemBases["Jet Ring"] = {
 	type = "Ring",
-	hidden = true,
 	tags = { default = true, demigods = true, not_for_sale = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "(5-10)% increased Global Defences",

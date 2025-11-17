@@ -114,6 +114,8 @@ function main:Init()
 	self.showFlavourText = true
 	self.showAnimations = true
 
+	if not SetDPIScaleOverridePercent then SetDPIScaleOverridePercent = function(scale) end end
+
 	if self.userPath then
 		self:ChangeUserPath(self.userPath, ignoreBuild)
 	end
@@ -649,7 +651,7 @@ function main:LoadSettings(ignoreBuild)
 				end
 				if node.attrib.dpiScaleOverridePercent then
 					self.dpiScaleOverridePercent = tonumber(node.attrib.dpiScaleOverridePercent) or 0
-					if SetDPIScaleOverridePercent then SetDPIScaleOverridePercent(self.dpiScaleOverridePercent) end
+					SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
 				end
 			end
 		end
@@ -889,7 +891,7 @@ function main:OpenOptionsPopup()
 		{ label = "250%", percent = 250 },
 	}, function(index, value)
 		self.dpiScaleOverridePercent = value.percent
-		if SetDPIScaleOverridePercent then SetDPIScaleOverridePercent(value.percent) end
+		SetDPIScaleOverridePercent(value.percent)
 	end)
 	controls.dpiScaleOverrideLabel = new("LabelControl", { "RIGHT", controls.dpiScaleOverride, "LEFT" }, { defaultLabelSpacingPx, 0, 0, 16 }, "^7UI scaling override:")
 	controls.dpiScaleOverride.tooltipText = "Overrides Windows DPI scaling inside Path of Building.\nChoose a percentage between 100% and 250% or revert to the system default."
@@ -971,6 +973,7 @@ function main:OpenOptionsPopup()
 	controls.showFlavourText = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, currentY, 20 }, "^7Styled Tooltips with Flavour Text:", function(state)
 		self.showFlavourText = state
 	end)
+	controls.showFlavourText.tooltipText = "If updating while inside a build, please re-load the build after saving."
 
 	nextRow()
 	controls.showAnimations = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, currentY, 20 }, "^7Show Animations:", function(state)
@@ -1114,7 +1117,7 @@ function main:OpenOptionsPopup()
 		if not launch.devMode then
 			main:SetManifestBranch(self.betaTest and "beta" or "master")
 		end
-		if SetDPIScaleOverridePercent then SetDPIScaleOverridePercent(self.dpiScaleOverridePercent) end
+		SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
 		main:ClosePopup()
 		main:SaveSettings()
 	end)
@@ -1144,7 +1147,7 @@ function main:OpenOptionsPopup()
 		self.showFlavourText = initialShowFlavourText
 		self.showAnimations = initialShowAnimations
 		self.dpiScaleOverridePercent = initialDpiScaleOverridePercent
-		if SetDPIScaleOverridePercent then SetDPIScaleOverridePercent(self.dpiScaleOverridePercent) end
+		SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
 		main:ClosePopup()
 	end)
 	nextRow(1.5)

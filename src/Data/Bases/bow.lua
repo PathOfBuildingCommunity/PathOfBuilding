@@ -271,7 +271,6 @@ itemBases["Solarine Bow"] = {
 }
 itemBases["Ethereal Bow"] = {
 	type = "Bow",
-	hidden = true,
 	socketLimit = 6,
 	tags = { bow = true, default = true, not_for_sale = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },

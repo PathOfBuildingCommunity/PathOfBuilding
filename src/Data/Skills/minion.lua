@@ -738,7 +738,6 @@ skills["ZombieSlam"] = {
 	},
 	stats = {
 		"is_area_damage",
-		"global_always_hit",
 	},
 	levels = {
 		[1] = { baseMultiplier = 1.5, cooldown = 6, damageEffectiveness = 1.5, levelRequirement = 1, storedUses = 1, },
@@ -1980,7 +1979,7 @@ skills["RainOfArrowsCloneShot"] = {
 		"cannot_pierce",
 	},
 	levels = {
-		[1] = { baseMultiplier = 1.5, damageEffectiveness = 1.5, levelRequirement = 0, },
+		[1] = { levelRequirement = 0, },
 	},
 }
 skills["ElementalHitCloneShot"] = {
@@ -2005,7 +2004,7 @@ skills["ElementalHitCloneShot"] = {
 		"skill_can_fire_wand_projectiles",
 	},
 	levels = {
-		[1] = { baseMultiplier = 6.8, damageEffectiveness = 6.8, levelRequirement = 0, },
+		[1] = { baseMultiplier = 5.4, damageEffectiveness = 5.4, levelRequirement = 0, },
 	},
 }
 skills["SumonRagingSpiritMelee"] = {
@@ -2071,8 +2070,8 @@ skills["ElderTentacleMinionProjectileDeepcaller"] = {
 	name = "Projectile Spell",
 	hidden = true,
 	color = 4,
-	baseEffectiveness = 5.5,
-	incrementalEffectiveness = 0.029999999329448,
+	baseEffectiveness = 5,
+	incrementalEffectiveness = 0.041000001132488,
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.17,
@@ -2097,5 +2096,27 @@ skills["ElderTentacleMinionProjectileDeepcaller"] = {
 	},
 	levels = {
 		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["SummonedLivingLightningZap"] = {
+	name = "Living Lightning Zap",
+	hidden = true,
+	color = 4,
+	description = "Jolt through an enemy, causing chaining Lightning Damage.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Lightning] = true, [SkillType.Chains] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "additional_base_critical_strike_chance", 800 },
+	},
+	stats = {
+		"supress_weapon_surges",
+	},
+	levels = {
+		[1] = { cooldown = 0.25, levelRequirement = 0, storedUses = 1, },
 	},
 }

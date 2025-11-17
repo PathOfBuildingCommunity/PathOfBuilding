@@ -1,0 +1,8 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Graft
+#baseMatch Metadata/Items/Chayula/UulNetolGraft%d+
+#baseMatch Metadata/Items/Chayula/XophGraft%d+
+#baseMatch Metadata/Items/Chayula/EshGraft%d+
+#baseMatch Metadata/Items/Chayula/TulGraft%d+
