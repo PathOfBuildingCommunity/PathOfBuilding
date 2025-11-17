@@ -106,25 +106,28 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill)
 	if grantedEffect.isTrigger and activeSkill.actor.enemy.player ~= activeSkill.actor then
 		return false
 	end
-	--Special case for Sacred Wisps, i.e. Wisps Support has a weaponType of Wand so it should only match with Active Skills that at least have Wand as a weaponType
-	if grantedEffect.weaponTypes and activeSkill.activeEffect.grantedEffect.weaponTypes then
-		-- for every weapon type the support has, the active skill has to match
-		local hasType = false
-		for grantedType, _ in pairs(grantedEffect.weaponTypes) do
-			hasType = false
-			for activeType, _ in pairs(activeSkill.activeEffect.grantedEffect.weaponTypes) do
-				if grantedType == activeType then
-					hasType = true
+	-- Special case for Sacred Wisps, i.e. Wisps Support has a weaponType of Wand so it should only match with Active Skills that at least have Wand as a weaponType
+	-- Super special case for Varunastra, e.g. allow Nightblade to support Smite
+	if not (activeSkill.actor.weaponData1 and activeSkill.actor.weaponData1.countsAsAll1H or activeSkill.actor.weaponData2 and activeSkill.actor.weaponData2.countsAsAll1H) then
+		if grantedEffect.weaponTypes and activeSkill.activeEffect.grantedEffect.weaponTypes then
+			-- for every weapon type the support has, the active skill has to match
+			local hasType = false
+			for grantedType, _ in pairs(grantedEffect.weaponTypes) do
+				hasType = false
+				for activeType, _ in pairs(activeSkill.activeEffect.grantedEffect.weaponTypes) do
+					if grantedType == activeType then
+						hasType = true
+					end
+				end
+				-- after looping all activeSkill types, if the nth support type was not found, we can kick out early
+				if hasType == false then
+					return false
 				end
 			end
-			-- after looping all activeSkill types, if the nth support type was not found, we can kick out early
-			if hasType == false then
-				return false
-			end
+		-- if the support has a specific weaponType and the activeSkill does not, it doesn't match
+		elseif grantedEffect.weaponTypes and not activeSkill.activeEffect.grantedEffect.weaponTypes then
+			return false
 		end
-	-- if the support has a specific weaponType and the activeSkill does not, it doesn't match
-	elseif grantedEffect.weaponTypes and not activeSkill.activeEffect.grantedEffect.weaponTypes then
-		return false
 	end
 	return not grantedEffect.requireSkillTypes[1] or calcLib.doesTypeExpressionMatch(grantedEffect.requireSkillTypes, effectiveSkillTypes, effectiveMinionTypes)
 end
