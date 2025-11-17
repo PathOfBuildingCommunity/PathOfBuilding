@@ -15,14 +15,14 @@ local function firstToUpper(str)
 end
 
 -- Radius jewels that modify other nodes
-local function getSimpleConv(srcList, dst, type, remove, factor)
+local function getSimpleConv(srcList, dst, type, remove, factor, srcType) -- srcType for conversions where src and dst types do not match, e.g. increased life on base resistances
 	return function(node, out, data)
 		local attributes = {["Dex"] = true, ["Int"] = true, ["Str"] = true}
 		if node then
 			for _, src in pairs(srcList) do
 				for _, mod in ipairs(node.modList) do
 					-- do not convert stats from tattoos
-					if mod.name == src and mod.type == type and not (node.isTattoo and attributes[src]) then
+					if mod.name == src and (srcType and mod.type == srcType or mod.type == type) and not (node.isTattoo and attributes[src]) then
 						if remove then
 							out:MergeNewMod(src, type, -mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 						end
@@ -3708,6 +3708,9 @@ local specialModList = {
 	["your damage with hits is lucky"] = { flag("LuckyHits") },
 	["damage with hits is unlucky"] = { flag("UnluckyHits") },
 	["chaos damage with hits is lucky"] = { flag("ChaosLuckyHits") },
+	["lightning damage with hits is lucky if you[' ]h?a?ve blocked spell damage recently"] = { flag("LightningLuckHits", { type = "Condition", var = "BlockedSpellRecently" }) },
+	["cold damage with hits is lucky if you[' ]h?a?ve suppressed spell damage recently"] = { flag("ColdLuckyHits", { type = "Condition", var = "SuppressedRecently" }) },
+	["fire damage with hits is lucky if you[' ]h?a?ve blocked an attack recently"] = { flag("FireLuckyHits", { type = "Condition", var = "BlockedAttackRecently" }) },
 	["elemental damage with hits is lucky while you are shocked"] = { flag("ElementalLuckHits", { type = "Condition", var = "Shocked" }) },
 	["your lucky or unlucky effects are instead unexciting"] = { flag("Unexciting") },
 	["allies' aura buffs do not affect you"] = { flag("AlliesAurasCannotAffectSelf") },
@@ -5426,7 +5429,7 @@ local specialModList = {
 		return { mod("EnergyShield", "OVERRIDE", 1, { type = "PercentStat", stat = "Life", percent = num }) }
 	end,
 	["immun[ei]t?y? to elemental ailments while bleeding"] = { flag("ElementalAilmentImmune", { type = "Condition", var = "Bleeding" }) },
-	["mana is increased by (%d+)%% of overcapped lightning resistance"] = function(num) return { mod("Mana", "INC", num/100, { type = "PerStat", stat = "LightningResistOverCap" }) } end,
+	["mana is increased by (%d+)%% of overcapped lightning resistance"] = function(num) return { mod("Mana", "INC", num / 100, { type = "PerStat", stat = "LightningResistOverCap" }) } end,
 }
 for _, name in pairs(data.keystones) do
 	specialModList[name:lower()] = { mod("Keystone", "LIST", name) }
@@ -5642,26 +5645,38 @@ local jewelOtherFuncs = {
 	["Increases and Reductions to Physical Damage in Radius are Transformed to apply to Cold Damage"] = getSimpleConv({ "PhysicalDamage" }, "ColdDamage", "INC", true),
 	["Increases and Reductions to Cold Damage in Radius are Transformed to apply to Physical Damage"] = getSimpleConv({ "ColdDamage" }, "PhysicalDamage", "INC", true),
 	["Increases and Reductions to other Damage Types in Radius are Transformed to apply to Fire Damage"] = getSimpleConv({ "PhysicalDamage","ColdDamage","LightningDamage","ChaosDamage","ElementalDamage" }, "FireDamage", "INC", true),
-	["Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant Chance to Block Spells at (%d+)%% of its value"] = function(num)
-		return getSimpleConv({ "LightningResist","ElementalResist" }, "SpellBlockChance", "BASE", false, num / 100)
+	["Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant Chance to Block Spells? ?D?a?m?a?g?e? at (%d+)%% of its value"] = function(num)
+		return getSimpleConv({ "LightningResist", "ElementalResist" }, "SpellBlockChance", "BASE", false, num / 100)
 	end,
-	["Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant Chance to Block Spell Damage at (%d+)%% of its value"] = function(num)
-		return getSimpleConv({ "LightningResist","ElementalResist" }, "SpellBlockChance", "BASE", false, num / 100)
+	["Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant increased Maximum Energy Shield at (%d+)%% of its value"] = function(num)
+		return getSimpleConv({ "LightningResist", "ElementalResist" }, "EnergyShield", "INC", false, num / 100, "BASE")
 	end,
-	["Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Chance to Dodge Attacks at (%d+)%% of its value"] = function(num)
-		return getSimpleConv({ "ColdResist","ElementalResist" }, "AttackDodgeChance", "BASE", false, num / 100)
+	["Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant Lightning Damage converted to Chaos Damage at (%d+)%% of its value"] = function(num)
+		return getSimpleConv({ "LightningResist", "ElementalResist" }, "LightningDamageConvertToChaos", "BASE", false, num / 100)
 	end,
-	["Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Chance to Dodge Attack Hits at (%d+)%% of its value"] = function(num)
-		return getSimpleConv({ "ColdResist","ElementalResist" }, "AttackDodgeChance", "BASE", false, num / 100)
+	["Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Chance to Dodge Attacks? ?H?i?t?s? at (%d+)%% of its value"] = function(num)
+		return getSimpleConv({ "ColdResist", "ElementalResist" }, "AttackDodgeChance", "BASE", false, num / 100)
 	end,
 	["Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Chance to Suppress Spell Damage at (%d+)%% of its value"] = function(num)
-		return getSimpleConv({ "ColdResist","ElementalResist" }, "SpellSuppressionChance", "BASE", false, num / 100)
+		return getSimpleConv({ "ColdResist", "ElementalResist" }, "SpellSuppressionChance", "BASE", false, num / 100)
+	end,
+	["Passives granting Cold Resistance or all Elemental Resistances in Radius also grant increased Maximum Mana at (%d+)%% of its value"] = function(num)
+		return getSimpleConv({ "ColdResist", "ElementalResist" }, "Mana", "INC", false, num / 100, "BASE")
+	end,
+	["Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Cold Damage converted to Chaos Damage at (%d+)%% of its value"] = function(num)
+		return getSimpleConv({ "ColdResist", "ElementalResist" }, "ColdDamageConvertToChaos", "BASE", false, num / 100)
 	end,
 	["Passives granting Fire Resistance or all Elemental Resistances in Radius also grant Chance to Block Attack Damage at (%d+)%% of its value"] = function(num)
-		return getSimpleConv({ "FireResist","ElementalResist" }, "BlockChance", "BASE", false, num / 100)
+		return getSimpleConv({ "FireResist", "ElementalResist" }, "BlockChance", "BASE", false, num / 100)
 	end,
 	["Passives granting Fire Resistance or all Elemental Resistances in Radius also grant Chance to Block at (%d+)%% of its value"] = function(num)
-		return getSimpleConv({ "FireResist","ElementalResist" }, "BlockChance", "BASE", false, num / 100)
+		return getSimpleConv({ "FireResist", "ElementalResist" }, "BlockChance", "BASE", false, num / 100)
+	end,
+	["Passives granting Fire Resistance or all Elemental Resistances in Radius also grant increased Maximum Life at (%d+)%% of its value"] = function(num)
+		return getSimpleConv({ "FireResist", "ElementalResist" }, "Life", "INC", false, num / 100, "BASE")
+	end,
+	["Passives granting Fire Resistance or all Elemental Resistances in Radius also grant Fire Damage converted to Chaos Damage at (%d+)%% of its value"] = function(num)
+		return getSimpleConv({ "FireResist", "ElementalResist" }, "FireDamageConvertToChaos", "BASE", false, num / 100)
 	end,
 	["Melee and Melee Weapon Type modifiers in Radius are Transformed to Bow Modifiers"] = function(node, out, data)
 		if node then
