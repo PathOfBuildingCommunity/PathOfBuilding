@@ -809,25 +809,25 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 							end
 						end
 					elseif jewel.title:match("^Brutal Restraint") then
-						self:DrawImageRotated(self.maraketh1, scrX, scrY, outerSize * 2, outerSize * 2, -0.8)
-						self:DrawImageRotated(self.maraketh2, scrX, scrY, outerSize * 2, outerSize * 2, 1)
+						self:DrawImageRotated(self.maraketh1, scrX, scrY, outerSize * 2, outerSize * 2, -0.7)
+						self:DrawImageRotated(self.maraketh2, scrX, scrY, outerSize * 2, outerSize * 2, 0.7)
 					elseif jewel.title:match("^Elegant Hubris") then
-						self:DrawImageRotated(self.eternal1, scrX, scrY, outerSize * 2, outerSize * 2, -0.8)
-						self:DrawImageRotated(self.eternal2, scrX, scrY, outerSize * 2, outerSize * 2, 1)
+						self:DrawImageRotated(self.eternal1, scrX, scrY, outerSize * 2, outerSize * 2, -0.7)
+						self:DrawImageRotated(self.eternal2, scrX, scrY, outerSize * 2, outerSize * 2, 0.7)
 					elseif jewel.title:match("^Glorious Vanity") then
-						self:DrawImageRotated(self.vaal1, scrX, scrY, outerSize * 2, outerSize * 2, -0.8)
-						self:DrawImageRotated(self.vaal2, scrX, scrY, outerSize * 2, outerSize * 2, 1)
+						self:DrawImageRotated(self.vaal1, scrX, scrY, outerSize * 2, outerSize * 2, -0.7)
+						self:DrawImageRotated(self.vaal2, scrX, scrY, outerSize * 2, outerSize * 2, 0.7)
 					elseif jewel.title:match("^Lethal Pride") then
-						self:DrawImageRotated(self.karui1, scrX, scrY, outerSize * 2, outerSize * 2, -0.8)
-						self:DrawImageRotated(self.karui2, scrX, scrY, outerSize * 2, outerSize * 2, 1)
+						self:DrawImageRotated(self.karui1, scrX, scrY, outerSize * 2, outerSize * 2, -0.7)
+						self:DrawImageRotated(self.karui2, scrX, scrY, outerSize * 2, outerSize * 2, 0.7)
 					elseif jewel.title:match("^Militant Faith") then
-						self:DrawImageRotated(self.templar1, scrX, scrY, outerSize * 2, outerSize * 2, -0.8)
-						self:DrawImageRotated(self.templar2, scrX, scrY, outerSize * 2, outerSize * 2, 1)
+						self:DrawImageRotated(self.templar1, scrX, scrY, outerSize * 2, outerSize * 2, -0.7)
+						self:DrawImageRotated(self.templar2, scrX, scrY, outerSize * 2, outerSize * 2, 0.7)
 					else
-						self:DrawImageRotated(self.jewelShadedOuterRing, scrX, scrY, outerSize * 2, outerSize * 2, -0.8)
-						self:DrawImageRotated(self.jewelShadedOuterRingFlipped, scrX, scrY, outerSize * 2, outerSize * 2, 1)
-						self:DrawImageRotated(self.jewelShadedInnerRing, scrX, scrY, innerSize * 2, innerSize * 2, -1.2)
-						self:DrawImageRotated(self.jewelShadedInnerRingFlipped, scrX, scrY, innerSize * 2, innerSize * 2, 1.0)
+						self:DrawImageRotated(self.jewelShadedOuterRing, scrX, scrY, outerSize * 2, outerSize * 2, -0.7)
+						self:DrawImageRotated(self.jewelShadedOuterRingFlipped, scrX, scrY, outerSize * 2, outerSize * 2, 0.7)
+						self:DrawImageRotated(self.jewelShadedInnerRing, scrX, scrY, innerSize * 2, innerSize * 2, -0.7)
+						self:DrawImageRotated(self.jewelShadedInnerRingFlipped, scrX, scrY, innerSize * 2, innerSize * 2, 0.7)
 					end
 				end
 			end
