@@ -5612,34 +5612,34 @@ local jewelOtherFuncs = {
 	["Intelligence from Passives in Radius is Transformed to Dexterity"] = getSimpleConv({ "Int" }, "Dex", "BASE", true),
 	["Increases and Reductions to Life in Radius are Transformed to apply to Energy Shield"] = getSimpleConv({ "Life" }, "EnergyShield", "INC", true),
 	["Increases and Reductions to Energy Shield in Radius are Transformed to apply to Armour at (%d+)%% of their value"] = function(num)
-		return getSimpleConv({ "EnergyShield" }, "Armour", "INC", true, num/100)
+		return getSimpleConv({ "EnergyShield" }, "Armour", "INC", true, num / 100)
 	end,
 	["Increases and Reductions to Life in Radius are Transformed to apply to Mana at (%d+)%% of their value"] = function(num)
-		return getSimpleConv({ "Life" }, "Mana", "INC", true, num/100)
+		return getSimpleConv({ "Life" }, "Mana", "INC", true, num / 100)
 	end,
 	["Increases and Reductions to Physical Damage in Radius are Transformed to apply to Cold Damage"] = getSimpleConv({ "PhysicalDamage" }, "ColdDamage", "INC", true),
 	["Increases and Reductions to Cold Damage in Radius are Transformed to apply to Physical Damage"] = getSimpleConv({ "ColdDamage" }, "PhysicalDamage", "INC", true),
 	["Increases and Reductions to other Damage Types in Radius are Transformed to apply to Fire Damage"] = getSimpleConv({ "PhysicalDamage","ColdDamage","LightningDamage","ChaosDamage","ElementalDamage" }, "FireDamage", "INC", true),
 	["Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant Chance to Block Spells at (%d+)%% of its value"] = function(num)
-		return getSimpleConv({ "LightningResist","ElementalResist" }, "SpellBlockChance", "BASE", false, num/100)
+		return getSimpleConv({ "LightningResist","ElementalResist" }, "SpellBlockChance", "BASE", false, num / 100)
 	end,
 	["Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant Chance to Block Spell Damage at (%d+)%% of its value"] = function(num)
-		return getSimpleConv({ "LightningResist","ElementalResist" }, "SpellBlockChance", "BASE", false, num/100)
+		return getSimpleConv({ "LightningResist","ElementalResist" }, "SpellBlockChance", "BASE", false, num / 100)
 	end,
 	["Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Chance to Dodge Attacks at (%d+)%% of its value"] = function(num)
-		return getSimpleConv({ "ColdResist","ElementalResist" }, "AttackDodgeChance", "BASE", false, num/100)
+		return getSimpleConv({ "ColdResist","ElementalResist" }, "AttackDodgeChance", "BASE", false, num / 100)
 	end,
 	["Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Chance to Dodge Attack Hits at (%d+)%% of its value"] = function(num)
-		return getSimpleConv({ "ColdResist","ElementalResist" }, "AttackDodgeChance", "BASE", false, num/100)
+		return getSimpleConv({ "ColdResist","ElementalResist" }, "AttackDodgeChance", "BASE", false, num / 100)
 	end,
 	["Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Chance to Suppress Spell Damage at (%d+)%% of its value"] = function(num)
-		return getSimpleConv({ "ColdResist","ElementalResist" }, "SpellSuppressionChance", "BASE", false, num/100)
+		return getSimpleConv({ "ColdResist","ElementalResist" }, "SpellSuppressionChance", "BASE", false, num / 100)
 	end,
 	["Passives granting Fire Resistance or all Elemental Resistances in Radius also grant Chance to Block Attack Damage at (%d+)%% of its value"] = function(num)
-		return getSimpleConv({ "FireResist","ElementalResist" }, "BlockChance", "BASE", false, num/100)
+		return getSimpleConv({ "FireResist","ElementalResist" }, "BlockChance", "BASE", false, num / 100)
 	end,
 	["Passives granting Fire Resistance or all Elemental Resistances in Radius also grant Chance to Block at (%d+)%% of its value"] = function(num)
-		return getSimpleConv({ "FireResist","ElementalResist" }, "BlockChance", "BASE", false, num/100)
+		return getSimpleConv({ "FireResist","ElementalResist" }, "BlockChance", "BASE", false, num / 100)
 	end,
 	["Melee and Melee Weapon Type modifiers in Radius are Transformed to Bow Modifiers"] = function(node, out, data)
 		if node then
