@@ -110,16 +110,16 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill)
 	-- Super special case for Varunastra, e.g. allow Nightblade to support Smite
 	if not (activeSkill.actor.weaponData1 and activeSkill.actor.weaponData1.countsAsAll1H or activeSkill.actor.weaponData2 and activeSkill.actor.weaponData2.countsAsAll1H) then
 		if grantedEffect.weaponTypes and activeSkill.activeEffect.grantedEffect.weaponTypes then
-			local hasType = false
+			local typeMatch = false
 			for grantedType, _ in pairs(grantedEffect.weaponTypes) do
 				for activeType, _ in pairs(activeSkill.activeEffect.grantedEffect.weaponTypes) do
 					if grantedType == activeType then
-						hasType = true
+						typeMatch = true
 					end
 				end
 			end
 			-- no match, does not support
-			if hasType == false then
+			if typeMatch == false then
 				return false
 			end
 		-- if the support has a specific weaponType and the activeSkill does not, it doesn't match
