@@ -322,7 +322,7 @@ local function doActorAttribsConditions(env, actor)
 			modDB:NewMod("Damage", "MORE", m_floor(4 * shrineEffectMod), "Resonating Shrine", { type = "Multiplier", var = "FrenzyCharge" })
 			modDB:NewMod("PhysicalDamageReduction", "BASE", m_floor(4 * shrineEffectMod), "Resonating Shrine", { type = "Multiplier", var = "EnduranceCharge" })
 			modDB:NewMod("ElementalDamageReduction", "BASE", m_floor(4 * shrineEffectMod), "Resonating Shrine", { type = "Multiplier", var = "EnduranceCharge" })
-			modDB:NewMod("Damage", "INC", m_floor(4 * shrineEffectMod), "Resonating Shrine", { type = "Multiplier", var = "PowerCharge" }, { type = "Multiplier", var = "FrenzyCharge" }, { type = "Multiplier", var = "EnduranceCharge" })
+			modDB:NewMod("Damage", "INC", m_floor(5 * shrineEffectMod), "Resonating Shrine", { type = "Multiplier", varList = { "PowerCharge", "FrenzyCharge", "EnduranceCharge" }})
 		end
 		if modDB:Flag(nil, "LesserAccelerationShrine") and not modDB:Flag(nil, "AccelerationShrine") then
 			modDB:NewMod("ActionSpeed", "INC", m_floor(10 * shrineEffectMod), "Lesser Acceleration Shrine")
@@ -587,9 +587,6 @@ local function doActorMisc(env, actor)
 	local enemyDB = actor.enemy.modDB
 	local output = actor.output
 	local condList = modDB.conditions
-
-	-- Process enemy modifiers
-	applyEnemyModifiers(actor)
 
 	-- Add misc buffs/debuffs
 	if env.mode_combat then
@@ -864,6 +861,9 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("Multiplier:SoulEater", "BASE", 1, "Base", { type = "Multiplier", var = "SoulEaterStack", limit = max })
 		end
 	end
+	
+	-- Process enemy modifiers
+	applyEnemyModifiers(actor)
 end
 
 -- Process charges

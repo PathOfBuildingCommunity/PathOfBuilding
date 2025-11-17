@@ -457,7 +457,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 				elseif tag.type == "MultiplierThreshold" or tag.type == "StatThreshold" then
 					desc = "If "..self:FormatVarNameOrList(tag.var or tag.stat, tag.varList or tag.statList)..(tag.upper and " <= " or " >= ")..(tag.thresholdPercent and tag.thresholdPercent.."% " or "")..(tag.threshold or self:FormatModName(tag.thresholdVar or tag.thresholdStat))
 				elseif tag.type == "SkillName" then
-					desc = "Skill: "..(tag.skillNameList and table.concat(tag.skillNameList, "/") or tag.skillName)
+					desc = "Skill: "..(tag.skillNameList and table.concat(tag.skillNameList, " / ") or tag.skillName)
 				elseif tag.type == "SkillId" then
 					desc = "Skill: "..build.data.skills[tag.skillId].name
 				elseif tag.type == "SkillType" then
@@ -494,7 +494,7 @@ function CalcBreakdownClass:FormatModName(modName)
 end
 
 function CalcBreakdownClass:FormatVarNameOrList(var, varList)
-	return var and self:FormatModName(var) or table.concat(varList, "/")
+	return var and self:FormatModName(var) or self:FormatModName(table.concat(varList, " / "))
 end
 
 function CalcBreakdownClass:FormatModBase(mod, base)
