@@ -1545,7 +1545,7 @@ function ItemsTabClass:CreateDisplayItemFromRaw(itemRaw, normalise)
 		-- if the new item is an amulet and does not have an anoint and your current amulet does, apply that anoint to the new item
 		if newItem.base.type == "Amulet" and #newItem.enchantModLines == 0 and self.activeItemSet["Amulet"].selItemId > 0 then
 			local currentAnoint = self.items[self.activeItemSet["Amulet"].selItemId].enchantModLines
-			if currentAnoint and #currentAnoint == 1 then -- skip if amulet has more than one anoint e.g. Stranglegrasp
+			if currentAnoint and #currentAnoint == 1 then -- skip if amulet has more than one anoint e.g. Stranglegasp
 				newItem.enchantModLines = currentAnoint
 				newItem:BuildAndParseRaw()
 			end
