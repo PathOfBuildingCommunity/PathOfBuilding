@@ -588,9 +588,6 @@ local function doActorMisc(env, actor)
 	local output = actor.output
 	local condList = modDB.conditions
 
-	-- Process enemy modifiers
-	applyEnemyModifiers(actor)
-
 	-- Add misc buffs/debuffs
 	if env.mode_combat then
 		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") then
@@ -864,6 +861,9 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("Multiplier:SoulEater", "BASE", 1, "Base", { type = "Multiplier", var = "SoulEaterStack", limit = max })
 		end
 	end
+	
+	-- Process enemy modifiers
+	applyEnemyModifiers(actor)
 end
 
 -- Process charges

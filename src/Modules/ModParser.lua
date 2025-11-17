@@ -3888,6 +3888,9 @@ local specialModList = {
 	["nearby enemies have lightning exposure"] = {
 		mod("EnemyModifier", "LIST", { mod = mod("LightningExposure", "BASE", -10) }, { type = "Condition", var = "Effective" }),
 	},
+	["nearby enemies have fire exposure while at maximum rage"] = {
+		mod("EnemyModifier", "LIST", { mod = mod("FireExposure", "BASE", -10) }, { type = "Condition", var = "Effective" }, { type = "Condition", var = "HaveMaximumRage" }),
+	},
 	["nearby enemies have fire exposure while you are affected by herald of ash"] = {
 		mod("EnemyModifier", "LIST", { mod = mod("FireExposure", "BASE", -10) }, { type = "Condition", var = "Effective" }, { type = "Condition", var = "AffectedByHeraldofAsh" }),
 	},
@@ -4960,6 +4963,10 @@ local specialModList = {
 	} end,
 	["attacks with this weapon have added maximum lightning damage equal to (%d+)%% of your maximum energy shield"] = function(num) return {
 		mod("LightningMax", "BASE", 1, { type = "PercentStat", stat = "EnergyShield" , percent = num }, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
+	} end,
+	["attacks with this weapon have added fire damage equal to (%d+)%% of player's maximum life"] = function(num) return {
+		mod("FireMin", "BASE", 1, { type = "PercentStat", stat = "Life" , percent = num }, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
+		mod("FireMax", "BASE", 1, { type = "PercentStat", stat = "Life" , percent = num }, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
 	} end,
 	["adds (%d+)%% of your maximum energy shield as cold damage to attacks with this weapon"] = function(num) return {
 		mod("ColdMin", "BASE", 1, { type = "PercentStat", stat = "EnergyShield" , percent = num }, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
