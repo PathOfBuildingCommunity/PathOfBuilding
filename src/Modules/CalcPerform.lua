@@ -2315,7 +2315,13 @@ function calcs.perform(env, skipEHP)
 			elseif buff.type == "Curse" or buff.type == "CurseBuff" then
 				local mark = activeSkill.skillTypes[SkillType.Mark]
 				modDB.conditions["SelfCast"..buff.name:gsub(" ","")] = not (activeSkill.skillTypes[SkillType.Triggered] or activeSkill.skillTypes[SkillType.Aura])
-				if env.mode_effective and (not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof") or activeSkill.skillData.ignoreHexLimit or activeSkill.skillData.ignoreHexproof) or mark then
+				local skipCurse = false
+				local configVar = "balanceOfTerrorSelfCast"..buff.name:gsub(" ", "")
+				if configVar and env.configInput[configVar] and not mark then
+					-- User flagged this curse as Balance of Terror self-only, so don't apply it to enemies.
+					skipCurse = true
+				end
+				if (not skipCurse) and (env.mode_effective and (not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof") or activeSkill.skillData.ignoreHexLimit or activeSkill.skillData.ignoreHexproof) or mark) then
 					local curse = {
 						name = buff.name,
 						fromPlayer = true,

@@ -719,6 +719,16 @@ Huge sets the radius to 11.
 	{ var = "TotalVaalRejuvenationTotemLife", type = "integer", label = "Total Vaal Rejuvenation Totem Life:", ifSkill = { "Vaal Rejuvenation Totem" }, ifMod = "takenFromVaalRejuvenationTotemsBeforeYou", tooltip = "The total life of your Vaal Rejuvenation Totems that can be taken before yours", apply = function(val, modList, enemyModList)
 		modList:NewMod("TotalVaalRejuvenationTotemLife", "BASE", val, "Config")
 	end },
+	{ label = "^xAF6025Balance of Terror ^7Curse Disable:", ifCond = { "SelfCastConductivity", "SelfCastDespair", "SelfCastElementalWeakness", "SelfCastEnfeeble", "SelfCastFlammability", "SelfCastFrostbite", "SelfCastPunishment", "SelfCastTemporalChains", "SelfCastVulnerability" } },
+	{ var = "balanceOfTerrorSelfCastConductivity", type = "check", label = "Conductivity self-only", ifSkill = "Conductivity", ifCond = "SelfCastConductivity", tooltip = "Counts Conductivity as self-cast for Balance of Terror without applying it to enemies." },
+	{ var = "balanceOfTerrorSelfCastDespair", type = "check", label = "Despair self-only", ifSkill = "Despair", ifCond = "SelfCastDespair", tooltip = "Counts Despair as self-cast for Balance of Terror without applying it to enemies." },
+	{ var = "balanceOfTerrorSelfCastElementalWeakness", type = "check", label = "Elemental Weakness self-only", ifSkill = "Elemental Weakness", ifCond = "SelfCastElementalWeakness", tooltip = "Counts Elemental Weakness as self-cast for Balance of Terror without applying it to enemies." },
+	{ var = "balanceOfTerrorSelfCastEnfeeble", type = "check", label = "Enfeeble self-only", ifSkill = "Enfeeble", ifCond = "SelfCastEnfeeble", tooltip = "Counts Enfeeble as self-cast for Balance of Terror without applying it to enemies." },
+	{ var = "balanceOfTerrorSelfCastFlammability", type = "check", label = "Flammability self-only", ifSkill = "Flammability", ifCond = "SelfCastFlammability", tooltip = "Counts Flammability as self-cast for Balance of Terror without applying it to enemies." },
+	{ var = "balanceOfTerrorSelfCastFrostbite", type = "check", label = "Frostbite self-only", ifSkill = "Frostbite", ifCond = "SelfCastFrostbite", tooltip = "Counts Frostbite as self-cast for Balance of Terror without applying it to enemies." },
+	{ var = "balanceOfTerrorSelfCastPunishment", type = "check", label = "Punishment self-only", ifSkill = "Punishment", ifCond = "SelfCastPunishment", tooltip = "Counts Punishment as self-cast for Balance of Terror without applying it to enemies." },
+	{ var = "balanceOfTerrorSelfCastTemporalChains", type = "check", label = "Temporal Chains self-only", ifSkill = "Temporal Chains", ifCond = "SelfCastTemporalChains", tooltip = "Counts Temporal Chains as self-cast for Balance of Terror without applying it to enemies." },
+	{ var = "balanceOfTerrorSelfCastVulnerability", type = "check", label = "Vulnerability self-only", ifSkill = "Vulnerability", ifCond = "SelfCastVulnerability", tooltip = "Counts Vulnerability as self-cast for Balance of Terror without applying it to enemies." },
 	-- Section: Map modifiers/curses
 	{ section = "Map Modifiers and Player Debuffs", col = 2 },
 	{ var = "multiplierSextant", type = "count", label = "# of Sextants affecting the area", ifMult = "Sextant", apply = function(val, modList, enemyModList)
