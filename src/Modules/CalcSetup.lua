@@ -1041,10 +1041,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 						-- Esh of the Storm, Tul of the Blizzard
 						local otherRingKey = otherRing.baseName:gsub(" ", "").."Equipped"
-						if env.itemModDB.multipliers[otherRingKey] then
-							env.itemModDB.multipliers[otherRingKey] = env.itemModDB.multipliers[otherRingKey] + 1 -- saw other ring first, multiplier already exists so increment
-						else
-							env.itemModDB.multipliers["KalandraEquipped"] = 1 -- Kalandra first, set the +1 for the other ring
+						if otherRingKey then
+							env.itemModDB.multipliers[otherRingKey] = (env.itemModDB.multipliers[otherRingKey] or 0) + 1
 						end
 					end
 					-- Only ExtraSkill implicit mods work (none should but this is likely an in game bug)
@@ -1131,7 +1129,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					-- base ring count, e.g. Cryonic, Synaptic for Breachlord Esh of the Storm, Tul of the Blizzard
 					if item.type == "Ring" then
 						local key = item.baseName:gsub(" ", "").."Equipped"
-						env.itemModDB.multipliers[key] = (env.itemModDB.multipliers[key] or 0) + 1 + (env.itemModDB.multipliers["KalandraEquipped"] or 0)
+						env.itemModDB.multipliers[key] = (env.itemModDB.multipliers[key] or 0) + 1
 					end
 					-- Calculate socket counts
 					local slotEmptySocketsCount = { R = 0, G = 0, B = 0, W = 0}	
