@@ -107,6 +107,7 @@ function main:Init()
 	self.dpiScaleOverridePercent = GetDPIScaleOverridePercent and GetDPIScaleOverridePercent() or 0
 	self.showWarnings = true
 	self.slotOnlyTooltips = true
+	self.migrateEldritchImplicits = true
 	self.notSupportedModTooltips = true
 	self.notSupportedTooltipText = " ^8(Not supported in PoB yet)"
 	self.POESESSID = ""
@@ -627,6 +628,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.slotOnlyTooltips then
 					self.slotOnlyTooltips = node.attrib.slotOnlyTooltips == "true"
 				end
+				if node.attrib.migrateEldritchImplicits then
+					self.migrateEldritchImplicits = node.attrib.migrateEldritchImplicits == "true"
+				end
 				if node.attrib.notSupportedModTooltips then
 					self.notSupportedModTooltips = node.attrib.notSupportedModTooltips == "true"
 				end
@@ -761,6 +765,7 @@ function main:SaveSettings()
 		lastExportedWebsite = self.lastExportedWebsite,
 		showWarnings = tostring(self.showWarnings),
 		slotOnlyTooltips = tostring(self.slotOnlyTooltips),
+		migrateEldritchImplicits = tostring(self.migrateEldritchImplicits),
 		notSupportedModTooltips = tostring(self.notSupportedModTooltips),
 		POESESSID = self.POESESSID,
 		invertSliderScrollDirection = tostring(self.invertSliderScrollDirection),
@@ -1082,6 +1087,7 @@ function main:OpenOptionsPopup()
 	local initialDefaultItemAffixQuality = self.defaultItemAffixQuality or 0.5
 	local initialShowWarnings = self.showWarnings
 	local initialSlotOnlyTooltips = self.slotOnlyTooltips
+	local initialMigrateEldritchImplicits = self.migrateEldritchImplicits
 	local initialNotSupportedModTooltips = self.notSupportedModTooltips
 	local initialInvertSliderScrollDirection = self.invertSliderScrollDirection
 	local initialDisableDevAutoSave = self.disableDevAutoSave
@@ -1136,6 +1142,7 @@ function main:OpenOptionsPopup()
 		self.defaultItemAffixQuality = initialDefaultItemAffixQuality
 		self.showWarnings = initialShowWarnings
 		self.slotOnlyTooltips = initialSlotOnlyTooltips
+		self.migrateEldritchImplicits = initialMigrateEldritchImplicits
 		self.notSupportedModTooltips = initialNotSupportedModTooltips
 		self.invertSliderScrollDirection = initialInvertSliderScrollDirection
 		self.disableDevAutoSave = initialDisableDevAutoSave

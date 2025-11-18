@@ -1550,12 +1550,16 @@ local function copyAnointsAndEldritchImplicits(self, newItem)
 			end
 		end
 
+		-- if the new item is a Normal, Magic, or Rare Helmet, Body Armour, Gloves, or Boots and does not have any eldritch implicits nor any other influence
+		-- and your current respective item does, apply those implicits and influence to the new item
 		local implicitBaseTypes = { "Helmet", "Body Armour", "Gloves", "Boots" }
 		local implicitRarities = { "NORMAL", "MAGIC", "RARE" }
-		-- if the new item is a Normal, Magic, or Rare Helmet, Body Armour, Gloves, or Boots and does not have any eldritch implicits
-		-- and your current respective item does, apply those implicits and influence to the new item
-		if main.migrateEldritchImplicits and isValueInTable(implicitBaseTypes, newItem.base.type) and isValueInTable(implicitRarities, newItem.rarity) and
-				not (newItem.tangle and newItem.cleansing) and (currentItem.cleansing or currentItem.tangle) then
+		for _, influence in ipairs(itemLib.influenceInfo.default) do
+			if newItem[influence.key] then
+				return
+			end
+		end
+		if main.migrateEldritchImplicits and isValueInTable(implicitBaseTypes, newItem.base.type) and isValueInTable(implicitRarities, newItem.rarity) and (currentItem.cleansing or currentItem.tangle) then
 			local currentImplicits = currentItem.implicitModLines
 			if currentImplicits then
 				newItem.implicitModLines = currentImplicits
