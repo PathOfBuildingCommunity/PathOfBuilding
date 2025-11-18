@@ -5637,8 +5637,7 @@ c["5% increased maximum Energy Shield"]={{[1]={[1]={type="Global"},flags=0,keywo
 c["5% increased maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="INC",value=5}},nil}
 c["5% increased maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="INC",value=5}},nil}
 c["5% increased maximum Mana per Blue Socket on equipped Staff"]={{[1]={[1]={type="Multiplier",var="BlueSocketInWeapon 1"},[2]={type="Condition",var="UsingStaff"},flags=0,keywordFlags=0,name="Mana",type="INC",value=5}},nil}
-c["5% less Damage taken per 5 Rage, up to a maximum of 30%"]={{[1]={[1]={div=5,type="Multiplier",var="Rage"},flags=0,keywordFlags=0,name="DamageTaken",type="MORE",value=-5}},"  , up to a maximum of 30% "}
-c["5% less Damage taken per 5 Rage, up to a maximum of 30% Maximum Rage is Halved"]={{[1]={[1]={div=5,type="Multiplier",var="Rage"},flags=0,keywordFlags=0,name="DamageTaken",type="MORE",value=-5}},"  , up to a maximum of 30% Maximum Rage is Halved "}
+c["5% less Damage taken per 5 Rage, up to a maximum of 30%"]={{[1]={[1]={div="5",limit=-30,limitNegTotal=true,type="Multiplier",var="Rage"},flags=0,keywordFlags=0,name="DamageTaken",type="MORE",value=-5}},nil}
 c["5% more Accuracy Rating per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=0,name="Accuracy",type="MORE",value=5}},nil}
 c["5% more Damage per Summoned Totem"]={{[1]={[1]={stat="TotemsSummoned",type="PerStat"},flags=0,keywordFlags=0,name="Damage",type="MORE",value=5}},nil}
 c["5% more chance to Evade Melee Attacks"]={{[1]={flags=0,keywordFlags=0,name="MeleeEvadeChance",type="MORE",value=5}},nil}
@@ -9719,7 +9718,7 @@ c["Maximum Energy Shield is increased by Chance to Block Spell Damage"]={{[1]={f
 c["Maximum Life becomes 1, Immune to Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ChaosInoculation",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="ChaosDamageTaken",type="MORE",value=-100}},nil}
 c["Maximum Quality is 200%"]={{},"Maximum Quality "}
 c["Maximum Quality is 200% Corrupted"]={{},"Maximum Quality Corrupted "}
-c["Maximum Rage is Halved"]={nil,"Maximum Rage is Halved "}
+c["Maximum Rage is Halved"]={{[1]={flags=0,keywordFlags=0,name="MaximumRage",type="MORE",value=-50}},nil}
 c["Maximum number of Animated Weapons is Doubled"]={{[1]={[1]={globalLimit=100,globalLimitKey="ActiveAnimatedWeaponLimitDoubledLimit",type="Multiplier",var="ActiveAnimatedWeaponLimitDoubled"},flags=0,keywordFlags=0,name="ActiveAnimatedWeaponLimit",type="MORE",value=100},[2]={flags=0,keywordFlags=0,name="Multiplier:ActiveAnimatedWeaponLimitDoubled",type="OVERRIDE",value=1}},nil}
 c["Maximum number of Raised Spectres is 1"]={{[1]={flags=0,keywordFlags=0,name="ActiveSpectreLimit",type="OVERRIDE",value=1}},nil}
 c["Maximum number of Raised Spectres is Doubled"]={{[1]={[1]={globalLimit=100,globalLimitKey="ActiveSpectreLimitDoubledLimit",type="Multiplier",var="ActiveSpectreLimitDoubled"},flags=0,keywordFlags=0,name="ActiveSpectreLimit",type="MORE",value=100},[2]={flags=0,keywordFlags=0,name="Multiplier:ActiveSpectreLimitDoubled",type="OVERRIDE",value=1}},nil}
