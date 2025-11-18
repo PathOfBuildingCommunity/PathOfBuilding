@@ -1039,8 +1039,15 @@ function calcs.initEnv(build, mode, override, specEnv)
 						if otherRing.elder or otherRing.shaper then
 							env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) + 1
 						end
+						-- Esh of the Storm, Tul of the Blizzard
+						env.itemModDB.multipliers["KalandraEquipped"] = 1 -- if we see Kalandra first, set the +1 for the other ring
+						for key, val in pairs(env.itemModDB.multipliers) do -- if we see Kalandra second, increment the other ring's multiplier
+							if key:match("RingEquipped") then
+								env.itemModDB.multipliers[key] = val + 1
+								break
+							end
+						end
 					end
-
 					-- Only ExtraSkill implicit mods work (none should but this is likely an in game bug)
 					for _, mod in ipairs(srcList) do
 						if mod.name == "ExtraSkill" then
@@ -1122,20 +1129,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 						env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) + 1
 					end
 					env.itemModDB.multipliers[item.type:gsub(" ", ""):gsub(".+Handed", "").."Item"] = (env.itemModDB.multipliers[item.type:gsub(" ", ""):gsub(".+Handed", "").."Item"] or 0) + 1
-					-- base ring count, e.g. Cryonic, Synaptic for Breachlord
+					-- base ring count, e.g. Cryonic, Synaptic for Breachlord Esh of the Storm, Tul of the Blizzard
 					if item.type == "Ring" then
-						if item.name:match("Kalandra's Touch") then
-							env.itemModDB.multipliers["KalandraEquipped"] = 1 -- if we see Kalandra first, set the +1 for the other ring
-							for key, val in pairs(env.itemModDB.multipliers) do -- if we see Kalandra second, increment the other ring's multiplier
-								if key:match("RingEquipped") then
-									env.itemModDB.multipliers[key] = val + 1
-									break
-								end
-							end
-						else
-							local key = item.baseName:gsub(" ", "").."Equipped"
-							env.itemModDB.multipliers[key] = (env.itemModDB.multipliers[key] or 0) + 1 + (env.itemModDB.multipliers["KalandraEquipped"] or 0)
-						end
+						local key = item.baseName:gsub(" ", "").."Equipped"
+						env.itemModDB.multipliers[key] = (env.itemModDB.multipliers[key] or 0) + 1 + (env.itemModDB.multipliers["KalandraEquipped"] or 0)
 					end
 					-- Calculate socket counts
 					local slotEmptySocketsCount = { R = 0, G = 0, B = 0, W = 0}	
