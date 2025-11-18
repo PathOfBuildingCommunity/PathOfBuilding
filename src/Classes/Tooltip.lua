@@ -43,7 +43,6 @@ end
 local TooltipClass = newClass("Tooltip", function(self)
 	self.lines = { }
 	self.blocks = { }
-	self.iterate = 0
 	self:Clear()
 end)
 
@@ -78,8 +77,6 @@ function TooltipClass:CheckForUpdate(...)
 	if doUpdate or self.updateParams.notSupportedModTooltips ~= main.notSupportedModTooltips then
 		self.updateParams.notSupportedModTooltips = main.notSupportedModTooltips
 		self:Clear()
-		self.iterate = self.iterate + 1
-		ConPrintf("Iteration count: "..self.iterate)
 		return true
 	end
 end
