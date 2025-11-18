@@ -8782,6 +8782,7 @@ skills["GlacialShieldSwipe"] = {
 		"is_area_damage",
 		"always_freeze",
 		"base_skill_show_average_damage_instead_of_dps",
+		"attack_is_melee_override",
 	},
 	notMinionStat = {
 		"off_hand_local_minimum_added_physical_damage",
