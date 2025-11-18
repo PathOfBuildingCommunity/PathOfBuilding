@@ -180,6 +180,12 @@ local function doActorAttribsConditions(env, actor)
 			condList["Using"..slotName] = true
 		end
 	end
+	if actor.itemList["Graft 1"] and actor.itemList["Graft 1"].baseName then
+		condList["Using"..actor.itemList["Graft 1"].baseName:match("%s(%S+)")] = true
+	end
+	if actor.itemList["Graft 2"] and actor.itemList["Graft 2"].baseName then
+		condList["Using"..actor.itemList["Graft 2"].baseName:match("%s(%S+)")] = true
+	end
 	if actor.weaponData2.type then
 		local info = env.data.weaponTypeInfo[actor.weaponData2.type]
 		condList["Using"..info.flag] = true

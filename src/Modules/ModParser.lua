@@ -1624,6 +1624,7 @@ local modTagList = {
 	["during effect of any life or mana flask"] = { tag = { type = "Condition", varList = { "UsingManaFlask", "UsingLifeFlask" } } },
 	["while you have an active tincture"] = { tag = { type = "Condition", var = "UsingTincture" } },
 	["while you have a tincture active"] = { tag = { type = "Condition", var = "UsingTincture" } },
+	["with at least one (%w+) grafted to you"] = function(_, graft) return { tag = { type = "Condition", var = "Using"..firstToUpper(graft) } } end,
 	["while on consecrated ground"] = { tag = { type = "Condition", var = "OnConsecratedGround" } },
 	["while on caustic ground"] = { tag = { type = "Condition", var = "OnCausticGround" } },
 	["when you create consecrated ground"] = { },
