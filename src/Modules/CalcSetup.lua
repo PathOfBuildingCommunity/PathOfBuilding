@@ -1040,12 +1040,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 							env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) + 1
 						end
 						-- Esh of the Storm, Tul of the Blizzard
-						env.itemModDB.multipliers["KalandraEquipped"] = 1 -- if we see Kalandra first, set the +1 for the other ring
-						for key, val in pairs(env.itemModDB.multipliers) do -- if we see Kalandra second, increment the other ring's multiplier
-							if key:match("RingEquipped") then
-								env.itemModDB.multipliers[key] = val + 1
-								break
-							end
+						local otherRingKey = otherRing.baseName:gsub(" ", "").."Equipped"
+						if env.itemModDB.multipliers[otherRingKey] then
+							env.itemModDB.multipliers[otherRingKey] = env.itemModDB.multipliers[otherRingKey] + 1 -- saw other ring first, multiplier already exists so increment
+						else
+							env.itemModDB.multipliers["KalandraEquipped"] = 1 -- Kalandra first, set the +1 for the other ring
 						end
 					end
 					-- Only ExtraSkill implicit mods work (none should but this is likely an in game bug)
