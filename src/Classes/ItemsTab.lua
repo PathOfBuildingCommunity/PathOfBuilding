@@ -1602,7 +1602,8 @@ local function copyAnointsAndEldritchImplicits(newItem)
 				return
 			end
 		end
-		if main.migrateEldritchImplicits and isValueInTable(implicitBaseTypes, newItem.base.type) and isValueInTable(implicitRarities, newItem.rarity) and (currentItem.cleansing or currentItem.tangle) then
+		if main.migrateEldritchImplicits and isValueInTable(implicitBaseTypes, newItem.base.type) and isValueInTable(implicitRarities, newItem.rarity)
+			and #newItem.implicitModLines == 0 and (currentItem.cleansing or currentItem.tangle) then
 			local currentImplicits = currentItem.implicitModLines
 			if currentImplicits then
 				newItem.implicitModLines = currentImplicits
@@ -1618,7 +1619,7 @@ end
 function ItemsTabClass:CreateDisplayItemFromRaw(itemRaw, normalise)
 	local newItem = new("Item", itemRaw)
 	if newItem.base then
-		copyAnointsAndEldritchImplicits(self, newItem)
+		copyAnointsAndEldritchImplicits(newItem)
 		if normalise then
 			newItem:NormaliseQuality()
 			newItem:BuildModList()
