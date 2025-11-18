@@ -3692,6 +3692,9 @@ local specialModList = {
 	["(%d+)%% increased area of effect per power charge, up to a maximum of (%d+)%%"] = function(num, _, limit) return {
 		mod("AreaOfEffect", "INC", num, { type = "Multiplier", var = "PowerCharge", globalLimit = tonumber(limit), globalLimitKey = "VastPower" })
 	} end,
+	["(%d+)%% increased area of effect per second you've been stationary, up to a maximum of (%d+)%%"] = function(num, _, limit) return {
+		mod("AreaOfEffect", "INC", num, { type = "Multiplier", var = "StationarySeconds", globalLimit = tonumber(limit), globalLimitKey = "ExpansiveMight", limitTotal = true })
+	} end,
 	["(%d+)%% increased chaos damage per (%d+) maximum mana, up to a maximum of (%d+)%%"] = function(num, _, div, limit) return {
 		mod("ChaosDamage", "INC", num, { type = "PerStat", stat = "Mana", div = tonumber(div), globalLimit = tonumber(limit), globalLimitKey = "DarkIdeation" })
 	} end,
