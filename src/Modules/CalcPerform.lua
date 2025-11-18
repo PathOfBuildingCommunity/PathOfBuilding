@@ -1445,6 +1445,7 @@ function calcs.perform(env, skipEHP)
 
 	local function mergeFlasks(flasks, onlyRecovery, checkNonRecoveryFlasksForMinions)
 		local flaskBuffs = { }
+		local haveFlask = { }
 		local flaskConditions = {}
 		local flaskConditionsNonUtility = {}
 		local flaskBuffsPerBase = {}
@@ -1512,6 +1513,7 @@ function calcs.perform(env, skipEHP)
 			flaskConditions["UsingFlask"] = true
 			flaskConditionsNonUtility["UsingFlask"] = true
 			flaskConditions["Using"..item.baseName:gsub("%s+", "")] = true
+			haveFlask["Have"..item.baseName:gsub("%s+", "")] = true
 			if item.base.flask.life or item.base.flask.mana then
 				flaskConditionsNonUtility["Using"..item.baseName:gsub("%s+", "")] = true
 			end
@@ -1537,6 +1539,9 @@ function calcs.perform(env, skipEHP)
 			else
 				calcFlaskMods(item, item.baseName, item.buffModList, item.modList)
 			end
+		end
+		for haveFlask, status in pairs(haveFlask) do
+			modDB.conditions[haveFlask] = status
 		end
 		if modDB:Flag(nil, "UtilityFlasksDoNotApplyToPlayer") then
 			for flaskCond, status in pairs(flaskConditionsNonUtility) do
