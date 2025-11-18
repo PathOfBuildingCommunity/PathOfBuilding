@@ -1539,34 +1539,37 @@ function ItemsTabClass:DeleteItem(item, deferUndoState)
 end
 
 local function copyAnointsAndEldritchImplicits(self, newItem)
-	local currentItem = self.items[self.activeItemSet[newItem.base.type].selItemId]
-	-- if you don't have an equipped item that matches the type of the newItem, no need to do anything
-	if currentItem then
-		-- if the new item is an amulet and does not have an anoint and your current amulet does, apply that anoint to the new item
-		if newItem.base.type == "Amulet" and #newItem.enchantModLines == 0 then
-			local currentAnoint = currentItem.enchantModLines
-			if currentAnoint and #currentAnoint == 1 then -- skip if amulet has more than one anoint e.g. Stranglegasp
-				newItem.enchantModLines = currentAnoint
+	if newItem.base and self.activeItemSet[newItem.base.type] then
+		local currentItem = self.activeItemSet[newItem.base.type].selItemId and self.items[self.activeItemSet[newItem.base.type].selItemId]
+		-- if you don't have an equipped item that matches the type of the newItem, no need to do anything
+		if currentItem then
+			-- if the new item is an amulet and does not have an anoint and your current amulet does, apply that anoint to the new item
+			if newItem.base.type == "Amulet" and #newItem.enchantModLines == 0 then
+				local currentAnoint = currentItem.enchantModLines
+				if currentAnoint and #currentAnoint == 1 then -- skip if amulet has more than one anoint e.g. Stranglegasp
+					newItem.enchantModLines = currentAnoint
+				end
 			end
-		end
-		-- if the new item is a Normal, Magic, or Rare Helmet, Body Armour, Gloves, or Boots and does not have any influence
-		-- and your current respective item has Eater and/or Exarch, apply those implicits and influence to the new item
-		local implicitBaseTypes = { "Helmet", "Body Armour", "Gloves", "Boots" }
-		local implicitRarities = { "NORMAL", "MAGIC", "RARE" }
-		for _, influence in ipairs(itemLib.influenceInfo.default) do
-			if newItem[influence.key] then
-				return
+			-- if the new item is a Normal, Magic, or Rare Helmet, Body Armour, Gloves, or Boots and does not have any influence
+			-- and your current respective item has Eater and/or Exarch, apply those implicits and influence to the new item
+			local implicitBaseTypes = { "Helmet", "Body Armour", "Gloves", "Boots" }
+			local implicitRarities = { "NORMAL", "MAGIC", "RARE" }
+			for _, influence in ipairs(itemLib.influenceInfo.default) do
+				if newItem[influence.key] then
+					return
+				end
 			end
-		end
-		if main.migrateEldritchImplicits and isValueInTable(implicitBaseTypes, newItem.base.type) and isValueInTable(implicitRarities, newItem.rarity) and (currentItem.cleansing or currentItem.tangle) then
-			local currentImplicits = currentItem.implicitModLines
-			if currentImplicits then
-				newItem.implicitModLines = currentImplicits
-				newItem.tangle = currentItem.tangle
-				newItem.cleansing = currentItem.cleansing
+			if main.migrateEldritchImplicits and isValueInTable(implicitBaseTypes, newItem.base.type) and isValueInTable(implicitRarities, newItem.rarity)
+				and #newItem.implicitModLines == 0 and (currentItem.cleansing or currentItem.tangle) then
+				local currentImplicits = currentItem.implicitModLines
+				if currentImplicits then
+					newItem.implicitModLines = currentImplicits
+					newItem.tangle = currentItem.tangle
+					newItem.cleansing = currentItem.cleansing
+				end
 			end
+			newItem:BuildAndParseRaw()
 		end
-		newItem:BuildAndParseRaw()
 	end
 end
 

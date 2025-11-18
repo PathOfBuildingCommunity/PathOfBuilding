@@ -1040,7 +1040,7 @@ function main:OpenOptionsPopup()
 	controls.migrateEldritchImplicits = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, currentY, 20 }, "^7Copy Eldritch Implicits onto Display Item:", function(state)
 		self.migrateEldritchImplicits = state
 	end)
-	controls.migrateEldritchImplicits.tooltipText = "Carry over Eldritch Implicits from current gear when comparing new gear, given the new item does not already have Eldritch Implicits"
+	controls.migrateEldritchImplicits.tooltipText = "Apply Eldritch Implicits from current gear when comparing new gear, given the new item doesn't have any influence"
 	controls.migrateEldritchImplicits.state = self.migrateEldritchImplicits
 
 	nextRow()
