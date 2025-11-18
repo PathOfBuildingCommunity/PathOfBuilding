@@ -1549,9 +1549,8 @@ local function copyAnointsAndEldritchImplicits(self, newItem)
 				newItem.enchantModLines = currentAnoint
 			end
 		end
-
-		-- if the new item is a Normal, Magic, or Rare Helmet, Body Armour, Gloves, or Boots and does not have any eldritch implicits nor any other influence
-		-- and your current respective item does, apply those implicits and influence to the new item
+		-- if the new item is a Normal, Magic, or Rare Helmet, Body Armour, Gloves, or Boots and does not have any influence
+		-- and your current respective item has Eater and/or Exarch, apply those implicits and influence to the new item
 		local implicitBaseTypes = { "Helmet", "Body Armour", "Gloves", "Boots" }
 		local implicitRarities = { "NORMAL", "MAGIC", "RARE" }
 		for _, influence in ipairs(itemLib.influenceInfo.default) do

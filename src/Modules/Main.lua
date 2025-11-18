@@ -1036,7 +1036,6 @@ function main:OpenOptionsPopup()
 	end)
 	controls.slotOnlyTooltips.state = self.slotOnlyTooltips
 
-
 	nextRow()
 	controls.migrateEldritchImplicits = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, currentY, 20 }, "^7Copy Eldritch Implicits onto Display Item:", function(state)
 		self.migrateEldritchImplicits = state
