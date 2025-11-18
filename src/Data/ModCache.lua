@@ -8137,8 +8137,7 @@ c["Critical Strikes inflict Malignant Madness if The Eater of Worlds is dominant
 c["Critical Strikes inflict Scorch, Brittle and Sapped"]={{[1]={flags=0,keywordFlags=0,name="CritAlwaysAltAilments",type="FLAG",value=true}},nil}
 c["Critical Strikes with Daggers Poison the Enemy"]={{[1]={[1]={type="Condition",var="CriticalStrike"},flags=524288,keywordFlags=0,name="PoisonChance",type="BASE",value=100}},nil}
 c["Critical Strikes with Spells inflict Impale"]={{[1]={[1]={type="Condition",var="CriticalStrike"},flags=2,keywordFlags=0,name="ImpaleChance",type="BASE",value=100}},nil}
-c["Critical Strikes with this Weapon do not deal extra Damage"]={nil,"Critical Strikes with this Weapon do not deal extra Damage "}
-c["Critical Strikes with this Weapon do not deal extra Damage Gain a random Shrine Buff for 30 seconds when you Kill a Rare or Unique Enemy"]={nil,"Critical Strikes with this Weapon do not deal extra Damage Gain a random Shrine Buff for 30 seconds when you Kill a Rare or Unique Enemy "}
+c["Critical Strikes with this Weapon do not deal extra Damage"]={{[1]={[1]={type="Condition",var="{Hand}Attack"},flags=0,keywordFlags=0,name="NoCritMultiplier",type="FLAG",value=true}},nil}
 c["Crucible Passive Skill Tree is removed if this Modifier is removed"]={{},nil}
 c["Crush Enemies for 4 seconds when you Hit them while they are on Full Life"]={nil,"Crush Enemies for 4 seconds when you Hit them while they are on Full Life "}
 c["Crush Enemies for 4 seconds when you Hit them while they are on Full Life 40% increased Physical Damage"]={nil,"Crush Enemies for 4 seconds when you Hit them while they are on Full Life 40% increased Physical Damage "}
@@ -8998,8 +8997,7 @@ c["Gain a Spirit Charge on Kill Gain 5% of Physical Damage as Extra Damage of ea
 c["Gain a Void Charge every 0.5 seconds"]={nil,"a Void Charge every 0.5 seconds "}
 c["Gain a Void Charge every second"]={nil,"a Void Charge every second "}
 c["Gain a Void Charge every second Gain a Void Charge every 0.5 seconds"]={nil,"a Void Charge every second Gain a Void Charge every 0.5 seconds "}
-c["Gain a random Shrine Buff for 30 seconds when you Kill a Rare or Unique Enemy"]={nil,"a random Shrine Buff  when you Kill a Rare or Unique Enemy "}
-c["Gain a random Shrine Buff for 30 seconds when you Kill a Rare or Unique Enemy +1 to maximum Mana per 2 Intelligence"]={nil,"a random Shrine Buff  when you Kill a Rare or Unique Enemy +1 to maximum Mana  "}
+c["Gain a random Shrine Buff for 30 seconds when you Kill a Rare or Unique Enemy"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanHaveRegularShrines",type="FLAG",value=true}},nil}
 c["Gain a random Shrine buff every 10 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanHaveRegularShrines",type="FLAG",value=true}},nil}
 c["Gain additional Elemental Damage Reduction equal to half your Chaos Resistance"]={{[1]={[1]={div=2,stat="ChaosResist",type="PerStat"},flags=0,keywordFlags=0,name="ElementalDamageReduction",type="BASE",value=1}},nil}
 c["Gain an Endurance Charge every second if you've been Hit Recently"]={nil,"an Endurance Charge every second  "}
