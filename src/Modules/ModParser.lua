@@ -3850,6 +3850,7 @@ local specialModList = {
 	["(%d+)%% chance to inflict withered for (%d+) seconds on hit with this weapon"] = { flag("Condition:CanWither") },
 	["(%d+)%% chance to inflict withered for two seconds on hit if there are (%d+) or fewer withered debuffs on enemy"] = { flag("Condition:CanWither") },
 	["inflict withered for (%d+) seconds on hit with this weapon"] = { flag("Condition:CanWither") },
+	["chaos skills inflict up to (%d+) withered debuffs on hit for (%d+) seconds"] = { flag("Condition:CanWither") },
 	["minions have (%d+)%% chance to inflict withered on hit"] = { mod("MinionModifier", "LIST", { mod = flag("Condition:CanWither") }) },
 	["enemies take (%d+)%% increased elemental damage from your hits for each withered you have inflicted on them"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("ElementalDamageTaken", "INC", num, { type = "Multiplier", var = "WitheredStack", limit = 15 }) }) } end,
 	["your hits cannot penetrate or ignore elemental resistances"] = { flag("CannotElePenIgnore") },

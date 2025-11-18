@@ -8022,8 +8022,8 @@ c["Chaos Skills have 20% chance to Ignite"]={{[1]={flags=0,keywordFlags=256,name
 c["Chaos Skills have 49% increased Skill Effect Duration"]={{[1]={flags=0,keywordFlags=256,name="Duration",type="INC",value=49}},nil}
 c["Chaos Skills have 57% increased Skill Effect Duration"]={{[1]={flags=0,keywordFlags=256,name="Duration",type="INC",value=57}},nil}
 c["Chaos Skills ignore interruption from Stuns"]={nil,"Chaos Skills ignore interruption from Stuns "}
-c["Chaos Skills inflict up to 15 Withered Debuffs on Hit for 7 seconds"]={nil,"Chaos Skills inflict up to 15 Withered Debuffs on Hit for 7 seconds "}
-c["Chaos Skills inflict up to 15 Withered Debuffs on Hit for 7 seconds Cannot Inflict Wither on targets that are not on Full Life"]={nil,"Chaos Skills inflict up to 15 Withered Debuffs on Hit for 7 seconds Cannot Inflict Wither on targets that are not on Full Life "}
+c["Chaos Skills inflict up to 15 Withered Debuffs on Hit for 6 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanWither",type="FLAG",value=true}},nil}
+c["Chaos Skills inflict up to 15 Withered Debuffs on Hit for 7 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanWither",type="FLAG",value=true}},nil}
 c["Chaos Spells have 10% chance to Hinder Enemies on Hit"]={nil,"Chaos Spells have 10% chance to Hinder Enemies on Hit "}
 c["Chaos Spells have 10% chance to Hinder Enemies on Hit Enemies Hindered by you take 10% increased Chaos Damage"]={nil,"Chaos Spells have 10% chance to Hinder Enemies on Hit Enemies Hindered by you take 10% increased Chaos Damage "}
 c["Chill Attackers for 4 seconds on Block"]={nil,"Chill Attackers for 4 seconds on Block "}
