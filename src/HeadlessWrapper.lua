@@ -44,7 +44,7 @@ function imageHandleClass:ImageSize()
 end
 
 -- Rendering
-function RenderInit() end
+function RenderInit(flag, ...) end
 function GetScreenSize()
 	return 1920, 1080
 end
@@ -160,6 +160,7 @@ function OpenURL(url) end
 function SetProfiling(isEnabled) end
 function Restart() end
 function Exit() end
+function TakeScreenshot() end
 
 local l_require = require
 function require(name)

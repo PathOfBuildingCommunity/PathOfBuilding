@@ -180,6 +180,12 @@ local function doActorAttribsConditions(env, actor)
 			condList["Using"..slotName] = true
 		end
 	end
+	if actor.itemList["Graft 1"] and actor.itemList["Graft 1"].baseName then
+		condList["Using"..actor.itemList["Graft 1"].baseName:match("%s(%S+)")] = true
+	end
+	if actor.itemList["Graft 2"] and actor.itemList["Graft 2"].baseName then
+		condList["Using"..actor.itemList["Graft 2"].baseName:match("%s(%S+)")] = true
+	end
 	if actor.weaponData2.type then
 		local info = env.data.weaponTypeInfo[actor.weaponData2.type]
 		condList["Using"..info.flag] = true
@@ -214,7 +220,7 @@ local function doActorAttribsConditions(env, actor)
 		if (actor.weaponData1.type == "Dagger" or actor.weaponData1.countsAsAll1H) and (actor.weaponData2.type == "Dagger" or actor.weaponData2.countsAsAll1H) then
 			condList["DualWieldingDaggers"] = true
 		end
-		if (env.data.weaponTypeInfo[actor.weaponData1.type].label or actor.weaponData1.type) ~= (env.data.weaponTypeInfo[actor.weaponData2.type].label or actor.weaponData2.type) then
+		if (env.data.weaponTypeInfo[actor.weaponData1.type].label or actor.weaponData1.subType or actor.weaponData1.type) ~= (env.data.weaponTypeInfo[actor.weaponData2.type].label or actor.weaponData2.subType or actor.weaponData2.type) then
 			local info1 = env.data.weaponTypeInfo[actor.weaponData1.type]
 			local info2 = env.data.weaponTypeInfo[actor.weaponData2.type]
 			if info1.oneHand and info2.oneHand then
@@ -322,7 +328,7 @@ local function doActorAttribsConditions(env, actor)
 			modDB:NewMod("Damage", "MORE", m_floor(4 * shrineEffectMod), "Resonating Shrine", { type = "Multiplier", var = "FrenzyCharge" })
 			modDB:NewMod("PhysicalDamageReduction", "BASE", m_floor(4 * shrineEffectMod), "Resonating Shrine", { type = "Multiplier", var = "EnduranceCharge" })
 			modDB:NewMod("ElementalDamageReduction", "BASE", m_floor(4 * shrineEffectMod), "Resonating Shrine", { type = "Multiplier", var = "EnduranceCharge" })
-			modDB:NewMod("Damage", "INC", m_floor(4 * shrineEffectMod), "Resonating Shrine", { type = "Multiplier", var = "PowerCharge" }, { type = "Multiplier", var = "FrenzyCharge" }, { type = "Multiplier", var = "EnduranceCharge" })
+			modDB:NewMod("Damage", "INC", m_floor(5 * shrineEffectMod), "Resonating Shrine", { type = "Multiplier", varList = { "PowerCharge", "FrenzyCharge", "EnduranceCharge" }})
 		end
 		if modDB:Flag(nil, "LesserAccelerationShrine") and not modDB:Flag(nil, "AccelerationShrine") then
 			modDB:NewMod("ActionSpeed", "INC", m_floor(10 * shrineEffectMod), "Lesser Acceleration Shrine")
@@ -565,10 +571,19 @@ local function determineCursePriority(curseName, activeSkill)
 	return basePriority + socketPriority + slotPriority + sourcePriority
 end
 
-local function applyEnemyModifiers(actor)
-	-- Process enemy modifiers
+local function applyEnemyModifiers(actor, clearCache)
+	if clearCache or not actor.appliedEnemyModifiers then
+		actor.appliedEnemyModifiers = { }
+	end
+	local cache = actor.appliedEnemyModifiers
+	local enemyDB = actor.enemy.modDB
 	for _, value in ipairs(actor.modDB:Tabulate(nil, nil, "EnemyModifier")) do
-		actor.enemy.modDB:AddMod(modLib.setSource(value.value.mod, value.value.mod.source or value.mod.source))
+		local mod = value.value and value.value.mod
+		if mod and not cache[mod] then
+			local source = mod.source or value.mod.source
+			enemyDB:AddMod(modLib.setSource(mod, source))
+			cache[mod] = true
+		end
 	end
 end
 
@@ -852,6 +867,9 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("Multiplier:SoulEater", "BASE", 1, "Base", { type = "Multiplier", var = "SoulEaterStack", limit = max })
 		end
 	end
+	
+	-- Process enemy modifiers
+	applyEnemyModifiers(actor)
 end
 
 -- Process charges
@@ -1170,11 +1188,11 @@ function calcs.perform(env, skipEHP)
 	output.WarcryPower = modDB:Override(nil, "WarcryPower") or modDB:Sum("BASE", nil, "WarcryPower") or 0
 	modDB.multipliers["WarcryPower"] = output.WarcryPower
 
-	applyEnemyModifiers(env.player)
+	applyEnemyModifiers(env.player, true)
 	if env.minion then
-		applyEnemyModifiers(env.minion)
+		applyEnemyModifiers(env.minion, true)
 	end
-	applyEnemyModifiers(env.enemy)
+	applyEnemyModifiers(env.enemy, true)
 
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		if activeSkill.skillTypes[SkillType.Brand] then
@@ -1427,6 +1445,7 @@ function calcs.perform(env, skipEHP)
 
 	local function mergeFlasks(flasks, onlyRecovery, checkNonRecoveryFlasksForMinions)
 		local flaskBuffs = { }
+		local haveFlask = { }
 		local flaskConditions = {}
 		local flaskConditionsNonUtility = {}
 		local flaskBuffsPerBase = {}
@@ -1494,6 +1513,7 @@ function calcs.perform(env, skipEHP)
 			flaskConditions["UsingFlask"] = true
 			flaskConditionsNonUtility["UsingFlask"] = true
 			flaskConditions["Using"..item.baseName:gsub("%s+", "")] = true
+			haveFlask["Have"..item.baseName:gsub("%s+", "")] = true
 			if item.base.flask.life or item.base.flask.mana then
 				flaskConditionsNonUtility["Using"..item.baseName:gsub("%s+", "")] = true
 			end
@@ -1519,6 +1539,9 @@ function calcs.perform(env, skipEHP)
 			else
 				calcFlaskMods(item, item.baseName, item.buffModList, item.modList)
 			end
+		end
+		for haveFlask, status in pairs(haveFlask) do
+			modDB.conditions[haveFlask] = status
 		end
 		if modDB:Flag(nil, "UtilityFlasksDoNotApplyToPlayer") then
 			for flaskCond, status in pairs(flaskConditionsNonUtility) do
@@ -2303,7 +2326,13 @@ function calcs.perform(env, skipEHP)
 			elseif buff.type == "Curse" or buff.type == "CurseBuff" then
 				local mark = activeSkill.skillTypes[SkillType.Mark]
 				modDB.conditions["SelfCast"..buff.name:gsub(" ","")] = not (activeSkill.skillTypes[SkillType.Triggered] or activeSkill.skillTypes[SkillType.Aura])
-				if env.mode_effective and (not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof") or activeSkill.skillData.ignoreHexLimit or activeSkill.skillData.ignoreHexproof) or mark then
+				local skipCurse = false
+				local configVar = "balanceOfTerrorSelfCast"..buff.name:gsub(" ", "")
+				if configVar and env.configInput[configVar] and not mark then
+					-- User flagged this curse as Balance of Terror self-only, so don't apply it to enemies.
+					skipCurse = true
+				end
+				if (not skipCurse) and (env.mode_effective and (not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof") or activeSkill.skillData.ignoreHexLimit or activeSkill.skillData.ignoreHexproof) or mark) then
 					local curse = {
 						name = buff.name,
 						fromPlayer = true,

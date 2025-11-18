@@ -693,7 +693,7 @@ local function defaultTriggerHandler(env, config)
 			end
 
 			if env.player.mainSkill.activeEffect.grantedEffect.name == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "vixen" then
-				if not env.player.itemList["Gloves"] or env.player.itemList["Gloves"].title ~= "Vixen's Entrapment" then
+				if not env.player.itemList["Gloves"] or not env.player.itemList["Gloves"].title:match("Vixen's Entrapment") then
 					output.VixenModeNoVixenGlovesWarn = true
 				end
 
@@ -905,6 +905,7 @@ local configTable = {
 	["the surging thoughts"] = function(env)
 		if env.player.mainSkill.activeEffect.grantedEffect.name == "Storm Cascade" then
 			return {
+				triggerOnUse = true,
 				triggerSkillCond = function(env, skill)
 					return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack])
 				end

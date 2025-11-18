@@ -1039,8 +1039,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 						if otherRing.elder or otherRing.shaper then
 							env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) + 1
 						end
+						-- Esh of the Storm, Tul of the Blizzard
+						local otherRingKey = otherRing.baseName:gsub(" ", "").."Equipped"
+						if otherRingKey then
+							env.itemModDB.multipliers[otherRingKey] = (env.itemModDB.multipliers[otherRingKey] or 0) + 1
+						end
 					end
-
 					-- Only ExtraSkill implicit mods work (none should but this is likely an in game bug)
 					for _, mod in ipairs(srcList) do
 						if mod.name == "ExtraSkill" then
@@ -1098,6 +1102,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 					-- Update item counts
 					local key
 					if item.rarity == "UNIQUE" or item.rarity == "RELIC" then
+						if item.foulborn then
+							env.itemModDB.multipliers["FoulbornUniqueItem"] = (env.itemModDB.multipliers["FoulbornUniqueItem"] or 0) + 1
+						end
 						key = "UniqueItem"
 					elseif item.rarity == "RARE" then
 						key = "RareItem"
@@ -1119,6 +1126,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 						env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) + 1
 					end
 					env.itemModDB.multipliers[item.type:gsub(" ", ""):gsub(".+Handed", "").."Item"] = (env.itemModDB.multipliers[item.type:gsub(" ", ""):gsub(".+Handed", "").."Item"] or 0) + 1
+					-- base ring count, e.g. Cryonic, Synaptic for Breachlord Esh of the Storm, Tul of the Blizzard
+					if item.type == "Ring" then
+						local key = item.baseName:gsub(" ", "").."Equipped"
+						env.itemModDB.multipliers[key] = (env.itemModDB.multipliers[key] or 0) + 1
+					end
 					-- Calculate socket counts
 					local slotEmptySocketsCount = { R = 0, G = 0, B = 0, W = 0}	
 					local slotGemSocketsCount = 0
