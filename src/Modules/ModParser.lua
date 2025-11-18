@@ -5718,7 +5718,7 @@ local jewelOtherFuncs = {
 	["(%d+)%% increased Effect of non%-Keystone Passive Skills in Radius"] = function(num)
 		return function(node, out, data)
 			if node and node.type ~= "Keystone" and node.type ~= "ClassStart" then
-				out:NewMod("PassiveSkillEffect", "INC", num, data.modSource)
+				out:NewMod("PassiveSkillEffect", "INC", tonumber(num), data.modSource)
 			end
 		end
 	end,
@@ -5730,7 +5730,7 @@ local jewelOtherFuncs = {
 	["(%d+)%% increased effect of Tattoos in Radius"] = function(num)
 		return function(node, out, data)
 			if node and node.isTattoo then
-				out:NewMod("PassiveSkillEffect", "INC", num, data.modSource)
+				out:NewMod("PassiveSkillEffect", "INC", tonumber(num), data.modSource)
 			end
 		end
 	end,
@@ -5841,7 +5841,7 @@ local jewelOtherFuncs = {
 		return function(node, out, data)
 			if node and node.type == "Notable" then
 				out:NewMod("PassiveSkillHasOtherEffect", "FLAG", true, data.modSource)
-				out:NewMod("NodeModifier", "LIST", { mod = mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", -num, data.modSource) }) }, data.modSource)
+				out:NewMod("NodeModifier", "LIST", { mod = mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", -tonumber(num), data.modSource) }) }, data.modSource)
 			end
 		end
 	end,
