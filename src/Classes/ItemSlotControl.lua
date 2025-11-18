@@ -47,7 +47,7 @@ local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl", function(se
 	self.tooltipFunc = function(tooltip, mode, index, itemId)
 		local item = itemsTab.items[self.items[index]]
 		if main.popups[1] or mode == "OUT" or not item or (not self.dropped and itemsTab.selControl and itemsTab.selControl ~= self.controls.activate) then
-			tooltip:Clear()
+			tooltip:Clear(true)
 		elseif tooltip:CheckForUpdate(item, launch.devModeAlt, itemsTab.build.outputRevision) then
 			itemsTab:AddItemTooltip(tooltip, item, self)
 		end
