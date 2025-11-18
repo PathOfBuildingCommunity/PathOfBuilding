@@ -3599,7 +3599,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		end
 
 		if flavourTable then
-			if item.title == "Grand Spectrum" then
+			if item.title:match("Grand Spectrum") then
 				local selectedFlavourId = nil
 				for _, lineEntry in ipairs(tooltip.lines or {}) do
 					local lineText = lineEntry.text or ""
