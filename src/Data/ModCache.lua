@@ -12634,8 +12634,8 @@ c["Your Hits treat Cold Resistance as 10% higher than actual value"]={{[1]={flag
 c["Your Lightning Damage can Freeze but not Shock"]={{[1]={flags=0,keywordFlags=0,name="LightningCanFreeze",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="LightningCannotShock",type="FLAG",value=true}},nil}
 c["Your Lightning Damage can Ignite"]={{[1]={flags=0,keywordFlags=0,name="LightningCanIgnite",type="FLAG",value=true}},nil}
 c["Your Lightning Damage can Poison"]={{[1]={flags=0,keywordFlags=0,name="LightningCanPoison",type="FLAG",value=true}},nil}
-c["Your Linked Minions take 65% less Damage"]={nil,"Your Linked Minions take 65% less Damage "}
-c["Your Linked Minions take 65% less Damage On Killing a Rare monster, a random Linked Minion gains its Modifiers for 60 seconds"]={nil,"Your Linked Minions take 65% less Damage On Killing a Rare monster, a random Linked Minion gains its Modifiers for 60 seconds "}
+c["Your Linked Minions take 65% less Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={type="Condition",var="AffectedByLink"},flags=0,keywordFlags=0,name="DamageTaken",type="MORE",value=-65}}}},nil}
+c["Your Linked Minions take 70% less Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={type="Condition",var="AffectedByLink"},flags=0,keywordFlags=0,name="DamageTaken",type="MORE",value=-70}}}},nil}
 c["Your Lucky or Unlucky effects are instead Unexciting"]={{[1]={flags=0,keywordFlags=0,name="Unexciting",type="FLAG",value=true}},nil}
 c["Your Lucky or Unlucky effects use the best or"]={nil,"Your Lucky or Unlucky effects use the best or "}
 c["Your Lucky or Unlucky effects use the best or worst from three rolls instead of two"]={{[1]={flags=0,keywordFlags=0,name="ExtremeLuck",type="FLAG",value=true}},nil}
