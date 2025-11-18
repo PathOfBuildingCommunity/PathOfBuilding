@@ -867,7 +867,7 @@ function main:OpenOptionsPopup()
 	end
 
 	local defaultLabelSpacingPx = -4
-	local defaultLabelPlacementX = 240
+	local defaultLabelPlacementX = popupWidth*0.45
 
 	drawSectionHeader("app", "Application options")
 
@@ -1064,7 +1064,15 @@ function main:OpenOptionsPopup()
 		self.slotOnlyTooltips = state
 	end)
 	controls.slotOnlyTooltips.state = self.slotOnlyTooltips
-	
+
+
+	nextRow()
+	controls.migrateEldritchImplicits = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, currentY, 20 }, "^7Copy Eldritch Implicits onto Display Item:", function(state)
+		self.migrateEldritchImplicits = state
+	end)
+	controls.migrateEldritchImplicits.tooltipText = "Carry over Eldritch Implicits from current gear when comparing new gear, given the new item does not already have Eldritch Implicits"
+	controls.migrateEldritchImplicits.state = self.migrateEldritchImplicits
+
 	nextRow()
 	controls.notSupportedModTooltips = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, currentY, 20 }, "^7Show tooltip for unsupported mods :", function(state)
 		self.notSupportedModTooltips = state
