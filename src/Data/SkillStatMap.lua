@@ -405,6 +405,9 @@ return {
 ["base_spell_block_%"] = {
 	mod("SpellBlockChance", "BASE", nil),
 },
+["block_while_dual_wielding_%"] = {
+	mod("BlockChance", "BASE", nil, 0, 0, { type = "Condition", var = "DualWielding" }),
+},
 ["base_block_%_damage_taken"] = {
 	mod("BlockEffect", "BASE", nil)
 },
@@ -1505,6 +1508,9 @@ return {
 ["active_skill_attack_speed_+%_final"] = {
 	mod("Speed", "MORE", nil, ModFlag.Attack),
 },
+["dual_wield_inherent_attack_speed_+%_final"] = {
+	mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "Condition", var = "DualWielding" }),
+},
 ["base_attack_speed_+%_per_frenzy_charge"] = {
 	mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "FrenzyCharge" }),
 },
@@ -1539,6 +1545,12 @@ return {
 	mod("PhysicalMin", "BASE", nil, ModFlag.Weapon, KeywordFlag.Attack),
 },
 ["attack_maximum_added_physical_damage_with_weapons"] = {
+	mod("PhysicalMax", "BASE", nil, ModFlag.Weapon, KeywordFlag.Attack),
+},
+["main_hand_local_minimum_added_physical_damage"] = {
+	mod("PhysicalMin", "BASE", nil, ModFlag.Weapon, KeywordFlag.Attack),
+},
+["main_hand_local_maximum_added_physical_damage"] = {
 	mod("PhysicalMax", "BASE", nil, ModFlag.Weapon, KeywordFlag.Attack),
 },
 ["attack_minimum_added_lightning_damage"] = {
@@ -2112,6 +2124,41 @@ return {
 },
 ["base_cannot_be_damaged"] = {
 	mod("Condition:CannotBeDamaged", "FLAG", nil)
+},
+["base_cannot_be_stunned"] = {
+	flag("StunImmune"),
+},
+["cannot_be_knocked_back"] = {
+	flag("KnockbackImmune"),
+},
+["set_immune_to_curses"] = {
+	flag("CurseImmune"),
+},
+["set_maximum_life_is_one"] = {
+	mod("Life", "OVERRIDE", nil),
+},
+["set_max_frenzy_charges"] = {
+	mod("FrenzyChargesMax", "OVERRIDE", nil),
+},
+["set_energy_shield_recharge_rate_per_minute_%"] = {
+	mod("EnergyShieldRecharge", "OVERRIDE", nil),
+	div = 60 * 100
+},
+["set_max_endurance_charges"] = {
+	mod("EnduranceChargesMax", "OVERRIDE", nil),
+},
+["set_max_power_charges"] = {
+	mod("PowerChargesMax", "OVERRIDE", nil),
+},
+["set_base_avoid_projectiles_%_chance"] = {
+	mod("AvoidProjectilesChance", "BASE", nil),
+},
+["monster_inherent_damage_taken_+%_final"] = {
+	mod("DamageTaken", "MORE", nil),
+},
+["set_base_cannot_be_damaged"] = {
+	mod("DamageTaken", "MORE", nil),
+	value = -100,
 },
 --
 -- Gem Levels

@@ -84,8 +84,6 @@ local minions, mod = ...
 #emit
 
 #monster Metadata/Monsters/AnimatedItem/AnimatedArmour AnimatedArmour
-#mod mod("Speed", "MORE", 10, ModFlag.Attack, 0, { type = "Condition", var = "DualWielding" })
-#mod mod("BlockChance", "BASE", 15, 0, 0, { type = "Condition", var = "DualWielding" })
 #emit
 
 #monster Metadata/Monsters/IcyRagingSpirit/IcyRagingSpirit IcyRagingSpirit
