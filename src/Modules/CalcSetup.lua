@@ -1099,10 +1099,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 					local key
 					if item.rarity == "UNIQUE" or item.rarity == "RELIC" then
 						if item.foulborn then
-							key = "FoulbornUniqueItem"
-						else
-							key = "UniqueItem"
+							env.itemModDB.multipliers["FoulbornUniqueItem"] = (env.itemModDB.multipliers["FoulbornUniqueItem"] or 0) + 1
 						end
+						key = "UniqueItem"
 					elseif item.rarity == "RARE" then
 						key = "RareItem"
 					elseif item.rarity == "MAGIC" then
@@ -1126,7 +1125,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					-- base ring count, e.g. Cryonic, Synaptic for Breachlord
 					if item.type == "Ring" then
 						if item.name:match("Kalandra's Touch") then
-							env.itemModDB.multipliers["KalandrasEquipped"] = 1 -- if we see Kalandra first, set the +1 for the other ring
+							env.itemModDB.multipliers["KalandraEquipped"] = 1 -- if we see Kalandra first, set the +1 for the other ring
 							for key, val in pairs(env.itemModDB.multipliers) do -- if we see Kalandra second, increment the other ring's multiplier
 								if key:match("RingEquipped") then
 									env.itemModDB.multipliers[key] = val + 1
@@ -1135,7 +1134,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 							end
 						else
 							local key = item.baseName:gsub(" ", "").."Equipped"
-							env.itemModDB.multipliers[key] = (env.itemModDB.multipliers[key] or 0) + 1 + (env.itemModDB.multipliers["KalandrasEquipped"] or 0)
+							env.itemModDB.multipliers[key] = (env.itemModDB.multipliers[key] or 0) + 1 + (env.itemModDB.multipliers["KalandraEquipped"] or 0)
 						end
 					end
 					-- Calculate socket counts
