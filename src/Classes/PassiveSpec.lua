@@ -663,6 +663,52 @@ function PassiveSpecClass:IsClassConnected(classId)
 	return false
 end
 
+-- Find and allocate the shortest path to connect to a target class's starting node
+function PassiveSpecClass:ConnectToClass(classId)
+	local targetStartNode = self.nodes[self.tree.classes[classId].startNodeId]
+	if not targetStartNode then
+		return false
+	end
+	
+	-- Find all currently allocated nodes
+	local allocatedNodes = {}
+	for nodeId, node in pairs(self.allocNodes) do
+		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
+			t_insert(allocatedNodes, node)
+		end
+	end
+	
+	-- Find the shortest path from any allocated node to any node connected to the target start
+	local shortestPath = nil
+	local shortestLength = 999999
+	
+	for _, allocNode in ipairs(allocatedNodes) do
+		-- Check each node connected to the target class start
+		for _, targetNode in ipairs(targetStartNode.linked) do
+			if not targetNode.alloc and targetNode.path then
+				-- Calculate distance from allocated node to this target node
+				local pathLength = #targetNode.path
+				if pathLength < shortestLength then
+					shortestLength = pathLength
+					shortestPath = targetNode.path
+				end
+			end
+		end
+	end
+	
+	-- Allocate the shortest path found
+	if shortestPath and #shortestPath > 0 then
+		for _, node in ipairs(shortestPath) do
+			if not node.alloc then
+				self:AllocNode(node)
+			end
+		end
+		return true
+	end
+	
+	return false
+end
+
 -- Clear the allocated status of all non-class-start nodes
 function PassiveSpecClass:ResetNodes()
 	for id, node in pairs(self.nodes) do
