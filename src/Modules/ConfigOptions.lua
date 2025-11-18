@@ -1875,7 +1875,7 @@ Huge sets the radius to 11.
 		-- These defaults are here so that the placeholders get reset correctly
 		build.configTab.varControls['enemySpeed']:SetPlaceholder(700, true)
 		build.configTab.varControls['enemyCritChance']:SetPlaceholder(5, true)
-		build.configTab.varControls['enemyCritDamage']:SetPlaceholder(30, true)
+		build.configTab.varControls['enemyCritDamage']:SetPlaceholder(data.monsterConstants["base_critical_strike_multiplier"] - 100, true)
 		if val == "None" then
 			local defaultResist = ""
 			build.configTab.varControls['enemyLightningResist']:SetPlaceholder(defaultResist, true)
@@ -2152,7 +2152,7 @@ Huge sets the radius to 11.
 		enemyModList:NewMod("MultiplierPvpDamage", "BASE", val, "Config")
 	end },
 	{ var = "enemyCritChance", type = "countAllowZero", label = "Enemy critical strike chance:", defaultPlaceholderState = 5 },
-	{ var = "enemyCritDamage", type = "countAllowZero", label = "Enemy critical strike multiplier:", defaultPlaceholderState = 30 },
+	{ var = "enemyCritDamage", type = "countAllowZero", label = "Enemy critical strike multiplier:", defaultPlaceholderState = data.monsterConstants["base_critical_strike_multiplier"] - 100 },
 	{ var = "enemyPhysicalDamage", type = "countAllowZero", label = "Enemy Skill Physical Damage:", tooltip = "This overrides the default damage amount used to estimate your damage reduction from armour.\nThe default is 1.5 times the enemy's base damage, which is the same value\nused in-game to calculate the estimate shown on the character sheet.", defaultPlaceholderState = 7 },
 	{ var = "enemyPhysicalOverwhelm", type = "countAllowZero", label = "Enemy Skill Physical Overwhelm:"},
 	{ var = "enemyLightningDamage", type = "countAllowZero", label = "Enemy Skill ^xADAA47Lightning Damage:"},

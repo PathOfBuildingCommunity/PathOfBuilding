@@ -48,6 +48,48 @@ for row in dat("GameConstants"):Rows() do
 end
 out:write('}\n')
 
+out:write('-- From Metadata/Characters/Character.ot\n')
+out:write('data.characterConstants = {\n')
+local file = getFile("Metadata/Characters/Character.ot")
+if not file then return nil end
+local text = convertUTF16to8(file)
+local inWantedBlock = false
+for line in text:gmatch("[^\r\n]+") do
+	-- Detect start of a block
+	if line:match("^Stats") or line:match("^Pathfinding") then
+		inWantedBlock = true
+	elseif inWantedBlock and line:match("^}") then
+		inWantedBlock = false
+	elseif inWantedBlock and line:find("=") then
+		local key, value = line:gsub("%s+",""):match("^(.-)=(.+)$")
+		if key and value then
+			out:write('\t["' .. key .. '"] = ' .. value .. ',\n')
+		end
+	end
+end
+out:write('}\n')
+
+out:write('-- From Metadata/Monsters/Monster.ot\n')
+out:write('data.monsterConstants = {\n')
+local file = getFile("Metadata/Monsters/Monster.ot")
+if not file then return nil end
+local text = convertUTF16to8(file)
+local inWantedBlock = false
+for line in text:gmatch("[^\r\n]+") do
+	-- Detect start of a block
+	if line:match("^Stats") then
+		inWantedBlock = true
+	elseif inWantedBlock and line:match("^}") then
+		inWantedBlock = false
+	elseif inWantedBlock and line:find("=") then
+		local key, value = line:gsub("%s+",""):match("^(.-)=(.+)$")
+		if key and value then
+			out:write('\t["' .. key .. '"] = ' .. value .. ',\n')
+		end
+	end
+end
+out:write('}\n')
+
 local totemMult = ""
 local keys = { }
 for var in dat("SkillTotemVariations"):Rows() do

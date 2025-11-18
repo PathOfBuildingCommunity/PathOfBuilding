@@ -308,6 +308,10 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/StatDescriptions/tincture_stat_descriptions.txt",
 		"Metadata/StatDescriptions/graft_stat_descriptions.txt",
 	}
+	local otFiles = {
+		"Metadata/Characters/Character.ot",
+		"Metadata/Monsters/Monster.ot",
+	}
 	local itFiles = {
 		"Metadata/Items/Quivers/AbstractQuiver.it",
 		"Metadata/Items/Rings/AbstractRing.it",
@@ -351,5 +355,5 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/Items/Tinctures/AbstractTincture.it",
 		"Metadata/Items/Jewels/AbstractAnimalCharm.it",
 	}
-	return datFiles, txtFiles, itFiles
+	return datFiles, txtFiles, otFiles, itFiles
 end
