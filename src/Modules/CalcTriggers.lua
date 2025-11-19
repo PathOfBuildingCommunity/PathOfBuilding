@@ -1431,7 +1431,14 @@ local configTable = {
 					useCastRate = true}
 		end
 	end,
-	["supporttriggerelementalspellonblock"] = function(env) -- Svalinn Girded Tower Shield
+	["svalinn cast on block"] = function(env) -- Svalinn Girded Tower Shield
+		env.player.mainSkill.skillFlags.globalTrigger = true
+		return {source = env.player.mainSkill,
+				triggeredSkillCond = function(env, skill)
+					return slotMatch(env, skill) and skill.triggeredBy and calcLib.canGrantedEffectSupportActiveSkill(skill.triggeredBy.grantedEffect, skill)
+				end}
+	end,
+	["festering resentment cast on block"] = function(env) -- Festering Resentment Demon Dagger
 		env.player.mainSkill.skillFlags.globalTrigger = true
 		return {source = env.player.mainSkill,
 				triggeredSkillCond = function(env, skill)

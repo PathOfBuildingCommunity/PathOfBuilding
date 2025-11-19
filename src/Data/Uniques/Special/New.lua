@@ -51,7 +51,7 @@ Trigger a Socketed Spell when you Block, with a 0.25 second Cooldown
 +(30-45)% Chance to Block Spell Damage while in Off Hand
 (100-150)% increased Spell Damage
 (100-150)% increased Damage with Poison
-Triggered Skills Poison on Hit
+Triggered Spells Poison on Hit
 All Damage with Triggered Spells can Poison
 ]],[[
 Hand of the Lords

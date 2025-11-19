@@ -1330,6 +1330,7 @@ c["+38 to all Attributes"]={{[1]={flags=0,keywordFlags=0,name="Str",type="BASE",
 c["+38 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=38}},nil}
 c["+38 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=38}},nil}
 c["+38 to maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="BASE",value=38}},nil}
+c["+38% Chance to Block Spell Damage while in Off Hand"]={{[1]={[1]={num=2,type="SlotNumber"},flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=38}},nil}
 c["+38% to Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=38}},nil}
 c["+38% to Global Critical Strike Multiplier"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=38}},nil}
 c["+38% to Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningResist",type="BASE",value=38}},nil}
@@ -1435,8 +1436,7 @@ c["+45 to all Attributes"]={{[1]={flags=0,keywordFlags=0,name="Str",type="BASE",
 c["+45 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=45}},nil}
 c["+45 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=45}},nil}
 c["+45 to maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="BASE",value=45}},nil}
-c["+45% Chance to Block Spell Damage while in Off Hand"]={{[1]={[1]={num=2,type="InSlot"},flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=45}},"  while  "}
-c["+45% Chance to Block Spell Damage while in Off Hand 150% increased Spell Damage"]={{[1]={[1]={num=2,type="InSlot"},flags=2,keywordFlags=0,name="SpellBlockChance",type="BASE",value=45}},"  while  150% increased  Damage "}
+c["+45% Chance to Block Spell Damage while in Off Hand"]={{[1]={[1]={num=2,type="SlotNumber"},flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=45}},nil}
 c["+45% Critical Strike Multiplier while there is a Rare or Unique Enemy Nearby"]={{[1]={[1]={actor="enemy",type="ActorCondition",varList={[1]="NearbyRareOrUniqueEnemy",[2]="RareOrUnique"}},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=45}},nil}
 c["+45% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=45}},nil}
 c["+45% to Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=45}},nil}
@@ -7201,7 +7201,7 @@ c["All Damage inflicts Poison while affected by Glorious Madness"]={{[1]={[1]={t
 c["All Damage taken bypasses Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="PhysicalEnergyShieldBypass",type="OVERRIDE",value=100},[2]={flags=0,keywordFlags=0,name="LightningEnergyShieldBypass",type="OVERRIDE",value=100},[3]={flags=0,keywordFlags=0,name="ColdEnergyShieldBypass",type="OVERRIDE",value=100},[4]={flags=0,keywordFlags=0,name="FireEnergyShieldBypass",type="OVERRIDE",value=100},[5]={flags=0,keywordFlags=0,name="ChaosEnergyShieldBypass",type="OVERRIDE",value=100}},nil}
 c["All Damage with Hits can Chill"]={{[1]={flags=0,keywordFlags=0,name="PhysicalCanChill",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="FireCanChill",type="FLAG",value=true},[3]={flags=0,keywordFlags=0,name="LightningCanChill",type="FLAG",value=true},[4]={flags=0,keywordFlags=0,name="ChaosCanChill",type="FLAG",value=true}},nil}
 c["All Damage with Maces and Sceptres inflicts Chill"]={{[1]={[1]={type="Condition",var="UsingMace"},flags=0,keywordFlags=0,name="PhysicalCanChill",type="FLAG",value=true},[2]={[1]={type="Condition",var="UsingMace"},flags=0,keywordFlags=0,name="LightningCanChill",type="FLAG",value=true},[3]={[1]={type="Condition",var="UsingMace"},flags=0,keywordFlags=0,name="FireCanChill",type="FLAG",value=true},[4]={[1]={type="Condition",var="UsingMace"},flags=0,keywordFlags=0,name="ChaosCanChill",type="FLAG",value=true}},nil}
-c["All Damage with Triggered Spells can Poison"]={nil,"All Damage with Triggered Spells can Poison "}
+c["All Damage with Triggered Spells can Poison"]={{[1]={[1]={skillType=41,type="SkillType"},flags=0,keywordFlags=131072,name="FireCanPoison",type="FLAG",value=true},[2]={[1]={skillType=41,type="SkillType"},flags=0,keywordFlags=131072,name="ColdCanPoison",type="FLAG",value=true},[3]={[1]={skillType=41,type="SkillType"},flags=0,keywordFlags=131072,name="LightningCanPoison",type="FLAG",value=true}},nil}
 c["All Elemental Damage Converted to Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdDamageConvertToChaos",type="BASE",value=100},[2]={flags=0,keywordFlags=0,name="FireDamageConvertToChaos",type="BASE",value=100},[3]={flags=0,keywordFlags=0,name="LightningDamageConvertToChaos",type="BASE",value=100}},nil}
 c["All Hits with your next Non-Channelling Attack within 4 seconds of taking a Critical Strike will be Critical Strikes"]={{[1]={[1]={type="Condition",var="BeenCritRecently"},[2]={neg=true,skillType=57,type="SkillType"},[3]={skillType=1,type="SkillType"},flags=0,keywordFlags=0,name="CritChance",type="OVERRIDE",value=100}},nil}
 c["All Sockets are White"]={{},nil}
@@ -12068,8 +12068,7 @@ c["Trigger a Socketed Spell when a Hit from this"]={nil,"Trigger a Socketed Spel
 c["Trigger a Socketed Spell when a Hit from this Weapon Freezes a Target, with a 0.25 second Cooldown"]={nil,"Trigger a Socketed Spell when a Hit from this Weapon Freezes a Target, with a 0.25 second Cooldown "}
 c["Trigger a Socketed Spell when you Attack with a Bow, with a 0.3 second Cooldown"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=1,skillId="SupportTriggerSpellOnBowAttack"}}},nil}
 c["Trigger a Socketed Spell when you Attack with this Weapon, with a 0.25 second Cooldown"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=1,skillId="SupportTriggerSpellOnAttack"}}},nil}
-c["Trigger a Socketed Spell when you Block, with a 0.25 second Cooldown"]={nil,"Trigger a Socketed Spell when you Block, with a 0.25 second Cooldown "}
-c["Trigger a Socketed Spell when you Block, with a 0.25 second Cooldown +45% Chance to Block Spell Damage while in Off Hand"]={nil,"Trigger a Socketed Spell when you Block, with a 0.25 second Cooldown +45% Chance to Block Spell Damage while in Off Hand "}
+c["Trigger a Socketed Spell when you Block, with a 0.25 second Cooldown"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=1,skillId="SupportUniqueVirulenceSpellsCastOnBlock"}}},nil}
 c["Trigger a Socketed Spell when you Use a Skill, with a 4 second Cooldown"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=1,skillId="SupportTriggerSpellOnSkillUse"}}},nil}
 c["Trigger a Socketed Spell when you Use a Skill, with a 8 second Cooldown"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=1,skillId="SupportTriggerSpellOnSkillUse"}}},nil}
 c["Trigger a Socketed Warcry Skill on losing Endurance Charges, with a 0.25 second Cooldown"]={nil,"Trigger a Socketed Warcry Skill on losing Endurance Charges, with a 0.25 second Cooldown "}
@@ -12090,8 +12089,7 @@ c["Trigger level 1 Summon Spirit of Maata Skill when you reach Low Life while a 
 c["Trigger level 1 Summon Spirit of Rakiata Skill on Critical Strike against Marked Unique Enemy"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=1,skillId="TriggerSummonedAncestorRakiata",triggered=true}},[2]={[1]={skillId="TriggerSummonedAncestorRakiata",type="SkillId"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="triggerOnCrit",value=true}}}}},nil}
 c["Trigger level 1 Summon Spirit of Tawhanuku Skill when Energy Shield Recharge starts while a Unique Enemy is in your Presence"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=1,skillId="TriggerSummonedAncestorTawhanuku",triggered=true}}},nil}
 c["Trigger level 1 Summon Spirit of Utula Skill on taking a Savage Hit from a Unique Enemy"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=1,skillId="TriggerSummonedAncestorUtula",triggered=true}}},nil}
-c["Triggered Skills Poison on Hit"]={nil,"Triggered Skills Poison on Hit "}
-c["Triggered Skills Poison on Hit All Damage with Triggered Spells can Poison"]={nil,"Triggered Skills Poison on Hit All Damage with Triggered Spells can Poison "}
+c["Triggered Spells Poison on Hit"]={{[1]={[1]={skillType=41,type="SkillType"},flags=0,keywordFlags=131072,name="PoisonChance",type="BASE",value=100}},nil}
 c["Triggers Level 15 Manifest Dancing Dervishes on Rampage"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=15,skillId="ManifestDancingDervishes",triggered=true}}},nil}
 c["Triggers Level 20 Blinding Aura when Equipped"]={{},nil}
 c["Triggers Level 20 Cold Aegis when Equipped"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="ColdAegis",triggered=true}}},nil}

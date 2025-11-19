@@ -1101,7 +1101,11 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
-#skill SupportTriggerElementalSpellOnBlock
+#skill SupportTriggerElementalSpellOnBlock Svalinn Cast on Block
+	fromItem = true,
+#mods
+
+#skill SupportUniqueVirulenceSpellsCastOnBlock Festering Resentment Cast on Block
 	fromItem = true,
 #mods
 
