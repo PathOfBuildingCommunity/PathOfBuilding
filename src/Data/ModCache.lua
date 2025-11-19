@@ -4557,8 +4557,7 @@ c["25% reduced Flask Effect Duration"]={{[1]={flags=0,keywordFlags=0,name="Flask
 c["25% reduced Golem Size"]={{},"  Size "}
 c["25% reduced Golem Size Golems Deal 45% less Damage"]={{[1]={[1]={skillType=61,type="SkillType"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=-25}}}},"  Size Golems Deal 45% less  "}
 c["25% reduced Ignite Duration on Enemies"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteDuration",type="INC",value=-25}},nil}
-c["25% reduced Impale Duration"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="INC",value=-25}}," Impale  "}
-c["25% reduced Impale Duration 60% chance on Melee Hit for the Strongest Impale on target to last for 1 additional Hit"]={{[1]={flags=260,keywordFlags=0,name="Duration",type="INC",value=-25}}," Impale  60% chance  for the Strongest Impale on target to last for 1 additional Hit "}
+c["25% reduced Impale Duration"]={{[1]={flags=0,keywordFlags=0,name="ImpaleDuration",type="INC",value=-25}},nil}
 c["25% reduced Light Radius"]={{[1]={flags=0,keywordFlags=0,name="LightRadius",type="INC",value=-25}},nil}
 c["25% reduced Mana Cost of Minion Skills"]={{[1]={[1]={skillType=9,type="SkillType"},flags=0,keywordFlags=0,name="ManaCost",type="INC",value=-25}},nil}
 c["25% reduced Mana Recovery from Flasks"]={{[1]={flags=0,keywordFlags=0,name="FlaskManaRecovery",type="INC",value=-25}},nil}
@@ -5057,6 +5056,7 @@ c["33% increased Melee Damage"]={{[1]={flags=256,keywordFlags=0,name="Damage",ty
 c["33% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=33}},nil}
 c["33% of Chaos Damage taken does not bypass Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ChaosEnergyShieldBypass",type="BASE",value=-33}},nil}
 c["33% of Non-Chaos Damage taken bypasses Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="PhysicalEnergyShieldBypass",type="BASE",value=33},[2]={flags=0,keywordFlags=0,name="LightningEnergyShieldBypass",type="BASE",value=33},[3]={flags=0,keywordFlags=0,name="ColdEnergyShieldBypass",type="BASE",value=33},[4]={flags=0,keywordFlags=0,name="FireEnergyShieldBypass",type="BASE",value=33}},nil}
+c["33% reduced Impale Duration"]={{[1]={flags=0,keywordFlags=0,name="ImpaleDuration",type="INC",value=-33}},nil}
 c["330% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=330}},nil}
 c["333% increased Armour and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEnergyShield",type="INC",value=333}},nil}
 c["34% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=34}},nil}
@@ -5789,7 +5789,7 @@ c["50% increased Global Defences"]={{[1]={[1]={type="Global"},flags=0,keywordFla
 c["50% increased Global Evasion Rating when on Low Life"]={{[1]={[1]={type="Global"},[2]={type="Condition",var="LowLife"},flags=0,keywordFlags=0,name="Evasion",type="INC",value=50}},nil}
 c["50% increased Herald of Ice Damage"]={{[1]={[1]={includeTransfigured=true,skillName="Herald of Ice",type="SkillName"},flags=0,keywordFlags=0,name="Damage",type="INC",value=50}},nil}
 c["50% increased Ignite Duration on Enemies"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteDuration",type="INC",value=50}},nil}
-c["50% increased Impale Duration"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="INC",value=50}}," Impale  "}
+c["50% increased Impale Duration"]={{[1]={flags=0,keywordFlags=0,name="ImpaleDuration",type="INC",value=50}},nil}
 c["50% increased Life Leeched per second"]={{[1]={flags=0,keywordFlags=0,name="LifeLeechRate",type="INC",value=50}},nil}
 c["50% increased Life Recovered"]={{[1]={flags=0,keywordFlags=0,name="FlaskRecovery",type="INC",value=50}},nil}
 c["50% increased Light Radius"]={{[1]={flags=0,keywordFlags=0,name="LightRadius",type="INC",value=50}},nil}

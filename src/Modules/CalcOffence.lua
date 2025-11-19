@@ -1574,6 +1574,24 @@ function calcs.offence(env, actor, activeSkill)
 			t_insert(breakdown.TotemDuration, s_format("rounded up to nearest server tick"))
 			t_insert(breakdown.TotemDuration, s_format("= %.3fs", output.TotemDuration))
 		end
+		output.ImpaleDurationMod = calcLib.mod(skillModList, skillCfg, "ImpaleDuration")
+		output.ImpaleDurationMod = m_max(output.ImpaleDurationMod, 0)
+		local ImpaleDurationBase = data.characterConstants["impaled_debuff_base_duration_ms"] / 1000
+		output.ImpaleDuration = m_ceil(ImpaleDurationBase * output.ImpaleDurationMod * data.misc.ServerTickRate * debuffDurationMult) / data.misc.ServerTickRate
+		if breakdown then
+			breakdown.ImpaleDurationMod = breakdown.mod(skillModList, skillCfg, "ImpaleDuration")
+			breakdown.ImpaleDuration = {
+				s_format("%.2fs ^8(base)", ImpaleDurationBase),
+			}
+			if debuffDurationMult ~= 1 then
+				t_insert(breakdown.ImpaleDuration, s_format("/ %.3f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+			end
+			if output.ImpaleDurationMod ~= 1 then
+				t_insert(breakdown.ImpaleDuration, s_format("x %.4f ^8(duration modifier)", output.ImpaleDurationMod))
+			end
+			t_insert(breakdown.ImpaleDuration, s_format("rounded up to nearest server tick"))
+			t_insert(breakdown.ImpaleDuration, s_format("= %.3fs", output.ImpaleDuration))
+		end
 	end
 
 	-- Skill uptime

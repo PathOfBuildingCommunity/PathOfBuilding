@@ -537,6 +537,7 @@ local modNameList = {
 	["effect of impales you inflict"] = "ImpaleEffect",
 	["effects of impale inflicted"] = "ImpaleEffect", -- typo / old wording change
 	["effect of impales inflicted"] = "ImpaleEffect",
+	["impale duration"] = "ImpaleDuration",
 	-- Projectile modifiers
 	["projectile"] = "ProjectileCount",
 	["projectiles"] = "ProjectileCount",
