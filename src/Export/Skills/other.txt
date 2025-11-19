@@ -1113,6 +1113,10 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill SupportCurseOnTrapTriggered Hex on Trap
+	fromItem = true,
+#mods
+
 #skill SupportTriggerSpellOnKill Squirming Terror
 	fromItem = true,
 #mods
@@ -1150,6 +1154,28 @@ local skills, mod, flag, skill = ...
 #skill VoidShot
 #flags attack projectile area
 	fromItem = true,
+#mods
+
+#skill BreachHandTrap
+#flags spell trap area duration
+	fromItem = true,
+	statMap = {
+		["active_skill_hit_damage_+%_final_per_curse_on_target"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "CurseOnEnemy" }),
+		},
+		["gain_%_of_phys_as_extra_lightning_per_blue_socket_on_gloves"] = {
+			mod("PhysicalDamageGainAsLightning", "BASE", nil, 0, 0, { type = "Multiplier", var = "BlueSocketInGloves" }),
+		},
+		["gain_%_of_phys_as_extra_cold_per_green_socket_on_gloves"] = {
+			mod("PhysicalDamageGainAsCold", "BASE", nil, 0, 0, { type = "Multiplier", var = "GreenSocketInGloves" }),
+		},
+		["gain_%_of_phys_as_extra_fire_per_red_socket_on_gloves"] = {
+			mod("PhysicalDamageGainAsFire", "BASE", nil, 0, 0, { type = "Multiplier", var = "RedSocketInGloves" }),
+		},
+		["gain_%_of_phys_as_extra_chaos_per_white_socket_on_gloves"] = {
+			mod("PhysicalDamageGainAsChaos", "BASE", nil, 0, 0, { type = "Multiplier", var = "WhiteSocketInGloves" }),
+		},
+	},
 #mods
 
 #skill TriggerSummonedAncestorAhuana

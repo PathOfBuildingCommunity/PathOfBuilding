@@ -4933,6 +4933,7 @@ local specialModList = {
 	["[ct][ar][si][tg]g?e?r? a socketed cold s[pk][ei]ll on melee critical strike, with a ([%d%.]+) second cooldown"] = {
 		mod("ExtraSupport", "LIST", { skillId = "SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }),
 	},
+	["you cannot cast socketed hex curse skills inflict socketed hexes on enemies that trigger your traps"] = { mod("ExtraSupport", "LIST", { skillId = "SupportCurseOnTrapTriggered", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["your curses can apply to hexproof enemies"] = { flag("CursesIgnoreHexproof") },
 	["your hexes can affect hexproof enemies"] = { flag("CursesIgnoreHexproof") },
 	["([%a%s]+) can affect hexproof enemies"] = function(_, name) return {

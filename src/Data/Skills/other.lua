@@ -4227,6 +4227,30 @@ skills["SupportTriggerSpellOnBowAttackFreezeHit"] = {
 		[1] = { cooldown = 0.25, levelRequirement = 1, storedUses = 1, },
 	},
 }
+skills["SupportCurseOnTrapTriggered"] = {
+	name = "Hex on Trap",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.AppliesCurse, SkillType.Hex, SkillType.AND, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.AuraAffectsEnemies, SkillType.InbuiltTrigger, SkillType.DisallowTriggerSupports, },
+	isTrigger = true,
+	ignoreMinionTypes = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	constantStats = {
+		{ "support_hextouch_curse_effect_+%_final", -20 },
+	},
+	stats = {
+		"hextouch_support_curse_duration_+%_final",
+		"cannot_cast_curses",
+		"hex_applied_when_trap_triggers",
+	},
+	levels = {
+		[1] = { 0, levelRequirement = 1, statInterpolation = { 1, }, },
+	},
+}
 skills["SupportTriggerSpellOnKill"] = {
 	name = "Squirming Terror",
 	hidden = true,
@@ -4436,6 +4460,70 @@ skills["VoidShot"] = {
 	},
 	levels = {
 		[20] = { PvPDamageMultiplier = -80, baseMultiplier = 0.65, damageEffectiveness = 0.65, levelRequirement = 70, },
+	},
+}
+skills["BreachHandTrap"] = {
+	name = "Will of the Lords",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 1.1000000238419,
+	incrementalEffectiveness = 0.046999998390675,
+	description = "Throws out a trap which creates a rift, attracting a malefic hand from another realm. When the trap is triggered, the hand tears the bottom of the breach out, shattering reality to deal spell damage in an area.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Damage] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Trapped] = true, [SkillType.Physical] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	statMap = {
+		["active_skill_hit_damage_+%_final_per_curse_on_target"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "CurseOnEnemy" }),
+		},
+		["gain_%_of_phys_as_extra_lightning_per_blue_socket_on_gloves"] = {
+			mod("PhysicalDamageGainAsLightning", "BASE", nil, 0, 0, { type = "Multiplier", var = "BlueSocketInGloves" }),
+		},
+		["gain_%_of_phys_as_extra_cold_per_green_socket_on_gloves"] = {
+			mod("PhysicalDamageGainAsCold", "BASE", nil, 0, 0, { type = "Multiplier", var = "GreenSocketInGloves" }),
+		},
+		["gain_%_of_phys_as_extra_fire_per_red_socket_on_gloves"] = {
+			mod("PhysicalDamageGainAsFire", "BASE", nil, 0, 0, { type = "Multiplier", var = "RedSocketInGloves" }),
+		},
+		["gain_%_of_phys_as_extra_chaos_per_white_socket_on_gloves"] = {
+			mod("PhysicalDamageGainAsChaos", "BASE", nil, 0, 0, { type = "Multiplier", var = "WhiteSocketInGloves" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		trap = true,
+		area = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "base_trap_duration", 4000 },
+		{ "trap_variation", 23 },
+		{ "active_skill_base_area_of_effect_radius", 16 },
+		{ "gain_%_of_phys_as_extra_lightning_per_blue_socket_on_gloves", 25 },
+		{ "gain_%_of_phys_as_extra_cold_per_green_socket_on_gloves", 25 },
+		{ "gain_%_of_phys_as_extra_fire_per_red_socket_on_gloves", 25 },
+		{ "gain_%_of_phys_as_extra_chaos_per_white_socket_on_gloves", 25 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"active_skill_base_radius_+",
+		"active_skill_hit_damage_+%_final_per_curse_on_target",
+		"is_area_damage",
+		"base_skill_is_trapped",
+		"base_skill_show_average_damage_instead_of_dps",
+		"is_trap",
+		"quality_display_trap_duration_is_gem",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"active_skill_base_radius_+",
+	},
+	levels = {
+		[20] = { 0.80000001192093, 1.2000000476837, 8, 20, critChance = 6, damageEffectiveness = 1.3, levelRequirement = 70, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 20, }, },
+		[30] = { 0.80000001192093, 1.2000000476837, 8, 20, critChance = 6, damageEffectiveness = 1.3, levelRequirement = 90, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 24, }, },
 	},
 }
 skills["TriggerSummonedAncestorAhuana"] = {

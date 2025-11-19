@@ -1453,6 +1453,15 @@ local configTable = {
 					return slotMatch(env, skill) and skill.triggeredBy and calcLib.canGrantedEffectSupportActiveSkill(skill.triggeredBy.grantedEffect, skill)
 				end}
 	end,
+	["hex on trap"] = function(env) -- Hand of the Lords Carnal Mitts
+		return {triggerSkillCond = function(env, skill)
+					-- Hex is triggered only when a trap is triggered
+					return skill.skillTypes[SkillType.Trapped]
+				end,
+				triggeredSkillCond = function(env, skill)
+					return skill.skillData.triggeredByTrapTrigger and slotMatch(env, skill)
+				end}
+	end,
 	["supporttriggerfirespellonhit"] = function(env)
 		return {triggerSkillCond = function(env, skill)
 					-- Skill is triggered only when the weapon with the enchant on it hits
