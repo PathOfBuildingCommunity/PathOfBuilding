@@ -522,6 +522,34 @@ local skills, mod, flag, skill = ...
 #baseMod flag("Condition:HaveGreaterSpellEcho")
 #mods
 
+#skill HeraldOfTheBreach
+#flags cast duration hit area
+	fromItem = true,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "PulseFrequencyPerPressure") / 100)
+	end,
+	statMap = {
+		["herald_of_the_breach_add_stack_on_inflicting_ailment"] = {
+			mod("OtherworldlyPressure", "BASE", 1, 0, 0, { type = "Condition", var = "InflictedAilmentRecently" }),
+		},
+		["maximum_otherwordly_pressure_stacks"] = {
+			mod("Multiplier:OtherworldlyPressureMax", "BASE", nil),
+		},
+		["herald_of_the_breach_pulse_frequency_+%_per_otherworldly_pressure"] = {
+			mod("PulseFrequencyPerPressure", "INC", nil, 0, 0, { type = "Multiplier", var = "OtherworldlyPressure", limitVar = "OtherworldlyPressureMax" }),
+		},
+		["base_herald_of_the_breach_pulse_delay_ms"] = {
+			skill("repeatFrequency", nil),
+			div = 1000,
+		},
+		["skill_buff_grants_damage_+%_final_per_herald_skill_affecting_you"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Herald" }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+	},
+#mods
+
 #skill Icestorm
 #flags spell area duration
 	fromItem = true,

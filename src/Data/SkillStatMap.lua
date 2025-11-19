@@ -1026,6 +1026,17 @@ return {
 	flag("CannotBrittle"),
 	flag("CannotSap"),
 },
+["never_any_ailment"] = {
+	flag("CannotShock"),
+	flag("CannotChill"),
+	flag("CannotFreeze"),
+	flag("CannotIgnite"),
+	flag("CannotScorch"),
+	flag("CannotBrittle"),
+	flag("CannotSap"),
+	flag("CannotBleed"),
+	flag("CannotPoison"),
+},
 ["lightning_damage_cannot_shock"] = {
 	flag("LightningCannotShock"),
 },
