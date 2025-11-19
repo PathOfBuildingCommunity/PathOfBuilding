@@ -605,7 +605,7 @@ function calcs.defence(env, actor)
 		local dotFinal = m_max(m_min(dotTotal, max), min)
 		local totemFinal = m_max(m_min(totemTotal, totemMax), min)
 		
-		if modDB:Sum("BASE", nil, "ResistanceAddedToMinions") > 0 then
+		if env.minion and modDB:Sum("BASE", nil, "ResistanceAddedToMinions") > 0 then
 			env.minion.modDB:NewMod(elem.."Resist", "BASE", m_floor(final * modDB:Sum("BASE", nil, "ResistanceAddedToMinions") / 100), "Player")
 		end
 
