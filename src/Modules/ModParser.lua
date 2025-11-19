@@ -3191,7 +3191,7 @@ local specialModList = {
 	["increases and reductions to maximum mana also apply to shock effect at (%d+)%% of their value"] = function(num) return { flag("ManaAppliesToShockEffect"), mod("ImprovedManaAppliesToShockEffect", "MAX", num) } end,
 	["increases and reductions to (%a+) damage also apply to effect of auras from (%a+) skills at (%d+)%% of their value, up to a maximum of (%d+)%%"] = function(_, element, skillElement, effect, limit) return {
 		flag((element:gsub("^%l", string.upper)) .. "DamageAppliesTo" .. (skillElement:gsub("^%l", string.upper) .. "AuraEffect")),
-		mod(("Improved" .. element:gsub("^%l", string.upper)) .. "DamageAppliesTo" .. (skillElement:gsub("^%l", string.upper) .. "AuraEffect"), "MAX", tonumber(effect)),
+		mod(("Improved" .. element:gsub("^%l", string.upper)) .. "DamageAppliesTo" .. (skillElement:gsub("^%l", string.upper) .. "AuraEffect"), "BASE", tonumber(effect)),
 		mod((element:gsub("^%l", string.upper)) .. "DamageAppliesTo" .. (skillElement:gsub("^%l", string.upper) .. "AuraEffectLimit"), "MAX", tonumber(limit))
 	} end, 
 	["modifiers to claw damage also apply to unarmed"] = { flag("ClawDamageAppliesToUnarmed") },

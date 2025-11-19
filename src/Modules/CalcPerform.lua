@@ -1344,7 +1344,7 @@ function calcs.perform(env, skipEHP)
 	for _, element in ipairs({ "Lightning", "Fire", "Cold", "Chaos", "Physical" }) do
 		if modDB:Flag(nil, element .. "DamageAppliesTo" .. element .. "AuraEffect") then
 			-- Damage to Aura Effect conversion from Breach rings
-			local multiplier = (modDB:Max(nil, "Improved" .. element .. "DamageAppliesTo" .. element .. "AuraEffect") or 100) / 100
+			local multiplier = (modDB:Sum("BASE", nil, "Improved" .. element .. "DamageAppliesTo" .. element .. "AuraEffect") or 100) / 100
 			local limit = modDB:Max(nil, element .. "DamageAppliesTo" .. element .. "AuraEffectLimit")
 			local totalConverted = 0
 			for _, value in ipairs(modDB:Tabulate("INC", { }, element .. "Damage")) do
