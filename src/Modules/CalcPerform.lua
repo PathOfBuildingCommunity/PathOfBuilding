@@ -1392,20 +1392,25 @@ function calcs.perform(env, skipEHP)
 	end
 
 	-- Special handling of Mageblood
-	local maxActiveMagicUtilityCount = modDB:Sum("BASE", nil, "ActiveMagicUtilityFlasks")
-	if maxActiveMagicUtilityCount > 0 then
-		local curActiveMagicUtilityCount = 0
+	local maxLeftActiveMagicUtilityCount = modDB:Sum("BASE", nil, "LeftActiveMagicUtilityFlasks")
+	local maxRightActiveMagicUtilityCount = modDB:Sum("BASE", nil, "RightActiveMagicUtilityFlasks")
+	if maxLeftActiveMagicUtilityCount > 0 or maxRightActiveMagicUtilityCount > 0 then
+		local magicUtilityFlasks = {}
 		for _, slot in pairs(env.build.itemsTab.orderedSlots) do
-			local slotName = slot.slotName
 			local item = env.build.itemsTab.items[slot.selItemId]
-			if item and item.type == "Flask" then
-				local mageblood_applies = item.rarity == "MAGIC" and not (item.baseName:match("Life Flask") or
-					item.baseName:match("Mana Flask") or item.baseName:match("Hybrid Flask")) and
-					curActiveMagicUtilityCount < maxActiveMagicUtilityCount
-				if mageblood_applies then
-					env.flasks[item] = true
-					curActiveMagicUtilityCount = curActiveMagicUtilityCount + 1
-				end
+			if item and item.type == "Flask" and item.rarity == "MAGIC"
+				and not (item.baseName:match("Life Flask") or item.baseName:match("Mana Flask") or item.baseName:match("Hybrid Flask")) then
+				t_insert(magicUtilityFlasks, item)
+			end
+		end
+		if maxLeftActiveMagicUtilityCount > 0 then
+			for i = 1, m_min(maxLeftActiveMagicUtilityCount, #magicUtilityFlasks) do
+				env.flasks[magicUtilityFlasks[i]] = true
+			end
+		end
+		if maxRightActiveMagicUtilityCount > 0 then
+			for i = #magicUtilityFlasks, m_max(#magicUtilityFlasks - maxRightActiveMagicUtilityCount + 1, 1), -1 do
+				env.flasks[magicUtilityFlasks[i]] = true
 			end
 		end
 	end

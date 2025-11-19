@@ -946,7 +946,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					local radiusIndex = item.jewelRadiusIndex
 					if self.nodes[nodeId].nodesInRadius and self.nodes[nodeId].nodesInRadius[radiusIndex][node.id] then
 						if itemId ~= 0 then
-							if item.jewelData.intuitiveLeapLike then
+							if item.jewelData.intuitiveLeapLike and not (item.jewelData.intuitiveLeapKeystoneOnly and node.type ~= "Keystone") then
 								-- This node depends on Intuitive Leap-like behaviour
 								-- This flag:
 								-- 1. Prevents generation of paths from this node unless it's also connected to the start

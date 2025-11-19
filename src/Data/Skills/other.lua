@@ -2167,6 +2167,24 @@ skills["SupportCastOnManaSpent"] = {
 		[1] = { PvPDamageMultiplier = -80, cooldown = 0.1, levelRequirement = 1, storedUses = 1, },
 	},
 }
+skills["SupportCastOnLifeSpent"] = {
+	name = "Foulborn Kitava's Thirst",
+	hidden = true,
+	color = 3,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	stats = {
+		"support_cast_on_life_spent",
+	},
+	levels = {
+		[1] = { PvPDamageMultiplier = -80, cooldown = 0.1, levelRequirement = 1, storedUses = 1, },
+	},
+}
 skills["LightningAegis"] = {
 	name = "Lightning Aegis",
 	hidden = true,

@@ -1083,6 +1083,20 @@ local configTable = {
 					-- Filtering done by skill() in SkillStatMap, comparer and default excludes
 				end}
 	end,
+	["foulborn kitava's thirst"] = function(env)
+		local requiredLifeCost = env.player.modDB:Sum("BASE", nil, "FoulbornKitavaRequiredLifeCost")
+		return {triggerChance = env.player.modDB:Sum("BASE", nil, "FoulbornKitavaTriggerChance"),
+				triggerName = "Foulborn Kitava's Thirst",
+				comparer = function(env, uuid, source, triggerRate)
+					local cachedSpeed = GlobalCache.cachedData[env.mode][uuid].HitSpeed or GlobalCache.cachedData[env.mode][uuid].Speed
+					local cachedLifeCost = GlobalCache.cachedData[env.mode][uuid].LifeCost
+					return ( (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0)) ) and ( (cachedLifeCost or 0) > requiredLifeCost )
+				end,
+				triggerSkillCond = function(env, skill)
+					return true
+					-- Filtering done by skill() in SkillStatMap, comparer and default excludes
+				end}
+	end,
 	["mjolner"] = function()
 		return {triggerSkillCond = function(env, skill)
 					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, bor(ModFlag.Mace, ModFlag.Weapon1H)) > 0 and not slotMatch(env, skill)
