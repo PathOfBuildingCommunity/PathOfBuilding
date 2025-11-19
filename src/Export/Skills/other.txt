@@ -1161,7 +1161,7 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 	statMap = {
 		["active_skill_hit_damage_+%_final_per_curse_on_target"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "CurseOnEnemy" }),
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "CurseOnEnemy" }),
 		},
 		["gain_%_of_phys_as_extra_lightning_per_blue_socket_on_gloves"] = {
 			mod("PhysicalDamageGainAsLightning", "BASE", nil, 0, 0, { type = "Multiplier", var = "BlueSocketInGloves" }),
