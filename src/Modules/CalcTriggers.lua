@@ -1091,6 +1091,14 @@ local configTable = {
 					return skill.skillData.triggeredByMjolner and slotMatch(env, skill)
 				end}
 	end,
+	["wing of the wyvern"] = function()
+		return {triggerSkillCond = function(env, skill)
+					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Bow) > 0 and not slotMatch(env, skill)
+				end,
+				triggeredSkillCond = function(env, skill)
+					return skill.skillData.triggeredByUnique and slotMatch(env, skill)
+				end}
+	end,
 	["cospri's malice"] = function()
 		return {triggerSkillCond = function(env, skill)
 					return skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) > 0

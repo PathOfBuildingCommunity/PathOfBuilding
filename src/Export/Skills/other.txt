@@ -1109,6 +1109,10 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill SupportTriggerSpellOnBowAttackFreezeHit Wing of the Wyvern
+	fromItem = true,
+#mods
+
 #skill SupportTriggerSpellOnKill Squirming Terror
 	fromItem = true,
 #mods

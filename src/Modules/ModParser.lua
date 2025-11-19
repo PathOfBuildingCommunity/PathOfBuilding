@@ -3334,9 +3334,13 @@ local specialModList = {
 	} end,
 	["your shocks can increase damage taken by up to a maximum of (%d+)%%"] = function(num) return { mod("ShockMax", "OVERRIDE", num) } end,
 	["%+(%d+)%% to maximum effect of shock"] = function(num) return { mod("ShockMax", "BASE", num) } end,
+	["your (%w+) damage can (%w+)"] = function(_, element, ailment) return {
+		flag(firstToUpper(element).."Can"..firstToUpper(ailment)),
+	} end,
+	["your (%w+) damage cannot (%w+)"] = function(_, element, ailment) return {
+		flag(firstToUpper(element).."Cannot"..firstToUpper(ailment)),
+	} end,
 	["your elemental damage can shock"] = { flag("ColdCanShock"), flag("FireCanShock") },
-	["your fire damage can shock"] = { flag("FireCanShock") },
-	["your cold damage can shock"] = { flag("ColdCanShock") },
 	["all y?o?u?r? ?damage can freeze"] = { flag("PhysicalCanFreeze"), flag("LightningCanFreeze"), flag("FireCanFreeze"), flag("ChaosCanFreeze") },
 	["all damage with maces and sceptres inflicts chill"] =  {
 		flag("PhysicalCanChill", { type = "Condition", var = "UsingMace" }),
@@ -3344,8 +3348,6 @@ local specialModList = {
 		flag("FireCanChill", { type = "Condition", var = "UsingMace" }),
 		flag("ChaosCanChill", { type = "Condition", var = "UsingMace" })
 	},
-	["your cold damage can ignite"] = { flag("ColdCanIgnite") },
-	["your lightning damage can ignite"] = { flag("LightningCanIgnite") },
 	["all damage from lightning strike and frost blades hits can ignite"] = {
 		flag("PhysicalCanIgnite", { type = "SkillName", skillNameList = { "Lightning Strike", "Frost Blades" }, includeTransfigured = true }),
 		flag("ColdCanIgnite", { type = "SkillName", skillNameList = { "Lightning Strike", "Frost Blades" }, includeTransfigured = true }),
@@ -3366,19 +3368,9 @@ local specialModList = {
 	},
 	["your fire damage can shock but not ignite"] = { flag("FireCanShock"), flag("FireCannotIgnite") },
 	["your cold damage can ignite but not freeze or chill"] = { flag("ColdCanIgnite"), flag("ColdCannotFreeze"), flag("ColdCannotChill") },
-	["your cold damage cannot freeze"] = { flag("ColdCannotFreeze") },
-	["your cold damage cannot chill"] = { flag("ColdCannotChill") },
 	["your lightning damage can freeze but not shock"] = { flag("LightningCanFreeze"), flag("LightningCannotShock") },
-	["your chaos damage can shock"] = { flag("ChaosCanShock") },
-	["your chaos damage can chill"] = { flag("ChaosCanChill") },
-	["your chaos damage can ignite"] = { flag("ChaosCanIgnite") },
-	["your physical damage can ignite"] = { flag("ChaosCanIgnite") },
 	["your physical damage can ignite during effect"] = { flag("PhysicalCanIgnite") },
 	["chaos damage can ignite, chill and shock"] = { flag("ChaosCanIgnite"), flag("ChaosCanChill"), flag("ChaosCanShock") },
-	["your physical damage can chill"] = { flag("PhysicalCanChill") },
-	["your physical damage can shock"] = { flag("PhysicalCanShock") },
-	["your physical damage can freeze"] = { flag("PhysicalCanFreeze") },
-	["your lightning damage can freeze"] = { flag("LightningCanFreeze") },
 	["you always ignite while burning"] = { mod("EnemyIgniteChance", "BASE", 100, { type = "Condition", var = "Burning" }) },
 	["critical strikes do not a?l?w?a?y?s?i?n?h?e?r?e?n?t?l?y? freeze"] = { flag("CritsDontAlwaysFreeze") },
 	["cannot inflict elemental ailments"] = {
@@ -4931,6 +4923,7 @@ local specialModList = {
 	["cast a socketed lightning spell on hit"] = { mod("ExtraSupport", "LIST", { skillId = "SupportUniqueMjolnerLightningSpellsCastOnHit", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["trigger a socketed lightning spell on hit"] = { mod("ExtraSupport", "LIST", { skillId = "SupportUniqueMjolnerLightningSpellsCastOnHit", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["trigger a socketed lightning spell on hit, with a ([%d%.]+) second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportUniqueMjolnerLightningSpellsCastOnHit", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
+	["trigger a socketed spell when a hit from this weapon freezes a target, with a ([%d%.]+) second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerSpellOnBowAttackFreezeHit", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["trigger a socketed spell on unarmed melee critical strike, with a ([%d%.]+) second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerSpellOnUnarmedMeleeCriticalHit", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["[ct][ar][si][tg]g?e?r? a socketed cold s[pk][ei]ll on melee critical strike"] = {
 		mod("ExtraSupport", "LIST", { skillId = "SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }),

@@ -4208,6 +4208,25 @@ skills["SupportUniqueVirulenceSpellsCastOnBlock"] = {
 		[1] = { cooldown = 0.25, levelRequirement = 1, storedUses = 1, },
 	},
 }
+skills["SupportTriggerSpellOnBowAttackFreezeHit"] = {
+	name = "Wing of the Wyvern",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	stats = {
+		"triggered_skill_uses_main_hand_or_averaged_attack_time_for_pvp_scaling",
+		"skill_has_trigger_from_unique_item",
+	},
+	levels = {
+		[1] = { cooldown = 0.25, levelRequirement = 1, storedUses = 1, },
+	},
+}
 skills["SupportTriggerSpellOnKill"] = {
 	name = "Squirming Terror",
 	hidden = true,

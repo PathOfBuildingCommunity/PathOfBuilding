@@ -12065,7 +12065,7 @@ c["Trigger a Socketed Elemental Spell on Block, with a 0.25 second Cooldown"]={{
 c["Trigger a Socketed Lightning Spell on Hit, with a 0.25 second Cooldown"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=1,skillId="SupportUniqueMjolnerLightningSpellsCastOnHit"}}},nil}
 c["Trigger a Socketed Spell on Unarmed Melee Critical Strike, with a 0.25 second Cooldown"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=1,skillId="SupportTriggerSpellOnUnarmedMeleeCriticalHit"}}},nil}
 c["Trigger a Socketed Spell when a Hit from this"]={nil,"Trigger a Socketed Spell when a Hit from this "}
-c["Trigger a Socketed Spell when a Hit from this Weapon Freezes a Target, with a 0.25 second Cooldown"]={nil,"Trigger a Socketed Spell when a Hit from this Weapon Freezes a Target, with a 0.25 second Cooldown "}
+c["Trigger a Socketed Spell when a Hit from this Weapon Freezes a Target, with a 0.25 second Cooldown"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=1,skillId="SupportTriggerSpellOnBowAttackFreezeHit"}}},nil}
 c["Trigger a Socketed Spell when you Attack with a Bow, with a 0.3 second Cooldown"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=1,skillId="SupportTriggerSpellOnBowAttack"}}},nil}
 c["Trigger a Socketed Spell when you Attack with this Weapon, with a 0.25 second Cooldown"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=1,skillId="SupportTriggerSpellOnAttack"}}},nil}
 c["Trigger a Socketed Spell when you Block, with a 0.25 second Cooldown"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=1,skillId="SupportUniqueVirulenceSpellsCastOnBlock"}}},nil}
@@ -12210,8 +12210,6 @@ c["Warcry Skills' Cooldown Time is 4 seconds"]={{[1]={flags=0,keywordFlags=4,nam
 c["Ward does not Break during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="WardNotBreak",type="FLAG",value=true}},nil}
 c["Warlord's Call"]={nil,"Warlord's Call "}
 c["Warlord's Call Call to Arms"]={nil,"Warlord's Call Call to Arms "}
-c["Weapon Freezes a Target, with a 0.25 second Cooldown"]={nil,"Weapon Freezes a Target, with a 0.25 second Cooldown "}
-c["Weapon Freezes a Target, with a 0.25 second Cooldown Adds 204 to 300 Cold Damage"]={{[1]={flags=8192,keywordFlags=0,name="ColdMin",type="BASE",value=204},[2]={flags=8192,keywordFlags=0,name="ColdMax",type="BASE",value=300}}," Freezes a Target, with a 0.25 second Cooldown  "}
 c["Weapons you Animate create an additional copy"]={nil,"Weapons you Animate create an additional copy "}
 c["When 90% of your Hex's Duration Expires on an Enemy, Eat 1 Soul per Enemy Power"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanHaveSoulEater",type="FLAG",value=true}},nil}
 c["When Hit during effect, 25% of Life loss from Damage taken occurs over 4 seconds instead"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="LifeLossPrevented",type="BASE",value=25}},nil}
@@ -12584,8 +12582,7 @@ c["Your Bleeding does not deal extra Damage while the Enemy is moving and cannot
 c["Your Blessing Skills are Disabled"]={{[1]={[1]={skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="DisableSkill",type="FLAG",value=true}},nil}
 c["Your Chaos Damage Poisons Enemies"]={{[1]={flags=0,keywordFlags=0,name="ChaosPoisonChance",type="BASE",value=100}},nil}
 c["Your Chaos Damage can Chill"]={{[1]={flags=0,keywordFlags=0,name="ChaosCanChill",type="FLAG",value=true}},nil}
-c["Your Chaos Damage can Freeze"]={nil,"Your Chaos Damage can Freeze "}
-c["Your Chaos Damage can Freeze Battlemage"]={nil,"Your Chaos Damage can Freeze Battlemage "}
+c["Your Chaos Damage can Freeze"]={{[1]={flags=0,keywordFlags=0,name="ChaosCanFreeze",type="FLAG",value=true}},nil}
 c["Your Chaos Damage can Ignite"]={{[1]={flags=0,keywordFlags=0,name="ChaosCanIgnite",type="FLAG",value=true}},nil}
 c["Your Chaos Damage can Shock"]={{[1]={flags=0,keywordFlags=0,name="ChaosCanShock",type="FLAG",value=true}},nil}
 c["Your Chaos Damage has 60% chance to Poison Enemies"]={{[1]={flags=0,keywordFlags=0,name="ChaosPoisonChance",type="BASE",value=60}},nil}
