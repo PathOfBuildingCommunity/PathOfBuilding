@@ -117,7 +117,7 @@ General's Brigandine
 Requires Level 66, 103 Str, 103 Dex
 (160-200)% increased Armour and Evasion
 Minions have (20-30)% increased Movement Speed
-Minions have 1% chance to deal Double Damage per increased Fortification Duration on you
+Minions have 1% chance to deal Double Damage per Fortification on you
 (30-40)% increased Fortification Duration
 Minions have (6-12)% increased Attack Speed
 Increases and Reductions to Minion Maximum Life also apply to you at 15% of their value
