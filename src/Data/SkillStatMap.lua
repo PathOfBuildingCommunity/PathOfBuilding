@@ -188,6 +188,9 @@ return {
 ["skill_has_trigger_from_unique_item"] = {
 	skill("triggeredByUnique", true, { type = "SkillType", skillType = SkillType.Triggerable }),
 },
+["hex_applied_when_trap_triggers"] = {
+	skill("triggeredByTrapTrigger", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Hex }, { type = "SkillType", skillType = SkillType.AppliesCurse }),
+},
 ["skill_triggered_when_you_focus_chance_%"] = {
 	skill("chanceToTriggerOnFocus", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 	div = 100,
@@ -1025,6 +1028,17 @@ return {
 	flag("CannotScorch"),
 	flag("CannotBrittle"),
 	flag("CannotSap"),
+},
+["never_any_ailment"] = {
+	flag("CannotShock"),
+	flag("CannotChill"),
+	flag("CannotFreeze"),
+	flag("CannotIgnite"),
+	flag("CannotScorch"),
+	flag("CannotBrittle"),
+	flag("CannotSap"),
+	flag("CannotBleed"),
+	flag("CannotPoison"),
 },
 ["lightning_damage_cannot_shock"] = {
 	flag("LightningCannotShock"),

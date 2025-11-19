@@ -604,6 +604,10 @@ function calcs.defence(env, actor)
 		local final = m_max(m_min(total, max), min)
 		local dotFinal = m_max(m_min(dotTotal, max), min)
 		local totemFinal = m_max(m_min(totemTotal, totemMax), min)
+		
+		if env.minion and modDB:Sum("BASE", nil, "ResistanceAddedToMinions") > 0 then
+			env.minion.modDB:NewMod(elem.."Resist", "BASE", m_floor(final * modDB:Sum("BASE", nil, "ResistanceAddedToMinions") / 100), "Player")
+		end
 
 		output[elem.."Resist"] = final
 		output[elem.."ResistTotal"] = total
@@ -1517,6 +1521,7 @@ function calcs.defence(env, actor)
 	output.SilenceAvoidChance = modDB:Flag(nil, "SilenceImmune") and 100 or output.CurseAvoidChance
 	output.CritExtraDamageReduction = m_min(modDB:Sum("BASE", nil, "ReduceCritExtraDamage"), 100)
 	output.LightRadiusMod = calcLib.mod(modDB, nil, "LightRadius")
+	output.LightRadiusInc = m_max(modDB:Sum("INC", nil, "LightRadius"), 0)
 	if breakdown then
 		breakdown.LightRadiusMod = breakdown.mod(modDB, nil, "LightRadius")
 	end
