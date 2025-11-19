@@ -454,6 +454,7 @@ local modNameList = {
 	["rage effect"] = "RageEffect",
 	["maximum fortification"] = "MaximumFortification",
 	["fortification"] = "MinimumFortification",
+	["fortification duration"] = "FortificationDuration",
 	["maximum valour"] = "MaximumValour",
 	-- Charges
 	["maximum power charge"] = "PowerChargesMax",
@@ -3179,6 +3180,7 @@ local specialModList = {
 	} end,
 	["increases and reductions to minion attack speed also affects? you"] = { flag("MinionAttackSpeedAppliesToPlayer") },
 	["increases and reductions to minion cast speed also affects? you"] = { flag("MinionCastSpeedAppliesToPlayer") },
+	["increases and reductions to minion maximum life also apply to you at (%d+)%% of their value"] = function(num) return { flag("MinionLifeAppliesToPlayer"), mod("ImprovedMinionLifeAppliesToPlayer", "MAX", num) } end,
 	["increases and reductions to cast speed apply to attack speed at (%d+)%% of their value"] =  function(num) return { flag("CastSpeedAppliesToAttacks"), mod("ImprovedCastSpeedAppliesToAttacks", "MAX", num) } end,
 	["increases and reductions to cast speed apply to attack speed"] =  function(num) return { flag("CastSpeedAppliesToAttacks") } end,
 	["increases and reductions to spell damage also apply to attacks"] = { flag("SpellDamageAppliesToAttacks") },
@@ -4069,6 +4071,7 @@ local specialModList = {
 	["(%d+)%% increased minion movement speed per (%d+) dexterity"] = function(num, _, div) return { mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", num) }, { type = "PerStat", stat = "Dex", div = tonumber(div) }) } end,
 	["minions deal (%d+)%% increased damage per (%d+) dexterity"] = function(num, _, div) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num) }, { type = "PerStat", stat = "Dex", div = tonumber(div) }) } end,
 	["minions have (%d+)%% chance to deal double damage while they are on full life"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("DoubleDamageChance", "BASE", num, { type = "Condition", var = "FullLife" }) }) } end,
+	["minions have (%d+)%% chance to deal double damage per increased fortification duration on you"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("DoubleDamageChance", "BASE", num, { type = "PerStat", stat= "IncFortificationDuration", actor = "parent" }) }) } end,
 	["(%d+)%% increased golem damage for each type of golem you have summoned"] = function(num) return {
 		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num, { type = "ActorCondition", actor = "parent", var = "HavePhysicalGolem" }) }, { type = "SkillType", skillType = SkillType.Golem }),
 		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num, { type = "ActorCondition", actor = "parent", var = "HaveLightningGolem" }) }, { type = "SkillType", skillType = SkillType.Golem }),

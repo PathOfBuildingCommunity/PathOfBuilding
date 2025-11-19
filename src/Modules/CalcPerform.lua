@@ -612,6 +612,7 @@ local function doActorMisc(env, actor)
 		if modDB:Sum("BASE", nil, "MinimumFortification") > 0 or alliedFortify > 0 then
 			condList["Fortified"] = true
 		end
+		output.IncFortificationDuration = modDB:Sum("INC", nil, "FortificationDuration")
 		-- Fortify
 		if modDB:Flag(nil, "Fortified") or modDB:Sum("BASE", nil, "Multiplier:Fortification") > 0 then
 			local maxStacks = modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification")
@@ -1337,6 +1338,18 @@ function calcs.perform(env, skipEHP)
 				if energyShieldBase > 0 then
 					modDB:NewMod("Life", "BASE", energyShieldBase, slot.." ES to Life Conversion")
 				end
+			end
+		end
+	end
+	
+	if modDB:Flag(nil, "MinionLifeAppliesToPlayer") then
+		-- Minion Life conversion from Rigwald's Hunt
+		local multiplier = (modDB:Max(nil, "ImprovedMinionLifeAppliesToPlayer") or 100) / 100
+		for _, value in ipairs(modDB:List(nil, "MinionModifier")) do
+			if value.mod.name == "Life" and value.mod.type == "INC" then
+				local mod = value.mod
+				local modifiers = calcLib.getConvertedModTags(mod, multiplier, true)
+				modDB:NewMod("Life", "INC", m_floor(mod.value * multiplier), mod.source, mod.flags, mod.keywordFlags, unpack(modifiers))
 			end
 		end
 	end
