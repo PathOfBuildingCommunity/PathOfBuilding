@@ -1336,6 +1336,7 @@ local modTagList = {
 	["per enemy killed recently, up to (%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "EnemyKilledRecently", limit = tonumber(num), limitTotal = true } } end,
 	["per (%d+) rampage kills"] = function(num) return { tag = { type = "Multiplier", var = "Rampage", div = num, limit = 1000 / num, limitTotal = true } } end,
 	["per minion, up to ?a? ?m?a?x?i?m?u?m? ?o?f? (%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "SummonedMinion", limit = tonumber(num), limitTotal = true } } end,
+	["per minion from your non%-vaal skills"] = { tag = { type = "Multiplier", var = "NonVaalSummonedMinion" } },
 	["for each enemy you or your minions have killed recently, up to (%d+)%%"] = function(num) return { tag = { type = "Multiplier", varList = { "EnemyKilledRecently","EnemyKilledByMinionsRecently" }, limit = tonumber(num), limitTotal = true } } end,
 	["for each enemy you or your minions have killed recently, up to (%d+)%% per second"] = function(num) return { tag = { type = "Multiplier", varList = { "EnemyKilledRecently","EnemyKilledByMinionsRecently" }, limit = tonumber(num), limitTotal = true } } end,
 	["for each (%d+) total mana y?o?u? ?h?a?v?e? ?spent recently"] = function(num) return { tag = { type = "Multiplier", var = "ManaSpentRecently", div = num } } end,
@@ -4064,6 +4065,7 @@ local specialModList = {
 	-- Minions
 	["your strength is added to your minions"] = { mod("StrengthAddedToMinions", "BASE", 100) },
 	["half of your strength is added to your minions"] = { mod("StrengthAddedToMinions", "BASE", 50) },
+	["minions gain added resistances equal to (%d+)%% of your resistances"] = function(num) return { mod("ResistanceAddedToMinions", "BASE", num) } end,
 	["minions' accuracy rating is equal to yours"] = { flag("MinionAccuracyEqualsAccuracy") },
 	["minions poison enemies on hit"] = { mod("MinionModifier", "LIST", { mod = mod("PoisonChance", "BASE", 100) }) },
 	["minions have (%d+)%% chance to poison enemies on hit"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PoisonChance", "BASE", num) }) } end,
