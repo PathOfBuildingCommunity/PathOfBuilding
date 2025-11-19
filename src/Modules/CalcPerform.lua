@@ -1342,6 +1342,32 @@ function calcs.perform(env, skipEHP)
 		end
 	end
 	
+	for _, element in ipairs({ "Lightning", "Fire", "Cold", "Chaos", "Physical" }) do
+		if modDB:Flag(nil, element .. "DamageAppliesTo" .. element .. "AuraEffect") then
+			-- Damage to Aura Effect conversion from Breach rings
+			local multiplier = (modDB:Max(nil, "Improved" .. element .. "DamageAppliesTo" .. element .. "AuraEffect") or 100) / 100
+			local limit = modDB:Max(nil, element .. "DamageAppliesTo" .. element .. "AuraEffectLimit")
+			local totalConverted = 0
+			for _, value in ipairs(modDB:Tabulate("INC", { }, element .. "Damage")) do
+				local mod = value.mod
+				local modifiers = calcLib.getConvertedModTags(mod, multiplier, true)
+				local converted = m_floor(mod.value * multiplier)
+				if limit and converted > 0 then
+					local remaining = limit - totalConverted
+					if remaining <= 0 then
+						converted = 0
+					else
+						converted = m_min(converted, remaining)
+						totalConverted = totalConverted + converted
+					end
+				end
+				if converted ~= 0 then
+					modDB:NewMod("AuraEffect", mod.type, converted, mod.source, mod.flags, KeywordFlag[element], unpack(modifiers))
+				end
+			end
+		end
+	end
+	
 	if modDB:Flag(nil, "MinionLifeAppliesToPlayer") then
 		-- Minion Life conversion from Rigwald's Hunt
 		local multiplier = (modDB:Max(nil, "ImprovedMinionLifeAppliesToPlayer") or 100) / 100
