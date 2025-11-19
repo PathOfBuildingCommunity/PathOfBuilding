@@ -9638,7 +9638,7 @@ c["Lose all Power Charges on reaching Maximum Power Charges Gain a Frenzy Charge
 c["Lose all Power Charges on reaching Maximum Power Charges Shocks you when you reach Maximum Power Charges"]={nil,"Lose all Power Charges on reaching Maximum Power Charges Shocks you when you reach Maximum Power Charges "}
 c["Lose all Power Charges when you Block"]={nil,"Lose all Power Charges when you Block "}
 c["Lose all Rage on reaching Maximum Rage and gain Wild Savagery"]={nil,"Lose all Rage on reaching Maximum Rage and gain Wild Savagery "}
-c["Lose all Rage on reaching Maximum Rage and gain Wild Savagery for 1 second per 10 Rage lost this way"]={nil,"Lose all Rage on reaching Maximum Rage and gain Wild Savagery for 1 second per 10 Rage lost this way "}
+c["Lose all Rage on reaching Maximum Rage and gain Wild Savagery for 1 second per 10 Rage lost this way"]={{[1]={flags=0,keywordFlags=0,name="WildSavagery",type="FLAG",value=true}},nil}
 c["Lose an Endurance Charge each second"]={nil,"Lose an Endurance Charge each second "}
 c["Lose an Endurance Charge each second Corrupted"]={nil,"Lose an Endurance Charge each second Corrupted "}
 c["Lose no Experience when you die because a Linked target died"]={nil,"Lose no Experience when you die because a Linked target died "}
@@ -12670,7 +12670,6 @@ c["also grant an equal chance to gain an Endurance Charge on Kill"]={nil,"also g
 c["and nearby Allies Regenerate 200 Life per second"]={{[1]={[1]={type="Condition",var="KilledPoisonedLast2Seconds"},flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="LifeRegen",type="BASE",value=200}}}},nil}
 c["be inflicted on a nearby Minion instead"]={nil,"be inflicted on a nearby Minion instead "}
 c["be inflicted on a nearby Minion instead Limited to 1 Runegraft of Loyalty"]={nil,"be inflicted on a nearby Minion instead Limited to 1 Runegraft of Loyalty "}
-c["for 1 second per 10 Rage lost this way"]={nil,"for 1 second per 10 Rage lost this way "}
 c["grant 100% increased Flask Charges"]={nil,"grant 100% increased Flask Charges "}
 c["grant 40% increased Flask Charges"]={nil,"grant 40% increased Flask Charges "}
 c["grant 40% increased Flask Charges Melee Hits have 20% chance to Fortify"]={nil,"grant 40% increased Flask Charges Melee Hits have 20% chance to Fortify "}
