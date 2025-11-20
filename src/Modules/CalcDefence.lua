@@ -1500,6 +1500,17 @@ function calcs.defence(env, actor)
 		-- Ancestral Vision
 		modDB:NewMod("AvoidElementalAilments", "BASE", m_floor(spellSuppressionToAilmentPercent * spellSuppressionChance), "Ancestral Vision")
 	end
+	if modDB:Flag(nil, "SpellSuppressionAppliesToChanceToDefendWithArmour") then
+		local spellSuppressionAppliesToChanceToDefendWithArmourPercent = (modDB:Sum("BASE", nil, "SpellSuppressionAppliesToChanceToDefendWithArmourPercent") or 0) / 100
+		local spellSuppressionAppliesToChanceToDefendWithArmourPercentArmour = (modDB:Sum("BASE", nil, "SpellSuppressionAppliesToChanceToDefendWithArmourPercentArmour") or 0)
+		-- Foulborn Ancestral Vision
+		modDB:NewMod("ArmourDefense", "MAX", tonumber(spellSuppressionAppliesToChanceToDefendWithArmourPercentArmour) - 100, "Ancestral Vision: Max Calc", { type = "Condition", var = "ArmourMax" })
+		modDB:NewMod("ArmourDefense", "MAX", math.min((spellSuppressionAppliesToChanceToDefendWithArmourPercent * spellSuppressionChance) / 100, 1.0) * (tonumber(spellSuppressionAppliesToChanceToDefendWithArmourPercentArmour) - 100), "Ancestral Vision: Average Calc", { type = "Condition", var = "ArmourAvg" })
+		modDB:NewMod("ArmourDefense", "MAX", math.min(math.floor((spellSuppressionAppliesToChanceToDefendWithArmourPercent * spellSuppressionChance) / 100), 1.0) * (tonumber(spellSuppressionAppliesToChanceToDefendWithArmourPercentArmour) - 100), "Ancestral Vision: Min Calc", { type = "Condition", var = "ArmourMax", neg = true }, { type = "Condition", var = "ArmourAvg", neg = true })
+		-- already calc'ed above, need to run again
+		output.ArmourDefense = (modDB:Max(nil, "ArmourDefense") or 0) / 100
+		output.RawArmourDefense = output.ArmourDefense > 0 and ((1 + output.ArmourDefense) * 100) or nil
+	end
 
 	-- This is only used for breakdown purposes
 	if modDB:Flag(nil, "ShockAvoidAppliesToElementalAilments") then
