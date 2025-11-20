@@ -1063,13 +1063,48 @@ function calcs.perform(env, skipEHP)
 	modLib.mergeKeystones(env, env.modDB)
 
 	-- Build minion skills
+	local function initMinionSkills(activeSkill, minion, isPrimary)
+		minion.modDB = new("ModDB")
+		minion.modDB.actor = minion
+		if isPrimary then
+			calcs.createMinionSkills(env, activeSkill)
+			activeSkill.skillPartName = activeSkill.minion.mainSkill.activeEffect.grantedEffect.name
+			return
+		end
+		local tempSkill = {
+			activeEffect = activeSkill.activeEffect,
+			effectList = activeSkill.effectList,
+			supportList = activeSkill.supportList,
+			actor = activeSkill.actor,
+			socketGroup = activeSkill.socketGroup,
+			baseSkillModList = activeSkill.baseSkillModList,
+			skillModList = activeSkill.skillModList,
+			skillCfg = activeSkill.skillCfg,
+			skillData = activeSkill.skillData,
+			skillFlags = activeSkill.skillFlags,
+			buffList = activeSkill.buffList,
+			minion = minion,
+		}
+		local srcInstance = activeSkill.activeEffect and activeSkill.activeEffect.srcInstance
+		local savedMinionSkill = srcInstance and srcInstance.skillMinionSkill
+		local savedMinionSkillCalcs = srcInstance and srcInstance.skillMinionSkillCalcs
+		calcs.createMinionSkills(env, tempSkill)
+		if srcInstance then
+			srcInstance.skillMinionSkill = savedMinionSkill
+			srcInstance.skillMinionSkillCalcs = savedMinionSkillCalcs
+		end
+	end
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		activeSkill.skillModList = new("ModList", activeSkill.baseSkillModList)
 		if activeSkill.minion then
-			activeSkill.minion.modDB = new("ModDB")
-			activeSkill.minion.modDB.actor = activeSkill.minion
-			calcs.createMinionSkills(env, activeSkill)
-			activeSkill.skillPartName = activeSkill.minion.mainSkill.activeEffect.grantedEffect.name
+			initMinionSkills(activeSkill, activeSkill.minion, true)
+		end
+		if activeSkill.spectreListMinions then
+			for _, spectreMinion in ipairs(activeSkill.spectreListMinions) do
+				if not activeSkill.minion or spectreMinion ~= activeSkill.minion then
+					initMinionSkills(activeSkill, spectreMinion, false)
+				end
+			end
 		end
 	end
 
@@ -2484,9 +2519,19 @@ function calcs.perform(env, skipEHP)
 				end
 			end
 		end
+		local minionsToProcess = { }
 		if activeSkill.minion and activeSkill.minion.activeSkillList then
-			local castingMinion = activeSkill.minion
-			for _, activeMinionSkill in ipairs(activeSkill.minion.activeSkillList) do
+			t_insert(minionsToProcess, activeSkill.minion)
+		end
+		if activeSkill.spectreListMinions then
+			for _, spectreMinion in ipairs(activeSkill.spectreListMinions) do
+				if spectreMinion ~= activeSkill.minion and spectreMinion.activeSkillList then
+					t_insert(minionsToProcess, spectreMinion)
+				end
+			end
+		end
+		for _, castingMinion in ipairs(minionsToProcess) do
+			for _, activeMinionSkill in ipairs(castingMinion.activeSkillList) do
 				local skillModList = activeMinionSkill.skillModList
 				local skillCfg = activeMinionSkill.skillCfg
 				for _, buff in ipairs(activeMinionSkill.buffList) do
@@ -2519,7 +2564,7 @@ function calcs.perform(env, skipEHP)
 								if envMinionCheck then
 									env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 								else
-									activeSkill.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+									castingMinion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 								end
 								local srcList = new("ModList")
 								local inc = modStore:Sum("INC", skillCfg, "BuffEffect", (env.minion == castingMinion) and "BuffEffectOnSelf" or nil)
@@ -2536,7 +2581,7 @@ function calcs.perform(env, skipEHP)
 						if env.mode_buffs and activeMinionSkill.skillData.enable then
 							-- Check for extra modifiers to apply to aura skills
 							local extraAuraModList = { }
-							for _, value in ipairs(activeSkill.minion.modDB:List(skillCfg, "ExtraAuraEffect")) do
+							for _, value in ipairs(castingMinion.modDB:List(skillCfg, "ExtraAuraEffect")) do
 								local add = true
 								for _, mod in ipairs(extraAuraModList) do
 									if modLib.compareModParams(mod, value.mod) then
@@ -2549,7 +2594,7 @@ function calcs.perform(env, skipEHP)
 									t_insert(extraAuraModList, copyTable(value.mod, true))
 								end
 							end
-							if not (activeSkill.minion.modDB:Flag(nil, "SelfAurasCannotAffectAllies") or activeSkill.minion.modDB:Flag(nil, "SelfAurasOnlyAffectYou") or activeSkill.minion.modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies") or skillModList:Flag(skillCfg, "SelfAurasAffectYouAndLinkedTarget")) then
+							if not (castingMinion.modDB:Flag(nil, "SelfAurasCannotAffectAllies") or castingMinion.modDB:Flag(nil, "SelfAurasOnlyAffectYou") or castingMinion.modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies") or skillModList:Flag(skillCfg, "SelfAurasAffectYouAndLinkedTarget")) then
 								if not modDB:Flag(nil, "AlliesAurasCannotAffectSelf") and not modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] then
 									local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnPlayer", "AuraBuffEffect") + modDB:Sum("INC", skillCfg, "BuffEffectOnSelf", "AuraEffectOnSelf")
 									local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "AuraBuffEffect") * modDB:More(skillCfg, "BuffEffectOnSelf", "AuraEffectOnSelf")
@@ -2567,7 +2612,7 @@ function calcs.perform(env, skipEHP)
 										mergeBuff(srcList, buffs, buff.name)
 									end
 								end
-								if env.minion and not env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] and (env.minion ~= activeSkill.minion or not activeSkill.skillData.auraCannotAffectSelf)  then
+								if env.minion and not env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] and (env.minion ~= castingMinion or not activeSkill.skillData.auraCannotAffectSelf)  then
 									local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect") + env.minion.modDB:Sum("INC", skillCfg, "BuffEffectOnSelf", "AuraEffectOnSelf")
 									local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect") * env.minion.modDB:More(skillCfg, "BuffEffectOnSelf", "AuraEffectOnSelf")
 									local mult = (1 + inc / 100) * more
@@ -2668,7 +2713,7 @@ function calcs.perform(env, skipEHP)
 								end
 							end
 							enemyDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
-							if env.minion and env.minion == activeSkill.minion then
+							if env.minion and env.minion == castingMinion then
 								env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 							end
 							if buff.type == "Debuff" then
