@@ -648,24 +648,18 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	end
 	activeSkill.minionList = minionList
 	if minionList[1] and not activeSkill.actor.minionData then
-		local minionType
-		if env.mode == "CALCS" and activeSkill == env.player.mainSkill then
-			local index = isValueInArray(minionList, activeEffect.srcInstance.skillMinionCalcs) or 1
-			minionType = minionList[index]
-			activeEffect.srcInstance.skillMinionCalcs = minionType
-		else
-			local index = isValueInArray(minionList, activeEffect.srcInstance.skillMinion) or 1
-			minionType = minionList[index]
-			activeEffect.srcInstance.skillMinion = minionType
-		end
-		if minionType then
+		local function instantiateMinion(minionType)
+			if not minionType then
+				return
+			end
 			local minion = { }
-			activeSkill.minion = minion
-			skillFlags.haveMinion = true
 			minion.parent = env.player
 			minion.enemy = env.enemy
 			minion.type = minionType
 			minion.minionData = env.data.minions[minionType]
+			if not minion.minionData then
+				return
+			end
 			minion.level = activeSkill.skillData.minionLevelIsEnemyLevel and env.enemyLevel or 
 								activeSkill.skillData.minionLevelIsPlayerLevel and (m_min(env.build and env.build.characterLevel or activeSkill.skillData.minionLevel or activeEffect.grantedEffectLevel.levelRequirement, activeSkill.skillData.minionLevelIsPlayerLevel)) or 
 								minionSupportLevel[minion.type] or activeSkill.skillData.minionLevel or activeEffect.grantedEffectLevel.levelRequirement
@@ -729,6 +723,39 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 						end
 					else
 						minion.weaponData2 = env.player.weaponData2
+					end
+				end
+			end
+			return minion
+		end
+		local minionType
+		if env.mode == "CALCS" and activeSkill == env.player.mainSkill then
+			local index = isValueInArray(minionList, activeEffect.srcInstance.skillMinionCalcs) or 1
+			minionType = minionList[index]
+			activeEffect.srcInstance.skillMinionCalcs = minionType
+		else
+			local index = isValueInArray(minionList, activeEffect.srcInstance.skillMinion) or 1
+			minionType = minionList[index]
+			activeEffect.srcInstance.skillMinion = minionType
+		end
+		activeSkill.spectreListMinions = nil
+		if minionType then
+			local minion = instantiateMinion(minionType)
+			if minion then
+				activeSkill.minion = minion
+				skillFlags.haveMinion = true
+				if isSpectre then
+					activeSkill.spectreListMinions = { minion }
+				end
+			end
+		end
+		if isSpectre then
+			activeSkill.spectreListMinions = activeSkill.spectreListMinions or { }
+			for _, spectreType in ipairs(minionList) do
+				if not activeSkill.minion or spectreType ~= activeSkill.minion.type then
+					local extraMinion = instantiateMinion(spectreType)
+					if extraMinion then
+						t_insert(activeSkill.spectreListMinions, extraMinion)
 					end
 				end
 			end
