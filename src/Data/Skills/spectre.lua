@@ -4700,7 +4700,6 @@ skills["AtlasCrusaderJudgeBallLightning"] = {
 		spell = true,
 		hit = true,
 		triggerable = true,
-		area = true,
 		projectile = true,
 	},
 	constantStats = {
