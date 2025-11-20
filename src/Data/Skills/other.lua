@@ -2405,6 +2405,7 @@ skills["PenanceMark"] = {
 	},
 	baseMods = {
 		skill("debuff", true),
+		skill("minionLevelIsEnemyLevel", true),
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 3000 },
