@@ -339,11 +339,22 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 								
 								if targetBaseClassId then
 									local used = spec:CountAllocNodes()
-									
+									local clickedAscendNodeId = hoverNode and hoverNode.id
+									local function allocateClickedAscendancy()
+										if not clickedAscendNodeId then
+											return
+										end
+										local targetNode = spec.nodes[clickedAscendNodeId]
+										if targetNode and not targetNode.alloc then
+											spec:AllocNode(targetNode)
+										end
+									end
+						
 									-- Allow cross-class switching if: no regular points allocated OR tree is connected to target class
 									if used == 0 or spec:IsClassConnected(targetBaseClassId) then
 										spec:SelectClass(targetBaseClassId)
 										spec:SelectAscendClass(targetAscendClassId)
+										allocateClickedAscendancy()
 										spec:AddUndoState()
 										build.buildFlag = true
 									else
@@ -351,16 +362,19 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 										main:OpenConfirmPopup("Class Change", "Changing class to "..targetBaseClass.name.." will reset your passive tree.\nThis can be avoided by connecting one of the "..targetBaseClass.name.." starting nodes to your tree.", "Continue", function()
 											spec:SelectClass(targetBaseClassId)
 											spec:SelectAscendClass(targetAscendClassId)
+											allocateClickedAscendancy()
 											spec:AddUndoState()
 											build.buildFlag = true
 										end, "Connect Path", function()
 											if spec:ConnectToClass(targetBaseClassId) then
 												spec:SelectClass(targetBaseClassId)
 												spec:SelectAscendClass(targetAscendClassId)
+												allocateClickedAscendancy()
 												spec:AddUndoState()
 												build.buildFlag = true
 											end
 										end)
+										return
 									end
 								end
 							end

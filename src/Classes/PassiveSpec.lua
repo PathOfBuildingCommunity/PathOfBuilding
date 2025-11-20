@@ -665,48 +665,76 @@ end
 
 -- Find and allocate the shortest path to connect to a target class's starting node
 function PassiveSpecClass:ConnectToClass(classId)
-	local targetStartNode = self.nodes[self.tree.classes[classId].startNodeId]
+	local classData = self.tree.classes[classId]
+	if not classData then
+		return false
+	end
+	local targetStartNode = self.nodes[classData.startNodeId]
 	if not targetStartNode then
 		return false
 	end
-	
-	-- Find all currently allocated nodes
-	local allocatedNodes = {}
-	for nodeId, node in pairs(self.allocNodes) do
-		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
-			t_insert(allocatedNodes, node)
-		end
+
+	local function isMainTreeNode(node)
+		return node
+			and not node.isProxy
+			and not node.ascendancyName
+			and node.type ~= "ClassStart"
+			and node.type ~= "AscendClassStart"
 	end
-	
-	-- Find the shortest path from any allocated node to any node connected to the target start
-	local shortestPath = nil
-	local shortestLength = 999999
-	
-	for _, allocNode in ipairs(allocatedNodes) do
-		-- Check each node connected to the target class start
-		for _, targetNode in ipairs(targetStartNode.linked) do
-			if not targetNode.alloc and targetNode.path then
-				-- Calculate distance from allocated node to this target node
-				local pathLength = #targetNode.path
-				if pathLength < shortestLength then
-					shortestLength = pathLength
-					shortestPath = targetNode.path
-				end
+
+	local visited = {}
+	local prev = {}
+	local queue = { targetStartNode }
+	visited[targetStartNode] = true
+	local head = 1
+	local foundNode = nil
+
+	while queue[head] and not foundNode do
+		local node = queue[head]
+		head = head + 1
+
+		if node ~= targetStartNode and node.alloc and node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
+			foundNode = node
+			break
+		end
+
+		for _, linked in ipairs(node.linked) do
+			if isMainTreeNode(linked) and not visited[linked] then
+				visited[linked] = true
+				prev[linked] = node
+				queue[#queue + 1] = linked
 			end
 		end
 	end
-	
-	-- Allocate the shortest path found
-	if shortestPath and #shortestPath > 0 then
-		for _, node in ipairs(shortestPath) do
-			if not node.alloc then
-				self:AllocNode(node)
-			end
-		end
-		return true
+
+	if not foundNode then
+		return false
 	end
-	
-	return false
+
+	local pathBack = {}
+	local current = foundNode
+	while current do
+		t_insert(pathBack, current)
+		if current == targetStartNode then
+			break
+		end
+		current = prev[current]
+	end
+
+	if pathBack[#pathBack] ~= targetStartNode then
+		return false
+	end
+
+	local altPath = { pathBack[1] }
+	for idx = 2, #pathBack - 1 do
+		altPath[idx] = pathBack[idx]
+		local node = pathBack[idx]
+		if not node.alloc then
+			self:AllocNode(node, altPath)
+		end
+	end
+
+	return true
 end
 
 -- Clear the allocated status of all non-class-start nodes
