@@ -144,6 +144,7 @@ minions["Metadata/Monsters/Axis/AxisExperimenter"] = {
 		"ExperimenterEnrageDemon",
 	},
 	modList = {
+		-- muzzle_flash_swap_hands [muzzle_flash_swap_hands = 1]
 	},
 }
 minions["Metadata/Monsters/Axis/AxisExperimenter2"] = {
@@ -169,6 +170,7 @@ minions["Metadata/Monsters/Axis/AxisExperimenter2"] = {
 		"MonsterDetonateDeadExperimenter",
 	},
 	modList = {
+		-- muzzle_flash_swap_hands [muzzle_flash_swap_hands = 1]
 	},
 }
 minions["Metadata/Monsters/Axis/AxisExperimenterRaiseZombie"] = {
@@ -194,6 +196,7 @@ minions["Metadata/Monsters/Axis/AxisExperimenterRaiseZombie"] = {
 		"ExperimenterEnrageDemon",
 	},
 	modList = {
+		-- muzzle_flash_swap_hands [muzzle_flash_swap_hands = 1]
 	},
 }
 -- Bandit
@@ -269,6 +272,7 @@ minions["Metadata/Monsters/Bandits/BanditMeleeWarlordsMarkMaul"] = {
 		"EASBanditTaunt",
 	},
 	modList = {
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
 	},
 }
 minions["Metadata/Monsters/Bandit/DockworkerChampion_"] = {
@@ -291,6 +295,7 @@ minions["Metadata/Monsters/Bandit/DockworkerChampion_"] = {
 		"GroundEffectsSlamDockworkerChampion",
 	},
 	modList = {
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
 	},
 }
 minions["Metadata/Monsters/Bandits/BanditBowChampion"] = {
@@ -340,6 +345,7 @@ minions["Metadata/Monsters/Bandits/BanditRangedTornadoShotPetrified"] = {
 		"SkeletonSoldierTornadoShot",
 	},
 	modList = {
+		-- set_immune_to_cheats [set_immune_to_cheats = 1]
 	},
 }
 -- Beast
@@ -813,6 +819,7 @@ minions["Metadata/Monsters/DemonModular/DemonModularBladeVortex"] = {
 		"DemonModularBladeVortexSpectre",
 	},
 	modList = {
+		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 0]
 	},
 }
 minions["Metadata/Monsters/DemonModular/DemonModularFire"] = {
@@ -836,6 +843,7 @@ minions["Metadata/Monsters/DemonModular/DemonModularFire"] = {
 		"ModularDemonFireSuicideExplosion",
 	},
 	modList = {
+		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 0]
 	},
 }
 -- Maw
@@ -959,6 +967,7 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateBlackBowMaps"] = {
 	},
 	modList = {
 		mod("PhysicalDamageGainAsLightning", "BASE", 100, 0, 0), -- MonsterPhysicalAddedAsLightningSkeletonMaps [physical_damage_%_to_add_as_lightning = 100]
+		-- supress_muzzle_flash [supress_muzzle_flash = 1]
 	},
 }
 minions["Metadata/Monsters/GhostPirates/GhostPirateBlackFlickerStrikeMaps"] = {
@@ -989,6 +998,7 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateBlackFlickerStrikeMaps"] = {
 		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [monster_base_block_% = 20]
 		mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [base_spell_block_% = 20]
 		mod("BlockEffect", "BASE", 40, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [base_block_%_damage_taken = 40]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
 	},
 }
 minions["Metadata/Monsters/GhostPirates/GhostPirateGreenBladeVortex"] = {
@@ -1019,6 +1029,7 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateGreenBladeVortex"] = {
 		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [monster_base_block_% = 20]
 		mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [base_spell_block_% = 20]
 		mod("BlockEffect", "BASE", 40, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [base_block_%_damage_taken = 40]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
 	},
 }
 -- Undying Grappler
@@ -1338,6 +1349,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodDelve"] = {
 		"VaalincursionMortar",
 	},
 	modList = {
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
 	},
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodChampionDelve"] = {
@@ -1362,6 +1374,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodChampionDelve"] = 
 		"VaalIncursionSpecialBeamCannonBlood",
 	},
 	modList = {
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
 	},
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosDelve"] = {
@@ -1385,6 +1398,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosDelve"] = {
 		"FireballIncursionChaos",
 	},
 	modList = {
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
 	},
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosChampionDelve"] = {
@@ -1410,6 +1424,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosChampionDelve"] = 
 		"IncursionMeteorUpheaval",
 	},
 	modList = {
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
 	},
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireDelve"] = {
@@ -1433,6 +1448,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireDelve"] = {
 		"FireballIncusionFire",
 	},
 	modList = {
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
 	},
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireChampionDelve_"] = {
@@ -1457,6 +1473,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireChampionDelve_"] = 
 		"VaalIncursionFirestorm",
 	},
 	modList = {
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
 	},
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningDelve"] = {
@@ -1480,6 +1497,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningDelve"] = {
 		"FireballIncusionLightning",
 	},
 	modList = {
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
 	},
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampionDelve_"] = {
@@ -1505,6 +1523,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampionDelve_
 		"SummonedSparkDaemonLightning",
 	},
 	modList = {
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
 	},
 }
 -- Kitava's Herald
@@ -1754,6 +1773,7 @@ minions["Metadata/Monsters/Monkeys/FlameBearer"] = {
 		"FlamebearerFlameBlue",
 	},
 	modList = {
+		-- set_base_number_of_totems_allowed [set_base_number_of_totems_allowed = 5]
 	},
 }
 -- Stone golem
@@ -1825,6 +1845,8 @@ minions["Metadata/Monsters/Necromancer/NecromancerConductivity"] = {
 	},
 	modList = {
 		-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
+		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
+		-- hexes_not_tracked [hexes_not_tracked = 1]
 	},
 }
 minions["Metadata/Monsters/Necromancer/NecromancerEnfeebleCurse"] = {
@@ -1850,6 +1872,8 @@ minions["Metadata/Monsters/Necromancer/NecromancerEnfeebleCurse"] = {
 	},
 	modList = {
 		-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
+		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
+		-- hexes_not_tracked [hexes_not_tracked = 1]
 	},
 }
 minions["Metadata/Monsters/Necromancer/NecromancerFlamability"] = {
@@ -1875,6 +1899,8 @@ minions["Metadata/Monsters/Necromancer/NecromancerFlamability"] = {
 	modList = {
 		-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
 		-- ImmuneToLavaDamage [immune_to_lava_damage = 1]
+		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
+		-- hexes_not_tracked [hexes_not_tracked = 1]
 	},
 }
 minions["Metadata/Monsters/Necromancer/NecromancerFrostbite"] = {
@@ -1899,6 +1925,8 @@ minions["Metadata/Monsters/Necromancer/NecromancerFrostbite"] = {
 	},
 	modList = {
 		-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
+		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
+		-- hexes_not_tracked [hexes_not_tracked = 1]
 	},
 }
 minions["Metadata/Monsters/Necromancer/NecromancerElementalWeakness"] = {
@@ -1923,6 +1951,8 @@ minions["Metadata/Monsters/Necromancer/NecromancerElementalWeakness"] = {
 	},
 	modList = {
 		-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
+		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
+		-- hexes_not_tracked [hexes_not_tracked = 1]
 	},
 }
 minions["Metadata/Monsters/Necromancer/NecromancerProjectileWeakness"] = {
@@ -1947,6 +1977,8 @@ minions["Metadata/Monsters/Necromancer/NecromancerProjectileWeakness"] = {
 	},
 	modList = {
 		-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
+		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
+		-- hexes_not_tracked [hexes_not_tracked = 1]
 	},
 }
 minions["Metadata/Monsters/Necromancer/NecromancerVulnerability"] = {
@@ -1971,6 +2003,8 @@ minions["Metadata/Monsters/Necromancer/NecromancerVulnerability"] = {
 	},
 	modList = {
 		-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
+		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
+		-- hexes_not_tracked [hexes_not_tracked = 1]
 	},
 }
 -- Undying Bomber
@@ -2238,6 +2272,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeLarge"] = {
 	},
 	modList = {
 		-- MonsterNecromancerRaisable [undead_description = 1]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
 	},
 }
 minions["Metadata/Monsters/Skeletons/SkeletonBowLightning3"] = {
@@ -2428,6 +2463,8 @@ minions["Metadata/Monsters/Skeletons/SkeletonBlackCaster1_"] = {
 	modList = {
 		-- MonsterNecromancerRaisable [undead_description = 1]
 		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+		-- set_immune_to_cheats [set_immune_to_cheats = 1]
 	},
 }
 minions["Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse"] = {
@@ -2478,6 +2515,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionC
 		"IncursionLeapSlamChampion",
 	},
 	modList = {
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
 minions["Metadata/Monsters/Skeletons/SkeletonBowKnightElemental"] = {
@@ -2529,6 +2567,8 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeBlackAbyssBoneLance"] = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
 		-- VariableEmergeSpeedAbyss [emerge_speed_+% = 0]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -80]
 	},
 }
 minions["Metadata/Monsters/SkeletonCannon/SkeletonCannon1"] = {
@@ -2623,6 +2663,7 @@ minions["Metadata/Monsters/Spiders/SpiderThornFlickerStrike"] = {
 		"MonsterFlickerStrike",
 	},
 	modList = {
+		-- set_is_spider [set_is_spider = 1]
 	},
 }
 minions["Metadata/Monsters/Spiders/SpiderThornViperStrikeFlickerStrike"] = {
@@ -2645,6 +2686,7 @@ minions["Metadata/Monsters/Spiders/SpiderThornViperStrikeFlickerStrike"] = {
 		"MonsterFlickerStrike",
 	},
 	modList = {
+		-- set_is_spider [set_is_spider = 1]
 	},
 }
 -- Statue
@@ -2671,6 +2713,7 @@ minions["Metadata/Monsters/Statue/DaressoStatueLargeMaleSpear"] = {
 	modList = {
 		-- MonsterSpeedAndDamageFixupComplete [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 33]
 		-- MonsterCastsPunctureText [monster_casts_puncture_text = 1]
+		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 400]
 	},
 }
 minions["Metadata/Monsters/Statue/StoneStatueMaleBow"] = {
@@ -2697,6 +2740,7 @@ minions["Metadata/Monsters/Statue/StoneStatueMaleBow"] = {
 	modList = {
 		-- MonsterSpeedAndDamageFixupSmall [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 11]
 		-- MonsterFiresIceShotArrowsText [monster_fires_ice_shot_arrows_text = 1]
+		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 400]
 	},
 }
 -- Ophidian
@@ -3090,6 +3134,7 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre"] = {
 	modList = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 2]
 	},
 }
 -- Primal Rhex Matriarch
@@ -3121,6 +3166,7 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT3Spectre"] = {
 	modList = {
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 2]
 	},
 }
 -- Templar Tactician
@@ -3202,6 +3248,7 @@ minions["Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice2Spectre_"] = {
 		"EmptyActionAttackSecretPoliceDaggers",
 	},
 	modList = {
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -30]
 	},
 }
 -- Cloud Retch
@@ -3368,6 +3415,11 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdWeakSpectre"] = {
 		"UltimatumGuardConeArrowCold",
 	},
 	modList = {
+		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
+		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
+		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
 -- Trial Windchaser
@@ -3395,6 +3447,11 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdSpectre"] = {
 		"UltimatumGuardConeArrowCold",
 	},
 	modList = {
+		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
+		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
+		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
 -- Hyrri's Watch
@@ -3746,6 +3803,9 @@ minions["Metadata/Monsters/LeagueCrucible/Cold/Pyromaniac"] = {
 		"CrucibleIceStormTrap",
 	},
 	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- is_crucible_monster [is_crucible_monster = 1]
+		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 	},
 }
 -- Wretched Defiler
@@ -3907,6 +3967,9 @@ minions["Metadata/Monsters/LeagueCrucible/Lightning/Vendigo_"] = {
 		"EASCrucibleVendigoEnrage",
 	},
 	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- is_crucible_monster [is_crucible_monster = 1]
+		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 	},
 }
 
@@ -4325,6 +4388,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuLow"] = {
 		"AzmeriKudukuWarp",
 	},
 	modList = {
+		mod("CurseImmune", "FLAG", 0, 0, 0), -- set_immune_to_curses [set_immune_to_curses = 0]
 	},
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuMid"] = {
@@ -4349,6 +4413,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuMid"] = {
 		"AzmeriKudukuWrath",
 	},
 	modList = {
+		mod("CurseImmune", "FLAG", 0, 0, 0), -- set_immune_to_curses [set_immune_to_curses = 0]
 	},
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuHigh"] = {
@@ -4373,6 +4438,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuHigh"] = {
 		"AzmeriKudukuWrath",
 	},
 	modList = {
+		mod("CurseImmune", "FLAG", 0, 0, 0), -- set_immune_to_curses [set_immune_to_curses = 0]
 		mod("AllyModifier", "LIST", { mod = flag("LightningLuckHits") }),
 	},
 }
@@ -4958,6 +5024,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightLow"] = {
 		"WalkEmergeExpeditionDeathKnight",
 	},
 	modList = {
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightMid"] = {
@@ -4983,6 +5050,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightMid"] = {
 		"WalkEmergeExpeditionDeathKnight",
 	},
 	modList = {
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightHigh"] = {
@@ -5008,6 +5076,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightHigh"] = {
 		"WalkEmergeExpeditionDeathKnight",
 	},
 	modList = {
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
 -- Slashing Horror
@@ -5454,6 +5523,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdLow"] = {
 		"GSAzmeriBirdDashZap",
 	},
 	modList = {
+		-- damage_hit_effect_index [damage_hit_effect_index = 2]
 	},
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdMid"] = {
@@ -5484,6 +5554,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdMid"] = {
 		"GSAzmeriBirdDashZap",
 	},
 	modList = {
+		-- damage_hit_effect_index [damage_hit_effect_index = 2]
 	},
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdHigh"] = {
@@ -5516,6 +5587,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdHigh"] = {
 		"AzmeriBirdGraceHardMode",
 	},
 	modList = {
+		-- damage_hit_effect_index [damage_hit_effect_index = 2]
 	},
 }
 -- Primal Demiurge
@@ -6517,6 +6589,8 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonLow"] = {
 		"AfflictionMinionPhysSlamCircleRectangle",
 	},
 	modList = {
+		-- set_is_affliction_monster [set_is_affliction_monster = 1]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -60]
 	},
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonMid"] = {
@@ -6541,6 +6615,8 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonMid"] = {
 		"AfflictionMinionPhysSlamCircleRectangle",
 	},
 	modList = {
+		-- set_is_affliction_monster [set_is_affliction_monster = 1]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -60]
 	},
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonHigh"] = {
@@ -6565,6 +6641,8 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonHigh"] = {
 		"AfflictionMinionPhysSlamCircleRectangle",
 	},
 	modList = {
+		-- set_is_affliction_monster [set_is_affliction_monster = 1]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -60]
 	},
 }
 -- Riftcaster

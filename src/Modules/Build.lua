@@ -1535,7 +1535,10 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal, colorOverride)
 	end
 	
 	local valStr = s_format("%"..statData.fmt, val)
-	valStr:gsub("%.", main.decimalSeparator)
+	local number, suffix = valStr:match("^([%+%-]?%d+%.%d+)(%D*)$")
+	if number then
+		valStr = number:gsub("0+$", ""):gsub("%.$", "") .. suffix
+	end
 	valStr = color .. formatNumSep(valStr)
 
 	if overCapStatVal and overCapStatVal > 0 then
@@ -1737,6 +1740,10 @@ function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compare
 				local color = ((statData.lowerIsBetter and diff < 0) or (not statData.lowerIsBetter and diff > 0)) and colorCodes.POSITIVE or colorCodes.NEGATIVE
 				local val = diff * ((statData.pc or statData.mod) and 100 or 1)
 				local valStr = s_format("%+"..statData.fmt, val) -- Can't use self:FormatStat, because it doesn't have %+. Adding that would have complicated a simple function
+				local number, suffix = valStr:match("^([%+%-]?%d+%.%d+)(%D*)$")
+				if number then
+					valStr = number:gsub("0+$", ""):gsub("%.$", "") .. suffix
+				end
 
 				valStr = formatNumSep(valStr)
 

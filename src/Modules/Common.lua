@@ -42,6 +42,19 @@ if launch.devMode and profiler == nil then
 	ConPrintf("Unable to Load Profiler")
 end
 
+-- Optimize coroutines to run at full framerate
+local co_create = coroutine.create
+local active_coroutines = setmetatable({}, { __mode = "k" })
+function coroutine.create(func)
+	local co = co_create(func)
+	active_coroutines[co] = true
+	return co
+end
+
+function coroutine._list()
+	return active_coroutines
+end
+
 -- Class library
 common.classes = { }
 local function addSuperParents(class, parent)

@@ -50,6 +50,8 @@ sed -i -re 's/( \()?\[\\#[0-9]+\]\([^)]*\),? ?\)?//g' changelog_temp.txt
 sed -i -re 's/\[([^]]*)\]\(https:\/\/github\.com\/[^)]*\)/\1/g' changelog_temp.txt
 # Create new changelog format: add version header, remove lines 2-3, format section headers, remove ## headers with following line, prepend to existing changelog
 echo "VERSION[${RELEASE_VERSION#v}][$(date +'%Y/%m/%d')]" | cat - changelog_temp.txt | sed '2,3d' | sed -re 's/^### (.*)/\n--- \1 ---/' | sed -e '/^##.*/,+1 d' | cat - changelog.txt > changelog_new.txt
+# Convert dashes to asterisks for bullet points
+sed -i -e 's/^- /* /' changelog_new.txt
 mv changelog_new.txt changelog.txt
 
 # Normalize line endings to CRLF for all output files to ensure consistent checksums with Windows

@@ -6379,143 +6379,143 @@ return {
 		},
 		[3]={
 			list=false,
-			name="TradeMarketCategory",
-			refTo="TradeMarketCategory",
-			type="Key",
-			width=120
-		},
-		[4]={
-			list=false,
 			name="ItemClassCategory",
 			refTo="ItemClassCategories",
 			type="Key",
 			width=150
 		},
-		[5]={
+		[4]={
 			list=false,
 			name="RemovedIfLeavesArea",
 			refTo="",
 			type="Bool",
 			width=150
 		},
-		[6]={
+		[5]={
 			list=true,
 			name="",
 			refTo="",
 			type="Key",
 			width=20
 		},
-		[7]={
+		[6]={
 			list=true,
 			name="Achievements",
 			refTo="AchievementItems",
 			type="Key",
 			width=150
 		},
-		[8]={
+		[7]={
 			list=false,
 			name="AllocateToMapOwner",
 			refTo="",
 			type="Bool",
 			width=130
 		},
-		[9]={
+		[8]={
 			list=false,
 			name="AlwaysAllocate",
 			refTo="",
 			type="Bool",
 			width=120
 		},
-		[10]={
+		[9]={
 			list=false,
 			name="CanHaveVeiledMods",
 			refTo="",
 			type="Bool",
 			width=130
 		},
-		[11]={
+		[10]={
 			list=false,
 			name="PickedUpQuest",
 			refTo="QuestFlags",
 			type="Key",
 			width=110
 		},
-		[12]={
+		[11]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
 			width=150
 		},
-		[13]={
+		[12]={
 			list=false,
 			name="AlwaysShow",
 			refTo="",
 			type="Bool",
 			width=100
 		},
-		[14]={
+		[13]={
 			list=false,
 			name="CanBeCorrupted",
 			refTo="",
 			type="Bool",
 			width=100
 		},
-		[15]={
+		[14]={
 			list=false,
 			name="CanHaveIncubators",
 			refTo="",
 			type="Bool",
 			width=120
 		},
-		[16]={
+		[15]={
 			list=false,
 			name="CanHaveInfluence",
 			refTo="",
 			type="Bool",
 			width=120
 		},
-		[17]={
+		[16]={
 			list=false,
 			name="CanBeDoubleCorrupted",
 			refTo="",
 			type="Bool",
 			width=130
 		},
-		[18]={
+		[17]={
 			list=false,
 			name="CanHaveAspects",
 			refTo="",
 			type="Bool",
 			width=110
 		},
-		[19]={
+		[18]={
 			list=false,
 			name="CanTransferSkin",
 			refTo="",
 			type="Bool",
 			width=110
 		},
-		[20]={
+		[19]={
 			list=false,
 			name="ItemStance",
 			refTo="ItemStances",
 			type="Key",
 			width=90
 		},
-		[21]={
+		[20]={
 			list=false,
 			name="CanScourge",
 			refTo="",
 			type="Bool",
 			width=80
 		},
-		[22]={
+		[21]={
 			list=false,
 			name="CanUpgradeRarity",
 			refTo="",
 			type="Bool",
 			width=110
+		},
+		[22]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=80
 		},
 		[23]={
 			list=false,
@@ -6525,74 +6525,60 @@ return {
 			width=80
 		},
 		[24]={
-			list=false,
-			name="",
-			refTo="",
-			type="Bool",
-			width=80
-		},
-		[25]={
-			list=true,
-			name="MaxInventoryDimensions",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[26]={
 			list=true,
 			name="Flags",
 			refTo="",
 			type="Int",
-			width=80
+			width=150
 		},
-		[27]={
+		[25]={
 			list=false,
 			name="Unmodifiable",
 			refTo="",
 			type="Bool",
 			width=100
 		},
-		[28]={
+		[26]={
 			list=false,
 			name="CanBeFractured",
 			refTo="",
 			type="Bool",
 			width=100
 		},
-		[29]={
+		[27]={
 			list=false,
 			name="EquipAchievements",
 			refTo="AchievementItems",
 			type="Key",
 			width=120
 		},
-		[30]={
+		[28]={
 			list=false,
 			name="UsedInMapDevice",
 			refTo="",
 			type="Bool",
 			width=150
 		},
+		[29]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[30]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
 		[31]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
-			width=80
-		},
-		[32]={
-			list=false,
-			name="",
-			refTo="",
-			type="Bool",
-			width=80
-		},
-		[33]={
-			list=false,
-			name="",
-			refTo="",
-			type="Bool",
-			width=80
+			width=50
 		}
 	},
 	itemclassflags={
@@ -13474,6 +13460,57 @@ return {
 		}
 	},
 	userinterfacemodecondition={
+	},
+	villagebalanceperlevelshared={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="GoldRespec",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	villageuniquedisenchantvalues={
 		[1]={

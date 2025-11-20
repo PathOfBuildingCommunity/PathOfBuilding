@@ -693,7 +693,7 @@ local function defaultTriggerHandler(env, config)
 			end
 
 			if env.player.mainSkill.activeEffect.grantedEffect.name == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "vixen" then
-				if not env.player.itemList["Gloves"] or env.player.itemList["Gloves"].title ~= "Vixen's Entrapment" then
+				if not env.player.itemList["Gloves"] or not env.player.itemList["Gloves"].title:match("Vixen's Entrapment") then
 					output.VixenModeNoVixenGlovesWarn = true
 				end
 
@@ -905,6 +905,7 @@ local configTable = {
 	["the surging thoughts"] = function(env)
 		if env.player.mainSkill.activeEffect.grantedEffect.name == "Storm Cascade" then
 			return {
+				triggerOnUse = true,
 				triggerSkillCond = function(env, skill)
 					return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack])
 				end
@@ -1088,6 +1089,14 @@ local configTable = {
 				end,
 				triggeredSkillCond = function(env, skill)
 					return skill.skillData.triggeredByMjolner and slotMatch(env, skill)
+				end}
+	end,
+	["wing of the wyvern"] = function()
+		return {triggerSkillCond = function(env, skill)
+					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Bow) > 0 and not slotMatch(env, skill)
+				end,
+				triggeredSkillCond = function(env, skill)
+					return skill.skillData.triggeredByUnique and slotMatch(env, skill)
 				end}
 	end,
 	["cospri's malice"] = function()
@@ -1430,11 +1439,27 @@ local configTable = {
 					useCastRate = true}
 		end
 	end,
-	["supporttriggerelementalspellonblock"] = function(env) -- Svalinn Girded Tower Shield
+	["svalinn cast on block"] = function(env) -- Svalinn Girded Tower Shield
 		env.player.mainSkill.skillFlags.globalTrigger = true
 		return {source = env.player.mainSkill,
 				triggeredSkillCond = function(env, skill)
 					return slotMatch(env, skill) and skill.triggeredBy and calcLib.canGrantedEffectSupportActiveSkill(skill.triggeredBy.grantedEffect, skill)
+				end}
+	end,
+	["festering resentment cast on block"] = function(env) -- Festering Resentment Demon Dagger
+		env.player.mainSkill.skillFlags.globalTrigger = true
+		return {source = env.player.mainSkill,
+				triggeredSkillCond = function(env, skill)
+					return slotMatch(env, skill) and skill.triggeredBy and calcLib.canGrantedEffectSupportActiveSkill(skill.triggeredBy.grantedEffect, skill)
+				end}
+	end,
+	["hex on trap"] = function(env) -- Hand of the Lords Carnal Mitts
+		return {triggerSkillCond = function(env, skill)
+					-- Hex is triggered only when a trap is triggered
+					return skill.skillTypes[SkillType.Trapped]
+				end,
+				triggeredSkillCond = function(env, skill)
+					return skill.skillData.triggeredByTrapTrigger and slotMatch(env, skill)
 				end}
 	end,
 	["supporttriggerfirespellonhit"] = function(env)

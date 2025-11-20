@@ -604,6 +604,10 @@ function calcs.defence(env, actor)
 		local final = m_max(m_min(total, max), min)
 		local dotFinal = m_max(m_min(dotTotal, max), min)
 		local totemFinal = m_max(m_min(totemTotal, totemMax), min)
+		
+		if env.minion and modDB:Sum("BASE", nil, "ResistanceAddedToMinions") > 0 then
+			env.minion.modDB:NewMod(elem.."Resist", "BASE", m_floor(final * modDB:Sum("BASE", nil, "ResistanceAddedToMinions") / 100), "Player")
+		end
 
 		output[elem.."Resist"] = final
 		output[elem.."ResistTotal"] = total
@@ -720,19 +724,20 @@ function calcs.defence(env, actor)
 			if modDB:Flag(nil, "ExtremeLuck") then
 				blockRolls = blockRolls * 2
 			end
-			if modDB:Flag(nil, "Unexciting") then
-				blockRolls = 0
-			end
 		end
 		-- unlucky config to lower the value of block, dodge, evade etc for ehp
 		if env.configInput.EHPUnluckyWorstOf and env.configInput.EHPUnluckyWorstOf ~= 1 then
 			blockRolls = -env.configInput.EHPUnluckyWorstOf / 2
 		end
 		if blockRolls ~= 0 then
-			if blockRolls > 0 then
-				output["Effective"..blockType] = (1 - (1 - output["Effective"..blockType] / 100) ^ (blockRolls + 1)) * 100
+			local blockChance = output["Effective"..blockType] / 100
+			if modDB:Flag(nil, "Unexciting") then
+				-- Unexciting rolls three times and keeps the median result -> 3p^2 - 2p^3
+				output["Effective"..blockType] = (3 * blockChance ^ 2 - 2 * blockChance ^ 3) * 100
+			elseif blockRolls > 0 then
+				output["Effective"..blockType] = (1 - (1 - blockChance) ^ (blockRolls + 1)) * 100
 			else
-				output["Effective"..blockType] = (output["Effective"..blockType] / 100) ^ m_abs(blockRolls) * output["Effective"..blockType]
+				output["Effective"..blockType] = blockChance ^ m_abs(blockRolls) * output["Effective"..blockType]
 			end
 		end
 	end
@@ -1096,19 +1101,20 @@ function calcs.defence(env, actor)
 		if modDB:Flag(nil, "ExtremeLuck") then
 			suppressRolls = suppressRolls * 2
 		end
-		if modDB:Flag(nil, "Unexciting") then
-			suppressRolls = 0
-		end
 	end
 	-- unlucky config to lower the value of block, dodge, evade etc for ehp
 	if env.configInput.EHPUnluckyWorstOf and env.configInput.EHPUnluckyWorstOf ~= 1 then
 		suppressRolls = -env.configInput.EHPUnluckyWorstOf / 2
 	end
 	if suppressRolls ~= 0 then
-		if suppressRolls > 0 then
-			output.EffectiveSpellSuppressionChance = (1 - (1 - output.EffectiveSpellSuppressionChance / 100) ^ (suppressRolls + 1)) * 100
+		local suppressChance = output.EffectiveSpellSuppressionChance / 100
+		if modDB:Flag(nil, "Unexciting") then
+			-- Unexciting rolls three times and keeps the median result -> 3p^2 - 2p^3
+			output.EffectiveSpellSuppressionChance = (3 * suppressChance ^ 2 - 2 * suppressChance ^ 3) * 100
+		elseif suppressRolls > 0 then
+			output.EffectiveSpellSuppressionChance = (1 - (1 - suppressChance) ^ (suppressRolls + 1)) * 100
 		else
-			output.EffectiveSpellSuppressionChance = (output.EffectiveSpellSuppressionChance / 100) ^ m_abs(suppressRolls) * output.EffectiveSpellSuppressionChance
+			output.EffectiveSpellSuppressionChance = suppressChance ^ m_abs(suppressRolls) * output.EffectiveSpellSuppressionChance
 		end
 	end
 	
@@ -1274,14 +1280,15 @@ function calcs.defence(env, actor)
 	if output.EnergyShieldRechargeAppliesToLife or output.EnergyShieldRechargeAppliesToEnergyShield then
 		local inc = modDB:Sum("INC", nil, "EnergyShieldRecharge")
 		local more = modDB:More(nil, "EnergyShieldRecharge")
+		local base = modDB:Override(nil, "EnergyShieldRecharge") or data.misc.EnergyShieldRechargeBase
 		if output.EnergyShieldRechargeAppliesToLife then
-			local recharge = output.Life * data.misc.EnergyShieldRechargeBase * (1 + inc/100) * more
+			local recharge = output.Life * base * (1 + inc/100) * more
 			output.LifeRecharge = round(recharge * output.LifeRecoveryRateMod)
 			if breakdown then
 				breakdown.LifeRecharge = { }
 				breakdown.multiChain(breakdown.LifeRecharge, {
 					label = "Recharge rate:",
-					base = { "%.1f ^8(33%% per second)", output.Life * data.misc.EnergyShieldRechargeBase },
+					base = { "%.1f ^8(%d%% per second)", output.Life * base, base * 100 },
 					{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
 					{ "%.2f ^8(more/less)", more },
 					total = s_format("= %.1f ^8per second", recharge),
@@ -1294,13 +1301,13 @@ function calcs.defence(env, actor)
 				})	
 			end
 		else
-			local recharge = output.EnergyShield * data.misc.EnergyShieldRechargeBase * (1 + inc/100) * more
+			local recharge = output.EnergyShield * base * (1 + inc/100) * more
 			output.EnergyShieldRecharge = round(recharge * output.EnergyShieldRecoveryRateMod)
 			if breakdown then
 				breakdown.EnergyShieldRecharge = { }
 				breakdown.multiChain(breakdown.EnergyShieldRecharge, {
 					label = "Recharge rate:",
-					base = { "%.1f ^8(33%% per second)", output.EnergyShield * data.misc.EnergyShieldRechargeBase },
+					base = { "%.1f ^8(%d%% per second)", output.EnergyShield * base, base * 100 },
 					{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
 					{ "%.2f ^8(more/less)", more },
 					total = s_format("= %.1f ^8per second", recharge),
@@ -1514,6 +1521,7 @@ function calcs.defence(env, actor)
 	output.SilenceAvoidChance = modDB:Flag(nil, "SilenceImmune") and 100 or output.CurseAvoidChance
 	output.CritExtraDamageReduction = m_min(modDB:Sum("BASE", nil, "ReduceCritExtraDamage"), 100)
 	output.LightRadiusMod = calcLib.mod(modDB, nil, "LightRadius")
+	output.LightRadiusInc = m_max(modDB:Sum("INC", nil, "LightRadius"), 0)
 	if breakdown then
 		breakdown.LightRadiusMod = breakdown.mod(modDB, nil, "LightRadius")
 	end

@@ -4833,7 +4833,7 @@ skills["CycloneAltX"] = {
 		area = true,
 	},
 	baseMods = {
-		skill("radius", 11),
+		skill("radius", 16),
 	},
 	qualityStats = {
 		Default = {
@@ -8782,6 +8782,7 @@ skills["GlacialShieldSwipe"] = {
 		"is_area_damage",
 		"always_freeze",
 		"base_skill_show_average_damage_instead_of_dps",
+		"attack_is_melee_override",
 	},
 	notMinionStat = {
 		"off_hand_local_minimum_added_physical_damage",
@@ -16117,7 +16118,7 @@ skills["TornadoShot"] = {
 		if activeSkill.skillPart == 2 and (output.ReturnChance or 0) == 0 then
 			local averageSecondaryProjectiles = output.ProjectileCount + (output.SplitCount or 0)
 			-- if barrage then only shoots 1 projectile at a time, but those can still split and still releases at least 1 secondary projectile
-			if activeSkill.skillModList:Flag(nil, "SequentialProjectiles") and not activeSkill.skillModList:Flag(nil, "OneShotProj") and not activeSkill.skillModList:Flag(nil,"NoAdditionalProjectiles") and not activeSkill.skillModList:Flag(nil, "TriggeredBySnipe") then
+			if activeSkill.skillModList:Flag(nil, "SequentialProjectiles") and not activeSkill.skillModList:Flag(nil, "OneShotProj") and not activeSkill.skillModList:Flag(nil,"NoAdditionalProjectiles") and not activeSkill.skillModList:Flag(nil,"SingleProjectile") and not activeSkill.skillModList:Flag(nil, "TriggeredBySnipe") then
 				averageSecondaryProjectiles = 1 + (output.SplitCount or 0)
 			end
 			-- default to 20% per secondary projectile, so 60% base, and 80% with helm enchant
