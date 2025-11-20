@@ -2567,7 +2567,7 @@ function calcs.buildDefenceEstimations(env, actor)
 					poolTable.Life = m_min(poolTable.Life + DamageIn.MissingLifeBeforeEnemyHit * ((output.LifeUnreserved or 0) - poolTable.Life) * (gainMult - 1) / 100, gainMult * output.LifeRecoverable or 0)
 				end
 				if DamageIn.MissingManaBeforeEnemyHit then
-					poolTable.Mana = m_min(poolTable.Mana + DamageIn.MissingManaBeforeEnemyHit * ((output.ManaUnreserved or 0) - poolTable.Mana) * (gainMult - 1) / 100, gainMult * output.ManaUnreserved or 0)
+					poolTable.Mana = m_min(poolTable.Mana + DamageIn.MissingManaBeforeEnemyHit * ((output.ManaUnreserved or 0) - poolTable.Mana) * (gainMult - 1) / 100, gainMult * (output.ManaUnreserved or 0))
 				end
 				if DamageIn.GainWhenHit then
 					poolTable.Life = m_min(poolTable.Life + DamageIn.LifeWhenHit * (gainMult - 1), gainMult * (output.LifeRecoverable or 0))
@@ -2575,10 +2575,10 @@ function calcs.buildDefenceEstimations(env, actor)
 					poolTable.EnergyShield = m_min(poolTable.EnergyShield + DamageIn.EnergyShieldWhenHit * (gainMult - 1), gainMult * output.EnergyShieldRecoveryCap)
 				end
 			end
-			if DamageIn.MissingLifeBeforeEnemyHit and poolTable.Mana > 0 then
+			if DamageIn.MissingLifeBeforeEnemyHit and poolTable.Life > 0 then
 				poolTable.Life = m_min(poolTable.Life + DamageIn.MissingLifeBeforeEnemyHit * ((output.LifeUnreserved or 0) - poolTable.Life) / 100, output.LifeRecoverable or 0)
 			end
-			if DamageIn.MissingManaBeforeEnemyHit and poolTable.Life > 0 then
+			if DamageIn.MissingManaBeforeEnemyHit and poolTable.Mana > 0 then
 				poolTable.Mana = m_min(poolTable.Mana + DamageIn.MissingManaBeforeEnemyHit * ((output.ManaUnreserved or 0) - poolTable.Mana) / 100, output.ManaUnreserved or 0)
 			end
 			poolTable = calcs.reducePoolsByDamage(poolTable, Damage, actor)
