@@ -649,7 +649,15 @@ local skills, mod, flag, skill = ...
 
 #skill PenanceMark
 #flags spell curse duration mark
-	fromTree = true,
+	fromItem = true,
+	minionList = {
+		"PenanceMarkPhantasm",
+	},
+	statMap = {
+		["penance_mark_summon_phantasms_when_hit"] = {
+			mod("SummonPhantasmWhenHit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #baseMod skill("debuff", true)
 #mods
 

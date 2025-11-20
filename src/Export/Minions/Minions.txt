@@ -95,7 +95,6 @@ local minions, mod = ...
 #mod mod("Damage", "MORE", 70), -- MonsterUnique5
 #mod mod("Speed", "MORE", 33, ModFlag.Attack), -- MonsterUnique8
 #mod mod("Damage", "MORE", -33, ModFlag.Attack), -- MonsterUnique8
-#mod mod("DamageTaken", "MORE", -95), -- monster_inherent_damage_taken_+%_final : UniqueAnimatedWeapon.ot
 #emit
 
 #monster Metadata/Monsters/SummonedPhantasm/SummonedPhantasm SummonedPhantasm
@@ -240,4 +239,8 @@ minions["GuardianRelicAll"] = {
 
 #monster Metadata/Monsters/LivingLightning/LivingLightningSummoned LivingLightningMinion
 #limit ActiveLivingLightningLimit
+#emit
+
+#monster Metadata/Monsters/SummonedPhantasm/SummonedPhantasmPenanceMark PenanceMarkPhantasm
+#limit ActiveVoidSpawnLimit
 #emit
