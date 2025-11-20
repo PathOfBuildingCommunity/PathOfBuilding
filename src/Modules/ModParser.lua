@@ -3539,8 +3539,8 @@ local specialModList = {
 		flag("SpellSuppressionAppliesToAilmentAvoidance")
 	} end,
 	["modifiers to chance to suppress spell damage also apply to chance to defend with (%d+)%% of armour at (%d+)%% of their value"] = function (armourPercentage, _, effectiveness) return {
-		mod("SpellSuppressionAppliesToChanceToDefendWithArmourPercentArmour", "BASE", armourPercentage),
-		mod("SpellSuppressionAppliesToChanceToDefendWithArmourPercent", "BASE", effectiveness),
+		mod("SpellSuppressionAppliesToChanceToDefendWithArmourPercentArmour", "MAX", tonumber(armourPercentage)),
+		mod("SpellSuppressionAppliesToChanceToDefendWithArmourPercent", "MAX", tonumber(effectiveness)),
 		flag("SpellSuppressionAppliesToChanceToDefendWithArmour"),
 	} end,
 	["enemies chilled by your hits have damage taken increased by chill effect"] = { flag("ChillEffectIncDamageTaken") },
