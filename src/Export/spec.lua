@@ -9329,7 +9329,7 @@ return {
 			name="Id",
 			refTo="",
 			type="String",
-			width=450
+			width=580
 		},
 		[2]={
 			list=false,
@@ -9385,7 +9385,7 @@ return {
 			name="ObjectType",
 			refTo="",
 			type="String",
-			width=370
+			width=640
 		},
 		[10]={
 			list=true,

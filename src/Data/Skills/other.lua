@@ -2388,7 +2388,15 @@ skills["PenanceMark"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Mark] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.5,
-	fromTree = true,
+	fromItem = true,
+	minionList = {
+		"PenanceMarkPhantasm",
+	},
+	statMap = {
+		["penance_mark_summon_phantasms_when_hit"] = {
+			mod("SummonPhantasmWhenHit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		curse = true,

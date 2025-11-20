@@ -652,7 +652,6 @@ minions["UniqueAnimatedWeapon"] = {
 		mod("Damage", "MORE", 70), -- MonsterUnique5,
 		mod("Speed", "MORE", 33, ModFlag.Attack), -- MonsterUnique8,
 		mod("Damage", "MORE", -33, ModFlag.Attack), -- MonsterUnique8,
-		mod("DamageTaken", "MORE", -95), -- monster_inherent_damage_taken_+%_final : UniqueAnimatedWeapon.ot,
 	},
 }
 
@@ -1720,5 +1719,38 @@ minions["LivingLightningMinion"] = {
 		-- set_cannot_be_chained_from [set_cannot_be_chained_from = 1]
 		mod("Life", "OVERRIDE", 1, 0, 0), -- set_maximum_life_is_one [set_maximum_life_is_one = 1]
 		mod("AvoidProjectilesChance", "BASE", 100, 0, 0), -- set_base_avoid_projectiles_%_chance [set_base_avoid_projectiles_%_chance = 100]
+	},
+}
+
+minions["PenanceMarkPhantasm"] = {
+	name = "Shackled Phantasm",
+	monsterTags = { "caster", "fire_affinity", "ghost", "ghost_armour", "ghost_blood", "is_unarmed", "medium_movement", "slashing_weapon", "undead", },
+	life = 1.3,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 0.9,
+	damageSpread = 0.2,
+	attackTime = 1.755,
+	attackRange = 6,
+	accuracy = 1,
+	limit = "ActiveVoidSpawnLimit",
+	skillList = {
+		"MPSPhantasmBasicBlood",
+	},
+	modList = {
+		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+		-- CannotSpawnBeyondPortals [monster_no_beyond_portal = 1]
+		mod("KnockbackImmune", "FLAG", 1, 0, 0), -- ImmuneToKnockback [cannot_be_knocked_back = 1]
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+		-- set_monster_no_drops_or_experience [set_monster_no_drops_or_experience = 1]
+		mod("CurseImmune", "FLAG", 1, 0, 0), -- set_immune_to_curses [set_immune_to_curses = 1]
+		-- set_monster_can_grant_vaal_souls_if_no_experience [set_monster_can_grant_vaal_souls_if_no_experience = 1]
 	},
 }
