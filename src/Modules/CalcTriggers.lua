@@ -1091,6 +1091,14 @@ local configTable = {
 					return skill.skillData.triggeredByMjolner and slotMatch(env, skill)
 				end}
 	end,
+	["wing of the wyvern"] = function()
+		return {triggerSkillCond = function(env, skill)
+					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Bow) > 0 and not slotMatch(env, skill)
+				end,
+				triggeredSkillCond = function(env, skill)
+					return skill.skillData.triggeredByUnique and slotMatch(env, skill)
+				end}
+	end,
 	["cospri's malice"] = function()
 		return {triggerSkillCond = function(env, skill)
 					return skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) > 0
@@ -1431,11 +1439,27 @@ local configTable = {
 					useCastRate = true}
 		end
 	end,
-	["supporttriggerelementalspellonblock"] = function(env) -- Svalinn Girded Tower Shield
+	["svalinn cast on block"] = function(env) -- Svalinn Girded Tower Shield
 		env.player.mainSkill.skillFlags.globalTrigger = true
 		return {source = env.player.mainSkill,
 				triggeredSkillCond = function(env, skill)
 					return slotMatch(env, skill) and skill.triggeredBy and calcLib.canGrantedEffectSupportActiveSkill(skill.triggeredBy.grantedEffect, skill)
+				end}
+	end,
+	["festering resentment cast on block"] = function(env) -- Festering Resentment Demon Dagger
+		env.player.mainSkill.skillFlags.globalTrigger = true
+		return {source = env.player.mainSkill,
+				triggeredSkillCond = function(env, skill)
+					return slotMatch(env, skill) and skill.triggeredBy and calcLib.canGrantedEffectSupportActiveSkill(skill.triggeredBy.grantedEffect, skill)
+				end}
+	end,
+	["hex on trap"] = function(env) -- Hand of the Lords Carnal Mitts
+		return {triggerSkillCond = function(env, skill)
+					-- Hex is triggered only when a trap is triggered
+					return skill.skillTypes[SkillType.Trapped]
+				end,
+				triggeredSkillCond = function(env, skill)
+					return skill.skillData.triggeredByTrapTrigger and slotMatch(env, skill)
 				end}
 	end,
 	["supporttriggerfirespellonhit"] = function(env)

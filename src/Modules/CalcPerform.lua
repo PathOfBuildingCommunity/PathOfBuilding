@@ -813,7 +813,7 @@ local function doActorMisc(env, actor)
 			condList["LeechingEnergyShield"] = true
 		end
 		if modDB:Flag(nil, "Condition:CanGainRage") or modDB:Sum("BASE", nil, "RageRegen") > 0 then
-			local maxStacks = modDB:Sum("BASE", skillCfg, "MaximumRage")
+			local maxStacks = m_floor(modDB:Sum("BASE", skillCfg, "MaximumRage") * modDB:More(skillCfg, "MaximumRage"))
 			local minStacks = m_min(modDB:Sum("BASE", nil, "MinimumRage"), maxStacks)
 			local rageConfig = modDB:Sum("BASE", nil, "Multiplier:RageStack")
 			local stacks = m_max(m_min(rageConfig, maxStacks), (minStacks > 0 and minStacks) or 0)
@@ -1337,6 +1337,44 @@ function calcs.perform(env, skipEHP)
 				if energyShieldBase > 0 then
 					modDB:NewMod("Life", "BASE", energyShieldBase, slot.." ES to Life Conversion")
 				end
+			end
+		end
+	end
+	
+	for _, element in ipairs({ "Lightning", "Fire", "Cold", "Chaos", "Physical" }) do
+		if modDB:Flag(nil, element .. "DamageAppliesTo" .. element .. "AuraEffect") then
+			-- Damage to Aura Effect conversion from Breach rings
+			local multiplier = (modDB:Sum("BASE", nil, "Improved" .. element .. "DamageAppliesTo" .. element .. "AuraEffect") or 100) / 100
+			local limit = modDB:Max(nil, element .. "DamageAppliesTo" .. element .. "AuraEffectLimit")
+			local totalConverted = 0
+			for _, value in ipairs(modDB:Tabulate("INC", { }, element .. "Damage")) do
+				local mod = value.mod
+				local modifiers = calcLib.getConvertedModTags(mod, multiplier, true)
+				local converted = m_floor(mod.value * multiplier)
+				if limit and converted > 0 then
+					local remaining = limit - totalConverted
+					if remaining <= 0 then
+						converted = 0
+					else
+						converted = m_min(converted, remaining)
+						totalConverted = totalConverted + converted
+					end
+				end
+				if converted ~= 0 then
+					modDB:NewMod("AuraEffect", mod.type, converted, mod.source, mod.flags, KeywordFlag[element], unpack(modifiers))
+				end
+			end
+		end
+	end
+	
+	if modDB:Flag(nil, "MinionLifeAppliesToPlayer") then
+		-- Minion Life conversion from Rigwald's Hunt
+		local multiplier = (modDB:Max(nil, "ImprovedMinionLifeAppliesToPlayer") or 100) / 100
+		for _, value in ipairs(modDB:List(nil, "MinionModifier")) do
+			if value.mod.name == "Life" and value.mod.type == "INC" then
+				local mod = value.mod
+				local modifiers = calcLib.getConvertedModTags(mod, multiplier, true)
+				modDB:NewMod("Life", "INC", m_floor(mod.value * multiplier), mod.source, mod.flags, mod.keywordFlags, unpack(modifiers))
 			end
 		end
 	end
