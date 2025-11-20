@@ -1076,7 +1076,7 @@ local configTable = {
 				comparer = function(env, uuid, source, triggerRate)
 					local cachedSpeed = GlobalCache.cachedData[env.mode][uuid].HitSpeed or GlobalCache.cachedData[env.mode][uuid].Speed
 					local cachedManaCost = GlobalCache.cachedData[env.mode][uuid].ManaCost
-					return ( (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0)) ) and ( (cachedManaCost or 0) > requiredManaCost )
+					return ( (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0)) ) and ( (cachedManaCost or 0) >= requiredManaCost )
 				end,
 				triggerSkillCond = function(env, skill)
 					return true
@@ -1090,7 +1090,7 @@ local configTable = {
 				comparer = function(env, uuid, source, triggerRate)
 					local cachedSpeed = GlobalCache.cachedData[env.mode][uuid].HitSpeed or GlobalCache.cachedData[env.mode][uuid].Speed
 					local cachedLifeCost = GlobalCache.cachedData[env.mode][uuid].LifeCost
-					return ( (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0)) ) and ( (cachedLifeCost or 0) > requiredLifeCost )
+					return ( (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0)) ) and ( (cachedLifeCost or 0) >= requiredLifeCost )
 				end,
 				triggerSkillCond = function(env, skill)
 					return true
