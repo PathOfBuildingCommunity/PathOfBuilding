@@ -1743,7 +1743,7 @@ return {
 } }, { defaultCollapsed = false, label = "Fortification", data = {
 	{ label = "Maximum Stacks", haveOutput = "MaximumFortification", { format = "{0:output:MaximumFortification}",  { breakdown = "MaximumFortification" }, { modName = "MaximumFortification" }, }, },
 	{ label = "Minimum Stacks", haveOutput = "MinimumFortification", { format = "{0:output:MinimumFortification}",  { breakdown = "MinimumFortification" }, { modName = "MinimumFortification" }, }, },
-	{ label = "Duration", haveOutput = "FortificationDuration", { format = "{2:output:FortificationDuration}s",  { breakdown = "FortificationDuration" }, { modName = "FortificationDuration" }, }, },
+	{ label = "Duration", haveOutput = "FortifyDuration", { format = "{2:output:FortifyDuration}s",  { breakdown = "FortifyDuration" }, { modName = "FortifyDuration" }, }, },
 	{ label = "Less Dmg. Taken", haveOutput = "FortificationEffect", { format = "{output:FortificationEffect}%",  { breakdown = "FortificationEffect" }, { modName = "Condition:NoFortificationMitigation" }, }, },
 } }, { defaultCollapsed = false, label = "Stun Duration", data = {
 	{ label = "Stun Avoid Chance", haveOutput = "StunAvoidChance", { format = "{0:output:StunAvoidChance}%",  { breakdown = "StunAvoidChance" }, { modName = "AvoidStun" }, }, },

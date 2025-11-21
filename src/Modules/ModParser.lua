@@ -454,7 +454,7 @@ local modNameList = {
 	["rage effect"] = "RageEffect",
 	["maximum fortification"] = "MaximumFortification",
 	["fortification"] = "MinimumFortification",
-	["fortification duration"] = "FortificationDuration",
+	["fortification duration"] = "FortifyDuration",
 	["maximum valour"] = "MaximumValour",
 	-- Charges
 	["maximum power charge"] = "PowerChargesMax",
