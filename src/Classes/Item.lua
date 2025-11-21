@@ -71,6 +71,7 @@ end
 local lineFlags = {
 	["crafted"] = true, ["crucible"] = true, ["custom"] = true, ["eater"] = true, ["enchant"] = true,
 	["exarch"] = true, ["fractured"] = true, ["implicit"] = true, ["scourge"] = true, ["synthesis"] = true,
+	["mutated"] = true
 }
 
 -- Special function to store unique instances of modifier on specific item slots
@@ -314,11 +315,13 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			if colorCodes[rarity:upper()] then
 				self.rarity = rarity:upper()
 			end
-			if self.rarity == "UNIQUE" then
+			if self.rarity == "UNIQUE" or self.rarity == "RELIC" then
 				-- Hack for relics
 				for _, line in ipairs(self.rawLines) do
 					if line:find("Foil Unique") then
 						self.rarity = "RELIC"
+						local captured = line:match("%((.-)%)")
+						self.foilType = captured or "Rainbow"
 						break
 					end
 				end
@@ -369,6 +372,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 
 	while self.rawLines[l] do	
 		local line = self.rawLines[l]
+		if line == "Veiled Prefix" or line == "Veiled Suffix" then
+			self.veiled = true
+		end
 		if flaskBuffLines and flaskBuffLines[line] then
 			flaskBuffLines[line] = nil
 		elseif tinctureBuffLines and tinctureBuffLines[line] then
@@ -385,6 +391,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			self.fractured = true
 		elseif line == "Synthesised Item" then
 			self.synthesised = true
+		elseif line:match("Foil Unique") then
+			local captured = line:match("%((.-)%)")
+			self.foilType = captured or "Rainbow"
 		elseif influenceItemMap[line] then
 			self[influenceItemMap[line]] = true
 		elseif line == "Requirements:" then
@@ -674,6 +683,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						if not (self.rarity == "NORMAL" or self.rarity == "MAGIC") then
 							self.title = self.name
 						end
+						if self.title and self.title:find("Foulborn") then
+							self.foulborn = true
+						end
 						self.type = base.type
 						self.base = base
 						self.affixes = (self.base.subType and data.itemMods[self.base.type..self.base.subType])
@@ -770,6 +782,27 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.canHaveShieldCrucibleTree = true
 				elseif lineLower == "has a two handed sword crucible passive skill tree" then
 					self.canHaveTwoHandedSwordCrucibleTree = true
+				elseif lineLower == "cannot roll caster modifiers" then
+					self.restrictTag = true
+					self.noCaster = true
+				elseif lineLower == "cannot roll attack modifiers" then
+					self.restrictTag = true
+					self.noAttack = true
+				elseif lineLower == "cannot roll modifiers of non-cold damage types" then
+					self.restrictDamageType = true
+					self.onlyColdDamage = true
+				elseif lineLower == "cannot roll modifiers of non-fire damage types" then
+					self.restrictDamageType = true
+					self.onlyFireDamage = true
+				elseif lineLower == "cannot roll modifiers of non-lightning damage types" then
+					self.restrictDamageType = true
+					self.onlyLightningDamage = true
+				elseif lineLower == "cannot roll modifiers of non-chaos damage types" then
+					self.restrictDamageType = true
+					self.onlyChaosDamage = true
+				elseif lineLower == "cannot roll modifiers of non-physical damage types" then
+					self.restrictDamageType = true
+					self.onlyPhysicalDamage = true
 				end
 
 				local modLines
@@ -847,7 +880,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				self.affixLimit = 2
 			end
 		elseif self.rarity == "RARE" then
-			self.affixLimit = ((self.type == "Jewel" and not (self.base.subType == "Abyss" and self.corrupted)) and 4 or 6)
+			self.affixLimit = (((self.type == "Jewel" and not (self.base.subType == "Abyss" and self.corrupted)) or self.type == "Graft") and 4 or 6)
 			if self.prefixes.limit or self.suffixes.limit then
 				self.prefixes.limit = m_max(m_min((self.prefixes.limit or 0) + self.affixLimit / 2, self.affixLimit), 0)
 				self.suffixes.limit = m_max(m_min((self.suffixes.limit or 0) + self.affixLimit / 2, self.affixLimit), 0)
@@ -945,6 +978,32 @@ function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags)
 
 		local function HasMavenInfluence(modAffix)
 			return modAffix:match("Elevated")
+		end
+		if self.restrictTag then
+			for _, key in ipairs(mod.modTags) do
+				local flagName = "no" .. key:gsub("^%l", string.upper)
+				if flagName and self[flagName] then
+					return 0
+				end
+			end
+		end
+		if self.restrictDamageType then
+			local required, restricted = false, {}
+			for _, element in ipairs({ "fire", "cold", "lightning", "chaos", "physical" }) do
+				local flagName = "only" .. element:gsub("^%l", string.upper) .. "Damage"
+				if self[flagName] then
+					required = true
+				else
+					restricted[element] = true
+				end
+			end
+			if required then
+				for _, key in ipairs(mod.modTags) do
+					if restricted[key] then
+						return 0
+					end
+				end
+			end
 		end
 
 		for i, key in ipairs(mod.weightKey) do
@@ -1060,6 +1119,9 @@ function ItemClass:BuildRaw()
 		if modLine.crucible then
 			line = "{crucible}" .. line
 		end
+		if modLine.mutated then
+			line = "{mutated}" .. line
+		end
 		if modLine.fractured then
 			line = "{fractured}" .. line
 		end
@@ -1077,7 +1139,8 @@ function ItemClass:BuildRaw()
 			for varId in pairs(modLine.variantList) do
 				varSpec = (varSpec and varSpec .. "," or "") .. varId
 			end
-			line = "{variant:" .. varSpec .. "}" .. line
+			local var = "{variant:" .. varSpec .. "}"
+			line = var .. line:gsub("\n", "\n" .. var) -- Variants that go over 1 line need to have the gsub to fix there being no "variant:" at the start
 		end
 		if modLine.modTags and #modLine.modTags > 0 then
 			line = "{tags:" .. table.concat(modLine.modTags, ",") .. "}" .. line
@@ -1166,8 +1229,14 @@ function ItemClass:BuildRaw()
 	if self.mirrored then
 		t_insert(rawLines, "Mirrored")
 	end
+	if self.fractured then
+		t_insert(rawLines, "Fractured Item")
+	end
 	if self.corrupted or self.scourge then
 		t_insert(rawLines, "Corrupted")
+	end
+	if self.foilType then
+		t_insert(rawLines, "Foil Unique" .. " (" .. self.foilType .. ")")
 	end
 	return table.concat(rawLines, "\n")
 end
@@ -1261,6 +1330,10 @@ function ItemClass:GetPrimarySlot()
 		return "Ring 1"
 	elseif self.type == "Flask" then
 		return "Flask 1"
+	elseif self.type == "Tincture" then
+		return "Flask 1"
+	elseif self.type == "Graft" then
+		return "Graft 1"
 	else
 		return self.type
 	end
@@ -1335,11 +1408,21 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			B = "Multiplier:BlueSocketIn"..slotName,
 			W = "Multiplier:WhiteSocketIn"..slotName,
 		}
+		local groupCounts = {}
 		for _, socket in ipairs(self.sockets) do
+			local group = socket.group
+    		groupCounts[group] = (groupCounts[group] or 0) + 1
 			if multiName[socket.color] then
 				modList:NewMod(multiName[socket.color], "BASE", 1, "Item Sockets")
 			end
 		end
+		local unlinkedSockets = 0
+		for _, count in pairs(groupCounts) do
+			if count == 1 then
+				unlinkedSockets = unlinkedSockets + 1
+			end
+		end
+		modList:NewMod("Multiplier:UnlinkedSocketIn"..slotName, "BASE", unlinkedSockets, "Unlinked Item Sockets")
 	end
 	local craftedQuality = calcLocal(modList,"Quality","BASE",0) or 0
 	if craftedQuality ~= self.craftedQuality then
@@ -1355,13 +1438,14 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		local weaponData = { }
 		self.weaponData[slotNum] = weaponData
 		weaponData.type = self.base.type
+		weaponData.subType = self.base.subType
 		weaponData.name = self.name
 		weaponData.AttackSpeedInc = calcLocal(modList, "Speed", "INC", ModFlag.Attack) + m_floor(self.quality / 8 * calcLocal(modList, "AlternateQualityLocalAttackSpeedPer8Quality", "INC", 0))
 		weaponData.AttackRate = round(self.base.weapon.AttackRateBase * (1 + weaponData.AttackSpeedInc / 100), 2)
 		weaponData.rangeBonus = calcLocal(modList, "WeaponRange", "BASE", 0) + 10 * calcLocal(modList, "WeaponRangeMetre", "BASE", 0) + m_floor(self.quality / 10 * calcLocal(modList, "AlternateQualityLocalWeaponRangePer10Quality", "BASE", 0))
 		weaponData.range = self.base.weapon.Range + weaponData.rangeBonus
 		local LocalIncEle = calcLocal(modList, "LocalElementalDamage", "INC", 0)
-		for _, dmgType in pairs(dmgTypeList) do
+		for _, dmgType in ipairs(dmgTypeList) do
 			local min = (self.base.weapon[dmgType.."Min"] or 0) + calcLocal(modList, dmgType.."Min", "BASE", 0)
 			local max = (self.base.weapon[dmgType.."Max"] or 0) + calcLocal(modList, dmgType.."Max", "BASE", 0)
 			if dmgType == "Physical" then
@@ -1404,7 +1488,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			end
 		end
 		weaponData.TotalDPS = 0
-		for _, dmgType in pairs(dmgTypeList) do
+		for _, dmgType in ipairs(dmgTypeList) do
 			weaponData.TotalDPS = weaponData.TotalDPS + (weaponData[dmgType.."DPS"] or 0)
 		end
 	elseif self.base.armour then
@@ -1469,7 +1553,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		end
 
 		if self.base.armour.BlockChance then
-			armourData.BlockChance = m_floor((self.base.armour.BlockChance + calcLocal(modList, "BlockChance", "BASE", 0)) * (1 + calcLocal(modList, "BlockChance", "INC", 0) / 100))
+			armourData.BlockChance = m_floor((self.base.armour.BlockChance * (1 + calcLocal(modList, "BlockChance", "INC", 0) / 100) + calcLocal(modList, "BlockChance", "BASE", 0)))
 		end
 		if self.base.armour.MovementPenalty then
 			modList:NewMod("MovementSpeed", "INC", -self.base.armour.MovementPenalty, self.modSource, { type = "Condition", var = "IgnoreMovementPenalties", neg = true })
@@ -1555,8 +1639,10 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 
 			-- Small and Medium Curse Cluster Jewel passive mods are parsed the same so the medium cluster data overwrites small and the skills differ
 			-- This changes small curse clusters to have the correct clusterJewelSkill so it passes validation below and works as expected in the tree
-			if jewelData.clusterJewelSkill == "affliction_curse_effect" and jewelData.clusterJewelNodeCount and jewelData.clusterJewelNodeCount < 4 then
+			if self.clusterJewel.size == "Small" and jewelData.clusterJewelSkill == "affliction_curse_effect" then
 				jewelData.clusterJewelSkill = "affliction_curse_effect_small"
+			elseif self.clusterJewel.size == "Medium" and jewelData.clusterJewelSkill == "affliction_curse_effect_small" then
+				jewelData.clusterJewelSkill = "affliction_curse_effect"
 			end
 
 			-- Validation
@@ -1734,6 +1820,10 @@ function ItemClass:BuildModList()
 		self.slotModList = { }
 		for i = 1, 2 do
 			self.slotModList[i] = self:BuildModListForSlotNum(baseList, i)
+		end
+		-- Ring 3
+		if self.type == "Ring" then
+			self.slotModList[3] = self:BuildModListForSlotNum(baseList, 3)
 		end
 	else
 		self.modList = self:BuildModListForSlotNum(baseList)

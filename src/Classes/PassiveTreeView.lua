@@ -182,11 +182,11 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	local offsetY = self.zoomY + viewPort.y + viewPort.height/2
 	local function treeToScreen(x, y)
 		return x * scale + offsetX,
-		       y * scale + offsetY
+				y * scale + offsetY
 	end
 	local function screenToTree(x, y)
 		return (x - offsetX) / scale,
-		       (y - offsetY) / scale
+				(y - offsetY) / scale
 	end
 
 	if IsKeyDown("SHIFT") then
@@ -306,6 +306,9 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			build.buildFlag = true
 		elseif hoverNode and hoverNode.alloc and hoverNode.type == "Mastery" and hoverNode.masteryEffects then
 			build.treeTab:OpenMasteryPopup(hoverNode, viewPort)
+			build.buildFlag = true
+		elseif hoverNode and not hoverNode.alloc and hoverNode.type == "Mastery" and hoverNode.masteryEffects then
+			build.treeTab:ModifyNodePopup(hoverNode, viewPort)
 			build.buildFlag = true
 		end
 	end
@@ -480,8 +483,11 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			overlay = isAlloc and node.startArt or "PSStartNodeBackgroundInactive"
 		elseif node.type == "AscendClassStart" then
 			overlay = treeVersions[tree.treeVersion].num >= 3.10 and "AscendancyMiddle" or "PassiveSkillScreenAscendancyMiddle"
-			if node.ascendancyName and tree.secondaryAscendNameMap and tree.secondaryAscendNameMap[node.ascendancyName] then
-				overlay = "Azmeri"..overlay
+			if node.ascendancyName then
+				local prefix = tree.bloodlineSpritePrefixes and tree.bloodlineSpritePrefixes[node.ascendancyName]
+				if prefix then
+					overlay = prefix .. overlay
+				end
 			end
 		else
 			local state
@@ -527,30 +533,48 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						overlay = "JewelSocketActiveAltRed"
 					end
 				end
-			elseif node.type == "Mastery" then
-				-- This is the icon that appears in the center of many groups
-				if node.masteryEffects then
-					if isAlloc then
-						base = node.masterySprites.activeIcon.masteryActiveSelected
-						effect = node.masterySprites.activeEffectImage.masteryActiveEffect
-					elseif node == hoverNode then
-						base = node.masterySprites.inactiveIcon.masteryConnected
-					else
-						base = node.masterySprites.inactiveIcon.masteryInactive
-					end
+		elseif node.type == "Mastery" then
+			local override = spec.hashOverrides and spec.hashOverrides[node.id]
+			local hasOverride = override ~= nil
+
+			local sprites = hasOverride and tree.spriteMap[override.icon]
+			local effectSprites = hasOverride and tree.spriteMap[override.activeEffectImage]
+
+			if node.masteryEffects then
+				if isAlloc then
+					base = (sprites and sprites.masteryActiveSelected)
+						or (node.masterySprites and node.masterySprites.activeIcon and node.masterySprites.activeIcon.masteryActiveSelected)
+					effect = (effectSprites and effectSprites.masteryActiveEffect)
+						or (node.masterySprites and node.masterySprites.activeEffectImage and node.masterySprites.activeEffectImage.masteryActiveEffect)
+				elseif node == hoverNode then
+					base = (sprites and sprites.masteryConnected)
+						or (node.masterySprites and node.masterySprites.inactiveIcon and node.masterySprites.inactiveIcon.masteryConnected)
 				else
-					base = node.sprites.mastery
+					base = (sprites and sprites.masteryInactive)
+						or (node.masterySprites and node.masterySprites.inactiveIcon and node.masterySprites.inactiveIcon.masteryInactive)
 				end
-				SetDrawLayer(nil, 15)
+			else
+				base = (sprites and sprites.mastery)
+					or (node.sprites and node.sprites.mastery)
+			end
+			SetDrawLayer(nil, 15)
 			else
 				-- Normal node (includes keystones and notables)
 				if node.isTattoo and node.effectSprites then -- trees < 3.22.0 don't have effectSprites
 					effect = node.effectSprites["tattooActiveEffect"]
 				end
 				base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")]
-				overlay = node.overlay[state .. (node.ascendancyName and "Ascend" or "") .. (node.isBlighted and "Blighted" or "")]
-				if node.ascendancyName and tree.secondaryAscendNameMap and tree.secondaryAscendNameMap[node.ascendancyName] then
-					overlay = "Azmeri"..overlay
+				local overlayKey = state .. (node.ascendancyName and "Ascend" or "") .. (node.isBlighted and "Blighted" or "")
+				local overlayName = node.overlay[overlayKey]
+				if node.ascendancyName then
+					local prefix = node.bloodlineOverlayPrefix or (tree.bloodlineSpritePrefixes and tree.bloodlineSpritePrefixes[node.ascendancyName])
+					if prefix and overlayName then
+						overlay = prefix .. overlayName
+					else
+						overlay = overlayName
+					end
+				else
+					overlay = overlayName
 				end
 			end
 		end
@@ -728,6 +752,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			if self.tooltip:CheckForUpdate(node, self.showStatDifferences, self.tracePath, launch.devModeAlt, build.outputRevision) then
 				self:AddNodeTooltip(self.tooltip, node, build)
 			end
+			self.tooltip.center = true
 			self.tooltip:Draw(m_floor(scrX - size), m_floor(scrY - size), size * 2, size * 2, viewPort)
 		end
 	end
@@ -770,7 +795,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					local outerSize = radData.outer * scale
 					local innerSize = radData.inner * scale * 1.06
 					SetDrawColor(1,1,1,0.7)
-					if jewel.title == "Impossible Escape" then
+					if jewel.title:match("Impossible Escape") then
 						-- Impossible Escape ring shows on the allocated Keystone
 						for keystoneName, _ in pairs(jewel.jewelData.impossibleEscapeKeystones) do
 							local keystone = spec.tree.keystoneMap[keystoneName]
@@ -934,15 +959,37 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 end
 
 function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
+	local fontSizeBig = main.showFlavourText and 18 or 16
 	tooltip:SetRecipe(node.recipe)
-	tooltip:AddLine(24, "^7"..node.dn..(launch.devModeAlt and " ["..node.id.."]" or ""))
+	local tooltipMap = {
+		Normal = "PASSIVE",
+		Notable = "NOTABLE",
+		Socket = "JEWEL",
+		Keystone = "KEYSTONE",
+		Ascendancy = "ASCENDANCY",
+		Mastery = "MASTERY",
+	}
+	if node.type == "Mastery" then
+		tooltip.tooltipHeader = node.alloc and "MASTERYALLOC" or "MASTERY"
+	elseif (node.type == "Notable" or node.type == "Normal") and node.ascendancyName then
+		tooltip.tooltipHeader = "ASCENDANCY"
+	else
+		tooltip.tooltipHeader = tooltipMap[node.type] or "UNKNOWN"
+	end
+	nodeName = node.dn
+	if main.showFlavourText then
+		nodeName = "^xF8E6CA" .. node.dn
+	end
+	tooltip.center = true
+	tooltip:AddLine(24, nodeName..(launch.devModeAlt and " ["..node.id.."]" or ""), "FONTIN")
+	tooltip.center = false
 	if launch.devModeAlt and node.id > 65535 then
 		-- Decompose cluster node Id
 		local index = band(node.id, 0xF)
 		local size = band(b_rshift(node.id, 4), 0x3)
 		local large = band(b_rshift(node.id, 6), 0x7)
 		local medium = band(b_rshift(node.id, 9), 0x3)
-		tooltip:AddLine(16, string.format("^7Cluster node index: %d, size: %d, large index: %d, medium index: %d", index, size, large, medium))
+		tooltip:AddLine(fontSizeBig, string.format("^7Cluster node index: %d, size: %d, large index: %d, medium index: %d", index, size, large, medium), "FONTIN")
 	end
 	if node.type == "Socket" and node.nodesInRadius then
 		local attribTotals = { }
@@ -952,25 +999,29 @@ function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
 				attribTotals[attrib] = (attribTotals[attrib] or 0) + specNode.finalModList:Sum("BASE", nil, attrib)
 			end
 		end
+		tooltip:AddSeparator(14)
 		if attribTotals["Str"] >= 40 then
-			tooltip:AddLine(16, "^7Can support "..colorCodes.STRENGTH.."Strength ^7threshold jewels")
+			tooltip:AddLine(fontSizeBig, "^7Can support "..colorCodes.STRENGTH.."Strength ^7threshold jewels", "FONTIN")
 		end
 		if attribTotals["Dex"] >= 40 then
-			tooltip:AddLine(16, "^7Can support "..colorCodes.DEXTERITY.."Dexterity ^7threshold jewels")
+			tooltip:AddLine(fontSizeBig, "^7Can support "..colorCodes.DEXTERITY.."Dexterity ^7threshold jewels", "FONTIN")
 		end
 		if attribTotals["Int"] >= 40 then
-			tooltip:AddLine(16, "^7Can support "..colorCodes.INTELLIGENCE.."Intelligence ^7threshold jewels")
+			tooltip:AddLine(fontSizeBig, "^7Can support "..colorCodes.INTELLIGENCE.."Intelligence ^7threshold jewels", "FONTIN")
 		end
 	end
 	if node.type == "Socket" and node.alloc then
 		if node.distanceToClassStart and node.distanceToClassStart > 0 then
 			tooltip:AddSeparator(14)
-			tooltip:AddLine(16, string.format("^7Distance to start: %d", node.distanceToClassStart))
+			tooltip:AddLine(16, string.format("^7Distance to start: %d", node.distanceToClassStart), "FONTIN")
 		end
 	end
 end
 
 function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
+	local fontSizeBig = main.showFlavourText and 18 or 16
+	tooltip.center = true
+	tooltip.maxWidth = 800
 	-- Special case for sockets
 	if node.type == "Socket" and node.alloc then
 		local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(node.id)
@@ -993,6 +1044,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 
 	-- Node name
 	self:AddNodeName(tooltip, node, build)
+	tooltip.center = false
 	if launch.devModeAlt then
 		if node.power and node.power.offence then
 			-- Power debugging info
@@ -1015,7 +1067,13 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 					line = line .. "  " .. modStr
 				end
 			end
-			tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
+			if line ~= " " and (node.mods[i].extra or not node.mods[i].list) then 
+				local line = colorCodes.UNSUPPORTED..line
+				line = main.notSupportedModTooltips and (line .. main.notSupportedTooltipText) or line
+				tooltip:AddLine(fontSizeBig, line, "FONTIN")
+			else
+				tooltip:AddLine(fontSizeBig, colorCodes.MAGIC..line, "FONTIN")
+			end
 		end
 	end
 
@@ -1065,7 +1123,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 				end
 			end
 		end
-		tooltip:AddSeparator(24)
+		tooltip:AddSeparator(14)
 	end
 
 	-- This stanza actives for both Mastery and non Mastery tooltips. Proof: add '"Blah "..' to addModInfoToTooltip
@@ -1084,14 +1142,23 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		end
 	end
 
+	-- Flavour text
+	if node.flavourText and main.showFlavourText then
+		tooltip:AddSeparator(14)
+		for _, line in ipairs(node.flavourText) do
+			tooltip:AddLine(fontSizeBig, colorCodes.UNIQUE..line, "FONTIN ITALIC")
+		end
+	end
+
 	-- Tattoo Editing
 	if node and (node.isTattoo
 			or (node.type == "Normal" and (node.dn == "Strength" or node.dn == "Dexterity" or node.dn == "Intelligence"))
 			or (node.type == "Notable" and #node.sd > 0 and (node.sd[1]:match("+30 to Dexterity") or node.sd[1]:match("+30 to Strength") or node.sd[1]:match("+30 to Intelligence")))
-			or node.type == "Keystone")
+			or (node.type == "Keystone") or (node.type == "Mastery") )
 	then
 		tooltip:AddSeparator(14)
-		tooltip:AddLine(14, colorCodes.TIP.."Tip: Right click to edit the tattoo for this node")
+		local nodeEditType = (node.type == "Mastery") and "runegraft" or "tattoo"
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Right click to edit the " .. nodeEditType .. " for this node")
 	end
 
 	-- Mod differences
@@ -1132,7 +1199,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			end
 		end
 		local count = build:AddStatComparesToTooltip(tooltip, calcBase, nodeOutput, realloc and "^7Reallocating this node will give you:" or node.alloc and "^7Unallocating this node will give you:" or isGranted and "^7This node is granted by an item. Removing it will give you:" or "^7Allocating this node will give you:")
-		if pathLength > 1 and not isGranted then
+		if pathLength > 1 and not isGranted and (#node.intuitiveLeapLikesAffecting == 0 or node.alloc) then
 			count = count + build:AddStatComparesToTooltip(tooltip, calcBase, pathOutput, node.alloc and "^7Unallocating this node and all nodes depending on it will give you:" or "^7Allocating this node and all nodes leading to it will give you:", pathLength)
 		end
 		if count == 0 then
@@ -1163,9 +1230,17 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			end
 		end
 	end
+	local goldCost = data.goldRespecPrices[build.characterLevel]
+	if node.ascendancyName then
+		goldCost = goldCost * 5
+	end
 	if node.depends and #node.depends > 1 then
 		tooltip:AddSeparator(14)
 		tooltip:AddLine(14, "^7"..#node.depends .. " points gained from unallocating these nodes")
+		tooltip:AddLine(14, "^xFFD700"..formatNumSep(#node.depends * goldCost) .. " Gold ^7required to unallocate these nodes")
+		tooltip:AddLine(14, colorCodes.TIP)
+	elseif node.alloc then
+		tooltip:AddLine(14, "^xFFD700"..formatNumSep(#node.depends * goldCost) .. " Gold ^7required to unallocate this node")
 		tooltip:AddLine(14, colorCodes.TIP)
 	end
 	if node.type == "Socket" then

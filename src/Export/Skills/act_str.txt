@@ -135,9 +135,6 @@ local skills, mod, flag, skill = ...
 			mod("BaseManaCostOverride", "OVERRIDE", nil),
 		},
 	},
-	baseMods = {
-		skill("SupportedByAutoexertion", true),
-	},
 #mods
 
 #skill BattlemagesCry
@@ -900,6 +897,11 @@ local skills, mod, flag, skill = ...
 
 #skill GlacialHammerAltX
 #flags attack melee
+	statMap = {
+		["glacial_hammer_third_hit_always_crits"] = {
+			flag("Every3UseCrit"),
+		},
+	},
 #mods
 
 #skill VaalGlacialHammer

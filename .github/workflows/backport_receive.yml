@@ -1,4 +1,5 @@
 name: Update code with code from PoB2
+run-name: ${{ github.event.client_payload.title }}
 
 on:
     repository_dispatch:
@@ -14,8 +15,9 @@ jobs:
               with:
                 ref: 'dev'
             - name: Apply patch
+              continue-on-error: true
               run: |
-                curl -L ${{ github.event.client_payload.patch_url }} | git apply -v --index
+                curl -L ${{ github.event.client_payload.patch_url }} | patch -p1 --merge --verbose -f -l --no-backup-if-mismatch
             - name: Create Pull Request
               uses: peter-evans/create-pull-request@v5
               with:
@@ -23,6 +25,7 @@ jobs:
                 branch: pob2-pr-${{ github.event.client_payload.id }}
                 body: |
                   ${{ github.event.client_payload.msg }}
+                committer: ${{ github.event.client_payload.name || github.event.client_payload.user }} <${{ github.event.client_payload.user }}@users.noreply.github.com>
                 author: ${{ github.event.client_payload.name || github.event.client_payload.user }} <${{ github.event.client_payload.user }}@users.noreply.github.com>
                 commit-message: ${{ github.event.client_payload.msg }}
                 labels: ${{ github.event.client_payload.labels }}

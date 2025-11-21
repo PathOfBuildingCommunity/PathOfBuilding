@@ -421,9 +421,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 
 	-- Calculate Distance for meleeDistance or projectileDistance (for melee proximity, e.g. Impact)
 	if skillFlags.melee then
-		effectiveRange = env.configInput.meleeDistance
+		effectiveRange = env.configInput.meleeDistance or env.configPlaceholder.meleeDistance
 	else
-		effectiveRange = env.configInput.projectileDistance
+		effectiveRange = env.configInput.projectileDistance or env.configPlaceholder.projectileDistance
 	end
 
 	-- Build config structure for modifier searches
@@ -438,8 +438,11 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		skillTypes = activeSkill.skillTypes,
 		skillCond = { },
 		skillDist = env.mode_effective and effectiveRange,
-		slotName = activeSkill.slotName,
+		slotName = activeSkill.slotName or (activeSkill.activeEffect.gemCfg and activeSkill.activeEffect.gemCfg.slotName),
+		socketColor = activeSkill.activeEffect.gemCfg and activeSkill.activeEffect.gemCfg.socketColor,
+		socketNum = activeSkill.activeEffect.gemCfg and activeSkill.activeEffect.gemCfg.socketNum
 	}
+
 	if skillFlags.weapon1Attack then
 		activeSkill.weapon1Cfg = copyTable(activeSkill.skillCfg, true)
 		activeSkill.weapon1Cfg.skillCond = setmetatable({ ["MainHandAttack"] = true }, { __index = activeSkill.skillCfg.skillCond })
@@ -505,11 +508,15 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			if level.storedUses then
 				activeSkill.skillData.storedUses = level.storedUses
 			end
+			if level.vaalStoredUses then
+				activeSkill.skillData.storedUses = activeSkill.skillData.storedUses or 0 + level.vaalStoredUses
+			end
 		end
 	end
 
 	-- Apply gem/quality modifiers from support gems
 	skillModList:NewMod("GemLevel", "BASE", activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.level or activeSkill.activeEffect.level, "Max Level")
+	skillModList:NewMod("GemQuality", "BASE", activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.quality or activeSkill.activeEffect.quality, "Max Quality")
 	for _, supportProperty in ipairs(skillModList:Tabulate("LIST", activeSkill.skillCfg, "SupportedGemProperty")) do
 		local value = supportProperty.value
 		if value.keyword == "grants_active_skill" and activeSkill.activeEffect.gemData and not activeSkill.activeEffect.gemData.tags.support  then
@@ -545,6 +552,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	end
 	if level.storedUses then
 		activeSkill.skillData.storedUses = level.storedUses
+	end
+	if level.vaalStoredUses then
+		activeSkill.skillData.storedUses = activeSkill.skillData.storedUses or 0 + level.vaalStoredUses
 	end
 	if level.soulPreventionDuration then
 		activeSkill.skillData.soulPreventionDuration = level.soulPreventionDuration
@@ -615,6 +625,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 
 	-- Create minion
 	local minionList, isSpectre
+	local minionSupportLevel = { }
 	if activeGrantedEffect.minionList then
 		if activeGrantedEffect.minionList[1] then
 			minionList = copyTable(activeGrantedEffect.minionList)
@@ -628,7 +639,10 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	for _, skillEffect in ipairs(activeSkill.effectList) do
 		if skillEffect.grantedEffect.support and skillEffect.grantedEffect.addMinionList then
 			for _, minionType in ipairs(skillEffect.grantedEffect.addMinionList) do
-				t_insert(minionList, minionType)
+				if not isValueInArray(minionList, minionType) then
+					minionSupportLevel[minionType] = skillEffect.grantedEffect.levels[skillEffect.level].levelRequirement
+					t_insert(minionList, minionType)
+				end
 			end
 		end
 	end
@@ -648,20 +662,31 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			local minion = { }
 			activeSkill.minion = minion
 			skillFlags.haveMinion = true
-			minion.parent = env.player
-			minion.enemy = env.enemy
 			minion.type = minionType
 			minion.minionData = env.data.minions[minionType]
+			minion.hostile = minion.minionData and minion.minionData.hostile or false
+			if minion.hostile then
+				minion.parent = env.enemy
+				minion.enemy = env.player
+			else
+				minion.parent = env.player
+				minion.enemy = env.enemy
+			end
 			minion.level = activeSkill.skillData.minionLevelIsEnemyLevel and env.enemyLevel or 
 								activeSkill.skillData.minionLevelIsPlayerLevel and (m_min(env.build and env.build.characterLevel or activeSkill.skillData.minionLevel or activeEffect.grantedEffectLevel.levelRequirement, activeSkill.skillData.minionLevelIsPlayerLevel)) or 
-								activeSkill.skillData.minionLevel or activeEffect.grantedEffectLevel.levelRequirement
+								minionSupportLevel[minion.type] or activeSkill.skillData.minionLevel or activeEffect.grantedEffectLevel.levelRequirement
 			-- fix minion level between 1 and 100
 			minion.level = m_min(m_max(minion.level,1),100) 
 			minion.itemList = { }
 			minion.uses = activeGrantedEffect.minionUses
-			minion.lifeTable = (minion.minionData.lifeScaling == "AltLife1" and env.data.monsterLifeTable2) or (minion.minionData.lifeScaling == "AltLife2" and env.data.monsterLifeTable3) or (isSpectre and env.data.monsterLifeTable) or env.data.monsterAllyLifeTable
+			if minion.minionData.hostile then
+				minion.lifeTable = env.data.monsterLifeTable
+			else
+				minion.lifeTable = (minion.minionData.lifeScaling == "AltLife1" and env.data.monsterLifeTable2) or (minion.minionData.lifeScaling == "AltLife2" and env.data.monsterLifeTable3) or (isSpectre and env.data.monsterLifeTable) or env.data.monsterAllyLifeTable
+			end
 			local attackTime = minion.minionData.attackTime
-			local damage = (isSpectre and env.data.monsterDamageTable[minion.level] or env.data.monsterAllyDamageTable[minion.level]) * minion.minionData.damage
+			local damageTable = (isSpectre or minion.minionData.hostile) and env.data.monsterDamageTable or env.data.monsterAllyDamageTable
+			local damage = damageTable[minion.level] * minion.minionData.damage
 			if not minion.minionData.baseDamageIgnoresAttackSpeed then -- minions with this flag do not factor attack time into their base damage
 				 damage = damage * attackTime
 			end

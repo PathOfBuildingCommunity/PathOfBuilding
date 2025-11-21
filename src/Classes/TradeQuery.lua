@@ -16,7 +16,7 @@ local m_min = math.min
 local m_ceil = math.ceil
 local s_format = string.format
 
-local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
+local baseSlots = { "Weapon 1", "Weapon 2", "Weapon 1 Swap", "Weapon 2 Swap", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Ring 3", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 
 local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.itemsTab = itemsTab
@@ -371,7 +371,7 @@ Highest Weight - Displays the order retrieved from trade]]
 		else
 			self.tradeQueryRequests:FetchLeagues(self.pbRealm, function(leagues, errMsg)
 				if errMsg then
-					self:SetNotice("Error while fetching league list: "..errMsg)
+					self:SetNotice(self.controls.pbNotice, "Error while fetching league list: "..errMsg)
 					return
 				end
 				local sorted_leagues = { }
@@ -428,7 +428,9 @@ Highest Weight - Displays the order retrieved from trade]]
 	-- Individual slot rows
 	local slotTables = {}
 	for _, slotName in ipairs(baseSlots) do
-		t_insert(slotTables, { slotName = slotName })
+		if self.itemsTab.slots[slotName].shown() then
+			t_insert(slotTables, { slotName = slotName })
+		end
 		-- add abyssal sockets to slotTables if exist for this slot
 		if activeAbyssalSockets[slotName] then
 			for _, abyssalSocket in pairs(activeAbyssalSockets[slotName]) do
@@ -487,7 +489,7 @@ Highest Weight - Displays the order retrieved from trade]]
 
 	local effective_row_count = row_count - ((scrollBarShown and #slotTables >= 19) and #slotTables-19 or 0) + 2 + 2 -- Two top menu rows, two bottom rows, slots after #19 overlap the other controls at the bottom of the pane
 	self.effective_rows_height = row_height * (effective_row_count - #slotTables + (18 - (#slotTables > 37 and 3 or 0))) -- scrollBar height, "18 - slotTables > 37" logic is fine tuning whitespace after last row
-	self.pane_height = (row_height + row_vertical_padding) * effective_row_count + 2 * pane_margins_vertical + row_height / 2
+	self.pane_height = (row_height + row_vertical_padding) * effective_row_count + 3 * pane_margins_vertical + row_height / 2
 	local pane_width = 850 + (scrollBarShown and 25 or 0)
 
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT", self.controls["StatWeightMultipliersButton"],"TOPRIGHT"}, {0, 25, 18, 0}, 50, "VERTICAL", false)
@@ -679,7 +681,7 @@ end
 function TradeQueryClass:SetNotice(notice_control, msg)
 	if msg:find("No Matching Results") then
 		msg = colorCodes.WARNING .. msg
-	elseif msg:find("Error:") then
+	elseif msg:find("Error") then
 		msg = colorCodes.NEGATIVE .. msg
 	end
 	notice_control.label = msg
@@ -914,6 +916,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 		end)
 	end)
 	controls["bestButton"..row_idx].shown = function() return not self.resultTbl[row_idx] end
+	controls["bestButton"..row_idx].enabled = function() return self.pbLeague end
 	controls["bestButton"..row_idx].tooltipText = "Creates a weighted search to find the highest Stat Value items for this slot."
 	local pbURL
 	controls["uri"..row_idx] = new("EditControl", { "TOPLEFT", controls["bestButton"..row_idx], "TOPRIGHT"}, {8, 0, 514, row_height}, nil, nil, "^%C\t\n", nil, function(buf)

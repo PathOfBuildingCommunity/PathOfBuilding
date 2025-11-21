@@ -94,15 +94,54 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill)
 	if grantedEffect.fromItem and grantedEffect.support and (activeSkill.activeEffect.grantedEffect.fromItem or activeSkill.activeEffect.grantedEffect.modSource:sub(1, #"Item") == "Item" or (activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.fromItem)) then
 		return false
 	end
+
+	local effectiveSkillTypes = activeSkill.summonSkill and activeSkill.summonSkill.skillTypes or activeSkill.skillTypes
+	local effectiveMinionTypes = not grantedEffect.ignoreMinionTypes and (activeSkill.summonSkill and activeSkill.summonSkill.minionSkillTypes or activeSkill.minionSkillTypes)
+
 	-- if the activeSkill is a Minion's skill like "Default Attack", use minion's skillTypes instead for exclusions
 	-- otherwise compare support to activeSkill directly
-	if grantedEffect.excludeSkillTypes[1] and calcLib.doesTypeExpressionMatch(grantedEffect.excludeSkillTypes, (activeSkill.summonSkill and activeSkill.summonSkill.skillTypes) or activeSkill.skillTypes) then
+	if grantedEffect.excludeSkillTypes[1] and calcLib.doesTypeExpressionMatch(grantedEffect.excludeSkillTypes, effectiveSkillTypes) then
 		return false
 	end
 	if grantedEffect.isTrigger and activeSkill.actor.enemy.player ~= activeSkill.actor then
 		return false
 	end
-	return not grantedEffect.requireSkillTypes[1] or calcLib.doesTypeExpressionMatch(grantedEffect.requireSkillTypes, activeSkill.skillTypes, not grantedEffect.ignoreMinionTypes and activeSkill.minionSkillTypes)
+	-- Special case for Sacred Wisps, i.e. Wisps Support has a weaponType of Wand so it should only match with Active Skills that at least have Wand as a weaponType.
+	-- Super special case for Varunastra, e.g. allow Nightblade to support Smite.
+	local actorHasAllOneHand = (activeSkill.actor.weaponData1 and activeSkill.actor.weaponData1.countsAsAll1H) or (activeSkill.actor.weaponData2 and activeSkill.actor.weaponData2.countsAsAll1H)
+	if grantedEffect.weaponTypes then
+		-- Build a lookup of the active skill's weapon types
+		local activeTypeLookup = { }
+		if activeSkill.activeEffect.grantedEffect.weaponTypes then
+			for activeType in pairs(activeSkill.activeEffect.grantedEffect.weaponTypes) do
+				activeTypeLookup[activeType] = true
+			end
+		end
+		-- If the support expects a weapon type but the active skill doesn't have any (e.g. shield skills), it's not a match.
+		if not next(activeTypeLookup) then
+			return false
+		end
+		-- Varunastra counts as every one-handed melee weapon type, but notably not Wand or Shield.
+		if actorHasAllOneHand then
+			activeTypeLookup["Claw"] = true
+			activeTypeLookup["Dagger"] = true
+			activeTypeLookup["One Handed Axe"] = true
+			activeTypeLookup["One Handed Mace"] = true
+			activeTypeLookup["One Handed Sword"] = true
+		end
+		local typeMatch = false
+		for grantedType in pairs(grantedEffect.weaponTypes) do
+			if activeTypeLookup[grantedType] then
+				typeMatch = true
+				break
+			end
+		end
+		-- No match, does not support the active skill
+		if not typeMatch then
+			return false
+		end
+	end
+	return not grantedEffect.requireSkillTypes[1] or calcLib.doesTypeExpressionMatch(grantedEffect.requireSkillTypes, effectiveSkillTypes, effectiveMinionTypes)
 end
 
 -- Check if given gem is of the given type ("all", "strength", "melee", etc)

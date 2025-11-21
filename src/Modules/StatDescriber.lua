@@ -72,7 +72,7 @@ local function applySpecial(val, spec)
 		val[spec.v].min = val[spec.v].min / 6
 		val[spec.v].max = val[spec.v].max / 6
 		val[spec.v].fmt = "g"
-	elseif spec.k == "divide_by_ten_1dp_if_required" then
+	elseif spec.k == "divide_by_ten_1dp_if_required" or spec.k == "divide_by_ten_1dp" then
 		val[spec.v].min = round(val[spec.v].min / 10, 1)
 		val[spec.v].max = round(val[spec.v].max / 10, 1)
 		val[spec.v].fmt = "g"
@@ -110,6 +110,10 @@ local function applySpecial(val, spec)
 	elseif spec.k == "per_minute_to_per_second" then
 		val[spec.v].min = round(val[spec.v].min / 60, 1)
 		val[spec.v].max = round(val[spec.v].max / 60, 1)
+		val[spec.v].fmt = "g"
+	elseif spec.k == "permyriad_per_minute_to_%_per_second" then
+		val[spec.v].min = round(val[spec.v].min / 60 / 100, 1)
+		val[spec.v].max = round(val[spec.v].max / 60 / 100, 1)
 		val[spec.v].fmt = "g"
 	elseif spec.k == "per_minute_to_per_second_0dp" then
 		val[spec.v].min = val[spec.v].min / 60

@@ -31,6 +31,7 @@ minions["RaisedZombie"] = {
 	modList = {
 		mod("Armour", "INC", 40, 0, 0), -- MonsterImplicitDamageReduction1 [physical_damage_reduction_rating_+% = 40]
 		mod("StunThreshold", "INC", 30, 0, 0), -- RaiseZombieStunThreshold [stun_threshold_+% = 30]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
 	},
 }
 
@@ -245,6 +246,8 @@ minions["SummonedRagingSpirit"] = {
 		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
 		-- CannotBeAugmented [cannot_be_afflicted = 1]
 		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
 	},
 }
 
@@ -270,6 +273,12 @@ minions["SummonedEssenceSpirit"] = {
 	},
 	modList = {
 		mod("Speed", "MORE", 40, 1, 0), -- MonsterSummonedSkullFastAttack1 [active_skill_attack_speed_+%_final = 40]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
+		mod("Life", "OVERRIDE", 1, 0, 0), -- set_maximum_life_is_one [set_maximum_life_is_one = 1]
+		mod("DamageTaken", "MORE", -100, 0, 0), -- set_base_cannot_be_damaged [set_base_cannot_be_damaged = 1]
+		-- set_cannot_be_chained_from [set_cannot_be_chained_from = 1]
+		-- set_projectiles_always_pierce_you [set_projectiles_always_pierce_you = 1]
 		mod("Condition:FullLife", "FLAG", true),
 	},
 }
@@ -327,6 +336,7 @@ minions["RaisedSkeleton"] = {
 		mod("BlockChance", "BASE", 30, 0, 0), -- MonsterAttackBlock30Bypass15 [monster_base_block_% = 30]
 		mod("BlockEffect", "BASE", 15, 0, 0), -- MonsterAttackBlock30Bypass15 [base_block_%_damage_taken = 15]
 		-- SummonSkeletonsSkeletonIsWarrior [summoned_skeleton_is_warrior = 1]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
 	},
 }
 
@@ -355,6 +365,7 @@ minions["RaisedSkeletonCaster"] = {
 	},
 	modList = {
 		-- SummonSkeletonsSkeletonIsMage [summoned_skeleton_is_mage = 1]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
 	},
 }
 
@@ -385,6 +396,7 @@ minions["RaisedSkeletonMeleeVaal"] = {
 		mod("BlockChance", "BASE", 30, 0, 0), -- MonsterAttackBlock30Bypass15 [monster_base_block_% = 30]
 		mod("BlockEffect", "BASE", 15, 0, 0), -- MonsterAttackBlock30Bypass15 [base_block_%_damage_taken = 15]
 		-- SummonSkeletonsSkeletonIsWarrior [summoned_skeleton_is_warrior = 1]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
 	},
 }
 
@@ -411,6 +423,7 @@ minions["RaisedSkeletonArcherVaal"] = {
 		"Melee",
 	},
 	modList = {
+		-- set_item_drop_slots [set_item_drop_slots = 0]
 	},
 }
 
@@ -437,6 +450,7 @@ minions["RaisedSkeletonArcher"] = {
 		"Melee",
 	},
 	modList = {
+		-- set_item_drop_slots [set_item_drop_slots = 0]
 	},
 }
 
@@ -461,6 +475,11 @@ minions["Clone"] = {
 	},
 	modList = {
 		mod("EnergyShield", "BASE", 10, 0, 0), -- MirrorArrowEnergyShield [base_maximum_energy_shield = 10]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- set_is_double [set_is_double = 1]
+		-- set_suppress_mod_stat_display [set_suppress_mod_stat_display = 1]
+		mod("EnergyShieldRecharge", "OVERRIDE", 0, 0, 0), -- set_energy_shield_recharge_rate_per_minute_% [set_energy_shield_recharge_rate_per_minute_% = 0]
+		mod("DamageTaken", "MORE", -80, 0, 0), -- monster_inherent_damage_taken_+%_final [monster_inherent_damage_taken_+%_final = -80]
 	},
 }
 
@@ -485,6 +504,11 @@ minions["ArrowClone"] = {
 	},
 	modList = {
 		mod("EnergyShield", "BASE", 10, 0, 0), -- MirrorArrowEnergyShield [base_maximum_energy_shield = 10]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- set_is_double [set_is_double = 1]
+		-- set_suppress_mod_stat_display [set_suppress_mod_stat_display = 1]
+		mod("EnergyShieldRecharge", "OVERRIDE", 0, 0, 0), -- set_energy_shield_recharge_rate_per_minute_% [set_energy_shield_recharge_rate_per_minute_% = 0]
+		mod("DamageTaken", "MORE", -80, 0, 0), -- monster_inherent_damage_taken_+%_final [monster_inherent_damage_taken_+%_final = -80]
 	},
 }
 
@@ -509,6 +533,11 @@ minions["ArrowCloneRoA"] = {
 	},
 	modList = {
 		mod("EnergyShield", "BASE", 10, 0, 0), -- MirrorArrowEnergyShield [base_maximum_energy_shield = 10]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- set_is_double [set_is_double = 1]
+		-- set_suppress_mod_stat_display [set_suppress_mod_stat_display = 1]
+		mod("EnergyShieldRecharge", "OVERRIDE", 0, 0, 0), -- set_energy_shield_recharge_rate_per_minute_% [set_energy_shield_recharge_rate_per_minute_% = 0]
+		mod("DamageTaken", "MORE", -80, 0, 0), -- monster_inherent_damage_taken_+%_final [monster_inherent_damage_taken_+%_final = -80]
 	},
 }
 
@@ -533,6 +562,11 @@ minions["ArrowCloneEle"] = {
 	},
 	modList = {
 		mod("EnergyShield", "BASE", 10, 0, 0), -- MirrorArrowEnergyShield [base_maximum_energy_shield = 10]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- set_is_double [set_is_double = 1]
+		-- set_suppress_mod_stat_display [set_suppress_mod_stat_display = 1]
+		mod("EnergyShieldRecharge", "OVERRIDE", 0, 0, 0), -- set_energy_shield_recharge_rate_per_minute_% [set_energy_shield_recharge_rate_per_minute_% = 0]
+		mod("DamageTaken", "MORE", -80, 0, 0), -- monster_inherent_damage_taken_+%_final [monster_inherent_damage_taken_+%_final = -80]
 	},
 }
 
@@ -560,6 +594,12 @@ minions["SpiderMinion"] = {
 	modList = {
 		-- SummonedSpiderPhasing [phase_through_objects = 1]
 		-- SummonedSpiderPhasing [suppress_phasing_visual = 1]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
+		-- set_is_spider [set_is_spider = 1]
+		mod("DamageTaken", "MORE", -100, 0, 0), -- set_base_cannot_be_damaged [set_base_cannot_be_damaged = 1]
+		-- set_cannot_be_chained_from [set_cannot_be_chained_from = 1]
+		mod("Life", "OVERRIDE", 1, 0, 0), -- set_maximum_life_is_one [set_maximum_life_is_one = 1]
 	},
 }
 
@@ -576,6 +616,7 @@ minions["AnimatedWeapon"] = {
 	attackTime = 1,
 	attackRange = 6,
 	accuracy = 3.4,
+	limit = "ActiveAnimatedWeaponLimit",
 	baseMovementSpeed = 45,
 	spawnLocation = {
 	},
@@ -584,6 +625,9 @@ minions["AnimatedWeapon"] = {
 	},
 	modList = {
 		-- EmergeSpeedLow [emerge_speed_+% = 100]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- minion_does_not_equip_quiver [minion_does_not_equip_quiver = 1]
+		-- monster_gets_item_stats [monster_gets_item_stats = 1]
 	},
 }
 
@@ -610,8 +654,12 @@ minions["AnimatedArmour"] = {
 	},
 	modList = {
 		-- LabyrinthArrowTrapDamageTakenAnimateArmour [damage_taken_+%_from_arrow_traps_final = -90]
-		mod("Speed", "MORE", 10, ModFlag.Attack, 0, { type = "Condition", var = "DualWielding" }),
-		mod("BlockChance", "BASE", 15, 0, 0, { type = "Condition", var = "DualWielding" }),
+		mod("Speed", "MORE", 10, 1, 0, { type = "Condition", var = "DualWielding" }), -- dual_wield_inherent_attack_speed_+%_final [dual_wield_inherent_attack_speed_+%_final = 10]
+		mod("BlockChance", "BASE", 15, 0, 0, { type = "Condition", var = "DualWielding" }), -- block_while_dual_wielding_% [block_while_dual_wielding_% = 15]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- monster_gets_item_stats [monster_gets_item_stats = 1]
+		mod("PhysicalMin", "BASE", 2, 8192, 65536), -- main_hand_local_minimum_added_physical_damage [main_hand_local_minimum_added_physical_damage = 2]
+		mod("PhysicalMax", "BASE", 6, 8192, 65536), -- main_hand_local_maximum_added_physical_damage [main_hand_local_maximum_added_physical_damage = 6]
 	},
 }
 
@@ -638,6 +686,8 @@ minions["IcyRagingSpirit"] = {
 		mod("PhysicalDamageConvertToCold", "BASE", 50, 0, 0), -- MonsterSummonedElementalCold [base_physical_damage_%_to_convert_to_cold = 50]
 		-- MonsterCannotBeChainedFrom_ [cannot_be_chained_from = 1]
 		mod("Speed", "MORE", 40, 1, 0), -- MonsterSummonedSkullFastAttack1 [active_skill_attack_speed_+%_final = 40]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
 	},
 }
 
@@ -654,6 +704,7 @@ minions["UniqueAnimatedWeapon"] = {
 	attackTime = 1,
 	attackRange = 105,
 	accuracy = 3.4,
+	limit = "ActiveAnimatedWeaponLimit",
 	baseMovementSpeed = 44,
 	spawnLocation = {
 	},
@@ -662,11 +713,14 @@ minions["UniqueAnimatedWeapon"] = {
 		"DancingDervishCycloneChannelled",
 	},
 	modList = {
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- minion_does_not_equip_quiver [minion_does_not_equip_quiver = 1]
+		mod("DamageTaken", "MORE", -95, 0, 0), -- monster_inherent_damage_taken_+%_final [monster_inherent_damage_taken_+%_final = -95]
+		-- monster_gets_item_stats [monster_gets_item_stats = 1]
 		mod("Life", "MORE", 698), -- MonsterUnique2,
 		mod("Damage", "MORE", 70), -- MonsterUnique5,
 		mod("Speed", "MORE", 33, ModFlag.Attack), -- MonsterUnique8,
 		mod("Damage", "MORE", -33, ModFlag.Attack), -- MonsterUnique8,
-		mod("DamageTaken", "MORE", -95), -- monster_inherent_damage_taken_+%_final : UniqueAnimatedWeapon.ot,
 	},
 }
 
@@ -694,6 +748,8 @@ minions["SummonedPhantasm"] = {
 		"SummonPhantasmFadingProjectile2",
 	},
 	modList = {
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- set_cannot_spawn_support_ghosts [set_cannot_spawn_support_ghosts = 1]
 	},
 }
 
@@ -723,6 +779,12 @@ minions["HeraldOfAgonySpiderPlated"] = {
 	modList = {
 		mod("PhysicalDamageConvertToChaos", "BASE", 40, 0, 0), -- MonsterConvertToChaosHeraldOfAgony1 [base_physical_damage_%_to_convert_to_chaos = 40]
 		mod("Condition:CannotBeDamaged", "FLAG", 1, 0, 0), -- MonsterCannotBeDamaged [base_cannot_be_damaged = 1]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- set_cannot_die [set_cannot_die = 1]
+		mod("Life", "OVERRIDE", 1, 0, 0), -- set_maximum_life_is_one [set_maximum_life_is_one = 1]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
+		-- cannot_taunt_enemies [cannot_taunt_enemies = 1]
+		-- minion_aggro_range_scaled_by_distance_to_parent_target [minion_aggro_range_scaled_by_distance_to_parent_target = 1]
 		mod("Condition:FullLife", "FLAG", true),
 	},
 }
@@ -753,6 +815,7 @@ minions["AxisEliteSoldierHeraldOfLight"] = {
 		"SentinelHolySlam",
 	},
 	modList = {
+		-- set_item_drop_slots [set_item_drop_slots = 0]
 	},
 }
 
@@ -780,6 +843,11 @@ minions["HolyLivingRelic"] = {
 	},
 	modList = {
 		-- EmergeSpeedHigh [emerge_speed_+% = 0]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
+		-- minion_targeting_use_parent_location [minion_targeting_use_parent_location = 1]
+		-- cannot_taunt_enemies [cannot_taunt_enemies = 1]
+		-- set_cannot_be_afflicted [set_cannot_be_afflicted = 1]
 	},
 }
 
@@ -799,9 +867,6 @@ minions["AxisEliteSoldierDominatingBlow"] = {
 	accuracy = 3.4,
 	weaponType1 = "One Handed Mace",
 	weaponType2 = "Shield",
-	baseMovementSpeed = 38,
-	spawnLocation = {
-	},
 	skillList = {
 		"Melee",
 		"DominatingBlowMinionCharge",
@@ -811,6 +876,7 @@ minions["AxisEliteSoldierDominatingBlow"] = {
 		-- MonsterCastsShieldChargeText [monster_casts_shield_charge_text = 1]
 		mod("BlockChance", "BASE", 40, 0, 0), -- MonsterAttackBlock40Bypass20 [monster_base_block_% = 40]
 		mod("BlockEffect", "BASE", 20, 0, 0), -- MonsterAttackBlock40Bypass20 [base_block_%_damage_taken = 20]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
 	},
 }
 
@@ -828,9 +894,6 @@ minions["AxisEliteSoldierDominatingBlowVaal"] = {
 	attackTime = 0.83,
 	attackRange = 28,
 	accuracy = 3.4,
-	baseMovementSpeed = 18,
-	spawnLocation = {
-	},
 	skillList = {
 		"TeleportVaalDomination",
 		"GAVaalDominationTeleportSlam",
@@ -840,6 +903,7 @@ minions["AxisEliteSoldierDominatingBlowVaal"] = {
 		"VaalDominationMelee",
 	},
 	modList = {
+		-- set_item_drop_slots [set_item_drop_slots = 0]
 		mod("Damage", "MORE", 200),
 		mod("DamageTaken", "MORE", -70),
 	},
@@ -860,15 +924,13 @@ minions["AbsolutionTemplarJudge"] = {
 	attackRange = 9,
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
-	baseMovementSpeed = 40,
-	spawnLocation = {
-	},
 	skillList = {
 		"Melee",
 		"AbsolutionMinion",
 		"AbsolutionMinionEmpowered",
 	},
 	modList = {
+		-- set_item_drop_slots [set_item_drop_slots = 0]
 	},
 }
 
@@ -886,9 +948,6 @@ minions["AbsolutionTemplarJudgeVaal"] = {
 	attackTime = 1.17,
 	attackRange = 9,
 	accuracy = 1,
-	baseMovementSpeed = 40,
-	spawnLocation = {
-	},
 	skillList = {
 		"AbsolutionMinionVaal",
 		"AbsolutionMinionVaalCascade",
@@ -897,6 +956,7 @@ minions["AbsolutionTemplarJudgeVaal"] = {
 		"GSVaalAbsolutionEmerge",
 	},
 	modList = {
+		-- set_item_drop_slots [set_item_drop_slots = 0]
 		mod("Damage", "MORE", 200),
 		mod("DamageTaken", "MORE", -70),
 	},
@@ -925,9 +985,12 @@ minions["RhoaUniqueSummoned"] = {
 		"SummonedRhoaShieldCharge",
 	},
 	modList = {
-		mod("SkillData", "LIST", { key = "cannotBeEvaded", value = true }, 0, 0), -- MonsterAlwaysHits [global_always_hit = 1]
 		-- MonsterNearbyEnemiesAreIntimidated [is_intimidated = 1]
 		-- MonsterNearbyEnemiesAreIntimidated [local_display_nearby_enemies_are_intimidated = 1]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
+		mod("DamageTaken", "MORE", -100, 0, 0), -- set_base_cannot_be_damaged [set_base_cannot_be_damaged = 1]
+		-- set_cannot_be_chained_from [set_cannot_be_chained_from = 1]
 	},
 }
 
@@ -954,8 +1017,11 @@ minions["SnakeSpitUniqueSummoned"] = {
 		"SummonedSnakeProjectile",
 	},
 	modList = {
-		mod("SkillData", "LIST", { key = "cannotBeEvaded", value = true }, 0, 0), -- MonsterAlwaysHits [global_always_hit = 1]
 		mod("PhysicalDamageConvertToChaos", "BASE", 30, 0, 0), -- MonsterSnakeChaos [base_physical_damage_%_to_convert_to_chaos = 30]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
+		mod("DamageTaken", "MORE", -100, 0, 0), -- set_base_cannot_be_damaged [set_base_cannot_be_damaged = 1]
+		-- set_cannot_be_chained_from [set_cannot_be_chained_from = 1]
 	},
 }
 
@@ -985,7 +1051,10 @@ minions["DropBearUniqueSummoned"] = {
 		"DropBearSummonedRallyingCry",
 	},
 	modList = {
-		mod("SkillData", "LIST", { key = "cannotBeEvaded", value = true }, 0, 0), -- MonsterAlwaysHits [global_always_hit = 1]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
+		mod("DamageTaken", "MORE", -100, 0, 0), -- set_base_cannot_be_damaged [set_base_cannot_be_damaged = 1]
+		-- set_cannot_be_chained_from [set_cannot_be_chained_from = 1]
 	},
 }
 
@@ -1054,6 +1123,19 @@ minions["SkitterbotCold"] = {
 		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
 		-- CannotBeAugmented [cannot_be_afflicted = 1]
 		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+		-- set_immune_to_cheats [set_immune_to_cheats = 1]
+		-- set_cannot_die [set_cannot_die = 1]
+		mod("Life", "OVERRIDE", 1, 0, 0), -- set_maximum_life_is_one [set_maximum_life_is_one = 1]
+		mod("DamageTaken", "MORE", -100, 0, 0), -- set_base_cannot_be_damaged [set_base_cannot_be_damaged = 1]
+		-- set_cannot_taunt_enemies [set_cannot_taunt_enemies = 1]
+		-- set_untargetable_by_monster_ai [set_untargetable_by_monster_ai = 1]
+		mod("StunImmune", "FLAG", 1, 0, 0), -- base_cannot_be_stunned [base_cannot_be_stunned = 1]
+		mod("KnockbackImmune", "FLAG", 1, 0, 0), -- cannot_be_knocked_back [cannot_be_knocked_back = 1]
+		mod("EnduranceChargesMax", "OVERRIDE", 0, 0, 0), -- set_max_endurance_charges [set_max_endurance_charges = 0]
+		mod("FrenzyChargesMax", "OVERRIDE", 0, 0, 0), -- set_max_frenzy_charges [set_max_frenzy_charges = 0]
+		mod("PowerChargesMax", "OVERRIDE", 0, 0, 0), -- set_max_power_charges [set_max_power_charges = 0]
+		-- set_cannot_be_chained_from [set_cannot_be_chained_from = 1]
+		-- set_cannot_be_splashed_from [set_cannot_be_splashed_from = 1]
 	},
 }
 
@@ -1085,6 +1167,60 @@ minions["SkitterbotLightning"] = {
 		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
 		-- CannotBeAugmented [cannot_be_afflicted = 1]
 		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+		-- set_immune_to_cheats [set_immune_to_cheats = 1]
+		-- set_cannot_die [set_cannot_die = 1]
+		mod("Life", "OVERRIDE", 1, 0, 0), -- set_maximum_life_is_one [set_maximum_life_is_one = 1]
+		mod("DamageTaken", "MORE", -100, 0, 0), -- set_base_cannot_be_damaged [set_base_cannot_be_damaged = 1]
+		-- set_cannot_taunt_enemies [set_cannot_taunt_enemies = 1]
+		-- set_untargetable_by_monster_ai [set_untargetable_by_monster_ai = 1]
+		mod("StunImmune", "FLAG", 1, 0, 0), -- base_cannot_be_stunned [base_cannot_be_stunned = 1]
+		mod("KnockbackImmune", "FLAG", 1, 0, 0), -- cannot_be_knocked_back [cannot_be_knocked_back = 1]
+		mod("EnduranceChargesMax", "OVERRIDE", 0, 0, 0), -- set_max_endurance_charges [set_max_endurance_charges = 0]
+		mod("FrenzyChargesMax", "OVERRIDE", 0, 0, 0), -- set_max_frenzy_charges [set_max_frenzy_charges = 0]
+		mod("PowerChargesMax", "OVERRIDE", 0, 0, 0), -- set_max_power_charges [set_max_power_charges = 0]
+		-- set_cannot_be_chained_from [set_cannot_be_chained_from = 1]
+		-- set_cannot_be_splashed_from [set_cannot_be_splashed_from = 1]
+	},
+}
+
+minions["SkitterbotFire"] = {
+	name = "Scorching Skitterbot",
+	monsterTags = { "construct", "extra_extra_small_height", "is_unarmed", "non_attacking", "stone_armour", "very_fast_movement", },
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0,
+	attackTime = 1,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"SkitterbotDetonateMines",
+		"SkitterbotWait",
+	},
+	modList = {
+		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+		-- set_immune_to_cheats [set_immune_to_cheats = 1]
+		-- set_cannot_die [set_cannot_die = 1]
+		mod("Life", "OVERRIDE", 1, 0, 0), -- set_maximum_life_is_one [set_maximum_life_is_one = 1]
+		mod("DamageTaken", "MORE", -100, 0, 0), -- set_base_cannot_be_damaged [set_base_cannot_be_damaged = 1]
+		-- set_cannot_taunt_enemies [set_cannot_taunt_enemies = 1]
+		-- set_untargetable_by_monster_ai [set_untargetable_by_monster_ai = 1]
+		mod("StunImmune", "FLAG", 1, 0, 0), -- base_cannot_be_stunned [base_cannot_be_stunned = 1]
+		mod("KnockbackImmune", "FLAG", 1, 0, 0), -- cannot_be_knocked_back [cannot_be_knocked_back = 1]
+		mod("EnduranceChargesMax", "OVERRIDE", 0, 0, 0), -- set_max_endurance_charges [set_max_endurance_charges = 0]
+		mod("FrenzyChargesMax", "OVERRIDE", 0, 0, 0), -- set_max_frenzy_charges [set_max_frenzy_charges = 0]
+		mod("PowerChargesMax", "OVERRIDE", 0, 0, 0), -- set_max_power_charges [set_max_power_charges = 0]
+		-- set_cannot_be_chained_from [set_cannot_be_chained_from = 1]
+		-- set_cannot_be_splashed_from [set_cannot_be_splashed_from = 1]
 	},
 }
 
@@ -1105,9 +1241,6 @@ minions["SummonedReaper"] = {
 	accuracy = 3.4,
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "One Handed Sword",
-	baseMovementSpeed = 42,
-	spawnLocation = {
-	},
 	skillList = {
 		"ReaperConsumeMinionForHeal",
 		"ReaperConsumeMinionForBuff",
@@ -1131,6 +1264,7 @@ minions["SummonedReaper"] = {
 		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
 		-- CannotBeAugmented [cannot_be_afflicted = 1]
 		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
 	},
 }
 
@@ -1158,6 +1292,12 @@ minions["SummonedArbalists"] = {
 	},
 	modList = {
 		mod("Condition:CannotBeDamaged", "FLAG", 1, 0, 0), -- MonsterCannotBeDamaged [base_cannot_be_damaged = 1]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- set_cannot_die [set_cannot_die = 1]
+		mod("Life", "OVERRIDE", 1, 0, 0), -- set_maximum_life_is_one [set_maximum_life_is_one = 1]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
+		-- cannot_taunt_enemies [cannot_taunt_enemies = 1]
+		-- minion_aggro_range_scaled_by_distance_to_parent_target [minion_aggro_range_scaled_by_distance_to_parent_target = 1]
 	},
 }
 
@@ -1183,6 +1323,7 @@ minions["GuardianSentinel"] = {
 		"VaalDominationMelee",
 	},
 	modList = {
+		-- set_item_drop_slots [set_item_drop_slots = 0]
 	},
 }
 
@@ -1234,6 +1375,11 @@ minions["GuardianRelicFire"] = {
 	},
 	modList = {
 		-- EmergeSpeedHigh [emerge_speed_+% = 0]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
+		-- minion_targeting_use_parent_location [minion_targeting_use_parent_location = 1]
+		-- cannot_taunt_enemies [cannot_taunt_enemies = 1]
+		-- set_cannot_be_afflicted [set_cannot_be_afflicted = 1]
 	},
 }
 
@@ -1260,6 +1406,11 @@ minions["GuardianRelicCold"] = {
 	},
 	modList = {
 		-- EmergeSpeedHigh [emerge_speed_+% = 0]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
+		-- minion_targeting_use_parent_location [minion_targeting_use_parent_location = 1]
+		-- cannot_taunt_enemies [cannot_taunt_enemies = 1]
+		-- set_cannot_be_afflicted [set_cannot_be_afflicted = 1]
 	},
 }
 
@@ -1286,5 +1437,430 @@ minions["GuardianRelicLightning"] = {
 	},
 	modList = {
 		-- EmergeSpeedHigh [emerge_speed_+% = 0]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
+		-- minion_targeting_use_parent_location [minion_targeting_use_parent_location = 1]
+		-- cannot_taunt_enemies [cannot_taunt_enemies = 1]
+		-- set_cannot_be_afflicted [set_cannot_be_afflicted = 1]
+	},
+}
+
+minions["VoidSpawn"] = {
+	name = "Void Spawn",
+	monsterTags = { "caster", "construct", "elder_monster", "eldritch", "extra_large_height", "flesh_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", "red_blood", },
+	life = 6,
+	energyShield = 1,
+	fireResist = 30,
+	coldResist = 30,
+	lightningResist = 30,
+	chaosResist = 20,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 9,
+	accuracy = 1,
+	limit = "ActiveVoidSpawnLimit",
+	skillList = {
+		"ElderTentacleMinionProjectileDeepcaller",
+	},
+	modList = {
+		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+	},
+}
+
+minions["AncestralAhuanaMinion"] = {
+	name = "Spirit of Ahuana",
+	monsterTags = { "human", "humanoid", "medium_movement", "not_int", "not_str", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.9,
+	evasion = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.3,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 70,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	skillList = {
+		"MPWAhuanaIceShot",
+		"MonsterSnipeAhuana",
+		"MPWAhuanaFakeArrow",
+	},
+	modList = {
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		mod("Condition:CannotBeDamaged", "FLAG", 1, 0, 0), -- base_cannot_be_damaged [base_cannot_be_damaged = 1]
+		mod("Life", "OVERRIDE", 1, 0, 0), -- set_maximum_life_is_one [set_maximum_life_is_one = 1]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
+		-- cannot_taunt_enemies [cannot_taunt_enemies = 1]
+		-- minion_aggro_range_scaled_by_distance_to_parent_target [minion_aggro_range_scaled_by_distance_to_parent_target = 1]
+	},
+}
+
+minions["AncestralAkoyaMinion"] = {
+	name = "Spirit of Akoya",
+	monsterTags = { "human", "humanoid", "medium_movement", "not_int", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.1,
+	armour = 0.75,
+	evasion = 0.25,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 20,
+	accuracy = 1,
+	weaponType1 = "Two Handed Axe",
+	skillList = {
+		"MeleeAtAnimationSpeedUnique",
+		"MPSAkoyaJadeSpray",
+		"GSAkoyaRockExplosion",
+	},
+	modList = {
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		mod("Condition:CannotBeDamaged", "FLAG", 1, 0, 0), -- base_cannot_be_damaged [base_cannot_be_damaged = 1]
+		mod("Life", "OVERRIDE", 1, 0, 0), -- set_maximum_life_is_one [set_maximum_life_is_one = 1]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
+		-- cannot_taunt_enemies [cannot_taunt_enemies = 1]
+		-- minion_aggro_range_scaled_by_distance_to_parent_target [minion_aggro_range_scaled_by_distance_to_parent_target = 1]
+	},
+}
+
+minions["AncestralIkiahoMinion"] = {
+	name = "Spirit of Ikiaho",
+	monsterTags = { "human", "humanoid", "medium_movement", "not_dex", "not_str", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	energyShield = 4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 10,
+	accuracy = 1,
+	skillList = {
+		"AncestralIkiahoArcticBreath",
+		"AncestralIkiahoIceStorm",
+		"EASIkiahoIceStorm",
+	},
+	modList = {
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		mod("Condition:CannotBeDamaged", "FLAG", 1, 0, 0), -- base_cannot_be_damaged [base_cannot_be_damaged = 1]
+		mod("Life", "OVERRIDE", 1, 0, 0), -- set_maximum_life_is_one [set_maximum_life_is_one = 1]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
+		-- cannot_taunt_enemies [cannot_taunt_enemies = 1]
+		-- minion_aggro_range_scaled_by_distance_to_parent_target [minion_aggro_range_scaled_by_distance_to_parent_target = 1]
+	},
+}
+
+minions["AncestralKahuturoaMinion"] = {
+	name = "Spirit of Kahuturoa",
+	monsterTags = { "fast_movement", "human", "humanoid", "not_dex", "not_int", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.2,
+	armour = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.6,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 24,
+	accuracy = 1,
+	skillList = {
+		"KahuturoaMelee",
+		"DTTKahuturoaLeapSlam",
+		"GAKahuturoaLeapSlamImpact",
+		"GAKahuturoaForwardMelee",
+		"GAKahuturoaLeapSlamWeaponSwing",
+	},
+	modList = {
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		mod("Condition:CannotBeDamaged", "FLAG", 1, 0, 0), -- base_cannot_be_damaged [base_cannot_be_damaged = 1]
+		mod("Life", "OVERRIDE", 1, 0, 0), -- set_maximum_life_is_one [set_maximum_life_is_one = 1]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
+		-- cannot_taunt_enemies [cannot_taunt_enemies = 1]
+		-- minion_aggro_range_scaled_by_distance_to_parent_target [minion_aggro_range_scaled_by_distance_to_parent_target = 1]
+	},
+}
+
+minions["AncestralKaomMinion"] = {
+	name = "Spirit of Kaom",
+	monsterTags = { "human", "humanoid", "not_int", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2,
+	armour = 0.75,
+	evasion = 0.25,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.3,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 20,
+	accuracy = 1,
+	weaponType1 = "Two Handed Axe",
+	skillList = {
+		"MeleeAtAnimationSpeedUnique",
+		"MPSKaomFireFist",
+		"GAKaomFistBlast",
+		"GAKaomFistBlastFinal",
+		"AncestralKaomUnarmedCombo",
+	},
+	modList = {
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		mod("Condition:CannotBeDamaged", "FLAG", 1, 0, 0), -- base_cannot_be_damaged [base_cannot_be_damaged = 1]
+		mod("Life", "OVERRIDE", 1, 0, 0), -- set_maximum_life_is_one [set_maximum_life_is_one = 1]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
+		-- cannot_taunt_enemies [cannot_taunt_enemies = 1]
+		-- minion_aggro_range_scaled_by_distance_to_parent_target [minion_aggro_range_scaled_by_distance_to_parent_target = 1]
+	},
+}
+
+minions["AncestralKiloavaMinion"] = {
+	name = "Spirit of Kiloava",
+	monsterTags = { "fast_movement", "human", "humanoid", "not_int", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.2,
+	armour = 0.75,
+	evasion = 0.25,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 19,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeedUnique",
+		"MPWKiloavaSpearThrow",
+		"GSKiloavaLightningBolt",
+	},
+	modList = {
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		mod("Condition:CannotBeDamaged", "FLAG", 1, 0, 0), -- base_cannot_be_damaged [base_cannot_be_damaged = 1]
+		mod("Life", "OVERRIDE", 1, 0, 0), -- set_maximum_life_is_one [set_maximum_life_is_one = 1]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
+		-- cannot_taunt_enemies [cannot_taunt_enemies = 1]
+		-- minion_aggro_range_scaled_by_distance_to_parent_target [minion_aggro_range_scaled_by_distance_to_parent_target = 1]
+	},
+}
+
+minions["AncestralMaataMinion"] = {
+	name = "Spirit of Maata",
+	monsterTags = { "human", "humanoid", "medium_movement", "not_str", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.9,
+	energyShield = 1.6,
+	evasion = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 20,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	skillList = {
+		"MeleeAtAnimationSpeedUnique",
+		"DonutCircleMaata",
+		"SSMMaataVine",
+		"GSMaataVineCascade",
+		"GTMaataVineCascade",
+	},
+	modList = {
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		mod("Condition:CannotBeDamaged", "FLAG", 1, 0, 0), -- base_cannot_be_damaged [base_cannot_be_damaged = 1]
+		mod("Life", "OVERRIDE", 1, 0, 0), -- set_maximum_life_is_one [set_maximum_life_is_one = 1]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
+		-- cannot_taunt_enemies [cannot_taunt_enemies = 1]
+		-- minion_aggro_range_scaled_by_distance_to_parent_target [minion_aggro_range_scaled_by_distance_to_parent_target = 1]
+	},
+}
+
+minions["AncestralRakiataMinion"] = {
+	name = "Spirit of Rakiata",
+	monsterTags = { "fast_movement", "human", "humanoid", "not_int", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	armour = 0.75,
+	evasion = 0.3,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.3,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 20,
+	accuracy = 1,
+	weaponType1 = "Two Handed Sword",
+	skillList = {
+		"GARakiataSlam",
+		"RakiataSweep",
+		"RakiataSlam",
+		"RakiataLacerate",
+		"GTRakiataSlam",
+	},
+	modList = {
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		mod("Condition:CannotBeDamaged", "FLAG", 1, 0, 0), -- base_cannot_be_damaged [base_cannot_be_damaged = 1]
+		mod("Life", "OVERRIDE", 1, 0, 0), -- set_maximum_life_is_one [set_maximum_life_is_one = 1]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
+		-- cannot_taunt_enemies [cannot_taunt_enemies = 1]
+		-- minion_aggro_range_scaled_by_distance_to_parent_target [minion_aggro_range_scaled_by_distance_to_parent_target = 1]
+	},
+}
+
+minions["AncestralTawhanukuMinion"] = {
+	name = "Spirit of Tawhanuku",
+	monsterTags = { "human", "humanoid", "medium_movement", "not_dex", "not_str", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2,
+	energyShield = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 10,
+	accuracy = 1,
+	skillList = {
+		"GSAncestralTawhanukuWave",
+		"AncestralTawhanukuSoulRend",
+		"GTTawhanukuMultiSoulrend",
+	},
+	modList = {
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		mod("Condition:CannotBeDamaged", "FLAG", 1, 0, 0), -- base_cannot_be_damaged [base_cannot_be_damaged = 1]
+		mod("Life", "OVERRIDE", 1, 0, 0), -- set_maximum_life_is_one [set_maximum_life_is_one = 1]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
+		-- cannot_taunt_enemies [cannot_taunt_enemies = 1]
+		-- minion_aggro_range_scaled_by_distance_to_parent_target [minion_aggro_range_scaled_by_distance_to_parent_target = 1]
+	},
+}
+
+minions["AncestralUtulaMinion"] = {
+	name = "Spirit of Utula",
+	monsterTags = { "fast_movement", "human", "humanoid", "not_int", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.2,
+	armour = 0.75,
+	evasion = 0.1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 19,
+	accuracy = 1,
+	weaponType1 = "One Handed Axe",
+	weaponType2 = "One Handed Axe",
+	skillList = {
+		"MeleeAtAnimationSpeedUnique",
+		"UtulaFireSwing",
+		"MPSUtulaFireball",
+	},
+	modList = {
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		mod("Condition:CannotBeDamaged", "FLAG", 1, 0, 0), -- base_cannot_be_damaged [base_cannot_be_damaged = 1]
+		mod("Life", "OVERRIDE", 1, 0, 0), -- set_maximum_life_is_one [set_maximum_life_is_one = 1]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
+		-- cannot_taunt_enemies [cannot_taunt_enemies = 1]
+		-- minion_aggro_range_scaled_by_distance_to_parent_target [minion_aggro_range_scaled_by_distance_to_parent_target = 1]
+	},
+}
+
+minions["LivingLightningMinion"] = {
+	name = "Living Lightning",
+	monsterTags = { "elemental", "lightning", "not_dex", "not_str", "small_height", "very_fast_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.4,
+	energyShield = 0.2,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 1.4,
+	damageSpread = 0.8,
+	attackTime = 1.17,
+	attackRange = 20,
+	accuracy = 1,
+	limit = "ActiveLivingLightningLimit",
+	skillList = {
+		"SummonedLivingLightningZap",
+	},
+	modList = {
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- set_cannot_spawn_support_ghosts [set_cannot_spawn_support_ghosts = 1]
+		-- untargetable_by_monster_ai [untargetable_by_monster_ai = 1]
+		mod("DamageTaken", "MORE", -100, 0, 0), -- set_base_cannot_be_damaged [set_base_cannot_be_damaged = 1]
+		-- set_cannot_be_chained_from [set_cannot_be_chained_from = 1]
+		mod("Life", "OVERRIDE", 1, 0, 0), -- set_maximum_life_is_one [set_maximum_life_is_one = 1]
+		mod("AvoidProjectilesChance", "BASE", 100, 0, 0), -- set_base_avoid_projectiles_%_chance [set_base_avoid_projectiles_%_chance = 100]
+	},
+}
+
+minions["PenanceMarkPhantasm"] = {
+	name = "Shackled Phantasm",
+	hostile = true,
+	monsterTags = { "caster", "fire_affinity", "ghost", "ghost_armour", "ghost_blood", "is_unarmed", "medium_movement", "slashing_weapon", "undead", },
+	life = 1.3,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 0.9,
+	damageSpread = 0.2,
+	attackTime = 1.755,
+	attackRange = 6,
+	accuracy = 1,
+	limit = "ActiveVoidSpawnLimit",
+	skillList = {
+		"MPSPhantasmBasicBlood",
+	},
+	modList = {
+		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+		-- CannotSpawnBeyondPortals [monster_no_beyond_portal = 1]
+		mod("KnockbackImmune", "FLAG", 1, 0, 0), -- ImmuneToKnockback [cannot_be_knocked_back = 1]
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+		-- set_monster_no_drops_or_experience [set_monster_no_drops_or_experience = 1]
+		mod("CurseImmune", "FLAG", 1, 0, 0), -- set_immune_to_curses [set_immune_to_curses = 1]
+		-- set_monster_can_grant_vaal_souls_if_no_experience [set_monster_can_grant_vaal_souls_if_no_experience = 1]
 	},
 }

@@ -42,6 +42,7 @@ colorCodes = {
 	SHAPER = "^x55BBFF",
 	ELDER = "^xAA77CC",
 	FRACTURED = "^xA29160",
+	MUTATED = "^xCD2285",
 	ADJUDICATOR = "^xE9F831",
 	BASILISK = "^x00CB3A",
 	CRUSADER = "^x2946FC",
@@ -165,17 +166,44 @@ KeywordFlag.MatchAll =	0x40000000
 -- Helper function to compare KeywordFlags
 local band = bit.band
 local MatchAllMask = bit.bnot(KeywordFlag.MatchAll)
+
+-- Two-level numeric-key cache to avoid building string keys or allocating tables per call.
+local matchKeywordFlagsCache = {}
+function ClearMatchKeywordFlagsCache()
+	-- cheap full reset without reallocating the outer table
+	for k in pairs(matchKeywordFlagsCache) do
+		matchKeywordFlagsCache[k] = nil
+	end
+end
+
 ---@param keywordFlags number The KeywordFlags to be compared to.
 ---@param modKeywordFlags number The KeywordFlags stored in the mod.
 ---@return boolean Whether the KeywordFlags in the mod are satisfied.
 function MatchKeywordFlags(keywordFlags, modKeywordFlags)
-	local matchAll = band(modKeywordFlags, KeywordFlag.MatchAll) ~= 0
-	modKeywordFlags = band(modKeywordFlags, MatchAllMask)
-	keywordFlags = band(keywordFlags, MatchAllMask)
-	if matchAll then
-		return band(keywordFlags, modKeywordFlags) == modKeywordFlags
+	-- Cache lookup
+	local row = matchKeywordFlagsCache[keywordFlags]
+	if row then
+		local cached = row[modKeywordFlags]
+		if cached ~= nil then
+			return cached
+		end
+	else
+		row = {}
+		matchKeywordFlagsCache[keywordFlags] = row
 	end
-	return modKeywordFlags == 0 or band(keywordFlags, modKeywordFlags) ~= 0
+	-- Not in cache, compute normally
+	local matchAll = band(modKeywordFlags, KeywordFlag.MatchAll) ~= 0
+	local modMasked = band(modKeywordFlags, MatchAllMask)
+	local keywordMasked = band(keywordFlags, MatchAllMask)
+
+	local matches
+	if matchAll then
+		matches = band(keywordMasked, modMasked) == modMasked
+	else
+		matches = (modMasked == 0) or (band(keywordMasked, modMasked) ~= 0)
+	end
+	row[modKeywordFlags] = matches -- Add to cache
+	return matches
 end
 
 -- Active skill types, used in ActiveSkills.dat and GrantedEffects.dat
@@ -318,9 +346,10 @@ SkillType = {
 	ProjectileCannotReturn = 135,
 	Offering = 136,
 	SupportedByBane = 137,
+	WandAttack = 138,
 }
 
 GlobalCache = { 
-	cachedData = { MAIN = {}, CALCS = {}, CALCULATOR = {}, CACHE = {}, },
+	cachedData = { MAIN = {}, CALCS = {}, CALCULATOR = {} },
 }
 

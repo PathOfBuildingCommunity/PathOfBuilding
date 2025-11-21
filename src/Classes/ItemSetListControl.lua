@@ -53,7 +53,7 @@ function ItemSetListClass:RenameSet(itemSet, addOnName)
 		if addOnName then
 			t_insert(self.list, itemSet.id)
 			self.selIndex = #self.list
-			self.selValue = itemSet
+			self.selValue = itemSet.id
 		end
 		self.itemsTab:AddUndoState()
 		self.itemsTab.build:SyncLoadouts()

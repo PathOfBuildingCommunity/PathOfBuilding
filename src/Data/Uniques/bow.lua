@@ -623,8 +623,8 @@ Requires Level 64, 185 Dex
 {variant:4}(165-195)% increased Physical Damage
 50% of Physical Damage Converted to Fire Damage
 10% chance to Ignite
-{variant:1}Ignites your Skills cause spread to other Enemies within a Radius of 12
-{variant:2}Ignites your Skills cause spread to other Enemies within a Radius of 15
+{variant:1}Ignites your Skills cause spread to other Enemies within 1.2 metres
+{variant:2}Ignites your Skills cause spread to other Enemies within 1.5 metres
 Recover (40-60) Life when you Ignite an Enemy
 ]],
 }

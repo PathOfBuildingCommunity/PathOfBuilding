@@ -62,7 +62,7 @@ function SkillSetListClass:RenameSet(skillSet, addOnName)
 		if addOnName then
 			t_insert(self.list, skillSet.id)
 			self.selIndex = #self.list
-			self.selValue = skillSet
+			self.selValue = skillSet.id
 		end
 		self.skillsTab:AddUndoState()
 		self.skillsTab.build:SyncLoadouts()

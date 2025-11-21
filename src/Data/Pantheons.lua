@@ -17,7 +17,7 @@ return {
 					[1] = { line = "30% increased Stun and Block Recovery", value = { 30 }, },
 				},
 			},
-			[3] = { name = "Captain Tanner Lightfoot",
+			[3] = { name = "Merveil, the Returned",
 				mods = {
 					-- base_avoid_freeze_%
 					[1] = { line = "100% chance to Avoid being Frozen", value = { 100 }, },
@@ -46,13 +46,13 @@ return {
 					[1] = { line = "20% increased Recovery rate of Life and Energy Shield if you've stopped taking Damage Over Time Recently", value = { 20 }, },
 				},
 			},
-			[3] = { name = "Legius Garhall",
+			[3] = { name = "Enticer of Rot",
 				mods = {
 					-- debuff_time_passed_+%
 					[1] = { line = "Debuffs on you expire 20% faster", value = { 20 }, },
 				},
 			},
-			[4] = { name = "Armala, the Widow",
+			[4] = { name = "Hybrid Widow",
 				mods = {
 					-- additional_chaos_resistance_against_damage_over_time_%
 					[1] = { line = "+40% Chaos Resistance against Damage Over Time", value = { 40 }, },
@@ -71,7 +71,7 @@ return {
 					[2] = { line = "20% chance to take 50% less Area Damage from Hits", value = { 20 }, },
 				},
 			},
-			[2] = { name = "Woad, Mockery of Man",
+			[2] = { name = "Fire and Fury",
 				mods = {
 					-- elemental_damage_taken_+%_if_not_hit_recently
 					[1] = { line = "8% reduced Elemental Damage taken if you haven't been Hit Recently", value = { -8 }, },
@@ -108,13 +108,13 @@ return {
 					[1] = { line = "10% chance to avoid Projectiles", value = { 10 }, },
 				},
 			},
-			[3] = { name = "Fragment of Winter",
+			[3] = { name = "The Winged Death",
 				mods = {
 					-- elemental_damage_taken_+%_if_been_hit_recently
 					[1] = { line = "6% reduced Elemental Damage taken if you have been Hit Recently", value = { -6 }, },
 				},
 			},
-			[4] = { name = "Khor, Sister of Shadows",
+			[4] = { name = "Ormud, Fiend of the Flood",
 				mods = {
 					-- avoid_chained_projectile_%_chance
 					[1] = { line = "Avoid Projectiles that have Chained", value = { 100 }, },
@@ -131,7 +131,7 @@ return {
 					[1] = { line = "60% less Duration of Ignite on You", value = { -60 }, },
 				},
 			},
-			[2] = { name = "Sumter the Twisted",
+			[2] = { name = "Mephod, the Earth Scorcher",
 				mods = {
 					-- unaffected_by_burning_ground
 					[1] = { line = "Unaffected by Burning Ground", value = { 1 }, },
@@ -169,7 +169,7 @@ return {
 					[2] = { line = "50% chance to Reflect Hexes", value = { 50 }, },
 				},
 			},
-			[2] = { name = "Varhesh, Shimmering Aberration",
+			[2] = { name = "Oriath's Vigil",
 				mods = {
 					-- curse_effect_on_self_+%
 					[1] = { line = "30% reduced Effect of Curses on you", value = { -30 }, },
@@ -207,7 +207,7 @@ return {
 					[1] = { line = "3% additional Physical Damage Reduction per second you've been stationary, up to a maximum of 9%", value = { 3 }, },
 				},
 			},
-			[2] = { name = "Tahsin, Warmaker",
+			[2] = { name = "Sumter the Twisted",
 				mods = {
 					-- life_regeneration_rate_per_minute_%_while_stationary
 					[1] = { line = "Regenerate 2% of Life per second while stationary", value = { 120 }, },
@@ -243,7 +243,7 @@ return {
 					[1] = { line = "60% reduced Effect of Shock on you", value = { -60 }, },
 				},
 			},
-			[2] = { name = "Stalker of the Endless Dunes",
+			[2] = { name = "Preethi, Eye-Pecker",
 				mods = {
 					-- cannot_be_blinded
 					[1] = { line = "Cannot be Blinded", value = { 1 }, },
@@ -264,7 +264,7 @@ return {
 					[2] = { line = "60% increased Life Recovery from Flasks used when on Low Life", value = { 60 }, },
 				},
 			},
-			[2] = { name = "Arachnoxia",
+			[2] = { name = "Gorulis, Will-Thief",
 				mods = {
 					-- enemy_life_regeneration_rate_+%_for_4_seconds_on_hit
 					[1] = { line = "Enemies you've Hit Recently have 50% reduced Life Regeneration rate", value = { -50 }, },

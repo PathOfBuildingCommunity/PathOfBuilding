@@ -370,5 +370,46 @@ Implicits: 1
 Adds 1 to 2 Cold Damage to Attacks per 10 Dexterity
 Adds 1 to 2 Fire Damage to Attacks per 10 Strength
 Adds 0 to 3 Lightning Damage to Attacks per 10 Intelligence
-]],
-}
+]],[[
+Spinehail
+Vile Arrow Quiver
+Source: Drops from unique{Catarina} in normal{Mastermind's Lair}
+Variant: Minion Damage affects you
+Variant: Minion Attack Speed affects you
+Variant: Minion Cast Speed affects you
+Variant: Cast Speed with Minion Skills
+Variant: Minions are Aggressive
+Variant: Armour and Evasion Rating
+Variant: Evasion Rating and Energy Shield
+Variant: Life and Mana Regen
+Variant: Mana and Life Regen
+Variant: Fire and Cold Damage
+Variant: Fire and Lightning Damage
+Variant: Cold and Lightning Damage
+Requires Level 55
+Implicits: 1
+Gain (10-15)% of Physical Damage as Extra Chaos Damage
++(10-20) to Dexterity and Intelligence
+(7-14)% increased Attack Speed
+Minions deal (30-50)% increased Damage
+(5-10) to (12-24) Added Physical Damage with Bow Attacks
+Bow Attacks Sacrifice a random Damageable Minion to fire (1-3) additional Arrow
+{variant:1}Increases and Reductions to Minion Damage also affect you
+{variant:2}Increases and Reductions to Minion Attack Speed also affect you
+{variant:3}Increases and Reductions to Minion Cast Speed also affect you
+{variant:4}(20-40)% increased Cast Speed with Minion Skills
+{variant:5}Minions are Aggressive
+{variant:6}+(365-400) to Armour and Evasion Rating
+{variant:7}+(365-400) to Evasion Rating
+{variant:7}+(31-35) to maximum Energy Shield
+{variant:8}+(55-60) to maximum Life
+{variant:8}Regenerate 5.3 Mana per second
+{variant:9}+(55-60) to maximum Mana
+{variant:9}Regenerate 33.3 Life per second
+{variant:10}Adds (14-16) to (20-22) Fire Damage
+{variant:10}Adds (14-16) to (20-22) Cold Damage
+{variant:11}Adds (14-16) to (20-22) Fire Damage
+{variant:11}Adds (14-16) to (20-22) Lightning Damage
+{variant:12}Adds (14-16) to (20-22) Cold Damage
+{variant:12}Adds (14-16) to (20-22) Lightning Damage
+]],}

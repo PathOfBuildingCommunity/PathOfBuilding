@@ -185,25 +185,33 @@ Skills Chain +1 times
 ]],[[
 Nebulis
 Void Sceptre
+Variant: Pre 3.27.0
+Variant: Current
 League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex} (Uber)
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 40% increased Elemental Damage
-{fractured}(15-20)% increased Cast Speed
-(15-20)% increased Cold Damage per 1% Cold Resistance above 75%
-(15-20)% increased Lightning Damage per 1% Lightning Resistance above 75%
+{variant:2}(80-120)% increased Implicit Modifier magnitudes
+(15-20)% increased Cast Speed
+{variant:1}(15-20)% increased Cold Damage per 1% Cold Resistance above 75%
+{variant:1}(15-20)% increased Lightning Damage per 1% Lightning Resistance above 75%
+{variant:2}(5-10)% increased Elemental Damage per 1% Fire, Cold, or Lightning Resistance above 75%
 ]],[[
 Replica Nebulis
 Void Sceptre
+Variant: Pre 3.27.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 40% increased Elemental Damage
-{fractured}(15-20)% increased Cast Speed
-(15-20)% increased Cold Damage per 1% Missing Cold Resistance, up to a maximum of 300%
-(15-20)% increased Fire Damage per 1% Missing Fire Resistance, up to a maximum of 300%
+{variant:2}(80-120)% increased Implicit Modifier magnitudes
+(15-20)% increased Cast Speed
+{variant:1}(15-20)% increased Cold Damage per 1% Missing Cold Resistance, up to a maximum of 300%
+{variant:1}(15-20)% increased Fire Damage per 1% Missing Fire Resistance, up to a maximum of 300%
+{variant:2}(10-15)% increased Elemental Damage per 1% Missing Fire, Cold, or Lightning Resistance, up to a maximum of 450%
 ]],[[
 Nebuloch
 Nightmare Mace
@@ -590,6 +598,18 @@ Implicits: 1
 (6-8)% reduced Soul Gain Prevention Duration
 Gain an Endurance Charge, Frenzy Charge, and Power Charge when you use a Vaal Skill
 Shepherd of Souls
+]],[[
+Cadigan's Authority
+Platinum Sceptre
+Source: Obtained from unique{Shipping} in normal{Kingsmarch}
+Requires Level 62, 113 Str, 113 Int
+Implicits: 1
+30% increased Elemental Damage
+Adds (60-85) to (100-133) Physical Damage
++(3-5) to maximum number of Summoned Totems
+You cannot have more than 2 Summoned Totems of the same type
+(40-70)% increased Totem Placement speed
+Battlemage
 ]],
 -- Weapon: Two Handed Mace
 [[
@@ -890,5 +910,4 @@ Implicits: 2
 (30-50)% reduced Rarity of Items found
 (30-50)% reduced Experience gain
 0.4% of Physical Attack Damage Leeched as Mana
-]],
-}
+]],}

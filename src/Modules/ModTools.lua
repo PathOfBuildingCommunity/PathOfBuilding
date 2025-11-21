@@ -221,3 +221,17 @@ function modLib.setSource(mod, source)
 	end
 	return mod
 end
+
+-- Merge keystone modifiers
+function modLib.mergeKeystones(env, modDB)
+	env.keystonesAdded = env.keystonesAdded or { }
+	for _, modObj in ipairs(modDB:Tabulate("LIST", nil, "Keystone")) do
+		if not env.keystonesAdded[modObj.value] and env.spec.tree.keystoneMap[modObj.value] then
+			env.keystonesAdded[modObj.value] = true
+			local fromTree = modObj.mod.source and not modObj.mod.source:lower():match("tree")
+			for _, mod in ipairs(env.spec.tree.keystoneMap[modObj.value].modList) do
+				modDB:AddMod(fromTree and modLib.setSource(mod, modObj.mod.source) or mod)
+			end
+		end
+	end
+end

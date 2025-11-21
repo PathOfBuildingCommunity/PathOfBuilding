@@ -18,6 +18,8 @@ jobs:
                 fileName: SimpleGraphicDLLs-x64-windows.tar
                 extract: true
                 out-file-path: runtime
+            - name: Delete .tar file
+              run: rm runtime/SimpleGraphicDLLs-x64-windows.tar
             - name: Create Pull Request
               uses: peter-evans/create-pull-request@v5
               with:
