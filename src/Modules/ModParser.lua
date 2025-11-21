@@ -166,6 +166,7 @@ local modNameList = {
 	["life"] = "Life",
 	["maximum life"] = "Life",
 	["life regeneration rate"] = "LifeRegen",
+	["life regeneration also applies to energy shield"] = "LifeRegenAppliesToEnergyShield",
 	["mana"] = "Mana",
 	["maximum mana"] = "Mana",
 	["mana regeneration"] = "ManaRegen",

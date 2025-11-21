@@ -1233,6 +1233,13 @@ function calcs.defence(env, actor)
 					end
 				end
 			end
+			if resource == "Life" and modDB:Sum("BASE", nil, "LifeRegenAppliesToEnergyShield") > 0 then
+				local conversion = m_min(modDB:Sum("BASE", nil, "LifeRegenAppliesToEnergyShield"), 100) / 100
+				local lifeBase = modDB:Sum("BASE", nil, "LifeRegen")
+				local lifePercent = modDB:Sum("BASE", nil, "LifeRegenPercent")
+				modDB:NewMod("EnergyShieldRegen", "BASE", floor(lifeBase * conversion, 2), "Life Regen to ES Regen")
+				modDB:NewMod("EnergyShieldRegenPercent", "BASE", floor(lifePercent * conversion, 2), "Life Regen to ES Regen")
+			end
 			baseRegen = modDB:Sum("BASE", nil, resource.."Regen") + pool * modDB:Sum("BASE", nil, resource.."RegenPercent") / 100
 			regen = baseRegen * (1 + inc/100) * more
 			if regen ~= 0 then -- Pious Path
