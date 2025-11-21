@@ -1347,8 +1347,9 @@ function buildMode:OpenSpectreLibrary()
 	local function UpdateMinionDisplay(selected)
 		self.lastSelectedMinion = selected
 		local minion = self.data.minions[selected]
-		local gemLevel = m_max(controls.minionGemLevel.buf,1)
-		local baseLife = self.data.monsterLifeTable[m_min(gemLevel, 100)]
+		local gemLevel = m_max(controls.minionGemLevel.buf, 1)
+		local minionLevel = data.skills["RaiseSpectre"].levels[gemLevel][2]
+		local baseLife = self.data.monsterLifeTable[m_min(minionLevel, 100)]
 		local totalLife = baseLife * minion.life
 		local totalES
 		if minion.energyShield then
@@ -1356,8 +1357,8 @@ function buildMode:OpenSpectreLibrary()
 		else
 			totalES = 0
 		end
-		local totalArmour = self.data.monsterArmourTable[m_min(gemLevel, 100)]
-		local totalEvasion = self.data.monsterEvasionTable[m_min(gemLevel, 100)]
+		local totalArmour = self.data.monsterArmourTable[m_min(minionLevel, 100)]
+		local totalEvasion = self.data.monsterEvasionTable[m_min(minionLevel, 100)]
 		if minion.armour then
 			totalArmour = (1 + minion.armour) * totalArmour
 		end
@@ -1396,6 +1397,9 @@ function buildMode:OpenSpectreLibrary()
 	end
 
 	controls.list = new("MinionListControl", nil, {-230, 40, 210, 270}, self.data, destList)
+	controls.list.OnSelect = function()
+		UpdateMinionDisplay(controls.list.selValue)
+	end
 	controls.source = new("MinionSearchListControl", nil, {0, 80, 210, 230}, self.data, sourceList, controls.list)
 	controls.source.OnSelect = function()
 			UpdateMinionDisplay(controls.source.selValue)
