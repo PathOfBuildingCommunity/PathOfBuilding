@@ -2329,6 +2329,46 @@ skills["ManifestDancingDervishes"] = {
 		[15] = { cooldown = 0.5, levelRequirement = 1, storedUses = 1, },
 	},
 }
+skills["MistyReflection"] = {
+	name = "Misty Reflection",
+	hidden = true,
+	color = 4,
+	description = "Dash backwards, leaving a short-lived mist copy of yourself that Taunts nearby Enemies for a short duration. The copy can be damaged by Enemies, and copies that are killed by an Enemy will apply a debuff in an area that makes affected targets take 30% increased Damage and deal 30% less Damage for 4 seconds.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Blink] = true, [SkillType.Cooldown] = true, [SkillType.FixedCastTime] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.Area] = true, [SkillType.Buff] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.15,
+	fromTree = true,
+	baseFlags = {
+		spell = true,
+		duration = true,
+	},
+	baseMods = {
+		mod("DamageTaken", "INC", 30, 0, 0, { type = "Condition", var = "MistyReflection"}, { type = "GlobalEffect", effectType = "Debuff" }),
+		mod("Damage", "MORE", -30, 0, 0, { type = "Condition", var = "MistyReflection"}, { type = "GlobalEffect", effectType = "Debuff" }),
+		skill("debuff", true),
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 2000 },
+		{ "active_skill_base_area_of_effect_radius", 30 },
+		{ "misty_reflection_clone_base_maximum_life_%_of_owner_maximum_life", 10 },
+	},
+	stats = {
+		"base_cooldown_speed_+%",
+		"skill_travel_distance_+%",
+		"base_deal_no_damage",
+		"skill_cannot_be_interrupted",
+		"skill_cannot_be_knocked_back",
+		"skill_cannot_be_stunned",
+		"spell_cast_time_cannot_be_modified",
+	},
+	notMinionStat = {
+		"base_cooldown_speed_+%",
+	},
+	levels = {
+		[1] = { 0, 0, cooldown = 6, levelRequirement = 4, storedUses = 1, statInterpolation = { 1, 1, }, },
+		[20] = { 0, 0, cooldown = 6, levelRequirement = 70, storedUses = 1, statInterpolation = { 1, 1, }, },
+	},
+}
 skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
 	name = "Mjolner",
 	hidden = true,

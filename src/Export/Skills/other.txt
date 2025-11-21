@@ -637,6 +637,14 @@ local skills, mod, flag, skill = ...
 #baseMod skill("minionLevel", 65)
 #mods
 
+#skill MistyReflection
+#flags spell duration
+	fromTree = true,
+#baseMod mod("DamageTaken", "INC", 30, 0, 0, { type = "Condition", var = "MistyReflection"}, { type = "GlobalEffect", effectType = "Debuff" })
+#baseMod mod("Damage", "MORE", -30, 0, 0, { type = "Condition", var = "MistyReflection"}, { type = "GlobalEffect", effectType = "Debuff" })
+#baseMod skill("debuff", true)
+#mods
+
 #skill SupportUniqueMjolnerLightningSpellsCastOnHit Mjolner
 	fromItem = true,
 #mods

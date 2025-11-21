@@ -9128,7 +9128,7 @@ c["Grants Level 20 Death Wish Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraS
 c["Grants Level 20 Doryani's Touch Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="DoryanisTouch"}}},nil}
 c["Grants Level 20 Hatred Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="Hatred"}}},nil}
 c["Grants Level 20 Illusory Warp Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="IllusoryWarp"}}},nil}
-c["Grants Level 20 Misty Reflection Skill"]={nil,nil}
+c["Grants Level 20 Misty Reflection Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="MistyReflection"}}},nil}
 c["Grants Level 20 Pacify"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="Pacify"}}},nil}
 c["Grants Level 20 Penance Mark"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="PenanceMark"}}},nil}
 c["Grants Level 20 Queen's Demand Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="QueensDemand"}}},nil}

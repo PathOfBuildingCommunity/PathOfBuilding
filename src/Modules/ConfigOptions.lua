@@ -471,6 +471,10 @@ return {
 	{ var = "meatShieldEnemyNearYou", type = "check", label = "Is the enemy near you?", ifSkill = "Meat Shield", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:MeatShieldEnemyNearYou", "FLAG", true, "Config")
 	end },
+	{ label = "Misty Reflection:", ifSkill = "Misty Reflection" },
+	{ var = "enemyHitMistyReflection", type = "check", label = "Enemy hit by Misty Reflection?", ifSkill = "Misty Reflection", tooltip = "Misty Reflection debuff lasts 4 seconds and makes enemies have:\n\t30% increased Damage Taken\n\tDeal 30% less Damage", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:MistyReflection", "FLAG", true, "Config")
+	end },
 	{ label = "Momentum:", ifSkill = "Momentum" },
 	{ var = "MomentumStacks", type = "count", label = "# of Momentum (if not average):", ifSkill = "Momentum", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:MomentumStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
