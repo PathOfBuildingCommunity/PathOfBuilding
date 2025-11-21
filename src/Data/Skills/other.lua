@@ -4521,6 +4521,45 @@ skills["VoidShot"] = {
 		[20] = { PvPDamageMultiplier = -80, baseMultiplier = 0.65, damageEffectiveness = 0.65, levelRequirement = 70, },
 	},
 }
+skills["WardShatter"] = {
+	name = "Ward Shatter",
+	hidden = true,
+	color = 1,
+	baseEffectiveness = 0.68000000715256,
+	incrementalEffectiveness = 0.045000001788139,
+	description = "Your ward shatters, dealing physical spell damage to enemies in an area, based on the amount of ward you have. Enemies hit are inflicted with Enervation, a Debuff that lowers Movement Speed by 20% and prevents Life and Energy Shield Recovery for 4 seconds.",
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Physical] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Nova] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	statMap = {
+		["from_code_active_skill_ailment_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Ailment),
+		},
+		["active_skill_damage_+%_final_if_ward_has_not_broken_in_the_past_2_seconds"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "WardBrokenPast2Seconds"}),
+		},
+	},
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+		skill("showAverage", true),
+	},
+	constantStats = {
+		{ "trigger_on_ward_break_%_chance", 100 },
+		{ "from_code_active_skill_ailment_damage_+%_final", -40 },
+		{ "active_skill_damage_+%_final_if_ward_has_not_broken_in_the_past_2_seconds", 80 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage_%_of_ward",
+		"spell_maximum_base_physical_damage_%_of_ward",
+	},
+	levels = {
+		[1] = { 0.20000000298023, 0.30000001192093, cooldown = 0.5, critChance = 6, levelRequirement = 4, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[20] = { 0.61250001192093, 0.73750001192093, cooldown = 0.5, critChance = 6, levelRequirement = 70, storedUses = 1, statInterpolation = { 3, 3, }, },
+	},
+}
 skills["BreachHandTrap"] = {
 	name = "Will of the Lords",
 	hidden = true,

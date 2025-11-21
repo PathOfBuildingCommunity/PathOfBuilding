@@ -105,6 +105,12 @@ return {
 ["spell_maximum_base_cold_damage_+_per_10_intelligence"] = {
 	skill("ColdMax", nil, { type = "PerStat", stat = "Int", div = 10 }),
 },
+["spell_minimum_base_physical_damage_%_of_ward"] = {
+	skill("PhysicalMin", nil, { type = "PercentStat", stat = "Ward", percent = 1 }),
+},
+["spell_maximum_base_physical_damage_%_of_ward"] = {
+	skill("PhysicalMax", nil, { type = "PercentStat", stat = "Ward", percent = 1 }),
+},
 ["base_cold_damage_to_deal_per_minute"] = {
 	skill("ColdDot", nil),
 	div = 60,
