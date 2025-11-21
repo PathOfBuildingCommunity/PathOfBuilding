@@ -1354,53 +1354,55 @@ function calcs.defence(env, actor)
 		local recoupTypeList = {"Life", "Mana", "EnergyShield"}
 		for _, recoupType in ipairs(recoupTypeList) do
 			local baseRecoup = modDB:Sum("BASE", nil, recoupType.."Recoup")
-			output[recoupType.."Recoup"] =  baseRecoup * output[recoupType.."RecoveryRateMod"]
-			output["anyRecoup"] = output["anyRecoup"] + output[recoupType.."Recoup"]
-			if breakdown then
-				if output[recoupType.."RecoveryRateMod"] ~= 1 then
-					breakdown[recoupType.."Recoup"] = {
-						s_format("%d%% ^8(base)", baseRecoup),
-						s_format("* %.2f ^8(recovery rate modifier)", output[recoupType.."RecoveryRateMod"]),
-						s_format("= %.1f%% over %d seconds", output[recoupType.."Recoup"], (modDB:Flag(nil, "3Second"..recoupType.."Recoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4)
-					}
-				else
-					breakdown[recoupType.."Recoup"] = { s_format("%d%% over %d seconds", output[recoupType.."Recoup"], (modDB:Flag(nil, "3Second"..recoupType.."Recoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4) }
+			if recoupType == "Life" and modDB:Flag(nil, "EnergyShieldRecoupInsteadOfLife") then
+				output.LifeRecoup = 0
+				local lifeRecoup = modDB:Sum("BASE", nil, "LifeRecoup")
+				modDB:NewMod("EnergyShieldRecoup", "BASE", lifeRecoup, "Life Recoup Conversion")
+			else
+				output[recoupType.."Recoup"] =  baseRecoup * output[recoupType.."RecoveryRateMod"]
+				output["anyRecoup"] = output["anyRecoup"] + output[recoupType.."Recoup"]
+				if breakdown then
+					if output[recoupType.."RecoveryRateMod"] ~= 1 then
+						breakdown[recoupType.."Recoup"] = {
+							s_format("%d%% ^8(base)", baseRecoup),
+							s_format("* %.2f ^8(recovery rate modifier)", output[recoupType.."RecoveryRateMod"]),
+							s_format("= %.1f%% over %d seconds", output[recoupType.."Recoup"], (modDB:Flag(nil, "3Second"..recoupType.."Recoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4)
+						}
+					else
+						breakdown[recoupType.."Recoup"] = { s_format("%d%% over %d seconds", output[recoupType.."Recoup"], (modDB:Flag(nil, "3Second"..recoupType.."Recoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4) }
+					end
 				end
 			end
 		end
 
 		if modDB:Flag(nil, "UsePowerCharges") and modDB:Flag(nil, "PowerChargesConvertToAbsorptionCharges") then
 			local ElementalEnergyShieldRecoupPerAbsorptionCharges = modDB:Sum("BASE", nil, "PerAbsorptionElementalEnergyShieldRecoup")
-			modDB:NewMod("ElementalEnergyShieldRecoup", "BASE", ElementalEnergyShieldRecoupPerAbsorptionCharges, "Absorption Charges", { type = "Multiplier", var = "AbsorptionCharge" } )
+			modDB:NewMod("ColdEnergyShieldRecoup", "BASE", ElementalEnergyShieldRecoupPerAbsorptionCharges, "Absorption Charges", { type = "Multiplier", var = "AbsorptionCharge" } )
+			modDB:NewMod("FireEnergyShieldRecoup", "BASE", ElementalEnergyShieldRecoupPerAbsorptionCharges, "Absorption Charges", { type = "Multiplier", var = "AbsorptionCharge" } )
+			modDB:NewMod("LightningEnergyShieldRecoup", "BASE", ElementalEnergyShieldRecoupPerAbsorptionCharges, "Absorption Charges", { type = "Multiplier", var = "AbsorptionCharge" } )
 		end
-		local ElementalEnergyShieldRecoup = modDB:Sum("BASE", nil, "ElementalEnergyShieldRecoup")
-		output.ElementalEnergyShieldRecoup = ElementalEnergyShieldRecoup * output.EnergyShieldRecoveryRateMod
-		output["anyRecoup"] = output["anyRecoup"] + output.ElementalEnergyShieldRecoup
-		if breakdown then
-			if output.EnergyShieldRecoveryRateMod ~= 1 then
-				breakdown.ElementalEnergyShieldRecoup = {
-					s_format("%d%% ^8(base)", ElementalEnergyShieldRecoup),
-					s_format("* %.2f ^8(recovery rate modifier)", output.EnergyShieldRecoveryRateMod),
-					s_format("= %.1f%% over %d seconds", output.ElementalEnergyShieldRecoup, (modDB:Flag(nil, "3SecondEnergyShieldRecoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4)
-				}
-			else
-				breakdown.ElementalEnergyShieldRecoup = { s_format("%d%% over %d seconds", output.ElementalEnergyShieldRecoup, (modDB:Flag(nil, "3SecondEnergyShieldRecoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4) }
-			end
-		end
-		
-		for _, damageType in ipairs(dmgTypeList) do
-			local LifeRecoup = modDB:Sum("BASE", nil, damageType.."LifeRecoup")
-			output[damageType.."LifeRecoup"] =  LifeRecoup * output.LifeRecoveryRateMod
-			output["anyRecoup"] = output["anyRecoup"] + output[damageType.."LifeRecoup"]
-			if breakdown then
-				if output.LifeRecoveryRateMod ~= 1 then
-					breakdown[damageType.."LifeRecoup"] = {
-						s_format("%d%% ^8(base)", LifeRecoup),
-						s_format("* %.2f ^8(recovery rate modifier)", output.LifeRecoveryRateMod),
-						s_format("= %.1f%% over %d seconds", output[damageType.."LifeRecoup"], (modDB:Flag(nil, "3SecondLifeRecoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4)
-					}
+
+		for _, recoupType in ipairs(recoupTypeList) do
+			for _, damageType in ipairs(dmgTypeList) do
+				if recoupType == "Life" and modDB:Flag(nil, "EnergyShieldRecoupInsteadOfLife") then
+					output[damageType.."LifeRecoup"] = 0
+					local lifeRecoup = modDB:Sum("BASE", nil, damageType.."LifeRecoup")
+					modDB:NewMod(damageType.."EnergyShieldRecoup", "BASE", lifeRecoup, "Life Recoup Conversion")
 				else
-					breakdown[damageType.."LifeRecoup"] = { s_format("%d%% over %d seconds", output[damageType.."LifeRecoup"], (modDB:Flag(nil, "3SecondLifeRecoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4) }
+					local recoup = modDB:Sum("BASE", nil, damageType..recoupType.."Recoup")
+					output[damageType..recoupType.."Recoup"] =  recoup * output[recoupType.."RecoveryRateMod"]
+					output["anyRecoup"] = output["anyRecoup"] + output[damageType..recoupType.."Recoup"]
+					if breakdown then
+						if output[recoupType.."RecoveryRateMod"] ~= 1 then
+							breakdown[damageType..recoupType.."Recoup"] = {
+								s_format("%d%% ^8(base)", recoup),
+								s_format("* %.2f ^8(recovery rate modifier)", output[recoupType.."RecoveryRateMod"]),
+								s_format("= %.1f%% over %d seconds", output[damageType..recoupType.."Recoup"], (modDB:Flag(nil, "3Second"..recoupType.."Recoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4)
+							}
+						else
+							breakdown[damageType..recoupType.."Recoup"] = { s_format("%d%% over %d seconds", output[damageType..recoupType.."Recoup"], (modDB:Flag(nil, "3Second"..recoupType.."Recoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4) }
+						end
+					end
 				end
 			end
 		end
