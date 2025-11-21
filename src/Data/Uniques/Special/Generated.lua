@@ -734,13 +734,20 @@ function buildForbidden(classNotables)
 		table.insert(forbidden[name], "Rarity: UNIQUE")
 		table.insert(forbidden[name], "Forbidden " .. name)
 		table.insert(forbidden[name], (name == "Flame" and "Crimson" or "Cobalt") .. " Jewel")
+		local classList = { }
+		for className in pairs(classNotables) do
+			if className ~= "alternate_ascendancies" then
+				table.insert(classList, className)
+			end
+		end
+		table.sort(classList)
 		local index = 1
-		for className, notableTable in pairs(classNotables) do
-			if className ~= "alternate_ascendancies" then --Remove Affliction Ascendancy's
-				for _, notableName in ipairs(notableTable) do
-					table.insert(forbidden[name], "Variant: (" .. className .. ") " .. notableName)
-					index = index + 1
-				end
+		for _, className in ipairs(classList) do
+			local notableTable = classNotables[className]
+			table.sort(notableTable)
+			for _, notableName in ipairs(notableTable) do
+				table.insert(forbidden[name], "Variant: (" .. className .. ") " .. notableName)
+				index = index + 1
 			end
 		end
 		if name == "Flame" then
@@ -751,13 +758,13 @@ function buildForbidden(classNotables)
 		table.insert(forbidden[name], "Limited to: 1")
 		table.insert(forbidden[name], "Item Level: 83")
 		index = 1
-		for className, notableTable in pairs(classNotables) do
-			if className ~= "alternate_ascendancies" then --Remove Affliction Ascendancy's
-				for _, notableName in ipairs(notableTable) do
-					table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Requires Class " .. className)
-					table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Allocates ".. notableName .. " if you have the matching modifier on Forbidden " .. (name == "Flame" and "Flesh" or "Flame"))
-					index = index + 1
-				end
+		for _, className in ipairs(classList) do
+			local notableTable = classNotables[className]
+			table.sort(notableTable)
+			for _, notableName in ipairs(notableTable) do
+				table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Requires Class " .. className)
+				table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Allocates ".. notableName .. " if you have the matching modifier on Forbidden " .. (name == "Flame" and "Flesh" or "Flame"))
+				index = index + 1
 			end
 		end
 		table.insert(forbidden[name], "Corrupted")
