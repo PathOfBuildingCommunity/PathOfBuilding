@@ -112,6 +112,7 @@ function main:Init()
 	self.POESESSID = ""
 	self.showPublicBuilds = true
 	self.showFlavourText = true
+	self.errorReadingSettings = false
 
 	if not SetDPIScaleOverridePercent then SetDPIScaleOverridePercent = function(scale) end end
 
@@ -515,9 +516,16 @@ function main:CallMode(func, ...)
 end
 
 function main:LoadSettings(ignoreBuild)
+	if self.errorReadingSettings then
+		return true
+	end
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
-	if errMsg and not errMsg:match(".*No such file or directory") then
-		ConPrintf("Error: '%s'", errMsg)
+	if errMsg and errMsg:match(".*file returns nil") then
+		self.errorReadingSettings = true
+		self:OpenCloudErrorPopup(self.userPath.."Settings.xml")
+		return true
+	elseif errMsg and not errMsg:match(".*No such file or directory") then
+		self.errorReadingSettings = true
 		launch:ShowErrMsg("^1"..errMsg)
 		return true
 	end
@@ -655,9 +663,16 @@ function main:LoadSettings(ignoreBuild)
 end
 
 function main:LoadSharedItems()
+	if self.errorReadingSettings then
+		return true
+	end
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
-	if errMsg and not errMsg:match(".*No such file or directory") then
-		ConPrintf("Error: '%s'", errMsg)
+	if errMsg and errMsg:match(".*file returns nil") then
+		self.errorReadingSettings = true
+		self:OpenCloudErrorPopup(self.userPath.."Settings.xml")
+		return true
+	elseif errMsg and not errMsg:match(".*No such file or directory") then
+		self.errorReadingSettings = true
 		launch:ShowErrMsg("^1"..errMsg)
 		return true
 	end
@@ -703,6 +718,9 @@ function main:LoadSharedItems()
 end
 
 function main:SaveSettings()
+	if self.errorReadingSettings then
+		return
+	end
 	local setXML = { elem = "PathOfBuilding" }
 	local mode = { elem = "Mode", attrib = { mode = self.mode } }
 	for _, val in ipairs({ self:CallMode("GetArgs") }) do
@@ -1551,6 +1569,35 @@ function main:OpenNewFolderPopup(path, onClose)
 		main:ClosePopup()
 	end)
 	main:OpenPopup(370, 100, "New Folder", controls, "create", "edit", "cancel")
+end
+
+-- Show an error popup if a file cannot be read due to cloud provider unavailability.
+-- Help button opens a URL to PoB's GitHub wiki.
+function main:OpenCloudErrorPopup(fileName)
+	local provider, _, status = GetCloudProvider(fileName)
+	ConPrintf('Error: file offline "%s" provider: "%s" status: "%s"',
+		fileName or "?", provider, status)
+	fileName = fileName and "\n\n^8'"..fileName.."'" or ""
+	local pobVersion = "^8v"..launch.versionNumber..(launch.versionBranch == "dev" and " (Dev)" or launch.versionBranch == "beta" and " (Beta)" or "")
+	local title = " Error "
+	provider = provider or "your cloud provider"
+	local msg = "\nCannot read file.\n\nMake sure "..provider.." is running then restart "..APP_NAME.." and try again."..
+		fileName.."\n\n"..pobVersion
+	local url = "https://github.com/PathOfBuildingCommunity/PathOfBuilding/wiki/CloudError"
+	local controls = { }
+	local numMsgLines = 0
+	for line in string.gmatch(msg .. "\n", "([^\n]*)\n") do
+		t_insert(controls, new("LabelControl", nil, {0, 20 + numMsgLines * 16, 0, 16}, line))
+		numMsgLines = numMsgLines + 1
+	end
+	controls.help = new("ButtonControl", nil, {-55, 40 + numMsgLines * 16, 80, 20}, "Help (web)", function()
+		OpenURL(url)
+	end)
+	controls.help.tooltipText = url
+	controls.close = new("ButtonControl", nil, {55, 40 + numMsgLines * 16, 80, 20}, "Ok", function()
+		main:ClosePopup()
+	end)
+	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls, "close")
 end
 
 function main:SetWindowTitleSubtext(subtext)

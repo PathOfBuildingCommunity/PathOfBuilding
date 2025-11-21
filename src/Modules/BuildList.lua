@@ -216,6 +216,10 @@ function listMode:BuildList()
 		if fileHnd then
 			local fileText = fileHnd:read("*a")
 			fileHnd:close()
+			if not fileText then
+				main:OpenCloudErrorPopup(build.fullFileName)
+				return
+			end
 			fileText = fileText:match("(<Build.->)")
 			if fileText then
 				local xml = common.xml.ParseXML(fileText.."</Build>")
