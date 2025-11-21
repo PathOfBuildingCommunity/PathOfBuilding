@@ -705,6 +705,13 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("MovementSpeed", "INC", m_floor(25 * effectMod), "Adrenaline")
 			modDB:NewMod("PhysicalDamageReduction", "BASE", m_floor(10 * effectMod), "Adrenaline")
 		end
+		-- config checked and ascendancy allocated, allows user to see dps change in passive tree
+		if modDB:Flag(nil, "Condition:WildSavagery") and modDB:Flag(nil, "WildSavagery") then
+			modDB:NewMod("PhysicalDamage", "INC", 100, "Wild Savagery")
+			modDB:NewMod("ActionSpeed", "INC", 10, "Wild Savagery")
+			modDB:NewMod("IgnoreEnemyPhysicalDamageReduction", "FLAG", true, "Wild Savagery")
+			modDB:NewMod("StunImmune", "FLAG", true, "Wild Savagery")
+		end
 		if modDB:Flag(nil, "Convergence") then
 			local effect = m_floor(30 * (1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100))
 			modDB:NewMod("ElementalDamage", "MORE", effect, "Convergence")
