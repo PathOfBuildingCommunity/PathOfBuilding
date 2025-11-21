@@ -380,10 +380,10 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 			-- Multiple stat names specified, add this modifier's stat to the table
 			row.name = self:FormatModName(row.mod.name)
 		end
-		local sourceType = row.mod.source:match("[^:]+")
+		local sourceType = row.mod.source:match("[^:]+") or ""
+		row.source = sourceType
 		if not modList and not sectionData.modSource then
 			-- No modifier source specified, add the source type to the table
-			row.source = sourceType
 			row.sourceTooltip = function(tooltip)
 				tooltip:AddLine(16, "Total from "..sourceType..":")
 				for _, line in ipairs(sourceTotals[sourceType]) do
