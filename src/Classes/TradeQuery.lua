@@ -16,7 +16,7 @@ local m_min = math.min
 local m_ceil = math.ceil
 local s_format = string.format
 
-local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Ring 3", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
+local baseSlots = { "Weapon 1", "Weapon 2", "Weapon 1 Swap", "Weapon 2 Swap", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Ring 3", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 
 local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.itemsTab = itemsTab
@@ -428,7 +428,9 @@ Highest Weight - Displays the order retrieved from trade]]
 	-- Individual slot rows
 	local slotTables = {}
 	for _, slotName in ipairs(baseSlots) do
-		t_insert(slotTables, { slotName = slotName })
+		if self.itemsTab.slots[slotName].shown() then
+			t_insert(slotTables, { slotName = slotName })
+		end
 		-- add abyssal sockets to slotTables if exist for this slot
 		if activeAbyssalSockets[slotName] then
 			for _, abyssalSocket in pairs(activeAbyssalSockets[slotName]) do
