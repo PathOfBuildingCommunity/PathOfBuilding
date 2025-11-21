@@ -3906,6 +3906,56 @@ skills["SummonSentinelOfRadiance"] = {
 		[20] = { 40, 1200, critChance = 6, damageEffectiveness = 2, levelRequirement = 12, statInterpolation = { 1, 1, }, cost = { Mana = 40, }, },
 	},
 }
+skills["SummonSpectralTiger"] = {
+	name = "Summon Spectral Tiger",
+	hidden = true,
+	color = 4,
+	description = "Summons a Spectral Tiger Companion that attacks nearby enemies and dies after a duration. Each Spectral Tiger grants you a buff that increases Critical Strike Chance, and increases Attack and Cast Speed. If you have the maximum number of them, refreshes the duration and life of an existing one instead.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.CreatesMinion] = true, [SkillType.Buff] = true, [SkillType.Cooldown] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"SummonedSpectralTiger",
+	},
+	statMap = {
+		["spectral_tiger_grants_critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, 0, 0, { type = "Multiplier", var = "SpectralTigerCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Tiger" }),
+		},
+		["spectral_tiger_grants_attack_and_cast_speed_+%"] = {
+			mod("Speed", "INC", nil, 0, 0, { type = "Multiplier", var = "SpectralTigerCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Tiger" }),
+		},
+		["modifiers_to_claw_critical_strike_chance_apply_minion_critical_strike_chance"] = {
+			flag("ClawCritChanceAppliesToMinions"),
+		},
+		["modifiers_to_claw_critical_strike_multiplier_apply_minion_critical_strike_multiplier"] = {
+			flag("ClawCritMultiplierAppliesToMinions"),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		minion = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 30000 },
+		{ "number_of_tigers_allowed", 5 },
+		{ "display_minion_monster_type", 8 },
+		{ "base_display_minion_actor_level", 65 },
+		{ "cast_on_crit_%", 100 },
+	},
+	stats = {
+		"spectral_tiger_grants_critical_strike_chance_+%",
+		"spectral_tiger_grants_attack_and_cast_speed_+%",
+		"spell_uncastable_if_triggerable",
+		"modifiers_to_claw_critical_strike_chance_apply_minion_critical_strike_chance",
+		"modifiers_to_claw_critical_strike_multiplier_apply_minion_critical_strike_multiplier",
+	},
+	levels = {
+		[20] = { 25, 7, cooldown = 0.5, levelRequirement = 70, storedUses = 1, statInterpolation = { 1, 1, }, },
+	},
+}
 skills["SummonSpectralWolf"] = {
 	name = "Summon Spectral Wolf",
 	hidden = true,

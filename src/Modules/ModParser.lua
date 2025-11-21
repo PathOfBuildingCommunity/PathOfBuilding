@@ -3093,6 +3093,7 @@ local specialModList = {
 	["trigger level (%d+) (.+) on critical strike with cleave or reave"] = function(num, _, skill) return triggerExtraSkill(skill, num, {onCrit = true}) end,
 	["trigger level (%d+) (.+) on melee critical strike"] = function(num, _, skill) return triggerExtraSkill(skill, num, {onCrit = true}) end,
 	["trigger level (%d+) (.+) on critical strike against marked unique enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num, {onCrit = true}) end,
+	["trigger level (%d+) (.+) on critical strike"] = function(num, _, skill) return triggerExtraSkill(skill, num, {onCrit = true}) end,
 	["trigger level (%d+) (.+) when you take a critical strike from a unique enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you suppress spell damage from a unique enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you block damage from a unique enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,

@@ -561,6 +561,11 @@ return {
 	{ var = "configSnipeStages", type = "count", label = "# of Snipe stages:", ifSkill = "Snipe", tooltip = "Sets the number of stages reached before releasing Snipe.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:SnipeStage", "BASE", val, "Config")
 	end },
+	{ label = "Spectral Tiger:", ifSkill = "Summon Spectral Tiger" },
+	{ var = "configSpectralTigerCount", type = "count", label = "# of Active Spectral Tigers:", ifSkill = "Summon Spectral Tiger", defaultPlaceholderState = 5, tooltip = "Sets the number of active Spectral Tigers.\nThe base maximum number of Spectral Tigers is 5.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:SpectralTigerConfig", "BASE", val, "Config")
+		modList:NewMod("Multiplier:SpectralTigerCount", "BASE", 1, "Config", { type = "Multiplier", var = "SpectralTigerConfig", limitStat = "ActiveTigerLimit" })
+	end },
 	{ label = "Spectral Wolf:", ifSkill = "Summon Spectral Wolf" },
 	{ var = "configSpectralWolfCount", type = "count", label = "# of Active Spectral Wolves:", ifSkill = "Summon Spectral Wolf", tooltip = "Sets the number of active Spectral Wolves.\nThe base maximum number of Spectral Wolves is 10.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:SpectralWolfConfig", "BASE", val, "Config")

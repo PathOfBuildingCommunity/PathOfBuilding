@@ -1931,6 +1931,9 @@ return {
 ["number_of_wolves_allowed"] = {
 	mod("ActiveWolfLimit", "BASE", nil),
 },
+["number_of_tigers_allowed"] = {
+	mod("ActiveTigerLimit", "BASE", nil),
+},
 ["number_of_spider_minions_allowed"] = {
 	mod("ActiveSpiderLimit", "BASE", nil),
 },
