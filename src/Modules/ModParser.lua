@@ -3538,6 +3538,11 @@ local specialModList = {
 		mod("SpellSuppressionAppliesToAilmentAvoidancePercent", "BASE", num),
 		flag("SpellSuppressionAppliesToAilmentAvoidance")
 	} end,
+	["modifiers to chance to suppress spell damage also apply to chance to defend with (%d+)%% of armour at (%d+)%% of their value"] = function (armourPercentage, _, effectiveness) return {
+		mod("SpellSuppressionAppliesToChanceToDefendWithArmourPercentArmour", "MAX", tonumber(armourPercentage)),
+		mod("SpellSuppressionAppliesToChanceToDefendWithArmourPercent", "MAX", tonumber(effectiveness)),
+		flag("SpellSuppressionAppliesToChanceToDefendWithArmour"),
+	} end,
 	["enemies chilled by your hits have damage taken increased by chill effect"] = { flag("ChillEffectIncDamageTaken") },
 	["left ring slot: your chilling skitterbot's aura applies socketed h?e?x? ?curse instead"] = { flag("SkitterbotsCannotChill", { type = "SlotNumber", num = 1 }) },
 	["right ring slot: your shocking skitterbot's aura applies socketed h?e?x? ?curse instead"] = { flag("SkitterbotsCannotShock", { type = "SlotNumber", num = 2 }) },
