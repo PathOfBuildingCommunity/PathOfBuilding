@@ -112,6 +112,7 @@ function main:Init()
 	self.POESESSID = ""
 	self.showPublicBuilds = true
 	self.showFlavourText = true
+	self.errorReadingSettings = false
 
 	if not SetDPIScaleOverridePercent then SetDPIScaleOverridePercent = function(scale) end end
 
@@ -142,8 +143,6 @@ function main:Init()
 
 	self.uniqueDB = { list = { }, loading = true }
 	self.rareDB = { list = { }, loading = true }
-
-	self.saveSettingsOnExit = true
 
 	local function loadItemDBs()
 		for type, typeList in pairsYield(data.uniques) do
@@ -517,14 +516,17 @@ function main:CallMode(func, ...)
 end
 
 function main:LoadSettings(ignoreBuild)
+	if self.errorReadingSettings then
+		return true
+	end
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
 	if errMsg and errMsg:match(".*file returns nil") then
-		self:OpenOneDriveErrPopup(self.userPath.."Settings.xml")
+		self.errorReadingSettings = true
+		self:OpenCloudErrorPopup(self.userPath.."Settings.xml")
 		return true
 	elseif errMsg and not errMsg:match(".*No such file or directory") then
-		ConPrintf("Error: '%s'", errMsg)
+		self.errorReadingSettings = true
 		launch:ShowErrMsg("^1"..errMsg)
-		self.saveSettingsOnExit = false
 		return true
 	end
 	if not setXML then
@@ -661,14 +663,17 @@ function main:LoadSettings(ignoreBuild)
 end
 
 function main:LoadSharedItems()
+	if self.errorReadingSettings then
+		return true
+	end
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
 	if errMsg and errMsg:match(".*file returns nil") then
-		self:OpenOneDriveErrPopup(self.userPath.."Settings.xml")
+		self.errorReadingSettings = true
+		self:OpenCloudErrorPopup(self.userPath.."Settings.xml")
 		return true
 	elseif errMsg and not errMsg:match(".*No such file or directory") then
-		ConPrintf("Error: '%s'", errMsg)
+		self.errorReadingSettings = true
 		launch:ShowErrMsg("^1"..errMsg)
-		self.saveSettingsOnExit = false
 		return true
 	end
 	if not setXML then
@@ -713,7 +718,8 @@ function main:LoadSharedItems()
 end
 
 function main:SaveSettings()
-	if not self.saveSettingsOnExit then
+	ConPrintf("self.errorReadingSettings: %s", self.errorReadingSettings)
+	if self.errorReadingSettings then
 		return
 	end
 	local setXML = { elem = "PathOfBuilding" }
@@ -1566,15 +1572,19 @@ function main:OpenNewFolderPopup(path, onClose)
 	main:OpenPopup(370, 100, "New Folder", controls, "create", "edit", "cancel")
 end
 
----Shows a OneDrive-specific read error popup with a help button that opens a browser to PoB's GitHub wiki.
-function main:OpenOneDriveErrPopup(fileName)
-	ConPrintf("Error: OneDrive: file unreadable: %s", fileName or "?")
+-- Show an error popup if a file cannot be read due to cloud provider unavailability.
+-- Help button opens a URL to PoB's GitHub wiki.
+function main:OpenCloudErrorPopup(fileName)
+	local provider, _, status = GetCloudProvider(fileName)
+	ConPrintf('Error: file offline "%s" provider: "%s" status: "%s"',
+		fileName or "?", provider, status)
 	fileName = fileName and "\n\n^8'"..fileName.."'" or ""
-	local longVersion = "^8v"..launch.versionNumber..(launch.versionBranch == "dev" and " (Dev)" or launch.versionBranch == "beta" and " (Beta)" or "")
-	local title = " Cannot read file "
-	local msg = "\nMake sure OneDrive is running then restart "..APP_NAME.." and try again."..fileName.."\n\n"..longVersion
-	local url = "https://github.com/PathOfBuildingCommunity/PathOfBuilding/wiki/OneDrive"
-	self.saveSettingsOnExit = false
+	local pobVersion = "^8v"..launch.versionNumber..(launch.versionBranch == "dev" and " (Dev)" or launch.versionBranch == "beta" and " (Beta)" or "")
+	local title = " Error "
+	provider = provider or "your cloud provider"
+	local msg = "\nCannot read file.\n\nMake sure "..provider.." is running then restart "..APP_NAME.." and try again."..
+		fileName.."\n\n"..pobVersion
+	local url = "https://github.com/PathOfBuildingCommunity/PathOfBuilding/wiki/CloudError"
 	local controls = { }
 	local numMsgLines = 0
 	for line in string.gmatch(msg .. "\n", "([^\n]*)\n") do

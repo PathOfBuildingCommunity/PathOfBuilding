@@ -217,7 +217,7 @@ function listMode:BuildList()
 			local fileText = fileHnd:read("*a")
 			fileHnd:close()
 			if not fileText then
-				main:OpenOneDriveErrPopup(build.fullFileName)
+				main:OpenCloudErrorPopup(build.fullFileName)
 				return
 			end
 			fileText = fileText:match("(<Build.->)")
