@@ -1444,6 +1444,7 @@ local modTagList = {
 	["per summoned skeleton"] = { tag = { type = "PerStat", stat = "ActiveSkeletonLimit" } },
 	["per skeleton you own"] = { tag = { type = "PerStat", stat = "ActiveSkeletonLimit", actor = "parent" } },
 	["per summoned raging spirit"] = { tag = { type = "PerStat", stat = "ActiveRagingSpiritLimit" } },
+	["per summoned phantasm"] = { tag = { type = "PerStat", stat = "ActivePhantasmLimit" } },
 	["for each raised zombie"] = { tag = { type = "PerStat", stat = "ActiveZombieLimit" } },
 	["per zombie you own"] = { tag = { type = "PerStat", stat = "ActiveZombieLimit", actor = "parent" } },
 	["per raised zombie"] = { tag = { type = "PerStat", stat = "ActiveZombieLimit" } },

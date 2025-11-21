@@ -3701,8 +3701,7 @@ c["2% increased Minion Duration per Zombie you own"]={{[1]={[1]={skillType=88,ty
 c["2% increased Minion Movement Speed per 50 Dexterity"]={{[1]={[1]={div=50,stat="Dex",type="PerStat"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=2}}}},nil}
 c["2% increased Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=2}},nil}
 c["2% increased Movement Speed per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=2}},nil}
-c["2% increased Movement Speed per Summoned Phantasm"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=2}},"  per Summoned Phantasm "}
-c["2% increased Movement Speed per Summoned Phantasm 6% increased Spell Damage per Summoned Skeleton"]={{[1]={[1]={stat="ActiveSkeletonLimit",type="PerStat"},flags=2,keywordFlags=0,name="MovementSpeed",type="INC",value=2}},"  per Summoned Phantasm 6% increased  Damage  "}
+c["2% increased Movement Speed per Summoned Phantasm"]={{[1]={[1]={stat="ActivePhantasmLimit",type="PerStat"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=2}},nil}
 c["2% increased Physical Damage over time per 10 Dexterity"]={{[1]={[1]={div=10,stat="Dex",type="PerStat"},flags=0,keywordFlags=16777216,name="PhysicalDamage",type="INC",value=2}},nil}
 c["2% increased Recovery Rate of Life, Mana and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="LifeRecoveryRate",type="INC",value=2},[2]={flags=0,keywordFlags=0,name="ManaRecoveryRate",type="INC",value=2},[3]={flags=0,keywordFlags=0,name="EnergyShieldRecoveryRate",type="INC",value=2}},nil}
 c["2% increased Skeleton Attack Speed"]={{[1]={[1]={includeTransfigured=true,skillName="Summon Skeletons",type="SkillName"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=1,keywordFlags=0,name="Speed",type="INC",value=2}}}},nil}
