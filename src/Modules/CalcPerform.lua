@@ -2526,6 +2526,19 @@ function calcs.perform(env, skipEHP)
 		if activeSkill.minion and activeSkill.minion.activeSkillList then
 			local castingMinion = activeSkill.minion
 			for _, activeMinionSkill in ipairs(activeSkill.minion.activeSkillList) do
+			local function setSpectreSource(modList, sourceSkill)
+				if activeSkill.skillFlags.spectre then
+					local source = "Spectre:"
+					if sourceSkill then
+						source = source..sourceSkill.." - "..castingMinion.minionData.name
+					else
+						source = source..castingMinion.minionData.name
+					end
+					for i = 1, #modList do
+						modList[i].source = source
+					end
+				end
+			end
 				local skillModList = activeMinionSkill.skillModList
 				local skillCfg = activeMinionSkill.skillCfg
 				for _, buff in ipairs(activeMinionSkill.buffList) do
@@ -2603,6 +2616,7 @@ function calcs.perform(env, skipEHP)
 										local srcList = new("ModList")
 										srcList:ScaleAddList(buff.modList, mult)
 										srcList:ScaleAddList(extraAuraModList, mult)
+										setSpectreSource(srcList, buff.name)
 										mergeBuff(srcList, buffs, buff.name)
 									end
 								end
@@ -2617,6 +2631,7 @@ function calcs.perform(env, skipEHP)
 										local srcList = new("ModList")
 										srcList:ScaleAddList(buff.modList, mult)
 										srcList:ScaleAddList(extraAuraModList, mult)
+										setSpectreSource(srcList, buff.name)
 										mergeBuff(srcList, minionBuffs, buff.name)
 									end
 								end
@@ -2626,6 +2641,7 @@ function calcs.perform(env, skipEHP)
 								local newModList = new("ModList")
 								newModList:AddList(buff.modList)
 								newModList:AddList(extraAuraModList)
+								setSpectreSource(newModList, buff.name)
 								if buffExports["Aura"][buff.name] then
 									buffExports["Aura"][buff.name.."_Debuff"] = buffExports["Aura"][buff.name]
 								end
@@ -2658,6 +2674,7 @@ function calcs.perform(env, skipEHP)
 											end
 										end
 									end
+									setSpectreSource(srcList)
 									mergeBuff(srcList, buffs, "Totem "..buff.name)
 								end
 							end
