@@ -7212,8 +7212,6 @@ c["Allocates Arcane Blessing if you have the matching modifier on Forbidden Flam
 c["Allocates Arcane Blessing if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="arcane blessing",side="flesh"}}},nil}
 c["Allocates Aspect of Carnage if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="aspect of carnage",side="flame"}}},nil}
 c["Allocates Aspect of Carnage if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="aspect of carnage",side="flesh"}}},nil}
-c["Allocates Assassin if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="assassin",side="flame"}}},nil}
-c["Allocates Assassin if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="assassin",side="flesh"}}},nil}
 c["Allocates Assassination Style if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="assassination style",side="flame"}}},nil}
 c["Allocates Assassination Style if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="assassination style",side="flesh"}}},nil}
 c["Allocates Augury of Penitence if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="augury of penitence",side="flame"}}},nil}
@@ -7228,8 +7226,6 @@ c["Allocates Bastion of Elements if you have the matching modifier on Forbidden 
 c["Allocates Bastion of Elements if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="bastion of elements",side="flesh"}}},nil}
 c["Allocates Bastion of Hope if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="bastion of hope",side="flame"}}},nil}
 c["Allocates Bastion of Hope if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="bastion of hope",side="flesh"}}},nil}
-c["Allocates Berserker if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="berserker",side="flame"}}},nil}
-c["Allocates Berserker if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="berserker",side="flesh"}}},nil}
 c["Allocates Bomb Specialist if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="bomb specialist",side="flame"}}},nil}
 c["Allocates Bomb Specialist if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="bomb specialist",side="flesh"}}},nil}
 c["Allocates Bone Barrier if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="bone barrier",side="flame"}}},nil}
@@ -7244,10 +7240,6 @@ c["Allocates Calculated Risk if you have the matching modifier on Forbidden Flam
 c["Allocates Calculated Risk if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="calculated risk",side="flesh"}}},nil}
 c["Allocates Chain Reaction if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="chain reaction",side="flame"}}},nil}
 c["Allocates Chain Reaction if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="chain reaction",side="flesh"}}},nil}
-c["Allocates Champion if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="champion",side="flame"}}},nil}
-c["Allocates Champion if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="champion",side="flesh"}}},nil}
-c["Allocates Chieftain if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="chieftain",side="flame"}}},nil}
-c["Allocates Chieftain if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="chieftain",side="flesh"}}},nil}
 c["Allocates Commander of Darkness if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="commander of darkness",side="flame"}}},nil}
 c["Allocates Commander of Darkness if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="commander of darkness",side="flesh"}}},nil}
 c["Allocates Conviction of Power if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="conviction of power",side="flame"}}},nil}
@@ -7256,8 +7248,6 @@ c["Allocates Corpse Pact if you have the matching modifier on Forbidden Flame"]=
 c["Allocates Corpse Pact if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="corpse pact",side="flesh"}}},nil}
 c["Allocates Crave the Slaughter if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="crave the slaughter",side="flame"}}},nil}
 c["Allocates Crave the Slaughter if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="crave the slaughter",side="flesh"}}},nil}
-c["Allocates Deadeye if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="deadeye",side="flame"}}},nil}
-c["Allocates Deadeye if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="deadeye",side="flesh"}}},nil}
 c["Allocates Deathmarked if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="deathmarked",side="flame"}}},nil}
 c["Allocates Deathmarked if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="deathmarked",side="flesh"}}},nil}
 c["Allocates Defy Pain if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="defy pain",side="flame"}}},nil}
@@ -7268,8 +7258,6 @@ c["Allocates Determined Survivor if you have the matching modifier on Forbidden 
 c["Allocates Determined Survivor if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="determined survivor",side="flesh"}}},nil}
 c["Allocates Divine Guidance if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="divine guidance",side="flame"}}},nil}
 c["Allocates Divine Guidance if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="divine guidance",side="flesh"}}},nil}
-c["Allocates Elementalist if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="elementalist",side="flame"}}},nil}
-c["Allocates Elementalist if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="elementalist",side="flesh"}}},nil}
 c["Allocates Endless Hunger if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="endless hunger",side="flame"}}},nil}
 c["Allocates Endless Hunger if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="endless hunger",side="flesh"}}},nil}
 c["Allocates Endless Munitions if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="endless munitions",side="flame"}}},nil}
@@ -7302,14 +7290,10 @@ c["Allocates Fury of Nature if you have the matching modifier on Forbidden Flame
 c["Allocates Fury of Nature if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="fury of nature",side="flesh"}}},nil}
 c["Allocates Gathering Winds if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="gathering winds",side="flame"}}},nil}
 c["Allocates Gathering Winds if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="gathering winds",side="flesh"}}},nil}
-c["Allocates Gladiator if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="gladiator",side="flame"}}},nil}
-c["Allocates Gladiator if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="gladiator",side="flesh"}}},nil}
 c["Allocates Gore Dancer if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="gore dancer",side="flame"}}},nil}
 c["Allocates Gore Dancer if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="gore dancer",side="flesh"}}},nil}
 c["Allocates Gratuitous Violence if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="gratuitous violence",side="flame"}}},nil}
 c["Allocates Gratuitous Violence if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="gratuitous violence",side="flesh"}}},nil}
-c["Allocates Guardian if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="guardian",side="flame"}}},nil}
-c["Allocates Guardian if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="guardian",side="flesh"}}},nil}
 c["Allocates Harmony of Purpose if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="harmony of purpose",side="flame"}}},nil}
 c["Allocates Harmony of Purpose if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="harmony of purpose",side="flesh"}}},nil}
 c["Allocates Harness the Void if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="harness the void",side="flame"}}},nil}
@@ -7320,8 +7304,6 @@ c["Allocates Heart of Destruction if you have the matching modifier on Forbidden
 c["Allocates Heart of Destruction if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="heart of destruction",side="flesh"}}},nil}
 c["Allocates Heartstopper if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="heartstopper",side="flame"}}},nil}
 c["Allocates Heartstopper if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="heartstopper",side="flesh"}}},nil}
-c["Allocates Hierophant if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="hierophant",side="flame"}}},nil}
-c["Allocates Hierophant if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="hierophant",side="flesh"}}},nil}
 c["Allocates Hinekora, Death's Fury if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="hinekora, death's fury",side="flame"}}},nil}
 c["Allocates Hinekora, Death's Fury if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="hinekora, death's fury",side="flesh"}}},nil}
 c["Allocates Illuminated Devotion if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="illuminated devotion",side="flame"}}},nil}
@@ -7334,8 +7316,6 @@ c["Allocates Inevitable Judgement if you have the matching modifier on Forbidden
 c["Allocates Inevitable Judgement if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="inevitable judgement",side="flesh"}}},nil}
 c["Allocates Infused Toxins if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="infused toxins",side="flame"}}},nil}
 c["Allocates Infused Toxins if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="infused toxins",side="flesh"}}},nil}
-c["Allocates Inquisitor if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="inquisitor",side="flame"}}},nil}
-c["Allocates Inquisitor if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="inquisitor",side="flesh"}}},nil}
 c["Allocates Inspirational if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="inspirational",side="flame"}}},nil}
 c["Allocates Inspirational if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="inspirational",side="flesh"}}},nil}
 c["Allocates Instruments of Virtue if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="instruments of virtue",side="flame"}}},nil}
@@ -7344,8 +7324,6 @@ c["Allocates Instruments of Zeal if you have the matching modifier on Forbidden 
 c["Allocates Instruments of Zeal if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="instruments of zeal",side="flesh"}}},nil}
 c["Allocates Jagged Technique if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="jagged technique",side="flame"}}},nil}
 c["Allocates Jagged Technique if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="jagged technique",side="flesh"}}},nil}
-c["Allocates Juggernaut if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="juggernaut",side="flame"}}},nil}
-c["Allocates Juggernaut if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="juggernaut",side="flesh"}}},nil}
 c["Allocates Knife in the Back if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="knife in the back",side="flame"}}},nil}
 c["Allocates Knife in the Back if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="knife in the back",side="flesh"}}},nil}
 c["Allocates Lesson of the Seasons if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="lesson of the seasons",side="flame"}}},nil}
@@ -7388,8 +7366,6 @@ c["Allocates Nature's Boon if you have the matching modifier on Forbidden Flame"
 c["Allocates Nature's Boon if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="nature's boon",side="flesh"}}},nil}
 c["Allocates Nature's Reprisal if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="nature's reprisal",side="flame"}}},nil}
 c["Allocates Nature's Reprisal if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="nature's reprisal",side="flesh"}}},nil}
-c["Allocates Necromancer if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="necromancer",side="flame"}}},nil}
-c["Allocates Necromancer if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="necromancer",side="flesh"}}},nil}
 c["Allocates Ngamahu, Flame's Advance if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="ngamahu, flame's advance",side="flame"}}},nil}
 c["Allocates Ngamahu, Flame's Advance if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="ngamahu, flame's advance",side="flesh"}}},nil}
 c["Allocates Nine Lives if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="nine lives",side="flame"}}},nil}
@@ -7400,8 +7376,6 @@ c["Allocates Oath of Summer if you have the matching modifier on Forbidden Flame
 c["Allocates Oath of Summer if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="oath of summer",side="flesh"}}},nil}
 c["Allocates Oath of Winter if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="oath of winter",side="flame"}}},nil}
 c["Allocates Oath of Winter if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="oath of winter",side="flesh"}}},nil}
-c["Allocates Occultist if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="occultist",side="flame"}}},nil}
-c["Allocates Occultist if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="occultist",side="flesh"}}},nil}
 c["Allocates Occupying Force if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="occupying force",side="flame"}}},nil}
 c["Allocates Occupying Force if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="occupying force",side="flesh"}}},nil}
 c["Allocates One Step Ahead if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="one step ahead",side="flame"}}},nil}
@@ -7410,8 +7384,6 @@ c["Allocates Opportunistic if you have the matching modifier on Forbidden Flame"
 c["Allocates Opportunistic if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="opportunistic",side="flesh"}}},nil}
 c["Allocates Overwhelm if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="overwhelm",side="flame"}}},nil}
 c["Allocates Overwhelm if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="overwhelm",side="flesh"}}},nil}
-c["Allocates Pathfinder if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="pathfinder",side="flame"}}},nil}
-c["Allocates Pathfinder if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="pathfinder",side="flesh"}}},nil}
 c["Allocates Perfect Crime if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="perfect crime",side="flame"}}},nil}
 c["Allocates Perfect Crime if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="perfect crime",side="flesh"}}},nil}
 c["Allocates Pious Path if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="pious path",side="flame"}}},nil}
@@ -7440,8 +7412,6 @@ c["Allocates Rite of Ruin if you have the matching modifier on Forbidden Flame"]
 c["Allocates Rite of Ruin if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="rite of ruin",side="flesh"}}},nil}
 c["Allocates Ritual of Awakening if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="ritual of awakening",side="flame"}}},nil}
 c["Allocates Ritual of Awakening if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="ritual of awakening",side="flesh"}}},nil}
-c["Allocates Saboteur if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="saboteur",side="flame"}}},nil}
-c["Allocates Saboteur if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="saboteur",side="flesh"}}},nil}
 c["Allocates Sanctuary if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="sanctuary",side="flame"}}},nil}
 c["Allocates Sanctuary if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="sanctuary",side="flesh"}}},nil}
 c["Allocates Sanctuary of Thought if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="sanctuary of thought",side="flame"}}},nil}
@@ -7464,8 +7434,6 @@ c["Allocates Sign of Purpose if you have the matching modifier on Forbidden Flam
 c["Allocates Sign of Purpose if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="sign of purpose",side="flesh"}}},nil}
 c["Allocates Sione, Sun's Roar if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="sione, sun's roar",side="flame"}}},nil}
 c["Allocates Sione, Sun's Roar if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="sione, sun's roar",side="flesh"}}},nil}
-c["Allocates Slayer if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="slayer",side="flame"}}},nil}
-c["Allocates Slayer if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="slayer",side="flesh"}}},nil}
 c["Allocates Soul Drinker if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="soul drinker",side="flame"}}},nil}
 c["Allocates Soul Drinker if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="soul drinker",side="flesh"}}},nil}
 c["Allocates Spellbreaker if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="spellbreaker",side="flame"}}},nil}
@@ -7478,8 +7446,6 @@ c["Allocates Time of Need if you have the matching modifier on Forbidden Flame"]
 c["Allocates Time of Need if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="time of need",side="flesh"}}},nil}
 c["Allocates Toxic Delivery if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="toxic delivery",side="flame"}}},nil}
 c["Allocates Toxic Delivery if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="toxic delivery",side="flesh"}}},nil}
-c["Allocates Trickster if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="trickster",side="flame"}}},nil}
-c["Allocates Trickster if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="trickster",side="flesh"}}},nil}
 c["Allocates Tukohama, War's Herald if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="tukohama, war's herald",side="flame"}}},nil}
 c["Allocates Tukohama, War's Herald if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="tukohama, war's herald",side="flesh"}}},nil}
 c["Allocates Unbreakable if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="unbreakable",side="flame"}}},nil}
@@ -7520,8 +7486,6 @@ c["Allocates War Bringer if you have the matching modifier on Forbidden Flame"]=
 c["Allocates War Bringer if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="war bringer",side="flesh"}}},nil}
 c["Allocates War of Attrition if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="war of attrition",side="flame"}}},nil}
 c["Allocates War of Attrition if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="war of attrition",side="flesh"}}},nil}
-c["Allocates Warden if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="warden",side="flame"}}},nil}
-c["Allocates Warden if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="warden",side="flesh"}}},nil}
 c["Allocates Weapon Master if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="weapon master",side="flame"}}},nil}
 c["Allocates Weapon Master if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="weapon master",side="flesh"}}},nil}
 c["Allocates Wind Ward if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="wind ward",side="flame"}}},nil}
@@ -10888,44 +10852,8 @@ c["Requires Class Ranger Allocates Seasoned Hunter if you have the matching modi
 c["Requires Class Ranger Allocates Wind Ward if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Ranger Allocates Wind Ward if you have the matching modifier on Forbidden Flame "}
 c["Requires Class Ranger Allocates Wind Ward if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Ranger Allocates Wind Ward if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Scion"]={nil,"Requires Class Scion "}
-c["Requires Class Scion Allocates Assassin if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Assassin if you have the matching modifier on Forbidden Flame "}
-c["Requires Class Scion Allocates Assassin if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Assassin if you have the matching modifier on Forbidden Flesh "}
-c["Requires Class Scion Allocates Berserker if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Berserker if you have the matching modifier on Forbidden Flame "}
-c["Requires Class Scion Allocates Berserker if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Berserker if you have the matching modifier on Forbidden Flesh "}
-c["Requires Class Scion Allocates Champion if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Champion if you have the matching modifier on Forbidden Flame "}
-c["Requires Class Scion Allocates Champion if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Champion if you have the matching modifier on Forbidden Flesh "}
-c["Requires Class Scion Allocates Chieftain if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Chieftain if you have the matching modifier on Forbidden Flame "}
-c["Requires Class Scion Allocates Chieftain if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Chieftain if you have the matching modifier on Forbidden Flesh "}
-c["Requires Class Scion Allocates Deadeye if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Deadeye if you have the matching modifier on Forbidden Flame "}
-c["Requires Class Scion Allocates Deadeye if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Deadeye if you have the matching modifier on Forbidden Flesh "}
-c["Requires Class Scion Allocates Elementalist if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Elementalist if you have the matching modifier on Forbidden Flame "}
-c["Requires Class Scion Allocates Elementalist if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Elementalist if you have the matching modifier on Forbidden Flesh "}
-c["Requires Class Scion Allocates Gladiator if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Gladiator if you have the matching modifier on Forbidden Flame "}
-c["Requires Class Scion Allocates Gladiator if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Gladiator if you have the matching modifier on Forbidden Flesh "}
-c["Requires Class Scion Allocates Guardian if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Guardian if you have the matching modifier on Forbidden Flame "}
-c["Requires Class Scion Allocates Guardian if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Guardian if you have the matching modifier on Forbidden Flesh "}
-c["Requires Class Scion Allocates Hierophant if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Hierophant if you have the matching modifier on Forbidden Flame "}
-c["Requires Class Scion Allocates Hierophant if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Hierophant if you have the matching modifier on Forbidden Flesh "}
-c["Requires Class Scion Allocates Inquisitor if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Inquisitor if you have the matching modifier on Forbidden Flame "}
-c["Requires Class Scion Allocates Inquisitor if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Inquisitor if you have the matching modifier on Forbidden Flesh "}
-c["Requires Class Scion Allocates Juggernaut if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Juggernaut if you have the matching modifier on Forbidden Flame "}
-c["Requires Class Scion Allocates Juggernaut if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Juggernaut if you have the matching modifier on Forbidden Flesh "}
-c["Requires Class Scion Allocates Necromancer if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Necromancer if you have the matching modifier on Forbidden Flame "}
-c["Requires Class Scion Allocates Necromancer if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Necromancer if you have the matching modifier on Forbidden Flesh "}
-c["Requires Class Scion Allocates Occultist if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Occultist if you have the matching modifier on Forbidden Flame "}
-c["Requires Class Scion Allocates Occultist if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Occultist if you have the matching modifier on Forbidden Flesh "}
-c["Requires Class Scion Allocates Pathfinder if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Pathfinder if you have the matching modifier on Forbidden Flame "}
-c["Requires Class Scion Allocates Pathfinder if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Pathfinder if you have the matching modifier on Forbidden Flesh "}
-c["Requires Class Scion Allocates Saboteur if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Saboteur if you have the matching modifier on Forbidden Flame "}
-c["Requires Class Scion Allocates Saboteur if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Saboteur if you have the matching modifier on Forbidden Flesh "}
-c["Requires Class Scion Allocates Slayer if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Slayer if you have the matching modifier on Forbidden Flame "}
-c["Requires Class Scion Allocates Slayer if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Slayer if you have the matching modifier on Forbidden Flesh "}
-c["Requires Class Scion Allocates Trickster if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Trickster if you have the matching modifier on Forbidden Flame "}
-c["Requires Class Scion Allocates Trickster if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Trickster if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Scion Allocates Unleashed Potential if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Unleashed Potential if you have the matching modifier on Forbidden Flame "}
 c["Requires Class Scion Allocates Unleashed Potential if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Unleashed Potential if you have the matching modifier on Forbidden Flesh "}
-c["Requires Class Scion Allocates Warden if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Warden if you have the matching modifier on Forbidden Flame "}
-c["Requires Class Scion Allocates Warden if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Warden if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Shadow"]={nil,"Requires Class Shadow "}
 c["Requires Class Shadow Allocates Assassination Style if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Shadow Allocates Assassination Style if you have the matching modifier on Forbidden Flame "}
 c["Requires Class Shadow Allocates Assassination Style if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Shadow Allocates Assassination Style if you have the matching modifier on Forbidden Flesh "}
