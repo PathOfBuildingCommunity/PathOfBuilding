@@ -39,7 +39,7 @@ minions["SummonedChaosGolem"] = {
 	name = "Chaos Golem",
 	monsterTags = { "bludgeoning_weapon", "caster", "chaos_affinity", "construct", "fast_movement", "ghost_blood", "is_unarmed", "large_model", "medium_height", "melee", "not_dex", "physical_affinity", "stone_armour", },
 	life = 6.9,
-	energyShield = 0.2,
+	energyShield = 0.5,
 	armour = 0.5,
 	fireResist = 40,
 	coldResist = 40,
@@ -53,6 +53,12 @@ minions["SummonedChaosGolem"] = {
 	limit = "ActiveGolemLimit",
 	baseMovementSpeed = 40,
 	spawnLocation = {
+		"The Beacon (Act 6)",
+		"The Cavern of Anger (Act 6)",
+		"The Coast (Act 1)",
+		"The Eternal Laboratory (Act 8)",
+		"The Tidal Island (Act 1)",
+		"The Tidal Island (Act 6)",
 	},
 	skillList = {
 		"Melee",
@@ -76,7 +82,7 @@ minions["SummonedFlameGolem"] = {
 	name = "Flame Golem",
 	monsterTags = { "bludgeoning_weapon", "caster", "construct", "fast_movement", "fire_affinity", "is_unarmed", "mud_blood", "not_dex", "not_str", "ranged", "small_height", "stone_armour", },
 	life = 5.82,
-	energyShield = 0.4,
+	energyShield = 1,
 	fireResist = 70,
 	coldResist = 40,
 	lightningResist = 40,
@@ -90,6 +96,12 @@ minions["SummonedFlameGolem"] = {
 	limit = "ActiveGolemLimit",
 	baseMovementSpeed = 42,
 	spawnLocation = {
+		"Sanctuary (Map)",
+		"The Beacon (Act 6)",
+		"The Cavern of Anger (Act 6)",
+		"The Coast (Act 1)",
+		"The Eternal Laboratory (Act 8)",
+		"The Tidal Island (Act 1)",
 	},
 	skillList = {
 		"FireElementalFlameRedSummoned",
@@ -114,7 +126,7 @@ minions["SummonedIceGolem"] = {
 	name = "Ice Golem",
 	monsterTags = { "caster", "cold_affinity", "construct", "fast_movement", "hard_armour", "is_unarmed", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "ranged", "slashing_weapon", "water", },
 	life = 5.82,
-	energyShield = 0.4,
+	energyShield = 1,
 	fireResist = 40,
 	coldResist = 70,
 	lightningResist = 40,
@@ -127,6 +139,14 @@ minions["SummonedIceGolem"] = {
 	limit = "ActiveGolemLimit",
 	baseMovementSpeed = 40,
 	spawnLocation = {
+		"Cortex (Act 11)",
+		"Distant Memory",
+		"Fractured Laboratory",
+		"Fragmented Memory",
+		"Memory Void",
+		"Rewritten Distant Memory (Act 11)",
+		"The Eternal Laboratory (Act 8)",
+		"The Temple of Decay Level 2 (Act 7)",
 	},
 	skillList = {
 		"Melee",
@@ -151,7 +171,7 @@ minions["SummonedLightningGolem"] = {
 	name = "Lightning Golem",
 	monsterTags = { "aura_bearer", "bludgeoning_weapon", "caster", "construct", "fast_movement", "is_unarmed", "large_model", "lightning_affinity", "mud_blood", "not_dex", "not_str", "ranged", "small_height", "stone_armour", },
 	life = 5.82,
-	energyShield = 0.2,
+	energyShield = 0.5,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 70,
@@ -165,6 +185,8 @@ minions["SummonedLightningGolem"] = {
 	limit = "ActiveGolemLimit",
 	baseMovementSpeed = 40,
 	spawnLocation = {
+		"The Boiling Lake (Act 9)",
+		"The Harvest (Act 4)",
 	},
 	skillList = {
 		"LightningGolemArcSummoned",
@@ -203,6 +225,7 @@ minions["SummonedStoneGolem"] = {
 	limit = "ActiveGolemLimit",
 	baseMovementSpeed = 42,
 	spawnLocation = {
+		"Sanctuary (Map)",
 	},
 	skillList = {
 		"Melee",
@@ -266,6 +289,9 @@ minions["SummonedEssenceSpirit"] = {
 	accuracy = 3.4,
 	baseMovementSpeed = 45,
 	spawnLocation = {
+		"Oriath Square (Act 5)",
+		"The Eternal Laboratory (Act 8)",
+		"The Templar Courts (Act 5)",
 	},
 	skillList = {
 		"RagingSpiritMeleeAttack",
@@ -327,6 +353,7 @@ minions["RaisedSkeleton"] = {
 	limit = "ActiveSkeletonLimit",
 	baseMovementSpeed = 28,
 	spawnLocation = {
+		"The Lake of Kalandra",
 	},
 	skillList = {
 		"Melee",
@@ -344,7 +371,7 @@ minions["RaisedSkeletonCaster"] = {
 	name = "Summoned Skeleton Caster",
 	monsterTags = { "bone_armour", "bones", "caster", "cold_affinity", "humanoid", "is_unarmed", "medium_height", "not_dex", "not_str", "ranged", "skeleton", "slashing_weapon", "undead", "very_slow_movement", },
 	life = 1.05,
-	energyShield = 0.4,
+	energyShield = 1,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
@@ -357,6 +384,7 @@ minions["RaisedSkeletonCaster"] = {
 	limit = "ActiveSkeletonLimit",
 	baseMovementSpeed = 14,
 	spawnLocation = {
+		"The Lake of Kalandra",
 	},
 	skillList = {
 		"SkeletonMinionProjectileCold",
@@ -418,6 +446,7 @@ minions["RaisedSkeletonArcherVaal"] = {
 	limit = "ActiveSkeletonLimit",
 	baseMovementSpeed = 18,
 	spawnLocation = {
+		"The Lake of Kalandra",
 	},
 	skillList = {
 		"Melee",
@@ -445,6 +474,7 @@ minions["RaisedSkeletonArcher"] = {
 	limit = "ActiveSkeletonLimit",
 	baseMovementSpeed = 9,
 	spawnLocation = {
+		"The Lake of Kalandra",
 	},
 	skillList = {
 		"Melee",
@@ -469,6 +499,25 @@ minions["Clone"] = {
 	accuracy = 3.4,
 	baseMovementSpeed = 40,
 	spawnLocation = {
+		"Abomination (Map)",
+		"Citadel (Map)",
+		"Fortress (Map)",
+		"Fragmented Memory",
+		"Memory Void",
+		"Path of Exile Royale (Act 1)",
+		"Sanctuary (Map)",
+		"The Aqueduct (Act 4)",
+		"The Blood Aqueduct (Act 9)",
+		"The Broken Bridge (Act 7)",
+		"The Chamber of Sins Level 2 (Act 7)",
+		"The Crossroads (Act 7)",
+		"The Dried Lake (Act 4)",
+		"The Eternal Laboratory (Act 8)",
+		"The Foothills (Act 9)",
+		"The Grand Promenade (Act 8)",
+		"The Imperial Gardens (Act 3)",
+		"The Western Forest (Act 6)",
+		"Ziggurat (Map)",
 	},
 	skillList = {
 		"Melee",
@@ -498,6 +547,25 @@ minions["ArrowClone"] = {
 	accuracy = 3.4,
 	baseMovementSpeed = 40,
 	spawnLocation = {
+		"Abomination (Map)",
+		"Citadel (Map)",
+		"Fortress (Map)",
+		"Fragmented Memory",
+		"Memory Void",
+		"Path of Exile Royale (Act 1)",
+		"Sanctuary (Map)",
+		"The Aqueduct (Act 4)",
+		"The Blood Aqueduct (Act 9)",
+		"The Broken Bridge (Act 7)",
+		"The Chamber of Sins Level 2 (Act 7)",
+		"The Crossroads (Act 7)",
+		"The Dried Lake (Act 4)",
+		"The Eternal Laboratory (Act 8)",
+		"The Foothills (Act 9)",
+		"The Grand Promenade (Act 8)",
+		"The Imperial Gardens (Act 3)",
+		"The Western Forest (Act 6)",
+		"Ziggurat (Map)",
 	},
 	skillList = {
 		"BlinkMirrorArrowMelee",
@@ -527,6 +595,25 @@ minions["ArrowCloneRoA"] = {
 	accuracy = 3.4,
 	baseMovementSpeed = 40,
 	spawnLocation = {
+		"Abomination (Map)",
+		"Citadel (Map)",
+		"Fortress (Map)",
+		"Fragmented Memory",
+		"Memory Void",
+		"Path of Exile Royale (Act 1)",
+		"Sanctuary (Map)",
+		"The Aqueduct (Act 4)",
+		"The Blood Aqueduct (Act 9)",
+		"The Broken Bridge (Act 7)",
+		"The Chamber of Sins Level 2 (Act 7)",
+		"The Crossroads (Act 7)",
+		"The Dried Lake (Act 4)",
+		"The Eternal Laboratory (Act 8)",
+		"The Foothills (Act 9)",
+		"The Grand Promenade (Act 8)",
+		"The Imperial Gardens (Act 3)",
+		"The Western Forest (Act 6)",
+		"Ziggurat (Map)",
 	},
 	skillList = {
 		"RainOfArrowsCloneShot",
@@ -556,6 +643,25 @@ minions["ArrowCloneEle"] = {
 	accuracy = 3.4,
 	baseMovementSpeed = 40,
 	spawnLocation = {
+		"Abomination (Map)",
+		"Citadel (Map)",
+		"Fortress (Map)",
+		"Fragmented Memory",
+		"Memory Void",
+		"Path of Exile Royale (Act 1)",
+		"Sanctuary (Map)",
+		"The Aqueduct (Act 4)",
+		"The Blood Aqueduct (Act 9)",
+		"The Broken Bridge (Act 7)",
+		"The Chamber of Sins Level 2 (Act 7)",
+		"The Crossroads (Act 7)",
+		"The Dried Lake (Act 4)",
+		"The Eternal Laboratory (Act 8)",
+		"The Foothills (Act 9)",
+		"The Grand Promenade (Act 8)",
+		"The Imperial Gardens (Act 3)",
+		"The Western Forest (Act 6)",
+		"Ziggurat (Map)",
 	},
 	skillList = {
 		"ElementalHitCloneShot",
@@ -728,7 +834,7 @@ minions["SummonedPhantasm"] = {
 	name = "Summoned Phantasm",
 	monsterTags = { "caster", "flesh_armour", "ghost", "is_unarmed", "medium_movement", "melee", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", "slashing_weapon", "small_height", "undead", },
 	life = 1.58,
-	energyShield = 0.2,
+	energyShield = 0.5,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
@@ -769,6 +875,11 @@ minions["HeraldOfAgonySpiderPlated"] = {
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 50,
 	spawnLocation = {
+		"Abomination (Map)",
+		"Citadel (Map)",
+		"Fortress (Map)",
+		"Sanctuary (Map)",
+		"Ziggurat (Map)",
 	},
 	skillList = {
 		"HeraldOfAgonyMinionMortar",
@@ -807,6 +918,10 @@ minions["AxisEliteSoldierHeraldOfLight"] = {
 	limit = "ActiveSentinelOfPurityLimit",
 	baseMovementSpeed = 38,
 	spawnLocation = {
+		"The Eternal Laboratory (Act 8)",
+		"The Solaris Concourse (Act 8)",
+		"The Solaris Temple Level 1 (Act 8)",
+		"The Solaris Temple Level 2 (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -823,7 +938,7 @@ minions["HolyLivingRelic"] = {
 	name = "Holy Relic",
 	monsterTags = { "cannot_be_monolith", "caster", "construct", "extra_extra_small_height", "ghost_armour", "is_unarmed", "medium_movement", "not_dex", "not_str", "physical_affinity", "unusable_corpse", },
 	life = 6,
-	energyShield = 0.6,
+	energyShield = 1.5,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
@@ -867,6 +982,11 @@ minions["AxisEliteSoldierDominatingBlow"] = {
 	accuracy = 3.4,
 	weaponType1 = "One Handed Mace",
 	weaponType2 = "Shield",
+	limit = "ActiveSentinelOfDominanceLimit",
+	baseMovementSpeed = 38,
+	spawnLocation = {
+		"The Harbour Bridge (Act 8)",
+	},
 	skillList = {
 		"Melee",
 		"DominatingBlowMinionCharge",
@@ -894,6 +1014,10 @@ minions["AxisEliteSoldierDominatingBlowVaal"] = {
 	attackTime = 0.83,
 	attackRange = 28,
 	accuracy = 3.4,
+	limit = "ActiveSentinelOfDominanceLimit",
+	baseMovementSpeed = 18,
+	spawnLocation = {
+	},
 	skillList = {
 		"TeleportVaalDomination",
 		"GAVaalDominationTeleportSlam",
@@ -913,7 +1037,7 @@ minions["AbsolutionTemplarJudge"] = {
 	name = "Sentinel of Absolution",
 	monsterTags = { "bludgeoning_weapon", "caster", "fast_movement", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "melee", "not_dex", "not_str", "physical_affinity", "templar", },
 	life = 4,
-	energyShield = 0.2,
+	energyShield = 0.5,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
@@ -924,6 +1048,10 @@ minions["AbsolutionTemplarJudge"] = {
 	attackRange = 9,
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
+	limit = "ActiveSentinelOfAbsolutionLimit",
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 		"AbsolutionMinion",
@@ -938,7 +1066,7 @@ minions["AbsolutionTemplarJudgeVaal"] = {
 	name = "Ascended Sentinel of Absolution",
 	monsterTags = { "bludgeoning_weapon", "caster", "fast_movement", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "innocence_story", "melee", "not_dex", "not_str", "physical_affinity", "ranged", "templar", },
 	life = 4,
-	energyShield = 0.2,
+	energyShield = 0.5,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
@@ -948,6 +1076,10 @@ minions["AbsolutionTemplarJudgeVaal"] = {
 	attackTime = 1.17,
 	attackRange = 9,
 	accuracy = 1,
+	limit = "ActiveSentinelOfAbsolutionLimit",
+	baseMovementSpeed = 40,
+	spawnLocation = {
+	},
 	skillList = {
 		"AbsolutionMinionVaal",
 		"AbsolutionMinionVaalCascade",
@@ -1062,7 +1194,7 @@ minions["SummonedCarrionGolem"] = {
 	name = "Carrion Golem",
 	monsterTags = { "bludgeoning_weapon", "construct", "fast_movement", "golem", "is_unarmed", "large_height", "mud_blood", "not_dex", "not_str", "physical_affinity", "stone_armour", },
 	life = 5.82,
-	energyShield = 0.4,
+	energyShield = 1,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
@@ -1196,6 +1328,9 @@ minions["SkitterbotFire"] = {
 	attackTime = 1,
 	attackRange = 6,
 	accuracy = 1,
+	baseMovementSpeed = 69,
+	spawnLocation = {
+	},
 	skillList = {
 		"SkitterbotDetonateMines",
 		"SkitterbotWait",
@@ -1241,6 +1376,10 @@ minions["SummonedReaper"] = {
 	accuracy = 3.4,
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "One Handed Sword",
+	limit = "ActiveReaperLimit",
+	baseMovementSpeed = 42,
+	spawnLocation = {
+	},
 	skillList = {
 		"ReaperConsumeMinionForHeal",
 		"ReaperConsumeMinionForBuff",
@@ -1317,6 +1456,8 @@ minions["GuardianSentinel"] = {
 	accuracy = 3.4,
 	baseMovementSpeed = 11,
 	spawnLocation = {
+		"The Harbour Bridge (Act 8)",
+		"The Twilight Temple (Map)",
 	},
 	skillList = {
 		"TeleportVaalDomination",
@@ -1356,7 +1497,7 @@ minions["GuardianRelicFire"] = {
 	name = "Fire Relic",
 	monsterTags = { "cannot_be_monolith", "caster", "construct", "extra_extra_small_height", "ghost_armour", "is_unarmed", "medium_movement", "not_dex", "not_str", "physical_affinity", "unusable_corpse", },
 	life = 4,
-	energyShield = 0.6,
+	energyShield = 1.5,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
@@ -1387,7 +1528,7 @@ minions["GuardianRelicCold"] = {
 	name = "Cold Relic",
 	monsterTags = { "cannot_be_monolith", "caster", "construct", "extra_extra_small_height", "ghost_armour", "is_unarmed", "medium_movement", "not_dex", "not_str", "physical_affinity", "unusable_corpse", },
 	life = 4,
-	energyShield = 0.6,
+	energyShield = 1.5,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
@@ -1418,7 +1559,7 @@ minions["GuardianRelicLightning"] = {
 	name = "Lightning Relic",
 	monsterTags = { "cannot_be_monolith", "caster", "construct", "extra_extra_small_height", "ghost_armour", "is_unarmed", "medium_movement", "not_dex", "not_str", "physical_affinity", "unusable_corpse", },
 	life = 4,
-	energyShield = 0.6,
+	energyShield = 1.5,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
@@ -1449,7 +1590,7 @@ minions["VoidSpawn"] = {
 	name = "Void Spawn",
 	monsterTags = { "caster", "construct", "elder_monster", "eldritch", "extra_large_height", "flesh_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", "red_blood", },
 	life = 6,
-	energyShield = 1,
+	energyShield = 2.5,
 	fireResist = 30,
 	coldResist = 30,
 	lightningResist = 30,
@@ -1460,6 +1601,9 @@ minions["VoidSpawn"] = {
 	attackRange = 9,
 	accuracy = 1,
 	limit = "ActiveVoidSpawnLimit",
+	baseMovementSpeed = 30,
+	spawnLocation = {
+	},
 	skillList = {
 		"ElderTentacleMinionProjectileDeepcaller",
 	},
@@ -1490,6 +1634,10 @@ minions["AncestralAhuanaMinion"] = {
 	attackRange = 70,
 	accuracy = 1,
 	weaponType1 = "Bow",
+	baseMovementSpeed = 32,
+	spawnLocation = {
+		"The Viridian Wildwood (Act 1)",
+	},
 	skillList = {
 		"MPWAhuanaIceShot",
 		"MonsterSnipeAhuana",
@@ -1522,6 +1670,9 @@ minions["AncestralAkoyaMinion"] = {
 	attackRange = 20,
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
+	baseMovementSpeed = 32,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedUnique",
 		"MPSAkoyaJadeSpray",
@@ -1542,7 +1693,7 @@ minions["AncestralIkiahoMinion"] = {
 	monsterTags = { "human", "humanoid", "medium_movement", "not_dex", "not_str", "red_blood", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1,
-	energyShield = 4,
+	energyShield = 10,
 	fireResist = 0,
 	coldResist = 0,
 	lightningResist = 0,
@@ -1552,6 +1703,9 @@ minions["AncestralIkiahoMinion"] = {
 	attackTime = 1,
 	attackRange = 10,
 	accuracy = 1,
+	baseMovementSpeed = 37,
+	spawnLocation = {
+	},
 	skillList = {
 		"AncestralIkiahoArcticBreath",
 		"AncestralIkiahoIceStorm",
@@ -1582,6 +1736,9 @@ minions["AncestralKahuturoaMinion"] = {
 	attackTime = 1,
 	attackRange = 24,
 	accuracy = 1,
+	baseMovementSpeed = 46,
+	spawnLocation = {
+	},
 	skillList = {
 		"KahuturoaMelee",
 		"DTTKahuturoaLeapSlam",
@@ -1616,6 +1773,9 @@ minions["AncestralKaomMinion"] = {
 	attackRange = 20,
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
+	baseMovementSpeed = 28,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedUnique",
 		"MPSKaomFireFist",
@@ -1649,6 +1809,10 @@ minions["AncestralKiloavaMinion"] = {
 	attackTime = 1,
 	attackRange = 19,
 	accuracy = 1,
+	baseMovementSpeed = 46,
+	spawnLocation = {
+		"Crux of Nothingness (Map)",
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedUnique",
 		"MPWKiloavaSpearThrow",
@@ -1669,7 +1833,7 @@ minions["AncestralMaataMinion"] = {
 	monsterTags = { "human", "humanoid", "medium_movement", "not_str", "red_blood", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 0.9,
-	energyShield = 1.6,
+	energyShield = 4,
 	evasion = 0.4,
 	fireResist = 0,
 	coldResist = 0,
@@ -1681,6 +1845,9 @@ minions["AncestralMaataMinion"] = {
 	attackRange = 20,
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
+	baseMovementSpeed = 32,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedUnique",
 		"DonutCircleMaata",
@@ -1715,6 +1882,9 @@ minions["AncestralRakiataMinion"] = {
 	attackRange = 20,
 	accuracy = 1,
 	weaponType1 = "Two Handed Sword",
+	baseMovementSpeed = 46,
+	spawnLocation = {
+	},
 	skillList = {
 		"GARakiataSlam",
 		"RakiataSweep",
@@ -1737,7 +1907,7 @@ minions["AncestralTawhanukuMinion"] = {
 	monsterTags = { "human", "humanoid", "medium_movement", "not_dex", "not_str", "red_blood", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 2,
-	energyShield = 0.4,
+	energyShield = 1,
 	fireResist = 0,
 	coldResist = 0,
 	lightningResist = 0,
@@ -1747,6 +1917,9 @@ minions["AncestralTawhanukuMinion"] = {
 	attackTime = 1,
 	attackRange = 10,
 	accuracy = 1,
+	baseMovementSpeed = 37,
+	spawnLocation = {
+	},
 	skillList = {
 		"GSAncestralTawhanukuWave",
 		"AncestralTawhanukuSoulRend",
@@ -1780,6 +1953,9 @@ minions["AncestralUtulaMinion"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Axe",
 	weaponType2 = "One Handed Axe",
+	baseMovementSpeed = 46,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedUnique",
 		"UtulaFireSwing",
@@ -1800,7 +1976,7 @@ minions["LivingLightningMinion"] = {
 	monsterTags = { "elemental", "lightning", "not_dex", "not_str", "small_height", "very_fast_movement", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.4,
-	energyShield = 0.2,
+	energyShield = 0.5,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
@@ -1811,6 +1987,9 @@ minions["LivingLightningMinion"] = {
 	attackRange = 20,
 	accuracy = 1,
 	limit = "ActiveLivingLightningLimit",
+	baseMovementSpeed = 97,
+	spawnLocation = {
+	},
 	skillList = {
 		"SummonedLivingLightningZap",
 	},
@@ -1833,7 +2012,6 @@ minions["LivingLightningMinion"] = {
 
 minions["PenanceMarkPhantasm"] = {
 	name = "Shackled Phantasm",
-	hostile = true,
 	monsterTags = { "caster", "fire_affinity", "ghost", "ghost_armour", "ghost_blood", "is_unarmed", "medium_movement", "slashing_weapon", "undead", },
 	life = 1.3,
 	fireResist = 40,
@@ -1846,6 +2024,9 @@ minions["PenanceMarkPhantasm"] = {
 	attackRange = 6,
 	accuracy = 1,
 	limit = "ActiveVoidSpawnLimit",
+	baseMovementSpeed = 37,
+	spawnLocation = {
+	},
 	skillList = {
 		"MPSPhantasmBasicBlood",
 	},
