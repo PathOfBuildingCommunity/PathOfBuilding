@@ -3397,7 +3397,7 @@ c["15% increased Trap Damage"]={{[1]={flags=0,keywordFlags=4096,name="Damage",ty
 c["15% increased Warcry Cooldown Recovery Rate"]={{[1]={flags=0,keywordFlags=4,name="CooldownRecovery",type="INC",value=15}},nil}
 c["15% increased Warcry Duration"]={{[1]={flags=0,keywordFlags=4,name="Duration",type="INC",value=15}},nil}
 c["15% increased Warcry Speed"]={{[1]={flags=0,keywordFlags=4,name="WarcrySpeed",type="INC",value=15}},nil}
-c["15% increased Ward from Equipped Armour Items"]={{[1]={flags=0,keywordFlags=0,name="Ward",type="INC",value=15}},"  from Equipped Armour Items "}
+c["15% increased Ward from Equipped Armour Items"]={{[1]={[1]={slotNameList={[1]="Helmet",[2]="Body Armour",[3]="Gloves",[4]="Boots",[5]="Weapon 2"},type="SlotName"},flags=0,keywordFlags=0,name="Ward",type="INC",value=15}},nil}
 c["15% increased effect of Non-Curse Auras from your Skills"]={{[1]={[1]={skillType=43,type="SkillType"},[2]={neg=true,skillType=79,type="SkillType"},flags=0,keywordFlags=0,name="AuraEffect",type="INC",value=15}},nil}
 c["15% increased maximum Energy Shield"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=15}},nil}
 c["15% increased maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="INC",value=15}},nil}
@@ -5377,7 +5377,7 @@ c["40% increased Totem Placement speed"]={{[1]={flags=0,keywordFlags=0,name="Tot
 c["40% increased Trap Damage"]={{[1]={flags=0,keywordFlags=4096,name="Damage",type="INC",value=40}},nil}
 c["40% increased Trap Trigger Area of Effect"]={{[1]={flags=0,keywordFlags=0,name="TrapTriggerAreaOfEffect",type="INC",value=40}},nil}
 c["40% increased Ward"]={{[1]={flags=0,keywordFlags=0,name="Ward",type="INC",value=40}},nil}
-c["40% increased Ward from Equipped Armour Items"]={{[1]={flags=0,keywordFlags=0,name="Ward",type="INC",value=40}},"  from Equipped Armour Items "}
+c["40% increased Ward from Equipped Armour Items"]={{[1]={[1]={slotNameList={[1]="Helmet",[2]="Body Armour",[3]="Gloves",[4]="Boots",[5]="Weapon 2"},type="SlotName"},flags=0,keywordFlags=0,name="Ward",type="INC",value=40}},nil}
 c["40% increased maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="INC",value=40}},nil}
 c["40% increased maximum Life and reduced Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="Life",type="INC",value=40},[2]={flags=0,keywordFlags=0,name="FireResist",type="INC",value=-40}},nil}
 c["40% increased maximum Mana and reduced Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="INC",value=40},[2]={flags=0,keywordFlags=0,name="ColdResist",type="INC",value=-40}},nil}

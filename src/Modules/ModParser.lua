@@ -1011,6 +1011,7 @@ local modFlagList = {
 	-- Other
 	["global"] = { tag = { type = "Global" } },
 	["from equipped shield"] = { tag = { type = "SlotName", slotName = "Weapon 2" } },
+	["from equipped armour items"] = { tag = { type = "SlotName", slotNameList = { "Helmet", "Body Armour", "Gloves", "Boots", "Weapon 2" } } },
 	["from equipped helmet"] = { tag = { type = "SlotName", slotName = "Helmet" } },
 	["from equipped gloves and boots"] = { tag = { type = "SlotName", slotNameList = { "Gloves", "Boots" } } },
 	["from equipped boots and gloves"] = { tag = { type = "SlotName", slotNameList = { "Gloves", "Boots" } } },
