@@ -1724,7 +1724,6 @@ minions["LivingLightningMinion"] = {
 
 minions["PenanceMarkPhantasm"] = {
 	name = "Shackled Phantasm",
-	hostile = true,
 	monsterTags = { "caster", "fire_affinity", "ghost", "ghost_armour", "ghost_blood", "is_unarmed", "medium_movement", "slashing_weapon", "undead", },
 	life = 1.3,
 	fireResist = 40,
@@ -1736,7 +1735,7 @@ minions["PenanceMarkPhantasm"] = {
 	attackTime = 1.755,
 	attackRange = 6,
 	accuracy = 1,
-	limit = "ActiveVoidSpawnLimit",
+	hostile = true,
 	skillList = {
 		"MPSPhantasmBasicBlood",
 	},

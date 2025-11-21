@@ -242,5 +242,5 @@ minions["GuardianRelicAll"] = {
 #emit
 
 #monster Metadata/Monsters/SummonedPhantasm/SummonedPhantasmPenanceMark PenanceMarkPhantasm
-#limit ActiveVoidSpawnLimit
+#hostile true
 #emit

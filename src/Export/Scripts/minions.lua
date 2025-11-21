@@ -99,6 +99,7 @@ directiveTable.monster = function(state, args, out)
 	state.varietyId = nil
 	state.name = nil
 	state.limit = nil
+	state.hostile = nil
 	state.extraModList = { }
 	state.extraSkillList = { }
 	for arg in args:gmatch("%S+") do
@@ -121,6 +122,11 @@ end
 -- #limit <LimitVarName>
 directiveTable.limit = function(state, args, out)
 	state.limit = args
+end
+
+-- #hostile [true|false]
+directiveTable.hostile = function(state, args, out)
+	state.hostile = args
 end
 
 -- #mod <ModDecl>
@@ -193,6 +199,9 @@ directiveTable.emit = function(state, args, out)
 	end
 	if state.limit then
 		out:write('\tlimit = "', state.limit, '",\n')
+	end
+	if state.hostile then
+		out:write('\thostile = ', state.hostile, ',\n')
 	end
 	out:write('\tskillList = {\n')
 	for _, grantedEffect in ipairs(monsterVariety.GrantedEffects) do
