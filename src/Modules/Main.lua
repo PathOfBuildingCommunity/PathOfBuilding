@@ -718,7 +718,6 @@ function main:LoadSharedItems()
 end
 
 function main:SaveSettings()
-	ConPrintf("self.errorReadingSettings: %s", self.errorReadingSettings)
 	if self.errorReadingSettings then
 		return
 	end
