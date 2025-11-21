@@ -617,12 +617,16 @@ local function doActorMisc(env, actor)
 			local maxStacks = modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification")
 			local minStacks = m_min(modDB:Flag(nil, "Condition:HaveMaxFortification") and maxStacks or modDB:Sum("BASE", nil, "MinimumFortification"), maxStacks)
 			local stacks = m_min(modDB:Override(nil, "FortificationStacks") or (alliedFortify > 0 and alliedFortify) or (minStacks > 0 and minStacks) or maxStacks, maxStacks)
+			local duration = modDB:Sum("INC", nil, "FortificationDuration")
+			output.MaximumFortification = maxStacks
+			output.MinimumFortification = minStacks
 			output.FortificationStacks = stacks
 			output.FortificationStacksOver20 = m_min(m_max(0, stacks - 20), maxStacks - 20)
+			output.FortificationDuration = (6 + (env.player.mainSkill.skillCfg.skillName == "Vigilant Strike" and 2 or 0)) * (1 + duration / 100)
+			output.FortificationEffect = "0" -- string allows shown for Willowgift mod
 			if not modDB:Flag(nil,"Condition:NoFortificationMitigation") then
-				local effectScale = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
-				local effect = m_floor(effectScale * stacks)
-				modDB:NewMod("DamageTakenWhenHit", "MORE", -effect, "Fortification")
+				output.FortificationEffect = stacks
+				modDB:NewMod("DamageTakenWhenHit", "MORE", -stacks, "Fortification")
 			end
 			if stacks >= maxStacks then
 				modDB:NewMod("Condition:HaveMaximumFortification", "FLAG", true, "")
