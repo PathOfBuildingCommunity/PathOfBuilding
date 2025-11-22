@@ -802,37 +802,61 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 							if keystone and keystone.x and keystone.y then
 								innerSize = 150 * scale
 								local keyX, keyY = treeToScreen(keystone.x, keystone.y)
-								DrawImage(self.jewelShadedOuterRing, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
-								DrawImage(self.jewelShadedOuterRingFlipped, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
-								DrawImage(self.jewelShadedInnerRing, keyX - innerSize, keyY - innerSize, innerSize * 2, innerSize * 2)
-								DrawImage(self.jewelShadedInnerRingFlipped, keyX - innerSize, keyY - innerSize, innerSize * 2, innerSize * 2)
+								self:DrawImageRotated(self.jewelShadedOuterRing, keyX, keyY, outerSize * 2, outerSize * 2, -0.8)
+								self:DrawImageRotated(self.jewelShadedOuterRingFlipped, keyX, keyY, outerSize * 2, outerSize * 2, 1)
+								self:DrawImageRotated(self.jewelShadedInnerRing, keyX, keyY, innerSize * 2, innerSize * 2, -1.2)
+								self:DrawImageRotated(self.jewelShadedInnerRingFlipped, keyX, keyY, innerSize * 2, innerSize * 2, 1.0)
 							end
 						end
 					elseif jewel.title:match("^Brutal Restraint") then
-						DrawImage(self.maraketh1, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
-						DrawImage(self.maraketh2, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
+						self:DrawImageRotated(self.maraketh1, scrX, scrY, outerSize * 2, outerSize * 2, -0.7)
+						self:DrawImageRotated(self.maraketh2, scrX, scrY, outerSize * 2, outerSize * 2, 0.7)
 					elseif jewel.title:match("^Elegant Hubris") then
-						DrawImage(self.eternal1, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
-						DrawImage(self.eternal2, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
+						self:DrawImageRotated(self.eternal1, scrX, scrY, outerSize * 2, outerSize * 2, -0.7)
+						self:DrawImageRotated(self.eternal2, scrX, scrY, outerSize * 2, outerSize * 2, 0.7)
 					elseif jewel.title:match("^Glorious Vanity") then
-						DrawImage(self.vaal1, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
-						DrawImage(self.vaal2, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
+						self:DrawImageRotated(self.vaal1, scrX, scrY, outerSize * 2, outerSize * 2, -0.7)
+						self:DrawImageRotated(self.vaal2, scrX, scrY, outerSize * 2, outerSize * 2, 0.7)
 					elseif jewel.title:match("^Lethal Pride") then
-						DrawImage(self.karui1, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
-						DrawImage(self.karui2, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
+						self:DrawImageRotated(self.karui1, scrX, scrY, outerSize * 2, outerSize * 2, -0.7)
+						self:DrawImageRotated(self.karui2, scrX, scrY, outerSize * 2, outerSize * 2, 0.7)
 					elseif jewel.title:match("^Militant Faith") then
-						DrawImage(self.templar1, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
-						DrawImage(self.templar2, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
+						self:DrawImageRotated(self.templar1, scrX, scrY, outerSize * 2, outerSize * 2, -0.7)
+						self:DrawImageRotated(self.templar2, scrX, scrY, outerSize * 2, outerSize * 2, 0.7)
 					else
-						DrawImage(self.jewelShadedOuterRing, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
-						DrawImage(self.jewelShadedOuterRingFlipped, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
-						DrawImage(self.jewelShadedInnerRing, scrX - innerSize, scrY - innerSize, innerSize * 2, innerSize * 2)
-						DrawImage(self.jewelShadedInnerRingFlipped, scrX - innerSize, scrY - innerSize, innerSize * 2, innerSize * 2)
+						self:DrawImageRotated(self.jewelShadedOuterRing, scrX, scrY, outerSize * 2, outerSize * 2, -0.7)
+						self:DrawImageRotated(self.jewelShadedOuterRingFlipped, scrX, scrY, outerSize * 2, outerSize * 2, 0.7)
+						self:DrawImageRotated(self.jewelShadedInnerRing, scrX, scrY, innerSize * 2, innerSize * 2, -0.7)
+						self:DrawImageRotated(self.jewelShadedInnerRingFlipped, scrX, scrY, innerSize * 2, innerSize * 2, 0.7)
 					end
 				end
 			end
 		end
 	end
+end
+function PassiveTreeViewClass:DrawImageRotated(handle, x, y, width, height, angle, ...)
+	if main.showAnimations == false then
+		-- Skip rotation and animation
+		DrawImage(handle, x - width / 2, y - height / 2, width, height, ...)
+		return
+	end
+
+	local t = GetTime() * 0.00003
+	local rot = angle * t
+
+	local hw, hh = width / 2, height / 2
+	local cosA, sinA = math.cos(rot), math.sin(rot)
+
+	local x1 = x - hw * cosA + hh * sinA
+	local y1 = y - hw * sinA - hh * cosA
+	local x2 = x + hw * cosA + hh * sinA
+	local y2 = y + hw * sinA - hh * cosA
+	local x3 = x + hw * cosA - hh * sinA
+	local y3 = y + hw * sinA + hh * cosA
+	local x4 = x - hw * cosA - hh * sinA
+	local y4 = y - hw * sinA + hh * cosA
+
+	DrawImageQuad(handle, x1, y1, x2, y2, x3, y3, x4, y4, ...)
 end
 
 -- Draws the given asset at the given position
