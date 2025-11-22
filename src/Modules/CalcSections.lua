@@ -1760,6 +1760,11 @@ return {
 	{ label = "Exposure Effect", { format = "{1:output:ExposureEffectOnSelf}%", { modName = "ExposureEffectOnSelf" }, }, },
 	{ label = "Wither Effect", { format = "{1:output:WitherEffectOnSelf}%", { modName = "WitherEffectOnSelf" }, }, },
 	{ label = "Debuff Dur. Mult.", haveOutput = "showDebuffExpirationModifier", { format = "{1:output:DebuffExpirationModifier}%", { modName = "SelfDebuffExpirationRate" }, }, },
+} }, { defaultCollapsed = false, label = "Fortification", data = {
+	{ label = "Maximum Stacks", haveOutput = "MaximumFortification", { format = "{0:output:MaximumFortification}",  { breakdown = "MaximumFortification" }, { modName = "MaximumFortification" }, }, },
+	{ label = "Minimum Stacks", haveOutput = "MinimumFortification", { format = "{0:output:MinimumFortification}",  { breakdown = "MinimumFortification" }, { modName = "MinimumFortification" }, }, },
+	{ label = "Duration", haveOutput = "FortifyDuration", { format = "{2:output:FortifyDuration}s",  { breakdown = "FortifyDuration" }, { modName = "FortifyDuration" }, }, },
+	{ label = "Less Dmg. Taken", haveOutput = "FortificationEffect", { format = "{output:FortificationEffect}%",  { breakdown = "FortificationEffect" }, { modName = "Condition:NoFortificationMitigation" }, }, },
 } }, { defaultCollapsed = false, label = "Stun Duration", data = {
 	{ label = "Stun Avoid Chance", haveOutput = "StunAvoidChance", { format = "{0:output:StunAvoidChance}%",  { breakdown = "StunAvoidChance" }, { modName = { "AvoidStun", "StunImmune" } }, }, },
 	{ label = "Stun Threshold", { format = "{0:output:StunThreshold}", { breakdown = "StunThreshold" }, { modName = { "StunThreshold", "StunThresholdManaPercent", "StunThresholdEnergyShieldPercent" } }, }, },

@@ -672,6 +672,10 @@ return {
 ["fortify_duration_+%"] = {
 	mod("FortifyDuration", "INC", nil),
 },
+["gain_fortify_on_melee_hit_ms"] = {
+	mod("FortifyDuration", "OVERRIDE", nil),
+	div = 1000,
+},
 ["support_swift_affliction_skill_effect_and_damaging_ailment_duration_+%_final"] = {
 	mod("Duration", "MORE", nil),
 	mod("DamagingAilmentDuration", "MORE", nil),
