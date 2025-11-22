@@ -1542,6 +1542,14 @@ end
 function ItemsTabClass:CreateDisplayItemFromRaw(itemRaw, normalise)
 	local newItem = new("Item", itemRaw)
 	if newItem.base then
+		-- if the new item is an amulet and does not have an anoint and your current amulet does, apply that anoint to the new item
+		if newItem.base.type == "Amulet" and #newItem.enchantModLines == 0 and self.activeItemSet["Amulet"].selItemId > 0 then
+			local currentAnoint = self.items[self.activeItemSet["Amulet"].selItemId].enchantModLines
+			if currentAnoint and #currentAnoint == 1 then -- skip if amulet has more than one anoint e.g. Stranglegasp
+				newItem.enchantModLines = currentAnoint
+				newItem:BuildAndParseRaw()
+			end
+		end
 		if normalise then
 			newItem:NormaliseQuality()
 			newItem:BuildModList()
@@ -3599,7 +3607,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		end
 
 		if flavourTable then
-			if item.title == "Grand Spectrum" then
+			if (item.title and item.title:match("Grand Spectrum")) then
 				local selectedFlavourId = nil
 				for _, lineEntry in ipairs(tooltip.lines or {}) do
 					local lineText = lineEntry.text or ""
@@ -3899,7 +3907,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		-- Build sorted list of slots to compare with
 		local compareSlots = { }
 		for slotName, slot in pairs(self.slots) do
-			if self:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.activeItemSet.useSecondWeaponSet and 2 or 1)) then
+			if self:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.activeItemSet.useSecondWeaponSet and 2 or 1)) and slot.shown() then
 				t_insert(compareSlots, slot)
 			end
 		end
