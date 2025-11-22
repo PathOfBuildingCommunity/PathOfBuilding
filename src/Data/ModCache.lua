@@ -5421,7 +5421,7 @@ c["40% reduced Cost of Retaliation Skills"]={{[1]={[1]={skillType=132,type="Skil
 c["40% reduced Critical Strike Chance per Power Charge"]={{[1]={[1]={type="Multiplier",var="PowerCharge"},flags=0,keywordFlags=0,name="CritChance",type="INC",value=-40}},nil}
 c["40% reduced Effect of Curses on you"]={{[1]={flags=0,keywordFlags=0,name="CurseEffectOnSelf",type="INC",value=-40}},nil}
 c["40% reduced Effect of Curses on you during Effect of any Mana Flask"]={{[1]={[1]={type="Condition",var="UsingManaFlask"},flags=0,keywordFlags=0,name="CurseEffectOnSelf",type="INC",value=-40}},nil}
-c["40% reduced Effect of Non-Damaging Ailments on you during Effect of any Life Flask"]={{[1]={[1]={type="Condition",var="UsingLifeFlask"},flags=0,keywordFlags=0,name="EnemyShockEffect",type="INC",value=-40},[2]={[1]={type="Condition",var="UsingLifeFlask"},flags=0,keywordFlags=0,name="EnemyChillEffect",type="INC",value=-40},[3]={[1]={type="Condition",var="UsingLifeFlask"},flags=0,keywordFlags=0,name="EnemyFreezeEffect",type="INC",value=-40},[4]={[1]={type="Condition",var="UsingLifeFlask"},flags=0,keywordFlags=0,name="EnemyScorchEffect",type="INC",value=-40},[5]={[1]={type="Condition",var="UsingLifeFlask"},flags=0,keywordFlags=0,name="EnemyBrittleEffect",type="INC",value=-40},[6]={[1]={type="Condition",var="UsingLifeFlask"},flags=0,keywordFlags=0,name="EnemySapEffect",type="INC",value=-40}},"  on you  "}
+c["40% reduced Effect of Non-Damaging Ailments on you during Effect of any Life Flask"]={{[1]={[1]={type="Condition",var="UsingLifeFlask"},flags=0,keywordFlags=0,name="SelfShockEffect",type="INC",value=-40},[2]={[1]={type="Condition",var="UsingLifeFlask"},flags=0,keywordFlags=0,name="SelfChillEffect",type="INC",value=-40},[3]={[1]={type="Condition",var="UsingLifeFlask"},flags=0,keywordFlags=0,name="SelfFreezeEffect",type="INC",value=-40},[4]={[1]={type="Condition",var="UsingLifeFlask"},flags=0,keywordFlags=0,name="SelfScorchEffect",type="INC",value=-40},[5]={[1]={type="Condition",var="UsingLifeFlask"},flags=0,keywordFlags=0,name="SelfBrittleEffect",type="INC",value=-40},[6]={[1]={type="Condition",var="UsingLifeFlask"},flags=0,keywordFlags=0,name="SelfSapEffect",type="INC",value=-40}},nil}
 c["40% reduced Enemy Stun Threshold with Melee Weapons"]={{[1]={flags=67108864,keywordFlags=0,name="EnemyStunThreshold",type="INC",value=-40}},nil}
 c["40% reduced Energy Shield Recharge Rate"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldRecharge",type="INC",value=-40}},nil}
 c["40% reduced Frenzy Charge Duration"]={{[1]={flags=0,keywordFlags=0,name="FrenzyChargesDuration",type="INC",value=-40}},nil}
@@ -9495,8 +9495,8 @@ c["Left ring slot: Projectiles from Spells Fork"]={{[1]={[1]={num=1,type="SlotNu
 c["Left ring slot: Projectiles from Spells cannot Chain"]={{[1]={[1]={num=1,type="SlotNumber"},flags=1026,keywordFlags=0,name="CannotChain",type="FLAG",value=true}},nil}
 c["Left ring slot: Regenerate 40 Mana per Second"]={{[1]={[1]={num=1,type="SlotNumber"},flags=0,keywordFlags=0,name="ManaRegen",type="BASE",value=40}},nil}
 c["Left ring slot: You cannot Recharge or Regenerate Energy Shield"]={{[1]={[1]={num=1,type="SlotNumber"},flags=0,keywordFlags=0,name="NoEnergyShieldRecharge",type="FLAG",value=true},[2]={[1]={num=1,type="SlotNumber"},flags=0,keywordFlags=0,name="NoEnergyShieldRegen",type="FLAG",value=true}},nil}
-c["Leftmost 3 Magic Utility Flasks constantly apply their Flask Effects to you"]={{[1]={flags=0,keywordFlags=0,name="ActiveMagicUtilityFlasks",type="BASE",value=3}},nil}
-c["Leftmost 4 Magic Utility Flasks constantly apply their Flask Effects to you"]={{[1]={flags=0,keywordFlags=0,name="ActiveMagicUtilityFlasks",type="BASE",value=4}},nil}
+c["Leftmost 3 Magic Utility Flasks constantly apply their Flask Effects to you"]={{[1]={flags=0,keywordFlags=0,name="LeftActiveMagicUtilityFlasks",type="BASE",value=3}},nil}
+c["Leftmost 4 Magic Utility Flasks constantly apply their Flask Effects to you"]={{[1]={flags=0,keywordFlags=0,name="LeftActiveMagicUtilityFlasks",type="BASE",value=4}},nil}
 c["Lethe Shade"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Lethe Shade"}},nil}
 c["LevelReq: 10"]={nil,"LevelReq: 10 "}
 c["LevelReq: 10 Implicits: 2"]={nil,"LevelReq: 10 Implicits: 2 "}
@@ -11227,7 +11227,7 @@ c["Skills used by Traps have 15% increased Area of Effect"]={{[1]={flags=0,keywo
 c["Skills used by Traps have 20% increased Area of Effect"]={{[1]={flags=0,keywordFlags=4096,name="AreaOfEffect",type="INC",value=20}},nil}
 c["Skills used by Traps have 50% increased Area of Effect"]={{[1]={flags=0,keywordFlags=4096,name="AreaOfEffect",type="INC",value=50}},nil}
 c["Skills which Exert an Attack have 40% chance to not count that Attack"]={nil,"Skills which Exert an Attack have 40% chance to not count that Attack "}
-c["Skills which Throw Traps have +1 Cooldown Use"]={nil,"Skills which Throw Traps have +1 Cooldown Use "}
+c["Skills which Throw Traps have +1 Cooldown Use"]={{[1]={flags=0,keywordFlags=4096,name="AdditionalCooldownUses",type="BASE",value=1}},nil}
 c["Skills which Throw Traps throw up to 2 additional Traps"]={{[1]={flags=0,keywordFlags=0,name="TrapThrowCount",type="BASE",value=2}},nil}
 c["Skills which create Brands have 35% chance to create an additional Brand"]={nil,"Skills which create Brands have 35% chance to create an additional Brand "}
 c["Skills which throw Mines throw up to 1 additional Mine if you have at least 800 Dexterity"]={nil,"Skills which throw Mines throw up to 1 additional Mine if you have at least 800 Dexterity "}

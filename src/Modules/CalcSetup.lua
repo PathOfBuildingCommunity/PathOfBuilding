@@ -1489,6 +1489,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 								supportEffect.gemCfg.socketColor = socketedIn and socketedIn.color
 								supportEffect.gemCfg.socketNum = gemIndex
 								applyGemMods(supportEffect, socketedIn and env.modDB:Tabulate("LIST", supportEffect.gemCfg, "GemProperty") or propertyModList)
+								gemInstance.reqOverride = supportEffect.req
 								if not processedSockets[gemInstance] then
 									processedSockets[gemInstance] = true
 									applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex, playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].name)
@@ -1554,6 +1555,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 									activeEffect.gemCfg.socketColor = socketedIn and socketedIn.color
 									activeEffect.gemCfg.socketNum = gemIndex
 									applyGemMods(activeEffect, socketedIn and env.modDB:Tabulate("LIST", activeEffect.gemCfg, "GemProperty") or propertyModList)
+									gemInstance.reqOverride = activeEffect.req
 									if not processedSockets[gemInstance] then
 										processedSockets[gemInstance] = true
 										applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex, playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].name)
@@ -1625,9 +1627,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 							t_insert(env.requirementsTableGems, {
 								source = "Gem",
 								sourceGem = gemInstance,
-								Str = gemInstance.reqStr,
-								Dex = gemInstance.reqDex,
-								Int = gemInstance.reqInt,
+								Str = gemInstance.reqOverride or gemInstance.reqStr,
+								Dex = gemInstance.reqOverride or gemInstance.reqDex,
+								Int = gemInstance.reqOverride or gemInstance.reqInt,
 							})
 						end
 					end

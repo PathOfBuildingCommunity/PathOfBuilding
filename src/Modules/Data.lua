@@ -280,7 +280,7 @@ data.cursePriority = {
 	["CurseFromAura"] = 20000,
 }
 
----@type string[] @List of all keystones not exclusive to timeless jewels.
+---@type string[] @List of all keystones not exclusive to timeless jewels or cluster jewels.
 data.keystones = {
 	"Acrobatics",
 	"Ancestral Bond",
@@ -305,7 +305,6 @@ data.keystones = {
 	"Ghost Reaver",
 	"Glancing Blows",
 	"Hex Master",
-	"Hollow Palm Technique",
 	"Imbalanced Guard",
 	"Immortal Ambition",
 	"Inner Conviction",
@@ -326,12 +325,12 @@ data.keystones = {
 	"Precise Technique",
 	"Resolute Technique",
 	"Runebinder",
-	"Secrets of Suffering",
 	"Solipsism",
 	"Supreme Decadence",
 	"Supreme Ego",
 	"The Agnostic",
 	"The Impaler",
+	"Transcendence",
 	"Unwavering Stance",
 	"Vaal Pact",
 	"Versatile Combatant",

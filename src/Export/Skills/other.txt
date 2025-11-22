@@ -593,6 +593,10 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill SupportCastOnLifeSpent Foulborn Kitava's Thirst
+	fromItem = true,
+#mods
+
 #skill LightningAegis
 #flags spell
 	fromItem = true,
