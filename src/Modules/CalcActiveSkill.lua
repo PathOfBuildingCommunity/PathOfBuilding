@@ -167,33 +167,26 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	
 	for _, supportEffect in ipairs(supportList) do
 		-- Pass 2: Add all compatible supports
+		local grantedSupportEffect
 		if supportEffect.gemData then
 			for _, grantedEffect in ipairs(supportEffect.gemData.grantedEffectList) do
-				if grantedEffect.support then
-					if calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill) then
-						t_insert(activeSkill.effectList, supportEffect)
-						if supportEffect.isSupporting and activeEffect.srcInstance then
-							supportEffect.isSupporting[activeEffect.srcInstance] = true
-						end
-						if grantedEffect.addFlags and not summonSkill then
-							-- Support skill adds flags to supported skills (eg. Remote Mine adds 'mine')
-							for k in pairs(grantedEffect.addFlags) do
-								skillFlags[k] = true
-							end
-						end
-					end
+				if grantedEffect and grantedEffect.support and calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill) then
+					grantedSupportEffect = grantedEffect
+					break
 				end
 			end
-			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
-				t_insert(activeSkill.effectList, supportEffect)
-				if supportEffect.isSupporting and activeEffect.srcInstance then
-					supportEffect.isSupporting[activeEffect.srcInstance] = true
-				end
-				if supportEffect.grantedEffect.addFlags and not summonSkill then
-					-- Support skill adds flags to supported skills (eg. Remote Mine adds 'mine')
-					for k in pairs(supportEffect.grantedEffect.addFlags) do
-						skillFlags[k] = true
-					end
+		elseif calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+			grantedSupportEffect = supportEffect.grantedEffect
+		end
+		if grantedSupportEffect then
+			t_insert(activeSkill.effectList, supportEffect)
+			if supportEffect.isSupporting and activeEffect.srcInstance then
+				supportEffect.isSupporting[activeEffect.srcInstance] = true
+			end
+			if grantedSupportEffect.addFlags and not summonSkill then
+				-- Support skill adds flags to supported skills (eg. Remote Mine adds 'mine')
+				for k in pairs(grantedSupportEffect.addFlags) do
+					skillFlags[k] = true
 				end
 			end
 		end
