@@ -216,8 +216,12 @@ local function getWeaponFlags(env, weaponData, weaponTypes, skillTypeDualWieldOn
 	end
 	if weaponTypes then
 		for _, types in ipairs(weaponTypes) do
-			if (not types[weaponData.type] and (not weaponData.countsAsAll1H or not (types["Claw"] or types["Dagger"] or types["One Handed Axe"] or types["One Handed Mace"] or types["One Handed Sword"])) and not weaponData.countsAsDualWielding) or
-			(weaponData.countsAsDualWielding and (not (types["One Handed Axe"] or types["One Handed Sword"]) and not skillTypeDualWieldOnly)) then -- Wings of Entropy special case
+			if (not skillTypeDualWieldOnly and (not types[weaponData.type] or ((weaponData.countsAsDualWielding and not types["One Handed "..info.flag]) or (not weaponData.countsAsDualWielding and not (types["Two Handed Axe"] or types["Two Handed Sword"] or types["Two Handed Mace"] or types["Staff"])))))
+			and
+			(not weaponData.countsAsAll1H or not (types["Claw"] or types["Dagger"] or types["One Handed Axe"] or types["One Handed Mace"] or types["One Handed Sword"]))
+			and
+			((weaponData.countsAsDualWielding and (not types["One Handed "..info.flag])) or (not weaponData.countsAsDualWielding and not (not weaponData.countsAsAll1H and (types["Two Handed Axe"] or types["Two Handed Sword"] or types["Two Handed Mace"] or types["Staff"]))))
+			then
 				return nil, info
 			end
 		end
