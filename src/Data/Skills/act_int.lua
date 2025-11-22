@@ -11244,7 +11244,7 @@ skills["KineticFusillade"] = {
 		["kinetic_fusillade_damage_+%_final_per_projectile_fired"] = {
 			skill("damagePerProjectile", nil),
 		},
-		["kinetic_fusillade_base_delay_between_projectiles_ms+%_final_per_projectile_fired"] = {
+		["kinetic_fusillade_base_delay_between_projectiles_ms"] = {
 			skill("delayPerProjectile", nil),
 			div = 1000,
 		},
@@ -11253,6 +11253,7 @@ skills["KineticFusillade"] = {
 	},
 	baseFlags = {
 		attack = true,
+		projectile = true,
 		area = true,
 		duration = true,
 	},

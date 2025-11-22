@@ -2264,7 +2264,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill KineticFusillade
-#flags attack area duration
+#flags attack projectile area duration
 	parts = {
 		{
 			name = "All Projectiles",
@@ -2367,7 +2367,7 @@ local skills, mod, flag, skill = ...
 		["kinetic_fusillade_damage_+%_final_per_projectile_fired"] = {
 			skill("damagePerProjectile", nil),
 		},
-		["kinetic_fusillade_base_delay_between_projectiles_ms+%_final_per_projectile_fired"] = {
+		["kinetic_fusillade_base_delay_between_projectiles_ms"] = {
 			skill("delayPerProjectile", nil),
 			div = 1000,
 		},
