@@ -5138,6 +5138,9 @@ local specialModList = {
 	["intelligence provides no bonus to maximum mana"] = { flag("NoIntBonusToMana") },
 	["intelligence provides no inherent bonus to maximum mana"] = { flag("NoIntBonusToMana") },
 	["with a ghastly eye jewel socketed, minions have %+(%d+) to accuracy rating"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Accuracy", "BASE", num) }, { type = "Condition", var = "HaveGhastlyEyeJewelIn{SlotName}" }) } end,
+	["with a ghastly eye jewel socketed, minions have (%d+)%% chance to gain unholy might on hit with spells"] = function(num) return {
+		mod("MinionModifier", "LIST", { mod = flag("Condition:UnholyMight", { type = "Condition", var = "HitSpellRecently" }) }, { type = "Condition", var = "HaveGhastlyEyeJewelIn{SlotName}" })
+	} end,
 	["with a hypnotic eye jewel socketed, gain arcane surge on hit with spells"] = function(num) return { flag("Condition:ArcaneSurge", { type = "Condition", var = "HitSpellRecently" }, { type = "Condition", var = "HaveHypnoticEyeJewelIn{SlotName}" }) } end,
 	["hits ignore enemy monster chaos resistance if all equipped items are shaper items"] = { flag("IgnoreChaosResistance", { type = "MultiplierThreshold", var = "NonShaperItem", upper = true, threshold = 0 }) },
 	["hits ignore enemy monster chaos resistance if all equipped items are elder items"] = { flag("IgnoreChaosResistance", { type = "MultiplierThreshold", var = "NonElderItem", upper = true, threshold = 0 }) },
