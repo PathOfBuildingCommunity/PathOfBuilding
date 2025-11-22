@@ -1994,6 +1994,15 @@ function calcs.perform(env, skipEHP)
 	if hasActiveSpectreSkill then
 		for spectreId = 1, #env.spec.build.spectreList do
 			local spectreData = data.minions[env.spec.build.spectreList[spectreId]]
+			if not modDB.conditions["HaveBeastSpectre"] then
+				-- Change to grab from monster family using CorpseTypeTags.dat if other monster families are needed in the future
+				for _, tagName in ipairs(spectreData.monsterTags) do
+					if tagName == "beast" then
+						modDB.conditions["HaveBeastSpectre"] = true
+						break
+					end
+				end
+			end
 			for modId = 1, #spectreData.modList do
 				local modData = spectreData.modList[modId]
 				if modData.name == "EnemyCurseLimit" then

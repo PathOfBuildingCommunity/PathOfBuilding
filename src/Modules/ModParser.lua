@@ -1011,6 +1011,7 @@ local modFlagList = {
 	-- Other
 	["global"] = { tag = { type = "Global" } },
 	["from equipped shield"] = { tag = { type = "SlotName", slotName = "Weapon 2" } },
+	["from equipped armour items"] = { tag = { type = "SlotName", slotNameList = { "Helmet", "Body Armour", "Gloves", "Boots", "Weapon 2" } } },
 	["from equipped helmet"] = { tag = { type = "SlotName", slotName = "Helmet" } },
 	["from equipped gloves and boots"] = { tag = { type = "SlotName", slotNameList = { "Gloves", "Boots" } } },
 	["from equipped boots and gloves"] = { tag = { type = "SlotName", slotNameList = { "Gloves", "Boots" } } },
@@ -1443,6 +1444,7 @@ local modTagList = {
 	["per summoned skeleton"] = { tag = { type = "PerStat", stat = "ActiveSkeletonLimit" } },
 	["per skeleton you own"] = { tag = { type = "PerStat", stat = "ActiveSkeletonLimit", actor = "parent" } },
 	["per summoned raging spirit"] = { tag = { type = "PerStat", stat = "ActiveRagingSpiritLimit" } },
+	["per summoned phantasm"] = { tag = { type = "PerStat", stat = "ActivePhantasmLimit" } },
 	["for each raised zombie"] = { tag = { type = "PerStat", stat = "ActiveZombieLimit" } },
 	["per zombie you own"] = { tag = { type = "PerStat", stat = "ActiveZombieLimit", actor = "parent" } },
 	["per raised zombie"] = { tag = { type = "PerStat", stat = "ActiveZombieLimit" } },
@@ -3092,6 +3094,7 @@ local specialModList = {
 	["trigger level (%d+) (.+) on critical strike with cleave or reave"] = function(num, _, skill) return triggerExtraSkill(skill, num, {onCrit = true}) end,
 	["trigger level (%d+) (.+) on melee critical strike"] = function(num, _, skill) return triggerExtraSkill(skill, num, {onCrit = true}) end,
 	["trigger level (%d+) (.+) on critical strike against marked unique enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num, {onCrit = true}) end,
+	["trigger level (%d+) (.+) on critical strike"] = function(num, _, skill) return triggerExtraSkill(skill, num, {onCrit = true}) end,
 	["trigger level (%d+) (.+) when you take a critical strike from a unique enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you suppress spell damage from a unique enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you block damage from a unique enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
@@ -3101,6 +3104,7 @@ local specialModList = {
 	["trigger level (%d+) (.+) when you reach maximum rage while a unique enemy is in your presence"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you reach low life while a unique enemy is in your presence"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when energy shield recharge starts while a unique enemy is in your presence"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
+	["trigger level (%d+) (.+) when your ward breaks"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["triggers level (%d+) (.+)"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) on attack critical strike against a rare or unique enemy and y?o?u? ?have no mark"] = function(num, _, skill) return triggerExtraSkill(skill, num, {onCrit = true}) end,
 	["triggers level (%d+) (.+) when equipped"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
@@ -4078,6 +4082,7 @@ local specialModList = {
 	["(%d+)%% increased minion damage if you have hit recently"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num) }, { type = "Condition", var = "HitRecently" }) } end,
 	["(%d+)%% increased minion damage if you've used a minion skill recently"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num) }, { type = "Condition", var = "UsedMinionSkillRecently" }) } end,
 	["minions deal (%d+)%% increased damage if you've used a minion skill recently"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num) }, { type = "Condition", var = "UsedMinionSkillRecently" }) } end,
+	["minions deal (%d+)%% more damage while they are on low life"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", num, { type = "Condition", var = "LowLife" }) }) } end,
 	["minions have (%d+)%% increased attack and cast speed if you or your minions have killed recently"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", num) }, { type = "Condition", varList = { "KilledRecently", "MinionsKilledRecently" } }) } end,
 	["(%d+)%% increased minion attack speed per (%d+) dexterity"] = function(num, _, div) return { mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", num, nil, ModFlag.Attack) }, { type = "PerStat", stat = "Dex", div = tonumber(div) }) } end,
 	["(%d+)%% increased minion movement speed per (%d+) dexterity"] = function(num, _, div) return { mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", num) }, { type = "PerStat", stat = "Dex", div = tonumber(div) }) } end,
@@ -4769,7 +4774,26 @@ local specialModList = {
 	["when hit during effect, (%d+)%% of life loss from damage taken occurs over 4 seconds instead"] = function(num) return { mod("LifeLossPrevented", "BASE", num, { type = "Condition", var = "UsingFlask" }) } end,
 	["y?o?u?r? ?skills [ch][oa][sv][te] no mana c?o?s?t? ?during f?l?a?s?k? ?effect"] = { mod("ManaCost", "MORE", -100, { type = "Condition", var = "UsingFlask" }) },
 	["life recovery from flasks also applies to energy shield during f?l?a?s?k? ?effect"] = { flag("LifeFlaskAppliesToEnergyShield", { type = "Condition", var = "UsingFlask" }) },
-	["consecrated ground created during effect applies (%d+)%% increased damage taken to enemies"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTakenConsecratedGround", "INC", num, { type = "Condition", var = "OnConsecratedGround" }) }, { type = "Condition", var = "UsingFlask" }) } end,
+	["consecrated ground created during effect applies (%d+)%% increased damage taken to enemies"] = function(num) return {
+		mod("EnemyModifier", "LIST", { mod = mod("DamageTakenConsecratedGround", "INC", num, { type = "Condition", var = "OnConsecratedGround" }) }, { type = "Condition", var = "UsingFlask" })
+	} end,
+	["profane ground you create inflicts malediction on enemies"] = { mod("EnemyModifier", "LIST", { mod = flag("HasMalediction", { type = "Condition", var = "OnProfaneGround" }) })	},
+	["profane ground you create also affects you and your allies, granting chaotic might"] = { mod("ExtraAura", "LIST", { mod = flag("Condition:ChaoticMight", { type = "Condition", var = "OnProfaneGround" }) }) },
+	["raised beast spectres have farrul's farric presence"] = {
+		mod("ExtraAura", "LIST", { mod = mod("Accuracy", "INC", 80) }, { type = "Condition", var = "HaveBeastSpectre" }),
+		mod("ExtraAura", "LIST", { mod = mod("CritChance", "INC", 120) }, { type = "Condition", var = "HaveBeastSpectre" }),
+		mod("ExtraAura", "LIST", { mod = mod("ReduceCritExtraDamage", "BASE", 100) }, { type = "Condition", var = "HaveBeastSpectre" }),
+	},
+	["raised beast spectres have farrul's fertile presence"] = {
+		mod("ExtraAura", "LIST", { mod = mod("Damage", "INC", 100) }, { type = "Condition", var = "HaveBeastSpectre" }),
+		mod("ExtraAura", "LIST", { mod = mod("LifeRegenPercent", "BASE", 3) }, { type = "Condition", var = "HaveBeastSpectre" }),
+		mod("ExtraAura", "LIST", { mod = flag("StunImmune") }, { type = "Condition", var = "HaveBeastSpectre" }),
+	},
+	["raised beast spectres have farrul's wild presence"] = {
+		mod("ExtraAura", "LIST", { mod = mod("Speed", "INC", 20) }, { type = "Condition", var = "HaveBeastSpectre" }),
+		mod("ExtraAura", "LIST", { mod = mod("MovementSpeed", "INC", 20) }, { type = "Condition", var = "HaveBeastSpectre" }),
+		mod("ExtraAura", "LIST", { mod = mod("MinimumActionSpeed", "MAX", 100) }, { type = "Condition", var = "HaveBeastSpectre" }),
+	},
 	["gain alchemist's genius when you use a flask"] = {
 		flag("Condition:CanHaveAlchemistGenius"),
 	},

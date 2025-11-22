@@ -2329,6 +2329,46 @@ skills["ManifestDancingDervishes"] = {
 		[15] = { cooldown = 0.5, levelRequirement = 1, storedUses = 1, },
 	},
 }
+skills["MistyReflection"] = {
+	name = "Misty Reflection",
+	hidden = true,
+	color = 4,
+	description = "Dash backwards, leaving a short-lived mist copy of yourself that Taunts nearby Enemies for a short duration. The copy can be damaged by Enemies, and copies that are killed by an Enemy will apply a debuff in an area that makes affected targets take 30% increased Damage and deal 30% less Damage for 4 seconds.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Blink] = true, [SkillType.Cooldown] = true, [SkillType.FixedCastTime] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.Area] = true, [SkillType.Buff] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.15,
+	fromTree = true,
+	baseFlags = {
+		spell = true,
+		duration = true,
+	},
+	baseMods = {
+		mod("DamageTaken", "INC", 30, 0, 0, { type = "Condition", var = "MistyReflection"}, { type = "GlobalEffect", effectType = "Debuff" }),
+		mod("Damage", "MORE", -30, 0, 0, { type = "Condition", var = "MistyReflection"}, { type = "GlobalEffect", effectType = "Debuff" }),
+		skill("debuff", true),
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 2000 },
+		{ "active_skill_base_area_of_effect_radius", 30 },
+		{ "misty_reflection_clone_base_maximum_life_%_of_owner_maximum_life", 10 },
+	},
+	stats = {
+		"base_cooldown_speed_+%",
+		"skill_travel_distance_+%",
+		"base_deal_no_damage",
+		"skill_cannot_be_interrupted",
+		"skill_cannot_be_knocked_back",
+		"skill_cannot_be_stunned",
+		"spell_cast_time_cannot_be_modified",
+	},
+	notMinionStat = {
+		"base_cooldown_speed_+%",
+	},
+	levels = {
+		[1] = { 0, 0, cooldown = 6, levelRequirement = 4, storedUses = 1, statInterpolation = { 1, 1, }, },
+		[20] = { 0, 0, cooldown = 6, levelRequirement = 70, storedUses = 1, statInterpolation = { 1, 1, }, },
+	},
+}
 skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
 	name = "Mjolner",
 	hidden = true,
@@ -3906,6 +3946,56 @@ skills["SummonSentinelOfRadiance"] = {
 		[20] = { 40, 1200, critChance = 6, damageEffectiveness = 2, levelRequirement = 12, statInterpolation = { 1, 1, }, cost = { Mana = 40, }, },
 	},
 }
+skills["SummonSpectralTiger"] = {
+	name = "Summon Spectral Tiger",
+	hidden = true,
+	color = 4,
+	description = "Summons a Spectral Tiger Companion that attacks nearby enemies and dies after a duration. Each Spectral Tiger grants you a buff that increases Critical Strike Chance, and increases Attack and Cast Speed. If you have the maximum number of them, refreshes the duration and life of an existing one instead.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.CreatesMinion] = true, [SkillType.Buff] = true, [SkillType.Cooldown] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"SummonedSpectralTiger",
+	},
+	statMap = {
+		["spectral_tiger_grants_critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, 0, 0, { type = "Multiplier", var = "SpectralTigerCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Tiger" }),
+		},
+		["spectral_tiger_grants_attack_and_cast_speed_+%"] = {
+			mod("Speed", "INC", nil, 0, 0, { type = "Multiplier", var = "SpectralTigerCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Tiger" }),
+		},
+		["modifiers_to_claw_critical_strike_chance_apply_minion_critical_strike_chance"] = {
+			flag("ClawCritChanceAppliesToMinions"),
+		},
+		["modifiers_to_claw_critical_strike_multiplier_apply_minion_critical_strike_multiplier"] = {
+			flag("ClawCritMultiplierAppliesToMinions"),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		minion = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 30000 },
+		{ "number_of_tigers_allowed", 5 },
+		{ "display_minion_monster_type", 8 },
+		{ "base_display_minion_actor_level", 65 },
+		{ "cast_on_crit_%", 100 },
+	},
+	stats = {
+		"spectral_tiger_grants_critical_strike_chance_+%",
+		"spectral_tiger_grants_attack_and_cast_speed_+%",
+		"spell_uncastable_if_triggerable",
+		"modifiers_to_claw_critical_strike_chance_apply_minion_critical_strike_chance",
+		"modifiers_to_claw_critical_strike_multiplier_apply_minion_critical_strike_multiplier",
+	},
+	levels = {
+		[20] = { 25, 7, cooldown = 0.5, levelRequirement = 70, storedUses = 1, statInterpolation = { 1, 1, }, },
+	},
+}
 skills["SummonSpectralWolf"] = {
 	name = "Summon Spectral Wolf",
 	hidden = true,
@@ -4469,6 +4559,45 @@ skills["VoidShot"] = {
 	},
 	levels = {
 		[20] = { PvPDamageMultiplier = -80, baseMultiplier = 0.65, damageEffectiveness = 0.65, levelRequirement = 70, },
+	},
+}
+skills["WardShatter"] = {
+	name = "Ward Shatter",
+	hidden = true,
+	color = 1,
+	baseEffectiveness = 0.68000000715256,
+	incrementalEffectiveness = 0.045000001788139,
+	description = "Your ward shatters, dealing physical spell damage to enemies in an area, based on the amount of ward you have. Enemies hit are inflicted with Enervation, a Debuff that lowers Movement Speed by 20% and prevents Life and Energy Shield Recovery for 4 seconds.",
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Physical] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Nova] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	statMap = {
+		["from_code_active_skill_ailment_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Ailment),
+		},
+		["active_skill_damage_+%_final_if_ward_has_not_broken_in_the_past_2_seconds"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "WardBrokenPast2Seconds", neg = true }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+		skill("showAverage", true),
+	},
+	constantStats = {
+		{ "trigger_on_ward_break_%_chance", 100 },
+		{ "from_code_active_skill_ailment_damage_+%_final", -40 },
+		{ "active_skill_damage_+%_final_if_ward_has_not_broken_in_the_past_2_seconds", 80 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage_%_of_ward",
+		"spell_maximum_base_physical_damage_%_of_ward",
+	},
+	levels = {
+		[1] = { 0.20000000298023, 0.30000001192093, cooldown = 0.5, critChance = 6, levelRequirement = 4, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[20] = { 0.61250001192093, 0.73750001192093, cooldown = 0.5, critChance = 6, levelRequirement = 70, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["BreachHandTrap"] = {

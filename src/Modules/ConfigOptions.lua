@@ -195,6 +195,9 @@ return {
 	{ var = "minionsConditionFullLife", type = "check", label = "Are your Minions always on Full ^xE05030Life?", ifMinionCond = "FullLife", apply = function(val, modList, enemyModList)
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:FullLife", "FLAG", true, "Config") }, "Config")
 	end },
+	{ var = "minionsConditionLowLife", type = "check", label = "Are your Minions always on Low ^xE05030Life?", ifMinionCond = "LowLife", apply = function(val, modList, enemyModList)
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:LowLife", "FLAG", true, "Config") }, "Config")
+	end },
 	{ var = "minionsConditionFullEnergyShield", type = "check", label = "Minion is always on Full ^x88FFFFEnergy Shield?", ifMinionCond = "FullEnergyShield", apply = function(val, modList, enemyModList)
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:FullEnergyShield", "FLAG", true, "Config") }, "Config")
 	end },
@@ -468,6 +471,10 @@ return {
 	{ var = "meatShieldEnemyNearYou", type = "check", label = "Is the enemy near you?", ifSkill = "Meat Shield", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:MeatShieldEnemyNearYou", "FLAG", true, "Config")
 	end },
+	{ label = "Misty Reflection:", ifSkill = "Misty Reflection" },
+	{ var = "enemyHitMistyReflection", type = "check", label = "Enemy hit by Misty Reflection?", ifSkill = "Misty Reflection", tooltip = "Misty Reflection debuff lasts 4 seconds and makes enemies have:\n\t30% increased Damage Taken\n\tDeal 30% less Damage", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:MistyReflection", "FLAG", true, "Config")
+	end },
 	{ label = "Momentum:", ifSkill = "Momentum" },
 	{ var = "MomentumStacks", type = "count", label = "# of Momentum (if not average):", ifSkill = "Momentum", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:MomentumStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
@@ -560,6 +567,11 @@ return {
 	{ label = "Snipe:", ifSkill = "Snipe" },
 	{ var = "configSnipeStages", type = "count", label = "# of Snipe stages:", ifSkill = "Snipe", tooltip = "Sets the number of stages reached before releasing Snipe.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:SnipeStage", "BASE", val, "Config")
+	end },
+	{ label = "Spectral Tiger:", ifSkill = "Summon Spectral Tiger" },
+	{ var = "configSpectralTigerCount", type = "count", label = "# of Active Spectral Tigers:", ifSkill = "Summon Spectral Tiger", defaultPlaceholderState = 5, tooltip = "Sets the number of active Spectral Tigers.\nThe base maximum number of Spectral Tigers is 5.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:SpectralTigerConfig", "BASE", val, "Config")
+		modList:NewMod("Multiplier:SpectralTigerCount", "BASE", 1, "Config", { type = "Multiplier", var = "SpectralTigerConfig", limitStat = "ActiveTigerLimit" })
 	end },
 	{ label = "Spectral Wolf:", ifSkill = "Summon Spectral Wolf" },
 	{ var = "configSpectralWolfCount", type = "count", label = "# of Active Spectral Wolves:", ifSkill = "Summon Spectral Wolf", tooltip = "Sets the number of active Spectral Wolves.\nThe base maximum number of Spectral Wolves is 10.", apply = function(val, modList, enemyModList)
@@ -1028,6 +1040,12 @@ Huge sets the radius to 11.
 		modList:NewMod("Condition:OnConsecratedGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:OnConsecratedGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) })
 	end },
+	{ var = "conditionOnProfaneGround", type = "check", label = "Are you on Profane Ground?", ifCond = "OnProfaneGround", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:OnProfaneGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "minionConditionOnProfaneGround", type = "check", label = "Minion on Profane Ground?", ifMinionCond = "OnProfaneGround", apply = function(val, modList, enemyModList)
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:OnProfaneGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) })
+	end },
 	{ var = "conditionOnCausticGround", type = "check", label = "Are you on Caustic Ground?", ifCond = "OnCausticGround", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:OnCausticGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -1224,6 +1242,9 @@ Huge sets the radius to 11.
 	end },
 	{ var = "multiplierManaSpentRecently", type = "count", label = "# of ^x7070FFMana ^7spent Recently:", ifMult = "ManaSpentRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:ManaSpentRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionWardBrokenPast2Seconds", type = "check", label = "Has your ^xFFFF77Ward ^7broken in the past 2s?", ifCond = "WardBrokenPast2Seconds", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:WardBrokenPast2Seconds", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionBeenHitRecently", type = "check", label = "Have you been Hit Recently?", ifCond = "BeenHitRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BeenHitRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
