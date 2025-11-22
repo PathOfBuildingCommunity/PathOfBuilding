@@ -932,21 +932,11 @@ holding Shift will put it in the second.]])
 	end)
 
 	for i = 1, 20 do
-		local prevControl = i == 1 and self.controls.displayItemSectionRange or self.controls["displayItemStackedRangeLine"..(i-1)]
+		local baseControl = i == 1 and self.controls.displayItemSectionRange or self.controls["displayItemStackedRangeSlider"..(i-1)]
 
-		self.controls["displayItemStackedRangeLine"..i] = new("LabelControl", {"TOPLEFT",prevControl,"TOPLEFT"}, {0, function()
+		self.controls["displayItemStackedRangeSlider"..i] = new("SliderControl", {"TOPLEFT",baseControl,"TOPLEFT"}, {0, function()
 			return i == 1 and 2 or 22
-		end, 350, 14}, function()
-			if self.displayItem and self.displayItem.rangeLineList[i] then
-				return "^7" .. self.displayItem.rangeLineList[i].line
-			end
-			return ""
-		end)
-		self.controls["displayItemStackedRangeLine"..i].shown = function()
-			return main.showAllItemAffixes and self.displayItem and self.displayItem.rarity == "UNIQUE" and self.displayItem.rangeLineList[i] ~= nil
-		end
-
-		self.controls["displayItemStackedRangeSlider"..i] = new("SliderControl", {"LEFT",self.controls["displayItemStackedRangeLine"..i],"RIGHT"}, {8, 0, 100, 18}, function(val)
+		end, 100, 18}, function(val)
 			if self.displayItem and self.displayItem.rangeLineList[i] then
 				self.displayItem.rangeLineList[i].range = val
 				self.displayItem:BuildAndParseRaw()
@@ -954,8 +944,18 @@ holding Shift will put it in the second.]])
 				self:UpdateCustomControls()
 			end
 		end)
+		self.controls["displayItemStackedRangeLine"..i] = new("LabelControl", {"LEFT",self.controls["displayItemStackedRangeSlider"..i],"RIGHT"}, {8, -2, 350, 14}, function()
+			if self.displayItem and self.displayItem.rangeLineList[i] then
+				return "^7" .. self.displayItem.rangeLineList[i].line
+			end
+			return ""
+		end)
 		self.controls["displayItemStackedRangeSlider"..i].shown = function()
-			return self.controls["displayItemStackedRangeLine"..i]:IsShown()
+			return main.showAllItemAffixes and self.displayItem and self.displayItem.rarity == "UNIQUE" and self.displayItem.rangeLineList[i] ~= nil
+		end
+
+		self.controls["displayItemStackedRangeLine"..i].shown = function()
+			return self.controls["displayItemStackedRangeSlider"..i]:IsShown()
 		end
 	end
 
