@@ -1575,14 +1575,14 @@ end
 -- Help button opens a URL to PoB's GitHub wiki.
 function main:OpenCloudErrorPopup(fileName)
 	local provider, _, status = GetCloudProvider(fileName)
-	ConPrintf('Error: file offline "%s" provider: "%s" status: "%s"',
-		fileName or "?", provider, status)
+	ConPrintf('^1Error: file offline "%s" provider: "%s" status: "%s"', fileName or "?", provider, status)
 	fileName = fileName and "\n\n^8'"..fileName.."'" or ""
-	local pobVersion = "^8v"..launch.versionNumber..(launch.versionBranch == "dev" and " (Dev)" or launch.versionBranch == "beta" and " (Beta)" or "")
-	local title = " Error "
+	local version = "^8v"..launch.versionNumber..(launch.versionBranch and " "..launch.versionBranch or "")..(launch.devMode and " (dev)" or "")
+	local title = " ^1Error "
 	provider = provider or "your cloud provider"
-	local msg = "\nCannot read file.\n\nMake sure "..provider.." is running then restart "..APP_NAME.." and try again."..
-		fileName.."\n\n"..pobVersion
+	local statusText = tostring(status) or "nil"
+	local msg = "\n^7Cannot read file.\n\nMake sure "..provider.." is running then restart "..APP_NAME.." and try again."..
+		fileName.."\nstatus: "..statusText.."\n\n"..version
 	local url = "https://github.com/PathOfBuildingCommunity/PathOfBuilding/wiki/CloudError"
 	local controls = { }
 	local numMsgLines = 0
