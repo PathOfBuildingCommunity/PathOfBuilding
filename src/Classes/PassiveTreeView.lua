@@ -277,14 +277,125 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				spec:DeallocNode(hoverNode)
 				spec:AddUndoState()
 				build.buildFlag = true
-			elseif hoverNode.path then
-				-- Node is unallocated and can be allocated, so allocate it
-				if hoverNode.type == "Mastery" and hoverNode.masteryEffects then
-					build.treeTab:OpenMasteryPopup(hoverNode, viewPort)
-				else
-					spec:AllocNode(hoverNode, self.tracePath and hoverNode == self.tracePath[#self.tracePath] and self.tracePath)
-					spec:AddUndoState()
-					build.buildFlag = true
+			else
+				-- Check if the node belongs to a different ascendancy
+				if hoverNode.ascendancyName then
+					local isDifferentAscendancy = false
+					local targetAscendClassId = nil
+					local targetBaseClassId = nil
+					local targetBaseClass = nil
+					
+					-- Check if this is a bloodline (secondary ascendancy) node
+					if hoverNode.isBloodline and spec.tree.alternate_ascendancies then
+						local isDifferentBloodline = not spec.curSecondaryAscendClass or hoverNode.ascendancyName ~= spec.curSecondaryAscendClass.id
+						
+						if isDifferentBloodline then
+							-- Find the bloodline in alternate_ascendancies
+							for bloodlineId, bloodlineData in pairs(spec.tree.alternate_ascendancies) do
+								if bloodlineData.id == hoverNode.ascendancyName then
+									spec:SelectSecondaryAscendClass(bloodlineId)
+									spec:AddUndoState()
+									spec:SetWindowTitleWithBuildClass()
+									build.buildFlag = true
+									break
+								end
+							end
+						end
+					else
+						-- Regular ascendancy node (not bloodline)
+						-- Check if it's different from current primary or secondary ascendancy
+						if spec.curAscendClassId == 0 or hoverNode.ascendancyName ~= spec.curAscendClassBaseName then
+							if not (spec.curSecondaryAscendClass and hoverNode.ascendancyName == spec.curSecondaryAscendClass.id) then
+								isDifferentAscendancy = true
+							end
+						end
+						
+						if isDifferentAscendancy then
+							-- First, check if it's in the current class (same-class switching)
+							for ascendClassId, ascendClass in pairs(spec.curClass.classes) do
+								if ascendClass.id == hoverNode.ascendancyName then
+									targetAscendClassId = ascendClassId
+									break
+								end
+							end
+							
+							if targetAscendClassId then
+								-- Same-class switching - always allowed
+								spec:SelectAscendClass(targetAscendClassId)
+								spec:AddUndoState()
+								spec:SetWindowTitleWithBuildClass()
+								build.buildFlag = true
+							else
+								-- Cross-class switching - search all classes
+								for classId, classData in pairs(spec.tree.classes) do
+									for ascendClassId, ascendClass in pairs(classData.classes) do
+										if ascendClass.id == hoverNode.ascendancyName then
+											targetBaseClassId = classId
+											targetBaseClass = classData
+											targetAscendClassId = ascendClassId
+											break
+										end
+									end
+									if targetBaseClassId then break end
+								end
+								
+								if targetBaseClassId then
+									local used = spec:CountAllocNodes()
+									local clickedAscendNodeId = hoverNode and hoverNode.id
+									local function allocateClickedAscendancy()
+										if not clickedAscendNodeId then
+											return
+										end
+										local targetNode = spec.nodes[clickedAscendNodeId]
+										if targetNode and not targetNode.alloc then
+											spec:AllocNode(targetNode)
+										end
+									end
+						
+									-- Allow cross-class switching if: no regular points allocated OR tree is connected to target class
+									if used == 0 or spec:IsClassConnected(targetBaseClassId) then
+										spec:SelectClass(targetBaseClassId)
+										spec:SelectAscendClass(targetAscendClassId)
+										allocateClickedAscendancy()
+										spec:AddUndoState()
+										spec:SetWindowTitleWithBuildClass()
+										build.buildFlag = true
+									else
+										-- Tree has points but isn't connected to target class
+										main:OpenConfirmPopup("Class Change", "Changing class to "..targetBaseClass.name.." will reset your passive tree.\nThis can be avoided by connecting one of the "..targetBaseClass.name.." starting nodes to your tree.", "Continue", function()
+											spec:SelectClass(targetBaseClassId)
+											spec:SelectAscendClass(targetAscendClassId)
+											allocateClickedAscendancy()
+											spec:AddUndoState()
+											spec:SetWindowTitleWithBuildClass()
+											build.buildFlag = true
+										end, "Connect Path", function()
+											if spec:ConnectToClass(targetBaseClassId) then
+												spec:SelectClass(targetBaseClassId)
+												spec:SelectAscendClass(targetAscendClassId)
+												allocateClickedAscendancy()
+												spec:AddUndoState()
+												spec:SetWindowTitleWithBuildClass()
+												build.buildFlag = true
+											end
+										end)
+										return
+									end
+								end
+							end
+						end
+					end
+				end
+				
+				-- Normal node allocation (non-ascendancy or same ascendancy)
+				if hoverNode.path and not hoverNode.alloc then
+					if hoverNode.type == "Mastery" and hoverNode.masteryEffects then
+						build.treeTab:OpenMasteryPopup(hoverNode, viewPort)
+					else
+						spec:AllocNode(hoverNode, self.tracePath and hoverNode == self.tracePath[#self.tracePath] and self.tracePath)
+						spec:AddUndoState()
+						build.buildFlag = true
+					end
 				end
 			end
 		end

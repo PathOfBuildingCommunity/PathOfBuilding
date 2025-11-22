@@ -1538,7 +1538,7 @@ function main:OpenMessagePopup(title, msg)
 	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls, "close")
 end
 
-function main:OpenConfirmPopup(title, msg, confirmLabel, onConfirm)
+function main:OpenConfirmPopup(title, msg, confirmLabel, onConfirm, extraLabel, onExtra)
 	local controls = { }
 	local numMsgLines = 0
 	for line in string.gmatch(msg .. "\n", "([^\n]*)\n") do
@@ -1546,14 +1546,43 @@ function main:OpenConfirmPopup(title, msg, confirmLabel, onConfirm)
 		numMsgLines = numMsgLines + 1
 	end
 	local confirmWidth = m_max(80, DrawStringWidth(16, "VAR", confirmLabel) + 10)
-	controls.confirm = new("ButtonControl", nil, {-5 - m_ceil(confirmWidth/2), 40 + numMsgLines * 16, confirmWidth, 20}, confirmLabel, function()
-		main:ClosePopup()
-		onConfirm()
-	end)
-	t_insert(controls, new("ButtonControl", nil, {5 + m_ceil(confirmWidth/2), 40 + numMsgLines * 16, confirmWidth, 20}, "Cancel", function()
-		main:ClosePopup()
-	end))
-	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls, "confirm")
+	
+	if extraLabel and onExtra then
+		-- Three button layout: Continue (left), Connect Path (center), Cancel (right)
+		local extraWidth = m_max(80, DrawStringWidth(16, "VAR", extraLabel) + 10)
+		local cancelWidth = 80
+		local spacing = 10
+		local totalWidth = confirmWidth + extraWidth + cancelWidth + (spacing * 2)
+		local leftEdge = -totalWidth / 2
+		local buttonY = 40 + numMsgLines * 16
+		local function placeButton(width, label, onClick, isConfirm)
+			local centerX = leftEdge + width / 2
+			local ctrl = new("ButtonControl", nil, {centerX, buttonY, width, 20}, label, function()
+				main:ClosePopup()
+				onClick()
+			end)
+			if isConfirm then
+				controls.confirm = ctrl
+			else
+				t_insert(controls, ctrl)
+			end
+			leftEdge = leftEdge + width + spacing
+		end
+		placeButton(confirmWidth, confirmLabel, onConfirm, true)
+		placeButton(extraWidth, extraLabel, onExtra)
+		placeButton(cancelWidth, "Cancel", function() end)
+		return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, totalWidth + 40), 70 + numMsgLines * 16, title, controls, "confirm")
+	else
+		-- Two button layout (original)
+		controls.confirm = new("ButtonControl", nil, {-5 - m_ceil(confirmWidth/2), 40 + numMsgLines * 16, confirmWidth, 20}, confirmLabel, function()
+			main:ClosePopup()
+			onConfirm()
+		end)
+		t_insert(controls, new("ButtonControl", nil, {5 + m_ceil(confirmWidth/2), 40 + numMsgLines * 16, confirmWidth, 20}, "Cancel", function()
+			main:ClosePopup()
+		end))
+		return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls, "confirm")
+	end
 end
 
 function main:OpenNewFolderPopup(path, onClose)
