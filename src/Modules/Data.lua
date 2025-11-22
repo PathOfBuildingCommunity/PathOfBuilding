@@ -177,6 +177,7 @@ data.misc = { -- magic numbers
 	SuppressionChanceCap = 100,
 	SuppressionEffect = 40,
 	AvoidChanceCap = 75,
+	FortifyBaseDuration = 6,
 	ManaRegenBase = data.characterConstants["mana_regeneration_rate_per_minute_%"] / 60 / 100,
 	EnergyShieldRechargeBase = data.characterConstants["energy_shield_recharge_rate_per_minute_%"] / 60 / 100,
 	EnergyShieldRechargeBase = 0.33,
@@ -280,7 +281,7 @@ data.cursePriority = {
 	["CurseFromAura"] = 20000,
 }
 
----@type string[] @List of all keystones not exclusive to timeless jewels.
+---@type string[] @List of all keystones not exclusive to timeless jewels or cluster jewels.
 data.keystones = {
 	"Acrobatics",
 	"Ancestral Bond",
@@ -305,7 +306,6 @@ data.keystones = {
 	"Ghost Reaver",
 	"Glancing Blows",
 	"Hex Master",
-	"Hollow Palm Technique",
 	"Imbalanced Guard",
 	"Immortal Ambition",
 	"Inner Conviction",
@@ -326,12 +326,12 @@ data.keystones = {
 	"Precise Technique",
 	"Resolute Technique",
 	"Runebinder",
-	"Secrets of Suffering",
 	"Solipsism",
 	"Supreme Decadence",
 	"Supreme Ego",
 	"The Agnostic",
 	"The Impaler",
+	"Transcendence",
 	"Unwavering Stance",
 	"Vaal Pact",
 	"Versatile Combatant",

@@ -46,9 +46,12 @@ local TooltipClass = newClass("Tooltip", function(self)
 	self:Clear()
 end)
 
-function TooltipClass:Clear()
+function TooltipClass:Clear(clearUpdateParams)
 	wipeTable(self.lines)
 	wipeTable(self.blocks)
+	if self.updateParams and clearUpdateParams then
+		wipeTable(self.updateParams)
+	end
 	self.tooltipHeader = false
 	self.titleYOffset = 0
 	self.recipe = nil

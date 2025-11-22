@@ -593,6 +593,10 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill SupportCastOnLifeSpent Foulborn Kitava's Thirst
+	fromItem = true,
+#mods
+
 #skill LightningAegis
 #flags spell
 	fromItem = true,
@@ -637,6 +641,14 @@ local skills, mod, flag, skill = ...
 #baseMod skill("minionLevel", 65)
 #mods
 
+#skill MistyReflection
+#flags spell duration
+	fromTree = true,
+#baseMod mod("DamageTaken", "INC", 30, 0, 0, { type = "Condition", var = "MistyReflection"}, { type = "GlobalEffect", effectType = "Debuff" })
+#baseMod mod("Damage", "MORE", -30, 0, 0, { type = "Condition", var = "MistyReflection"}, { type = "GlobalEffect", effectType = "Debuff" })
+#baseMod skill("debuff", true)
+#mods
+
 #skill SupportUniqueMjolnerLightningSpellsCastOnHit Mjolner
 	fromItem = true,
 #mods
@@ -659,6 +671,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("debuff", true)
+#baseMod skill("minionLevelIsEnemyLevel", true)
 #mods
 
 #skill PhysicalAegis
@@ -1027,6 +1040,28 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SummonSpectralTiger
+#flags spell minion duration
+	fromTree = true,
+	minionList = {
+		"SummonedSpectralTiger",
+	},
+	statMap = {
+		["spectral_tiger_grants_critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, 0, 0, { type = "Multiplier", var = "SpectralTigerCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Tiger" }),
+		},
+		["spectral_tiger_grants_attack_and_cast_speed_+%"] = {
+			mod("Speed", "INC", nil, 0, 0, { type = "Multiplier", var = "SpectralTigerCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Tiger" }),
+		},
+		["modifiers_to_claw_critical_strike_chance_apply_minion_critical_strike_chance"] = {
+			flag("ClawCritChanceAppliesToMinions"),
+		},
+		["modifiers_to_claw_critical_strike_multiplier_apply_minion_critical_strike_multiplier"] = {
+			flag("ClawCritMultiplierAppliesToMinions"),
+		},
+	},
+#mods
+
 #skill SummonSpectralWolf
 #flags spell minion duration
 	fromItem = true,
@@ -1162,6 +1197,20 @@ local skills, mod, flag, skill = ...
 #skill VoidShot
 #flags attack projectile area
 	fromItem = true,
+#mods
+
+#skill WardShatter
+#flags spell
+	fromTree = true,
+	statMap = {
+		["from_code_active_skill_ailment_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Ailment),
+		},
+		["active_skill_damage_+%_final_if_ward_has_not_broken_in_the_past_2_seconds"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "WardBrokenPast2Seconds", neg = true }),
+		},
+	},
+#baseMod skill("showAverage", true)
 #mods
 
 #skill BreachHandTrap
