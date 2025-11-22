@@ -1,5 +1,16 @@
 # Changelog
 
+## [v2.59.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.59.1) (2025/11/22)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.59.0...v2.59.1)
+
+
+## What's Changed
+### Fixed Bugs
+- Fix error when loading Kinetic Fusillade [\#9327](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9327) ([Wires77](https://github.com/Wires77))
+
+
+
 ## [v2.59.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.59.0) (2025/11/22)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.58.1...v2.59.0)
