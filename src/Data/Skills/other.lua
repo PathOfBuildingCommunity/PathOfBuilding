@@ -4577,7 +4577,7 @@ skills["WardShatter"] = {
 			mod("Damage", "MORE", nil, ModFlag.Ailment),
 		},
 		["active_skill_damage_+%_final_if_ward_has_not_broken_in_the_past_2_seconds"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "WardBrokenPast2Seconds"}),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "WardBrokenPast2Seconds", neg = true }),
 		},
 	},
 	baseFlags = {
