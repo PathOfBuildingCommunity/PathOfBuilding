@@ -295,6 +295,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 								if bloodlineData.id == hoverNode.ascendancyName then
 									spec:SelectSecondaryAscendClass(bloodlineId)
 									spec:AddUndoState()
+									spec:SetWindowTitleWithBuildClass()
 									build.buildFlag = true
 									break
 								end
@@ -322,6 +323,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 								-- Same-class switching - always allowed
 								spec:SelectAscendClass(targetAscendClassId)
 								spec:AddUndoState()
+								spec:SetWindowTitleWithBuildClass()
 								build.buildFlag = true
 							else
 								-- Cross-class switching - search all classes
@@ -356,6 +358,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 										spec:SelectAscendClass(targetAscendClassId)
 										allocateClickedAscendancy()
 										spec:AddUndoState()
+										spec:SetWindowTitleWithBuildClass()
 										build.buildFlag = true
 									else
 										-- Tree has points but isn't connected to target class
@@ -364,6 +367,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 											spec:SelectAscendClass(targetAscendClassId)
 											allocateClickedAscendancy()
 											spec:AddUndoState()
+											spec:SetWindowTitleWithBuildClass()
 											build.buildFlag = true
 										end, "Connect Path", function()
 											if spec:ConnectToClass(targetBaseClassId) then
@@ -371,6 +375,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 												spec:SelectAscendClass(targetAscendClassId)
 												allocateClickedAscendancy()
 												spec:AddUndoState()
+												spec:SetWindowTitleWithBuildClass()
 												build.buildFlag = true
 											end
 										end)

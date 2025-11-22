@@ -693,7 +693,7 @@ function PassiveSpecClass:ConnectToClass(classId)
 		local node = queue[head]
 		head = head + 1
 
-		if node ~= targetStartNode and node.alloc and node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
+		if node ~= targetStartNode and node.alloc and node.connectedToStart and node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
 			foundNode = node
 			break
 		end
