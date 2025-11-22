@@ -12571,11 +12571,12 @@ return {
 		}, 
 		["3386_FlaskGainPerSecond"] = {
 			["Chest"] = {
-				["max"] = 3, 
-				["min"] = 2, 
+				["max"] = 2, 
+				["min"] = 1, 
 			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
+				["overrideModLineSingular"] = "Flasks gain a Charge every 3 seconds", 
 			}, 
 			["tradeMod"] = {
 				["id"] = "implicit.stat_1193283913", 
@@ -58879,7 +58880,6 @@ return {
 			["Boots"] = {
 				["max"] = 20, 
 				["min"] = 5, 
-				["subType"] = "Energy Shield", 
 			}, 
 			["Bow"] = {
 				["max"] = 30, 
@@ -58888,7 +58888,6 @@ return {
 			["Chest"] = {
 				["max"] = 20, 
 				["min"] = 5, 
-				["subType"] = "Energy Shield", 
 			}, 
 			["Claw"] = {
 				["max"] = 30, 
@@ -58901,12 +58900,10 @@ return {
 			["Gloves"] = {
 				["max"] = 20, 
 				["min"] = 5, 
-				["subType"] = "Energy Shield", 
 			}, 
 			["Helmet"] = {
 				["max"] = 20, 
 				["min"] = 5, 
-				["subType"] = "Energy Shield", 
 			}, 
 			["Shield"] = {
 				["max"] = 10, 
@@ -58944,67 +58941,67 @@ return {
 			["1HAxe"] = {
 				["max"] = 30, 
 				["min"] = 10, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["1HMace"] = {
 				["max"] = 30, 
 				["min"] = 10, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["1HSword"] = {
 				["max"] = 30, 
 				["min"] = 10, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["1HWeapon"] = {
 				["max"] = 30, 
 				["min"] = 10, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["2HAxe"] = {
 				["max"] = 30, 
 				["min"] = 10, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["2HMace"] = {
 				["max"] = 30, 
 				["min"] = 10, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["2HSword"] = {
 				["max"] = 30, 
 				["min"] = 10, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["2HWeapon"] = {
 				["max"] = 30, 
 				["min"] = 10, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["Bow"] = {
 				["max"] = 30, 
 				["min"] = 10, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["Claw"] = {
 				["max"] = 30, 
 				["min"] = 10, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["Dagger"] = {
 				["max"] = 30, 
 				["min"] = 10, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["Staff"] = {
 				["max"] = 30, 
 				["min"] = 10, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["Wand"] = {
 				["max"] = 30, 
 				["min"] = 10, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
@@ -59784,67 +59781,67 @@ return {
 			["1HAxe"] = {
 				["max"] = 40, 
 				["min"] = 20, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["1HMace"] = {
 				["max"] = 40, 
 				["min"] = 20, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["1HSword"] = {
 				["max"] = 40, 
 				["min"] = 20, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["1HWeapon"] = {
 				["max"] = 40, 
 				["min"] = 20, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["2HAxe"] = {
 				["max"] = 40, 
 				["min"] = 20, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["2HMace"] = {
 				["max"] = 40, 
 				["min"] = 20, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["2HSword"] = {
 				["max"] = 40, 
 				["min"] = 20, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["2HWeapon"] = {
 				["max"] = 40, 
 				["min"] = 20, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["Bow"] = {
 				["max"] = 40, 
 				["min"] = 20, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["Claw"] = {
 				["max"] = 40, 
 				["min"] = 20, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["Dagger"] = {
 				["max"] = 40, 
 				["min"] = 20, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["Staff"] = {
 				["max"] = 40, 
 				["min"] = 20, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["Wand"] = {
 				["max"] = 40, 
 				["min"] = 20, 
-				["subType"] = "Rune", 
+				["subType"] = "Rune Dagger", 
 			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
@@ -60850,17 +60847,14 @@ return {
 			["Chest"] = {
 				["max"] = 25, 
 				["min"] = 4, 
-				["subType"] = "Armour/Energy Shield", 
 			}, 
 			["Gloves"] = {
 				["max"] = 25, 
 				["min"] = 4, 
-				["subType"] = "Armour/Energy Shield", 
 			}, 
 			["Helmet"] = {
 				["max"] = 25, 
 				["min"] = 4, 
-				["subType"] = "Armour/Energy Shield", 
 			}, 
 			["Ring"] = {
 				["max"] = 10, 

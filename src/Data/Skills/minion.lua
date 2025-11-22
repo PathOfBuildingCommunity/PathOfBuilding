@@ -2120,3 +2120,36 @@ skills["SummonedLivingLightningZap"] = {
 		[1] = { cooldown = 0.25, levelRequirement = 0, storedUses = 1, },
 	},
 }
+skills["MPSPhantasmBasicBlood"] = {
+	name = "Projectile Spell",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.1059999465942,
+	incrementalEffectiveness = 0.035999998450279,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.17,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "monster_projectile_variation", 248 },
+		{ "spell_maximum_action_distance_+%", -40 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+		"maintain_projectile_direction_when_using_contact_position",
+		"base_is_projectile",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}

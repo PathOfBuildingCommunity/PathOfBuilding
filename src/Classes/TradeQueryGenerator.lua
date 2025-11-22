@@ -229,6 +229,9 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 		elseif modLine == "Has 1 Abyssal Socket" then
 			specialCaseData.overrideModLineSingular = "Has 1 Abyssal Socket"
 			modLine = "Has 1 Abyssal Sockets"
+		elseif modLine == "Flasks gain a Charge every 3 seconds" then
+			specialCaseData.overrideModLineSingular = "Flasks gain a Charge every 3 seconds"
+			modLine = "Flasks gain 1 Charges every 3 seconds"
 		end
 
 		-- If this is the first tier for this mod, find matching trade mod and init the entry
@@ -379,7 +382,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 end
 
 function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed, itemCategoriesMask, itemCategoriesOverride)
-	for modId, mod in pairs(mods) do
+	for modId, mod in pairsSortByKey(mods) do
 		self:ProcessMod(modId, mod, tradeQueryStatsParsed, itemCategoriesMask, itemCategoriesOverride)
 	end
 end
@@ -461,8 +464,26 @@ function TradeQueryGeneratorClass:InitMods()
 	end
 	self:GenerateModData(clusterNotableMods, tradeQueryStatsParsed)
 
-	-- Base item implicit mods. A lot of this code is duplicated from generateModData(), but with important small logical flow changes to handle the format differences
-	for baseName, entry in pairs(data.itemBases) do
+		-- Base item implicit mods. A lot of this code is duplicated from generateModData(), but with important small logical flow changes to handle the format differences
+		local subTypeState = { }
+		local function updateRangeSubType(range, entry)
+			if subTypeState[range] == "mixed" then
+				return
+			end
+			if not entry.subType then
+				subTypeState[range] = "mixed"
+				range.subType = nil
+				return
+			end
+			if not range.subType then
+				range.subType = entry.subType
+			elseif range.subType ~= entry.subType then
+				subTypeState[range] = "mixed"
+				range.subType = nil
+			end
+		end
+
+	for baseName, entry in pairsSortByKey(data.itemBases) do
 		if entry.implicit ~= nil then
 			local stats = { }
 			for modLine in string.gmatch(entry.implicit, "([^".."\n".."]+)") do
@@ -534,10 +555,11 @@ function TradeQueryGeneratorClass:InitMods()
 
 					if tagMatch then
 						if self.modData[modType][uniqueIndex][category] == nil then
-							self.modData[modType][uniqueIndex][category] = { min = 999999, max = -999999, subType = entry.subType }
+							self.modData[modType][uniqueIndex][category] = { min = 999999, max = -999999 }
 						end
 
 						local modRange = self.modData[modType][uniqueIndex][category]
+						updateRangeSubType(modRange, entry)
 						if #tokens == 0 then
 							modRange.min = 1
 							modRange.max = 1
@@ -705,7 +727,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 				calcNodesInsteadOfMods = true,
 			}
 		end
-	elseif slot.slotName == "Weapon 2" or slot.slotName == "Weapon 1" then
+	elseif slot.slotName:find("^Weapon %d") then
 		if existingItem then
 			if existingItem.type == "Shield" then
 				itemCategoryQueryStr = "armour.shield"
