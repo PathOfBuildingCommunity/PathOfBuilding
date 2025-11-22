@@ -738,7 +738,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill AtlasCrusaderJudgeBallLightning Ball Lightning
-#flags spell hit triggerable area projectile
+#flags spell hit triggerable projectile
 #mods
 
 #skill AtlasCruasderJudgeFadingNova Nova Spell

@@ -1438,6 +1438,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		local weaponData = { }
 		self.weaponData[slotNum] = weaponData
 		weaponData.type = self.base.type
+		weaponData.subType = self.base.subType
 		weaponData.name = self.name
 		weaponData.AttackSpeedInc = calcLocal(modList, "Speed", "INC", ModFlag.Attack) + m_floor(self.quality / 8 * calcLocal(modList, "AlternateQualityLocalAttackSpeedPer8Quality", "INC", 0))
 		weaponData.AttackRate = round(self.base.weapon.AttackRateBase * (1 + weaponData.AttackSpeedInc / 100), 2)
@@ -1552,7 +1553,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		end
 
 		if self.base.armour.BlockChance then
-			armourData.BlockChance = m_floor((self.base.armour.BlockChance + calcLocal(modList, "BlockChance", "BASE", 0)) * (1 + calcLocal(modList, "BlockChance", "INC", 0) / 100))
+			armourData.BlockChance = m_floor((self.base.armour.BlockChance * (1 + calcLocal(modList, "BlockChance", "INC", 0) / 100) + calcLocal(modList, "BlockChance", "BASE", 0)))
 		end
 		if self.base.armour.MovementPenalty then
 			modList:NewMod("MovementSpeed", "INC", -self.base.armour.MovementPenalty, self.modSource, { type = "Condition", var = "IgnoreMovementPenalties", neg = true })

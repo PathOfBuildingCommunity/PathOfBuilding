@@ -38,6 +38,41 @@ local function tableToString(tbl, pre)
 	return tableString .. " }"
 end
 
+local function getOTStats(OTFile, modList)
+	local file = OTFile..".ot"
+	local text
+	if main.ggpk.ot[file] then
+		text = main.ggpk.ot[file]
+	elseif getFile(file) then
+		text = convertUTF16to8(getFile(file))
+		main.ggpk.ot[file] = text
+	else
+		print("Invalid OT File location: "..file)
+		return modList
+	end
+	local inWantedBlock = false
+	if text then
+		for line in text:gmatch("[^\r\n]+") do
+			local superClass = line:match("extends \"(.+)\"")
+			if superClass and superClass ~= "Metadata/Monsters/Monster" and superClass ~= "nothing" then
+				modList = getOTStats(superClass, modList)
+			end
+			-- Detect start of a block
+			if line:match("^Stats") then
+				inWantedBlock = true
+			elseif inWantedBlock and line:match("^}") then
+				inWantedBlock = false
+			elseif inWantedBlock and line:find("=") and not line:find("//") then
+				local key, value = line:gsub("%s+",""):match("^(.-)=(.+)$")
+				if key and value then
+					table.insert(modList, { Id = key, Stat1 = { Id = key }, Stat1Value = { tonumber(value) } })
+				end
+			end
+		end
+	end
+	return modList
+end
+
 local itemClassMap = {
 	["Claw"] = "Claw",
 	["Dagger"] = "Dagger",
@@ -64,6 +99,7 @@ directiveTable.monster = function(state, args, out)
 	state.varietyId = nil
 	state.name = nil
 	state.limit = nil
+	state.hostile = nil
 	state.extraModList = { }
 	state.extraSkillList = { }
 	for arg in args:gmatch("%S+") do
@@ -86,6 +122,11 @@ end
 -- #limit <LimitVarName>
 directiveTable.limit = function(state, args, out)
 	state.limit = args
+end
+
+-- #hostile [true|false]
+directiveTable.hostile = function(state, args, out)
+	state.hostile = args
 end
 
 -- #mod <ModDecl>
@@ -159,6 +200,9 @@ directiveTable.emit = function(state, args, out)
 	if state.limit then
 		out:write('\tlimit = "', state.limit, '",\n')
 	end
+	if state.hostile then
+		out:write('\thostile = ', state.hostile, ',\n')
+	end
 	out:write('\tskillList = {\n')
 	for _, grantedEffect in ipairs(monsterVariety.GrantedEffects) do
 		out:write('\t\t"', grantedEffect.Id, '",\n')
@@ -174,6 +218,9 @@ directiveTable.emit = function(state, args, out)
 	end
 	for _, mod in ipairs(monsterVariety.SpecialMods) do
 		table.insert(modList, mod)
+	end
+	if monsterVariety.ObjectType and monsterVariety.ObjectType ~= "Metadata/Monsters/Monster"then
+		modList = getOTStats(monsterVariety.ObjectType, modList)
 	end
 	out:write('\tmodList = {\n')
 	for _, mod in ipairs(modList) do

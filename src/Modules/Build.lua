@@ -251,6 +251,13 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 					self.spec:AddUndoState()
 					self.spec:SetWindowTitleWithBuildClass()
 					self.buildFlag = true					
+				end, "Connect Path", function()
+					if self.spec:ConnectToClass(value.classId) then
+						self.spec:SelectClass(value.classId)
+						self.spec:AddUndoState()
+						self.spec:SetWindowTitleWithBuildClass()
+						self.buildFlag = true
+					end
 				end)
 			end
 		end
@@ -1535,7 +1542,10 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal, colorOverride)
 	end
 	
 	local valStr = s_format("%"..statData.fmt, val)
-	valStr:gsub("%.", main.decimalSeparator)
+	local number, suffix = valStr:match("^([%+%-]?%d+%.%d+)(%D*)$")
+	if number then
+		valStr = number:gsub("0+$", ""):gsub("%.$", "") .. suffix
+	end
 	valStr = color .. formatNumSep(valStr)
 
 	if overCapStatVal and overCapStatVal > 0 then
@@ -1737,6 +1747,10 @@ function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compare
 				local color = ((statData.lowerIsBetter and diff < 0) or (not statData.lowerIsBetter and diff > 0)) and colorCodes.POSITIVE or colorCodes.NEGATIVE
 				local val = diff * ((statData.pc or statData.mod) and 100 or 1)
 				local valStr = s_format("%+"..statData.fmt, val) -- Can't use self:FormatStat, because it doesn't have %+. Adding that would have complicated a simple function
+				local number, suffix = valStr:match("^([%+%-]?%d+%.%d+)(%D*)$")
+				if number then
+					valStr = number:gsub("0+$", ""):gsub("%.$", "") .. suffix
+				end
 
 				valStr = formatNumSep(valStr)
 
@@ -1807,7 +1821,7 @@ do
 			if int and (int > 14 or int > self.calcsTab.mainOutput.Int) then
 				t_insert(req, s_format("%s%d ^x7F7F7FInt", main:StatColor(int, intBase, self.calcsTab.mainOutput.Int), int))
 			end
-		end	
+		end
 		if req[1] then
 			local fontSizeBig = main.showFlavourText and 18 or 16
 			tooltip:AddLine(fontSizeBig, "^x7F7F7FRequires "..table.concat(req, "^x7F7F7F, "), "FONTIN SC")
@@ -1820,11 +1834,11 @@ end
 function buildMode:LoadDB(xmlText, fileName)
 	-- Parse the XML
 	local dbXML, errMsg = common.xml.ParseXML(xmlText)
-	if not dbXML then
-		launch:ShowErrMsg("^1Error loading '%s': %s", fileName, errMsg)
+	if errMsg and errMsg:match(".*file returns nil") then
+		main:OpenCloudErrorPopup(fileName)
 		return true
-	elseif #dbXML == 0 then
-		main:OpenMessagePopup("Error", "Build file is empty, or error parsing xml.\n\n"..fileName)
+	elseif errMsg then
+		launch:ShowErrMsg("^1"..errMsg)
 		return true
 	elseif dbXML[1].elem ~= "PathOfBuilding" then
 		launch:ShowErrMsg("^1Error parsing '%s': 'PathOfBuilding' root element missing", fileName)

@@ -2392,7 +2392,7 @@ skills["MonsterLightningArrow"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { levelRequirement = 9, },
+		[1] = { baseMultiplier = 0.625, levelRequirement = 9, },
 	},
 }
 skills["SkeletonArcherLightningArrow"] = {
@@ -4700,7 +4700,6 @@ skills["AtlasCrusaderJudgeBallLightning"] = {
 		spell = true,
 		hit = true,
 		triggerable = true,
-		area = true,
 		projectile = true,
 	},
 	constantStats = {
@@ -10436,7 +10435,7 @@ skills["AzmeriVikingCyclone"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { 41.666667597989, levelRequirement = 68, statInterpolation = { 3, }, },
+		[1] = { 41.666667597989, baseMultiplier = 0.625, levelRequirement = 68, statInterpolation = { 3, }, },
 	},
 }
 skills["AzmeriVikingUpheaval"] = {

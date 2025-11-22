@@ -16,44 +16,44 @@ local tempTable1 = { }
 
 -- Initialise modifier database with stats and conditions common to all actors
 function calcs.initModDB(env, modDB)
-	modDB:NewMod("FireResistMax", "BASE", 75, "Base")
-	modDB:NewMod("ColdResistMax", "BASE", 75, "Base")
-	modDB:NewMod("LightningResistMax", "BASE", 75, "Base")
-	modDB:NewMod("ChaosResistMax", "BASE", 75, "Base")
-	modDB:NewMod("TotemFireResistMax", "BASE", 75, "Base")
-	modDB:NewMod("TotemColdResistMax", "BASE", 75, "Base")
-	modDB:NewMod("TotemLightningResistMax", "BASE", 75, "Base")
-	modDB:NewMod("TotemChaosResistMax", "BASE", 75, "Base")
-	modDB:NewMod("BlockChanceMax", "BASE", 75, "Base")
-	modDB:NewMod("SpellBlockChanceMax", "BASE", 75, "Base")
+	modDB:NewMod("FireResistMax", "BASE", data.characterConstants["base_maximum_all_resistances_%"], "Base")
+	modDB:NewMod("ColdResistMax", "BASE", data.characterConstants["base_maximum_all_resistances_%"], "Base")
+	modDB:NewMod("LightningResistMax", "BASE", data.characterConstants["base_maximum_all_resistances_%"], "Base")
+	modDB:NewMod("ChaosResistMax", "BASE", data.characterConstants["base_maximum_all_resistances_%"], "Base")
+	modDB:NewMod("TotemFireResistMax", "BASE", data.characterConstants["base_maximum_all_resistances_%"], "Base")
+	modDB:NewMod("TotemColdResistMax", "BASE", data.characterConstants["base_maximum_all_resistances_%"], "Base")
+	modDB:NewMod("TotemLightningResistMax", "BASE", data.characterConstants["base_maximum_all_resistances_%"], "Base")
+	modDB:NewMod("TotemChaosResistMax", "BASE", data.characterConstants["base_maximum_all_resistances_%"], "Base")
+	modDB:NewMod("BlockChanceMax", "BASE", data.characterConstants["maximum_block_%"], "Base")
+	modDB:NewMod("SpellBlockChanceMax", "BASE", data.characterConstants["base_maximum_spell_block_%"], "Base")
 	modDB:NewMod("SpellDodgeChanceMax", "BASE", 75, "Base")
 	modDB:NewMod("ChargeDuration", "BASE", 10, "Base")
-	modDB:NewMod("PowerChargesMax", "BASE", 3, "Base")
-	modDB:NewMod("FrenzyChargesMax", "BASE", 3, "Base")
-	modDB:NewMod("EnduranceChargesMax", "BASE", 3, "Base")
+	modDB:NewMod("PowerChargesMax", "BASE", data.characterConstants["max_power_charges"], "Base")
+	modDB:NewMod("FrenzyChargesMax", "BASE", data.characterConstants["max_frenzy_charges"], "Base")
+	modDB:NewMod("EnduranceChargesMax", "BASE", data.characterConstants["max_endurance_charges"], "Base")
 	modDB:NewMod("SiphoningChargesMax", "BASE", 0, "Base")
 	modDB:NewMod("ChallengerChargesMax", "BASE", 0, "Base")
 	modDB:NewMod("BlitzChargesMax", "BASE", 0, "Base")
-	modDB:NewMod("InspirationChargesMax", "BASE", 5, "Base")
+	modDB:NewMod("InspirationChargesMax", "BASE", data.characterConstants["maximum_righteous_charges"], "Base")
 	modDB:NewMod("CrabBarriersMax", "BASE", 0, "Base")
 	modDB:NewMod("BrutalChargesMax", "BASE", 0, "Base")
 	modDB:NewMod("AbsorptionChargesMax", "BASE", 0, "Base")
 	modDB:NewMod("AfflictionChargesMax", "BASE", 0, "Base")
-	modDB:NewMod("BloodChargesMax", "BASE", 5, "Base")
-	modDB:NewMod("MaxLifeLeechRate", "BASE", 20, "Base")
-	modDB:NewMod("MaxManaLeechRate", "BASE", 20, "Base")
-	modDB:NewMod("ImpaleStacksMax", "BASE", 5, "Base")
+	modDB:NewMod("BloodChargesMax", "BASE", data.characterConstants["maximum_blood_scythe_charges"], "Base")
+	modDB:NewMod("MaxLifeLeechRate", "BASE", data.characterConstants["maximum_life_leech_rate_%_per_minute"] / 60, "Base")
+	modDB:NewMod("MaxManaLeechRate", "BASE", data.characterConstants["maximum_mana_leech_rate_%_per_minute"] / 60, "Base")
+	modDB:NewMod("ImpaleStacksMax", "BASE", data.characterConstants["impaled_debuff_number_of_reflected_hits"], "Base")
 	modDB:NewMod("BleedStacksMax", "BASE", 1, "Base")
 	modDB:NewMod("MaxEnergyShieldLeechRate", "BASE", 10, "Base")
-	modDB:NewMod("MaxLifeLeechInstance", "BASE", 10, "Base")
-	modDB:NewMod("MaxManaLeechInstance", "BASE", 10, "Base")
-	modDB:NewMod("MaxEnergyShieldLeechInstance", "BASE", 10, "Base")
+	modDB:NewMod("MaxLifeLeechInstance", "BASE", data.characterConstants["maximum_life_leech_amount_per_leech_%_max_life"] , "Base")
+	modDB:NewMod("MaxManaLeechInstance", "BASE", data.characterConstants["maximum_mana_leech_amount_per_leech_%_max_mana"], "Base")
+	modDB:NewMod("MaxEnergyShieldLeechInstance", "BASE", data.characterConstants["maximum_energy_shield_leech_amount_per_leech_%_max_energy_shield"], "Base")
 	modDB:NewMod("TrapThrowingTime", "BASE", 0.6, "Base")
 	modDB:NewMod("MineLayingTime", "BASE", 0.3, "Base")
 	modDB:NewMod("WarcryCastTime", "BASE", 0.8, "Base")
 	modDB:NewMod("TotemPlacementTime", "BASE", 0.6, "Base")
 	modDB:NewMod("BallistaPlacementTime", "BASE", 0.35, "Base")
-	modDB:NewMod("ActiveTotemLimit", "BASE", 1, "Base")
+	modDB:NewMod("ActiveTotemLimit", "BASE", data.characterConstants["base_number_of_totems_allowed"], "Base")
 	modDB:NewMod("ShockStacksMax", "BASE", 1, "Base")
 	modDB:NewMod("ScorchStacksMax", "BASE", 1, "Base")
 	modDB:NewMod("MovementSpeed", "INC", -30, "Base", { type = "Condition", var = "Maimed" })
@@ -468,14 +468,14 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 		modDB.multipliers["Level"] = m_max(1, m_min(100, build.characterLevel))
 		calcs.initModDB(env, modDB)
-		modDB:NewMod("Life", "BASE", 12, "Base", { type = "Multiplier", var = "Level", base = 38 })
-		modDB:NewMod("Mana", "BASE", 6, "Base", { type = "Multiplier", var = "Level", base = 34 })
-		modDB:NewMod("ManaRegen", "BASE", 0.0175, "Base", { type = "PerStat", stat = "Mana", div = 1 })
+		modDB:NewMod("Life", "BASE", data.characterConstants["life_per_level"], "Base", { type = "Multiplier", var = "Level", base = 38 })
+		modDB:NewMod("Mana", "BASE", data.characterConstants["mana_per_level"], "Base", { type = "Multiplier", var = "Level", base = 34 })
+		modDB:NewMod("ManaRegen", "BASE", env.data.misc.ManaRegenBase, "Base", { type = "PerStat", stat = "Mana", div = 1 })
 		modDB:NewMod("Devotion", "BASE", 0, "Base")
-		modDB:NewMod("Evasion", "BASE", 15, "Base")
-		modDB:NewMod("Accuracy", "BASE", 2, "Base", { type = "Multiplier", var = "Level", base = -2 })
-		modDB:NewMod("CritMultiplier", "BASE", 50, "Base")
-		modDB:NewMod("DotMultiplier", "BASE", 50, "Base", { type = "Condition", var = "CriticalStrike" })
+		modDB:NewMod("Evasion", "BASE", data.characterConstants["base_evasion_rating"], "Base")
+		modDB:NewMod("Accuracy", "BASE", data.characterConstants["accuracy_rating_per_level"], "Base", { type = "Multiplier", var = "Level", base = -data.characterConstants["accuracy_rating_per_level"] })
+		modDB:NewMod("CritMultiplier", "BASE", data.characterConstants["base_critical_strike_multiplier"] - 100, "Base")
+		modDB:NewMod("DotMultiplier", "BASE", data.characterConstants["critical_ailment_dot_multiplier_+"], "Base", { type = "Condition", var = "CriticalStrike" })
 		modDB:NewMod("FireResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
 		modDB:NewMod("ColdResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
 		modDB:NewMod("LightningResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
@@ -484,45 +484,46 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("TotemColdResist", "BASE", 40, "Base")
 		modDB:NewMod("TotemLightningResist", "BASE", 40, "Base")
 		modDB:NewMod("TotemChaosResist", "BASE", 20, "Base")
-		modDB:NewMod("CritChance", "INC", 50, "Base", { type = "Multiplier", var = "PowerCharge" })
-		modDB:NewMod("Speed", "INC", 4, "Base", ModFlag.Attack, { type = "Multiplier", var = "FrenzyCharge" })
-		modDB:NewMod("Speed", "INC", 4, "Base", ModFlag.Cast, { type = "Multiplier", var = "FrenzyCharge" })
-		modDB:NewMod("Damage", "MORE", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
-		modDB:NewMod("PhysicalDamageReduction", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
-		modDB:NewMod("ElementalDamageReduction", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
-		modDB:NewMod("MaximumRage", "BASE", 30, "Base")
+		modDB:NewMod("CritChance", "INC", data.characterConstants["critical_strike_chance_+%_per_power_charge"], "Base", { type = "Multiplier", var = "PowerCharge" })
+		modDB:NewMod("Speed", "INC", data.characterConstants["base_attack_speed_+%_per_frenzy_charge"], "Base", ModFlag.Attack, { type = "Multiplier", var = "FrenzyCharge" })
+		modDB:NewMod("Speed", "INC", data.characterConstants["base_cast_speed_+%_per_frenzy_charge"], "Base", ModFlag.Cast, { type = "Multiplier", var = "FrenzyCharge" })
+		modDB:NewMod("Damage", "MORE", data.characterConstants["object_inherent_damage_+%_final_per_frenzy_charge"], "Base", { type = "Multiplier", var = "FrenzyCharge" })
+		modDB:NewMod("PhysicalDamageReduction", "BASE", data.characterConstants["physical_damage_reduction_%_per_endurance_charge"], "Base", { type = "Multiplier", var = "EnduranceCharge" })
+		modDB:NewMod("ElementalDamageReduction", "BASE", data.characterConstants["elemental_damage_reduction_%_per_endurance_charge"], "Base", { type = "Multiplier", var = "EnduranceCharge" })
+		modDB:NewMod("MaximumRage", "BASE", data.characterConstants["maximum_rage"], "Base")
 		modDB:NewMod("Multiplier:GaleForce", "BASE", 0, "Base")
 		modDB:NewMod("MaximumGaleForce", "BASE", 10, "Base")
-		modDB:NewMod("MaximumFortification", "BASE", 20, "Base")
+		modDB:NewMod("MaximumFortification", "BASE", data.characterConstants["base_max_fortification"], "Base")
 		modDB:NewMod("MaximumValour", "BASE", 50, "Base")
-		modDB:NewMod("SoulEaterMax", "BASE", 45, "Base")
+		modDB:NewMod("SoulEaterMax", "BASE", data.characterConstants["soul_eater_maximum_stacks"], "Base")
 		modDB:NewMod("Multiplier:IntensityLimit", "BASE", 3, "Base")
-		modDB:NewMod("Damage", "INC", 2, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
-		modDB:NewMod("MovementSpeed", "INC", 1, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
+		modDB:NewMod("Damage", "INC", data.characterConstants["damage_+%_per_10_rampage_stacks"], "Base", { type = "Multiplier", var = "Rampage", limit = data.characterConstants["max_rampage_stacks"] / 20, div = 20 })
+		modDB:NewMod("MovementSpeed", "INC", data.characterConstants["movement_velocity_+%_per_10_rampage_stacks"], "Base", { type = "Multiplier", var = "Rampage", limit = data.characterConstants["max_rampage_stacks"] / 20, div = 20 })
 		modDB:NewMod("Speed", "INC", 5, "Base", ModFlag.Attack, { type = "Multiplier", var = "SoulEater"})
 		modDB:NewMod("Speed", "INC", 5, "Base", ModFlag.Cast, { type = "Multiplier", var = "SoulEater" })
-		modDB:NewMod("ActiveTrapLimit", "BASE", 15, "Base")
-		modDB:NewMod("ActiveMineLimit", "BASE", 15, "Base")
+		modDB:NewMod("ActiveTrapLimit", "BASE", data.characterConstants["base_number_of_traps_allowed"], "Base")
+		modDB:NewMod("ActiveMineLimit", "BASE", data.characterConstants["base_number_of_remote_mines_allowed"], "Base")
 		modDB:NewMod("MineThrowCount", "BASE", 1, "Base")
 		modDB:NewMod("TrapThrowCount", "BASE", 1, "Base")
 		modDB:NewMod("ActiveBrandLimit", "BASE", 3, "Base")
 		modDB:NewMod("EnemyCurseLimit", "BASE", 1, "Base")
 		modDB:NewMod("SocketedCursesHexLimitValue", "BASE", 1, "Base")
 		modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
-		modDB:NewMod("Speed", "MORE", 10, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "DoubledInherentDualWieldingSpeed", neg = true })
-		modDB:NewMod("Speed", "MORE", 20, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "DoubledInherentDualWieldingSpeed"})
-		modDB:NewMod("BlockChance", "BASE", 20, "Base", { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "NoInherentBlock", neg = true}, { type = "Condition", var = "DoubledInherentDualWieldingBlock", neg = true})
-		modDB:NewMod("BlockChance", "BASE", 40, "Base", { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "NoInherentBlock", neg = true}, { type = "Condition", var = "DoubledInherentDualWieldingBlock"})
+		modDB:NewMod("Speed", "MORE", data.characterConstants["dual_wield_inherent_attack_speed_+%_final"], "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "DoubledInherentDualWieldingSpeed", neg = true })
+		modDB:NewMod("Speed", "MORE", 2 * data.characterConstants["dual_wield_inherent_attack_speed_+%_final"], "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "DoubledInherentDualWieldingSpeed"})
+		modDB:NewMod("BlockChance", "BASE", data.characterConstants["inherent_block_while_dual_wielding_%"], "Base", { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "NoInherentBlock", neg = true}, { type = "Condition", var = "DoubledInherentDualWieldingBlock", neg = true})
+		modDB:NewMod("BlockChance", "BASE", 2 * data.characterConstants["inherent_block_while_dual_wielding_%"], "Base", { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "NoInherentBlock", neg = true}, { type = "Condition", var = "DoubledInherentDualWieldingBlock"})
 		modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" }, { type = "Condition", var = "NoExtraBleedDamageToMovingEnemy", neg = true })
 		modDB:NewMod("Condition:BloodStance", "FLAG", true, "Base", { type = "Condition", var = "SandStance", neg = true })
 		modDB:NewMod("Condition:PrideMinEffect", "FLAG", true, "Base", { type = "Condition", var = "PrideMaxEffect", neg = true })
-		modDB:NewMod("PerBrutalTripleDamageChance", "BASE", 3, "Base")
-		modDB:NewMod("PerAfflictionAilmentDamage", "BASE", 8, "Base")
-		modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", 8, "Base")
-		modDB:NewMod("PerAbsorptionElementalEnergyShieldRecoup", "BASE", 12, "Base")
+		modDB:NewMod("PerBrutalTripleDamageChance", "BASE", data.characterConstants["chance_to_deal_triple_damage_%_per_brutal_charge"], "Base")
+		modDB:NewMod("PerAfflictionAilmentDamage", "BASE", data.characterConstants["ailment_damage_+%_final_per_affliction_charge"], "Base")
+		modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", data.characterConstants["non_damaging_ailment_effect_+%_final_per_affliction_charge"], "Base")
+		modDB:NewMod("PerAbsorptionElementalEnergyShieldRecoup", "BASE", data.characterConstants["elemental_damage_taken_goes_to_energy_shield_over_4_seconds_%_per_absorption_charge"], "Base")
 		modDB:NewMod("TinctureLimit", "BASE", 1, "Base")
 		modDB:NewMod("ManaDegenPercent", "BASE", 1, "Base", { type = "Multiplier", var = "EffectiveManaBurnStacks" })
 		modDB:NewMod("LifeDegenPercent", "BASE", 1, "Base", { type = "Multiplier", var = "WeepingWoundsStacks" })
+		modDB:NewMod("PresenceRadius", "BASE", data.characterConstants["base_presence_radius"], "Base")
 
 		-- Add bandit mods
 		if env.configInput.bandit == "Alira" then
@@ -1039,8 +1040,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 						if otherRing.elder or otherRing.shaper then
 							env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) + 1
 						end
+						-- Esh of the Storm, Tul of the Blizzard
+						local otherRingKey = otherRing.baseName:gsub(" ", "").."Equipped"
+						if otherRingKey then
+							env.itemModDB.multipliers[otherRingKey] = (env.itemModDB.multipliers[otherRingKey] or 0) + 1
+						end
 					end
-
 					-- Only ExtraSkill implicit mods work (none should but this is likely an in game bug)
 					for _, mod in ipairs(srcList) do
 						if mod.name == "ExtraSkill" then
@@ -1094,10 +1099,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 				if item.classRestriction then
 					env.itemModDB.conditions[item.title:gsub(" ", "")] = item.classRestriction
 				end
-				if item.type ~= "Jewel" and item.type ~= "Flask" and item.type ~= "Tincture" then
+				if item.type ~= "Jewel" and item.type ~= "Flask" and item.type ~= "Tincture" and item.type ~= "Graft" then
 					-- Update item counts
 					local key
 					if item.rarity == "UNIQUE" or item.rarity == "RELIC" then
+						if item.foulborn then
+							env.itemModDB.multipliers["FoulbornUniqueItem"] = (env.itemModDB.multipliers["FoulbornUniqueItem"] or 0) + 1
+						end
 						key = "UniqueItem"
 					elseif item.rarity == "RARE" then
 						key = "RareItem"
@@ -1119,6 +1127,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 						env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) + 1
 					end
 					env.itemModDB.multipliers[item.type:gsub(" ", ""):gsub(".+Handed", "").."Item"] = (env.itemModDB.multipliers[item.type:gsub(" ", ""):gsub(".+Handed", "").."Item"] or 0) + 1
+					-- base ring count, e.g. Cryonic, Synaptic for Breachlord Esh of the Storm, Tul of the Blizzard
+					if item.type == "Ring" then
+						local key = item.baseName:gsub(" ", "").."Equipped"
+						env.itemModDB.multipliers[key] = (env.itemModDB.multipliers[key] or 0) + 1
+					end
 					-- Calculate socket counts
 					local slotEmptySocketsCount = { R = 0, G = 0, B = 0, W = 0}	
 					local slotGemSocketsCount = 0
@@ -1476,6 +1489,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 								supportEffect.gemCfg.socketColor = socketedIn and socketedIn.color
 								supportEffect.gemCfg.socketNum = gemIndex
 								applyGemMods(supportEffect, socketedIn and env.modDB:Tabulate("LIST", supportEffect.gemCfg, "GemProperty") or propertyModList)
+								gemInstance.reqOverride = supportEffect.req
 								if not processedSockets[gemInstance] then
 									processedSockets[gemInstance] = true
 									applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex, playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].name)
@@ -1541,6 +1555,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 									activeEffect.gemCfg.socketColor = socketedIn and socketedIn.color
 									activeEffect.gemCfg.socketNum = gemIndex
 									applyGemMods(activeEffect, socketedIn and env.modDB:Tabulate("LIST", activeEffect.gemCfg, "GemProperty") or propertyModList)
+									gemInstance.reqOverride = activeEffect.req
 									if not processedSockets[gemInstance] then
 										processedSockets[gemInstance] = true
 										applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex, playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].name)
@@ -1563,10 +1578,14 @@ function calcs.initEnv(build, mode, override, specEnv)
 										if supportLists[slotName] then
 											-- add socketed supports from other socketGroups
 											for _, otherSocketGroup in ipairs(build.skillsTab.socketGroupList) do
-												if otherSocketGroup.slot and otherSocketGroup.slot == group.slot then
+												if otherSocketGroup.slot and otherSocketGroup.slot == group.slot and not (otherSocketGroup.source and otherSocketGroup.source == group.source) then
 													for _, gem in ipairs(otherSocketGroup.gemList) do
-														if gem.gemData and gem.gemData.grantedEffect and gem.gemData.grantedEffect.support then
-															t_insert(group.displayGemList, gem)
+														if gem.gemData and gem.gemData.grantedEffectList then
+															for _, grantedEffect in ipairs(gem.gemData.grantedEffectList) do
+																if grantedEffect.support then
+																	t_insert(group.displayGemList, gem)
+																end
+															end
 														end
 													end
 												end
@@ -1612,9 +1631,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 							t_insert(env.requirementsTableGems, {
 								source = "Gem",
 								sourceGem = gemInstance,
-								Str = gemInstance.reqStr,
-								Dex = gemInstance.reqDex,
-								Int = gemInstance.reqInt,
+								Str = gemInstance.reqOverride or gemInstance.reqStr,
+								Dex = gemInstance.reqOverride or gemInstance.reqDex,
+								Int = gemInstance.reqOverride or gemInstance.reqInt,
 							})
 						end
 					end

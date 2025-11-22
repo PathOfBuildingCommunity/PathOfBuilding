@@ -72,7 +72,7 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 
 	-- Calculate conversions
 	local addMin, addMax = 0, 0
-	local conversionTable = activeSkill.conversionTable
+	local conversionTable = (cfg and cfg.conversionTable) or activeSkill.conversionTable
 	for _, otherType in ipairs(dmgTypeList) do
 		if otherType == damageType then
 			-- Damage can only be converted from damage types that precede this one in the conversion sequence, so stop here
@@ -140,7 +140,8 @@ end
 
 local function calcAilmentSourceDamage(activeSkill, output, cfg, breakdown, damageType, typeFlags)
 	local min, max = calcDamage(activeSkill, output, cfg, breakdown, damageType, typeFlags)
-	local convMult = activeSkill.conversionTable[damageType].mult
+	local conversionTable = (cfg and cfg.conversionTable) or activeSkill.conversionTable
+	local convMult = conversionTable[damageType].mult
 	if breakdown and convMult ~= 1 then
 		t_insert(breakdown, "Source damage:")
 		t_insert(breakdown, s_format("%d to %d ^8(total damage)", min, max))
@@ -602,7 +603,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-	if skillModList:Flag(nil, "SpellDamageAppliesToAttacks") then
+	if skillModList:Flag(nil, "SpellDamageAppliesToAttacks") or skillModList:Flag(skillCfg, "SpellDamageAppliesToAttacks") then
 		-- Spell Damage conversion from Crown of Eyes, Kinetic Bolt, and the Wandslinger notable
 		local multiplier = (skillModList:Max(skillCfg, "ImprovedSpellDamageAppliesToAttacks") or 100) / 100
 		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Spell }, "Damage")) do
@@ -753,7 +754,7 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod("AreaOfEffect", "INC", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 		end
 	end
-	if skillModList:Flag(nil, "SequentialProjectiles") and not skillModList:Flag(nil, "OneShotProj") and not skillModList:Flag(nil,"NoAdditionalProjectiles") and not skillModList:Flag(nil, "TriggeredBySnipe") then
+	if skillModList:Flag(nil, "SequentialProjectiles") and not skillModList:Flag(nil, "OneShotProj") and not skillModList:Flag(nil,"NoAdditionalProjectiles") and not skillModList:Flag(nil,"SingleProjectile") and not skillModList:Flag(nil, "TriggeredBySnipe") then
 		-- Applies DPS multiplier based on projectile count
 		skillData.dpsMultiplier = skillModList:Sum("BASE", skillCfg, "ProjectileCount")
 	end
@@ -916,49 +917,61 @@ function calcs.offence(env, actor, activeSkill)
 			})
 		end
 	end
-	if skillModList:Sum("BASE", skillCfg, "PhysicalDamageGainAsRandom", "PhysicalDamageConvertToRandom", "PhysicalDamageGainAsColdOrLightning") > 0 then
-		skillFlags.randomPhys = true
-		local physMode = env.configInput.physMode or "AVERAGE"
-		for i, value in ipairs(skillModList:Tabulate("BASE", skillCfg, "PhysicalDamageGainAsRandom")) do
-			local mod = value.mod
-			local effVal = mod.value / 3
-			if physMode == "AVERAGE" then
-				skillModList:NewMod("PhysicalDamageGainAsFire", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-				skillModList:NewMod("PhysicalDamageGainAsCold", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-				skillModList:NewMod("PhysicalDamageGainAsLightning", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-			elseif physMode == "FIRE" then
-				skillModList:NewMod("PhysicalDamageGainAsFire", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-			elseif physMode == "COLD" then
-				skillModList:NewMod("PhysicalDamageGainAsCold", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-			elseif physMode == "LIGHTNING" then
-				skillModList:NewMod("PhysicalDamageGainAsLightning", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+	local physMode = env.configInput.physMode or "AVERAGE"
+	local processedRandomMods = { }
+	for _, cfg in ipairs({ skillCfg, activeSkill.weapon1Cfg, activeSkill.weapon2Cfg }) do
+		if cfg and skillModList:Sum("BASE", cfg, "PhysicalDamageGainAsRandom", "PhysicalDamageConvertToRandom", "PhysicalDamageGainAsColdOrLightning") > 0 then
+			skillFlags.randomPhys = true
+			for _, value in ipairs(skillModList:Tabulate("BASE", cfg, "PhysicalDamageGainAsRandom")) do
+				local mod = value.mod
+				if not processedRandomMods[mod] then
+					processedRandomMods[mod] = true
+					local effVal = mod.value / 3
+					if physMode == "AVERAGE" then
+						skillModList:NewMod("PhysicalDamageGainAsFire", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+						skillModList:NewMod("PhysicalDamageGainAsCold", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+						skillModList:NewMod("PhysicalDamageGainAsLightning", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+					elseif physMode == "FIRE" then
+						skillModList:NewMod("PhysicalDamageGainAsFire", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+					elseif physMode == "COLD" then
+						skillModList:NewMod("PhysicalDamageGainAsCold", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+					elseif physMode == "LIGHTNING" then
+						skillModList:NewMod("PhysicalDamageGainAsLightning", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+					end
+				end
 			end
-		end
-		for i, value in ipairs(skillModList:Tabulate("BASE", skillCfg, "PhysicalDamageConvertToRandom")) do
-			local mod = value.mod
-			local effVal = mod.value / 3
-			if physMode == "AVERAGE" then
-				skillModList:NewMod("PhysicalDamageConvertToFire", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-				skillModList:NewMod("PhysicalDamageConvertToCold", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-				skillModList:NewMod("PhysicalDamageConvertToLightning", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-			elseif physMode == "FIRE" then
-				skillModList:NewMod("PhysicalDamageConvertToFire", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-			elseif physMode == "COLD" then
-				skillModList:NewMod("PhysicalDamageConvertToCold", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-			elseif physMode == "LIGHTNING" then
-				skillModList:NewMod("PhysicalDamageConvertToLightning", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			for _, value in ipairs(skillModList:Tabulate("BASE", cfg, "PhysicalDamageConvertToRandom")) do
+				local mod = value.mod
+				if not processedRandomMods[mod] then
+					processedRandomMods[mod] = true
+					local effVal = mod.value / 3
+					if physMode == "AVERAGE" then
+						skillModList:NewMod("PhysicalDamageConvertToFire", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+						skillModList:NewMod("PhysicalDamageConvertToCold", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+						skillModList:NewMod("PhysicalDamageConvertToLightning", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+					elseif physMode == "FIRE" then
+						skillModList:NewMod("PhysicalDamageConvertToFire", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+					elseif physMode == "COLD" then
+						skillModList:NewMod("PhysicalDamageConvertToCold", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+					elseif physMode == "LIGHTNING" then
+						skillModList:NewMod("PhysicalDamageConvertToLightning", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+					end
+				end
 			end
-		end
-		for i, value in ipairs(skillModList:Tabulate("BASE", skillCfg, "PhysicalDamageGainAsColdOrLightning")) do
-			local mod = value.mod
-			local effVal = mod.value / 2
-			if physMode == "AVERAGE" or physMode == "FIRE" then
-				skillModList:NewMod("PhysicalDamageGainAsCold", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-				skillModList:NewMod("PhysicalDamageGainAsLightning", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-			elseif physMode == "COLD" then
-				skillModList:NewMod("PhysicalDamageGainAsCold", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-			elseif physMode == "LIGHTNING" then
-				skillModList:NewMod("PhysicalDamageGainAsLightning", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			for _, value in ipairs(skillModList:Tabulate("BASE", cfg, "PhysicalDamageGainAsColdOrLightning")) do
+				local mod = value.mod
+				if not processedRandomMods[mod] then
+					processedRandomMods[mod] = true
+					local effVal = mod.value / 2
+					if physMode == "AVERAGE" or physMode == "FIRE" then
+						skillModList:NewMod("PhysicalDamageGainAsCold", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+						skillModList:NewMod("PhysicalDamageGainAsLightning", "BASE", effVal, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+					elseif physMode == "COLD" then
+						skillModList:NewMod("PhysicalDamageGainAsCold", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+					elseif physMode == "LIGHTNING" then
+						skillModList:NewMod("PhysicalDamageGainAsLightning", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+					end
+				end
 			end
 		end
 	end
@@ -997,7 +1010,8 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.ChainMax = skillModList:Sum("BASE", skillCfg, "ChainCountMax", not skillFlags.projectile and "BeamChainCountMax" or nil)
 			if skillModList:Flag(skillCfg, "AdditionalProjectilesAddChainsInstead") then
-				output.ChainMax = output.ChainMax + m_floor((skillModList:Sum("BASE", skillCfg, "ProjectileCount") - 1) * skillModList:More(skillCfg, "ProjectileCount"))
+				local projCount = skillModList:Flag(skillCfg, "SingleProjectile") and 0 or m_floor((skillModList:Sum("BASE", skillCfg, "ProjectileCount") - 1) * skillModList:More(skillCfg, "ProjectileCount"))
+				output.ChainMax = output.ChainMax + projCount
 			end
 			output.ChainMaxString = output.ChainMax
 			output.Chain = m_min(output.ChainMax, skillModList:Sum("BASE", skillCfg, "ChainCount"))
@@ -1011,7 +1025,7 @@ function calcs.offence(env, actor, activeSkill)
 		if skillModList:Flag(nil, "FarShot") then
 			skillModList:NewMod("Damage", "MORE", 100, "Far Shot", bor(ModFlag.Attack, ModFlag.Projectile), { type = "DistanceRamp", ramp = {{10, -0.2}, {25, 0}, {70, 0.6}} })
 		end
-		if skillModList:Flag(skillCfg, "NoAdditionalProjectiles") then
+		if skillModList:Flag(skillCfg, "NoAdditionalProjectiles") or skillModList:Flag(skillCfg, "SingleProjectile") then
 			output.ProjectileCount = 1
 		else
 			local projMin = skillModList:Sum("BASE", skillCfg, "ProjectileCountMinimum")
@@ -1020,7 +1034,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.ProjectileCount = m_max(m_floor(projBase * projMore), projMin)
 		end
 		if skillModList:Flag(skillCfg, "AdditionalProjectilesAddBouncesInstead") then
-			local projBase = skillModList:Sum("BASE", skillCfg, "ProjectileCount") + skillModList:Sum("BASE", skillCfg, "BounceCount") - 1
+			local projBase = skillModList:Flag(skillCfg, "SingleProjectile") and 0 or skillModList:Sum("BASE", skillCfg, "ProjectileCount") + skillModList:Sum("BASE", skillCfg, "BounceCount") - 1
 			local projMore = skillModList:More(skillCfg, "ProjectileCount")
 			output.BounceCount = m_floor(projBase * projMore)
 		end
@@ -1034,7 +1048,8 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.SplitCount = skillModList:Sum("BASE", skillCfg, "SplitCount") + enemyDB:Sum("BASE", skillCfg, "SelfSplitCount")
 			if skillModList:Flag(skillCfg, "AdditionalProjectilesAddSplitsInstead") then
-				output.SplitCount = output.SplitCount + m_floor((skillModList:Sum("BASE", skillCfg, "ProjectileCount") - 1) * skillModList:More(skillCfg, "ProjectileCount"))
+				local addedSplits = skillModList:Flag(skillCfg, "SingleProjectile") and 0 or m_floor((skillModList:Sum("BASE", skillCfg, "ProjectileCount") - 1) * skillModList:More(skillCfg, "ProjectileCount"))
+				output.SplitCount = output.SplitCount + addedSplits
 			end
 			if skillModList:Flag(skillCfg, "AdditionalChainsAddSplitsInstead") then
 				output.SplitCount = output.SplitCount + skillModList:Sum("BASE", skillCfg, "ChainCountMax")
@@ -1559,6 +1574,24 @@ function calcs.offence(env, actor, activeSkill)
 			t_insert(breakdown.TotemDuration, s_format("rounded up to nearest server tick"))
 			t_insert(breakdown.TotemDuration, s_format("= %.3fs", output.TotemDuration))
 		end
+		output.ImpaleDurationMod = calcLib.mod(skillModList, skillCfg, "ImpaleDuration")
+		output.ImpaleDurationMod = m_max(output.ImpaleDurationMod, 0)
+		local ImpaleDurationBase = data.characterConstants["impaled_debuff_base_duration_ms"] / 1000
+		output.ImpaleDuration = m_ceil(ImpaleDurationBase * output.ImpaleDurationMod * data.misc.ServerTickRate * debuffDurationMult) / data.misc.ServerTickRate
+		if breakdown then
+			breakdown.ImpaleDurationMod = breakdown.mod(skillModList, skillCfg, "ImpaleDuration")
+			breakdown.ImpaleDuration = {
+				s_format("%.2fs ^8(base)", ImpaleDurationBase),
+			}
+			if debuffDurationMult ~= 1 then
+				t_insert(breakdown.ImpaleDuration, s_format("/ %.3f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+			end
+			if output.ImpaleDurationMod ~= 1 then
+				t_insert(breakdown.ImpaleDuration, s_format("x %.4f ^8(duration modifier)", output.ImpaleDurationMod))
+			end
+			t_insert(breakdown.ImpaleDuration, s_format("rounded up to nearest server tick"))
+			t_insert(breakdown.ImpaleDuration, s_format("= %.3fs", output.ImpaleDuration))
+		end
 	end
 
 	-- Skill uptime
@@ -1801,49 +1834,60 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	-- Calculate damage conversion percentages
-	activeSkill.conversionTable = wipeTable(activeSkill.conversionTable)
-	for damageTypeIndex = 1, 4 do
-		local damageType = dmgTypeList[damageTypeIndex]
-		local globalConv = wipeTable(tempTable1)
-		local skillConv = wipeTable(tempTable2)
-		local add = wipeTable(tempTable3)
-		local globalTotal, skillTotal = 0, 0
-		for otherTypeIndex = damageTypeIndex + 1, 5 do
-			-- For all possible destination types, check for global and skill conversions
-			local otherType = dmgTypeList[otherTypeIndex]
-			globalConv[otherType] = m_max(skillModList:Sum("BASE", skillCfg, damageType.."DamageConvertTo"..otherType, isElemental[damageType] and "ElementalDamageConvertTo"..otherType or nil, damageType ~= "Chaos" and "NonChaosDamageConvertTo"..otherType or nil), 0)
-			globalTotal = globalTotal + globalConv[otherType]
-			skillConv[otherType] = m_max(skillModList:Sum("BASE", skillCfg, "Skill"..damageType.."DamageConvertTo"..otherType), 0)
-			skillTotal = skillTotal + skillConv[otherType]
-			add[otherType] = m_max(skillModList:Sum("BASE", skillCfg, damageType.."DamageGainAs"..otherType, isElemental[damageType] and "ElementalDamageGainAs"..otherType or nil, damageType ~= "Chaos" and "NonChaosDamageGainAs"..otherType or nil), 0)
-		end
-		if skillTotal > 100 then
-			-- Skill conversion exceeds 100%, scale it down and remove non-skill conversions
-			local factor = 100 / skillTotal
-			for type, val in pairs(skillConv) do
-				skillConv[type] = val * factor
+	local function buildConversionTable(cfg)
+		local conversionTable = { }
+		for damageTypeIndex = 1, 4 do
+			local damageType = dmgTypeList[damageTypeIndex]
+			local globalConv = wipeTable(tempTable1)
+			local skillConv = wipeTable(tempTable2)
+			local add = wipeTable(tempTable3)
+			local globalTotal, skillTotal = 0, 0
+			for otherTypeIndex = damageTypeIndex + 1, 5 do
+				-- For all possible destination types, check for global and skill conversions
+				local otherType = dmgTypeList[otherTypeIndex]
+				globalConv[otherType] = m_max(skillModList:Sum("BASE", cfg, damageType.."DamageConvertTo"..otherType, isElemental[damageType] and "ElementalDamageConvertTo"..otherType or nil, damageType ~= "Chaos" and "NonChaosDamageConvertTo"..otherType or nil), 0)
+				globalTotal = globalTotal + globalConv[otherType]
+				skillConv[otherType] = m_max(skillModList:Sum("BASE", cfg, "Skill"..damageType.."DamageConvertTo"..otherType), 0)
+				skillTotal = skillTotal + skillConv[otherType]
+				add[otherType] = m_max(skillModList:Sum("BASE", cfg, damageType.."DamageGainAs"..otherType, isElemental[damageType] and "ElementalDamageGainAs"..otherType or nil, damageType ~= "Chaos" and "NonChaosDamageGainAs"..otherType or nil), 0)
 			end
-			for type, val in pairs(globalConv) do
-				globalConv[type] = 0
+			if skillTotal > 100 then
+				-- Skill conversion exceeds 100%, scale it down and remove non-skill conversions
+				local factor = 100 / skillTotal
+				for type, val in pairs(skillConv) do
+					skillConv[type] = val * factor
+				end
+				for type, val in pairs(globalConv) do
+					globalConv[type] = 0
+				end
+			elseif globalTotal + skillTotal > 100 then
+				-- Conversion exceeds 100%, scale down non-skill conversions
+				local factor = (100 - skillTotal) / globalTotal
+				for type, val in pairs(globalConv) do
+					globalConv[type] = val * factor
+				end
+				globalTotal = globalTotal * factor
 			end
-		elseif globalTotal + skillTotal > 100 then
-			-- Conversion exceeds 100%, scale down non-skill conversions
-			local factor = (100 - skillTotal) / globalTotal
-			for type, val in pairs(globalConv) do
-				globalConv[type] = val * factor
+			local dmgTable = { conversion = { }, gain = { } }
+			for type in pairs(globalConv) do
+				dmgTable.conversion[type] = (globalConv[type] + skillConv[type]) / 100
+				dmgTable.gain[type] = add[type] / 100
+				dmgTable[type] = (globalConv[type] + skillConv[type] + add[type]) / 100
 			end
-			globalTotal = globalTotal * factor
+			dmgTable.mult = 1 - m_min((globalTotal + skillTotal) / 100, 1)
+			conversionTable[damageType] = dmgTable
 		end
-		local dmgTable = { conversion = { }, gain = { } }
-		for type in pairs(globalConv) do
-			dmgTable.conversion[type] = (globalConv[type] + skillConv[type]) / 100
-			dmgTable.gain[type] = add[type] / 100
-			dmgTable[type] = (globalConv[type] + skillConv[type] + add[type]) / 100
-		end
-		dmgTable.mult = 1 - m_min((globalTotal + skillTotal) / 100, 1)
-		activeSkill.conversionTable[damageType] = dmgTable
+		conversionTable["Chaos"] = { mult = 1 }
+		return conversionTable
 	end
-	activeSkill.conversionTable["Chaos"] = { mult = 1 }
+
+	activeSkill.conversionTable = buildConversionTable(skillCfg)
+	if activeSkill.weapon1Cfg then
+		activeSkill.weapon1Cfg.conversionTable = buildConversionTable(activeSkill.weapon1Cfg)
+	end
+	if activeSkill.weapon2Cfg then
+		activeSkill.weapon2Cfg.conversionTable = buildConversionTable(activeSkill.weapon2Cfg)
+	end
 
 	-- Configure damage passes
 	local passList = { }
@@ -2857,11 +2901,13 @@ function calcs.offence(env, actor, activeSkill)
 				if skillModList:Flag(skillCfg, "ExtremeLuck") then
 					critRolls = critRolls * 2
 				end
-				if skillModList:Flag(skillCfg, "Unexciting") then
-					critRolls = 0
-				end
 				if critRolls ~= 0 then
-					output.CritChance = (1 - (1 - output.CritChance / 100) ^ (critRolls + 1)) * 100
+					if modDB:Flag(nil, "Unexciting") then
+						-- Unexciting rolls three times and keeps the median result -> 3p^2 - 2p^3
+						output.CritChance = (3 * (output.CritChance / 100) ^ 2 - 2 * (output.CritChance / 100) ^ 3) * 100
+					else
+						output.CritChance = (1 - (1 - output.CritChance / 100) ^ (critRolls + 1)) * 100
+					end
 				end
 				local preHitCheckCritChance = output.CritChance
 				local preSkillUseCritChance= output.CritChance
@@ -2896,8 +2942,13 @@ function calcs.offence(env, actor, activeSkill)
 					end
 					if env.mode_effective and (critRolls ~= 0 or skillModList:Flag(skillCfg, "Every3UseCrit") or skillModList:Flag(skillCfg, "Every5UseCrit")) then
 						if critRolls ~= 0 then
-							t_insert(breakdown.CritChance, "Crit Chance is Lucky:")
-							t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f)^ %d", preLuckyCritChance / 100, critRolls + 1))
+							if skillModList:Flag(skillCfg, "Unexciting") then
+								t_insert(breakdown.CritChance, "Crit Chance is Unexciting:")
+								t_insert(breakdown.CritChance, s_format("(3 x %.4f^ 2) - (2 x %.4f^ 3)", preLuckyCritChance / 100, preLuckyCritChance / 100))
+							else
+								t_insert(breakdown.CritChance, "Crit Chance is Lucky:")
+								t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f)^ %d", preLuckyCritChance / 100, critRolls + 1))
+							end
 						end
 						if skillModList:Flag(skillCfg, "Every3UseCrit") then
 							t_insert(breakdown.CritChance, s_format("+ %.2f%% ^8(crit every 3rd use)", (2 * preSkillUseCritChance + 100) / 3 - preSkillUseCritChance))
@@ -3057,7 +3108,8 @@ function calcs.offence(env, actor, activeSkill)
 				local damageTypeHitMin, damageTypeHitMax, damageTypeHitAvg, damageTypeLuckyChance, damageTypeHitAvgLucky, damageTypeUnluckyChance, damageTypeHitAvgUnlucky, damageTypeHitAvgNotLucky = 0, 0, 0, 0, 0, 0, 0
 				if skillFlags.hit and canDeal[damageType] then
 					damageTypeHitMin, damageTypeHitMax = calcDamage(activeSkill, output, cfg, pass == 2 and breakdown and breakdown[damageType], damageType, 0)
-					local convMult = activeSkill.conversionTable[damageType].mult
+					local conversionTable = (cfg and cfg.conversionTable) or activeSkill.conversionTable
+					local convMult = conversionTable[damageType].mult
 					if pass == 2 and breakdown then
 						t_insert(breakdown[damageType], "Hit damage:")
 						t_insert(breakdown[damageType], s_format("%d to %d ^8(total damage)", damageTypeHitMin, damageTypeHitMax))
@@ -3103,6 +3155,8 @@ function calcs.offence(env, actor, activeSkill)
 					or (pass == 1 and skillModList:Flag(skillCfg, "CritLucky"))
 					or (damageType == "Lightning" and modDB:Flag(nil, "LightningLuckHits"))
 					or (damageType == "Chaos" and modDB:Flag(nil, "ChaosLuckyHits"))
+					or (damageType == "Fire" and modDB:Flag(nil, "FireLuckyHits"))
+					or (damageType == "Cold" and modDB:Flag(nil, "ColdLuckyHits"))
 					or ((damageType == "Lightning" or damageType == "Cold" or damageType == "Fire") and skillModList:Flag(skillCfg, "ElementalLuckHits")) then
 						damageTypeLuckyChance = 1
 					else
@@ -3128,7 +3182,7 @@ function calcs.offence(env, actor, activeSkill)
 					damageTypeHitAvgUnlucky = ((rolls - 1) * damageTypeHitMin / rolls + damageTypeHitMax / rolls)
 					if damageTypeLuckyChance >= 0 then
 						damageTypeHitAvg = damageTypeHitAvgNotLucky * (1 - damageTypeLuckyChance) + damageTypeHitAvgLucky * damageTypeLuckyChance
-						else
+					else
 						damageTypeHitAvg = damageTypeHitAvgNotLucky * (1 - m_abs(damageTypeLuckyChance)) + damageTypeHitAvgUnlucky * m_abs(damageTypeLuckyChance)
 					end
 					if (damageTypeHitMin ~= 0 or damageTypeHitMax ~= 0) and env.mode_effective then
@@ -3162,7 +3216,7 @@ function calcs.offence(env, actor, activeSkill)
 							if skillModList:Flag(cfg, "IgnoreEnemyPhysicalDamageReduction") or ChanceToIgnoreEnemyPhysicalDamageReduction >= 100 then
 								resist = 0
 							else
-								resist = m_min(m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyPhysicalDamageReduction") + armourReduction), data.misc.DamageReductionCap)
+								resist = m_min(m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyPhysicalDamageReduction") + armourReduction), data.misc.EnemyPhysicalDamageReductionCap)
 								resist = resist > 0 and resist * (1 - (skillModList:Sum("BASE", nil, "PartialIgnoreEnemyPhysicalDamageReduction") / 100 + ChanceToIgnoreEnemyPhysicalDamageReduction / 100)) or resist
 							end
 						else
@@ -4168,7 +4222,7 @@ function calcs.offence(env, actor, activeSkill)
 				skillFlags.duration = true
 				local effMult = 1
 				if env.mode_effective then
-					local resist = m_min(m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction")), data.misc.DamageReductionCap)
+					local resist = m_min(m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction")), data.misc.EnemyPhysicalDamageReductionCap)
 					local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "PhysicalDamageTaken", "PhysicalDamageTakenOverTime")
 					local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "PhysicalDamageTaken", "PhysicalDamageTakenOverTime")
 					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
@@ -5173,7 +5227,7 @@ function calcs.offence(env, actor, activeSkill)
 
 			local enemyArmour = m_max(calcLib.val(enemyDB, "Armour"), 0)
 			local impaleArmourReduction = calcs.armourReductionF(enemyArmour, impaleHitDamageMod * output.impaleStoredHitAvg)
-			local impaleResist = m_min(m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyImpalePhysicalDamageReduction") + impaleArmourReduction), data.misc.DamageReductionCap)
+			local impaleResist = m_min(m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyImpalePhysicalDamageReduction") + impaleArmourReduction), data.misc.EnemyPhysicalDamageReductionCap)
 			if skillModList:Flag(cfg, "IgnoreEnemyImpalePhysicalDamageReduction") then
 				impaleResist = 0
 			end
@@ -5386,7 +5440,7 @@ function calcs.offence(env, actor, activeSkill)
 				local takenInc = enemyDB:Sum("INC", dotTakenCfg, "DamageTaken", "DamageTakenOverTime", damageType.."DamageTaken", damageType.."DamageTakenOverTime") + (isElemental[damageType] and enemyDB:Sum("INC", dotTakenCfg, "ElementalDamageTaken") or 0)
 				local takenMore = enemyDB:More(dotTakenCfg, "DamageTaken", "DamageTakenOverTime", damageType.."DamageTaken", damageType.."DamageTakenOverTime") * (isElemental[damageType] and enemyDB:More(dotTakenCfg, "ElementalDamageTaken") or 1)
 				if damageType == "Physical" then
-					resist = m_max(0, m_min(enemyDB:Sum("BASE", nil, "PhysicalDamageReduction"), data.misc.DamageReductionCap))
+					resist = m_max(0, m_min(enemyDB:Sum("BASE", nil, "PhysicalDamageReduction"), data.misc.EnemyPhysicalDamageReductionCap))
 				else
 					resist = calcResistForType(damageType, dotTypeCfg)
 				end
@@ -5495,7 +5549,8 @@ function calcs.offence(env, actor, activeSkill)
 			elseif skillFlags.totem then
 				useSpeed = (output.Cooldown and output.Cooldown > 0 and (output.TotemPlacementSpeed > 0 and output.TotemPlacementSpeed or 1 / output.Cooldown) or output.TotemPlacementSpeed) / repeats
 				timeType = "totem placement"
-			elseif skillModList:Flag(nil, "HasSeals") and skillModList:Flag(nil, "UseMaxUnleash") then
+			-- nil check until ailment pass for skills like Vortex
+			elseif skillModList:Flag(nil, "HasSeals") and skillModList:Flag(nil, "UseMaxUnleash") and env.player.mainSkill.skillData.hitTimeOverride then
 				useSpeed = env.player.mainSkill.skillData.hitTimeOverride / repeats
 				timeType = "full unleash"
 			else
