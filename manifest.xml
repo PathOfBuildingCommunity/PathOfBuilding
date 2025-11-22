@@ -5,7 +5,7 @@
 	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime/" />
 	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
-	<File name="changelog.txt" part="default" sha1="14a5ad8ef2dd5e327fc9a458153bbad9cf894b14" />
+	<File name="changelog.txt" part="default" sha1="88772d04c2e0e2a886ee6bf0830e8c97460a9897" />
 	<File name="help.txt" part="default" sha1="e486cb63a78f5ca355430b67fa23e02fd30f5771" />
 	<File name="LICENSE.md" part="default" sha1="c77635aa1ba0a2ffe8eb72f93b3376e3a3d2041a" />
 	<File name="Assets/ascendancypassiveheaderleft.png" part="program" sha1="6a65683dcc3b14382dc083198fe9361454e91b15" />
@@ -119,7 +119,7 @@
 	<File name="Assets/warlordicon.png" part="program" sha1="cca050c84884f5c0bb1380ece51d3c4b32be4900" />
 	<File name="Classes/BuildListControl.lua" part="program" sha1="dd5b90a9f901096ed9d88783398ca5060b2419bf" />
 	<File name="Classes/ButtonControl.lua" part="program" sha1="697870f9f43eee2c804be087849b46849c83153a" />
-	<File name="Classes/CalcBreakdownControl.lua" part="program" sha1="d5a0644f36efbef5a6d746a2890b43c7db2fce08" />
+	<File name="Classes/CalcBreakdownControl.lua" part="program" sha1="37974aa827dc9d20016c31bb1acb49f977d71657" />
 	<File name="Classes/CalcSectionControl.lua" part="program" sha1="468063496e5e998ba4f79450df5b70e9ebb06077" />
 	<File name="Classes/CalcsTab.lua" part="program" sha1="e825dbbf97f114ac1425a6cdef04e3ac00841857" />
 	<File name="Classes/CheckBoxControl.lua" part="program" sha1="d828081e58f493f7688f8a3eed5af1ee389e3326" />
@@ -134,28 +134,28 @@
 	<File name="Classes/ExtBuildListProvider.lua" part="program" sha1="79d6bab71c0e0194e7c5b48e6cfb348d85e20263" />
 	<File name="Classes/FolderListControl.lua" part="program" sha1="b1ac8024c4eb927edd69220bf66c082778de25e6" />
 	<File name="Classes/GemSelectControl.lua" part="program" sha1="239fabf278dea991e609fb270f32d2148037efdf" />
-	<File name="Classes/ImportTab.lua" part="program" sha1="d262439b455993f80ac7416aa7c4c04d8ca6a885" />
-	<File name="Classes/Item.lua" part="program" sha1="8ee0d43d284035dbc4fbbecad9465452392500d0" />
+	<File name="Classes/ImportTab.lua" part="program" sha1="f2e07fb3ec43fdf91a6f4cada0001a9a1b7e81df" />
+	<File name="Classes/Item.lua" part="program" sha1="673820531a62e26dd9dc31944dbb2c6e67513073" />
 	<File name="Classes/ItemDBControl.lua" part="program" sha1="1a4927e6bd398eec2c6a3a55671b5298bfd80a6e" />
 	<File name="Classes/ItemListControl.lua" part="program" sha1="909a4efe03ac4b993954627819bc0a02cd951fa1" />
 	<File name="Classes/ItemSetListControl.lua" part="program" sha1="443038191a6ba3a17c3ce6683b96ab2797cf5d39" />
-	<File name="Classes/ItemSlotControl.lua" part="program" sha1="b8fe8523bd8c1d475ded6ae73c1f1cad4b434145" />
-	<File name="Classes/ItemsTab.lua" part="program" sha1="57a7a7c7f9b2400b64426bf57430e93466de2e2c" />
+	<File name="Classes/ItemSlotControl.lua" part="program" sha1="e7b4db10efa046dd73f11be1201ba636e39e6894" />
+	<File name="Classes/ItemsTab.lua" part="program" sha1="d677e897e5e08b3b2750122b912fadf252777087" />
 	<File name="Classes/LabelControl.lua" part="program" sha1="b6c56903b054e14c302a5e4e60ed8e91764bc6a0" />
 	<File name="Classes/ListControl.lua" part="program" sha1="ba5079fe6a1a38bc8c1cf758d42a62a4a7209e84" />
 	<File name="Classes/MinionListControl.lua" part="program" sha1="b9324d7c16d20ac4d7508ecd151c2e9838fdb98c" />
 	<File name="Classes/MinionSearchListControl.lua" part="program" sha1="475c5d7f1ab35d088ed62947a27e19a9fe26b87d" />
 	<File name="Classes/ModDB.lua" part="program" sha1="b98d03ad7398aacf7782c0b1bbd813bc90528301" />
 	<File name="Classes/ModList.lua" part="program" sha1="a9347d4c1346b7a7df55007977f5b76a81ea0fea" />
-	<File name="Classes/ModStore.lua" part="program" sha1="330604cb6174619ec480ad1d677cc648f3c01c0d" />
+	<File name="Classes/ModStore.lua" part="program" sha1="c812a900944c0d88835bad53f50aa46ca94646c8" />
 	<File name="Classes/NotableDBControl.lua" part="program" sha1="8a01029c56ea354efeea213c664b723c1f14c63d" />
 	<File name="Classes/NotesTab.lua" part="program" sha1="de067274e65a7d71940caead279c3a1f8d6fce3e" />
 	<File name="Classes/PartyTab.lua" part="program" sha1="8f2fc8b8e4d98db34520c5b2f94b3459911e6e41" />
 	<File name="Classes/PassiveMasteryControl.lua" part="program" sha1="d26082d3fa6485b0813c3a988d180208fdd652ef" />
-	<File name="Classes/PassiveSpec.lua" part="program" sha1="cf4c04bc3bfb1ca275d7700697823162ab751801" />
+	<File name="Classes/PassiveSpec.lua" part="program" sha1="e1a3dd44310ff76d94f6623df8b4affaf08ee6d6" />
 	<File name="Classes/PassiveSpecListControl.lua" part="program" sha1="694d7b088e895348857b97a78babb00d612469f8" />
-	<File name="Classes/PassiveTree.lua" part="program" sha1="94fdf018d6c453679a962a501424bbc09ca0d248" />
-	<File name="Classes/PassiveTreeView.lua" part="program" sha1="06850d243d3136e07c2a081c2c8e8569325b8f95" />
+	<File name="Classes/PassiveTree.lua" part="program" sha1="d842c4188b123308e93a8fad84a930b6402df47d" />
+	<File name="Classes/PassiveTreeView.lua" part="program" sha1="ecd3052051ee12b178f0ce722fad682953967bed" />
 	<File name="Classes/PathControl.lua" part="program" sha1="2107211dc604f4382da52ba757114665ab5862ba" />
 	<File name="Classes/PoBArchivesProvider.lua" part="program" sha1="c2f3f922c82a48a92faaf125b5207c41eb1a2c5a" />
 	<File name="Classes/PopupDialog.lua" part="program" sha1="f37b60b6589d4ff0c721c2418d78409f2dc69452" />
@@ -174,14 +174,14 @@
 	<File name="Classes/TextListControl.lua" part="program" sha1="08444ee7a89fac97d6727541b0e94b4997c1c7af" />
 	<File name="Classes/TimelessJewelListControl.lua" part="program" sha1="474caa03d4c6e6d9d5f01a95eaf500f3bacec814" />
 	<File name="Classes/TimelessJewelSocketControl.lua" part="program" sha1="a47645db39133957917a0d0f090cf4cc70c4f980" />
-	<File name="Classes/Tooltip.lua" part="program" sha1="196505d7bd108fa9bc98e9797fe959ded68b63b3" />
+	<File name="Classes/Tooltip.lua" part="program" sha1="5db3092362e6cf13011e1cb88dca76847f2b458c" />
 	<File name="Classes/TooltipHost.lua" part="program" sha1="c9854fd295d8305b0d2b1a31ac28b44a53ec791d" />
-	<File name="Classes/TradeQuery.lua" part="program" sha1="3e5e1358d49b00ffa5321ab249d2eea46c79ba3c" />
-	<File name="Classes/TradeQueryGenerator.lua" part="program" sha1="33c412b9f944f07a368074b627b7ee0afca27164" />
+	<File name="Classes/TradeQuery.lua" part="program" sha1="e67e9135ef937ea94dc5e9030497ee7f910a9f9a" />
+	<File name="Classes/TradeQueryGenerator.lua" part="program" sha1="dad54761d24de7c20e68d3d4b89c05759191d0c6" />
 	<File name="Classes/TradeQueryRateLimiter.lua" part="program" sha1="85c8a28c7d2bacf5bf91a97165a2ebd89bc238c0" />
 	<File name="Classes/TradeQueryRequests.lua" part="program" sha1="7fcc19a8d12e90dcbd38c2b8327a30200134d91e" />
 	<File name="Classes/TradeStatWeightMultiplierListControl.lua" part="program" sha1="2d3c11bb563279bffc4f93763a652a6f430ffd59" />
-	<File name="Classes/TreeTab.lua" part="program" sha1="99eb0453237ec3ab05ddae9aeeaf58bb0f75e0f4" />
+	<File name="Classes/TreeTab.lua" part="program" sha1="0258a95d3bc258b34a15fdae0f3fec53380b812e" />
 	<File name="Classes/UndoHandler.lua" part="program" sha1="ce4835c384c834da0de47b0302b1e774c8300c6b" />
 	<File name="Data/Bases/amulet.lua" part="program" sha1="4a6ef2a8f5be4247ab3b084f670eb710be103ea4" />
 	<File name="Data/Bases/axe.lua" part="program" sha1="1973471c72bf6e138e8465c7bf0b7039dc86f6b6" />
@@ -190,7 +190,7 @@
 	<File name="Data/Bases/boots.lua" part="program" sha1="946fce0b3022d8541b8eed77b9b08379e17e6a85" />
 	<File name="Data/Bases/bow.lua" part="program" sha1="ea59ed959be33fda1b14776d72da11ad29d967a6" />
 	<File name="Data/Bases/claw.lua" part="program" sha1="6634d852f1f6d424b863b0ecba4571966660462d" />
-	<File name="Data/Bases/dagger.lua" part="program" sha1="e3d4360773c3c3acb649b25e18ccec10c27721a4" />
+	<File name="Data/Bases/dagger.lua" part="program" sha1="61c38759475247ffbdf47f473b63c3b5c2531971" />
 	<File name="Data/Bases/fishing.lua" part="program" sha1="438e34d1cbf39fad25111eba0336e659dc981eb8" />
 	<File name="Data/Bases/flask.lua" part="program" sha1="511cbf3de0040382fc04a33c5f4cb170038de0e9" />
 	<File name="Data/Bases/gloves.lua" part="program" sha1="63deb2d2d44dd5b341f785b0e02b19e081226ef8" />
@@ -208,9 +208,9 @@
 	<File name="Data/BeastCraft.lua" part="program" sha1="eef9348068aec629a5de32eb345281c13c721afe" />
 	<File name="Data/Bosses.lua" part="program" sha1="81591b7eeaeebdf743ae032b8bf41714f2860e70" />
 	<File name="Data/BossSkills.lua" part="program" sha1="45080b80c1f25aae114d03c219477ec3c9555448" />
-	<File name="Data/ClusterJewels.lua" part="program" sha1="92b5adfb184575a924f656202512ea98b2b190e0" />
+	<File name="Data/ClusterJewels.lua" part="program" sha1="077de517af874445cb64f5aec51d27584a987c17" />
 	<File name="Data/Costs.lua" part="program" sha1="d93b6d71b4b8a2b5bf47135917b942770b30cb28" />
-	<File name="Data/Crucible.lua" part="program" sha1="fbb0565aeacac4d3a7b3a397a023aa3c0f9d98a4" />
+	<File name="Data/Crucible.lua" part="program" sha1="4b30973bcdf0afa69d57e9ab41b32c64ef3b296d" />
 	<File name="Data/EnchantmentBelt.lua" part="program" sha1="85409c93fa36ce5a7bd0b5684660190f0d33ebf4" />
 	<File name="Data/EnchantmentBody.lua" part="program" sha1="9328e81eeb950d4736cd8ec5d4548086b2180942" />
 	<File name="Data/EnchantmentBoots.lua" part="program" sha1="c3716b9da75cddf05f19ee08927409c22f7b5c80" />
@@ -222,38 +222,38 @@
 	<File name="Data/FlavourText.lua" part="program" sha1="a48c99943a784915a97af47f1a96e335009fe03d" />
 	<File name="Data/Gems.lua" part="program" sha1="5a1019fcd4607b680efdbe02c031a58911278847" />
 	<File name="Data/Global.lua" part="program" sha1="a8af692683cfd92854018b3ba74e71732b2fb0ff" />
-	<File name="Data/Minions.lua" part="program" sha1="b8f47863ab5fc77bdfde3c95d015a84081953908" />
-	<File name="Data/Misc.lua" part="program" sha1="d373213e40f3d3a9eb94b24ef5ee5ea4f766e3ef" />
-	<File name="Data/ModCache.lua" part="program" sha1="5064d55245336325e4d7051215bc324952342513" />
+	<File name="Data/Minions.lua" part="program" sha1="16d53d9513a7fb1760dfa228dd6e548ac290639b" />
+	<File name="Data/Misc.lua" part="program" sha1="f59a30a57fce284e5a188d1a823a1522d3d02123" />
+	<File name="Data/ModCache.lua" part="program" sha1="b201e79d1f13170d3812bfa7a1d9791b325a404f" />
 	<File name="Data/ModFlask.lua" part="program" sha1="efac90467f1c05bb04084bba61ebfd2aa1a3d477" />
-	<File name="Data/ModFoulborn.lua" part="program" sha1="b8d1c9bdfc6d927f7153c29698eef7bf67647f79" />
-	<File name="Data/ModFoulbornMap.lua" part="program" sha1="7100af8abaf7042c1bef53acef2fcdf6293d7c6b" />
-	<File name="Data/ModGraft.lua" part="program" sha1="b0ff54928cc9655cc3bd37ecaf01362b0bf912a6" />
-	<File name="Data/ModItem.lua" part="program" sha1="26c9e2c8171ef7be1dafab64a525fb410cbedb0f" />
-	<File name="Data/ModJewel.lua" part="program" sha1="ceb0d0e1259d0aa75137cde55d5ee304f1133331" />
-	<File name="Data/ModJewelAbyss.lua" part="program" sha1="9bbe22492b56d2981e20dea8243be87de80c8596" />
-	<File name="Data/ModJewelCharm.lua" part="program" sha1="82b43cf6f41b2927866f02152ac194323d992615" />
-	<File name="Data/ModJewelCluster.lua" part="program" sha1="688e89c8516c65a5d02943254d0b1048ab22acd4" />
+	<File name="Data/ModFoulborn.lua" part="program" sha1="a28c53230a23f1cd3e98af820bbc79b1e474ae77" />
+	<File name="Data/ModFoulbornMap.lua" part="program" sha1="69b06d8831c87622f024a3b18e976d600c85e967" />
+	<File name="Data/ModGraft.lua" part="program" sha1="75d8352654c5bc40e2666078363530ded5ae23b1" />
+	<File name="Data/ModItem.lua" part="program" sha1="d49be2adfabb20f4d129bb24f0b4e03d93fb5545" />
+	<File name="Data/ModJewel.lua" part="program" sha1="c3c51ba464ff3d08b209352014607d4e780138fb" />
+	<File name="Data/ModJewelAbyss.lua" part="program" sha1="aaa6175404a4c0c112bd21e7feb596afaa898a8d" />
+	<File name="Data/ModJewelCharm.lua" part="program" sha1="ee94d81af9c2e52335f4171ffbf4e67b45dc9a94" />
+	<File name="Data/ModJewelCluster.lua" part="program" sha1="afd0e43950f8ea1f79abbd7b0a1a945073540434" />
 	<File name="Data/ModMap.lua" part="program" sha1="9fe7cac7892c836bd1370330013e62fe6d1124bd" />
-	<File name="Data/ModMaster.lua" part="program" sha1="2ae79cf8dcf2ff77fb3fa74c5a4371a6f101fc58" />
-	<File name="Data/ModNecropolis.lua" part="program" sha1="5c9599275d00e2ada46ef4750037af2f118ad866" />
-	<File name="Data/ModTincture.lua" part="program" sha1="7cf62caeae3cee0bc5a81166332f3329091b4e72" />
-	<File name="Data/ModVeiled.lua" part="program" sha1="e77afbbf091df3525015f53af2075bd6f2cb3522" />
+	<File name="Data/ModMaster.lua" part="program" sha1="ef0f5c06d21b4019101088cfd58b7ba8587ce095" />
+	<File name="Data/ModNecropolis.lua" part="program" sha1="99b6538b8820a2a0c48ef12641f331c1b333c23f" />
+	<File name="Data/ModTincture.lua" part="program" sha1="26fb3c3afc01e753c6220c9fc6b195f136ec07b0" />
+	<File name="Data/ModVeiled.lua" part="program" sha1="4348312a299426c05ec64e68b2f5aa5a78615012" />
 	<File name="Data/Pantheons.lua" part="program" sha1="21f6fac46dad79f3ca58cd97b745f6a13930009c" />
-	<File name="Data/QueryMods.lua" part="program" sha1="41fec0871dadf6d6ac84deba1abad788e43e4694" />
+	<File name="Data/QueryMods.lua" part="program" sha1="c1806a417e8f3cd4c09e124539883aa9109d1ea0" />
 	<File name="Data/Rares.lua" part="program" sha1="7a2cf2496de9bd4fbdd042bece8214d60f57adb5" />
-	<File name="Data/Skills/act_dex.lua" part="program" sha1="29d6294407c9e7f20b76ac2a58636fce872a3825" />
-	<File name="Data/Skills/act_int.lua" part="program" sha1="4327f1675187d279161d577bb2fd7c13ad5ac96f" />
+	<File name="Data/Skills/act_dex.lua" part="program" sha1="666fb8713d5eb910d95b4d2e8626e1519fb4ea60" />
+	<File name="Data/Skills/act_int.lua" part="program" sha1="6c69fe20b2bba7eb5bc75437093a5a03a1ef9b79" />
 	<File name="Data/Skills/act_str.lua" part="program" sha1="d5bf2f39746a31c8b3504c993ddf2712f5a835cf" />
 	<File name="Data/Skills/glove.lua" part="program" sha1="463a97ceea8da4c7b2029b009673db252aed88f9" />
-	<File name="Data/Skills/minion.lua" part="program" sha1="41c18e64dffdf3ba915144241325320b3827163b" />
-	<File name="Data/Skills/other.lua" part="program" sha1="8a31354e21b2096e7d2dbf4932c3b1747911d4f1" />
-	<File name="Data/Skills/spectre.lua" part="program" sha1="7c18505a572f322775d4426d0b76f571f3a415cf" />
+	<File name="Data/Skills/minion.lua" part="program" sha1="e520be53cb2237aec429e71554f0929e53e14e20" />
+	<File name="Data/Skills/other.lua" part="program" sha1="5f7f616a84de1ff9986243e20287949e0b92f991" />
+	<File name="Data/Skills/spectre.lua" part="program" sha1="2092b219706441f311b4a2261e3a1ce018dfe8cf" />
 	<File name="Data/Skills/sup_dex.lua" part="program" sha1="48ae36f8072d7a59bdcbed4de47a745f0729b6f1" />
 	<File name="Data/Skills/sup_int.lua" part="program" sha1="3777a2d166aa4ca26e836729d107019a08945634" />
 	<File name="Data/Skills/sup_str.lua" part="program" sha1="764a958195a002389d1c7721444793949db0a635" />
-	<File name="Data/SkillStatMap.lua" part="program" sha1="26708be3b3aa207ac79fd4423613bc16c9f001e4" />
-	<File name="Data/Spectres.lua" part="program" sha1="f3455ddc0d5fb12d13d463c929fb276a80554c56" />
+	<File name="Data/SkillStatMap.lua" part="program" sha1="62713db47f610af5a03e6663691d05794198524a" />
+	<File name="Data/Spectres.lua" part="program" sha1="0715a838fd85ee95c895fd9af070de187ecf1a97" />
 	<File name="Data/StatDescriptions/active_skill_gem_stat_descriptions.lua" part="program" sha1="7e65a488fdb35090c4edd493e90315652eb282c8" />
 	<File name="Data/StatDescriptions/aura_skill_stat_descriptions.lua" part="program" sha1="cf1f7c4db13fb272d74e678a053b6e3ba91dccba" />
 	<File name="Data/StatDescriptions/banner_aura_skill_stat_descriptions.lua" part="program" sha1="2995f8b8685edb6324e1ed1a734a8667008133d9" />
@@ -273,10 +273,10 @@
 	<File name="Data/StatDescriptions/secondary_debuff_skill_stat_descriptions.lua" part="program" sha1="c385dfba9bff78782ef92b3e2f6b8f86d45fec6c" />
 	<File name="Data/StatDescriptions/single_minion_spell_skill_stat_descriptions.lua" part="program" sha1="3c9a68e0af6ebb8c210460f108c062502e247be3" />
 	<File name="Data/StatDescriptions/skill_stat_descriptions.lua" part="program" sha1="b1d38b9043030bc55f5b8afd985e8b47f7218f60" />
-	<File name="Data/StatDescriptions/stat_descriptions.lua" part="program" sha1="961f9c2d4ffec3ab326e23db7b6ea6a460dc0887" />
+	<File name="Data/StatDescriptions/stat_descriptions.lua" part="program" sha1="c258cd9ed4256567e1b1c5f55ee1dc015ac2e966" />
 	<File name="Data/StatDescriptions/tincture_stat_descriptions.lua" part="program" sha1="7bf558f9692f531c58fae338787fc73c39cf0979" />
 	<File name="Data/StatDescriptions/variable_duration_skill_stat_descriptions.lua" part="program" sha1="035f263f6f0f6a149a5fad3f7a16070f7e13c98d" />
-	<File name="Data/TattooPassives.lua" part="program" sha1="4f6d6f260c28d6c38f7b51450f66cda8eda4aa13" />
+	<File name="Data/TattooPassives.lua" part="program" sha1="064e9e12fb7e037d22e060725a402cc782e56742" />
 	<File name="Data/TimelessJewelData/BrutalRestraint.zip" part="program" sha1="a0ba29b6daf0f08b84a5fcc64455e44f3c369c68" />
 	<File name="Data/TimelessJewelData/ElegantHubris.zip" part="program" sha1="ec474e3c9f052129fce1966858194c54cef681bd" />
 	<File name="Data/TimelessJewelData/GloriousVanity.zip.part0" part="program" sha1="8cef826fcaf0373a0989a998f46a993b82f99a1e" />
@@ -284,12 +284,12 @@
 	<File name="Data/TimelessJewelData/GloriousVanity.zip.part2" part="program" sha1="40897375056d28dc171ab54b4e0aba13a6e7465a" />
 	<File name="Data/TimelessJewelData/GloriousVanity.zip.part3" part="program" sha1="9afd246eece1bfa97183784db36d0532eace9e4b" />
 	<File name="Data/TimelessJewelData/GloriousVanity.zip.part4" part="program" sha1="972c07b50bcedf290d8fbedc90556fb814f9cb14" />
-	<File name="Data/TimelessJewelData/LegionPassives.lua" part="program" sha1="84c6ed0ba463b7e08847b86afe03419775d5e6f1" />
+	<File name="Data/TimelessJewelData/LegionPassives.lua" part="program" sha1="9eacfa031f0881a8bdf324d5d99be2e4a4865191" />
 	<File name="Data/TimelessJewelData/LegionTradeIds.lua" part="program" sha1="a852a234591481dcd4c8ddf937fb0f75b69036bb" />
 	<File name="Data/TimelessJewelData/LethalPride.zip" part="program" sha1="0795c485e0d6b9c79705a6aa2bebf19fbb87024d" />
 	<File name="Data/TimelessJewelData/MilitantFaith.zip" part="program" sha1="a1cb40a6176920c5ba36750e81583c92dec26558" />
 	<File name="Data/TimelessJewelData/NodeIndexMapping.lua" part="program" sha1="ffd323e3bdb71e2e6b6a6aaea39bac8f222c667a" />
-	<File name="Data/Uniques/amulet.lua" part="program" sha1="86b969c8b5a5c691fb5b1982a68df152c00ae95d" />
+	<File name="Data/Uniques/amulet.lua" part="program" sha1="08454104bc29c4362856b430e9b659c89eb5bccb" />
 	<File name="Data/Uniques/axe.lua" part="program" sha1="177626653b6b07bfefee0eaf78b06b8ea47b37ce" />
 	<File name="Data/Uniques/belt.lua" part="program" sha1="5bc9f69ea23d54cc562deb65ed739c9c37f7b01b" />
 	<File name="Data/Uniques/body.lua" part="program" sha1="6e93b60731e1dcba5b01f9e5cb351b6c9a36180a" />
@@ -299,64 +299,64 @@
 	<File name="Data/Uniques/dagger.lua" part="program" sha1="221a07501b6f32395a63543da7afb9c0498cf7c8" />
 	<File name="Data/Uniques/fishing.lua" part="program" sha1="51bfa6a311f69ef89cc83170daeb2004162ed67d" />
 	<File name="Data/Uniques/flask.lua" part="program" sha1="6c45c7e33cd622b65320b0ad8297b521d14cda2d" />
-	<File name="Data/Uniques/gloves.lua" part="program" sha1="1b2285632d0f1408fbf20858e420919d25da5819" />
+	<File name="Data/Uniques/gloves.lua" part="program" sha1="7a3a94fc231055d8593a9dcf9ae6289f54d75db4" />
 	<File name="Data/Uniques/graft.lua" part="program" sha1="94b7b2b58911c025f6b3a300fe42de3402b0287f" />
 	<File name="Data/Uniques/helmet.lua" part="program" sha1="abed8d9de9399b74ce8171cb71a2f83ad1c3a8f8" />
 	<File name="Data/Uniques/jewel.lua" part="program" sha1="4eddbe4506a0496bb31421baae729d398ff0cdc7" />
-	<File name="Data/Uniques/mace.lua" part="program" sha1="9e6488fe94d4cf4454781edf8d9c2575c9923d4b" />
+	<File name="Data/Uniques/mace.lua" part="program" sha1="b49bce82c3aafd3316618e73197ad15b2dd2bab3" />
 	<File name="Data/Uniques/quiver.lua" part="program" sha1="b623f1de2d7c5da21e565c078198544c17075d9f" />
 	<File name="Data/Uniques/ring.lua" part="program" sha1="443f5de3468f8975a4c223bbf70562e2c505ada4" />
 	<File name="Data/Uniques/shield.lua" part="program" sha1="d48399f03d74c4f470379b2f30033447ca531978" />
-	<File name="Data/Uniques/Special/BoundByDestiny.lua" part="program" sha1="25fa9fada87f44ced6e35082fea8cba287f15533" />
-	<File name="Data/Uniques/Special/Generated.lua" part="program" sha1="8a4ca90cc44ea13282121a1aa95c433ec15fe8bc" />
-	<File name="Data/Uniques/Special/New.lua" part="program" sha1="0816c336abc89a30e372684fb3359360afe927bd" />
+	<File name="Data/Uniques/Special/BoundByDestiny.lua" part="program" sha1="07fae9657f52b18e115af22639e7684490a33740" />
+	<File name="Data/Uniques/Special/Generated.lua" part="program" sha1="3355d97b6206674984c45ab97e53b865b48ed2fe" />
+	<File name="Data/Uniques/Special/New.lua" part="program" sha1="c0c109e4eed665f916083d9f34bd647b4bbef89d" />
 	<File name="Data/Uniques/Special/race.lua" part="program" sha1="fbe785fd8e6fc460ac459dd0d394ad5f6ba2661c" />
-	<File name="Data/Uniques/Special/WatchersEye.lua" part="program" sha1="048e21510cb4fb6eb163ceb6c75752316f3ff6ff" />
+	<File name="Data/Uniques/Special/WatchersEye.lua" part="program" sha1="18ef0f96d8c65f9f6309ed33d5ed384cc28fee51" />
 	<File name="Data/Uniques/staff.lua" part="program" sha1="fbc9c9c93b2c1029819564ddc27965fb3b212e98" />
 	<File name="Data/Uniques/sword.lua" part="program" sha1="81fe736554d28b9970b3407ffa7845de91c11e6d" />
 	<File name="Data/Uniques/tincture.lua" part="program" sha1="840794783a1edb60a77f297411dd775ce4095cb1" />
-	<File name="Data/Uniques/wand.lua" part="program" sha1="979e3f0b4ecce5bc0c29ebf4db52eca1a66144be" />
+	<File name="Data/Uniques/wand.lua" part="program" sha1="da62c0d53ae1f5a9a00263570643ad68ed92992d" />
 	<File name="GameVersions.lua" part="program" sha1="622884d87f7549c9bb9ede22b78f90b2cb750959" />
-	<File name="Launch.lua" part="program" sha1="ccad232f8170ad7d55744972aa84dd972660417c" />
-	<File name="Modules/Build.lua" part="program" sha1="adb9f63a70fb92d4990cd9f9a477c7b3ada3fab3" />
-	<File name="Modules/BuildDisplayStats.lua" part="program" sha1="bb8517ccd372e3cfad8e68b7a65962ab0cf66269" />
-	<File name="Modules/BuildList.lua" part="program" sha1="99ac52b6fa77f0d6c9521b6b2f13621bfd7cbb07" />
-	<File name="Modules/BuildSiteTools.lua" part="program" sha1="bcb3beb2a8a419f8b87a95c1193a57cc8b5f23aa" />
-	<File name="Modules/CalcActiveSkill.lua" part="program" sha1="af9ffe2d5f4656ecd5188469e7846daac071ff48" />
+	<File name="Launch.lua" part="program" sha1="2ac92a544f8c7361c85b1cfb2cda9290f8b4ab0d" />
+	<File name="Modules/Build.lua" part="program" sha1="c7ef7d0ff69cd771271df4825b072b922170f352" />
+	<File name="Modules/BuildDisplayStats.lua" part="program" sha1="c4c18703f6da5b07a9fe8ccf97cbded52372f633" />
+	<File name="Modules/BuildList.lua" part="program" sha1="2eb74869dbc870a4b44ecc2be67bcd8720f65984" />
+	<File name="Modules/BuildSiteTools.lua" part="program" sha1="4de4d856bc61f07c85d5c0fa93f2766a88f37283" />
+	<File name="Modules/CalcActiveSkill.lua" part="program" sha1="13b3a15e096770fc4ae22c12d9e657aea04be02b" />
 	<File name="Modules/CalcBreakdown.lua" part="program" sha1="05f0df95743266c893cd1256037195b4a04a2afa" />
-	<File name="Modules/CalcDefence.lua" part="program" sha1="7d3fb206da65a85d3e5799be83a93bc630d4d283" />
+	<File name="Modules/CalcDefence.lua" part="program" sha1="555b2562bf0b7cfd081c9b5d0e0348139e8221dd" />
 	<File name="Modules/CalcMirages.lua" part="program" sha1="a6e0d9166d477230aef49798c3628a8208304d50" />
-	<File name="Modules/CalcOffence.lua" part="program" sha1="978f5bd0f2f5164d2ab69da61018611bc4545e62" />
-	<File name="Modules/CalcPerform.lua" part="program" sha1="f642a8514d62f084f7668833fe9a984a87074df9" />
+	<File name="Modules/CalcOffence.lua" part="program" sha1="a174dfb6b7c1d1609784b8b271fdd14d33482d8d" />
+	<File name="Modules/CalcPerform.lua" part="program" sha1="4dd9f28f6986b480291919a07964ecf9154423d9" />
 	<File name="Modules/Calcs.lua" part="program" sha1="ad0692529e5ed88ddede8a5e0ce7d1c4a5b6ce82" />
-	<File name="Modules/CalcSections.lua" part="program" sha1="00e1c39849459a2eb14899d1c1c804a422ac556b" />
-	<File name="Modules/CalcSetup.lua" part="program" sha1="65fe429032d81b4739b1f3b9c04d607ac43d3e04" />
-	<File name="Modules/CalcTools.lua" part="program" sha1="7f1b90ad57b02eeb1ad9aebf0f00416a9f4bea75" />
-	<File name="Modules/CalcTriggers.lua" part="program" sha1="ced1864e1f78777d02f4fa05f917f0be8b4f9b79" />
-	<File name="Modules/Common.lua" part="program" sha1="c21b9584cb570fb06896f6c870f59ffa385efb86" />
-	<File name="Modules/ConfigOptions.lua" part="program" sha1="e46724bec1877c36b223ce6307775ca177527fb1" />
-	<File name="Modules/Data.lua" part="program" sha1="fe6d63ed85747384931658185a0540eb9bcf5cd7" />
+	<File name="Modules/CalcSections.lua" part="program" sha1="ee36e7b8235fa6555c13b4f6c4a89f0a1d42857a" />
+	<File name="Modules/CalcSetup.lua" part="program" sha1="4331f438bd51ba0d84c332f1086fd6ba5c7b0e0b" />
+	<File name="Modules/CalcTools.lua" part="program" sha1="9826fbf15a0dec1dacfe26bb3d8d50d8c822f4e9" />
+	<File name="Modules/CalcTriggers.lua" part="program" sha1="61512091f9e627089eb0f22596f63c082ccf3c75" />
+	<File name="Modules/Common.lua" part="program" sha1="6158e0aa74a78c70f6b2760f44efe432909c7268" />
+	<File name="Modules/ConfigOptions.lua" part="program" sha1="a4ab165cbcac14a4d91a0073d6984645c74e2407" />
+	<File name="Modules/Data.lua" part="program" sha1="f0f61ecac0513bceb14acc9595003c438676e9f2" />
 	<File name="Modules/DataLegionLookUpTableHelper.lua" part="program" sha1="170699925a438275137ba621206800e29f453eb3" />
 	<File name="Modules/ItemTools.lua" part="program" sha1="0ab38cb9eed28dcd1d28d2d1dc4a9f4cafd4f11f" />
-	<File name="Modules/Main.lua" part="program" sha1="f5ee4f2ba72b2fb0a135ff7c6719dc189c71fd9a" />
-	<File name="Modules/ModParser.lua" part="program" sha1="4426fc6afbe2adc0a73133298fd468c771347b55" />
+	<File name="Modules/Main.lua" part="program" sha1="88ca8865407441393b3ead89c2dfd6918ee1208a" />
+	<File name="Modules/ModParser.lua" part="program" sha1="17a64bafe444be8a898c95344113e8181ab29fde" />
 	<File name="Modules/ModTools.lua" part="program" sha1="e32d3c0c320f7add6e70987b5de8ff3370d0b321" />
 	<File name="Modules/PantheonTools.lua" part="program" sha1="ebe91a7d8f8444a6061acf4758da0e775cc8c314" />
-	<File name="Modules/StatDescriber.lua" part="program" sha1="c4f9c72fa319c798710926720b8519eb38c40c31" />
+	<File name="Modules/StatDescriber.lua" part="program" sha1="f6f584e3a5ff6d4571dd022c284e2c45a1f9b2a6" />
 	<File name="UpdateApply.lua" part="program" sha1="4dd42f413cb89a963e4ae1b40e214985b909c05b" />
 	<File name="UpdateCheck.lua" part="program" sha1="cb74c077198559717b89a90fbdab8274a17bfdc6" />
-	<File name="abseil_dll.dll" part="runtime" runtime="win32" sha1="f4a79f07625538a71077dcb3c1f59f0215e27a80" />
+	<File name="abseil_dll.dll" part="runtime" runtime="win32" sha1="47d9a5b10f5f234e27a3e0721d9865af1a304612" />
 	<File name="concrt140.dll" part="runtime" runtime="win32" sha1="1ce87fac4c22aae82a81ddb26952c074b744e78d" />
 	<File name="d3dcompiler_47.dll" part="runtime" runtime="win32" sha1="27a4eff95e7f4a359718fda7138a528147969b27" />
-	<File name="fmt.dll" part="runtime" runtime="win32" sha1="47f731604b296fe4159acf1862a65b65e5c6a854" />
-	<File name="glfw3.dll" part="runtime" runtime="win32" sha1="d09066025620f888767af15a1cb901a837e7fd59" />
-	<File name="lcurl.dll" part="runtime" runtime="win32" sha1="1fd724e76bb19231456f6552388350e3fd9933b2" />
-	<File name="libcurl.dll" part="runtime" runtime="win32" sha1="035f7b2097cd9caabaf3c4e97a246f39599a705b" />
-	<File name="libEGL.dll" part="runtime" runtime="win32" sha1="94d7281c5ef8eae0b41b2531ac3a25f86da8d5a1" />
-	<File name="libGLESv2.dll" part="runtime" runtime="win32" sha1="b4326a8ef3557a823d4f8aba5a191b148d9e8266" />
-	<File name="libwebpdecoder.dll" part="runtime" runtime="win32" sha1="9e15b4a7d91504779630dffd26989ce03a30d0ba" />
-	<File name="lua51.dll" part="runtime" runtime="win32" sha1="81a6410f0de65c7289206ba21edb5d27a96711c1" />
-	<File name="lua-utf8.dll" part="runtime" runtime="win32" sha1="44c6b5328bdd5ace47d65eee8a509692a224b7b6" />
+	<File name="fmt.dll" part="runtime" runtime="win32" sha1="d0061cfc85139f5372fc00c767bed3e1aa9b2c1d" />
+	<File name="glfw3.dll" part="runtime" runtime="win32" sha1="32aeb58c8cb5bec7195c9b4758f26d85e89da2de" />
+	<File name="lcurl.dll" part="runtime" runtime="win32" sha1="9a6b690132132521869b320b58cbe9ae62255590" />
+	<File name="libcurl.dll" part="runtime" runtime="win32" sha1="a592e2620178de713d0ad4e2b258a3ebbadc4f2d" />
+	<File name="libEGL.dll" part="runtime" runtime="win32" sha1="fdd0b0e9b9cbe091909f96ee2f631cc20711cf45" />
+	<File name="libGLESv2.dll" part="runtime" runtime="win32" sha1="ad54c8e4ec9c2d6285d33f8e36514256a7e7374b" />
+	<File name="libwebpdecoder.dll" part="runtime" runtime="win32" sha1="1df1e03f0c2fc8b5c35efd2c354c41409ad82212" />
+	<File name="lua51.dll" part="runtime" runtime="win32" sha1="e0733b71e23057b98f2599f7aecc28f0a1b434f1" />
+	<File name="lua-utf8.dll" part="runtime" runtime="win32" sha1="4a6a4e901149ff5316a62062de77a9ecaa5aa4da" />
 	<File name="lua/base64.lua" part="runtime" sha1="18629865eb351e483178b6524fb3935cbc9b8297" />
 	<File name="lua/dkjson.lua" part="runtime" sha1="d2c9e5433a24b8593886a36cfc267cb05d3bc529" />
 	<File name="lua/sha1/bit32_ops.lua" part="runtime" sha1="25bc8def626fd8d8bd3d37dcd96808c6b8b00087" />
@@ -365,16 +365,16 @@
 	<File name="lua/sha1/init.lua" part="runtime" sha1="e23c730650ac2ffe595b4ed2a5f3484225414ebd" />
 	<File name="lua/sha1/lua53_ops.lua" part="runtime" sha1="b10c732f322358c4112226df61af61f53a21b911" />
 	<File name="lua/sha1/pure_lua_ops.lua" part="runtime" sha1="0dff15b1cfd171a3572032346613adcf5e9962c2" />
-	<File name="lua/xml.lua" part="runtime" sha1="c0ba28994b399d79aeae7e614ed046a89dc38bc6" />
-	<File name="lzip.dll" part="runtime" runtime="win32" sha1="fdac67726ead9cb523e84da0801f9cdec2f84784" />
+	<File name="lua/xml.lua" part="runtime" sha1="06b35967b8efc4889584f692204e237d400a78fd" />
+	<File name="lzip.dll" part="runtime" runtime="win32" sha1="813f27e0dbc0727e8e6dcc48e6db693ccf64df28" />
 	<File name="msvcp140.dll" part="runtime" runtime="win32" sha1="b370eca8fa727e46cf61d834fcc956698b02e1fd" />
 	<File name="msvcp140_1.dll" part="runtime" runtime="win32" sha1="9ce5c3d6c7d94b175f136f552af8771dca6147b3" />
 	<File name="msvcp140_2.dll" part="runtime" runtime="win32" sha1="e48159bb2127ec812ff679f6fabc41141009f26a" />
 	<File name="msvcp140_atomic_wait.dll" part="runtime" runtime="win32" sha1="a85a6a4de6656e5969fa4ab15f2230dfe2839e75" />
 	<File name="msvcp140_codecvt_ids.dll" part="runtime" runtime="win32" sha1="91b19dd0db24a5cbd944eca9c67fad3b53f9c154" />
 	<File name="Path{space}of{space}Building.exe" part="runtime" runtime="win32" sha1="8dcd46aac0b70d0a4d5eac5c7244302c9b805f85" />
-	<File name="re2.dll" part="runtime" runtime="win32" sha1="d52a7574513fdc6e25475df838ec8ae197ce097f" />
-	<File name="SimpleGraphic.dll" part="runtime" runtime="win32" sha1="cfd7825e02503efb856e528ac3edb65b9e0a1dfc" />
+	<File name="re2.dll" part="runtime" runtime="win32" sha1="7c5e2bacf0dafaac6143c4634839f0c7aecf2c66" />
+	<File name="SimpleGraphic.dll" part="runtime" runtime="win32" sha1="443ee80791d2d9e505a92398bc8c7932cb5844e3" />
 	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.10.tga" part="runtime" sha1="12e59115634000273611ef08b0d1b130ea95d4a7" />
 	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.12.tga" part="runtime" sha1="325378beb3e4944f1504b402bdd809c99b240c1d" />
 	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.14.tga" part="runtime" sha1="0df6084dca4762df282cc4ab1ad5ddc21e9c6e12" />
@@ -494,11 +494,11 @@
 	<File name="SimpleGraphic/Fonts/Liberation Sans.56.tga" part="runtime" sha1="4fe2ce621b23324a134957473c788a52fdd017e3" />
 	<File name="SimpleGraphic/Fonts/Liberation Sans.64.tga" part="runtime" sha1="301ad24fae1b872d28632b9bfcb9f3e0889a0925" />
 	<File name="SimpleGraphic/Fonts/Liberation Sans.tgf" part="runtime" sha1="4048906c89ff0fd7f8799d038978b96e5e7b40b9" />
-	<File name="socket.dll" part="runtime" runtime="win32" sha1="b8bbe3b7f22b0d67c750124e1071e477f71e0e0c" />
+	<File name="socket.dll" part="runtime" runtime="win32" sha1="610bf3b4a84ff3345daef0d8ad7cc74bec7d3cb0" />
 	<File name="vcruntime140.dll" part="runtime" runtime="win32" sha1="3d2998a27d164dd7cc3bc7d3eca08acf89a0ee42" />
 	<File name="vcruntime140_1.dll" part="runtime" runtime="win32" sha1="a0330279d3d0d47f19ed984726e25260b547a228" />
-	<File name="zlib1.dll" part="runtime" runtime="win32" sha1="ae29f67d32be8d900c799d6881db8de41fad682a" />
-	<File name="zstd.dll" part="runtime" runtime="win32" sha1="6294b3e88d674c8c629555735dda60b37b8a3c54" />
+	<File name="zlib1.dll" part="runtime" runtime="win32" sha1="69cce3ea9b5eb3453d6d24974f7654ae5000241b" />
+	<File name="zstd.dll" part="runtime" runtime="win32" sha1="c1f3702fe2a5ad68d679c903f62a90ee45464072" />
 	<File name="TreeData/2_6/skill_sprite-3-32f639bbfc42783ca7ec218a787dd918.jpg" part="tree" sha1="dc7a2a0383847ac28eade8a31a57a8bfa7b298e4" />
 	<File name="TreeData/2_6/skill_sprite-active-3-3e73c4c4534433ecfc340c7287093bd5.png" part="tree" sha1="baa878007cfac73bee50958d25617b95c0e73a2d" />
 	<File name="TreeData/2_6/skill_sprite-active-3-7798fabab8a21829831293c20ac9c414.jpg" part="tree" sha1="526654400851f032d3d2f46980c0ecc077aa0c4c" />
