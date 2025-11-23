@@ -68,7 +68,7 @@
 - Fix Righteous Fire of Arcane Devotion still applying when using Blood Magic [\#9206](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9206) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix Sacred Wisps applying to non-Wand Attacks [\#9272](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9272) ([Peechey](https://github.com/Peechey))
 - Fix Beacon of Madness explode mod disabling life from Utula's Hunger [\#9231](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9231) ([ATRussell63](https://github.com/ATRussell63))
-- Fix Spiritblade conversion and Moonbenders Wing gain mods always applying [\#9221](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9221) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Spiritblade conversion and Moonbender's Wing gain mods always applying [\#9221](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9221) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix Foulborn Dialla's Malefaction not importing gems in correct order [\#9280](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9280) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix comparison showing for Ring 3 when Ascendancy was not allocated [\#9266](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9266) ([Peechey](https://github.com/Peechey))
 - Fix Ring 3 visibility and Weapon Swap searching in Trader [\#9310](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9310) ([Peechey](https://github.com/Peechey))
