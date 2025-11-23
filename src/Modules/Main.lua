@@ -118,10 +118,6 @@ function main:Init()
 
 	if not SetDPIScaleOverridePercent then SetDPIScaleOverridePercent = function(scale) end end
 
-	if self.userPath then
-		self:ChangeUserPath(self.userPath, ignoreBuild)
-	end
-
 	if launch.devMode and IsKeyDown("CTRL") or os.getenv("REGENERATE_MOD_CACHE") == "1" then
 		-- If modLib.parseMod doesn't find a cache entry it generates it.
 		-- Not loading pre-generated cache causes it to be rebuilt
@@ -142,6 +138,10 @@ function main:Init()
 
 	self.tree = { }
 	self:LoadTree(latestTreeVersion)
+
+	if self.userPath then
+		self:ChangeUserPath(self.userPath, ignoreBuild)
+	end
 
 	self.uniqueDB = { list = { }, loading = true }
 	self.rareDB = { list = { }, loading = true }
