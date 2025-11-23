@@ -853,6 +853,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 				end
 			end
 			for slot in pairs(trueDisabled) do
+				if slot:find("Flask") and items[slot] and items[slot].baseName:find("Life Flask") then -- save lifeTotal for PConc if life flask is in disabled slot
+					env.itemModDB.multipliers["LifeFlaskRecovery"] = items[slot].flaskData.lifeTotal
+				end
 				items[slot] = nil
 			end
 		end
