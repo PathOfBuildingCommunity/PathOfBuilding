@@ -100,6 +100,7 @@ directiveTable.monster = function(state, args, out)
 	state.name = nil
 	state.limit = nil
 	state.extraFlags = state.extraFlags or { }
+	state.hostile = nil
 	state.extraModList = { }
 	state.extraSkillList = { }
 	for arg in args:gmatch("%S+") do
@@ -129,6 +130,11 @@ directiveTable.flags = function(state, args, out)
 	for flag in args:gmatch("%S+") do
 		table.insert(state.extraFlags, flag)
 	end
+end
+
+-- #hostile [true|false]
+directiveTable.hostile = function(state, args, out)
+	state.hostile = args
 end
 
 -- #mod <ModDecl>
@@ -312,7 +318,7 @@ directiveTable.emit = function(state, args, out)
 	if state.limit then
 		out:write('\tlimit = "', state.limit, '",\n')
 	end
-		out:write('\tbaseMovementSpeed = ', monsterVariety.MovementSpeed, ',\n')
+	out:write('\tbaseMovementSpeed = ', monsterVariety.MovementSpeed, ',\n')
 	out:write('\tspawnLocation = {\n')
 	table.sort(worldAreaNames)
 	for _, name in ipairs(worldAreaNames) do
@@ -321,6 +327,9 @@ directiveTable.emit = function(state, args, out)
 		end
 	end
 	out:write('\t},\n')
+	if state.hostile then
+		out:write('\thostile = ', state.hostile, ',\n')
+	end
 	out:write('\tskillList = {\n')
 	for _, grantedEffect in ipairs(monsterVariety.GrantedEffects) do
 		out:write('\t\t"', grantedEffect.Id, '",\n')

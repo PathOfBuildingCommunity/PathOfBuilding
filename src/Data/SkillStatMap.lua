@@ -105,6 +105,12 @@ return {
 ["spell_maximum_base_cold_damage_+_per_10_intelligence"] = {
 	skill("ColdMax", nil, { type = "PerStat", stat = "Int", div = 10 }),
 },
+["spell_minimum_base_physical_damage_%_of_ward"] = {
+	skill("PhysicalMin", nil, { type = "PercentStat", stat = "Ward", percent = 1 }),
+},
+["spell_maximum_base_physical_damage_%_of_ward"] = {
+	skill("PhysicalMax", nil, { type = "PercentStat", stat = "Ward", percent = 1 }),
+},
 ["base_cold_damage_to_deal_per_minute"] = {
 	skill("ColdDot", nil),
 	div = 60,
@@ -200,6 +206,9 @@ return {
 },
 ["support_cast_on_mana_spent"] = {
 	skill("triggeredByKitavaThirst", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+},
+["support_cast_on_life_spent"] = {
+	skill("triggeredByFoulbornKitavaThirst", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
 ["cast_when_cast_curse_%"] = {
 	skill("chanceToTriggerCurseOnCurse", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Hex }),
@@ -662,6 +671,10 @@ return {
 },
 ["fortify_duration_+%"] = {
 	mod("FortifyDuration", "INC", nil),
+},
+["gain_fortify_on_melee_hit_ms"] = {
+	mod("FortifyDuration", "OVERRIDE", nil),
+	div = 1000,
 },
 ["support_swift_affliction_skill_effect_and_damaging_ailment_duration_+%_final"] = {
 	mod("Duration", "MORE", nil),
@@ -1930,6 +1943,9 @@ return {
 },
 ["number_of_wolves_allowed"] = {
 	mod("ActiveWolfLimit", "BASE", nil),
+},
+["number_of_tigers_allowed"] = {
+	mod("ActiveTigerLimit", "BASE", nil),
 },
 ["number_of_spider_minions_allowed"] = {
 	mod("ActiveSpiderLimit", "BASE", nil),

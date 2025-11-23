@@ -703,6 +703,12 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			node.sprites = { }
 		end
 
+		-- create id to dn map for calcs breakdown sourcing
+		if not self.tattoo.idMap then
+			self.tattoo.idMap = { }
+		end
+		self.tattoo.idMap[node.id] = node.dn
+
 		self:ProcessStats(node)
 	end
 

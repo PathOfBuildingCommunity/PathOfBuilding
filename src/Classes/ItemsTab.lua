@@ -908,13 +908,21 @@ holding Shift will put it in the second.]])
 
 	-- Section: Modifier Range
 	self.controls.displayItemSectionRange = new("Control", {"TOPLEFT",self.controls.displayItemSectionCustom,"BOTTOMLEFT"}, {0, 0, 0, function()
-		return self.displayItem.rangeLineList[1] and 28 or 0
+		if not self.displayItem or not self.displayItem.rangeLineList[1] then
+			return 0
+		end
+		if main.showAllItemAffixes and self.displayItem.rarity == "UNIQUE" then
+			local count = #self.displayItem.rangeLineList
+			return count * 22 + 4
+		else
+			return 28
+		end
 	end})
 	self.controls.displayItemRangeLine = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionRange,"TOPLEFT"}, {0, 0, 350, 18}, nil, function(index, value)
 		self.controls.displayItemRangeSlider.val = self.displayItem.rangeLineList[index].range
 	end)
 	self.controls.displayItemRangeLine.shown = function()
-		return self.displayItem and self.displayItem.rangeLineList[1] ~= nil
+		return self.displayItem and self.displayItem.rangeLineList[1] ~= nil and not (main.showAllItemAffixes and self.displayItem.rarity == "UNIQUE")
 	end
 	self.controls.displayItemRangeSlider = new("SliderControl", {"LEFT",self.controls.displayItemRangeLine,"RIGHT"}, {8, 0, 100, 18}, function(val)
 		self.displayItem.rangeLineList[self.controls.displayItemRangeLine.selIndex].range = val
@@ -922,6 +930,34 @@ holding Shift will put it in the second.]])
 		self:UpdateDisplayItemTooltip()
 		self:UpdateCustomControls()
 	end)
+
+	for i = 1, 20 do
+		local baseControl = i == 1 and self.controls.displayItemSectionRange or self.controls["displayItemStackedRangeSlider"..(i-1)]
+
+		self.controls["displayItemStackedRangeSlider"..i] = new("SliderControl", {"TOPLEFT",baseControl,"TOPLEFT"}, {0, function()
+			return i == 1 and 2 or 22
+		end, 100, 18}, function(val)
+			if self.displayItem and self.displayItem.rangeLineList[i] then
+				self.displayItem.rangeLineList[i].range = val
+				self.displayItem:BuildAndParseRaw()
+				self:UpdateDisplayItemTooltip()
+				self:UpdateCustomControls()
+			end
+		end)
+		self.controls["displayItemStackedRangeLine"..i] = new("LabelControl", {"LEFT",self.controls["displayItemStackedRangeSlider"..i],"RIGHT"}, {8, -2, 350, 14}, function()
+			if self.displayItem and self.displayItem.rangeLineList[i] then
+				return "^7" .. self.displayItem.rangeLineList[i].line
+			end
+			return ""
+		end)
+		self.controls["displayItemStackedRangeSlider"..i].shown = function()
+			return main.showAllItemAffixes and self.displayItem and self.displayItem.rarity == "UNIQUE" and self.displayItem.rangeLineList[i] ~= nil
+		end
+
+		self.controls["displayItemStackedRangeLine"..i].shown = function()
+			return self.controls["displayItemStackedRangeSlider"..i]:IsShown()
+		end
+	end
 
 	-- Tooltip anchor
 	self.controls.displayItemTooltipAnchor = new("Control", {"TOPLEFT",self.controls.displayItemSectionRange,"BOTTOMLEFT"})
@@ -1879,8 +1915,11 @@ end
 function ItemsTabClass:UpdateDisplayItemRangeLines()
 	if self.displayItem and self.displayItem.rangeLineList[1] then
 		wipeTable(self.controls.displayItemRangeLine.list)
-		for _, modLine in ipairs(self.displayItem.rangeLineList) do
+		for i, modLine in ipairs(self.displayItem.rangeLineList) do
 			t_insert(self.controls.displayItemRangeLine.list, modLine.line)
+			if self.controls["displayItemStackedRangeSlider"..i] then
+				self.controls["displayItemStackedRangeSlider"..i].val = modLine.range
+			end
 		end
 		self.controls.displayItemRangeLine.selIndex = 1
 		self.controls.displayItemRangeSlider.val = self.displayItem.rangeLineList[1].range
@@ -3607,7 +3646,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		end
 
 		if flavourTable then
-			if item.title:match("Grand Spectrum") then
+			if (item.title and item.title:match("Grand Spectrum")) then
 				local selectedFlavourId = nil
 				for _, lineEntry in ipairs(tooltip.lines or {}) do
 					local lineText = lineEntry.text or ""

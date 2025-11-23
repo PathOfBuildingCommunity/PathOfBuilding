@@ -614,15 +614,21 @@ local function doActorMisc(env, actor)
 		end
 		-- Fortify
 		if modDB:Flag(nil, "Fortified") or modDB:Sum("BASE", nil, "Multiplier:Fortification") > 0 then
-			local maxStacks = modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification")
+			local skillModList = actor.mainSkill and actor.mainSkill.skillModList or actor.modDB
+			local skillCfg = actor.mainSkill and actor.mainSkill.skillCfg
+			local maxStacks = m_max(modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification"), alliedFortify)
 			local minStacks = m_min(modDB:Flag(nil, "Condition:HaveMaxFortification") and maxStacks or modDB:Sum("BASE", nil, "MinimumFortification"), maxStacks)
-			local stacks = m_min(modDB:Override(nil, "FortificationStacks") or (alliedFortify > 0 and alliedFortify) or (minStacks > 0 and minStacks) or maxStacks, maxStacks)
+			local stacks = m_min(modDB:Override(nil, "FortificationStacks") or (minStacks > 0 and minStacks) or maxStacks, maxStacks)
+			local increasedDuration = skillModList:Sum("INC", nil, "FortifyDuration")
+			output.MaximumFortification = maxStacks
+			output.MinimumFortification = minStacks
 			output.FortificationStacks = stacks
 			output.FortificationStacksOver20 = m_min(m_max(0, stacks - 20), maxStacks - 20)
+			output.FortifyDuration = (skillModList:Override(nil, "FortifyDuration") or data.misc.FortifyBaseDuration) * (1 + increasedDuration / 100)
+			output.FortificationEffect = "0" -- string allows shown for Willowgift mod
 			if not modDB:Flag(nil,"Condition:NoFortificationMitigation") then
-				local effectScale = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
-				local effect = m_floor(effectScale * stacks)
-				modDB:NewMod("DamageTakenWhenHit", "MORE", -effect, "Fortification")
+				output.FortificationEffect = stacks
+				modDB:NewMod("DamageTakenWhenHit", "MORE", -stacks, "Fortification")
 			end
 			if stacks >= maxStacks then
 				modDB:NewMod("Condition:HaveMaximumFortification", "FLAG", true, "")
@@ -1408,20 +1414,25 @@ function calcs.perform(env, skipEHP)
 	end
 
 	-- Special handling of Mageblood
-	local maxActiveMagicUtilityCount = modDB:Sum("BASE", nil, "ActiveMagicUtilityFlasks")
-	if maxActiveMagicUtilityCount > 0 then
-		local curActiveMagicUtilityCount = 0
+	local maxLeftActiveMagicUtilityCount = modDB:Sum("BASE", nil, "LeftActiveMagicUtilityFlasks")
+	local maxRightActiveMagicUtilityCount = modDB:Sum("BASE", nil, "RightActiveMagicUtilityFlasks")
+	if maxLeftActiveMagicUtilityCount > 0 or maxRightActiveMagicUtilityCount > 0 then
+		local magicUtilityFlasks = {}
 		for _, slot in pairs(env.build.itemsTab.orderedSlots) do
-			local slotName = slot.slotName
 			local item = env.build.itemsTab.items[slot.selItemId]
-			if item and item.type == "Flask" then
-				local mageblood_applies = item.rarity == "MAGIC" and not (item.baseName:match("Life Flask") or
-					item.baseName:match("Mana Flask") or item.baseName:match("Hybrid Flask")) and
-					curActiveMagicUtilityCount < maxActiveMagicUtilityCount
-				if mageblood_applies then
-					env.flasks[item] = true
-					curActiveMagicUtilityCount = curActiveMagicUtilityCount + 1
-				end
+			if item and item.type == "Flask" and item.rarity == "MAGIC"
+				and not (item.baseName:match("Life Flask") or item.baseName:match("Mana Flask") or item.baseName:match("Hybrid Flask")) then
+				t_insert(magicUtilityFlasks, item)
+			end
+		end
+		if maxLeftActiveMagicUtilityCount > 0 then
+			for i = 1, m_min(maxLeftActiveMagicUtilityCount, #magicUtilityFlasks) do
+				env.flasks[magicUtilityFlasks[i]] = true
+			end
+		end
+		if maxRightActiveMagicUtilityCount > 0 then
+			for i = #magicUtilityFlasks, m_max(#magicUtilityFlasks - maxRightActiveMagicUtilityCount + 1, 1), -1 do
+				env.flasks[magicUtilityFlasks[i]] = true
 			end
 		end
 	end
@@ -1994,6 +2005,15 @@ function calcs.perform(env, skipEHP)
 	if hasActiveSpectreSkill then
 		for spectreId = 1, #env.spec.build.spectreList do
 			local spectreData = data.minions[env.spec.build.spectreList[spectreId]]
+			if not modDB.conditions["HaveBeastSpectre"] then
+				-- Change to grab from monster family using CorpseTypeTags.dat if other monster families are needed in the future
+				for _, tagName in ipairs(spectreData.monsterTags) do
+					if tagName == "beast" then
+						modDB.conditions["HaveBeastSpectre"] = true
+						break
+					end
+				end
+			end
 			for modId = 1, #spectreData.modList do
 				local modData = spectreData.modList[modId]
 				if modData.name == "EnemyCurseLimit" then

@@ -41,6 +41,10 @@ local minions, mod = ...
 #limit ActiveWolfLimit
 #emit
 
+#monster Metadata/Monsters/SummonedTiger/SummonedTiger SummonedSpectralTiger
+#limit ActiveTigerLimit
+#emit
+
 #monster Metadata/Monsters/RaisedSkeletons/RaisedSkeletonStandard RaisedSkeleton
 #limit ActiveSkeletonLimit
 #emit
@@ -242,5 +246,5 @@ minions["GuardianRelicAll"] = {
 #emit
 
 #monster Metadata/Monsters/SummonedPhantasm/SummonedPhantasmPenanceMark PenanceMarkPhantasm
-#limit ActiveVoidSpawnLimit
+#hostile true
 #emit

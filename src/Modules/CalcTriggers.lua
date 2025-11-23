@@ -693,7 +693,7 @@ local function defaultTriggerHandler(env, config)
 			end
 
 			if env.player.mainSkill.activeEffect.grantedEffect.name == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "vixen" then
-				if not env.player.itemList["Gloves"] or not env.player.itemList["Gloves"].title:match("Vixen's Entrapment") then
+				if not env.player.itemList["Gloves"] or not (env.player.itemList["Gloves"].title and env.player.itemList["Gloves"].title:match("Vixen's Entrapment")) then
 					output.VixenModeNoVixenGlovesWarn = true
 				end
 
@@ -1076,7 +1076,21 @@ local configTable = {
 				comparer = function(env, uuid, source, triggerRate)
 					local cachedSpeed = GlobalCache.cachedData[env.mode][uuid].HitSpeed or GlobalCache.cachedData[env.mode][uuid].Speed
 					local cachedManaCost = GlobalCache.cachedData[env.mode][uuid].ManaCost
-					return ( (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0)) ) and ( (cachedManaCost or 0) > requiredManaCost )
+					return ( (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0)) ) and ( (cachedManaCost or 0) >= requiredManaCost )
+				end,
+				triggerSkillCond = function(env, skill)
+					return true
+					-- Filtering done by skill() in SkillStatMap, comparer and default excludes
+				end}
+	end,
+	["foulborn kitava's thirst"] = function(env)
+		local requiredLifeCost = env.player.modDB:Sum("BASE", nil, "FoulbornKitavaRequiredLifeCost")
+		return {triggerChance = env.player.modDB:Sum("BASE", nil, "FoulbornKitavaTriggerChance"),
+				triggerName = "Foulborn Kitava's Thirst",
+				comparer = function(env, uuid, source, triggerRate)
+					local cachedSpeed = GlobalCache.cachedData[env.mode][uuid].HitSpeed or GlobalCache.cachedData[env.mode][uuid].Speed
+					local cachedLifeCost = GlobalCache.cachedData[env.mode][uuid].LifeCost
+					return ( (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0)) ) and ( (cachedLifeCost or 0) >= requiredLifeCost )
 				end,
 				triggerSkillCond = function(env, skill)
 					return true

@@ -603,7 +603,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-	if skillModList:Flag(nil, "SpellDamageAppliesToAttacks") then
+	if skillModList:Flag(nil, "SpellDamageAppliesToAttacks") or skillModList:Flag(skillCfg, "SpellDamageAppliesToAttacks") then
 		-- Spell Damage conversion from Crown of Eyes, Kinetic Bolt, and the Wandslinger notable
 		local multiplier = (skillModList:Max(skillCfg, "ImprovedSpellDamageAppliesToAttacks") or 100) / 100
 		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Spell }, "Damage")) do
@@ -5549,7 +5549,8 @@ function calcs.offence(env, actor, activeSkill)
 			elseif skillFlags.totem then
 				useSpeed = (output.Cooldown and output.Cooldown > 0 and (output.TotemPlacementSpeed > 0 and output.TotemPlacementSpeed or 1 / output.Cooldown) or output.TotemPlacementSpeed) / repeats
 				timeType = "totem placement"
-			elseif skillModList:Flag(nil, "HasSeals") and skillModList:Flag(nil, "UseMaxUnleash") then
+			-- nil check until ailment pass for skills like Vortex
+			elseif skillModList:Flag(nil, "HasSeals") and skillModList:Flag(nil, "UseMaxUnleash") and env.player.mainSkill.skillData.hitTimeOverride then
 				useSpeed = env.player.mainSkill.skillData.hitTimeOverride / repeats
 				timeType = "full unleash"
 			else
