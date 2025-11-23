@@ -1,3 +1,12 @@
+VERSION[2.59.2][2025/11/23]
+
+--- Fixed Crashes ---
+* Fix crash on adding support gems and importing items to many builds (LocalIdentity)
+
+--- Fixed Behaviours ---
+* Fix Party Tab max Fortify override not working (LocalIdentity)
+
+
 VERSION[2.59.1][2025/11/22]
 
 --- Fixed Bugs ---
@@ -62,7 +71,7 @@ VERSION[2.59.0][2025/11/22]
 * Fix Righteous Fire of Arcane Devotion still applying when using Blood Magic (LocalIdentity)
 * Fix Sacred Wisps applying to non-Wand Attacks (Peechey)
 * Fix Beacon of Madness explode mod disabling life from Utula's Hunger (ATRussell63)
-* Fix Spiritblade conversion and Moonbenders Wing gain mods always applying (LocalIdentity)
+* Fix Spiritblade conversion and Moonbender's Wing gain mods always applying (LocalIdentity)
 * Fix Foulborn Dialla's Malefaction not importing gems in correct order (LocalIdentity)
 * Fix comparison showing for Ring 3 when Ascendancy was not allocated (Peechey)
 * Fix Ring 3 visibility and Weapon Swap searching in Trader (Peechey)

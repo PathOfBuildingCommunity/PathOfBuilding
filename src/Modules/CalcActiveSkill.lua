@@ -107,36 +107,15 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	activeSkill.effectList = { activeEffect }
 	local rejectedSupportsIndices = {}
 
-	-- Return first compatible support grantedEffect plus a flag indicating the support has a support component
-	local function getGrantedSupportEffect(supportEffect)
-		local hasSupport = false
-		if supportEffect.gemData then
-			for _, grantedEffect in ipairs(supportEffect.gemData.grantedEffectList) do
-				if grantedEffect and grantedEffect.support then
-					hasSupport = true
-					if calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill) then
-						return grantedEffect, true
-					end
+	for index, supportEffect in ipairs(supportList) do
+		-- Pass 1: Add skill types from compatible supports
+		if supportEffect.grantedEffect.support then
+			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+				for _, skillType in pairs(supportEffect.grantedEffect.addSkillTypes) do
+					activeSkill.skillTypes[skillType] = true
 				end
 			end
-		elseif supportEffect.grantedEffect then
-			hasSupport = true
-			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
-				return supportEffect.grantedEffect, true
-			end
-		end
-		return nil, hasSupport
-	end
-
-	for index, supportEffect in ipairs(supportList) do
-		-- Loop through grantedEffectList until we find a support gem if the gem has an active and support component e.g. Autoexertion
-		local grantedSupportEffect, hasSupport = getGrantedSupportEffect(supportEffect)
-		if grantedSupportEffect then
-			-- Pass 1: Add skill types from compatible supports
-			for _, skillType in pairs(grantedSupportEffect.addSkillTypes) do
-				activeSkill.skillTypes[skillType] = true
-			end
-		elseif hasSupport then
+		else
 			t_insert(rejectedSupportsIndices, index)
 		end
 	end
@@ -148,12 +127,13 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 		notAddedNewSupport = true
 		for index, supportEffectIndex in ipairs(rejectedSupportsIndices) do
 			local supportEffect = supportList[supportEffectIndex]
-			local grantedSupportEffect = getGrantedSupportEffect(supportEffect)
-			if grantedSupportEffect then
-				notAddedNewSupport = false
-				rejectedSupportsIndices[index] = nil
-				for _, skillType in pairs(grantedSupportEffect.addSkillTypes) do
-					activeSkill.skillTypes[skillType] = true
+			if supportEffect.grantedEffect.support then
+				if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+					notAddedNewSupport = false
+					rejectedSupportsIndices[index] = nil
+					for _, skillType in pairs(supportEffect.grantedEffect.addSkillTypes) do
+						activeSkill.skillTypes[skillType] = true
+					end
 				end
 			end
 		end
@@ -161,16 +141,17 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	
 	for _, supportEffect in ipairs(supportList) do
 		-- Pass 2: Add all compatible supports
-		local grantedSupportEffect = getGrantedSupportEffect(supportEffect)
-		if grantedSupportEffect then
-			t_insert(activeSkill.effectList, supportEffect)
-			if supportEffect.isSupporting and activeEffect.srcInstance then
-				supportEffect.isSupporting[activeEffect.srcInstance] = true
-			end
-			if grantedSupportEffect.addFlags and not summonSkill then
-				-- Support skill adds flags to supported skills (eg. Remote Mine adds 'mine')
-				for k in pairs(grantedSupportEffect.addFlags) do
-					skillFlags[k] = true
+		if supportEffect.grantedEffect.support then
+			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+				t_insert(activeSkill.effectList, supportEffect)
+				if supportEffect.isSupporting and activeEffect.srcInstance then
+					supportEffect.isSupporting[activeEffect.srcInstance] = true
+				end
+				if supportEffect.grantedEffect.addFlags and not summonSkill then
+					-- Support skill adds flags to supported skills (eg. Remote Mine adds 'mine')
+					for k in pairs(supportEffect.grantedEffect.addFlags) do
+						skillFlags[k] = true
+					end
 				end
 			end
 		end
