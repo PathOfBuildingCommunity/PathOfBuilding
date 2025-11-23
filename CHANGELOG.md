@@ -1,5 +1,18 @@
 # Changelog
 
+## [v2.59.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.59.2) (2025/11/23)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.59.1...v2.59.2)
+
+
+## What's Changed
+### Fixed Crashes
+- Fix crash on adding support gems and importing items to many builds [\#9340](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9340) ([LocalIdentity](https://github.com/LocalIdentity))
+### Fixed Behaviours
+- Fix Party Tab max Fortify override not working [\#9342](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9342) ([LocalIdentity](https://github.com/LocalIdentity))
+
+
+
 ## [v2.59.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.59.1) (2025/11/22)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.59.0...v2.59.1)

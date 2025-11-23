@@ -1,3 +1,12 @@
+VERSION[2.59.2][2025/11/23]
+
+--- Fixed Crashes ---
+* Fix crash on adding support gems and importing items to many builds (LocalIdentity)
+
+--- Fixed Behaviours ---
+* Fix Party Tab max Fortify override not working (LocalIdentity)
+
+
 VERSION[2.59.1][2025/11/22]
 
 --- Fixed Bugs ---
