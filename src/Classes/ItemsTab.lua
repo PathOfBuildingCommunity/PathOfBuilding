@@ -95,7 +95,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	end)
 
 	-- Price Items
-	self.controls.priceDisplayItem = new("ButtonControl", {"TOPLEFT",self,"TOPLEFT"}, {96, 32, 374, 20}, "Trade for these items", function()
+	self.controls.priceDisplayItem = new("ButtonControl", {"TOPLEFT",self,"TOPLEFT"}, {96, 32, 310, 20}, "Trade for these items", function()
 		self.tradeQuery:PriceItem()
 	end)
 	self.controls.priceDisplayItem.tooltipFunc = function(tooltip)
@@ -218,7 +218,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		t_insert(self.controls, socketTradeButton)
 	end
 	self.controls.slotHeader = new("LabelControl", {"BOTTOMLEFT",self.slotAnchor,"TOPLEFT"}, {0, -4, 0, 16}, "^7Equipped items:")
-	self.controls.weaponSwap1 = new("ButtonControl", {"BOTTOMRIGHT",self.slotAnchor,"TOPRIGHT"}, {-20, -2, 18, 18}, "I", function()
+	self.controls.weaponSwap1 = new("ButtonControl", {"BOTTOMLEFT",self.slotAnchor,"TOPLEFT"}, {310, -2, 18, 18}, "I", function()
 		if self.activeItemSet.useSecondWeaponSet then
 			self.activeItemSet.useSecondWeaponSet = false
 			self:AddUndoState()
@@ -238,7 +238,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	self.controls.weaponSwap1.locked = function()
 		return not self.activeItemSet.useSecondWeaponSet
 	end
-	self.controls.weaponSwap2 = new("ButtonControl", {"BOTTOMRIGHT",self.slotAnchor,"TOPRIGHT"}, {0, -2, 18, 18}, "II", function()
+	self.controls.weaponSwap2 = new("ButtonControl", {"LEFT",self.controls.weaponSwap1,"RIGHT"}, {2, 0, 18, 18}, "II", function()
 		if not self.activeItemSet.useSecondWeaponSet then
 			self.activeItemSet.useSecondWeaponSet = true
 			self:AddUndoState()
@@ -266,9 +266,9 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		-- Position itemList to the right of trade buttons (slot 310 + gap 4 + button 60 + margin = 80px from slot right edge)
 		self.controls.itemList = new("ItemListControl", {"TOPRIGHT",self.lastSlot,"BOTTOMRIGHT"}, {80, 0, 360, 308}, self, true)
 	else
-		-- In landscape mode, position relative to slotAnchor to avoid trade buttons
+		-- In landscape mode, position relative to top of tab to avoid trade buttons
 		-- slotAnchor x=96, slot width=310, gap=4, button=60, so start at 96+310+4+60+margin = 470+margin
-		self.controls.itemList = new("ItemListControl", {"TOPLEFT",self.slotAnchor,"TOPLEFT"}, {480, 0, 360, 308}, self, true)
+		self.controls.itemList = new("ItemListControl", {"TOPLEFT",self,"TOPLEFT"}, {480, 28, 360, 308}, self, true)
 	end
 
 	-- Database selector
