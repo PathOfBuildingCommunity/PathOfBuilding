@@ -95,7 +95,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	end)
 
 	-- Price Items
-	self.controls.priceDisplayItem = new("ButtonControl", {"TOPLEFT",self,"TOPLEFT"}, {96, 32, 310, 20}, "Trade for these items", function()
+	self.controls.priceDisplayItem = new("ButtonControl", {"TOPLEFT",self,"TOPLEFT"}, {96, 32, 374, 20}, "Trade for these items", function()
 		self.tradeQuery:PriceItem()
 	end)
 	self.controls.priceDisplayItem.tooltipFunc = function(tooltip)
@@ -108,7 +108,8 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	self.slots = { }
 	self.orderedSlots = { }
 	self.slotOrder = { }
-	self.slotAnchor = new("Control", {"TOPLEFT",self,"TOPLEFT"}, {96, 76, 310, 0})
+	-- Increased width to accommodate trade buttons (310 slot + 4 gap + 60 button = 374, add extra margin)
+	self.slotAnchor = new("Control", {"TOPLEFT",self,"TOPLEFT"}, {96, 76, 440, 0})
 	local prevSlot = self.slotAnchor
 	local function addSlot(slot)
 		prevSlot = slot
@@ -120,6 +121,12 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	for index, slotName in ipairs(baseSlots) do
 		local slot = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 2, self, slotName)
 		addSlot(slot)
+		-- Add trade button next to each slot
+		local tradeButton = new("ButtonControl", {"LEFT",slot,"RIGHT"}, {4, 0, 60, 20}, "Trade", function()
+			self:OpenLeagueSelectionPopup(slot)
+		end)
+		tradeButton.tooltipText = "Generate a trade search filtered by this item's mods"
+		t_insert(self.controls, tradeButton)
 		if slotName:match("Weapon") then
 			-- Add alternate weapon slot
 			slot.weaponSet = 1
@@ -128,6 +135,15 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 			end
 			local swapSlot = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 2, self, slotName.." Swap", slotName)
 			addSlot(swapSlot)
+			-- Add trade button for second weapon set
+			local swapTradeButton = new("ButtonControl", {"LEFT",swapSlot,"RIGHT"}, {4, 0, 60, 20}, "Trade", function()
+				self:OpenLeagueSelectionPopup(swapSlot)
+			end)
+			swapTradeButton.tooltipText = "Generate a trade search filtered by this item's mods"
+			swapTradeButton.shown = function()
+				return self.activeItemSet.useSecondWeaponSet
+			end
+			t_insert(self.controls, swapTradeButton)
 			swapSlot.weaponSet = 2
 			swapSlot.shown = function()
 				return self.activeItemSet.useSecondWeaponSet
@@ -194,6 +210,12 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		local socketControl = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 2, self, "Jewel "..node.id, "Socket", node.id)
 		self.sockets[node.id] = socketControl
 		addSlot(socketControl)
+		-- Add trade button for socket/jewel slots
+		local socketTradeButton = new("ButtonControl", {"LEFT",socketControl,"RIGHT"}, {4, 0, 60, 20}, "Trade", function()
+			self:OpenLeagueSelectionPopup(socketControl)
+		end)
+		socketTradeButton.tooltipText = "Generate a trade search filtered by this item's mods"
+		t_insert(self.controls, socketTradeButton)
 	end
 	self.controls.slotHeader = new("LabelControl", {"BOTTOMLEFT",self.slotAnchor,"TOPLEFT"}, {0, -4, 0, 16}, "^7Equipped items:")
 	self.controls.weaponSwap1 = new("ButtonControl", {"BOTTOMRIGHT",self.slotAnchor,"TOPRIGHT"}, {-20, -2, 18, 18}, "I", function()
@@ -239,10 +261,14 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	self.controls.weaponSwapLabel = new("LabelControl", {"RIGHT",self.controls.weaponSwap1,"LEFT"}, {-4, 0, 0, 14}, "^7Weapon Set:")
 
 	-- All items list
+	-- Position to avoid overlapping trade buttons (slot 310 + gap 4 + button 60 = 374, add margin)
 	if main.portraitMode then
-		self.controls.itemList = new("ItemListControl", {"TOPRIGHT",self.lastSlot,"BOTTOMRIGHT"}, {0, 0, 360, 308}, self, true)
+		-- Position itemList to the right of trade buttons (slot 310 + gap 4 + button 60 + margin = 80px from slot right edge)
+		self.controls.itemList = new("ItemListControl", {"TOPRIGHT",self.lastSlot,"BOTTOMRIGHT"}, {80, 0, 360, 308}, self, true)
 	else
-		self.controls.itemList = new("ItemListControl", {"TOPLEFT",self.controls.setManage,"TOPRIGHT"}, {20, 20, 360, 308}, self, true)
+		-- In landscape mode, position relative to slotAnchor to avoid trade buttons
+		-- slotAnchor x=96, slot width=310, gap=4, button=60, so start at 96+310+4+60+margin = 470+margin
+		self.controls.itemList = new("ItemListControl", {"TOPLEFT",self.slotAnchor,"TOPLEFT"}, {480, 0, 360, 308}, self, true)
 	end
 
 	-- Database selector
@@ -1202,7 +1228,9 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 	self.controls.scrollBarV.y = viewPort.y
 	do
 		local maxY = select(2, self.lastSlot:GetPos()) + 24
-		local maxX = self.anchorDisplayItem:GetPos() + 462
+		-- Calculate maxX to include trade buttons (slot width 310 + gap 4 + button width 60 = 374, add margin)
+		local slotMaxX = self.slotAnchor:GetPos() + 440
+		local maxX = m_max(self.anchorDisplayItem:GetPos() + 462, slotMaxX)
 		if self.displayItem then
 			local x, y = self.controls.displayItemTooltipAnchor:GetPos()
 			local ttW, ttH = self.displayItemTooltip:GetDynamicSize(viewPort)
@@ -1426,7 +1454,8 @@ function ItemsTabClass:UpdateSockets()
 	end
 
 	if main.portraitMode then
-		self.controls.itemList:SetAnchor("TOPRIGHT",self.lastSlot,"BOTTOMRIGHT", 0, 40)
+		-- Keep itemList positioned to avoid trade buttons (80px from slot right edge)
+		self.controls.itemList:SetAnchor("TOPRIGHT",self.lastSlot,"BOTTOMRIGHT", 80, 0)
 	end
 end
 
@@ -4036,4 +4065,703 @@ function ItemsTabClass:RestoreUndoState(state)
 	self.activeItemSetId = state.activeItemSetId
 	self.activeItemSet = self.itemSets[self.activeItemSetId]
 	self:PopulateSlots()
+end
+
+function ItemsTabClass:GetTradeStatWeights()
+	if not self.tradeQuery.statSortSelectionList or #self.tradeQuery.statSortSelectionList == 0 then
+		self.tradeQuery.statSortSelectionList = {
+			{ label = "Full DPS", stat = "FullDPS", weightMult = 1.0 },
+			{ label = "Effective Hit Pool", stat = "TotalEHP", weightMult = 0.5 },
+		}
+	end
+	return self.tradeQuery.statSortSelectionList
+end
+
+function ItemsTabClass:GetSlotTradeOptions(slot)
+	local options = { }
+	local item = slot and self.items[slot.selItemId]
+	if item then
+		options.includeCorrupted = not item.corrupted
+		options.includeScourge = item.scourge or false
+		options.includeTalisman = slot.slotName == "Amulet" and item.talismanTier ~= nil
+		if slot.slotName == "Body Armour" or slot.slotName == "Helmet" or slot.slotName == "Gloves" or slot.slotName == "Boots" then
+			options.includeEldritch = item.exarch or item.eater
+		end
+		local influenceIndexes = {}
+		for index, influenceInfo in ipairs(itemLib.influenceInfo.default) do
+			if item[influenceInfo.key] then
+				t_insert(influenceIndexes, index + 1)
+				if #influenceIndexes == 2 then
+					break
+				end
+			end
+		end
+		options.influence1 = influenceIndexes[1] or 1
+		options.influence2 = influenceIndexes[2] or 1
+	else
+		options.includeCorrupted = true
+		options.includeScourge = false
+		options.includeEldritch = false
+		options.includeTalisman = false
+		options.influence1 = 1
+		options.influence2 = 1
+	end
+	if slot.slotName:find("Abyssal") then
+		options.jewelType = "Abyss"
+	elseif slot.slotName:find("Jewel") then
+		options.jewelType = "Any"
+	end
+	return options
+end
+
+function ItemsTabClass:StoreTradeURL(slot, url)
+	if not self.activeItemSet then
+		return
+	end
+	if slot.nodeId then
+		self.activeItemSet[slot.nodeId] = self.activeItemSet[slot.nodeId] or { }
+		self.activeItemSet[slot.nodeId].pbURL = url
+	elseif self.activeItemSet[slot.slotName] then
+		self.activeItemSet[slot.slotName].pbURL = url
+	end
+end
+
+function ItemsTabClass:OpenTradeForSlot(slot)
+	if not slot then
+		return
+	end
+	if not self.tradeQuery then
+		main:OpenMessagePopup("Trade Search", "^1Trade query system not initialized.")
+		return
+	end
+	-- Initialize tradeQueryGenerator if it doesn't exist
+	if not self.tradeQuery.tradeQueryGenerator then
+		self.tradeQuery.tradeQueryGenerator = new("TradeQueryGenerator", self.tradeQuery)
+		main.onFrameFuncs["TradeQueryGenerator"] = function()
+			if self.tradeQuery.tradeQueryGenerator then
+				self.tradeQuery.tradeQueryGenerator:OnFrame()
+			end
+		end
+	end
+	if not self.tradeQuery.tradeQueryGenerator.modData then
+		main:OpenMessagePopup("Trade Search", "^1Trade query data not loaded. Please wait a moment and try again.")
+		return
+	end
+	-- Always use the newest/current league (first in the list, which is sorted with newest first)
+	local pbLeague
+	local realm = (self.tradeQuery.pbRealm and self.tradeQuery.pbRealm ~= "") and self.tradeQuery.pbRealm or "pc"
+	
+	-- Try to get the newest league from leagueDropList first (sorted with newest first)
+	if self.leagueDropList and #self.leagueDropList > 0 then
+		-- First league in the list is the newest/current league
+		pbLeague = self.leagueDropList[1]
+	elseif self.tradeQuery.allLeagues and self.tradeQuery.allLeagues[realm] and #self.tradeQuery.allLeagues[realm] > 0 then
+		-- Fallback to allLeagues - first one should be newest (non-SSF leagues come first)
+		pbLeague = self.tradeQuery.allLeagues[realm][1]
+	else
+		-- Last resort: use Standard as fallback
+		pbLeague = "Standard"
+	end
+	self.tradeQuery.pbLeague = pbLeague
+	-- Only generate query if there's an actual item equipped
+	local item = slot and self.items[slot.selItemId]
+	if not item or not item.base then
+		main:OpenMessagePopup("Trade Search", "^1No item equipped in this slot. Please equip an item first.")
+		return
+	end
+	
+	local statWeights = self:GetTradeStatWeights()
+	local options = self:GetSlotTradeOptions(slot)
+	-- Show a brief message that we're generating the query
+	main:OpenMessagePopup("Trade Search", "^7Generating trade query for " .. (slot.slotName or "item") .. "...")
+	self.tradeQuery.tradeQueryGenerator:RequestQuickQuery(slot, options, statWeights, function(context, query, errMsg)
+		-- Close the "generating" popup
+		if main.popups[1] then
+			main:ClosePopup()
+		end
+		if errMsg then
+			main:OpenMessagePopup("Trade Search", colorCodes.NEGATIVE .. errMsg)
+			return
+		end
+		if not query or query == "" then
+			main:OpenMessagePopup("Trade Search", "^1Failed to build trade query.")
+			return
+		end
+		local url = self.tradeQuery.tradeQueryRequests:buildUrl(self.tradeQuery.hostName .. "trade/search", realm, pbLeague)
+		url = url .. "?q=" .. urlEncode(query)
+		self:StoreTradeURL(slot, url)
+		OpenURL(url)
+	end)
+end
+
+-- Open league selection popup for trade link generation
+function ItemsTabClass:OpenLeagueSelectionPopup(slot)
+	if not slot then
+		return
+	end
+	
+	-- Get the item first (needed for validation)
+	local item = slot and self.items[slot.selItemId]
+	if not item or not item.base then
+		main:OpenMessagePopup("Trade Search", "^1No item equipped in this slot. Please equip an item first.")
+		return
+	end
+	
+	-- Function to open the popup with league list
+	local function openPopupWithLeagues(leagueList)
+		if not leagueList or #leagueList == 0 then
+			main:OpenMessagePopup("Trade Search", "^1No leagues available. Please try again later.")
+			return
+		end
+		
+		local controls = {}
+		local rowHeight = 22
+		local startY = 20
+		local maxVisibleRows = 15
+		local popupHeight = startY + (m_min(#leagueList, maxVisibleRows) * rowHeight) + 60
+		local popupWidth = 320
+		
+		-- Create a label
+		controls.label = new("LabelControl", nil, {0, startY, 0, 16}, "^7Select a league:")
+		
+		-- Create buttons for each league (limit to visible rows for now)
+		local buttonY = startY + 25
+		local visibleLeagues = m_min(#leagueList, maxVisibleRows)
+		for i = 1, visibleLeagues do
+			local league = leagueList[i]
+			controls["league_" .. i] = new("ButtonControl", nil, {0, buttonY, popupWidth - 40, rowHeight}, league, function()
+				main:ClosePopup()
+				-- Generate trade link with selected league
+				self:OpenTradeForSlotWithItemMods(slot, league)
+			end)
+			buttonY = buttonY + rowHeight + 2
+		end
+		
+		-- Show message if there are more leagues
+		if #leagueList > maxVisibleRows then
+			controls.moreLabel = new("LabelControl", nil, {0, buttonY, 0, 16}, "^7... and " .. (#leagueList - maxVisibleRows) .. " more (showing first " .. maxVisibleRows .. ")")
+			buttonY = buttonY + 20
+		end
+		
+		-- Cancel button
+		controls.cancel = new("ButtonControl", nil, {0, buttonY + 5, 80, 20}, "Cancel", function()
+			main:ClosePopup()
+		end)
+		
+		main:OpenPopup(popupWidth, popupHeight, "Select League", controls, nil, nil, "cancel")
+	end
+	
+	-- Get league list
+	local leagueList = nil
+	if self.tradeQuery.itemsTab and self.tradeQuery.itemsTab.leagueDropList and #self.tradeQuery.itemsTab.leagueDropList > 0 then
+		leagueList = self.tradeQuery.itemsTab.leagueDropList
+	elseif self.leagueDropList and #self.leagueDropList > 0 then
+		leagueList = self.leagueDropList
+	end
+	
+	if leagueList and #leagueList > 0 then
+		openPopupWithLeagues(leagueList)
+	else
+		-- Fetch leagues first
+		launch:DownloadPage(
+			self.tradeQuery.hostName .. "api/leagues?type=main&compact=1",
+			function(response, errMsg)
+				if errMsg then
+					main:OpenMessagePopup("Trade Search", "^1Error fetching league list: " .. tostring(errMsg))
+					return
+				else
+					local dkjson = require "dkjson"
+					local json_data = dkjson.decode(response.body)
+					if not json_data then
+						main:OpenMessagePopup("Trade Search", "^1Failed to Get PoE League List response")
+						return
+					end
+					-- Sort leagues: temporary leagues (with endAt) first, sorted by startAt (newest first)
+					table.sort(json_data, function(a, b)
+						if a.endAt == nil then return false end
+						if b.endAt == nil then return true end
+						if a.startAt and b.startAt then
+							return a.startAt > b.startAt
+						end
+						return #a.id < #b.id
+					end)
+					-- Store leagues
+					local fetchedLeagueList = {}
+					for _, league_data in ipairs(json_data) do
+						if not league_data.id:find("SSF") then
+							t_insert(fetchedLeagueList, league_data.id)
+						end
+					end
+					-- Update stored lists
+					self.leagueDropList = fetchedLeagueList
+					if self.tradeQuery.itemsTab then
+						self.tradeQuery.itemsTab.leagueDropList = fetchedLeagueList
+					end
+					-- Open popup with fetched leagues
+					openPopupWithLeagues(fetchedLeagueList)
+				end
+			end)
+	end
+end
+
+-- Generate a trade link with filters based on the current item's mods
+function ItemsTabClass:OpenTradeForSlotWithItemMods(slot, selectedLeague)
+	if not slot then
+		return
+	end
+	if not self.tradeQuery then
+		main:OpenMessagePopup("Trade Search", "^1Trade query system not initialized.")
+		return
+	end
+	-- Initialize tradeQueryGenerator if it doesn't exist
+	if not self.tradeQuery.tradeQueryGenerator then
+		self.tradeQuery.tradeQueryGenerator = new("TradeQueryGenerator", self.tradeQuery)
+		main.onFrameFuncs["TradeQueryGenerator"] = function()
+			if self.tradeQuery.tradeQueryGenerator then
+				self.tradeQuery.tradeQueryGenerator:OnFrame()
+			end
+		end
+	end
+	if not self.tradeQuery.tradeQueryGenerator.modData then
+		main:OpenMessagePopup("Trade Search", "^1Trade query data not loaded. Please wait a moment and try again.")
+		return
+	end
+	
+	-- Get the item first (needed for both unique and non-unique paths)
+	local item = slot and self.items[slot.selItemId]
+	if not item or not item.base then
+		main:OpenMessagePopup("Trade Search", "^1No item equipped in this slot. Please equip an item first.")
+		return
+	end
+	
+	-- Use PullLeagueList to get the newest league (first in the list)
+	local realm = (self.tradeQuery.pbRealm and self.tradeQuery.pbRealm ~= "") and self.tradeQuery.pbRealm or "pc"
+	
+	-- Use selected league if provided, otherwise get from list
+	local pbLeague = selectedLeague
+	
+	-- Function to generate the query once we have the league
+	local function generateQueryWithLeague(pbLeague)
+		ConPrintf("=== generateQueryWithLeague called with league: %s ===", pbLeague or "NIL")
+		self.tradeQuery.pbLeague = pbLeague
+		ConPrintf("=== self.tradeQuery.pbLeague set to: %s ===", self.tradeQuery.pbLeague or "NIL")
+		
+		-- If item is unique, use name-based search instead of mod-based search
+		if item.rarity == "UNIQUE" and item.name then
+		-- Determine item category for unique items
+		local itemCategoryQueryStr
+		local existingItem = item
+		if slot.slotName:find("^Weapon %d") then
+			if existingItem.type == "Shield" then
+				itemCategoryQueryStr = "armour.shield"
+			elseif existingItem.type == "Quiver" then
+				itemCategoryQueryStr = "armour.quiver"
+			elseif existingItem.type == "Bow" then
+				itemCategoryQueryStr = "weapon.bow"
+			elseif existingItem.type == "Staff" then
+				itemCategoryQueryStr = "weapon.staff"
+			elseif existingItem.type == "Two Handed Sword" then
+				itemCategoryQueryStr = "weapon.twosword"
+			elseif existingItem.type == "Two Handed Axe" then
+				itemCategoryQueryStr = "weapon.twoaxe"
+			elseif existingItem.type == "Two Handed Mace" then
+				itemCategoryQueryStr = "weapon.twomace"
+			elseif existingItem.type == "Fishing Rod" then
+				itemCategoryQueryStr = "weapon.rod"
+			elseif existingItem.type == "One Handed Sword" then
+				itemCategoryQueryStr = "weapon.onesword"
+			elseif existingItem.type == "One Handed Axe" then
+				itemCategoryQueryStr = "weapon.oneaxe"
+			elseif existingItem.type == "One Handed Mace" or existingItem.type == "Sceptre" then
+				itemCategoryQueryStr = "weapon.onemace"
+			elseif existingItem.type == "Wand" then
+				itemCategoryQueryStr = "weapon.wand"
+			elseif existingItem.type == "Dagger" then
+				itemCategoryQueryStr = "weapon.dagger"
+			elseif existingItem.type == "Claw" then
+				itemCategoryQueryStr = "weapon.claw"
+			elseif existingItem.type:find("Two Handed") ~= nil then
+				itemCategoryQueryStr = "weapon.twomelee"
+			elseif existingItem.type:find("One Handed") ~= nil then
+				itemCategoryQueryStr = "weapon.one"
+			else
+				main:OpenMessagePopup("Trade Search", "^1Item type not supported: " .. (existingItem.type or "unknown"))
+				return
+			end
+		elseif slot.slotName == "Body Armour" then
+			itemCategoryQueryStr = "armour.chest"
+		elseif slot.slotName == "Helmet" then
+			itemCategoryQueryStr = "armour.helmet"
+		elseif slot.slotName == "Gloves" then
+			itemCategoryQueryStr = "armour.gloves"
+		elseif slot.slotName == "Boots" then
+			itemCategoryQueryStr = "armour.boots"
+		elseif slot.slotName == "Amulet" then
+			itemCategoryQueryStr = "accessory.amulet"
+		elseif slot.slotName == "Ring 1" or slot.slotName == "Ring 2" or slot.slotName == "Ring 3" then
+			itemCategoryQueryStr = "accessory.ring"
+		elseif slot.slotName == "Belt" then
+			itemCategoryQueryStr = "accessory.belt"
+		elseif slot.slotName:find("Abyssal") ~= nil then
+			itemCategoryQueryStr = "jewel.abyss"
+		elseif slot.slotName:find("Jewel") ~= nil then
+			itemCategoryQueryStr = "jewel.base"
+		elseif slot.slotName:find("Flask") ~= nil then
+			itemCategoryQueryStr = "flask"
+		else
+			main:OpenMessagePopup("Trade Search", "^1Slot type not supported: " .. (slot.slotName or "unknown"))
+			return
+		end
+		
+		-- Build query for unique item using name
+		-- Unique item names are typically in format "Unique Name, Base Type"
+		-- Extract the unique name and base type
+		local uniqueName = item.name
+		local baseType = item.type or item.baseName
+		
+		-- If name contains a comma, split it (format: "Unique Name, Base Type")
+		if item.name:find(",") then
+			local parts = {}
+			for part in item.name:gmatch("([^,]+)") do
+				t_insert(parts, part:match("^%s*(.-)%s*$")) -- trim whitespace
+			end
+			if #parts >= 2 then
+				uniqueName = parts[1]
+				baseType = parts[2]
+			end
+		end
+		
+		local queryTable = {
+			query = {
+				filters = {
+					type_filters = {
+						filters = {
+							category = { option = itemCategoryQueryStr },
+							rarity = { option = "unique" }
+						}
+					}
+				},
+				status = { option = "available" },
+				name = uniqueName,
+				type = baseType
+			},
+			sort = { price = "asc" },
+			engine = "new"
+		}
+		
+		-- Add misc filters
+		local miscFilters = {}
+		
+		-- Add mirrored filter if item is not mirrored
+		if not item.mirrored then
+			miscFilters.mirrored = false
+		end
+		
+		-- Add corrupted filter if item is corrupted (if not corrupted, don't add filter = "Any")
+		if item.corrupted then
+			miscFilters.corrupted = true
+		end
+		
+		-- Only add misc_filters if there's at least one filter
+		if next(miscFilters) then
+			queryTable.query.filters.misc_filters = {
+				disabled = false,
+				filters = miscFilters
+			}
+		end
+		
+		-- Encode and build URL
+		local dkjson = require "dkjson"
+		local queryJson = dkjson.encode(queryTable)
+		-- Replace any {league} placeholder with the actual league name
+		if pbLeague then
+			queryJson = queryJson:gsub("{league}", pbLeague)
+		end
+		ConPrintf("=== Building URL for unique item ===")
+		ConPrintf("=== pbLeague parameter: %s ===", pbLeague or "NIL")
+		ConPrintf("=== self.tradeQuery.pbLeague: %s ===", self.tradeQuery.pbLeague or "NIL")
+		ConPrintf("=== realm: %s ===", realm or "NIL")
+		local url = self.tradeQuery.tradeQueryRequests:buildUrl(self.tradeQuery.hostName .. "trade/search", realm, pbLeague)
+		url = url .. "?q=" .. urlEncode(queryJson)
+		ConPrintf("=== Generated URL: %s ===", url)
+		
+			self:StoreTradeURL(slot, url)
+			OpenURL(url)
+			return
+		end
+		
+		-- Determine item category for non-unique items
+		local itemCategoryQueryStr
+		local existingItem = item
+	if slot.slotName:find("^Weapon %d") then
+		if existingItem.type == "Shield" then
+			itemCategoryQueryStr = "armour.shield"
+		elseif existingItem.type == "Quiver" then
+			itemCategoryQueryStr = "armour.quiver"
+		elseif existingItem.type == "Bow" then
+			itemCategoryQueryStr = "weapon.bow"
+		elseif existingItem.type == "Staff" then
+			itemCategoryQueryStr = "weapon.staff"
+		elseif existingItem.type == "Two Handed Sword" then
+			itemCategoryQueryStr = "weapon.twosword"
+		elseif existingItem.type == "Two Handed Axe" then
+			itemCategoryQueryStr = "weapon.twoaxe"
+		elseif existingItem.type == "Two Handed Mace" then
+			itemCategoryQueryStr = "weapon.twomace"
+		elseif existingItem.type == "Fishing Rod" then
+			itemCategoryQueryStr = "weapon.rod"
+		elseif existingItem.type == "One Handed Sword" then
+			itemCategoryQueryStr = "weapon.onesword"
+		elseif existingItem.type == "One Handed Axe" then
+			itemCategoryQueryStr = "weapon.oneaxe"
+		elseif existingItem.type == "One Handed Mace" or existingItem.type == "Sceptre" then
+			itemCategoryQueryStr = "weapon.onemace"
+		elseif existingItem.type == "Wand" then
+			itemCategoryQueryStr = "weapon.wand"
+		elseif existingItem.type == "Dagger" then
+			itemCategoryQueryStr = "weapon.dagger"
+		elseif existingItem.type == "Claw" then
+			itemCategoryQueryStr = "weapon.claw"
+		elseif existingItem.type:find("Two Handed") ~= nil then
+			itemCategoryQueryStr = "weapon.twomelee"
+		elseif existingItem.type:find("One Handed") ~= nil then
+			itemCategoryQueryStr = "weapon.one"
+		else
+			main:OpenMessagePopup("Trade Search", "^1Item type not supported: " .. (existingItem.type or "unknown"))
+			return
+		end
+	elseif slot.slotName == "Body Armour" then
+		itemCategoryQueryStr = "armour.chest"
+	elseif slot.slotName == "Helmet" then
+		itemCategoryQueryStr = "armour.helmet"
+	elseif slot.slotName == "Gloves" then
+		itemCategoryQueryStr = "armour.gloves"
+	elseif slot.slotName == "Boots" then
+		itemCategoryQueryStr = "armour.boots"
+	elseif slot.slotName == "Amulet" then
+		itemCategoryQueryStr = "accessory.amulet"
+	elseif slot.slotName == "Ring 1" or slot.slotName == "Ring 2" or slot.slotName == "Ring 3" then
+		itemCategoryQueryStr = "accessory.ring"
+	elseif slot.slotName == "Belt" then
+		itemCategoryQueryStr = "accessory.belt"
+	elseif slot.slotName:find("Abyssal") ~= nil then
+		itemCategoryQueryStr = "jewel.abyss"
+	elseif slot.slotName:find("Jewel") ~= nil then
+		itemCategoryQueryStr = "jewel.base"
+	elseif slot.slotName:find("Flask") ~= nil then
+		itemCategoryQueryStr = "flask"
+	else
+		main:OpenMessagePopup("Trade Search", "^1Slot type not supported: " .. (slot.slotName or "unknown"))
+		return
+	end
+	
+	-- Collect mod lines from the item
+	local modLinesToProcess = {}
+	-- Add explicit mods
+	for _, modLine in ipairs(item.explicitModLines) do
+		if modLine.line and not modLine.line:find("Grants Level") then
+			t_insert(modLinesToProcess, { line = modLine.line, type = "Explicit" })
+		end
+	end
+	-- Add implicit mods
+	for _, modLine in ipairs(item.implicitModLines) do
+		if modLine.line and not modLine.line:find("Grants Level") then
+			t_insert(modLinesToProcess, { line = modLine.line, type = "Implicit" })
+		end
+	end
+	-- Add corrupted mods (if corrupted)
+	if item.corrupted then
+		for _, modLine in ipairs(item.explicitModLines) do
+			if modLine.line and not modLine.line:find("Grants Level") then
+				t_insert(modLinesToProcess, { line = modLine.line, type = "Corrupted" })
+			end
+		end
+	end
+	-- Add scourge mods
+	for _, modLine in ipairs(item.scourgeModLines) do
+		if modLine.line and not modLine.line:find("Grants Level") then
+			t_insert(modLinesToProcess, { line = modLine.line, type = "Scourge" })
+		end
+	end
+	-- Add eater/exarch mods
+	for _, modLine in ipairs(item.explicitModLines) do
+		if modLine.line and modLine.eater then
+			t_insert(modLinesToProcess, { line = modLine.line, type = "Eater" })
+		elseif modLine.line and modLine.exarch then
+			t_insert(modLinesToProcess, { line = modLine.line, type = "Exarch" })
+		end
+	end
+	
+	-- Match mod lines to trade stat IDs
+	local statFilters = {}
+	local modData = self.tradeQuery.tradeQueryGenerator.modData
+	local tradeStatCategoryIndices = {
+		["Explicit"] = 2,
+		["Implicit"] = 3,
+		["Corrupted"] = 3,
+		["Scourge"] = 6,
+		["Eater"] = 3,
+		["Exarch"] = 3,
+		["Synthesis"] = 3,
+	}
+	
+	for _, modEntry in ipairs(modLinesToProcess) do
+		local modLine = modEntry.line
+		local modType = modEntry.type
+		
+		-- Skip if mod type not supported
+		if not modData[modType] then
+			goto continue
+		end
+		
+		-- Try to match the mod line to a trade stat
+		local matchStr = modLine:gsub("[#()0-9%-%+%.]","")
+		local foundMatch = false
+		
+		-- Search through all modData entries for this type
+		for uniqueIndex, modDataEntry in pairs(modData[modType]) do
+			if modDataEntry.tradeMod then
+				local tradeModText = modDataEntry.tradeMod.text:gsub("[#()0-9%-%+%.]","")
+				-- Check for exact match or match with (Local) suffix
+				local localMatchStr = matchStr .. " (Local)"
+				local tradeModTextNoLocal = tradeModText:gsub(" %(Local%)", "")
+				
+				if tradeModText == matchStr or tradeModText == localMatchStr or tradeModTextNoLocal == matchStr then
+					-- Found a match! Extract the numeric value(s)
+					local minValue = nil
+					local maxValue = nil
+					
+					-- Try to extract numeric values from mod line
+					-- Pattern for single value: "+50" or "50" or "-10"
+					-- Pattern for range: "(5-10)" or "5-10"
+					local singleValuePattern = "([%+%-]?)(%d+%.?%d*)"
+					local rangePattern = "%(([%+%-]?)(%d+%.?%d*)%-([%+%-]?)(%d+%.?%d*)%)"
+					local rangePattern2 = "([%+%-]?)(%d+%.?%d*)%-([%+%-]?)(%d+%.?%d*)"
+					
+					local sign1, val1, sign2, val2 = modLine:match(rangePattern)
+					if val1 and val2 then
+						-- Range value found
+						minValue = tonumber(val1)
+						maxValue = tonumber(val2)
+						if sign1 == "-" then minValue = -minValue end
+						if sign2 == "-" then maxValue = -maxValue end
+					else
+						sign1, val1, sign2, val2 = modLine:match(rangePattern2)
+						if val1 and val2 then
+							minValue = tonumber(val1)
+							maxValue = tonumber(val2)
+							if sign1 == "-" then minValue = -minValue end
+							if sign2 == "-" then maxValue = -maxValue end
+						else
+							-- Single value
+							local sign, value = modLine:match(singleValuePattern)
+							if value then
+								minValue = tonumber(value)
+								if sign == "-" then
+									minValue = -minValue
+								end
+								maxValue = minValue
+							end
+						end
+					end
+					
+					-- Add to stat filters
+					if minValue then
+						local filterValue = { min = minValue }
+						if maxValue and maxValue ~= minValue then
+							filterValue.max = maxValue
+						end
+						t_insert(statFilters, {
+							id = modDataEntry.tradeMod.id,
+							value = filterValue
+						})
+					else
+						-- Boolean mod (no value)
+						t_insert(statFilters, {
+							id = modDataEntry.tradeMod.id
+						})
+					end
+					foundMatch = true
+					break
+				end
+			end
+		end
+		
+		::continue::
+	end
+	
+	if #statFilters == 0 then
+		main:OpenMessagePopup("Trade Search", "^1Could not match any mods to trade stats. Try using the weighted search instead.")
+		return
+	end
+	
+	-- Build the query
+	local queryTable = {
+		query = {
+			filters = {
+				type_filters = {
+					filters = {
+						category = { option = itemCategoryQueryStr },
+						rarity = { option = item.rarity == "UNIQUE" and "unique" or "nonunique" }
+					}
+				}
+			},
+			status = { option = "available" },
+			stats = {
+				{
+					type = "and",
+					filters = statFilters
+				}
+			}
+		},
+		sort = { price = "asc" },
+		engine = "new"
+	}
+	
+	-- Add misc filters
+	local miscFilters = {}
+	
+	-- Add mirrored filter if item is not mirrored
+	if not item.mirrored then
+		miscFilters.mirrored = false
+	end
+	
+	-- Add corrupted filter if item is corrupted (if not corrupted, don't add filter = "Any")
+	if item.corrupted then
+		miscFilters.corrupted = true
+	end
+	
+	-- Only add misc_filters if there's at least one filter
+	if next(miscFilters) then
+		queryTable.query.filters.misc_filters = {
+			disabled = false,
+			filters = miscFilters
+		}
+	end
+		
+	-- Encode and build URL
+		local dkjson = require "dkjson"
+		local queryJson = dkjson.encode(queryTable)
+		-- Replace any {league} placeholder with the actual league name
+		if pbLeague then
+			queryJson = queryJson:gsub("{league}", pbLeague)
+		end
+		ConPrintf("=== Building URL for non-unique item ===")
+		ConPrintf("=== pbLeague parameter: %s ===", pbLeague or "NIL")
+		ConPrintf("=== self.tradeQuery.pbLeague: %s ===", self.tradeQuery.pbLeague or "NIL")
+		ConPrintf("=== realm: %s ===", realm or "NIL")
+		local url = self.tradeQuery.tradeQueryRequests:buildUrl(self.tradeQuery.hostName .. "trade/search", realm, pbLeague)
+		url = url .. "?q=" .. urlEncode(queryJson)
+		ConPrintf("=== Generated URL: %s ===", url)
+		
+		self:StoreTradeURL(slot, url)
+		OpenURL(url)
+	end
+	
+	-- Generate query with the selected league
+	if pbLeague then
+		generateQueryWithLeague(pbLeague)
+	else
+		main:OpenMessagePopup("Trade Search", "^1No league selected.")
+	end
 end
