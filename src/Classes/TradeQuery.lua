@@ -100,13 +100,23 @@ function TradeQueryClass:PullLeagueList()
 					self:SetNotice(self.controls.pbNotice, "Failed to Get PoE League List response")
 					return
 				end
+				-- Sort leagues: temporary leagues (with endAt) first, sorted by startAt (newest first)
+				-- Permanent leagues (without endAt) go to the end
 				table.sort(json_data, function(a, b)
+					-- If a is permanent (no endAt), it goes to the end
 					if a.endAt == nil then return false end
+					-- If b is permanent (no endAt), a comes first
 					if b.endAt == nil then return true end
+					-- Both are temporary leagues, sort by startAt (newest first)
+					if a.startAt and b.startAt then
+						return a.startAt > b.startAt
+					end
+					-- Fallback: sort by id length (shorter names often indicate newer leagues)
 					return #a.id < #b.id
 				end)
 				self.itemsTab.leagueDropList = {}
-				for _, league_data in pairs(json_data) do
+				-- Use ipairs to preserve the sorted order
+				for _, league_data in ipairs(json_data) do
 					if not league_data.id:find("SSF") then
 						t_insert(self.itemsTab.leagueDropList,league_data.id)
 					end

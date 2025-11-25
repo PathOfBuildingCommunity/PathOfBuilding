@@ -863,10 +863,12 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 	-- OnFrame will pick this up and begin the work
 	self.calcContext.co = coroutine.create(self.ExecuteQuery)
 
-	-- Open progress tracking blocker popup
-	local controls = { }
-	controls.progressText = new("LabelControl", {"TOP",nil,"TOP"}, {0, 30, 0, 16}, string.format("Calculating Mod Weights..."))
-	self.calcContext.popup = main:OpenPopup(280, 65, "Please Wait", controls)
+	-- Open progress tracking blocker popup (skip for quick queries)
+	if not options.skipPopup then
+		local controls = { }
+		controls.progressText = new("LabelControl", {"TOP",nil,"TOP"}, {0, 30, 0, 16}, string.format("Calculating Mod Weights..."))
+		self.calcContext.popup = main:OpenPopup(280, 65, "Please Wait", controls)
+	end
 end
 
 function TradeQueryGeneratorClass:ExecuteQuery()
@@ -1048,8 +1050,10 @@ function TradeQueryGeneratorClass:FinishQuery()
 	local queryJson = dkjson.encode(queryTable)
 	self.requesterCallback(self.requesterContext, queryJson, errMsg)
 
-	-- Close blocker popup
-	main:ClosePopup()
+	-- Close blocker popup (if it was opened)
+	if self.calcContext.popup then
+		main:ClosePopup()
+	end
 end
 
 function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callback)
@@ -1240,4 +1244,44 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		main:ClosePopup()
 	end)
 	main:OpenPopup(400, popupHeight, "Query Options", controls)
+end
+
+function TradeQueryGeneratorClass:RequestQuickQuery(slot, options, statWeights, callback)
+	self.requesterCallback = callback
+	self.requesterContext = options and options.context or nil
+	local quickOptions = copyTable(options or {}, true)
+	quickOptions.statWeights = statWeights and copyTable(statWeights, true) or {
+		{ label = "Full DPS", stat = "FullDPS", weightMult = 1.0 },
+		{ label = "Effective Hit Pool", stat = "TotalEHP", weightMult = 0.5 },
+	}
+	if not quickOptions.statWeights or #quickOptions.statWeights == 0 then
+		quickOptions.statWeights = {
+			{ label = "Full DPS", stat = "FullDPS", weightMult = 1.0 },
+			{ label = "Effective Hit Pool", stat = "TotalEHP", weightMult = 0.5 },
+		}
+	end
+	quickOptions.includeMirrored = quickOptions.includeMirrored ~= false
+	if quickOptions.includeCorrupted == nil then
+		quickOptions.includeCorrupted = true
+	end
+	if quickOptions.includeScourge == nil then
+		quickOptions.includeScourge = false
+	end
+	if quickOptions.includeEldritch == nil then
+		quickOptions.includeEldritch = false
+	end
+	if quickOptions.includeTalisman == nil then
+		quickOptions.includeTalisman = false
+	end
+	quickOptions.influence1 = quickOptions.influence1 or 1
+	quickOptions.influence2 = quickOptions.influence2 or 1
+	if slot and slot.slotName and slot.slotName:find("Jewel") and not quickOptions.jewelType then
+		if slot.slotName:find("Abyssal") then
+			quickOptions.jewelType = "Abyss"
+		else
+			quickOptions.jewelType = "Any"
+		end
+	end
+	quickOptions.skipPopup = true
+	self:StartQuery(slot, quickOptions)
 end
