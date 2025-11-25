@@ -632,10 +632,10 @@ function calcs.defence(env, actor)
 			}
 		end
 	end
-
-	if actor == env.minion then
-		doActorLifeMana(env.minion)
-		doActorLifeManaReservation(env.minion)
+	-- Formless Inferno, Foulborn Choir of the Storm
+	if actor == env.minion or actor == env.player then
+		doActorLifeMana(actor)
+		doActorLifeManaReservation(actor)
 	end
 
 	-- Block
