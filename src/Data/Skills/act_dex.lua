@@ -1608,7 +1608,7 @@ skills["BladeBlastAltY"] = {
 	castTime = 0.65,
 	statMap = {
 		["gain_%_of_base_dagger_damage_as_added_spell_damage"] = {
-			skill("gainPercentBaseDaggerDamage", nil),
+			skill("gainPercentBaseDaggerDamageToSpells", nil),
 		},
 	},
 	baseFlags = {

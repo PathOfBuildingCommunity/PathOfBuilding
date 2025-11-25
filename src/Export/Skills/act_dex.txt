@@ -293,7 +293,7 @@ local skills, mod, flag, skill = ...
 #flags spell area
 	statMap = {
 		["gain_%_of_base_dagger_damage_as_added_spell_damage"] = {
-			skill("gainPercentBaseDaggerDamage", nil),
+			skill("gainPercentBaseDaggerDamageToSpells", nil),
 		},
 	},
 #mods
