@@ -52,7 +52,7 @@ function ConfigSetListClass:RenameSet(configSet, addOnName)
 		if addOnName then
 			t_insert(self.list, configSet.id)
 			self.selIndex = #self.list
-			self.selValue = configSet
+			self.selValue = configSet.id
 		end
 		self.configTab:AddUndoState()
 		self.configTab.build:SyncLoadouts()

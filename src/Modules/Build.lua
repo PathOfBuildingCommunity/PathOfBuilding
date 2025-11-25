@@ -7,6 +7,7 @@ local pairs = pairs
 local ipairs = ipairs
 local next = next
 local t_insert = table.insert
+local t_sort = table.sort
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
@@ -21,6 +22,38 @@ local function InsertIfNew(t, val)
 		if v == val then return end
 	end
 	table.insert(t, val)
+end
+
+---matchFlags
+---  Compares the skill flags table against the line flag settings
+---  Required enabling flags check takes precedence over disabling flags check
+---@param reqFlags table containing the required flags
+---@param notFlags table containing the disabling flags
+---@param flags table containing the flags to match against
+local function matchFlags(reqFlags, notFlags, flags)
+	if type(reqFlags) == "string" then
+		reqFlags = { reqFlags }
+	end
+	if reqFlags then
+		for _, flag in ipairs(reqFlags) do
+			if not flags[flag] then
+				return
+			end
+		end
+	end
+
+	if type(notFlags) == "string" then
+		notFlags = { notFlags }
+	end
+	if notFlags then
+		for _, flag in ipairs(notFlags) do
+			if flags[flag] then
+				return
+			end
+		end
+	end
+	-- Both flag checks passed, default true
+	return true
 end
 
 function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLink)
@@ -218,6 +251,13 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 					self.spec:AddUndoState()
 					self.spec:SetWindowTitleWithBuildClass()
 					self.buildFlag = true					
+				end, "Connect Path", function()
+					if self.spec:ConnectToClass(value.classId) then
+						self.spec:SelectClass(value.classId)
+						self.spec:AddUndoState()
+						self.spec:SetWindowTitleWithBuildClass()
+						self.buildFlag = true
+					end
 				end)
 			end
 		end
@@ -228,14 +268,22 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		self.spec:SetWindowTitleWithBuildClass()
 		self.buildFlag = true
 	end)
-	-- // hiding away until we learn more, this dropdown and the Loadout dropdown conflict for UI space, will need to address if secondaryAscendancies come back
-	--self.controls.secondaryAscendDrop = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, {8, 0, 120, 20}, nil, function(index, value)
-	--	self.spec:SelectSecondaryAscendClass(value.ascendClassId)
-	--	self.spec:AddUndoState()
-	--	self.spec:SetWindowTitleWithBuildClass()
-	--	self.buildFlag = true
-	--end)
-	self.controls.buildLoadouts = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, {8, 0, 190, 20}, {}, function(index, value)
+	self.controls.secondaryAscendDrop = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, {8, 0, 160, 20}, {
+		{ label = "None", ascendClassId = 0 },
+	}, function(index, value)
+		if not value or not self.spec then
+			return
+		end
+		self.spec:SelectSecondaryAscendClass(value.ascendClassId)
+		self.spec:AddUndoState()
+		self.spec:SetWindowTitleWithBuildClass()
+		self.buildFlag = true
+	end)
+	self.controls.secondaryAscendDrop.enableDroppedWidth = true
+	self.controls.secondaryAscendDrop.maxDroppedWidth = 360
+	local initialSecondarySelection = (self.spec and self.spec.curSecondaryAscendClassId) or 0
+	self.controls.secondaryAscendDrop:SelByValue(initialSecondarySelection, "ascendClassId")
+	self.controls.buildLoadouts = new("DropDownControl", {"LEFT",self.controls.secondaryAscendDrop,"RIGHT"}, {8, 0, 190, 20}, {}, function(index, value)
 		if value == "^7^7Loadouts:" or value == "^7^7-----" then
 			self.controls.buildLoadouts:SetSel(1)
 			return
@@ -934,7 +982,7 @@ function buildMode:Save(xml)
 	end
 	local addedStatNames = { }
 	for index, statData in ipairs(self.displayStats) do
-		if not statData.flag or self.calcsTab.mainEnv.player.mainSkill.skillFlags[statData.flag] then
+		if matchFlags(statData.flag, statData.notFlag, self.calcsTab.mainEnv.player.mainSkill.skillFlags) then
 			local statName = statData.stat and statData.stat..(statData.childStat or "")
 			if statName and not addedStatNames[statName] then
 				if statData.stat == "SkillDPS" then
@@ -1067,9 +1115,41 @@ function buildMode:OnFrame(inputEvents)
 	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValueByKey("ascendancies")
 	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassId, "ascendClassId")
 	self.controls.ascendDrop:CheckDroppedWidth(true)
-	-- // secondaryAscend dropdown hidden away until we learn more
-	--self.controls.secondaryAscendDrop.list = {{label = "None", ascendClassId = 0}, {label = "Warden", ascendClassId = 1}, {label = "Warlock", ascendClassId = 2}, {label = "Primalist", ascendClassId = 3}}
-	--self.controls.secondaryAscendDrop:SelByValue(self.spec.curSecondaryAscendClassId, "ascendClassId")
+	local secondaryDrop = self.controls.secondaryAscendDrop
+	if secondaryDrop then
+		local legacyAlternateAscendancyIds = {
+			Warden = true,
+			Warlock = true,
+			Primalist = true,
+		}
+		local entries = {
+			{ label = "None", ascendClassId = 0 },
+		}
+		local selection = (self.spec and self.spec.curSecondaryAscendClassId) or 0
+		if self.spec and self.spec.tree then
+			local altAscendancies = self.spec.tree.alternate_ascendancies
+			if altAscendancies then
+				local sortable = { }
+				for ascendClassId, ascendClass in pairs(altAscendancies) do
+					if ascendClass and ascendClass.id then
+						if not legacyAlternateAscendancyIds[ascendClass.id] or ascendClassId == selection then
+							t_insert(sortable, { label = ascendClass.name, ascendClassId = ascendClassId })
+						end
+					end
+				end
+				t_sort(sortable, function(a, b)
+					return a.label < b.label
+				end)
+				for _, entry in ipairs(sortable) do
+					t_insert(entries, entry)
+				end
+			end
+		end
+		secondaryDrop:SetList(entries)
+		secondaryDrop:SelByValue(selection, "ascendClassId")
+		secondaryDrop:CheckDroppedWidth(true)
+		secondaryDrop.enabled = self.spec ~= nil and #entries > 1
+	end
 
 	if self.buildFlag then
 		-- Wipe Global Cache
@@ -1219,7 +1299,7 @@ function buildMode:OpenSaveAsPopup()
 	end
 	controls.label = new("LabelControl", nil, {0, 20, 0, 16}, "^7Enter new build name:")
 	controls.edit = new("EditControl", nil, {0, 40, 450, 20},
-	(self.buildName or self.dbFileName):gsub("[\\/:%*%?\"<>|%c]", "-"), nil, "\\/:%*%?\"<>|%c", 100, function(buf)
+	not self.dbFileName and main.predefinedBuildName or (self.buildName or self.dbFileName):gsub("[\\/:%*%?\"<>|%c]", "-"), nil, "\\/:%*%?\"<>|%c", 100, function(buf)
 		updateBuildName()
 	end)
 	controls.folderLabel = new("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, {10, 70, 0, 16}, "^7Folder:")
@@ -1282,8 +1362,8 @@ function buildMode:OpenSpectreLibrary()
 	controls.cancel = new("ButtonControl", nil, {45, 330, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
-	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {24, 2, 0, 16}, "Spectres in your Library must be assigned to an active")
-	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {20, 18, 0, 16}, "Raise Spectre gem for their buffs and curses to activate")
+	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {24, 2, 0, 16}, "^7Spectres in your Library must be assigned to an active")
+	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {20, 18, 0, 16}, "^7Raise Spectre gem for their buffs and curses to activate")
 	local spectrePopup = main:OpenPopup(410, 360, "Spectre Library", controls)
 	spectrePopup:SelectControl(spectrePopup.controls.source.controls.searchText)
 end
@@ -1462,7 +1542,10 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal, colorOverride)
 	end
 	
 	local valStr = s_format("%"..statData.fmt, val)
-	valStr:gsub("%.", main.decimalSeparator)
+	local number, suffix = valStr:match("^([%+%-]?%d+%.%d+)(%D*)$")
+	if number then
+		valStr = number:gsub("0+$", ""):gsub("%.$", "") .. suffix
+	end
 	valStr = color .. formatNumSep(valStr)
 
 	if overCapStatVal and overCapStatVal > 0 then
@@ -1479,7 +1562,7 @@ end
 function buildMode:AddDisplayStatList(statList, actor)
 	local statBoxList = self.controls.statBox.list
 	for index, statData in ipairs(statList) do
-		if not statData.flag or actor.mainSkill.skillFlags[statData.flag] then
+		if matchFlags(statData.flag, statData.notFlag, actor.mainSkill.skillFlags) then
 			local labelColor = "^7"
 			if statData.color then
 				labelColor = statData.color
@@ -1552,7 +1635,7 @@ function buildMode:AddDisplayStatList(statList, actor)
 			end
 		end
 	end
-	for pool, warningFlag in pairs({["Life"] = "LifeCostWarning", ["Mana"] = "ManaCostWarning", ["Rage"] = "RageCostWarning", ["Energy Shield"] = "ESCostWarning"}) do
+	for pool, warningFlag in pairs({["Life"] = "LifeCostWarningList", ["Mana"] = "ManaCostWarningList", ["Rage"] = "RageCostWarningList", ["Energy Shield"] = "ESCostWarningList"}) do
 		if actor.output[warningFlag] then
 			local line = "You do not have enough "..(actor.output.EnergyShieldProtectsMana and pool == "Mana" and "Energy Shield and Mana" or pool).." to use: "
 			for _, skill in ipairs(actor.output[warningFlag]) do
@@ -1562,7 +1645,7 @@ function buildMode:AddDisplayStatList(statList, actor)
 			InsertIfNew(self.controls.warnings.lines, line)
 		end
 	end
-	for pool, warningFlag in pairs({["Unreserved life"] = "LifePercentCostPercentCostWarning", ["Unreserved Mana"] = "ManaPercentCostPercentCostWarning"}) do
+	for pool, warningFlag in pairs({["Unreserved life"] = "LifePercentCostPercentCostWarningList", ["Unreserved Mana"] = "ManaPercentCostPercentCostWarningList"}) do
 		if actor.output[warningFlag] then
 			local line = "You do not have enough ".. pool .."% to use: "
 			for _, skill in ipairs(actor.output[warningFlag]) do
@@ -1650,7 +1733,7 @@ end
 function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compareOutput, header, nodeCount)
 	local count = 0
 	for _, statData in ipairs(statList) do
-		if statData.stat and (not statData.flag or actor.mainSkill.skillFlags[statData.flag]) and not statData.childStat and statData.stat ~= "SkillDPS" then
+		if statData.stat and matchFlags(statData.flag, statData.notFlag, actor.mainSkill.skillFlags) and not statData.childStat and statData.stat ~= "SkillDPS" then
 			local statVal1 = compareOutput[statData.stat] or 0
 			local statVal2 = baseOutput[statData.stat] or 0
 			local diff = statVal1 - statVal2
@@ -1664,6 +1747,10 @@ function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compare
 				local color = ((statData.lowerIsBetter and diff < 0) or (not statData.lowerIsBetter and diff > 0)) and colorCodes.POSITIVE or colorCodes.NEGATIVE
 				local val = diff * ((statData.pc or statData.mod) and 100 or 1)
 				local valStr = s_format("%+"..statData.fmt, val) -- Can't use self:FormatStat, because it doesn't have %+. Adding that would have complicated a simple function
+				local number, suffix = valStr:match("^([%+%-]?%d+%.%d+)(%D*)$")
+				if number then
+					valStr = number:gsub("0+$", ""):gsub("%.$", "") .. suffix
+				end
 
 				valStr = formatNumSep(valStr)
 
@@ -1734,11 +1821,12 @@ do
 			if int and (int > 14 or int > self.calcsTab.mainOutput.Int) then
 				t_insert(req, s_format("%s%d ^x7F7F7FInt", main:StatColor(int, intBase, self.calcsTab.mainOutput.Int), int))
 			end
-		end	
+		end
 		if req[1] then
-			tooltip:AddLine(16, "^x7F7F7FRequires "..table.concat(req, "^x7F7F7F, "))
+			local fontSizeBig = main.showFlavourText and 18 or 16
+			tooltip:AddLine(fontSizeBig, "^x7F7F7FRequires "..table.concat(req, "^x7F7F7F, "), "FONTIN SC")
 			tooltip:AddSeparator(10)
-		end	
+		end
 		wipeTable(req)
 	end
 end
@@ -1746,11 +1834,11 @@ end
 function buildMode:LoadDB(xmlText, fileName)
 	-- Parse the XML
 	local dbXML, errMsg = common.xml.ParseXML(xmlText)
-	if not dbXML then
-		launch:ShowErrMsg("^1Error loading '%s': %s", fileName, errMsg)
+	if errMsg and errMsg:match(".*file returns nil") then
+		main:OpenCloudErrorPopup(fileName)
 		return true
-	elseif #dbXML == 0 then
-		main:OpenMessagePopup("Error", "Build file is empty, or error parsing xml.\n\n"..fileName)
+	elseif errMsg then
+		launch:ShowErrMsg("^1"..errMsg)
 		return true
 	elseif dbXML[1].elem ~= "PathOfBuilding" then
 		launch:ShowErrMsg("^1Error parsing '%s': 'PathOfBuilding' root element missing", fileName)

@@ -105,6 +105,12 @@ return {
 ["spell_maximum_base_cold_damage_+_per_10_intelligence"] = {
 	skill("ColdMax", nil, { type = "PerStat", stat = "Int", div = 10 }),
 },
+["spell_minimum_base_physical_damage_%_of_ward"] = {
+	skill("PhysicalMin", nil, { type = "PercentStat", stat = "Ward", percent = 1 }),
+},
+["spell_maximum_base_physical_damage_%_of_ward"] = {
+	skill("PhysicalMax", nil, { type = "PercentStat", stat = "Ward", percent = 1 }),
+},
 ["base_cold_damage_to_deal_per_minute"] = {
 	skill("ColdDot", nil),
 	div = 60,
@@ -188,6 +194,9 @@ return {
 ["skill_has_trigger_from_unique_item"] = {
 	skill("triggeredByUnique", true, { type = "SkillType", skillType = SkillType.Triggerable }),
 },
+["hex_applied_when_trap_triggers"] = {
+	skill("triggeredByTrapTrigger", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Hex }, { type = "SkillType", skillType = SkillType.AppliesCurse }),
+},
 ["skill_triggered_when_you_focus_chance_%"] = {
 	skill("chanceToTriggerOnFocus", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 	div = 100,
@@ -197,6 +206,9 @@ return {
 },
 ["support_cast_on_mana_spent"] = {
 	skill("triggeredByKitavaThirst", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+},
+["support_cast_on_life_spent"] = {
+	skill("triggeredByFoulbornKitavaThirst", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
 ["cast_when_cast_curse_%"] = {
 	skill("chanceToTriggerCurseOnCurse", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Hex }),
@@ -213,6 +225,9 @@ return {
 },
 ["cast_spell_on_linked_melee_kill"] = {
 	skill("triggeredByMeleeKill", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }, { type = "Condition", var = "KilledRecently" }),
+},
+["chance_to_cast_on_kill_%"] = {
+	skill("triggeredBySquirmingTerror", true , { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }, { type = "Condition", var = "KilledRecently" })
 },
 ["cast_linked_spells_on_melee_kill_%"] = {
 	skill("chanceToTriggerOnMeleeKill", nil , { type = "SkillType", skillType = SkillType.Attack }, { type = "SkillType", skillType = SkillType.Melee })
@@ -233,7 +248,7 @@ return {
 	skill("triggeredByAutomation", nil, { type = "SkillType", skillTypeList = {SkillType.Triggerable, SkillType.Spell, SkillType.Instant} }),
 },
 ["support_autocast_warcries"] = {
-	skill("triggeredByAutoCry", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Warcry }),
+	skill("triggeredByAutoexertion", nil, { type = "SkillType", skillType = SkillType.Warcry }),
 },
 ["cast_on_stunned_%"] = {
 	skill("chanceToTriggerOnStun", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
@@ -260,13 +275,20 @@ return {
 	skill("doubleHitsWhenDualWielding", true),
 },
 ["base_spell_repeat_count"] = {
-	mod("RepeatCount", "BASE", nil, 0, 0, {type = "SkillType", skillType = SkillType.Multicastable }),
+	mod("RepeatCount", "BASE", nil, ModFlag.Cast),
 },
 ["base_melee_attack_repeat_count"] = {
-	mod("RepeatCount", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Multistrikeable }),
+	mod("RepeatCount", "BASE", nil, 0, 0, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
+	mod("RepeatCount", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.RequiresShield }),
+},
+["skill_repeat_count"] = {
+	mod("RepeatCount", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Multicastable }),
 },
 ["display_skill_minions_level_is_corpse_level"] = {
 	skill("minionLevelIsEnemyLevel", true),
+},
+["minion_actor_level_is_user_level_up_to_maximum"] = {
+	skill("minionLevelIsPlayerLevel", true),
 },
 ["active_skill_minion_added_damage_+%_final"] = {
 	skill("minionDamageEffectiveness", nil),
@@ -394,6 +416,9 @@ return {
 },
 ["base_spell_block_%"] = {
 	mod("SpellBlockChance", "BASE", nil),
+},
+["block_while_dual_wielding_%"] = {
+	mod("BlockChance", "BASE", nil, 0, 0, { type = "Condition", var = "DualWielding" }),
 },
 ["base_block_%_damage_taken"] = {
 	mod("BlockEffect", "BASE", nil)
@@ -647,8 +672,13 @@ return {
 ["fortify_duration_+%"] = {
 	mod("FortifyDuration", "INC", nil),
 },
+["gain_fortify_on_melee_hit_ms"] = {
+	mod("FortifyDuration", "OVERRIDE", nil),
+	div = 1000,
+},
 ["support_swift_affliction_skill_effect_and_damaging_ailment_duration_+%_final"] = {
-	mod("SkillAndDamagingAilmentDuration", "MORE", nil),
+	mod("Duration", "MORE", nil),
+	mod("DamagingAilmentDuration", "MORE", nil),
 },
 ["base_bleed_duration_+%"] = {
 	mod("EnemyBleedDuration", "INC", nil),
@@ -741,7 +771,7 @@ return {
 ["damage_+%_vs_frozen_enemies"] = {
 	mod("Damage", "INC", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
 },
-["damage_+%_final_vs_stunned_enemies"] = {
+["active_skill_damage_+%_final_vs_stunned_enemies"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Stunned" }),
 },
 ["base_reduce_enemy_fire_resistance_%"] = {
@@ -1011,6 +1041,17 @@ return {
 	flag("CannotScorch"),
 	flag("CannotBrittle"),
 	flag("CannotSap"),
+},
+["never_any_ailment"] = {
+	flag("CannotShock"),
+	flag("CannotChill"),
+	flag("CannotFreeze"),
+	flag("CannotIgnite"),
+	flag("CannotScorch"),
+	flag("CannotBrittle"),
+	flag("CannotSap"),
+	flag("CannotBleed"),
+	flag("CannotPoison"),
 },
 ["lightning_damage_cannot_shock"] = {
 	flag("LightningCannotShock"),
@@ -1339,6 +1380,10 @@ return {
 ["number_of_additional_projectiles"] = {
 	mod("ProjectileCount", "BASE", nil),
 },
+["base_number_of_projectiles_in_spiral_nova"] = {
+	mod("ProjectileCount", "BASE", nil),
+	base = -1
+},
 ["projectile_damage_+%_per_remaining_chain"] = {
 	mod("Damage", "INC", nil, ModFlag.Projectile, 0, { type = "PerStat", stat = "ChainRemaining" }),
 	mod("Damage", "INC", nil, ModFlag.Ailment, 0, { type = "PerStat", stat = "ChainRemaining" }),
@@ -1490,6 +1535,9 @@ return {
 ["active_skill_attack_speed_+%_final"] = {
 	mod("Speed", "MORE", nil, ModFlag.Attack),
 },
+["dual_wield_inherent_attack_speed_+%_final"] = {
+	mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "Condition", var = "DualWielding" }),
+},
 ["base_attack_speed_+%_per_frenzy_charge"] = {
 	mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "FrenzyCharge" }),
 },
@@ -1524,6 +1572,12 @@ return {
 	mod("PhysicalMin", "BASE", nil, ModFlag.Weapon, KeywordFlag.Attack),
 },
 ["attack_maximum_added_physical_damage_with_weapons"] = {
+	mod("PhysicalMax", "BASE", nil, ModFlag.Weapon, KeywordFlag.Attack),
+},
+["main_hand_local_minimum_added_physical_damage"] = {
+	mod("PhysicalMin", "BASE", nil, ModFlag.Weapon, KeywordFlag.Attack),
+},
+["main_hand_local_maximum_added_physical_damage"] = {
 	mod("PhysicalMax", "BASE", nil, ModFlag.Weapon, KeywordFlag.Attack),
 },
 ["attack_minimum_added_lightning_damage"] = {
@@ -1826,6 +1880,9 @@ return {
 ["minion_cast_speed_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", nil, ModFlag.Cast) }),
 },
+["minion_base_physical_damage_%_to_convert_to_lightning"] = {
+	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToLightning", "BASE", nil) }),
+},
 ["minion_elemental_resistance_%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("ElementalResist", "BASE", nil) }),
 },
@@ -1887,8 +1944,17 @@ return {
 ["number_of_wolves_allowed"] = {
 	mod("ActiveWolfLimit", "BASE", nil),
 },
+["number_of_tigers_allowed"] = {
+	mod("ActiveTigerLimit", "BASE", nil),
+},
 ["number_of_spider_minions_allowed"] = {
 	mod("ActiveSpiderLimit", "BASE", nil),
+},
+["base_number_of_void_spawns_allowed"] = {
+	mod("ActiveVoidSpawnLimit", "BASE", nil),
+},
+["base_number_of_living_lightning_allowed"] = {
+	mod("ActiveLivingLightningLimit", "BASE", nil),
 },
 ["active_skill_minion_damage_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
@@ -2068,7 +2134,7 @@ return {
 	mod("AdditionalCooldownUses", "BASE", nil)
 },
 ["kill_enemy_on_hit_if_under_10%_life"] = {
-	mod("CullPercent", "MAX", nil), 
+	mod("CullPercent", "MAX", nil),
 	value = 10
 },
 ["spell_cast_time_added_to_cooldown_if_triggered"] = {
@@ -2088,6 +2154,41 @@ return {
 },
 ["base_cannot_be_damaged"] = {
 	mod("Condition:CannotBeDamaged", "FLAG", nil)
+},
+["base_cannot_be_stunned"] = {
+	flag("StunImmune"),
+},
+["cannot_be_knocked_back"] = {
+	flag("KnockbackImmune"),
+},
+["set_immune_to_curses"] = {
+	flag("CurseImmune"),
+},
+["set_maximum_life_is_one"] = {
+	mod("Life", "OVERRIDE", nil),
+},
+["set_max_frenzy_charges"] = {
+	mod("FrenzyChargesMax", "OVERRIDE", nil),
+},
+["set_energy_shield_recharge_rate_per_minute_%"] = {
+	mod("EnergyShieldRecharge", "OVERRIDE", nil),
+	div = 60 * 100
+},
+["set_max_endurance_charges"] = {
+	mod("EnduranceChargesMax", "OVERRIDE", nil),
+},
+["set_max_power_charges"] = {
+	mod("PowerChargesMax", "OVERRIDE", nil),
+},
+["set_base_avoid_projectiles_%_chance"] = {
+	mod("AvoidProjectilesChance", "BASE", nil),
+},
+["monster_inherent_damage_taken_+%_final"] = {
+	mod("DamageTaken", "MORE", nil),
+},
+["set_base_cannot_be_damaged"] = {
+	mod("DamageTaken", "MORE", nil),
+	value = -100,
 },
 --
 -- Gem Levels

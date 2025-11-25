@@ -663,6 +663,80 @@ function PassiveSpecClass:IsClassConnected(classId)
 	return false
 end
 
+-- Find and allocate the shortest path to connect to a target class's starting node
+function PassiveSpecClass:ConnectToClass(classId)
+	local classData = self.tree.classes[classId]
+	if not classData then
+		return false
+	end
+	local targetStartNode = self.nodes[classData.startNodeId]
+	if not targetStartNode then
+		return false
+	end
+
+	local function isMainTreeNode(node)
+		return node
+			and not node.isProxy
+			and not node.ascendancyName
+			and node.type ~= "ClassStart"
+			and node.type ~= "AscendClassStart"
+	end
+
+	local visited = {}
+	local prev = {}
+	local queue = { targetStartNode }
+	visited[targetStartNode] = true
+	local head = 1
+	local foundNode = nil
+
+	while queue[head] and not foundNode do
+		local node = queue[head]
+		head = head + 1
+
+		if node ~= targetStartNode and node.alloc and node.connectedToStart and node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
+			foundNode = node
+			break
+		end
+
+		for _, linked in ipairs(node.linked) do
+			if isMainTreeNode(linked) and not visited[linked] then
+				visited[linked] = true
+				prev[linked] = node
+				queue[#queue + 1] = linked
+			end
+		end
+	end
+
+	if not foundNode then
+		return false
+	end
+
+	local pathBack = {}
+	local current = foundNode
+	while current do
+		t_insert(pathBack, current)
+		if current == targetStartNode then
+			break
+		end
+		current = prev[current]
+	end
+
+	if pathBack[#pathBack] ~= targetStartNode then
+		return false
+	end
+
+	local altPath = { pathBack[1] }
+	for idx = 2, #pathBack - 1 do
+		altPath[idx] = pathBack[idx]
+		local node = pathBack[idx]
+		if not node.alloc then
+			self:AllocNode(node, altPath)
+		end
+	end
+
+	return true
+end
+
 -- Clear the allocated status of all non-class-start nodes
 function PassiveSpecClass:ResetNodes()
 	for id, node in pairs(self.nodes) do
@@ -735,10 +809,9 @@ function PassiveSpecClass:CountAllocNodes()
 		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
 			if node.ascendancyName then
 				if not node.isMultipleChoiceOption then
+					ascUsed = ascUsed + 1
 					if self.tree.secondaryAscendNameMap and self.tree.secondaryAscendNameMap[node.ascendancyName] then
 						secondaryAscUsed = secondaryAscUsed + 1
-					else
-						ascUsed = ascUsed + 1
 					end
 				end
 			else
@@ -947,7 +1020,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					local radiusIndex = item.jewelRadiusIndex
 					if self.nodes[nodeId].nodesInRadius and self.nodes[nodeId].nodesInRadius[radiusIndex][node.id] then
 						if itemId ~= 0 then
-							if item.jewelData.intuitiveLeapLike then
+							if item.jewelData.intuitiveLeapLike and not (item.jewelData.intuitiveLeapKeystoneOnly and node.type ~= "Keystone") then
 								-- This node depends on Intuitive Leap-like behaviour
 								-- This flag:
 								-- 1. Prevents generation of paths from this node unless it's also connected to the start
@@ -1166,6 +1239,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	self.allocatedNotableCount = 0
 	self.allocatedMasteryTypes = { }
 	self.allocatedMasteryTypeCount = 0
+	self.allocatedTattooTypes = { }
 	for id, node in pairs(self.nodes) do
 		if self.ignoredNodes[id] and self.allocNodes[id] then
 			self.nodes[id].alloc = false
@@ -1176,7 +1250,11 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			if node.type == "Mastery" and self.masterySelections[id] then
 				local effect = self.tree.masteryEffects[self.masterySelections[id]]
 				if effect and self.allocNodes[id] then
-					node.sd = effect.sd
+					if self.hashOverrides and self.hashOverrides[id] then
+						self:ReplaceNode(node, self.hashOverrides[id])
+					else
+						node.sd = effect.sd
+					end
 					node.allMasteryOptions = false
 					node.reminderText = { "Tip: Right click to select a different effect" }
 					self.tree:ProcessStats(node)
@@ -1201,6 +1279,13 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				self:AddMasteryEffectOptionsToNode(node)
 			elseif node.type == "Notable" and node.alloc then
 				self.allocatedNotableCount = self.allocatedNotableCount + 1
+			end
+			if node.isTattoo and node.alloc and node.overrideType then
+				if not self.allocatedTattooTypes[node.overrideType] then
+					self.allocatedTattooTypes[node.overrideType] = 1
+				else
+					self.allocatedTattooTypes[node.overrideType] = self.allocatedTattooTypes[node.overrideType] + 1
+				end
 			end
 		end
 	end
@@ -1386,6 +1471,7 @@ function PassiveSpecClass:ReplaceNode(old, newNode)
 	end
 	old.dn = newNode.dn
 	old.sd = newNode.sd
+	old.name = newNode.name
 	old.mods = newNode.mods
 	old.modKey = newNode.modKey
 	old.modList = new("ModList")
@@ -1393,6 +1479,7 @@ function PassiveSpecClass:ReplaceNode(old, newNode)
 	old.sprites = newNode.sprites
 	old.effectSprites = newNode.effectSprites
 	old.isTattoo = newNode.isTattoo
+	old.overrideType = newNode.overrideType
 	old.keystoneMod = newNode.keystoneMod
 	old.icon = newNode.icon
 	old.spriteId = newNode.spriteId
@@ -1908,12 +1995,16 @@ function PassiveSpecClass:CreateUndoState()
 	for mastery, effect in pairs(self.masterySelections) do
 		selections[mastery] = effect
 	end
+	local hashOverridesCopy = { }
+	for node, override in pairs(self.hashOverrides) do
+		hashOverridesCopy[node] = override
+	end
 	return {
 		classId = self.curClassId,
 		ascendClassId = self.curAscendClassId,
 		secondaryAscendClassId = self.secondaryAscendClassId,
 		hashList = allocNodeIdList,
-		hashOverrides = self.hashOverrides,
+		hashOverrides = hashOverridesCopy,
 		masteryEffects = selections,
 		treeVersion = self.treeVersion
 	}
@@ -1925,7 +2016,11 @@ function PassiveSpecClass:RestoreUndoState(state, treeVersion)
 end
 
 function PassiveSpecClass:SetWindowTitleWithBuildClass()
-	main:SetWindowTitleSubtext(string.format("%s (%s)", self.build.buildName, self.curAscendClassId == 0 and self.curClassName or self.curAscendClassName))
+	local classText = self.curAscendClassId == 0 and self.curClassName or self.curAscendClassName
+	if self.curSecondaryAscendClassId and self.curSecondaryAscendClassId ~= 0 and self.curSecondaryAscendClassName then
+		classText = classText .. " + " .. self.curSecondaryAscendClassName
+	end
+	main:SetWindowTitleSubtext(string.format("%s (%s)", self.build.buildName, classText))
 end
 
 --- Adds a line to or replaces a node given a line to add/replace with

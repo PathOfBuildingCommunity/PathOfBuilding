@@ -111,6 +111,7 @@ local statFileList = {
 	"variable_duration_skill_stat_descriptions",
 	"buff_skill_stat_descriptions",
 	"tincture_stat_descriptions",
+	"graft_stat_descriptions",
 }
 for _, name in ipairs(statFileList) do
 	processStatFile(name)

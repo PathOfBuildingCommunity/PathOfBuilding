@@ -2,6 +2,12 @@ name: Create new installer
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Tag to build'
+        required: true
+        default: 'v2.x.x'
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
@@ -14,9 +20,12 @@ jobs:
                 repository: 'PathOfBuildingCommunity/PathOfBuilding-Installer'
                 ref: 'master'
                 ssh-key: '${{ secrets.POB_INSTALLER_KEY }}'
+            - name: Install NSIS
+              run: |
+                choco install nsis --yes
+                echo "C:\Program Files (x86)\NSIS" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
             - name: Create installer
               run: 'python3 make_release.py --game-version 1'
             - name: Upload artifact
               run: >
-                gh release upload ${{ github.event.release.tag_name }} (Get-ChildItem Dist -File).FullName --clobber -R ${{ github.repository }};
-
+                gh release upload ${{ github.event.release.tag_name || github.event.inputs.tag_name }} (Get-ChildItem Dist -File).FullName --clobber -R ${{ github.repository }};

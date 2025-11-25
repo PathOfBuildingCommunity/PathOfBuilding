@@ -68,24 +68,36 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 					end
 					if spec.curClassId == self.build.spec.curClassId then
 						local respec = 0
+						local respecAscendancy = 0
 						for nodeId, node in pairs(self.build.spec.allocNodes) do
 							-- Assumption: Nodes >= 65536 are small cluster passives.
 							if node.type ~= "ClassStart" and node.type ~= "AscendClassStart"
 							and (self.build.spec.tree.clusterNodeMap[node.dn] == nil or node.isKeystone or node.isJewelSocket) and nodeId < 65536
 							and not spec.allocNodes[nodeId] then
 								if node.ascendancyName then
-									respec = respec + 5
+									respecAscendancy = respecAscendancy + 1
 								else
 									respec = respec + 1
 								end
 							end
 						end
-						if respec > 0 then
-							tooltip:AddLine(16, "^7Switching to this tree requires "..respec.." refund points.")
+						if respec > 0 or respecAscendancy > 0 then
+							local goldCost = data.goldRespecPrices[build.characterLevel]
+							local totalGold = (respec * goldCost) + (respecAscendancy * goldCost * 5)
+							local goldStr = formatNumSep(tostring(totalGold))
+							tooltip:AddLine(16, "^xFFD700" .. goldStr .. " Gold ^7required to switch to this tree.")
+							if respec > 0 then
+								local nodeWord = respec == 1 and "Passive node to be refunded" or "Passive nodes to be refunded"
+								tooltip:AddLine(16, s_format("^7\t%d %s.", respec, nodeWord))
+							end
+							if respecAscendancy > 0 then
+								local ascendWord = respecAscendancy == 1 and "Ascendancy node to be refunded" or "Ascendancy nodes to be refunded"
+								tooltip:AddLine(16, s_format("^7\t%d %s.", respecAscendancy, ascendWord))
+							end
 						end
 					end
 				end
-				tooltip:AddLine(16, "Game Version: "..treeVersions[spec.treeVersion].display)
+				tooltip:AddLine(16, "^7Game Version: "..treeVersions[spec.treeVersion].display)
 			end
 		end
 	end
@@ -167,14 +179,14 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		self.viewer.searchStr = buf
 		self.searchFlag = buf ~= self.viewer.searchStrSaved
 	end, nil, nil, true)
-	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches\nPrefix your search with \"oil:\" to search by anoint recipe"
+	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches.\nPrefix your search with \"oil:\" to search by anoint recipe.\nTo search for multiple terms: (increased.fire.damage|increased.area.of.effect|etc)"
 
 	self.tradeLeaguesList = { }
 	-- Find Timeless Jewel Button
 	self.controls.findTimelessJewel = new("ButtonControl", { "LEFT", self.controls.treeSearch, "RIGHT" }, { 8, 0, 150, 20 }, "Find Timeless Jewel", function()
 		self:FindTimelessJewel()
 	end)
-	
+
 	--Default index for Tattoos
 	self.defaultTattoo = { }
 
@@ -798,12 +810,12 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	local function buildMods(selectedNode)
 		wipeTable(modGroups)
 		local numLinkedNodes = selectedNode.linkedId and #selectedNode.linkedId or 0
-		local nodeValue = treeNodes[selectedNode.id].sd[1]
+		local nodeValue = treeNodes[selectedNode.id].sd[1] or ""
 		for id, node in pairs(self.build.spec.tree.tattoo.nodes) do
 			if (nodeName:match(node.targetType:gsub("^Small ", "")) or (node.targetValue ~= "" and nodeValue:match(node.targetValue)) or
 					(node.targetType == "Small Attribute" and (nodeName == "Intelligence" or nodeName == "Strength" or nodeName == "Dexterity"))
 					or (node.targetType == "Keystone" and treeNodes[selectedNode.id].type == node.targetType))
-					and node.MinimumConnected <= numLinkedNodes and (node.legacy == false or node.legacy == self.showLegacyTattoo) then
+					and node.MinimumConnected <= numLinkedNodes and ((node.legacy == nil or node.legacy == false) or node.legacy == self.showLegacyTattoo) then
 				local combine = false
 				for id, desc in pairs(node.stats) do
 					combine = (id:match("^local_display.*") and #node.stats == (#node.sd - 1)) or combine
@@ -877,6 +889,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	end
 	controls.save = new("ButtonControl", nil, {-90, 75, 80, 20}, "Add", function()
 		addModifier(selectedNode)
+		self.build.spec:AddUndoState()
 		self.modFlag = true
 		self.build.buildFlag = true
 		self.defaultTattoo[nodeName] = controls.modSelect.selIndex
@@ -884,8 +897,10 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	end)
 	controls.reset = new("ButtonControl", nil, {0, 75, 80, 20}, "Reset Node", function()
 		self:RemoveTattooFromNode(selectedNode)
+		self.build.spec:AddUndoState()
 		self.modFlag = true
 		self.build.buildFlag = true
+		self.defaultTattoo[nodeName] = nil
 		main:ClosePopup()
 	end)
 	controls.close = new("ButtonControl", nil, {90, 75, 80, 20}, "Cancel", function()
@@ -895,7 +910,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	local function getTattooCount()
 		local count = 0
 		for _, node in pairs(self.build.spec.hashOverrides) do
-			if node.isTattoo then
+			if node.isTattoo and not node.dn:find("Runegraft") then
 				count = count + 1
 			end
 		end
@@ -1915,6 +1930,17 @@ function TreeTabClass:FindTimelessJewel()
 		tooltip:Clear()
 		tooltip:AddLine(16, "^7Click this button to generate new fallback node weights, replacing your old ones.")
 	end
+	controls.totalMinimumWeightLabel = new("LabelControl", {"TOPRIGHT", nil, "TOPLEFT"}, {405, 250, 0, 16}, "^7Total Minimum Weight:")
+	controls.totalMinimumWeight = new("EditControl", {"LEFT", controls.totalMinimumWeightLabel, "RIGHT"}, {10, 0, 60, 18}, "", nil, "%D", nil, function(val)
+		local num = tonumber(val)
+		timelessData.totalMinimumWeight = num or nil
+		self.build.modFlag = true
+	end)
+	controls.totalMinimumWeight.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7Optional: Only show results where total weight meets or exceeds this value.")
+	end
+	
 
 	controls.searchListButton = new("ButtonControl", {"TOPLEFT", nil, "TOPLEFT"}, {12, 250, 106, 20}, "^7Desired Nodes", function()
 		if controls.searchListFallback.shown then
@@ -1963,7 +1989,7 @@ function TreeTabClass:FindTimelessJewel()
 	controls.searchListFallback.enabled = false
 	controls.searchListFallback:SetText(timelessData.searchListFallback and timelessData.searchListFallback or "")
 
-	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", nil, "TOPRIGHT" }, { -450, 250, 0, 16 }, "^7Search Results:")
+	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", nil, "TOPRIGHT" }, { -390, 250, 0, 16 }, "^7Results:")
 	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", nil, "TOPRIGHT" }, { -450, 275, 438, 200 }, self.build)
 	controls.searchTradeLeagueSelect = new("DropDownControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, { -175, -5, 140, 20 }, nil, function(_, value)
 		self.timelessJewelLeagueSelect = value
@@ -2056,7 +2082,7 @@ function TreeTabClass:FindTimelessJewel()
 		local search = {
 			query = {
 				status = {
-					option = "online"
+					option = "available"
 				},
 				stats = {
 					{
@@ -2358,7 +2384,9 @@ function TreeTabClass:FindTimelessJewel()
 			end
 			local searchResultsIdx = 1
 			for seedMatch, seedData in pairs(resultNodes) do
-				if seedWeights[seedMatch] > 0 then
+				-- filter out the results so that only the ones that beat the total minimum weight parameter remain in search results
+				local passesMin = (not timelessData.totalMinimumWeight) or (seedWeights[seedMatch] >= timelessData.totalMinimumWeight)
+				if seedWeights[seedMatch] > 0 and passesMin then
 					timelessData.searchResults[searchResultsIdx] = { label = seedMatch .. ":" }
 					if timelessData.jewelType.id == 1 or timelessData.jewelType.id == 3 then
 						-- Glorious Vanity [100-8000], Brutal Restraint [500-8000]

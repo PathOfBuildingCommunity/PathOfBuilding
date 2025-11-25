@@ -43,6 +43,7 @@ local GGPKClass = newClass("GGPKData", function(self, path, datPath, reExport)
 
 	self.dat = { }
 	self.txt = { }
+	self.ot = { }
 
 	if USE_DAT64 then
 		self:AddDat64Files()
@@ -59,15 +60,16 @@ function GGPKClass:CleanDir(reExport)
 	end
 end
 
-function GGPKClass:ExtractFilesWithBun(fileListStr)
-	local cmd = 'cd ' .. self.oozPath .. ' && bun_extract_file.exe extract-files "' .. self.path .. '" . ' .. fileListStr
+function GGPKClass:ExtractFilesWithBun(fileListStr, useRegex)
+	local useRegex = useRegex or false
+	local cmd = 'cd ' .. self.oozPath .. ' && bun_extract_file.exe extract-files ' .. (useRegex and '--regex "' or '"') .. self.path .. '" . ' .. fileListStr
 	ConPrintf(cmd)
 	os.execute(cmd)
 end
 
 function GGPKClass:ExtractFiles(reExport)
 	if reExport then
-		local datList, txtList, itList = self:GetNeededFiles()
+		local datList, txtList, otList, itList = self:GetNeededFiles()
 		local sweetSpotCharacter = 6000
 		local fileList = ''
 		for _, fname in ipairs(datList) do
@@ -81,6 +83,10 @@ function GGPKClass:ExtractFiles(reExport)
 				self:ExtractFilesWithBun(fileList)
 				fileList = ''
 			end
+		end
+		
+		for _, fname in ipairs(otList) do
+			self:ExtractFilesWithBun('"' .. fname .. '"', true)
 		end
 
 		for _, fname in ipairs(txtList) do
@@ -110,6 +116,30 @@ function GGPKClass:ExtractFiles(reExport)
 	local errMsg = PLoadModule("Scripts/enums.lua")
 	if errMsg then
 		print(errMsg)
+	end
+end
+
+function GGPKClass:ExtractList(listToExtract, cache, useRegex)
+	useRegex = useRegex or false
+	local sweetSpotCharacter = 6000
+	printf("Extracting ...")
+	local fileList = ''
+	for _, fname in ipairs(listToExtract) do
+		-- we are going to validate if the file is already extracted in this session
+		if not cache[fname] then
+			cache[fname] = true
+			fileList = fileList .. '"' .. string.lower(fname) .. '" '
+
+			if fileList:len() > sweetSpotCharacter then
+				self:ExtractFilesWithBun(fileList, useRegex)
+				fileList = ''
+			end
+		end
+	end
+
+	if fileList:len() > 0 then
+		self:ExtractFilesWithBun(fileList, useRegex)
+		fileList = ''
 	end
 end
 
@@ -251,9 +281,6 @@ function GGPKClass:GetNeededFiles()
 		"Data/WeaponClasses.dat",
 		"Data/MonsterConditions.dat",
 		"Data/Rarity.dat",
-		"Data/TradeMarketCategory.dat",
-		"Data/TradeMarketCategoryGroups.dat",
-		"Data/TradeMarketCategoryListAllClass.dat",
 		"Data/Commands.dat",
 		"Data/ModEquivalencies.dat",
 		"Data/InfluenceTags.dat",
@@ -269,6 +296,19 @@ function GGPKClass:GetNeededFiles()
 		"Data/MercenarySupportFamilies.dat",
 		"Data/MercenarySupports.dat",
 		"Data/MercenaryWieldableTypes.dat",
+		"Data/SkillArtVariations.dat",
+		"Data/MiscAnimated.dat",
+		"Data/MiscAnimatedArtVariations.dat",
+		"Data/MiscBeamsArtVariations.dat",
+		"Data/MiscBeams.dat",
+		"Data/MiscEffectPacksArtVariations.dat",
+		"Data/ProjectilesArtVariations.dat",
+		"Data/MonsterVarietiesArtVariations.dat",
+		"Data/PreloadGroups.dat",
+		"Data/BrequelGraftTypes.dat",
+		"Data/BrequelGraftSkillStats.dat",
+		"Data/BrequelGraftGrantedSkillLevels.dat",
+		"Data/VillageBalancePerLevelShared.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",
@@ -296,6 +336,11 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/StatDescriptions/stat_descriptions.txt",
 		"Metadata/StatDescriptions/variable_duration_skill_stat_descriptions.txt",
 		"Metadata/StatDescriptions/tincture_stat_descriptions.txt",
+		"Metadata/StatDescriptions/graft_stat_descriptions.txt",
+	}
+	local otFiles = {
+		"^Metadata/Monsters/(?:[\\w-]+/)*[\\w-]+\\.ot$",
+		"^Metadata/Characters/(?:[\\w-]+/)*[\\w-]+\\.ot$",
 	}
 	local itFiles = {
 		"Metadata/Items/Quivers/AbstractQuiver.it",
@@ -340,5 +385,5 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/Items/Tinctures/AbstractTincture.it",
 		"Metadata/Items/Jewels/AbstractAnimalCharm.it",
 	}
-	return datFiles, txtFiles, itFiles
+	return datFiles, txtFiles, otFiles, itFiles
 end

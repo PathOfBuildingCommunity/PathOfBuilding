@@ -41,6 +41,10 @@ local minions, mod = ...
 #limit ActiveWolfLimit
 #emit
 
+#monster Metadata/Monsters/SummonedTiger/SummonedTiger SummonedSpectralTiger
+#limit ActiveTigerLimit
+#emit
+
 #monster Metadata/Monsters/RaisedSkeletons/RaisedSkeletonStandard RaisedSkeleton
 #limit ActiveSkeletonLimit
 #emit
@@ -80,22 +84,21 @@ local minions, mod = ...
 #emit
 
 #monster Metadata/Monsters/AnimatedItem/AnimatedWeapon AnimatedWeapon
+#limit ActiveAnimatedWeaponLimit
 #emit
 
 #monster Metadata/Monsters/AnimatedItem/AnimatedArmour AnimatedArmour
-#mod mod("Speed", "MORE", 10, ModFlag.Attack, 0, { type = "Condition", var = "DualWielding" })
-#mod mod("BlockChance", "BASE", 15, 0, 0, { type = "Condition", var = "DualWielding" })
 #emit
 
 #monster Metadata/Monsters/IcyRagingSpirit/IcyRagingSpirit IcyRagingSpirit
 #emit
 
 #monster Metadata/Monsters/AnimatedItem/UniqueAnimatedWeapon UniqueAnimatedWeapon
+#limit ActiveAnimatedWeaponLimit
 #mod mod("Life", "MORE", 698), -- MonsterUnique2
 #mod mod("Damage", "MORE", 70), -- MonsterUnique5
 #mod mod("Speed", "MORE", 33, ModFlag.Attack), -- MonsterUnique8
 #mod mod("Damage", "MORE", -33, ModFlag.Attack), -- MonsterUnique8
-#mod mod("DamageTaken", "MORE", -95), -- monster_inherent_damage_taken_+%_final : UniqueAnimatedWeapon.ot
 #emit
 
 #monster Metadata/Monsters/SummonedPhantasm/SummonedPhantasm SummonedPhantasm
@@ -115,17 +118,21 @@ local minions, mod = ...
 #emit
 
 #monster Metadata/Monsters/Axis/AxisEliteSoldierDominatingBlow AxisEliteSoldierDominatingBlow
+#limit ActiveSentinelOfDominanceLimit
 #emit
 
 #monster Metadata/Monsters/Axis/AxisEliteSoldierDominatingBlowVaal AxisEliteSoldierDominatingBlowVaal
+#limit ActiveSentinelOfDominanceLimit
 #mod mod("Damage", "MORE", 200)
 #mod mod("DamageTaken", "MORE", -70)
 #emit
 
 #monster Metadata/Monsters/TemplarJudge/AbsolutionTemplarJudge AbsolutionTemplarJudge
+#limit ActiveSentinelOfAbsolutionLimit
 #emit
 
 #monster Metadata/Monsters/TemplarJudge/AbsolutionTemplarJudgeVaal AbsolutionTemplarJudgeVaal
+#limit ActiveSentinelOfAbsolutionLimit
 #mod mod("Damage", "MORE", 200)
 #mod mod("DamageTaken", "MORE", -70)
 #emit
@@ -152,7 +159,11 @@ local minions, mod = ...
 #monster Metadata/Monsters/Skitterbot/SkitterbotLightning SkitterbotLightning
 #emit
 
+#monster Metadata/Monsters/Skitterbot/SkitterbotFire SkitterbotFire
+#emit
+
 #monster Metadata/Monsters/SummonedReaper/SummonedReaper SummonedReaper
+#limit ActiveReaperLimit
 #emit
 
 #monster Metadata/Monsters/LeagueExpedition/Arbalest/SummonedArbalest SummonedArbalists
@@ -194,4 +205,46 @@ minions["GuardianRelicAll"] = {
 #emit
 
 #monster Metadata/Monsters/AnimatedItem/ElementalLivingRelicLightning GuardianRelicLightning
+#emit
+
+#monster Metadata/Monsters/ElderTentacle/ElderTentacleMinionLargePlayer VoidSpawn
+#limit ActiveVoidSpawnLimit
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralAhuanaMinion AncestralAhuanaMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralAkoyaMinion AncestralAkoyaMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralIkiahoMinion AncestralIkiahoMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralKahuturoaMinion_ AncestralKahuturoaMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralKaomMinion_ AncestralKaomMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralKiloavaMinion__ AncestralKiloavaMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralMaataMinion AncestralMaataMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralRakiataMinion AncestralRakiataMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralTawhanukuMinion AncestralTawhanukuMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralUtulaMinion_ AncestralUtulaMinion
+#emit
+
+#monster Metadata/Monsters/LivingLightning/LivingLightningSummoned LivingLightningMinion
+#limit ActiveLivingLightningLimit
+#emit
+
+#monster Metadata/Monsters/SummonedPhantasm/SummonedPhantasmPenanceMark PenanceMarkPhantasm
+#hostile true
 #emit

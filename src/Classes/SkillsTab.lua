@@ -23,6 +23,7 @@ local groupSlotDropList = {
 	{ label = "Amulet", slotName = "Amulet" },
 	{ label = "Ring 1", slotName = "Ring 1" },
 	{ label = "Ring 2", slotName = "Ring 2" },
+	{ label = "Ring 3", slotName = "Ring 3" },
 	{ label = "Belt", slotName = "Belt" },
 }
 
@@ -769,7 +770,9 @@ function SkillsTabClass:CreateGemSlot(index)
 						if grantedEffect.statMap[qual[1]] or self.build.data.skillStatMap[qual[1]] then
 							tooltip:AddLine(16, colorCodes.MAGIC..line)
 						else
-							tooltip:AddLine(16, colorCodes.UNSUPPORTED..line)
+							local line = colorCodes.UNSUPPORTED..line
+							line = main.notSupportedModTooltips and (line .. main.notSupportedTooltipText) or line
+							tooltip:AddLine(16, line)
 						end
 					end
 				end

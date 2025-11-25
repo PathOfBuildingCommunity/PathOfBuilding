@@ -656,14 +656,17 @@ Command of the Pit
 Riveted Gloves
 League: Delve
 Source: Drops from unique{Kurgal, the Blackblooded}
+Variant: Pre 3.27.0 One Abyssal Socket
+Variant: Pre 3.27.0 Two Abyssal Sockets
 Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
 Requires Level 37, 29 Str, 29 Int
-{variant:1}Has 1 Abyssal Socket
-{variant:2}Has 2 Abyssal Sockets
+{variant:1,3}Has 1 Abyssal Socket
+{variant:2,4}Has 2 Abyssal Sockets
 (6-10)% increased Cast Speed
 (4-6)% increased maximum Life
-With a Ghastly Eye Jewel Socketed, Minions have +1000 to Accuracy Rating
+{variant:1,2}With a Ghastly Eye Jewel Socketed, Minions have +1000 to Accuracy Rating
+{variant:3,4}With a Ghastly Eye Jewel Socketed, Minions have 25% chance to gain Unholy Might on Hit with Spells
 With a Hypnotic Eye Jewel Socketed, gain Arcane Surge on Hit with Spells
 ]],[[
 The Hand of Phrecia
@@ -839,6 +842,16 @@ Adds (17-23) to (29-31) Chaos Damage
 Your Chaos Damage can Ignite
 Chaos Skills have 20% chance to Ignite
 50% less Ignite Duration
+]],[[
+Hand of Heresy
+Martyr Gloves
+Source: Drops from unique{Mercenary} after winning a duel
+League: Mercenaries of Trarthus
+Requires Level 77, 70 Str, 70 Int
+(40-80)% increased Armour and Energy Shield
+(15-25)% increased Life Regeneration rate
+15% increased Area of Effect of Aura Skills
+Excommunicate Enemies on Melee Hit for 3 seconds
 ]],
 -- Gloves: Evasion/Energy Shield
 [[
@@ -1055,7 +1068,7 @@ Requires Level 58, 45 Dex, 45 Int
 (250-300)% increased Evasion and Energy Shield
 +(20-30)% to Lightning Resistance
 Enemies you kill are Shocked
-Shocks you inflict spread to other Enemies within a Radius of 15
+Shocks you inflict spread to other Enemies within 1.5 metres
 ]],[[
 Thunderfist
 Murder Mitts
@@ -1109,5 +1122,4 @@ Requires Level 48, 31 Str, 31 Dex, 31 Int
 {variant:2}Gain Added Chaos Damage equal to 20% of Ward
 {variant:3}Gain Added Chaos Damage equal to 10% of Ward
 75% of Damage taken bypasses Ward
-]],
-}
+]],}

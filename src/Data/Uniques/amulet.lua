@@ -260,14 +260,14 @@ League: Talisman Hardcore
 Talisman Tier: 2
 Requires Level 28
 Implicits: 1
-(15-25)% increased Global Defences
-+(20-30) to maximum Energy Shield
+{tags:defences}(15-25)% increased Global Defences
+{tags:defences}+(20-30) to maximum Energy Shield
 {tags:jewellery_resistance}+(15-30)% to Fire Resistance
 {tags:jewellery_resistance}+(15-30)% to Lightning Resistance
-{variant:1}30% slower start of Energy Shield Recharge during any Flask Effect
-{variant:2}50% slower start of Energy Shield Recharge during any Flask Effect
-{variant:1}400% increased Energy Shield Recharge Rate during any Flask Effect
-{variant:2}(150-200)% increased Energy Shield Recharge Rate during any Flask Effect
+{variant:1}{tags:defences}30% slower start of Energy Shield Recharge during any Flask Effect
+{variant:2}{tags:defences}50% slower start of Energy Shield Recharge during any Flask Effect
+{variant:1}{tags:defences}400% increased Energy Shield Recharge Rate during any Flask Effect
+{variant:2}{tags:defences}(150-200)% increased Energy Shield Recharge Rate during any Flask Effect
 Corrupted
 ]],[[
 Blood of Corruption
@@ -471,37 +471,37 @@ Variant: Gain Physical as random Element
 Variant: Extra Pierces
 Variant: Damage over Time Multiplier
 Implicits: 32
-{variant:1}(24-32)% increased Attributes
-{variant:2}(30-50)% increased Global Defences
-{variant:3}(38-62)% increased Chaos Damage
-{variant:4}(40-60)% increased Attack Damage
-{variant:5}(40-60)% increased Cold Damage
-{variant:6}(40-60)% increased Fire Damage
-{variant:7}(40-60)% increased Lightning Damage
-{variant:8}(40-60)% increased Spell Damage
-{variant:9}(40-60)% increased Global Physical Damage
-{variant:10}(40-60)% increased maximum Mana
+{variant:1}{tags:jewellery_attribute}(24-32)% increased Attributes
+{variant:2}{tags:jewellery_defense}(30-50)% increased Global Defences
+{variant:3}{tags:chaos_damage}(38-62)% increased Chaos Damage
+{variant:4}{tags:attack}(40-60)% increased Attack Damage
+{variant:5}{tags:elemental_damage}(40-60)% increased Cold Damage
+{variant:6}{tags:elemental_damage}(40-60)% increased Fire Damage
+{variant:7}{tags:elemental_damage}(40-60)% increased Lightning Damage
+{variant:8}{tags:caster}(40-60)% increased Spell Damage
+{variant:9}{tags:physical_damage}(40-60)% increased Global Physical Damage
+{variant:10}{tags:mana}(40-60)% increased maximum Mana
 {variant:11}(50-70)% increased Damage
-{variant:12}(8-12)% additional Physical Damage Reduction
-{variant:13}(8-12)% chance to Freeze, Shock and Ignite
-{variant:14}(80-100)% increased Global Critical Strike Chance
+{variant:12}{tags:physical_damage}(8-12)% additional Physical Damage Reduction
+{variant:13}{tags:jewellery_elemental}(8-12)% chance to Freeze, Shock and Ignite
+{variant:14}{tags:critical}(80-100)% increased Global Critical Strike Chance
 {variant:15}(10-16)% increased Area of Effect
-{variant:16}(12-20)% increased Attack and Cast Speed
+{variant:16}{tags:caster,attack,speed}(12-20)% increased Attack and Cast Speed
 {variant:17}(12-20)% increased Quantity of Items found
-{variant:18}(16-24)% increased maximum Life
-{variant:19}+(48-72)% to Global Critical Strike Multiplier
+{variant:18}{tags:life}(16-24)% increased maximum Life
+{variant:19}{tags:critical}+(48-72)% to Global Critical Strike Multiplier
 {variant:20}+2 to maximum number of Raised Zombies
 {variant:21}20% chance to gain a Frenzy Charge on Kill
 {variant:22}20% chance to gain a Power Charge on Kill
 {variant:23}20% chance to gain a Endurance Charge on Kill
-{variant:24}Regenerate 4% of Life per second
-{variant:25}100% of Cold Damage from Hits taken as Fire Damage
-{variant:26}100% of Cold Damage from Hits taken as Lightning Damage
-{variant:27}100% of Fire Damage from Hits taken as Cold Damage
-{variant:28}100% of Fire Damage from Hits taken as Lightning Damage
-{variant:29}100% of Lightning Damage from Hits taken as Cold Damage
-{variant:30}100% of Lightning Damage from Hits taken as Fire Damage
-{variant:31}Gain (12-24)% of Physical Damage as Extra Damage of a random Element
+{variant:24}{tags:life}Regenerate 4% of Life per second
+{variant:25}{tags:jewellery_elemental}100% of Cold Damage from Hits taken as Fire Damage
+{variant:26}{tags:jewellery_elemental}100% of Cold Damage from Hits taken as Lightning Damage
+{variant:27}{tags:jewellery_elemental}100% of Fire Damage from Hits taken as Cold Damage
+{variant:28}{tags:jewellery_elemental}100% of Fire Damage from Hits taken as Lightning Damage
+{variant:29}{tags:jewellery_elemental}100% of Lightning Damage from Hits taken as Cold Damage
+{variant:30}{tags:jewellery_elemental}100% of Lightning Damage from Hits taken as Fire Damage
+{variant:31}{tags:physical_damage,elemental_damage}Gain (12-24)% of Physical Damage as Extra Damage of a random Element
 {variant:32}Projectiles Pierce (4-6) additional Targets
 {variant:33}+(24-36)% to Damage over Time Multiplier
 Implicit Modifier magnitudes are doubled
@@ -564,7 +564,7 @@ Implicits: 1
 {tags:jewellery_resistance}+(35-40)% to Cold Resistance
 30% increased Freeze Duration on Enemies
 10% chance to Freeze
-{variant:2}Freezes you inflict spread to other Enemies with a Radius of 15
+{variant:2}Freezes you inflict spread to other Enemies within 1.5 metres
 60% increased Damage if you've Frozen an Enemy Recently
 ]],[[
 The Pandemonius
@@ -584,14 +584,16 @@ Hinekora's Sight
 Onyx Amulet
 Requires Level 20
 Variant: Pre 3.16.0
+Variant: Pre 3.37.0
 Variant: Current
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
-{variant:1}{tags:attack}+1000 to Accuracy Rating
-{variant:2}{tags:attack}+(600-1000) to Accuracy Rating
-{variant:2}{tags:jewellery_defense}+(600-1000) to Evasion Rating
-{variant:1}(12-20)% chance to Suppress Spell Damage
 {variant:2}Prevent +3% of Suppressed Spell Damage
+{variant:3}Prevent +(4-6)% of Suppressed Spell Damage
+{variant:1}{tags:attack}+1000 to Accuracy Rating
+{variant:2,3}{tags:attack}+(600-1000) to Accuracy Rating
+{variant:2,3}{tags:jewellery_defense}+(600-1000) to Evasion Rating
+{variant:1}(12-20)% chance to Suppress Spell Damage
 Cannot be Blinded
 ]],[[
 Replica Hinekora's Sight
@@ -839,11 +841,11 @@ Talisman Tier: 3
 Requires Level 44
 Implicits: 1
 (25-35)% increased Damage
-(10-15)% increased Global Physical Damage
-(25-30)% increased Fire Damage
-(20-25)% increased Cold Damage
-(15-20)% increased Lightning Damage
-(30-35)% increased Chaos Damage
+{tags:physical_damage}(10-15)% increased Global Physical Damage
+{tags:elemental_damage}(25-30)% increased Fire Damage
+{tags:elemental_damage}(20-25)% increased Cold Damage
+{tags:elemental_damage}(15-20)% increased Lightning Damage
+{tags:chaos_damage}(30-35)% increased Chaos Damage
 Corrupted
 ]],[[
 Night's Hold
@@ -904,21 +906,6 @@ Implicits: 1
 {variant:2}Always Freeze, Shock and Ignite
 {variant:1}Cannot gain Power Charges
 ]],[[
-Replica Dragonfang's Flight
-Onyx Amulet
-Variant: Pre 3.23.0
-Variant: Current
-LevelReq: 56
-Implicits: 1
-{tags: jewellery_attribute}+(10-16) to all Attributes
-{variant:1}{tags:jewellery_resistance}+(10-15)% to all Elemental Resistances
-{variant:2}{tags:jewellery_resistance}+(5-10)% to all Elemental Resistances
-+3 to Level of all Spark Gems
-{variant:1}(10-15)% increased Reservation Efficiency of Skills
-{variant:2}(5-10)% increased Reservation Efficiency of Skills
-{variant:1}Items and Gems have (10-15)% reduced Attribute Requirements
-{variant:2}Items and Gems have (5-10)% reduced Attribute Requirements
-]],[[
 Retaliation Charm
 Citrine Amulet
 Variant: Pre 3.19.0
@@ -942,9 +929,9 @@ Variant: Current
 Talisman Tier: 2
 Requires Level 28
 Implicits: 2
-{variant:1}+(16-24)% to Global Critical Strike Multiplier
-{variant:2}+(24-36)% to Global Critical Strike Multiplier
-+7% to Unarmed Melee Attack Critical Strike Chance
+{variant:1}{tags:critical}+(16-24)% to Global Critical Strike Multiplier
+{variant:2}{tags:critical}+(24-36)% to Global Critical Strike Multiplier
+{tags:critical}+7% to Unarmed Melee Attack Critical Strike Chance
 Modifiers to Claw Damage also apply to Unarmed Attack Damage with Melee Skills
 Modifiers to Claw Attack Speed also apply to Unarmed Attack Speed with Melee Skills
 Modifiers to Claw Critical Strike Chance also apply to Unarmed Critical Strike Chance with Melee Skills
@@ -1349,5 +1336,30 @@ Implicits: 2
 {tags:jewellery_defense}(10-15)% increased Global Defences
 Critical Strikes inflict Malignant Madness if The Eater of Worlds is dominant
 Kill Enemies that have 15% or lower Life on Hit if The Searing Exarch is dominant
-]],
-}
+]],[[
+Venarius' Astrolabe
+Astrolabe Amulet
+Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
+Requires Level 69
+Implicits: 2
+Implicit Modifiers Cannot Be Changed
+Has Elder, Shaper and all Conqueror Influences
+The stars are aligned if you have 6 Influence types among other Equipped Items
+You have Elemental Conflux if the stars are aligned
++(1-3) to Level of all Elemental Skill Gems if the stars are aligned
++(1-3) to Level of all Elemental Support Gems if the stars are aligned
+]],[[
+Whispers of Infinity
+Seaglass Amulet
+Variant: Pre 3.27.0
+Variant: Current
+Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 74
+Implicits: 1
+{tags:jewellery_defense}(10-15)% faster start of Energy Shield Recharge
+{tags:attack,chaos_damage}(5-10) to (20-25) Added Attack Chaos Damage per 100 Maximum Mana
+{variant:1}{tags:jewellery_defense}+(200-400) to maximum Energy Shield
+{variant:2}{tags:jewellery_defense}+(50-100) to maximum Energy Shield
+{tags:mana}(40-60)% reduced maximum Mana
+Skills Cost Energy Shield instead of Mana or Life
+]],}

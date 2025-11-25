@@ -1,7 +1,7 @@
 if not loadStatFile then
 	dofile("statdesc.lua")
 end
-loadStatFile("tincture_stat_descriptions.txt")
+loadStatFile("tincture_stat_descriptions.txt", "graft_stat_descriptions.txt")
 
 function table.containsId(table, element)
   for _, value in pairs(table) do
@@ -33,7 +33,7 @@ local function writeMods(outName, condFunc)
 					print("[Jewel]: Skipping '" .. mod.Id .. "'")
 					goto continue
 				end
-			elseif mod.Family[1] and mod.Family[1].Id ~= "AuraBonus" and mod.Family[1].Id ~= "ArbalestBonus" and mod.GenerationType == 3 and not (mod.Domain == 16 or (mod.Domain == 1 and mod.Id:match("^Synthesis"))) then
+			elseif mod.Family[1] and mod.Family[1].Id ~= "AuraBonus" and mod.Family[1].Id ~= "ArbalestBonus" and mod.GenerationType == 3 and not (mod.Domain == 16 or (mod.Domain == 1 and mod.Id:match("^Synthesis") or mod.Id:match("^MutatedUnique") or (mod.Family[2] and mod.Family[2].Id:match("MatchedInfluencesTier")))) then
 				goto continue
 			end
 			local stats, orders = describeMod(mod)
@@ -44,8 +44,12 @@ local function writeMods(outName, condFunc)
 				elseif mod.GenerationType == 2 then
 					out:write('type = "Suffix", ')
 				elseif mod.GenerationType == 3 then
-					if mod.Domain == 1 and mod.Id:match("^Synthesis") then
-						out:write('type = "Synthesis", ')
+					if mod.Domain == 1 then
+						if mod.Id:match("^Synthesis") then
+							out:write('type = "Synthesis", ')
+						elseif mod.Family[2] and mod.Family[2].Id:match("MatchedInfluencesTier") then
+							out:write('type = "'..mod.Family[2].Id:match("%d+")..mod.Family[1].Id:match("(.-)Influence")..'", ')
+						end
 					elseif mod.Domain == 16 then
 						out:write('type = "DelveImplicit", ')
 					end
@@ -133,7 +137,7 @@ end
 
 writeMods("../Data/ModItem.lua", function(mod)
 	return (mod.Domain == 1 or mod.Domain == 16)
-			and (mod.GenerationType == 1 or mod.GenerationType == 2 or (mod.GenerationType == 3 and (mod.Id:match("^Synthesis") or (mod.Family[1].Id ~= "AuraBonus" and mod.Family[1].Id ~= "ArbalestBonus"))) or mod.GenerationType == 5
+			and (mod.GenerationType == 1 or mod.GenerationType == 2 or (mod.GenerationType == 3 and (not mod.Id:match("^MutatedUnique")) and (mod.Id:match("^Synthesis") or (mod.Family[1].Id ~= "AuraBonus" and mod.Family[1].Id ~= "ArbalestBonus") and not (mod.Family[2] and mod.Family[2].Id:match("MatchedInfluencesTier")))) or mod.GenerationType == 5
 			 or mod.GenerationType == 25 or mod.GenerationType == 24 or mod.GenerationType == 28 or mod.GenerationType == 29)
 			and not mod.Id:match("^Hellscape[UpDown]+sideMap") -- Exclude Scourge map mods
 			and not mod.Id:match("Royale")
@@ -160,6 +164,9 @@ end)
 writeMods("../Data/Uniques/Special/WatchersEye.lua", function(mod)
 	return mod.Family[1] and (mod.Family[1].Id == "AuraBonus" or mod.Family[1].Id == "ArbalestBonus") and mod.GenerationType == 3 and not mod.Id:match("^Synthesis")
 end)
+writeMods("../Data/Uniques/Special/BoundByDestiny.lua", function(mod)
+	return mod.Family[2] and mod.Family[2].Id:match("MatchedInfluencesTier")
+end)
 writeMods("../Data/ModVeiled.lua", function(mod)
 	return mod.Domain == 28 and (mod.GenerationType == 1 or mod.GenerationType == 2)
 end)
@@ -171,6 +178,14 @@ writeMods("../Data/ModItemExclusive.lua", function(mod) -- contains primarily un
 	and (mod.Family[1] and mod.Family[1].Id ~= "AuraBonus" or not mod.Family[1])
 	and not mod.Id:match("^Synthesis") and not mod.Id:match("Royale") and not mod.Id:match("Cowards") and not mod.Id:match("Map") and not mod.Id:match("Ultimatum")
 end)
-
+writeMods("../Data/ModGraft.lua", function(mod)
+	return mod.Domain == 38 and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5)
+end)
+writeMods("../Data/BeastCraft.lua", function(mod)
+	return (mod.Id:match("Aspect")  and mod.GenerationType == 2)  -- Aspect Crafts
+end)
+writeMods("../Data/ModFoulborn.lua", function(mod)
+	return mod.Domain == 1 and mod.GenerationType == 3 and mod.Id:match("^MutatedUnique")
+end)
 
 print("Mods exported.")

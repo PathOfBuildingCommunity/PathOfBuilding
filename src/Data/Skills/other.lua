@@ -30,9 +30,13 @@ skills["RepeatingShockwave"] = {
 		"skill_can_add_multiple_charges_per_action",
 		"no_cost",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
-		[7] = { 50, 75, 10, critChance = 5, PvPDamageMultiplier = -80, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
-		[20] = { 150, 225, 25, critChance = 5, PvPDamageMultiplier = -80, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
+		[7] = { 50, 75, 10, PvPDamageMultiplier = -80, critChance = 5, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
+		[20] = { 150, 225, 25, PvPDamageMultiplier = -80, critChance = 5, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, },
 	},
 }
 skills["Affliction"] = {
@@ -106,9 +110,12 @@ skills["AnimateGuardiansWeapon"] = {
 		"base_number_of_animated_weapons_allowed",
 		"chance_to_trigger_on_animate_guardian_kill_%",
 	},
+	notMinionStat = {
+		"chance_to_trigger_on_animate_weapon_kill_%",
+	},
 	levels = {
-		[18] = { 10, 108, 159, 13, storedUses = 1, levelRequirement = 64, cooldown = 0.05, statInterpolation = { 1, 1, 1, 1, }, },
-		[20] = { 100, 126, 184, 14, storedUses = 1, levelRequirement = 70, cooldown = 0.05, statInterpolation = { 1, 1, 1, 1, }, },
+		[18] = { 10, 108, 159, 13, cooldown = 0.05, levelRequirement = 64, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, },
+		[20] = { 100, 126, 184, 14, cooldown = 0.05, levelRequirement = 70, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, },
 	},
 }
 skills["ApproachingFlames"] = {
@@ -132,7 +139,7 @@ skills["ApproachingFlames"] = {
 		"display_touch_of_fire",
 	},
 	levels = {
-		[20] = { storedUses = 1, levelRequirement = 70, cooldown = 5, },
+		[20] = { cooldown = 5, levelRequirement = 70, storedUses = 1, },
 	},
 }
 skills["SupportTriggerSpellOnBowAttack"] = {
@@ -151,7 +158,7 @@ skills["SupportTriggerSpellOnBowAttack"] = {
 		"skill_has_trigger_from_unique_item",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 0.3, },
+		[1] = { cooldown = 0.3, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["Barkskin"] = {
@@ -159,7 +166,7 @@ skills["Barkskin"] = {
 	hidden = true,
 	color = 2,
 	description = "Adopt the power of the forest, gradually covering your body in bark. Getting hit by enemy attacks causes bark to be removed. You take reduced damage from physical attack hits the more bark builds up, but higher chance to evade when less covered in bark.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.ZeroReservation] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	fromTree = true,
@@ -188,8 +195,8 @@ skills["Barkskin"] = {
 		"chance_to_evade_attacks_+%_final_per_missing_barkskin_stack",
 	},
 	levels = {
-		[20] = { -30, 2, storedUses = 1, manaReservationPercent = 10, cooldown = 10, levelRequirement = 70, statInterpolation = { 1, 1, }, },
-		[30] = { -60, 3, storedUses = 1, manaReservationPercent = 10, cooldown = 10, levelRequirement = 90, statInterpolation = { 1, 1, }, },
+		[20] = { -30, 2, cooldown = 10, levelRequirement = 70, storedUses = 1, statInterpolation = { 1, 1, }, },
+		[30] = { -60, 3, cooldown = 10, levelRequirement = 90, storedUses = 1, statInterpolation = { 1, 1, }, },
 	},
 }
 skills["AilmentBearer"] = {
@@ -216,7 +223,7 @@ skills["AilmentBearer"] = {
 		"display_this_skill_cooldown_does_not_recover_during_buff",
 	},
 	levels = {
-		[20] = { storedUses = 1, levelRequirement = 70, cooldown = 0.5, cost = { Mana = 13, }, },
+		[20] = { cooldown = 0.5, levelRequirement = 70, storedUses = 1, cost = { Mana = 13, }, },
 	},
 }
 skills["AspectOfTheAvian"] = {
@@ -257,8 +264,8 @@ skills["AspectOfTheAvian"] = {
 		"minion_movement_speed_+%",
 	},
 	levels = {
-		[20] = { 10, 10, 10, 10, storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, }, },
-		[30] = { 12, 12, 14, 14, storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, }, },
+		[20] = { 10, 10, 10, 10, cooldown = 0.5, levelRequirement = 1, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, },
+		[30] = { 12, 12, 14, 14, cooldown = 0.5, levelRequirement = 1, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, },
 	},
 }
 skills["AspectOfTheCat"] = {
@@ -300,8 +307,8 @@ skills["AspectOfTheCat"] = {
 		"cast_speed_+%_granted_from_skill",
 	},
 	levels = {
-		[20] = { 100, 15, 100, 10, 10, storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, }, },
-		[30] = { 120, 15, 100, 16, 16, storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[20] = { 100, 15, 100, 10, 10, cooldown = 0.5, levelRequirement = 1, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[30] = { 120, 15, 100, 16, 16, cooldown = 0.5, levelRequirement = 1, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["AspectOfTheCrab"] = {
@@ -331,8 +338,8 @@ skills["AspectOfTheCrab"] = {
 		"max_crab_aspect_stacks",
 	},
 	levels = {
-		[20] = { 10, storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 1, }, },
-		[30] = { 12, storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 1, }, },
+		[20] = { 10, cooldown = 0.5, levelRequirement = 1, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 1, }, },
+		[30] = { 12, cooldown = 0.5, levelRequirement = 1, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 1, }, },
 	},
 }
 skills["AspectOfTheSpider"] = {
@@ -369,8 +376,8 @@ skills["AspectOfTheSpider"] = {
 		"spider_aspect_max_web_count",
 	},
 	levels = {
-		[20] = { 3, storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 1, }, },
-		[30] = { 4, storedUses = 1, manaReservationPercent = 25, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 1, }, },
+		[20] = { 3, cooldown = 0.5, levelRequirement = 1, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 1, }, },
+		[30] = { 4, cooldown = 0.5, levelRequirement = 1, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 1, }, },
 	},
 }
 skills["SupportBloodMagicUniquePrismGuardian"] = {
@@ -495,8 +502,12 @@ skills["BloodSacramentUnique"] = {
 		"is_area_damage",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 1, damageEffectiveness = 0.03, lifeReservationPercent = 2, cooldown = 0.35, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 0.35, critChance = 5, damageEffectiveness = 0.03, levelRequirement = 0, lifeReservationPercent = 2, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["BoneArmour"] = {
@@ -536,7 +547,7 @@ skills["BoneArmour"] = {
 		"display_skill_buff_grants_bleeding_immunity",
 	},
 	levels = {
-		[20] = { 1, storedUses = 1, levelRequirement = 70, cooldown = 3, statInterpolation = { 3, }, },
+		[20] = { 1, cooldown = 3, levelRequirement = 70, storedUses = 1, statInterpolation = { 3, }, },
 	},
 }
 skills["BoneNova"] = {
@@ -564,7 +575,7 @@ skills["BoneNova"] = {
 		"cannot_cause_bleeding",
 	},
 	levels = {
-		[20] = { baseMultiplier = 1.5, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.5, cooldown = 0.5, levelRequirement = 1, },
+		[20] = { PvPDamageMultiplier = -80, baseMultiplier = 1.5, cooldown = 0.5, damageEffectiveness = 1.5, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["Brandsurge"] = {
@@ -592,8 +603,12 @@ skills["Brandsurge"] = {
 		"display_brand_deonate_tag_conversion",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
-		[20] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 1, damageEffectiveness = 5.1, cooldown = 1.5, levelRequirement = 70, statInterpolation = { 3, 3, }, cost = { Mana = 20, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, cooldown = 1.5, critChance = 5, damageEffectiveness = 5.1, levelRequirement = 70, storedUses = 1, statInterpolation = { 3, 3, }, cost = { Mana = 20, }, },
 	},
 }
 skills["ColdAegis"] = {
@@ -658,8 +673,12 @@ skills["UniqueEnchantmentOfInfernoOnCrit"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
-		[1] = { 2.4000000953674, 3.7999999523163, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 3, levelRequirement = 75, statInterpolation = { 3, 3, }, },
+		[1] = { 2.4000000953674, 3.7999999523163, PvPDamageMultiplier = -80, cooldown = 3, critChance = 5, levelRequirement = 75, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["TriggeredConsecrate"] = {
@@ -685,7 +704,7 @@ skills["TriggeredConsecrate"] = {
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
-		[10] = { storedUses = 1, levelRequirement = 1, cooldown = 5, },
+		[10] = { cooldown = 5, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["CreateFungalGroundOnKill"] = {
@@ -710,7 +729,55 @@ skills["CreateFungalGroundOnKill"] = {
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
-		[10] = { storedUses = 1, levelRequirement = 1, cooldown = 1, },
+		[10] = { cooldown = 1, levelRequirement = 1, storedUses = 1, },
+	},
+}
+skills["Convocation"] = {
+	name = "Convocation",
+	baseTypeName = "Convocation",
+	color = 4,
+	description = "Recalls all minions that are following you to your location, and grants them a temporary life regeneration effect.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Minion] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "buff_skill_stat_descriptions",
+	castTime = 0,
+	statMap = {
+		["base_life_regeneration_rate_per_minute"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 60,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("buffMinions", true),
+		skill("buffNotPlayer", true),
+	},
+	qualityStats = {
+		Default = {
+			{ "skill_effect_duration_+%", 1 },
+			{ "base_cooldown_speed_+%", 1 },
+		},
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 2000 },
+		{ "life_regeneration_rate_per_minute_%", 120 },
+	},
+	stats = {
+		"base_deal_no_damage",
+	},
+	levels = {
+		[1] = { cooldown = 3, levelRequirement = 31, storedUses = 1, cost = { Mana = 6, }, },
+		[2] = { cooldown = 3, levelRequirement = 31, storedUses = 1, cost = { Mana = 6, }, },
+		[3] = { cooldown = 3, levelRequirement = 31, storedUses = 1, cost = { Mana = 6, }, },
+		[4] = { cooldown = 3, levelRequirement = 31, storedUses = 1, cost = { Mana = 6, }, },
+		[5] = { cooldown = 3, levelRequirement = 31, storedUses = 1, cost = { Mana = 6, }, },
+		[6] = { cooldown = 3, levelRequirement = 31, storedUses = 1, cost = { Mana = 6, }, },
+		[7] = { cooldown = 3, levelRequirement = 31, storedUses = 1, cost = { Mana = 6, }, },
+		[8] = { cooldown = 3, levelRequirement = 31, storedUses = 1, cost = { Mana = 6, }, },
+		[9] = { cooldown = 3, levelRequirement = 31, storedUses = 1, cost = { Mana = 6, }, },
+		[10] = { cooldown = 3, levelRequirement = 31, storedUses = 1, cost = { Mana = 6, }, },
 	},
 }
 skills["CorpseWalk"] = {
@@ -753,7 +820,7 @@ skills["SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike"] = {
 		"socketed_triggered_skills_use_weapon_attack_time_for_pvp_scaling",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 0.25, },
+		[1] = { cooldown = 0.25, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["TriggeredSummonLesserShrine"] = {
@@ -780,8 +847,8 @@ skills["TriggeredSummonLesserShrine"] = {
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 20, },
-		[20] = { storedUses = 1, levelRequirement = 1, cooldown = 10, },
+		[1] = { cooldown = 20, levelRequirement = 1, storedUses = 1, },
+		[20] = { cooldown = 10, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["DeathAura"] = {
@@ -925,6 +992,10 @@ skills["DeathWish"] = {
 		"spell_maximum_base_fire_damage",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
 		[20] = { 0.80000001192093, 1.2000000476837, critChance = 6, levelRequirement = 70, statInterpolation = { 3, 3, }, cost = { Mana = 7, }, },
 	},
@@ -998,16 +1069,16 @@ skills["GemDetonateMines"] = {
 		"base_deal_no_damage",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 8, cooldown = 0.2, },
-		[2] = { storedUses = 1, levelRequirement = 8, cooldown = 0.2, },
-		[3] = { storedUses = 1, levelRequirement = 8, cooldown = 0.2, },
-		[4] = { storedUses = 1, levelRequirement = 8, cooldown = 0.2, },
-		[5] = { storedUses = 1, levelRequirement = 8, cooldown = 0.2, },
-		[6] = { storedUses = 1, levelRequirement = 8, cooldown = 0.2, },
-		[7] = { storedUses = 1, levelRequirement = 8, cooldown = 0.2, },
-		[8] = { storedUses = 1, levelRequirement = 8, cooldown = 0.2, },
-		[9] = { storedUses = 1, levelRequirement = 8, cooldown = 0.2, },
-		[10] = { storedUses = 1, levelRequirement = 8, cooldown = 0.2, },
+		[1] = { cooldown = 0.2, levelRequirement = 8, storedUses = 1, },
+		[2] = { cooldown = 0.2, levelRequirement = 8, storedUses = 1, },
+		[3] = { cooldown = 0.2, levelRequirement = 8, storedUses = 1, },
+		[4] = { cooldown = 0.2, levelRequirement = 8, storedUses = 1, },
+		[5] = { cooldown = 0.2, levelRequirement = 8, storedUses = 1, },
+		[6] = { cooldown = 0.2, levelRequirement = 8, storedUses = 1, },
+		[7] = { cooldown = 0.2, levelRequirement = 8, storedUses = 1, },
+		[8] = { cooldown = 0.2, levelRequirement = 8, storedUses = 1, },
+		[9] = { cooldown = 0.2, levelRequirement = 8, storedUses = 1, },
+		[10] = { cooldown = 0.2, levelRequirement = 8, storedUses = 1, },
 	},
 }
 skills["SupportDivineBlessing"] = {
@@ -1231,47 +1302,50 @@ skills["SupportEarthbreaker"] = {
 		"force_lite_skill_effects",
 		"support_totem_type_override_to_support_slam_ancestor",
 	},
+	notMinionStat = {
+		"totem_support_gem_level",
+	},
 	levels = {
-		[1] = { 8, 0, manaMultiplier = 100, levelRequirement = 8, statInterpolation = { 1, 1, }, },
-		[2] = { 10, 1, manaMultiplier = 100, levelRequirement = 10, statInterpolation = { 1, 1, }, },
-		[3] = { 13, 2, manaMultiplier = 100, levelRequirement = 13, statInterpolation = { 1, 1, }, },
-		[4] = { 17, 3, manaMultiplier = 100, levelRequirement = 17, statInterpolation = { 1, 1, }, },
-		[5] = { 21, 4, manaMultiplier = 100, levelRequirement = 21, statInterpolation = { 1, 1, }, },
-		[6] = { 25, 5, manaMultiplier = 100, levelRequirement = 25, statInterpolation = { 1, 1, }, },
-		[7] = { 29, 6, manaMultiplier = 100, levelRequirement = 29, statInterpolation = { 1, 1, }, },
-		[8] = { 33, 7, manaMultiplier = 100, levelRequirement = 33, statInterpolation = { 1, 1, }, },
-		[9] = { 37, 8, manaMultiplier = 100, levelRequirement = 37, statInterpolation = { 1, 1, }, },
-		[10] = { 40, 9, manaMultiplier = 100, levelRequirement = 40, statInterpolation = { 1, 1, }, },
-		[11] = { 43, 10, manaMultiplier = 100, levelRequirement = 43, statInterpolation = { 1, 1, }, },
-		[12] = { 46, 11, manaMultiplier = 100, levelRequirement = 46, statInterpolation = { 1, 1, }, },
-		[13] = { 49, 12, manaMultiplier = 100, levelRequirement = 49, statInterpolation = { 1, 1, }, },
-		[14] = { 52, 13, manaMultiplier = 100, levelRequirement = 52, statInterpolation = { 1, 1, }, },
-		[15] = { 55, 14, manaMultiplier = 100, levelRequirement = 55, statInterpolation = { 1, 1, }, },
-		[16] = { 58, 15, manaMultiplier = 100, levelRequirement = 58, statInterpolation = { 1, 1, }, },
-		[17] = { 61, 16, manaMultiplier = 100, levelRequirement = 61, statInterpolation = { 1, 1, }, },
-		[18] = { 64, 17, manaMultiplier = 100, levelRequirement = 64, statInterpolation = { 1, 1, }, },
-		[19] = { 67, 18, manaMultiplier = 100, levelRequirement = 67, statInterpolation = { 1, 1, }, },
-		[20] = { 70, 19, manaMultiplier = 100, levelRequirement = 70, statInterpolation = { 1, 1, }, },
-		[21] = { 72, 20, manaMultiplier = 100, levelRequirement = 72, statInterpolation = { 1, 1, }, },
-		[22] = { 74, 21, manaMultiplier = 100, levelRequirement = 74, statInterpolation = { 1, 1, }, },
-		[23] = { 76, 22, manaMultiplier = 100, levelRequirement = 76, statInterpolation = { 1, 1, }, },
-		[24] = { 78, 23, manaMultiplier = 100, levelRequirement = 78, statInterpolation = { 1, 1, }, },
-		[25] = { 80, 24, manaMultiplier = 100, levelRequirement = 80, statInterpolation = { 1, 1, }, },
-		[26] = { 82, 25, manaMultiplier = 100, levelRequirement = 82, statInterpolation = { 1, 1, }, },
-		[27] = { 84, 26, manaMultiplier = 100, levelRequirement = 84, statInterpolation = { 1, 1, }, },
-		[28] = { 86, 27, manaMultiplier = 100, levelRequirement = 86, statInterpolation = { 1, 1, }, },
-		[29] = { 88, 28, manaMultiplier = 100, levelRequirement = 88, statInterpolation = { 1, 1, }, },
-		[30] = { 90, 29, manaMultiplier = 100, levelRequirement = 90, statInterpolation = { 1, 1, }, },
-		[31] = { 91, 29, manaMultiplier = 100, levelRequirement = 91, statInterpolation = { 1, 1, }, },
-		[32] = { 92, 30, manaMultiplier = 100, levelRequirement = 92, statInterpolation = { 1, 1, }, },
-		[33] = { 93, 30, manaMultiplier = 100, levelRequirement = 93, statInterpolation = { 1, 1, }, },
-		[34] = { 94, 31, manaMultiplier = 100, levelRequirement = 94, statInterpolation = { 1, 1, }, },
-		[35] = { 95, 31, manaMultiplier = 100, levelRequirement = 95, statInterpolation = { 1, 1, }, },
-		[36] = { 96, 32, manaMultiplier = 100, levelRequirement = 96, statInterpolation = { 1, 1, }, },
-		[37] = { 97, 32, manaMultiplier = 100, levelRequirement = 97, statInterpolation = { 1, 1, }, },
-		[38] = { 98, 33, manaMultiplier = 100, levelRequirement = 98, statInterpolation = { 1, 1, }, },
-		[39] = { 99, 33, manaMultiplier = 100, levelRequirement = 99, statInterpolation = { 1, 1, }, },
-		[40] = { 100, 34, manaMultiplier = 100, levelRequirement = 100, statInterpolation = { 1, 1, }, },
+		[1] = { 8, 0, levelRequirement = 8, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[2] = { 10, 1, levelRequirement = 10, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[3] = { 13, 2, levelRequirement = 13, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[4] = { 17, 3, levelRequirement = 17, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[5] = { 21, 4, levelRequirement = 21, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[6] = { 25, 5, levelRequirement = 25, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[7] = { 29, 6, levelRequirement = 29, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[8] = { 33, 7, levelRequirement = 33, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[9] = { 37, 8, levelRequirement = 37, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[10] = { 40, 9, levelRequirement = 40, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[11] = { 43, 10, levelRequirement = 43, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[12] = { 46, 11, levelRequirement = 46, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[13] = { 49, 12, levelRequirement = 49, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[14] = { 52, 13, levelRequirement = 52, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[15] = { 55, 14, levelRequirement = 55, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[16] = { 58, 15, levelRequirement = 58, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[17] = { 61, 16, levelRequirement = 61, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[18] = { 64, 17, levelRequirement = 64, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[19] = { 67, 18, levelRequirement = 67, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[20] = { 70, 19, levelRequirement = 70, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[21] = { 72, 20, levelRequirement = 72, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[22] = { 74, 21, levelRequirement = 74, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[23] = { 76, 22, levelRequirement = 76, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[24] = { 78, 23, levelRequirement = 78, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[25] = { 80, 24, levelRequirement = 80, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[26] = { 82, 25, levelRequirement = 82, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[27] = { 84, 26, levelRequirement = 84, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[28] = { 86, 27, levelRequirement = 86, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[29] = { 88, 28, levelRequirement = 88, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[30] = { 90, 29, levelRequirement = 90, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[31] = { 91, 29, levelRequirement = 91, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[32] = { 92, 30, levelRequirement = 92, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[33] = { 93, 30, levelRequirement = 93, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[34] = { 94, 31, levelRequirement = 94, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[35] = { 95, 31, levelRequirement = 95, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[36] = { 96, 32, levelRequirement = 96, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[37] = { 97, 32, levelRequirement = 97, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[38] = { 98, 33, levelRequirement = 98, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[39] = { 99, 33, levelRequirement = 99, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+		[40] = { 100, 34, levelRequirement = 100, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
 	},
 }
 skills["SupportElementalPenetration"] = {
@@ -1293,46 +1367,46 @@ skills["SupportElementalPenetration"] = {
 		"reduce_enemy_elemental_resistance_%",
 	},
 	levels = {
-		[1] = { 14, manaMultiplier = 30, levelRequirement = 31, statInterpolation = { 1, }, },
-		[2] = { 14, manaMultiplier = 30, levelRequirement = 34, statInterpolation = { 1, }, },
-		[3] = { 15, manaMultiplier = 30, levelRequirement = 36, statInterpolation = { 1, }, },
-		[4] = { 16, manaMultiplier = 30, levelRequirement = 38, statInterpolation = { 1, }, },
-		[5] = { 17, manaMultiplier = 30, levelRequirement = 40, statInterpolation = { 1, }, },
-		[6] = { 17, manaMultiplier = 30, levelRequirement = 42, statInterpolation = { 1, }, },
-		[7] = { 18, manaMultiplier = 30, levelRequirement = 44, statInterpolation = { 1, }, },
-		[8] = { 19, manaMultiplier = 30, levelRequirement = 46, statInterpolation = { 1, }, },
-		[9] = { 20, manaMultiplier = 30, levelRequirement = 48, statInterpolation = { 1, }, },
-		[10] = { 20, manaMultiplier = 30, levelRequirement = 50, statInterpolation = { 1, }, },
-		[11] = { 21, manaMultiplier = 30, levelRequirement = 52, statInterpolation = { 1, }, },
-		[12] = { 22, manaMultiplier = 30, levelRequirement = 54, statInterpolation = { 1, }, },
-		[13] = { 23, manaMultiplier = 30, levelRequirement = 56, statInterpolation = { 1, }, },
-		[14] = { 23, manaMultiplier = 30, levelRequirement = 58, statInterpolation = { 1, }, },
-		[15] = { 24, manaMultiplier = 30, levelRequirement = 60, statInterpolation = { 1, }, },
-		[16] = { 25, manaMultiplier = 30, levelRequirement = 62, statInterpolation = { 1, }, },
-		[17] = { 26, manaMultiplier = 30, levelRequirement = 64, statInterpolation = { 1, }, },
-		[18] = { 26, manaMultiplier = 30, levelRequirement = 66, statInterpolation = { 1, }, },
-		[19] = { 27, manaMultiplier = 30, levelRequirement = 68, statInterpolation = { 1, }, },
-		[20] = { 28, manaMultiplier = 30, levelRequirement = 70, statInterpolation = { 1, }, },
-		[21] = { 29, manaMultiplier = 30, levelRequirement = 72, statInterpolation = { 1, }, },
-		[22] = { 29, manaMultiplier = 30, levelRequirement = 74, statInterpolation = { 1, }, },
-		[23] = { 30, manaMultiplier = 30, levelRequirement = 76, statInterpolation = { 1, }, },
-		[24] = { 31, manaMultiplier = 30, levelRequirement = 78, statInterpolation = { 1, }, },
-		[25] = { 32, manaMultiplier = 30, levelRequirement = 80, statInterpolation = { 1, }, },
-		[26] = { 32, manaMultiplier = 30, levelRequirement = 82, statInterpolation = { 1, }, },
-		[27] = { 33, manaMultiplier = 30, levelRequirement = 84, statInterpolation = { 1, }, },
-		[28] = { 34, manaMultiplier = 30, levelRequirement = 86, statInterpolation = { 1, }, },
-		[29] = { 35, manaMultiplier = 30, levelRequirement = 88, statInterpolation = { 1, }, },
-		[30] = { 35, manaMultiplier = 30, levelRequirement = 90, statInterpolation = { 1, }, },
-		[31] = { 36, manaMultiplier = 30, levelRequirement = 91, statInterpolation = { 1, }, },
-		[32] = { 36, manaMultiplier = 30, levelRequirement = 92, statInterpolation = { 1, }, },
-		[33] = { 36, manaMultiplier = 30, levelRequirement = 93, statInterpolation = { 1, }, },
-		[34] = { 37, manaMultiplier = 30, levelRequirement = 94, statInterpolation = { 1, }, },
-		[35] = { 37, manaMultiplier = 30, levelRequirement = 95, statInterpolation = { 1, }, },
-		[36] = { 38, manaMultiplier = 30, levelRequirement = 96, statInterpolation = { 1, }, },
-		[37] = { 38, manaMultiplier = 30, levelRequirement = 97, statInterpolation = { 1, }, },
-		[38] = { 38, manaMultiplier = 30, levelRequirement = 98, statInterpolation = { 1, }, },
-		[39] = { 39, manaMultiplier = 30, levelRequirement = 99, statInterpolation = { 1, }, },
-		[40] = { 39, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, },
+		[1] = { 14, levelRequirement = 31, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[2] = { 14, levelRequirement = 34, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[3] = { 15, levelRequirement = 36, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[4] = { 16, levelRequirement = 38, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[5] = { 17, levelRequirement = 40, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[6] = { 17, levelRequirement = 42, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[7] = { 18, levelRequirement = 44, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[8] = { 19, levelRequirement = 46, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[9] = { 20, levelRequirement = 48, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[10] = { 20, levelRequirement = 50, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[11] = { 21, levelRequirement = 52, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[12] = { 22, levelRequirement = 54, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[13] = { 23, levelRequirement = 56, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[14] = { 23, levelRequirement = 58, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[15] = { 24, levelRequirement = 60, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[16] = { 25, levelRequirement = 62, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[17] = { 26, levelRequirement = 64, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[18] = { 26, levelRequirement = 66, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[19] = { 27, levelRequirement = 68, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[20] = { 28, levelRequirement = 70, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[21] = { 29, levelRequirement = 72, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[22] = { 29, levelRequirement = 74, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[23] = { 30, levelRequirement = 76, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[24] = { 31, levelRequirement = 78, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[25] = { 32, levelRequirement = 80, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[26] = { 32, levelRequirement = 82, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[27] = { 33, levelRequirement = 84, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[28] = { 34, levelRequirement = 86, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[29] = { 35, levelRequirement = 88, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[30] = { 35, levelRequirement = 90, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[31] = { 36, levelRequirement = 91, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[32] = { 36, levelRequirement = 92, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[33] = { 36, levelRequirement = 93, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[34] = { 37, levelRequirement = 94, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[35] = { 37, levelRequirement = 95, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[36] = { 38, levelRequirement = 96, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[37] = { 38, levelRequirement = 97, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[38] = { 38, levelRequirement = 98, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[39] = { 39, levelRequirement = 99, manaMultiplier = 30, statInterpolation = { 1, }, },
+		[40] = { 39, levelRequirement = 100, manaMultiplier = 30, statInterpolation = { 1, }, },
 	},
 }
 skills["ElementalWarding"] = {
@@ -1381,8 +1455,12 @@ skills["ElementalWarding"] = {
 		"spell_uncastable_if_triggerable",
 		"disable_visual_hit_effect",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
-		[20] = { 0.80000001192093, 1.2000000476837, critChance = 7, storedUses = 1, levelRequirement = 70, cooldown = 1, statInterpolation = { 3, 3, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, cooldown = 1, critChance = 7, levelRequirement = 70, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EmbraceMadness"] = {
@@ -1400,12 +1478,12 @@ skills["EmbraceMadness"] = {
 	},
 	constantStats = {
 		{ "embrace_madness_amount_of_cooldown_to_gain_ms", 8000 },
-		{ "glorious_madness_timer_ms", 1000 },
+		{ "glorious_madness_timer_ms", 2000 },
 	},
 	stats = {
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 1, },
+		[1] = { cooldown = 1, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["Envy"] = {
@@ -1449,10 +1527,13 @@ skills["Envy"] = {
 		"active_skill_base_radius_+",
 		"base_deal_no_damage",
 	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
+	},
 	levels = {
-		[1] = { 0.5, 0.69999998807907, 0.44999998807907, 0.60000002384186, 14, storedUses = 1, manaReservationPercent = 50, cooldown = 1.2, levelRequirement = 60, statInterpolation = { 3, 3, 3, 3, 1, }, },
-		[15] = { 0.5, 0.69999998807907, 0.44999998807907, 0.60000002384186, 14, storedUses = 1, manaReservationPercent = 50, cooldown = 1.2, levelRequirement = 60, statInterpolation = { 3, 3, 3, 3, 1, }, },
-		[25] = { 0.5, 0.69999998807907, 0.44999998807907, 0.60000002384186, 24, storedUses = 1, manaReservationPercent = 50, cooldown = 1.2, levelRequirement = 80, statInterpolation = { 3, 3, 3, 3, 1, }, },
+		[1] = { 0.5, 0.69999998807907, 0.44999998807907, 0.60000002384186, 14, cooldown = 1.2, levelRequirement = 60, manaReservationPercent = 50, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 1, }, },
+		[15] = { 0.5, 0.69999998807907, 0.44999998807907, 0.60000002384186, 14, cooldown = 1.2, levelRequirement = 60, manaReservationPercent = 50, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 1, }, },
+		[25] = { 0.5, 0.69999998807907, 0.44999998807907, 0.60000002384186, 24, cooldown = 1.2, levelRequirement = 80, manaReservationPercent = 50, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 1, }, },
 	},
 }
 skills["FireAegis"] = {
@@ -1513,37 +1594,41 @@ skills["FireBurstOnHit"] = {
 		"is_area_damage",
 		"spell_uncastable_if_triggerable",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 2, statInterpolation = { 3, 3, }, },
-		[3] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 4, statInterpolation = { 3, 3, }, },
-		[4] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 7, statInterpolation = { 3, 3, }, },
-		[5] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 11, statInterpolation = { 3, 3, }, },
-		[6] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 16, statInterpolation = { 3, 3, }, },
-		[7] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 20, statInterpolation = { 3, 3, }, },
-		[8] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 24, statInterpolation = { 3, 3, }, },
-		[9] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 28, statInterpolation = { 3, 3, }, },
-		[10] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 32, statInterpolation = { 3, 3, }, },
-		[11] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 36, statInterpolation = { 3, 3, }, },
-		[12] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 40, statInterpolation = { 3, 3, }, },
-		[13] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 44, statInterpolation = { 3, 3, }, },
-		[14] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 48, statInterpolation = { 3, 3, }, },
-		[15] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 52, statInterpolation = { 3, 3, }, },
-		[16] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 56, statInterpolation = { 3, 3, }, },
-		[17] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 60, statInterpolation = { 3, 3, }, },
-		[18] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 64, statInterpolation = { 3, 3, }, },
-		[19] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 67, statInterpolation = { 3, 3, }, },
-		[20] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 70, statInterpolation = { 3, 3, }, },
-		[21] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 72, statInterpolation = { 3, 3, }, },
-		[22] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 74, statInterpolation = { 3, 3, }, },
-		[23] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 76, statInterpolation = { 3, 3, }, },
-		[24] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 78, statInterpolation = { 3, 3, }, },
-		[25] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 80, statInterpolation = { 3, 3, }, },
-		[26] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 82, statInterpolation = { 3, 3, }, },
-		[27] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 84, statInterpolation = { 3, 3, }, },
-		[28] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 86, statInterpolation = { 3, 3, }, },
-		[29] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 88, statInterpolation = { 3, 3, }, },
-		[30] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.5, cooldown = 1.5, levelRequirement = 90, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 2, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 4, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[4] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 7, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[5] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 11, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[6] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 16, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[7] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 20, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[8] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 24, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[9] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 28, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[10] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 32, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[11] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 36, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[12] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 40, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[13] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 44, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[14] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 48, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[15] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 52, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[16] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 56, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[17] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 60, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[18] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 64, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[19] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 67, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 70, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[21] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 72, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[22] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 74, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[23] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 76, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[24] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 78, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[25] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 80, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[26] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 82, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[27] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 84, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[28] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 86, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[29] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 88, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[30] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 1.5, critChance = 6, damageEffectiveness = 2.5, levelRequirement = 90, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["FieryImpactHeistMaceImplicit"] = {
@@ -1553,17 +1638,17 @@ skills["FieryImpactHeistMaceImplicit"] = {
 	description = "Deals attack damage in an area.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Melee] = true, [SkillType.InbuiltTrigger] = true, },
 	weaponTypes = {
-		["One Handed Mace"] = true,
-		["Sceptre"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["Two Handed Sword"] = true,
+		["Claw"] = true,
 		["Dagger"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Mace"] = true,
+		["One Handed Sword"] = true,
+		["Sceptre"] = true,
 		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
 		["Two Handed Mace"] = true,
-		["One Handed Axe"] = true,
-		["Claw"] = true,
-		["One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -1581,9 +1666,9 @@ skills["FieryImpactHeistMaceImplicit"] = {
 		"skill_has_trigger_from_unique_item",
 	},
 	levels = {
-		[10] = { baseMultiplier = 2.8, storedUses = 1, damageEffectiveness = 2.8, cooldown = 1.8, levelRequirement = 30, },
-		[15] = { baseMultiplier = 3.5, storedUses = 1, damageEffectiveness = 3.5, cooldown = 1.6, levelRequirement = 50, },
-		[20] = { baseMultiplier = 4.2, storedUses = 1, damageEffectiveness = 4.2, cooldown = 1.4, levelRequirement = 70, },
+		[10] = { baseMultiplier = 2.8, cooldown = 1.8, damageEffectiveness = 2.8, levelRequirement = 30, storedUses = 1, },
+		[15] = { baseMultiplier = 3.5, cooldown = 1.6, damageEffectiveness = 3.5, levelRequirement = 50, storedUses = 1, },
+		[20] = { baseMultiplier = 4.2, cooldown = 1.4, damageEffectiveness = 4.2, levelRequirement = 70, storedUses = 1, },
 	},
 }
 skills["AtziriUniqueStaffFlameblast"] = {
@@ -1605,8 +1690,8 @@ skills["AtziriUniqueStaffFlameblast"] = {
 		skill("triggerSource", "Queen's Demand"),
 	},
 	constantStats = {
-		{ "base_chance_to_ignite_%", 50 },
-		{ "base_reduce_enemy_fire_resistance_%", 25 },
+		{ "base_chance_to_ignite_%", 100 },
+		{ "base_reduce_enemy_fire_resistance_%", 50 },
 		{ "base_skill_effect_duration", 2000 },
 	},
 	stats = {
@@ -1616,8 +1701,12 @@ skills["AtziriUniqueStaffFlameblast"] = {
 		"base_skill_show_average_damage_instead_of_dps",
 		"skill_has_trigger_from_unique_item",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
-		[20] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -30, storedUses = 1, damageEffectiveness = 8.5, cooldown = 1.5, levelRequirement = 70, statInterpolation = { 3, 3, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -30, cooldown = 1.5, critChance = 6, damageEffectiveness = 8.5, levelRequirement = 70, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["Focus"] = {
@@ -1641,7 +1730,7 @@ skills["Focus"] = {
 		"display_this_skill_cooldown_does_not_recover_during_buff",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 8, },
+		[1] = { cooldown = 8, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["SupportTriggerSpellFromHelmet"] = {
@@ -1661,7 +1750,7 @@ skills["SupportTriggerSpellFromHelmet"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 1, cooldown = 0.25, },
+		[1] = { PvPDamageMultiplier = -80, cooldown = 0.25, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["FogOfWar"] = {
@@ -1683,7 +1772,7 @@ skills["FogOfWar"] = {
 	stats = {
 	},
 	levels = {
-		[20] = { storedUses = 1, levelRequirement = 65, cooldown = 1, },
+		[20] = { cooldown = 1, levelRequirement = 65, storedUses = 1, },
 	},
 }
 skills["GluttonyOfElements"] = {
@@ -1720,8 +1809,8 @@ skills["GluttonyOfElements"] = {
 		"immune_to_curses",
 	},
 	levels = {
-		[1] = { storedUses = 1, soulPreventionDuration = 14, vaalStoredUses = 1, cooldown = 0.5, levelRequirement = 1, cost = { Soul = 100, }, },
-		[20] = { storedUses = 1, soulPreventionDuration = 14, vaalStoredUses = 1, cooldown = 0.5, levelRequirement = 1, cost = { Soul = 100, }, },
+		[1] = { cooldown = 0.5, levelRequirement = 1, soulPreventionDuration = 14, storedUses = 1, vaalStoredUses = 1, cost = { Soul = 100, }, },
+		[20] = { cooldown = 0.5, levelRequirement = 1, soulPreventionDuration = 14, storedUses = 1, vaalStoredUses = 1, cost = { Soul = 100, }, },
 	},
 }
 skills["GoreShockwave"] = {
@@ -1749,9 +1838,13 @@ skills["GoreShockwave"] = {
 		"base_cooldown_speed_+%",
 		"is_area_damage",
 	},
+	notMinionStat = {
+		"active_skill_base_radius_+",
+		"base_cooldown_speed_+%",
+	},
 	levels = {
-		[1] = { 1, 0, baseMultiplier = 2.307, storedUses = 1, damageEffectiveness = 2.307, cooldown = 1, levelRequirement = 1, statInterpolation = { 1, 1, }, },
-		[5] = { 2, 8, baseMultiplier = 2.497, storedUses = 1, damageEffectiveness = 2.497, cooldown = 1, levelRequirement = 1, statInterpolation = { 1, 1, }, },
+		[1] = { 1, 0, baseMultiplier = 2.307, cooldown = 1, damageEffectiveness = 2.307, levelRequirement = 1, storedUses = 1, statInterpolation = { 1, 1, }, },
+		[5] = { 2, 8, baseMultiplier = 2.497, cooldown = 1, damageEffectiveness = 2.497, levelRequirement = 1, storedUses = 1, statInterpolation = { 1, 1, }, },
 	},
 }
 skills["SupportGreaterSpellEcho"] = {
@@ -1783,7 +1876,129 @@ skills["SupportGreaterSpellEcho"] = {
 	stats = {
 	},
 	levels = {
-		[30] = { manaMultiplier = 40, levelRequirement = 90, },
+		[30] = { levelRequirement = 90, manaMultiplier = 40, },
+	},
+}
+skills["HeraldOfTheBreach"] = {
+	name = "Herald of the Hive",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 1.2000000476837,
+	incrementalEffectiveness = 0.035000000149012,
+	description = "Grants a buff which causes you to deal more damage for each Herald skill affecting you. While you have this buff, this skill turns the space around you into a tear in reality, releasing pulses that damage enemies around you. Inflicting Ailments causes you to gain Otherworldly Pressure, which increases the frequency of the pulses. You will lose Otherworldly Pressure over time, at a rate which increases the more of it you have. The damage inflicted by this skill is not affected by modifiers to spell damage.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.Herald] = true, [SkillType.Instant] = true, [SkillType.Duration] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Physical] = true, [SkillType.Cold] = true, [SkillType.Fire] = true, [SkillType.Lightning] = true, [SkillType.Chaos] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	fromItem = true,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "PulseFrequencyPerPressure") / 100)
+	end,
+	statMap = {
+		["herald_of_the_breach_add_stack_on_inflicting_ailment"] = {
+			mod("OtherworldlyPressure", "BASE", 1, 0, 0, { type = "Condition", var = "InflictedAilmentRecently" }),
+		},
+		["maximum_otherwordly_pressure_stacks"] = {
+			mod("Multiplier:OtherworldlyPressureMax", "BASE", nil),
+		},
+		["herald_of_the_breach_pulse_frequency_+%_per_otherworldly_pressure"] = {
+			mod("PulseFrequencyPerPressure", "INC", nil, 0, 0, { type = "Multiplier", var = "OtherworldlyPressure", limitVar = "OtherworldlyPressureMax" }),
+		},
+		["base_herald_of_the_breach_pulse_delay_ms"] = {
+			skill("repeatFrequency", nil),
+			div = 1000,
+		},
+		["skill_buff_grants_damage_+%_final_per_herald_skill_affecting_you"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Herald" }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+	},
+	baseFlags = {
+		cast = true,
+		duration = true,
+		hit = true,
+		area = true,
+	},
+	constantStats = {
+		{ "skill_override_pvp_scaling_time_ms", 1000 },
+		{ "active_skill_base_area_of_effect_radius", 30 },
+		{ "skill_buff_grants_damage_+%_final_per_herald_skill_affecting_you", 3 },
+		{ "maximum_otherwordly_pressure_stacks", 50 },
+		{ "herald_of_the_breach_pulse_frequency_+%_per_otherworldly_pressure", 10 },
+		{ "base_herald_of_the_breach_pulse_delay_ms", 2000 },
+	},
+	stats = {
+		"secondary_minimum_base_physical_damage",
+		"secondary_maximum_base_physical_damage",
+		"secondary_minimum_base_lightning_damage",
+		"secondary_maximum_base_lightning_damage",
+		"secondary_minimum_base_cold_damage",
+		"secondary_maximum_base_cold_damage",
+		"secondary_minimum_base_fire_damage",
+		"secondary_maximum_base_fire_damage",
+		"secondary_minimum_base_chaos_damage",
+		"secondary_maximum_base_chaos_damage",
+		"herald_of_the_breach_add_stack_on_inflicting_ailment",
+		"is_area_damage",
+		"base_skill_show_average_damage_instead_of_dps",
+		"display_skill_deals_secondary_damage",
+		"damage_cannot_be_reflected",
+		"skill_can_add_multiple_charges_per_action",
+		"never_any_ailment",
+	},
+	notMinionStat = {
+		"secondary_minimum_base_physical_damage",
+		"secondary_maximum_base_physical_damage",
+		"secondary_minimum_base_lightning_damage",
+		"secondary_maximum_base_lightning_damage",
+		"secondary_minimum_base_cold_damage",
+		"secondary_maximum_base_cold_damage",
+		"secondary_minimum_base_fire_damage",
+		"secondary_maximum_base_fire_damage",
+		"secondary_minimum_base_chaos_damage",
+		"secondary_maximum_base_chaos_damage",
+	},
+	levels = {
+		[1] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 16, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[2] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 20, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[3] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 24, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[4] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 28, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[5] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 31, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[6] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 34, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[7] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 37, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[8] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 40, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[9] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 43, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[10] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 46, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[11] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 49, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[12] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 52, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[13] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 55, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[14] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 58, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[15] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 60, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[16] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 62, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[17] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 64, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[18] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 66, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[19] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 68, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[20] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 70, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[21] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 72, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[22] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 74, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[23] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 76, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[24] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 78, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[25] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 80, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[26] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 82, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[27] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 84, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[28] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 86, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[29] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 88, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[30] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 90, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[31] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 91, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[32] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 92, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[33] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 93, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[34] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 94, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[35] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 95, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[36] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 96, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[37] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 97, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[38] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 98, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[39] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 99, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
+		[40] = { 0.69999998807907, 1.2999999523163, 0.10000000149012, 1.8999999761581, 0.72000002861023, 1.0800000429153, 0.80000001192093, 1.2000000476837, 0.76999998092651, 1.2300000190735, cooldown = 1, levelRequirement = 100, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, }, },
 	},
 }
 skills["Icestorm"] = {
@@ -1861,8 +2076,8 @@ skills["IcicleBurst"] = {
 		"never_freeze",
 	},
 	levels = {
-		[10] = { baseMultiplier = 1.25, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.25, cooldown = 0.5, levelRequirement = 1, },
-		[20] = { baseMultiplier = 2, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2, cooldown = 0.3, levelRequirement = 1, },
+		[10] = { PvPDamageMultiplier = -80, baseMultiplier = 1.25, cooldown = 0.5, damageEffectiveness = 1.25, levelRequirement = 1, storedUses = 1, },
+		[20] = { PvPDamageMultiplier = -80, baseMultiplier = 2, cooldown = 0.3, damageEffectiveness = 2, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["IllusoryWarp"] = {
@@ -1885,7 +2100,7 @@ skills["IllusoryWarp"] = {
 	stats = {
 	},
 	levels = {
-		[20] = { storedUses = 1, levelRequirement = 1, cooldown = 3, cost = { Mana = 20, }, },
+		[20] = { cooldown = 3, levelRequirement = 1, storedUses = 1, cost = { Mana = 20, }, },
 	},
 }
 skills["CatsStealthTriggeredIntimidatingCry"] = {
@@ -1931,7 +2146,7 @@ skills["CatsStealthTriggeredIntimidatingCry"] = {
 		"use_intimidating_cry_buff_visual_for_intimidate",
 	},
 	levels = {
-		[20] = { storedUses = 1, levelRequirement = 70, cooldown = 8, cost = { Mana = 19, }, },
+		[20] = { cooldown = 8, levelRequirement = 70, storedUses = 1, cost = { Mana = 19, }, },
 	},
 }
 skills["SupportCastOnManaSpent"] = {
@@ -1949,7 +2164,25 @@ skills["SupportCastOnManaSpent"] = {
 		"support_cast_on_mana_spent",
 	},
 	levels = {
-		[1] = { storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 1, cooldown = 0.1, },
+		[1] = { PvPDamageMultiplier = -80, cooldown = 0.1, levelRequirement = 1, storedUses = 1, },
+	},
+}
+skills["SupportCastOnLifeSpent"] = {
+	name = "Foulborn Kitava's Thirst",
+	hidden = true,
+	color = 3,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	stats = {
+		"support_cast_on_life_spent",
+	},
+	levels = {
+		[1] = { PvPDamageMultiplier = -80, cooldown = 0.1, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["LightningAegis"] = {
@@ -2011,37 +2244,41 @@ skills["LightningBolt"] = {
 		"is_area_damage",
 		"spell_uncastable_if_triggerable",
 	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+	},
 	levels = {
-		[1] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
-		[2] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 2, statInterpolation = { 3, 3, }, },
-		[3] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 4, statInterpolation = { 3, 3, }, },
-		[4] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 7, statInterpolation = { 3, 3, }, },
-		[5] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 11, statInterpolation = { 3, 3, }, },
-		[6] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 16, statInterpolation = { 3, 3, }, },
-		[7] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 20, statInterpolation = { 3, 3, }, },
-		[8] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 24, statInterpolation = { 3, 3, }, },
-		[9] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 28, statInterpolation = { 3, 3, }, },
-		[10] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 32, statInterpolation = { 3, 3, }, },
-		[11] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 36, statInterpolation = { 3, 3, }, },
-		[12] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 40, statInterpolation = { 3, 3, }, },
-		[13] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 44, statInterpolation = { 3, 3, }, },
-		[14] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 48, statInterpolation = { 3, 3, }, },
-		[15] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 52, statInterpolation = { 3, 3, }, },
-		[16] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 56, statInterpolation = { 3, 3, }, },
-		[17] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 60, statInterpolation = { 3, 3, }, },
-		[18] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 64, statInterpolation = { 3, 3, }, },
-		[19] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 67, statInterpolation = { 3, 3, }, },
-		[20] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 70, statInterpolation = { 3, 3, }, },
-		[21] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 72, statInterpolation = { 3, 3, }, },
-		[22] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 74, statInterpolation = { 3, 3, }, },
-		[23] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 76, statInterpolation = { 3, 3, }, },
-		[24] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 78, statInterpolation = { 3, 3, }, },
-		[25] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 80, statInterpolation = { 3, 3, }, },
-		[26] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 82, statInterpolation = { 3, 3, }, },
-		[27] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 84, statInterpolation = { 3, 3, }, },
-		[28] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 86, statInterpolation = { 3, 3, }, },
-		[29] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 88, statInterpolation = { 3, 3, }, },
-		[30] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, storedUses = 1, damageEffectiveness = 4.4, cooldown = 0.5, levelRequirement = 90, statInterpolation = { 3, 3, }, },
+		[1] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[2] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 2, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[3] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 4, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[4] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 7, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[5] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 11, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[6] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 16, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[7] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 20, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[8] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 24, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[9] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 28, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[10] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 32, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[11] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 36, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[12] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 40, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[13] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 44, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[14] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 48, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[15] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 52, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[16] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 56, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[17] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 60, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[18] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 64, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[19] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 67, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[20] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 70, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[21] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 72, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[22] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 74, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[23] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 76, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[24] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 78, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[25] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 80, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[26] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 82, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[27] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 84, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[28] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 86, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[29] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 88, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[30] = { 0.10000000149012, 1.8999999761581, cooldown = 0.5, critChance = 7.5, damageEffectiveness = 4.4, levelRequirement = 90, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["SupportTriggerBowSkillOnBowAttack"] = {
@@ -2059,7 +2296,7 @@ skills["SupportTriggerBowSkillOnBowAttack"] = {
 		"skill_has_trigger_from_unique_item",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 1, },
+		[1] = { cooldown = 1, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["ManifestDancingDervishes"] = {
@@ -2107,7 +2344,47 @@ skills["ManifestDancingDervishes"] = {
 		"infinite_minion_duration",
 	},
 	levels = {
-		[15] = { storedUses = 1, levelRequirement = 1, cooldown = 0.5, },
+		[15] = { cooldown = 0.5, levelRequirement = 1, storedUses = 1, },
+	},
+}
+skills["MistyReflection"] = {
+	name = "Misty Reflection",
+	hidden = true,
+	color = 4,
+	description = "Dash backwards, leaving a short-lived mist copy of yourself that Taunts nearby Enemies for a short duration. The copy can be damaged by Enemies, and copies that are killed by an Enemy will apply a debuff in an area that makes affected targets take 30% increased Damage and deal 30% less Damage for 4 seconds.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Blink] = true, [SkillType.Cooldown] = true, [SkillType.FixedCastTime] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.Area] = true, [SkillType.Buff] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.15,
+	fromTree = true,
+	baseFlags = {
+		spell = true,
+		duration = true,
+	},
+	baseMods = {
+		mod("DamageTaken", "INC", 30, 0, 0, { type = "Condition", var = "MistyReflection"}, { type = "GlobalEffect", effectType = "Debuff" }),
+		mod("Damage", "MORE", -30, 0, 0, { type = "Condition", var = "MistyReflection"}, { type = "GlobalEffect", effectType = "Debuff" }),
+		skill("debuff", true),
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 2000 },
+		{ "active_skill_base_area_of_effect_radius", 30 },
+		{ "misty_reflection_clone_base_maximum_life_%_of_owner_maximum_life", 10 },
+	},
+	stats = {
+		"base_cooldown_speed_+%",
+		"skill_travel_distance_+%",
+		"base_deal_no_damage",
+		"skill_cannot_be_interrupted",
+		"skill_cannot_be_knocked_back",
+		"skill_cannot_be_stunned",
+		"spell_cast_time_cannot_be_modified",
+	},
+	notMinionStat = {
+		"base_cooldown_speed_+%",
+	},
+	levels = {
+		[1] = { 0, 0, cooldown = 6, levelRequirement = 4, storedUses = 1, statInterpolation = { 1, 1, }, },
+		[20] = { 0, 0, cooldown = 6, levelRequirement = 70, storedUses = 1, statInterpolation = { 1, 1, }, },
 	},
 }
 skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
@@ -2127,7 +2404,7 @@ skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
 		"no_cost",
 	},
 	levels = {
-		[1] = { storedUses = 1, cooldown = 0.25, levelRequirement = 0, manaMultiplier = -100, },
+		[1] = { cooldown = 0.25, levelRequirement = 0, manaMultiplier = -100, storedUses = 1, },
 	},
 }
 skills["TriggeredMoltenStrike"] = {
@@ -2158,7 +2435,7 @@ skills["TriggeredMoltenStrike"] = {
 		"base_skill_show_average_damage_instead_of_dps",
 	},
 	levels = {
-		[16] = { baseMultiplier = 1.7, storedUses = 1, damageEffectiveness = 1.7, cooldown = 0.15, levelRequirement = 1, },
+		[16] = { baseMultiplier = 1.7, cooldown = 0.15, damageEffectiveness = 1.7, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["PenanceMark"] = {
@@ -2169,7 +2446,15 @@ skills["PenanceMark"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Mark] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.5,
-	fromTree = true,
+	fromItem = true,
+	minionList = {
+		"PenanceMarkPhantasm",
+	},
+	statMap = {
+		["penance_mark_summon_phantasms_when_hit"] = {
+			mod("SummonPhantasmWhenHit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		curse = true,
@@ -2178,6 +2463,7 @@ skills["PenanceMark"] = {
 	},
 	baseMods = {
 		skill("debuff", true),
+		skill("minionLevelIsEnemyLevel", true),
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 3000 },
@@ -2238,7 +2524,7 @@ skills["SupportTriggerSpellOnAttack"] = {
 		"skill_has_trigger_from_unique_item",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 0.25, },
+		[1] = { cooldown = 0.25, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["Portal"] = {
@@ -2378,7 +2664,7 @@ skills["Ravenous"] = {
 	stats = {
 	},
 	levels = {
-		[20] = { storedUses = 1, levelRequirement = 70, cooldown = 5, cost = { Mana = 33, }, },
+		[20] = { cooldown = 5, levelRequirement = 70, storedUses = 1, cost = { Mana = 33, }, },
 	},
 }
 skills["RaiseSpiders"] = {
@@ -2422,8 +2708,8 @@ skills["RaiseSpiders"] = {
 		"minions_cannot_taunt_enemies",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 75, cooldown = 2, },
-		[20] = { storedUses = 1, levelRequirement = 84, cooldown = 2, },
+		[1] = { cooldown = 2, levelRequirement = 75, storedUses = 1, },
+		[20] = { cooldown = 2, levelRequirement = 84, storedUses = 1, },
 	},
 }
 skills["UniqueMirageWarriors"] = {
@@ -2464,6 +2750,30 @@ skills["UniqueMirageWarriors"] = {
 		[20] = { levelRequirement = 1, },
 	},
 }
+skills["SupportTriggerSpellOnUnarmedMeleeCriticalHit"] = {
+	name = "Seven Teachings",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	statMap = {
+		["spell_is_triggered_on_hit"] = {
+			skill("triggeredBySevenTeachings", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+			skill("triggerOnCrit", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+		},
+	},
+	stats = {
+		"spell_is_triggered_on_hit",
+	},
+	levels = {
+		[1] = { cooldown = 0.25, levelRequirement = 1, storedUses = 1, },
+	},
+}
 skills["ShadeForm"] = {
 	name = "Shade Form",
 	hidden = true,
@@ -2486,7 +2796,135 @@ skills["ShadeForm"] = {
 		"display_this_skill_cooldown_does_not_recover_during_buff",
 	},
 	levels = {
-		[20] = { storedUses = 1, levelRequirement = 1, cooldown = 40, },
+		[20] = { cooldown = 40, levelRequirement = 1, storedUses = 1, },
+	},
+}
+skills["SummonShaperApparition"] = {
+	name = "Summon Shaper Memory",
+	hidden = true,
+	color = 4,
+	description = "Consume Remembrance to summon a memory of the Shaper, which will use a skill once before fading away.",
+	skillTypes = { [SkillType.Spell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+	},
+	constantStats = {
+		{ "display_shaper_memory_uses_skill_once", 1 },
+	},
+	stats = {
+	},
+	levels = {
+		[20] = { levelRequirement = 0, },
+	},
+}
+skills["ShaperApparitionTeleportSlam"] = {
+	name = "Shaper's Devastation",
+	hidden = true,
+	color = 4,
+	description = "Shaper's Memory uses this attack for you to teleport to an enemy and attack with a powerful blow, dealing area damage based on your weapon.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2,
+	fromItem = true,
+	baseFlags = {
+		attack = true,
+		area = true,
+		melee = true,
+	},
+	baseMods = {
+		skill("showAverage", true),
+	},
+	constantStats = {
+		{ "skill_disabled_unless_cloned", 3 },
+		{ "active_skill_ailment_damage_+%_final", -70 },
+	},
+	stats = {
+		"active_skill_attack_speed_+%_final",
+		"is_area_damage",
+		"global_always_hit",
+	},
+	notMinionStat = {
+		"active_skill_attack_speed_+%_final",
+	},
+	levels = {
+		[20] = { 25, baseMultiplier = 41, damageEffectiveness = 41, levelRequirement = 72, statInterpolation = { 1, }, },
+	},
+}
+skills["ShaperApparitionBeam"] = {
+	name = "Shaper's Ire",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 9,
+	incrementalEffectiveness = 0.052000001072884,
+	description = "Shaper's Memory casts this spell for you to fire a damaging beam for a duration that deals damage over time to things in it.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.DamageOverTime] = true, [SkillType.Duration] = true, [SkillType.DegenOnlySpellDamage] = true, [SkillType.Fire] = true, [SkillType.Cold] = true, [SkillType.Lightning] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("showAverage", true),
+	},
+	constantStats = {
+		{ "skill_disabled_unless_cloned", 3 },
+		{ "base_skill_effect_duration", 3000 },
+	},
+	stats = {
+		"base_fire_damage_to_deal_per_minute",
+		"base_cold_damage_to_deal_per_minute",
+		"base_lightning_damage_to_deal_per_minute",
+		"spell_damage_modifiers_apply_to_skill_dot",
+	},
+	notMinionStat = {
+		"base_fire_damage_to_deal_per_minute",
+	},
+	levels = {
+		[20] = { 50.000001117587, 50.000001117587, 50.000001117587, levelRequirement = 72, statInterpolation = { 3, 3, 3, }, },
+	},
+}
+skills["ShaperApparitionProjectiles"] = {
+	name = "Shaper's Despair",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 4,
+	incrementalEffectiveness = 0.052000001072884,
+	description = "Shaper's Memory casts this spell for you to fire piercing projectiles in front of you that deal cold damage.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.Cold] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Multicastable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.4,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	baseMods = {
+		skill("showAverage", true),
+	},
+	constantStats = {
+		{ "skill_disabled_unless_cloned", 3 },
+		{ "skill_repeat_count", 2 },
+		{ "display_fires_x_times", 3 },
+	},
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"base_reduce_enemy_cold_resistance_%",
+		"base_is_projectile",
+		"always_pierce",
+		"projectile_uses_contact_position",
+	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+	},
+	levels = {
+		[20] = { 0.80000001192093, 1.2000000476837, 200, levelRequirement = 72, statInterpolation = { 3, 3, 1, }, },
 	},
 }
 skills["ShieldShatter"] = {
@@ -2562,7 +3000,7 @@ skills["TriggeredShockedGround"] = {
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
-		[10] = { storedUses = 1, levelRequirement = 1, cooldown = 5, },
+		[10] = { cooldown = 5, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["SpectralSpirits"] = {
@@ -2657,8 +3095,12 @@ skills["SpiritBurst"] = {
 		"base_is_projectile",
 		"projectiles_nova",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
-		[20] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.2, PvPDamageMultiplier = -80, critChance = 6, levelRequirement = 70, statInterpolation = { 3, 3, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, critChance = 6, damageEffectiveness = 1.2, levelRequirement = 70, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["StalkingPustule"] = {
@@ -2699,8 +3141,12 @@ skills["StalkingPustule"] = {
 		"base_skill_show_average_damage_instead_of_dps",
 		"spell_uncastable_if_triggerable",
 	},
+	notMinionStat = {
+		"spell_minimum_base_chaos_damage",
+		"spell_maximum_base_chaos_damage",
+	},
 	levels = {
-		[15] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.4, cooldown = 2, levelRequirement = 59, statInterpolation = { 3, 3, }, },
+		[15] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 2, critChance = 5, damageEffectiveness = 1.4, levelRequirement = 59, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["TriggeredStarfall"] = {
@@ -2729,7 +3175,7 @@ skills["TriggeredStarfall"] = {
 		"cannot_pierce",
 	},
 	levels = {
-		[20] = { 22, baseMultiplier = 0.6, storedUses = 1, damageEffectiveness = 0.6, cooldown = 0.15, levelRequirement = 0, statInterpolation = { 1, }, },
+		[20] = { 22, baseMultiplier = 0.6, cooldown = 0.15, damageEffectiveness = 0.6, levelRequirement = 0, storedUses = 1, statInterpolation = { 1, }, },
 	},
 }
 skills["StormCascadeTriggered"] = {
@@ -2759,37 +3205,41 @@ skills["StormCascadeTriggered"] = {
 		"is_area_damage",
 		"spell_uncastable_if_triggerable",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 28, statInterpolation = { 3, 3, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 31, statInterpolation = { 3, 3, }, },
-		[3] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 34, statInterpolation = { 3, 3, }, },
-		[4] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 37, statInterpolation = { 3, 3, }, },
-		[5] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 40, statInterpolation = { 3, 3, }, },
-		[6] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 42, statInterpolation = { 3, 3, }, },
-		[7] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 44, statInterpolation = { 3, 3, }, },
-		[8] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 46, statInterpolation = { 3, 3, }, },
-		[9] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 48, statInterpolation = { 3, 3, }, },
-		[10] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 50, statInterpolation = { 3, 3, }, },
-		[11] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 52, statInterpolation = { 3, 3, }, },
-		[12] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 54, statInterpolation = { 3, 3, }, },
-		[13] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 56, statInterpolation = { 3, 3, }, },
-		[14] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 58, statInterpolation = { 3, 3, }, },
-		[15] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 60, statInterpolation = { 3, 3, }, },
-		[16] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 62, statInterpolation = { 3, 3, }, },
-		[17] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 64, statInterpolation = { 3, 3, }, },
-		[18] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 66, statInterpolation = { 3, 3, }, },
-		[19] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 68, statInterpolation = { 3, 3, }, },
-		[20] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 70, statInterpolation = { 3, 3, }, },
-		[21] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 72, statInterpolation = { 3, 3, }, },
-		[22] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 74, statInterpolation = { 3, 3, }, },
-		[23] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 76, statInterpolation = { 3, 3, }, },
-		[24] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 78, statInterpolation = { 3, 3, }, },
-		[25] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 80, statInterpolation = { 3, 3, }, },
-		[26] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 82, statInterpolation = { 3, 3, }, },
-		[27] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 84, statInterpolation = { 3, 3, }, },
-		[28] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 86, statInterpolation = { 3, 3, }, },
-		[29] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 88, statInterpolation = { 3, 3, }, },
-		[30] = { 0.80000001192093, 1.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.25, levelRequirement = 90, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 28, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 31, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 34, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[4] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 37, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[5] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 40, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[6] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 42, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[7] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 44, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[8] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 46, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[9] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 48, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[10] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 50, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[11] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 52, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[12] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 54, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[13] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 56, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[14] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 58, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[15] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 60, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[16] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 62, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[17] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 64, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[18] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 66, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[19] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 68, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 70, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[21] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 72, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[22] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 74, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[23] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 76, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[24] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 78, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[25] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 80, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[26] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 82, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[27] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 84, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[28] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 86, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[29] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 88, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[30] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.25, critChance = 5, levelRequirement = 90, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AtziriUniqueStaffStormCall"] = {
@@ -2811,10 +3261,10 @@ skills["AtziriUniqueStaffStormCall"] = {
 		skill("triggerSource", "Queen's Demand"),
 	},
 	constantStats = {
-		{ "base_chance_to_shock_%", 50 },
+		{ "base_chance_to_shock_%", 100 },
 		{ "atziri_unique_staff_storm_call_number_of_markers_to_place", 12 },
 		{ "shock_effect_+%", 50 },
-		{ "base_reduce_enemy_lightning_resistance_%", 25 },
+		{ "base_reduce_enemy_lightning_resistance_%", 50 },
 		{ "base_skill_effect_duration", 2000 },
 	},
 	stats = {
@@ -2826,8 +3276,12 @@ skills["AtziriUniqueStaffStormCall"] = {
 		"atziri_do_not_gain_skill_charges",
 		"skill_has_trigger_from_unique_item",
 	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+	},
 	levels = {
-		[20] = { 0.69999998807907, 1.2999999523163, critChance = 6, PvPDamageMultiplier = -50, storedUses = 1, damageEffectiveness = 3.2, cooldown = 1.5, levelRequirement = 70, statInterpolation = { 3, 3, }, },
+		[20] = { 0.69999998807907, 1.2999999523163, PvPDamageMultiplier = -50, cooldown = 1.5, critChance = 6, damageEffectiveness = 3.2, levelRequirement = 70, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["SummonArbalists"] = {
@@ -2864,7 +3318,7 @@ skills["SummonBeastialRhoa"] = {
 	name = "Summon Bestial Rhoa",
 	hidden = true,
 	color = 3,
-	description = "Summons a Bestial Rhoa. In addition to its melee attack, the Bestial Rhoa uses a charge and has an aura that intimidates enemies. This minion's hits cannot be evaded. Enemies will not engage this minion directly, and they are immune to damage.",
+	description = "Summons a Bestial Rhoa. In addition to its melee attack, the Bestial Rhoa uses a charge and has an aura that intimidates enemies. Enemies will not engage this minion directly, and they are immune to damage.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
@@ -2896,14 +3350,14 @@ skills["SummonBeastialRhoa"] = {
 		"infinite_minion_duration",
 	},
 	levels = {
-		[20] = { storedUses = 1, levelRequirement = 70, cooldown = 5, cost = { Mana = 30, }, },
+		[20] = { cooldown = 5, levelRequirement = 70, storedUses = 1, cost = { Mana = 30, }, },
 	},
 }
 skills["SummonBeastialSnake"] = {
 	name = "Summon Bestial Snake",
 	hidden = true,
 	color = 3,
-	description = "Summons a Bestial Snake. The Bestial Snake fires powerful chaos projectile attacks. This minion's hits cannot be evaded. Enemies will not engage this minion directly, and they are immune to damage.",
+	description = "Summons a Bestial Snake. The Bestial Snake fires powerful chaos projectile attacks. Enemies will not engage this minion directly, and they are immune to damage.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Chains] = true, [SkillType.RangedAttack] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
@@ -2936,14 +3390,14 @@ skills["SummonBeastialSnake"] = {
 		"infinite_minion_duration",
 	},
 	levels = {
-		[20] = { storedUses = 1, levelRequirement = 70, cooldown = 5, cost = { Mana = 30, }, },
+		[20] = { cooldown = 5, levelRequirement = 70, storedUses = 1, cost = { Mana = 30, }, },
 	},
 }
 skills["SummonBeastialUrsa"] = {
 	name = "Summon Bestial Ursa",
 	hidden = true,
 	color = 3,
-	description = "Summons a Bestial Ursa. In addition to its melee attack, the Bestial Ursa uses a powerful Ground Slam and Rallying Cry. This minion's hits cannot be evaded. Enemies will not engage this minion directly, and they are immune to damage.",
+	description = "Summons a Bestial Ursa. In addition to its melee attack, the Bestial Ursa uses a powerful Ground Slam and Rallying Cry. Enemies will not engage this minion directly, and they are immune to damage.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
@@ -2976,7 +3430,7 @@ skills["SummonBeastialUrsa"] = {
 		"infinite_minion_duration",
 	},
 	levels = {
-		[20] = { storedUses = 1, levelRequirement = 70, cooldown = 5, cost = { Mana = 30, }, },
+		[20] = { cooldown = 5, levelRequirement = 70, storedUses = 1, cost = { Mana = 30, }, },
 	},
 }
 skills["SummonDoedresEffigy"] = {
@@ -3038,11 +3492,6 @@ skills["SummonElementalRelic"] = {
 	minionList = {
 		"GuardianRelicAll",
 	},
-	statMap = {
-		["minion_actor_level_is_user_level_up_to_maximum"] = {
-			skill("minionLevelIsPlayerLevel", true),
-		},
-	},
 	baseFlags = {
 		spell = true,
 		minion = true,
@@ -3057,8 +3506,11 @@ skills["SummonElementalRelic"] = {
 	stats = {
 		"base_skill_effect_duration",
 	},
+	notMinionStat = {
+		"base_skill_effect_duration",
+	},
 	levels = {
-		[20] = { 5000, storedUses = 1, levelRequirement = 4, cooldown = 0.3, statInterpolation = { 1, }, },
+		[20] = { 5000, cooldown = 0.3, levelRequirement = 4, storedUses = 1, statInterpolation = { 1, }, },
 	},
 }
 skills["SummonHarbingerOfTheArcaneUber"] = {
@@ -3082,7 +3534,7 @@ skills["SummonHarbingerOfTheArcaneUber"] = {
 		"display_one_harbinger_allowed",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 6, },
+		[1] = { cooldown = 6, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["SummonHarbingerOfBrutalityUber"] = {
@@ -3106,7 +3558,7 @@ skills["SummonHarbingerOfBrutalityUber"] = {
 		"display_one_harbinger_allowed",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 6, },
+		[1] = { cooldown = 6, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["SummonHarbingerOfDirectionsUber"] = {
@@ -3130,7 +3582,7 @@ skills["SummonHarbingerOfDirectionsUber"] = {
 		"display_one_harbinger_allowed",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 6, },
+		[1] = { cooldown = 6, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["SummonHarbingerOfFocusUber"] = {
@@ -3154,7 +3606,7 @@ skills["SummonHarbingerOfFocusUber"] = {
 		"display_one_harbinger_allowed",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 6, },
+		[1] = { cooldown = 6, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["SummonHarbingerOfStormsUber"] = {
@@ -3179,7 +3631,7 @@ skills["SummonHarbingerOfStormsUber"] = {
 		"display_one_harbinger_allowed",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 6, },
+		[1] = { cooldown = 6, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["SummonHarbingerOfTimeUber"] = {
@@ -3207,7 +3659,7 @@ skills["SummonHarbingerOfTimeUber"] = {
 		"display_one_harbinger_allowed",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 6, },
+		[1] = { cooldown = 6, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["SummonHarbingerOfTheArcane"] = {
@@ -3228,7 +3680,7 @@ skills["SummonHarbingerOfTheArcane"] = {
 		"display_one_harbinger_allowed",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 6, },
+		[1] = { cooldown = 6, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["SummonHarbingerOfFocusAscendancy"] = {
@@ -3252,7 +3704,7 @@ skills["SummonHarbingerOfFocusAscendancy"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 6, },
+		[1] = { cooldown = 6, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["SummonHarbingerOfTimeAscendancy"] = {
@@ -3280,7 +3732,7 @@ skills["SummonHarbingerOfTimeAscendancy"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 6, },
+		[1] = { cooldown = 6, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["SummonHarbingerOfTheArcaneAscendancy"] = {
@@ -3304,7 +3756,7 @@ skills["SummonHarbingerOfTheArcaneAscendancy"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 6, },
+		[1] = { cooldown = 6, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["SummonHarbingerOfBrutality"] = {
@@ -3328,7 +3780,7 @@ skills["SummonHarbingerOfBrutality"] = {
 		"display_one_harbinger_allowed",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 6, },
+		[1] = { cooldown = 6, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["SummonHarbingerOfDirections"] = {
@@ -3352,7 +3804,7 @@ skills["SummonHarbingerOfDirections"] = {
 		"display_one_harbinger_allowed",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 6, },
+		[1] = { cooldown = 6, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["SummonHarbingerOfFocus"] = {
@@ -3376,7 +3828,7 @@ skills["SummonHarbingerOfFocus"] = {
 		"display_one_harbinger_allowed",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 6, },
+		[1] = { cooldown = 6, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["SummonHarbingerOfStorms"] = {
@@ -3401,7 +3853,7 @@ skills["SummonHarbingerOfStorms"] = {
 		"display_one_harbinger_allowed",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 6, },
+		[1] = { cooldown = 6, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["SummonHarbingerOfTime"] = {
@@ -3429,7 +3881,7 @@ skills["SummonHarbingerOfTime"] = {
 		"display_one_harbinger_allowed",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 6, },
+		[1] = { cooldown = 6, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["TriggeredSummonGhostOnKill"] = {
@@ -3466,7 +3918,7 @@ skills["TriggeredSummonGhostOnKill"] = {
 		"skill_has_trigger_from_unique_item",
 	},
 	levels = {
-		[25] = { manaMultiplier = 20, levelRequirement = 80, },
+		[25] = { levelRequirement = 80, manaMultiplier = 20, },
 	},
 }
 skills["SummonSentinelOfRadiance"] = {
@@ -3493,9 +3945,6 @@ skills["SummonSentinelOfRadiance"] = {
 		["radiant_sentinel_minion_burning_effect_radius"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Multiplier:GuardianSentinelFireAuraRadius", "BASE", nil) }),
 		},
-		["minion_actor_level_is_user_level_up_to_maximum"] = {
-			skill("minionLevelIsPlayerLevel", true),
-		},
 	},
 	baseFlags = {
 		spell = true,
@@ -3512,7 +3961,57 @@ skills["SummonSentinelOfRadiance"] = {
 		"radiant_sentinel_minion_fire_%_of_life_to_deal_nearby_per_minute",
 	},
 	levels = {
-		[20] = { 40, 1200, damageEffectiveness = 2, critChance = 6, levelRequirement = 12, statInterpolation = { 1, 1, }, cost = { Mana = 40, }, },
+		[20] = { 40, 1200, critChance = 6, damageEffectiveness = 2, levelRequirement = 12, statInterpolation = { 1, 1, }, cost = { Mana = 40, }, },
+	},
+}
+skills["SummonSpectralTiger"] = {
+	name = "Summon Spectral Tiger",
+	hidden = true,
+	color = 4,
+	description = "Summons a Spectral Tiger Companion that attacks nearby enemies and dies after a duration. Each Spectral Tiger grants you a buff that increases Critical Strike Chance, and increases Attack and Cast Speed. If you have the maximum number of them, refreshes the duration and life of an existing one instead.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.CreatesMinion] = true, [SkillType.Buff] = true, [SkillType.Cooldown] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"SummonedSpectralTiger",
+	},
+	statMap = {
+		["spectral_tiger_grants_critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, 0, 0, { type = "Multiplier", var = "SpectralTigerCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Tiger" }),
+		},
+		["spectral_tiger_grants_attack_and_cast_speed_+%"] = {
+			mod("Speed", "INC", nil, 0, 0, { type = "Multiplier", var = "SpectralTigerCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Tiger" }),
+		},
+		["modifiers_to_claw_critical_strike_chance_apply_minion_critical_strike_chance"] = {
+			flag("ClawCritChanceAppliesToMinions"),
+		},
+		["modifiers_to_claw_critical_strike_multiplier_apply_minion_critical_strike_multiplier"] = {
+			flag("ClawCritMultiplierAppliesToMinions"),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		minion = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 30000 },
+		{ "number_of_tigers_allowed", 5 },
+		{ "display_minion_monster_type", 8 },
+		{ "base_display_minion_actor_level", 65 },
+		{ "cast_on_crit_%", 100 },
+	},
+	stats = {
+		"spectral_tiger_grants_critical_strike_chance_+%",
+		"spectral_tiger_grants_attack_and_cast_speed_+%",
+		"spell_uncastable_if_triggerable",
+		"modifiers_to_claw_critical_strike_chance_apply_minion_critical_strike_chance",
+		"modifiers_to_claw_critical_strike_multiplier_apply_minion_critical_strike_multiplier",
+	},
+	levels = {
+		[20] = { 25, 7, cooldown = 0.5, levelRequirement = 70, storedUses = 1, statInterpolation = { 1, 1, }, },
 	},
 }
 skills["SummonSpectralWolf"] = {
@@ -3562,6 +4061,10 @@ skills["SummonSpectralWolf"] = {
 		"modifiers_to_claw_critical_strike_chance_apply_minion_critical_strike_chance",
 		"modifiers_to_claw_critical_strike_multiplier_apply_minion_critical_strike_multiplier",
 	},
+	notMinionStat = {
+		"chance_to_cast_on_kill_%_target_self",
+		"skill_has_trigger_from_unique_item",
+	},
 	levels = {
 		[10] = { 100, 3, 6, levelRequirement = 55, statInterpolation = { 1, 1, 1, }, },
 		[25] = { 0, 8, 16, levelRequirement = 78, statInterpolation = { 0, 1, 1, }, },
@@ -3593,7 +4096,44 @@ skills["SummonTauntingContraption"] = {
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
-		[20] = { storedUses = 1, levelRequirement = 70, cooldown = 8, },
+		[20] = { cooldown = 8, levelRequirement = 70, storedUses = 1, },
+	},
+}
+skills["SummonVoidSpawn"] = {
+	name = "Summon Void Spawn",
+	hidden = true,
+	color = 3,
+	description = "Summon a Void Spawn minion, which casts a lightning projectile spell with a chance to shock enemies.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	minionList = {
+		"VoidSpawn",
+	},
+	statMap = {
+		["void_spawn_withered_on_hit_chance_%"] = {
+			flag("Condition:CanWither"),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "base_number_of_void_spawns_allowed", 4 },
+		{ "display_minion_monster_type", 27 },
+		{ "void_spawn_withered_on_hit_chance_%", 100 },
+		{ "void_spawn_withered_base_duration_ms", 2000 },
+		{ "triggered_by_item_buff", 1 },
+	},
+	stats = {
+		"base_display_minion_actor_level",
+		"infinite_minion_duration",
+	},
+	levels = {
+		[20] = { 70, levelRequirement = 70, statInterpolation = { 1, }, },
 	},
 }
 skills["VolatileAnomaly"] = {
@@ -3631,8 +4171,12 @@ skills["VolatileAnomaly"] = {
 		"spell_damage_modifiers_apply_to_skill_dot",
 		"spell_uncastable_if_triggerable",
 	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+	},
 	levels = {
-		[20] = { 0.80000001192093, 1.2000000476837, 83.333335195979, storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 70, cooldown = 2, statInterpolation = { 3, 3, 3, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, 83.333335195979, PvPDamageMultiplier = -80, cooldown = 2, levelRequirement = 70, storedUses = 1, statInterpolation = { 3, 3, 3, }, },
 	},
 }
 skills["SummonMirageChieftain"] = {
@@ -3661,8 +4205,8 @@ skills["SummonMirageChieftain"] = {
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 1, },
-		[20] = { storedUses = 1, levelRequirement = 1, cooldown = 1, },
+		[1] = { cooldown = 1, levelRequirement = 1, storedUses = 1, },
+		[20] = { cooldown = 1, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["TentacleSmash"] = {
@@ -3686,7 +4230,7 @@ skills["TentacleSmash"] = {
 		"attack_unusable_if_triggerable",
 	},
 	levels = {
-		[20] = { baseMultiplier = 2.5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 2, levelRequirement = 70, },
+		[20] = { PvPDamageMultiplier = -80, baseMultiplier = 2.5, cooldown = 2, levelRequirement = 70, storedUses = 1, },
 	},
 }
 skills["ThirstForBlood"] = {
@@ -3721,7 +4265,7 @@ skills["ThirstForBlood"] = {
 	stats = {
 	},
 	levels = {
-		[20] = { storedUses = 1, lifeReservationPercent = 10, cooldown = 1.2, levelRequirement = 70, },
+		[20] = { cooldown = 1.2, levelRequirement = 70, lifeReservationPercent = 10, storedUses = 1, },
 	},
 }
 skills["SupportTriggerSpellOnSkillUse"] = {
@@ -3741,12 +4285,12 @@ skills["SupportTriggerSpellOnSkillUse"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { PvPDamageMultiplier = -80, cooldown = 8, storedUses = 1, manaMultiplier = 150, levelRequirement = 1, },
-		[2] = { PvPDamageMultiplier = -80, cooldown = 4, storedUses = 1, manaMultiplier = 150, levelRequirement = 1, },
+		[1] = { PvPDamageMultiplier = -80, cooldown = 8, levelRequirement = 1, manaMultiplier = 150, storedUses = 1, },
+		[2] = { PvPDamageMultiplier = -80, cooldown = 4, levelRequirement = 1, manaMultiplier = 150, storedUses = 1, },
 	},
 }
 skills["SupportTriggerElementalSpellOnBlock"] = {
-	name = "SupportTriggerElementalSpellOnBlock",
+	name = "Svalinn Cast on Block",
 	hidden = true,
 	color = 4,
 	support = true,
@@ -3760,7 +4304,89 @@ skills["SupportTriggerElementalSpellOnBlock"] = {
 		"trigger_effect_group_on_block",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 0.25, },
+		[1] = { cooldown = 0.25, levelRequirement = 1, storedUses = 1, },
+	},
+}
+skills["SupportUniqueVirulenceSpellsCastOnBlock"] = {
+	name = "Festering Resentment Cast on Block",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	stats = {
+		"trigger_effect_group_on_block",
+	},
+	levels = {
+		[1] = { cooldown = 0.25, levelRequirement = 1, storedUses = 1, },
+	},
+}
+skills["SupportTriggerSpellOnBowAttackFreezeHit"] = {
+	name = "Wing of the Wyvern",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	stats = {
+		"triggered_skill_uses_main_hand_or_averaged_attack_time_for_pvp_scaling",
+		"skill_has_trigger_from_unique_item",
+	},
+	levels = {
+		[1] = { cooldown = 0.25, levelRequirement = 1, storedUses = 1, },
+	},
+}
+skills["SupportCurseOnTrapTriggered"] = {
+	name = "Hex on Trap",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.AppliesCurse, SkillType.Hex, SkillType.AND, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.AuraAffectsEnemies, SkillType.InbuiltTrigger, SkillType.DisallowTriggerSupports, },
+	isTrigger = true,
+	ignoreMinionTypes = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	constantStats = {
+		{ "support_hextouch_curse_effect_+%_final", -20 },
+	},
+	stats = {
+		"hextouch_support_curse_duration_+%_final",
+		"cannot_cast_curses",
+		"hex_applied_when_trap_triggers",
+	},
+	levels = {
+		[1] = { 0, levelRequirement = 1, statInterpolation = { 1, }, },
+	},
+}
+skills["SupportTriggerSpellOnKill"] = {
+	name = "Squirming Terror",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	stats = {
+		"chance_to_cast_on_kill_%",
+	},
+	notMinionStat = {
+		"chance_to_cast_on_kill_%",
+	},
+	levels = {
+		[1] = { 20, cooldown = 0.5, levelRequirement = 1, storedUses = 1, statInterpolation = { 1, }, },
 	},
 }
 skills["Twister"] = {
@@ -3795,8 +4421,12 @@ skills["Twister"] = {
 		"always_pierce",
 		"spell_uncastable_if_triggerable",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
-		[20] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 0.1, levelRequirement = 70, statInterpolation = { 3, 3, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, PvPDamageMultiplier = -80, cooldown = 0.1, critChance = 6, levelRequirement = 70, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["Unhinge"] = {
@@ -3815,7 +4445,7 @@ skills["Unhinge"] = {
 		"display_unhinge_grant_insane",
 	},
 	levels = {
-		[20] = { storedUses = 1, levelRequirement = 70, cooldown = 5, },
+		[20] = { cooldown = 5, levelRequirement = 70, storedUses = 1, },
 	},
 }
 skills["UnseenStrike"] = {
@@ -3826,12 +4456,12 @@ skills["UnseenStrike"] = {
 	skillTypes = { [SkillType.Projectile] = true, [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Triggerable] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Physical] = true, [SkillType.Cooldown] = true, },
 	weaponTypes = {
 		["Claw"] = true,
+		["Dagger"] = true,
+		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
+		["One Handed Sword"] = true,
 		["Sceptre"] = true,
 		["Thrusting One Handed Sword"] = true,
-		["One Handed Axe"] = true,
-		["Dagger"] = true,
-		["One Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -3847,7 +4477,7 @@ skills["UnseenStrike"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[20] = { damageEffectiveness = 2.5, baseMultiplier = 2.5, levelRequirement = 70, },
+		[20] = { baseMultiplier = 2.5, damageEffectiveness = 2.5, levelRequirement = 70, },
 	},
 }
 skills["VaalBreach"] = {
@@ -3874,16 +4504,16 @@ skills["VaalBreach"] = {
 		"skill_cannot_be_stunned_before_contact_point",
 	},
 	levels = {
-		[1] = { vaalStoredUses = 1, soulPreventionDuration = 40, levelRequirement = 10, cost = { Soul = 100, }, },
-		[2] = { vaalStoredUses = 1, soulPreventionDuration = 40, levelRequirement = 10, cost = { Soul = 100, }, },
-		[3] = { vaalStoredUses = 1, soulPreventionDuration = 40, levelRequirement = 10, cost = { Soul = 100, }, },
-		[4] = { vaalStoredUses = 1, soulPreventionDuration = 40, levelRequirement = 10, cost = { Soul = 100, }, },
-		[5] = { vaalStoredUses = 1, soulPreventionDuration = 40, levelRequirement = 10, cost = { Soul = 100, }, },
-		[6] = { vaalStoredUses = 1, soulPreventionDuration = 40, levelRequirement = 10, cost = { Soul = 100, }, },
-		[7] = { vaalStoredUses = 1, soulPreventionDuration = 40, levelRequirement = 10, cost = { Soul = 100, }, },
-		[8] = { vaalStoredUses = 1, soulPreventionDuration = 40, levelRequirement = 10, cost = { Soul = 100, }, },
-		[9] = { vaalStoredUses = 1, soulPreventionDuration = 40, levelRequirement = 10, cost = { Soul = 100, }, },
-		[10] = { vaalStoredUses = 1, soulPreventionDuration = 40, levelRequirement = 10, cost = { Soul = 100, }, },
+		[1] = { levelRequirement = 10, soulPreventionDuration = 40, vaalStoredUses = 1, cost = { Soul = 100, }, },
+		[2] = { levelRequirement = 10, soulPreventionDuration = 40, vaalStoredUses = 1, cost = { Soul = 100, }, },
+		[3] = { levelRequirement = 10, soulPreventionDuration = 40, vaalStoredUses = 1, cost = { Soul = 100, }, },
+		[4] = { levelRequirement = 10, soulPreventionDuration = 40, vaalStoredUses = 1, cost = { Soul = 100, }, },
+		[5] = { levelRequirement = 10, soulPreventionDuration = 40, vaalStoredUses = 1, cost = { Soul = 100, }, },
+		[6] = { levelRequirement = 10, soulPreventionDuration = 40, vaalStoredUses = 1, cost = { Soul = 100, }, },
+		[7] = { levelRequirement = 10, soulPreventionDuration = 40, vaalStoredUses = 1, cost = { Soul = 100, }, },
+		[8] = { levelRequirement = 10, soulPreventionDuration = 40, vaalStoredUses = 1, cost = { Soul = 100, }, },
+		[9] = { levelRequirement = 10, soulPreventionDuration = 40, vaalStoredUses = 1, cost = { Soul = 100, }, },
+		[10] = { levelRequirement = 10, soulPreventionDuration = 40, vaalStoredUses = 1, cost = { Soul = 100, }, },
 	},
 }
 skills["VoidGaze"] = {
@@ -3913,7 +4543,7 @@ skills["VoidGaze"] = {
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
-		[10] = { storedUses = 1, levelRequirement = 40, cooldown = 2, },
+		[10] = { cooldown = 2, levelRequirement = 40, storedUses = 1, },
 	},
 }
 skills["VoidShot"] = {
@@ -3946,7 +4576,583 @@ skills["VoidShot"] = {
 		"quality_display_active_skill_area_damage_is_gem",
 	},
 	levels = {
-		[20] = { damageEffectiveness = 0.65, PvPDamageMultiplier = -80, baseMultiplier = 0.65, levelRequirement = 70, },
+		[20] = { PvPDamageMultiplier = -80, baseMultiplier = 0.65, damageEffectiveness = 0.65, levelRequirement = 70, },
+	},
+}
+skills["WardShatter"] = {
+	name = "Ward Shatter",
+	hidden = true,
+	color = 1,
+	baseEffectiveness = 0.68000000715256,
+	incrementalEffectiveness = 0.045000001788139,
+	description = "Your ward shatters, dealing physical spell damage to enemies in an area, based on the amount of ward you have. Enemies hit are inflicted with Enervation, a Debuff that lowers Movement Speed by 20% and prevents Life and Energy Shield Recovery for 4 seconds.",
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Physical] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Nova] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	statMap = {
+		["from_code_active_skill_ailment_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Ailment),
+		},
+		["active_skill_damage_+%_final_if_ward_has_not_broken_in_the_past_2_seconds"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "WardBrokenPast2Seconds", neg = true }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+		skill("showAverage", true),
+	},
+	constantStats = {
+		{ "trigger_on_ward_break_%_chance", 100 },
+		{ "from_code_active_skill_ailment_damage_+%_final", -40 },
+		{ "active_skill_damage_+%_final_if_ward_has_not_broken_in_the_past_2_seconds", 80 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage_%_of_ward",
+		"spell_maximum_base_physical_damage_%_of_ward",
+	},
+	levels = {
+		[1] = { 0.20000000298023, 0.30000001192093, cooldown = 0.5, critChance = 6, levelRequirement = 4, storedUses = 1, statInterpolation = { 3, 3, }, },
+		[20] = { 0.61250001192093, 0.73750001192093, cooldown = 0.5, critChance = 6, levelRequirement = 70, storedUses = 1, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["BreachHandTrap"] = {
+	name = "Will of the Lords",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 1.1000000238419,
+	incrementalEffectiveness = 0.046999998390675,
+	description = "Throws out a trap which creates a rift, attracting a malefic hand from another realm. When the trap is triggered, the hand tears the bottom of the breach out, shattering reality to deal spell damage in an area.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Damage] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Trapped] = true, [SkillType.Physical] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	statMap = {
+		["active_skill_hit_damage_+%_final_per_curse_on_target"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "CurseOnEnemy" }),
+		},
+		["gain_%_of_phys_as_extra_lightning_per_blue_socket_on_gloves"] = {
+			mod("PhysicalDamageGainAsLightning", "BASE", nil, 0, 0, { type = "Multiplier", var = "BlueSocketInGloves" }),
+		},
+		["gain_%_of_phys_as_extra_cold_per_green_socket_on_gloves"] = {
+			mod("PhysicalDamageGainAsCold", "BASE", nil, 0, 0, { type = "Multiplier", var = "GreenSocketInGloves" }),
+		},
+		["gain_%_of_phys_as_extra_fire_per_red_socket_on_gloves"] = {
+			mod("PhysicalDamageGainAsFire", "BASE", nil, 0, 0, { type = "Multiplier", var = "RedSocketInGloves" }),
+		},
+		["gain_%_of_phys_as_extra_chaos_per_white_socket_on_gloves"] = {
+			mod("PhysicalDamageGainAsChaos", "BASE", nil, 0, 0, { type = "Multiplier", var = "WhiteSocketInGloves" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		trap = true,
+		area = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "base_trap_duration", 4000 },
+		{ "trap_variation", 23 },
+		{ "active_skill_base_area_of_effect_radius", 16 },
+		{ "gain_%_of_phys_as_extra_lightning_per_blue_socket_on_gloves", 25 },
+		{ "gain_%_of_phys_as_extra_cold_per_green_socket_on_gloves", 25 },
+		{ "gain_%_of_phys_as_extra_fire_per_red_socket_on_gloves", 25 },
+		{ "gain_%_of_phys_as_extra_chaos_per_white_socket_on_gloves", 25 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"active_skill_base_radius_+",
+		"active_skill_hit_damage_+%_final_per_curse_on_target",
+		"is_area_damage",
+		"base_skill_is_trapped",
+		"base_skill_show_average_damage_instead_of_dps",
+		"is_trap",
+		"quality_display_trap_duration_is_gem",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"active_skill_base_radius_+",
+	},
+	levels = {
+		[20] = { 0.80000001192093, 1.2000000476837, 8, 20, critChance = 6, damageEffectiveness = 1.3, levelRequirement = 70, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 20, }, },
+		[30] = { 0.80000001192093, 1.2000000476837, 8, 20, critChance = 6, damageEffectiveness = 1.3, levelRequirement = 90, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 24, }, },
+	},
+}
+skills["TriggerSummonedAncestorAhuana"] = {
+	name = "Summon Spirit of Ahuana",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal chieftain minion of the Ramako tribe to fight alongside you for a duration. This minion grants you a buff which prevents additional damage from suppressed spells. Shares a Cooldown with other Spirit Chieftain Skills.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"AncestralAhuanaMinion",
+	},
+	statMap = {
+		["ancestral_buff_base_spell_damage_%_suppressed"] = {
+			mod("SpellSuppressionEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Ahuana" }, { type = "Multiplier", var = "RamakoTattooEffect", noFloor = true }),
+		},
+		["ancestral_embrace_effect_+%_per_ramako_tattoo"] = {
+			mod("Multiplier:RamakoTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "RamakoTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 12000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "ancestral_embrace_effect_+%_per_ramako_tattoo", 20 },
+		{ "ancestral_buff_base_spell_damage_%_suppressed", 10 },
+	},
+	stats = {
+		"trigger_on_suppress_hit_from_unique",
+		"chance_to_cast_on_kill_%",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
+	},
+	notMinionStat = {
+		"trigger_on_suppress_hit_from_unique",
+	},
+	levels = {
+		[1] = { cooldown = 80, levelRequirement = 0, storedUses = 1, },
+		[2] = { 10, cooldown = 20, levelRequirement = 0, storedUses = 1, statInterpolation = { 1, }, },
+		[20] = { cooldown = 20, levelRequirement = 0, storedUses = 1, },
+	},
+}
+skills["TriggerSummonedAncestorAkoya"] = {
+	name = "Summon Spirit of Akoya",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal chieftain minion of the Tukohama tribe to fight alongside you for a duration. This minion grants you a buff which regenerates rage. Shares a Cooldown with other Spirit Chieftain Skills.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"AncestralAkoyaMinion",
+	},
+	statMap = {
+		["ancestral_buff_base_rage_regeneration_per_minute"] = {
+			mod("RageRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Akoya" }, { type = "Multiplier", var = "TukohamaTattooEffect", noFloor = true }),
+			div = 60,
+		},
+		["ancestral_embrace_effect_+%_per_tukohama_tattoo"] = {
+			mod("Multiplier:TukohamaTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "TukohamaTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 12000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "ancestral_embrace_effect_+%_per_tukohama_tattoo", 20 },
+		{ "ancestral_buff_base_rage_regeneration_per_minute", 300 },
+	},
+	stats = {
+		"trigger_on_reaching_maximum_rage_in_presence_of_unique",
+		"chance_to_cast_on_kill_%",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
+	},
+	notMinionStat = {
+		"trigger_on_reaching_maximum_rage_in_presence_of_unique",
+	},
+	levels = {
+		[1] = { cooldown = 80, levelRequirement = 0, storedUses = 1, },
+		[2] = { 10, cooldown = 20, levelRequirement = 0, storedUses = 1, statInterpolation = { 1, }, },
+		[20] = { cooldown = 20, levelRequirement = 0, storedUses = 1, },
+	},
+}
+skills["TriggerSummonedAncestorIkiaho"] = {
+	name = "Summon Spirit of Ikiaho",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal chieftain minion of the Arohongui tribe to fight alongside you for a duration. This minion grants you a buff which makes travel skills recover cooldowns faster. Shares a Cooldown with other Spirit Chieftain Skills.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"AncestralIkiahoMinion",
+	},
+	statMap = {
+		["ancestral_buff_travel_skill_cooldown_speed_+%"] = {
+			mod("CooldownRecovery", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Travel }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Ikiaho" }, { type = "Multiplier", var = "ArohonguiTattooEffect", noFloor = true }),
+		},
+		["ancestral_embrace_effect_+%_per_arohongui_tattoo"] = {
+			mod("Multiplier:ArohonguiTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "ArohonguiTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 12000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "ancestral_embrace_effect_+%_per_arohongui_tattoo", 20 },
+		{ "ancestral_buff_travel_skill_cooldown_speed_+%", 100 },
+	},
+	stats = {
+		"trigger_on_travel_skill_use_in_presence_of_unique",
+		"chance_to_cast_on_kill_%",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
+	},
+	notMinionStat = {
+		"trigger_on_travel_skill_use_in_presence_of_unique",
+	},
+	levels = {
+		[1] = { cooldown = 80, levelRequirement = 0, storedUses = 1, },
+		[2] = { 10, cooldown = 20, levelRequirement = 0, storedUses = 1, statInterpolation = { 1, }, },
+		[20] = { cooldown = 20, levelRequirement = 0, storedUses = 1, },
+	},
+}
+skills["TriggerSummonedAncestorKahuturoa"] = {
+	name = "Summon Spirit of Kahuturoa",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal chieftain minion of the Rongokurai tribe to fight alongside you for a duration. This minion grants you a buff which lets a percentage of your armour protect against all damage types. Shares a Cooldown with other Spirit Chieftain Skills.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"AncestralKahuturoaMinion",
+	},
+	statMap = {
+		["ancestral_buff_armour_%_applies_to_all_damage_from_hits"] = {
+			mod("ArmourAppliesToFireDamageTaken", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kahuturoa" }, { type = "Multiplier", var = "RongokuraiTattooEffect", noFloor = true }),
+			mod("ArmourAppliesToColdDamageTaken", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kahuturoa" }, { type = "Multiplier", var = "RongokuraiTattooEffect", noFloor = true }),
+			mod("ArmourAppliesToLightningDamageTaken", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kahuturoa" }, { type = "Multiplier", var = "RongokuraiTattooEffect", noFloor = true }),
+			mod("ArmourAppliesToChaosDamageTaken", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kahuturoa" }, { type = "Multiplier", var = "RongokuraiTattooEffect", noFloor = true }),
+		},
+		["ancestral_embrace_effect_+%_per_rongokurai_tattoo"] = {
+			mod("Multiplier:RongokuraiTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "RongokuraiTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 12000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "ancestral_embrace_effect_+%_per_rongokurai_tattoo", 20 },
+		{ "ancestral_buff_armour_%_applies_to_all_damage_from_hits", 10 },
+	},
+	stats = {
+		"trigger_on_crit_by_unique_enemy",
+		"chance_to_cast_on_kill_%",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
+	},
+	notMinionStat = {
+		"trigger_on_crit_by_unique_enemy",
+	},
+	levels = {
+		[1] = { cooldown = 80, levelRequirement = 0, storedUses = 1, },
+		[2] = { 10, cooldown = 20, levelRequirement = 0, storedUses = 1, statInterpolation = { 1, }, },
+		[20] = { cooldown = 20, levelRequirement = 0, storedUses = 1, },
+	},
+}
+skills["TriggerSummonedAncestorKaom"] = {
+	name = "Summon Spirit of Kaom",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal chieftain minion of the Ngamahu tribe to fight alongside you for a duration. This minion grants you a buff which allows totems to take some damage from hits for you. Shares a Cooldown with other Spirit Chieftain Skills.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"AncestralKaomMinion",
+	},
+	statMap = {
+		["ancestral_buff_damage_removed_from_your_nearest_totem_before_life_or_es_%"] = {
+			mod("takenFromTotemsBeforeYou", "BASE", nil, 0, 0, { type = "Condition", var = "HaveTotem" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kaom" }, { type = "Multiplier", var = "NgamahuTattooEffect", noFloor = true }),
+		},
+		["ancestral_embrace_effect_+%_per_ngamahu_tattoo"] = {
+			mod("Multiplier:NgamahuTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "NgamahuTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 12000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "ancestral_embrace_effect_+%_per_ngamahu_tattoo", 20 },
+		{ "ancestral_buff_damage_removed_from_your_nearest_totem_before_life_or_es_%", 15 },
+	},
+	stats = {
+		"trigger_on_totem_death_in_presence_of_unique",
+		"chance_to_cast_on_kill_%",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
+	},
+	notMinionStat = {
+		"trigger_on_totem_death_in_presence_of_unique",
+	},
+	levels = {
+		[1] = { cooldown = 80, levelRequirement = 0, storedUses = 1, },
+		[2] = { 10, cooldown = 20, levelRequirement = 0, storedUses = 1, statInterpolation = { 1, }, },
+		[20] = { cooldown = 20, levelRequirement = 0, storedUses = 1, },
+	},
+}
+skills["TriggerSummonedAncestorKiloava"] = {
+	name = "Summon Spirit of Kiloava",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal chieftain minion of the Valako tribe to fight alongside you for a duration. This minion grants you a buff which recovers life, mana and energy shield when you block. Shares a Cooldown with other Spirit Chieftain Skills.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"AncestralKiloavaMinion",
+	},
+	statMap = {
+		["ancestral_buff_recover_%_of_maximum_life_mana_energy_shield_on_block"] = {
+			mod("Multiplier:KiloavaRecoverOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "ValakoTattooEffect", noFloor = true }),
+		},
+		["ancestral_embrace_effect_+%_per_valako_tattoo"] = {
+			mod("Multiplier:ValakoTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "ValakoTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+		minion = true,
+	},
+	baseMods = {
+		mod("LifeOnBlock", "BASE", 1, 0, 0, { type = "PercentStat", stat = "Life", percentVar = "KiloavaRecoverOnBlock", floor = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kiloava" }),
+		mod("EnergyShieldOnBlock", "BASE", 1, 0, 0, { type = "PercentStat", stat = "EnergyShield", percentVar = "KiloavaRecoverOnBlock", floor = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kiloava" }),
+		mod("ManaOnBlock", "BASE", 1, 0, 0, { type = "PercentStat", stat = "Mana", percentVar = "KiloavaRecoverOnBlock", floor = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Kiloava" }),
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 12000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "ancestral_embrace_effect_+%_per_valako_tattoo", 20 },
+		{ "ancestral_buff_recover_%_of_maximum_life_mana_energy_shield_on_block", 5 },
+	},
+	stats = {
+		"trigger_on_block_hit_from_unique",
+		"chance_to_cast_on_kill_%",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
+	},
+	notMinionStat = {
+		"trigger_on_block_hit_from_unique",
+	},
+	levels = {
+		[1] = { cooldown = 80, levelRequirement = 0, storedUses = 1, },
+		[2] = { 10, cooldown = 20, levelRequirement = 0, storedUses = 1, statInterpolation = { 1, }, },
+		[20] = { cooldown = 20, levelRequirement = 0, storedUses = 1, },
+	},
+}
+skills["TriggerSummonedAncestorMaata"] = {
+	name = "Summon Spirit of Maata",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal chieftain minion of the Tawhoa tribe to fight alongside you for a duration. This minion grants you a buff which refills flasks. Shares a Cooldown with other Spirit Chieftain Skills.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"AncestralMaataMinion",
+	},
+	statMap = {
+		["ancestral_buff_flask_charges_recovered_per_3_seconds"] = {
+			mod("FlaskChargesGenerated", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Maata" }, { type = "Multiplier", var = "TawhoaTattooEffect", noFloor = true }),
+			div = 3,
+		},
+		["ancestral_embrace_effect_+%_per_tawhoa_tattoo"] = {
+			mod("Multiplier:TawhoaTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "TawhoaTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 12000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "ancestral_embrace_effect_+%_per_tawhoa_tattoo", 20 },
+		{ "ancestral_buff_flask_charges_recovered_per_3_seconds", 5 },
+	},
+	stats = {
+		"trigger_on_reaching_low_life_in_presence_of_unique",
+		"chance_to_cast_on_kill_%",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
+	},
+	notMinionStat = {
+		"trigger_on_reaching_low_life_in_presence_of_unique",
+	},
+	levels = {
+		[1] = { cooldown = 80, levelRequirement = 0, storedUses = 1, },
+		[2] = { 10, cooldown = 20, levelRequirement = 0, storedUses = 1, statInterpolation = { 1, }, },
+		[20] = { cooldown = 20, levelRequirement = 0, storedUses = 1, },
+	},
+}
+skills["TriggerSummonedAncestorRakiata"] = {
+	name = "Summon Spirit of Rakiata",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal chieftain minion of the Tasalio tribe to fight alongside you for a duration. This minion grants you a buff which prevents your action speed being lowered. Shares a Cooldown with other Spirit Chieftain Skills.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"AncestralRakiataMinion",
+	},
+	statMap = {
+		["ancestral_buff_action_speed_+%_minimum_value"] = {
+			mod("MinimumActionSpeed", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Rakiata" }, { type = "Multiplier", var = "TasalioTattooEffect", noFloor = true, base = 100 }),
+		},
+		["ancestral_embrace_effect_+%_per_tasalio_tattoo"] = {
+			mod("Multiplier:TasalioTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "TasalioTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 12000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "ancestral_embrace_effect_+%_per_tasalio_tattoo", 20 },
+		{ "ancestral_buff_action_speed_+%_minimum_value", 10 },
+	},
+	stats = {
+		"trigger_on_crit_vs_marked_unique",
+		"chance_to_cast_on_kill_%",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
+	},
+	notMinionStat = {
+		"trigger_on_crit_vs_marked_unique",
+	},
+	levels = {
+		[1] = { cooldown = 80, levelRequirement = 0, storedUses = 1, },
+		[2] = { 10, cooldown = 20, levelRequirement = 0, storedUses = 1, statInterpolation = { 1, }, },
+		[20] = { cooldown = 20, levelRequirement = 0, storedUses = 1, },
+	},
+}
+skills["TriggerSummonedAncestorTawhanuku"] = {
+	name = "Summon Spirit of Tawhanuku",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal chieftain minion of the Hinekora tribe to fight alongside you for a duration. This minion grants you a buff which regenerates mana. Shares a Cooldown with other Spirit Chieftain Skills.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"AncestralTawhanukuMinion",
+	},
+	statMap = {
+		["ancestral_buff_base_mana_regeneration_rate_per_minute"] = {
+			mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Tawhanuku" }, { type = "Multiplier", var = "HinekoraTattooEffect", noFloor = true }),
+			div = 60,
+		},
+		["ancestral_embrace_effect_+%_per_hinekora_tattoo"] = {
+			mod("Multiplier:HinekoraTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "HinekoraTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 12000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "ancestral_embrace_effect_+%_per_hinekora_tattoo", 20 },
+		{ "ancestral_buff_base_mana_regeneration_rate_per_minute", 6000 },
+	},
+	stats = {
+		"trigger_on_es_recharge_in_presence_of_unique",
+		"chance_to_cast_on_kill_%",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
+	},
+	notMinionStat = {
+		"trigger_on_es_recharge_in_presence_of_unique",
+	},
+	levels = {
+		[1] = { cooldown = 80, levelRequirement = 0, storedUses = 1, },
+		[2] = { 10, cooldown = 20, levelRequirement = 0, storedUses = 1, statInterpolation = { 1, }, },
+		[20] = { cooldown = 20, levelRequirement = 0, storedUses = 1, },
+	},
+}
+skills["TriggerSummonedAncestorUtula"] = {
+	name = "Summon Spirit of Utula",
+	hidden = true,
+	color = 4,
+	description = "Summons an immortal chieftain minion of the Kitava tribe to fight alongside you for a duration. This minion grants you a buff which makes a percentage of your leech recover instantly. Shares a Cooldown with other Spirit Chieftain Skills.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"AncestralUtulaMinion",
+	},
+	statMap = {
+		["ancestral_buff_leech_%_is_instant"] = {
+			mod("InstantLifeLeech", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Utula" }, { type = "Multiplier", var = "KitavaTattooEffect", noFloor = true }),
+			mod("InstantManaLeech", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Utula" }, { type = "Multiplier", var = "KitavaTattooEffect", noFloor = true }),
+			mod("InstantEnergyShieldLeech", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit of Utula" }, { type = "Multiplier", var = "KitavaTattooEffect", noFloor = true }),
+		},
+		["ancestral_embrace_effect_+%_per_kitava_tattoo"] = {
+			mod("Multiplier:KitavaTattooEffect", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "KitavaTattoo", base = 1 }),
+			div = 100,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 12000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "ancestral_embrace_effect_+%_per_kitava_tattoo", 20 },
+		{ "ancestral_buff_leech_%_is_instant", 25 },
+	},
+	stats = {
+		"trigger_on_taking_savage_hit_from_unique",
+		"chance_to_cast_on_kill_%",
+		"display_this_skill_cooldown_does_not_recover_during_buff",
+	},
+	notMinionStat = {
+		"trigger_on_taking_savage_hit_from_unique",
+	},
+	levels = {
+		[1] = { cooldown = 80, levelRequirement = 0, storedUses = 1, },
+		[2] = { 10, cooldown = 20, levelRequirement = 0, storedUses = 1, statInterpolation = { 1, }, },
+		[20] = { cooldown = 20, levelRequirement = 0, storedUses = 1, },
 	},
 }
 skills["SupportUniqueCastCurseOnCurse"] = {
@@ -3967,7 +5173,7 @@ skills["SupportUniqueCastCurseOnCurse"] = {
 		"cannot_cast_curses",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 0, cooldown = 0.25, },
+		[1] = { cooldown = 0.25, levelRequirement = 0, storedUses = 1, },
 	},
 }
 skills["SupportTriggerFireSpellOnHit"] = {
@@ -3990,7 +5196,7 @@ skills["SupportTriggerFireSpellOnHit"] = {
 		"spell_is_triggered_on_hit",
 	},
 	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 0.25, },
+		[1] = { cooldown = 0.25, levelRequirement = 1, storedUses = 1, },
 	},
 }
 skills["EnemyExplode"] = {

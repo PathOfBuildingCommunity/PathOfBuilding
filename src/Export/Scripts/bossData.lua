@@ -521,7 +521,7 @@ directiveTable.skills.skill = function(state, args, out)
 		if additionalStats.base.count > 0 then
 			out:write('\n			base = {')
 				local count = 0
-				for stat, value in pairs(additionalStats.base) do
+				for stat, value in pairsSortByKey(additionalStats.base) do
 					if stat ~= "count" then
 						out:write((count > 0 and ',' or ''), '\n				', stat, ' = ', value)
 						count = count + 1
@@ -532,7 +532,7 @@ directiveTable.skills.skill = function(state, args, out)
 		if additionalStats.uber.count > 0 then
 			out:write((additionalStats.base.count > 0 and ',' or ''),'\n			uber = {')
 				local count = 0
-				for stat, value in pairs(additionalStats.uber) do
+				for stat, value in pairsSortByKey(additionalStats.uber) do
 					if stat ~= "count" then
 						out:write((count > 0 and ',' or ''), '\n				', stat, ' = ', value)
 						count = count + 1
