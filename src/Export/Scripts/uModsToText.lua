@@ -16,7 +16,7 @@ local catalystTags = {
 	["defences"] = true,
 }
 local itemTypes = {
-	-- "axe",
+	"axe",
 	-- "bow",
 	-- "claw",
 	-- "dagger",
