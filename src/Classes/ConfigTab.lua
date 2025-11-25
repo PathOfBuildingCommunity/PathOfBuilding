@@ -611,10 +611,12 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, {0, 0, 18, 0}, 50, "VERTICAL", true)
 end)
 
-function ConfigTabClass:Load(xml, fileName)
-	self.activeConfigSetId = 1
-	self.configSets = { }
-	self.configSetOrderList = { 1 }
+function ConfigTabClass:Load(xml, fileName, appendConfigs)
+	if not appendConfigs then
+		self.activeConfigSetId = 0
+		self.configSets = { }
+		self.configSetOrderList = { }
+	end
 
 	local function setInputAndPlaceholder(node, configSetId)
 		if node.elem == "Input" then
@@ -660,24 +662,25 @@ function ConfigTabClass:Load(xml, fileName)
 	if xml.empty then
 		self:NewConfigSet(1, "Default")
 	end
-	for index, node in ipairs(xml) do
+	for _, node in ipairs(xml) do
 		if node.elem ~= "ConfigSet" then
 			if not self.configSets[1] then
 				self:NewConfigSet(1, "Default")
 			end
 			setInputAndPlaceholder(node, 1)
 		else
-			local configSetId = tonumber(node.attrib.id)
-			self:NewConfigSet(configSetId, node.attrib.title or "Default")
-			self.configSetOrderList[index] = configSetId
+			local configSet = self:NewConfigSet(not appendConfigs and tonumber(node.attrib.id) or nil, node.attrib.title or "Default")
+			t_insert(self.configSetOrderList, configSet.id)
 			for _, child in ipairs(node) do
-				setInputAndPlaceholder(child, configSetId)
+				setInputAndPlaceholder(child, configSet.id)
 			end
 		end
 	end
 
-	self:SetActiveConfigSet(tonumber(xml.attrib.activeConfigSet) or 1)
-	self:ResetUndo()
+	if not appendConfigs then
+		self:SetActiveConfigSet(tonumber(xml.attrib.activeConfigSet) or 1)
+		self:ResetUndo()
+	end
 end
 
 function ConfigTabClass:GetDefaultState(var, varType)

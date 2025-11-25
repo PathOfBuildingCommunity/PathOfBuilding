@@ -994,15 +994,24 @@ holding Shift will put it in the second.]])
 	self.lastSlot = self.slots[baseSlots[#baseSlots]]
 end)
 
-function ItemsTabClass:Load(xml, dbFileName)
-	self.activeItemSetId = 0
-	self.itemSets = { }
-	self.itemSetOrderList = { }
-	self.tradeQuery.statSortSelectionList = { }
+function ItemsTabClass:Load(xml, dbFileName, appendItems)
+	if not appendItems then
+		self.activeItemSetId = 0
+		self.itemSets = { }
+		self.itemSetOrderList = { }
+		self.tradeQuery.statSortSelectionList = { }
+	end
+
+	local itemIdMap = { }
+	local itemSetIdMap = { }
 	for _, node in ipairs(xml) do
 		if node.elem == "Item" then
 			local item = new("Item", "")
-			item.id = tonumber(node.attrib.id)
+			local itemId = tonumber(node.attrib.id)
+			if not appendItems then
+				item.id = itemId
+			end
+
 			item.variant = tonumber(node.attrib.variant)
 			if node.attrib.variantAlt then
 				item.hasAltVariant = true
@@ -1045,8 +1054,13 @@ function ItemsTabClass:Load(xml, dbFileName)
 			end
 			if item.base then
 				item:BuildModList()
-				self.items[item.id] = item
-				t_insert(self.itemOrderList, item.id)
+				if appendItems then
+					self:AddItem(item, true)
+					itemIdMap[itemId] = item.id
+				else
+					self.items[item.id] = item
+					t_insert(self.itemOrderList, item.id)
+				end
 			end
 		-- Below is OBE and left for legacy compatibility (all Slots are part of ItemSets now)
 		elseif node.elem == "Slot" then
@@ -1059,14 +1073,22 @@ function ItemsTabClass:Load(xml, dbFileName)
 				end
 			end
 		elseif node.elem == "ItemSet" then
-			local itemSet = self:NewItemSet(tonumber(node.attrib.id))
+			local oldItemSetId = tonumber(node.attrib.id)
+			local itemSet = self:NewItemSet(not appendItems and oldItemSetId or nil)
+			if appendItems then
+				itemSetIdMap[oldItemSetId] = itemSet.id
+			end
 			itemSet.title = node.attrib.title
 			itemSet.useSecondWeaponSet = node.attrib.useSecondWeaponSet == "true"
 			for _, child in ipairs(node) do
 				if child.elem == "Slot" then
 					local slotName = child.attrib.name or ""
 					if itemSet[slotName] then
-						itemSet[slotName].selItemId = tonumber(child.attrib.itemId)
+						local itemId = tonumber(child.attrib.itemId)
+						if appendItems and itemIdMap[itemId] then
+							itemId = itemIdMap[itemId]
+						end
+						itemSet[slotName].selItemId = itemId
 						itemSet[slotName].active = child.attrib.active == "true"
 						itemSet[slotName].pbURL = child.attrib.itemPbURL or ""
 					end
@@ -1087,16 +1109,20 @@ function ItemsTabClass:Load(xml, dbFileName)
 			end
 		end
 	end
-	if not self.itemSetOrderList[1] then
-		self.activeItemSet = self:NewItemSet(1)
-		self.activeItemSet.useSecondWeaponSet = xml.attrib.useSecondWeaponSet == "true"
-		self.itemSetOrderList[1] = 1
+	if not appendItems then
+		if not self.itemSetOrderList[1] then
+			self.activeItemSet = self:NewItemSet(1)
+			self.activeItemSet.useSecondWeaponSet = xml.attrib.useSecondWeaponSet == "true"
+			self.itemSetOrderList[1] = 1
+		end
+		self:SetActiveItemSet(tonumber(xml.attrib.activeItemSet) or 1)
+		if xml.attrib.showStatDifferences then
+			self.showStatDifferences = xml.attrib.showStatDifferences == "true"
+		end
+		self:ResetUndo()
+	else
+		return itemIdMap, itemSetIdMap
 	end
-	self:SetActiveItemSet(tonumber(xml.attrib.activeItemSet) or 1)
-	if xml.attrib.showStatDifferences then
-		self.showStatDifferences = xml.attrib.showStatDifferences == "true"
-	end
-	self:ResetUndo()
 end
 
 function ItemsTabClass:Save(xml)
