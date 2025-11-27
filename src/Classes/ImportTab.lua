@@ -1065,6 +1065,23 @@ function ImportTabClass:ImportItem(itemData, slotName)
 			end
 		end
 	end
+	if itemData.foilVariation or itemData.isRelic then
+		local foilVariants = {
+			"Amethyst",
+			"Verdant",
+			"Ruby",
+			"Cobalt",
+			"Sunset",
+			"Aureate",
+			"Celestial Quartz",
+			"Celestial Ruby",
+			"Celestial Emerald",
+			"Celestial Aureate",
+			"Celestial Pearl",
+			"Celestial Amethyst",
+		}
+		item.foilType = foilVariants[itemData.foilVariation] or "Rainbow"
+	end
 
 	-- Add and equip the new item
 	item:BuildAndParseRaw()
