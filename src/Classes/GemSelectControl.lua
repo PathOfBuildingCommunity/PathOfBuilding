@@ -243,7 +243,24 @@ function GemSelectClass:BuildList(buf)
 end
 
 function GemSelectClass:UpdateSortCache()
-	--local start = GetTime()
+	if self.sortCacheBuilding then
+		if coroutine.status(self.sortCacheBuilding) == "dead" then
+			self.sortCacheBuilding = nil
+			return
+		end
+		local res, errMsg = coroutine.resume(self.sortCacheBuilding, self)
+		if launch.devMode and not res then
+			error(errMsg)
+		end
+	else
+		self.sortCacheBuilding = coroutine.create(self.UpdateSortCacheCoroutine)
+		coroutine.resume(self.sortCacheBuilding, self)
+	end
+end
+
+function GemSelectClass:UpdateSortCacheCoroutine()
+	local start = GetTime()
+	local totalTimeStart = GetTime()
 	local sortCache = self.sortCache
 	local sameSortBy = self.sortGemsBy == self.lastSortGemsBy
 	-- Don't update the cache if no settings have changed that would impact the ordering
@@ -331,6 +348,9 @@ function GemSelectClass:UpdateSortCache()
 	-- Check for nil because some fields may not be populated, default to 0
 	local baseDPS = (dpsField == "FullDPS" and calcBase[dpsField] ~= nil and calcBase[dpsField]) or (calcBase.Minion and calcBase.Minion.CombinedDPS) or (calcBase[dpsField] ~= nil and calcBase[dpsField]) or 0
 
+	if coroutine.running() then
+		coroutine.yield()
+	end
 	for gemId, gemData in pairs(self.gems) do
 		sortCache.dps[gemId] = baseDPS
 		-- Ignore gems that don't support the active skill
@@ -347,6 +367,10 @@ function GemSelectClass:UpdateSortCache()
 		else
 			sortCache.dpsColor[gemId] = "^xFFFF66"
 		end
+		if coroutine.running() and GetTime() - start > 100 then
+			coroutine.yield()
+			start = GetTime()
+		end
 	end
 
 	--ConPrintf("Gem Selector time: %d ms", GetTime() - start)
@@ -357,7 +381,13 @@ function GemSelectClass:SortGemList(gemList)
 	t_sort(gemList, function(a, b)
 		if sortCache.canSupport[a] == sortCache.canSupport[b] then
 			if self.skillsTab.sortGemsByDPS and sortCache.dps[a] ~= sortCache.dps[b] then
-				return sortCache.dps[a] > sortCache.dps[b]
+				if sortCache.dps[a] and not sortCache.dps[b] then
+					return true
+				elseif sortCache.dps[b] and not sortCache.dps[a] then
+					return false
+				else
+					return sortCache.dps[a] > sortCache.dps[b]
+				end
 			else
 				local nameA = (self.gems[a] and self.gems[a].name) or a
 				local nameB = (self.gems[b] and self.gems[b].name) or b
@@ -441,6 +471,8 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 		SetViewport(x + 2, y + height + 2, width - 4, dropHeight)
 		local minIndex = m_floor(scrollBar.offset / 16 + 1)
 		local maxIndex = m_min(m_floor((scrollBar.offset + dropHeight) / 16 + 1), #self.list)
+		self:UpdateSortCache()
+		self:SortGemList(self.list)
 		for index = minIndex, maxIndex do
 			local y = (index - 1) * (height - 4) - scrollBar.offset
 			if index == self.hoverSel or index == self.selIndex or (index == 1 and self.selIndex == 0) then
@@ -464,7 +496,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 				gemText = altQualMap[self:GetQualityType(gemId)] .. gemText
 			end
 			DrawString(0, y, "LEFT", height - 4, "VAR", gemText)
-			if gemData then
+			if gemData and self.sortCache.dpsColor[gemId] then
 				if gemData.grantedEffect.support and self.sortCache.canSupport[gemId] then
 					SetDrawColor(self.sortCache.dpsColor[gemId])
 					main:DrawCheckMark(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y + (height - 4) / 2, (height - 4) * 0.8)
