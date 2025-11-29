@@ -278,6 +278,15 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		end
 	end)
 	self.controls.powerReportList.shown = false
+	-- Progress callback from the CalcsTab power builder coroutine
+	self.build.powerBuilderProgressCallback = function(percent)
+		if percent then
+			self.controls.powerReportList.label = string.format("Building Tree... (%d%%)", percent)
+		else
+			self.controls.powerReportList.label = "Building Tree..."
+		end
+	end
+	-- Completion callback from the CalcsTab power builder coroutine
 	self.build.powerBuilderCallback = function()
 		local powerStat = self.build.calcsTab.powerStat or data.powerStatList[1]
 		local report = self:BuildPowerReportList(powerStat)
