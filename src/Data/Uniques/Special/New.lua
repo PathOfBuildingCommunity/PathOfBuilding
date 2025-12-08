@@ -284,7 +284,7 @@ Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reveren
 Requires Level 64
 (200-300)% increased Charges per use
 (150-200)% increased Amount Recovered
-(-60--40)% less Duration
+(60-40)% less Duration
 Removes (10-15)% of Life when Used
 Starts Energy Shield Recharge when Used
 Energy Shield Recharge is not delayed by Damage during Effect
