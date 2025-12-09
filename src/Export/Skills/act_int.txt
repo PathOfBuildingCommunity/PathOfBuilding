@@ -2324,29 +2324,28 @@ local skills, mod, flag, skill = ...
 		-- Projectiles orbit for base_skill_effect_duration before firing
 		-- Recasting resets the timer, so attacking too fast wastes potential damage
 		local baseDuration = skillData.duration
-		local actualDuration = output.Duration or baseDuration
-		local ticksNeededForInitialDelay = math.ceil(actualDuration / data.misc.ServerTickTime)
+		local actualDuration = baseDuration * output.DurationMod
 		local timePerProjectile = baseDelayBetweenProjectiles * output.DurationMod
 		local timeForAllProjectiles = timePerProjectile * projectileCount
-		local effectiveDelay = ticksNeededForInitialDelay * data.misc.ServerTickTime + math.ceil(timeForAllProjectiles / data.misc.ServerTickTime) * data.misc.ServerTickTime
+		local effectiveDelay = actualDuration + timeForAllProjectiles
 		local maxEffectiveAPS = 1 / effectiveDelay
 		local currentAPS = output.Speed
+		local MissProjectile = math.ceil((effectiveDelay - (1/currentAPS)) / timePerProjectile)
 
 		output.KineticFusilladeMaxEffectiveAPS = maxEffectiveAPS
 
+
 		if breakdown then
 			local breakdownAPS = {}
-			t_insert(breakdownAPS, s_format("^1(These calculations are speculative and best-effort)", actualDuration))
 			t_insert(breakdownAPS, s_format("^8Delay of^7 %.3fs ^8before projectiles start firing", actualDuration))
 			t_insert(breakdownAPS, s_format("^8Each projectile fires sequentially with a^7 %.3fs ^8delay between each projectile", timePerProjectile))
-			t_insert(breakdownAPS, s_format("^8Server tick time:^7 %.3fs", data.misc.ServerTickTime))
-			t_insert(breakdownAPS, s_format("^8Ticks needed:^7 %d ^8(rounded up)", ticksNeededForInitialDelay + math.ceil(timeForAllProjectiles / data.misc.ServerTickTime)))
 			t_insert(breakdownAPS, s_format("^8Effective delay:^7 %.3fs", effectiveDelay))
 			t_insert(breakdownAPS, s_format("^8Max effective attack rate:^7 1 / %.3f = %.2f", effectiveDelay, maxEffectiveAPS))
 			if currentAPS and currentAPS > maxEffectiveAPS then
 				t_insert(breakdownAPS, "")
 				t_insert(breakdownAPS, s_format("^1Current attack rate (%.2f) exceeds max effective rate!", currentAPS))
-				t_insert(breakdownAPS, s_format("^1DPS is reduced by %.1f%%", (1 - maxEffectiveAPS / currentAPS) * 100))
+				t_insert(breakdownAPS, s_format("^1You will lose up to %d projectiles per volley.", MissProjectile))
+
 			elseif currentAPS then
 				t_insert(breakdownAPS, "")
 				t_insert(breakdownAPS, s_format("^2Current attack rate (%.2f) is within effective limits", currentAPS))
