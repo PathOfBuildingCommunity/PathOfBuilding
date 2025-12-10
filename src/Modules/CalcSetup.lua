@@ -791,6 +791,14 @@ function calcs.initEnv(build, mode, override, specEnv)
 			::continue::
 		end
 
+		local function setLifeRecoveryFromFlasks(item) -- Poisonous Concoction
+			if item and item.type == "Flask" and item.base.subType == "Life" then
+				if item.flaskData.lifeTotal > (env.itemModDB.multipliers["LifeFlaskRecovery"] or 0) then
+					env.itemModDB.multipliers["LifeFlaskRecovery"] = item.flaskData.lifeTotal
+				end
+			end
+		end
+
 		if not env.configInput.ignoreItemDisablers then
 			local itemDisabled = {}
 			local itemDisablers = {}
@@ -853,6 +861,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				end
 			end
 			for slot in pairs(trueDisabled) do
+				setLifeRecoveryFromFlasks(items[slot])
 				items[slot] = nil
 			end
 		end
@@ -864,12 +873,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				if slot.active then
 					env.flasks[item] = true
 				end
-				if item.base.subType == "Life" then
-					local highestLifeRecovery = env.itemModDB.multipliers["LifeFlaskRecovery"] or 0
-					if item.flaskData.lifeTotal > highestLifeRecovery then
-						env.itemModDB.multipliers["LifeFlaskRecovery"] = item.flaskData.lifeTotal
-					end
-				end
+				setLifeRecoveryFromFlasks(item)
 				item = nil
 			elseif item and item.type == "Tincture" then
 				if slot.active then
