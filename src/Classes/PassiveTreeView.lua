@@ -1111,7 +1111,7 @@ function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
 	else
 		tooltip.tooltipHeader = tooltipMap[node.type] or "UNKNOWN"
 	end
-	nodeName = node.dn
+	local nodeName = node.dn
 	if main.showFlavourText then
 		nodeName = "^xF8E6CA" .. node.dn
 	end
