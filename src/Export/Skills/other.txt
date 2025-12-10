@@ -1522,7 +1522,7 @@ skills["EnemyExplode"] = {
 #noGem
 #skill GraftSkillTulAegis
 #flags duration
-    fromItem = true,
+	fromItem = true,
 #baseMod flag("Condition:BuffedByPreservingStillness", { type = "GlobalEffect", effectType = "Buff", effectName = "Preserving Stillness" })
 #mods
 
