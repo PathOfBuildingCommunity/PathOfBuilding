@@ -573,7 +573,7 @@ function CalcsTabClass:PowerBuilder()
 			node.power = {}
 		end
 		wipeTable(node.power)
-		if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
+		if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[node.id] then
 			if not cache[node.modKey] then
 				cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, useFullDPS)
 			end
