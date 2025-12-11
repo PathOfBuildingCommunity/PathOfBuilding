@@ -1518,3 +1518,11 @@ skills["EnemyExplode"] = {
 		[1] = { damageEffectiveness = 1, baseMultiplier = 1, levelRequirement = 1, }
 	}
 }
+
+#noGem
+#skill GraftSkillTulAegis
+#flags duration
+	fromItem = true,
+#baseMod flag("Condition:BuffedByPreservingStillness", { type = "GlobalEffect", effectType = "Buff", effectName = "Preserving Stillness" })
+#mods
+
