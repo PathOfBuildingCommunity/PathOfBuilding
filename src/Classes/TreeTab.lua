@@ -2036,18 +2036,18 @@ function TreeTabClass:FindTimelessJewel()
 	controls.searchTradeButton = new("ButtonControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, { 0, -5, 170, 20 }, "Copy Trade URL", function()
 		local seedTrades = {}
 		local startRow = controls.searchResults.selIndex or 1
-		local endRow = startRow + m_floor(10 / ((timelessData.sharedResults.conqueror.id == 1) and 3 or 1))
 		if controls.searchResults.highlightIndex then
 			startRow = m_min(controls.searchResults.selIndex, controls.searchResults.highlightIndex)
-			endRow = m_max(controls.searchResults.selIndex, controls.searchResults.highlightIndex)
 		end
+		-- query complexity limit appears to be 188
+		local endRow = startRow + m_floor(188 / ((timelessData.sharedResults.conqueror.id == 1) and 3 or 1))
 
-		local seedCount = m_min(#timelessData.searchResults - startRow, endRow - startRow) + 1
+		local seedCount = m_min(#timelessData.searchResults - startRow, endRow - startRow)
 		-- update if not highlighted already
 
 		local prevSearch = controls.searchTradeButton.lastSearch
-		if prevSearch and prevSearch[1] == startRow and prevSearch[2] == seedCount then
-			startRow = endRow + 1
+		if prevSearch and prevSearch[1] == startRow then
+			startRow = prevSearch[2] + 1
 			if (startRow > #timelessData.searchResults) then
 				return
 			end
@@ -2057,10 +2057,16 @@ function TreeTabClass:FindTimelessJewel()
 		controls.searchResults.selIndex = startRow
 		controls.searchResults.highlightIndex = endRow
 
-		controls.searchTradeButton.lastSearch = {startRow, seedCount}
+		controls.searchTradeButton.lastSearch = {startRow, endRow}
 
 		for i = startRow, startRow + seedCount - 1 do
 			local result = timelessData.searchResults[i]
+
+			if result.total / timelessData.searchResults[startRow].total < 0.998 then
+				controls.searchResults.highlightIndex = i - 1
+				controls.searchTradeButton.lastSearch = {startRow, i - 1}
+				break
+			end
 
 			local conquerorKeystoneTradeIds = data.timelessJewelTradeIDs[timelessData.jewelType.id].keystone
 			local conquerorTradeIds = { conquerorKeystoneTradeIds[1], conquerorKeystoneTradeIds[2], conquerorKeystoneTradeIds[3] }
