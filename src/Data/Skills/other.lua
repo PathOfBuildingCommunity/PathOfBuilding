@@ -5297,7 +5297,7 @@ skills["GraftSkillTulAegis"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.1,
 	cannotBeSupported = true,
-    fromItem = true,
+	fromItem = true,
 	baseFlags = {
 		duration = true,
 	},
