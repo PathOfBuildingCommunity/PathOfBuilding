@@ -1,3 +1,23 @@
+VERSION[beta][2025/12/12]
+
+--- New to Path of Building ---
+* Add support for newer unveils on Bitterbind Point (Peechey)
+
+--- Fixed Crashes ---
+* Fix crash on adding support gems and importing items to many builds (LocalIdentity)
+* Fix Radius Jewels in Shared Items Crashing on Load (Peechey)
+
+--- Fixed Calculations ---
+* Fix Spellslinger gaining generic damage instead of Spell damage (LocalIdentity)
+* Fix Foulborn Choir of the Storm's Overcapped Mod not applying to Total Mana (Peechey)
+
+--- Fixed Behaviours ---
+* Fix Party Tab max Fortify override not working (LocalIdentity)
+
+--- Other changes ---
+* Release 2.59.2 (github-actions[bot])
+
+
 VERSION[2.59.2][2025/11/23]
 
 --- Fixed Crashes ---

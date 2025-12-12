@@ -1,5 +1,26 @@
 # Changelog
 
+## [beta](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/beta) (2025/12/12)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.59.1...beta)
+
+
+## What's Changed
+### New to Path of Building
+- Add support for newer unveils on Bitterbind Point [\#9357](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9357) ([Peechey](https://github.com/Peechey))
+### Fixed Crashes
+- Fix crash on adding support gems and importing items to many builds [\#9340](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9340) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Radius Jewels in Shared Items Crashing on Load [\#9349](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9349) ([Peechey](https://github.com/Peechey))
+### Fixed Calculations
+- Fix Spellslinger gaining generic damage instead of Spell damage [\#9352](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9352) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Foulborn Choir of the Storm's Overcapped Mod not applying to Total Mana [\#9351](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9351) ([Peechey](https://github.com/Peechey))
+### Fixed Behaviours
+- Fix Party Tab max Fortify override not working [\#9342](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9342) ([LocalIdentity](https://github.com/LocalIdentity))
+### Other changes
+- Release 2.59.2 [\#9343](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9343) ([github-actions](https://github.com/github-actions)[bot])
+
+
+
 ## [v2.59.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.59.2) (2025/11/23)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.59.1...v2.59.2)
