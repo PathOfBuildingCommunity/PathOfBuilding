@@ -79,8 +79,11 @@ function TradeQueryRateLimiterClass:ParsePolicy(headerString)
         policies[policyName].retryAfter = os.time() + retryAfter
     end
     local ruleNames = {}
-    for match in headers["x-rate-limit-rules"]:gmatch("[^,]+") do
-        ruleNames[#ruleNames+1] = match:lower()
+    local rulesHeader = headers["x-rate-limit-rules"]
+    if rulesHeader and rulesHeader ~= "" then
+        for match in rulesHeader:gmatch("[^,]+") do
+            ruleNames[#ruleNames+1] = match:lower()
+        end
     end
     for _, ruleName in pairs(ruleNames) do
         policies[policyName][ruleName] = {}
@@ -241,7 +244,10 @@ function TradeQueryRateLimiterClass:AgeOutRequests(policy, time)
             for window, windowValue in pairs(rule.state) do
                 if timestamp >= (requestHistory.lastCheck - window) and timestamp < (now - window) then
                     -- timestamp that used to be in the window on last check
-                    windowValue.request = math.max(windowValue.request - 1, 0)
+                    if not windowValue.decremented then
+                        windowValue.request = math.max(windowValue.request - 1, 0)
+                        windowValue.decremented = true
+                    end
                 end
             end
         end
@@ -249,6 +255,12 @@ function TradeQueryRateLimiterClass:AgeOutRequests(policy, time)
             table.remove(requestHistory.timestamps, i)
         end
     end
+    -- Reset flags after processing
+	for _, rule in pairs(self.policies[policy]) do
+		for window, windowValue in pairs(rule.state) do
+			windowValue.decremented = nil
+		end
+	end
     requestHistory.lastCheck = now
 end
 
