@@ -1,0 +1,13 @@
+diff a/src/Classes/Tooltip.lua b/src/Classes/Tooltip.lua	(rejected hunks)
+@@ -385,9 +383,9 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
+ 		local headerMiddleAreaWidth = m_max(0, headerTotalWidth - 2 * headerSideWidth)
+ 		if self.influenceHeader1 then
+ 			self.influenceIcon1 = NewImageHandle()
+-			self.influenceIcon1:Load(headerInfluence[self.influenceHeader1])
++			self.influenceIcon1:Load(headerInfluence[self.influenceHeader1]:lower())
+ 			self.influenceIcon2 = NewImageHandle()
+-			self.influenceIcon2:Load(headerInfluence[self.influenceHeader2])
++			self.influenceIcon2:Load(headerInfluence[self.influenceHeader2]:lower())
+ 		end
+ 
+ 		if main.showFlavourText then

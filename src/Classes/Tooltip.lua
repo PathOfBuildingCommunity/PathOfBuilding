@@ -123,21 +123,19 @@ function TooltipClass:AddSeparator(size)
 
 	if self.tooltipHeader then
 		local rarity = tostring(self.tooltipHeader):upper()
-		-- spell-checker: disable
 		local separatorConfigs = {
-			RELIC = "Assets/itemsseparatorfoil.png",
-			UNIQUE = "Assets/itemsseparatorunique.png",
-			RARE = "Assets/itemsseparatorrare.png",
-			MAGIC = "Assets/itemsseparatormagic.png",
-			NORMAL = "Assets/itemsseparatorwhite.png",
-			GEM = "Assets/itemsseparatorgem.png",
+			RELIC = "Assets/ItemsSeparatorFoil.png",
+			UNIQUE = "Assets/ItemsSeparatorUnique.png",
+			RARE = "Assets/ItemsSeparatorRare.png",
+			MAGIC = "Assets/ItemsSeparatorMagic.png",
+			NORMAL = "Assets/ItemsSeparatorWhite.png",
+			GEM = "Assets/ItemsSeparatorGem.png",
 		}
-		-- spell-checker: enable
 		local separatorPath = separatorConfigs[rarity] or separatorConfigs.NORMAL
 
 		if not self.separatorImage or self.separatorImagePath ~= separatorPath then
 			self.separatorImage = NewImageHandle()
-			self.separatorImage:Load(separatorPath)
+			self.separatorImage:Load(separatorPath:lower())
 			self.separatorImagePath = separatorPath
 		end
 
@@ -386,13 +384,13 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 
 		if not self.headerLeft or self.headerLeftPath ~= config.left then
 			self.headerLeft = NewImageHandle()
-			self.headerLeft:Load(config.left)
+			self.headerLeft:Load(config.left:lower())
 			self.headerLeftPath = config.left
 			self.headerMiddle = NewImageHandle()
-			self.headerMiddle:Load(config.middle)
+			self.headerMiddle:Load(config.middle:lower())
 			self.headerMiddlePath = config.middle
 			self.headerRight = NewImageHandle()
-			self.headerRight:Load(config.right)
+			self.headerRight:Load(config.right:lower())
 			self.headerRightPath = config.right
 		end
 
