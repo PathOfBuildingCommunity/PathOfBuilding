@@ -471,42 +471,11 @@ local function incomingDamageBreakdown(breakdownTable, poolsRemaining, output)
 	return breakdownTable
 end
 
--- Performs all ingame and related defensive calculations
-function calcs.defence(env, actor)
+function calcs.resistances(actor)
 	local modDB = actor.modDB
-	local enemyDB = actor.enemy.modDB
 	local output = actor.output
 	local breakdown = actor.breakdown
-
-	local condList = modDB.conditions
-
-	-- Action Speed
-	output.ActionSpeedMod = calcs.actionSpeedMod(actor)
-	
-	-- Armour defence types for conditionals
-	for _, slot in pairs({"Helmet","Gloves","Boots","Body Armour","Weapon 2","Weapon 3"}) do
-		local armourData = actor.itemList[slot] and actor.itemList[slot].armourData
-		if armourData then
-			wardBase = not modDB:Flag(nil, "GainNoWardFrom" .. slot) and armourData.Ward or 0
-			if wardBase > 0 then
-				output["WardOn"..slot] = wardBase
-			end
-			energyShieldBase = not modDB:Flag(nil, "GainNoEnergyShieldFrom" .. slot) and armourData.EnergyShield or 0
-			if energyShieldBase > 0 then
-				output["EnergyShieldOn"..slot] = energyShieldBase
-			end
-			armourBase = not modDB:Flag(nil, "GainNoArmourFrom" .. slot) and armourData.Armour or 0
-			if armourBase > 0 then
-				output["ArmourOn"..slot] = armourBase
-			end
-			evasionBase = not modDB:Flag(nil, "GainNoEvasionFrom" .. slot) and armourData.Evasion or 0
-			if evasionBase > 0 then
-				output["EvasionOn"..slot] = evasionBase
-			end
-		end
-	end
-
-	-- Resistances
+		-- Resistances
 	output["PhysicalResist"] = 0
 	
 	-- Process Resistance conversion mods
@@ -605,9 +574,6 @@ function calcs.defence(env, actor)
 		local dotFinal = m_max(m_min(dotTotal, max), min)
 		local totemFinal = m_max(m_min(totemTotal, totemMax), min)
 		
-		if env.minion and modDB:Sum("BASE", nil, "ResistanceAddedToMinions") > 0 then
-			env.minion.modDB:NewMod(elem.."Resist", "BASE", m_floor(final * modDB:Sum("BASE", nil, "ResistanceAddedToMinions") / 100), "Player")
-		end
 
 		output[elem.."Resist"] = final
 		output[elem.."ResistTotal"] = total
@@ -632,8 +598,49 @@ function calcs.defence(env, actor)
 			}
 		end
 	end
-	-- Formless Inferno, Foulborn Choir of the Storm
-	if actor == env.minion or actor == env.player then
+end
+
+-- Performs all ingame and related defensive calculations
+function calcs.defence(env, actor)
+	local modDB = actor.modDB
+	local enemyDB = actor.enemy.modDB
+	local output = actor.output
+	local breakdown = actor.breakdown
+
+	local condList = modDB.conditions
+
+	-- Action Speed
+	output.ActionSpeedMod = calcs.actionSpeedMod(actor)
+
+	-- Armour defence types for conditionals
+	for _, slot in pairs({"Helmet","Gloves","Boots","Body Armour","Weapon 2","Weapon 3"}) do
+		local armourData = actor.itemList[slot] and actor.itemList[slot].armourData
+		if armourData then
+			wardBase = not modDB:Flag(nil, "GainNoWardFrom" .. slot) and armourData.Ward or 0
+			if wardBase > 0 then
+				output["WardOn"..slot] = wardBase
+			end
+			energyShieldBase = not modDB:Flag(nil, "GainNoEnergyShieldFrom" .. slot) and armourData.EnergyShield or 0
+			if energyShieldBase > 0 then
+				output["EnergyShieldOn"..slot] = energyShieldBase
+			end
+			armourBase = not modDB:Flag(nil, "GainNoArmourFrom" .. slot) and armourData.Armour or 0
+			if armourBase > 0 then
+				output["ArmourOn"..slot] = armourBase
+			end
+			evasionBase = not modDB:Flag(nil, "GainNoEvasionFrom" .. slot) and armourData.Evasion or 0
+			if evasionBase > 0 then
+				output["EvasionOn"..slot] = evasionBase
+			end
+		end
+	end
+
+	calcs.resistances(actor)
+	if env.minion and modDB:Sum("BASE", nil, "ResistanceAddedToMinions") > 0 then
+		env.minion.modDB:NewMod(elem.."Resist", "BASE", m_floor(final * modDB:Sum("BASE", nil, "ResistanceAddedToMinions") / 100), "Player")
+	end
+	-- Formless Inferno
+	if actor == env.minion then
 		doActorLifeMana(actor)
 		doActorLifeManaReservation(actor)
 	end

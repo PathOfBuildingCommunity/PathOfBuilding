@@ -507,7 +507,7 @@ end
 
 -- Calculate life/mana reservation
 ---@param actor table
-function doActorLifeManaReservation(actor)
+function doActorLifeManaReservation(actor, addAura)
 	local modDB = actor.modDB
 	local output = actor.output
 	local condList = modDB.conditions
@@ -531,10 +531,12 @@ function doActorLifeManaReservation(actor)
 		else
 			reserved = 0
 		end
-		for _, value in ipairs(modDB:List(nil, "GrantReserved"..pool.."AsAura")) do
-			local auraMod = copyTable(value.mod)
-			auraMod.value = m_floor(auraMod.value * m_min(reserved, max))
-			modDB:NewMod("ExtraAura", "LIST", { mod = auraMod })
+		if addAura then
+			for _, value in ipairs(modDB:List(nil, "GrantReserved"..pool.."AsAura")) do
+				local auraMod = copyTable(value.mod)
+				auraMod.value = m_floor(auraMod.value * m_min(reserved, max))
+				modDB:NewMod("ExtraAura", "LIST", { mod = auraMod })
+			end
 		end
 	end
 end
@@ -1869,10 +1871,10 @@ function calcs.perform(env, skipEHP)
 		end
 	end
 
-	-- Set the life/mana reservations
-	doActorLifeManaReservation(env.player)
+	-- Set the life/mana reservations (hold off on GrantReserved"..pool.."AsAura)
+	doActorLifeManaReservation(env.player, not modDB:Flag(nil, "ManaIncreasedByOvercappedLightningRes"))
 
-	-- Process attribute requirements
+		-- Process attribute requirements
 	do
 		local reqMult = calcLib.mod(modDB, nil, "GlobalAttributeRequirements")
 		local omniRequirements = modDB:Flag(nil, "OmniscienceRequirements") and calcLib.mod(modDB, nil, "OmniAttributeRequirements")
@@ -3148,6 +3150,15 @@ function calcs.perform(env, skipEHP)
 		enemyDB:NewMod("Multiplier:ImpaleStacks", "BASE", maxImpaleStacks, "Config", { type = "Condition", var = "Combat" })
 	elseif enemyDB:Sum("BASE", nil, "Multiplier:ImpaleStacks") > maxImpaleStacks then
 		enemyDB:ReplaceMod("Multiplier:ImpaleStacks", "BASE", maxImpaleStacks, "Config", { type = "Condition", var = "Combat" })
+	end
+
+	-- Foulborn Choir of the Storm, needs to be after main auras (incase purity of ligthing/elements auras) but before extra auras (Radiant Faith)
+	if modDB:Flag(nil, "ManaIncreasedByOvercappedLightningRes") then
+		-- Calclate resistances for ManaIncreasedByOvercappedLightningRes
+		calcs.resistances(env.player)
+		-- Set the life/mana reservations again as we now have increased mana from overcapped lightning resistance
+		doActorLifeMana(env.player)
+		doActorLifeManaReservation(env.player, true)
 	end
 
 	-- Check for extra auras
