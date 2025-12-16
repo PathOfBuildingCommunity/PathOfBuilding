@@ -3152,7 +3152,7 @@ function calcs.perform(env, skipEHP)
 		enemyDB:ReplaceMod("Multiplier:ImpaleStacks", "BASE", maxImpaleStacks, "Config", { type = "Condition", var = "Combat" })
 	end
 
-	-- Foulborn Choir of the Storm, needs to be after main auras (incase purity of ligthing/elements auras) but before extra auras (Radiant Faith)
+	-- Foulborn Choir of the Storm, needs to be after main auras (incase purity of lightning/elements auras) but before extra auras (Radiant Faith)
 	if modDB:Flag(nil, "ManaIncreasedByOvercappedLightningRes") then
 		-- Calclate resistances for ManaIncreasedByOvercappedLightningRes
 		calcs.resistances(env.player)
