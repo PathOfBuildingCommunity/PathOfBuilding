@@ -1,0 +1,8 @@
+diff a/manifest.cfg b/manifest.cfg	(rejected hunks)
+@@ -15,5 +15,5 @@ exclude-directories = src/Export,src/TreeData,src/Builds,src/luacov.stats.out,sr
+ 
+ [tree]
+ path = src
+-exclude-files = export_lines.bat,extract_lines.scm,log_lines_extract.txt,script_lines_extract_orbit_active.scm,script_lines_extract_orbit_intermediate.scm,script_lines_extract_orbit_normal.scm,missingStats.txt
++exclude-files = *.scm,export_lines.bat,log_lines_extract.txt,missingStats.txt
+ include-directories = src/TreeData
