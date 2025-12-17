@@ -36,7 +36,7 @@ local GGPKClass = newClass("GGPKData", function(self, path, datPath, reExport)
 		self.oozPath = datPath:match("\\$") and datPath or (datPath .. "\\")
 	else
 		self.path = path
-		self.oozPath = io.popen("cd"):read('*l'):gsub('\r?', '') .. "\\ggpk\\"
+		self.oozPath = GetWorkDir() .. "\\ggpk\\"
 		self:CleanDir(reExport)
 		self:ExtractFiles(reExport)
 	end
