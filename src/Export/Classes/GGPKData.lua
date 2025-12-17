@@ -44,12 +44,8 @@ local GGPKClass = newClass("GGPKData", function(self, path, datPath, reExport)
 	self.dat = { }
 	self.txt = { }
 	self.ot = { }
-
-	if USE_DAT64 then
-		self:AddDat64Files()
-	else
-		self:AddDatFiles()
-	end
+	
+	self:AddDat64Files()
 end)
 
 function GGPKClass:CleanDir(reExport)
