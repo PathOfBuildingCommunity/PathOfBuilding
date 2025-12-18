@@ -3216,7 +3216,7 @@ function calcs.perform(env, skipEHP)
 		modDB:AddList(env.weaponModList1)
 	end
 
-	-- Process prerequisits for conditionals
+	-- Process prerequisites for conditionals
 	calcs.defenceForConditionals(env, env.player)
 	if env.minion then
 		calcs.defenceForConditionals(env, env.minion)
