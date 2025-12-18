@@ -471,18 +471,11 @@ local function incomingDamageBreakdown(breakdownTable, poolsRemaining, output)
 	return breakdownTable
 end
 
--- Performs all ingame and related defensive calculations
-function calcs.defence(env, actor)
+-- Performs defensive calculations used by conditionals
+function calcs.defenceForConditionals(env, actor)
 	local modDB = actor.modDB
-	local enemyDB = actor.enemy.modDB
 	local output = actor.output
-	local breakdown = actor.breakdown
 
-	local condList = modDB.conditions
-
-	-- Action Speed
-	output.ActionSpeedMod = calcs.actionSpeedMod(actor)
-	
 	-- Armour defence types for conditionals
 	for _, slot in pairs({"Helmet","Gloves","Boots","Body Armour","Weapon 2","Weapon 3"}) do
 		local armourData = actor.itemList[slot] and actor.itemList[slot].armourData
@@ -505,6 +498,19 @@ function calcs.defence(env, actor)
 			end
 		end
 	end
+end
+
+-- Performs all ingame and related defensive calculations
+function calcs.defence(env, actor)
+	local modDB = actor.modDB
+	local enemyDB = actor.enemy.modDB
+	local output = actor.output
+	local breakdown = actor.breakdown
+
+	local condList = modDB.conditions
+
+	-- Action Speed
+	output.ActionSpeedMod = calcs.actionSpeedMod(actor)
 
 	-- Resistances
 	output["PhysicalResist"] = 0
