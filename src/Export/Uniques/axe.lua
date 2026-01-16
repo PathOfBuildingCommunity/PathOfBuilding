@@ -13,7 +13,7 @@ Variant: Current
 HasNoSockets
 LocalIncreasedPhysicalDamagePercentUnique__43
 NoIntelligenceUnique__1_
-{variant:1}Critical Strike Chance is (20-30)% for Hits with this Weapon
+{variant:1}WeaponCritChanceOverrideUnique__1__[20,30]
 {variant:2}WeaponCritChanceOverrideUnique__1__
 ]],[[
 Dreadarc
@@ -43,7 +43,7 @@ Infernal Axe
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 0
-{variant:1}Adds (170-190) to (200-220) Fire Damage in Main Hand
+{variant:1}MainHandAddedFireDamageUniqueOneHandAxe2[170,190][200,220]
 {variant:2}MainHandAddedFireDamageUniqueOneHandAxe2
 {variant:2}OffHandAddedColdDamageUniqueOneHandAxe2
 LocalIncreasedAttackSpeedUnique__26_
@@ -51,8 +51,8 @@ MainHandChanceToIgniteUniqueOneHandAxe2
 {variant:1}OffHandChillDurationUniqueOneHandAxe2
 {variant:2}BurningDamageToChilledEnemiesUniqueOneHandAxe2
 {variant:2}ChillEnemiesOnHitWithWeaponUnique__1
-{variant:1}Adds (170-190) to (200-220) Cold Damage in Off Hand
-{variant:1}40% increased Damage with Ignite inflicted on Chilled Enemies
+{variant:1}OffHandAddedColdDamageUniqueOneHandAxe2[170,190][200,220]
+{variant:1}BurningDamageToChilledEnemiesUniqueOneHandAxe2[40,40]
 ]],[[
 The Screaming Eagle
 Jade Hatchet
@@ -64,7 +64,7 @@ DisplaySocketedGemGetsChanceToFleeUniqueOneHandAxe3
 IncreasedLifeUniqueOneHandAxe3
 LifeGainedFromEnemyDeathUniqueOneHandAxe3
 MovementVelocityUniqueBootsDex2
-{variant:1}Adds (8-12) to (18-22) Physical Damage
+{variant:1}LocalAddedPhysicalDamageUniqueOneHandAxe3[8,12][18,22]
 ]],[[
 The Gryphon
 Jade Hatchet
@@ -80,7 +80,7 @@ IncreasedLifeUniqueOneHandAxe3
 LifeGainedFromEnemyDeathUniqueOneHandAxe3
 MovementVelocityUniqueOneHandAxe3
 MovementSpeedIfKilledRecentlyUnique___1
-{variant:1}Adds (8-12) to (18-22) Physical Damage
+{variant:1}LocalAddedPhysicalDamageUniqueOneHandAxe3[8,12][18,22]
 ]],[[
 Jack, the Axe
 Vaal Hatchet
@@ -94,8 +94,8 @@ LocalAddedPhysicalDamageUniqueOneHandAxe5
 {variant:1}LifeLeechPermyriadUniqueOneHandAxe6
 CausesBleedingUnique__2Updated
 {variant:2}LocalBleedDamageOverTimeMultiplierUnique__1
-{variant:1}(90-110)% increased Physical Damage
-{variant:1}50% reduced total Recovery per second from Life Leech
+{variant:1}LocalIncreasedPhysicalDamagePercentUnique__37__[90,110]
+{variant:1}ReducedLifeLeechRateUniqueOneHandAxe5[50,50]
 ]],[[
 Moonbender's Wing
 Tomahawk
@@ -110,7 +110,7 @@ LocalCriticalStrikeChanceImplicitBow1
 {variant:1}ConvertPhysicalToColdUnique__1
 {variant:1}ConvertPhysicalToLightningUniqueOneHandAxe8
 {variant:2}WeaponPhysicalDamageAddedAsColdOrLightningUnique__1
-{variant:1}(70-90)% increased Physical Damage
+{variant:1}LocalIncreasedPhysicalDamagePercentUniqueOneHandAxe8[70,90]
 ]],[[
 Relentless Fury
 Decorative Axe

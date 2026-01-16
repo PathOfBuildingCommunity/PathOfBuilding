@@ -81,16 +81,19 @@ for _, name in ipairs(itemTypes) do
 			local fractured = line:match("({fractured})") or ""
 			local modName, legacy = line:gsub("{.+}", ""):match("^([%a%d_]+)([%[%]-,%d]*)")
 			local mod = uniqueMods[modName]
-			if mod then
+			if mod or (legacy and legacy ~= "") then
 				modLines = modLines + 1
 				if variantString then
 					prefix = prefix ..variantString
 				end
+				
 				local tags = {}
-				if isValueInArray({"amulet", "ring"}, name) then
-					for _, tag in ipairs(mod.modTags) do
-						if catalystTags[tag] then
-							table.insert(tags, tag)
+				if mod then
+					if isValueInArray({"amulet", "ring"}, name) then
+						for _, tag in ipairs(mod.modTags) do
+							if catalystTags[tag] then
+								table.insert(tags, tag)
+							end
 						end
 					end
 				end
@@ -106,17 +109,21 @@ for _, name in ipairs(itemTypes) do
 						table.insert(values, { min = tonumber(min), max = tonumber(max) })
 					end
 					local mod = dat("Mods"):GetRow("Id", modName)
-					local stats = { }
-					for i = 1, 6 do
-						if mod["Stat"..i] then
-							stats[mod["Stat"..i].Id] = values[i]
+					if mod then
+						local stats = { }
+						for i = 1, 6 do
+							if mod["Stat"..i] then
+								stats[mod["Stat"..i].Id] = values[i]
+							end
 						end
+						if mod.Type then
+							stats.Type = mod.Type
+						end
+						legacyMod = describeStats(stats)
+					else
+						ConPrintf("Warning: Could not find mod data for legacy mod '%s' in %s", modName, name)
 					end
-					if mod.Type then
-						stats.Type = mod.Type
-					end
-					legacyMod = describeStats(stats)
-				end 
+				end
 				for i, line in ipairs(legacyMod or mod) do
 					local order = mod.statOrder[i]
 					if statOrder[order] then
