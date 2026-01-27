@@ -215,6 +215,380 @@ local function isSameAsDefaultList(list)
 		and list[2].stat == "TotalEHP" and list[2].weightMult == 0.5
 end
 
+local tradeLineTags = {
+	"(crafted)",
+	"(fractured)",
+	"(implicit)",
+	"(enchant)",
+	"(scourge)",
+	"(crucible)",
+	"(synthesis)",
+	"(eater)",
+	"(exarch)",
+	"(veiled)",
+	"(local)",
+	"(shield)",
+	"(shields)",
+}
+
+local function stripTradeLineTags(line)
+	local stripped = line:lower()
+	for _, tag in ipairs(tradeLineTags) do
+		stripped = stripped:gsub(" " .. tag, "")
+	end
+	return stripped
+end
+
+local function normalizeTradeLine(line)
+	local stripped = stripTradeLineTags(line)
+	stripped = stripped:gsub("([%+%-]?)(%d+%.?%d*)", function(sign)
+		return sign .. "#"
+	end)
+	stripped = stripped:gsub("%s+", " ")
+	return stripped:gsub("^%s+", ""):gsub("%s+$", "")
+end
+
+local function extractNumbersFromLine(line)
+	local values = {}
+	for sign, num in line:gmatch("([%+%-]?)(%d+%.?%d*)") do
+		t_insert(values, tonumber(sign .. num))
+	end
+	return values
+end
+
+local function swapInverseText(line)
+	local swapped = line
+	local function swapPair(a, b)
+		local count
+		swapped, count = swapped:gsub("%f[%a]" .. a .. "%f[%A]", "__INV__")
+		if count > 0 then
+			swapped = swapped:gsub("%f[%a]" .. b .. "%f[%A]", a)
+			swapped = swapped:gsub("__INV__", b)
+			return true
+		end
+		swapped, count = swapped:gsub("%f[%a]" .. b .. "%f[%A]", "__INV__")
+		if count > 0 then
+			swapped = swapped:gsub("%f[%a]" .. a .. "%f[%A]", b)
+			swapped = swapped:gsub("__INV__", a)
+			return true
+		end
+		return false
+	end
+	if swapPair("increased", "reduced") then
+		return swapped
+	end
+	if swapPair("more", "less") then
+		return swapped
+	end
+	if swapPair("faster", "slower") then
+		return swapped
+	end
+	return nil
+end
+
+local function buildTradeModLookup(modData)
+	local lookup = { all = { } }
+	for modType, modTypeTable in pairs(modData or {}) do
+		lookup[modType] = lookup[modType] or {}
+		for _, entry in pairs(modTypeTable) do
+			if entry.tradeMod and entry.tradeMod.text and entry.tradeMod.id then
+				local texts = { entry.tradeMod.text }
+				if entry.specialCaseData then
+					if entry.specialCaseData.overrideModLine then
+						t_insert(texts, entry.specialCaseData.overrideModLine)
+					end
+					if entry.specialCaseData.overrideModLineSingular then
+						t_insert(texts, entry.specialCaseData.overrideModLineSingular)
+					end
+				end
+				for _, text in ipairs(texts) do
+					local key = normalizeTradeLine(text)
+					lookup[modType][key] = lookup[modType][key] or {}
+					t_insert(lookup[modType][key], entry)
+					lookup.all[key] = lookup.all[key] or {}
+					t_insert(lookup.all[key], entry)
+					if text:find("%(Local%)") then
+						local noLocalKey = normalizeTradeLine(text:gsub(" %(Local%)", ""))
+						lookup[modType][noLocalKey] = lookup[modType][noLocalKey] or {}
+						t_insert(lookup[modType][noLocalKey], entry)
+						lookup.all[noLocalKey] = lookup.all[noLocalKey] or {}
+						t_insert(lookup.all[noLocalKey], entry)
+					end
+					if entry.inverseKey then
+						local swapped = swapInverseText(text)
+						if swapped then
+							local swappedKey = normalizeTradeLine(swapped)
+							lookup[modType][swappedKey] = lookup[modType][swappedKey] or {}
+							t_insert(lookup[modType][swappedKey], entry)
+							lookup.all[swappedKey] = lookup.all[swappedKey] or {}
+							t_insert(lookup.all[swappedKey], entry)
+						end
+					end
+				end
+			end
+		end
+	end
+	return lookup
+end
+
+local function preferredModTypes(modLine)
+	local types = { }
+	if modLine.implicit then
+		t_insert(types, "Implicit")
+	end
+	if modLine.scourge then
+		t_insert(types, "Scourge")
+	end
+	if modLine.eater then
+		t_insert(types, "Eater")
+	end
+	if modLine.exarch then
+		t_insert(types, "Exarch")
+	end
+	if modLine.synthesis then
+		t_insert(types, "Synthesis")
+	end
+	if modLine.crafted or modLine.fractured or modLine.crucible or modLine.veiled or modLine.enchant then
+		t_insert(types, "Explicit")
+	end
+	if #types == 0 then
+		t_insert(types, "Explicit")
+	end
+	return types
+end
+
+function TradeQueryClass:GetItemCategoryData(item, slotTbl)
+	local slotName = slotTbl and slotTbl.slotName or ""
+	local itemType = item and item.type or ""
+
+	if slotName:find("^Weapon") then
+		if itemType == "Shield" then
+			return "Shield", "armour.shield"
+		elseif itemType == "Quiver" then
+			return "Quiver", "armour.quiver"
+		elseif itemType == "Bow" then
+			return "Bow", "weapon.bow"
+		elseif itemType == "Staff" or itemType == "Warstaff" then
+			return "Staff", "weapon.staff"
+		elseif itemType == "Two Handed Sword" then
+			return "2HSword", "weapon.twosword"
+		elseif itemType == "Two Handed Axe" then
+			return "2HAxe", "weapon.twoaxe"
+		elseif itemType == "Two Handed Mace" then
+			return "2HMace", "weapon.twomace"
+		elseif itemType == "Fishing Rod" then
+			return "FishingRod", "weapon.rod"
+		elseif itemType == "One Handed Sword" or itemType == "Thrusting One Handed Sword" then
+			return "1HSword", "weapon.onesword"
+		elseif itemType == "One Handed Axe" then
+			return "1HAxe", "weapon.oneaxe"
+		elseif itemType == "One Handed Mace" or itemType == "Sceptre" then
+			return "1HMace", "weapon.onemace"
+		elseif itemType == "Wand" then
+			return "Wand", "weapon.wand"
+		elseif itemType == "Dagger" or itemType == "Rune Dagger" then
+			return "Dagger", "weapon.dagger"
+		elseif itemType == "Claw" then
+			return "Claw", "weapon.claw"
+		elseif itemType:find("Two Handed") then
+			return "2HWeapon", "weapon.twomelee"
+		elseif itemType:find("One Handed") then
+			return "1HWeapon", "weapon.one"
+		end
+	elseif slotName == "Body Armour" or itemType == "Body Armour" then
+		return "Chest", "armour.chest"
+	elseif slotName == "Helmet" or itemType == "Helmet" then
+		return "Helmet", "armour.helmet"
+	elseif slotName == "Gloves" or itemType == "Gloves" then
+		return "Gloves", "armour.gloves"
+	elseif slotName == "Boots" or itemType == "Boots" then
+		return "Boots", "armour.boots"
+	elseif slotName == "Amulet" or itemType == "Amulet" then
+		return "Amulet", "accessory.amulet"
+	elseif slotName:find("Ring") or itemType == "Ring" then
+		return "Ring", "accessory.ring"
+	elseif slotName == "Belt" or itemType == "Belt" then
+		return "Belt", "accessory.belt"
+	elseif itemType == "Jewel" then
+		if item.base and item.base.subType == "Abyss" then
+			return "AbyssJewel", "jewel.abyss"
+		end
+		return "BaseJewel", "jewel.base"
+	elseif slotName:find("Abyssal") then
+		return "AbyssJewel", "jewel.abyss"
+	elseif slotName:find("Jewel") then
+		return "BaseJewel", "jewel.base"
+	elseif slotName:find("Flask") or itemType == "Flask" or itemType == "Tincture" then
+		return "Flask", "flask"
+	end
+
+	return nil, nil
+end
+
+function TradeQueryClass:BuildExactItemQuery(item, slotTbl)
+	if not item then
+		return nil
+	end
+	local modData = self.tradeQueryGenerator and self.tradeQueryGenerator.modData or self.queryModData
+	if not modData then
+		modData = LoadModule("Data/QueryMods")
+		self.queryModData = modData
+	end
+	if not self.tradeModLookup then
+		self.tradeModLookup = buildTradeModLookup(modData)
+	end
+
+	local itemCategory, tradeCategory = self:GetItemCategoryData(item, slotTbl)
+	local filters = {}
+	local usedIds = {}
+	local maxFilters = 45
+
+	local function addLineFilter(modLine)
+		if not modLine or not modLine.line then
+			return
+		end
+		local key = normalizeTradeLine(modLine.line)
+		local matches
+		for _, modType in ipairs(preferredModTypes(modLine)) do
+			matches = self.tradeModLookup[modType] and self.tradeModLookup[modType][key]
+			if not matches then
+				local swapped = swapInverseText(modLine.line)
+				if swapped then
+					matches = self.tradeModLookup[modType] and self.tradeModLookup[modType][normalizeTradeLine(swapped)]
+				end
+			end
+			if matches then
+				break
+			end
+		end
+		if not matches then
+			matches = self.tradeModLookup.all[key]
+			if not matches then
+				local swapped = swapInverseText(modLine.line)
+				if swapped then
+					matches = self.tradeModLookup.all[normalizeTradeLine(swapped)]
+				end
+			end
+		end
+		if not matches then
+			return
+		end
+		local entry = nil
+		for _, candidate in ipairs(matches) do
+			if not itemCategory or candidate[itemCategory] then
+				entry = candidate
+				break
+			end
+		end
+		entry = entry or matches[1]
+		if not entry or not entry.tradeMod or not entry.tradeMod.id then
+			return
+		end
+		if usedIds[entry.tradeMod.id] then
+			return
+		end
+		local values = extractNumbersFromLine(modLine.line)
+		local placeholderCount = select(2, entry.tradeMod.text:gsub("#", ""))
+		local signMultiplier = 1
+		if entry.inverseKey and modLine.line:lower():find(entry.inverseKey) then
+			signMultiplier = -1
+		end
+		if signMultiplier < 0 then
+			for i = 1, #values do
+				values[i] = values[i] * signMultiplier
+			end
+		end
+		local value = nil
+		if placeholderCount <= 0 then
+			value = { min = 1 }
+		elseif #values >= 1 and placeholderCount == 1 then
+			value = { min = values[1], max = values[1] }
+		elseif #values >= 2 then
+			value = { min = values[1], max = values[2] }
+		else
+			value = { min = 1 }
+		end
+		t_insert(filters, { id = entry.tradeMod.id, value = value })
+		usedIds[entry.tradeMod.id] = true
+	end
+
+	for _, modLine in ipairs(item.enchantModLines or {}) do
+		addLineFilter(modLine)
+		if #filters >= maxFilters then break end
+	end
+	for _, modLine in ipairs(item.implicitModLines or {}) do
+		addLineFilter(modLine)
+		if #filters >= maxFilters then break end
+	end
+	if #filters < maxFilters then
+		for _, modLine in ipairs(item.explicitModLines or {}) do
+			addLineFilter(modLine)
+			if #filters >= maxFilters then break end
+		end
+	end
+	if #filters < maxFilters then
+		for _, modLine in ipairs(item.scourgeModLines or {}) do
+			addLineFilter(modLine)
+			if #filters >= maxFilters then break end
+		end
+	end
+	if #filters < maxFilters then
+		for _, modLine in ipairs(item.crucibleModLines or {}) do
+			addLineFilter(modLine)
+			if #filters >= maxFilters then break end
+		end
+	end
+
+	local rarityOptions = {
+		NORMAL = "normal",
+		MAGIC = "magic",
+		RARE = "rare",
+		UNIQUE = "unique",
+		RELIC = "relic",
+	}
+	local rarityOption = rarityOptions[item.rarity]
+
+	local queryTable = {
+		query = {
+			status = { option = "available" },
+			filters = {
+				type_filters = { filters = { } },
+			},
+			stats = {
+				{ type = "and", filters = filters },
+			},
+		},
+		sort = { price = "asc" },
+		engine = "new",
+	}
+
+	if tradeCategory then
+		queryTable.query.filters.type_filters.filters.category = { option = tradeCategory }
+	end
+	if rarityOption then
+		queryTable.query.filters.type_filters.filters.rarity = { option = rarityOption }
+	end
+	if (item.rarity == "UNIQUE" or item.rarity == "RELIC") and item.title and item.title ~= "" then
+		queryTable.query.name = item.title
+	end
+	if item.baseName and item.baseName ~= "" then
+		queryTable.query.type = item.baseName
+	end
+	if item.itemLevel then
+		queryTable.query.filters.misc_filters = {
+			filters = {
+				ilvl = { min = item.itemLevel, max = item.itemLevel },
+			},
+		}
+	end
+	if item.corrupted ~= nil then
+		queryTable.query.filters.misc_filters = queryTable.query.filters.misc_filters or { filters = { } }
+		queryTable.query.filters.misc_filters.filters.corrupted = item.corrupted
+	end
+
+	return dkjson.encode(queryTable)
+end
+
 -- Opens the item pricing popup
 function TradeQueryClass:PriceItem()
 	self.tradeQueryGenerator = new("TradeQueryGenerator", self)
@@ -782,6 +1156,7 @@ function TradeQueryClass:UpdateControlsWithItems(row_idx)
 	end
 	self.controls["resultDropdown".. row_idx].selIndex = 1
 	self.controls["resultDropdown".. row_idx]:SetList(dropdownLabels)
+	self:SetFetchResultReturn(row_idx, self.itemIndexTbl[row_idx])
 end
 
 -- Method to set the current result return in the pane based of an index
@@ -792,6 +1167,16 @@ function TradeQueryClass:SetFetchResultReturn(row_idx, index)
 			amount = self.resultTbl[row_idx][index].amount,
 		}
 		self.controls.fullPrice.label = "Total Price: " .. self:GetTotalPriceString()
+		if self.controls["uri"..row_idx] then
+			local itemString = self.resultTbl[row_idx][index].item_string
+			local item = itemString and new("Item", itemString) or nil
+			local query = item and self:BuildExactItemQuery(item, self.slotTables[row_idx]) or nil
+			if query then
+				local url = self.tradeQueryRequests:buildUrl(self.hostName .. "trade/search", self.pbRealm, self.pbLeague)
+				url = url .. "?q=" .. urlEncode(query)
+				self.controls["uri"..row_idx]:SetText(url, true)
+			end
+		end
 	end
 end
 
@@ -990,7 +1375,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 		local item = new("Item", self.resultTbl[row_idx][sortedResult.index].item_string)
 		table.insert(dropdownLabels, colorCodes[item.rarity]..item.name)
 	end
-	controls["resultDropdown"..row_idx] = new("DropDownControl", { "TOPLEFT", controls["changeButton"..row_idx], "TOPRIGHT"}, {8, 0, 325, row_height}, dropdownLabels, function(index)
+	controls["resultDropdown"..row_idx] = new("DropDownControl", { "TOPLEFT", controls["changeButton"..row_idx], "TOPRIGHT"}, {8, 0, 280, row_height}, dropdownLabels, function(index)
 		self.itemIndexTbl[row_idx] = self.sortedResultTbl[row_idx][index].index
 		self:SetFetchResultReturn(row_idx, self.itemIndexTbl[row_idx])
 	end)
@@ -1049,7 +1434,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 		return self.itemIndexTbl[row_idx] and self.resultTbl[row_idx][self.itemIndexTbl[row_idx]].item_string ~= nil
 	end
 	-- Whisper so we can copy to clipboard
-	controls["whisperButton"..row_idx] = new("ButtonControl", { "TOPLEFT", controls["importButton"..row_idx], "TOPRIGHT"}, {8, 0, 185, row_height}, function()
+	controls["whisperButton"..row_idx] = new("ButtonControl", { "TOPLEFT", controls["importButton"..row_idx], "TOPRIGHT"}, {8, 0, 150, row_height}, function()
 		return self.totalPrice[row_idx] and "Whisper for " .. self.totalPrice[row_idx].amount .. " " .. self.totalPrice[row_idx].currency or "Whisper"
 	end, function()
 		Copy(self.resultTbl[row_idx][self.itemIndexTbl[row_idx]].whisper)
@@ -1062,6 +1447,23 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 		if self.itemIndexTbl[row_idx] and self.resultTbl[row_idx][self.itemIndexTbl[row_idx]].item_string then
 			tooltip.center = true
 			tooltip:AddLine(16, "Copies the item purchase whisper to the clipboard")
+		end
+	end
+	controls["tradeUrlButton"..row_idx] = new("ButtonControl", { "TOPLEFT", controls["whisperButton"..row_idx], "TOPRIGHT"}, {8, 0, 80, row_height}, "Trade", function()
+		local url = controls["uri"..row_idx] and controls["uri"..row_idx].buf
+		if url and url ~= "" then
+			OpenURL(url)
+		end
+	end)
+	controls["tradeUrlButton"..row_idx].enabled = function()
+		local url = controls["uri"..row_idx] and controls["uri"..row_idx].buf
+		return url and url:find('^'..self.hostName..'trade/search/') ~= nil
+	end
+	controls["tradeUrlButton"..row_idx].tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		if controls["tradeUrlButton"..row_idx].enabled() then
+			tooltip.center = true
+			tooltip:AddLine(16, "Opens the official GGG trade site with filters for the selected item")
 		end
 	end
 end
