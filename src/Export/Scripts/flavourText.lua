@@ -153,6 +153,10 @@ local forcedNameList = { -- fated show twice at the moment, but this list is cau
 	{ id = "UniqueBodyStr9", name = "Iron Heart" },
 	{ id = "UniqueOneHandSword10", name = "The Goddess Unleashed" },
 	{ id = "UniqueRapier1", name = "The Goddess Bound" },
+	{ id = "FatedUnique48", name = "Winterweave" }, -- Same as Iron Fortress
+	{ id = "UniqueRing28", name = "Bloodboil" },
+	{ id = "FatedUnique27", name = "Atziri's Reflection" }, -- Same as Iron Fortress
+	{ id = "UniqueShieldDex3", name = "Atziri's Mirror" },
 	-- add more as needed
 }
 
