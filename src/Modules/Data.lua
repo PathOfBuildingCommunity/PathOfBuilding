@@ -1137,10 +1137,10 @@ for _, modId in ipairs(sortedMods) do
 end
 LoadModule("Data/Uniques/Special/Generated")
 LoadModule("Data/Uniques/Special/New")
-data.foulbornuniques = { }
+data.foulbornUniques = { }
 for _, type in pairs(itemTypes) do
-	data.foulbornuniques[type] = LoadModule("Data/Uniques/Foulborn/"..type)
+	data.foulbornUniques[type] = LoadModule("Data/Uniques/Foulborn/"..type)
 end
-data.foulbornuniqueMods = { }
+data.foulbornUniqueMods = { }
 LoadModule("Data/Uniques/Foulborn/Special/Generated")
 data.flavourText = LoadModule("Data/FlavourText")
