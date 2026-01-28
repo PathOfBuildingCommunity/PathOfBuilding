@@ -104,6 +104,11 @@ def fix_ascendancy_positions(path: os.PathLike) -> None:
     """
     with open(path, "rb") as f:
         data = json.load(f)
+    for group in data["groups"]:
+        nodes_str = []
+        for node in data["groups"][group]["nodes"]:
+            nodes_str.append(str(node))
+        data["groups"][group]["nodes"] = nodes_str
     ascendancy_groups = [
         (data["nodes"][group["nodes"][0]]["ascendancyName"], group)
         for group in data["groups"].values()
@@ -122,7 +127,7 @@ def fix_ascendancy_positions(path: os.PathLike) -> None:
     for ascendancy in EXTRA_NODES:
         for node in EXTRA_NODES[ascendancy]:
             if str(EXTRA_NODE_IDS[node["Node"]["name"]]["GroupID"]) in data["groups"]: # using hardcoded value from last time, can use another method instead, like just grabbing the next available value
-                print("GroupID already taken")
+                print(f"GroupID {EXTRA_NODE_IDS[node['Node']['name']]['GroupID']} already taken")
                 return
             node["Node"]["group"] = EXTRA_NODE_IDS[node["Node"]["name"]]["GroupID"]
             data["groups"][node["Node"]["group"]] = {"x": NODE_GROUPS[ascendancy].x + node["offset"].x, "y": NODE_GROUPS[ascendancy].y + node["offset"].y, "orbits": [0], "nodes": [node["Node"]["skill"]]}
