@@ -266,16 +266,15 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	self.controls.foulbornUniquesDB.y = function()
 		return self.controls.selectDBLabel:IsShown() and 118 or 96
 	end
+	self.controls.foulbornUniquesDB.shown = function()
+		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 2
+	end
 
 	-- Rare template database
 	self.controls.rareDB = new("ItemDBControl", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, {0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end}, self, main.rareDB, "RARE")
 	self.controls.rareDB.y = function()
 		return self.controls.selectDBLabel:IsShown() and 78 or 396
 	end
-	self.controls.foulbornUniquesDB.shown = function()
-		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 2
-	end
-	
 	self.controls.rareDB.shown = function()
 		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 3
 	end
