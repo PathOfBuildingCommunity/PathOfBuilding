@@ -2,11 +2,8 @@
 
 return {
 -- Weapon: Dagger
-
-
-
 [[
-The Consuming Dark Foulborn 1
+Foulborn The Consuming Dark 1
 Fiend Dagger
 Upgrade: Removed Mod: Your Chaos Damage has 60% chance to Poison Enemies
 Upgrade: Added Mod: Your Chaos Damage can Ignite
@@ -17,7 +14,7 @@ Implicits: 1
 (40-60)% increased Fire Damage
 +(20-40) to Intelligence
 30% of Fire Damage Converted to Chaos Damage
-Your Chaos Damage can Ignite
+Your Chaos Damage can Ignite (mutated)
 ]],
 
 
