@@ -4,7 +4,7 @@ return {
 -- Weapon: One Handed Mace
 
 [[
-Frostbreath Foulborn 1
+Foulborn Frostbreath 1
 Ornate Mace
 Upgrade: Removed Mod: (8—14)% increased Attack Speed
 Upgrade: Added Mod: (60—100)% increased Critical Strike Chance
@@ -13,13 +13,13 @@ Implicits: 1
 15% reduced Enemy Stun Threshold
 Adds (26-32) to (36-42) Physical Damage
 Adds (26-32) to (36-42) Cold Damage
-(60—100)% increased Critical Strike Chance
+(60—100)% increased Critical Strike Chance (mutated)
 +(40-50)% to Fire Resistance
 (35-50)% increased Chill Duration on Enemies
 Attacks with this Weapon deal double Damage to Chilled Enemies
 ]],
 [[
-Mjölner Foulborn 1
+Foulborn Mjölner 1
 Gavel
 Upgrade: Removed Mod: Skills Chain +1 times
 Upgrade: Added Mod: (20—30)% increased Area of Effect
@@ -27,13 +27,13 @@ Requires Level 60, 412 Str, 300 Int
 Implicits: 1
 15% reduced Enemy Stun Threshold
 (80-120)% increased Physical Damage
-(20—30)% increased Area of Effect
+(20—30)% increased Area of Effect (mutated)
 (80-100)% increased Lightning Damage
 +200 Strength Requirement
 +300 Intelligence Requirement
 Trigger a Socketed Lightning Spell on Hit, with a 0.25 second Cooldown
 ]],[[
-Mjölner Foulborn 2
+Foulborn Mjölner 2
 Gavel
 Upgrade: Removed Mod: Trigger a Socketed Lightning Spell on Hit, with a 0.25 second Cooldown Socketed Lightning
 Upgrade: Added Mod: Trigger Level 20 Lightning Bolt on Melee Hit with this Weapon, with a 0.25 second cooldown
@@ -45,9 +45,9 @@ Skills Chain +1 times
 (80-100)% increased Lightning Damage
 +200 Strength Requirement
 +300 Intelligence Requirement
-Trigger Level 20 Lightning Bolt on Melee Hit with this Weapon, with a 0.25 second cooldown
+Trigger Level 20 Lightning Bolt on Melee Hit with this Weapon, with a 0.25 second cooldown (mutated)
 ]],[[
-Mjölner Foulborn 3
+Foulborn Mjölner 3
 Gavel
 Upgrade: Removed Mod: Skills Chain +1 times
 Upgrade: Removed Mod: Trigger a Socketed Lightning Spell on Hit, with a 0.25 second Cooldown
@@ -57,28 +57,28 @@ Requires Level 60, 412 Str, 300 Int
 Implicits: 1
 15% reduced Enemy Stun Threshold
 (80-120)% increased Physical Damage
-(20—30)% increased Area of Effect
+(20—30)% increased Area of Effect (mutated)
 (80-100)% increased Lightning Damage
 +200 Strength Requirement
 +300 Intelligence Requirement
-Trigger Level 20 Lightning Bolt on Melee Hit with this Weapon, with a 0.25 second cooldown
+Trigger Level 20 Lightning Bolt on Melee Hit with this Weapon, with a 0.25 second cooldown (mutated)
 ]],
 [[
-Singularity Foulborn 1
+Foulborn Singularity 1
 Platinum Sceptre
 Upgrade: Removed Mod: Adds (1—10) to (150—200) Lightning Damage to Spells
 Upgrade: Added Mod: +(30—40)% to Cold Damage over Time Multiplier
 Requires Level 62, 113 Str, 113 Int
 Implicits: 1
 30% increased Elemental Damage
-+(30—40)% to Cold Damage over Time Multiplier
++(30—40)% to Cold Damage over Time Multiplier (mutated)
 (14-18)% increased Cast Speed
 (6-8)% reduced Mana Cost of Skills
 Nearby Enemies are Hindered, with 25% reduced Movement Speed
 100% increased Damage with Hits and Ailments against Hindered Enemies
 ]],
 [[
-Kongor's Undying Rage Foulborn 1
+Foulborn Kongor's Undying Rage 1
 Terror Maul
 Upgrade: Removed Mod: Hits can't be Evaded
 Upgrade: Added Mod: Battlemage
@@ -88,11 +88,11 @@ Implicits: 1
 Adds (27-56) to (270-400) Physical Damage
 (30-40)% increased Critical Strike Chance
 +(15-20)% to all Elemental Resistances
-Battlemage
+Battlemage (mutated)
 Your Critical Strikes do not deal extra Damage
 You gain Onslaught for 4 seconds on Critical Strike
 ]],[[
-Kongor's Undying Rage Foulborn 2
+Foulborn Kongor's Undying Rage 2
 Terror Maul
 Upgrade: Removed Mod: Your Critical Strikes do not deal extra Damage
 Upgrade: Added Mod: Lose 1% of Life when you deal a Critical Strike
@@ -103,10 +103,10 @@ Adds (27-56) to (270-400) Physical Damage
 (30-40)% increased Critical Strike Chance
 +(15-20)% to all Elemental Resistances
 Hits can't be Evaded
-Lose 1% of Life when you deal a Critical Strike
+Lose 1% of Life when you deal a Critical Strike (mutated)
 You gain Onslaught for 4 seconds on Critical Strike
 ]],[[
-Kongor's Undying Rage Foulborn 3
+Foulborn Kongor's Undying Rage 3
 Terror Maul
 Upgrade: Removed Mod: Hits can't be Evaded
 Upgrade: Removed Mod: Your Critical Strikes do not deal extra Damage
@@ -118,12 +118,12 @@ Implicits: 1
 Adds (27-56) to (270-400) Physical Damage
 (30-40)% increased Critical Strike Chance
 +(15-20)% to all Elemental Resistances
-Battlemage
-Lose 1% of Life when you deal a Critical Strike
+Battlemage (mutated)
+Lose 1% of Life when you deal a Critical Strike (mutated)
 You gain Onslaught for 4 seconds on Critical Strike
 ]],
 [[
-Jorrhast's Blacksteel Foulborn 1
+Foulborn Jorrhast's Blacksteel 1
 Steelhead
 Upgrade: Removed Mod: Weapons you Animate create an additional copy
 Upgrade: Added Mod: Maximum number of Animated Weapons is Doubled
@@ -135,9 +135,9 @@ Implicits: 1
 (8-12)% increased Attack Speed
 (8-12)% increased Cast Speed
 30% less Animate Weapon Duration
-Maximum number of Animated Weapons is Doubled
+Maximum number of Animated Weapons is Doubled (mutated)
 ]],[[
-Jorrhast's Blacksteel Foulborn 2
+Foulborn Jorrhast's Blacksteel 2
 Steelhead
 Upgrade: Removed Mod: (8—12)% increased Cast Speed
 Upgrade: Added Mod: Minions deal (50—70)% increased Damage if you've Hit Recently
@@ -146,12 +146,12 @@ Implicits: 1
 45% increased Stun Duration on Enemies
 25% chance to Trigger Level 20 Animate Weapon on Kill
 (150-200)% increased Physical Damage
-Minions deal (50—70)% increased Damage if you've Hit Recently
+Minions deal (50—70)% increased Damage if you've Hit Recently  (mutated)
 (8-12)% increased Cast Speed
 30% less Animate Weapon Duration
 Weapons you Animate create an additional copy
 ]],[[
-Jorrhast's Blacksteel Foulborn 3
+Foulborn Jorrhast's Blacksteel 3
 Steelhead
 Upgrade: Removed Mod: Weapons you Animate create an additional copy
 Upgrade: Removed Mod: (8—12)% increased Cast Speed
@@ -162,13 +162,13 @@ Implicits: 1
 45% increased Stun Duration on Enemies
 25% chance to Trigger Level 20 Animate Weapon on Kill
 (150-200)% increased Physical Damage
-Minions deal (50—70)% increased Damage if you've Hit Recently
+Minions deal (50—70)% increased Damage if you've Hit Recently (mutated)
 (8-12)% increased Cast Speed
 30% less Animate Weapon Duration
-Maximum number of Animated Weapons is Doubled
+Maximum number of Animated Weapons is Doubled (mutated)
 ]],
 [[
-Death's Hand Foulborn 1
+Foulborn Death's Hand 1
 Karui Sceptre
 Upgrade: Removed Mod: 30% chance to gain a Power Charge when you Stun
 Upgrade: Added Mod: Gain Chaotic Might for 4 seconds on Critical Strike
@@ -177,23 +177,23 @@ Implicits: 1
 26% increased Elemental Damage
 Adds (35-46) to (85-128) Physical Damage
 (20-50)% increased Critical Strike Chance
-Gain Chaotic Might for 4 seconds on Critical Strike
+Gain Chaotic Might for 4 seconds on Critical Strike (mutated)
 Gain Unholy Might for 4 seconds on Critical Strike
 ]],
 [[
-Maata's Teaching Foulborn 1
+Foulborn Maata's Teaching 1
 Karui Sceptre
 Upgrade: Removed Mod: (15—30)% increased Critical Strike Chance
 Upgrade: Added Mod: Minions have +(20—40)% to Critical Strike Multiplier
 Requires Level 56, 96 Str, 96 Int
 Implicits: 1
 +(30-40) to Intelligence
-Minions have +(20—40)% to Critical Strike Multiplier
+Minions have +(20—40)% to Critical Strike Multiplier (mutated)
 +(1-2) to Level of all Minion Skill Gems
 Minions' Base Attack Critical Strike Chance is equal to the Critical Strike Chance of your Main Hand Weapon
 ]],
 [[
-Doon Cuebiyari Foulborn 1
+Foulborn Doon Cuebiyari 1
 Vaal Sceptre
 Upgrade: Removed Mod: 1% increased Armour per 16 Strength when in Off Hand
 Upgrade: Added Mod: 1% increased maximum Energy Shield per 16 Strength when in Off Hand
@@ -205,9 +205,9 @@ Implicits: 1
 +(20-30) to maximum Mana
 Socketed Gems are Supported by Level 30 Iron Will
 1% increased Damage per 8 Strength when in Main Hand
-1% increased maximum Energy Shield per 16 Strength when in Off Hand
+1% increased maximum Energy Shield per 16 Strength when in Off Hand (mutated)
 ]],[[
-Doon Cuebiyari Foulborn 2
+Foulborn Doon Cuebiyari 2
 Vaal Sceptre
 Upgrade: Removed Mod: 1% increased Damage per 8 Strength when in Main Hand
 Upgrade: Added Mod: 1% increased maximum Mana per 12 Strength when in Main Hand
@@ -218,10 +218,10 @@ Implicits: 1
 (15-18)% increased Cast Speed
 +(20-30) to maximum Mana
 Socketed Gems are Supported by Level 30 Iron Will
-1% increased maximum Mana per 12 Strength when in Main Hand
+1% increased maximum Mana per 12 Strength when in Main Hand (mutated)
 1% increased Armour per 16 Strength when in Off Hand
 ]],[[
-Doon Cuebiyari Foulborn 3
+Foulborn Doon Cuebiyari 3
 Vaal Sceptre
 Upgrade: Removed Mod: 1% increased Armour per 16 Strength when in Off Hand
 Upgrade: Removed Mod: 1% increased Damage per 8 Strength when in Main Hand
@@ -234,14 +234,8 @@ Implicits: 1
 (15-18)% increased Cast Speed
 +(20-30) to maximum Mana
 Socketed Gems are Supported by Level 30 Iron Will
-1% increased maximum Mana per 12 Strength when in Main Hand
-1% increased maximum Energy Shield per 16 Strength when in Off Hand
+1% increased maximum Mana per 12 Strength when in Main Hand (mutated)
+1% increased maximum Energy Shield per 16 Strength when in Off Hand (mutated)
 ]],
-
-
-
-
-
-
 
 }
