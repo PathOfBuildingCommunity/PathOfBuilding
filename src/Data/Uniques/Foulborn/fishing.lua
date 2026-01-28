@@ -3,71 +3,71 @@
 return {
 -- Weapon: Fishing Rod
 [[
-Reefbane Foulborn 1
+Foulborn Reefbane 1
 Fishing Rod
 Upgrade: Removed Mod: (30—40)% increased Cast Speed
 Upgrade: Added Mod: (30—40)% chance to Ignore Stuns while Casting
 Requires 8 Str, 8 Dex
-(30—40)% chance to Ignore Stuns while Casting
+(30—40)% chance to Ignore Stuns while Casting (mutated)
 Thaumaturgical Lure
 (10-20)% increased Quantity of Fish Caught
 Glows while in an Area containing a Unique Fish
 ]],[[
-Reefbane Foulborn 2
+Foulborn Reefbane 2
 Fishing Rod
 Upgrade: Removed Mod: Thaumaturgical Lure
 Upgrade: Added Mod: Otherworldly Lure
 Requires 8 Str, 8 Dex
 (30-40)% increased Cast Speed
-Otherworldly Lure
+Otherworldly Lure (mutated)
 (10-20)% increased Quantity of Fish Caught
 Glows while in an Area containing a Unique Fish
 ]],[[
-Reefbane Foulborn 3
+Foulborn Reefbane 3
 Fishing Rod
 Upgrade: Removed Mod: (30—40)% increased Cast Speed
 Upgrade: Removed Mod: Thaumaturgical Lure
 Upgrade: Added Mod: (30—40)% chance to Ignore Stuns while Casting
 Upgrade: Added Mod: Otherworldly Lure
 Requires 8 Str, 8 Dex
-(30—40)% chance to Ignore Stuns while Casting
-Otherworldly Lure
+(30—40)% chance to Ignore Stuns while Casting (mutated)
+Otherworldly Lure (mutated)
 (10-20)% increased Quantity of Fish Caught
 Glows while in an Area containing a Unique Fish
 ]],[[
-Song of the Sirens Foulborn 1
+Foulborn Song of the Sirens 1
 Fishing Rod
 Upgrade: Removed Mod: Siren Worm Bait
 Upgrade: Added Mod: Wombgift Bait
 Requires 8 Str, 8 Dex
 Implicits: 0
-Wombgift Bait
+Wombgift Bait (mutated)
 (50-40)% reduced Quantity of Fish Caught
 (50-60)% increased Rarity of Fish Caught
 You can catch Exotic Fish
 ]],[[
-Song of the Sirens Foulborn 2
+Foulborn Song of the Sirens 2
 Fishing Rod
 Upgrade: Removed Mod: You can catch Exotic Fish
-Upgrade: Added Mod: You can catch Foulborn Fish
+Upgrade: Added Mod: You can catch Exotic Fish
 Requires 8 Str, 8 Dex
 Implicits: 0
 Siren Worm Bait
 (50-40)% reduced Quantity of Fish Caught
 (50-60)% increased Rarity of Fish Caught
-You can catch Foulborn Fish
+You can catch Exotic Fish (mutated)
 ]],[[
-Song of the Sirens Foulborn 3
+Foulborn Song of the Sirens 3
 Fishing Rod
 Upgrade: Removed Mod: Siren Worm Bait
 Upgrade: Removed Mod: You can catch Exotic Fish
 Upgrade: Added Mod: Wombgift Bait
-Upgrade: Added Mod: You can catch Foulborn Fish
+Upgrade: Added Mod: You can catch Exotic Fish
 Requires 8 Str, 8 Dex
 Implicits: 0
-Wombgift Bait
+Wombgift Bait (mutated)
 (50-40)% reduced Quantity of Fish Caught
 (50-60)% increased Rarity of Fish Caught
-You can catch Foulborn Fish
+You can catch Exotic Fish (mutated)
 ]]
 }
