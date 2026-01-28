@@ -2,11 +2,8 @@
 
 return {
 -- Weapon: Staff
-
-
-
 [[
-Sire of Shards Foulborn 
+Foulborn Sire of Shards 1
 Serpentine Staff
 Upgrade: Removed Mod: (60—100)% increased Projectile Damage
 Upgrade: Added Mod: Socketed Gems Chain 2 additional times
@@ -17,11 +14,11 @@ Socketed Gems fire 4 additional Projectiles
 Socketed Gems fire Projectiles in a Nova
 +(15-20) to All Attributes
 +(5-7)% to All Elemental Resistances
-Socketed Gems Chain 2 additional times
+Socketed Gems Chain 2 additional times (mutated)
 20% increased Light Radius
 ]],
 [[
-Tremor Rod Foulborn 
+Foulborn Tremor Rod 1
 Military Staff
 Upgrade: Removed Mod: Socketed Gems are Supported by Level 10 Blastchain Mine
 Upgrade: Added Mod: (60—100)% increased Effect of Auras from Mines
@@ -29,13 +26,13 @@ Requires Level 45, 78 Str, 78 Int
 Implicits: 1
 +22% Chance to Block Attack Damage while wielding a Staff
 +2 to Level of Socketed Spell Gems
-(60—100)% increased Effect of Auras from Mines
+(60—100)% increased Effect of Auras from Mines (mutated)
 (40-60)% increased Spell Damage
 (15-20)% reduced Enemy Stun Threshold
 Mines can be Detonated an additional time
 ]],
 [[
-The Whispering Ice Foulborn 
+Foulborn The Whispering Ice 1
 Vile Staff
 Upgrade: Removed Mod: 1% increased Spell Damage per 10 Intelligence
 Upgrade: Added Mod: 1% increased Area of Effect per 20 Intelligence
@@ -45,11 +42,11 @@ Implicits: 1
 +1 to Level of Socketed Support Gems
 Grants Level 1 Icestorm Skill
 (8-12)% increased Cast Speed
-1% increased Area of Effect per 20 Intelligence
+1% increased Area of Effect per 20 Intelligence (mutated)
 (14-18)% increased Intelligence
 ]],
 [[
-The Searing Touch Foulborn 
+Foulborn The Searing Touch 1
 Lathi
 Upgrade: Removed Mod: 10% increased Cast Speed
 Upgrade: Added Mod: +(3—5) to maximum number of Summoned Searing Bond Totems
@@ -58,7 +55,7 @@ Implicits: 1
 +25% Chance to Block Spell Damage while wielding a Staff
 +(40-60)% to Fire Damage over Time Multiplier
 (70-90)% increased Fire Damage
-+(3—5) to maximum number of Summoned Searing Bond Totems
++(3—5) to maximum number of Summoned Searing Bond Totems (mutated)
 +2 to Level of all Fire Spell Skill Gems
 ]],
 
