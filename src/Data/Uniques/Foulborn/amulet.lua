@@ -3,14 +3,14 @@
 return {
 -- Amulet
 [[
-The Aylardex Foulborn 1
+Foulborn The Aylardex 1
 Agate Amulet
 Upgrade: Removed Mod: +(30—50) to maximum Life 
 Upgrade: Added Mod: Eldritch Battery
 Requires Level 32
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Intelligence
-Eldritch Battery
+Eldritch Battery (mutated)
 {tags:mana}+(50-70) to maximum Mana
 +1 to Maximum Power Charges
 {tags:mana}10% increased Mana Regeneration Rate Per Power Charge
@@ -18,7 +18,7 @@ Eldritch Battery
 {tags:mana,life}1% of Damage is taken from Mana before Life per Power Charge
 {tags:critical}40% reduced Critical Strike Chance per Power Charge
 ]],[[
-Voll's Devotion Foulborn 1
+Foulborn Voll's Devotion 1
 Agate Amulet
 Upgrade: Removed Mod: 30% reduced Power Charge Duration
 Upgrade: Added Mod: Gain a Power Charge every Second if you haven't lost Power Charges Recently
@@ -29,10 +29,10 @@ Implicits: 1
 {tags:jewellery_defense}+(20-30) to maximum Energy Shield
 {tags:jewellery_resistance}+(15-20)% to all Elemental Resistances
 30% reduced Endurance Charge Duration
-Gain a Power Charge every Second if you haven't lost Power Charges Recently
+Gain a Power Charge every Second if you haven't lost Power Charges Recently (mutated)
 Gain an Endurance Charge when a Power Charge expires or is consumed
 ]],[[
-Voll's Devotion Foulborn 2
+Foulborn Voll's Devotion 2
 Agate Amulet
 Upgrade: Removed Mod: 30% reduced Endurance Charge Duration
 Upgrade: Added Mod: Lose all Power Charges on reaching Maximum Power Charges
@@ -43,10 +43,10 @@ Implicits: 1
 {tags:jewellery_defense}+(20-30) to maximum Energy Shield
 {tags:jewellery_resistance}+(15-20)% to all Elemental Resistances
 30% reduced Power Charge Duration
-Lose all Power Charges on reaching Maximum Power Charges
+Lose all Power Charges on reaching Maximum Power Charges (mutated)
 Gain an Endurance Charge when a Power Charge expires or is consumed
 ]],[[
-Voll's Devotion Foulborn 3
+Foulborn Voll's Devotion 3
 Agate Amulet
 Upgrade: Removed Mod: 30% reduced Power Charge Duration
 Upgrade: Removed Mod: 30% reduced Endurance Charge Duration
@@ -58,11 +58,11 @@ Implicits: 1
 {tags:life}+(30-40) to maximum Life
 {tags:jewellery_defense}+(20-30) to maximum Energy Shield
 {tags:jewellery_resistance}+(15-20)% to all Elemental Resistances
-Gain a Power Charge every Second if you haven't lost Power Charges Recently
-Lose all Power Charges on reaching Maximum Power Charges
+Gain a Power Charge every Second if you haven't lost Power Charges Recently (mutated)
+Lose all Power Charges on reaching Maximum Power Charges (mutated)
 Gain an Endurance Charge when a Power Charge expires or is consumed
 ]],[[
-Warped Timepiece Foulborn 1
+Foulborn Warped Timepiece 1
 Turquoise Amulet
 Upgrade: Removed Mod: (10—15)% increased Movement Speed
 Upgrade: Added Mod: (20—30)% increased Temporal Chains Curse Effect
@@ -71,11 +71,11 @@ Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
 {tags:attack,speed}(10-25)% increased Attack Speed
 {tags:caster,speed}(10-25)% increased Cast Speed
-(20—30)% increased Temporal Chains Curse Effect
+(20—30)% increased Temporal Chains Curse Effect (mutated)
 (10-20)% reduced Skill Effect Duration
 Debuffs on you Expire 100% Faster
 ]],[[
-Xoph's Heart Foulborn 1
+Foulborn Xoph's Heart 1
 Amber Amulet
 Upgrade: Removed Mod: Nearby Enemies are Covered in Ash
 Upgrade: Added Mod: Nearby Enemies are Debilitated
@@ -86,9 +86,9 @@ Implicits: 1
 {tags:jewellery_elemental}25% increased Fire Damage
 {tags:life}+(25-35) to maximum Life
 {tags:jewellery_resistance}+(20-40)% to Fire Resistance
-Nearby Enemies are Debilitated
+Nearby Enemies are Debilitated (mutated)
 ]],[[
-Xoph's Heart Foulborn 2
+Foulborn Xoph's Heart 2
 Amber Amulet
 Upgrade: Removed Mod: +(20—40)% to Fire Resistance
 Upgrade: Added Mod: (5—15)% of Physical Damage from Hits taken as Fire Damage
@@ -99,9 +99,9 @@ Implicits: 1
 {tags:jewellery_elemental}25% increased Fire Damage
 {tags:life}+(25-35) to maximum Life
 Nearby Enemies are Covered in Ash
-(5—15)% of Physical Damage from Hits taken as Fire Damage
+(5—15)% of Physical Damage from Hits taken as Fire Damage (mutated)
 ]],[[
-Xoph's Heart Foulborn 3
+Foulborn Xoph's Heart 3
 Amber Amulet
 Upgrade: Removed Mod: Nearby Enemies are Covered in Ash
 Upgrade: Removed Mod: +(20—40)% to Fire Resistance
@@ -113,10 +113,10 @@ Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Strength
 {tags:jewellery_elemental}25% increased Fire Damage
 {tags:life}+(25-35) to maximum Life
-Nearby Enemies are Debilitated
-(5—15)% of Physical Damage from Hits taken as Fire Damage
+Nearby Enemies are Debilitated (mutated)
+(5—15)% of Physical Damage from Hits taken as Fire Damage (mutated)
 ]],[[
-Xoph's Blood Foulborn 1
+Foulborn Xoph's Blood 1
 Amber Amulet
 Upgrade: Removed Mod: +(20—40)% to Fire Resistance
 Upgrade: Added Mod: (5—15)% of Physical Damage from Hits taken as Fire Damage
@@ -124,14 +124,13 @@ Requires Level 64
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Strength
 {tags:life}10% increased maximum Life
-{tags:jewellery_resistance}+(20-40)% to Fire Resistance
+(5—15)% of Physical Damage from Hits taken as Fire Damage (mutated)
 {tags:jewellery_attribute}10% increased Strength
 {tags:jewellery_elemental}Damage Penetrates 10% Fire Resistance
 Cover Enemies in Ash when they Hit you
 Avatar of Fire
-(5—15)% of Physical Damage from Hits taken as Fire Damage
 ]],[[
-Xoph's Blood Foulborn 2
+Foulborn Xoph's Blood 2
 Amber Amulet
 Upgrade: Removed Mod: Avatar of Fire
 Upgrade: Added Mod: Elemental Overload
@@ -143,10 +142,10 @@ Implicits: 1
 {tags:jewellery_attribute}10% increased Strength
 {tags:jewellery_elemental}Damage Penetrates 10% Fire Resistance
 Cover Enemies in Ash when they Hit you
-Elemental Overload
+Elemental Overload (mutated)
 {tags:jewellery_resistance}+(20—40)% to Fire Resistance
 ]],[[
-Xoph's Blood Foulborn 3
+Foulborn Xoph's Blood 3
 Amber Amulet
 Upgrade: Removed Mod: +(20—40)% to Fire Resistance
 Upgrade: Removed Mod: Avatar of Fire
@@ -156,14 +155,13 @@ Requires Level 64
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Strength
 {tags:life}10% increased maximum Life
-{tags:jewellery_resistance}+(20-40)% to Fire Resistance
 {tags:jewellery_attribute}10% increased Strength
 {tags:jewellery_elemental}Damage Penetrates 10% Fire Resistance
 Cover Enemies in Ash when they Hit you
-Elemental Overload
-(5—15)% of Physical Damage from Hits taken as Fire Damage
+Elemental Overload (mutated)
+(5—15)% of Physical Damage from Hits taken as Fire Damage (mutated)
 ]],[[
-The Halcyon Foulborn 1
+Foulborn The Halcyon 1
 Jade Amulet
 Upgrade: Removed Mod: 60% increased Damage if you've Frozen an Enemy Recently
 Upgrade: Added Mod: Cannot be Frozen
@@ -173,10 +171,10 @@ Implicits: 1
 30% increased Freeze Duration on Enemies
 10% chance to Freeze
 Freezes you inflict spread to other Enemies within 1.5 metres
-Cannot be Frozen
+Cannot be Frozen (mutated)
 {tags:jewellery_resistance}+(35-40)% to Cold Resistance
 ]],[[
-The Halcyon Foulborn 2
+Foulborn The Halcyon 2
 Jade Amulet
 Upgrade: Removed Mod: +(35—40)% to Cold Resistance
 Upgrade: Added Mod: (5—15)% of Physical Damage from Hits taken as Cold Damage
@@ -187,9 +185,9 @@ Implicits: 1
 10% chance to Freeze
 Freezes you inflict spread to other Enemies within 1.5 metres
 60% increased Damage if you've Frozen an Enemy Recently
-(5—15)% of Physical Damage from Hits taken as Cold Damage
+(5—15)% of Physical Damage from Hits taken as Cold Damage (mutated)
 ]],[[
-The Halcyon Foulborn 3
+Foulborn The Halcyon 3
 Jade Amulet
 Upgrade: Removed Mod: 60% increased Damage if you've Frozen an Enemy Recently
 Upgrade: Removed Mod: +(35—40)% to Cold Resistance
@@ -201,10 +199,10 @@ Implicits: 1
 30% increased Freeze Duration on Enemies
 10% chance to Freeze
 Freezes you inflict spread to other Enemies within 1.5 metres
-Cannot be Frozen
-(5—15)% of Physical Damage from Hits taken as Cold Damage
+Cannot be Frozen (mutated)
+(5—15)% of Physical Damage from Hits taken as Cold Damage (mutated)
 ]],[[
-The Pandemonius Foulborn 1
+Foulborn The Pandemonius 1
 Jade Amulet
 Upgrade: Removed Mod: +(35—40)% to Cold Resistance
 Upgrade: Added Mod: (5—15)% of Physical Damage from Hits taken as Cold Damage
@@ -215,9 +213,9 @@ Chill Enemy for 1 second when Hit
 Blind Chilled Enemies on Hit
 {tags:jewellery_elemental}Damage Penetrates 20% Cold Resistance against Chilled Enemies
 {tags:jewellery_elemental}(20-30)% increased Cold Damage
-(5—15)% of Physical Damage from Hits taken as Cold Damage
+(5—15)% of Physical Damage from Hits taken as Cold Damage (mutated)
 ]],[[
-The Pandemonius Foulborn 2
+Foulborn The Pandemonius 2
 Jade Amulet
 Upgrade: Removed Mod: (20—30)% increased Cold Damage
 Upgrade: Added Mod: Cannot be Chilled
@@ -227,12 +225,10 @@ Implicits: 1
 Chill Enemy for 1 second when Hit
 Blind Chilled Enemies on Hit
 {tags:jewellery_elemental}Damage Penetrates 20% Cold Resistance against Chilled Enemies
-{tags:jewellery_elemental}(20-30)% increased Cold Damage
-(5—15)% of Physical Damage from Hits taken as Cold Damage
 {tags:jewellery_resistance}+(35-40)% to Cold Resistance
-Cannot be Chilled
+Cannot be Chilled (mutated)
 ]],[[
-The Pandemonius Foulborn 3
+Foulborn The Pandemonius 3
 Jade Amulet
 Upgrade: Removed Mod: +(35—40)% to Cold Resistance
 Upgrade: Removed Mod: (20—30)% increased Cold Damage
@@ -244,10 +240,10 @@ Implicits: 1
 Chill Enemy for 1 second when Hit
 Blind Chilled Enemies on Hit
 {tags:jewellery_elemental}Damage Penetrates 20% Cold Resistance against Chilled Enemies
-(5—15)% of Physical Damage from Hits taken as Cold Damage
-Cannot be Chilled
+(5—15)% of Physical Damage from Hits taken as Cold Damage (mutated)
+Cannot be Chilled (mutated)
 ]],[[
-Voice of the Storm Foulborn 1
+Foulborn Voice of the Storm 1
 Lapis Amulet
 Upgrade: Removed Mod: Lightning Damage with Non-Critical Strikes is Lucky
 Upgrade: Added Mod: Damage of Enemies Hitting you is Unlucky
@@ -256,10 +252,10 @@ Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 {tags:jewellery_attribute}+(10-15) to all Attributes
 {tags:jewellery_elemental}50% increased Lightning Damage
-Damage of Enemies Hitting you is Unlucky
+Damage of Enemies Hitting you is Unlucky (mutated)
 {tags:mana}(10-20)% increased maximum Mana
 ]],[[
-Voice of the Storm Foulborn 2
+Foulborn Voice of the Storm 2
 Lapis Amulet
 Upgrade: Removed Mod: (10—20)% increased maximum Mana
 Upgrade: Added Mod: +3% to maximum Lightning Resistance
@@ -269,9 +265,9 @@ Implicits: 1
 {tags:jewellery_attribute}+(10-15) to all Attributes
 {tags:jewellery_elemental}50% increased Lightning Damage
 Lightning Damage with Non-Critical Strikes is Lucky
-+3% to maximum Lightning Resistance
++3% to maximum Lightning Resistance (mutated)
 ]],[[
-Voice of the Storm Foulborn 3
+Foulborn Voice of the Storm 3
 Lapis Amulet
 Upgrade: Removed Mod: Lightning Damage with Non-Critical Strikes is Lucky
 Upgrade: Removed Mod: (10—20)% increased maximum Mana
@@ -282,10 +278,10 @@ Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 {tags:jewellery_attribute}+(10-15) to all Attributes
 {tags:jewellery_elemental}50% increased Lightning Damage
-Damage of Enemies Hitting you is Unlucky
-+3% to maximum Lightning Resistance
+Damage of Enemies Hitting you is Unlucky (mutated)
++3% to maximum Lightning Resistance (mutated)
 ]],[[
-Choir of the Storm Foulborn 1
+Foulborn Choir of the Storm 1
 Lapis Amulet
 Upgrade: Removed Mod: (10—20)% increased maximum Mana
 Upgrade: Added Mod: +3% to maximum Lightning Resistance
@@ -294,10 +290,10 @@ Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 Trigger Level 30 Lightning Bolt when you deal a Critical Strike
 {tags:jewellery_resistance}-30% to Lightning Resistance
-+3% to maximum Lightning Resistance
++3% to maximum Lightning Resistance (mutated)
 Critical Strike Chance is increased by Overcapped Lightning Resistance
 ]],[[
-Choir of the Storm Foulborn 2
+Foulborn Choir of the Storm 2
 Lapis Amulet
 Upgrade: Removed Mod: Critical Strike Chance is increased by Overcapped Lightning Resistance
 Upgrade: Added Mod: Mana is increased by 50% of Overcapped Lightning Resistance
@@ -307,9 +303,9 @@ Implicits: 1
 Trigger Level 30 Lightning Bolt when you deal a Critical Strike
 {tags:jewellery_resistance}-30% to Lightning Resistance
 {tags:mana}(10-20)% increased maximum Mana
-Mana is increased by 50% of Overcapped Lightning Resistance
+Mana is increased by 50% of Overcapped Lightning Resistance (mutated)
 ]],[[
-Choir of the Storm Foulborn 3
+Foulborn Choir of the Storm 3
 Lapis Amulet
 Upgrade: Removed Mod: (10—20)% increased maximum Mana
 Upgrade: Removed Mod: Critical Strike Chance is increased by Overcapped Lightning Resistance
@@ -320,10 +316,10 @@ Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 Trigger Level 30 Lightning Bolt when you deal a Critical Strike
 {tags:jewellery_resistance}-30% to Lightning Resistance
-+3% to maximum Lightning Resistance
-Mana is increased by 50% of Overcapped Lightning Resistance
++3% to maximum Lightning Resistance (mutated)
+Mana is increased by 50% of Overcapped Lightning Resistance (mutated)
 ]],[[
-Presence of Chayula Foulborn 1
+Foulborn Presence of Chayula 1
 Onyx Amulet
 Upgrade: Removed Mod: 20% of Maximum Life Converted to Energy Shield
 Upgrade: Added Mod: 50% of Chaos Damage taken Recouped as Life
@@ -332,10 +328,10 @@ Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 30% increased Rarity of Items found
 Cannot be Stunned
-50% of Chaos Damage taken Recouped as Life
+50% of Chaos Damage taken Recouped as Life (mutated) 
 {tags:jewellery_resistance}+60% to Chaos Resistance
 ]],[[
-Presence of Chayula Foulborn 2
+Foulborn Presence of Chayula 2
 Onyx Amulet
 Upgrade: Removed Mod: +60% to Chaos Resistance
 Upgrade: Added Mod: Recoup Energy Shield instead of Life
@@ -345,9 +341,9 @@ Implicits: 1
 30% increased Rarity of Items found
 Cannot be Stunned
 {tags:jewellery_defense,life}20% of Maximum Life Converted to Energy Shield
-Recoup Energy Shield instead of Life
+Recoup Energy Shield instead of Life (mutated)
 ]],[[
-Presence of Chayula Foulborn 3
+Foulborn Presence of Chayula 3
 Onyx Amulet
 Upgrade: Removed Mod: 20% of Maximum Life Converted to Energy Shield
 Upgrade: Removed Mod: +60% to Chaos Resistance
@@ -358,10 +354,10 @@ Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 30% increased Rarity of Items found
 Cannot be Stunned
-50% of Chaos Damage taken Recouped as Life
-Recoup Energy Shield instead of Life
+50% of Chaos Damage taken Recouped as Life (mutated)
+Recoup Energy Shield instead of Life (mutated)
 ]],[[
-Hinekora's Sight Foulborn 1
+Foulborn Hinekora's Sight 1
 Onyx Amulet
 Upgrade: Removed Mod: +(600—1000) to Evasion Rating
 Upgrade: Added Mod: (30—50)% increased Light Radius
@@ -370,24 +366,23 @@ Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 Prevent +(4-6)% of Suppressed Spell Damage
 {tags:attack}+(600-1000) to Accuracy Rating
-(30—50)% increased Light Radius
+(30—50)% increased Light Radius (mutated)
 Cannot be Blinded
 ]],[[
-Badge of the Brotherhood Foulborn 1
+Foulborn Badge of the Brotherhood 1
 Turquoise Amulet
 Upgrade: Removed Mod: (7—10)% increased Cooldown Recovery Rate of Travel Skills per Frenzy Charge
 Upgrade: Added Mod: 2% increased Movement Speed per Frenzy Charge
 Requires Level: 20
 Implicits: 1
-League: Blight
 {tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
-2% increased Movement Speed per Frenzy Charge
+2% increased Movement Speed per Frenzy Charge (mutated)
 (7-10)% increased Effect of Elusive on you per Power Charge
 (20-25)% chance to lose a Frenzy Charge when you use a Travel Skill
 (20-25)% chance to lose a Power Charge when you gain Elusive
 Your Maximum Frenzy Charges is equal to your Maximum Power Charges
 ]],[[
-Defiance of Destiny Foulborn 1
+Foulborn Defiance of Destiny 1
 Paua Amulet
 Upgrade: Removed Mod: Gain (10—20)% of Missing Unreserved Life before being Hit by an Enemy
 Upgrade: Added Mod: Gain (15—30)% of Missing Unreserved Mana before being Hit by an Enemy
@@ -398,9 +393,9 @@ Implicits: 1
 {tags:jewellery_resistance}+(10-40)% to Fire Resistance
 {tags:jewellery_resistance}+(10-40)% to Cold Resistance
 {tags:jewellery_resistance}+(10-40)% to Lightning Resistance
-{tags:mana}Gain (15—30)% of Missing Unreserved Mana before being Hit by an Enemy
+{tags:mana}Gain (15—30)% of Missing Unreserved Mana before being Hit by an Enemy (mutated)
 ]],[[
-Astramentis Foulborn 1
+Foulborn Astramentis 1
 Onyx Amulet
 Upgrade: Removed Mod: -4 Physical Damage taken from Attack Hits
 Upgrade: Added Mod: (-13—13)% to Chaos Resistance
@@ -408,7 +403,7 @@ Requires Level 20
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 {tags:jewellery_attribute}+(80-100) to all Attributes
-(-13—13)% to Chaos Resistance
+(-13—13)% to Chaos Resistance (mutated)
 ]]
 
 
