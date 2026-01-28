@@ -149,6 +149,8 @@ local forcedNameList = { -- fated show twice at the moment, but this list is cau
 	{ id = "UniqueDescentShield1", name = "Remnant of Empires" },
 	{ id = "UniqueDescentBelt1", name = "Chains of Time" },
 	{ id = "UniqueDescentQuiver1", name = "Slivers of Providence" },
+	{ id = "FatedUnique57", name = "The Iron Fortress" }, --This is different from the others, they changed the name of the item so it still uses the Fated text. Prints twice currently but the proper text is higher in the list.
+	{ id = "UniqueBodyStr9", name = "Iron Heart" },
 	-- add more as needed
 }
 
