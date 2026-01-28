@@ -4,7 +4,7 @@ return {
 -- Weapon: Claw
 
 [[
-Al Dhih Foulborn 
+Al Dhih Foulborn 1
 Timeworn Claw
 Upgrade: Removed Mod: (100—120)% increased Physical Damage
 Upgrade: Added Mod: (100—120)% increased Chaos Damage
@@ -18,7 +18,7 @@ Enemies Taunted by your Warcries Explode on death, dealing 8% of their maximum L
 Warcry Skills' Cooldown Time is 4 seconds
 ]],
 [[
-Rive Foulborn 
+Rive Foulborn 1
 Terror Claw
 Upgrade: Removed Mod: 25% chance to cause Bleeding on Hit
 Upgrade: Added Mod: 25% chance to Crush on Hit
@@ -32,7 +32,7 @@ Adds (25-35) to (50-65) Physical Damage
 1% increased Bleed Duration per 12 Intelligence
 30% Chance to cause Bleeding Enemies to Flee on hit
 ]],[[
-Rive Foulborn 
+Rive Foulborn 2
 Terror Claw
 Upgrade: Removed Mod: 1% increased Bleeding Duration per 12 Intelligence
 Upgrade: Added Mod: Physical Skills have 1% increased Duration per 12 Intelligence
@@ -46,7 +46,7 @@ Adds (25-35) to (50-65) Physical Damage
 Physical Skills have 1% increased Duration per 12 Intelligence
 30% Chance to cause Bleeding Enemies to Flee on hit
 ]],[[
-Rive Foulborn 
+Rive Foulborn 3
 Terror Claw
 Upgrade: Removed Mod:25% chance to cause Bleeding on Hit
 Upgrade: Removed Mod: 1% increased Bleeding Duration per 12 Intelligence
@@ -143,7 +143,7 @@ Grants 46 Life per Enemy Hit
 +3% to Critical Strike Multiplier per 25 Dexterity
 ]],
 [[
-Cybil's Paw Foulborn 
+Cybil's Paw Foulborn 1
 Thresher Claw
 Upgrade: Removed Mod: Gain (15—20) Life per Enemy Hit with Spells
 Upgrade: Added Mod: Recover Energy Shield equal to 1% of Evasion Rating when you Block
@@ -155,6 +155,7 @@ Grants 25 Life per Enemy Hit
 Recover Energy Shield equal to 1% of Evasion Rating when you Block
 8% increased Spell Damage per 5% Chance to Block Attack Damage
 ]],
+
 
 
 
