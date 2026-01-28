@@ -136,6 +136,19 @@ local forcedNameList = { -- fated show twice at the moment, but this list is cau
 	{ id = "UniqueOneHandAxe7", name = "Dreadarc" },
 	{ id = "FatedUnique50", name = "Dreadsurge" },
 	{ id = "UniqueJewel16", name = "Apparitions" },
+	{ id = "UniqueDescentOneHandSword1", name = "Blood of Summer" },
+	{ id = "UniqueDescentOneHandAxe1", name = "Rust of Winter" },
+	{ id = "UniqueDescentOneHandMace1", name = "Ashes of the Sun" },
+	{ id = "UniqueDescentWand1", name = "Splinter of the Moon" },
+	{ id = "UniqueDescentTwoHandSword1", name = "Thunder of the Dawn" },
+	{ id = "UniqueDescentStaff1", name = "Vestige of Divinity" }, --
+	{ id = "UniqueDescentDagger1", name = "Fragment of Eternity" },
+	{ id = "UniqueDescentBow1", name = "Relic of the Cycle" },
+	{ id = "UniqueDescentClaw1", name = "Scar of Fate" },
+	{ id = "UniqueDescentHelmet1", name = "Tears of Entropy" },
+	{ id = "UniqueDescentShield1", name = "Remnant of Empires" },
+	{ id = "UniqueDescentBelt1", name = "Chains of Time" },
+	{ id = "UniqueDescentQuiver1", name = "Slivers of Providence" },
 	-- add more as needed
 }
 
