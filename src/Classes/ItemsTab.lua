@@ -49,6 +49,15 @@ local catalystQualityFormat = {
 
 local flavourLookup = {}
 
+setmetatable(flavourLookup, {
+	__index = function(t, key)
+		if type(key) == "string" then
+			local normalized = key:gsub("%s%d+$", "")
+			return rawget(t, normalized)
+		end
+	end
+})
+
 for _, entry in pairs(data.flavourText) do
 	if entry.name and entry.id and entry.text then
 		flavourLookup[entry.name] = flavourLookup[entry.name] or {}
