@@ -632,10 +632,10 @@ function calcs.defence(env, actor)
 			}
 		end
 	end
-
-	if actor == env.minion then
-		doActorLifeMana(env.minion)
-		doActorLifeManaReservation(env.minion)
+	-- Formless Inferno, Foulborn Choir of the Storm
+	if actor == env.minion or actor == env.player then
+		doActorLifeMana(actor)
+		doActorLifeManaReservation(actor)
 	end
 
 	-- Block
@@ -1702,10 +1702,15 @@ function calcs.buildDefenceEstimations(env, actor)
 				conversionTotal = conversions["total"] + conversions["totalSkill"]
 				-- Calculate the amount converted/gained as
 				for _, damageTypeTo in ipairs(dmgTypeList) do
-					local gainAsPercent = (enemyDB:Sum("BASE", enemyCfg, (damageType.."DamageGainAs"..damageTypeTo)) + conversions[damageTypeTo.."skill"] + conversions[damageTypeTo]) / 100
-					if gainAsPercent > 0 then
+					local gainAsPercent = enemyDB:Sum("BASE", enemyCfg, (damageType.."DamageGainAs"..damageTypeTo)) / 100
+					local conversionPercent = (conversions[damageTypeTo.."skill"] + conversions[damageTypeTo]) / 100
+					if conversionPercent > 0 and damageType == "Physical" and damageTypeTo ~= "Chaos" then
+						local physBonus = 1 + data.monsterPhysConversionMultiTable[env.enemyLevel] / 100
+						conversionPercent = conversionPercent * physBonus
+					end
+					if gainAsPercent > 0 or conversionPercent > 0 then
 						enemyDamageConversion[damageTypeTo] = enemyDamageConversion[damageTypeTo] or { }
-						enemyDamageConversion[damageTypeTo][damageType] = enemyDamage * gainAsPercent
+						enemyDamageConversion[damageTypeTo][damageType] = enemyDamage * gainAsPercent + enemyDamage * conversionPercent
 					end
 				end
 			end

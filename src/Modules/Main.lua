@@ -118,10 +118,6 @@ function main:Init()
 
 	if not SetDPIScaleOverridePercent then SetDPIScaleOverridePercent = function(scale) end end
 
-	if self.userPath then
-		self:ChangeUserPath(self.userPath, ignoreBuild)
-	end
-
 	if launch.devMode and IsKeyDown("CTRL") or os.getenv("REGENERATE_MOD_CACHE") == "1" then
 		-- If modLib.parseMod doesn't find a cache entry it generates it.
 		-- Not loading pre-generated cache causes it to be rebuilt
@@ -142,6 +138,10 @@ function main:Init()
 
 	self.tree = { }
 	self:LoadTree(latestTreeVersion)
+
+	if self.userPath then
+		self:ChangeUserPath(self.userPath, ignoreBuild)
+	end
 
 	self.uniqueDB = { list = { }, loading = true }
 	self.rareDB = { list = { }, loading = true }
@@ -339,12 +339,7 @@ function main:Shutdown()
 end
 
 function main:OnFrame()
-	self.screenW, self.screenH = GetScreenSize()
-	self.screenScale = GetScreenScale and GetScreenScale() or 1
-	if self.screenScale ~= 1.0 then
-		self.screenW = math.floor(self.screenW / self.screenScale)
-		self.screenH = math.floor(self.screenH / self.screenScale)
-	end
+	self.screenW, self.screenH = GetVirtualScreenSize()
 
 	if self.screenH > self.screenW then
 		self.portraitMode = true

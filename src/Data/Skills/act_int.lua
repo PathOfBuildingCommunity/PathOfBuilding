@@ -16772,7 +16772,7 @@ skills["SupportSpellslinger"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["gain_%_of_base_wand_damage_as_added_spell_damage"] = {
-			skill("gainPercentBaseWandDamage", nil),
+			skill("gainPercentBaseWandDamageToSpells", nil),
 		},
 		["support_spellslinger_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),

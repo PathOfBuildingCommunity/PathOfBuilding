@@ -331,7 +331,7 @@ return {
 			list=false,
 			name="RegularVersion",
 			refTo="ActiveSkills",
-			type="Key",
+			type="ShortKey",
 			width=150
 		}
 	},

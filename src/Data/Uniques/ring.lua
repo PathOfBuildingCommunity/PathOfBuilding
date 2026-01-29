@@ -755,7 +755,7 @@ Implicits: 2
 {tags:speed}(6-8)% increased Movement Speed when on Low Life
 31% increased Light Radius
 {tags:chaos,jewellery_resistance}+(20-25)% Chaos Resistance when on Low Life
-While on Low Life, Enemies are Unlucky when Damaging you
+Damage of Enemies Hitting you is Unlucky while you are on Low Life
 ]],[[
 Malachai's Artifice
 Unset Ring

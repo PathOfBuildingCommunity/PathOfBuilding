@@ -329,14 +329,14 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		Exarch = "Assets/exarchicon.png",
 		Synthesis = "Assets/synthesisicon.png",
 		Experimented = "Assets/experimentedicon.png",
-    Foulborn = "Assets/breachicon.png",
+		Foulborn = "Assets/breachicon.png",
 	}
 	local headerConfigs = {
-		RELIC = {left="Assets/itemsheaderfoilleft.png",middle="Assets/itemsheaderfoilmiddle.png",right="Assets/itemsheaderfoilright.png",height=54,sideWidth=47,middleWidth=52,textYOffset=2},
-		UNIQUE = {left="Assets/itemsheaderuniqueleft.png",middle="Assets/itemsheaderuniquemiddle.png",right="Assets/itemsheaderuniqueright.png",height=54,sideWidth=47,middleWidth=52,textYOffset=2},
-		RARE = {left="Assets/itemsheaderrareleft.png",middle="Assets/itemsheaderraremiddle.png",right="Assets/itemsheaderrareright.png",height=54,sideWidth=47,middleWidth=52,textYOffset=2},
-		MAGIC = {left="Assets/itemsheadermagicleft.png",middle="Assets/itemsheadermagicmiddle.png",right="Assets/itemsheadermagicright.png",height=38,sideWidth=32,middleWidth=32,textYOffset=4},
-		NORMAL = {left="Assets/itemsheaderwhiteleft.png",middle="Assets/itemsheaderwhitemiddle.png",right="Assets/itemsheaderwhiteright.png",height=38,sideWidth=32,middleWidth=32,textYOffset=4},
+		RELIC = {left="Assets/itemsheaderfoilleft.png",middle="Assets/itemsheaderfoilmiddle.png",right="Assets/itemsheaderfoilright.png",height=54,sideWidth=47,middleWidth=52,textYOffset=1,allowInfluenceIcon=true},
+		UNIQUE = {left="Assets/itemsheaderuniqueleft.png",middle="Assets/itemsheaderuniquemiddle.png",right="Assets/itemsheaderuniqueright.png",height=54,sideWidth=47,middleWidth=52,textYOffset=1,allowInfluenceIcon=true},
+		RARE = {left="Assets/itemsheaderrareleft.png",middle="Assets/itemsheaderraremiddle.png",right="Assets/itemsheaderrareright.png",height=54,sideWidth=47,middleWidth=52,textYOffset=1,allowInfluenceIcon=true},
+		MAGIC = {left="Assets/itemsheadermagicleft.png",middle="Assets/itemsheadermagicmiddle.png",right="Assets/itemsheadermagicright.png",height=38,sideWidth=32,middleWidth=32,textYOffset=4,allowInfluenceIcon=true},
+		NORMAL = {left="Assets/itemsheaderwhiteleft.png",middle="Assets/itemsheaderwhitemiddle.png",right="Assets/itemsheaderwhiteright.png",height=38,sideWidth=32,middleWidth=32,textYOffset=4,allowInfluenceIcon=true},
 		GEM = {left="Assets/itemsheadergemleft.png",middle="Assets/itemsheadergemmiddle.png",right="Assets/itemsheadergemright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
 		JEWEL = {left="Assets/jewelpassiveheaderleft.png",middle="Assets/jewelpassiveheadermiddle.png",right="Assets/jewelpassiveheaderright.png",height=38,sideWidth=33,middleWidth=38,textYOffset=3},
 		NOTABLE = {left="Assets/notablepassiveheaderleft.png",middle="Assets/notablepassiveheadermiddle.png",right="Assets/notablepassiveheaderright.png",height=38,sideWidth=38,middleWidth=38,textYOffset=3},
@@ -438,7 +438,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		end
 		-- Draw left cap first, then influence icon on top
 		DrawImage(self.headerLeft, headerX, headerY, headerSideWidth, headerHeight)
-		if self.influenceHeader1 then
+		if self.influenceHeader1 and config.allowInfluenceIcon then
 			SetDrawColor(1, 1, 1)
 			DrawImage(self.influenceIcon1, headerX + 2, headerY + (headerHeight - (headerHeight/2))/2, headerHeight/2, headerHeight/2)
 		end
@@ -468,7 +468,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 
 		-- Draw right cap
 		DrawImage(self.headerRight, headerX + headerTotalWidth - headerSideWidth, headerY, headerSideWidth, headerHeight)
-		if self.influenceHeader2 then
+		if self.influenceHeader2 and config.allowInfluenceIcon then
 			SetDrawColor(1, 1, 1)
 			DrawImage(self.influenceIcon2, headerX + headerTotalWidth - (headerHeight/2) - 2, headerY + (headerHeight - (headerHeight/2))/2, headerHeight/2, headerHeight/2)
 		end

@@ -98,9 +98,6 @@ function doActorLifeMana(actor)
 				if more ~= 1 then
 					t_insert(breakdown.Life, s_format("x %.2f ^8(more/less)", more))
 				end
-				if inc ~= 0 then
-					t_insert(breakdown.Life, s_format("x %.2f ^8(increased/reduced)", 1 + inc/100))
-				end
 				if override then
 					t_insert(breakdown.Life, s_format("= %g ^8(life override)", override))
 				end
