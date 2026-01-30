@@ -897,18 +897,14 @@ local function doActorCharges(env, actor)
     output.PowerChargesDuration = m_floor(modDB:Sum("BASE", nil, "ChargeDuration") * calcLib.mod(modDB, nil, "PowerChargesDuration", "ChargeDuration"))
 	if modDB:Flag(nil, "MaximumFrenzyChargesIsMaximumPowerCharges") then
 		local source = modDB.mods["MaximumFrenzyChargesIsMaximumPowerCharges"][1].source
-		if not modDB:HasMod("OVERRIDE", {source = source:match("[^:]+")}, "FrenzyChargesMax") then
-			modDB:NewMod("FrenzyChargesMax", "OVERRIDE", output.PowerChargesMax, source)
-		end
+		modDB:ReplaceMod("FrenzyChargesMax", "OVERRIDE", output.PowerChargesMax, source)
 	end
 	output.FrenzyChargesMin = m_max(modDB:Sum("BASE", nil, "FrenzyChargesMin"), 0)
 	output.FrenzyChargesMax = modDB:Override(nil, "FrenzyChargesMax") or m_max(modDB:Flag(nil, "MaximumFrenzyChargesIsMaximumPowerCharges") and output.PowerChargesMax or modDB:Sum("BASE", nil, "FrenzyChargesMax"), 0)
 	output.FrenzyChargesDuration = m_floor(modDB:Sum("BASE", nil, "ChargeDuration") * calcLib.mod(modDB, nil, "FrenzyChargesDuration", "ChargeDuration"))
 	if modDB:Flag(nil, "MaximumEnduranceChargesIsMaximumFrenzyCharges") then
 		local source = modDB.mods["MaximumEnduranceChargesIsMaximumFrenzyCharges"][1].source
-		if not modDB:HasMod("OVERRIDE", {source = source:match("[^:]+")}, "EnduranceChargesMax") then
-			modDB:NewMod("EnduranceChargesMax", "OVERRIDE", output.FrenzyChargesMax, source)
-		end
+		modDB:ReplaceMod("EnduranceChargesMax", "OVERRIDE", output.FrenzyChargesMax, source)
 	end
 	output.EnduranceChargesMin = m_max(modDB:Sum("BASE", nil, "EnduranceChargesMin"), 0)
 	output.EnduranceChargesMax = modDB:Override(nil, "EnduranceChargesMax") or m_max(env.partyMembers.modDB:Flag(nil, "PartyMemberMaximumEnduranceChargesEqualToYours") and env.partyMembers.output.EnduranceChargesMax or (modDB:Flag(nil, "MaximumEnduranceChargesIsMaximumFrenzyCharges") and output.FrenzyChargesMax or modDB:Sum("BASE", nil, "EnduranceChargesMax")), 0)
