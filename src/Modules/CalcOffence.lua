@@ -1029,9 +1029,11 @@ function calcs.offence(env, actor, activeSkill)
 			output.ProjectileCount = 1
 		else
 			local projMin = skillModList:Sum("BASE", skillCfg, "ProjectileCountMinimum")
+			local projMax = skillModList:Sum("BASE", skillCfg, "ProjectileCountMaximum")
 			local projBase = skillModList:Sum("BASE", skillCfg, "ProjectileCount")
 			local projMore = skillModList:More(skillCfg, "ProjectileCount")
-			output.ProjectileCount = m_max(m_floor(projBase * projMore), projMin)
+			local proj = m_floor(projBase * projMore)
+			output.ProjectileCount = m_max(m_min(proj, projMax), projMin)
 		end
 		if skillModList:Flag(skillCfg, "AdditionalProjectilesAddBouncesInstead") then
 			local projBase = skillModList:Flag(skillCfg, "SingleProjectile") and 0 or skillModList:Sum("BASE", skillCfg, "ProjectileCount") + skillModList:Sum("BASE", skillCfg, "BounceCount") - 1
