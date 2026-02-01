@@ -142,7 +142,7 @@ data.powerStatList = {
 	{ stat="SpellAvoidChance", label="Spell avoid chance" },
 	{ stat="ProjectileAvoidChance", label="Projectile avoid chance" },
 	{ stat="TotalEHP", label="Effective Hit Pool" },
-	{ stat="SecondMinimalMaximumHitTaken", label="Eff. Maximum Hit Taken" },
+	{ stat="EffectiveMaximumHitTaken", label="Eff. Maximum Hit Taken" },
 	{ stat="PhysicalTakenHit", label="Taken Phys dmg", transform=function(value) return -value end },
 	{ stat="LightningTakenHit", label="Taken Lightning dmg", transform=function(value) return -value end },
 	{ stat="ColdTakenHit", label="Taken Cold dmg", transform=function(value) return -value end },
