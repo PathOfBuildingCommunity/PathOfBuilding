@@ -678,7 +678,7 @@ data.itemTagSpecialExclusionPattern = {
 		},
 		["belt"] = {
 			"Life as Extra Maximum Energy Shield", -- Soul Tether
-			"Life Recovery from Flasks", -- The Druggery
+			"Life Recovery from Flasks is applied to nearby Allies", -- The Druggery
 			"Life Flasks gain", -- The Druggery
 			"when on Full Life",
 			"when on Low Life",

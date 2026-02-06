@@ -55220,50 +55220,46 @@ return {
 			}, 
 		}, 
 		["822_FlaskDispellsPoison"] = {
-			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_542375676", 
-				["text"] = "Grants Immunity to Poison for # seconds if used while Poisoned", 
+				["id"] = "explicit.stat_3596333054", 
+				["text"] = "Grants Immunity to Poison for 4 seconds if used while Poisoned", 
 				["type"] = "explicit", 
 			}, 
 		}, 
 		["823_FlaskPoisonImmunity"] = {
 			["Flask"] = {
-				["max"] = 17, 
-				["min"] = 6, 
+				["max"] = 1, 
+				["min"] = 1, 
 			}, 
-			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_542375676", 
-				["text"] = "Grants Immunity to Poison for # seconds if used while Poisoned", 
+				["id"] = "explicit.stat_3596333054", 
+				["text"] = "Grants Immunity to Poison for 4 seconds if used while Poisoned", 
 				["type"] = "explicit", 
 			}, 
 		}, 
 		["824_FlaskRemovesShock"] = {
-			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_3854439683", 
-				["text"] = "Grants Immunity to Shock for # seconds if used while Shocked", 
+				["id"] = "explicit.stat_1823903967", 
+				["text"] = "Grants Immunity to Shock for 4 seconds if used while Shocked", 
 				["type"] = "explicit", 
 			}, 
 		}, 
 		["825_FlaskShockImmunity"] = {
 			["Flask"] = {
-				["max"] = 17, 
-				["min"] = 6, 
+				["max"] = 1, 
+				["min"] = 1, 
 			}, 
-			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_3854439683", 
-				["text"] = "Grants Immunity to Shock for # seconds if used while Shocked", 
+				["id"] = "explicit.stat_1823903967", 
+				["text"] = "Grants Immunity to Shock for 4 seconds if used while Shocked", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -55522,7 +55518,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_1053326368", 
+				["id"] = "explicit.stat_1619168299", 
 				["text"] = "#% chance to Avoid being Chilled during Effect", 
 				["type"] = "explicit", 
 			}, 
@@ -55536,7 +55532,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2872815301", 
+				["id"] = "explicit.stat_475518267", 
 				["text"] = "#% chance to Avoid being Frozen during Effect", 
 				["type"] = "explicit", 
 			}, 
@@ -57889,6 +57885,166 @@ return {
 		}, 
 	}, 
 	["Implicit"] = {
+		["implicit.pseudo_graft_skill_gem|1096882931"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.pseudo_graft_skill_gem|1096882931", 
+				["text"] = "Uses level # The Grey Wind Howls", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["implicit.pseudo_graft_skill_gem|1880337806"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.pseudo_graft_skill_gem|1880337806", 
+				["text"] = "Uses level # Tender Embrace", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["implicit.pseudo_graft_skill_gem|1884607458"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.pseudo_graft_skill_gem|1884607458", 
+				["text"] = "Uses level # Return to Dust", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["implicit.pseudo_graft_skill_gem|193484859"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.pseudo_graft_skill_gem|193484859", 
+				["text"] = "Uses level # Preserving Stillness", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["implicit.pseudo_graft_skill_gem|211102360"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.pseudo_graft_skill_gem|211102360", 
+				["text"] = "Uses level # His Burning Message", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["implicit.pseudo_graft_skill_gem|2377746067"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.pseudo_graft_skill_gem|2377746067", 
+				["text"] = "Uses level # Heart of Flame", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["implicit.pseudo_graft_skill_gem|2428126196"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.pseudo_graft_skill_gem|2428126196", 
+				["text"] = "Uses level # Enervating Grasp", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["implicit.pseudo_graft_skill_gem|2530977295"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.pseudo_graft_skill_gem|2530977295", 
+				["text"] = "Uses level # Overcharged Sinews", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["implicit.pseudo_graft_skill_gem|2589268690"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.pseudo_graft_skill_gem|2589268690", 
+				["text"] = "Uses level # Seize the Flesh", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["implicit.pseudo_graft_skill_gem|2743290437"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.pseudo_graft_skill_gem|2743290437", 
+				["text"] = "Uses level # Violent Desire", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["implicit.pseudo_graft_skill_gem|3350875124"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.pseudo_graft_skill_gem|3350875124", 
+				["text"] = "Uses level # Dance in the White", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["implicit.pseudo_graft_skill_gem|3407671753"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.pseudo_graft_skill_gem|3407671753", 
+				["text"] = "Uses level # The Great Avalanche", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["implicit.pseudo_graft_skill_gem|3721411096"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.pseudo_graft_skill_gem|3721411096", 
+				["text"] = "Uses level # Falling Crystals", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["implicit.pseudo_graft_skill_gem|3846565594"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.pseudo_graft_skill_gem|3846565594", 
+				["text"] = "Uses level # Wreathed in Light", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["implicit.pseudo_graft_skill_gem|4263796609"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.pseudo_graft_skill_gem|4263796609", 
+				["text"] = "Uses level # Glowing Silhouette", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["implicit.pseudo_graft_skill_gem|930501509"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.pseudo_graft_skill_gem|930501509", 
+				["text"] = "Uses level # Call the Pyre", 
+				["type"] = "implicit", 
+			}, 
+		}, 
 		["implicit.stat_1002362373"] = {
 			["Boots"] = {
 				["max"] = 20, 
