@@ -108,7 +108,6 @@ local displayStats = {
 	{ stat = "ColdMaximumHitTaken", label = "Cold Max Hit", fmt = ".0f", color = colorCodes.COLD, compPercent = true, condFunc = function(v,o) return o.LightningMaximumHitTaken ~= o.ColdMaximumHitTaken or o.LightningMaximumHitTaken ~= o.FireMaximumHitTaken end },
 	{ stat = "LightningMaximumHitTaken", label = "Lightning Max Hit", fmt = ".0f", color = colorCodes.LIGHTNING, compPercent = true, condFunc = function(v,o) return o.LightningMaximumHitTaken ~= o.ColdMaximumHitTaken or o.LightningMaximumHitTaken ~= o.FireMaximumHitTaken end },
 	{ stat = "ChaosMaximumHitTaken", label = "Chaos Max Hit", fmt = ".0f", color = colorCodes.CHAOS, compPercent = true },
-	{ stat = "EffectiveMaximumHitTaken", label = "Effective Max Hit", fmt = ".0f", compPercent = true },
 	{ },
 	{ stat = "MainHand", childStat = "Accuracy", label = "MH Accuracy", fmt = "d", condFunc = function(v,o) return o.PreciseTechnique end, warnFunc = function(v,o) return v < o.Life and "You do not have enough Accuracy for Precise Technique" end, warnColor = true },
 	{ stat = "OffHand", childStat = "Accuracy", label = "OH Accuracy", fmt = "d", condFunc = function(v,o) return o.PreciseTechnique end, warnFunc = function(v,o) return v < o.Life and "You do not have enough Accuracy for Precise Technique" end, warnColor = true },
