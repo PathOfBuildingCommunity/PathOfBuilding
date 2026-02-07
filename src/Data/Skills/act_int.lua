@@ -11214,20 +11214,26 @@ skills["KineticFusillade"] = {
 
 		if breakdown then
 			local breakdownAPS = {}
-			t_insert(breakdownAPS, s_format("^1(These calculations are speculative and best-effort)", actualDuration))
+			t_insert(breakdownAPS, s_format("^1(These calculations are speculative and best-effort)"))
 			t_insert(breakdownAPS, s_format("^8Base hover delay:^7 %.3fs", hoverDelay))
 			t_insert(breakdownAPS, s_format("^8Base delay between projectiles:^7 %.3fs", baseDelayBetweenProjectiles))
 			t_insert(breakdownAPS, s_format("^8Base time for^7 %d ^8projectiles:^7 %.3fs x %d = %.3fs", projectileCount, baseDelayBetweenProjectiles, projectileCount, baseTimeForAllProjectiles))
 			t_insert(breakdownAPS, s_format("^8Duration modifier:^7 %.4f", durationMod))
 			t_insert(breakdownAPS, s_format("^8Effective delay:^7 (%.3f + %.3f) x %.4f = %.4fs", hoverDelay, baseTimeForAllProjectiles, durationMod, effectiveDelay))
 			t_insert(breakdownAPS, s_format("^8Max effective attack rate:^7 1 / %.4f = %.2f", effectiveDelay, maxEffectiveAPS))
-			if currentAPS and currentAPS > maxEffectiveAPS then
+			if currentAPS then
+				local currentInc = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed")
+				local neededInc = ((maxEffectiveAPS / currentAPS) * (1 + currentInc / 100) - 1) * 100
+				local additionalInc = neededInc - currentInc
 				t_insert(breakdownAPS, "")
-				t_insert(breakdownAPS, s_format("^1Current attack rate (%.2f) exceeds max effective rate!", currentAPS))
-				t_insert(breakdownAPS, s_format("^1DPS is reduced by %.1f%%", (1 - maxEffectiveAPS / currentAPS) * 100))
-			elseif currentAPS then
-				t_insert(breakdownAPS, "")
-				t_insert(breakdownAPS, s_format("^2Current attack rate (%.2f) is within effective limits", currentAPS))
+				if currentAPS > maxEffectiveAPS then
+					t_insert(breakdownAPS, s_format("^1Current attack rate (%.2f) exceeds max effective rate!", currentAPS))
+					t_insert(breakdownAPS, s_format("^1Reduce attack speed by at least^7 %d%% ^1", math.ceil(-additionalInc)))
+					t_insert(breakdownAPS, s_format("^1DPS is reduced by %.1f%%", (1 - maxEffectiveAPS / currentAPS) * 100))
+				else
+					t_insert(breakdownAPS, s_format("^2Current attack rate (%.2f) is within effective limits", currentAPS))
+					t_insert(breakdownAPS, s_format("^2You can add up to^7 %d%% ^2increased attack speed", math.floor(additionalInc)))
+				end
 			end
 			breakdown.KineticFusilladeMaxEffectiveAPS = breakdownAPS
 		end
