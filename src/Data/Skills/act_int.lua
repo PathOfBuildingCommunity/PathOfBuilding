@@ -11202,12 +11202,11 @@ skills["KineticFusillade"] = {
 		-- Calculate effective attack rate accounting for delayed projectile firing
 		-- Projectiles orbit for base_skill_effect_duration before firing
 		-- Recasting resets the timer, so attacking too fast wastes potential damage
-		local baseDuration = skillData.duration
-		local actualDuration = output.Duration or baseDuration
-		local ticksNeededForInitialDelay = math.ceil(actualDuration / data.misc.ServerTickTime)
-		local timePerProjectile = baseDelayBetweenProjectiles * output.DurationMod
-		local timeForAllProjectiles = timePerProjectile * projectileCount
-		local effectiveDelay = ticksNeededForInitialDelay * data.misc.ServerTickTime + math.ceil(timeForAllProjectiles / data.misc.ServerTickTime) * data.misc.ServerTickTime
+		-- Formula: totalTime = (hoverDelay + delayBetweenProj * nProj) * durationMod
+		local hoverDelay = skillData.duration
+		local durationMod = output.DurationMod
+		local baseTimeForAllProjectiles = baseDelayBetweenProjectiles * projectileCount
+		local effectiveDelay = (hoverDelay + baseTimeForAllProjectiles) * durationMod
 		local maxEffectiveAPS = 1 / effectiveDelay
 		local currentAPS = output.Speed
 
@@ -11216,12 +11215,12 @@ skills["KineticFusillade"] = {
 		if breakdown then
 			local breakdownAPS = {}
 			t_insert(breakdownAPS, s_format("^1(These calculations are speculative and best-effort)", actualDuration))
-			t_insert(breakdownAPS, s_format("^8Delay of^7 %.3fs ^8before projectiles start firing", actualDuration))
-			t_insert(breakdownAPS, s_format("^8Each projectile fires sequentially with a^7 %.3fs ^8delay between each projectile", timePerProjectile))
-			t_insert(breakdownAPS, s_format("^8Server tick time:^7 %.3fs", data.misc.ServerTickTime))
-			t_insert(breakdownAPS, s_format("^8Ticks needed:^7 %d ^8(rounded up)", ticksNeededForInitialDelay + math.ceil(timeForAllProjectiles / data.misc.ServerTickTime)))
-			t_insert(breakdownAPS, s_format("^8Effective delay:^7 %.3fs", effectiveDelay))
-			t_insert(breakdownAPS, s_format("^8Max effective attack rate:^7 1 / %.3f = %.2f", effectiveDelay, maxEffectiveAPS))
+			t_insert(breakdownAPS, s_format("^8Base hover delay:^7 %.3fs", hoverDelay))
+			t_insert(breakdownAPS, s_format("^8Base delay between projectiles:^7 %.3fs", baseDelayBetweenProjectiles))
+			t_insert(breakdownAPS, s_format("^8Base time for^7 %d ^8projectiles:^7 %.3fs x %d = %.3fs", projectileCount, baseDelayBetweenProjectiles, projectileCount, baseTimeForAllProjectiles))
+			t_insert(breakdownAPS, s_format("^8Duration modifier:^7 %.4f", durationMod))
+			t_insert(breakdownAPS, s_format("^8Effective delay:^7 (%.3f + %.3f) x %.4f = %.4fs", hoverDelay, baseTimeForAllProjectiles, durationMod, effectiveDelay))
+			t_insert(breakdownAPS, s_format("^8Max effective attack rate:^7 1 / %.4f = %.2f", effectiveDelay, maxEffectiveAPS))
 			if currentAPS and currentAPS > maxEffectiveAPS then
 				t_insert(breakdownAPS, "")
 				t_insert(breakdownAPS, s_format("^1Current attack rate (%.2f) exceeds max effective rate!", currentAPS))
