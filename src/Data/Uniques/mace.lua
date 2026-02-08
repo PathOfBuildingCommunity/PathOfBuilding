@@ -472,6 +472,7 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 56, 96 Str, 96 Int
 Implicits: 1
+26% increased Elemental Damage
 +(30-40) to Intelligence
 {variant:1}(25-50)% increased Critical Strike Chance
 {variant:2}(15-30)% increased Critical Strike Chance
