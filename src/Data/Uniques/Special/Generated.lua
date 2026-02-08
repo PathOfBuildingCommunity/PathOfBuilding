@@ -51,6 +51,40 @@ local getVeiledMods = function (veiledPool, baseType, specificType1, specificTyp
 	return veiledMods
 end
 
+local function tableHasValue (table, lookup)
+    for index, value in ipairs(table) do
+        if value == lookup then
+            return true
+        end
+    end
+
+    return false
+end
+
+local getVeiledModsByName = function (modNames) 
+	local veiledMods = { }
+	for veiledModIndex, veiledMod in pairs(data.veiledMods) do
+		local veiledName = parseVeiledModName(veiledModIndex)
+
+		if tableHasValue(modNames, veiledName) or tableHasValue(modNames, veiledModIndex) then
+
+		veiledName = "("..veiledMod.type..") "..veiledName
+
+		local veiled = { veiledName = veiledName, veiledLines = { } }
+		for line, value in ipairs(veiledMod) do
+			veiled.veiledLines[line] = value
+		end
+
+		table.insert(veiledMods, veiled)
+		end
+	end
+
+	table.sort(veiledMods, function (m1, m2) return m1.veiledName < m2.veiledName end )
+
+	return veiledMods
+end
+
+
 local paradoxicaMods = getVeiledMods("base", "weapon", "one_hand_weapon")
 local paradoxica = {
 	"Paradoxica",
@@ -155,7 +189,39 @@ end
 
 table.insert(data.uniques.generated, table.concat(replicaParadoxica, "\n"))
 
-local queensHungerMods = getVeiledMods("base", "body_armour", "int_armour")
+local queensHungerMods = getVeiledModsByName({
+	-- "Chosen" Veiled Prefixes
+	"JunMasterVeiledLocalIncreasedEnergyShieldAndLifeHigh",
+	"JunMasterVeiledPhysicalDamageReductionRatingDuringSoulGainPrevention",
+	"JunMasterVeiledPercentageLifeAndMana",
+	"JunMasterVeiledBlockPercent",
+	"JunMasterVeiledAvoidStunAndElementalStatusAilments",
+	"JunMasterVeiledSpellBlockPercent____",
+    -- "Catarina's" Veiled Prefixes
+	"JunMasterVeiledOfferingEffect",
+	"JunMasterVeiledLifeRegenerationRatePercentageIfCorpseConsumedRecently",
+	"JunMasterVeiledManaRegenerationRatePercentageIfCorpseConsumedRecently",
+	"JunMasterVeiledEnergyShieldRegenerationRatePercentageIfCorpseConsumedRecently",
+	"JunMasterVeiledAllow2Offerings",
+	"JunMasterVeiledOfferingDuration",
+	-- "of the Order" Veiled Suffixes
+	"JunMasterVeiledStrengthAndDexterity",
+	"JunMasterVeiledDexterityAndIntelligence",
+	"JunMasterVeiledStrengthAndIntelligence",
+	"JunMasterVeiledAvoidElementalDamageChanceDuringSoulGainPrevention",
+	"JunMasterVeiledEnergyShieldRegenerationRatePerMinuteIfRareOrUniqueEnemyNearby",
+	"JunMasterVeiledLifeRegenerationPerEvasionDuringFocus",
+	"JunMasterVeiledRestoreManaAndEnergyShieldOnFocus",
+	"JunMasterVeiledFortifyEffectWhileFocused_",
+	"JunMasterVeiledDamageRemovedFromManaBeforeLifeWhileFocused",
+	"JunMasterVeiledFireAndChaosDamageResistance",
+	"JunMasterVeiledLightningAndChaosDamageResistance",
+	"JunMasterVeiledColdAndChaosDamageResistance",
+	"JunMasterVeiledStrengthAndAvoidIgnite",
+	"JunMasterVeiledDexterityAndAvoidFreeze",
+	"JunMasterVeiledIntelligenceAndAvoidShock"
+})
+
 local queensHunger = {
 	"The Queen's Hunger",
 	"Vaal Regalia",
@@ -179,7 +245,7 @@ table.insert(queensHunger, "(6-10)% increased maximum Life")
 
 for index, mod in pairs(queensHungerMods) do
 	for _, value in pairs(mod.veiledLines) do
-		table.insert(queensHunger, "{variant:"..index.."}"..value.."")
+		table.insert(queensHunger, "{variant:"..index.."}{crafted}"..value.."")
 	end
 end
 

@@ -573,7 +573,6 @@ c["+188 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShi
 c["+19 to Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="BASE",value=19}},nil}
 c["+19 to Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Evasion",type="BASE",value=19}},nil}
 c["+19 to all Attributes"]={{[1]={flags=0,keywordFlags=0,name="Str",type="BASE",value=19},[2]={flags=0,keywordFlags=0,name="Dex",type="BASE",value=19},[3]={flags=0,keywordFlags=0,name="Int",type="BASE",value=19},[4]={flags=0,keywordFlags=0,name="All",type="BASE",value=19}},nil}
-c["+19 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=19}},nil}
 c["+19% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=19}},nil}
 c["+190 to Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=190}},nil}
 c["+190 to Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="BASE",value=190}},nil}
@@ -1279,7 +1278,6 @@ c["+325 to Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type=
 c["+325 to Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="BASE",value=325}},nil}
 c["+33 to Maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=33}},nil}
 c["+33 to Strength and Dexterity"]={{[1]={flags=0,keywordFlags=0,name="Str",type="BASE",value=33},[2]={flags=0,keywordFlags=0,name="Dex",type="BASE",value=33},[3]={flags=0,keywordFlags=0,name="StrDex",type="BASE",value=33}},nil}
-c["+33 to Strength and Intelligence"]={{[1]={flags=0,keywordFlags=0,name="Str",type="BASE",value=33},[2]={flags=0,keywordFlags=0,name="Int",type="BASE",value=33},[3]={flags=0,keywordFlags=0,name="StrInt",type="BASE",value=33}},nil}
 c["+33 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=33}},nil}
 c["+33 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=33}},nil}
 c["+33% to Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=33}},nil}
@@ -5033,8 +5031,6 @@ c["320% increased Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Evasion",
 c["320% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=320}},nil}
 c["325% Increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=325}},nil}
 c["325% increased Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=325}},nil}
-c["33% chance to Avoid Elemental Ailments"]={{[1]={flags=0,keywordFlags=0,name="AvoidElementalAilments",type="BASE",value=33}},nil}
-c["33% chance to Avoid being Stunned"]={{[1]={flags=0,keywordFlags=0,name="AvoidStun",type="BASE",value=33}},nil}
 c["33% chance to Blind nearby Enemies when gaining Her Blessing"]={{}," to Blind nearby Enemies when gaining Her Blessing "}
 c["33% chance to Blind nearby Enemies when gaining Her Blessing 100% chance to Avoid being Ignited, Chilled or Frozen with Her Blessing"]={{[1]={flags=0,keywordFlags=0,name="AvoidIgnite",type="BASE",value=33}}," to Blind nearby Enemies when gaining Her Blessing 100% chance , Chilled or Frozen with Her Blessing "}
 c["33% chance to gain a Frenzy Charge on Kill"]={nil,"a Frenzy Charge  "}
@@ -10623,6 +10619,7 @@ c["Regenerate 175 Life per Second while in Blood Stance"]={{[1]={[1]={type="Cond
 c["Regenerate 2 Mana per Second per Power Charge"]={{[1]={[1]={type="Multiplier",var="PowerCharge"},flags=0,keywordFlags=0,name="ManaRegen",type="BASE",value=2}},nil}
 c["Regenerate 2 Mana per second"]={{[1]={flags=0,keywordFlags=0,name="ManaRegen",type="BASE",value=2}},nil}
 c["Regenerate 2% of Energy Shield per second"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldRegenPercent",type="BASE",value=2}},nil}
+c["Regenerate 2% of Energy Shield per second if you've Consumed a Corpse Recently"]={{[1]={[1]={type="Condition",var="ConsumedCorpseRecently"},flags=0,keywordFlags=0,name="EnergyShieldRegenPercent",type="BASE",value=2}},nil}
 c["Regenerate 2% of Energy Shield per second if you've Killed an Enemy Recently"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=0,keywordFlags=0,name="EnergyShieldRegenPercent",type="BASE",value=2}},nil}
 c["Regenerate 2% of Energy Shield per second while on Low Life"]={{[1]={[1]={type="Condition",var="LowLife"},flags=0,keywordFlags=0,name="EnergyShieldRegenPercent",type="BASE",value=2}},nil}
 c["Regenerate 2% of Life per Second for each Trap Triggered Recently, up to 10% per second"]={{[1]={[1]={limit=10,limitTotal=true,type="Multiplier",var="TrapTriggeredRecently"},flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=2}},nil}
@@ -10639,6 +10636,7 @@ c["Regenerate 2% of Life per second on Chilled Ground"]={{[1]={[1]={type="Condit
 c["Regenerate 2% of Life per second while affected by Vitality"]={{[1]={[1]={type="Condition",var="AffectedByVitality"},flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=2}},nil}
 c["Regenerate 2% of Life per second while stationary"]={{[1]={[1]={type="Condition",var="Stationary"},flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=2}},nil}
 c["Regenerate 2% of Life per second with at least 400 Strength"]={{[1]={[1]={stat="Str",threshold=400,type="StatThreshold"},flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=2}},nil}
+c["Regenerate 2% of Mana per second if you've Consumed a corpse Recently"]={{[1]={[1]={type="Condition",var="ConsumedCorpseRecently"},flags=0,keywordFlags=0,name="ManaRegenPercent",type="BASE",value=2}},nil}
 c["Regenerate 2.5% of Energy Shield per Second while affected by Discipline"]={{[1]={[1]={type="Condition",var="AffectedByDiscipline"},flags=0,keywordFlags=0,name="EnergyShieldRegenPercent",type="BASE",value=2.5}},nil}
 c["Regenerate 2.5% of Life per Second if you've Detonated a Mine Recently"]={{[1]={[1]={type="Condition",var="DetonatedMinesRecently"},flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=2.5}},nil}
 c["Regenerate 20 Life per second"]={{[1]={flags=0,keywordFlags=0,name="LifeRegen",type="BASE",value=20}},nil}
@@ -12420,6 +12418,8 @@ c["You can have an Offering of each type"]={nil,"You can have an Offering of eac
 c["You can have an Offering of each type Offering Skills have 50% reduced Duration"]={nil,"You can have an Offering of each type Offering Skills have 50% reduced Duration "}
 c["You can have an additional Brand Attached to an Enemy"]={{[1]={flags=0,keywordFlags=0,name="BrandsAttachedLimit",type="BASE",value=1}},nil}
 c["You can have an additional Tincture active"]={{[1]={flags=0,keywordFlags=0,name="TinctureLimit",type="BASE",value=1}},nil}
+c["You can have two Offerings of different types"]={nil,"You can have two Offerings of different types "}
+c["You can have two Offerings of different types 35% chance to Avoid Elemental Ailments"]={nil,"You can have two Offerings of different types 35% chance to Avoid Elemental Ailments "}
 c["You can have two different Banners at the same time"]={{},nil}
 c["You can inflict Bleeding on an Enemy up to 8 times"]={{[1]={flags=0,keywordFlags=0,name="BleedStacksMax",type="OVERRIDE",value=8},[2]={flags=0,keywordFlags=0,name="Condition:HaveCrimsonDance",type="FLAG",value=true}},nil}
 c["You can inflict an additional Ignite on an Enemy"]={{[1]={flags=0,keywordFlags=0,name="IgniteCanStack",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="IgniteStacks",type="BASE",value=1}},nil}
