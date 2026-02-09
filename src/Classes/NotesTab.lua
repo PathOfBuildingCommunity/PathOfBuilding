@@ -5,7 +5,7 @@
 --
 local t_insert = table.insert
 
-local NotesTabClass = newClass("NotesTab",  "ControlHost", "Control", function(self, build)
+local NotesTabClass = newClass("NotesTab", "ControlHost", "Control", function(self, build)
 	self.ControlHost()
 	self.Control()
 
@@ -164,7 +164,6 @@ function NotesTabClass:Draw(viewPort, inputEvents)
 
 	self.modFlag = (self.notes[self.activeNoteId].content ~= self.controls.edit.buf) or self.modFlag
 end
-
 
 -- Creates a new note
 function NotesTabClass:NewNote(noteId)
