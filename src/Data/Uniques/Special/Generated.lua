@@ -52,13 +52,13 @@ local getVeiledMods = function (veiledPool, baseType, specificType1, specificTyp
 end
 
 local function tableHasValue (table, lookup)
-    for index, value in ipairs(table) do
-        if value == lookup then
-            return true
-        end
-    end
+	for index, value in ipairs(table) do
+		if value == lookup then
+			return true
+		end
+	end
 
-    return false
+	return false
 end
 
 local getVeiledModsByName = function (modNames) 
@@ -197,7 +197,7 @@ local queensHungerMods = getVeiledModsByName({
 	"JunMasterVeiledBlockPercent",
 	"JunMasterVeiledAvoidStunAndElementalStatusAilments",
 	"JunMasterVeiledSpellBlockPercent____",
-    -- "Catarina's" Veiled Prefixes
+	-- "Catarina's" Veiled Prefixes
 	"JunMasterVeiledOfferingEffect",
 	"JunMasterVeiledLifeRegenerationRatePercentageIfCorpseConsumedRecently",
 	"JunMasterVeiledManaRegenerationRatePercentageIfCorpseConsumedRecently",
@@ -971,12 +971,12 @@ for _, gem in pairs(data.gems) do
 end
 
 local replicaDragonfangsFlight = {
-    [[Replica Dragonfang's Flight
-    Onyx Amulet
-    Selected Variant: 2
-    Has Alt Variant: true
-    Selected Alt Variant: 3
-    LevelReq: 56
+	[[Replica Dragonfang's Flight
+	Onyx Amulet
+	Selected Variant: 2
+	Has Alt Variant: true
+	Selected Alt Variant: 3
+	LevelReq: 56
 	]]
 }
 
