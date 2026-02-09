@@ -91,15 +91,10 @@ function NotesListClass:RenameNote(note, addOnName)
 	main:OpenPopup(370, 100, note.title and "Rename" or "Note Name", controls, "save", "edit", "cancel")
 end
 
-function NotesListClass:OnSelClick(index, noteId)
-	self.notesTab:SaveContentToNote(self.notesTab.activeNoteId)
-	
-	if noteId ~= self.notesTab.activeNoteId then
-		self.notesTab:SetActiveNote(noteId)
-	end
-end
-
+-- Triggered when a note is selected from the list
 function NotesListClass:OnSelClick(index, noteId, doubleClick)
+	self.notesTab:SaveContentToNote(self.notesTab.activeNoteId)
+
 	if doubleClick and noteId ~= self.notesTab.activeNoteId then
 		self.notesTab:SetActiveNote(noteId)
 	end
