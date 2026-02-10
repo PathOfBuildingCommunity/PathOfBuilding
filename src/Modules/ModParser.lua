@@ -1435,7 +1435,7 @@ local modTagList = {
 	["per (%d+) devotion"] = function(num) return { tag = { type = "PerStat", stat = "Devotion", actor = "parent", div = num } } end,
 	["per (%d+)%% missing fire resistance, up to a maximum of (%d+)%%"] = function(num, _, limit) return { tag = { type = "PerStat", stat = "MissingFireResist", div = num, globalLimit = tonumber(limit), globalLimitKey = "ReplicaNebulisFire" } } end,
 	["per (%d+)%% missing cold resistance, up to a maximum of (%d+)%%"] = function(num, _, limit) return { tag = { type = "PerStat", stat = "MissingColdResist", div = num, globalLimit = tonumber(limit), globalLimitKey = "ReplicaNebulisCold" } } end,
-	["per (%d+)%% missing fire, cold, or lightning resistance, up to a maximum of (%d+)%%"] = function(num, _, limit) return { tag = { type = "PerStat", statList = { "MissingFireResist", "MissingColdResist", "MissingFireResist" }, div = num, globalLimit = tonumber(limit), globalLimitKey = "ReplicaNebulisCold" } } end,
+	["per (%d+)%% missing fire, cold, or lightning resistance, up to a maximum of (%d+)%%"] = function(num, _, limit) return { tag = { type = "PerStat", statList = { "MissingFireResist", "MissingColdResist", "MissingLightningResist" }, div = num, globalLimit = tonumber(limit), globalLimitKey = "ReplicaNebulisCold" } } end,
 	["per endurance, frenzy or power charge"] = { tag = { type = "PerStat", stat = "TotalCharges" } },
 	["per fortification"] = { tag = { type = "PerStat", stat = "FortificationStacks" } },
 	["per two fortification on you"] = { tag = { type = "PerStat", stat= "FortificationStacks", div = 2, actor = "player" } },
