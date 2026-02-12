@@ -133,6 +133,30 @@ local forcedNameList = { -- fated show twice at the moment, but this list is cau
 	{ id = "FatedUnique41", name = "Asenath's Chant" },
 	{ id = "UniqueWand8", name = "Reverberation Rod" },
 	{ id = "FatedUnique23", name = "Amplification Rod" },
+	{ id = "UniqueOneHandAxe7", name = "Dreadarc" },
+	{ id = "FatedUnique50", name = "Dreadsurge" },
+	{ id = "UniqueJewel16", name = "Apparitions" },
+	{ id = "UniqueDescentOneHandSword1", name = "Blood of Summer" },
+	{ id = "UniqueDescentOneHandAxe1", name = "Rust of Winter" },
+	{ id = "UniqueDescentOneHandMace1", name = "Ashes of the Sun" },
+	{ id = "UniqueDescentWand1", name = "Splinter of the Moon" },
+	{ id = "UniqueDescentTwoHandSword1", name = "Thunder of the Dawn" },
+	{ id = "UniqueDescentStaff1", name = "Vestige of Divinity" }, --
+	{ id = "UniqueDescentDagger1", name = "Fragment of Eternity" },
+	{ id = "UniqueDescentBow1", name = "Relic of the Cycle" },
+	{ id = "UniqueDescentClaw1", name = "Scar of Fate" },
+	{ id = "UniqueDescentHelmet1", name = "Tears of Entropy" },
+	{ id = "UniqueDescentShield1", name = "Remnant of Empires" },
+	{ id = "UniqueDescentBelt1", name = "Chains of Time" },
+	{ id = "UniqueDescentQuiver1", name = "Slivers of Providence" },
+	{ id = "FatedUnique57", name = "The Iron Fortress" }, --This is different from the others, they changed the name of the item so it still uses the Fated text. Prints twice currently but the proper text is higher in the list.
+	{ id = "UniqueBodyStr9", name = "Iron Heart" },
+	{ id = "UniqueOneHandSword10", name = "The Goddess Unleashed" },
+	{ id = "UniqueRapier1", name = "The Goddess Bound" },
+	{ id = "FatedUnique48", name = "Winterweave" }, -- Same as Iron Fortress
+	{ id = "UniqueRing28", name = "Bloodboil" },
+	{ id = "FatedUnique27", name = "Atziri's Reflection" }, -- Same as Iron Fortress
+	{ id = "UniqueShieldDex3", name = "Atziri's Mirror" },
 	-- add more as needed
 }
 

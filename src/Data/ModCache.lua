@@ -5385,6 +5385,7 @@ c["40% increased total Recovery per second from Life Leech"]={{[1]={flags=0,keyw
 c["40% less Burning Damage"]={{[1]={flags=0,keywordFlags=134217728,name="FireDamage",type="MORE",value=-40}},nil}
 c["40% less Critical Strike Chance"]={{[1]={flags=0,keywordFlags=0,name="CritChance",type="MORE",value=-40}},nil}
 c["40% less Damage"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="MORE",value=-40}},nil}
+c["40% less Duration"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="MORE",value=-40}},nil}
 c["40% less Energy Shield Recharge Rate"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldRecharge",type="MORE",value=-40}},nil}
 c["40% less Minimum Physical Attack Damage"]={{[1]={[1]={skillType=1,type="SkillType"},flags=0,keywordFlags=0,name="MinPhysicalDamage",type="MORE",value=-40}},nil}
 c["40% less Physical and Chaos Damage Taken while Sane"]={{[1]={[1]={neg=true,type="Condition",var="Insane"},flags=0,keywordFlags=0,name="PhysicalDamageTaken",type="MORE",value=-40},[2]={[1]={neg=true,type="Condition",var="Insane"},flags=0,keywordFlags=0,name="ChaosDamageTaken",type="MORE",value=-40}},nil}
@@ -5393,7 +5394,6 @@ c["40% more Accuracy Rating against Unique Enemies"]={{[1]={[1]={actor="enemy",t
 c["40% more Attack Damage if Accuracy Rating is higher than Maximum Life"]={{[1]={[1]={type="Condition",var="MainHandAccRatingHigherThanMaxLife"},[2]={type="Condition",var="MainHandAttack"},flags=1,keywordFlags=0,name="Damage",source="Damage",type="MORE",value=40},[2]={[1]={type="Condition",var="OffHandAccRatingHigherThanMaxLife"},[2]={type="Condition",var="OffHandAttack"},flags=1,keywordFlags=0,name="Damage",source="Damage",type="MORE",value=40}},nil}
 c["40% more Attack Speed with Melee Skills while you are Unencumbered"]={{[1]={[1]={skillType=24,type="SkillType"},[2]={type="Condition",var="Unencumbered"},flags=1,keywordFlags=0,name="Speed",type="MORE",value=40}},nil}
 c["40% more Damage"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="MORE",value=40}},nil}
-c["40% more Duration"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="MORE",value=40}},nil}
 c["40% more Mana Reservation of Aura Skills"]={{[1]={[1]={skillType=43,type="SkillType"},flags=0,keywordFlags=0,name="ManaReserved",type="MORE",value=40}},nil}
 c["40% more Maximum Physical Attack Damage"]={{[1]={[1]={skillType=1,type="SkillType"},flags=0,keywordFlags=0,name="MaxPhysicalDamage",type="MORE",value=40}},nil}
 c["40% of Cold Damage Converted to Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdDamageConvertToFire",type="BASE",value=40}},nil}
@@ -5522,7 +5522,7 @@ c["5% chance to Blind Enemies on Hit with Attacks"]={{}," to Blind Enemies  with
 c["5% chance to Block Attack Damage"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=5}},nil}
 c["5% chance to Cover Enemies in Ash on Hit while you are Burning"]={{}," to Cover Enemies in Ash  while you are Burning "}
 c["5% chance to Defend with 200% of Armour for each"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="BASE",value=5}}," to Defend with 200% of  for each "}
-c["5% chance to Defend with 200% of Armour for each time you've been Hit by an Enemy Recently, up to 30%"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="BASE",value=5}}," to Defend with 200% of  for each time you've been Hit by an Enemy Recently, up to 30% "}
+c["5% chance to Defend with 200% of Armour for each time you've been Hit by an Enemy Recently, up to 30%"]={{[1]={[1]={type="Condition",var="ArmourMax"},flags=0,keywordFlags=0,name="ArmourDefense",source="Armour Mastery: Max Calc",type="MAX",value=100},[2]={[1]={type="Condition",var="ArmourAvg"},[2]={limit=6,type="Multiplier",var="BeenHitRecently"},flags=0,keywordFlags=0,name="ArmourDefense",source="Armour Mastery: Average Calc",type="MAX",value=5},[3]={[1]={neg=true,type="Condition",var="ArmourMax"},[2]={neg=true,type="Condition",var="ArmourAvg"},[3]={limit=6,type="Multiplier",var="BeenHitRecently"},flags=0,keywordFlags=0,name="ArmourDefense",source="Armour Mastery: Min Calc",type="MAX",value=0}},nil}
 c["5% chance to Freeze"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=5}},nil}
 c["5% chance to Freeze, Shock and Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=5},[2]={flags=0,keywordFlags=0,name="EnemyShockChance",type="BASE",value=5},[3]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=5}},nil}
 c["5% chance to Gain Unholy Might for 4 seconds on Melee Kill"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=67108864,keywordFlags=0,name="Condition:UnholyMight",type="FLAG",value=true}},nil}
@@ -5844,6 +5844,7 @@ c["50% less Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="ColdResist",ty
 c["50% less Critical Strike Chance"]={{[1]={flags=0,keywordFlags=0,name="CritChance",type="MORE",value=-50}},nil}
 c["50% less Damage"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="MORE",value=-50}},nil}
 c["50% less Damage with Bleeding"]={{[1]={flags=0,keywordFlags=4194304,name="Damage",type="MORE",value=-50}},nil}
+c["50% less Duration"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="MORE",value=-50}},nil}
 c["50% less Energy Shield Recharge Rate"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldRecharge",type="MORE",value=-50}},nil}
 c["50% less Ignite Duration"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteDuration",type="MORE",value=-50}},nil}
 c["50% less Life Recovery from Flasks"]={{[1]={flags=0,keywordFlags=0,name="FlaskLifeRecovery",type="MORE",value=-50}},nil}
@@ -5856,7 +5857,6 @@ c["50% more Accuracy Rating against Marked Enemy"]={{[1]={[1]={actor="enemy",typ
 c["50% more Accuracy Rating at Close Range"]={{[1]={[1]={type="Condition",var="AtCloseRange"},flags=0,keywordFlags=0,name="AccuracyVsEnemy",type="MORE",value=50}},nil}
 c["50% more Critical Strike Chance while Insane"]={{[1]={[1]={type="Condition",var="Insane"},flags=0,keywordFlags=0,name="CritChance",type="MORE",value=50}},nil}
 c["50% more Damage Over Time with Herald Skills"]={{[1]={[1]={skillType=62,type="SkillType"},flags=8,keywordFlags=0,name="Damage",type="MORE",value=50}},nil}
-c["50% more Duration"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="MORE",value=50}},nil}
 c["50% more Effect of Herald Buffs on you"]={{[1]={[1]={skillType=62,type="SkillType"},flags=0,keywordFlags=0,name="BuffEffect",type="MORE",value=50}},nil}
 c["50% of Cold Damage Converted to Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdDamageConvertToChaos",type="BASE",value=50}},nil}
 c["50% of Cold and Lightning Damage taken as Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdDamageTakenAsFire",type="BASE",value=50},[2]={flags=0,keywordFlags=0,name="LightningDamageTakenAsFire",type="BASE",value=50}},nil}
@@ -8224,6 +8224,7 @@ c["Damage from your Critical Strikes cannot be Reflected +5% to Critical Strike 
 c["Damage from your Critical Strikes cannot be Reflected 25% more Damage while there is at most one Rare or Unique Enemy nearby"]={nil,"Damage from your Critical Strikes cannot be Reflected 25% more Damage while there is at most one Rare or Unique Enemy nearby "}
 c["Damage from your Critical Strikes cannot be Reflected 25% more Damage while there is at most one Rare or Unique Enemy nearby 35% less Damage taken while there are at least two Rare or Unique Enemies nearby"]={nil,"Damage from your Critical Strikes cannot be Reflected 25% more Damage while there is at most one Rare or Unique Enemy nearby 35% less Damage taken while there are at least two Rare or Unique Enemies nearby "}
 c["Damage of Enemies Hitting you is Unlucky while you are on Full Life"]={nil,"Damage of Enemies Hitting you is Unlucky while you are on Full Life "}
+c["Damage of Enemies Hitting you is Unlucky while you are on Low Life"]={nil,"Damage of Enemies Hitting you is Unlucky while you are on Low Life "}
 c["Damage of Enemies Hitting you is Unlucky while you have a Magic Ring Equipped"]={nil,"Damage of Enemies Hitting you is Unlucky while you have a Magic Ring Equipped "}
 c["Damage of Enemies Hitting you is Unlucky while you have a Magic Ring Equipped You are Hexproof if you have a Magic Ring in right slot"]={nil,"Damage of Enemies Hitting you is Unlucky while you have a Magic Ring Equipped You are Hexproof if you have a Magic Ring in right slot "}
 c["Damage of Hits against you is Lucky"]={nil,"Damage of Hits  is Lucky "}
@@ -12247,7 +12248,6 @@ c["While affected by Glorious Madness, inflict Mania on nearby Enemies every sec
 c["While at Maximum Frenzy Charges, Attacks Poison Enemies"]={{[1]={[1]={stat="FrenzyCharges",thresholdStat="FrenzyChargesMax",type="StatThreshold"},flags=1,keywordFlags=0,name="PoisonChance",type="BASE",value=100}},nil}
 c["While in Her Embrace, take 0.5% of your total Maximum Life and Energy Shield as Fire Damage per second per Level"]={{[1]={[1]={percent=0.5,stat="Life",type="PercentStat"},[2]={type="Multiplier",var="Level"},[3]={type="Condition",var="HerEmbrace"},flags=0,keywordFlags=0,name="FireDegen",type="BASE",value=1},[2]={[1]={percent=0.5,stat="EnergyShield",type="PercentStat"},[2]={type="Multiplier",var="Level"},[3]={type="Condition",var="HerEmbrace"},flags=0,keywordFlags=0,name="FireDegen",type="BASE",value=1}},nil}
 c["While not on Full Life, Sacrifice 20% of Mana per Second to Recover that much Life"]={{[1]={[1]={neg=true,type="Condition",var="FullLife"},flags=0,keywordFlags=0,name="ManaDegenPercent",type="BASE",value=20},[2]={[1]={percent=20,stat="Mana",type="PercentStat"},[2]={neg=true,type="Condition",var="FullLife"},flags=0,keywordFlags=0,name="LifeRecovery",type="BASE",value=1}},nil}
-c["While on Low Life, Enemies are Unlucky when Damaging you"]={nil,"While on Low Life, Enemies are Unlucky when Damaging you "}
 c["While there are at least five nearby Allies, you and nearby Allies have Onslaught"]={{[1]={[1]={threshold=5,type="MultiplierThreshold",var="NearbyAlly"},flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="Onslaught",type="FLAG",value=true}}}},nil}
 c["While your Passive Skill Tree connects to a class' starting location, you gain:"]={{},nil}
 c["Wicked Ward"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Wicked Ward"}},nil}
@@ -12684,7 +12684,6 @@ c["more than once every 0.3 seconds Lose all Defiance when you reach 10 Defiance
 c["more than once every 0.3 seconds Lose all Defiance when you reach 10 Defiance Gain 3% of Missing Unreserved Life before being Hit by an Enemy Per Defiance"]={nil,"more than once every 0.3 seconds Lose all Defiance when you reach 10 Defiance Gain 3% of Missing Unreserved Life before being Hit by an Enemy Per Defiance "}
 c["per Tribe for which you have an allocated Tattoo"]={nil,"per Tribe for which you have an allocated Tattoo "}
 c["per Tribe for which you have an allocated Tattoo Limited to 1 Ancestral Tattoo"]={nil,"per Tribe for which you have an allocated Tattoo Limited to 1 Ancestral Tattoo "}
-c["time you've been Hit by an Enemy Recently, up to 30%"]={nil,"time you've been Hit by an Enemy Recently, up to 30% "}
 c["to surrounding targets"]={nil,"to surrounding targets "}
 c["to surrounding targets 15% increased Attack Damage"]={nil,"to surrounding targets 15% increased Attack Damage "}
 c["to surrounding targets while wielding a Mace"]={nil,"to surrounding targets while wielding a Mace "}

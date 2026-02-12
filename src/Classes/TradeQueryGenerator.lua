@@ -949,13 +949,44 @@ function TradeQueryGeneratorClass:FinishQuery()
 		sort = { ["statgroup.0"] = "desc" },
 		engine = "new"
 	}
-	
+
+	local options = self.calcContext.options
+
+	local num_extra = 2
+	if not options.includeMirrored then
+		num_extra = num_extra + 1
+	end
+	if options.maxPrice and options.maxPrice > 0 then
+		num_extra = num_extra + 1
+	end
+	if options.maxLevel and options.maxLevel > 0 then
+		num_extra = num_extra + 1
+	end
+	if options.sockets and options.sockets > 0 then
+		num_extra = num_extra + 1
+	end
+
+	local effective_max = MAX_FILTERS - num_extra
+
+	-- Prioritize top mods by abs(weight)
+	table.sort(self.modWeights, function(a, b) return math.abs(a.weight) > math.abs(b.weight) end)
+
+	local prioritizedMods = {}
+	for _, entry in ipairs(self.modWeights) do
+		if #prioritizedMods < effective_max then
+			table.insert(prioritizedMods, entry)
+		else
+			break
+		end
+	end
+
+	self.modWeights = prioritizedMods
+
 	for k, v in pairs(self.calcContext.special.queryExtra or {}) do
 		queryTable.query[k] = v
 	end
 
 	local andFilters = { type = "and", filters = { } }
-
 	local options = self.calcContext.options
 	if options.influence1 > 1 then
 		t_insert(andFilters.filters, { id = hasInfluenceModIds[options.influence1 - 1] })
@@ -969,11 +1000,11 @@ function TradeQueryGeneratorClass:FinishQuery()
 	if #andFilters.filters > 0 then
 		t_insert(queryTable.query.stats, andFilters)
 	end
-
-	for _, entry in pairs(self.modWeights) do
+	
+	for _, entry in ipairs(self.modWeights) do
 		t_insert(queryTable.query.stats[1].filters, { id = entry.tradeModId, value = { weight = (entry.invert == true and entry.weight * -1 or entry.weight) } })
 		filters = filters + 1
-		if filters == MAX_FILTERS then
+		if filters == effective_max then
 			break
 		end
 	end
@@ -1148,7 +1179,8 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	-- basic filtering by slot for sockets and links, Megalomaniac does not have slot and Sockets use "Jewel nodeId"
 	if slot and not isJewelSlot and not isAbyssalJewelSlot and not slot.slotName:find("Flask") then
 		controls.sockets = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 70, 18}, nil, nil, "%D")
-		controls.socketsLabel = new("LabelControl", {"RIGHT",controls.sockets,"LEFT"}, {-5, 0, 0, 16}, "# of Sockets:")
+		controls.sockets.buf = self.lastSockets and tostring(self.lastSockets) or ""
+		controls.socketsLabel = new("LabelControl", {"RIGHT",controls.sockets,"LEFT"}, {-5, 0, 0, 16}, "# of Empty Sockets:")
 		updateLastAnchor(controls.sockets)
 
 		if not slot.slotName:find("Belt") and not slot.slotName:find("Ring") and not slot.slotName:find("Amulet") then
@@ -1228,6 +1260,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		end
 		if controls.sockets and controls.sockets.buf then
 			options.sockets = tonumber(controls.sockets.buf)
+			self.lastSockets = options.sockets
 		end
 		if controls.links and controls.links.buf then
 			options.links = tonumber(controls.links.buf)

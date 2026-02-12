@@ -585,4 +585,31 @@ describe("TetsItemMods", function()
 
 		assert.are.equals(0.86, build.calcsTab.calcsOutput.LightningEffMult)
 	end)
+	
+	it("Max charges with conditional mod", function() -- see #9442
+		build.skillsTab:PasteSocketGroup("Grace 20/20 Default  1\n")
+		runCallback("OnFrame")
+		
+		local baseFrenzyChargesMax = build.calcsTab.calcsOutput.FrenzyChargesMax
+		local baseEnduranceChargesMax = build.calcsTab.calcsOutput.EnduranceChargesMax
+		
+		build.configTab.input.customMods = [[
+			+1 to Maximum Frenzy Charges while affected by Grace
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(baseFrenzyChargesMax + 1, build.calcsTab.calcsOutput.FrenzyChargesMax)
+		assert.are.equals(baseEnduranceChargesMax, build.calcsTab.calcsOutput.EnduranceChargesMax)
+		
+		build.configTab.input.customMods = [[
+			Your Maximum Endurance Charges is equal to your Maximum Frenzy Charges
+			+1 to Maximum Frenzy Charges while affected by Grace
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(baseFrenzyChargesMax + 1, build.calcsTab.calcsOutput.FrenzyChargesMax)
+		assert.are.equals(baseEnduranceChargesMax + 1, build.calcsTab.calcsOutput.EnduranceChargesMax)
+	end)
 end)

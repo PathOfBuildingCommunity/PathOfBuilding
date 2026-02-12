@@ -63,7 +63,7 @@ function TradeQueryClass:FetchCurrencyConversionTable(callback)
 		"https://www.pathofexile.com/api/trade/data/static",
 		function(response, errMsg)
 			if errMsg then
-				callback(response, errMsg)
+				-- SKIP CALLBACK ON ERROR TO PREVENT PARTIAL DATA
 				return
 			end
 			local obj = dkjson.decode(response.body)
@@ -76,7 +76,7 @@ function TradeQueryClass:FetchCurrencyConversionTable(callback)
 				end
 			end
 			for _, value in pairs(currencyTable) do
-				currencyConversionTradeMap[value.text] = value.id
+				currencyConversionTradeMap[value.text:lower()] = value.id
 			end
 			self.currencyConversionTradeMap = currencyConversionTradeMap
 			if callback then
@@ -103,7 +103,7 @@ function TradeQueryClass:PullLeagueList()
 				table.sort(json_data, function(a, b)
 					if a.endAt == nil then return false end
 					if b.endAt == nil then return true end
-					return #a.id < #b.id
+					return a.id < b.id
 				end)
 				self.itemsTab.leagueDropList = {}
 				for _, league_data in pairs(json_data) do
