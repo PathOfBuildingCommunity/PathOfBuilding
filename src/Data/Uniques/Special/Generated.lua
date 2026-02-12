@@ -51,22 +51,12 @@ local getVeiledMods = function (veiledPool, baseType, specificType1, specificTyp
 	return veiledMods
 end
 
-local function tableHasValue (table, lookup)
-	for index, value in ipairs(table) do
-		if value == lookup then
-			return true
-		end
-	end
-
-	return false
-end
-
 local getVeiledModsByName = function (modNames) 
 	local veiledMods = { }
 	for veiledModIndex, veiledMod in pairs(data.veiledMods) do
 		local veiledName = parseVeiledModName(veiledModIndex)
 
-		if tableHasValue(modNames, veiledName) or tableHasValue(modNames, veiledModIndex) then
+		if isValueInArray(modNames, veiledName) or isValueInArray(modNames, veiledModIndex) then
 
 		veiledName = "("..veiledMod.type..") "..veiledName
 
