@@ -25,24 +25,6 @@ function TradeQueryRequestsClass:ProcessQueue()
 			local policy = self.rateLimiter:GetPolicyName(key)
 			local now = os.time()
 			local timeNext = self.rateLimiter:NextRequestTime(policy, now)
-<<<<<<<
-			if now >= timeNext then
-				local request = table.remove(queue, 1)
-				local requestId = self.rateLimiter:InsertRequest(policy)
-				local onComplete = function(response, errMsg)
-					self.rateLimiter:FinishRequest(policy, requestId)
-					self.rateLimiter:UpdateFromHeader(response.header)
-					if response.header:match("HTTP/[%d%.]+ (%d+)") == "429" then
-						table.insert(queue, 1, request)
-						return
-					end
-					request.callback(response.body, errMsg, unpack(request.callbackParams or {}))
-				end
-				-- self:SendRequest(request.url , onComplete, {body = request.body, poesessid = main.POESESSID})
-				local header = "Content-Type: application/json"
-				if main.POESESSID ~= "" then
-					header = header .. "\nCookie: POESESSID=" .. main.POESESSID
-=======
 			if not (queue[1].retryTime and now < queue[1].retryTime) then
 				if now >= timeNext then
 					local request = table.remove(queue, 1)
@@ -79,7 +61,6 @@ function TradeQueryRequestsClass:ProcessQueue()
 					})
 				else
 					break
->>>>>>>
 				end
 			end
 		end
