@@ -4914,8 +4914,8 @@ local specialModList = {
 	["added small passive skills grant nothing"] = { mod("JewelData", "LIST", { key = "clusterJewelSmallsAreNothingness", value = true }) },
 	["added small passive skills have (%d+)%% increased effect"] = function(num) return { mod("JewelData", "LIST", { key = "clusterJewelIncEffect", value = num }) } end,
 	["this jewel's socket has (%d+)%% increased effect per allocated passive skill between it and your class' starting location"] = function(num) return { mod("JewelData", "LIST", { key = "jewelIncEffectFromClassStart", value = num }) } end,
-	["(%d+)%% increased effect of jewel socket passive skills containing corrupted magic jewels, if not from cluster jewels"] = function(num) return { mod("JewelData", "LIST", { key = "corruptedMagicJewelIncEffect", value = num }) } end,
-	["(%d+)%% increased effect of jewel socket passive skills containing corrupted magic jewels"] = function(num) return { mod("JewelData", "LIST", { key = "corruptedMagicJewelIncEffect", value = num }) } end,
+	["(%d+)%% increased effect of jewel socket passive skills containing corrupted (m?r?ag?r?i?e?c?) jewels, if not from cluster jewels"] = function(num, _, rarity) return { mod("JewelData", "LIST", { key = "corrupted" .. firstToUpper(rarity) .. "JewelIncEffect", value = num }) } end,
+	["(%d+)%% increased effect of jewel socket passive skills containing corrupted (m?r?ag?r?i?e?c?) jewels"] = function(num, _, rarity) return { mod("JewelData", "LIST", { key = "corrupted" .. firstToUpper(rarity) .. "JewelIncEffect", value = num }) } end,
 	-- Misc
 	["can't use chest armour"] = { mod("CanNotUseItem", "Flag", 1, { type = "DisablesItem", slotName = "Body Armour" }) },
 	["can't use helmets?"] = { mod("CanNotUseItem", "Flag", 1, { type = "DisablesItem", slotName = "Helmet" }) },
