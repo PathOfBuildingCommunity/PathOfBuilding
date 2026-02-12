@@ -40,7 +40,7 @@ function TradeQueryRequestsClass:ProcessQueue()
 							return
 						end
 						-- if limit rules don't return account then the POESESSID is invalid.
-						if response.header:match("X%-Rate%-Limit%-Rules: (.-)\n"):match("Account") == nil and main.POESESSID ~= "" then
+						if response.header:match("[xX]%-[rR]ate%-[lL]imit%-[rR]ules: (.-)\n"):match("Account") == nil and main.POESESSID ~= "" then
 							main.POESESSID = ""
 							if errMsg then
 								errMsg = errMsg .. "\nPOESESSID is invalid. Please Re-Log and reset"
