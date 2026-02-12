@@ -55,22 +55,16 @@ local getVeiledModsByName = function (modNames)
 	local veiledMods = { }
 	for veiledModIndex, veiledMod in pairs(data.veiledMods) do
 		local veiledName = parseVeiledModName(veiledModIndex)
-
 		if isValueInArray(modNames, veiledName) or isValueInArray(modNames, veiledModIndex) then
-
-		veiledName = "("..veiledMod.type..") "..veiledName
-
-		local veiled = { veiledName = veiledName, veiledLines = { } }
-		for line, value in ipairs(veiledMod) do
-			veiled.veiledLines[line] = value
-		end
-
-		table.insert(veiledMods, veiled)
+			veiledName = "("..veiledMod.type..") "..veiledName
+			local veiled = { veiledName = veiledName, veiledLines = { } }
+			for line, value in ipairs(veiledMod) do
+				veiled.veiledLines[line] = value
+			end
+			table.insert(veiledMods, veiled)
 		end
 	end
-
 	table.sort(veiledMods, function (m1, m2) return m1.veiledName < m2.veiledName end )
-
 	return veiledMods
 end
 
