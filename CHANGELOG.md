@@ -1,5 +1,33 @@
 # Changelog
 
+## [v2.60.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.60.0) (2026/01/28)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.59.1...v2.60.0)
+
+
+## What's Changed
+### New to Path of Building
+- Add 3.27 Phrecia Tree [\#9437](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9437) ([ShadowTrolll](https://github.com/ShadowTrolll))
+- Add support for newer unveils on Bitterbind Point [\#9357](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9357) ([Peechey](https://github.com/Peechey))
+- Add "aoe" filtering for gem search [\#9433](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9433) ([Blitz54](https://github.com/Blitz54))
+### Fixed Crashes
+- Fix crash on adding support gems and importing items to many builds [\#9340](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9340) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Radius Jewels in Shared Items Crashing on Load [\#9349](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9349) ([Peechey](https://github.com/Peechey))
+- Fix Crash when sorting gems while using Foulborn Gruthkel's Pelt [\#9376](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9376) ([LocalIdentity](https://github.com/LocalIdentity))
+### User Interface
+- Fix Foulborn Icons showing on tree nodes, and foil items not importing type [\#9363](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9363) ([Blitz54](https://github.com/Blitz54))
+### Fixed Calculations
+- Fix Spellslinger gaining generic damage instead of Spell damage [\#9352](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9352) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Foulborn Choir of the Storm's Overcapped Mod not applying to Total Mana [\#9351](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9351) ([Peechey](https://github.com/Peechey))
+### Fixed Behaviours
+- Fix Party Tab max Fortify override not working [\#9342](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9342) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Utula's working with The Tides of Time [\#9436](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9436) ([Blitz54](https://github.com/Blitz54))
+### Accuracy Improvements
+- Updated Lori's Lantern text to match in-game description [\#9418](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9418) ([EminGul](https://github.com/EminGul))
+- Fix flavour text for some Uniques [\#9434](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9434) ([Blitz54](https://github.com/Blitz54))
+- Fix Sirus Meteor and Maven Memory game damage values [\#9372](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9372) ([LocalIdentity](https://github.com/LocalIdentity))
+
+
 ## [v2.59.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.59.2) (2025/11/23)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.59.1...v2.59.2)

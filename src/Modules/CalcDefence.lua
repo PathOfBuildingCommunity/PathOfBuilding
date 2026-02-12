@@ -471,11 +471,40 @@ local function incomingDamageBreakdown(breakdownTable, poolsRemaining, output)
 	return breakdownTable
 end
 
+-- Performs defensive calculations used by conditionals
+function calcs.defenceForConditionals(env, actor)
+	local modDB = actor.modDB
+	local output = actor.output
+
+	-- Armour defence types for conditionals
+	for _, slot in pairs({"Helmet","Gloves","Boots","Body Armour","Weapon 2","Weapon 3"}) do
+		local armourData = actor.itemList[slot] and actor.itemList[slot].armourData
+		if armourData then
+			local wardBase = not modDB:Flag(nil, "GainNoWardFrom" .. slot) and armourData.Ward or 0
+			if wardBase > 0 then
+				output["WardOn"..slot] = wardBase
+			end
+			local energyShieldBase = not modDB:Flag(nil, "GainNoEnergyShieldFrom" .. slot) and armourData.EnergyShield or 0
+			if energyShieldBase > 0 then
+				output["EnergyShieldOn"..slot] = energyShieldBase
+			end
+			local armourBase = not modDB:Flag(nil, "GainNoArmourFrom" .. slot) and armourData.Armour or 0
+			if armourBase > 0 then
+				output["ArmourOn"..slot] = armourBase
+			end
+			local evasionBase = not modDB:Flag(nil, "GainNoEvasionFrom" .. slot) and armourData.Evasion or 0
+			if evasionBase > 0 then
+				output["EvasionOn"..slot] = evasionBase
+			end
+		end
+	end
+end
+
+-- Performs resistance calculations
 function calcs.resistances(actor)
 	local modDB = actor.modDB
 	local output = actor.output
 	local breakdown = actor.breakdown
-		-- Resistances
 	output["PhysicalResist"] = 0
 	
 	-- Process Resistance conversion mods
@@ -611,29 +640,6 @@ function calcs.defence(env, actor)
 
 	-- Action Speed
 	output.ActionSpeedMod = calcs.actionSpeedMod(actor)
-
-	-- Armour defence types for conditionals
-	for _, slot in pairs({"Helmet","Gloves","Boots","Body Armour","Weapon 2","Weapon 3"}) do
-		local armourData = actor.itemList[slot] and actor.itemList[slot].armourData
-		if armourData then
-			wardBase = not modDB:Flag(nil, "GainNoWardFrom" .. slot) and armourData.Ward or 0
-			if wardBase > 0 then
-				output["WardOn"..slot] = wardBase
-			end
-			energyShieldBase = not modDB:Flag(nil, "GainNoEnergyShieldFrom" .. slot) and armourData.EnergyShield or 0
-			if energyShieldBase > 0 then
-				output["EnergyShieldOn"..slot] = energyShieldBase
-			end
-			armourBase = not modDB:Flag(nil, "GainNoArmourFrom" .. slot) and armourData.Armour or 0
-			if armourBase > 0 then
-				output["ArmourOn"..slot] = armourBase
-			end
-			evasionBase = not modDB:Flag(nil, "GainNoEvasionFrom" .. slot) and armourData.Evasion or 0
-			if evasionBase > 0 then
-				output["EvasionOn"..slot] = evasionBase
-			end
-		end
-	end
 
 	calcs.resistances(actor)
 	if env.minion and modDB:Sum("BASE", nil, "ResistanceAddedToMinions") > 0 then
@@ -1709,10 +1715,15 @@ function calcs.buildDefenceEstimations(env, actor)
 				conversionTotal = conversions["total"] + conversions["totalSkill"]
 				-- Calculate the amount converted/gained as
 				for _, damageTypeTo in ipairs(dmgTypeList) do
-					local gainAsPercent = (enemyDB:Sum("BASE", enemyCfg, (damageType.."DamageGainAs"..damageTypeTo)) + conversions[damageTypeTo.."skill"] + conversions[damageTypeTo]) / 100
-					if gainAsPercent > 0 then
+					local gainAsPercent = enemyDB:Sum("BASE", enemyCfg, (damageType.."DamageGainAs"..damageTypeTo)) / 100
+					local conversionPercent = (conversions[damageTypeTo.."skill"] + conversions[damageTypeTo]) / 100
+					if conversionPercent > 0 and damageType == "Physical" and damageTypeTo ~= "Chaos" then
+						local physBonus = 1 + data.monsterPhysConversionMultiTable[env.enemyLevel] / 100
+						conversionPercent = conversionPercent * physBonus
+					end
+					if gainAsPercent > 0 or conversionPercent > 0 then
 						enemyDamageConversion[damageTypeTo] = enemyDamageConversion[damageTypeTo] or { }
-						enemyDamageConversion[damageTypeTo][damageType] = enemyDamage * gainAsPercent
+						enemyDamageConversion[damageTypeTo][damageType] = enemyDamage * gainAsPercent + enemyDamage * conversionPercent
 					end
 				end
 			end

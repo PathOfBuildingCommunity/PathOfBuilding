@@ -1307,6 +1307,14 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 
 	self:UpdateSockets()
 
+	if main.portraitMode then
+		self.controls.itemList:SetAnchor("TOPRIGHT", self.lastSlot, "BOTTOMRIGHT", 0, 40)
+	else
+		self.controls.itemList:SetAnchor("TOPLEFT", self.controls.setManage, "TOPRIGHT", 20, 20)
+	end
+	self.controls.craftDisplayItem:SetAnchor("TOPLEFT", main.portraitMode and self.controls.setManage or self.controls.itemList, "TOPRIGHT", 20, main.portraitMode and 0 or -20)
+	self.anchorDisplayItem:SetAnchor("TOPLEFT", main.portraitMode and self.controls.setManage or self.controls.itemList, "TOPRIGHT", 20, main.portraitMode and 0)
+
 	self:DrawControls(viewPort)
 	if self.controls.scrollBarH:IsShown() then
 		self.controls.scrollBarH:Draw(viewPort)
@@ -1423,10 +1431,6 @@ function ItemsTabClass:UpdateSockets()
 	for index, nodeId in ipairs(activeSocketList) do
 		self.sockets[nodeId].label = "Socket #"..index
 		self.lastSlot = self.sockets[nodeId]
-	end
-
-	if main.portraitMode then
-		self.controls.itemList:SetAnchor("TOPRIGHT",self.lastSlot,"BOTTOMRIGHT", 0, 40)
 	end
 end
 

@@ -1,3 +1,31 @@
+VERSION[2.60.0][2026/01/28]
+
+--- New to Path of Building ---
+* Add 3.27 Phrecia Tree (ShadowTrolll)
+* Add support for newer unveils on Bitterbind Point (Peechey)
+* Add "aoe" filtering for gem search (Blitz54)
+
+--- Fixed Crashes ---
+* Fix crash on adding support gems and importing items to many builds (LocalIdentity)
+* Fix Radius Jewels in Shared Items Crashing on Load (Peechey)
+* Fix Crash when sorting gems while using Foulborn Gruthkel's Pelt (LocalIdentity)
+
+--- User Interface ---
+* Fix Foulborn Icons showing on tree nodes, and foil items not importing type (Blitz54)
+
+--- Fixed Calculations ---
+* Fix Spellslinger gaining generic damage instead of Spell damage (LocalIdentity)
+* Fix Foulborn Choir of the Storm's Overcapped Mod not applying to Total Mana (Peechey)
+
+--- Fixed Behaviours ---
+* Fix Party Tab max Fortify override not working (LocalIdentity)
+* Fix Utula's working with The Tides of Time (Blitz54)
+
+--- Accuracy Improvements ---
+* Updated Lori's Lantern text to match in-game description (EminGul)
+* Fix flavour text for some Uniques (Blitz54)
+* Fix Sirus Meteor and Maven Memory game damage values (LocalIdentity)
+
 VERSION[2.59.2][2025/11/23]
 
 --- Fixed Crashes ---

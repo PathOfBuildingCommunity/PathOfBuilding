@@ -11181,6 +11181,8 @@ skills["KineticFusillade"] = {
 					end
 					t_insert(breakdownSequential, s_format("^8Average more multiplier:^7 %.1f%%", avgMoreMult))
 					breakdown.KineticFusilladeSequentialBreakdown = breakdownSequential
+					breakdown.ProjectileCount = breakdown.ProjectileCount or {}
+					t_insert(breakdown.ProjectileCount,s_format("^8Maximum number of Kinetic Fusilade projectiles:^7 %d", activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "ProjectileCountMaximum")))
 				end
 			end
 		end
@@ -11249,6 +11251,10 @@ skills["KineticFusillade"] = {
 			div = 1000,
 		},
 		["quality_display_kinetic_fusillade_is_gem"] = {
+			-- Display only
+		},
+		["kinetic_fusillade_maximum_floating_projectiles"] = {
+			mod("ProjectileCountMaximum", "BASE", nil)
 		},
 	},
 	baseFlags = {
