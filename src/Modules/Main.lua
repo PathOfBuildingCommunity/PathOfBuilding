@@ -114,6 +114,7 @@ function main:Init()
 	self.showFlavourText = true
 	self.showAnimations = true
 	self.showAllItemAffixes = true
+	self.compareJewelsOfSameType = false
 	self.errorReadingSettings = false
 
 	if not SetDPIScaleOverridePercent then SetDPIScaleOverridePercent = function(scale) end end
@@ -660,6 +661,9 @@ function main:LoadSettings(ignoreBuild)
 					self.dpiScaleOverridePercent = tonumber(node.attrib.dpiScaleOverridePercent) or 0
 					SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
 				end
+				if node.attrib.compareJewelsOfSameType then
+					self.compareJewelsOfSameType = node.attrib.compareJewelsOfSameType == "true"
+				end
 			end
 		end
 	end
@@ -791,6 +795,7 @@ function main:SaveSettings()
 		showAnimations = tostring(self.showAnimations),
 		showAllItemAffixes = tostring(self.showAllItemAffixes),
 		dpiScaleOverridePercent = tostring(self.dpiScaleOverridePercent),
+		compareJewelsOfSameType = tostring(self.compareJewelsOfSameType),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -1078,6 +1083,13 @@ function main:OpenOptionsPopup()
 	end)
 	controls.invertSliderScrollDirection.tooltipText = "Default scroll direction is:\nScroll Up = Move right\nScroll Down = Move left"
 	controls.invertSliderScrollDirection.state = self.invertSliderScrollDirection
+
+	nextRow()
+	controls.compareJewelsOfSameType = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, currentY, 20 }, "^7Compare jewels of the same type:", function(state)
+		self.compareJewelsOfSameType = state
+	end)
+	controls.compareJewelsOfSameType.tooltipText = "Enabling this option will force comparing jewels only jewels of the same type."
+	controls.compareJewelsOfSameType.state = self.compareJewelsOfSameType
 	
 	if launch.devMode then
 		nextRow()
@@ -1118,6 +1130,7 @@ function main:OpenOptionsPopup()
 	local initialShowAnimations = self.showAnimations
 	local initialShowAllItemAffixes = self.showAllItemAffixes
 	local initialDpiScaleOverridePercent = self.dpiScaleOverridePercent
+	local initialCompareJewelsOfSameType = self.compareJewelsOfSameType
 
 	-- last line with buttons has more spacing
 	nextRow(1.5)
@@ -1175,6 +1188,7 @@ function main:OpenOptionsPopup()
 		self.showAllItemAffixes = initialShowAllItemAffixes
 		self.dpiScaleOverridePercent = initialDpiScaleOverridePercent
 		SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
+		self.compareJewelsOfSameType = initialCompareJewelsOfSameType
 		main:ClosePopup()
 	end)
 	nextRow(1.5)
