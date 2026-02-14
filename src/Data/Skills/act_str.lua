@@ -294,7 +294,7 @@ skills["AncestralCry"] = {
 	castTime = 0.8,
 	statMap = {
 		["skill_empowers_next_x_melee_attacks"] = {
-			mod("AncestralExertedAttacks", "BASE", nil),
+			mod("AncestralExertedAttacks", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.MeleeSingleTarget }),
 		},
 		["ancestral_cry_elemental_resist_%_per_5_power_up_to_cap"] = {
 			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Warcry", div = 5, limit = 30 }),
@@ -9054,7 +9054,7 @@ skills["SeismicCry"] = {
 	castTime = 0.8,
 	statMap = {
 		["skill_empowers_next_x_melee_attacks"] = {
-			mod("SeismicExertedAttacks", "BASE", nil),
+			mod("SeismicExertedAttacks", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Slam }),
 		},
 		["seismic_cry_base_slam_skill_area_+%_final"] = {
 			mod("SeismicAoEMoreMultiplier", "BASE", nil),
