@@ -330,6 +330,13 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		end
 	end
 
+	-- Apply stat-map flagged skill flags.
+	for stat, statValue in pairs(calcLib.buildSkillInstanceStats(activeEffect, activeGrantedEffect)) do
+		local map = activeGrantedEffect.statMap[stat]
+		if statValue ~= 0 and map and map.skillFlag then
+			skillFlags[map.skillFlag] = true
+		end
+	end
 	-- Build skill mod flag set
 	local skillModFlags = 0
 	if skillFlags.hit then
@@ -393,6 +400,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	end
 	if skillFlags.brand then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Brand)
+	end
+	if skillFlags.arrow then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Arrow)
 	end
 	if skillFlags.totem then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Totem)

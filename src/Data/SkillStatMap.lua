@@ -1312,11 +1312,14 @@ return {
 	mod("LinkEffectOnSelf", "INC", nil),
 },
 -- Projectiles
+["skill_can_fire_arrows"] = {
+	skillFlag = "arrow",
+},
 ["base_projectile_speed_+%"] = {
 	mod("ProjectileSpeed", "INC", nil),
 },
 ["base_arrow_speed_+%"] = {
-	mod("ProjectileSpeed", "INC", nil),
+	mod("ProjectileSpeed", "INC", nil, 0, KeywordFlag.Arrow),
 },
 ["active_skill_projectile_speed_+%_final"] = {
 	mod("ProjectileSpeed", "MORE", nil),
@@ -1325,7 +1328,7 @@ return {
 	mod("PierceCount", "BASE", nil),
 },
 ["arrow_base_number_of_targets_to_pierce"] = {
-	mod("PierceCount", "BASE", nil, ModFlag.Attack),
+	mod("PierceCount", "BASE", nil, 0, KeywordFlag.Arrow),
 },
 ["pierce_%"] = {
 	mod("PierceChance", "BASE", nil),
@@ -1367,11 +1370,11 @@ return {
 	flag("NoAdditionalProjectiles"),
 },
 ["base_number_of_arrows"] = {
-	mod("ProjectileCount", "BASE", nil),
+	mod("ProjectileCount", "BASE", nil, 0, KeywordFlag.Arrow),
 	base = -1,
 },
 ["number_of_additional_arrows"] = {
-	mod("ProjectileCount", "BASE", nil),
+	mod("ProjectileCount", "BASE", nil, 0, KeywordFlag.Arrow),
 },
 ["base_number_of_projectiles"] = {
 	mod("ProjectileCount", "BASE", nil),

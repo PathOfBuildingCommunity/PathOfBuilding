@@ -2730,7 +2730,7 @@ c["100% Increased Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Evasion",
 c["100% Increased Life Recovery from Flasks"]={{[1]={flags=0,keywordFlags=0,name="FlaskLifeRecovery",type="INC",value=100}},nil}
 c["100% Increased Mana Recovery from Flasks"]={{[1]={flags=0,keywordFlags=0,name="FlaskManaRecovery",type="INC",value=100}},nil}
 c["100% Increased Mana Regeneration Rate"]={{[1]={flags=0,keywordFlags=0,name="ManaRegen",type="INC",value=100}},nil}
-c["100% More Damage with Arrow Hits at Close Range"]={{[1]={[1]={type="Condition",var="AtCloseRange"},flags=131076,keywordFlags=0,name="Damage",type="MORE",value=100}},nil}
+c["100% More Damage with Arrow Hits at Close Range"]={{[1]={[1]={type="Condition",var="AtCloseRange"},flags=4,keywordFlags=2048,name="Damage",type="MORE",value=100}},nil}
 c["100% chance to Avoid Blind"]={{[1]={flags=0,keywordFlags=0,name="AvoidBlind",type="BASE",value=100}},nil}
 c["100% chance to Avoid being Chilled during Onslaught"]={{[1]={[1]={type="Condition",var="Onslaught"},flags=0,keywordFlags=0,name="AvoidChill",type="BASE",value=100}},nil}
 c["100% chance to Avoid being Ignited, Chilled or Frozen with Her Blessing"]={{[1]={flags=0,keywordFlags=0,name="AvoidIgnite",type="BASE",value=100}}," , Chilled or Frozen with Her Blessing "}
@@ -2771,7 +2771,7 @@ c["100% increased Critical Strike Chance for Spells per Raised Spectre"]={{[1]={
 c["100% increased Critical Strike Chance if you haven't dealt a Critical Strike Recently"]={{[1]={[1]={neg=true,type="Condition",var="CritRecently"},flags=0,keywordFlags=0,name="CritChance",type="INC",value=100}},nil}
 c["100% increased Critical Strike Chance while affected by Wrath"]={{[1]={[1]={type="Condition",var="AffectedByWrath"},flags=0,keywordFlags=0,name="CritChance",type="INC",value=100}},nil}
 c["100% increased Critical Strike Chance with Bows"]={{[1]={flags=131076,keywordFlags=0,name="CritChance",type="INC",value=100}},nil}
-c["100% increased Critical Strike Chance with arrows that Fork"]={{[1]={[1]={stat="ForkRemaining",threshold=1,type="StatThreshold"},[2]={stat="PierceCount",threshold=0,type="StatThreshold",upper=true},flags=131072,keywordFlags=0,name="CritChance",type="INC",value=100}},nil}
+c["100% increased Critical Strike Chance with arrows that Fork"]={{[1]={[1]={stat="ForkRemaining",threshold=1,type="StatThreshold"},[2]={stat="PierceCount",threshold=0,type="StatThreshold",upper=true},flags=0,keywordFlags=2048,name="CritChance",type="INC",value=100}},nil}
 c["100% increased Damage when on Low Life"]={{[1]={[1]={type="Condition",var="LowLife"},flags=0,keywordFlags=0,name="Damage",type="INC",value=100}},nil}
 c["100% increased Damage with Hits against Ignited Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Ignited"},flags=0,keywordFlags=262144,name="Damage",type="INC",value=100}},nil}
 c["100% increased Damage with Hits and Ailments against Hindered Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=786432,name="Damage",type="INC",value=100}},nil}
@@ -3560,7 +3560,7 @@ c["175% increased Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="INC
 c["175% increased Armour and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEnergyShield",type="INC",value=175}},nil}
 c["175% increased Armour and Evasion"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEvasion",type="INC",value=175}},nil}
 c["175% increased Critical Strike Chance for Spells if you've Killed Recently"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=2,keywordFlags=0,name="CritChance",type="INC",value=175}},nil}
-c["175% increased Critical Strike Chance with arrows that Fork"]={{[1]={[1]={stat="ForkRemaining",threshold=1,type="StatThreshold"},[2]={stat="PierceCount",threshold=0,type="StatThreshold",upper=true},flags=131072,keywordFlags=0,name="CritChance",type="INC",value=175}},nil}
+c["175% increased Critical Strike Chance with arrows that Fork"]={{[1]={[1]={stat="ForkRemaining",threshold=1,type="StatThreshold"},[2]={stat="PierceCount",threshold=0,type="StatThreshold",upper=true},flags=0,keywordFlags=2048,name="CritChance",type="INC",value=175}},nil}
 c["175% increased Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=175}},nil}
 c["175% increased Energy Shield Recharge Rate during any Flask Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="EnergyShieldRecharge",type="INC",value=175}},nil}
 c["175% increased Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Evasion",type="INC",value=175}},nil}
@@ -3651,7 +3651,7 @@ c["190% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="Physical
 c["195% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=195}},nil}
 c["2 Enemy Writhing Worms escape the Flask when used"]={{}," Enemy Writhing Worms escape the Flask when used "}
 c["2 Enemy Writhing Worms escape the Flask when used Writhing Worms are destroyed when Hit"]={{}," Enemy Writhing Worms escape the Flask when used Writhing Worms are destroyed when Hit "}
-c["2 additional Arrows"]={{[1]={flags=1,keywordFlags=0,name="ProjectileCount",type="BASE",value=2}},nil}
+c["2 additional Arrows"]={{[1]={flags=0,keywordFlags=2048,name="ProjectileCount",type="BASE",value=2}},nil}
 c["2 to 38 Lightning Damage per Power Charge"]={{[1]={[1]={type="Multiplier",var="PowerCharge"},flags=0,keywordFlags=0,name="LightningMin",type="BASE",value=2},[2]={[1]={type="Multiplier",var="PowerCharge"},flags=0,keywordFlags=0,name="LightningMax",type="BASE",value=38}},nil}
 c["2 to 40 Lightning Damage per Power Charge"]={{[1]={[1]={type="Multiplier",var="PowerCharge"},flags=0,keywordFlags=0,name="LightningMin",type="BASE",value=2},[2]={[1]={type="Multiplier",var="PowerCharge"},flags=0,keywordFlags=0,name="LightningMax",type="BASE",value=40}},nil}
 c["2% Chance to Block Attack Damage per Endurance Charge"]={{[1]={[1]={type="Multiplier",var="EnduranceCharge"},flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=2}},nil}
@@ -4126,7 +4126,7 @@ c["200% increased Charges per use"]={{[1]={flags=0,keywordFlags=0,name="FlaskCha
 c["200% increased Cold Damage while your Off Hand is empty"]={{[1]={[1]={type="Condition",var="OffHandIsEmpty"},flags=0,keywordFlags=0,name="ColdDamage",type="INC",value=200}},nil}
 c["200% increased Critical Strike Chance"]={{[1]={flags=0,keywordFlags=0,name="CritChance",type="INC",value=200}},nil}
 c["200% increased Critical Strike Chance while you have Avatar of Fire"]={{[1]={[1]={type="Condition",var="HaveAvatarOfFire"},flags=0,keywordFlags=0,name="CritChance",type="INC",value=200}},nil}
-c["200% increased Critical Strike Chance with arrows that Fork"]={{[1]={[1]={stat="ForkRemaining",threshold=1,type="StatThreshold"},[2]={stat="PierceCount",threshold=0,type="StatThreshold",upper=true},flags=131072,keywordFlags=0,name="CritChance",type="INC",value=200}},nil}
+c["200% increased Critical Strike Chance with arrows that Fork"]={{[1]={[1]={stat="ForkRemaining",threshold=1,type="StatThreshold"},[2]={stat="PierceCount",threshold=0,type="StatThreshold",upper=true},flags=0,keywordFlags=2048,name="CritChance",type="INC",value=200}},nil}
 c["200% increased Damage with Claws while on Low Life"]={{[1]={[1]={type="Condition",var="LowLife"},flags=262148,keywordFlags=0,name="Damage",type="INC",value=200}},nil}
 c["200% increased Endurance, Frenzy and Power Charge Duration"]={{[1]={flags=0,keywordFlags=0,name="PowerChargesDuration",type="INC",value=200},[2]={flags=0,keywordFlags=0,name="FrenzyChargesDuration",type="INC",value=200},[3]={flags=0,keywordFlags=0,name="EnduranceChargesDuration",type="INC",value=200}},nil}
 c["200% increased Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=200}},nil}
@@ -4954,7 +4954,7 @@ c["30% less Animate Weapon Duration"]={{[1]={[1]={includeTransfigured=true,skill
 c["30% less Damage"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="MORE",value=-30}},nil}
 c["30% less Damage Taken from Damage over Time while you have Unbroken Ward"]={{[1]={flags=0,keywordFlags=0,name="DamageTakenOverTime",type="MORE",value=-30}},"  while you have Unbroken Ward "}
 c["30% less Life Recovery from Flasks"]={{[1]={flags=0,keywordFlags=0,name="FlaskLifeRecovery",type="MORE",value=-30}},nil}
-c["30% more Damage with Arrow Hits at Close Range while you have Iron Reflexes"]={{[1]={[1]={type="Condition",var="AtCloseRange"},[2]={type="Condition",var="HaveIronReflexes"},flags=131076,keywordFlags=0,name="Damage",type="MORE",value=30}},nil}
+c["30% more Damage with Arrow Hits at Close Range while you have Iron Reflexes"]={{[1]={[1]={type="Condition",var="AtCloseRange"},[2]={type="Condition",var="HaveIronReflexes"},flags=4,keywordFlags=2048,name="Damage",type="MORE",value=30}},nil}
 c["30% more Damage with Hits and Ailments against Enemies that are on Low Life while you are wielding an Axe"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="LowLife"},[2]={type="Condition",var="UsingAxe"},flags=0,keywordFlags=786432,name="Damage",type="MORE",value=30}},nil}
 c["30% more Maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="MORE",value=30}},nil}
 c["30% more Melee Physical Damage during effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=256,keywordFlags=0,name="PhysicalDamage",type="MORE",value=30}},nil}
@@ -5156,7 +5156,7 @@ c["380% increased Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Evasion",
 c["39% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=39}},nil}
 c["4 Warlord Items are Equipped"]={{}," Warlord Items are Equipped "}
 c["4 Warlord Items are Equipped +3% to maximum Fire Resistance if 4 Warlord Items are Equipped"]={{[1]={[1]={threshold=4,type="MultiplierThreshold",var="WarlordItem"},flags=0,keywordFlags=0,name="FireResistMax",type="BASE",value=4}}," Warlord Items are Equipped +3% to   "}
-c["4 additional Arrows"]={{[1]={flags=1,keywordFlags=0,name="ProjectileCount",type="BASE",value=4}},nil}
+c["4 additional Arrows"]={{[1]={flags=0,keywordFlags=2048,name="ProjectileCount",type="BASE",value=4}},nil}
 c["4 to 8 Added Fire Damage with Bow Attacks"]={{[1]={flags=131076,keywordFlags=0,name="FireMin",type="BASE",value=4},[2]={flags=131076,keywordFlags=0,name="FireMax",type="BASE",value=8}},nil}
 c["4 to 8 added Fire Damage per 100 of Maximum Life or Maximum Mana, whichever is lower"]={{[1]={[1]={div=100,stat="LowestOfMaximumLifeAndMaximumMana",type="PerStat"},flags=0,keywordFlags=0,name="FireMin",type="BASE",value=4},[2]={[1]={div=100,stat="LowestOfMaximumLifeAndMaximumMana",type="PerStat"},flags=0,keywordFlags=0,name="FireMax",type="BASE",value=8}},nil}
 c["4% Chance to Block Attack Damage"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=4}},nil}
@@ -5648,7 +5648,7 @@ c["5% reduced Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeed
 c["5% reduced Skill Effect Duration"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="INC",value=-5}},nil}
 c["50 Mana gained when you Block"]={{[1]={flags=0,keywordFlags=0,name="ManaOnBlock",type="BASE",value=50}},nil}
 c["50% Chance to avoid being Stunned during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="AvoidStun",type="BASE",value=50}},nil}
-c["50% More Damage with Arrow Hits at Close Range"]={{[1]={[1]={type="Condition",var="AtCloseRange"},flags=131076,keywordFlags=0,name="Damage",type="MORE",value=50}},nil}
+c["50% More Damage with Arrow Hits at Close Range"]={{[1]={[1]={type="Condition",var="AtCloseRange"},flags=4,keywordFlags=2048,name="Damage",type="MORE",value=50}},nil}
 c["50% chance for Energy Shield Recharge to start when you Suppress Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="EnergyShield",type="BASE",value=50}}," for  Recharge to start when you Suppress  Damage "}
 c["50% chance for Flasks you use to not consume Charges"]={{[1]={flags=0,keywordFlags=0,name="FlaskChanceNotConsumeCharges",type="BASE",value=50}},nil}
 c["50% chance for Hits to ignore Enemy Physical Damage Reduction while you have Sacrificial Zeal"]={{[1]={[2]={type="Condition",var="SacrificialZeal"},flags=0,keywordFlags=0,name="ChanceToIgnoreEnemyPhysicalDamageReduction",type="BASE",value=50}},nil}
@@ -7177,7 +7177,7 @@ c["Adds Lone Messenger"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LI
 c["Adds Nature's Patience"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="clusterJewelKeystone",value="Nature's Patience"}}},nil}
 c["Adds Secrets of Suffering"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="clusterJewelKeystone",value="Secrets of Suffering"}}},nil}
 c["Adds Veteran's Awareness"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="clusterJewelKeystone",value="Veteran's Awareness"}}},nil}
-c["Adds an additional Arrow"]={{[1]={flags=1,keywordFlags=0,name="ProjectileCount",type="BASE",value=1}},nil}
+c["Adds an additional Arrow"]={{[1]={flags=0,keywordFlags=2048,name="ProjectileCount",type="BASE",value=1}},nil}
 c["Agony Crawler deals 100% increased Damage"]={{[1]={[1]={skillName="Herald of Agony",type="SkillName"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=100}}}},nil}
 c["Ailments never count as being from Critical Strikes"]={{[1]={flags=0,keywordFlags=0,name="AilmentsAreNeverFromCrit",type="FLAG",value=true}},nil}
 c["All Attack Damage Chills when you Stun"]={nil,"All Attack Damage Chills when you Stun "}
@@ -7559,14 +7559,14 @@ c["Armour is increased by Overcapped Fire Resistance"]={{[1]={flags=0,keywordFla
 c["Armour is increased by Uncapped Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="ArmourIncreasedByUncappedFireRes",type="FLAG",value=true}},nil}
 c["Arrow Dancing"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Arrow Dancing"}},nil}
 c["Arrows Fork"]={nil,"Arrows Fork "}
-c["Arrows Pierce 2 additional Targets"]={{[1]={flags=1,keywordFlags=0,name="PierceCount",type="BASE",value=2}},nil}
-c["Arrows Pierce all Targets"]={{[1]={flags=1,keywordFlags=0,name="PierceAllTargets",type="FLAG",value=true}},nil}
+c["Arrows Pierce 2 additional Targets"]={{[1]={flags=0,keywordFlags=2048,name="PierceCount",type="BASE",value=2}},nil}
+c["Arrows Pierce all Targets"]={{[1]={flags=0,keywordFlags=2048,name="PierceAllTargets",type="FLAG",value=true}},nil}
 c["Arrows Pierce all Targets after Chaining"]={nil,"Arrows Pierce all Targets after Chaining "}
 c["Arrows Pierce all Targets after Chaining Arrows Pierce all Targets after Forking"]={nil,"Arrows Pierce all Targets after Chaining Arrows Pierce all Targets after Forking "}
-c["Arrows Pierce all Targets after Forking"]={{[1]={[1]={stat="ForkedCount",threshold=1,type="StatThreshold"},flags=131072,keywordFlags=0,name="PierceAllTargets",type="FLAG",value=true}},nil}
-c["Arrows Pierce an additional Target"]={{[1]={flags=1,keywordFlags=0,name="PierceCount",type="BASE",value=1}},nil}
-c["Arrows deal 30 to 50 Added Fire Damage for each time they've Pierced"]={{[1]={[1]={stat="PiercedCount",type="PerStat"},flags=0,keywordFlags=1024,name="FireMin",type="BASE",value=30},[2]={[1]={stat="PiercedCount",type="PerStat"},flags=0,keywordFlags=1024,name="FireMax",type="BASE",value=50}},nil}
-c["Arrows deal 50% increased Damage with Hits and Ailments to Targets they Pierce"]={{[1]={[1]={stat="PierceCount",threshold=1,type="StatThreshold"},flags=0,keywordFlags=787456,name="Damage",type="INC",value=50}},nil}
+c["Arrows Pierce all Targets after Forking"]={{[1]={[1]={stat="ForkedCount",threshold=1,type="StatThreshold"},flags=0,keywordFlags=2048,name="PierceAllTargets",type="FLAG",value=true}},nil}
+c["Arrows Pierce an additional Target"]={{[1]={flags=0,keywordFlags=2048,name="PierceCount",type="BASE",value=1}},nil}
+c["Arrows deal 30 to 50 Added Fire Damage for each time they've Pierced"]={{[1]={[1]={stat="PiercedCount",type="PerStat"},flags=0,keywordFlags=2048,name="FireMin",type="BASE",value=30},[2]={[1]={stat="PiercedCount",type="PerStat"},flags=0,keywordFlags=2048,name="FireMax",type="BASE",value=50}},nil}
+c["Arrows deal 50% increased Damage with Hits and Ailments to Targets they Pierce"]={{[1]={[1]={stat="PierceCount",threshold=1,type="StatThreshold"},flags=0,keywordFlags=788480,name="Damage",type="INC",value=50}},nil}
 c["Arrows fired from the first firing points always Pierce"]={nil,"Arrows fired from the first firing points always Pierce "}
 c["Arrows fired from the first firing points always Pierce Arrows fired from the second firing points Fork"]={nil,"Arrows fired from the first firing points always Pierce Arrows fired from the second firing points Fork "}
 c["Arrows fired from the fourth firing points Chain +2 times"]={nil,"Arrows fired from the fourth firing points Chain +2 times "}
@@ -7574,10 +7574,10 @@ c["Arrows fired from the second firing points Fork"]={nil,"Arrows fired from the
 c["Arrows fired from the second firing points Fork Arrows fired from the third firing points Return to you"]={nil,"Arrows fired from the second firing points Fork Arrows fired from the third firing points Return to you "}
 c["Arrows fired from the third firing points Return to you"]={nil,"Arrows fired from the third firing points Return to you "}
 c["Arrows fired from the third firing points Return to you Arrows fired from the fourth firing points Chain +2 times"]={nil,"Arrows fired from the third firing points Return to you Arrows fired from the fourth firing points Chain +2 times "}
-c["Arrows gain Critical Strike Chance as they travel farther, up to 100% increased Critical Strike Chance"]={{[1]={[1]={ramp={[1]={[1]=35,[2]=0},[2]={[1]=70,[2]=1}},type="DistanceRamp"},flags=131072,keywordFlags=0,name="CritChance",type="INC",value=100}},nil}
-c["Arrows gain Damage as they travel farther, dealing up to 50% increased Damage with Hits to targets"]={{[1]={[1]={ramp={[1]={[1]=35,[2]=0},[2]={[1]=70,[2]=1}},type="DistanceRamp"},flags=131076,keywordFlags=0,name="Damage",type="INC",value=50}},nil}
-c["Arrows that Pierce have +50% to Critical Strike Multiplier"]={{[1]={[1]={stat="PierceCount",threshold=1,type="StatThreshold"},flags=131072,keywordFlags=0,name="CritMultiplier",type="BASE",value=50}},nil}
-c["Arrows that Pierce have 50% chance to cause Bleeding"]={{[1]={[1]={stat="PierceCount",threshold=1,type="StatThreshold"},flags=1025,keywordFlags=0,name="BleedChance",type="BASE",value=50}},nil}
+c["Arrows gain Critical Strike Chance as they travel farther, up to 100% increased Critical Strike Chance"]={{[1]={[1]={ramp={[1]={[1]=35,[2]=0},[2]={[1]=70,[2]=1}},type="DistanceRamp"},flags=0,keywordFlags=2048,name="CritChance",type="INC",value=100}},nil}
+c["Arrows gain Damage as they travel farther, dealing up to 50% increased Damage with Hits to targets"]={{[1]={[1]={ramp={[1]={[1]=35,[2]=0},[2]={[1]=70,[2]=1}},type="DistanceRamp"},flags=4,keywordFlags=2048,name="Damage",type="INC",value=50}},nil}
+c["Arrows that Pierce have +50% to Critical Strike Multiplier"]={{[1]={[1]={stat="PierceCount",threshold=1,type="StatThreshold"},flags=0,keywordFlags=2048,name="CritMultiplier",type="BASE",value=50}},nil}
+c["Arrows that Pierce have 50% chance to cause Bleeding"]={{[1]={[1]={stat="PierceCount",threshold=1,type="StatThreshold"},flags=1024,keywordFlags=2048,name="BleedChance",type="BASE",value=50}},nil}
 c["Arsenal of Vengeance"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Arsenal of Vengeance"}},nil}
 c["Aspect of the Avian also grants Avian's Might and Avian's Flight to nearby Allies"]={{[1]={[1]={skillName="Aspect of the Avian",type="SkillName"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="BuffAppliesToAllies",type="FLAG",value=true}}}},nil}
 c["Aspect of the Cat has no Reservation"]={{[1]={[1]={skillId="AspectOfTheCat",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="manaReservationFlat",value=0}},[2]={[1]={skillId="AspectOfTheCat",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="lifeReservationFlat",value=0}},[3]={[1]={skillId="AspectOfTheCat",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="manaReservationPercent",value=0}},[4]={[1]={skillId="AspectOfTheCat",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="lifeReservationPercent",value=0}}},nil}
@@ -7782,10 +7782,10 @@ c["Blind you inflict is Reflected to you 20% chance to gain a Frenzy Charge on H
 c["Blink Arrow and Mirror Arrow have 100% increased Cooldown Recovery Rate"]={{[1]={[1]={includeTransfigured=true,skillNameList={[1]="Blink Arrow",[2]="Mirror Arrow"},type="SkillName"},flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=100}},nil}
 c["Blood Magic"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Blood Magic"}},nil}
 c["Bloodsoaked Blade"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Bloodsoaked Blade"}},nil}
-c["Bow Attacks Sacrifice a random Damageable Minion to fire 2 additional Arrow"]={{[1]={[1]={type="Condition",var="SacrificeMinionOnAttack"},[2]={type="Condition",var="HaveDamageableMinion"},[3]={neg=true,skillType=41,type="SkillType"},[4]={neg=true,skillType=30,type="SkillType"},flags=131072,keywordFlags=0,name="ProjectileCount",type="BASE",value=2}},nil}
-c["Bow Attacks Sacrifice a random Damageable Minion to fire 3 additional Arrow"]={{[1]={[1]={type="Condition",var="SacrificeMinionOnAttack"},[2]={type="Condition",var="HaveDamageableMinion"},[3]={neg=true,skillType=41,type="SkillType"},[4]={neg=true,skillType=30,type="SkillType"},flags=131072,keywordFlags=0,name="ProjectileCount",type="BASE",value=3}},nil}
-c["Bow Attacks fire 2 additional Arrows"]={{[1]={flags=131072,keywordFlags=0,name="ProjectileCount",type="BASE",value=2}},nil}
-c["Bow Attacks fire 2 additional Arrows if you haven't Cast Dash recently"]={{[1]={[1]={neg=true,type="Condition",var="CastDashRecently"},flags=131072,keywordFlags=0,name="ProjectileCount",type="BASE",value=2}},nil}
+c["Bow Attacks Sacrifice a random Damageable Minion to fire 2 additional Arrow"]={{[1]={[1]={type="Condition",var="SacrificeMinionOnAttack"},[2]={type="Condition",var="HaveDamageableMinion"},[3]={neg=true,skillType=41,type="SkillType"},[4]={neg=true,skillType=30,type="SkillType"},flags=0,keywordFlags=2048,name="ProjectileCount",type="BASE",value=2}},nil}
+c["Bow Attacks Sacrifice a random Damageable Minion to fire 3 additional Arrow"]={{[1]={[1]={type="Condition",var="SacrificeMinionOnAttack"},[2]={type="Condition",var="HaveDamageableMinion"},[3]={neg=true,skillType=41,type="SkillType"},[4]={neg=true,skillType=30,type="SkillType"},flags=0,keywordFlags=2048,name="ProjectileCount",type="BASE",value=3}},nil}
+c["Bow Attacks fire 2 additional Arrows"]={{[1]={flags=0,keywordFlags=2048,name="ProjectileCount",type="BASE",value=2}},nil}
+c["Bow Attacks fire 2 additional Arrows if you haven't Cast Dash recently"]={{[1]={[1]={neg=true,type="Condition",var="CastDashRecently"},flags=0,keywordFlags=2048,name="ProjectileCount",type="BASE",value=2}},nil}
 c["Bow Attacks fire an additional Arrow"]={{[1]={flags=131072,keywordFlags=0,name="ProjectileCount",type="BASE",value=1}},nil}
 c["Bow Attacks have Culling Strike"]={{[1]={flags=131073,keywordFlags=0,name="CullPercent",type="MAX",value=10}},nil}
 c["Bow Knockback at Close Range"]={{[1]={[1]={type="Condition",var="AtCloseRange"},flags=131072,keywordFlags=0,name="EnemyKnockbackChance",type="BASE",value=100}},nil}
