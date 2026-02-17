@@ -279,11 +279,25 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	end)
 	self.controls.powerReportList.shown = false
 	-- Progress callback from the CalcsTab power builder coroutine
+	self.powerBuilderToastIndex = nil
+	self.lastProgressToastUpdate = 0
 	self.build.powerBuilderProgressCallback = function(percent)
-		if percent then
-			self.controls.powerReportList.label = string.format("Building Tree... (%d%%)", percent)
+		local now = GetTime()
+		if now - self.lastProgressToastUpdate < 100 then
+			return
+		end
+
+		local message = percent and string.format("Building Tree... (%d%%)", percent) or "Building Tree..."
+
+		self.controls.powerReportList.label = message
+		self.lastProgressToastUpdate = now
+		if self.powerBuilderToastIndex then
+			if main.toastMessages[self.powerBuilderToastIndex] and main.toastMessages[self.powerBuilderToastIndex]:match("^Building Tree") then
+				main.toastMessages[self.powerBuilderToastIndex] = message
+			end
 		else
-			self.controls.powerReportList.label = "Building Tree..."
+			t_insert(main.toastMessages, message)
+			self.powerBuilderToastIndex = 1
 		end
 	end
 	-- Completion callback from the CalcsTab power builder coroutine
@@ -291,6 +305,11 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		local powerStat = self.build.calcsTab.powerStat or data.powerStatList[1]
 		local report = self:BuildPowerReportList(powerStat)
 		self.controls.powerReportList:SetReport(powerStat, report)
+		if self.powerBuilderToastIndex and main.toastMessages[self.powerBuilderToastIndex] and main.toastMessages[self.powerBuilderToastIndex]:match("^Building Tree") then
+			main.toastMode = "HIDING"
+			main.toastStart = GetTime()
+		end
+		self.powerBuilderToastIndex = nil
 	end
 
 	self.controls.specConvertText = new("LabelControl", { "BOTTOMLEFT", self.controls.specSelect, "TOPLEFT" }, { 0, -14, 0, 16 }, "^7This is an older tree version, which may not be fully compatible with the current game version.")
