@@ -1,0 +1,10 @@
+diff a/src/Classes/CalcBreakdownControl.lua b/src/Classes/CalcBreakdownControl.lua	(rejected hunks)
+@@ -183,7 +183,7 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
+ 				{ label = "More/less", key = "more" },
+ 				{ label = "Inc/red", key = "inc" },
+ 				{ label = "Efficiency", key = "efficiency" },
+-				{ label = "Efficiency More", key = "efficiencyMore" },
++				{ label = "Efficiency More/less", key = "efficiencyMore" },
+ 				{ label = "Count", key = "count" },
+ 				{ label = "Reservation", key = "total" },
+ 			}
