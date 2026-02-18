@@ -19,6 +19,17 @@ local s_gsub = string.gsub
 local s_byte = string.byte
 local dkjson = require "dkjson"
 
+-- Helper function to find toast index by content pattern
+-- TODO: remove this when when we can control toast notifications better
+local function findToastIndex(pattern)
+	for i, msg in ipairs(main.toastMessages) do
+		if msg:match(pattern) then
+			return i
+		end
+	end
+	return nil
+end
+
 local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.ControlHost()
 
@@ -279,7 +290,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	end)
 	self.controls.powerReportList.shown = false
 	-- Progress callback from the CalcsTab power builder coroutine
-	self.powerBuilderToastIndex = nil
+	self.powerBuilderToastActive = false
 	self.lastProgressToastUpdate = 0
 	self.build.powerBuilderProgressCallback = function(percent)
 		local now = GetTime()
@@ -287,17 +298,16 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			return
 		end
 
-		local message = percent and string.format("Building Tree... (%d%%)", percent) or "Building Tree..."
+		local message = percent and string.format("Building Power Report... (%d%%)", percent) or "Building Power Report..."
 
 		self.controls.powerReportList.label = message
 		self.lastProgressToastUpdate = now
-		if self.powerBuilderToastIndex then
-			if main.toastMessages[self.powerBuilderToastIndex] and main.toastMessages[self.powerBuilderToastIndex]:match("^Building Tree") then
-				main.toastMessages[self.powerBuilderToastIndex] = message
-			end
+		local toastIndex = findToastIndex("^Building Power Report")
+		if toastIndex then
+			main.toastMessages[toastIndex] = message
 		else
 			t_insert(main.toastMessages, message)
-			self.powerBuilderToastIndex = 1
+			self.powerBuilderToastActive = true
 		end
 	end
 	-- Completion callback from the CalcsTab power builder coroutine
@@ -305,11 +315,19 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		local powerStat = self.build.calcsTab.powerStat or data.powerStatList[1]
 		local report = self:BuildPowerReportList(powerStat)
 		self.controls.powerReportList:SetReport(powerStat, report)
-		if self.powerBuilderToastIndex and main.toastMessages[self.powerBuilderToastIndex] and main.toastMessages[self.powerBuilderToastIndex]:match("^Building Tree") then
-			main.toastMode = "HIDING"
-			main.toastStart = GetTime()
+		local toastIndex = findToastIndex("^Building Power Report")
+		if self.powerBuilderToastActive and toastIndex then
+			-- Remove the toast from the queue instead of triggering hide animation
+			-- This prevents issues when the toast is not currently displayed (queued behind another toast)
+			-- TODO: look into allowing toast notifications to stack and have UUID's we can control them better
+			if toastIndex == 1 then
+				main.toastMode = "HIDING"
+				main.toastStart = GetTime()
+			else
+				t_remove(main.toastMessages, toastIndex)
+			end
 		end
-		self.powerBuilderToastIndex = nil
+		self.powerBuilderToastActive = false
 	end
 
 	self.controls.specConvertText = new("LabelControl", { "BOTTOMLEFT", self.controls.specSelect, "TOPLEFT" }, { 0, -14, 0, 16 }, "^7This is an older tree version, which may not be fully compatible with the current game version.")
