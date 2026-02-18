@@ -23,6 +23,9 @@ LoadModule("Modules/CalcTools")
 LoadModule("Modules/PantheonTools")
 LoadModule("Modules/BuildSiteTools")
 
+-- Load as global so other modules can access the same instance
+ToastNotification = LoadModule("Modules/ToastNotification")
+
 --[[if launch.devMode then
 	for skillName, skill in pairs(data.enchantments.Helmet) do
 		for _, mod in ipairs(skill.ENDGAME) do
@@ -233,19 +236,14 @@ function main:Init()
 	self.controls.devMode.shown = function()
 		return launch.devMode
 	end
-	self.controls.dismissToast = new("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, {0, function() return -self.mainBarHeight + self.toastHeight end, 80, 20}, "Dismiss", function()
-		self.toastMode = "HIDING"
-		self.toastStart = GetTime()
-	end)
-	self.controls.dismissToast.shown = function()
-		return self.toastMode == "SHOWN"
-	end
 
 	self.mainBarHeight = 58
-	self.toastMessages = { }
+
+	-- Initialize toast notification system
+	ToastNotification:Init(self.anchorMain)
 
 	if launch.devMode and GetTime() >= 0 and GetTime() < 15000 then
-		t_insert(self.toastMessages, [[
+		ToastNotification:Add([[
 ^xFF7700Warning: ^7Developer Mode active!
 The program is currently running in developer
 mode, which is not intended for normal use.
@@ -371,56 +369,23 @@ function main:OnFrame()
 	self:CallMode("OnFrame", self.inputEvents, self.viewPort)
 
 	if launch.updateErrMsg then
-		t_insert(self.toastMessages, string.format("Update check failed!\n%s", launch.updateErrMsg))
+		ToastNotification:Add(string.format("Update check failed!\n%s", launch.updateErrMsg))
 		launch.updateErrMsg = nil
 	end
 	if launch.updateAvailable then
 		if launch.updateAvailable == "none" then
-			t_insert(self.toastMessages, "No update available\nYou are running the latest version.")
+			ToastNotification:Add("No update available\nYou are running the latest version.")
 			launch.updateAvailable = nil
 		elseif not self.updateAvailableShown then
-			t_insert(self.toastMessages, "Update Available\nAn update has been downloaded and is ready\nto be applied.")
+			ToastNotification:Add("Update Available\nAn update has been downloaded and is ready\nto be applied.")
 			self.updateAvailableShown = true
 		end
 	end
 
-	-- Run toasts
-	if self.toastMessages[1] then
-		if not self.toastMode then
-			self.toastMode = "SHOWING"
-			self.toastStart = GetTime()
-			self.toastHeight = #self.toastMessages[1]:gsub("[^\n]","") * 16 + 20 + 40
-		end
-		if self.toastMode == "SHOWING" then
-			local now = GetTime()
-			if now >= self.toastStart + 250 then
-				self.toastMode = "SHOWN"
-			else
-				self.mainBarHeight = 58 + self.toastHeight * (now - self.toastStart) / 250
-			end
-		end
-		if self.toastMode == "SHOWN" then
-			self.mainBarHeight = 58 + self.toastHeight
-		elseif self.toastMode == "HIDING" then
-			local now = GetTime()
-			if now >= self.toastStart + 75 then
-				self.toastMode = nil
-				self.mainBarHeight = 58
-				t_remove(self.toastMessages, 1)
-			else
-				self.mainBarHeight = 58 + self.toastHeight * (1 - (now - self.toastStart) / 75)
-			end
-		end
-		if self.toastMode then
-			SetDrawColor(0.85, 0.85, 0.85)
-			DrawImage(nil, 0, self.screenH - self.mainBarHeight, 312, self.mainBarHeight)
-			SetDrawColor(0.1, 0.1, 0.1)
-			DrawImage(nil, 0, self.screenH - self.mainBarHeight + 4, 308, self.mainBarHeight - 4)
-			SetDrawColor(1, 1, 1)
-			DrawString(4, self.screenH - self.mainBarHeight + 8, "LEFT", 20, "VAR", self.toastMessages[1]:gsub("\n.*",""))
-			DrawString(4, self.screenH - self.mainBarHeight + 28, "LEFT", 16, "VAR", self.toastMessages[1]:gsub("^[^\n]*\n?",""))
-		end
-	end
+	-- Update and render toasts
+	ToastNotification:UpdateFrame(self.inputEvents, self.viewPort, self.screenH)
+	local totalToastHeight = ToastNotification:Render()
+	self.mainBarHeight = 58 + totalToastHeight
 
 	-- Draw main controls
 	SetDrawColor(0.85, 0.85, 0.85)
