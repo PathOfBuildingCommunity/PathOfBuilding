@@ -1010,3 +1010,190 @@ table.insert(replicaDragonfangsFlight,
 )
 
 table.insert(data.uniques.generated, table.concat(replicaDragonfangsFlight, "\n"))
+
+-- Foulborn Uniques Generation
+-- Each Foulborn unique is a separate generated item with variants for each possible Foulborn mutation mod.
+-- This uses data.foulbornMap (loaded from ModFoulbornMap.lua) which maps unique name -> list of mutation mod descriptions.
+if data.foulbornMap then
+	-- Build lookup: unique name -> raw item text from all loaded unique types
+	local uniqueLookup = {}
+	for _, itemType in ipairs({"axe","bow","claw","dagger","fishing","mace","staff","sword","wand",
+		"helmet","body","gloves","boots","shield","quiver","amulet","ring","belt","jewel",
+		"flask","tincture","graft"}) do
+		if data.uniques[itemType] then
+			for _, raw in ipairs(data.uniques[itemType]) do
+				local name = raw:match("^%s*(.-)%s*\n")
+				if name and not uniqueLookup[name] then
+					uniqueLookup[name] = raw
+				end
+			end
+		end
+	end
+	if data.uniques.race then
+		for _, raw in ipairs(data.uniques.race) do
+			local name = raw:match("^%s*(.-)%s*\n")
+			if name and not uniqueLookup[name] then
+				uniqueLookup[name] = raw
+			end
+		end
+	end
+
+	-- Sort names for deterministic output
+	local sortedFoulbornNames = {}
+	for name in pairs(data.foulbornMap) do
+		table.insert(sortedFoulbornNames, name)
+	end
+	table.sort(sortedFoulbornNames)
+
+	for _, uniqueName in ipairs(sortedFoulbornNames) do
+		local fbMods = data.foulbornMap[uniqueName]
+		local raw = uniqueLookup[uniqueName]
+		if raw then
+			-- Parse raw text into trimmed lines
+			local lines = {}
+			for line in (raw .. "\n"):gmatch("(.-)\n") do
+				line = line:match("^%s*(.-)%s*$")
+				table.insert(lines, line)
+			end
+			while #lines > 0 and lines[1] == "" do table.remove(lines, 1) end
+			while #lines > 0 and lines[#lines] == "" do table.remove(lines, #lines) end
+
+			-- Count Variant: declarations to determine "current" variant (last = highest index)
+			local variantCount = 0
+			for _, line in ipairs(lines) do
+				if line:match("^Variant:") then
+					variantCount = variantCount + 1
+				end
+			end
+			local curVar = variantCount
+
+			-- Check if a line's {variant:X,Y} tag includes the current variant
+			local function applies(line)
+				local tag = line:match("^{variant:([%d,]+)}")
+				if not tag then return true end
+				if curVar == 0 then return true end
+				for v in tag:gmatch("%d+") do
+					if tonumber(v) == curVar then return true end
+				end
+				return false
+			end
+
+			-- Strip {variant:...} tag from line start (preserves {tags:...} etc)
+			local function stripVar(line)
+				return (line:gsub("^{variant:[%d,]+}", ""))
+			end
+
+			-- Metadata lines to skip during generation
+			local function isMetadata(line)
+				return line:match("^Variant:") or line:match("^Selected Variant:")
+					or line:match("^Selected Alt Variant") or line:match("^Has Alt Variant")
+					or line:match("^League:") or line:match("^Source:")
+					or line:match("^Upgrade:") or line:match("^Limited to:")
+					or line:match("^Item Level:") or line:match("^Radius:")
+					or line:match("^Shaper Item") or line:match("^Elder Item")
+					or line:match("^Crusader Item") or line:match("^Redeemer Item")
+					or line:match("^Hunter Item") or line:match("^Warlord Item")
+					or line:match("^Corrupted$") or line:match("^Item Class:")
+					or line:match("^Rarity:") or line:match("^Has no Sockets")
+			end
+
+			-- Parse sections from the original unique
+			local baseName = nil
+			local requiresLine = nil
+			local implicitsCount = nil
+			local implicitLines = {}
+			local explicitLines = {}
+
+			local i = 1
+			-- Skip leading Item Class: / Rarity: lines (generated format)
+			while i <= #lines and (lines[i]:match("^Item Class:") or lines[i]:match("^Rarity:")) do
+				i = i + 1
+			end
+			-- lines[i] is the name; skip it
+			i = i + 1
+
+			-- Find base type (line after name, possibly multiple variant-tagged lines)
+			if i <= #lines and lines[i]:match("^{variant:") and not lines[i]:match("^Variant:") then
+				-- Variant-tagged base type(s)
+				while i <= #lines and lines[i]:match("^{variant:") and not lines[i]:match("^Variant:") do
+					if applies(lines[i]) then
+						baseName = stripVar(lines[i])
+					end
+					i = i + 1
+				end
+			elseif i <= #lines then
+				-- Plain base type
+				baseName = lines[i]
+				i = i + 1
+			end
+
+			-- Process remaining lines: metadata, requires, implicits, mods
+			local implicitsRemaining = 0
+			local inImplicits = false
+			while i <= #lines do
+				local line = lines[i]
+				if isMetadata(line) then
+					-- Skip
+				elseif line:match("^Requires Level") or line:match("^LevelReq:") then
+					if applies(line) then
+						requiresLine = stripVar(line)
+					end
+				elseif line:match("^Implicits: (%d+)") then
+					implicitsCount = tonumber(line:match("^Implicits: (%d+)"))
+					implicitsRemaining = implicitsCount
+					inImplicits = true
+				elseif inImplicits and implicitsRemaining > 0 then
+					if applies(line) then
+						table.insert(implicitLines, stripVar(line))
+					end
+					implicitsRemaining = implicitsRemaining - 1
+					if implicitsRemaining == 0 then
+						inImplicits = false
+					end
+				else
+					inImplicits = false
+					if applies(line) and line ~= "" then
+						table.insert(explicitLines, stripVar(line))
+					end
+				end
+				i = i + 1
+			end
+
+			-- Build the Foulborn item
+			if baseName then
+				local foulborn = {}
+				table.insert(foulborn, "Foulborn " .. uniqueName)
+				table.insert(foulborn, baseName)
+
+				-- Variant declarations (one per Foulborn mutation mod)
+				for _, modLine in ipairs(fbMods) do
+					table.insert(foulborn, "Variant: " .. modLine)
+				end
+
+				if requiresLine then
+					table.insert(foulborn, requiresLine)
+				end
+
+				-- Implicits (only if original specified them)
+				if implicitsCount ~= nil then
+					table.insert(foulborn, "Implicits: " .. #implicitLines)
+					for _, impl in ipairs(implicitLines) do
+						table.insert(foulborn, impl)
+					end
+				end
+
+				-- Base mods from original (current variant, tags stripped)
+				for _, modLine in ipairs(explicitLines) do
+					table.insert(foulborn, modLine)
+				end
+
+				-- Foulborn mutation mods (variant-tagged)
+				for idx, modLine in ipairs(fbMods) do
+					table.insert(foulborn, "{variant:" .. idx .. "}" .. modLine)
+				end
+
+				table.insert(data.uniques.generated, table.concat(foulborn, "\n"))
+			end
+		end
+	end
+end
