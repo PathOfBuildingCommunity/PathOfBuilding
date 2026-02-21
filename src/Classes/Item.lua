@@ -104,12 +104,12 @@ local function getTagBasedModifiers(tagName, itemSlotName)
 									if data.itemTagSpecial[tagName] and data.itemTagSpecial[tagName][itemSlotName] then
 										for _, specialMod in ipairs(data.itemTagSpecial[tagName][itemSlotName]) do
 											if dv:lower():find(specialMod:lower()) then
-												exclude = true
+												excluded = true
 												break
 											end
 										end
 									end
-									if exclude then
+									if excluded then
 										found = true
 										break
 									end
@@ -131,12 +131,12 @@ local function getTagBasedModifiers(tagName, itemSlotName)
 							if data.itemTagSpecial[tagName] and data.itemTagSpecial[tagName][itemSlotName] then
 								for _, specialMod in ipairs(data.itemTagSpecial[tagName][itemSlotName]) do
 									if dv:lower():find(specialMod:lower()) then
-										exclude = true
+										excluded = true
 										break
 									end
 								end
 							end
-							if exclude then
+							if excluded then
 								found = true
 								break
 							end
@@ -444,16 +444,16 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						end
 					end
 				elseif specName == "Radius" and self.type == "Jewel" then
-					self.jewelRadiusLabel = specVal:match("^%a+")
-					if specVal:match("^%a+") == "Variable" then
-                        -- Jewel radius is variable and must be read from it's mods instead after they are parsed
-                        deferJewelRadiusIndexAssignment = true
-                    else
-                        for index, data in pairs(data.jewelRadius) do
-                            if specVal:match("^%a+") == data.label then
-                                self.jewelRadiusIndex = index
-                                break
-                            end
+					self.jewelRadiusLabel = specVal:match("^[%a ]+")
+					if specVal:match("^[%a ]+") == "Variable" then
+						-- Jewel radius is variable and must be read from it's mods instead after they are parsed
+						deferJewelRadiusIndexAssignment = true
+					else
+						for index, data in pairs(data.jewelRadius) do
+							if specVal:match("^[%a ]+") == data.label then
+								self.jewelRadiusIndex = index
+								break
+							end
 						end
 					end
 				elseif specName == "Limited to" and self.type == "Jewel" then
