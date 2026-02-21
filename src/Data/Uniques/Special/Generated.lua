@@ -775,6 +775,7 @@ table.insert(data.uniques.generated, table.concat(boundByDestiny, "\n"))
 function buildTreeDependentUniques(tree)
 	buildForbidden(tree.classNotables)
 	buildKeystoneItems(tree.keystoneMap)
+	buildFoulbornSkinOfTheLords(tree.keystoneMap)
 end
 
 function buildForbidden(classNotables)
@@ -890,6 +891,66 @@ function buildKeystoneItems(keystoneMap)
 	end
 	table.insert(impossibleEscape, "Corrupted")
 	table.insert(data.uniques.generated, table.concat(impossibleEscape, "\n"))
+end
+
+function buildFoulbornSkinOfTheLords(keystoneMap)
+	if not data.foulbornMap or not data.foulbornMap["Skin of the Lords"] then return end
+
+	local fbMods = data.foulbornMap["Skin of the Lords"]
+	local excludedPassiveKeystones = {
+		"Chaos Inoculation",
+		"Necromantic Aegis",
+	}
+
+	local isKeystoneNative = function(node) return node.isKeystone and not node.isBlighted and node.x ~= nil end
+
+	local keystones = {}
+	local seen = {}
+	for _, node in pairs(keystoneMap) do
+		if isKeystoneNative(node) and not isValueInArray(excludedPassiveKeystones, node.name) and not seen[node] then
+			table.insert(keystones, node.name)
+			seen[node] = true
+		end
+	end
+	table.sort(keystones)
+
+	local item = {}
+	table.insert(item, "Foulborn Skin of the Lords")
+	table.insert(item, "Simple Robe")
+	table.insert(item, "Has Alt Variant: true")
+
+	-- Variant declarations: keystones first, then Foulborn mutation mods
+	for _, name in ipairs(keystones) do
+		table.insert(item, "Variant: " .. name)
+	end
+	for _, modLine in ipairs(fbMods) do
+		table.insert(item, "Variant: " .. modLine)
+	end
+
+	-- Default selections: first keystone + first Foulborn mutation
+	table.insert(item, "Selected Variant: 1")
+	table.insert(item, "Selected Alt Variant: " .. (#keystones + 1))
+
+	table.insert(item, "Implicits: 0")
+
+	-- Base mods (same as regular Skin of the Lords)
+	table.insert(item, "Sockets cannot be modified")
+	table.insert(item, "+2 to Level of Socketed Gems")
+	table.insert(item, "100% increased Global Defences")
+	table.insert(item, "You can only Socket Corrupted Gems in this item")
+
+	-- Keystone mods (variant-tagged)
+	for index, name in ipairs(keystones) do
+		table.insert(item, "{variant:" .. index .. "}" .. name)
+	end
+
+	-- Foulborn mutation mods (variant-tagged, after keystones)
+	for idx, modLine in ipairs(fbMods) do
+		table.insert(item, "{variant:" .. (#keystones + idx) .. "}" .. modLine)
+	end
+
+	table.insert(item, "Corrupted")
+	table.insert(data.uniques.generated, table.concat(item, "\n"))
 end
 
 -- That Which Was Taken

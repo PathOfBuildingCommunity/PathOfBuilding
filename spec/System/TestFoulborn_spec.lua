@@ -79,4 +79,42 @@ describe("Foulborn generation", function()
 			end
 		end
 	end)
+
+	it("generates Foulborn Skin of the Lords with alt variant", function()
+		local raw
+		for _, r in ipairs(data.uniques.generated) do
+			if r:match("^Foulborn Skin of the Lords") then raw = r; break end
+		end
+		assert.is_truthy(raw, "Foulborn Skin of the Lords not found")
+		assert.truthy(raw:match("Simple Robe"), "Missing base type")
+		assert.truthy(raw:match("Has Alt Variant: true"), "Missing alt variant flag")
+		assert.truthy(raw:match("Selected Alt Variant:"), "Missing selected alt variant")
+		-- Should have keystone variants + Foulborn mutation variants
+		local variantCount = 0
+		for _ in raw:gmatch("Variant: ") do
+			variantCount = variantCount + 1
+		end
+		assert.is_true(variantCount > 30, "Expected 30+ variants (keystones + mutations), got " .. variantCount)
+		-- Should have base mods
+		assert.truthy(raw:match("%+2 to Level of Socketed Gems"), "Missing base mod")
+		assert.truthy(raw:match("100%% increased Global Defences"), "Missing base mod")
+		-- Should have Foulborn mutation mods
+		assert.truthy(raw:match("Elemental and Chaos Resistances"), "Missing Foulborn mutation mod")
+		print("  Skin of the Lords variants: " .. variantCount)
+	end)
+
+	it("parses Foulborn Skin of the Lords with alt variant", function()
+		newBuild()
+		local raw
+		for _, r in ipairs(data.uniques.generated) do
+			if r:match("^Foulborn Skin of the Lords") then raw = r; break end
+		end
+		assert.is_truthy(raw, "Foulborn Skin of the Lords not found")
+		local item = new("Item", raw)
+		assert.is_true(item.foulborn, "foulborn flag not set")
+		assert.are.equals("Simple Robe", item.baseName)
+		assert.is_true(item.hasAltVariant, "Alt variant not parsed")
+		assert.is_true(#item.variantList > 30, "Not enough variants parsed")
+		print("  Parsed variants: " .. #item.variantList .. ", hasAltVariant: " .. tostring(item.hasAltVariant))
+	end)
 end)
