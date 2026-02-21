@@ -44,15 +44,15 @@ Variant: Current
 {variant:4}LevelReq: 45
 Implicits: 3
 {variant:1}Adds 2 to 4 Fire Damage to Attacks
-{variant:2,3}4 to 8 Added Fire Damage with Bow Attacks
 {variant:4}Adds (12-15) to (24-27) Fire Damage to Attacks
+{variant:2,3}4 to 8 Added Fire Damage with Bow Attacks
 10% increased Attack Speed
-{variant:1}+20 to Evasion Rating
 {variant:2,3,4}+(80-100) to Evasion Rating
 +(10-30) to maximum Mana
-{variant:1,2}(30-50)% of Physical Damage Converted to Fire Damage
 {variant:3,4}50% of Physical Damage Converted to Fire Damage
 {variant:3,4}5 to 10 Added Fire Damage with Bow Attacks
+{variant:1}+20 to Evasion Rating
+{variant:1,2}(30-50)% of Physical Damage Converted to Fire Damage
 ]],[[
 The Signal Fire
 {variant:1}Cured Quiver
@@ -67,16 +67,16 @@ Source: No longer obtainable
 {variant:4}LevelReq: 45
 Implicits: 3
 {variant:1}Adds 2 to 4 Fire Damage to Attacks
-{variant:2,3}4 to 8 Added Fire Damage with Bow Attacks
 {variant:4}Adds (12-15) to (24-27) Fire Damage to Attacks
+{variant:2,3}4 to 8 Added Fire Damage with Bow Attacks
 10% increased Attack Speed
-{variant:1}+20 to Evasion Rating
 {variant:2,3,4}+(80-100) to Evasion Rating
 +(10-30) to maximum Mana
-{variant:1,2}(30-50)% of Physical Damage Converted to Fire Damage
 {variant:3,4}50% of Physical Damage Converted to Fire Damage
 {variant:3,4}5 to 10 Added Fire Damage with Bow Attacks
 Gain (25-35)% of Physical Attack Damage as Extra Fire Damage
+{variant:1}+20 to Evasion Rating
+{variant:1,2}(30-50)% of Physical Damage Converted to Fire Damage
 ]],[[
 Craghead
 Serrated Arrow Quiver
@@ -87,8 +87,8 @@ Implicits: 1
 1 to 4 Added Physical Damage with Bow Attacks
 (20-25)% reduced Enemy Stun Threshold
 25% reduced Projectile Speed
-{variant:1}(60-80)% increased Stun Duration on Enemies
 {variant:2}(140-200)% increased Stun Duration on Enemies
+{variant:1}(60-80)% increased Stun Duration on Enemies
 Adds 6 to 10 Physical Damage to Attacks with Bows
 ]],[[
 Cragfall
@@ -99,9 +99,9 @@ Implicits: 1
 1 to 4 Added Physical Damage with Bow Attacks
 (20-25)% reduced Enemy Stun Threshold
 25% reduced Projectile Speed
+50% chance to double Stun Duration
 (60-80)% increased Stun Duration on Enemies
 Adds 6 to 10 Physical Damage to Attacks with Bows
-50% chance to double Stun Duration
 ]],[[
 Drillneck
 Penetrating Arrow Quiver
@@ -111,8 +111,8 @@ Arrows Pierce an additional Target
 (8-12)% increased Attack Speed
 +350 to Evasion Rating
 +(40-50) to maximum Life
-Adds (10-14) to (19-24) Physical Damage to Attacks with Bows
 Arrows deal 50% increased Damage with Hits and Ailments to Targets they Pierce
+Adds (10-14) to (19-24) Physical Damage to Attacks with Bows
 ]],[[
 The Fracturing Spinner
 Blunt Arrow Quiver
@@ -190,10 +190,10 @@ Requires Level 45
 Implicits: 1
 Has 1 Socket
 Has 2 Sockets
-Trigger a Socketed Bow Skill when you Cast a Spell while wielding a Bow
 (7-12)% increased Cast Speed
 +(50-70) to maximum Life
 5% chance to Blind Enemies on Hit with Attacks
+Trigger a Socketed Bow Skill when you Cast a Spell while wielding a Bow
 ]],[[
 Maloney's Nightfall
 {variant:1,2}Blunt Arrow Quiver
@@ -209,12 +209,12 @@ Implicits: 2
 {variant:2,3}10% increased Attack Speed
 +(50-70) to maximum Life
 +(12-16)% to Chaos Resistance
+{variant:2,3}25% chance to create a Smoke Cloud when Hit
+{variant:2,3}(40-60)% increased Damage with Hits and Ailments against Blinded Enemies
 {variant:1}Adds (5-7) to (8-10) Physical Damage to Attacks with Bows
 {variant:2,3}Adds (8-10) to (14-16) Physical Damage to Attacks with Bows
 {variant:1}10% chance to create a Smoke Cloud when Hit
-{variant:2,3}25% chance to create a Smoke Cloud when Hit
 {variant:1}(20-40)% increased Damage with Hits and Ailments against Blinded Enemies
-{variant:2,3}(40-60)% increased Damage with Hits and Ailments against Blinded Enemies
 ]],[[
 Rearguard
 {variant:1}Broadhead Arrow Quiver
@@ -245,8 +245,8 @@ Implicits: 1
 Gain 7 Life per Enemy Hit with Attacks
 20% reduced Projectile Speed
 (30-50)% increased Projectile Damage
-{variant:1}Projectiles Fork
 {variant:2}Arrows Fork
+{variant:1}Projectiles Fork
 ]],[[
 Saemus' Gift
 {variant:1}Spike-Point Arrow Quiver
@@ -299,8 +299,8 @@ Variant: Pre 3.26.0
 Variant: Current
 LevelReq: 52
 Implicits: 2
-{variant:1}6 to 12 Added Physical Damage with Bow Attacks
 {variant:2,3}(8-10)% increased Attack Speed
+{variant:1}6 to 12 Added Physical Damage with Bow Attacks
 Grants Call of Steel
 (30-60)% increased Evasion Rating and Armour
 Deal no Non-Physical Damage
@@ -319,9 +319,9 @@ Implicits: 1
 Adds (13-18) to (26-32) Chaos Damage to Attacks
 (8-12)% increased Attack Speed
 +(100-120) to maximum Energy Shield
+{variant:2}80% faster start of Energy Shield Recharge
 40% reduced Energy Shield Recharge Rate
 {variant:1}150% faster start of Energy Shield Recharge
-{variant:2}80% faster start of Energy Shield Recharge
 ]],[[
 Replica Soul Strike
 Spike-Point Arrow Quiver
@@ -357,6 +357,7 @@ Adds (30-40) to (80-100) Cold Damage to Attacks
 Gain (20-40) Mana per Enemy Killed
 30% increased Projectile Speed
 5 Maximum Void Charges
+Gain a Void Charge every 0.5 seconds
 {variant:1}Gain a Void Charge every second
 {variant:2,3}Gain a Void Charge every 0.5 seconds
 ]],[[
@@ -394,11 +395,11 @@ Gain (10-15)% of Physical Damage as Extra Chaos Damage
 Minions deal (30-50)% increased Damage
 (5-10) to (12-24) Added Physical Damage with Bow Attacks
 Bow Attacks Sacrifice a random Damageable Minion to fire (1-3) additional Arrow
+{variant:5}Minions are Aggressive
 {variant:1}Increases and Reductions to Minion Damage also affect you
 {variant:2}Increases and Reductions to Minion Attack Speed also affect you
 {variant:3}Increases and Reductions to Minion Cast Speed also affect you
 {variant:4}(20-40)% increased Cast Speed with Minion Skills
-{variant:5}Minions are Aggressive
 {variant:6}+(365-400) to Armour and Evasion Rating
 {variant:7}+(365-400) to Evasion Rating
 {variant:7}+(31-35) to maximum Energy Shield

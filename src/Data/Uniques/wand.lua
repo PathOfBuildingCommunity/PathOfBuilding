@@ -36,9 +36,9 @@ Implicits: 3
 (25-30)% increased Cast Speed
 +(5-10)% to Chaos Resistance
 {variant:1,2,3}40% increased Mana Cost of Skills
-{variant:3,4}Poisons you inflict deal Damage 20% faster
 {variant:5,6}Poisons you inflict deal Damage (30-50)% faster
 {variant:4,5,6}Lose 40 Mana when you use a Skill
+{variant:3,4}Poisons you inflict deal Damage 20% faster
 ]],[[
 Ashcaller
 {variant:1,2,3}Quartz Wand
@@ -55,15 +55,15 @@ Implicits: 3
 {variant:5}Adds (1-2) to (3-4) Fire Damage to Spells and Attacks
 {variant:1,2}10% chance to Trigger Level 8 Summon Raging Spirit on Kill
 {variant:3,4,5}25% chance to Trigger Level 10 Summon Raging Spirit on Kill
-{variant:1}Adds (10-14) to (18-22) Fire Damage
-{variant:3,4,5}Adds (20-24) to (38-46) Fire Damage
 {variant:2}+(15-25)% to Fire Damage over Time Multiplier
-{variant:1,2}Adds (4-6) to (7-9) Fire Damage to Spells
-{variant:3,4,5}Adds (20-24) to (36-46) Fire Damage to Spells
-{variant:1}(40-50)% increased Burning Damage
+{variant:3,4,5}Adds (20-24) to (38-46) Fire Damage
 {variant:2}(20-30)% increased Burning Damage
 {variant:1,2}(16-22)% chance to Ignite
 {variant:3,4,5}10% chance to Cover Enemies in Ash on Hit
+{variant:1}Adds (10-14) to (18-22) Fire Damage
+{variant:1,2}Adds (4-6) to (7-9) Fire Damage to Spells
+{variant:3,4,5}Adds (20-24) to (36-46) Fire Damage to Spells
+{variant:1}(40-50)% increased Burning Damage
 ]],[[
 Eclipse Solaris
 {variant:1,2,3,4}Crystal Wand
@@ -84,13 +84,13 @@ Implicits: 4
 {variant:4,5}Adds (30-45) to (60-80) Fire Damage
 {variant:4,5}(6-10)% increased Attack Speed
 {variant:6}(20-26)% increased Attack Speed
-{variant:1}+(18-30)% to Global Critical Strike Multiplier
 {variant:2,3,4,5,6}+(27-33)% to Global Critical Strike Multiplier
 {variant:1,2,3,4,5}20% increased Light Radius
 {variant:6}(15-20)% increased Light Radius
 Nearby Enemies are Blinded
 (120-140)% increased Critical Strike Chance against Blinded Enemies
 Adds 2 to 5 Fire Damage to Attacks for every 1% your Light Radius is above base value
+{variant:1}+(18-30)% to Global Critical Strike Multiplier
 ]],[[
 Corona Solaris
 Crystal Wand
@@ -153,8 +153,9 @@ Cannot be used with Chaos Inoculation
 +(10-20) to Intelligence
 {variant:1,2}Minions have (10-20)% increased Movement Speed
 {variant:3,4}Minions have (20-30)% increased Movement Speed
-{variant:1,2}Minions deal (10-30)% increased Damage
 {variant:3,4}Minions deal (50-70)% increased Damage
+Reserves 30% of Life
+{variant:1,2}Minions deal (10-30)% increased Damage
 +1 to Maximum number of Raised Zombies
 +1 to Maximum number of Spectres
 +1 to Maximum number of Skeletons
@@ -177,6 +178,7 @@ Minions deal (50-70)% increased Damage
 +6 to maximum number of Raging Spirits
 Reserves 30% of Life
 +3 to maximum number of Summoned Phantasms
+Reserves 30% of Life
 ]],[[
 Moonsorrow
 Imbued Wand
@@ -195,12 +197,12 @@ Implicits: 3
 {variant:4,5}Socketed Gems are supported by Level 20 Blind
 +10 to Intelligence
 (30-40)% increased Spell Damage
-{variant:1}125% increased Physical Damage
-{variant:2,3}175% increased Physical Damage
 {variant:4,5}(250-275)% increased Physical Damage
 (20-30)% increased Lightning Damage
 10% increased Cast Speed
 10% chance to Blind Enemies on hit
+{variant:1}125% increased Physical Damage
+{variant:2,3}175% increased Physical Damage
 ]],[[
 Obliteration
 {variant:1,2,3,4}Demon's Horn
@@ -220,9 +222,9 @@ Implicits: 4
 {variant:1,2}Adds (24-30) to (80-92) Physical Damage
 {variant:3}Adds (25-50) to (85-125) Physical Damage
 {variant:1,2,3}(26-32)% increased Critical Strike Chance
-{variant:1,2,3}Gain (13-15)% of Physical Damage as Extra Chaos Damage
 {variant:4,5,6}Gain (30-40)% of Physical Damage as Extra Chaos Damage
 Enemies you Kill have a 20% chance to Explode, dealing a quarter of their maximum Life as Chaos Damage
+{variant:1,2,3}Gain (13-15)% of Physical Damage as Extra Chaos Damage
 ]],[[
 Piscator's Vigil
 {variant:1,2,3}Tornado Wand
@@ -249,11 +251,11 @@ The Poet's Pen
 {variant:2}Somatic Wand
 Implicits: 1
 {variant:1}(11-15)% increased Spell Damage
-{variant:2}Cannot roll Caster Modifiers
-+1 to Level of Socketed Active Skill Gems per 25 Player Levels
+Trigger a Socketed Spell when you Attack with this Weapon, with a 0.25 second Cooldown
 Adds 3 to 5 Physical Damage to Attacks with this Weapon per 3 Player Levels
 (8-12)% increased Attack Speed
-Trigger a Socketed Spell when you Attack with this Weapon, with a 0.25 second Cooldown
+{variant:2}Cannot roll Caster Modifiers
++1 to Level of Socketed Active Skill Gems per 25 Player Levels
 ]],[[
 Reverberation Rod
 Spiraled Wand
@@ -309,8 +311,8 @@ Implicits: 1
 (17-21)% increased Spell Damage
 Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 Critical Strikes deal no Damage
-{variant:1}120% increased Spell Damage if you've dealt a Critical Strike Recently
 {variant:2}200% increased Spell Damage if you've dealt a Critical Strike in the past 8 seconds
+{variant:1}120% increased Spell Damage if you've dealt a Critical Strike Recently
 ]],[[
 Shimmeron
 Tornado Wand
@@ -344,8 +346,8 @@ Implicits: 3
 (40-60)% increased Physical Damage
 Adds 1 to (35-45) Lightning Damage
 (15-25)% increased Mana Regeneration Rate
-+1 to Maximum Power Charge
 (25-35)% chance to gain a Power Charge on Kill
++1 to Maximum Power Charge
 ]],[[
 Tulborn
 {variant:1,2}Spiraled Wand
@@ -359,13 +361,13 @@ Upgrade: Upgrades to unique{Tulfall} using currency{Blessing of Tul}
 Implicits: 2
 {variant:1,2}(15-19)% increased Spell Damage
 {variant:3}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
-{variant:1,2}(10-15)% increased Cast Speed
 {variant:3}Adds (120-140) to (150-170) Cold Damage to Spells
-{variant:1,2}50% chance to gain a Power Charge on Killing a Frozen Enemy
+{variant:1,2}(10-15)% increased Cast Speed
 {variant:3}Gain a Power Charge on Killing a Frozen Enemy
 {variant:1,2}Adds 10 to 20 Cold Damage to Spells per Power Charge
 {variant:3}Cold Exposure you inflict applies an extra -12% to Cold Resistance
 +(20-25) Mana gained on Killing a Frozen Enemy
+{variant:1,2}50% chance to gain a Power Charge on Killing a Frozen Enemy
 ]],[[
 Tulfall
 {variant:1,2}Tornado Wand
@@ -380,14 +382,14 @@ Implicits: 2
 {variant:3}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
 {variant:1,2}(10-15)% increased Cast Speed
 {variant:3}(10-20)% increased Cast Speed
-{variant:1}50% chance to gain a Power Charge on Killing a Frozen Enemy
 {variant:2,3}Gain a Power Charge on Killing a Frozen Enemy
-{variant:1,2}Adds 15 to 25 Cold Damage to Spells per Power Charge
 {variant:3}Adds 50 to 70 Cold Damage to Spells per Power Charge
 Lose all Power Charges on reaching Maximum Power Charges
 Gain a Frenzy Charge on reaching Maximum Power Charges
-{variant:1}(10-15)% increased Cold Damage per Frenzy Charge
 {variant:2}(15-20)% increased Cold Damage per Frenzy Charge
+{variant:1}50% chance to gain a Power Charge on Killing a Frozen Enemy
+{variant:1,2}Adds 15 to 25 Cold Damage to Spells per Power Charge
+{variant:1}(10-15)% increased Cold Damage per Frenzy Charge
 ]],[[
 Replica Tulfall
 {variant:1}Tornado Wand
@@ -415,15 +417,15 @@ Variant: Current
 Implicits: 2
 {variant:1}(11-14)% increased Spell Damage
 {variant:2}(17-21)% increased Spell Damage
-{variant:3}Cannot roll Caster Modifiers
+{variant:1,2}Socketed Gems fire an additional Projectile
 {variant:1,2}(80-120)% increased Physical Damage
 {variant:3}(80-140)% increased Physical Damage
 Adds (5-8) to (13-17) Physical Damage
 (5-10)% increased Attack Speed
 (10-20)% increased Critical Strike Chance
-{variant:1,2}Socketed Gems fire an additional Projectile
-{variant:3}Attacks fire (1-2) additional Projectiles when in Off Hand
+{variant:3}Cannot roll Caster Modifiers
 {variant:3}Attacks have (40-60)% increased Area of Effect when in Main Hand
+{variant:3}Attacks fire (1-2) additional Projectiles when in Off Hand
 ]],[[
 Replica Twyzel
 {variant:1}Sage Wand

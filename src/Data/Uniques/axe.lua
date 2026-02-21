@@ -13,8 +13,8 @@ Variant: Current
 Has no Sockets
 (200-250)% increased Physical Damage
 You have no Intelligence
-{variant:1}Critical Strike Chance is (20-30)% for Hits with this Weapon
 {variant:2}Critical Strike Chance is (30-40)% for Hits with this Weapon
+{variant:1}Critical Strike Chance is (20-30)% for Hits with this Weapon
 ]],[[
 Dreadarc
 Cleaver
@@ -45,14 +45,14 @@ Variant: Current
 Implicits: 0
 {variant:1}Adds (170-190) to (200-220) Fire Damage in Main Hand
 {variant:2}Adds (255-285) to (300-330) Fire Damage in Main Hand
-{variant:1}Adds (170-190) to (200-220) Cold Damage in Off Hand
 {variant:2}Adds (255-285) to (300-330) Cold Damage in Off Hand
 (10-15)% increased Attack Speed
 25% chance to Ignite when in Main Hand
 {variant:1}100% increased Chill Duration on Enemies when in Off Hand
-{variant:1}40% increased Damage with Ignite inflicted on Chilled Enemies
 {variant:2}100% increased Damage with Ignite inflicted on Chilled Enemies
 {variant:2}Chill Enemies for 1 second on Hit with this Weapon when in Off Hand
+{variant:1}Adds (170-190) to (200-220) Cold Damage in Off Hand
+{variant:1}40% increased Damage with Ignite inflicted on Chilled Enemies
 ]],[[
 The Screaming Eagle
 Jade Hatchet
@@ -60,11 +60,11 @@ Variant: Pre 2.0.0
 Variant: Current
 Implicits: 0
 Socketed Gems are supported by Level 2 Chance to Flee
-{variant:1}Adds (8-12) to (18-22) Physical Damage
 {variant:2}Adds (10-15) to (25-30) Physical Damage
 +(10-15) to maximum Life
 Gain (5-7) Life per Enemy Killed
 10% increased Movement Speed
+{variant:1}Adds (8-12) to (18-22) Physical Damage
 ]],[[
 The Gryphon
 Jade Hatchet
@@ -75,12 +75,12 @@ LevelReq: 32
 Implicits: 0
 Socketed Gems are supported by Level 2 Chance to Flee
 (170-190)% increased Physical Damage
-{variant:1}Adds (8-12) to (18-22) Physical Damage
 {variant:2}Adds (10-15) to (25-30) Physical Damage
 +(10-15) to maximum Life
 Gain (5-7) Life per Enemy Killed
 10% increased Movement Speed
 15% increased Movement Speed if you've Killed Recently
+{variant:1}Adds (8-12) to (18-22) Physical Damage
 ]],[[
 Jack, the Axe
 Vaal Hatchet
@@ -88,14 +88,14 @@ Variant: Pre 3.13.0
 Variant: Current
 Implicits: 0
 {variant:2}Grants Level 20 Thirst for Blood Skill
-{variant:1}(90-110)% increased Physical Damage
 {variant:2}(130-150)% increased Physical Damage
 Adds (11-14) to (18-23) Physical Damage
 {variant:1}(10-15)% increased Attack Speed
 {variant:1}2% of Physical Attack Damage Leeched as Life
-{variant:1}50% reduced total Recovery per second from Life Leech
 25% chance to cause Bleeding on Hit
 {variant:2}+(25-35)% to Damage over Time Multiplier for Bleeding from Hits with this Weapon
+{variant:1}(90-110)% increased Physical Damage
+{variant:1}50% reduced total Recovery per second from Life Leech
 ]],[[
 Moonbender's Wing
 Tomahawk
@@ -104,13 +104,13 @@ Variant: Current
 Implicits: 0
 {variant:1}Grants Level 1 Lightning Warp Skill
 {variant:2}Trigger Level 15 Lightning Warp on Hit with this Weapon
-{variant:1}(70-90)% increased Physical Damage
 {variant:2}(30-50)% increased Physical Damage
 {variant:1}Adds (5-9) to (13-17) Physical Damage
 (30-50)% increased Critical Strike Chance
 {variant:1}25% of Physical Damage Converted to Cold Damage
 {variant:1}25% of Physical Damage Converted to Lightning Damage
 {variant:2}Hits with this Weapon gain (75-100)% of Physical Damage as Extra Cold or Lightning Damage
+{variant:1}(70-90)% increased Physical Damage
 ]],[[
 Relentless Fury
 Decorative Axe
@@ -138,8 +138,8 @@ Adds (50-70) to (135-165) Physical Damage
 (10-15)% increased Attack Speed
 {variant:1}35% increased Attack Speed with Swords
 {variant:1}25% chance to cause Bleeding on Hit
-{variant:2}+25 to Maximum Rage while wielding a Sword
 {variant:3}+10 to Maximum Rage while wielding a Sword
+{variant:2}+25 to Maximum Rage while wielding a Sword
 ]],[[
 Soul Taker
 Siege Axe
@@ -151,13 +151,13 @@ Implicits: 0
 {variant:1}(160-200)% increased Physical Damage
 {variant:2}(100-140)% increased Physical Damage
 {variant:3,4}(140-180)% increased Physical Damage
-{variant:1,2}Adds 10 to 20 Physical Damage
 {variant:3,4}Adds 30 to 40 Physical Damage
 {variant:1,2,3}(20-25)% increased Attack Speed
 {variant:4}(25-35)% increased Attack Speed
 +(20-25)% to Cold Resistance
 Insufficient Mana doesn't prevent your Melee Attacks
 Your Physical Damage can Chill
+{variant:1,2}Adds 10 to 20 Physical Damage
 ]],[[
 Replica Soul Taker
 Siege Axe
@@ -165,11 +165,11 @@ League: Heist
 Source: No longer obtainable
 Implicits: 0
 (100-140)% increased Physical Damage
-Adds 10 to 20 Physical Damage
 (60-80)% increased Critical Strike Chance
 +(20-25)% to Cold Resistance
 Your Physical Damage can Freeze
 Eldritch Battery
+Adds 10 to 20 Physical Damage
 ]],[[
 Starcaller
 Abyssal Axe
@@ -195,11 +195,11 @@ Implicits: 1
 {variant:2,3}25% chance to Maim on Hit
 {variant:1,2}+2 to Level of Socketed Support Gems
 {variant:3}+30% to Quality of Socketed Support Gems
-{variant:1}Adds (220-235) to (270-290) Physical Damage
-{variant:2}Adds (205-220) to (250-270) Physical Damage
 {variant:3}Adds (310-330) to (370-390) Physical Damage
 (12-16)% increased Attack Speed
 25% chance to cause Bleeding on Hit
+{variant:1}Adds (220-235) to (270-290) Physical Damage
+{variant:2}Adds (205-220) to (250-270) Physical Damage
 {variant:1,2}+2 to Weapon Range
 {variant:3}+10 to Weapon Range
 ]],[[
@@ -212,19 +212,19 @@ Implicits: 0
 {variant:1}(100-120)% increased Physical Damage
 {variant:2,3}(180-200)% increased Physical Damage
 +100 to maximum Life
-{variant:1,2}Regenerate 10 Life per second
 {variant:3}Regenerate 20 Life per second
 1% of Physical Attack Damage Leeched as Life
 50% increased Mana Cost of Skills
 50% chance to cause Bleeding on Hit
+{variant:1,2}Regenerate 10 Life per second
 ]],[[
 Debeon's Dirge
 Despot Axe
 Implicits: 0
 Adds (310-350) to (460-500) Cold Damage
+Warcries Knock Back and Interrupt Enemies in a smaller Area
 15% increased Movement Speed if you've used a Warcry Recently
 150% increased Elemental Damage if you've used a Warcry Recently
-Warcries Knock Back and Interrupt Enemies in a smaller Area
 ]],[[
 The Harvest
 Jasper Chopper
@@ -268,15 +268,15 @@ Variant: Pre 3.25.0
 Variant: Current
 Implicits: 0
 {variant:1}(120-150)% increased Physical Damage
-{variant:2,3}(160-220)% increased Physical Damage
 {variant:4,5}(100-140)% increased Physical Damage
 {variant:1,2}Adds (16-21) to (32-38) Fire Damage
 Gain 20 Life per Enemy Killed
 +(150-250) to Accuracy Rating
 Culling Strike
-{variant:3,4}Gain 1 Rage on Critical Hit with attacks, no more than once every 0.5 seconds
 {variant:5}Gain 5 Rage on Melee Hit
 {variant:3,4,5}Every Rage also grants 1% of Physical Damage as Extra Fire Damage
+{variant:2,3}(160-220)% increased Physical Damage
+{variant:3,4}Gain 1 Rage on Critical Hit with attacks, no more than once every 0.5 seconds
 ]],[[
 Kingmaker
 Despot Axe
@@ -289,9 +289,7 @@ Variant: Pre 3.20.0
 Variant: Current
 Implicits: 0
 {variant:1,2}(200-250)% increased Physical Damage
-{variant:3}(250-285)% increased Physical Damage
 {variant:4}(170-200)% increased Physical Damage
-{variant:5}(190-240)% increased Physical Damage
 {variant:6}(300-360)% increased Physical Damage
 (7-12)% increased Attack Speed
 {variant:2,3,4,5,6}(30-40)% increased Critical Strike Chance
@@ -300,8 +298,10 @@ Nearby Allies have 30% increased Item Rarity
 Nearby Allies have Culling Strike
 {variant:2,3,4,5,6}Insufficient Mana doesn't prevent your Melee Attacks
 {variant:3,4,5,6}Nearby Allies have +50% to Critical Strike Multiplier
-{variant:3,4}Nearby Allies have +1 Fortification
 {variant:5,6}Nearby Allies have +10 Fortification
+{variant:3}(250-285)% increased Physical Damage
+{variant:5}(190-240)% increased Physical Damage
+{variant:3,4}Nearby Allies have +1 Fortification
 ]],[[
 Kitava's Feast
 Void Axe
@@ -311,12 +311,12 @@ Variant: Current
 Implicits: 0
 Socketed Gems are supported by Level 30 Melee Splash
 {variant:1}(250-300)% increased Physical Damage
-{variant:2}(265-330)% increased Physical Damage
 {variant:3}(200-240)% increased Physical Damage
 1% of Physical Attack Damage Leeched as Life
 1% of Physical Attack Damage Leeched as Mana
 Recover 5% of Life on Kill
 Enemies Killed by your Hits are destroyed
+{variant:2}(265-330)% increased Physical Damage
 ]],[[
 Limbsplit
 Woodsplitter
@@ -341,9 +341,9 @@ Implicits: 0
 {variant:2}Trigger Level 5 Gore Shockwave on Melee Hit if you have at least 150 Strength
 +(15-30) to Strength
 (80-100)% increased Physical Damage
-Adds (35-45) to (80-90) Physical Damage
 Gain 70% of Physical Damage as Extra Fire Damage
 Culling Strike
+Adds (35-45) to (80-90) Physical Damage
 ]],[[
 Ngamahu's Flame
 Abyssal Axe
@@ -351,12 +351,12 @@ Variant: Pre 3.11.0
 Variant: Current
 Implicits: 0
 20% chance to Trigger Level 16 Molten Burst on Melee Hit
-{variant:1}(190-230)% increased Physical Damage
 {variant:2}(170-190)% increased Physical Damage
 (8-12)% increased Attack Speed
 {variant:1}50% of Physical Damage Converted to Fire Damage
 {variant:2}60% of Physical Damage Converted to Fire Damage
 Damage Penetrates 20% Fire Resistance
+{variant:1}(190-230)% increased Physical Damage
 ]],[[
 Reaper's Pursuit
 Shadow Axe
@@ -393,11 +393,11 @@ Implicits: 1
 {variant:1}(140-170)% increased Physical Damage
 {variant:2}(230-270)% increased Physical Damage
 15% reduced Attack Speed
-{variant:1}25% chance to Curse Enemies with Vulnerability on Hit
 {variant:2}Curse Enemies with Vulnerability on Hit
 {variant:1}Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
 {variant:2}Exerted Attacks deal 200% increased Damage
 {variant:2}Exerted Attacks Knock Enemies Back on Hit
+{variant:1}25% chance to Curse Enemies with Vulnerability on Hit
 ]],[[
 Uul-Netol's Embrace
 Vaal Axe
@@ -410,8 +410,8 @@ Implicits: 1
 {variant:2,3}25% chance to Maim on Hit
 Trigger Level 20 Bone Nova when you Hit a Bleeding Enemy
 (280-320)% increased Physical Damage
-(30-25)% reduced Attack Speed
 {variant:1,2}Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
+(30-25)% reduced Attack Speed
 {variant:3}Attacks have 25% chance to inflict Bleeding
 ]],[[
 Wideswing
@@ -423,8 +423,8 @@ Socketed Gems are Supported by Level 20 Increased Area of Effect
 +10 to Strength
 (120-160)% increased Physical Damage
 Gain 10 Mana per Enemy Killed
-{variant:1}+(50-80) to Accuracy Rating
 {variant:2}+(120-150) to Accuracy Rating
+{variant:1}+(50-80) to Accuracy Rating
 +2 to Weapon Range
 ]],[[
 Replica Wings of Entropy
@@ -438,10 +438,10 @@ Implicits: 0
 +(8-12)% Chance to Block Attack Damage while Dual Wielding
 (60-80)% increased Physical Damage
 Counts as Dual Wielding
-{variant:1}+(8-10)% to Off Hand Critical Strike Chance
 {variant:2}+(10-20)% to Off Hand Critical Strike Chance
-{variant:1}(50-70)% more Main Hand attack speed
 {variant:2}(50-100)% more Main Hand attack speed
+{variant:1}+(8-10)% to Off Hand Critical Strike Chance
+{variant:1}(50-70)% more Main Hand attack speed
 ]],[[
 Wings of Entropy
 {variant:1,2,3,4}Sundering Axe
@@ -462,12 +462,12 @@ Implicits: 0
 {variant:1,2}(80-120)% increased Physical Damage
 {variant:3,4}(100-120)% increased Physical Damage
 {variant:5,6}(60-80)% increased Physical Damage
-{variant:1,2,3,4}Adds (55-65) to (100-120) Fire Damage in Main Hand
-{variant:5}Adds (75-100) to (165-200) Fire Damage in Main Hand
 {variant:6}Adds (150-200) to (330-400) Fire Damage in Main Hand
-{variant:1,2,3,4}Adds (55-65) to (100-120) Chaos Damage in Off Hand
-{variant:5}Adds (75-100) to (165-200) Chaos Damage in Off Hand
 {variant:6}Adds (151-199) to (331-401) Chaos Damage in Off Hand
 Counts as Dual Wielding
+{variant:1,2,3,4}Adds (55-65) to (100-120) Fire Damage in Main Hand
+{variant:5}Adds (75-100) to (165-200) Fire Damage in Main Hand
+{variant:1,2,3,4}Adds (55-65) to (100-120) Chaos Damage in Off Hand
+{variant:5}Adds (75-100) to (165-200) Chaos Damage in Off Hand
 ]],
 }
