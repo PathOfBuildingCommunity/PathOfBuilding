@@ -211,16 +211,16 @@ function describeStats(stats)
 			for _, s in ipairs(val) do
 				if s.min == 0 and s.max > 0 then
 					s.min = 1
-					s.minz = true
+					s.minZ = true
 				elseif s.min < 0 and s.max == 0 then
 					s.max = -1
-					s.maxz = true
+					s.maxZ = true
 				end
 			end
 			desc = matchLimit(descriptor[1], val)
 			for _, s in ipairs(val) do
-				if s.minz then s.min = 0 end
-				if s.maxz then s.max = 0 end
+				if s.minZ then s.min = 0 end
+				if s.maxZ then s.max = 0 end
 			end
 		end
 		if desc then
