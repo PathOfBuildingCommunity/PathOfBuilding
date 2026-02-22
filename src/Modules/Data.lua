@@ -1148,6 +1148,7 @@ for _, modId in ipairs(sortedMods) do
 	})
 end
 data.foulbornMap = LoadModule("Data/ModFoulbornMap")
+data.foulbornPairs = LoadModule("Data/Uniques/Special/ModFoulbornPairs")
 LoadModule("Data/Uniques/Special/Generated")
 LoadModule("Data/Uniques/Special/New")
 
