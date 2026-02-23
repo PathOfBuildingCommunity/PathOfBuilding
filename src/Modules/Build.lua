@@ -1663,6 +1663,29 @@ function buildMode:AddDisplayStatList(statList, actor)
 	end
 
 	do
+		if actor == self.calcsTab.mainEnv.player and actor.activeSkillList then
+			local hasEternalBlessing = false
+			local hasMineSkill = false
+
+			for _, activeSkill in ipairs(actor.activeSkillList) do
+				hasMineSkill = hasMineSkill or activeSkill.skillFlags.mine
+				for _, supportEffect in ipairs(activeSkill.supportList) do
+					if supportEffect.grantedEffect and supportEffect.grantedEffect.id == "SupportEternalBlessing" then
+						hasEternalBlessing = true
+						break
+					end
+				end
+				if hasEternalBlessing and hasMineSkill then
+					break
+				end			
+			end
+			if hasEternalBlessing and hasMineSkill then
+				InsertIfNew(self.controls.warnings.lines, "Eternal Blessing and mine skills cannot be used together")
+			end
+		end
+	end
+
+	do
 		local aspectCount = 0
 		aspectCount = aspectCount + (actor.output.CrabBarriersMax > 0 and actor.output.CrabBarriers > 0 and 1 or 0)
 		aspectCount = aspectCount + (aspectCount < 2 and actor.modDB:Flag(nil, "Condition:AspectOfTheSpiderActive") and 1 or 0)
