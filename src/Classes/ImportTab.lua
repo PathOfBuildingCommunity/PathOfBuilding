@@ -729,6 +729,43 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	main:SetWindowTitleSubtext(string.format("%s (%s, %s, %s)", self.build.buildName, charData.name, charData.class, charData.league))
 end
 
+local SOCKET_GROUP_REIMPORT_KEY_SEPARATOR = "\31"
+
+local function getSocketGroupReimportKey(socketGroup)
+	-- Use a rarely-used separator to avoid accidental collisions when concatenating fields.
+	local gemNameParts = { }
+	for _, gem in ipairs(socketGroup.gemList) do
+		t_insert(gemNameParts, (gem.nameSpec or ""):lower())
+	end
+	return table.concat({
+		socketGroup.slot or "",
+		socketGroup.source or "",
+		tostring(#socketGroup.gemList),
+		table.concat(gemNameParts, SOCKET_GROUP_REIMPORT_KEY_SEPARATOR),
+	}, SOCKET_GROUP_REIMPORT_KEY_SEPARATOR)
+end
+
+local function snapshotSocketGroupReimportState(socketGroup, isMainGroup)
+	return {
+		enabled = socketGroup.enabled,
+		includeInFullDPS = socketGroup.includeInFullDPS,
+		groupCount = socketGroup.groupCount,
+		label = socketGroup.label,
+		mainActiveSkill = socketGroup.mainActiveSkill,
+		mainActiveSkillCalcs = socketGroup.mainActiveSkillCalcs,
+		isMainGroup = isMainGroup,
+	}
+end
+
+local function applySocketGroupReimportState(socketGroup, state)
+	socketGroup.enabled = state.enabled
+	socketGroup.includeInFullDPS = state.includeInFullDPS
+	socketGroup.groupCount = state.groupCount
+	socketGroup.label = state.label
+	socketGroup.mainActiveSkill = state.mainActiveSkill
+	socketGroup.mainActiveSkillCalcs = state.mainActiveSkillCalcs
+end
+
 function ImportTabClass:ImportItemsAndSkills(json)
 	--local out = io.open("get-items.json", "w")
 	--out:write(json)
@@ -748,14 +785,21 @@ function ImportTabClass:ImportItemsAndSkills(json)
 
 	local mainSkillEmpty = #self.build.skillsTab.socketGroupList == 0
 	local skillOrder
+	local preservedSocketGroupStateByKey
 	if self.controls.charImportItemsClearSkills.state then
 		skillOrder = { }
+		preservedSocketGroupStateByKey = { }
 		for _, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
 			for _, gem in ipairs(socketGroup.gemList) do
 				if gem.grantedEffect and not gem.grantedEffect.support then
 					t_insert(skillOrder, gem.grantedEffect.name)
 				end
 			end
+		end
+		for index, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
+			local key = getSocketGroupReimportKey(socketGroup)
+			preservedSocketGroupStateByKey[key] = preservedSocketGroupStateByKey[key] or { }
+			t_insert(preservedSocketGroupStateByKey[key], snapshotSocketGroupReimportState(socketGroup, index == self.build.mainSocketGroup))
 		end
 		wipeTable(self.build.skillsTab.socketGroupList)
 	end
@@ -800,6 +844,22 @@ function ImportTabClass:ImportItemsAndSkills(json)
 				return orderA
 			end
 		end)
+	end
+	if preservedSocketGroupStateByKey then
+		local restoredMainSocketGroup
+		for index, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
+			local stateList = preservedSocketGroupStateByKey[getSocketGroupReimportKey(socketGroup)]
+			if stateList and stateList[1] then
+				local state = t_remove(stateList, 1)
+				applySocketGroupReimportState(socketGroup, state)
+				if state.isMainGroup then
+					restoredMainSocketGroup = index
+				end
+			end
+		end
+		if restoredMainSocketGroup then
+			self.build.mainSocketGroup = restoredMainSocketGroup
+		end
 	end
 	if mainSkillEmpty then
 		self.build.mainSocketGroup = self:GuessMainSocketGroup()
