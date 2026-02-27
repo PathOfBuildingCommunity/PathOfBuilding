@@ -924,6 +924,17 @@ function main:OpenOptionsPopup()
 	controls.buildPath.tooltipText = "Overrides the default save location for builds.\nThe default location is: '"..self.defaultBuildPath.."'"
 
 	nextRow()
+	controls.buildSortMode = new("DropDownControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, currentY, 120, 18 }, {
+		{ label = "By Name", mode = "NAME" },
+		{ label = "By Last Edited", mode = "EDITED" },
+	}, function(index, value)
+		self.buildSortMode = value.mode
+	end)
+	controls.buildSortModeLabel = new("LabelControl", { "RIGHT", controls.buildSortMode, "LEFT" }, { defaultLabelSpacingPx, 0, 0, 16 }, "^7Build Sort Mode:")
+	controls.buildSortMode.tooltipText = "Sets the sorting order for build lists by name or date modified."
+	controls.buildSortMode:SelByValue(self.buildSortMode, "mode")
+
+	nextRow()
 	controls.nodePowerTheme = new("DropDownControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, currentY, 100, 18 }, {
 		{ label = "Red & Blue", theme = "RED/BLUE" },
 		{ label = "Red & Green", theme = "RED/GREEN" },
