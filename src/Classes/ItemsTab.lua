@@ -56,6 +56,9 @@ for _, entry in pairs(data.flavourText) do
 	end
 end
 
+local function isAnointable(item)
+	return (item.canBeAnointed or item.base.type == "Amulet")
+end
 
 local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
@@ -439,11 +442,6 @@ holding Shift will put it in the second.]])
 		return #self.displayItem.sockets < self.displayItem.selectableSocketCount + self.displayItem.abyssalSocketCount
 	end
 
-	local function isAnointable()
-		return (self.displayItem.canBeAnointed or
-				self.displayItem.base.type == "Amulet" or
-				self.displayItem.baseName:match("Cord Belt"))
-	end
 	-- Section: Enchant / Anoint / Corrupt
 	self.controls.displayItemSectionEnchant = new("Control", {"TOPLEFT",self.controls.displayItemSectionSockets,"BOTTOMLEFT"}, {0, 0, 0, function()
 		return (self.controls.displayItemEnchant:IsShown() or self.controls.displayItemEnchant2:IsShown() or self.controls.displayItemAnoint:IsShown() or self.controls.displayItemAnoint2:IsShown() or self.controls.displayItemCorrupt:IsShown() ) and 28 or 0
@@ -464,14 +462,14 @@ holding Shift will put it in the second.]])
 		self:AnointDisplayItem(1)
 	end)
 	self.controls.displayItemAnoint.shown = function()
-		return self.displayItem and isAnointable()
+		return self.displayItem and isAnointable(self.displayItem)
 	end
 	self.controls.displayItemAnoint2 = new("ButtonControl", {"TOPLEFT",self.controls.displayItemAnoint,"TOPRIGHT",true}, {8, 0, 100, 20}, "Anoint 2...", function()
 		self:AnointDisplayItem(2)
 	end)
 	self.controls.displayItemAnoint2.shown = function()
 		return self.displayItem and
-			isAnointable() and
+			isAnointable(self.displayItem) and
 			self.displayItem.canHaveTwoEnchants and
 			#self.displayItem.enchantModLines > 0
 	end
@@ -480,7 +478,7 @@ holding Shift will put it in the second.]])
 	end)
 	self.controls.displayItemAnoint3.shown = function()
 		return self.displayItem and
-			isAnointable() and
+			isAnointable(self.displayItem) and
 			self.displayItem.canHaveThreeEnchants and
 			#self.displayItem.enchantModLines > 1
 	end
@@ -489,7 +487,7 @@ holding Shift will put it in the second.]])
 	end)
 	self.controls.displayItemAnoint4.shown = function()
 		return self.displayItem and
-			isAnointable() and
+			isAnointable(self.displayItem) and
 			self.displayItem.canHaveFourEnchants and
 			#self.displayItem.enchantModLines > 2
 	end
@@ -1589,8 +1587,7 @@ function ItemsTabClass:CreateDisplayItemFromRaw(itemRaw, normalise)
 	if newItem.base then
 		local itemType = newItem.base.type
 		-- if the new item is anointable and does not have an anoint and your current respective item does, apply that anoint to the new item
-		if (itemType == "Amulet" or (itemType == "Belt" and newItem.baseName:match("Cord Belt")))
-				and #newItem.enchantModLines == 0 and self.activeItemSet[itemType].selItemId > 0 then
+		if isAnointable(newItem) and #newItem.enchantModLines == 0 and self.activeItemSet[itemType].selItemId > 0 then
 			local currentAnoint = self.items[self.activeItemSet[itemType].selItemId].enchantModLines
 			if currentAnoint and #currentAnoint == 1 then -- skip if amulet has more than one anoint e.g. Stranglegasp
 				newItem.enchantModLines = currentAnoint
