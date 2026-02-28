@@ -338,6 +338,9 @@ Trigger level 20 Suspend in Time on Casting a Spell
 65% increased Mana Regeneration Rate
 10% increased Cooldown Recovery Rate
 10% increased Cast Speed for each different Non-Instant Spell you've Cast Recently
+<<<<<<< HEAD
 >>>>>>> 591237ef1 (fixup)
+=======
+>>>>>>> b69d06763 (FEAT: add The Sands of Time)
 ]]
 }
