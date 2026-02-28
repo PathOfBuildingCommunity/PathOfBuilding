@@ -2278,6 +2278,7 @@ local specialModList = {
 	} end,
 	["life recovery from flasks also applies to energy shield"] = { flag("LifeFlaskAppliesToEnergyShield") },
 	["increase to cast speed from arcane surge also applies to movement speed"] = { flag("ArcaneSurgeCastSpeedToMovementSpeed") },
+	["increases and reductions to effect of flasks applied to you also applies to effect of arcane surge on you at (%d+)%% of their value"] = function(num) return { mod("FlaskEffectToArcaneSurgeEffect", "BASE", num) } end,
 	["non%-instant mana recovery from flasks is also recovered as life"] = { flag("ManaFlaskAppliesToLife") },
 	["life leech effects recover energy shield instead while on full life"] = { flag("ImmortalAmbition", { type = "Condition", var = "FullLife" }, { type = "Condition", var = "LeechingLife" }) },
 	["shepherd of souls"] = {

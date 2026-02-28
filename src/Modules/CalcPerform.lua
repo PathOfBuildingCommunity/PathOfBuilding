@@ -667,6 +667,7 @@ local function doActorMisc(env, actor)
 		if modDB.conditions["AffectedByArcaneSurge"] or modDB:Flag(nil, "Condition:ArcaneSurge") then
 			modDB.conditions["AffectedByArcaneSurge"] = true
 			local effect = 1 + modDB:Sum("INC", nil, "ArcaneSurgeEffect", "BuffEffectOnSelf") / 100
+			effect = effect + modDB:Sum("INC", { actor = "player" }, "FlaskEffect") / 100 * modDB:Sum("BASE", nil, "FlaskEffectToArcaneSurgeEffect") / 100
 			modDB:NewMod("ManaRegen", "INC", (modDB:Max(nil, "ArcaneSurgeManaRegen") or 30) * effect, "Arcane Surge")
 			local arcaneSurgeCastSpeed = (modDB:Max(nil, "ArcaneSurgeCastSpeed") or 20) * effect
 			modDB:NewMod("Speed", "INC", arcaneSurgeCastSpeed, "Arcane Surge", ModFlag.Cast)

@@ -338,9 +338,18 @@ Trigger level 20 Suspend in Time on Casting a Spell
 65% increased Mana Regeneration Rate
 10% increased Cooldown Recovery Rate
 10% increased Cast Speed for each different Non-Instant Spell you've Cast Recently
-<<<<<<< HEAD
->>>>>>> 591237ef1 (fixup)
-=======
->>>>>>> b69d06763 (FEAT: add The Sands of Time)
+]],
+[[
+Khatal's Geyser
+Lapis Amulet
+LevelReq: 56
+Implicits: 1
+{tags:jewellery_attribute}+(20-30) to Intelligence
+Can't use Life Flasks
++65 to maximum Mana
+Increases and Reductions to Effect of Flasks applied to you also applies to Effect of Arcane Surge on you at 210% of their value
+You have Arcane Surge during Effect of any Mana Flask
+Mana Flask Effects are not removed when Unreserved Mana is Filled
+Mana Flask Effects do not Queue
 ]]
 }
