@@ -67,6 +67,18 @@ League: Perandus
 {variant:1}Grants Last Breath when you Use a Skill during Effect, for 800% of Mana Cost
 {variant:2}Grants Last Breath when you Use a Skill during Effect, for (450-600)% of Mana Cost
 ]],
+[[
+Wellwater Phylactery
+Colossal Mana Flask
+Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 64
+(200-300)% increased Charges per use
+(150-200)% increased Amount Recovered
+(60-40)% less Duration
+Removes (10-15)% of Life when Used
+Starts Energy Shield Recharge when Used
+Energy Shield Recharge is not delayed by Damage during Effect
+]],
 -- Flask: Hybrid
 [[
 Divination Distillate

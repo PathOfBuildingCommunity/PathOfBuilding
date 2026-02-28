@@ -1011,4 +1011,19 @@ Your Elemental Damage can Shock
 20% increased Area of Effect for Attacks
 Deal no Non-Elemental Damage
 ]],
+[[
+The Golden Charlatan
+Lion Sword
+Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 65, 104 Str, 122 Dex
+Implicits: 1
++50 to Strength and Dexterity
++200 Intelligence Requirement
+(200-300)% increased Physical Damage
+(10-16)% increased Attack Speed
+(100-200)% increased Critical Strike Chance
+Critical Strikes with this Weapon do not deal extra Damage
+Gain a random Shrine Buff for 30 seconds when you Kill a Rare or Unique Enemy
++1 to maximum Mana per 2 Intelligence
+]],
 }

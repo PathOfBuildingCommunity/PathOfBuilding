@@ -201,6 +201,18 @@ Requires Level 47, 68 Str
 10% chance to Knock Enemies Back on hit
 (30-50)% increased Projectile Damage
 ]],
+[[
+The Caged Mammoth
+Antique Gauntlets
+Source: Drops from unique{Uber Incarnation of Fear} in normal{Moment of Trauma}
+Requires Level 64, 58 Str
+Adds (6-10) to (16-22) Physical Damage to Attacks
+(8-16)% increased Attack Speed
+(80-120)% increased Armour
+Lose (1-3) Rage per second
+5% less Damage taken per 5 Rage, up to a maximum of 30%
+Maximum Rage is Halved
+]],
 -- Gloves: Evasion
 [[
 Great Old One's Tentacles
@@ -298,6 +310,19 @@ Adds (6-10) to (33-38) Lightning Damage
 (60-120)% increased Evasion Rating
 Critical Strikes do not inherently apply non-Damaging Ailments
 Inflict non-Damaging Ailments as though dealing (100-200)% more Damage
+]],
+[[
+Hand of the Lords
+Carnal Mitts
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 68, 195 Dex, 195 Int
+You cannot Cast Socketed Hex Curse Skills
+Inflict Socketed Hexes on Enemies that trigger your Traps
+Grants Level 30 Will of the Lords Skill
+400% increased Attribute Requirements
+(120-160)% increased Evasion and Energy Shield
+(6-12)% increased Trap Throwing Speed
+Can have up to (3-5) additional Traps placed at a time
 ]],
 -- Gloves: Energy Shield
 [[

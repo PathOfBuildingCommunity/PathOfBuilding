@@ -627,4 +627,19 @@ Requires Level 64, 185 Dex
 {variant:2}Ignites your Skills cause spread to other Enemies within 1.5 metres
 Recover (40-60) Life when you Ignite an Enemy
 ]],
+[[
+Wing of the Wyvern
+Imperial Bow
+Source: Drops from unique{Uber Incarnation of Fear} in normal{Moment of Trauma}
+Requires Level 66, 212 Dex
+Implicits: 1
+(20-24)% increased Elemental Damage with Attack Skills
+Trigger a Socketed Spell when a Hit from this
+Weapon Freezes a Target, with a 0.25 second Cooldown
+Adds (164-204) to (250-300) Cold Damage
+Adds (163-199) to (241-293) Chaos Damage
+(20-30)% increased Attack Speed
+Your Chaos Damage can Freeze
+Battlemage
+]],
 }

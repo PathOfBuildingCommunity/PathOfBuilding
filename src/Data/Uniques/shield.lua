@@ -424,6 +424,19 @@ Implicits: 1
 {variant:4}Reflects 1000 to 10000 Physical Damage to Attackers on Block
 {variant:2,3}10% of Damage you Reflect to Enemies when Hit is gained as Life
 ]],
+[[
+Cowards' Wail
+Ezomyte Tower Shield
+Requires Level 64, 159 Str
+Implicits: 1
++(30-40) to maximum Life
+(120-240)% increased Armour
++(5-10)% Chance to Block
+Totems which would be killed by Enemies become Spectral Totems for 8 seconds instead
+Skills used by Spectral Totems deal (40-50)% less Damage
+Maximum (3-5) Spectral Totems
+Unwavering Stance
+]],
 -- Shield: Energy Shield
 [[
 Apep's Slumber
@@ -867,6 +880,19 @@ Implicits: 1
 {variant:1,2}+5% Chance to Block
 {variant:1}Curse Skills have 25% increased Skill Effect Duration
 {variant:2}Curse Skills have 100% increased Skill Effect Duration
+]],
+[[
+Bitter Instinct
+Spiny Round Shield
+Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Loneliness}
+Requires Level 68, 85 Str, 85 Dex
+Implicits: 1
+60% increased Block Recovery
+(170-250)% increased Armour and Evasion
+Reflects (200-300) Physical Damage to Melee Attackers
+Retaliation Skills deal (50-100)% increased Damage
+Damaging Retaliation Skills become Usable every 4 seconds
+Retaliation Skills become Usable for (50-100)% longer
 ]],
 -- Shield: Armour/Energy Shield
 [[

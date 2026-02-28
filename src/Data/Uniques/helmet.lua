@@ -173,6 +173,29 @@ Non-instant Warcries ignore their Cooldown when used
 Warcries cost +15% of Life
 Warcry Skills have (15-25)% increased Area of Effect
 ]],
+[[
+Refuge in Isolation
+Paladin Crown
+Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Loneliness}
+Requires Level 78, 116 Str, 116 Int
+(350-650)% increased Armour
+(-50--40)% to all Elemental Resistances
++(13-29)% to Chaos Resistance
+(15-30)% of Elemental Damage from Hits taken as Physical Damage
+Physical Damage of Enemies Hitting you is Unlucky
+]],
+[[
+The Hallowed Monarch
+Faithful Helmet
+Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 73, 101 Str, 101 Int
+(150-230)% increased Armour
++(25-35)% to all Elemental Resistances
+50% increased Light Radius
+Link Skills can target Damageable Minions
+Your Linked Minions take (75-65)% less Damage
+On Killing a Rare monster, a random Linked Minion gains its Modifiers for 60 seconds
+]],
 -- Helmet: Evasion
 [[
 Alpha's Howl

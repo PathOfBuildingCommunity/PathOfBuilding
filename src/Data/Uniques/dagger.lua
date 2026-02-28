@@ -334,4 +334,18 @@ Implicits: 1
 100% increased Critical Strike Chance against Enemies on Full Life
 1% of Attack Damage Leeched as Life on Critical Strike
 ]],
+[[
+Festering Resentment
+Demon Dagger
+Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Loneliness}
+Requires Level 68, 76 Dex, 149 Int
+Implicits: 1
+40% increased Global Critical Strike Chance
+Trigger a Socketed Spell when you Block, with a 0.25 second Cooldown
++(30-45)% Chance to Block Spell Damage while in Off Hand
+(100-150)% increased Spell Damage
+(100-150)% increased Damage with Poison
+Triggered Spells Poison on Hit
+All Damage with Triggered Spells can Poison
+]],
 }
