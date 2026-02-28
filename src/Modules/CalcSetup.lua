@@ -671,6 +671,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 		local jewelLimits = {}
 		for _, slot in pairs(build.itemsTab.orderedSlots) do
 			local slotName = slot.slotName
+			if slotName == "Graft 1" or slotName == "Graft 2" then
+				if not build.spec.treeVersion:find("3_27") then
+					goto continue
+				end
+			end
 			local item
 			if slotName == override.repSlotName then
 				item = override.repItem
