@@ -5,7 +5,7 @@ local itemBases = ...
 itemBases["Driftwood Club"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "10% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -15,7 +15,7 @@ itemBases["Driftwood Club"] = {
 itemBases["Tribal Club"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "10% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -25,7 +25,7 @@ itemBases["Tribal Club"] = {
 itemBases["Spiked Club"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "10% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -35,7 +35,7 @@ itemBases["Spiked Club"] = {
 itemBases["Stone Hammer"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "15% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -45,7 +45,7 @@ itemBases["Stone Hammer"] = {
 itemBases["War Hammer"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "10% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -55,7 +55,7 @@ itemBases["War Hammer"] = {
 itemBases["Bladed Mace"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "10% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -65,7 +65,7 @@ itemBases["Bladed Mace"] = {
 itemBases["Ceremonial Mace"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "15% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -75,7 +75,7 @@ itemBases["Ceremonial Mace"] = {
 itemBases["Dream Mace"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "10% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -85,7 +85,7 @@ itemBases["Dream Mace"] = {
 itemBases["Wyrm Mace"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { maraketh = true, onehand = true, not_for_sale = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "4% increased Attack Speed",
 	implicitModTypes = { { "attack", "speed" }, },
@@ -95,7 +95,7 @@ itemBases["Wyrm Mace"] = {
 itemBases["Petrified Club"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "10% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -105,7 +105,7 @@ itemBases["Petrified Club"] = {
 itemBases["Barbed Club"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "10% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -115,7 +115,7 @@ itemBases["Barbed Club"] = {
 itemBases["Rock Breaker"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "15% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -125,7 +125,7 @@ itemBases["Rock Breaker"] = {
 itemBases["Battle Hammer"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "10% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -135,7 +135,7 @@ itemBases["Battle Hammer"] = {
 itemBases["Flanged Mace"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "10% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -145,7 +145,7 @@ itemBases["Flanged Mace"] = {
 itemBases["Ornate Mace"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "15% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -155,7 +155,7 @@ itemBases["Ornate Mace"] = {
 itemBases["Phantom Mace"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "10% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -165,7 +165,7 @@ itemBases["Phantom Mace"] = {
 itemBases["Dragon Mace"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { maraketh = true, onehand = true, not_for_sale = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "4% increased Attack Speed",
 	implicitModTypes = { { "attack", "speed" }, },
@@ -175,7 +175,7 @@ itemBases["Dragon Mace"] = {
 itemBases["Ancestral Club"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "10% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -185,7 +185,7 @@ itemBases["Ancestral Club"] = {
 itemBases["Tenderizer"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "10% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -195,7 +195,7 @@ itemBases["Tenderizer"] = {
 itemBases["Gavel"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "15% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -205,7 +205,7 @@ itemBases["Gavel"] = {
 itemBases["Legion Hammer"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, top_tier_base_item_type = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "10% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -215,7 +215,7 @@ itemBases["Legion Hammer"] = {
 itemBases["Pernach"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, top_tier_base_item_type = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "10% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -225,7 +225,7 @@ itemBases["Pernach"] = {
 itemBases["Auric Mace"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, top_tier_base_item_type = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "15% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -235,7 +235,7 @@ itemBases["Auric Mace"] = {
 itemBases["Nightmare Mace"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, top_tier_base_item_type = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "10% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -245,7 +245,7 @@ itemBases["Nightmare Mace"] = {
 itemBases["Behemoth Mace"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { maraketh = true, onehand = true, not_for_sale = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, mace = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "6% increased Attack Speed",
 	implicitModTypes = { { "attack", "speed" }, },
@@ -255,7 +255,7 @@ itemBases["Behemoth Mace"] = {
 itemBases["Flare Mace"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { weapon = true, onehand = true, not_for_sale = true, mace = true, experimental_base = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, experimental_base = true, mace = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "Trigger Level 10 Fiery Impact on Melee Hit with this Weapon",
 	implicitModTypes = { {  }, },
@@ -265,7 +265,7 @@ itemBases["Flare Mace"] = {
 itemBases["Crack Mace"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { weapon = true, onehand = true, not_for_sale = true, mace = true, experimental_base = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, experimental_base = true, mace = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "Trigger Level 15 Fiery Impact on Melee Hit with this Weapon",
 	implicitModTypes = { {  }, },
@@ -275,7 +275,7 @@ itemBases["Crack Mace"] = {
 itemBases["Boom Mace"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { weapon = true, onehand = true, not_for_sale = true, mace = true, experimental_base = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, experimental_base = true, mace = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
 	influenceTags = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", cleansing = "mace_cleansing", tangle = "mace_tangle" },
 	implicit = "Trigger Level 20 Fiery Impact on Melee Hit with this Weapon",
 	implicitModTypes = { {  }, },
@@ -286,7 +286,7 @@ itemBases["Boom Mace"] = {
 itemBases["Driftwood Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "10% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -296,7 +296,7 @@ itemBases["Driftwood Sceptre"] = {
 itemBases["Darkwood Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "12% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -306,7 +306,7 @@ itemBases["Darkwood Sceptre"] = {
 itemBases["Bronze Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "12% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -316,7 +316,7 @@ itemBases["Bronze Sceptre"] = {
 itemBases["Quartz Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "20% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -326,7 +326,7 @@ itemBases["Quartz Sceptre"] = {
 itemBases["Iron Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "14% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -336,7 +336,7 @@ itemBases["Iron Sceptre"] = {
 itemBases["Ochre Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "16% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -346,7 +346,7 @@ itemBases["Ochre Sceptre"] = {
 itemBases["Ritual Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "16% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -356,7 +356,7 @@ itemBases["Ritual Sceptre"] = {
 itemBases["Shadow Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "22% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -366,7 +366,7 @@ itemBases["Shadow Sceptre"] = {
 itemBases["Horned Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { maraketh = true, onehand = true, sceptre = true, not_for_sale = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "Damage Penetrates 4% Elemental Resistances",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -376,7 +376,7 @@ itemBases["Horned Sceptre"] = {
 itemBases["Grinning Fetish"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "18% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -386,7 +386,7 @@ itemBases["Grinning Fetish"] = {
 itemBases["Sekhem"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "18% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -396,7 +396,7 @@ itemBases["Sekhem"] = {
 itemBases["Crystal Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "30% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -406,7 +406,7 @@ itemBases["Crystal Sceptre"] = {
 itemBases["Lead Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "22% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -416,7 +416,7 @@ itemBases["Lead Sceptre"] = {
 itemBases["Blood Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "24% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -426,7 +426,7 @@ itemBases["Blood Sceptre"] = {
 itemBases["Royal Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "24% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -436,7 +436,7 @@ itemBases["Royal Sceptre"] = {
 itemBases["Abyssal Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "30% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -446,7 +446,7 @@ itemBases["Abyssal Sceptre"] = {
 itemBases["Stag Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { maraketh = true, onehand = true, sceptre = true, not_for_sale = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "Damage Penetrates 4% Elemental Resistances",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -456,7 +456,7 @@ itemBases["Stag Sceptre"] = {
 itemBases["Karui Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "26% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -466,7 +466,7 @@ itemBases["Karui Sceptre"] = {
 itemBases["Tyrant's Sekhem"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "26% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -476,7 +476,7 @@ itemBases["Tyrant's Sekhem"] = {
 itemBases["Opal Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "40% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -486,7 +486,7 @@ itemBases["Opal Sceptre"] = {
 itemBases["Platinum Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, top_tier_base_item_type = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, top_tier_base_item_type = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "30% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -496,7 +496,7 @@ itemBases["Platinum Sceptre"] = {
 itemBases["Vaal Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, top_tier_base_item_type = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, top_tier_base_item_type = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "32% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -506,7 +506,7 @@ itemBases["Vaal Sceptre"] = {
 itemBases["Carnal Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, top_tier_base_item_type = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, top_tier_base_item_type = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "32% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -516,7 +516,7 @@ itemBases["Carnal Sceptre"] = {
 itemBases["Void Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, top_tier_base_item_type = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, top_tier_base_item_type = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "40% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -526,7 +526,7 @@ itemBases["Void Sceptre"] = {
 itemBases["Sambar Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { maraketh = true, onehand = true, sceptre = true, not_for_sale = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "Damage Penetrates 6% Elemental Resistances",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -536,7 +536,7 @@ itemBases["Sambar Sceptre"] = {
 itemBases["Oscillating Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { weapon = true, onehand = true, sceptre = true, not_for_sale = true, experimental_base = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "Elemental Overload",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "critical" }, },
@@ -546,7 +546,7 @@ itemBases["Oscillating Sceptre"] = {
 itemBases["Stabilising Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { weapon = true, onehand = true, sceptre = true, not_for_sale = true, experimental_base = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "Elemental Equilibrium",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -556,7 +556,7 @@ itemBases["Stabilising Sceptre"] = {
 itemBases["Alternating Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { weapon = true, onehand = true, sceptre = true, not_for_sale = true, experimental_base = true, one_hand_weapon = true, default = true, },
+	tags = { default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "Secrets of Suffering",
 	implicitModTypes = { {  }, },
@@ -567,7 +567,7 @@ itemBases["Alternating Sceptre"] = {
 itemBases["Driftwood Maul"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "30% increased Stun Duration on Enemies",
 	implicitModTypes = { {  }, },
@@ -577,7 +577,7 @@ itemBases["Driftwood Maul"] = {
 itemBases["Tribal Maul"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "30% increased Stun Duration on Enemies",
 	implicitModTypes = { {  }, },
@@ -587,7 +587,7 @@ itemBases["Tribal Maul"] = {
 itemBases["Mallet"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "30% increased Stun Duration on Enemies",
 	implicitModTypes = { {  }, },
@@ -597,7 +597,7 @@ itemBases["Mallet"] = {
 itemBases["Sledgehammer"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "45% increased Stun Duration on Enemies",
 	implicitModTypes = { {  }, },
@@ -607,7 +607,7 @@ itemBases["Sledgehammer"] = {
 itemBases["Jagged Maul"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "30% increased Stun Duration on Enemies",
 	implicitModTypes = { {  }, },
@@ -617,7 +617,7 @@ itemBases["Jagged Maul"] = {
 itemBases["Brass Maul"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "30% increased Stun Duration on Enemies",
 	implicitModTypes = { {  }, },
@@ -627,7 +627,7 @@ itemBases["Brass Maul"] = {
 itemBases["Fright Maul"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "30% increased Stun Duration on Enemies",
 	implicitModTypes = { {  }, },
@@ -637,7 +637,7 @@ itemBases["Fright Maul"] = {
 itemBases["Morning Star"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, maraketh = true, not_for_sale = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { default = true, mace = true, maraketh = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "15% increased Area of Effect",
 	implicitModTypes = { {  }, },
@@ -647,7 +647,7 @@ itemBases["Morning Star"] = {
 itemBases["Totemic Maul"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "30% increased Stun Duration on Enemies",
 	implicitModTypes = { {  }, },
@@ -657,7 +657,7 @@ itemBases["Totemic Maul"] = {
 itemBases["Great Mallet"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "30% increased Stun Duration on Enemies",
 	implicitModTypes = { {  }, },
@@ -667,7 +667,7 @@ itemBases["Great Mallet"] = {
 itemBases["Steelhead"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "45% increased Stun Duration on Enemies",
 	implicitModTypes = { {  }, },
@@ -677,7 +677,7 @@ itemBases["Steelhead"] = {
 itemBases["Spiny Maul"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "30% increased Stun Duration on Enemies",
 	implicitModTypes = { {  }, },
@@ -687,7 +687,7 @@ itemBases["Spiny Maul"] = {
 itemBases["Plated Maul"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "30% increased Stun Duration on Enemies",
 	implicitModTypes = { {  }, },
@@ -697,7 +697,7 @@ itemBases["Plated Maul"] = {
 itemBases["Dread Maul"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "30% increased Stun Duration on Enemies",
 	implicitModTypes = { {  }, },
@@ -707,7 +707,7 @@ itemBases["Dread Maul"] = {
 itemBases["Solar Maul"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, maraketh = true, not_for_sale = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { default = true, mace = true, maraketh = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "15% increased Area of Effect",
 	implicitModTypes = { {  }, },
@@ -717,7 +717,7 @@ itemBases["Solar Maul"] = {
 itemBases["Karui Maul"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "45% increased Stun Duration on Enemies",
 	implicitModTypes = { {  }, },
@@ -727,7 +727,7 @@ itemBases["Karui Maul"] = {
 itemBases["Colossus Mallet"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "30% increased Area Damage",
 	implicitModTypes = { { "damage" }, },
@@ -737,7 +737,7 @@ itemBases["Colossus Mallet"] = {
 itemBases["Piledriver"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, top_tier_base_item_type = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { default = true, mace = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "20% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
@@ -747,7 +747,7 @@ itemBases["Piledriver"] = {
 itemBases["Meatgrinder"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, top_tier_base_item_type = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { default = true, mace = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "5% chance to deal Double Damage",
 	implicitModTypes = { { "damage" }, },
@@ -757,7 +757,7 @@ itemBases["Meatgrinder"] = {
 itemBases["Imperial Maul"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, top_tier_base_item_type = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { default = true, mace = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "10% increased Strength",
 	implicitModTypes = { { "attribute" }, },
@@ -767,7 +767,7 @@ itemBases["Imperial Maul"] = {
 itemBases["Terror Maul"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, top_tier_base_item_type = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { default = true, mace = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "25% chance to double Stun Duration",
 	implicitModTypes = { {  }, },
@@ -777,7 +777,7 @@ itemBases["Terror Maul"] = {
 itemBases["Coronal Maul"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, maraketh = true, not_for_sale = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { default = true, mace = true, maraketh = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "20% increased Area of Effect",
 	implicitModTypes = { {  }, },
@@ -787,7 +787,7 @@ itemBases["Coronal Maul"] = {
 itemBases["Blunt Force Condenser"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, weapon = true, not_for_sale = true, mace = true, experimental_base = true, twohand = true, default = true, },
+	tags = { default = true, experimental_base = true, mace = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "Warcries Exert 1 additional Attack",
 	implicitModTypes = { {  }, },
@@ -797,7 +797,7 @@ itemBases["Blunt Force Condenser"] = {
 itemBases["Crushing Force Magnifier"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, weapon = true, not_for_sale = true, mace = true, experimental_base = true, twohand = true, default = true, },
+	tags = { default = true, experimental_base = true, mace = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "Warcries Exert 1 additional Attack",
 	implicitModTypes = { {  }, },
@@ -807,7 +807,7 @@ itemBases["Crushing Force Magnifier"] = {
 itemBases["Impact Force Propagator"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, weapon = true, not_for_sale = true, mace = true, experimental_base = true, twohand = true, default = true, },
+	tags = { default = true, experimental_base = true, mace = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
 	implicit = "Warcries Exert 2 additional Attacks",
 	implicitModTypes = { {  }, },

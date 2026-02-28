@@ -29,27 +29,11 @@ jobs:
                 echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token;
                 gh release view $(basename ${{ github.event.inputs.releaseNoteUrl }}) > temp_change.md
             - name: Tweak changelogs
-              run: >
-                sed -i '1,10d' temp_change.md;
-                sed -i '1h;1d;$!H;$!d;G' temp_change.md;
-                sed -i -re 's/\*\*Full Changelog\*\*: (.*)/\[Full Changelog\]\(\1\)\n/' temp_change.md;
-                sed -i '/## New Contributors/,$d' temp_change.md;
-                sed -i -re 's/^\*(.*)\sby\s@(.*)\sin\s(.*\/pull\/)(.*)\r?/-\1 [\\#\4](\3\4) ([\2](https:\/\/github.com\/\2))/' temp_change.md;
-                sed -i 's/\[Quotae/\[Quote_a/' temp_change.md;
-                sed -i 's/\[learn2draw/\[Lexy/' temp_change.md;
-                sed -i 's/\[Voronoff/\[Tom Clancy Is Dead/' temp_change.md;
-                sed -i 's/\[PJacek/\[TPlant/' temp_change.md;
-                sed -i 's/\[justjuangui/\[trompetin17/' temp_change.md;
-                sed -i 's/\r//g' temp_change.md;
-                cp temp_change.md changelog_temp.txt;
-                cat CHANGELOG.md | tr \\r \\n | sed '1d' >> temp_change.md;
-                printf "# Changelog\n\n## [v${{ github.event.inputs.releaseVersion }}](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v${{ github.event.inputs.releaseVersion }}) ($(date +'%Y/%m/%d'))\n\n" | cat - temp_change.md > CHANGELOG.md;
-
-                sed -i -re 's/^- (.*) \[.*\) \(\[(.*)\]\(.*/* \1 (\2)/' changelog_temp.txt;
-                echo "VERSION[${{ github.event.inputs.releaseVersion }}][`date +'%Y/%m/%d'`]" | cat - changelog_temp.txt | tr -d \\r | sed '2,3d' | sed -re 's/^### (.*)/\n--- \1 ---/' | sed -e '/^##.*/,+1 d' | cat - changelog.txt > changelog_new.txt;
-                rm temp_change.md;
-                rm changelog_temp.txt;
-                mv changelog_new.txt changelog.txt
+              run: |
+                # Remove carriage returns to be able to run the script
+                sed -i 's/\r$//' .github/tweak_changelogs.sh
+                chmod +x .github/tweak_changelogs.sh
+                .github/tweak_changelogs.sh "v${{ github.event.inputs.releaseVersion }}"
             - name: Create Pull Request
               uses: peter-evans/create-pull-request@v5
               with:

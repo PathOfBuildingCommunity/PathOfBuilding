@@ -9,11 +9,15 @@ buildSites = { }
 -- Import/Export websites list used in dropdowns
 buildSites.websiteList = {
 	{
+		label = "Maxroll", id = "Maxroll", matchURL = "maxroll%.gg/poe/pob/.*", regexURL = "maxroll%.gg/poe/pob/(.+)%s*$", downloadURL = "maxroll%.gg/poe/api/pob/%1",
+		codeOut = "https://maxroll.gg/poe/pob/", postUrl = "https://maxroll.gg/poe/api/pob", postFields = "pobCode=", linkURL = "maxroll%.gg/poe/pob/%1"
+	},
+	{
 		label = "pobb.in", id = "POBBin", matchURL = "pobb%.in/.+", regexURL = "pobb%.in/(.+)%s*$", downloadURL = "pobb.in/pob/%1",
 		codeOut = "https://pobb.in/", postUrl = "https://pobb.in/pob/", postFields = "", linkURL = "pobb.in/%1"
 	},
 	{
-		label = "PoeNinja", id = "PoeNinja", matchURL = "poe%.ninja/?p?o?e?1?/pob/%w+", regexURL = "poe%.ninja(/?p?o?e?1?)/pob/(%w+)%s*$", downloadURL = "poe.ninja%1/pob/raw/%2",
+		label = "PoeNinja", id = "PoeNinja", matchURL = "poe%.ninja/?p?o?e?1?/pob/%w+", regexURL = "poe%.ninja/?p?o?e?1?/pob/(%w+)%s*$", downloadURL = "poe.ninja/poe1/pob/raw/%1",
 		codeOut = "", postUrl = "https://poe.ninja/poe1/pob/api/upload", postFields = "code=", linkURL="poe.ninja/poe1/pob/%1"
 	},
 	{
@@ -25,8 +29,8 @@ buildSites.websiteList = {
 }
 
 --- Uploads a PoB build code to a website
---- @param websiteInfo Table Contains the postUrl, any postParams, and a prefix to add to the response
---- @param buildCode String The build code that will be uploaded
+--- @param websiteInfo table Contains the postUrl, any postParams, and a prefix to add to the response
+--- @param buildCode string The build code that will be uploaded
 function buildSites.UploadBuild(buildCode, websiteInfo)
 	local response
 	if websiteInfo then
@@ -65,9 +69,9 @@ function buildSites.UploadBuild(buildCode, websiteInfo)
 end
 
 --- Downloads a PoB build code from a website
---- @param link String A link to the site that contains the link to the raw build code
---- @param websiteInfo Table Contains the downloadUrl
---- @param callback Function The function to call when the download is complete
+--- @param link string A link to the site that contains the link to the raw build code
+--- @param websiteInfo table? Contains the downloadUrl
+--- @param callback function The function to call when the download is complete
 function buildSites.DownloadBuild(link, websiteInfo, callback)
 	local siteCodeURL
 	-- Only called on program start via protocol handler
@@ -96,10 +100,10 @@ function buildSites.DownloadBuild(link, websiteInfo, callback)
 end
 
 -- Parses and converts URI's to import links. Currently only supports protocol handler URI's, extend as needed.
--- @param uri String Example: pob://pobbin/<id> or pob://poeninja/<id>
+-- @param uri string Example: pob://pobbin/<id> or pob://poeninja/<id>
 function buildSites.ParseImportLinkFromURI(uri)
 	local importLink = nil
-	
+
 	-- Check if it's an URI from protocol handler
 	for _, siteInfo in ipairs(buildSites.websiteList) do
 		if uri:match("^pob:[/\\]*" .. siteInfo.id:lower() .. "[/\\]+(.+)") then

@@ -656,14 +656,17 @@ Command of the Pit
 Riveted Gloves
 League: Delve
 Source: Drops from unique{Kurgal, the Blackblooded}
+Variant: Pre 3.27.0 One Abyssal Socket
+Variant: Pre 3.27.0 Two Abyssal Sockets
 Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
 Requires Level 37, 29 Str, 29 Int
-{variant:1}Has 1 Abyssal Socket
-{variant:2}Has 2 Abyssal Sockets
+{variant:1,3}Has 1 Abyssal Socket
+{variant:2,4}Has 2 Abyssal Sockets
 (6-10)% increased Cast Speed
 (4-6)% increased maximum Life
-With a Ghastly Eye Jewel Socketed, Minions have +1000 to Accuracy Rating
+{variant:1,2}With a Ghastly Eye Jewel Socketed, Minions have +1000 to Accuracy Rating
+{variant:3,4}With a Ghastly Eye Jewel Socketed, Minions have 25% chance to gain Unholy Might on Hit with Spells
 With a Hypnotic Eye Jewel Socketed, gain Arcane Surge on Hit with Spells
 ]],[[
 The Hand of Phrecia

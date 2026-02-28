@@ -112,34 +112,34 @@ describe("TestAttacks", function()
 		build.configTab.input.customMods = "\z
 		never deal critical strikes\n\z
 		"
-		build.configTab.input.enemyPhysicalReduction = 10
+		build.configTab.input.enemyPhysicalReduction = 8
 		build.configTab.input.enemyArmour = 1000 -- 50% dr for 200 damage, 66.6% dr for 100 dmg (impale stacks)
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
 
 		-- dam * (1 - (armourDR + additionalDR)
-		assert.are.equals(200 * (1 - (0.5 + 0.1)), build.calcsTab.mainOutput.MainHand.PhysicalHitAverage)
+		assert.are.equals(200 * (1 - (0.5 + 0.08)), build.calcsTab.mainOutput.MainHand.PhysicalHitAverage)
 		assert.are.equals(200, build.calcsTab.mainOutput.MainHand.impaleStoredHitAvg)
 		assert.are.equals(200, build.calcsTab.mainOutput.impaleStoredHitAvg)
 		-- [5 impales * 10% stored damage] * 1.3 attacks * (armour mod - phys DR)
-		assert.are.near(100 * 1.3 * (1 - (2/3 + 0.1)), build.calcsTab.mainOutput.ImpaleDPS, 0.0000001) -- floating point math
+		assert.are.near(100 * 1.3 * (1 - (2/3 + 0.08)), build.calcsTab.mainOutput.ImpaleDPS, 0.0000001) -- floating point math
 
 
 		-- 100% crit
 		build.configTab.input.customMods = "\z
 		+100% critical strike chance\n\z
 		"
-		build.configTab.input.enemyPhysicalReduction = 10
+		build.configTab.input.enemyPhysicalReduction = 8
 		build.configTab.input.enemyArmour = 1500 -- 50% dr for 300 damage, 66.6% dr for 150 dmg (impale stacks)
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
 
 		-- dam * (1 - (armourDR + additionalDR)
-		assert.are.equals(300 * (1 - (0.5 + 0.1)), build.calcsTab.mainOutput.MainHand.PhysicalCritAverage)
+		assert.are.equals(300 * (1 - (0.5 + 0.08)), build.calcsTab.mainOutput.MainHand.PhysicalCritAverage)
 		assert.are.equals(300, build.calcsTab.mainOutput.MainHand.impaleStoredHitAvg)
 		assert.are.equals(300, build.calcsTab.mainOutput.impaleStoredHitAvg)
 		-- [5 impales * 10% stored damage] * 1.3 attacks * (armour mod - phys DR)
-		assert.are.near(150 * 1.3 * (1 - (2/3 + 0.1)), build.calcsTab.mainOutput.ImpaleDPS, 0.0000001) -- floating point math
+		assert.are.near(150 * 1.3 * (1 - (2/3 + 0.08)), build.calcsTab.mainOutput.ImpaleDPS, 0.0000001) -- floating point math
 
 	end)
 
@@ -149,17 +149,17 @@ describe("TestAttacks", function()
 		never deal critical strikes\n\z
 		Nearby enemies take 100% increased physical damage\n\z
 		"
-		build.configTab.input.enemyPhysicalReduction = 10
+		build.configTab.input.enemyPhysicalReduction = 8
 		build.configTab.input.enemyArmour = 1000 -- 50% dr for 200 damage, 66.6% dr for 100 dmg (impale stacks) .. damage taken is after armour
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
 
 		-- taken * dam * (1 - (armourDR + additionalDR)
-		assert.are.equals(2 * 200 * (1 - (0.5 + 0.1)), build.calcsTab.mainOutput.MainHand.PhysicalHitAverage)
+		assert.are.equals(2 * 200 * (1 - (0.5 + 0.08)), build.calcsTab.mainOutput.MainHand.PhysicalHitAverage)
 		assert.are.equals(200, build.calcsTab.mainOutput.MainHand.impaleStoredHitAvg)
 		assert.are.equals(200, build.calcsTab.mainOutput.impaleStoredHitAvg)
 		-- taken * [5 impales * 10% stored damage] * 1.3 attacks * (armour mod - phys DR)
-		assert.are.near(2 * 100 * 1.3 * (1 - (2/3 + 0.1)), build.calcsTab.mainOutput.ImpaleDPS, 0.0000001) -- floating point math
+		assert.are.near(2 * 100 * 1.3 * (1 - (2/3 + 0.08)), build.calcsTab.mainOutput.ImpaleDPS, 0.0000001) -- floating point math
 
 
 		-- 100% crit
@@ -167,17 +167,17 @@ describe("TestAttacks", function()
 		+100% critical strike chance\n\z
 		Nearby enemies take 100% increased physical damage\n\z
 		"
-		build.configTab.input.enemyPhysicalReduction = 10
+		build.configTab.input.enemyPhysicalReduction = 8
 		build.configTab.input.enemyArmour = 1500 -- 50% dr for 300 damage, 66.6% dr for 150 dmg (impale stacks)
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
 
 		-- taken * dam * (1 - (armourDR + additionalDR)
-		assert.are.equals(2 * 300 * (1 - (0.5 + 0.1)), build.calcsTab.mainOutput.MainHand.PhysicalCritAverage)
+		assert.are.equals(2 * 300 * (1 - (0.5 + 0.08)), build.calcsTab.mainOutput.MainHand.PhysicalCritAverage)
 		assert.are.equals(300, build.calcsTab.mainOutput.MainHand.impaleStoredHitAvg)
 		assert.are.equals(300, build.calcsTab.mainOutput.impaleStoredHitAvg)
 		-- taken * [5 impales * 10% stored damage] * 1.3 attacks * (armour mod - phys DR)
-		assert.are.near(2 * 150 * 1.3 * (1 - (2/3 + 0.1)), build.calcsTab.mainOutput.ImpaleDPS, 0.0000001) -- floating point math
+		assert.are.near(2 * 150 * 1.3 * (1 - (2/3 + 0.08)), build.calcsTab.mainOutput.ImpaleDPS, 0.0000001) -- floating point math
 
 	end)
 

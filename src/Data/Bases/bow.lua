@@ -5,7 +5,7 @@ local itemBases = ...
 itemBases["Crude Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 5, PhysicalMax = 13, CritChanceBase = 5, AttackRateBase = 1.4, Range = 120, },
@@ -14,7 +14,7 @@ itemBases["Crude Bow"] = {
 itemBases["Short Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 6, PhysicalMax = 16, CritChanceBase = 5, AttackRateBase = 1.5, Range = 120, },
@@ -23,7 +23,7 @@ itemBases["Short Bow"] = {
 itemBases["Long Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 8, PhysicalMax = 33, CritChanceBase = 6, AttackRateBase = 1.3, Range = 120, },
@@ -32,7 +32,7 @@ itemBases["Long Bow"] = {
 itemBases["Composite Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 16, PhysicalMax = 34, CritChanceBase = 6, AttackRateBase = 1.3, Range = 120, },
@@ -41,7 +41,7 @@ itemBases["Composite Bow"] = {
 itemBases["Recurve Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "+(15-25)% to Global Critical Strike Multiplier",
 	implicitModTypes = { { "damage", "critical" }, },
@@ -51,7 +51,7 @@ itemBases["Recurve Bow"] = {
 itemBases["Bone Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 15, PhysicalMax = 45, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 120, },
@@ -60,7 +60,7 @@ itemBases["Bone Bow"] = {
 itemBases["Royal Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "(20-24)% increased Elemental Damage with Attack Skills",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "attack" }, },
@@ -70,7 +70,7 @@ itemBases["Royal Bow"] = {
 itemBases["Death Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "(30-50)% increased Critical Strike Chance",
 	implicitModTypes = { { "attack", "critical" }, },
@@ -80,7 +80,7 @@ itemBases["Death Bow"] = {
 itemBases["Reflex Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, maraketh = true, not_for_sale = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, maraketh = true, not_for_sale = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "6% increased Movement Speed",
 	implicitModTypes = { { "speed" }, },
@@ -90,7 +90,7 @@ itemBases["Reflex Bow"] = {
 itemBases["Grove Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 20, PhysicalMax = 61, CritChanceBase = 5, AttackRateBase = 1.5, Range = 120, },
@@ -99,7 +99,7 @@ itemBases["Grove Bow"] = {
 itemBases["Decurve Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 24, PhysicalMax = 96, CritChanceBase = 6, AttackRateBase = 1.25, Range = 120, },
@@ -108,7 +108,7 @@ itemBases["Decurve Bow"] = {
 itemBases["Compound Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 37, PhysicalMax = 76, CritChanceBase = 6, AttackRateBase = 1.3, Range = 120, },
@@ -117,7 +117,7 @@ itemBases["Compound Bow"] = {
 itemBases["Sniper Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "+(15-25)% to Global Critical Strike Multiplier",
 	implicitModTypes = { { "damage", "critical" }, },
@@ -127,7 +127,7 @@ itemBases["Sniper Bow"] = {
 itemBases["Ivory Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 29, PhysicalMax = 86, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 120, },
@@ -136,7 +136,7 @@ itemBases["Ivory Bow"] = {
 itemBases["Highborn Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "(20-24)% increased Elemental Damage with Attack Skills",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "attack" }, },
@@ -146,7 +146,7 @@ itemBases["Highborn Bow"] = {
 itemBases["Decimation Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "(30-50)% increased Critical Strike Chance",
 	implicitModTypes = { { "attack", "critical" }, },
@@ -156,7 +156,7 @@ itemBases["Decimation Bow"] = {
 itemBases["Steelwood Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, maraketh = true, not_for_sale = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, maraketh = true, not_for_sale = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "6% increased Movement Speed",
 	implicitModTypes = { { "speed" }, },
@@ -166,7 +166,7 @@ itemBases["Steelwood Bow"] = {
 itemBases["Thicket Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 32, PhysicalMax = 96, CritChanceBase = 5, AttackRateBase = 1.5, Range = 120, },
@@ -175,7 +175,7 @@ itemBases["Thicket Bow"] = {
 itemBases["Citadel Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 36, PhysicalMax = 144, CritChanceBase = 6, AttackRateBase = 1.25, Range = 120, },
@@ -184,7 +184,7 @@ itemBases["Citadel Bow"] = {
 itemBases["Ranger Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 56, PhysicalMax = 117, CritChanceBase = 6, AttackRateBase = 1.3, Range = 120, },
@@ -193,7 +193,7 @@ itemBases["Ranger Bow"] = {
 itemBases["Assassin Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, top_tier_base_item_type = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, ranged = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "+(15-25)% to Global Critical Strike Multiplier",
 	implicitModTypes = { { "damage", "critical" }, },
@@ -203,7 +203,7 @@ itemBases["Assassin Bow"] = {
 itemBases["Spine Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, top_tier_base_item_type = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, ranged = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 38, PhysicalMax = 115, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 120, },
@@ -212,7 +212,7 @@ itemBases["Spine Bow"] = {
 itemBases["Imperial Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, top_tier_base_item_type = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, ranged = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "(20-24)% increased Elemental Damage with Attack Skills",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "attack" }, },
@@ -222,7 +222,7 @@ itemBases["Imperial Bow"] = {
 itemBases["Harbinger Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, top_tier_base_item_type = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, ranged = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "(30-50)% increased Critical Strike Chance",
 	implicitModTypes = { { "attack", "critical" }, },
@@ -232,7 +232,7 @@ itemBases["Harbinger Bow"] = {
 itemBases["Maraketh Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, maraketh = true, not_for_sale = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, maraketh = true, not_for_sale = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "10% increased Movement Speed",
 	implicitModTypes = { { "speed" }, },
@@ -242,7 +242,7 @@ itemBases["Maraketh Bow"] = {
 itemBases["Hedron Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, default = true, not_for_sale = true, ranged = true, weapon = true, experimental_base = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, experimental_base = true, not_for_sale = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "Adds (46-55) to (69-83) Fire Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
@@ -252,7 +252,7 @@ itemBases["Hedron Bow"] = {
 itemBases["Foundry Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, default = true, not_for_sale = true, ranged = true, weapon = true, experimental_base = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, experimental_base = true, not_for_sale = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "Adds (80-97) to (126-144) Fire Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
@@ -262,7 +262,7 @@ itemBases["Foundry Bow"] = {
 itemBases["Solarine Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, default = true, not_for_sale = true, ranged = true, weapon = true, experimental_base = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, experimental_base = true, not_for_sale = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "Adds (121-133) to (184-197) Fire Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
@@ -271,9 +271,8 @@ itemBases["Solarine Bow"] = {
 }
 itemBases["Ethereal Bow"] = {
 	type = "Bow",
-	hidden = true,
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, not_for_sale = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { bow = true, default = true, not_for_sale = true, ranged = true, two_hand_weapon = true, twohand = true, weapon = true, },
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 5, PhysicalMax = 9, CritChanceBase = 6, AttackRateBase = 1.5, Range = 120, },

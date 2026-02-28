@@ -13,6 +13,7 @@ local itemBases = ...
 #baseMatch Metadata/Items/Rings/RingE%d+
 #baseMatch Metadata/Items/Rings/RingK%d+
 #baseMatch Metadata/Items/Rings/RingR%d+
+#baseMatch Metadata/Items/Rings/RingB%d+
 #baseMatch Metadata/Items/Rings/MirrorRing
 #forceShow false
 

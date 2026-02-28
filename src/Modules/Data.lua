@@ -46,6 +46,7 @@ local itemTypes = {
 	"jewel",
 	"flask",
 	"tincture",
+	"graft",
 }
 
 local function makeSkillMod(modName, modType, modVal, flags, keywordFlags, ...)
@@ -103,6 +104,9 @@ end
 ----------------------------------------
 
 data = { }
+
+-- Misc data tables
+LoadModule("Data/Misc", data)
 
 data.powerStatList = {
 	{ stat=nil, label="Offence/Defence", combinedOffDef=true, ignoreForItems=true },
@@ -163,20 +167,24 @@ data.misc = { -- magic numbers
 	LowPoolThreshold = 0.5,
 	TemporalChainsEffectCap = 75,
 	BuffExpirationSlowCap = 0.25,
-	DamageReductionCap = 90,
+	DamageReductionCap = data.characterConstants["maximum_physical_damage_reduction_%"],
+	EnemyPhysicalDamageReductionCap = data.monsterConstants["maximum_physical_damage_reduction_%"],
 	ResistFloor = -200,
 	MaxResistCap = 90,
 	EvadeChanceCap = 95,
 	DodgeChanceCap = 75,
 	BlockChanceCap = 90,
 	SuppressionChanceCap = 100,
-	SuppressionEffect = 50,
+	SuppressionEffect = 40,
 	AvoidChanceCap = 75,
+	FortifyBaseDuration = 6,
+	ManaRegenBase = data.characterConstants["mana_regeneration_rate_per_minute_%"] / 60 / 100,
+	EnergyShieldRechargeBase = data.characterConstants["energy_shield_recharge_rate_per_minute_%"] / 60 / 100,
 	EnergyShieldRechargeBase = 0.33,
 	EnergyShieldRechargeDelay = 2,
 	WardRechargeDelay = 2,
 	Transfiguration = 0.3,
-	EnemyMaxResist = 75,
+	EnemyMaxResist = data.monsterConstants["base_maximum_all_resistances_%"],
 	LeechRateBase = 0.02,
 	DotDpsCap = 35791394, -- (2 ^ 31 - 1) / 60 (int max / 60 seconds)
 	BleedPercentBase = 70,
@@ -191,6 +199,7 @@ data.misc = { -- magic numbers
 	MineAuraRadiusBase = 35,
 	BrandAttachmentRangeBase = 30,
 	ProjectileDistanceCap = 150,
+	PlayerMovementSpeed = data.characterConstants["base_speed"],
 	MinStunChanceNeeded = 20,
 	StunBaseMult = 200,
 	StunBaseDuration = 0.35,
@@ -267,11 +276,12 @@ data.cursePriority = {
 	["Boots"] = 7000,
 	["Ring 1"] = 8000,
 	["Ring 2"] = 9000,
-	["CurseFromEquipment"] = 10000,
+	["Ring 3"] = 10000,
+	["CurseFromEquipment"] = 11000,
 	["CurseFromAura"] = 20000,
 }
 
----@type string[] @List of all keystones not exclusive to timeless jewels.
+---@type string[] @List of all keystones not exclusive to timeless jewels or cluster jewels.
 data.keystones = {
 	"Acrobatics",
 	"Ancestral Bond",
@@ -296,7 +306,6 @@ data.keystones = {
 	"Ghost Reaver",
 	"Glancing Blows",
 	"Hex Master",
-	"Hollow Palm Technique",
 	"Imbalanced Guard",
 	"Immortal Ambition",
 	"Inner Conviction",
@@ -317,12 +326,12 @@ data.keystones = {
 	"Precise Technique",
 	"Resolute Technique",
 	"Runebinder",
-	"Secrets of Suffering",
 	"Solipsism",
 	"Supreme Decadence",
 	"Supreme Ego",
 	"The Agnostic",
 	"The Impaler",
+	"Transcendence",
 	"Unwavering Stance",
 	"Vaal Pact",
 	"Versatile Combatant",
@@ -524,6 +533,8 @@ data.jewelRadii = {
 		{ inner = 0, outer = 960, col = "^xBB6600", label = "Small" },
 		{ inner = 0, outer = 1440, col = "^x66FFCC", label = "Medium" },
 		{ inner = 0, outer = 1800, col = "^x2222CC", label = "Large" },
+		{ inner = 0, outer = 2400, col = "^xC100FF", label = "Very Large" },	
+		{ inner = 0, outer = 2880, col = "^x0B9300", label = "Massive" },
 
 		{ inner = 960, outer = 1320, col = "^xD35400", label = "Variable" },
 		{ inner = 1320, outer = 1680, col = "^x66FFCC", label = "Variable" },
@@ -559,6 +570,7 @@ data.itemMods = {
 	Item = LoadModule("Data/ModItem"),
 	Flask = LoadModule("Data/ModFlask"),
 	Tincture = LoadModule("Data/ModTincture"),
+	Graft = LoadModule("Data/ModGraft"),
 	Jewel = LoadModule("Data/ModJewel"),
 	JewelAbyss = LoadModule("Data/ModJewelAbyss"),
 	JewelCluster = LoadModule("Data/ModJewelCluster"),
@@ -659,13 +671,14 @@ data.itemTagSpecialExclusionPattern = {
 		["boots"] = {
 			"Enemy's Life", -- Legacy of Fury
 			"^Enemies Cannot Leech Life", -- Sin Trek
+			'their Life as Chaos Damage', -- Beacon of Madness
 			"when on Full Life",
 			"when on Low Life",
 			"^Allocates",
 		},
 		["belt"] = {
 			"Life as Extra Maximum Energy Shield", -- Soul Tether
-			"Life Recovery from Flasks", -- The Druggery
+			"Life Recovery from Flasks is applied to nearby Allies", -- The Druggery
 			"Life Flasks gain", -- The Druggery
 			"when on Full Life",
 			"when on Low Life",
@@ -1124,3 +1137,5 @@ for _, modId in ipairs(sortedMods) do
 end
 LoadModule("Data/Uniques/Special/Generated")
 LoadModule("Data/Uniques/Special/New")
+
+data.flavourText = LoadModule("Data/FlavourText")

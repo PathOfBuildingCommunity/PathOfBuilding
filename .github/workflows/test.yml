@@ -15,6 +15,7 @@ jobs:
       - name: Run tests
         run: busted --lua=luajit
       - name: Report coverage
+        continue-on-error: true # May fail on server errors (of coveralls.io)
         run: cd src; luacov-coveralls --repo-token=${{ secrets.github_token }} -e TestData -e Data -e runtime
   check_modcache:
     runs-on: ubuntu-latest

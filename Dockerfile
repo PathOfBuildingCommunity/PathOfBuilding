@@ -14,7 +14,7 @@ RUN wget https://luarocks.org/releases/luarocks-3.7.0.tar.gz && tar xf luarocks-
 RUN cd luarocks-3.7.0 && ./configure && make
 
 FROM buildbase AS luajit
-RUN git clone https://github.com/LuaJIT/LuaJIT && cd LuaJIT && git checkout c7db8255e1eb59f933fac7bc9322f0e4f8ddc6e6
+RUN git clone https://github.com/LuaJIT/LuaJIT && cd LuaJIT && git checkout 871db2c84ecefd70a850e03a6c340214a81739f0
 RUN cd LuaJIT && make
 
 FROM buildbase AS emmyluadebugger

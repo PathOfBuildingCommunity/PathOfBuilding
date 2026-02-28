@@ -185,25 +185,33 @@ Skills Chain +1 times
 ]],[[
 Nebulis
 Void Sceptre
+Variant: Pre 3.27.0
+Variant: Current
 League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex} (Uber)
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 40% increased Elemental Damage
-{fractured}(15-20)% increased Cast Speed
-(15-20)% increased Cold Damage per 1% Cold Resistance above 75%
-(15-20)% increased Lightning Damage per 1% Lightning Resistance above 75%
+{variant:2}(80-120)% increased Implicit Modifier magnitudes
+(15-20)% increased Cast Speed
+{variant:1}(15-20)% increased Cold Damage per 1% Cold Resistance above 75%
+{variant:1}(15-20)% increased Lightning Damage per 1% Lightning Resistance above 75%
+{variant:2}(5-10)% increased Elemental Damage per 1% Fire, Cold, or Lightning Resistance above 75%
 ]],[[
 Replica Nebulis
 Void Sceptre
+Variant: Pre 3.27.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 40% increased Elemental Damage
-{fractured}(15-20)% increased Cast Speed
-(15-20)% increased Cold Damage per 1% Missing Cold Resistance, up to a maximum of 300%
-(15-20)% increased Fire Damage per 1% Missing Fire Resistance, up to a maximum of 300%
+{variant:2}(80-120)% increased Implicit Modifier magnitudes
+(15-20)% increased Cast Speed
+{variant:1}(15-20)% increased Cold Damage per 1% Missing Cold Resistance, up to a maximum of 300%
+{variant:1}(15-20)% increased Fire Damage per 1% Missing Fire Resistance, up to a maximum of 300%
+{variant:2}(10-15)% increased Elemental Damage per 1% Missing Fire, Cold, or Lightning Resistance, up to a maximum of 450%
 ]],[[
 Nebuloch
 Nightmare Mace
@@ -464,6 +472,7 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 56, 96 Str, 96 Int
 Implicits: 1
+26% increased Elemental Damage
 +(30-40) to Intelligence
 {variant:1}(25-50)% increased Critical Strike Chance
 {variant:2}(15-30)% increased Critical Strike Chance

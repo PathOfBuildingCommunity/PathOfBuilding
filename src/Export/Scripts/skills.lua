@@ -125,6 +125,7 @@ local skillTypes = {
 	"ProjectileCannotReturn",
 	"Offering",
 	"SupportedByBane",
+	"WandAttack",
 }
 
 -- This is here to fix name collisions like in the case of Barrage
@@ -305,7 +306,7 @@ directiveTable.skill = function(state, args, out)
 		end
 		if next(weaponTypes) then
 			out:write('\tweaponTypes = {\n')
-			for type in pairs(weaponTypes) do
+			for type in pairsSortByKey(weaponTypes) do
 				out:write('\t\t["', type, '"] = true,\n')
 			end
 			out:write('\t},\n')
@@ -340,7 +341,7 @@ directiveTable.skill = function(state, args, out)
 		end
 		if next(weaponTypes) then
 			out:write('\tweaponTypes = {\n')
-			for type in pairs(weaponTypes) do
+			for type in pairsSortByKey(weaponTypes) do
 				out:write('\t\t["', type, '"] = true,\n')
 			end
 			out:write('\t},\n')
@@ -623,7 +624,7 @@ directiveTable.mods = function(state, args, out)
 			for _, statVal in ipairs(level) do
 				out:write(tostring(statVal), ', ')
 			end
-			for k, v in pairs(level.extra) do
+			for k, v in pairsSortByKey(level.extra) do
 				out:write(k, ' = ', tostring(v), ', ')
 			end
 			if next(level.statInterpolation) ~= nil then
@@ -635,7 +636,7 @@ directiveTable.mods = function(state, args, out)
 			end
 			if next(level.cost) ~= nil then
 				out:write('cost = { ')
-				for k, v in pairs(level.cost) do
+				for k, v in pairsSortByKey(level.cost) do
 					out:write(k, ' = ', tostring(v), ', ')
 				end
 				out:write('}, ')

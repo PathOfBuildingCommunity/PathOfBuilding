@@ -51,6 +51,24 @@ local getVeiledMods = function (veiledPool, baseType, specificType1, specificTyp
 	return veiledMods
 end
 
+local getVeiledModsByName = function (modNames) 
+	local veiledMods = { }
+	for veiledModIndex, veiledMod in pairs(data.veiledMods) do
+		local veiledName = parseVeiledModName(veiledModIndex)
+		if isValueInArray(modNames, veiledName) or isValueInArray(modNames, veiledModIndex) then
+			veiledName = "("..veiledMod.type..") "..veiledName
+			local veiled = { veiledName = veiledName, veiledLines = { } }
+			for line, value in ipairs(veiledMod) do
+				veiled.veiledLines[line] = value
+			end
+			table.insert(veiledMods, veiled)
+		end
+	end
+	table.sort(veiledMods, function (m1, m2) return m1.veiledName < m2.veiledName end )
+	return veiledMods
+end
+
+
 local paradoxicaMods = getVeiledMods("base", "weapon", "one_hand_weapon")
 local paradoxica = {
 	"Paradoxica",
@@ -155,7 +173,39 @@ end
 
 table.insert(data.uniques.generated, table.concat(replicaParadoxica, "\n"))
 
-local queensHungerMods = getVeiledMods("base", "body_armour", "int_armour")
+local queensHungerMods = getVeiledModsByName({
+	-- "Chosen" Veiled Prefixes
+	"JunMasterVeiledLocalIncreasedEnergyShieldAndLifeHigh",
+	"JunMasterVeiledPhysicalDamageReductionRatingDuringSoulGainPrevention",
+	"JunMasterVeiledPercentageLifeAndMana",
+	"JunMasterVeiledBlockPercent",
+	"JunMasterVeiledAvoidStunAndElementalStatusAilments",
+	"JunMasterVeiledSpellBlockPercent____",
+	-- "Catarina's" Veiled Prefixes
+	"JunMasterVeiledOfferingEffect",
+	"JunMasterVeiledLifeRegenerationRatePercentageIfCorpseConsumedRecently",
+	"JunMasterVeiledManaRegenerationRatePercentageIfCorpseConsumedRecently",
+	"JunMasterVeiledEnergyShieldRegenerationRatePercentageIfCorpseConsumedRecently",
+	"JunMasterVeiledAllow2Offerings",
+	"JunMasterVeiledOfferingDuration",
+	-- "of the Order" Veiled Suffixes
+	"JunMasterVeiledStrengthAndDexterity",
+	"JunMasterVeiledDexterityAndIntelligence",
+	"JunMasterVeiledStrengthAndIntelligence",
+	"JunMasterVeiledAvoidElementalDamageChanceDuringSoulGainPrevention",
+	"JunMasterVeiledEnergyShieldRegenerationRatePerMinuteIfRareOrUniqueEnemyNearby",
+	"JunMasterVeiledLifeRegenerationPerEvasionDuringFocus",
+	"JunMasterVeiledRestoreManaAndEnergyShieldOnFocus",
+	"JunMasterVeiledFortifyEffectWhileFocused_",
+	"JunMasterVeiledDamageRemovedFromManaBeforeLifeWhileFocused",
+	"JunMasterVeiledFireAndChaosDamageResistance",
+	"JunMasterVeiledLightningAndChaosDamageResistance",
+	"JunMasterVeiledColdAndChaosDamageResistance",
+	"JunMasterVeiledStrengthAndAvoidIgnite",
+	"JunMasterVeiledDexterityAndAvoidFreeze",
+	"JunMasterVeiledIntelligenceAndAvoidShock"
+})
+
 local queensHunger = {
 	"The Queen's Hunger",
 	"Vaal Regalia",
@@ -179,7 +229,7 @@ table.insert(queensHunger, "(6-10)% increased maximum Life")
 
 for index, mod in pairs(queensHungerMods) do
 	for _, value in pairs(mod.veiledLines) do
-		table.insert(queensHunger, "{variant:"..index.."}"..value.."")
+		table.insert(queensHunger, "{variant:"..index.."}{crafted}"..value.."")
 	end
 end
 
@@ -364,7 +414,7 @@ Variant: Prismatic Ring]]
 
 for _, type in ipairs({ { prefix = "Endurance - ", mods = enduranceChargeMods }, { prefix = "Frenzy - ", mods = frenzyChargeMods }, { prefix = "Power - ", mods = powerChargeMods } }) do
 	for tier, mods in ipairs(type.mods) do
-		for desc, mod in pairs(mods) do
+		for desc in pairsSortByKey(mods) do
 			table.insert(precursorsEmblem, "Variant: " .. type.prefix .. desc)
 		end
 	end
@@ -395,7 +445,7 @@ Implicits: 7
 local index = 8
 for _, type in ipairs({ enduranceChargeMods, frenzyChargeMods, powerChargeMods }) do
 	for tier, mods in ipairs(type) do
-		for desc, mod in pairs(mods) do
+		for desc, mod in pairsSortByKey(mods) do
 			if mod:match("[%+%-]?[%d%.]*%d+%%") then
 				mod = mod:gsub("([%d%.]*%d+)", function(num) return "(" .. num .. "-" .. tonumber(num) * tier .. ")" end)
 			elseif mod:match("%(%-?[%d%.]+%-%-?[%d%.]+%)%%") then
@@ -446,15 +496,15 @@ local balanceOfTerror = {
 -- adding a blank variant for 3 mod jewels
 table.insert(balanceOfTerror, "Variant: None")
 
-for name, _ in pairs(balanceOfTerrorMods) do
+for name in pairsSortByKey(balanceOfTerrorMods) do
 	table.insert(balanceOfTerror, "Variant: "..name)
 end
 
 table.insert(balanceOfTerror, "+(10-15)% to all Elemental Resistances")
 
 local index = 2
-for _, line in pairs(balanceOfTerrorMods) do
-	table.insert(balanceOfTerror, "{variant:"..index.."}"..line)
+for name, line in pairsSortByKey(balanceOfTerrorMods) do
+	table.insert(balanceOfTerror, "{variant:"..index.."}"..balanceOfTerrorMods[name])
 	index = index + 1
 end
 
@@ -643,10 +693,15 @@ local unsortedMods = LoadModule("Data/Uniques/Special/BoundByDestiny")
 local sortedMods = { }
 local boundByDestinyMods = { }
 
-for i, mod in pairs(unsortedMods) do
-	table.insert(sortedMods, { mod.type, i} )
+for id, mod in pairs(unsortedMods) do
+	table.insert(sortedMods, { mod.type, id } )
 end
-table.sort(sortedMods, function (m1, m2) return m1[1] < m2[1] end )
+table.sort(sortedMods, function (m1, m2)
+	if m1[1] == m2[1] then
+		return m1[2] < m2[2]
+	end
+	return m1[1] < m2[1]
+end )
 for _, modId in ipairs(sortedMods) do
 	table.insert(boundByDestinyMods, {
 		Id = modId[2],
@@ -729,13 +784,20 @@ function buildForbidden(classNotables)
 		table.insert(forbidden[name], "Rarity: UNIQUE")
 		table.insert(forbidden[name], "Forbidden " .. name)
 		table.insert(forbidden[name], (name == "Flame" and "Crimson" or "Cobalt") .. " Jewel")
+		local classList = { }
+		for className in pairs(classNotables) do
+			if className ~= "alternate_ascendancies" then
+				table.insert(classList, className)
+			end
+		end
+		table.sort(classList)
 		local index = 1
-		for className, notableTable in pairs(classNotables) do
-			if className ~= "alternate_ascendancies" then --Remove Affliction Ascendancy's
-				for _, notableName in ipairs(notableTable) do
-					table.insert(forbidden[name], "Variant: (" .. className .. ") " .. notableName)
-					index = index + 1
-				end
+		for _, className in ipairs(classList) do
+			local notableTable = classNotables[className]
+			table.sort(notableTable)
+			for _, notableName in ipairs(notableTable) do
+				table.insert(forbidden[name], "Variant: (" .. className .. ") " .. notableName)
+				index = index + 1
 			end
 		end
 		if name == "Flame" then
@@ -746,13 +808,13 @@ function buildForbidden(classNotables)
 		table.insert(forbidden[name], "Limited to: 1")
 		table.insert(forbidden[name], "Item Level: 83")
 		index = 1
-		for className, notableTable in pairs(classNotables) do
-			if className ~= "alternate_ascendancies" then --Remove Affliction Ascendancy's
-				for _, notableName in ipairs(notableTable) do
-					table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Requires Class " .. className)
-					table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Allocates ".. notableName .. " if you have the matching modifier on Forbidden " .. (name == "Flame" and "Flesh" or "Flame"))
-					index = index + 1
-				end
+		for _, className in ipairs(classList) do
+			local notableTable = classNotables[className]
+			table.sort(notableTable)
+			for _, notableName in ipairs(notableTable) do
+				table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Requires Class " .. className)
+				table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Allocates ".. notableName .. " if you have the matching modifier on Forbidden " .. (name == "Flame" and "Flesh" or "Flame"))
+				index = index + 1
 			end
 		end
 		table.insert(forbidden[name], "Corrupted")
@@ -824,7 +886,7 @@ function buildKeystoneItems(keystoneMap)
 	table.insert(impossibleEscape, "Variant: Everything (QoL Test Variant)")
 	local variantCount = #impossibleEscapeKeystones + 1
 	for index, name in ipairs(impossibleEscapeKeystones) do
-		table.insert(impossibleEscape, "{variant:"..index..","..variantCount.."}Passives in radius of "..name.." can be allocated without being connected to your tree")
+		table.insert(impossibleEscape, "{variant:"..index..","..variantCount.."}Passive Skills in radius of "..name.." can be allocated without being connected to your tree")
 	end
 	table.insert(impossibleEscape, "Corrupted")
 	table.insert(data.uniques.generated, table.concat(impossibleEscape, "\n"))
@@ -893,12 +955,12 @@ for _, gem in pairs(data.gems) do
 end
 
 local replicaDragonfangsFlight = {
-    [[Replica Dragonfang's Flight
-    Onyx Amulet
-    Selected Variant: 2
-    Has Alt Variant: true
-    Selected Alt Variant: 3
-    LevelReq: 56
+	[[Replica Dragonfang's Flight
+	Onyx Amulet
+	Selected Variant: 2
+	Has Alt Variant: true
+	Selected Alt Variant: 3
+	LevelReq: 56
 	]]
 }
 
@@ -908,8 +970,20 @@ Variant: Current
 ]]
 )
 
-for name, _ in pairs(replicaDragonfangsFlightMods) do
-	table.insert(replicaDragonfangsFlight, "Variant: "..name)
+local sortedReplicaDragonfangsFlightMods = { }
+
+for name, line in pairs(replicaDragonfangsFlightMods) do
+	table.insert(sortedReplicaDragonfangsFlightMods, { line, name } )
+end
+table.sort(sortedReplicaDragonfangsFlightMods, function (m1, m2)
+	if m1[1] == m2[1] then
+		return m1[2] < m2[2]
+	end
+	return m1[1] < m2[1]
+end )
+
+for _, mod in ipairs(sortedReplicaDragonfangsFlightMods) do
+	table.insert(replicaDragonfangsFlight, "Variant: "..mod[2])
 end
 
 table.insert(replicaDragonfangsFlight,
@@ -921,8 +995,8 @@ table.insert(replicaDragonfangsFlight,
 )
 
 local index = 3
-for _, line in pairs(replicaDragonfangsFlightMods) do
-	table.insert(replicaDragonfangsFlight, "{variant:"..index.."}"..line)
+for _, mod in ipairs(sortedReplicaDragonfangsFlightMods) do
+	table.insert(replicaDragonfangsFlight, "{variant:"..index.."}"..mod[1])
 	index = index + 1
 end
 

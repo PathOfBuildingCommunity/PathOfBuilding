@@ -553,4 +553,63 @@ describe("TetsItemMods", function()
 		assert.are_not.equals(64, build.calcsTab.mainOutput.Armour)
 		runCallback("OnFrame")
 	end)
+	
+	it("Heralds apply exposure with Heraldry", function()
+		build.skillsTab:PasteSocketGroup("Arc 20/0 Default  1\nHerald of Thunder 20/0 Default  1\n")
+		runCallback("OnFrame")
+		
+		assert.are.equals(0.5, build.calcsTab.calcsOutput.LightningEffMult)
+				
+		build.configTab.input.customMods = [[
+		Nearby Enemies have Cold Exposure while you are affected by Herald of Ice
+		Nearby Enemies have Fire Exposure while you are affected by Herald of Ash
+		Nearby Enemies have Lightning Exposure while you are affected by Herald of Thunder
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(0.6, build.calcsTab.calcsOutput.LightningEffMult)
+	end)
+	
+	it("Enemy self curse effect", function()
+		build.skillsTab:PasteSocketGroup("Arc 20/0 Default  1\nConductivity 14/0 Default  1\n")
+		runCallback("OnFrame")
+		
+		assert.are.equals(0.8, build.calcsTab.calcsOutput.LightningEffMult)
+				
+		build.configTab.input.customMods = [[
+		Nearby Enemies have 20% increased Effect of Curses on them
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(0.86, build.calcsTab.calcsOutput.LightningEffMult)
+	end)
+	
+	it("Max charges with conditional mod", function() -- see #9442
+		build.skillsTab:PasteSocketGroup("Grace 20/20 Default  1\n")
+		runCallback("OnFrame")
+		
+		local baseFrenzyChargesMax = build.calcsTab.calcsOutput.FrenzyChargesMax
+		local baseEnduranceChargesMax = build.calcsTab.calcsOutput.EnduranceChargesMax
+		
+		build.configTab.input.customMods = [[
+			+1 to Maximum Frenzy Charges while affected by Grace
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(baseFrenzyChargesMax + 1, build.calcsTab.calcsOutput.FrenzyChargesMax)
+		assert.are.equals(baseEnduranceChargesMax, build.calcsTab.calcsOutput.EnduranceChargesMax)
+		
+		build.configTab.input.customMods = [[
+			Your Maximum Endurance Charges is equal to your Maximum Frenzy Charges
+			+1 to Maximum Frenzy Charges while affected by Grace
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(baseFrenzyChargesMax + 1, build.calcsTab.calcsOutput.FrenzyChargesMax)
+		assert.are.equals(baseEnduranceChargesMax + 1, build.calcsTab.calcsOutput.EnduranceChargesMax)
+	end)
 end)

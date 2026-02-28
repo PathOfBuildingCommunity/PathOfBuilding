@@ -229,6 +229,9 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 		elseif modLine == "Has 1 Abyssal Socket" then
 			specialCaseData.overrideModLineSingular = "Has 1 Abyssal Socket"
 			modLine = "Has 1 Abyssal Sockets"
+		elseif modLine == "Flasks gain a Charge every 3 seconds" then
+			specialCaseData.overrideModLineSingular = "Flasks gain a Charge every 3 seconds"
+			modLine = "Flasks gain 1 Charges every 3 seconds"
 		end
 
 		-- If this is the first tier for this mod, find matching trade mod and init the entry
@@ -379,7 +382,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 end
 
 function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed, itemCategoriesMask, itemCategoriesOverride)
-	for modId, mod in pairs(mods) do
+	for modId, mod in pairsSortByKey(mods) do
 		self:ProcessMod(modId, mod, tradeQueryStatsParsed, itemCategoriesMask, itemCategoriesOverride)
 	end
 end
@@ -461,8 +464,26 @@ function TradeQueryGeneratorClass:InitMods()
 	end
 	self:GenerateModData(clusterNotableMods, tradeQueryStatsParsed)
 
-	-- Base item implicit mods. A lot of this code is duplicated from generateModData(), but with important small logical flow changes to handle the format differences
-	for baseName, entry in pairs(data.itemBases) do
+		-- Base item implicit mods. A lot of this code is duplicated from generateModData(), but with important small logical flow changes to handle the format differences
+		local subTypeState = { }
+		local function updateRangeSubType(range, entry)
+			if subTypeState[range] == "mixed" then
+				return
+			end
+			if not entry.subType then
+				subTypeState[range] = "mixed"
+				range.subType = nil
+				return
+			end
+			if not range.subType then
+				range.subType = entry.subType
+			elseif range.subType ~= entry.subType then
+				subTypeState[range] = "mixed"
+				range.subType = nil
+			end
+		end
+
+	for baseName, entry in pairsSortByKey(data.itemBases) do
 		if entry.implicit ~= nil then
 			local stats = { }
 			for modLine in string.gmatch(entry.implicit, "([^".."\n".."]+)") do
@@ -534,10 +555,11 @@ function TradeQueryGeneratorClass:InitMods()
 
 					if tagMatch then
 						if self.modData[modType][uniqueIndex][category] == nil then
-							self.modData[modType][uniqueIndex][category] = { min = 999999, max = -999999, subType = entry.subType }
+							self.modData[modType][uniqueIndex][category] = { min = 999999, max = -999999 }
 						end
 
 						local modRange = self.modData[modType][uniqueIndex][category]
+						updateRangeSubType(modRange, entry)
 						if #tokens == 0 then
 							modRange.min = 1
 							modRange.max = 1
@@ -705,7 +727,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 				calcNodesInsteadOfMods = true,
 			}
 		end
-	elseif slot.slotName == "Weapon 2" or slot.slotName == "Weapon 1" then
+	elseif slot.slotName:find("^Weapon %d") then
 		if existingItem then
 			if existingItem.type == "Shield" then
 				itemCategoryQueryStr = "armour.shield"
@@ -779,7 +801,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 	elseif slot.slotName == "Amulet" then
 		itemCategoryQueryStr = "accessory.amulet"
 		itemCategory = "Amulet"
-	elseif slot.slotName == "Ring 1" or slot.slotName == "Ring 2" then
+	elseif slot.slotName == "Ring 1" or slot.slotName == "Ring 2" or slot.slotName == "Ring 3" then
 		itemCategoryQueryStr = "accessory.ring"
 		itemCategory = "Ring"
 	elseif slot.slotName == "Belt" then
@@ -915,7 +937,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 					}
 				}
 			},
-			status = { option = "online" },
+			status = { option = "available" },
 			stats = {
 				{
 					type = "weight",
@@ -927,13 +949,44 @@ function TradeQueryGeneratorClass:FinishQuery()
 		sort = { ["statgroup.0"] = "desc" },
 		engine = "new"
 	}
-	
+
+	local options = self.calcContext.options
+
+	local num_extra = 2
+	if not options.includeMirrored then
+		num_extra = num_extra + 1
+	end
+	if options.maxPrice and options.maxPrice > 0 then
+		num_extra = num_extra + 1
+	end
+	if options.maxLevel and options.maxLevel > 0 then
+		num_extra = num_extra + 1
+	end
+	if options.sockets and options.sockets > 0 then
+		num_extra = num_extra + 1
+	end
+
+	local effective_max = MAX_FILTERS - num_extra
+
+	-- Prioritize top mods by abs(weight)
+	table.sort(self.modWeights, function(a, b) return math.abs(a.weight) > math.abs(b.weight) end)
+
+	local prioritizedMods = {}
+	for _, entry in ipairs(self.modWeights) do
+		if #prioritizedMods < effective_max then
+			table.insert(prioritizedMods, entry)
+		else
+			break
+		end
+	end
+
+	self.modWeights = prioritizedMods
+
 	for k, v in pairs(self.calcContext.special.queryExtra or {}) do
 		queryTable.query[k] = v
 	end
 
 	local andFilters = { type = "and", filters = { } }
-
 	local options = self.calcContext.options
 	if options.influence1 > 1 then
 		t_insert(andFilters.filters, { id = hasInfluenceModIds[options.influence1 - 1] })
@@ -947,11 +1000,11 @@ function TradeQueryGeneratorClass:FinishQuery()
 	if #andFilters.filters > 0 then
 		t_insert(queryTable.query.stats, andFilters)
 	end
-
-	for _, entry in pairs(self.modWeights) do
+	
+	for _, entry in ipairs(self.modWeights) do
 		t_insert(queryTable.query.stats[1].filters, { id = entry.tradeModId, value = { weight = (entry.invert == true and entry.weight * -1 or entry.weight) } })
 		filters = filters + 1
-		if filters == MAX_FILTERS then
+		if filters == effective_max then
 			break
 		end
 	end
@@ -1126,7 +1179,8 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	-- basic filtering by slot for sockets and links, Megalomaniac does not have slot and Sockets use "Jewel nodeId"
 	if slot and not isJewelSlot and not isAbyssalJewelSlot and not slot.slotName:find("Flask") then
 		controls.sockets = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 70, 18}, nil, nil, "%D")
-		controls.socketsLabel = new("LabelControl", {"RIGHT",controls.sockets,"LEFT"}, {-5, 0, 0, 16}, "# of Sockets:")
+		controls.sockets.buf = self.lastSockets and tostring(self.lastSockets) or ""
+		controls.socketsLabel = new("LabelControl", {"RIGHT",controls.sockets,"LEFT"}, {-5, 0, 0, 16}, "# of Empty Sockets:")
 		updateLastAnchor(controls.sockets)
 
 		if not slot.slotName:find("Belt") and not slot.slotName:find("Ring") and not slot.slotName:find("Amulet") then
@@ -1206,6 +1260,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		end
 		if controls.sockets and controls.sockets.buf then
 			options.sockets = tonumber(controls.sockets.buf)
+			self.lastSockets = options.sockets
 		end
 		if controls.links and controls.links.buf then
 			options.links = tonumber(controls.links.buf)

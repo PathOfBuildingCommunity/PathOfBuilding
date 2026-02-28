@@ -19,6 +19,17 @@ local s_gsub = string.gsub
 local s_byte = string.byte
 local dkjson = require "dkjson"
 
+-- Helper function to find toast index by content pattern
+-- TODO: remove this when when we can control toast notifications better
+local function findToastIndex(pattern)
+	for i, msg in ipairs(main.toastMessages) do
+		if msg:match(pattern) then
+			return i
+		end
+	end
+	return nil
+end
+
 local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.ControlHost()
 
@@ -68,24 +79,36 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 					end
 					if spec.curClassId == self.build.spec.curClassId then
 						local respec = 0
+						local respecAscendancy = 0
 						for nodeId, node in pairs(self.build.spec.allocNodes) do
 							-- Assumption: Nodes >= 65536 are small cluster passives.
 							if node.type ~= "ClassStart" and node.type ~= "AscendClassStart"
 							and (self.build.spec.tree.clusterNodeMap[node.dn] == nil or node.isKeystone or node.isJewelSocket) and nodeId < 65536
 							and not spec.allocNodes[nodeId] then
 								if node.ascendancyName then
-									respec = respec + 5
+									respecAscendancy = respecAscendancy + 1
 								else
 									respec = respec + 1
 								end
 							end
 						end
-						if respec > 0 then
-							tooltip:AddLine(16, "^7Switching to this tree requires "..respec.." refund points.")
+						if respec > 0 or respecAscendancy > 0 then
+							local goldCost = data.goldRespecPrices[build.characterLevel]
+							local totalGold = (respec * goldCost) + (respecAscendancy * goldCost * 5)
+							local goldStr = formatNumSep(tostring(totalGold))
+							tooltip:AddLine(16, "^xFFD700" .. goldStr .. " Gold ^7required to switch to this tree.")
+							if respec > 0 then
+								local nodeWord = respec == 1 and "Passive node to be refunded" or "Passive nodes to be refunded"
+								tooltip:AddLine(16, s_format("^7\t%d %s.", respec, nodeWord))
+							end
+							if respecAscendancy > 0 then
+								local ascendWord = respecAscendancy == 1 and "Ascendancy node to be refunded" or "Ascendancy nodes to be refunded"
+								tooltip:AddLine(16, s_format("^7\t%d %s.", respecAscendancy, ascendWord))
+							end
 						end
 					end
 				end
-				tooltip:AddLine(16, "Game Version: "..treeVersions[spec.treeVersion].display)
+				tooltip:AddLine(16, "^7Game Version: "..treeVersions[spec.treeVersion].display)
 			end
 		end
 	end
@@ -167,14 +190,14 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		self.viewer.searchStr = buf
 		self.searchFlag = buf ~= self.viewer.searchStrSaved
 	end, nil, nil, true)
-	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches\nPrefix your search with \"oil:\" to search by anoint recipe"
+	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches.\nPrefix your search with \"oil:\" to search by anoint recipe.\nTo search for multiple terms: (increased.fire.damage|increased.area.of.effect|etc)"
 
 	self.tradeLeaguesList = { }
 	-- Find Timeless Jewel Button
 	self.controls.findTimelessJewel = new("ButtonControl", { "LEFT", self.controls.treeSearch, "RIGHT" }, { 8, 0, 150, 20 }, "Find Timeless Jewel", function()
 		self:FindTimelessJewel()
 	end)
-	
+
 	--Default index for Tattoos
 	self.defaultTattoo = { }
 
@@ -266,10 +289,45 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		end
 	end)
 	self.controls.powerReportList.shown = false
+	-- Progress callback from the CalcsTab power builder coroutine
+	self.powerBuilderToastActive = false
+	self.lastProgressToastUpdate = 0
+	self.build.powerBuilderProgressCallback = function(percent)
+		local now = GetTime()
+		if now - self.lastProgressToastUpdate < 100 then
+			return
+		end
+
+		local message = percent and string.format("Building Power Report... (%d%%)", percent) or "Building Power Report..."
+
+		self.controls.powerReportList.label = message
+		self.lastProgressToastUpdate = now
+		local toastIndex = findToastIndex("^Building Power Report")
+		if toastIndex then
+			main.toastMessages[toastIndex] = message
+		else
+			t_insert(main.toastMessages, message)
+			self.powerBuilderToastActive = true
+		end
+	end
+	-- Completion callback from the CalcsTab power builder coroutine
 	self.build.powerBuilderCallback = function()
 		local powerStat = self.build.calcsTab.powerStat or data.powerStatList[1]
 		local report = self:BuildPowerReportList(powerStat)
 		self.controls.powerReportList:SetReport(powerStat, report)
+		local toastIndex = findToastIndex("^Building Power Report")
+		if self.powerBuilderToastActive and toastIndex then
+			-- Remove the toast from the queue instead of triggering hide animation
+			-- This prevents issues when the toast is not currently displayed (queued behind another toast)
+			-- TODO: look into allowing toast notifications to stack and have UUID's we can control them better
+			if toastIndex == 1 then
+				main.toastMode = "HIDING"
+				main.toastStart = GetTime()
+			else
+				t_remove(main.toastMessages, toastIndex)
+			end
+		end
+		self.powerBuilderToastActive = false
 	end
 
 	self.controls.specConvertText = new("LabelControl", { "BOTTOMLEFT", self.controls.specSelect, "TOPLEFT" }, { 0, -14, 0, 16 }, "^7This is an older tree version, which may not be fully compatible with the current game version.")
@@ -2070,7 +2128,7 @@ function TreeTabClass:FindTimelessJewel()
 		local search = {
 			query = {
 				status = {
-					option = "online"
+					option = "available"
 				},
 				stats = {
 					{

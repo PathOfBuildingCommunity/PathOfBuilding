@@ -481,13 +481,18 @@ Variant: Fire and Lightning Damage (Current)
 Variant: Energy Shield and Life (Current)
 Variant: Armour during Soul Gain Prevention (Current)
 Variant: Level of Socketed Support Gems (Current)
+Variant: Maximum Number of Spectres (Current)
+Variant: Spectre Max Resistances (Current)
+Variant: Spectre Additional Projectiles (Current)
+Variant: Spectre Flat Crit (Current)
+Variant: Spectre Increased AoE (Current)
 {variant:1,2,3,4,5,6,7,8,9,10,11,12}(30-50)% increased Spell Damage
 (180-220)% increased Energy Shield
 Spectres have (50-100)% increased maximum Life
 Gain Arcane Surge when you deal a Critical Strike
 Your Raised Spectres also gain Arcane Surge when you do
 {variant:1,2,3,4,5,6,7,8,9,10,11,12}(40-50)% increased Critical Strike Chance for Spells per Raised Spectre
-{variant:13,14,15,16,17,18}(50-100)% increased Critical Strike Chance for Spells per Raised Spectre
+{variant:13,14,15,16,17,18,19,20,21,22,23}(50-100)% increased Critical Strike Chance for Spells per Raised Spectre
 {variant:1}{crafted}Adds (3-12) to (5-16) Fire Damage
 {variant:1}{crafted}Adds (3-12) to (5-16) Cold Damage
 {variant:2}{crafted}Adds (3-12) to (5-16) Cold Damage
@@ -509,6 +514,11 @@ Your Raised Spectres also gain Arcane Surge when you do
 {variant:11,17}+(3201-4000) to Armour during Soul Gain Prevention
 {variant:12,18}+2 to Level of Socketed Support Gems
 {variant:12,18}+(5-8)% to Quality of Socketed Support Gems
+{variant:19}+1 to maximum number of Spectres
+{variant:20}Raised Spectres have +(5-10)% to all maximum Resistances
+{variant:21}Raised Spectres fire 2 additional Projectiles
+{variant:22}Raised Spectres have +(3-5)% to Critical Strike Chance
+{variant:23}Raised Spectres have (30-50)% increased Area of Effect
 ]],[[
 Brinerot Flag
 Tarnished Spirit Shield

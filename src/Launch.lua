@@ -14,6 +14,8 @@ ConExecute("set vid_resizable 3")
 
 launch = { }
 SetMainObject(launch)
+jit.opt.start('maxtrace=4000','maxmcode=8192')
+collectgarbage("setpause", 400)
 
 function launch:OnInit()
 	self.devMode = false
@@ -63,7 +65,7 @@ function launch:OnInit()
 		self.installedMode = true
 		installedFile:close()
 	end
-	RenderInit()
+	RenderInit("DPI_AWARE")
 	ConPrintf("Loading main script...")
 	local errMsg
 	errMsg, self.main = PLoadModule("Modules/Main")
@@ -120,7 +122,7 @@ function launch:OnFrame()
 		self:DrawPopup(r, g, b, "^0%s", self.promptMsg)
 	end
 	if self.doRestart then
-		local screenW, screenH = GetScreenSize()
+		local screenW, screenH = GetVirtualScreenSize()
 		SetDrawColor(0, 0, 0, 0.75)
 		DrawImage(nil, 0, 0, screenW, screenH)
 		SetDrawColor(1, 1, 1)
@@ -248,11 +250,11 @@ end
 ---Download the given page in the background, and calls the provided callback function when done:
 ---@param url string
 ---@param callback fun(response:table, errMsg:string) @ response = { header, body }
----@param params table @ params = { header, body }
+---@param params? table @ params = { header, body }
 function launch:DownloadPage(url, callback, params)
 	params = params or {}
 	local script = [[
-		local url, requestHeader, requestBody, connectionProtocol, proxyURL = ...
+		local url, requestHeader, requestBody, connectionProtocol, proxyURL, noSSL = ...
 		local responseHeader = ""
 		local responseBody = ""
 		ConPrintf("Downloading page at: %s", url)
@@ -279,6 +281,10 @@ function launch:DownloadPage(url, callback, params)
 		if proxyURL then
 			easy:setopt(curl.OPT_PROXY, proxyURL)
 		end
+		if noSSL then
+			easy:setopt(curl.OPT_SSL_VERIFYPEER, 0)
+			easy:setopt(curl.OPT_SSL_VERIFYHOST, 0)
+		end
 		easy:setopt_headerfunction(function(data)
 			responseHeader = responseHeader .. data
 			return true
@@ -299,13 +305,13 @@ function launch:DownloadPage(url, callback, params)
 			errMsg = "No data returned"
 		end
 		ConPrintf("Download complete. Status: %s", errMsg or "OK")
-		return responseHeader, responseBody, errMsg
+		return responseBody, errMsg, responseHeader
 	]]
-	local id = LaunchSubScript(script, "", "ConPrintf", url, params.header, params.body, self.connectionProtocol, self.proxyURL)
+	local id = LaunchSubScript(script, "", "ConPrintf", url, params.header, params.body, self.connectionProtocol, self.proxyURL, self.noSSL or false)
 	if id then
 		self.subScripts[id] = {
 			type = "DOWNLOAD",
-			callback = function(responseHeader, responseBody, errMsg)
+			callback = function(responseBody, errMsg, responseHeader)
 				callback({header=responseHeader, body=responseBody}, errMsg)
 			end
 		}
@@ -335,7 +341,7 @@ function launch:CheckForUpdate(inBackground)
 	self.updateProgress = "Checking..."
 	self.lastUpdateCheck = GetTime()
 	local update = io.open("UpdateCheck.lua", "r")
-	local id = LaunchSubScript(update:read("*a"), "GetScriptPath,GetRuntimePath,GetWorkDir,MakeDir", "ConPrintf,UpdateProgress", self.connectionProtocol, self.proxyURL)
+	local id = LaunchSubScript(update:read("*a"), "GetScriptPath,GetRuntimePath,GetWorkDir,MakeDir", "ConPrintf,UpdateProgress", self.connectionProtocol, self.proxyURL, self.noSSL or false)
 	if id then
 		self.subScripts[id] = {
 			type = "UPDATE"
@@ -351,6 +357,9 @@ function launch:ShowPrompt(r, g, b, str, func)
 	self.promptFunc = func or function(key)
 		if key == "RETURN" or key == "ESCAPE" then
 			return true
+		elseif key == "c" and IsKeyDown("CTRL") then
+			local cleanStr = str:gsub("%^%d", "")
+			Copy(cleanStr)
 		elseif key == "F5" then
 			self.doRestart = "Restarting..."
 			return true
@@ -363,7 +372,7 @@ function launch:ShowErrMsg(fmt, ...)
 		local version = self.versionNumber and 
 			"^8v"..self.versionNumber..(self.versionBranch and " "..self.versionBranch or "")
 			or ""
-		self:ShowPrompt(1, 0, 0, "^1Error:\n\n^0"..string.format(fmt, ...).."\n"..version.."\n^0Press Enter/Escape to dismiss, or F5 to restart the application.")
+		self:ShowPrompt(1, 0, 0, "^1Error:\n\n^0"..string.format(fmt, ...).."\n"..version.."\n^0Press Enter/Escape to dismiss, or F5 to restart the application.\nPress CTRL + C to copy error text.")
 	end
 end
 
@@ -378,7 +387,7 @@ function launch:RunPromptFunc(key)
 end
 
 function launch:DrawPopup(r, g, b, fmt, ...)
-	local screenW, screenH = GetScreenSize()
+	local screenW, screenH = GetVirtualScreenSize()
 	SetDrawColor(0, 0, 0, 0.5)
 	DrawImage(nil, 0, 0, screenW, screenH)
 	local txt = string.format(fmt, ...)
