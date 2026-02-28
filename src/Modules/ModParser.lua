@@ -842,6 +842,7 @@ local modNameList = {
 	["lesser massive shrine buff"] = "Condition:LesserMassiveShrine",
 	["diamond shrine buff"] = "Condition:DiamondShrine",
 	["massive shrine buff"] = "Condition:MassiveShrine",
+	["resistance shrine buff"] = "Condition:ResistanceShrine"
 }
 
 -- List of modifier flags
@@ -1825,6 +1826,8 @@ local modTagList = {
 		{ type = "StatThreshold", stat = "LifeReserved", threshold = 1},
 		{ type = "StatThreshold", stat = "ManaReserved", threshold = 1} } },
 	["if you've shattered an enemy recently"] = { tag = { type = "Condition", var = "ShatteredEnemyRecently" } },
+	["while affected by no flasks?"] = { tag = { type = "Condition", var = "UsingFlask", neg = true } },
+	["while affected by flasks?"] = { tag = { type = "Condition", var = "UsingFlask" } },
 	-- Enemy status conditions
 	["at close range"] = { tag = { type = "Condition", var = "AtCloseRange" } },
 	["not at close range"] = { tag = { type = "Condition", var = "AtCloseRange", neg = true } },
@@ -5690,7 +5693,12 @@ local flagTypes = {
 	["hindered,? with (%d+)%% reduced movement speed"] = "Condition:Hindered",
 	["unnerved"] = "Condition:Unnerved",
 	["malediction"] = "HasMalediction",
-	["debilitated"] = "Condition:Debilitated"
+	["debilitated"] = "Condition:Debilitated",
+	["lesser brutal shrine buff"] = "Condition:LesserBrutalShrine",
+	["lesser massive shrine buff"] = "Condition:LesserMassiveShrine",
+	["diamond shrine buff"] = "Condition:DiamondShrine",
+	["massive shrine buff"] = "Condition:MassiveShrine",
+	["resistance shrine buff"] = "Condition:ResistanceShrine"
 }
 
 -- Build active skill name lookup
@@ -6292,7 +6300,6 @@ local function parseMod(line, order)
 			end
 		end
 	end
-
 	-- Scan for modifier name and skill name
 	local modName
 	if order == 2 and not skillTag then
@@ -6449,6 +6456,7 @@ local function parseMod(line, order)
 			modExtraTags[1] = { tag = { type = "Multiplier", var = modNameString .. "Doubled", globalLimit = 100, globalLimitKey = modNameString .. "DoubledLimit" }}
 		end
 	end
+
 	if not modName then
 		return { }, line
 	end

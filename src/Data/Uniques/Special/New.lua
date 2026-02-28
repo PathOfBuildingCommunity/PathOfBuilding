@@ -314,6 +314,30 @@ Implicits: 1
 {tags:attack}(10-20)% chance to Impale Enemies on Hit with Attacks
 (40-25)% reduced Impale Duration
 {tags:attack}(40-60)% chance on Melee Hit for the Strongest Impale on target to last for 1 additional Hit
-]]
+]],
 
+[[
+Screams of the desiccated
+Leather Belt
+LevelReq: 56
+Implicits: 1
+{tags:life}+(25-40) to maximum Life
+You have Diamond Shrine Buff while affected by no Flasks
+You have Resistance Shrine Buff while affected by no Flasks
++30 to Intelligence
++28% to Chaos Resistance
+]],
+[[
+The Sands of Time
+Tyrant's Sekhem
+Requires Level 58, 99 Str, 99 Int
+Implicits: 1
+26% increased Elemental Damage
+Trigger level 20 Suspend in Time on Casting a Spell
+60% increased Spell Damage
+65% increased Mana Regeneration Rate
+10% increased Cooldown Recovery Rate
+10% increased Cast Speed for each different Non-Instant Spell you've Cast Recently
+>>>>>>> 591237ef1 (fixup)
+]]
 }
