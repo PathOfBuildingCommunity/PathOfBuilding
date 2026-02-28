@@ -675,7 +675,13 @@ local function doActorMisc(env, actor)
 				modDB:NewMod("MovementSpeed", "INC", arcaneSurgeCastSpeed, "Arcane Surge")
 			end
 			local arcaneSurgeDamage = modDB:Max(nil, "ArcaneSurgeDamage") or 0
-			if arcaneSurgeDamage ~= 0 then modDB:NewMod("Damage", "MORE", arcaneSurgeDamage * effect, "Arcane Surge", ModFlag.Spell) end
+			if arcaneSurgeDamage ~= 0 then
+				modDB:NewMod("Damage", "MORE", arcaneSurgeDamage * effect, "Arcane Surge", ModFlag.Spell) 
+			end
+			local arcaneSurgeLifeRegen = modDB:Sum("BASE", nil, "ArcaneSurgeAlsoLifeRegen")
+			if arcaneSurgeLifeRegen > 0 then
+				modDB:NewMod("LifeRegen", "INC", arcaneSurgeLifeRegen * effect, "Arcane Surge")
+			end
 		end
 		if modDB:Flag(nil, "Fanaticism") and actor.mainSkill and actor.mainSkill.skillFlags.selfCast then
 			local effect = m_floor(75 * (1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100))
