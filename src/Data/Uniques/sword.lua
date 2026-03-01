@@ -389,8 +389,7 @@ Adds (60-80) to (150-180) Physical Damage
 The Rippling Thoughts
 Legion Sword
 League: Harbinger
-Source: Created from item parts obtained from Boss in The Beachhead
-Upgrade: Upgrades to unique{The Surging Thoughts} via currency{Electroshock Scroll}
+Source: No longer obtainable
 Implicits: 1
 40% increased Global Accuracy Rating
 Grants Summon Harbinger of the Arcane Skill
@@ -403,8 +402,6 @@ Adds 1 to (60-70) Lightning Damage to Spells
 ]],[[
 The Surging Thoughts
 Legion Sword
-League: Harvest
-Source: Upgraded from unique{The Rippling Thoughts} via currency{Electroshock Scroll}
 Implicits: 1
 40% increased Global Accuracy Rating
 Grants Summon Greater Harbinger of the Arcane Skill

@@ -1581,8 +1581,7 @@ Requires Level 57, 64 Dex, 64 Int
 The Tempest's Binding
 Callous Mask
 League: Harbinger
-Source: Created from item parts obtained from Boss in The Beachhead
-Upgrade: Upgrades to unique{The Tempest's Liberation} via currency{Deregulation Scroll}
+Source: No longer obtainable
 Requires Level 45, 51 Dex, 51 Int
 Socketed Gems are Supported by Level 18 Ice Bite
 Socketed Gems are Supported by Level 18 Innervate
@@ -1594,8 +1593,6 @@ Grants Summon Harbinger of Storms Skill
 ]],[[
 The Tempest's Liberation
 Callous Mask
-League: Harvest
-Source: Upgraded from unique{The Tempest's Binding} via currency{Deregulation Scroll}
 Requires Level 60, 51 Dex, 51 Int
 Socketed Gems are Supported by Level 18 Ice Bite
 Socketed Gems are Supported by Level 18 Innervate

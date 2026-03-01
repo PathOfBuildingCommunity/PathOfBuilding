@@ -1043,9 +1043,7 @@ Implicits: 2
 ]],[[
 The Unshattered Will
 Archon Kite Shield
-League: Harbinger
-Source: Created from item parts obtained from Boss in The Beachhead
-Upgrade: Upgrades to unique{The Immortal Will} via currency{Specularity Scroll}
+Source: No longer obtainable
 Implicits: 1
 +12% to all Elemental Resistances
 Grants Summon Harbinger of Focus Skill
@@ -1058,7 +1056,6 @@ Channelling Skills deal (50-70)% increased Damage
 The Immortal Will
 Archon Kite Shield
 League: Harvest
-Source: Upgraded from unique{The Unshattered Will} via currency{Specularity Scroll}
 Implicits: 1
 +12% to all Elemental Resistances
 Grants Summon Greater Harbinger of Focus Skill

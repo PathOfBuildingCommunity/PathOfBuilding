@@ -250,8 +250,7 @@ Nearby allies gain 18% increased Damage
 The Enmity Divine
 Imperial Staff
 League: Harbinger
-Source: Created from item parts obtained from Boss in The Beachhead
-Upgrade: Upgrades to unique{The Yielding Mortality} via currency{Haemocombustion Scroll}
+Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Pre 3.25.0
 Variant: Pre 3.26.0
@@ -275,8 +274,6 @@ Imperial Staff
 Variant: Pre 3.25.0
 Variant: Pre 3.26.0
 Variant: Current
-League: Harvest
-Source: Upgraded from unique{The Enmity Divine} via currency{Haemocombustion Scroll}
 Requires Level 66, 113 Str, 113 Int
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage while wielding a Staff
