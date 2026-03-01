@@ -56,7 +56,8 @@ colorCodes = {
 	BRITTLEBG = "^x00122b",
 	SAPBG = "^x261500",
 	SCOURGE = "^xFF6E25",
-	CRUCIBLE = "^xFFA500"
+	CRUCIBLE = "^xFFA500",
+	SPLITPERSONALITY = "^xFFD62A"
 }
 colorCodes.STRENGTH = colorCodes.MARAUDER
 colorCodes.DEXTERITY = colorCodes.RANGER

@@ -115,6 +115,7 @@ function main:Init()
 	self.showAnimations = true
 	self.showAllItemAffixes = true
 	self.errorReadingSettings = false
+	self.showSplitPersonalityPath = true
 
 	if not SetDPIScaleOverridePercent then SetDPIScaleOverridePercent = function(scale) end end
 
@@ -660,6 +661,9 @@ function main:LoadSettings(ignoreBuild)
 					self.dpiScaleOverridePercent = tonumber(node.attrib.dpiScaleOverridePercent) or 0
 					SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
 				end
+				if node.attrib.showSplitPersonalityPath then
+					self.showSplitPersonalityPath = node.attrib.showSplitPersonalityPath == "true"
+				end
 			end
 		end
 	end
@@ -791,6 +795,7 @@ function main:SaveSettings()
 		showAnimations = tostring(self.showAnimations),
 		showAllItemAffixes = tostring(self.showAllItemAffixes),
 		dpiScaleOverridePercent = tostring(self.dpiScaleOverridePercent),
+		showSplitPersonalityPath = tostring(self.showSplitPersonalityPath),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -1079,6 +1084,12 @@ function main:OpenOptionsPopup()
 	controls.invertSliderScrollDirection.tooltipText = "Default scroll direction is:\nScroll Up = Move right\nScroll Down = Move left"
 	controls.invertSliderScrollDirection.state = self.invertSliderScrollDirection
 	
+	nextRow()
+	controls.showSplitPersonalityPath = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, currentY, 20 }, "^7Show Split Personality paths:", function(state)
+		self.showSplitPersonalityPath = state
+	end)
+	controls.showSplitPersonalityPath.state = self.showSplitPersonalityPath
+	
 	if launch.devMode then
 		nextRow()
 		controls.disableDevAutoSave = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, currentY, 20 }, "^7Disable Dev AutoSave:", function(state)
@@ -1118,6 +1129,7 @@ function main:OpenOptionsPopup()
 	local initialShowAnimations = self.showAnimations
 	local initialShowAllItemAffixes = self.showAllItemAffixes
 	local initialDpiScaleOverridePercent = self.dpiScaleOverridePercent
+	local initialShowSplitPersonalityPath = self.showSplitPersonalityPath
 
 	-- last line with buttons has more spacing
 	nextRow(1.5)
@@ -1175,6 +1187,7 @@ function main:OpenOptionsPopup()
 		self.showAllItemAffixes = initialShowAllItemAffixes
 		self.dpiScaleOverridePercent = initialDpiScaleOverridePercent
 		SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
+		self.showSplitPersonalityPath = initialShowSplitPersonalityPath
 		main:ClosePopup()
 	end)
 	nextRow(1.5)

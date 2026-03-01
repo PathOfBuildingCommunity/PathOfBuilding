@@ -950,6 +950,51 @@ function PassiveSpecClass:SetNodeDistanceToClassStart(root)
 	end
 end
 
+-- Determine the shortest path from the given node to the class' start
+-- Only allocated nodes can be traversed
+function PassiveSpecClass:GetShortestPathToClassStart(rootId)
+	local root = self.nodes[rootId]
+	if not root or not root.alloc or not root.connectedToStart then
+		return nil
+	end
+
+	-- Stop once the current class' starting node is reached
+	local targetNodeId = self.curClass.startNodeId
+
+	local parent = { }
+	parent[root.id] = nil
+
+	local queue = { root }
+	local o, i = 1, 2 -- Out, in
+	while o < i do
+		local node = queue[o]
+		o = o + 1
+		-- Iterate through all nodes that are connected to this one
+		for _, other in ipairs(node.linked) do
+			-- If this connected node is the correct class start node, then construct and return the path
+			if other.id == targetNodeId then
+				local path = { [root.id] = true, [other.id] = true }
+				local cur = node
+				while cur do
+					path[cur.id] = true
+					cur = parent[cur.id]
+				end
+				return path
+			end
+
+			-- Otherwise, record the parent of this node if it hasn't already been visited
+			if other.alloc and node.type ~= "Mastery" and other.type ~= "ClassStart" and other.type ~= "AscendClassStart" and not parent[other.id] and other.id ~= root.id then
+				parent[other.id] = node
+
+				-- Add the other node to the end of the queue
+				queue[i] = other
+				i = i + 1
+			end
+		end
+	end
+	return nil
+end
+
 function PassiveSpecClass:AddMasteryEffectOptionsToNode(node)
 	node.sd = {}
 	if node.masteryEffects ~= nil and #node.masteryEffects > 0 then
