@@ -111,7 +111,7 @@ function launch:OnFrame()
 			local errMsg = PCall(self.main.OnFrame, self.main)
 			if errMsg then
 				-- Send user to build list menu if a build crashes on initial load
-				if self.main.modes.BUILD.outputRevision == 1 and self.main.modes.BUILD.buildFlag then
+				if self.main.modes.BUILD.outputRevision == 1 and self.main.modes.BUILD.buildFlag and not self.devMode then
 					main:SetMode("LIST")
 				end
 				self:ShowErrMsg("In 'OnFrame': %s", errMsg)
