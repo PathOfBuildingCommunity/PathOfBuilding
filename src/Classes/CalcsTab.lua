@@ -194,7 +194,13 @@ function CalcsTabClass:Load(xml, dbFileName)
 end
 
 function CalcsTabClass:Save(xml)
-	for k, v in pairs(self.input) do
+	local sortedInputKeys = { }
+	for k in pairs(self.input) do
+		t_insert(sortedInputKeys, k)
+	end
+	table.sort(sortedInputKeys)
+	for _, k in ipairs(sortedInputKeys) do
+		local v = self.input[k]
 		local child = { elem = "Input", attrib = {name = k} }
 		if type(v) == "number" then
 			child.attrib.number = tostring(v)

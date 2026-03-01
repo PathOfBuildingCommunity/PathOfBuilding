@@ -709,7 +709,13 @@ function ConfigTabClass:Save(xml)
 		local child = { elem = "ConfigSet", attrib = { id = tostring(configSetId), title = configSet.title } }
 		t_insert(xml, child)
 
-		for k, v in pairs(configSet.input) do
+		local sortedInputKeys = { }
+		for k in pairs(configSet.input) do
+			t_insert(sortedInputKeys, k)
+		end
+		table.sort(sortedInputKeys)
+		for _, k in ipairs(sortedInputKeys) do
+			local v = configSet.input[k]
 			if v ~= self:GetDefaultState(k, type(v)) then
 				local node = { elem = "Input", attrib = { name = k } }
 				if type(v) == "number" then
@@ -722,7 +728,13 @@ function ConfigTabClass:Save(xml)
 				t_insert(child, node)
 			end
 		end
-		for k, v in pairs(configSet.placeholder) do
+		local sortedPlaceholderKeys = { }
+		for k in pairs(configSet.placeholder) do
+			t_insert(sortedPlaceholderKeys, k)
+		end
+		table.sort(sortedPlaceholderKeys)
+		for _, k in ipairs(sortedPlaceholderKeys) do
+			local v = configSet.placeholder[k]
 			local node = { elem = "Placeholder", attrib = { name = k } }
 			if type(v) == "number" then
 				node.attrib.number = tostring(v)

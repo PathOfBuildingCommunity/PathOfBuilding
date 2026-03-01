@@ -1896,11 +1896,15 @@ function buildMode:SaveDB(fileName)
 		t_insert(dbXML, node)
 	end
 
-	-- Call on all savers to save their data in their respective sections
-	for elem, saver in pairs(self.savers) do
-		local node = { elem = elem }
-		saver:Save(node)
-		t_insert(dbXML, node)
+	-- Call on all savers to save their data in their respective sections (fixed order for deterministic output)
+	local saverOrder = {"Config", "Notes", "Party", "Tree", "TreeView", "Items", "Skills", "Calcs", "Import"}
+	for _, elem in ipairs(saverOrder) do
+		local saver = self.savers[elem]
+		if saver then
+			local node = { elem = elem }
+			saver:Save(node)
+			t_insert(dbXML, node)
+		end
 	end
 
 	-- Compose the XML

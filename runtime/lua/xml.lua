@@ -117,7 +117,13 @@ local function composeNode(frag, node, lvl)
 	t_insert(frag, '<')
 	t_insert(frag, node.elem)
 	if node.attrib then
-		for key, val in pairs(node.attrib) do
+		local sortedKeys = {}
+		for key in pairs(node.attrib) do
+			t_insert(sortedKeys, key)
+		end
+		table.sort(sortedKeys)
+		for _, key in ipairs(sortedKeys) do
+			local val = node.attrib[key]
 			if val then
 				if type(key) ~= "string" then
 					return "invalid xml tree (attribute name in <"..node.elem.."> is not a string)"

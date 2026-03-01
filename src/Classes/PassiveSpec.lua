@@ -180,8 +180,15 @@ function PassiveSpecClass:Save(xml)
 	for nodeId in pairs(self.allocNodes) do
 		t_insert(allocNodeIdList, nodeId)
 	end
+	table.sort(allocNodeIdList)
 	local masterySelections = { }
-	for mastery, effect in pairs(self.masterySelections) do
+	local masteryKeys = { }
+	for mastery in pairs(self.masterySelections) do
+		t_insert(masteryKeys, mastery)
+	end
+	table.sort(masteryKeys)
+	for _, mastery in ipairs(masteryKeys) do
+		local effect = self.masterySelections[mastery]
 		t_insert(masterySelections, "{"..mastery..","..effect.."}")
 	end
 	xml.attrib = {
@@ -203,7 +210,13 @@ function PassiveSpecClass:Save(xml)
 	local sockets = {
 		elem = "Sockets"
 	}
-	for nodeId, itemId in pairs(self.jewels) do
+	local jewelNodeIds = { }
+	for nodeId in pairs(self.jewels) do
+		t_insert(jewelNodeIds, nodeId)
+	end
+	table.sort(jewelNodeIds)
+	for _, nodeId in ipairs(jewelNodeIds) do
+		local itemId = self.jewels[nodeId]
 		-- jewel socket contents should not be saved unless they contain a valid jewel
 		if itemId > 0 then
 			local socket = { elem = "Socket", attrib = { nodeId = tostring(nodeId), itemId = tostring(itemId) }}
@@ -216,7 +229,13 @@ function PassiveSpecClass:Save(xml)
 		elem = "Overrides"
 	}
 	if self.hashOverrides then
-		for nodeId, node in pairs(self.hashOverrides) do
+		local overrideNodeIds = { }
+		for nodeId in pairs(self.hashOverrides) do
+			t_insert(overrideNodeIds, nodeId)
+		end
+		table.sort(overrideNodeIds)
+		for _, nodeId in ipairs(overrideNodeIds) do
+			local node = self.hashOverrides[nodeId]
 			local override = { elem = "Override", attrib = { nodeId = tostring(nodeId), icon = tostring(node.icon), activeEffectImage = tostring(node.activeEffectImage), dn = tostring(node.dn) } }
 			for _, modLine in ipairs(node.sd) do
 				t_insert(override, modLine)
