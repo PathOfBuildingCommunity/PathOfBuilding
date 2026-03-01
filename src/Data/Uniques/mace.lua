@@ -788,6 +788,7 @@ Variant: Pre 3.7.0
 Variant: Pre 3.11.0
 Variant: Pre 3.19.0
 Variant: Pre 3.20.0
+Variant: Pre 3.28.0
 Variant: Current
 Requires Level 57, 182 Str
 Implicits: 3
@@ -799,15 +800,16 @@ Implicits: 3
 {variant:3}(230-260)% increased Physical Damage
 {variant:4}(200-230)% increased Physical Damage
 {variant:5}(400-500)% increased Physical Damage
-{variant:6}(500-600)% increased Physical Damage
+{variant:6,7}(500-600)% increased Physical Damage
 {variant:1,2}Adds 10 to 20 Physical Damage
 {variant:3,4}Adds 30 to 40 Physical Damage
 {variant:1,2,3,4}10% reduced Attack Speed
-{variant:5,6}25% reduced Attack Speed
+{variant:5,6,7}25% reduced Attack Speed
 {variant:1,2,3,4}10% reduced Movement Speed
 (40-50)% increased Stun Duration on Enemies
 {variant:1,2,3,4}-100 to Accuracy Rating
-{variant:5,6}-500 to Accuracy Rating
+{variant:5,6,7}-500 to Accuracy Rating
+{variant:7}(40-50)% increased Area of Effect
 ]],[[
 Quecholli
 Jagged Maul

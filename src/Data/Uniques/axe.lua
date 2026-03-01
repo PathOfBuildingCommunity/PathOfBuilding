@@ -146,18 +146,20 @@ Siege Axe
 Variant: Pre 1.0.0
 Variant: Pre 3.20.0
 Variant: Pre 3.26.0
+Variant: Pre 3.28.0
 Variant: Current
 Implicits: 0
 {variant:1}(160-200)% increased Physical Damage
 {variant:2}(100-140)% increased Physical Damage
-{variant:3,4}(140-180)% increased Physical Damage
+{variant:3,4,5}(140-180)% increased Physical Damage
 {variant:1,2}Adds 10 to 20 Physical Damage
-{variant:3,4}Adds 30 to 40 Physical Damage
+{variant:3,4,5}Adds 30 to 40 Physical Damage
 {variant:1,2,3}(20-25)% increased Attack Speed
-{variant:4}(25-35)% increased Attack Speed
+{variant:4,5}(25-35)% increased Attack Speed
 +(20-25)% to Cold Resistance
 Insufficient Mana doesn't prevent your Melee Attacks
 Your Physical Damage can Chill
+{variant:5}Eat (2-4) Souls when you Kill a Rare or Unique Enemy with this Weapon
 ]],[[
 Replica Soul Taker
 Siege Axe

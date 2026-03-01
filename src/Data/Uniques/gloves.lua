@@ -770,20 +770,21 @@ Shaper Item
 Source: Drops from unique{The Shaper}
 Variant: Pre 2.6.0
 Variant: Pre 3.10.0
+Variant: Pre 3.28.0
 Variant: Current
 Requires Level 66, 51 Str, 51 Int
 (80-120)% increased Armour and Energy Shield
-{variant:1}+2 Accuracy Rating per 2 Intelligence
+{variant:1,4}+2 Accuracy Rating per 2 Intelligence
 {variant:2,3}+4 Accuracy Rating per 2 Intelligence
 +1 Life per 4 Dexterity
-{variant:1,3}+1 Mana per 4 Strength
+{variant:1,3,4}+1 Mana per 4 Strength
 {variant:2}+2 Mana per 4 Strength
-{variant:1,3}1% increased Energy Shield per 10 Strength
+{variant:1,3,4}1% increased Energy Shield per 10 Strength
 {variant:2}2% increased Energy Shield per 10 Strength
 {variant:1}1% increased Evasion Rating per 10 Intelligence
-{variant:2,3}2% increased Evasion Rating per 10 Intelligence
+{variant:2,3,4}2% increased Evasion Rating per 10 Intelligence
 {variant:1}1% increased Melee Physical Damage per 10 Dexterity
-{variant:2,3}2% increased Melee Physical Damage per 10 Dexterity
+{variant:2,3,4}2% increased Melee Physical Damage per 10 Dexterity
 ]],[[
 Southbound
 Soldier Gloves

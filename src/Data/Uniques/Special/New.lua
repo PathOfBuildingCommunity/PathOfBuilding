@@ -195,7 +195,7 @@ Increases and Reductions to Chaos Damage also apply to Effect of Auras from Chao
 ]],[[
 The Unseen Hue
 Opal Ring
-Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
+Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
 Requires Level 80
 Variant: Scorch
 Variant: Brittle

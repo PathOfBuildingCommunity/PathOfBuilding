@@ -18,19 +18,23 @@ Bino's Kitchen Knife
 Slaughter Knife
 Variant: Pre 2.2.0
 Variant: Pre 3.20.0
+Variant: Pre 3.28.0
 Variant: Current
 Requires Level 65, 81 Dex, 117 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
 {variant:1,2}30% increased Damage over Time
 {variant:1,2}Adds (50-60) to (120-140) Physical Damage
-{variant:3}Adds (140-155) to (210-235) Physical Damage
+{variant:3,4}Adds (140-155) to (210-235) Physical Damage
 (40-50)% increased Critical Strike Chance
 {variant:1}+(10-15)% to Global Critical Strike Multiplier
-{variant:2,3}+(15-25)% to Global Critical Strike Multiplier
-+(8-12)% to Chaos Resistance
-On Killing a Poisoned Enemy, nearby Enemies are Poisoned
-and nearby Allies Regenerate 200 Life per second
+{variant:2,3,4}+(15-25)% to Global Critical Strike Multiplier
+{variant:3}+(8-12)% to Chaos Resistance
+{variant:4}+(17-27)% to Chaos Resistance
+{variant:1,2,3}On Killing a Poisoned Enemy, nearby Enemies are Poisoned 
+{variant:3}and nearby Allies Regenerate 200 Life per second
+{variant:4}On Killing a Poisoned Enemy, Enemies within 3 metres are Poisoned 
+{variant:4}and nearby Allies Regenerate 400 Life per second
 ]],[[
 Bloodplay
 Stiletto
