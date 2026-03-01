@@ -305,15 +305,19 @@ Battlemage
 ]],[[
 Woespike
 Steel Ring
-Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
+Source: Drops from unique{Uber Incarnation of Fear} in normal{Moment of Trauma}
+Variant: Pre 3.28.0
+Variant: Current
 Requires Level 80
 Implicits: 1
 {tags:attack,physical_damage}Adds (3-4) to (10-14) Physical Damage to Attacks
 {tags:jewellery_attribute}+(25-40) to Strength and Dexterity
 {tags:attack,physical_damage}Adds (8-12) to (18-24) Physical Damage to Attacks
 {tags:attack}(10-20)% chance to Impale Enemies on Hit with Attacks
-(40-25)% reduced Impale Duration
-{tags:attack}(40-60)% chance on Melee Hit for the Strongest Impale on target to last for 1 additional Hit
+{variant:1}(40-25)% reduced Impale Duration
+{variant:2}(50-40)% less Impale Duration
+{variant:1}{tags:attack}(45-60)% chance on Melee Hit for the Strongest Impale on target to last for 1 additional Hit
+{variant:2}{tags:attack}(20-30)% chance on Melee Hit for the Strongest Impale on target to last for 1 additional Hit
 ]]
 
 }

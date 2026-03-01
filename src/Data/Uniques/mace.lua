@@ -575,6 +575,7 @@ The Supreme Truth
 Crystal Sceptre
 Variant: Pre 2.0.0
 Variant: Pre 2.3.0
+Variant: Pre 3.28.0
 Variant: Current
 Requires Level 41, 59 Str, 136 Int
 Implicits: 2
@@ -584,9 +585,10 @@ Implicits: 2
 (80-100)% increased Physical Damage
 (10-20)% increased Attack Speed
 {variant:1}5% increased Experience gain
-{variant:2,3}3% increased Experience gain
-20% increased Elemental Damage
+{variant:2,3,4}3% increased Experience gain
+{variant:1,2,3}20% increased Elemental Damage
 60% increased Intelligence Requirement
+Attacks with this Weapon inflict Hallowing Flame on Hit
 ]],[[
 Yaomac's Accord
 Vaal Sceptre

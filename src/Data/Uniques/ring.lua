@@ -1142,6 +1142,7 @@ Coral Ring
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.9.0
+Variant: Pre 3.28.0
 Variant: Current
 Requires Level 45
 Implicits: 1
@@ -1149,13 +1150,15 @@ Implicits: 1
 {tags:jewellery_elemental,attack}(20-30)% increased Elemental Damage with Attack Skills
 {tags:jewellery_elemental,attack}Adds (8-15) to (20-28) Fire Damage to Attacks
 {variant:1}(20-40)% reduced Rarity of Items found
-{variant:2,3,4}(10-20)% reduced Rarity of Items found
+{variant:2,3,4,5}(10-20)% reduced Rarity of Items found
 {variant:1,2}Left ring slot: 30% reduced Reflected Elemental Damage taken
 {variant:3}Left ring slot: 40% reduced Reflected Elemental Damage taken
 {variant:4}Left ring slot: 80% reduced Reflected Elemental Damage taken
+{variant:5}Left ring slot: 100% of Elemental Hit Damage from you and your Minions cannot be Reflected
 {variant:1,2}{tags:physical}Right ring slot: 30% reduced Reflected Physical Damage taken
 {variant:3}{tags:physical}Right ring slot: 40% reduced Reflected Physical Damage taken
 {variant:4}{tags:physical}Right ring slot: 80% reduced Reflected Physical Damage taken
+{variant:5}Right ring slot: 100% of Physical Hit Damage from you and your Minions cannot be Reflected
 ]],[[
 Snakepit
 Sapphire Ring

@@ -846,13 +846,15 @@ Chaos Skills have 20% chance to Ignite
 ]],[[
 Hand of Heresy
 Martyr Gloves
-Source: Drops from unique{Mercenary} after winning a duel
 League: Mercenaries of Trarthus
+Variant: Pre 3.28.0
+Variant: Current
 Requires Level 77, 70 Str, 70 Int
 (40-80)% increased Armour and Energy Shield
 (15-25)% increased Life Regeneration rate
 15% increased Area of Effect of Aura Skills
 Excommunicate Enemies on Melee Hit for 3 seconds
+{variant:2}+(0.8-1.6)% to Critical Strike Chance against Excommunicated Enemies
 ]],
 -- Gloves: Evasion/Energy Shield
 [[
