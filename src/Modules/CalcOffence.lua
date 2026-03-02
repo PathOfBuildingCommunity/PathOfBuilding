@@ -3047,14 +3047,35 @@ function calcs.offence(env, actor, activeSkill)
 		
 		runSkillFunc("postCritFunc")
 
+		-- Check for added damage redirection (Cryogenesis)
+		local addedDamageRedirectType = nil
+		if skillModList:Flag(cfg, "AllAddedDamageAsLightning") then
+			addedDamageRedirectType = "Lightning"
+		elseif skillModList:Flag(cfg, "AllAddedDamageAsCold") then
+			addedDamageRedirectType = "Cold"
+		end
+
 		-- Calculate base hit damage
 		for _, damageType in ipairs(dmgTypeList) do
 			local damageTypeMin = damageType.."Min"
 			local damageTypeMax = damageType.."Max"
 			local baseMultiplier = activeSkill.activeEffect.grantedEffectLevel.baseMultiplier or skillData.baseMultiplier or 1
 			local damageEffectiveness = activeSkill.activeEffect.grantedEffectLevel.damageEffectiveness or skillData.damageEffectiveness or 1
-			local addedMin = skillModList:Sum("BASE", cfg, damageTypeMin) + enemyDB:Sum("BASE", cfg, "Self"..damageTypeMin)
-			local addedMax = skillModList:Sum("BASE", cfg, damageTypeMax) + enemyDB:Sum("BASE", cfg, "Self"..damageTypeMax)
+			local addedMin, addedMax
+			if addedDamageRedirectType then
+				if damageType == addedDamageRedirectType then
+					addedMin, addedMax = 0, 0
+					for _, srcType in ipairs(dmgTypeList) do
+						addedMin = addedMin + skillModList:Sum("BASE", cfg, srcType.."Min") + enemyDB:Sum("BASE", cfg, "Self"..srcType.."Min")
+						addedMax = addedMax + skillModList:Sum("BASE", cfg, srcType.."Max") + enemyDB:Sum("BASE", cfg, "Self"..srcType.."Max")
+					end
+				else
+					addedMin, addedMax = 0, 0
+				end
+			else
+				addedMin = skillModList:Sum("BASE", cfg, damageTypeMin) + enemyDB:Sum("BASE", cfg, "Self"..damageTypeMin)
+				addedMax = skillModList:Sum("BASE", cfg, damageTypeMax) + enemyDB:Sum("BASE", cfg, "Self"..damageTypeMax)
+			end
 			local addedMult = calcLib.mod(skillModList, cfg, "Added"..damageType.."Damage", "AddedDamage")
 			local baseMin = ((source[damageTypeMin] or 0) + (source[damageType.."BonusMin"] or 0)) * baseMultiplier + addedMin * damageEffectiveness * addedMult
 			local baseMax = ((source[damageTypeMax] or 0) + (source[damageType.."BonusMax"] or 0)) * baseMultiplier + addedMax * damageEffectiveness * addedMult
