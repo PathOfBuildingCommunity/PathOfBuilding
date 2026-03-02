@@ -3340,6 +3340,7 @@ local specialModList = {
 	["gain a flask charge when you deal a critical strike"] = { mod("FlaskChargeOnCritChance", "BASE", 100) },
 	["gain a flask charge when you deal a critical strike while affected by precision"] = { mod("FlaskChargeOnCritChance", "BASE", 100, { type = "Condition", var = "AffectedByPrecision" }) },
 	["gain a flask charge when you deal a critical strike while at maximum frenzy charges"] = { mod("FlaskChargeOnCritChance", "BASE", 100, { type = "StatThreshold", stat = "FrenzyCharges", thresholdStat = "FrenzyChargesMax" }) },
+	["on non%-channelling attack, set a life flask with greater than %d+%% of maximum charges remaining to %d+%% for each charge removed this way, that attack gains %+(%d+)%% to damage over time multiplier"] = function(num) return{ mod("DotMultiplier", "BASE", num, { type = "Multiplier", var = "KhatalsFlaskChargesRemoved" }, { type = "SkillType", skillType = SkillType.Channel, neg = true }) } end,
 	["enemies poisoned by you cannot deal critical strikes"] = { mod("EnemyModifier", "LIST", { mod = flag("NeverCrit", { type = "Condition", var = "Poisoned" }) }), mod("EnemyModifier", "LIST", { mod = flag("Condition:NeverCrit", { type = "Condition", var = "Poisoned" })}) },
 	["marked enemy cannot deal critical strikes"] =  { mod("EnemyModifier", "LIST", { mod = flag("NeverCrit", { type = "Condition", var = "Marked" }) }), mod("EnemyModifier", "LIST", { mod = flag("Condition:NeverCrit", { type = "Condition", var = "Marked" })}) },
 	["marked enemy cannot evade attacks"] =  { mod("EnemyModifier", "LIST", { mod = flag("CannotEvade", { type = "Condition", var = "Marked" }) }) },
@@ -4867,6 +4868,9 @@ local specialModList = {
 	} end,
 	["life flasks gain (%d+) charges? every (%d+) seconds"] = function(num, _, div) return {
 		mod("LifeFlaskChargesGenerated", "BASE", num / div)
+	} end,
+	["while on low life, life flasks gain (%d+) charges? every (%d+) seconds"] = function(num, _, div) return {
+		mod("LifeFlaskChargesGenerated", "BASE", num / div, { type = "Condition", var = "LowLife" })
 	} end,
 	["mana flasks gain (%d+) charges? every (%d+) seconds"] = function(num, _, div) return {
 		mod("ManaFlaskChargesGenerated", "BASE", num / div)

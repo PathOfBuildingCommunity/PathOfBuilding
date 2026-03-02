@@ -51,5 +51,17 @@ Trigger level 10 Consecrate when you deal a Critical Strike
 14% increased Light Radius
 47% increased Rarity of Items Dropped by Enemies killed with a Critical Strike
 Inflict Hallowing Flame on Hit while on Consecrated Ground
+]],
+[[
+Khatal's Weeping
+Lapis Amulet
+LevelReq: 56
+Implicits: 1
+{tags:jewellery_attribute}+(20-30) to Intelligence
++89 to maximum Life
+Can't use Mana Flasks
+On non-channelling Attack, set a Life Flask with greater than 50% of maximum Charges remaining to 50%
+For each Charge removed this way, that Attack gains +2% to Damage over time Multiplier
+While on Low Life, Life Flasks gain 4 Charges every 3 seconds
 ]]
 }

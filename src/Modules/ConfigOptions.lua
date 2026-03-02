@@ -1889,6 +1889,9 @@ Huge sets the radius to 11.
 	{ var = "conditionEnemyLightningResZero", type = "check", label = "Enemy hit you with ^xADAA47Light. Damage^7?", ifFlag = "Condition:HaveTrickstersSmile", tooltip = "This option sets whether or not the enemy has hit you with ^xADAA47Lightning Damage^7 in the last 4 seconds.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("LightningResist", "OVERRIDE", 0, "Config", { type = "Condition", var = "Effective"}, { type = "ActorCondition", actor = "enemy", var = "HaveTrickstersSmile" })
 	end },
+	{ var = "multiplierKhatalsFlaskChargesRemoved", type = "count", label = "Khatal's Weeping # of Flask Charges removed:", ifMult = "KhatalsFlaskChargesRemoved", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:KhatalsFlaskChargesRemoved", "BASE", val, "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ var = "maniaDebuffsCount", type = "countAllowZero", label = "# of Mania Stacks", ifFlag = "Condition:CanInflictMania", defaultState = 15, tooltip = "Mania Stacks apply:\n\t4% inc Damage Taken per stack\n\t2% reduced Action Speed per stack\n\t10% reduced ^xE05030Life ^7and ^x88FFFFEnergy Shield ^7Recovery Rate per stack", apply = function(val, modList, enemyModList)
 		val = m_min(val, 15)
 		enemyModList:NewMod("DamageTaken", "INC", val * 4, val.." Mania Stacks", { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "AfflictedByMania" })

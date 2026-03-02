@@ -1750,6 +1750,7 @@ c["+88 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",v
 c["+88% to Cold Resistance when Socketed with a Green Gem"]={{[1]={[1]={keyword="dexterity",slotName="{SlotName}",sockets={[1]=1},type="SocketedIn"},flags=0,keywordFlags=0,name="SocketProperty",type="LIST",value={value={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=88}}}},nil}
 c["+88% to Fire Resistance when Socketed with a Red Gem"]={{[1]={[1]={keyword="strength",slotName="{SlotName}",sockets={[1]=1},type="SocketedIn"},flags=0,keywordFlags=0,name="SocketProperty",type="LIST",value={value={flags=0,keywordFlags=0,name="FireResist",type="BASE",value=88}}}},nil}
 c["+88% to Lightning Resistance when Socketed with a Blue Gem"]={{[1]={[1]={keyword="intelligence",slotName="{SlotName}",sockets={[1]=1},type="SocketedIn"},flags=0,keywordFlags=0,name="SocketProperty",type="LIST",value={value={flags=0,keywordFlags=0,name="LightningResist",type="BASE",value=88}}}},nil}
+c["+89 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=89}},nil}
 c["+9 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=9}},nil}
 c["+9% Chance to Block Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=9}},nil}
 c["+9% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=9}},nil}
@@ -7870,6 +7871,8 @@ c["Can't use Flask in Fifth Slot"]={{[1]={[1]={excludeItemType="Tincture",slotNa
 c["Can't use Helmets"]={{[1]={[1]={slotName="Helmet",type="DisablesItem"},flags=0,keywordFlags=0,name="CanNotUseItem",type="Flag",value=1}},nil}
 c["Can't use Life Flasks"]={nil,"Can't use Life Flasks "}
 c["Can't use Life Flasks +65 to maximum Mana"]={nil,"Can't use Life Flasks +65 to maximum Mana "}
+c["Can't use Mana Flasks"]={nil,"Can't use Mana Flasks "}
+c["Can't use Mana Flasks On non-channelling Attack, set a Life Flask with greater than 50% of maximum Charges remaining to 50%"]={nil,"Can't use Mana Flasks On non-channelling Attack, set a Life Flask with greater than 50% of maximum Charges remaining to 50% "}
 c["Can't use other Rings"]={{[1]={[1]={slotName="Ring 2",type="DisablesItem"},[2]={num=1,type="SlotNumber"},flags=0,keywordFlags=0,name="CanNotUseItem",type="Flag",value=1},[2]={[1]={slotName="Ring 1",type="DisablesItem"},[2]={num=2,type="SlotNumber"},flags=0,keywordFlags=0,name="CanNotUseItem",type="Flag",value=1}},nil}
 c["Cannot Be Slowed to Below Base Speed"]={{[1]={[1]={effectType="Global",type="GlobalEffect",unscalable=true},flags=0,keywordFlags=0,name="MinimumActionSpeed",type="MAX",value=100}},nil}
 c["Cannot Be Stunned while you have Energy Shield"]={{[1]={[1]={type="Condition",var="HaveEnergyShield"},flags=0,keywordFlags=0,name="StunImmune",type="FLAG",value=true}},nil}
@@ -10192,6 +10195,8 @@ c["Offerings Kill affected Damagable targets when Offering Duration expires"]={n
 c["On Killing a Poisoned Enemy, nearby Enemies are Poisoned"]={nil,"On Killing a Poisoned Enemy, nearby Enemies are Poisoned "}
 c["On Killing a Poisoned Enemy, nearby Enemies are Poisoned and nearby Allies Regenerate 200 Life per second"]={nil,"On Killing a Poisoned Enemy, nearby Enemies are Poisoned and nearby Allies Regenerate 200 Life per second "}
 c["On Killing a Rare monster, a random Linked Minion gains its Modifiers for 60 seconds"]={nil,"On Killing a Rare monster, a random Linked Minion gains its Modifiers for 60 seconds "}
+c["On non-channelling Attack, set a Life Flask with greater than 50% of maximum Charges remaining to 50%"]={nil,"On non-channelling Attack, set a Life Flask with greater than 50% of maximum Charges remaining to 50% "}
+c["On non-channelling Attack, set a Life Flask with greater than 50% of maximum Charges remaining to 50% For each Charge removed this way, that Attack gains +2% to Damage over time Multiplier"]={{[1]={[1]={type="Multiplier",var="KhatalsFlaskChargesRemoved"},[2]={neg=true,skillType=57,type="SkillType"},flags=0,keywordFlags=0,name="DotMultiplier",type="BASE",value=2}},nil}
 c["Only affects Passives in Large Ring"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="radiusIndex",value=8}}},nil}
 c["Only affects Passives in Massive Ring"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="radiusIndex",value=10}}},nil}
 c["Only affects Passives in Medium Ring"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="radiusIndex",value=7}}},nil}
@@ -12262,6 +12267,7 @@ c["While affected by Glorious Madness, inflict Mania on nearby Enemies every sec
 c["While at Maximum Frenzy Charges, Attacks Poison Enemies"]={{[1]={[1]={stat="FrenzyCharges",thresholdStat="FrenzyChargesMax",type="StatThreshold"},flags=1,keywordFlags=0,name="PoisonChance",type="BASE",value=100}},nil}
 c["While in Her Embrace, take 0.5% of your total Maximum Life and Energy Shield as Fire Damage per second per Level"]={{[1]={[1]={percent=0.5,stat="Life",type="PercentStat"},[2]={type="Multiplier",var="Level"},[3]={type="Condition",var="HerEmbrace"},flags=0,keywordFlags=0,name="FireDegen",type="BASE",value=1},[2]={[1]={percent=0.5,stat="EnergyShield",type="PercentStat"},[2]={type="Multiplier",var="Level"},[3]={type="Condition",var="HerEmbrace"},flags=0,keywordFlags=0,name="FireDegen",type="BASE",value=1}},nil}
 c["While not on Full Life, Sacrifice 20% of Mana per Second to Recover that much Life"]={{[1]={[1]={neg=true,type="Condition",var="FullLife"},flags=0,keywordFlags=0,name="ManaDegenPercent",type="BASE",value=20},[2]={[1]={percent=20,stat="Mana",type="PercentStat"},[2]={neg=true,type="Condition",var="FullLife"},flags=0,keywordFlags=0,name="LifeRecovery",type="BASE",value=1}},nil}
+c["While on Low Life, Life Flasks gain 4 Charges every 3 seconds"]={{[1]={[1]={type="Condition",var="LowLife"},flags=0,keywordFlags=0,name="LifeFlaskChargesGenerated",type="BASE",value=1.3333333333333}},nil}
 c["While there are at least five nearby Allies, you and nearby Allies have Onslaught"]={{[1]={[1]={threshold=5,type="MultiplierThreshold",var="NearbyAlly"},flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="Onslaught",type="FLAG",value=true}}}},nil}
 c["While your Passive Skill Tree connects to a class' starting location, you gain:"]={{},nil}
 c["Wicked Ward"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Wicked Ward"}},nil}
