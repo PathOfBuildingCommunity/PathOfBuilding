@@ -39,5 +39,17 @@ Increases and Reductions to Effect of Flasks applied to you also applies to Effe
 You have Arcane Surge during Effect of any Mana Flask
 Mana Flask Effects are not removed when Unreserved Mana is Filled
 Mana Flask Effects do not Queue
+]],
+[[
+Replica Gifts from Above
+Diamond Ring
+Requires Level 28
+Implicits: 1
+{tags:critical}(20-30)% increased Global Critical Strike Chance
+Trigger level 10 Consecrate when you deal a Critical Strike
+31% increased Global Critical Strike Chance
+14% increased Light Radius
+47% increased Rarity of Items Dropped by Enemies killed with a Critical Strike
+Inflict Hallowing Flame on Hit while on Consecrated Ground
 ]]
 }
