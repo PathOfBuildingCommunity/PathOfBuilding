@@ -2405,6 +2405,9 @@ local specialModList = {
 	["gain %d+ rage on hit with retaliation skills"] = {
 		flag("Condition:CanGainRage"),
 	},
+	["gain %d+ rage when you use a life flask"] = {
+		flag("Condition:CanGainRage"),
+	},
 	["while a unique enemy is in your presence, gain %d+ rage on hit with attacks, no more than once every [%d%.]+ seconds"] = {
 		flag("Condition:CanGainRage", { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" }),
 	},
@@ -4254,6 +4257,7 @@ local specialModList = {
 	["your blink and mirror arrow clones use your gloves"] = { flag("BlinkAndMirrorUseGloves") },
 	-- Projectiles
 	["skills chain %+(%d) times"] = function(num) return { mod("ChainCountMax", "BASE", num) } end,
+	["projectiles chain %+(%d) times"] = function(num) return { mod("ChainCountMax", "BASE", num, nil, ModFlag.Projectile) } end,
 	["arrows chain %+(%d) times"] = function(num) return { mod("ChainCountMax", "BASE", num, nil, 0, KeywordFlag.Arrow) } end,
 	["skills chain an additional time while at maximum frenzy charges"] = { mod("ChainCountMax", "BASE", 1, { type = "StatThreshold", stat = "FrenzyCharges", thresholdStat = "FrenzyChargesMax" }) },
 	["attacks chain an additional time when in main hand"] = { mod("ChainCountMax", "BASE", 1, nil, ModFlag.Attack, { type = "SlotNumber", num = 1 }) },
