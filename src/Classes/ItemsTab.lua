@@ -1783,10 +1783,13 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 			extraTags[skill.tag] = true
 		end
 	end
+	local selAffix = item[outputTable][outputIndex] and item[outputTable][outputIndex].modId
 	local affixList = { }
 	for modId, mod in pairs(item.affixes) do
-		if mod.type == type and not excludeGroups[mod.group] and item:GetModSpawnWeight(mod, extraTags) > 0 and not item:CheckIfModIsDelve(mod) then
-			t_insert(affixList, modId)
+		if mod.type == type and not excludeGroups[mod.group] and not item:CheckIfModIsDelve(mod) then
+			if item:GetModSpawnWeight(mod, extraTags) > 0 or modId == selAffix then
+				t_insert(affixList, modId)
+			end
 		end
 	end
 	table.sort(affixList, function(a, b)
