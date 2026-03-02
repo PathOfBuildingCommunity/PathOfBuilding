@@ -364,10 +364,10 @@ Implicits: 3
 {variant:1,2,3,4,5}Adds (6-12) to (20-32) Physical Damage
 {variant:6,7}Adds (7-14) to (24-34) Physical Damage
 {variant:1,2,3,4,5,6}(10-20)% increased Attack Speed
-{variant:7}Attacks you use yourself Repeat an additional time
-{variant:7}Attacks you use yourself have 50% more Attack Speed
 +(80-100) to maximum Mana
 Hits can't be Evaded
+{variant:7}Attacks you use yourself Repeat an additional time
+{variant:7}Attacks you use yourself have 50% more Attack Speed
 {variant:4,5,6,7}Far Shot
 ]],[[
 Null's Inclination

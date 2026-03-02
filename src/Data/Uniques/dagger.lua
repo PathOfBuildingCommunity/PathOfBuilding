@@ -31,10 +31,8 @@ Implicits: 1
 {variant:2,3,4}+(15-25)% to Global Critical Strike Multiplier
 {variant:3}+(8-12)% to Chaos Resistance
 {variant:4}+(17-27)% to Chaos Resistance
-{variant:1,2,3}On Killing a Poisoned Enemy, nearby Enemies are Poisoned 
-{variant:3}and nearby Allies Regenerate 200 Life per second
-{variant:4}On Killing a Poisoned Enemy, Enemies within 3 metres are Poisoned 
-{variant:4}and nearby Allies Regenerate 400 Life per second
+{variant:1,2,3,4}On Killing a Poisoned Enemy, Enemies within 3 metres are Poisoned 
+{variant:3,4}and nearby Allies Regenerate 400 Life per second
 ]],[[
 Bloodplay
 Stiletto

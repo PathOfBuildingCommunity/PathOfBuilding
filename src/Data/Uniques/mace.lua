@@ -580,13 +580,12 @@ Variant: Current
 Requires Level 41, 59 Str, 136 Int
 Implicits: 2
 {variant:1,2}20% increased Elemental Damage
-{variant:3}30% increased Elemental Damage
+{variant:3,4}30% increased Elemental Damage
 +1 to Level of Socketed Gems
 (80-100)% increased Physical Damage
 (10-20)% increased Attack Speed
 {variant:1}5% increased Experience gain
 {variant:2,3,4}3% increased Experience gain
-{variant:1,2,3}20% increased Elemental Damage
 60% increased Intelligence Requirement
 Attacks with this Weapon inflict Hallowing Flame on Hit
 ]],[[
@@ -796,7 +795,7 @@ Requires Level 57, 182 Str
 Implicits: 3
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2,3}30% increased Stun Duration on Enemies
-{variant:4,5,6}45% increased Stun Duration on Enemies
+{variant:4,5,6,7}45% increased Stun Duration on Enemies
 {variant:1,2,3,4}Socketed Gems are Supported by Level 15 Pulverise
 {variant:1,2}(220-250)% increased Physical Damage
 {variant:3}(230-260)% increased Physical Damage

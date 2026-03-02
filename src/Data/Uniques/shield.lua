@@ -1043,6 +1043,7 @@ Implicits: 2
 ]],[[
 The Unshattered Will
 Archon Kite Shield
+League: Harbinger
 Source: No longer obtainable
 Implicits: 1
 +12% to all Elemental Resistances

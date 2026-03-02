@@ -138,13 +138,13 @@ Variant: Pre 3.11.0
 Variant: Pre 3.20.0
 Variant: Pre 3.28.0
 Variant: Current
-Implicits: 3
+Implicits: 4
 {variant:1,2}0.6% of Physical Attack Damage Leeched as Life
 {variant:3}Grants 31 Life per Enemy Hit
 {variant:4,5,6}2% of Physical Attack Damage Leeched as Life
+{variant:7}2% of Attack Damage Leeched as Life
 {variant:1}+10% Chance to Block Attack Damage while Dual Wielding Claws
 {variant:2,3,4,5,6}+8% Chance to Block Attack Damage while Dual Wielding Claws
-{variant:7}Maximum Recovery per Energy Shield Leech is Doubled
 {variant:1}(80-120)% increased Physical Damage
 {variant:2,3,4,5}(140-180)% increased Physical Damage
 {variant:1}Adds 1 to 50 Lightning Damage
@@ -158,6 +158,7 @@ Implicits: 3
 {variant:1,2,3,4}Leech Energy Shield instead of Life
 {variant:5}50% reduced Maximum Recovery per Energy Shield Leech
 {variant:5,6,7}Energy Shield Leech Effects from Attacks are not removed at Full Energy Shield
+{variant:7}Maximum Recovery per Energy Shield Leech is Doubled
 {variant:5,6,7}Ghost Reaver
 ]],[[
 Hand of Thought and Motion
