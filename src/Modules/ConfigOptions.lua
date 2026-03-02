@@ -1237,6 +1237,12 @@ Huge sets the radius to 11.
 	{ var = "multiplierPoisonAppliedRecently", type = "count", label = "# of Poisons applied Recently:", ifMult = "PoisonAppliedRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:PoisonAppliedRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionCausedBleedingRecently", type = "check", label = "Have you caused ^xE05030Bleeding ^7Recently?", ifCond = "CausedBleedingRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:CausedBleedingRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionPoisonedEnemyRecently", type = "check", label = "Have you ^x60A060Poisoned ^7an enemy Recently?", ifCond = "PoisonedEnemyRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:PoisonedEnemyRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "multiplierLifeSpentRecently", type = "count", label = "# of ^xE05030Life ^7spent Recently:", ifMult = "LifeSpentRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:LifeSpentRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },

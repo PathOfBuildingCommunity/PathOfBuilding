@@ -862,12 +862,20 @@ function calcs.initEnv(build, mode, override, specEnv)
 			end
 		end
 
+		-- Track which flask slot (1-5) each flask is in, for adjacency checks
+		env.flaskSlotMap = { }
+		env.flaskSlotOccupied = { }
 		for _, slot in pairs(build.itemsTab.orderedSlots) do
 			local slotName = slot.slotName
 			local item = items[slotName]
 			if item and item.type == "Flask" then
 				if slot.active then
 					env.flasks[item] = true
+					local flaskNum = tonumber(slotName:match("Flask (%d+)"))
+					if flaskNum then
+						env.flaskSlotMap[item] = flaskNum
+						env.flaskSlotOccupied[flaskNum] = true
+					end
 				end
 				if item.base.subType == "Life" then
 					local highestLifeRecovery = env.itemModDB.multipliers["LifeFlaskRecovery"] or 0
@@ -1162,6 +1170,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					end
 					env.itemModDB.multipliers["SocketedGemsIn"..slotName] = (env.itemModDB.multipliers["SocketedGemsIn"..slotName] or 0) + math.min(slotGemSocketsCount, socketedGems)
+					if socketedGems == 1 then
+						env.itemModDB.conditions["SingleGemSocketedIn"..slotName] = true -- for Essence of Desolation helmet mod
+					end
 					env.itemModDB.multipliers.EmptyRedSocketsInAnySlot = (env.itemModDB.multipliers.EmptyRedSocketsInAnySlot or 0) + slotEmptySocketsCount.R
 					env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot = (env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot or 0) + slotEmptySocketsCount.G
 					env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot = (env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot or 0) + slotEmptySocketsCount.B

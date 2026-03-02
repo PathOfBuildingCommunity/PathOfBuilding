@@ -1434,6 +1434,7 @@ function calcs.perform(env, skipEHP)
 
 	local effectInc = modDB:Sum("INC", {actor = "player"}, "FlaskEffect")
 	local effectIncMagic = modDB:Sum("INC", {actor = "player"}, "MagicUtilityFlaskEffect")
+	local effectIncMagicNoAdjacent = modDB:Sum("INC", {actor = "player"}, "MagicFlaskEffect")
 	local effectIncNonPlayer = modDB:Sum("INC", nil, "FlaskEffect")
 	local effectIncMagicNonPlayer = modDB:Sum("INC", nil, "MagicUtilityFlaskEffect")
 	local flasksApplyToMinion = env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "FlasksApplyToMinion")
@@ -1522,6 +1523,16 @@ function calcs.perform(env, skipEHP)
 			if item.rarity == "MAGIC" and not (item.base.flask.life or item.base.flask.mana) then
 				flaskEffectInc = flaskEffectInc + effectIncMagic
 				flaskEffectIncNonPlayer = flaskEffectIncNonPlayer + effectIncMagicNonPlayer
+			end
+			-- Essence of Desolation belt mod: bonus for magic flasks with no flask in an adjacent slot (1-5)
+			if item.rarity == "MAGIC" and effectIncMagicNoAdjacent ~= 0 then
+				local flaskSlotNum = env.flaskSlotMap and env.flaskSlotMap[item]
+				if flaskSlotNum then
+					local hasAdjacent = (env.flaskSlotOccupied[flaskSlotNum - 1] or env.flaskSlotOccupied[flaskSlotNum + 1])
+					if not hasAdjacent then
+						flaskEffectInc = flaskEffectInc + effectIncMagicNoAdjacent
+					end
+				end
 			end
 			local effectMod = 1 + (flaskEffectInc) / 100
 			local effectModNonPlayer = 1 + (flaskEffectIncNonPlayer) / 100

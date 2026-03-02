@@ -277,6 +277,14 @@ function ItemClass:FindModifierSubstring(substring, itemSlotName)
 					end
 				end
 			end
+			-- Also check GGPK-exported mod tags (e.g. "defences" tag catches mods that don't mention defence in text)
+			if v.modTags then
+				for _, tag in ipairs(v.modTags) do
+					if tag:lower():find(substring) then
+						return true
+					end
+				end
+			end
 		end
 	end
 	return false

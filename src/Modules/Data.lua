@@ -646,6 +646,21 @@ data.itemTagSpecial = {
 			"Cannot Evade",
 		},
 	},
+	-- Text patterns for ItemCondition "no Defence Modifiers"; also backed by modTags in FindModifierSubstring
+	["defence"] = (function()
+		local defencePatterns = {
+			"[Aa]rmour",
+			"[Ee]vasion",
+			"[Ee]nergy [Ss]hield",
+			"[Ww]ard",
+		}
+		local slots = { "weapon 1", "weapon 2", "helmet", "body armour", "gloves", "boots", "amulet", "ring 1", "ring 2", "belt", "shield" }
+		local t = {}
+		for _, slot in ipairs(slots) do
+			t[slot] = defencePatterns
+		end
+		return t
+	end)(),
 }
 data.itemTagSpecialExclusionPattern = {
 	["life"] = {
