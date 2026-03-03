@@ -4874,6 +4874,9 @@ local specialModList = {
 	["life flask effects are not removed when unreserved life is filled"] = {
 		flag("LifeFlaskEffectNotRemoved")
 	},
+	["mana flask effects are not removed when unreserved mana is filled"] = {
+		flag("ManaFlaskEffectNotRemoved")
+	},
 	-- Jewels
 	["passives? ?s?k?i?l?l?s? in radius of ([%a%s']+) can be allocated without being connected to your tree"] = function(_, name) return {
 		mod("JewelData", "LIST", { key = "impossibleEscapeKeystone", value = name }),
