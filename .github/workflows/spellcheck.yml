@@ -21,7 +21,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
         with:
-          ref: ${{ inputs.ref }}
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.ref || github.ref }}
+          fetch-depth: 0
 
       - name: Fetch config file and dictionaries
         run:
@@ -33,9 +34,12 @@ jobs:
             ${{ env.CONFIG_URL }}/extra-en-dict.txt
             ${{ env.CONFIG_URL }}/contribs-dict.txt
 
+      - name: Append local dictionary overrides
+        run: cat .github/cspell/local-dict.txt >> pob-dict.txt
+
       - name: Run cspell
         uses: streetsidesoftware/cspell-action@v7
         with:
           files: '**' # needed as workaround for non-incremental runs (overrides in config still work ok)
           config: "cspell.json"
-          incremental_files_only: ${{ github.event_name != 'workflow_dispatch' }}
+          incremental_files_only: false

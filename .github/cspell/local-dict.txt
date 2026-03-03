@@ -1,0 +1,3 @@
+# Project-specific words missing from shared dictionaries.
+Gruthkel
+Gruthkel's
