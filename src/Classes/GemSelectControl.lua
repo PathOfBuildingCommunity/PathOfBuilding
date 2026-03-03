@@ -120,21 +120,15 @@ function GemSelectClass:PopulateGemList()
 						self.gems["Default:" .. gemId] = gemData
 					end
 				elseif showNormal or showAll then
-					if self.skillsTab.showAltQualityGems and (self.skillsTab.defaultGemQuality or 0) > 0 then
-						for _, altQual in ipairs(self.skillsTab:getGemAltQualityList(gemData)) do
-							self.gems[altQual.type .. ":" .. gemId] = gemData
-						end
-					else
-						self.gems["Default:" .. gemId] = gemData
-					end
+					self.gems["Default:" .. gemId] = gemData
 				end
 			end
 		end
 	end
 end
 
-function GemSelectClass:GetQualityType(gemId)
-	return gemId and gemId:gsub(":.+","") or "Default"
+function GemSelectClass:GetQualityType() -- todo: whatever is using this adds the Default quality to gems, it seems, can't fully remove yet?
+	return "Default"
 end
 
 function GemSelectClass:FilterSupport(gemId, gemData)
@@ -176,7 +170,7 @@ function GemSelectClass:BuildList(buf)
 		for i, pattern in ipairs(patternList) do
 			local matchList = { }
 			for gemId, gemData in pairs(self.gems) do
-				if self:FilterSupport(gemId, gemData) and not added[gemId] and ((" "..gemData.name:lower()):match(pattern) or altQualMap[self:GetQualityType(gemId)]:lower():match(pattern)) then
+				if self:FilterSupport(gemId, gemData) and not added[gemId] and ((" "..gemData.name:lower()):match(pattern)) then
 					addThisGem = true
 					if #tagsList > 0 then
 						for _, tag in ipairs(tagsList) do
@@ -258,12 +252,11 @@ function GemSelectClass:UpdateSortCache()
 		and sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel
 		and (sortCache.characterLevel == self.skillsTab.build.characterLevel or self.skillsTab.defaultGemLevel ~= "characterLevel")
 		and sortCache.defaultQuality == self.skillsTab.defaultGemQuality and sortCache.sortType == self.skillsTab.sortGemsByDPSField
-		and sortCache.considerAlternates == self.skillsTab.showAltQualityGems and sortCache.considerGemType == self.skillsTab.showSupportGemTypes
-		and sortCache.showLegacyGems == self.skillsTab.showLegacyGems then
+		and sortCache.considerGemType == self.skillsTab.showSupportGemTypes and sortCache.showLegacyGems == self.skillsTab.showLegacyGems then
 		return
 	end
 
-	if not sameSortBy or not sortCache or (sortCache.considerAlternates ~= self.skillsTab.showAltQualityGems or sortCache.considerGemType ~= self.skillsTab.showSupportGemTypes
+	if not sameSortBy or not sortCache or (sortCache.considerGemType ~= self.skillsTab.showSupportGemTypes
 		or sortCache.showLegacyGems ~= self.skillsTab.showLegacyGems
 		or sortCache.defaultQuality ~= self.skillsTab.defaultGemQuality
 		or sortCache.defaultLevel ~= self.skillsTab.defaultGemLevel
@@ -275,7 +268,6 @@ function GemSelectClass:UpdateSortCache()
 	-- Initialize a new sort cache
 	sortCache = {
 		considerGemType = self.skillsTab.showSupportGemTypes,
-		considerAlternates = self.skillsTab.showAltQualityGems,
 		showLegacyGems = self.skillsTab.showLegacyGems,
 		socketGroup = self.skillsTab.displayGroup,
 		gemInstance = self.skillsTab.displayGroup.gemList[self.index],
@@ -470,9 +462,6 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 				end
 			end
 			local gemText = gemData and gemData.name or "<No matches>"
-			if gemId and gemId ~= "" then
-				gemText = altQualMap[self:GetQualityType(gemId)] .. gemText
-			end
 			DrawString(0, y, "LEFT", height - 4, "VAR", gemText)
 			if gemData then
 				if gemData.grantedEffect.support and self.sortCache.canSupport[gemId] then
@@ -598,7 +587,7 @@ function GemSelectClass:AddGemTooltip(gemInstance)
 	if secondary and (not secondary.support or gemInstance.gemData.secondaryEffectName) then
 		local grantedEffect = gemInstance.gemData.VaalGem and secondary or primary
 		local grantedEffectSecondary = gemInstance.gemData.VaalGem and primary or secondary
-		self.tooltip:AddLine(fontSizeTitle, colorCodes.GEM .. altQualMap[gemInstance.qualityId]..grantedEffect.name, "FONTIN SC")
+		self.tooltip:AddLine(fontSizeTitle, colorCodes.GEM..grantedEffect.name, "FONTIN SC")
 		self.tooltip:AddSeparator(10)
 		self.tooltip:AddLine(fontSizeBig, "^x7F7F7F" .. gemInstance.gemData.tagString, "FONTIN SC")
 		self:AddCommonGemInfo(gemInstance, grantedEffect, true)
@@ -608,7 +597,7 @@ function GemSelectClass:AddGemTooltip(gemInstance)
 		self:AddCommonGemInfo(gemInstance, grantedEffectSecondary)
 	else
 		local grantedEffect = gemInstance.gemData.grantedEffect
-		self.tooltip:AddLine(fontSizeTitle, colorCodes.GEM .. altQualMap[gemInstance.qualityId]..grantedEffect.name, "FONTIN SC")
+		self.tooltip:AddLine(fontSizeTitle, colorCodes.GEM..grantedEffect.name, "FONTIN SC")
 		self.tooltip:AddSeparator(10)
 		if grantedEffect.legacy then
 			self.tooltip:AddLine(fontSizeTitle, colorCodes.WARNING .. "Legacy Gem", "FONTIN SC")
