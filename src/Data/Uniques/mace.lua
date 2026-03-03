@@ -27,8 +27,8 @@ Requires Level 66, 212 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2}15% reduced Enemy Stun Threshold
-(150-200)% increased Physical Damage
 Adds (5-10) to (15-23) Physical Damage
+(150-200)% increased Physical Damage
 (15-25)% reduced Enemy Stun Threshold with this Weapon
 Cannot Knock Enemies Back
 All Attack Damage Chills when you Stun
@@ -44,8 +44,8 @@ Implicits: 2
 (140-180)% increased Physical Damage
 Adds (10-20) to (30-50) Cold Damage
 (15-40)% increased Critical Strike Chance
-40% increased Rarity of Items Dropped by Frozen Enemies
 (30-40)% increased Cold Damage with Attack Skills
+40% increased Rarity of Items Dropped by Frozen Enemies
 ]],[[
 Cameria's Avarice
 Gavel
@@ -53,12 +53,12 @@ Source: Vendor Recipe
 Requires Level 60, 212 Str
 Implicits: 1
 15% reduced Enemy Stun Threshold
-Trigger Level 20 Icicle Burst when you Hit a Frozen Enemy
 (140-180)% increased Physical Damage
 Adds (11-14) to (17-21) Physical Damage
 (15-40)% increased Critical Strike Chance
 40% increased Rarity of Items Dropped by Frozen Enemies
 (30-40)% increased Cold Damage with Attack Skills
+Trigger Level 20 Icicle Burst when you Hit a Frozen Enemy
 ]],[[
 Clayshaper
 Rock Breaker
@@ -74,8 +74,8 @@ Adds (24-30) to (34-40) Physical Damage
 (8-10)% increased Attack Speed
 {variant:1,2}Minions have (20-30)% increased maximum Life
 +1 to maximum number of Summoned Golems
-{variant:3}Golems have (96-120) to (132-160) Added Attack Physical Damage
 {variant:1,2}Minions deal (5-8) to (12-16) Added Attack Physical Damage
+{variant:3}Golems have (96-120) to (132-160) Added Attack Physical Damage
 ]],[[
 Flesh-Eater
 Dream Mace
@@ -105,11 +105,11 @@ Implicits: 2
 {variant:2,3}15% reduced Enemy Stun Threshold
 {variant:1,2}Adds (16-22) to (26-32) Physical Damage
 {variant:3}Adds (26-32) to (36-42) Physical Damage
+{variant:1,2}Adds (16-22) to (26-32) Cold Damage
 {variant:3}Adds (26-32) to (36-42) Cold Damage
 (8-14)% increased Attack Speed
 +(40-50)% to Fire Resistance
 (35-50)% increased Chill Duration on Enemies
-{variant:1,2}Adds (16-22) to (26-32) Cold Damage
 Attacks with this Weapon deal double Damage to Chilled Enemies
 ]],[[
 Replica Frostbreath
@@ -150,16 +150,16 @@ Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2,3}10% reduced Enemy Stun Threshold
 {variant:3}(160-200)% increased Physical Damage
-{variant:1,2}(130-160)% increased Physical Damage
 {variant:1,2}+(10-20) to maximum Life
-{variant:3}+70 to maximum Life
 {variant:1,2}+(10-20) to maximum Mana
+{variant:3}+70 to maximum Life
 {variant:3}+70 to maximum Mana
+{variant:1,2}(130-160)% increased Physical Damage
 5% reduced Movement Speed
-{variant:3}(15-25)% increased Area of Effect
-{variant:3}(10-20)% increased Area Damage
 {variant:1,2}10% increased Area of Effect of Area Skills
+{variant:3}(15-25)% increased Area of Effect
 {variant:1,2}(10-15)% increased Area Damage
+{variant:3}(10-20)% increased Area Damage
 ]],[[
 Mjölner
 Gavel
@@ -172,16 +172,15 @@ Requires Level 60, 412 Str, 300 Int
 Implicits: 2
 {variant:1,2,3}40% increased Stun Duration on Enemies
 {variant:4,5}15% reduced Enemy Stun Threshold
-{variant:3,4,5}Trigger a Socketed Lightning Spell on Hit, with a 0.25 second Cooldown
-{variant:3,4,5}Socketed Lightning Spells have no Cost if Triggered
-+300 Intelligence Requirement
-+200 Strength Requirement
 (80-120)% increased Physical Damage
-{variant:5}(80-100)% increased Lightning Damage
 Skills Chain +1 times
 {variant:1,2,3,4}(30-40)% increased Lightning Damage with Attack Skills
+{variant:5}(80-100)% increased Lightning Damage
++200 Strength Requirement
++300 Intelligence Requirement
 {variant:1}50% chance to Cast a Socketed Lightning Spell on Hit
 {variant:2}30% chance to Cast a Socketed Lightning Spell on Hit
+{variant:3,4,5}Trigger a Socketed Lightning Spell on Hit, with a 0.25 second Cooldown
 {variant:1,2,3,4}Socketed Lightning Spells deal 100% increased Spell Damage if Triggered
 ]],[[
 Nebulis
@@ -196,8 +195,8 @@ Implicits: 1
 {variant:2}(80-120)% increased Implicit Modifier magnitudes
 (15-20)% increased Cast Speed
 {variant:1}(15-20)% increased Cold Damage per 1% Cold Resistance above 75%
-{variant:2}(5-10)% increased Elemental Damage per 1% Fire, Cold, or Lightning Resistance above 75%
 {variant:1}(15-20)% increased Lightning Damage per 1% Lightning Resistance above 75%
+{variant:2}(5-10)% increased Elemental Damage per 1% Fire, Cold, or Lightning Resistance above 75%
 ]],[[
 Replica Nebulis
 Void Sceptre
@@ -229,8 +228,8 @@ Gain (30-40)% of Physical Attack Damage as Extra Fire Damage
 1% reduced Elemental Damage taken from Hits per Endurance Charge
 Adds 5 to 8 Physical Damage per Endurance Charge
 +500 to Armour per Endurance Charge
-{variant:2}200 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
 {variant:1}400 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
+{variant:2}200 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
 ]],
 -- Weapon: Sceptre
 [[
@@ -258,11 +257,11 @@ Requires Level 10, 22 Str, 22 Int
 Implicits: 2
 {variant:1}10% increased Elemental Damage
 {variant:2}12% increased Elemental Damage
+(4-6)% increased Cast Speed
+(100-140)% increased Critical Strike Chance for Spells
 Adds (2-3) to (5-6) Fire Damage to Spells
 Adds (2-3) to (5-6) Cold Damage to Spells
 Adds 1 to (10-12) Lightning Damage to Spells
-(4-6)% increased Cast Speed
-(100-140)% increased Critical Strike Chance for Spells
 ]],[[
 Balefire
 Opal Sceptre
@@ -340,13 +339,13 @@ Implicits: 2
 {variant:1}10% increased Elemental Damage
 {variant:2,3,4}16% increased Elemental Damage
 20% increased Physical Damage
+{variant:1,2}Adds 15 to 25 Fire Damage against Ignited Enemies
 Adds (8-13) to (26-31) Physical Damage
+{variant:3}Adds 2 to 4 Fire Damage to Attacks per 10 Strength
+{variant:4}Adds 4 to 7 Fire Damage to Attacks with this Weapon per 10 Strength
 30% increased Fire Damage
 (15-20)% increased Attack Speed
 (30-40)% increased Critical Strike Chance
-{variant:4}Adds 4 to 7 Fire Damage to Attacks with this Weapon per 10 Strength
-{variant:1,2}Adds 15 to 25 Fire Damage against Ignited Enemies
-{variant:3}Adds 2 to 4 Fire Damage to Attacks per 10 Strength
 ]],[[
 Cerberus Limb
 Blood Sceptre
@@ -382,13 +381,13 @@ Implicits: 2
 {variant:2,3,4,5,6,7,8,9,10,11}22% increased Elemental Damage
 {variant:1,2,3,4,5}(30-50)% increased Global Damage
 {variant:6,7,8}(40-60)% increased Global Damage
-{variant:6,7,8,9,10,11}10% Global chance to Blind Enemies on hit
-{variant:1,2}Gain 1 Mana on Kill per Level
-{variant:1,2}Gain 1 Energy Shield on Kill per Level
-Enemies Blinded by you have Malediction
 {variant:9,10,11}+2 to Level of All Spell Skill Gems
 {variant:1,2,3,4,5}7% Global chance to Blind Enemies on hit
+{variant:6,7,8,9,10,11}10% Global chance to Blind Enemies on hit
 Blind does not affect your Chance to Hit
+Enemies Blinded by you have Malediction
+{variant:1,2}Gain 1 Mana on Kill per Level
+{variant:1,2}Gain 1 Energy Shield on Kill per Level
 {variant:3,4,6,7}+1 to maximum Life per Level
 {variant:9,10}+(1-2) to maximum Life per Level
 {variant:3,5,6,8}+1 to maximum Mana per Level
@@ -407,9 +406,9 @@ Implicits: 2
 {variant:2,3}26% increased Elemental Damage
 {variant:1,2}Adds (30-41) to (80-123) Physical Damage
 {variant:3}Adds (35-46) to (85-128) Physical Damage
+(20-50)% increased Critical Strike Chance
 30% chance to gain a Power Charge when you Stun
 Gain Unholy Might for 4 seconds on Critical Strike
-(20-50)% increased Critical Strike Chance
 ]],[[
 Doon Cuebiyari
 Vaal Sceptre
@@ -419,10 +418,10 @@ Requires Level 64, 113 Str, 113 Int
 Implicits: 2
 {variant:1}10% increased Elemental Damage
 {variant:2}32% increased Elemental Damage
-Socketed Gems are Supported by Level 30 Iron Will
 +(50-70) to Strength
 (15-18)% increased Cast Speed
 +(20-30) to maximum Mana
+Socketed Gems are Supported by Level 30 Iron Will
 1% increased Damage per 8 Strength when in Main Hand
 1% increased Armour per 16 Strength when in Off Hand
 ]],[[
@@ -464,8 +463,8 @@ Implicits: 1
 +(20-30) to all Attributes
 Minions deal (30-40)% increased Damage
 Raised Zombies Cover Enemies in Ash on Hit
-Raised Zombies have Avatar of Fire
 Raised Zombies take (15.0-30.0)% of their Maximum Life per second as Fire Damage
+Raised Zombies have Avatar of Fire
 ]],[[
 Maata's Teaching
 Karui Sceptre
@@ -473,6 +472,7 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 56, 96 Str, 96 Int
 Implicits: 1
+26% increased Elemental Damage
 +(30-40) to Intelligence
 {variant:1}(25-50)% increased Critical Strike Chance
 {variant:2}(15-30)% increased Critical Strike Chance
@@ -491,16 +491,16 @@ Implicits: 2
 {variant:1,2}15% increased Elemental Damage
 {variant:3,4,5}40% increased Elemental Damage
 50% reduced maximum number of Raised Zombies
+{variant:1}Raised Zombies have +500 to maximum Life
+{variant:2,3}Raised Zombies have +2000 to maximum Life
 {variant:4,5}Raised Zombies have +5000 to maximum Life
 Raised Zombies have +(25-30)% to all Resistances
 25% increased Raised Zombie Size
-{variant:5}Enemies Killed by Zombies' Hits Explode, dealing 50% of their Life as Fire Damage
-{variant:5}Raised Zombies deal (100-125)% more Physical Damage
-{variant:1}Raised Zombies have +500 to maximum Life
-{variant:2,3}Raised Zombies have +2000 to maximum Life
 {variant:1,2,3,4}Enemies Killed by Zombies' Hits Explode, dealing 20% of their Life as Fire Damage
+{variant:5}Enemies Killed by Zombies' Hits Explode, dealing 50% of their Life as Fire Damage
 {variant:1,2,3}Raised Zombies deal (80-100)% increased Physical Damage
 {variant:4}Raised Zombies deal (80-100)% more Physical Damage
+{variant:5}Raised Zombies deal (100-125)% more Physical Damage
 ]],[[
 Nycta's Lantern
 Crystal Sceptre
@@ -517,6 +517,7 @@ Implicits: 2
 {variant:1,2,3}Socketed Gems are Supported by Level 10 Added Fire Damage
 {variant:1,2,3}Socketed Gems are Supported by Level 10 Cold to Fire
 {variant:1,2,3,4}Socketed Gems are Supported by Level 10 Fire Penetration
+{variant:4}Socketed Gems deal 63 to 94 additional Fire Damage
 {variant:1,2,3,4}(20-30)% increased Spell Damage
 {variant:2,3,4,5}(150-200)% increased Physical Damage
 {variant:5}Adds (76-98) to (161-176) Fire Damage
@@ -524,7 +525,6 @@ Implicits: 2
 {variant:1,2,3,4}25% increased Light Radius
 {variant:5}50% increased Light Radius
 {variant:5}Battlemage
-{variant:4}Socketed Gems deal 63 to 94 additional Fire Damage
 ]],[[
 Sign of the Sin Eater
 Tyrant's Sekhem
@@ -532,8 +532,8 @@ League: Legion
 Requires Level 58, 99 Str, 99 Int
 Implicits: 1
 26% increased Elemental Damage
-Grants Level 30 Smite Skill
 +(10-30) to Strength and Intelligence
+Grants Level 30 Smite Skill
 Enemies inflict Elemental Ailments on you instead of nearby Allies
 ]],[[
 Singularity
@@ -550,8 +550,8 @@ Implicits: 2
 (14-18)% increased Cast Speed
 (6-8)% reduced Mana Cost of Skills
 Nearby Enemies are Hindered, with 25% reduced Movement Speed
-{variant:3}100% increased Damage with Hits and Ailments against Hindered Enemies
 {variant:1,2}(60-80)% increased Damage with Hits and Ailments against Hindered Enemies
+{variant:3}100% increased Damage with Hits and Ailments against Hindered Enemies
 ]],[[
 Spine of the First Claimant
 Iron Sceptre
@@ -565,8 +565,8 @@ Implicits: 2
 {variant:2,3}14% increased Elemental Damage
 (100-140)% increased Physical Damage
 40% increased Damage with Hits against Frozen Enemies
-{variant:3}+(25-35)% to Cold Damage over Time Multiplier
 (30-50)% increased Cold Damage
+{variant:3}+(25-35)% to Cold Damage over Time Multiplier
 (5-10)% increased Attack Speed
 (4-8)% increased Cast Speed
 5% chance to Freeze
@@ -581,12 +581,12 @@ Implicits: 2
 {variant:1,2}20% increased Elemental Damage
 {variant:3}30% increased Elemental Damage
 +1 to Level of Socketed Gems
-60% increased Intelligence Requirement
 (80-100)% increased Physical Damage
 (10-20)% increased Attack Speed
 {variant:1}5% increased Experience gain
 {variant:2,3}3% increased Experience gain
 20% increased Elemental Damage
+60% increased Intelligence Requirement
 ]],[[
 Yaomac's Accord
 Vaal Sceptre
@@ -647,12 +647,12 @@ Implicits: 2
 {variant:2,3}30% increased Stun Duration on Enemies
 +1 to Level of Socketed Melee Gems
 +1 to Level of Socketed Minion Gems
-20% reduced Strength Requirement
 {variant:1,2}(100-120)% increased Physical Damage
 {variant:3}(200-220)% increased Physical Damage
 25% increased maximum Mana
 Minions have (20-40)% increased maximum Life
 15% increased Skill Effect Duration
+20% reduced Strength Requirement
 ]],[[
 Chaber Cairn
 Great Mallet
@@ -680,7 +680,6 @@ Implicits: 2
 Adds 11 to 23 Cold Damage
 (10-20)% increased Stun Duration on Enemies
 Never deal Critical Strikes
-Nearby Enemies cannot deal Critical Strikes
 ]],[[
 Geofri's Devotion
 Brass Maul
@@ -694,11 +693,11 @@ Implicits: 2
 {variant:2,3}30% increased Stun Duration on Enemies
 Trigger Level 20 Elemental Warding on Melee Hit while Cursed
 200% increased Physical Damage
+{variant:1,2}Adds (50-56) to (73-78) Physical Damage
 {variant:3}Adds (42-47) to (66-71) Physical Damage
 Adds 11 to 23 Cold Damage
 (10-20)% increased Stun Duration on Enemies
 Never deal Critical Strikes
-{variant:1,2}Adds (50-56) to (73-78) Physical Damage
 ]],[[
 Hrimnor's Hymn
 Sledgehammer
@@ -708,8 +707,8 @@ Requires Level 17, 62 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2}45% increased Stun Duration on Enemies
-+10 to Strength
 (140-200)% increased Physical Damage
++10 to Strength
 15% reduced Enemy Stun Threshold
 1% of Physical Attack Damage Leeched as Life
 (40-50)% increased Stun Duration on Enemies
@@ -723,9 +722,9 @@ Requires Level 36, 62 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2}45% increased Stun Duration on Enemies
-+10 to Strength
 (140-200)% increased Physical Damage
 Adds (10-20) to (30-40) Physical Damage
++10 to Strength
 15% reduced Enemy Stun Threshold
 1% of Physical Attack Damage Leeched as Life
 (40-50)% increased Stun Duration on Enemies
@@ -764,8 +763,8 @@ Implicits: 3
 +(15-20)% to all Elemental Resistances
 Hits can't be Evaded
 Your Critical Strikes do not deal extra Damage
-{variant:3,4}You gain Onslaught for 4 seconds on Critical Strike
 {variant:1,2}You gain Onslaught for 2 seconds on Critical Strike
+{variant:3,4}You gain Onslaught for 4 seconds on Critical Strike
 ]],[[
 Replica Kongor's Undying Rage
 Terror Maul
@@ -798,17 +797,17 @@ Implicits: 3
 {variant:1,2,3,4}Socketed Gems are Supported by Level 15 Pulverise
 {variant:1,2}(220-250)% increased Physical Damage
 {variant:3}(230-260)% increased Physical Damage
+{variant:4}(200-230)% increased Physical Damage
+{variant:5}(400-500)% increased Physical Damage
 {variant:6}(500-600)% increased Physical Damage
+{variant:1,2}Adds 10 to 20 Physical Damage
 {variant:3,4}Adds 30 to 40 Physical Damage
 {variant:1,2,3,4}10% reduced Attack Speed
 {variant:5,6}25% reduced Attack Speed
 {variant:1,2,3,4}10% reduced Movement Speed
 (40-50)% increased Stun Duration on Enemies
-{variant:5,6}-500 to Accuracy Rating
-{variant:4}(200-230)% increased Physical Damage
-{variant:5}(400-500)% increased Physical Damage
-{variant:1,2}Adds 10 to 20 Physical Damage
 {variant:1,2,3,4}-100 to Accuracy Rating
+{variant:5,6}-500 to Accuracy Rating
 ]],[[
 Quecholli
 Jagged Maul
@@ -818,9 +817,9 @@ Requires Level 22, 77 Str
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2}30% increased Stun Duration on Enemies
-+(25-50) to all Attributes
 (80-100)% increased Physical Damage
 Adds 5 to 25 Physical Damage
++(25-50) to all Attributes
 Gain 10 Life per Enemy Killed
 Enemies killed explode dealing 10% of their Life as Fire Damage
 ]],[[
@@ -830,11 +829,11 @@ Source: No longer obtainable
 Requires Level 61, 77 Str
 Implicits: 1
 30% increased Stun Duration on Enemies
-+(25-50) to all Attributes
 (80-100)% increased Physical Damage
 Adds (94-98) to (115-121) Physical Damage
-Recover 5% of Life on Kill
++(25-50) to all Attributes
 Enemies killed explode dealing 10% of their Life as Fire Damage
+Recover 5% of Life on Kill
 ]],[[
 Serle's Masterwork
 Phantom Mace
@@ -846,10 +845,8 @@ Implicits: 1
 +(30-40) to Dexterity
 (150-250)% increased Physical Damage
 +(400-500) to Accuracy Rating
+Can have 2 additional Runesmithing Enchantments
 Can be Enchanted by a Kalguuran Runesmith
-Can have 2 additional Runesmithing Enchantments
-Can be Runesmithed as though it were all One Handed Melee Weapon Types
-Can have 2 additional Runesmithing Enchantments
 ]],[[
 Tawhoa's Felling
 Piledriver
@@ -870,14 +867,14 @@ Variant: Pre 3.11.0
 Variant: Current
 Requires Level 65, 212 Str
 Implicits: 2
-{variant:3}10% increased Strength
 {variant:1,2}30% increased Stun Duration on Enemies
+{variant:3}10% increased Strength
 Socketed Gems are Supported by Level 20 Endurance Charge on Melee Stun
-+40 to Intelligence
+{variant:1}Adds (60-70) to (300-350) Physical Damage
 {variant:2,3}Adds (70-80) to (340-375) Physical Damage
++40 to Intelligence
 10% increased Physical Damage per Endurance Charge
 (20-30)% reduced Enemy Stun Threshold with this Weapon
-{variant:1}Adds (60-70) to (300-350) Physical Damage
 ]],[[
 Trypanon
 Great Mallet
