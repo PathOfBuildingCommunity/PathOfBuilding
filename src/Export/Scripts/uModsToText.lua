@@ -2,18 +2,17 @@ if not table.containsId then
 	dofile("Scripts/mods.lua")
 end
 local catalystTags = {
-	["attack"] = true,
-	["speed"] = true,
-	["life"] = true,
-	["mana"] = true,
+	["elemental_damage"] = true,
 	["caster"] = true,
+	["attack"] = true,
+	["defenses"] = true,
+	["resource"] = true,
+	["resistance"] = true,
 	["attribute"] = true,
-	["physical"] = true,
-	["fire"] = true,
-	["cold"] = true,
-	["lightning"] = true,
-	["chaos"] = true,
-	["defences"] = true,
+	["physical_damage"] = true,
+	["chaos_damage"] = true,
+	["speed"] = true,
+	["critical"] = true,
 }
 local itemTypes = {
 	"axe",
@@ -96,7 +95,7 @@ for _, name in ipairs(itemTypes) do
 
 				local tags = {}
 				if mod then
-					if isValueInArray({"amulet", "ring"}, name) then
+					if isValueInArray({"amulet", "ring", "belt"}, name) then
 						for _, tag in ipairs(mod.modTags) do
 							if catalystTags[tag] then
 								table.insert(tags, tag)
