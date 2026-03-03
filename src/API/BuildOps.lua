@@ -181,7 +181,7 @@ function M.update_tree_delta(params)
 end
 
 
--- params: { addNodes?: number[], removeNodes?: number[], useFullDPS?: boolean }
+-- params: { addNodes?: number[], removeNodes?: number[], masteryEffects?: {[nodeId]: effectId}, useFullDPS?: boolean }
 function M.calc_with(params)
   if not build or not build.calcsTab then return nil, 'build not initialized' end
   local calcFunc, baseOut = build.calcsTab:GetMiscCalculator()
@@ -200,7 +200,23 @@ function M.calc_with(params)
       if n then override.removeNodes[n] = true end
     end
   end
+  -- Temporarily override mastery selections for simulation
+  local origMastery = nil
+  if params and type(params.masteryEffects) == 'table' then
+    origMastery = {}
+    for k, v in pairs(build.spec.masterySelections or {}) do
+      origMastery[k] = v
+    end
+    build.spec.masterySelections = build.spec.masterySelections or {}
+    for nodeId, effectId in pairs(params.masteryEffects) do
+      build.spec.masterySelections[tonumber(nodeId)] = effectId
+    end
+  end
   local out = calcFunc(override, params and params.useFullDPS)
+  -- Restore original mastery selections
+  if origMastery then
+    build.spec.masterySelections = origMastery
+  end
   return out, baseOut
 end
 
@@ -669,6 +685,74 @@ function M.save_build(params)
   return { path = params.path, size = #xml }
 end
 
+function M.list_specs()
+  if not build or not build.treeTab then return nil, 'build/treeTab not initialized' end
+  local specs = {}
+  for i, spec in ipairs(build.treeTab.specList or {}) do
+    local nodeCount = 0
+    for _ in pairs(spec.allocNodes or {}) do nodeCount = nodeCount + 1 end
+    table.insert(specs, {
+      index = i,
+      title = spec.title or ('Spec ' .. i),
+      active = (i == build.treeTab.activeSpec),
+      className = spec.curClassName,
+      ascendClassName = spec.curAscendClassName,
+      treeVersion = spec.treeVersion,
+      nodeCount = nodeCount,
+    })
+  end
+  return { specs = specs, activeSpec = build.treeTab.activeSpec }
+end
+
+function M.select_spec(params)
+  if not build or not build.treeTab then return nil, 'build/treeTab not initialized' end
+  if type(params) ~= 'table' then return nil, 'invalid params' end
+  local index = tonumber(params.index)
+  local specCount = #(build.treeTab.specList or {})
+  if not index or not build.treeTab.specList[index] then
+    return nil, string.format('spec index %s not found (valid range: 1-%d)', tostring(params.index), specCount)
+  end
+  build.treeTab:SetActiveSpec(index)
+  M.get_main_output()
+  return M.list_specs()
+end
+
+function M.list_item_sets()
+  if not build or not build.itemsTab then return nil, 'build/itemsTab not initialized' end
+  local sets = {}
+  for _, id in ipairs(build.itemsTab.itemSetOrderList or {}) do
+    local itemSet = build.itemsTab.itemSets[id]
+    if itemSet then
+      table.insert(sets, {
+        id = id,
+        title = itemSet.title or ('Item Set ' .. id),
+        active = (id == build.itemsTab.activeItemSetId),
+        useSecondWeaponSet = itemSet.useSecondWeaponSet == true,
+      })
+    end
+  end
+  return { itemSets = sets, activeItemSetId = build.itemsTab.activeItemSetId }
+end
+
+function M.select_item_set(params)
+  if not build or not build.itemsTab then return nil, 'build/itemsTab not initialized' end
+  if type(params) ~= 'table' then return nil, 'invalid params' end
+  local id = tonumber(params.id)
+  if not id or not build.itemsTab.itemSets[id] then
+    return nil, string.format('item set id %s not found', tostring(params.id))
+  end
+  build.itemsTab:SetActiveItemSet(id)
+  if build.itemsTab.PopulateSlots then
+    build.itemsTab:PopulateSlots()
+  end
+  if build.configTab and build.configTab.BuildModList then
+    build.configTab:BuildModList()
+  end
+  M.get_main_output()
+  return M.list_item_sets()
+end
+
+
 -- params: { keyword: string, nodeType?: string ('normal'|'notable'|'keystone'), maxResults?: number, includeAllocated?: boolean }
 function M.search_nodes(params)
   if not build or not build.spec then return nil, 'build/spec not initialized' end
@@ -782,5 +866,34 @@ function M.search_nodes(params)
 
   return { nodes = results, count = #results }
 end
+
+-- Returns all allocated mastery nodes and the available effect options for each.
+-- Output: { masteries: [ { nodeId, nodeName, allocatedEffect, availableEffects: [{effectId, stat}] } ] }
+function M.get_mastery_options()
+  if not build or not build.spec then
+    return nil, 'build/spec not initialized'
+  end
+  local spec = build.spec
+  local result = {}
+  for nodeId, _ in pairs(spec.allocNodes or {}) do
+    local node = spec.nodes[nodeId]
+    if node and node.isMastery and node.masteryEffects then
+      local allocated = spec.masterySelections and spec.masterySelections[nodeId]
+      local available = {}
+      for effectId, effectData in pairs(node.masteryEffects) do
+        local stat = effectData.sd and table.concat(effectData.sd, ', ') or tostring(effectId)
+        table.insert(available, { effectId = effectId, stat = stat })
+      end
+      table.insert(result, {
+        nodeId = nodeId,
+        nodeName = node.name or 'Mastery',
+        allocatedEffect = allocated,
+        availableEffects = available,
+      })
+    end
+  end
+  return { masteries = result }
+end
+
 
 return M
