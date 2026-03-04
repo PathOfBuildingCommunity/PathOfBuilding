@@ -200,7 +200,7 @@ Implicits: 1
 {variant:3}LocalAddedPhysicalDamageUniqueTwoHandAxe7
 LocalIncreasedAttackSpeedUniqueTwoHandAxe7
 CausesBleedingUniqueOneHandAxe5
-{variant:1,2}LocalIncreasedMeleeWeaponRangeUniqueTwoHandAxe7_[.2,.2]
+{variant:1,2}LocalIncreasedMeleeWeaponRangeUniqueTwoHandAxe7_[2,2]
 {variant:3}LocalIncreasedMeleeWeaponRangeUniqueTwoHandAxe7_
 ]],[[
 The Blood Reaper

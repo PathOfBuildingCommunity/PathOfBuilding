@@ -269,7 +269,7 @@ Variant: Current
 Requires Level 60, 212 Dex
 LocalAddedColdDamageUnique__8
 MovementVelocityPerFrenzyChargeUnique__1
-AccuracyAgainstBleedingEnemiesUnique__1
+{variant:1}AccuracyAgainstBleedingEnemiesUnique__1
 {variant:2}LocalIncreasedAccuracyUnique__2
 AddedColdDamagePerFrenzyChargeUnique__1
 AvoidElementalDamagePerFrenzyChargeUnique__1
@@ -376,7 +376,7 @@ AddedChaosDamageUniqueBow12
 LocalIncreasedAttackSpeedUniqueBow12
 ChaosResistUniqueBow12
 {variant:1}Minions deal 1% increased Damage per 10 Dexterity
-{variant:2}IncreasedMinionDamagePerDexterityUniqueBow12[2,2]
+{variant:2}IncreasedMinionDamagePerDexterityUniqueBow12[1,1]
 {variant:3}IncreasedMinionDamagePerDexterityUniqueBow12
 IntelligenceRequirementsUniqueBow12
 CastSocketedMinionSpellsOnKillUniqueBow12
@@ -411,8 +411,8 @@ DexterityUniqueBow4
 LocalIncreasedAttackSpeedUniqueBow4
 IncreasedAccuracyUniqueBow4
 ProjectileSpeedUniqueBow4_
-{variant:1}LocalIncreasedPhysicalDamagePercentUniqueBow4[50,50]
-{variant:2}LocalIncreasedPhysicalDamagePercentUniqueBow4[40,40]
+{variant:1}LocalIncreasedPhysicalDamagePercentUniqueBow4[-50,-50]
+{variant:2}LocalIncreasedPhysicalDamagePercentUniqueBow4[-40,-40]
 {variant:3}LocalIncreasedPhysicalDamagePercentUniqueBow4
 {variant:2,3}ManaGainPerTargetUnique__2
 ]],[[
@@ -623,7 +623,7 @@ Requires Level 64, 185 Dex
 {variant:4}LocalIncreasedPhysicalDamagePercentUnique__38
 ConvertPhysicalToFireUnique__1
 ChanceToIgniteUnique__2
-{variant:1}GlobalIgniteProlifUnique__1[1.2,1.2]
+{variant:1}GlobalIgniteProlifUnique__1[12,12]
 {variant:2}GlobalIgniteProlifUnique__1
 GainLifeOnIgnitingEnemyUnique__1
 ]],

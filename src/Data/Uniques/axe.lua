@@ -200,8 +200,8 @@ Implicits: 1
 {variant:3}Adds (310-330) to (370-390) Physical Damage
 (12-16)% increased Attack Speed
 25% chance to cause Bleeding on Hit
-{variant:1,2}+2 to Weapon Range
-{variant:3}+10 to Weapon Range
+{variant:1,2}+0.2 metres to Weapon Range
+{variant:3}+1 metres to Weapon Range
 ]],[[
 The Blood Reaper
 Headsman Axe
@@ -222,9 +222,9 @@ Debeon's Dirge
 Despot Axe
 Implicits: 0
 Adds (310-350) to (460-500) Cold Damage
+15% increased Movement Speed if you've Warcried Recently
+150% increased Elemental Damage if you've Warcried Recently
 Warcries Knock Back and Interrupt Enemies in a smaller Area
-15% increased Movement Speed if you've used a Warcry Recently
-150% increased Elemental Damage if you've used a Warcry Recently
 ]],[[
 The Harvest
 Jasper Chopper
@@ -410,8 +410,8 @@ Implicits: 1
 Trigger Level 20 Bone Nova when you Hit a Bleeding Enemy
 (280-320)% increased Physical Damage
 (25-30)% reduced Attack Speed
+{variant:3}25% chance to cause Bleeding on Hit
 {variant:1,2}Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
-{variant:3}Attacks have 25% chance to inflict Bleeding
 ]],[[
 Wideswing
 Poleaxe
@@ -424,7 +424,7 @@ Socketed Gems are Supported by Level 20 Increased Area of Effect
 Gain 10 Mana per Enemy Killed
 {variant:1}+(50-80) to Accuracy Rating
 {variant:2}+(120-150) to Accuracy Rating
-+2 to Weapon Range
++0.2 metres to Weapon Range
 ]],[[
 Replica Wings of Entropy
 Ezomyte Axe
