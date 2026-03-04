@@ -5,7 +5,7 @@ end
 -- Note that these will be normally commented out to prevent accidental legacy mod wording loss on export
 -- (before legacy mods have been added to the uniques in src/Data)
 local itemTypes = {
-	"axe",
+	-- "axe",
 	-- "bow",
 	-- "claw",
 	-- "dagger",
