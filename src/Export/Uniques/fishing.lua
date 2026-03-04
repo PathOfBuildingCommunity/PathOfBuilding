@@ -10,7 +10,7 @@ Variant: Current
 Requires 8 Str, 8 Dex
 IncreasedCastSpeedUnique__3
 FishingLureTypeUnique__1__
-{variant:1}(30-40)% increased Quantity of Fish Caught
+{variant:1}FishingQuantityUnique__1[30,40]
 {variant:2}FishingQuantityUnique__1
 FishDetectionUnique__1_
 ]],[[

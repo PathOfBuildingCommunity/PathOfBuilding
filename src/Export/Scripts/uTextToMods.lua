@@ -137,8 +137,8 @@ for _, name in pairs(itemTypes) do
 				table.sort(possibleMods, function(a, b)
 					-- Strongly prefer already used mods for variant purposes
 					if itemUsedMods[a] == itemUsedMods[b] then
-						if usedMods[a] == usedMods[b] and (not a:match("Implicit")) and (not b:match("Implicit")) then
-							-- Used or not, they aren't implicits, so prefer the mod with the item type
+						if usedMods[a] == usedMods[b] then
+							-- Used or not, prefer the mod with the item type
 							-- This doesn't really work for energy shield mods on shields, but it's a start
 							if a:lower():match(name) == b:lower():match(name) then
 								if a:lower():match(name) then
@@ -158,12 +158,11 @@ for _, name in pairs(itemTypes) do
 							end
 						else
 							-- Unused or item-appropriate implicit should come first
-							if usedMods[a] or (a:match("Implicit") and a:lower():match(name)) then
-								if usedMods[b] or (b:match("Implicit") and b:lower():match(name)) then
-									return a:lower() < b:lower()
-								end
-								return true
+							if (a:match("Implicit") and a:lower():match(name)) and (b:match("Implicit") and b:lower():match(name)) then
+								-- All bets are off
+								return a:lower() < b:lower()
 							end
+							return (not usedMods[a]) or (a:match("Implicit") and a:lower():match(name))
 						end
 					else
 						return itemUsedMods[a] ~= nil
