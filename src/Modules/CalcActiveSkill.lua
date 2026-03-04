@@ -759,6 +759,10 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 					end
 				end
 			end
+			-- handles animate weapon of self reflection when using energy blade
+			if activeEffect.grantedEffect.id == "AnimateWeaponAltX" and env.modDB.conditions["AffectedByEnergyBlade"] then
+				minion.weaponData1 = env.player.weaponData1
+			end
 		end
 	elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then
 		activeEffect.srcInstance.skillMinionCalcs = nil
