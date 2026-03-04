@@ -137,32 +137,30 @@ for _, name in pairs(itemTypes) do
 				table.sort(possibleMods, function(a, b)
 					-- Strongly prefer already used mods for variant purposes
 					if itemUsedMods[a] == itemUsedMods[b] then
-						if usedMods[a] == usedMods[b] then
-							-- Used or not, prefer the mod with the item type
-							-- This doesn't really work for energy shield mods on shields, but it's a start
-							if a:lower():match(name) == b:lower():match(name) then
-								if a:lower():match(name) then
-									-- Both are for this item type or the mod probably has energy shield and is on a shield
-									return a:lower() < b:lower()
-								else
-									-- Last ditch effort to loop through the item types and sort types that aren't this one lower
-									for _, itemType in ipairs(itemTypesTemp) do
-										if a:lower():match(itemType) then
-											return false
-										end
-									end
-									return a:lower() < b:lower()
+						-- Used or not, prefer the mod with the item type
+						-- This doesn't really work for energy shield mods on shields, but it's a start
+						if a:lower():match(name) == b:lower():match(name) then
+							-- Sort types that aren't this one lower
+							for _, itemType in ipairs(itemTypesTemp) do
+								if a:lower():match(itemType) and not b:lower():match(itemType) then
+									return false
 								end
+							end
+							-- No item types in the names, or they had identical item types
+							-- Implicits preferred
+							if (a:match("Implicit") and a:lower():match(name)) and not (b:match("Implicit") and b:lower():match(name)) then
+								return true
+							elseif (b:match("Implicit") and b:lower():match(name)) and not (a:match("Implicit") and a:lower():match(name)) then
+								return false
+							end
+							-- No implicits, so prefer unused
+							if usedMods[a] == usedMods[b] then
+								return a:lower() < b:lower()
 							else
-								return a:lower():match(name) ~= nil
+								return not usedMods[a]
 							end
 						else
-							-- Unused or item-appropriate implicit should come first
-							if (a:match("Implicit") and a:lower():match(name)) and (b:match("Implicit") and b:lower():match(name)) then
-								-- All bets are off
-								return a:lower() < b:lower()
-							end
-							return (not usedMods[a]) or (a:match("Implicit") and a:lower():match(name))
+							return a:lower():match(name) ~= nil
 						end
 					else
 						return itemUsedMods[a] ~= nil
