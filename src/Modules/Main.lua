@@ -236,6 +236,9 @@ function main:Init()
 	self.controls.dismissToast = new("ButtonControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, {0, function() return -self.mainBarHeight + self.toastHeight end, 80, 20}, "Dismiss", function()
 		self.toastMode = "HIDING"
 		self.toastStart = GetTime()
+		if self.toastMessages[1]:match("^Building Power Report") then
+			self.toastMessages[1] = "Cancelling"
+		end
 	end)
 	self.controls.dismissToast.shown = function()
 		return self.toastMode == "SHOWN"
@@ -386,6 +389,9 @@ function main:OnFrame()
 
 	-- Run toasts
 	if self.toastMessages[1] then
+		if self.toastMessages[1]:match("^Building Power Report") then
+			self.controls.dismissToast.label = "Cancel"
+		end
 		if not self.toastMode then
 			self.toastMode = "SHOWING"
 			self.toastStart = GetTime()

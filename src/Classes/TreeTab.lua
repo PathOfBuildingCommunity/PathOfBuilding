@@ -207,7 +207,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		self.controls.treeHeatMapStatSelect.shown = state
 
 		if state == false then
-			self.controls.powerReportList.shown = false 
+			self.controls.powerReportList.shown = false
 		end
 	end)
 
@@ -302,12 +302,17 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 
 		self.controls.powerReportList.label = message
 		self.lastProgressToastUpdate = now
-		local toastIndex = findToastIndex("^Building Power Report")
+		local toastIndex = findToastIndex("^Cancelling")
 		if toastIndex then
-			main.toastMessages[toastIndex] = message
+			self.viewer.showHeatMap = false
 		else
-			t_insert(main.toastMessages, message)
-			self.powerBuilderToastActive = true
+			toastIndex = findToastIndex("^Building Power Report")
+			if toastIndex then
+				main.toastMessages[toastIndex] = message
+			else
+				t_insert(main.toastMessages, message)
+				self.powerBuilderToastActive = true
+			end
 		end
 	end
 	-- Completion callback from the CalcsTab power builder coroutine
