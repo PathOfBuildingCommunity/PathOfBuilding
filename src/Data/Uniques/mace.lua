@@ -386,7 +386,7 @@ Implicits: 2
 {variant:1,2,3,4,5}(30-50)% increased Global Damage
 {variant:6,7,8}(40-60)% increased Global Damage
 {variant:9,10,11}+2 to Level of all Spell Skill Gems
-{variant:1,2,3,4,5}7000% Global chance to Blind Enemies on hit
+{variant:1,2,3,4,5}7% Global chance to Blind Enemies on hit
 {variant:6,7,8,9,10,11}10% Global chance to Blind Enemies on hit
 {variant:1,2}Gain 1 Mana on Kill per Level
 {variant:1,2}Gain 1 Energy Shield on Kill per Level
@@ -684,7 +684,6 @@ Implicits: 2
 Adds 11 to 23 Cold Damage
 (10-20)% increased Stun Duration on Enemies
 Never deal Critical Strikes
-Nearby Enemies cannot deal Critical Strikes
 ]],[[
 Geofri's Devotion
 Brass Maul
@@ -768,7 +767,7 @@ Implicits: 3
 +(15-20)% to all Elemental Resistances
 Hits can't be Evaded
 Your Critical Strikes do not deal extra Damage
-{variant:1,2}You gain Onslaught for 0.002 seconds on Critical Strike
+{variant:1,2}You gain Onslaught for 2 seconds on Critical Strike
 {variant:3,4}You gain Onslaught for 4 seconds on Critical Strike
 ]],[[
 Replica Kongor's Undying Rage
@@ -807,7 +806,7 @@ Implicits: 3
 {variant:6}(500-600)% increased Physical Damage
 {variant:1,2}Adds 10 to 20 Physical Damage
 {variant:3,4}Adds 30 to 40 Physical Damage
-{variant:1,2,3,4}10% increased Attack Speed
+{variant:1,2,3,4}10% reduced Attack Speed
 {variant:5,6}25% reduced Attack Speed
 {variant:1,2,3,4}10% reduced Movement Speed
 (40-50)% increased Stun Duration on Enemies
