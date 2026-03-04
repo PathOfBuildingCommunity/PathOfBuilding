@@ -9,12 +9,12 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 46, 80 Dex, 80 Int
 Implicits: 2
-{variant:1}Grants 21 Life per Enemy Hit
+{variant:1}LifeGainPerTargetImplicit2Claw8[21,21]
 {variant:2}LifeGainPerTargetImplicit2Claw8
 SocketedGemsSupportedByFortifyUnique____1
 LocalIncreasedPhysicalDamagePercentUniqueClaw6
 IncreasedEvasionRatingUnique___1
-IncreasedLifeUnique__8
+IncreasedLifeUnique__107
 IncreasedEnergyShieldUnique__2
 AttackerTakesDamageShieldImplicit7
 AdditionalBlockUnique__2
@@ -29,7 +29,7 @@ LifeGainPerTargetImplicit2Claw8
 SupportedByCastOnDamageTakenUnique__1
 AdditionalBlockUnique__2
 LocalIncreasedPhysicalDamagePercentUniqueClaw6
-IncreasedLifeUnique__11
+IncreasedLifeUnique__107
 ShieldArmourIncreaseUnique__1
 AddedFireDamageIfBlockedRecentlyUnique__1
 ]],[[
@@ -40,12 +40,12 @@ Variant: Current
 Requires Level 66, 131 Dex, 95 Int
 Implicits: 1
 LifeLeechPermyriadImplicitClaw2
-{variant:1}LocalIncreasedPhysicalDamagePercentUniqueClaw4
+{variant:1}LocalIncreasedPhysicalDamagePercentUnique__1[80,100]
 {variant:2}LocalIncreasedPhysicalDamagePercentUnique__1
 LocalAddedPhysicalDamageUnique__1
-IncreasedAttackSpeedUniqueQuiver5
+IncreasedAttackSpeedUnique__5
 MovementSpeedWhilePhasedUnique__1
-{variant:1}You gain Phasing for 3 seconds on using a Vaal Skill
+{variant:1}GainPhasingOnVaalSkillUseUnique__1[3000,3000]
 {variant:2}GainPhasingOnVaalSkillUseUnique__1
 ]],[[
 Replica Allure
@@ -57,7 +57,7 @@ Implicits: 1
 LifeLeechPermyriadImplicitClaw2
 LocalIncreasedPhysicalDamagePercentUnique__1
 LocalAddedPhysicalDamageUnique__1
-IncreasedAttackSpeedUniqueQuiver7
+IncreasedAttackSpeedUnique__5
 LifeGainedOnTauntingEnemyUnique__1
 OnslaughtOnKillingTauntedEnemyUnique__1
 TauntedEnemiesTakeIncreasedDamage_
@@ -73,17 +73,17 @@ Variant: Pre 3.11.0
 Variant: Current
 Requires Level 26, 39 Dex, 56 Int
 Implicits: 3
-{variant:1}LifeGainPerTargetImplicit2Claw3_1
+{variant:1}LifeGainPerTargetImplicit2Claw4_1[8,8]
 {variant:2}LifeLeechPermyriadImplicitClaw2
 {variant:3,4,5,6}LifeGainPerTargetImplicit2Claw4_1
 {variant:1,2,3,4}SocketedItemsHaveChanceToFleeUniqueClaw6
 {variant:4,5}TriggeredAbyssalCryUnique__1
-{variant:1}LocalIncreasedPhysicalDamagePercentUniqueOneHandSword13
+{variant:1}LocalIncreasedPhysicalDamagePercentUniqueClaw6[60,80]
 {variant:2,3,4,5,6}LocalIncreasedPhysicalDamagePercentUniqueClaw6
 LifeLeechPermyriadUniqueClaw6
 {variant:1,2,3,4}StunThresholdReductionUniqueClaw6
 {variant:6}WarcryTauntChaosExplosionUnique__1_
-{variant:5}50% increased Warcry Buff Effect
+{variant:5}WarcryEffectUnique__1[50,50]
 {variant:6}WarcryEffectUnique__1
 {variant:5,6}WarcryCooldownIs2SecondsUnique__1
 ]],[[
@@ -95,10 +95,10 @@ Variant: Current
 Requires Level 62, 131 Dex, 95 Int
 Implicits: 1
 LifeLeechPermyriadImplicitClaw1
-{variant:1}LocalIncreasedPhysicalDamagePercentUniqueClaw6
-{variant:2}LocalIncreasedPhysicalDamagePercentUnique__28__
+{variant:1}LocalIncreasedPhysicalDamagePercentUniqueClaw3[100,120]
+{variant:2}LocalIncreasedPhysicalDamagePercentUniqueClaw3[150,170]
 {variant:3}LocalIncreasedPhysicalDamagePercentUniqueClaw3
-{variant:1,2}Adds 10 to 12 Physical Damage
+{variant:1,2}LocalAddedPhysicalDamageUniqueClaw3[10,10][12,12]
 {variant:3}LocalAddedPhysicalDamageUniqueClaw3
 LocalIncreasedAttackSpeedUniqueClaw3
 LifeLeechPermyriadUniqueClaw3
@@ -113,15 +113,15 @@ Variant: Pre 3.19.0
 Variant: Current
 Requires Level 37, 53 Dex, 77 Int
 Implicits: 3
-{variant:1}LifeAndManaOnHitSeparatedImplicitMarakethClaw1
-{variant:2}Grants 21 Life per Enemy Hit
+{variant:1}LifeGainPerTargetImplicit2Claw6[15,15]
+{variant:2}LifeGainPerTargetImplicit2Claw6[21,21]
 {variant:3,4}LifeGainPerTargetImplicit2Claw6
-{variant:1,2,3}IncreasedCastSpeedUniqueStaff12
+{variant:1,2,3}IncreasedCastSpeedUniqueClaw7[8,12]
 {variant:4}IncreasedCastSpeedUniqueClaw7
 IncreasedManaUniqueClaw7
-{variant:1,2,3}Gain (5-8) Life per Enemy Hit with Spells
+{variant:1,2,3}LifeGainedOnSpellHitUniqueClaw7[5,8]
 {variant:4}LifeGainedOnSpellHitUniqueClaw7
-{variant:1}6% increased Spell Damage per 5% Chance to Block Attack Damage
+{variant:1}IncreasedSpellDamagePerBlockChanceUniqueClaw7[6,6]
 {variant:2,3,4}IncreasedSpellDamagePerBlockChanceUniqueClaw7
 ]],[[
 Essentia Sanguis
@@ -135,21 +135,21 @@ Variant: Pre 3.20.0
 Variant: Current
 Implicits: 3
 {variant:1,2}LifeLeechPermyriadUnique__4
-{variant:3}Grants 31 Life per Enemy Hit
+{variant:3}LifeGainPerTargetImplicit2Claw12[31,31]
 {variant:4,5,6}LifeLeechPermyriadImplicitClaw2
 {variant:1}+10% Chance to Block Attack Damage while Dual Wielding Claws
 {variant:2,3,4,5,6}BlockWhileDualWieldingClawsUniqueClaw1
-{variant:1}LocalIncreasedPhysicalDamagePercentUniqueSceptre5
+{variant:1}LocalIncreasedPhysicalDamagePercentUniqueClaw1[80,120]
 {variant:2,3,4,5}LocalIncreasedPhysicalDamagePercentUniqueClaw1
-{variant:1}Adds 1 to 50 Lightning Damage
-{variant:2,3}Adds 1 to 80 Lightning Damage
-{variant:4,5}Adds 1 to 200 Lightning Damage
+{variant:1}AddedLocalLightningDamageUniqueClaw1[1,1][50,50]
+{variant:2,3}AddedLocalLightningDamageUniqueClaw1[1,1][80,80]
+{variant:4,5}AddedLocalLightningDamageUniqueClaw1[1,1][200,200]
 {variant:6}AddedLocalLightningDamageUniqueClaw1
 LocalIncreasedAttackSpeedUniqueClaw1
 IncreasedEnergyShieldUniqueClaw1
 {variant:1,2,3,4}LeechEnergyShieldInsteadofLife
 {variant:5}MaximumESLeechAmountUnique__1_
-{variant:5,6}VillageESLeechFromAttacksNotRemovedOnFullES
+{variant:5,6}ESLeechFromAttacksNotRemovedOnFullESUnique__1
 {variant:5,6}KeystoneGhostReaverUnique__1
 ]],[[
 Hand of Thought and Motion
@@ -164,18 +164,18 @@ Variant: Pre 3.21.0
 Variant: Pre 3.26.0
 Variant: Current
 Implicits: 3
-{variant:1}LifeGainPerTargetUniqueDagger2
-{variant:2,3}LifeGainPerTargetImplicit2Claw4
-{variant:4,5}LifeGainPerTargetImplicit2Claw13
+{variant:1}LifeGainPerTargetImplicit2Claw10[10,10]
+{variant:2,3}LifeGainPerTargetImplicit2Claw10[12,12]
+{variant:4,5}LifeGainPerTargetImplicit2Claw10
 {variant:1,2,3}WeaponElementalDamageUnique__4
 {variant:1,2,3}LocalAddedLightningDamageUnique__4
 {variant:1,2,3}LocalIncreasedAttackSpeedUniqueClaw8
 {variant:4,5}PercentageDexterityUnique__3
 {variant:4,5}PercentageIntelligenceUnique__3
-{variant:4,5}RecoverPercentMaxLifeOnKillUnique__3
-{variant:1,2}Adds 1 to 3 Lightning Damage to Attacks with this Weapon per 10 Intelligence
+{variant:4,5}MaximumLifeOnKillPercentUnique__1
+{variant:1,2}AddedLightningDamagePerIntelligenceUnique__2[1,1][3,3]
 {variant:3}AddedLightningDamagePerIntelligenceUnique__2
-{variant:4}Adds 1 to 10 Lightning Damage to Attacks with this Weapon per 10 Dexterity
+{variant:4}AddedLightningDamagePerDexterityUnique__1[1,1][10,10]
 {variant:5}AddedLightningDamagePerDexterityUnique__1
 {variant:4,5}CriticalStrikeChancePerIntelligenceUnique__1
 ]],[[
@@ -190,13 +190,13 @@ Variant: Pre 3.26.0
 Variant: Current
 Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
-{variant:1}LifeGainPerTargetImplicit2Claw6
-{variant:2,3,4,5}LifeGainPerTargetImplicit2Claw13
+{variant:1}LifeGainPerTargetImplicit2Claw10[25,25]
+{variant:2,3,4,5}LifeGainPerTargetImplicit2Claw10
 PercentageDexterityUnique__3
 PercentageIntelligenceUnique__3
 {variant:4,5}LifeLeechFromAttacksPermyriadUnique__1
-{variant:1,2}Adds 1 to 6 Lightning Damage to Attacks with this Weapon per 10 Intelligence
-{variant:3,4}Adds 1 to 10 Lightning Damage to Attacks with this Weapon per 10 Intelligence
+{variant:1,2}AddedLightningDamagePerIntelligenceUnique__2[1,1][6,6]
+{variant:3,4}AddedLightningDamagePerIntelligenceUnique__1[1,1][10,10]
 {variant:5}AddedLightningDamagePerIntelligenceUnique__1
 IncreasedAttackSpeedPerDexterityUnique__1
 {variant:1,2,3}WeaponElementalDamageUnique__4
@@ -209,19 +209,19 @@ Variant: Pre 3.7.0
 Variant: Current
 Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
-{variant:1}LifeGainPerTargetImplicit2Claw6
-{variant:2,3}LifeGainPerTargetImplicit2Claw13
-LocalIncreasedPhysicalDamagePercentUniqueTwoHandSword7
+{variant:1}LifeGainPerTargetImplicit2Claw10[25,25]
+{variant:2,3}LifeGainPerTargetImplicit2Claw10
+LocalIncreasedPhysicalDamagePercentUnique__6
 LocalAddedPhysicalDamageUnique__3
 LocalIncreasedAttackSpeedUniqueClaw8
-{variant:1,2}+(250-350) to Accuracy Rating
-{variant:3}IncreasedAccuracyUnique__5
-100% increased Physical Damage while Frozen
+{variant:1,2}IncreasedAccuracyUnique__1[250,350]
+{variant:3}IncreasedAccuracyUnique__1
+PhysicalDamageWhileFrozenUnique___1
 ]],[[
 Last Resort
 Nailed Fist
 Implicits: 1
-Gain 3 Life per Enemy Hit with Attacks
+LifeGainPerTargetImplicitClaw1
 IncreasedAttackSpeedWhenOnLowLifeUniqueClaw4
 LocalIncreasedPhysicalDamagePercentUniqueClaw4
 LocalAddedPhysicalDamagePercentUniqueClaw4
@@ -235,8 +235,8 @@ Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
-LifeGainPerTargetUniqueDescentClaw1
-{variant:1}50% increased Attack Speed when on Low Life
+LifeGainPerTargetImplicit2Claw1
+{variant:1}IncreasedAttackSpeedWhenOnLowLifeUniqueClaw4[50,50]
 {variant:2}IncreasedAttackSpeedWhenOnLowLifeUniqueClaw4
 LocalIncreasedPhysicalDamagePercentUniqueClaw4
 IncreasedAccuracyWhenOnLowLifeUniqueClaw4
@@ -254,9 +254,9 @@ Implicits: 1
 LifeLeechPermyriadImplicitClaw1
 {variant:1}20% chance to Trigger Level 20 Summon Spectral Wolf on Critical Strike with this Weapon
 {variant:2}SummonWolfOnCritUnique__1
-LocalIncreasedAttackSpeedUnique__39
+LocalIncreasedAttackSpeedUnique__25
 LocalCriticalStrikeChanceUnique__17_
-CriticalMultiplierUniqueDagger8
+CriticalMultiplierUnique__4____
 ]],[[
 Mortem Morsu
 Fright Claw
@@ -271,7 +271,7 @@ Implicits: 2
 LocalIncreasedPhysicalDamagePercentUniqueClaw2
 LocalIncreasedAttackSpeedUniqueClaw2
 LocalCriticalStrikeChanceUniqueClaw2
-{variant:1}CriticalMultiplierImplicitSword1
+{variant:1}LocalCriticalMultiplierUniqueClaw2[25,25]
 {variant:2,3,4}LocalCriticalMultiplierUniqueClaw2
 PhysicalDamageConvertToChaosUniqueClaw2
 {variant:1,2,3}LocalPoisonOnHit
@@ -286,27 +286,27 @@ Variant: Pre 3.21.0
 Variant: Current
 Requires Level 46, 80 Dex, 80 Int
 Implicits: 2
-{variant:1}Grants 21 Life per Enemy Hit
+{variant:1}LifeGainPerTargetImplicit2Claw8[21,21]
 {variant:2,3,4}LifeGainPerTargetImplicit2Claw8
 LocalIncreaseSocketedDexterityGemLevelUniqueClaw8
-{variant:3}Socketed Gems are Supported by Level 10 Faster Attacks
+{variant:3}DisplaySocketedGemsGetsFasterAttackUnique__1[10,10]
 {variant:4}DisplaySocketedGemsGetsFasterAttackUnique__1
-{variant:1,2}LocalIncreasedPhysicalDamagePercentUniqueClaw6
+{variant:1,2}LocalIncreasedPhysicalDamageUniqueClaw8[100,120]
 {variant:3,4}LocalIncreasedPhysicalDamageUniqueClaw8
 LocalIncreasedAttackSpeedUniqueClaw8
 StunRecoveryUniqueClaw8
-AlwaysHitsUnique__1
+AlwaysHits
 ]],[[
 Rive
 Terror Claw
 Requires Level 70, 113 Dex, 113 Int
 Implicits: 1
 LifeLeechPermyriadImplicitClaw2
-LocalIncreasedPhysicalDamagePercentUniqueOneHandMace8
+LocalIncreasedPhyiscalDamagePercentUnique__3
 LocalAddedPhysicalDamageUnique__13
-CausesBleedingUniqueTwoHandAxe7Updated
-2% increased Physical Damage over time per 10 Dexterity
-1% increased Bleed Duration per 12 Intelligence
+CausesBleedingUnique__1
+IncreasePhysicalDegenDamagePerDexterityUnique__1
+IncreaseBleedDurationPerIntelligenceUnique__1
 BleedingEnemiesFleeOnHitUnique__1
 ]],[[
 The Scourge
@@ -329,15 +329,15 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
-{variant:1}LifeGainPerTargetImplicit2Claw6
-{variant:2}LifeGainPerTargetImplicit2Claw13
+{variant:1}LifeGainPerTargetImplicit2Claw10[25,25]
+{variant:2}LifeGainPerTargetImplicit2Claw10
 LocalAddedPhysicalDamageUnique__14
 ColdDamagePercentUnique__8
-LocalCriticalStrikeChanceUniqueBow11
+CriticalStrikeChanceUniqueBow9
 ChanceToGainFrenzyChargeOnKillingFrozenEnemyUnique__1
 AdditionalChainWhileAtMaxFrenzyChargesUnique___1
-ChanceToFreezeUniqueRing30
-Critical Strikes do not always Freeze
+ChanceToFreezeUnique__3
+CriticalStrikesDoNotFreezeUnique___1
 ]],[[
 The Wasp Nest
 Throat Stabber
@@ -347,13 +347,12 @@ Requires Level 60, 113 Dex, 113 Int
 Implicits: 1
 LifeGainPerTargetImplicit2Claw11_
 LocalIncreasedPhysicalDamagePercentUnique__28__
-LocalIncreasedAttackSpeedUniqueOneHandSword9
+LocalIncreasedAttackSpeedUnique__21
 LocalCriticalStrikeChanceUnique__11
-{variant:1}+(180-200) to Accuracy Rating
+{variant:1}LocalIncreasedAccuracyUnique__1[180,200]
 {variant:2}LocalIncreasedAccuracyUnique__1
 LocalChanceToPoisonOnHitUnique__3
-Attacks with this Weapon deal 80-120 added Chaos Damage against
-Enemies affected by at least 5 Poisons
+AddedChaosDamageVsEnemiesWith5PoisonsUnique__1
 ]],[[
 Wildslash
 Awl
@@ -361,7 +360,7 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 12, 25 Dex, 25 Int
 Implicits: 2
-{variant:1}Grants 5 Life per Enemy Hit
+{variant:1}LifeGainPerTargetImplicit2Claw3[5,5]
 {variant:2}LifeGainPerTargetImplicit2Claw3
 StrengthUniqueClaw9
 DexterityUniqueClaw9

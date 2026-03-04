@@ -158,7 +158,12 @@ for _, name in pairs(itemTypes) do
 							end
 						else
 							-- Unused or item-appropriate implicit should come first
-							return usedMods[a] or (a:match("Implicit") and a:lower():match(name)) ~= nil
+							if usedMods[a] or (a:match("Implicit") and a:lower():match(name)) then
+								if usedMods[b] or (b:match("Implicit") and b:lower():match(name)) then
+									return a:lower() < b:lower()
+								end
+								return true
+							end
 						end
 					else
 						return itemUsedMods[a] ~= nil
