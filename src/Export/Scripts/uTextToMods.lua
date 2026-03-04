@@ -124,12 +124,12 @@ for _, name in pairs(itemTypes) do
 						table.insert(newPossibleMods, mod)
 					end
 				end
-				if newPossibleMods[1] then
+				if newPossibleMods[1] or #possibleMods == 0 then
 					genericText = genericMatchText
 					for val in modText:gmatch('(%-*%d*%.*%d+%-*%-*%d*%.*%d*)') do
 						table.insert(genericValues, val)
 					end
-					possibleMods = newPossibleMods
+					possibleMods = #newPossibleMods == 0 and genericMatchMods or newPossibleMods
 				end
 			end
 			local gggMod
