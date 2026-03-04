@@ -200,8 +200,8 @@ Implicits: 1
 {variant:3}LocalAddedPhysicalDamageUniqueTwoHandAxe7
 LocalIncreasedAttackSpeedUniqueTwoHandAxe7
 CausesBleedingUniqueOneHandAxe5
-{variant:1,2}+2 to Weapon Range
-{variant:3}+10 to Weapon Range
+{variant:1,2}LocalIncreasedMeleeWeaponRangeUniqueTwoHandAxe7_[.2,.2]
+{variant:3}LocalIncreasedMeleeWeaponRangeUniqueTwoHandAxe7_
 ]],[[
 The Blood Reaper
 Headsman Axe
@@ -222,8 +222,8 @@ Debeon's Dirge
 Despot Axe
 Implicits: 0
 LocalAddedColdDamageUnique__6_
-15% increased Movement Speed if you've used a Warcry Recently
-150% increased Elemental Damage if you've used a Warcry Recently
+MovementSpeedIfUsedWarcryRecentlyUnique__2
+IncreasedElementalDamageIfUsedWarcryRecentlyUnique__1
 WarcryKnockbackUnique__1
 ]],[[
 The Harvest
@@ -411,7 +411,7 @@ GrantsLevel20BoneNovaTriggerUnique__1
 LocalIncreasedPhysicalDamagePercentUnique__24
 LocalReducedAttackSpeedUnique__3
 {variant:1,2}AttacksCauseBleedingOnCursedEnemyHitUnique__1
-{variant:3}Attacks have 25% chance to inflict Bleeding
+{variant:3}CausesBleedingUniqueTwoHandAxe7Updated
 ]],[[
 Wideswing
 Poleaxe
@@ -424,7 +424,7 @@ LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe5
 ManaGainedFromEnemyDeathUniqueTwoHandAxe5
 {variant:1}IncreasedAccuracyUniqueTwoHandAxe5[50,80]
 {variant:2}IncreasedAccuracyUniqueTwoHandAxe5
-+2 to Weapon Range
+LocalIncreasedMeleeWeaponRangeUniqueTwoHandAxe5
 ]],[[
 Replica Wings of Entropy
 Ezomyte Axe
