@@ -9,7 +9,7 @@ Variant: Pre 2.3.0
 Variant: Pre 3.21.0
 Variant: Current
 Implicits: 3
-{variant:1}(9-12)% increased Spell Damage
+{variant:1}SpellDamageOnWeaponImplicitWand2[9,12]
 {variant:2}SpellDamageOnWeaponImplicitWand2
 {variant:3}AddedFireDamageSpellsAndAttacksImplicit1
 FireDamagePercentUniqueWand10
@@ -28,10 +28,10 @@ Variant: Pre 3.19.0
 Variant: Pre 3.21.0
 Variant: Current
 Implicits: 3
-{variant:1}(17-20)% increased Spell Damage
-{variant:2,3,4,5}SpellDamageOnWeaponImplicitWand18
+{variant:1}SpellDamageOnWeaponImplicitWand12[17,20]
+{variant:2,3,4,5}SpellDamageOnWeaponImplicitWand12[38,42]
 {variant:6}SpellDamageOnWeaponImplicitWand12
-{variant:1,2}Adds (50-65) to (90-105) Chaos Damage to Spells
+{variant:1,2}SpellAddedChaosDamageUniqueWand7[50,65][90,105]
 {variant:3,4,5,6}SpellAddedChaosDamageUniqueWand7
 IncreasedCastSpeedUniqueWand7
 ChaosResistUniqueWand7
@@ -50,18 +50,18 @@ Variant: Pre 3.21.0
 Variant: Pre 3.27.0
 Variant: Current
 Implicits: 3
-{variant:1,2,3}SpellDamageOnWeaponImplicitWand7
+{variant:1,2,3}SpellDamageOnWeaponImplicitWand3[18,22]
 {variant:4}SpellDamageOnWeaponImplicitWand3
 {variant:5}AddedFireDamageSpellsAndAttacksImplicit1
-{variant:1,2}10% chance to Trigger Level 8 Summon Raging Spirit on Kill
+{variant:1,2}SummonRagingSpiritOnKillUnique__1[10,10]
 {variant:3,4,5}SummonRagingSpiritOnKillUnique__1
-{variant:1}Adds (10-14) to (18-22) Fire Damage
+{variant:1}LocalAddedFireDamageUnique__2[10,14][18,22]
 {variant:3,4,5}LocalAddedFireDamageUnique__2
 {variant:2}FireDamageOverTimeMultiplierUnique__2_
-{variant:1,2}Adds (4-6) to (7-9) Fire Damage to Spells
-{variant:3,4,5}Adds (20-24) to (36-46) Fire Damage to Spells
-{variant:1}(40-50)% increased Burning Damage
-{variant:2}BurnDamageUniqueCorruptedJewel1
+{variant:1,2}SpellAddedFireDamageUniqueWand10[4,6][7,9]
+{variant:3,4,5}SpellAddedFireDamageUniqueWand10[20,24][36,46]
+{variant:1}BurnDamageUnique__1[40,50]
+{variant:2}BurnDamageUnique__1
 {variant:1,2}ChanceToIgniteUnique__1
 {variant:3,4,5}CoverInAshOnHitUnique__1
 ]],[[
@@ -76,19 +76,19 @@ Variant: Pre 3.21.0
 Variant: Pre 3.27.0
 Variant: Current
 Implicits: 4
-{variant:1,2}(14-18)% increased Spell Damage
-{variant:3,4}SpellDamageOnWeaponImplicitWand13
+{variant:1,2}SpellDamageOnWeaponImplicitWand9[14,18]
+{variant:3,4}SpellDamageOnWeaponImplicitWand9[29,33]
 {variant:5}SpellDamageOnWeaponImplicitWand9
 {variant:6}AddedFireDamageSpellsAndAttacksImplicit2
 {variant:1,2,3}LocalAddedPhysicalDamageUnique__4
 {variant:4,5}LocalAddedFireDamageUnique__6
-{variant:4,5}LocalIncreasedAttackSpeedUnique__42
+{variant:4,5}LocalIncreasedAttackSpeedUnique__32[6,10]
 {variant:6}LocalIncreasedAttackSpeedUnique__32
-{variant:1}+(18-30)% to Global Critical Strike Multiplier
+{variant:1}CriticalMultiplierUnique__1[18,30]
 {variant:2,3,4,5,6}CriticalMultiplierUnique__1
-{variant:1,2,3,4,5}LightRadiusUniqueShieldDemigods
+{variant:1,2,3,4,5}LightRadiusUnique__4
 {variant:6}LightRadiusUnique__1
-NearbyEnemiesAreBlindedUnique__1
+DisplayBlindAuraUnique__1
 CriticalChanceAgainstBlindedEnemiesUnique__1
 AddedFireDamageFromLightRadiusUnique__1
 ]],[[
@@ -117,15 +117,14 @@ Variant: Pre 3.26.0
 Variant: Current
 Implicits: 1
 SpellDamageOnWeaponImplicitWand17
-(300-350)% Increased Physical Damage
-{variant:1}Gain (10-30)% of Physical Damage as Extra Fire Damage
-{variant:1}Gain (10-30)% of Physical Damage as Extra Cold Damage
-{variant:1}Gain (10-30)% of Physical Damage as Extra Lightning Damage
+LocalIncreasedPhysicalDamagePercentUnique__47
+{variant:1}PhysicalAddedAsFireUnique__4[10,30]
+{variant:1}PhysicalAddedAsColdUnique__3[10,30]
+{variant:1}PhysicalAddedAsLightningUnique__1[10,30]
 {variant:2}PhysicalAddedAsFireUnique__4
 {variant:2}PhysicalAddedAsColdUnique__3
 {variant:2}PhysicalAddedAsLightningUnique__1
-+1 to Maximum number of Sacred Wisps
-+1 to number of Sacred Wisps Summoned
+AdditionalSacredWispUnique__1
 ]],[[
 Lifesprig
 Driftwood Wand
@@ -146,19 +145,16 @@ Variant: Pre 3.8.0
 Variant: Pre 3.27.0
 Variant: Current
 Implicits: 3
-{variant:1}SpellDamageImplicitGloves1
+{variant:1}SpellDamageOnWeaponImplicitWand9[12,16]
 {variant:2,3}SpellDamageOnWeaponImplicitWand9
-{variant:4}MinionDamageImplicitWand3
+{variant:4}MinionDamageUniqueWand2[12,16]
 LifeReservationUniqueWand2
 IntelligenceUniqueWand2
-{variant:1,2}MinionRunSpeedUnique__4
+{variant:1,2}MinionRunSpeedUniqueWand2[10,20]
 {variant:3,4}MinionRunSpeedUniqueWand2
-{variant:1,2}Minions deal (10-30)% increased Damage
+{variant:1,2}MinionDamageUniqueWand2[10,30]
 {variant:3,4}MinionDamageUniqueWand2
-+1 to Maximum number of Raised Zombies
-+1 to Maximum number of Spectres
-+1 to Maximum number of Skeletons
-Reserves 30% of Life
+MaximumMinionCountUniqueWand2
 ]],[[
 Replica Midnight Bargain
 {variant:1}Engraved Wand
@@ -169,13 +165,12 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 2
 {variant:1}SpellDamageOnWeaponImplicitWand9
-{variant:2}MinionDamageImplicitWand3
+{variant:2}MinionDamageUniqueWand2[12,16]
 LifeReservationUniqueWand2
 IntelligenceUniqueWand2
 MinionRunSpeedUnique__5
 MinionDamageUniqueWand2
 ExtraRagingSpiritsUnique__1
-Reserves 30% of Life
 ExtraMaximumPhantasmsUnique__1
 ]],[[
 Moonsorrow
@@ -188,15 +183,15 @@ Variant: Pre 3.0.0
 Variant: Pre 3.27.0
 Variant: Current
 Implicits: 3
-{variant:1,2}SpellDamageOnWeaponImplicitWand5
-{variant:3,4}SpellDamageOnWeaponImplicitWand15
+{variant:1,2}SpellDamageUniqueWand1[15,19]
+{variant:3,4}SpellDamageUniqueWand1[33,37]
 {variant:5}KineticWandImplicit
-{variant:1,2,3}Socketed Gems are supported by Level 5 Blind
+{variant:1,2,3}ItemActsAsSupportBlindUniqueWand1[5,5]
 {variant:4,5}ItemActsAsSupportBlindUniqueWand1
 IntelligenceUniqueWand1
 SpellDamageUniqueWand1
-{variant:1}125% increased Physical Damage
-{variant:2,3}175% increased Physical Damage
+{variant:1}LocalIncreasedPhysicalDamagePercentUnique__26[125,125]
+{variant:2,3}LocalIncreasedPhysicalDamagePercentUnique__26[175,175]
 {variant:4,5}LocalIncreasedPhysicalDamagePercentUniqueWand1
 LightningDamageUniqueWand1
 IncreasedCastSpeedImplicitMarakethWand1
@@ -213,14 +208,14 @@ Variant: Pre 3.21.0
 Variant: Pre 3.27.0
 Variant: Current
 Implicits: 4
-{variant:1}(15-18)% increased Spell Damage
-{variant:2,3,4}SpellDamageOnWeaponImplicitWand14
-{variant:5}SpellDamageOnWeaponImplicitWand15
+{variant:1}SpellDamageOnWeaponImplicitWand12[15,18]
+{variant:2,3,4}SpellDamageOnWeaponImplicitWand12[31,35]
+{variant:5}SpellDamageOnWeaponImplicitWand12[33,37]
 {variant:6}SpellDamageOnWeaponImplicitWand12
-{variant:1,2}Adds (24-30) to (80-92) Physical Damage
+{variant:1,2}LocalAddedPhysicalDamageUnique__2_[24,30][80,92]
 {variant:3}LocalAddedPhysicalDamageUnique__2_
 {variant:1,2,3}LocalCriticalStrikeChanceUnique__1
-{variant:1,2,3}Gain (13-15)% of Physical Damage as Extra Chaos Damage
+{variant:1,2,3}ChaosDamageAsPortionOfDamageUnique__1[13,15]
 {variant:4,5,6}ChaosDamageAsPortionOfDamageUnique__1
 ExplodeOnKillChaosUnique__1
 ]],[[
@@ -233,8 +228,8 @@ Variant: Pre 2.6.0
 Variant: Pre 3.21.0
 Variant: Current
 Implicits: 4
-{variant:1}(16-19)% increased Spell Damage
-{variant:2,3}SpellDamageOnWeaponImplicitWand16
+{variant:1}SpellDamageOnWeaponImplicitWand15[16,19]
+{variant:2,3}SpellDamageOnWeaponImplicitWand15[35,39]
 {variant:4}SpellDamageOnWeaponImplicitWand15
 {variant:5}KineticWandImplicit
 LocalReducedPhysicalDamagePercentUniqueWand6
@@ -250,9 +245,9 @@ The Poet's Pen
 Implicits: 1
 {variant:1}SpellDamageOnWeaponImplicitWand3
 {variant:2}KineticWandImplicit
-+1 to Level of Socketed Active Skill Gems per 25 Player Levels
+SocketedGemLevelPer25PlayerLevelsUnique__1
 AddsPhysicalDamagePer3PlayerLevelsUnique__1_
-IncreasedAttackSpeedUnique__5
+LocalIncreasedAttackSpeedUnique__16
 TriggerSocketedSpellOnAttackUnique__1
 ]],[[
 Reverberation Rod
@@ -263,10 +258,10 @@ Variant: Pre 3.19.0
 Variant: Pre 3.21.0
 Variant: Current
 Implicits: 3
-{variant:1}SpellDamageOnWeaponImplicitWand2
+{variant:1}SpellDamageOnWeaponImplicitWand5[10,14]
 {variant:2,3,4}SpellDamageOnWeaponImplicitWand5
 {variant:5}AddedLightningDamageSpellsAndAttacksImplicit1
-{variant:1,2}LocalIncreaseSocketedGemLevelUnique__5
+{variant:1,2}LocalIncreaseSocketedGemLevelUnique__4
 {variant:3,4,5}LocalIncreaseSocketedGemLevelUniqueWand8
 {variant:4,5}SupportedByArcaneSurgeUniqueWand8
 SupportedByEchoUniqueWand8New_
@@ -281,7 +276,7 @@ Variant: Current
 League: Ultimatum
 Source: Drops from unique{The Trialmaster}
 Implicits: 2
-{variant:1}SpellDamageOnWeaponImplicitWand5
+{variant:1}SpellDamageOnWeaponImplicitWand6[15,19]
 {variant:2}SpellDamageOnWeaponImplicitWand6
 UniqueWandGrantsBloodSacrament__1
 LuckyCriticalsOnLowLifeUnique__1___
@@ -294,10 +289,10 @@ Variant: Current
 LevelReq: 36
 Implicits: 1
 SpellDamageOnWeaponImplicitWand5
-{variant:1}LocalIncreaseSocketedGemLevelUniqueHelmetStrDex6
+{variant:1}LocalIncreaseSocketedGemLevelUnique__2
 {variant:2}LocalIncreaseSocketedGemLevelUniqueWand8
-SupportedByIntensifyUnique__1
-SupportedByEchoUniqueWand8New_
+SocketedGemsGetIncreasedAreaOfEffectUnique__1
+SupportedByEchoUniqueWand8
 ControlledDestructionSupportUniqueWand8
 IntelligenceUniqueWand8
 ]],[[
@@ -307,9 +302,9 @@ Variant: Pre 3.5.0
 Variant: Current
 Implicits: 1
 SpellDamageOnWeaponImplicitWand6
-ElementalDamagePercentAddedAsChaosUnique__3
+ElementalDamagePercentAddedAsChaosUnique__1
 CriticalStrikesDealNoDamageUnique__1
-{variant:1}120% increased Spell Damage if you've dealt a Critical Strike Recently
+{variant:1}SpellDamageIfYouHaveCritRecentlyUnique__1[120,120]
 {variant:2}SpellDamageIfYouHaveCritRecentlyUnique__1
 ]],[[
 Shimmeron
@@ -320,7 +315,7 @@ Variant: Pre 3.4.0
 Variant: Pre 3.21.0
 Variant: Current
 Implicits: 2
-{variant:1,2}SpellDamageOnWeaponImplicitWand16
+{variant:1,2}SpellDamageUniqueWand1[35,39]
 {variant:3}AddedLightningDamageSpellsAndAttacksImplicit3
 SpellDamageUniqueWand1
 SpellAddedLightningDamageUnique__5
@@ -328,8 +323,8 @@ CriticalMultiplierPerPowerChargeUnique__1
 AdditionalCriticalStrikeChancePerPowerChargeUnique__1
 ChanceToBlockSpellsPerPowerChargeUnique__1
 AddedLightningDamagePerPowerChargeUnique__1
-{variant:1}400 Lightning Damage taken per second per Power Charge if you've dealt a Critical Strike Recently
-{variant:2,3}200 Lightning Damage taken per second per Power Charge if your Skills have dealt a Critical Strike Recently
+{variant:1}DamageTakenPerPowerChargeOnCritUnique__1[24000,24000]
+{variant:2,3}DamageTakenPerPowerChargeOnCritUnique__1
 ]],[[
 Storm Prison
 {variant:1,2}Carved Wand
@@ -338,13 +333,13 @@ Variant: Pre 2.3.0
 Variant: Pre 3.21.0
 Variant: Current
 Implicits: 3
-{variant:1}(9-13)% increased Spell Damage
+{variant:1}SpellDamageOnWeaponImplicitWand3[9,13]
 {variant:2}SpellDamageOnWeaponImplicitWand3
 {variant:3}AddedLightningDamageSpellsAndAttacksImplicit1
 LocalIncreasedPhysicalDamagePercentUnique__6
 LocalAddedLightningDamageUnique__2
 ManaRegenerationUnique__1
-+1 to Maximum Power Charge
+IncreasedMaximumPowerChargesUnique__2
 PowerChargeOnKillChanceUnique__1
 ]],[[
 Tulborn
@@ -359,9 +354,9 @@ Upgrade: Upgrades to unique{Tulfall} using currency{Blessing of Tul}
 Implicits: 2
 {variant:1,2}SpellDamageOnWeaponImplicitWand5
 {variant:3}AddedColdDamageSpellsAndAttacksImplicit3
-{variant:1,2}IncreasedCastSpeedUniqueIntHelmet2
+{variant:1,2}IncreasedCastSpeedUnique__20
 {variant:3}SpellAddedColdDamageUnique__7
-{variant:1,2}50% chance to gain a Power Charge on Killing a Frozen Enemy
+{variant:1,2}GainPowerChargeOnKillingFrozenEnemyUnique__1[50,50]
 {variant:3}GainPowerChargeOnKillingFrozenEnemyUnique__1
 {variant:1,2}AddedColdDamagePerPowerChargeUnique__1
 {variant:3}ColdExposureAdditionalResistanceUnique__1
@@ -378,16 +373,16 @@ Source: Upgraded from unique{Tulborn} using currency{Blessing of Tul}
 Implicits: 2
 {variant:1,2}SpellDamageOnWeaponImplicitWand16
 {variant:3}AddedColdDamageSpellsAndAttacksImplicit3
-{variant:1,2}IncreasedCastSpeedUniqueGlovesStr1
+{variant:1,2}IncreasedCastSpeedUniqueWand3[10,15]
 {variant:3}IncreasedCastSpeedUniqueWand3
-{variant:1}50% chance to gain a Power Charge on Killing a Frozen Enemy
-{variant:2,3}MutatedUniqueRing34GainPowerChargeOnKillingFrozenEnemy
-{variant:1,2}Adds 15 to 25 Cold Damage to Spells per Power Charge
+{variant:1}GainPowerChargeOnKillingFrozenEnemyUnique__1[50,50]
+{variant:2,3}GainPowerChargeOnKillingFrozenEnemyUnique__1
+{variant:1,2}AddedColdDamagePerPowerChargeUnique__2[15,15][25,25]
 {variant:3}AddedColdDamagePerPowerChargeUnique__2
-LosePowerChargesOnMaxPowerChargesUnique__1
+LosePowerChargesOnMaxPowerChargesUnique__2
 WhenReachingMaxPowerChargesGainAFrenzyChargeUnique__1
-{variant:1}(10-15)% increased Cold Damage per Frenzy Charge
-{variant:2}IncreasedColdDamagePerFrenzyChargeUnique__1
+{variant:1}IncreasedColdDamagePerFrenzyChargeUnique__2[10,15]
+{variant:2}IncreasedColdDamagePerFrenzyChargeUnique__2
 ]],[[
 Replica Tulfall
 {variant:1}Tornado Wand
@@ -400,9 +395,9 @@ Implicits: 2
 {variant:1}SpellDamageOnWeaponImplicitWand16
 {variant:2}AddedColdDamageSpellsAndAttacksImplicit3
 IncreasedCastSpeedUnique__22
-LosePowerChargesOnMaxPowerChargesUnique__2
+LosePowerChargesOnMaxPowerChargesUnique__1
 WhenReachingMaxPowerChargesGainAFrenzyChargeUnique__1
-IncreasedColdDamagePerFrenzyChargeUnique__2
+IncreasedColdDamagePerFrenzyChargeUnique__1
 PowerChargeOnHittingFrozenEnemyUnique__1
 TakeColdDamageOnMaximumPowerChargesUnique__1____
 ]],[[
@@ -413,16 +408,16 @@ Variant: Pre 2.3.0
 Variant: Pre 2.27.0
 Variant: Current
 Implicits: 2
-{variant:1}(11-14)% increased Spell Damage
+{variant:1}SpellDamageOnWeaponImplicitWand6[11,14]
 {variant:2}SpellDamageOnWeaponImplicitWand6
 {variant:3}KineticWandImplicit
-{variant:1,2}LocalIncreasedPhysicalDamagePercentUniqueTwoHandSword5
+{variant:1,2}LocalIncreasedPhysicalDamagePercentUniqueWand9[80,120]
 {variant:3}LocalIncreasedPhysicalDamagePercentUniqueWand9
 LocalAddedPhysicalDamageUniqueWand9
 LocalIncreasedAttackSpeedUniqueWand9
 LocalCriticalStrikeChanceUniqueWand9
 {variant:1,2}SocketedGemsAdditionalProjectilesUniqueWand9
-{variant:3}Attacks fire (1-2) additional Projectiles when in Off Hand
+{variant:3}MainHandAdditionalProjectilesWhileInOffHandUnique__1
 {variant:3}OffHandAreaOfEffectWhileInMainHandUnique__1
 ]],[[
 Replica Twyzel
@@ -445,7 +440,7 @@ Prophecy Wand
 Variant: Pre 2.3.0
 Variant: Current
 Implicits: 2
-{variant:1}(16-20)% increased Spell Damage
+{variant:1}SpellDamageOnWeaponImplicitWand17[16,20]
 {variant:2}SpellDamageOnWeaponImplicitWand17
 SpellDamageOnWeaponUniqueWand3
 IncreasedCastSpeedUniqueWand3
