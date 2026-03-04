@@ -143,7 +143,7 @@ for _, name in ipairs(itemTypes) do
 					end
 				end
 			else
-				if modLines > 0 then -- treat as post line e.g. mirrored, or unresolved text mod
+				if modLines > 0 or implicits then -- treat as post line e.g. mirrored, or unresolved text mod
 					-- Unresolved text lines get a sequential order to preserve position among mods
 					if statOrder[nextOrder] then
 						table.insert(statOrder[nextOrder], line)
@@ -155,13 +155,19 @@ for _, name in ipairs(itemTypes) do
 					out:write(line, "\n")
 				end
 			end
-		else
+		else -- spec line
 			if specName == "Implicits" then
 				implicits = tonumber(specVal)
+			else
+				out:write(line, "\n")
 			end
-			out:write(line, "\n")
 		end
 		if implicits and implicits == 0 then
+			local lines = 0
+			for _, l in pairs(statOrder) do
+				lines = lines + #l
+			end
+			out:write("Implicits: "..lines, "\n")
 			writeMods(out, statOrder)
 			implicits = nil
 			statOrder = { }
