@@ -5034,7 +5034,7 @@ c["325% increased Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShie
 c["33% chance to Blind nearby Enemies when gaining Her Blessing"]={{}," to Blind nearby Enemies when gaining Her Blessing "}
 c["33% chance to Blind nearby Enemies when gaining Her Blessing 100% chance to Avoid being Ignited, Chilled or Frozen with Her Blessing"]={{[1]={flags=0,keywordFlags=0,name="AvoidIgnite",type="BASE",value=33}}," to Blind nearby Enemies when gaining Her Blessing 100% chance , Chilled or Frozen with Her Blessing "}
 c["33% chance to gain a Frenzy Charge on Kill"]={nil,"a Frenzy Charge  "}
-c["33% chance to inflict an additional Poison on the same Target when you inflict Poison"]={{[1]={flags=0,keywordFlags=0,name="DoublePoisonChance",type="BASE",value=33}},nil}
+c["33% chance to inflict an additional Poison on the same Target when you inflict Poison"]={{[1]={flags=0,keywordFlags=0,name="AdditionalPoisonChance",type="BASE",value=33}},nil}
 c["33% increased Attack Damage against Bleeding Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Bleeding"},flags=1,keywordFlags=0,name="Damage",type="INC",value=33}},nil}
 c["33% increased Attack Speed while Ignited"]={{[1]={[1]={type="Condition",var="Ignited"},flags=1,keywordFlags=0,name="Speed",type="INC",value=33}},nil}
 c["33% increased Cast Speed"]={{[1]={flags=16,keywordFlags=0,name="Speed",type="INC",value=33}},nil}
@@ -5240,7 +5240,7 @@ c["40% chance to Suppress Spell Damage while your Off Hand is empty"]={{[1]={[1]
 c["40% chance to cause Bleeding on Melee Hit"]={{[1]={flags=260,keywordFlags=0,name="BleedChance",type="BASE",value=40}},nil}
 c["40% chance to deal Double Damage while Focused"]={{[1]={[1]={type="Condition",var="Focused"},flags=0,keywordFlags=0,name="DoubleDamageChance",type="BASE",value=40}},nil}
 c["40% chance to gain a Frenzy Charge for each enemy you hit with a Critical Strike"]={nil,"a Frenzy Charge for each enemy you hit with a Critical Strike "}
-c["40% chance to inflict an additional Poison on the same Target when you inflict Poison"]={{[1]={flags=0,keywordFlags=0,name="DoublePoisonChance",type="BASE",value=40}},nil}
+c["40% chance to inflict an additional Poison on the same Target when you inflict Poison"]={{[1]={flags=0,keywordFlags=0,name="AdditionalPoisonChance",type="BASE",value=40}},nil}
 c["40% chance when you Kill a Scorched Enemy to Burn Each surrounding Enemy for 4 seconds, dealing 8% of the Killed Enemy's Life as Fire Damage per second"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=40}}," when you Kill a Scorched Enemy to Burn Each surrounding Enemy , dealing 8% of the Killed Enemy's  as Fire Damage per second "}
 c["40% faster start of Energy Shield Recharge"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldRechargeFaster",type="INC",value=40}},nil}
 c["40% faster start of Energy Shield Recharge while affected by Discipline"]={{[1]={[1]={type="Condition",var="AffectedByDiscipline"},flags=0,keywordFlags=0,name="EnergyShieldRechargeFaster",type="INC",value=40}},nil}
