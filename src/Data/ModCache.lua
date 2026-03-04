@@ -3250,7 +3250,7 @@ c["15% increased Accuracy Rating with Two Handed Melee Weapons"]={{[1]={flags=60
 c["15% increased Area Damage"]={{[1]={flags=512,keywordFlags=0,name="Damage",type="INC",value=15}},nil}
 c["15% increased Area of Effect"]={{[1]={flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=15}},nil}
 c["15% increased Area of Effect during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=15}},nil}
-c["15% increased Area of Effect for Attacks while you have at least 1 nearby Ally"]={{[1]={flags=1,keywordFlags=0,name="AreaOfEffect",type="INC",value=15}},"   while you have at least 1 nearby Ally "}
+c["15% increased Area of Effect for Attacks while you have at least 1 nearby Ally"]={{[1]={[1]={threshold=1,type="MultiplierThreshold",var="NearbyAlly"},flags=1,keywordFlags=0,name="AreaOfEffect",type="INC",value=15}},nil}
 c["15% increased Area of Effect for Skills used by Totems"]={{[1]={flags=0,keywordFlags=16384,name="AreaOfEffect",type="INC",value=15}},nil}
 c["15% increased Area of Effect if you have Stunned an Enemy Recently"]={{[1]={[1]={type="Condition",var="StunnedEnemyRecently"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=15}},nil}
 c["15% increased Area of Effect if you've Killed Recently"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=15}},nil}
@@ -5339,8 +5339,7 @@ c["40% increased Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamage",t
 c["40% increased Fire Damage with Hits and Ailments against Blinded Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Blinded"},flags=0,keywordFlags=786432,name="FireDamage",type="INC",value=40}},nil}
 c["40% increased Fortification Duration"]={{[1]={flags=0,keywordFlags=0,name="FortifyDuration",type="INC",value=40}},nil}
 c["40% increased Global Accuracy Rating"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="Accuracy",type="INC",value=40}},nil}
-c["40% increased Global Accuracy Rating while you have at least 1 nearby Ally"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="Accuracy",type="INC",value=40}},"   while you have at least 1 nearby Ally "}
-c["40% increased Global Accuracy Rating while you have at least 1 nearby Ally 15% increased Area of Effect for Attacks while you have at least 1 nearby Ally"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="Accuracy",type="INC",value=40}},"   while you have at least 1 nearby Ally 15% increased Area of Effect for Attacks while you have at least 1 nearby Ally "}
+c["40% increased Global Accuracy Rating while you have at least 1 nearby Ally"]={{[1]={[1]={type="Global"},[2]={threshold=1,type="MultiplierThreshold",var="NearbyAlly"},flags=0,keywordFlags=0,name="Accuracy",type="INC",value=40}},nil}
 c["40% increased Global Critical Strike Chance"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="CritChance",type="INC",value=40}},nil}
 c["40% increased Global Critical Strike Chance while wielding a Staff"]={{[1]={[1]={type="Global"},[2]={type="Condition",var="UsingStaff"},flags=0,keywordFlags=0,name="CritChance",type="INC",value=40}},nil}
 c["40% increased Global Defences"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="Defences",type="INC",value=40}},nil}

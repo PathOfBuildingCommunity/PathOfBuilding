@@ -1487,6 +1487,7 @@ local modTagList = {
 	["while affected by a rare abyss jewel"] = { tag = { type = "MultiplierThreshold", var = "RareAbyssJewels", threshold = 1 } },
 	["while affected by a magic abyss jewel"] =  { tag = { type = "MultiplierThreshold", var = "MagicAbyssJewels", threshold = 1 } },
 	["while affected by a normal abyss jewel"] = { tag = { type = "MultiplierThreshold", var = "NormalAbyssJewels", threshold = 1 } },
+	["while you have at least (%d+) nearby all[yi]e?s?"] = function(num) return { tag = { type = "MultiplierThreshold", var = "NearbyAlly", threshold = num } } end,
 	-- Slot conditions
 	["when in main hand"] = { tag = { type = "SlotNumber", num = 1 } },
 	["whi?l?en? in off hand"] = { tag = { type = "SlotNumber", num = 2 } },
