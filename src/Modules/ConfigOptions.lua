@@ -265,11 +265,11 @@ return {
 		modList:NewMod("Condition:CatsAgilityActive", "FLAG", true, "Config")
 	end },
 	{ label = "Aspect of the Crab:", ifSkill = "Aspect of the Crab" },
-	{ var = "overrideCrabBarriers", type = "count", label = "# of Crab Barriers (if not maximum):", ifSkill = "Aspect of the Crab", apply = function(val, modList, enemyModList)
+	{ var = "overrideCrabBarriers", type = "countAllowZero", label = "# of Crab Barriers (if not maximum):", ifSkill = "Aspect of the Crab", apply = function(val, modList, enemyModList)
 		modList:NewMod("CrabBarriers", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ label = "Aspect of the Spider:", ifSkill = "Aspect of the Spider" },
-	{ var = "aspectOfTheSpiderWebStacks", type = "count", label = "# of Spider's Web Stacks:", ifSkill = "Aspect of the Spider", apply = function(val, modList, enemyModList)
+	{ var = "aspectOfTheSpiderWebStacks", type = "countAllowZero", label = "# of Spider's Web Stacks:", ifSkill = "Aspect of the Spider", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraSkillMod", "LIST", { mod = modLib.createMod("Multiplier:SpiderWebApplyStack", "BASE", val) }, "Config", { type = "SkillName", skillName = "Aspect of the Spider" })
 		if val > 0 then
 			modList:NewMod("Condition:AspectOfTheSpiderActive", "FLAG", true, "Config")
