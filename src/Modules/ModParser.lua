@@ -4295,7 +4295,7 @@ local specialModList = {
 	["arrows always pierce"] = { flag("PierceAllTargets", nil, 0, KeywordFlag.Arrow) },
 	["arrows pierce all targets"] = { flag("PierceAllTargets", nil, 0, KeywordFlag.Arrow) },
 	["arrows that pierce cause bleeding"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Projectile, KeywordFlag.Arrow, { type = "StatThreshold", stat = "PierceCount", threshold = 1 }) },
-	["arrows that pierce have (%d+)%% chance to cause bleeding"] = function(num) return { mod("BleedChance", "BASE", num, nil, ModFlag.Projectile, KeywordFlag.Arrow, { type = "StatThreshold", stat = "PierceCount", threshold = 1 }) } end,
+	["arrows that pierce have (%d+)%% chance to [ic][na][fu][ls][ie]c?t? bleeding"] = function(num) return { mod("BleedChance", "BASE", num, nil, ModFlag.Projectile, KeywordFlag.Arrow, { type = "StatThreshold", stat = "PierceCount", threshold = 1 }) } end,
 	["arrows that pierce deal (%d+)%% increased damage"] = function(num) return { mod("Damage", "INC", num, nil, ModFlag.Projectile, KeywordFlag.Arrow, { type = "StatThreshold", stat = "PierceCount", threshold = 1 }) } end,
 	["projectiles gain (%d+)%% of non%-chaos damage as extra chaos damage per chain"] = function(num) return { mod("NonChaosDamageGainAsChaos", "BASE", num, nil, ModFlag.Projectile, { type = "PerStat", stat = "Chain" }) } end,
 	["projectiles that have chained gain (%d+)%% of non%-chaos damage as extra chaos damage"] = function(num) return { mod("NonChaosDamageGainAsChaos", "BASE", num, nil, ModFlag.Projectile, { type = "StatThreshold", stat = "Chain", threshold = 1 }) } end,

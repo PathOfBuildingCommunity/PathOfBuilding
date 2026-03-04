@@ -14,10 +14,10 @@ Requires Level 62, 212 Dex
 Source: Vendor Recipe
 Implicits: 1
 {variant:3}CriticalMultiplierImplicitBow1
-{variant:1}Adds (60-70) to (180-210) Physical Damage
-{variant:2,3,4}Adds (95-115) to (240-265) Physical Damage
+{variant:1}LocalAddedPhysicalDamageUnique__29___[60,70][180,210]
+{variant:2,3,4}LocalAddedPhysicalDamageUnique__29___[95,115][240,265]
 {variant:5}LocalAddedPhysicalDamageUnique__29___
-{variant:1,2,3}LocalIncreasedEvasionRatingPercentUniqueHelmetDex5
+{variant:1,2,3}LocalIncreasedEvasionRatingPercentUnique__5
 {variant:1,2,3}AdditionalArrowsUniqueBow3
 {variant:1,2,3}DisplayIronReflexesFor8SecondsUnique__1
 {variant:1,2,3}ArborixMoreDamageAtCloseRangeUnique__1
@@ -29,7 +29,7 @@ Implicits: 1
 {variant:4,5}EvasionRatingIfUsedDashRecentlyUnique__1
 {variant:4,5}MovementSpeedIfUsedDashRecentlyUnique__1
 {variant:4,5}DisableTravelSkillsExceptDashUnique__1
-{variant:4,5}KeystoneIronReflexesUnique__1
+{variant:4,5}IronReflexes
 ]],[[
 Chin Sol
 Assassin Bow
@@ -42,18 +42,18 @@ Variant: Pre 3.17.0
 Variant: Current
 Requires Level 62, 212 Dex
 Implicits: 2
-{variant:2,3}(6-12)% increased Elemental Damage with Attack Skills
+{variant:2,3}WeaponElementalDamageImplicitBow1[6,12]
 {variant:6,7}CriticalMultiplierImplicitBow1
 DexterityUniqueBow4
-{variant:1,2}LocalIncreasedPhysicalDamagePercentUniqueClaw2
-{variant:3,4}LocalIncreasedPhysicalDamagePercentUnique__46
-{variant:5,6}(200-260)% increased Physical Damage
+{variant:1,2}LocalIncreasedPhysicalDamagePercentUniqueBow6[75,100]
+{variant:3,4}LocalIncreasedPhysicalDamagePercentUniqueBow6[150,180]
+{variant:5,6}LocalIncreasedPhysicalDamagePercentUniqueBow6[200,260]
 {variant:7}LocalIncreasedPhysicalDamagePercentUniqueBow6
 LocalAddedFireDamageUniqueBow6
 {variant:1,2}IncreasedAttackSpeedUniqueGlovesDex2
-{variant:3,4,5,6,7}LocalIncreasedAttackSpeedUniqueBow6
-{variant:1,2,3,4}100% More Damage with Arrow Hits at Close Range
-{variant:5,6,7}50% More Damage with Arrow Hits at Close Range
+{variant:3,4,5,6,7}LocalIncreasedAttackSpeedUniqueBow11
+{variant:1,2,3,4}PhysicalBowDamageCloseRangeUniqueBow6[100,100]
+{variant:5,6,7}PhysicalBowDamageCloseRangeUniqueBow6
 KnockbackCloseRangeUniqueBow6
 ]],[[
 The Crimson Storm
@@ -95,7 +95,7 @@ Requires Level 57, 190 Dex
 Implicits: 1
 {variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14}(4-6)% increased Movement Speed
 {variant:15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31}MovementVelocityMarakethBowImplicit1
-{variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14}(140-170)% increased Physical Damage
+{variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14}LocalIncreasedPhysicalDamagePercentUniqueBow5[140,170]
 {variant:15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31}LocalIncreasedPhysicalDamagePercentUniqueBow5
 LocalCriticalStrikeChanceUnique__15
 BleedOnCritUnique__1_
@@ -108,7 +108,7 @@ MaimOnCritUnique__1
 {variant:4}{crafted}(5-6)% increased Damage per Frenzy Charge
 {variant:5}{crafted}(5-6)% increased Damage per Endurance Charge
 {variant:6}{crafted}+(30-250) to Accuracy Rating
-{variant:7}IncreasedAttackSpeedUnique__8
+{variant:7}IncreasedAttackSpeedUnique__8[8,16]
 {variant:6,7}{crafted}+(7-18)% to Quality
 {variant:8}IncreasedAttackSpeedUnique__8
 {variant:8}{crafted}10% chance to Trigger Level 1 Blood Rage when you Kill an Enemy
@@ -154,18 +154,18 @@ Variant: Pre 3.17.0
 Variant: Current
 Requires Level 62, 212 Dex
 Implicits: 2
-{variant:1,2}(6-12)% increased Elemental Damage with Attack Skills
+{variant:1,2}WeaponElementalDamageImplicitBow1[6,12]
 {variant:6,7}CriticalMultiplierImplicitBow1
-{variant:1,2,3}LocalIncreasedPhysicalDamagePercentUnique__2
-{variant:4,5,6}LocalIncreasedPhysicalDamagePercentUnique__37__
+{variant:1,2,3}LocalIncreasedPhysicalDamagePercentUniqueBow5[100,125]
+{variant:4,5,6}LocalIncreasedPhysicalDamagePercentUniqueBow5[130,150]
 {variant:7}LocalIncreasedPhysicalDamagePercentUniqueBow5
-{variant:2}Adds (6-10) to (10-14) Physical Damage
-{variant:3,4}Adds (10-15) to (15-20) Physical Damage
+{variant:2}LocalAddedPhysicalDamageUniqueBow5[6,10][10,14]
+{variant:3,4}LocalAddedPhysicalDamageUniqueBow5[10,15][15,20]
 {variant:5,6,7}LocalAddedPhysicalDamageUniqueBow5
-{variant:1,2,3,4}LocalIncreasedAttackSpeedUniqueDescentBow1
+{variant:1,2,3,4}LocalIncreasedAttackSpeedUniqueBow5[10,10]
 {variant:5,6,7}LocalIncreasedAttackSpeedUniqueBow5
 PhysicalDamageConvertToChaosUniqueBow5
-(15-30)% increased Accuracy Rating
+AccuracyPercentUniqueBow5
 PhysicalDamagePercentTakesAsChaosDamageUniqueBow5
 {variant:5,6,7}LocalChanceForPoisonDamage300FinalInflictedWithThisWeaponUnique__1_
 ]],[[
@@ -181,13 +181,13 @@ Variant: Current
 Requires Level 32, 107 Dex
 Implicits: 1
 {variant:2,3,4,5,6,7}LocalCriticalStrikeChanceImplicitBow1
-{variant:1,2,3,4,5}LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe2
+{variant:1,2,3,4,5}LocalIncreasedPhysicalDamagePercentUniqueBow3[100,125]
 {variant:6,7}LocalIncreasedPhysicalDamagePercentUniqueBow3
-LocalIncreasedAttackSpeedUniqueDescentBow1
-{variant:1,2,4}+100% to Global Critical Strike Multiplier
-{variant:3}+150% to Global Critical Strike Multiplier
+LocalIncreasedAttackSpeedUniqueBow2
+{variant:1,2,4}LocalCriticalMultiplierUniqueBow3[100,100]
+{variant:3}LocalCriticalMultiplierUniqueBow3[150,150]
 {variant:5,6,7}LocalCriticalMultiplierUniqueBow3
-{variant:1,2,3,4,5,6}Adds an additional Arrow
+{variant:1,2,3,4,5,6}AdditionalArrowsUniqueBow3[1,1]
 {variant:7}AdditionalArrowsUniqueBow3
 ]],[[
 Death's Opus
@@ -202,12 +202,12 @@ Variant: Current
 Requires Level 44, 107 Dex
 Implicits: 1
 {variant:2,3,4,5,6}LocalCriticalStrikeChanceImplicitBow1
-{variant:1,2,3,4,5}LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe2
+{variant:1,2,3,4,5}LocalIncreasedPhysicalDamagePercentUniqueBow3[100,125]
 {variant:6}LocalIncreasedPhysicalDamagePercentUniqueBow3
-Adds (10-20) to (30-35) Physical Damage
-LocalIncreasedAttackSpeedUniqueDescentBow1
-{variant:1,2,4}+100% to Global Critical Strike Multiplier
-{variant:3}+150% to Global Critical Strike Multiplier
+LocalAddedPhysicalDamageUnique__17_[10,20][30,35]
+LocalIncreasedAttackSpeedUniqueBow2
+{variant:1,2,4}LocalCriticalMultiplierUniqueBow3[100,100]
+{variant:3}LocalCriticalMultiplierUniqueBow3[150,150]
 {variant:5,6}LocalCriticalMultiplierUniqueBow3
 AdditionalArrowsUniqueBow3
 ]],[[
@@ -220,14 +220,14 @@ Variant: Pre 3.19.0
 Variant: Current
 Requires Level 28, 95 Dex
 Implicits: 2
-{variant:2}(6-12)% increased Elemental Damage with Attack Skills
+{variant:2}WeaponElementalDamageImplicitBow1[6,12]
 {variant:3,4,5}WeaponElementalDamageImplicitBow1
-{variant:2,3}Adds (8-12) to (16-20) Physical Damage
+{variant:2,3}LocalAddedPhysicalDamageUniqueBow11[8,12][16,20]
 {variant:4,5}LocalAddedPhysicalDamageUniqueBow11
-LocalIncreasedAttackSpeedUniqueBow6
+LocalIncreasedAttackSpeedUniqueBow11
 {variant:1,2,3}CriticalStrikeChanceUniqueBow9
 ManaRegenerationUniqueBow11
-{variant:1,2,3}Gain 110% of Weapon Physical Damage as Extra Damage of a random Element
+{variant:1,2,3}WeaponPhysicalDamageAddedAsRandomElementUniqueBow11[110,110]
 {variant:4}WeaponPhysicalDamageAddedAsRandomElementUniqueBow11
 {variant:5}LocalPhysicalDamageAddedAsEachElementTransformed
 ]],[[
@@ -240,15 +240,15 @@ Variant: Pre 3.1.0
 Variant: Current
 Requires Level 40, 95 Dex
 Implicits: 2
-{variant:2}(6-12)% increased Elemental Damage with Attack Skills
+{variant:2}WeaponElementalDamageImplicitBow1[6,12]
 {variant:3,4}WeaponElementalDamageImplicitBow1
-{variant:2,3}Adds (8-12) to (16-20) Physical Damage
+{variant:2,3}LocalAddedPhysicalDamageUniqueBow11[8,12][16,20]
 {variant:4}LocalAddedPhysicalDamageUniqueBow11
-LocalIncreasedAttackSpeedUniqueBow6
+LocalIncreasedAttackSpeedUniqueBow11
 {variant:1,2,3}CriticalStrikeChanceUniqueBow9
 ManaRegenerationUniqueBow11
-{variant:1,2,3}Gain 110% of Weapon Physical Damage as Extra Damage of each Element
-{variant:4}LocalPhysicalDamageAddedAsEachElementTransformed2
+{variant:1,2,3}LocalPhysicalDamageAddedAsEachElementTransformed[110,110]
+{variant:4}LocalPhysicalDamageAddedAsEachElementTransformed
 ]],[[
 The Gluttonous Tide
 Citadel Bow
@@ -257,8 +257,8 @@ Requires Level 58, 185 Dex
 LocalIncreasedPhysicalDamagePercentUnique13
 LocalIncreasedAttackSpeedUnique__37___
 BowAttacksFrenzyChargesArrowsUnique__1
-+(30-50)% to Global Critical Strike Multiplier while you have a Frenzy Charge
-(20-40)% chance to gain a Frenzy Charge for each enemy you hit with a Critical Strike
+CriticalStrikeMultiplierFrenzyChargesUnique__1
+FrenzyChargePerEnemyCritUnique__1
 ]],[[
 Hopeshredder
 Ranger Bow
@@ -271,10 +271,10 @@ LocalAddedColdDamageUnique__8
 MovementVelocityPerFrenzyChargeUnique__1
 AccuracyAgainstBleedingEnemiesUnique__1
 {variant:2}LocalIncreasedAccuracyUnique__2
-12 to 14 Cold Damage per Frenzy Charge
-2% chance to Avoid Elemental Damage when Hit per Frenzy Charge
+AddedColdDamagePerFrenzyChargeUnique__1
+AvoidElementalDamagePerFrenzyChargeUnique__1
 AttackDamageLeechPerFrenzyChargeUnique__1
-{variant:1}400 Cold Damage taken per second per Frenzy Charge while moving
+{variant:1}DamageTakenPerFrenzyChargeMovingUnique__1[24000,24000]
 {variant:2}DamageTakenPerFrenzyChargeMovingUnique__1
 ]],[[
 Infractem
@@ -287,12 +287,12 @@ Variant: Current
 Requires Level 53, 170 Dex
 Implicits: 1
 LocalCriticalStrikeChanceImplicitBow1
-{variant:1,2}(90-100)% increased Physical Damage
-{variant:3,4}(110-125)% increased Physical Damage
+{variant:1,2}LocalIncreasedPhysicalDamagePercentUniqueBow7[90,100]
+{variant:3,4}LocalIncreasedPhysicalDamagePercentUniqueBow7[110,125]
 {variant:5}LocalIncreasedPhysicalDamagePercentUniqueBow7
 {variant:2,3,4,5}LocalAddedPhysicalDamageUniqueBow7
 DexterityUniqueBow7
-{variant:1,2,3}+(200-250) to Accuracy Rating
+{variant:1,2,3}IncreasedAccuracyUniqueBow7[200,250]
 {variant:4,5}IncreasedAccuracyUniqueBow7
 ArrowPierceUniqueBow7
 MovementVelocityMarakethBowImplicit2
@@ -309,7 +309,7 @@ Requires Level 53, 170 Dex
 Implicits: 1
 LocalCriticalStrikeChanceImplicitBow1
 DexterityUniqueBow7
-{variant:1}(110-125)% increased Physical Damage
+{variant:1}LocalIncreasedPhysicalDamagePercentUniqueBow7[110,125]
 {variant:2}LocalIncreasedPhysicalDamagePercentUniqueBow7
 LocalAddedPhysicalDamageUniqueBow7
 MovementVelocityMarakethBowImplicit2
@@ -327,7 +327,7 @@ LocalAddedPhysicalDamageUnique__5
 LocalIncreasedAttackSpeedUnique__6
 TotemLifeUnique__1
 SummonTotemCastSpeedUnique__1
-Can have 1 additional Siege Ballista Totem per 200 Dexterity
+AdditionalSnipeTotemsPerDexterityUnique__1
 AddedDamagePerDexterityUnique__1
 ]],[[
 Replica Iron Commander
@@ -354,17 +354,17 @@ Variant: Pre 3.20.0
 Variant: Current
 Requires Level 66, 212 Dex
 Implicits: 2
-{variant:2}(6-12)% increased Elemental Damage with Attack Skills
+{variant:2}WeaponElementalDamageImplicitBow1[6,12]
 {variant:3,4,5,6}WeaponElementalDamageImplicitBow1
-{variant:1,2,3,4}(150-175)% increased Physical Damage
-{variant:5}LocalIncreasedPhysicalDamagePercentUniqueBow3
+{variant:1,2,3,4}LocalIncreasedPhysicalDamagePercentUniqueBow1[150,175]
+{variant:5}LocalIncreasedPhysicalDamagePercentUniqueBow1[90,105]
 {variant:6}LocalIncreasedPhysicalDamagePercentUniqueBow1
-{variant:1,2,3,4,5}Adds (6-12) to (20-32) Physical Damage
+{variant:1,2,3,4,5}LocalAddedPhysicalDamageUniqueBow1[6,12][20,32]
 {variant:6}LocalAddedPhysicalDamageUniqueBow1
 LocalIncreasedAttackSpeedUniqueBow1
 IncreasedManaUniqueBow1
-AlwaysHitsUniqueTwoHandMace6
-{variant:4,5,6}VillagePlayerFarShot
+AlwaysHits
+{variant:4,5,6}PlayerFarShotUnique__1
 ]],[[
 Null's Inclination
 Ranger Bow
@@ -376,10 +376,10 @@ AddedChaosDamageUniqueBow12
 LocalIncreasedAttackSpeedUniqueBow12
 ChaosResistUniqueBow12
 {variant:1}Minions deal 1% increased Damage per 10 Dexterity
-{variant:2}Minions deal 1% increased Damage per 5 Dexterity
+{variant:2}IncreasedMinionDamagePerDexterityUniqueBow12[2,2]
 {variant:3}IncreasedMinionDamagePerDexterityUniqueBow12
 IntelligenceRequirementsUniqueBow12
-Cast Socketed Minion Spells on Kill with this Weapon
+CastSocketedMinionSpellsOnKillUniqueBow12
 ]],[[
 Nuro's Harp
 Harbinger Bow
@@ -390,15 +390,15 @@ Requires Level 68, 212 Dex
 Implicits: 1
 LocalCriticalStrikeChanceImplicitBow1
 LocalReducedPhysicalDamagePercentUniqueBow8
-{variant:1,2}Adds (120-140) to (180-210) Cold Damage
+{variant:1,2}LocalAddedColdDamageUnique__4[120,140][180,210]
 {variant:3}LocalAddedColdDamageUnique__4
-LocalIncreasedAttackSpeedUniqueBow9
+LocalIncreasedAttackSpeedUniqueBow10
 LightRadiusUnique__2
 SpreadChilledGroundOnFreezeUnique__1
 SpreadConsecratedGroundOnShatterUnique__1
-{variant:2}40% increased Effect of Chilled Ground
+{variant:2}ChilledGroundEffectUnique__1[40,40]
 {variant:3}ChilledGroundEffectUnique__1
-{variant:3}(30-50)% increased Effect of Consecrated Ground
+{variant:3}ConsecratedGroundEffectUnique__1
 ]],[[
 Quill Rain
 Short Bow
@@ -411,10 +411,10 @@ DexterityUniqueBow4
 LocalIncreasedAttackSpeedUniqueBow4
 IncreasedAccuracyUniqueBow4
 ProjectileSpeedUniqueBow4_
-{variant:1}50% less Damage
-{variant:2}40% less Damage
+{variant:1}LocalIncreasedPhysicalDamagePercentUniqueBow4[50,50]
+{variant:2}LocalIncreasedPhysicalDamagePercentUniqueBow4[40,40]
 {variant:3}LocalIncreasedPhysicalDamagePercentUniqueBow4
-{variant:2,3}Gain 2 Mana per Enemy Hit with Attacks
+{variant:2,3}ManaGainPerTargetUnique__2
 ]],[[
 Replica Quill Rain
 Short Bow
@@ -424,8 +424,8 @@ Requires Level 5, 26 Dex
 SupportedByArrowNovaUnique__1
 DexterityUniqueBow4
 LocalIncreasedPhysicalDamagePercentUniqueDescentBow1
-LocalIncreasedAttackSpeedUniqueOneHandSword7
-Gain 2 Mana per Enemy Hit with Attacks
+LocalIncreasedAttackSpeedUnique__35
+ManaGainPerTargetUnique__2
 ProjectileSpeedUniqueBow4_
 IncreasedAccuracyUniqueBow4
 ]],[[
@@ -438,16 +438,16 @@ Variant: Pre 3.11.0
 Variant: Pre 3.17.0
 Variant: Current
 {variant:4,5,6}SupportedByGreaterVolleyUnique__1
-{variant:1}LocalIncreasedPhysicalDamagePercentUniqueBow10
-{variant:2,3}(40-50)% increased Physical Damage
-{variant:4,5,6}LocalIncreasedPhysicalDamagePercentUniqueOneHandMace1
-{variant:1}Adds (25-40) to (100-115) Physical Damage
-{variant:2,3,4,5}Adds (15-30) to (70-95) Physical Damage
+{variant:1}LocalIncreasedPhysicalDamagePercentUnique__15[50,70]
+{variant:2,3}LocalIncreasedPhysicalDamagePercentUnique__15[40,50]
+{variant:4,5,6}LocalIncreasedPhysicalDamagePercentUnique__15
+{variant:1}LocalAddedPhysicalDamageUnique__16_[25,40][100,115]
+{variant:2,3,4,5}LocalAddedPhysicalDamageUnique__16_[15,30][70,95]
 {variant:6}LocalAddedPhysicalDamageUnique__16_
-IncreasedAttackSpeedUniqueQuiver3
+IncreasedAttackSpeedUnique__5
 {variant:1,2}4 additional Arrows
 {variant:3}2 additional Arrows
-ProjectileSpeedUniqueQuiver2
+ProjectileSpeedUnique__3
 {variant:5,6}VolleyFirstPointPierceUnique__1_
 {variant:5,6}VolleySecondPointForkUnique__1
 {variant:5,6}VolleyThirdPointReturnUnique__1__
@@ -463,10 +463,10 @@ Implicits: 1
 {variant:2,3}CriticalMultiplierImplicitBow1
 LocalIncreasedPhysicalDamagePercentUniqueBow5
 {variant:1,2}LocalIncreasedAttackSpeedUnique__1
-{variant:1,2}AdditionalChainUniqueOneHandMace3
+{variant:1,2}AdditionalChainUnique__2
 {variant:3}AdditionalChainUnique__1
-ProjectileSpeedUniqueAmulet5
-{variant:1,2}(20-40)% increased Elemental Damage with Attack Skills
+ProjectileSpeedUnique__2
+{variant:1,2}WeaponElementalDamageUnique__2[20,40]
 {variant:3}WeaponElementalDamageUnique__2
 ]],[[
 Silverbranch
@@ -475,22 +475,22 @@ Variant: Pre 2.0.0
 Variant: Current
 Requires Level 2
 LocalIncreaseSocketedBowGemLevelUniqueBow2
-{variant:1}(50-80)% increased Physical Damage
+{variant:1}LocalIncreasedPhysicalDamagePercentUniqueBow2[50,80]
 {variant:2}LocalIncreasedPhysicalDamagePercentUniqueBow2
-LocalIncreasedAttackSpeedUniqueDescentBow1
-IncreasedAccuracyUniqueDescentBow1
+LocalIncreasedAttackSpeedUniqueBow2
+IncreasedAccuracyUniqueBow2
 ManaGainedFromEnemyDeathUniqueBow2
 ]],[[
 Silverbough
 Crude Bow
 Source: No longer obtainable
 Requires Level 36
-LocalIncreaseSocketedGemLevelUniqueHelmetStrInt2
+LocalIncreaseSocketedGemLevelUnique__2
 LocalIncreaseSocketedBowGemLevelUniqueBow2
 LocalIncreasedPhysicalDamagePercentUniqueBow2
 LocalAddedPhysicalDamageUnique__19
-LocalIncreasedAttackSpeedUniqueDescentBow1
-IncreasedAccuracyUniqueDescentBow1
+LocalIncreasedAttackSpeedUniqueBow2
+IncreasedAccuracyUniqueBow2
 ManaGainedFromEnemyDeathUniqueBow2
 ]],[[
 Widowhail
@@ -505,12 +505,12 @@ Variant: Current
 Requires Level 68, 212 Dex
 Implicits: 1
 LocalCriticalStrikeChanceImplicitBow1
-{variant:1}Adds (60-75) to (170-220) Physical Damage
-{variant:2}Adds (110-125) to (245-265) Physical Damage
+{variant:1}LocalAddedPhysicalDamageUnique__22[60,75][170,220]
+{variant:2}LocalAddedPhysicalDamageUnique__22[110,125][245,265]
 {variant:3}LocalAddedPhysicalDamageUnique__22
-{variant:1}100% increased Critical Strike Chance with arrows that Fork
+{variant:1}CriticalStrikeChanceForForkingArrowsUnique__1[100,100]
 {variant:2,3}CriticalStrikeChanceForForkingArrowsUnique__1
-{variant:1}Arrows that Pierce have 50% chance to cause Bleeding
+{variant:1}ArrowsThatPierceCauseBleedingUnique__1
 {variant:2,3}ArrowsThatPierceHaveCritMultiUnique__1
 {variant:1}ArrowsAlwaysCritAfterPiercingUnique___1
 {variant:2,3}ArrowsAlwaysPierceAfterForkingUnique__1__
@@ -539,10 +539,10 @@ Spine Bow
 Variant: Pre 3.9.0
 Variant: Pre 3.20.0
 Variant: Current
-{variant:1,2}Adds 1 to (275-325) Lightning Damage
+{variant:1,2}LocalAddedLightningDamageUniqueBow10[1,1][275,325]
 {variant:3}LocalAddedLightningDamageUniqueBow10
-LocalIncreasedAttackSpeedUniqueBow9
-{variant:1,2}60% of Lightning Damage Converted to Chaos Damage
+LocalIncreasedAttackSpeedUniqueBow10
+{variant:1,2}ConvertLightningDamageToChaosUniqueBow10[60,60]
 {variant:3}ConvertLightningDamageToChaosUniqueBow10
 {variant:1,2}ChanceToShockUniqueBow10
 ChaosDamageCanShockUniqueBow10
@@ -559,22 +559,22 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 66, 212 Dex
 Implicits: 2
-{variant:3}(6-12)% increased Elemental Damage with Attack Skills
+{variant:3}WeaponElementalDamageImplicitBow1[6,12]
 {variant:4,5,6}WeaponElementalDamageImplicitBow1
-{variant:1}Adds 40 to 60 Cold Damage
-{variant:2,3,4}Adds (32-40) to (48-60) Cold Damage
+{variant:1}AddedColdDamageUniqueBow9[40,40][60,60]
+{variant:2,3,4}AddedColdDamageUniqueBow9[32,40][48,60]
 {variant:5,6}AddedColdDamageUniqueBow9
-{variant:1}Adds 1 to 100 Lightning Damage
-{variant:2,3,4}Adds 1 to (80-100) Lightning Damage
+{variant:1}AddedLightningDamageUniqueBow9[1,1][100,100]
+{variant:2,3,4}AddedLightningDamageUniqueBow9[1,1][80,100]
 {variant:5,6}AddedLightningDamageUniqueBow9
-LocalIncreasedAttackSpeedUniqueBow9
-{variant:1,2}LocalCriticalStrikeChanceUnique__14
-{variant:3,4}LocalCriticalStrikeChanceUnique__18
+LocalIncreasedAttackSpeedUniqueBow10
+{variant:1,2}CriticalStrikeChanceUniqueBow9[80,100]
+{variant:3,4}CriticalStrikeChanceUniqueBow9[60,80]
 {variant:5,6}CriticalStrikeChanceUniqueBow9
-{variant:1,2}25% increased Quantity of Items Dropped by Slain Frozen enemies
+{variant:1,2}ItemQuantityWhenFrozenUniqueBow9[25,25]
 {variant:3,4,5}ItemQuantityWhenFrozenUniqueBow9
-{variant:6}30% increased Rarity of Items Dropped by Slain Frozen Enemies
-{variant:1,2}50% increased Rarity of Items Dropped by Slain Shocked enemies
+{variant:6}IncreasedRarityWhenSlayingFrozenUnique__1
+{variant:1,2}ItemRarityWhenShockedUniqueBow9[50,50]
 {variant:3,4,5,6}ItemRarityWhenShockedUniqueBow9
 ]],[[
 Replica Windripper
@@ -586,7 +586,7 @@ Implicits: 1
 WeaponElementalDamageImplicitBow1
 AddedColdDamageUniqueBow9
 AddedLightningDamageUniqueBow9
-LocalIncreasedAttackSpeedUniqueBow9
+LocalIncreasedAttackSpeedUniqueBow10
 CriticalStrikeChanceUniqueBow9
 FrozenMonstersTakeIncreasedDamage
 GainEnergyShieldOnKillShockedEnemyUnique__1_
@@ -600,12 +600,12 @@ League: Breach
 Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{Xoph's Nurture} using currency{Blessing of Xoph}
 Requires Level 23, 80 Dex
-{variant:1}(70-90)% increased Physical Damage
+{variant:1}LocalIncreasedPhysicalDamagePercentUnique__21[70,90]
 {variant:2}LocalIncreasedPhysicalDamagePercentUnique__21
-{variant:1}Gain (20-30) Life per Ignited Enemy Killed
+{variant:1}LifeGainedOnKillingIgnitedEnemiesUnique__1[20,30]
 {variant:2}LifeGainedOnKillingIgnitedEnemiesUnique__1
 PhysicalAddedAsFireUnique__3
-ChanceToIgniteUniqueBodyInt2
+ChanceToIgniteUnique__2
 {variant:2}AlwaysPierceBurningEnemiesUnique__1
 {variant:2}ArrowAddedFireDamagePerEnemyPiercedUnique__1
 ]],[[
@@ -619,12 +619,12 @@ Variant: Pre 3.17.0
 Variant: Current
 Requires Level 64, 185 Dex
 {variant:3,4}SupportedByIgniteProliferationUnique1
-{variant:1,2,3}LocalIncreasedPhysicalDamagePercentUniqueOneHandSword4
+{variant:1,2,3}LocalIncreasedPhysicalDamagePercentUnique__38[250,300]
 {variant:4}LocalIncreasedPhysicalDamagePercentUnique__38
 ConvertPhysicalToFireUnique__1
-ChanceToIgniteUniqueRing38
-{variant:1}Ignites your Skills cause spread to other Enemies within 1.2 metres
-{variant:2}Ignites your Skills cause spread to other Enemies within 1.5 metres
+ChanceToIgniteUnique__2
+{variant:1}GlobalIgniteProlifUnique__1[1.2,1.2]
+{variant:2}GlobalIgniteProlifUnique__1
 GainLifeOnIgnitingEnemyUnique__1
 ]],
 }
