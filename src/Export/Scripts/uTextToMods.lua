@@ -5,7 +5,7 @@ end
 -- Note that these will be normally commented out to prevent accidental legacy mod wording loss on export
 -- (before legacy mods have been added to the uniques in src/Data)
 local itemTypes = {
-	-- "axe",
+	"axe",
 	-- "bow",
 	-- "claw",
 	-- "dagger",
@@ -58,38 +58,37 @@ local itemTypesTemp = {
 -- Retrieved 2026-03-02, License - CC BY-SA 3.0
 
 function io.linesbackward(filename)
-  local file = assert(io.open(filename))
-  local chunk_size = 4*1024
-  local iterator = function() return "" end
-  local tail = ""
-  local chunk_index = math.ceil(file:seek"end" / chunk_size)
-  return 
-    function()
-      while true do
-        local lineEOL, line = iterator()
-        if lineEOL ~= "" then 
-          return line:reverse() 
-        end
-        repeat
-          chunk_index = chunk_index - 1
-          if chunk_index < 0 then 
-            file:close()
-            iterator = function() 
-                         error('No more lines in file "'..filename..'"', 3) 
-                       end  
-            return 
-          end
-          file:seek("set", chunk_index * chunk_size)
-          local chunk = file:read(chunk_size)
-          local pattern = "^(.-"..(chunk_index > 0 and "\n" or "")..")(.*)"
-          local new_tail, lines = chunk:match(pattern)
-          iterator = lines and (lines..tail):reverse():gmatch"(\n?\r?([^\n]*))"
-          tail = new_tail or chunk..tail
-        until iterator
-      end
-    end
+	local file = assert(io.open(filename))
+	local chunk_size = 4 * 1024
+	local iterator = function() return "" end
+	local tail = ""
+	local chunk_index = math.ceil(file:seek "end" / chunk_size)
+	return
+		function()
+			while true do
+				local lineEOL, line = iterator()
+				if lineEOL ~= "" then
+					return line:reverse()
+				end
+				repeat
+					chunk_index = chunk_index - 1
+					if chunk_index < 0 then
+						file:close()
+						iterator = function()
+							error('No more lines in file "' .. filename .. '"', 3)
+						end
+						return
+					end
+					file:seek("set", chunk_index * chunk_size)
+					local chunk = file:read(chunk_size)
+					local pattern = "^(.-" .. (chunk_index > 0 and "\n" or "") .. ")(.*)"
+					local new_tail, lines = chunk:match(pattern)
+					iterator = lines and (lines .. tail):reverse():gmatch "(\n?\r?([^\n]*))"
+					tail = new_tail or chunk .. tail
+				until iterator
+			end
+		end
 end
-
 
 local usedMods = {}
 local itemUsedMods = {}
@@ -180,14 +179,11 @@ for _, name in pairs(itemTypes) do
 					for _, val in ipairs(genericValues) do
 						local min, max = val:match("(%-*%d*%.*%d+)-*(%-*%d*%.*%d*)")
 						if not max or max == "" then max = min end
-						-- Decimals mean it's a permyriad value
+						-- Decimals mean it's not an exact value
 						-- There are more that should be multiplied, but they're near-impossible to detect this way
-						if min:match("%.") then
-							min = tonumber(min) * 1000
-						end
-						if max:match("%.") then
-							max = tonumber(max) * 1000
-						end
+						local multiplier = genericText:match("chance") and 1000 or genericText:match("per second") and 60 or 1
+						min = tonumber(min) * multiplier
+						max = tonumber(max) * multiplier
 						outLine = outLine .. "[" .. min .. "," .. max .. "]"
 					end
 				end

@@ -93,9 +93,9 @@ Implicits: 0
 Adds (11-14) to (18-23) Physical Damage
 {variant:1}(10-15)% increased Attack Speed
 {variant:1}2% of Physical Attack Damage Leeched as Life
-{variant:1}50% reduced total Recovery per second from Life Leech
 25% chance to cause Bleeding on Hit
 {variant:2}+(25-35)% to Damage over Time Multiplier for Bleeding from Hits with this Weapon
+{variant:1}50% reduced total Recovery per second from Life Leech
 ]],[[
 Moonbender's Wing
 Tomahawk
@@ -180,7 +180,7 @@ Trigger Level 20 Starfall on Melee Critical Strike
 (120-180)% increased Physical Damage
 (20-30)% increased Critical Strike Chance
 (10-20)% increased Area of Effect
-Gain (40-60)% of Weapon Physical Damage as Extra Damage of a Random Element
+Gain (40-60)% of Weapon Physical Damage as Extra Damage of a random Element
 ]],
 -- Weapon: Two Handed Axe
 [[
@@ -222,9 +222,9 @@ Debeon's Dirge
 Despot Axe
 Implicits: 0
 Adds (310-350) to (460-500) Cold Damage
+Warcries Knock Back and Interrupt Enemies in a smaller Area
 15% increased Movement Speed if you've used a Warcry Recently
 150% increased Elemental Damage if you've used a Warcry Recently
-Warcries Knock Back and Interrupt Enemies in a smaller Area
 ]],[[
 The Harvest
 Jasper Chopper
@@ -274,8 +274,8 @@ Implicits: 0
 Gain 20 Life per Enemy Killed
 +(150-250) to Accuracy Rating
 Culling Strike
-{variant:3,4}Gain 1 Rage on Critical Hit with attacks, no more than once every 0.5 seconds
 {variant:5}Gain 5 Rage on Melee Hit
+{variant:3,4}Gain 1 Rage on Critical Strike with Attacks
 {variant:3,4,5}Every Rage also grants 1% of Physical Damage as Extra Fire Damage
 ]],[[
 Kingmaker
@@ -393,8 +393,7 @@ Implicits: 1
 {variant:1}(140-170)% increased Physical Damage
 {variant:2}(230-270)% increased Physical Damage
 15% reduced Attack Speed
-{variant:1}25% chance to Curse Enemies with Vulnerability on Hit
-{variant:2}Curse Enemies with Vulnerability on Hit
+Curse Enemies with Vulnerability on Hit
 {variant:1}Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
 {variant:2}Exerted Attacks deal 200% increased Damage
 {variant:2}Exerted Attacks Knock Enemies Back on Hit
@@ -410,7 +409,7 @@ Implicits: 1
 {variant:2,3}25% chance to Maim on Hit
 Trigger Level 20 Bone Nova when you Hit a Bleeding Enemy
 (280-320)% increased Physical Damage
-(30-25)% reduced Attack Speed
+(25-30)% reduced Attack Speed
 {variant:1,2}Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
 {variant:3}Attacks have 25% chance to inflict Bleeding
 ]],[[

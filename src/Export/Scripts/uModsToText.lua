@@ -30,7 +30,7 @@ local itemTypes = {
 	-- "boots",
 	-- "shield",
 	-- "quiver",
-	"amulet",
+	-- "amulet",
 	-- "ring",
 	-- "belt",
 	-- "jewel",
