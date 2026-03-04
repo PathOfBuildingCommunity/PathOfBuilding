@@ -531,9 +531,9 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			end
 		else
 			node.type = "Normal"
-			if (node.ascendancyName == "Ascendant" and not node.isMultipleChoiceOption and not node.dn:find("Dexterity")
+			if ((node.ascendancyName == "Ascendant" and not node.isMultipleChoiceOption and not node.dn:find("Dexterity")
 				and not node.dn:find("Intelligence") and not node.dn:find("Strength") and not node.dn:find("Passive"))
-				or (node.isMultipleChoiceOption and node.ascendancyName) then
+				or (node.isMultipleChoiceOption and node.ascendancyName)) and node.ascendancyName ~= "Reliquarian" then
 				local className = self.ascendNameMap[node.ascendancyName].class.name
 				self.ascendancyMap[node.dn:lower()] = node
 				if not self.classNotables[className] then
