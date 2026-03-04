@@ -23,14 +23,13 @@ Requires Level 65, 81 Dex, 117 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
 {variant:1,2}DegenerationDamageUniqueDagger8
-{variant:1,2}Adds (50-60) to (120-140) Physical Damage
+{variant:1,2}LocalAddedPhysicalDamageUniqueDagger8[50,60][120,140]
 {variant:3}LocalAddedPhysicalDamageUniqueDagger8
 LocalCriticalStrikeChanceUniqueDagger8
-{variant:1}+(10-15)% to Global Critical Strike Multiplier
+{variant:1}CriticalMultiplierUniqueDagger8[10,15]
 {variant:2,3}CriticalMultiplierUniqueDagger8
 ChaosResistUniqueDagger8
 PoisonSpreadAndHealOnPoisonedKillUniqueDagger8
-and nearby Allies Regenerate 200 Life per second
 ]],[[
 Bloodplay
 Stiletto
@@ -42,9 +41,9 @@ CriticalStrikeChanceImplicitDagger1
 DexterityUniqueDagger12
 LocalIncreasedPhysicalDamagePercentUniqueDagger12
 LocalAddedPhysicalDamageUniqueDagger12
-LocalIncreasedAttackSpeedUniqueDagger3
-Extra Gore
-{variant:1}VillageLocalChanceToBleed
+LocalIncreasedAttackSpeedUniqueDagger12
+ExtraGore
+{variant:1}LocalChanceToBleedUniqueDagger12[10,10]
 {variant:2}LocalChanceToBleedUniqueDagger12
 ]],[[
 Replica Bloodplay
@@ -54,7 +53,7 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 15, 30 Dex, 30 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
-StrengthUniqueHelmetDexInt1
+StrengthUnique__15
 LocalIncreasedPhysicalDamagePercentUniqueDagger12
 LocalAddedPhysicalDamageUniqueDagger12
 LocalChanceToBleedUniqueDagger12
@@ -90,7 +89,7 @@ CriticalStrikeChanceImplicitDagger2
 LocalIncreaseSocketedFireGemLevelUniqueDagger10
 SpellDamageUniqueDagger10
 IntelligenceUniqueDagger10_
-{variant:1}45% of Fire Damage Converted to Chaos Damage
+{variant:1}ConvertFireToChaosUniqueDagger10Updated[45,45]
 {variant:2,3}ConvertFireToChaosUniqueDagger10Updated
 {variant:1,2}ChaosDamagePoisonsUniqueDagger10
 {variant:3}ChaosDamageChanceToPoisonUnique__1
@@ -104,19 +103,19 @@ Variant: Current
 Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
-{variant:1,2}SpellDamageUniqueStaff12
+{variant:1,2}SpellDamageOnWeaponUniqueDagger1[50,70]
 {variant:3}SpellDamageOnWeaponUniqueDagger1
-{variant:1}LifeGainedFromEnemyDeathUniqueTwoHandMace7
-{variant:2}Gain 30 Life per Enemy Killed
+{variant:1}LifeGainedFromEnemyDeathUniqueTwoHandAxe2
+{variant:2}LifeGainedFromEnemyDeathUniqueDagger1[30,30]
 {variant:3}LifeGainedFromEnemyDeathUniqueDagger1
-{variant:1}Gain 5 Mana per Enemy Killed
-{variant:2}ManaGainedFromEnemyDeathUniqueTwoHandSword3
+{variant:1}ManaGainedFromEnemyDeathUniqueBow2[5,5]
+{variant:2}ManaGainedFromEnemyDeathUniqueBow2
 {variant:3}ManaGainedFromEnemyDeathUniqueDagger1
-{variant:1,2}AreaOfEffectImplicitTwoHandMace1__
+{variant:1,2}AreaOfEffectUniqueDagger1[10,10]
 {variant:3}AreaOfEffectUniqueDagger1
-{variant:2}(125-175)% increased Critical Strike Chance for Spells if you've Killed Recently
+{variant:2}SpellCriticalStrikeChanceIfKilledRecentlyUnique__1[125,175]
 {variant:3}SpellCriticalStrikeChanceIfKilledRecentlyUnique__1
-{variant:2}+(40-60)% to Critical Strike Multiplier for Spells if you haven't Killed Recently
+{variant:2}SpellCriticalStrikeMultiplierIfNotKilledRecentlyUnique__1[40,60]
 {variant:3}SpellCriticalStrikeMultiplierIfNotKilledRecentlyUnique__1
 ]],[[
 Goredrill
@@ -166,12 +165,12 @@ Variant: Current
 Requires Level 50, 71 Dex, 102 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
-{variant:1}SpellDamageUnique__7
+{variant:1}SpellDamageOnWeaponUniqueDagger4[40,50]
 {variant:2,3}SpellDamageOnWeaponUniqueDagger4
 {variant:1,2}IncreasedEnergyShieldUniqueDagger4
 {variant:1,2}ReducedEnergyShieldDelayUniqueBodyInt1
 {variant:3}ReducedEnergyShieldDelayUniqueDagger4
-{variant:1,2}IncreasedManaUniqueWand3
+{variant:1,2}IncreasedManaUniqueDagger4[40,50]
 {variant:3}IncreasedManaUniqueDagger4
 SpellsHaveCullingStrikeUniqueDagger4
 ]],[[
@@ -188,8 +187,8 @@ SpellDamageOnWeaponUniqueDagger4
 {variant:1}IncreasedEnergyShieldUniqueDagger4
 {variant:1}ReducedEnergyShieldDelayUniqueBodyInt1
 {variant:2}ReducedEnergyShieldDelayUniqueDagger4
-{variant:1}IncreasedLifeUnique__41
-{variant:2}IncreasedLifeUnique__20
+{variant:1}IncreasedLifeUnique__107[40,50]
+{variant:2}IncreasedLifeUnique__107
 ImpaleEffectUnique__1
 ChanceToImpaleWithSpellsUnique__1
 ]],[[
@@ -201,8 +200,8 @@ Requires Level 60, 113 Dex, 113 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
 UniqueSecretBladeGrantHiddenBlade
-DexterityUnique__6
-LocalIncreasedPhysicalDamagePercentUniqueOneHandSword8
+DexterityUnique__18
+LocalIncreasedPhysicalDamagePercentUnique__42
 ReducedAttackSpeedWhilePhasingUnique__1
 ]],[[
 Mark of the Doubting Knight
@@ -215,17 +214,17 @@ Requires Level 64, 76 Dex, 149 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger3
 BlockWhileDualWieldingUniqueDagger9
-{variant:1}LocalIncreasedPhysicalDamagePercentUnique__34___
-{variant:2}(210-240)% increased Physical Damage
+{variant:1}LocalIncreasedPhysicalDamagePercentUniqueDagger9[180,210]
+{variant:2}LocalIncreasedPhysicalDamagePercentUniqueDagger9[210,240]
 {variant:3,4}LocalIncreasedPhysicalDamagePercentUniqueDagger9
-{variant:1,2,3}ReducedAttackSpeedUniqueAmulet16
+{variant:1,2,3}LocalReducedAttackSpeedUniqueDagger9[-10,-10]
 {variant:4}LocalReducedAttackSpeedUniqueDagger9
 {variant:1,2,3}AllResistancesUniqueDagger9
 {variant:1,2}Melee Critical Strikes have 25% chance to cause Bleeding
-{variant:3,4}CauseseBleedingOnCritUniqueDagger9
+{variant:3,4}CausesBleedingOnCritUniqueDagger11
 {variant:1,2}Melee Critical Strikes have 25% chance to Poison the Enemy
 {variant:3,4}CausesPoisonOnCritUniqueDagger9
-{variant:4}LocalCriticalStrikeChanceUniqueOneHandSword8
+{variant:4}LocalCriticalStrikeChanceUnique__23
 {variant:4}LocalCriticalMultiplierUniqueDagger4
 ]],[[
 Mightflay
@@ -236,7 +235,7 @@ CriticalStrikeChanceImplicitDagger1
 LocalIncreasedPhysicalDamagePercentUniqueDagger2
 LocalAddedPhysicalDamageUniqueDagger2
 StrengthUniqueDagger2
-Gain 10 Life per Enemy Hit with Attacks
+LifeGainPerTargetUniqueDagger2
 ]],[[
 Taproot
 Ambusher
@@ -244,12 +243,12 @@ Requires Level 60, 113 Dex, 113 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
 LocalIncreasedPhysicalDamagePercentUnique__20
-LocalIncreasedAttackSpeedUnique__17
+IncreasedAttackSpeedUniqueIntHelmet2
 PoisonDurationUnique__1_
 AttackDamageManaLeechAgainstPoisonedEnemiesUnique_2
 LifeLeechFromAttackDamageAgainstMaimedEnemiesUnique__1
 LocalMaimOnHitChanceUnique__1
-LocalChanceToPoisonOnHitUnique__4
+LocalChanceToPoisonOnHitUnique__3
 ]],[[
 Ungil's Gauche
 Boot Knife
@@ -259,12 +258,12 @@ Variant: Current
 Requires Level 20, 31 Dex, 45 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
-{variant:2}+20% Chance to Block Attack Damage while Dual Wielding
+{variant:2}BlockWhileDualWieldingUniqueDagger3[20,20]
 {variant:1,3}BlockWhileDualWieldingUniqueDagger3
 LocalIncreasedPhysicalDamagePercentUniqueDagger2
 DexterityUniqueDagger3
 AddedLightningDamageUniqueDagger3
-LocalIncreasedAttackSpeedUniqueDagger3
+LocalIncreasedAttackSpeedUniqueDagger12
 CriticalStrikeChanceImplicitDagger3
 ]],[[
 Replica Ungil's Gauche
@@ -276,7 +275,7 @@ Implicits: 1
 CriticalStrikeChanceImplicitDagger1
 BlockWhileDualWieldingUnique__2_
 DexterityUniqueDagger3
-LocalIncreasedAttackSpeedUniqueDagger3
+LocalIncreasedAttackSpeedUniqueDagger12
 CriticalStrikeChanceImplicitDagger3
 ChanceToChillAttackersOnBlockUnique__2__
 ChanceToShockAttackersOnBlockUnique__2
@@ -288,19 +287,19 @@ Variant: Current
 Requires Level 68, 76 Dex, 149 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger2
-Adds (85-110) to (130-150) Physical Damage
+LocalAddedPhyiscalDamageUnique__39
 LocalAddedFireDamageUnique__5__
-{variant:2}CausesBleedingUniqueTwoHandAxe4Updated
+{variant:2}LocalChanceToBleedUnique__1__
 {variant:1}AddedFireDamageVersusBleedingEnemiesUnique__1
 {variant:1}AddedPhysicalDamageVersusIgnitedEnemiesUnique__1
 {variant:1}ChanceToBleedIgnitedEnemiesUnique__1
-{variant:2}(75-100)% increased Fire Damage with Hits and Ailments against Bleeding Enemies
-{variant:2}(75-100)% increased Physical Damage with Hits and Ailments against Ignited Enemies
+{variant:2}FireDamageVersusBleedingEnemiesUnique__1
+{variant:2}PhysicalDamageVersusIgnitedEnemiesUnique__1
 GainAvatarOfFireEvery8SecondsUnique__1
-{variant:1}(80-120)% increased Critical Strike Chance while you have Avatar of Fire
+{variant:1}IncreasedCriticalStrikeChanceWithAvatarOfFireUnique__1[80,120]
 {variant:2}IncreasedCriticalStrikeChanceWithAvatarOfFireUnique__1
 ConvertPhysicalToFireWithAvatarOfFireUnique__1
-{variant:1}+1000 Armour while you do not have Avatar of Fire
+{variant:1}ArmourWithoutAvatarOfFireUnique__1[1000,1000]
 {variant:2}ArmourWithoutAvatarOfFireUnique__1
 ]],[[
 White Wind
@@ -312,12 +311,12 @@ Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
 LocalAddedColdDamageUnique__7
-IncreasedAttackSpeedUniqueGlovesStr1
-{variant:1}+(300-400) to Evasion Rating
+IncreasedAttackSpeedUniqueIntHelmet2
+{variant:1}IncreasedEvasionRatingUnique__3[300,400]
 {variant:2,3}IncreasedEvasionRatingUnique__3
-{variant:1,2}(15-25)% chance to Suppress Spell Damage while your Off Hand is empty
-{variant:3}(30-40)% chance to Suppress Spell Damage while your Off Hand is empty
-{variant:1}100% increased Cold Damage while your Off Hand is empty
+{variant:1,2}ChanceToDodgeWhileOffhandIsEmpty[15,25]
+{variant:3}ChanceToDodgeWhileOffhandIsEmpty
+{variant:1}IncreasedColdDamageWhileOffhandIsEmpty_[100,100]
 {variant:2,3}IncreasedColdDamageWhileOffhandIsEmpty_
 ]],[[
 Widowmaker
@@ -327,11 +326,11 @@ Variant: Current
 Requires Level 44, 63 Dex, 90 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
-{variant:1}Adds (15-25) to (35-45) Physical Damage
+{variant:1}LocalAddedPhysicalDamageUnique__8[15,25][35,45]
 {variant:2}LocalAddedPhysicalDamageUnique__8
 LocalCriticalStrikeChanceUnique__2
 LocalCriticalMultiplierUniqueDagger4
-100% increased Critical Strike Chance against Enemies on Full Life
+CriticalChanceAgainstEnemiesOnFullLifeUnique__1
 CriticalStrikeAttackLifeLeechUnique__1
 ]],
 }
