@@ -173,7 +173,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		}
 		t_insert(self.treeVersions, value)
 	end
-	self.controls.versionText = new("LabelControl", { "LEFT", self.controls.reset, "RIGHT" }, { 8, 0, 0, 16 }, "Version:")
+	self.controls.versionText = new("LabelControl", { "LEFT", self.controls.reset, "RIGHT" }, { 8, 0, 0, 16 }, "^7Version:")
 	self.controls.versionSelect = new("DropDownControl", { "LEFT", self.controls.versionText, "RIGHT" }, { 8, 0, 100, 20 }, self.treeVersions, function(index, selected)
 		if selected.value ~= self.build.spec.treeVersion then
 			self:OpenVersionConvertPopup(selected.value, true)
@@ -1019,7 +1019,7 @@ function TreeTabClass:OpenMasteryPopup(node, viewPort)
 			main:ClosePopup()
 		end)
 		controls.effect = new("PassiveMasteryControl", {"TOPLEFT",nil,"TOPLEFT"}, {6, 25, 0, passiveMasteryControlHeight}, effects, self, node, controls.save)
-		main:OpenPopup(controls.effect.width + 12, controls.effect.height + 60, node.name, controls)
+		main:OpenPopup(controls.effect.width + 12, controls.effect.height + 60, node.name, controls, nil, nil, "close")
 	end
 end
 

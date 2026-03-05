@@ -315,7 +315,7 @@ local function doActorAttribsConditions(env, actor)
 			modDB:NewMod("AreaOfEffect", "INC", m_floor(40 * shrineEffectMod), "Massive Shrine")
 		end
 		if modDB:Flag(nil, "ReplenishingShrine") then
-			modDB:NewMod("ManaRegenPercent", "BASE", 10 * shrineEffectMod, "Replenishing Shrine")
+			modDB:NewMod("ManaRegen", "INC", 200 * shrineEffectMod, "Replenishing Shrine")
 			modDB:NewMod("LifeRegenPercent", "BASE", 6.7 * shrineEffectMod, "Replenishing Shrine")
 		end
 		if modDB:Flag(nil, "ResistanceShrine") then
@@ -323,13 +323,9 @@ local function doActorAttribsConditions(env, actor)
 			modDB:NewMod("ElementalResistMax", "BASE", m_floor(10 * shrineEffectMod), "Resistance Shrine")
 		end
 		if modDB:Flag(nil, "ResonatingShrine") then
-			modDB:NewMod("CritChance", "INC", m_floor(50 * shrineEffectMod), "Resonating Shrine", { type = "Multiplier", var = "PowerCharge" })
-			modDB:NewMod("Speed", "INC", m_floor(4 * shrineEffectMod), "Resonating Shrine", ModFlag.Attack, { type = "Multiplier", var = "FrenzyCharge" })
-			modDB:NewMod("Speed", "INC", m_floor(4 * shrineEffectMod), "Resonating Shrine", ModFlag.Cast, { type = "Multiplier", var = "FrenzyCharge" })
-			modDB:NewMod("Damage", "MORE", m_floor(4 * shrineEffectMod), "Resonating Shrine", { type = "Multiplier", var = "FrenzyCharge" })
-			modDB:NewMod("PhysicalDamageReduction", "BASE", m_floor(4 * shrineEffectMod), "Resonating Shrine", { type = "Multiplier", var = "EnduranceCharge" })
-			modDB:NewMod("ElementalDamageReduction", "BASE", m_floor(4 * shrineEffectMod), "Resonating Shrine", { type = "Multiplier", var = "EnduranceCharge" })
-			modDB:NewMod("Damage", "INC", m_floor(5 * shrineEffectMod), "Resonating Shrine", { type = "Multiplier", varList = { "PowerCharge", "FrenzyCharge", "EnduranceCharge" }})
+			modDB:NewMod("PowerChargesMax", "BASE", m_floor(1 * shrineEffectMod), "Resonating Shrine")
+			modDB:NewMod("FrenzyChargesMax", "BASE", m_floor(1 * shrineEffectMod), "Resonating Shrine")
+			modDB:NewMod("EnduranceChargesMax", "BASE", m_floor(1 * shrineEffectMod), "Resonating Shrine")
 		end
 		if modDB:Flag(nil, "LesserAccelerationShrine") and not modDB:Flag(nil, "AccelerationShrine") then
 			modDB:NewMod("ActionSpeed", "INC", m_floor(10 * shrineEffectMod), "Lesser Acceleration Shrine")
@@ -350,7 +346,7 @@ local function doActorAttribsConditions(env, actor)
 			modDB:NewMod("AreaOfEffect", "INC", m_floor(20 * shrineEffectMod), "Lesser Massive Shrine")
 		end
 		if modDB:Flag(nil, "LesserReplenishingShrine") then
-			modDB:NewMod("ManaRegenPercent", "BASE", 3.3 * shrineEffectMod, "Lesser Replenishing Shrine")
+			modDB:NewMod("ManaRegen", "INC", 100 * shrineEffectMod, "Lesser Replenishing Shrine")
 			modDB:NewMod("LifeRegenPercent", "BASE", 3.3 * shrineEffectMod, "Lesser Replenishing Shrine")
 		end
 		if modDB:Flag(nil, "LesserResistanceShrine") then
