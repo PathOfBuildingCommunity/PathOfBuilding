@@ -1719,10 +1719,11 @@ function calcs.buildDefenceEstimations(env, actor)
 				-- Calculate the amount converted/gained as
 				for _, damageTypeTo in ipairs(dmgTypeList) do
 					local gainAsPercent = enemyDB:Sum("BASE", enemyCfg, (damageType.."DamageGainAs"..damageTypeTo)) / 100
-					local conversionPercent = (conversions[damageTypeTo.."skill"] + conversions[damageTypeTo]) / 100
-					if conversionPercent > 0 and damageType == "Physical" and damageTypeTo ~= "Chaos" then
+					local conversionPercent = conversions[damageTypeTo] / 100
+					local skillConversionPercent = conversions[damageTypeTo.."skill"] / 100
+					if skillConversionPercent > 0 and damageType == "Physical" and damageTypeTo ~= "Chaos" then
 						local physBonus = 1 + data.monsterPhysConversionMultiTable[env.enemyLevel] / 100
-						conversionPercent = conversionPercent * physBonus
+						conversionPercent = conversionPercent + skillConversionPercent * physBonus
 					end
 					if gainAsPercent > 0 or conversionPercent > 0 then
 						enemyDamageConversion[damageTypeTo] = enemyDamageConversion[damageTypeTo] or { }

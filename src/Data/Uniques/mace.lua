@@ -231,6 +231,18 @@ Adds 5 to 8 Physical Damage per Endurance Charge
 {variant:1}400 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
 {variant:2}200 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
 ]],
+[[
+The Monastery Bell
+Dream Mace
+Requires Level 32, 107 Str
+Implicits: 1
+10% reduced Enemy Stun Threshold
+(50-75)% increased Physical Damage
+Adds (5-9) to (13-18) Physical Damage
+(6-10)% increased Attack Speed
+Chance to Block is Unlucky
+Count as Blocking Attack Damage from the first target Hit with each Shield Attack
+]],
 -- Weapon: Sceptre
 [[
 Augyre

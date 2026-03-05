@@ -737,4 +737,19 @@ Gain 1 Remembrance when you spend a total of 200 Energy
 Shield with no Shaper Memory Summoned
 Maximum 10 Remembrance
 Eldritch Battery
-]],}
+]],
+[[
+Jiquani's Potential
+Imperial Staff
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 66, 113 Str, 113 Dex
+Implicits: 1
++25% Chance to Block Spell Damage while wielding a Staff
+(1-7)% increased Intelligence
+(-17-17)% increased maximum Life
++(-1-1) to Level of all Spell Skill Gems
+31% increased Cost of Skills
+1 to (31-53) Spell Lightning Damage per 10 Intelligence
+Blood Magic
+]],
+}
