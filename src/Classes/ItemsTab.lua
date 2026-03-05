@@ -1582,12 +1582,13 @@ function ItemsTabClass:DeleteItem(item, deferUndoState)
 end
 
 local function copyAnointsAndEldritchImplicits(self, newItem)
-	if newItem.base and self.activeItemSet[newItem.base.type] then
-		local currentItem = self.activeItemSet[newItem.base.type].selItemId and self.items[self.activeItemSet[newItem.base.type].selItemId]
+	local newItemType = newItem.base.type
+	if self.activeItemSet[newItemType] then
+		local currentItem = self.activeItemSet[newItemType].selItemId and self.items[self.activeItemSet[newItemType].selItemId]
 		-- if you don't have an equipped item that matches the type of the newItem, no need to do anything
 		if currentItem then
-			-- if the new item is an amulet and does not have an anoint and your current amulet does, apply that anoint to the new item
-			if newItem.base.type == "Amulet" and #newItem.enchantModLines == 0 then
+			-- if the new item is anointable and does not have an anoint and your current respective item does, apply that anoint to the new item
+			if isAnointable(newItem) and #newItem.enchantModLines == 0 and self.activeItemSet[newItemType].selItemId > 0 then
 				local currentAnoint = currentItem.enchantModLines
 				if currentAnoint and #currentAnoint == 1 then -- skip if amulet has more than one anoint e.g. Stranglegasp
 					newItem.enchantModLines = currentAnoint
@@ -1603,10 +1604,10 @@ local function copyAnointsAndEldritchImplicits(self, newItem)
 				end
 			end
 			if main.migrateEldritchImplicits and isValueInTable(eldritchBaseTypes, newItem.base.type) and isValueInTable(eldritchRarities, newItem.rarity)
-			and #newItem.implicitModLines == 0 and not newItem.corrupted and (currentItem.cleansing or currentItem.tangle) and currentItem.implicitModLines then
-				newItem.implicitModLines = currentItem.implicitModLines
-				newItem.tangle = currentItem.tangle
-				newItem.cleansing = currentItem.cleansing
+				and #newItem.implicitModLines == 0 and not newItem.corrupted and (currentItem.cleansing or currentItem.tangle) and currentItem.implicitModLines then
+					newItem.implicitModLines = currentItem.implicitModLines
+					newItem.tangle = currentItem.tangle
+					newItem.cleansing = currentItem.cleansing
 			end
 			newItem:BuildAndParseRaw()
 		end
@@ -1617,7 +1618,7 @@ end
 function ItemsTabClass:CreateDisplayItemFromRaw(itemRaw, normalise)
 	local newItem = new("Item", itemRaw)
 	if newItem.base then
-		copyAnointsAndEldritchImplicits(newItem)
+		copyAnointsAndEldritchImplicits(self, newItem)
 		if normalise then
 			newItem:NormaliseQuality()
 			newItem:BuildModList()
