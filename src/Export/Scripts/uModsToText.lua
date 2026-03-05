@@ -58,12 +58,7 @@ for _, name in ipairs(itemTypes) do
 	local modLines = 0
 	local implicits
 	local nextOrder = 100000
-	local skipLines = 0
 	for line in io.lines("Uniques/"..name..".lua") do
-		if skipLines > 0 then
-			skipLines = skipLines - 1
-			goto continue
-		end
 		if implicits then -- remove 1 downs to 0
 			implicits = implicits - 1
 		end
@@ -145,10 +140,6 @@ for _, name in ipairs(itemTypes) do
 						else
 							statOrder[order] = { prefix..line }
 						end
-					end
-					-- Skip continuation lines that follow the mod ID in the export file
-					if #modText > 1 then
-						skipLines = #modText - 1
 					end
 				end
 			else
