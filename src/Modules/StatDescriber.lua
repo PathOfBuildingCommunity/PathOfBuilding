@@ -182,6 +182,9 @@ local function applySpecial(val, spec)
 	elseif spec.k == "double" then
 		val[spec.v].min = val[spec.v].min * 2
 		val[spec.v].max = val[spec.v].max * 2
+	elseif spec.k == "plus_two_hundred" then
+		val[spec.v].min = val[spec.v].min + 200
+		val[spec.v].max = val[spec.v].max + 200
 	elseif spec.k == "reminderstring" or spec.k == "canonical_line" or spec.k == "_stat" then
 	elseif spec.k then
 		ConPrintf("Unknown description function: %s", spec.k)

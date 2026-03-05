@@ -32,7 +32,7 @@ Source: Drops from unique{Kurgal, the Blackblooded}
 Requires Level 49
 Implicits: 1
 FireResistImplicitRing1
-StrengthUniqueHelmetDexInt1
+StrengthUnique__15
 IncreasedEnergyShieldPercentUnique__4
 MaximumLifeUnique__14
 ]],[[
@@ -43,14 +43,14 @@ Implicits: 1
 ItemFoundRarityIncreaseImplicitRing1
 DexterityUniqueRing3
 ItemFoundRarityIncreaseUniqueRing3
-AllResistancesUniqueRing3
+AllResistancesUniqueRing25
 ]],[[
 Astral Projector
 Topaz Ring
 Requires Level 40
 Implicits: 1
 LightningResistImplicitRing1
-IntelligenceUnique__35
+IntelligenceUnique__22_
 SpellDamageUniqueRing35
 AvoidElementalAilmentsUnique__1_
 NovaSpellsAreaOfEffectUnique__1
@@ -65,15 +65,14 @@ Variant: Current
 Requires Level 20
 Implicits: 1
 ColdAndLightningResistImplicitRing1
-{variant:1}ColdDamagePercentUnique__15
+{variant:1}ColdDamagePercentUniqueRing19[10,15]
 {variant:2,3}ColdDamagePercentUniqueRing19
-{variant:1}{tags:jewellery_elemental,attack}Adds 1 to (1-50) Lightning Damage to Attacks
+{variant:1}AddedLightningDamageUniqueBodyStrDex2[1,1][1,50]
 {variant:2,3}AddedLightningDamageUniqueRing19
 IncreasedLifeUniqueRing19
-{variant:1}{tags:life}1% of Damage Leeched as Life against Frozen Enemies
+{variant:1}LifeLeechPermyriadOnFrozenEnemiesUniqueRing19
 {variant:2,3}LifeLeechPermyriadVsShockedEnemiesUniqueRing29
-{variant:1}{tags:mana}1% of Damage Leeched as Mana against Shocked Enemies
-{variant:2}ManaLeechPermyriadOnShockedEnemiesUniqueRing19
+{variant:1,2}ManaLeechPermyriadOnShockedEnemiesUniqueRing19
 {variant:3}EnergyShieldLeechPermyriadOnFrozenEnemiesUniqueRing19
 ]],[[
 Berek's Pass
@@ -84,9 +83,9 @@ Variant: Current
 Requires Level 20
 Implicits: 1
 FireAndColdResistImplicitRing1
-{variant:1}FireDamagePercentUnique__1
+{variant:1}FireDamagePercentUniqueRing18[10,15]
 {variant:2}FireDamagePercentUniqueRing18
-{variant:1}{tags:jewellery_elemental,attack}Adds 1 to (10-30) Cold Damage to Attacks
+{variant:1}AddedColdDamageUniqueRing18[1,1][10,30]
 {variant:2}AddedColdDamageUniqueRing18
 IncreasedEnergyShieldUniqueRing18
 DamageWhileIgnitedUniqueRing18
@@ -100,15 +99,13 @@ Variant: Current
 Requires Level 20
 Implicits: 1
 FireAndLightningResistImplicitRing1
-{variant:1}{tags:jewellery_elemental,attack}Adds 1 to (10-30) Fire Damage to Attacks
+{variant:1}AddedFireDamageUniqueRing20[1,1][10,30]
 {variant:2}AddedFireDamageUniqueRing20
-{variant:1}LightningDamagePercentUnique___1
+{variant:1}LightningDamagePercentUniqueRing20[10,15]
 {variant:2}LightningDamagePercentUniqueRing20
 IncreasedManaUniqueRing20
-{variant:1}Shock a nearby Enemy for 2 seconds on Killing a Shocked Enemy
-{variant:2}Shocks all nearby Enemies on Killing a Shocked Enemy
-{variant:1}Ignite a nearby Enemy on Killing an Ignited Enemy
-{variant:2}Ignites all nearby Enemies on Killing an Ignited Enemy
+ShockNearbyEnemyOnShockedKillUniqueRing20
+IgniteNearbyEnemyOnIgnitedKillUniqueRing20
 ]],[[
 Blackflame
 Amethyst Ring
@@ -131,11 +128,11 @@ Variant: Current
 Implicits: 1
 AddedPhysicalDamageImplicitRing1
 {variant:1}IncreasedPhysicalDamagePercentUniqueRing1
-{variant:1}{tags:attack,chaos_damage}Adds 1 to 3 Chaos Damage to Attacks
+{variant:1}AddedChaosDamageUnique__1[1,1][3,3]
 {variant:2}AddedChaosDamageUniqueRing1
-{variant:1}IncreasedLifeUniqueRing1
-{variant:1}LifeRegenerationImplicitAmulet1
-{variant:2}LifeRegenerationUniqueRing1
+{variant:1}IncreasedLifeImplicitRing1
+{variant:1}LifeRegenerationUniqueRing33[120,240]
+{variant:2}LifeRegenerationUniqueRing33
 HitsCauseMonsterFleeUniqueRing1
 ]],[[
 Voidheart
@@ -147,14 +144,14 @@ Requires Level 48
 Implicits: 1
 AddedPhysicalDamageImplicitRing1
 IncreasedPhysicalDamagePercentUniqueRing1
-{tags:attack,chaos_damage}Adds 1 to 3 Chaos Damage to Attacks
-IncreasedLifeUniqueRing1
+AddedChaosDamageUnique__1[1,1][3,3]
+IncreasedLifeImplicitRing1
 LifeRegenerationImplicitAmulet1
 HitsCauseMonsterFleeUniqueRing1
-{variant:1}Melee Attacks cause Bleeding
-{variant:2}{tags:attack,physical}(30-50)% chance to cause Bleeding on Melee Hit
-{variant:1}Melee Attacks Poison on Hit
-{variant:2}{tags:attack,chaos}(20-40)% chance to Poison on Melee Hit
+{variant:1}BleedOnMeleeHitChanceUnique__1[100,100]
+{variant:2}BleedOnMeleeHitChanceUnique__1
+{variant:1}PoisonOnMeleeHitUnique__1[100,100]
+{variant:2}PoisonOnMeleeHitUnique__1
 ]],[[
 Bloodboil
 Coral Ring
@@ -163,21 +160,21 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 24
 Implicits: 1
-IncreasedLifeUniqueRing1
-{variant:1}{tags:jewellery_elemental,attack}Adds (7-10) to (15-20) Fire Damage to Attacks
+IncreasedLifeImplicitRing1
+{variant:1}AddedFireDamageUniqueRing28[7,10][15,20]
 {variant:2}AddedFireDamageUniqueRing28
 IncreasedLifeUniqueRing28
 ColdResistUniqueRing28
-{variant:1}45% reduced Effect of Chill on You
-{variant:2}75% reduced Effect of Chill on You
-{variant:1}100% increased Ignite Duration on You
+{variant:1}ChillEffectivenessOnSelfUniqueRing28[45,45]
+{variant:2}ChillEffectivenessOnSelfUniqueRing28
+{variant:1}IncreasedSelfBurnDurationUniqueRing28
 {variant:2}MovementVelocityWhileIgnitedUnique__1
 ]],[[
 Winterweave
 Coral Ring
 Requires Level 24
 Implicits: 1
-IncreasedLifeUniqueRing1
+IncreasedLifeImplicitRing1
 AddedFireDamageUniqueRing28
 AddedColdDamageUnique__6
 IncreasedLifeUniqueRing28
@@ -193,16 +190,16 @@ Variant: Current
 Requires Level 45
 Implicits: 1
 RingHasOneSocket
-{variant:1}+2 to Level of Socketed Golem Gems
+{variant:1}LocalIncreaseSocketedGolemLevelUniqueRing35[2,2]
 {variant:2}LocalIncreaseSocketedGolemLevelUniqueRing35
 {variant:1}ItemActsAsConcentratedAOESupportUniqueRing35
 {variant:2}LocalGolemBuffEffectUnique__1
 {variant:2}LocalGolemLifeAddedAsESUnique__1
-{variant:1}{tags:caster}(10-25)% increased Spell Damage
+{variant:1}SpellDamageUniqueRing35[10,25]
 {variant:2}SpellDamageUniqueRing35
-IncreasedEnergyShieldUniqueRing27
+IncreasedEnergyShieldUniqueRing35
 LightningResistUniqueRing35
-{variant:1}Socketed Gems are Supported by Level 15 Increased Minion Life
+{variant:1}DisplaySocketedGemsSupportedByMinionLifeUniqueRing35
 ]],[[
 Call of the Brotherhood
 Two-Stone Ring
@@ -213,10 +210,10 @@ Implicits: 1
 ColdAndLightningResistImplicitRing1
 IntelligenceUniqueRing34
 LightningDamagePercentUniqueRing34
-ManaRegenerationUniqueRingDemigod1
-{variant:1}{tags:jewellery_elemental}50% of Lightning Damage Converted to Cold Damage
+ManaRegenerationUniqueRing34
+{variant:1}ConvertLightningToColdUniqueRing34[50,50]
 {variant:2}ConvertLightningToColdUniqueRing34
-Your spells have 100% chance to Shock against Frozen enemies
+SpellChanceToShockFrozenEnemiesUniqueRing34
 ]],[[
 Circle of Ambition
 Prismatic Ring
@@ -253,30 +250,30 @@ Selected Alt Variant: 2
 Has Alt Variant Two: true
 Selected Alt Variant Two: 3
 Implicits: 0
-AllAttributesUnique__25
-AllResistancesUnique__37
+AllAttributesUnique__29
+AllResistancesUnique__33
 HeraldReservationEfficiencyUnique__1
-{variant:1}HeraldBonusThunderReservation
+{variant:1}HeraldBonusThunderReservationEfficiency
 {variant:2}HeraldBonusThunderLightningDamage
 {variant:3}HeraldBonusThunderEffect
 {variant:4}HeraldBonusThunderMaxLightningResist
 {variant:5}HeraldBonusThunderLightningResist_
-{variant:6}HeraldBonusAshReservation
+{variant:6}HeraldBonusAshReservationEfficiency__
 {variant:7}HeraldBonusAshFireDamage
 {variant:8}HeraldBonusAshEffect
 {variant:9}HeraldBonusAshMaxFireResist
 {variant:10}HeraldBonusFireResist
-{variant:11}HeraldBonusIceReservation_
+{variant:11}HeraldBonusIceReservationEfficiency__
 {variant:12}HeraldBonusIceColdDamage
 {variant:13}HeraldBonusIceEffect_
 {variant:14}HeraldBonusMaxColdResist__
 {variant:15}HeraldBonusColdResist
-{variant:16}HeraldBonusPurityReservation_
+{variant:16}HeraldBonusPurityReservationEfficiency_
 {variant:17}HeraldBonusPurityPhysicalDamage
 {variant:18}HeraldBonusPurityEffect
 {variant:19}HeraldBonusPurityMinionDamage
 {variant:20}HeraldBonusPurityPhysicalDamageReduction
-{variant:21}HeraldBonusAgonyReservation
+{variant:21}HeraldBonusAgonyReservationEfficiency
 {variant:22}HeraldBonusAgonyChaosDamage_
 {variant:23}HeraldBonusAgonyEffect
 {variant:24}HeraldBonusAgonyMinionDamage_
@@ -300,10 +297,10 @@ FireResistImplicitRing1
 {fractured}StrengthUniqueRing8
 GlobalAddedFireDamageUnique__3_
 FireResistImplicitRing1
-{variant:1}{tags:mana}Herald of Ash has (60-80)% increased Mana Reservation Efficiency
-{variant:2}HeraldBonusAshReservationEfficiency__
+{variant:1}HeraldBonusAshReservation[30,40]
+{variant:2}HeraldBonusAshReservation
 {variant:3}HeraldBonusAshFireDamage
-{variant:4}Herald of Ash has (70-100)% increased Buff Effect
+{variant:4}HeraldBonusAshEffect[70,100]
 {variant:5}HeraldBonusAshEffect
 {variant:6}HeraldBonusAshMaxFireResist
 {variant:7}HeraldBonusFireResist
@@ -323,13 +320,13 @@ Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Cold Resistance
 ColdResistImplicitRing1
-{fractured}DexterityUniqueGlovesInt4__
+{fractured}DexterityUnique__12
 GlobalAddedColdDamageUnique__3
 ColdResistImplicitRing1
-{variant:1}{tags:mana}Herald of Ice has (60-80)% increased Mana Reservation Efficiency
-{variant:2}HeraldBonusIceReservationEfficiency__
+{variant:1}HeraldBonusIceReservation_[30,40]
+{variant:2}HeraldBonusIceReservation_
 {variant:3}HeraldBonusIceColdDamage
-{variant:4}Herald of Ice has (70-100)% increased Buff Effect
+{variant:4}HeraldBonusIceEffect_[70,100]
 {variant:5}HeraldBonusIceEffect_
 {variant:6}HeraldBonusMaxColdResist__
 {variant:7}HeraldBonusColdResist
@@ -349,13 +346,13 @@ Variant: Buff Effect (Current)
 Variant: Sentinel Damage
 Variant: Damage Reduction
 AddedPhysicalDamageImplicitRing1
-{fractured}AllAttributesUnique__24
+{fractured}AllAttributesUnique__27
 GlobalAddedPhysicalDamageUnique__2
 IncreasedPhysicalDamageReductionRatingUnique__4
-{variant:1}{tags:mana}Herald of Purity has (60-80)% increased Mana Reservation Efficiency
-{variant:2}HeraldBonusPurityReservationEfficiency_
+{variant:1}HeraldBonusPurityReservation_[30,40]
+{variant:2}HeraldBonusPurityReservation_
 {variant:3}HeraldBonusPurityPhysicalDamage
-{variant:4}Herald of Purity has (70-100)% increased Buff Effect
+{variant:4}HeraldBonusPurityEffect[70,100]
 {variant:5}HeraldBonusPurityEffect
 {variant:6}HeraldBonusPurityMinionDamage
 {variant:7}HeraldBonusPurityPhysicalDamageReduction
@@ -375,13 +372,13 @@ Variant: Buff Effect (Current)
 Variant: Agony Damage
 Variant: Chaos Resistance
 ChaosResistImplicitRing1
-{fractured}AllAttributesUnique__17_
+{fractured}AllAttributesUnique__25
 GlobalAddedChaosDamageUnique__5_
 ChaosResistImplicitRing1
-{variant:1}{tags:mana}Herald of Agony has (60-80)% increased Mana Reservation Efficiency
-{variant:2}HeraldBonusAgonyReservationEfficiency
+{variant:1}HeraldBonusAgonyReservation[30,40]
+{variant:2}HeraldBonusAgonyReservation
 {variant:3}HeraldBonusAgonyChaosDamage_
-{variant:4}Herald of Agony has (70-100)% increased Buff Effect
+{variant:4}HeraldBonusAgonyEffect[70,100]
 {variant:5}HeraldBonusAgonyEffect
 {variant:6}HeraldBonusAgonyMinionDamage_
 {variant:7}HeraldBonusAgonyChaosResist_
@@ -401,13 +398,13 @@ Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Lightning Resistance
 LightningResistImplicitRing1
-{fractured}IntelligenceUniqueGlovesInt5
+{fractured}IntelligenceUnique__14
 GlobalAddedLightningDamageUnique__3
 LightningResistImplicitRing1
-{variant:1}{tags:mana}Herald of Thunder has (60-80)% increased Mana Reservation Efficiency
-{variant:2}HeraldBonusThunderReservationEfficiency
+{variant:1}HeraldBonusThunderReservation[30,40]
+{variant:2}HeraldBonusThunderReservation
 {variant:3}HeraldBonusThunderLightningDamage
-{variant:4}Herald of Thunder has (70-100)% increased Buff Effect
+{variant:4}HeraldBonusThunderEffect[70,100]
 {variant:5}HeraldBonusThunderEffect
 {variant:6}HeraldBonusThunderMaxLightningResist
 {variant:7}HeraldBonusThunderLightningResist_
@@ -422,15 +419,15 @@ Requires Level 46
 Implicits: 1
 ChaosResistImplicitRing1
 {variant:1,2}IncreasedAccuracyUniqueRing12
-{variant:1}{tags:jewellery_defense}+(60-80) to Armour
+{variant:1}IncreasedPhysicalDamageReductionRatingUniqueRing12[60,80]
 {variant:2}IncreasedPhysicalDamageReductionRatingUniqueRing12
-{variant:2}IncreasedLifeUnique__41
+{variant:2}IncreasedLifeUnique__77
 {variant:1,2}ChaosResistUniqueRing12
 {variant:1,2}LifeLeechPermyriadUniqueRing12
-{variant:1}You gain Onslaught for 2 seconds on Kill
+{variant:1}OnslaughtBuffOnKillUniqueRing12[2000,2000]
 {variant:2}OnslaughtBuffOnKillUniqueRing12
 {variant:3}RecoverPercentMaxLifeOnKillUnique__1
-{variant:3}Gain Adrenaline for 3 seconds on kill
+{variant:3}AdrenalineOnKillUnique__1[3,3]
 ]],[[
 Doedre's Damning
 Paua Ring
@@ -438,13 +435,13 @@ Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 IncreasedManaImplicitRing1
-{variant:1}IntelligenceUnique__21
+{variant:1}IntelligenceUniqueRing4[5,10]
 {variant:2}IntelligenceUniqueRing4
-{variant:1}{tags:jewellery_resistance}+5% to all Elemental Resistances
+{variant:1}AllResistancesUniqueRing9[5,5]
 {variant:2}AllResistancesUniqueRing4
-{variant:1}{tags:mana}Gain 5 Mana per Enemy Killed
+{variant:1}ManaGainedFromEnemyDeathUnique__1[5,5]
 {variant:2}ManaGainedFromEnemyDeathUniqueRing4
-VillageAdditionalCurseOnEnemies
+AdditionalCurseOnEnemiesUnique__1
 ]],[[
 Replica Doedre's Damning
 Paua Ring
@@ -456,15 +453,15 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 IncreasedManaImplicitRing1
-{variant:1,2}IntelligenceUnique__21
+{variant:1,2}IntelligenceUniqueRing4[5,10]
 {variant:3,4}IntelligenceUniqueRing4
-{variant:1,2}{tags:jewellery_resistance}+5% to all Elemental Resistances
+{variant:1,2}AllResistancesUniqueRing4[5,5]
 {variant:3,4}AllResistancesUniqueRing4
-{variant:1,2}{tags:mana}Gain 5 Mana per Enemy Killed
+{variant:1,2}ManaGainedFromEnemyDeathUnique__1[5,5]
 {variant:3,4}ManaGainedFromEnemyDeathUniqueRing4
 AdditionalCurseOnEnemiesUnique__3
-{variant:1}{tags:caster}(25-35)% increased Effect of your Curses
-{variant:2,3}{tags:caster}(15-25)% increased Effect of your Curses
+{variant:1}CurseEffectivenessUnique__4[25,35]
+{variant:2,3}CurseEffectivenessUnique__4[15,25]
 {variant:4}CurseEffectivenessUnique__4
 ]],[[
 Dream Fragments
@@ -477,7 +474,7 @@ ColdResistImplicitRing1
 MaximumManaUniqueRing5
 ManaRegenerationUniqueRing5
 {variant:2}ColdResistUnique__17
-CannotBeFrozen
+{variant:1}CannotBeFrozen
 {variant:2}CannotBeFrozenOrChilledUnique__1
 ]],[[
 Emberwake
@@ -489,16 +486,16 @@ Variant: Current
 Requires Level 16
 Implicits: 1
 FireResistImplicitRing1
-{variant:1}FireDamagePercentUniqueRing24
+{variant:1}FireDamagePercentUniqueRing38[15,25]
 {variant:2,3,4}FireDamagePercentUniqueRing38
 IncreasedCastSpeedUniqueRing38
-{variant:1}5% chance to Ignite
+{variant:1}ChanceToIgniteUniqueRing38[5,5]
 {variant:2,3,4}ChanceToIgniteUniqueRing38
-You can inflict an additional Ignite on an Enemy
+CanInflictMultipleIgnitesUniqueRing38
 {variant:1}NoBonusesFromCriticalStrikes
-{variant:1}{tags:jewellery_elemental}Ignited Enemies Burn 80% slower
-{variant:2}{tags:jewellery_elemental}Ignited Enemies Burn 65% slower
-{variant:3}{tags:jewellery_elemental}Ignited Enemies Burn (65-50)% slower
+{variant:1}EmberwakeLessBurningDamageUniqueRing38[80,80]
+{variant:2}EmberwakeLessBurningDamageUniqueRing38[65,65]
+{variant:3}EmberwakeLessBurningDamageUniqueRing38[65,50]
 {variant:4}EmberwakeLessBurningDamageUnique__1
 ]],[[
 Replica Emberwake
@@ -519,9 +516,8 @@ Unset Ring
 Requires Level 38
 Implicits: 1
 RingHasOneSocket
-LocalIncreaseSocketedAuraLevelUniqueShieldStrInt2
-Socketed Gems Have no Reservation
-Your Blessing Skills are Disabled
+LocalIncreaseSocketedAuraGemLevelUnique___1
+SocketedAurasReserveNoManaUnique__1
 IncreasedManaReservationsCostUnique__1
 ]],[[
 Fated End
@@ -531,9 +527,9 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 38
 Implicits: 1
 IncreasedManaImplicitRing1
-IntelligenceUnique__6
+IntelligenceUnique__25
 CurseCastSpeedUnique__2
-Non-Aura Hexes expire upon reaching (180-220)% of base Effect
+HexExpiresMaxDoomUnique__1[-20,20]
 DoubleDoomEffectUnique__1
 ]],[[
 Gifts from Above
@@ -550,7 +546,7 @@ LightRadiusUniqueRing11
 {variant:1}ConsecrateOnCritChanceToCreateUniqueRing11
 KilledMonsterItemRarityOnCritUniqueRing11
 {variant:2}IncreasedDamageOnConsecratedGroundUnique__1
-{variant:2}5% additional Block Chance while on Consecrated Ground
+{variant:2}BlockChanceOnConsecratedGroundUnique__1
 ]],[[
 Grattus Signet
 Diamond Ring
@@ -560,7 +556,7 @@ Requires Level 64
 CriticalStrikeChanceImplicitRing1
 IncreasedAttackSpeedUniqueRing37
 IncreasedCastSpeedUniqueRing38
-LocalIncreasedEnergyShieldUnique__12
+IncreasedEnergyShieldUnique__13
 IncreasedLifeUnique__15
 AttackCriticalStrikesUnnerveUnique__1
 SpellCriticalStrikesIntimidateUnique__1
@@ -570,9 +566,8 @@ Nameless Ring
 League: Settlers of Kalguur
 Requires Level 50
 Implicits: 2
-SelfStatusAilmentDurationUnique__1
-ReducedCurseEffectUniqueRing7
-Grants Level 20 Penance Mark
+CurseEffectElementalAilmentDurationOnSelfR1
+RitualRingPenanceMark
 RitualRingCastSpeed
 RitualRingLife
 ChaosResistUnique__31
@@ -581,9 +576,9 @@ Heartbound Loop
 Moonstone Ring
 Requires Level 20
 Implicits: 1
-IncreasedEnergyShieldUniqueRing27
+IncreasedEnergyShieldImplicitRing1
 LifeRegenerationUniqueRing1
-ManaRegenerationUniqueRing26
+ManaRegenerationUniqueRing33
 MinionLifeUniqueRing33
 MinonAreaOfEffectUniqueRing33
 PhysicalDamageToSelfOnMinionDeathUniqueRing33
@@ -602,7 +597,7 @@ IncreasedEvasionRatingUnique__7
 IncreasedEnergyShieldUnique__11
 IncreasedLifeUnique__122
 CriticalMultiplierUnique__7
-IncreasedManaUnique__29
+IncreasedManaImplicitArmour1
 AllResistancesImplicitRing1
 AttackAndCastSpeedUnique__8
 MaximumQualityOverrideUnique__1
@@ -612,8 +607,8 @@ Anathema
 Moonstone Ring
 LevelReq: 49
 Implicits: 1
-IncreasedEnergyShieldUniqueRing27
-IntelligenceUnique__10
+IncreasedEnergyShieldImplicitRing1
+IntelligenceUnique__16
 IncreasedCastSpeedUniqueRing27
 PowerChargeOnCurseUnique__1
 CurseLimitMaximumPowerChargesUnique__1
@@ -626,11 +621,11 @@ Variant: Current
 Requires Level 44
 Implicits: 1
 ItemFoundRarityIncreaseImplicitRing1
-ItemFoundRarityIncreaseUnique__6
-{variant:2}{tags:life}1% of Damage leeched as Life
+ItemFoundRarityIncreaseUnique__5
+{variant:2}LifeLeechAnyDamageUnique__1
 {variant:1}MovementVelocityUnique__4
 {variant:2}MovementVelocityUnique__33_
-{variant:1}25% chance to Steal Power, Frenzy, and Endurance Charges on Hit
+{variant:1}StealChargesOnHitPercentUniqueGlovesStrDex6[25,25]
 {variant:1}DamageLeechWith5ChargesUnique__1
 {variant:2}StealChargesOnHitPercentUnique__1
 TotalRecoveryLifeLeechDoubledUnique__1
@@ -641,10 +636,10 @@ League: Ancestor
 Source: No longer obtainable
 LevelReq: 49
 Implicits: 1
-IncreasedLifeUniqueRing1
+IncreasedLifeImplicitRing1
 TukohamasEmbraceOnKillUnique__1
-AllAttributesUnique__3
-ManaRegenerationUniqueHelmetStrInt_1
+AllAttributesUnique__24
+ManaRegenerationUnique__15
 DamageTakenGainedAsLifeUnique__4
 ]],
 [[
@@ -653,9 +648,7 @@ Unset Ring
 Requires Level 45
 Implicits: 1
 RingHasOneSocket
-Consumes Socketed Support Gems when they reach Maximum Level
-Can Consume 4 Support Gems
-Has not Consumed any Gems
+ConsumesSupportGemsUnique
 ]],[[
 Icefang Orbit
 Iron Ring
@@ -663,10 +656,10 @@ Requires Level: 49
 Implicits: 1
 League: Blight
 AddedPhysicalDamageImplicitRing1
-DexterityUniqueHelmetDexInt2
+DexterityUnique__1
 ChanceToPoisonUnique__1_______
 PoisonDamageUnique__1
-You are Chilled while you are Poisoned
+ChilledWhilePoisonedUnique__1
 NonChilledEnemiesPoisonAndChillUnique__1
 PoisonedEnemiesShatterOnKillUnique__1
 ]],[[
@@ -676,12 +669,12 @@ Variant: Pre 2.0.0
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
-IncreasedLifeUniqueRing1
+IncreasedLifeImplicitRing1
 {variant:3}EnduringCrySkillUnique__1
 StrengthUniqueRing2
 {variant:1}LifeLeechPermyriadUniqueRing2
 {variant:2}LifeGainPerTargetUniqueRing2
-+1 to Maximum Endurance Charge
+MaximumEnduranceChargeUniqueRing2
 ]],[[
 Kaom's Way
 Coral Ring
@@ -690,9 +683,9 @@ Variant: Current
 Source: No longer obtainable
 Requires Level 32
 Implicits: 1
-IncreasedLifeUniqueRing1
+IncreasedLifeImplicitRing1
 StrengthUniqueRing2
-{variant:1}{tags:life}Regenerate 0.4% of Life per second per Endurance Charge
+{variant:1}LifeRegenerationPercentPerEnduranceChargeUnique__1[24,24]
 {variant:2}LifeRegenerationPercentPerEnduranceChargeUnique__1
 {variant:2}AreaOfEffectPerEnduranceChargeUnique__1
 LifeGainPerTargetUniqueRing2
@@ -710,10 +703,10 @@ LightningResistImplicitRing1
 AllAttributesUniqueRing26
 {variant:1}LifeRegenerationUniqueRing26
 ManaRegenerationUniqueRing26
-{variant:1}MutatedUniqueBelt13CurseEffectOnYou
-{variant:2}{tags:caster}40% reduced Effect of Curses on you
+{variant:1}ReducedCurseEffectUniqueRing26[20,20]
+{variant:2}ReducedCurseEffectUniqueRing26[40,40]
 {variant:3,4}ReducedCurseEffectUniqueRing26
-{variant:2,3}{tags:life}Regenerate 1 Life per second per Level
+{variant:2,3}LifeRegenerationPerLevelUnique__1[60,60]
 {variant:4}LifeRegenerationPerLevelUnique__1
 ]],[[
 Nimis
@@ -724,7 +717,7 @@ Implicits: 1
 LightningResistImplicitRing1
 DexterityUnique__3
 IncreasedProjectileDamageUnique___11
-Projectiles Return to you at end of flight
+ReturningProjectilesUnique__1
 RandomProjectileDirectionUnique__1
 ]],[[
 Le Heup of All
@@ -734,13 +727,13 @@ Variant: Current
 Requires Level 24
 Implicits: 1
 AddedPhysicalDamageImplicitRing1
-{variant:1}(10-20)% increased Damage
+{variant:1}AllDamageUniqueRing6[10,20]
 {variant:2}AllDamageUniqueRing6
-{variant:1}AllAttributesUnique__27
+{variant:1}AllAttributesUniqueRing6[10,20]
 {variant:2}AllAttributesUniqueRing6
-{variant:1}ItemFoundRarityIncreaseUnique__4_
+{variant:1}ItemFoundRarityIncreaseUniqueRing6[10,20]
 {variant:2}ItemFoundRarityIncreaseUniqueRing6
-{variant:1}AllResistancesUnique__33
+{variant:1}AllResistancesUniqueRing6[10,20]
 {variant:2}AllResistancesUniqueRing6
 ]],[[
 Lori's Lantern
@@ -749,13 +742,13 @@ Variant: Pre 1.0.0
 Variant: Current
 Requires Level 30
 Implicits: 2
-{variant:1}AllResistancesImplicitArmour1
+{variant:1}AllResistancesImplicitRing1[8,12]
 {variant:2}AllResistancesImplicitRing1
 AllResistancesUniqueRing9
 MovementVelocityOnLowLifeUniqueRing9
 LightRadiusUniqueRing9_
-{tags:chaos,jewellery_resistance}+(20-25)% Chaos Resistance when on Low Life
-While on Low Life, Enemies are Unlucky when Damaging you
+ChaosResistanceOnLowLifeUniqueRing9
+EnemyExtraDamageRollsOnLowLifeUniqueRing9
 ]],[[
 Malachai's Artifice
 Unset Ring
@@ -765,7 +758,7 @@ Sockets: W
 Requires Level 5
 Implicits: 1
 RingHasOneSocket
-{variant:1}{tags:jewellery_resistance}-25% to all Elemental Resistances
+{variant:1}AllResistancesUniqueRing3[-25,-25]
 {variant:2}AllResistancesUniqueRing3
 FireResistanceWhenSocketedWithRedGemUniqueRing25
 ColdResistanceWhenSocketedWithGreenGemUniqueRing25
@@ -781,7 +774,7 @@ Requires Level 5
 Implicits: 1
 RingHasOneSocket
 SocketedGemHasSecretsOfSufferingUnique__1
-AllResistancesUniqueRing3
+AllResistancesUniqueRing25
 FireResistanceWhenSocketedWithRedGemUniqueRing25
 ColdResistanceWhenSocketedWithGreenGemUniqueRing25
 LightningResistanceWhenSocketedWithBlueGemUniqueRing25
@@ -802,8 +795,8 @@ Requires Level 80
 Implicits: 1
 AddedPhysicalDamageImplicitRing2
 AddedColdDamageUnique__5
-IncreasedEnergyShieldPercentUnique__3
-MaximumLifeUnique__11
+IncreasedEnergyShieldPercentUnique__5
+MaximumLifeUnique__16
 AttackDamageShaperItemUnique__1
 CannotBeStunnedByAttacksElderItemUnique__1
 TentacleSmashOnKillUnique__1_
@@ -816,8 +809,8 @@ Requires Level 80
 Implicits: 1
 ElementalDamagePercentImplicitAtlasRing_
 SpellAddedLightningDamageUnique__6_
-IncreasedEnergyShieldPercentUnique__5
-MaximumLifeUnique__16
+IncreasedEnergyShieldPercentUnique__3
+MaximumLifeUnique__11
 SpellDamageElderItemUnique__1_
 CannotBeStunnedBySpellsShaperItemUnique__1
 SummonVoidSphereOnKillUnique__1_
@@ -831,16 +824,16 @@ Variant: Current
 Requires Level 69
 Implicits: 1
 ChaosResistImplicitRing1
-{variant:1}{tags:life}15% reduced maximum Life
-{variant:2}{tags:life}10% reduced maximum Life
-{variant:3}{tags:life}(5-10)% reduced maximum Life
+{variant:1}MaximumLifeUniqueRing16[15,15]
+{variant:2}MaximumLifeUniqueRing16[10,10]
+{variant:3}MaximumLifeUniqueRing16[5,10]
 {variant:4}MaximumLifeUniqueRing16
-{variant:1}{tags:jewellery_defense}15% reduced maximum Energy Shield
-{variant:2}{tags:jewellery_defense}10% reduced maximum Energy Shield
-{variant:3}{tags:jewellery_defense}(5-10)% reduced maximum Energy Shield
+{variant:1}ReducedEnergyShieldPercentUniqueRing16[15,15]
+{variant:2}ReducedEnergyShieldPercentUniqueRing16[10,10]
+{variant:3}ReducedEnergyShieldPercentUniqueRing16[5,10]
 {variant:4}ReducedEnergyShieldPercentUniqueRing16
 ChaosResistUniqueRing16
-{variant:1,2,3}{tags:chaos_damage,physical_damage}Gain 20% of Physical Damage as Extra Chaos Damage
+{variant:1,2,3}ChaosDamageAsPortionOfDamageUniqueRing16[20,20]
 {variant:4}ChaosDamageAsPortionOfDamageUniqueRing16
 ]],[[
 Mokou's Embrace
@@ -853,9 +846,9 @@ FireResistImplicitRing1
 {variant:1}FireDamagePercentUniqueRing24
 ColdResistUniqueRing24
 {variant:1}IncreasedChanceToIgniteUniqueRing24
-{variant:1}{tags:attack,speed}20% increased Attack Speed while Ignited
+{variant:1}IncreasedAttackSpeedWhileIgnitedUniqueRing24[20,20]
 {variant:2}IncreasedAttackSpeedWhileIgnitedUniqueRing24
-{variant:1}{tags:caster,speed}20% increased Cast Speed while Ignited
+{variant:1}IncreasedCastSpeedWhileIgnitedUniqueRing24[20,20]
 {variant:2}IncreasedCastSpeedWhileIgnitedUniqueRing24
 IncreasedChanceToBeIgnitedUniqueRing24
 {variant:2}AllDamageTakenCanIgniteUnique__1
@@ -869,15 +862,15 @@ Variant: Current
 Requires Level 45
 Implicits: 1
 RingHasOneSocket
-{variant:1}+2 to Level of Socketed Golem Gems
-{variant:2,3}LocalIncreaseSocketedGolemLevelUniqueRing35
+{variant:1}LocalIncreaseSocketedGolemLevelUniqueRing37[2,2]
+{variant:2,3}LocalIncreaseSocketedGolemLevelUniqueRing37
 {variant:1}DisplaySocketedGemGetsFasterAttackUniqueRing37
 {variant:2,3}LocalGolemIncreasedAttackAndCastSpeedUnique__1
 AddedPhysicalDamageUniqueRing37
 IncreasedAttackSpeedUniqueRing37
-{variant:1}{tags:speed}(1-2)% increased Movement Speed
+{variant:1}ChanceToDodgeUniqueRing37[1,2]
 {variant:2}ChanceToDodgeUniqueRing37
-{variant:1}Socketed Gems are Supported by Level 16 Increased Minion Speed
+{variant:1}DisplaySocketedGemsSupportedByMinionSpeedUniqueRing37
 {variant:2,3}LocalGolemGrantOnslaughtOnSummonUnique__1
 ]],[[
 Ngamahu's Sign
@@ -890,13 +883,13 @@ Requires Level 29
 Implicits: 1
 FireResistImplicitRing1
 StrengthUniqueRing31__
-{variant:1}{tags:jewellery_elemental,attack}Adds (8-10) to (12-14) Fire Damage to Attacks
-{variant:2}{tags:jewellery_elemental,attack,caster}Adds (8-10) to (12-14) Fire Damage to Spells and Attacks
+{variant:1}AddedFireDamageUniqueRing31[8,10][12,14]
+{variant:2}AddedFireDamageUniqueRing31[8,10][12,14]
 {variant:3}AddedFireDamageUniqueRing31
 {variant:1}LifeGainOnHitVsIgnitedEnemiesUniqueRing31
 BurnDurationUniqueRing31
-{variant:1}5% chance to Ignite
-{variant:2,3}ChanceToIgniteUniqueRing38
+{variant:1}IncreasedChanceToIgniteUniqueRing31[5,5]
+{variant:2,3}IncreasedChanceToIgniteUniqueRing31
 {variant:2,3}GainLifeOnIgnitingEnemyUnique__2
 ]],[[
 Original Sin
@@ -923,7 +916,7 @@ LifePerRedSocketUniqueRing39
 EnergyShieldPerBlueSocketUniqueRing39
 ManaPerGreenSocketUniqueRing39
 {variant:1}ItemQuantityPerWhiteSocketUniqueRing39_
-{variant:2}60% increased Rarity of Items found per White Socket
+{variant:2}ItemRarityPerWhiteSocketUniqueRing39
 ]],[[
 Perandus Signet
 Paua Ring
@@ -933,11 +926,11 @@ Implicits: 1
 IncreasedManaImplicitRing1
 IncreasedManaUniqueRing14
 ManaRegenerationUniqueRing14
-{variant:1}IncreasedExperienceUniqueSceptre1
+{variant:1}IncreasedExperienceUniqueRing14[3,3]
 {variant:2}IncreasedExperienceUniqueRing14
-{variant:1}{tags:jewellery_attribute}3% increased Intelligence for each Unique Item Equipped
+{variant:1}IncreasedIntelligencePerUniqueUniqueRing14[3,3]
 {variant:2}IncreasedIntelligencePerUniqueUniqueRing14
-3% additional chance for Slain monsters to drop Scrolls of Wisdom
+IncreasedChanceForMonstersToDropWisdomScrollsUniqueRing14
 ]],[[
 Polaric Devastation
 Opal Ring
@@ -946,20 +939,20 @@ Requires Level 80
 Implicits: 1
 ElementalDamagePercentImplicitAtlasRing_
 CriticalStrikeChanceUnique__5__
-FireResistUniqueBelt14
-ColdResistUnique__12
+FireResistUnique__9
+ColdResistUnique__15
 IncreasedAilmentDurationUnique__3_
-Left Ring slot: Cover Enemies in Ash for 5 seconds when you Ignite them
-Right Ring slot: Cover Enemies in Frost for 5 seconds when you Freeze them
+LeftRingCoveredInAshUnique__1_
+RightRingCoveredInFrostUnique__1
 ]],[[
 Praxis
 Paua Ring
 Requires Level 22
 Implicits: 1
 IncreasedManaImplicitRing1
-RitualRingMana
+IncreasedManaUnique__8
 AddedManaRegenerationUnique__1
-{tags:mana}-(4-8) to Total Mana Cost of Skills
+ReduceGlobalFlatManaCostUnique__1
 PercentDamageGoesToManaUnique__1
 ]],[[
 Profane Proxy
@@ -972,7 +965,6 @@ IncreaseSocketedCurseGemLevelUnique__2
 ColdResistImplicitRing1
 LightningResistImplicitRing1
 SupportSkitterBotAilmentAuraReplaceWithCurse____1
-{tags:caster}Right Ring Slot: Your Shocking Skitterbot's Aura applies Socketed Hex Curse instead
 ]],[[
 Putembo's Meadow
 Topaz Ring
@@ -1016,12 +1008,12 @@ Requires Level 11
 Implicits: 1
 ColdResistImplicitRing1
 FireResistUniqueRing15
-{variant:1,2}{tags:jewellery_elemental}(25-35)% increased Burning Damage
+{variant:1,2}BurnDamageUniqueRing15[25,35]
 {variant:3}BurnDamageUniqueRing15
-{variant:1}{tags:jewellery_elemental}100% of Cold Damage Converted to Fire Damage
+{variant:1}ConvertColdToFireUniqueRing15[100,100]
 {variant:2,3}ConvertColdToFireUniqueRing15
 LightRadiusUniqueRing15
-Ignited Enemies you hit are destroyed on Kill
+IgnitedEnemiesTurnToAshUniqueRing15
 ]],[[
 The Queller of Minds
 Nameless Ring
@@ -1029,8 +1021,7 @@ League: Settlers of Kalguur
 Requires Level 50
 Implicits: 2
 CurseEffectElementalAilmentDurationOnSelfR1
-ReducedCurseEffectUniqueRing7
-Grants Level 20 Pacify
+RitualRingPacify
 RitualRingCastSpeed
 RitualRingMana
 ChaosResistUnique__31
@@ -1043,16 +1034,16 @@ Variant: Current
 Requires Level 45
 Implicits: 1
 RingHasOneSocket
-{variant:1}+2 to Level of Socketed Golem Gems
-{variant:2}LocalIncreaseSocketedGolemLevelUniqueRing35
+{variant:1}LocalIncreaseSocketedGolemLevelUniqueRing36[2,2]
+{variant:2}LocalIncreaseSocketedGolemLevelUniqueRing36
 StrengthUniqueRing36
 {variant:2}IncreasedLifeUniqueRing19
 {variant:1}AddedFireDamageUniqueRing36
 FireDamagePercentUniqueRing36
 {variant:1}DisplaySocketedGemsSupportedByLesserMultipleProjectilesUniqueRing36
 {variant:2}LocalGolemTauntOnHitUnique__1_
-{variant:1}Socketed Gems are Supported by Level 17 Increased Minion Damage
-{variant:2}Socketed Golem Skills have Minions Regenerate 5% Life per second
+{variant:1}DisplaySocketedGemsSupportedByIncreasedMinionDamageUniqueRing36
+{variant:2}LocalGolemLifeRegenerationUnique__1
 ]],[[
 Rigwald's Crest
 Two-Stone Ring
@@ -1063,10 +1054,10 @@ Source: Drops from unique{Rigwald, the Wolven King} (Level 60+)
 Requires Level 49
 Implicits: 1
 FireAndColdResistImplicitRing1
-SummonWolfOnKillUnique__1New
+SummonWolfOnKillUnique__1
 {variant:1}FireDamagePercentUniqueRing36
-{variant:1}ColdDamagePercentUniqueBelt9b
-ManaRegenerationUniqueBootsDex5
+{variant:1}ColdDamagePercentUnique___11
+ManaRegenerationUnique__4
 ]],[[
 Romira's Banquet
 Diamond Ring
@@ -1077,12 +1068,12 @@ Requires Level 60
 Implicits: 1
 CriticalStrikeChanceImplicitRing1
 IncreasedAccuracyUniqueRing17
-{variant:1}{tags:critical}+(10-20)% to Global Critical Strike Multiplier
-{variant:2}{tags:critical}+(10-15)% to Global Critical Strike Multiplier
+{variant:1}CriticalMultiplierUniqueRing17[10,20]
+{variant:2}CriticalMultiplierUniqueRing17[10,15]
 {variant:3}CriticalMultiplierUniqueRing17
 IncreasedManaUniqueRing17
 ManaLeechPermyriadUniqueRing17
-Gain a Power Charge on non-Critical Strike
+PowerChargeOnNonCritUniqueRing17
 ConsumeAllPowerChargesOnCritUniqueRing17
 ]],[[
 Rotblood Promise
@@ -1096,9 +1087,9 @@ Implicits: 1
 RingHasOneSocket
 SupportedByBlasphemyUnique
 CurseAurasAffectYouUnique__1
-{variant:1}Socketed Curse Gems have 50% increased Reservation Efficiency
+{variant:1}ReducedReservationForSocketedCurseGemsUnique__2[-50,-50]
 {variant:2}ReducedReservationForSocketedCurseGemsUnique__2
-IntelligenceUniqueHelmetInt9
+IntelligenceUnique__12
 ReducedCurseEffectUnique__1
 HitAndAilmentDamageCursedEnemiesUnique__1
 ]],[[
@@ -1107,9 +1098,9 @@ Nameless Ring
 League: Settlers of Kalguur
 Requires Level 50
 Implicits: 2
-50% increased Elemental Ailment Duration on You
-{tags:caster}50% reduced Effect of Curses on You
-Grants Level 20 Affliction
+SelfStatusAilmentDurationUnique__1
+ReducedCurseEffectUniqueRing7
+RitualRingAffliction
 RitualRingCastSpeed
 RitualRingEnergyShield
 ChaosResistUnique__31
@@ -1123,17 +1114,17 @@ Variant: Pre 3.19.0
 Variant: Current
 Requires Level 30
 Implicits: 1
-IncreasedEnergyShieldUniqueRing27
+IncreasedEnergyShieldImplicitRing1
 IntelligenceUniqueRing13
-Right ring slot: You cannot Regenerate Mana
-{variant:1}{tags:jewellery_defense}Right ring slot: Regenerate 4% of Energy Shield per second
-{variant:2,3}{tags:jewellery_defense}Right ring slot: Regenerate 3% of Energy Shield per second
+RightRingSlotNoManaRegenUniqueRing13
+{variant:1}RightRingSlotEnergyShieldRegenUniqueRing13[240,240]
+{variant:2,3}RightRingSlotEnergyShieldRegenUniqueRing13[180,180]
 {variant:4}RightRingSlotEnergyShieldRegenUniqueRing13
-{variant:3}{tags:mana}Right ring slot: +100 to maximum Mana
+{variant:3}RightRingSlotMaximumManaUnique__1[100,100]
 {variant:4}RightRingSlotMaximumManaUnique__1
-Left ring slot: You cannot Recharge or Regenerate Energy Shield
+LeftRingSlotNoEnergyShieldRegenUniqueRing13
 {variant:3,4}LeftRingSlotFlatManaRegenerationUnique__1
-{variant:3}{tags:jewellery_defense}Left ring slot: +100 to maximum Energy Shield
+{variant:3}LeftRingSlotMaximumEnergyShieldUnique__1[100,100]
 {variant:4}LeftRingSlotMaximumEnergyShieldUnique__1
 {variant:1,2}LeftRingSlotManaRegenUniqueRing13
 ]],[[
@@ -1145,17 +1136,17 @@ Variant: Pre 3.9.0
 Variant: Current
 Requires Level 45
 Implicits: 1
-IncreasedLifeUniqueRing1
+IncreasedLifeImplicitRing1
 WeaponElementalDamageUniqueRing10
 AddedFireDamageUniqueRing10
-{variant:1}(20-40)% reduced Rarity of Items found
+{variant:1}ItemFoundRarityDecreaseUniqueRing10[20,40]
 {variant:2,3,4}ItemFoundRarityDecreaseUniqueRing10
-{variant:1,2}Left ring slot: 30% reduced Reflected Elemental Damage taken
-{variant:3}Left ring slot: 40% reduced Reflected Elemental Damage taken
-{variant:4}Left ring slot: 80% reduced Reflected Elemental Damage taken
-{variant:1,2}{tags:physical}Right ring slot: 30% reduced Reflected Physical Damage taken
-{variant:3}{tags:physical}Right ring slot: 40% reduced Reflected Physical Damage taken
-{variant:4}{tags:physical}Right ring slot: 80% reduced Reflected Physical Damage taken
+{variant:1,2}LeftRingSlotElementalReflectDamageTakenUniqueRing10[-30,-30]
+{variant:3}LeftRingSlotElementalReflectDamageTakenUniqueRing10[-40,-40]
+{variant:4}LeftRingSlotElementalReflectDamageTakenUniqueRing10
+{variant:1,2}RightRingSlotPhysicalReflectDamageTakenUniqueRing10[-30,-30]
+{variant:3}RightRingSlotPhysicalReflectDamageTakenUniqueRing10[-40,-40]
+{variant:4}RightRingSlotPhysicalReflectDamageTakenUniqueRing10
 ]],[[
 Snakepit
 Sapphire Ring
@@ -1165,7 +1156,7 @@ Requires Level 68
 Implicits: 1
 ColdResistImplicitRing1
 {variant:1}ColdDamagePercentUnique__9
-{variant:2}SpellDamageUniqueWand7
+{variant:2}SpellDamageUnique__11
 IncreasedCastSpeedUniqueRing38
 {variant:1}AdditionalSpellProjectilesUnique__1
 {variant:2}LeftRingSpellProjectilesCannotChainUnique__1
@@ -1179,7 +1170,7 @@ Paua Ring
 LevelReq: 44
 Implicits: 1
 IncreasedManaImplicitRing1
-AllAttributesUnique__30
+AllAttributesUnique__17_
 LinkSkillCastSpeedUnique__1
 LinkSkillEffectDurationUnique__1
 LinkTargetCannotDieUnique__1
@@ -1194,7 +1185,7 @@ Implicits: 1
 ElementalDamagePercentImplicitAtlasRing_
 ManaRegenerationUnique__8
 FireAndLightningResistUnique__2
-{variant:1}{tags:jewellery_elemental}(4-6)% increased Burning Damage for each time you have Shocked a Non-Shocked Enemy Recently, up to a maximum of 120%
+{variant:1}BurningDamagePerEnemyShockedRecentlyUnique__1_[4,6][120,120]
 {variant:2}BurningDamagePerEnemyShockedRecentlyUnique__1_
 AddedLightningDamageAgainstIgnitedEnemiesUnique__1
 LightningDamageCanIgniteUnique__1
@@ -1206,10 +1197,10 @@ Requires Level 56
 Implicits: 1
 LightningResistImplicitRing1
 Intelligence__1
-TalismanIncreasedLightningDamage
+LightningDamagePercentUnique__7
 ChanceToShockUnique__4_
 ActivateHeraldOfThunderOnShockUnique__1
-Storms Hit Enemies with (30-50)% increased Frequency
+HeraldOfThunderBoltFrequencyUnique__1
 TakeDamageWhenHeraldOfThunderHitsUnique__1__
 ]],[[
 The Taming
@@ -1222,17 +1213,17 @@ Variant: Current
 Requires Level 30
 Implicits: 1
 AllResistancesImplicitRing1
-{variant:1}{tags:jewellery_elemental,attack}15% increased Elemental Damage with Attack Skills
+{variant:1}WeaponElementalDamageImplicitSword1[15,15]
 {variant:2}WeaponElementalDamageImplicitSword1
-{variant:1}AllResistancesUnique__14
+{variant:1}AllResistancesUniqueRing21[10,15]
 {variant:2,3}AllResistancesUniqueRing21
-{variant:1}{tags:jewellery_elemental}15% increased Elemental Damage
-{variant:2}ElementalDamagePercentImplicitSceptre2
-{variant:1}ChanceToFreezeShockIgniteUniqueHelmetDexInt4
+{variant:1}ElementalDamageUnique__1[15,15]
+{variant:2}ElementalDamageUnique__1
+{variant:1}ChanceToFreezeShockIgniteUniqueRing21[5,5]
 {variant:2,3}ChanceToFreezeShockIgniteUniqueRing21
-{variant:1}10% increased Damage per Freeze, Shock and Ignite on Enemy
-{variant:2}20% increased Damage with Hits and Ailments per Freeze, Shock and Ignite on Enemy
-{variant:3}{tags:jewellery_elemental}(30-40)% increased Elemental Damage with Hits and Ailments for each type of Elemental Ailment on Enemy
+{variant:1}DamagePerStatusAilmentOnEnemiesUniqueRing21[10,10]
+{variant:2}DamagePerStatusAilmentOnEnemiesUniqueRing21[20,20]
+{variant:3}DamagePerStatusAilmentOnEnemiesUniqueRing21
 ]],[[
 Tasalio's Sign
 Sapphire Ring
@@ -1244,12 +1235,12 @@ Implicits: 1
 ColdResistImplicitRing1
 {variant:1}AddedPhysicalDamageVsFrozenEnemiesUniqueRing30
 {variant:2}AddedColdDamageAgainstFrozenEnemiesUnique__1
-{variant:1}{tags:jewellery_elemental,attack}Adds (5-6) to (7-9) Cold Damage to Attacks
+{variant:1}AddedColdDamageUnique__11[5,6][7,9]
 {variant:2}AddedColdDamageUniqueRing30
 IncreasedEvasionRatingUniqueRing30
-{variant:1}20% reduced Chill Duration on You
+{variant:1}ReducedChillDurationOnSelfUniqueRing30
 {variant:2}ChanceToAvoidChilledUnique__1
-{variant:1}ChanceToFreezeUnique__1
+{variant:1}ChanceToFreezeUniqueRing30[5,5]
 {variant:2}ChanceToFreezeUniqueRing30
 ]],[[
 Replica Tasalio's Sign
@@ -1267,11 +1258,11 @@ AddedColdDamageAgainstFrozenEnemiesUnique__2
 ]],[[
 Tawhanuku's Timing
 Moonstone Ring
-IncreasedEnergyShieldUniqueRing27
-SpellDamageUniqueCorruptedJewel3_
+IncreasedEnergyShieldImplicitRing1
+SpellDamageUnique__16
 IncreasedManaUnique__27
 ChanceToFreezeShockIgniteUnique__3
-{tags:jewellery_defense,caster}Spells cause you to gain Energy Shield equal to their Upfront Cost every fifth time you Pay it
+ChanceToCastOnManaSpentUnique__1
 ]],[[
 Thief's Torment
 Prismatic Ring
@@ -1283,18 +1274,18 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 30
 Implicits: 2
-{variant:1}{tags:jewellery_resistance}+(8-12) to all Elemental Resistances
+{variant:1}AllResistancesImplicitRing1[8,12]
 {variant:2,3,4,5,6}AllResistancesImplicitRing1
-{variant:1,2}(15-25)% increased Quantity of Items found
+{variant:1,2}ItemFoundQuantityIncreaseUniqueRing7[15,25]
 {variant:3,4,5}ItemFoundQuantityIncreaseUniqueRing7
-{variant:6}ItemFoundRarityIncreaseUniqueHelmetWreath1
-MutatedUniqueRing16DisablesOtherRingSlot
-{variant:1,2,3}AllResistancesImplicitArmour1
-{variant:4}AllResistancesUniqueBeltDemigods1
+{variant:6}ItemFoundRarityIncreaseUnique__9
+DisablesOtherRingSlot
+{variant:1,2,3}AllResistancesUniqueRing7[8,12]
+{variant:4}AllResistancesUniqueRing7[16,24]
 {variant:5,6}AllResistancesUniqueRing7
-{variant:1,2,3}{tags:attack,life}Gain (20-30) Life per Enemy Hit with Attacks
+{variant:1,2,3}LifeGainPerTargetUniqueRing7[20,30]
 {variant:4,5,6}LifeGainPerTargetUniqueRing7
-{variant:1,2,3}{tags:attack,mana}Gain 15 Mana per Enemy Hit with Attacks
+{variant:1,2,3}ManaGainPerTargetUniqueRing7[15,15]
 {variant:4,5,6}ManaGainPerTargetUniqueRing7
 ReducedCurseEffectUniqueRing7
 ]],[[
@@ -1306,22 +1297,22 @@ Variant: Pre 3.19.0
 Variant: Current
 LevelReq: 25
 Implicits: 1
-IncreasedEnergyShieldUniqueRing27
+IncreasedEnergyShieldImplicitRing1
 IncreasedAttackSpeedUniqueRing27
-{variant:1}IncreasedCastSpeedUniqueWand4
-{variant:2,3}IncreasedCastSpeedUniqueRing38
+{variant:1}IncreasedCastSpeedUniqueRing27[5,8]
+{variant:2,3}IncreasedCastSpeedUniqueRing27[5,10]
 {variant:4}IncreasedCastSpeedUniqueRing27
-{variant:1}{tags:jewellery_defense}+(10-25) to maximum Energy Shield
-{variant:2}IncreasedEnergyShieldUniqueRing27
+{variant:1}IncreasedEnergyShieldUnique__8[10,25]
+{variant:2}IncreasedEnergyShieldUnique__8[15,25]
 {variant:3}IncreasedEnergyShieldUnique__8
-{variant:1}{tags:mana}15% reduced Mana Regeneration Rate
+{variant:1}ManaRegenerationUnique__14___[15,15]
 {variant:2,3}ReducedManaRegenerationUniqueRing27
-{variant:1}{tags:caster}Temporal Chains has 30% reduced Effect on You
-{variant:2}{tags:caster}Temporal Chains has 50% reduced Effect on You
-{variant:3}(-10-10)% increased Skill Effect Duration
-{variant:4}(-20-20)% increased Skill Effect Duration
-{variant:4}{tags:resource,life}(6-12)% of Damage Taken Recouped as Life
-{variant:4}{tags:resource,mana}(6-12)% of Damage Taken Recouped as Mana
+{variant:1}TemporalChainsEffectivenessOnSelfUniqueRing27[-30,-30]
+{variant:2}TemporalChainsEffectivenessOnSelfUniqueRing27
+{variant:3}SkillEffectDurationUnique__1[-10,10]
+{variant:4}SkillEffectDurationUnique__1[-20,20]
+{variant:4}DamageTakenGainedAsLifeUnique__3
+{variant:4}PercentDamageGoesToManaUnique__2
 {variant:3,4}TemporalChainsEffectivenessOnSelfUnique__1
 ]],[[
 Timetwist
@@ -1331,14 +1322,14 @@ Variant: Pre 2.6.0
 Variant: Current
 LevelReq: 25
 Implicits: 1
-IncreasedEnergyShieldUniqueRing27
+IncreasedEnergyShieldImplicitRing1
 IncreasedAttackSpeedUniqueRing27
-{variant:1}IncreasedCastSpeedUniqueWand4
-{variant:2}IncreasedCastSpeedUniqueRing38
-LocalIncreasedEnergyShieldUnique__32
-{variant:1}{tags:mana}15% reduced Mana Regeneration Rate
+{variant:1}IncreasedCastSpeedUniqueRing27[5,8]
+{variant:2}IncreasedCastSpeedUniqueRing27
+IncreasedEnergyShieldUnique__8
+{variant:1}ManaRegenerationUnique__14___[15,15]
 {variant:2}ReducedManaRegenerationUniqueRing27
-(-10-10)% increased Skill Effect Duration
+SkillEffectDurationUnique__1[-10,10]
 TemporalChainsEffectivenessOnSelfUnique__1
 ]],[[
 Triumvirate Authority
@@ -1350,7 +1341,7 @@ Has Alt Variant Two: true
 Has Alt Variant Three: true
 Variant: More Damage
 Variant: Less souls
-Variant: Additional Use (Pre 3.15.0)
+Variant: Regain Souls
 Variant: Ignore resistances
 Variant: Ignore Phys. Dmg. Reduction
 Variant: Grant Elusive
@@ -1361,15 +1352,14 @@ Variant: Skill Effect Duration
 Variant: Soul Gain Prevention Duration
 Variant: Lucky Damage
 Variant: Aura Effect
-Variant: Regain Souls
 Implicits: 1
 RingHasOneSocket
 LocalIncreaseSocketedVaalGemLevelUnique__1
 {variant:1}LocalVaalDamageUnique__1_
 {variant:2}LocalVaalSoulRequirementUnique__1
-{variant:3}Socketed Vaal Skills can store Souls for 1 additional Use
+{variant:3}LocalVaalUsesToStoreUnique__1
 {variant:4}LocalVaalIgnoreMonsterResistancesUnique__1
-{variant:5}Hits from Socketed Vaal Skills ignore Enemy Monster Physical Damage Reduction
+{variant:5}LocalVaalIgnoreMonsterPhysicalReductionUnique__1
 {variant:6}LocalVaalElusiveOnUseUnique__1_
 {variant:7}LocalVaalTailwindIfUsedRecentlyUnique__1
 {variant:8}LocalVaalAreaOfEffectUnique__1
@@ -1378,7 +1368,6 @@ LocalIncreaseSocketedVaalGemLevelUnique__1
 {variant:11}LocalVaalSoulGainPreventionUnique__1
 {variant:12}LocalVaalLuckyDamageUnique__1
 {variant:13}LocalVaalAuraEffectUnique__1
-{variant:14}LocalVaalUsesToStoreUnique__1
 ]],[[
 Uzaza's Meadow
 Sapphire Ring
@@ -1398,7 +1387,7 @@ Source: Drops from unique{Kurgal, the Blackblooded}
 Requires Level 49
 Implicits: 1
 ColdResistImplicitRing1
-DexterityUniqueJewel8
+DexterityUnique__13
 IncreasedEnergyShieldPercentUnique__4
 MaximumLifeUnique__14
 ]],[[
@@ -1409,7 +1398,7 @@ Source: Drops from unique{Aul, the Crystal King}
 Requires Level 49
 Implicits: 1
 ColdResistImplicitRing1
-DexterityUniqueDagger12
+DexterityUnique__13
 IncreasedEnergyShieldPercentUnique__4
 MaximumLifeUnique__14
 ]],[[
@@ -1422,14 +1411,14 @@ Variant: Current
 Requires Level 38
 Implicits: 1
 LightningResistImplicitRing1
-{variant:1}15% increased Damage with Hits against Shocked Enemies
+{variant:1}IncreasedDamageToShockedTargetsUniqueRing29[15,15]
 {variant:2,3}IncreasedDamageToShockedTargetsUniqueRing29
 LightningDamagePercentUniqueRing29
 IncreasedManaUniqueRing29
-{variant:1,2}{tags:life}0.2% of Damage Leeched as Life against Shocked Enemies
+{variant:1,2}LifeLeechPermyriadVsShockedEnemiesUniqueRing29[2000,2000]
 {variant:3}LifeLeechPermyriadVsShockedEnemiesUniqueRing29
-{variant:1}5% chance to Shock
-{variant:2}ChanceToShockUniqueBow10
+{variant:1}ChanceToShockUniqueRing29[5,5]
+{variant:2}ChanceToShockUniqueRing29[10,10]
 {variant:3}ChanceToShockUniqueRing29
 ]],[[
 Valyrium
@@ -1438,11 +1427,11 @@ Variant: Pre 3.11.0
 Variant: Current
 Requires Level 38
 Implicits: 1
-IncreasedEnergyShieldUniqueRing27
-{variant:1}LocalIncreasedEnergyShieldUniqueBootsInt2
+IncreasedEnergyShieldImplicitRing1
+{variant:1}IncreasedEnergyShieldUniqueRing18[10,20]
 {variant:2}IncreasedEnergyShieldUniqueRing18
-{variant:1}FireResistImplicitRing1
-{variant:2}FireResistUnique__16
+{variant:1}FireResistUnique__20_[20,30]
+{variant:2}FireResistUnique__20_
 ColdResistUnique__9
 StunDurationBasedOnEnergyShieldUnique__1
 ]],[[
@@ -1453,7 +1442,7 @@ Implicits: 1
 League: Blight
 AddedPhysicalDamageImplicitRing1
 StrengthUniqueRing8
-CausesBleedingUniqueOneHandAxe5
+CausesBleedingUnique__1
 BleedDamageUnique__1_
 ChilledWhileBleedingUnique__1_
 NonChilledEnemiesBleedAndChillUnique__1_
@@ -1467,12 +1456,12 @@ Requires Level 65
 Implicits: 1
 ItemFoundRarityIncreaseImplicitRing1
 IncreasedLifeUniqueRing32
-{variant:1}(-10-10)% increased Quantity of Items found
-(-40-40)% increased Rarity of Items found
+{variant:1}ItemFoundQuantityIncreaseUniqueRing32
+ItemFoundRarityIncreaseUniqueRing32_
 FireResistUniqueRing32
 ColdResistUniqueRing32
 LightningResistUniqueRing32
-{variant:2}{tags:mana}(-15-15)% increased Mana Reservation Efficiency of Skills
+{variant:2}ManaReservationEfficiencyUnique__1
 ]],[[
 Vivinsect
 Unset Ring
@@ -1505,32 +1494,32 @@ RingHasOneSocket
 LocalIncreaseSocketedAuraGemLevelUnique___2___
 {variant:1,2,3,4,5,6,7,8,9,10,11}Socketed Gems have 20% reduced Mana Reservation Efficiency
 {variant:13,14,15,16,17,18,19,20,21}SocketedItemsHaveIncreasedReservationUnique__1
-AllAttributesUnique__14
+AllAttributesUnique__16_
 LifeRegenPerUncorruptedItemUnique__1
 TotalManaCostPerCorruptedItemUnique__1
-{variant:1}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Fire and Chaos Resistances
+{variant:1}FireAndChaosDamageResistanceUnique__1__[8,15]
 {variant:2}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
 {variant:3}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
-{variant:4}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Dexterity
-{variant:5}{crafted}{tags:jewellery_attribute}+(6-17) to Dexterity and Intelligence
-{variant:6}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Intelligence
+{variant:4}StrengthAndDexterityUnique_1[6,17]
+{variant:5}DexterityAndIntelligenceUnique_2[6,17]
+{variant:6}StrengthIntelligenceUnique__2[6,17]
 {variant:7}{crafted}(11-30)% increased Effect of non-Damaging Ailments on Enemies
 {variant:8}{crafted}Shock nearby Enemies for (2-4) Seconds when you Focus
 {variant:9}{crafted}+1 to Minimum Frenzy Charges
 {variant:10}{crafted}+1 to Minimum Power Charges
 {variant:11}{crafted}+1 to Minimum Endurance Charges
-{variant:12}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Fire and Chaos Resistances
+{variant:12}FireAndChaosDamageResistanceUnique__1__[16,20]
 {variant:13}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Cold and Chaos Resistances
 {variant:14}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Lightning and Chaos Resistances
-{variant:15}{crafted}{tags:jewellery_attribute}+(31-35) to Strength and Dexterity
-{variant:16}{crafted}{tags:jewellery_attribute}+(31-35) to Dexterity and Intelligence
-{variant:17}{crafted}{tags:jewellery_attribute}+(31-35) to Strength and Intelligence
+{variant:15}StrengthAndDexterityUnique_1[31,35]
+{variant:16}DexterityAndIntelligenceUnique_2[31,35]
+{variant:17}StrengthIntelligenceUnique__2[31,35]
 {variant:18}{crafted}Shock nearby Enemies for 4 Seconds when you Focus
-{variant:18}{crafted}Focus has (5-8)% increased Cooldown Recovery Rate
+{variant:18}FocusCooldownRecoveryUnique__1_[5,8]
 {variant:19}{crafted}+1 to Minimum Frenzy Charges
-{variant:19}{crafted}(3-4)% chance to gain a Frenzy Charge on Kill
+{variant:19}VillageFrenzyChargeOnKillChance[3,4]
 {variant:20}{crafted}+1 to Minimum Power Charges
-{variant:20}{crafted}(3-4)% chance to gain a Power Charge on Kill
+{variant:20}PowerChargeOnKillChanceUnique__1[3,4]
 {variant:21}{crafted}+1 to Minimum Endurance Charges
 {variant:21}{crafted}(3-4)% chance to gain a Endurance Charge on Kill
 ]],[[
@@ -1565,11 +1554,11 @@ Ruby Ring
 Requires Level 16
 Implicits: 1
 FireResistImplicitRing1
-StrengthUnique__27
+StrengthUnique__32
 MeleeDamageUnique__1
 AvoidStunUnique__1
 RingAttackSpeedUnique__1
-Strike Skills also target the previous location they were Used
+StrikeSkillMemoryUseUnique__1_______
 ]],[[
 Call of the Void
 Sapphire Ring
@@ -1588,7 +1577,7 @@ EnemiesChilledLessDamageDealtUnique__1
 Kalandra's Touch
 Ring
 League: Kalandra
-Reflects your opposite Ring
+DuplicatesRingStats
 Mirrored
 ]],[[
 Betrayal's Sting
@@ -1598,9 +1587,9 @@ Requires Level 80
 Implicits: 1
 AddedPhysicalDamageImplicitRing2
 DexterityUnique__33
-{tags:jewellery_resistance}(-30--20)% to all Elemental Resistances
+AllResistancesUnique_1
 ChaosResistUnique__18_
-MovementVelocityUnique___5
+MovementVelocityUnique__3
 AdditionalPoisonChanceUnique__1
 ]],[[
 Coiling Whisper
@@ -1618,11 +1607,11 @@ Vermillion Ring
 Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
 Requires Level 80
 Implicits: 1
-{tags:life}(5-7)% increased Maximum Life
-StrengthUnique__32
-RunecraftingFireDamage
+MaximumLifeImplicitAtlasRing
+StrengthUnique__27
+FireDamagePercentUnique__13
 ReducedFireResistanceUnique__2
-{tags:jewellery_elemental}Take (300-500) Fire Damage when you use a Skill
+FireDamageOnSkillUseUnique__1
 OvercappedFireResistanceAsFirePrenetrationUnique__1
 ]],[[
 Prospero's Protection
@@ -1630,18 +1619,18 @@ Iron Ring
 Requires Level 32
 Implicits: 1
 AddedPhysicalDamageImplicitRing1
-(4-6)% chance to Block Attack Damage
+BlockPercentUnique__3
 StrengthUnique__31
-{tags:life}+(45-60) to Maximum Life
-{tags:jewellery_defense}Armour from equipped shield is doubled
-{tags:jewellery_defense}Gain no armour from equipped body armour
+IncreasedLifeUnique__14
+ArmourFromShieldDoubledUnique__1
+GainNoArmourFromBodyArmourUnique__1
 ]],[[
 Squirming Terror
 Unset Ring
 Requires Level 32
 Implicits: 1
 RingHasOneSocket
-SummonWrithingWormEveryXMsUnique__1
+MutatedUniqueBow12SummonWrithingWormEveryXMs
 TriggerSocketedSpellOnKillUnique__1
 LoseLifePerTargetUnique__2
 ManaGainPerTargetUnique__3

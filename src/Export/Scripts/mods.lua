@@ -201,7 +201,7 @@ for modName, mod in pairs(LoadModule("../Data/ModItemExclusive.lua")) do
 	end
 	-- Add generic mod for matching legacy values
 	if mod[1]:match('%d+') then
-		local genericText = mod[1]:gsub('(%-*%d*%.*%d+%-*%-*%d*%.*%d+)', '#')
+		local genericText = mod[1]:gsub('(%-*%d*%.*%d+%-*%-*%d*%.*%d*)', '#')
 		if genericText ~= mod[1] then
 			if modTextMap[genericText:lower()] then
 				table.insert(modTextMap[genericText:lower()], modName)
