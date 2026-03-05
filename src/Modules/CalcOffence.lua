@@ -4400,7 +4400,7 @@ function calcs.offence(env, actor, activeSkill)
 					base = { "%.2fs ^8(poison duration)", globalOutput.PoisonDuration },
 					{ "%.2f ^8(poison chance)", poisonChance },
 					{ "%.2f ^8(hit chance)", output.HitChance / 100 },
-					{ "%.2f ^8(additional poisons inflicted)", additionalPoisonStacks },
+					{ "%.2f ^8(avg. # of poisons inflicted)", additionalPoisonStacks },
 					{ "%.2f ^8(hits per second)", globalOutput.HitSpeed or globalOutput.Speed },
 					{ "%g ^8(dps multiplier for this skill)", skillData.dpsMultiplier or 1 },
 					{ "%g ^8(stack multiplier for this skill)", skillData.stackMultiplier or 1 },
@@ -4409,6 +4409,9 @@ function calcs.offence(env, actor, activeSkill)
 				})
 				if skillModList:Flag(nil, "Condition:SinglePoison") then
 					t_insert(globalBreakdown.PoisonStacks, "Capped to 1")
+				end
+				if poisonStackLimit > 0 and PoisonStacks >= poisonStackLimit then
+					t_insert(globalBreakdown.PoisonStacks, "^8(affected by poison stack limit)")
 				end
 			end
 			for sub_pass = 1, 2 do
