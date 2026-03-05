@@ -315,7 +315,7 @@ local function doActorAttribsConditions(env, actor)
 			modDB:NewMod("AreaOfEffect", "INC", m_floor(40 * shrineEffectMod), "Massive Shrine")
 		end
 		if modDB:Flag(nil, "ReplenishingShrine") then
-			modDB:NewMod("ManaRegenPercent", "BASE", 10 * shrineEffectMod, "Replenishing Shrine")
+			modDB:NewMod("ManaRegen", "INC", 200 * shrineEffectMod, "Replenishing Shrine")
 			modDB:NewMod("LifeRegenPercent", "BASE", 6.7 * shrineEffectMod, "Replenishing Shrine")
 		end
 		if modDB:Flag(nil, "ResistanceShrine") then
@@ -323,13 +323,9 @@ local function doActorAttribsConditions(env, actor)
 			modDB:NewMod("ElementalResistMax", "BASE", m_floor(10 * shrineEffectMod), "Resistance Shrine")
 		end
 		if modDB:Flag(nil, "ResonatingShrine") then
-			modDB:NewMod("CritChance", "INC", m_floor(50 * shrineEffectMod), "Resonating Shrine", { type = "Multiplier", var = "PowerCharge" })
-			modDB:NewMod("Speed", "INC", m_floor(4 * shrineEffectMod), "Resonating Shrine", ModFlag.Attack, { type = "Multiplier", var = "FrenzyCharge" })
-			modDB:NewMod("Speed", "INC", m_floor(4 * shrineEffectMod), "Resonating Shrine", ModFlag.Cast, { type = "Multiplier", var = "FrenzyCharge" })
-			modDB:NewMod("Damage", "MORE", m_floor(4 * shrineEffectMod), "Resonating Shrine", { type = "Multiplier", var = "FrenzyCharge" })
-			modDB:NewMod("PhysicalDamageReduction", "BASE", m_floor(4 * shrineEffectMod), "Resonating Shrine", { type = "Multiplier", var = "EnduranceCharge" })
-			modDB:NewMod("ElementalDamageReduction", "BASE", m_floor(4 * shrineEffectMod), "Resonating Shrine", { type = "Multiplier", var = "EnduranceCharge" })
-			modDB:NewMod("Damage", "INC", m_floor(5 * shrineEffectMod), "Resonating Shrine", { type = "Multiplier", varList = { "PowerCharge", "FrenzyCharge", "EnduranceCharge" }})
+			modDB:NewMod("PowerChargesMax", "BASE", m_floor(1 * shrineEffectMod), "Resonating Shrine")
+			modDB:NewMod("FrenzyChargesMax", "BASE", m_floor(1 * shrineEffectMod), "Resonating Shrine")
+			modDB:NewMod("EnduranceChargesMax", "BASE", m_floor(1 * shrineEffectMod), "Resonating Shrine")
 		end
 		if modDB:Flag(nil, "LesserAccelerationShrine") and not modDB:Flag(nil, "AccelerationShrine") then
 			modDB:NewMod("ActionSpeed", "INC", m_floor(10 * shrineEffectMod), "Lesser Acceleration Shrine")
@@ -350,7 +346,7 @@ local function doActorAttribsConditions(env, actor)
 			modDB:NewMod("AreaOfEffect", "INC", m_floor(20 * shrineEffectMod), "Lesser Massive Shrine")
 		end
 		if modDB:Flag(nil, "LesserReplenishingShrine") then
-			modDB:NewMod("ManaRegenPercent", "BASE", 3.3 * shrineEffectMod, "Lesser Replenishing Shrine")
+			modDB:NewMod("ManaRegen", "INC", 100 * shrineEffectMod, "Lesser Replenishing Shrine")
 			modDB:NewMod("LifeRegenPercent", "BASE", 3.3 * shrineEffectMod, "Lesser Replenishing Shrine")
 		end
 		if modDB:Flag(nil, "LesserResistanceShrine") then
@@ -671,6 +667,7 @@ local function doActorMisc(env, actor)
 		if modDB.conditions["AffectedByArcaneSurge"] or modDB:Flag(nil, "Condition:ArcaneSurge") then
 			modDB.conditions["AffectedByArcaneSurge"] = true
 			local effect = 1 + modDB:Sum("INC", nil, "ArcaneSurgeEffect", "BuffEffectOnSelf") / 100
+			effect = effect + modDB:Sum("INC", { actor = "player" }, "FlaskEffect") / 100 * modDB:Sum("BASE", nil, "FlaskEffectToArcaneSurgeEffect") / 100
 			modDB:NewMod("ManaRegen", "INC", (modDB:Max(nil, "ArcaneSurgeManaRegen") or 30) * effect, "Arcane Surge")
 			local arcaneSurgeCastSpeed = (modDB:Max(nil, "ArcaneSurgeCastSpeed") or 20) * effect
 			modDB:NewMod("Speed", "INC", arcaneSurgeCastSpeed, "Arcane Surge", ModFlag.Cast)
@@ -678,7 +675,13 @@ local function doActorMisc(env, actor)
 				modDB:NewMod("MovementSpeed", "INC", arcaneSurgeCastSpeed, "Arcane Surge")
 			end
 			local arcaneSurgeDamage = modDB:Max(nil, "ArcaneSurgeDamage") or 0
-			if arcaneSurgeDamage ~= 0 then modDB:NewMod("Damage", "MORE", arcaneSurgeDamage * effect, "Arcane Surge", ModFlag.Spell) end
+			if arcaneSurgeDamage ~= 0 then
+				modDB:NewMod("Damage", "MORE", arcaneSurgeDamage * effect, "Arcane Surge", ModFlag.Spell) 
+			end
+			local arcaneSurgeLifeRegen = modDB:Sum("BASE", nil, "ArcaneSurgeAlsoLifeRegen")
+			if arcaneSurgeLifeRegen > 0 then
+				modDB:NewMod("LifeRegen", "INC", arcaneSurgeLifeRegen * effect, "Arcane Surge")
+			end
 		end
 		if modDB:Flag(nil, "Fanaticism") and actor.mainSkill and actor.mainSkill.skillFlags.selfCast then
 			local effect = m_floor(75 * (1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100))

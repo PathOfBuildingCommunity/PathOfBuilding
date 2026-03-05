@@ -756,7 +756,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.prefixes.limit = (self.prefixes.limit or 0) + (tonumber(lineLower:match("%+(%d+) prefix modifiers? allowed")) or 0) - (tonumber(lineLower:match("%-(%d+) prefix modifiers? allowed")) or 0)
 				elseif lineLower:match(" suffix modifiers? allowed") then
 					self.suffixes.limit = (self.suffixes.limit or 0) + (tonumber(lineLower:match("%+(%d+) suffix modifiers? allowed")) or 0) - (tonumber(lineLower:match("%-(%d+) suffix modifiers? allowed")) or 0)
-				elseif lineLower == "this item can be anointed by cassia" then
+				elseif lineLower:find("can be anointed") then -- blight uniques and Cord Belt
 					self.canBeAnointed = true
 				elseif lineLower == "can have a second enchantment modifier" then
 					self.canHaveTwoEnchants = true

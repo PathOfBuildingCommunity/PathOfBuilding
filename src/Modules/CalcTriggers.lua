@@ -1485,6 +1485,13 @@ local configTable = {
 					return skill.skillData.triggeredBySettlersEnchantTrigger and slotMatch(env, skill)
 				end}
 	end,
+	["replica gifts from above"] = function()
+		return {
+			triggerSkillCond = function(env, skill)
+				return not skill.skillTypes[SkillType.SummonsTotem] and skill.skillTypes[SkillType.Attack]
+			end
+		}
+	end,
 }
 
 -- Find unique item trigger name

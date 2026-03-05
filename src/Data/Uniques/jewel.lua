@@ -74,8 +74,11 @@ Source: No longer obtainable
 ]],[[
 Bloodnotch
 Crimson Jewel
+Variant: Pre 3.28.0
+Variant: Current
 Limited to: 1
-(40-60)% of Damage Taken from Stunning Hits is Recovered as Life
+{variant:1}(40-60)% of Damage Taken from Stunning Hits is Recovered as Life
+{variant:2}(20-30)% of Damage Taken from Stunning Hits is Recovered as Life
 ]],[[
 Calamitous Visions
 Small Cluster Jewel

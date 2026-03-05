@@ -871,8 +871,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 				end
 				if item.base.subType == "Life" then
 					local highestLifeRecovery = env.itemModDB.multipliers["LifeFlaskRecovery"] or 0
+					local highestCharges = env.itemModDB.multipliers["LifeFlaskCharges"] or 0
 					if item.flaskData.lifeTotal > highestLifeRecovery then
 						env.itemModDB.multipliers["LifeFlaskRecovery"] = item.flaskData.lifeTotal
+					end
+					if item.flaskData.chargesMax > highestCharges then
+						env.itemModDB.multipliers["LifeFlaskCharges"] = item.flaskData.chargesMax
 					end
 				end
 				item = nil
