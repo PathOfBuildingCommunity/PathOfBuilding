@@ -2053,7 +2053,7 @@ return {
 			["overrideType"] = "AlternateMastery", 
 			["sd"] = {
 				[1] = "Fire at most 1 Projectile", 
-				[2] = "Projectiles Chain +1 times",
+				[2] = "Skills Chain +1 times", 
 				[3] = "Projectiles Fork", 
 				[4] = "Limited to 1 Runegraft of Refraction", 
 			}, 
