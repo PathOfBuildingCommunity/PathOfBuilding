@@ -11,14 +11,18 @@ local s_format = string.format
 local ItemSetListClass = newClass("ItemSetListControl", "ListControl", function(self, anchor, rect, itemsTab)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, itemsTab.itemSetOrderList)
 	self.itemsTab = itemsTab
-	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
-		local newSet = copyTable(itemsTab.itemSets[self.selValue])
+	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function(id) -- id is for Loadouts using copy.onClick()
+		local newSet = copyTable(itemsTab.itemSets[id or self.selValue])
 		newSet.id = 1
 		while itemsTab.itemSets[newSet.id] do
 			newSet.id = newSet.id + 1
 		end
 		itemsTab.itemSets[newSet.id] = newSet
-		self:RenameSet(newSet, true)
+		if not id then
+			self:RenameSet(newSet, true)
+		else
+			return newSet
+		end
 	end)
 	self.controls.copy.enabled = function()
 		return self.selValue ~= nil
@@ -118,6 +122,7 @@ end
 
 function ItemSetListClass:OnSelDelete(index, itemSetId)
 	local itemSet = self.itemsTab.itemSets[itemSetId]
+	--ConPrintf("OnSelDelete, itemSet = "..itemSet.title or "Default"..", index = "..index..", itemSetId = "..itemSetId)
 	if #self.list > 1 then
 		main:OpenConfirmPopup("Delete Item Set", "Are you sure you want to delete '"..(itemSet.title or "Default").."'?\nThis will not delete any items used by the set.", "Delete", function()
 			t_remove(self.list, index)
@@ -130,6 +135,25 @@ function ItemSetListClass:OnSelDelete(index, itemSetId)
 			self.itemsTab:AddUndoState()
 			self.itemsTab.build:SyncLoadouts()
 		end)
+	end
+end
+
+-- bypass confirmation popup, used by Loadouts
+function ItemSetListClass:DeleteById(index, itemSetId, sync)
+	local itemSet = self.itemsTab.itemSets[itemSetId]
+	--ConPrintf("DeleteById, itemSet = "..itemSet.title or "Default"..", index = "..index..", itemSetId = "..itemSetId)
+	if #self.list > 1 then
+		t_remove(self.list, index)
+		self.itemsTab.itemSets[itemSetId] = nil
+		self.selIndex = nil
+		self.selValue = nil
+		if itemSetId == self.itemsTab.activeItemSetId then
+			self.itemsTab:SetActiveItemSet(self.list[m_max(1, index - 1)])
+		end
+		self.itemsTab:AddUndoState()
+		if sync then
+			self.itemsTab.build:SyncLoadouts()
+		end
 	end
 end
 

@@ -10,13 +10,18 @@ local m_max = math.max
 local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", function(self, anchor, rect, treeTab)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, treeTab.specList)
 	self.treeTab = treeTab
-	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
-		local newSpec = new("PassiveSpec", treeTab.build, self.selValue.treeVersion)
-		newSpec.title = self.selValue.title
-		newSpec.jewels = copyTable(self.selValue.jewels)
-		newSpec:RestoreUndoState(self.selValue:CreateUndoState())
+	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function(spec) -- spec is for Loadouts using copy.onClick()
+		local selValue = spec or self.selValue
+		local newSpec = new("PassiveSpec", treeTab.build, selValue.treeVersion)
+		newSpec.title = selValue.title
+		newSpec.jewels = copyTable(selValue.jewels)
+		newSpec:RestoreUndoState(selValue:CreateUndoState())
 		newSpec:BuildClusterJewelGraphs()
-		self:RenameSpec(newSpec, "Copy Tree", true)
+		if not spec then
+			self:RenameSpec(newSpec, "Copy Tree", true)
+		else
+			return newSpec
+		end
 	end)
 	self.controls.copy.enabled = function()
 		return self.selValue ~= nil
@@ -107,6 +112,25 @@ function PassiveSpecListClass:OnSelDelete(index, spec)
 			self:UpdateItemsTabPassiveTreeDropdown()
 			self.treeTab.build:SyncLoadouts()
 		end)
+	end
+end
+
+-- bypass confirmation popup, used by Loadouts
+function PassiveSpecListClass:DeleteByIndex(index, sync)
+	if #self.list > 1 then
+		t_remove(self.list, index)
+		self.selIndex = nil
+		self.selValue = nil
+		if index == self.treeTab.activeSpec then
+			self.treeTab:SetActiveSpec(1)
+		else
+			self.treeTab.activeSpec = isValueInArray(self.list, self.treeTab.build.spec)
+		end
+		self.treeTab.modFlag = true
+		self:UpdateItemsTabPassiveTreeDropdown()
+		if sync then
+			self.treeTab.build:SyncLoadouts()
+		end
 	end
 end
 

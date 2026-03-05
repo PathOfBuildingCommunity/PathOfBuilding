@@ -284,85 +284,33 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	local initialSecondarySelection = (self.spec and self.spec.curSecondaryAscendClassId) or 0
 	self.controls.secondaryAscendDrop:SelByValue(initialSecondarySelection, "ascendClassId")
 	self.controls.buildLoadouts = new("DropDownControl", {"LEFT",self.controls.secondaryAscendDrop,"RIGHT"}, {8, 0, 190, 20}, {}, function(index, value)
-		if value == "^7^7Loadouts:" or value == "^7^7-----" then
-			self.controls.buildLoadouts:SetSel(1)
-			return
-		end
-		if value == "^7^7Sync" then
-			self:SyncLoadouts()
-			self.controls.buildLoadouts:SetSel(1)
-			return
-		end
-		if value == "^7^7Help >>" then
-			main:OpenAboutPopup(7)
-			self.controls.buildLoadouts:SetSel(1)
-			return
-		end
-		if value == "^7^7New Loadout" then
-			local controls = { }
-			controls.label = new("LabelControl", nil, {0, 20, 0, 16}, "^7Enter name for this loadout:")
-			controls.edit = new("EditControl", nil, {0, 40, 350, 20}, "New Loadout", nil, nil, 100, function(buf)
-				controls.save.enabled = buf:match("%S")
-			end)
-			controls.save = new("ButtonControl", nil, {-45, 70, 80, 20}, "Save", function()
-				local loadout = controls.edit.buf
-
-				local newSpec = new("PassiveSpec", self, latestTreeVersion)
-				newSpec.title = loadout
-				t_insert(self.treeTab.specList, newSpec)
-
-				local itemSet = self.itemsTab:NewItemSet(#self.itemsTab.itemSets + 1)
-				t_insert(self.itemsTab.itemSetOrderList, itemSet.id)
-				itemSet.title = loadout
-
-				local skillSet = self.skillsTab:NewSkillSet(#self.skillsTab.skillSets + 1)
-				t_insert(self.skillsTab.skillSetOrderList, skillSet.id)
-				skillSet.title = loadout
-
-				local configSet = self.configTab:NewConfigSet(#self.configTab.configSets + 1)
-				t_insert(self.configTab.configSetOrderList, configSet.id)
-				configSet.title = loadout
-
-				self:SyncLoadouts()
-				self.modFlag = true
-				main:ClosePopup()
-			end)
-			controls.save.enabled = false
-			controls.cancel = new("ButtonControl", nil, {45, 70, 80, 20}, "Cancel", function()
-				main:ClosePopup()
-			end)
-			main:OpenPopup(370, 100, "Set Name", controls, "save", "edit", "cancel")
-
-			self.controls.buildLoadouts:SetSel(1)
-			return
-		end
-
 		-- item, skill, and config sets have identical structure
 		-- return id as soon as it's found
 		local function findSetId(setOrderList, value, sets, setSpecialLinks)
-			for _, setOrder in ipairs(setOrderList) do
+			for setIndex, setOrder in pairs(setOrderList) do
 				if value == (sets[setOrder].title or "Default") then
-					return setOrder
+					--index = setIndex
+					return setIndex --setOrder works until you delete something
 				else
 					local linkMatch = string.match(value, "%{(%w+)%}")
 					if linkMatch then
+						--index = setIndex
 						return setSpecialLinks[linkMatch]["setId"]
 					end
 				end
 			end
 			return nil
 		end
-
 		-- trees have a different structure with id/name pairs
 		-- return id as soon as it's found
 		local function findNamedSetId(treeList, value, setSpecialLinks)
 			for id, spec in ipairs(treeList) do
 				if value == spec then
-					return id
+					return id, value
 				else
 					local linkMatch = string.match(value, "%{(%w+)%}")
 					if linkMatch then
-						return setSpecialLinks[linkMatch]["setId"]
+						return setSpecialLinks[linkMatch]["setId"], string.match(value, "%b{}") -- test {Default} returns {Default}
 					end
 				end
 			end
@@ -372,6 +320,278 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		local oneSkill = self.skillsTab and #self.skillsTab.skillSetOrderList == 1
 		local oneItem = self.itemsTab and #self.itemsTab.itemSetOrderList == 1
 		local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
+
+		-- *** big block of variables shared across Copy, Delete, and Rename Loadouts
+		-- generic SetListControls so we can reuse copy/delete/rename functions
+		local passiveSpecListControl = new ("PassiveSpecListControl", nil, nil, self.treeTab)
+		local itemSetListControl = new("ItemSetListControl", nil, nil, self.itemsTab)
+		local skillSetListControl = new("SkillSetListControl", nil, nil, self.skillsTab)
+		local configSetListControl = new("ConfigSetListControl", nil, nil, self.configTab)
+		-- list for dropdown
+		local existingLoadoutsList = self.controls.buildLoadouts.existingLoadoutsList or {}
+		local selectedLoadoutTitle = existingLoadoutsList[1] or "Default"
+		-- set indices of each type for selected loadout for copy/delete/rename
+		local selectedLoadoutTreeId = { }
+		local selectedLoadoutItemId = { }
+		local selectedLoadoutSkillId = { }
+		local selectedLoadoutConfigId = { }
+		local loadoutTitleOrIdentifier = ""
+		-- ***
+
+		local function renameSets(title, newFromExisting)
+			if newFromExisting then
+				self.treeTab.specList[self.treeTab.activeSpec].title = title
+				self.itemsTab.itemSets[self.itemsTab.activeItemSetId].title = title
+				self.skillsTab.skillSets[self.skillsTab.activeSkillSetId].title = title
+				self.configTab.configSets[self.configTab.activeConfigSetId].title = title
+			else
+				self.treeTab.specList[selectedLoadoutTreeId].title = title
+				--self.itemsTab.itemSets[selectedLoadoutItemId].title = title
+				for _, id in pairs(self.itemsTab.itemSetOrderList) do
+					if (string.match(self.itemsTab.itemSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.itemsTab.itemSets[id].title or "Default" == loadoutTitleOrIdentifier) then
+						self.itemsTab.itemSets[id].title = title
+						break
+					end
+				end
+				--self.skillsTab.skillSets[selectedLoadoutSkillId].title = title
+				for _, id in pairs(self.skillsTab.skillSetOrderList) do
+					if (string.match(self.skillsTab.skillSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.skillsTab.skillSets[id].title or "Default" == loadoutTitleOrIdentifier) then
+						self.skillsTab.skillSets[id].title = title
+						break
+					end
+				end
+				--self.configTab.configSets[selectedLoadoutConfigId].title = title
+				for _, id in pairs(self.configTab.configSetOrderList) do
+					if (string.match(self.configTab.configSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.configTab.configSets[id].title or "Default" == loadoutTitleOrIdentifier) then
+						self.configTab.configSets[id].title = title
+						break
+					end
+				end
+			end
+		end
+		local function setSelectedLoadout(title)
+			selectedLoadoutTreeId, loadoutTitleOrIdentifier = findNamedSetId(self.treeTab:GetSpecList(), title, self.treeListSpecialLinks)
+
+			-- because we are creating the SetListControl in real time, the SetOrderLists can get out of sync with the ItemSets, SkillSets, ConfigSets
+			-- so we will loop until we find the title or identifier match from the selected loadout
+			--selectedLoadoutItemId = findSetId(self.itemsTab.itemSetOrderList, title, self.itemsTab.itemSets, self.itemListSpecialLinks)
+			for _, id in pairs(self.itemsTab.itemSetOrderList) do
+				if (string.match(self.itemsTab.itemSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.itemsTab.itemSets[id].title or "Default" == loadoutTitleOrIdentifier) then
+					selectedLoadoutItemId = id
+					break
+				end
+			end
+			--selectedLoadoutSkillId = findSetId(self.skillsTab.skillSetOrderList, title, self.skillsTab.skillSets, self.skillListSpecialLinks)
+			for _, id in pairs(self.skillsTab.skillSetOrderList) do
+				if (string.match(self.skillsTab.skillSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.skillsTab.skillSets[id].title or "Default" == loadoutTitleOrIdentifier) then
+					selectedLoadoutSkillId = id
+					break
+				end
+			end
+			--selectedLoadoutConfigId = findSetId(self.configTab.configSetOrderList, title, self.configTab.configSets, self.configListSpecialLinks)
+			for _, id in pairs(self.configTab.configSetOrderList) do
+				if (string.match(self.configTab.configSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.configTab.configSets[id].title or "Default" == loadoutTitleOrIdentifier) then
+					selectedLoadoutConfigId = id
+					break
+				end
+			end
+		end
+		setSelectedLoadout(selectedLoadoutTitle)
+
+		if value == "^7^7Loadouts:" or value == "^7^7-----" then
+			self.controls.buildLoadouts:SetSel(1)
+			return
+		elseif value == "^7^7Sync" then
+			self:SyncLoadouts()
+			self.controls.buildLoadouts:SetSel(1)
+			return
+		elseif value == "^7^7Help >>" then
+			main:OpenAboutPopup(7)
+			self.controls.buildLoadouts:SetSel(1)
+			return
+		elseif value == "^7^7New Loadout" then
+			local controls = { }
+			local createFromExistingSets = false
+
+			controls.loadoutNameLabel = new("LabelControl", nil, {0, 20, 0, 16}, "^7Enter name for this loadout:")
+			controls.loadoutName = new("EditControl", nil, { 0, 40, 350, 20}, "New Loadout", nil, nil, 100, function(buf)
+				controls.save.enabled = buf:match("%S")
+			end)
+			controls.existingCheckLabel = new("LabelControl", nil, {-10, 70, 0, 16}, "^7Create a new loadout from current active sets?")
+			controls.existingCheck = new("CheckBoxControl", {"LEFT",controls.existingCheckLabel,"RIGHT"}, {4, 0, 18}, nil, function(state)
+				createFromExistingSets = state
+			end, "If unchecked, a loadout of empty sets will be created.")
+			controls.save = new("ButtonControl", nil, {-45, 100, 80, 20}, "Create", function()
+				local loadoutTitle = controls.loadoutName.buf
+				-- if we're making a loadout out of the existing sets we only need to rename them to match
+				if createFromExistingSets then
+					renameSets(loadoutTitle, true)
+				else
+					local newSpec = new("PassiveSpec", self, latestTreeVersion)
+					t_insert(self.treeTab.specList, newSpec)
+					newSpec.title = loadoutTitle
+
+					local itemSet = self.itemsTab:NewItemSet(#self.itemsTab.itemSets + 1)
+					t_insert(self.itemsTab.itemSetOrderList, itemSet.id)
+					itemSet.title = loadoutTitle
+
+					local skillSet = self.skillsTab:NewSkillSet(#self.skillsTab.skillSets + 1)
+					t_insert(self.skillsTab.skillSetOrderList, skillSet.id)
+					skillSet.title = loadoutTitle
+
+					local configSet = self.configTab:NewConfigSet(#self.configTab.configSets + 1)
+					t_insert(self.configTab.configSetOrderList, configSet.id)
+					configSet.title = loadoutTitle
+				end
+				self:SyncLoadouts()
+				self.modFlag = true
+				main:ClosePopup()
+			end)
+			controls.save.enabled = false
+			controls.cancel = new("ButtonControl", nil, {45, 100, 80, 20}, "Cancel", function()
+				main:ClosePopup()
+			end)
+			main:OpenPopup(370, 140, "New Loadout", controls, "save", "edit", "cancel")
+
+			self.controls.buildLoadouts:SetSel(1)
+			return
+		elseif value == "^7^7Rename Loadout" then
+			local controls = { }
+
+			controls.loadoutNameLabel = new("LabelControl", nil, {0, 20, 0, 16}, "^7Enter name for this loadout:")
+			controls.loadoutName = new("EditControl", nil, { 0, 40, 350, 20}, "New Loadout", nil, nil, 100)
+
+			controls.existingLoadoutsLabel = new("LabelControl", nil, {0, 70, 0, 16}, "^7Choose a loadout to rename:")
+			controls.existingLoadouts = new("DropDownControl", nil, {0, 90, 190, 20}, existingLoadoutsList, function(index, value)
+				setSelectedLoadout(value)
+			end)
+
+			controls.rename = new("ButtonControl", nil, {-45, 125, 80, 20}, "Rename", function()
+				renameSets(controls.loadoutName.buf)
+				self:SyncLoadouts()
+				self.modFlag = true
+				main:ClosePopup()
+			end)
+			controls.rename.enabled = #existingLoadoutsList > 0
+			controls.cancel = new("ButtonControl", nil, {45, 125, 80, 20}, "Cancel", function()
+				main:ClosePopup()
+			end)
+			main:OpenPopup(370, 165, "Rename Loadout", controls, "save", "edit", "cancel")
+			self.controls.buildLoadouts:SetSel(1)
+			return
+		elseif value == "^7^7Copy Loadout" then
+			local controls = { }
+			local numberofLoadouts = nil
+
+			controls.loadoutNameLabel = new("LabelControl", nil, {0, 20, 0, 16}, "^7Enter name for this loadout:")
+			controls.loadoutName = new("EditControl", nil, { 0, 40, 350, 20}, "New Loadout", nil, nil, 100, function(buf)
+				controls.copy.enabled = buf:match("%S")
+			end)
+
+			controls.existingLoadoutsLabel = new("LabelControl", nil, {0, 70, 0, 16}, "^7Copy an existing loadout:")
+			controls.existingLoadouts = new("DropDownControl", nil, {0, 90, 190, 20}, existingLoadoutsList, function(index, value)
+				setSelectedLoadout(value)
+			end)
+
+			controls.copy = new("ButtonControl", nil, {-45, 125, 80, 20}, "Copy", function()
+				local loadoutTitle = controls.loadoutName.buf
+
+				local oldSpec = self.treeTab.specList[selectedLoadoutTreeId]
+				local newSpec = passiveSpecListControl.controls.copy.onClick(oldSpec)
+				t_insert(self.treeTab.specList, newSpec)
+				newSpec.title = loadoutTitle
+
+				--local newItemSet = itemSetListControl.controls.copy.onClick(selectedLoadoutItemId)
+				local newItemSet
+				for _, id in pairs(self.itemsTab.itemSetOrderList) do
+					if (string.match(self.itemsTab.itemSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.itemsTab.itemSets[id].title or "Default" == loadoutTitleOrIdentifier) then
+						newItemSet = itemSetListControl.controls.copy.onClick(id)
+						break
+					end
+				end
+				t_insert(self.itemsTab.itemSetOrderList, newItemSet.id)
+				newItemSet.title = loadoutTitle
+
+				--local newSkillSet = skillSetListControl.controls.copy.onClick(selectedLoadoutSkillId)
+				local newSkillSet
+				for _, id in pairs(self.skillsTab.skillSetOrderList) do
+					if (string.match(self.skillsTab.skillSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.skillsTab.skillSets[id].title or "Default" == loadoutTitleOrIdentifier) then
+						newSkillSet = skillSetListControl.controls.copy.onClick(id)
+						break
+					end
+				end
+				t_insert(self.skillsTab.skillSetOrderList, newSkillSet.id)
+				newSkillSet.title = loadoutTitle
+
+				--local newConfigSet = configSetListControl.controls.copy.onClick(selectedLoadoutConfigId)
+				local newConfigSet
+				for _, id in pairs(self.configTab.configSetOrderList) do
+					if (string.match(self.configTab.configSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.configTab.configSets[id].title or "Default" == loadoutTitleOrIdentifier) then
+						newConfigSet = configSetListControl.controls.copy.onClick(id)
+						break
+					end
+				end
+				t_insert(self.configTab.configSetOrderList, newConfigSet.id)
+				newConfigSet.title = loadoutTitle
+
+				self:SyncLoadouts()
+				self.modFlag = true
+				main:ClosePopup()
+			end)
+			controls.copy.enabled = false
+			controls.cancel = new("ButtonControl", nil, {45, 125, 80, 20}, "Cancel", function()
+				main:ClosePopup()
+			end)
+			main:OpenPopup(370, 165, "Copy Loadout", controls, "save", "edit", "cancel")
+			self.controls.buildLoadouts:SetSel(1)
+			return
+		elseif value == "^7^7Delete Loadout" then
+			local controls = { }
+
+			controls.existingLoadoutsLabel = new("LabelControl", nil, {0, 25, 0, 16}, "^7Choose a loadout to delete:")
+			controls.existingLoadouts = new("DropDownControl", nil, {0, 45, 190, 20}, existingLoadoutsList, function(index, value)
+				setSelectedLoadout(value)
+			end)
+
+			controls.delete = new("ButtonControl", nil, {-45, 85, 80, 20}, "Delete", function()
+				main:OpenConfirmPopup("Delete All", "Are you sure you want to delete this loadout?", "Delete", function()
+					passiveSpecListControl:DeleteByIndex(selectedLoadoutTreeId)
+					-- because we are creating the SetListControl in real time, the SetOrderLists can get out of sync with the ItemSets, SkillSets, ConfigSets
+					-- so we will loop until we find the title or identifier match from the selected loadout
+					--itemSetListControl:DeleteById(selectedLoadoutItemId)
+					for index, id in pairs(self.itemsTab.itemSetOrderList) do
+						if (string.match(self.itemsTab.itemSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.itemsTab.itemSets[id].title or "Default" == loadoutTitleOrIdentifier) then
+							itemSetListControl:DeleteById(index, id)
+							break
+						end
+					end
+					--skillSetListControl:DeleteById(selectedLoadoutSkillId)
+					for index, id in pairs(self.skillsTab.skillSetOrderList) do
+						if (string.match(self.skillsTab.skillSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.skillsTab.skillSets[id].title or "Default" == loadoutTitleOrIdentifier) then
+							skillSetListControl:DeleteById(index, id)
+							break
+						end
+					end
+					--configSetListControl:DeleteById(selectedLoadoutConfigId)
+					for index, id in pairs(self.configTab.configSetOrderList) do
+						if (string.match(self.configTab.configSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.configTab.configSets[id].title or "Default" == loadoutTitleOrIdentifier) then
+							configSetListControl:DeleteById(index, id)
+							break
+						end
+					end
+					self:SyncLoadouts()
+					self.modFlag = true
+					main:ClosePopup()
+				end)
+			end)
+			controls.delete.enabled = #existingLoadoutsList > 0
+			controls.cancel = new("ButtonControl", nil, {45, 85, 80, 20}, "Cancel", function()
+				main:ClosePopup()
+			end)
+			main:OpenPopup(370, 125, "Delete Loadout", controls, "save", "edit", "cancel")
+			self.controls.buildLoadouts:SetSel(1)
+			return
+		end
 
 		local newSpecId = findNamedSetId(self.treeTab:GetSpecList(), value, self.treeListSpecialLinks)
 		local newItemId = oneItem and 1 or findSetId(self.itemsTab.itemSetOrderList, value, self.itemsTab.itemSets, self.itemListSpecialLinks)
@@ -776,7 +996,7 @@ function buildMode:SyncLoadouts()
 
 		-- item, skill, and config sets have identical structure
 		local function identifyLinks(setOrderList, tabSets, setList, specialLinks, treeLinks)
-			for id, set in ipairs(setOrderList) do
+			for id, set in ipairs(setOrderList) do -- I had this as pairs from sometime but I can't remember why
 				local setTitle = tabSets[set].title or "Default"
 				local linkIdentifier = string.match(setTitle, "%{([%w,]+)%}")
 
@@ -818,9 +1038,15 @@ function buildMode:SyncLoadouts()
 		end
 	end
 
+	self.controls.buildLoadouts.existingLoadoutsList = copyTable(filteredList)
+	table.remove(self.controls.buildLoadouts.existingLoadoutsList, 1) -- remove "^7^7Loadouts:"
+
 	-- giving the options unique formatting so it can not match with user-created sets
 	t_insert(filteredList, "^7^7-----")
 	t_insert(filteredList, "^7^7New Loadout")
+	t_insert(filteredList, "^7^7Rename Loadout")
+	t_insert(filteredList, "^7^7Copy Loadout")
+	t_insert(filteredList, "^7^7Delete Loadout")
 	t_insert(filteredList, "^7^7Sync")
 	t_insert(filteredList, "^7^7Help >>")
 
