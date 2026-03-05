@@ -17706,7 +17706,10 @@ skills["StormBurst"] = {
 		},
 		{
 			name = "Max Channelled Orbs"
-		}
+		},
+		{
+			name = "Max Duration Explode"
+		},
 	},
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 2 then
@@ -17715,6 +17718,10 @@ skills["StormBurst"] = {
 			local jumpPeriod = activeSkill.skillData.repeatFrequency * 10
 			-- additional 1 tick upon spawn of orb
 			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * (1 + math.floor(duration * 10 / jumpPeriod))
+		elseif activeSkill.skillPart == 3 then
+			local remainingJumps = math.floor((activeSkill.skillData.duration * output.DurationMod + 0.001) / activeSkill.skillData.repeatFrequency)
+			-- Tested in-game and the skill grants more damage only after you have at least 0.8s duration
+			activeSkill.skillModList:NewMod("Damage", "MORE", math.max(activeSkill.skillData.remainingDurationDamage * remainingJumps - 100, 0), "Skill:StormBurst")
 		end
 	end,
 	statMap = {
@@ -17723,6 +17730,7 @@ skills["StormBurst"] = {
 			div = 1000,
 		},
 		["storm_burst_new_damage_+%_final_per_remaining_teleport_zap"] = {
+			skill("remainingDurationDamage", nil),
 		},
 	},
 	baseFlags = {
