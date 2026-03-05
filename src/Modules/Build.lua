@@ -289,12 +289,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		local function findSetId(setOrderList, value, sets, setSpecialLinks)
 			for setIndex, setOrder in pairs(setOrderList) do
 				if value == (sets[setOrder].title or "Default") then
-					--index = setIndex
-					return setIndex --setOrder works until you delete something
+					return setIndex
 				else
 					local linkMatch = string.match(value, "%{(%w+)%}")
 					if linkMatch then
-						--index = setIndex
 						return setSpecialLinks[linkMatch]["setId"]
 					end
 				end
