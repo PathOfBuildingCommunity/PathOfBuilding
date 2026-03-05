@@ -57,7 +57,7 @@ local itemTypesTemp = {
 -- Posted by Egor Skriptunoff, modified by community. See post 'Timeline' for change history
 -- Retrieved 2026-03-02, License - CC BY-SA 3.0
 
-function io.linesbackward(filename)
+function io.linesBackward(filename)
 	local file = assert(io.open(filename))
 	local chunk_size = 4 * 1024
 	local iterator = function() return "" end
@@ -100,7 +100,7 @@ for _, name in pairs(itemTypes) do
 	-- Note this ONLY works because conventionally we have the most current variant mod listed last
 	-- if that ever changes due to modOrder, a lot of the `itemUsedMods` logic won't work (and might make things worse in some cases)
 	local outTbl = {}
-	for line in io.linesbackward("../Data/Uniques/"..name..".lua") do
+	for line in io.linesBackward("../Data/Uniques/"..name..".lua") do
 		if line == "]],[[" then
 			itemUsedMods = {} -- Reset mod list for trying to keep variants using the same mod
 		end
