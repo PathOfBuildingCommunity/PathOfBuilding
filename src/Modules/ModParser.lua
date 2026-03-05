@@ -5504,6 +5504,7 @@ local specialModList = {
 	["can have a second enchantment modifier"] = { },
 	["can have (%d+) additional enchantment modifiers"] = { },
 	["this item can be anointed by cassia"] = { },
+	["can be anointed"] = { },
 	["implicit modifiers cannot be changed"] = { },
 	["has a crucible passive skill tree"] = { },
 	["has elder, shaper and all conqueror influences"] = { },
