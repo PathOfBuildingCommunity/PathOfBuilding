@@ -150,6 +150,7 @@ return {
 },
 ["cannot_poison_poisoned_enemies"] = {
 	flag("Condition:SinglePoison"),
+	mod("PoisonStackLimit", "MIN", 1),
 },
 ["spell_damage_modifiers_apply_to_skill_dot"] = {
 	skill("dotIsSpell", true),
