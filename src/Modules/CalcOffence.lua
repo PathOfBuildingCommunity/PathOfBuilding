@@ -3048,12 +3048,32 @@ function calcs.offence(env, actor, activeSkill)
 		
 		runSkillFunc("postCritFunc")
 
-		-- Check for added damage redirection (Cryogenesis)
+		-- Added damage redirection (Cryogenesis)
+		-- Convert all added damage mods to the target type before the damage loop
+		-- so breakdowns show the redirected source correctly.
+		-- Base Elemental Hit is excluded per the node text.
 		local addedDamageRedirectType = nil
 		if skillModList:Flag(cfg, "AllAddedDamageAsLightning") then
 			addedDamageRedirectType = "Lightning"
 		elseif skillModList:Flag(cfg, "AllAddedDamageAsCold") then
 			addedDamageRedirectType = "Cold"
+		end
+		if addedDamageRedirectType then
+			local skipRedirect = activeSkill.activeEffect.grantedEffect.name == "Elemental Hit"
+			if not skipRedirect then
+				for _, damageType in ipairs(dmgTypeList) do
+					if damageType ~= addedDamageRedirectType then
+						for _, value in ipairs(skillModList:Tabulate("BASE", cfg, damageType.."Min")) do
+							local mod = value.mod
+							skillModList:ConvertMod(damageType.."Min", addedDamageRedirectType.."Min", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+						end
+						for _, value in ipairs(skillModList:Tabulate("BASE", cfg, damageType.."Max")) do
+							local mod = value.mod
+							skillModList:ConvertMod(damageType.."Max", addedDamageRedirectType.."Max", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+						end
+					end
+				end
+			end
 		end
 
 		-- Calculate base hit damage
@@ -3062,21 +3082,8 @@ function calcs.offence(env, actor, activeSkill)
 			local damageTypeMax = damageType.."Max"
 			local baseMultiplier = activeSkill.activeEffect.grantedEffectLevel.baseMultiplier or skillData.baseMultiplier or 1
 			local damageEffectiveness = activeSkill.activeEffect.grantedEffectLevel.damageEffectiveness or skillData.damageEffectiveness or 1
-			local addedMin, addedMax
-			if addedDamageRedirectType then
-				if damageType == addedDamageRedirectType then
-					addedMin, addedMax = 0, 0
-					for _, srcType in ipairs(dmgTypeList) do
-						addedMin = addedMin + skillModList:Sum("BASE", cfg, srcType.."Min") + enemyDB:Sum("BASE", cfg, "Self"..srcType.."Min")
-						addedMax = addedMax + skillModList:Sum("BASE", cfg, srcType.."Max") + enemyDB:Sum("BASE", cfg, "Self"..srcType.."Max")
-					end
-				else
-					addedMin, addedMax = 0, 0
-				end
-			else
-				addedMin = skillModList:Sum("BASE", cfg, damageTypeMin) + enemyDB:Sum("BASE", cfg, "Self"..damageTypeMin)
-				addedMax = skillModList:Sum("BASE", cfg, damageTypeMax) + enemyDB:Sum("BASE", cfg, "Self"..damageTypeMax)
-			end
+			local addedMin = skillModList:Sum("BASE", cfg, damageTypeMin) + enemyDB:Sum("BASE", cfg, "Self"..damageTypeMin)
+			local addedMax = skillModList:Sum("BASE", cfg, damageTypeMax) + enemyDB:Sum("BASE", cfg, "Self"..damageTypeMax)
 			local addedMult = calcLib.mod(skillModList, cfg, "Added"..damageType.."Damage", "AddedDamage")
 			local baseMin = ((source[damageTypeMin] or 0) + (source[damageType.."BonusMin"] or 0)) * baseMultiplier + addedMin * damageEffectiveness * addedMult
 			local baseMax = ((source[damageTypeMax] or 0) + (source[damageType.."BonusMax"] or 0)) * baseMultiplier + addedMax * damageEffectiveness * addedMult

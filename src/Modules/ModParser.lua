@@ -5286,12 +5286,13 @@ local specialModList = {
 	["consecrated path and purifying flame create profane ground instead of consecrated ground"] = {
 		flag("Condition:CreateProfaneGround"),
 	},
-	["if intelligence is your single highest attribute, all added damage is treated as added lightning damage"] = {
-		flag("AllAddedDamageAsLightning", { type = "Condition", var = "IntSingleHighestAttribute" }),
-	},
-	["if dexterity is your single highest attribute, all added damage is treated as added cold damage"] = {
+	["you gain added cold damage instead of added damage of other types if dexterity exceeds both other attributes"] = {
 		flag("AllAddedDamageAsCold", { type = "Condition", var = "DexSingleHighestAttribute" }),
 	},
+	["you gain added lightn?ing damage instead of added damage of other types if intelligence exceeds both other attributes"] = {
+		flag("AllAddedDamageAsLightning", { type = "Condition", var = "IntSingleHighestAttribute" }),
+	},
+	["elemental hit's added damage cannot be replaced this way"] = { },
 	["you have consecrated ground around you while stationary if strength is your highest attribute"] = {
 		flag("Condition:OnConsecratedGround", { type = "Condition", var = "StrHighestAttribute" }, { type = "Condition", var = "Stationary" }),
 	},
