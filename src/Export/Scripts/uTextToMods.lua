@@ -53,46 +53,32 @@ local itemTypesTemp = {
 	"tincture",
 }
 
--- Source - https://stackoverflow.com/a/37956399
--- Posted by Egor Skriptunoff, modified by community. See post 'Timeline' for change history
--- Retrieved 2026-03-02, License - CC BY-SA 3.0
-
 function io.linesBackward(filename)
-	local file = assert(io.open(filename))
-	local chunk_size = 4 * 1024
-	local iterator = function() return "" end
-	local tail = ""
-	local chunk_index = math.ceil(file:seek "end" / chunk_size)
-	return
-		function()
-			while true do
-				local lineEOL, line = iterator()
-				if lineEOL ~= "" then
-					return line:reverse()
-				end
-				repeat
-					chunk_index = chunk_index - 1
-					if chunk_index < 0 then
-						file:close()
-						iterator = function()
-							error('No more lines in file "' .. filename .. '"', 3)
-						end
-						return
-					end
-					file:seek("set", chunk_index * chunk_size)
-					local chunk = file:read(chunk_size)
-					local pattern = "^(.-" .. (chunk_index > 0 and "\n" or "") .. ")(.*)"
-					local new_tail, lines = chunk:match(pattern)
-					iterator = lines and (lines .. tail):reverse():gmatch "(\n?\r?([^\n]*))"
-					tail = new_tail or chunk .. tail
-				until iterator
-			end
+	local file = assert(io.open(filename, "rb"))
+	local content = file:read("*a")
+	file:close()
+	content = content:gsub("\r\n", "\n"):gsub("\r", "\n")
+	local lines = {}
+	for line in content:gmatch("([^\n]*)\n?") do
+		lines[#lines + 1] = line
+	end
+	-- Trailing empty entry from final newline
+	if lines[#lines] == "" then
+		lines[#lines] = nil
+	end
+	local i = #lines + 1
+	return function()
+		i = i - 1
+		if i > 0 then
+			return lines[i]
 		end
+	end
 end
 
 local usedMods = {}
 local itemUsedMods = {}
 local modTextMap = LoadModule("Uniques/ModTextMap.lua")
+local uniqueMods = LoadModule("../Data/ModItemExclusive.lua")
 
 for _, name in pairs(itemTypes) do
 	-- Reading the file backward lets us see the most current variant lines first
@@ -190,6 +176,45 @@ for _, name in pairs(itemTypes) do
 					end
 				end
 				table.insert(outTbl, 1, outLine .. "\n")
+				-- Multi-line mods: remove stale continuation lines from outTbl.
+				-- Since we read backward, continuation lines (2nd, 3rd, etc.) were
+				-- processed before the first line and are already in outTbl as raw
+				-- text. The mod ID we just inserted resolves to ALL lines, so the
+				-- raw continuation entries are duplicates.
+				-- Also collect continuations from sibling mods that share the same
+				-- first line (e.g. Dream/Nightmare jewels have 4 mods with identical
+				-- first lines but different continuations).
+				local modData = uniqueMods[gggMod]
+				if modData and #modData > 1 then
+					local continuations = {}
+					-- Find all mods sharing this first line
+					local firstLine = modData[1]:lower()
+					local siblingMods = modTextMap[firstLine] or { gggMod }
+					for _, siblingId in ipairs(siblingMods) do
+						local siblingData = uniqueMods[siblingId]
+						if siblingData then
+							for i = 2, #siblingData do
+								continuations[siblingData[i]:lower()] = true
+							end
+						end
+					end
+					-- Find boundary of current item (stop at ]],[[ separator)
+					local boundary = #outTbl
+					for j = 2, #outTbl do
+						local stripped = outTbl[j]:gsub("\n$", "")
+						if stripped == "]],[[" or stripped == "]]," then
+							boundary = j - 1
+							break
+						end
+					end
+					-- Scan backward within current item, remove matching entries
+					for j = boundary, 2, -1 do
+						local cleanLine = outTbl[j]:gsub("{.-}", ""):gsub("%s+$", ""):gsub("\n$", "")
+						if continuations[cleanLine:lower()] then
+							table.remove(outTbl, j)
+						end
+					end
+				end
 			else
 				ConPrintf("Warning: No mod found for line '%s' in %s", modText, name)
 				table.insert(outTbl, 1, line .."\n")

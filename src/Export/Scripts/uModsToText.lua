@@ -167,7 +167,6 @@ for _, name in ipairs(itemTypes) do
 			statOrder = { }
 			modLines = 0
 		end
-		::continue::
 	end
 	writeMods(out, statOrder)
 	for _, line in ipairs(postModLines) do
