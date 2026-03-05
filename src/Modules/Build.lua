@@ -332,71 +332,58 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		local selectedLoadoutTitle = existingLoadoutsList[1] or "Default"
 		-- set indices of each type for selected loadout for copy/delete/rename
 		local selectedLoadoutTreeId = { }
-		local selectedLoadoutItemId = { }
-		local selectedLoadoutSkillId = { }
-		local selectedLoadoutConfigId = { }
+		local selectedLoadoutItemId, selectedLoadoutItemIndex = { }, { } -- index needed for delete loadout
+		local selectedLoadoutSkillId, selectedLoadoutSkillIndex = { }, { }
+		local selectedLoadoutConfigId, selectedLoadoutConfigIndex = { }, { }
 		local loadoutTitleOrIdentifier = ""
 		-- ***
 
-		local function renameSets(title, newFromExisting)
-			if newFromExisting then
-				self.treeTab.specList[self.treeTab.activeSpec].title = title
-				self.itemsTab.itemSets[self.itemsTab.activeItemSetId].title = title
-				self.skillsTab.skillSets[self.skillsTab.activeSkillSetId].title = title
-				self.configTab.configSets[self.configTab.activeConfigSetId].title = title
-			else
-				self.treeTab.specList[selectedLoadoutTreeId].title = title
-				--self.itemsTab.itemSets[selectedLoadoutItemId].title = title
-				for _, id in pairs(self.itemsTab.itemSetOrderList) do
-					if (string.match(self.itemsTab.itemSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.itemsTab.itemSets[id].title or "Default" == loadoutTitleOrIdentifier) then
-						self.itemsTab.itemSets[id].title = title
-						break
-					end
-				end
-				--self.skillsTab.skillSets[selectedLoadoutSkillId].title = title
-				for _, id in pairs(self.skillsTab.skillSetOrderList) do
-					if (string.match(self.skillsTab.skillSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.skillsTab.skillSets[id].title or "Default" == loadoutTitleOrIdentifier) then
-						self.skillsTab.skillSets[id].title = title
-						break
-					end
-				end
-				--self.configTab.configSets[selectedLoadoutConfigId].title = title
-				for _, id in pairs(self.configTab.configSetOrderList) do
-					if (string.match(self.configTab.configSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.configTab.configSets[id].title or "Default" == loadoutTitleOrIdentifier) then
-						self.configTab.configSets[id].title = title
-						break
-					end
-				end
-			end
-		end
 		local function setSelectedLoadout(title)
 			selectedLoadoutTreeId, loadoutTitleOrIdentifier = findNamedSetId(self.treeTab:GetSpecList(), title, self.treeListSpecialLinks)
-
 			-- because we are creating the SetListControl in real time, the SetOrderLists can get out of sync with the ItemSets, SkillSets, ConfigSets
 			-- so we will loop until we find the title or identifier match from the selected loadout
-			--selectedLoadoutItemId = findSetId(self.itemsTab.itemSetOrderList, title, self.itemsTab.itemSets, self.itemListSpecialLinks)
-			for _, id in pairs(self.itemsTab.itemSetOrderList) do
-				if (string.match(self.itemsTab.itemSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.itemsTab.itemSets[id].title or "Default" == loadoutTitleOrIdentifier) then
+			for index, id in pairs(self.itemsTab.itemSetOrderList) do
+				if (string.match(self.itemsTab.itemSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or ((self.itemsTab.itemSets[id].title or "Default") == loadoutTitleOrIdentifier) then
 					selectedLoadoutItemId = id
+					selectedLoadoutItemIndex = index
 					break
 				end
 			end
-			--selectedLoadoutSkillId = findSetId(self.skillsTab.skillSetOrderList, title, self.skillsTab.skillSets, self.skillListSpecialLinks)
-			for _, id in pairs(self.skillsTab.skillSetOrderList) do
-				if (string.match(self.skillsTab.skillSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.skillsTab.skillSets[id].title or "Default" == loadoutTitleOrIdentifier) then
+			for index, id in pairs(self.skillsTab.skillSetOrderList) do
+				if (string.match(self.skillsTab.skillSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or ((self.skillsTab.skillSets[id].title or "Default") == loadoutTitleOrIdentifier) then
 					selectedLoadoutSkillId = id
+					selectedLoadoutSkillIndex = index
 					break
 				end
 			end
-			--selectedLoadoutConfigId = findSetId(self.configTab.configSetOrderList, title, self.configTab.configSets, self.configListSpecialLinks)
-			for _, id in pairs(self.configTab.configSetOrderList) do
-				if (string.match(self.configTab.configSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.configTab.configSets[id].title or "Default" == loadoutTitleOrIdentifier) then
+			for index, id in pairs(self.configTab.configSetOrderList) do
+				if (string.match(self.configTab.configSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or ((self.configTab.configSets[id].title or "Default") == loadoutTitleOrIdentifier) then
 					selectedLoadoutConfigId = id
+					selectedLoadoutConfigIndex = index
 					break
 				end
 			end
 		end
 		setSelectedLoadout(selectedLoadoutTitle)
+
+		local function copyLoadout(loadoutTitle)
+			local oldSpec = self.treeTab.specList[selectedLoadoutTreeId]
+			local newSpec = passiveSpecListControl.controls.copy.onClick(oldSpec)
+			t_insert(self.treeTab.specList, newSpec)
+			newSpec.title = loadoutTitle
+
+			local newItemSet = itemSetListControl.controls.copy.onClick(selectedLoadoutItemId)
+			t_insert(self.itemsTab.itemSetOrderList, newItemSet.id)
+			newItemSet.title = loadoutTitle
+
+			local newSkillSet = skillSetListControl.controls.copy.onClick(selectedLoadoutSkillId)
+			t_insert(self.skillsTab.skillSetOrderList, newSkillSet.id)
+			newSkillSet.title = loadoutTitle
+
+			local newConfigSet = configSetListControl.controls.copy.onClick(selectedLoadoutConfigId)
+			t_insert(self.configTab.configSetOrderList, newConfigSet.id)
+			newConfigSet.title = loadoutTitle
+		end
 
 		if value == "^7^7Loadouts:" or value == "^7^7-----" then
 			self.controls.buildLoadouts:SetSel(1)
@@ -423,9 +410,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			end, "If unchecked, a loadout of empty sets will be created.")
 			controls.save = new("ButtonControl", nil, {-45, 100, 80, 20}, "Create", function()
 				local loadoutTitle = controls.loadoutName.buf
-				-- if we're making a loadout out of the existing sets we only need to rename them to match
+				-- make a copy so we don't break any existing loadouts if any of their sets are currently active
 				if createFromExistingSets then
-					renameSets(loadoutTitle, true)
+					copyLoadout(loadoutTitle)
 				else
 					local newSpec = new("PassiveSpec", self, latestTreeVersion)
 					t_insert(self.treeTab.specList, newSpec)
@@ -467,7 +454,12 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			end)
 
 			controls.rename = new("ButtonControl", nil, {-45, 125, 80, 20}, "Rename", function()
-				renameSets(controls.loadoutName.buf)
+				local title = controls.loadoutName.buf
+				self.treeTab.specList[selectedLoadoutTreeId].title = title
+				self.itemsTab.itemSets[selectedLoadoutItemId].title = title
+				self.skillsTab.skillSets[selectedLoadoutSkillId].title = title
+				self.configTab.configSets[selectedLoadoutConfigId].title = title
+
 				self:SyncLoadouts()
 				self.modFlag = true
 				main:ClosePopup()
@@ -494,46 +486,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			end)
 
 			controls.copy = new("ButtonControl", nil, {-45, 125, 80, 20}, "Copy", function()
-				local loadoutTitle = controls.loadoutName.buf
-
-				local oldSpec = self.treeTab.specList[selectedLoadoutTreeId]
-				local newSpec = passiveSpecListControl.controls.copy.onClick(oldSpec)
-				t_insert(self.treeTab.specList, newSpec)
-				newSpec.title = loadoutTitle
-
-				--local newItemSet = itemSetListControl.controls.copy.onClick(selectedLoadoutItemId)
-				local newItemSet
-				for _, id in pairs(self.itemsTab.itemSetOrderList) do
-					if (string.match(self.itemsTab.itemSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.itemsTab.itemSets[id].title or "Default" == loadoutTitleOrIdentifier) then
-						newItemSet = itemSetListControl.controls.copy.onClick(id)
-						break
-					end
-				end
-				t_insert(self.itemsTab.itemSetOrderList, newItemSet.id)
-				newItemSet.title = loadoutTitle
-
-				--local newSkillSet = skillSetListControl.controls.copy.onClick(selectedLoadoutSkillId)
-				local newSkillSet
-				for _, id in pairs(self.skillsTab.skillSetOrderList) do
-					if (string.match(self.skillsTab.skillSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.skillsTab.skillSets[id].title or "Default" == loadoutTitleOrIdentifier) then
-						newSkillSet = skillSetListControl.controls.copy.onClick(id)
-						break
-					end
-				end
-				t_insert(self.skillsTab.skillSetOrderList, newSkillSet.id)
-				newSkillSet.title = loadoutTitle
-
-				--local newConfigSet = configSetListControl.controls.copy.onClick(selectedLoadoutConfigId)
-				local newConfigSet
-				for _, id in pairs(self.configTab.configSetOrderList) do
-					if (string.match(self.configTab.configSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.configTab.configSets[id].title or "Default" == loadoutTitleOrIdentifier) then
-						newConfigSet = configSetListControl.controls.copy.onClick(id)
-						break
-					end
-				end
-				t_insert(self.configTab.configSetOrderList, newConfigSet.id)
-				newConfigSet.title = loadoutTitle
-
+				copyLoadout(controls.loadoutName.buf)
 				self:SyncLoadouts()
 				self.modFlag = true
 				main:ClosePopup()
@@ -556,29 +509,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			controls.delete = new("ButtonControl", nil, {-45, 85, 80, 20}, "Delete", function()
 				main:OpenConfirmPopup("Delete All", "Are you sure you want to delete this loadout?", "Delete", function()
 					passiveSpecListControl:DeleteByIndex(selectedLoadoutTreeId)
-					-- because we are creating the SetListControl in real time, the SetOrderLists can get out of sync with the ItemSets, SkillSets, ConfigSets
-					-- so we will loop until we find the title or identifier match from the selected loadout
-					--itemSetListControl:DeleteById(selectedLoadoutItemId)
-					for index, id in pairs(self.itemsTab.itemSetOrderList) do
-						if (string.match(self.itemsTab.itemSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.itemsTab.itemSets[id].title or "Default" == loadoutTitleOrIdentifier) then
-							itemSetListControl:DeleteById(index, id)
-							break
-						end
-					end
-					--skillSetListControl:DeleteById(selectedLoadoutSkillId)
-					for index, id in pairs(self.skillsTab.skillSetOrderList) do
-						if (string.match(self.skillsTab.skillSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.skillsTab.skillSets[id].title or "Default" == loadoutTitleOrIdentifier) then
-							skillSetListControl:DeleteById(index, id)
-							break
-						end
-					end
-					--configSetListControl:DeleteById(selectedLoadoutConfigId)
-					for index, id in pairs(self.configTab.configSetOrderList) do
-						if (string.match(self.configTab.configSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or (self.configTab.configSets[id].title or "Default" == loadoutTitleOrIdentifier) then
-							configSetListControl:DeleteById(index, id)
-							break
-						end
-					end
+					itemSetListControl:DeleteById(selectedLoadoutItemIndex, selectedLoadoutItemId)
+					skillSetListControl:DeleteById(selectedLoadoutSkillIndex, selectedLoadoutSkillId)
+					configSetListControl:DeleteById(selectedLoadoutConfigIndex, selectedLoadoutConfigId)
+
 					self:SyncLoadouts()
 					self.modFlag = true
 					main:ClosePopup()

@@ -122,7 +122,6 @@ end
 
 function ItemSetListClass:OnSelDelete(index, itemSetId)
 	local itemSet = self.itemsTab.itemSets[itemSetId]
-	--ConPrintf("OnSelDelete, itemSet = "..itemSet.title or "Default"..", index = "..index..", itemSetId = "..itemSetId)
 	if #self.list > 1 then
 		main:OpenConfirmPopup("Delete Item Set", "Are you sure you want to delete '"..(itemSet.title or "Default").."'?\nThis will not delete any items used by the set.", "Delete", function()
 			t_remove(self.list, index)
@@ -141,7 +140,6 @@ end
 -- bypass confirmation popup, used by Loadouts
 function ItemSetListClass:DeleteById(index, itemSetId, sync)
 	local itemSet = self.itemsTab.itemSets[itemSetId]
-	--ConPrintf("DeleteById, itemSet = "..itemSet.title or "Default"..", index = "..index..", itemSetId = "..itemSetId)
 	if #self.list > 1 then
 		t_remove(self.list, index)
 		self.itemsTab.itemSets[itemSetId] = nil
