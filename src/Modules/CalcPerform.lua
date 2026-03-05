@@ -315,7 +315,7 @@ local function doActorAttribsConditions(env, actor)
 			modDB:NewMod("AreaOfEffect", "INC", m_floor(40 * shrineEffectMod), "Massive Shrine")
 		end
 		if modDB:Flag(nil, "ReplenishingShrine") then
-			modDB:NewMod("ManaRegenPercent", "BASE", 10 * shrineEffectMod, "Replenishing Shrine")
+			modDB:NewMod("ManaRegen", "INC", 200 * shrineEffectMod, "Replenishing Shrine")
 			modDB:NewMod("LifeRegenPercent", "BASE", 6.7 * shrineEffectMod, "Replenishing Shrine")
 		end
 		if modDB:Flag(nil, "ResistanceShrine") then
@@ -346,7 +346,7 @@ local function doActorAttribsConditions(env, actor)
 			modDB:NewMod("AreaOfEffect", "INC", m_floor(20 * shrineEffectMod), "Lesser Massive Shrine")
 		end
 		if modDB:Flag(nil, "LesserReplenishingShrine") then
-			modDB:NewMod("ManaRegenPercent", "BASE", 3.3 * shrineEffectMod, "Lesser Replenishing Shrine")
+			modDB:NewMod("ManaRegen", "INC", 100 * shrineEffectMod, "Lesser Replenishing Shrine")
 			modDB:NewMod("LifeRegenPercent", "BASE", 3.3 * shrineEffectMod, "Lesser Replenishing Shrine")
 		end
 		if modDB:Flag(nil, "LesserResistanceShrine") then

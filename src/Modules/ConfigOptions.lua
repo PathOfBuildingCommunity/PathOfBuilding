@@ -1595,7 +1595,7 @@ Huge sets the radius to 11.
 	{ var = "buffMassiveShrine", type = "check", label = "Have Massive Shrine?", ifFlag = "Condition:CanHaveRegularShrines", tooltip = "This will enable the Massive Shrine buff.\n\t30% increased Character Size\n\t40% increased Area of Effect\n\t40% increased maximum ^xE05030Life", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:MassiveShrine", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "buffReplenishingShrine", type = "check", label = "Have Replenishing Shrine?", ifFlag = "Condition:CanHaveRegularShrines", tooltip = "This will enable the Replenishing Shrine buff.\n\t10% of ^x7070FFMana ^7Regenerated per second\n\t6.7% of ^xE05030Life ^7Regenerated per second", apply = function(val, modList, enemyModList)
+	{ var = "buffReplenishingShrine", type = "check", label = "Have Replenishing Shrine?", ifFlag = "Condition:CanHaveRegularShrines", tooltip = "This will enable the Replenishing Shrine buff.\n\t200% increased ^x7070FFMana ^7Regeneration Rate\n\t6.7% of ^xE05030Life ^7Regenerated per second", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ReplenishingShrine", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "buffResistanceShrine", type = "check", label = "Have Resistance Shrine?", ifFlag = "Condition:CanHaveRegularShrines", tooltip = "This will enable the Resistance Shrine buff.\n\t+50% to all Elemental Resistances\n\t+10% to all maximum Resistances", apply = function(val, modList, enemyModList)
@@ -1616,7 +1616,7 @@ Huge sets the radius to 11.
 	{ var = "buffLesserMassiveShrine", type = "check", label = "Have Lesser Massive Shrine?", ifFlag = "Condition:CanHaveLesserShrines", tooltip = "This will enable the Lesser Massive Shrine buff.\n\t10% increased Character Size\n\t20% increased Area of Effect\n\t20% increased maximum ^xE05030Life", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LesserMassiveShrine", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "buffLesserReplenishingShrine", type = "check", label = "Have Lesser Replenishing Shrine?", ifFlag = "Condition:CanHaveLesserShrines", tooltip = "This will enable the Lesser Replenishing Shrine buff.\n\t3.3% of ^x7070FFMana ^7Regenerated per second\n\t3.3% of ^xE05030Life ^7Regenerated per second", apply = function(val, modList, enemyModList)
+	{ var = "buffLesserReplenishingShrine", type = "check", label = "Have Lesser Replenishing Shrine?", ifFlag = "Condition:CanHaveLesserShrines", tooltip = "This will enable the Lesser Replenishing Shrine buff.\n\t100% increased ^x7070FFMana ^7Regeneration Rate\n\t3.3% of ^xE05030Life ^7Regenerated per second", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LesserReplenishingShrine", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "buffLesserResistanceShrine", type = "check", label = "Have Lesser Resistance Shrine?", ifFlag = "Condition:CanHaveLesserShrines", tooltip = "This will enable the Lesser Resistance Shrine buff.\n\t+25% to all Elemental Resistances\n\t+2% to all maximum Resistances", apply = function(val, modList, enemyModList)
