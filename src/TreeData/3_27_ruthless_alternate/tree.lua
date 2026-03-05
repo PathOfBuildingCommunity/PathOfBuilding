@@ -15058,14 +15058,17 @@ return {
         },
         [52855]= {
             ["skill"]= 52855,
-            ["name"]= "Cryogenesis",
+            ["name"]= "Otherworldly Appendages",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/BreachNotable4.png",
             ["isNotable"]= true,
             ["ascendancyName"]= "Breachlord",
             ["isBloodline"]= true,
             ["stats"]= {
-                "If Intelligence is your single highest Attribute, all added Damage is treated as added Lightning Damage",
-                "If Dexterity is your single highest Attribute, all added Damage is treated as added Cold Damage"
+                "Take 15% less Lightning Damage with at least one Eshgraft grafted to you",
+                "Take 15% less Cold Damage with at least one Tulgraft grafted to you",
+                "Take 15% less Physical Damage with at least one Uulgraft grafted to you",
+                "Take 15% less Fire Damage with at least one Xophgraft grafted to you",
+                "Nearby Enemies take 100% increased Damage from Graft Skills"
             },
             ["group"]= 31,
             ["orbit"]= 3,
