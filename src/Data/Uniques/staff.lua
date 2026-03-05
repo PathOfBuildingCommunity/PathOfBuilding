@@ -113,12 +113,12 @@ Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage while wielding a Staff
 {variant:2,3}+22% Chance to Block Attack Damage while wielding a Staff
 (700-800)% increased Physical Damage
+{variant:1,2}+100% to Global Critical Strike Multiplier
 {variant:3}+(100-150)% to Global Critical Strike Multiplier
 75% of Physical Damage converted to a random Element
 25% of Physical Damage Converted to Chaos Damage
 Maximum Critical Strike Chance is 50%
 Non-Critical Strikes deal no Damage
-{variant:1,2}+100% to Global Critical Strike Multiplier
 ]],[[
 The Blood Thorn
 Gnarled Branch
@@ -262,12 +262,12 @@ Implicits: 2
 {variant:1}Socketed Gems are supported by Level 10 Life Leech
 {variant:2,3,4}Socketed Gems are supported by Level 1 Chance to Bleed
 Grants Summon Harbinger of Brutality Skill
++5% Chance to Block Attack Damage while wielding a Staff
 {variant:2,3}+(30-40)% to Damage over Time Multiplier for Bleeding from Critical Strikes
 {variant:4}+(60-80)% to Damage over Time Multiplier for Bleeding from Critical Strikes
 {variant:1,2,3}Adds (160-185) to (200-225) Physical Damage
 {variant:4}Adds (225-265) to (315-385) Physical Damage
 (30-40)% increased Critical Strike Chance
-5% Chance to Block Attack Damage while wielding a Staff
 ]],[[
 The Yielding Mortality
 Imperial Staff
@@ -416,7 +416,7 @@ Implicits: 4
 {variant:1}+12% Chance to Block Attack Damage while wielding a Staff
 {variant:2,3}+18% Chance to Block Attack Damage while wielding a Staff
 {variant:5}+25% Chance to Block Attack Damage while wielding a Staff
-6% Chance to Block Attack Damage while wielding a Staff
++6% Chance to Block Attack Damage while wielding a Staff
 {variant:1,2}Adds (180-190) to (190-220) Physical Damage
 {variant:3}Adds (165-175) to (185-205) Physical Damage
 {variant:4,5}Adds (135-145) to (160-175) Physical Damage
@@ -588,8 +588,8 @@ Adds (25-35) to (45-60) Cold Damage
 Adds (1-10) to (70-90) Lightning Damage
 (20-35)% increased Critical Strike Chance
 {variant:1}You cannot be Shocked while Frozen
+{variant:2,3}100% chance to Avoid being Shocked while Chilled
 {variant:2,3}50% chance to Shock Chilled Enemies
-{variant:2,3}You Cannot Be Shocked While Chilled
 ]],[[
 The Stormwall
 Royal Staff
@@ -605,9 +605,9 @@ Adds (242-260) to (268-285) Physical Damage
 (20-35)% increased Critical Strike Chance
 50% of Physical Damage Converted to Cold Damage
 50% of Physical Damage Converted to Lightning Damage
+100% chance to Avoid being Shocked while Chilled
 (30-40)% chance to Chill Attackers for 4 seconds on Block
 (30-40)% chance to Shock Attackers for 4 seconds on Block
-Cannot be Shocked while Chilled
 ]],[[
 Taryn's Shiver
 Maelström Staff
@@ -645,8 +645,8 @@ Implicits: 3
 {variant:1,2}35% less Mine Damage
 (40-60)% increased Spell Damage
 (15-20)% reduced Enemy Stun Threshold
+{variant:1,2}(40-60)% increased Mine Throwing Speed
 Mines can be Detonated an additional time
-{variant:1,2}(40-60)% increased Mine Laying Speed
 ]],[[
 The Whispering Ice
 Vile Staff
@@ -721,7 +721,9 @@ Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness
 Requires Level 68, 113 Str, 113 Int
 Implicits: 1
 +25% Chance to Block Attack Damage while wielding a Staff
-Grants Level 20 Summon Shaper Memory
+{variant:1}Grants Level 20 Summon Shaper Memory
+{variant:2}Grants Level 20 Summon Shaper Memory
+{variant:3}Grants Level 20 Summon Shaper Memory
 {variant:1}Grants Level 20 Shaper's Despair, which will be used by Shaper Memory
 {variant:2}Grants Level 20 Shaper's Ire, which will be used by Shaper Memory
 {variant:3}Grants Level 20 Shaper's Devastation, which will be used by Shaper Memory
