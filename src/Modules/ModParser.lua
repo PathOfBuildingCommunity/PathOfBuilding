@@ -3690,6 +3690,7 @@ local specialModList = {
 	["inflict (%d+) additional poisons? on the same target when you inflict poisons? with this weapon"] = function(num) return { mod("AdditionalPoisonStacks", "BASE", num, { type = "Condition", var = "{Hand}Attack" } ) } end,
 	["cannot poison enemies with at least (%d+) poisons? on them"] = function(num) return { mod("PoisonStackLimit", "BASE", num ) } end,
 	["cannot inflict multiple poisons in the same hit"] = { flag("CannotMultiplePoison") },
+	["wither on hit with this weapon against enemies with at least (%d+) poisons on them"] = { flag("Condition:CanWither") },
 	-- Suppression
 	["y?o?u?r? ?chance to suppress spell damage is lucky"] = { flag("SpellSuppressionChanceIsLucky") },
 	["y?o?u?r? ?chance to suppress spell damage is unlucky"] = { flag("SpellSuppressionChanceIsUnlucky") },
