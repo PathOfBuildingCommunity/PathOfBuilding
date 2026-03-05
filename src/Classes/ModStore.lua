@@ -207,6 +207,17 @@ function ModStoreClass:Max(cfg, ...)
 	return max		
 end
 
+function ModStoreClass:Min(cfg, ...)
+	local min
+	for _, value in ipairs(self:Tabulate("MIN", cfg, ...)) do
+		local val = self:EvalMod(value.mod, cfg)
+		if min == nil or val < min then
+			min = val
+		end	
+	end
+	return min
+end
+
 ---HasMod
 ---  Checks if a mod exists with the given properties.
 ---  Useful for determining if the other aggregate functions will find
