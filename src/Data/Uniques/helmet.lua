@@ -159,7 +159,6 @@ Reaver Helmet
 24% reduced maximum Life
 Regenerate (200-250) Life per second
 100% increased Stun and Block Recovery
-Reserves 8% of Life
 Nearby Enemy Monsters have at least 8% of Life Reserved
 ]],[[
 Howlcrack
@@ -1121,7 +1120,6 @@ You and Nearby Allies have 64 to 96 added Fire Damage per Red Socket
 You and Nearby Allies have 56 to 88 added Cold Damage per Green Socket
 You and Nearby Allies have 16 to 144 added Lightning Damage per Blue Socket
 You and Nearby Allies have 47 to 61 added Chaos Damage per White Socket
--10% to All Resistances
 ]],[[
 Geofri's Crest
 Great Crown
@@ -1398,8 +1396,8 @@ Eye of Malice
 Callous Mask
 Requires Level 45, 51 Dex, 51 Int
 (400-500)% increased Evasion and Energy Shield
-50% increased Fire Resistance
-50% increased Cold Resistance
++(20-40)% to Fire Resistance
++(20-40)% to Cold Resistance
 25% chance to inflict Cold Exposure on Hit
 25% chance to inflict Fire Exposure on Hit
 Nearby Enemies have 50% increased Fire and Cold Resistances
@@ -1516,7 +1514,7 @@ Festival Mask
 Variant: Pre 3.19.0
 Variant: Current
 +(20-30) to Dexterity
-{variant:1}30% increased Damage
+{variant:1}30% reduced Damage
 {variant:2}25% reduced Damage
 {variant:1}+(20-30) to maximum Life
 {variant:2}+(60-100) to maximum Life
@@ -1536,7 +1534,7 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 {variant:2}+(60-100) to maximum Life
 {variant:1}+(20-30) to maximum Mana
 {variant:2}+(60-100) to maximum Mana
-30% increased Mana Regeneration Rate
+60% reduced Mana Regeneration Rate
 You and nearby Allies have 30% increased Mana Regeneration Rate
 ]],[[
 Malachai's Simula
