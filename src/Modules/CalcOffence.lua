@@ -4371,14 +4371,14 @@ function calcs.offence(env, actor, activeSkill)
 			end
 
 			-- Calculate average number of poisons that will be active on the enemy at once
-			local poisonStackLimit = skillModList:Sum("BASE", cfg, "PoisonStackLimit")
+			local poisonStackLimit = skillModList:Min(cfg, "PoisonStackLimit")
 			local PoisonStacks = output.HitChance / 100 * poisonChance * additionalPoisonStacks * skillData.dpsMultiplier * (skillData.stackMultiplier or 1) * quantityMultiplier
 			if (globalOutput.HitSpeed or globalOutput.Speed) > 0 then
 				--assume skills with no cast, attack, or cooldown time are single cast
 				PoisonStacks = PoisonStacks * globalOutput.PoisonDuration * (globalOutput.HitSpeed or globalOutput.Speed) 
 				
 				-- If stack limit exists, avg. poison stack is more complicated
-				if poisonStackLimit > 0 and additionalPoisonStacks > 1 and PoisonStacks > poisonStackLimit then
+				if poisonStackLimit and poisonStackLimit > 0 and additionalPoisonStacks > 1 and PoisonStacks > poisonStackLimit then
 					-- Calc number of avg. poisons applied per hit (without hitrate multipliers)
 					local singleHitPoisonChance = output.HitChance / 100 * poisonChance
 					local singleHitPoisonStacks = singleHitPoisonChance * additionalPoisonStacks
@@ -4410,7 +4410,7 @@ function calcs.offence(env, actor, activeSkill)
 				if skillModList:Flag(nil, "Condition:SinglePoison") then
 					t_insert(globalBreakdown.PoisonStacks, "Capped to 1")
 				end
-				if poisonStackLimit > 0 and PoisonStacks >= poisonStackLimit then
+				if poisonStackLimit and PoisonStacks >= poisonStackLimit then
 					t_insert(globalBreakdown.PoisonStacks, "^8(affected by poison stack limit)")
 				end
 			end
