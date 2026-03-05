@@ -58,7 +58,12 @@ for _, name in ipairs(itemTypes) do
 	local modLines = 0
 	local implicits
 	local nextOrder = 100000
+	local skipLines = 0
 	for line in io.lines("Uniques/"..name..".lua") do
+		if skipLines > 0 then
+			skipLines = skipLines - 1
+			goto continue
+		end
 		if implicits then -- remove 1 downs to 0
 			implicits = implicits - 1
 		end
@@ -111,7 +116,7 @@ for _, name in ipairs(itemTypes) do
 				if legacy ~= "" then
 					local values = { }
 					for range in legacy:gmatch("%b[]") do
-						local min, max = range:match("%[([%d%-]+),([%d%-]+)%]")
+						local min, max = range:match("%[([%d%.%-]+),([%d%.%-]+)%]")
 						table.insert(values, { min = tonumber(min), max = tonumber(max) })
 					end
 					local mod = dat("Mods"):GetRow("Id", modName)
@@ -141,6 +146,10 @@ for _, name in ipairs(itemTypes) do
 							statOrder[order] = { prefix..line }
 						end
 					end
+					-- Skip continuation lines that follow the mod ID in the export file
+					if #modText > 1 then
+						skipLines = #modText - 1
+					end
 				end
 			else
 				if modLines > 0 then -- treat as post line e.g. mirrored, or unresolved text mod
@@ -167,6 +176,7 @@ for _, name in ipairs(itemTypes) do
 			statOrder = { }
 			modLines = 0
 		end
+		::continue::
 	end
 	writeMods(out, statOrder)
 	for _, line in ipairs(postModLines) do
