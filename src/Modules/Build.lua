@@ -287,9 +287,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		-- item, skill, and config sets have identical structure
 		-- return id as soon as it's found
 		local function findSetId(setOrderList, value, sets, setSpecialLinks)
-			for setIndex, setOrder in pairs(setOrderList) do
+			for _, setOrder in ipairs(setOrderList) do
 				if value == (sets[setOrder].title or "Default") then
-					return setIndex
+					return setOrder
 				else
 					local linkMatch = string.match(value, "%{(%w+)%}")
 					if linkMatch then
