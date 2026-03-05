@@ -111,7 +111,7 @@ for _, name in ipairs(itemTypes) do
 				if legacy ~= "" then
 					local values = { }
 					for range in legacy:gmatch("%b[]") do
-						local min, max = range:match("%[([%d%-]+),([%d%-]+)%]")
+						local min, max = range:match("%[([%d%.%-]+),([%d%.%-]+)%]")
 						table.insert(values, { min = tonumber(min), max = tonumber(max) })
 					end
 					local mod = dat("Mods"):GetRow("Id", modName)
