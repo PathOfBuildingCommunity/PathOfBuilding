@@ -1581,14 +1581,14 @@ function ItemsTabClass:DeleteItem(item, deferUndoState)
 	end
 end
 
-local function copyAnointsAndEldritchImplicits(self, newItem)
+local function copyAnointsAndEldritchImplicits(newItem, activeItemSet, items)
 	local newItemType = newItem.base.type
-	if self.activeItemSet[newItemType] then
-		local currentItem = self.activeItemSet[newItemType].selItemId and self.items[self.activeItemSet[newItemType].selItemId]
+	if activeItemSet[newItemType] then
+		local currentItem = activeItemSet[newItemType].selItemId and items[activeItemSet[newItemType].selItemId]
 		-- if you don't have an equipped item that matches the type of the newItem, no need to do anything
 		if currentItem then
 			-- if the new item is anointable and does not have an anoint and your current respective item does, apply that anoint to the new item
-			if isAnointable(newItem) and #newItem.enchantModLines == 0 and self.activeItemSet[newItemType].selItemId > 0 then
+			if isAnointable(newItem) and #newItem.enchantModLines == 0 and activeItemSet[newItemType].selItemId > 0 then
 				local currentAnoint = currentItem.enchantModLines
 				if currentAnoint and #currentAnoint == 1 then -- skip if amulet has more than one anoint e.g. Stranglegasp
 					newItem.enchantModLines = currentAnoint
@@ -1618,7 +1618,7 @@ end
 function ItemsTabClass:CreateDisplayItemFromRaw(itemRaw, normalise)
 	local newItem = new("Item", itemRaw)
 	if newItem.base then
-		copyAnointsAndEldritchImplicits(self, newItem)
+		copyAnointsAndEldritchImplicits(newItem, self.activeItemSet, self.items)
 		if normalise then
 			newItem:NormaliseQuality()
 			newItem:BuildModList()
