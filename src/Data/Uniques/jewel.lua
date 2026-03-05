@@ -16,8 +16,8 @@ Variant: Pre 3.23.0
 Variant: Current
 Source: Vendor Recipe
 Limited to: 1
-+1 to maximum number of Summoned Golems if you have 3 Primordial Items Socketed or Equipped
 {variant:1}+1 to maximum number of Golems
++1 to maximum number of Summoned Golems if you have 3 Primordial Items Socketed or Equipped
 ]],[[
 Apex Mode
 Cobalt Jewel
@@ -43,10 +43,11 @@ League: Breach
 Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
 Upgrade: Upgrades to unique{The Blue Nightmare} using currency{Blessing of Chayula}
 Radius: Large
+{variant:1}Gain 5% of Lightning Damage as Extra Chaos Damage
 {variant:2}Gain (6-10)% of Lightning Damage as Extra Chaos Damage
 Passives granting Lightning Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain a Power Charge on Kill
-{variant:1}Gain 5% of Lightning Damage as Extra Chaos Damage
+also grant an equal chance to gain a Power Charge on Kill
 ]],[[
 The Blue Nightmare
 Cobalt Jewel
@@ -56,14 +57,17 @@ League: Breach
 Source: Upgraded from unique{The Blue Dream} using currency{Blessing of Chayula}
 Limited to: 1
 Radius: Large
+{variant:1}Gain 5% of Lightning Damage as Extra Chaos Damage
 {variant:2}Gain (6-10)% of Lightning Damage as Extra Chaos Damage
 {variant:1}Passives granting Lightning Resistance or all Elemental Resistances in Radius
-{variant:1}also grant Chance to Block Spell Damage at 35% of its value
 {variant:2}Passives granting Lightning Resistance or all Elemental Resistances in Radius
-{variant:2}also grant Chance to Block Spell Damage at 50% of its value
 {variant:1}Passives granting Lightning Resistance or all Elemental Resistances in Radius
 {variant:1}also grant an equal chance to gain a Power Charge on Kill
-{variant:1}Gain 5% of Lightning Damage as Extra Chaos Damage
+{variant:2}also grant an equal chance to gain a Power Charge on Kill
+{variant:1}also grant an equal chance to gain a Power Charge on Kill
+{variant:1}also grant Chance to Block Spell Damage at 35% of its value
+{variant:2}also grant Chance to Block Spell Damage at 50% of its value
+{variant:1}also grant an equal chance to gain a Power Charge on Kill
 ]],[[
 Brawn
 Crimson Jewel
@@ -119,6 +123,7 @@ Source: No longer obtainable
 Radius: Large
 Increases and Reductions to Physical Damage in Radius are Transformed to apply to Cold Damage
 Increases and Reductions to Cold Damage in Radius are Transformed to apply to Physical Damage
+Increases and Reductions to Cold Damage in Radius are Transformed to apply to Physical Damage
 ]],[[
 Dissolution of the Flesh
 Prismatic Jewel
@@ -128,6 +133,7 @@ Removes all Energy Shield
 Life that would be lost by taking Damage is instead Reserved
 until you take no Damage to Life for 2 seconds
 (20-30)% more Maximum Life
+until you take no Damage to Life for 2 seconds
 ]],[[
 Divine Inferno
 Crimson Jewel
@@ -135,6 +141,7 @@ Source: No longer obtainable
 Limited to: 1
 Radius: Medium
 With at least 40 Strength in Radius, Combust is Disabled
+With at least 40 Strength in Radius, Attacks Exerted by Infernal Cry deal (40-60)% more Damage with Ignite
 With at least 40 Strength in Radius, Attacks Exerted by Infernal Cry deal (40-60)% more Damage with Ignite
 ]],[[
 Eldritch Knowledge
@@ -151,6 +158,8 @@ Limited to: 1
 Radius: Medium
 (7-10)% increased Elemental Damage
 With at least 40 Intelligence in Radius, Discharge has 60% less Area of Effect
+With at least 40 Intelligence in Radius, Discharge Cooldown is 250 ms
+With at least 40 Intelligence in Radius, Discharge deals 60% less Damage
 With at least 40 Intelligence in Radius, Discharge Cooldown is 250 ms
 With at least 40 Intelligence in Radius, Discharge deals 60% less Damage
 ]],[[
@@ -176,6 +185,9 @@ Variant: Current
 {variant:1}Regenerate 2% of Life per second
 {variant:1}10% increased Damage taken
 {variant:2}Maximum 10 Fragile Regrowth
+{variant:2}42% of Life Regenerated per second per Fragile Regrowth
+{variant:2}Lose all Fragile Regrowth when Hit
+{variant:2}Gain 1 Fragile Regrowth each second
 {variant:2}0.7% of Life Regenerated per second per Fragile Regrowth
 {variant:2}Lose all Fragile Regrowth when Hit
 {variant:2}Gain 1 Fragile Regrowth each second
@@ -187,6 +199,9 @@ League: Heist
 Limited to: 1
 Implicits: 0
 Maximum 5 Fragile Regrowth
+42% of Life Regenerated per second per Fragile Regrowth
+Gain up to maximum Fragile Regrowth when Hit
+Lose 1 Fragile Regrowth each second
 0.7% of Life Regenerated per second per Fragile Regrowth
 Gain up to maximum Fragile Regrowth when Hit
 Lose 1 Fragile Regrowth each second
@@ -198,9 +213,9 @@ Limited to: 1
 Variant: Pre 3.8.0
 Variant: Current
 Implicits: 0
-+1 second to Summon Skeleton Cooldown
 {variant:1}Summon 2 additional Skeleton Warriors with Summon Skeleton
 {variant:2}Summon 4 additional Skeleton Warriors with Summon Skeleton
++1 second to Summon Skeleton Cooldown
 ]],[[
 The Front Line
 Small Cluster Jewel
@@ -217,11 +232,11 @@ Variant: Pre 3.10.0
 Variant: Current - Crit Chance
 Variant: Current - Minion Crit Multi
 Variant: Current - Min Power Charge
+{variant:1}Gain 15 Mana per Grand Spectrum
 {variant:2}Gain 30 Mana per Grand Spectrum
 {variant:3}25% increased Critical Strike Chance per Grand Spectrum
 {variant:5}+1 to Minimum Power Charges per Grand Spectrum
 {variant:4}Minions have +10% to Critical Strike Multiplier per Grand Spectrum
-{variant:1}Gain 15 Mana per Grand Spectrum
 ]],[[
 Grand Spectrum
 Crimson Jewel
@@ -232,11 +247,11 @@ Variant: Pre 3.10.0
 Variant: Current - Elemental Resistances
 Variant: Current - Maximum Life
 Variant: Current - Min Endurance Charge
+{variant:1}Gain 75 Armour per Grand Spectrum
 {variant:2}Gain 200 Armour per Grand Spectrum
 {variant:3}+7% to all Elemental Resistances per Grand Spectrum
 {variant:4}5% increased Maximum Life per Grand Spectrum
 {variant:5}+1 to Minimum Endurance Charges per Grand Spectrum
-{variant:1}Gain 75 Armour per Grand Spectrum
 ]],[[
 Grand Spectrum
 Viridian Jewel
@@ -248,12 +263,12 @@ Variant: Pre 3.10.0
 Variant: Current - Elemental Damage
 Variant: Current - Chance to avoid Ailments
 Variant: Current - Min Frenzy Charge
-{variant:5}12% chance to Avoid Elemental Ailments per Grand Spectrum
-{variant:4}15% increased Elemental Damage per Grand Spectrum
-{variant:6}+1 to Minimum Frenzy Charges per Grand Spectrum
 {variant:1}5% increased Elemental Damage per Grand Spectrum
 {variant:2}4% increased Elemental Damage per Grand Spectrum
 {variant:3}12% increased Elemental Damage per Grand Spectrum
+{variant:5}12% chance to Avoid Elemental Ailments per Grand Spectrum
+{variant:4}15% increased Elemental Damage per Grand Spectrum
+{variant:6}+1 to Minimum Frenzy Charges per Grand Spectrum
 ]],[[
 The Green Dream
 Viridian Jewel
@@ -263,10 +278,11 @@ League: Breach
 Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
 Upgrade: Upgrades to unique{The Green Nightmare} using currency{Blessing of Chayula}
 Radius: Large
+{variant:1}Gain 5% of Cold Damage as Extra Chaos Damage
 {variant:2}Gain (6-10)% of Cold Damage as Extra Chaos Damage
 Passives granting Cold Resistance or all Elemental Resistances in Radius
+also grant Chance to Suppress Spell Damage at 70% of its value
 also grant an equal chance to gain a Frenzy Charge on Kill
-{variant:1}Gain 5% of Cold Damage as Extra Chaos Damage
 ]],[[
 The Green Nightmare
 Viridian Jewel
@@ -277,16 +293,20 @@ League: Breach
 Source: Upgraded from unique{The Green Dream} using currency{Blessing of Chayula}
 Limited to: 1
 Radius: Large
+{variant:1,2}Gain 5% of Cold Damage as Extra Chaos Damage
 {variant:3}Gain (6-10)% of Cold Damage as Extra Chaos Damage
 {variant:1}Passives granting Cold Resistance or all Elemental Resistances in Radius
-{variant:1}also grant Chance to Suppress Spell Damage at 35% of its value
 {variant:2}Passives granting Cold Resistance or all Elemental Resistances in Radius
-{variant:2}also grant Chance to Suppress Spell Damage at 50% of its value
 {variant:3}Passives granting Cold Resistance or all Elemental Resistances in Radius
-{variant:3}also grant Chance to Suppress Spell Damage at 70% of its value
 {variant:1,2}Passives granting Cold Resistance or all Elemental Resistances in Radius
+{variant:1}also grant Chance to Suppress Spell Damage at 70% of its value
+{variant:2}also grant Chance to Suppress Spell Damage at 70% of its value
+{variant:3}also grant Chance to Suppress Spell Damage at 70% of its value
+{variant:1,2}also grant Chance to Suppress Spell Damage at 70% of its value
+{variant:1}also grant Chance to Suppress Spell Damage at 35% of its value
+{variant:2}also grant Chance to Suppress Spell Damage at 50% of its value
+{variant:3}also grant Chance to Suppress Spell Damage at 70% of its value
 {variant:1,2}also grant an equal chance to gain a Frenzy Charge on Kill
-{variant:1,2}Gain 5% of Cold Damage as Extra Chaos Damage
 ]],[[
 Hair Trigger
 Viridian Jewel
@@ -303,10 +323,10 @@ Source: No longer obtainable
 Limited to: 1
 Variant: Pre 3.11.0
 Variant: Current
+{variant:1}(10-15)% increased Movement Speed while Ignited
 {variant:2}(10-20)% increased Movement Speed while Ignited
 {variant:2}(10-20)% increased Attack Speed while Ignited
 {variant:2}(10-20)% increased Cast Speed while Ignited
-{variant:1}(10-15)% increased Movement Speed while Ignited
 ]],[[
 Replica Hotheaded
 Viridian Jewel
@@ -332,6 +352,7 @@ Intuitive Leap
 Viridian Jewel
 Radius: Small
 Passive Skills in Radius can be Allocated without being connected to your tree
+Passage
 ]],[[
 Izaro's Turmoil
 Crimson Jewel
@@ -366,6 +387,7 @@ Selected Variant: 1
 Source: King of The Mists
 Limited to: 1
 Radius: Large
+{variant:1}Passive Skills in Radius also grant +5 to Maximum Life
 {variant:6}Passive Skills in Radius also grant +2 to all Attributes
 {variant:13}Passive Skills in Radius also grant +4% to Chaos Resistance
 {variant:12}Passive Skills in Radius also grant 6% increased Chaos Damage
@@ -376,7 +398,6 @@ Radius: Large
 {variant:2}Passive Skills in Radius also grant 3% increased Energy Shield
 {variant:8}Passive Skills in Radius also grant 6% increased Physical Damage
 {variant:4}Passive Skills in Radius also grant 7% increased Armour
-{variant:1}Passive Skills in Radius also grant +5 to Maximum Life
 {variant:3}Passive Skills in Radius also grant +5 to Maximum Mana
 {variant:7}Passive Skills in Radius also grant 5% Increased Global Critical Strike Chance
 ]],[[
@@ -433,9 +454,9 @@ Variant: Pre 3.19.0
 Variant: Current
 Source: Drops from unique{The Eater of Worlds}
 Limited to: 1
-Elemental Resistances are capped by your highest Maximum Elemental Resistance instead
 -(80-70)% to All Elemental Resistances
 {variant:2}-(4-6)% to all maximum Elemental Resistances
+Elemental Resistances are capped by your highest Maximum Elemental Resistance instead
 ]],[[
 Might in All Forms
 Crimson Jewel
@@ -447,6 +468,7 @@ Might of the Meek
 Crimson Jewel
 Radius: Large
 50% increased Effect of non-Keystone Passive Skills in Radius
+Notable Passive Skills in Radius grant nothing
 Notable Passive Skills in Radius grant nothing
 ]],[[
 Immutable Force
@@ -469,6 +491,7 @@ Cobalt Jewel
 +(5-15) to Intelligence
 When you Kill an Enemy Cursed with a Non-Aura Hex, become Immune to
 Curses for remaining Hex Duration
+Curses for remaining Hex Duration
 ]],[[
 Rational Doctrine
 Cobalt Jewel
@@ -479,6 +502,8 @@ stationary if Strength is your highest Attribute
 Strike if Intelligence is your highest Attribute
 Effects of Consecrated Ground you create Linger for 4 seconds
 Effects of Profane Ground you create Linger for 4 seconds
+stationary if Strength is your highest Attribute
+Strike if Intelligence is your highest Attribute
 ]],[[
 Nadir Mode
 Cobalt Jewel
@@ -525,6 +550,7 @@ League: Necropolis
 Source: No longer obtainable
 Limited to: 1
 Radius: Large
+{variant:1}Passive Skills in Radius also grant +5 to Maximum Life
 {variant:6}Passive Skills in Radius also grant +2 to all Attributes
 {variant:13}Passive Skills in Radius also grant +4% to Chaos Resistance
 {variant:12}Passive Skills in Radius also grant 6% increased Chaos Damage
@@ -534,7 +560,6 @@ Radius: Large
 {variant:2}Passive Skills in Radius also grant 3% increased Energy Shield
 {variant:8}Passive Skills in Radius also grant 6% increased Physical Damage
 {variant:4}Passive Skills in Radius also grant 7% increased Armour
-{variant:1}Passive Skills in Radius also grant +5 to Maximum Life
 {variant:3}Passive Skills in Radius also grant +5 to Maximum Mana
 {variant:5}Passive Skills in Radius also grant 5% increased Evasion Rating
 {variant:7}Passive Skills in Radius also grant 7% Increased Global Critical Strike Chance
@@ -569,18 +594,20 @@ Replica Primordial Might
 Crimson Jewel
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
+-1 to maximum number of Golems
 (25-30)% increased Damage if you Summoned a Golem in the past 8 seconds
 Golems Summoned in the past 8 seconds deal (100-125)% increased Damage
 Golems have (18-22)% increased Maximum Life
 Primordial
 Summoned Golems are Aggressive
--1 to maximum number of Golems
 ]],[[
 Pugilist
 Viridian Jewel
 Source: No longer obtainable
 Radius: Large
 1% increased Evasion Rating per 3 Dexterity Allocated in Radius
+1% increased Claw Physical Damage per 3 Dexterity Allocated in Radius
+1% increased Melee Physical Damage with Unarmed Attacks per 3 Dexterity Allocated in Radius
 1% increased Claw Physical Damage per 3 Dexterity Allocated in Radius
 1% increased Melee Physical Damage while Unarmed per 3 Dexterity Allocated in Radius
 ]],[[
@@ -618,10 +645,10 @@ Cobalt Jewel
 Variant: Pre 3.25.0
 Variant: Current
 League: Heist
+{variant:1}+(2-4)% Chance to Block Spell Damage
 {variant:2}+(2-6)% Chance to Block Spell Damage
 {variant:2}+(2-6)% Chance to Block Attack Damage
 +10% chance to be Frozen, Shocked and Ignited
-{variant:1}+(2-4)% Chance to Block Spell Damage
 {variant:1}+(2-4)% Chance to Block Attack Damage
 ]],[[
 The Red Dream
@@ -632,10 +659,11 @@ Upgrade: Upgrades to unique{The Red Nightmare} using currency{Blessing of Chayul
 Radius: Large
 Variant: Pre 3.21.0
 Variant: Current
+{variant:1}Gain 5% of Fire Damage as Extra Chaos Damage
 {variant:2}Gain (6-10)% of Fire Damage as Extra Chaos Damage
 Passives granting Fire Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain an Endurance Charge on Kill
-{variant:1}Gain 5% of Fire Damage as Extra Chaos Damage
+also grant an equal chance to gain an Endurance Charge on Kill
 ]],[[
 The Red Nightmare
 Crimson Jewel
@@ -645,14 +673,17 @@ Limited to: 1
 Radius: Large
 Variant: Pre 3.21.0
 Variant: Current
+{variant:1}Gain 5% of Fire Damage as Extra Chaos Damage
 {variant:2}Gain (6-10)% of Fire Damage as Extra Chaos Damage
 {variant:1}Passives granting Fire Resistance or all Elemental Resistances in Radius
-{variant:1}also grant Chance to Block Attack Damage at 35% of its value
 {variant:2}Passives granting Fire Resistance or all Elemental Resistances in Radius
-{variant:2}also grant Chance to Block Attack Damage at 50% of its value
 {variant:1}Passives granting Fire Resistance or all Elemental Resistances in Radius
 {variant:1}also grant an equal chance to gain an Endurance Charge on Kill
-{variant:1}Gain 5% of Fire Damage as Extra Chaos Damage
+{variant:2}also grant an equal chance to gain an Endurance Charge on Kill
+{variant:1}also grant an equal chance to gain an Endurance Charge on Kill
+{variant:1}also grant Chance to Block Attack Damage at 35% of its value
+{variant:2}also grant Chance to Block Attack Damage at 50% of its value
+{variant:1}also grant an equal chance to gain an Endurance Charge on Kill
 ]],[[
 The Siege
 Small Cluster Jewel
@@ -672,6 +703,7 @@ Static Electricity
 Viridian Jewel
 Source: No longer obtainable
 Radius: Large
+Adds 1 maximum Lightning Damage to Attacks per 1 Dexterity Allocated in Radius
 Adds 1 to 2 Lightning Damage to Attacks
 Adds 1 maximum Lightning Damage to Attacks per 1 Dexterity Allocated in Radius
 ]],[[
@@ -733,6 +765,7 @@ Radius: Medium
 {variant:3}+3% to Damage over Time Multiplier per 10 Intelligence on Unallocated Passives in Radius
 {variant:3}3% increased Mana Recovery Rate per 10 Intelligence on Allocated Passives in Radius
 {variant:3}2% reduced Mana Recovery Rate per 10 Intelligence on Unallocated Passives in Radius
+{variant:1,2}every 10 Intelligence on Allocated Passives in Radius
 {variant:1}+100 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
 ]],[[
 Tempered Spirit
@@ -775,6 +808,7 @@ Implicits: 0
 {variant:5}Only affects Passives in Massive Ring
 -(20-10)% to all Elemental Resistances
 Passive Skills in Radius can be Allocated without being connected to your tree
+Passage
 {variant:2}Only affects Passives in Medium Ring
 {variant:3}Only affects Passives in Large Ring
 {variant:4}Only affects Passives in Very Large Ring
@@ -838,6 +872,7 @@ it and your Class' starting location
 {variant:6}+5 to maximum Energy Shield
 {variant:4}+5 to maximum Life
 {variant:5}+5 to maximum Mana
+it and your Class' starting location
 Corrupted
 ]],[[
 Warrior's Tale
@@ -886,9 +921,10 @@ Limited to: 2
 Variant: Pre 3.21.0
 Variant: Current
 Radius: Medium
+{variant:1}(10-15)% increased Elemental Damage with Attack Skills
 {variant:2}(10-15)% increased Elemental Damage
 With 40 total Strength and Intelligence in Radius, Prismatic Skills deal 50% less Cold Damage
-{variant:1}(10-15)% increased Elemental Damage with Attack Skills
+With 40 total Strength and Intelligence in Radius, Prismatic Skills cannot choose Cold
 With 40 total Strength and Intelligence in Radius, Prismatic Skills cannot choose Cold
 ]],[[
 Combat Focus
@@ -898,9 +934,10 @@ Limited to: 2
 Variant: Pre 3.21.0
 Variant: Current
 Radius: Medium
+{variant:1}(10-15)% increased Elemental Damage with Attack Skills
 {variant:2}(10-15)% increased Elemental Damage
 With 40 total Intelligence and Dexterity in Radius, Prismatic Skills deal 50% less Fire Damage
-{variant:1}(10-15)% increased Elemental Damage with Attack Skills
+With 40 total Intelligence and Dexterity in Radius, Prismatic Skills cannot choose Fire
 With 40 total Intelligence and Dexterity in Radius, Prismatic Skills cannot choose Fire
 ]],[[
 Combat Focus
@@ -910,9 +947,10 @@ Limited to: 2
 Variant: Pre 3.21.0
 Variant: Current
 Radius: Medium
+{variant:1}(10-15)% increased Elemental Damage with Attack Skills
 {variant:2}(10-15)% increased Elemental Damage
 With 40 total Dexterity and Strength in Radius, Prismatic Skills deal 50% less Lightning Damage
-{variant:1}(10-15)% increased Elemental Damage with Attack Skills
+With 40 total Dexterity and Strength in Radius, Prismatic Skills cannot choose Lightning
 With 40 total Dexterity and Strength in Radius, Prismatic Skills Strike cannot choose Lightning
 ]],[[
 Collateral Damage
@@ -954,6 +992,8 @@ Radius: Medium
 With at least 40 Dexterity in Radius, Melee Damage
 dealt by Frost Blades Penetrates 15% Cold Resistance
 With at least 40 Dexterity in Radius, Frost Blades has 25% increased Projectile Speed
+dealt by Frost Blades Penetrates 15% Cold Resistance
+With at least 40 Dexterity in Radius, Frost Blades has 25% increased Projectile Speed
 ]],[[
 First Snow
 Cobalt Jewel
@@ -964,6 +1004,8 @@ Radius: Medium
 With at least 40 Intelligence in Radius, Freezing Pulse fires 2 additional Projectiles
 With at least 40 Intelligence in Radius, 25% increased Freezing Pulse Damage if
 you've Shattered an Enemy Recently
+With at least 40 Intelligence in Radius, 25% increased Freezing Pulse Damage if
+you've Shattered an Enemy Recently
 ]],[[
 Frozen Trail
 Cobalt Jewel
@@ -972,6 +1014,7 @@ Limited to: 2
 Radius: Medium
 (7-10)% increased Projectile Damage
 With at least 40 Intelligence in Radius, Frostbolt fires 2 additional Projectiles
+With at least 40 Intelligence in Radius, Frostbolt Projectiles gain 40% increased Projectile Speed per second
 With at least 40 Intelligence in Radius, Frostbolt Projectiles gain 40% increased Projectile
 Speed per second
 ]],[[
@@ -982,10 +1025,10 @@ Variant: Pre 2.6.0
 Variant: Current
 Limited to: 1
 Radius: Medium
+{variant:1}(4-12)% increased Damage over Time
 {variant:2}(8-12)% increased Damage over Time
 With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Damage with Hits and Poison for each Poison on the Enemy
 {variant:2}With at least 40 Dexterity in Radius, Viper Strike has a 10% chance per Poison on Enemy to grant Unholy Might for 4 seconds on Hit
-{variant:1}(4-12)% increased Damage over Time
 ]],[[
 Hazardous Research
 Cobalt Jewel
@@ -1009,9 +1052,14 @@ Radius: Medium
 (10-15)% increased Fire Damage
 {variant:2}With at least 40 Intelligence in Radius, Rolling Magma deals 50% less Damage
 {variant:2}With at least 40 Intelligence in Radius, Rolling Magma deals 40% more Damage per Chain
+{variant:1}With at least 40 Intelligence in Radius, Rolling Magma fires an additional Projectile
+{variant:1}With at least 40 Intelligence in Radius, Rolling Magma
+{variant:2}With at least 40 Intelligence in Radius, Rolling Magma
+{variant:1}has 10% increased Area of Effect per Chain
+{variant:2}has 10% increased Area of Effect per Chain
+{variant:2}With at least 40 Intelligence in Radius, Rolling Magma deals 40% more Damage per Chain
 With at least 40 Intelligence in Radius, Rolling Magma
 has 10% increased Area of Effect per Chain
-{variant:1}With at least 40 Intelligence in Radius, Rolling Magma fires an additional Projectile
 ]],[[
 The Long Winter
 Cobalt Jewel
@@ -1020,6 +1068,8 @@ Limited to: 2
 Radius: Medium
 (10-15)% increased Cold Damage
 With 40 Intelligence in Radius, Glacial Cascade has an additional Burst
+With 40 Intelligence in Radius, 20% of Glacial Cascade Physical Damage
+Converted to Cold Damage
 With 40 Intelligence in Radius, 20% of Glacial Cascade Physical Damage
 Converted to Cold Damage
 ]],[[
@@ -1038,19 +1088,27 @@ Radius: Medium
 {variant:2,3,4,5,6}(10-15)% increased Attack Damage
 {variant:1}(10-15)% increased Global Physical Damage
 {variant:6}With at least 40 Dexterity in Radius, Dual Strike has (20-30)% increased
-Accuracy Rating while wielding a Sword
+{variant:6}Accuracy Rating while wielding a Sword
 {variant:3}With at least 40 Dexterity in Radius, Dual Strike has (10-15)% increased Attack
-Speed while wielding a Claw
+{variant:3}Speed while wielding a Claw
 {variant:4}With at least 40 Dexterity in Radius, Dual Strike has +(20-30)% to Critical Strike
-Multiplier while wielding a Dagger
+{variant:4}Multiplier while wielding a Dagger
 {variant:2}With at least 40 Dexterity in Radius, Dual Strike Hits Intimidate Enemies for
 {variant:2}4 seconds while wielding an Axe
 {variant:1}With at least 40 Dexterity in Radius, Dual Strike has a 20% chance
+{variant:1}to deal Double Damage with the Main-Hand Weapon
+{variant:5}With at least 40 Dexterity in Radius, Dual Strike deals Splash Damage
+{variant:5}to surrounding targets while wielding a Mace
+{variant:1}With at least 40 Dexterity in Radius, Dual Strike deals Off Hand Splash Damage
+{variant:1}to surrounding targets
 to deal Double Damage with the Main-Hand Weapon
 {variant:1}With at least 40 Dexterity in Radius, Dual Strike deals Off-Hand Splash Damage
 {variant:1}to surrounding targets
-{variant:5}With at least 40 Dexterity in Radius, Dual Strike deals Splash Damage
+{variant:2}4 seconds while wielding an Axe
+Speed while wielding a Claw
+Multiplier while wielding a Dagger
 {variant:5}to surrounding targets while wielding a Mace
+Accuracy Rating while wielding a Sword
 ]],[[
 Omen on the Winds
 Viridian Jewel
@@ -1061,6 +1119,7 @@ Limited to: 2
 Radius: Medium
 (15-20)% increased Damage with Hits against Chilled Enemies
 With at least 40 Dexterity in Radius, Ice Shot has 25% increased Area of Effect
+With at least 40 Dexterity in Radius, Ice Shot Pierces 3 additional Targets
 {variant:1}With at least 40 Dexterity in Radius, Ice Shot Pierces 5 additional Targets
 {variant:2}With at least 40 Dexterity in Radius, Ice Shot Pierces 3 additional Targets
 ]],[[
@@ -1080,9 +1139,9 @@ Variant: Pre 2.6.0
 Variant: Pre 3.16.0
 Variant: Current
 Radius: Medium
+{variant:1}(5-15)% increased Fire Damage
 {variant:3}+10% to Fire Damage over Time Multiplier
 {variant:2,3}(10-15)% increased Fire Damage
-{variant:1}(5-15)% increased Fire Damage
 With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Burning Ground if it Ignites an Enemy.
 {variant:2}With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Tar if it does not Ignite an Enemy.
 ]],[[
@@ -1094,8 +1153,8 @@ Variant: Pre 3.3.0
 Variant: Current
 Limited to: 2
 Radius: Medium
-{variant:2,3}(8-12)% increased Global Physical Damage
 {variant:1}(4-12)% increased Global Physical Damage
+{variant:2,3}(8-12)% increased Global Physical Damage
 {variant:1}With at least 40 Strength in Radius, Ground Slam has a 20% increased angle
 {variant:2}With at least 40 Strength in Radius, Ground Slam has a 35% increased angle
 {variant:3}With at least 40 Strength in Radius, Ground Slam has a 50% increased angle
@@ -1123,12 +1182,13 @@ Variant: Pre 3.11.0
 Variant: Current
 Limited to: 1
 Radius: Medium
+{variant:1}(5-15)% increased Fire Damage
 {variant:2,3}(10-15)% increased Fire Damage
 {variant:1}With at least 40 Intelligence in Radius, Fireball Projectiles gain Area as they travel farther, up to 50% increased Area of Effect
 {variant:3}With at least 40 Intelligence in Radius, Fireball cannot ignite
 {variant:3}With at least 40 Intelligence in Radius, Fireball has +(30-50)% chance to inflict scorch
-{variant:1}(5-15)% increased Fire Damage
 {variant:2}With at least 40 Intelligence in Radius, Fireball Projectiles gain Radius as they travel farther, up to +4 Radius
+{variant:3}With at least 40 Intelligence in Radius, Fireball has +(30-50)% chance to inflict scorch
 ]],[[
 Shattered Chains
 Crimson Jewel
@@ -1160,9 +1220,9 @@ Variant: Pre 2.6.0
 Variant: Current
 Limited to: 1
 Radius: Medium
+{variant:1}(5-10)% increased maximum Mana
 {variant:2}(7-10)% increased maximum Mana
 With at least 40 Intelligence in Radius, 10% of Damage taken Recouped as Mana if you've Warcried Recently
-{variant:1}(5-10)% increased maximum Mana
 ]],[[
 Spreading Rot
 Cobalt Jewel
@@ -1174,6 +1234,7 @@ Limited to: 1
 Radius: Medium
 (7-13)% increased Chaos Damage
 {variant:2,3}With at least 40 Intelligence in Radius, Blight inflicts Withered for 2 seconds
+{variant:2,3}With at least 40 Intelligence in Radius, Blight has 50% increased Hinder Duration
 {variant:1,2}With at least 40 Intelligence in Radius, Blight has 50% increased Hinder Duration
 {variant:3}With at least 40 Intelligence in Radius, Blight has 30% reduced Cast Speed
 {variant:1}With at least 40 Intelligence in Radius, Enemies Hindered by Blight take 25% increased Chaos Damage
@@ -1184,8 +1245,8 @@ Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Current
 Radius: Medium
-{variant:2}(7-10)% increased Projectile Damage
 {variant:1}(6-10)% increased Projectile Damage
+{variant:2}(7-10)% increased Projectile Damage
 {variant:1}With at least 40 Dexterity in Radius, each Spectral Throw Projectile gains 4% increased Damage each time it Hits.
 {variant:2}With at least 40 Dexterity in Radius, each Spectral Throw Projectile gains 5% increased Damage each time it Hits.
 ]],[[
@@ -1206,9 +1267,9 @@ Variant: Pre 2.6.0
 Variant: Current
 Limited to: 2
 Radius: Medium
-With at least 40 Intelligence in Radius, Raised Spectres have a 50% chance to gain Soul Eater for 20 seconds on Kill
 {variant:1}Minions have (5-8)% increased Area of Effect of Area Skills
 {variant:2}Minions have (6-8)% increased Area of Effect of Area Skills
+With at least 40 Intelligence in Radius, Raised Spectres have a 50% chance to gain Soul Eater for 20 seconds on Kill
 ]],[[
 The Vigil
 Crimson Jewel
@@ -1218,10 +1279,10 @@ Variant: Pre 3.14.0
 Variant: Current
 Limited to: 1
 Radius: Medium
-{variant:3}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Nearby Allies for 8 seconds
 (8-15)% increased Armour
 {variant:1}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Nearby Allies for 3 seconds
 {variant:2}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Nearby Allies for 12 seconds
+{variant:3}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Nearby Allies for 8 seconds
 ]],[[
 Violent Dead
 Cobalt Jewel
@@ -1230,6 +1291,9 @@ Limited to: 2
 Radius: Medium
 Minions deal (10-15)% increased Damage
 With at least 40 Intelligence in Radius, Raised
+Zombies' Slam Attack has 100% increased Cooldown Recovery Rate
+With at least 40 Intelligence in Radius, Raised Zombies' Slam
+Attack deals 30% increased Damage
 Zombies' Slam Attack has 100% increased Cooldown Recovery Speed
 With at least 40 Intelligence in Radius, Raised Zombies' Slam
 Attack deals 30% increased Damage
@@ -1242,9 +1306,9 @@ Variant: Pre 3.9.0
 Variant: Current
 Limited to: 1
 Radius: Medium
+{variant:1}(6-10)% increased Projectile Damage
 {variant:2,3}(7-10)% increased Projectile Damage
 {variant:3}With at least 40 Dexterity in Radius, Barrage fires an additional 6 projectiles simultaneously on the first and final attacks
-{variant:1}(6-10)% increased Projectile Damage
 {variant:1,2}With at least 40 Dexterity in Radius, Barrage fires an additional 2 projectiles simultaneously on the first and final attacks
 ]],[[
 Weight of the Empire
@@ -1268,6 +1332,9 @@ Radius: Medium
 {variant:2}With at least 40 Strength in Radius, Molten Strike fires 50% less Projectiles
 {variant:1}With at least 40 Strength in Radius, Molten Strike fires 2 additional Projectiles
 {variant:1}With at least 40 Strength in Radius, Molten Strike has 25% increased Area of Effect
+{variant:1}With at least 40 Strength in Radius, Molten Strike has 25% increased Area of Effect
+{variant:2}With at least 40 Strength in Radius, Molten Strike Projectiles Chain +1 time
+{variant:2}With at least 40 Strength in Radius, Molten Strike fires 50% less Projectiles
 ]],[[
 Winter Burial
 Crimson Jewel
@@ -1276,6 +1343,9 @@ Limited to: 2
 Radius: Medium
 (10-15)% increased Cold Damage
 With at least 40 Strength in Radius, Glacial Hammer deals
+Cold-only Splash Damage to surrounding targets
+With at least 40 Strength in Radius, 25% of Glacial
+Hammer Physical Damage Converted to Cold Damage
 Cold-only Splash Damage to surrounding targets
 With at least 40 Strength in Radius, 25% of Glacial
 Hammer Physical Damage converted to Cold Damage
@@ -1316,8 +1386,8 @@ Source: Use currency{Vaal Orb} on normal{Crimson Jewel}
 Variant: Pre 3.14.0
 Variant: Current
 Limited to: 1
-{variant:2}Vaal Skills have (15-20)% chance to regain consumed Souls when used
 {variant:1,2}(15-20)% increased Vaal Skill Effect Duration
+{variant:2}Vaal Skills have (15-20)% chance to regain consumed Souls when used
 Corrupted
 ]],[[
 Brute Force Solution
@@ -1412,9 +1482,9 @@ Variant: Pre 2.5.0
 Variant: Pre 3.20.0
 Variant: Current
 Radius: Large
+{variant:1}(8-12)% increased maximum Energy Shield
 {variant:2,3}(3-6)% increased maximum Energy Shield
 Increases and Reductions to Life in Radius are Transformed to apply to Energy Shield
-{variant:1}(8-12)% increased maximum Energy Shield
 {variant:3}Corrupted
 ]],[[
 Fertile Mind
@@ -1461,10 +1531,10 @@ Variant: Current
 Requires Level: 20
 Limited to: 1
 Radius: Medium
+Notable Passive Skills in Radius are Transformed to instead grant: Minions take 20% increased Damage
 Minions deal (35-45)% increased Damage
 Minions have +(10-12)% Chance to Block Attack Damage
 Minions have +(10-12)% Chance to Block Spell Damage
-Notable Passive Skills in Radius are Transformed to instead grant: Minions take 20% increased Damage
 {variant:2}Corrupted
 ]],[[
 Fragility
@@ -1526,8 +1596,8 @@ Corrupted
 ]],[[
 Pacifism
 Viridian Jewel
--1 to Maximum Frenzy Charges
 Source: Use currency{Vaal Orb} on normal{Viridian Jewel}
+-1 to Maximum Frenzy Charges
 Corrupted
 ]],[[
 Replica Pacifism
@@ -1558,10 +1628,11 @@ Variant: Current
 Requires Level: 20
 Limited to: 1
 Radius: Medium
+Notable Passive Skills in Radius are Transformed to instead grant: Minions have 25% reduced Movement Speed
 Minions have (12-16)% increased Attack Speed
 Minions have (12-16)% increased Cast Speed
+Minions have (12-16)% increased Cast Speed
 Minions have (20-24)% chance to Suppress Spell Damage
-Notable Passive Skills in Radius are Transformed to instead grant: Minions have 25% reduced Movement Speed
 {variant:2}Corrupted
 ]],[[
 Rain of Splinters
@@ -1581,10 +1652,10 @@ Variant: Pre 3.4.0
 Variant: Pre 3.20.0
 Variant: Pre 3.25.0
 Variant: Current
-{variant:4}+(2-6)% Chance to Block Spell Damage
-Hits have (140-200)% increased Critical Strike Chance against you
 {variant:1}+6% Chance to Block Spell Damage
 {variant:2,3}+(2-4)% Chance to Block Spell Damage
+{variant:4}+(2-6)% Chance to Block Spell Damage
+Hits have (140-200)% increased Critical Strike Chance against you
 {variant:1,2,3}(2-4)% Chance to Block Attack Damage
 {variant:4}(2-6)% Chance to Block Attack Damage
 {variant:3}Corrupted
@@ -1652,9 +1723,11 @@ Variant: Current
 (10-20)% reduced Skeleton Duration
 Minions deal (8-12)% increased Damage
 {variant:2,3}(7-10)% increased Skeleton Attack Speed
-{variant:2,3}(7-10)% increased Skeleton Cast speed
+{variant:2,3}(7-10)% increased Skeleton Cast Speed
+{variant:2,3}(3-5)% increased Skeleton Movement Speed
 {variant:2,3}(3-5)% increased Skeleton Movement Speed
 {variant:1}2% increased Skeleton Attack Speed
+{variant:2,3}(7-10)% increased Skeleton Cast speed
 {variant:3}Corrupted
 ]],[[
 Vaal Sentencing
@@ -1703,9 +1776,9 @@ Source: No longer obtainable
 Variant: Pre 3.16.0
 Variant: Current
 Limited to: 1
+{variant:1}3% chance to Avoid Elemental Ailments
 {variant:2}10% chance to Avoid Elemental Ailments
 {variant:2}10% increased Life Recovery from Flasks
-{variant:1}3% chance to Avoid Elemental Ailments
 {variant:1}8% increased Life Recovery from Flasks
 {variant:1}3% chance to Suppress Spell Damage
 {variant:2}5% chance to Suppress Spell Damage
@@ -1767,10 +1840,10 @@ Source: No longer obtainable
 Variant: Pre 3.16.0
 Variant: Current
 Limited to: 1
-{variant:2}10% increased Attack Damage
-{variant:2}+0.2 metres to Melee Strike Range
 {variant:1}8% increased Attack Damage
 {variant:1}+0.1 metres to Melee Strike Range
+{variant:2}10% increased Attack Damage
+{variant:2}+0.2 metres to Melee Strike Range
 ]],[[
 The Adorned
 Crimson Jewel
@@ -1778,8 +1851,8 @@ Variant: Pre 3.25.0
 Variant: Current
 League: Affliction
 Source: Vaal Aspect Combination
-{variant:2}(0-100)% increased Effect of Jewel Socket Passive Skills containing Corrupted Magic Jewels
 {variant:1}(50–150)% increased Effect of Jewel Socket Passive Skills containing Corrupted Magic Jewels
+{variant:2}(0-100)% increased Effect of Jewel Socket Passive Skills containing Corrupted Magic Jewels
 ]],
 -- Jewel: Labyrinth rewards
 [[
@@ -1830,12 +1903,14 @@ Variant: Nasima (Second Sight)
 Variant: Balbala (The Traitor)
 Radius: Large
 Implicits: 0
-{variant:4}Denoted service of (500-8000) dekhara in the akhara of Balbala
-Passives in radius are Conquered by the Maraketh
-Historic
 {variant:1}Denoted service of (500-8000) dekhara in the akhara of Asenath
 {variant:2}Denoted service of (500-8000) dekhara in the akhara of Deshret
 {variant:3}Denoted service of (500-8000) dekhara in the akhara of Nasima
+{variant:4}Denoted service of (500-8000) dekhara in the akhara of Balbala
+{variant:4}Passives in radius are Conquered by the Maraketh
+{variant:4}Historic
+Passives in radius are Conquered by the Maraketh
+Historic
 ]],[[
 Elegant Hubris
 Timeless Jewel
@@ -1850,6 +1925,8 @@ Variant: Caspiro (Supreme Ostentation)
 Radius: Large
 Implicits: 0
 {variant:1}Commissioned (2000-160000) coins to commemorate Cadiro
+{variant:1}Passives in radius are Conquered by the Eternal Empire
+{variant:1}Historic
 {variant:2}Commissioned (2000-160000) coins to commemorate Chitus
 {variant:3}Commissioned (2000-160000) coins to commemorate Victario
 {variant:4}Commissioned (2000-160000) coins to commemorate Caspiro
@@ -1868,10 +1945,12 @@ Variant: Zerphi (Eternal Youth) (Pre 3.11.0)
 Variant: Ahuana (Immortal Ambition)
 Radius: Large
 Implicits: 0
+{variant:1}Bathed in the blood of (100-8000) sacrificed in the name of Doryani
 {variant:2}Bathed in the blood of (100-8000) sacrificed in the name of Xibaqua
+{variant:2}Passives in radius are Conquered by the Vaal
+{variant:2}Historic
 {variant:3}Bathed in the blood of (100-8000) sacrificed in the name of Zerphi
 {variant:4}Bathed in the blood of (100-8000) sacrificed in the name of Ahuana
-{variant:1}Bathed in the blood of (100-8000) sacrificed in the name of Doryani
 Passives in radius are Conquered by the Vaal
 Historic
 ]],[[
@@ -1888,6 +1967,8 @@ Variant: Akoya (Chainbreaker)
 Radius: Large
 Implicits: 0
 {variant:1}Commanded leadership over (10000-18000) warriors under Kaom
+{variant:1}Passives in radius are Conquered by the Karui
+{variant:1}Historic
 {variant:2}Commanded leadership over (10000-18000) warriors under Kiloava
 {variant:3}Commanded leadership over (10000-18000) warriors under Rakiata
 {variant:4}Commanded leadership over (10000-18000) warriors under Akoya
@@ -1924,7 +2005,11 @@ Variant: Non-Curse Aura Effect
 Variant: Defences from Shield
 Radius: Large
 Implicits: 0
+{variant:1}Carved to glorify (2000-10000) new faithful converted by High Templar Avarius
+{variant:2}Carved to glorify (2000-10000) new faithful converted by High Templar Dominus
+{variant:3}Carved to glorify (2000-10000) new faithful converted by High Templar Venarius
 {variant:4}Carved to glorify (2000-10000) new faithful converted by High Templar Maxarius
+{variant:4}Passives in radius are Conquered by the Templars
 {variant:8}4% increased Area Damage per 10 Devotion
 {variant:7}Channelling Skills deal 4% increased Damage per 10 Devotion
 {variant:9}4% increased Elemental Damage per 10 Devotion
@@ -1940,9 +2025,7 @@ Implicits: 0
 {variant:19}3% increased Defences from Equipped Shield per 10 Devotion
 {variant:6}4% increased Brand Damage per 10 Devotion
 {variant:5}4% increased Totem Damage per 10 Devotion
-{variant:1}Carved to glorify (2000-10000) new faithful converted by High Templar Avarius
-{variant:2}Carved to glorify (2000-10000) new faithful converted by High Templar Dominus
-{variant:3}Carved to glorify (2000-10000) new faithful converted by High Templar Venarius
+{variant:4}Historic
 Passives in radius are Conquered by the Templars
 Historic
 ]],

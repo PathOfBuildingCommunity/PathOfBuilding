@@ -70,6 +70,7 @@ Regenerate (50-70) Life per second
 3% increased Damage per Crab Barrier
 10% chance that if you would gain a Crab Barrier, you instead gain up to
 your maximum number of Crab Barriers
+your maximum number of Crab Barriers
 ]],[[
 Kaom's Spirit
 Titan Gauntlets
@@ -80,9 +81,10 @@ Variant: Current
 +(20-30)% to Fire Resistance
 (0.3-0.5)% of Physical Attack Damage Leeched as Life
 Life Recovery from Regeneration is not applied
+{variant:3}Regenerate 1 Rage per second for every 200 Life Recovery per second from Regeneration
+{variant:3}Does not delay Inherent Loss of Rage
 {variant:1}Regenerate 1 Rage per second for every 100 Life Recovery per second from Regeneration
 {variant:2}Regenerate 1 Rage per second for every 300 Life Recovery per second from Regeneration
-{variant:3}Regenerate 1 Rage per second for every 200 Life Recovery per second from Regeneration
 Does not delay Inherent Loss of Rage
 ]],[[
 Doryani's Fist
@@ -200,6 +202,7 @@ Requires Level 47, 68 Str
 {variant:2}(5-10)% reduced Movement Speed
 10% chance to Knock Enemies Back on hit
 (30-50)% increased Projectile Damage
+{variant:1}(45-50)% increased Cooldown Recovery Rate of Movement Skills
 ]],
 -- Gloves: Evasion
 [[
@@ -544,6 +547,7 @@ Attacks have 25% chance to cause Bleeding
 (25-40)% increased Attack Damage against Bleeding Enemies
 Bleeding Enemies you Kill Explode, dealing 5% of
 their Maximum Life as Physical Damage
+their Maximum Life as Physical Damage
 25% reduced Bleed duration
 ]],[[
 Slitherpinch
@@ -677,6 +681,7 @@ Requires Level 32, 26 Str, 26 Int
 +(10-15)% to all Elemental Resistances
 (20-40)% increased Effect of Non-Curse Auras from your Skills while you have a Linked Target
 Linked Targets always count as in range of Non-Curse Auras from your Skills
+Non-Curse Auras from your Skills only apply to you and Linked Targets
 Non-Curse Auras from your Skills only apply to you and Linked Targets
 ]],[[
 Hand of the Fervent
@@ -866,6 +871,7 @@ Requires Level 45, 35 Dex, 35 Int
 Enemies take 4% increased Elemental Damage from your Hits for
 each Withered you have inflicted on them
 Your Hits cannot Penetrate or ignore Elemental Resistances
+each Withered you have inflicted on them
 ]],[[
 Stormseeker
 Ambush Mitts
