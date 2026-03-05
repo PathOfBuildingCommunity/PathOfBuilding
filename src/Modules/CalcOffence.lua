@@ -4380,7 +4380,7 @@ function calcs.offence(env, actor, activeSkill)
 				
 				-- If stack limit exists, avg. poison stack is more complicated
 				if poisonStackLimit and poisonStackLimit > 0 and PoisonStacks > poisonStackLimit then
-					-- Calc number of avg. poisons applied per hit (without hitrate multipliers)
+					-- Calc number of avg. poisons applied per hit (without hit rate multipliers)
 					local singleHitPoisonChance = output.HitChance / 100 * poisonChance
 					local singleHitPoisonStacks = singleHitPoisonChance * additionalPoisonStacks
 
