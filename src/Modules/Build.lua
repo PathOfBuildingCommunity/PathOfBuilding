@@ -383,6 +383,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			newConfigSet.title = loadoutTitle
 		end
 
+		local popup -- used for SelectControl to autofocus New, Rename, and Copy EditControls
 		if value == "^7^7Loadouts:" or value == "^7^7-----" then
 			self.controls.buildLoadouts:SetSel(1)
 			return
@@ -436,7 +437,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			controls.cancel = new("ButtonControl", nil, {45, 100, 80, 20}, "Cancel", function()
 				main:ClosePopup()
 			end)
-			main:OpenPopup(370, 140, "New Loadout", controls, "save", "edit", "cancel")
+			popup = main:OpenPopup(370, 140, "New Loadout", controls, "save", "edit", "cancel")
+			popup:SelectControl(controls.loadoutName)
 
 			self.controls.buildLoadouts:SetSel(1)
 			return
@@ -466,7 +468,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			controls.cancel = new("ButtonControl", nil, {45, 125, 80, 20}, "Cancel", function()
 				main:ClosePopup()
 			end)
-			main:OpenPopup(370, 165, "Rename Loadout", controls, "save", "edit", "cancel")
+			popup = main:OpenPopup(370, 165, "Rename Loadout", controls, "save", "edit", "cancel")
+			popup:SelectControl(controls.loadoutName)
+
 			self.controls.buildLoadouts:SetSel(1)
 			return
 		elseif value == "^7^7Copy Loadout" then
@@ -493,7 +497,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			controls.cancel = new("ButtonControl", nil, {45, 125, 80, 20}, "Cancel", function()
 				main:ClosePopup()
 			end)
-			main:OpenPopup(370, 165, "Copy Loadout", controls, "save", "edit", "cancel")
+			popup = main:OpenPopup(370, 165, "Copy Loadout", controls, "save", "edit", "cancel")
+			popup:SelectControl(controls.loadoutName)
+
 			self.controls.buildLoadouts:SetSel(1)
 			return
 		elseif value == "^7^7Delete Loadout" then
