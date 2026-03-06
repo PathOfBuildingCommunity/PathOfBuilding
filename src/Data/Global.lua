@@ -348,6 +348,9 @@ SkillType = {
 	Offering = 136,
 	SupportedByBane = 137,
 	WandAttack = 138,
+	GainsIntensity = 139,
+	CreatesSentinelMinion = 140,
+	SupportedByAutoExertion = 141,
 }
 
 GlobalCache = { 

@@ -1398,6 +1398,18 @@ return {
 			"Consecrated Ground from Holy Flame Totem applies 9% increased Damage taken to Enemies",
 		},
 	},
+	["Holy Sweep"] = {
+		["MERCILESS"] = {
+			"25% increased Sweep Damage",
+			"Sweep has a 20% chance to grant an Endurance Charge on Hit",
+			"16% increased Sweep Area of Effect",
+		},
+		["ENDGAME"] = {
+			"40% increased Sweep Damage",
+			"Sweep has a 30% chance to grant an Endurance Charge on Hit",
+			"24% increased Sweep Area of Effect",
+		},
+	},
 	["Hydrosphere"] = {
 		["MERCILESS"] = {
 			"Hydrosphere deals 25% increased Damage",
@@ -2633,18 +2645,6 @@ return {
 			"Sunder has 40% increased Damage",
 			"Sunder has 24% increased Area of Effect",
 			"Sunder has 20% reduced delay between Areas in the Wave",
-		},
-	},
-	["Sweep"] = {
-		["MERCILESS"] = {
-			"25% increased Sweep Damage",
-			"Sweep has a 20% chance to grant an Endurance Charge on Hit",
-			"16% increased Sweep Area of Effect",
-		},
-		["ENDGAME"] = {
-			"40% increased Sweep Damage",
-			"Sweep has a 30% chance to grant an Endurance Charge on Hit",
-			"24% increased Sweep Area of Effect",
 		},
 	},
 	["Tectonic Slam"] = {

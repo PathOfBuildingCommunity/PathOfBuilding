@@ -126,6 +126,9 @@ local skillTypes = {
 	"Offering",
 	"SupportedByBane",
 	"WandAttack",
+	"GainsIntensity",
+	"CreatesSentinelMinion",
+	"SupportedByAutoExertion",
 }
 
 -- This is here to fix name collisions like in the case of Barrage

@@ -285,12 +285,12 @@ minions["SummonedSpectralWolf"] = {
 minions["SummonedSpectralTiger"] = {
 	name = "Spectral Tiger Companion",
 	monsterTags = { "animal_claw_weapon", "beast", "fast_movement", "feline_beast", "ghost", "has_dagger", "has_one_handed_melee", "light_armour", "mammal_beast", "melee", "physical_affinity", "red_blood", "undead", },
-	life = 24.5,
+	life = 12.25,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 24.5,
+	damage = 26.25,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	attackRange = 11,
@@ -302,6 +302,7 @@ minions["SummonedSpectralTiger"] = {
 	},
 	modList = {
 		mod("PhysicalDamageLifeLeech", "BASE", 100, 1, 0), -- SummonedWolfLifeLeech [life_leech_from_physical_attack_damage_permyriad = 10000]
+		mod("Speed", "INC", 20, 1, 0), -- MonsterImplicitFastAttack4 [attack_speed_+% = 20]
 	},
 }
 
