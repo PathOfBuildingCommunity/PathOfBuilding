@@ -262,6 +262,7 @@ Burning Arrow of Vigour                      		----		BurningArrowAltX
 Caustic Arrow                                		----		CausticArrow
 Caustic Arrow of Poison                      		----		CausticArrowAltX
 Charged Dash                                 		----		ChargedDash
+Charged Dash of Projection                   		----		ChargedDashAltX
 Cobra Lash                                   		----		CobraLash
 Conflagration                                		----		Conflagration
 Cremation                                    		----		Cremation
@@ -296,6 +297,7 @@ Falling Crystals                             		----		GraftSkillTulIceMortar
 Fire Trap                                    		----		FireTrap
 Fire Trap of Blasting                        		----		FireTrapAltX
 Flamethrower Trap                            		----		FlamethrowerTrap
+Flamethrower Trap of Stability               		----		FlamethrowerTrapAltX
 Flammable Shot                               		----		OilArrow
 Flicker Strike                               		----		FlickerStrike
 Flicker Strike of Power                      		----		FlickerStrikeAltX
