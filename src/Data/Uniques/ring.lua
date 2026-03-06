@@ -284,7 +284,6 @@ Ruby Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 52
-Implicits: 1
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
 Variant: Skill Reservation (Current)
@@ -293,9 +292,10 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Fire Resistance
+Implicits: 1
+{tags:resistance}+(20-30)% to Fire Resistance
 {tags:attribute}{fractured}+(20-30) to Strength
 {tags:elemental_damage}Adds (20-25) to (26-35) Fire Damage
-{tags:resistance}+(20-30)% to Fire Resistance
 {tags:resistance}+(20-30)% to Fire Resistance
 {variant:3}{tags:elemental_damage}(40-60)% increased Fire Damage while affected by Herald of Ash
 {variant:7}{tags:resistance}+(50-60)% to Fire Resistance while affected by Herald of Ash
@@ -310,7 +310,6 @@ Sapphire Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 52
-Implicits: 1
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
 Variant: Skill Reservation (Current)
@@ -319,9 +318,10 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Cold Resistance
+Implicits: 1
+{tags:resistance}+(20-30)% to Cold Resistance
 {tags:attribute}{fractured}+(20-30) to Dexterity
 {tags:elemental_damage}Adds (20-25) to (26-35) Cold Damage
-{tags:resistance}+(20-30)% to Cold Resistance
 {tags:resistance}+(20-30)% to Cold Resistance
 {variant:3}{tags:elemental_damage}(40-60)% increased Cold Damage while affected by Herald of Ice
 {variant:7}{tags:resistance}+(50-60)% to Cold Resistance while affected by Herald of Ice
@@ -336,7 +336,6 @@ Iron Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 52
-Implicits: 1
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
 Variant: Skill Reservation (Current)
@@ -345,9 +344,10 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Sentinel Damage
 Variant: Damage Reduction
+Implicits: 1
+{tags:physical_damage,attack}Adds 1 to 4 Physical Damage to Attacks
 {tags:attribute}{fractured}+(10-20) to all Attributes
 {tags:physical_damage}Adds (8-10) to (13-15) Physical Damage
-{tags:physical_damage,attack}Adds 1 to 4 Physical Damage to Attacks
 {tags:defences}+(350-400) to Armour
 {variant:4}Herald of Purity has (70-100)% increased Buff Effect
 {variant:5}Herald of Purity has (40-60)% increased Buff Effect
@@ -362,7 +362,6 @@ Amethyst Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 52
-Implicits: 1
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
 Variant: Skill Reservation (Current)
@@ -371,9 +370,10 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Agony Damage
 Variant: Chaos Resistance
+Implicits: 1
+{tags:resistance}+(17-23)% to Chaos Resistance
 {tags:attribute}{fractured}+(10-20) to all Attributes
 {tags:chaos_damage}Adds (15-20) to (21-30) Chaos Damage
-{tags:resistance}+(17-23)% to Chaos Resistance
 {tags:resistance}+(17-23)% to Chaos Resistance
 {variant:6}Agony Crawler deals (70-100)% increased Damage
 {variant:3}{tags:chaos_damage}(40-60)% increased Chaos Damage while affected by Herald of Agony
@@ -388,7 +388,6 @@ Topaz Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 52
-Implicits: 1
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
 Variant: Skill Reservation (Current)
@@ -397,9 +396,10 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Lightning Resistance
+Implicits: 1
+{tags:resistance}+(20-30)% to Lightning Resistance
 {tags:attribute}{fractured}+(20-30) to Intelligence
 {tags:elemental_damage}Adds 1 to (48-60) Lightning Damage
-{tags:resistance}+(20-30)% to Lightning Resistance
 {tags:resistance}+(20-30)% to Lightning Resistance
 {variant:4}Herald of Thunder has (70-100)% increased Buff Effect
 {variant:5}Herald of Thunder has (40-60)% increased Buff Effect
@@ -568,9 +568,9 @@ Nameless Ring
 League: Settlers of Kalguur
 Requires Level 50
 Implicits: 2
-Grants level 20 Penance Mark
 50% increased Elemental Ailment Duration on you
 50% reduced Effect of Curses on you
+Grants level 20 Penance Mark
 {tags:caster,speed}(6-12)% increased Cast Speed
 {tags:resource}+(30-60) to maximum Life
 {tags:resistance}+(7-19)% to Chaos Resistance
@@ -658,10 +658,10 @@ Has not Consumed any Gems
 Icefang Orbit
 Iron Ring
 Requires Level: 49
-Implicits: 1
 League: Blight
-{tags:attribute}+(20-30) to Dexterity
+Implicits: 1
 {tags:physical_damage,attack}Adds 1 to 4 Physical Damage to Attacks
+{tags:attribute}+(20-30) to Dexterity
 25% chance to Poison on Hit
 {tags:chaos_damage}(40-60)% increased Damage with Poison
 You are Chilled when you are Poisoned
@@ -1026,9 +1026,9 @@ Nameless Ring
 League: Settlers of Kalguur
 Requires Level 50
 Implicits: 2
-Grants level 20 Pacify
 50% increased Elemental Ailment Duration on you
 50% reduced Effect of Curses on you
+Grants level 20 Pacify
 {tags:caster,speed}(6-12)% increased Cast Speed
 {tags:resource}+(30-60) to maximum Mana
 {tags:resistance}+(7-19)% to Chaos Resistance
@@ -1449,10 +1449,10 @@ Stun Threshold is based on Energy Shield instead of Life
 Venopuncture
 Iron Ring
 Requires Level: 49
-Implicits: 1
 League: Blight
-{tags:attribute}+(20-30) to Strength
+Implicits: 1
 {tags:physical_damage,attack}Adds 1 to 4 Physical Damage to Attacks
+{tags:attribute}+(20-30) to Strength
 {tags:attack}25% chance to cause Bleeding on Hit
 {tags:physical_damage,attack}(40-60)% increased Damage with Bleeding
 You are Chilled while you are Bleeding

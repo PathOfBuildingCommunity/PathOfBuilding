@@ -284,7 +284,6 @@ Ruby Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 52
-Implicits: 1
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
 Variant: Skill Reservation (Current)
@@ -293,6 +292,7 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Fire Resistance
+Implicits: 1
 FireResistImplicitRing1
 {fractured}StrengthUniqueRing8
 GlobalAddedFireDamageUnique__3_
@@ -310,7 +310,6 @@ Sapphire Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 52
-Implicits: 1
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
 Variant: Skill Reservation (Current)
@@ -319,6 +318,7 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Cold Resistance
+Implicits: 1
 ColdResistImplicitRing1
 {fractured}DexterityUnique__12
 GlobalAddedColdDamageUnique__3
@@ -336,7 +336,6 @@ Iron Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 52
-Implicits: 1
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
 Variant: Skill Reservation (Current)
@@ -345,6 +344,7 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Sentinel Damage
 Variant: Damage Reduction
+Implicits: 1
 AddedPhysicalDamageImplicitRing1
 {fractured}AllAttributesUnique__27
 GlobalAddedPhysicalDamageUnique__2
@@ -362,7 +362,6 @@ Amethyst Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 52
-Implicits: 1
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
 Variant: Skill Reservation (Current)
@@ -371,6 +370,7 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Agony Damage
 Variant: Chaos Resistance
+Implicits: 1
 ChaosResistImplicitRing1
 {fractured}AllAttributesUnique__25
 GlobalAddedChaosDamageUnique__5_
@@ -388,7 +388,6 @@ Topaz Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 52
-Implicits: 1
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
 Variant: Skill Reservation (Current)
@@ -397,6 +396,7 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Lightning Resistance
+Implicits: 1
 LightningResistImplicitRing1
 {fractured}IntelligenceUnique__14
 GlobalAddedLightningDamageUnique__3
@@ -565,7 +565,7 @@ The Hateful Accuser
 Nameless Ring
 League: Settlers of Kalguur
 Requires Level 50
-Implicits: 2
+Implicits: 1
 CurseEffectElementalAilmentDurationOnSelfR1
 RitualRingPenanceMark
 RitualRingCastSpeed
@@ -653,8 +653,8 @@ ConsumesSupportGemsUnique
 Icefang Orbit
 Iron Ring
 Requires Level: 49
-Implicits: 1
 League: Blight
+Implicits: 1
 AddedPhysicalDamageImplicitRing1
 DexterityUnique__1
 ChanceToPoisonUnique__1_______
@@ -1019,7 +1019,7 @@ The Queller of Minds
 Nameless Ring
 League: Settlers of Kalguur
 Requires Level 50
-Implicits: 2
+Implicits: 1
 CurseEffectElementalAilmentDurationOnSelfR1
 RitualRingPacify
 RitualRingCastSpeed
@@ -1415,7 +1415,7 @@ LightningResistImplicitRing1
 {variant:2,3}IncreasedDamageToShockedTargetsUniqueRing29
 LightningDamagePercentUniqueRing29
 IncreasedManaUniqueRing29
-{variant:1,2}LifeLeechPermyriadVsShockedEnemiesUniqueRing29[2000,2000]
+{variant:1,2}LifeLeechPermyriadVsShockedEnemiesUniqueRing29[200,200]
 {variant:3}LifeLeechPermyriadVsShockedEnemiesUniqueRing29
 {variant:1}ChanceToShockUniqueRing29[5,5]
 {variant:2}ChanceToShockUniqueRing29[10,10]
@@ -1438,8 +1438,8 @@ StunDurationBasedOnEnergyShieldUnique__1
 Venopuncture
 Iron Ring
 Requires Level: 49
-Implicits: 1
 League: Blight
+Implicits: 1
 AddedPhysicalDamageImplicitRing1
 StrengthUniqueRing8
 CausesBleedingUnique__1
