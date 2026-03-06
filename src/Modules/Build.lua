@@ -434,6 +434,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		self.viewMode = "PARTY"
 	end)
 	self.controls.modeParty.locked = function() return self.viewMode == "PARTY" end
+	self.controls.modeCompare = new("ButtonControl", {"LEFT",self.controls.modeParty,"RIGHT"}, {4, 0, 72, 20}, "Compare", function()
+		self.viewMode = "COMPARE"
+	end)
+	self.controls.modeCompare.locked = function() return self.viewMode == "COMPARE" end
 	-- Skills
 	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, {0, 80, 300, 16}, "^7Main Skill:")
 	self.controls.mainSocketGroup = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, {0, 2, 300, 18}, nil, function(index, value)
@@ -568,6 +572,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	self.treeTab = new("TreeTab", self)
 	self.skillsTab = new("SkillsTab", self)
 	self.calcsTab = new("CalcsTab", self)
+	self.compareTab = new("CompareTab", self)
 
 	-- Load sections from the build file
 	self.savers = {
@@ -1143,6 +1148,8 @@ function buildMode:OnFrame(inputEvents)
 		self.itemsTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "CALCS" then
 		self.calcsTab:Draw(tabViewPort, inputEvents)
+	elseif self.viewMode == "COMPARE" then
+		self.compareTab:Draw(tabViewPort, inputEvents)
 	end
 
 	self.unsaved = self.modFlag or self.notesTab.modFlag or self.partyTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.treeTab.searchFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
@@ -1161,6 +1168,7 @@ function buildMode:OnFrame(inputEvents)
 	DrawImage(nil, 0, 32, sideBarWidth - 4, main.screenH - 32)
 	SetDrawColor(0.85, 0.85, 0.85)
 	DrawImage(nil, sideBarWidth - 4, 32, 4, main.screenH - 32)
+
 
 	self:DrawControls(main.viewPort)
 end

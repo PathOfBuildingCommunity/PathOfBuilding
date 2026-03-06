@@ -314,6 +314,15 @@ You can get this from your web browser's cookies while logged into the Path of E
 				self.build:Init(self.build.dbFileName, self.build.buildName, self.importCodeXML, false, self.importCodeSite and self.controls.importCodeIn.buf or nil)
 				self.build.viewMode = "TREE"
 			end)
+		elseif self.controls.importCodeMode.selIndex == 3 then
+			-- Import as comparison build
+			if self.build.compareTab then
+				if self.build.compareTab:ImportBuild(self.importCodeXML, "Imported comparison") then
+					self.build.viewMode = "COMPARE"
+				else
+					main:OpenMessagePopup("Import Error", "Failed to import build for comparison.")
+				end
+			end
 		else
 			self.build:Shutdown()
 			self.build:Init(false, "Imported build", self.importCodeXML, false, self.importCodeSite and self.controls.importCodeIn.buf or nil)
@@ -331,9 +340,9 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.importCodeState.label = function()
 		return self.importCodeDetail or ""
 	end
-	self.controls.importCodeMode = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, {0, 4, 160, 20}, { "Import to this build", "Import to a new build" })
+	self.controls.importCodeMode = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, {0, 4, 200, 20}, { "Import to this build", "Import to a new build", "Import as comparison" })
 	self.controls.importCodeMode.enabled = function()
-		return self.build.dbFileName and self.importCodeValid
+		return (self.build.dbFileName or self.controls.importCodeMode.selIndex == 3) and self.importCodeValid
 	end
 	self.controls.importCodeGo = new("ButtonControl", {"LEFT",self.controls.importCodeMode,"RIGHT"}, {8, 0, 160, 20}, "Import", function()
 		if self.importCodeSite and not self.importCodeXML then
