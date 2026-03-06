@@ -3063,15 +3063,13 @@ function calcs.offence(env, actor, activeSkill)
 			if not skipRedirect then
 				for _, damageType in ipairs(dmgTypeList) do
 					if damageType ~= addedDamageRedirectType then
-						local addedMin = skillModList:Sum("BASE", cfg, damageType.."Min")
-						local addedMax = skillModList:Sum("BASE", cfg, damageType.."Max")
-						if addedMin ~= 0 then
-							skillModList:NewMod(damageType.."Min", "BASE", -addedMin, "Cryogenesis Conversion")
-							skillModList:NewMod(addedDamageRedirectType.."Min", "BASE", addedMin, "Cryogenesis Conversion")
+						for _, value in ipairs(skillModList:Tabulate("BASE", cfg, damageType.."Min")) do
+							local mod = value.mod
+							skillModList:ConvertMod(damageType.."Min", addedDamageRedirectType.."Min", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 						end
-						if addedMax ~= 0 then
-							skillModList:NewMod(damageType.."Max", "BASE", -addedMax, "Cryogenesis Conversion")
-							skillModList:NewMod(addedDamageRedirectType.."Max", "BASE", addedMax, "Cryogenesis Conversion")
+						for _, value in ipairs(skillModList:Tabulate("BASE", cfg, damageType.."Max")) do
+							local mod = value.mod
+							skillModList:ConvertMod(damageType.."Max", addedDamageRedirectType.."Max", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 						end
 					end
 				end
