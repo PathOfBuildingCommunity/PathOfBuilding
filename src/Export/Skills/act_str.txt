@@ -2116,7 +2116,21 @@ local skills, mod, flag, skill = ...
 
 #skill Sweep
 #flags attack melee area
+	parts = {
+		{
+			name = "Melee Hit",
+		},
+		{
+			name = "Holy Hammer",
+		},
+	},
+	statMap = {
+		["holy_sweep_hammerfall_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
 #baseMod skill("radius", 24)
+#baseMod flag("CannotBeEvaded", { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill TectonicSlam

@@ -1099,6 +1099,24 @@ local skills, mod, flag, skill = ...
 		},
 	},
 	statMap = {
+		["attack_minimum_added_cold_damage_for_elemental_hit"] = {
+			mod("ColdMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_cold_damage_for_elemental_hit"] = {
+			mod("ColdMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_minimum_added_fire_damage_for_elemental_hit"] = {
+			mod("FireMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_fire_damage_for_elemental_hit"] = {
+			mod("FireMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_minimum_added_lightning_damage_for_elemental_hit"] = {
+			mod("LightningMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_lightning_damage_for_elemental_hit"] = {
+			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
 		["elemental_hit_damage_+%_final_per_enemy_elemental_ailment"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" }),
 		},
@@ -1149,6 +1167,27 @@ local skills, mod, flag, skill = ...
 		},
 	},
 	statMap = {
+		["elemental_hit_damage_+%_final_per_enemy_elemental_ailment"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" }),
+		},
+		["attack_minimum_added_cold_damage_for_elemental_hit"] = {
+			mod("ColdMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_cold_damage_for_elemental_hit"] = {
+			mod("ColdMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_minimum_added_fire_damage_for_elemental_hit"] = {
+			mod("FireMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_fire_damage_for_elemental_hit"] = {
+			mod("FireMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_minimum_added_lightning_damage_for_elemental_hit"] = {
+			mod("LightningMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_lightning_damage_for_elemental_hit"] = {
+			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
 		["elemental_hit_damage_+%_final_per_enemy_elemental_ailment"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" }),
 		},
@@ -3151,6 +3190,12 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["active_skill_poison_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison),
+		},
+		["viper_strike_dual_wield_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "DualWielding" }),
+		},
+		["viper_strike_dual_wield_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "Condition", var = "DualWielding" }),
 		},
 		["quality_display_active_skill_poison_damage_final_is_gem"] = {
 			-- Display only

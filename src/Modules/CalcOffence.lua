@@ -3058,7 +3058,7 @@ function calcs.offence(env, actor, activeSkill)
 		elseif skillModList:Flag(cfg, "AllAddedDamageAsCold") then
 			addedDamageRedirectType = "Cold"
 		end
-		if addedDamageRedirectType then
+		if addedDamageRedirectType and not activeSkill.activeEffect.grantedEffect.name == "Elemental Hit" then
 			for _, damageType in ipairs(dmgTypeList) do
 				if damageType ~= addedDamageRedirectType then
 					for _, value in ipairs(skillModList:Tabulate("BASE", cfg, damageType.."Min")) do
@@ -4398,7 +4398,7 @@ function calcs.offence(env, actor, activeSkill)
 			globalOutput.PoisonDuration = durationBase * durationMod / rateMod * debuffDurationMult
 			-- The chance any given hit applies poison
 			local poisonChance = output.PoisonChanceOnHit / 100 * (1 - output.CritChance / 100) + output.PoisonChanceOnCrit / 100 * output.CritChance / 100
-			local doublePoisonChance = 1 + m_min(skillModList:Sum("BASE", cfg, "DoublePoisonChance")/ 100, 1)
+			local doublePoisonChance = 1 + (skillModList:Flag(nil, "CannotMultiPoison") and 0 or m_min(skillModList:Sum("BASE", cfg, "DoublePoisonChance")/ 100, 1))
 			-- The average number of poisons that will be active on the enemy at once
 			local PoisonStacks = output.HitChance / 100 * poisonChance * doublePoisonChance * skillData.dpsMultiplier * (skillData.stackMultiplier or 1) * quantityMultiplier
 			if (globalOutput.HitSpeed or globalOutput.Speed) > 0 then

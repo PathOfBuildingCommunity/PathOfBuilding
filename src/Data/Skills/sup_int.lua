@@ -1237,6 +1237,9 @@ skills["SupportCursedGround"] = {
 	stats = {
 		"base_hex_zone_skill_duration_ms",
 	},
+	notMinionStat = {
+		"base_hex_zone_skill_duration_ms",
+	},
 	levels = {
 		[1] = { 15000, levelRequirement = 31, manaMultiplier = 40, statInterpolation = { 1, }, },
 		[2] = { 16000, levelRequirement = 34, manaMultiplier = 40, statInterpolation = { 1, }, },
@@ -3432,7 +3435,7 @@ skills["SupportIntensify"] = {
 	color = 3,
 	support = true,
 	requireSkillTypes = { SkillType.AreaSpell, },
-	addSkillTypes = { },
+	addSkillTypes = { SkillType.GainsIntensity, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Channel, SkillType.Instant, SkillType.HasReservation, SkillType.AuraAffectsEnemies, SkillType.Triggered, SkillType.InbuiltTrigger, SkillType.Vaal, SkillType.CreatesMinion, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -3634,7 +3637,7 @@ skills["TriggeredSupportKineticInstability"] = {
 	baseTypeName = "Kinetic Flux",
 	color = 3,
 	description = "Gathers kinetic energy into an anomaly at the targeted location, which will explode when enemies are near it, dealing your wand's damage in an area. The anomaly will dissipate after a duration.",
-	skillTypes = { [SkillType.Area] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.SkillGrantedBySupport] = true, [SkillType.InbuiltTrigger] = true, [SkillType.RangedAttack] = true, [SkillType.Attack] = true, [SkillType.Duration] = true, [SkillType.WandAttack] = true, },
+	skillTypes = { [SkillType.Area] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.SkillGrantedBySupport] = true, [SkillType.InbuiltTrigger] = true, [SkillType.RangedAttack] = true, [SkillType.Attack] = true, [SkillType.Duration] = true, [SkillType.WandAttack] = true, [SkillType.Cooldown] = true, },
 	weaponTypes = {
 		["Wand"] = true,
 	},
@@ -3823,7 +3826,7 @@ skills["TriggeredSupportLivingLightning"] = {
 	baseTypeName = "Summon Living Lightning",
 	color = 3,
 	description = "Summons Living Lightning Minions, which target nearby enemies with a number of Melee Chaining Attacks before dissipating. Enemies will not directly engage these Minions, and can pass through them.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.InbuiltTrigger] = true, [SkillType.CreatesMinion] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Cooldown] = true, [SkillType.SkillGrantedBySupport] = true, [SkillType.MinionsAreUndamageable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.InbuiltTrigger] = true, [SkillType.CreatesMinion] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Cooldown] = true, [SkillType.SkillGrantedBySupport] = true, [SkillType.MinionsAreUndamagable] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Lightning] = true, [SkillType.Chains] = true, [SkillType.Cooldown] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
@@ -4725,7 +4728,7 @@ skills["SupportPinpoint"] = {
 	color = 3,
 	support = true,
 	requireSkillTypes = { SkillType.Projectile, SkillType.Spell, SkillType.AND, },
-	addSkillTypes = { },
+	addSkillTypes = { SkillType.GainsIntensity, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Channel, SkillType.Instant, SkillType.HasReservation, SkillType.AuraAffectsEnemies, SkillType.Triggered, SkillType.InbuiltTrigger, SkillType.Vaal, SkillType.CreatesMinion, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
@@ -5400,9 +5403,6 @@ skills["SupportSpellEcho"] = {
 			mod("Speed", "MORE", nil, ModFlag.Cast),
 		},
 	},
-	baseMods = {
-		flag("Condition:HaveSpellEcho"),
-	},
 	qualityStats = {
 		Default = {
 			{ "spell_damage_+%", 0.5 },
@@ -5458,6 +5458,59 @@ skills["SupportSpellEcho"] = {
 		[40] = { 65, levelRequirement = 100, manaMultiplier = 40, statInterpolation = { 1, }, },
 	},
 }
+skills["SupportGreaterSpellEcho"] = {
+	name = "Greater Spell Echo",
+	description = "Supports spell skills, making them repeat when cast. Cannot support Vaal skills, totem skills, brand skills, channelling skills, triggered skills, instant skills, retaliation skills, blink skills, or skills with a reservation.",
+	color = 3,
+	support = true,
+	requireSkillTypes = { SkillType.Multicastable, },
+	addSkillTypes = { },
+	excludeSkillTypes = { SkillType.Brand, SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.Triggered, SkillType.HasReservation, SkillType.Vaal, SkillType.Instant, SkillType.NonRepeatable, SkillType.CreatesMinion, SkillType.NOT, SkillType.AND, },
+	plusVersionOf = "SupportSpellEcho",
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	statMap = {
+		["support_greater_spell_echo_spell_damage_+%_final_per_repeat"] = {
+			mod("RepeatPerRepeatDamage", "MORE", nil, 0, 0, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
+		},
+		["support_greater_spell_echo_area_of_effect_+%_per_repeat"] = {
+			mod("RepeatPerRepeatAreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
+		},
+		["support_multicast_cast_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Cast),
+		},
+	},
+	qualityStats = {
+		Default = {
+			{ "spell_damage_+%", 0.5 },
+		},
+	},
+	constantStats = {
+		{ "base_spell_repeat_count", 2 },
+	},
+	stats = {
+		"support_greater_spell_echo_spell_damage_+%_final_per_repeat",
+		"support_greater_spell_echo_area_of_effect_+%_per_repeat",
+		"support_multicast_cast_speed_+%_final",
+	},
+	levels = {
+		[1] = { 10, 20, 56, levelRequirement = 72, manaMultiplier = 60, statInterpolation = { 1, 1, 1, }, },
+		[2] = { 12, 22, 59, levelRequirement = 74, manaMultiplier = 60, statInterpolation = { 1, 1, 1, }, },
+		[3] = { 14, 24, 62, levelRequirement = 76, manaMultiplier = 60, statInterpolation = { 1, 1, 1, }, },
+		[4] = { 16, 26, 65, levelRequirement = 78, manaMultiplier = 60, statInterpolation = { 1, 1, 1, }, },
+		[5] = { 17, 27, 66, levelRequirement = 80, manaMultiplier = 60, statInterpolation = { 1, 1, 1, }, },
+		[6] = { 18, 28, 68, levelRequirement = 82, manaMultiplier = 60, statInterpolation = { 1, 1, 1, }, },
+		[7] = { 19, 29, 69, levelRequirement = 84, manaMultiplier = 60, statInterpolation = { 1, 1, 1, }, },
+		[8] = { 20, 30, 71, levelRequirement = 86, manaMultiplier = 60, statInterpolation = { 1, 1, 1, }, },
+		[9] = { 21, 31, 72, levelRequirement = 88, manaMultiplier = 60, statInterpolation = { 1, 1, 1, }, },
+		[10] = { 22, 32, 74, levelRequirement = 90, manaMultiplier = 60, statInterpolation = { 1, 1, 1, }, },
+		[11] = { 23, 33, 75, levelRequirement = 91, manaMultiplier = 60, statInterpolation = { 1, 1, 1, }, },
+		[12] = { 24, 34, 77, levelRequirement = 92, manaMultiplier = 60, statInterpolation = { 1, 1, 1, }, },
+		[13] = { 25, 35, 78, levelRequirement = 93, manaMultiplier = 60, statInterpolation = { 1, 1, 1, }, },
+		[14] = { 26, 36, 80, levelRequirement = 94, manaMultiplier = 60, statInterpolation = { 1, 1, 1, }, },
+		[15] = { 27, 37, 81, levelRequirement = 95, manaMultiplier = 60, statInterpolation = { 1, 1, 1, }, },
+	},
+}
 skills["SupportAwakenedSpellEcho"] = {
 	name = "Awakened Spell Echo",
 	description = "Supports spell skills, making them repeat when cast. Cannot support Vaal skills, totem skills, channelling skills, triggered skills, instant skills, retaliation skills, blink skills, or skills with a reservation.",
@@ -5478,9 +5531,6 @@ skills["SupportAwakenedSpellEcho"] = {
 		["spell_echo_plus_chance_double_damage_%_final"] = {
 			mod("RepeatFinalDoubleDamageChance", "BASE", nil, ModFlag.Spell, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
 		},
-	},
-	baseMods = {
-		flag("Condition:HaveSpellEcho"),
 	},
 	qualityStats = {
 		Default = {

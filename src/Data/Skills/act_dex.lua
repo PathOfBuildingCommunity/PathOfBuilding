@@ -2489,7 +2489,7 @@ skills["VaalBladeVortex"] = {
 	baseEffectiveness = 1.25,
 	incrementalEffectiveness = 0.033300001174212,
 	description = "Creates an independently-moving vortex of ethereal blades which lasts for a duration. The vortex moves toward nearby enemies, repeatedly damaging enemies that it passes through.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Vaal] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Vaal] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, [SkillType.Multicastable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	preDamageFunc = function(activeSkill, output)
@@ -5277,7 +5277,7 @@ skills["DetonateDeadAltX"] = {
 	},
 	constantStats = {
 		{ "active_skill_base_area_of_effect_radius", 28 },
-		{ "active_skill_ailment_damage_+%_final", -60 },
+		{ "active_skill_ailment_damage_+%_final", -70 },
 	},
 	stats = {
 		"active_skill_base_area_of_effect_radius",
@@ -6098,6 +6098,24 @@ skills["ElementalHit"] = {
 		},
 	},
 	statMap = {
+		["attack_minimum_added_cold_damage_for_elemental_hit"] = {
+			mod("ColdMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_cold_damage_for_elemental_hit"] = {
+			mod("ColdMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_minimum_added_fire_damage_for_elemental_hit"] = {
+			mod("FireMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_fire_damage_for_elemental_hit"] = {
+			mod("FireMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_minimum_added_lightning_damage_for_elemental_hit"] = {
+			mod("LightningMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_lightning_damage_for_elemental_hit"] = {
+			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
 		["elemental_hit_damage_+%_final_per_enemy_elemental_ailment"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" }),
 		},
@@ -6150,17 +6168,25 @@ skills["ElementalHit"] = {
 		{ "active_skill_base_area_of_effect_radius", 14 },
 	},
 	stats = {
-		"attack_minimum_added_fire_damage",
-		"attack_maximum_added_fire_damage",
-		"attack_minimum_added_cold_damage",
-		"attack_maximum_added_cold_damage",
-		"attack_minimum_added_lightning_damage",
-		"attack_maximum_added_lightning_damage",
+		"attack_minimum_added_fire_damage_for_elemental_hit",
+		"attack_maximum_added_fire_damage_for_elemental_hit",
+		"attack_minimum_added_cold_damage_for_elemental_hit",
+		"attack_maximum_added_cold_damage_for_elemental_hit",
+		"attack_minimum_added_lightning_damage_for_elemental_hit",
+		"attack_maximum_added_lightning_damage_for_elemental_hit",
 		"chance_to_freeze_shock_ignite_%",
 		"elemental_hit_area_of_effect_+100%_final_vs_enemy_with_associated_ailment",
 		"elemental_hit_no_physical_chaos_damage",
 		"elemental_hit_no_damage_of_unchosen_elemental_type",
 		"quality_display_elemental_hit_is_gem",
+	},
+	notMinionStat = {
+		"attack_minimum_added_fire_damage_for_elemental_hit",
+		"attack_maximum_added_fire_damage_for_elemental_hit",
+		"attack_minimum_added_cold_damage_for_elemental_hit",
+		"attack_maximum_added_cold_damage_for_elemental_hit",
+		"attack_minimum_added_lightning_damage_for_elemental_hit",
+		"attack_maximum_added_lightning_damage_for_elemental_hit",
 	},
 	levels = {
 		[1] = { 0.69999998807907, 1.2999999523163, 0.56999999284744, 1.0599999427795, 0.10999999940395, 2.1400001049042, 30, attackSpeedMultiplier = 20, levelRequirement = 12, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, }, cost = { Mana = 5, }, },
@@ -6233,6 +6259,27 @@ skills["ElementalHitAltX"] = {
 		["elemental_hit_damage_+%_final_per_enemy_elemental_ailment"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" }),
 		},
+		["attack_minimum_added_cold_damage_for_elemental_hit"] = {
+			mod("ColdMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_cold_damage_for_elemental_hit"] = {
+			mod("ColdMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_minimum_added_fire_damage_for_elemental_hit"] = {
+			mod("FireMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_fire_damage_for_elemental_hit"] = {
+			mod("FireMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_minimum_added_lightning_damage_for_elemental_hit"] = {
+			mod("LightningMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_lightning_damage_for_elemental_hit"] = {
+			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["elemental_hit_damage_+%_final_per_enemy_elemental_ailment"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" }),
+		},
 		["elemental_hit_no_physical_chaos_damage"] = {
 			flag("DealNoPhysical"),
 			flag("DealNoChaos"),
@@ -6270,18 +6317,26 @@ skills["ElementalHitAltX"] = {
 		{ "active_skill_base_area_of_effect_radius", 15 },
 	},
 	stats = {
-		"attack_minimum_added_fire_damage",
-		"attack_maximum_added_fire_damage",
-		"attack_minimum_added_cold_damage",
-		"attack_maximum_added_cold_damage",
-		"attack_minimum_added_lightning_damage",
-		"attack_maximum_added_lightning_damage",
+		"attack_minimum_added_fire_damage_for_elemental_hit",
+		"attack_maximum_added_fire_damage_for_elemental_hit",
+		"attack_minimum_added_cold_damage_for_elemental_hit",
+		"attack_maximum_added_cold_damage_for_elemental_hit",
+		"attack_minimum_added_lightning_damage_for_elemental_hit",
+		"attack_maximum_added_lightning_damage_for_elemental_hit",
 		"chance_to_freeze_shock_ignite_%",
 		"elemental_hit_no_physical_chaos_damage",
 		"quality_display_elemental_hit_is_gem",
 		"deal_no_non_elemental_damage",
 		"skill_can_fire_arrows",
 		"skill_can_fire_wand_projectiles",
+	},
+	notMinionStat = {
+		"attack_minimum_added_fire_damage_for_elemental_hit",
+		"attack_maximum_added_fire_damage_for_elemental_hit",
+		"attack_minimum_added_cold_damage_for_elemental_hit",
+		"attack_maximum_added_cold_damage_for_elemental_hit",
+		"attack_minimum_added_lightning_damage_for_elemental_hit",
+		"attack_maximum_added_lightning_damage_for_elemental_hit",
 	},
 	levels = {
 		[1] = { 0.69999998807907, 1.2999999523163, 0.56999999284744, 1.0599999427795, 0.10999999940395, 2.1400001049042, 30, levelRequirement = 12, statInterpolation = { 3, 3, 3, 3, 3, 3, 1, }, cost = { Mana = 6, }, },
@@ -9258,7 +9313,7 @@ skills["HeraldOfAgony"] = {
 	baseEffectiveness = 0.10999999940395,
 	incrementalEffectiveness = 0.044700000435114,
 	description = "Grants a buff giving more poison damage and a chance to inflict poison. When you poison an enemy while you have this buff, you gain Virulence, and summon an Agony Crawler minion that uses projectile and area attacks. You will lose Virulence over time, at a rate which increases the more Virulence you have. The minion will die when you have no Virulence.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.Herald] = true, [SkillType.Minion] = true, [SkillType.Instant] = true, [SkillType.Chaos] = true, [SkillType.Physical] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.Herald] = true, [SkillType.Minion] = true, [SkillType.Instant] = true, [SkillType.Chaos] = true, [SkillType.Physical] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsAreUndamagable] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.Damage] = true, [SkillType.Attack] = true, [SkillType.Chaos] = true, [SkillType.Projectile] = true, [SkillType.RangedAttack] = true, },
 	statDescriptionScope = "minion_skill_stat_descriptions",
 	castTime = 0,
@@ -9637,7 +9692,7 @@ skills["VaalIceShot"] = {
 	baseTypeName = "Vaal Ice Shot",
 	color = 2,
 	description = "Fires an arrow that converts some physical damage to cold on its target and converts all physical damage to cold in a cone behind that target. When you use this skill, it summons a squad of Mirage Sharpshooters for a duration. Cannot be used by Totems, Traps, or Mines.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Area] = true, [SkillType.Cold] = true, [SkillType.Vaal] = true, [SkillType.Duration] = true, [SkillType.ProjectilesNotFired] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Area] = true, [SkillType.Cold] = true, [SkillType.Vaal] = true, [SkillType.Duration] = true, [SkillType.ProjectilesNumberModifiersNotApplied] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -11929,7 +11984,7 @@ skills["StormRainAltY"] = {
 	baseTypeName = "Storm Rain of the Fence",
 	color = 2,
 	description = "Fires an arrow into the air to land at a targeted location, dealing area damage. The arrow sticks in the ground where it lands, and periodically fires a beam of lightning to another arrow near it, dealing area damage between them.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Area] = true, [SkillType.ProjectileSpeed] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Rain] = true, [SkillType.Lightning] = true, [SkillType.ProjectileNumber] = true, [SkillType.Damage] = true, [SkillType.ProjectilesNotFired] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Area] = true, [SkillType.ProjectileSpeed] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Rain] = true, [SkillType.Lightning] = true, [SkillType.ProjectileNumber] = true, [SkillType.Damage] = true, [SkillType.ProjectilesNumberModifiersNotApplied] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -16448,7 +16503,7 @@ skills["VaalVenomGyre"] = {
 	baseTypeName = "Vaal Venom Gyre",
 	color = 2,
 	description = "Creates already-caught projectiles without firing them first, both immediately and over a secondary duration. Caught projectiles spiral outwards when you use Whirling Blades and do not return. Requires a Dagger or Claw.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.Chaos] = true, [SkillType.Duration] = true, [SkillType.ProjectilesNotFired] = true, [SkillType.Vaal] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.Chaos] = true, [SkillType.Duration] = true, [SkillType.ProjectilesNumberModifiersNotApplied] = true, [SkillType.Vaal] = true, },
 	weaponTypes = {
 		["Claw"] = true,
 		["Dagger"] = true,
@@ -16642,6 +16697,12 @@ skills["ViperStrikeAltX"] = {
 		["active_skill_poison_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison),
 		},
+		["viper_strike_dual_wield_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "DualWielding" }),
+		},
+		["viper_strike_dual_wield_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "Condition", var = "DualWielding" }),
+		},
 		["quality_display_active_skill_poison_damage_final_is_gem"] = {
 			-- Display only
 		},
@@ -16662,6 +16723,8 @@ skills["ViperStrikeAltX"] = {
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_chaos", 60 },
 		{ "base_chance_to_poison_on_hit_%", 60 },
+		{ "viper_strike_dual_wield_damage_+%_final", -20 },
+		{ "viper_strike_dual_wield_attack_speed_+%_final", -30 },
 		{ "base_skill_effect_duration", 2000 },
 		{ "active_skill_poison_damage_+%_final", 200 },
 	},
@@ -16670,6 +16733,7 @@ skills["ViperStrikeAltX"] = {
 		"skill_double_hits_when_dual_wielding",
 		"visual_hit_effect_chaos_is_green",
 		"cannot_poison_poisoned_enemies",
+		"cannot_inflict_additional_poisons",
 		"quality_display_active_skill_poison_damage_final_is_gem",
 	},
 	levels = {
@@ -17932,7 +17996,7 @@ skills["Thunderstorm"] = {
 	baseTypeName = "Thunderstorm",
 	color = 2,
 	description = "Fires an arrow into the air to land at a targeted location. On impact, deals area damage and creates a thunderstorm which blinds enemies within it. Entering the thunderstorm will cause it to gain stages, and leaving it will cause it to dissipate. Leaving the storm while it is at maximum stages will cause it to explode, dealing damage and triggering Thunderburst. You must use this skill yourself, it cannot be used by Totems, Traps, Mines, or other objects that use skills for you.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.RangedAttack] = true, [SkillType.Duration] = true, [SkillType.Lightning] = true, [SkillType.Rain] = true, [SkillType.ProjectileSpeed] = true, [SkillType.ProjectilesNotFired] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.RangedAttack] = true, [SkillType.Duration] = true, [SkillType.Lightning] = true, [SkillType.Rain] = true, [SkillType.ProjectileSpeed] = true, [SkillType.ProjectilesNumberModifiersNotApplied] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -18577,6 +18641,7 @@ skills["QuickstepHardMode"] = {
 	},
 	constantStats = {
 		{ "cooldown_recovery_rate_+%_when_a_unique_enemy_in_your_presence", 200 },
+		{ "cooldown_recovery_rate_+%_if_no_enemies_in_your_presence", 200 },
 		{ "gem_display_quality_has_no_effect", 1 },
 	},
 	stats = {

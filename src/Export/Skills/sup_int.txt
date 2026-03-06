@@ -699,7 +699,21 @@ local skills, mod, flag, skill = ...
 			mod("Speed", "MORE", nil, ModFlag.Cast),
 		},
 	},
-#baseMod flag("Condition:HaveSpellEcho")
+#mods
+
+#skill SupportGreaterSpellEcho
+	fromItem = true,
+	statMap = {
+		["support_greater_spell_echo_spell_damage_+%_final_per_repeat"] = {
+			mod("RepeatPerRepeatDamage", "MORE", nil, 0, 0, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
+		},
+		["support_greater_spell_echo_area_of_effect_+%_per_repeat"] = {
+			mod("RepeatPerRepeatAreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
+		},
+		["support_multicast_cast_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Cast),
+		},
+	},
 #mods
 
 #skill SupportAwakenedSpellEcho
@@ -714,7 +728,6 @@ local skills, mod, flag, skill = ...
 			mod("RepeatFinalDoubleDamageChance", "BASE", nil, ModFlag.Spell, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
 		},
 	},
-#baseMod flag("Condition:HaveSpellEcho")
 #mods
 
 #skill SupportSummonPhantasm

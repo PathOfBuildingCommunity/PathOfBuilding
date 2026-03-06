@@ -1303,7 +1303,7 @@ function calcs.perform(env, skipEHP)
 			local limit = m_floor(modDB:Override(nil, activeSkill.minion.minionData.limit) or calcLib.val(activeSkill.skillModList, activeSkill.minion.minionData.limit))
 			output[activeSkill.minion.minionData.limit] = m_max(limit, output[activeSkill.minion.minionData.limit] or 0)
 		end
-		if activeSkill.skillTypes[SkillType.CreatesMinion] and not activeSkill.skillTypes[SkillType.MinionsAreUndamageable] then
+		if activeSkill.skillTypes[SkillType.CreatesMinion] and not activeSkill.skillTypes[SkillType.MinionsAreUndamagable] then
 			modDB:NewMod("Condition:HaveDamageableMinion", "FLAG", true)
 		end
 		if env.mode_buffs and activeSkill.skillFlags.warcry then
@@ -2482,7 +2482,7 @@ function calcs.perform(env, skipEHP)
 				end
 			elseif buff.type == "Link" then
 				local linksApplyToMinions = env.minion and modDB:Flag(nil, "Condition:CanLinkToMinions") and modDB:Flag(nil, "Condition:LinkedToMinion")
-						and not env.minion.modDB:Flag(nil, "Condition:CannotBeDamaged") and not env.minion.mainSkill.summonSkill.skillTypes[SkillType.MinionsAreUndamageable]
+						and not env.minion.modDB:Flag(nil, "Condition:CannotBeDamaged") and not env.minion.mainSkill.summonSkill.skillTypes[SkillType.MinionsAreUndamagable]
 				if env.mode_buffs and (#linkSkills < 1) and (partyTabEnableExportBuffs or linksApplyToMinions) then
 					-- Check for extra modifiers to apply to link skills
 					local extraLinkModList = { }
