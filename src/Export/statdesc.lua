@@ -295,6 +295,10 @@ function describeStats(stats)
 				elseif spec.k == "per_minute_to_per_second_0dp" then
 					val[spec.v].min = val[spec.v].min / 60
 					val[spec.v].max = val[spec.v].max / 60
+				elseif spec.k == "per_minute_to_per_second_1dp" then
+					val[spec.v].min = round(val[spec.v].min / 60, 1)
+					val[spec.v].max = round(val[spec.v].max / 60, 1)
+					val[spec.v].fmt = "g"
 				elseif spec.k == "milliseconds_to_seconds" then
 					val[spec.v].min = val[spec.v].min / 1000
 					val[spec.v].max = val[spec.v].max / 1000

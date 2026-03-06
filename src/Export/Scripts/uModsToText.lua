@@ -132,8 +132,11 @@ for _, name in ipairs(itemTypes) do
 				end
 				local modText = legacyMod or mod
 				if modText then
+					local order
 					for i, line in ipairs(modText) do
-						local order = mod and mod.statOrder and mod.statOrder[i] or (nextOrder)
+						if i == 1 then
+							order = mod and mod.statOrder and mod.statOrder[i] or (nextOrder)
+						end
 						nextOrder = nextOrder + 1
 						if statOrder[order] then
 							table.insert(statOrder[order], prefix..line)
