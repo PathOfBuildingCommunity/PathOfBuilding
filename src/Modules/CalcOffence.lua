@@ -3048,6 +3048,35 @@ function calcs.offence(env, actor, activeSkill)
 		
 		runSkillFunc("postCritFunc")
 
+		-- Added damage redirection (Cryogenesis)
+		-- Convert all added damage mods to the target type before the damage loop
+		-- so breakdowns show the redirected source correctly.
+		-- Base Elemental Hit is excluded per the node text.
+		local addedDamageRedirectType = nil
+		if skillModList:Flag(cfg, "AllAddedDamageAsLightning") then
+			addedDamageRedirectType = "Lightning"
+		elseif skillModList:Flag(cfg, "AllAddedDamageAsCold") then
+			addedDamageRedirectType = "Cold"
+		end
+		if addedDamageRedirectType then
+			for _, damageType in ipairs(dmgTypeList) do
+				if damageType ~= addedDamageRedirectType then
+					for _, value in ipairs(skillModList:Tabulate("BASE", cfg, damageType.."Min")) do
+						local mod = value.mod
+						if mod.source ~= "Skill:ElementalHit" then
+							skillModList:ConvertMod(damageType.."Min", addedDamageRedirectType.."Min", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, { type = "Cryogenesis Added Damage" }, unpack(mod))
+						end
+					end
+					for _, value in ipairs(skillModList:Tabulate("BASE", cfg, damageType.."Max")) do
+						local mod = value.mod
+						if mod.source ~= "Skill:ElementalHit" then
+							skillModList:ConvertMod(damageType.."Max", addedDamageRedirectType.."Max", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, { type = "Cryogenesis Added Damage" }, unpack(mod))
+						end
+					end
+				end
+			end
+		end
+
 		-- Calculate base hit damage
 		for _, damageType in ipairs(dmgTypeList) do
 			local damageTypeMin = damageType.."Min"
