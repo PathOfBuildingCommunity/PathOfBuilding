@@ -944,7 +944,7 @@ function buildMode:SyncLoadouts()
 
 		-- item, skill, and config sets have identical structure
 		local function identifyLinks(setOrderList, tabSets, setList, specialLinks, treeLinks)
-			for id, set in ipairs(setOrderList) do -- I had this as pairs from sometime but I can't remember why
+			for id, set in ipairs(setOrderList) do
 				local setTitle = tabSets[set].title or "Default"
 				local linkIdentifier = string.match(setTitle, "%{([%w,]+)%}")
 
