@@ -276,7 +276,6 @@ function GGPKClass:GetNeededFiles()
 		"Data/ProjectilesArtVariations.dat",
 		"Data/MonsterVarietiesArtVariations.dat",
 		"Data/PreloadGroups.dat",
-		"Data/BrequelGraftTypes.dat",
 		"Data/BrequelGraftSkillStats.dat",
 		"Data/BrequelGraftGrantedSkillLevels.dat",
 		"Data/VillageBalancePerLevelShared.dat",
