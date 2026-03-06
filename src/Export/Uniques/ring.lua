@@ -553,6 +553,7 @@ Diamond Ring
 League: Necropolis
 Source: Created from 4 different unique{Grattus} family corpses in the normal{Necropolis}
 Requires Level 64
+Implicits: 1
 CriticalStrikeChanceImplicitRing1
 IncreasedAttackSpeedUniqueRing37
 IncreasedCastSpeedUniqueRing38
@@ -1415,7 +1416,7 @@ LightningResistImplicitRing1
 {variant:2,3}IncreasedDamageToShockedTargetsUniqueRing29
 LightningDamagePercentUniqueRing29
 IncreasedManaUniqueRing29
-{variant:1,2}LifeLeechPermyriadVsShockedEnemiesUniqueRing29[2000,2000]
+{variant:1,2}LifeLeechPermyriadVsShockedEnemiesUniqueRing29[200,200]
 {variant:3}LifeLeechPermyriadVsShockedEnemiesUniqueRing29
 {variant:1}ChanceToShockUniqueRing29[5,5]
 {variant:2}ChanceToShockUniqueRing29[10,10]

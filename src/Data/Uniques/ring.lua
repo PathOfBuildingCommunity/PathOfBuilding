@@ -555,6 +555,7 @@ Diamond Ring
 League: Necropolis
 Source: Created from 4 different unique{Grattus} family corpses in the normal{Necropolis}
 Requires Level 64
+Implicits: 1
 {tags:attack,speed}(5-10)% increased Attack Speed
 {tags:caster,speed}(5-10)% increased Cast Speed
 {tags:critical}(20-30)% increased Global Critical Strike Chance
