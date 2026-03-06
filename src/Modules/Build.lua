@@ -320,11 +320,11 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
 
 		-- *** big block of variables shared across Copy, Delete, and Rename Loadouts
-		-- generic SetListControls so we can reuse copy/delete/rename functions
-		local passiveSpecListControl = new ("PassiveSpecListControl", nil, nil, self.treeTab)
-		local itemSetListControl = new("ItemSetListControl", nil, nil, self.itemsTab)
-		local skillSetListControl = new("SkillSetListControl", nil, nil, self.skillsTab)
-		local configSetListControl = new("ConfigSetListControl", nil, nil, self.configTab)
+		-- generic SetListControls so we can reuse copy and delete functions
+		local passiveSpecListControl = { }
+		local itemSetListControl = { }
+		local skillSetListControl = { }
+		local configSetListControl = { }
 		-- list for dropdown
 		local existingLoadoutsList = self.controls.buildLoadouts.existingLoadoutsList or {}
 		local selectedLoadoutTitle = existingLoadoutsList[1] or "Default"
@@ -338,7 +338,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 
 		local function setSelectedLoadout(title)
 			selectedLoadoutTreeId, loadoutTitleOrIdentifier = findNamedSetId(self.treeTab:GetSpecList(), title, self.treeListSpecialLinks)
-			-- because we are creating the SetListControl in real time, the SetOrderLists can get out of sync with the ItemSets, SkillSets, ConfigSets
+			-- because we are creating the ListControls in real time, the SetOrderLists can get out of sync with the ItemSets, SkillSets, ConfigSets
 			-- so we will loop until we find the title or identifier match from the selected loadout
 			for index, id in pairs(self.itemsTab.itemSetOrderList) do
 				if (string.match(self.itemsTab.itemSets[id].title or "Default", "%b{}") == loadoutTitleOrIdentifier) or ((self.itemsTab.itemSets[id].title or "Default") == loadoutTitleOrIdentifier) then
@@ -364,7 +364,16 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		end
 		setSelectedLoadout(selectedLoadoutTitle)
 
+		local function initListControls()
+			passiveSpecListControl = new ("PassiveSpecListControl", nil, nil, self.treeTab)
+			itemSetListControl = new("ItemSetListControl", nil, nil, self.itemsTab)
+			skillSetListControl = new("SkillSetListControl", nil, nil, self.skillsTab)
+			configSetListControl = new("ConfigSetListControl", nil, nil, self.configTab)
+		end
+
 		local function copyLoadout(loadoutTitle)
+			initListControls()
+
 			local oldSpec = self.treeTab.specList[selectedLoadoutTreeId]
 			local newSpec = passiveSpecListControl.controls.copy.onClick(oldSpec)
 			t_insert(self.treeTab.specList, newSpec)
@@ -475,7 +484,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			return
 		elseif value == "^7^7Copy Loadout" then
 			local controls = { }
-			local numberofLoadouts = nil
 
 			controls.loadoutNameLabel = new("LabelControl", nil, {0, 20, 0, 16}, "^7Enter name for this loadout:")
 			controls.loadoutName = new("EditControl", nil, { 0, 40, 350, 20}, "New Loadout", nil, nil, 100, function(buf)
@@ -512,6 +520,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 
 			controls.delete = new("ButtonControl", nil, {-45, 85, 80, 20}, "Delete", function()
 				main:OpenConfirmPopup("Delete All", "Are you sure you want to delete this loadout?", "Delete", function()
+					initListControls()
+
 					passiveSpecListControl:DeleteByIndex(selectedLoadoutTreeId)
 					itemSetListControl:DeleteById(selectedLoadoutItemIndex, selectedLoadoutItemId)
 					skillSetListControl:DeleteById(selectedLoadoutSkillIndex, selectedLoadoutSkillId)
