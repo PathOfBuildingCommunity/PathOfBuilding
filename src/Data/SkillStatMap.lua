@@ -1646,6 +1646,12 @@ return {
 ["off_hand_base_weapon_attack_duration_ms"] = {
 	skill("setOffHandAttackTime", nil),
 },
+["off_hand_minimum_added_physical_damage_per_15_shield_armour"] = {
+	mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", stat = "ArmourOnWeapon 2", div = 15 }),
+},
+["off_hand_maximum_added_physical_damage_per_15_shield_armour"] = {
+	mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", stat = "ArmourOnWeapon 2", div = 15 }),
+},
 ["off_hand_minimum_added_physical_damage_per_15_shield_armour_and_evasion_rating"] = {
 	mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
 },
@@ -1663,6 +1669,10 @@ return {
 },
 ["off_hand_maximum_added_fire_damage_per_15_shield_armour"] = {
 	mod("FireMax", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", stat = "ArmourOnWeapon 2", div = 15 }),
+},
+["off_hand_critical_strike_chance_+_per_10_es_on_shield"] = {
+	mod("CritChance", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShieldOnWeapon 2", div = 10, }),
+	div = 100,
 },
 ["additional_critical_strike_chance_per_10_shield_maximum_energy_shield_permyriad"] = {
 	mod("CritChance", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShieldOnWeapon 2", div = 10, }),
@@ -1962,6 +1972,9 @@ return {
 ["base_number_of_living_lightning_allowed"] = {
 	mod("ActiveLivingLightningLimit", "BASE", nil),
 },
+["base_holy_strike_maximum_number_of_animated_weapons"] = {
+	mod("ActiveHolyStrikeMinionLimit", "BASE", nil),
+},
 ["active_skill_minion_damage_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
 },
@@ -1991,6 +2004,9 @@ return {
 },
 ["minions_deal_%_of_physical_damage_as_additional_chaos_damage"] = {
 	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageGainAsChaos", "BASE", nil) }),
+},
+["minion_melee_range_+"] = {
+	mod("MinionModifier", "LIST", { mod = mod("MeleeWeaponRange", "BASE", nil), }),
 },
 ["maximum_life_+%_for_corpses_you_create"] = {
 	mod("CorpseLife", "INC", nil),
@@ -2275,7 +2291,13 @@ return {
 ["quality_display_spell_damage_to_attack_damage_is_gem"] = {
 	-- Display only
 },
+["quality_display_static_strike_gathering_lightning_is_gem"] = {
+	-- Display only
+},
 ["retaliation_base_use_window_duration_ms"] = {
+	-- Display only
+},
+["is_totem"] = {
 	-- Display only
 },
 }

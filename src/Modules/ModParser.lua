@@ -601,6 +601,8 @@ local modNameList = {
 	["maximum number of sentinels of dominance"] = "ActiveSentinelOfDominanceLimit",
 	["maximum number of sentinels of purity"] = "ActiveSentinelOfPurityLimit",
 	["maximum number of summoned spectral wolves"] = "ActiveWolfLimit",
+	["maximum number of living lightning"] = "ActiveLivingLightningLimit",
+	["maximum number of holy armaments"] = "ActiveHolyStrikeMinionLimit",
 	["number of summoned arbalists"] = "ActiveArbalistLimit",
 	["minion duration"] = { "Duration", tagList = { { type = "SkillType", skillType = SkillType.CreatesMinion }, { type = "SkillType", skillType = SkillType.Minion } }},
 	["skeleton duration"] = { "Duration", tag = { type = "SkillName", skillName = "Summon Skeletons", includeTransfigured = true } },

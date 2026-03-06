@@ -33,6 +33,7 @@ Decoy Totem                                  		----		DecoyTotem
 Defiance Banner                              		----		DefianceBanner
 Determination                                		----		Determination
 Devouring Totem                              		----		DevouringTotem
+Divine Blast                                 		----		DivineBlast
 Dominating Blow                              		----		DominatingBlow
 Dominating Blow of Inspiring                 		----		DominatingBlowAltX
 Doryani's Touch                              		----		DoryanisTouch
@@ -63,6 +64,9 @@ Herald of Purity                             		----		HeraldOfPurity
 His Burning Message                          		----		GraftSkillXophGeyserExplosion
 Holy Flame Totem                             		----		HolyFlameTotem
 Holy Flame Totem of Ire                      		----		HolyFlameTotemAltX
+Holy Hammers                                 		----		HolyHammers
+Holy Strike                                  		----		HolyStrike
+Holy Sweep                                   		----		Sweep
 Ice Crash                                    		----		IceCrash
 Ice Crash of Cadence                         		----		IceCrashAltX
 Immortal Call                                		----		ImmortalCall
@@ -92,15 +96,19 @@ Reap                                         		----		Reap
 Rejuvenation Totem                           		----		RejuvenationTotem
 Return to Dust                               		----		GraftSkillUulNetolHandSlam
 Searing Bond                                 		----		SearingBond
+Searing Bond of Detonation                   		----		SearingBondAltX
 Seismic Cry                                  		----		SeismicCry
 Seize the Flesh                              		----		GraftSkillUulNetolBoneSpires
 Shield Charge                                		----		ShieldCharge
 Shield Crush                                 		----		ShieldCrush
 Shield Crush of the Chieftain                		----		ShieldCrushAltX
+Shield of Light                              		----		ShieldOfLight
 Shockwave Totem                              		----		ShockwaveTotem
+Shockwave Totem of Authority                 		----		ShockwaveTotemAltX
 Smite                                        		----		Smite
 Smite of Divine Judgement                    		----		SmiteAltX
 Static Strike                                		----		StaticStrike
+Static Strike of Gathering Lightning         		----		StaticStrikeAltX
 Steelskin                                    		----		QuickGuard
 Summon Flame Golem                           		----		SummonFlameGolem
 Summon Flame Golem of Hordes                 		----		SummonFlameGolemAltX
@@ -111,7 +119,6 @@ Summon Stone Golem of Safeguarding           		----		SummonStoneGolemAltY
 Sunder                                       		----		Sunder
 Sunder of Earthbreaking                      		----		SunderAltX
 Sunder of Trarthus                           		----		SunderAltY
-Sweep                                        		----		Sweep
 Swordstorm                                   		----		Swordstorm
 Tectonic Slam                                		----		TectonicSlam
 Tectonic Slam of Cataclysm                   		----		TectonicSlamAltX
