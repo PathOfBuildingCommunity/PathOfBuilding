@@ -464,6 +464,42 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					SetDrawColor(1, 1, 1, 0.25)
 				end
 				self:DrawAsset(tree.assets["Classes"..group.ascendancyName], scrX, scrY, scale)
+
+				local ascendancyData
+				local isAlternateAscendancy = false
+				-- Search normal ascendancies
+				for _, class in ipairs(tree.classes) do
+					for _, ascendancy in ipairs(class.ascendancies) do
+						if ascendancy.id == group.ascendancyName then
+							ascendancyData = ascendancy
+							break
+						end
+					end
+					if ascendancyData then break end
+				end
+
+				-- Search alternate ascendancies if not found
+				if not ascendancyData and tree.alternate_ascendancies then
+					for _, ascendancy in pairs(tree.alternate_ascendancies) do
+						if ascendancy.id == group.ascendancyName then
+							ascendancyData = ascendancy
+							isAlternateAscendancy = true
+							break
+						end
+					end
+				end
+				if ascendancyData and ascendancyData.flavourTextRect then
+					local rect = ascendancyData.flavourTextRect
+					local textColor = "^x" .. ascendancyData.flavourTextColour
+
+					-- Normal ascendancy images are 1300x1300, bloodline appears to be 1488x1412
+					local offsetX = rect.x - (isAlternateAscendancy and 744 or 650)
+					local offsetY = rect.y - (isAlternateAscendancy and 706 or 650)
+
+					local textX, textY = treeToScreen(group.x + offsetX, group.y + offsetY)
+
+					DrawString(textX, textY, "LEFT", 52 * scale, "FONTIN ITALIC", textColor .. ascendancyData.flavourText)
+				end
 				SetDrawColor(1, 1, 1)
 			end
 		elseif group.oo[3] then
