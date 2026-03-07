@@ -391,6 +391,8 @@ local function doActorAttribsConditions(env, actor)
 			condList["StrHighestAttribute"] = output.Str >= output.Dex and output.Str >= output.Int
 			condList["IntHighestAttribute"] = output.Int >= output.Str and output.Int >= output.Dex
 			condList["DexHighestAttribute"] = output.Dex >= output.Str and output.Dex >= output.Int
+			condList["IntSingleHighestAttribute"] = output.Int > output.Str and output.Int > output.Dex
+			condList["DexSingleHighestAttribute"] = output.Dex > output.Str and output.Dex > output.Int
 		end
 	end
 
@@ -453,6 +455,8 @@ local function doActorAttribsConditions(env, actor)
 			condList["StrHighestAttribute"] = output.Str >= output.Dex and output.Str >= output.Int
 			condList["IntHighestAttribute"] = output.Int >= output.Str and output.Int >= output.Dex
 			condList["DexHighestAttribute"] = output.Dex >= output.Str and output.Dex >= output.Int
+			condList["IntSingleHighestAttribute"] = output.Int > output.Str and output.Int > output.Dex
+			condList["DexSingleHighestAttribute"] = output.Dex > output.Str and output.Dex > output.Int
 		end
 	end
 

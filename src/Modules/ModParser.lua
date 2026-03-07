@@ -2744,7 +2744,7 @@ local specialModList = {
 	end,
 	["immun[ei]t?y? to elemental ailments while you have arcane surge"] = { flag("ElementalAilmentImmune", { type = "Condition", var = "AffectedByArcaneSurge" }), },
 	["brands have (%d+)%% more activation frequency if (%d+)%% of attached duration expired"] = function(num) return { mod("BrandActivationFrequency", "MORE", num, { type = "Condition", var = "BrandLastQuarter" }) } end,
-	["arcane surge grants (%d+)%% more spell damage to you"] = function(num) return { mod("ArcaneSurgeDamage", "MAX", num) } end,
+	["arcane surge a?l?s?o? ?grants (%d+)%% more spell damage to you"] = function(num) return { mod("ArcaneSurgeDamage", "MAX", num) } end,
 	-- Inquisitor
 	["critical strikes ignore enemy monster elemental resistances"] = { flag("IgnoreElementalResistances", { type = "Condition", var = "CriticalStrike" }) },
 	["non%-critical strikes penetrate (%d+)%% of enemy elemental resistances"] = function(num) return { mod("ElementalPenetration", "BASE", num, { type = "Condition", var = "CriticalStrike", neg = true }) } end,
@@ -4251,9 +4251,9 @@ local specialModList = {
 	["minions have (%d+)%% increased critical strike chance per maximum power charge you have"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("CritChance", "INC", num, { type = "Multiplier", actor = "parent", var = "PowerChargeMax" }) }) } end,
 	["minions' base attack critical strike chance is equal to the critical strike chance of your main hand weapon"] = { mod("MinionModifier", "LIST", { mod = flag("AttackCritIsEqualToParentMainHand", nil, ModFlag.Attack) }) },
 	["minions can hear the whispers for 5 seconds after they deal a critical strike"] = {
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 50, { type = "Condition", neg = true, var = "NeverCrit" }) }),
-		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 50, nil, ModFlag.Attack, { type = "Condition", neg = true, var = "NeverCrit" }) }),
-		mod("MinionModifier", "LIST", { mod = mod("ChaosDegen", "BASE", 1, { type = "PercentStat", stat = "Life", percent = 20 }, { type = "Condition", neg = true, var = "NeverCrit" }) }),
+		mod("ExtraSkillMod", "LIST", { mod = mod("Speed", "INC", 50, { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "Condition", neg = true, var = "NeverCrit" } ) }),
+		mod("ExtraSkillMod", "LIST", { mod = mod("Damage", "INC", 50, { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "Condition", neg = true, var = "NeverCrit" } ) }),
+		mod("ExtraSkillMod", "LIST", { mod = mod("ChaosDegen", "BASE", 1, { type = "PercentStat", stat = "Life", percent = 20 }, { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "Condition", neg = true, var = "NeverCrit" } ) }),
 	},
 	["chaos damage t?a?k?e?n? ?does not bypass minions' energy shield"] = { mod("MinionModifier", "LIST", { mod = flag("ChaosNotBypassEnergyShield") }) },
 	["while minions have energy shield, their hits ignore monster elemental resistances"] = { mod("MinionModifier", "LIST", { mod = flag("IgnoreElementalResistances", { type = "StatThreshold", stat = "EnergyShield", threshold = 1 }) }) },
@@ -5290,6 +5290,13 @@ local specialModList = {
 	["consecrated path and purifying flame create profane ground instead of consecrated ground"] = {
 		flag("Condition:CreateProfaneGround"),
 	},
+	["you gain added cold damage instead of added damage of other types if dexterity exceeds both other attributes"] = {
+		flag("AllAddedDamageAsCold", { type = "Condition", var = "DexSingleHighestAttribute" }),
+	},
+	["you gain added lightn?ing damage instead of added damage of other types if intelligence exceeds both other attributes"] = {
+		flag("AllAddedDamageAsLightning", { type = "Condition", var = "IntSingleHighestAttribute" }),
+	},
+	["elemental hit's added damage cannot be replaced this way"] = { },
 	["you have consecrated ground around you while stationary if strength is your highest attribute"] = {
 		flag("Condition:OnConsecratedGround", { type = "Condition", var = "StrHighestAttribute" }, { type = "Condition", var = "Stationary" }),
 	},
