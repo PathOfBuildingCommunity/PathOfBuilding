@@ -464,6 +464,7 @@ Blind Support                                		----		SupportBlind
 Block Chance Reduction Support               		----		SupportBlockChanceReduction
 Cast On Critical Strike Support              		----		SupportCastOnCriticalStrike	SupportCastOnCritTriggered
 Cast on Death Support                        		----		SupportCastOnDeath
+Cast on Ward Break Support                   		----		SupportCastOnWardBreak
 Chain Support                                		----		SupportChain
 Chance to Flee Support                       		----		SupportChanceToFlee
 Chance to Poison Support                     		----		SupportChanceToPoison
@@ -471,7 +472,9 @@ Charged Traps Support                        		----		SupportChargedTraps
 Close Combat Support                         		----		SupportCloseCombat
 Cluster Traps Support                        		----		SupportClusterTraps
 Cold Penetration Support                     		----		SupportColdPenetration
+Companionship Support                        		----		SupportCompanionship
 Critical Strike Affliction Support           		----		SupportCriticalStrikeAffliction
+Cull the Weak Support                        		----		SupportCullTheWeak
 Culling Strike Support                       		----		SupportCullingStrike
 Deadly Ailments Support                      		----		SupportDeadlyAilments
 Enhance Support                              		----		SupportEnhance
@@ -479,20 +482,26 @@ Faster Attacks Support                       		----		SupportFasterAttacks
 Faster Projectiles Support                   		----		SupportFasterProjectiles
 Focused Ballista Support                     		----		SupportFocusedBallista
 Fork Support                                 		----		SupportFork
+Greater Chain Support                        		----		SupportGreaterChain
+Greater Fork Support                         		----		SupportGreaterFork
 Greater Multiple Projectiles Support         		----		SupportGreaterMultipleProjectiles
 Greater Volley Support                       		----		SupportGreaterVolley
 Hypothermia Support                          		----		SupportHypothermia
 Ice Bite Support                             		----		SupportIceBite
 Impale Support                               		----		SupportImpale
-Lesser Multiple Projectiles Support          		----		SupportLesserMultipleProjectiles
+Invention Support                            		----		SupportInvention
+Lethal Dose Support                          		----		SupportLethalDose
 Locus Mine Support                           		----		SupportLocusMine
+Machinations Support                         		----		SupportMachinations
 Mana Leech Support                           		----		SupportManaLeech
 Manaforged Arrows Support                    		----		SupportManaforgedArrows
 Mark On Hit Support                          		----		SupportMarkOnHit
 Mirage Archer Support                        		----		SupportMirageArcher
 Momentum Support                             		----		SupportMomentum
+Multiple Projectiles Support                 		----		SupportLesserMultipleProjectiles
 Multiple Traps Support                       		----		SupportMultipleTraps
 Nightblade Support                           		----		SupportNightblade
+Pacifism Support                             		----		SupportPacifism
 Pierce Support                               		----		SupportPierce
 Point Blank Support                          		----		SupportPointBlank
 Returning Projectiles Support                		----		SupportReturningProjectiles
@@ -505,9 +514,11 @@ Swift Affliction Support                     		----		SupportSwiftAffliction
 Swift Assembly Support                       		----		SupportSwiftAssembly
 Trap Support                                 		----		SupportTrap
 Trap and Mine Damage Support                 		----		SupportTrapAndMineDamage
+Unholy Trinity Support                       		----		SupportUnholyTrinity
 Vicious Projectiles Support                  		----		SupportViciousProjectiles
 Vile Toxins Support                          		----		SupportVileToxins
 Void Manipulation Support                    		----		SupportVoidManipulation
+Voidstorm Support                            		----		SupportVoidstorm	TriggeredSupportVoidstorm
 Volley Support                               		----		SupportVolley
 Windburst Support                            		----		SupportWindburst	TriggeredSupportWindburst
 Withering Touch Support                      		----		SupportWitheringTouch

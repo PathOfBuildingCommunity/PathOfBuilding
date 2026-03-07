@@ -1336,6 +1336,9 @@ local configTable = {
 	["prismatic burst"] = function(env)
 		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Attack] and slotMatch(env, skill) end}
 	end,
+	["voidstorm"] = function(env)
+		return {triggerOnUse = true, triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Attack] and skill.skillTypes[SkillType.Rain] and slotMatch(env, skill) end}
+	end,
 	["shockwave"] = function(env)
 		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] and slotMatch(env, skill) end}
 	end,

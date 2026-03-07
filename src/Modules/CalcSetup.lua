@@ -575,6 +575,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	end
 
 	local allocatedNotableCount = env.spec.allocatedNotableCount
+	local allocatedKeystoneCount = env.spec.allocatedKeystoneCount
 	local allocatedMasteryCount = env.spec.allocatedMasteryCount
 	local allocatedMasteryTypeCount = env.spec.allocatedMasteryTypeCount
 	local allocatedMasteryTypes = copyTable(env.spec.allocatedMasteryTypes)
@@ -605,6 +606,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					elseif node.type == "Notable" then
 						allocatedNotableCount = allocatedNotableCount + 1
+					elseif node.type == "Keystone" then
+						allocatedKeystoneCount = allocatedKeystoneCount + 1	
 					end
 					if node.isTattoo and node.overrideType then
 						if not allocatedTattooTypes[node.overrideType] then
@@ -629,6 +632,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					elseif node.type == "Notable" then
 						allocatedNotableCount = allocatedNotableCount - 1
+					elseif node.type == "Keystone" then
+						allocatedKeystoneCount = allocatedKeystoneCount - 1	
 					end
 					if node.isTattoo and node.overrideType then
 						if allocatedTattooTypes[node.overrideType] then
@@ -647,6 +652,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 	if allocatedNotableCount and allocatedNotableCount > 0 then
 		modDB:NewMod("Multiplier:AllocatedNotable", "BASE", allocatedNotableCount)
+	end
+	if allocatedKeystoneCount and allocatedKeystoneCount > 0 then
+		modDB:NewMod("Multiplier:AllocatedKeystone", "BASE", allocatedKeystoneCount)
 	end
 	if allocatedMasteryCount and allocatedMasteryCount > 0 then
 		modDB:NewMod("Multiplier:AllocatedMastery", "BASE", allocatedMasteryCount)

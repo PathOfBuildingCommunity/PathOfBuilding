@@ -1237,6 +1237,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	-- Add selected mastery effect mods to mastery nodes
 	self.allocatedMasteryCount = 0
 	self.allocatedNotableCount = 0
+	self.allocatedKeystoneCount = 0
 	self.allocatedMasteryTypes = { }
 	self.allocatedMasteryTypeCount = 0
 	self.allocatedTattooTypes = { }
@@ -1279,6 +1280,8 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				self:AddMasteryEffectOptionsToNode(node)
 			elseif node.type == "Notable" and node.alloc then
 				self.allocatedNotableCount = self.allocatedNotableCount + 1
+			elseif node.type == "Keystone" and node.alloc then
+				self.allocatedKeystoneCount = self.allocatedKeystoneCount + 1	
 			end
 			if node.isTattoo and node.alloc and node.overrideType then
 				if not self.allocatedTattooTypes[node.overrideType] then

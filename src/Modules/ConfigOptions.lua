@@ -468,6 +468,10 @@ return {
 	{ var = "heraldOfTheHivePressure", type = "count", label = "# of Otherworldly Pressure Stacks:", ifSkill = "Herald of the Hive", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:OtherworldlyPressure", "BASE", val, "Config")
 	end },
+	{ label = "Invention:", ifSkill = "Invention" },
+	{ var = "inventionMineTrapPlacedDuration", type = "count", label = "Placed duration of Mine / Traps:", ifSkill = "Invention", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:PlacedDuration", "BASE", val, "Config")
+	end },
 	{ label = "Ice Nova:", ifSkill = "Ice Nova of Frostbolts" },
 	{ var = "iceNovaCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Ice Nova of Frostbolts", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:CastOnFrostbolt", "FLAG", true, "Config", { type = "SkillName", skillName = "Ice Nova of Frostbolts" })
@@ -674,6 +678,10 @@ return {
 	{ label = "Trinity Support:", ifSkill = "Trinity" },
 	{ var = "configResonanceCount", type = "count", label = "Lowest Resonance Count:", ifSkill = "Trinity", tooltip = "Sets the amount of resonance on the lowest element.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:ResonanceCount", "BASE", m_max(m_min(val, 50), 0), "Config")
+	end },
+	{ label = "Unholy Trinity Support:", ifSkill = "Unholy Trinity" },
+	{ var = "configUnholyResonanceCount", type = "count", label = "Lowest Resonance Count:", ifSkill = "Unholy Trinity", tooltip = "Sets the amount of unholy resonance on the lowest element.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:UnholyResonanceCount", "BASE", m_max(m_min(val, 50), 0), "Config")
 	end },
 	{ label = "Unhinge:", ifSkill = "Unhinge" },
 	{ var = "conditionInsane", type = "check", label = "Are you Insane?", ifCond = "Insane", apply = function(val, modList, enemyModList)

@@ -520,6 +520,9 @@ return {
 ["base_spell_cooldown_speed_+%"] = {
 	mod("CooldownRecovery", "INC", nil),
 },
+["cooldown_recovery_rate_+%_per_100_ward"] = {
+	mod("CooldownRecovery", "INC", nil, 0, 0, { type = "PerStat", stat = "Ward", div = 100 }),
+},
 ["base_cooldown_modifier_ms"] = {
 	mod("CooldownRecovery", "BASE", nil),
 	div = 1000,
@@ -1400,6 +1403,9 @@ return {
 ["number_of_chains"] = {
 	mod("ChainCountMax", "BASE", nil),
 },
+["support_chain_count_+%_final"] = {
+	mod("ChainCountMax", "MORE", nil),
+},
 ["additional_beam_only_chains"] = {
 	mod("BeamChainCountMax", "BASE", nil),
 },
@@ -1760,6 +1766,9 @@ return {
 ["number_of_additional_traps_allowed"] = {
 	mod("ActiveTrapLimit", "BASE", nil),
 },
+["trap_duration_+%"] = {
+	mod("TrapDuration", "BASE", nil),
+},
 ["trap_throwing_speed_+%"] = {
 	mod("TrapThrowingSpeed", "INC", nil),
 },
@@ -1790,6 +1799,9 @@ return {
 -- Mine
 ["number_of_additional_remote_mines_allowed"] = {
 	mod("ActiveMineLimit", "BASE", nil),
+},
+["mine_duration_+%"] = {
+	mod("MineDuration", "BASE", nil),
 },
 ["mine_laying_speed_+%"] = {
 	mod("MineLayingSpeed", "INC", nil),
@@ -2173,6 +2185,9 @@ return {
 ["kill_enemy_on_hit_if_under_10%_life"] = {
 	mod("CullPercent", "MAX", nil),
 	value = 10
+},
+["kill_normal_or_magic_enemy_on_hit_if_under_x%_life"] = {
+	mod("CullPercent", "MAX", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique", neg = true }),
 },
 ["spell_cast_time_added_to_cooldown_if_triggered"] = {
 	flag("SpellCastTimeAddedToCooldownIfTriggered"),

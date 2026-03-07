@@ -1009,7 +1009,7 @@ function calcs.offence(env, actor, activeSkill)
 		if skillModList:Flag(skillCfg, "CannotChain") or skillModList:Flag(skillCfg, "NoAdditionalChains")then
 			output.ChainMaxString = "Cannot chain"
 		else
-			output.ChainMax = skillModList:Sum("BASE", skillCfg, "ChainCountMax", not skillFlags.projectile and "BeamChainCountMax" or nil)
+			output.ChainMax = skillModList:Sum("BASE", skillCfg, "ChainCountMax", not skillFlags.projectile and "BeamChainCountMax" or nil) * skillModList:More(skillCfg, "ChainCountMax")
 			if skillModList:Flag(skillCfg, "AdditionalProjectilesAddChainsInstead") then
 				local projCount = skillModList:Flag(skillCfg, "SingleProjectile") and 0 or m_floor((skillModList:Sum("BASE", skillCfg, "ProjectileCount") - 1) * skillModList:More(skillCfg, "ProjectileCount"))
 				output.ChainMax = output.ChainMax + projCount
@@ -3226,7 +3226,12 @@ function calcs.offence(env, actor, activeSkill)
 						local takenMore = enemyDB:More(cfg, "DamageTaken", damageType.."DamageTaken")
 						-- Check if player is supposed to ignore a damage type, or if it's ignored on enemy side
 						local useThisResist = function(damageType)
-							return not skillModList:Flag(cfg, "Ignore"..damageType.."Resistance", isElemental[damageType] and "IgnoreElementalResistances" or nil) and not enemyDB:Flag(nil, "SelfIgnore"..damageType.."Resistance")
+							if skillModList:Flag(cfg, "Ignore"..damageType.."Resistance", isElemental[damageType] and "IgnoreElementalResistances" or nil) or enemyDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") then
+								return 0
+							end
+							local chanceToIgnore = skillModList:Sum("BASE", cfg, "ChanceToIgnore"..damageType.."Resistance", isElemental[damageType] and "ChanceToIgnoreElementalResistances" or nil)
+							chanceToIgnore = m_min(m_max(chanceToIgnore, 0), 100)
+							return 1 - chanceToIgnore / 100
 						end
 						if damageType == "Physical" then
 							-- store pre-armour physical damage from attacks for impale calculations
@@ -3262,7 +3267,7 @@ function calcs.offence(env, actor, activeSkill)
 								end
 								-- Find the lowest resist of all the elements and use that if it's lower
 								for _, eleDamageType in ipairs(dmgTypeList) do
-									if isElemental[eleDamageType] and useThisResist(eleDamageType) and damageType ~= eleDamageType then
+									if isElemental[eleDamageType] and useThisResist(eleDamageType) > 0 and damageType ~= eleDamageType then
 										local currentElementResist = calcResistForType(eleDamageType, dotCfg)
 										-- If it's explicitly lower, then use the resist and update which element we're using to account for penetration
 										if skillModList:Flag(cfg, "ChaosDamageUsesHighestResistance") then
@@ -3312,11 +3317,12 @@ function calcs.offence(env, actor, activeSkill)
 							takenInc = takenInc + enemyDB:Sum("INC", nil, "TrapMineDamageTaken")
 						end
 						local effMult = (1 + takenInc / 100) * takenMore
-						local useRes = useThisResist(damageType)
+						local useResChance = useThisResist(damageType)
+						local useRes = useResChance > 0
 						if skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
 							effMult = effMult * (1 - resist / 100)
 						elseif useRes then
-							effMult = effMult * (1 - (resist - pen) / 100)
+							effMult = effMult * (1 - ((resist - pen) * useResChance) / 100)
 						end
 						damageTypeHitMin = damageTypeHitMin * effMult
 						damageTypeHitMax = damageTypeHitMax * effMult
