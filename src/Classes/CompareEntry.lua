@@ -5,6 +5,7 @@
 -- without setting up the full UI chrome of the primary build.
 --
 local t_insert = table.insert
+local s_format = string.format
 local m_min = math.min
 local m_max = math.max
 
@@ -235,8 +236,125 @@ function CompareEntryClass:RefreshStatList()
 	-- No sidebar to refresh in comparison entry
 end
 
-function CompareEntryClass:RefreshSkillSelectControls()
-	-- No skill select controls in comparison entry
+function CompareEntryClass:SetMainSocketGroup(index)
+	self.mainSocketGroup = index
+	self.modFlag = true
+	self.buildFlag = true
+end
+
+function CompareEntryClass:RefreshSkillSelectControls(controls, mainGroup, suffix)
+	-- Populate skill select controls (adapted from Build.lua:RefreshSkillSelectControls, lines 1444-1542)
+	if not controls or not controls.mainSocketGroup then return end
+	controls.mainSocketGroup.selIndex = mainGroup
+	wipeTable(controls.mainSocketGroup.list)
+	for i, socketGroup in pairs(self.skillsTab.socketGroupList) do
+		controls.mainSocketGroup.list[i] = { val = i, label = socketGroup.displayLabel }
+	end
+	controls.mainSocketGroup:CheckDroppedWidth(true)
+	if #controls.mainSocketGroup.list == 0 then
+		controls.mainSocketGroup.list[1] = { val = 1, label = "<No skills added yet>" }
+		controls.mainSkill.shown = false
+		controls.mainSkillPart.shown = false
+		controls.mainSkillMineCount.shown = false
+		controls.mainSkillStageCount.shown = false
+		controls.mainSkillMinion.shown = false
+		controls.mainSkillMinionSkill.shown = false
+	else
+		local mainSocketGroup = self.skillsTab.socketGroupList[mainGroup]
+		if not mainSocketGroup then
+			mainSocketGroup = self.skillsTab.socketGroupList[1]
+			mainGroup = 1
+		end
+		local displaySkillList = mainSocketGroup["displaySkillList"..suffix]
+		if not displaySkillList then
+			controls.mainSkill.shown = false
+			controls.mainSkillPart.shown = false
+			controls.mainSkillMineCount.shown = false
+			controls.mainSkillStageCount.shown = false
+			controls.mainSkillMinion.shown = false
+			controls.mainSkillMinionSkill.shown = false
+			return
+		end
+		local mainActiveSkill = mainSocketGroup["mainActiveSkill"..suffix] or 1
+		wipeTable(controls.mainSkill.list)
+		for i, activeSkill in ipairs(displaySkillList) do
+			local explodeSource = activeSkill.activeEffect.srcInstance.explodeSource
+			local explodeSourceName = explodeSource and (explodeSource.name or explodeSource.dn)
+			local colourCoded = explodeSourceName and ("From "..colorCodes[explodeSource.rarity or "NORMAL"]..explodeSourceName)
+			t_insert(controls.mainSkill.list, { val = i, label = colourCoded or activeSkill.activeEffect.grantedEffect.name })
+		end
+		controls.mainSkill.enabled = #displaySkillList > 1
+		controls.mainSkill.selIndex = mainActiveSkill
+		controls.mainSkill.shown = true
+		controls.mainSkillPart.shown = false
+		controls.mainSkillMineCount.shown = false
+		controls.mainSkillStageCount.shown = false
+		controls.mainSkillMinion.shown = false
+		controls.mainSkillMinionSkill.shown = false
+		if displaySkillList[1] then
+			local activeSkill = displaySkillList[mainActiveSkill]
+			if not activeSkill then
+				activeSkill = displaySkillList[1]
+			end
+			local activeEffect = activeSkill.activeEffect
+			if activeEffect then
+				if activeEffect.grantedEffect.parts and #activeEffect.grantedEffect.parts > 1 then
+					controls.mainSkillPart.shown = true
+					wipeTable(controls.mainSkillPart.list)
+					for i, part in ipairs(activeEffect.grantedEffect.parts) do
+						t_insert(controls.mainSkillPart.list, { val = i, label = part.name })
+					end
+					controls.mainSkillPart.selIndex = activeEffect.srcInstance["skillPart"..suffix] or 1
+					if activeEffect.grantedEffect.parts[controls.mainSkillPart.selIndex] and activeEffect.grantedEffect.parts[controls.mainSkillPart.selIndex].stages then
+						controls.mainSkillStageCount.shown = true
+						controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeEffect.grantedEffect.parts[controls.mainSkillPart.selIndex].stagesMin or 1)
+					end
+				end
+				if activeSkill.skillFlags and activeSkill.skillFlags.mine then
+					controls.mainSkillMineCount.shown = true
+					controls.mainSkillMineCount.buf = tostring(activeEffect.srcInstance["skillMineCount"..suffix] or "")
+				end
+				if activeSkill.skillFlags and activeSkill.skillFlags.multiStage and not (activeEffect.grantedEffect.parts and #activeEffect.grantedEffect.parts > 1) then
+					controls.mainSkillStageCount.shown = true
+					controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeSkill.skillData.stagesMin or 1)
+				end
+				if activeSkill.skillFlags and not activeSkill.skillFlags.disable and (activeEffect.grantedEffect.minionList or (activeSkill.minionList and activeSkill.minionList[1])) then
+					wipeTable(controls.mainSkillMinion.list)
+					if activeEffect.grantedEffect.minionHasItemSet then
+						for _, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
+							local itemSet = self.itemsTab.itemSets[itemSetId]
+							t_insert(controls.mainSkillMinion.list, {
+								label = itemSet.title or "Default Item Set",
+								itemSetId = itemSetId,
+							})
+						end
+						controls.mainSkillMinion:SelByValue(activeEffect.srcInstance["skillMinionItemSet"..suffix] or 1, "itemSetId")
+					else
+						for _, minionId in ipairs(activeSkill.minionList) do
+							t_insert(controls.mainSkillMinion.list, {
+								label = self.data.minions[minionId] and self.data.minions[minionId].name or minionId,
+								minionId = minionId,
+							})
+						end
+						controls.mainSkillMinion:SelByValue(activeEffect.srcInstance["skillMinion"..suffix] or (controls.mainSkillMinion.list[1] and controls.mainSkillMinion.list[1].minionId), "minionId")
+					end
+					controls.mainSkillMinion.enabled = #controls.mainSkillMinion.list > 1
+					controls.mainSkillMinion.shown = true
+					wipeTable(controls.mainSkillMinionSkill.list)
+					if activeSkill.minion then
+						for _, minionSkill in ipairs(activeSkill.minion.activeSkillList) do
+							t_insert(controls.mainSkillMinionSkill.list, minionSkill.activeEffect.grantedEffect.name)
+						end
+						controls.mainSkillMinionSkill.selIndex = activeEffect.srcInstance["skillMinionSkill"..suffix] or 1
+						controls.mainSkillMinionSkill.shown = true
+						controls.mainSkillMinionSkill.enabled = #controls.mainSkillMinionSkill.list > 1
+					else
+						t_insert(controls.mainSkillMinion.list, "<No spectres in build>")
+					end
+				end
+			end
+		end
+	end
 end
 
 function CompareEntryClass:UpdateClassDropdowns()
@@ -335,6 +453,45 @@ function CompareEntryClass:CompareStatList(tooltip, statList, actor, baseOutput,
 		end
 	end
 	return count
+end
+
+-- Add requirements to tooltip
+do
+	local req = { }
+	function CompareEntryClass:AddRequirementsToTooltip(tooltip, level, str, dex, int, strBase, dexBase, intBase)
+		if level and level > 0 then
+			t_insert(req, s_format("^x7F7F7FLevel %s%d", main:StatColor(level, nil, self.characterLevel), level))
+		end
+		if self.calcsTab.mainEnv.modDB:Flag(nil, "OmniscienceRequirements") then
+			local omniSatisfy = self.calcsTab.mainEnv.modDB:Sum("INC", nil, "OmniAttributeRequirements")
+			local highestAttribute = 0
+			for i, stat in ipairs({str, dex, int}) do
+				if((stat or 0) > highestAttribute) then
+					highestAttribute = stat
+				end
+			end
+			local omni = math.floor(highestAttribute * (100/omniSatisfy))
+			if omni and (omni > 0 or omni > self.calcsTab.mainOutput.Omni) then
+				t_insert(req, s_format("%s%d ^x7F7F7FOmni", main:StatColor(omni, 0, self.calcsTab.mainOutput.Omni), omni))
+			end
+		else
+			if str and (str > 14 or str > self.calcsTab.mainOutput.Str) then
+				t_insert(req, s_format("%s%d ^x7F7F7FStr", main:StatColor(str, strBase, self.calcsTab.mainOutput.Str), str))
+			end
+			if dex and (dex > 14 or dex > self.calcsTab.mainOutput.Dex) then
+				t_insert(req, s_format("%s%d ^x7F7F7FDex", main:StatColor(dex, dexBase, self.calcsTab.mainOutput.Dex), dex))
+			end
+			if int and (int > 14 or int > self.calcsTab.mainOutput.Int) then
+				t_insert(req, s_format("%s%d ^x7F7F7FInt", main:StatColor(int, intBase, self.calcsTab.mainOutput.Int), int))
+			end
+		end
+		if req[1] then
+			local fontSizeBig = main.showFlavourText and 18 or 16
+			tooltip:AddLine(fontSizeBig, "^x7F7F7FRequires "..table.concat(req, "^x7F7F7F, "), "FONTIN SC")
+			tooltip:AddSeparator(10)
+		end
+		wipeTable(req)
+	end
 end
 
 return CompareEntryClass

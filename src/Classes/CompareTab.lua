@@ -10,6 +10,31 @@ local m_max = math.max
 local m_floor = math.floor
 local s_format = string.format
 
+-- Flag matching for stat filtering (same logic as Build.lua lines 33-57)
+local function matchFlags(reqFlags, notFlags, flags)
+	if type(reqFlags) == "string" then
+		reqFlags = { reqFlags }
+	end
+	if reqFlags then
+		for _, flag in ipairs(reqFlags) do
+			if not flags[flag] then
+				return
+			end
+		end
+	end
+	if type(notFlags) == "string" then
+		notFlags = { notFlags }
+	end
+	if notFlags then
+		for _, flag in ipairs(notFlags) do
+			if flags[flag] then
+				return
+			end
+		end
+	end
+	return true
+end
+
 local CompareTabClass = newClass("CompareTab", "ControlHost", "Control", function(self, primaryBuild)
 	self.ControlHost()
 	self.Control()
@@ -31,6 +56,9 @@ local CompareTabClass = newClass("CompareTab", "ControlHost", "Control", functio
 
 	-- Track when tree search fields need syncing with viewer state
 	self.treeSearchNeedsSync = true
+
+	-- Tooltip for item hover in Items view
+	self.itemTooltip = new("Tooltip")
 
 	-- Controls for the comparison screen
 	self:InitControls()
@@ -61,7 +89,7 @@ function CompareTabClass:InitControls()
 	end
 
 	-- Build B selector dropdown
-	self.controls.compareBuildLabel = new("LabelControl", {"TOPLEFT", self.controls.subTabAnchor, "TOPLEFT"}, {0, -48, 0, 16}, "^7Compare with:")
+	self.controls.compareBuildLabel = new("LabelControl", {"TOPLEFT", self.controls.subTabAnchor, "TOPLEFT"}, {0, -70, 0, 16}, "^7Compare with:")
 	self.controls.compareBuildSelect = new("DropDownControl", {"LEFT", self.controls.compareBuildLabel, "RIGHT"}, {4, 0, 250, 20}, {}, function(index, value)
 		if index and index > 0 and index <= #self.compareEntries then
 			self.activeCompareIndex = index
@@ -117,7 +145,7 @@ function CompareTabClass:InitControls()
 		return #self.compareEntries > 0
 	end
 
-	self.controls.compareSetsLabel = new("LabelControl", {"TOPLEFT", self.controls.subTabAnchor, "TOPLEFT"}, {0, -22, 0, 16}, "^7Sets:")
+	self.controls.compareSetsLabel = new("LabelControl", {"TOPLEFT", self.controls.subTabAnchor, "TOPLEFT"}, {0, -44, 0, 16}, "^7Sets:")
 	self.controls.compareSetsLabel.shown = setsEnabled
 
 	-- Tree spec selector for comparison build
@@ -158,6 +186,138 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.compareItemSetSelect.enabled = setsEnabled
+
+	-- ============================================================
+	-- Comparison build main skill selector (row between sets and sub-tabs)
+	-- ============================================================
+	self.controls.cmpSkillLabel = new("LabelControl", {"TOPLEFT", self.controls.subTabAnchor, "TOPLEFT"}, {0, -22, 0, 16}, "^7Skill:")
+	self.controls.cmpSkillLabel.shown = setsEnabled
+
+	-- Socket group dropdown
+	self.controls.cmpSocketGroup = new("DropDownControl", {"LEFT", self.controls.cmpSkillLabel, "RIGHT"}, {2, 0, 200, 20}, {}, function(index, value)
+		local entry = self:GetActiveCompare()
+		if entry then
+			entry:SetMainSocketGroup(index)
+		end
+	end)
+	self.controls.cmpSocketGroup.shown = setsEnabled
+	self.controls.cmpSocketGroup.maxDroppedWidth = 500
+	self.controls.cmpSocketGroup.enableDroppedWidth = true
+
+	-- Active skill within group
+	self.controls.cmpMainSkill = new("DropDownControl", {"LEFT", self.controls.cmpSocketGroup, "RIGHT"}, {2, 0, 150, 20}, {}, function(index, value)
+		local entry = self:GetActiveCompare()
+		if entry then
+			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
+			if mainSocketGroup then
+				mainSocketGroup.mainActiveSkill = index
+				entry.modFlag = true
+				entry.buildFlag = true
+			end
+		end
+	end)
+	self.controls.cmpMainSkill.shown = false
+
+	-- Skill part (multi-part skills)
+	self.controls.cmpSkillPart = new("DropDownControl", {"LEFT", self.controls.cmpMainSkill, "RIGHT"}, {2, 0, 100, 20}, {}, function(index, value)
+		local entry = self:GetActiveCompare()
+		if entry then
+			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
+			if mainSocketGroup then
+				local displaySkillList = mainSocketGroup.displaySkillList
+				local activeSkill = displaySkillList and displaySkillList[mainSocketGroup.mainActiveSkill or 1]
+				if activeSkill and activeSkill.activeEffect then
+					activeSkill.activeEffect.srcInstance.skillPart = index
+					entry.modFlag = true
+					entry.buildFlag = true
+				end
+			end
+		end
+	end)
+	self.controls.cmpSkillPart.shown = false
+
+	-- Stage count
+	self.controls.cmpStageCountLabel = new("LabelControl", {"LEFT", self.controls.cmpSkillPart, "RIGHT"}, {4, 0, 0, 16}, "^7Stages:")
+	self.controls.cmpStageCountLabel.shown = function() return self.controls.cmpStageCount.shown end
+	self.controls.cmpStageCount = new("EditControl", {"LEFT", self.controls.cmpStageCountLabel, "RIGHT"}, {2, 0, 52, 20}, "", nil, "%D", 5, function(buf)
+		local entry = self:GetActiveCompare()
+		if entry then
+			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
+			if mainSocketGroup then
+				local displaySkillList = mainSocketGroup.displaySkillList
+				local activeSkill = displaySkillList and displaySkillList[mainSocketGroup.mainActiveSkill or 1]
+				if activeSkill and activeSkill.activeEffect then
+					activeSkill.activeEffect.srcInstance.skillStageCount = tonumber(buf)
+					entry.modFlag = true
+					entry.buildFlag = true
+				end
+			end
+		end
+	end)
+	self.controls.cmpStageCount.shown = false
+
+	-- Mine count
+	self.controls.cmpMineCountLabel = new("LabelControl", {"LEFT", self.controls.cmpStageCount, "RIGHT"}, {4, 0, 0, 16}, "^7Mines:")
+	self.controls.cmpMineCountLabel.shown = function() return self.controls.cmpMineCount.shown end
+	self.controls.cmpMineCount = new("EditControl", {"LEFT", self.controls.cmpMineCountLabel, "RIGHT"}, {2, 0, 52, 20}, "", nil, "%D", 5, function(buf)
+		local entry = self:GetActiveCompare()
+		if entry then
+			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
+			if mainSocketGroup then
+				local displaySkillList = mainSocketGroup.displaySkillList
+				local activeSkill = displaySkillList and displaySkillList[mainSocketGroup.mainActiveSkill or 1]
+				if activeSkill and activeSkill.activeEffect then
+					activeSkill.activeEffect.srcInstance.skillMineCount = tonumber(buf)
+					entry.modFlag = true
+					entry.buildFlag = true
+				end
+			end
+		end
+	end)
+	self.controls.cmpMineCount.shown = false
+
+	-- Minion selector
+	self.controls.cmpMinion = new("DropDownControl", {"LEFT", self.controls.cmpMineCount, "RIGHT"}, {4, 0, 140, 20}, {}, function(index, value)
+		local entry = self:GetActiveCompare()
+		if entry then
+			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
+			if mainSocketGroup then
+				local displaySkillList = mainSocketGroup.displaySkillList
+				local activeSkill = displaySkillList and displaySkillList[mainSocketGroup.mainActiveSkill or 1]
+				if activeSkill and activeSkill.activeEffect then
+					local selected = self.controls.cmpMinion.list[index]
+					if selected then
+						if selected.itemSetId then
+							activeSkill.activeEffect.srcInstance.skillMinionItemSet = selected.itemSetId
+						elseif selected.minionId then
+							activeSkill.activeEffect.srcInstance.skillMinion = selected.minionId
+						end
+						entry.modFlag = true
+						entry.buildFlag = true
+					end
+				end
+			end
+		end
+	end)
+	self.controls.cmpMinion.shown = false
+
+	-- Minion skill selector
+	self.controls.cmpMinionSkill = new("DropDownControl", {"LEFT", self.controls.cmpMinion, "RIGHT"}, {2, 0, 140, 20}, {}, function(index, value)
+		local entry = self:GetActiveCompare()
+		if entry then
+			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
+			if mainSocketGroup then
+				local displaySkillList = mainSocketGroup.displaySkillList
+				local activeSkill = displaySkillList and displaySkillList[mainSocketGroup.mainActiveSkill or 1]
+				if activeSkill and activeSkill.activeEffect then
+					activeSkill.activeEffect.srcInstance.skillMinionSkill = index
+					entry.modFlag = true
+					entry.buildFlag = true
+				end
+			end
+		end
+	end)
+	self.controls.cmpMinionSkill.shown = false
 
 	-- ============================================================
 	-- Tree footer controls (visible only in TREE view mode with a comparison loaded)
@@ -328,15 +488,18 @@ function CompareTabClass:OpenImportPopup()
 			controls.go.onClick()
 		end
 	end
-	controls.state = new("LabelControl", {"TOPLEFT", controls.input, "BOTTOMLEFT"}, {0, 4, 0, 16})
+	controls.nameLabel = new("LabelControl", nil, {-175, 80, 0, 16}, "^7Name:")
+	controls.name = new("EditControl", nil, {40, 80, 300, 20}, "", "Name (optional)", nil, 100, nil)
+	controls.state = new("LabelControl", {"TOPLEFT", controls.name, "BOTTOMLEFT"}, {0, 4, 0, 16})
 	controls.state.label = function()
 		return stateText or ""
 	end
-	controls.go = new("ButtonControl", nil, {-45, 100, 80, 20}, "Import", function()
+	controls.go = new("ButtonControl", nil, {-45, 130, 80, 20}, "Import", function()
 		local buf = controls.input.buf
 		if not buf or buf == "" then
 			return
 		end
+		local customName = controls.name.buf ~= "" and controls.name.buf or nil
 
 		-- Check if it's a URL
 		for _, site in ipairs(buildSites.websiteList) do
@@ -346,7 +509,7 @@ function CompareTabClass:OpenImportPopup()
 					if isSuccess then
 						local xmlText = Inflate(common.base64.decode(codeData:gsub("-","+"):gsub("_","/")))
 						if xmlText then
-							self:ImportBuild(xmlText, "Imported from " .. site.label)
+							self:ImportBuild(xmlText, customName or ("Imported from " .. site.label))
 							main:ClosePopup()
 						else
 							stateText = colorCodes.NEGATIVE .. "Failed to decode build data"
@@ -362,27 +525,27 @@ function CompareTabClass:OpenImportPopup()
 		-- Try as a build code
 		local xmlText = Inflate(common.base64.decode(buf:gsub("-","+"):gsub("_","/")))
 		if xmlText then
-			self:ImportBuild(xmlText, "Imported build")
+			self:ImportBuild(xmlText, customName or "Imported build")
 			main:ClosePopup()
 		else
 			stateText = colorCodes.NEGATIVE .. "Invalid build code"
 		end
 	end)
-	controls.cancel = new("ButtonControl", nil, {45, 100, 80, 20}, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, {45, 130, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(500, 130, "Import Comparison Build", controls, "go", "input", "cancel")
+	main:OpenPopup(500, 160, "Import Comparison Build", controls, "go", "input", "cancel")
 end
 
 -- ============================================================
 -- DRAW - Main render method
 -- ============================================================
 function CompareTabClass:Draw(viewPort, inputEvents)
-	local controlBarHeight = 74
+	local controlBarHeight = 96
 
 	-- Position top-bar controls
 	self.controls.subTabAnchor.x = viewPort.x + 4
-	self.controls.subTabAnchor.y = viewPort.y + 52
+	self.controls.subTabAnchor.y = viewPort.y + 74
 
 	self.controls.compareBuildLabel.x = function()
 		return 0
@@ -512,6 +675,19 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 			end
 			self.controls.compareItemSetSelect:SetList(itemList)
 		end
+
+		-- Refresh comparison build skill selector controls
+		local cmpControls = {
+			mainSocketGroup = self.controls.cmpSocketGroup,
+			mainSkill = self.controls.cmpMainSkill,
+			mainSkillPart = self.controls.cmpSkillPart,
+			mainSkillStageCount = self.controls.cmpStageCount,
+			mainSkillMineCount = self.controls.cmpMineCount,
+			mainSkillMinion = self.controls.cmpMinion,
+			mainSkillMinionLibrary = { shown = false },
+			mainSkillMinionSkill = self.controls.cmpMinionSkill,
+		}
+		compareEntry:RefreshSkillSelectControls(cmpControls, compareEntry.mainSocketGroup, "")
 	end
 
 	-- Handle scroll events for scrollable views
@@ -539,13 +715,15 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 
 	if not compareEntry then
 		-- No comparison build loaded - show instructions
+		SetViewport(contentVP.x, contentVP.y, contentVP.width, contentVP.height)
 		SetDrawColor(1, 1, 1)
-		DrawString(contentVP.x + contentVP.width / 2, contentVP.y + 40, "CENTER", 20, "VAR",
+		DrawString(0, 40, "CENTER", 20, "VAR",
 			"^7No comparison build loaded.")
-		DrawString(contentVP.x + contentVP.width / 2, contentVP.y + 70, "CENTER", 16, "VAR",
+		DrawString(0, 70, "CENTER", 16, "VAR",
 			"^7Click " .. colorCodes.POSITIVE .. "Import..." .. "^7 above to import a build to compare against,")
-		DrawString(contentVP.x + contentVP.width / 2, contentVP.y + 90, "CENTER", 16, "VAR",
+		DrawString(0, 90, "CENTER", 16, "VAR",
 			"^7or use the " .. colorCodes.POSITIVE .. "Import/Export Build" .. "^7 tab with \"Import as comparison\" mode.")
+		SetViewport()
 		return
 	end
 
@@ -584,8 +762,8 @@ function CompareTabClass:DrawSummary(vp, compareEntry)
 
 	-- Headers
 	SetDrawColor(1, 1, 1)
-	DrawString(10, drawY, "LEFT", headerHeight, "VAR", colorCodes.POSITIVE .. "Your Build: ^7" .. (self.primaryBuild.buildName or "Current"))
-	DrawString(colWidth + 10, drawY, "LEFT", headerHeight, "VAR", colorCodes.WARNING .. "Compare: ^7" .. (compareEntry.label or "Comparison"))
+	DrawString(10, drawY, "LEFT", headerHeight, "VAR", colorCodes.POSITIVE .. (self.primaryBuild.buildName or "Your Build"))
+	DrawString(colWidth + 10, drawY, "LEFT", headerHeight, "VAR", colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
 	drawY = drawY + headerHeight + 4
 
 	-- Separator
@@ -607,23 +785,7 @@ function CompareTabClass:DrawSummary(vp, compareEntry)
 	local primaryEnv = self.primaryBuild.calcsTab.mainEnv
 	local compareEnv = compareEntry.calcsTab.mainEnv
 
-	-- Section: Offence
-	SetDrawColor(1, 1, 1)
-	DrawString(10, drawY, "LEFT", headerHeight, "VAR", colorCodes.OFFENCE .. "Offence")
-	drawY = drawY + headerHeight + 2
-
-	drawY = self:DrawStatSection(drawY, colWidth, vp, displayStats, primaryOutput, compareOutput, primaryEnv, compareEnv, {"attack", "spell", "dot"})
-
-	-- Section: Defence
-	drawY = drawY + 6
-	SetDrawColor(0.5, 0.5, 0.5)
-	DrawImage(nil, 4, drawY, vp.width - 8, 1)
-	drawY = drawY + 4
-	SetDrawColor(1, 1, 1)
-	DrawString(10, drawY, "LEFT", headerHeight, "VAR", colorCodes.DEFENCE .. "Defence")
-	drawY = drawY + headerHeight + 2
-
-	drawY = self:DrawStatSection(drawY, colWidth, vp, displayStats, primaryOutput, compareOutput, primaryEnv, compareEnv, nil)
+	drawY = self:DrawStatList(drawY, colWidth, vp, displayStats, primaryOutput, compareOutput, primaryEnv, compareEnv)
 
 	SetViewport()
 end
@@ -724,53 +886,85 @@ function CompareTabClass:DrawProgressSection(drawY, colWidth, vp, compareEntry)
 	return drawY
 end
 
-function CompareTabClass:DrawStatSection(drawY, colWidth, vp, displayStats, primaryOutput, compareOutput, primaryEnv, compareEnv, flagFilter)
+function CompareTabClass:DrawStatList(drawY, colWidth, vp, displayStats, primaryOutput, compareOutput, primaryEnv, compareEnv)
 	local lineHeight = 16
 
+	-- Get skill flags from both builds for stat filtering
+	local primaryFlags = primaryEnv and primaryEnv.player and primaryEnv.player.mainSkill and primaryEnv.player.mainSkill.skillFlags or {}
+	local compareFlags = compareEnv and compareEnv.player and compareEnv.player.mainSkill and compareEnv.player.mainSkill.skillFlags or {}
+
 	for _, statData in ipairs(displayStats) do
-		if statData.stat then
+		if not statData.stat and not statData.label then
+			-- Empty entry = section spacer (matches sidebar behavior)
+			drawY = drawY + 6
+		elseif statData.stat == "SkillDPS" then
+			-- Skip: multi-row SkillDPS doesn't fit compare layout
+		elseif statData.hideStat then
+			-- Skip: hidden stats
+		elseif not matchFlags(statData.flag, statData.notFlag, primaryFlags)
+		   and not matchFlags(statData.flag, statData.notFlag, compareFlags) then
+			-- Skip: stat not relevant to either build's active skill
+		elseif statData.stat then
+			-- Normal stat with value
 			local primaryVal = primaryOutput[statData.stat] or 0
 			local compareVal = compareOutput[statData.stat] or 0
 
-			-- Skip table-type stat values (some outputs are breakdowns, not numbers)
+			-- Handle childStat (e.g. MainHand.Accuracy)
+			if statData.childStat then
+				primaryVal = type(primaryVal) == "table" and primaryVal[statData.childStat] or 0
+				compareVal = type(compareVal) == "table" and compareVal[statData.childStat] or 0
+			end
+
+			-- Skip table-type stat values
 			if type(primaryVal) == "table" or type(compareVal) == "table" then
 				primaryVal = 0
 				compareVal = 0
 			end
 
-			-- Skip zero-value stats
-			if primaryVal ~= 0 or compareVal ~= 0 then
-				-- Check if stat has a condition function that filters it
-				if not statData.condFunc or statData.condFunc(primaryVal, primaryOutput) or statData.condFunc(compareVal, compareOutput) then
-					-- Format values
-					local fmt = statData.fmt or "d"
-					local multiplier = (statData.pc or statData.mod) and 100 or 1
-					local primaryStr = s_format("%"..fmt, primaryVal * multiplier)
-					local compareStr = s_format("%"..fmt, compareVal * multiplier)
-					primaryStr = formatNumSep(primaryStr)
-					compareStr = formatNumSep(compareStr)
+			-- Skip zero-value stats, check condFunc
+			if (primaryVal ~= 0 or compareVal ~= 0) and
+			   (not statData.condFunc or statData.condFunc(primaryVal, primaryOutput) or statData.condFunc(compareVal, compareOutput)) then
+				-- Format values
+				local fmt = statData.fmt or "d"
+				local multiplier = (statData.pc or statData.mod) and 100 or 1
+				local primaryStr = s_format("%"..fmt, primaryVal * multiplier)
+				local compareStr = s_format("%"..fmt, compareVal * multiplier)
+				primaryStr = formatNumSep(primaryStr)
+				compareStr = formatNumSep(compareStr)
 
-					-- Determine diff color
-					local diff = compareVal - primaryVal
-					local diffStr = ""
-					local diffColor = "^7"
-					if diff > 0.001 or diff < -0.001 then
-						local isBetter = (statData.lowerIsBetter and diff < 0) or (not statData.lowerIsBetter and diff > 0)
-						diffColor = isBetter and colorCodes.POSITIVE or colorCodes.NEGATIVE
-						local diffVal = diff * multiplier
-						diffStr = s_format("%+"..fmt, diffVal)
-						diffStr = formatNumSep(diffStr)
-					end
-
-					-- Draw stat row
-					DrawString(20, drawY, "LEFT", lineHeight, "VAR", "^7" .. (statData.label or statData.stat) .. ":")
-					DrawString(colWidth - 10, drawY, "RIGHT", lineHeight, "VAR", "^7" .. primaryStr)
-					DrawString(colWidth + colWidth - 10, drawY, "RIGHT", lineHeight, "VAR", diffColor .. compareStr)
-					if diffStr ~= "" then
-						DrawString(colWidth + colWidth + 10, drawY, "LEFT", lineHeight, "VAR", diffColor .. "(" .. diffStr .. ")")
-					end
-					drawY = drawY + lineHeight + 1
+				-- Determine diff color
+				local diff = compareVal - primaryVal
+				local diffStr = ""
+				local diffColor = "^7"
+				if diff > 0.001 or diff < -0.001 then
+					local isBetter = (statData.lowerIsBetter and diff < 0) or (not statData.lowerIsBetter and diff > 0)
+					diffColor = isBetter and colorCodes.POSITIVE or colorCodes.NEGATIVE
+					local diffVal = diff * multiplier
+					diffStr = s_format("%+"..fmt, diffVal)
+					diffStr = formatNumSep(diffStr)
 				end
+
+				-- Draw stat row with color-coded label (matches sidebar)
+				local labelColor = statData.color or "^7"
+				DrawString(20, drawY, "LEFT", lineHeight, "VAR", labelColor .. (statData.label or statData.stat) .. ":")
+				DrawString(colWidth - 10, drawY, "RIGHT", lineHeight, "VAR", "^7" .. primaryStr)
+				DrawString(colWidth + colWidth - 10, drawY, "RIGHT", lineHeight, "VAR", diffColor .. compareStr)
+				if diffStr ~= "" then
+					DrawString(colWidth + colWidth + 10, drawY, "LEFT", lineHeight, "VAR", diffColor .. "(" .. diffStr .. ")")
+				end
+				drawY = drawY + lineHeight + 1
+			end
+		elseif statData.label and statData.condFunc then
+			-- Label-only stat (e.g. "Chaos Resistance: Immune")
+			local labelColor = statData.color or "^7"
+			if statData.condFunc(primaryOutput) or statData.condFunc(compareOutput) then
+				local valStr = statData.val or ""
+				local primaryShown = statData.condFunc(primaryOutput)
+				local compareShown = statData.condFunc(compareOutput)
+				DrawString(20, drawY, "LEFT", lineHeight, "VAR", labelColor .. statData.label .. ":")
+				DrawString(colWidth - 10, drawY, "RIGHT", lineHeight, "VAR", "^7" .. (primaryShown and valStr or "-"))
+				DrawString(colWidth + colWidth - 10, drawY, "RIGHT", lineHeight, "VAR", "^7" .. (compareShown and valStr or "-"))
+				drawY = drawY + lineHeight + 1
 			end
 		end
 	end
@@ -790,8 +984,8 @@ function CompareTabClass:DrawTree(vp, inputEvents, compareEntry)
 
 	-- Labels (drawn in absolute screen coords before any viewport changes)
 	SetDrawColor(1, 1, 1)
-	DrawString(vp.x + halfWidth / 2, vp.y + 2, "CENTER", 16, "VAR", colorCodes.POSITIVE .. "Your Build" .. "^7 (" .. (self.primaryBuild.buildName or "Current") .. ")")
-	DrawString(vp.x + halfWidth + 4 + halfWidth / 2, vp.y + 2, "CENTER", 16, "VAR", colorCodes.WARNING .. "Compare" .. "^7 (" .. (compareEntry.label or "Comparison") .. ")")
+	DrawString(vp.x + halfWidth / 2, vp.y + 2, "CENTER", 16, "VAR", colorCodes.POSITIVE .. (self.primaryBuild.buildName or "Your Build"))
+	DrawString(vp.x + halfWidth + 4 + halfWidth / 2, vp.y + 2, "CENTER", 16, "VAR", colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
 
 	-- Divider (full height including footer)
 	SetDrawColor(0.5, 0.5, 0.5)
@@ -854,10 +1048,19 @@ function CompareTabClass:DrawItems(vp, compareEntry)
 	SetViewport(vp.x, vp.y, vp.width, vp.height)
 	local drawY = 4 - self.scrollY
 
+	-- Get cursor position relative to viewport for hover detection
+	local cursorX, cursorY = GetCursorPos()
+	cursorX = cursorX - vp.x
+	cursorY = cursorY - vp.y
+	local hoverItem = nil
+	local hoverX, hoverY = 0, 0
+	local hoverW, hoverH = 0, 0
+	local hoverItemsTab = nil
+
 	-- Headers
 	SetDrawColor(1, 1, 1)
-	DrawString(10, drawY, "LEFT", 18, "VAR", colorCodes.POSITIVE .. "Your Build")
-	DrawString(colWidth + 10, drawY, "LEFT", 18, "VAR", colorCodes.WARNING .. "Compare Build")
+	DrawString(10, drawY, "LEFT", 18, "VAR", colorCodes.POSITIVE .. (self.primaryBuild.buildName or "Your Build"))
+	DrawString(colWidth + 10, drawY, "LEFT", 18, "VAR", colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
 	drawY = drawY + 24
 
 	for _, slotName in ipairs(baseSlots) do
@@ -901,6 +1104,28 @@ function CompareTabClass:DrawItems(vp, compareEntry)
 		DrawString(20, drawY, "LEFT", 16, "VAR", pColor .. pName)
 		DrawString(colWidth + 20, drawY, "LEFT", 16, "VAR", cColor .. cName)
 
+		-- Check hover on primary item (left column)
+		if pItem and cursorX >= 10 and cursorX < colWidth
+		   and cursorY >= drawY and cursorY < drawY + 18 then
+			hoverItem = pItem
+			hoverX = 20
+			hoverY = drawY
+			hoverW = colWidth - 30
+			hoverH = 18
+			hoverItemsTab = self.primaryBuild.itemsTab
+		end
+
+		-- Check hover on compare item (right column)
+		if cItem and cursorX >= colWidth and cursorX < vp.width
+		   and cursorY >= drawY and cursorY < drawY + 18 then
+			hoverItem = cItem
+			hoverX = colWidth + 20
+			hoverY = drawY
+			hoverW = colWidth - 30
+			hoverH = 18
+			hoverItemsTab = compareEntry.itemsTab
+		end
+
 		-- Show diff indicator
 		local isSame = pItem and cItem and pItem.name == cItem.name
 		local diffLabel = ""
@@ -920,6 +1145,15 @@ function CompareTabClass:DrawItems(vp, compareEntry)
 		drawY = drawY + 20
 	end
 
+	-- Draw item tooltip on hover (on top of everything)
+	if hoverItem and hoverItemsTab then
+		self.itemTooltip:Clear()
+		hoverItemsTab:AddItemTooltip(self.itemTooltip, hoverItem, nil)
+		SetDrawLayer(nil, 100)
+		self.itemTooltip:Draw(hoverX, hoverY, hoverW, hoverH, vp)
+		SetDrawLayer(nil, 0)
+	end
+
 	SetViewport()
 end
 
@@ -935,25 +1169,62 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 
 	-- Headers
 	SetDrawColor(1, 1, 1)
-	DrawString(10, drawY, "LEFT", 18, "VAR", colorCodes.POSITIVE .. "Your Build - Socket Groups")
-	DrawString(colWidth + 10, drawY, "LEFT", 18, "VAR", colorCodes.WARNING .. "Compare Build - Socket Groups")
+	DrawString(10, drawY, "LEFT", 18, "VAR", colorCodes.POSITIVE .. (self.primaryBuild.buildName or "Your Build") .. " - Socket Groups")
+	DrawString(colWidth + 10, drawY, "LEFT", 18, "VAR", colorCodes.WARNING .. (compareEntry.label or "Compare Build") .. " - Socket Groups")
 	drawY = drawY + 24
 
 	-- Get socket groups from both builds
 	local pGroups = self.primaryBuild.skillsTab and self.primaryBuild.skillsTab.socketGroupList or {}
 	local cGroups = compareEntry.skillsTab and compareEntry.skillsTab.socketGroupList or {}
 
-	-- Draw primary build groups
-	local maxGroups = m_max(#pGroups, #cGroups)
-	for i = 1, maxGroups do
+	-- Helper: get the main (non-support) skill name from a socket group
+	local function getMainSkillName(group)
+		for _, gem in ipairs(group.gemList or {}) do
+			if gem.grantedEffect and not gem.grantedEffect.support then
+				return gem.grantedEffect.name
+			end
+		end
+		return group.displayLabel or group.label
+	end
+
+	-- Build lookup: main skill name → compare group index
+	local cNameToIndex = {}
+	for i, group in ipairs(cGroups) do
+		local name = getMainSkillName(group)
+		if name and not cNameToIndex[name] then
+			cNameToIndex[name] = i
+		end
+	end
+
+	-- Match primary groups to compare groups by main skill name
+	local renderPairs = {}
+	local cMatched = {}
+	for i, group in ipairs(pGroups) do
+		local name = getMainSkillName(group)
+		if name and cNameToIndex[name] and not cMatched[cNameToIndex[name]] then
+			t_insert(renderPairs, { pIdx = i, cIdx = cNameToIndex[name] })
+			cMatched[cNameToIndex[name]] = true
+		else
+			t_insert(renderPairs, { pIdx = i, cIdx = nil })
+		end
+	end
+	-- Add unmatched compare groups
+	for i = 1, #cGroups do
+		if not cMatched[i] then
+			t_insert(renderPairs, { pIdx = nil, cIdx = i })
+		end
+	end
+
+	-- Draw matched pairs
+	for _, pair in ipairs(renderPairs) do
 		SetDrawColor(0.3, 0.3, 0.3)
 		DrawImage(nil, 4, drawY, vp.width - 8, 1)
 		drawY = drawY + 2
 
-		-- Primary group
-		local pGroup = pGroups[i]
+		-- Primary group (left side)
+		local pGroup = pair.pIdx and pGroups[pair.pIdx]
 		if pGroup then
-			local groupLabel = pGroup.displayLabel or pGroup.label or ("Group " .. i)
+			local groupLabel = pGroup.displayLabel or pGroup.label or ("Group " .. pair.pIdx)
 			if pGroup.slot then
 				groupLabel = groupLabel .. " (" .. pGroup.slot .. ")"
 			end
@@ -968,10 +1239,10 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 			end
 		end
 
-		-- Compare group
-		local cGroup = cGroups[i]
+		-- Compare group (right side)
+		local cGroup = pair.cIdx and cGroups[pair.cIdx]
 		if cGroup then
-			local groupLabel = cGroup.displayLabel or cGroup.label or ("Group " .. i)
+			local groupLabel = cGroup.displayLabel or cGroup.label or ("Group " .. pair.cIdx)
 			if cGroup.slot then
 				groupLabel = groupLabel .. " (" .. cGroup.slot .. ")"
 			end
@@ -1021,8 +1292,8 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 
 	SetDrawColor(1, 1, 1)
 	DrawString(col1, drawY, "LEFT", headerHeight, "VAR", "^7Stat")
-	DrawString(col2, drawY, "LEFT", headerHeight, "VAR", colorCodes.POSITIVE .. "Your Build")
-	DrawString(col3, drawY, "LEFT", headerHeight, "VAR", colorCodes.WARNING .. "Compare")
+	DrawString(col2, drawY, "LEFT", headerHeight, "VAR", colorCodes.POSITIVE .. (self.primaryBuild.buildName or "Your Build"))
+	DrawString(col3, drawY, "LEFT", headerHeight, "VAR", colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
 	DrawString(col4, drawY, "LEFT", headerHeight, "VAR", "^7Difference")
 	drawY = drawY + headerHeight + 4
 
@@ -1097,8 +1368,8 @@ function CompareTabClass:DrawConfig(vp, compareEntry)
 
 	SetDrawColor(1, 1, 1)
 	DrawString(col1, drawY, "LEFT", headerHeight, "VAR", "^7Configuration Option")
-	DrawString(col2, drawY, "LEFT", headerHeight, "VAR", colorCodes.POSITIVE .. "Your Build")
-	DrawString(col3, drawY, "LEFT", headerHeight, "VAR", colorCodes.WARNING .. "Compare Build")
+	DrawString(col2, drawY, "LEFT", headerHeight, "VAR", colorCodes.POSITIVE .. (self.primaryBuild.buildName or "Your Build"))
+	DrawString(col3, drawY, "LEFT", headerHeight, "VAR", colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
 	drawY = drawY + headerHeight + 4
 
 	SetDrawColor(0.5, 0.5, 0.5)
