@@ -535,6 +535,7 @@ Crackling Lance                              		----		CracklingLance
 Crackling Lance of Branching                 		----		CracklingLanceAltX
 Crackling Lance of Disintegration            		----		CracklingLanceAltY
 Creeping Frost                               		----		CreepingFrost
+Creeping Frost of Floes                      		----		CreepingFrostAltX
 Damage Infusion                              		----		DamageInfusion
 Dark Pact                                    		----		DarkPact
 Dark Pact of Trarthus                        		----		DarkPactAltX
@@ -583,6 +584,7 @@ Frost Bomb of Forthcoming                    		----		FrostBombAltY
 Frost Bomb of Instability                    		----		FrostBombAltX
 Frost Shield                                 		----		FrostShield
 Frost Wall                                   		----		FrostWall
+Frost Wall of Encroachment                   		----		FrostWallAltX
 Frostbite                                    		----		Frostbite
 Frostblink                                   		----		Frostblink
 Frostblink of Wintry Blast                   		----		FrostblinkAltX
@@ -615,6 +617,7 @@ Kinetic Blast of Clustering                  		----		KineticBlastAltX
 Kinetic Bolt                                 		----		KineticBolt
 Kinetic Bolt of Fragmentation                		----		KineticBoltAltX
 Kinetic Fusillade                            		----		KineticFusillade
+Kinetic Fusillade of Detonation              		----		KineticFusilladeAltX
 Kinetic Rain                                 		----		KineticRain	KineticRainKineticInstability
 Kinetic Rain of Impact                       		----		KineticRainAltX
 Lightning Conduit                            		----		LightningConduit
@@ -632,6 +635,7 @@ Lightning Warp                               		----		LightningWarp
 Malevolence                                  		----		Malevolence
 Manabond                                     		----		Manabond
 Orb of Storms                                		----		OrbOfStorms
+Orb of Storms of Squalls                     		----		OrbOfStormsAltX
 Overcharged Sinews                           		----		GraftSkillEshJoltBuff
 Penance Brand                                		----		PenanceBrand
 Penance Brand of Conduction                  		----		PenanceBrandAltY
@@ -658,8 +662,10 @@ Scorching Ray                                		----		ScorchingRay
 Scorching Ray of Immolation                  		----		ScorchingRayAltX
 Shock Nova                                   		----		NewShockNova
 Shock Nova                                   		----		ShockNova
+Shock Nova of Procession                     		----		ShockNovaAltX
 Sigil of Power                               		----		SigilOfPower
 Siphoning Trap                               		----		SiphoningTrap
+Siphoning Trap of Pain                       		----		SiphoningTrapAltX
 Somatic Shell                                		----		SomaticShell
 Soul Link                                    		----		SoulLink
 Soulrend                                     		----		Soulrend
@@ -673,6 +679,7 @@ Spirit Offering                              		----		SpiritOffering
 Storm Brand                                  		----		StormBrand
 Storm Brand of Indecision                    		----		StormBrandAltX
 Storm Burst                                  		----		StormBurst
+Storm Burst of Repulsion                     		----		StormBurstAltX
 Storm Call                                   		----		StormCall
 Storm Call of Trarthus                       		----		StormCallAltX
 Stormbind                                    		----		Stormbind	RuneBlast
