@@ -386,21 +386,6 @@ Adds (60-80) to (150-180) Physical Damage
 {variant:3}Each Rage also grants +1% to Damage over Time Multiplier for Bleeding while wielding an Axe
 {variant:4}Each Rage also grants +2% to Damage over Time Multiplier for Bleeding while wielding an Axe
 ]],[[
-Skysunder
-Exquisite Blade
-League: Mirage
-Source: Obtained by using a Coin of Restoration on Fleshrender
-Implicits: 1
-+50% to global critical strike chance
-(130-160)% increased Physical Damage
-+(20-40)% to Damage over Time Multiplier
-(20-40)% increased Critical Strike Chance
-100% of Physical Damage Converted to Fire Damage
-Ignites you cause are reflected back to you
-50% less Duration of Ignites you inflict
-Ignites you inflict with this weapon spread to other Enemies within 2.8 metres
-Unaffected by Ignite
-]],[[
 The Rippling Thoughts
 Legion Sword
 League: Harbinger
