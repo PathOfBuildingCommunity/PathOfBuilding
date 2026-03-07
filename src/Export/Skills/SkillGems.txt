@@ -187,7 +187,6 @@ Damage on Full Life Support                  		----		SupportDamageOnFullLife
 Divine Blessing Support                      		----		SupportDivineBlessing
 Divine Sentinel Support                      		----		SupportDivineSentinel
 Earthbreaker Support                         		----		SupportEarthbreaker
-Edify Support                                		----		SupportEdify
 Elemental Damage with Attacks Support        		----		SupportElementalDamageWithAttacks
 Empower Support                              		----		SupportEmpower
 Endurance Charge on Melee Stun Support       		----		SupportEnduranceChargeOnMeleeStun
@@ -487,7 +486,6 @@ Ice Bite Support                             		----		SupportIceBite
 Impale Support                               		----		SupportImpale
 Lesser Multiple Projectiles Support          		----		SupportLesserMultipleProjectiles
 Locus Mine Support                           		----		SupportLocusMine
-Magnetism Support                            		----		SupportMagnetism
 Mana Leech Support                           		----		SupportManaLeech
 Manaforged Arrows Support                    		----		SupportManaforgedArrows
 Mark On Hit Support                          		----		SupportMarkOnHit
@@ -802,7 +800,6 @@ Feeding Frenzy Support                       		----		SupportFeedingFrenzy
 Focused Channelling Support                  		----		SupportFocusedChannelling
 Fresh Meat Support                           		----		SupportFreshMeat
 Frigid Bond Support                          		----		SupportFrigidBond
-Harrowing Throng Support                     		----		SupportHarrowingThrong
 Hex Bloom Support                            		----		SupportHexBloom
 Hextouch Support                             		----		SupportHextouch	SupportCurseOnHitCurse
 High-Impact Mine Support                     		----		SupportHighImpactMine
@@ -841,7 +838,6 @@ Swiftbrand Support                           		----		SupportSwiftbrand
 Trinity Support                              		----		SupportTrinity
 Unbound Ailments Support                     		----		SupportUnboundAilments
 Unleash Support                              		----		SupportUnleash
-Ward Support                                 		----		SupportWard
 
 						--------- Active Other ---------
 Blinding Aura                                		----		BlindingAura
