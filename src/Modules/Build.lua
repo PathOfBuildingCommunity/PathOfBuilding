@@ -319,23 +319,16 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		local oneItem = self.itemsTab and #self.itemsTab.itemSetOrderList == 1
 		local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
 
-		-- *** big block of variables shared across Copy, Delete, and Rename Loadouts
 		-- list for dropdown
 		local existingLoadoutsList = self.controls.buildLoadouts.existingLoadoutsList or {}
 		local selectedLoadoutTitle = existingLoadoutsList[1] or "Default"
 		-- set indices of each type for selected loadout for copy/delete/rename
-		--local selectedLoadout.treeId = { }
-		--local selectedLoadout.itemId, selectedLoadout.itemIndex = { }, { } -- index needed for delete loadout
-		--local selectedLoadout.skillId, selectedLoadout.skillIndex = { }, { }
-		--local selectedLoadout.configId, selectedLoadout.configIndex = { }, { }
-
 		local selectedLoadout = { }
 		selectedLoadout.treeId = { }
 		selectedLoadout.itemId, selectedLoadout.itemIndex = { }, { } -- index needed for delete loadout
 		selectedLoadout.skillId, selectedLoadout.skillIndex = { }, { }
 		selectedLoadout.configId, selectedLoadout.configIndex = { }, { }
 		local loadoutTitleOrIdentifier = ""
-		-- ***
 
 		local function setSelectedLoadout(title)
 			selectedLoadout.treeId, loadoutTitleOrIdentifier = findNamedSetId(self.treeTab:GetSpecList(), title, self.treeListSpecialLinks)
