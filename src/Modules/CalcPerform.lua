@@ -621,6 +621,7 @@ local function doActorMisc(env, actor)
 			local increasedDuration = skillModList:Sum("INC", nil, "FortifyDuration")
 			output.MaximumFortification = maxStacks
 			output.MinimumFortification = minStacks
+			output.RemovableFortification = m_min(maxStacks - minStacks, (modDB:Override(nil, "FortificationStacks") or maxStacks) - minStacks)
 			output.FortificationStacks = stacks
 			output.FortificationStacksOver20 = m_min(m_max(0, stacks - 20), maxStacks - 20)
 			output.FortifyDuration = (skillModList:Override(nil, "FortifyDuration") or data.misc.FortifyBaseDuration) * (1 + increasedDuration / 100)
@@ -887,7 +888,8 @@ local function doActorMisc(env, actor)
 		end
 		if modDB:Flag(nil, "Condition:CanHaveSoulEater") then
 			local max = modDB:Override(nil, "SoulEaterMax") or modDB:Sum("BASE", nil, "SoulEaterMax")
-			modDB:NewMod("Multiplier:SoulEater", "BASE", 1, "Base", { type = "Multiplier", var = "SoulEaterStack", limit = max })
+			modDB:NewMod("Speed", "INC", 5, "Base", ModFlag.Attack, { type = "Multiplier", var = "SoulEaterStack", limit = max })
+			modDB:NewMod("Speed", "INC", 5, "Base", ModFlag.Cast, { type = "Multiplier", var = "SoulEaterStack", limit = max })
 		end
 	end
 	

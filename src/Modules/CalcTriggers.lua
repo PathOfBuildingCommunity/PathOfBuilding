@@ -1248,6 +1248,12 @@ local configTable = {
 				useCastRate = true,
 				source = env.player.mainSkill}
 	end,
+	["seize the flesh"] = function(env)
+		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Warcry] and slotMatch(env, skill) end}
+	end,
+	["fissure"] = function(env)
+		return {triggerOnUse = true, triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Slam] and slotMatch(env, skill) end}
+	end,
 	["mark on hit"] = function()
 		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] end}
 	end,
@@ -1332,6 +1338,17 @@ local configTable = {
 	end,
 	["shockwave"] = function(env)
 		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] and slotMatch(env, skill) end}
+	end,
+	["void shockwave"] = function(env)
+		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] and slotMatch(env, skill) end}
+	end,
+	["call the pyre"] = function(env)
+		if env.enemy.modDB:Flag(nil, "Condition:Ignited") then
+			return {triggerChance =  50, -- too much of a pain to pull this from the triggering skill
+				triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] and slotMatch(env, skill) end}
+		else
+			env.player.mainSkill.infoMessage = "Call the Pyre requires Ignited enemies"
+		end
 	end,
 	["manaforged arrows"] = function(env)
 		return {triggerOnUse = true,

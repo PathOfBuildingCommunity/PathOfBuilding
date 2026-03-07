@@ -5495,7 +5495,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			local more = skillModList:More(dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
 			local mult = skillModList:Override(dotTypeCfg, "DotMultiplier") or skillModList:Sum("BASE", dotTypeCfg, "DotMultiplier") + skillModList:Sum("BASE", dotTypeCfg, damageType.."DotMultiplier")
-			local aura = activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillTypes[SkillType.RemoteMined] and calcLib.mod(skillModList, dotTypeCfg, "AuraEffect")
+			local aura = activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillTypes[SkillType.RemoteMined] and not activeSkill.skillTypes[SkillType.Banner] and calcLib.mod(skillModList, dotTypeCfg, "AuraEffect")
 			local total = baseVal * (1 + inc/100) * more * (1 + mult/100) * (aura or 1) * effMult
 			if output[damageType.."Dot"] == 0 or not output[damageType.."Dot"] then
 				output[damageType.."Dot"] = total

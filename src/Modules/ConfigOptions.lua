@@ -298,6 +298,12 @@ return {
 	{ var = "bladestormInSandstorm", type = "check", label = "Are you in a Sandstorm?", ifSkill = "Bladestorm", includeTransfigured = true, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BladestormInSandstorm", "FLAG", true, "Config", { type = "SkillName", skillName = "Bladestorm", includeTransfigured = true })
 	end },
+	{ label = "Bloodsoaked Banner:", ifSkill = "Bloodsoaked Banner" },
+	{ var = "bloodsoakedBannerStages", type = "count", label = "# of Bloodsoaked Banner stacks on enemy", ifSkill = "Bloodsoaked Banner", defaultState = 1, apply = function(val, modList, enemyModList)
+		-- 10 is the maximum amount of Corrupting Blood Stages. modList does not contain skill base mods at this point so hard coding it here is the cleanest way to handle the cap.
+		-- It's set to 9 here with val -1 to so that it defaults to 1 stage and has max 10 stages.
+		modList:NewMod("Multiplier:BloodsoakedBannerStageAfterFirst", "BASE", m_min(val-1, 9), "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ label = "Blood Sacrament:", ifSkill = "Blood Sacrament" },
 	{ var = "bloodSacramentReservationEHP", type = "check", label = "Count Skill Reservation towards eHP?", ifSkill = "Blood Sacrament", tooltip = "Use this option to disable the skill reservation factoring into eHP calculations",apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BloodSacramentReservationEHP", "FLAG", true, "Config")
@@ -361,6 +367,31 @@ return {
 	{ label = "Dark Pact:", ifSkill = "Dark Pact" },
 	{ var = "darkPactSkeletonLife", type = "count", label = "Skeleton ^xE05030Life:", ifSkill = "Dark Pact", tooltip = "Sets the maximum ^xE05030Life ^7of the Skeleton that is being targeted.", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "skeletonLife", value = val }, "Config", { type = "SkillName", skillName = "Dark Pact" })
+	end },
+	{ label = "Divine Sentinel Auras:", ifSkill = "Divine Sentinel" },
+	{ var = "divineSentinelPhysAsFire", type = "check", label = "Phys as ^xB97123Fire", ifSkill = "Divine Sentinel", tooltip = "Grants your Sentinel Minion as Aura that grants\n\tGain 15% of Physical Damage as Extra ^xB97123Fire ^7Damage", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:DivineSentinelPhysAsFire", "FLAG", true, "Config")
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:DivineSentinelPhysAsFire", "FLAG", true, "Config") })
+	end },
+	{ var = "divineSentinelPhysAsLightning", type = "check", label = "Phys as ^xADAA47Lightning", ifSkill = "Divine Sentinel", tooltip = "Grants your Sentinel Minion as Aura that grants\n\tGain 15% of Physical Damage as Extra ^xADAA47Lightning ^7Damage", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:DivineSentinelPhysAsLightning", "FLAG", true, "Config")
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:DivineSentinelPhysAsLightning", "FLAG", true, "Config") })
+	end },
+	{ var = "divineSentinelRegenLife", type = "check", label = "Regen ^xE05030Life", ifSkill = "Divine Sentinel", tooltip = "Grants your Sentinel Minion as Aura that grants\n\tRegenerate 1.5% of ^xE05030Life ^7per second", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:DivineSentinelRegenLife", "FLAG", true, "Config")
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:DivineSentinelRegenLife", "FLAG", true, "Config") })
+	end },
+	{ var = "divineSentinelRegenMana", type = "check", label = "^x7070FFMana ^7Regeneration Rate", ifSkill = "Divine Sentinel", tooltip = "Grants your Sentinel Minion as Aura that grants\n\t30% increased ^x7070FFMana ^7Regeneration Rate", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:DivineSentinelRegenMana", "FLAG", true, "Config")
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:DivineSentinelRegenMana", "FLAG", true, "Config") })
+	end },
+	{ var = "divineSentinelChaosResistance", type = "check", label = "^xD02090Chaos ^7Resistance", ifSkill = "Divine Sentinel", tooltip = "Grants your Sentinel Minion as Aura that grants\n\t+23% to ^xD02090Chaos ^7Resistance", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:DivineSentinelChaosResistance", "FLAG", true, "Config")
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:DivineSentinelChaosResistance", "FLAG", true, "Config") })
+	end },
+	{ var = "divineSentinelSelfCurseEffect", type = "check", label = "Curse Effect on Self", ifSkill = "Divine Sentinel", tooltip = "Grants your Sentinel Minion as Aura that grants\n\t50% reduced Effect of Curses on you", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:DivineSentinelSelfCurseEffect", "FLAG", true, "Config")
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:DivineSentinelSelfCurseEffect", "FLAG", true, "Config") })
 	end },
 	{ label = "Doom Blast:", ifSkill = "Doom Blast" },
 	{ var = "doomBlastSource", type = "list", label = "Doom Blast Trigger Source:", ifSkill = "Doom Blast", list = {{val="expiration",label="Curse Expiration"},{val="replacement",label="Curse Replacement"},{val="vixen",label="Vixen's Curse"},{val="hexblast",label="Hexblast Replacement"}}, defaultIndex = 3},
@@ -905,6 +936,10 @@ Huge sets the radius to 11.
 	end },
 	{ var = "multiplierSoulEater", type = "count", label = "# of Soul Eater Stacks:", ifFlag = "Condition:CanHaveSoulEater", tooltip = "Soul Eater grants the following, up to a base of 45 stacks:\n\t5% increased Attack Speed\n\t5% increased Cast Speed\n\t1% increased character size per stack.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:SoulEaterStack", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "multiplierMinionSoulEater", type = "count", label = "# of Minion Soul Eater Stacks:", ifFlag = "Condition:MinionCanHaveSoulEater", tooltip = "Soul Eater grants the following, up to a base of 45 stacks:\n\t5% increased Attack Speed\n\t5% increased Cast Speed\n\t1% increased character size per stack.", apply = function(val, modList, enemyModList)
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:CanHaveSoulEater", "FLAG", true, "Config") }, "Config")
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Multiplier:SoulEaterStack", "BASE", val, "Config") }, "Config")
 	end },
 	{ var = "conditionFocused", type = "check", label = "Are you Focused?", ifCond = "Focused", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Focused", "FLAG", true, "Config", { type = "Condition", var = "Combat" })

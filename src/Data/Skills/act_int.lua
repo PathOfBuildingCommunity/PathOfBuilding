@@ -19345,9 +19345,6 @@ skills["SummonHolyRelic"] = {
 		"HolyLivingRelic",
 	},
 	statMap = {
-		["base_number_of_relics_allowed"] = {
-			mod("ActiveHolyRelicLimit", "BASE", nil)
-		},
 		["holy_relic_nova_life_regeneration_rate_per_minute"] = {
 			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Holy Relic's Boon", effectCond = "HolyRelicBoonActive" }),
 			div = 60,
@@ -19435,11 +19432,6 @@ skills["SummonHolyRelicAltX"] = {
 	castTime = 1,
 	minionList = {
 		"HolyLivingRelic",
-	},
-	statMap = {
-		["base_number_of_relics_allowed"] = {
-			mod("ActiveHolyRelicLimit", "BASE", nil)
-		},
 	},
 	baseFlags = {
 		spell = true,

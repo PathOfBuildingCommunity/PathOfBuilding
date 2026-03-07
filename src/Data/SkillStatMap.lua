@@ -524,6 +524,9 @@ return {
 	mod("CooldownRecovery", "BASE", nil),
 	div = 1000,
 },
+["warcry_cooldown_speed_+%"] = {
+	mod("CooldownRecovery", "INC", nil, 0, KeywordFlag.Warcry),
+},
 ["additional_weapon_base_attack_time_ms"] = {
 	mod("Speed", "BASE", nil, ModFlag.Attack),
 	div = 1000,
@@ -1905,6 +1908,9 @@ return {
 ["base_minion_duration_+%"] = {
 	mod("Duration", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.CreatesMinion }),
 },
+["minion_area_of_effect_+%"] = {
+	mod("MinionModifier", "LIST", { mod = mod("AreaOfEffect", "INC", nil) }),
+},
 ["minion_skill_area_of_effect_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("AreaOfEffect", "INC", nil) }),
 },
@@ -1948,6 +1954,12 @@ return {
 ["base_number_of_golems_allowed"] = {
 	mod("ActiveGolemLimit", "BASE", nil),
 },
+["base_number_of_reapers_allowed"] = {
+	mod("ActiveReaperLimit", "BASE", nil)
+},
+["base_number_of_relics_allowed"] = {
+	mod("ActiveHolyRelicLimit", "BASE", nil)
+},
 ["base_number_of_arbalists"] = {
 	mod("ActiveArbalistLimit", "BASE", nil),
 },
@@ -1968,6 +1980,9 @@ return {
 },
 ["base_number_of_void_spawns_allowed"] = {
 	mod("ActiveVoidSpawnLimit", "BASE", nil),
+},
+["base_max_number_of_absolution_sentinels"] = {
+	mod("ActiveSentinelOfAbsolutionLimit", "BASE", nil),
 },
 ["base_number_of_living_lightning_allowed"] = {
 	mod("ActiveLivingLightningLimit", "BASE", nil),

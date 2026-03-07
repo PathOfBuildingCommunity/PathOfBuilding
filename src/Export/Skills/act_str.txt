@@ -438,7 +438,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill DefianceBanner
-#flags spell area duration aura banner
+#flags spell area duration aura
 	statMap = {
 		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
@@ -523,7 +523,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill DreadBanner
-#flags spell
+#flags spell area duration aura
 	statMap = {
 		["recover_X_life_on_block"] = {
 			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
@@ -2366,7 +2366,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill WarBanner
-#flags spell
+#flags spell area duration aura
 	statMap = {
 		["accuracy_rating_+%"] = {
 			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
