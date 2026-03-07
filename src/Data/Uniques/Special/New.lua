@@ -18,7 +18,7 @@ You have Resistance Shrine Buff while affected by no Flasks
 Skysunder
 Exquisite Blade
 League: Mirage
-Source: Obtained by using a Coin of Restoration on Fleshrender
+Source: Obtained by using a Coin of Restoration on unique{Fleshrender}
 Implicits: 1
 +50% to global critical strike chance
 (130-160)% increased Physical Damage
