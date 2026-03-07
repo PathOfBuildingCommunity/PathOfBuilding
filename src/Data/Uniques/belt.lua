@@ -33,9 +33,9 @@ Implicits: 1
 {variant:2,3}{tags:defences}+(75-80) to maximum Energy Shield
 {tags:resistance}+(10-15)% to all Elemental Resistances
 You have Phasing if Energy Shield Recharge has started Recently
+{variant:1,2}{tags:defences}6% increased Evasion Rating while Phasing
+{variant:3}{tags:defences}30% increased Evasion Rating while Phasing
 {tags:speed}10% increased Movement Speed while Phasing
-{variant:1,2}6% increased Evasion while Phasing
-{variant:3}30% increased Evasion while Phasing
 ]],[[
 Auxium
 {variant:1,2}Chain Belt
@@ -109,10 +109,7 @@ Implicits: 1
 (20-30)% increased Stun Duration on Enemies
 Nearby Enemies are Crushed while you have at least 25 Rage
 {variant:1}+20 to Maximum Rage
-{variant:1}+20 to Maximum Rage
 {variant:2}+10 to Maximum Rage
-{variant:1}{tags:physical_damage}(4-6)% increased Physical Damage per 10 Rage
-{vaariant:1}{tags:physical_damage}(4-6)% increased Physical Damage per 10 Rage
 ]],[[
 Belt of the Deceiver
 Heavy Belt
@@ -121,7 +118,7 @@ Variant: Current
 LevelReq: 20
 Implicits: 1
 {tags:attribute}+(25-35) to Strength
-{variant:1}10% increased Chance to Block Attack and Spell Damage
+{variant:1}10% reduced Chance to Block Attack and Spell Damage
 {tags:physical_damage}(15-25)% increased Global Physical Damage
 {tags:critical}You take 30% reduced Extra Damage from Critical Strikes
 {tags:resource}+(30-40) to maximum Life
@@ -157,12 +154,6 @@ Attacks cannot Hit you
 Attacks against you always Hit
 Your Damage with Hits is Lucky
 Damage of Hits against you is Lucky
-Your Hits are always Critical Strikes
-Hits against you are always Critical Strikes
-Attacks cannot Hit you
-Attacks against you always Hit
-Your Damage with Hits is Lucky
-Damage of Hits against you is Lucky
 ]],[[
 Chains of Emancipation
 Chain Belt
@@ -191,9 +182,9 @@ Implicits: 1
 {variant:2}{tags:attribute}+(15-20) to all Attributes
 {variant:1}(20-25)% increased Damage
 {tags:speed}(5-10)% increased Movement Speed
+Damage of Enemies Hitting you is Unlucky while you are Cursed with Vulnerability
 {variant:2}{tags:resource}You count as on Full Life while you are Cursed with Vulnerability
 {tags:caster}You are Cursed with Vulnerability
-Damage from Enemies Hitting you is Unlucky while you are Cursed with Vulnerability
 ]],[[
 Coward's Legacy
 Chain Belt
@@ -232,12 +223,9 @@ Variant: Current
 Implicits: 1
 Has 1 Abyssal Socket
 Has 1 Abyssal Socket
-Has 1 Abyssal Socket
-{variant:3}(50-100)% increased Effect of Socketed Abyss Jewels
-{variant:1}50% increased Effect of Socketed Abyss Jewels
-{variant:2}75% increased Eal Socket
 {variant:1}50% increased Effect of Socketed Abyss Jewels
 {variant:2}75% increased Effect of Socketed Abyss Jewels
+{variant:3}(50-100)% increased Effect of Socketed Abyss Jewels
 ]],[[
 Doryani's Invitation
 Heavy Belt
@@ -265,13 +253,13 @@ Implicits: 1
 {variant:6}{tags:resource}0.6% of Fire Damage Leeched as Life
 {variant:7}{tags:resource}0.6% of Cold Damage Leeched as Life
 {variant:8}{tags:resource}0.6% of Lightning Damage Leeched as Life
+{variant:2}10% chance to Ignite during any Flask Effect
 {variant:6}(20-30)% chance to Ignite during any Flask Effect
+{variant:3}10% chance to Freeze during any Flask Effect
 {variant:7}(20-30)% chance to Freeze during any Flask Effect
+{variant:4}10% chance to Shock during any Flask Effect
 {variant:8}(20-30)% chance to Shock during any Flask Effect
 {variant:1,5}25% reduced Enemy Stun Threshold during any Flask Effect
-{variant:2}10% chance to Ignite during any Flask Effect
-{variant:3}10% chance to Freeze during any Flask Effect
-{variant:4}10% chance to Shock during any Flask Effect
 ]],[[
 The Druggery
 Cloth Belt
@@ -296,6 +284,7 @@ Implicits: 1
 {tags:resource}+(70-85) to maximum Life
 {tags:resistance}+(20-40)% to Fire Resistance
 {tags:resistance}+(20-40)% to Cold Resistance
+{variant:1}{tags:resource,attack}0.6% of Attack Damage Leeched as Life against Chilled Enemies
 {variant:2}{tags:resource,attack}1% of Attack Damage Leeched as Life against Chilled Enemies
 {variant:1}{tags:elemental_damage,attack}Ignites you inflict with Attacks deal Damage 20% faster
 {variant:2}{tags:elemental_damage,attack}Ignites you inflict with Attacks deal Damage 35% faster
@@ -327,10 +316,6 @@ Implicits: 1
 ]],[[
 The Flow Untethered
 Cloth Belt
-Varianased Mana Regeneration Rate during any Flask Effect
-]],[[
-The Flow Untethered
-Cloth Belt
 Variant: Pre 3.16.0
 Variant: Current
 League: Harbinger
@@ -341,27 +326,28 @@ Implicits: 1
 (15-25)% increased Stun and Block Recovery
 Grants Summon Harbinger of Time Skill
 {variant:1}{tags:resource,defences}(15-20)% increased Energy Shield Recovery rate
+{variant:1}{tags:resource,defences}(15-20)% increased Life Recovery rate
 {variant:2}{tags:resource,defences}(10-15)% increased Energy Shield Recovery rate
 {variant:2}{tags:resource,defences}(10-15)% increased Life Recovery rate
 {tags:attack,caster,speed}(10-15)% increased Attack and Cast Speed
 (15-20)% increased Cooldown Recovery Rate
 Debuffs on you expire (15-20)% faster
-{variant:1}{tags:life}(15-20)% increased Life Recovery rate
-{variant:2}{tags:life}(10-15)% increased Life Recovery rate
 ]],[[
 The Torrent's Reclamation
 Cloth Belt
-League: Harvest
-Source: Upgraded from unique{The Flow Untethered} via currency{Time-light Scroll}
+Variant: Pre 3.16.0
+Variant: Current
 LevelReq: 60
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 Grants Summon Greater Harbinger of Time Skill
+{variant:1}{tags:resource,defences}(15-20)% increased Energy Shield Recovery rate
+{variant:1}{tags:resource,defences}(15-20)% increased Life Recovery rate
+{variant:2}{tags:resource,defences}(10-15)% increased Energy Shield Recovery rate
+{variant:2}{tags:resource,defences}(10-15)% increased Life Recovery rate
 {tags:attack,caster,speed}(10-15)% increased Attack and Cast Speed
 (15-20)% increased Cooldown Recovery Rate
 Debuffs on you expire (15-20)% faster
-{tags:jewellery_defense}(15-20)% increased Energy Shield Recovery rate
-{tags:life}(15-20)% increased Life Recovery rate
 ]],[[
 Gluttony
 Leather Belt
@@ -370,7 +356,7 @@ Variant: Current
 LevelReq: 48
 Implicits: 1
 {tags:resource}+(25-40) to maximum Life
-{variant:1}Trigger Level 30 Poacher's Mark when you Hit a Rare or Unique Enemy
+{variant:1}{tags:caster}Trigger Level 30 Poacher's Mark when you Hit a Rare or Unique Enemy and have no Mark
 {tags:resource}+(60-80) to maximum Life
 {variant:1}Culling Strike against Enemies Cursed with Poacher's Mark
 {variant:2}You have Culling Strike against Cursed Enemies
@@ -388,7 +374,7 @@ Source: Drops from unique{The Maven}
 LevelReq: 68
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
-{tags:jewellery_defense}+(60-70) to Energy Shield
+{tags:defences}+(60-70) to maximum Energy Shield
 {tags:resource}(16-20)% increased maximum Mana
 {tags:resistance}+(40-60)% to Lightning Resistance
 {variant:2}+1 to Maximum Power Charges
@@ -449,30 +435,30 @@ Variant: Lucky Crit Chance while Focused (Current)
 LevelReq: 60
 Implicits: 1
 {tags:resource}+(25-40) to maximum Life
-{variant:5}{tags:attribute}+(6-17) to Strength and Dexterity
-{variant:14}{tags:attribute}+(31-35) to Strength and Dexterity
-{variant:7}{tags:attribute}+(6-17) to Strength and Intelligence
-{variant:16}{tags:attribute}+(31-35) to Strength and Intelligence
-{variant:6}{tags:attribute}+(6-17) to Dexterity and Intelligence
-{variant:15}{tags:attribute}+(31-35) to Dexterity and Intelligence
 {tags:resistance}+(30-40)% to Cold Resistance
-{variant:8}{tags:speed}(7-12)% increased Trap Throwing Speed
-{variant:17}{tags:speed}(14-16)% increased Trap Throwing Speed
 Chill nearby Enemies when you Focus, causing 30% reduced Action Speed
-{variant:2}{tags:resistance}+(8-15)% to Fire and Chaos Resistances
-{variant:11}{tags:resistance}+(16-20)% to Fire and Chaos Resistances
 {variant:1,2,3,4,5,6,7,8,9,10}Focus has (15-25)% increased Cooldown Recovery Rate
 {variant:11,12,13,14,15,16,17,18,19}Focus has (30-50)% increased Cooldown Recovery Rate
-{variant:19}Focus has (5-8)% increased Cooldown Recovery Rate
 (50-70)% increased Damage with Hits and Ailments against Chilled Enemies
 {variant:1}{crafted}{tags:life}Regenerate 2% of Life per second during any Flask Effect
-{variant:3}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
-{variant:4}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
-{variant:9}{crafted}{tags:jewellery_defense}Regenerate 120 Energy Shield per second while a Rare or Unique Enemy is Nearby
+{variant:2}{crafted}{tags:resistance}+(8-15)% to Fire and Chaos Resistances
+{variant:3}{crafted}{tags:resistance}+(8-15)% to Cold and Chaos Resistances
+{variant:4}{crafted}{tags:resistance}+(8-15)% to Lightning and Chaos Resistances
+{variant:5}{crafted}{tags:attribute}+(6-17) to Strength and Dexterity
+{variant:6}{crafted}{tags:attribute}+(6-17) to Dexterity and Intelligence
+{variant:7}{crafted}{tags:attribute}+(6-17) to Strength and Intelligence
+{variant:8}{crafted}{tags:speed}(7-12)% increased Trap Throwing Speed
+{variant:9}{crafted}{tags:defences}Regenerate 120 Energy Shield per second while a Rare or Unique Enemy is Nearby
 {variant:10,19}{crafted}Your Critical Strike Chance is Lucky while Focused
-{variant:12}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Cold and Chaos Resistances
-{variant:13}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Lightning and Chaos Resistances
-{variant:18}{crafted}{tags:jewellery_defense}Regenerate 200 Energy Shield per second while a Rare or Unique Enemy is Nearby
+{variant:11}{crafted}{tags:resistance}+(16-20)% to Fire and Chaos Resistances
+{variant:12}{crafted}{tags:resistance}+(16-20)% to Cold and Chaos Resistances
+{variant:13}{crafted}{tags:resistance}+(16-20)% to Lightning and Chaos Resistances
+{variant:14}{crafted}{tags:attribute}+(31-35) to Strength and Dexterity
+{variant:15}{crafted}{tags:attribute}+(31-35) to Dexterity and Intelligence
+{variant:16}{crafted}{tags:attribute}+(31-35) to Strength and Intelligence
+{variant:17}{crafted}{tags:speed}(14-16)% increased Trap Throwing Speed
+{variant:18}{crafted}{tags:defences}Regenerate 200 Energy Shield per second while a Rare or Unique Enemy is Nearby
+{variant:19}{crafted}Focus has (5-8)% increased Cooldown Recovery Rate
 ]],[[
 Immortal Flesh
 Leather Belt
@@ -488,11 +474,11 @@ Implicits: 1
 {variant:4}{tags:resource}Regenerate (200-350) Life per second
 {tags:resource}Regenerate (8-10) Mana per second
 {variant:1}{tags:resistance}-40% to all Elemental Resistances
-{variant:3,4}{tags:resistance}+(15-25)% to all Elemental Resistances
+{variant:3,4}{tags:resistance}-(25-15)% to all Elemental Resistances
+{variant:1}{tags:resistance}-10% to all maximum Resistances
 {variant:2}{tags:resistance}-5% to all maximum Resistances
 {tags:attack}-(50-40) Physical Damage taken from Attack Hits
 {tags:defences}40% increased Armour while not Ignited, Frozen or Shocked
-{variant:1}{tags:jewellery_resistance}-10% to all maximum Resistances
 ]],[[
 Kaom's Binding
 Heavy Belt
@@ -522,7 +508,6 @@ Variant: Current
 LevelReq: 16
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
-{tags:jewellery_attribute}+(40-50) to Stre0-30)% increased Stun Duration on Enemies
 {tags:attribute}+(40-50) to Strength
 {variant:1,2}{tags:physical_damage}(25-40)% increased Global Physical Damage
 {variant:3}{tags:resistance}+(20-25)% to all Elemental Resistances
@@ -565,9 +550,9 @@ Implicits: 1
 {tags:attribute}+(30-50) to Dexterity
 {tags:resistance}+(15-25)% to Fire Resistance
 {tags:resistance}+(15-25)% to Cold Resistance
+Magic Utility Flasks cannot be Used
 Leftmost (2-4) Magic Utility Flasks constantly apply their Flask Effects to you
 Magic Utility Flask Effects cannot be removed
-Magic Utility Flask cannot be Used
 ]],[[
 Maligaro's Restraint
 Chain Belt
@@ -587,8 +572,8 @@ Variant: Current
 Implicits: 1
 {tags:attribute}+(25-35) to Strength
 {tags:attribute}+25 to Strength
-{variant:1}{tags:physical_damage,attack}Adds 10 to 20 Physical Damage to Attacks
-{variant:2}{tags:physical_damage,attack}Adds 5 to 15 Physical Damage to Attacks
+{variant:1}{tags:physical_damage,attack}Adds 5 to 15 Physical Damage to Attacks
+{variant:2}{tags:physical_damage,attack}Adds 10 to 20 Physical Damage to Attacks
 {tags:resource}10% increased maximum Life
 {tags:resistance}+(10-20)% to Cold Resistance
 {tags:resource}25% increased Flask Life Recovery rate
@@ -601,13 +586,15 @@ Implicits: 1
 {tags:resource}+(50-70) to maximum Life
 {tags:resistance}+(20-30)% to Cold Resistance
 Your Minions use your Flasks when summoned
+Minions have (25-40)% reduced Flask Charges used
 Minions have (50-80)% increased Flask Effect Duration
-Minions have (40-25)% reduced Flask Charges used
 ]],[[
 Nevalius Inheritance
 Cloth Belt
 League: Necropolis
 Requires Level 16
+Implicits: 1
+(15-25)% increased Stun and Block Recovery
 {tags:attribute}+(20-30) to Dexterity
 150% increased Flask Effect Duration
 Flasks applied to you have 60% reduced Effect
@@ -629,9 +616,6 @@ Implicits: 1
 {variant:2}+1 to Maximum Frenzy Charges
 Modifiers to Minimum Frenzy Charges instead apply to Minimum Affliction Charges
 Maximum Affliction Charges is equal to Maximum Frenzy Charges
-Gain Affliction Charges instead of Frenzy Charges
-]],[[
-Perandus Blazonis equal to Maximum Frenzy Charges
 Gain Affliction Charges instead of Frenzy Charges
 ]],[[
 Perandus Blazon
@@ -656,8 +640,8 @@ Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:attribute}+(20-40) to Dexterity
 {tags:resource}+(40-60) to maximum Mana
+(7-10)% reduced Flask Charges used
 Non-Unique Utility Flasks you Use apply to Linked Targets
-(10-7)% reduced Flask Charges used
 ]],[[
 Chain of Endurance
 Chain Belt
@@ -677,9 +661,9 @@ Implicits: 1
 {tags:resource}(4-8)% increased maximum Life
 {tags:resistance}+(20-40)% to Cold Resistance
 {tags:attack}1% increased Attack Damage per 200 of the lowest of Armour and Evasion Rating
+{variant:1}Melee Hits which Stun have (14-20)% chance to Fortify
 {variant:2}Melee Hits which Stun Fortify
 You have Onslaught while Fortified
-{variant:1}Melee Hits which Stun have (14-20)% chance to Fortify
 ]],[[
 Prismweave
 Rustic Sash
@@ -695,13 +679,13 @@ Implicits: 1
 {variant:1}{tags:elemental_damage,attack}Adds (2-3) to (5-7) Cold Damage to Attacks
 {variant:2}{tags:elemental_damage,attack}Adds (5-6) to (12-14) Cold Damage to Attacks
 {variant:3}{tags:elemental_damage,attack}Adds (10-12) to (24-28) Cold Damage to Attacks
+{variant:1}{tags:elemental_damage,attack}Adds 1 to (13-17) Lightning Damage to Attacks
+{variant:2}{tags:elemental_damage,attack}Adds 1 to (30-34) Lightning Damage to Attacks
 {variant:3}{tags:elemental_damage,attack}Adds 1 to (60-68) Lightning Damage to Attacks
 {variant:1,2}{tags:resistance}+(6-8)% to all Elemental Resistances
 {variant:3}{tags:resistance}+(6-15)% to all Elemental Resistances
 {tags:elemental_damage,attack}30% increased Elemental Damage with Attack Skills during any Flask Effect
 {variant:1,2}{tags:elemental_damage,attack}10% increased Elemental Damage with Attack Skills
-{variant:1}{tags:jewellery_elemental,attack}Adds 1 to (13-17) Lightning Damage to Attacks
-{variant:2}{tags:jewellery_elemental,attack}Adds 1 to (30-34) Lightning Damage to Attacks
 ]],[[
 Replica Prismweave
 Rustic Sash
@@ -716,18 +700,12 @@ Implicits: 1
 {variant:2}{tags:elemental_damage,caster}Adds (14-16) to (30-32) Fire Damage to Spells
 {variant:1}{tags:elemental_damage,caster}Adds (5-6) to (12-14) Cold Damage to Spells
 {variant:2}{tags:elemental_damage,caster}Adds (10-12) to (24-28) Cold Damage to Spells
+{variant:1}{tags:elemental_damage,caster}Adds 1 to (30-34) Lightning Damage to Spells
 {variant:2}{tags:elemental_damage,caster}Adds 1 to (60-68) Lightning Damage to Spells
 {variant:1}{tags:resistance}+(6-8)% to all Elemental Resistances
 {variant:2}{tags:resistance}+(6-15)% to all Elemental Resistances
 {variant:1}{tags:elemental_damage}10% increased Elemental Damage
 {tags:elemental_damage}30% increased Elemental Damage during any Flask Effect
-{variant:1}{tags:jewellery_elemental,caster}Adds 1 to (30-34) Lightning Damage to Spells
-]],[[
-Pyroshock Clasp
-Leather Belt
-League: Heist
-LevelReq: 43
-Implicits: any Flask Effect
 ]],[[
 Pyroshock Clasp
 Leather Belt
@@ -764,13 +742,13 @@ LevelReq: 20
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
 {tags:attribute}+(20-40) to Strength
+{variant:1}{tags:physical_damage,attack}20% more Maximum Physical Attack Damage
 {variant:2}{tags:physical_damage,attack}(30-40)% more Maximum Physical Attack Damage
+{variant:1}{tags:physical_damage,attack}20% less Minimum Physical Attack Damage
 {variant:2}{tags:physical_damage,attack}(30-40)% less Minimum Physical Attack Damage
 {tags:physical_damage,attack}Adds 1 to (15-20) Physical Damage to Attacks
 {variant:2}{tags:resource}+(80-100) to maximum Life
 {tags:resource}Gain 50 Life when you Stun an Enemy
-{variant:1}{tags:attack,physical}20% less Minimum Physical Attack Damage
-{variant:1}{tags:attack,physical}20% more Maximum Physical Attack Damage
 ]],[[
 Siegebreaker
 Heavy Belt
@@ -826,7 +804,7 @@ Implicits: 1
 {tags:resource}(20-30)% increased Mana Recovery from Flasks
 (20-30)% reduced Flask Effect Duration
 Gain Soul Eater during any Flask Effect
-Lose Souls gained from Soul Eater when you use a Flask
+Lose all Eaten Souls when you use a Flask
 ]],[[
 String of Servitude
 Heavy Belt
@@ -839,11 +817,6 @@ Variant: Cast Speed during Flask Effect
 Variant: Crit Chance during Flask Effect
 Variant: Effect Duration
 Variant: Energy Shield
-Variant: Life
-Variant: Movement Speed during Flask Effect
-Variant: Item Rarity
-Variant: Item Quantity
-Variaeld
 Variant: Life
 Variant: Movement Speed during Flask Effect
 Variant: Item Rarity
@@ -898,7 +871,7 @@ Implicits: 1
 {variant:1}(30-40)% increased Trap Damage
 {variant:1}{tags:resource}20% increased Mana Regeneration Rate
 {tags:resistance}+(20-30)% to Fire Resistance
-{variant:1}80% increased Trap Duration
+{variant:1}80% reduced Trap Duration
 {variant:2}(50-75)% reduced Trap Duration
 25% increased Light Radius
 {variant:2}Skills which Throw Traps throw up to 2 additional Traps
@@ -956,11 +929,10 @@ Implicits: 1
 {variant:2}{tags:resistance}+(20-30)% to Cold Resistance
 {variant:1}{tags:resource,attack}0.4% of Physical Attack Damage Leeched as Life
 {variant:2}{tags:resource,attack}2% of Physical Attack Damage Leeched as Life
-{variant:2}{tags:resource,attack}2% of Physical Attack Damage Leeched as Mana
 {variant:1}{tags:resource,attack}0.4% of Physical Attack Damage Leeched as Mana
+{variant:2}{tags:resource,attack}2% of Physical Attack Damage Leeched as Mana
 {variant:2}{tags:resource}(500-1000)% increased total Recovery per second from Life Leech
 {variant:2}{tags:resource}(500-1000)% increased total Recovery per second from Mana Leech
-{variant:1}{tags:attack,life}0.4% of Physical Attack Damage Leeched a_resistance}+(20-30)% to Cold Resistance
 ]],[[
 Ynda's Stand
 Studded Belt
@@ -997,4 +969,5 @@ Summon Skitterbots also summons a Scorching Skitterbot
 Summoned Skitterbots' Auras affect you as well as Enemies
 (50-75)% increased Effect of Non-Damaging Ailments inflicted by Summoned Skitterbots
 {tags:speed}(15-25)% increased Trap and Mine Throwing Speed
-]]}
+]],
+}

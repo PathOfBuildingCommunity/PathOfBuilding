@@ -33,8 +33,8 @@ IncreasedEvasionRatingUnique__2
 {variant:2,3}IncreasedEnergyShieldUnique__4
 AllResistancesUniqueBelt13
 PhasingOnBeginESRechargeUnique___1
-{variant:1,2}6% increased Evasion while Phasing
-{variant:3}30% increased Evasion while Phasing
+{variant:1,2}ChanceToDodgeAttacksWhilePhasingUnique___1[6,6]
+{variant:3}ChanceToDodgeAttacksWhilePhasingUnique___1
 MovementSpeedWhilePhasedUnique__2
 ]],[[
 Auxium
@@ -108,9 +108,6 @@ IncreasedLifeImplicitBelt1
 AddedPhysicalDamageUnique__9_
 StunDurationImplicitBelt1
 EnemiesCrushedWithRageUnique__1_
-{variant:1}{tags:physical_damage}(4-6)% increased Physical Damage per 10 Rage
-{variant:1}MaximumRageImplicitE1[20,20]
-{vaariant:1}{tags:physical_damage}(4-6)% increased Physical Damage per 10 Rage
 {variant:1}MaximumRageImplicitE1[20,20]
 {variant:2}MaximumRageImplicitE1
 ]],[[
@@ -121,7 +118,7 @@ Variant: Current
 LevelReq: 20
 Implicits: 1
 StrengthImplicitBelt1
-{variant:1}ReducedChanceToBlockUnique__1[10,10]
+{variant:1}ReducedChanceToBlockUnique__1[-10,-10]
 IncreasedPhysicalDamagePercentUniqueBelt13
 ReducedCriticalStrikeDamageTakenUniqueBelt13
 IncreasedLifeUniqueBelt13
@@ -151,12 +148,6 @@ DexterityUnique__1
 IntelligenceUniqueBelt1
 IncreasedLifeUnique__3
 HinekoraButterflyEffectUnique__1
-Your Hits are always Critical Strikes
-Hits against you are always Critical Strikes
-Attacks cannot Hit you
-Attacks against you always Hit
-Your Damage with Hits is Lucky
-Damage of Hits against you is Lucky
 ]],[[
 Chains of Emancipation
 Chain Belt
@@ -185,7 +176,7 @@ IncreasedEnergyShieldImplicitBelt1
 {variant:1}AllAttributesUnique__20[10,15]
 {variant:2}AllAttributesUnique__20
 MovementVelocityUnique__44
-Damage from Enemies Hitting you is Unlucky while you are Cursed with Vulnerability
+EnemiesExtraDamageRollsWhileAffectedByVulnerabilityUnique__1_
 {variant:2}CountOnFullLifeWhileAffectedByVulnerabilityUnique__1
 UniqueSelfCurseVulnerabilityLevel20
 ]],[[
@@ -225,12 +216,9 @@ Variant: Pre 3.21.0
 Variant: Current
 Implicits: 1
 AbyssJewelSocketImplicit
-AbyssJewelSocketImplicit
-{variant:1}50% increased Effect of Socketed Abyss Jewels
-{variant:2}75% increased Eal Socket
-AbyssJewelSocketImplicit
-{variant:1}50% increased Effect of Socketed Abyss Jewels
-{variant:2}75% increased Effect of Socketed Abyss Jewels
+AbyssJewelSocketUnique__3
+{variant:1}AbyssJewelEffectUnique__1[50,50]
+{variant:2}AbyssJewelEffectUnique__1[75,75]
 {variant:3}AbyssJewelEffectUnique__1
 ]],[[
 Doryani's Invitation
@@ -264,11 +252,11 @@ StrengthImplicitBelt1
 {variant:4}LightningDamageLifeLeechPermyriadUniqueBelt9cNew[0.2,0.2]
 {variant:8}LightningDamageLifeLeechPermyriadUniqueBelt9cNew
 {variant:1,5}ReducedStunThresholdWhileUsingFlaskUniqueBelt9d
-{variant:2}10% chance to Ignite during any Flask Effect
+{variant:2}IgniteChanceWhileUsingFlaskUniqueBelt9a[10,10]
 {variant:6}IgniteChanceWhileUsingFlaskUniqueBelt9a
-{variant:3}10% chance to Freeze during any Flask Effect
+{variant:3}FreezeChanceWhileUsingFlaskUniqueBelt9b[10,10]
 {variant:7}FreezeChanceWhileUsingFlaskUniqueBelt9b
-{variant:4}10% chance to Shock during any Flask Effect
+{variant:4}ShockChanceWhileUsingFlaskUniqueBelt9c[10,10]
 {variant:8}ShockChanceWhileUsingFlaskUniqueBelt9c
 ]],[[
 The Druggery
@@ -294,7 +282,7 @@ StrengthImplicitBelt1
 IncreasedLifeFireResistUniqueBelt14
 FireResistUniqueBelt14
 ColdResistUniqueBelt14
-{variant:1}LifeLeechFromAttacksAgainstChilledEnemiesUniqueBelt14[0.6,0.6]
+{variant:1}LifeLeechPermyriadFromAttacksAgainstChilledEnemiesUniqueBelt14[60,60]
 {variant:2}LifeLeechPermyriadFromAttacksAgainstChilledEnemiesUniqueBelt14
 {variant:1}FasterBurnFromAttacksEnemiesUniqueBelt14[20,20]
 {variant:2}FasterBurnFromAttacksEnemiesUniqueBelt14
@@ -326,10 +314,6 @@ ManaRegenerationDuringFlaskEffectUnique__1
 ]],[[
 The Flow Untethered
 Cloth Belt
-Varianased Mana Regeneration Rate during any Flask Effect
-]],[[
-The Flow Untethered
-Cloth Belt
 Variant: Pre 3.16.0
 Variant: Current
 League: Harbinger
@@ -339,24 +323,22 @@ LevelReq: 60
 Implicits: 1
 StunRecoveryImplicitBelt1
 HarbingerSkillOnEquipUnique__2
-{variant:1}LifeAndEnergyShieldRecoveryRateUnique_1[15,20]
+{variant:1}LifeAndEnergyShieldRecoveryRateUnique_1[15,20][15,20]
 {variant:2}LifeAndEnergyShieldRecoveryRateUnique_1
-{variant:1}{tags:life}(15-20)% increased Life Recovery rate
-{variant:2}{tags:life}(10-15)% increased Life Recovery rate
 AttackAndCastSpeedUnique__1
 GlobalCooldownRecoveryUnique__1
 DebuffTimePassedUnique__1
 ]],[[
 The Torrent's Reclamation
 Cloth Belt
-League: Harvest
-Source: Upgraded from unique{The Flow Untethered} via currency{Time-light Scroll}
+Variant: Pre 3.16.0
+Variant: Current
 LevelReq: 60
 Implicits: 1
 StunRecoveryImplicitBelt1
 HarbingerSkillOnEquipUnique2_2
-{tags:jewellery_defense}(15-20)% increased Energy Shield Recovery rate
-{tags:life}(15-20)% increased Life Recovery rate
+{variant:1}LifeAndEnergyShieldRecoveryRateUnique_1[15,20][15,20]
+{variant:2}LifeAndEnergyShieldRecoveryRateUnique_1
 AttackAndCastSpeedUnique__1
 GlobalCooldownRecoveryUnique__1
 DebuffTimePassedUnique__1
@@ -368,7 +350,7 @@ Variant: Current
 LevelReq: 48
 Implicits: 1
 IncreasedLifeImplicitBelt1
-{variant:1}Trigger Level 30 Poacher's Mark when you Hit a Rare or Unique Enemy
+{variant:1}PoachersMarkCurseOnHitHexproofUnique__1
 IncreasedLifeUnique__120
 {variant:1}CullingStrikePoachersMarkUnique__1
 {variant:2}CullingStrikeCursedEnemyUnique__1_
@@ -386,7 +368,7 @@ Source: Drops from unique{The Maven}
 LevelReq: 68
 Implicits: 1
 StunRecoveryImplicitBelt1
-{tags:jewellery_defense}+(60-70) to Energy Shield
+IncreasedEnergyShieldUniqueBelt5
 MaximumManaUnique__8
 LightningResistUnique__24
 {variant:2}ChargeBonusMaximumPowerCharges
@@ -450,27 +432,27 @@ IncreasedLifeImplicitBelt1
 ColdResistUnique__16
 ChillNearbyEnemiesOnFocusUnique__1_
 {variant:1,2,3,4,5,6,7,8,9,10}FocusCooldownRecoveryUnique__1_[15,25]
-{variant:11,12,13,14,15,16,17,18,19}FocusCooldownRecoveryUnique__1_[30,50]
+{variant:11,12,13,14,15,16,17,18,19}FocusCooldownRecoveryUnique__1_
 DamageWithHitsAndAilmentsAgainstChilledEnemyUnique__1
 {variant:1}{crafted}{tags:life}Regenerate 2% of Life per second during any Flask Effect
-{variant:2}FireAndChaosDamageResistanceUnique__1__[8,15]
-{variant:3}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
-{variant:4}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
-{variant:5}HybridStrDex[6,17]
-{variant:6}DexterityAndIntelligenceUnique_3[6,17]
-{variant:7}HybridStrInt[6,17]
-{variant:8}TrapThrowingSpeedUnique_1[7,12]
-{variant:9}{crafted}{tags:jewellery_defense}Regenerate 120 Energy Shield per second while a Rare or Unique Enemy is Nearby
+{variant:2}{crafted}{tags:resistance}+(8-15)% to Fire and Chaos Resistances
+{variant:3}{crafted}{tags:resistance}+(8-15)% to Cold and Chaos Resistances
+{variant:4}{crafted}{tags:resistance}+(8-15)% to Lightning and Chaos Resistances
+{variant:5}{crafted}{tags:attribute}+(6-17) to Strength and Dexterity
+{variant:6}{crafted}{tags:attribute}+(6-17) to Dexterity and Intelligence
+{variant:7}{crafted}{tags:attribute}+(6-17) to Strength and Intelligence
+{variant:8}{crafted}{tags:speed}(7-12)% increased Trap Throwing Speed
+{variant:9}{crafted}{tags:defences}Regenerate 120 Energy Shield per second while a Rare or Unique Enemy is Nearby
 {variant:10,19}{crafted}Your Critical Strike Chance is Lucky while Focused
-{variant:11}FireAndChaosDamageResistanceUnique__1__[16,20]
-{variant:12}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Cold and Chaos Resistances
-{variant:13}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Lightning and Chaos Resistances
-{variant:14}HybridStrDex[31,35]
-{variant:15}DexterityAndIntelligenceUnique_3[31,35]
-{variant:16}HybridStrInt[31,35]
-{variant:17}TrapThrowingSpeedUnique_1[14,16]
-{variant:18}{crafted}{tags:jewellery_defense}Regenerate 200 Energy Shield per second while a Rare or Unique Enemy is Nearby
-{variant:19}FocusCooldownRecoveryUnique__1_[5,8]
+{variant:11}{crafted}{tags:resistance}+(16-20)% to Fire and Chaos Resistances
+{variant:12}{crafted}{tags:resistance}+(16-20)% to Cold and Chaos Resistances
+{variant:13}{crafted}{tags:resistance}+(16-20)% to Lightning and Chaos Resistances
+{variant:14}{crafted}{tags:attribute}+(31-35) to Strength and Dexterity
+{variant:15}{crafted}{tags:attribute}+(31-35) to Dexterity and Intelligence
+{variant:16}{crafted}{tags:attribute}+(31-35) to Strength and Intelligence
+{variant:17}{crafted}{tags:speed}(14-16)% increased Trap Throwing Speed
+{variant:18}{crafted}{tags:defences}Regenerate 200 Energy Shield per second while a Rare or Unique Enemy is Nearby
+{variant:19}{crafted}Focus has (5-8)% increased Cooldown Recovery Rate
 ]],[[
 Immortal Flesh
 Leather Belt
@@ -485,9 +467,9 @@ IncreasedLifeUniqueBelt8
 {variant:1,2,3}LifeRegenerationUniqueBelt8[4002,4500]
 {variant:4}LifeRegenerationUniqueBelt8
 AddedManaRegenerationUniqueBelt8
-{variant:1}AllResistancesUniqueRing25[-40,-40]
-{variant:3,4}AllResistancesUniqueBelt8[15,25]
-{variant:1}{tags:jewellery_resistance}-10% to all maximum Resistances
+{variant:1}AllResistancesUniqueBelt8[-40,-40]
+{variant:3,4}AllResistancesUniqueBelt8
+{variant:1}IncreasedMaximumResistsUnique__2[-10,-10]
 {variant:2}IncreasedMaximumResistsUnique__2
 PhysicalAttackDamageReducedUniqueBelt8
 ArmourWhileNotIgnitedFrozenShockedBelt8
@@ -520,7 +502,6 @@ Variant: Current
 LevelReq: 16
 Implicits: 1
 StunDurationImplicitBelt1
-{tags:jewellery_attribute}+(40-50) to Stre0-30)% increased Stun Duration on Enemies
 StrengthUniqueBelt2
 {variant:1,2}IncreasedPhysicalDamagePercentUniqueBelt2
 {variant:3}AllResistancesUnique__26
@@ -563,7 +544,7 @@ StrengthImplicitBelt1
 DexterityUnique__22
 FireResistUnique__27_
 ColdResistUnique__19
-Magic Utility Flask cannot be Used
+MagicUtilityFlasksCannotUseUnique__1____
 MagicUtilityFlasksAlwaysApplyUnique__1
 MagicUtilityFlasksCannotRemoveUnique__1
 ]],[[
@@ -585,8 +566,8 @@ Variant: Current
 Implicits: 1
 StrengthImplicitBelt1
 StrengthUniqueBelt4
-{variant:1}AddedPhysicalDamageUniqueBelt4[10,10][20,20]
-{variant:2}AddedPhysicalDamageUniqueBelt4[5,5][15,15]
+{variant:1}AddedPhysicalDamageUniqueBelt4[5,5][15,15]
+{variant:2}AddedPhysicalDamageUniqueBelt4
 MaximumLifeUniqueBelt4
 ColdResistUniqueBelt13
 BeltFlaskLifeRecoveryRateUniqueBelt4
@@ -599,14 +580,16 @@ StrengthImplicitBelt1
 IncreasedLifeUnique__102
 ColdResistUniqueBelt1
 MinionsUseFlaskOnSummonUnique__1__
-Minions have (40-25)% reduced Flask Charges used
+MinionFlaskChargesUsedUnique__1
 MinionFlaskDurationUnique__1
 ]],[[
 Nevalius Inheritance
 Cloth Belt
 League: Necropolis
 Requires Level 16
-DexterityImplicitAmulet1
+Implicits: 1
+StunRecoveryImplicitBelt1
+DexterityUnique__1
 BeltIncreasedFlaskDurationUnique__4
 BeltIncreasedFlaskEffectUnique__2
 FlaskDurationPerLevelUnique__1
@@ -627,9 +610,6 @@ MovementVelocityUnique__46
 {variant:2}ChargeBonusMaximumFrenzyCharges
 MinimumAfflictionChargeModifiersEqualsFrenzyUnique__1
 MaximumAfflictionChargesEqualsFrenzyUnique__1
-GainAfflictionChargesInsteadOfFrenzyUnique__1
-]],[[
-Perandus Blazonis equal to Maximum Frenzy Charges
 GainAfflictionChargesInsteadOfFrenzyUnique__1
 ]],[[
 Perandus Blazon
@@ -654,7 +634,7 @@ Implicits: 1
 StunRecoveryImplicitBelt1
 DexterityUnique__18
 IncreasedManaUnique__14
-(10-7)% reduced Flask Charges used
+BeltIncreasedFlaskChargedUsedUnique__2
 LinkSkillFlaskEffectsUnique__1
 ]],[[
 Chain of Endurance
@@ -675,7 +655,7 @@ ArmourAndEvasionImplicitBelt1
 MaximumLifeUnique__4_
 ColdResistUniqueBelt14
 AttackDamagePerLowestArmourOrEvasionUnique__1
-{variant:1}Melee Hits which Stun have (14-20)% chance to Fortify
+{variant:1}FortifyOnMeleeStunUnique__1[14,20]
 {variant:2}FortifyOnMeleeStunUnique__1
 OnslaughtWhileFortifiedUnique__1
 ]],[[
@@ -693,8 +673,8 @@ IncreasedPhysicalDamagePercentImplicitBelt1
 {variant:1}AddedColdDamageUniqueBelt10[2,3][5,7]
 {variant:2}AddedColdDamageUniqueBelt10[5,6][12,14]
 {variant:3}AddedColdDamageUniqueBelt10
-{variant:1}{tags:jewellery_elemental,attack}Adds 1 to (13-17) Lightning Damage to Attacks
-{variant:2}{tags:jewellery_elemental,attack}Adds 1 to (30-34) Lightning Damage to Attacks
+{variant:1}AddedLightningDamageUniqueBelt10[1,1][13,17]
+{variant:2}AddedLightningDamageUniqueBelt10[1,1][30,34]
 {variant:3}AddedLightningDamageUniqueBelt10
 {variant:1,2}AllResistancesUniqueBelt10[6,8]
 {variant:3}AllResistancesUniqueBelt10
@@ -714,18 +694,12 @@ IncreasedPhysicalDamagePercentImplicitBelt1
 {variant:2}SpellAddedFireDamageUnique__6_
 {variant:1}SpellAddedColdDamageUnique__6__[5,6][12,14]
 {variant:2}SpellAddedColdDamageUnique__6__
-{variant:1}{tags:jewellery_elemental,caster}Adds 1 to (30-34) Lightning Damage to Spells
+{variant:1}SpellAddedLightningDamageUnique__7[1,1][30,34]
 {variant:2}SpellAddedLightningDamageUnique__7
 {variant:1}AllResistancesUniqueBelt10[6,8]
 {variant:2}AllResistancesUniqueBelt10
 {variant:1}ElementalDamageUniqueDescentBelt1
 ElementalDamageDuringFlaskEffectUnique__1
-]],[[
-Pyroshock Clasp
-Leather Belt
-League: Heist
-LevelReq: 43
-Implicits: any Flask Effect
 ]],[[
 Pyroshock Clasp
 Leather Belt
@@ -762,9 +736,9 @@ LevelReq: 20
 Implicits: 1
 StunDurationImplicitBelt1
 StrengthUnique__19_
-{variant:1}{tags:attack,physical}20% less Minimum Physical Attack Damage
+{variant:1}RyuslathaMinimumDamageModifierUnique__1[-20,-20]
 {variant:2}RyuslathaMinimumDamageModifierUnique__1
-{variant:1}{tags:attack,physical}20% more Maximum Physical Attack Damage
+{variant:1}RyuslathaMaximumDamageModifierUnique__1_[20,20]
 {variant:2}RyuslathaMaximumDamageModifierUnique__1_
 AddedPhysicalDamageUnique__4
 {variant:2}IncreasedLifeUnique__108
@@ -824,7 +798,7 @@ AllResistancesUnique__1
 BeltFlaskManaRecoveryUnique__1
 IncreasedFlaskDurationUnique__1
 BeltSoulEaterDuringFlaskEffect__1
-Lose Souls gained from Soul Eater when you use a Flask
+BeltSoulsRemovedOnFlaskUse__1
 ]],[[
 String of Servitude
 Heavy Belt
@@ -837,11 +811,6 @@ Variant: Cast Speed during Flask Effect
 Variant: Crit Chance during Flask Effect
 Variant: Effect Duration
 Variant: Energy Shield
-Variant: Life
-Variant: Movement Speed during Flask Effect
-Variant: Item Rarity
-Variant: Item Quantity
-Variaeld
 Variant: Life
 Variant: Movement Speed during Flask Effect
 Variant: Item Rarity
@@ -896,7 +865,7 @@ StunRecoveryImplicitBelt1
 {variant:1}TrapDamageUniqueBelt6
 {variant:1}ManaRegenerationUniqueBelt6
 FireResistUniqueBelt6
-{variant:1}TrapDurationUnique__1[80,80]
+{variant:1}TrapDurationUniqueBelt6[-80,-80]
 {variant:2}TrapDurationUniqueBelt6
 LightRadiusUniqueBelt6
 {variant:2}AdditionalTrapsThrownUnique__1
@@ -952,10 +921,9 @@ StrengthUniqueBelt1
 IntelligenceUniqueBelt1
 {variant:1}ColdResistUniqueBelt1[10,20]
 {variant:2}ColdResistUniqueBelt1
-{variant:1}{tags:attack,life}0.4% of Physical Attack Damage Leeched a_resistance}+(20-30)% to Cold Resistance
-{variant:1}LifeLeechPermyriadUnique__3
+{variant:1}LifeLeechPermyriadUniqueBelt1[40,40]
 {variant:2}LifeLeechPermyriadUniqueBelt1
-{variant:1}ManaLeechPermyriadUniqueTwoHandMace4
+{variant:1}ManaLeechPermyriadUniqueBelt1[40,40]
 {variant:2}ManaLeechPermyriadUniqueBelt1
 {variant:2}IncreasedLifeLeechRateUnique__2
 {variant:2}IncreasedManaLeechRateUnique__1
@@ -991,8 +959,9 @@ Implicits: 1
 StunRecoveryImplicitBelt1
 DexterityAndIntelligenceUnique_2
 ManaReservationEfficiencyUnique__3
-TrapAndMineThrowSpeedUnique_1
 SummonFireSkitterbotUnique__1
 SkitterbotAurasAlsoAffectYouUnique__1
 SkitterbotIncreasedAilmentEffectUnique__1
-]]}
+TrapAndMineThrowSpeedUnique_1
+]],
+}
