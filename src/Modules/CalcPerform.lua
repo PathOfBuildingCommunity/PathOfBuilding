@@ -2092,9 +2092,7 @@ function calcs.perform(env, skipEHP)
 				-- Nothing!
 			elseif buff.enemyCond and not enemyDB:GetCondition(buff.enemyCond) then
 				-- Also nothing :/
-			elseif buff.name:match("Herald of") and skillModList:Flag(skillCfg, "DisableHeraldBuffs") then
-				-- disable herald buffs if supported by Scornful Herald
-			elseif buff.type == "Buff" then
+			elseif buff.type == "Buff" and not skillModList:Flag(skillCfg, "DisableBuff") then
 				if env.mode_buffs and (not activeSkill.skillFlags.totem or buff.allowTotemBuff) then
 					local skillCfg = buff.activeSkillBuff and skillCfg
 					local modStore = buff.activeSkillBuff and skillModList or modDB

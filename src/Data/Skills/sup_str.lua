@@ -5204,6 +5204,7 @@ skills["SupportTransfusion"] = {
 	statMap = {
 		["random_nearby_minion_gain_a_soul_eater_soul_on_X_life_spent"] = {
 			flag("Condition:MinionCanHaveSoulEater", { type = "GlobalEffect", effectType = "Buff" }),
+			mod("MinionModifier", "LIST", { mod = mod("Condition:CanHaveSoulEater", "FLAG", true) }, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 	qualityStats = {

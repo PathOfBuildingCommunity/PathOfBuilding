@@ -1135,6 +1135,10 @@ local configTable = {
 			env.player.mainSkill.infoMessage = "Squirming Terror requires recent kills"
 		end
 	end,
+	["kinetic flux"] = function()
+		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and slotMatch(env, skill) end,
+				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByKineticFlux and slotMatch(env, skill) end}
+	end,
 	["cast on critical strike"] = function()
 		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and slotMatch(env, skill) end,
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCoc and slotMatch(env, skill) end}

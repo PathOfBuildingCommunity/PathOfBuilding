@@ -1088,7 +1088,7 @@ skills["SupportCongregation"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_undead_army_minion_maximum_count_+%_final"] = {
-			mod("ActiveMinionLimit", "INC", nil),
+			mod("ActiveMinionLimit", "MORE", nil),
 		},
 	},
 	qualityStats = {
@@ -1958,6 +1958,11 @@ skills["SupportGreaterDevour"] = {
 		["killing_blow_consumes_corpse_restore_x_mana"] = {
 			mod("ManaOnKill", "BASE", nil),
 		},
+		["killing_blow_consumes_corpse_chance_to_gain_soul_per_power_permillage"] = {
+			flag("Condition:CanHaveSoulEater", { type = "GlobalEffect", effectType = "Buff" }),
+			flag("Condition:MinionCanHaveSoulEater", { type = "GlobalEffect", effectType = "Buff" }),
+			mod("MinionModifier", "LIST", { mod = mod("Condition:CanHaveSoulEater", "FLAG", true) }),
+		},
 	},
 	qualityStats = {
 		Default = {
@@ -2626,6 +2631,9 @@ skills["TriggeredSupportFoulgrasp"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
 	},
 	qualityStats = {
 		Default = {
@@ -5740,7 +5748,7 @@ skills["SupportScornfulHerald"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["herald_no_buff_effect"] = {
-			flag("DisableHeraldBuffs")
+			flag("DisableBuff", { type = "SkillType", skillType = SkillType.Herald }),
 		},
 	},
 	qualityStats = {

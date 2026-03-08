@@ -510,7 +510,7 @@ return {
 		modList:NewMod("SkillData", "LIST", { key = "ManabondMissingUnreservedManaPercentage", value = m_max(m_min(val,100), 0) }, "Config", { type = "SkillName", skillName = "Manabond" })
 	end },
 	{ label = "Eldritch Blasphemy:", ifSkill = "Eldritch Blasphemy" },
-	{ var = "conditionEnemyMalignantMadness", type = "check", label = "Enemy has Malignant Madness?", tooltip = "10% less damage and action speed", ifSkill = "Eldritch Blasphemy", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyMalignantMadness", type = "check", label = "Enemy has Malignant Madness?", ifSkill = "Eldritch Blasphemy", tooltip = "A debuff that applies:\n\tDeal 10% less Damage\n\t10% reduced Action Speed", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:MalignantMadness", "FLAG", true, "Config")
 	end },
 	{ label = "Meat Shield:", ifSkill = "Meat Shield" },
@@ -957,7 +957,6 @@ Huge sets the radius to 11.
 		modList:NewMod("Multiplier:SoulEaterStack", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "multiplierMinionSoulEater", type = "count", label = "# of Minion Soul Eater Stacks:", ifFlag = "Condition:MinionCanHaveSoulEater", tooltip = "Soul Eater grants the following, up to a base of 45 stacks:\n\t5% increased Attack Speed\n\t5% increased Cast Speed\n\t1% increased character size per stack.", apply = function(val, modList, enemyModList)
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:CanHaveSoulEater", "FLAG", true, "Config") }, "Config")
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Multiplier:SoulEaterStack", "BASE", val, "Config") }, "Config")
 	end },
 	{ var = "conditionFocused", type = "check", label = "Are you Focused?", ifCond = "Focused", apply = function(val, modList, enemyModList)

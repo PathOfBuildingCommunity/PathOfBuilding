@@ -147,7 +147,7 @@ local skills, mod, flag, skill = ...
 #skill SupportCongregation
 	statMap = {
 		["support_undead_army_minion_maximum_count_+%_final"] = {
-			mod("ActiveMinionLimit", "INC", nil),
+			mod("ActiveMinionLimit", "MORE", nil),
 		},
 	},
 #mods
@@ -281,6 +281,11 @@ local skills, mod, flag, skill = ...
 		["killing_blow_consumes_corpse_restore_x_mana"] = {
 			mod("ManaOnKill", "BASE", nil),
 		},
+		["killing_blow_consumes_corpse_chance_to_gain_soul_per_power_permillage"] = {
+			flag("Condition:CanHaveSoulEater", { type = "GlobalEffect", effectType = "Buff" }),
+			flag("Condition:MinionCanHaveSoulEater", { type = "GlobalEffect", effectType = "Buff" }),
+			mod("MinionModifier", "LIST", { mod = mod("Condition:CanHaveSoulEater", "FLAG", true) }),
+		},
 	},
 #mods
 
@@ -359,6 +364,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill TriggeredSupportFoulgrasp
+#flags spell area duration
 #mods
 
 #skill SupportFreshMeat
@@ -752,7 +758,7 @@ local skills, mod, flag, skill = ...
 #skill SupportScornfulHerald
 	statMap = {
 		["herald_no_buff_effect"] = {
-			flag("DisableHeraldBuffs")
+			flag("DisableBuff", { type = "SkillType", skillType = SkillType.Herald }),
 		},
 	},
 #mods

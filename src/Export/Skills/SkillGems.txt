@@ -489,7 +489,8 @@ Greater Volley Support                       		----		SupportGreaterVolley
 Hypothermia Support                          		----		SupportHypothermia
 Ice Bite Support                             		----		SupportIceBite
 Impale Support                               		----		SupportImpale
-Lesser Multiple Projectiles Support          		----		SupportLesserMultipleProjectiles
+Invention Support                            		----		SupportInvention
+Lethal Dose Support                          		----		SupportLethalDose
 Locus Mine Support                           		----		SupportLocusMine
 Machinations Support                         		----		SupportMachinations
 Mana Leech Support                           		----		SupportManaLeech

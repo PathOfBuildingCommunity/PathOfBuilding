@@ -223,6 +223,13 @@ return {
 	skill("triggeredByCoc", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 	skill("triggerOnCrit", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
+["triggered_by_kinetic_instability_support"] = {
+	skill("chanceToTriggerOnCrit", nil, { type = "SkillType", skillType = SkillType.Attack }),
+},
+["triggered_by_kinetic_instability_support"] = {
+	skill("triggeredByKineticFlux", true, { type = "SkillType", skillType = SkillType.Attack }),
+	skill("triggerOnCrit", true, { type = "SkillType", skillType = SkillType.Attack }),
+},
 ["cast_linked_spells_on_attack_crit_%"] = {
 	skill("chanceToTriggerOnCrit", nil, { type = "SkillType", skillType = SkillType.Attack }),
 },
