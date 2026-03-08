@@ -2336,6 +2336,9 @@ local specialModList = {
 		mod("ArmourDefense", "MAX", math.min(numChance / 100, 1.0) * 100, "Armour Mastery: Average Calc", { type = "Condition", var = "ArmourAvg" }),
 		mod("ArmourDefense", "MAX", math.min(math.floor(numChance / 100), 1.0) * 100, "Armour Mastery: Min Calc", { type = "Condition", var = "ArmourMax", neg = true }, { type = "Condition", var = "ArmourAvg", neg = true }),
 	} end,
+	-- Runegraft
+	["tinctures applied to you have (%d+)%% increased effect while affected by no flasks"] = function(num) return {  mod("TinctureEffect", "INC", num, { type = "ActorCondition", actor = "player"}, { type = "Condition", var = "UsingFlask", neg = true }) } end,
+	["enemies poisoned by you have (%d+)%% of physical damage they deal converted to chaos"] = function(num) return { mod("PhysicalDamageTakenAsChaos", "BASE", num, {type = "ActorCondition", actor = "enemy", var = "Poisoned"}) } end,
 	-- Masteries
 	["hits have (%d+)%% chance to treat enemy monster elemental resistance values as inverted"] = function(num) return {
 		mod("HitsInvertEleResChance", "CHANCE", num / 100, nil)
