@@ -252,3 +252,7 @@ minions["GuardianRelicAll"] = {
 #monster Metadata/Monsters/AnimatedItem/HolyStrikeAnimatedWeapon HolyStrikeMinion
 #limit ActiveHolyStrikeMinionLimit
 #emit
+
+#monster Metadata/Monsters/Breach/BreachFodderHandSpiderGraftSummoned Hiveborn
+#limit ActiveHivebornLimit
+#emit

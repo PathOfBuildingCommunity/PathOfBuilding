@@ -509,6 +509,10 @@ return {
 	{ var = "manabondMissingUnreservedManaPercentage", type = "count", label = "Missing Unreserved ^x7070FFMana^7 %:", tooltip = "Ignores values outside the 0-100 range, defaults to 100% if not specified. \nA more realistic value would be to match your Arcane Cloak spend %.", ifSkill = "Manabond", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "ManabondMissingUnreservedManaPercentage", value = m_max(m_min(val,100), 0) }, "Config", { type = "SkillName", skillName = "Manabond" })
 	end },
+	{ label = "Minion Pact:", ifSkill = "Minion Pact" },
+	{ var = "minionPactLife", type = "count", label = "Damageable Minion ^xE05030Life:", ifMult = "MinionLife", tooltip = "Sets the maximum ^xE05030life ^7of the target minion for Minion Pact.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:MinionLife", "BASE", val, "Config")
+	end },
 	{ label = "Eldritch Blasphemy:", ifSkill = "Eldritch Blasphemy" },
 	{ var = "conditionEnemyMalignantMadness", type = "check", label = "Enemy has Malignant Madness?", ifSkill = "Eldritch Blasphemy", tooltip = "A debuff that applies:\n\tDeal 10% less Damage\n\t10% reduced Action Speed", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:MalignantMadness", "FLAG", true, "Config")
@@ -1191,6 +1195,10 @@ Huge sets the radius to 11.
 	end },
 	{ var = "conditionCritWithHeraldSkillRecently", type = "check", label = "Have your Herald Skills Crit Recently?", ifCond = "CritWithHeraldSkillRecently", implyCond = "SkillCritRecently", tooltip = "This also implies that your Skills have Crit Recently.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:CritWithHeraldSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "multiplierCritRecently", type = "count", label = "# of times your Attacks have Crit Recently:", ifMult = "CritRecently", implyCond = "CritRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:CritRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("Condition:SkillCritRecently", "FLAG", 1 <= val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "LostNonVaalBuffRecently", type = "check", label = "Lost a Non-Vaal Guard Skill buff recently?", ifCond = "LostNonVaalBuffRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LostNonVaalBuffRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })

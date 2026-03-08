@@ -333,6 +333,17 @@ local skills, mod, flag, skill = ...
 #skill SupportAwakenedEnlighten
 #mods
 
+#skill SupportExemplar
+	statMap = {
+		["minion_critical_strike_chance_+%_per_attack_crit_recently_up_to_100"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CritChance", "INC", nil) }, 0, 0, { type = "Multiplier", var = "CritRecently", limit = 200, limitTotal = true }),
+		},
+		["minion_critical_strike_multiplier_+_per_attack_crit_recently_up_to_100"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CritMultiplier", "BASE", nil) }, 0, 0, { type = "Multiplier", var = "CritRecently", limit = 100, limitTotal = true }),
+		},
+	},
+#mods
+
 #skill SupportFasterCasting
 #mods
 
@@ -414,6 +425,25 @@ local skills, mod, flag, skill = ...
 #skill SupportHexBloom
 #mods
 
+#skill SupportHexpass
+	statMap = {
+		["chance_to_ignore_hexproof_%"] = {
+			flag("CursesIgnoreHexproof")
+		},
+		["hexed_enemies_cannot_deal_critical_strikes"] = {
+			flag("NeverCrit", { type = "GlobalEffect", effectType = "Curse" }),
+			flag("Condition:NeverCrit", { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+#mods
+
+#skill SupportHextoad
+#mods
+
+#skill TriggeredSupportHextoad
+#flags spell area
+#mods
+
 #skill SupportHighImpactMine
 	addFlags = {
 		mine = true,
@@ -425,6 +455,16 @@ local skills, mod, flag, skill = ...
 		["support_remote_mine_2_chance_to_deal_double_damage_%_against_enemies_near_mines"] = {
 			mod("SelfDoubleDamageChance", "BASE", nil, 0, 0, { type = "Limit", limit = 100 }, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "High-Impact Mine", effectStackVar = "ActiveMineCount" }),
 		},
+	},
+#mods
+
+#skill SupportHiveborn
+#mods
+
+#skill TriggeredSupportHiveborn
+#flags spell minion duration
+	minionList = {
+		"Hiveborn",
 	},
 #mods
 
@@ -602,6 +642,16 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["support_minion_maximum_life_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }),
+		},
+	},
+#mods
+
+#skill SupportMinionPact
+	statMap = {
+		["support_minion_pact_sacrifice_nearby_damageable_minion_to_gain_permillage_of_max_life_as_physical_damage"] = {
+			mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "MinionLife" }),
+			mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "MinionLife" }),
+			div = 1000,
 		},
 	},
 #mods

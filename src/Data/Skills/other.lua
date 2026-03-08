@@ -1350,6 +1350,43 @@ skills["SupportEarthbreaker"] = {
 		[40] = { 100, 34, levelRequirement = 100, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
 	},
 }
+skills["SupportEclipse"] = {
+	name = "Eclipse",
+	description = "Supports any skill gem.\nCannot support skills that don't come from gems.",
+	color = 4,
+	support = true,
+	requireSkillTypes = { },
+	addSkillTypes = { },
+	excludeSkillTypes = { SkillType.SkillGrantedBySupport, },
+	supportGemsOnly = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	qualityStats = {
+		Default = {
+			{ "local_gem_experience_gain_+%", 5 },
+		},
+	},
+	stats = {
+		"supported_active_skill_gem_level_+",
+		"supported_active_skill_gem_quality_%",
+	},
+	levels = {
+		[1] = { 1, 4, levelRequirement = 72, manaMultiplier = -2, statInterpolation = { 1, 1, }, },
+		[2] = { 1, 8, levelRequirement = 74, manaMultiplier = -4, statInterpolation = { 1, 1, }, },
+		[3] = { 1, 12, levelRequirement = 76, manaMultiplier = -6, statInterpolation = { 1, 1, }, },
+		[4] = { 2, 16, levelRequirement = 78, manaMultiplier = -8, statInterpolation = { 1, 1, }, },
+		[5] = { 2, 18, levelRequirement = 80, manaMultiplier = -9, statInterpolation = { 1, 1, }, },
+		[6] = { 2, 20, levelRequirement = 82, manaMultiplier = -10, statInterpolation = { 1, 1, }, },
+		[7] = { 2, 22, levelRequirement = 84, manaMultiplier = -11, statInterpolation = { 1, 1, }, },
+		[8] = { 2, 24, levelRequirement = 86, manaMultiplier = -12, statInterpolation = { 1, 1, }, },
+		[9] = { 2, 26, levelRequirement = 88, manaMultiplier = -13, statInterpolation = { 1, 1, }, },
+		[10] = { 3, 28, levelRequirement = 90, manaMultiplier = -14, statInterpolation = { 1, 1, }, },
+		[11] = { 3, 30, levelRequirement = 91, manaMultiplier = -15, statInterpolation = { 1, 1, }, },
+		[12] = { 3, 32, levelRequirement = 92, manaMultiplier = -16, statInterpolation = { 1, 1, }, },
+		[13] = { 3, 34, levelRequirement = 93, manaMultiplier = -17, statInterpolation = { 1, 1, }, },
+		[14] = { 3, 36, levelRequirement = 94, manaMultiplier = -18, statInterpolation = { 1, 1, }, },
+		[15] = { 3, 38, levelRequirement = 95, manaMultiplier = -19, statInterpolation = { 1, 1, }, },
+	},
+}
 skills["SupportElementalPenetration"] = {
 	name = "Elemental Penetration",
 	description = "Supports any skill that hits enemies, making those hits penetrate enemy elemental resistances.",

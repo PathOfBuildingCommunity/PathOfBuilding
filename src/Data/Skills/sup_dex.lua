@@ -1777,11 +1777,6 @@ skills["SupportEnhance"] = {
 	excludeSkillTypes = { SkillType.SkillGrantedBySupport, },
 	supportGemsOnly = true,
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["supported_active_skill_gem_quality_%"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "quality", value = nil }),
-		},
-	},
 	qualityStats = {
 		Default = {
 			{ "local_gem_experience_gain_+%", 5 },
@@ -1814,11 +1809,6 @@ skills["SupportAwakenedEnhance"] = {
 	supportGemsOnly = true,
 	plusVersionOf = "SupportEnhance",
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["supported_active_skill_gem_quality_%"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "quality", value = nil }),
-		},
-	},
 	qualityStats = {
 		Default = {
 			{ "local_gem_experience_gain_+%", 5 },

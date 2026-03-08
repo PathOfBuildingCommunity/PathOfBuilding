@@ -1810,3 +1810,26 @@ minions["HolyStrikeMinion"] = {
 		-- set_cannot_be_splashed_from [set_cannot_be_splashed_from = 1]
 	},
 }
+
+minions["Hiveborn"] = {
+	name = "It That Crawls",
+	monsterTags = { "demon", "fast_movement", "insect", "melee", "not_int", "not_str", "red_blood", },
+	life = 2,
+	evasion = 0.25,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 3,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 11,
+	accuracy = 1,
+	limit = "ActiveHivebornLimit",
+	skillList = {
+		"MeleeAtAnimationSpeedComboCold",
+	},
+	modList = {
+		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+	},
+}

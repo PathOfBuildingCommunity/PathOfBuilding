@@ -208,19 +208,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportEnhance
-	statMap = {
-		["supported_active_skill_gem_quality_%"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "quality", value = nil }),
-		},
-	},
 #mods
 
 #skill SupportAwakenedEnhance
-	statMap = {
-		["supported_active_skill_gem_quality_%"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "quality", value = nil }),
-		},
-	},
 #mods
 
 #skill SupportFasterAttacks

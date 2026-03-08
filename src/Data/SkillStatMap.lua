@@ -2009,6 +2009,9 @@ return {
 ["base_holy_strike_maximum_number_of_animated_weapons"] = {
 	mod("ActiveHolyStrikeMinionLimit", "BASE", nil),
 },
+["base_graft_skill_tul_summon_maximum_allowed_demons"] = {
+	mod("ActiveHivebornLimit", "BASE", nil),
+},
 ["active_skill_minion_damage_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
 },
@@ -2275,6 +2278,9 @@ return {
 --Active
 ["supported_active_skill_gem_level_+"] = {
 	mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = nil }),
+},
+["supported_active_skill_gem_quality_%"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "quality", value = nil }),
 },
 --Aura
 ["supported_aura_skill_gem_level_+"] = {

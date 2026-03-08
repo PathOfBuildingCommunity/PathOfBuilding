@@ -106,7 +106,7 @@ directiveTable.skill = function(state, args, out)
 		if granted.IsSupport then
 			out:write('\tname = "', fullNameGems[skillGem.BaseItemType.Id] and skillGem.BaseItemType.Name or skillGem.BaseItemType.Name:gsub(" Support",""), '",\n')
 			if #gemEffect.Description > 0 then
-				out:write('\tdescription = "', gemEffect.Description:gsub('\n','\\n'), '",\n')
+				out:write('\tdescription = "', gemEffect.Description:gsub('"','\\"'):gsub('\r',''):gsub('\n','\\n'), '",\n')
 			end
 		else
 			out:write('\tname = "', secondaryEffect and granted.ActiveSkill.DisplayName or trueGemNames[gemEffect.Id] or granted.ActiveSkill.DisplayName, '",\n')

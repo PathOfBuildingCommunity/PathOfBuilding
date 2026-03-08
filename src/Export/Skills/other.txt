@@ -403,6 +403,9 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportEclipse
+#mods
+
 #skill SupportElementalPenetration Elemental Penetration
 	fromItem = true,
 #mods
