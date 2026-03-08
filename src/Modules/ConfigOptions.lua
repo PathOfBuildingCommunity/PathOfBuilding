@@ -444,6 +444,10 @@ return {
 	{ var = "frostShieldStages", type = "count", label = "Stages:", ifSkill = "Frost Shield", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:FrostShieldStage", "BASE", val, "Config")
 	end },
+	{ label = "Gluttony:", ifSkill = "Gluttony" },
+	{ var = "Disgorged", type = "check", label = "Is Disgorge active?", ifSkill = "Gluttony", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:Disgorged", "FLAG", true, "Config")
+	end },
 	{ label = "Greater Harbinger of Time:", ifSkill =  "Summon Greater Harbinger of Time" },
 	{ var = "greaterHarbingerOfTimeSlipstream", type = "check", label = "Is Slipstream active?:", ifSkill =  "Summon Greater Harbinger of Time", tooltip = "Greater Harbinger of Time Slipstream buff grants:\n10% increased Action Speed\nBuff affects the player and allies\nBuff has a base duration of 8s with a 10s Cooldown", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:GreaterHarbingerOfTime", "FLAG", true, "Config")
@@ -488,6 +492,9 @@ return {
 	{ var = "intensifyIntensity", type = "count", label = "# of Intensity:", ifSkill = { "Intensify", "Crackling Lance", "Pinpoint" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:Intensity", "BASE", val, "Config")
 	end },
+	{ var = "OverloadedIntensity", type = "count", label = "# of Overloaded Intensity:", ifSkill = "Overloaded Intensity", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:OverloadedIntensity", "BASE", val, "Config")
+	end },
 	{ label = "Link Skills:", ifSkill = { "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" } },
 	{ var = "multiplierLinkedTargets", type = "count", label = "# of linked Targets:", ifSkill = { "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:LinkedTargets", "BASE", val, "Config")
@@ -501,6 +508,10 @@ return {
 	{ label = "Manabond:", ifSkill = "Manabond" },
 	{ var = "manabondMissingUnreservedManaPercentage", type = "count", label = "Missing Unreserved ^x7070FFMana^7 %:", tooltip = "Ignores values outside the 0-100 range, defaults to 100% if not specified. \nA more realistic value would be to match your Arcane Cloak spend %.", ifSkill = "Manabond", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "ManabondMissingUnreservedManaPercentage", value = m_max(m_min(val,100), 0) }, "Config", { type = "SkillName", skillName = "Manabond" })
+	end },
+	{ label = "Eldritch Blasphemy:", ifSkill = "Eldritch Blasphemy" },
+	{ var = "conditionEnemyMalignantMadness", type = "check", label = "Enemy has Malignant Madness?", tooltip = "10% less damage and action speed", ifSkill = "Eldritch Blasphemy", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:MalignantMadness", "FLAG", true, "Config")
 	end },
 	{ label = "Meat Shield:", ifSkill = "Meat Shield" },
 	{ var = "meatShieldEnemyNearYou", type = "check", label = "Is the enemy near you?", ifSkill = "Meat Shield", apply = function(val, modList, enemyModList)

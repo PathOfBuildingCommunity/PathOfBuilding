@@ -63,6 +63,19 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportEldritchBlasphemy
+	statMap = {
+		["curse_apply_as_aura"] = {
+		},
+		["support_blasphemy_curse_effect_+%_final"] = {
+			mod("CurseEffect", "MORE", nil),
+		},
+		["support_blasphemy_enemies_gain_malignant_madness_if_in_aura_for_x_seconds"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "Condition", var = "enemyMalignantMadness" }),
+		},
+	},
+#mods
+
 #skill SupportBonechill
 #baseMod skill("supportBonechill", true)
 	statMap = {
@@ -131,6 +144,14 @@ local skills, mod, flag, skill = ...
 #skill SupportChargedMines
 #mods
 
+#skill SupportCongregation
+	statMap = {
+		["support_undead_army_minion_maximum_count_+%_final"] = {
+			mod("ActiveMinionLimit", "INC", nil),
+		},
+	},
+#mods
+
 #skill SupportConcentratedEffect
 	statMap = {
 		["support_concentrated_effect_skill_area_of_effect_+%_final"] = {
@@ -162,6 +183,9 @@ local skills, mod, flag, skill = ...
 			mod("CritChance", "MORE", nil),
 		},
 	},
+#mods
+
+#skill SupportCooldownRecovery
 #mods
 
 #skill SupportCursedGround
@@ -249,6 +273,17 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportGreaterDevour
+	statMap = {
+		["killing_blow_consumes_corpse_restore_x_life"] = {
+			mod("LifeOnKill", "BASE", nil),
+		},
+		["killing_blow_consumes_corpse_restore_x_mana"] = {
+			mod("ManaOnKill", "BASE", nil),
+		},
+	},
+#mods
+
 #skill SupportEfficacy
 	statMap = {
 		["support_efficacy_spell_damage_+%_final"] = {
@@ -315,6 +350,17 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportFoulgrasp
+	statMap = {
+		["base_total_number_of_sigils_allowed"] = {
+			mod("ActiveBrandLimit", "BASE", nil),
+		},
+	},
+#mods
+
+#skill TriggeredSupportFoulgrasp
+#mods
+
 #skill SupportFreshMeat
 	statMap = {
 		["support_recent_minions_additional_critical_strike_chance_from_wakened_fury"] = {
@@ -335,6 +381,26 @@ local skills, mod, flag, skill = ...
 			div = 1000,
 		},
 		["support_damaging_links_base_duration_is_gem"] = {
+		},
+	},
+#mods
+
+#skill SupportFrostmage
+	statMap = {
+		["frostmage_cost_equals_%_reserved_mana"] = {
+			mod("ManaCostBase", "BASE", nil, 0, 0, { type = "PercentStat", stat = "ManaReserved" , percent = 1 }),
+		},
+		["frostmage_gain_cold_damage_%_of_max_reserved_mana"] = {
+			mod("ColdMin", "BASE", nil, 0, 0, { type = "PercentStat", stat = "ManaReserved" , percent = 1 }),
+			mod("ColdMax", "BASE", nil, 0, 0, { type = "PercentStat", stat = "ManaReserved" , percent = 1 }),
+		},
+	},
+#mods
+
+#skill SupportGluttony
+	statMap = {
+		["support_gluttony_fire_x_additional_projectiles_in_nova_while_affected_by_disgorge"] = {
+			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "Condition", var = "Disgorged" }),
 		},
 	},
 #mods
@@ -445,6 +511,9 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportInvertTheRules
+#mods
+
 #skill SupportItemRarity
 #mods
 
@@ -452,6 +521,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill TriggeredSupportKineticInstability
+#flags attack area duration
+#baseMod skill("showAverage", true)
+#mods
+
+#skill SupportGreaterKineticInstability
+#mods
+
+#skill TriggeredSupportGreaterKineticInstability
 #flags attack area duration
 #baseMod skill("showAverage", true)
 #mods
@@ -543,6 +620,18 @@ local skills, mod, flag, skill = ...
 		},
 		["support_pure_shock_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportOverloadedIntensity
+	statMap = {
+		["additional_critical_strike_chance_per_overloaded_intensity"] = {
+			mod("CritChance", "BASE", nil, 0, 0, { type = "Multiplier", var = "OverloadedIntensity" }),
+			div = 100
+		},
+		["critical_strike_multiplier_+_per_overloaded_intensity"] = {
+			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "Multiplier", var = "OverloadedIntensity" }),
 		},
 	},
 #mods
@@ -660,6 +749,14 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportScornfulHerald
+	statMap = {
+		["herald_no_buff_effect"] = {
+			flag("DisableHeraldBuffs")
+		},
+	},
+#mods
+
 #skill SupportSpellblade
 	statMap = {
 		["support_spell_weapon_damage_gain_%_of_one_hand_melee_weapon_damage_as_added_spell_damage"] = {
@@ -680,6 +777,17 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedSpellCascade
+	statMap = {
+		["support_spell_cascade_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "MORE", nil),
+		},
+		["support_spell_cascade_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportGreaterSpellCascade
 	statMap = {
 		["support_spell_cascade_area_of_effect_+%_final"] = {
 			mod("AreaOfEffect", "MORE", nil),
@@ -818,4 +926,28 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod flag("HasSeals")
+#mods
+
+#skill SupportGreaterUnleash
+	statMap = {
+		["support_anticipation_rapid_fire_count"] = {
+			mod("SealCount", "BASE", nil),
+		},
+		["support_anticipation_charge_gain_interval_ms"] = {
+			mod("SealGainFrequency", "BASE", nil),
+			div = 1000,
+		},
+		["support_spell_rapid_fire_repeat_use_damage_+%_final"] = {
+			mod("SealRepeatPenalty", "MORE", nil),
+		},
+	},
+#baseMod flag("HasSeals")
+#mods
+
+#skill SupportVaalSacrifice
+	statMap = {
+		["support_multicast_cast_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Cast),
+		},
+	},
 #mods
