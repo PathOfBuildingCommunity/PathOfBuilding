@@ -241,9 +241,9 @@ Source: No longer obtainable
 Requires Level 30
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
-{variant:1}MagicMonsterItemRarityUnique__1[100,150]
+{variant:1}MagicMonsterItemRarityUnique__1[150,150]
 {variant:2,3}MagicMonsterItemRarityUnique__1
-{variant:1}NormalMonsterItemQuantityUnique__1[35,50]
+{variant:1}NormalMonsterItemQuantityUnique__1[100,100]
 {variant:2}NormalMonsterItemQuantityUnique__1[50,100]
 {variant:3}NormalMonsterItemQuantityUnique__1
 ]],[[
@@ -259,7 +259,7 @@ TalismanGlobalDefensesPercent
 IncreasedEnergyShieldUniqueAmulet14
 FireResistUnique__2
 LightningResistUnique__1
-{variant:1}EnergyShieldDelayDuringFlaskEffect__1[30,30]
+{variant:1}EnergyShieldDelayDuringFlaskEffect__1[-30,-30]
 {variant:2}EnergyShieldDelayDuringFlaskEffect__1
 {variant:1}ESRechargeRateDuringFlaskEffect__1[400,400]
 {variant:2}ESRechargeRateDuringFlaskEffect__1
@@ -489,7 +489,7 @@ Implicits: 32
 {variant:21}TalismanFrenzyChargeOnKill[20,20]
 {variant:22}TalismanPowerChargeOnKill[20,20]
 {variant:23}TalismanEnduranceChargeOnKill_[20,20]
-{variant:24}TalismanPercentLifeRegeneration[4,4]
+{variant:24}TalismanPercentLifeRegeneration[240,240]
 {variant:25}TalismanColdTakenAsFire[100,100]
 {variant:26}TalismanColdTakenAsLightning[100,100]
 {variant:27}TalismanFireTakenAsCold[100,100]
@@ -497,7 +497,7 @@ Implicits: 32
 {variant:29}TalismanLightningTakenAsCold[100,100]
 {variant:30}TalismanLightningTakenAsFire[100,100]
 {variant:31}TalismanDamageDealtAddedAsRandomElement[12,24]
-{variant:32}TalismanPierceChance[4,6]
+{variant:32}TalismanAdditionalPierce[4,4]
 {variant:33}TalismanGlobalDamageOverTimeMultiplier[24,36]
 LocalDoubleImplicitMods
 ]],[[
@@ -620,7 +620,7 @@ DexterityImplicitAmulet1
 {variant:1,2}CriticalMultiplierUnique__3__[23,28]
 {variant:3}CriticalMultiplierUnique__3__
 {variant:3}BowAttacksCullingStrikeUnique__1
-{variant:1,2}LifeLeechPermyriadUniqueAmulet9[800,1000]
+{variant:1,2}LifeLeechPermyriadUniqueAmulet9[80,100]
 {variant:1,2,3}PrecisionAuraBonusUnique__1
 ]],[[
 Replica Hyrri's Truth
@@ -641,7 +641,7 @@ GrantsHatredUnique__1__
 {variant:1,2}CriticalMultiplierUnique__5[23,28]
 {variant:3}CriticalMultiplierUnique__5
 {variant:3}BowAttacksCullingStrikeUnique__1
-{variant:1,2}ColdDamageLifeLeechPermyriadUniqueBelt9bNew[800,1000]
+{variant:1,2}ColdDamageLifeLeechPermyriadUniqueBelt9bNew[80,100]
 {variant:1,2,3}HatredManaReservationEfficiencyUnique__1__
 ]],[[
 The Ignomon
@@ -818,11 +818,9 @@ IncreasedAccuracyUniqueAmulet17_
 {variant:4,5}CriticalMultiplierUniqueAmulet17
 IncreasedEvasionRatingUniqueAmulet17
 LightRadiusUniqueAmulet17
-{variant:1,2}Non-critical strikes deal 25% Damage
-{variant:3,4}Non-critical strikes deal 40% Damage
-{variant:1}LessCriticalStrikeChanceAmulet17[60,60]
-{variant:2}LessCriticalStrikeChanceAmulet17[50,50]
-{variant:3,4,5}LessCriticalStrikeChanceAmulet17[40,40]
+{variant:1}LessCriticalStrikeChanceAmulet17[-60,-60]
+{variant:2}LessCriticalStrikeChanceAmulet17[-50,-50]
+{variant:3,4,5}LessCriticalStrikeChanceAmulet17[-40,-40]
 CullingCriticalStrikes
 ]],[[
 Natural Hierarchy
@@ -873,9 +871,9 @@ LifeRegenerationImplicitAmulet1
 MaximumGolemsUnique__3
 CannotHaveNonGolemMinionsUnique__1_
 GolemSizeUnique__1
-{variant:1}LessGolemDamageUnique__1[35,45]
+{variant:1}LessGolemDamageUnique__1[-35,-45]
 {variant:2}LessGolemDamageUnique__1
-{variant:1}LessGolemLifeUnique__1[35,45]
+{variant:1}LessGolemLifeUnique__1[-35,-45]
 {variant:2}LessGolemLifeUnique__1
 GolemMovementSpeedUnique__1
 PrimordialJewelCountUnique__1
@@ -958,7 +956,7 @@ ManaRegenerationImplicitAmulet1
 GlobalAddedChaosDamageUnique__4__
 GlobalItemAttributeRequirementsUnique__2
 ChaosDamageCanIgniteChillAndShockUnique__1
-{variant:1}GainSoulEaterOnVaalSkillUseUnique__1[10,10]
+{variant:1}GainSoulEaterOnVaalSkillUseUnique__1[10000,10000]
 {variant:2}GainSoulEaterOnVaalSkillUseUnique__1
 ]],[[
 Shaper's Seed
@@ -973,8 +971,8 @@ HybridStrInt
 {variant:3}ManaRegenerationUniqueAmulet21
 {variant:1,2}LifeRegenerationRatePercentageUniqueAmulet21[120,120]
 {variant:3}LifeRegenerationRatePercentageUniqueAmulet21
-{variant:1}DisplayLifeRegenerationAuraUniqueAmulet21[1,1]
-{variant:2}DisplayLifeRegenerationAuraUniqueAmulet21[2,2]
+{variant:1}DisplayLifeRegenerationAuraUniqueAmulet21[60,60]
+{variant:2}DisplayLifeRegenerationAuraUniqueAmulet21[120,120]
 {variant:3}DisplayLifeRegenerationAuraUniqueAmulet21
 {variant:1,2}DisplayManaRegenerationAuaUniqueAmulet21[40,40]
 {variant:3}DisplayManaRegenerationAuaUniqueAmulet21
@@ -1095,7 +1093,7 @@ PuritySkillUniqueAmulet22
 {variant:1,2}AllAttributesUniqueAmulet22[5,10]
 {variant:3}AllAttributesUniqueAmulet22
 IncreasedLifeUniqueAmulet22
-{variant:1}AvoidElementalAilmentsUnique__1_[5000,5000]
+{variant:1}AvoidElementalAilmentsUnique__1_[5,5]
 {variant:2}AllResistancesUniqueAmulet2[5,5]
 {variant:3}ChanceToAvoidElementalStatusAilmentsUniqueAmulet22
 ]],[[
