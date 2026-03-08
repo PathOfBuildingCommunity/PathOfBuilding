@@ -479,7 +479,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	SetDrawLayer(1)
 
 	SetDrawColor(0.05, 0.05, 0.05)
-	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (28 + bottomDrawerHeight + linesHeight), viewPort.width, 28 + bottomDrawerHeight + linesHeight)
+	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (30 + bottomDrawerHeight + linesHeight), viewPort.width, 30 + bottomDrawerHeight + linesHeight)
 	if self.showConvert then
 		local height = viewPort.width < convertMaxWidth and (bottomDrawerHeight + linesHeight) or 0
 		SetDrawColor(0.05, 0.05, 0.05)
@@ -489,7 +489,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	end
 	-- let white lines overwrite the black sections, regardless of showConvert
 	SetDrawColor(0.85, 0.85, 0.85)
-	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (32 + bottomDrawerHeight + linesHeight), viewPort.width, 4)
+	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (34 + bottomDrawerHeight + linesHeight), viewPort.width, 4)
 
 	self:DrawControls(viewPort)
 end
