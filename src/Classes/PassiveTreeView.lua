@@ -513,12 +513,20 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			end
 		end
 
-		if baseState == "Active" and state ~= "Active" then
-			state = "Active"
-			setConnectorColor(0, 1, 0)
-		end
-		if baseState ~= "Active" and state == "Active" then
-			setConnectorColor(1, 0, 0)
+		if self.isTrackerMode and self.compareSpec then
+			if state == "Active" and baseState == "Active" then
+				setConnectorColor(0, 1, 0)
+			elseif state == "Active" then
+				setConnectorColor(1, 0, 0)
+			end
+		else
+			if baseState == "Active" and state ~= "Active" then
+				state = "Active"
+				setConnectorColor(0, 1, 0)
+			end
+			if baseState ~= "Active" and state == "Active" then
+				setConnectorColor(1, 0, 0)
+			end
 		end
 
 		-- Convert vertex coordinates to screen-space and add them to the coordinate array
@@ -751,19 +759,32 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				SetDrawColor(0, 0, 0)
 			end
 		else
-			if compareNode then
-				if compareNode.alloc and not node.alloc then
-					-- Base has, current has not, color green (take these nodes to match)
-					SetDrawColor(0, 1, 0)
-				elseif not compareNode.alloc and node.alloc then
-					-- Base has not, current has, color red (Remove nodes to match)
-					SetDrawColor(1, 0, 0)
-				elseif node.type == "Mastery" and compareNode.alloc and node.alloc and node.sd ~= compareNode.sd then
-					-- Node is a mastery, both have it allocated, but mastery changed, color it blue
-					SetDrawColor(0, 0, 1)
+				if compareNode then
+				if self.isTrackerMode then
+					if node.alloc and compareNode.alloc then
+						-- Match, color green
+						SetDrawColor(0, 1, 0)
+					elseif node.alloc then
+						-- POB has, character not, color red
+						SetDrawColor(1, 0, 0)
+					else
+						-- POB doesn't have, but character might. Use white for now.
+						SetDrawColor(1, 1, 1)
+					end
 				else
-					-- Both have or both have not, use white
-					SetDrawColor(1, 1, 1)
+					if compareNode.alloc and not node.alloc then
+						-- Base has, current has not, color green (take these nodes to match)
+						SetDrawColor(0, 1, 0)
+					elseif not compareNode.alloc and node.alloc then
+						-- Base has not, current has, color red (Remove nodes to match)
+						SetDrawColor(1, 0, 0)
+					elseif node.type == "Mastery" and compareNode.alloc and node.alloc and node.sd ~= compareNode.sd then
+						-- Node is a mastery, both have it allocated, but mastery changed, color it blue
+						SetDrawColor(0, 0, 1)
+					else
+						-- Both have or both have not, use white
+						SetDrawColor(1, 1, 1)
+					end
 				end
 			else
 				SetDrawColor(1, 1, 1)

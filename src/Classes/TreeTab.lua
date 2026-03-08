@@ -19,6 +19,14 @@ local s_gsub = string.gsub
 local s_byte = string.byte
 local dkjson = require "dkjson"
 
+local realmList = {
+	{ label = "PC", id = "PC", realmCode = "pc", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
+	{ label = "Xbox", id = "XBOX", realmCode = "xbox", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
+	{ label = "PS4", id = "SONY", realmCode = "sony", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
+	{ label = "Hotcool", id = "PC", realmCode = "pc", hostName = "https://pathofexile.tw/", profileURL = "account/view-profile/" },
+	{ label = "Tencent", id = "PC", realmCode = "pc", hostName = "https://poe.game.qq.com/", profileURL = "account/view-profile/" },
+}
+
 -- Helper function to find toast index by content pattern
 -- TODO: remove this when when we can control toast notifications better
 local function findToastIndex(pattern)
@@ -35,6 +43,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 
 	self.build = build
 	self.isComparing = false;
+	self.isTrackerMode = false;
 	self.isCustomMaxDepth = false;
 
 	self.viewer = new("PassiveTreeView")
@@ -119,9 +128,9 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		self:SetCompareSpec(self.activeCompareSpec)
 		self.controls.compareSelect.shown = state
 		if state then
-			self.controls.reset:SetAnchor("LEFT", self.controls.compareSelect, "RIGHT", nil, nil, nil)
+			self.controls.trackerMode:SetAnchor("LEFT", self.controls.compareSelect, "RIGHT", 8, nil, nil)
 		else
-			self.controls.reset:SetAnchor("LEFT", self.controls.compareCheck, "RIGHT", nil, nil, nil)
+			self.controls.trackerMode:SetAnchor("LEFT", self.controls.compareCheck, "RIGHT", 8, nil, nil)
 		end
 	end)
 
@@ -137,7 +146,19 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.compareSelect.maxDroppedWidth = 1000
 	self.controls.compareSelect.enableDroppedWidth = true
 	self.controls.compareSelect.enableChangeBoxWidth = true
-	self.controls.reset = new("ButtonControl", { "LEFT", self.controls.compareCheck, "RIGHT" }, { 8, 0, 145, 20 }, "Reset Tree/Tattoos", function()
+
+
+	self.controls.trackerMode = new("CheckBoxControl", { "LEFT", self.controls.compareCheck, "RIGHT" }, { 8, 0, 20 }, "Tracker Mode:", function(state)
+		self.isTrackerMode = state
+		self.build.buildFlag = true
+	end)
+
+
+	self.controls.importCompareChar = new("ButtonControl", { "LEFT", self.controls.trackerMode, "RIGHT" }, { 8, 0, 160, 20 }, "Compare Character", function()
+		self:OpenImportCompareCharPopup()
+	end)
+
+	self.controls.reset = new("ButtonControl", { "LEFT", self.controls.importCompareChar, "RIGHT" }, { 8, 0, 145, 20 }, "Reset Tree/Tattoos", function()
 		local controls = { }
 		local buttonY = 65
 		controls.warningLabel = new("LabelControl", nil, { 0, 30, 0, 16 }, "^7Warning: resetting your passive tree or removing all tattoos cannot be undone.\n")
@@ -405,6 +426,8 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 								+ self.controls.versionText.width() + self.controls.versionText.x
 								+ self.controls.versionSelect.width + self.controls.versionSelect.x
 								+ (self.isComparing and (self.controls.compareSelect.width + self.controls.compareSelect.x) or 0)
+								+ self.controls.trackerMode.width + self.controls.trackerMode.x
+								+ self.controls.importCompareChar.width + self.controls.importCompareChar.x
 	
 	local widthSecondLineControls = self.controls.treeSearch.width + 8
 									+ self.controls.findTimelessJewel.width + self.controls.findTimelessJewel.x
@@ -454,6 +477,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 		self.jumpToNode = false
 	end
 	self.viewer.compareSpec = self.isComparing and self.specList[self.activeCompareSpec] or nil
+	self.viewer.isTrackerMode = self.isTrackerMode
 	self.viewer:Draw(self.build, treeViewPort, inputEvents)
 
 	local newSpecList = self:GetSpecList()
@@ -2492,4 +2516,129 @@ function TreeTabClass:FindTimelessJewel()
 	end)
 
 	main:OpenPopup(910, 517, "Find a Timeless Jewel", controls)
+end
+
+function TreeTabClass:ProcessJSON(json)
+	local func, errMsg = loadstring("return "..jsonToLua(json))
+	if errMsg then
+		return nil, errMsg
+	end
+	setfenv(func, { })
+	local data = func()
+	if type(data) ~= "table" then
+		return nil, "Return type is not a table"
+	end
+	return data
+end
+
+function TreeTabClass:OpenImportCompareCharPopup()
+	local controls = { }
+	controls.accountNameLabel = new("LabelControl", nil, {-150, 20, 0, 16}, "Account Name:")
+	controls.accountRealm = new("DropDownControl", {"LEFT", controls.accountNameLabel, "RIGHT"}, {8, 0, 60, 20}, realmList)
+	controls.accountRealm:SelByValue(main.lastRealm or "PC", "id")
+	controls.accountName = new("EditControl", {"LEFT", controls.accountRealm, "RIGHT"}, {8, 0, 200, 20}, main.lastAccountName or "", nil, "%c", nil, nil, nil, nil, true)
+	
+	controls.status = new("LabelControl", nil, {0, 50, 0, 16}, "")
+
+	controls.charSelectLabel = new("LabelControl", nil, {-150, 80, 0, 16}, "Character:")
+	controls.charSelect = new("DropDownControl", {"LEFT", controls.charSelectLabel, "RIGHT"}, {8, 0, 300, 20}, { "Enter account name first" })
+	controls.charSelect.enabled = false
+
+	controls.start = new("ButtonControl", nil, {-45, 120, 80, 20}, "Start", function()
+		self:DownloadCompareCharList(controls)
+	end)
+	controls.start.enabled = function()
+		return #controls.accountName.buf > 0
+	end
+
+	controls.import = new("ButtonControl", nil, {45, 120, 80, 20}, "Import", function()
+		local charData = controls.charSelect.list[controls.charSelect.selIndex].char
+		self:DownloadComparePassiveTree(charData, controls)
+	end)
+	controls.import.enabled = false
+
+	controls.close = new("ButtonControl", nil, {0, 155, 80, 20}, "Close", function()
+		main:ClosePopup()
+	end)
+
+	main:OpenPopup(500, 190, "Import Character for Comparison", controls, "start")
+end
+
+function TreeTabClass:DownloadCompareCharList(popupControls)
+	popupControls.status.label = "Retrieving character list..."
+	local realm = realmList[popupControls.accountRealm.selIndex]
+	local accountName = popupControls.accountName.buf:gsub("(.*)[#%-]", "%1#")
+	
+	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName:gsub("#", "%%23").."&realm="..realm.realmCode, function(response, errMsg)
+		if errMsg then
+			popupControls.status.label = "^1Error: "..errMsg
+			return
+		end
+		local charList, errMsg = self:ProcessJSON(response.body)
+		if errMsg then
+			popupControls.status.label = "^1Error processing character list"
+			return
+		end
+		if #charList == 0 then
+			popupControls.status.label = "^1No characters found"
+			return
+		end
+		
+		wipeTable(popupControls.charSelect.list)
+		for i, char in ipairs(charList) do
+			t_insert(popupControls.charSelect.list, {
+				label = string.format("%s (Level %d %s)", char.name, char.level, char.class),
+				char = char,
+			})
+		end
+		table.sort(popupControls.charSelect.list, function(a,b) return a.char.name:lower() < b.char.name:lower() end)
+		popupControls.charSelect.selIndex = 1
+		popupControls.charSelect.enabled = true
+		popupControls.import.enabled = true
+		popupControls.status.label = "^2Characters retrieved."
+	end)
+end
+
+function TreeTabClass:DownloadComparePassiveTree(charData, popupControls)
+	popupControls.status.label = "Retrieving passive tree..."
+	local realm = realmList[popupControls.accountRealm.selIndex]
+	local accountName = popupControls.accountName.buf:gsub("(.*)[#%-]", "%1#")
+	
+	launch:DownloadPage(realm.hostName.."character-window/get-passive-skills?accountName="..accountName:gsub("#", "%%23").."&character="..urlEncode(charData.name).."&realm="..realm.realmCode, function(response, errMsg)
+		if errMsg then
+			popupControls.status.label = "^1Error: "..errMsg
+			return
+		end
+		self:ImportComparePassiveTree(response.body, charData)
+		main:ClosePopup()
+	end)
+end
+
+function TreeTabClass:ImportComparePassiveTree(json, charData)
+	local charPassiveData, errMsg = self:ProcessJSON(json)
+	if errMsg then
+		main:OpenMessagePopup("Error", "Error processing character data")
+		return
+	end
+
+	local newSpec = new("PassiveSpec", self.build, latestTreeVersion)
+	newSpec.title = charData.name .. " (Imported)"
+	
+	newSpec:ImportFromNodeList(charPassiveData.character, 
+		charPassiveData.ascendancy, 
+		charPassiveData.alternate_ascendancy or 0, 
+		charPassiveData.hashes, 
+		charPassiveData.skill_overrides or {}, 
+		charPassiveData.mastery_effects or {}, 
+		latestTreeVersion
+	)
+	
+	t_insert(self.specList, newSpec)
+	self:SetCompareSpec(#self.specList)
+	self.isComparing = true
+	self.controls.compareCheck.state = true
+	self.controls.compareSelect.shown = true
+	self.isTrackerMode = true
+	self.controls.trackerMode.state = true
+	self.build.buildFlag = true
 end
