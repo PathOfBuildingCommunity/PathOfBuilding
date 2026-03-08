@@ -844,6 +844,14 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	if skillModList:Flag(nil, "WeaponPhysAppliesToSpells") then
+		-- Phys from weapon to Spells from Runegraft
+		local mult = (skillModList:Sum("BASE", skillCfg, "WeaponPhysAppliesToSpellsPercent") or 100) / 100
+		if actor.weaponData1 then
+			skillModList:NewMod("PhysicalMin", "BASE", m_floor((actor.weaponData1["PhysicalMin"] or 0) * mult), "Runegraft of the Spellbound", ModFlag.Spell)
+			skillModList:NewMod("PhysicalMax", "BASE", m_floor((actor.weaponData1["PhysicalMax"] or 0) * mult), "Runegraft of the Spellbound", ModFlag.Spell)
+		end
+	end
 	if skillData.gainPercentBaseWandDamageToSpells then
 		local mult = skillData.gainPercentBaseWandDamageToSpells / 100
 		if actor.weaponData1.type == "Wand" and actor.weaponData2.type == "Wand" then

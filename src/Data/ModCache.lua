@@ -5788,8 +5788,7 @@ c["50% increased Damage if you have Shocked an Enemy Recently"]={{[1]={[1]={type
 c["50% increased Damage on Burning Ground"]={{[1]={[1]={type="Condition",var="OnBurningGround"},flags=0,keywordFlags=0,name="Damage",type="INC",value=50}},nil}
 c["50% increased Damage while on Consecrated Ground"]={{[1]={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="Damage",type="INC",value=50}},nil}
 c["50% increased Damage with Bleeding"]={{[1]={flags=0,keywordFlags=4194304,name="Damage",type="INC",value=50}},nil}
-c["50% increased Damage with Damaging Ailments you inflict while you are affected by the same Ailment"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=50}},"  with Damaging Ailments you inflict while you are affected by the same Ailment "}
-c["50% increased Damage with Damaging Ailments you inflict while you are affected by the same Ailment Limited to 1 Runegraft of Suffering"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=50}},"  with Damaging Ailments you inflict while you are affected by the same Ailment Limited to 1 Runegraft of Suffering "}
+c["50% increased Damage with Damaging Ailments you inflict while you are affected by the same Ailment"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Bleeding"},[2]={type="Condition",var="Bleeding"},flags=0,keywordFlags=4194304,name="Damage",type="INC",value=50},[2]={[1]={actor="enemy",type="ActorCondition",var="Ignited"},[2]={type="Condition",var="Ignited"},flags=0,keywordFlags=8388608,name="Damage",type="INC",value=50},[3]={[1]={actor="enemy",type="ActorCondition",var="Poisoned"},[2]={type="Condition",var="Poisoned"},flags=0,keywordFlags=2097152,name="Damage",type="INC",value=50}},nil}
 c["50% increased Damage with Hits and Ailments against Bleeding Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Bleeding"},flags=0,keywordFlags=786432,name="Damage",type="INC",value=50}},nil}
 c["50% increased Damage with Hits and Ailments against Blinded Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Blinded"},flags=0,keywordFlags=786432,name="Damage",type="INC",value=50}},nil}
 c["50% increased Damage with Hits and Ailments against Enemies affected by 3 Spider's Webs"]={{[1]={[1]={actor="enemy",threshold=3,type="MultiplierThreshold",var="Spider's WebStack"},flags=0,keywordFlags=786432,name="Damage",type="INC",value=50}},nil}
@@ -8510,8 +8509,7 @@ c["Enemies Poisoned by you cannot Regenerate Life"]={nil,"you cannot Regenerate 
 c["Enemies Poisoned by you cannot Regenerate Life +6% to Damage over Time Multiplier for Poison while wielding a Claw or Dagger"]={nil,"you cannot Regenerate Life +6% to Damage over Time Multiplier for Poison while wielding a Claw or Dagger "}
 c["Enemies Poisoned by you cannot deal Critical Strikes"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="Poisoned"},flags=0,keywordFlags=0,name="NeverCrit",type="FLAG",value=true}}},[2]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="Poisoned"},flags=0,keywordFlags=0,name="Condition:NeverCrit",type="FLAG",value=true}}}},nil}
 c["Enemies Poisoned by you have -5% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="Poisoned"},flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=-5}}}},nil}
-c["Enemies Poisoned by you have 10% of Physical Damage they deal converted to Chaos"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="Poisoned"},flags=0,keywordFlags=0,name="PhysicalDamage",type="BASE",value=10}}}},"  they deal converted to Chaos "}
-c["Enemies Poisoned by you have 10% of Physical Damage they deal converted to Chaos Limited to 1 Runegraft of Rotblood"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="Poisoned"},flags=0,keywordFlags=0,name="PhysicalDamage",type="BASE",value=10}}}},"  they deal converted to Chaos Limited to 1 Runegraft of Rotblood "}
+c["Enemies Poisoned by you have 10% of Physical Damage they deal converted to Chaos"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="Poisoned"},flags=0,keywordFlags=0,name="PhysicalDamageConvertToChaos",type="BASE",value=10}}}},nil}
 c["Enemies Shocked by you have 13% of Physical Damage they deal converted to Lightning"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="Shocked"},flags=0,keywordFlags=0,name="PhysicalDamageConvertToLightning",type="BASE",value=13}}}},nil}
 c["Enemies Shocked by you have 15% of Physical Damage they deal converted to Lightning"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="Shocked"},flags=0,keywordFlags=0,name="PhysicalDamageConvertToLightning",type="BASE",value=15}}}},nil}
 c["Enemies Shocked or Frozen by you take 5% increased Elemental Damage"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",varList={[1]="Shocked",[2]="Frozen"}},flags=0,keywordFlags=0,name="ElementalDamageTaken",type="INC",value=5}}}},nil}
@@ -10447,8 +10445,7 @@ c["Projectile Attack Skills have 60% increased Critical Strike Chance"]={{[1]={[
 c["Projectile Barrages have no spread"]={nil,"Projectile Barrages have no spread "}
 c["Projectile Barrages have no spread You take no Extra Damage from Critical Strikes while Elusive"]={nil,"Projectile Barrages have no spread You take no Extra Damage from Critical Strikes while Elusive "}
 c["Projectiles Chain +1 times while you have Phasing"]={{[1]={[1]={type="Condition",var="Phasing"},flags=1024,keywordFlags=0,name="ChainCountMax",type="BASE",value=1}},nil}
-c["Projectiles Chain an additional time"]={nil,"Chain an additional time "}
-c["Projectiles Chain an additional time Limited to 1 Runegraft of Refraction"]={nil,"Chain an additional time Limited to 1 Runegraft of Refraction "}
+c["Projectiles Chain an additional time"]={{[1]={flags=1024,keywordFlags=0,name="ChainCountMax",type="BASE",value=1}},nil}
 c["Projectiles Fork"]={{[1]={flags=1024,keywordFlags=0,name="ForkOnce",type="FLAG",value=true},[2]={flags=1024,keywordFlags=0,name="ForkCountMax",type="BASE",value=1}},nil}
 c["Projectiles Pierce 2 additional Targets"]={{[1]={flags=0,keywordFlags=0,name="PierceCount",type="BASE",value=2}},nil}
 c["Projectiles Pierce 2 additional Targets if 2 Hunter Items are Equipped"]={{[1]={[1]={threshold=2,type="MultiplierThreshold",var="HunterItem"},flags=0,keywordFlags=0,name="PierceCount",type="BASE",value="2"}},nil}
@@ -11987,8 +11984,7 @@ c["Spells have 30% increased Critical Strike Chance per Intensity"]={{[1]={[1]={
 c["Spells have 40% increased Critical Strike Chance per Intensity"]={{[1]={[1]={type="Multiplier",var="Intensity"},flags=2,keywordFlags=0,name="CritChance",type="INC",value=40}},nil}
 c["Spells have 50% increased Critical Strike Chance per Intensity"]={{[1]={[1]={type="Multiplier",var="Intensity"},flags=2,keywordFlags=0,name="CritChance",type="INC",value=50}},nil}
 c["Spells have Added Spell Damage equal to 30% of Physical Damage of"]={nil,"dded Spell Damage equal to 30% of Physical Damage of "}
-c["Spells have Added Spell Damage equal to 30% of Physical Damage of your Equipped Two handed Weapon"]={nil,"dded Spell Damage equal to 30% of Physical Damage of your Equipped Two handed Weapon "}
-c["Spells have Added Spell Damage equal to 30% of Physical Damage of your Equipped Two handed Weapon Limited to 1 Runegraft of the Spellbound"]={nil,"dded Spell Damage equal to 30% of Physical Damage of your Equipped Two handed Weapon Limited to 1 Runegraft of the Spellbound "}
+c["Spells have Added Spell Damage equal to 30% of Physical Damage of your Equipped Two handed Weapon"]={{[1]={flags=0,keywordFlags=0,name="WeaponPhysAppliesToSpells",type="FLAG",value=true},[2]={[1]={type="Condition",var="UsingTwoHandedWeapon"},flags=0,keywordFlags=0,name="WeaponPhysAppliesToSpellsPercent",type="BASE",value=30}},nil}
 c["Spells have a 20% chance to deal Double Damage"]={{[1]={flags=2,keywordFlags=0,name="DoubleDamageChance",type="BASE",value=20}},nil}
 c["Spells inflict Intimidate on Critical Strike for 4 seconds"]={nil,"Spells inflict Intimidate on Critical Strike for 4 seconds "}
 c["Spells which can gain Intensity have +1 to maximum Intensity"]={{[1]={flags=0,keywordFlags=0,name="Multiplier:IntensityLimit",type="BASE",value=1}},nil}
@@ -12191,8 +12187,7 @@ c["Tinctures applied to you have 10% increased Effect"]={{[1]={[1]={actor="playe
 c["Tinctures applied to you have 10% reduced Mana Burn rate"]={{[1]={[1]={actor="player",type="ActorCondition"},flags=0,keywordFlags=0,name="TinctureManaBurnRate",type="INC",value=-10}},nil}
 c["Tinctures applied to you have 15% increased Effect"]={{[1]={[1]={actor="player",type="ActorCondition"},flags=0,keywordFlags=0,name="TinctureEffect",type="INC",value=15}},nil}
 c["Tinctures applied to you have 15% increased Effect if you've used a Life Flask Recently"]={{[1]={[1]={actor="player",type="ActorCondition"},[2]={type="Condition",var="UsingLifeFlask"},flags=0,keywordFlags=0,name="TinctureEffect",type="INC",value=15}},nil}
-c["Tinctures applied to you have 30% increased Effect while affected by no Flasks"]={nil,"Tinctures applied to you have 30% increased Effect while affected by no Flasks "}
-c["Tinctures applied to you have 30% increased Effect while affected by no Flasks Limited to 1 Runegraft of the Imbued"]={nil,"Tinctures applied to you have 30% increased Effect while affected by no Flasks Limited to 1 Runegraft of the Imbued "}
+c["Tinctures applied to you have 30% increased Effect while affected by no Flasks"]={{[1]={[1]={actor="player",type="ActorCondition"},[2]={neg=true,type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="TinctureEffect",type="INC",value=30}},nil}
 c["Tinctures applied to you have 30% less Mana Burn rate"]={{[1]={[1]={actor="player",type="ActorCondition"},flags=0,keywordFlags=0,name="TinctureManaBurnRate",type="MORE",value=-30}},nil}
 c["Tinctures applied to you have 5% increased Effect"]={{[1]={[1]={actor="player",type="ActorCondition"},flags=0,keywordFlags=0,name="TinctureEffect",type="INC",value=5}},nil}
 c["Tinctures applied to you have 5% reduced Mana Burn rate"]={{[1]={[1]={actor="player",type="ActorCondition"},flags=0,keywordFlags=0,name="TinctureManaBurnRate",type="INC",value=-5}},nil}
@@ -12947,7 +12942,5 @@ c["up to a maximum of 150%"]={nil,"up to a maximum of 150% "}
 c["up to a maximum of 150% Damageable Minions take 5% increased Damage for each second they have been alive,\nup to a maximum of 50%"]={nil,"up to a maximum of 150% Damageable Minions take 5% increased Damage for each second they have been alive,\nup to a maximum of 50% "}
 c["up to a maximum of 50%"]={nil,"up to a maximum of 50% "}
 c["used if you've Hit an enemy with a Weapon Recently"]={nil,"used if you've Hit an enemy with a Weapon Recently "}
-c["your Equipped Two handed Weapon"]={nil,"your Equipped Two handed Weapon "}
-c["your Equipped Two handed Weapon Limited to 1 Runegraft of the Spellbound"]={nil,"your Equipped Two handed Weapon Limited to 1 Runegraft of the Spellbound "}
 c["your maximum number of Crab Barriers"]={nil,"your maximum number of Crab Barriers "}
 c["your maximum number of Power Charges"]={nil,"your maximum number of Power Charges "}
