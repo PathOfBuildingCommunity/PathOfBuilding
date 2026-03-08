@@ -245,9 +245,9 @@ Source: No longer obtainable
 Requires Level 30
 Implicits: 1
 (12-20)% increased Rarity of Items found
-{variant:1}(100-150)% increased Rarity of Items Dropped by Slain Magic Enemies
+{variant:1}150% increased Rarity of Items Dropped by Slain Magic Enemies
 {variant:2,3}(100-150)% increased Rarity of Items Dropped by Slain Magic Enemies
-{variant:1}(35-50)% increased Quantity of Items Dropped by Slain Normal Enemies
+{variant:1}100% increased Quantity of Items Dropped by Slain Normal Enemies
 {variant:2}(50-100)% increased Quantity of Items Dropped by Slain Normal Enemies
 {variant:3}(35-50)% increased Quantity of Items Dropped by Slain Normal Enemies
 ]],[[
@@ -263,7 +263,7 @@ Implicits: 1
 {tags:defences}+(20-30) to maximum Energy Shield
 {tags:resistance}+(15-30)% to Fire Resistance
 {tags:resistance}+(15-30)% to Lightning Resistance
-{variant:1}{tags:defences}30% faster start of Energy Shield Recharge during any Flask Effect
+{variant:1}{tags:defences}30% slower start of Energy Shield Recharge during any Flask Effect
 {variant:2}{tags:defences}50% slower start of Energy Shield Recharge during any Flask Effect
 {variant:1}{tags:defences}400% increased Energy Shield Recharge Rate during any Flask Effect
 {variant:2}{tags:defences}(150-200)% increased Energy Shield Recharge Rate during any Flask Effect
@@ -469,7 +469,7 @@ Variant: Lightning taken as Fire
 Variant: Gain Physical as random Element
 Variant: Extra Pierces
 Variant: Damage over Time Multiplier
-Implicits: 31
+Implicits: 32
 {variant:1}{tags:attribute}(24-32)% increased Attributes
 {variant:11}(50-70)% increased Damage
 {variant:4}{tags:attack}(40-60)% increased Attack Damage
@@ -484,8 +484,9 @@ Implicits: 31
 {variant:18}{tags:resource}(16-24)% increased maximum Life
 {variant:10}{tags:resource}(40-60)% increased maximum Mana
 {variant:17}(12-20)% increased Quantity of Items found
+{variant:32}Projectiles Pierce 4 additional Targets
 {variant:15}(10-16)% increased Area of Effect
-{variant:24}{tags:resource}Regenerate 0.07% of Life per second
+{variant:24}{tags:resource}Regenerate 4% of Life per second
 {variant:16}{tags:attack,caster,speed}(12-20)% increased Attack and Cast Speed
 {variant:20}+2 to maximum number of Raised Zombies
 {variant:12}(8-12)% additional Physical Damage Reduction
@@ -623,7 +624,7 @@ Implicits: 1
 {variant:1,2}{tags:elemental_damage,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
 {variant:1,2}{tags:critical}+(23-28)% to Global Critical Strike Multiplier
 {variant:3}{tags:critical}+(25-50)% to Global Critical Strike Multiplier
-{variant:1,2}{tags:resource,attack}(8-10)% of Physical Attack Damage Leeched as Life
+{variant:1,2}{tags:resource,attack}(0.8-1)% of Physical Attack Damage Leeched as Life
 {variant:3}Bow Attacks have Culling Strike
 {variant:1,2,3}{tags:resource}Precision has 100% increased Mana Reservation Efficiency
 ]],[[
@@ -644,7 +645,7 @@ Grants Level 22 Hatred Skill
 {variant:1,2}{tags:elemental_damage,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
 {variant:1,2}{tags:critical}+(23-28)% to Global Critical Strike Multiplier
 {variant:3}{tags:critical}+(18-35)% to Global Critical Strike Multiplier
-{variant:1,2}{tags:resource}(8-10)% of Cold Damage Leeched as Life
+{variant:1,2}{tags:resource}(0.8-1)% of Cold Damage Leeched as Life
 {variant:3}Bow Attacks have Culling Strike
 {variant:1,2,3}{tags:resource}Hatred has 100% increased Mana Reservation Efficiency
 ]],[[
@@ -822,12 +823,10 @@ Implicits: 1
 {variant:4,5}{tags:critical}+(210-240)% to Global Critical Strike Multiplier
 {tags:defences}+(80-100) to Evasion Rating
 (10-15)% increased Light Radius
-{variant:1}{tags:critical}60% more Critical Strike Chance
-{variant:2}{tags:critical}50% more Critical Strike Chance
-{variant:3,4,5}{tags:critical}40% more Critical Strike Chance
+{variant:1}{tags:critical}60% less Critical Strike Chance
+{variant:2}{tags:critical}50% less Critical Strike Chance
+{variant:3,4,5}{tags:critical}40% less Critical Strike Chance
 {tags:critical}Critical Strikes have Culling Strike
-{variant:1,2}Non-critical strikes deal 25% Damage
-{variant:3,4}Non-critical strikes deal 40% Damage
 ]],[[
 Natural Hierarchy
 Rotfeather Talisman
@@ -877,9 +876,9 @@ Implicits: 1
 +3 to maximum number of Summoned Golems
 You cannot have non-Golem Minions
 25% reduced Golem Size
-{variant:1}Golems Deal (35-45)% more Damage
+{variant:1}Golems Deal (45-35)% less Damage
 {variant:2}Golems Deal (25-35)% less Damage
-{variant:1}{tags:resource}Golems have (35-45)% more Life
+{variant:1}{tags:resource}Golems have (45-35)% less Life
 {variant:2}{tags:resource}Golems have (25-35)% less Life
 {tags:speed}Golems have (80-100)% increased Movement Speed
 Primordial
@@ -962,7 +961,7 @@ Implicits: 1
 {tags:chaos_damage}Adds (48-53) to (58-60) Chaos Damage
 Items and Gems have 50% increased Attribute Requirements
 Chaos Damage can Ignite, Chill and Shock
-{variant:1}Gain Soul Eater for 0.01 seconds when you use a Vaal Skill
+{variant:1}Gain Soul Eater for 10 seconds when you use a Vaal Skill
 {variant:2}Gain Soul Eater for 20 seconds when you use a Vaal Skill
 ]],[[
 Shaper's Seed
@@ -977,8 +976,8 @@ Implicits: 1
 {variant:3}{tags:resource}(60-100)% increased Mana Regeneration Rate
 {variant:1,2}{tags:resource}Regenerate 2% of Life per second
 {variant:3}{tags:resource}Regenerate 4% of Life per second
-{variant:1}{tags:resource}Nearby Allies gain 0% of Life Regenerated per second
-{variant:2}{tags:resource}Nearby Allies gain 0% of Life Regenerated per second
+{variant:1}{tags:resource}Nearby Allies gain 1% of Life Regenerated per second
+{variant:2}{tags:resource}Nearby Allies gain 2% of Life Regenerated per second
 {variant:3}{tags:resource}Nearby Allies gain 4% of Life Regenerated per second
 {variant:1,2}{tags:resource}Nearby Allies gain 40% increased Mana Regeneration Rate
 {variant:3}{tags:resource}Nearby Allies gain 80% increased Mana Regeneration Rate
@@ -1101,7 +1100,7 @@ Grants Level 10 Purity of Elements Skill
 {tags:resource}+(20-40) to maximum Life
 {variant:2}{tags:resistance}+5% to all Elemental Resistances
 {variant:3}{tags:resistance}+(5-10)% to all Elemental Resistances
-{variant:1}5000% chance to Avoid Elemental Ailments
+{variant:1}5% chance to Avoid Elemental Ailments
 ]],[[
 Ungil's Harmony
 Turquoise Amulet
