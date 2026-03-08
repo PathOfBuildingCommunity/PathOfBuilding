@@ -48,6 +48,10 @@ local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.vaal1:Load("TreeData/PassiveSkillScreenVaalJewelCircle1.png", "CLAMP")
 	self.vaal2 = NewImageHandle()
 	self.vaal2:Load("TreeData/PassiveSkillScreenVaalJewelCircle2.png", "CLAMP")
+	self.kalguuran1 = NewImageHandle()
+	self.kalguuran1:Load("TreeData/PassiveSkillScreenKalguuranJewelCircle1.png", "CLAMP")
+	self.kalguuran2 = NewImageHandle()
+	self.kalguuran2:Load("TreeData/PassiveSkillScreenKalguuranJewelCircle2.png", "CLAMP")
 
 	self.tooltip = new("Tooltip")
 
@@ -934,6 +938,9 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					elseif jewel.title:match("^Militant Faith") then
 						self:DrawImageRotated(self.templar1, scrX, scrY, outerSize * 2, outerSize * 2, -0.7)
 						self:DrawImageRotated(self.templar2, scrX, scrY, outerSize * 2, outerSize * 2, 0.7)
+					elseif jewel.title:match("^Heroic Tragedy") then
+						self:DrawImageRotated(self.kalguuran1, scrX, scrY, outerSize * 2, outerSize * 2, -0.7)
+						self:DrawImageRotated(self.kalguuran2, scrX, scrY, outerSize * 2, outerSize * 2, 0.7)
 					else
 						self:DrawImageRotated(self.jewelShadedOuterRing, scrX, scrY, outerSize * 2, outerSize * 2, -0.7)
 						self:DrawImageRotated(self.jewelShadedOuterRingFlipped, scrX, scrY, outerSize * 2, outerSize * 2, 0.7)

@@ -1878,6 +1878,22 @@ Implicits: 0
 Passives in radius are Conquered by the Vaal
 Historic
 ]],[[
+Heroic Tragedy
+Timeless Jewel
+League: Legion
+Source: Drops from Legion in Mirage
+Limited to: 1 Historic
+Variant: Vorana (Black Scythe Training)
+Variant: Uhtred (The Unbreaking Circle)
+Variant: Medved (Celestial Mathematics)
+Radius: Large
+Implicits: 0
+{variant:1}Remembrancing (100-8000) songworthy deeds by the line of Vorana
+{variant:2}Remembrancing (100-8000) songworthy deeds by the line of Uhtred
+{variant:3}Remembrancing (100-8000) songworthy deeds by the line of Medved
+Passives in radius are Conquered by the Kalguur
+Historic
+]],[[
 Lethal Pride
 Timeless Jewel
 League: Legion

@@ -135,7 +135,7 @@ function parseStats(datFileRow, legionPassive)
 		table.insert(sortedStats, stat)
 	end
 	-- Finally get what we want, sorted stats by order
-	table.sort(sortedStats, function(a, b) return legionPassive.stats[a].statOrder < legionPassive.stats[b].statOrder  end)
+	table.sort(sortedStats, function(a, b) return legionPassive.stats[a].statOrder and legionPassive.stats[a].statOrder < legionPassive.stats[b].statOrder  end)
 	legionPassive.sortedStats = sortedStats
 end
 
