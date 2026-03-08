@@ -164,7 +164,7 @@ return {
 			[1] = { name = "Soul of Yugul",
 				mods = {
 					-- %_of_your_and_your_minions_damage_cannot_be_reflected
-					[1] = { line = "", value = { 50 }, },
+					[1] = { line = "50% of Hit Damage from you and your Minions cannot be Reflected", value = { 50 }, },
 					-- reflect_hexes_chance_%
 					[2] = { line = "50% chance to Reflect Hexes", value = { 50 }, },
 				},
