@@ -5770,6 +5770,8 @@ c["50% increased Damage if you have Shocked an Enemy Recently"]={{[1]={[1]={type
 c["50% increased Damage on Burning Ground"]={{[1]={[1]={type="Condition",var="OnBurningGround"},flags=0,keywordFlags=0,name="Damage",type="INC",value=50}},nil}
 c["50% increased Damage while on Consecrated Ground"]={{[1]={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="Damage",type="INC",value=50}},nil}
 c["50% increased Damage with Bleeding"]={{[1]={flags=0,keywordFlags=4194304,name="Damage",type="INC",value=50}},nil}
+c["50% increased Damage with Damaging Ailments you inflict while you are affected by the same Ailment"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=50}},"  with Damaging Ailments you inflict while you are affected by the same Ailment "}
+c["50% increased Damage with Damaging Ailments you inflict while you are affected by the same Ailment Limited to 1 Runegraft of Suffering"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="INC",value=50}},"  with Damaging Ailments you inflict while you are affected by the same Ailment Limited to 1 Runegraft of Suffering "}
 c["50% increased Damage with Hits and Ailments against Bleeding Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Bleeding"},flags=0,keywordFlags=786432,name="Damage",type="INC",value=50}},nil}
 c["50% increased Damage with Hits and Ailments against Blinded Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Blinded"},flags=0,keywordFlags=786432,name="Damage",type="INC",value=50}},nil}
 c["50% increased Damage with Hits and Ailments against Enemies affected by 3 Spider's Webs"]={{[1]={[1]={actor="enemy",threshold=3,type="MultiplierThreshold",var="Spider's WebStack"},flags=0,keywordFlags=786432,name="Damage",type="INC",value=50}},nil}
@@ -7594,6 +7596,7 @@ c["Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets Y
 c["Animated Minions' Melee Attacks deal Splash Damage to surrounding targets"]={nil,"Animated Minions' Melee Attacks deal Splash Damage to surrounding targets "}
 c["Animated Minions' Melee Attacks deal Splash Damage to surrounding targets Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets"]={nil,"Animated Minions' Melee Attacks deal Splash Damage to surrounding targets Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets "}
 c["Arcane Surge also grants 10% more Spell Damage to you"]={{[1]={flags=0,keywordFlags=0,name="ArcaneSurgeDamage",type="MAX",value=10}},nil}
+c["Arcane Surge also grants 15% increased Life Regeneration Rate to you"]={{[1]={flags=0,keywordFlags=0,name="ArcaneSurgeAlsoLifeRegen",type="BASE",value=15}},nil}
 c["Arcane Surge also grants 20% more Spell Damage to you"]={{[1]={flags=0,keywordFlags=0,name="ArcaneSurgeDamage",type="MAX",value=20}},nil}
 c["Arctic Armour has no Reservation"]={{[1]={[1]={skillId="ArcticArmour",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="manaReservationFlat",value=0}},[2]={[1]={skillId="ArcticArmour",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="lifeReservationFlat",value=0}},[3]={[1]={skillId="ArcticArmour",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="manaReservationPercent",value=0}},[4]={[1]={skillId="ArcticArmour",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="lifeReservationPercent",value=0}}},nil}
 c["Area Skills have 10% chance to Knock Enemies Back on Hit"]={{[1]={[1]={skillType=11,type="SkillType"},flags=0,keywordFlags=0,name="EnemyKnockbackChance",type="BASE",value=10}},nil}
@@ -8132,6 +8135,7 @@ c["Consecrated Ground you create applies 15% increased Damage taken to Enemies"]
 c["Consecrated Ground you create causes Life Regeneration to"]={nil,"Consecrated Ground you create causes Life Regeneration to "}
 c["Consecrated Ground you create causes Life Regeneration to also Recover Energy Shield for you and Allies"]={{[1]={flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="LifeRegenerationRecoversEnergyShield",type="FLAG",value=true}}}},nil}
 c["Consecrated Ground you create grants 30% increased Accuracy Rating to you and Allies"]={{[1]={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="Accuracy",type="INC",value=30}}}},nil}
+c["Consecrated Ground you create grants 30% increased Mana Regeneration"]={{[1]={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="ManaRegen",type="INC",value=30}},nil}
 c["Consecrated Ground you create while affected by Zealotry causes enemies to take 10% increased Damage"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="OnConsecratedGround"},[2]={type="Condition",var="AffectedByZealotry"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="DamageTakenConsecratedGround",type="INC",value=10}}}},nil}
 c["Consumes Frenzy Charges on use"]={nil,"Consumes Frenzy Charges on use "}
 c["Consumes Frenzy Charges on use Gain Onslaught for 1 second per Frenzy Charge on use"]={nil,"Consumes Frenzy Charges on use Gain Onslaught for 1 second per Frenzy Charge on use "}
@@ -8433,6 +8437,8 @@ c["Elusive has 50% chance to be removed from you at 100% effect 50% increased Ef
 c["Elusive is removed from you at 20% effect"]={{[1]={flags=0,keywordFlags=0,name="ElusiveEffectMinThreshold",type="OVERRIDE",value=20}},nil}
 c["Elusive on you reduces in effect 50% slower"]={nil,"Elusive on you reduces in effect 50% slower "}
 c["Elusive on you reduces in effect 50% slower Elusive is removed from you at 20% effect"]={nil,"Elusive on you reduces in effect 50% slower Elusive is removed from you at 20% effect "}
+c["Elusive's Effect on you is increased instead for the first 2 seconds"]={nil,"Elusive's Effect on you is increased instead for the first 2 seconds "}
+c["Elusive's Effect on you is increased instead for the first 2 seconds Limited to 1 Runegraft of the Agile"]={nil,"Elusive's Effect on you is increased instead for the first 2 seconds Limited to 1 Runegraft of the Agile "}
 c["Enemies Become Chilled as they Unfreeze, causing 30% reduced Action Speed"]={nil,"Enemies Become Chilled as they Unfreeze, causing 30% reduced Action Speed "}
 c["Enemies Become Chilled as they Unfreeze, causing 30% reduced Action Speed 30% chance to Freeze Enemies which are Chilled"]={nil,"Enemies Become Chilled as they Unfreeze, causing 30% reduced Action Speed 30% chance to Freeze Enemies which are Chilled "}
 c["Enemies Blinded by you have Malediction"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="Blinded"},flags=0,keywordFlags=0,name="HasMalediction",type="FLAG",value=true}}}},nil}
@@ -8478,6 +8484,8 @@ c["Enemies Poisoned by you cannot Regenerate Life"]={nil,"you cannot Regenerate 
 c["Enemies Poisoned by you cannot Regenerate Life +6% to Damage over Time Multiplier for Poison while wielding a Claw or Dagger"]={nil,"you cannot Regenerate Life +6% to Damage over Time Multiplier for Poison while wielding a Claw or Dagger "}
 c["Enemies Poisoned by you cannot deal Critical Strikes"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="Poisoned"},flags=0,keywordFlags=0,name="NeverCrit",type="FLAG",value=true}}},[2]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="Poisoned"},flags=0,keywordFlags=0,name="Condition:NeverCrit",type="FLAG",value=true}}}},nil}
 c["Enemies Poisoned by you have -5% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="Poisoned"},flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=-5}}}},nil}
+c["Enemies Poisoned by you have 10% of Physical Damage they deal converted to Chaos"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="Poisoned"},flags=0,keywordFlags=0,name="PhysicalDamage",type="BASE",value=10}}}},"  they deal converted to Chaos "}
+c["Enemies Poisoned by you have 10% of Physical Damage they deal converted to Chaos Limited to 1 Runegraft of Rotblood"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="Poisoned"},flags=0,keywordFlags=0,name="PhysicalDamage",type="BASE",value=10}}}},"  they deal converted to Chaos Limited to 1 Runegraft of Rotblood "}
 c["Enemies Shocked by you have 13% of Physical Damage they deal converted to Lightning"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="Shocked"},flags=0,keywordFlags=0,name="PhysicalDamageConvertToLightning",type="BASE",value=13}}}},nil}
 c["Enemies Shocked by you have 15% of Physical Damage they deal converted to Lightning"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="Shocked"},flags=0,keywordFlags=0,name="PhysicalDamageConvertToLightning",type="BASE",value=15}}}},nil}
 c["Enemies Shocked or Frozen by you take 5% increased Elemental Damage"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",varList={[1]="Shocked",[2]="Frozen"}},flags=0,keywordFlags=0,name="ElementalDamageTaken",type="INC",value=5}}}},nil}
@@ -8701,6 +8709,8 @@ c["Gain 1 Energy Shield on Kill per Level"]={{[1]={[1]={type="Condition",var="Ki
 c["Gain 1 Fanatic Charge every second if you've Attacked in the past second"]={{}," Fanatic Charge every second if you've Attacked in the past second "}
 c["Gain 1 Fanatic Charge every second if you've Attacked in the past second Lose all Fanatic Charges on reaching Maximum Fanatic Charges"]={{}," Fanatic Charge every second if you've Attacked in the past second Lose all Fanatic Charges on reaching Maximum Fanatic Charges "}
 c["Gain 1 Fanatic Charge every second if you've Attacked in the past second Lose all Fanatic Charges on reaching Maximum Fanatic Charges +4 to Maximum Fanatic Charges"]={{}," Fanatic Charge every second if you've Attacked in the past second Lose all Fanatic Charges on reaching Maximum Fanatic Charges +4 to Maximum Fanatic Charges "}
+c["Gain 1 Fortification per 5 Valour consumed to place a Banner"]={{[1]={flags=0,keywordFlags=0,name="MinimumFortification",type="BASE",value=1}},"  per 5 Valour consumed to place a Banner "}
+c["Gain 1 Fortification per 5 Valour consumed to place a Banner Limited to 1 Runegraft of Rallying"]={{[1]={flags=0,keywordFlags=0,name="MinimumFortification",type="BASE",value=1}},"  per 5 Valour consumed to place a Banner Limited to 1 Runegraft of Rallying "}
 c["Gain 1 Fragile Regrowth each second"]={{}," Fragile Regrowth each second "}
 c["Gain 1 Frenzy Charge on use"]={{},"Charge on use "}
 c["Gain 1 Frenzy Charge on use Gain 1 Power Charge on use"]={{},"Charge on use Gain 1 Power Charge on use "}
@@ -8860,6 +8870,7 @@ c["Gain 3 Mana per Taunted Enemy Hit Gain 2 Power Charges on Using a Warcry"]={{
 c["Gain 3 Power Charge on use"]={{}," Power Charge on use "}
 c["Gain 3 Rage on Melee Weapon Hit"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
 c["Gain 3 Rage when Hit by an Enemy"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
+c["Gain 3 Rage when you use a Life Flask"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainRage",type="FLAG",value=true}},nil}
 c["Gain 3% of Maximum Life as Extra Maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="LifeGainAsEnergyShield",type="BASE",value=3}},nil}
 c["Gain 3% of Missing Unreserved Life before being Hit by an Enemy Per Defiance"]={{[1]={[1]={type="Multiplier",var="Defiance"},flags=0,keywordFlags=0,name="MissingLifeBeforeEnemyHit",type="BASE",value=3}},nil}
 c["Gain 30 Energy Shield per Enemy Hit while affected by Discipline"]={{[1]={[1]={type="Condition",var="AffectedByDiscipline"},flags=4,keywordFlags=0,name="EnergyShieldOnHit",type="BASE",value=30}},nil}
@@ -9675,6 +9686,8 @@ c["Link Skills have 15% increased Cast Speed"]={{[1]={[1]={skillType=118,type="S
 c["Link Skills have 15% increased Skill Effect Duration"]={{[1]={[1]={skillType=118,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=15}},nil}
 c["Link Skills have 20% increased Buff Effect if you have Linked to a target Recently"]={{[1]={[1]={skillType=118,type="SkillType"},[2]={type="Condition",var="LinkedRecently"},flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=20}},nil}
 c["Link Skills have 5% increased Buff Effect"]={{[1]={[1]={skillType=118,type="SkillType"},flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=5}},nil}
+c["Link Skills have 50% increased range"]={{}," range "}
+c["Link Skills have 50% increased range Limited to 1 Runegraft of Connection"]={{}," range Limited to 1 Runegraft of Connection "}
 c["Linked Targets Cannot Die for 2 seconds after you Die"]={nil,"Linked Targets Cannot Die for 2 seconds after you Die "}
 c["Linked Targets Cannot Die for 2 seconds after you Die Lose no Experience when you die because a Linked target died"]={nil,"Linked Targets Cannot Die for 2 seconds after you Die Lose no Experience when you die because a Linked target died "}
 c["Linked Targets always count as in range of Non-Curse Auras from your Skills"]={{},nil}
@@ -10404,6 +10417,8 @@ c["Projectile Attack Skills have 60% increased Critical Strike Chance"]={{[1]={[
 c["Projectile Barrages have no spread"]={nil,"Projectile Barrages have no spread "}
 c["Projectile Barrages have no spread You take no Extra Damage from Critical Strikes while Elusive"]={nil,"Projectile Barrages have no spread You take no Extra Damage from Critical Strikes while Elusive "}
 c["Projectiles Chain +1 times while you have Phasing"]={{[1]={[1]={type="Condition",var="Phasing"},flags=1024,keywordFlags=0,name="ChainCountMax",type="BASE",value=1}},nil}
+c["Projectiles Chain an additional time"]={nil,"Chain an additional time "}
+c["Projectiles Chain an additional time Limited to 1 Runegraft of Refraction"]={nil,"Chain an additional time Limited to 1 Runegraft of Refraction "}
 c["Projectiles Fork"]={{[1]={flags=1024,keywordFlags=0,name="ForkOnce",type="FLAG",value=true},[2]={flags=1024,keywordFlags=0,name="ForkCountMax",type="BASE",value=1}},nil}
 c["Projectiles Pierce 2 additional Targets"]={{[1]={flags=0,keywordFlags=0,name="PierceCount",type="BASE",value=2}},nil}
 c["Projectiles Pierce 2 additional Targets if 2 Hunter Items are Equipped"]={{[1]={[1]={threshold=2,type="MultiplierThreshold",var="HunterItem"},flags=0,keywordFlags=0,name="PierceCount",type="BASE",value="2"}},nil}
@@ -10498,6 +10513,8 @@ c["Raised Zombies take 30% of their Maximum Life per second as Fire Damage"]={{[
 c["Rampage"]={{[1]={flags=0,keywordFlags=0,name="Condition:Rampage",type="FLAG",value=true}},nil}
 c["Ranger: 20% increased Flask Charges gained"]={{[1]={[1]={type="Condition",var="ConnectedToRangerStart"},flags=0,keywordFlags=0,name="FlaskChargesGained",type="INC",value=20}},nil}
 c["Ranger: 7% increased Movement Speed"]={{[1]={[1]={type="Condition",var="ConnectedToRangerStart"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=7}},nil}
+c["Rate to you and Allies"]={nil,"Rate to you and Allies "}
+c["Rate to you and Allies Limited to 1 Runegraft of Consecration"]={nil,"Rate to you and Allies Limited to 1 Runegraft of Consecration "}
 c["Recharges 1 Charge when you Consume an Ignited corpse"]={nil,"Recharges 1 Charge when you Consume an Ignited corpse "}
 c["Recharges 1 Charge when you Consume an Ignited corpse Recharges 5 Charges when you Consume an Ignited corpse"]={nil,"Recharges 1 Charge when you Consume an Ignited corpse Recharges 5 Charges when you Consume an Ignited corpse "}
 c["Recharges 5 Charges when you Consume an Ignited corpse"]={nil,"Recharges 5 Charges when you Consume an Ignited corpse "}
@@ -11912,6 +11929,9 @@ c["Spells have 10% reduced Critical Strike Chance per Intensity"]={{[1]={[1]={ty
 c["Spells have 30% increased Critical Strike Chance per Intensity"]={{[1]={[1]={type="Multiplier",var="Intensity"},flags=2,keywordFlags=0,name="CritChance",type="INC",value=30}},nil}
 c["Spells have 40% increased Critical Strike Chance per Intensity"]={{[1]={[1]={type="Multiplier",var="Intensity"},flags=2,keywordFlags=0,name="CritChance",type="INC",value=40}},nil}
 c["Spells have 50% increased Critical Strike Chance per Intensity"]={{[1]={[1]={type="Multiplier",var="Intensity"},flags=2,keywordFlags=0,name="CritChance",type="INC",value=50}},nil}
+c["Spells have Added Spell Damage equal to 30% of Physical Damage of"]={nil,"dded Spell Damage equal to 30% of Physical Damage of "}
+c["Spells have Added Spell Damage equal to 30% of Physical Damage of your Equipped Two handed Weapon"]={nil,"dded Spell Damage equal to 30% of Physical Damage of your Equipped Two handed Weapon "}
+c["Spells have Added Spell Damage equal to 30% of Physical Damage of your Equipped Two handed Weapon Limited to 1 Runegraft of the Spellbound"]={nil,"dded Spell Damage equal to 30% of Physical Damage of your Equipped Two handed Weapon Limited to 1 Runegraft of the Spellbound "}
 c["Spells have a 20% chance to deal Double Damage"]={{[1]={flags=2,keywordFlags=0,name="DoubleDamageChance",type="BASE",value=20}},nil}
 c["Spells inflict Intimidate on Critical Strike for 4 seconds"]={nil,"Spells inflict Intimidate on Critical Strike for 4 seconds "}
 c["Spells which can gain Intensity have +1 to maximum Intensity"]={{[1]={flags=0,keywordFlags=0,name="Multiplier:IntensityLimit",type="BASE",value=1}},nil}
@@ -12114,6 +12134,8 @@ c["Tinctures applied to you have 10% increased Effect"]={{[1]={[1]={actor="playe
 c["Tinctures applied to you have 10% reduced Mana Burn rate"]={{[1]={[1]={actor="player",type="ActorCondition"},flags=0,keywordFlags=0,name="TinctureManaBurnRate",type="INC",value=-10}},nil}
 c["Tinctures applied to you have 15% increased Effect"]={{[1]={[1]={actor="player",type="ActorCondition"},flags=0,keywordFlags=0,name="TinctureEffect",type="INC",value=15}},nil}
 c["Tinctures applied to you have 15% increased Effect if you've used a Life Flask Recently"]={{[1]={[1]={actor="player",type="ActorCondition"},[2]={type="Condition",var="UsingLifeFlask"},flags=0,keywordFlags=0,name="TinctureEffect",type="INC",value=15}},nil}
+c["Tinctures applied to you have 30% increased Effect while affected by no Flasks"]={nil,"Tinctures applied to you have 30% increased Effect while affected by no Flasks "}
+c["Tinctures applied to you have 30% increased Effect while affected by no Flasks Limited to 1 Runegraft of the Imbued"]={nil,"Tinctures applied to you have 30% increased Effect while affected by no Flasks Limited to 1 Runegraft of the Imbued "}
 c["Tinctures applied to you have 30% less Mana Burn rate"]={{[1]={[1]={actor="player",type="ActorCondition"},flags=0,keywordFlags=0,name="TinctureManaBurnRate",type="MORE",value=-30}},nil}
 c["Tinctures applied to you have 5% increased Effect"]={{[1]={[1]={actor="player",type="ActorCondition"},flags=0,keywordFlags=0,name="TinctureEffect",type="INC",value=5}},nil}
 c["Tinctures applied to you have 5% reduced Mana Burn rate"]={{[1]={[1]={actor="player",type="ActorCondition"},flags=0,keywordFlags=0,name="TinctureManaBurnRate",type="INC",value=-5}},nil}
@@ -12864,5 +12886,7 @@ c["up to a maximum of 150%"]={nil,"up to a maximum of 150% "}
 c["up to a maximum of 150% Damageable Minions take 5% increased Damage for each second they have been alive,\nup to a maximum of 50%"]={nil,"up to a maximum of 150% Damageable Minions take 5% increased Damage for each second they have been alive,\nup to a maximum of 50% "}
 c["up to a maximum of 50%"]={nil,"up to a maximum of 50% "}
 c["used if you've Hit an enemy with a Weapon Recently"]={nil,"used if you've Hit an enemy with a Weapon Recently "}
+c["your Equipped Two handed Weapon"]={nil,"your Equipped Two handed Weapon "}
+c["your Equipped Two handed Weapon Limited to 1 Runegraft of the Spellbound"]={nil,"your Equipped Two handed Weapon Limited to 1 Runegraft of the Spellbound "}
 c["your maximum number of Crab Barriers"]={nil,"your maximum number of Crab Barriers "}
 c["your maximum number of Power Charges"]={nil,"your maximum number of Power Charges "}
