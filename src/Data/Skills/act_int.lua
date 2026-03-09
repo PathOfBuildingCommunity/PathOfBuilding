@@ -16157,18 +16157,18 @@ skills["ShockNova"] = {
 	castTime = 0.7,
 	parts = {
 		{
+			name = "Ring + Nova",
+		},
+		{
 			name = "Ring",
 		},
 		{
 			name = "Nova",
 		},
-		{
-			name = "Ring + Nova",
-		},
 	},
 	statMap = {
 		["shock_nova_ring_chance_to_shock_+%"] =  {
-			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 3 } }),
+			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }),
 		},
 	},
 	baseFlags = {
@@ -16177,7 +16177,7 @@ skills["ShockNova"] = {
 	},
 	baseMods = {
 		skill("radius", 26),
-		skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 3 }),
+		skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 1 }),
 	},
 	qualityStats = {
 		Default = {
@@ -16252,10 +16252,10 @@ skills["ShockNovaAltX"] = {
 	castTime = 0.25,
 	parts = {
 		{
-			name = "Nova",
+			name = "Ring + Nova",
 		},
 		{
-			name = "Ring + Nova",
+			name = "Nova",
 		},
 	},
 	baseFlags = {
@@ -16264,7 +16264,7 @@ skills["ShockNovaAltX"] = {
 	},
 	baseMods = {
 		skill("radius", 26),
-		skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 }),
+		skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 1 }),
 	},
 	qualityStats = {
 		Default = {
@@ -18434,20 +18434,11 @@ skills["StormBurstAltX"] = {
 			name = "1 Orb Tick"
 		},
 		{
-			name = "Max Channelled Orbs"
-		},
-		{
 			name = "Max Duration Explode"
 		},
 	},
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 2 then
-			local duration = activeSkill.skillData.duration * output.DurationMod
-			-- duration * 10 / (jump * 10), instead of duration / jump to avoid floating point issues
-			local jumpPeriod = activeSkill.skillData.repeatFrequency * 10
-			-- additional 1 tick upon spawn of orb
-			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * (1 + math.floor(duration * 10 / jumpPeriod))
-		elseif activeSkill.skillPart == 3 then
 			local remainingJumps = math.floor((activeSkill.skillData.duration * output.DurationMod + 0.001) / activeSkill.skillData.repeatFrequency)
 			-- Tested in-game and the skill grants more damage only after you have at least 0.8s duration
 			activeSkill.skillModList:NewMod("Damage", "MORE", math.max(activeSkill.skillData.remainingDurationDamage * remainingJumps - 100, 0), "Skill:StormBurst")
