@@ -1,5 +1,20 @@
 # Changelog
 
+## [v2.62.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.62.0) (2026/03/09)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.61.0...v2.62.0)
+
+
+## What's Changed
+### New to Path of Building
+- Add Cord Belt base [\#9569](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9569) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for Hextoad trigger [\#9564](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9564) ([Paliak](https://github.com/Paliak))
+### Fixed Calculations
+- Fix Reliquarian Widowhail Ascendancy not working [\#9565](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9565) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Void Shockwave 50% less Damage on non-repeat [\#9568](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9568) ([LocalIdentity](https://github.com/LocalIdentity))
+
+
+
 ## [v2.61.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.61.0) (2026/03/09)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.60.0...v2.61.0)
