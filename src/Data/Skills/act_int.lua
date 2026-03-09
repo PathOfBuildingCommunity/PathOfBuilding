@@ -11317,7 +11317,8 @@ skills["KineticFusillade"] = {
 			t_insert(breakdownAPS, "")
 			t_insert(breakdownAPS, s_format("^6Lockstep"))
 			t_insert(breakdownAPS, s_format("^8Effective delay:^7 (%.1f + %.2f) x %.4f = %.4fs", hoverDelay, baseTimeForAllProjectiles, durationMod, effectiveDelay))
-			t_insert(breakdownAPS, s_format("^8Max effective attack rate:^7 1 / %.4f = %.2f", effectiveDelay, maxEffectiveAPS))
+			t_insert(breakdownAPS, s_format("^8Rounded up to nearest server tick^7 = %.4fs", effectiveDelayRounded))
+			t_insert(breakdownAPS, s_format("^8Max effective attack rate:^7 1 / %.4f = %.2f", effectiveDelayRounded, maxEffectiveAPS))
 			if currentAPS then
 				local currentInc = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed")
 				local neededInc = ((maxEffectiveAPS / currentAPS) * (1 + currentInc / 100) - 1) * 100
@@ -11335,8 +11336,7 @@ skills["KineticFusillade"] = {
 				t_insert(breakdownAPS, "")
 				t_insert(breakdownAPS, s_format("^6Predictive"))
 				t_insert(breakdownAPS, s_format("^8Effective delay:^7 (%.1f + %.2f) x %.4f = %.4fs", hoverDelay, baseTimeForAllProjectiles, durationMod, effectiveDelay))
-				t_insert(breakdownAPS, s_format("^8rounded up to nearest server tick^7 = %.4fs", effectiveDelayRounded))
-				t_insert(breakdownAPS, s_format("^8Max effective attack rate:^7 1 / %.4f = %.2f", effectiveDelayRounded, maxEffectivePredictiveAPS))
+				t_insert(breakdownAPS, s_format("^8Max effective attack rate:^7 1 / %.4f = %.2f", effectiveDelay, maxEffectivePredictiveAPS))
 				if currentAPS > maxEffectivePredictiveAPS then
 					t_insert(breakdownAPS, s_format("^1Current attack rate (%.2f) exceeds max effective rate!", currentAPS))
 					t_insert(breakdownAPS, s_format("^1Reduce attack speed by at least^7 %d%% ^1", math.ceil(-additionalPredictiveInc)))
@@ -11537,7 +11537,8 @@ skills["KineticFusilladeAltX"] = {
 			t_insert(breakdownAPS, "")
 			t_insert(breakdownAPS, s_format("^6Lockstep"))
 			t_insert(breakdownAPS, s_format("^8Effective delay:^7 (%.1f + %.2f) x %.4f = %.4fs", hoverDelay, baseTimeForAllProjectiles, durationMod, effectiveDelay))
-			t_insert(breakdownAPS, s_format("^8Max effective attack rate:^7 1 / %.4f = %.2f", effectiveDelay, maxEffectiveAPS))
+			t_insert(breakdownAPS, s_format("^8Rounded up to nearest server tick^7 = %.4fs", effectiveDelayRounded))
+			t_insert(breakdownAPS, s_format("^8Max effective attack rate:^7 1 / %.4f = %.2f", effectiveDelayRounded, maxEffectiveAPS))
 			if currentAPS then
 				local currentInc = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed")
 				local neededInc = ((maxEffectiveAPS / currentAPS) * (1 + currentInc / 100) - 1) * 100
@@ -11555,8 +11556,7 @@ skills["KineticFusilladeAltX"] = {
 				t_insert(breakdownAPS, "")
 				t_insert(breakdownAPS, s_format("^6Predictive"))
 				t_insert(breakdownAPS, s_format("^8Effective delay:^7 (%.1f + %.2f) x %.4f = %.4fs", hoverDelay, baseTimeForAllProjectiles, durationMod, effectiveDelay))
-				t_insert(breakdownAPS, s_format("^8rounded up to nearest server tick^7 = %.4fs", effectiveDelayRounded))
-				t_insert(breakdownAPS, s_format("^8Max effective attack rate:^7 1 / %.4f = %.2f", effectiveDelayRounded, maxEffectivePredictiveAPS))
+				t_insert(breakdownAPS, s_format("^8Max effective attack rate:^7 1 / %.4f = %.2f", effectiveDelay, maxEffectivePredictiveAPS))
 				if currentAPS > maxEffectivePredictiveAPS then
 					t_insert(breakdownAPS, s_format("^1Current attack rate (%.2f) exceeds max effective rate!", currentAPS))
 					t_insert(breakdownAPS, s_format("^1Reduce attack speed by at least^7 %d%% ^1", math.ceil(-additionalPredictiveInc)))
