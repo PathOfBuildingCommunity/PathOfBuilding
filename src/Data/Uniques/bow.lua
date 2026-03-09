@@ -351,20 +351,24 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.17.0
 Variant: Pre 3.20.0
+Variant: Pre 3.28.0
 Variant: Current
 Requires Level 66, 212 Dex
-Implicits: 2
+Implicits: 3
 {variant:2}(6-12)% increased Elemental Damage with Attack Skills
 {variant:3,4,5,6}(20-24)% increased Elemental Damage with Attack Skills
+{variant:7}(20-24)% increased Global Physical Damage
 {variant:1,2,3,4}(150-175)% increased Physical Damage
 {variant:5}(90-105)% increased Physical Damage
-{variant:6}(180-200)% increased Physical Damage
+{variant:6,7}(180-200)% increased Physical Damage
 {variant:1,2,3,4,5}Adds (6-12) to (20-32) Physical Damage
-{variant:6}Adds (7-14) to (24-34) Physical Damage
-(10-20)% increased Attack Speed
+{variant:6,7}Adds (7-14) to (24-34) Physical Damage
+{variant:1,2,3,4,5,6}(10-20)% increased Attack Speed
 +(80-100) to maximum Mana
 Hits can't be Evaded
-{variant:4,5,6}Far Shot
+{variant:7}Attacks you use yourself Repeat an additional time
+{variant:7}Attacks you use yourself have 50% more Attack Speed
+{variant:4,5,6,7}Far Shot
 ]],[[
 Null's Inclination
 Ranger Bow
@@ -538,16 +542,18 @@ Voltaxic Rift
 Spine Bow
 Variant: Pre 3.9.0
 Variant: Pre 3.20.0
+Variant: Pre 3.28.0
 Variant: Current
 {variant:1,2}Adds 1 to (275-325) Lightning Damage
-{variant:3}Adds 1 to (600-750) Lightning Damage
+{variant:3,4}Adds 1 to (600-750) Lightning Damage
 (10-15)% increased Attack Speed
 {variant:1,2}60% of Lightning Damage Converted to Chaos Damage
-{variant:3}100% of Lightning Damage Converted to Chaos Damage
+{variant:3,4}100% of Lightning Damage Converted to Chaos Damage
 {variant:1,2}10% chance to Shock
 Your Chaos Damage can Shock
 {variant:2,3}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
-{variant:2,3}+40% to Maximum Effect of Shock
+{variant:4}Treats Enemy Monster Chaos Resistance values as inverted
+{variant:2,3,4}+40% to Maximum Effect of Shock
 ]],[[
 Windripper
 Imperial Bow
@@ -626,5 +632,20 @@ Requires Level 64, 185 Dex
 {variant:1}Ignites your Skills cause spread to other Enemies within 1.2 metres
 {variant:2}Ignites your Skills cause spread to other Enemies within 1.5 metres
 Recover (40-60) Life when you Ignite an Enemy
+]],
+[[
+Wing of the Wyvern
+Imperial Bow
+Source: Drops from unique{Uber Incarnation of Fear} in normal{Moment of Trauma}
+Requires Level 66, 212 Dex
+Implicits: 1
+(20-24)% increased Elemental Damage with Attack Skills
+Trigger a Socketed Spell when a Hit from this
+Weapon Freezes a Target, with a 0.25 second Cooldown
+Adds (164-204) to (250-300) Cold Damage
+Adds (163-199) to (241-293) Chaos Damage
+(20-30)% increased Attack Speed
+Your Chaos Damage can Freeze
+Battlemage
 ]],
 }

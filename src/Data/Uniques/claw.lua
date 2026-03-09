@@ -91,6 +91,7 @@ Bloodseeker
 Hellion's Paw
 Variant: Pre 3.0.0
 Variant: Pre 3.20.0
+Variant: Pre 3.28.0
 Variant: Current
 Requires Level 62, 131 Dex, 95 Int
 Implicits: 1
@@ -98,11 +99,14 @@ Implicits: 1
 {variant:1}(100-120)% increased Physical Damage
 {variant:2}(150-170)% increased Physical Damage
 {variant:3}(200-220)% increased Physical Damage
+{variant:4}(200-250)% increased Physical Damage
 {variant:1,2}Adds 10 to 12 Physical Damage
-{variant:3}Adds 25 to 30 Physical Damage
-5% increased Attack Speed
+{variant:3,4}Adds 25 to 30 Physical Damage
+{variant:4}(15-25)% increased Life Reservation Efficiency of Skills
+{variant:1,2,3}5% increased Attack Speed
 1.2% of Physical Attack Damage Leeched as Life
-5% increased Movement Speed
+{variant:1,2,3}5% increased Movement Speed
+{variant:4}(5-10)% increased maximum Recovery per Life Leech for each 5% of Life Reserved
 Life Leech from Hits with this Weapon is instant
 ]],[[
 Cybil's Paw
@@ -132,11 +136,13 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Pre 3.20.0
+Variant: Pre 3.28.0
 Variant: Current
-Implicits: 3
+Implicits: 4
 {variant:1,2}0.6% of Physical Attack Damage Leeched as Life
 {variant:3}Grants 31 Life per Enemy Hit
 {variant:4,5,6}2% of Physical Attack Damage Leeched as Life
+{variant:7}2% of Attack Damage Leeched as Life
 {variant:1}+10% Chance to Block Attack Damage while Dual Wielding Claws
 {variant:2,3,4,5,6}+8% Chance to Block Attack Damage while Dual Wielding Claws
 {variant:1}(80-120)% increased Physical Damage
@@ -145,12 +151,15 @@ Implicits: 3
 {variant:2,3}Adds 1 to 80 Lightning Damage
 {variant:4,5}Adds 1 to 200 Lightning Damage
 {variant:6}Adds 1 to (600-700) Lightning Damage
+{variant:7}Adds 1 to (650-850) Lightning Damage
 (20-30)% increased Attack Speed
-+(30-40) to maximum Energy Shield
+{variant:1,2,3,4,5,6}+(30-40) to maximum Energy Shield
+{variant:7}+(200-300) to maximum Energy Shield
 {variant:1,2,3,4}Leech Energy Shield instead of Life
 {variant:5}50% reduced Maximum Recovery per Energy Shield Leech
-{variant:5,6}Energy Shield Leech Effects from Attacks are not removed at Full Energy Shield
-{variant:5,6}Ghost Reaver
+{variant:5,6,7}Energy Shield Leech Effects from Attacks are not removed at Full Energy Shield
+{variant:7}Maximum Recovery per Energy Shield Leech is Doubled
+{variant:5,6,7}Ghost Reaver
 ]],[[
 Hand of Thought and Motion
 {variant:1,2,3}Blinder

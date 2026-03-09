@@ -1142,6 +1142,7 @@ Coral Ring
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.9.0
+Variant: Pre 3.28.0
 Variant: Current
 Requires Level 45
 Implicits: 1
@@ -1149,13 +1150,15 @@ Implicits: 1
 {tags:jewellery_elemental,attack}(20-30)% increased Elemental Damage with Attack Skills
 {tags:jewellery_elemental,attack}Adds (8-15) to (20-28) Fire Damage to Attacks
 {variant:1}(20-40)% reduced Rarity of Items found
-{variant:2,3,4}(10-20)% reduced Rarity of Items found
+{variant:2,3,4,5}(10-20)% reduced Rarity of Items found
 {variant:1,2}Left ring slot: 30% reduced Reflected Elemental Damage taken
 {variant:3}Left ring slot: 40% reduced Reflected Elemental Damage taken
 {variant:4}Left ring slot: 80% reduced Reflected Elemental Damage taken
+{variant:5}Left ring slot: 100% of Elemental Hit Damage from you and your Minions cannot be Reflected
 {variant:1,2}{tags:physical}Right ring slot: 30% reduced Reflected Physical Damage taken
 {variant:3}{tags:physical}Right ring slot: 40% reduced Reflected Physical Damage taken
 {variant:4}{tags:physical}Right ring slot: 80% reduced Reflected Physical Damage taken
+{variant:5}Right ring slot: 100% of Physical Hit Damage from you and your Minions cannot be Reflected
 ]],[[
 Snakepit
 Sapphire Ring
@@ -1645,4 +1648,126 @@ An Enemy Writhing Worm spawns every 2 seconds
 {tags:caster}20% chance to Trigger Socketed Spell on Kill, with a 0.5 second Cooldown
 {tags:life}Lose (10-20) Life per Enemy Killed
 {tags:mana}Gain (5-10) Mana per Enemy Killed
-]],}
+]],
+[[
+Lost Unity
+Formless Ring
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 42
+Implicits: 1
+{tags:jewellery_defense}(5-7)% increased Global Defences
+Grants Level 30 Herald of the Hive Skill
+{tags:jewellery_resistance}+(10–20)% to all Elemental Resistances
+{tags:jewellery_resistance}+(23–37)% to Chaos Resistance
+]],
+[[
+The Sundered Will
+Fugitive Ring
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 42
+Implicits: 2
+Cannot roll Modifiers of Non-Chaos Damage Types
+{tags:jewellery_resistance}+2% to maximum Chaos Resistance
+{tags:jewellery_attribute}+(7-13) to all Attributes
+{tags:chaos_damage}Adds (7-11) to (17-23) Chaos Damage
+{tags:jewellery_resistance}+(13-29)% to Chaos Resistance
+(20-30)% increased Area of Effect of Aura Skills
+(20-35)% reduced Reservation Efficiency of Skills
+Increases and Reductions to Chaos Damage also apply to Effect of Auras from Chaos Skills at (10–15)% of their value, up to a maximum of 150%
+]],
+[[
+The Unseen Hue
+Opal Ring
+Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 80
+Variant: Scorch
+Variant: Brittle
+Variant: Sap
+Implicits: 1
+{tags:elemental_damage}(15-25)% increased Elemental Damage
+{tags:jewellery_resistance}+(5-30)% to Fire Resistance
+{tags:jewellery_resistance}+(5-30)% to Cold Resistance
+{tags:jewellery_resistance}+(5-30)% to Lightning Resistance
+{tags:caster,attack,speed}(6-12)% increased Attack and Cast Speed
+(10-20)% increased Effect of Non-Damaging Ailments
+{variant:1}Hits with Prismatic Skills always Scorch
+{variant:2}Hits with Prismatic Skills always inflict Brittle
+{variant:3}Hits with Prismatic Skills always Sap
+]],[[
+The Will of Esh
+Synaptic Ring
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 42
+Implicits: 2
+Cannot roll Modifiers of Non-Lightning Damage Types
+{tags:jewellery_resistance}+2% to maximum Lightning Resistance
+{tags:jewellery_attribute}+(15-25) to Intelligence
+{tags:elemental_damage}Adds (1-2) to (43-56) Lightning Damage
+{tags:jewellery_resistance}+(20-30)% to Lightning Resistance
+(20-30)% increased Area of Effect of Aura Skills
+(20-35)% reduced Reservation Efficiency of Skills
+Increases and Reductions to Lightning Damage also apply to Effect of Auras from Lightning Skills at (10-15)% of their value, up to a maximum of 150%
+]],
+[[
+The Will of Tul
+Cryonic Ring
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 42
+Implicits: 2
+Cannot roll Modifiers of Non-Cold Damage Types
+{tags:jewellery_resistance}+2% to maximum Cold Resistance
+{tags:jewellery_attribute}+(15-25) to Dexterity
+{tags:elemental_damage}Adds (8-12) to (18-26) Cold Damage
+{tags:jewellery_resistance}+(20-30)% to Cold Resistance
+(20-30)% increased Area of Effect of Aura Skills
+(20-35)% reduced Reservation Efficiency of Skills
+Increases and Reductions to Cold Damage also apply to Effect of Auras from Cold Skills at (10-15)% of their value, up to a maximum of 150%
+]],
+[[
+The Will of Uul-Netol
+Organic Ring
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 42
+Implicits: 2
+Cannot roll Modifiers of Non-Physical Damage Types
+3% additional Physical Damage Reduction
+{tags:jewellery_attribute}+(15-25) to Strength
+Adds (8-12) to (14-20) Physical Damage
+{tags:jewellery_defense}(20-30)% increased Armour
+(20-30)% increased Area of Effect of Aura Skills
+(20-35)% reduced Reservation Efficiency of Skills
+Increases and Reductions to Physical Damage also apply to Effect of Auras from Physical Skills at (10-15)% of their value, up to a maximum of 150%
+]],
+[[
+The Will of Xoph
+Enthalpic Ring
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 42
+Implicits: 2
+Cannot roll Modifiers of Non-Fire Damage Types
+{tags:jewellery_resistance}+2% to maximum Fire Resistance
+{tags:jewellery_attribute}+(15-25) to Strength
+{tags:elemental_damage}Adds (10-14) to (26-34) Fire Damage
+{tags:jewellery_resistance}+(20-30)% to Fire Resistance
+(20-30)% increased Area of Effect of Aura Skills
+(20-35)% reduced Reservation Efficiency of Skills
+Increases and Reductions to Fire Damage also apply to Effect of Auras from Fire Skills at (10-15)% of their value, up to a maximum of 150%
+]],
+[[
+Woespike
+Steel Ring
+Source: Drops from unique{Uber Incarnation of Fear} in normal{Moment of Trauma}
+Variant: Pre 3.28.0
+Variant: Current
+Requires Level 80
+Implicits: 1
+{tags:attack,physical_damage}Adds (3-4) to (10-14) Physical Damage to Attacks
+{tags:jewellery_attribute}+(25-40) to Strength and Dexterity
+{tags:attack,physical_damage}Adds (8-12) to (18-24) Physical Damage to Attacks
+{tags:attack}(10-20)% chance to Impale Enemies on Hit with Attacks
+{variant:1}(40-25)% reduced Impale Duration
+{variant:2}(50-40)% less Impale Duration
+{variant:1}{tags:attack}(45-60)% chance on Melee Hit for the Strongest Impale on target to last for 1 additional Hit
+{variant:2}{tags:attack}(20-30)% chance on Melee Hit for the Strongest Impale on target to last for 1 additional Hit
+]],
+}

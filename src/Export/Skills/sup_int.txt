@@ -63,6 +63,19 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportEldritchBlasphemy
+	statMap = {
+		["curse_apply_as_aura"] = {
+		},
+		["support_blasphemy_curse_effect_+%_final"] = {
+			mod("CurseEffect", "MORE", nil),
+		},
+		["support_blasphemy_enemies_gain_malignant_madness_if_in_aura_for_x_seconds"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "Condition", var = "enemyMalignantMadness" }),
+		},
+	},
+#mods
+
 #skill SupportBonechill
 #baseMod skill("supportBonechill", true)
 	statMap = {
@@ -131,6 +144,14 @@ local skills, mod, flag, skill = ...
 #skill SupportChargedMines
 #mods
 
+#skill SupportCongregation
+	statMap = {
+		["support_undead_army_minion_maximum_count_+%_final"] = {
+			mod("ActiveMinionLimit", "MORE", nil),
+		},
+	},
+#mods
+
 #skill SupportConcentratedEffect
 	statMap = {
 		["support_concentrated_effect_skill_area_of_effect_+%_final"] = {
@@ -162,6 +183,9 @@ local skills, mod, flag, skill = ...
 			mod("CritChance", "MORE", nil),
 		},
 	},
+#mods
+
+#skill SupportCooldownRecovery
 #mods
 
 #skill SupportCursedGround
@@ -249,6 +273,22 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportGreaterDevour
+	statMap = {
+		["killing_blow_consumes_corpse_restore_x_life"] = {
+			mod("LifeOnKill", "BASE", nil),
+		},
+		["killing_blow_consumes_corpse_restore_x_mana"] = {
+			mod("ManaOnKill", "BASE", nil),
+		},
+		["killing_blow_consumes_corpse_chance_to_gain_soul_per_power_permillage"] = {
+			flag("Condition:CanHaveSoulEater", { type = "GlobalEffect", effectType = "Buff" }),
+			flag("Condition:MinionCanHaveSoulEater", { type = "GlobalEffect", effectType = "Buff" }),
+			mod("MinionModifier", "LIST", { mod = mod("Condition:CanHaveSoulEater", "FLAG", true) }),
+		},
+	},
+#mods
+
 #skill SupportEfficacy
 	statMap = {
 		["support_efficacy_spell_damage_+%_final"] = {
@@ -293,6 +333,17 @@ local skills, mod, flag, skill = ...
 #skill SupportAwakenedEnlighten
 #mods
 
+#skill SupportExemplar
+	statMap = {
+		["minion_critical_strike_chance_+%_per_attack_crit_recently_up_to_100"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CritChance", "INC", nil) }, 0, 0, { type = "Multiplier", var = "CritRecently", limit = 200, limitTotal = true }),
+		},
+		["minion_critical_strike_multiplier_+_per_attack_crit_recently_up_to_100"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CritMultiplier", "BASE", nil) }, 0, 0, { type = "Multiplier", var = "CritRecently", limit = 100, limitTotal = true }),
+		},
+	},
+#mods
+
 #skill SupportFasterCasting
 #mods
 
@@ -313,6 +364,18 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ChannellingTime", limit = 60, limitTotal = true }),
 		},
 	},
+#mods
+
+#skill SupportFoulgrasp
+	statMap = {
+		["base_total_number_of_sigils_allowed"] = {
+			mod("ActiveBrandLimit", "BASE", nil),
+		},
+	},
+#mods
+
+#skill TriggeredSupportFoulgrasp
+#flags spell area duration
 #mods
 
 #skill SupportFreshMeat
@@ -339,7 +402,46 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportFrostmage
+	statMap = {
+		["frostmage_cost_equals_%_reserved_mana"] = {
+			mod("ManaCostBase", "BASE", nil, 0, 0, { type = "PercentStat", stat = "ManaReserved" , percent = 1 }),
+		},
+		["frostmage_gain_cold_damage_%_of_max_reserved_mana"] = {
+			mod("ColdMin", "BASE", nil, 0, 0, { type = "PercentStat", stat = "ManaReserved" , percent = 1 }),
+			mod("ColdMax", "BASE", nil, 0, 0, { type = "PercentStat", stat = "ManaReserved" , percent = 1 }),
+		},
+	},
+#mods
+
+#skill SupportGluttony
+	statMap = {
+		["support_gluttony_fire_x_additional_projectiles_in_nova_while_affected_by_disgorge"] = {
+			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "Condition", var = "Disgorged" }),
+		},
+	},
+#mods
+
 #skill SupportHexBloom
+#mods
+
+#skill SupportHexpass
+	statMap = {
+		["chance_to_ignore_hexproof_%"] = {
+			flag("CursesIgnoreHexproof")
+		},
+		["hexed_enemies_cannot_deal_critical_strikes"] = {
+			flag("NeverCrit", { type = "GlobalEffect", effectType = "Curse" }),
+			flag("Condition:NeverCrit", { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+#mods
+
+#skill SupportHextoad
+#mods
+
+#skill TriggeredSupportHextoad
+#flags spell area
 #mods
 
 #skill SupportHighImpactMine
@@ -353,6 +455,16 @@ local skills, mod, flag, skill = ...
 		["support_remote_mine_2_chance_to_deal_double_damage_%_against_enemies_near_mines"] = {
 			mod("SelfDoubleDamageChance", "BASE", nil, 0, 0, { type = "Limit", limit = 100 }, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "High-Impact Mine", effectStackVar = "ActiveMineCount" }),
 		},
+	},
+#mods
+
+#skill SupportHiveborn
+#mods
+
+#skill TriggeredSupportHiveborn
+#flags spell minion duration
+	minionList = {
+		"Hiveborn",
 	},
 #mods
 
@@ -445,6 +557,9 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportInvertTheRules
+#mods
+
 #skill SupportItemRarity
 #mods
 
@@ -452,6 +567,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill TriggeredSupportKineticInstability
+#flags attack area duration
+#baseMod skill("showAverage", true)
+#mods
+
+#skill SupportGreaterKineticInstability
+#mods
+
+#skill TriggeredSupportGreaterKineticInstability
 #flags attack area duration
 #baseMod skill("showAverage", true)
 #mods
@@ -523,6 +646,16 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportMinionPact
+	statMap = {
+		["support_minion_pact_sacrifice_nearby_damageable_minion_to_gain_permillage_of_max_life_as_physical_damage"] = {
+			mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "MinionLife" }),
+			mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "MinionLife" }),
+			div = 1000,
+		},
+	},
+#mods
+
 #skill SupportMinionSpeed
 #mods
 
@@ -543,6 +676,18 @@ local skills, mod, flag, skill = ...
 		},
 		["support_pure_shock_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportOverloadedIntensity
+	statMap = {
+		["additional_critical_strike_chance_per_overloaded_intensity"] = {
+			mod("CritChance", "BASE", nil, 0, 0, { type = "Multiplier", var = "OverloadedIntensity" }),
+			div = 100
+		},
+		["critical_strike_multiplier_+_per_overloaded_intensity"] = {
+			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "Multiplier", var = "OverloadedIntensity" }),
 		},
 	},
 #mods
@@ -660,6 +805,14 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportScornfulHerald
+	statMap = {
+		["herald_no_buff_effect"] = {
+			flag("DisableBuff", { type = "SkillType", skillType = SkillType.Herald }),
+		},
+	},
+#mods
+
 #skill SupportSpellblade
 	statMap = {
 		["support_spell_weapon_damage_gain_%_of_one_hand_melee_weapon_damage_as_added_spell_damage"] = {
@@ -690,6 +843,17 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportGreaterSpellCascade
+	statMap = {
+		["support_spell_cascade_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "MORE", nil),
+		},
+		["support_spell_cascade_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
+#mods
+
 #skill SupportSpellEcho
 	statMap = {
 		["support_echo_damage_+%_final"] = {
@@ -699,7 +863,21 @@ local skills, mod, flag, skill = ...
 			mod("Speed", "MORE", nil, ModFlag.Cast),
 		},
 	},
-#baseMod flag("Condition:HaveSpellEcho")
+#mods
+
+#skill SupportGreaterSpellEcho
+	fromItem = true,
+	statMap = {
+		["support_greater_spell_echo_spell_damage_+%_final_per_repeat"] = {
+			mod("RepeatPerRepeatDamage", "MORE", nil, 0, 0, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
+		},
+		["support_greater_spell_echo_area_of_effect_+%_per_repeat"] = {
+			mod("RepeatPerRepeatAreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
+		},
+		["support_multicast_cast_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Cast),
+		},
+	},
 #mods
 
 #skill SupportAwakenedSpellEcho
@@ -714,7 +892,6 @@ local skills, mod, flag, skill = ...
 			mod("RepeatFinalDoubleDamageChance", "BASE", nil, ModFlag.Spell, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
 		},
 	},
-#baseMod flag("Condition:HaveSpellEcho")
 #mods
 
 #skill SupportSummonPhantasm
@@ -805,4 +982,28 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod flag("HasSeals")
+#mods
+
+#skill SupportGreaterUnleash
+	statMap = {
+		["support_anticipation_rapid_fire_count"] = {
+			mod("SealCount", "BASE", nil),
+		},
+		["support_anticipation_charge_gain_interval_ms"] = {
+			mod("SealGainFrequency", "BASE", nil),
+			div = 1000,
+		},
+		["support_spell_rapid_fire_repeat_use_damage_+%_final"] = {
+			mod("SealRepeatPenalty", "MORE", nil),
+		},
+	},
+#baseMod flag("HasSeals")
+#mods
+
+#skill SupportVaalSacrifice
+	statMap = {
+		["support_multicast_cast_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Cast),
+		},
+	},
 #mods
