@@ -13,7 +13,7 @@
 ### Fixed Crashes
 - Fix crash on adding support gems and importing items to many builds [\#9340](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9340) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix Radius Jewels in Shared Items Crashing on Load [\#9349](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9349) ([Peechey](https://github.com/Peechey))
-- Fix Crash when sorting gems while using Foulborn Gruthkel's Pelt [\#9376](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9376) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Crash when sorting gems while using Foulborn Gruthkul's Pelt [\#9376](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9376) ([LocalIdentity](https://github.com/LocalIdentity))
 ### User Interface
 - Fix Foulborn Icons showing on tree nodes, and foil items not importing type [\#9363](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9363) ([Blitz54](https://github.com/Blitz54))
 ### Fixed Calculations

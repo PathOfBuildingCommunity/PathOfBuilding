@@ -156,10 +156,6 @@ directiveTable.base = function(state, args, out)
 			table.insert(implicitModTypes, modDesc.modTags)
 		end
 	end
-	local graft = dat("BrequelGraftTypes"):GetRow("BaseItemType", baseItemType)
-	if graft then
-		table.insert(implicitLines, "Uses level (1-30) " .. graft.SkillGem.BaseItemType.Name)
-	end
 	if #implicitLines > 0 then
 		out:write('\timplicit = "', table.concat(implicitLines, "\\n"), '",\n')
 	end

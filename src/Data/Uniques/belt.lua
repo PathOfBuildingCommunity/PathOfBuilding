@@ -324,8 +324,7 @@ Cloth Belt
 Variant: Pre 3.16.0
 Variant: Current
 League: Harbinger
-Source: Created from item parts obtained from Boss in The Beachhead
-Upgrade: Upgrades to unique{The Torrent's Reclamation} via currency{Time-light Scroll}
+Source: No longer obtainable
 LevelReq: 60
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
@@ -340,8 +339,6 @@ Debuffs on you expire (15-20)% faster
 ]],[[
 The Torrent's Reclamation
 Cloth Belt
-League: Harvest
-Source: Upgraded from unique{The Flow Untethered} via currency{Time-light Scroll}
 LevelReq: 60
 Implicits: 1
 (15-25)% increased Stun and Block Recovery

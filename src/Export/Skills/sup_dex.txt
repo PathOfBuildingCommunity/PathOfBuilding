@@ -104,6 +104,14 @@ local skills, mod, flag, skill = ...
 #baseMod skill("triggeredOnDeath", true)
 #mods
 
+#skill SupportCastOnWardBreak
+	statMap = {
+		["cast_on_ward_break_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Spell),
+		},
+	},
+#mods
+
 #skill SupportChain
 	statMap = {
 		["support_chain_hit_damage_+%_final"] = {
@@ -118,6 +126,9 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, ModFlag.Hit),
 		},
 	},
+#mods
+
+#skill SupportGreaterChain
 #mods
 
 #skill SupportChanceToFlee
@@ -162,6 +173,15 @@ local skills, mod, flag, skill = ...
 #skill SupportAwakenedColdPenetration
 #mods
 
+#skill SupportCompanionship
+#mods
+
+#skill SupportCriticalStrikeAffliction
+#mods
+
+#skill SupportCullTheWeak
+#mods
+
 #skill SupportCullingStrike
 #mods
 
@@ -188,19 +208,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportEnhance
-	statMap = {
-		["supported_active_skill_gem_quality_%"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "quality", value = nil }),
-		},
-	},
 #mods
 
 #skill SupportAwakenedEnhance
-	statMap = {
-		["supported_active_skill_gem_quality_%"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "quality", value = nil }),
-		},
-	},
 #mods
 
 #skill SupportFasterAttacks
@@ -234,6 +244,9 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
 	},
+#mods
+
+#skill SupportGreaterFork
 #mods
 
 #skill SupportGreaterMultipleProjectiles
@@ -271,6 +284,9 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportIceBite
+#mods
+
 #skill SupportImpale
 	statMap = {
 		["impale_support_physical_damage_+%_final"] = {
@@ -283,13 +299,21 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SupportIceBite
+#skill SupportInvention
+	statMap = {
+		["support_invention_trap_and_mine_damage_+%_final_per_second_placed_up_to_100"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Trap, KeywordFlag.Mine), { type = "Multiplier", var = "PlacedDuration", limit = 100, limitTotal = true }),
+		},
+		["trap_and_mine_area_of_effect_+%_per_second_placed_up_to_100"] = {
+			mod("AreaOfEffect", "INC", nil, 0, bit.bor(KeywordFlag.Trap, KeywordFlag.Mine), { type = "Multiplier", var = "PlacedDuration", limit = 100, limitTotal = true }),
+		},
+	},
 #mods
 
-#skill SupportLesserMultipleProjectiles
+#skill SupportLethalDose
 	statMap = {
-		["support_lesser_multiple_projectile_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Projectile),
+		["support_lethal_dose_poison_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison),
 		},
 	},
 #mods
@@ -304,6 +328,17 @@ local skills, mod, flag, skill = ...
 		},
 		["number_of_projectiles_+%_final_from_locus_mine_support"] = {
 			mod("ProjectileCount", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportMachinations
+	statMap = {
+		["physical_damage_%_to_add_as_chaos_per_keystone"] = {
+			mod("PhysicalDamageGainAsChaos", "BASE", nil, 0, 0, { type = "Multiplier", var = "AllocatedKeystone" }),
+		},
+		["skill_cost_+%_per_keystone"] = {
+			mod("Cost", "INC", nil, 0, 0, { type = "Multiplier", var = "AllocatedKeystone" }),
 		},
 	},
 #mods
@@ -369,6 +404,14 @@ local skills, mod, flag, skill = ...
 #baseMod flag("SupportedByMomentum")
 #mods
 
+#skill SupportLesserMultipleProjectiles
+	statMap = {
+		["support_lesser_multiple_projectile_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Projectile),
+		},
+	},
+#mods
+
 #skill SupportMultipleTraps
 	statMap = {	
 		["support_multithrow_damage_+%_final"] = {
@@ -384,6 +427,9 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod flag("SupportedByNightblade")
 #baseMod flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
+#skill SupportPacifism
 #mods
 
 #skill SupportPierce
@@ -403,9 +449,6 @@ local skills, mod, flag, skill = ...
 			mod("EnemyKnockbackChance", "BASE", nil, ModFlag.Hit),
 		},
 	},
-#mods
-
-#skill SupportCriticalStrikeAffliction
 #mods
 
 #skill SupportRupture
@@ -494,6 +537,21 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportUnholyTrinity
+	statMap = {
+		["damage_+%_final_per_10_lowest_unholy_resonance"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "UnholyResonanceCount", div = 10 }),
+		},
+		["hits_ignore_enemy_monster_physical_damage_reduction_%_chance_while_all_unholy_resonance_is_25"] = {
+			mod("ChanceToIgnoreEnemyPhysicalDamageReduction", "BASE", nil, 0, 0, { type = "MultiplierThreshold", var = "UnholyResonanceCount", threshold = 25 }),
+		},
+		["hits_ignore_enemy_monster_lightning_and_chaos_resistance_%_chance_while_all_unholy_resonance_is_25"] = {
+			mod("ChanceToIgnoreChaosResistance", "BASE", nil, 0, 0, { type = "MultiplierThreshold", var = "UnholyResonanceCount", threshold = 25 }),
+			mod("ChanceToIgnoreLightningResistance", "BASE", nil, 0, 0, { type = "MultiplierThreshold", var = "UnholyResonanceCount", threshold = 25 }),
+		},
+	},
+#mods
+
 #skill SupportViciousProjectiles
 	statMap = {
 		["support_projectile_attack_speed_+%_final"] = {
@@ -554,6 +612,30 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["support_void_manipulation_chaos_damage_+%_final"] = {
 			mod("ChaosDamage", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportVoidstorm
+	statMap = {
+		["support_voidstorm_trigger_voidstorm_on_rain_skill_impact"] = {
+		},
+	},
+#mods
+
+#skill TriggeredSupportVoidstorm
+#flags attack area projectile
+	statMap = {
+		["windstorm_storm_maximum_stages"] = {
+			mod("Multiplier:VoidstormMaxStages", "BASE", nil),
+		},
+		["windstorm_storm_area_of_effect_+%_final_per_stage"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "VoidstormStageAfterFirst" }),
+		},
+		["windstorm_storm_hit_damage_+%_final_on_detonation_per_stage"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "VoidstormStageAfterFirst" }),
+		},
+		["triggered_by_voidstorm_support"] = {
 		},
 	},
 #mods
