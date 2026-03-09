@@ -59,9 +59,9 @@ local conquerorList = {
 	["dominus"]		=	{ id = 2, type = "templar" },
 	["avarius"]		=	{ id = 3, type = "templar" },
 	["maxarius"]	=	{ id = "1_v2", type = "templar" },
-	["vorana"]		=	{ id = 1, type = "kalguuran" },
-	["uhtred"]		=	{ id = 2, type = "kalguuran" },
-	["medved"]		=	{ id = 3, type = "kalguuran" },
+	["vorana"]		=	{ id = 1, type = "kalguur" },
+	["uhtred"]		=	{ id = 2, type = "kalguur" },
+	["medved"]		=	{ id = 3, type = "kalguur" },
 }
 -- List of modifier forms
 local formList = {

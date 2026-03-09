@@ -14,18 +14,18 @@ return  {
 
 			["Art/2DArt/SkillIcons/passives/WindDancer.dds"]={["x"]=256,["y"]=128,["w"]=64,["h"]=64},
 			["Art/2DArt/SkillIcons/passives/SharpandBrittle.dds"]={["x"]=320,["y"]=128,["w"]=64,["h"]=64},
-			["Art/2DArt/SkillIcons/passives/TheBlindMonk.dds"]={["x"]=0,["y"]=192,["w"]=192,["h"]=64},
+			["Art/2DArt/SkillIcons/passives/TheBlindMonk.dds"]={["x"]=0,["y"]=192,["w"]=64,["h"]=64},
 			["Art/2DArt/SkillIcons/passives/OasisKeystone.dds"]={["x"]=64,["y"]=192,["w"]=64,["h"]=64},
 
 			["Art/2DArt/SkillIcons/passives/MiracleMaker.dds"]={["x"]=128,["y"]=192,["w"]=64,["h"]=64},
 			["Art/2DArt/SkillIcons/passives/InnerConviction.dds"]={["x"]=192,["y"]=192,["w"]=64,["h"]=64},
-			["Art/2DArt/SkillIcons/passives/PowerOfPurpose.dds"]={["x"]=256,["y"]=256,["w"]=64,["h"]=64},
-			["Art/2DArt/SkillIcons/passives/TranscendenceKeystone.dds"]={["x"]=320,["y"]=256,["w"]=64,["h"]=64},
+			["Art/2DArt/SkillIcons/passives/PowerOfPurpose.dds"]={["x"]=256,["y"]=192,["w"]=64,["h"]=64},
+			["Art/2DArt/SkillIcons/passives/TranscendenceKeystone.dds"]={["x"]=320,["y"]=192,["w"]=64,["h"]=64},
 
-			["Art/2DArt/SkillIcons/passives/SupremeDecadence.dds"]={["x"]=0,["y"]=320,["w"]=64,["h"]=64},
-			["Art/2DArt/SkillIcons/passives/SupremeGrandstand.dds"]={["x"]=64,["y"]=320,["w"]=64,["h"]=64},
-			["Art/2DArt/SkillIcons/passives/SupremeEgo.dds"]={["x"]=128,["y"]=320,["w"]=64,["h"]=64},
-			["Art/2DArt/SkillIcons/passives/SupremeProdigy.dds"]={["x"]=192,["y"]=320,["w"]=64,["h"]=64},
+			["Art/2DArt/SkillIcons/passives/SupremeDecadence.dds"]={["x"]=0,["y"]=256,["w"]=64,["h"]=64},
+			["Art/2DArt/SkillIcons/passives/SupremeGrandstand.dds"]={["x"]=64,["y"]=256,["w"]=64,["h"]=64},
+			["Art/2DArt/SkillIcons/passives/SupremeEgo.dds"]={["x"]=128,["y"]=256,["w"]=64,["h"]=64},
+			["Art/2DArt/SkillIcons/passives/SupremeProdigy.dds"]={["x"]=192,["y"]=256,["w"]=64,["h"]=64},
 
 			["Art/2DArt/SkillIcons/passives/KalguuranDexKeystone.dds"]={["x"]=256,["y"]=256,["w"]=64,["h"]=64},
 			["Art/2DArt/SkillIcons/passives/KalguuranIntKeystone.dds"]={["x"]=320,["y"]=256,["w"]=64,["h"]=64},
@@ -48,18 +48,18 @@ return  {
 
 			["Art/2DArt/SkillIcons/passives/WindDancer.dds"]={["x"]=256,["y"]=128,["w"]=64,["h"]=64},
 			["Art/2DArt/SkillIcons/passives/SharpandBrittle.dds"]={["x"]=320,["y"]=128,["w"]=64,["h"]=64},
-			["Art/2DArt/SkillIcons/passives/TheBlindMonk.dds"]={["x"]=0,["y"]=192,["w"]=192,["h"]=64},
+			["Art/2DArt/SkillIcons/passives/TheBlindMonk.dds"]={["x"]=0,["y"]=192,["w"]=64,["h"]=64},
 			["Art/2DArt/SkillIcons/passives/OasisKeystone.dds"]={["x"]=64,["y"]=192,["w"]=64,["h"]=64},
 
 			["Art/2DArt/SkillIcons/passives/MiracleMaker.dds"]={["x"]=128,["y"]=192,["w"]=64,["h"]=64},
 			["Art/2DArt/SkillIcons/passives/InnerConviction.dds"]={["x"]=192,["y"]=192,["w"]=64,["h"]=64},
-			["Art/2DArt/SkillIcons/passives/PowerOfPurpose.dds"]={["x"]=256,["y"]=256,["w"]=64,["h"]=64},
-			["Art/2DArt/SkillIcons/passives/TranscendenceKeystone.dds"]={["x"]=320,["y"]=256,["w"]=64,["h"]=64},
+			["Art/2DArt/SkillIcons/passives/PowerOfPurpose.dds"]={["x"]=256,["y"]=192,["w"]=64,["h"]=64},
+			["Art/2DArt/SkillIcons/passives/TranscendenceKeystone.dds"]={["x"]=320,["y"]=192,["w"]=64,["h"]=64},
 
-			["Art/2DArt/SkillIcons/passives/SupremeDecadence.dds"]={["x"]=0,["y"]=320,["w"]=64,["h"]=64},
-			["Art/2DArt/SkillIcons/passives/SupremeGrandstand.dds"]={["x"]=64,["y"]=320,["w"]=64,["h"]=64},
-			["Art/2DArt/SkillIcons/passives/SupremeEgo.dds"]={["x"]=128,["y"]=320,["w"]=64,["h"]=64},
-			["Art/2DArt/SkillIcons/passives/SupremeProdigy.dds"]={["x"]=192,["y"]=320,["w"]=64,["h"]=64},
+			["Art/2DArt/SkillIcons/passives/SupremeDecadence.dds"]={["x"]=0,["y"]=256,["w"]=64,["h"]=64},
+			["Art/2DArt/SkillIcons/passives/SupremeGrandstand.dds"]={["x"]=64,["y"]=256,["w"]=64,["h"]=64},
+			["Art/2DArt/SkillIcons/passives/SupremeEgo.dds"]={["x"]=128,["y"]=256,["w"]=64,["h"]=64},
+			["Art/2DArt/SkillIcons/passives/SupremeProdigy.dds"]={["x"]=192,["y"]=256,["w"]=64,["h"]=64},
 
 			["Art/2DArt/SkillIcons/passives/KalguuranDexKeystone.dds"]={["x"]=256,["y"]=256,["w"]=64,["h"]=64},
 			["Art/2DArt/SkillIcons/passives/KalguuranIntKeystone.dds"]={["x"]=320,["y"]=256,["w"]=64,["h"]=64},
@@ -75,9 +75,9 @@ return  {
 			["Art/2DArt/SkillIcons/passives/KalguuranStrNotable.dds"]={["x"]=128,["y"]=0,["w"]=38,["h"]=38},
 			["Art/2DArt/SkillIcons/passives/KalguuranIntNotable.dds"]={["x"]=192,["y"]=0,["w"]=38,["h"]=38},
 			["Art/2DArt/SkillIcons/passives/KalguuranDexNotable.dds"]={["x"]=256,["y"]=0,["w"]=38,["h"]=38},
-			["Art/2DArt/SkillIcons/passives/DevotionNotable.dds"]={["x"]=320,["y"]=0,["w"]=38,["h"]=38},
-			["Art/2DArt/SkillIcons/passives/EternalEmpireOffensiveNotable.dds"]={["x"]=0,["y"]=64,["w"]=38,["h"]=38},
-			["Art/2DArt/SkillIcons/passives/EternalEmpireDefensiveNotable.dds"]={["x"]=64,["y"]=64,["w"]=38,["h"]=38},
+			["Art/2DArt/SkillIcons/passives/DevotionNotable.dds"]={["x"]=64,["y"]=64,["w"]=38,["h"]=38},
+			["Art/2DArt/SkillIcons/passives/EternalEmpireOffensiveNotable.dds"]={["x"]=320,["y"]=0,["w"]=38,["h"]=38},
+			["Art/2DArt/SkillIcons/passives/EternalEmpireDefensiveNotable.dds"]={["x"]=0,["y"]=64,["w"]=38,["h"]=38},
 
 		}
 	}
@@ -90,9 +90,9 @@ return  {
 			["Art/2DArt/SkillIcons/passives/KalguuranStrNotable.dds"]={["x"]=128,["y"]=0,["w"]=38,["h"]=38},
 			["Art/2DArt/SkillIcons/passives/KalguuranIntNotable.dds"]={["x"]=192,["y"]=0,["w"]=38,["h"]=38},
 			["Art/2DArt/SkillIcons/passives/KalguuranDexNotable.dds"]={["x"]=256,["y"]=0,["w"]=38,["h"]=38},
-			["Art/2DArt/SkillIcons/passives/DevotionNotable.dds"]={["x"]=320,["y"]=0,["w"]=38,["h"]=38},
-			["Art/2DArt/SkillIcons/passives/EternalEmpireOffensiveNotable.dds"]={["x"]=0,["y"]=65,["w"]=38,["h"]=38},
-			["Art/2DArt/SkillIcons/passives/EternalEmpireDefensiveNotable.dds"]={["x"]=64,["y"]=65,["w"]=38,["h"]=38},
+			["Art/2DArt/SkillIcons/passives/DevotionNotable.dds"]={["x"]=64,["y"]=64,["w"]=38,["h"]=38},
+			["Art/2DArt/SkillIcons/passives/EternalEmpireOffensiveNotable.dds"]={["x"]=320,["y"]=0,["w"]=38,["h"]=38},
+			["Art/2DArt/SkillIcons/passives/EternalEmpireDefensiveNotable.dds"]={["x"]=0,["y"]=64,["w"]=38,["h"]=38},
 		}
 	}
 	},

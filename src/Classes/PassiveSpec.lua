@@ -1072,7 +1072,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				jewelType = 3
 			elseif conqueredBy.conqueror.type == "templar" then
 				jewelType = 4
-			elseif conqueredBy.conqueror.type == "kalguuran" then
+			elseif conqueredBy.conqueror.type == "kalguur" then
 				jewelType = 6
 			end
 			local seed = conqueredBy.id
@@ -1220,7 +1220,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				elseif conqueredBy.conqueror.type == "maraketh" then
 					local dex = (isValueInArray(attributes, node.dn) or node.isTattoo) and "2" or "4"
 					self:NodeAdditionOrReplacementFromString(node, " \n+" .. dex .. " to Dexterity")
-				elseif conqueredBy.conqueror.type == "kalguuran" then
+				elseif conqueredBy.conqueror.type == "kalguur" then
 					local ward = (isValueInArray(attributes, node.dn) or node.isTattoo) and "1" or "2"
 					self:NodeAdditionOrReplacementFromString(node, " \n" .. ward .. "% increased Ward")
 				elseif conqueredBy.conqueror.type == "templar" then

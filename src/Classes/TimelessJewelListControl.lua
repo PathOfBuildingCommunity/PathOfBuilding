@@ -94,21 +94,20 @@ function TimelessJewelListControlClass:OnSelClick(index, data, doubleClick)
 		local label = "[" .. data.seed .. "; " .. data.total.. "; " .. self.sharedList.socket.keystone .. "]\n"
 		local variant = self.sharedList.conqueror.id == 1 and 1 or (self.sharedList.conqueror.id - 1) .. "\n"
 		local itemData = [[
-Elegant Hubris ]] .. label .. [[
+Heroic Tragedy ]] .. label .. [[
 Timeless Jewel
 League: Legion
-Requires Level: 20
-Limited to: 1
-Variant: Cadiro (Supreme Decadence)
-Variant: Victario (Supreme Grandstanding)
-Variant: Caspiro (Supreme Ostentation)
+Limited to: 1 Historic
+Variant: Vorana (Black Scythe Training)
+Variant: Uhtred (The Unbreaking Circle)
+Variant: Medved (Celestial Mathematics)
 Selected Variant:  ]] .. variant .. "\n" .. [[
 Radius: Large
 Implicits: 0
-{variant:1}Commissioned ]] .. data.seed .. [[ coins to commemorate Cadiro
-{variant:2}Commissioned ]] .. data.seed .. [[ coins to commemorate Victario
-{variant:3}Commissioned ]] .. data.seed .. [[ coins to commemorate Caspiro
-Passives in radius are Conquered by the Eternal Empire
+{variant:1}Remembrancing ]] .. data.seed .. [[ songworthy deeds by the line of Vorana
+{variant:2}Remembrancing ]] .. data.seed .. [[ songworthy deeds by the line of Uhtred
+{variant:3}Remembrancing ]] .. data.seed .. [[ songworthy deeds by the line of Medved
+Passives in radius are Conquered by the Kalguur
 Historic
 ]]
 		if self.sharedList.type.id == 1 then
@@ -116,8 +115,7 @@ Historic
 Glorious Vanity ]] .. label .. [[
 Timeless Jewel
 League: Legion
-Requires Level: 20
-Limited to: 1
+Limited to: 1 Historic
 Variant: Doryani (Corrupted Soul)
 Variant: Xibaqua (Divine Flesh)
 Variant: Ahuana (Immortal Ambition)
@@ -135,8 +133,7 @@ Historic
 Lethal Pride ]] .. label .. [[
 Timeless Jewel
 League: Legion
-Requires Level: 20
-Limited to: 1
+Limited to: 1 Historic
 Variant: Kaom (Strength of Blood)
 Variant: Rakiata (Tempered by War)
 Variant: Akoya (Chainbreaker)
@@ -154,8 +151,7 @@ Historic
 Brutal Restraint ]] .. label .. [[
 Timeless Jewel
 League: Legion
-Requires Level: 20
-Limited to: 1
+Limited to: 1 Historic
 Variant: Asenath (Dance with Death)
 Variant: Nasima (Second Sight)
 Variant: Balbala (The Traitor)
@@ -178,8 +174,7 @@ Historic
 Militant Faith ]] .. label .. [[
 Timeless Jewel
 League: Legion
-Requires Level: 20
-Limited to: 1
+Limited to: 1 Historic
 Has Alt Variant: true
 Has Alt Variant Two: true
 Variant: Avarius (Power of Purpose)
@@ -224,6 +219,24 @@ Implicits: 0
 {variant:17}1% increased effect of Non-Curse Auras per 10 Devotion
 {variant:18}3% increased Defences from Equipped Shield per 10 Devotion
 Passives in radius are Conquered by the Templars
+Historic
+]]
+			elseif self.sharedList.type.id == 5 then
+			itemData = [[
+Elegant Hubris ]] .. label .. [[
+Timeless Jewel
+League: Legion
+Limited to: 1 Historic
+Variant: Cadiro (Supreme Decadence)
+Variant: Victario (Supreme Grandstanding)
+Variant: Caspiro (Supreme Ostentation)
+Selected Variant:  ]] .. variant .. "\n" .. [[
+Radius: Large
+Implicits: 0
+{variant:1}Commissioned ]] .. data.seed .. [[ coins to commemorate Cadiro
+{variant:2}Commissioned ]] .. data.seed .. [[ coins to commemorate Victario
+{variant:3}Commissioned ]] .. data.seed .. [[ coins to commemorate Caspiro
+Passives in radius are Conquered by the Eternal Empire
 Historic
 ]]
 		end

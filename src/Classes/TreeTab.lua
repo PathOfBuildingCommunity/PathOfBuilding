@@ -1155,7 +1155,7 @@ function TreeTabClass:FindTimelessJewel()
 	local timelessData = self.build.timelessData
 	local controls = { }
 	local modData = { }
-	local ignoredMods = { "Might of the Vaal", "Legacy of the Vaal", "Strength", "Add Strength", "Dex", "Add Dexterity", "Devotion", "Price of Glory" }
+	local ignoredMods = { "Might of the Vaal", "Legacy of the Vaal", "Strength", "Add Strength", "Dex", "Add Dexterity", "Devotion", "Price of Glory", "Ward" }
 	local totalMods = { [2] = "Strength", [3] = "Dexterity", [4] = "Devotion" }
 	local totalModIDs = {
 		["total_strength"] = { ["karui_notable_add_strength"] = true, ["karui_attribute_strength"] = true, ["karui_small_strength"] = true },
@@ -1179,7 +1179,7 @@ function TreeTabClass:FindTimelessJewel()
 		{ label = "Brutal Restraint", name = "maraketh", id = 3 },
 		{ label = "Militant Faith", name = "templar", id = 4 },
 		{ label = "Elegant Hubris", name = "eternal", id = 5 },
-		{ label = "Heroic Tragedy", name = "kalguuran", id = 6 }
+		{ label = "Heroic Tragedy", name = "kalguur", id = 6 }
 	}
 	-- rebuild `timelessData.jewelType` as we only store the minimum amount of `jewelType` data in build XML
 	if next(timelessData.jewelType) then

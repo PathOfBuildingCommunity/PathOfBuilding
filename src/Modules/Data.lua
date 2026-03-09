@@ -809,7 +809,7 @@ data.timelessJewelSeedMax = {
 	[6] = 8000,
 }
 data.timelessJewelTradeIDs = LoadModule("Data/TimelessJewelData/LegionTradeIds")
-data.timelessJewelAdditions = 94 -- #legionAdditions
+data.timelessJewelAdditions = 96 -- #legionAdditions
 data.nodeIDList = LoadModule("Data/TimelessJewelData/NodeIndexMapping")
 data.timelessJewelLUTs = { }
 data.readLUT, data.repairLUTs = LoadModule("Modules/DataLegionLookUpTableHelper")
