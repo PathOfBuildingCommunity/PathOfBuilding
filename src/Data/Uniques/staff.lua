@@ -250,8 +250,7 @@ Nearby allies gain 18% increased Damage
 The Enmity Divine
 Imperial Staff
 League: Harbinger
-Source: Created from item parts obtained from Boss in The Beachhead
-Upgrade: Upgrades to unique{The Yielding Mortality} via currency{Haemocombustion Scroll}
+Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Pre 3.25.0
 Variant: Pre 3.26.0
@@ -275,8 +274,6 @@ Imperial Staff
 Variant: Pre 3.25.0
 Variant: Pre 3.26.0
 Variant: Current
-League: Harvest
-Source: Upgraded from unique{The Enmity Divine} via currency{Haemocombustion Scroll}
 Requires Level 66, 113 Str, 113 Int
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage while wielding a Staff
@@ -470,17 +467,20 @@ Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Pre 3.15.0
 Variant: Pre 3.25.0
+Variant: Pre 3.28.0
 Variant: Current
 Requires Level 68, 113 Str, 113 Int
 Implicits: 4
 {variant:1}+12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}+18% Chance to Block Attack Damage while wielding a Staff
 {variant:3,4}+20% Chance to Block Spell Damage while wielding a Staff
-{variant:5}+25% Chance to Block Attack Damage while wielding a Staff
-Socketed Gems are Supported by Level 30 Greater Spell Echo
+{variant:5,6}+25% Chance to Block Attack Damage while wielding a Staff
+{variant:1,2,3,4,5}Socketed Gems are Supported by Level 30 Greater Spell Echo
+{variant:6}Socketed Gems are Supported by Level 1 Greater Spell Echo
 (120-160)% increased Spell Damage
 {variant:1,2,3}100% increased maximum Mana
 {variant:4,5}50% increased maximum Mana
+{variant:6}(50-100)% increased maximum Mana
 ]],[[
 Realmshaper
 Iron Staff
@@ -737,4 +737,19 @@ Gain 1 Remembrance when you spend a total of 200 Energy
 Shield with no Shaper Memory Summoned
 Maximum 10 Remembrance
 Eldritch Battery
-]],}
+]],
+[[
+Jiquani's Potential
+Imperial Staff
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 66, 113 Str, 113 Dex
+Implicits: 1
++25% Chance to Block Spell Damage while wielding a Staff
+(1-7)% increased Intelligence
+(-17-17)% increased maximum Life
++(-1-1) to Level of all Spell Skill Gems
+31% increased Cost of Skills
+1 to (31-53) Spell Lightning Damage per 10 Intelligence
+Blood Magic
+]],
+}

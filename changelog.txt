@@ -8,7 +8,7 @@ VERSION[2.60.0][2026/01/28]
 --- Fixed Crashes ---
 * Fix crash on adding support gems and importing items to many builds (LocalIdentity)
 * Fix Radius Jewels in Shared Items Crashing on Load (Peechey)
-* Fix Crash when sorting gems while using Foulborn Gruthkel's Pelt (LocalIdentity)
+* Fix Crash when sorting gems while using Foulborn Gruthkul's Pelt (LocalIdentity)
 
 --- User Interface ---
 * Fix Foulborn Icons showing on tree nodes, and foil items not importing type (Blitz54)

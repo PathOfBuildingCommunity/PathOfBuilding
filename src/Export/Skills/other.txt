@@ -143,6 +143,11 @@ local skills, mod, flag, skill = ...
 #baseMod skill("stackCount", 1, { type = "Multiplier", var = "SpiderWebApplyStack", limitVar = "SpiderWebApplyStackMax" })
 #mods
 
+#skill SolartwineBlindingNova
+#flags spell area
+	fromItem = true,
+#mods
+
 #skill SupportBloodMagicUniquePrismGuardian Blood Magic
 	fromItem = true,
 #mods
@@ -226,6 +231,19 @@ local skills, mod, flag, skill = ...
 #skill Brandsurge
 #flags spell area
 	fromItem = true,
+#mods
+
+#skill BitingBraidNova
+#flags spell area
+	fromItem = true,
+#mods
+
+#skill CeaselessFleshUnique
+#flags spell minion duration
+	fromItem = true,
+	minionList = {
+		"ShamblingUndead",
+	},
 #mods
 
 #skill ColdAegis
@@ -403,6 +421,9 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportEclipse
+#mods
+
 #skill SupportElementalPenetration Elemental Penetration
 	fromItem = true,
 #mods
@@ -507,19 +528,6 @@ local skills, mod, flag, skill = ...
 #skill GoreShockwave
 #flags attack area melee
 	fromItem = true,
-#mods
-
-#skill SupportGreaterSpellEcho Greater Spell Echo
-	fromItem = true,
-	statMap = {
-		["support_greater_spell_echo_spell_damage_+%_final_per_repeat"] = {
-			mod("RepeatPerRepeatDamage", "MORE", nil, 0, 0, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
-		},
-		["support_greater_spell_echo_area_of_effect_+%_per_repeat"] = {
-			mod("RepeatPerRepeatAreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
-		},
-	},
-#baseMod flag("Condition:HaveGreaterSpellEcho")
 #mods
 
 #skill HeraldOfTheBreach
@@ -1162,6 +1170,17 @@ local skills, mod, flag, skill = ...
 
 #skill SupportTriggerSpellOnKill Squirming Terror
 	fromItem = true,
+#mods
+
+#skill AnimosityUniqueSkill
+#flags spell duration
+	fromItem = true,
+	statMap = {
+		["base_physical_damage_to_deal_per_minute"] = {
+			skill("PhysicalDot", nil, { type = "Multiplier", var = "WeepingBlackStacks", limit = 5 }),
+			div = 60,
+		},
+	},
 #mods
 
 #skill Twister

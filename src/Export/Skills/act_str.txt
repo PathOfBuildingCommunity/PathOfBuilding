@@ -438,7 +438,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill DefianceBanner
-#flags spell area duration aura banner
+#flags spell area duration aura
 	statMap = {
 		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
@@ -477,6 +477,23 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill DivineBlast
+#flags attack melee area shieldAttack
+	parts = {
+		{
+			name = "Beam Implosion",
+		},
+		{
+			name = "Explosion",
+		},
+	},
+	statMap = {
+		["discus_slam_damage_+%_final_for_shockwave"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }),
+		},
+	},
+#mods
+
 #skill DominatingBlow
 #flags attack melee duration minion
 	minionList = {
@@ -506,7 +523,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill DreadBanner
-#flags spell
+#flags spell area duration aura
 	statMap = {
 		["recover_X_life_on_block"] = {
 			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
@@ -1009,6 +1026,60 @@ local skills, mod, flag, skill = ...
 
 #skill HolyFlameTotemAltX
 #flags spell totem projectile duration
+#mods
+
+#skill HolyHammers
+#flags attack area melee
+	parts = {
+		{
+			name = "Slam",
+		},
+		{
+			name = "First Hammer",
+			melee = false,
+		},
+		{
+			name = "Other Hammers",
+			melee = false,
+		},
+	},
+	statMap = {
+		["holy_hammers_damage_+%_final_for_initial_hammer_in_cascade"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+		["holy_hammers_damage_+%_final_if_consuming_power_charge"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "RemovablePowerCharge", limit = 1 }),
+		},
+	},
+#mods
+
+#skill HolyStrike
+#flags attack minion duration
+	minionList = {
+		"HolyStrikeMinion",
+	},
+	minionUses = {
+		["Weapon 1"] = true,
+	},
+#mods
+
+#skill Sweep
+#flags attack melee area
+	parts = {
+		{
+			name = "Melee Hit",
+		},
+		{
+			name = "Holy Hammer",
+		},
+	},
+	statMap = {
+		["holy_sweep_hammerfall_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
+#baseMod skill("radius", 24)
+#baseMod flag("CannotBeEvaded", { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill IceCrash
@@ -1719,6 +1790,26 @@ local skills, mod, flag, skill = ...
 #flags spell totem duration
 #mods
 
+#skill SearingBondAltX
+#flags spell totem duration
+	parts = {
+		{
+			name = "Beam",
+		},
+		{
+			name = "Explosion",
+		},
+	},
+	statMap = {
+		["searing_bond_totems_detonation_damage_over_time_+%_final_per_active_totem"] = {
+			mod("Damage", "MORE", nil, ModFlag.Dot, 0,  { type = "PerStat", stat = "TotemsSummoned" }, { type = "SkillPart", skillPart = 2 }),
+		},
+		["number_of_additional_totems_allowed_per_maximum_power_charge"] = {
+			mod("ActiveTotemLimit", "BASE", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
+		},
+	},
+#mods
+
 #skill SeismicCry
 #flags warcry area duration
 	statMap = {
@@ -1789,7 +1880,15 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 })
 #mods
 
+#skill ShieldOfLight
+#flags attack melee area shieldAttack
+#mods
+
 #skill ShockwaveTotem
+#flags spell totem area duration
+#mods
+
+#skill ShockwaveTotemAltX
 #flags spell totem area duration
 #mods
 
@@ -1894,6 +1993,19 @@ local skills, mod, flag, skill = ...
 		},
 		["static_strike_zap_speed_+%"] = {
 			mod("StaticStrikeFrequency", "INC", nil),
+		},
+	},
+#baseMod skill("radius", 20)
+#mods
+
+#skill StaticStrikeAltX
+#flags attack melee duration
+	statMap = {
+		["static_strike_maximum_gathering_lightning_stacks"] = {
+			mod("Multiplier:StaticStrikeofGatheringLightningMaxStages", "BASE", nil),
+		},
+		["hit_and_ailment_damage_+%_final_per_gathering_lightning"] = {
+			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "Multiplier", var = "StaticStrikeofGatheringLightningStage" })
 		},
 	},
 #baseMod skill("radius", 20)
@@ -2114,11 +2226,6 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 12)
 #mods
 
-#skill Sweep
-#flags attack melee area
-#baseMod skill("radius", 24)
-#mods
-
 #skill TectonicSlam
 #flags attack melee area
 #baseMod skill("radius", 15)
@@ -2259,7 +2366,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill WarBanner
-#flags spell
+#flags spell area duration aura
 	statMap = {
 		["accuracy_rating_+%"] = {
 			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
