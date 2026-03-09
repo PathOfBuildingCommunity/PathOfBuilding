@@ -1234,10 +1234,10 @@ local configTable = {
 		if env.player.mainSkill.activeEffect.grantedEffect.name == "Autoexertion" then
 			env.player.mainSkill.skillFlags.globalTrigger = true
 			env.player.mainSkill.skillFlags.skipEffectiveRate = true
-		else -- Needed to get the cooldown form the active part
+		else -- Needed to get the cooldown from the active part
 			-- Autoexertion has cooldown as part of its support part
 			-- Not really sure which one should apply here
-			-- Applying the one form the active part to be consistent
+			-- Applying the one from the active part to be consistent
 			-- with skills like Automation and Spellslinger
 			for _, skill in ipairs(env.player.activeSkillList) do
 				if skill.activeEffect.grantedEffect.name == "Autoexertion" then
@@ -1515,6 +1515,17 @@ local configTable = {
 				return not skill.skillTypes[SkillType.SummonsTotem] and skill.skillTypes[SkillType.Attack]
 			end
 		}
+	end,
+	["bursting toad"] = function(env)
+		-- All gems in the socket group should return the same HexToadCooldown even when there are multiple hextoad support gems slotted
+		for _, skill in ipairs(env.player.activeSkillList) do
+			if skill ~= env.player.mainSkill and slotMatch(env, skill) then
+				local cooldown = skill.skillModList:Min(nil, "HexToadCooldown")
+				if cooldown then
+					return { trigRate = 1 / cooldown, source = env.player.mainSkill }
+				end
+			end
+		end
 	end,
 }
 

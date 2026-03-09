@@ -438,6 +438,12 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportHextoad
+	statMap = {
+		["hex_zone_trigger_hextoad_every_x_ms"] = {
+			mod("HexToadCooldown", "MIN", nil),
+			div = 1000
+		},
+	},
 #mods
 
 #skill TriggeredSupportHextoad

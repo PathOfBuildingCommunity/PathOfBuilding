@@ -3121,6 +3121,12 @@ skills["SupportHextoad"] = {
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportCursedGround",
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["hex_zone_trigger_hextoad_every_x_ms"] = {
+			mod("HexToadCooldown", "MIN", nil),
+			div = 1000
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "curse_area_of_effect_+%", 0.5 },
