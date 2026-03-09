@@ -15,7 +15,7 @@ IncreasedLifeUniqueShieldDex2
 ReducedMaximumEnduranceChargeUnique__1
 MaximumBlockChanceUnique__1
 AdditionalBlockChanceUniqueShieldStrInt4
-{variant:1,2}+3% to all maximum Resistances while you have no Endurance Charges
+{variant:1,2}MaximumResistanceWithNoEnduranceChargesUnique__1__[3,3]
 {variant:3}MaximumResistanceWithNoEnduranceChargesUnique__1__
 OnslaughtWithMaxEnduranceChargesUnique__1
 ]],[[
@@ -28,12 +28,12 @@ Variant: Pre 3.0.0
 Variant: Pre 3.21.0
 Variant: Current
 Implicits: 1
-{variant:2,3}IncreasedLifeImplicitShield3
-{variant:1,2}(120-160)% increased Armour
+{variant:2,3}IncreasedLifeUniqueShieldDex6[30,40]
+{variant:1,2}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__4[120,160]
 {variant:3}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__4
 IncreasedLifeUniqueShieldDex6
 AdditionalBlockChanceUniqueShieldStrInt4
-{variant:1,2}+1000 Armour if you've Blocked Recently
+{variant:1,2}GainArmourIfBlockedRecentlyUnique__1[1000,1000]
 {variant:3}GainArmourIfBlockedRecentlyUnique__1
 EnemiesBlockedAreIntimidatedUnique__1
 ]],[[
@@ -48,13 +48,13 @@ Variant: Current
 Implicits: 1
 {variant:2,3,4}IncreasedLifeImplicitShield3
 {variant:1,2,3}GrantsLevel30ReckoningUnique__1
-{variant:1,2}(130-170)% increased Armour
+{variant:1,2}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__5[130,170]
 {variant:3,4}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__5
 IncreasedLifeUnique__31
-{variant:1,2}Recover 250 Life when you Block
+{variant:1,2}GainLifeOnBlockUnique__1[250,250]
 {variant:3,4}GainLifeOnBlockUnique__1
 AdditionalBlockChanceUniqueShieldStrInt4
-{variant:1,2}+1500 Armour if you've Blocked Recently
+{variant:1,2}GainArmourIfBlockedRecentlyUnique__1[1500,1500]
 ]],[[
 Chernobog's Pillar
 Ebony Tower Shield
@@ -64,14 +64,14 @@ Variant: Pre 3.0.0
 Variant: Current
 Implicits: 1
 {variant:4}IncreasedLifeImplicitShield2
-{variant:1}Adds 10 to 25 Fire Damage to Spells and Attacks
-{variant:2}Adds (7-10) to (15-25) Fire Damage to Spells and Attacks
+{variant:1}AddedFireDamageUniqueShieldStr3[10,10][25,25]
+{variant:2}AddedFireDamageUniqueShieldStr3[7,10][15,25]
 {variant:3,4}AddedFireDamageUniqueShieldStr3
 LocalIncreasedPhysicalDamageReductionRatingUniqueShieldStr3
 {variant:3,4}IncreasedLifeUniqueShieldDex2
 FireResistUniqueShieldStr3
 ConvertPhysicalToFireUniqueShieldStr3
-{variant:1,2}10% chance to Curse Non-Cursed Enemies with Enfeeble on Hit
+{variant:1,2}EnfeebleOnHitUniqueShieldStr3[10,10]
 {variant:3,4}EnfeebleOnHitUniqueShieldStr3
 ]],[[
 Dawnbreaker
@@ -95,10 +95,10 @@ Variant: Pre 3.16.0
 Variant: Current
 Implicits: 1
 {variant:3,4}IncreasedLifeImplicitShield2
-{variant:1,2,3}LocalIncreasedPhysicalDamageReductionRatingUnique__2
-{variant:4}LocalIncreasedArmourPercentAndStunRecoveryUniqueShieldStr1
+{variant:1,2,3}LocalIncreasedPhysicalDamageReductionRatingPercentUniqueBodyStr6
+{variant:4}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__14_
 StunRecoveryUniqueBootsStrDex1
-{variant:1}IncreasedLifeUnique__74
+{variant:1}IncreasedLifeUniqueShieldStr1[80,100]
 {variant:2,3,4}IncreasedLifeUniqueShieldStr1
 MovementVelocityUniqueShieldStr1
 RangedAttackDamageReducedUniqueShieldStr1
@@ -107,16 +107,14 @@ AdditionalBlockChanceUniqueShieldDex1
 Lycosidae
 Rawhide Tower Shield
 Variant: Pre 3.0.0
-Variant: Pre 3.25.0
 Variant: Current
 Implicits: 1
-{variant:2,3}IncreasedLifeImplicitShield1
+{variant:2}IncreasedLifeImplicitShield1
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__2
 IncreasedLifeImplicitShield3
 AlwaysHitsUnique__2
 AdditionalBlockChanceUniqueShieldStrDex3__
-{variant:1,2}Adds 250 to 300 Cold Damage to Counterattacks
-{variant:3}CounterAttacksAddedColdDamageUnique__1
+CounterAttacksAddedColdDamageUnique__1
 ]],[[
 Magna Eclipsis
 Pinnacle Tower Shield
@@ -127,8 +125,8 @@ Implicits: 1
 IncreasedLifeImplicitShield2
 LocalIncreaseSocketedGemLevelUnique__6
 TriggeredElementalAegisSkillUnique__1_
-{variant:1}LocalIncreasedPhysicalDamageReductionRatingPercentUniqueBodyStr6
-{variant:2}LocalIncreasedArmourPercentAndStunRecoveryUniqueShieldStr1
+{variant:1}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__14_[200,250]
+{variant:2}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__14_
 IncreasedLifeUniqueShieldDex2
 LocalFlatIncreasedEvasionAndEnergyShieldUnique__1
 ]],[[
@@ -141,15 +139,15 @@ Variant: Pre 3.11.0
 Variant: Current
 Implicits: 1
 {variant:3,4}IncreasedLifeImplicitShield2
-{variant:2,3,4}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__9
+{variant:2,3,4}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__12
 {variant:1}LocalIncreaseSocketedWarcryGemLevelUniqueShieldStr4
-{variant:1}IncreasedLifeUnique__80_
+{variant:1}IncreasedLifeUniqueShieldStr4[20,60]
 {variant:2,3,4}IncreasedLifeUniqueShieldStr4
 IncreasedTauntDurationUniqueShieldStr4
 {variant:1}LifeGainedOnTauntingEnemyUniqueShieldStr4
-{variant:1}20% increased Endurance Charge Duration
+{variant:1}EnduranceChargeDurationUniqueBodyStrInt4[20,20]
 AdditionalBlockChanceUniqueShieldDex1
-{variant:2,3,4}WarcryCooldownSpeedUnique__1
+{variant:2,3,4}WarcryCooldownSpeedUnique__2
 {variant:2,3}AttackLeechAgainstTauntedEnemyUnique__1
 {variant:4}WarcryInfiniteEnemyPowerUnique__1__
 ]],[[
@@ -161,7 +159,7 @@ Implicits: 1
 IncreasedLifeImplicitShield1
 SpellBlockPercentageUniqueShieldInt1
 LocalIncreasedWardUnique__1
-MaximumBlockChanceUnique__2
+MaximumBlockChanceUnique__1
 MaximumSpellBlockChanceUnique__1
 BlockIsLuckyUnique__1
 TriggerSocketedElementalSpellOnBlockUnique__1
@@ -175,10 +173,10 @@ Implicits: 1
 {variant:3}IncreasedLifeImplicitShield1
 LocalIncreasedPhysicalDamageReductionRatingUniqueShieldStr2
 IncreasedLifeUniqueShieldStr2
-{variant:1}-10 Physical Damage taken from Projectile Attacks
-{variant:2,3}-(50-80) Physical Damage taken from Projectile Attacks
+{variant:1}RangedAttackDamageReducedUniqueShieldStr2[-10,-10]
+{variant:2,3}RangedAttackDamageReducedUniqueShieldStr2
 ArmourPercent VsProjectilesUniqueShieldStr2
-+25% Chance to Block Projectile Attack Damage
+BlockVsProjectilesUniqueShieldStr2
 ]],[[
 Trolltimber Spire
 Cedar Tower Shield
@@ -189,7 +187,7 @@ Variant: Current
 Implicits: 1
 {variant:3}IncreasedLifeImplicitShield2
 {variant:2,3}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__11
-IncreasedLifeUniqueShieldStrInt6
+IncreasedLifeUniqueShieldStr5
 TotemAreaOfEffectUniqueShieldStr5
 {variant:1}LifeLeechFromTotemSkillsUniqueShieldStr5
 {variant:2,3}TotemLeechLifeToYouUnique__1
@@ -205,7 +203,7 @@ TotemDamageUnique__1_
 IncreasedLifeUnique__82
 AdditionalTotemsUnique__1
 ArmourPerTotemUnique__1
-BloodMagic
+KeystoneBloodMagicUnique__1_
 ]],[[
 Replica Tukohama's Fortress
 Ebony Tower Shield
@@ -217,7 +215,7 @@ IncreasedLifeUnique__90
 AdditionalBrandUnique__1
 CriticalStrikeChancePerBrandUnique__1___
 BrandDamageUnique__1
-KeystoneBloodMagicUnique__1_
+BloodMagic
 ]],
 -- Shield: Evasion
 [[
@@ -230,9 +228,9 @@ Variant: Current
 Implicits: 1
 {variant:3}MovementVelocityImplicitShield2
 IntelligenceUniqueShieldDex3
-{variant:1,2}LocalIncreasedEvasionRatingPercentUnique__5
+{variant:1,2}LocalIncreasedEvasionRatingPercentUniqueShieldDex3[80,100]
 {variant:3}LocalIncreasedEvasionRatingPercentUniqueShieldDex3
-+(20-30) to all Elemental Resistances
+AllResistancesUniqueShieldDex3
 {variant:2,3}ReducedSelfCurseDurationUniqueShieldDex3
 ReflectCurses
 {variant:3}AdditionalBlockWhileNotCursedUnique__1
@@ -247,7 +245,7 @@ MovementVelocityImplicitShield2
 IntelligenceUniqueShieldDex3
 LocalIncreasedEvasionRatingPercentUniqueShieldDex3
 LocalIncreasedEnergyShieldUnique__19
-AllResistancesUniqueShieldStrInt1
+AllResistancesUniqueShieldDex3
 ReflectCurses
 UnaffectedByCursesUnique__1
 CurseEffectivenessUnique__2_
@@ -261,13 +259,13 @@ Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 {variant:3,4}MovementVelocityImplicitShield3
-{variant:1,2,3,4}+1 to Level of Socketed Curse Gems
+{variant:1,2,3,4}IncreaseSocketedCurseGemLevelUniqueShieldDex4[1,1]
 {variant:5}IncreaseSocketedCurseGemLevelUniqueShieldDex4
 LocalIncreasedEvasionRatingPercentUniqueShieldDex4
 {variant:2,3,4,5}LocalIncreasedEnergyShieldUnique__10
-{variant:2,3,4}IncreasedLifeUniqueQuiver3
-{variant:1,2,3,4}AdditionalBlockChanceUniqueShieldDex1
-{variant:1,2,3,4}10% Chance to Cause Monster to Flee on Block
+{variant:2,3,4}IncreasedLifeUnique__41
+{variant:1,2,3,4}AdditionalBlockChanceUniqueShieldStrInt6
+{variant:1,2,3,4}ChanceForEnemyToFleeOnBlockUniqueShieldDex4[10,10]
 {variant:5}ChanceForEnemyToFleeOnBlockUniqueShieldDex4
 {variant:5}BlockChanceVersusCursedEnemiesUnique__1
 {variant:1,2,3}IncreasedCurseDurationUniqueShieldDex4
@@ -282,14 +280,14 @@ Variant: Pre 3.0.0
 Variant: Current
 Implicits: 1
 {variant:3}MovementVelocityImplicitShield3
-+1 to Level of Socketed Curse Gems
+IncreaseSocketedCurseGemLevelUniqueShieldDex4[1,1]
 LocalIncreasedEvasionRatingPercentUniqueShieldDex4
-{variant:2,3}LocalIncreasedEnergyShieldUnique__10
-{variant:2,3}IncreasedLifeUnique__41
-AdditionalBlockChanceUniqueShieldDex1
-10% Chance to Cause Monster to Flee on Block
+{variant:2,3}IncreasedEnergyShieldUnique__9
+{variant:2,3}IncreasedLifeUnique__118
+AdditionalBlockChanceUniqueShieldStrDex2
+ChanceForEnemyToFleeOnBlockUniqueShieldDex4[10,10]
 LifeLeechVsCursedEnemiesUnique__1
-IncreasedCurseDurationUniqueShieldDex4
+IncreasedCurseDurationUniqueShieldStrDex2
 ]],[[
 Crest of Perandus
 Pine Buckler
@@ -302,8 +300,8 @@ IncreasedLifeUniqueShieldDex2
 LifeRegenerationUniqueShieldDex2
 LightningResistUniqueShieldDex2
 LifeLeechPermyriadUniqueShieldDex2
-{variant:1}AdditionalBlockChanceUniqueShieldDex5
-{variant:2,3}AdditionalBlockChanceUniqueShieldDex1
+{variant:1}AdditionalBlockChanceUniqueShieldStr4[10,10]
+{variant:2,3}AdditionalBlockChanceUniqueShieldStr4
 ]],[[
 Great Old One's Ward
 Corrugated Buckler
@@ -325,12 +323,12 @@ Variant: Current
 Implicits: 1
 {variant:4}MovementVelocityImplicitShield2
 LocalIncreasedEvasionRatingPercentUniqueShieldDex1
-MaximumColdResistUniqueShieldDex1
+IncreasedMaximumColdResistUniqueShieldStrInt4
 ColdResistUniqueShieldDex1
 {variant:3,4}PhysicalAddedAsColdUnique__2
-{variant:1}Reflects (5-10) Cold Damage to Melee Attackers
+{variant:1}MeleeAttackerTakesColdDamageUniqueShieldDex1[5,10]
 {variant:2,3,4}MeleeAttackerTakesColdDamageUniqueShieldDex1
-AdditionalBlockChanceUniqueShieldDex1
+AdditionalBlockChanceUniqueShieldStr1
 ]],[[
 Kaltensoul
 Painted Buckler
@@ -345,7 +343,7 @@ MaximumColdResistUniqueShieldDex1
 ColdResistUniqueShieldDex1
 {variant:2,3}PhysicalAddedAsColdUnique__2
 MeleeAttackerTakesColdDamageUniqueShieldDex1
-AdditionalBlockChanceUniqueShieldDex1
+AdditionalBlockChanceUniqueShieldInt4
 FireDamageTakenAsColdUnique___1
 ]],[[
 Kiloava's Bluster
@@ -364,7 +362,7 @@ Lacquered Buckler
 Implicits: 1
 MovementVelocityImplicitShield2
 LocalIncreasedEvasionRatingPercentUnique__17
-MovementVelocityUniqueAmulet5
+MovementVelocityUnique__37
 FireAndColdResistUnique__4_
 AvoidElementalDamagePhasingUnique__1
 MaximumBlockChanceIfNotBlockedRecentlyUnique__1
@@ -372,17 +370,14 @@ PhasingIfBlockedRecentlyUnique__1
 ]],[[
 Replica Mistwall
 Lacquered Buckler
-Variant: Pre 3.23.0
-Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 MovementVelocityImplicitShield2
 LocalIncreasedEvasionRatingPercentUnique__14
-MovementVelocityUniqueTwoHandSword3
+MovementVelocityUnique__37
 FireAndColdResistUnique__4_
-{variant:1}+75% Chance to Block Spell Damage if you have not Blocked Recently
-{variant:2}SpellBlockIfNotBlockedRecentlyUnique__1
+SpellBlockIfNotBlockedRecentlyUnique__1
 AvoidPhysicalDamageWhilePhasingUnique__1
 PhasingIfBlockedRecentlyUnique__1
 ]],[[
@@ -392,20 +387,18 @@ League: Warbands
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
-Variant: Pre 3.24.0
 Variant: Current
 Implicits: 1
 {variant:3,4,5}MovementVelocityImplicitShield2
-{variant:1}LocalIncreaseSocketedWarcryGemLevelUniqueShieldStr4
+{variant:1}LocalIncreaseSocketedWarcryGemLevelUniqueShieldDex7
 {variant:1}IncreasedChaosDamageUniqueShieldDex7
-{variant:2,3,4,5}(80-100)% Increased Evasion Rating
+{variant:2,3,4}LocalIncreasedEvasionRatingPercentUnique__5
 ColdResistUniqueShieldDex7
 AreaOfEffectUniqueShieldDexInt2
 {variant:1}OnslaughtOnKillingTauntedEnemyUniqueShieldDex7
-{variant:2,3,4,5}OnslaughtOnUsingWarcryUnique__1
-{variant:2,3,4,5}WarcryEffectUnique__2
-{variant:4}Warlord's Call
-{variant:5}KeystoneCallToArmsUnique__1
+{variant:2,3,4}OnslaughtOnUsingWarcryUnique__1
+{variant:2,3,4}WarcryEffectUnique__1
+{variant:4}KeystoneCallToArmsUnique__1
 ]],[[
 Thousand Teeth Temu
 Vaal Buckler
@@ -418,11 +411,11 @@ Implicits: 1
 LocalIncreasedEvasionRatingPercentUniqueShieldDex5
 IncreasedLifeUniqueShieldDex5
 LifeLeechPermyriadUniqueShieldDex5
-{variant:1,2,3}AdditionalBlockChanceUniqueShieldDex1
+{variant:1,2,3}AdditionalBlockChanceUniqueShieldDex5[5,5]
 {variant:4}AdditionalBlockChanceUniqueShieldDex5
-{variant:1,2,3}Reflects 1 to 1000 Physical Damage to Attackers on Block
+{variant:1,2,3}ReflectDamageToAttackersOnBlockUniqueShieldDex5[1,1][1000,1000]
 {variant:4}ReflectDamageToAttackersOnBlockUniqueShieldDex5
-{variant:2,3}10% of Damage you Reflect to Enemies when Hit is gained as Life
+{variant:2,3}DamageYouReflectGainedAsLifeUnique__1
 ]],
 -- Shield: Energy Shield
 [[
@@ -436,12 +429,12 @@ Source: Opening normal{Grove Vessel} in normal{Toxic Grove}
 Upgrade: Upgrades to unique{Apep's Supremacy} via currency{Vial of Awakening}
 Implicits: 1
 SpellDamageImplicitShield1
-{variant:1}Adds (20-22) to (30-37) Chaos Damage
-{variant:2}GlobalAddedChaosDamageUnique__2
+{variant:1}GlobalAddedChaosDamageUnique__3[20,22][30,37]
+{variant:2}GlobalAddedChaosDamageUnique__3
 LocalIncreasedEnergyShieldUnique__21
 ChanceToBePoisonedUnique__1
 MaximumResistancesWhilePoisonedUnique__1
-{variant:1}Regenerate 50 Energy Shield per Second per Poison on you, up to 400 per second
+{variant:1}EnergyShieldRegenPerPoisonUnique__1[3000,3000][24000,24000]
 {variant:2}EnergyShieldRegenPerPoisonUnique__1
 PoisonExpiresSlowerUnique__1
 ]],[[
@@ -488,11 +481,11 @@ Variant: Spectre Flat Crit (Current)
 Variant: Spectre Increased AoE (Current)
 {variant:1,2,3,4,5,6,7,8,9,10,11,12}SpellDamageUnique__10
 LocalIncreasedEnergyShieldPercentUnique__19
-Spectres have (50-100)% increased maximum Life
+SpectreIncreasedLifeUnique__1
 GainArcaneSurgeOnCritUnique__1
 SpectresGainArcaneSurgeWhenYouDoUnique__1_
-{variant:1,2,3,4,5,6,7,8,9,10,11,12}(40-50)% increased Critical Strike Chance for Spells per Raised Spectre
-{variant:13,14,15,16,17,18,19,20,21,22,23}(50-100)% increased Critical Strike Chance for Spells per Raised Spectre
+{variant:1,2,3,4,5,6,7,8,9,10,11,12}SpellCriticalStrikeChancePerSpectreUnique__1_[40,50]
+{variant:13,14,15,16,17,18,19,20,21,22,23}SpellCriticalStrikeChancePerSpectreUnique__1_
 {variant:1}{crafted}Adds (3-12) to (5-16) Fire Damage
 {variant:1}{crafted}Adds (3-12) to (5-16) Cold Damage
 {variant:2}{crafted}Adds (3-12) to (5-16) Cold Damage
@@ -512,9 +505,9 @@ SpectresGainArcaneSurgeWhenYouDoUnique__1_
 {variant:10,16}(24-28)% increased Energy Shield
 {variant:10,16}+(19-22) to maximum Life
 {variant:11,17}+(3201-4000) to Armour during Soul Gain Prevention
-{variant:12,18}LocalIncreaseSocketedSupportGemLevelUnique__1
-{variant:12,18}IncreaseSocketedSupportGemQualityUnique__1___
-{variant:19}MaximumMinionCountUniqueSceptre5
+{variant:12,18}+2 to Level of Socketed Support Gems
+{variant:12,18}+(5-8)% to Quality of Socketed Support Gems
+{variant:19}+1 to maximum number of Spectres
 {variant:20}Raised Spectres have +(5-10)% to all maximum Resistances
 {variant:21}Raised Spectres fire 2 additional Projectiles
 {variant:22}Raised Spectres have +(3-5)% to Critical Strike Chance
@@ -528,16 +521,16 @@ Variant: Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Implicits: 2
-{variant:1,2}5% increased Spell Damage
+{variant:1,2}SpellDamageImplicitShield1[5,5]
 {variant:3,4}SpellDamageImplicitShield1
-{variant:1}LocalIncreaseSocketedWarcryGemLevelUniqueShieldStr4
+{variant:1}LocalIncreaseSocketedWarcryGemLevelUniqueShieldInt5[1,1]
 {variant:2,3,4}LocalIncreaseSocketedWarcryGemLevelUniqueShieldInt5
 {variant:1}IncreasedAttackSpeedUniqueShieldInt5
 {variant:2,3,4}IncreasedCastSpeedUnique__5
 LocalIncreasedEnergyShieldUniqueShieldInt5
 ManaRegenerationUniqueShieldInt5
 {variant:1}ManaGainedOnHitAgainstTauntedEnemyUniqueShieldInt5
-{variant:2,3}Gain 2 Power Charges on Using a Warcry
+{variant:2,3}GainPowerChargesOnUsingWarcryUnique__1
 {variant:4}WarcryGrantsArcaneSurgeUnique__1
 ]],[[
 Esh's Mirror
@@ -551,7 +544,7 @@ Upgrade: Upgrades to unique{Esh's Visage} using currency{Blessing of Esh}
 Implicits: 1
 {variant:2}SpellDamageImplicitShield1
 IntelligenceUniqueShieldInt4
-{variant:1}LocalIncreasedEnergyShieldUniqueShieldInt3
+{variant:1}LocalIncreasedEnergyShieldPercentUnique__7[80,100]
 {variant:2}LocalIncreasedEnergyShieldPercentUnique__7
 {variant:1}IncreasedLifeUnique__36_
 LightningResistUnique__7
@@ -567,14 +560,14 @@ Variant: Pre 3.0.0
 Variant: Pre 3.16.0
 Variant: Current
 Implicits: 2
-{variant:1}5% increased Spell Damage
+{variant:1}SpellDamageImplicitShield1[5,5]
 {variant:2,3}SpellDamageImplicitShield1
 LocalIncreasedEnergyShieldPercentUnique__9
-{variant:1,2}IncreasedLifeUnique__111__
-{variant:3}IncreasedLifeUnique__37
+{variant:1,2}IncreasedLifeUnique__36_[40,70]
+{variant:3}IncreasedLifeUnique__36_
 LightningResistUnique__10
 ChaosResistUnique__25
-Chaos Damage does not bypass Energy Shield while not on Low Life
+ChaosDamageDoesNotBypassESNotLowLifeOrManaUnique__1
 ReflectsShockToEnemiesInRadiusUnique__1
 ]],[[
 The Eternal Apple
@@ -583,10 +576,10 @@ Implicits: 1
 SpellDamageImplicitShield2
 UniqueTriggerSocketedWarcriesOnEnduranceChargeExpireOrUse
 IncreasedLifeUniqueShieldDex2
-ChaosResistUnique__12
+ChaosResistUnique__10
 LoseEnduranceChargesOnMaxEnduranceChargesUnique__1_
 NeverBlockUnique__1
-WarcryCooldownSpeedUnique__2
+WarcryCooldownSpeedUnique__1
 ]],[[
 Kongming's Stratagem
 {variant:1,2,3,4}Ivory Spirit Shield
@@ -597,15 +590,15 @@ Variant: Pre 3.11.0
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 3
-{variant:1}15% increased Spell Damage
-{variant:2,3,4}SpellDamageImplicitShield3
+{variant:1}SpellDamageImplicitShield1[15,15]
+{variant:2,3,4}SpellDamageImplicitShield1[15,20]
 {variant:5}SpellDamageImplicitShield1
 {variant:1,2}SocketedTrapSkillsCreateSmokeCloudWhenDetonated__1
 {variant:3,4,5}CreateSmokeCloudWhenTrapTriggeredUnique__1
 IntelligenceUniqueShieldInt4
-{variant:1,2}LocalIncreasedEnergyShieldPercentUnique__27
+{variant:1,2}LocalIncreasedEnergyShieldPercent__1[80,120]
 {variant:3,4,5}LocalIncreasedEnergyShieldPercent__1
-{variant:1,2,3}30% increased Fire Damage with Hits and Ailments against Blinded Enemies
+{variant:1,2,3}FireDamageToBlindEnemies__1[30,30]
 {variant:4,5}FireDamageToBlindEnemies__1
 SpellDamageTakenFromBlindEnemies__1
 LocalShieldHasNoBlockChanceUnique__1
@@ -616,13 +609,13 @@ Variant: Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Current
 Implicits: 2
-{variant:1}10% increased Spell Damage
+{variant:1}SpellDamageImplicitShield2[10,10]
 {variant:2,3}SpellDamageImplicitShield2
 {variant:3}SpellAddedColdDamageUnique__5
-(60-80)% increased Critical Strike Chance for Spells
-{variant:1,2}LocalIncreasedEnergyShieldPercentAndStunRecoveryUniqueBootsInt3
+SpellCriticalStrikeChanceUnique__2
+{variant:1,2}LocalIncreasedEnergyShieldPercentUnique__8[100,140]
 {variant:3}LocalIncreasedEnergyShieldPercentUnique__8
-{variant:1,2}AdditionalBlockChanceUniqueShieldStrDex3__
+{variant:1,2}AdditionalBlockChanceUnique__3[3,5]
 {variant:3}AdditionalBlockChanceUnique__3
 CriticalMultiplierPerBlockChanceUnique__1
 CritMultiIfDealtNonCritRecentlyUnique__1
@@ -634,15 +627,15 @@ Variant: Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Implicits: 2
-{variant:1,2}10% increased Spell Damage
+{variant:1,2}SpellDamageImplicitShield2[10,10]
 {variant:3,4}SpellDamageImplicitShield2
-{variant:1}(160-200)% increased Energy Shield
-{variant:2,3,4}LocalIncreasedEnergyShieldUniqueBodyInt3
+{variant:1}LocalIncreasedEnergyShieldPercent__2[160,200]
+{variant:2,3,4}LocalIncreasedEnergyShieldPercent__2
 IncreasedMaximumPowerChargesUnique__3
 PowerChargeOnHitUnique__1
-{variant:1,2,3}6% increased Spell Damage per Power Charge
+{variant:1,2,3}IncreasedSpellDamagePerPowerChargeUnique__1[6,6]
 {variant:4}IncreasedSpellDamagePerPowerChargeUnique__1
-MutatedUniqueAmulet14LosePowerChargesOnMaxPowerCharges
+LosePowerChargesOnMaxPowerChargesUnique__1
 ShockOnMaxPowerChargesUnique__1
 ]],[[
 Manastorm
@@ -652,19 +645,17 @@ Variant: Pre 3.19.0
 Variant: Pre 3.24.0
 Variant: Current
 Implicits: 2
-{variant:1}SpellDamageImplicitShield3
+{variant:1}SpellDamageImplicitShield1[15,20]
 {variant:2,3}SpellDamageImplicitShield1
 {variant:1,2}LocalIncreasedEnergyShieldPercentUnique__27
-{variant:1,2}IncreasedManaUnique__22__
-{variant:1,2}ManaRegenerationUniqueOneHandMace3
-{variant:1,2}DrainAllManaLightningDamageUnique__1
-{variant:1,2}equal to 25% of Sacrificed Mana for 4 seconds
+{variant:1,2}IncreasedManaUnique__18[50,70]
+{variant:1,2}ManaRegenerationUnique__10[30,50]
 {variant:3}IncreasedManaUnique__18
-{variant:3}(1-100)% Increased Mana Regeneration Rate
+{variant:3}ManaRegenerationUnique__10
 {variant:3}ManaGainedFromEnemyDeathUnique__3
-{variant:3}(1-100)% Increased Mana Recovery from Flasks
+{variant:3}FlaskManaRecoveryUnique__2
+{variant:1,2}DrainAllManaLightningDamageUnique__1[25,25]
 {variant:3}DrainAllManaLightningDamageUnique__1
-{variant:3}equal to 50% of Sacrificed Mana for 4 seconds
 ]],[[
 Matua Tupuna
 Tarnished Spirit Shield
@@ -672,15 +663,15 @@ Variant: Pre 3.0.0
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 2
-{variant:1}5% increased Spell Damage
+{variant:1}SpellDamageImplicitShield1[5,5]
 {variant:2,3}SpellDamageImplicitShield1
 LocalIncreaseSocketedMinionGemLevelUniqueShieldInt2
 LocalIncreasedEnergyShieldPercentUniqueShieldInt2
 IncreasedManaUniqueShieldInt2
-{variant:1,2}10% increased effect of Non-Curse Auras from your Skills on your Minions
+{variant:1,2}AuraEffectOnMinionsUniqueShieldInt2[10,10]
 {variant:3}AuraEffectOnMinionsUniqueShieldInt2
 {variant:1,2}GroundTarOnCritTakenUniqueShieldInt2
-{variant:1,2}AuraEffectUnique__2____
+{variant:1,2}AuraEffectUniqueShieldInt2[10,10]
 {variant:3}AuraEffectUniqueShieldInt2
 {variant:3}GroundTarOnBlockUnique__1
 ]],[[
@@ -707,17 +698,17 @@ Variant: Pre 3.7.0
 Variant: 3.19.0
 Variant: Current
 Implicits: 0
-{variant:1}+(12-18)% Chance to Block Spell Damage
-{variant:2,3,4}+(10-15)% Chance to Block Spell Damage
+{variant:1}SpellBlockPercentageUnique__1[12,18]
+{variant:2,3,4}SpellBlockPercentageUnique__1[10,15]
 {variant:1,2}SpellDamageUniqueShieldInt1
-LocalIncreasedEnergyShieldPercentUniqueShieldInt1
+LocalIncreasedEnergyShieldPercent___3
 MaximumLifeShieldInt1
 {variant:1,2}LightningResistUniqueShieldInt1
-{variant:3}Sacrifice 4% of your Life when you Use or Trigger a Spell Skill
+{variant:3}SacrificeLifeOnSpellSkillUnique__1[4,4]
 {variant:4}SacrificeLifeOnSpellSkillUnique__1
-{variant:3}2% increased Critical Strike Chance for Spells per 100 Player Maximum Life
-{variant:4}5% increased Critical Strike Chance for Spells per 100 Player Maximum Life
-{variant:3}2% increased Spell Damage per 100 Player Maximum Life
+{variant:3}SpellCriticalStrikeChancePerLifeUnique__1[2,2][100,100]
+{variant:4}SpellCriticalStrikeChancePerLifeUnique__1
+{variant:3}SpellDamagePerLifeUnique__1[2,2][100,100]
 {variant:4}SpellDamagePerLifeUnique__1
 ]],[[
 The Scales of Justice
@@ -736,11 +727,11 @@ Variant: Pre 3.4.0
 Variant: Pre 3.25.0
 Variant: Current
 Implicits: 0
-{variant:1}SpellBlockUniqueShieldInt4
+{variant:1}SpellBlockPercentageUniqueShieldInt4[7,7]
 {variant:2,3}SpellBlockPercentageUniqueShieldInt4
 IntelligenceUniqueShieldInt4
 {variant:1,2}ItemFoundQuantityIncreaseUniqueShieldInt4
-AdditionalBlockChanceUniqueShieldDex1
+AdditionalBlockChanceUniqueShieldDex4
 PunishmentOnMeleeBlockUniqueShieldInt4
 TemporalChainsOnProjectileBlockUniqueShieldInt4
 ElementalWeaknessOnSpellBlockUniqueShieldInt4
@@ -766,21 +757,21 @@ Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 BlockRecoveryImplicitShield2
-{variant:1,2}+36% Chance to Block Spell Damage while on Low Life
+{variant:1,2}SpellBlockPercentageOnLowLifeUniqueShieldStrDex1_[36,36]
 {variant:3,4}SpellBlockPercentageOnLowLifeUniqueShieldStrDex1_
 {variant:1,2,3}IncreasedPhysicalDamagePercentUniqueShieldStrDex1
-{variant:1,2,3}(100-120)% increased Armour and Evasion
+{variant:1,2,3}LocalIncreasedArmourAndEvasionUniqueShieldStrDex1[100,120]
 {variant:4}LocalIncreasedArmourAndEvasionUniqueShieldStrDex1
 {variant:1}FireResistUniqueShieldStrDex1
 {variant:1}ColdResistUniqueShieldInt3
-{variant:1}LightningResistUniqueShieldStrDex1
-{variant:2,3}AllResistancesUniqueAmulet9
+{variant:1}LightningResistUniqueShieldInt3
+{variant:2,3}AllResistancesUniqueShieldStrInt1[10,20]
 {variant:4}AllResistancesUniqueShieldStrInt1
 {variant:1,2,3}AdditionalBlockChanceUniqueShieldStrDex1
-{variant:2,3}+20% Chance to Block Attack Damage if you have Blocked Spell Damage Recently
+{variant:2,3}AttackBlockIfBlockedSpellRecentlyUnique__1_[20,20]
 {variant:4}AttackBlockIfBlockedSpellRecentlyUnique__1_
-{variant:2,3}+20% Chance to Block Spell Damage if you have Blocked Attack Damage Recently
-{variant:4}+100% Chance to Block Spell Damage if you have Blocked Attack Damage Recently
+{variant:2,3}SpellBlockIfBlockedAttackRecentlyUnique__1[20,20]
+{variant:4}SpellBlockIfBlockedAttackRecentlyUnique__1
 ]],[[
 The Deep One's Hide
 Studded Round Shield
@@ -789,7 +780,7 @@ Variant: Current
 Implicits: 1
 BlockRecoveryImplicitShield1
 AddedPhysicalDamageUniqueShieldStrDex3
-{variant:1}Adds 4 to 8 Cold Damage to Attacks
+{variant:1}AddedColdDamageUniqueShieldStrDex3[4,4][8,8]
 {variant:2}AddedColdDamageUniqueShieldStrDex3
 LocalIncreasedArmourAndEvasionUniqueShieldStrDex3
 FireResistUniqueShieldStrDex3
@@ -802,10 +793,10 @@ Variant: Current
 League: Heist
 Implicits: 1
 BlockRecoveryImplicitShield3
-LocalIncreaseSocketedSupportGemLevelUniqueTwoHandAxe7
+LocalIncreaseSocketedSupportGemLevelUnique__1
 TriggeredPhysicalAegisSkillUnique__1
 LocalIncreasedArmourAndEvasionRatingUnique__1
-{variant:1}(30-50)% chance to avoid Bleeding
+{variant:1}ChanceToAvoidBleedingUnique__1[30,50]
 {variant:2}BleedingImmunityUnique__1
 AttackAndCastSpeedWithoutPhysicalAegisUnique__1
 CriticalStrikeChanceWithoutPhysicalAegisUnique__1
@@ -845,7 +836,7 @@ AdditionalBlockChanceUniqueShieldStrDex3__
 Vix Lunaris
 Cardinal Round Shield
 Implicits: 0
-LocalIncreaseSocketedGemLevelUnique__8
+LocalIncreaseSocketedGemLevelUnique__11_
 TriggeredColdAegisSkillUnique__1
 LocalIncreasedArmourAndEvasionUniqueShieldStrDex1
 IncreasedLifeUniqueShieldDex2
@@ -858,14 +849,14 @@ Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 BlockRecoveryImplicitShield1
-{variant:1,2}+(5-10) to Armour
+{variant:1,2}LocalIncreasedPhysicalDamageReductionRatingUniqueShieldStrDex2[5,10]
 {variant:3}LocalIncreasedPhysicalDamageReductionRatingUniqueShieldStrDex2
 {variant:3}LocalIncreasedEvasionRatingUniqueShieldStrDex2
 ItemFoundRarityIncreaseUniqueShieldStrDex2
 {variant:3}LightningResistUnique__26
 IncreasedSelfCurseDurationUniqueShieldStrDex2
-{variant:1,2}AdditionalBlockChanceUniqueShieldDex1
-{variant:1}Curse Skills have 25% increased Skill Effect Duration
+{variant:1,2}AdditionalBlockChanceUniqueShieldStrInt4[5,5]
+{variant:1}IncreasedCurseDurationUniqueShieldDex4[25,25]
 {variant:2}IncreasedCurseDurationUniqueShieldDex4
 ]],
 -- Shield: Armour/Energy Shield
@@ -876,12 +867,12 @@ Variant: Pre 1.1.0
 Variant: Pre 3.5.0
 Variant: Current
 Implicits: 0
-{variant:1,2}(80-100)% increased Armour and Energy Shield
+{variant:1,2}LocalIncreasedArmourAndEnergyShieldUniqueShieldStrInt4[80,100]
 {variant:3}LocalIncreasedArmourAndEnergyShieldUniqueShieldStrInt4
 AllResistancesUniqueShieldStrInt4
-MaximumColdResistUniqueShieldDex1
+IncreasedMaximumColdResistUniqueShieldStrInt4
 AdditionalBlockChanceUniqueShieldStrInt4
-{variant:1}Recover Energy Shield equal to 4% of Armour when you Block
+{variant:1}EnergyShieldGainedOnBlockUniqueShieldStrInt4[4,4]
 {variant:2,3}EnergyShieldGainedOnBlockUniqueShieldStrInt4
 WeaponElementalDamageUniqueShieldStrInt4
 ]],[[
@@ -895,11 +886,11 @@ Implicits: 1
 AllResistancesImplicitShield3
 ChaosDamageLifeLeechPermyriadUniqueShieldStrInt8
 {variant:1,2}PhysicalDamageAddedAsChaosUniqueShiledStrInt8
-{variant:1,3}SubtractedBlockChanceUniqueShieldStrInt8
-{variant:2}5% Chance to Block
+{variant:1,3}SubtractedBlockChanceUniqueShieldStrInt8[-10,-10]
+{variant:2}SubtractedBlockChanceUniqueShieldStrInt8[5,5]
 {variant:1}IncreasedDamageOnZeroEnergyShieldUniqueShieldStrInt8
 {variant:2,3}IncreasedArmourOnZeroEnergyShieldUnique__1
-{variant:1}30% Chance to gain Unholy Might on Block for 3 seconds
+{variant:1}UnholyMightOnBlockChanceUniqueShieldStrInt8
 {variant:2}UnholyMightOnBlockChanceUnique__1
 {variant:3}UnholyMightOnZeroEnergyShieldUnique__1
 MutatedUniqueBodyInt8ProfaneGroundInsteadOfConsecratedGround
@@ -916,16 +907,15 @@ SpellBlockPercentageUnique__3_
 {variant:1}MaximumLifeUnique__20___
 {variant:1}CannotBlockWithNoEnergyShieldUnique__1
 DamageBypassEnergyShieldBlockUnique__1
-Damage taken from Unblocked hits always bypasses Energy Shield
 KeystoneGlancingBlowsUnique__1___
 ]],[[
 Invictus Solaris
 Archon Kite Shield
 Implicits: 1
 AllResistancesImplicitShield3
-LocalIncreaseSocketedGemLevelUnique__11_
+LocalIncreaseSocketedGemLevelUnique__1
 TriggeredFireAegisSkillUnique__1_
-LocalIncreasedArmourAndEnergyShieldUnique__8
+LocalIncreasedArmourAndEnergyShieldUnique__18_
 IncreasedLifeUniqueShieldDex2
 AvoidIgniteUnique__1
 ]],[[
@@ -936,10 +926,10 @@ Variant: Pre 2.0.0
 Variant: Pre 3.16.0
 Variant: Current
 Implicits: 2
-{variant:1}+24% to all Elemental Resistances
+{variant:1}AllResistancesImplicitShield3[24,24]
 {variant:2,3,4}AllResistancesImplicitShield3
-{variant:1,2}LocalIncreaseSocketedAuraGemLevelUniqueBodyDexInt4
-{variant:3,4}MutatedUniqueShieldInt2LocalIncreaseSocketedAuraLevel
+{variant:1,2}LocalIncreaseSocketedAuraLevelUniqueShieldStrInt2[1,1]
+{variant:3,4}LocalIncreaseSocketedAuraLevelUniqueShieldStrInt2
 SocketedemsHaveBloodMagicUniqueShieldStrInt2
 SocketedItemsHaveReducedReservationUniqueShieldStrInt2
 DexterityUniqueShieldStrInt2
@@ -964,20 +954,20 @@ Variant: Pre 3.1.0
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 2
-{variant:1}+16% to all Elemental Resistances
+{variant:1}AllResistancesImplicitShield2[16,16]
 {variant:2,3,4}AllResistancesImplicitShield2
-{variant:1,2,3}(80-100)% increased Armour and Energy Shield
-{variant:4}LocalIncreasedArmourAndEnergyShieldUniqueShieldStrInt5
-{variant:3}+(40-60) maximum Life
-{variant:1,2}Regenerate 6 Life per second
-{variant:3}Regenerate (15-20) Life per second
+{variant:1,2,3}LocalIncreasedArmourAndEnergyShieldUnique__6[80,100]
+{variant:4}LocalIncreasedArmourAndEnergyShieldUnique__6
+{variant:3}IncreasedLifeUniqueShieldStrInt6
+{variant:1,2}LifeRegenerationUniqueTwoHandAxe4[360,360]
+{variant:3}LifeRegenerationUniqueShieldStrInt5[900,1200]
 {variant:4}LifeRegenerationUniqueShieldStrInt5
-{variant:1,2}+8% to maximum Fire Resistance
+{variant:1,2}MaximumFireResistUniqueShieldStrInt5[8,8]
 {variant:3,4}MaximumFireResistUniqueShieldStrInt5
 FireResistUniqueShieldStrInt5
 FireResistOnLowLifeUniqueShieldStrInt5
 MovementVelocityOnLowLifeUniqueShieldStrInt5
-Cannot be Ignited while on Low Life
+AvoidIgniteOnLowLifeUniqueShieldStrInt5
 ]],[[
 Saffell's Frame
 Branded Kite Shield
@@ -988,13 +978,13 @@ Variant: Current
 Implicits: 2
 {variant:1}AllResistancesImplicitShield2
 {variant:2,3,4}AllResistancesImplicitShield1
-{variant:1,2}SpellBlockUniqueShieldStrInt1
-{variant:3}SpellBlockPercentageUniqueBootsInt5
+{variant:1,2}MutatedUniqueShieldStrDex8SpellBlockPercentage[21,24]
+{variant:3}MutatedUniqueShieldStrDex8SpellBlockPercentage[15,20]
 {variant:4}MutatedUniqueShieldStrDex8SpellBlockPercentage
 SpellDamageUniqueShieldStrInt1
 {variant:1,2,3}AllResistancesUniqueShieldStrInt4
-{variant:4}AllResistancesUniqueShieldStrInt1
-{variant:1}+5% to all maximum Resistances
+{variant:4}AllResistancesUniqueShieldDex3
+{variant:1}IncreasedMaximumResistsUniqueShieldStrInt1[5,5]
 {variant:2,3,4}IncreasedMaximumResistsUniqueShieldStrInt1
 CannotBlockAttacks
 ]],[[
@@ -1006,17 +996,17 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 2
-{variant:1}AllResistancesImplicitShield2
+{variant:1}AllResistancesImplicitShield1[8,8]
 {variant:2,3,4,5}AllResistancesImplicitShield1
-LocalIncreasedArmourAndEnergyShieldUniqueShieldStrInt3
-{variant:5}Regenerate (30-50) Life per Second
-{variant:1,2,3,4}50% reduced Freeze Duration on you
+LocalIncreasedArmourAndEnergyShieldUnique__27
+{variant:5}LifeRegenerationUnique__3
+{variant:1,2,3,4}ReducedFreezeDurationUniqueShieldStrInt3[50,50]
 {variant:5}ReducedFreezeDurationUniqueShieldStrInt3
-{variant:3}Regenerate 1% of Life per Second
-{variant:4}Regenerate 3% of Life per Second
-{variant:1,2}Regenerate 6% of Life per Second while on Low Life
-{variant:3}Regenerate 5% of Life per Second while on Low Life
-{variant:4}Regenerate 3% of Life per Second while on Low Life
+{variant:3}LifeRegenerationRatePercentageUniqueShieldStrInt3[60,60]
+{variant:4}LifeRegenerationRatePercentageUniqueShieldStrInt3
+{variant:1,2}LifeRegenerationOnLowLifeUniqueShieldStrInt3_[360,360]
+{variant:3}LifeRegenerationOnLowLifeUniqueShieldStrInt3_[300,300]
+{variant:4}LifeRegenerationOnLowLifeUniqueShieldStrInt3_
 {variant:5}LifeRegenerationFlatOnLowLifeUnique__1
 ]],[[
 The Oak
@@ -1029,17 +1019,17 @@ Variant: Pre 3.19.0
 Variant: Current
 LevelReq: 40
 Implicits: 2
-{variant:1}AllResistancesImplicitShield2
+{variant:1}AllResistancesImplicitShield1[8,8]
 {variant:2,3,4,5}AllResistancesImplicitShield1
-LocalIncreasedArmourAndEnergyShieldUniqueShieldStrInt3
+LocalIncreasedArmourAndEnergyShieldUnique__16
 IncreasedLifeUnique__22
-{variant:1,2,3,4}50% reduced Freeze Duration on you
+{variant:1,2,3,4}ReducedFreezeDurationUniqueShieldStrInt3[50,50]
 {variant:5}ReducedFreezeDurationUniqueShieldStrInt3
-{variant:3}Regenerate 1% of Life per Second
-{variant:4,5}Regenerate 3% of Life per Second
-{variant:1,2}Regenerate 6% of Life per Second while on Low Life
-{variant:3}Regenerate 5% of Life per Second while on Low Life
-{variant:4,5}Regenerate 3% of Life per Second while on Low Life
+{variant:3}LifeRegenerationRatePercentageUniqueShieldStrInt3[60,60]
+{variant:4,5}LifeRegenerationRatePercentageUniqueShieldStrInt3
+{variant:1,2}LifeRegenerationOnLowLifeUniqueShieldStrInt3_[360,360]
+{variant:3}LifeRegenerationOnLowLifeUniqueShieldStrInt3_[300,300]
+{variant:4,5}LifeRegenerationOnLowLifeUniqueShieldStrInt3_
 ]],[[
 The Unshattered Will
 Archon Kite Shield
@@ -1050,9 +1040,9 @@ Implicits: 1
 AllResistancesImplicitShield3
 HarbingerSkillOnEquipUnique__3
 IncreasedLifeUniqueShieldDex2
-AllResistancesUnique__9
+AllResistancesUnique__12
 GainManaOnBlockUnique__1
-AdditionalBlockChanceUniqueShieldDex1
+AdditionalBlockChanceUniqueShieldDex2
 ChannelledSkillDamageUnique__1
 ]],[[
 The Immortal Will
@@ -1076,7 +1066,7 @@ AllResistancesImplicitShield3
 CommandmentOfInfernoOnCritUnique__1
 CriticalStrikeChanceUnique__3
 IncreasedLifeUniqueShieldDex2
-FireResistImplicitAmulet1
+FireResistUnique__1
 AttackSpeedIfCriticalStrikeDealtRecentlyUnique__1
 CastSpeedIfCriticalStrikeDealtRecentlyUnique__1
 ]],[[
@@ -1087,9 +1077,9 @@ Variant: Current
 Implicits: 1
 AllResistancesImplicitShield2
 IncreasedLifeUniqueShieldDex6
-LightningResistUniqueDexHelmet1
+LightningResistUnique__15
 ChaosResistUnique__1
-{variant:1}10% increased Area of Effect of Aura Skills
+{variant:1}IncreasedAuraRadiusUnique__1[10,10]
 {variant:2}IncreasedAuraRadiusUnique__1
 GrantAlliesPowerChargeOnKillUnique__1
 GrantAlliesFrenzyChargeOnHitUnique__1
@@ -1100,8 +1090,8 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 AllResistancesImplicitShield2
-IncreasedLifeUniqueShieldDex6
-LightningResistUniqueHelmetStrInt2
+IncreasedLifeUniqueShieldStrDex7
+LightningResistImplicitRing1
 ChaosResistUnique__1
 AuraEffectUnique__2____
 GrantsAlliesEnduranceChargeOnHitUnique__1
@@ -1116,9 +1106,9 @@ Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
-ChanceToDodgeSpellsImplicitShield2
-{variant:1}LocalIncreasedEvasionAndEnergyShieldUnique__9
-{variant:2}LocalIncreasedEvasionAndEnergyShieldUnique__30_
+ChanceToDodgeImplicitShield2
+{variant:1}LocalIncreasedEvasionAndEnergyShieldUnique__25[500,600]
+{variant:2}LocalIncreasedEvasionAndEnergyShieldUnique__25
 ManaRegenerationUnique__12
 ChanceToBeShockedUnique__2
 ColdHitAndDoTDamageTakenAsLightningUnique__1
@@ -1131,9 +1121,9 @@ Variant: Pre 3.0.0
 Variant: Current
 Implicits: 2
 {variant:1}AttackerTakesDamageShieldImplicit3
-{variant:2}ChanceToDodgeSpellsImplicitShield2
+{variant:2}ChanceToDodgeImplicitShield2
 LocalIncreasedEvasionAndEnergyShieldUnique__1
-LocalIncreasedEnergyShieldUnique__6
+IncreasedEnergyShieldUnique___1
 IncreasedLifeUniqueShieldStr2
 ItemFoundRarityIncreaseUnique__1
 ChanceToAvoidFireDamageUnique__1
@@ -1147,14 +1137,14 @@ Variant: Pre 3.8.0
 Variant: Current
 Implicits: 2
 {variant:1,2}AttackerTakesDamageShieldImplicit12
-{variant:3,4}ChanceToDodgeSpellsImplicitShield2
-{variant:1,2,3}Grants Level 20 Bear Trap Skill
+{variant:3,4}ChanceToDodgeImplicitShield2
+{variant:1,2,3}GrantsBearTrapUniqueShieldDexInt1[20,20]
 {variant:4}GrantsBearTrapUniqueShieldDexInt1
 TrapDamageUniqueShieldDexInt1
 IncreasedPhysicalDamagePercentUniqueShieldDexInt1
-IncreasedLifeUniqueShieldDex2
--(14-18) Physical Damage taken from Attack Hits
-{variant:1}15% chance to gain a Power Charge when you Throw a Trap
+IncreasedLifeUniqueShieldDexInt1
+PhysicalAttackDamageReducedUniqueShieldDexInt1
+{variant:1}PowerChargeOnTrapThrowChanceUniqueShieldDexInt1[15,15]
 {variant:2,3,4}PowerChargeOnTrapThrowChanceUniqueShieldDexInt1
 ]],[[
 Leper's Alms
@@ -1163,8 +1153,8 @@ Source: Drops from unique{The Eradicator}
 Variant: Pre 3.5.0
 Variant: Current
 Implicits: 1
-ChanceToDodgeSpellsImplicitShield2
-{variant:1}LocalIncreasedEvasionAndEnergyShieldUnique__7
+ChanceToDodgeImplicitShield2
+{variant:1}LocalIncreasedEvasionAndEnergyShieldUnique__9[130,150]
 {variant:2}LocalIncreasedEvasionAndEnergyShieldUnique__9
 IncreasedLifeUniqueShieldDex2
 IncreasedAilmentDurationUnique__1
@@ -1182,8 +1172,8 @@ Implicits: 2
 IncreasedAttackSpeedUniqueShieldDexInt2
 MaximumLifeUniqueShieldDexInt2
 AllResistancesUniqueShieldDexInt2
-AreaOfEffectUniqueShieldDexInt2
-{variant:1,2}Nearby allies Recover 2% of your Maximum Life when you Die
+AreaOfEffectUniqueShieldDex7
+{variant:1,2}HealAlliesOnDeathUniqueShieldDexInt2[200,200]
 {variant:3}HealAlliesOnDeathUniqueShieldDexInt2
 ]],[[
 Perepiteia
@@ -1191,12 +1181,12 @@ Ezomyte Spiked Shield
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Implicits: 1
-ChanceToDodgeSpellsImplicitShield1
+ChanceToDodgeImplicitShield1
 LocalIncreaseSocketedLightningGemLevelUnique__1
 TriggeredLightningAegisSkillUnique__1
 IncreasedAttackSpeedUnique__3_
 IncreasedCastSpeedUnique__17
-LocalIncreasedEvasionAndEnergyShieldUniqueBodyDexInt2
+LocalIncreasedEvasionAndEnergyShieldUnique__20
 IncreasedManaUnique__15
 MovementVelocityUnique__38
 ]],[[
@@ -1215,7 +1205,7 @@ LoseLifePercentOnCritUnique__1
 Zeel's Amplifier
 Polished Spiked Shield
 Implicits: 1
-ChanceToDodgeSpellsImplicitShield2
+ChanceToDodgeImplicitShield2
 SpellDamageUnique__7
 LocalIncreasedEnergyShieldUnique__23
 IncreasedLifeUniqueShieldDex6
@@ -1233,5 +1223,4 @@ IncreasedLifeUnique__125
 AdditionalBlockChanceUnique__12
 ProjectileAvoidUnique
 ExtremelyLuckyUnique
-worst from three rolls instead of two
 ]],}
