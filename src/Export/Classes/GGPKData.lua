@@ -88,7 +88,7 @@ function GGPKClass:ExtractFiles(reExport)
 
 		-- non-regex chunk: dat files + txtList + itList
 		for i = 1, #txtList do
-			datFiles[#datFiles + 1] = itList[i]
+			datFiles[#datFiles + 1] = txtList[i]
 		end
 		for i = 1, #itList do
 			datFiles[#datFiles + 1] = itList[i]
@@ -170,6 +170,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/FlavourText.dat",
 		"Data/Words.dat",
 		"Data/ItemClasses.dat",
+		"Data/ItemStances.dat",
 		"Data/SkillTotemVariations.dat",
 		"Data/Essences.dat",
 		"Data/EssenceType.dat",
@@ -265,6 +266,8 @@ function GGPKClass:GetNeededFiles()
 		"Data/MercenarySupports.dat",
 		"Data/MercenaryWieldableTypes.dat",
 		"Data/SkillArtVariations.dat",
+		"Data/Melee.dat",
+		"Data/Animation.dat",
 		"Data/MiscAnimated.dat",
 		"Data/MiscAnimatedArtVariations.dat",
 		"Data/MiscBeamsArtVariations.dat",
@@ -273,7 +276,6 @@ function GGPKClass:GetNeededFiles()
 		"Data/ProjectilesArtVariations.dat",
 		"Data/MonsterVarietiesArtVariations.dat",
 		"Data/PreloadGroups.dat",
-		"Data/BrequelGraftTypes.dat",
 		"Data/BrequelGraftSkillStats.dat",
 		"Data/BrequelGraftGrantedSkillLevels.dat",
 		"Data/VillageBalancePerLevelShared.dat",

@@ -463,4 +463,17 @@ Skills fire (2-3) additional Projectiles
 (10-20)% increased Projectile Speed
 (30-50)% increased Projectile Damage
 Projectiles cannot continue after colliding with targets
-]],}
+]],
+[[
+Unlight Extant
+Sage Wand
+Requires Level 30, 119 Int
+Implicits: 1
+(17-21)% increased Spell Damage
+(31-43)% increased Chaos Damage
+(7-13)% increased Cast Speed
++1 to Level of all Chaos Spell Skill Gems
+Chaos Skills inflict up to 15 Withered Debuffs on Hit for (5-7) seconds
+Cannot Inflict Wither on targets that are not on Full Life
+]],
+}
