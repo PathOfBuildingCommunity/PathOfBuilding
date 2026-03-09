@@ -54,6 +54,7 @@ data.gameConstants = {
 	["GoldPlusPercentPerQuality"] = 2,
 	["GoldPlusPercentPerAffix"] = 10,
 	["UniqueBaseGoldCost"] = 2000,
+	["NumAtlasPointsFromUniqueMaps"] = 10,
 }
 -- From Metadata/Characters/Character.ot
 data.characterConstants = {
@@ -142,6 +143,7 @@ data.characterConstants = {
 	["soul_eater_maximum_stacks"] = 45,
 	["rage_loss_delay_ms"] = 2000,
 	["trigger_attack_graft_each_second_channeling"] = 1,
+	["maximum_active_sand_mirage_count"] = 3,
 	["base_speed"] = 37,
 }
 -- From Metadata/Monsters/Monster.ot

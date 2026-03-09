@@ -1135,6 +1135,10 @@ local configTable = {
 			env.player.mainSkill.infoMessage = "Squirming Terror requires recent kills"
 		end
 	end,
+	["kinetic flux"] = function()
+		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and slotMatch(env, skill) end,
+				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByKineticFlux and slotMatch(env, skill) end}
+	end,
 	["cast on critical strike"] = function()
 		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and slotMatch(env, skill) end,
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCoc and slotMatch(env, skill) end}
@@ -1248,6 +1252,12 @@ local configTable = {
 				useCastRate = true,
 				source = env.player.mainSkill}
 	end,
+	["seize the flesh"] = function(env)
+		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Warcry] and slotMatch(env, skill) end}
+	end,
+	["fissure"] = function(env)
+		return {triggerOnUse = true, triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Slam] and slotMatch(env, skill) end}
+	end,
 	["mark on hit"] = function()
 		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] end}
 	end,
@@ -1330,8 +1340,22 @@ local configTable = {
 	["prismatic burst"] = function(env)
 		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Attack] and slotMatch(env, skill) end}
 	end,
+	["voidstorm"] = function(env)
+		return {triggerOnUse = true, triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Attack] and skill.skillTypes[SkillType.Rain] and slotMatch(env, skill) end}
+	end,
 	["shockwave"] = function(env)
 		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] and slotMatch(env, skill) end}
+	end,
+	["void shockwave"] = function(env)
+		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] and slotMatch(env, skill) end}
+	end,
+	["call the pyre"] = function(env)
+		if env.enemy.modDB:Flag(nil, "Condition:Ignited") then
+			return {triggerChance =  50, -- too much of a pain to pull this from the triggering skill
+				triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] and slotMatch(env, skill) end}
+		else
+			env.player.mainSkill.infoMessage = "Call the Pyre requires Ignited enemies"
+		end
 	end,
 	["manaforged arrows"] = function(env)
 		return {triggerOnUse = true,
