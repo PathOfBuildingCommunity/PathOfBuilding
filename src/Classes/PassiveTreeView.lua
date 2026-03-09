@@ -274,20 +274,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	end
 
 	-- Split Personality highlight
-	local splitPersonalityPath = { }
-	if main.showSplitPersonalityPath then
-		for nodeId, itemId in pairs(spec.jewels) do
-			local item = build.itemsTab.items[itemId]
-			if item and item.jewelData and item.jewelData.jewelIncEffectFromClassStart then
-				local path = spec:GetShortestPathToClassStart(nodeId)
-				if path then
-					for id in pairs(path) do
-						splitPersonalityPath[id] = true
-					end
-				end
-			end
-		end
-	end
+	local splitPersonalityPath = spec.splitPersonalityPath or { }
 
 	if treeClick == "LEFT" then
 		if hoverNode then

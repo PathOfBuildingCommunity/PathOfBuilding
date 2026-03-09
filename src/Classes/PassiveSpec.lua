@@ -81,6 +81,9 @@ function PassiveSpecClass:Init(treeVersion, convert)
 
 	-- Keys are node IDs, values are the replacement node
 	self.hashOverrides = { }
+
+	-- Cached highlight path for Split Personality jewels
+	self.splitPersonalityPath = { }
 end
 
 function PassiveSpecClass:Load(xml, dbFileName)
@@ -995,6 +998,22 @@ function PassiveSpecClass:GetShortestPathToClassStart(rootId)
 	return nil
 end
 
+function PassiveSpecClass:BuildSplitPersonalityPath()
+	local splitPersonalityPath = { }
+	for nodeId, itemId in pairs(self.jewels) do
+		local item = self.build.itemsTab.items[itemId]
+		if item and item.jewelData and item.jewelData.jewelIncEffectFromClassStart then
+			local path = self:GetShortestPathToClassStart(nodeId)
+			if path then
+				for id in pairs(path) do
+					splitPersonalityPath[id] = true
+				end
+			end
+		end
+	end
+	self.splitPersonalityPath = splitPersonalityPath
+end
+
 function PassiveSpecClass:AddMasteryEffectOptionsToNode(node)
 	node.sd = {}
 	if node.masteryEffects ~= nil and #node.masteryEffects > 0 then
@@ -1515,6 +1534,8 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			end
 		end
 	end
+
+	self:BuildSplitPersonalityPath()
 end
 
 function PassiveSpecClass:ReplaceNode(old, newNode)
