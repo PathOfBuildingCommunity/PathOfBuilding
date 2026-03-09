@@ -1443,7 +1443,7 @@ function calcs.perform(env, skipEHP)
 
 	local effectInc = modDB:Sum("INC", {actor = "player"}, "FlaskEffect")
 	local effectIncMagic = modDB:Sum("INC", {actor = "player"}, "MagicUtilityFlaskEffect")
-	local effectIncMagicNoAdjacent = modDB:Sum("INC", {actor = "player"}, "MagicFlaskEffect")
+	local effectIncMagicNoAdjacent = modDB:Sum("INC", {actor = "player"}, "MagicFlaskNoAdjacentEffect")
 	local effectIncNonPlayer = modDB:Sum("INC", nil, "FlaskEffect")
 	local effectIncMagicNonPlayer = modDB:Sum("INC", nil, "MagicUtilityFlaskEffect")
 	local flasksApplyToMinion = env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "FlasksApplyToMinion")

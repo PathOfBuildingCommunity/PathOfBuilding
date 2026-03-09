@@ -884,11 +884,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if item and item.type == "Flask" then
 				if slot.active then
 					env.flasks[item] = true
-					local flaskNum = tonumber(slotName:match("Flask (%d+)"))
-					if flaskNum then
-						env.flaskSlotMap[item] = flaskNum
-						env.flaskSlotOccupied[flaskNum] = true
-					end
+				end
+				local flaskNum = tonumber(slotName:match("Flask (%d+)"))
+				if flaskNum then
+					env.flaskSlotMap[item] = flaskNum
+					env.flaskSlotOccupied[flaskNum] = true
 				end
 				if item.base.subType == "Life" then
 					local highestLifeRecovery = env.itemModDB.multipliers["LifeFlaskRecovery"] or 0

@@ -1824,6 +1824,7 @@ local modTagList = {
 	["to enemies they're attached to"] = { tag = { type = "MultiplierThreshold", var = "BrandsAttachedToEnemy", threshold = 1 } },
 	["for each hit you've taken recently up to a maximum of (%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "BeenHitRecently", limit = num, limitTotal = true } } end,
 	["for each nearby enemy, up to (%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "NearbyEnemies", limit = num, limitTotal = true } } end,
+	["for each nearby enemy, up to a maximum of (%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "NearbyEnemies", limit = num, limitTotal = true } } end,
 	["while you have iron reflexes"] = { tag = { type = "Condition", var = "HaveIronReflexes" } },
 	["while you do not have iron reflexes"] = { tag = { type = "Condition", var = "HaveIronReflexes", neg = true } },
 	["while you have elemental overload"] = { tag = { type = "Condition", var = "HaveElementalOverload" } },
@@ -3028,6 +3029,7 @@ local specialModList = {
 	["([%+%-]%d+) to level of all (%a+) skill gems if a?t? ?l?e?a?s?t? ?(%d+) (%a+) (%a+) items are equipped"] = function(num, _, element, thresh, influence, influence2) return { mod("GemProperty", "LIST", { keyword = element, key = "level", value = num, keyOfScaledMod = "value" }, { type = "MultiplierThreshold", var = firstToUpper(influence) .. firstToUpper(influence2) .. "Item", threshold = tonumber(thresh) }) } end,
 	["([%+%-]%d+) to level of all ?([%a%- ]*) support gems if (%d+) (%a+) items are equipped"] = function(num, _, element, thresh, influence) return { mod("GemProperty", "LIST", { keyword = element, key = "level", value = num, keyOfScaledMod = "value" }, { type = "MultiplierThreshold", var = firstToUpper(influence) .. "Item", threshold = tonumber(thresh) }) } end,
 	["([%+%-]%d+) to level of socketed skill gems per (%d+) player levels"] = function(num, _, div) return { mod("GemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "Multiplier", var = "Level", div = tonumber(div) }) } end,
+	["([%+%-]%d+) to level of socketed gems while there is a single gem socketed in this item"] = function(num) return { mod("GemProperty", "LIST", { keyword = "all", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "MultiplierThreshold", var = "SocketedGemsIn{SlotName}", threshold = 1, equals = true }) } end,
 	["socketed gems fire an additional projectile"] = { mod("ExtraSkillMod", "LIST", { mod = mod("ProjectileCount", "BASE", 1) }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["socketed gems fire (%d+) additional projectiles"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("ProjectileCount", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
 	["socketed gems reserve no mana"] = { mod("ManaReserved", "MORE", -100, { type = "SocketedIn", slotName = "{SlotName}" }) },
@@ -3388,6 +3390,17 @@ local specialModList = {
 		mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Bleeding" }),
 		mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Poisoned" }),
 	} end,
+	["(%d+)%% chance to deal double damage against enemies for each type of ailment you have inflicted on them"] = function(num) return {
+		mod("DoubleDamageChance", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
+		mod("DoubleDamageChance", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Chilled" }),
+		mod("DoubleDamageChance", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Ignited" }),
+		mod("DoubleDamageChance", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Shocked" }),
+		mod("DoubleDamageChance", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Scorched" }),
+		mod("DoubleDamageChance", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Brittle" }),
+		mod("DoubleDamageChance", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Sapped" }),
+		mod("DoubleDamageChance", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Bleeding" }),
+		mod("DoubleDamageChance", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Poisoned" }),
+	} end,
 	-- Elemental Ailments
 	["(%d+)%% increased elemental damage with hits and ailments for each type of elemental ailment on enemy"] = function(num) return {
 		mod("ElementalDamage", "INC", num, nil, 0, bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
@@ -3600,6 +3613,14 @@ local specialModList = {
 	["gain adrenaline when you become flame%-touched"] = { flag("Condition:Adrenaline", { type = "Condition", var = "AffectedByApproachingFlames" }) },
 	["lose adrenaline when you cease to be flame%-touched"] = { },
 	["modifiers to ignite duration on you apply to all elemental ailments"] = { flag("IgniteDurationAppliesToElementalAilments") },
+	["(%d+)%% increased duration of ailments of types you haven't inflicted recently"] = function(num) return {
+		mod("EnemyFreezeDuration", "INC", num, { type = "Condition", var = "FrozenEnemyRecently", neg = true }),
+		mod("EnemyChillDuration", "INC", num, { type = "Condition", var = "FrozenEnemyRecently", neg = true }),
+		mod("EnemyIgniteDuration", "INC", num, { type = "Condition", var = "IgnitedEnemyRecently", neg = true }),
+		mod("EnemyShockDuration", "INC", num, { type = "Condition", var = "ShockedEnemyRecently", neg = true }),
+		mod("EnemyBleedDuration", "INC", num, { type = "Condition", var = "CausedBleedingRecently", neg = true }),
+		mod("EnemyPoisonDuration", "INC", num, { type = "Condition", var = "PoisonedEnemyRecently", neg = true }),
+	} end,
 	["chance to avoid being shocked applies to all elemental ailments"] = { flag("ShockAvoidAppliesToElementalAilments") }, -- typo / old wording change
 	["modifiers to chance to avoid being shocked apply to all elemental ailments"] = { flag("ShockAvoidAppliesToElementalAilments") },
 	["enemies permanently take (%d+)%% increased damage for each second they've ever been frozen by you, up to a maximum of (%d+)%%"] = function(num, _, limit) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num, { type = "Condition", var = "FrozenByYou" }, { type = "Multiplier", var = "FrozenByYouSeconds", limit = limit / num }) }) } end,
@@ -4305,6 +4326,7 @@ local specialModList = {
 	["attacks chain an additional time when in main hand"] = { mod("ChainCountMax", "BASE", 1, nil, ModFlag.Attack, { type = "SlotNumber", num = 1 }) },
 	["attacks fire an additional projectile when in off hand"] = { mod("ProjectileCount", "BASE", 1, nil, ModFlag.Attack, { type = "SlotNumber", num = 2 }) },
 	["projectiles chain %+(%d) times while you have phasing"] = function(num) return { mod("ChainCountMax", "BASE", num, nil, ModFlag.Projectile, { type = "Condition", var = "Phasing" }) } end,
+	["projectiles can chain from any number of additional targets in close range"] = { mod("ChainCountMax", "BASE", m_huge, nil, ModFlag.Projectile, { type = "Condition", var = "AtCloseRange" }) },
 	["projectiles split towards %+(%d) targets"] = function(num) return { mod("SplitCount", "BASE", num) } end,
 	["adds an additional arrow"] = { mod("ProjectileCount", "BASE", 1, nil, 0, KeywordFlag.Arrow) },
 	["(%d+) additional arrows"] = function(num) return { mod("ProjectileCount", "BASE", num, nil, 0, KeywordFlag.Arrow) } end,
@@ -4948,6 +4970,7 @@ local specialModList = {
 	["spectres have a base duration of (%d+) seconds"] = { mod("SkillData", "LIST", { key = "duration", value = 6 }, { type = "SkillName", skillName = "Raise Spectre", includeTransfigured = true }) },
 	["flasks applied to you have (%d+)%% increased effect"] = function(num) return { mod("FlaskEffect", "INC", num, { type = "ActorCondition", actor = "player"}) } end,
 	["flasks applied to you have (%d+)%% increased effect per level"] = function(num) return { mod("FlaskEffect", "INC", num, { type = "ActorCondition", actor = "player"}, { type = "Multiplier", var = "Level" }) } end,
+	["equipped magic flasks have (%d+)%% increased effect on you if no flasks are adjacent to them"] = function(num) return { mod("MagicFlaskNoAdjacentEffect", "INC", num) } end,
 	["while a unique enemy is in your presence, flasks applied to you have (%d+)%% increased effect"] = function(num) return { mod("FlaskEffect", "INC", num, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" }, { type = "ActorCondition", actor = "player"}) } end,
 	["while a pinnacle atlas boss is in your presence, flasks applied to you have (%d+)%% increased effect"] = function(num) return { mod("FlaskEffect", "INC", num, { type = "ActorCondition", actor = "enemy", var = "PinnacleBoss" }, { type = "ActorCondition", actor = "player"}) } end,
 	["magic utility flasks applied to you have (%d+)%% increased effect"] = function(num) return { mod("MagicUtilityFlaskEffect", "INC", num, { type = "ActorCondition", actor = "player"}) } end,
@@ -5365,6 +5388,7 @@ local specialModList = {
 	["elemental skills deal triple damage"] = { mod("TripleDamageChance", "BASE", 100, { type = "SkillType", skillTypeList = { SkillType.Cold, SkillType.Fire, SkillType.Lightning } }), },
 	["deal triple damage with elemental skills"] = { mod("TripleDamageChance", "BASE", 100, { type = "SkillType", skillTypeList = { SkillType.Cold, SkillType.Fire, SkillType.Lightning } }), },
 	["skills supported by unleash have %+(%d) to maximum number of seals"] = function(num) return { mod("SealCount", "BASE", num) } end,
+	["left ring slot: skills supported by unleash have %+(%d) to maximum number of seals"] = function(num) return { mod("SealCount", "BASE", num, { type = "SlotNumber", num = 1 }) } end,
 	["skills supported by unleash have (%d+)%% increased seal gain frequency"] = function(num) return { mod("SealGainFrequency", "INC", num) } end,
 	["(%d+)%% increased critical strike chance with spells which remove the maximum number of seals"] = function(num) return { mod("MaxSealCrit", "INC", num) } end,
 	["gain elusive on critical strike"] = {	flag("Condition:CanBeElusive") },
@@ -5406,43 +5430,7 @@ local specialModList = {
 	["(%d+)%% more frozen legion and general's cry cooldown recovery rate"] = function(num) return { mod("CooldownRecovery", "MORE", num, { type = "SkillName", skillNameList = { "Frozen Legion", "General's Cry" }, includeTransfigured = true }) } end,
 	["flamethrower, seismic and lightning spire trap have (%d+)%% increased cooldown recovery rate"] = function(num) return { mod("CooldownRecovery", "INC", num, { type = "SkillName", skillNameList = { "Flamethrower Trap", "Seismic Trap", "Lightning Spire Trap" }, includeTransfigured = true }) } end,
 	["flamethrower, seismic and lightning spire trap have %-(%d+) cooldown uses?"] = function(num) return { mod("AdditionalCooldownUses", "BASE", -num, { type = "SkillName", skillNameList = { "Flamethrower Trap", "Seismic Trap",  "Lightning Spire Trap" }, includeTransfigured = true }) } end,
-	["shockwave has %+(%d+) to cooldown uses?"] = function(num) return { mod("AdditionalCooldownUses", "BASE", num, { type = "SkillName", skillName = "Shockwave", includeTransfigured = true }) } end,
-	-- Stacks per ailment type on enemy; one entry per ailment so they each contribute independently
-	["(%d+)%% chance to deal double damage against enemies for each type of ailment you have inflicted on them"] = function(num) return {
-		mod("DoubleDamageChance", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
-		mod("DoubleDamageChance", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Chilled" }),
-		mod("DoubleDamageChance", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Ignited" }),
-		mod("DoubleDamageChance", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Shocked" }),
-		mod("DoubleDamageChance", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Scorched" }),
-		mod("DoubleDamageChance", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Brittle" }),
-		mod("DoubleDamageChance", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Sapped" }),
-		mod("DoubleDamageChance", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Bleeding" }),
-		mod("DoubleDamageChance", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Poisoned" }),
-	} end,
-	["(%d+)%% increased movement speed for each nearby enemy, up to a maximum of (%d+)%%"] = function(num, _, limit) return { mod("MovementSpeed", "INC", num, { type = "Multiplier", var = "NearbyEnemies", limit = tonumber(limit), limitTotal = true }) } end,
-	["(%d+)%% increased attack and cast speed for each nearby enemy, up to a maximum of (%d+)%%"] = function(num, _, limit) return { mod("Speed", "INC", num, { type = "Multiplier", var = "NearbyEnemies", limit = tonumber(limit), limitTotal = true }) } end,
-	-- {SlotName} gets replaced with the actual slot (e.g. "Helmet") by Item.lua when the mod is applied
-	["%+(%d+) to level of socketed gems while there is a single gem socketed in this item"] = function(num) return {
-		mod("GemProperty", "LIST", { keyword = "all", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "Condition", var = "SingleGemSocketedIn{SlotName}" }),
-	} end,
-	["(%d+)%% of armour applies to fire, cold and lightning damage taken from hits if you have blocked recently"] = function(num) return {
-		mod("ArmourAppliesToFireDamageTaken", "BASE", num, { type = "Condition", var = "BlockedRecently" }),
-		mod("ArmourAppliesToColdDamageTaken", "BASE", num, { type = "Condition", var = "BlockedRecently" }),
-		mod("ArmourAppliesToLightningDamageTaken", "BASE", num, { type = "Condition", var = "BlockedRecently" }),
-	} end,
-	-- "any number" modeled as +99; displays oddly in tooltip but calcs are correct
-	["projectiles can chain from any number of additional targets in close range"] = { mod("ChainCountMax", "BASE", 99, nil, ModFlag.Projectile, { type = "Condition", var = "AtCloseRange" }) },
-	-- Per-ailment duration; freeze/chill share a condition since they're both cold-based
-	["(%d+)%% increased duration of ailments of types you haven't inflicted recently"] = function(num) return {
-		mod("EnemyFreezeDuration", "INC", num, { type = "Condition", var = "FrozenEnemyRecently", neg = true }),
-		mod("EnemyChillDuration", "INC", num, { type = "Condition", var = "FrozenEnemyRecently", neg = true }),
-		mod("EnemyIgniteDuration", "INC", num, { type = "Condition", var = "IgnitedEnemyRecently", neg = true }),
-		mod("EnemyShockDuration", "INC", num, { type = "Condition", var = "ShockedEnemyRecently", neg = true }),
-		mod("EnemyBleedDuration", "INC", num, { type = "Condition", var = "CausedBleedingRecently", neg = true }),
-		mod("EnemyPoisonDuration", "INC", num, { type = "Condition", var = "PoisonedEnemyRecently", neg = true }),
-	} end,
-	-- Adjacency checked in CalcPerform using flask slot positions (Flask 1-5)
-	["equipped magic flasks have (%d+)%% increased effect on you if no flasks are adjacent to them"] = function(num) return { mod("MagicFlaskEffect", "INC", num, { type = "Condition", var = "NoAdjacentFlasks" }) } end,
+	["right ring slot: shockwave has %+(%d+) to cooldown uses?"] = function(num) return { mod("AdditionalCooldownUses", "BASE", num, { type = "SkillName", skillName = "Shockwave" }, { type = "SlotNumber", num = 2 }) } end,
 	["flameblast starts with (%d+) additional stages"] = function(num) return { mod("Multiplier:FlameblastMinimumStage", "BASE", num, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }) } end,
 	["incinerate starts with (%d+) additional stages"] = function(num) return { mod("Multiplier:IncinerateMinimumStage", "BASE", num, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }) } end,
 	["%+([%d%.]+) seconds to flameblast and incinerate cooldown"] = function(num) return {
