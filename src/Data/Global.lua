@@ -333,11 +333,11 @@ SkillType = {
 	DynamicCooldown = 121,
 	Microtransaction = 122,
 	OwnerCannotUse = 123,
-	ProjectilesNotFired = 124,
+	ProjectilesNumberModifiersNotApplied = 124,
 	TotemsAreBallistae = 125,
 	SkillGrantedBySupport = 126,
 	PreventHexTransfer = 127,
-	MinionsAreUndamageable = 128,
+	MinionsAreUndamagable = 128,
 	InnateTrauma = 129,
 	DualWieldRequiresDifferentTypes = 130,
 	NoVolley = 131,
@@ -348,6 +348,9 @@ SkillType = {
 	Offering = 136,
 	SupportedByBane = 137,
 	WandAttack = 138,
+	GainsIntensity = 139,
+	CreatesSentinelMinion = 140,
+	SupportedByAutoExertion = 141,
 }
 
 GlobalCache = { 

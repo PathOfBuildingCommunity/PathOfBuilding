@@ -117,7 +117,9 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				classId = classId,
 				class = class,
 				ascendClassId = ascendClassId,
-				ascendClass = ascendClass
+				ascendClass = ascendClass,
+				flavourText = ascendClass.flavourText,
+				flavourTextRect = ascendClass.flavourTextRect,
 			}
 		end
 	end
@@ -179,7 +181,9 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				classId = "alternate_ascendancies",
 				class = alternate_ascendancies_class,
 				ascendClassId = ascendClassId,
-				ascendClass = ascendClass
+				ascendClass = ascendClass,
+				flavourText = ascendClass.flavourText,
+				flavourTextRect = ascendClass.flavourTextRect,
 			}
 			self.secondaryAscendNameMap[ascendClass.id] = self.ascendNameMap[ascendClass.id]
 		end

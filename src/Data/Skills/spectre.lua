@@ -9423,17 +9423,15 @@ skills["AzmeriMegaSkeletonCleave"] = {
 	},
 }
 skills["AzmeriOakSweep"] = {
-	name = "Sweep",
+	name = "Holy Sweep",
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 0,
-	description = "Swings a two handed melee weapon in a circle, knocking back monsters around the character.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, },
+	description = "Swings a two handed mace or a staff in a circle, calling down holy hammers to land randomly on a number of enemies struck. Hits from these holy hammers cannot be evaded.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Lightning] = true, },
 	weaponTypes = {
 		["Staff"] = true,
-		["Two Handed Axe"] = true,
 		["Two Handed Mace"] = true,
-		["Two Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.15,

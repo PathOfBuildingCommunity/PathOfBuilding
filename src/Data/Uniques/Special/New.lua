@@ -16,6 +16,22 @@ You have Resistance Shrine Buff while affected by no Flasks
 +28% to Chaos Resistance
 ]],
 [[
+Skysunder
+Exquisite Blade
+League: Mirage
+Source: Obtained by using a Coin of Restoration on unique{Fleshrender}
+Implicits: 1
++50% to global critical strike chance
+(130-160)% increased Physical Damage
++(20-40)% to Damage over Time Multiplier
+(20-40)% increased Critical Strike Chance
+100% of Physical Damage Converted to Fire Damage
+Ignites you cause are reflected back to you
+50% less Duration of Ignites you inflict
+Ignites you inflict with this weapon spread to other Enemies within 2.8 metres
+Unaffected by Ignite
+]],
+[[
 The Sands of Time
 Tyrant's Sekhem
 Requires Level 58, 99 Str, 99 Int

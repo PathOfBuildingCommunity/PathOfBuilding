@@ -831,6 +831,8 @@ Variant: Summoned Holy Relics
 Variant: Summoned Phantasms
 Variant: Summoned Skeletons
 Variant: Summoned Spectral Wolves
+Variant: Living Lightning
+Variant: Holy Armaments
 Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
 Requires Level 80, 224 Int
 +(50-100) to maximum Energy Shield
@@ -865,6 +867,10 @@ Requires Level 80, 224 Int
 {variant:13}Cannot have Minions other than Summoned Skeletons
 {variant:14}Maximum number of Summoned Spectral Wolves is Doubled
 {variant:14}Cannot have Minions other than Summoned Spectral Wolves
+{variant:15}Maximum number of Living Lightning is Doubled
+{variant:15}Cannot have Minions other than Living Lightning
+{variant:16}Maximum number of Holy Armaments is Doubled
+{variant:16}Cannot have Minions other than Holy Armaments
 ]],
 -- Helmet: Armour/Evasion
 [[
