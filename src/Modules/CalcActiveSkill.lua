@@ -722,7 +722,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				activeEffect.srcInstance.skillMinionItemSetCalcs = nil
 				activeEffect.srcInstance.skillMinionItemSet = nil
 			end
-			if activeSkill.skillData.minionUseBowAndQuiver and env.player.weaponData1.type == "Bow" then
+			if (activeSkill.skillData.minionUseBowAndQuiver and env.player.weaponData1.type == "Bow") or activeSkill.skillData.minionUseMainHandWeapon then
 				minion.weaponData1 = env.player.weaponData1
 			elseif env.theIronMass and minionType == "RaisedSkeleton" then
 				minion.weaponData1 = env.player.weaponData1
@@ -758,10 +758,6 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 						minion.weaponData2 = env.player.weaponData2
 					end
 				end
-			end
-			-- handles animate weapon of self reflection when using energy blade
-			if activeEffect.grantedEffect.id == "AnimateWeaponAltX" and env.modDB.conditions["AffectedByEnergyBlade"] then
-				minion.weaponData1 = env.player.weaponData1
 			end
 		end
 	elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then

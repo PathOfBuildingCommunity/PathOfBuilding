@@ -312,10 +312,6 @@ skills["AnimateWeaponAltX"] = {
 	},
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.6,
-	minionHasItemSet = true,
-	minionUses = {
-		["Weapon 1"] = true,
-	},
 	minionList = {
 		"AnimatedWeapon",
 	},
@@ -328,6 +324,9 @@ skills["AnimateWeaponAltX"] = {
 		spell = true,
 		minion = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("minionUseMainHandWeapon", true),
 	},
 	qualityStats = {
 		Default = {

@@ -70,10 +70,6 @@ local skills, mod, flag, skill = ...
 
 #skill AnimateWeaponAltX
 #flags spell minion duration
-	minionHasItemSet = true,
-	minionUses = {
-		["Weapon 1"] = true,
-	},
 	minionList = {
 		"AnimatedWeapon",
 	},
@@ -82,6 +78,7 @@ local skills, mod, flag, skill = ...
 			mod("Multiplier:AnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
 		},
 	},
+#baseMod skill("minionUseMainHandWeapon", true)
 #mods
 
 #skill AnimateWeaponAltY
