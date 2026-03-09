@@ -1299,14 +1299,11 @@ Huge sets the radius to 11.
 	{ var = "conditionStunnedRecently", type = "check", label = "Have you been Stunned Recently?", ifCond = "StunnedRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:StunnedRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierPoisonAppliedRecently", type = "count", label = "# of Poisons applied Recently:", ifMult = "PoisonAppliedRecently", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:PoisonAppliedRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
-	end },
-	{ var = "conditionCausedBleedingRecently", type = "check", label = "Have you caused ^xE05030Bleeding ^7Recently?", ifCond = "CausedBleedingRecently", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:CausedBleedingRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-	end },
 	{ var = "conditionPoisonedEnemyRecently", type = "check", label = "Have you ^x60A060Poisoned ^7an enemy Recently?", ifCond = "PoisonedEnemyRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:PoisonedEnemyRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "multiplierPoisonAppliedRecently", type = "count", label = "# of Poisons applied Recently:", ifMult = "PoisonAppliedRecently", implyCond = "PoisonedEnemyRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:PoisonAppliedRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "multiplierLifeSpentRecently", type = "count", label = "# of ^xE05030Life ^7spent Recently:", ifMult = "LifeSpentRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:LifeSpentRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
@@ -1595,6 +1592,9 @@ Huge sets the radius to 11.
 	end },
 	{ var = "multiplierImpalesOnEnemy", type = "countAllowZero", label = "# of Impales on enemy (if not maximum):", ifFlag = "impale", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:ImpaleStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionCausedBleedingRecently", type = "check", label = "Have you caused ^xE05030Bleeding ^7Recently?", ifCond = "CausedBleedingRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:CausedBleedingRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "multiplierBleedsOnEnemy", type = "count", label = "# of Bleeds on enemy (if not maximum):", ifFlag = "Condition:HaveCrimsonDance", tooltip = "Sets current number of Bleeds on the enemy if using the Crimson Dance keystone.\nThis also implies that the enemy is Bleeding.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:BleedStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
