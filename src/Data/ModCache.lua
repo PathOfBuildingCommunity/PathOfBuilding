@@ -12557,7 +12557,6 @@ c["With at least 40 Intelligence in Radius, Fireball Projectiles gain Area as th
 c["With at least 40 Intelligence in Radius, Frostbolt Projectiles gain 40% increased Projectile"]={nil,"With at least 40 Intelligence in Radius, Frostbolt Projectiles gain 40% increased Projectile "}
 c["With at least 40 Intelligence in Radius, Frostbolt Projectiles gain 40% increased Projectile Speed per second"]={nil,"With at least 40 Intelligence in Radius, Frostbolt Projectiles gain 40% increased Projectile Speed per second "}
 c["With at least 40 Intelligence in Radius, Raised"]={nil,"With at least 40 Intelligence in Radius, Raised "}
-c["With at least 40 Intelligence in Radius, Raised Spectres have a 50% chance to gain Soul Eater for 20 seconds on Kill"]={nil,"With at least 40 Intelligence in Radius, Raised Spectres have a 50% chance to gain Soul Eater for 20 seconds on Kill "}
 c["With at least 40 Intelligence in Radius, Raised Zombies' Slam"]={nil,"With at least 40 Intelligence in Radius, Raised Zombies' Slam "}
 c["With at least 40 Intelligence in Radius, Rolling Magma"]={nil,"With at least 40 Intelligence in Radius, Rolling Magma "}
 c["With at least 40 Intelligence in Radius, Spark fires Projectiles in a Nova"]={nil,"With at least 40 Intelligence in Radius, Spark fires Projectiles in a Nova "}

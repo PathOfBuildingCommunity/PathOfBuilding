@@ -6208,6 +6208,10 @@ local jewelThresholdFuncs = {
 	["With at least 40 Intelligence in Radius, (%d+)%% of Damage taken Recouped as Mana if you've Warcried Recently"] = function(num) return getThreshold("Int", "ManaRecoup", "BASE", num, { type = "Condition", var = "UsedWarcryRecently" }) end,
 	["With at least 40 Intelligence in Radius, Fireball Projectiles gain Radius as they travel farther, up to %+(%d+) Radius"] = function(num) return getThreshold("Int", "AreaOfEffect", "BASE", num, { type = "DistanceRamp", ramp = {{0,0},{50,1}} }) end,
 	["With at least 40 Intelligence in Radius, Projectiles gain radius as they travel farther, up to a maximum of %+([%d%.]+) metres? to radius"] = function(num) return getThreshold("Int", "AreaOfEffect", "BASE", num * 10, { type = "DistanceRamp", ramp = {{0,0},{50,1}} }) end,
+	["With at least 40 Intelligence in Radius, Raised Spectres have a 50% chance to gain Soul Eater for 20 seconds on Kill"] = {
+		getThreshold("Int", "MinionModifier", "LIST", { mod = mod("Condition:CanHaveSoulEater", "FLAG", true) }, { type = "SkillName", skillName = "Raise Spectre", includeTransfigured = true }),
+		getThreshold("Int", "Condition:MinionCanHaveSoulEater", "FLAG", true),
+	},
 	-- [""] = getThreshold("", "", "", , { type = "SkillName", skillName = "" }),
 }
 
@@ -6240,7 +6244,19 @@ for k, v in pairs(jewelSelfUnallocFuncs) do
 end
 -- Threshold Jewels
 for k, v in pairs(jewelThresholdFuncs) do
-	jewelFuncList[k:lower()] = { func = v, type = "Threshold" }
+	if type(v) == "table" then
+		-- Allow one threshold line to apply multiple independent threshold funcs
+		jewelFuncList[k:lower()] = { func = function(node, out, data)
+			data.funcData = data.funcData or { }
+			for index, func in ipairs(v) do
+				data.funcData[index] = data.funcData[index] or { }
+				data.funcData[index].modSource = data.modSource
+				func(node, out, data.funcData[index])
+			end
+		end, type = "Threshold" }
+	else
+		jewelFuncList[k:lower()] = { func = v, type = "Threshold" }
+	end
 end
 
 -- Generate list of cluster jewel skills
