@@ -111,7 +111,7 @@ end
 function GemSelectClass:PopulateGemList()
 	wipeTable(self.gems)
 	local showAll = self.skillsTab.showSupportGemTypes == "ALL"
-	local showAwakened = self.skillsTab.showSupportGemTypes == "AWAKENED"
+	local showExceptional = self.skillsTab.showSupportGemTypes == "EXCEPTIONAL"
 	local showNormal = self.skillsTab.showSupportGemTypes == "NORMAL"
 	local matchLevel = self.skillsTab.defaultGemLevel == "characterLevel"
 	local characterLevel = self.skillsTab.build and self.skillsTab.build.characterLevel or 1
@@ -120,8 +120,8 @@ function GemSelectClass:PopulateGemList()
 		if (self.sortGemsBy and gemData.tags[self.sortGemsBy] == true or not self.sortGemsBy) then
 			local levelRequirement = gemData.grantedEffect.levels[1].levelRequirement or 1
 			if characterLevel >= levelRequirement or not matchLevel then
-				if (showAwakened or showAll) and gemData.grantedEffect.plusVersionOf then
-					if self.skillsTab.showLegacyGems or nonLegacyAwakened[gemData.grantedEffectId] then
+				if (showExceptional or showAll) and gemData.grantedEffect.plusVersionOf then
+					if self.skillsTab.showLegacyGems or nonLegacyAwakened[gemData.grantedEffectId] or not gemData.name:match("^Awakened") then
 						self.gems["Default:" .. gemId] = gemData
 					end
 				elseif showNormal or showAll then
@@ -144,13 +144,13 @@ end
 
 function GemSelectClass:FilterSupport(gemId, gemData)
 	local showSupportTypes = self.skillsTab.showSupportGemTypes
-	if gemData.grantedEffect.plusVersionOf and not self.skillsTab.showLegacyGems and not nonLegacyAwakened[gemData.grantedEffectId] then
+	if gemData.name:match("^Awakened") and not self.skillsTab.showLegacyGems and not nonLegacyAwakened[gemData.grantedEffectId] then
 		return false
 	end
 	return (not gemData.grantedEffect.support
 		or showSupportTypes == "ALL"
 		or (showSupportTypes == "NORMAL" and not gemData.grantedEffect.plusVersionOf)
-		or (showSupportTypes == "AWAKENED" and gemData.grantedEffect.plusVersionOf))
+		or (showSupportTypes == "EXCEPTIONAL" and gemData.grantedEffect.plusVersionOf))
 		and (self.skillsTab.showAltQualityGems or (not self.skillsTab.showAltQualityGems and self:GetQualityType(gemId) == "Default"))
 end
 

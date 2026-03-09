@@ -54,8 +54,8 @@ This hides gems with a minimum level requirement above your character level, pre
 
 local showSupportGemTypeList = {
 	{ label = "All", show = "ALL" },
-	{ label = "Non-Awakened", show = "NORMAL" },
-	{ label = "Awakened", show = "AWAKENED" },
+	{ label = "Non-Exceptional", show = "NORMAL" },
+	{ label = "Exceptional", show = "EXCEPTIONAL" },
 }
 
 local sortGemTypeList = {
