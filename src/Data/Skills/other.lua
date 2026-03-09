@@ -1376,8 +1376,8 @@ skills["ElementalAegis"] = {
 	},
 }
 skills["SupportEarthbreaker"] = {
-	name = "Earthbreaker",
-	description = "Supports slam skills, causing them to summon an ancestor totem that uses the skill for you while you're near it. Being near it grants you increased area of effect for melee skills.",
+	name = "SupportEarthbreaker",
+	hidden = true,
 	color = 1,
 	support = true,
 	requireSkillTypes = { SkillType.Slam, SkillType.Totemable, SkillType.AND, },
