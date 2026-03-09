@@ -1724,7 +1724,6 @@ Huge sets the radius to 11.
 	end },
 	{ var = "conditionEnemyIgnited", type = "check", label = "Is the enemy ^xB97123Ignited?", ifEnemyCond = "Ignited", implyCond = "Burning", tooltip = "This also implies that the enemy is ^xB97123Burning.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Ignited", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
-		modList:NewMod("Condition:Ignited", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "ReflectIgnite"})
 	end },
 	{ var = "overrideIgniteStackPotential", type = "count", label = "^xB97123Ignite^7 Stack Potential override:", ifOption = "conditionEnemyIgnited", tooltip = "Allows you to manually set the Stack Potential value for a skill.\nStack Potential equates to the number of times you are able to inflict an Ignite on an enemy before the duration of your first Ignite expires", apply = function(val, modList, enemyModList)
 		modList:NewMod("IgniteStackPotentialOverride", "OVERRIDE", val, "Config", { type = "Condition", var = "Effective" })
