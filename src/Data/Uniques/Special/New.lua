@@ -14,7 +14,8 @@ You have Diamond Shrine Buff while affected by no Flasks
 You have Resistance Shrine Buff while affected by no Flasks
 +30 to Intelligence
 +28% to Chaos Resistance
-]],[[
+]],
+[[
 Skysunder
 Exquisite Blade
 League: Mirage
@@ -29,7 +30,8 @@ Ignites you cause are reflected back to you
 50% less Duration of Ignites you inflict
 Ignites you inflict with this weapon spread to other Enemies within 2.8 metres
 Unaffected by Ignite
-]],[[
+]],
+[[
 The Sands of Time
 Tyrant's Sekhem
 Requires Level 58, 99 Str, 99 Int
