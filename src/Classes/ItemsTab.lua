@@ -2670,30 +2670,13 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		elseif sourceId == "ESSENCE" then
 			for _, essence in pairs(self.build.data.essences) do
 				local modId = essence.mods[self.displayItem.type]
-				if modId then
-					local mod = self.displayItem.affixes[modId]
-					t_insert(modList, {
-						label = essence.name .. "   " .. "^8[" .. table.concat(mod, "/") .. "]" .. " (" .. mod.type .. ")",
-						mod = mod,
-						type = "custom",
-						essence = essence,
-					})
-				end
-				-- Some essences (Desolation) have different mods per ring slot
-				if self.displayItem.type == "Ring" then
-					for _, slotKey in ipairs({"Ring 1", "Ring 2"}) do
-						local slotModId = essence.mods[slotKey]
-						if slotModId then
-							local mod = self.displayItem.affixes[slotModId]
-							t_insert(modList, {
-								label = essence.name .. " (" .. slotKey .. ")   " .. "^8[" .. table.concat(mod, "/") .. "]" .. " (" .. mod.type .. ")",
-								mod = mod,
-								type = "custom",
-								essence = essence,
-							})
-						end
-					end
-				end
+				local mod = self.displayItem.affixes[modId]
+				t_insert(modList, {
+					label = essence.name .. "   " .. "^8[" .. table.concat(mod, "/") .. "]" .. " (" .. mod.type .. ")",
+					mod = mod,
+					type = "custom",
+					essence = essence,
+				})
 			end
 			table.sort(modList, function(a, b)
 				if a.essence.type ~= b.essence.type then
