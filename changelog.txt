@@ -4,7 +4,7 @@ VERSION[2.61.0][2026/03/09]
 * Add 3.28 Tree (LocalIdentity)
 * Add support for all new skill gems (LocalIdentity, Peechey)
 * Add new Heroic Tragedy Timeless Jewel (LocalIdentity)
-* Add support for new 3.28 uniques (Paliak,  majochem, MrHB212)
+* Add support for new 3.28 uniques (Paliak, majochem, MrHB212)
 * Update existing skills with 3.28 changes (LocalIdentity)
 * Update uniques with 3.28 changes (EminGul)
 * Add support for Cryogenesis Bloodline node (EtherealCarnivore, LocalIdentity)
