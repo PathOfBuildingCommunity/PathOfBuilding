@@ -79,7 +79,7 @@ for _, name in ipairs(itemTypes) do
 			local fractured = line:match("({fractured})") or ""
 			local cleanLine = line:gsub("{.-}", "")
 			-- Check if this is a mod ID: purely alphanumeric+underscore, optionally followed by [num,num] ranges
-			local modName = cleanLine:match("^([%a%d_]+)%[") or cleanLine:match("^([%a%d_]+)$")
+			local modName = cleanLine:match("^([%a%d_ ]+)%[") or cleanLine:match("^([%a%d_ ]+)$")
 			local legacy = modName and cleanLine:sub(#modName + 1) or ""
 			-- Legacy ranges must contain actual brackets, not just stray characters
 			if legacy ~= "" and not legacy:match("%[") then
