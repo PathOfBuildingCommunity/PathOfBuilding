@@ -265,11 +265,11 @@ return {
 		modList:NewMod("Condition:CatsAgilityActive", "FLAG", true, "Config")
 	end },
 	{ label = "Aspect of the Crab:", ifSkill = "Aspect of the Crab" },
-	{ var = "overrideCrabBarriers", type = "count", label = "# of Crab Barriers (if not maximum):", ifSkill = "Aspect of the Crab", apply = function(val, modList, enemyModList)
+	{ var = "overrideCrabBarriers", type = "countAllowZero", label = "# of Crab Barriers (if not maximum):", ifSkill = "Aspect of the Crab", apply = function(val, modList, enemyModList)
 		modList:NewMod("CrabBarriers", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ label = "Aspect of the Spider:", ifSkill = "Aspect of the Spider" },
-	{ var = "aspectOfTheSpiderWebStacks", type = "count", label = "# of Spider's Web Stacks:", ifSkill = "Aspect of the Spider", apply = function(val, modList, enemyModList)
+	{ var = "aspectOfTheSpiderWebStacks", type = "countAllowZero", label = "# of Spider's Web Stacks:", ifSkill = "Aspect of the Spider", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraSkillMod", "LIST", { mod = modLib.createMod("Multiplier:SpiderWebApplyStack", "BASE", val) }, "Config", { type = "SkillName", skillName = "Aspect of the Spider" })
 		if val > 0 then
 			modList:NewMod("Condition:AspectOfTheSpiderActive", "FLAG", true, "Config")
@@ -297,6 +297,12 @@ return {
 	end },
 	{ var = "bladestormInSandstorm", type = "check", label = "Are you in a Sandstorm?", ifSkill = "Bladestorm", includeTransfigured = true, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BladestormInSandstorm", "FLAG", true, "Config", { type = "SkillName", skillName = "Bladestorm", includeTransfigured = true })
+	end },
+	{ label = "Bloodsoaked Banner:", ifSkill = "Bloodsoaked Banner" },
+	{ var = "bloodsoakedBannerStages", type = "count", label = "# of Bloodsoaked Banner stacks on enemy", ifSkill = "Bloodsoaked Banner", defaultState = 1, apply = function(val, modList, enemyModList)
+		-- 10 is the maximum amount of Corrupting Blood Stages. modList does not contain skill base mods at this point so hard coding it here is the cleanest way to handle the cap.
+		-- It's set to 9 here with val -1 to so that it defaults to 1 stage and has max 10 stages.
+		modList:NewMod("Multiplier:BloodsoakedBannerStageAfterFirst", "BASE", m_min(val-1, 9), "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ label = "Blood Sacrament:", ifSkill = "Blood Sacrament" },
 	{ var = "bloodSacramentReservationEHP", type = "check", label = "Count Skill Reservation towards eHP?", ifSkill = "Blood Sacrament", tooltip = "Use this option to disable the skill reservation factoring into eHP calculations",apply = function(val, modList, enemyModList)
@@ -362,6 +368,31 @@ return {
 	{ var = "darkPactSkeletonLife", type = "count", label = "Skeleton ^xE05030Life:", ifSkill = "Dark Pact", tooltip = "Sets the maximum ^xE05030Life ^7of the Skeleton that is being targeted.", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "skeletonLife", value = val }, "Config", { type = "SkillName", skillName = "Dark Pact" })
 	end },
+	{ label = "Divine Sentinel Auras:", ifSkill = "Divine Sentinel" },
+	{ var = "divineSentinelPhysAsFire", type = "check", label = "Phys as ^xB97123Fire", ifSkill = "Divine Sentinel", tooltip = "Grants your Sentinel Minion as Aura that grants\n\tGain 15% of Physical Damage as Extra ^xB97123Fire ^7Damage", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:DivineSentinelPhysAsFire", "FLAG", true, "Config")
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:DivineSentinelPhysAsFire", "FLAG", true, "Config") })
+	end },
+	{ var = "divineSentinelPhysAsLightning", type = "check", label = "Phys as ^xADAA47Lightning", ifSkill = "Divine Sentinel", tooltip = "Grants your Sentinel Minion as Aura that grants\n\tGain 15% of Physical Damage as Extra ^xADAA47Lightning ^7Damage", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:DivineSentinelPhysAsLightning", "FLAG", true, "Config")
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:DivineSentinelPhysAsLightning", "FLAG", true, "Config") })
+	end },
+	{ var = "divineSentinelRegenLife", type = "check", label = "Regen ^xE05030Life", ifSkill = "Divine Sentinel", tooltip = "Grants your Sentinel Minion as Aura that grants\n\tRegenerate 1.5% of ^xE05030Life ^7per second", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:DivineSentinelRegenLife", "FLAG", true, "Config")
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:DivineSentinelRegenLife", "FLAG", true, "Config") })
+	end },
+	{ var = "divineSentinelRegenMana", type = "check", label = "^x7070FFMana ^7Regeneration Rate", ifSkill = "Divine Sentinel", tooltip = "Grants your Sentinel Minion as Aura that grants\n\t30% increased ^x7070FFMana ^7Regeneration Rate", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:DivineSentinelRegenMana", "FLAG", true, "Config")
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:DivineSentinelRegenMana", "FLAG", true, "Config") })
+	end },
+	{ var = "divineSentinelChaosResistance", type = "check", label = "^xD02090Chaos ^7Resistance", ifSkill = "Divine Sentinel", tooltip = "Grants your Sentinel Minion as Aura that grants\n\t+23% to ^xD02090Chaos ^7Resistance", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:DivineSentinelChaosResistance", "FLAG", true, "Config")
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:DivineSentinelChaosResistance", "FLAG", true, "Config") })
+	end },
+	{ var = "divineSentinelSelfCurseEffect", type = "check", label = "Curse Effect on Self", ifSkill = "Divine Sentinel", tooltip = "Grants your Sentinel Minion as Aura that grants\n\t50% reduced Effect of Curses on you", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:DivineSentinelSelfCurseEffect", "FLAG", true, "Config")
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:DivineSentinelSelfCurseEffect", "FLAG", true, "Config") })
+	end },
 	{ label = "Doom Blast:", ifSkill = "Doom Blast" },
 	{ var = "doomBlastSource", type = "list", label = "Doom Blast Trigger Source:", ifSkill = "Doom Blast", list = {{val="expiration",label="Curse Expiration"},{val="replacement",label="Curse Replacement"},{val="vixen",label="Vixen's Curse"},{val="hexblast",label="Hexblast Replacement"}}, defaultIndex = 3},
 	{ var = "curseOverlaps", type = "count", label = "Curse overlaps:", ifSkill = "Doom Blast", ifFlag = "UsesCurseOverlaps", apply = function(val, modList, enemyModList)
@@ -413,6 +444,10 @@ return {
 	{ var = "frostShieldStages", type = "count", label = "Stages:", ifSkill = "Frost Shield", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:FrostShieldStage", "BASE", val, "Config")
 	end },
+	{ label = "Gluttony:", ifSkill = "Gluttony" },
+	{ var = "Disgorged", type = "check", label = "Is Disgorge active?", ifSkill = "Gluttony", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:Disgorged", "FLAG", true, "Config")
+	end },
 	{ label = "Greater Harbinger of Time:", ifSkill =  "Summon Greater Harbinger of Time" },
 	{ var = "greaterHarbingerOfTimeSlipstream", type = "check", label = "Is Slipstream active?:", ifSkill =  "Summon Greater Harbinger of Time", tooltip = "Greater Harbinger of Time Slipstream buff grants:\n10% increased Action Speed\nBuff affects the player and allies\nBuff has a base duration of 8s with a 10s Cooldown", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:GreaterHarbingerOfTime", "FLAG", true, "Config")
@@ -437,6 +472,10 @@ return {
 	{ var = "heraldOfTheHivePressure", type = "count", label = "# of Otherworldly Pressure Stacks:", ifSkill = "Herald of the Hive", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:OtherworldlyPressure", "BASE", val, "Config")
 	end },
+	{ label = "Invention:", ifSkill = "Invention" },
+	{ var = "inventionMineTrapPlacedDuration", type = "count", label = "Placed duration of Mine / Traps:", ifSkill = "Invention", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:PlacedDuration", "BASE", val, "Config")
+	end },
 	{ label = "Ice Nova:", ifSkill = "Ice Nova of Frostbolts" },
 	{ var = "iceNovaCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Ice Nova of Frostbolts", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:CastOnFrostbolt", "FLAG", true, "Config", { type = "SkillName", skillName = "Ice Nova of Frostbolts" })
@@ -453,6 +492,9 @@ return {
 	{ var = "intensifyIntensity", type = "count", label = "# of Intensity:", ifSkill = { "Intensify", "Crackling Lance", "Pinpoint" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:Intensity", "BASE", val, "Config")
 	end },
+	{ var = "OverloadedIntensity", type = "count", label = "# of Overloaded Intensity:", ifSkill = "Overloaded Intensity", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:OverloadedIntensity", "BASE", val, "Config")
+	end },
 	{ label = "Link Skills:", ifSkill = { "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" } },
 	{ var = "multiplierLinkedTargets", type = "count", label = "# of linked Targets:", ifSkill = { "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:LinkedTargets", "BASE", val, "Config")
@@ -466,6 +508,14 @@ return {
 	{ label = "Manabond:", ifSkill = "Manabond" },
 	{ var = "manabondMissingUnreservedManaPercentage", type = "count", label = "Missing Unreserved ^x7070FFMana^7 %:", tooltip = "Ignores values outside the 0-100 range, defaults to 100% if not specified. \nA more realistic value would be to match your Arcane Cloak spend %.", ifSkill = "Manabond", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "ManabondMissingUnreservedManaPercentage", value = m_max(m_min(val,100), 0) }, "Config", { type = "SkillName", skillName = "Manabond" })
+	end },
+	{ label = "Minion Pact:", ifSkill = "Minion Pact" },
+	{ var = "minionPactLife", type = "count", label = "Damageable Minion ^xE05030Life:", ifMult = "MinionLife", tooltip = "Sets the maximum ^xE05030life ^7of the target minion for Minion Pact.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:MinionLife", "BASE", val, "Config")
+	end },
+	{ label = "Eldritch Blasphemy:", ifSkill = "Eldritch Blasphemy" },
+	{ var = "conditionEnemyMalignantMadness", type = "check", label = "Enemy has Malignant Madness?", ifSkill = "Eldritch Blasphemy", tooltip = "A debuff that applies:\n\tDeal 10% less Damage\n\t10% reduced Action Speed", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:MalignantMadness", "FLAG", true, "Config")
 	end },
 	{ label = "Meat Shield:", ifSkill = "Meat Shield" },
 	{ var = "meatShieldEnemyNearYou", type = "check", label = "Is the enemy near you?", ifSkill = "Meat Shield", apply = function(val, modList, enemyModList)
@@ -624,6 +674,10 @@ return {
 	{ var = "summonReaperConsumeRecently", type = "check", label = "Reaper Consumed recently?", ifSkill = "Summon Reaper", includeTransfigured = true, apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "ReaperConsumeMinionForBuff" })
 	end },
+	{ label = "Tears of Rot:", ifSkill = "Tears of Rot" },
+	{ var = "weepingBlackStacks", type = "count", label = "# of Weeping Black stacks on enemy:", ifSkill = "Tears of Rot", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:WeepingBlackStacks", "BASE", val, "Config")
+	end },
 	{ label = "Thirst for Blood:", ifSkill = "Thirst for Blood" },
 	{ var = "nearbyBleedingEnemies", type = "count", label = "# of Nearby Bleeding Enemies:", ifSkill = "Thirst for Blood", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NearbyBleedingEnemies", "BASE", val, "Config" )
@@ -643,6 +697,10 @@ return {
 	{ label = "Trinity Support:", ifSkill = "Trinity" },
 	{ var = "configResonanceCount", type = "count", label = "Lowest Resonance Count:", ifSkill = "Trinity", tooltip = "Sets the amount of resonance on the lowest element.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:ResonanceCount", "BASE", m_max(m_min(val, 50), 0), "Config")
+	end },
+	{ label = "Unholy Trinity Support:", ifSkill = "Unholy Trinity" },
+	{ var = "configUnholyResonanceCount", type = "count", label = "Lowest Resonance Count:", ifSkill = "Unholy Trinity", tooltip = "Sets the amount of unholy resonance on the lowest element.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:UnholyResonanceCount", "BASE", m_max(m_min(val, 50), 0), "Config")
 	end },
 	{ label = "Unhinge:", ifSkill = "Unhinge" },
 	{ var = "conditionInsane", type = "check", label = "Are you Insane?", ifCond = "Insane", apply = function(val, modList, enemyModList)
@@ -906,6 +964,9 @@ Huge sets the radius to 11.
 	{ var = "multiplierSoulEater", type = "count", label = "# of Soul Eater Stacks:", ifFlag = "Condition:CanHaveSoulEater", tooltip = "Soul Eater grants the following, up to a base of 45 stacks:\n\t5% increased Attack Speed\n\t5% increased Cast Speed\n\t1% increased character size per stack.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:SoulEaterStack", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "multiplierMinionSoulEater", type = "count", label = "# of Minion Soul Eater Stacks:", ifFlag = "Condition:MinionCanHaveSoulEater", tooltip = "Soul Eater grants the following, up to a base of 45 stacks:\n\t5% increased Attack Speed\n\t5% increased Cast Speed\n\t1% increased character size per stack.", apply = function(val, modList, enemyModList)
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Multiplier:SoulEaterStack", "BASE", val, "Config") }, "Config")
+	end },
 	{ var = "conditionFocused", type = "check", label = "Are you Focused?", ifCond = "Focused", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Focused", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -1139,6 +1200,10 @@ Huge sets the radius to 11.
 	{ var = "conditionCritWithHeraldSkillRecently", type = "check", label = "Have your Herald Skills Crit Recently?", ifCond = "CritWithHeraldSkillRecently", implyCond = "SkillCritRecently", tooltip = "This also implies that your Skills have Crit Recently.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:CritWithHeraldSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "multiplierCritRecently", type = "count", label = "# of times your Attacks have Crit Recently:", ifMult = "CritRecently", implyCond = "CritRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:CritRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("Condition:SkillCritRecently", "FLAG", 1 <= val, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "LostNonVaalBuffRecently", type = "check", label = "Lost a Non-Vaal Guard Skill buff recently?", ifCond = "LostNonVaalBuffRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LostNonVaalBuffRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -1234,7 +1299,10 @@ Huge sets the radius to 11.
 	{ var = "conditionStunnedRecently", type = "check", label = "Have you been Stunned Recently?", ifCond = "StunnedRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:StunnedRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierPoisonAppliedRecently", type = "count", label = "# of Poisons applied Recently:", ifMult = "PoisonAppliedRecently", apply = function(val, modList, enemyModList)
+	{ var = "conditionPoisonedEnemyRecently", type = "check", label = "Have you ^x60A060Poisoned ^7an enemy Recently?", ifCond = "PoisonedEnemyRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:PoisonedEnemyRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "multiplierPoisonAppliedRecently", type = "count", label = "# of Poisons applied Recently:", ifMult = "PoisonAppliedRecently", implyCond = "PoisonedEnemyRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:PoisonAppliedRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "multiplierLifeSpentRecently", type = "count", label = "# of ^xE05030Life ^7spent Recently:", ifMult = "LifeSpentRecently", apply = function(val, modList, enemyModList)
@@ -1525,6 +1593,9 @@ Huge sets the radius to 11.
 	{ var = "multiplierImpalesOnEnemy", type = "countAllowZero", label = "# of Impales on enemy (if not maximum):", ifFlag = "impale", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:ImpaleStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionCausedBleedingRecently", type = "check", label = "Have you caused ^xE05030Bleeding ^7Recently?", ifCond = "CausedBleedingRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:CausedBleedingRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "multiplierBleedsOnEnemy", type = "count", label = "# of Bleeds on enemy (if not maximum):", ifFlag = "Condition:HaveCrimsonDance", tooltip = "Sets current number of Bleeds on the enemy if using the Crimson Dance keystone.\nThis also implies that the enemy is Bleeding.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:BleedStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 		enemyModList:NewMod("Condition:Bleeding", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1595,13 +1666,13 @@ Huge sets the radius to 11.
 	{ var = "buffMassiveShrine", type = "check", label = "Have Massive Shrine?", ifFlag = "Condition:CanHaveRegularShrines", tooltip = "This will enable the Massive Shrine buff.\n\t30% increased Character Size\n\t40% increased Area of Effect\n\t40% increased maximum ^xE05030Life", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:MassiveShrine", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "buffReplenishingShrine", type = "check", label = "Have Replenishing Shrine?", ifFlag = "Condition:CanHaveRegularShrines", tooltip = "This will enable the Replenishing Shrine buff.\n\t10% of ^x7070FFMana ^7Regenerated per second\n\t6.7% of ^xE05030Life ^7Regenerated per second", apply = function(val, modList, enemyModList)
+	{ var = "buffReplenishingShrine", type = "check", label = "Have Replenishing Shrine?", ifFlag = "Condition:CanHaveRegularShrines", tooltip = "This will enable the Replenishing Shrine buff.\n\t200% increased ^x7070FFMana ^7Regeneration Rate\n\t6.7% of ^xE05030Life ^7Regenerated per second", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ReplenishingShrine", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "buffResistanceShrine", type = "check", label = "Have Resistance Shrine?", ifFlag = "Condition:CanHaveRegularShrines", tooltip = "This will enable the Resistance Shrine buff.\n\t+50% to all Elemental Resistances\n\t+10% to all maximum Resistances", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ResistanceShrine", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "buffResonatingShrine", type = "check", label = "Have Resonating Shrine?", ifFlag = "Condition:CanHaveRegularShrines", tooltip = "This will enable the Resonating Shrine buff.\n\t20% chance to gain a Power, Frenzy or Endurance Charge on Hit\n\t60% chance to gain a Power, Frenzy or Endurance Charge on Kill\n\t50% increased Critical Strike Chance per Power Charge\n\t4% increased Attack Speed per Frenzy Charge\n\t4% increased Cast Speed per Frenzy Charge\n\t4% more Damage per Frenzy Charge\n\t4% additional Physical Damage Reduction per Endurance Charge\n\t4% additional Elemental Damage Reduction per Endurance Charge\n\t5% increased Damage per Frenzy, Power or Endurance Charge", apply = function(val, modList, enemyModList)
+	{ var = "buffResonatingShrine", type = "check", label = "Have Resonating Shrine?", ifFlag = "Condition:CanHaveRegularShrines", tooltip = "This will enable the Resonating Shrine buff.\n\t20% chance to gain a Power, Frenzy or Endurance Charge on Hit\n\t60% chance to gain a Power, Frenzy or Endurance Charge on Kill\n\t+1 to Maximum Power Charges\n\t+1 to Maximum Frenzy Charges\n\t+1 to Maximum Endurance Charges", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ResonatingShrine", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "buffLesserAccelerationShrine", type = "check", label = "Have Lesser Acceleration Shrine?", ifFlag = "Condition:CanHaveLesserShrines", tooltip = "This will enable the Lesser Acceleration Shrine buff.\n\t10% increased Action Speed\n\t30% increased Projectile Speed", apply = function(val, modList, enemyModList)
@@ -1616,7 +1687,7 @@ Huge sets the radius to 11.
 	{ var = "buffLesserMassiveShrine", type = "check", label = "Have Lesser Massive Shrine?", ifFlag = "Condition:CanHaveLesserShrines", tooltip = "This will enable the Lesser Massive Shrine buff.\n\t10% increased Character Size\n\t20% increased Area of Effect\n\t20% increased maximum ^xE05030Life", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LesserMassiveShrine", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "buffLesserReplenishingShrine", type = "check", label = "Have Lesser Replenishing Shrine?", ifFlag = "Condition:CanHaveLesserShrines", tooltip = "This will enable the Lesser Replenishing Shrine buff.\n\t3.3% of ^x7070FFMana ^7Regenerated per second\n\t3.3% of ^xE05030Life ^7Regenerated per second", apply = function(val, modList, enemyModList)
+	{ var = "buffLesserReplenishingShrine", type = "check", label = "Have Lesser Replenishing Shrine?", ifFlag = "Condition:CanHaveLesserShrines", tooltip = "This will enable the Lesser Replenishing Shrine buff.\n\t100% increased ^x7070FFMana ^7Regeneration Rate\n\t3.3% of ^xE05030Life ^7Regenerated per second", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LesserReplenishingShrine", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "buffLesserResistanceShrine", type = "check", label = "Have Lesser Resistance Shrine?", ifFlag = "Condition:CanHaveLesserShrines", tooltip = "This will enable the Lesser Resistance Shrine buff.\n\t+25% to all Elemental Resistances\n\t+2% to all maximum Resistances", apply = function(val, modList, enemyModList)

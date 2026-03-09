@@ -722,7 +722,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				activeEffect.srcInstance.skillMinionItemSetCalcs = nil
 				activeEffect.srcInstance.skillMinionItemSet = nil
 			end
-			if activeSkill.skillData.minionUseBowAndQuiver and env.player.weaponData1.type == "Bow" then
+			if (activeSkill.skillData.minionUseBowAndQuiver and env.player.weaponData1.type == "Bow") or activeSkill.skillData.minionUseMainHandWeapon then
 				minion.weaponData1 = env.player.weaponData1
 			elseif env.theIronMass and minionType == "RaisedSkeleton" then
 				minion.weaponData1 = env.player.weaponData1

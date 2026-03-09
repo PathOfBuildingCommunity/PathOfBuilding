@@ -19,17 +19,6 @@ local s_gsub = string.gsub
 local s_byte = string.byte
 local dkjson = require "dkjson"
 
--- Helper function to find toast index by content pattern
--- TODO: remove this when when we can control toast notifications better
-local function findToastIndex(pattern)
-	for i, msg in ipairs(main.toastMessages) do
-		if msg:match(pattern) then
-			return i
-		end
-	end
-	return nil
-end
-
 local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.ControlHost()
 
@@ -173,7 +162,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		}
 		t_insert(self.treeVersions, value)
 	end
-	self.controls.versionText = new("LabelControl", { "LEFT", self.controls.reset, "RIGHT" }, { 8, 0, 0, 16 }, "Version:")
+	self.controls.versionText = new("LabelControl", { "LEFT", self.controls.reset, "RIGHT" }, { 8, 0, 0, 16 }, "^7Version:")
 	self.controls.versionSelect = new("DropDownControl", { "LEFT", self.controls.versionText, "RIGHT" }, { 8, 0, 100, 20 }, self.treeVersions, function(index, selected)
 		if selected.value ~= self.build.spec.treeVersion then
 			self:OpenVersionConvertPopup(selected.value, true)
@@ -290,7 +279,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	end)
 	self.controls.powerReportList.shown = false
 	-- Progress callback from the CalcsTab power builder coroutine
-	self.powerBuilderToastActive = false
+	self.powerBuilderToastId = nil
 	self.lastProgressToastUpdate = 0
 	self.build.powerBuilderProgressCallback = function(percent)
 		local now = GetTime()
@@ -301,13 +290,16 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		local message = percent and string.format("Building Power Report... (%d%%)", percent) or "Building Power Report..."
 
 		self.controls.powerReportList.label = message
+
+		if self.powerBuilderToastId and ToastNotification:WasDismissed(self.powerBuilderToastId) then
+			return
+		end
 		self.lastProgressToastUpdate = now
-		local toastIndex = findToastIndex("^Building Power Report")
-		if toastIndex then
-			main.toastMessages[toastIndex] = message
+
+		if self.powerBuilderToastId and ToastNotification:Exists(self.powerBuilderToastId) then
+			ToastNotification:Update(self.powerBuilderToastId, message)
 		else
-			t_insert(main.toastMessages, message)
-			self.powerBuilderToastActive = true
+			self.powerBuilderToastId = ToastNotification:Add(message)
 		end
 	end
 	-- Completion callback from the CalcsTab power builder coroutine
@@ -315,19 +307,12 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		local powerStat = self.build.calcsTab.powerStat or data.powerStatList[1]
 		local report = self:BuildPowerReportList(powerStat)
 		self.controls.powerReportList:SetReport(powerStat, report)
-		local toastIndex = findToastIndex("^Building Power Report")
-		if self.powerBuilderToastActive and toastIndex then
-			-- Remove the toast from the queue instead of triggering hide animation
-			-- This prevents issues when the toast is not currently displayed (queued behind another toast)
-			-- TODO: look into allowing toast notifications to stack and have UUID's we can control them better
-			if toastIndex == 1 then
-				main.toastMode = "HIDING"
-				main.toastStart = GetTime()
-			else
-				t_remove(main.toastMessages, toastIndex)
-			end
+
+		if self.powerBuilderToastId then
+			ToastNotification:ClearDismissed(self.powerBuilderToastId)
+			ToastNotification:Remove(self.powerBuilderToastId)
+			self.powerBuilderToastId = nil
 		end
-		self.powerBuilderToastActive = false
 	end
 
 	self.controls.specConvertText = new("LabelControl", { "BOTTOMLEFT", self.controls.specSelect, "TOPLEFT" }, { 0, -14, 0, 16 }, "^7This is an older tree version, which may not be fully compatible with the current game version.")
@@ -1019,7 +1004,7 @@ function TreeTabClass:OpenMasteryPopup(node, viewPort)
 			main:ClosePopup()
 		end)
 		controls.effect = new("PassiveMasteryControl", {"TOPLEFT",nil,"TOPLEFT"}, {6, 25, 0, passiveMasteryControlHeight}, effects, self, node, controls.save)
-		main:OpenPopup(controls.effect.width + 12, controls.effect.height + 60, node.name, controls)
+		main:OpenPopup(controls.effect.width + 12, controls.effect.height + 60, node.name, controls, nil, nil, "close")
 	end
 end
 
@@ -1029,6 +1014,12 @@ function TreeTabClass:SetPowerCalc(powerStat)
 	self.build.calcsTab.powerBuildFlag = true
 	self.build.calcsTab.powerStat = powerStat
 	self.controls.powerReportList:SetReport(powerStat, nil)
+	-- Remove old toast and clear dismissed state so toast can show for new power report
+	if self.powerBuilderToastId then
+		ToastNotification:ClearDismissed(self.powerBuilderToastId)
+		ToastNotification:Remove(self.powerBuilderToastId, true)
+		self.powerBuilderToastId = nil
+	end
 end
 
 function TreeTabClass:BuildPowerReportList(currentStat)
@@ -1155,7 +1146,7 @@ function TreeTabClass:FindTimelessJewel()
 	local timelessData = self.build.timelessData
 	local controls = { }
 	local modData = { }
-	local ignoredMods = { "Might of the Vaal", "Legacy of the Vaal", "Strength", "Add Strength", "Dex", "Add Dexterity", "Devotion", "Price of Glory" }
+	local ignoredMods = { "Might of the Vaal", "Legacy of the Vaal", "Strength", "Add Strength", "Dex", "Add Dexterity", "Devotion", "Price of Glory", "Ward" }
 	local totalMods = { [2] = "Strength", [3] = "Dexterity", [4] = "Devotion" }
 	local totalModIDs = {
 		["total_strength"] = { ["karui_notable_add_strength"] = true, ["karui_attribute_strength"] = true, ["karui_small_strength"] = true },
@@ -1178,7 +1169,8 @@ function TreeTabClass:FindTimelessJewel()
 		{ label = "Lethal Pride", name = "karui", id = 2 },
 		{ label = "Brutal Restraint", name = "maraketh", id = 3 },
 		{ label = "Militant Faith", name = "templar", id = 4 },
-		{ label = "Elegant Hubris", name = "eternal", id = 5 }
+		{ label = "Elegant Hubris", name = "eternal", id = 5 },
+		{ label = "Heroic Tragedy", name = "kalguur", id = 6 }
 	}
 	-- rebuild `timelessData.jewelType` as we only store the minimum amount of `jewelType` data in build XML
 	if next(timelessData.jewelType) then
@@ -1221,6 +1213,12 @@ function TreeTabClass:FindTimelessJewel()
 			{ label = "Cadiro (Supreme Decadence)", id = 2 },
 			{ label = "Victario (Supreme Grandstanding)", id = 3 },
 			{ label = "Caspiro (Supreme Ostentation)", id = 4 }
+		},
+		[6] = {
+			{ label = "Any", id = 1 },
+			{ label = "Vorana (Black Scythe Training)", id = 2 },
+			{ label = "Uhtred (The Unbreaking Circle)", id = 3 },
+			{ label = "Medved (Celestial Mathematics)", id = 4 }
 		}
 	}
 	-- rebuild `timelessData.conquerorType` as we only store the minimum amount of `conquerorType` data in build XML

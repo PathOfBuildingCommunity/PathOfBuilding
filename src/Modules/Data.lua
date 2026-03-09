@@ -646,6 +646,8 @@ data.itemTagSpecial = {
 			"Cannot Evade",
 		},
 	},
+	["defence"] = {
+	},
 }
 data.itemTagSpecialExclusionPattern = {
 	["life"] = {
@@ -741,6 +743,8 @@ data.itemTagSpecialExclusionPattern = {
 		["ring"] = {
 		},
 	},
+	["defence"] = {
+	},
 }
 
 -- Cluster jewel data
@@ -790,6 +794,7 @@ data.timelessJewelTypes = {
 	[3] = "Brutal Restraint",
 	[4] = "Militant Faith",
 	[5] = "Elegant Hubris",
+	[6] = "Heroic Tragedy",
 }
 data.timelessJewelSeedMin = {
 	[1] = 100,
@@ -797,6 +802,7 @@ data.timelessJewelSeedMin = {
 	[3] = 500,
 	[4] = 2000,
 	[5] = 2000 / 20,
+	[6] = 100,
 }
 data.timelessJewelSeedMax = {
 	[1] = 8000,
@@ -804,9 +810,10 @@ data.timelessJewelSeedMax = {
 	[3] = 8000,
 	[4] = 10000,
 	[5] = 160000 / 20,
+	[6] = 8000,
 }
 data.timelessJewelTradeIDs = LoadModule("Data/TimelessJewelData/LegionTradeIds")
-data.timelessJewelAdditions = 94 -- #legionAdditions
+data.timelessJewelAdditions = 96 -- #legionAdditions
 data.nodeIDList = LoadModule("Data/TimelessJewelData/NodeIndexMapping")
 data.timelessJewelLUTs = { }
 data.readLUT, data.repairLUTs = LoadModule("Modules/DataLegionLookUpTableHelper")
@@ -966,8 +973,7 @@ local toAddGems = { }
 for gemId, gem in pairs(data.gems) do
     gem.name = sanitiseText(gem.name)
     setupGem(gem, gemId)
-    local loc, _ = gemId:find('Vaal')
-	if loc then
+	if gem.vaalGem then
 		data.gemGrantedEffectIdForVaalGemId[gem.secondaryGrantedEffectId] = gemId
 		for otherGemId, otherGem in pairs(data.gems) do
 			if otherGem.grantedEffectId == gem.secondaryGrantedEffectId then
@@ -977,7 +983,7 @@ for gemId, gem in pairs(data.gems) do
 		end
 	end
     for _, alt in ipairs{"AltX", "AltY"} do
-        if loc and data.skills[gem.secondaryGrantedEffectId..alt] then
+        if gem.vaalGem and data.skills[gem.secondaryGrantedEffectId..alt] then
 			data.gemGrantedEffectIdForVaalGemId[gem.secondaryGrantedEffectId..alt] = gemId..alt
 			data.gemVaalGemIdForBaseGemId[gemId..alt] = data.gemVaalGemIdForBaseGemId[gemId]..alt
             local newGem = { name, gameId, variantId, grantedEffectId, secondaryGrantedEffectId, vaalGem, tags = {}, tagString, reqStr, reqDex, reqInt, naturalMaxLevel }

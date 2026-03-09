@@ -3806,6 +3806,7 @@ minions["Metadata/Monsters/LeagueCrucible/Cold/Pyromaniac"] = {
 		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
+		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
 	},
 }
 -- Wretched Defiler
@@ -3970,6 +3971,7 @@ minions["Metadata/Monsters/LeagueCrucible/Lightning/Vendigo_"] = {
 		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
+		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
 	},
 }
 

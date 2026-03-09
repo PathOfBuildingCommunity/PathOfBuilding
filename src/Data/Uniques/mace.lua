@@ -231,6 +231,18 @@ Adds 5 to 8 Physical Damage per Endurance Charge
 {variant:1}400 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
 {variant:2}200 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
 ]],
+[[
+The Monastery Bell
+Dream Mace
+Requires Level 32, 107 Str
+Implicits: 1
+10% reduced Enemy Stun Threshold
+(50-75)% increased Physical Damage
+Adds (5-9) to (13-18) Physical Damage
+(6-10)% increased Attack Speed
+Chance to Block is Unlucky
+Count as Blocking Attack Damage from the first target Hit with each Shield Attack
+]],
 -- Weapon: Sceptre
 [[
 Augyre
@@ -585,8 +597,8 @@ Implicits: 2
 (10-20)% increased Attack Speed
 {variant:1}5% increased Experience gain
 {variant:2,3}3% increased Experience gain
-20% increased Elemental Damage
 60% increased Intelligence Requirement
+Attacks with this Weapon inflict Hallowing Flame on Hit
 ]],[[
 Yaomac's Accord
 Vaal Sceptre
@@ -788,26 +800,28 @@ Variant: Pre 3.7.0
 Variant: Pre 3.11.0
 Variant: Pre 3.19.0
 Variant: Pre 3.20.0
+Variant: Pre 3.28.0
 Variant: Current
 Requires Level 57, 182 Str
 Implicits: 3
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2,3}30% increased Stun Duration on Enemies
-{variant:4,5,6}45% increased Stun Duration on Enemies
+{variant:4,5,6,7}45% increased Stun Duration on Enemies
 {variant:1,2,3,4}Socketed Gems are Supported by Level 15 Pulverise
 {variant:1,2}(220-250)% increased Physical Damage
 {variant:3}(230-260)% increased Physical Damage
 {variant:4}(200-230)% increased Physical Damage
 {variant:5}(400-500)% increased Physical Damage
-{variant:6}(500-600)% increased Physical Damage
+{variant:6,7}(500-600)% increased Physical Damage
 {variant:1,2}Adds 10 to 20 Physical Damage
 {variant:3,4}Adds 30 to 40 Physical Damage
 {variant:1,2,3,4}10% reduced Attack Speed
-{variant:5,6}25% reduced Attack Speed
+{variant:5,6,7}25% reduced Attack Speed
 {variant:1,2,3,4}10% reduced Movement Speed
 (40-50)% increased Stun Duration on Enemies
 {variant:1,2,3,4}-100 to Accuracy Rating
-{variant:5,6}-500 to Accuracy Rating
+{variant:5,6,7}-500 to Accuracy Rating
+{variant:7}(40-50)% increased Area of Effect
 ]],[[
 Quecholli
 Jagged Maul
