@@ -717,6 +717,48 @@ local skills, mod, flag, skill = ...
 #baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 3 })
 #mods
 
+#skill ChargedDashAltX
+#flags attack melee area
+	parts = {
+		{
+			name = "Channelling, No Stages",
+		},
+		{
+			name = "Channelling, Max Stages",
+		},
+		{
+			name = "Release",
+			stages = true,
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		   if activeSkill.skillPart == 3 then
+			   local finalWaveDamageModifier = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "chargedDashFinalDamageModifier")
+			   activeSkill.skillModList:NewMod("Damage", "MORE", finalWaveDamageModifier, "Skill:ChargedDash", ModFlag.Attack, { type = "Release Damage", skillPart = 3 })
+		   end
+	end,
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["charged_dash_damage_+%_final"] = {
+			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
+		},
+		["charged_dash_damage_+%_final_per_stack"] = {
+			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type = "Multiplier", var = "ChargedDashStage" }, { type = "SkillPart", skillPart = 3 }),
+		},
+		["charged_dash_channelling_damage_at_full_stacks_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
+#baseMod skill("radius", 14)
+#baseMod skill("radiusLabel", "Start of Dash:")
+#baseMod skill("radiusSecondary", 26)
+#baseMod skill("radiusSecondaryLabel", "End of Dash:")
+#baseMod skill("hitTimeMultiplier", 2, { type = "Skill", skillPartList = { 1, 2 } })
+#baseMod mod("Multiplier:ChargedDashMaxStages", "BASE", 15)
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 3 })
+#mods
+
 #skill CobraLash
 #flags attack projectile
 	statMap = {
@@ -1099,6 +1141,24 @@ local skills, mod, flag, skill = ...
 		},
 	},
 	statMap = {
+		["attack_minimum_added_cold_damage_for_elemental_hit"] = {
+			mod("ColdMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_cold_damage_for_elemental_hit"] = {
+			mod("ColdMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_minimum_added_fire_damage_for_elemental_hit"] = {
+			mod("FireMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_fire_damage_for_elemental_hit"] = {
+			mod("FireMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_minimum_added_lightning_damage_for_elemental_hit"] = {
+			mod("LightningMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_lightning_damage_for_elemental_hit"] = {
+			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
 		["elemental_hit_damage_+%_final_per_enemy_elemental_ailment"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" }),
 		},
@@ -1149,6 +1209,27 @@ local skills, mod, flag, skill = ...
 		},
 	},
 	statMap = {
+		["elemental_hit_damage_+%_final_per_enemy_elemental_ailment"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" }),
+		},
+		["attack_minimum_added_cold_damage_for_elemental_hit"] = {
+			mod("ColdMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_cold_damage_for_elemental_hit"] = {
+			mod("ColdMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_minimum_added_fire_damage_for_elemental_hit"] = {
+			mod("FireMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_fire_damage_for_elemental_hit"] = {
+			mod("FireMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_minimum_added_lightning_damage_for_elemental_hit"] = {
+			mod("LightningMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_lightning_damage_for_elemental_hit"] = {
+			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
 		["elemental_hit_damage_+%_final_per_enemy_elemental_ailment"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" }),
 		},
@@ -1590,6 +1671,30 @@ local skills, mod, flag, skill = ...
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 	},
+#baseMod skill("radius", 32)
+#mods
+
+#skill FlamethrowerTrapAltX
+#flags spell trap area duration
+	preDamageFunc = function(activeSkill, output, breakdown)
+		local t_insert = table.insert
+		local s_format = string.format
+
+		local duration = output.Duration
+		local cooldown = output.TrapCooldown
+		local averageActiveTraps = duration / cooldown
+		output.AverageActiveTraps = averageActiveTraps
+		activeSkill.skillData.hitTimeOverride = 0.1
+		activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * averageActiveTraps
+
+		if breakdown then
+			breakdown.AverageActiveTraps = { }
+			t_insert(breakdown.AverageActiveTraps, "Average active traps, not considering stored cooldown uses:")
+			t_insert(breakdown.AverageActiveTraps, s_format("%.2f^8 (skill duration)", duration))
+			t_insert(breakdown.AverageActiveTraps, s_format("/ %.2f^8 (cooldown)", cooldown))
+			t_insert(breakdown.AverageActiveTraps, s_format("= %.2f traps", averageActiveTraps))
+		end
+	end,
 #baseMod skill("radius", 32)
 #mods
 
@@ -3151,6 +3256,12 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["active_skill_poison_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison),
+		},
+		["viper_strike_dual_wield_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "DualWielding" }),
+		},
+		["viper_strike_dual_wield_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "Condition", var = "DualWielding" }),
 		},
 		["quality_display_active_skill_poison_damage_final_is_gem"] = {
 			-- Display only
