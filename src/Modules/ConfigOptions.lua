@@ -674,6 +674,10 @@ return {
 	{ var = "summonReaperConsumeRecently", type = "check", label = "Reaper Consumed recently?", ifSkill = "Summon Reaper", includeTransfigured = true, apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "ReaperConsumeMinionForBuff" })
 	end },
+	{ label = "Tears of Rot:", ifSkill = "Tears of Rot" },
+	{ var = "weepingBlackStacks", type = "count", label = "# of Weeping Black stacks on enemy:", ifSkill = "Tears of Rot", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:WeepingBlackStacks", "BASE", val, "Config")
+	end },
 	{ label = "Thirst for Blood:", ifSkill = "Thirst for Blood" },
 	{ var = "nearbyBleedingEnemies", type = "count", label = "# of Nearby Bleeding Enemies:", ifSkill = "Thirst for Blood", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NearbyBleedingEnemies", "BASE", val, "Config" )

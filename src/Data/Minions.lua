@@ -1833,3 +1833,29 @@ minions["Hiveborn"] = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
 	},
 }
+
+minions["ShamblingUndead"] = {
+	name = "Ceaseless Flesh",
+	monsterTags = { "animal_claw_weapon", "flesh_armour", "is_unarmed", "melee", "physical_affinity", "red_blood", "undead", "very_slow_movement", },
+	life = 2.7,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 2.1,
+	damageSpread = 0.4,
+	attackTime = 1.17,
+	attackRange = 11,
+	accuracy = 3.4,
+	limit = "ShamblingUndeadLimit",
+	skillList = {
+		"MeleeAtAnimationSpeedChaos",
+		"ZombieSlam",
+		"GAZombieCorpseGroundImpact",
+	},
+	modList = {
+		mod("Armour", "INC", 40, 0, 0), -- MonsterImplicitDamageReduction1 [physical_damage_reduction_rating_+% = 40]
+		mod("StunThreshold", "INC", 30, 0, 0), -- RaiseZombieStunThreshold [stun_threshold_+% = 30]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+	},
+}

@@ -1897,6 +1897,9 @@ return {
 ["minion_damage_+%_on_full_life"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, 0, {type = "Condition", var = "FullLife"}) }),
 },
+["minion_attack_speed_+%_when_on_low_life"] = {
+	mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", nil, ModFlag.Attack, 0, {type = "Condition", var = "LowLife"}) }),
+},
 ["active_skill_minion_bleeding_damage_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed) }),
 },
@@ -2011,6 +2014,9 @@ return {
 },
 ["base_graft_skill_tul_summon_maximum_allowed_demons"] = {
 	mod("ActiveHivebornLimit", "BASE", nil),
+},
+["base_number_of_restless_dead_allowed"] = {
+	mod("ShamblingUndeadLimit", "BASE", nil),
 },
 ["active_skill_minion_damage_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),

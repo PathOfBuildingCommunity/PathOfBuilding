@@ -382,6 +382,34 @@ skills["AspectOfTheSpider"] = {
 		[30] = { 4, cooldown = 0.5, levelRequirement = 1, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 1, }, },
 	},
 }
+skills["SolartwineBlindingNova"] = {
+	name = "Blazing Glare",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 2.2599999904633,
+	description = "When hit, release a nova of fiery vengeance, dealing spell fire damage and blinding enemies struck.",
+	skillTypes = { [SkillType.Cooldown] = true, [SkillType.Area] = true, [SkillType.Spell] = true, [SkillType.Fire] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.Nova] = true, [SkillType.InbuiltTrigger] = true, [SkillType.AreaSpell] = true, [SkillType.Damage] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	constantStats = {
+		{ "active_skill_base_area_of_effect_radius", 30 },
+		{ "global_chance_to_blind_on_hit_%", 100 },
+		{ "cast_when_hit_%", 100 },
+	},
+	stats = {
+		"minimum_added_fire_damage_per_level",
+		"maximum_added_fire_damage_per_level",
+		"is_area_damage",
+	},
+	levels = {
+		[20] = { 15, 26, cooldown = 1, critChance = 5, levelRequirement = 0, storedUses = 1, statInterpolation = { 1, 1, }, },
+	},
+}
 skills["SupportBloodMagicUniquePrismGuardian"] = {
 	name = "Blood Magic",
 	hidden = true,
@@ -611,6 +639,69 @@ skills["Brandsurge"] = {
 	},
 	levels = {
 		[20] = { 0.80000001192093, 1.2000000476837, cooldown = 1.5, critChance = 5, damageEffectiveness = 5.1, levelRequirement = 70, storedUses = 1, statInterpolation = { 3, 3, }, cost = { Mana = 20, }, },
+	},
+}
+skills["BitingBraidNova"] = {
+	name = "Caustic Retribution",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 2.2599999904633,
+	description = "When hit, release a nova of venomous bile that deals spell chaos damage. This nova poisons and hinders on hit.",
+	skillTypes = { [SkillType.Cooldown] = true, [SkillType.Area] = true, [SkillType.Spell] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.Chaos] = true, [SkillType.Nova] = true, [SkillType.AreaSpell] = true, [SkillType.Damage] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	constantStats = {
+		{ "active_skill_base_area_of_effect_radius", 30 },
+		{ "cast_when_hit_%", 100 },
+		{ "spells_chance_to_hinder_on_hit_%", 100 },
+	},
+	stats = {
+		"minimum_added_chaos_damage_per_level",
+		"maximum_added_chaos_damage_per_level",
+		"is_area_damage",
+		"global_poison_on_hit",
+		"visual_hit_effect_chaos_is_green",
+	},
+	levels = {
+		[20] = { 11, 19, cooldown = 1, levelRequirement = 0, storedUses = 1, statInterpolation = { 1, 1, }, },
+	},
+}
+skills["CeaselessFleshUnique"] = {
+	name = "Ceaseless Flesh",
+	hidden = true,
+	color = 3,
+	description = "Once per second, raise a nearby corpse as a shambling undead. This minion will follow you and attack your enemies with melee strikes, but quickly falls apart. These minions have significantly increased attack speed while on low life.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Triggerable] = true, [SkillType.CreatesMinion] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Duration] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	minionList = {
+		"ShamblingUndead",
+	},
+	baseFlags = {
+		spell = true,
+		minion = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 5000 },
+		{ "base_number_of_restless_dead_allowed", 100 },
+		{ "triggered_by_item_buff", 1 },
+		{ "minion_attack_speed_+%_when_on_low_life", 100 },
+		{ "display_minion_monster_type", 28 },
+	},
+	stats = {
+		"base_display_minion_actor_level",
+	},
+	levels = {
+		[20] = { 70, levelRequirement = 70, statInterpolation = { 1, }, },
+		[25] = { 80, levelRequirement = 72, statInterpolation = { 1, }, },
 	},
 }
 skills["ColdAegis"] = {
@@ -4389,6 +4480,39 @@ skills["SupportTriggerSpellOnKill"] = {
 	},
 	levels = {
 		[1] = { 20, cooldown = 0.5, levelRequirement = 1, storedUses = 1, statInterpolation = { 1, }, },
+	},
+}
+skills["AnimosityUniqueSkill"] = {
+	name = "Tears of Rot",
+	hidden = true,
+	color = 2,
+	description = "While active, this skill inflicts the Weeping Black debuff on impaled enemies you hit with bow attacks. Weeping Black deals physical damage over time, and can stack up to five times. This skill cannot be cast by Totems.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, [SkillType.DamageOverTime] = true, [SkillType.Physical] = true, },
+	statDescriptionScope = "debuff_skill_stat_descriptions",
+	castTime = 0,
+	fromItem = true,
+	statMap = {
+		["base_physical_damage_to_deal_per_minute"] = {
+			skill("PhysicalDot", nil, { type = "Multiplier", var = "WeepingBlackStacks", limit = 5 }),
+			div = 60,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 3000 },
+		{ "base_physical_damage_to_deal_per_minute", 37500 },
+	},
+	stats = {
+		"base_physical_damage_to_deal_per_minute",
+		"cast_on_gain_skill",
+		"spell_uncastable_if_triggerable",
+		"no_cost",
+	},
+	levels = {
+		[20] = { 33.333334078391, cooldown = 1, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, }, },
 	},
 }
 skills["Twister"] = {

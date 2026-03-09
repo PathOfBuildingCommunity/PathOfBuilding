@@ -256,3 +256,7 @@ minions["GuardianRelicAll"] = {
 #monster Metadata/Monsters/Breach/BreachFodderHandSpiderGraftSummoned Hiveborn
 #limit ActiveHivebornLimit
 #emit
+
+#monster Metadata/Monsters/RaisedZombies/RestlessDeadPlayerSummoned ShamblingUndead
+#limit ShamblingUndeadLimit
+#emit
