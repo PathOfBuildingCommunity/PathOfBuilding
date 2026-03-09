@@ -12,7 +12,7 @@ VERSION[2.61.0][2026/03/09]
 * Add Essence of Desolation mod support (EtherealCarnivore, LocalIdentity)
 * Preserve cluster jewel notables when changing enchantment (EtherealCarnivore)
 * Update Energy Shield gain to Per 10 Intelligence (Blitz54)
-* Update Resonating and Replenishing  Shrine buffs (EtherealCarnivore)
+* Update Resonating and Replenishing Shrine buffs (EtherealCarnivore)
 * Hide legacy awakened gems from dropdown (EtherealCarnivore, LocalIdentity)
 * Add support for new Runegraft mods (LocalIdentity, EtherealCarnivore)
 * Add flavour text for 3.28 uniques (Blitz54)
@@ -33,7 +33,7 @@ VERSION[2.61.0][2026/03/09]
 * Fix position of elements in Items tab when using portrait mode (meehl)
 * Fix Mastery tooltip bug when pressing escape while hovering an option (Blitz54)
 * Remove discriminator alert when the account name field is empty (Goufix)
-* Hide graft slots if not 3.27 tree (Blitz54)
+* Hide graft slots if not using the 3.27 tree (Blitz54)
 
 --- Fixed Calculations ---
 * Fix Kinetic Fusillade calculations (Bobastic, LocalIdentity, nemrod10, Paliak)
@@ -42,14 +42,14 @@ VERSION[2.61.0][2026/03/09]
 * Fix Replica Nebulis damage calculation (ocombe)
 * Fix Ancestral and Seismic Cry incorrectly granting damage with Echoes of Creation to some skills (LocalIdentity)
 * Fix Enemy damage conversion mods scaling enemy damage (LocalIdentity)
-* Fixed The Grey Wind unique not working properly with certain minion skills (TarikBeentjes61)
+* Fix The Grey Wind unique not working properly with certain minion skills (TarikBeentjes61)
 
 --- Fixed Behaviours ---
 * Fix Animate Weapon not using Energy Blade weapon (TarikBeentjes61)
 * Fix parsing for Arcane Surge mod in Hierophant's Arcane Blessing (Peechey)
 * Fix Hand of Phrecia enabling Generosity Auras (LocalIdentity)
 * Fix Sublime Vision +1 max Frenzy charges mod not working with Masterful Form (Paliak)
-* Fix + Arrows mods applying to Projectiles from some skills (LocalIdentity)
+* Fix Additional Arrows mods mods applying to Projectiles from some skills (LocalIdentity)
 * Fix Summon Holy Relic enchant not working with Holy Relic of Conviction (LocalIdentity)
 * Fix Decay not being scaled by some DoT multi mods (LocalIdentity)
 * Fix Ancient Skull buff being granted to players when using Spiritual Aid / Command (LocalIdentity)
