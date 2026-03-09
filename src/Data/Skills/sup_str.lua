@@ -5002,7 +5002,7 @@ skills["TriggeredSupportVoidShockwave"] = {
 	},
 	statMap = {
 		["shockwave_chained_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }),
 		},
 	},
 	baseFlags = {
