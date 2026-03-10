@@ -2497,11 +2497,13 @@ local skills, mod, flag, skill = ...
 
 #skill RainOfArrowsAltX
 #flags attack projectile area
+#baseMod skill("radius", 10)
 #baseMod flag("OneShotProj")
 #mods
 
 #skill RainOfArrowsAltY
 #flags attack projectile area
+#baseMod skill("radius", 10)
 #baseMod flag("OneShotProj")
 #mods
 
