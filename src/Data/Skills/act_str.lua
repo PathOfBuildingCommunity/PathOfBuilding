@@ -6174,6 +6174,12 @@ skills["HolyStrike"] = {
 		["Staff"] = true,
 		["Two Handed Mace"] = true,
 	},
+	statMap = {
+		["skill_physical_damage_%_to_convert_to_lightning"] = {
+			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil),
+			mod("MinionModifier", "LIST", { mod = mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0) })
+		},
+	},
 	statDescriptionScope = "minion_attack_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
