@@ -1745,8 +1745,8 @@ Huge sets the radius to 11.
 	{ var = "multiplierPoisonOnEnemy", type = "count", label = "# of Poison on enemy:", ifEnemyMult = "PoisonStack", implyCond = "Poisoned", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:PoisonStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionSinglePoison", type = "check", label = "Cap to Single Poison on enemy?", ifCond = "SinglePoison", tooltip = "This is for low tolerance, but will limit you to only applying a single poison on the enemy", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:SinglePoison", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	{ var = "conditionNonPoisonedOnly", type = "check", label = "Is the enemy non-Poisoned?", ifCond = "NonPoisonedOnly", tooltip = "This is for low tolerance, but will limit you to only applying poison a single time\n^8(Note that you can still apply multiple stacks via 'inflict additional poison' mods)^7", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:NonPoisonedOnly", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "multiplierCurseExpiredOnEnemy", type = "count", label = "#% of Curse Expired on enemy:", ifEnemyMult = "CurseExpired", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:CurseExpired", "BASE", val, "Config", { type = "Condition", var = "Effective" })

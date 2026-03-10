@@ -3740,10 +3740,10 @@ local specialModList = {
 	} end,
 
 	["poisons you inflict on non%-poisoned enemies deal (%d+)%% increased damage"] = function(num) return {
-		mod("Damage", "INC", num, nil, 0, KeywordFlag.Poison, { type = "Condition", var = "SinglePoison" })
+		mod("Damage", "INC", num, nil, 0, KeywordFlag.Poison, { type = "Condition", var = "NonPoisonedOnly" })
 	} end,
 	["poisons inflicted by sunder or ground slam on non%-poisoned enemies deal (%d+)%% increased damage"] = function(num) return {
-		mod("Damage", "INC", num, nil, 0, KeywordFlag.Poison, { type = "Condition", var = "SinglePoison" }, { type = "SkillName", skillNameList = { "Sunder", "Ground Slam" }, includeTransfigured = true })
+		mod("Damage", "INC", num, nil, 0, KeywordFlag.Poison, { type = "Condition", var = "NonPoisonedOnly" }, { type = "SkillName", skillNameList = { "Sunder", "Ground Slam" }, includeTransfigured = true })
 	} end,
 	["poisons on you expire (%d+)%% slower"] = function(num) return { mod("SelfPoisonDebuffExpirationRate", "BASE", -num) } end,
 	["(%d+)%% chance to inflict an additional poison on the same target when you inflict poison"] = function(num) return { mod("AdditionalPoisonChance", "BASE", num) } end,

@@ -10425,7 +10425,7 @@ c["Poisons you inflict deal Damage 20% faster"]={{[1]={flags=0,keywordFlags=0,na
 c["Poisons you inflict deal Damage 40% faster"]={{[1]={flags=0,keywordFlags=0,name="PoisonFaster",type="INC",value=40}},nil}
 c["Poisons you inflict deal Damage 50% faster"]={{[1]={flags=0,keywordFlags=0,name="PoisonFaster",type="INC",value=50}},nil}
 c["Poisons you inflict during any Flask Effect have 20% chance to deal 100% more Damage"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=2097152,name="Damage",type="MORE",value=20}},nil}
-c["Poisons you inflict on non-Poisoned Enemies deal 300% increased Damage"]={{[1]={[1]={type="Condition",var="SinglePoison"},flags=0,keywordFlags=2097152,name="Damage",type="INC",value=300}},nil}
+c["Poisons you inflict on non-Poisoned Enemies deal 300% increased Damage"]={{[1]={[1]={type="Condition",var="NonPoisonedOnly"},flags=0,keywordFlags=2097152,name="Damage",type="INC",value=300}},nil}
 c["Precise Technique"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Precise Technique"}},nil}
 c["Precision has 100% increased Mana Reservation Efficiency"]={{[1]={[1]={includeTransfigured=true,skillName="Precision",type="SkillName"},flags=0,keywordFlags=0,name="ManaReservationEfficiency",type="INC",value=100}},nil}
 c["Precision has 50% less Reservation"]={{[1]={[1]={includeTransfigured=true,skillName="Precision",type="SkillName"},flags=0,keywordFlags=0,name="Reserved",type="MORE",value=-50}},nil}
