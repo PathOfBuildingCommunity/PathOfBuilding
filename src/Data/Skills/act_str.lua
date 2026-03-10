@@ -2823,7 +2823,7 @@ skills["DivineBlast"] = {
 	},
 	baseFlags = {
 		attack = true,
-		melee = true,
+		melee = false,
 		area = true,
 		shieldAttack = true,
 	},
