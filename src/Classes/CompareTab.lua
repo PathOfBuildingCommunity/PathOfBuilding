@@ -57,6 +57,9 @@ local CompareTabClass = newClass("CompareTab", "ControlHost", "Control", functio
 	-- Track when tree search fields need syncing with viewer state
 	self.treeSearchNeedsSync = true
 
+	-- Tree overlay mode (false = side-by-side, true = overlay with green/red/blue nodes)
+	self.treeOverlayMode = false
+
 	-- Tooltip for item hover in Items view
 	self.itemTooltip = new("Tooltip")
 
@@ -85,6 +88,11 @@ function CompareTabClass:InitControls()
 			and {"TOPLEFT", self.controls.subTabAnchor, "TOPLEFT"}
 			or {"LEFT", self.controls[prevName], "RIGHT"}
 		self.controls["subTab" .. tabName] = new("ButtonControl", anchor, {i == 1 and 0 or 4, 0, 72, 20}, tabName, function()
+			-- Clear tree overlay compareSpec when leaving TREE mode
+			if self.compareViewMode == "TREE" and self.treeOverlayMode
+					and self.primaryBuild.treeTab and self.primaryBuild.treeTab.viewer then
+				self.primaryBuild.treeTab.viewer.compareSpec = nil
+			end
 			self.compareViewMode = mode
 			self.scrollY = 0
 			if mode == "TREE" then
@@ -333,6 +341,9 @@ function CompareTabClass:InitControls()
 	local treeFooterShown = function()
 		return self.compareViewMode == "TREE" and self:GetActiveCompare() ~= nil
 	end
+	local treeSideBySideShown = function()
+		return self.compareViewMode == "TREE" and self:GetActiveCompare() ~= nil and not self.treeOverlayMode
+	end
 
 	-- Build version dropdown list (shared between left and right)
 	self.treeVersionDropdownList = {}
@@ -343,14 +354,34 @@ function CompareTabClass:InitControls()
 		})
 	end
 
-	-- Footer anchor controls (positioned dynamically in Draw)
-	self.controls.leftFooterAnchor = new("Control", nil, {0, 0, 0, 20})
-	self.controls.leftFooterAnchor.shown = treeFooterShown
-	self.controls.rightFooterAnchor = new("Control", nil, {0, 0, 0, 20})
-	self.controls.rightFooterAnchor.shown = treeFooterShown
+	-- Overlay toggle checkbox (positioned dynamically in Draw)
+	self.controls.treeOverlayCheck = new("CheckBoxControl", nil, {0, 0, 20}, "Overlay comparison", function(state)
+		self.treeOverlayMode = state
+		self.treeSearchNeedsSync = true
+		if not state and self.primaryBuild.treeTab and self.primaryBuild.treeTab.viewer then
+			self.primaryBuild.treeTab.viewer.compareSpec = nil
+		end
+	end)
+	self.controls.treeOverlayCheck.shown = treeFooterShown
 
-	-- Left side (primary build) footer controls
-	self.controls.leftSpecSelect = new("DropDownControl", {"LEFT", self.controls.leftFooterAnchor, "LEFT"}, {0, 0, 180, 20}, {}, function(index, value)
+	-- Overlay-mode search (single search for primary viewer)
+	self.controls.overlayTreeSearch = new("EditControl", nil, {0, 0, 300, 20}, "", "Search", "%c", 100, function(buf)
+		if self.primaryBuild.treeTab and self.primaryBuild.treeTab.viewer then
+			self.primaryBuild.treeTab.viewer.searchStr = buf
+		end
+	end, nil, nil, true)
+	self.controls.overlayTreeSearch.shown = function()
+		return self.compareViewMode == "TREE" and self:GetActiveCompare() ~= nil and self.treeOverlayMode
+	end
+
+	-- Footer anchor controls (positioned dynamically in Draw, side-by-side only)
+	self.controls.leftFooterAnchor = new("Control", nil, {0, 0, 0, 20})
+	self.controls.leftFooterAnchor.shown = treeSideBySideShown
+	self.controls.rightFooterAnchor = new("Control", nil, {0, 0, 0, 20})
+	self.controls.rightFooterAnchor.shown = treeSideBySideShown
+
+	-- Left side (primary build) spec/version controls (header, both modes)
+	self.controls.leftSpecSelect = new("DropDownControl", nil, {0, 0, 180, 20}, {}, function(index, value)
 		if self.primaryBuild.treeTab and self.primaryBuild.treeTab.specList[index] then
 			self.primaryBuild.modFlag = true
 			self.primaryBuild.treeTab:SetActiveSpec(index)
@@ -367,15 +398,16 @@ function CompareTabClass:InitControls()
 	end)
 	self.controls.leftVersionSelect.shown = treeFooterShown
 
-	self.controls.leftTreeSearch = new("EditControl", {"TOPLEFT", self.controls.leftFooterAnchor, "TOPLEFT"}, {0, 24, 200, 20}, "", "Search", "%c", 100, function(buf)
+	-- Left search (footer, side-by-side only)
+	self.controls.leftTreeSearch = new("EditControl", {"TOPLEFT", self.controls.leftFooterAnchor, "TOPLEFT"}, {0, 0, 200, 20}, "", "Search", "%c", 100, function(buf)
 		if self.primaryBuild.treeTab and self.primaryBuild.treeTab.viewer then
 			self.primaryBuild.treeTab.viewer.searchStr = buf
 		end
 	end, nil, nil, true)
-	self.controls.leftTreeSearch.shown = treeFooterShown
+	self.controls.leftTreeSearch.shown = treeSideBySideShown
 
-	-- Right side (compare build) footer controls
-	self.controls.rightSpecSelect = new("DropDownControl", {"LEFT", self.controls.rightFooterAnchor, "LEFT"}, {0, 0, 180, 20}, {}, function(index, value)
+	-- Right side (compare build) spec/version controls (header, both modes)
+	self.controls.rightSpecSelect = new("DropDownControl", nil, {0, 0, 180, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry and entry.treeTab and entry.treeTab.specList[index] then
 			entry:SetActiveSpec(index)
@@ -399,13 +431,14 @@ function CompareTabClass:InitControls()
 	end)
 	self.controls.rightVersionSelect.shown = treeFooterShown
 
-	self.controls.rightTreeSearch = new("EditControl", {"TOPLEFT", self.controls.rightFooterAnchor, "TOPLEFT"}, {0, 24, 200, 20}, "", "Search", "%c", 100, function(buf)
+	-- Right search (footer, side-by-side only)
+	self.controls.rightTreeSearch = new("EditControl", {"TOPLEFT", self.controls.rightFooterAnchor, "TOPLEFT"}, {0, 0, 200, 20}, "", "Search", "%c", 100, function(buf)
 		local entry = self:GetActiveCompare()
 		if entry and entry.treeTab and entry.treeTab.viewer then
 			entry.treeTab.viewer.searchStr = buf
 		end
 	end, nil, nil, true)
-	self.controls.rightTreeSearch.shown = treeFooterShown
+	self.controls.rightTreeSearch.shown = treeSideBySideShown
 
 	-- Config view: "Copy Config from Compare Build" button
 	self.controls.copyConfigBtn = new("ButtonControl", nil, {0, 0, 240, 20},
@@ -834,41 +867,104 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 	-- (must happen before ProcessControlsInput so controls render on top of backgrounds)
 	self.treeLayout = nil
 	if self.compareViewMode == "TREE" and compareEntry then
-		local halfWidth = m_floor(contentVP.width / 2) - 2
-		local footerHeight = 50
+		local headerHeight = 50   -- spec/version selectors + overlay checkbox + separator
+		local footerHeight = 30   -- search field(s)
 		local footerY = contentVP.y + contentVP.height - footerHeight
-		local rightAbsX = contentVP.x + halfWidth + 4
-		local specWidth = m_min(m_floor(halfWidth * 0.55), 200)
 
-		-- Store layout for DrawTree
-		self.treeLayout = {
-			halfWidth = halfWidth,
-			footerHeight = footerHeight,
-			footerY = footerY,
-			rightAbsX = rightAbsX,
-		}
+		if self.treeOverlayMode then
+			-- ========== OVERLAY MODE LAYOUT ==========
+			local specWidth = m_min(m_floor(contentVP.width * 0.25), 200)
 
-		-- Draw footer backgrounds
-		SetDrawColor(0.05, 0.05, 0.05)
-		DrawImage(nil, contentVP.x, footerY, halfWidth, footerHeight)
-		DrawImage(nil, rightAbsX, footerY, halfWidth, footerHeight)
-		SetDrawColor(0.85, 0.85, 0.85)
-		DrawImage(nil, contentVP.x, footerY, halfWidth, 2)
-		DrawImage(nil, rightAbsX, footerY, halfWidth, 2)
+			self.treeLayout = {
+				overlay = true,
+				headerHeight = headerHeight,
+				footerHeight = footerHeight,
+				footerY = footerY,
+			}
 
-		-- Position left footer controls
-		self.controls.leftFooterAnchor.x = contentVP.x + 4
-		self.controls.leftFooterAnchor.y = footerY + 4
-		self.controls.leftSpecSelect.width = specWidth
-		self.controls.leftTreeSearch.width = halfWidth - 8
+			-- Header background + separator
+			SetDrawColor(0.05, 0.05, 0.05)
+			DrawImage(nil, contentVP.x, contentVP.y, contentVP.width, headerHeight)
+			SetDrawColor(0.85, 0.85, 0.85)
+			DrawImage(nil, contentVP.x, contentVP.y + headerHeight - 2, contentVP.width, 2)
 
-		-- Position right footer controls
-		self.controls.rightFooterAnchor.x = rightAbsX + 4
-		self.controls.rightFooterAnchor.y = footerY + 4
-		self.controls.rightSpecSelect.width = specWidth
-		self.controls.rightTreeSearch.width = halfWidth - 8
+			-- Footer background
+			SetDrawColor(0.05, 0.05, 0.05)
+			DrawImage(nil, contentVP.x, footerY, contentVP.width, footerHeight)
+			SetDrawColor(0.85, 0.85, 0.85)
+			DrawImage(nil, contentVP.x, footerY, contentVP.width, 2)
 
-		-- Update spec dropdown lists
+			-- Position spec/version in header row 1
+			self.controls.leftSpecSelect.x = contentVP.x + 4
+			self.controls.leftSpecSelect.y = contentVP.y + 4
+			self.controls.leftSpecSelect.width = specWidth
+
+			local rightSpecX = contentVP.x + m_floor(contentVP.width / 2) + 4
+			self.controls.rightSpecSelect.x = rightSpecX
+			self.controls.rightSpecSelect.y = contentVP.y + 4
+			self.controls.rightSpecSelect.width = specWidth
+
+			-- Overlay checkbox in header row 2 (label draws LEFT of checkbox, needs ~140px clearance)
+			self.controls.treeOverlayCheck.x = contentVP.x + 155
+			self.controls.treeOverlayCheck.y = contentVP.y + 28
+
+			-- Overlay search in footer (full width)
+			self.controls.overlayTreeSearch.x = contentVP.x + 4
+			self.controls.overlayTreeSearch.y = footerY + 4
+			self.controls.overlayTreeSearch.width = contentVP.width - 8
+		else
+			-- ========== SIDE-BY-SIDE MODE LAYOUT ==========
+			local halfWidth = m_floor(contentVP.width / 2) - 2
+			local rightAbsX = contentVP.x + halfWidth + 4
+			local specWidth = m_min(m_floor(halfWidth * 0.55), 200)
+
+			self.treeLayout = {
+				overlay = false,
+				halfWidth = halfWidth,
+				headerHeight = headerHeight,
+				footerHeight = footerHeight,
+				footerY = footerY,
+				rightAbsX = rightAbsX,
+			}
+
+			-- Header background + separator
+			SetDrawColor(0.05, 0.05, 0.05)
+			DrawImage(nil, contentVP.x, contentVP.y, contentVP.width, headerHeight)
+			SetDrawColor(0.85, 0.85, 0.85)
+			DrawImage(nil, contentVP.x, contentVP.y + headerHeight - 2, contentVP.width, 2)
+
+			-- Footer backgrounds (two halves)
+			SetDrawColor(0.05, 0.05, 0.05)
+			DrawImage(nil, contentVP.x, footerY, halfWidth, footerHeight)
+			DrawImage(nil, rightAbsX, footerY, halfWidth, footerHeight)
+			SetDrawColor(0.85, 0.85, 0.85)
+			DrawImage(nil, contentVP.x, footerY, halfWidth, 2)
+			DrawImage(nil, rightAbsX, footerY, halfWidth, 2)
+
+			-- Position spec/version in header row 1
+			self.controls.leftSpecSelect.x = contentVP.x + 4
+			self.controls.leftSpecSelect.y = contentVP.y + 4
+			self.controls.leftSpecSelect.width = specWidth
+
+			self.controls.rightSpecSelect.x = contentVP.x + m_floor(contentVP.width / 2) + 4
+			self.controls.rightSpecSelect.y = contentVP.y + 4
+			self.controls.rightSpecSelect.width = specWidth
+
+			-- Overlay checkbox in header row 2 (label draws LEFT of checkbox, needs ~140px clearance)
+			self.controls.treeOverlayCheck.x = contentVP.x + 155
+			self.controls.treeOverlayCheck.y = contentVP.y + 28
+
+			-- Position footer search fields
+			self.controls.leftFooterAnchor.x = contentVP.x + 4
+			self.controls.leftFooterAnchor.y = footerY + 4
+			self.controls.leftTreeSearch.width = halfWidth - 8
+
+			self.controls.rightFooterAnchor.x = rightAbsX + 4
+			self.controls.rightFooterAnchor.y = footerY + 4
+			self.controls.rightTreeSearch.width = halfWidth - 8
+		end
+
+		-- (Common) Update spec dropdown lists
 		if self.primaryBuild.treeTab then
 			self.controls.leftSpecSelect.list = self.primaryBuild.treeTab:GetSpecList()
 			self.controls.leftSpecSelect.selIndex = self.primaryBuild.treeTab.activeSpec
@@ -878,7 +974,7 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 			self.controls.rightSpecSelect.selIndex = compareEntry.treeTab.activeSpec
 		end
 
-		-- Update version dropdown selection to match current spec
+		-- (Common) Update version dropdown selection to match current spec
 		if self.primaryBuild.spec then
 			for i, ver in ipairs(self.treeVersionDropdownList) do
 				if ver.value == self.primaryBuild.spec.treeVersion then
@@ -896,11 +992,12 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 			end
 		end
 
-		-- Sync search fields when entering tree mode or changing compare entry
+		-- (Common) Sync search fields when entering tree mode or changing compare entry
 		if self.treeSearchNeedsSync then
 			self.treeSearchNeedsSync = false
 			if self.primaryBuild.treeTab and self.primaryBuild.treeTab.viewer then
 				self.controls.leftTreeSearch:SetText(self.primaryBuild.treeTab.viewer.searchStr or "")
+				self.controls.overlayTreeSearch:SetText(self.primaryBuild.treeTab.viewer.searchStr or "")
 			end
 			if compareEntry.treeTab and compareEntry.treeTab.viewer then
 				self.controls.rightTreeSearch:SetText(compareEntry.treeTab.viewer.searchStr or "")
@@ -1080,8 +1177,36 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 	-- Process input events for our controls (including footer controls)
 	self:ProcessControlsInput(inputEvents, viewPort)
 
-	-- Draw controls (footer controls render on top of pre-drawn backgrounds)
+	-- Draw TREE view BEFORE controls so header dropdowns render on top of the tree
+	if self.compareViewMode == "TREE" and compareEntry then
+		self:DrawTree(contentVP, inputEvents, compareEntry)
+
+		-- Elevate to main draw layer 1 (matching TreeTab pattern) so controls
+		-- render above all tree sublayers (tree uses sublayers up to 100)
+		SetDrawLayer(1)
+
+		-- Redraw header + footer backgrounds at this higher layer to cover any
+		-- tree artifacts that bled into those regions via high sublayers
+		local layout = self.treeLayout
+		if layout then
+			SetDrawColor(0.05, 0.05, 0.05)
+			DrawImage(nil, contentVP.x, contentVP.y, contentVP.width, layout.headerHeight)
+			SetDrawColor(0.85, 0.85, 0.85)
+			DrawImage(nil, contentVP.x, contentVP.y + layout.headerHeight - 2, contentVP.width, 2)
+			SetDrawColor(0.05, 0.05, 0.05)
+			DrawImage(nil, contentVP.x, layout.footerY, contentVP.width, layout.footerHeight)
+			SetDrawColor(0.85, 0.85, 0.85)
+			DrawImage(nil, contentVP.x, layout.footerY, contentVP.width, 2)
+		end
+	end
+
+	-- Draw controls (at main layer 1 when in TREE mode, above all tree content)
 	self:DrawControls(viewPort)
+
+	-- Reset to default draw layer after controls
+	if self.compareViewMode == "TREE" and compareEntry then
+		SetDrawLayer(0)
+	end
 
 	if not compareEntry then
 		-- No comparison build loaded - show instructions
@@ -1097,11 +1222,9 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 		return
 	end
 
-	-- Dispatch to sub-view
+	-- Dispatch to sub-view (TREE already drawn above)
 	if self.compareViewMode == "SUMMARY" then
 		self:DrawSummary(contentVP, compareEntry)
-	elseif self.compareViewMode == "TREE" then
-		self:DrawTree(contentVP, inputEvents, compareEntry)
 	elseif self.compareViewMode == "ITEMS" then
 		self:DrawItems(contentVP, compareEntry)
 	elseif self.compareViewMode == "SKILLS" then
@@ -1345,34 +1468,65 @@ function CompareTabClass:DrawStatList(drawY, vp, displayStats, primaryOutput, co
 end
 
 -- ============================================================
--- TREE VIEW (side-by-side)
+-- TREE VIEW (overlay + side-by-side)
 -- ============================================================
 function CompareTabClass:DrawTree(vp, inputEvents, compareEntry)
 	local layout = self.treeLayout
 	if not layout then return end
 
-	local halfWidth = layout.halfWidth
+	local headerHeight = layout.headerHeight
 	local footerHeight = layout.footerHeight
-	local labelHeight = 20
+	local origGetCursorPos = GetCursorPos
 
-	-- Divider (full height including footer)
+	if layout.overlay then
+		-- ========== OVERLAY MODE ==========
+		-- Uses the primary build's viewer with compareSpec set to the compare entry's spec.
+		-- PassiveTreeView automatically renders green (added), red (removed), blue (mastery differs).
+		local treeAbsX = vp.x
+		local treeAbsY = vp.y + headerHeight
+		local treeHeight = vp.height - headerHeight - footerHeight
+
+		if self.primaryBuild.treeTab and self.primaryBuild.treeTab.viewer then
+			-- Set compareSpec to enable overlay coloring
+			self.primaryBuild.treeTab.viewer.compareSpec = compareEntry.spec
+
+			SetViewport(treeAbsX, treeAbsY, vp.width, treeHeight)
+			SetDrawLayer(nil, 0)
+			GetCursorPos = function()
+				local x, y = origGetCursorPos()
+				return x - treeAbsX, y - treeAbsY
+			end
+			local treeVP = { x = 0, y = 0, width = vp.width, height = treeHeight }
+			self.primaryBuild.treeTab.viewer:Draw(self.primaryBuild, treeVP, inputEvents)
+			SetViewport()
+
+			-- Clear compareSpec so it doesn't affect the normal Tree tab
+			self.primaryBuild.treeTab.viewer.compareSpec = nil
+		end
+
+		GetCursorPos = origGetCursorPos
+		return
+	end
+
+	-- ========== SIDE-BY-SIDE MODE ==========
+	local halfWidth = layout.halfWidth
+	local treeHeight = vp.height - headerHeight - footerHeight
+
+	-- Divider (from header bottom to viewport bottom)
 	SetDrawColor(0.5, 0.5, 0.5)
-	DrawImage(nil, vp.x + halfWidth, vp.y + labelHeight, 4, vp.height - labelHeight)
+	DrawImage(nil, vp.x + halfWidth, vp.y + headerHeight, 4, vp.height - headerHeight)
 
 	-- Route input events to the panel containing the mouse
-	local origGetCursorPos = GetCursorPos
 	local mouseX, mouseY = origGetCursorPos()
 	local leftHasInput = mouseX < (vp.x + halfWidth + 2)
-
-	local treeHeight = vp.height - labelHeight - footerHeight
 
 	-- Left tree: SetViewport clips drawing; patch GetCursorPos so mouse coords
 	-- are viewport-relative (matching the {x=0,y=0} viewport passed to the tree)
 	local leftAbsX = vp.x
-	local leftAbsY = vp.y + labelHeight
+	local leftAbsY = vp.y + headerHeight
 	if self.primaryBuild.treeTab and self.primaryBuild.treeTab.viewer then
 		SetViewport(leftAbsX, leftAbsY, halfWidth, treeHeight)
-		SetDrawLayer(nil, 0) -- Reset draw layer so background renders behind connectors
+		SetDrawLayer(nil, 0)
 		GetCursorPos = function()
 			local x, y = origGetCursorPos()
 			return x - leftAbsX, y - leftAbsY
@@ -1384,10 +1538,10 @@ function CompareTabClass:DrawTree(vp, inputEvents, compareEntry)
 
 	-- Right tree: same approach - SetViewport for clipping, patched cursor
 	local rightAbsX = vp.x + halfWidth + 4
-	local rightAbsY = vp.y + labelHeight
+	local rightAbsY = vp.y + headerHeight
 	if compareEntry.treeTab and compareEntry.treeTab.viewer then
 		SetViewport(rightAbsX, rightAbsY, halfWidth, treeHeight)
-		SetDrawLayer(nil, 0) -- Reset draw layer so background renders behind connectors
+		SetDrawLayer(nil, 0)
 		GetCursorPos = function()
 			local x, y = origGetCursorPos()
 			return x - rightAbsX, y - rightAbsY
@@ -1399,9 +1553,6 @@ function CompareTabClass:DrawTree(vp, inputEvents, compareEntry)
 
 	-- Restore original GetCursorPos
 	GetCursorPos = origGetCursorPos
-
-	-- Footer backgrounds and controls are drawn by Draw() before this method
-	-- (so that controls render on top of the background rectangles)
 end
 
 -- ============================================================
