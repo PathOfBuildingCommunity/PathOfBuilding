@@ -1405,14 +1405,6 @@ function calcs.perform(env, skipEHP)
 		end
 	end
 
-	if modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard") then
-		local armourData = env.player.itemList["Body Armour"] and env.player.itemList["Body Armour"].armourData
-		local wardMult = ((modDB:Sum("BASE", nil,"BodyArmourArmourEvasionToWardPercent") or 0) / 100)
-		if armourData then
-			armourData.Ward = m_floor((armourData.Evasion + armourData.Armour) * wardMult)
-		end
-	end
-
 	-- Special handling of Mageblood
 	local maxLeftActiveMagicUtilityCount = modDB:Sum("BASE", nil, "LeftActiveMagicUtilityFlasks")
 	local maxRightActiveMagicUtilityCount = modDB:Sum("BASE", nil, "RightActiveMagicUtilityFlasks")
