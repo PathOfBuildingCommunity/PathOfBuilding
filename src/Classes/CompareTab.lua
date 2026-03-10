@@ -60,6 +60,14 @@ local CompareTabClass = newClass("CompareTab", "ControlHost", "Control", functio
 	-- Tooltip for item hover in Items view
 	self.itemTooltip = new("Tooltip")
 
+	-- Interactive config controls state
+	self.configControls = {}        -- { var -> { control, varData } }
+	self.configControlList = {}     -- ordered list for layout
+	self.configNeedsRebuild = true  -- trigger initial build
+	self.configCompareId = nil      -- track which compare entry controls were built for
+	self.configToggle = false       -- show all / hide ineligible toggle
+	self.configDisplayList = {}     -- computed display order (headers + rows)
+
 	-- Controls for the comparison screen
 	self:InitControls()
 end)
@@ -398,6 +406,262 @@ function CompareTabClass:InitControls()
 		end
 	end, nil, nil, true)
 	self.controls.rightTreeSearch.shown = treeFooterShown
+
+	-- Config view: "Copy Config from Compare Build" button
+	self.controls.copyConfigBtn = new("ButtonControl", nil, {0, 0, 240, 20},
+		"Copy Config from Compare Build",
+		function() self:CopyCompareConfig() end)
+	self.controls.copyConfigBtn.shown = function()
+		return self.compareViewMode == "CONFIG" and self:GetActiveCompare() ~= nil
+	end
+
+	-- Config view: "Show All / Hide Ineligible" toggle button
+	self.controls.configToggleBtn = new("ButtonControl", nil, {0, 0, 240, 20},
+		function()
+			return self.configToggle and "Hide Ineligible Configurations" or "Show All Configurations"
+		end,
+		function()
+			self.configToggle = not self.configToggle
+		end)
+	self.controls.configToggleBtn.shown = function()
+		return self.compareViewMode == "CONFIG" and self:GetActiveCompare() ~= nil
+	end
+end
+
+-- Get a short display name from a build name (strips "AccountName - " prefix)
+function CompareTabClass:GetShortBuildName(fullName)
+	if not fullName then return "Your Build" end
+	local dashPos = fullName:find(" %- ")
+	if dashPos then
+		return fullName:sub(dashPos + 3)
+	end
+	return fullName
+end
+
+-- Format a numeric value with separator and rounding
+function CompareTabClass:FormatVal(val, p)
+	return formatNumSep(tostring(round(val, p)))
+end
+
+-- Resolve format strings against an actor's output/modDB
+-- Handles: {output:Key}, {p:output:Key}, {p:mod:indices}
+function CompareTabClass:FormatStr(str, actor, colData)
+	if not actor then return "" end
+	str = str:gsub("{output:([%a%.:]+)}", function(c)
+		local ns, var = c:match("^(%a+)%.(%a+)$")
+		if ns then
+			return actor.output[ns] and actor.output[ns][var] or ""
+		else
+			return actor.output[c] or ""
+		end
+	end)
+	str = str:gsub("{(%d+):output:([%a%.:]+)}", function(p, c)
+		local ns, var = c:match("^(%a+)%.(%a+)$")
+		if ns then
+			return self:FormatVal(actor.output[ns] and actor.output[ns][var] or 0, tonumber(p))
+		else
+			return self:FormatVal(actor.output[c] or 0, tonumber(p))
+		end
+	end)
+	str = str:gsub("{(%d+):mod:([%d,]+)}", function(p, n)
+		local numList = { }
+		for num in n:gmatch("%d+") do
+			t_insert(numList, tonumber(num))
+		end
+		if not colData[numList[1]] or not colData[numList[1]].modType then
+			return "?"
+		end
+		local modType = colData[numList[1]].modType
+		local modTotal = modType == "MORE" and 1 or 0
+		for _, num in ipairs(numList) do
+			local sectionData = colData[num]
+			if not sectionData then break end
+			local modCfg = (sectionData.cfg and actor.mainSkill and actor.mainSkill[sectionData.cfg.."Cfg"]) or { }
+			if sectionData.modSource then
+				modCfg.source = sectionData.modSource
+			end
+			if sectionData.actor then
+				modCfg.actor = sectionData.actor
+			end
+			local modVal
+			local modStore = (sectionData.enemy and actor.enemy and actor.enemy.modDB) or (sectionData.cfg and actor.mainSkill and actor.mainSkill.skillModList) or actor.modDB
+			if not modStore then break end
+			if type(sectionData.modName) == "table" then
+				modVal = modStore:Combine(sectionData.modType, modCfg, unpack(sectionData.modName))
+			else
+				modVal = modStore:Combine(sectionData.modType, modCfg, sectionData.modName)
+			end
+			if modType == "MORE" then
+				modTotal = modTotal * modVal
+			else
+				modTotal = modTotal + modVal
+			end
+		end
+		if modType == "MORE" then
+			modTotal = (modTotal - 1) * 100
+		end
+		return self:FormatVal(modTotal, tonumber(p))
+	end)
+	return str
+end
+
+-- Check visibility flags for a section/row against an actor
+function CompareTabClass:CheckCalcFlag(obj, actor)
+	if not actor or not actor.mainSkill then return true end
+	local skillFlags = actor.mainSkill.skillFlags or {}
+	if obj.flag and not skillFlags[obj.flag] then
+		return false
+	end
+	if obj.flagList then
+		for _, flag in ipairs(obj.flagList) do
+			if not skillFlags[flag] then
+				return false
+			end
+		end
+	end
+	if obj.playerFlag and not skillFlags[obj.playerFlag] then
+		return false
+	end
+	if obj.notFlag and skillFlags[obj.notFlag] then
+		return false
+	end
+	if obj.notFlagList then
+		for _, flag in ipairs(obj.notFlagList) do
+			if skillFlags[flag] then
+				return false
+			end
+		end
+	end
+	if obj.haveOutput then
+		local ns, var = obj.haveOutput:match("^(%a+)%.(%a+)$")
+		if ns then
+			if not actor.output[ns] or not actor.output[ns][var] or actor.output[ns][var] == 0 then
+				return false
+			end
+		elseif not actor.output[obj.haveOutput] or actor.output[obj.haveOutput] == 0 then
+			return false
+		end
+	end
+	return true
+end
+
+-- Format a config value for read-only display
+function CompareTabClass:FormatConfigValue(varData, val)
+	if val == nil then return "^8(not set)" end
+	if varData.type == "check" then
+		return val and (colorCodes.POSITIVE .. "Yes") or (colorCodes.NEGATIVE .. "No")
+	elseif varData.type == "list" and varData.list then
+		for _, item in ipairs(varData.list) do
+			if item.val == val then
+				return item.label or tostring(val)
+			end
+		end
+		return tostring(val)
+	else
+		return tostring(val)
+	end
+end
+
+-- Rebuild interactive config controls for all config options
+function CompareTabClass:RebuildConfigControls(compareEntry)
+	-- Remove old config controls
+	for var, _ in pairs(self.configControls) do
+		self.controls["cfg_" .. var] = nil
+	end
+	self.configControls = {}
+	self.configControlList = {}
+
+	if not compareEntry then return end
+
+	local configOptions = LoadModule("Modules/ConfigOptions")
+	local pInput = self.primaryBuild.configTab.input or {}
+	local primaryBuild = self.primaryBuild
+
+	for _, varData in ipairs(configOptions) do
+		if varData.var and varData.type ~= "text" then
+			local pVal = pInput[varData.var]
+			local control
+			if varData.type == "check" then
+				control = new("CheckBoxControl", nil, {0, 0, 18}, nil, function(state)
+					primaryBuild.configTab.input[varData.var] = state
+					primaryBuild.configTab:UpdateControls()
+					primaryBuild.configTab:BuildModList()
+					primaryBuild.buildFlag = true
+				end)
+				control.state = pVal or false
+			elseif varData.type == "count" or varData.type == "integer"
+					or varData.type == "countAllowZero" or varData.type == "float" then
+				local filter = (varData.type == "integer" and "^%-%d")
+					or (varData.type == "float" and "^%d.") or "%D"
+				control = new("EditControl", nil, {0, 0, 90, 18},
+					tostring(pVal or ""), nil, filter, 7,
+					function(buf)
+						primaryBuild.configTab.input[varData.var] = tonumber(buf)
+						primaryBuild.configTab:UpdateControls()
+						primaryBuild.configTab:BuildModList()
+						primaryBuild.buildFlag = true
+					end)
+			elseif varData.type == "list" and varData.list then
+				control = new("DropDownControl", nil, {0, 0, 150, 18},
+					varData.list, function(index, value)
+						primaryBuild.configTab.input[varData.var] = value.val
+						primaryBuild.configTab:UpdateControls()
+						primaryBuild.configTab:BuildModList()
+						primaryBuild.buildFlag = true
+					end)
+				control:SelByValue(pVal or (varData.list[1] and varData.list[1].val), "val")
+			end
+
+			if control then
+				control.shown = function() return false end -- hidden until positioned
+				self.controls["cfg_" .. varData.var] = control
+
+				-- Determine eligibility category (matches ConfigTab's isShowAllConfig logic)
+				local isHardConditional = varData.ifOption or varData.ifSkill
+					or varData.ifSkillData or varData.ifSkillFlag or varData.legacy
+				local isKeywordExcluded = false
+				if varData.label then
+					local labelLower = varData.label:lower()
+					for _, kw in ipairs({"recently", "in the last", "in the past", "in last", "in past", "pvp"}) do
+						if labelLower:find(kw) then
+							isKeywordExcluded = true
+							break
+						end
+					end
+				end
+				local hasAnyCondition = varData.ifCond or varData.ifOption or varData.ifSkill
+					or varData.ifSkillFlag or varData.ifSkillData or varData.ifSkillList
+					or varData.ifNode or varData.ifMod or varData.ifMult
+					or varData.ifEnemyStat or varData.ifEnemyCond or varData.legacy
+
+				local ctrlInfo = {
+					control = control,
+					varData = varData,
+					visible = false,
+					-- Always shown in "All Configurations" (no conditions at all)
+					alwaysShow = not hasAnyCondition and not isKeywordExcluded,
+					-- Shown in "All Configurations" when toggle is ON (simple conditions only)
+					showWithToggle = not isHardConditional and not isKeywordExcluded,
+				}
+				self.configControls[varData.var] = ctrlInfo
+				t_insert(self.configControlList, ctrlInfo)
+			end
+		end
+	end
+end
+
+-- Copy all config settings from compare build to primary build
+function CompareTabClass:CopyCompareConfig()
+	local compareEntry = self:GetActiveCompare()
+	if not compareEntry then return end
+	local cInput = compareEntry.configTab.input
+	for k, v in pairs(cInput) do
+		self.primaryBuild.configTab.input[k] = v
+	end
+	self.primaryBuild.configTab:UpdateControls()
+	self.primaryBuild.configTab:BuildModList()
+	self.primaryBuild.buildFlag = true
+	self.configNeedsRebuild = true
 end
 
 -- Import a comparison build from XML text
@@ -644,6 +908,112 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 		end
 	end
 
+	-- Position config controls when in CONFIG view
+	if self.compareViewMode == "CONFIG" and compareEntry then
+		-- Rebuild controls if compare entry changed or config was modified
+		if self.configCompareId ~= self.activeCompareIndex or self.configNeedsRebuild then
+			self:RebuildConfigControls(compareEntry)
+			self.configCompareId = self.activeCompareIndex
+			self.configNeedsRebuild = false
+		end
+
+		-- Sync control values with current primary input (in case changed from normal Config tab)
+		local pInput = self.primaryBuild.configTab.input or {}
+		for var, ctrlInfo in pairs(self.configControls) do
+			local ctrl = ctrlInfo.control
+			local varData = ctrlInfo.varData
+			local pVal = pInput[var]
+			if varData.type == "check" then
+				ctrl.state = pVal or false
+			elseif varData.type == "count" or varData.type == "integer"
+					or varData.type == "countAllowZero" or varData.type == "float" then
+				ctrl:SetText(tostring(pVal or ""))
+			elseif varData.type == "list" then
+				ctrl:SelByValue(pVal or (varData.list[1] and varData.list[1].val), "val")
+			end
+		end
+
+		-- Position buttons at top of config view (above column headers)
+		self.controls.copyConfigBtn.x = contentVP.x + 10
+		self.controls.copyConfigBtn.y = contentVP.y + 4
+		self.controls.configToggleBtn.x = contentVP.x + 260
+		self.controls.configToggleBtn.y = contentVP.y + 4
+
+		-- Build display list: Differences section first, then All Configurations
+		local cInput = compareEntry.configTab.input or {}
+		local displayList = {}
+		local rowHeight = 22
+		local sectionHeaderHeight = 24
+
+		-- Collect differences
+		local diffs = {}
+		for _, ctrlInfo in ipairs(self.configControlList) do
+			local pVal = pInput[ctrlInfo.varData.var]
+			local cVal = cInput[ctrlInfo.varData.var]
+			if tostring(pVal or "") ~= tostring(cVal or "") then
+				t_insert(diffs, ctrlInfo)
+			end
+		end
+
+		-- Differences section
+		if #diffs > 0 then
+			t_insert(displayList, { type = "header", text = "Differences (" .. #diffs .. ")" })
+			for _, ctrlInfo in ipairs(diffs) do
+				t_insert(displayList, { type = "row", ctrlInfo = ctrlInfo })
+			end
+		end
+
+		-- Collect eligible non-diff options for "All Configurations" section
+		local configs = {}
+		for _, ctrlInfo in ipairs(self.configControlList) do
+			local pVal = pInput[ctrlInfo.varData.var]
+			local cVal = cInput[ctrlInfo.varData.var]
+			-- Only include non-diff options
+			if tostring(pVal or "") == tostring(cVal or "") then
+				if ctrlInfo.alwaysShow or (self.configToggle and ctrlInfo.showWithToggle) then
+					t_insert(configs, ctrlInfo)
+				end
+			end
+		end
+
+		if #configs > 0 then
+			t_insert(displayList, { type = "header", text = "All Configurations" })
+			for _, ctrlInfo in ipairs(configs) do
+				t_insert(displayList, { type = "row", ctrlInfo = ctrlInfo })
+			end
+		end
+
+		self.configDisplayList = displayList
+
+		-- First, hide ALL config controls (will selectively show visible ones)
+		for _, ctrlInfo in ipairs(self.configControlList) do
+			ctrlInfo.control.shown = function() return false end
+		end
+
+		-- Position visible controls at absolute coords matching DrawConfig layout
+		local col2AbsX = contentVP.x + 300
+		local fixedHeaderHeight = 58 -- buttons + column headers + separator (not scrollable)
+		local scrollTopAbs = contentVP.y + fixedHeaderHeight -- top of scrollable area
+		local startY = fixedHeaderHeight -- content starts after fixed header
+		local currentY = startY
+		for _, item in ipairs(displayList) do
+			if item.type == "header" then
+				currentY = currentY + sectionHeaderHeight
+			elseif item.type == "row" then
+				local absY = contentVP.y + currentY - self.scrollY
+				item.ctrlInfo.control.x = col2AbsX
+				item.ctrlInfo.control.y = absY
+				local cy = currentY -- capture for closure
+				item.ctrlInfo.control.shown = function()
+					local ay = contentVP.y + cy - self.scrollY
+					return ay >= scrollTopAbs - 20 and ay < contentVP.y + contentVP.height
+						and self.compareViewMode == "CONFIG" and self:GetActiveCompare() ~= nil
+				end
+				currentY = currentY + rowHeight
+			end
+		end
+	end
+
 	-- Update comparison build set selectors
 	if compareEntry then
 		-- Tree spec list (reuse GetSpecList from TreeTab)
@@ -755,25 +1125,23 @@ function CompareTabClass:DrawSummary(vp, compareEntry)
 
 	local lineHeight = 18
 	local headerHeight = 22
-	local colWidth = m_floor(vp.width / 2)
+
+	-- Column positions
+	local col1 = 10   -- Stat name
+	local col2 = 300  -- Primary value
+	local col3 = 450  -- Compare value
+	local col4 = 600  -- Difference
 
 	SetViewport(vp.x, vp.y, vp.width, vp.height)
 	local drawY = 4 - self.scrollY
 
 	-- Headers
 	SetDrawColor(1, 1, 1)
-	DrawString(10, drawY, "LEFT", headerHeight, "VAR", colorCodes.POSITIVE .. (self.primaryBuild.buildName or "Your Build"))
-	DrawString(colWidth + 10, drawY, "LEFT", headerHeight, "VAR", colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
+	DrawString(col1, drawY, "LEFT", headerHeight, "VAR", "^7Stat")
+	DrawString(col2, drawY, "LEFT", headerHeight, "VAR", colorCodes.POSITIVE .. self:GetShortBuildName(self.primaryBuild.buildName))
+	DrawString(col3, drawY, "LEFT", headerHeight, "VAR", colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
+	DrawString(col4, drawY, "LEFT", headerHeight, "VAR", "^7Difference")
 	drawY = drawY + headerHeight + 4
-
-	-- Separator
-	SetDrawColor(0.5, 0.5, 0.5)
-	DrawImage(nil, 4, drawY, vp.width - 8, 2)
-	drawY = drawY + 6
-
-	-- Progress section
-	drawY = self:DrawProgressSection(drawY, colWidth, vp, compareEntry)
-	drawY = drawY + 4
 
 	-- Separator
 	SetDrawColor(0.5, 0.5, 0.5)
@@ -785,7 +1153,7 @@ function CompareTabClass:DrawSummary(vp, compareEntry)
 	local primaryEnv = self.primaryBuild.calcsTab.mainEnv
 	local compareEnv = compareEntry.calcsTab.mainEnv
 
-	drawY = self:DrawStatList(drawY, colWidth, vp, displayStats, primaryOutput, compareOutput, primaryEnv, compareEnv)
+	drawY = self:DrawStatList(drawY, vp, displayStats, primaryOutput, compareOutput, primaryEnv, compareEnv, col1, col2, col3, col4)
 
 	SetViewport()
 end
@@ -886,7 +1254,7 @@ function CompareTabClass:DrawProgressSection(drawY, colWidth, vp, compareEntry)
 	return drawY
 end
 
-function CompareTabClass:DrawStatList(drawY, colWidth, vp, displayStats, primaryOutput, compareOutput, primaryEnv, compareEnv)
+function CompareTabClass:DrawStatList(drawY, vp, displayStats, primaryOutput, compareOutput, primaryEnv, compareEnv, col1, col2, col3, col4)
 	local lineHeight = 16
 
 	-- Get skill flags from both builds for stat filtering
@@ -932,7 +1300,7 @@ function CompareTabClass:DrawStatList(drawY, colWidth, vp, displayStats, primary
 				primaryStr = formatNumSep(primaryStr)
 				compareStr = formatNumSep(compareStr)
 
-				-- Determine diff color
+				-- Determine diff color and string
 				local diff = compareVal - primaryVal
 				local diffStr = ""
 				local diffColor = "^7"
@@ -942,15 +1310,20 @@ function CompareTabClass:DrawStatList(drawY, colWidth, vp, displayStats, primary
 					local diffVal = diff * multiplier
 					diffStr = s_format("%+"..fmt, diffVal)
 					diffStr = formatNumSep(diffStr)
+					-- Add percentage if primary value is non-zero
+					if primaryVal ~= 0 then
+						local pc = compareVal / primaryVal * 100 - 100
+						diffStr = diffStr .. s_format(" (%+.1f%%)", pc)
+					end
 				end
 
-				-- Draw stat row with color-coded label (matches sidebar)
+				-- Draw stat row
 				local labelColor = statData.color or "^7"
-				DrawString(20, drawY, "LEFT", lineHeight, "VAR", labelColor .. (statData.label or statData.stat) .. ":")
-				DrawString(colWidth - 10, drawY, "RIGHT", lineHeight, "VAR", "^7" .. primaryStr)
-				DrawString(colWidth + colWidth - 10, drawY, "RIGHT", lineHeight, "VAR", diffColor .. compareStr)
+				DrawString(col1, drawY, "LEFT", lineHeight, "VAR", labelColor .. (statData.label or statData.stat))
+				DrawString(col2, drawY, "LEFT", lineHeight, "VAR", "^7" .. primaryStr)
+				DrawString(col3, drawY, "LEFT", lineHeight, "VAR", diffColor .. compareStr)
 				if diffStr ~= "" then
-					DrawString(colWidth + colWidth + 10, drawY, "LEFT", lineHeight, "VAR", diffColor .. "(" .. diffStr .. ")")
+					DrawString(col4, drawY, "LEFT", lineHeight, "VAR", diffColor .. diffStr)
 				end
 				drawY = drawY + lineHeight + 1
 			end
@@ -961,9 +1334,9 @@ function CompareTabClass:DrawStatList(drawY, colWidth, vp, displayStats, primary
 				local valStr = statData.val or ""
 				local primaryShown = statData.condFunc(primaryOutput)
 				local compareShown = statData.condFunc(compareOutput)
-				DrawString(20, drawY, "LEFT", lineHeight, "VAR", labelColor .. statData.label .. ":")
-				DrawString(colWidth - 10, drawY, "RIGHT", lineHeight, "VAR", "^7" .. (primaryShown and valStr or "-"))
-				DrawString(colWidth + colWidth - 10, drawY, "RIGHT", lineHeight, "VAR", "^7" .. (compareShown and valStr or "-"))
+				DrawString(col1, drawY, "LEFT", lineHeight, "VAR", labelColor .. statData.label)
+				DrawString(col2, drawY, "LEFT", lineHeight, "VAR", "^7" .. (primaryShown and valStr or "-"))
+				DrawString(col3, drawY, "LEFT", lineHeight, "VAR", "^7" .. (compareShown and valStr or "-"))
 				drawY = drawY + lineHeight + 1
 			end
 		end
@@ -981,11 +1354,6 @@ function CompareTabClass:DrawTree(vp, inputEvents, compareEntry)
 	local halfWidth = layout.halfWidth
 	local footerHeight = layout.footerHeight
 	local labelHeight = 20
-
-	-- Labels (drawn in absolute screen coords before any viewport changes)
-	SetDrawColor(1, 1, 1)
-	DrawString(vp.x + halfWidth / 2, vp.y + 2, "CENTER", 16, "VAR", colorCodes.POSITIVE .. (self.primaryBuild.buildName or "Your Build"))
-	DrawString(vp.x + halfWidth + 4 + halfWidth / 2, vp.y + 2, "CENTER", 16, "VAR", colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
 
 	-- Divider (full height including footer)
 	SetDrawColor(0.5, 0.5, 0.5)
@@ -1059,7 +1427,7 @@ function CompareTabClass:DrawItems(vp, compareEntry)
 
 	-- Headers
 	SetDrawColor(1, 1, 1)
-	DrawString(10, drawY, "LEFT", 18, "VAR", colorCodes.POSITIVE .. (self.primaryBuild.buildName or "Your Build"))
+	DrawString(10, drawY, "LEFT", 18, "VAR", colorCodes.POSITIVE .. self:GetShortBuildName(self.primaryBuild.buildName))
 	DrawString(colWidth + 10, drawY, "LEFT", 18, "VAR", colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
 	drawY = drawY + 24
 
@@ -1169,7 +1537,7 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 
 	-- Headers
 	SetDrawColor(1, 1, 1)
-	DrawString(10, drawY, "LEFT", 18, "VAR", colorCodes.POSITIVE .. (self.primaryBuild.buildName or "Your Build") .. " - Socket Groups")
+	DrawString(10, drawY, "LEFT", 18, "VAR", colorCodes.POSITIVE .. self:GetShortBuildName(self.primaryBuild.buildName) .. " - Socket Groups")
 	DrawString(colWidth + 10, drawY, "LEFT", 18, "VAR", colorCodes.WARNING .. (compareEntry.label or "Compare Build") .. " - Socket Groups")
 	drawY = drawY + 24
 
@@ -1232,9 +1600,10 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 			local gemY = drawY + lineHeight
 			for _, gem in ipairs(pGroup.gemList or {}) do
 				local gemName = gem.grantedEffect and gem.grantedEffect.name or gem.nameSpec or "?"
+				local gemColor = gem.color or colorCodes.GEM
 				local levelStr = gem.level and (" Lv" .. gem.level) or ""
 				local qualStr = gem.quality and gem.quality > 0 and ("/" .. gem.quality .. "q") or ""
-				DrawString(20, gemY, "LEFT", 14, "VAR", colorCodes.GEM .. gemName .. "^7" .. levelStr .. qualStr)
+				DrawString(20, gemY, "LEFT", 14, "VAR", gemColor .. gemName .. "^7" .. levelStr .. qualStr)
 				gemY = gemY + 16
 			end
 		end
@@ -1250,9 +1619,10 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 			local gemY = drawY + lineHeight
 			for _, gem in ipairs(cGroup.gemList or {}) do
 				local gemName = gem.grantedEffect and gem.grantedEffect.name or gem.nameSpec or "?"
+				local gemColor = gem.color or colorCodes.GEM
 				local levelStr = gem.level and (" Lv" .. gem.level) or ""
 				local qualStr = gem.quality and gem.quality > 0 and ("/" .. gem.quality .. "q") or ""
-				DrawString(colWidth + 20, gemY, "LEFT", 14, "VAR", colorCodes.GEM .. gemName .. "^7" .. levelStr .. qualStr)
+				DrawString(colWidth + 20, gemY, "LEFT", 14, "VAR", gemColor .. gemName .. "^7" .. levelStr .. qualStr)
 				gemY = gemY + 16
 			end
 		end
@@ -1268,81 +1638,188 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 end
 
 -- ============================================================
--- CALCS VIEW
+-- CALCS VIEW (card-based sections with comparison)
 -- ============================================================
 function CompareTabClass:DrawCalcs(vp, compareEntry)
-	local primaryOutput = self.primaryBuild.calcsTab.mainOutput
-	local compareOutput = compareEntry:GetOutput()
-	if not primaryOutput or not compareOutput then
-		return
+	-- Get actors from both builds (use mainEnv, not calcsEnv, so skill dropdown is respected)
+	local primaryEnv = self.primaryBuild.calcsTab.mainEnv
+	local compareEnv = compareEntry.calcsTab and compareEntry.calcsTab.mainEnv
+	if not primaryEnv or not compareEnv then return end
+	local primaryActor = primaryEnv.player
+	local compareActor = compareEnv.player
+	if not primaryActor or not compareActor then return end
+
+	-- Load section definitions (cached)
+	if not self.calcSections then
+		self.calcSections = LoadModule("Modules/CalcSections")
 	end
 
-	local lineHeight = 16
-	local headerHeight = 20
-	local displayStats = self.primaryBuild.displayStats
+	-- Card dimensions
+	-- Layout: [2px border | 130px label | 2px gap | 2px sep | valW | 2px sep | valW | 2px border]
+	local cardWidth = m_min(400, vp.width - 16)
+	local labelWidth = 132
+	local sepW = 2
+	local valColWidth = m_floor((cardWidth - 140) / 2)
+	local valCol1X = labelWidth + sepW * 2
+	local valCol2X = valCol1X + valColWidth + sepW
 
-	SetViewport(vp.x, vp.y, vp.width, vp.height)
-	local drawY = 4 - self.scrollY
+	-- Layout parameters
+	local maxCol = m_max(1, m_floor(vp.width / (cardWidth + 8)))
+	local baseX = 4
+	local headerBarHeight = 24
+	local baseY = headerBarHeight
 
-	-- Column headers
-	local col1 = 10   -- Stat name
-	local col2 = 300  -- Your Build value
-	local col3 = 450  -- Compare Build value
-	local col4 = 600  -- Difference
-
-	SetDrawColor(1, 1, 1)
-	DrawString(col1, drawY, "LEFT", headerHeight, "VAR", "^7Stat")
-	DrawString(col2, drawY, "LEFT", headerHeight, "VAR", colorCodes.POSITIVE .. (self.primaryBuild.buildName or "Your Build"))
-	DrawString(col3, drawY, "LEFT", headerHeight, "VAR", colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
-	DrawString(col4, drawY, "LEFT", headerHeight, "VAR", "^7Difference")
-	drawY = drawY + headerHeight + 4
-
-	SetDrawColor(0.5, 0.5, 0.5)
-	DrawImage(nil, 4, drawY, vp.width - 8, 2)
-	drawY = drawY + 6
-
-	for _, statData in ipairs(displayStats) do
-		if statData.stat then
-			local primaryVal = primaryOutput[statData.stat] or 0
-			local compareVal = compareOutput[statData.stat] or 0
-
-			-- Skip table-type stat values (some outputs are breakdowns, not numbers)
-			if type(primaryVal) == "table" or type(compareVal) == "table" then
-				primaryVal = 0
-				compareVal = 0
+	-- Pre-compute section visibility and heights
+	local sections = {}
+	for _, secDef in ipairs(self.calcSections) do
+		local secWidth, id, group, colour, subSections = secDef[1], secDef[2], secDef[3], secDef[4], secDef[5]
+		local secData = subSections[1].data
+		-- Check section-level flags against primary actor
+		if self:CheckCalcFlag(secData, primaryActor) then
+			local subSecInfo = {}
+			local sectionHasRows = false
+			for _, subSec in ipairs(subSections) do
+				local rows = {}
+				for _, rowData in ipairs(subSec.data) do
+					-- Only include rows with a label and a first column with a format string
+					if rowData.label and rowData[1] and rowData[1].format then
+						if self:CheckCalcFlag(rowData, primaryActor) or self:CheckCalcFlag(rowData, compareActor) then
+							t_insert(rows, rowData)
+						end
+					end
+				end
+				if #rows > 0 then
+					t_insert(subSecInfo, { label = subSec.label, rows = rows, data = subSec.data })
+					sectionHasRows = true
+				end
 			end
+			if sectionHasRows then
+				-- Calculate card height
+				local height = 2
+				for _, si in ipairs(subSecInfo) do
+					height = height + 22 + #si.rows * 18
+					if #si.rows > 0 then
+						height = height + 2
+					end
+				end
+				t_insert(sections, {
+					id = id, group = group, colour = colour,
+					subSecs = subSecInfo,
+					height = height,
+				})
+			end
+		end
+	end
 
-			if primaryVal ~= 0 or compareVal ~= 0 then
-				if not statData.condFunc or statData.condFunc(primaryVal, primaryOutput) or statData.condFunc(compareVal, compareOutput) then
-					local fmt = statData.fmt or "d"
-					local multiplier = (statData.pc or statData.mod) and 100 or 1
+	-- Layout: place sections into shortest column
+	local colY = {}
+	local maxY = baseY
+	for _, sec in ipairs(sections) do
+		local col = 1
+		local minY = colY[1] or baseY
+		for c = 2, maxCol do
+			if (colY[c] or baseY) < minY then
+				col = c
+				minY = colY[c] or baseY
+			end
+		end
+		sec.drawX = baseX + (cardWidth + 8) * (col - 1)
+		sec.drawY = colY[col] or baseY
+		colY[col] = sec.drawY + sec.height + 8
+		maxY = m_max(maxY, colY[col])
+	end
 
-					local primaryStr = s_format("%"..fmt, primaryVal * multiplier)
-					local compareStr = s_format("%"..fmt, compareVal * multiplier)
-					primaryStr = formatNumSep(primaryStr)
-					compareStr = formatNumSep(compareStr)
+	-- Set viewport for scroll clipping
+	SetViewport(vp.x, vp.y, vp.width, vp.height)
 
-					local diff = compareVal - primaryVal
-					local diffStr = ""
-					local diffColor = "^7"
-					if diff > 0.001 or diff < -0.001 then
-						local isBetter = (statData.lowerIsBetter and diff < 0) or (not statData.lowerIsBetter and diff > 0)
-						diffColor = isBetter and colorCodes.POSITIVE or colorCodes.NEGATIVE
-						diffStr = s_format("%+"..fmt, diff * multiplier)
-						diffStr = formatNumSep(diffStr)
-						if statData.compPercent and primaryVal ~= 0 then
-							local pc = compareVal / primaryVal * 100 - 100
-							diffStr = diffStr .. s_format(" (%+.1f%%)", pc)
+	-- Draw header bar with build names
+	local headerY = 4 - self.scrollY
+	SetDrawColor(1, 1, 1)
+	DrawString(baseX + valCol1X, headerY, "LEFT", 14, "VAR",
+		colorCodes.POSITIVE .. self:GetShortBuildName(self.primaryBuild.buildName))
+	DrawString(baseX + valCol2X, headerY, "LEFT", 14, "VAR",
+		colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
+	SetDrawColor(0.5, 0.5, 0.5)
+	DrawImage(nil, 4, headerY + 16, vp.width - 8, 1)
+
+	-- Draw section cards
+	for _, sec in ipairs(sections) do
+		local x = sec.drawX
+		local y = sec.drawY - self.scrollY
+
+		-- Skip if entirely off-screen
+		if y + sec.height >= 0 and y < vp.height then
+			-- Draw border
+			SetDrawLayer(nil, -10)
+			SetDrawColor(sec.colour)
+			DrawImage(nil, x, y, cardWidth, sec.height)
+			-- Draw background
+			SetDrawColor(0.10, 0.10, 0.10)
+			DrawImage(nil, x + 2, y + 2, cardWidth - 4, sec.height - 4)
+			SetDrawLayer(nil, 0)
+
+			local lineY = y
+			for _, subSec in ipairs(sec.subSecs) do
+				-- Separator above header
+				SetDrawColor(sec.colour)
+				DrawImage(nil, x + 2, lineY, cardWidth - 4, 2)
+				-- Header text
+				DrawString(x + 3, lineY + 3, "LEFT", 16, "VAR BOLD", "^7" .. subSec.label .. ":")
+				-- Show extra info (e.g. "4521/5000 | 3800/4200")
+				if subSec.data and subSec.data.extra then
+					local extraTextW = DrawStringWidth(16, "VAR BOLD", subSec.label .. ":")
+					local extraX = x + 3 + extraTextW + 8
+					local ok1, pExtra = pcall(self.FormatStr, self, subSec.data.extra, primaryActor)
+					local ok2, cExtra = pcall(self.FormatStr, self, subSec.data.extra, compareActor)
+					if ok1 and ok2 then
+						DrawString(extraX, lineY + 3, "LEFT", 16, "VAR",
+							colorCodes.POSITIVE .. pExtra .. "  ^8|  " .. colorCodes.WARNING .. cExtra)
+					end
+				end
+				-- Separator below header
+				SetDrawColor(sec.colour)
+				DrawImage(nil, x + 2, lineY + 20, cardWidth - 4, 2)
+				lineY = lineY + 22
+
+				-- Draw rows
+				for _, rowData in ipairs(subSec.rows) do
+					local colData = rowData[1]
+					local textSize = rowData.textSize or 14
+
+					-- Label background and text
+					SetDrawColor(rowData.bgCol or "^0")
+					DrawImage(nil, x + 2, lineY, labelWidth - 2, 18)
+					local textColor = rowData.color or "^7"
+					DrawString(x + labelWidth, lineY + 1, "RIGHT_X", 16, "VAR", textColor .. rowData.label .. "^7:")
+
+					-- Primary value column
+					SetDrawColor(sec.colour)
+					DrawImage(nil, x + valCol1X - sepW, lineY, sepW, 18)
+					SetDrawColor(rowData.bgCol or "^0")
+					DrawImage(nil, x + valCol1X, lineY, valColWidth, 18)
+					if colData and colData.format then
+						local ok, str = pcall(self.FormatStr, self, colData.format, primaryActor, colData)
+						if ok and str then
+							DrawString(x + valCol1X + 2, lineY + 9 - textSize / 2, "LEFT", textSize, "VAR", "^7" .. str)
 						end
 					end
 
-					DrawString(col1, drawY, "LEFT", lineHeight, "VAR", "^7" .. (statData.label or statData.stat))
-					DrawString(col2, drawY, "LEFT", lineHeight, "VAR", "^7" .. primaryStr)
-					DrawString(col3, drawY, "LEFT", lineHeight, "VAR", diffColor .. compareStr)
-					if diffStr ~= "" then
-						DrawString(col4, drawY, "LEFT", lineHeight, "VAR", diffColor .. diffStr)
+					-- Compare value column
+					SetDrawColor(sec.colour)
+					DrawImage(nil, x + valCol2X - sepW, lineY, sepW, 18)
+					SetDrawColor(rowData.bgCol or "^0")
+					DrawImage(nil, x + valCol2X, lineY, valColWidth, 18)
+					if colData and colData.format then
+						local ok, str = pcall(self.FormatStr, self, colData.format, compareActor, colData)
+						if ok and str then
+							DrawString(x + valCol2X + 2, lineY + 9 - textSize / 2, "LEFT", textSize, "VAR", "^7" .. str)
+						end
 					end
-					drawY = drawY + lineHeight + 1
+
+					lineY = lineY + 18
+				end
+				if #subSec.rows > 0 then
+					lineY = lineY + 2
 				end
 			end
 		end
@@ -1355,74 +1832,73 @@ end
 -- CONFIG VIEW
 -- ============================================================
 function CompareTabClass:DrawConfig(vp, compareEntry)
-	local lineHeight = 18
-	local headerHeight = 20
+	local rowHeight = 22
+	local sectionHeaderHeight = 24
+	local columnHeaderHeight = 20
+	local fixedHeaderHeight = 58 -- buttons + column headers + separator (not scrollable)
 
-	SetViewport(vp.x, vp.y, vp.width, vp.height)
-	local drawY = 4 - self.scrollY
-
-	-- Headers
+	-- Column positions (viewport-relative)
 	local col1 = 10
-	local col2 = 300
-	local col3 = 500
+	local col2 = 300    -- primary value (interactive controls drawn by ControlHost)
+	local col3 = 500    -- compare value (read-only)
 
+	-- Fixed header area: buttons at top, then column headers + separator
+	SetViewport(vp.x, vp.y, vp.width, fixedHeaderHeight)
+	-- Buttons (Copy Config + Toggle) are drawn by ControlHost at y=4
+	-- Column headers below buttons
+	local colHeaderY = 28
 	SetDrawColor(1, 1, 1)
-	DrawString(col1, drawY, "LEFT", headerHeight, "VAR", "^7Configuration Option")
-	DrawString(col2, drawY, "LEFT", headerHeight, "VAR", colorCodes.POSITIVE .. (self.primaryBuild.buildName or "Your Build"))
-	DrawString(col3, drawY, "LEFT", headerHeight, "VAR", colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
-	drawY = drawY + headerHeight + 4
-
+	DrawString(col1, colHeaderY, "LEFT", columnHeaderHeight, "VAR", "^7Configuration Option")
+	DrawString(col2, colHeaderY, "LEFT", columnHeaderHeight, "VAR",
+		colorCodes.POSITIVE .. self:GetShortBuildName(self.primaryBuild.buildName))
+	DrawString(col3, colHeaderY, "LEFT", columnHeaderHeight, "VAR",
+		colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
 	SetDrawColor(0.5, 0.5, 0.5)
-	DrawImage(nil, 4, drawY, vp.width - 8, 2)
-	drawY = drawY + 6
+	DrawImage(nil, 4, colHeaderY + columnHeaderHeight + 4, vp.width - 8, 2)
 
-	-- Compare config inputs
-	local pInput = self.primaryBuild.configTab.input or {}
+	-- Scrollable content area (clipped below fixed header so content can't bleed through buttons)
+	local scrollH = vp.height - fixedHeaderHeight
+	if scrollH <= 0 then
+		SetViewport()
+		return
+	end
+	SetViewport(vp.x, vp.y + fixedHeaderHeight, vp.width, scrollH)
+
 	local cInput = compareEntry.configTab.input or {}
+	local currentY = 0 -- relative to scrollable viewport
 
-	-- Collect all unique keys
-	local allKeys = {}
-	local keySet = {}
-	for k, _ in pairs(pInput) do
-		if not keySet[k] then
-			t_insert(allKeys, k)
-			keySet[k] = true
-		end
-	end
-	for k, _ in pairs(cInput) do
-		if not keySet[k] then
-			t_insert(allKeys, k)
-			keySet[k] = true
-		end
-	end
-	table.sort(allKeys)
-
-	local diffCount = 0
-	for _, key in ipairs(allKeys) do
-		local pVal = pInput[key]
-		local cVal = cInput[key]
-
-		-- Only show differences
-		if tostring(pVal or "") ~= tostring(cVal or "") then
-			local pStr = pVal ~= nil and tostring(pVal) or "^8(not set)"
-			local cStr = cVal ~= nil and tostring(cVal) or "^8(not set)"
-
-			-- Format boolean values
-			if pVal == true then pStr = colorCodes.POSITIVE .. "Yes"
-			elseif pVal == false then pStr = colorCodes.NEGATIVE .. "No" end
-			if cVal == true then cStr = colorCodes.POSITIVE .. "Yes"
-			elseif cVal == false then cStr = colorCodes.NEGATIVE .. "No" end
-
-			DrawString(col1, drawY, "LEFT", lineHeight, "VAR", "^7" .. key)
-			DrawString(col2, drawY, "LEFT", lineHeight, "VAR", "^7" .. pStr)
-			DrawString(col3, drawY, "LEFT", lineHeight, "VAR", "^7" .. cStr)
-			drawY = drawY + lineHeight + 1
-			diffCount = diffCount + 1
+	-- Draw from the computed display list (built in Draw())
+	for _, item in ipairs(self.configDisplayList) do
+		if item.type == "header" then
+			local headerY = currentY - self.scrollY
+			if headerY + sectionHeaderHeight >= 0 and headerY < scrollH then
+				-- Section header text
+				SetDrawColor(1, 1, 1)
+				DrawString(col1, headerY + 4, "LEFT", 16, "VAR BOLD", "^7" .. item.text)
+				-- Thin separator below header
+				SetDrawColor(0.4, 0.4, 0.4)
+				DrawImage(nil, col1, headerY + sectionHeaderHeight - 2, vp.width - col1 * 2, 1)
+			end
+			currentY = currentY + sectionHeaderHeight
+		elseif item.type == "row" then
+			local rowY = currentY - self.scrollY
+			if rowY + rowHeight >= 0 and rowY < scrollH then
+				local varData = item.ctrlInfo.varData
+				-- Label (col1)
+				SetDrawColor(1, 1, 1)
+				DrawString(col1, rowY + 2, "LEFT", 16, "VAR", "^7" .. (varData.label or varData.var))
+				-- Compare value (col3, read-only)
+				local cVal = cInput[varData.var]
+				local cStr = self:FormatConfigValue(varData, cVal)
+				DrawString(col3, rowY + 2, "LEFT", 16, "VAR", "^7" .. cStr)
+			end
+			currentY = currentY + rowHeight
 		end
 	end
 
-	if diffCount == 0 then
-		DrawString(10, drawY, "LEFT", lineHeight, "VAR", colorCodes.POSITIVE .. "No configuration differences found.")
+	if #self.configDisplayList == 0 then
+		DrawString(10, -self.scrollY, "LEFT", 16, "VAR",
+			colorCodes.POSITIVE .. "No configuration options to display.")
 	end
 
 	SetViewport()
