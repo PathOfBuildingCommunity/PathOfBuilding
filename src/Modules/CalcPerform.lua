@@ -2032,54 +2032,66 @@ function calcs.perform(env, skipEHP)
 	local allyBuffs = env.partyMembers["Aura"]
 	local buffExports = { Aura = {}, Curse = {}, Warcry = {}, Link = {}, EnemyMods = {}, EnemyConditions = {}, PlayerMods = {} }
 	local hasActiveSpectreSkill = false
+	local activeSpectreList = { }
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		if not activeSkill.skillFlags.disable then
 			local skillId = activeSkill.activeEffect.grantedEffect.id
 			if skillId and skillId:match("^RaiseSpectre") then
 				hasActiveSpectreSkill = true
-				break
+				if activeSkill.minion and activeSkill.minion.type then
+					t_insert(activeSpectreList, activeSkill.minion.type)
+				end
 			end
 		end
 	end
 	if hasActiveSpectreSkill then
 		for spectreId = 1, #env.spec.build.spectreList do
-			local spectreData = data.minions[env.spec.build.spectreList[spectreId]]
-			if not modDB.conditions["HaveBeastSpectre"] then
-				-- Change to grab from monster family using CorpseTypeTags.dat if other monster families are needed in the future
-				for _, tagName in ipairs(spectreData.monsterTags) do
-					if tagName == "beast" then
-						modDB.conditions["HaveBeastSpectre"] = true
-						break
-					end
+			local isThisSpectreActive = false
+			for _, spectreType in ipairs(activeSpectreList) do
+				if env.spec.build.spectreList[spectreId] == spectreType then
+					isThisSpectreActive = true
+					break
 				end
 			end
-			for modId = 1, #spectreData.modList do
-				local modData = spectreData.modList[modId]
-				if modData.name == "EnemyCurseLimit" then
-					minionCurses.limit = modData.value + 1
-					break
-				elseif modData.name == "AllyModifier" and modData.type == "LIST" then
-					buffs["Spectre"] = buffs["Spectre"] or new("ModList")
-					minionBuffs["Spectre"] = minionBuffs["Spectre"] or new("ModList")
-					for _, modValue in pairs(modData.value) do
-						local copyModValue = copyTable(modValue)
-						copyModValue.source = "Spectre:"..spectreData.name
-						t_insert(minionBuffs["Spectre"], copyModValue)
-						t_insert(buffs["Spectre"], copyModValue)
+			if isThisSpectreActive then
+				local spectreData = data.minions[env.spec.build.spectreList[spectreId]]
+				if not modDB.conditions["HaveBeastSpectre"] then
+					-- Change to grab from monster family using CorpseTypeTags.dat if other monster families are needed in the future
+					for _, tagName in ipairs(spectreData.monsterTags) do
+						if tagName == "beast" then
+							modDB.conditions["HaveBeastSpectre"] = true
+							break
+						end
 					end
-				elseif modData.name == "MinionModifier" and modData.type == "LIST" then
-					minionBuffs["Spectre"] = minionBuffs["Spectre"] or new("ModList")
-					for _, modValue in pairs(modData.value) do
-						local copyModValue = copyTable(modValue)
-						copyModValue.source = "Spectre:"..spectreData.name
-						t_insert(minionBuffs["Spectre"], copyModValue)
-					end
-				elseif modData.name == "PlayerModifier" and modData.type == "LIST" then
-					buffs["Spectre"] = buffs["Spectre"] or new("ModList")
-					for _, modValue in pairs(modData.value) do
-						local copyModValue = copyTable(modValue)
-						copyModValue.source = "Spectre:"..spectreData.name
-						t_insert(buffs["Spectre"], copyModValue)
+				end
+				for modId = 1, #spectreData.modList do
+					local modData = spectreData.modList[modId]
+					if modData.name == "EnemyCurseLimit" then
+						minionCurses.limit = modData.value + 1
+						break
+					elseif modData.name == "AllyModifier" and modData.type == "LIST" then
+						buffs["Spectre"] = buffs["Spectre"] or new("ModList")
+						minionBuffs["Spectre"] = minionBuffs["Spectre"] or new("ModList")
+						for _, modValue in pairs(modData.value) do
+							local copyModValue = copyTable(modValue)
+							copyModValue.source = "Spectre:"..spectreData.name
+							t_insert(minionBuffs["Spectre"], copyModValue)
+							t_insert(buffs["Spectre"], copyModValue)
+						end
+					elseif modData.name == "MinionModifier" and modData.type == "LIST" then
+						minionBuffs["Spectre"] = minionBuffs["Spectre"] or new("ModList")
+						for _, modValue in pairs(modData.value) do
+							local copyModValue = copyTable(modValue)
+							copyModValue.source = "Spectre:"..spectreData.name
+							t_insert(minionBuffs["Spectre"], copyModValue)
+						end
+					elseif modData.name == "PlayerModifier" and modData.type == "LIST" then
+						buffs["Spectre"] = buffs["Spectre"] or new("ModList")
+						for _, modValue in pairs(modData.value) do
+							local copyModValue = copyTable(modValue)
+							copyModValue.source = "Spectre:"..spectreData.name
+							t_insert(buffs["Spectre"], copyModValue)
+						end
 					end
 				end
 			end
