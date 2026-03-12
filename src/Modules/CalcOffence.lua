@@ -3067,7 +3067,7 @@ function calcs.offence(env, actor, activeSkill)
 		elseif skillModList:Flag(cfg, "AllAddedDamageAsCold") then
 			addedDamageRedirectType = "Cold"
 		end
-		if addedDamageRedirectType and not activeSkill.activeEffect.grantedEffect.name == "Elemental Hit" then
+		if addedDamageRedirectType and activeSkill.activeEffect.grantedEffect.name ~= "Elemental Hit" then
 			for _, damageType in ipairs(dmgTypeList) do
 				if damageType ~= addedDamageRedirectType then
 					for _, value in ipairs(skillModList:Tabulate("BASE", cfg, damageType.."Min")) do

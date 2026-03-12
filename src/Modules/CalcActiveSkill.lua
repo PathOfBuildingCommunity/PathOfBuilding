@@ -173,7 +173,7 @@ function calcs.copyActiveSkill(env, mode, skill)
 		activeEffect.quality = skill.activeEffect.srcInstance.quality
 		activeEffect.qualityId = skill.activeEffect.srcInstance.qualityId
 		activeEffect.srcInstance = skill.activeEffect.srcInstance
-		activeEffect.gemData = skill.activeEffect.srcInstance.gemDat
+		activeEffect.gemData = skill.activeEffect.srcInstance.gemData
 	end
 
 	local newSkill = calcs.createActiveSkill(activeEffect, skill.supportList, skill.actor, skill.socketGroup, skill.summonSkill)

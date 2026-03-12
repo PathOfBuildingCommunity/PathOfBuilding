@@ -614,7 +614,7 @@ function CalcsTabClass:PowerBuilder()
 end
 
 function CalcsTabClass:CalculatePowerStat(selection, original, modified)
-	if modified.Minion and not selection.stat == "FullDPS" then
+	if modified.Minion and selection.stat ~= "FullDPS" then
 		original = original.Minion
 		modified = modified.Minion
 	end
