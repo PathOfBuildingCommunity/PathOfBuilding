@@ -492,6 +492,20 @@ function CalcsTabClass:PowerBuilder()
 	if coroutine.running() then
 		coroutine.yield()
 	end
+
+	local function buildMasteryEffectNode(node, effect)
+		local effectNode = {
+			id = node.id,
+			type = node.type,
+			name = node.name,
+			sd = { },
+		}
+		for i, sd in ipairs(effect.sd or { }) do
+			effectNode.sd[i] = sd
+		end
+		self.build.spec.tree:ProcessStats(effectNode)
+		return effectNode
+	end
 	
 	local start = GetTime()
 	local nodeIndex = 0
@@ -499,11 +513,25 @@ function CalcsTabClass:PowerBuilder()
 
 	for nodeId, node in pairs(self.build.spec.nodes) do
 		wipeTable(node.power)
+		if node.type == "Mastery" then
+			node.power.masteryEffects = { }
+		end
 		if node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
-			distanceMap[node.pathDist or 1000] = distanceMap[node.pathDist or 1000] or { }
-			distanceMap[node.pathDist or 1000][nodeId] = node
-			if not (self.nodePowerMaxDepth and self.nodePowerMaxDepth < node.pathDist) then
-				total = total + 1
+			if node.type == "Mastery" and node.allMasteryOptions then
+				if not (self.nodePowerMaxDepth and self.nodePowerMaxDepth < node.pathDist) then
+					for _, masteryEffect in ipairs(node.masteryEffects or { }) do
+						local assignedNodeId = isValueInTable(self.build.spec.masterySelections, masteryEffect.effect)
+						if not assignedNodeId or assignedNodeId == node.id then
+							total = total + 1
+						end
+					end
+				end
+			else
+				distanceMap[node.pathDist or 1000] = distanceMap[node.pathDist or 1000] or { }
+				distanceMap[node.pathDist or 1000][nodeId] = node
+				if not (self.nodePowerMaxDepth and self.nodePowerMaxDepth < node.pathDist) then
+					total = total + 1
+				end
 			end
 		end
 	end
@@ -572,6 +600,17 @@ function CalcsTabClass:PowerBuilder()
 					end
 				end
 			end
+			if node.type == "Mastery" then
+				local selectedEffectId = self.build.spec.masterySelections[node.id]
+				if selectedEffectId then
+					node.power.masteryEffects[selectedEffectId] = {
+						singleStat = node.power.singleStat,
+						pathPower = node.power.pathPower,
+						offence = node.power.offence,
+						defence = node.power.defence,
+					}
+				end
+			end
 			nodeIndex = nodeIndex + 1
 			if coroutine.running() and GetTime() - start > 100 then
 				if self.build.powerBuilderProgressCallback then
@@ -579,6 +618,69 @@ function CalcsTabClass:PowerBuilder()
 				end
 				coroutine.yield()
 				start = GetTime()
+			end
+		end
+	end
+
+	for nodeId, node in pairs(self.build.spec.nodes) do
+		if node.type == "Mastery" and node.allMasteryOptions and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
+			if not (self.nodePowerMaxDepth and self.nodePowerMaxDepth < node.pathDist) then
+				for _, masteryEffect in ipairs(node.masteryEffects or { }) do
+					local assignedNodeId = isValueInTable(self.build.spec.masterySelections, masteryEffect.effect)
+					if not assignedNodeId or assignedNodeId == node.id then
+						local effect = self.build.spec.tree.masteryEffects[masteryEffect.effect]
+						if effect then
+							local effectNode = buildMasteryEffectNode(node, effect)
+							if effectNode.modKey ~= "" then
+								if not cache[effectNode.modKey] then
+									cache[effectNode.modKey] = calcFunc({ addNodes = { [effectNode] = true } }, useFullDPS)
+								end
+								local output = cache[effectNode.modKey]
+								node.power.masteryEffects[effect.id] = { }
+								if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
+									node.power.masteryEffects[effect.id].singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
+									node.power.masteryEffects[effect.id].pathPower = node.power.masteryEffects[effect.id].singleStat
+									if node.path and not node.ascendancyName then
+										newPowerMax.singleStat = m_max(newPowerMax.singleStat, node.power.masteryEffects[effect.id].singleStat)
+										local pathNodes = {
+											[effectNode] = true
+										}
+										for _, pathNode in pairs(node.path) do
+											if pathNode ~= node then
+												pathNodes[pathNode] = true
+											end
+										end
+										if node.pathDist > 1 then
+											node.power.masteryEffects[effect.id].pathPower = self:CalculatePowerStat(self.powerStat, calcFunc({ addNodes = pathNodes }, useFullDPS), calcBase)
+										end
+									end
+									node.power.singleStat = m_max(node.power.singleStat or 0, node.power.masteryEffects[effect.id].singleStat)
+									node.power.pathPower = m_max(node.power.pathPower or 0, node.power.masteryEffects[effect.id].pathPower)
+								elseif not self.powerStat or not self.powerStat.ignoreForNodes then
+									node.power.masteryEffects[effect.id].offence, node.power.masteryEffects[effect.id].defence = self:CalculateCombinedOffDefStat(output, calcBase)
+									node.power.masteryEffects[effect.id].singleStat = node.power.masteryEffects[effect.id].offence
+									if node.path and not node.ascendancyName then
+										newPowerMax.offence = m_max(newPowerMax.offence, node.power.masteryEffects[effect.id].offence)
+										newPowerMax.defence = m_max(newPowerMax.defence, node.power.masteryEffects[effect.id].defence)
+										newPowerMax.offencePerPoint = m_max(newPowerMax.offencePerPoint, node.power.masteryEffects[effect.id].offence / node.pathDist)
+										newPowerMax.defencePerPoint = m_max(newPowerMax.defencePerPoint, node.power.masteryEffects[effect.id].defence / node.pathDist)
+									end
+									node.power.offence = m_max(node.power.offence or 0, node.power.masteryEffects[effect.id].offence)
+									node.power.defence = m_max(node.power.defence or 0, node.power.masteryEffects[effect.id].defence)
+									node.power.singleStat = m_max(node.power.singleStat or 0, node.power.masteryEffects[effect.id].singleStat)
+								end
+							end
+							nodeIndex = nodeIndex + 1
+							if coroutine.running() and GetTime() - start > 100 then
+								if self.build.powerBuilderProgressCallback then
+									self.build.powerBuilderProgressCallback(m_floor(nodeIndex/total*100))
+								end
+								coroutine.yield()
+								start = GetTime()
+							end
+						end
+					end
+				end
 			end
 		end
 	end

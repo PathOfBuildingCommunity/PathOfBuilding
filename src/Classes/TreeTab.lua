@@ -1093,6 +1093,53 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 				type = node.type,
 				pathDist = pathDist
 			})
+		elseif node.type == "Mastery" and node.power.masteryEffects and not node.ascendancyName then
+			local pathDist
+			if isAlloc then
+				pathDist = #(node.depends or { }) == 0 and 1 or #node.depends
+			else
+				pathDist = #(node.path or { }) == 0 and 1 or #node.path
+			end
+
+			for _, masteryEffect in ipairs(node.masteryEffects or { }) do
+				local effect = self.build.spec.tree.masteryEffects[masteryEffect.effect]
+				local effectPower = node.power.masteryEffects[masteryEffect.effect]
+				if effect and effectPower then
+					local nodePower = (effectPower.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
+					local pathPower = ((effectPower.pathPower or effectPower.singleStat or 0) / pathDist) * ((displayStat.pc or displayStat.mod) and 100 or 1)
+					local nodePowerStr = s_format("%"..displayStat.fmt, nodePower)
+					local pathPowerStr = s_format("%"..displayStat.fmt, pathPower)
+
+					nodePowerStr = formatNumSep(nodePowerStr)
+					pathPowerStr = formatNumSep(pathPowerStr)
+
+					if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
+						nodePowerStr = colorCodes.POSITIVE .. nodePowerStr
+					elseif (nodePower < 0 and not displayStat.lowerIsBetter) or (nodePower > 0 and displayStat.lowerIsBetter) then
+						nodePowerStr = colorCodes.NEGATIVE .. nodePowerStr
+					end
+					if (pathPower > 0 and not displayStat.lowerIsBetter) or (pathPower < 0 and displayStat.lowerIsBetter) then
+						pathPowerStr = colorCodes.POSITIVE .. pathPowerStr
+					elseif (pathPower < 0 and not displayStat.lowerIsBetter) or (pathPower > 0 and displayStat.lowerIsBetter) then
+						pathPowerStr = colorCodes.NEGATIVE .. pathPowerStr
+					end
+
+					local effectLabelParts = isAlloc and not node.allMasteryOptions and node.sd or effect.stats or effect.sd
+					t_insert(report, {
+						name = effectLabelParts and node.dn..": "..t_concat(effectLabelParts, " / ") or node.dn,
+						power = nodePower,
+						powerStr = nodePowerStr,
+						pathPower = pathPower,
+						pathPowerStr = pathPowerStr,
+						allocated = isAlloc,
+						id = node.id,
+						x = node.x,
+						y = node.y,
+						type = node.type,
+						pathDist = pathDist
+					})
+				end
+			end
 		end
 	end
 
