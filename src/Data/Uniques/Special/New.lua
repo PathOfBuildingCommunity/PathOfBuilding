@@ -83,6 +83,7 @@ While on Low Life, Life Flasks gain 4 Charges every 3 seconds
 [[
 The Broken Elegy
 Foul Staff
+Source: Drops from unique{Saresh, of the Weeping Black}
 LevelReq: 64
 Implicits: 1
 +22% Chance to Block Attack Damage while wielding a Staff
