@@ -740,6 +740,13 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("Speed", "INC", 20, "Her Embrace", ModFlag.Cast)
 			modDB:NewMod("MovementSpeed", "INC", 20, "Her Embrace")
 		end
+		if modDB:Flag(nil, "Condition:OnConsecratedGround") then
+			local effect = 1 + modDB:Sum("INC", nil, "ConsecratedGroundEffect") / 100
+			modDB:NewMod("LifeRegenPercent", "BASE", 5 * effect, "Consecrated Ground")
+			modDB:NewMod("CurseEffectOnSelf", "INC", -50 * effect, "Consecrated Ground")
+			modDB:NewMod("Accuracy", "INC", m_floor(modDB:Sum("INC", nil, "ConsecratedGroundAlsoAccuracy") * effect), "Consecrated Ground")
+			enemyDB:NewMod("DamageTaken", "INC", m_floor(enemyDB:Sum("INC", nil, "DamageTakenConsecratedGround") * effect), "Consecrated Ground")
+		end
 		if modDB:Flag(nil, "Condition:PhantasmalMight") then
 			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + (output.ActivePhantasmLimit or 1) - 1 -- slight hack to not double count the initial buff
 		end
@@ -1958,13 +1965,6 @@ function calcs.perform(env, skipEHP)
 				modDB.multipliers["AuraAffectingSelf"] = (modDB.multipliers["AuraAffectingSelf"] or 0) + 1
 			end
 		end
-	end
-
-	-- Deal with Consecrated Ground
-	if modDB:Flag(nil, "Condition:OnConsecratedGround") then
-		local effect = 1 + modDB:Sum("INC", nil, "ConsecratedGroundEffect") / 100
-		modDB:NewMod("LifeRegenPercent", "BASE", 5 * effect, "Consecrated Ground")
-		modDB:NewMod("CurseEffectOnSelf", "INC", -50 * effect, "Consecrated Ground")
 	end
 
 	if modDB:Flag(nil, "ManaAppliesToShockEffect") then
@@ -3395,12 +3395,6 @@ function calcs.perform(env, skipEHP)
 				modDB:NewMod("Condition:AppliedExposureRecently", "FLAG", true, "")
 			end
 		end
-	end
-
-	-- Handle consecrated ground effects on enemies
-	if enemyDB:Flag(nil, "Condition:OnConsecratedGround") then
-		local effect = 1 + modDB:Sum("INC", nil, "ConsecratedGroundEffect") / 100
-		enemyDB:NewMod("DamageTaken", "INC", enemyDB:Sum("INC", nil, "DamageTakenConsecratedGround") * effect, "Consecrated Ground")
 	end
 
 	-- Defence/offence calculations
