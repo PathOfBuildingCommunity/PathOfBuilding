@@ -584,7 +584,7 @@ local function applyEnemyModifiers(actor, clearCache)
 		local mod = value.value and value.value.mod
 		if mod and not cache[mod] then
 			local source = mod.source or value.mod.source
-			enemyDB:AddMod(modLib.setSource(mod, source))
+			enemyDB:AddMod(modLib.withSource(mod, source))
 			cache[mod] = true
 		end
 	end
@@ -1753,8 +1753,7 @@ function calcs.perform(env, skipEHP)
 			for _, value in ipairs(env.modDB:Tabulate(nil, nil, "EnemyModifier")) do
 				local mod = value.value and value.value.mod
 				if mod then
-					local copy = copyTable(mod, true)
-					env.minion.modDB:AddMod(modLib.setSource(copy, mod.source or value.mod.source))
+					env.minion.modDB:AddMod(modLib.withSource(mod, mod.source or value.mod.source))
 				end
 			end
 		end
@@ -2025,23 +2024,20 @@ function calcs.perform(env, skipEHP)
 					buffs["Spectre"] = buffs["Spectre"] or new("ModList")
 					minionBuffs["Spectre"] = minionBuffs["Spectre"] or new("ModList")
 					for _, modValue in pairs(modData.value) do
-						local copyModValue = copyTable(modValue)
-						copyModValue.source = "Spectre:"..spectreData.name
+						local copyModValue = modLib.withSource(modValue, "Spectre:"..spectreData.name)
 						t_insert(minionBuffs["Spectre"], copyModValue)
 						t_insert(buffs["Spectre"], copyModValue)
 					end
 				elseif modData.name == "MinionModifier" and modData.type == "LIST" then
 					minionBuffs["Spectre"] = minionBuffs["Spectre"] or new("ModList")
 					for _, modValue in pairs(modData.value) do
-						local copyModValue = copyTable(modValue)
-						copyModValue.source = "Spectre:"..spectreData.name
+						local copyModValue = modLib.withSource(modValue, "Spectre:"..spectreData.name)
 						t_insert(minionBuffs["Spectre"], copyModValue)
 					end
 				elseif modData.name == "PlayerModifier" and modData.type == "LIST" then
 					buffs["Spectre"] = buffs["Spectre"] or new("ModList")
 					for _, modValue in pairs(modData.value) do
-						local copyModValue = copyTable(modValue)
-						copyModValue.source = "Spectre:"..spectreData.name
+						local copyModValue = modLib.withSource(modValue, "Spectre:"..spectreData.name)
 						t_insert(buffs["Spectre"], copyModValue)
 					end
 				end
@@ -2557,7 +2553,7 @@ function calcs.perform(env, skipEHP)
 						source = source..castingMinion.minionData.name
 					end
 					for i = 1, #modList do
-						modList[i].source = source
+						modList[i] = modLib.withSource(modList[i], source)
 					end
 				end
 			end

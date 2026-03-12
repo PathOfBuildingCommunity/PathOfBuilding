@@ -310,7 +310,7 @@ local function applySocketMods(env, gem, groupCfg, socketNum, modSource)
 	socketCfg.skillGem = gem
 	socketCfg.socketNum = socketNum
 	for _, value in ipairs(env.modDB:List(socketCfg, "SocketProperty")) do
-		env.player.modDB:AddMod(modLib.setSource(value.value, modSource or groupCfg.slotName or ""))
+		env.player.modDB:AddMod(modLib.withSource(value.value, modSource or groupCfg.slotName or ""))
 	end
 end
 
@@ -1054,9 +1054,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 								end
 							end
 
-							local modCopy = copyTable(mod)
-							modLib.setSource(modCopy, item.modSource)
-							env.itemModDB:ScaleAddMod(modCopy, scale)
+							env.itemModDB:ScaleAddMod(modLib.withSource(mod, item.modSource), scale)
 
 							::skip_mod::
 						end
@@ -1684,7 +1682,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				}
 				local groupCfg = groupCfgList[slotName or "noSlot"][group]
 				for _, value in ipairs(env.modDB:List(groupCfg, "GroupProperty")) do
-					env.player.modDB:AddMod(modLib.setSource(value.value, groupCfg.slotName or ""))
+					env.player.modDB:AddMod(modLib.withSource(value.value, groupCfg.slotName or ""))
 				end
 
 				if index == env.mainSocketGroup and #socketGroupSkillList > 0 then
