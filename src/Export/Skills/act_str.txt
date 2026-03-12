@@ -478,7 +478,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill DivineBlast
-#flags attack melee area shieldAttack
+#flags attack area shieldAttack
 	parts = {
 		{
 			name = "Beam Implosion",
