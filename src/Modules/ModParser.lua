@@ -2877,6 +2877,7 @@ local specialModList = {
 		mod("DamageTakenOverTime", "MORE", -num, { type = "Condition", var = "HeartstopperDOT" }),
 		mod("DamageTakenOverTime", "MORE", -num * tonumber(duration) / 10, { type = "Condition", var = "HeartstopperAVERAGE" })
 	} end,
+	["take (%d+)%% less damage from hits"] = function(num) return { mod("DamageTakenWhenHit", "MORE", -num) } end,
 	-- Warden
 	["prevent %+(%d+)%% of suppressed spell damage per bark below maximum"] = function(num) return {
 	    mod("SpellSuppressionEffect", "BASE", num, { type = "Multiplier", var = "MissingBarkskinStacks" })
