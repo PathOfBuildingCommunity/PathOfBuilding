@@ -1416,6 +1416,13 @@ function calcs.perform(env, skipEHP)
 			end
 		end
 	end
+	
+	if modDB:Flag(env.player.mainSkill.skillCfg, "Condition:CanInflictHallowingFlame") then
+		local magnitude = 1 + modDB:Sum("INC", nil, "HallowingFlameMagnitude") / 100
+		local val = m_floor(25 * magnitude) -- Hallowing flame grants Attack Hits against you gain 25% of Physical Damage as Extra Fire Damage
+		modDB:NewMod("Multiplier:HallowingFlameMax", "BASE", 1, "Base")
+		modDB:NewMod("ExtraAura", "LIST", { onlyAllies = true, mod = modLib.createMod("PhysicalDamageGainAsLightning", "BASE", val, "Hallowing Flame", { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "ActorCondition", actor = "enemy", var = "HallowingFlame" }, { type = "Multiplier", var = "HallowingFlame", actor = "enemy", limitActor = "parent", limitVar = "HallowingFlameMax" }) })
+	end
 
 	-- Special handling of Mageblood
 	local maxLeftActiveMagicUtilityCount = modDB:Sum("BASE", nil, "LeftActiveMagicUtilityFlasks")
