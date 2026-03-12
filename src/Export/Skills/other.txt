@@ -497,6 +497,7 @@ local skills, mod, flag, skill = ...
 #skill AtziriUniqueStaffFlameblast
 #flags spell area
 	fromItem = true,
+#baseMod skill("radius", 25)
 #baseMod skill("triggerSource", "Queen's Demand")
 #mods
 
@@ -862,6 +863,7 @@ local skills, mod, flag, skill = ...
 #skill AtziriUniqueStaffStormCall
 #flags spell area
 	fromItem = true,
+#baseMod skill("radius", 20)
 #baseMod skill("triggerSource", "Queen's Demand")
 #mods
 
