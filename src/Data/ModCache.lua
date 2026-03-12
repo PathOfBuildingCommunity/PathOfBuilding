@@ -4297,6 +4297,7 @@ c["24% increased Evasion Rating per Frenzy Charge"]={{[1]={[1]={type="Multiplier
 c["24% increased Global Physical Damage"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=24}},nil}
 c["24% increased Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamage",type="INC",value=24}},nil}
 c["24% increased Melee Damage"]={{[1]={flags=256,keywordFlags=0,name="Damage",type="INC",value=24}},nil}
+c["24% increased Minion Duration"]={{[1]={[1]={skillType=88,type="SkillType"},[2]={skillType=9,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=24}},nil}
 c["24% increased Quantity of Items found"]={{[1]={flags=0,keywordFlags=0,name="LootQuantity",type="INC",value=24}},nil}
 c["24% increased Reservation Efficiency while affected by a Unique Abyss Jewel"]={{[1]={[1]={threshold=1,type="MultiplierThreshold",var="UniqueAbyssJewels"},flags=0,keywordFlags=0,name="ReservationEfficiency",type="INC",value=24}},nil}
 c["24% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=24}},nil}
@@ -5070,6 +5071,7 @@ c["31% increased Cast Speed"]={{[1]={flags=16,keywordFlags=0,name="Speed",type="
 c["31% increased Cost of Skills"]={{[1]={flags=0,keywordFlags=0,name="Cost",type="INC",value=31}},nil}
 c["31% increased Global Critical Strike Chance"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="CritChance",type="INC",value=31}},nil}
 c["31% increased Light Radius"]={{[1]={flags=0,keywordFlags=0,name="LightRadius",type="INC",value=31}},nil}
+c["31% increased Minion Duration"]={{[1]={[1]={skillType=88,type="SkillType"},[2]={skillType=9,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=31}},nil}
 c["31% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=31}},nil}
 c["310% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=310}},nil}
 c["32% increased Attributes"]={{[1]={flags=0,keywordFlags=0,name="Str",type="INC",value=32},[2]={flags=0,keywordFlags=0,name="Dex",type="INC",value=32},[3]={flags=0,keywordFlags=0,name="Int",type="INC",value=32},[4]={flags=0,keywordFlags=0,name="All",type="INC",value=32}},nil}
@@ -9989,8 +9991,10 @@ c["Minions deal 102 to 156 additional Physical Damage"]={{[1]={flags=0,keywordFl
 c["Minions deal 112% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=112}}}},nil}
 c["Minions deal 12% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=12}}}},nil}
 c["Minions deal 13% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=13}}}},nil}
+c["Minions deal 135% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=135}}}},nil}
 c["Minions deal 14% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=14}}}},nil}
 c["Minions deal 15% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=15}}}},nil}
+c["Minions deal 157% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=157}}}},nil}
 c["Minions deal 16% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=16}}}},nil}
 c["Minions deal 18% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=18}}}},nil}
 c["Minions deal 2% increased Damage per 5 Dexterity"]={{[1]={[1]={div=5,stat="Dex",type="PerStat"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=2}}}},nil}
@@ -10032,6 +10036,8 @@ c["Minions gain 20% of Physical Damage as Extra Cold Damage"]={{[1]={flags=0,key
 c["Minions gain 20% of Physical Damage as Extra Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="PhysicalDamageGainAsFire",type="BASE",value=20}}}},nil}
 c["Minions gain 40% of Maximum Life as Extra Maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="LifeGainAsEnergyShield",type="BASE",value=40}}}},nil}
 c["Minions gain 6% of Physical Damage as Extra Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="PhysicalDamageGainAsFire",type="BASE",value=6}}}},nil}
+c["Minions gain 71% of Physical Damage as Extra Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="PhysicalDamageGainAsChaos",type="BASE",value=71}}}},nil}
+c["Minions gain 83% of Physical Damage as Extra Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="PhysicalDamageGainAsChaos",type="BASE",value=83}}}},nil}
 c["Minions gain Added Physical Damage equal to 10% of Maximum Energy Shield on your Equipped Helmet"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={actor="parent",percent=10,stat="EnergyShieldOnHelmet",type="PercentStat"},flags=0,keywordFlags=0,name="PhysicalMin",type="BASE",value=1}}},[2]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={actor="parent",percent=10,stat="EnergyShieldOnHelmet",type="PercentStat"},flags=0,keywordFlags=0,name="PhysicalMax",type="BASE",value=1}}}},nil}
 c["Minions gain Unholy Might for 10 seconds on Kill"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={type="Condition",var="KilledRecently"},flags=0,keywordFlags=0,name="Condition:UnholyMight",type="FLAG",value=true}}}},nil}
 c["Minions gain Unholy Might for 5 seconds on Kill"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={type="Condition",var="KilledRecently"},flags=0,keywordFlags=0,name="Condition:UnholyMight",type="FLAG",value=true}}}},nil}
@@ -12332,6 +12338,7 @@ c["Trigger level 1 Summon Spirit of Utula Skill on taking a Savage Hit from a Un
 c["Trigger level 10 Consecrate when you deal a Critical Strike"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=10,skillId="TriggeredConsecrate",triggered=true}}},nil}
 c["Trigger level 20 Suspend in Time on Casting a Spell"]={nil,"Trigger level 20 Suspend in Time on Casting a Spell "}
 c["Trigger level 20 Suspend in Time on Casting a Spell 60% increased Spell Damage"]={nil,"Trigger level 20 Suspend in Time on Casting a Spell 60% increased Spell Damage "}
+c["Trigger level 25 Ceaseless Flesh once every second"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=25,skillId="CeaselessFleshUnique",triggered=true}}},nil}
 c["Triggered Spells Poison on Hit"]={{[1]={[1]={skillType=41,type="SkillType"},flags=0,keywordFlags=131072,name="PoisonChance",type="BASE",value=100}},nil}
 c["Triggers Level 15 Manifest Dancing Dervishes on Rampage"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=15,skillId="ManifestDancingDervishes",triggered=true}}},nil}
 c["Triggers Level 20 Blinding Aura when Equipped"]={{},nil}
@@ -12461,6 +12468,8 @@ c["When Hit during effect, 25% of Life loss from Damage taken occurs over 4 seco
 c["When Hit, gain a random Movement Speed modifier from 40% reduced to 100% increased until Hit again"]={{[1]={flags=0,keywordFlags=0,name="Condition:HaveGamblesprint",type="FLAG",value=true}},nil}
 c["When Hit, lose a Ghost Shroud to Recover Energy Shield equal to 3% of your Evasion Rating"]={nil,"lose a Ghost Shroud to Recover Energy Shield equal to 3% of your Evasion Rating "}
 c["When Hit, lose a Ghost Shroud to Recover Energy Shield equal to 3% of your Evasion Rating Limited to 1 Keystone Tattoo"]={nil,"lose a Ghost Shroud to Recover Energy Shield equal to 3% of your Evasion Rating Limited to 1 Keystone Tattoo "}
+c["When a nearby Minion dies, gain Rotten Bulwark equal to 9% of its maximum Life"]={nil,"When a nearby Minion dies, gain Rotten Bulwark equal to 9% of its maximum Life "}
+c["When a nearby Minion dies, gain Rotten Bulwark equal to 9% of its maximum Life Minions gain 83% of Physical Damage as Extra Chaos Damage"]={nil,"When a nearby Minion dies, gain Rotten Bulwark equal to 9% of its maximum Life Minions gain 83% of Physical Damage as Extra Chaos Damage "}
 c["When an Enemy Hit deals Elemental Damage to you, their Resistance to those Elements becomes zero for 4 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:HaveTrickstersSmile",type="FLAG",value=true}},nil}
 c["When you Attack, take 18% of Life as Physical Damage for each Warcry Exerting the Attack"]={{[1]={flags=0,keywordFlags=0,name="EchoesOfCreationSelfDamage",type="LIST",value={damageType="physical",dmgMult=18}}},nil}
 c["When you Attack, take 20% of Life as Physical Damage for each Warcry Exerting the Attack"]={{[1]={flags=0,keywordFlags=0,name="EchoesOfCreationSelfDamage",type="LIST",value={damageType="physical",dmgMult=20}}},nil}
