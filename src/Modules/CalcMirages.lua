@@ -35,7 +35,13 @@ local function calculateMirage(env, config)
 	end
 
 	if mirageSkill then
-		local newSkill, newEnv = calcs.copyActiveSkill(env, "CALCULATOR", mirageSkill)
+		local snapshot = calcs.snapshotActiveSkill(mirageSkill)
+		local newEnv, _, _, _ = calcs.initEnv(env.build, "CALCULATOR", env.override)
+		local newSkill = calcs.rebuildSkillFromSnapshot(newEnv, snapshot, newEnv.player)
+		if not newSkill then
+			config.mirageSkillNotFoundFunc(env, config)
+			return not config.calcMainSkillOffence
+		end
 		newSkill.skillCfg.skillCond["usedByMirage"] = true
 		newEnv.limitedSkills = newEnv.limitedSkills or {}
 		newEnv.limitedSkills[cacheSkillUUID(newSkill, newEnv)] = true

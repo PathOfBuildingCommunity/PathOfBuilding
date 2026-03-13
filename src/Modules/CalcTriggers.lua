@@ -31,14 +31,14 @@ end
 
 local function slotMatch(env, skill)
 	local fromItem = (env.player.mainSkill.activeEffect.grantedEffect.fromItem or skill.activeEffect.grantedEffect.fromItem)
-	fromItem = fromItem or (env.player.mainSkill.activeEffect.srcInstance and env.player.mainSkill.activeEffect.srcInstance.fromItem) or (skill.activeEffect.srcInstance and skill.activeEffect.srcInstance.fromItem)
+	fromItem = fromItem or calcs.getActiveEffectSourceValue(env.player.mainSkill.activeEffect, "fromItem") or calcs.getActiveEffectSourceValue(skill.activeEffect, "fromItem")
 	local match1 = fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
-	local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
+	local match2 = (not fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
 	return (match1 or match2)
 end
 
 function isTriggered(skill)
-	return skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered] or skill.activeEffect.grantedEffect.triggered or (skill.activeEffect.srcInstance and skill.activeEffect.srcInstance.triggered)
+	return skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered] or skill.activeEffect.grantedEffect.triggered or calcs.getActiveEffectSourceValue(skill.activeEffect, "triggered")
 end
 
 local function processAddedCastTime(skill, breakdown)
@@ -224,9 +224,10 @@ local function CWCHandler(env)
 		local triggerName = "Cast While Channeling"
 		local output = env.player.output
 		local breakdown = env.player.breakdown
+		local fromItem = calcs.getActiveEffectSourceValue(env.player.mainSkill.activeEffect, "fromItem", env.player.mainSkill.activeEffect.grantedEffect.fromItem)
 		for _, skill in ipairs(env.player.activeSkillList) do
-			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
-			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
+			local match1 = fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
+			local match2 = (not fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
 			if env.player.mainSkill.triggeredBy.gemData and calcLib.canGrantedEffectSupportActiveSkill(env.player.mainSkill.triggeredBy.gemData.grantedEffect, skill) and skill ~= env.player.mainSkill and (match1 or match2) and not isTriggered(skill) then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
@@ -785,7 +786,8 @@ local function defaultTriggerHandler(env, config)
 
 				-- If the current triggered skill ignores tick rate and is the only triggered skill by this trigger use charge based calcs
 				if actor.mainSkill.skillData.ignoresTickRate and ( not config.triggeredSkillCond or (triggeredSkills and #triggeredSkills == 1 and triggeredSkills[1] == packageSkillDataForSimulation(actor.mainSkill, env)) ) then
-					local overlaps = config.stagesAreOverlaps and env.player.mainSkill.skillPart == config.stagesAreOverlaps and env.player.mainSkill.activeEffect.srcInstance.skillStageCount or config.overlaps
+					local stageCount = calcs.getActiveEffectSelection(env.player.mainSkill.activeEffect, "skillStageCountCalcs", "skillStageCount", false, env.player.mainSkill.activeStageCount and env.player.mainSkill.activeStageCount + 1)
+					local overlaps = config.stagesAreOverlaps and env.player.mainSkill.skillPart == config.stagesAreOverlaps and stageCount or config.overlaps
 					output.SkillTriggerRate = m_min(output.TriggerRateCap, output.EffectiveSourceRate * (overlaps or 1))
 					if breakdown then
 						if overlaps then
@@ -808,7 +810,8 @@ local function defaultTriggerHandler(env, config)
 					end
 
 					-- stagesAreOverlaps is the skill part which makes the stages behave as overlaps
-					local hits_per_cast = config.stagesAreOverlaps and env.player.mainSkill.skillPart == config.stagesAreOverlaps and env.player.mainSkill.activeEffect.srcInstance.skillStageCount or 1
+					local stageCount = calcs.getActiveEffectSelection(env.player.mainSkill.activeEffect, "skillStageCountCalcs", "skillStageCount", false, env.player.mainSkill.activeStageCount and env.player.mainSkill.activeStageCount + 1)
+					local hits_per_cast = config.stagesAreOverlaps and env.player.mainSkill.skillPart == config.stagesAreOverlaps and stageCount or 1
 					output.SkillTriggerRate = hits_per_cast * output.SkillTriggerRate
 					if breakdown then
 						breakdown.SkillTriggerRate = {
@@ -1563,7 +1566,7 @@ function calcs.triggers(env, actor)
 		if config then
 		    config.actor = config.actor or actor
 			config.triggerName = config.triggerName or triggerName or skillName or uniqueName
-			config.triggerChance = config.triggerChance or (actor.mainSkill.activeEffect.srcInstance and actor.mainSkill.activeEffect.srcInstance.triggerChance)
+			config.triggerChance = config.triggerChance or calcs.getActiveEffectSourceValue(actor.mainSkill.activeEffect, "triggerChance")
 			local triggerHandler = config.customHandler or defaultTriggerHandler
 		    triggerHandler(env, config)
 		else

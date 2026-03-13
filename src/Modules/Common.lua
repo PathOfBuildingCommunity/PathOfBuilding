@@ -20,6 +20,7 @@ local b_and = bit.band
 local b_xor = bit.bxor
 
 common = { }
+local graphNodeTagKey = "__pobGraphNodeTag"
 
 -- External libraries
 common.curl = require("lcurl.safe")
@@ -404,20 +405,39 @@ function writeLuaTable(out, t, indent)
 	out:write('}')
 end
 
--- Make a copy of a table and all subtables
-function copyTable(tbl, noRecurse)
+function graphNodeTag(obj, label)
+	if launch.devMode and type(obj) == "table" then
+		rawset(obj, graphNodeTagKey, rawget(obj, graphNodeTagKey) or label or true)
+	end
+	return obj
+end
+
+local function copyTableInternal(tbl, noRecurse)
 	local out = {}
 	for k, v in pairs(tbl) do
 		if not noRecurse and type(v) == "table" then
-			out[k] = copyTable(v)
+			out[k] = copyTableInternal(v)
 		else
 			out[k] = v
 		end
 	end
 	return out
 end
+
+-- copyTable() is for plain acyclic data only. Graph objects such as env, activeSkill,
+-- ModDB, ModList, and cache entries must use copyTableSafe() or targeted/manual cloning.
+function copyTable(tbl, noRecurse)
+	if launch.devMode then
+		local graphNodeLabel = rawget(tbl, graphNodeTagKey)
+		if graphNodeLabel then
+			error("copyTable() cannot clone graph object '"..tostring(graphNodeLabel).."'; use copyTableSafe() or a targeted clone")
+		end
+	end
+	return copyTableInternal(tbl, noRecurse)
+end
 do
 	local subTableMap = { }
+	-- copyTableSafe() is reserved for graph-risk call sites such as shared mod payloads.
 	function copyTableSafe(tbl, noRecurse, preserveMeta, isSubTable)
 		local out = {}
 		if not noRecurse then
@@ -784,7 +804,9 @@ end
 
 -- Global Cache related
 function cacheData(uuid, env)
-	GlobalCache.cachedData[env.mode][uuid] = {
+	-- Cache entries intentionally retain live env/skill graph links for follow-up reads.
+	graphNodeTag(env, "Env")
+	GlobalCache.cachedData[env.mode][uuid] = graphNodeTag({
 		Name = env.player.mainSkill.activeEffect.grantedEffect.name,
 		Speed = env.player.output.Speed,
 		HitSpeed = env.player.output.HitSpeed,
@@ -799,7 +821,7 @@ function cacheData(uuid, env)
 		TotalDPS = env.player.output.TotalDPS,
 		ActiveSkill = env.player.mainSkill,
 		Env = env,
-	}
+	}, "SkillCacheEntry")
 end
 
 -- Wipe all the tables associated with Global Cache

@@ -32,6 +32,8 @@ local ModStoreClass = newClass("ModStore", function(self, parent)
 	self.actor = parent and parent.actor or { }
 	self.multipliers = { }
 	self.conditions = { }
+	-- ModDB/ModList instances participate in actor/parent graphs and are not plain copyTable() targets.
+	graphNodeTag(self, self._className or "ModStore")
 end)
 
 function ModStoreClass:ScaleAddMod(mod, scale, replace)
@@ -45,7 +47,7 @@ function ModStoreClass:ScaleAddMod(mod, scale, replace)
 	if scale == 1 or unscalable then
 		self:AddMod(mod)
 	else
-		local scaledMod = copyTable(mod)
+		local scaledMod = type(mod.value) == "table" and copyTableSafe(mod, false) or copyTable(mod)
 		local subMod = scaledMod
 		if type(scaledMod.value) == "table" then
 			if scaledMod.value.mod then
@@ -367,7 +369,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 				mult = 1 / mult
 			end
 			if type(value) == "table" then
-				value = copyTable(value)
+				value = copyTableSafe(value, false)
 				if value.mod then
 					value.mod.value = value.mod.value * mult + (tag.base or 0)
 					if limitTotal then
@@ -453,7 +455,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 				end 
 			end
 			if type(value) == "table" then
-				value = copyTable(value)
+				value = copyTableSafe(value, false)
 				if value.mod then
 					value.mod.value = value.mod.value * mult + (tag.base or 0)
 					if limitTotal then
@@ -502,7 +504,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 				end 
 			end
 			if type(value) == "table" then
-				value = copyTable(value)
+				value = copyTableSafe(value, false)
 				if value.mod then
 					value.mod.value = m_ceil(value.mod.value * mult + (tag.base or 0))
 					if limitTotal then

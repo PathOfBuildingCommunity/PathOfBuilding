@@ -533,7 +533,7 @@ function doActorLifeManaReservation(actor, addAura)
 		end
 		if addAura then
 			for _, value in ipairs(modDB:List(nil, "GrantReserved"..pool.."AsAura")) do
-				local auraMod = copyTable(value.mod)
+				local auraMod = type(value.mod.value) == "table" and copyTableSafe(value.mod, false) or copyTable(value.mod)
 				auraMod.value = m_floor(auraMod.value * m_min(reserved, max))
 				modDB:NewMod("ExtraAura", "LIST", { mod = auraMod })
 			end
@@ -2301,7 +2301,7 @@ function calcs.perform(env, skipEHP)
 						for _, modList in ipairs(lists) do
 							for _, mod in ipairs(modList) do
 								if mod.name == "EnergyShield" or mod.name == "Armour" or mod.name == "Evasion" or mod.name:match("Resist?M?a?x?$") then
-									local totemMod = copyTable(mod)
+									local totemMod = type(mod.value) == "table" and copyTableSafe(mod, false) or copyTable(mod)
 									totemMod.name = "Totem"..totemMod.name
 									if scale ~= 1 then
 										if type(totemMod.value) == "number" then
@@ -2679,7 +2679,7 @@ function calcs.perform(env, skipEHP)
 									for _, modList in ipairs(lists) do
 										for _, mod in ipairs(modList) do
 											if mod.name == "EnergyShield" or mod.name == "Armour" or mod.name == "Evasion" or mod.name:match("Resist?M?a?x?$") then
-												local totemMod = copyTable(mod)
+												local totemMod = type(mod.value) == "table" and copyTableSafe(mod, false) or copyTable(mod)
 												totemMod.name = "Totem"..totemMod.name
 												if scale ~= 1 then
 													if type(totemMod.value) == "number" then
@@ -3181,7 +3181,7 @@ function calcs.perform(env, skipEHP)
 			buffExports["Aura"]["extraAura"].modList:AddMod(value.mod)
 			local totemModBlacklist = value.mod.name and (value.mod.name == "Speed" or value.mod.name == "CritMultiplier" or value.mod.name == "CritChance")
 			if env.player.mainSkill.skillFlags.totem and not totemModBlacklist then
-				local totemMod = copyTable(value.mod)
+				local totemMod = type(value.mod.value) == "table" and copyTableSafe(value.mod, false) or copyTable(value.mod)
 				local totemModName, matches = totemMod.name:gsub("Condition:", "Condition:Totem")
 				if matches < 1 then
 					totemModName = "Totem" .. totemMod.name
@@ -3477,7 +3477,7 @@ function calcs.perform(env, skipEHP)
 		-- preStack Mine auras
 		for auraName, aura in pairs(buffExports["Aura"]) do
 			if auraName:match("Mine") and not auraName:match(" Limit") then
-				buffExports["Aura"][auraName] = copyTable(buffExports["Aura"][auraName])
+				buffExports["Aura"][auraName] = copyTableSafe(buffExports["Aura"][auraName], false)
 				aura = buffExports["Aura"][auraName]
 				local stackCount = buffExports["EnemyMods"]["Multiplier:"..auraName.."Stack"] and buffExports["EnemyMods"]["Multiplier:"..auraName.."Stack"].value or 0
 				buffExports["EnemyMods"]["Multiplier:"..auraName.."Stack"] = nil
@@ -3495,7 +3495,7 @@ function calcs.perform(env, skipEHP)
 					end
 				end
 				if buffExports["Aura"][auraName.." Limit"] then
-					buffExports["Aura"][auraName.." Limit"] = copyTable(buffExports["Aura"][auraName.." Limit"])
+					buffExports["Aura"][auraName.." Limit"] = copyTableSafe(buffExports["Aura"][auraName.." Limit"], false)
 					aura = buffExports["Aura"][auraName.." Limit"]
 					if stackCount == 0 then
 						buffExports["Aura"][auraName.." Limit"] = nil
