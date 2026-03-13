@@ -19,6 +19,8 @@ local m_huge = math.huge
 local bor = bit.bor
 local band = bit.band
 local bnot = bit.bnot
+local wipeTable = wipeTable
+local graphNodeTag = graphNodeTag
 
 --- getCachedOutputValue
 ---  retrieves a value specified by key from a cached version of skill
@@ -1062,6 +1064,26 @@ function calcs.actionSpeedMod(actor)
 	return actionSpeedMod
 end
 
+local function resetReusableModList(modList, parent)
+	wipeTable(modList)
+	modList.parent = parent or false
+	modList.actor = parent and parent.actor or { }
+	modList.multipliers = { }
+	modList.conditions = { }
+	graphNodeTag(modList, modList._className or "ModList")
+	return modList
+end
+
+local function resetReusableModDB(modDB, parent, actor)
+	wipeTable(modDB.mods)
+	modDB.parent = parent or false
+	modDB.actor = actor or (parent and parent.actor) or modDB.actor or { }
+	modDB.multipliers = { }
+	modDB.conditions = { }
+	graphNodeTag(modDB, modDB._className or "ModDB")
+	return modDB
+end
+
 -- Finalises the environment and performs the stat calculations:
 -- 1. Merges keystone modifiers
 -- 2. Initialises minion skills
@@ -1108,10 +1130,18 @@ function calcs.performSkillPass(env, skipEHP, prepassState)
 
 	-- Build minion skills
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
-		activeSkill.skillModList = new("ModList", activeSkill.baseSkillModList)
+		if activeSkill.skillModList and activeSkill.skillModList ~= activeSkill.baseSkillModList then
+			activeSkill.skillModList = resetReusableModList(activeSkill.skillModList, activeSkill.baseSkillModList)
+		else
+			activeSkill.skillModList = new("ModList", activeSkill.baseSkillModList)
+		end
 		if activeSkill.minion then
-			activeSkill.minion.modDB = new("ModDB")
-			activeSkill.minion.modDB.actor = activeSkill.minion
+			if activeSkill.minion.modDB then
+				resetReusableModDB(activeSkill.minion.modDB, false, activeSkill.minion)
+			else
+				activeSkill.minion.modDB = new("ModDB")
+				activeSkill.minion.modDB.actor = activeSkill.minion
+			end
 			calcs.createMinionSkills(env, activeSkill)
 			activeSkill.skillPartName = activeSkill.minion.mainSkill.activeEffect.grantedEffect.name
 		end
