@@ -2317,7 +2317,11 @@ function TreeTabClass:FindTimelessJewel()
 					else
 						local curNode = nil
 						local curNodeId = nil
-						if (timelessData.jewelType.id == 4 and isValueInTable(protectedNodes, treeData.nodes[targetNode].dn)) then
+						if (timelessData.jewelType.id == 4 and isValueInTable(protectedNodes, treeData.nodes[targetNode].dn)) then -- protected
+							if jewelDataTbl[1] >= data.timelessJewelAdditions then -- protected node is a replacement, invalidate seed
+								resultNodes[curSeed] = nil
+								break
+							end
 							if not desiredNodes["totalStat"] then -- only add if user has not entered their own Devotion to the table
 								desiredNodes["totalStat"] = {
 									nodeWeight = 0.1, -- keeps total score low to let desired stats decide sort
@@ -2381,7 +2385,7 @@ function TreeTabClass:FindTimelessJewel()
 						end
 					end
 				end
-				if desiredNodes["totalStat"] then
+				if resultNodes[curSeed] and desiredNodes["totalStat"] then
 					resultNodes[curSeed]["totalStat"] = resultNodes[curSeed]["totalStat"] or { targetNodeNames = { }, totalWeight = 0 }
 					if timelessData.jewelType.id == 4 then -- Militant Faith
 						local addedWeight = desiredNodes["totalStat"].nodeWeight * (5 * targetSmallNodes.otherSmalls + 10 * targetSmallNodes.attributeSmalls)
@@ -2395,11 +2399,13 @@ function TreeTabClass:FindTimelessJewel()
 						seedWeights[curSeed] = seedWeights[curSeed] + addedWeight
 					end
 				end
-				-- check minimum weights
-				for _, val in ipairs(minimumWeights) do
-					if (resultNodes[curSeed][val.reqNode] and resultNodes[curSeed][val.reqNode].totalWeight or 0) < val.weight then
-						resultNodes[curSeed] = nil
-						break
+				if resultNodes[curSeed] then
+					-- check minimum weights
+					for _, val in ipairs(minimumWeights) do
+						if (resultNodes[curSeed][val.reqNode] and resultNodes[curSeed][val.reqNode].totalWeight or 0) < val.weight then
+							resultNodes[curSeed] = nil
+							break
+						end
 					end
 				end
 			end
