@@ -837,18 +837,42 @@ local function buildCachedMainSkillData(mainSkill)
 	}
 end
 
-local function buildCachedMirageData(mainSkill)
-	local mirage = mainSkill and mainSkill.mirage
-	if not mirage then
-		return nil
-	end
+local function buildCachedOutput(output)
+	local mainHand = output and output.MainHand or nil
+	local offHand = output and output.OffHand or nil
 	return {
-		Name = mirage.name,
-		Count = mirage.count,
-		InfoTrigger = mirage.infoTrigger,
-		SkillPartName = mirage.skillPartName,
-		Output = mirage.output and copyTableSafe(mirage.output, false) or nil,
-		MinionOutput = mirage.minion and mirage.minion.output and copyTableSafe(mirage.minion.output, false) or nil,
+		Speed = output and output.Speed or 0,
+		HitSpeed = output and output.HitSpeed or 0,
+		Duration = output and output.Duration or 0,
+		Time = output and output.Time or 0,
+		HitTime = output and output.HitTime or 0,
+		ManaCost = output and output.ManaCost or 0,
+		LifeCost = output and output.LifeCost or 0,
+		ESCost = output and output.ESCost or 0,
+		RageCost = output and output.RageCost or 0,
+		ManaCostRaw = output and output.ManaCostRaw or 0,
+		LifePercentCost = output and output.LifePercentCost or 0,
+		ManaPercentCost = output and output.ManaPercentCost or 0,
+		ProjectileCount = output and output.ProjectileCount or 0,
+		BattleCryExertsCount = output and output.BattleCryExertsCount or 0,
+		BattleMageCryDuration = output and output.BattleMageCryDuration or 0,
+		BattleMageCryCastTime = output and output.BattleMageCryCastTime or 0,
+		BattleMageCryCooldown = output and output.BattleMageCryCooldown or 0,
+		BattlemageUpTimeRatio = output and output.BattlemageUpTimeRatio or 0,
+		InfernalExertsCount = output and output.InfernalExertsCount or 0,
+		InfernalCryDuration = output and output.InfernalCryDuration or 0,
+		InfernalCryCastTime = output and output.InfernalCryCastTime or 0,
+		InfernalCryCooldown = output and output.InfernalCryCooldown or 0,
+		InfernalUpTimeRatio = output and output.InfernalUpTimeRatio or 0,
+		TotemLife = output and output.TotemLife or 0,
+		MainHand = {
+			HitChance = mainHand and mainHand.HitChance or 0,
+			CritChance = mainHand and mainHand.CritChance or 0,
+		},
+		OffHand = {
+			HitChance = offHand and offHand.HitChance or 0,
+			CritChance = offHand and offHand.CritChance or 0,
+		},
 	}
 end
 
@@ -866,25 +890,8 @@ function buildSafeSkillCacheEntry(uuid, skill, debugNote)
 		PreEffectiveCritChance = 0,
 		CritChance = 0,
 		TotalDPS = 0,
-		Output = {
-			MainHand = {
-				HitChance = 0,
-				CritChance = 0,
-			},
-			OffHand = {
-				HitChance = 0,
-				CritChance = 0,
-			},
-		},
+		Output = buildCachedOutput(nil),
 		MainSkillData = skill and buildCachedMainSkillData(skill) or {},
-		MainSkillFlags = {
-			DotCanStack = skill and skill.skillFlags and skill.skillFlags.DotCanStack or false,
-		},
-		InfoTrigger = skill and skill.infoTrigger or nil,
-		InfoMessage2 = skill and skill.infoMessage2 or nil,
-		SkillPartName = skill and skill.skillPartName or nil,
-		MinionName = skill and skill.minion and skill.minion.minionData and skill.minion.minionData.name or nil,
-		Mirage = nil,
 		SkillUUID = uuid,
 		Incomplete = true,
 		DebugNote = debugNote,
@@ -909,16 +916,8 @@ function cacheData(uuid, env)
 		PreEffectiveCritChance = output.PreEffectiveCritChance,
 		CritChance = output.CritChance,
 		TotalDPS = output.TotalDPS,
-		Output = copyTableSafe(output, false),
+		Output = buildCachedOutput(output),
 		MainSkillData = buildCachedMainSkillData(mainSkill),
-		MainSkillFlags = {
-			DotCanStack = mainSkill.skillFlags and mainSkill.skillFlags.DotCanStack or false,
-		},
-		InfoTrigger = mainSkill.infoTrigger,
-		InfoMessage2 = mainSkill.infoMessage2,
-		SkillPartName = mainSkill.skillPartName,
-		MinionName = env.minion and env.minion.minionData and env.minion.minionData.name or nil,
-		Mirage = buildCachedMirageData(mainSkill),
 		SkillUUID = uuid,
 	}
 end
