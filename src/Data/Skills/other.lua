@@ -678,7 +678,7 @@ skills["CeaselessFleshUnique"] = {
 	description = "Once per second, raise a nearby corpse as a shambling undead. This minion will follow you and attack your enemies with melee strikes, but quickly falls apart. These minions have significantly increased attack speed while on low life.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Triggerable] = true, [SkillType.CreatesMinion] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Duration] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, },
-	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	fromItem = true,
 	minionList = {
@@ -4488,7 +4488,7 @@ skills["AnimosityUniqueSkill"] = {
 	color = 2,
 	description = "While active, this skill inflicts the Weeping Black debuff on impaled enemies you hit with bow attacks. Weeping Black deals physical damage over time, and can stack up to five times. This skill cannot be cast by Totems.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, [SkillType.DamageOverTime] = true, [SkillType.Physical] = true, },
-	statDescriptionScope = "debuff_skill_stat_descriptions",
+	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	fromItem = true,
 	statMap = {

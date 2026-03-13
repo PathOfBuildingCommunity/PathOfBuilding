@@ -6174,7 +6174,7 @@ skills["HolyStrike"] = {
 		["Staff"] = true,
 		["Two Handed Mace"] = true,
 	},
-	statDescriptionScope = "minion_attack_skill_stat_descriptions",
+	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
 		"HolyStrikeMinion",

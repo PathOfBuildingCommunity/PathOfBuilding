@@ -267,7 +267,7 @@ directiveTable.base = function(state, args, out)
 		end
 	end
 	out:write('},\n')
-		if baseItemType.FlavourTextKey and baseItemType.FlavourTextKey.Text then
+	if baseItemType.FlavourTextKey and baseItemType.FlavourTextKey.Text then
 		local cleanedLines = cleanAndSplit(baseItemType.FlavourTextKey.Text)
 		if #cleanedLines > 0 then
 			out:write('\tflavourText = {\n')
