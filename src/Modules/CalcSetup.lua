@@ -581,6 +581,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 			env.minion.modDB.parent = cachedMinionDB
 		end
 	end
+	env.cachedPlayerDB = cachedPlayerDB
+	env.cachedEnemyDB = cachedEnemyDB
+	env.cachedMinionDB = cachedMinionDB
 
 	if override.conditions then
 		for _, flag in ipairs(override.conditions) do
