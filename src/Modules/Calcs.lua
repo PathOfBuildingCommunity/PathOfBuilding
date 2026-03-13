@@ -207,6 +207,10 @@ end
 function calcs.calcFullDPS(build, mode, override, specEnv)
 	local fullEnv, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, mode, override, specEnv)
 	local usedEnv = nil
+	local prepassState = calcs.performActorPrepass(fullEnv, { snapshotDBs = true })
+	local skillPassPlayerDB = prepassState.cachedPlayerDB or cachedPlayerDB
+	local skillPassEnemyDB = prepassState.cachedEnemyDB or cachedEnemyDB
+	local skillPassMinionDB = prepassState.cachedMinionDB or cachedMinionDB
 
 	local fullDPS = {
 		combinedDPS = 0,
@@ -238,7 +242,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
 			if enabled then
 				fullEnv.player.mainSkill = activeSkill
-				calcs.perform(fullEnv, true)
+				calcs.performSkillPass(fullEnv, true, prepassState)
 				usedEnv = fullEnv
 				local output = usedEnv.player.output
 				local minionOutput = usedEnv.minion and usedEnv.minion.output or nil
@@ -368,9 +372,9 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					everything = true,
 				}
 				fullEnv, _, _, _ = calcs.initEnv(build, mode, override, {
-					cachedPlayerDB = cachedPlayerDB,
-					cachedEnemyDB = cachedEnemyDB,
-					cachedMinionDB = cachedMinionDB,
+					cachedPlayerDB = skillPassPlayerDB,
+					cachedEnemyDB = skillPassEnemyDB,
+					cachedMinionDB = skillPassMinionDB,
 					env = fullEnv,
 					accelerate = accelerationTbl,
 					cacheGeneration = fullEnv.cacheGeneration,
@@ -452,16 +456,19 @@ function calcs.buildActiveSkill(env, mode, skill, targetUUID, limitedProcessingF
 		skills = true,
 		everything = true,
 	} or nil
+	local cachedSkillPrepassState = env.cachedSkillBuildPrepassState
 	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override, {
-		cachedPlayerDB = env.cachedPlayerDB,
-		cachedEnemyDB = env.cachedEnemyDB,
-		cachedMinionDB = env.cachedMinionDB,
+		cachedPlayerDB = cachedSkillPrepassState and cachedSkillPrepassState.cachedPlayerDB or env.cachedPlayerDB,
+		cachedEnemyDB = cachedSkillPrepassState and cachedSkillPrepassState.cachedEnemyDB or env.cachedEnemyDB,
+		cachedMinionDB = cachedSkillPrepassState and cachedSkillPrepassState.cachedMinionDB or env.cachedMinionDB,
 		env = env.cachedSkillBuildEnv,
 		accelerate = accelerationTbl,
 		cacheGeneration = env.cacheGeneration,
 		recursionGuards = recursionGuards,
 	})
 	env.cachedSkillBuildEnv = fullEnv
+	local prepassState = cachedSkillPrepassState or calcs.performActorPrepass(fullEnv, { snapshotDBs = true })
+	env.cachedSkillBuildPrepassState = prepassState
 
 	-- env.limitedSkills contains a map of uuids that should be limited in calculation
 	-- this is in order to prevent infinite recursion loops
@@ -478,7 +485,7 @@ function calcs.buildActiveSkill(env, mode, skill, targetUUID, limitedProcessingF
 		if activeSkillUUID == targetUUID then
 			fullEnv.player.mainSkill = activeSkill
 			fullEnv.requestedSkillUUID = targetUUID
-			calcs.perform(fullEnv, true)
+			calcs.performSkillPass(fullEnv, true, prepassState)
 			fullEnv.requestedSkillUUID = nil
 			recursionGuards.buildingSkills[guardKey] = nil
 			return true

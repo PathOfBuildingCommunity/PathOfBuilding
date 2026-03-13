@@ -1074,13 +1074,37 @@ end
 -- 8. Processes buffs and debuffs
 -- 9. Processes charges and misc buffs (doActorCharges, doActorMisc)
 -- 10. Calculates defence and offence stats (calcs.defence, calcs.offence)
-function calcs.perform(env, skipEHP)
-	local modDB = env.modDB
-	local enemyDB = env.enemyDB
+function calcs.performActorPrepass(env, options)
+	options = options or { }
+	local prepassState = {
+		partyTabEnableExportBuffs = env.build.partyTab.enableExportBuffs and env.mode ~= "CALCULATOR",
+	}
+	env.partyMembers = env.build.partyTab.actor
+	env.player.partyMembers = env.partyMembers
 
-	-- Merge keystone modifiers
+	-- Merge keystone modifiers once per actor-global pass so the skill-local
+	-- phase can reuse the resulting DB baseline.
 	env.keystonesAdded = { }
 	modLib.mergeKeystones(env, env.modDB)
+
+	if options.snapshotDBs then
+		prepassState.cachedPlayerDB, prepassState.cachedEnemyDB, prepassState.cachedMinionDB = specCopy(env)
+		prepassState.cachedPlayerDB.parent = env.modDB.parent
+		prepassState.cachedEnemyDB.parent = env.enemyDB.parent
+		if prepassState.cachedMinionDB and env.minion and env.minion.modDB then
+			prepassState.cachedMinionDB.parent = env.minion.modDB.parent
+		end
+	end
+	env.performActorPrepassState = prepassState
+	return prepassState
+end
+
+function calcs.performSkillPass(env, skipEHP, prepassState)
+	local modDB = env.modDB
+	local enemyDB = env.enemyDB
+	prepassState = prepassState or env.performActorPrepassState
+	env.partyMembers = env.partyMembers or env.build.partyTab.actor
+	env.player.partyMembers = env.partyMembers
 
 	-- Build minion skills
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
@@ -1097,9 +1121,7 @@ function calcs.perform(env, skipEHP)
 	env.enemy.output = { }
 	local output = env.player.output
 
-	env.partyMembers = env.build.partyTab.actor
-	env.player.partyMembers = env.partyMembers
-	local partyTabEnableExportBuffs = env.build.partyTab.enableExportBuffs and env.mode ~= "CALCULATOR"
+	local partyTabEnableExportBuffs = prepassState and prepassState.partyTabEnableExportBuffs or (env.build.partyTab.enableExportBuffs and env.mode ~= "CALCULATOR")
 
 	env.minion = env.player.mainSkill.minion
 	if env.minion then
@@ -3590,4 +3612,9 @@ function calcs.perform(env, skipEHP)
 	end
 
 	cacheData(env.requestedSkillUUID or cacheSkillUUID(env.player.mainSkill, env), env)
+end
+
+function calcs.perform(env, skipEHP)
+	local prepassState = calcs.performActorPrepass(env)
+	return calcs.performSkillPass(env, skipEHP, prepassState)
 end
