@@ -279,8 +279,12 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					if minionOutput.CullMultiplier and minionOutput.CullMultiplier > 1 and minionOutput.CullMultiplier > fullDPS.cullingMulti then
 						fullDPS.cullingMulti = minionOutput.CullMultiplier
 					end
-					if infoMessage2 == "Skill Damage" then
+					if (activeSkill.activeEffect.grantedEffect.name:match("Absolution") and fullEnv.modDB:Flag(false, "Condition:AbsolutionSkillDamageCountedOnce"))
+						or (activeSkill.activeEffect.grantedEffect.name:match("Dominating Blow") and fullEnv.modDB:Flag(false, "Condition:DominatingBlowSkillDamageCountedOnce"))
+						or (activeSkill.activeEffect.grantedEffect.name:match("Holy Strike") and fullEnv.modDB:Flag(false, "Condition:HolyStrikeSkillDamageCountedOnce"))
+						or infoMessage2 == "Skill Damage" then
 						activeSkillCount = 1
+						activeSkill.infoMessage2 = "Skill Damage"
 					end
 				end
 
