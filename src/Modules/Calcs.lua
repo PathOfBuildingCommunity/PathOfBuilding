@@ -207,6 +207,7 @@ end
 function calcs.calcFullDPS(build, mode, override, specEnv)
 	local fullEnv, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, mode, override, specEnv)
 	local usedEnv = nil
+	fullEnv.deferCacheWrites = true
 
 	local fullDPS = {
 		combinedDPS = 0,

@@ -3611,7 +3611,9 @@ function calcs.performSkillPass(env, skipEHP, prepassState)
 		end
 	end
 
-	cacheData(env.requestedSkillUUID or cacheSkillUUID(env.player.mainSkill, env), env)
+	if env.requestedSkillUUID or not env.deferCacheWrites then
+		cacheData(env.requestedSkillUUID or cacheSkillUUID(env.player.mainSkill, env), env)
+	end
 end
 
 function calcs.perform(env, skipEHP)
