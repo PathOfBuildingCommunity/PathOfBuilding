@@ -361,7 +361,22 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					fullDPS.cullingMulti = output.CullMultiplier
 				end
 
-				fullEnv = calcs.resetEnvForFastSkillLoop(fullEnv, cachedPlayerDB, cachedEnemyDB, cachedMinionDB, override)
+				local accelerationTbl = {
+					nodeAlloc = true,
+					requirementsItems = true,
+					requirementsGems = true,
+					skills = true,
+					everything = true,
+				}
+				fullEnv, _, _, _ = calcs.initEnv(build, mode, override, {
+					cachedPlayerDB = cachedPlayerDB,
+					cachedEnemyDB = cachedEnemyDB,
+					cachedMinionDB = cachedMinionDB,
+					env = fullEnv,
+					accelerate = accelerationTbl,
+					cacheGeneration = fullEnv.cacheGeneration,
+					recursionGuards = fullEnv.recursionGuards,
+				})
 			end
 		end
 	end
