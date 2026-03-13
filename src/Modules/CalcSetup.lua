@@ -345,6 +345,40 @@ local function addBestSupport(supportEffect, appliedSupportList, mode)
 	end
 end
 
+local function resetActiveSkillsForAcceleratedEnv(env)
+	-- Wipe skillData and readd required data; the rest of the data will be added by the
+	-- remaining calc passes. This prevents iterative calculations from carrying stale skillData.
+	for _, activeSkill in pairs(env.player.activeSkillList) do
+		local skillData = activeSkill.skillData
+		local manaReservationPercent = skillData.manaReservationPercent
+		local cooldown = skillData.cooldown
+		local storedUses = skillData.storedUses
+		local critChance = skillData.CritChance
+		local attackTime = skillData.attackTime
+		local attackSpeedMultiplier = skillData.attackSpeedMultiplier
+		local totemLevel = skillData.totemLevel
+		local damageEffectiveness = skillData.damageEffectiveness
+		activeSkill.skillData = { }
+		for _, value in ipairs(env.modDB:List(activeSkill.skillCfg, "SkillData")) do
+			activeSkill.skillData[value.key] = value.value
+		end
+		for _, value in ipairs(activeSkill.skillModList:List(activeSkill.skillCfg, "SkillData")) do
+			activeSkill.skillData[value.key] = value.value
+		end
+		-- These mods were modified with special expressions in buildActiveSkillModList(); use
+		-- the previous values here to avoid rebuilding the full active-skill graph.
+		activeSkill.skillData.manaReservationPercent = manaReservationPercent
+		activeSkill.skillData.cooldown = cooldown
+		activeSkill.skillData.storedUses = storedUses
+		activeSkill.skillData.CritChance = critChance
+		activeSkill.skillData.attackTime = attackTime
+		activeSkill.skillData.attackSpeedMultiplier = attackSpeedMultiplier
+		activeSkill.skillData.soulPreventionDuration = activeSkill.soulPreventionDuration
+		activeSkill.skillData.totemLevel = totemLevel
+		activeSkill.skillData.damageEffectiveness = damageEffectiveness
+	end
+end
+
 -- Initialise environment:
 -- 1. Initialises the player and enemy modifier databases
 -- 2. Merges modifiers for all items
@@ -1767,32 +1801,39 @@ function calcs.initEnv(build, mode, override, specEnv)
 			calcs.buildActiveSkillModList(env, activeSkill)
 		end
 	else
-		-- Wipe skillData and readd required data the rest of the data will be added by the rest of code this stops iterative calculations on skillData not being reset
-		for _, activeSkill in pairs(env.player.activeSkillList) do
-			local skillData = copyTable(activeSkill.skillData, true)
-			activeSkill.skillData = { }
-			for _, value in ipairs(env.modDB:List(activeSkill.skillCfg, "SkillData")) do
-				activeSkill.skillData[value.key] = value.value
-			end
-			for _, value in ipairs(activeSkill.skillModList:List(activeSkill.skillCfg, "SkillData")) do
-				activeSkill.skillData[value.key] = value.value
-			end
-			-- These mods were modified with special expressions in buildActiveSkillModList() use old one to avoid more calculations
-			activeSkill.skillData.manaReservationPercent = skillData.manaReservationPercent
-			activeSkill.skillData.cooldown = skillData.cooldown
-			activeSkill.skillData.storedUses = skillData.storedUses
-			activeSkill.skillData.CritChance = skillData.CritChance
-			activeSkill.skillData.attackTime = skillData.attackTime
-			activeSkill.skillData.attackSpeedMultiplier = skillData.attackSpeedMultiplier
-			activeSkill.skillData.soulPreventionDuration = activeSkill.soulPreventionDuration
-			activeSkill.skillData.totemLevel = skillData.totemLevel
-			activeSkill.skillData.damageEffectiveness = skillData.damageEffectiveness
-			activeSkill.skillData.manaReservationPercent = skillData.manaReservationPercent
-		end
+		resetActiveSkillsForAcceleratedEnv(env)
 	end
 
 	-- Merge Requirements Tables
 	env.requirementsTable = tableConcat(env.requirementsTableItems, env.requirementsTableGems)
 
 	return env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB
+end
+
+function calcs.resetEnvForFastSkillLoop(env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB, override)
+	override = override or env.override or { }
+	ClearMatchKeywordFlagsCache()
+	wipeEnv(env, {
+		nodeAlloc = true,
+		requirementsItems = true,
+		requirementsGems = true,
+		skills = true,
+		everything = true,
+	})
+	env.modDB.parent = cachedPlayerDB
+	env.enemyDB.parent = cachedEnemyDB
+	if cachedMinionDB and env.minion then
+		env.minion.modDB.parent = cachedMinionDB
+	end
+	env.cachedPlayerDB = cachedPlayerDB
+	env.cachedEnemyDB = cachedEnemyDB
+	env.cachedMinionDB = cachedMinionDB
+	if override.conditions then
+		for _, flag in ipairs(override.conditions) do
+			env.modDB.conditions[flag] = true
+		end
+	end
+	resetActiveSkillsForAcceleratedEnv(env)
+	env.requirementsTable = tableConcat(env.requirementsTableItems, env.requirementsTableGems)
+	return env
 end
