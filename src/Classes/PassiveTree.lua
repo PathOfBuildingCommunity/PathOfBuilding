@@ -791,7 +791,7 @@ function PassiveTreeClass:ProcessStats(node, startIndex)
 		local mod = node.mods[i]
 		if mod.list and not mod.extra then
 			for i, mod in ipairs(mod.list) do
-				mod = modLib.setSource(mod, "Tree:"..node.id)
+				mod = modLib.withSource(mod, "Tree:"..node.id)
 				node.modList:AddMod(mod)
 			end
 		end

@@ -360,6 +360,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 	local cachedMinionDB = specEnv and specEnv.cachedMinionDB or nil
 	local env = specEnv and specEnv.env or nil
 	local accelerate = specEnv and specEnv.accelerate or { }
+	local cacheGeneration = specEnv and specEnv.cacheGeneration or nil
+	local recursionGuards = specEnv and specEnv.recursionGuards or nil
 
 	-- environment variables
 	local override = override or { }
@@ -375,9 +377,14 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.configPlaceholder = build.configTab.placeholder
 		env.calcsInput = build.calcsTab.input
 		env.mode = mode
+		env.cacheGeneration = cacheGeneration
 		env.spec = override.spec or build.spec
 		env.override = override
 		env.classId = env.spec.curClassId
+		env.recursionGuards = recursionGuards or {
+			buildingSkills = { },
+			triggerResolution = { },
+		}
 
 		modDB = new("ModDB")
 		env.modDB = modDB
@@ -436,6 +443,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 		wipeEnv(env, accelerate)
 		modDB = env.modDB
 		enemyDB = env.enemyDB
+		env.cacheGeneration = cacheGeneration or env.cacheGeneration
+		env.recursionGuards = recursionGuards or env.recursionGuards or {
+			buildingSkills = { },
+			triggerResolution = { },
+		}
 	end
 
 	-- Set buff mode

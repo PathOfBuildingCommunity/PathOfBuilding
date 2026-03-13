@@ -1119,7 +1119,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			for d = 1, #modList do
 				local destMod = modList[d]
 				if modLib.compareModParams(skillModList[i], destMod) and (destMod.type == "BASE" or destMod.type == "INC") then
-					destMod = copyTable(destMod)
+					destMod = type(destMod.value) == "table" and copyTableSafe(destMod, false) or copyTable(destMod)
 					destMod.value = destMod.value + skillModList[i].value
 					modList[d] = destMod
 					match = true

@@ -2282,7 +2282,7 @@ Huge sets the radius to 11.
 						local mod = mods[i]
 
 						if mod then
-							mod = modLib.setSource(mod, source)
+							mod = modLib.withSource(mod, source)
 							modList:AddMod(mod)
 						end
 					end

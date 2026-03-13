@@ -28,14 +28,11 @@ local bnot = bit.bnot
 --- @param ... table keys to values to be returned (Note: EmmyLua does not natively support documenting variadic parameters)
 --- @return table unpacked table containing the desired values
 local function getCachedOutputValue(env, activeSkill, ...)
-	local uuid = cacheSkillUUID(activeSkill, env)
-	if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
-		calcs.buildActiveSkill(env, env.mode, activeSkill, uuid, {uuid})
-	end
+	local entry = calcs.getCachedSkillEntry(env, activeSkill, { cacheSkillUUID(activeSkill, env) })
 
 	local tempValues = {}
 	for i,v in ipairs({...}) do
-		tempValues[i] = GlobalCache.cachedData[env.mode][uuid].Env.player.output[v]
+		tempValues[i] = entry and entry.Output[v] or 0
 	end
 	return unpack(tempValues)
 end
@@ -1726,7 +1723,7 @@ function calcs.perform(env, skipEHP)
 			for key, buffModList in pairs(tinctureBuffs) do
 				for _, buff in ipairs(buffModList) do
 					if band(buff.flags, ModFlag.WeaponMelee) == ModFlag.WeaponMelee then
-						newMod = copyTable(buff, true)
+						newMod = type(buff.value) == "table" and copyTableSafe(buff, false) or copyTable(buff, true)
 						newMod.flags = bor(band(newMod.flags, bnot(ModFlag.WeaponMelee)), ModFlag.WeaponRanged)
 						modDB:AddList({newMod})
 					end
@@ -2226,7 +2223,7 @@ function calcs.perform(env, skipEHP)
 							end
 						end
 						if add then
-							t_insert(extraAuraModList, copyTable(value.mod, true))
+							t_insert(extraAuraModList, copyTableSafe(value.mod, false))
 						end
 					end
 					if not activeSkill.skillData.auraCannotAffectSelf then
@@ -2338,7 +2335,7 @@ function calcs.perform(env, skipEHP)
 									end
 								end
 								if add then
-									t_insert(extraAuraModList, copyTable(value.mod, true))
+									t_insert(extraAuraModList, copyTableSafe(value.mod, false))
 								end
 							end
 							local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
@@ -2384,7 +2381,7 @@ function calcs.perform(env, skipEHP)
 								end
 							end
 							if add then
-								t_insert(extraAuraModList, copyTable(value.mod, true))
+								t_insert(extraAuraModList, copyTableSafe(value.mod, false))
 							end
 						end
 						mult = 0
@@ -2492,7 +2489,7 @@ function calcs.perform(env, skipEHP)
 							end
 						end
 						if add then
-							t_insert(extraLinkModList, copyTable(value.mod, true))
+							t_insert(extraLinkModList, copyTableSafe(value.mod, false))
 							-- special handling to add this early
 							if value.mod.name == "ParentNonUniqueFlasksAppliedToYou" then
 								nonUniqueFlasksApplyToMinion = true
@@ -2616,7 +2613,7 @@ function calcs.perform(env, skipEHP)
 									end
 								end
 								if add then
-									t_insert(extraAuraModList, copyTable(value.mod, true))
+									t_insert(extraAuraModList, copyTableSafe(value.mod, false))
 								end
 							end
 							if not (activeSkill.minion.modDB:Flag(nil, "SelfAurasCannotAffectAllies") or activeSkill.minion.modDB:Flag(nil, "SelfAurasOnlyAffectYou") or activeSkill.minion.modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies") or skillModList:Flag(skillCfg, "SelfAurasAffectYouAndLinkedTarget")) then
@@ -3592,5 +3589,5 @@ function calcs.perform(env, skipEHP)
 		end
 	end
 
-	cacheData(cacheSkillUUID(env.player.mainSkill, env), env)
+	cacheData(env.requestedSkillUUID or cacheSkillUUID(env.player.mainSkill, env), env)
 end

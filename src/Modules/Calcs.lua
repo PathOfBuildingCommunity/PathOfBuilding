@@ -69,14 +69,44 @@ local function infoDump(env)
 	prettyPrintTable(env.player.output)
 end
 
+local function appendBreakdownNote(breakdown, section, note)
+	if not breakdown or not section or not note then
+		return
+	end
+	if not breakdown[section] then
+		breakdown[section] = { }
+	end
+	for _, line in ipairs(breakdown[section]) do
+		if line == note then
+			return
+		end
+	end
+	t_insert(breakdown[section], note)
+end
+
+function calcs.getCachedSkillEntry(env, skill, limitedProcessingFlags, noteTarget)
+	local uuid = cacheSkillUUID(skill, env)
+	local cache = getGlobalCacheTable(env)
+	local entry = cache[uuid]
+	if not entry then
+		calcs.buildActiveSkill(env, env.mode, skill, uuid, limitedProcessingFlags)
+		entry = cache[uuid]
+	end
+	if entry and entry.Incomplete and noteTarget then
+		appendBreakdownNote(noteTarget.breakdown, noteTarget.section, entry.DebugNote)
+	end
+	return entry, uuid
+end
+
 -- Generate a function for calculating the effect of some modification to the environment
 local function getCalculator(build, fullInit, modFunc)
 	-- Initialise environment
-	local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR")
+	local cacheGeneration = nextCalculatorCacheGeneration(build)
+	local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", nil, { cacheGeneration = cacheGeneration })
 
 	-- Run base calculation pass
 	calcs.perform(env)
-	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil })
+	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil, cacheGeneration = cacheGeneration })
 	env.player.output.SkillDPS = fullDPS.skills
 	env.player.output.FullDPS = fullDPS.combinedDPS
 	env.player.output.FullDotDPS = fullDPS.TotalDotDPS
@@ -101,8 +131,10 @@ local function getCalculator(build, fullInit, modFunc)
 		modFunc(env, ...)
 		
 		-- Run calculation pass
+		cacheGeneration = nextCalculatorCacheGeneration(build)
+		env.cacheGeneration = cacheGeneration
 		calcs.perform(env)
-		fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil})
+		fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil, cacheGeneration = cacheGeneration })
 		env.player.output.SkillDPS = fullDPS.skills
 		env.player.output.FullDPS = fullDPS.combinedDPS
 		env.player.output.FullDotDPS = fullDPS.TotalDotDPS
@@ -122,9 +154,10 @@ end
 -- Get calculator for other changes (adding/removing nodes, items, gems, etc)
 function calcs.getMiscCalculator(build)
 	-- Run base calculation pass
-	local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR")
+	local cacheGeneration = nextCalculatorCacheGeneration(build)
+	local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", nil, { cacheGeneration = cacheGeneration })
 	calcs.perform(env)
-	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil})
+	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil, cacheGeneration = cacheGeneration })
 	local usedFullDPS = #fullDPS.skills > 0
 	if usedFullDPS then
 		env.player.output.SkillDPS = fullDPS.skills
@@ -132,13 +165,11 @@ function calcs.getMiscCalculator(build)
 		env.player.output.FullDotDPS = fullDPS.TotalDotDPS
 	end
 	return function(override, useFullDPS)
-		local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override)
+		local compareGeneration = nextCalculatorCacheGeneration(build)
+		local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override, { cacheGeneration = compareGeneration })
 		calcs.perform(env)
 		if (useFullDPS ~= false or build.viewMode == "TREE") and usedFullDPS then
-			-- prevent upcoming calculation from using Cached Data and thus forcing it to re-calculate new FullDPS roll-up 
-			-- without this, FullDPS increase/decrease when for node/item/gem comparison would be all 0 as it would be comparing
-			-- A with A (due to cache reuse) instead of A with B
-			local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil})
+			local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil, cacheGeneration = compareGeneration })
 			env.player.output.SkillDPS = fullDPS.skills
 			env.player.output.FullDPS = fullDPS.combinedDPS
 			env.player.output.FullDotDPS = fullDPS.TotalDotDPS
@@ -174,8 +205,7 @@ local function getActiveSkillCount(activeSkill)
 end
 
 function calcs.calcFullDPS(build, mode, override, specEnv)
-	local fullEnv, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, mode, override, specEnv)
-	local usedEnv = nil
+	local fullEnv = calcs.initEnv(build, mode, override, specEnv)
 
 	local fullDPS = {
 		combinedDPS = 0,
@@ -198,146 +228,139 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	local igniteSource = ""
 	local burningGroundSource = ""
 	local causticGroundSource = ""
-	
+
+	-- initEnv() is the shared actor-global prepass for the FullDPS run. Each skill then
+	-- goes through the cached skill-local path so trigger/source lookups can be reused
+	-- within the current calculator generation.
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS then
 			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
 			if enabled then
-				fullEnv.player.mainSkill = activeSkill
-				calcs.perform(fullEnv, true)
-				usedEnv = fullEnv
+				local entry = calcs.getCachedSkillEntry(fullEnv, activeSkill)
+				local output = entry and entry.Output or nil
+				local minionOutput = output and output.Minion or nil
+				local mirage = entry and entry.Mirage or nil
+				local mainSkillFlags = entry and entry.MainSkillFlags or { DotCanStack = false }
+				local infoMessage2 = entry and entry.InfoMessage2 or activeSkill.infoMessage2
 				local minionName = nil
-				if activeSkill.minion or usedEnv.minion then
-					if usedEnv.minion.output.TotalDPS and usedEnv.minion.output.TotalDPS > 0 then
-						minionName = (activeSkill.minion and activeSkill.minion.minionData.name..": ") or (usedEnv.minion and usedEnv.minion.minionData.name..": ") or ""
-						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = usedEnv.minion.output.TotalDPS, count = activeSkillCount, trigger = activeSkill.infoTrigger, skillPart = minionName..activeSkill.skillPartName })
-						fullDPS.combinedDPS = fullDPS.combinedDPS + usedEnv.minion.output.TotalDPS * activeSkillCount
+
+				if minionOutput then
+					if minionOutput.TotalDPS and minionOutput.TotalDPS > 0 then
+						minionName = entry and entry.MinionName and (entry.MinionName..": ") or ""
+						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = minionOutput.TotalDPS, count = activeSkillCount, trigger = entry and entry.InfoTrigger, skillPart = minionName..(entry and entry.SkillPartName or activeSkill.skillPartName) })
+						fullDPS.combinedDPS = fullDPS.combinedDPS + minionOutput.TotalDPS * activeSkillCount
 					end
-					if usedEnv.minion.output.BleedDPS and usedEnv.minion.output.BleedDPS > fullDPS.bleedDPS then
-						fullDPS.bleedDPS = usedEnv.minion.output.BleedDPS
+					if minionOutput.BleedDPS and minionOutput.BleedDPS > fullDPS.bleedDPS then
+						fullDPS.bleedDPS = minionOutput.BleedDPS
 						bleedSource = activeSkill.activeEffect.grantedEffect.name
 					end
-					if usedEnv.minion.output.IgniteDPS and usedEnv.minion.output.IgniteDPS > fullDPS.igniteDPS then
-						fullDPS.igniteDPS = usedEnv.minion.output.IgniteDPS
+					if minionOutput.IgniteDPS and minionOutput.IgniteDPS > fullDPS.igniteDPS then
+						fullDPS.igniteDPS = minionOutput.IgniteDPS
 						igniteSource = activeSkill.activeEffect.grantedEffect.name
 					end
-					if usedEnv.minion.output.PoisonDPS and usedEnv.minion.output.PoisonDPS > 0 then
-						fullDPS.TotalPoisonDPS = fullDPS.TotalPoisonDPS + usedEnv.minion.output.TotalPoisonDPS * activeSkillCount
+					if minionOutput.PoisonDPS and minionOutput.PoisonDPS > 0 then
+						fullDPS.TotalPoisonDPS = fullDPS.TotalPoisonDPS + minionOutput.TotalPoisonDPS * activeSkillCount
 					end
-					if usedEnv.minion.output.ImpaleDPS and usedEnv.minion.output.ImpaleDPS > 0 then
-						fullDPS.impaleDPS = fullDPS.impaleDPS + usedEnv.minion.output.ImpaleDPS * activeSkillCount
+					if minionOutput.ImpaleDPS and minionOutput.ImpaleDPS > 0 then
+						fullDPS.impaleDPS = fullDPS.impaleDPS + minionOutput.ImpaleDPS * activeSkillCount
 					end
-					if usedEnv.minion.output.DecayDPS and usedEnv.minion.output.DecayDPS > 0 then
-						fullDPS.decayDPS = fullDPS.decayDPS + usedEnv.minion.output.DecayDPS
+					if minionOutput.DecayDPS and minionOutput.DecayDPS > 0 then
+						fullDPS.decayDPS = fullDPS.decayDPS + minionOutput.DecayDPS
 					end
-					if usedEnv.minion.output.TotalDot and usedEnv.minion.output.TotalDot > 0 then
-						fullDPS.dotDPS = fullDPS.dotDPS + usedEnv.minion.output.TotalDot
+					if minionOutput.TotalDot and minionOutput.TotalDot > 0 then
+						fullDPS.dotDPS = fullDPS.dotDPS + minionOutput.TotalDot
 					end
-					if usedEnv.minion.output.CullMultiplier and usedEnv.minion.output.CullMultiplier > 1 and usedEnv.minion.output.CullMultiplier > fullDPS.cullingMulti then
-						fullDPS.cullingMulti = usedEnv.minion.output.CullMultiplier
+					if minionOutput.CullMultiplier and minionOutput.CullMultiplier > 1 and minionOutput.CullMultiplier > fullDPS.cullingMulti then
+						fullDPS.cullingMulti = minionOutput.CullMultiplier
 					end
-					-- This is a fix to prevent skills such as Absolution or Dominating Blow from being counted multiple times when increasing minions count
-					if (activeSkill.activeEffect.grantedEffect.name:match("Absolution") and fullEnv.modDB:Flag(false, "Condition:AbsolutionSkillDamageCountedOnce"))
-						or (activeSkill.activeEffect.grantedEffect.name:match("Dominating Blow") and fullEnv.modDB:Flag(false, "Condition:DominatingBlowSkillDamageCountedOnce"))
-						or (activeSkill.activeEffect.grantedEffect.name:match("Holy Strike") and fullEnv.modDB:Flag(false, "Condition:HolyStrikeSkillDamageCountedOnce"))then
+					if infoMessage2 == "Skill Damage" then
 						activeSkillCount = 1
-						activeSkill.infoMessage2 = "Skill Damage"
 					end
 				end
 
-				if activeSkill.mirage then
-					local mirageCount = (activeSkill.mirage.count or 1) * activeSkillCount
-					if activeSkill.mirage.output.TotalDPS and activeSkill.mirage.output.TotalDPS > 0 then
-						t_insert(fullDPS.skills, { name = activeSkill.mirage.name .. " (Mirage)", dps = activeSkill.mirage.output.TotalDPS, count = mirageCount, trigger = activeSkill.mirage.infoTrigger, skillPart = activeSkill.mirage.skillPartName })
-						fullDPS.combinedDPS = fullDPS.combinedDPS + activeSkill.mirage.output.TotalDPS * mirageCount
+				if mirage and mirage.Output then
+					local mirageOutput = mirage.Output
+					local mirageCount = (mirage.Count or 1) * activeSkillCount
+					if mirageOutput.TotalDPS and mirageOutput.TotalDPS > 0 then
+						t_insert(fullDPS.skills, { name = mirage.Name .. " (Mirage)", dps = mirageOutput.TotalDPS, count = mirageCount, trigger = mirage.InfoTrigger, skillPart = mirage.SkillPartName })
+						fullDPS.combinedDPS = fullDPS.combinedDPS + mirageOutput.TotalDPS * mirageCount
 					end
-					if activeSkill.mirage.output.BleedDPS and activeSkill.mirage.output.BleedDPS > fullDPS.bleedDPS then
-						fullDPS.bleedDPS = activeSkill.mirage.output.BleedDPS
+					if mirageOutput.BleedDPS and mirageOutput.BleedDPS > fullDPS.bleedDPS then
+						fullDPS.bleedDPS = mirageOutput.BleedDPS
 						bleedSource = activeSkill.activeEffect.grantedEffect.name .. " (Mirage)"
 					end
-					if activeSkill.mirage.output.IgniteDPS and activeSkill.mirage.output.IgniteDPS > fullDPS.igniteDPS then
-						fullDPS.igniteDPS = activeSkill.mirage.output.IgniteDPS
+					if mirageOutput.IgniteDPS and mirageOutput.IgniteDPS > fullDPS.igniteDPS then
+						fullDPS.igniteDPS = mirageOutput.IgniteDPS
 						igniteSource = activeSkill.activeEffect.grantedEffect.name .. " (Mirage)"
 					end
-					if activeSkill.mirage.output.PoisonDPS and activeSkill.mirage.output.PoisonDPS > 0 then
-						fullDPS.TotalPoisonDPS = fullDPS.TotalPoisonDPS + activeSkill.mirage.output.TotalPoisonDPS * mirageCount
+					if mirageOutput.PoisonDPS and mirageOutput.PoisonDPS > 0 then
+						fullDPS.TotalPoisonDPS = fullDPS.TotalPoisonDPS + mirageOutput.TotalPoisonDPS * mirageCount
 					end
-					if activeSkill.mirage.output.ImpaleDPS and activeSkill.mirage.output.ImpaleDPS > 0 then
-						fullDPS.impaleDPS = fullDPS.impaleDPS + activeSkill.mirage.output.ImpaleDPS * mirageCount
+					if mirageOutput.ImpaleDPS and mirageOutput.ImpaleDPS > 0 then
+						fullDPS.impaleDPS = fullDPS.impaleDPS + mirageOutput.ImpaleDPS * mirageCount
 					end
-					if activeSkill.mirage.output.DecayDPS and activeSkill.mirage.output.DecayDPS > 0 then
-						fullDPS.decayDPS = fullDPS.decayDPS + activeSkill.mirage.output.DecayDPS
+					if mirageOutput.DecayDPS and mirageOutput.DecayDPS > 0 then
+						fullDPS.decayDPS = fullDPS.decayDPS + mirageOutput.DecayDPS
 					end
-					if activeSkill.mirage.output.TotalDot and activeSkill.mirage.output.TotalDot > 0 and (activeSkill.skillFlags.DotCanStack or (usedEnv.player.output.TotalDot and usedEnv.player.output.TotalDot == 0)) then
-						fullDPS.dotDPS = fullDPS.dotDPS + activeSkill.mirage.output.TotalDot * (activeSkill.skillFlags.DotCanStack and mirageCount or 1)
+					if mirageOutput.TotalDot and mirageOutput.TotalDot > 0 and (mainSkillFlags.DotCanStack or (output and output.TotalDot and output.TotalDot == 0)) then
+						fullDPS.dotDPS = fullDPS.dotDPS + mirageOutput.TotalDot * (mainSkillFlags.DotCanStack and mirageCount or 1)
 					end
-					if activeSkill.mirage.output.CullMultiplier and activeSkill.mirage.output.CullMultiplier > 1 and activeSkill.mirage.output.CullMultiplier > fullDPS.cullingMulti then
-						fullDPS.cullingMulti = activeSkill.mirage.output.CullMultiplier
+					if mirageOutput.CullMultiplier and mirageOutput.CullMultiplier > 1 and mirageOutput.CullMultiplier > fullDPS.cullingMulti then
+						fullDPS.cullingMulti = mirageOutput.CullMultiplier
 					end
-					if activeSkill.mirage.output.BurningGroundDPS and activeSkill.mirage.output.BurningGroundDPS > fullDPS.burningGroundDPS then
-						fullDPS.burningGroundDPS = activeSkill.mirage.output.BurningGroundDPS
+					if mirageOutput.BurningGroundDPS and mirageOutput.BurningGroundDPS > fullDPS.burningGroundDPS then
+						fullDPS.burningGroundDPS = mirageOutput.BurningGroundDPS
 						burningGroundSource = activeSkill.activeEffect.grantedEffect.name .. " (Mirage)"
 					end
-					if activeSkill.mirage.output.CausticGroundDPS and activeSkill.mirage.output.CausticGroundDPS > fullDPS.causticGroundDPS then
-						fullDPS.causticGroundDPS = activeSkill.mirage.output.CausticGroundDPS
+					if mirageOutput.CausticGroundDPS and mirageOutput.CausticGroundDPS > fullDPS.causticGroundDPS then
+						fullDPS.causticGroundDPS = mirageOutput.CausticGroundDPS
 						causticGroundSource = activeSkill.activeEffect.grantedEffect.name .. " (Mirage)"
 					end
 				end
 
-				if usedEnv.player.output.TotalDPS and usedEnv.player.output.TotalDPS > 0 then
-					t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = usedEnv.player.output.TotalDPS, count = activeSkillCount, trigger = activeSkill.infoTrigger, skillPart = minionName and activeSkill.infoMessage2 or activeSkill.skillPartName })
-					fullDPS.combinedDPS = fullDPS.combinedDPS + usedEnv.player.output.TotalDPS * activeSkillCount
+				if output and output.TotalDPS and output.TotalDPS > 0 then
+					t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = output.TotalDPS, count = activeSkillCount, trigger = entry and entry.InfoTrigger, skillPart = minionName and infoMessage2 or (entry and entry.SkillPartName or activeSkill.skillPartName) })
+					fullDPS.combinedDPS = fullDPS.combinedDPS + output.TotalDPS * activeSkillCount
 				end
-				if usedEnv.player.output.BleedDPS and usedEnv.player.output.BleedDPS > fullDPS.bleedDPS then
-					fullDPS.bleedDPS = usedEnv.player.output.BleedDPS
+				if output and output.BleedDPS and output.BleedDPS > fullDPS.bleedDPS then
+					fullDPS.bleedDPS = output.BleedDPS
 					bleedSource = activeSkill.activeEffect.grantedEffect.name
 				end
-				if usedEnv.player.output.CorruptingBloodDPS and usedEnv.player.output.CorruptingBloodDPS > fullDPS.corruptingBloodDPS then
-					fullDPS.corruptingBloodDPS = usedEnv.player.output.CorruptingBloodDPS
+				if output and output.CorruptingBloodDPS and output.CorruptingBloodDPS > fullDPS.corruptingBloodDPS then
+					fullDPS.corruptingBloodDPS = output.CorruptingBloodDPS
 					corruptingBloodSource = activeSkill.activeEffect.grantedEffect.name
 				end
-				if usedEnv.player.output.IgniteDPS and usedEnv.player.output.IgniteDPS > fullDPS.igniteDPS then
-					fullDPS.igniteDPS = usedEnv.player.output.IgniteDPS
+				if output and output.IgniteDPS and output.IgniteDPS > fullDPS.igniteDPS then
+					fullDPS.igniteDPS = output.IgniteDPS
 					igniteSource = activeSkill.activeEffect.grantedEffect.name
 				end
-				if usedEnv.player.output.BurningGroundDPS and usedEnv.player.output.BurningGroundDPS > fullDPS.burningGroundDPS then
-					fullDPS.burningGroundDPS = usedEnv.player.output.BurningGroundDPS
+				if output and output.BurningGroundDPS and output.BurningGroundDPS > fullDPS.burningGroundDPS then
+					fullDPS.burningGroundDPS = output.BurningGroundDPS
 					burningGroundSource = activeSkill.activeEffect.grantedEffect.name
 				end
-				if usedEnv.player.output.PoisonDPS and usedEnv.player.output.PoisonDPS > 0 then
-					fullDPS.TotalPoisonDPS = fullDPS.TotalPoisonDPS + usedEnv.player.output.TotalPoisonDPS * activeSkillCount
+				if output and output.PoisonDPS and output.PoisonDPS > 0 then
+					fullDPS.TotalPoisonDPS = fullDPS.TotalPoisonDPS + output.TotalPoisonDPS * activeSkillCount
 				end
-				if usedEnv.player.output.CausticGroundDPS and usedEnv.player.output.CausticGroundDPS > fullDPS.causticGroundDPS then
-					fullDPS.causticGroundDPS = usedEnv.player.output.CausticGroundDPS
+				if output and output.CausticGroundDPS and output.CausticGroundDPS > fullDPS.causticGroundDPS then
+					fullDPS.causticGroundDPS = output.CausticGroundDPS
 					causticGroundSource = activeSkill.activeEffect.grantedEffect.name
 				end
-				if usedEnv.player.output.ImpaleDPS and usedEnv.player.output.ImpaleDPS > 0 then
-					fullDPS.impaleDPS = fullDPS.impaleDPS + usedEnv.player.output.ImpaleDPS * activeSkillCount
+				if output and output.ImpaleDPS and output.ImpaleDPS > 0 then
+					fullDPS.impaleDPS = fullDPS.impaleDPS + output.ImpaleDPS * activeSkillCount
 				end
-				if usedEnv.player.output.DecayDPS and usedEnv.player.output.DecayDPS > 0 then
-					fullDPS.decayDPS = fullDPS.decayDPS + usedEnv.player.output.DecayDPS
+				if output and output.DecayDPS and output.DecayDPS > 0 then
+					fullDPS.decayDPS = fullDPS.decayDPS + output.DecayDPS
 				end
-				if usedEnv.player.output.TotalDot and usedEnv.player.output.TotalDot > 0 then
-					fullDPS.dotDPS = fullDPS.dotDPS + usedEnv.player.output.TotalDot * (activeSkill.skillFlags.DotCanStack and activeSkillCount or 1)
+				if output and output.TotalDot and output.TotalDot > 0 then
+					fullDPS.dotDPS = fullDPS.dotDPS + output.TotalDot * (mainSkillFlags.DotCanStack and activeSkillCount or 1)
 				end
-				if usedEnv.player.output.CullMultiplier and usedEnv.player.output.CullMultiplier > 1 and usedEnv.player.output.CullMultiplier > fullDPS.cullingMulti then
-					fullDPS.cullingMulti = usedEnv.player.output.CullMultiplier
+				if output and output.CullMultiplier and output.CullMultiplier > 1 and output.CullMultiplier > fullDPS.cullingMulti then
+					fullDPS.cullingMulti = output.CullMultiplier
 				end
-
-				-- Re-Build env calculator for new run
-				local accelerationTbl = {
-					nodeAlloc = true,
-					requirementsItems = true,
-					requirementsGems = true,
-					skills = true,
-					everything = true,
-				}
-				fullEnv, _, _, _ = calcs.initEnv(build, mode, override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = fullEnv, accelerate = accelerationTbl })
 			end
 		end
 	end
 
-	-- Re-Add ailment DPS components
 	fullDPS.TotalDotDPS = 0
 	if fullDPS.bleedDPS > 0 then
 		t_insert(fullDPS.skills, { name = "Best Bleed DPS", dps = fullDPS.bleedDPS, count = 1, source = bleedSource })
@@ -389,28 +412,46 @@ end
 
 -- Process active skill
 function calcs.buildActiveSkill(env, mode, skill, targetUUID, limitedProcessingFlags)
-	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
+	targetUUID = targetUUID or cacheSkillUUID(skill, env)
+	local guardKey = mode..":"..targetUUID
+	local recursionGuards = env.recursionGuards or {
+		buildingSkills = { },
+		triggerResolution = { },
+	}
+	env.recursionGuards = recursionGuards
+	if recursionGuards.buildingSkills[guardKey] then
+		local cache = getGlobalCacheTable(env)
+		cache[targetUUID] = cache[targetUUID] or buildSafeSkillCacheEntry(targetUUID, skill, s_format("Recursive skill cache resolution detected for %s; assuming 0 until the current calculation completes", skill.activeEffect.grantedEffect.name))
+		return false
+	end
+	recursionGuards.buildingSkills[guardKey] = true
+
+	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override, { cacheGeneration = env.cacheGeneration, recursionGuards = recursionGuards })
 
 	-- env.limitedSkills contains a map of uuids that should be limited in calculation
 	-- this is in order to prevent infinite recursion loops
 	fullEnv.limitedSkills = fullEnv.limitedSkills or {}
-	for _, uuid in ipairs(env.limitedSkills or {}) do
-		fullEnv.limitedSkills[uuid] = true
+	for key, value in pairs(env.limitedSkills or {}) do
+		fullEnv.limitedSkills[type(key) == "number" and value or key] = true
 	end
 	for _, uuid in ipairs(limitedProcessingFlags or {}) do
 		fullEnv.limitedSkills[uuid] = true
 	end
 
-	targetUUID = targetUUID or cacheSkillUUID(skill, env)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		local activeSkillUUID = cacheSkillUUID(activeSkill, fullEnv)
 		if activeSkillUUID == targetUUID then
 			fullEnv.player.mainSkill = activeSkill
+			fullEnv.requestedSkillUUID = targetUUID
 			calcs.perform(fullEnv, true)
-			return
+			fullEnv.requestedSkillUUID = nil
+			recursionGuards.buildingSkills[guardKey] = nil
+			return true
 		end
 	end
+	recursionGuards.buildingSkills[guardKey] = nil
 	ConPrintf("[calcs.buildActiveSkill] Failed to process skill: " .. skill.activeEffect.grantedEffect.name)
+	return false
 end
 
 -- Build output for display in the side bar or calcs tab
@@ -422,7 +463,7 @@ function calcs.buildOutput(build, mode)
 	local output = env.player.output
 
 	-- Build output across all skills added to FullDPS skills
-	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil })
+	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil, cacheGeneration = nextCalculatorCacheGeneration(build) })
 
 	-- Add Full DPS data to main `env`
 	env.player.output.SkillDPS = fullDPS.skills
@@ -431,19 +472,16 @@ function calcs.buildOutput(build, mode)
 
 	if mode == "MAIN" then
 		for _, skill in ipairs(env.player.activeSkillList) do
-			local uuid = cacheSkillUUID(skill, env)
-			if not GlobalCache.cachedData[mode][uuid] then
-				calcs.buildActiveSkill(env, mode, skill, uuid)
-			end
-			if GlobalCache.cachedData[mode][uuid] then
+			local entry = calcs.getCachedSkillEntry(env, skill)
+			if entry then
 				output.EnergyShieldProtectsMana = env.modDB:Flag(nil, "EnergyShieldProtectsMana")
 				for pool, costResource in pairs({["LifeUnreserved"] = "LifeCost", ["ManaUnreserved"] = "ManaCost", ["Rage"] = "RageCost", ["EnergyShield"] = "ESCost"}) do
-					local cachedCost = GlobalCache.cachedData[mode][uuid].Env.player.output[costResource]
+					local cachedCost = entry.Output[costResource]
 					if cachedCost then
 						local totalPool = (output.EnergyShieldProtectsMana and costResource == "ManaCost" and output["EnergyShield"] or 0) + (output[pool] or 0)
 						if totalPool < cachedCost then
 							local rawPool = pool:gsub("Unreserved$", "")
-							local reservation = GlobalCache.cachedData[mode][uuid].Env.player.mainSkill and GlobalCache.cachedData[mode][uuid].Env.player.mainSkill.skillData[rawPool .. "ReservedPercent"]
+							local reservation = entry.MainSkillData[rawPool .. "ReservedPercent"]
 							-- Skill has both cost and reservation check if there's available pool for raw cost before reservation
 							if not reservation or (reservation and (totalPool + m_ceil((output[rawPool] or 0) * reservation / 100)) < cachedCost) then
 								if env.player.mainSkill and env.player.mainSkill.activeEffect.grantedEffect.name == skill.activeEffect.grantedEffect.name then
@@ -456,7 +494,7 @@ function calcs.buildOutput(build, mode)
 					end
 				end
 				for pool, costResource in pairs({["LifeUnreservedPercent"] = "LifePercentCost", ["ManaUnreservedPercent"] = "ManaPercentCost"}) do
-					local cachedCost = GlobalCache.cachedData[mode][uuid].Env.player.output[costResource]
+					local cachedCost = entry.Output[costResource]
 					if cachedCost then
 						if (output[pool] or 0) < cachedCost then
 							output[costResource.."PercentCostWarningList"] = output[costResource.."PercentCostWarningList"] or {}

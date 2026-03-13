@@ -223,7 +223,9 @@ function modLib.withSource(mod, source)
 	return copy
 end
 
--- Deprecated: internal-only helper that mutates the provided mod; prefer withSource for shared mods.
+-- Deprecated: internal-only helper that mutates the provided mod in place.
+-- Only use this when the caller owns the modifier instance and no shared parser/cache
+-- tables can observe the mutation; otherwise prefer withSource().
 function modLib.setSource(mod, source)
 	mod.source = source
 	if type(mod.value) == "table" and mod.value.mod then

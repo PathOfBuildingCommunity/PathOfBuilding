@@ -2162,7 +2162,7 @@ function PassiveSpecClass:NodeAdditionOrReplacementFromString(node,sd,replacemen
 	for _, mod in pairs(addition.mods) do
 		if mod.list and not mod.extra then
 			for i, mod in ipairs(mod.list) do
-				mod = modLib.setSource(mod, "Tree:"..node.id)
+				mod = modLib.withSource(mod, "Tree:"..node.id)
 				addition.modList:AddMod(mod)
 			end
 		end

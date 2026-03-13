@@ -802,26 +802,125 @@ function cacheSkillUUID(skill, env)
 	return strName.."_"..strSlotName.."_"..tostring(slotIndx) .. "_" .. tostring(groupIdx)
 end
 
+local calculatorCacheGeneration = 0
+
+function nextCalculatorCacheGeneration(build)
+	calculatorCacheGeneration = calculatorCacheGeneration + 1
+	return s_format("%s:%d", tostring(build and build.outputRevision or 0), calculatorCacheGeneration)
+end
+
+function getGlobalCacheTable(modeOrEnv, build, cacheGeneration)
+	local mode = modeOrEnv
+	if type(modeOrEnv) == "table" then
+		local env = modeOrEnv
+		mode = env.mode
+		build = env.build
+		cacheGeneration = env.cacheGeneration
+	end
+	if mode ~= "CALCULATOR" then
+		return GlobalCache.cachedData[mode]
+	end
+	local namespace = cacheGeneration or s_format("%s:default", tostring(build and build.outputRevision or 0))
+	GlobalCache.cachedData.CALCULATOR[namespace] = GlobalCache.cachedData.CALCULATOR[namespace] or {}
+	return GlobalCache.cachedData.CALCULATOR[namespace]
+end
+
+local function buildCachedMainSkillData(mainSkill)
+	local skillData = mainSkill.skillData or {}
+	return {
+		chanceToTriggerOnCrit = skillData.chanceToTriggerOnCrit,
+		dpsMultiplier = skillData.dpsMultiplier,
+		LifeReservedPercent = skillData.LifeReservedPercent,
+		ManaReservedPercent = skillData.ManaReservedPercent,
+		EnergyShieldReservedPercent = skillData.EnergyShieldReservedPercent,
+		RageReservedPercent = skillData.RageReservedPercent,
+	}
+end
+
+local function buildCachedMirageData(mainSkill)
+	local mirage = mainSkill and mainSkill.mirage
+	if not mirage then
+		return nil
+	end
+	return {
+		Name = mirage.name,
+		Count = mirage.count,
+		InfoTrigger = mirage.infoTrigger,
+		SkillPartName = mirage.skillPartName,
+		Output = mirage.output and copyTableSafe(mirage.output, false) or nil,
+		MinionOutput = mirage.minion and mirage.minion.output and copyTableSafe(mirage.minion.output, false) or nil,
+	}
+end
+
+function buildSafeSkillCacheEntry(uuid, skill, debugNote)
+	local entry = {
+		Name = skill and skill.activeEffect and skill.activeEffect.grantedEffect.name or "Unknown",
+		Speed = 0,
+		HitSpeed = 0,
+		ManaCost = 0,
+		LifeCost = 0,
+		ESCost = 0,
+		RageCost = 0,
+		HitChance = 0,
+		AccuracyHitChance = 0,
+		PreEffectiveCritChance = 0,
+		CritChance = 0,
+		TotalDPS = 0,
+		Output = {
+			MainHand = {
+				HitChance = 0,
+				CritChance = 0,
+			},
+			OffHand = {
+				HitChance = 0,
+				CritChance = 0,
+			},
+		},
+		MainSkillData = skill and buildCachedMainSkillData(skill) or {},
+		MainSkillFlags = {
+			DotCanStack = skill and skill.skillFlags and skill.skillFlags.DotCanStack or false,
+		},
+		InfoTrigger = skill and skill.infoTrigger or nil,
+		InfoMessage2 = skill and skill.infoMessage2 or nil,
+		SkillPartName = skill and skill.skillPartName or nil,
+		MinionName = skill and skill.minion and skill.minion.minionData and skill.minion.minionData.name or nil,
+		Mirage = nil,
+		SkillUUID = uuid,
+		Incomplete = true,
+		DebugNote = debugNote,
+	}
+	return entry
+end
+
 -- Global Cache related
 function cacheData(uuid, env)
-	-- Cache entries intentionally retain live env/skill graph links for follow-up reads.
-	graphNodeTag(env, "Env")
-	GlobalCache.cachedData[env.mode][uuid] = graphNodeTag({
-		Name = env.player.mainSkill.activeEffect.grantedEffect.name,
-		Speed = env.player.output.Speed,
-		HitSpeed = env.player.output.HitSpeed,
-		ManaCost = env.player.output.ManaCost,
-		LifeCost = env.player.output.LifeCost,
-		ESCost = env.player.output.ESCost,
-		RageCost = env.player.output.RageCost,
-		HitChance = env.player.output.HitChance,
-		AccuracyHitChance = env.player.output.AccuracyHitChance,
-		PreEffectiveCritChance = env.player.output.PreEffectiveCritChance,
-		CritChance = env.player.output.CritChance,
-		TotalDPS = env.player.output.TotalDPS,
-		ActiveSkill = env.player.mainSkill,
-		Env = env,
-	}, "SkillCacheEntry")
+	local mainSkill = env.player.mainSkill
+	local output = env.player.output
+	getGlobalCacheTable(env)[uuid] = {
+		Name = mainSkill.activeEffect.grantedEffect.name,
+		Speed = output.Speed,
+		HitSpeed = output.HitSpeed,
+		ManaCost = output.ManaCost,
+		LifeCost = output.LifeCost,
+		ESCost = output.ESCost,
+		RageCost = output.RageCost,
+		HitChance = output.HitChance,
+		AccuracyHitChance = output.AccuracyHitChance,
+		PreEffectiveCritChance = output.PreEffectiveCritChance,
+		CritChance = output.CritChance,
+		TotalDPS = output.TotalDPS,
+		Output = copyTableSafe(output, false),
+		MainSkillData = buildCachedMainSkillData(mainSkill),
+		MainSkillFlags = {
+			DotCanStack = mainSkill.skillFlags and mainSkill.skillFlags.DotCanStack or false,
+		},
+		InfoTrigger = mainSkill.infoTrigger,
+		InfoMessage2 = mainSkill.infoMessage2,
+		SkillPartName = mainSkill.skillPartName,
+		MinionName = env.minion and env.minion.minionData and env.minion.minionData.name or nil,
+		Mirage = buildCachedMirageData(mainSkill),
+		SkillUUID = uuid,
+	}
 end
 
 -- Wipe all the tables associated with Global Cache
