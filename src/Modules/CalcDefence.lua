@@ -839,7 +839,18 @@ function calcs.defence(env, actor)
 			local armourData = actor.itemList[slot] and actor.itemList[slot].armourData
 			if armourData then
 				slotCfg.slotName = slot
+				energyShieldBase = not modDB:Flag(nil, "GainNoEnergyShieldFrom" .. slot) and armourData.EnergyShield or 0
+				armourBase = not modDB:Flag(nil, "GainNoArmourFrom" .. slot) and armourData.Armour or 0
+				evasionBase = not modDB:Flag(nil, "GainNoEvasionFrom" .. slot) and armourData.Evasion or 0
 				wardBase = not modDB:Flag(nil, "GainNoWardFrom" .. slot) and armourData.Ward or 0
+				if slot == "Body Armour" and modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard") then
+					local conversion = m_min(modDB:Sum("BASE", nil, "BodyArmourArmourEvasionToWardPercent") / 100, 1)
+					local convertedArmour = armourBase *  conversion
+					local convertedEvasion = evasionBase *  conversion
+					armourBase = armourBase - convertedArmour
+					evasionBase = evasionBase - convertedEvasion
+					wardBase = wardBase + (convertedEvasion + convertedArmour)
+				end
 				if wardBase > 0 then
 					if modDB:Flag(nil, "EnergyShieldToWard") then
 						local inc = modDB:Sum("INC", slotCfg, "Ward", "Defences", "EnergyShield")
@@ -864,7 +875,6 @@ function calcs.defence(env, actor)
 						end
 					end
 				end
-				energyShieldBase = not modDB:Flag(nil, "GainNoEnergyShieldFrom" .. slot) and armourData.EnergyShield or 0
 				if energyShieldBase > 0 then
 					if modDB:Flag(nil, "EnergyShieldToWard") then
 						local more = modDB:More(slotCfg, "EnergyShield", "Defences")
@@ -887,22 +897,14 @@ function calcs.defence(env, actor)
 						end
 					end
 				end
-				armourBase = not modDB:Flag(nil, "GainNoArmourFrom" .. slot) and armourData.Armour or 0
 				if armourBase > 0 then
-					if slot == "Body Armour" and modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard")then
-						armourBase = armourBase * (1 - ((m_min(modDB:Sum("BASE", nil, "BodyArmourArmourEvasionToWardPercent"), 100) or 0) / 100))
-					end
 					armour = armour + armourBase * calcLib.mod(modDB, slotCfg, "Armour", "ArmourAndEvasion", "Defences", slot.."ESAndArmour")
 					gearArmour = gearArmour + armourBase
 					if breakdown then
 						breakdown.slot(slot, nil, slotCfg, armourBase, nil, "Armour", "ArmourAndEvasion", "Defences", slot.."ESAndArmour")
 					end
 				end
-				evasionBase = not modDB:Flag(nil, "GainNoEvasionFrom" .. slot) and armourData.Evasion or 0
 				if evasionBase > 0 then
-					if slot == "Body Armour" and modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard")then
-						evasionBase = evasionBase * (1 - ((m_min(modDB:Sum("BASE", nil, "BodyArmourArmourEvasionToWardPercent"), 100) or 0) / 100))
-					end
 					gearEvasion = gearEvasion + evasionBase
 					if breakdown then
 						breakdown.slot(slot, nil, slotCfg, evasionBase, nil, "Evasion", "ArmourAndEvasion", "Defences")

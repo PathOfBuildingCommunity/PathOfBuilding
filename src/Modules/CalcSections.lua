@@ -924,7 +924,7 @@ return {
 		{ label = "inflict # additional poisons", notFlag = "attack", modName = { "AdditionalPoisonStacks" }, modType = "BASE", cfg = "skill" },
 		{ label = "inflict # additional poisons (Main Hand)", flag = "weapon1Attack", modName = { "AdditionalPoisonStacks" }, modType = "BASE", cfg = "weapon1" },
 		{ label = "inflict # additional poisons (Off Hand)", flag = "weapon2Attack", modName = { "AdditionalPoisonStacks" }, modType = "BASE", cfg = "weapon2" },
-		{ label = "Poison Stack Limits", modName = { "PoisonStackLimit", "CannotMultiplePoison" }, cfg = "skill" },
+		{ label = "Poison Stack Limits", modName = { "PoisonStackLimit", "CannotMultiplePoison", "Condition:NonPoisonedOnly" }, cfg = "skill" },
 	}, },
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Damage", "ChaosDamage" }, modType = "INC", cfg = "poison" }, }, },
 	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Damage", "ChaosDamage" }, modType = "MORE", cfg = "poison" }, }, },

@@ -1217,8 +1217,8 @@ function TreeTabClass:FindTimelessJewel()
 		[6] = {
 			{ label = "Any", id = 1 },
 			{ label = "Vorana (Black Scythe Training)", id = 2 },
-			{ label = "Uhtred (The Unbreaking Circle)", id = 3 },
-			{ label = "Medved (Celestial Mathematics)", id = 4 }
+			{ label = "Uhtred (Celestial Mathematics)", id = 3 },
+			{ label = "Medved (The Unbreaking Circle)", id = 4 }
 		}
 	}
 	-- rebuild `timelessData.conquerorType` as we only store the minimum amount of `conquerorType` data in build XML

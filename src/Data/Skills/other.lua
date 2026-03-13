@@ -1817,6 +1817,7 @@ skills["AtziriUniqueStaffFlameblast"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 25),
 		skill("triggerSource", "Queen's Demand"),
 	},
 	constantStats = {
@@ -3355,6 +3356,7 @@ skills["AtziriUniqueStaffStormCall"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 20),
 		skill("triggerSource", "Queen's Demand"),
 	},
 	constantStats = {

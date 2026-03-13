@@ -741,6 +741,9 @@ return {
 	{ var = "dominatingBlowSkillDamageCountedOnce", type = "check", label = "Dom. Blow: Count skill damage once", ifSkill = "Dominating Blow", includeTransfigured = true, tooltip = "Your Dominating Blow Skill Damage will not be scaled with Count setting.\nBy default it multiplies both minion count and skill hit count which leads to incorrect\nTotal DPS calculation since Dominating Blow cannot inherently shotgun.\nDo not enable if you use Spell Totem support, Spell Cascade support or similar supports", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:DominatingBlowSkillDamageCountedOnce", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "holyStrikeSkillDamageCountedOnce", type = "check", label = "Holy Strike: Count skill damage once", ifSkill = "Holy Strike", includeTransfigured = true, tooltip = "Your Holy Strike Skill Damage will not be scaled with Count setting.\nBy default it multiplies both minion count and skill hit count which leads to incorrect\nTotal DPS calculation since Holy Strike cannot inherently shotgun.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:HolyStrikeSkillDamageCountedOnce", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ label = "Molten Shell:", ifSkill = "Molten Shell" },
 	{ var = "MoltenShellDamageMitigated", type = "count", label = "Damage mitigated:", tooltip = "Molten Shell reflects damage to the enemy,\nbased on the amount of damage it has mitigated.", ifSkill = "Molten Shell", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "MoltenShellDamageMitigated", value = val }, "Config", { type = "SkillName", skillName = "Molten Shell" })
@@ -1642,7 +1645,7 @@ Huge sets the radius to 11.
 	{ var = "multiplierPvpDamage", type = "count", label = "Custom PvP Damage multiplier percent:", ifFlag = "isPvP", tooltip = "This multiplies the damage of a given skill in pvp, for instance any with damage multiplier specific to pvp (from skill or support or item like sire of shards)", apply = function(val, modList, enemyModList)
 		modList:NewMod("PvpDamageMultiplier", "MORE", val - 100, "Config")
 	end },
-	{ var = "buffAccelerationShrine", type = "check", label = "Have Acceleration Shrine?", ifFlag = "Condition:CanHaveRegularShrines", tooltip = "This will enable the Acceleration Shrine buff.\n\t15% increased Action Speed\n\t80% increased Projectile Speed", apply = function(val, modList, enemyModList)
+	{ var = "buffAccelerationShrine", type = "check", label = "Have Acceleration Shrine?", ifFlag = "Condition:CanHaveRegularShrines", tooltip = "This will enable the Acceleration Shrine buff.\n\t50% increased Action Speed\n\t80% increased Projectile Speed", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:AccelerationShrine", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "buffBrutalShrine", type = "check", label = "Have Brutal Shrine?", ifFlag = "Condition:CanHaveRegularShrines", tooltip = "This will enable the Brutal Shrine buff.\n\t50% increased Damage\n\tKnocks Enemies Back on Hit\n\t30% increased Stun Duration on Enemies", apply = function(val, modList, enemyModList)
@@ -1745,8 +1748,8 @@ Huge sets the radius to 11.
 	{ var = "multiplierPoisonOnEnemy", type = "count", label = "# of Poison on enemy:", ifEnemyMult = "PoisonStack", implyCond = "Poisoned", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:PoisonStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionSinglePoison", type = "check", label = "Cap to Single Poison on enemy?", ifCond = "SinglePoison", tooltip = "This is for low tolerance, but will limit you to only applying a single poison on the enemy", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:SinglePoison", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	{ var = "conditionNonPoisonedOnly", type = "check", label = "Is the enemy non-Poisoned?", ifCond = "NonPoisonedOnly", tooltip = "This is for low tolerance, but will limit you to only applying poison a single time\n^8(Note that you can still apply multiple stacks via 'inflict additional poison' mods)^7", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:NonPoisonedOnly", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "multiplierCurseExpiredOnEnemy", type = "count", label = "#% of Curse Expired on enemy:", ifEnemyMult = "CurseExpired", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:CurseExpired", "BASE", val, "Config", { type = "Condition", var = "Effective" })

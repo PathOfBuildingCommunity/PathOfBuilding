@@ -12763,6 +12763,7 @@ skills["RainOfArrowsAltX"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 10),
 		flag("OneShotProj"),
 	},
 	qualityStats = {
@@ -12839,6 +12840,7 @@ skills["RainOfArrowsAltY"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 10),
 		flag("OneShotProj"),
 	},
 	qualityStats = {

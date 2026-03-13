@@ -79,5 +79,18 @@ Can't use Mana Flasks
 On non-channelling Attack, set a Life Flask with greater than 50% of maximum Charges remaining to 50%
 For each Charge removed this way, that Attack gains +2% to Damage over time Multiplier
 While on Low Life, Life Flasks gain 4 Charges every 3 seconds
+]],
+[[
+The Broken Elegy
+Foul Staff
+Source: Drops from unique{Saresh, of the Weeping Black}
+LevelReq: 64
+Implicits: 1
++22% Chance to Block Attack Damage while wielding a Staff
+Trigger level 25 Ceaseless Flesh once every second
+Minions deal (113-157)% increased Damage
+(17-31)% increased Minion Duration
+When a nearby Minion dies, gain Rotten Bulwark equal to (7-9)% of its maximum Life
+Minions gain (59-83)% of Physical Damage as Extra Chaos Damage
 ]]
 }

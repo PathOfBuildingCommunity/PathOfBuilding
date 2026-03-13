@@ -99,8 +99,8 @@ Timeless Jewel
 League: Legion
 Limited to: 1 Historic
 Variant: Vorana (Black Scythe Training)
-Variant: Uhtred (The Unbreaking Circle)
-Variant: Medved (Celestial Mathematics)
+Variant: Uhtred (Celestial Mathematics)
+Variant: Medved (The Unbreaking Circle)
 Selected Variant:  ]] .. variant .. "\n" .. [[
 Radius: Large
 Implicits: 0

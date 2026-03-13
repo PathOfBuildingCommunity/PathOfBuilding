@@ -3743,10 +3743,10 @@ local specialModList = {
 	} end,
 
 	["poisons you inflict on non%-poisoned enemies deal (%d+)%% increased damage"] = function(num) return {
-		mod("Damage", "INC", num, nil, 0, KeywordFlag.Poison, { type = "Condition", var = "SinglePoison" })
+		mod("Damage", "INC", num, nil, 0, KeywordFlag.Poison, { type = "Condition", var = "NonPoisonedOnly" })
 	} end,
 	["poisons inflicted by sunder or ground slam on non%-poisoned enemies deal (%d+)%% increased damage"] = function(num) return {
-		mod("Damage", "INC", num, nil, 0, KeywordFlag.Poison, { type = "Condition", var = "SinglePoison" }, { type = "SkillName", skillNameList = { "Sunder", "Ground Slam" }, includeTransfigured = true })
+		mod("Damage", "INC", num, nil, 0, KeywordFlag.Poison, { type = "Condition", var = "NonPoisonedOnly" }, { type = "SkillName", skillNameList = { "Sunder", "Ground Slam" }, includeTransfigured = true })
 	} end,
 	["poisons on you expire (%d+)%% slower"] = function(num) return { mod("SelfPoisonDebuffExpirationRate", "BASE", -num) } end,
 	["(%d+)%% chance to inflict an additional poison on the same target when you inflict poison"] = function(num) return { mod("AdditionalPoisonChance", "BASE", num) } end,
@@ -3934,6 +3934,8 @@ local specialModList = {
 	["your maximum endurance charges is equal to your maximum frenzy charges"] = { flag("MaximumEnduranceChargesIsMaximumFrenzyCharges") },
 	["your maximum frenzy charges is equal to your maximum power charges"] = { flag("MaximumFrenzyChargesIsMaximumPowerCharges") },
 	["your curse limit is equal to your maximum power charges"] = { flag("CurseLimitIsMaximumPowerCharges") },
+	["consecrated ground you create grants (%d+)%% increased accuracy rating to you and allies"] = function(num) return { mod("ExtraAura", "LIST", { mod = mod("ConsecratedGroundAlsoAccuracy", "INC", num, { type = "Condition", var = "OnConsecratedGround" }) })	} end,
+	["consecrated ground created during effect applies (%d+)%% increased damage taken to enemies"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTakenConsecratedGround", "INC", num, { type = "Condition", var = "OnConsecratedGround" }) }, { type = "Condition", var = "UsingFlask" }) } end,
 	["consecrated ground you create while affected by zealotry causes enemies to take (%d+)%% increased damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTakenConsecratedGround", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "OnConsecratedGround" }, { type = "Condition", var = "AffectedByZealotry" }) } end,
 	["if you've warcried recently, you and nearby allies have (%d+)%% increased attack, cast and movement speed"] = function(num) return {
 		mod("ExtraAura", "LIST", { mod = mod("Speed", "INC", num) }, { type = "Condition", var = "UsedWarcryRecently" }),
@@ -4182,6 +4184,7 @@ local specialModList = {
 	["minions have (%d+)%% chance to poison enemies on hit"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PoisonChance", "BASE", num) }) } end,
 	["(%d+)%% increased minion damage if you have hit recently"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num) }, { type = "Condition", var = "HitRecently" }) } end,
 	["(%d+)%% increased minion damage if you've used a minion skill recently"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num) }, { type = "Condition", var = "UsedMinionSkillRecently" }) } end,
+	["minions deal (%d+)%% increased damage if you have warcried recently"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num, { type = "ActorCondition", actor = "parent", var = "UsedWarcryRecently" }) }) } end,
 	["minions deal (%d+)%% increased damage if you've used a minion skill recently"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num) }, { type = "Condition", var = "UsedMinionSkillRecently" }) } end,
 	["minions deal (%d+)%% more damage while they are on low life"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", num, { type = "Condition", var = "LowLife" }) }) } end,
 	["minions have (%d+)%% increased attack and cast speed if you or your minions have killed recently"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", num) }, { type = "Condition", varList = { "KilledRecently", "MinionsKilledRecently" } }) } end,
@@ -4885,9 +4888,6 @@ local specialModList = {
 	["when hit during effect, (%d+)%% of life loss from damage taken occurs over 4 seconds instead"] = function(num) return { mod("LifeLossPrevented", "BASE", num, { type = "Condition", var = "UsingFlask" }) } end,
 	["y?o?u?r? ?skills [ch][oa][sv][te] no mana c?o?s?t? ?during f?l?a?s?k? ?effect"] = { mod("ManaCost", "MORE", -100, { type = "Condition", var = "UsingFlask" }) },
 	["life recovery from flasks also applies to energy shield during f?l?a?s?k? ?effect"] = { flag("LifeFlaskAppliesToEnergyShield", { type = "Condition", var = "UsingFlask" }) },
-	["consecrated ground created during effect applies (%d+)%% increased damage taken to enemies"] = function(num) return {
-		mod("EnemyModifier", "LIST", { mod = mod("DamageTakenConsecratedGround", "INC", num, { type = "Condition", var = "OnConsecratedGround" }) }, { type = "Condition", var = "UsingFlask" })
-	} end,
 	["profane ground you create inflicts malediction on enemies"] = { mod("EnemyModifier", "LIST", { mod = flag("HasMalediction", { type = "Condition", var = "OnProfaneGround" }) })	},
 	["profane ground you create also affects you and your allies, granting chaotic might"] = { mod("ExtraAura", "LIST", { mod = flag("Condition:ChaoticMight", { type = "Condition", var = "OnProfaneGround" }) }) },
 	["raised beast spectres have farrul's farric presence"] = {

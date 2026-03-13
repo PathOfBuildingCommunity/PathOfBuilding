@@ -1881,8 +1881,8 @@ League: Legion
 Source: Drops from Legion in Mirage
 Limited to: 1 Historic
 Variant: Vorana (Black Scythe Training)
-Variant: Uhtred (The Unbreaking Circle)
-Variant: Medved (Celestial Mathematics)
+Variant: Uhtred (Celestial Mathematics)
+Variant: Medved (The Unbreaking Circle)
 Radius: Large
 Implicits: 0
 {variant:1}Remembrancing (100-8000) songworthy deeds by the line of Vorana
