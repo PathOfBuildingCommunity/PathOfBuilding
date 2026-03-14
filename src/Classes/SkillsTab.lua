@@ -51,7 +51,7 @@ This hides gems with a minimum level requirement above your character level, pre
 		gemLevel = "characterLevel",
 	},
 	{
-		label = "Level One",
+		label = "Level 1",
 		description = "All gems default to level 1.",
 		gemLevel = "levelOne",
 	},
