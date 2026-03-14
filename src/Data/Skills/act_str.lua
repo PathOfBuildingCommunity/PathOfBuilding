@@ -6079,11 +6079,9 @@ skills["HolyHammers"] = {
 		},
 		{
 			name = "First Hammer",
-			melee = false,
 		},
 		{
 			name = "Other Hammers",
-			melee = false,
 		},
 	},
 	statMap = {

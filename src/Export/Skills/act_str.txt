@@ -1036,11 +1036,9 @@ local skills, mod, flag, skill = ...
 		},
 		{
 			name = "First Hammer",
-			melee = false,
 		},
 		{
 			name = "Other Hammers",
-			melee = false,
 		},
 	},
 	statMap = {
