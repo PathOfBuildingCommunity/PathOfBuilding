@@ -387,7 +387,13 @@ data.highPrecisionMods = {
 	["LifeDegenPercent"] = {
 		["BASE"] = 2,
 	},
+	["LifeDegenPercentTincture"] = {
+		["BASE"] = 2,
+	},
 	["ManaDegenPercent"] = {
+		["BASE"] = 2,
+	},
+	["ManaDegenPercentTincture"] = {
 		["BASE"] = 2,
 	},
 	["EnergyShieldDegenPercent"] = {

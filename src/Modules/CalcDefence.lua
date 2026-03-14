@@ -1269,7 +1269,9 @@ function calcs.defence(env, actor)
 			output[resource.."Regen"] = regenRate
 		end
 		output[resource.."RegenInc"] = inc
-		local baseDegen = (modDB:Sum("BASE", nil, resource.."Degen") + pool * modDB:Sum("BASE", nil, resource.."DegenPercent") / 100)
+		local baseDegen = modDB:Sum("BASE", nil, resource.."Degen") + (pool * modDB:Sum("BASE", nil, resource.."DegenPercent") / 100)
+		local tinctureDegenPercent = modDB:Sum("BASE", nil, resource.."DegenPercentTincture")
+		baseDegen = baseDegen +	m_max(pool * tinctureDegenPercent / 100, tinctureDegenPercent) -- tincture minimum 1 degen per stack
 		local degenRate = (baseDegen > 0) and baseDegen * calcLib.mod(modDB, nil, resource.."Degen") or 0
 		output[resource.."Degen"] = degenRate
 		local recoveryRate = modDB:Sum("BASE", nil, resource.."Recovery") * recoveryRateMod

@@ -524,8 +524,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", data.characterConstants["non_damaging_ailment_effect_+%_final_per_affliction_charge"], "Base")
 		modDB:NewMod("PerAbsorptionElementalEnergyShieldRecoup", "BASE", data.characterConstants["elemental_damage_taken_goes_to_energy_shield_over_4_seconds_%_per_absorption_charge"], "Base")
 		modDB:NewMod("TinctureLimit", "BASE", 1, "Base")
-		modDB:NewMod("ManaDegenPercent", "BASE", 1, "Base", { type = "Multiplier", var = "EffectiveManaBurnStacks" })
-		modDB:NewMod("LifeDegenPercent", "BASE", 1, "Base", { type = "Multiplier", var = "WeepingWoundsStacks" })
+		modDB:NewMod("ManaDegenPercentTincture", "BASE", 1, "Base", { type = "Multiplier", var = "EffectiveManaBurnStacks" })
+		modDB:NewMod("LifeDegenPercentTincture", "BASE", 1, "Base", { type = "Multiplier", var = "WeepingWoundsStacks" })
 		modDB:NewMod("PresenceRadius", "BASE", data.characterConstants["base_presence_radius"], "Base")
 
 		-- Add bandit mods
