@@ -1968,9 +1968,9 @@ end
 local function extraSupport(name, level, slot)
 	local skillId = gemIdLookup[name] or gemIdLookup[name:gsub("^increased ","")] or gemIdLookup[name:gsub(" support$","")]
 
-	if itemSlotName == "main hand" then
+	if slot == "main hand" or slot == "main hand weapon" then
 		slot = "Weapon 1"
-	elseif itemSlotName == "off hand" then
+	elseif slot == "off hand" or slot == "off hand weapon" then
 		slot = "Weapon 2"
 	elseif slot then
 		slot = string.gsub(" "..slot, "%W%l", string.upper):sub(2)
