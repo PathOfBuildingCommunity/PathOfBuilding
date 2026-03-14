@@ -12,11 +12,6 @@ local m_max = math.max
 local m_floor = math.floor
 
 local toolTipText = "Prefix tag searches with a colon and exclude tags with a dash. e.g. :fire:lightning:-cold:area"
-local nonLegacyAwakened = {
-	["SupportAwakenedEmpower"] = true,
-	["SupportAwakenedEnlighten"] = true,
-	["SupportAwakenedEnhance"] = true,
-}
 local altQualMap = {
 	["Default"] = "",
 	["Alternate1"] = "Anomalous ",
@@ -121,7 +116,7 @@ function GemSelectClass:PopulateGemList()
 			local levelRequirement = gemData.grantedEffect.levels[1].levelRequirement or 1
 			if characterLevel >= levelRequirement or not matchLevel then
 				if (showExceptional or showAll) and gemData.grantedEffect.plusVersionOf then
-					if self.skillsTab.showLegacyGems or nonLegacyAwakened[gemData.grantedEffectId] or not gemData.name:match("^Awakened") then
+					if self.skillsTab.showLegacyGems or not gemData.grantedEffect.legacy then
 						self.gems["Default:" .. gemId] = gemData
 					end
 				elseif showNormal or showAll then
@@ -144,7 +139,7 @@ end
 
 function GemSelectClass:FilterSupport(gemId, gemData)
 	local showSupportTypes = self.skillsTab.showSupportGemTypes
-	if gemData.name:match("^Awakened") and not self.skillsTab.showLegacyGems and not nonLegacyAwakened[gemData.grantedEffectId] then
+	if gemData.grantedEffect.legacy and not self.skillsTab.showLegacyGems then
 		return false
 	end
 	return (not gemData.grantedEffect.support
@@ -615,6 +610,11 @@ function GemSelectClass:AddGemTooltip(gemInstance)
 		local grantedEffect = gemInstance.gemData.grantedEffect
 		self.tooltip:AddLine(fontSizeTitle, colorCodes.GEM .. altQualMap[gemInstance.qualityId]..grantedEffect.name, "FONTIN SC")
 		self.tooltip:AddSeparator(10)
+		if grantedEffect.legacy then
+			self.tooltip:AddLine(fontSizeTitle, colorCodes.WARNING .. "Legacy Gem", "FONTIN SC")
+			self.tooltip:AddLine(fontSizeBig, colorCodes.WARNING .. "Gem only exists in Standard League", "FONTIN SC")
+			self.tooltip:AddSeparator(10)
+		end
 		self.tooltip:AddLine(fontSizeBig, "^x7F7F7F" .. gemInstance.gemData.tagString, "FONTIN SC")
 		self:AddCommonGemInfo(gemInstance, grantedEffect, true, secondary and secondary.support and secondary)
 	end
