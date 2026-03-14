@@ -305,6 +305,15 @@ local function doActorAttribsConditions(env, actor)
 		if modDB:Flag(nil, "GloomShrine") then
 			modDB:NewMod("NonChaosDamageGainAsChaos", "BASE", m_floor(10 * shrineEffectMod), "Gloom Shrine")
 		end
+		if modDB:Flag(nil, "GreaterFreezingShrine") then
+			modDB:NewMod("PhysicalDamageGainAsCold", "BASE", m_floor(30 * shrineEffectMod), "Greater Freezing Shrine")
+		end
+		if modDB:Flag(nil, "GreaterShockingShrine") then
+			modDB:NewMod("PhysicalDamageGainAsLightning", "BASE", m_floor(30 * shrineEffectMod), "Greater Shocking Shrine")
+		end
+		if modDB:Flag(nil, "GreaterSkeletalShrine") then
+			modDB:NewMod("PhysicalDamageGainAsChaos", "BASE", m_floor(30 * shrineEffectMod), "Greater Skeletal Shrine")
+		end
 		if modDB:Flag(nil, "ImpenetrableShrine") then
 			modDB:NewMod("Armour", "INC", m_floor(100 * shrineEffectMod), "Impenetrable Shrine")
 			modDB:NewMod("Evasion", "INC", m_floor(100 * shrineEffectMod), "Impenetrable Shrine")

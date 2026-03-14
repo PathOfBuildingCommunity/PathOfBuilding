@@ -80,13 +80,43 @@ Screams of the Desiccated
 Leather Belt
 League: Mirage
 Source: Drops from unique{Saresh, of the Weeping Black}
+Has Alt Variant: true
+Selected Variant: 1
+Selected Alt Variant: 1
+Variant: Acceleration
+Variant: Brutal
+Variant: Diamond
+Variant: Echoing
+Variant: Gloom
+Variant: Greater Freezing
+Variant: Greater Shocking
+Variant: Greater Skeletal
+Variant: Impenetrable
+Variant: Massive
+Variant: Replenishing
+Variant: Resistance
+Variant: Resonating
 LevelReq: 56
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
-You have Diamond Shrine Buff while affected by no Flasks
-You have Resistance Shrine Buff while affected by no Flasks
 {tags:jewellery_attribute}+(23-32) to Intelligence
 {tags:jewellery_resistance}+(23-37)% to Chaos Resistance
+{variant:1}You have Acceleration Shrine Buff while affected by no Flasks
+{variant:2}You have Brutal Shrine Buff while affected by no Flasks
+{variant:3}You have Diamond Shrine Buff while affected by no Flasks
+{variant:4}You have Echoing Shrine Buff while affected by no Flasks
+{variant:5}You have Gloom Shrine Buff while affected by no Flasks
+{variant:6}You have Greater Freezing Shrine Buff while affected by no Flasks
+{variant:6}(15—20)% increased Effect of Shrine Buffs on you
+{variant:7}You have Greater Shocking Shrine Buff while affected by no Flasks
+{variant:7}(15—20)% increased Effect of Shrine Buffs on you
+{variant:8}You have Greater Skeletal Shrine Buff while affected by no Flasks
+{variant:8}(15—20)% increased Effect of Shrine Buffs on you
+{variant:9}You have Impenetrable Shrine Buff while affected by no Flasks
+{variant:10}You have Massive Shrine Buff while affected by no Flasks
+{variant:11}You have Replenishing Shrine Buff while affected by no Flasks
+{variant:12}You have Resistance Shrine Buff while affected by no Flasks
+{variant:13}You have Resonating Shrine Buff while affected by no Flasks
 ]],
 [[
 Skysunder

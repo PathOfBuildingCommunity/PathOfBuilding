@@ -1674,6 +1674,15 @@ Huge sets the radius to 11.
 	{ var = "buffGloomShrine", type = "check", label = "Have Gloom Shrine?", ifFlag = "Condition:CanHaveRegularShrines", tooltip = "This will enable the Gloom Shrine buff.\n\tGain 10% of Non-^xD02090Chaos ^7Damage as extra ^xD02090Chaos ^7Damage\n\tEnemies you Kill have a 40% chance to Explode, dealing a quarter of their maximum ^xE05030Life ^7as ^xD02090Chaos ^7Damage", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:GloomShrine", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "buffGreaterFreezingShrine", type = "check", label = "Have Greater Freezing Shrine?", ifFlag = "Condition:CanHaveRegularShrines", tooltip = "This will enable the Greater Freezing Shrine buff.\n\tGain 30% of Physical Damage as Extra ^x3F6DB3Cold ^7Damage\n\tIce Novas happen around you", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:GreaterFreezingShrine", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "buffGreaterShockingShrine", type = "check", label = "Have Greater Shocking Shrine?", ifFlag = "Condition:CanHaveRegularShrines", tooltip = "This will enable the Greater Shocking Shrine buff.\n\tGain 30% of Physical Damage as Extra ^xADAA47Lightning ^7Damage\n\tShock Novas happen around you", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:GreaterShockingShrine", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "buffGreaterSkeletalShrine", type = "check", label = "Have Greater Skeletal Shrine?", ifFlag = "Condition:CanHaveRegularShrines", tooltip = "This will enable the Greater Skeletal Shrine buff.\n\tGain 30% of Physical Damage as Extra ^xD02090Chaos ^7Damage\n\tSkeletons are summoned to you", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:GreaterSkeletalShrine", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "buffImpenetrableShrine", type = "check", label = "Have Impenetrable Shrine?", ifFlag = "Condition:CanHaveRegularShrines", tooltip = "This will enable the Impenetrable Shrine buff.\n\t100% increased Armour\n\t100% increased ^x33FF77Evasion Rating^7\n\t100% increased maximum ^x88FFFFEnergy Shield", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ImpenetrableShrine", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },

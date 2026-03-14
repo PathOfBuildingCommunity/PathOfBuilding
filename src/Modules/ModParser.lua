@@ -851,9 +851,19 @@ local modNameList = {
 	["chaotic might"] = "Condition:ChaoticMight",
 	["lesser brutal shrine buff"] = "Condition:LesserBrutalShrine",
 	["lesser massive shrine buff"] = "Condition:LesserMassiveShrine",
+	["acceleration shrine buff"] = "Condition:AccelerationShrine",
+	["brutal shrine buff"] = "Condition:BrutalShrine",
 	["diamond shrine buff"] = "Condition:DiamondShrine",
+	["echoing shrine buff"] = "Condition:EchoingShrine",
+	["gloom shrine buff"] = "Condition:GloomShrine",
+	["greater freezing shrine buff"] = "Condition:GreaterFreezingShrine",
+	["greater shocking shrine buff"] = "Condition:GreaterShockingShrine",
+	["greater skeletal shrine buff"] = "Condition:GreaterSkeletalShrine",
+	["impenetrable shrine buff"] = "Condition:ImpenetrableShrine",
 	["massive shrine buff"] = "Condition:MassiveShrine",
-	["resistance shrine buff"] = "Condition:ResistanceShrine"
+	["replenishing shrine buff"] = "Condition:ReplenishingShrine",
+	["resistance shrine buff"] = "Condition:ResistanceShrine",
+	["resonating shrine buff"] = "Condition:ResonatingShrine",
 }
 
 -- List of modifier flags
@@ -5797,9 +5807,19 @@ local flagTypes = {
 	["debilitated"] = "Condition:Debilitated",
 	["lesser brutal shrine buff"] = "Condition:LesserBrutalShrine",
 	["lesser massive shrine buff"] = "Condition:LesserMassiveShrine",
+	["acceleration shrine buff"] = "Condition:AccelerationShrine",
+	["brutal shrine buff"] = "Condition:BrutalShrine",
 	["diamond shrine buff"] = "Condition:DiamondShrine",
+	["echoing shrine buff"] = "Condition:EchoingShrine",
+	["gloom shrine buff"] = "Condition:GloomShrine",
+	["greater freezing shrine buff"] = "Condition:GreaterFreezingShrine",
+	["greater shocking shrine buff"] = "Condition:GreaterShockingShrine",
+	["greater skeletal shrine buff"] = "Condition:GreaterSkeletalShrine",
+	["impenetrable shrine buff"] = "Condition:ImpenetrableShrine",
 	["massive shrine buff"] = "Condition:MassiveShrine",
-	["resistance shrine buff"] = "Condition:ResistanceShrine"
+	["replenishing shrine buff"] = "Condition:ReplenishingShrine",
+	["resistance shrine buff"] = "Condition:ResistanceShrine",
+	["resonating shrine buff"] = "Condition:ResonatingShrine",
 }
 
 -- Build active skill name lookup

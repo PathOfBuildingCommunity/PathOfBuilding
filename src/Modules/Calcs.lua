@@ -722,6 +722,15 @@ function calcs.buildOutput(build, mode)
 		if env.modDB:Flag(nil, "GloomShrine") then
 			t_insert(combatList, "Gloom Shrine")
 		end
+		if env.modDB:Flag(nil, "GreaterFreezingShrine") then
+			t_insert(combatList, "Greater Freezing Shrine")
+		end
+		if env.modDB:Flag(nil, "GreaterShockingShrine") then
+			t_insert(combatList, "Greater Shocking Shrine")
+		end
+		if env.modDB:Flag(nil, "GreaterSkeletalShrine") then
+			t_insert(combatList, "Greater Skeletal Shrine")
+		end
 		if env.modDB:Flag(nil, "ImpenetrableShrine") then
 			t_insert(combatList, "Impenetrable Shrine")
 		end
