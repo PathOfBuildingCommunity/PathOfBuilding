@@ -4166,7 +4166,7 @@ skills["ChargedDashAltX"] = {
 	preDamageFunc = function(activeSkill, output)
 		   if activeSkill.skillPart == 3 then
 			   local finalWaveDamageModifier = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "chargedDashFinalDamageModifier")
-			   activeSkill.skillModList:NewMod("Damage", "MORE", finalWaveDamageModifier, "Skill:ChargedDash", ModFlag.Attack, { type = "Release Damage", skillPart = 3 })
+			   activeSkill.skillModList:NewMod("Damage", "MORE", finalWaveDamageModifier, "Skill:ChargedDashofProjection", ModFlag.Attack, { type = "Release Damage", skillPart = 3 })
 		   end
 	end,
 	statMap = {
@@ -4176,7 +4176,7 @@ skills["ChargedDashAltX"] = {
 			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 		},
 		["charged_dash_damage_+%_final_per_stack"] = {
-			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type = "Multiplier", var = "ChargedDashStage" }, { type = "SkillPart", skillPart = 3 }),
+			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type = "Multiplier", var = "ChargedDashofProjectionStage" }, { type = "SkillPart", skillPart = 3 }),
 		},
 		["charged_dash_channelling_damage_at_full_stacks_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
@@ -4193,7 +4193,7 @@ skills["ChargedDashAltX"] = {
 		skill("radiusSecondary", 26),
 		skill("radiusSecondaryLabel", "End of Dash:"),
 		skill("hitTimeMultiplier", 2, { type = "Skill", skillPartList = { 1, 2 } }),
-		mod("Multiplier:ChargedDashMaxStages", "BASE", 15),
+		mod("Multiplier:ChargedDashofProjectionMaxStages", "BASE", 15),
 		skill("showAverage", true, { type = "SkillPart", skillPart = 3 }),
 	},
 	qualityStats = {
