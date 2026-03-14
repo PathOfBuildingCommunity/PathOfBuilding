@@ -335,6 +335,9 @@ return {
 	{ var = "chaosGolemEqualsStoneGolem", type = "check", label = "# Chaos Golem = # Stone Golem:", ifCond = "ChaosEqualStoneGolem", ifSkill = "Summon Stone Golem", includeTransfigured = true, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ChaosEqualStoneGolem", "FLAG", true, "Config")
 	end },
+	{ var = "cinderflameStacks", type = "count", label = "# of Cinderflame stacks on enemy:", ifSkill = "Cinders", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:CinderflameStacks", "BASE", val, "Config")
+	end },
 	{ var = "stoneGolemEqualsCarrionGolem", type = "check", label = "# Stone Golem = # Carrion Golem:", ifCond = "StoneEqualCarrionGolem", ifSkill = "Summon Carrion Golem", includeTransfigured = true, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:StoneEqualCarrionGolem", "FLAG", true, "Config")
 	end },
@@ -674,7 +677,6 @@ return {
 	{ var = "summonReaperConsumeRecently", type = "check", label = "Reaper Consumed recently?", ifSkill = "Summon Reaper", includeTransfigured = true, apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "ReaperConsumeMinionForBuff" })
 	end },
-	{ label = "Tears of Rot:", ifSkill = "Tears of Rot" },
 	{ var = "weepingBlackStacks", type = "count", label = "# of Weeping Black stacks on enemy:", ifSkill = "Tears of Rot", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:WeepingBlackStacks", "BASE", val, "Config")
 	end },

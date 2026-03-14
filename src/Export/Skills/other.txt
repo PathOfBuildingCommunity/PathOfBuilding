@@ -246,6 +246,17 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill ResentmentUniqueSkill
+#flags spell duration
+	fromItem = true,
+	statMap = {
+		["base_fire_damage_to_deal_per_minute"] = {
+			skill("FireDot", nil, { type = "Multiplier", var = "CinderflameStacks", limit = 10 }),
+			div = 60,
+		},
+	},
+#mods
+
 #skill ColdAegis
 #flags spell
 	fromItem = true,
