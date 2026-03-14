@@ -2823,7 +2823,6 @@ skills["DivineBlast"] = {
 	},
 	baseFlags = {
 		attack = true,
-		melee = true,
 		area = true,
 		shieldAttack = true,
 	},
@@ -6080,11 +6079,9 @@ skills["HolyHammers"] = {
 		},
 		{
 			name = "First Hammer",
-			melee = false,
 		},
 		{
 			name = "Other Hammers",
-			melee = false,
 		},
 	},
 	statMap = {
@@ -6174,12 +6171,6 @@ skills["HolyStrike"] = {
 		["Staff"] = true,
 		["Two Handed Mace"] = true,
 	},
-	statMap = {
-		["skill_physical_damage_%_to_convert_to_lightning"] = {
-			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil),
-			mod("MinionModifier", "LIST", { mod = mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0) })
-		},
-	},
 	statDescriptionScope = "minion_attack_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
@@ -6187,6 +6178,12 @@ skills["HolyStrike"] = {
 	},
 	minionUses = {
 		["Weapon 1"] = true,
+	},
+	statMap = {
+		["skill_physical_damage_%_to_convert_to_lightning"] = {
+			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil),
+			mod("MinionModifier", "LIST", { mod = mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0) })
+		},
 	},
 	baseFlags = {
 		attack = true,

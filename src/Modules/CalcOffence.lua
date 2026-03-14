@@ -3067,20 +3067,16 @@ function calcs.offence(env, actor, activeSkill)
 		elseif skillModList:Flag(cfg, "AllAddedDamageAsCold") then
 			addedDamageRedirectType = "Cold"
 		end
-		if addedDamageRedirectType and not activeSkill.activeEffect.grantedEffect.name == "Elemental Hit" then
+		if addedDamageRedirectType and activeSkill.activeEffect.grantedEffect.name ~= "Elemental Hit" then
 			for _, damageType in ipairs(dmgTypeList) do
 				if damageType ~= addedDamageRedirectType then
 					for _, value in ipairs(skillModList:Tabulate("BASE", cfg, damageType.."Min")) do
 						local mod = value.mod
-						if mod.source ~= "Skill:ElementalHit" then
 							skillModList:ConvertMod(damageType.."Min", addedDamageRedirectType.."Min", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, { type = "Cryogenesis Added Damage" }, unpack(mod))
-						end
 					end
 					for _, value in ipairs(skillModList:Tabulate("BASE", cfg, damageType.."Max")) do
 						local mod = value.mod
-						if mod.source ~= "Skill:ElementalHit" then
 							skillModList:ConvertMod(damageType.."Max", addedDamageRedirectType.."Max", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, { type = "Cryogenesis Added Damage" }, unpack(mod))
-						end
 					end
 				end
 			end
@@ -4443,8 +4439,8 @@ function calcs.offence(env, actor, activeSkill)
 					PoisonStacks = m_min(PoisonStacks, maxPoisonStacks)
 				end
 			end
-			if PoisonStacks < 1 and (env.configInput.multiplierPoisonOnEnemy or 0) <= 1 then
-				skillModList:NewMod("Condition:SinglePoison", "FLAG", true, "poison")
+			if PoisonStacks < additionalPoisonStacks and (env.configInput.multiplierPoisonOnEnemy or 0) == 0 then
+				skillModList:NewMod("Condition:NonPoisonedOnly", "FLAG", true, "Calculation")
 			end
 			if globalBreakdown then
 				globalBreakdown.PoisonStacks = { }
@@ -4459,15 +4455,18 @@ function calcs.offence(env, actor, activeSkill)
 					{ "%g ^8(quantity multiplier for this skill)", quantityMultiplier },
 					total = s_format("= %.2f", PoisonStacks),
 				})
-				if skillModList:Flag(nil, "Condition:SinglePoison") then
+				if skillModList:Flag(nil, "Condition:NonPoisonedOnly") then
 					t_insert(globalBreakdown.PoisonStacks, "Assuming 'non-Poisoned' Enemy")
-				end
-				if poisonStackLimit and PoisonStacks >= poisonStackLimit then
+					if PoisonStacks < additionalPoisonStacks then
+						t_insert(globalBreakdown.PoisonStacks, "^8(time between hits is longer than poison duration)")
+					else
+						t_insert(globalBreakdown.PoisonStacks, "^8(affected by poison stack limit of: " .. additionalPoisonStacks .. ")")
+					end
+				elseif poisonStackLimit and PoisonStacks >= poisonStackLimit then
 					t_insert(globalBreakdown.PoisonStacks, "^8(affected by poison stack limit of: " .. poisonStackLimit .. ")")
 					if uncappedPoisonStacks then
 						t_insert(globalBreakdown.PoisonStacks, "^8(uncapped poison stacks: " .. s_format("%.2f", uncappedPoisonStacks) .. ")")
 					end
-
 				end
 			end
 			for sub_pass = 1, 2 do
@@ -4557,8 +4556,8 @@ function calcs.offence(env, actor, activeSkill)
 						globalBreakdown.PoisonEffMult = breakdown.effMult("Chaos", resist, 0, takenInc, effMult, takenMore, sourceRes, true)
 					end
 				end
-				if skillModList:Flag(nil, "Condition:SinglePoison") then
-					PoisonStacks = m_min(1, PoisonStacks)
+				if skillModList:Flag(nil, "Condition:NonPoisonedOnly") then
+					PoisonStacks = m_min(additionalPoisonStacks, PoisonStacks)
 				end
 				globalOutput.PoisonStacks = PoisonStacks
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")

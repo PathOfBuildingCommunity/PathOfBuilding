@@ -246,6 +246,17 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill ResentmentUniqueSkill
+#flags spell duration
+	fromItem = true,
+	statMap = {
+		["base_fire_damage_to_deal_per_minute"] = {
+			skill("FireDot", nil, { type = "Multiplier", var = "CinderflameStacks", limit = 10 }),
+			div = 60,
+		},
+	},
+#mods
+
 #skill ColdAegis
 #flags spell
 	fromItem = true,
@@ -497,6 +508,7 @@ local skills, mod, flag, skill = ...
 #skill AtziriUniqueStaffFlameblast
 #flags spell area
 	fromItem = true,
+#baseMod skill("radius", 25)
 #baseMod skill("triggerSource", "Queen's Demand")
 #mods
 
@@ -862,6 +874,7 @@ local skills, mod, flag, skill = ...
 #skill AtziriUniqueStaffStormCall
 #flags spell area
 	fromItem = true,
+#baseMod skill("radius", 20)
 #baseMod skill("triggerSource", "Queen's Demand")
 #mods
 

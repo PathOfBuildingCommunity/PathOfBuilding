@@ -68,6 +68,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	if not buildName then
 		main:SetMode("LIST")
 	end
+	self.saveAsSortMode = "NAME"
 
 	-- Load build file
 	self.xmlSectionList = { }
@@ -1310,10 +1311,14 @@ function buildMode:OpenSaveAsPopup()
 			end
 		end)
 	end)
-	controls.folder = new("FolderListControl", nil, {0, 115, 450, 100}, self.dbFileSubPath, function(subPath)
+
+	controls.folder = new("FolderListControl", nil, {0, 115, 450, 400}, self.dbFileSubPath, function(subPath)
 		updateBuildName()
 	end)
-	controls.save = new("ButtonControl", nil, {-45, 225, 80, 20}, "Save", function()
+	controls.folder.sortMode = self.saveAsSortMode
+	controls.folder:SortList()
+
+	controls.save = new("ButtonControl", nil, {-45, 525, 80, 20}, "Save", function()
 		main:ClosePopup()
 		self.dbFileName = newFileName
 		self.buildName = newBuildName
@@ -1321,7 +1326,7 @@ function buildMode:OpenSaveAsPopup()
 		self:SaveDBFile()
 		self.spec:SetWindowTitleWithBuildClass()
 	end)
-	controls.close = new("ButtonControl", nil, {45, 225, 80, 20}, "Cancel", function()
+	controls.close = new("ButtonControl", nil, {45, 525, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 		self.actionOnSave = nil
 	end)
@@ -1333,7 +1338,18 @@ function buildMode:OpenSaveAsPopup()
 		controls.save.enabled = false
 	end
 
-	main:OpenPopup(470, 255, self.dbFileName and "Save As" or "Save", controls, "save", "edit", "close")
+	controls.buildSortMode = new("DropDownControl", { "TOPRIGHT", nil, "TOPRIGHT" }, { -10, 70, 120, 18 }, {
+		{ label = "Sort By Name", mode = "NAME" },
+		{ label = "Sort By Last Edited", mode = "EDITED" },
+	}, function(index, value)
+		self.saveAsSortMode = value.mode
+		controls.folder.sortMode = value.mode
+		controls.folder:SortList()
+	end)
+	controls.buildSortMode.tooltipText = "Sort folders by name or date modified."
+	controls.buildSortMode:SelByValue(self.saveAsSortMode, "mode")
+
+	main:OpenPopup(470, 555, self.dbFileName and "Save As" or "Save", controls, "save", "edit", "close")
 end
 
 -- Open the spectre library popup

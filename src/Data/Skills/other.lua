@@ -704,6 +704,38 @@ skills["CeaselessFleshUnique"] = {
 		[25] = { 80, levelRequirement = 72, statInterpolation = { 1, }, },
 	},
 }
+skills["ResentmentUniqueSkill"] = {
+	name = "Cinders",
+	hidden = true,
+	color = 2,
+	description = "While active, your bow attacks inflict Cinderflame. Cinderflame deals fire damage over time, and can stack up to ten times. This skill cannot be cast by Totems.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, [SkillType.DamageOverTime] = true, [SkillType.Fire] = true, [SkillType.CausesBurning] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	fromItem = true,
+	statMap = {
+		["base_fire_damage_to_deal_per_minute"] = {
+			skill("FireDot", nil, { type = "Multiplier", var = "CinderflameStacks", limit = 10 }),
+			div = 60,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 3000 },
+		{ "base_fire_damage_to_deal_per_minute", 20000 },
+	},
+	stats = {
+		"cast_on_gain_skill",
+		"spell_uncastable_if_triggerable",
+		"no_cost",
+	},
+	levels = {
+		[20] = { cooldown = 1, levelRequirement = 0, storedUses = 1, },
+	},
+}
 skills["ColdAegis"] = {
 	name = "Cold Aegis",
 	hidden = true,
@@ -1817,6 +1849,7 @@ skills["AtziriUniqueStaffFlameblast"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 25),
 		skill("triggerSource", "Queen's Demand"),
 	},
 	constantStats = {
@@ -3355,6 +3388,7 @@ skills["AtziriUniqueStaffStormCall"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 20),
 		skill("triggerSource", "Queen's Demand"),
 	},
 	constantStats = {

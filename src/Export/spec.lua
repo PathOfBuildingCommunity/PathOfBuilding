@@ -333,6 +333,13 @@ return {
 			refTo="ActiveSkills",
 			type="ShortKey",
 			width=150
+		},
+		[31]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
 		}
 	},
 	activeskilltype={
@@ -3611,6 +3618,13 @@ return {
 			width=50
 		},
 		[63]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[64]={
 			list=false,
 			name="",
 			refTo="",
@@ -7228,6 +7242,13 @@ return {
 			refTo="",
 			type="String",
 			width=20
+		},
+		[61]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
 		}
 	},
 	itemvisualreplacement={
@@ -7989,6 +8010,13 @@ return {
 			width=100
 		},
 		[12]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[13]={
 			list=true,
 			name="",
 			refTo="",
@@ -8967,6 +8995,13 @@ return {
 			name="RuthlessReplacement",
 			refTo="GrantedEffectsPerLevel",
 			type="Key",
+			width=150
+		},
+		[64]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
 			width=150
 		}
 	},
@@ -10687,7 +10722,7 @@ return {
 	passivejewelradii={
 		[1]={
 			list=false,
-			name="Name",
+			name="Id",
 			refTo="",
 			type="String",
 			width=100
@@ -10715,8 +10750,8 @@ return {
 		},
 		[5]={
 			list=false,
-			name="",
-			refTo="",
+			name="Name",
+			refTo="ClientStrings",
 			type="Key",
 			width=150
 		}
@@ -12366,7 +12401,7 @@ return {
 		},
 		[22]={
 			list=true,
-			name="",
+			name="MonsterPack",
 			refTo="MonsterPacks",
 			type="Key",
 			width=150
@@ -14003,7 +14038,7 @@ return {
 		},
 		[7]={
 			list=false,
-			name="",
+			name="Gender",
 			refTo="",
 			type="String",
 			width=150

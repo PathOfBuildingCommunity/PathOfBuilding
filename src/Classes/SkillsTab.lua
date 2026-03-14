@@ -50,6 +50,11 @@ Awakened gems default to their highest valid non-corrupted gem level.]],
 This hides gems with a minimum level requirement above your character level, preventing them from showing up in the dropdown list.]],
 		gemLevel = "characterLevel",
 	},
+	{
+		label = "Level 1",
+		description = "All gems default to level 1.",
+		gemLevel = "levelOne",
+	},
 }
 
 local showSupportGemTypeList = {
@@ -1053,6 +1058,8 @@ function SkillsTabClass:ProcessGemLevel(gemData)
 		end
 	elseif self.defaultGemLevel == "normalMaximum" then
 		return naturalMaxLevel
+	elseif self.defaultGemLevel == "levelOne" then
+		return 1
 	else -- self.defaultGemLevel == "characterLevel"
 		local maxGemLevel = naturalMaxLevel
 		if not grantedEffect.levels[maxGemLevel] then

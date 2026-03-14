@@ -149,7 +149,7 @@ return {
 	skill("poisonDurationIsSkillDuration", true),
 },
 ["cannot_poison_poisoned_enemies"] = {
-	flag("Condition:SinglePoison"),
+	flag("Condition:NonPoisonedOnly"),
 	mod("PoisonStackLimit", "MIN", 1),
 },
 ["cannot_inflict_additional_poisons"] = {
