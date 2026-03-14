@@ -21,7 +21,7 @@ Exquisite Blade
 League: Mirage
 Source: Obtained by using a Coin of Restoration on unique{Fleshrender}
 Implicits: 1
-+50% to global critical strike chance
++50% to global critical strike multiplier
 (130-160)% increased Physical Damage
 +(20-40)% to Damage over Time Multiplier
 (20-40)% increased Critical Strike Chance
