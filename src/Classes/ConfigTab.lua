@@ -330,6 +330,18 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					return out
 				end))
 			end
+			if varData.ifCondTrue then
+				t_insert(shownFuncs, listOrSingleIfOption(varData.ifCondTrue, function(ifOption)
+					return self.build.calcsTab.mainEnv.player.modDB.conditions[ifOption]
+				end))
+				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifCondTrue, function(ifOption)
+					if not launch.devModeAlt then
+						return
+					end
+					local out = "Condition state: " .. ifOption .. "=" .. tostring(self.build.calcsTab.mainEnv.player.modDB.conditions[ifOption])
+					return out
+				end))
+			end
 			if varData.ifMult then
 				t_insert(shownFuncs, listOrSingleIfOption(varData.ifMult, function(ifOption)
 					if implyCond(varData) then
