@@ -5,7 +5,7 @@
 data.uniques.new = {
 -- New
 [[
-Screams of the desiccated
+Screams of the Desiccated
 Leather Belt
 LevelReq: 56
 Implicits: 1
