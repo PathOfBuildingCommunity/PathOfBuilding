@@ -16834,7 +16834,7 @@ skills["ViperStrike"] = {
 	castTime = 1,
 	statMap = {
 		["viper_strike_dual_wield_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "DualWielding" }),
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "DualWielding" }),
 		},
 		["viper_strike_dual_wield_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "Condition", var = "DualWielding" }),
@@ -16930,7 +16930,7 @@ skills["ViperStrikeAltX"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison),
 		},
 		["viper_strike_dual_wield_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "DualWielding" }),
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "DualWielding" }),
 		},
 		["viper_strike_dual_wield_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "Condition", var = "DualWielding" }),
