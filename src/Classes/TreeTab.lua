@@ -195,7 +195,10 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		self.viewer.showHeatMap = state
 		self.controls.treeHeatMapStatSelect.shown = state
 
-		if state == false then
+		if state == false and ToastNotification:Exists(self.powerBuilderToastId) then
+			self.controls.powerReportList.shown = false 
+			ToastNotification:Remove(self.powerBuilderToastId)
+		elseif state == false then
 			self.controls.powerReportList.shown = false 
 		end
 	end)
