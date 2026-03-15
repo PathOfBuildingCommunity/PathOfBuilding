@@ -11,11 +11,7 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, treeTab.specList)
 	self.treeTab = treeTab
 	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
-		local newSpec = new("PassiveSpec", treeTab.build, self.selValue.treeVersion)
-		newSpec.title = self.selValue.title
-		newSpec.jewels = copyTable(self.selValue.jewels)
-		newSpec:RestoreUndoState(self.selValue:CreateUndoState())
-		newSpec:BuildClusterJewelGraphs()
+		local newSpec = treeTab:CopyTree(self.selValue)
 		self:RenameSpec(newSpec, "Copy Tree", true)
 	end)
 	self.controls.copy.enabled = function()
@@ -43,7 +39,7 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 	self:UpdateItemsTabPassiveTreeDropdown()
 end)
 
-function PassiveSpecListClass:RenameSpec(spec, title, addOnName)
+function PassiveSpecListClass:RenameSpec(spec, popupTitle, addOnName)
 	local controls = { }
 	controls.label = new("LabelControl", nil, {0, 20, 0, 16}, "^7Enter name for this passive tree:")
 	controls.edit = new("EditControl", nil, {0, 40, 350, 20}, spec.title, nil, nil, 100, function(buf)
@@ -66,7 +62,7 @@ function PassiveSpecListClass:RenameSpec(spec, title, addOnName)
 		main:ClosePopup()
 	end)
 	-- main:OpenPopup(370, 100, spec.title and "Rename" or "Set Name", controls, "save", "edit")
-	main:OpenPopup(370, 100, title, controls, "save", "edit")
+	main:OpenPopup(370, 100, popupTitle, controls, "save", "edit")
 end
 
 function PassiveSpecListClass:GetRowValue(column, index, spec)

@@ -11,13 +11,7 @@ local ConfigSetListClass = newClass("ConfigSetListControl", "ListControl", funct
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, configTab.configSetOrderList)
 	self.configTab = configTab
 	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
-		local configSet = configTab.configSets[self.selValue]
-		local newConfigSet = copyTable(configSet)
-		newConfigSet.id = 1
-		while configTab.configSets[newConfigSet.id] do
-			newConfigSet.id = newConfigSet.id + 1
-		end
-		configTab.configSets[newConfigSet.id] = newConfigSet
+		local newConfigSet = configTab:CopyConfigSet(self.selValue)
 		self:RenameSet(newConfigSet, true)
 	end)
 	self.controls.copy.enabled = function()

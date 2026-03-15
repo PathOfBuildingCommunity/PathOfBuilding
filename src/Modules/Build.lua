@@ -7,6 +7,7 @@ local pairs = pairs
 local ipairs = ipairs
 local next = next
 local t_insert = table.insert
+local t_remove = table.remove
 local t_sort = table.sort
 local m_min = math.min
 local m_max = math.max
@@ -299,103 +300,12 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			self.controls.buildLoadouts:SetSel(1)
 			return
 		end
-		if value == "^7^7New Loadout" then
-			local controls = { }
-			controls.label = new("LabelControl", nil, {0, 20, 0, 16}, "^7Enter name for this loadout:")
-			controls.edit = new("EditControl", nil, {0, 40, 350, 20}, "New Loadout", nil, nil, 100, function(buf)
-				controls.save.enabled = buf:match("%S")
-			end)
-			controls.save = new("ButtonControl", nil, {-45, 70, 80, 20}, "Save", function()
-				local loadout = controls.edit.buf
-
-				local newSpec = new("PassiveSpec", self, latestTreeVersion)
-				newSpec.title = loadout
-				t_insert(self.treeTab.specList, newSpec)
-
-				local itemSet = self.itemsTab:NewItemSet(#self.itemsTab.itemSets + 1)
-				t_insert(self.itemsTab.itemSetOrderList, itemSet.id)
-				itemSet.title = loadout
-
-				local skillSet = self.skillsTab:NewSkillSet(#self.skillsTab.skillSets + 1)
-				t_insert(self.skillsTab.skillSetOrderList, skillSet.id)
-				skillSet.title = loadout
-
-				local configSet = self.configTab:NewConfigSet(#self.configTab.configSets + 1)
-				t_insert(self.configTab.configSetOrderList, configSet.id)
-				configSet.title = loadout
-
-				self:SyncLoadouts()
-				self.modFlag = true
-				main:ClosePopup()
-			end)
-			controls.save.enabled = false
-			controls.cancel = new("ButtonControl", nil, {45, 70, 80, 20}, "Cancel", function()
-				main:ClosePopup()
-			end)
-			main:OpenPopup(370, 100, "Set Name", controls, "save", "edit", "cancel")
-
-			self.controls.buildLoadouts:SetSel(1)
-			return
+        if value == "^7^7Manage" then
+			self:OpenBuildSetManagePopup()
 		end
 
-		-- item, skill, and config sets have identical structure
-		-- return id as soon as it's found
-		local function findSetId(setOrderList, value, sets, setSpecialLinks)
-			for _, setOrder in ipairs(setOrderList) do
-				if value == (sets[setOrder].title or "Default") then
-					return setOrder
-				else
-					local linkMatch = string.match(value, "%{(%w+)%}")
-					if linkMatch then
-						return setSpecialLinks[linkMatch]["setId"]
-					end
-				end
-			end
-			return nil
-		end
-
-		-- trees have a different structure with id/name pairs
-		-- return id as soon as it's found
-		local function findNamedSetId(treeList, value, setSpecialLinks)
-			for id, spec in ipairs(treeList) do
-				if value == spec then
-					return id
-				else
-					local linkMatch = string.match(value, "%{(%w+)%}")
-					if linkMatch then
-						return setSpecialLinks[linkMatch]["setId"]
-					end
-				end
-			end
-			return nil
-		end
-
-		local oneSkill = self.skillsTab and #self.skillsTab.skillSetOrderList == 1
-		local oneItem = self.itemsTab and #self.itemsTab.itemSetOrderList == 1
-		local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
-
-		local newSpecId = findNamedSetId(self.treeTab:GetSpecList(), value, self.treeListSpecialLinks)
-		local newItemId = oneItem and 1 or findSetId(self.itemsTab.itemSetOrderList, value, self.itemsTab.itemSets, self.itemListSpecialLinks)
-		local newSkillId = oneSkill and 1 or findSetId(self.skillsTab.skillSetOrderList, value, self.skillsTab.skillSets, self.skillListSpecialLinks)
-		local newConfigId = oneConfig and 1 or findSetId(self.configTab.configSetOrderList, value, self.configTab.configSets, self.configListSpecialLinks)
-
-		-- if exact match nor special grouping cannot find setIds, bail
-		if newSpecId == nil or newItemId == nil or newSkillId == nil or newConfigId == nil then
-			return
-		end
-
-		if newSpecId ~= self.treeTab.activeSpec then
-			self.treeTab:SetActiveSpec(newSpecId)
-		end
-		if newItemId ~= self.itemsTab.activeItemSetId then
-			self.itemsTab:SetActiveItemSet(newItemId)
-		end
-		if newSkillId ~= self.skillsTab.activeSkillSetId then
-			self.skillsTab:SetActiveSkillSet(newSkillId)
-		end
-		if newConfigId ~= self.configTab.activeConfigSetId then
-			self.configTab:SetActiveConfigSet(newConfigId)
-		end
+        local loadout = self:GetLoadoutByName(value)
+        self:SetActiveLoadout(loadout)
 
 		self.controls.buildLoadouts:SelByValue(value)
 	end)
@@ -821,7 +731,7 @@ function buildMode:SyncLoadouts()
 
 	-- giving the options unique formatting so it can not match with user-created sets
 	t_insert(filteredList, "^7^7-----")
-	t_insert(filteredList, "^7^7New Loadout")
+    t_insert(filteredList, "^7^7Manage")
 	t_insert(filteredList, "^7^7Sync")
 	t_insert(filteredList, "^7^7Help >>")
 
@@ -855,6 +765,162 @@ function buildMode:SyncLoadouts()
 
 	self.controls.buildLoadouts:SetSel(1)
 	return treeList, itemList, skillList, configList
+end
+
+function buildMode:NewLoadout(loadoutName, callback --[[function]])
+    local newSpec = new("PassiveSpec", self, latestTreeVersion)
+    local newItemSet = self.itemsTab:NewItemSet(#self.itemsTab.itemSets + 1)
+    local newSkillSet = self.skillsTab:NewSkillSet(#self.skillsTab.skillSets + 1)
+    local newConfigSet = self.configTab:NewConfigSet(#self.configTab.configSets + 1)
+    self:AddLoadout(loadoutName, newSpec, newItemSet, newSkillSet, newConfigSet, callback)
+end
+
+function buildMode:CopyLoadout(copyTreeId, copyItemSetId, copySkillSetId, copyConfigSetId, loadoutName)
+    local newSpec = self.treeTab:CopyTree(copyTreeId, loadoutName)
+    local newItemSet = self.itemsTab:CopyItemSet(copyItemSetId, loadoutName)
+    local newSkillSet = self.skillsTab:CopySkillSet(copySkillSetId, loadoutName)
+    local newConfigSet = self.configTab:CopyConfigSet(copyConfigSetId, loadoutName)
+
+    t_insert(self.itemsTab.itemSetOrderList, newItemSet.id)
+    t_insert(self.skillsTab.skillSetOrderList, newSkillSet.id)
+    t_insert(self.configTab.configSetOrderList, newConfigSet.id)
+    return newSpec, newItemSet, newSkillSet, newConfigSet
+end
+
+function buildMode:AddLoadout(loadoutName, newSpec, newItemSet, newSkillSet, newConfigSet, callback --[[function]])
+    t_insert(self.treeTab.specList, newSpec)
+    newSpec.title = loadoutName
+
+    t_insert(self.itemsTab.itemSetOrderList, newItemSet.id)
+    newItemSet.title = loadoutName
+
+    t_insert(self.skillsTab.skillSetOrderList, newSkillSet.id)
+    newSkillSet.title = loadoutName
+
+    t_insert(self.configTab.configSetOrderList, newConfigSet.id)
+    newConfigSet.title = loadoutName
+
+    callback()
+end
+
+function buildMode:DeleteLoadout(loadoutName, nextLoadoutName)
+    local loadout = self:GetLoadoutByName(loadoutName)
+    local nextLoadout = self:GetLoadoutByName(nextLoadoutName)
+    if loadout.specId then
+        self.treeTab.specList[loadout.specId] = nil
+        self.treeTab:SetActiveSpec(1)
+    end
+    if loadout.itemSetId then
+        self.itemsTab.itemSets[loadout.itemSetId] = nil
+        t_remove(self.itemsTab.itemSetOrderList, loadout.itemSetId)
+    end
+    if loadout.skillSetId then
+        self.skillsTab.skillSets[loadout.skillSetId] = nil
+        t_remove(self.skillsTab.skillSetOrderList, loadout.skillSetId)
+    end
+    if loadout.configSetId then
+        self.configTab.configSets[loadout.configSetId] = nil
+        t_remove(self.configTab.configSetOrderList, loadout.configSetId)
+    end
+
+    self:SetActiveLoadout(nextLoadout)
+end
+
+function buildMode:RenameLoadout(oldName, newName, callback)
+    local loadout = self:GetLoadoutByName(oldName)
+    if loadout.specId then
+        self.treeTab.specList[loadout.specId].title = newName
+        self.treeTab.modFlag = true
+    end
+    if loadout.itemSetId then
+        self.itemsTab.itemSets[loadout.itemSetId].title = newName
+        self.itemsTab.modFlag = true
+    end
+    if loadout.skillSetId then
+        self.skillsTab.skillSets[loadout.skillSetId].title = newName
+        self.skillsTab.modFlag = true
+    end
+    if loadout.configSetId then
+        self.configTab.configSets[loadout.configSetId].title = newName
+        self.configTab.modFlag = true
+    end
+    callback()
+end
+
+function buildMode:GetLoadoutByName(loadoutName)
+    -- item, skill, and config sets have identical structure
+    -- return id as soon as it's found
+    local function findSetId(setOrderList, value, sets, setSpecialLinks)
+        for _, setOrder in ipairs(setOrderList) do
+            if value == (sets[setOrder].title or "Default") then
+                return setOrder
+            else
+                local linkMatch = string.match(value, "%{(%w+)%}")
+                if linkMatch then
+                    return setSpecialLinks[linkMatch]["setId"]
+                end
+            end
+        end
+        return nil
+    end
+
+    -- trees have a different structure with id/name pairs
+    -- return id as soon as it's found
+    local function findNamedSetId(treeList, value, setSpecialLinks)
+        for id, spec in ipairs(treeList) do
+            if value == spec then
+                return id
+            else
+                local linkMatch = string.match(value, "%{(%w+)%}")
+                if linkMatch then
+                    return setSpecialLinks[linkMatch]["setId"]
+                end
+            end
+        end
+        return nil
+    end
+
+    local oneSkill = self.skillsTab and #self.skillsTab.skillSetOrderList == 1
+    local oneItem = self.itemsTab and #self.itemsTab.itemSetOrderList == 1
+    local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
+
+    local specId = findNamedSetId(self.treeTab:GetSpecList(), loadoutName, self.treeListSpecialLinks)
+    local itemId = oneItem and 1 or findSetId(self.itemsTab.itemSetOrderList, loadoutName, self.itemsTab.itemSets, self.itemListSpecialLinks)
+    local skillId = oneSkill and 1 or findSetId(self.skillsTab.skillSetOrderList, loadoutName, self.skillsTab.skillSets, self.skillListSpecialLinks)
+    local configId = oneConfig and 1 or findSetId(self.configTab.configSetOrderList, loadoutName, self.configTab.configSets, self.configListSpecialLinks)
+
+
+    return {
+        specId = specId,
+        itemSetId = itemId,
+        skillSetId = skillId,
+        configSetId = configId
+    }
+end
+
+function buildMode:SetActiveLoadout(loadout)
+    if not loadout then
+        return
+    end
+
+    local newSpecId, newItemId, newSkillId, newConfigId = loadout.specId, loadout.itemSetId, loadout.skillSetId, loadout.configSetId
+    if newSpecId == nil or newItemId == nil or newSkillId == nil or newConfigId == nil then
+        return
+    end
+
+    if newSpecId ~= self.treeTab.activeSpec then
+        self.treeTab:SetActiveSpec(newSpecId, true)
+    end
+    if newItemId ~= self.itemsTab.activeItemSetId then
+        self.itemsTab:SetActiveItemSet(newItemId, true)
+    end
+    if newSkillId ~= self.skillsTab.activeSkillSetId then
+        self.skillsTab:SetActiveSkillSet(newSkillId, true)
+    end
+    if newConfigId ~= self.configTab.activeConfigSetId then
+        self.configTab:SetActiveConfigSet(newConfigId, false, true)
+    end
+    self:SyncLoadouts()
 end
 
 function buildMode:EstimatePlayerProgress()
@@ -1958,6 +2024,16 @@ function buildMode:SaveDBFile()
 	elseif action == "UPDATE" then
 		launch:ApplyUpdate(launch.updateAvailable)
 	end
+end
+
+-- Opens the build set manager
+function buildMode:OpenBuildSetManagePopup()
+	main:OpenPopup(370, 290, "Manage Build Sets", {
+		new("BuildSetListControl", nil, {0, 50, 350, 200}, self, self.treeTab),
+		new("ButtonControl", nil, {0, 260, 90, 20}, "Done", function()
+			main:ClosePopup()
+		end),
+	})
 end
 
 return buildMode

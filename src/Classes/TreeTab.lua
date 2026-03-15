@@ -10,6 +10,7 @@ local t_insert = table.insert
 local t_remove = table.remove
 local t_sort = table.sort
 local t_concat = table.concat
+local t_maxn = table.maxn
 local m_max = math.max
 local m_min = math.min
 local m_floor = math.floor
@@ -535,7 +536,7 @@ function TreeTabClass:Save(xml)
 	end
 end
 
-function TreeTabClass:SetActiveSpec(specId)
+function TreeTabClass:SetActiveSpec(specId, deferSync)
 	local prevSpec = self.build.spec
 	self.activeSpec = m_min(specId, #self.specList)
 	local curSpec = self.specList[self.activeSpec]
@@ -570,7 +571,9 @@ function TreeTabClass:SetActiveSpec(specId)
 	if self.controls.versionSelect then
 		self.controls.versionSelect:SelByValue(curSpec.treeVersion, 'value')
 	end
-	self.build:SyncLoadouts()
+    if not deferSync then
+	    self.build:SyncLoadouts()
+    end
 end
 
 function TreeTabClass:SetCompareSpec(specId)
@@ -639,6 +642,17 @@ function TreeTabClass:OpenSpecManagePopup()
 			main:ClosePopup()
 		end),
 	})
+end
+
+function TreeTabClass:CopyTree(sourceSpecId, newSpecName)
+    local newSpec = new("PassiveSpec", self.build, self.specList[sourceSpecId].treeVersion)
+    newSpec.title = newSpecName or self.specList[sourceSpecId].title .. " (Copy)"
+    newSpec.jewels = copyTable(self.specList[sourceSpecId].jewels)
+    newSpec:RestoreUndoState(self.specList[sourceSpecId]:CreateUndoState())
+    newSpec:BuildClusterJewelGraphs()
+    newSpec.id = #self.specList + 1
+    t_insert(self.specList, newSpec)
+    return newSpec
 end
 
 function TreeTabClass:OpenVersionConvertPopup(version, ignoreTreeSubType)

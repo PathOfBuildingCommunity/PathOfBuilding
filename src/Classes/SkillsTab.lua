@@ -1325,17 +1325,32 @@ end
 function SkillsTabClass:NewSkillSet(skillSetId)
 	local skillSet = { id = skillSetId, socketGroupList = {} }
 	if not skillSetId then
-		skillSet.id = 1
-		while self.skillSets[skillSet.id] do
-			skillSet.id = skillSet.id + 1
-		end
+		skillSet.id = t_maxn(self.skillSets) + 1
 	end
 	self.skillSets[skillSet.id] = skillSet
 	return skillSet
 end
 
+function SkillsTabClass:CopySkillSet(sourceSkillSetId, newSkillSetName)
+    local skillSet = self.skillSets[sourceSkillSetId]
+    local newSkillSet = copyTable(skillSet, true)
+    newSkillSet.title = newSkillSetName or skillSet.title .. " (Copy)"
+    newSkillSet.socketGroupList = { }
+    for socketGroupIndex, socketGroup in pairs(skillSet.socketGroupList) do
+        local newGroup = copyTable(socketGroup, true)
+        newGroup.gemList = { }
+        for gemIndex, gem in pairs(socketGroup.gemList) do
+            newGroup.gemList[gemIndex] = copyTable(gem, true)
+        end
+        t_insert(newSkillSet.socketGroupList, newGroup)
+    end
+    newSkillSet.id = #self.skillSets + 1
+    self.skillSets[newSkillSet.id] = newSkillSet
+    return newSkillSet
+end
+
 -- Changes the active skill set
-function SkillsTabClass:SetActiveSkillSet(skillSetId)
+function SkillsTabClass:SetActiveSkillSet(skillSetId, deferSync)
 	-- Initialize skill sets if needed
 	if not self.skillSetOrderList[1] then
 		self.skillSetOrderList[1] = 1
@@ -1357,5 +1372,7 @@ function SkillsTabClass:SetActiveSkillSet(skillSetId)
 
 	-- set the loadout option to the dummy option since it is now dirty
 	self:SetDisplayGroup(self.socketGroupList[1])
-	self.build:SyncLoadouts()
+    if not deferSync then
+	    self.build:SyncLoadouts()
+    end
 end

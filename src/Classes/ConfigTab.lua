@@ -4,6 +4,7 @@
 -- Configuration tab for the current build.
 --
 local t_insert = table.insert
+local t_maxn = table.maxn
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
@@ -958,10 +959,7 @@ end
 function ConfigTabClass:NewConfigSet(configSetId, title)
 	local configSet = { id = configSetId, title = title, input = { }, placeholder = { } }
 	if not configSetId then
-		configSet.id = 1
-		while self.configSets[configSet.id] do
-			configSet.id = configSet.id + 1
-		end
+		configSet.id = #self.configSets + 1
 	end
 	-- there are default values for input and placeholder that every new config set needs to have
 	for _, varData in ipairs(varList) do
@@ -977,8 +975,17 @@ function ConfigTabClass:NewConfigSet(configSetId, title)
 	return configSet
 end
 
+function ConfigTabClass:CopyConfigSet(configSetId, newConfigSetName)
+    local configSet = self.configSets[configSetId]
+    local newConfigSet = copyTable(configSet)
+    newConfigSet.id = #self.configSets + 1
+    newConfigSet.title = newConfigSetName or configSet.title .. " (Copy)"
+    t_insert(self.configSets, newConfigSet)
+    return newConfigSet
+end
+
 -- Changes the active config set
-function ConfigTabClass:SetActiveConfigSet(configSetId, init)
+function ConfigTabClass:SetActiveConfigSet(configSetId, init, deferSync)
 	-- Initialize config sets if needed
 	if not self.configSetOrderList[1] then
 		self.configSetOrderList[1] = 1
@@ -1002,5 +1009,7 @@ function ConfigTabClass:SetActiveConfigSet(configSetId, init)
 		self:BuildModList()
 	end
 	self.build.buildFlag = true
-	self.build:SyncLoadouts()
+	if not deferSync then
+		self.build:SyncLoadouts()
+	end
 end

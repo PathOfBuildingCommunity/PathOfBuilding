@@ -5,6 +5,7 @@
 --
 local t_insert = table.insert
 local t_remove = table.remove
+local t_maxn = table.maxn
 local m_max = math.max
 local s_format = string.format
 
@@ -12,22 +13,7 @@ local SkillSetListClass = newClass("SkillSetListControl", "ListControl", functio
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, skillsTab.skillSetOrderList)
 	self.skillsTab = skillsTab
 	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
-		local skillSet = skillsTab.skillSets[self.selValue]
-		local newSkillSet = copyTable(skillSet, true)
-		newSkillSet.socketGroupList = { }
-		for socketGroupIndex, socketGroup in pairs(skillSet.socketGroupList) do
-			local newGroup = copyTable(socketGroup, true)
-			newGroup.gemList = { }
-			for gemIndex, gem in pairs(socketGroup.gemList) do
-				newGroup.gemList[gemIndex] = copyTable(gem, true)
-			end
-			t_insert(newSkillSet.socketGroupList, newGroup)
-		end
-		newSkillSet.id = 1
-		while skillsTab.skillSets[newSkillSet.id] do
-			newSkillSet.id = newSkillSet.id + 1
-		end
-		skillsTab.skillSets[newSkillSet.id] = newSkillSet
+		local newSkillSet = skillsTab:CopySkillSet(self.selValue)
 		self:RenameSet(newSkillSet, true)
 	end)
 	self.controls.copy.enabled = function()
