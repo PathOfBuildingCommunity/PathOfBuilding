@@ -394,6 +394,7 @@ function calcs.mirages(env)
 			mirageSpawnTime = mirageSpawnTime + 1
 		else
 			mirageSpawnTime = mirageSpawnTime + (mainSkillOutputCache.HitTime or mainSkillOutputCache.Time)
+			env.player.mainSkill.skillData.timeOverride = 1
 		end
 
 		-- This is so that it's consistent with the info message but removing this could make it more accurate numbers wise
