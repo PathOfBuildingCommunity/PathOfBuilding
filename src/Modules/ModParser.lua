@@ -2109,6 +2109,14 @@ local specialModList = {
 		flag("ConvertSpellSuppressionToSpellDodge"),
 		mod("SpellSuppressionChance", "OVERRIDE", 0, "Acrobatics"),
 	},
+	["chance to evade hits is based off of (%d+)%% of your ward instead of your evasion rating"] = function(num) return {
+		flag("EvadeChanceBasedOnWard"),
+		mod("EvadeChanceBasedOnWardPercent", "OVERRIDE", num, "Black Scythe Training"),
+	} end,
+	["physical damage reduction from hits is based off of (%d+)%% of your ward instead of your armour"] = function(num) return {
+		flag("PhysicalReductionBasedOnWard"),
+		mod("PhysicalReductionBasedOnWardPercent", "OVERRIDE", num, "Black Scythe Training"),
+	} end,
 	["maximum chance to dodge spell hits is (%d+)%%"] = function(num) return { mod("SpellDodgeChanceMax", "OVERRIDE", num, "Acrobatics") } end,
 	["dexterity provides no bonus to evasion rating"] = { flag("NoDexBonusToEvasion") },
 	["dexterity provides no inherent bonus to evasion rating"] = { flag("NoDexBonusToEvasion") },

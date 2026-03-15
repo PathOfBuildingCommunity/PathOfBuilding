@@ -8093,8 +8093,7 @@ c["Chance to Block Spell Damage is Unlucky"]={{[1]={flags=0,keywordFlags=0,name=
 c["Chance to Block Spell Damage is doubled"]={{[1]={flags=0,keywordFlags=0,name="SpellBlockChance",type="MORE",value=100}},nil}
 c["Chance to Block is Lucky"]={{[1]={flags=0,keywordFlags=0,name="BlockChanceIsLucky",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="ProjectileBlockChanceIsLucky",type="FLAG",value=true},[3]={flags=0,keywordFlags=0,name="SpellBlockChanceIsLucky",type="FLAG",value=true},[4]={flags=0,keywordFlags=0,name="SpellProjectileBlockChanceIsLucky",type="FLAG",value=true}},nil}
 c["Chance to Block is Unlucky"]={{[1]={flags=0,keywordFlags=0,name="BlockChanceIsUnlucky",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="ProjectileBlockChanceIsUnlucky",type="FLAG",value=true},[3]={flags=0,keywordFlags=0,name="SpellBlockChanceIsUnlucky",type="FLAG",value=true},[4]={flags=0,keywordFlags=0,name="SpellProjectileBlockChanceIsUnlucky",type="FLAG",value=true}},nil}
-c["Chance to Evade Hits is based off of 200% of your Ward instead of your Evasion Rating"]={nil,"Chance to Evade Hits is based off of 200% of your Ward instead of your Evasion Rating "}
-c["Chance to Evade Hits is based off of 200% of your Ward instead of your Evasion Rating Physical Damage Reduction from Hits is based off of 200% of your Ward instead of your Armour"]={nil,"Chance to Evade Hits is based off of 200% of your Ward instead of your Evasion Rating Physical Damage Reduction from Hits is based off of 200% of your Ward instead of your Armour "}
+c["Chance to Evade Hits is based off of 200% of your Ward instead of your Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="EvadeChanceBasedOnWard",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="EvadeChanceBasedOnWardPercent",source="Black Scythe Training",type="OVERRIDE",value=200}},nil}
 c["Chance to Suppress Spell Damage is Lucky"]={{[1]={flags=0,keywordFlags=0,name="SpellSuppressionChanceIsLucky",type="FLAG",value=true}},nil}
 c["Channelling Skills deal 12% increased Damage"]={{[1]={[1]={skillType=57,type="SkillType"},flags=0,keywordFlags=0,name="Damage",type="INC",value=12}},nil}
 c["Channelling Skills deal 20% increased Damage"]={{[1]={[1]={skillType=57,type="SkillType"},flags=0,keywordFlags=0,name="Damage",type="INC",value=20}},nil}
@@ -10439,7 +10438,7 @@ c["Permanently Intimidate Enemies on Block"]={{[1]={[1]={type="Condition",var="B
 c["Petrified during Effect"]={nil,"Petrified during Effect "}
 c["Petrified during Effect +50% Chance to Block Attack Damage during Effect"]={nil,"Petrified during Effect +50% Chance to Block Attack Damage during Effect "}
 c["Phasing"]={{[1]={flags=0,keywordFlags=0,name="Condition:Phasing",type="FLAG",value=true}},nil}
-c["Physical Damage Reduction from Hits is based off of 200% of your Ward instead of your Armour"]={nil,"Physical Damage Reduction from Hits is based off of 200% of your Ward instead of your Armour "}
+c["Physical Damage Reduction from Hits is based off of 200% of your Ward instead of your Armour"]={{[1]={flags=0,keywordFlags=0,name="PhysicalReductionBasedOnWard",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="PhysicalReductionBasedOnWardPercent",source="Black Scythe Training",type="OVERRIDE",value=200}},nil}
 c["Physical Damage of Enemies Hitting you is Unlucky"]={nil,"Physical Damage of Enemies Hitting you is Unlucky "}
 c["Physical Damage taken bypasses Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="PhysicalEnergyShieldBypass",type="BASE",value=100}},nil}
 c["Plague Bearer has 20% increased Maximum Plague Value"]={{}," Maximum Plague Value "}
