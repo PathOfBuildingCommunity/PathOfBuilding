@@ -1149,6 +1149,10 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 				else
 					t_insert(socketGroup.gemList, gemInstance)
 				end
+				if socketedItem.builtInSupport then
+					socketGroup.imbuedSupport = socketedItem.builtInSupport:gsub("Supported by Level 1 ", "")
+					self.build.skillsTab.controls.imbuedSupport.selFunc(nil, socketedItem.builtInSupport:gsub("Supported by Level 1 ", ""), slotName)
+				end
 			end
 		end
 	end

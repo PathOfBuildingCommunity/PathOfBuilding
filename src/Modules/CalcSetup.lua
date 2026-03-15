@@ -1465,30 +1465,38 @@ function calcs.initEnv(build, mode, override, specEnv)
 					t_insert(targetListList, supportLists[group])
 				end
 
+				local function addExtraSupports(value, grantedEffect, level)
+					local grantedEffect = grantedEffect or env.data.skills[value.skillId]
+					-- Some skill gems share the same name as support gems, e.g. Barrage.
+					-- Since a support gem is expected here, if the first lookup returns a skill, then
+					-- prepending "Support" to the skillId will find the support version of the gem.
+					if value and grantedEffect and not grantedEffect.support then
+						grantedEffect = env.data.skills["Support"..value.skillId]
+						grantedEffect.fromItem = true
+					end
+					if grantedEffect then
+						for _, targetList in ipairs(targetListList) do
+							t_insert(targetList, {
+								grantedEffect = grantedEffect,
+								gemData = env.data.gems[env.data.gemForBaseName[grantedEffect.name:lower()] or env.data.gemForBaseName[(grantedEffect.name .. " Support"):lower()]],
+								level = level or value.level,
+								quality = 0,
+								enabled = true,
+							})
+						end
+					end
+				end
+
 				-- if not unique item that provides skills
 				if not group.source then
 					-- Add extra supports from the item this group is socketed in
 					for _, value in ipairs(env.modDB:List(groupCfg, "ExtraSupport")) do
-						local grantedEffect = env.data.skills[value.skillId]
-						-- Some skill gems share the same name as support gems, e.g. Barrage.
-						-- Since a support gem is expected here, if the first lookup returns a skill, then
-						-- prepending "Support" to the skillId will find the support version of the gem.
-						if grantedEffect and not grantedEffect.support then
-							grantedEffect = env.data.skills["Support"..value.skillId]
-						end
-						grantedEffect.fromItem = true
-						if grantedEffect then
-							for _, targetList in ipairs(targetListList) do
-								t_insert(targetList, {
-									grantedEffect = grantedEffect,
-									gemData = env.data.gems[env.data.gemForBaseName[grantedEffect.name:lower()] or env.data.gemForBaseName[(grantedEffect.name .. " Support"):lower()]],
-									level = value.level,
-									quality = 0,
-									enabled = true,
-								})
-							end
-						end
+						addExtraSupports(value)
 					end
+				end
+				-- if the slot has an imbued support, add it as an ExtraSupport
+				if build.skillsTab.imbuedSupportBySlot and build.skillsTab.imbuedSupportBySlot[slotName] then
+					addExtraSupports(nil, build.skillsTab.imbuedSupportBySlot[slotName], 1)
 				end
 
 				for gemIndex, gemInstance in ipairs(group.gemList) do
