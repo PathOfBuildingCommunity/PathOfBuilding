@@ -1083,6 +1083,10 @@ function ImportTabClass:ImportItem(itemData, slotName)
 		item.foilType = foilVariants[itemData.foilVariation] or "Rainbow"
 	end
 
+	if item.base and item.base.tincture then
+		item:NormaliseImportedTinctureModLines()
+	end
+
 	-- Add and equip the new item
 	item:BuildAndParseRaw()
 	--ConPrintf("%s", item.raw)

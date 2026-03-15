@@ -6,6 +6,7 @@
 local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
+local m_abs = math.abs
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
@@ -960,6 +961,175 @@ function ItemClass:NormaliseQuality()
 			self.quality = 20
 		end
 	end	
+end
+
+local tinctureLocalModNames = {
+	CooldownRecovery = true,
+	LocalEffect = true,
+	TinctureCooldownRecovery = true,
+	TinctureEffect = true,
+	TinctureManaBurnRate = true,
+}
+
+local function getTinctureModLineParse(line)
+	if not line then
+		return
+	end
+	return modLib.parseMod(line:gsub("\n", " "))
+end
+
+local function getTinctureModLineSignature(modList)
+	local signature = { }
+	for _, mod in ipairs(modList or { }) do
+		t_insert(signature, modLib.formatMod(mod))
+	end
+	table.sort(signature)
+	return table.concat(signature, "\n")
+end
+
+local function tinctureModLineShouldScale(modList)
+	for _, mod in ipairs(modList or { }) do
+		local scaledMod = (type(mod.value) == "table" and mod.value.mod) or mod
+		if tinctureLocalModNames[scaledMod.name] then
+			return false
+		end
+	end
+	return true
+end
+
+local function tinctureModLineHasLocalEffect(modList)
+	for _, mod in ipairs(modList or { }) do
+		local scaledMod = (type(mod.value) == "table" and mod.value.mod) or mod
+		if scaledMod.name == "LocalEffect" or scaledMod.name == "TinctureEffect" then
+			return true
+		end
+	end
+	return false
+end
+
+local function getTinctureRangeSteps(templateLine)
+	local maxSteps = 0
+	for min, max in templateLine:gmatch("%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)") do
+		local minStr, maxStr = tostring(min), tostring(max)
+		local minPrecision = minStr:match("%.(%d+)") and #minStr:match("%.(%d+)") or 0
+		local maxPrecision = maxStr:match("%.(%d+)") and #maxStr:match("%.(%d+)") or 0
+		local power = 10 ^ m_max(minPrecision, maxPrecision)
+		local steps = m_floor(m_abs((tonumber(max) - tonumber(min)) * power) + 0.5)
+		maxSteps = m_max(maxSteps, steps)
+	end
+	return maxSteps
+end
+
+local function getTinctureScaledModList(modList, scale)
+	if scale == 1 then
+		return modList
+	end
+	local scaledList = new("ModList")
+	scaledList:ScaleAddList(modList, scale)
+	return { unpack(scaledList) }
+end
+
+local function matchTinctureModLine(targetLine, templateLines, scale, forceScale)
+	local targetModList, targetExtra = getTinctureModLineParse(targetLine)
+	if not targetModList or targetExtra or not templateLines then
+		return
+	end
+	local targetShouldScale = forceScale or tinctureModLineShouldScale(targetModList)
+	local targetSignature = getTinctureModLineSignature(targetModList)
+	for _, templateLine in ipairs(templateLines) do
+		local steps = getTinctureRangeSteps(templateLine)
+		local seen = { }
+		for step = 0, m_max(steps, 0) do
+			local candidateLine = steps > 0 and itemLib.applyRange(templateLine, step / steps) or templateLine
+			if not seen[candidateLine] then
+				seen[candidateLine] = true
+				local candidateModList, candidateExtra = getTinctureModLineParse(candidateLine)
+				if candidateModList and not candidateExtra then
+					if targetShouldScale and scale ~= 1 then
+						candidateModList = getTinctureScaledModList(candidateModList, scale)
+					end
+					if getTinctureModLineSignature(candidateModList) == targetSignature then
+						return candidateLine
+					end
+				end
+			end
+		end
+	end
+end
+
+function ItemClass:NormaliseImportedTinctureModLines()
+	if not self.base or not self.base.tincture then
+		return
+	end
+
+	local explicitTemplateLines = { }
+	if self.rarity == "UNIQUE" or self.rarity == "RELIC" then
+		local uniqueItem = main and main.uniqueDB and main.uniqueDB.list and main.uniqueDB.list[self.name]
+		if uniqueItem then
+			for _, modLine in ipairs(uniqueItem.explicitModLines) do
+				t_insert(explicitTemplateLines, modLine.line)
+			end
+		end
+	else
+		local affixes = self.affixes
+			or (self.base.subType and data.itemMods[self.base.type .. self.base.subType])
+			or data.itemMods[self.base.type]
+			or data.itemMods.Item
+		for _, affix in pairs(affixes or { }) do
+			for _, line in ipairs(affix) do
+				t_insert(explicitTemplateLines, line)
+			end
+		end
+	end
+
+	local localEffectInc = 0
+	for _, modLine in ipairs(self.explicitModLines) do
+		local modList = getTinctureModLineParse(modLine.line)
+		local matchedLine
+		if tinctureModLineHasLocalEffect(modList) then
+			matchedLine = matchTinctureModLine(modLine.line, explicitTemplateLines, 1)
+			if not matchedLine and (self.quality or 0) > 0 then
+				matchedLine = matchTinctureModLine(modLine.line, explicitTemplateLines, 1 + (self.quality or 0) / 100, true)
+			end
+		end
+		if matchedLine then
+			modLine.line = matchedLine
+		end
+		modList = getTinctureModLineParse(modLine.line)
+		for _, mod in ipairs(modList or { }) do
+			local scaledMod = (type(mod.value) == "table" and mod.value.mod) or mod
+			if scaledMod.type == "INC" and (scaledMod.name == "LocalEffect" or scaledMod.name == "TinctureEffect") then
+				localEffectInc = localEffectInc + scaledMod.value
+			end
+		end
+	end
+
+	local effectMod = m_floor((1 + localEffectInc / 100) * (1 + (self.quality or 0) / 100) * 100 + 0.0001) / 100
+	if effectMod == 1 then
+		return
+	end
+
+	local implicitTemplateLines = { }
+	if self.base.implicit then
+		for line in self.base.implicit:gmatch("[^\n]+") do
+			t_insert(implicitTemplateLines, line)
+		end
+	end
+
+	for index, modLine in ipairs(self.implicitModLines) do
+		local templateLines = implicitTemplateLines[index] and { implicitTemplateLines[index] } or implicitTemplateLines
+		local matchedLine = matchTinctureModLine(modLine.line, templateLines, effectMod)
+		if matchedLine then
+			modLine.line = matchedLine
+		end
+	end
+
+	for _, modLine in ipairs(self.explicitModLines) do
+		local matchedLine = matchTinctureModLine(modLine.line, explicitTemplateLines, effectMod)
+		if matchedLine then
+			modLine.line = matchedLine
+		end
+	end
 end
 
 function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags)
