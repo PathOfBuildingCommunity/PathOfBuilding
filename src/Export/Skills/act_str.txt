@@ -1052,7 +1052,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill HolyStrike
-#flags attack minion duration
+#flags attack melee minion duration
 	minionList = {
 		"HolyStrikeMinion",
 	},

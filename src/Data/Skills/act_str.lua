@@ -6187,6 +6187,7 @@ skills["HolyStrike"] = {
 	},
 	baseFlags = {
 		attack = true,
+		melee = true,
 		minion = true,
 		duration = true,
 	},
