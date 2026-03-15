@@ -81,6 +81,7 @@ skills["SupportAwakenedAddedChaosDamage"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportAddedChaosDamage",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	qualityStats = {
 		Default = {
 			{ "chaos_damage_+%", 0.5 },
@@ -189,6 +190,7 @@ skills["SupportAwakenedAddedLightningDamage"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportAddedLightningDamage",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	qualityStats = {
 		Default = {
 			{ "lightning_damage_+%", 0.5 },
@@ -456,6 +458,7 @@ skills["SupportAwakenedBlasphemy"] = {
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportBlasphemy",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["curse_apply_as_aura"] = {
 		},
@@ -845,6 +848,7 @@ skills["SupportAwakenedCastWhileChannelling"] = {
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.DisallowTriggerSupports, },
 	plusVersionOf = "SupportCastWhileChannelling",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
 			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channel } ),
@@ -1270,6 +1274,7 @@ skills["SupportAwakenedControlledDestruction"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportControlledDestruction",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_controlled_destruction_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell),
@@ -1577,6 +1582,7 @@ skills["SupportAwakenedHextouch"] = {
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportHextouch",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["apply_linked_curses_on_hit_%"] = {
 			--Display only. Handled by SupportCurseOnHitCursePlus
@@ -2137,6 +2143,7 @@ skills["SupportAwakenedElementalFocus"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportElementalFocus",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_gem_elemental_damage_+%_final"] = {
 			mod("ElementalDamage", "MORE", nil),
@@ -3712,6 +3719,7 @@ skills["SupportAwakenedIncreasedAreaofEffect"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportIncreasedAreaOfEffect",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["inc_aoe_plus_more_area_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Area),
@@ -4713,6 +4721,7 @@ skills["SupportAwakenedLightningPenetration"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportLightningPenetration",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	qualityStats = {
 		Default = {
 			{ "lightning_damage_+%", 0.5 },
@@ -4971,6 +4980,7 @@ skills["SupportAwakenedMinionDamage"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportMinionDamage",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_minion_damage_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
@@ -6278,6 +6288,7 @@ skills["SupportAwakenedSpellCascade"] = {
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportSpellCascade",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_spell_cascade_area_of_effect_+%_final"] = {
 			mod("AreaOfEffect", "MORE", nil),
@@ -6515,6 +6526,7 @@ skills["SupportAwakenedSpellEcho"] = {
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.Triggered, SkillType.HasReservation, SkillType.Vaal, SkillType.Instant, SkillType.NonRepeatable, SkillType.CreatesMinion, SkillType.NOT, SkillType.AND, },
 	plusVersionOf = "SupportSpellEcho",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_echo_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
@@ -6873,6 +6885,7 @@ skills["SupportAwakenedUnboundAilments"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportUnboundAilments",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_unbound_ailments_ailment_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Bleed, KeywordFlag.Poison, KeywordFlag.Ignite)),
@@ -7003,6 +7016,7 @@ skills["SupportAwakenedUnleash"] = {
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.Triggered, SkillType.HasReservation, SkillType.Vaal, SkillType.Instant, SkillType.Channel, SkillType.Cooldown, },
 	plusVersionOf = "SupportUnleash",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_anticipation_rapid_fire_count"] = {
 			mod("SealCount", "BASE", nil),

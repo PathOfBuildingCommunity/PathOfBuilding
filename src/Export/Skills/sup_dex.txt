@@ -9,6 +9,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedAddedColdDamage
+	legacy = true,
 #mods
 
 #skill SupportAdditionalAccuracy
@@ -23,6 +24,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedArrowNova
+	legacy = true,
 	statMap = {
 		["support_rain_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
@@ -76,6 +78,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedCastOnCriticalStrike
+	legacy = true,
 	statMap = {
 		["support_cast_on_crit_spell_damage_+%_final"] = {
 		},
@@ -121,6 +124,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedChain
+	legacy = true,
 	statMap = {
 		["support_chain_hit_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit),
@@ -171,6 +175,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedColdPenetration
+	legacy = true,
 #mods
 
 #skill SupportCompanionship
@@ -197,6 +202,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedDeadlyAilments
+	legacy = true,
 	statMap = {
 		["support_better_ailments_hit_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit),
@@ -239,6 +245,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedFork
+	legacy = true,
 	statMap = {
 		["support_fork_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
@@ -258,6 +265,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedGreaterMultipleProjectiles
+	legacy = true,
 	statMap = {
 		["support_multiple_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
@@ -499,6 +507,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedSwiftAffliction
+	legacy = true,
 	statMap = {
 		["support_rapid_decay_damage_over_time_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Dot),
@@ -570,6 +579,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedViciousProjectiles
+	legacy = true,
 	statMap = {
 		["support_projectile_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Projectile)),
@@ -609,6 +619,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedVoidManipulation
+	legacy = true,
 	statMap = {
 		["support_void_manipulation_chaos_damage_+%_final"] = {
 			mod("ChaosDamage", "MORE", nil),

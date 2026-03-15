@@ -81,6 +81,7 @@ skills["SupportAwakenedAddedColdDamage"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportAddedColdDamage",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	qualityStats = {
 		Default = {
 			{ "cold_damage_+%", 0.5 },
@@ -267,6 +268,7 @@ skills["SupportAwakenedArrowNova"] = {
 		["Bow"] = true,
 	},
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_rain_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
@@ -679,6 +681,7 @@ skills["SupportAwakenedCastOnCriticalStrike"] = {
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportCastOnCriticalStrike",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_cast_on_crit_spell_damage_+%_final"] = {
 		},
@@ -975,6 +978,7 @@ skills["SupportAwakenedChain"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportChain",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_chain_hit_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit),
@@ -1417,6 +1421,7 @@ skills["SupportAwakenedColdPenetration"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportColdPenetration",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	qualityStats = {
 		Default = {
 			{ "cold_damage_+%", 0.5 },
@@ -1725,6 +1730,7 @@ skills["SupportAwakenedDeadlyAilments"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportDeadlyAilments",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_better_ailments_hit_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit),
@@ -2118,6 +2124,7 @@ skills["SupportAwakenedFork"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportFork",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_fork_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
@@ -2281,6 +2288,7 @@ skills["SupportAwakenedGreaterMultipleProjectiles"] = {
 	excludeSkillTypes = { SkillType.ProjectilesNumberModifiersNotApplied, },
 	plusVersionOf = "SupportGreaterMultipleProjectiles",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_multiple_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
@@ -4079,6 +4087,7 @@ skills["SupportAwakenedSwiftAffliction"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportSwiftAffliction",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_rapid_decay_damage_over_time_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Dot),
@@ -4549,6 +4558,7 @@ skills["SupportAwakenedViciousProjectiles"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportViciousProjectiles",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_projectile_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Projectile)),
@@ -4750,6 +4760,7 @@ skills["SupportAwakenedVoidManipulation"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportVoidManipulation",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_void_manipulation_chaos_damage_+%_final"] = {
 			mod("ChaosDamage", "MORE", nil),

@@ -9,6 +9,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedAddedFireDamage
+	legacy = true,
 #mods
 
 #skill SupportAncestralCall
@@ -23,6 +24,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedAncestralCall
+	legacy = true,
 	statMap = {
 		["support_spirit_strike_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
@@ -109,6 +111,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedBrutality
+	legacy = true,
 	statMap = {
 		["support_brutality_physical_damage_+%_final"] = {
 			mod("PhysicalDamage", "MORE", nil),
@@ -125,6 +128,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedBurningDamage
+	legacy = true,
 	statMap = {
 		["support_burning_damage_+%_final"] = {
 			mod("FireDamage", "MORE", nil, 0, KeywordFlag.FireDot),
@@ -254,6 +258,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedElementalDamageWithAttacks
+	legacy = true,
 	statMap = {
 		["support_attack_skills_elemental_damage_+%_final"] = {
 			mod("ElementalDamage", "MORE", nil, 0, KeywordFlag.Attack),
@@ -298,6 +303,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedFirePenetration
+	legacy = true,
 #mods
 
 #skill SupportFissure
@@ -382,6 +388,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedGenerosity
+	legacy = true,
 	statMap = {
 		["aura_cannot_affect_self"] = {
 			skill("auraCannotAffectSelf", true),
@@ -430,6 +437,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportItemQuantity
+	legacy = true,
 #mods
 
 #skill SupportKnockback
@@ -486,6 +494,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedMeleePhysicalDamage
+	legacy = true,
 	statMap = {
 		["support_melee_physical_damage_+%_final"] = {
 			mod("PhysicalDamage", "MORE", nil, ModFlag.Melee),
@@ -503,6 +512,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedMeleeSplash
+	legacy = true,
 #mods
 
 #skill SupportMultipleTotems
@@ -534,6 +544,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedMultistrike
+	legacy = true,
 	statMap = {
 		["multistrike_damage_+%_final_on_first_repeat"] = {
 			mod("RepeatOneDamage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
@@ -740,8 +751,8 @@ local skills, mod, flag, skill = ...
 #skill SupportTransfusion
 	statMap = {
 		["random_nearby_minion_gain_a_soul_eater_soul_on_X_life_spent"] = {
-			flag("Condition:MinionCanHaveSoulEater", { type = "GlobalEffect", effectType = "Buff" }),
-			mod("MinionModifier", "LIST", { mod = mod("Condition:CanHaveSoulEater", "FLAG", true) }, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			flag("Condition:MinionCanHaveSoulEater", { type = "GlobalEffect", effectType = "Buff", effectName = "Transfusion" }),
+			mod("MinionModifier", "LIST", { mod = mod("Condition:CanHaveSoulEater", "FLAG", true) }, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Transfusion" }),
 		},
 	},
 #mods

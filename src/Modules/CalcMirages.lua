@@ -395,7 +395,6 @@ function calcs.mirages(env)
 
 		-- This is so that it's consistent with the info message but removing this could make it more accurate numbers wise
 		mirageSpawnTime = round(mirageSpawnTime, 2)
-		cooldown = m_max(cooldown, mirageSpawnTime)
 
 		-- Scale dps with GC's cooldown
 		env.player.mainSkill.skillData.dpsMultiplier = (env.player.mainSkill.skillData.dpsMultiplier or 1) * (1 / cooldown)

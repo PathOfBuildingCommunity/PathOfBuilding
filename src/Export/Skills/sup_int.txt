@@ -9,12 +9,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedAddedChaosDamage
+	legacy = true,
 #mods
 
 #skill SupportAddedLightningDamage
 #mods
 
 #skill SupportAwakenedAddedLightningDamage
+	legacy = true,
 #mods
 
 #skill SupportArcaneSurge
@@ -54,6 +56,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedBlasphemy
+	legacy = true,
 	statMap = {
 		["curse_apply_as_aura"] = {
 		},
@@ -112,6 +115,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedCastWhileChannelling
+	legacy = true,
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
 			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channel } ),
@@ -175,6 +179,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedControlledDestruction
+	legacy = true,
 	statMap = {
 		["support_controlled_destruction_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell),
@@ -219,6 +224,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedHextouch
+	legacy = true,
 	statMap = {
 		["apply_linked_curses_on_hit_%"] = {
 			--Display only. Handled by SupportCurseOnHitCursePlus
@@ -309,6 +315,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedElementalFocus
+	legacy = true,
 	statMap = {
 		["support_gem_elemental_damage_+%_final"] = {
 			mod("ElementalDamage", "MORE", nil),
@@ -503,6 +510,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedIncreasedAreaofEffect
+	legacy = true,
 	statMap = {
 		["inc_aoe_plus_more_area_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Area),
@@ -604,6 +612,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedLightningPenetration
+	legacy = true,
 #mods
 
 #skill SupportMeatShield
@@ -637,6 +646,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedMinionDamage
+	legacy = true,
 	statMap = {
 		["support_minion_damage_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
@@ -839,6 +849,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedSpellCascade
+	legacy = true,
 	statMap = {
 		["support_spell_cascade_area_of_effect_+%_final"] = {
 			mod("AreaOfEffect", "MORE", nil),
@@ -887,6 +898,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedSpellEcho
+	legacy = true,
 	statMap = {
 		["support_echo_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
@@ -951,6 +963,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedUnboundAilments
+	legacy = true,
 	statMap = {
 		["support_unbound_ailments_ailment_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Bleed, KeywordFlag.Poison, KeywordFlag.Ignite)),
@@ -975,6 +988,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAwakenedUnleash
+	legacy = true,
 	statMap = {
 		["support_anticipation_rapid_fire_count"] = {
 			mod("SealCount", "BASE", nil),

@@ -1,3 +1,49 @@
+VERSION[2.63.0][2026/03/15]
+
+--- New to Path of Building ---
+* Add new 3.28 Uniques and add support for their mods (LocalIdentity, MrHB212)
+* Add support for defaulting gems to level 1 to help search for best Imbued Support (Peechey)
+* Add support for searching all sockets with Timeless Jewel finder (deathbeam)
+* Add support for Black Scythe Training Keystone (LocalIdentity)
+* Add support for "Lethal Dose" support and make "non-Poisoned Enemies" work with additional poisons (majochem)
+* Add support for Hallowing Flame mods (Paliak)
+* Add Holy Strike FullDPS override to not overstate melee damage  (LocalIdentity)
+* Add radius values for Queen's Demand and Rain of Arrows transfigured gems (Wires77)
+
+--- User Interface ---
+* Add Gem tooltip for Legacy Gems (LocalIdentity)
+* Add "Save As" build sorting options (xoxorwr)
+
+--- Fixed Calculations ---
+* Fix Mana Burn not applying at least 1 degen per stack (LocalIdentity)
+* Fix Cryogenesis not working correctly (Nostrademous)
+* Fix Consecrated Ground effect not scaling Accuracy from Shining Justice (LocalIdentity)
+* Fix Ynda's Stand and Olroth Bloodline not working correctly (LocalIdentity)
+* Fix Greater Chain not working correctly with Poison Conc of Bouncing (LocalIdentity)
+* Fix Holy Strike not scaling with Melee damage (LocalIdentity)
+* Fix Holy Strike Minion missing Lightning damage conversion from skill gem (zekyriah)
+* Fix Melee damage not scaling Hammers from Holy Hammers (LocalIdentity)
+* Fix Divine Blast scaling with Melee damage mods (Lexy)
+* Fix Viper Strike "20% Less Hit Damage while Dual Wielding" mod applying to Poison (LocalIdentity)
+* Fix calculation error with theoretical maximum Poison stacks (majochem)
+* Fix per Minion Limit calculation when using Congregation Support (LocalIdentity)
+* Fix General's Cry DPS not scaling properly with increased Warcry Cooldown (bangbangsheshotmedown)
+
+--- Fixed Behaviours ---
+* Fix PoB Trader not prioritising local weapon mods (LocalIdentity)
+* Fix Militant Faith protected nodes not working properly (LocalIdentity)
+* Fix Primal Roar (Farrul Bloodline) Minion damage mod not working (LocalIdentity)
+* Fix Varunastra not counting as a different weapon type for Dual Strike of Ambidexterity (Paliak)
+* Fix Reliquarian Widowhail node not working with regular bows (MrHB212)
+* Fix Charged Dash of Projection release states not appearing on calcs tab (LocalIdentity)
+* Fix Cruelty from Bitter Lash Bloodline not applying to main hand skills (LocalIdentity)
+* Fix Transfusion Support disabling Offering buffs (LocalIdentity)
+* Fix Curtain Call Mine throwing mods not working (LocalIdentity)
+
+--- Accuracy Improvements ---
+* Fix Heroic Tragedy trade search using wrong Keystone for Uhtred / Medved (LocalIdentity)
+* Fix Acceleration Shrine config tooltip (Peechey)
+
 VERSION[2.62.0][2026/03/09]
 
 --- New to Path of Building ---

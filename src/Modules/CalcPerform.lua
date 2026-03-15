@@ -304,6 +304,15 @@ local function doActorAttribsConditions(env, actor)
 		if modDB:Flag(nil, "GloomShrine") then
 			modDB:NewMod("NonChaosDamageGainAsChaos", "BASE", m_floor(10 * shrineEffectMod), "Gloom Shrine")
 		end
+		if modDB:Flag(nil, "GreaterFreezingShrine") then
+			modDB:NewMod("PhysicalDamageGainAsCold", "BASE", m_floor(30 * shrineEffectMod), "Greater Freezing Shrine")
+		end
+		if modDB:Flag(nil, "GreaterShockingShrine") then
+			modDB:NewMod("PhysicalDamageGainAsLightning", "BASE", m_floor(30 * shrineEffectMod), "Greater Shocking Shrine")
+		end
+		if modDB:Flag(nil, "GreaterSkeletalShrine") then
+			modDB:NewMod("PhysicalDamageGainAsChaos", "BASE", m_floor(30 * shrineEffectMod), "Greater Skeletal Shrine")
+		end
 		if modDB:Flag(nil, "ImpenetrableShrine") then
 			modDB:NewMod("Armour", "INC", m_floor(100 * shrineEffectMod), "Impenetrable Shrine")
 			modDB:NewMod("Evasion", "INC", m_floor(100 * shrineEffectMod), "Impenetrable Shrine")
@@ -1357,7 +1366,7 @@ function calcs.performSkillPass(env, skipEHP, prepassState)
 			end
 		end
 		if activeSkill.minion and activeSkill.minion.minionData and activeSkill.minion.minionData.limit then
-			local limit = m_floor(modDB:Override(nil, activeSkill.minion.minionData.limit) or (calcLib.val(activeSkill.skillModList, activeSkill.minion.minionData.limit) * (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "ActiveMinionLimit") / 100)))
+			local limit = m_floor(modDB:Override(nil, activeSkill.minion.minionData.limit) or (calcLib.val(activeSkill.skillModList, activeSkill.minion.minionData.limit) * activeSkill.skillModList:More(activeSkill.skillCfg, "ActiveMinionLimit")))
 			output[activeSkill.minion.minionData.limit] = m_max(limit, output[activeSkill.minion.minionData.limit] or 0)
 		end
 		if activeSkill.skillTypes[SkillType.CreatesMinion] and not activeSkill.skillTypes[SkillType.MinionsAreUndamagable] then
@@ -1460,12 +1469,19 @@ function calcs.performSkillPass(env, skipEHP, prepassState)
 		end
 	end
 
+	if modDB:Flag(env.player.mainSkill.skillCfg, "Condition:CanInflictHallowingFlame") then
+		local magnitude = 1 + modDB:Sum("INC", nil, "HallowingFlameMagnitude") / 100
+		local val = m_floor(25 * magnitude) -- Hallowing flame grants Attack Hits against you gain 25% of Physical Damage as Extra Fire Damage
+		modDB:NewMod("Multiplier:HallowingFlameMax", "BASE", 1, "Base")
+		modDB:NewMod("ExtraAura", "LIST", { onlyAllies = true, mod = modLib.createMod("PhysicalDamageGainAsLightning", "BASE", val, "Hallowing Flame", { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "ActorCondition", actor = "enemy", var = "HallowingFlame" }, { type = "Multiplier", var = "HallowingFlame", actor = "enemy", limitActor = "parent", limitVar = "HallowingFlameMax" }) })
+	end
+
 	-- Special handling of Mageblood
 	local maxLeftActiveMagicUtilityCount = modDB:Sum("BASE", nil, "LeftActiveMagicUtilityFlasks")
 	local maxRightActiveMagicUtilityCount = modDB:Sum("BASE", nil, "RightActiveMagicUtilityFlasks")
 	if maxLeftActiveMagicUtilityCount > 0 or maxRightActiveMagicUtilityCount > 0 then
 		local magicUtilityFlasks = {}
-		for _, slot in pairs(env.build.itemsTab.orderedSlots) do
+		for _, slot in ipairs(env.build.itemsTab.orderedSlots) do
 			local item = env.build.itemsTab.items[slot.selItemId]
 			if item and item.type == "Flask" and item.rarity == "MAGIC"
 				and not (item.baseName:match("Life Flask") or item.baseName:match("Mana Flask") or item.baseName:match("Hybrid Flask")) then
@@ -1520,6 +1536,20 @@ function calcs.performSkillPass(env, skipEHP, prepassState)
 	end
 
 	-- Merge flask modifiers
+	local function getFlaskInstantRecovery(item)
+		local instantPerc = item.flaskData.instantPerc or 0
+		if modDB:Flag(nil, "Condition:LowLife") then
+			instantPerc = instantPerc + (item.flaskData.instantLowLifePerc or 0)
+		end
+		if item.base.flask.life then
+			instantPerc = instantPerc + modDB:Sum("BASE", nil, "LifeFlaskInstantRecovery")
+		end
+		if item.base.flask.mana then
+			instantPerc = instantPerc + modDB:Sum("BASE", nil, "ManaFlaskInstantRecovery")
+		end
+		return m_min(100, instantPerc)
+	end
+
 	local function calcFlaskRecovery(type, item)
 		local out = {}
 		local lType = type:lower()
@@ -1531,7 +1561,7 @@ function calcs.performSkillPass(env, skipEHP, prepassState)
 		local name = item.name
 		local base = item.flaskData[lType.."Base"]
 		local dur = item.flaskData.duration
-		local instPerc = item.flaskData.instantPerc
+		local instPerc = getFlaskInstantRecovery(item)
 		local flaskRecInc = modDB:Sum("INC", nil, "Flask"..type.."Recovery")
 		local flaskRecMore = modDB:More(nil, "Flask"..type.."Recovery")
 		local flaskRateInc = modDB:Sum("INC", nil, "Flask"..type.."RecoveryRate")
@@ -1636,20 +1666,22 @@ function calcs.performSkillPass(env, skipEHP, prepassState)
 		for item in pairs(flasks) do
 			flaskBuffsPerBase[item.baseName] = flaskBuffsPerBase[item.baseName] or {}
 			flaskBuffsPerBaseNonPlayer[item.baseName] = flaskBuffsPerBaseNonPlayer[item.baseName] or {}
-			flaskConditions["UsingFlask"] = true
-			flaskConditionsNonUtility["UsingFlask"] = true
-			flaskConditions["Using"..item.baseName:gsub("%s+", "")] = true
-			haveFlask["Have"..item.baseName:gsub("%s+", "")] = true
-			if item.base.flask.life or item.base.flask.mana then
-				flaskConditionsNonUtility["Using"..item.baseName:gsub("%s+", "")] = true
-			end
-			if item.base.flask.life and not modDB:Flag(nil, "CannotRecoverLifeOutsideLeech") then
-				flaskConditions["UsingLifeFlask"] = true
-				flaskConditionsNonUtility["UsingLifeFlask"] = true
-			end
-			if item.base.flask.mana then
-				flaskConditions["UsingManaFlask"] = true
-				flaskConditionsNonUtility["UsingManaFlask"] = true
+			local instantPerc = getFlaskInstantRecovery(item)
+			if instantPerc < 100 then
+				flaskConditions["UsingFlask"] = true
+				flaskConditions["Using"..item.baseName:gsub("%s+", "")] = true
+				if item.base.flask.life or item.base.flask.mana then
+					flaskConditionsNonUtility["UsingFlask"] = true
+					flaskConditionsNonUtility["Using"..item.baseName:gsub("%s+", "")] = true
+				end
+				if item.base.flask.life and not modDB:Flag(nil, "CannotRecoverLifeOutsideLeech") then
+					flaskConditions["UsingLifeFlask"] = true
+					flaskConditionsNonUtility["UsingLifeFlask"] = true
+				end
+				if item.base.flask.mana then
+					flaskConditions["UsingManaFlask"] = true
+					flaskConditionsNonUtility["UsingManaFlask"] = true
+				end
 			end
 
 			if onlyRecovery then
@@ -1665,9 +1697,6 @@ function calcs.performSkillPass(env, skipEHP, prepassState)
 			else
 				calcFlaskMods(item, item.baseName, item.buffModList, item.modList)
 			end
-		end
-		for haveFlask, status in pairs(haveFlask) do
-			modDB.conditions[haveFlask] = status
 		end
 		if modDB:Flag(nil, "UtilityFlasksDoNotApplyToPlayer") then
 			for flaskCond, status in pairs(flaskConditionsNonUtility) do
@@ -1862,6 +1891,7 @@ function calcs.performSkillPass(env, skipEHP, prepassState)
 				values.more = skillModList:More(skillCfg, name.."Reserved", "Reserved")
 				values.inc = skillModList:Sum("INC", skillCfg, name.."Reserved", "Reserved")
 				values.efficiency = m_max(skillModList:Sum("INC", skillCfg, name.."ReservationEfficiency", "ReservationEfficiency"), -100)
+				values.efficiencyMore = skillModList:More(skillCfg, name.."ReservationEfficiency", "ReservationEfficiency")
 				-- used for Arcane Cloak calculations in ModStore.GetStat
 				env.player[name.."Efficiency"] = values.efficiency
 				if activeSkill.skillData[name.."ReservationFlatForced"] then
@@ -1870,7 +1900,7 @@ function calcs.performSkillPass(env, skipEHP, prepassState)
 					local baseFlatVal = m_floor(values.baseFlat * mult)
 					values.reservedFlat = 0
 					if values.more > 0 and values.inc > -100 and baseFlatVal ~= 0 then
-						values.reservedFlat = m_max(round(baseFlatVal * (100 + values.inc) / 100 * values.more / (1 + values.efficiency / 100), 0), 0)
+						values.reservedFlat = m_max(round(baseFlatVal * (100 + values.inc) / 100 * values.more / (1 + values.efficiency / 100) / values.efficiencyMore, 0), 0)
 					end
 				end
 				if activeSkill.skillData[name.."ReservationPercentForced"] then
@@ -1879,7 +1909,7 @@ function calcs.performSkillPass(env, skipEHP, prepassState)
 					local basePercentVal = values.basePercent * mult
 					values.reservedPercent = 0
 					if values.more > 0 and values.inc > -100 and basePercentVal ~= 0 then
-						values.reservedPercent = m_max(round(basePercentVal * (100 + values.inc) / 100 * values.more / (1 + values.efficiency / 100), 2), 0)
+						values.reservedPercent = m_max(round(basePercentVal * (100 + values.inc) / 100 * values.more / (1 + values.efficiency / 100) / values.efficiencyMore, 2), 0)
 					end
 				end
 				if activeSkill.activeMineCount then
@@ -1902,6 +1932,7 @@ function calcs.performSkillPass(env, skipEHP, prepassState)
 							more = values.more ~= 1 and ("x "..values.more),
 							inc = values.inc ~= 0 and ("x "..(1 + values.inc / 100)),
 							efficiency = values.efficiency ~= 0 and ("x " .. round(100 / (100 + values.efficiency), 4)),
+							efficiencyMore = values.efficiencyMore ~= 1 and ("x "..values.efficiencyMore),
 							total = values.reservedFlat,
 						})
 					end
@@ -1918,6 +1949,7 @@ function calcs.performSkillPass(env, skipEHP, prepassState)
 							more = values.more ~= 1 and ("x "..values.more),
 							inc = values.inc ~= 0 and ("x "..(1 + values.inc / 100)),
 							efficiency = values.efficiency ~= 0 and ("x " .. round(100 / (100 + values.efficiency), 4)),
+							efficiencyMore = values.efficiencyMore ~= 1 and ("x "..values.efficiencyMore),
 							total = values.reservedPercent .. "%",
 						})
 					end

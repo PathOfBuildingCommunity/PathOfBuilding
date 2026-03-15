@@ -4426,13 +4426,9 @@ function calcs.offence(env, actor, activeSkill)
 				
 				-- If stack limit exists, avg. poison stack is more complicated
 				if poisonStackLimit and poisonStackLimit > 0 and PoisonStacks > poisonStackLimit then
-					-- Calc number of avg. poisons applied per hit (without hit rate multipliers)
-					local singleHitPoisonChance = output.HitChance / 100 * poisonChance
-					local singleHitPoisonStacks = singleHitPoisonChance * additionalPoisonStacks
-
 					-- Calc how many hits will poison before limit is reached and theoretical max poison stacks, which is different from `poisonStackLimit` due to "additional" poison mechanics 
-					local numPoisoningHits = m_ceil(poisonStackLimit / singleHitPoisonStacks)
-					local maxPoisonStacks = numPoisoningHits * singleHitPoisonStacks
+					local numPoisoningHits = m_ceil(poisonStackLimit / additionalPoisonStacks)
+					local maxPoisonStacks = numPoisoningHits * additionalPoisonStacks
 
 					-- Only use `maxPoisonStacks` if original value exceeds it
 					uncappedPoisonStacks = m_max(PoisonStacks, maxPoisonStacks)

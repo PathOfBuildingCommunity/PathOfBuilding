@@ -77,6 +77,7 @@ skills["SupportAwakenedAddedFireDamage"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportAddedFireDamage",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	qualityStats = {
 		Default = {
 			{ "fire_damage_+%", 0.5 },
@@ -232,6 +233,7 @@ skills["SupportAwakenedAncestralCall"] = {
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportAncestralCall",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_spirit_strike_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
@@ -885,6 +887,7 @@ skills["SupportAwakenedBrutality"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportBrutality",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_brutality_physical_damage_+%_final"] = {
 			mod("PhysicalDamage", "MORE", nil),
@@ -999,6 +1002,7 @@ skills["SupportAwakenedBurningDamage"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportBurningDamage",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_burning_damage_+%_final"] = {
 			mod("FireDamage", "MORE", nil, 0, KeywordFlag.FireDot),
@@ -1824,6 +1828,7 @@ skills["SupportAwakenedElementalDamageWithAttacks"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportElementalDamageWithAttacks",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_attack_skills_elemental_damage_+%_final"] = {
 			mod("ElementalDamage", "MORE", nil, 0, KeywordFlag.Attack),
@@ -2216,6 +2221,7 @@ skills["SupportAwakenedFirePenetration"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportFirePenetration",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	qualityStats = {
 		Default = {
 			{ "fire_damage_+%", 0.5 },
@@ -2731,6 +2737,7 @@ skills["SupportAwakenedGenerosity"] = {
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportGenerosity",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["aura_cannot_affect_self"] = {
 			skill("auraCannotAffectSelf", true),
@@ -3175,6 +3182,7 @@ skills["SupportItemQuantity"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	qualityStats = {
 		Default = {
 			{ "base_killed_monster_dropped_item_quantity_+%", 0.35 },
@@ -3714,6 +3722,7 @@ skills["SupportAwakenedMeleePhysicalDamage"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportMeleePhysicalDamage",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_melee_physical_damage_+%_final"] = {
 			mod("PhysicalDamage", "MORE", nil, ModFlag.Melee),
@@ -3836,6 +3845,7 @@ skills["SupportAwakenedMeleeSplash"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportMeleeSplash",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	qualityStats = {
 		Default = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
@@ -4034,6 +4044,7 @@ skills["SupportAwakenedMultistrike"] = {
 	excludeSkillTypes = { SkillType.Vaal, SkillType.NonRepeatable, SkillType.CreatesMinion, SkillType.NOT, SkillType.AND, },
 	plusVersionOf = "SupportMultistrike",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["multistrike_damage_+%_final_on_first_repeat"] = {
 			mod("RepeatOneDamage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
@@ -5203,8 +5214,8 @@ skills["SupportTransfusion"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["random_nearby_minion_gain_a_soul_eater_soul_on_X_life_spent"] = {
-			flag("Condition:MinionCanHaveSoulEater", { type = "GlobalEffect", effectType = "Buff" }),
-			mod("MinionModifier", "LIST", { mod = mod("Condition:CanHaveSoulEater", "FLAG", true) }, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			flag("Condition:MinionCanHaveSoulEater", { type = "GlobalEffect", effectType = "Buff", effectName = "Transfusion" }),
+			mod("MinionModifier", "LIST", { mod = mod("Condition:CanHaveSoulEater", "FLAG", true) }, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Transfusion" }),
 		},
 	},
 	qualityStats = {

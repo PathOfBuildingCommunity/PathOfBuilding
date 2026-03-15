@@ -9666,7 +9666,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2510655429", 
+				["id"] = "implicit.stat_1571797746", 
 				["text"] = "#% of Damage from your Hits cannot be Reflected", 
 				["type"] = "implicit", 
 			}, 
@@ -13779,7 +13779,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_78985352", 
+				["id"] = "implicit.stat_2089652545", 
 				["text"] = "#% chance to Intimidate Enemies for 4 seconds on Hit", 
 				["type"] = "implicit", 
 			}, 
@@ -63092,6 +63092,19 @@ return {
 				["type"] = "implicit", 
 			}, 
 		}, 
+		["implicit.stat_52068049"] = {
+			["Belt"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.stat_52068049", 
+				["text"] = "Can be Anointed", 
+				["type"] = "implicit", 
+			}, 
+		}, 
 		["implicit.stat_524797741"] = {
 			["Boots"] = {
 				["max"] = 2, 
@@ -71752,7 +71765,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2510655429", 
+				["id"] = "implicit.stat_1571797746", 
 				["text"] = "#% of Damage from your Hits cannot be Reflected", 
 				["type"] = "implicit", 
 			}, 
@@ -72251,7 +72264,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_78985352", 
+				["id"] = "implicit.stat_2089652545", 
 				["text"] = "#% chance to Intimidate Enemies for 4 seconds on Hit", 
 				["type"] = "implicit", 
 			}, 

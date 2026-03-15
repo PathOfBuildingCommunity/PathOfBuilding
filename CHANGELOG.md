@@ -1,5 +1,51 @@
 # Changelog
 
+## [v2.63.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.63.0) (2026/03/15)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.62.0...v2.63.0)
+
+## What's Changed
+### New to Path of Building
+- Add new 3.28 Uniques and add support for their mods [\#9618](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9618), [\#9589](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9589) ([LocalIdentity](https://github.com/LocalIdentity), [MrHB212](https://github.com/MrHB212))
+- Add support for defaulting gems to level 1 to help search for best Imbued Support [\#9514](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9514) ([Peechey](https://github.com/Peechey))
+- Add support for searching all sockets with Timeless Jewel finder [\#9591](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9591) ([deathbeam](https://github.com/deathbeam))
+- Add support for Black Scythe Training Keystone [\#9639](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9639) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for "Lethal Dose" support and make "non-Poisoned Enemies" work with additional poisons [\#9576](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9576) ([majochem](https://github.com/majochem))
+- Add support for Hallowing Flame mods [\#9544](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9544) ([Paliak](https://github.com/Paliak))
+- Add Holy Strike FullDPS override to not overstate melee damage  ([LocalIdentity](https://github.com/LocalIdentity))
+- Add radius values for Queen's Demand and Rain of Arrows transfigured gems [\#9598](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9598), [\#9577](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9577) ([Wires77](https://github.com/Wires77))
+### User Interface
+- Add Gem tooltip for Legacy Gems [\#9622](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9622) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add "Save As" build sorting options [\#9489](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9489) ([xoxorwr](https://github.com/xoxorwr))
+### Fixed Calculations
+- Fix Mana Burn not applying at least 1 degen per stack [\#9631](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9631) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Cryogenesis not working correctly [\#9603](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9603) ([Nostrademous](https://github.com/Nostrademous))
+- Fix Consecrated Ground effect not scaling Accuracy from Shining Justice [\#9593](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9593) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Ynda's Stand and Olroth Bloodline not working correctly [\#9573](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9573) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Greater Chain not working correctly with Poison Conc of Bouncing [\#9587](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9587) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Holy Strike not scaling with Melee damage [\#9641](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9641) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Holy Strike Minion missing Lightning damage conversion from skill gem [\#9578](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9578) ([zekyriah](https://github.com/zekyriah))
+- Fix Melee damage not scaling Hammers from Holy Hammers [\#9627](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9627) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Divine Blast scaling with Melee damage mods [\#9574](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9574) ([Lexy](https://github.com/learn2draw))
+- Fix Viper Strike "20% Less Hit Damage while Dual Wielding" mod applying to Poison [\#9626](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9626) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix calculation error with theoretical maximum Poison stacks [\#9595](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9595) ([majochem](https://github.com/majochem))
+- Fix per Minion Limit calculation when using Congregation Support [\#9640](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9640) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix General's Cry DPS not scaling properly with increased Warcry Cooldown [\#9636](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9636) ([bangbangsheshotmedown](https://github.com/bangbangsheshotmedown))
+### Fixed Behaviours
+- Fix PoB Trader not prioritising local weapon mods [\#9625](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9625) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Militant Faith protected nodes not working properly [\#9609](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9609) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Primal Roar (Farrul Bloodline) Minion damage mod not working [\#9588](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9588) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Varunastra not counting as a different weapon type for Dual Strike of Ambidexterity [\#9580](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9580) ([Paliak](https://github.com/Paliak))
+- Fix Reliquarian Widowhail node not working with regular bows [\#9623](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9623) ([MrHB212](https://github.com/MrHB212))
+- Fix Charged Dash of Projection release states not appearing on calcs tab [\#9628](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9628) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Cruelty from Bitter Lash Bloodline not applying to main hand skills [\#9619](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9619) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Transfusion Support disabling Offering buffs [\#9617](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9617) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Curtain Call Mine throwing mods not working [\#9630](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9630) ([LocalIdentity](https://github.com/LocalIdentity))
+### Accuracy Improvements
+- Fix Heroic Tragedy trade search using wrong Keystone for Uhtred / Medved [\#9586](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9586) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Acceleration Shrine config tooltip [\#9583](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9583) ([Peechey](https://github.com/Peechey))
+
+
 ## [v2.62.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.62.0) (2026/03/09)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.61.0...v2.62.0)
