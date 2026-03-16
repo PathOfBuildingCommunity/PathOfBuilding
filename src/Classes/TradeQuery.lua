@@ -888,10 +888,8 @@ function TradeQueryClass:findValidSlotForWatchersEye()
 		end
 	end
 	for _,v in pairs(self.itemsTab.sockets) do
-		if not v.inactive then
-			if self.itemsTab:IsItemValidForSlot(tmpWE,v.slotName,self.itemsTab.activeItemSet) then
-				return self.itemsTab.sockets[v.nodeId]
-			end
+		if not v.inactive and self.itemsTab:IsItemValidForSlot(tmpWE,v.slotName,self.itemsTab.activeItemSet) then
+			return self.itemsTab.sockets[v.nodeId]
 		end
 	end
 end
@@ -1042,7 +1040,16 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 		local result = self.resultTbl[row_idx][pb_index]
 		local item = new("Item", result.item_string)
 		tooltip:Clear()
-		self.itemsTab:AddItemTooltip(tooltip, item, slotTbl)
+		if slotTbl.slotName == "Watcher's Eye" then
+			local firstValidSlot = self:findValidSlotForWatchersEye()
+			local currentItem = firstValidSlot.selItemId ~= 0 and self.itemsTab.items[firstValidSlot.selItemId] 
+			local eyeEquipped = currentItem and currentItem.name:find("Watcher's Eye")
+			-- for watcher's eye we can compare to an already existing one, or
+			-- default to comparing with all active sockets
+			self.itemsTab:AddItemTooltip(tooltip, item, eyeEquipped and firstValidSlot or nil)
+		else
+			self.itemsTab:AddItemTooltip(tooltip, item, slotTbl)
+		end
 		addMegalomaniacCompareToTooltipIfApplicable(tooltip, pb_index)
 		tooltip:AddSeparator(10)
 		tooltip:AddLine(16, string.format("^7Price: %s %s", result.amount, result.currency))
@@ -1070,7 +1077,18 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 			-- item.baseName is nil and throws error in the following AddItemTooltip func
 			-- if the item is unidentified
 			local item = new("Item", item_string)
-			self.itemsTab:AddItemTooltip(tooltip, item, slotTbl, true)
+			-- for watcher's eye we can compare to an already existing one, or
+			-- default to comparing with all active sockets
+			if slotTbl.slotName == "Watcher's Eye" then
+				local firstValidSlot = self:findValidSlotForWatchersEye()
+				local currentItem = firstValidSlot.selItemId ~= 0 and self.itemsTab.items[firstValidSlot.selItemId]
+				local eyeEquipped = currentItem and currentItem.name:find("Watcher's Eye")
+				-- for watcher's eye we can compare to an already existing one, or
+				-- default to comparing with all active sockets
+				self.itemsTab:AddItemTooltip(tooltip, item, eyeEquipped and firstValidSlot or nil, true)
+			else
+				self.itemsTab:AddItemTooltip(tooltip, item, slotTbl, true)
+			end
 			addMegalomaniacCompareToTooltipIfApplicable(tooltip, selected_result_index)
 		end
 	end
