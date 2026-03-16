@@ -1352,11 +1352,11 @@ function ItemsTabClass:NewItemSet(itemSetId)
 end
 
 function ItemsTabClass:CopyItemSet(sourceItemSetId, newItemSetName)
-    local newSet = copyTable(self.itemSets[sourceItemSetId])
-    newSet.id = #self.itemSets + 1
-    newSet.title = newItemSetName or newSet.title .. " (Copy)"
-    self.itemSets[newSet.id] = newSet
-    return newSet
+	local newSet = copyTable(self.itemSets[sourceItemSetId])
+	newSet.id = #self.itemSets + 1
+	newSet.title = newItemSetName or newSet.title .. " (Copy)"
+	self.itemSets[newSet.id] = newSet
+	return newSet
 end
 
 -- Changes the active item set
@@ -1385,9 +1385,9 @@ function ItemsTabClass:SetActiveItemSet(itemSetId, deferSync)
 	end
 	self.build.buildFlag = true
 	self:PopulateSlots()
-    if not deferSync then
-	    self.build:SyncLoadouts()
-    end
+	if not deferSync then
+		self.build:SyncLoadouts()
+	end
 end
 
 -- Equips the given item in the given item set

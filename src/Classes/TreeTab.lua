@@ -645,14 +645,14 @@ function TreeTabClass:OpenSpecManagePopup()
 end
 
 function TreeTabClass:CopyTree(sourceSpecId, newSpecName)
-    local newSpec = new("PassiveSpec", self.build, self.specList[sourceSpecId].treeVersion)
-    newSpec.title = newSpecName or self.specList[sourceSpecId].title .. " (Copy)"
-    newSpec.jewels = copyTable(self.specList[sourceSpecId].jewels)
-    newSpec:RestoreUndoState(self.specList[sourceSpecId]:CreateUndoState())
-    newSpec:BuildClusterJewelGraphs()
-    newSpec.id = #self.specList + 1
-    t_insert(self.specList, newSpec)
-    return newSpec
+	local newSpec = new("PassiveSpec", self.build, self.specList[sourceSpecId].treeVersion)
+	newSpec.title = newSpecName or self.specList[sourceSpecId].title .. " (Copy)"
+	newSpec.jewels = copyTable(self.specList[sourceSpecId].jewels)
+	newSpec:RestoreUndoState(self.specList[sourceSpecId]:CreateUndoState())
+	newSpec:BuildClusterJewelGraphs()
+	newSpec.id = #self.specList + 1
+	t_insert(self.specList, newSpec)
+	return newSpec
 end
 
 function TreeTabClass:OpenVersionConvertPopup(version, ignoreTreeSubType)

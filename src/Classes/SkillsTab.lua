@@ -1332,21 +1332,21 @@ function SkillsTabClass:NewSkillSet(skillSetId)
 end
 
 function SkillsTabClass:CopySkillSet(sourceSkillSetId, newSkillSetName)
-    local skillSet = self.skillSets[sourceSkillSetId]
-    local newSkillSet = copyTable(skillSet, true)
-    newSkillSet.title = newSkillSetName or skillSet.title .. " (Copy)"
-    newSkillSet.socketGroupList = { }
-    for socketGroupIndex, socketGroup in pairs(skillSet.socketGroupList) do
-        local newGroup = copyTable(socketGroup, true)
-        newGroup.gemList = { }
-        for gemIndex, gem in pairs(socketGroup.gemList) do
-            newGroup.gemList[gemIndex] = copyTable(gem, true)
-        end
-        t_insert(newSkillSet.socketGroupList, newGroup)
-    end
-    newSkillSet.id = #self.skillSets + 1
-    self.skillSets[newSkillSet.id] = newSkillSet
-    return newSkillSet
+	local skillSet = self.skillSets[sourceSkillSetId]
+	local newSkillSet = copyTable(skillSet, true)
+	newSkillSet.title = newSkillSetName or skillSet.title .. " (Copy)"
+	newSkillSet.socketGroupList = {}
+	for socketGroupIndex, socketGroup in pairs(skillSet.socketGroupList) do
+		local newGroup = copyTable(socketGroup, true)
+		newGroup.gemList = {}
+		for gemIndex, gem in pairs(socketGroup.gemList) do
+			newGroup.gemList[gemIndex] = copyTable(gem, true)
+		end
+		t_insert(newSkillSet.socketGroupList, newGroup)
+	end
+	newSkillSet.id = #self.skillSets + 1
+	self.skillSets[newSkillSet.id] = newSkillSet
+	return newSkillSet
 end
 
 -- Changes the active skill set

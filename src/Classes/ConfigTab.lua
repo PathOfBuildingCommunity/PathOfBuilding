@@ -976,12 +976,12 @@ function ConfigTabClass:NewConfigSet(configSetId, title)
 end
 
 function ConfigTabClass:CopyConfigSet(configSetId, newConfigSetName)
-    local configSet = self.configSets[configSetId]
-    local newConfigSet = copyTable(configSet)
-    newConfigSet.id = #self.configSets + 1
-    newConfigSet.title = newConfigSetName or configSet.title .. " (Copy)"
-    t_insert(self.configSets, newConfigSet)
-    return newConfigSet
+	local configSet = self.configSets[configSetId]
+	local newConfigSet = copyTable(configSet)
+	newConfigSet.id = #self.configSets + 1
+	newConfigSet.title = newConfigSetName or configSet.title .. " (Copy)"
+	t_insert(self.configSets, newConfigSet)
+	return newConfigSet
 end
 
 -- Changes the active config set
