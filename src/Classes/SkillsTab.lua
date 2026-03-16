@@ -168,11 +168,12 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.groupSlotLabel = new("LabelControl", { "TOPLEFT", self.anchorGroupDetail, "TOPLEFT" }, { 0, 30, 0, 16 }, "^7Socketed in:")
 	self.controls.groupSlot = new("DropDownControl", { "TOPLEFT", self.anchorGroupDetail, "TOPLEFT" }, { 85, 28, 130, 20 }, groupSlotDropList, function(index, value)
 		-- maintain imbued support to new slot
-		if self.imbuedSupportBySlot[self.displayGroup.slot] then
+		if self.imbuedSupportBySlot[self.displayGroup.slot] and self.displayGroup.imbuedSupport then
 			if value.label ~= "None" then
 				self.imbuedSupportBySlot[value.label] = copyTable(self.imbuedSupportBySlot[self.displayGroup.slot], true)
 			else
 				self.controls.imbuedSupport.selIndex = 1 -- reset dropdown to None if socketedIn switched to None
+				self.displayGroup.imbuedSupport = nil  -- reset saved support to None
 			end
 			self.imbuedSupportBySlot[self.displayGroup.slot] = nil
 		end
@@ -235,18 +236,19 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.imbuedSupport = new("DropDownControl", { "LEFT", self.controls.imbuedSupportLabel, "RIGHT" }, { 8, 0, 250, 20 }, imbuedSupportList, function(_, value, slotName) -- slotName used on Import
 		local gemName = value:gsub("%^7", "")
 		if value == "None" then
-			self.imbuedSupportBySlot[self.displayGroup.slot] = nil
+			self.imbuedSupportBySlot[slotName or self.displayGroup.slot] = nil
 		else
-			if self.displayGroup then
-				self.displayGroup.imbuedSupport = gemName
-			end
 			self.imbuedSupportBySlot[slotName or self.displayGroup.slot] = data.gems[data.gemForBaseName[gemName:lower().." support"]].grantedEffect
+		end
+
+		if self.displayGroup then
+			self.displayGroup.imbuedSupport = gemName
 		end
 		self.build.buildFlag = true
 	end)
-
 	self.controls.imbuedSupport.enabled = function()
-		if self.displayGroup.slot then
+		-- socketedIn must be set and the displayGroup must have an imbued, otherwise disable the imbued dropdown
+		if self.displayGroup.slot and ((self.imbuedSupportBySlot[self.displayGroup.slot] and (self.displayGroup.imbuedSupport and self.displayGroup.imbuedSupport ~= "None") or not self.imbuedSupportBySlot[self.displayGroup.slot])) then
 			self.controls.imbuedSupport.tooltipText = nil
 			return true
 		else
@@ -254,13 +256,9 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 			return false
 		end
 	end
-	-- todo: tooltip to show imbued disabled if socketed in is None
-	--self.controls.imbuedSupport.tooltipFunc = function(tooltip)
-	--	tooltip:Clear()
-	--	if not self.controls.imbuedSupport.enabled then
-	--		tooltip:AddLine(16, "^7Imbued supports must be socketed in an item.")
-	--	end
-	--end
+	self.controls.imbuedSupportLabel.shown = function() -- don't show imbued for skills from items
+		return not self.displayGroup.source
+	end
 
 	self.controls.groupCountLabel = new("LabelControl", { "LEFT", self.controls.includeInFullDPS, "RIGHT" }, { 16, 0, 0, 16 }, "Count:")
 	self.controls.groupCountLabel.shown = function()

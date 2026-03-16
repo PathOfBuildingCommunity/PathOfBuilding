@@ -1495,7 +1495,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 				end
 				-- if the slot has an imbued support, add it as an ExtraSupport
-				if build.skillsTab.imbuedSupportBySlot and build.skillsTab.imbuedSupportBySlot[slotName] then
+				if build.skillsTab.imbuedSupportBySlot and build.skillsTab.imbuedSupportBySlot[slotName] and (group.imbuedSupport and group.imbuedSupport ~= "None") then
 					addExtraSupports(nil, build.skillsTab.imbuedSupportBySlot[slotName], 1)
 				end
 
