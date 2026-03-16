@@ -35,7 +35,13 @@ local function calculateMirage(env, config)
 	end
 
 	if mirageSkill then
-		local newSkill, newEnv = calcs.copyActiveSkill(env, "CALCULATOR", mirageSkill)
+		local snapshot = calcs.snapshotActiveSkill(mirageSkill)
+		local newEnv, _, _, _ = calcs.initEnv(env.build, "CALCULATOR", env.override, { cacheGeneration = env.cacheGeneration, recursionGuards = env.recursionGuards })
+		local newSkill = calcs.rebuildSkillFromSnapshot(newEnv, snapshot, newEnv.player)
+		if not newSkill then
+			config.mirageSkillNotFoundFunc(env, config)
+			return not config.calcMainSkillOffence
+		end
 		newSkill.skillCfg.skillCond["usedByMirage"] = true
 		newEnv.limitedSkills = newEnv.limitedSkills or {}
 		newEnv.limitedSkills[cacheSkillUUID(newSkill, newEnv)] = true
@@ -119,18 +125,14 @@ function calcs.mirages(env)
 		config = {
 			compareFunc = function(skill, env, config, mirageSkill)
 				if skill ~= env.player.mainSkill and skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Totem] and not skill.skillTypes[SkillType.SummonsTotem] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) == bor(ModFlag.Sword, ModFlag.Weapon1H) and not skill.skillCfg.skillCond["usedByMirage"] then
-					local uuid = cacheSkillUUID(skill, env)
-					if not GlobalCache.cachedData[env.mode][uuid] then
-						calcs.buildActiveSkill(env, env.mode, skill, uuid)
-					end
-
-					if GlobalCache.cachedData[env.mode][uuid] and GlobalCache.cachedData[env.mode][uuid].CritChance and GlobalCache.cachedData[env.mode][uuid].CritChance > 0 then
+					local entry = calcs.getCachedSkillEntry(env, skill)
+					if entry and entry.CritChance and entry.CritChance > 0 then
 						if not mirageSkill then
-							usedSkillBestDps = GlobalCache.cachedData[env.mode][uuid].TotalDPS
-							return GlobalCache.cachedData[env.mode][uuid].ActiveSkill
-						elseif GlobalCache.cachedData[env.mode][uuid].TotalDPS > usedSkillBestDps then
-							usedSkillBestDps = GlobalCache.cachedData[env.mode][uuid].TotalDPS
-							return GlobalCache.cachedData[env.mode][uuid].ActiveSkill
+							usedSkillBestDps = entry.TotalDPS
+							return skill
+						elseif entry.TotalDPS > usedSkillBestDps then
+							usedSkillBestDps = entry.TotalDPS
+							return skill
 						end
 					end
 				end
@@ -192,15 +194,11 @@ function calcs.mirages(env)
 				local skillTypeMatch = (skill.skillTypes[SkillType.Slam] or skill.skillTypes[SkillType.Melee]) and skill.skillTypes[SkillType.Attack] 
 				local skillTypeExcludes = skill.skillTypes[SkillType.Vaal] or skill.skillTypes[SkillType.Totem] or skill.skillTypes[SkillType.SummonsTotem]
 				if skill ~= env.player.mainSkill and not isTriggered(skill) and not isDisabled and skillTypeMatch and not skillTypeExcludes and not skill.skillCfg.skillCond["usedByMirage"] then
-					local uuid = cacheSkillUUID(skill, env)
-					if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
-						calcs.buildActiveSkill(env, env.mode, skill, uuid)
-					end
-
-					if not mirageSkill or (GlobalCache.cachedData[env.mode][uuid] and GlobalCache.cachedData[env.mode][uuid].TotalDPS > usedSkillBestDps) then
-						usedSkillBestDps = GlobalCache.cachedData[env.mode][uuid].TotalDPS
-						EffectiveSourceRate = GlobalCache.cachedData[env.mode][uuid].Speed
-						return GlobalCache.cachedData[env.mode][uuid].ActiveSkill
+					local entry = calcs.getCachedSkillEntry(env, skill)
+					if entry and (not mirageSkill or entry.TotalDPS > usedSkillBestDps) then
+						usedSkillBestDps = entry.TotalDPS
+						EffectiveSourceRate = entry.Speed
+						return skill
 					end
 				end
 				return mirageSkill
@@ -367,10 +365,8 @@ function calcs.mirages(env)
 		env.player.mainSkill.skillCfg.skillCond["usedByMirage"] = true
 		env.player.mainSkill.skillTypes[SkillType.OtherThingUsesSkill] = true
 
-		if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
-			calcs.buildActiveSkill(env, env.mode, env.player.mainSkill, uuid, {uuid})
-		end
-		local mainSkillOutputCache = GlobalCache.cachedData[env.mode][uuid].Env.player.output
+		local mainSkillCacheEntry = calcs.getCachedSkillEntry(env, env.player.mainSkill, {uuid})
+		local mainSkillOutputCache = mainSkillCacheEntry and mainSkillCacheEntry.Output or {}
 
 		-- Find the active General's Cry gem to get active properties
 		for _, skill in ipairs(env.player.activeSkillList) do
@@ -393,7 +389,7 @@ function calcs.mirages(env)
 		if env.player.mainSkill.skillTypes[SkillType.Channel] then
 			mirageSpawnTime = mirageSpawnTime + 1
 		else
-			mirageSpawnTime = mirageSpawnTime + (mainSkillOutputCache.HitTime or mainSkillOutputCache.Time)
+			mirageSpawnTime = mirageSpawnTime + (mainSkillOutputCache.HitTime or mainSkillOutputCache.Time or 0)
 			env.player.mainSkill.skillData.timeOverride = 1
 		end
 

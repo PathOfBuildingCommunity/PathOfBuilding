@@ -313,7 +313,7 @@ local function applySocketMods(env, gem, groupCfg, socketNum, modSource)
 	socketCfg.skillGem = gem
 	socketCfg.socketNum = socketNum
 	for _, value in ipairs(env.modDB:List(socketCfg, "SocketProperty")) do
-		env.player.modDB:AddMod(modLib.setSource(value.value, modSource or groupCfg.slotName or ""))
+		env.player.modDB:AddMod(modLib.withSource(value.value, modSource or groupCfg.slotName or ""))
 	end
 end
 
@@ -363,6 +363,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 	local cachedMinionDB = specEnv and specEnv.cachedMinionDB or nil
 	local env = specEnv and specEnv.env or nil
 	local accelerate = specEnv and specEnv.accelerate or { }
+	local cacheGeneration = specEnv and specEnv.cacheGeneration or nil
+	local recursionGuards = specEnv and specEnv.recursionGuards or nil
 
 	-- environment variables
 	local override = override or { }
@@ -378,9 +380,14 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.configPlaceholder = build.configTab.placeholder
 		env.calcsInput = build.calcsTab.input
 		env.mode = mode
+		env.cacheGeneration = cacheGeneration
 		env.spec = override.spec or build.spec
 		env.override = override
 		env.classId = env.spec.curClassId
+		env.recursionGuards = recursionGuards or {
+			buildingSkills = { },
+			triggerResolution = { },
+		}
 
 		modDB = new("ModDB")
 		env.modDB = modDB
@@ -439,6 +446,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 		wipeEnv(env, accelerate)
 		modDB = env.modDB
 		enemyDB = env.enemyDB
+		env.cacheGeneration = cacheGeneration or env.cacheGeneration
+		env.recursionGuards = recursionGuards or env.recursionGuards or {
+			buildingSkills = { },
+			triggerResolution = { },
+		}
 	end
 
 	-- Set buff mode
@@ -572,6 +584,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 			env.minion.modDB.parent = cachedMinionDB
 		end
 	end
+	env.cachedPlayerDB = cachedPlayerDB
+	env.cachedEnemyDB = cachedEnemyDB
+	env.cachedMinionDB = cachedMinionDB
 
 	if override.conditions then
 		for _, flag in ipairs(override.conditions) do
@@ -1058,9 +1073,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 								end
 							end
 
-							local modCopy = copyTable(mod)
-							modLib.setSource(modCopy, item.modSource)
-							env.itemModDB:ScaleAddMod(modCopy, scale)
+							env.itemModDB:ScaleAddMod(modLib.withSource(mod, item.modSource), scale)
 
 							::skip_mod::
 						end
@@ -1688,7 +1701,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				}
 				local groupCfg = groupCfgList[slotName or "noSlot"][group]
 				for _, value in ipairs(env.modDB:List(groupCfg, "GroupProperty")) do
-					env.player.modDB:AddMod(modLib.setSource(value.value, groupCfg.slotName or ""))
+					env.player.modDB:AddMod(modLib.withSource(value.value, groupCfg.slotName or ""))
 				end
 
 				if index == env.mainSocketGroup and #socketGroupSkillList > 0 then

@@ -20,6 +20,7 @@ local b_and = bit.band
 local b_xor = bit.bxor
 
 common = { }
+local graphNodeTagKey = "__pobGraphNodeTag"
 
 -- External libraries
 common.curl = require("lcurl.safe")
@@ -404,20 +405,39 @@ function writeLuaTable(out, t, indent)
 	out:write('}')
 end
 
--- Make a copy of a table and all subtables
-function copyTable(tbl, noRecurse)
+function graphNodeTag(obj, label)
+	if launch.devMode and type(obj) == "table" then
+		rawset(obj, graphNodeTagKey, rawget(obj, graphNodeTagKey) or label or true)
+	end
+	return obj
+end
+
+local function copyTableInternal(tbl, noRecurse)
 	local out = {}
 	for k, v in pairs(tbl) do
 		if not noRecurse and type(v) == "table" then
-			out[k] = copyTable(v)
+			out[k] = copyTableInternal(v)
 		else
 			out[k] = v
 		end
 	end
 	return out
 end
+
+-- copyTable() is for plain acyclic data only. Graph objects such as env, activeSkill,
+-- ModDB, ModList, and cache entries must use copyTableSafe() or targeted/manual cloning.
+function copyTable(tbl, noRecurse)
+	if launch.devMode then
+		local graphNodeLabel = rawget(tbl, graphNodeTagKey)
+		if graphNodeLabel then
+			error("copyTable() cannot clone graph object '"..tostring(graphNodeLabel).."'; use copyTableSafe() or a targeted clone")
+		end
+	end
+	return copyTableInternal(tbl, noRecurse)
+end
 do
 	local subTableMap = { }
+	-- copyTableSafe() is reserved for graph-risk call sites such as shared mod payloads.
 	function copyTableSafe(tbl, noRecurse, preserveMeta, isSubTable)
 		local out = {}
 		if not noRecurse then
@@ -782,23 +802,123 @@ function cacheSkillUUID(skill, env)
 	return strName.."_"..strSlotName.."_"..tostring(slotIndx) .. "_" .. tostring(groupIdx)
 end
 
+local calculatorCacheGeneration = 0
+
+function nextCalculatorCacheGeneration(build)
+	calculatorCacheGeneration = calculatorCacheGeneration + 1
+	return s_format("%s:%d", tostring(build and build.outputRevision or 0), calculatorCacheGeneration)
+end
+
+function getGlobalCacheTable(modeOrEnv, build, cacheGeneration)
+	local mode = modeOrEnv
+	if type(modeOrEnv) == "table" then
+		local env = modeOrEnv
+		mode = env.mode
+		build = env.build
+		cacheGeneration = env.cacheGeneration
+	end
+	if mode ~= "CALCULATOR" then
+		return GlobalCache.cachedData[mode]
+	end
+	local namespace = cacheGeneration or s_format("%s:default", tostring(build and build.outputRevision or 0))
+	GlobalCache.cachedData.CALCULATOR[namespace] = GlobalCache.cachedData.CALCULATOR[namespace] or {}
+	return GlobalCache.cachedData.CALCULATOR[namespace]
+end
+
+local function buildCachedMainSkillData(mainSkill)
+	local skillData = mainSkill.skillData or {}
+	return {
+		chanceToTriggerOnCrit = skillData.chanceToTriggerOnCrit,
+		dpsMultiplier = skillData.dpsMultiplier,
+		LifeReservedPercent = skillData.LifeReservedPercent,
+		ManaReservedPercent = skillData.ManaReservedPercent,
+		EnergyShieldReservedPercent = skillData.EnergyShieldReservedPercent,
+		RageReservedPercent = skillData.RageReservedPercent,
+	}
+end
+
+local function buildCachedOutput(output)
+	local mainHand = output and output.MainHand or nil
+	local offHand = output and output.OffHand or nil
+	return {
+		Speed = output and output.Speed or 0,
+		HitSpeed = output and output.HitSpeed or 0,
+		Duration = output and output.Duration or 0,
+		Time = output and output.Time or 0,
+		HitTime = output and output.HitTime or 0,
+		ManaCost = output and output.ManaCost or 0,
+		LifeCost = output and output.LifeCost or 0,
+		ESCost = output and output.ESCost or 0,
+		RageCost = output and output.RageCost or 0,
+		ManaCostRaw = output and output.ManaCostRaw or 0,
+		LifePercentCost = output and output.LifePercentCost or 0,
+		ManaPercentCost = output and output.ManaPercentCost or 0,
+		ProjectileCount = output and output.ProjectileCount or 0,
+		BattleCryExertsCount = output and output.BattleCryExertsCount or 0,
+		BattleMageCryDuration = output and output.BattleMageCryDuration or 0,
+		BattleMageCryCastTime = output and output.BattleMageCryCastTime or 0,
+		BattleMageCryCooldown = output and output.BattleMageCryCooldown or 0,
+		BattlemageUpTimeRatio = output and output.BattlemageUpTimeRatio or 0,
+		InfernalExertsCount = output and output.InfernalExertsCount or 0,
+		InfernalCryDuration = output and output.InfernalCryDuration or 0,
+		InfernalCryCastTime = output and output.InfernalCryCastTime or 0,
+		InfernalCryCooldown = output and output.InfernalCryCooldown or 0,
+		InfernalUpTimeRatio = output and output.InfernalUpTimeRatio or 0,
+		TotemLife = output and output.TotemLife or 0,
+		MainHand = {
+			HitChance = mainHand and mainHand.HitChance or 0,
+			CritChance = mainHand and mainHand.CritChance or 0,
+		},
+		OffHand = {
+			HitChance = offHand and offHand.HitChance or 0,
+			CritChance = offHand and offHand.CritChance or 0,
+		},
+	}
+end
+
+function buildSafeSkillCacheEntry(uuid, skill, debugNote)
+	local entry = {
+		Name = skill and skill.activeEffect and skill.activeEffect.grantedEffect.name or "Unknown",
+		Speed = 0,
+		HitSpeed = 0,
+		ManaCost = 0,
+		LifeCost = 0,
+		ESCost = 0,
+		RageCost = 0,
+		HitChance = 0,
+		AccuracyHitChance = 0,
+		PreEffectiveCritChance = 0,
+		CritChance = 0,
+		TotalDPS = 0,
+		Output = buildCachedOutput(nil),
+		MainSkillData = skill and buildCachedMainSkillData(skill) or {},
+		SkillUUID = uuid,
+		Incomplete = true,
+		DebugNote = debugNote,
+	}
+	return entry
+end
+
 -- Global Cache related
 function cacheData(uuid, env)
-	GlobalCache.cachedData[env.mode][uuid] = {
-		Name = env.player.mainSkill.activeEffect.grantedEffect.name,
-		Speed = env.player.output.Speed,
-		HitSpeed = env.player.output.HitSpeed,
-		ManaCost = env.player.output.ManaCost,
-		LifeCost = env.player.output.LifeCost,
-		ESCost = env.player.output.ESCost,
-		RageCost = env.player.output.RageCost,
-		HitChance = env.player.output.HitChance,
-		AccuracyHitChance = env.player.output.AccuracyHitChance,
-		PreEffectiveCritChance = env.player.output.PreEffectiveCritChance,
-		CritChance = env.player.output.CritChance,
-		TotalDPS = env.player.output.TotalDPS,
-		ActiveSkill = env.player.mainSkill,
-		Env = env,
+	local mainSkill = env.player.mainSkill
+	local output = env.player.output
+	getGlobalCacheTable(env)[uuid] = {
+		Name = mainSkill.activeEffect.grantedEffect.name,
+		Speed = output.Speed,
+		HitSpeed = output.HitSpeed,
+		ManaCost = output.ManaCost,
+		LifeCost = output.LifeCost,
+		ESCost = output.ESCost,
+		RageCost = output.RageCost,
+		HitChance = output.HitChance,
+		AccuracyHitChance = output.AccuracyHitChance,
+		PreEffectiveCritChance = output.PreEffectiveCritChance,
+		CritChance = output.CritChance,
+		TotalDPS = output.TotalDPS,
+		Output = buildCachedOutput(output),
+		MainSkillData = buildCachedMainSkillData(mainSkill),
+		SkillUUID = uuid,
 	}
 end
 

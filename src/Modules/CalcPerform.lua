@@ -19,6 +19,8 @@ local m_huge = math.huge
 local bor = bit.bor
 local band = bit.band
 local bnot = bit.bnot
+local wipeTable = wipeTable
+local graphNodeTag = graphNodeTag
 
 --- getCachedOutputValue
 ---  retrieves a value specified by key from a cached version of skill
@@ -28,14 +30,11 @@ local bnot = bit.bnot
 --- @param ... table keys to values to be returned (Note: EmmyLua does not natively support documenting variadic parameters)
 --- @return table unpacked table containing the desired values
 local function getCachedOutputValue(env, activeSkill, ...)
-	local uuid = cacheSkillUUID(activeSkill, env)
-	if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
-		calcs.buildActiveSkill(env, env.mode, activeSkill, uuid, {uuid})
-	end
+	local entry = calcs.getCachedSkillEntry(env, activeSkill, { cacheSkillUUID(activeSkill, env) })
 
 	local tempValues = {}
 	for i,v in ipairs({...}) do
-		tempValues[i] = GlobalCache.cachedData[env.mode][uuid].Env.player.output[v]
+		tempValues[i] = entry and entry.Output[v] or 0
 	end
 	return unpack(tempValues)
 end
@@ -542,7 +541,7 @@ function doActorLifeManaReservation(actor, addAura)
 		end
 		if addAura then
 			for _, value in ipairs(modDB:List(nil, "GrantReserved"..pool.."AsAura")) do
-				local auraMod = copyTable(value.mod)
+				local auraMod = type(value.mod.value) == "table" and copyTableSafe(value.mod, false) or copyTable(value.mod)
 				auraMod.value = m_floor(auraMod.value * m_min(reserved, max))
 				modDB:NewMod("ExtraAura", "LIST", { mod = auraMod })
 			end
@@ -593,7 +592,7 @@ local function applyEnemyModifiers(actor, clearCache)
 		local mod = value.value and value.value.mod
 		if mod and not cache[mod] then
 			local source = mod.source or value.mod.source
-			enemyDB:AddMod(modLib.setSource(mod, source))
+			enemyDB:AddMod(modLib.withSource(mod, source))
 			cache[mod] = true
 		end
 	end
@@ -1074,6 +1073,26 @@ function calcs.actionSpeedMod(actor)
 	return actionSpeedMod
 end
 
+local function resetReusableModList(modList, parent)
+	wipeTable(modList)
+	modList.parent = parent or false
+	modList.actor = parent and parent.actor or { }
+	modList.multipliers = { }
+	modList.conditions = { }
+	graphNodeTag(modList, modList._className or "ModList")
+	return modList
+end
+
+local function resetReusableModDB(modDB, parent, actor)
+	wipeTable(modDB.mods)
+	modDB.parent = parent or false
+	modDB.actor = actor or (parent and parent.actor) or modDB.actor or { }
+	modDB.multipliers = { }
+	modDB.conditions = { }
+	graphNodeTag(modDB, modDB._className or "ModDB")
+	return modDB
+end
+
 -- Finalises the environment and performs the stat calculations:
 -- 1. Merges keystone modifiers
 -- 2. Initialises minion skills
@@ -1086,20 +1105,52 @@ end
 -- 8. Processes buffs and debuffs
 -- 9. Processes charges and misc buffs (doActorCharges, doActorMisc)
 -- 10. Calculates defence and offence stats (calcs.defence, calcs.offence)
-function calcs.perform(env, skipEHP)
-	local modDB = env.modDB
-	local enemyDB = env.enemyDB
+function calcs.performActorPrepass(env, options)
+	options = options or { }
+	local prepassState = {
+		partyTabEnableExportBuffs = env.build.partyTab.enableExportBuffs and env.mode ~= "CALCULATOR",
+	}
+	env.partyMembers = env.build.partyTab.actor
+	env.player.partyMembers = env.partyMembers
 
-	-- Merge keystone modifiers
+	-- Merge keystone modifiers once per actor-global pass so the skill-local
+	-- phase can reuse the resulting DB baseline.
 	env.keystonesAdded = { }
 	modLib.mergeKeystones(env, env.modDB)
 
+	if options.snapshotDBs then
+		prepassState.cachedPlayerDB, prepassState.cachedEnemyDB, prepassState.cachedMinionDB = specCopy(env)
+		prepassState.cachedPlayerDB.parent = env.modDB.parent
+		prepassState.cachedEnemyDB.parent = env.enemyDB.parent
+		if prepassState.cachedMinionDB and env.minion and env.minion.modDB then
+			prepassState.cachedMinionDB.parent = env.minion.modDB.parent
+		end
+	end
+	env.performActorPrepassState = prepassState
+	return prepassState
+end
+
+function calcs.performSkillPass(env, skipEHP, prepassState)
+	local modDB = env.modDB
+	local enemyDB = env.enemyDB
+	prepassState = prepassState or env.performActorPrepassState
+	env.partyMembers = env.partyMembers or env.build.partyTab.actor
+	env.player.partyMembers = env.partyMembers
+
 	-- Build minion skills
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
-		activeSkill.skillModList = new("ModList", activeSkill.baseSkillModList)
+		if activeSkill.skillModList and activeSkill.skillModList ~= activeSkill.baseSkillModList then
+			activeSkill.skillModList = resetReusableModList(activeSkill.skillModList, activeSkill.baseSkillModList)
+		else
+			activeSkill.skillModList = new("ModList", activeSkill.baseSkillModList)
+		end
 		if activeSkill.minion then
-			activeSkill.minion.modDB = new("ModDB")
-			activeSkill.minion.modDB.actor = activeSkill.minion
+			if activeSkill.minion.modDB then
+				resetReusableModDB(activeSkill.minion.modDB, false, activeSkill.minion)
+			else
+				activeSkill.minion.modDB = new("ModDB")
+				activeSkill.minion.modDB.actor = activeSkill.minion
+			end
 			calcs.createMinionSkills(env, activeSkill)
 			activeSkill.skillPartName = activeSkill.minion.mainSkill.activeEffect.grantedEffect.name
 		end
@@ -1109,9 +1160,7 @@ function calcs.perform(env, skipEHP)
 	env.enemy.output = { }
 	local output = env.player.output
 
-	env.partyMembers = env.build.partyTab.actor
-	env.player.partyMembers = env.partyMembers
-	local partyTabEnableExportBuffs = env.build.partyTab.enableExportBuffs and env.mode ~= "CALCULATOR"
+	local partyTabEnableExportBuffs = prepassState and prepassState.partyTabEnableExportBuffs or (env.build.partyTab.enableExportBuffs and env.mode ~= "CALCULATOR")
 
 	env.minion = env.player.mainSkill.minion
 	if env.minion then
@@ -1755,7 +1804,7 @@ function calcs.perform(env, skipEHP)
 			for key, buffModList in pairs(tinctureBuffs) do
 				for _, buff in ipairs(buffModList) do
 					if band(buff.flags, ModFlag.WeaponMelee) == ModFlag.WeaponMelee then
-						newMod = copyTable(buff, true)
+						newMod = type(buff.value) == "table" and copyTableSafe(buff, false) or copyTable(buff, true)
 						newMod.flags = bor(band(newMod.flags, bnot(ModFlag.WeaponMelee)), ModFlag.WeaponRanged)
 						modDB:AddList({newMod})
 					end
@@ -1782,8 +1831,7 @@ function calcs.perform(env, skipEHP)
 			for _, value in ipairs(env.modDB:Tabulate(nil, nil, "EnemyModifier")) do
 				local mod = value.value and value.value.mod
 				if mod then
-					local copy = copyTable(mod, true)
-					env.minion.modDB:AddMod(modLib.setSource(copy, mod.source or value.mod.source))
+					env.minion.modDB:AddMod(modLib.withSource(mod, mod.source or value.mod.source))
 				end
 			end
 		end
@@ -2057,23 +2105,20 @@ function calcs.perform(env, skipEHP)
 					buffs["Spectre"] = buffs["Spectre"] or new("ModList")
 					minionBuffs["Spectre"] = minionBuffs["Spectre"] or new("ModList")
 					for _, modValue in pairs(modData.value) do
-						local copyModValue = copyTable(modValue)
-						copyModValue.source = "Spectre:"..spectreData.name
+						local copyModValue = modLib.withSource(modValue, "Spectre:"..spectreData.name)
 						t_insert(minionBuffs["Spectre"], copyModValue)
 						t_insert(buffs["Spectre"], copyModValue)
 					end
 				elseif modData.name == "MinionModifier" and modData.type == "LIST" then
 					minionBuffs["Spectre"] = minionBuffs["Spectre"] or new("ModList")
 					for _, modValue in pairs(modData.value) do
-						local copyModValue = copyTable(modValue)
-						copyModValue.source = "Spectre:"..spectreData.name
+						local copyModValue = modLib.withSource(modValue, "Spectre:"..spectreData.name)
 						t_insert(minionBuffs["Spectre"], copyModValue)
 					end
 				elseif modData.name == "PlayerModifier" and modData.type == "LIST" then
 					buffs["Spectre"] = buffs["Spectre"] or new("ModList")
 					for _, modValue in pairs(modData.value) do
-						local copyModValue = copyTable(modValue)
-						copyModValue.source = "Spectre:"..spectreData.name
+						local copyModValue = modLib.withSource(modValue, "Spectre:"..spectreData.name)
 						t_insert(buffs["Spectre"], copyModValue)
 					end
 				end
@@ -2262,7 +2307,7 @@ function calcs.perform(env, skipEHP)
 							end
 						end
 						if add then
-							t_insert(extraAuraModList, copyTable(value.mod, true))
+							t_insert(extraAuraModList, copyTableSafe(value.mod, false))
 						end
 					end
 					if not activeSkill.skillData.auraCannotAffectSelf then
@@ -2337,7 +2382,7 @@ function calcs.perform(env, skipEHP)
 						for _, modList in ipairs(lists) do
 							for _, mod in ipairs(modList) do
 								if mod.name == "EnergyShield" or mod.name == "Armour" or mod.name == "Evasion" or mod.name:match("Resist?M?a?x?$") then
-									local totemMod = copyTable(mod)
+									local totemMod = type(mod.value) == "table" and copyTableSafe(mod, false) or copyTable(mod)
 									totemMod.name = "Totem"..totemMod.name
 									if scale ~= 1 then
 										if type(totemMod.value) == "number" then
@@ -2374,7 +2419,7 @@ function calcs.perform(env, skipEHP)
 									end
 								end
 								if add then
-									t_insert(extraAuraModList, copyTable(value.mod, true))
+									t_insert(extraAuraModList, copyTableSafe(value.mod, false))
 								end
 							end
 							local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
@@ -2420,7 +2465,7 @@ function calcs.perform(env, skipEHP)
 								end
 							end
 							if add then
-								t_insert(extraAuraModList, copyTable(value.mod, true))
+								t_insert(extraAuraModList, copyTableSafe(value.mod, false))
 							end
 						end
 						mult = 0
@@ -2528,7 +2573,7 @@ function calcs.perform(env, skipEHP)
 							end
 						end
 						if add then
-							t_insert(extraLinkModList, copyTable(value.mod, true))
+							t_insert(extraLinkModList, copyTableSafe(value.mod, false))
 							-- special handling to add this early
 							if value.mod.name == "ParentNonUniqueFlasksAppliedToYou" then
 								nonUniqueFlasksApplyToMinion = true
@@ -2589,7 +2634,7 @@ function calcs.perform(env, skipEHP)
 						source = source..castingMinion.minionData.name
 					end
 					for i = 1, #modList do
-						modList[i].source = source
+						modList[i] = modLib.withSource(modList[i], source)
 					end
 				end
 			end
@@ -2652,7 +2697,7 @@ function calcs.perform(env, skipEHP)
 									end
 								end
 								if add then
-									t_insert(extraAuraModList, copyTable(value.mod, true))
+									t_insert(extraAuraModList, copyTableSafe(value.mod, false))
 								end
 							end
 							if not (activeSkill.minion.modDB:Flag(nil, "SelfAurasCannotAffectAllies") or activeSkill.minion.modDB:Flag(nil, "SelfAurasOnlyAffectYou") or activeSkill.minion.modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies") or skillModList:Flag(skillCfg, "SelfAurasAffectYouAndLinkedTarget")) then
@@ -2715,7 +2760,7 @@ function calcs.perform(env, skipEHP)
 									for _, modList in ipairs(lists) do
 										for _, mod in ipairs(modList) do
 											if mod.name == "EnergyShield" or mod.name == "Armour" or mod.name == "Evasion" or mod.name:match("Resist?M?a?x?$") then
-												local totemMod = copyTable(mod)
+												local totemMod = type(mod.value) == "table" and copyTableSafe(mod, false) or copyTable(mod)
 												totemMod.name = "Totem"..totemMod.name
 												if scale ~= 1 then
 													if type(totemMod.value) == "number" then
@@ -3217,7 +3262,7 @@ function calcs.perform(env, skipEHP)
 			buffExports["Aura"]["extraAura"].modList:AddMod(value.mod)
 			local totemModBlacklist = value.mod.name and (value.mod.name == "Speed" or value.mod.name == "CritMultiplier" or value.mod.name == "CritChance")
 			if env.player.mainSkill.skillFlags.totem and not totemModBlacklist then
-				local totemMod = copyTable(value.mod)
+				local totemMod = type(value.mod.value) == "table" and copyTableSafe(value.mod, false) or copyTable(value.mod)
 				local totemModName, matches = totemMod.name:gsub("Condition:", "Condition:Totem")
 				if matches < 1 then
 					totemModName = "Totem" .. totemMod.name
@@ -3513,7 +3558,7 @@ function calcs.perform(env, skipEHP)
 		-- preStack Mine auras
 		for auraName, aura in pairs(buffExports["Aura"]) do
 			if auraName:match("Mine") and not auraName:match(" Limit") then
-				buffExports["Aura"][auraName] = copyTable(buffExports["Aura"][auraName])
+				buffExports["Aura"][auraName] = copyTableSafe(buffExports["Aura"][auraName], false)
 				aura = buffExports["Aura"][auraName]
 				local stackCount = buffExports["EnemyMods"]["Multiplier:"..auraName.."Stack"] and buffExports["EnemyMods"]["Multiplier:"..auraName.."Stack"].value or 0
 				buffExports["EnemyMods"]["Multiplier:"..auraName.."Stack"] = nil
@@ -3531,7 +3576,7 @@ function calcs.perform(env, skipEHP)
 					end
 				end
 				if buffExports["Aura"][auraName.." Limit"] then
-					buffExports["Aura"][auraName.." Limit"] = copyTable(buffExports["Aura"][auraName.." Limit"])
+					buffExports["Aura"][auraName.." Limit"] = copyTableSafe(buffExports["Aura"][auraName.." Limit"], false)
 					aura = buffExports["Aura"][auraName.." Limit"]
 					if stackCount == 0 then
 						buffExports["Aura"][auraName.." Limit"] = nil
@@ -3628,5 +3673,12 @@ function calcs.perform(env, skipEHP)
 		end
 	end
 
-	cacheData(cacheSkillUUID(env.player.mainSkill, env), env)
+	if env.requestedSkillUUID or not env.deferCacheWrites then
+		cacheData(env.requestedSkillUUID or cacheSkillUUID(env.player.mainSkill, env), env)
+	end
+end
+
+function calcs.perform(env, skipEHP)
+	local prepassState = calcs.performActorPrepass(env)
+	return calcs.performSkillPass(env, skipEHP, prepassState)
 end

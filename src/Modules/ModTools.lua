@@ -214,6 +214,18 @@ function modLib.formatSourceMod(mod)
     return s_format("%s|%s|%s", modLib.formatValue(mod.value), mod.source, modLib.formatModParams(mod))
 end
 
+function modLib.withSource(mod, source)
+	local copy = copyTableSafe(mod, false)
+	copy.source = source
+	if type(copy.value) == "table" and copy.value.mod then
+		copy.value.mod.source = source
+	end
+	return copy
+end
+
+-- Deprecated: internal-only helper that mutates the provided mod in place.
+-- Only use this when the caller owns the modifier instance and no shared parser/cache
+-- tables can observe the mutation; otherwise prefer withSource().
 function modLib.setSource(mod, source)
 	mod.source = source
 	if type(mod.value) == "table" and mod.value.mod then
@@ -230,7 +242,7 @@ function modLib.mergeKeystones(env, modDB)
 			env.keystonesAdded[modObj.value] = true
 			local fromTree = modObj.mod.source and not modObj.mod.source:lower():match("tree")
 			for _, mod in ipairs(env.spec.tree.keystoneMap[modObj.value].modList) do
-				modDB:AddMod(fromTree and modLib.setSource(mod, modObj.mod.source) or mod)
+				modDB:AddMod(fromTree and modLib.withSource(mod, modObj.mod.source) or mod)
 			end
 		end
 	end

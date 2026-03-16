@@ -31,14 +31,14 @@ end
 
 local function slotMatch(env, skill)
 	local fromItem = (env.player.mainSkill.activeEffect.grantedEffect.fromItem or skill.activeEffect.grantedEffect.fromItem)
-	fromItem = fromItem or (env.player.mainSkill.activeEffect.srcInstance and env.player.mainSkill.activeEffect.srcInstance.fromItem) or (skill.activeEffect.srcInstance and skill.activeEffect.srcInstance.fromItem)
+	fromItem = fromItem or calcs.getActiveEffectSourceValue(env.player.mainSkill.activeEffect, "fromItem") or calcs.getActiveEffectSourceValue(skill.activeEffect, "fromItem")
 	local match1 = fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
-	local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
+	local match2 = (not fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
 	return (match1 or match2)
 end
 
 function isTriggered(skill)
-	return skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered] or skill.activeEffect.grantedEffect.triggered or (skill.activeEffect.srcInstance and skill.activeEffect.srcInstance.triggered)
+	return skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered] or skill.activeEffect.grantedEffect.triggered or calcs.getActiveEffectSourceValue(skill.activeEffect, "triggered")
 end
 
 local function processAddedCastTime(skill, breakdown)
@@ -66,7 +66,8 @@ local function packageSkillDataForSimulation(skill, env)
 end
 
 local function defaultComparer(env, uuid, source, triggerRate)
-	local cachedSpeed = GlobalCache.cachedData[env.mode][uuid].HitSpeed or GlobalCache.cachedData[env.mode][uuid].Speed
+	local entry = getGlobalCacheTable(env)[uuid]
+	local cachedSpeed = entry and (entry.HitSpeed or entry.Speed)
 	return (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0))
 end
 
@@ -74,13 +75,10 @@ end
 local function findTriggerSkill(env, skill, source, triggerRate, comparer)
 	local comparer = comparer or defaultComparer
 
-	local uuid = cacheSkillUUID(skill, env)
-	if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
-		calcs.buildActiveSkill(env, env.mode, skill, uuid)
-	end
+	local entry, uuid = calcs.getCachedSkillEntry(env, skill)
 
-	if GlobalCache.cachedData[env.mode][uuid] and comparer(env, uuid, source, triggerRate) and (skill.skillFlags and not skill.skillFlags.disable) and (skill.skillCfg and not skill.skillCfg.skillCond["usedByMirage"]) and not skill.skillTypes[SkillType.OtherThingUsesSkill] then
-		return skill, GlobalCache.cachedData[env.mode][uuid].HitSpeed or GlobalCache.cachedData[env.mode][uuid].Speed, uuid
+	if entry and comparer(env, uuid, source, triggerRate) and (skill.skillFlags and not skill.skillFlags.disable) and (skill.skillCfg and not skill.skillCfg.skillCond["usedByMirage"]) and not skill.skillTypes[SkillType.OtherThingUsesSkill] then
+		return skill, entry.HitSpeed or entry.Speed, uuid
 	end
 	return source, triggerRate, source and cacheSkillUUID(source, env)
 end
@@ -224,9 +222,10 @@ local function CWCHandler(env)
 		local triggerName = "Cast While Channeling"
 		local output = env.player.output
 		local breakdown = env.player.breakdown
+		local fromItem = calcs.getActiveEffectSourceValue(env.player.mainSkill.activeEffect, "fromItem", env.player.mainSkill.activeEffect.grantedEffect.fromItem)
 		for _, skill in ipairs(env.player.activeSkillList) do
-			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
-			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
+			local match1 = fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
+			local match2 = (not fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
 			if env.player.mainSkill.triggeredBy.gemData and calcLib.canGrantedEffectSupportActiveSkill(env.player.mainSkill.triggeredBy.gemData.grantedEffect, skill) and skill ~= env.player.mainSkill and (match1 or match2) and not isTriggered(skill) then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
@@ -396,6 +395,7 @@ local function defaultTriggerHandler(env, config)
 	local triggeredSkills = config.triggeredSkills or {}
 	local trigRate = config.trigRate
 	local uuid
+	local cache = getGlobalCacheTable(env)
 
 	-- Find trigger skill and triggered skills
 	if config.triggeredSkillCond or config.triggerSkillCond then
@@ -446,8 +446,8 @@ local function defaultTriggerHandler(env, config)
 			actor.mainSkill.skillData.ignoresTickRate = actor.mainSkill.skillData.ignoresTickRate or (actor.mainSkill.skillData.storedUses and actor.mainSkill.skillData.storedUses > 1)
 
 			--Account for source unleash
-			if source and GlobalCache.cachedData[env.mode][uuid] and source.skillModList:Flag(nil, "HasSeals") and source.skillTypes[SkillType.CanRapidFire] then
-				local unleashDpsMult = GlobalCache.cachedData[env.mode][uuid].ActiveSkill.skillData.dpsMultiplier or 1
+			if source and cache[uuid] and source.skillModList:Flag(nil, "HasSeals") and source.skillTypes[SkillType.CanRapidFire] then
+				local unleashDpsMult = cache[uuid].MainSkillData.dpsMultiplier or 1
 				trigRate = trigRate * unleashDpsMult
 				actor.mainSkill.skillFlags.HasSeals = true
 				actor.mainSkill.skillData.ignoresTickRate = true
@@ -457,8 +457,8 @@ local function defaultTriggerHandler(env, config)
 			end
 
 			--Account for skills that can hit multiple times per use
-			if source and GlobalCache.cachedData[env.mode][uuid] and source.skillPartName and source.skillPartName:match("(.*)All(.*)Projectiles(.*)") and source.skillFlags.projectile then
-				local multiHitDpsMult = GlobalCache.cachedData[env.mode][uuid].Env.player.output.ProjectileCount or 1
+			if source and cache[uuid] and source.skillPartName and source.skillPartName:match("(.*)All(.*)Projectiles(.*)") and source.skillFlags.projectile then
+				local multiHitDpsMult = cache[uuid].Output.ProjectileCount or 1
 				trigRate = trigRate * multiHitDpsMult
 				if breakdown then
 					t_insert(breakdown.EffectiveSourceRate, s_format("x %.2f ^8(%d projectiles hit)", multiHitDpsMult, multiHitDpsMult))
@@ -476,11 +476,11 @@ local function defaultTriggerHandler(env, config)
 			end
 
 			-- Battlemage's Cry uptime
-			if actor.mainSkill.skillData.triggeredByBattleMageCry and GlobalCache.cachedData[env.mode][uuid] and source and source.skillTypes[SkillType.Melee] then
-				local battleMageExertsCount = GlobalCache.cachedData[env.mode][uuid].Env.player.output.BattleCryExertsCount
-				local battleMageDuration = ceil_b(GlobalCache.cachedData[env.mode][uuid].Env.player.output.BattleMageCryDuration, data.misc.ServerTickTime)
-				local battleMageCastTime = GlobalCache.cachedData[env.mode][uuid].Env.player.output.BattleMageCryCastTime
-				local battleMageCooldown = ceil_b(GlobalCache.cachedData[env.mode][uuid].Env.player.output.BattleMageCryCooldown, data.misc.ServerTickTime)
+			if actor.mainSkill.skillData.triggeredByBattleMageCry and cache[uuid] and source and source.skillTypes[SkillType.Melee] then
+				local battleMageExertsCount = cache[uuid].Output.BattleCryExertsCount or 0
+				local battleMageDuration = ceil_b(cache[uuid].Output.BattleMageCryDuration or 0, data.misc.ServerTickTime)
+				local battleMageCastTime = cache[uuid].Output.BattleMageCryCastTime or 0
+				local battleMageCooldown = ceil_b(cache[uuid].Output.BattleMageCryCooldown or 0, data.misc.ServerTickTime)
 
 				-- Cap the number of hits that happen during the duration
 				local battleMageHits = m_max(m_min(trigRate * battleMageDuration, battleMageExertsCount), 0)
@@ -495,11 +495,11 @@ local function defaultTriggerHandler(env, config)
 			end
 
 			-- Infernal Cry uptime
-			if actor.mainSkill.activeEffect.grantedEffect.name == "Combust" and GlobalCache.cachedData[env.mode][uuid] and source and source.skillTypes[SkillType.Melee] then
-				local infernalCryExertsCount = GlobalCache.cachedData[env.mode][uuid].Env.player.output.InfernalExertsCount
-				local infernalCryDuration = ceil_b(GlobalCache.cachedData[env.mode][uuid].Env.player.output.InfernalCryDuration, data.misc.ServerTickTime)
-				local infernalCryCastTime = GlobalCache.cachedData[env.mode][uuid].Env.player.output.InfernalCryCastTime
-				local infernalCryCooldown = ceil_b(GlobalCache.cachedData[env.mode][uuid].Env.player.output.InfernalCryCooldown, data.misc.ServerTickTime)
+			if actor.mainSkill.activeEffect.grantedEffect.name == "Combust" and cache[uuid] and source and source.skillTypes[SkillType.Melee] then
+				local infernalCryExertsCount = cache[uuid].Output.InfernalExertsCount or 0
+				local infernalCryDuration = ceil_b(cache[uuid].Output.InfernalCryDuration or 0, data.misc.ServerTickTime)
+				local infernalCryCastTime = cache[uuid].Output.InfernalCryCastTime or 0
+				local infernalCryCooldown = ceil_b(cache[uuid].Output.InfernalCryCooldown or 0, data.misc.ServerTickTime)
 
 				-- Cap the number of hits that happen during the duration
 				local infernalCryHits = m_max(m_min(trigRate * infernalCryDuration, infernalCryExertsCount), 0)
@@ -515,14 +515,11 @@ local function defaultTriggerHandler(env, config)
 
 			-- Handling for mana spending rate for Manaforged Arrows Support
 			if actor.mainSkill.skillData.triggeredByManaforged and trigRate > 0 then
-				local triggeredUUID = cacheSkillUUID(actor.mainSkill, env)
-				if not GlobalCache.cachedData[env.mode][triggeredUUID] then
-					calcs.buildActiveSkill(env, env.mode, actor.mainSkill, triggeredUUID, {triggeredUUID})
-				end
-				local triggeredManaCost = GlobalCache.cachedData[env.mode][triggeredUUID].Env.player.output.ManaCostRaw or 0
+				local triggeredEntry = calcs.getCachedSkillEntry(env, actor.mainSkill, { cacheSkillUUID(actor.mainSkill, env) }, { breakdown = breakdown, section = "EffectiveSourceRate" })
+				local triggeredManaCost = triggeredEntry and triggeredEntry.Output.ManaCostRaw or 0
 				if triggeredManaCost > 0 then
 					local manaSpentThreshold = triggeredManaCost * actor.mainSkill.skillData.ManaForgedArrowsPercentThreshold
-					local sourceManaCost = GlobalCache.cachedData[env.mode][uuid].Env.player.output.ManaCostRaw or 0
+					local sourceManaCost = cache[uuid].Output.ManaCostRaw or 0
 					if sourceManaCost > 0 then
 						if breakdown then
 							breakdown.EffectiveSourceRate = {
@@ -580,9 +577,10 @@ local function defaultTriggerHandler(env, config)
 				output.TriggerRateCap = 1 / actionCooldownTickRounded
 			end
 			if config.triggerName == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "expiration" then
-				local expirationRate = 1 / GlobalCache.cachedData[env.mode][uuid].Env.player.output.Duration
+				local sourceDuration = cache[uuid].Output.Duration or 0
+				local expirationRate = sourceDuration > 0 and 1 / sourceDuration or 0
 				if breakdown and breakdown.EffectiveSourceRate then
-						breakdown.EffectiveSourceRate[1] = s_format("1 / %.2f ^8(source curse duration)", GlobalCache.cachedData[env.mode][uuid].Env.player.output.Duration)
+						breakdown.EffectiveSourceRate[1] = s_format("1 / %.2f ^8(source curse duration)", sourceDuration)
 				end
 				if expirationRate > trigRate then
 					env.player.modDB:NewMod("UsesCurseOverlaps", "FLAG", true, "Config")
@@ -724,14 +722,14 @@ local function defaultTriggerHandler(env, config)
 				local triggerChanceBreakdown = {}
 
 				--Accuracy and crit chance
-				if source and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and GlobalCache.cachedData[env.mode][uuid] and not config.triggerOnUse then
+				if source and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and cache[uuid] and not config.triggerOnUse then
 
-					local sourceHitChance = GlobalCache.cachedData[env.mode][uuid].HitChance or 0
+					local sourceHitChance = cache[uuid].HitChance or 0
 					if sourceHitChance ~= 100 then
 						-- Some skills hit with both weapons at the same time. Each weapon rolls accuracy and crit independently
 						if source and env.player.weaponData1.type and env.player.weaponData2.type and source.skillData.doubleHitsWhenDualWielding then
-							local mainHandHit = GlobalCache.cachedData[env.mode][uuid].Env.player.output.MainHand.HitChance
-							local offHandHit = GlobalCache.cachedData[env.mode][uuid].Env.player.output.OffHand.HitChance
+							local mainHandHit = cache[uuid].Output.MainHand.HitChance or 0
+							local offHandHit = cache[uuid].Output.OffHand.HitChance or 0
 							local bothHit = mainHandHit * offHandHit / 100
 							local mainHandMiss = (100 - mainHandHit)
 							local offHandMiss = (100 - offHandHit)
@@ -748,15 +746,15 @@ local function defaultTriggerHandler(env, config)
 						end
 					end
 					if actor.mainSkill.skillData.triggerOnCrit then
-						local onCritChance = actor.mainSkill.skillData.chanceToTriggerOnCrit or (GlobalCache.cachedData[env.mode][uuid] and GlobalCache.cachedData[env.mode][uuid].Env.player.mainSkill.skillData.chanceToTriggerOnCrit)
+						local onCritChance = actor.mainSkill.skillData.chanceToTriggerOnCrit or (cache[uuid] and cache[uuid].MainSkillData.chanceToTriggerOnCrit)
 						config.triggerChance = config.triggerChance or actor.mainSkill.skillData.chanceToTriggerOnCrit or onCritChance
 
-						local sourceCritChance = GlobalCache.cachedData[env.mode][uuid].CritChance or 0
+						local sourceCritChance = cache[uuid].CritChance or 0
 						if sourceCritChance ~= 100 then
 							-- Some skills hit with both weapons at the same time. Each weapon rolls accuracy and crit independently
 							if source and env.player.weaponData1.type and env.player.weaponData2.type and source.skillData.doubleHitsWhenDualWielding then
-								local mainHandCrit = GlobalCache.cachedData[env.mode][uuid].Env.player.output.MainHand.CritChance
-								local offHandCrit = GlobalCache.cachedData[env.mode][uuid].Env.player.output.OffHand.CritChance
+								local mainHandCrit = cache[uuid].Output.MainHand.CritChance or 0
+								local offHandCrit = cache[uuid].Output.OffHand.CritChance or 0
 								local bothHit = mainHandCrit * offHandCrit / 100
 								local mainHandMiss = (100 - mainHandCrit)
 								local offHandMiss = (100 - offHandCrit)
@@ -785,7 +783,8 @@ local function defaultTriggerHandler(env, config)
 
 				-- If the current triggered skill ignores tick rate and is the only triggered skill by this trigger use charge based calcs
 				if actor.mainSkill.skillData.ignoresTickRate and ( not config.triggeredSkillCond or (triggeredSkills and #triggeredSkills == 1 and triggeredSkills[1] == packageSkillDataForSimulation(actor.mainSkill, env)) ) then
-					local overlaps = config.stagesAreOverlaps and env.player.mainSkill.skillPart == config.stagesAreOverlaps and env.player.mainSkill.activeEffect.srcInstance.skillStageCount or config.overlaps
+					local stageCount = calcs.getActiveEffectSelection(env.player.mainSkill.activeEffect, "skillStageCountCalcs", "skillStageCount", false, env.player.mainSkill.activeStageCount and env.player.mainSkill.activeStageCount + 1)
+					local overlaps = config.stagesAreOverlaps and env.player.mainSkill.skillPart == config.stagesAreOverlaps and stageCount or config.overlaps
 					output.SkillTriggerRate = m_min(output.TriggerRateCap, output.EffectiveSourceRate * (overlaps or 1))
 					if breakdown then
 						if overlaps then
@@ -808,7 +807,8 @@ local function defaultTriggerHandler(env, config)
 					end
 
 					-- stagesAreOverlaps is the skill part which makes the stages behave as overlaps
-					local hits_per_cast = config.stagesAreOverlaps and env.player.mainSkill.skillPart == config.stagesAreOverlaps and env.player.mainSkill.activeEffect.srcInstance.skillStageCount or 1
+					local stageCount = calcs.getActiveEffectSelection(env.player.mainSkill.activeEffect, "skillStageCountCalcs", "skillStageCount", false, env.player.mainSkill.activeStageCount and env.player.mainSkill.activeStageCount + 1)
+					local hits_per_cast = config.stagesAreOverlaps and env.player.mainSkill.skillPart == config.stagesAreOverlaps and stageCount or 1
 					output.SkillTriggerRate = hits_per_cast * output.SkillTriggerRate
 					if breakdown then
 						breakdown.SkillTriggerRate = {
@@ -1074,8 +1074,9 @@ local configTable = {
 		return {triggerChance = env.player.modDB:Sum("BASE", nil, "KitavaTriggerChance"),
 				triggerName = "Kitava's Thirst",
 				comparer = function(env, uuid, source, triggerRate)
-					local cachedSpeed = GlobalCache.cachedData[env.mode][uuid].HitSpeed or GlobalCache.cachedData[env.mode][uuid].Speed
-					local cachedManaCost = GlobalCache.cachedData[env.mode][uuid].ManaCost
+					local entry = getGlobalCacheTable(env)[uuid]
+					local cachedSpeed = entry and (entry.HitSpeed or entry.Speed)
+					local cachedManaCost = entry and entry.ManaCost
 					return ( (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0)) ) and ( (cachedManaCost or 0) >= requiredManaCost )
 				end,
 				triggerSkillCond = function(env, skill)
@@ -1088,8 +1089,9 @@ local configTable = {
 		return {triggerChance = env.player.modDB:Sum("BASE", nil, "FoulbornKitavaTriggerChance"),
 				triggerName = "Foulborn Kitava's Thirst",
 				comparer = function(env, uuid, source, triggerRate)
-					local cachedSpeed = GlobalCache.cachedData[env.mode][uuid].HitSpeed or GlobalCache.cachedData[env.mode][uuid].Speed
-					local cachedLifeCost = GlobalCache.cachedData[env.mode][uuid].LifeCost
+					local entry = getGlobalCacheTable(env)[uuid]
+					local cachedSpeed = entry and (entry.HitSpeed or entry.Speed)
+					local cachedLifeCost = entry and entry.LifeCost
 					return ( (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0)) ) and ( (cachedLifeCost or 0) >= requiredLifeCost )
 				end,
 				triggerSkillCond = function(env, skill)
@@ -1279,15 +1281,13 @@ local configTable = {
 	end,
 	["shattershard"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
-		local uuid = cacheSkillUUID(env.player.mainSkill, env)
-		if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
-			calcs.buildActiveSkill(env, env.mode, env.player.mainSkill, uuid, {uuid})
-		end
-		env.player.mainSkill.skillData.triggerRateCapOverride = 1 / GlobalCache.cachedData[env.mode][uuid].Env.player.output.Duration
+		local entry = calcs.getCachedSkillEntry(env, env.player.mainSkill, { cacheSkillUUID(env.player.mainSkill, env) }, { breakdown = env.player.breakdown, section = "SkillTriggerRate" })
+		local duration = entry and entry.Output.Duration or 0
+		env.player.mainSkill.skillData.triggerRateCapOverride = duration > 0 and 1 / duration or 0
 		if env.player.breakdown then
 			env.player.breakdown.SkillTriggerRate = {
 				s_format("Shattershard uses duration as pseudo cooldown"),
-				s_format("1 / %.2f ^8(Shattershard duration)", GlobalCache.cachedData[env.mode][uuid].Env.player.output.Duration),
+				s_format("1 / %.2f ^8(Shattershard duration)", duration),
 				s_format("= %.2f ^8per second", env.player.mainSkill.skillData.triggerRateCapOverride),
 			}
 		end
@@ -1298,7 +1298,7 @@ local configTable = {
 			return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] end,
 					comparer = function(env, uuid, source, triggerRate)
 						-- Skills with no uptime ratio are not exerted by battlemage so should not be considered.
-						local uptimeRatio = GlobalCache.cachedData[env.mode][uuid].Env.player.output.BattlemageUpTimeRatio
+						local uptimeRatio = getGlobalCacheTable(env)[uuid].Output.BattlemageUpTimeRatio
 						return defaultComparer(env, uuid, source, triggerRate) and uptimeRatio
 					end,
 					triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBattleMageCry and slotMatch(env, skill) end}
@@ -1333,7 +1333,7 @@ local configTable = {
 		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] end,
 				comparer = function(env, uuid, source, triggerRate)
 					-- Skills with no uptime ratio are not exerted by infernal cry so should not be considered.
-					local uptimeRatio = GlobalCache.cachedData[env.mode][uuid].Env.player.output.InfernalUpTimeRatio
+					local uptimeRatio = getGlobalCacheTable(env)[uuid].Output.InfernalUpTimeRatio
 					return defaultComparer(env, uuid, source, triggerRate) and uptimeRatio
 				end,}
 	end,
@@ -1432,14 +1432,11 @@ local configTable = {
 				for _, skill in ipairs(env.player.activeSkillList) do
 					if skill.activeEffect.grantedEffect.name == "Snipe" and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot then
 						skill.skillData.hitTimeMultiplier = snipeStages - 0.5
-						local uuid = cacheSkillUUID(skill, env)
-						if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
-							calcs.buildActiveSkill(env, env.mode, skill, uuid)
-						end
-						local cachedSpeed = GlobalCache.cachedData[env.mode][uuid].Env.player.output.HitSpeed
+						local entry = calcs.getCachedSkillEntry(env, skill)
+						local cachedSpeed = entry and entry.Output.HitSpeed
 						if (skill.skillFlags and not skill.skillFlags.disable) and (skill.skillCfg and not skill.skillCfg.skillCond["usedByMirage"]) and not skill.skillTypes[SkillType.OtherThingUsesSkill] and ((not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (trigRate or 0))) then
 							trigRate = cachedSpeed
-							env.player.output.ChannelTimeToTrigger = GlobalCache.cachedData[env.mode][uuid].Env.player.output.HitTime
+							env.player.output.ChannelTimeToTrigger = entry.Output.HitTime
 							source = skill
 						end
 					end
@@ -1457,7 +1454,7 @@ local configTable = {
 	["avenging flame"]  = function(env)
 		return {triggerSkillCond = function(env, skill) return skill.skillFlags.totem and slotMatch(env, skill) end,
 				comparer = function(env, uuid, source, currentTotemLife)
-					local totemLife = GlobalCache.cachedData[env.mode][uuid].Env.player.output.TotemLife
+					local totemLife = getGlobalCacheTable(env)[uuid].Output.TotemLife
 					return (not source and totemLife) or (totemLife and totemLife > (currentTotemLife or 0))
 				end,
 				ignoreSourceRate = true}
@@ -1549,6 +1546,27 @@ end
 
 function calcs.triggers(env, actor)
 	if actor and not actor.mainSkill.skillFlags.disable and not (env.limitedSkills and env.limitedSkills[cacheSkillUUID(actor.mainSkill, env)]) then
+		local recursionGuards = env.recursionGuards or {
+			buildingSkills = { },
+			triggerResolution = { },
+		}
+		env.recursionGuards = recursionGuards
+		local actorId = actor == env.minion and "minion" or "player"
+		local guardKey = env.mode..":"..actorId..":"..cacheSkillUUID(actor.mainSkill, env)
+		if recursionGuards.triggerResolution[guardKey] then
+			actor.mainSkill.skillData.triggered = nil
+			actor.mainSkill.infoMessage = "Trigger cycle detected"
+			actor.output.TriggerRateCap = 0
+			actor.output.EffectiveSourceRate = 0
+			actor.output.SkillTriggerRate = 0
+			if actor.breakdown then
+				actor.breakdown.SkillTriggerRate = actor.breakdown.SkillTriggerRate or { }
+				t_insert(actor.breakdown.SkillTriggerRate, "Trigger cycle detected; assuming 0 trigger rate")
+			end
+			return
+		end
+		recursionGuards.triggerResolution[guardKey] = true
+
 		local skillName = actor.mainSkill.activeEffect.grantedEffect.name
 		local triggerName = actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.name
 		local uniqueName = isTriggered(actor.mainSkill) and getUniqueItemTriggerName(actor.mainSkill)
@@ -1563,11 +1581,12 @@ function calcs.triggers(env, actor)
 		if config then
 		    config.actor = config.actor or actor
 			config.triggerName = config.triggerName or triggerName or skillName or uniqueName
-			config.triggerChance = config.triggerChance or (actor.mainSkill.activeEffect.srcInstance and actor.mainSkill.activeEffect.srcInstance.triggerChance)
+			config.triggerChance = config.triggerChance or calcs.getActiveEffectSourceValue(actor.mainSkill.activeEffect, "triggerChance")
 			local triggerHandler = config.customHandler or defaultTriggerHandler
 		    triggerHandler(env, config)
 		else
 			actor.mainSkill.skillData.triggered = nil
         end
+		recursionGuards.triggerResolution[guardKey] = nil
 	end
 end

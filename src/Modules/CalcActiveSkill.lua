@@ -31,9 +31,8 @@ local function mergeLevelMod(modList, mod, value)
 	elseif value then
 		local newMod = copyTable(mod, true)
 		if type(newMod.value) == "table" then
-			newMod.value = copyTable(newMod.value, true)
+			newMod.value = copyTableSafe(newMod.value, false)
 			if newMod.value.mod then
-				newMod.value.mod = copyTable(newMod.value.mod, true)
 				newMod.value.mod.value = value
 			else
 				newMod.value.value = value
@@ -80,7 +79,8 @@ end
 -- Create an active skill using the given active gem and list of support gems
 -- It will determine the base flag set, and check which of the support gems can support this skill
 function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, summonSkill)
-	local activeSkill = {
+	-- Active skills retain live links to actor/support/socket/minion state and are graph objects.
+	local activeSkill = graphNodeTag({
 		activeEffect = activeEffect,
 		supportList = supportList,
 		actor = actor,
@@ -88,7 +88,7 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 		socketGroup = socketGroup,
 		skillData = { },
 		buffList = { },
-	}
+	}, "ActiveSkill")
 
 	local activeGrantedEffect = activeEffect.grantedEffect
 	
@@ -160,25 +160,337 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	return activeSkill
 end
 
--- Copy an Active Skill
-function calcs.copyActiveSkill(env, mode, skill)
-    local activeEffect = {
-        grantedEffect = skill.activeEffect.grantedEffect,
-		level = skill.activeEffect.level,
-		quality = skill.activeEffect.quality
-	}
+function calcs.getActiveEffectSourceValue(activeEffect, key, fallback)
+	if activeEffect.snapshotState and activeEffect.snapshotState[key] ~= nil then
+		return activeEffect.snapshotState[key]
+	end
+	if activeEffect.srcInstance and activeEffect.srcInstance[key] ~= nil then
+		return activeEffect.srcInstance[key]
+	end
+	if activeEffect[key] ~= nil then
+		return activeEffect[key]
+	end
+	return fallback
+end
 
-	if skill.activeEffect.srcInstance then
-		activeEffect.level = skill.activeEffect.srcInstance.level
-		activeEffect.quality = skill.activeEffect.srcInstance.quality
-		activeEffect.qualityId = skill.activeEffect.srcInstance.qualityId
-		activeEffect.srcInstance = skill.activeEffect.srcInstance
-		activeEffect.gemData = skill.activeEffect.srcInstance.gemData
+function calcs.getActiveEffectSelection(activeEffect, calcKey, mainKey, useCalcSelection, fallback)
+	if activeEffect.snapshotState and activeEffect.snapshotState[mainKey] ~= nil then
+		return activeEffect.snapshotState[mainKey]
+	end
+	if activeEffect.srcInstance then
+		local key = useCalcSelection and calcKey or mainKey
+		if activeEffect.srcInstance[key] ~= nil then
+			return activeEffect.srcInstance[key]
+		end
+	end
+	return fallback
+end
+
+local function setActiveEffectSelection(activeEffect, calcKey, mainKey, useCalcSelection, value)
+	if activeEffect.snapshotState then
+		activeEffect.snapshotState[mainKey] = value
+	elseif activeEffect.srcInstance then
+		activeEffect.srcInstance[useCalcSelection and calcKey or mainKey] = value
+	end
+	return value
+end
+
+local function clearActiveEffectSelection(activeEffect, calcKey, mainKey)
+	if activeEffect.snapshotState then
+		activeEffect.snapshotState[mainKey] = nil
+	elseif activeEffect.srcInstance then
+		activeEffect.srcInstance[calcKey] = nil
+		activeEffect.srcInstance[mainKey] = nil
+	end
+end
+
+local function findListIndex(list, target)
+	if not list or not target then
+		return
+	end
+	for index, value in ipairs(list) do
+		if value == target then
+			return index
+		end
+	end
+end
+
+local function snapshotGemInstance(gemInstance)
+	if not gemInstance then
+		return nil
+	end
+	return {
+		gemId = gemInstance.gemId or (gemInstance.gemData and gemInstance.gemData.id),
+		skillId = gemInstance.skillId or (gemInstance.grantedEffect and gemInstance.grantedEffect.id) or (gemInstance.gemData and gemInstance.gemData.grantedEffectId),
+		level = gemInstance.level,
+		quality = gemInstance.quality,
+		qualityId = gemInstance.qualityId,
+		enabled = gemInstance.enabled,
+	}
+end
+
+local function gemInstanceMatchesSnapshot(gemInstance, snapshot)
+	if not snapshot then
+		return gemInstance == nil
+	end
+	if not gemInstance then
+		return false
+	end
+	local skillId = gemInstance.skillId or (gemInstance.grantedEffect and gemInstance.grantedEffect.id) or (gemInstance.gemData and gemInstance.gemData.grantedEffectId)
+	local gemId = gemInstance.gemId or (gemInstance.gemData and gemInstance.gemData.id)
+	return (not snapshot.gemId or snapshot.gemId == gemId)
+		and (not snapshot.skillId or snapshot.skillId == skillId)
+		and snapshot.level == gemInstance.level
+		and snapshot.quality == gemInstance.quality
+		and snapshot.qualityId == gemInstance.qualityId
+		and snapshot.enabled == gemInstance.enabled
+end
+
+local function snapshotSupportEffect(supportEffect)
+	return {
+		grantedEffectId = supportEffect.grantedEffect.id,
+		level = supportEffect.level,
+		quality = supportEffect.quality,
+		qualityId = supportEffect.qualityId,
+		fromItem = supportEffect.grantedEffect.fromItem or (supportEffect.srcInstance and supportEffect.srcInstance.fromItem),
+		gem = snapshotGemInstance(supportEffect.srcInstance),
+	}
+end
+
+local function supportEffectMatchesSnapshot(supportEffect, snapshot)
+	if not supportEffect or not snapshot then
+		return supportEffect == nil and snapshot == nil
+	end
+	return supportEffect.grantedEffect.id == snapshot.grantedEffectId
+		and supportEffect.level == snapshot.level
+		and supportEffect.quality == snapshot.quality
+		and supportEffect.qualityId == snapshot.qualityId
+		and (supportEffect.grantedEffect.fromItem or (supportEffect.srcInstance and supportEffect.srcInstance.fromItem)) == snapshot.fromItem
+		and gemInstanceMatchesSnapshot(supportEffect.srcInstance, snapshot.gem)
+end
+
+local function supportListMatchesSnapshot(supportList, snapshotList)
+	if not snapshotList then
+		return true
+	end
+	if #supportList ~= #snapshotList then
+		return false
+	end
+	for index, supportSnapshot in ipairs(snapshotList) do
+		if not supportEffectMatchesSnapshot(supportList[index], supportSnapshot) then
+			return false
+		end
+	end
+	return true
+end
+
+local function snapshotSocketGroup(socketGroup)
+	if not socketGroup then
+		return nil
+	end
+	local snapshot = {
+		slot = socketGroup.slot,
+		label = socketGroup.label,
+		source = socketGroup.source,
+		noSupports = socketGroup.noSupports,
+		gems = { },
+	}
+	for index, gemInstance in ipairs(socketGroup.gemList or { }) do
+		snapshot.gems[index] = snapshotGemInstance(gemInstance)
+	end
+	return snapshot
+end
+
+local function socketGroupMatchesSnapshot(socketGroup, snapshot)
+	if not snapshot then
+		return socketGroup == nil
+	end
+	if not socketGroup then
+		return false
+	end
+	if socketGroup.slot ~= snapshot.slot or socketGroup.label ~= snapshot.label or socketGroup.source ~= snapshot.source or socketGroup.noSupports ~= snapshot.noSupports then
+		return false
+	end
+	if #socketGroup.gemList ~= #snapshot.gems then
+		return false
+	end
+	for index, gemSnapshot in ipairs(snapshot.gems) do
+		if not gemInstanceMatchesSnapshot(socketGroup.gemList[index], gemSnapshot) then
+			return false
+		end
+	end
+	return true
+end
+
+local function findGrantedEffectIndex(grantedEffectList, grantedEffect)
+	if not grantedEffectList or not grantedEffect then
+		return nil
+	end
+	for index, effect in ipairs(grantedEffectList) do
+		if effect == grantedEffect or effect.id == grantedEffect.id then
+			return index
+		end
+	end
+end
+
+-- Snapshot locators only store scalar identifiers; live actor/support/socket graphs are resolved later.
+local function snapshotSkillLocator(skill)
+	local activeEffect = skill.activeEffect
+	local srcInstance = activeEffect.srcInstance
+	return {
+		grantedEffectId = activeEffect.grantedEffect.id,
+		level = calcs.getActiveEffectSourceValue(activeEffect, "level", activeEffect.level),
+		quality = calcs.getActiveEffectSourceValue(activeEffect, "quality", activeEffect.quality),
+		qualityId = calcs.getActiveEffectSourceValue(activeEffect, "qualityId", activeEffect.qualityId),
+		socketGroup = snapshotSocketGroup(skill.socketGroup),
+		sourceGem = {
+			gemIndex = skill.socketGroup and findListIndex(skill.socketGroup.gemList, srcInstance) or nil,
+			grantedEffectIndex = srcInstance and srcInstance.gemData and findGrantedEffectIndex(srcInstance.gemData.grantedEffectList, activeEffect.grantedEffect) or nil,
+			gem = snapshotGemInstance(srcInstance),
+		},
+		supportList = (function()
+			local supportList = { }
+			for index, supportEffect in ipairs(skill.supportList or { }) do
+				supportList[index] = snapshotSupportEffect(supportEffect)
+			end
+			return supportList
+		end)(),
+	}
+end
+
+local function skillMatchesSnapshot(skill, snapshot, strict)
+	local activeEffect = skill.activeEffect
+	local sourceGem = snapshot.sourceGem
+	if activeEffect.grantedEffect.id ~= snapshot.grantedEffectId then
+		return false
+	end
+	if calcs.getActiveEffectSourceValue(activeEffect, "level", activeEffect.level) ~= snapshot.level
+		or calcs.getActiveEffectSourceValue(activeEffect, "quality", activeEffect.quality) ~= snapshot.quality
+		or calcs.getActiveEffectSourceValue(activeEffect, "qualityId", activeEffect.qualityId) ~= snapshot.qualityId then
+		return false
+	end
+	if not socketGroupMatchesSnapshot(skill.socketGroup, snapshot.socketGroup) then
+		return false
+	end
+	if strict and sourceGem then
+		if sourceGem.gemIndex and sourceGem.gemIndex ~= (skill.socketGroup and findListIndex(skill.socketGroup.gemList, activeEffect.srcInstance) or nil) then
+			return false
+		end
+		if sourceGem.grantedEffectIndex and sourceGem.grantedEffectIndex ~= (activeEffect.srcInstance and activeEffect.srcInstance.gemData and findGrantedEffectIndex(activeEffect.srcInstance.gemData.grantedEffectList, activeEffect.grantedEffect) or nil) then
+			return false
+		end
+		if not gemInstanceMatchesSnapshot(activeEffect.srcInstance, sourceGem.gem) then
+			return false
+		end
+		if not supportListMatchesSnapshot(skill.supportList or { }, snapshot.supportList) then
+			return false
+		end
+	end
+	return true
+end
+
+local function findSkillTemplate(skillList, snapshot)
+	for _, skill in ipairs(skillList or { }) do
+		if skillMatchesSnapshot(skill, snapshot, true) then
+			return skill
+		end
+	end
+	for _, skill in ipairs(skillList or { }) do
+		if skillMatchesSnapshot(skill, snapshot, false) then
+			return skill
+		end
+	end
+end
+
+local function resolveSkillTemplate(env, snapshot, actor)
+	if snapshot.summonSkill then
+		local summonSkill = resolveSkillTemplate(env, snapshot.summonSkill, env.player)
+		if not summonSkill or not summonSkill.minion or not summonSkill.minion.activeSkillList then
+			return nil
+		end
+		if snapshot.minionSkillIndex and summonSkill.minion.activeSkillList[snapshot.minionSkillIndex] and summonSkill.minion.activeSkillList[snapshot.minionSkillIndex].activeEffect.grantedEffect.id == snapshot.grantedEffectId then
+			return summonSkill.minion.activeSkillList[snapshot.minionSkillIndex]
+		end
+		return findSkillTemplate(summonSkill.minion.activeSkillList, snapshot)
+	end
+	return findSkillTemplate((actor and actor.activeSkillList) or env.player.activeSkillList, snapshot)
+end
+
+local function cloneActiveEffect(template, snapshot)
+	local activeEffect = { }
+	for key, value in pairs(template) do
+		if type(value) ~= "table" then
+			activeEffect[key] = value
+		end
+	end
+	activeEffect.grantedEffect = template.grantedEffect
+	activeEffect.srcInstance = template.srcInstance
+	activeEffect.gemData = template.gemData
+	if template.gemCfg then
+		activeEffect.gemCfg = copyTable(template.gemCfg, true)
+	end
+	if template.gemPropertyInfo then
+		activeEffect.gemPropertyInfo = copyTable(template.gemPropertyInfo, true)
+	end
+	activeEffect.level = snapshot.level or template.level
+	activeEffect.quality = snapshot.quality or template.quality
+	activeEffect.qualityId = snapshot.qualityId or template.qualityId
+
+	local snapshotState = {
+		level = activeEffect.level,
+		quality = activeEffect.quality,
+		qualityId = activeEffect.qualityId,
+	}
+	for key, value in pairs(snapshot.selection or { }) do
+		snapshotState[key] = value
+	end
+	for key, value in pairs(snapshot.trigger or { }) do
+		snapshotState[key] = value
+	end
+	activeEffect.snapshotState = snapshotState
+	return activeEffect
+end
+
+function calcs.snapshotActiveSkill(skill)
+	local srcInstance = skill.activeEffect.srcInstance
+	local selection = {
+		skillPart = skill.skillPart or (srcInstance and (srcInstance.skillPartCalcs or srcInstance.skillPart)),
+		skillMineCount = skill.activeMineCount or (srcInstance and (srcInstance.skillMineCountCalcs or srcInstance.skillMineCount)),
+		skillStageCount = (srcInstance and (srcInstance.skillStageCountCalcs or srcInstance.skillStageCount)) or (skill.activeStageCount and skill.activeStageCount + 1),
+		skillMinion = skill.minion and skill.minion.type or (srcInstance and (srcInstance.skillMinionCalcs or srcInstance.skillMinion)),
+		skillMinionItemSet = srcInstance and (srcInstance.skillMinionItemSetCalcs or srcInstance.skillMinionItemSet),
+		skillMinionSkill = (srcInstance and (srcInstance.skillMinionSkillCalcs or srcInstance.skillMinionSkill)) or (skill.minion and skill.minion.activeSkillList and findListIndex(skill.minion.activeSkillList, skill.minion.mainSkill)),
+	}
+	local snapshot = snapshotSkillLocator(skill)
+	snapshot.selection = selection
+	snapshot.trigger = {
+		triggered = calcs.getActiveEffectSourceValue(skill.activeEffect, "triggered"),
+		triggerChance = calcs.getActiveEffectSourceValue(skill.activeEffect, "triggerChance"),
+		fromItem = calcs.getActiveEffectSourceValue(skill.activeEffect, "fromItem", skill.activeEffect.grantedEffect.fromItem),
+		noSupports = calcs.getActiveEffectSourceValue(skill.activeEffect, "noSupports"),
+	}
+	if skill.skillFlags and skill.skillFlags.minionSkill and skill.summonSkill then
+		snapshot.summonSkill = snapshotSkillLocator(skill.summonSkill)
+		snapshot.minionSkillIndex = findListIndex(skill.summonSkill.minion and skill.summonSkill.minion.activeSkillList, skill)
+	end
+	return snapshot
+end
+
+-- Rebuild a calc-local skill using env-local graph objects resolved from the snapshot.
+function calcs.rebuildSkillFromSnapshot(env, snapshot, actor)
+	local template = resolveSkillTemplate(env, snapshot, actor)
+	if not template then
+		return nil
 	end
 
-	local newSkill = calcs.createActiveSkill(activeEffect, skill.supportList, skill.actor, skill.socketGroup, skill.summonSkill)
-	local newEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
-	calcs.buildActiveSkillModList(newEnv, newSkill)
+	local supportList = { }
+	for index, supportEffect in ipairs(template.supportList or { }) do
+		supportList[index] = supportEffect
+	end
+
+	local newSkill = calcs.createActiveSkill(cloneActiveEffect(template.activeEffect, snapshot), supportList, template.actor, template.socketGroup, template.summonSkill)
+	newSkill.slotName = template.slotName
+	calcs.buildActiveSkillModList(env, newSkill)
 	newSkill.skillModList = new("ModList", newSkill.baseSkillModList)
 	if newSkill.minion then
 		newSkill.minion.modDB = new("ModDB")
@@ -186,6 +498,14 @@ function calcs.copyActiveSkill(env, mode, skill)
 		calcs.createMinionSkills(env, newSkill)
 		newSkill.skillPartName = newSkill.minion.mainSkill.activeEffect.grantedEffect.name
 	end
+	return newSkill
+end
+
+-- Deprecated: use snapshotActiveSkill()/rebuildSkillFromSnapshot() for calc-local skill clones.
+function calcs.copyActiveSkill(env, mode, skill)
+	local snapshot = calcs.snapshotActiveSkill(skill)
+	local newEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
+	local newSkill = calcs.rebuildSkillFromSnapshot(newEnv, snapshot, newEnv.player)
 	return newSkill, newEnv
 end
 
@@ -245,13 +565,8 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	-- Handle multipart skills
 	local activeGemParts = activeGrantedEffect.parts
 	if activeGemParts and #activeGemParts > 1 then
-		if env.mode == "CALCS" and activeSkill == env.player.mainSkill then
-			activeEffect.srcInstance.skillPartCalcs = m_min(#activeGemParts, activeEffect.srcInstance.skillPartCalcs or 1)
-			activeSkill.skillPart = activeEffect.srcInstance.skillPartCalcs
-		else
-			activeEffect.srcInstance.skillPart = m_min(#activeGemParts, activeEffect.srcInstance.skillPart or 1)
-			activeSkill.skillPart = activeEffect.srcInstance.skillPart
-		end
+		local useCalcSelection = env.mode == "CALCS" and activeSkill == env.player.mainSkill
+		activeSkill.skillPart = setActiveEffectSelection(activeEffect, "skillPartCalcs", "skillPart", useCalcSelection, m_min(#activeGemParts, calcs.getActiveEffectSelection(activeEffect, "skillPartCalcs", "skillPart", useCalcSelection, 1) or 1))
 		local part = activeGemParts[activeSkill.skillPart]
 		for k, v in pairs(part) do
 			if v == true then
@@ -263,8 +578,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		activeSkill.skillPartName = part.name
 		skillFlags.multiPart = #activeGemParts > 1
 	elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then
-		activeEffect.srcInstance.skillPart = nil
-		activeEffect.srcInstance.skillPartCalcs = nil
+		clearActiveEffectSelection(activeEffect, "skillPartCalcs", "skillPart")
 	end
 
 	if (skillTypes[SkillType.RequiresShield] or skillFlags.shieldAttack) and not activeSkill.summonSkill and (not activeSkill.actor.itemList["Weapon 2"] or activeSkill.actor.itemList["Weapon 2"].type ~= "Shield") then
@@ -483,7 +797,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	end
 
 	-- Mods which apply curses are not disabled by Gruthkul's Pelt
-	local curseApplicationSkill = activeSkill.socketGroup and activeSkill.socketGroup.sourceItem ~= nil and activeSkill.skillFlags.curse and activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.noSupports and activeSkill.activeEffect.srcInstance.triggered
+	local curseApplicationSkill = activeSkill.socketGroup and activeSkill.socketGroup.sourceItem ~= nil and activeSkill.skillFlags.curse and calcs.getActiveEffectSourceValue(activeSkill.activeEffect, "noSupports") and calcs.getActiveEffectSourceValue(activeSkill.activeEffect, "triggered")
 	if skillModList:Flag(activeSkill.skillCfg, "DisableSkill") and not (skillModList:Flag(activeSkill.skillCfg, "EnableSkill") or (curseApplicationSkill and skillModList:Flag(nil, "ForceEnableCurseApplication"))) then
 		skillFlags.disable = true
 		activeSkill.disableReason = "Skills of this type are disabled"
@@ -531,8 +845,8 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	end
 
 	-- Apply gem/quality modifiers from support gems
-	skillModList:NewMod("GemLevel", "BASE", activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.level or activeSkill.activeEffect.level, "Max Level")
-	skillModList:NewMod("GemQuality", "BASE", activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.quality or activeSkill.activeEffect.quality, "Max Quality")
+	skillModList:NewMod("GemLevel", "BASE", calcs.getActiveEffectSourceValue(activeSkill.activeEffect, "level", activeSkill.activeEffect.level), "Max Level")
+	skillModList:NewMod("GemQuality", "BASE", calcs.getActiveEffectSourceValue(activeSkill.activeEffect, "quality", activeSkill.activeEffect.quality), "Max Quality")
 	for _, supportProperty in ipairs(skillModList:Tabulate("LIST", activeSkill.skillCfg, "SupportedGemProperty")) do
 		local value = supportProperty.value
 		if value.keyword == "grants_active_skill" and activeSkill.activeEffect.gemData and not activeSkill.activeEffect.gemData.tags.support  then
@@ -593,14 +907,13 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 
 	-- Add active mine multiplier
 	if skillFlags.mine then
-		activeSkill.activeMineCount = (env.mode == "CALCS" and activeEffect.srcInstance.skillMineCountCalcs) or (env.mode ~= "CALCS" and activeEffect.srcInstance.skillMineCount)
+		activeSkill.activeMineCount = calcs.getActiveEffectSelection(activeEffect, "skillMineCountCalcs", "skillMineCount", env.mode == "CALCS")
 		if activeSkill.activeMineCount and activeSkill.activeMineCount > 0 then
 			skillModList:NewMod("Multiplier:ActiveMineCount", "BASE", activeSkill.activeMineCount, "Base")
 			env.enemy.modDB.multipliers["ActiveMineCount"] = m_max(activeSkill.activeMineCount or 0, env.enemy.modDB.multipliers["ActiveMineCount"] or 0)
 		end
 	elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then
-		activeEffect.srcInstance.skillMineCountCalcs = nil
-		activeEffect.srcInstance.skillMineCount = nil
+		clearActiveEffectSelection(activeEffect, "skillMineCountCalcs", "skillMineCount")
 	end
 	
 
@@ -617,7 +930,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 
 	if skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStages") > 0 then
 		skillFlags.multiStage = true
-		activeSkill.activeStageCount = m_max((env.mode == "CALCS" and activeEffect.srcInstance.skillStageCountCalcs) or (env.mode ~= "CALCS" and activeEffect.srcInstance.skillStageCount) or 1, 1 + skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MinimumStage"))
+		activeSkill.activeStageCount = m_max(calcs.getActiveEffectSelection(activeEffect, "skillStageCountCalcs", "skillStageCount", env.mode == "CALCS", 1) or 1, 1 + skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MinimumStage"))
 		local limit = skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStages")
 		if limit > 0 then
 			if activeSkill.activeStageCount and activeSkill.activeStageCount > 0 then
@@ -627,8 +940,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			end
 		end
 	elseif noPotentialStage and activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then
-		activeEffect.srcInstance.skillStageCountCalcs = nil
-		activeEffect.srcInstance.skillStageCount = nil
+		clearActiveEffectSelection(activeEffect, "skillStageCountCalcs", "skillStageCount")
 	end
 
 	-- Extract skill data
@@ -665,15 +977,10 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	activeSkill.minionList = minionList
 	if minionList[1] and not activeSkill.actor.minionData then
 		local minionType
-		if env.mode == "CALCS" and activeSkill == env.player.mainSkill then
-			local index = isValueInArray(minionList, activeEffect.srcInstance.skillMinionCalcs) or 1
-			minionType = minionList[index]
-			activeEffect.srcInstance.skillMinionCalcs = minionType
-		else
-			local index = isValueInArray(minionList, activeEffect.srcInstance.skillMinion) or 1
-			minionType = minionList[index]
-			activeEffect.srcInstance.skillMinion = minionType
-		end
+		local useCalcSelection = env.mode == "CALCS" and activeSkill == env.player.mainSkill
+		local index = isValueInArray(minionList, calcs.getActiveEffectSelection(activeEffect, "skillMinionCalcs", "skillMinion", useCalcSelection)) or 1
+		minionType = minionList[index]
+		setActiveEffectSelection(activeEffect, "skillMinionCalcs", "skillMinion", useCalcSelection, minionType)
 		if minionType then
 			local minion = { }
 			activeSkill.minion = minion
@@ -707,20 +1014,15 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				 damage = damage * attackTime
 			end
 			if activeGrantedEffect.minionHasItemSet then
-				if env.mode == "CALCS" and activeSkill == env.player.mainSkill then
-					if not env.build.itemsTab.itemSets[activeEffect.srcInstance.skillMinionItemSetCalcs] then
-						activeEffect.srcInstance.skillMinionItemSetCalcs = env.build.itemsTab.itemSetOrderList[1]
-					end
-					minion.itemSet = env.build.itemsTab.itemSets[activeEffect.srcInstance.skillMinionItemSetCalcs]
-				else
-					if not env.build.itemsTab.itemSets[activeEffect.srcInstance.skillMinionItemSet] then
-						activeEffect.srcInstance.skillMinionItemSet = env.build.itemsTab.itemSetOrderList[1]
-					end
-					minion.itemSet = env.build.itemsTab.itemSets[activeEffect.srcInstance.skillMinionItemSet]
+				local useCalcSelection = env.mode == "CALCS" and activeSkill == env.player.mainSkill
+				local itemSetId = calcs.getActiveEffectSelection(activeEffect, "skillMinionItemSetCalcs", "skillMinionItemSet", useCalcSelection)
+				if not env.build.itemsTab.itemSets[itemSetId] then
+					itemSetId = env.build.itemsTab.itemSetOrderList[1]
+					setActiveEffectSelection(activeEffect, "skillMinionItemSetCalcs", "skillMinionItemSet", useCalcSelection, itemSetId)
 				end
+				minion.itemSet = env.build.itemsTab.itemSets[itemSetId]
 			elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then
-				activeEffect.srcInstance.skillMinionItemSetCalcs = nil
-				activeEffect.srcInstance.skillMinionItemSet = nil
+				clearActiveEffectSelection(activeEffect, "skillMinionItemSetCalcs", "skillMinionItemSet")
 			end
 			if (activeSkill.skillData.minionUseBowAndQuiver and env.player.weaponData1.type == "Bow") or activeSkill.skillData.minionUseMainHandWeapon then
 				minion.weaponData1 = env.player.weaponData1
@@ -761,12 +1063,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			end
 		end
 	elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then
-		activeEffect.srcInstance.skillMinionCalcs = nil
-		activeEffect.srcInstance.skillMinion = nil
-		activeEffect.srcInstance.skillMinionItemSetCalcs = nil
-		activeEffect.srcInstance.skillMinionItemSet = nil
-		activeEffect.srcInstance.skillMinionSkill = nil
-		activeEffect.srcInstance.skillMinionSkillCalcs = nil
+		clearActiveEffectSelection(activeEffect, "skillMinionCalcs", "skillMinion")
+		clearActiveEffectSelection(activeEffect, "skillMinionItemSetCalcs", "skillMinionItemSet")
+		clearActiveEffectSelection(activeEffect, "skillMinionSkillCalcs", "skillMinionSkill")
 	end
 
 	-- Separate global effect modifiers (mods that can affect defensive stats or other skills)
@@ -820,7 +1119,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			for d = 1, #modList do
 				local destMod = modList[d]
 				if modLib.compareModParams(skillModList[i], destMod) and (destMod.type == "BASE" or destMod.type == "INC") then
-					destMod = copyTable(destMod)
+					destMod = type(destMod.value) == "table" and copyTableSafe(destMod, false) or copyTable(destMod)
 					destMod.value = destMod.value + skillModList[i].value
 					modList[d] = destMod
 					match = true
@@ -889,14 +1188,8 @@ function calcs.createMinionSkills(env, activeSkill)
 		t_insert(minion.activeSkillList, minionSkill)
 	end
 	local skillIndex 
-	if env.mode == "CALCS" then
-		skillIndex = m_max(m_min(activeEffect.srcInstance.skillMinionSkillCalcs or 1, #minion.activeSkillList), 1)
-		activeEffect.srcInstance.skillMinionSkillCalcs = skillIndex
-	else
-		skillIndex = m_max(m_min(activeEffect.srcInstance.skillMinionSkill or 1, #minion.activeSkillList), 1)
-		if env.mode == "MAIN" then
-			activeEffect.srcInstance.skillMinionSkill = skillIndex
-		end
-	end
+	local useCalcSelection = env.mode == "CALCS"
+	skillIndex = m_max(m_min(calcs.getActiveEffectSelection(activeEffect, "skillMinionSkillCalcs", "skillMinionSkill", useCalcSelection, 1) or 1, #minion.activeSkillList), 1)
+	setActiveEffectSelection(activeEffect, "skillMinionSkillCalcs", "skillMinionSkill", useCalcSelection, skillIndex)
 	minion.mainSkill = minion.activeSkillList[skillIndex]
 end
