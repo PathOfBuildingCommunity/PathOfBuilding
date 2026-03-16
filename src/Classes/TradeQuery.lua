@@ -278,11 +278,22 @@ You can click this button to enter your POESESSID.
 on trade site to work on other leagues and realms)]]
 
 	-- Buyout selection
-	self.controls.includeInPerson = new("CheckBoxControl", { "TOPRIGHT", self.controls.poesessidButton, "BOTTOMRIGHT" },
-		{ 0, row_vertical_padding, row_height }, "Include in person:", function(state) end,
-		"This includes in person offers in the search results.", false)
+	self.tradeTypes = {
+		"Instant buyout",
+		"Instant buyout and in person",
+		"In person (online in league)",
+		"In person (online)",
+		"Any",
+	}
+	
+	self.controls.tradeTypeSelection = new("DropDownControl", { "TOPLEFT", self.controls.poesessidButton, "BOTTOMLEFT" },
+		{ 0, row_vertical_padding, 188, row_height }, self.tradeTypes, function(index, value)
+			self.tradeTypeIndex = index
+		end)
+	-- remember previous choice
+	self.controls.tradeTypeSelection:SetSel(self.tradeTypeIndex or 1)
 
--- Fetches Box
+	-- Fetches Box
 	self.maxFetchPerSearchDefault = 2
 	self.controls.fetchCountEdit = new("EditControl", {"TOPRIGHT", nil, "TOPRIGHT"}, {-12, 19, 154, row_height}, "", "Fetch Pages", "%D", 3, function(buf)
 		self.maxFetchPages = m_min(m_max(tonumber(buf) or self.maxFetchPerSearchDefault, 1), 10)

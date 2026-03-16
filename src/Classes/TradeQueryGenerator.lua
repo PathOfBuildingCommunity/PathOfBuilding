@@ -1003,7 +1003,16 @@ function TradeQueryGeneratorClass:FinishQuery()
 	-- This Stat diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
 	-- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
 	local minWeight = megalomaniacSpecialMinWeight or currentStatDiff * 0.5
-	
+
+	-- what the trade site API uses for the above
+	self.tradeTypes = {
+		"securable",
+		"available",
+		"onlineleague",
+		"online",
+		"any",
+	}
+	local selectedTradeType = self.tradeTypes[self.tradeTypeIndex]
 	-- Generate trade query str and open in browser
 	local filters = 0
 	local queryTable = {
@@ -1016,7 +1025,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 					}
 				}
 			},
-			status = { option = self.includeInPerson and "available" or "securable" },
+			status = { option = selectedTradeType },
 			stats = {
 				{
 					type = "weight",
@@ -1302,9 +1311,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	controls.generateQuery = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, {-45, -10, 80, 20}, "Execute", function()
 		main:ClosePopup()
 
-		if context.controls.includeInPerson then
-			self.includeInPerson = context.controls.includeInPerson.state
-		end
+		self.tradeTypeIndex = context.controls.tradeTypeSelection.selIndex
 
 		if controls.includeMirrored then
 			self.lastIncludeMirrored, options.includeMirrored = controls.includeMirrored.state, controls.includeMirrored.state
