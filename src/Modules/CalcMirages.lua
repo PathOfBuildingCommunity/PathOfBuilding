@@ -393,7 +393,7 @@ function calcs.mirages(env)
 		if env.player.mainSkill.skillTypes[SkillType.Channel] then
 			mirageSpawnTime = mirageSpawnTime + 1
 		else
-			mirageSpawnTime = mirageSpawnTime + (mainSkillOutputCache.HitTime or mainSkillOutputCache.Time)
+			mirageSpawnTime = mirageSpawnTime
 			env.player.mainSkill.skillData.timeOverride = 1
 		end
 
@@ -401,7 +401,7 @@ function calcs.mirages(env)
 		mirageSpawnTime = round(mirageSpawnTime, 2)
 
 		-- Scale dps with GC's cooldown
-		env.player.mainSkill.skillData.dpsMultiplier = (env.player.mainSkill.skillData.dpsMultiplier or 1) * (1 / cooldown)
+		env.player.mainSkill.skillModList:NewMod("DPS", "MORE", (1 / cooldown - 1) * 100, "General's Cry Cooldown")
 
 		-- Does not use player resources
 		env.player.mainSkill.skillModList:NewMod("HasNoCost", "FLAG", true, "Used by mirage")
