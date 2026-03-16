@@ -5898,6 +5898,7 @@ c["50% increased Totem Duration"]={{[1]={flags=0,keywordFlags=0,name="TotemDurat
 c["50% increased Totem Life"]={{[1]={flags=0,keywordFlags=0,name="TotemLife",type="INC",value=50}},nil}
 c["50% increased Totem Placement speed"]={{[1]={flags=0,keywordFlags=0,name="TotemPlacementSpeed",type="INC",value=50}},nil}
 c["50% increased Trap Trigger Area of Effect"]={{[1]={flags=0,keywordFlags=0,name="TrapTriggerAreaOfEffect",type="INC",value=50}},nil}
+c["50% increased Valour gained"]={{}," Valour gained "}
 c["50% increased Warcry Buff Effect"]={{[1]={flags=0,keywordFlags=4,name="BuffEffect",type="INC",value=50}},nil}
 c["50% increased Warcry Cooldown Recovery Rate"]={{[1]={flags=0,keywordFlags=4,name="CooldownRecovery",type="INC",value=50}},nil}
 c["50% increased Warcry Speed"]={{[1]={flags=0,keywordFlags=4,name="WarcrySpeed",type="INC",value=50}},nil}
@@ -7833,8 +7834,6 @@ c["Banner Skills have 20% increased Duration"]={{[1]={[1]={skillType=99,type="Sk
 c["Banner Skills have 8% increased Duration"]={{[1]={[1]={skillType=99,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=8}},nil}
 c["Banner Skills have no Reservation"]={{[1]={[1]={skillType=99,type="SkillType"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="manaReservationPercent",value=0}},[2]={[1]={skillType=99,type="SkillType"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="lifeReservationPercent",value=0}}},nil}
 c["Banners also grant +5% to all Elemental Resistances to you and Allies"]={{[1]={[1]={skillType=99,type="SkillType"},flags=0,keywordFlags=0,name="ExtraAuraEffect",type="LIST",value={mod={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=5}}}},nil}
-c["Banners you are carrying gain 1 Stage on Melee Hit, up to 5 per second"]={nil,"Banners you are carrying gain 1 Stage on Melee Hit, up to 5 per second "}
-c["Banners you are carrying gain 1 Stage on Melee Hit, up to 5 per second War Banner has 200% increased Adrenaline duration"]={nil,"Banners you are carrying gain 1 Stage on Melee Hit, up to 5 per second War Banner has 200% increased Adrenaline duration "}
 c["Base Critical Strike Chance for Attacks with Weapons is 8%"]={{[1]={flags=0,keywordFlags=0,name="WeaponBaseCritChance",type="OVERRIDE",value=8}},nil}
 c["Base Spell Critical Strike Chance of Spells is equal to that of Main Hand Weapon"]={{[1]={flags=2,keywordFlags=0,name="BaseCritFromMainHand",type="FLAG",value=true}},nil}
 c["Bathed in the blood of 4050 sacrificed in the name of Ahuana"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id="2_v2",type="vaal"},id=4050}}}},nil}
@@ -8393,8 +8392,6 @@ c["Debuffs on you expire 30% faster"]={{[1]={flags=0,keywordFlags=0,name="SelfDe
 c["Defences are Zero"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="MORE",value=-100},[2]={flags=0,keywordFlags=0,name="EnergyShield",type="MORE",value=-100},[3]={flags=0,keywordFlags=0,name="Evasion",type="MORE",value=-100},[4]={flags=0,keywordFlags=0,name="Ward",type="MORE",value=-100}},nil}
 c["Defend with 120% of Armour against Projectile Attacks"]={nil,"Defend with 120% of Armour against Projectile Attacks "}
 c["Defend with 120% of Armour against Projectile Attacks 5% more chance to Evade Melee Attacks"]={nil,"Defend with 120% of Armour against Projectile Attacks 5% more chance to Evade Melee Attacks "}
-c["Defiance Banner has 200% increased Taunt duration"]={{[1]={[1]={includeTransfigured=true,skillName="Defiance Banner",type="SkillName"},flags=0,keywordFlags=0,name="Duration",type="INC",value=200}}," Taunt  "}
-c["Defiance Banner has 200% increased Taunt duration Having a placed Banner does not prevent you gaining Valour"]={{[1]={[1]={includeTransfigured=true,skillName="Defiance Banner",type="SkillName"},flags=0,keywordFlags=0,name="Duration",type="INC",value=200}}," Taunt  Having a placed Banner does not prevent you gaining Valour "}
 c["Denoted service of 4250 dekhara in the akhara of Balbala"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id="1_v2",type="maraketh"},id=4250}}}},nil}
 c["Denoted service of 8000 dekhara in the akhara of Asenath"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id=2,type="maraketh"},id=8000}}}},nil}
 c["Denoted service of 8000 dekhara in the akhara of Balbala"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id="1_v2",type="maraketh"},id=8000}}}},nil}
@@ -8423,7 +8420,6 @@ c["Does not delay Inherent Loss of Rage"]={nil,"Does not delay Inherent Loss of 
 c["Does not delay Inherent Loss of Rage Skills Cost +3 Rage"]={{[1]={flags=0,keywordFlags=0,name="RageCostNoMult",type="BASE",value=3}},"Does not delay Inherent Loss of   Rage "}
 c["Does not inflict Mana Burn over time"]={nil,"Does not inflict Mana Burn over time "}
 c["Does not inflict Mana Burn over time Inflicts Mana Burn on you when you Hit an Enemy with a Melee Weapon"]={nil,"Does not inflict Mana Burn over time Inflicts Mana Burn on you when you Hit an Enemy with a Melee Weapon "}
-c["Dread Banner grants an additional +4 to maximum Fortification when placing the Banner"]={{[1]={[1]={type="Condition",var="BannerPlanted"},[2]={skillName="Dread Banner",type="SkillName"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={[1]={effectType="Buff",type="GlobalEffect"},flags=0,keywordFlags=0,name="MaximumFortification",type="BASE",value=4}}}},nil}
 c["Drops Scorched Ground while moving, lasting 4 seconds"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="OnScorchedGround"},flags=0,keywordFlags=0,name="ScorchBase",type="BASE",value=10}},nil}
 c["Drops Shocked Ground while moving, lasting 2 seconds"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="OnShockedGround"},flags=0,keywordFlags=0,name="ShockBase",type="BASE",value=15}},nil}
 c["Dual Wielding does not inherently grant chance to Block Attack Damage"]={{[1]={flags=0,keywordFlags=0,name="Condition:NoInherentBlock",type="FLAG",value=true}},nil}
@@ -9361,6 +9357,7 @@ c["Hatred has 50% less Reservation"]={{[1]={[1]={includeTransfigured=true,skillN
 c["Hatred has 60% increased Aura Effect"]={{[1]={[1]={includeTransfigured=true,skillName="Hatred",type="SkillName"},flags=0,keywordFlags=0,name="AuraEffect",type="INC",value=60}},nil}
 c["Hatred has no Reservation"]={{[1]={[1]={skillId="Hatred",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="manaReservationFlat",value=0}},[2]={[1]={skillId="Hatred",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="lifeReservationFlat",value=0}},[3]={[1]={skillId="Hatred",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="manaReservationPercent",value=0}},[4]={[1]={skillId="Hatred",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="lifeReservationPercent",value=0}}},nil}
 c["Having a placed Banner does not prevent you gaining Valour"]={nil,"Having a placed Banner does not prevent you gaining Valour "}
+c["Having a placed Banner does not prevent you gaining Valour 40% increased Melee Damage"]={nil,"Having a placed Banner does not prevent you gaining Valour 40% increased Melee Damage "}
 c["Having a placed Banner does not prevent you gaining Valour Banner Skills have 100% increased Duration"]={nil,"Having a placed Banner does not prevent you gaining Valour Banner Skills have 100% increased Duration "}
 c["Herald Skills and Minions from Herald Skills deal 1% more Damage for every 1% of Maximum Life those Skills Reserve"]={{[1]={[1]={skillType=62,type="SkillType"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={actor="parent",div=1,stat="LifeReservedPercent",type="PerStat"},flags=0,keywordFlags=0,name="Damage",type="MORE",value=1}}},[2]={[1]={div=1,stat="LifeReservedPercent",type="PerStat"},[2]={skillType=62,type="SkillType"},flags=0,keywordFlags=0,name="Damage",type="MORE",value=1}},nil}
 c["Herald Skills deal 20% increased Damage"]={{[1]={[1]={skillType=62,type="SkillType"},flags=0,keywordFlags=0,name="Damage",type="INC",value=20}},nil}
@@ -12460,7 +12457,6 @@ c["Wand Attacks deal 12% increased Damage with Ailments"]={{[1]={flags=8390656,k
 c["Wand Attacks deal 12% increased Damage with Hits and Ailments"]={{[1]={flags=8388608,keywordFlags=786432,name="Damage",type="INC",value=12}},nil}
 c["Wand Attacks deal 16% increased Damage with Hits and Ailments"]={{[1]={flags=8388608,keywordFlags=786432,name="Damage",type="INC",value=16}},nil}
 c["Wand Attacks fire an additional Projectile"]={{[1]={flags=8388608,keywordFlags=0,name="ProjectileCount",type="BASE",value=1}},nil}
-c["War Banner has 200% increased Adrenaline duration"]={{[1]={[1]={includeTransfigured=true,skillName="War Banner",type="SkillName"},flags=0,keywordFlags=0,name="AdrenalineDuration",type="INC",value=200}},nil}
 c["Warcries Debilitate Enemies for 1 second"]={{[1]={flags=0,keywordFlags=0,name="DebilitateChance",type="BASE",value=100}},nil}
 c["Warcries Exert 1 additional Attack"]={{[1]={flags=0,keywordFlags=0,name="ExtraExertedAttacks",type="BASE",value=1}},nil}
 c["Warcries Exert 2 additional Attacks"]={{[1]={flags=0,keywordFlags=0,name="ExtraExertedAttacks",type="BASE",value=2}},nil}
@@ -12701,7 +12697,6 @@ c["You can have an additional Brand Attached to an Enemy"]={{[1]={flags=0,keywor
 c["You can have an additional Tincture active"]={{[1]={flags=0,keywordFlags=0,name="TinctureLimit",type="BASE",value=1}},nil}
 c["You can have two Offerings of different types"]={nil,"You can have two Offerings of different types "}
 c["You can have two Offerings of different types 35% chance to Avoid Elemental Ailments"]={nil,"You can have two Offerings of different types 35% chance to Avoid Elemental Ailments "}
-c["You can have two different Banners at the same time"]={{},nil}
 c["You can inflict +1 Hallowing Flame on Enemies"]={{[1]={flags=0,keywordFlags=0,name="Multiplier:HallowingFlameMax",type="BASE",value=1}},nil}
 c["You can inflict Bleeding on an Enemy up to 8 times"]={{[1]={flags=0,keywordFlags=0,name="BleedStacksMax",type="OVERRIDE",value=8},[2]={flags=0,keywordFlags=0,name="Condition:HaveCrimsonDance",type="FLAG",value=true}},nil}
 c["You can inflict an additional Ignite on an Enemy"]={{[1]={flags=0,keywordFlags=0,name="IgniteCanStack",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="IgniteStacks",type="BASE",value=1}},nil}
