@@ -3283,11 +3283,10 @@ function calcs.perform(env, skipEHP)
 			condition = "Chilled",
 			mods = function(num)
 				local mods = { modLib.createMod("ActionSpeed", "INC", -num, "Chill", { type = "Condition", var = "Chilled" }) }
-				if output.HasBonechill and (hasGuaranteedBonechill or enemyDB:Sum("BASE", nil, "ChillVal") > 0) then
-					t_insert(mods, modLib.createMod("ColdDamageTaken", "INC", num, "Bonechill", { type = "Condition", var = "Chilled" }))
-				end
 				if modDB:Flag(nil, "ChillEffectIncDamageTaken") then
 					t_insert(mods, modLib.createMod("DamageTaken", "INC", num, "Ahuana's Bite", { type = "Condition", var = "Chilled" }))
+				elseif output.HasBonechill and (hasGuaranteedBonechill or enemyDB:Sum("BASE", nil, "ChillVal") > 0) then
+					t_insert(mods, modLib.createMod("ColdDamageTaken", "INC", num, "Bonechill", { type = "Condition", var = "Chilled" }))
 				end
 				if modDB:Flag(nil, "ChillEffectLessDamageDealt") then
 					t_insert(mods, modLib.createMod("Damage", "MORE", -num / 2, "Shaper of Winter", { type = "Condition", var = "Chilled" }))
