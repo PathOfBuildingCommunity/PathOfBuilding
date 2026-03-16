@@ -1182,6 +1182,9 @@ function calcs.perform(env, skipEHP)
 				env.minion.modDB:AddList(env.player.itemList["Gloves"].modList)
 			end
 		end
+		if env.player.mainSkill.skillData.minionUseMainHandWeapon then
+			env.minion.modDB:AddList(env.player.itemList["Weapon 1"].slotModList[1])
+		end
 		if env.minion.itemSet or env.minion.uses then
 			for slotName, slot in pairs(env.build.itemsTab.slots) do
 				if env.minion.uses[slotName] then
