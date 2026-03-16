@@ -277,6 +277,11 @@ You can click this button to enter your POESESSID.
 - You can only generate weighted searches for public leagues. (Generated searches can be modified
 on trade site to work on other leagues and realms)]]
 
+	-- Buyout selection
+	self.controls.includeInPerson = new("CheckBoxControl", { "TOPRIGHT", self.controls.poesessidButton, "BOTTOMRIGHT" },
+		{ 0, row_vertical_padding, row_height }, "Include in person:", function(state) end,
+		"This includes in person offers in the search results.", false)
+
 -- Fetches Box
 	self.maxFetchPerSearchDefault = 2
 	self.controls.fetchCountEdit = new("EditControl", {"TOPRIGHT", nil, "TOPRIGHT"}, {-12, 19, 154, row_height}, "", "Fetch Pages", "%D", 3, function(buf)
@@ -449,7 +454,7 @@ Highest Weight - Displays the order retrieved from trade]]
 		t_insert(slotTables, { slotName = self.itemsTab.sockets[nodeId].label, nodeId = nodeId })
 	end
 
-	self.controls.sectionAnchor = new("LabelControl", {"LEFT", self.controls.poesessidButton, "LEFT"}, {0, 0, 0, 0}, "")
+	self.controls.sectionAnchor = new("LabelControl", {"LEFT", self.controls.poesessidButton, "LEFT"}, {0, row_vertical_padding + row_height, 0, 0}, "")
 	top_pane_alignment_ref = {"TOPLEFT", self.controls.sectionAnchor, "TOPLEFT"}
 	local scrollBarShown = #slotTables > 21 -- clipping starts beyond this
 	-- dynamically hide rows that are above or below the scrollBar

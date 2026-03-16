@@ -1016,7 +1016,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 					}
 				}
 			},
-			status = { option = "available" },
+			status = { option = self.includeInPerson and "available" or "securable" },
 			stats = {
 				{
 					type = "weight",
@@ -1301,6 +1301,10 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 
 	controls.generateQuery = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, {-45, -10, 80, 20}, "Execute", function()
 		main:ClosePopup()
+
+		if context.controls.includeInPerson then
+			self.includeInPerson = context.controls.includeInPerson.state
+		end
 
 		if controls.includeMirrored then
 			self.lastIncludeMirrored, options.includeMirrored = controls.includeMirrored.state, controls.includeMirrored.state
