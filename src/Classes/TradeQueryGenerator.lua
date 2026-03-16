@@ -1290,7 +1290,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	popupHeight = popupHeight + 4
 
 	if context.slotTbl.slotName == "Watcher's Eye" then
-		controls.includeAllWEMods = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, 0, 5, 18, "Include all Watcher's Eye mods:", function(state) end)
+		controls.includeAllWEMods = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Include all Watcher's Eye mods:", function(state) end)
 		controls.includeAllWEMods.tooltipText = "Include all Watcher's Eye mods in the generated query for which weights couldn't be calculated"
 		lastItemAnchor = controls.includeAllWEMods
 		popupHeight = popupHeight + 23
