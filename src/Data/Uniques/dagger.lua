@@ -18,19 +18,21 @@ Bino's Kitchen Knife
 Slaughter Knife
 Variant: Pre 2.2.0
 Variant: Pre 3.20.0
+Variant: Pre 3.28.0
 Variant: Current
 Requires Level 65, 81 Dex, 117 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
 {variant:1,2}30% increased Damage over Time
 {variant:1,2}Adds (50-60) to (120-140) Physical Damage
-{variant:3}Adds (140-155) to (210-235) Physical Damage
+{variant:3,4}Adds (140-155) to (210-235) Physical Damage
 (40-50)% increased Critical Strike Chance
 {variant:1}+(10-15)% to Global Critical Strike Multiplier
-{variant:2,3}+(15-25)% to Global Critical Strike Multiplier
-+(8-12)% to Chaos Resistance
-On Killing a Poisoned Enemy, nearby Enemies are Poisoned
-and nearby Allies Regenerate 200 Life per second
+{variant:2,3,4}+(15-25)% to Global Critical Strike Multiplier
+{variant:3}+(8-12)% to Chaos Resistance
+{variant:4}+(17-27)% to Chaos Resistance
+{variant:1,2,3,4}On Killing a Poisoned Enemy, Enemies within 3 metres are Poisoned 
+{variant:3,4}and nearby Allies Regenerate 400 Life per second
 ]],[[
 Bloodplay
 Stiletto
@@ -209,6 +211,7 @@ Mark of the Doubting Knight
 Platinum Kris
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: Pre 3.26.0
 Variant: Current
 Requires Level 64, 76 Dex, 149 Int
 Implicits: 1
@@ -216,13 +219,16 @@ Implicits: 1
 +5% Chance to Block Attack Damage while Dual Wielding
 {variant:1}(180-210)% increased Physical Damage
 {variant:2}(210-240)% increased Physical Damage
-{variant:3}(250-270)% increased Physical Damage
-10% reduced Attack Speed
-+(6-10)% to all Elemental Resistances
+{variant:3,4}(250-270)% increased Physical Damage
+{variant:1,2,3}10% reduced Attack Speed
+{variant:4}20% reduced Attack Speed
+{variant:1,2,3}+(6-10)% to all Elemental Resistances
 {variant:1,2}Melee Critical Strikes have 25% chance to cause Bleeding
-{variant:3}50% chance to Cause Bleeding on Critical Strike
+{variant:3,4}50% chance to Cause Bleeding on Critical Strike
 {variant:1,2}Melee Critical Strikes have 25% chance to Poison the Enemy
-{variant:3}50% chance to Cause Poison on Critical Strike
+{variant:3,4}50% chance to Cause Poison on Critical Strike
+{variant:4}(20-30)% increased Critical Strike Chance
+{variant:4}+(30-40)% to Global Critical Strike Multiplier
 ]],[[
 Mightflay
 Flaying Knife
@@ -283,19 +289,19 @@ Variant: Pre 3.5.0
 Variant: Current
 Requires Level 68, 76 Dex, 149 Int
 Implicits: 1
-40% increased Global Critical Strike Chance 
+40% increased Global Critical Strike Chance
 Adds (85-110) to (130-150) Physical Damage
 Adds (130-160) to (220-240) Fire Damage
 {variant:2}50% chance to cause Bleeding on Hit
-{variant:1}Attacks with this Weapon deal (80-100) to (160-200) added Fire Damage to Bleeding Enemies 
-{variant:1}Attacks with this Weapon deal (80-100) to (160-200) added Physical Damage to Ignited Enemies 
-{variant:1}Attacks with this Weapon have 25% chance to inflict Bleeding against Ignited Enemies 
+{variant:1}Attacks with this Weapon deal (80-100) to (160-200) added Fire Damage to Bleeding Enemies
+{variant:1}Attacks with this Weapon deal (80-100) to (160-200) added Physical Damage to Ignited Enemies
+{variant:1}Attacks with this Weapon have 25% chance to inflict Bleeding against Ignited Enemies
 {variant:2}(75-100)% increased Fire Damage with Hits and Ailments against Bleeding Enemies
 {variant:2}(75-100)% increased Physical Damage with Hits and Ailments against Ignited Enemies
-Every 8 seconds, gain Avatar of Fire for 4 seconds 
-{variant:1}(80-120)% increased Critical Strike Chance while you have Avatar of Fire 
-{variant:2}(160-200)% increased Critical Strike Chance while you have Avatar of Fire 
-50% of Physical Damage Converted to Fire while you have Avatar of Fire 
+Every 8 seconds, gain Avatar of Fire for 4 seconds
+{variant:1}(80-120)% increased Critical Strike Chance while you have Avatar of Fire
+{variant:2}(160-200)% increased Critical Strike Chance while you have Avatar of Fire
+50% of Physical Damage Converted to Fire while you have Avatar of Fire
 {variant:1}+1000 Armour while you do not have Avatar of Fire
 {variant:2}+2000 Armour while you do not have Avatar of Fire
 ]],[[
@@ -329,5 +335,19 @@ Implicits: 1
 +(30-40)% to Global Critical Strike Multiplier
 100% increased Critical Strike Chance against Enemies on Full Life
 1% of Attack Damage Leeched as Life on Critical Strike
+]],
+[[
+Festering Resentment
+Demon Dagger
+Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Loneliness}
+Requires Level 68, 76 Dex, 149 Int
+Implicits: 1
+40% increased Global Critical Strike Chance
+Trigger a Socketed Spell when you Block, with a 0.25 second Cooldown
++(30-45)% Chance to Block Spell Damage while in Off Hand
+(100-150)% increased Spell Damage
+(100-150)% increased Damage with Poison
+Triggered Spells Poison on Hit
+All Damage with Triggered Spells can Poison
 ]],
 }

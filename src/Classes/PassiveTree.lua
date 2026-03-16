@@ -34,6 +34,8 @@ local legacySkillsPerOrbit = { 1, 6, 12, 12, 40 }
 local legacyOrbitRadii = { 0, 82, 162, 335, 493 }
 
 -- Retrieve the file at the given URL
+-- This is currently disabled as it does not work due to issues
+-- its possible to fix this but its never used due to us performing preprocessing on tree
 local function getFile(URL)
 	local page = ""
 	local easy = common.curl.easy()
@@ -63,13 +65,14 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		treeText = treeFile:read("*a")
 		treeFile:close()
 	else
-		ConPrintf("Downloading passive tree data...")
 		local page
 		local pageFile = io.open("TreeData/"..treeVersion.."/data.json", "r")
 		if pageFile then
+			ConPrintf("Converting passive tree data json")
 			page = pageFile:read("*a")
 			pageFile:close()
-		else
+		elseif main.allowTreeDownload then  -- Enable downloading with Ctrl+Shift+F5 (currently disabled)
+			ConPrintf("Downloading passive tree data...")
 			page = getFile("https://www.pathofexile.com/passive-skill-tree")
 		end
 		local treeData = page:match("var passiveSkillTreeData = (%b{})")
@@ -86,8 +89,6 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	for k, v in pairs(assert(loadstring(treeText))()) do
 		self[k] = v
 	end
-
-	local cdnRoot = versionNum >= 3.08 and versionNum <= 3.09 and "https://web.poecdn.com" or ""
 
 	self.size = m_min(self.max_x - self.min_x, self.max_y - self.min_y) * 1.1
 
@@ -112,12 +113,60 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		class.classes[0] = { name = "None" }
 		self.classNameMap[class.name] = classId
 		for ascendClassId, ascendClass in pairs(class.classes) do
-			self.ascendNameMap[ascendClass.name] = {
+			self.ascendNameMap[ascendClass.id or ascendClass.name] = {
 				classId = classId,
 				class = class,
 				ascendClassId = ascendClassId,
-				ascendClass = ascendClass
+				ascendClass = ascendClass,
+				flavourText = ascendClass.flavourText,
+				flavourTextRect = ascendClass.flavourTextRect,
 			}
+		end
+	end
+	
+	-- hide legacy alternate ascendancies that are no longer obtainable
+	if self.alternate_ascendancies then
+		local legacyAlternateAscendancyIds = {
+			Warden = true,
+			Warlock = true,
+			Primalist = true,
+		}
+		local filteredAlternateAscendancies = { }
+		local legacyAscMap = { }
+		for ascendClassId, ascendClass in pairs(self.alternate_ascendancies) do
+			if legacyAlternateAscendancyIds[ascendClass.id] then
+				legacyAscMap[ascendClass.id] = true
+			else
+				filteredAlternateAscendancies[ascendClassId] = ascendClass
+			end
+		end
+		if next(legacyAscMap) then
+			if launch.devMode then
+				local removed = { }
+				for id in pairs(legacyAscMap) do
+					removed[#removed + 1] = id
+				end
+				table.sort(removed)
+				ConPrintf("Removing legacy alternate ascendancies from tree: %s", table.concat(removed, ", "))
+			end
+			local temp_groups = {}
+			for nodeId, node in pairs(self.nodes) do
+				if node.ascendancyName and legacyAscMap[node.ascendancyName] then
+					self.nodes[nodeId] = nil
+					temp_groups[node.group] = true
+				end
+			end
+			for groupId in pairs(temp_groups) do
+				self.groups[groupId] = nil
+			end
+			for legacyId in pairs(legacyAscMap) do
+				self.ascendNameMap[legacyId] = nil
+			end
+		end
+		if next(filteredAlternateAscendancies) then
+			self.alternate_ascendancies = filteredAlternateAscendancies
+		else
+			self.alternate_ascendancies = nil
 		end
 	end
 	
@@ -132,7 +181,9 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				classId = "alternate_ascendancies",
 				class = alternate_ascendancies_class,
 				ascendClassId = ascendClassId,
-				ascendClass = ascendClass
+				ascendClass = ascendClass,
+				flavourText = ascendClass.flavourText,
+				flavourTextRect = ascendClass.flavourTextRect,
 			}
 			self.secondaryAscendNameMap[ascendClass.id] = self.ascendNameMap[ascendClass.id]
 		end
@@ -145,19 +196,9 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		self.orbitAnglesByOrbit[orbit] = self:CalcOrbitAngles(skillsInOrbit)
 	end
 
-	if versionNum >= 3.19 then
-		local treeTextOLD
-		local treeFileOLD = io.open("TreeData/".. "3_18" .."/tree.lua", "r")
-		if treeFileOLD then
-			treeTextOLD = treeFileOLD:read("*a")
-			treeFileOLD:close()
-		end
-		local temp = {}
-		for k, v in pairs(assert(loadstring(treeTextOLD))()) do
-			temp[k] = v
-		end
-		self.assets = temp.assets
-		self.skillSprites = self.sprites
+	if not self.assets then
+		self.assets = LoadModule("TreeData/3_19/Assets.lua")
+		self.assets = self.assets.assets
 		if self.alternate_ascendancies then
 			-- backgrounds
 			self.assets["ClassesPrimalist"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/ClassesPrimalist.png"}
@@ -180,6 +221,8 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			self.assets["CharmSocketActiveDex"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/CharmSocketActiveDex.png"}
 		end
 	end
+
+	local cdnRoot = versionNum >= 3.08 and versionNum <= 3.09 and "https://web.poecdn.com" or ""
 	ConPrintf("Loading passive tree assets...")
 	for name, data in pairs(self.assets) do
 		self:LoadImage(name..".png", cdnRoot..(data[0.3835] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
@@ -188,10 +231,41 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	-- Load sprite sheets and build sprite map
 	self.spriteMap = { }
 	local spriteSheets = { }
+	if not self.skillSprites then
+		if not self.sprites then
+			ConPrintf("Loading passive tree sprite data for version '%s'...", treeVersions[treeVersion].display)
+			local spriteText
+			local spriteFile = io.open("TreeData/"..treeVersion.."/sprites.lua", "r")
+			if spriteFile then
+				spriteText = spriteFile:read("*a")
+				spriteFile:close()
+			else
+				local page
+				local pageFile = io.open("TreeData/"..treeVersion.."/sprites.json", "r")
+				if pageFile then
+					ConPrintf("Converting passive tree sprites json")
+					page = pageFile:read("*a")
+					pageFile:close()
+					spriteText = "return " .. jsonToLua(page)
+				end
+				spriteFile = io.open("TreeData/"..treeVersion.."/sprites.lua", "w")
+				spriteFile:write(spriteText)
+				spriteFile:close()
+			end
+			for k, v in pairs(assert(loadstring(spriteText))()) do
+				self[k] = v
+			end
+		end
+		self.skillSprites = self.sprites
+	end
 	for type, data in pairs(self.skillSprites) do
-		local maxZoom = data[#data]
-		if versionNum >= 3.19 then
+		local maxZoom
+		if not self.imageZoomLevels then
+			maxZoom = data
+		elseif versionNum >= 3.19 then
 			maxZoom = data[0.3835] or data[1]
+		else
+			maxZoom = data[#data]
 		end
 		local sheet = spriteSheets[maxZoom.filename]
 		if not sheet then
@@ -212,6 +286,64 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				[3] = (coords.x + coords.w) / sheet.width,
 				[4] = (coords.y + coords.h) / sheet.height
 			}
+		end
+	end
+
+	local bloodlineSpriteTypes = {
+		Trialmaster = "trialmasterBloodline",
+		Oshabi = "oshabiBloodline",
+		Olroth = "olrothBloodline",
+		Lycia = "lyciaBloodline",
+		KingInTheMists = "kingInTheMistsBloodline",
+		Farrul = "farrulBloodline",
+		Delirious = "deliriousBloodline",
+		Catarina = "catarinaBloodline",
+		Breachlord = "breachlordBloodline",
+		Aul = "aulBloodline",
+		Azmeri = "azmeriBloodline",
+	}
+	local bloodlineAssetNames = {
+		"AscendancyButton",
+		"AscendancyButtonHighlight",
+		"AscendancyButtonPressed",
+		"AscendancyFrameLargeNormal",
+		"AscendancyFrameLargeCanAllocate",
+		"AscendancyFrameLargeAllocated",
+		"AscendancyFrameSmallNormal",
+		"AscendancyFrameSmallCanAllocate",
+		"AscendancyFrameSmallAllocated",
+		"AscendancyMiddle",
+	}
+	self.bloodlineSpritePrefixes = self.bloodlineSpritePrefixes or { }
+	for ascendancyName, spriteType in pairs(bloodlineSpriteTypes) do
+		local hasSprite = false
+		for _, assetName in ipairs(bloodlineAssetNames) do
+			local spriteSet = self.spriteMap[assetName]
+			local spriteData = spriteSet and spriteSet[spriteType]
+			if spriteData then
+				self.assets[ascendancyName .. assetName] = spriteData
+				hasSprite = true
+			end
+		end
+		if hasSprite then
+			self.bloodlineSpritePrefixes[ascendancyName] = ascendancyName
+		end
+	end
+
+	if self.alternate_ascendancies then
+		-- Use the bloodline sprite sheets for the remaining alternate ascendancy emblems
+		local legacyClasses = {
+			ClassesPrimalist = true,
+			ClassesWarlock = true,
+			ClassesWarden = true,
+		}
+		for spriteName, spriteSet in pairs(self.spriteMap) do
+			if spriteName:match("^Classes") and not legacyClasses[spriteName] and not self.assets[spriteName] then
+				local _, sprite = next(spriteSet)
+				if sprite then
+					self.assets[spriteName] = sprite
+				end
+			end
 		end
 	end
 
@@ -278,7 +410,10 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			artWidth = 84,
 			alloc = "KeystoneFrameAllocated",
 			path = "KeystoneFrameCanAllocate",
-			unalloc = "KeystoneFrameUnallocated"
+			unalloc = "KeystoneFrameUnallocated",
+			allocBlighted = "KeystoneFrameAllocated",
+			pathBlighted = "KeystoneFrameCanAllocate",
+			unallocBlighted = "KeystoneFrameUnallocated",
 		},
 		Socket = {
 			artWidth = 58,
@@ -390,22 +525,25 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				end
 			else
 				self.ascendancyMap[node.dn:lower()] = node
-				if not self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] then
-					self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] = { }
+				local className = self.ascendNameMap[node.ascendancyName].class.name
+				if not self.classNotables[className] then
+					self.classNotables[className] = { }
 				end
-				if self.ascendNameMap[node.ascendancyName].class.name ~= "Scion" then
-					t_insert(self.classNotables[self.ascendNameMap[node.ascendancyName].class.name], node.dn)
+				if className ~= "Scion" then
+					t_insert(self.classNotables[className], node.dn)
 				end
 			end
 		else
 			node.type = "Normal"
-			if node.ascendancyName == "Ascendant" and not node.dn:find("Dexterity") and not node.dn:find("Intelligence") and
-				not node.dn:find("Strength") and not node.dn:find("Passive") then
+			if ((node.ascendancyName == "Ascendant" and not node.isMultipleChoiceOption and not node.dn:find("Dexterity")
+				and not node.dn:find("Intelligence") and not node.dn:find("Strength") and not node.dn:find("Passive"))
+				or (node.isMultipleChoiceOption and node.ascendancyName)) and node.ascendancyName ~= "Reliquarian" then
+				local className = self.ascendNameMap[node.ascendancyName].class.name
 				self.ascendancyMap[node.dn:lower()] = node
-				if not self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] then
-					self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] = { }
+				if not self.classNotables[className] then
+					self.classNotables[className] = { }
 				end
-				t_insert(self.classNotables[self.ascendNameMap[node.ascendancyName].class.name], node.dn)
+				t_insert(self.classNotables[className], node.dn)
 			end
 		end
 
@@ -569,11 +707,19 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			node.sprites = { }
 		end
 
+		-- create id to dn map for calcs breakdown sourcing
+		if not self.tattoo.idMap then
+			self.tattoo.idMap = { }
+		end
+		self.tattoo.idMap[node.id] = node.dn
+
 		self:ProcessStats(node)
 	end
 
 	-- Late load the Generated data so we can take advantage of a tree existing
-	buildTreeDependentUniques(self)
+	if treeVersion == latestTreeVersion then
+		buildTreeDependentUniques(self)
+	end
 end)
 
 function PassiveTreeClass:ProcessStats(node, startIndex)
@@ -668,6 +814,11 @@ function PassiveTreeClass:ProcessNode(node)
 		node.sprites = self.spriteMap["Art/2DArt/SkillIcons/passives/MasteryBlank.png"]
 	end
 	node.overlay = self.nodeOverlay[node.type]
+	if node.ascendancyName then
+		node.bloodlineOverlayPrefix = self.bloodlineSpritePrefixes and self.bloodlineSpritePrefixes[node.ascendancyName]
+	else
+		node.bloodlineOverlayPrefix = nil
+	end
 	if node.overlay then
 		node.rsq = node.overlay.rsq
 		node.size = node.overlay.size
@@ -694,7 +845,7 @@ function PassiveTreeClass:LoadImage(imgName, url, data, ...)
 		if imgFile then
 			imgFile:close()
 			imgName = self.treeVersion.."/"..imgName
-		elseif main.allowTreeDownload then -- Enable downloading with Ctrl+Shift+F5
+		elseif main.allowTreeDownload then -- Enable downloading with Ctrl+Shift+F5 (currently disabled)
 			ConPrintf("Downloading '%s'...", imgName)
 			local data = getFile(url)
 			if data and not data:match("<!DOCTYPE html>") then

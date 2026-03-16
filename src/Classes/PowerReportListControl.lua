@@ -8,9 +8,10 @@ local t_insert = table.insert
 local t_remove = table.remove
 local t_sort = table.sort
 
-local PowerReportListClass = newClass("PowerReportListControl", "ListControl", function(self, anchor, x, y, width, height, nodeSelectCallback)
-	self.ListControl(anchor, x, y, width, height-50, 16, "VERTICAL", false)
+local PowerReportListClass = newClass("PowerReportListControl", "ListControl", function(self, anchor, rect, nodeSelectCallback)
+	self.ListControl(anchor, rect, 16, "VERTICAL", false)
 
+	local width = rect[3]
 	self.powerColumn = { width = width * 0.16, label = "", sortable = true }
 	self.colList = {
 		{ width = width * 0.15, label = "Type", sortable = true },
@@ -25,7 +26,7 @@ local PowerReportListClass = newClass("PowerReportListControl", "ListControl", f
 	self.allocated = false
 	self.label = "Building Tree..."
 	
-	self.controls.filterSelect = new("DropDownControl", { "BOTTOMRIGHT", self, "TOPRIGHT" }, 0, -2, 200, 20,
+	self.controls.filterSelect = new("DropDownControl", {"BOTTOMRIGHT", self, "TOPRIGHT"}, {0, -2, 200, 20},
 		{ "Show Unallocated", "Show Unallocated & Clusters", "Show Allocated" },
 		function(index, value)
 			self.showClusters = index == 2

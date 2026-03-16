@@ -7,6 +7,7 @@ local m_max = math.max
 local m_min = math.min
 local m_floor = math.floor
 local protected_replace = "*"
+local utf8 = require('lua-utf8')
 
 local function lastLine(str)
 	local lastLineIndex = 1
@@ -35,9 +36,9 @@ local function newlineCount(str)
 	end
 end
 
-local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler", "TooltipHost", function(self, anchor, x, y, width, height, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom, clearable)
+local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler", "TooltipHost", function(self, anchor, rect, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom, clearable)
 	self.ControlHost()
-	self.Control(anchor, x, y, width, height)
+	self.Control(anchor, rect)
 	self.UndoHandler()
 	self.TooltipHost()
 	self:SetText(init or "")
@@ -63,24 +64,24 @@ local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler
 	if self.filter == "%D" or self.filter == "^%-%d" then
 		-- Add +/- buttons for integer number edits
 		self.isNumeric = true
-		self.controls.buttonDown = new("ButtonControl", {"RIGHT",self,"RIGHT"}, -2, 0, buttonSize, buttonSize, "-", function()
+		self.controls.buttonDown = new("ButtonControl", {"RIGHT",self,"RIGHT"}, {-2, 0, buttonSize, buttonSize}, "-", function()
 			self:OnKeyUp("DOWN")
 		end)
-		self.controls.buttonUp = new("ButtonControl", {"RIGHT",self.controls.buttonDown,"LEFT"}, -1, 0, buttonSize, buttonSize, "+", function()
+		self.controls.buttonUp = new("ButtonControl", {"RIGHT",self.controls.buttonDown,"LEFT"}, {-1, 0, buttonSize, buttonSize}, "+", function()
 			self:OnKeyUp("UP")
 		end)
 	elseif clearable then
-		self.controls.buttonClear = new("ButtonControl", {"RIGHT",self,"RIGHT"}, -2, 0, buttonSize, buttonSize, "x", function()
+		self.controls.buttonClear = new("ButtonControl", {"RIGHT",self,"RIGHT"}, {-2, 0, buttonSize, buttonSize}, "x", function()
 			self:SetText("", true)
 		end)
 		self.controls.buttonClear.shown = function() return #self.buf > 0 and self:IsMouseInBounds() end
 	end
-	self.controls.scrollBarH = new("ScrollBarControl", {"BOTTOMLEFT",self,"BOTTOMLEFT"}, 1, -1, 0, 14, 60, "HORIZONTAL", true)
+	self.controls.scrollBarH = new("ScrollBarControl", {"BOTTOMLEFT",self,"BOTTOMLEFT"}, {1, -1, 0, 14}, 60, "HORIZONTAL", true)
 	self.controls.scrollBarH.width = function()
 		local width, height = self:GetSize()
 		return width - (self.controls.scrollBarV.enabled and 16 or 2)
 	end
-	self.controls.scrollBarV = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 1, 14, 0, (lineHeight or 0) * 3, "VERTICAL", true)
+	self.controls.scrollBarV = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, {-1, 1, 14, 0}, (lineHeight or 0) * 3, "VERTICAL", true)
 	self.controls.scrollBarV.height = function()
 		local width, height = self:GetSize()
 		return height - (self.controls.scrollBarH.enabled and 16 or 2)
@@ -541,18 +542,10 @@ function EditClass:OnKeyDown(key, doubleClick)
 		if self.caret > 1 then
 			if ctrl then
 			-- Skip leading space, then jump word
-				while self.buf:sub(self.caret-1, self.caret-1):match("[%s%p]") do
-					if self.caret > 1 then
-						self.caret = self.caret - 1
-					end
-				end
-				while self.buf:sub(self.caret-1, self.caret-1):match("%w") do
-					if self.caret > 1 then
-						self.caret = self.caret - 1
-					end
-				end
+				self.caret = self.caret - #utf8.match(self.buf:sub(1, self.caret-1), "[%s%p]*$")
+				self.caret = self.caret - #utf8.match(self.buf:sub(1, self.caret-1), "%w*$")
 			else
-				self.caret = self.caret - 1
+				self.caret = utf8.next(self.buf, self.caret, -1) or 0
 			end
 			self.lastUndoState.caret = self.caret
 			self:ScrollCaretIntoView()
@@ -562,19 +555,11 @@ function EditClass:OnKeyDown(key, doubleClick)
 		self.sel = shift and (self.sel or self.caret) or nil
 		if self.caret <= #self.buf then
 			if ctrl then
-			-- Jump word, then skip trailing space, 
-				while self.buf:sub(self.caret, self.caret):match("%w") do
-					if self.caret <= #self.buf then
-						self.caret = self.caret + 1
-					end
-				end
-				while self.buf:sub(self.caret, self.caret):match("[%s%p]") do
-					if self.caret <= #self.buf then
-						self.caret = self.caret + 1
-					end
-				end
+			-- Jump word, then skip trailing space,
+				self.caret = self.caret + #utf8.match(self.buf:sub(self.caret), "^%w*")
+				self.caret = self.caret + #utf8.match(self.buf:sub(self.caret), "^[%s%p]*")
 			else
-				self.caret = self.caret + 1
+				self.caret = utf8.next(self.buf, self.caret, 1) or #self.buf + 1
 			end
 			self.lastUndoState.caret = self.caret
 			self:ScrollCaretIntoView()

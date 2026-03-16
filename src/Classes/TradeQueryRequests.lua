@@ -25,29 +25,43 @@ function TradeQueryRequestsClass:ProcessQueue()
 			local policy = self.rateLimiter:GetPolicyName(key)
 			local now = os.time()
 			local timeNext = self.rateLimiter:NextRequestTime(policy, now)
-			if now >= timeNext then
-				local request = table.remove(queue, 1)
-				local requestId = self.rateLimiter:InsertRequest(policy)
-				local onComplete = function(response, errMsg)
-					self.rateLimiter:FinishRequest(policy, requestId)
-					self.rateLimiter:UpdateFromHeader(response.header)
-					if response.header:match("HTTP/[%d%.]+ (%d+)") == "429" then
-						table.insert(queue, 1, request)
-						return
+			if not (queue[1].retryTime and now < queue[1].retryTime) then
+				if now >= timeNext then
+					local request = table.remove(queue, 1)
+					local requestId = self.rateLimiter:InsertRequest(policy)
+					local onComplete = function(response, errMsg)
+						self.rateLimiter:FinishRequest(policy, requestId)
+						self.rateLimiter:UpdateFromHeader(response.header)
+						if response.header:match("HTTP/[%d%.]+ (%d+)") == "429" then
+							request.attempts = (request.attempts or 0) + 1
+							local backoff = m_min(2 ^ request.attempts, 60)
+							request.retryTime = os.time() + backoff
+							table.insert(queue, 1, request)
+							return
+						end
+						-- if limit rules don't return account then the POESESSID is invalid.
+						if response.header:match("[xX]%-[rR]ate%-[lL]imit%-[rR]ules: (.-)\n"):match("Account") == nil and main.POESESSID ~= "" then
+							main.POESESSID = ""
+							if errMsg then
+								errMsg = errMsg .. "\nPOESESSID is invalid. Please Re-Log and reset"
+							else
+								errMsg = "POESESSID is invalid. Please Re-Log and reset"
+							end
+						end
+						request.callback(response.body, errMsg, unpack(request.callbackParams or {}))
 					end
-					request.callback(response.body, errMsg, unpack(request.callbackParams or {}))
+					-- self:SendRequest(request.url , onComplete, {body = request.body, poesessid = main.POESESSID})
+					local header = "Content-Type: application/json"
+					if main.POESESSID ~= "" then
+						header = header .. "\nCookie: POESESSID=" .. main.POESESSID
+					end
+					launch:DownloadPage(request.url, onComplete, {
+						header = header,
+						body = request.body,
+					})
+				else
+					break
 				end
-				-- self:SendRequest(request.url , onComplete, {body = request.body, poesessid = main.POESESSID})
-				local header = "Content-Type: application/json"
-				if main.POESESSID ~= "" then
-					header = header .. "\nCookie: POESESSID=" .. main.POESESSID
-				end
-				launch:DownloadPage(request.url, onComplete, {
-					header = header,
-					body = request.body, 
-				})
-			else
-				break
 			end
 		end
 	end
@@ -104,8 +118,12 @@ function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, qu
 						return callback(nil, errMsg)
 					end
 					local fetchedItemIds = {}
+					local idSet = {}
 					for _, value in pairs(items) do
-						table.insert(fetchedItemIds, value.id)
+						if not idSet[value.id] then
+							idSet[value.id] = true
+							table.insert(fetchedItemIds, value.id)
+						end
 					end
 					for _, value in pairs(previousSearchItems) do
 						if #items >= self.maxFetchPerSearch then
@@ -447,7 +465,10 @@ function TradeQueryRequestsClass:buildUrl(root, realm, league, queryId)
 	if realm and realm ~='pc' then
 		result = result .. "/" .. realm
 	end	
-	result = result .. "/" .. league:gsub(" ", "+")
+	local encodedLeague = league:gsub("[^%w%-%.%_%~]", function(c)
+		return string.format("%%%02X", string.byte(c))
+	end):gsub(" ", "+")
+	result = result .. "/" .. encodedLeague
 	if queryId then
 		result = result .. "/" .. queryId
 	end

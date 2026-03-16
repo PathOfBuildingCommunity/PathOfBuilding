@@ -68,7 +68,7 @@ Cannot be Stunned
 ]],[[
 The Formless Flame
 {variant:1,2}Siege Helmet
-{variant:3}Royal Burgonet 
+{variant:3}Royal Burgonet
 League: Breach
 Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{The Formless Inferno} using currency{Blessing of Xoph}
@@ -106,7 +106,7 @@ Requires Level 65, 148 Str
 Echoes of Creation
 Shaper Item
 Royal Burgonet
-Source: Drops from unique{The Shaper}
+Source: Drops from unique{The Shaper} (Uber)
 Requires Level 65, 148 Str
 Socketed Warcry Skills have +1 Cooldown Use
 (80-120)% increased Armour
@@ -131,6 +131,15 @@ Requires Level 55, 114 Str
 {variant:1,2}10% increased Stun and Block Recovery
 {variant:3}Cannot be Frozen or Chilled if you've used a Fire Skill Recently
 ]],[[
+Kaom's Command
+Siege Helmet
+League: Settlers of Kalguur
+Requires Level 48, 101 Str
++(60-80) to maximum Life
+(25-35)% increased Warcry Speed
+Nearby corpses Explode when you Warcry, dealing (5-10)% of their Life as Physical Damage
+Warcry Skills have (25-35)% increased Area of Effect
+]],[[
 Usurper's Penance
 Eternal Burgonet
 League: Expedition
@@ -148,10 +157,44 @@ Onslaught
 ]],[[
 Blood Price
 Reaver Helmet
-(20-30)% reduced maximum Life
+24% reduced maximum Life
 Regenerate (200-250) Life per second
 100% increased Stun and Block Recovery
 Nearby Enemy Monsters have at least 8% of Life Reserved
+]],[[
+Howlcrack
+Ezomyte Burgonet
+Source: Drops from unique{Mercenary} after winning a duel
+League: Mercenaries of Trarthus
+Requires Level 60, 138 Str
++(30-40) to Strength
+(100-160)% increased Armour
+Non-instant Warcries ignore their Cooldown when used
+Warcries cost +15% of Life
+Warcry Skills have (15-25)% increased Area of Effect
+]],
+[[
+Refuge in Isolation
+Paladin Crown
+Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Loneliness}
+Requires Level 78, 116 Str, 116 Int
+(350-650)% increased Armour
+(-50--40)% to all Elemental Resistances
++(13-29)% to Chaos Resistance
+(15-30)% of Elemental Damage from Hits taken as Physical Damage
+Physical Damage of Enemies Hitting you is Unlucky
+]],
+[[
+The Hallowed Monarch
+Faithful Helmet
+Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 73, 101 Str, 101 Int
+(150-230)% increased Armour
++(25-35)% to all Elemental Resistances
+50% increased Light Radius
+Link Skills can target Damageable Minions
+Your Linked Minions take (75-65)% less Damage
+On Killing a Rare monster, a random Linked Minion gains its Modifiers for 60 seconds
 ]],
 -- Helmet: Evasion
 [[
@@ -232,6 +275,16 @@ Requires Level 20, 46 Dex
 {variant:3,4}Gain 1% of Cold Damage as Extra Fire Damage per 1% Chill Effect on Enemy
 {variant:3}Gain 100% of Cold Damage as Extra Fire Damage against Frozen Enemies
 {variant:4}Gain 30% of Cold Damage as Extra Fire Damage against Frozen Enemies
+]],[[
+Replica Heatshiver
+Leather Hood
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+(80–100)% increased Evasion Rating
+60% increased Mana Regeneration Rate
++(20–30)% to Cold Resistance
++(20–30)% to Lightning Resistance
+Gain 1% of Lightning Damage as Extra Cold Damage per 2% Shock Effect on Enemy
 ]],[[
 Frostferno
 Leather Hood
@@ -437,19 +490,32 @@ Variant: Focus Ailment Duration Pre 3.16.0
 Variant: Avoid Elemental Damage Pre 3.16.0
 Variant: Focus Ailment Duration Pre 3.19.0
 Variant: Focus Ailment Duration Pre 3.22.0
-Variant: Fire and Chaos Resistances
-Variant: Cold and Chaos Resistances
-Variant: Lightning and Chaos Resistances
-Variant: Strength and Dexterity
-Variant: Dexterity and Intelligence
-Variant: Strength and Intelligence
-Variant: Mine Laying Speed
-Variant: Focus Spell Trigger
-Variant: Focus Ailment Duration
-Variant: Avoid Elemental Damage
-+1 to Level of Socketed Gems
+Variant: Fire and Chaos Resistances Pre 3.26.0
+Variant: Cold and Chaos Resistances Pre 3.26.0
+Variant: Lightning and Chaos Resistances Pre 3.26.0
+Variant: Strength and Dexterity Pre 3.26.0
+Variant: Dexterity and Intelligence Pre 3.26.0
+Variant: Strength and Intelligence Pre 3.26.0
+Variant: Mine Laying Speed Pre 3.26.0
+Variant: Focus Spell Trigger Pre 3.26.0
+Variant: Focus Ailment Duration Pre 3.26.0
+Variant: Avoid Elemental Damage Pre 3.26.0
+Variant: Additional Minions + Minion Life
+Variant: +2 AoE Gems + inc AoE
+Variant: +2 Proj Gems + Pierce
+Variant: +2 Melee Gems + Strike Range
+Variant: Life + Mana Regen
+Variant: Mana + Life Regen
+Variant: Inc Evasion while Focused
+Variant: Physical Damage Reduction while Focused
+Variant: +2 Gems
+Variant: Inc Corpse Life
+Variant: Attack/Cast Speed if consumed corpse
+Variant: Take no Crit Damage if Recharge
+Variant: Damage if consumed corpse
+{variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25}+1 to Level of Socketed Gems
 {variant:1,2,3,4,5,6,7,8,9,10,11,12,13}Socketed Gems have 40% increased Mana Reservation Efficiency
-{variant:14,15,16,17,18,19,20,21,22,23,24}Socketed Gems have 25% increased Reservation Efficiency
+{variant:14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38}Socketed Gems have 25% increased Reservation Efficiency
 Trigger Level 15 Feast of Flesh every 5 seconds
 (180-220)% increased Energy Shield
 10% chance for Energy Shield Recharge to start when you use a Skill
@@ -481,9 +547,29 @@ Eldritch Battery
 {variant:23}Focus has (5-8)% increased Cooldown Recovery Rate
 {variant:24}(36-40)% increased Duration of Ailments you inflict while Focused
 {variant:25}(10-12)% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention
+{variant:26}+1 to maximum number of Raised Zombies
+{variant:26}+1 to maximum number of Skeletons
+{variant:26}Minions have (8-10)% increased maximum Life
+{variant:27}(8-10)% increased Area of Effect
+{variant:27}+2 to Level of Socketed AoE Gems
+{variant:28}Projectiles Pierce an additional Target
+{variant:28}+2 to Level of Socketed Projectile Gems
+{variant:29}+0.2 metres to Melee Strike Range
+{variant:29}+2 to Level of Socketed Melee Gems
+{variant:30}+(55-60) to maximum Life
+{variant:30}Regenerate 5.3 Mana per second
+{variant:31}+(55-60) to maximum Mana
+{variant:31}Regenerate 33.3 Life per second
+{variant:32}(30-32)% increased Evasion Rating while Focused
+{variant:33}(13-15)% additional Physical Damage Reduction while Focused
+{variant:34}+2 to Level of Socketed Gems
+{variant:35}Corpses you Spawn have 20% increased Maximum Life
+{variant:36}20% increased Attack and Cast Speed if you've Consumed a Corpse Recently
+{variant:37}Take no Extra Damage from Critical Strikes if Energy Shield Recharge started Recently
+{variant:38}20% increased Damage if you have Consumed a corpse Recently
 ]],[[
 Wilma's Requital
-Solaris Circlet 
+Solaris Circlet
 +(300-500) to Accuracy Rating
 (200-250)% increased Energy Shield
 Increases and Reductions to Cast Speed apply to Attack Speed
@@ -663,7 +749,7 @@ Requires Level 65, 138 Int
 (80-100)% increased Spell Damage
 15% reduced Cast Speed
 +(30-60) to maximum Mana
-Your Skills deal you 400% of Mana Cost as Physical Damage
+Your Skills deal you 400% of Mana Spent on Upfront Skill Mana Costs as Physical Damage
 ]],[[
 Sudden Dawn
 Steel Circlet
@@ -690,14 +776,18 @@ Cannot inflict Shock
 Wraithlord
 Bone Circlet
 Variant: Pre 3.19.0
+Variant: Pre 3.24.0
 Variant: Current
 Requires Level: 34, 73 Int
-+2 to Level of Socketed Minion Gems
+{variant:3}Has 4 Abyssal Sockets
+{variant:1,2}+2 to Level of Socketed Minion Gems
+{variant:3}+(1-2) to Level of all Minion Skill Gems
 (120-150)% increased Energy Shield
 {variant:1}Minions Regenerate 1% Life per second
 {variant:1}+1000 to Spectre maximum Life
 {variant:2}+2 to maximum number of Spectres
-{variant:2}You cannot have Non-Spectre Minions
+{variant:3}+1 to maximum number of Spectres per Socketed Ghastly Eye Jewel
+{variant:2,3}You cannot have Non-Spectre Minions
 ]],[[
 Wreath of Phrecia
 Iron Circlet
@@ -724,6 +814,63 @@ Adds 1 to (60-80) Lightning Damage to Spells and Attacks
 {variant:2}20% chance to Curse non-Cursed Enemies with a random Hex on Hit
 {variant:3}Curse Enemies which Hit you with a random Hex, ignoring Curse Limit
 {variant:1}5% chance to create Shocked Ground when Hit
+]],[[
+The Dark Monarch
+Lich's Circlet
+Variant: Animated Weapons
+Variant: Summoned Golems
+Variant: Summoned Raging Spirits
+Variant: Raised Spectres
+Variant: Raised Spiders
+Variant: Raised Zombies
+Variant: Summoned Reapers
+Variant: Sentinels of Absolution
+Variant: Sentinels of Dominance
+Variant: Sentinels of Purity
+Variant: Summoned Holy Relics
+Variant: Summoned Phantasms
+Variant: Summoned Skeletons
+Variant: Summoned Spectral Wolves
+Variant: Living Lightning
+Variant: Holy Armaments
+Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 80, 224 Int
++(50-100) to maximum Energy Shield
++1 to Level of all Minion Skill Gems
++(27-37)% to Chaos Resistance
+50% reduced Light Radius
+{variant:1}Maximum number of Animated Weapons is Doubled
+{variant:1}Cannot have Minions other than Animated Weapons
+{variant:2}Maximum number of Summoned Golems is Doubled
+{variant:2}Cannot have Minions other than Summoned Golems
+{variant:3}Maximum number of Summoned Raging Spirits is Doubled
+{variant:3}Cannot have Minions other than Summoned Raging Spirits
+{variant:4}Maximum number of Raised Spectres is Doubled
+{variant:4}Cannot have Minions other than Raised Spectres
+{variant:5}Maximum number of Raised Spiders is Doubled
+{variant:5}Cannot have Minions other than Raised Spiders
+{variant:6}Maximum number of Raised Zombies is Doubled
+{variant:6}Cannot have Minions other than Raised Zombies
+{variant:7}Maximum number of Summoned Reapers is Doubled
+{variant:7}Cannot have Minions other than Summoned Reapers
+{variant:8}Maximum number of Sentinels of Absolution is Doubled
+{variant:8}Cannot have Minions other than Sentinels of Absolution
+{variant:9}Maximum number of Sentinels of Dominance is Doubled
+{variant:9}Cannot have Minions other than Sentinels of Dominance
+{variant:10}Maximum number of Sentinels of Purity is Doubled
+{variant:10}Cannot have Minions other than Sentinels of Purity
+{variant:11}Maximum number of Summoned Holy Relics is Doubled
+{variant:11}Cannot have Minions other than Summoned Holy Relics
+{variant:12}Maximum number of Summoned Phantasms is Doubled
+{variant:12}Cannot have Minions other than Summoned Phantasms
+{variant:13}Maximum number of Summoned Skeletons is Doubled
+{variant:13}Cannot have Minions other than Summoned Skeletons
+{variant:14}Maximum number of Summoned Spectral Wolves is Doubled
+{variant:14}Cannot have Minions other than Summoned Spectral Wolves
+{variant:15}Maximum number of Living Lightning is Doubled
+{variant:15}Cannot have Minions other than Living Lightning
+{variant:16}Maximum number of Holy Armaments is Doubled
+{variant:16}Cannot have Minions other than Holy Armaments
 ]],
 -- Helmet: Armour/Evasion
 [[
@@ -815,6 +962,17 @@ Requires Level 67, 62 Str, 85 Dex
 20% increased Movement Speed
 Mercury Footprints
 ]],[[
+The Devourer of Minds
+Pig-Faced Bascinet
+Source: Drops from unique{The Elder} (Uber Uber)
+Requires Level 63, 85 Str, 62 Dex
++(30–50) to Intelligence
+(80–120)% increased Armour and Evasion
++1 to Level of all Minion Skill Gems
+25% increased Light Radius
+Minions have the same maximum number of Endurance, Frenzy and Power Charges as you
+Minions count as having the same number of Endurance, Frenzy and Power Charges as you
+]],[[
 The Fledgling
 Lacquered Helmet
 League: Heist
@@ -869,6 +1027,16 @@ League: Crucible
 (15-25)% increased Rarity of Items found
 Has a Crucible Passive Skill Tree
 Crucible Passive Skill Tree is removed if this Modifier is removed
+]],[[
+The Trickster's Smile
+Visored Sallet
+League: Affliction
+Requires Level 23, 28 Str, 28 Dex
+(60-100)% increased Armour and Evasion
+Reflects 100 Cold Damage to Melee Attackers
+Reflects 100 Fire Damage to Melee Attackers
+Reflects 100 Lightning Damage to Melee Attackers
+When an Enemy Hit deals Elemental Damage to you, their Resistance to those Elements becomes zero for 4 seconds
 ]],
 -- Helmet: Armour/Energy Shield
 [[
@@ -1158,6 +1326,19 @@ Enemies Cannot Leech Mana From You
 {variant:3}(10-20)% of Damage taken Recouped as Mana
 Cannot Leech Mana
 ]],[[
+Ravenous Passion
+Zealot Helmet
+Variant: Pre 3.25.0
+Variant: Current
+Source: Drops from unique{The Eater of Worlds} (Uber)
+Requires Level: 44, 50 Str, 50 Int
++(30-50) to Strength
+(80-120)% Increased Armour and Energy Shield
+{variant:1}Gain (10-15) Rage after Spending a total of 200 Mana
+{variant:2}Gain (7-10) Rage after Spending a total of 200 Mana
+{variant:1}Rage grants Cast Speed instead of Attack Speed
+Rage grants Spell Damage instead of Attack Damage
+]],[[
 Speaker's Wreath
 Prophet Crown
 Requires Level 63, 85 Str, 62 Int
@@ -1229,8 +1410,8 @@ Requires Level 20
 +23 to maximum Life
 (15-10)% reduced Mine Throwing Speed
 Mines have (40-50)% increased Detonation Speed
-Skills which Place Mines place up to 1 additional Mine if you have at least 800 Dexterity
-Skills which Place Mines place up to 1 additional Mine if you have at least 800 Intelligence
+Skills which throw Mines throw up to 1 additional Mine if you have at least 800 Dexterity
+Skills which throw Mines throw up to 1 additional Mine if you have at least 800 Intelligence
 ]],[[
 Eye of Malice
 Callous Mask
@@ -1429,8 +1610,7 @@ Requires Level 57, 64 Dex, 64 Int
 The Tempest's Binding
 Callous Mask
 League: Harbinger
-Source: Created from item parts obtained from Boss in The Beachhead
-Upgrade: Upgrades to unique{The Tempest's Liberation} via currency{Deregulation Scroll}
+Source: No longer obtainable
 Requires Level 45, 51 Dex, 51 Int
 Socketed Gems are Supported by Level 18 Ice Bite
 Socketed Gems are Supported by Level 18 Innervate
@@ -1442,8 +1622,6 @@ Grants Summon Harbinger of Storms Skill
 ]],[[
 The Tempest's Liberation
 Callous Mask
-League: Harvest
-Source: Upgraded from unique{The Tempest's Binding} via currency{Deregulation Scroll}
 Requires Level 60, 51 Dex, 51 Int
 Socketed Gems are Supported by Level 18 Ice Bite
 Socketed Gems are Supported by Level 18 Innervate
@@ -1475,7 +1653,7 @@ Socketed Gems have 50% reduced Mana Cost
 Viridi's Veil
 Praetor Crown
 League: Ritual
-Source: Drops from unique{The Maven}
+Source: Drops from unique{The Maven} (Uber)
 Requires Level 68, 62 Str, 91 Int
 +(1-2) to Level of Socketed Gems
 (120-160)% increased Armour and Energy Shield
@@ -1514,7 +1692,5 @@ League: Expedition
 Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbook}
 Requires Level 68, 66 Str, 66 Dex, 66 Int
 Never deal Critical Strikes
-Nearby Enemies cannot deal Critical Strikes
 Battlemage
-]],
-}
+]],}

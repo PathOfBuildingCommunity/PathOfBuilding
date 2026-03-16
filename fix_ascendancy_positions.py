@@ -39,9 +39,21 @@ NODE_GROUPS = {
     "Trickster": Point2D(10200, -3700),
     "Saboteur": Point2D(10200, -2200),
     "Ascendant": Point2D(-7800, 7200),
+	"Reliquarian": Point2D(-7800, 8900),
     "Warden": Point2D(8250, 8350),
     "Primalist": Point2D(7200, 9400),
     "Warlock": Point2D(9300, 7300),
+	"Aul": Point2D(-6750, 12000),
+	"Breachlord": Point2D(-5250, 12000),
+	"Catarina": Point2D(-3750, 12000),
+	"Trialmaster": Point2D(-2250, 12000),
+	"Delirious": Point2D(-750, 12000),
+	"Farrul": Point2D(750, 12000),
+	"Lycia": Point2D(2250, 12000),
+	"KingInTheMists": Point2D(3750, 12000),
+	"Olroth": Point2D(5250, 12000),
+	"Oshabi": Point2D(6750, 12000),
+	"Necromantic": Point2D(8250, 12000),
 }
 EXTRA_NODES = {
 	"Necromancer": [{"Node": {"name": "Nine Lives", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Int.png", "isNotable": True, "skill" : 27602}, 
@@ -74,7 +86,7 @@ EXTRA_NODES_STATS = { # these should not be hardcoded here, but should be insert
 	"Searing Purity": {"stats": ["45% of Chaos Damage taken as Fire Damage", "45% of Chaos Damage taken as Lightning Damage"], "reminderText": []},
 	"Soul Drinker": {"stats": ["2% of Damage Leeched as Energy Shield", "20% increased Attack and Cast Speed while Leeching Energy Shield", "Energy Shield Leech effects are not removed when Energy Shield is Filled"], "reminderText": ["(Leeched Energy Shield is recovered over time. Multiple Leeches can occur simultaneously, up to a maximum rate)"]},
 	"Harness the Void": {"stats": ["27% chance to gain 25% of Non-Chaos Damage with Hits as Extra Chaos Damage", "13% chance to gain 50% of Non-Chaos Damage with Hits as Extra Chaos Damage", "7% chance to gain 100% of Non-Chaos Damage with Hits as Extra Chaos Damage"], "reminderText": []},
-	"Fury of Nature" : {"stats": ["Non-Damaging Elemental Ailments you inflict spread to nearby enemies in a radius of 20", "Non-Damaging Elemental Ailments you inflict have 100% more Effect"], "reminderText": ["(Elemental Ailments are Ignited, Scorched, Chilled, Frozen, Brittled, Shocked, and Sapped)"]},
+	"Fury of Nature" : {"stats": ["Non-Damaging Elemental Ailments you inflict spread to nearby enemies within 2 metres", "Non-Damaging Elemental Ailments you inflict have 100% more Effect"], "reminderText": ["(Elemental Ailments are Ignited, Scorched, Chilled, Frozen, Brittled, Shocked, and Sapped)"]},
 	"Fatal Flourish": {"stats": ["Final Repeat of Attack Skills deals 60% more Damage", "Non-Travel Attack Skills Repeat an additional Time"], "reminderText": []},
 	"Indomitable Resolve": {"stats": ["Deal 10% less Damage", "Take 25% less Damage"], "reminderText": []},
 	"Unleashed Potential" : {"stats": ["400% increased Endurance, Frenzy and Power Charge Duration", "25% chance to gain a Power, Frenzy or Endurance Charge on Kill", "+1 to Maximum Endurance Charges", "+1 to Maximum Frenzy Charges", "+1 to Maximum Power Charges"], "reminderText": []},
@@ -120,6 +132,20 @@ def fix_ascendancy_positions(path: os.PathLike) -> None:
             if node["Node"]["name"] in EXTRA_NODES_STATS:
                 data["nodes"][node["Node"]["skill"]]["stats"] = EXTRA_NODES_STATS[node["Node"]["name"]]["stats"]
                 data["nodes"][node["Node"]["skill"]]["reminderText"] = EXTRA_NODES_STATS[node["Node"]["name"]]["reminderText"]
+    
+    # Remove unused image zoom levels and data around them
+    for sprite in data["sprites"]:
+        if "1" in data["sprites"][sprite]:
+            data["sprites"][sprite] = data["sprites"][sprite]["1"]
+        elif "0.3835" in data["sprites"][sprite]:
+            data["sprites"][sprite] = data["sprites"][sprite]["0.3835"]
+    spritesPath = os.path.join(os.path.dirname(path), "sprites.json")
+    with open(spritesPath, "w", encoding="utf-8") as o:
+        json.dump({"extraImages": data["extraImages"],"sprites": data["sprites"]}, o, indent=4)
+    del data["extraImages"]
+    del data["sprites"]
+    del data["imageZoomLevels"]
+    
     with open(path, "w", encoding="utf-8") as o:
         json.dump(data, o, indent=4)
 

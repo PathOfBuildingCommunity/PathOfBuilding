@@ -13,14 +13,24 @@ itemLib = { }
 
 -- Info table for all types of item influence
 itemLib.influenceInfo = {
-	{ key="shaper", display="Shaper", color=colorCodes.SHAPER },
-	{ key="elder", display="Elder", color=colorCodes.ELDER },
-	{ key="adjudicator", display="Warlord", color=colorCodes.ADJUDICATOR },
-	{ key="basilisk", display="Hunter", color=colorCodes.BASILISK },
-	{ key="crusader", display="Crusader", color=colorCodes.CRUSADER },
-	{ key="eyrie", display="Redeemer", color=colorCodes.EYRIE },
-	{ key="cleansing", display="Searing Exarch", color=colorCodes.CLEANSING },
-	{ key="tangle", display="Eater of Worlds", color=colorCodes.TANGLE },
+	["all"] = {
+		{ key="shaper", display="Shaper", color=colorCodes.SHAPER },
+		{ key="elder", display="Elder", color=colorCodes.ELDER },
+		{ key="adjudicator", display="Warlord", color=colorCodes.ADJUDICATOR },
+		{ key="basilisk", display="Hunter", color=colorCodes.BASILISK },
+		{ key="crusader", display="Crusader", color=colorCodes.CRUSADER },
+		{ key="eyrie", display="Redeemer", color=colorCodes.EYRIE },
+		{ key="cleansing", display="Searing Exarch", color=colorCodes.CLEANSING },
+		{ key="tangle", display="Eater of Worlds", color=colorCodes.TANGLE },
+	},
+	["default"] = {
+		{ key="shaper", display="Shaper", color=colorCodes.SHAPER },
+		{ key="elder", display="Elder", color=colorCodes.ELDER },
+		{ key="adjudicator", display="Warlord", color=colorCodes.ADJUDICATOR },
+		{ key="basilisk", display="Hunter", color=colorCodes.BASILISK },
+		{ key="crusader", display="Crusader", color=colorCodes.CRUSADER },
+		{ key="eyrie", display="Redeemer", color=colorCodes.EYRIE },
+	}
 }
 
 -- Apply a value scalar to the first n of any numbers present
@@ -117,11 +127,12 @@ function itemLib.formatModLine(modLine, dbMode)
 	local colorCode
 	if modLine.extra then
 		colorCode = colorCodes.UNSUPPORTED
+		line = main.notSupportedModTooltips and (line .. main.notSupportedTooltipText) or line
 		if launch.devModeAlt then
 			line = line .. "   ^1'" .. modLine.extra .. "'"
 		end
 	else
-		colorCode = (modLine.crafted and colorCodes.CRAFTED) or (modLine.scourge and colorCodes.SCOURGE) or (modLine.custom and colorCodes.CUSTOM) or (modLine.fractured and colorCodes.FRACTURED) or (modLine.crucible and colorCodes.CRUCIBLE) or colorCodes.MAGIC
+		colorCode = (modLine.crafted and colorCodes.CRAFTED) or (modLine.mutated and colorCodes.MUTATED) or (modLine.scourge and colorCodes.SCOURGE) or (modLine.custom and colorCodes.CUSTOM) or (modLine.fractured and colorCodes.FRACTURED) or (modLine.crucible and colorCodes.CRUCIBLE) or colorCodes.MAGIC
 	end
 	return colorCode..line
 end
@@ -142,7 +153,7 @@ itemLib.wiki = {
 		itemLib.wiki.open(name)
 	end,
 	openItem = function(item)
-		local name = item.rarity == "UNIQUE" and item.title or item.baseName
+		local name = (item.rarity == "UNIQUE" or item.rarity == "RELIC") and item.title or item.baseName
 
 		itemLib.wiki.open(name)
 	end,

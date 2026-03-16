@@ -24,7 +24,7 @@ local CalcBreakdownClass = newClass("CalcBreakdownControl", "Control", "ControlH
 	self.rangeGuide:Load("Assets/range_guide.png")
 	self.uiOverlay = NewImageHandle()
 	self.uiOverlay:Load("Assets/game_ui_small.png")
-	self.controls.scrollBar = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, -2, 0, 18, 0, 80, "VERTICAL", true)
+	self.controls.scrollBar = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, {-2, 0, 18, 0}, 80, "VERTICAL", true)
 end)
 
 function CalcBreakdownClass:IsMouseOver()
@@ -151,13 +151,15 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 		-- sort by the first column (the value)
 		local rowList = copyTable(breakdown.rowList, true)
 		local colKey = breakdown.colList[1].key
-		table.sort(rowList, function(a, b)
-			if a.reqNum then
-				return a.reqNum > b.reqNum
-			end
-			return a[colKey] > b[colKey]
-		end)
-		
+		-- avoid sorting ailment breakdowns
+		if breakdown.source then
+			table.sort(rowList, function(a, b)
+				if a.reqNum then
+					return a.reqNum > b.reqNum
+				end
+				return a[colKey] > b[colKey]
+			end)
+		end
 		-- Generic table
 		local section = {
 			type = "TABLE",
@@ -181,6 +183,7 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 				{ label = "More/less", key = "more" },
 				{ label = "Inc/red", key = "inc" },
 				{ label = "Efficiency", key = "efficiency" },
+				{ label = "Efficiency More/less", key = "efficiencyMore" },
 				{ label = "Reservation", key = "total" },
 			}
 		}
@@ -199,6 +202,7 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 				{ label = "Converted Damage", key = "convSrc" },
 				{ label = "Total", key = "total" },
 				{ label = "Conversion", key = "convDst" },
+				{ label = "Gain", key = "gainDst" },
 			}
 		}
 		t_insert(self.sectionList, section)
@@ -377,10 +381,10 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 			-- Multiple stat names specified, add this modifier's stat to the table
 			row.name = self:FormatModName(row.mod.name)
 		end
-		local sourceType = row.mod.source:match("[^:]+")
+		local sourceType = row.mod.source:match("[^:]+") or ""
+		row.source = sourceType
 		if not modList and not sectionData.modSource then
 			-- No modifier source specified, add the source type to the table
-			row.source = sourceType
 			row.sourceTooltip = function(tooltip)
 				tooltip:AddLine(16, "Total from "..sourceType..":")
 				for _, line in ipairs(sourceTotals[sourceType]) do
@@ -401,11 +405,14 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 		elseif sourceType == "Tree" then
 			-- Modifier is from a passive node, add node name, and add node ID (used to show node location)
 			local nodeId = row.mod.source:match("Tree:(%d+)")
+			local tattooNodeId = row.mod.source:match("Tree:(%w+)")
 			if nodeId then
 				local nodeIdNumber = tonumber(nodeId)
-				local node = build.spec.nodes[nodeIdNumber] or build.spec.tree.nodes[nodeIdNumber]
+				local node = build.spec.nodes[nodeIdNumber] or build.spec.tree.nodes[nodeIdNumber] or build.latestTree.nodes[nodeIdNumber]
 				row.sourceName = node.dn
 				row.sourceNameNode = node
+			elseif tattooNodeId then
+				row.sourceName = build.spec.tree.tattoo.idMap[tattooNodeId]
 			end
 		elseif sourceType == "Skill" then
 			-- Extract skill name
@@ -454,7 +461,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 				elseif tag.type == "MultiplierThreshold" or tag.type == "StatThreshold" then
 					desc = "If "..self:FormatVarNameOrList(tag.var or tag.stat, tag.varList or tag.statList)..(tag.upper and " <= " or " >= ")..(tag.thresholdPercent and tag.thresholdPercent.."% " or "")..(tag.threshold or self:FormatModName(tag.thresholdVar or tag.thresholdStat))
 				elseif tag.type == "SkillName" then
-					desc = "Skill: "..(tag.skillNameList and table.concat(tag.skillNameList, "/") or tag.skillName)
+					desc = "Skill: "..(tag.skillNameList and table.concat(tag.skillNameList, " / ") or tag.skillName)
 				elseif tag.type == "SkillId" then
 					desc = "Skill: "..build.data.skills[tag.skillId].name
 				elseif tag.type == "SkillType" then
@@ -491,7 +498,7 @@ function CalcBreakdownClass:FormatModName(modName)
 end
 
 function CalcBreakdownClass:FormatVarNameOrList(var, varList)
-	return var and self:FormatModName(var) or table.concat(varList, "/")
+	return var and self:FormatModName(var) or self:FormatModName(table.concat(varList, " / "))
 end
 
 function CalcBreakdownClass:FormatModBase(mod, base)

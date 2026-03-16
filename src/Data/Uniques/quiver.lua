@@ -117,8 +117,7 @@ Arrows deal 50% increased Damage with Hits and Ailments to Targets they Pierce
 The Fracturing Spinner
 Blunt Arrow Quiver
 League: Harbinger
-Source: Created from item parts obtained from Boss in The Beachhead
-Upgrade: Upgrades to unique{The Shattered Divinity} via currency{Fragmentation Scroll}
+Source: No longer obtainable
 Requires Level 60
 Implicits: 1
 (7-9) to (13-16) Added Physical Damage with Bow Attacks
@@ -130,8 +129,6 @@ Adds (19-22) to (30-35) Cold Damage to Spells and Attacks
 ]],[[
 The Shattered Divinity
 Blunt Arrow Quiver
-League: Harvest
-Source: Upgraded from unique{The Fracturing Spinner} via currency{Fragmentation Scroll}
 Requires Level 60
 Implicits: 1
 (7-9) to (13-16) Added Physical Damage with Bow Attacks
@@ -295,17 +292,18 @@ Attack skills can have 1 additional Totem Summoned at a time
 Steelworm
 Broadhead Arrow Quiver
 Variant: Pre 3.17.0
+Variant: Pre 3.26.0
 Variant: Current
 LevelReq: 52
 Implicits: 2
 {variant:1}6 to 12 Added Physical Damage with Bow Attacks
-{variant:2}(8-10)% increased Attack Speed
+{variant:2,3}(8-10)% increased Attack Speed
 Grants Call of Steel
 (30-60)% increased Evasion Rating and Armour
 Deal no Non-Physical Damage
 Attacks that Fire Projectiles Consume up to 1 additional Steel Shard
-Skills Fire 3 additional Projectiles for 4 seconds after
-you consume a total of 12 Steel Shards
+{variant:1,2}Skills Fire 3 additional Projectiles for 4 seconds after you consume a total of 12 Steel Shards
+{variant:3}Skills Fire 3 additional Projectiles for 4 seconds after you consume a total of 8 Steel Shards
 ]],[[
 Soul Strike
 Spike-Point Arrow Quiver
@@ -369,5 +367,46 @@ Implicits: 1
 Adds 1 to 2 Cold Damage to Attacks per 10 Dexterity
 Adds 1 to 2 Fire Damage to Attacks per 10 Strength
 Adds 0 to 3 Lightning Damage to Attacks per 10 Intelligence
-]],
-}
+]],[[
+Spinehail
+Vile Arrow Quiver
+Source: Drops from unique{Catarina} in normal{Mastermind's Lair}
+Variant: Minion Damage affects you
+Variant: Minion Attack Speed affects you
+Variant: Minion Cast Speed affects you
+Variant: Cast Speed with Minion Skills
+Variant: Minions are Aggressive
+Variant: Armour and Evasion Rating
+Variant: Evasion Rating and Energy Shield
+Variant: Life and Mana Regen
+Variant: Mana and Life Regen
+Variant: Fire and Cold Damage
+Variant: Fire and Lightning Damage
+Variant: Cold and Lightning Damage
+Requires Level 55
+Implicits: 1
+Gain (10-15)% of Physical Damage as Extra Chaos Damage
++(10-20) to Dexterity and Intelligence
+(7-14)% increased Attack Speed
+Minions deal (30-50)% increased Damage
+(5-10) to (12-24) Added Physical Damage with Bow Attacks
+Bow Attacks Sacrifice a random Damageable Minion to fire (1-3) additional Arrow
+{variant:1}Increases and Reductions to Minion Damage also affect you
+{variant:2}Increases and Reductions to Minion Attack Speed also affect you
+{variant:3}Increases and Reductions to Minion Cast Speed also affect you
+{variant:4}(20-40)% increased Cast Speed with Minion Skills
+{variant:5}Minions are Aggressive
+{variant:6}+(365-400) to Armour and Evasion Rating
+{variant:7}+(365-400) to Evasion Rating
+{variant:7}+(31-35) to maximum Energy Shield
+{variant:8}+(55-60) to maximum Life
+{variant:8}Regenerate 5.3 Mana per second
+{variant:9}+(55-60) to maximum Mana
+{variant:9}Regenerate 33.3 Life per second
+{variant:10}Adds (14-16) to (20-22) Fire Damage
+{variant:10}Adds (14-16) to (20-22) Cold Damage
+{variant:11}Adds (14-16) to (20-22) Fire Damage
+{variant:11}Adds (14-16) to (20-22) Lightning Damage
+{variant:12}Adds (14-16) to (20-22) Cold Damage
+{variant:12}Adds (14-16) to (20-22) Lightning Damage
+]],}

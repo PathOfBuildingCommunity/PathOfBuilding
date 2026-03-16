@@ -218,6 +218,70 @@ Implicits: 1
 {variant:2}{tags:jewellery_elemental}40% of Lightning Damage Converted to Cold Damage
 Your spells have 100% chance to Shock against Frozen enemies
 ]],[[
+Circle of Ambition
+Prismatic Ring
+Source: Drops from unique{Synthete Nightmare} in normal{The Cortex} (Uber)
+Requires Level 20
+Variant: Thunder: Skill Reservation
+Variant: Thunder: Lightning Damage
+Variant: Thunder: Buff Effect
+Variant: Thunder: Max Resistance
+Variant: Thunder: Lightning Resistance
+Variant: Ash: Ash: Skill Reservation
+Variant: Ash: Fire Damage
+Variant: Ash: Buff Effect
+Variant: Ash: Max Resistance
+Variant: Ash: Fire Resistance
+Variant: Ice: Skill Reservation
+Variant: Ice: Cold Damage
+Variant: Ice: Buff Effect
+Variant: Ice: Max Resistance
+Variant: Ice: Cold Resistance
+Variant: Purity: Skill Reservation
+Variant: Purity: Physical Damage
+Variant: Purity: Buff Effect
+Variant: Purity: Sentinel Damage
+Variant: Purity: Damage Reduction
+Variant: Agony: Skill Reservationwatcher
+Variant: Agony: Chaos Damage
+Variant: Agony: Buff Effect
+Variant: Agony: Agony Damage
+Variant: Agony: Chaos Resistance
+Selected Variant: 1
+Has Alt Variant: true
+Selected Alt Variant: 2
+Has Alt Variant Two: true
+Selected Alt Variant Two: 3
+Implicits: 0
+{tags:jewellery_attribute}+(10–20) to all Attributes
+{tags:jewellery_resistance}+(10–20)% to all Elemental Resistances
+10% increased Mana Reservation Efficiency of Herald Skills
+{variant:1}{tags:mana}Herald of Thunder has (30-40)% increased Mana Reservation Efficiency
+{variant:2}{tags:jewellery_elemental}(40-60)% increased Lightning Damage while affected by Herald of Thunder
+{variant:3}Herald of Thunder has (40-60)% increased Buff Effect
+{variant:4}{tags:jewellery_resistance}+1% to maximum Lightning Resistance while affected by Herald of Thunder
+{variant:5}{tags:jewellery_resistance}+(50-60)% to Lightning Resistance while affected by Herald of Thunder
+{variant:6}{tags:mana}Herald of Ash has (30-40)% increased Mana Reservation Efficiency
+{variant:7}{tags:jewellery_elemental}(40-60)% increased Fire Damage while affected by Herald of Ash
+{variant:8}Herald of Ash has (40-60)% increased Buff Effect
+{variant:9}{tags:jewellery_resistance}+1% to maximum Fire Resistance while affected by Herald of Ash
+{variant:10}{tags:jewellery_resistance}+(50-60)% to Fire Resistance while affected by Herald of Ash
+{variant:11}{tags:mana}Herald of Ice has (30-40)% increased Mana Reservation Efficiency
+{variant:12}{tags:jewellery_elemental}(40-60)% increased Cold Damage while affected by Herald of Ice
+{variant:13}Herald of Ice has (40-60)% increased Buff Effect
+{variant:14}{tags:jewellery_resistance}+1% to maximum Cold Resistance while affected by Herald of Ice
+{variant:15}{tags:jewellery_resistance}+(50-60)% to Cold Resistance while affected by Herald of Ice
+{variant:16}{tags:mana}Herald of Purity has (30-40)% increased Mana Reservation Efficiency
+{variant:17}{tags:physical_damage}(40-60)% increased Physical Damage while affected by Herald of Purity
+{variant:18}Herald of Purity has (40-60)% increased Buff Effect
+{variant:19}Sentinels of Purity deal (70-100)% increased Damage
+{variant:20}{tags:physical}4% additional Physical Damage Reduction while affected by Herald of Purity
+{variant:21}{tags:mana}Herald of Agony has (30-40)% increased Mana Reservation Efficiency
+{variant:22}{tags:chaos_damage}(40-60)% increased Chaos Damage while affected by Herald of Agony
+{variant:23}Herald of Agony has (40-60)% increased Buff Effect
+{variant:24}Agony Crawler deals (70-100)% increased Damage
+{variant:25}{tags:jewellery_resistance}+(31-43)% to Chaos Resistance while affected by Herald of Agony
+]],[[
 Circle of Anguish
 Ruby Ring
 League: Synthesis
@@ -368,16 +432,6 @@ Implicits: 1
 {variant:3}Recover 5% of Life on Kill
 {variant:3}Gain Adrenaline for 3 seconds on kill
 ]],[[
-Original Sin
-Amethyst Ring
-League: Sanctum
-Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond} while unique{The Original Scripture} is active in the normal{Relic Altar}
-LevelReq: 52
-Implicits: 1
-{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
-All Elemental Damage Converted to Chaos Damage
-Nearby Enemies' Chaos Resistance is 0
-]],[[
 Doedre's Damning
 Paua Ring
 Variant: Pre 3.19.0
@@ -412,17 +466,6 @@ Implicits: 1
 {variant:1}{tags:caster}(25-35)% increased Effect of your Curses
 {variant:2,3}{tags:caster}(15-25)% increased Effect of your Curses
 {variant:4}{tags:caster}(10-15)% increased Effect of your Curses
-]],[[
-Soulbound
-Paua Ring
-LevelReq: 44
-Implicits: 1
-{tags:mana}+(20-30) to maximum Mana
-{tags:jewellery_attribute}+(10-20) to all Attributes
-Link Skills have (10-15)% increased Cast Speed
-Link Skills have (10-15)% increased Skill Effect Duration
-Linked Targets Cannot Die for 2 seconds after you Die
-Lose no Experience when you die because a Linked target died
 ]],[[
 Dream Fragments
 Sapphire Ring
@@ -509,6 +552,31 @@ Implicits: 1
 {variant:2}50% increased Damage while on Consecrated Ground
 {variant:2}5% additional Block Chance while on Consecrated Ground
 ]],[[
+Grattus Signet
+Diamond Ring
+League: Necropolis
+Source: Created from 4 different unique{Grattus} family corpses in the normal{Necropolis}
+Requires Level 64
+{tags:critical}(20–30)% increased Global Critical Strike Chance
+{tags:attack,speed}(5–10)% increased Attack Speed
+{tags:caster,speed}(5–10)% increased Cast Speed
+{tags:jewellery_defense}+(40–60) to maximum Energy Shield
+{tags:life}+(30–50) to maximum Life
+Attacks inflict Unnerve on Critical Strike for 4 seconds
+Spells inflict Intimidate on Critical Strike for 4 seconds
+]],[[
+The Hateful Accuser 
+Nameless Ring
+League: Settlers of Kalguur
+Requires Level 50
+Implicits: 2
+50% increased Elemental Ailment Duration on you
+{tags:caster}50% reduced Effect of Curses on you
+Grants Level 20 Penance Mark
+{tags:caster,speed}(6-12)% increased Cast Speed
+{tags:life}+(30-60) to maximum Life
+{tags:jewellery_resistance}+(7-19)% to Chaos Resistance
+]],[[
 Heartbound Loop
 Moonstone Ring
 Requires Level 20
@@ -519,6 +587,26 @@ Implicits: 1
 {tags:life}Minions have 15% increased maximum Life
 Minions have 10% increased Area of Effect
 {tags:physical_damage}350 Physical Damage taken on Minion Death
+]],[[
+Ixchel's Temptation
+Gold Ring
+League: Affliction
+Requires Level 20
+Implicits: 1
+(6-15)% increased Rarity of Items found
+{tags:jewellery_attribute}+(10-15) to all Attributes
+{tags:attack,chaos_damage}Adds (7-10) to (15-18) Chaos Damage to Attacks
+{tags:caster,jewellery_elemental}Adds (9-12) to (19-22) Fire Damage to Spells
+{tags:jewellery_defense}+(80-100) to Armour
+{tags:jewellery_defense}+(80-100) to Evasion Rating
+{tags:jewellery_defense}+(30-35) to maximum Energy Shield
+{tags:life}+(25-30) to maximum Life
+{tags:critical}+(15-20)% to Global Critical Strike Multiplier
+{tags:mana}+(20-25) to maximum Mana
+{tags:jewellery_resistance}+(8-10)% to all Elemental Resistances
+{tags:attack,caster,speed}(6-8)% increased Attack and Cast Speed
+Maximum Quality is 200%
+Corrupted
 ]],[[
 Anathema
 Moonstone Ring
@@ -577,7 +665,7 @@ League: Blight
 {tags:attack,physical_damage}Adds 1 to 4 Physical Damage to Attacks
 {tags:jewellery_attribute}+(20-30) to Dexterity
 25% chance to Poison on Hit
-{tags:chaos}(40-60)% increased Damage with Poison
+{tags:chaos_damage}(40-60)% increased Damage with Poison
 You are Chilled while you are Poisoned
 Non-Chilled Enemies you Poison are Chilled
 Poisoned Enemies you Kill with Hits Shatter
@@ -667,7 +755,7 @@ Implicits: 2
 {tags:speed}(6-8)% increased Movement Speed when on Low Life
 31% increased Light Radius
 {tags:chaos,jewellery_resistance}+(20-25)% Chaos Resistance when on Low Life
-While on Low Life, Enemies are Unlucky when Damaging you
+Damage of Enemies Hitting you is Unlucky while you are on Low Life
 ]],[[
 Malachai's Artifice
 Unset Ring
@@ -716,8 +804,8 @@ Implicits: 1
 {tags:jewellery_elemental,attack}Adds (26-32) to (42-48) Cold Damage to Attacks
 {tags:jewellery_defense}(6-10)% increased maximum Energy Shield
 {tags:life}(6-10)% increased maximum Life
-{tags:attack}(60-80)% increased Attack Damage if your other Ring is a Shaper Item
-Cannot be Stunned by Attacks if your other Ring is an Elder Item
+{tags:attack}(60-80)% increased Attack Damage if your opposite Ring is a Shaper Item
+Cannot be Stunned by Attacks if your opposite Ring is an Elder Item
 20% chance to Trigger Level 20 Tentacle Whip on Kill
 ]],[[
 Mark of the Shaper
@@ -730,8 +818,8 @@ Implicits: 1
 {tags:jewellery_elemental,caster}Adds (13-18) to (50-56) Lightning Damage to Spells
 {tags:jewellery_defense}(6-10)% increased maximum Energy Shield
 {tags:life}(6-10)% increased maximum Life
-{tags:caster}(60-80)% increased Spell Damage if your other Ring is an Elder Item
-Cannot be Stunned by Spells if your other Ring is a Shaper Item
+{tags:caster}(60-80)% increased Spell Damage if your opposite Ring is an Elder Item
+Cannot be Stunned by Spells if your opposite Ring is a Shaper Item
 20% chance to Trigger Level 20 Summon Volatile Anomaly on Kill
 ]],[[
 Ming's Heart
@@ -811,8 +899,20 @@ Implicits: 1
 {variant:2,3}10% chance to Ignite
 {variant:2,3}{tags:life}Recover (20-30) Life when you Ignite an Enemy
 ]],[[
+Original Sin
+Amethyst Ring
+League: Sanctum
+Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond} while unique{The Original Scripture} is active in the normal{Relic Altar}
+LevelReq: 52
+Implicits: 1
+{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
+All Elemental Damage Converted to Chaos Damage
+Nearby Enemies' Chaos Resistance is 0
+]],[[
 The Pariah
 Unset Ring
+Variant: Pre 3.25.0
+Variant: Current
 League: Warbands
 Requires Level 60
 Implicits: 1
@@ -822,7 +922,8 @@ Has 1 Socket
 {tags:life}+100 to Maximum Life per Red Socket
 {tags:jewellery_defense}+100 to Maximum Energy Shield per Blue Socket
 {tags:mana}+100 to Maximum Mana per Green Socket
-15% increased Item Quantity per White Socket
+{variant:1}15% increased Item Quantity per White Socket
+{variant:2}60% increased Rarity of Items found per White Socket
 ]],[[
 Perandus Signet
 Paua Ring
@@ -922,6 +1023,18 @@ Implicits: 1
 10% increased Light Radius
 Ignited Enemies you hit are destroyed on Kill
 ]],[[
+The Queller of Minds
+Nameless Ring
+League: Settlers of Kalguur
+Requires Level 50
+Implicits: 2
+50% increased Elemental Ailment Duration on you
+{tags:caster}50% reduced Effect of Curses on you
+Grants Level 20 Pacify
+{tags:caster,speed}(6-12)% increased Cast Speed
+{tags:mana}+(30-60) to maximum Mana
+{tags:jewellery_resistance}+(7-19)% to Chaos Resistance
+]],[[
 Redblade Band
 Unset Ring
 League: Warbands
@@ -989,6 +1102,18 @@ Curse Auras from Socketed Skills also affect you
 {tags:caster}20% reduced Effect of Curses on you
 (15-25)% increased Damage with Hits and Ailments against Cursed Enemies
 ]],[[
+The Selfish Shepherd
+Nameless Ring
+League: Settlers of Kalguur
+Requires Level 50
+Implicits: 2
+50% increased Elemental Ailment Duration on You
+{tags:caster}50% reduced Effect of Curses on You
+Grants Level 20 Affliction
+{tags:caster,speed}(6-12)% increased Cast Speed
+{tags:jewellery_defense}+(30-60) to maximum Energy Shield
+{tags:jewellery_resistance}+(7-19)% to Chaos Resistance
+]],[[
 Shavronne's Revelation
 Moonstone Ring
 League: Anarchy, Onslaught
@@ -1017,6 +1142,7 @@ Coral Ring
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.9.0
+Variant: Pre 3.28.0
 Variant: Current
 Requires Level 45
 Implicits: 1
@@ -1024,13 +1150,15 @@ Implicits: 1
 {tags:jewellery_elemental,attack}(20-30)% increased Elemental Damage with Attack Skills
 {tags:jewellery_elemental,attack}Adds (8-15) to (20-28) Fire Damage to Attacks
 {variant:1}(20-40)% reduced Rarity of Items found
-{variant:2,3,4}(10-20)% reduced Rarity of Items found
+{variant:2,3,4,5}(10-20)% reduced Rarity of Items found
 {variant:1,2}Left ring slot: 30% reduced Reflected Elemental Damage taken
 {variant:3}Left ring slot: 40% reduced Reflected Elemental Damage taken
 {variant:4}Left ring slot: 80% reduced Reflected Elemental Damage taken
+{variant:5}Left ring slot: 100% of Elemental Hit Damage from you and your Minions cannot be Reflected
 {variant:1,2}{tags:physical}Right ring slot: 30% reduced Reflected Physical Damage taken
 {variant:3}{tags:physical}Right ring slot: 40% reduced Reflected Physical Damage taken
 {variant:4}{tags:physical}Right ring slot: 80% reduced Reflected Physical Damage taken
+{variant:5}Right ring slot: 100% of Physical Hit Damage from you and your Minions cannot be Reflected
 ]],[[
 Snakepit
 Sapphire Ring
@@ -1048,6 +1176,17 @@ Implicits: 1
 {variant:2}Right ring slot: Projectiles from Spells Chain +1 times
 {variant:2}Right ring slot: Projectiles from Spells cannot Fork
 {variant:2}Projectiles from Spells cannot Pierce
+]],[[
+Soulbound
+Paua Ring
+LevelReq: 44
+Implicits: 1
+{tags:mana}+(20-30) to maximum Mana
+{tags:jewellery_attribute}+(10-20) to all Attributes
+Link Skills have (10-15)% increased Cast Speed
+Link Skills have (10-15)% increased Skill Effect Duration
+Linked Targets Cannot Die for 2 seconds after you Die
+Lose no Experience when you die because a Linked target died
 ]],[[
 Stormfire
 Opal Ring
@@ -1081,6 +1220,7 @@ Prismatic Ring
 League: Domination, Nemesis
 Source: Vendor Recipe
 Variant: Pre 3.0.0
+Variant: Pre 3.25.0
 Variant: Current
 Requires Level 30
 Implicits: 1
@@ -1088,13 +1228,14 @@ Implicits: 1
 {variant:1}{tags:jewellery_elemental,attack}15% increased Elemental Damage with Attack Skills
 {variant:2}{tags:jewellery_elemental,attack}30% increased Elemental Damage with Attack Skills
 {variant:1}{tags:jewellery_resistance}+(10-15)% to all Elemental Resistances
-{variant:2}{tags:jewellery_resistance}+(20-30)% to all Elemental Resistances
+{variant:2,3}{tags:jewellery_resistance}+(20-30)% to all Elemental Resistances
 {variant:1}{tags:jewellery_elemental}15% increased Elemental Damage
 {variant:2}{tags:jewellery_elemental}30% increased Elemental Damage
 {variant:1}5% chance to Freeze, Shock and Ignite
-{variant:2}10% chance to Freeze, Shock and Ignite
+{variant:2,3}10% chance to Freeze, Shock and Ignite
 {variant:1}10% increased Damage per Freeze, Shock and Ignite on Enemy
 {variant:2}20% increased Damage with Hits and Ailments per Freeze, Shock and Ignite on Enemy
+{variant:3}{tags:jewellery_elemental}(30-40)% increased Elemental Damage with Hits and Ailments for each type of Elemental Ailment on Enemy
 ]],[[
 Tasalio's Sign
 Sapphire Ring
@@ -1141,21 +1282,23 @@ Variant: Pre 1.0.0
 Variant: Pre 1.1.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
+Variant: Pre 3.25.0
 Variant: Current
 Requires Level 30
 Implicits: 2
 {variant:1}{tags:jewellery_resistance}+(8-12) to all Elemental Resistances
-{variant:2,3,4,5}{tags:jewellery_resistance}+(8-10)% to all Elemental Resistances
+{variant:2,3,4,5,6}{tags:jewellery_resistance}+(8-10)% to all Elemental Resistances
 {variant:1,2}(15-25)% increased Quantity of Items found
 {variant:3,4,5}(10-16)% increased Quantity of Items found
+{variant:6}(20-30)% increased Rarity of Items found
 Can't use other Rings
 {variant:1,2,3}{tags:jewellery_resistance}+(8-12)% to all Elemental Resistances
 {variant:4}{tags:jewellery_resistance}+(16-24)% to all Elemental Resistances
-{variant:5}{tags:jewellery_resistance}+(25-40)% to all Elemental Resistances
+{variant:5,6}{tags:jewellery_resistance}+(25-40)% to all Elemental Resistances
 {variant:1,2,3}{tags:attack,life}Gain (20-30) Life per Enemy Hit with Attacks
-{variant:4,5}{tags:attack,life}Gain (40-60) Life per Enemy Hit with Attacks
+{variant:4,5,6}{tags:attack,life}Gain (40-60) Life per Enemy Hit with Attacks
 {variant:1,2,3}{tags:attack,mana}Gain 15 Mana per Enemy Hit with Attacks
-{variant:4,5}{tags:attack,mana}Gain 30 Mana per Enemy Hit with Attacks
+{variant:4,5,6}{tags:attack,mana}Gain 30 Mana per Enemy Hit with Attacks
 {tags:caster}50% reduced Effect of Curses on you
 ]],[[
 Timeclasp
@@ -1321,15 +1464,18 @@ Bleeding Enemies you Kill with Hits Shatter
 ]],[[
 Ventor's Gamble
 Gold Ring
+Variant: Pre 3.25.0
+Variant: Current
 Requires Level 65
 Implicits: 1
 (6-15)% increased Rarity of Items found
 {tags:life}+(0-60) to maximum Life
-(-10-10)% increased Quantity of Items found
+{variant:1}(-10-10)% increased Quantity of Items found
 (-40-40)% increased Rarity of Items found
 {tags:jewellery_resistance}+(-25-50)% to Fire Resistance
 {tags:jewellery_resistance}+(-25-50)% to Cold Resistance
 {tags:jewellery_resistance}+(-25-50)% to Lightning Resistance
+{variant:2}{tags:mana}(-15-15)% increased Mana Reservation Efficiency of Skills
 ]],[[
 Vivinsect
 Unset Ring
@@ -1432,7 +1578,7 @@ Call of the Void
 Sapphire Ring
 Shaper Item
 Elder Item
-Source: Drops from unique{The Elder} (Uber)
+Source: Drops from unique{The Elder} (Uber Uber)
 Requires Level 16
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
@@ -1445,7 +1591,183 @@ Enemies Chilled by your Hits lessen their Damage dealt by half of Chill Effect
 Kalandra's Touch
 Ring
 League: Kalandra
-Reflects your other Ring
+Reflects your opposite Ring
 Mirrored
+]],[[
+Betrayal's Sting
+Steel Ring
+Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
+Requires Level 80
+Implicits: 1
+{tags:attack}Adds (3-4) to (10-14) Physical Damage to Attacks
+{tags:jewellery_attribute}+(20-35) to Dexterity
+{tags:jewellery_resistance}(-30--20)% to all Elemental Resistances
+{tags:jewellery_resistance}+(20-30)% to Chaos Resistance
+{tags:speed}5% increased Movement Speed
+{tags:chaos_damage}(25-40)% chance to inflict an additional Poison on the same Target when you inflict Poison
+]],[[
+Coiling Whisper
+Amethyst Ring
+Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
+Requires Level 32
+Implicits: 1
+{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:caster}(25-50)% reduced Area of Effect of Hex Skills
+Targets are Unaffected by your Hexes
+When 90% of your Hex's Duration Expires on an Enemy, Eat 1 Soul per Enemy Power
+]],[[
+Enmity's Embrace
+Vermillion Ring
+Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
+Requires Level 80
+Implicits: 1
+{tags:life}(5-7)% increased Maximum Life
+{tags:jewellery_attribute}+(30-50) to Strength
+{tags:jewellery_elemental}(10-20)% increased Fire Damage
+{tags:jewellery_resistance}(65-75)% reduced Fire Resistance
+{tags:jewellery_elemental}Take (300-500) Fire Damage when you use a Skill
+Damage Penetrates Fire Resistance equal to your Overcapped Fire Resistance, up to a maximum of 200%
+]],[[
+Prospero's Protection
+Iron Ring
+Requires Level 32
+Implicits: 1
+{tags:attack}Adds 1 to 4 Physical Damage to Attacks
+(4-6)% chance to Block Attack Damage
+{tags:jewellery_attribute}+(15-35) to Strength
+{tags:life}+(45-60) to Maximum Life
+{tags:jewellery_defense}Armour from equipped shield is doubled
+{tags:jewellery_defense}Gain no armour from equipped body armour
+]],[[
+Squirming Terror
+Unset Ring
+Requires Level 32
+Implicits: 1
+Has 1 Socket
+An Enemy Writhing Worm spawns every 2 seconds
+{tags:caster}20% chance to Trigger Socketed Spell on Kill, with a 0.5 second Cooldown
+{tags:life}Lose (10-20) Life per Enemy Killed
+{tags:mana}Gain (5-10) Mana per Enemy Killed
+]],
+[[
+Lost Unity
+Formless Ring
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 42
+Implicits: 1
+{tags:jewellery_defense}(5-7)% increased Global Defences
+Grants Level 30 Herald of the Hive Skill
+{tags:jewellery_resistance}+(10–20)% to all Elemental Resistances
+{tags:jewellery_resistance}+(23–37)% to Chaos Resistance
+]],
+[[
+The Sundered Will
+Fugitive Ring
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 42
+Implicits: 2
+Cannot roll Modifiers of Non-Chaos Damage Types
+{tags:jewellery_resistance}+2% to maximum Chaos Resistance
+{tags:jewellery_attribute}+(7-13) to all Attributes
+{tags:chaos_damage}Adds (7-11) to (17-23) Chaos Damage
+{tags:jewellery_resistance}+(13-29)% to Chaos Resistance
+(20-30)% increased Area of Effect of Aura Skills
+(20-35)% reduced Reservation Efficiency of Skills
+Increases and Reductions to Chaos Damage also apply to Effect of Auras from Chaos Skills at (10–15)% of their value, up to a maximum of 150%
+]],
+[[
+The Unseen Hue
+Opal Ring
+Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 80
+Variant: Scorch
+Variant: Brittle
+Variant: Sap
+Implicits: 1
+{tags:elemental_damage}(15-25)% increased Elemental Damage
+{tags:jewellery_resistance}+(5-30)% to Fire Resistance
+{tags:jewellery_resistance}+(5-30)% to Cold Resistance
+{tags:jewellery_resistance}+(5-30)% to Lightning Resistance
+{tags:caster,attack,speed}(6-12)% increased Attack and Cast Speed
+(10-20)% increased Effect of Non-Damaging Ailments
+{variant:1}Hits with Prismatic Skills always Scorch
+{variant:2}Hits with Prismatic Skills always inflict Brittle
+{variant:3}Hits with Prismatic Skills always Sap
+]],[[
+The Will of Esh
+Synaptic Ring
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 42
+Implicits: 2
+Cannot roll Modifiers of Non-Lightning Damage Types
+{tags:jewellery_resistance}+2% to maximum Lightning Resistance
+{tags:jewellery_attribute}+(15-25) to Intelligence
+{tags:elemental_damage}Adds (1-2) to (43-56) Lightning Damage
+{tags:jewellery_resistance}+(20-30)% to Lightning Resistance
+(20-30)% increased Area of Effect of Aura Skills
+(20-35)% reduced Reservation Efficiency of Skills
+Increases and Reductions to Lightning Damage also apply to Effect of Auras from Lightning Skills at (10-15)% of their value, up to a maximum of 150%
+]],
+[[
+The Will of Tul
+Cryonic Ring
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 42
+Implicits: 2
+Cannot roll Modifiers of Non-Cold Damage Types
+{tags:jewellery_resistance}+2% to maximum Cold Resistance
+{tags:jewellery_attribute}+(15-25) to Dexterity
+{tags:elemental_damage}Adds (8-12) to (18-26) Cold Damage
+{tags:jewellery_resistance}+(20-30)% to Cold Resistance
+(20-30)% increased Area of Effect of Aura Skills
+(20-35)% reduced Reservation Efficiency of Skills
+Increases and Reductions to Cold Damage also apply to Effect of Auras from Cold Skills at (10-15)% of their value, up to a maximum of 150%
+]],
+[[
+The Will of Uul-Netol
+Organic Ring
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 42
+Implicits: 2
+Cannot roll Modifiers of Non-Physical Damage Types
+3% additional Physical Damage Reduction
+{tags:jewellery_attribute}+(15-25) to Strength
+Adds (8-12) to (14-20) Physical Damage
+{tags:jewellery_defense}(20-30)% increased Armour
+(20-30)% increased Area of Effect of Aura Skills
+(20-35)% reduced Reservation Efficiency of Skills
+Increases and Reductions to Physical Damage also apply to Effect of Auras from Physical Skills at (10-15)% of their value, up to a maximum of 150%
+]],
+[[
+The Will of Xoph
+Enthalpic Ring
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 42
+Implicits: 2
+Cannot roll Modifiers of Non-Fire Damage Types
+{tags:jewellery_resistance}+2% to maximum Fire Resistance
+{tags:jewellery_attribute}+(15-25) to Strength
+{tags:elemental_damage}Adds (10-14) to (26-34) Fire Damage
+{tags:jewellery_resistance}+(20-30)% to Fire Resistance
+(20-30)% increased Area of Effect of Aura Skills
+(20-35)% reduced Reservation Efficiency of Skills
+Increases and Reductions to Fire Damage also apply to Effect of Auras from Fire Skills at (10-15)% of their value, up to a maximum of 150%
+]],
+[[
+Woespike
+Steel Ring
+Source: Drops from unique{Uber Incarnation of Fear} in normal{Moment of Trauma}
+Variant: Pre 3.28.0
+Variant: Current
+Requires Level 80
+Implicits: 1
+{tags:attack,physical_damage}Adds (3-4) to (10-14) Physical Damage to Attacks
+{tags:jewellery_attribute}+(25-40) to Strength and Dexterity
+{tags:attack,physical_damage}Adds (8-12) to (18-24) Physical Damage to Attacks
+{tags:attack}(10-20)% chance to Impale Enemies on Hit with Attacks
+{variant:1}(40-25)% reduced Impale Duration
+{variant:2}(50-40)% less Impale Duration
+{variant:1}{tags:attack}(45-60)% chance on Melee Hit for the Strongest Impale on target to last for 1 additional Hit
+{variant:2}{tags:attack}(20-30)% chance on Melee Hit for the Strongest Impale on target to last for 1 additional Hit
 ]],
 }

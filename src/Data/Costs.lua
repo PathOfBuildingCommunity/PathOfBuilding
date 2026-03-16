@@ -71,7 +71,7 @@ return {
 	[12] = {
 		Resource = "ESPerMinute",
 		Stat = "base_es_cost_per_minute",
-		ResourceString = "{0) Energy Shield per second",
+		ResourceString = "{0} Energy Shield per second",
 		Divisor = 60,
 	},
 	[13] = {

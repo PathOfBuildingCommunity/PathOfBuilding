@@ -3,21 +3,19 @@
 
 return {
 	[1]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Sacrifices {0}% of your Life\nMinions Regenerate {1}% of Sacrificed Life per second"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Sacrifices {0}% of your Life\nMinions Regenerate {1}% of Sacrificed Life per second"
 			}
 		},
 		name="blood_offering_life_loss",
@@ -27,30 +25,28 @@ return {
 		}
 	},
 	[2]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% more Life Regeneration granted to Minions per corpse Consumed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% less Life Regeneration granted to Minions per corpse Consumed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% more Life Regeneration granted to Minions per corpse Consumed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% less Life Regeneration granted to Minions per corpse Consumed"
 			}
 		},
 		name="blood_offering_life_regen_multi",
@@ -59,30 +55,28 @@ return {
 		}
 	},
 	[3]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Grants Minions {0}% increased Attack Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Grants Minions {0}% reduced Attack Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Grants Minions {0}% increased Attack Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Grants Minions {0}% reduced Attack Speed"
 			}
 		},
 		name="attack_speed_incr_skill_granted",
@@ -91,30 +85,28 @@ return {
 		}
 	},
 	[4]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Grants Minions {0}% increased Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Grants Minions {0}% reduced Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Grants Minions {0}% increased Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Grants Minions {0}% reduced Damage"
 			}
 		},
 		name="damage_incr",
@@ -123,30 +115,28 @@ return {
 		}
 	},
 	[5]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Grants Minions {0}% increased Cast Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Grants Minions {0}% reduced Cast Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Grants Minions {0}% increased Cast Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Grants Minions {0}% reduced Cast Speed"
 			}
 		},
 		name="cast_speed_incr_skill_granted",
@@ -155,30 +145,28 @@ return {
 		}
 	},
 	[6]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Grants Minions {0}% increased Movement Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Grants Minions {0}% reduced Movement Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Grants Minions {0}% increased Movement Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Grants Minions {0}% reduced Movement Speed"
 			}
 		},
 		name="movement_speed_incr",
@@ -187,17 +175,15 @@ return {
 		}
 	},
 	[7]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Grants Minions {0:+d}% Chance to Block Attack Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Grants Minions {0:+d}% Chance to Block Attack Damage"
 			}
 		},
 		name="base_block",
@@ -206,17 +192,15 @@ return {
 		}
 	},
 	[8]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Grants Minions {0:+d}% Chance to Block Spell Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Grants Minions {0:+d}% Chance to Block Spell Damage"
 			}
 		},
 		name="base_spell_block",
@@ -225,17 +209,15 @@ return {
 		}
 	},
 	[9]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions recover {0} Life when they Block"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions recover {0} Life when they Block"
 			}
 		},
 		name="recover_life_on_block",
@@ -244,17 +226,15 @@ return {
 		}
 	},
 	[10]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions gain {0}% of their Physical Damage as Extra Chaos Damage"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions gain {0}% of their Physical Damage as Extra Chaos Damage"
 			}
 		},
 		name="physical_damage_to_add_as_chaos",
@@ -263,17 +243,15 @@ return {
 		}
 	},
 	[11]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions gain {0}% of their Maximum Life as\nExtra Maximum Energy Shield for each corpse Consumed"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions gain {0}% of their Maximum Life as\nExtra Maximum Energy Shield for each corpse Consumed"
 			}
 		},
 		name="spirit_offering_life_as_es_per_corpse",
@@ -282,17 +260,15 @@ return {
 		}
 	},
 	[12]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Grants Minions +{0}% to Chaos Resistance"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Grants Minions +{0}% to Chaos Resistance"
 			}
 		},
 		name="chaos_res",
@@ -301,17 +277,15 @@ return {
 		}
 	},
 	[13]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions gain {0:+d}% to all Elemental Resistances"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions gain {0:+d}% to all Elemental Resistances"
 			}
 		},
 		name="elemental_resist",
@@ -320,25 +294,23 @@ return {
 		}
 	},
 	[14]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="divide_by_one_hundred",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextLifeLeech"
+				},
+				limit={
 					[1]={
-						k="divide_by_one_hundred",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextLifeLeech"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Grants Minions {0}% of Damage Leeched as Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Grants Minions {0}% of Damage Leeched as Life"
 			}
 		},
 		name="life_leech_from_any",
@@ -347,25 +319,23 @@ return {
 		}
 	},
 	[15]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="per_minute_to_per_second",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextRecently"
+				},
+				limit={
 					[1]={
-						k="per_minute_to_per_second",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextRecently"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Grants Minions {0}% of Life Regenerated per Second if they have Blocked recently"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Grants Minions {0}% of Life Regenerated per Second if they have Blocked recently"
 			}
 		},
 		name="minion_life_regen_if_blocked",
@@ -374,30 +344,28 @@ return {
 		}
 	},
 	[16]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Effect of Offering"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Effect of Offering"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Effect of Offering"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Effect of Offering"
 			}
 		},
 		name="offering_effect",

@@ -26,6 +26,7 @@ common.curl = require("lcurl.safe")
 common.xml = require("xml")
 common.base64 = require("base64")
 common.sha1 = require("sha1")
+local utf8 = require('lua-utf8')
 
 -- Try to load a library return nil if failed. https://stackoverflow.com/questions/34965863/lua-require-fallback-error-handling
 function prerequire(...)
@@ -39,6 +40,19 @@ profiling = false
 
 if launch.devMode and profiler == nil then
 	ConPrintf("Unable to Load Profiler")
+end
+
+-- Optimize coroutines to run at full framerate
+local co_create = coroutine.create
+local active_coroutines = setmetatable({}, { __mode = "k" })
+function coroutine.create(func)
+	local co = co_create(func)
+	active_coroutines[co] = true
+	return co
+end
+
+function coroutine._list()
+	return active_coroutines
 end
 
 -- Class library
@@ -657,20 +671,21 @@ function formatNumSep(str)
 		end
 		local x, y, minus, integer, fraction = str:find("(-?)(%d+)(%.?%d*)")
 		if main.showThousandsSeparators then
-			integer = integer:reverse():gsub("(%d%d%d)", "%1"..main.thousandsSeparator):reverse()
+			rev1kSep = utf8.reverse(main.thousandsSeparator)
+			integer = utf8.reverse(utf8.gsub(utf8.reverse(integer), "(%d%d%d)", "%1"..rev1kSep))
 			-- There will be leading separators if the number of digits are divisible by 3
 			-- This checks for their presence and removes them
 			-- Don't use patterns here because thousandsSeparator can be a pattern control character, and will crash if used
 			if main.thousandsSeparator ~= "" then
-				local thousandsSeparator = string.find(integer, main.thousandsSeparator, 1, 2)
+				local thousandsSeparator = utf8.find(integer, rev1kSep, 1, 2)
 				if thousandsSeparator and thousandsSeparator == 1 then
-					integer = integer:sub(2)
+					integer = utf8.sub(integer, 2)
 				end
 			end
 		else
-			integer = integer:reverse():gsub("(%d%d%d)", "%1"):reverse()
+			integer = utf8.reverse(utf8.gsub(utf8.reverse(integer), "(%d%d%d)", "%1"))
 		end
-		return colour..minus..integer..fraction:gsub("%.", main.decimalSeparator)
+		return colour..minus..integer..utf8.gsub(fraction, "%.", main.decimalSeparator)
 	end)
 end
 
@@ -769,15 +784,7 @@ end
 
 -- Global Cache related
 function cacheData(uuid, env)
-	local mode = env.mode
-	if mode == "CALCULATOR" then return end
-
-	-- If we previously had global data, we are about to over-ride it, set tables to `nil` for Lua Garbage Collection
-	if GlobalCache.cachedData[mode][uuid] then
-		GlobalCache.cachedData[mode][uuid].ActiveSkill = nil
-		GlobalCache.cachedData[mode][uuid].Env = nil
-	end
-	GlobalCache.cachedData[mode][uuid] = {
+	GlobalCache.cachedData[env.mode][uuid] = {
 		Name = env.player.mainSkill.activeEffect.grantedEffect.name,
 		Speed = env.player.output.Speed,
 		HitSpeed = env.player.output.HitSpeed,
@@ -795,49 +802,11 @@ function cacheData(uuid, env)
 	}
 end
 
--- Add an entry for a fabricated skill (e.g., Mirage Archers)
---   to be deleted if it's not longer needed
-function addDeleteGroupEntry(name)
-	if not GlobalCache.deleteGroup[name] then
-		GlobalCache.deleteGroup[name] = true
-	end
-end
-
--- Remove an entry from the "to be deleted" list
---   because it is still needed
-function removeDeleteGroupEntry(name)
-	if GlobalCache.deleteGroup[name] then
-		GlobalCache.deleteGroup[name] = nil
-	end
-end
-
--- Delete a skill-group entry from the skill list if it has
---   been marked for deletion and nothing over-wrote that
-function deleteFabricatedGroup(skillsTab)
-	for index, socketGroup in ipairs(skillsTab.controls.groupList.list) do
-		if GlobalCache.deleteGroup[socketGroup.label] then
-			t_remove(skillsTab.controls.groupList.list, index)
-			if skillsTab.displayGroup == socketGroup then
-				skillsTab:SetDisplayGroup()
-			end
-			skillsTab:AddUndoState()
-			skillsTab.build.buildFlag = true
-			skillsTab.controls.groupList.selValue = nil
-			wipeTable(GlobalCache.deleteGroup)
-			break
-		end
-	end
-end
-
 -- Wipe all the tables associated with Global Cache
 function wipeGlobalCache()
 	wipeTable(GlobalCache.cachedData.MAIN)
 	wipeTable(GlobalCache.cachedData.CALCS)
 	wipeTable(GlobalCache.cachedData.CALCULATOR)
-	wipeTable(GlobalCache.cachedData.CACHE)
-	wipeTable(GlobalCache.excludeFullDpsList)
-	wipeTable(GlobalCache.deleteGroup)
-	GlobalCache.noCache = nil
 end
 
 -- Check if a specific named gem is enabled in a socket group belonging to a skill
@@ -967,4 +936,41 @@ function string:matchOrPattern(pattern)
 		end
 	end
 	return false
+end
+
+function ImportBuild(importLink, callback)
+	local urlText = importLink:gsub("^[%s?]+", ""):gsub("[%s?]+$", "") -- Quick Trim
+	if urlText:match("youtube%.com/redirect%?") or urlText:match("google%.com/url%?") then
+		local nested_url = urlText:gsub(".*[?&]q=([^&]+).*", "%1")
+		urlText = UrlDecode(nested_url)
+	end
+	local websiteInfo = nil
+	for j = 1, #buildSites.websiteList do
+		if urlText and urlText:match(buildSites.websiteList[j].matchURL) then
+			websiteInfo = buildSites.websiteList[j]
+		end
+	end
+
+	-- its an import link
+	if websiteInfo then
+		buildSites.DownloadBuild(urlText, websiteInfo, function(isSuccess, data)
+			if isSuccess then
+				callback(Inflate(common.base64.decode(data:gsub("-", "+"):gsub("_", "/"))), urlText)
+			end
+		end)
+	else
+		-- try to decode input buffer
+		callback(Inflate(common.base64.decode(importLink:gsub("-", "+"):gsub("_", "/"))), nil)
+	end
+end
+
+-- Returns virtual screen size
+function GetVirtualScreenSize()
+	local width, height = GetScreenSize()
+	local scale = GetScreenScale and GetScreenScale() or 1.0
+	if scale ~= 1.0 then
+		width = math.floor(width / scale)
+		height = math.floor(height / scale)
+	end
+	return width, height
 end

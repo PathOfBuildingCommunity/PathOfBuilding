@@ -13,6 +13,7 @@ Used as a key, so you can reference this mod elsewhere in PoB.  Can really be an
 - "OVERRIDE": used when you want to ignore any calculations done on this mod and just use the value (e.g. "your resistances are 78%" from Loreweave)
 - "FLAG": used for conditions.  Value will be true/false when this type is used.
   - When you need the "FLAG" ModType, consider using the function `flag(name, source, modFlags, keywordFlags, extraTags)` instead. This method shortens the code and clarifies the intent. For example, `flag("ZealotsOath", { type = "Condition", var = "UsingFlask" })` is the same as `mod("ZealotsOath", "FLAG", true, { type = "Condition", var = "UsingFlask" })`
+- "MAX" and "MIN": used for values where only the highest or lowest value should take effect respectively. Examples are `"ImprovedMinionDamageAppliesToPlayer"` for "Increases and Reductions to Minion Damage apply ... at X% of their value" or `"PoisonStackLimit"` for "Cannot Poison Enemies with at least X Poisons on them"
 ### Value
 This represents the raw value of the mod.  When it's used in the skills to map from the skill data, this will be `nil`, as it pulls the number from the gem based on the level.
 ### Source
@@ -36,6 +37,8 @@ Often a mod will only apply under certain conditions, apply multiple times based
     * var: mod to multiply by
     * limit: The maximum number the mod can go up to
     * limitTotal: boolean that changes the behavior of limit to apply after multiplication.  Defaults to false.
+	* globalLimit: The maximum global number the mod can go up to, even with multiple sources. Useful for mods that say "up to a maximum of ..."
+    * globalLimitKey: string identifier for the global limit. Mods with identical keys cannot go over the globalLimit.
 * MultiplierThreshold: Similar to a condition that only applies when the variable is above a specified threshold
     * var: name of the mod
     * threshold: number to reach before the mod applies
@@ -58,7 +61,7 @@ Often a mod will only apply under certain conditions, apply multiple times based
     * effectEnemyCond: Specify a condition so this mod applies to the enemy when that condition is fulfilled
     * effectStackVar: Multiplies the mod by this variable (usually another mod)
     * modCond: Apply the mod when the actor has this condition
-    * unscaleable: boolean that determines whether this buff can be scaled by buff effect
+    * unscalable: boolean that determines whether this buff can be scaled by buff effect
 * DistanceRamp: A rare type that is used on skills and effects that do different things at different distances from the character
     * ramp: Numbers to multiply the mod by at different distances.  e.g. `ramp = {{35,0},{70,1}}` means the mod does nothing at 35 units, but has its full value at 70 units.
 * ModFlagOr: Used when you only need one ModFlag to match, e.g. `["with axes or swords"] = { flags = ModFlag.Hit, tag = { type = "ModFlagOr", modFlags = bor(ModFlag.Axe, ModFlag.Sword) } },` needs `Hit`, but can use either of the other two flags

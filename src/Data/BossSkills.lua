@@ -47,36 +47,57 @@ return {
 		critChance = 0,
 		additionalStats = {
 			uber = {
-				reduceEnemyBlock = 1000,
+				CannotBeBlocked = "flag",
+				CannotBeDodged = "flag",
 				CannotBeEvaded = "flag",
-				reduceEnemyDodge = 1000
+				CannotBeSuppressed = "flag"
 			}
 		},
 		tooltip = "Cannot be Evaded.  Allocating Cosmic Wounds increases Damage by a further 100% (Applied on Uber) and cannot be blocked or dodged"
 	},
+	["Shaper Beam"] = {
+		DamageType = "DamageOverTime",
+		DamageMultipliers = {
+			Lightning = { 12.58958162968, 0 },
+			Cold = { 9.1363649598343, 0 },
+			Fire = { 11.141451836499, 0 }
+		},
+		speed = 1000,
+		critChance = 0,
+		tooltip = "Damage Over Time skill"
+	},
 	["Sirus Meteor"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
-			Physical = { 45.087560245599, 0.22541711316695 }
+			Physical = { 28.179207951973, 0.14090638379039 }
 		},
 		UberDamageMultiplier = 1.52,
 		speed = 1500,
 		additionalStats = {
 			base = {
+				PhysicalDamageSkillConvertToChaos = 25,
 				PhysicalDamageSkillConvertToFire = 25,
-				PhysicalDamageSkillConvertToLightning = 25,
-				PhysicalDamageSkillConvertToChaos = 25
+				PhysicalDamageSkillConvertToLightning = 25
 			},
 			uber = {
+				PhysicalDamageSkillConvertToChaos = 25,
 				PhysicalDamageSkillConvertToFire = 25,
-				PhysicalDamageSkillConvertToLightning = 25,
-				PhysicalDamageSkillConvertToChaos = 25
+				PhysicalDamageSkillConvertToLightning = 25
 			}
 		},
 		tooltip = "Earlier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50% (Applied on Uber)"
 	},
+	["Cortex Ground Degen"] = {
+		DamageType = "DamageOverTime",
+		DamageMultipliers = {
+			Physical = { 5.3012106087214, 0 }
+		},
+		speed = 1630,
+		critChance = 0,
+		tooltip = "Damage Over Time skill"
+	},
 	["Exarch Ball"] = {
-		DamageType = "SpellProjectile",
+		DamageType = "Spell",
 		DamageMultipliers = {
 			Fire = { 14.924946784635, 0.074624733923175 }
 		},
@@ -85,13 +106,13 @@ return {
 		additionalStats = {
 			base = {
 				CannotBeBlocked = "flag",
-				CannotBeSuppressed = "flag",
-				CannotBeDodged = "flag"
+				CannotBeDodged = "flag",
+				CannotBeSuppressed = "flag"
 			},
 			uber = {
 				CannotBeBlocked = "flag",
-				CannotBeSuppressed = "flag",
-				CannotBeDodged = "flag"
+				CannotBeDodged = "flag",
+				CannotBeSuppressed = "flag"
 			}
 		},
 		tooltip = "Spawns 8-18 waves of balls depending on which fight and which ball phase, Cannot be Blocked, Dodged, or Suppressed"
@@ -129,19 +150,19 @@ return {
 		additionalStats = {
 			base = {
 				CannotBeBlocked = "flag",
-				PhysicalDamageSkillConvertToLightning = 100,
+				CannotBeDodged = "flag",
+				CannotBeSuppressed = "flag",
 				PhysicalDamageSkillConvertToCold = 100,
 				PhysicalDamageSkillConvertToFire = 100,
-				CannotBeSuppressed = "flag",
-				CannotBeDodged = "flag"
+				PhysicalDamageSkillConvertToLightning = 100
 			},
 			uber = {
 				CannotBeBlocked = "flag",
-				PhysicalDamageSkillConvertToLightning = 100,
+				CannotBeDodged = "flag",
+				CannotBeSuppressed = "flag",
 				PhysicalDamageSkillConvertToCold = 100,
 				PhysicalDamageSkillConvertToFire = 100,
-				CannotBeSuppressed = "flag",
-				CannotBeDodged = "flag"
+				PhysicalDamageSkillConvertToLightning = 100
 			}
 		},
 		tooltip = "Cannot be Blocked, Dodged, or Suppressed. \n	It is three separate hits, and has a large DoT effect.  Neither is taken into account here.  \n		i.e. Hits before death should be more than 3 to survive"
@@ -151,7 +172,9 @@ return {
     { val = "Atziri Flameblast", label = "Atziri Flameblast" },
     { val = "Shaper Ball", label = "Shaper Ball" },
     { val = "Shaper Slam", label = "Shaper Slam" },
+    { val = "Shaper Beam", label = "Shaper Beam" },
     { val = "Sirus Meteor", label = "Sirus Meteor" },
+    { val = "Cortex Ground Degen", label = "Cortex Ground Degen" },
     { val = "Exarch Ball", label = "Exarch Ball" },
     { val = "Eater Beam", label = "Eater Beam" },
     { val = "Maven Fireball", label = "Maven Fireball" },

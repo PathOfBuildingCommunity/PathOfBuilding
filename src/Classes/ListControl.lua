@@ -30,8 +30,8 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
-local ListClass = newClass("ListControl", "Control", "ControlHost", function(self, anchor, x, y, width, height, rowHeight, scroll, isMutable, list, forceTooltip)
-	self.Control(anchor, x, y, width, height)
+local ListClass = newClass("ListControl", "Control", "ControlHost", function(self, anchor, rect, rowHeight, scroll, isMutable, list, forceTooltip)
+	self.Control(anchor, rect)
 	self.ControlHost()
 	self.rowHeight = rowHeight
 	self.scroll = scroll
@@ -48,7 +48,7 @@ local ListClass = newClass("ListControl", "Control", "ControlHost", function(sel
 			self.scrollH = false
 		end
 	end
-	self.controls.scrollBarH = new("ScrollBarControl", {"BOTTOM",self,"BOTTOM"}, -8, -1, 0, self.scroll and 16 or 0, rowHeight * 2, "HORIZONTAL") {
+	self.controls.scrollBarH = new("ScrollBarControl", {"BOTTOM",self,"BOTTOM"}, {-8, -1, 0, self.scroll and 16 or 0}, rowHeight * 2, "HORIZONTAL") {
 		shown = function()
 			return self.scrollH
 		end,
@@ -57,7 +57,7 @@ local ListClass = newClass("ListControl", "Control", "ControlHost", function(sel
 			return width - 18
 		end
 	}
-	self.controls.scrollBarV = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, -1, 0, self.scroll and 16 or 0, 0, rowHeight * 2, "VERTICAL") {
+	self.controls.scrollBarV = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, {-1, 0, self.scroll and 16 or 0, 0}, rowHeight * 2, "VERTICAL") {
 		y = function()
 			return (self.scrollH and -8 or 0)
 		end,
@@ -70,6 +70,7 @@ local ListClass = newClass("ListControl", "Control", "ControlHost", function(sel
 		self.controls.scrollBarH.shown = false
 		self.controls.scrollBarV.shown = false
 	end
+	self.labelPositionOffset = {0, 0}
 end)
 
 function ListClass:SelectIndex(index)
@@ -176,7 +177,7 @@ function ListClass:Draw(viewPort, noTooltip)
 
 	local label = self:GetProperty("label") 
 	if label then
-		DrawString(x, y - 20, "LEFT", 16, self.font, label)
+		DrawString(x + self.labelPositionOffset[1], y - 20 + self.labelPositionOffset[2], "LEFT", 16, self.font, label)
 	end
 	if self.otherDragSource and not self.CanDragToValue then
 		SetDrawColor(0.2, 0.6, 0.2)
@@ -345,10 +346,12 @@ function ListClass:OnKeyDown(key, doubleClick)
 				newSelect = index
 			end
 		else
+			local scrollOffsetH = self.controls.scrollBarH.offset
 			for colIndex, column in ipairs(self.colList) do
 				local relX = cursorX - (x + 2)
 				local relY = cursorY - (y + 2)
-				local mOver = relX >= column._offset and relX <= column._offset + column._width and relY >= 0 and relY <= 18
+				local adjustedRelX = relX + scrollOffsetH
+				local mOver = adjustedRelX >= column._offset and adjustedRelX <= column._offset + column._width and relY >= 0 and relY <= 18
 				if self:GetColumnProperty(column, "sortable") and mOver and self.ReSort then
 					self:ReSort(colIndex)
 				end

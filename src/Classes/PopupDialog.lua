@@ -5,9 +5,10 @@
 --
 local m_floor = math.floor
 
-local PopupDialogClass = newClass("PopupDialog", "ControlHost", "Control", function(self, width, height, title, controls, enterControl, defaultControl, escapeControl, scrollBarFunc)
+local PopupDialogClass = newClass("PopupDialog", "ControlHost", "Control", function(self, width, height, title, controls, enterControl, defaultControl,
+									escapeControl, scrollBarFunc, resizeFunc)
 	self.ControlHost()
-	self.Control(nil, 0, 0, width, height)
+	self.Control(nil, {0, 0, width, height})
 	self.x = function()
 		return m_floor((main.screenW - width) / 2)
 	end
@@ -32,6 +33,8 @@ local PopupDialogClass = newClass("PopupDialog", "ControlHost", "Control", funct
 	end
 	-- allow scrollbar functionality inside of popups
 	self.scrollBarFunc = scrollBarFunc
+	-- allow resizing of popup
+	self.resizeFunc = resizeFunc
 end)
 
 function PopupDialogClass:Draw(viewPort)
@@ -55,11 +58,15 @@ function PopupDialogClass:Draw(viewPort)
 	if self.scrollBarFunc then
 		self.scrollBarFunc()
 	end
+	if self.resizeFunc then
+		self.resizeFunc()
+	end
 	-- Draw controls
 	self:DrawControls(viewPort)
 end
 
 function PopupDialogClass:ProcessInput(inputEvents, viewPort)
+	self:ProcessControlsInput(inputEvents, viewPort)
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
 			if event.key == "ESCAPE" then
@@ -83,5 +90,4 @@ function PopupDialogClass:ProcessInput(inputEvents, viewPort)
 			end
 		end
 	end
-	self:ProcessControlsInput(inputEvents, viewPort)
 end

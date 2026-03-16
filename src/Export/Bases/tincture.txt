@@ -2,4 +2,4 @@
 local itemBases = ...
 
 #type Tincture
-#baseMatch Metadata/Items/Tinctures/Tincture
+#baseMatch Metadata/Items/Tinctures/Tincture%d

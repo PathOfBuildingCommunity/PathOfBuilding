@@ -66,21 +66,23 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Pre 3.23.0
+Variant: Pre 3.26.0
 Variant: Current
 Implicits: 2
 {variant:1,2}18% increased Global Accuracy Rating
-{variant:3,4,5}40% increased Global Accuracy Rating
+{variant:3,4,5,6}40% increased Global Accuracy Rating
 +10 to Intelligence
 {variant:1}100% increased Physical Damage
 {variant:2,3}150% increased Physical Damage
-{variant:4,5}Adds 1 to 75 Lightning Damage
+{variant:4,5,6}Adds 1 to 75 Lightning Damage
 50% increased Global Critical Strike Chance
 (40-50)% increased maximum Energy Shield
 {variant:1,2,3}10% reduced maximum Life
-{variant:4,5}25% reduced maximum Life
+{variant:4,5,6}25% reduced maximum Life
 {variant:1,2,3}(0.6-1)% of Physical Attack Damage Leeched as Mana
 {variant:4}Attacks with this Weapon have Added Maximum Lightning Damage equal to 20% of your Maximum Energy Shield
 {variant:5}Attacks with this Weapon have Added Maximum Lightning Damage equal to 20% of player Maximum Energy Shield
+{variant:6}Attacks with this Weapon have Added Maximum Lightning Damage equal to (10-15)% of player Maximum Energy Shield
 ]],[[
 The Goddess Scorned
 Elegant Sword
@@ -188,6 +190,8 @@ Attacks with this Weapon Maim on hit
 ]],[[
 Replica Innsbury Edge
 Elder Sword
+Variant: Pre 3.25.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
@@ -195,19 +199,21 @@ Implicits: 1
 (100-140)% increased Physical Damage
 0.2% of Chaos Damage Leeched as Life
 50% of Physical Damage Converted to Chaos Damage
-10% of Physical Damage from Hits taken as Chaos Damage
+{variant:1}10% of Physical Damage from Hits taken as Chaos Damage
 Inflict Withered for 2 seconds on Hit with this Weapon
 ]],[[
 The Iron Mass
 Gladius
+Variant: Pre 3.24.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 40% increased Global Accuracy Rating
-(140-175)% increased Physical Damage
+{variant:1}(140-175)% increased Physical Damage
+{variant:2}(175-200)% increased Physical Damage
 (14-18)% increased Attack Speed
 Unholy Might
-(20-25)% chance to inflict Withered for 2 seconds on Hit with this Weapon
 Summoned Skeleton Warriors and Soldiers wield this Weapon while in your Main Hand
 Summoned Skeleton Warriors and Soldiers deal Triple Damage with this
 Weapon if you've Hit with this Weapon Recently
@@ -225,6 +231,18 @@ Adds (5-8) to (10-14) Physical Damage
 (10-15)% increased Attack Speed
 20% chance to Avoid being Stunned
 (40-30)% reduced Stun and Block Recovery
+]],[[
+The Living Blade
+Ezomyte Blade
+League: Settlers of Kalguur
+Requires Level 61, 113 Str, 113 Dex
+Implicits: 1
++25% to Global Critical Strike Multiplier
+(100-140)% increased Physical Damage
+(25-35)% increased Attack Speed
+Cannot be Poisoned
+You can have an additional Tincture active
+10% chance to remove 1 Mana Burn on Kill
 ]],[[
 Oni-Goroshi
 Charan's Sword
@@ -355,22 +373,23 @@ League: Talisman Standard, Talisman Hardcore
 Source: Drops from unique{Rigwald, the Wolven King} (Level 75+)
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
+Variant: Pre 3.25.0
 Variant: Current
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
-{variant:2,3}40% increased Global Accuracy Rating
+{variant:2,3,4}40% increased Global Accuracy Rating
 +10% Chance to Block Attack Damage while Dual Wielding
 Adds (60-80) to (150-180) Physical Damage
 {variant:1,2}80% increased Physical Damage with Axes
 +(350-400) to Accuracy Rating
 {variant:1,2}15% chance to gain a Frenzy Charge on Kill
-{variant:3}+1% to Damage over Time Multiplier for Bleeding per Rage while wielding an Axe
+{variant:3}Each Rage also grants +1% to Damage over Time Multiplier for Bleeding while wielding an Axe
+{variant:4}Each Rage also grants +2% to Damage over Time Multiplier for Bleeding while wielding an Axe
 ]],[[
 The Rippling Thoughts
 Legion Sword
 League: Harbinger
-Source: Created from item parts obtained from Boss in The Beachhead
-Upgrade: Upgrades to unique{The Surging Thoughts} via currency{Electroshock Scroll}
+Source: No longer obtainable
 Implicits: 1
 40% increased Global Accuracy Rating
 Grants Summon Harbinger of the Arcane Skill
@@ -383,8 +402,6 @@ Adds 1 to (60-70) Lightning Damage to Spells
 ]],[[
 The Surging Thoughts
 Legion Sword
-League: Harvest
-Source: Upgraded from unique{The Rippling Thoughts} via currency{Electroshock Scroll}
 Implicits: 1
 40% increased Global Accuracy Rating
 Grants Summon Greater Harbinger of the Arcane Skill
@@ -399,7 +416,7 @@ The Saviour
 Legion Sword
 Variant: Pre 3.20.0
 Variant: Current
-Source: Drops from unique{Sirus, Awakener of Worlds}
+Source: Drops from unique{Sirus, Awakener of Worlds} (Uber)
 Implicits: 1
 40% increased Global Accuracy Rating
 Triggers Level 20 Reflection when Equipped
@@ -655,6 +672,18 @@ Grants 2 Life per Enemy Hit
 {variant:3}(15-20)% chance to Shock
 {variant:3}Herald of Thunder has 50% increased Buff Effect
 ]],[[
+Nametaker
+Graceful Sword
+League: Affliction
+Requires Level 50, 78 Str, 94 Dex
+Implicits: 1
++350 to Accuracy Rating
+(20-40)% increased Critical Strike Chance
+2% of Physical Attack Damage Leeched as Life
+2% of Physical Attack Damage Leeched as Mana
+Hits with this Weapon have +10% to Critical Strike Multiplier per Enemy Power
+5% of Leech from Hits with this Weapon is Instant per Enemy Power
+]],[[
 The Goddess Bound
 Whalebone Rapier
 Variant: Pre 2.2.0
@@ -825,7 +854,7 @@ Gain an Endurance Charge if an Attack Freezes an Enemy
 ]],[[
 Echoforge
 Infernal Sword
-Source: Drops from unique{The Maven} (Uber)
+Source: Drops from unique{The Maven}
 Implicits: 1
 30% increased Chaos Damage
 Adds (600-650) to (750-800) Chaos Damage
@@ -839,19 +868,23 @@ Queen's Decree
 Ornate Sword
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
+Variant: Pre 3.26.0
 Variant: Current
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
-{variant:2,3}+185 to Accuracy Rating
+{variant:2,3,4}+185 to Accuracy Rating
 25% increased Strength Requirement
 {variant:1,2}Minions have (10-15)% increased maximum Life
-{variant:3}Minions have (30-40)% increased maximum Life
+{variant:3,4}Minions have (30-40)% increased maximum Life
 (150-200)% increased Skeleton Duration
 {variant:1,2}Minions deal (10-15)% increased Damage
-{variant:3}Minions deal (30-40)% increased Damage
-+1 to maximum number of Raised Zombies
-+1 to maximum number of Spectres
-+1 to maximum number of Skeletons
+{variant:3,4}Minions deal (30-40)% increased Damage
+{variant:1,2,3}+1 to maximum number of Raised Zombies
+{variant:4}+(1-2) to maximum number of Raised Zombies
+{variant:1,2,3}+1 to maximum number of Spectres
+{variant:4}+(1-2) to maximum number of Spectres
+{variant:1,2,3}+1 to maximum number of Skeletons
+{variant:4}+(1-2) to maximum number of Skeletons
 ]],[[
 Queen's Escape
 Ornate Sword
@@ -921,7 +954,7 @@ Cannot be Frozen
 Starforge
 Infernal Sword
 Shaper Item
-Source: Drops from unique{The Shaper}
+Source: Drops from unique{The Shaper} (Uber)
 Variant: Pre 3.11.0
 Variant: Pre 3.20.0
 Variant: Current
@@ -958,7 +991,7 @@ Voidforge
 Infernal Sword
 Shaper Item
 Elder Item
-Source: Drops from unique{The Elder} (Uber)
+Source: Drops from unique{The Elder} (Uber Uber)
 Variant: Pre 3.11.0
 Variant: Pre 3.20.0
 Variant: Current
@@ -974,5 +1007,20 @@ Your Elemental Damage can Shock
 {variant:3}Gain 700% of Weapon Physical Damage as Extra Damage of a random Element
 20% increased Area of Effect for Attacks
 Deal no Non-Elemental Damage
+]],
+[[
+The Golden Charlatan
+Lion Sword
+Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 65, 104 Str, 122 Dex
+Implicits: 1
++50 to Strength and Dexterity
++200 Intelligence Requirement
+(200-300)% increased Physical Damage
+(10-16)% increased Attack Speed
+(100-200)% increased Critical Strike Chance
+Critical Strikes with this Weapon do not deal extra Damage
+Gain a random Shrine Buff for 30 seconds when you Kill a Rare or Unique Enemy
++1 to maximum Mana per 2 Intelligence
 ]],
 }

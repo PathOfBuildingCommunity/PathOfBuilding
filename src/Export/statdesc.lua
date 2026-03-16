@@ -2,16 +2,10 @@ local nk = { }
 
 local statDescriptor
 local statDescriptors = { }
-function loadStatFile(fileName)
-	if statDescriptors[fileName] then
-		statDescriptor = statDescriptors[fileName]
-		return
-	end
-	statDescriptor = { }
-	statDescriptors[fileName] = statDescriptor 
+
+local function parseStatFile(target, order, fileName)
 	local curLang
 	local curDescriptor = { }
-	local order = 1
 	local function processLine(line)
 		local include = line:match('include "Metadata/StatDescriptions/(.+)"$')
 		if include then
@@ -23,11 +17,11 @@ function loadStatFile(fileName)
 		end
 		local noDesc = line:match("no_description ([%w_%+%-%%]+)")
 		if noDesc then
-			statDescriptor[noDesc] = { order = 0 }
+			target[noDesc] = { order = 0 }
 		elseif line:match("handed_description") or (line:match("description") and not line:match("_description")) then	
 			local name = line:match("description ([%w_]+)")
 			curLang = { }
-			curDescriptor = { lang = { ["English"] = curLang }, order = order, name = name }
+			curDescriptor = { curLang, order = order, name = name }
 			order = order + 1
 		elseif not curDescriptor.stats then
 			local stats = line:match("%d+%s+([%w_%+%-%% ]+)")
@@ -35,14 +29,14 @@ function loadStatFile(fileName)
 				curDescriptor.stats = { }
 				for stat in stats:gmatch("[%w_%+%-%%]+") do
 					table.insert(curDescriptor.stats, stat)
-					statDescriptor[stat] = curDescriptor
+					target[stat] = curDescriptor
 				end
 			end
 		else
 			local langName = line:match('lang "(.+)"')
 			if langName then
 				curLang = { }
-				curDescriptor.lang[langName] = curLang
+				--curDescriptor.lang[langName] = curLang
 			else
 				local statLimits, text, special = line:match('([%d%-#| ]+) "(.-)"%s*(.*)')
 				if statLimits then
@@ -85,7 +79,68 @@ function loadStatFile(fileName)
 	for line in text:gmatch("[^\r\n]+") do
 		processLine(line)
 	end
-	print(fileName.. " loaded. ("..order.." stats)")
+	return order
+end
+
+local function getNextOrder(target)
+	local nextOrder = 1
+	for _, descriptor in pairs(target) do
+		if type(descriptor) == "table" and descriptor.order and descriptor.order >= nextOrder then
+			nextOrder = descriptor.order + 1
+		end
+	end
+	return nextOrder
+end
+
+function loadStatFile(fileName, ...)
+	local args = { ... }
+	if #args > 0 and type(args[1]) ~= "boolean" then
+		loadStatFile(fileName)
+		for _, name in ipairs(args) do
+			loadStatFile(name, true)
+		end
+		return
+	end
+	local append = args[1] == true
+	if append and statDescriptor then
+		local base = statDescriptor
+		local startOrder = getNextOrder(base)
+		local newDescriptor = { }
+		local finalOrder = parseStatFile(newDescriptor, startOrder, fileName)
+		local cachedDescriptor = { }
+		local descriptorCopies = { }
+		local normalisedDescriptors = { }
+		for stat, descriptor in pairs(newDescriptor) do
+			if type(descriptor) == "table" and descriptor.order and descriptor.order > 0 and not normalisedDescriptors[descriptor] then
+				descriptor.order = descriptor.order - startOrder + 1
+				if descriptor.order < 1 then
+					descriptor.order = 1
+				end
+				normalisedDescriptors[descriptor] = true
+			end
+			base[stat] = descriptor
+			local copy = descriptorCopies[descriptor]
+			if not copy then
+				copy = copyTable(descriptor, true)
+				if copy.order and copy.order > 0 then
+					copy.order = copy.order - startOrder + 1
+				end
+				descriptorCopies[descriptor] = copy
+			end
+			cachedDescriptor[stat] = copy
+		end
+		statDescriptors[fileName] = cachedDescriptor
+		print(fileName.. " loaded. ("..(finalOrder - startOrder).." stats)")
+		return
+	end
+	if statDescriptors[fileName] then
+		statDescriptor = statDescriptors[fileName]
+		return
+	end
+	statDescriptor = { }
+	statDescriptors[fileName] = statDescriptor 
+	local finalOrder = parseStatFile(statDescriptor, 1, fileName)
+	print(fileName.. " loaded. ("..finalOrder.." stats)")
 end
 
 for k, v in pairs(nk) do
@@ -144,7 +199,7 @@ function describeStats(stats)
 			val[i] = stats[s] or { min = 0, max = 0 }
 			val[i].fmt = "d"
 		end
-		local desc = matchLimit(descriptor.lang["English"], val)
+		local desc = matchLimit(descriptor[1], val)
 		if desc then
 			for _, spec in ipairs(desc) do
 				if spec.k == "negate" then
@@ -153,9 +208,12 @@ function describeStats(stats)
 					val[spec.v].max, val[spec.v].min = 100 - val[spec.v].min, 100 - val[spec.v].max
 				elseif spec.k == "negate_and_double" then
 					val[spec.v].max, val[spec.v].min = -2 * val[spec.v].min, -2 * val[spec.v].max
-				elseif spec.k == "passive_hash" and val[spec.v].min < 0 then
-					val[spec.v].min = val[spec.v].min + 65536
-					val[spec.v].max = val[spec.v].max + 65536
+				elseif spec.k == "passive_hash" then
+					-- handled elsewhere
+					if val[spec.v].min < 0 then
+						val[spec.v].min = val[spec.v].min + 65536
+						val[spec.v].max = val[spec.v].max + 65536
+					end
 				elseif spec.k == "divide_by_two_0dp" then
 					val[spec.v].min = val[spec.v].min / 2
 					val[spec.v].max = val[spec.v].max / 2
@@ -167,7 +225,7 @@ function describeStats(stats)
 					val[spec.v].min = round(val[spec.v].min / 6, 1)
 					val[spec.v].max = round(val[spec.v].max / 6, 1)
 					val[spec.v].fmt = "g"
-				elseif spec.k == "divide_by_ten_1dp_if_required" then
+				elseif spec.k == "divide_by_ten_1dp_if_required" or spec.k == "divide_by_ten_1dp" then
 					val[spec.v].min = round(val[spec.v].min / 10, 1)
 					val[spec.v].max = round(val[spec.v].max / 10, 1)
 					val[spec.v].fmt = "g"
@@ -203,6 +261,10 @@ function describeStats(stats)
 					val[spec.v].min = round(val[spec.v].min / 60, 1)
 					val[spec.v].max = round(val[spec.v].max / 60, 1)
 					val[spec.v].fmt = "g"
+				elseif spec.k == "permyriad_per_minute_to_%_per_second" then
+					val[spec.v].min = round(val[spec.v].min / 60 / 100, 1)
+					val[spec.v].max = round(val[spec.v].max / 60 / 100, 1)
+					val[spec.v].fmt = "g"
 				elseif spec.k == "per_minute_to_per_second_2dp_if_required" or spec.k == "per_minute_to_per_second_2dp" then
 					val[spec.v].min = round(val[spec.v].min / 60, 2)
 					val[spec.v].max = round(val[spec.v].max / 60, 2)
@@ -217,7 +279,7 @@ function describeStats(stats)
 				elseif spec.k == "milliseconds_to_seconds_0dp" then
 					val[spec.v].min = val[spec.v].min / 1000
 					val[spec.v].max = val[spec.v].max / 1000
-				elseif spec.k == "milliseconds_to_seconds_2dp_if_required" then
+				elseif spec.k == "milliseconds_to_seconds_2dp_if_required" or spec.k == "milliseconds_to_seconds_2dp" then
 					val[spec.v].min = round(val[spec.v].min / 1000, 2)
 					val[spec.v].max = round(val[spec.v].max / 1000, 2)
 					val[spec.v].fmt = "g"	
@@ -273,7 +335,9 @@ function describeStats(stats)
 				else
 					return string.format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
 				end
-			end):gsub("{(%d?):(%+?)d}", function(n, fmt)
+			end):gsub("{(%d?):(%+?)d?}", function(n, fmt)
+				-- Most forms are {0:1}, however Chain Hook enchantment is {0:}
+				-- the above pattern supports both cases.
 				n = n ~= "" and n or "0"
 				local v = val[tonumber(n)+1]
 				if v.min == v.max then

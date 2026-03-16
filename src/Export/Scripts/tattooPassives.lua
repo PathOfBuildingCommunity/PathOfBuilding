@@ -7,9 +7,10 @@ loadStatFile("passive_skill_stat_descriptions.txt")
 local out = io.open("../Data/TattooPassives.lua", "w")
 
 local stats = dat("Stats")
-local passiveSkillOverridesDat = dat("passiveskilloverrides")
-local passiveSkillTattoosDat = dat("passiveskilltattoos")
+local passiveSkillOverridesDat = dat("PassiveSkillOverrides")
+local passiveSkillTattoosDat = dat("PassiveSkillTattoos")
 local clientStrings = dat("ClientStrings")
+local baseItemTypes= dat("BaseItemTypes")
 
 local tattoo_PASSIVE_GROUP = 1e9
 
@@ -21,7 +22,7 @@ function stringify(thing)
 		return ""..thing;
 	elseif type(thing) == 'table' then
 		local s = "{";
-		for k,v in pairs(thing) do
+		for k,v in pairsSortByKey(thing) do
 			s = s.."\n\t"
 			if type(k) == 'number' then
 				s = s.."["..k.."] = "
@@ -47,7 +48,7 @@ end
 
 function parsePassiveStats(datFileRow, keystonePassive)
 	local descOrders = {}
-	for idx,statKey in pairs(datFileRow.Stats) do
+	for idx,statKey in ipairs(datFileRow.Stats) do
 		local refRow = type(statKey) == "number" and statKey + 1 or statKey._rowIndex
 		local statId = stats:ReadCell(refRow, 1)
 		local range = datFileRow["Stat"..idx]
@@ -74,7 +75,7 @@ end
 function parseStats(datFileRow, tattooPassive)
 	local descOrders = {}
 	local stat = {}
-	for idx,statKey in pairs(datFileRow.StatsKeys) do
+	for idx,statKey in ipairs(datFileRow.StatsKeys) do
 		local refRow = type(statKey) == "number" and statKey + 1 or statKey._rowIndex
 		local statId = stats:ReadCell(refRow, 1)
 		local range = datFileRow["StatValues"]
@@ -100,6 +101,17 @@ local data = { }
 data.nodes = { }
 data.groups = { }
 
+local tattooDatRows = {}
+for i=1, passiveSkillTattoosDat.rowCount do
+   local tattooDatRow = {}
+   for j=1, #passiveSkillTattoosDat.cols-1 do
+       local key = passiveSkillTattoosDat.spec[j].name
+       tattooDatRow[key] = passiveSkillTattoosDat:ReadCell(i, j)
+   end
+   tattooDatRows[tattooDatRow.Override.Id] = tattooDatRow
+end
+
+
 for i=1, passiveSkillOverridesDat.rowCount do
 	---@type table<string, boolean|string|number>
 	local datFileRow = {}
@@ -108,11 +120,7 @@ for i=1, passiveSkillOverridesDat.rowCount do
 		datFileRow[key] = passiveSkillOverridesDat:ReadCell(i, j)
 	end
 
-	local tattooDatRow = {}
-	for j=1, #passiveSkillTattoosDat.cols-1 do
-		local key = passiveSkillTattoosDat.spec[j].name
-		tattooDatRow[key] = passiveSkillTattoosDat:ReadCell(i <= passiveSkillTattoosDat.rowCount and i or passiveSkillTattoosDat.rowCount, j)
-	end
+	local tattooDatRow = tattooDatRows[datFileRow.Id] or tattooDatRows["DisplayRandomKeystone"]
 	---@type table<string, boolean|string|number|table>
 	local tattooPassiveNode = {}
 	-- id
@@ -122,12 +130,13 @@ for i=1, passiveSkillOverridesDat.rowCount do
 	tattooPassiveNode.sd = {}
 	tattooPassiveNode.stats = {}
 	tattooPassiveNode.isTattoo = true
+	tattooPassiveNode.overrideType = datFileRow.OverrideType.Id
 	-- is keystone
 	tattooPassiveNode.ks = false
 	-- is notable
 	tattooPassiveNode['not'] = tattooDatRow.NodeTarget.Type == "Notable" and true or false
 	-- is mastery wheel
-	tattooPassiveNode.m = false
+	tattooPassiveNode.m = datFileRow.OverrideType.Id == "AlternateMastery"
 
 	tattooPassiveNode.targetType = tattooDatRow.NodeTarget.Type
 	tattooPassiveNode.targetValue = tattooDatRow.NodeTarget.Value
@@ -150,22 +159,31 @@ for i=1, passiveSkillOverridesDat.rowCount do
 	end
 
 	tattooPassiveNode.activeEffectImage = datFileRow.Background .. ".png"
-	if datFileRow.TattooType.Id == "KeystoneTattoo" then
+	if datFileRow.OverrideType.Id == "KeystoneTattoo" then
 		-- is keystone
 		tattooPassiveNode.ks = true
 		datFileRow = datFileRow.PassiveSkill
 		parsePassiveStats(datFileRow, tattooPassiveNode)
+	elseif datFileRow.OverrideType.Id == "AlternateMastery" then
+		-- is runegraft mastery
+		tattooPassiveNode.name = "Runegraft Mastery"
+		parseStats(datFileRow, tattooPassiveNode)
 	else
 		parseStats(datFileRow, tattooPassiveNode)
 	end
 
 	-- node name
 	tattooPassiveNode.dn = datFileRow.Name
+	-- legacy tattoo
+	if tattooPassiveNode.dn and tattooPassiveNode.ks == false then
+		--tattooPassiveNode.legacy = baseItemTypes:GetRow("Name", datFileRow.Name) and baseItemTypes:GetRow("Name", datFileRow.Name).Hidden == 2 and true or false
+	end
+
 	-- icon
 	tattooPassiveNode.icon = datFileRow.Icon:gsub("%.dds$", ".png")
 	tattooPassiveNode.sd[#tattooPassiveNode.sd + 1] = limitText
 
-	if datFileRow.Id ~= "DisplayRandomKeystone" then
+	if datFileRow.Id ~= "DisplayRandomKeystone" and not datFileRow.Name:match("DNT") and not datFileRow.Name:match("of the Test") then
 		data.nodes[datFileRow.Name] = tattooPassiveNode
 	end
 end
@@ -177,7 +195,7 @@ data.groups[tattoo_PASSIVE_GROUP] = {
     ["n"] = {}
 }
 
-for k,v in pairs(data.nodes) do
+for k,v in ipairs(data.nodes) do
 	table.insert(data.groups[tattoo_PASSIVE_GROUP].n, k)
 end
 

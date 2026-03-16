@@ -59,6 +59,10 @@ function modLib.parseTags(line)
 				if tag ~= "" then
 					local tagName, tagValue = tag:match("^(%a+)=(.+)")
 					if tagName then
+						-- list of all the tag parts that should be numbers
+						if ({threshold = true})[tagName] then
+							tagValue = tonumber(tagValue)
+						end
 						tagSet[tagName] = tagValue == "true" and true or tagValue
 					else
 						ConPrintf("Error tag invalid: "..tag)
@@ -216,4 +220,18 @@ function modLib.setSource(mod, source)
 		mod.value.mod.source = source
 	end
 	return mod
+end
+
+-- Merge keystone modifiers
+function modLib.mergeKeystones(env, modDB)
+	env.keystonesAdded = env.keystonesAdded or { }
+	for _, modObj in ipairs(modDB:Tabulate("LIST", nil, "Keystone")) do
+		if not env.keystonesAdded[modObj.value] and env.spec.tree.keystoneMap[modObj.value] then
+			env.keystonesAdded[modObj.value] = true
+			local fromTree = modObj.mod.source and not modObj.mod.source:lower():match("tree")
+			for _, mod in ipairs(env.spec.tree.keystoneMap[modObj.value].modList) do
+				modDB:AddMod(fromTree and modLib.setSource(mod, modObj.mod.source) or mod)
+			end
+		end
+	end
 end

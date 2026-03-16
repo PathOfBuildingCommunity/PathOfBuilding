@@ -9,5 +9,6 @@ local itemBases = ...
 #forceShow false
 #baseMatch Metadata/Items/Belts/BeltAtlas%d+
 #base Metadata/Items/Belts/BeltAbyss
+#base Metadata/Items/Belts/BeltFaridun
 
 #base Metadata/Items/Belts/BeltDemigods1

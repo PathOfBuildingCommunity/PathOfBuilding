@@ -1,125 +1,7 @@
-local skillTypes = {
-	"Attack",
-	"Spell",
-	"Projectile",
-	"DualWieldOnly",
-	"Buff",
-	"Minion",
-	"Damage",
-	"Area",
-	"Duration",
-	"RequiresShield",
-	"ProjectileSpeed",
-	"HasReservation",
-	"ReservationBecomesCost",
-	"Trappable",
-	"Totemable",
-	"Mineable",
-	"ElementalStatus",
-	"MinionsCanExplode",
-	"Chains",
-	"Melee",
-	"MeleeSingleTarget",
-	"Multicastable",
-	"TotemCastsAlone",
-	"Multistrikeable",
-	"CausesBurning",
-	"SummonsTotem",
-	"TotemCastsWhenNotDetached",
-	"Physical",
-	"Fire",
-	"Cold",
-	"Lightning",
-	"Triggerable",
-	"Trapped",
-	"Movement",
-	"DamageOverTime",
-	"RemoteMined",
-	"Triggered",
-	"Vaal",
-	"Aura",
-	"CanTargetUnusableCorpse",
-	"RangedAttack",
-	"Chaos",
-	"FixedSpeedProjectile",
-	"ThresholdJewelArea",
-	"ThresholdJewelProjectile",
-	"ThresholdJewelDuration",
-	"ThresholdJewelRangedAttack",
-	"Channel",
-	"DegenOnlySpellDamage",
-	"InbuiltTrigger",
-	"Golem",
-	"Herald",
-	"AuraAffectsEnemies",
-	"NoRuthless",
-	"ThresholdJewelSpellDamage",
-	"Cascadable",
-	"ProjectilesFromUser",
-	"MirageArcherCanUse",
-	"ProjectileSpiral",
-	"SingleMainProjectile",
-	"MinionsPersistWhenSkillRemoved",
-	"ProjectileNumber",
-	"Warcry",
-	"Instant",
-	"Brand",
-	"DestroysCorpse",
-	"NonHitChill",
-	"ChillingArea",
-	"AppliesCurse",
-	"CanRapidFire",
-	"AuraDuration",
-	"AreaSpell",
-	"OR",
-	"AND",
-	"NOT",
-	"AppliesMaim",
-	"CreatesMinion",
-	"Guard",
-	"Travel",
-	"Blink",
-	"CanHaveBlessing",
-	"ProjectilesNotFromUser",
-	"AttackInPlaceIsDefault",
-	"Nova",
-	"InstantNoRepeatWhenHeld",
-	"InstantShiftAttackForLeftMouse",
-	"AuraNotOnCaster",
-	"Banner",
-	"Rain",
-	"Cooldown",
-	"ThresholdJewelChaining",
-	"Slam",
-	"Stance",
-	"NonRepeatable",
-	"OtherThingUsesSkill",
-	"Steel",
-	"Hex",
-	"Mark",
-	"Aegis",
-	"Orb",
-	"KillNoDamageModifiers",
-	"RandomElement",
-	"LateConsumeCooldown",
-	"Arcane",
-	"FixedCastTime",
-	"RequiresOffHandNotWeapon",
-	"Link",
-	"Blessing",
-	"ZeroReservation",
-	"DynamicCooldown",
-	"Microtransaction",
-	"OwnerCannotUse",
-	"ProjectilesNotFired",
-	"TotemsAreBallistae",
-	"SkillGrantedBySupport",
-	"PreventHexTransfer",
-	"MinionsAreUndamageable",
-	"InnateTrauma",
-	"DualWieldRequiresDifferentTypes",
-	"NoVolley",
-}
+local skillTypeMap = { }
+for row in dat("ActiveSkillType"):Rows() do
+	table.insert(skillTypeMap, row.Id)
+end
 
 -- This is here to fix name collisions like in the case of Barrage
 local fullNameGems = {
@@ -127,7 +9,7 @@ local fullNameGems = {
 }
 
 local function mapAST(ast)
-	return "SkillType."..(skillTypes[ast._rowIndex] or ("Unknown"..ast._rowIndex))
+	return "SkillType."..(skillTypeMap[ast._rowIndex] or ("Unknown"..ast._rowIndex))
 end
 
 local weaponClassMap = {
@@ -224,7 +106,7 @@ directiveTable.skill = function(state, args, out)
 		if granted.IsSupport then
 			out:write('\tname = "', fullNameGems[skillGem.BaseItemType.Id] and skillGem.BaseItemType.Name or skillGem.BaseItemType.Name:gsub(" Support",""), '",\n')
 			if #gemEffect.Description > 0 then
-				out:write('\tdescription = "', gemEffect.Description:gsub('\n','\\n'), '",\n')
+				out:write('\tdescription = "', gemEffect.Description:gsub('"','\\"'):gsub('\r',''):gsub('\n','\\n'), '",\n')
 			end
 		else
 			out:write('\tname = "', secondaryEffect and granted.ActiveSkill.DisplayName or trueGemNames[gemEffect.Id] or granted.ActiveSkill.DisplayName, '",\n')
@@ -245,6 +127,7 @@ directiveTable.skill = function(state, args, out)
 	skill.levels = { }
 	local statMap = { }
 	skill.stats = { }
+	skill.CannotGrantToMinion = { }
 	skill.constantStats = { }
 	skill.addSkillTypes = state.addSkillTypes
 	state.addSkillTypes = nil
@@ -298,7 +181,7 @@ directiveTable.skill = function(state, args, out)
 		end
 		if next(weaponTypes) then
 			out:write('\tweaponTypes = {\n')
-			for type in pairs(weaponTypes) do
+			for type in pairsSortByKey(weaponTypes) do
 				out:write('\t\t["', type, '"] = true,\n')
 			end
 			out:write('\t},\n')
@@ -306,7 +189,7 @@ directiveTable.skill = function(state, args, out)
 		out:write('\tstatDescriptionScope = "gem_stat_descriptions",\n')
 	else
 		if #granted.ActiveSkill.Description > 0 then
-			out:write('\tdescription = "', granted.ActiveSkill.Description:gsub('"','\\"'):gsub('\n','\\n'), '",\n')
+			out:write('\tdescription = "', granted.ActiveSkill.Description:gsub('"','\\"'):gsub('\r',''):gsub('\n','\\n'), '",\n')
 		end
 		out:write('\tskillTypes = { ')
 		for _, type in ipairs(granted.ActiveSkill.SkillTypes) do
@@ -333,13 +216,13 @@ directiveTable.skill = function(state, args, out)
 		end
 		if next(weaponTypes) then
 			out:write('\tweaponTypes = {\n')
-			for type in pairs(weaponTypes) do
+			for type in pairsSortByKey(weaponTypes) do
 				out:write('\t\t["', type, '"] = true,\n')
 			end
 			out:write('\t},\n')
 		end
 		out:write('\tstatDescriptionScope = "', skillStatScope[granted.ActiveSkill.Id] or "skill_stat_descriptions", '",\n')
-		if granted.ActiveSkill.SkillTotem <= dat("SkillTotems").rowCount then
+		if granted.ActiveSkill.SkillTotem <= 21 then
 			out:write('\tskillTotemId = ', granted.ActiveSkill.SkillTotem, ',\n')
 		end
 		out:write('\tcastTime = ', granted.CastTime / 1000, ',\n')
@@ -424,6 +307,9 @@ directiveTable.skill = function(state, args, out)
 				table.insert(skill.stats, { id = stat.Id })
 				if indx == 1 then
 					table.insert(statMapOrder, stat.Id)
+					if stat.CannotGrantToMinion then
+						table.insert(skill.CannotGrantToMinion, stat.Id)
+					end
 				else
 					print(displayName .. ": stat missing from earlier levels: ".. stat.Id)
 				end
@@ -476,6 +362,9 @@ directiveTable.skill = function(state, args, out)
 				table.insert(skill.stats, { id = stat.Id })
 				if indx == 1 then
 					table.insert(statMapOrder, stat.Id)
+					if stat.CannotGrantToMinion then
+						table.insert(skill.CannotGrantToMinion, stat.Id)
+					end
 				else
 					print(displayName .. ": stat missing from earlier levels: ".. stat.Id)
 				end
@@ -496,6 +385,9 @@ directiveTable.skill = function(state, args, out)
 			if not statMap[stat.Id] then
 				statMap[stat.Id] = #skill.stats + 1
 				table.insert(skill.stats, { id = stat.Id })
+				if stat.CannotGrantToMinion then
+					table.insert(skill.CannotGrantToMinion, stat.Id)
+				end
 			end
 		end
 		table.insert(skill.levels, level)
@@ -592,6 +484,13 @@ directiveTable.mods = function(state, args, out)
 			out:write('\t\t"', stat.id, '",\n')
 		end
 		out:write('\t},\n')
+		if next(skill.CannotGrantToMinion) then
+			out:write('\tnotMinionStat = {\n')
+			for _, stat in ipairs(skill.CannotGrantToMinion) do
+				out:write('\t\t"', stat, '",\n')
+			end
+			out:write('\t},\n')
+		end
 	end
 	if not args:match("noLevels") then
 		out:write('\tlevels = {\n')
@@ -600,7 +499,7 @@ directiveTable.mods = function(state, args, out)
 			for _, statVal in ipairs(level) do
 				out:write(tostring(statVal), ', ')
 			end
-			for k, v in pairs(level.extra) do
+			for k, v in pairsSortByKey(level.extra) do
 				out:write(k, ' = ', tostring(v), ', ')
 			end
 			if next(level.statInterpolation) ~= nil then
@@ -612,7 +511,7 @@ directiveTable.mods = function(state, args, out)
 			end
 			if next(level.cost) ~= nil then
 				out:write('cost = { ')
-				for k, v in pairs(level.cost) do
+				for k, v in pairsSortByKey(level.cost) do
 					out:write(k, ' = ', tostring(v), ', ')
 				end
 				out:write('}, ')

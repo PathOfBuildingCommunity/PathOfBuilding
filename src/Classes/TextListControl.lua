@@ -3,10 +3,10 @@
 -- Class: Text List
 -- Simple list control for displaying a block of text
 --
-local TextListClass = newClass("TextListControl", "Control", "ControlHost", function(self, anchor, x, y, width, height, columns, list, sectionHeights)
-	self.Control(anchor, x, y, width, height)
+local TextListClass = newClass("TextListControl", "Control", "ControlHost", function(self, anchor, rect, columns, list, sectionHeights)
+	self.Control(anchor, rect)
 	self.ControlHost()
-	self.controls.scrollBar = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, -1, 0, 18, 0, 40)
+	self.controls.scrollBar = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, {-1, 0, 18, 0}, 40)
 	self.controls.scrollBar.height = function()
 		local width, height = self:GetSize()
 		return height - 2

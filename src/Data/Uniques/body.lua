@@ -101,23 +101,28 @@ Regenerate 10% Life over one second when Hit while Sane
 ]],[[
 Greed's Embrace
 Golden Plate
+Variant: Pre 3.25.0
+Variant: Current
 Implicits: 0
-(10-15)% increased Quantity of Items found
-(30-50)% increased Rarity of Items found
+{variant:1}(10-15)% increased Quantity of Items found
+{variant:1}(30-50)% increased Rarity of Items found
+{variant:2}100% increased Rarity of Items found
 -10% to Fire Resistance
 +(20-30)% to Cold Resistance
--20% to Lightning Resistance
+{variant:1}-20% to Lightning Resistance
+{variant:2}(-20--10)% to Lightning Resistance
 20% reduced Movement Speed
 30% reduced Strength Requirement
 ]],[[
 Kaom's Heart
 Glorious Plate
 Variant: Pre 1.0.0
+Variant: Pre 3.25.0
 Variant: Current
 Implicits: 0
 Has no Sockets
 {variant:2}(20-40)% increased Fire Damage
-{variant:1}+1000 to maximum Life
+{variant:1,3}+1000 to maximum Life
 {variant:2}+500 to maximum Life
 ]],[[
 Replica Kaom's Heart
@@ -165,17 +170,28 @@ Perfidy
 Glorious Plate
 League: Delirium
 Has Alt Variant: true
-Variant: War Banner
-Variant: Dread Banner
-Variant: Defiance Banner
+Variant: War Banner (Pre 3.25.0)
+Variant: Dread Banner (Pre 3.25.0)
+Variant: Defiance Banner (Pre 3.25.0)
+Variant: Current
 Implicits: 0
 (25-40)% increased Melee Damage
 +(60-90) to maximum Life
-You can have two different Banners at the same time
-Banners you are carrying gain 1 Stage on Melee Hit, up to 5 per second
+{variant:1,2,3}You can have two different Banners at the same time
+{variant:1,2,3}Banners you are carrying gain 1 Stage on Melee Hit, up to 5 per second
 {variant:1}War Banner has (100-200)% increased Adrenaline duration
 {variant:2}Dread Banner grants an additional +(2-4) to maximum Fortification when placing the Banner
 {variant:3}Defiance Banner has (100-200)% increased Taunt duration
+{variant:4}Having a placed Banner does not prevent you gaining Valour
+]],[[
+Pragmatism
+Colosseum Plate
+League: Affliction
+Requires Level 49, 134 Str
++12 to Level of Socketed Skill Gems
+(80-120)% increased Armour
++(60-100) to maximum Mana
+-2 to Level of Socketed Skill Gems per Socketed Gem
 ]],[[
 Solaris Lorica
 Copper Plate
@@ -329,19 +345,31 @@ Implicits: 0
 {variant:1,2}Acrobatics
 {variant:3,4,5,6}30% chance to Suppress Spell Damage
 ]],[[
+Replica Hyrri's Ire
+Zodiac Leather
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
++30% chance to Suppress Spell Damage
++(40–50) to Intelligence
+(140–220)% increased Evasion Rating
+25% increased Shock Duration on Enemies
+(12–18) to (231–347) Added Lightning Damage with Wand Attacks
+]],[[
 Kintsugi
 Exquisite Leather
 Variant: Pre 3.19.0
+Variant: Pre 3.26.0
 Variant: Current
 Implicits: 0
 {variant:1}(100-120)% increased Evasion Rating
 {variant:2}(120-160)% increased Evasion Rating
+{variant:3}(160-220)% increased Evasion Rating
 {variant:1}+(60-80) to maximum Life
 +30% to Fire Resistance
 {variant:1}20% less Damage taken if you have not been Hit Recently
-{variant:2}35% less Damage taken if you have not been Hit Recently
+{variant:2,3}35% less Damage taken if you have not been Hit Recently
 {variant:1}50% increased Evasion Rating if you have been Hit Recently
-{variant:2}100% increased Evasion Rating if you have been Hit Recently
+{variant:2,3}100% increased Evasion Rating if you have been Hit Recently
 ]],[[
 Queen of the Forest
 Destiny Leather
@@ -438,34 +466,51 @@ Implicits: 0
 {variant:2,3}+(70-100) to maximum Life
 -30% to Cold Resistance
 {variant:1}Evasion Rating is increased by Uncapped Cold Resistance
-{variant:2,3}Evasion Rating is increased by Overcapped Cold Resistance
+{variant:4}+20% chance to Block Attack Damage
+{variant:2,3,4}Evasion Rating is increased by Overcapped Cold Resistance
 {variant:3}Flesh and Stone has no Reservation
 {variant:3}Hollow Palm Technique
 {variant:4}Versatile Combatant
-{variant:4}+20% chance to Block Attack Damage
 ]],[[
 Yriel's Fostering
 Exquisite Leather
-Variant: Rhoa
-Variant: Snake
-Variant: Ursa
+Variant: Rhoa Pre 3.26
+Variant: Snake Pre 3.26
+Variant: Ursa Pre 3.26
+Variant: Rhoa Current
+Variant: Snake Current
+Variant: Ursa Current
 Implicits: 0
-{variant:1}Grants Level 20 Summon Bestial Rhoa Skill
-{variant:2}Grants Level 20 Summon Bestial Snake Skill
-{variant:3}Grants Level 20 Summon Bestial Ursa Skill
+{variant:1,4}Grants Level 20 Summon Bestial Rhoa Skill
+{variant:2,5}Grants Level 20 Summon Bestial Snake Skill
+{variant:3,6}Grants Level 20 Summon Bestial Ursa Skill
 +(300-400) to Accuracy Rating
 (130-150)% increased Evasion Rating
 +(90-100) to maximum Life
 Projectile Attack Skills have (40-60)% increased Critical Strike Chance
 {variant:1}Projectiles from Attacks have 20% chance to Maim on Hit while you have a Bestial Minion
+{variant:4}Projectiles from Attacks have 100% chance to Maim on Hit while you have a Bestial Minion
 {variant:2}Projectiles from Attacks have 20% chance to Poison on Hit while you have a Bestial Minion
+{variant:5}Projectiles from Attacks have 100% chance to Poison on Hit while you have a Bestial Minion
 {variant:3}Projectiles from Attacks have 20% chance to inflict Bleeding on Hit while you have a Bestial Minion
+{variant:6}Projectiles from Attacks have 100% chance to inflict Bleeding on Hit while you have a Bestial Minion
 {variant:1}(10-15)% increased Attack and Movement Speed while you have a Bestial Minion
+{variant:4}(10-20)% increased Attack and Movement Speed while you have a Bestial Minion
 {variant:2}Adds (13-19)-(23-29) Chaos Damage to Attacks while you have a Bestial Minion
+{variant:5}Adds (18-24)-(30-36) Chaos Damage to Attacks while you have a Bestial Minion
 {variant:3}Adds (11-16)-(21-25) Physical Damage to Attacks while you have a Bestial Minion
+{variant:6}Adds (23-31)-(37-47) Physical Damage to Attacks while you have a Bestial Minion
 ]],
 -- Body: Energy Shield
 [[
+The Apostate
+Cabalist Regalia
+Requires Level 35
+Source: Drops from unique{Synthete Nightmare} in normal{The Cortex} (Uber)
++(30–50) to Strength
++(20–30)% to all Elemental Resistances
+Gain Maximum Life instead of Maximum Energy Shield from Equipped Armour Items
+]],[[
 The Beast Fur Shawl
 Vaal Regalia
 Variant: Pre 3.0.0
@@ -540,6 +585,16 @@ Implicits: 0
 {variant:4,5,6}10% increased maximum Life
 {variant:1,2,3}Blood Magic
 {variant:6}Skills gain a Base Life Cost equal to 100% of Base Mana Cost
+]],[[
+Replica Covenant
+Spidersilk Robe
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Socketed Gems are Supported by Level 29 Added Cold Damage
++(20-30) to Intelligence
+(210-250)% increased Energy Shield
+10% increased maximum Life
+Skills gain a Base Energy Shield Cost equal to 200% of Base Mana Cost
 ]],[[
 Dialla's Malefaction
 Sage's Robe
@@ -774,21 +829,23 @@ Variant: Pre 2.6.0
 Variant: Pre 3.5.0
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
+Variant: Pre 3.26.0
 Variant: Current
 Implicits: 0
 {variant:1,2,3}(160-200)% increased Armour and Evasion
-{variant:4,5}(180-220)% increased Armour and Evasion
+{variant:4,5,6}(180-220)% increased Armour and Evasion
 {variant:1,2}+(40-60) to maximum Life
-{variant:3,4,5}+(60-90) to maximum Life
+{variant:3,4,5,6}+(60-90) to maximum Life
 {variant:1,2,3,4}(0.4-0.6)% of Physical Attack Damage Leeched as Life
 {variant:5}2% of Physical Attack Damage Leeched as Life
+{variant:6}2% of Attack Damage Leeched as Life
 You lose all Endurance Charges when Hit
 You gain an Endurance Charge on Kill
 {variant:1}You gain Onslaught for 1 seconds per Endurance Charge when Hit
 {variant:2}You gain Onslaught for 2 seconds per Endurance Charge when Hit
-{variant:3,4,5}You gain Onslaught for 5 seconds per Endurance Charge when Hit
+{variant:3,4,5,6}You gain Onslaught for 5 seconds per Endurance Charge when Hit
 {variant:3,4}(60-100)% increased Onslaught Effect
-{variant:5}100% increased Onslaught Effect
+{variant:5,6}100% increased Onslaught Effect
 ]],[[
 Farrul's Fur
 Triumphant Lamellar
@@ -859,6 +916,17 @@ Implicits: 0
 20% chance to Poison on Hit with Attacks
 Cannot be Poisoned
 ]],
+[[
+Rigwald's Hunt
+General's Brigandine
+Requires Level 66, 103 Str, 103 Dex
+(160-200)% increased Armour and Evasion
+Minions have (20-30)% increased Movement Speed
+Minions have 1% chance to deal Double Damage per Fortification on you
+(30-40)% increased Fortification Duration
+Minions have (6-12)% increased Attack Speed
+Increases and Reductions to Minion Maximum Life also apply to you at 15% of their value
+]],
 -- Body: Armour/Energy Shield
 [[
 Ambu's Charge
@@ -904,7 +972,7 @@ Trigger Level 20 Animate Guardian's Weapon when Animated Guardian Kills an Enemy
 Animated Guardian deals 5% increased Damage per Animated Weapon
 Animated Minions' Melee Attacks deal Splash Damage to surrounding targets
 Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets
-You cannot have non-Animated Minions
+You cannot have Non-Animated, Non-Manifested Minions
 ]],[[
 Doryani's Prototype
 Saint's Hauberk
@@ -1071,12 +1139,16 @@ Sporeguard
 Saint's Hauberk
 League: Blight
 Source: Drops in Blighted Maps
+Variant: Pre 3.26.0
+Variant: Current
 Implicits: 0
 Trigger Level 10 Contaminate when you Kill an Enemy
 (200-250)% increased Armour and Energy Shield
 (7-10)% increased maximum Life
-+(17-23)% to Chaos Resistance
-Enemies on Fungal Ground you Kill Explode, dealing 5% of their Life as Chaos Damage
+{variant:1}+(17-23)% to Chaos Resistance
+{variant:2}+(29-43)% to Chaos Resistance
+{variant:1}Enemies on Fungal Ground you Kill Explode, dealing 5% of their Life as Chaos Damage
+{variant:2}Enemies on Fungal Ground you Kill Explode, dealing 10% of their Life as Chaos Damage
 You have Fungal Ground around you while stationary
 This item can be anointed by Cassia
 ]],[[
@@ -1317,6 +1389,28 @@ Socketed Gems have 45% increased Reservation Efficiency
 {variant:1}(10-20)% increased Area of Effect of Aura Skills
 {variant:2}(20-40)% increased Area of Effect of Aura Skills
 (10-15)% increased effect of Non-Curse Auras from your Skills
+]],[[
+Servant of Decay
+Torturer Garb
+Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
+Requires Level 78, 151 Dex, 151 Int
+Trigger Level 20 Summon Void Spawn every 4 seconds
+(150-200)% increased Energy Shield
++(23-37)% to Chaos Resistance
+(4-6)% of Damage from Hits is taken from Void Spawns' Life before you per Void Spawn
+Gain (4-6)% of Non-Chaos Damage as Extra Chaos Damage per Summoned Void Spawn
+]],[[
+Seven Teachings
+Waxed Garb
+Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 77, 48 Dex, 48 Int
+Trigger a Socketed Spell on Unarmed Melee Critical Strike, with a 0.25 second Cooldown
+(1-7)% more Attack Speed with Unarmed Melee Attacks
+(100-777)% increased Evasion and Energy Shield
+(1-7)% increased Movement Speed
++(0.1-0.7) metres to Melee Strike Range with Unarmed Attacks
++(1-7)% to Unarmed Melee Attack Critical Strike Chance
++(10-77)% to Critical Strike Multiplier with Unarmed Melee Attack
 ]],
 -- Body: Armour/Evasion/Energy Shield
 [[
@@ -1324,11 +1418,15 @@ The Admiral
 Varnished Coat
 League: Heist
 Source: Drops from unique{Admiral Darnaw} in normal{Contract: Death to Darnaw}
+Variant: Pre 3.26.0
+Variant: Current
 Implicits: 0
 +(30-40) to Intelligence
-(100-140)% increased Evasion and Energy Shield
+{variant:1}(100-140)% increased Evasion and Energy Shield
+{variant:2}(120-200)% increased Evasion and Energy Shield
 +(10-20)% to all Elemental Resistances
-(5-10)% chance to Freeze, Shock and Ignite
+{variant:1}(5-10)% chance to Freeze, Shock and Ignite
+{variant:2}(10-25)% chance to Freeze, Shock and Ignite
 Elemental Damage you Deal with Hits is Resisted by lowest Elemental Resistance instead
 ]],[[
 Atziri's Splendour

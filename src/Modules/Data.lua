@@ -46,6 +46,7 @@ local itemTypes = {
 	"jewel",
 	"flask",
 	"tincture",
+	"graft",
 }
 
 local function makeSkillMod(modName, modType, modVal, flags, keywordFlags, ...)
@@ -64,16 +65,29 @@ end
 local function makeSkillDataMod(dataKey, dataValue, ...)
 	return makeSkillMod("SkillData", "LIST", { key = dataKey, value = dataValue }, 0, 0, ...)
 end
-local function processMod(grantedEffect, mod)
+local function processMod(grantedEffect, mod, statName)
 	mod.source = grantedEffect.modSource
 	if type(mod.value) == "table" and mod.value.mod then
 		mod.value.mod.source = "Skill:"..grantedEffect.id
 	end
+
 	for _, tag in ipairs(mod) do
 		if tag.type == "GlobalEffect" then
 			grantedEffect.hasGlobalEffect = true
 			break
 		end
+	end
+
+	local notMinionStat = false
+	if grantedEffect.notMinionStat and statName and (grantedEffect.support or grantedEffect.skillTypes and grantedEffect.skillTypes[SkillType.Buff]) then
+		for _, notMinionStatName in ipairs(grantedEffect.notMinionStat) do
+			if notMinionStatName == statName then
+				notMinionStat = true
+			end
+		end
+	end
+	if notMinionStat then
+		t_insert(mod, { type = "ActorCondition", actor = "parent", neg = true})
 	end
 end
 
@@ -90,6 +104,9 @@ end
 ----------------------------------------
 
 data = { }
+
+-- Misc data tables
+LoadModule("Data/Misc", data)
 
 data.powerStatList = {
 	{ stat=nil, label="Offence/Defence", combinedOffDef=true, ignoreForItems=true },
@@ -150,19 +167,24 @@ data.misc = { -- magic numbers
 	LowPoolThreshold = 0.5,
 	TemporalChainsEffectCap = 75,
 	BuffExpirationSlowCap = 0.25,
-	DamageReductionCap = 90,
+	DamageReductionCap = data.characterConstants["maximum_physical_damage_reduction_%"],
+	EnemyPhysicalDamageReductionCap = data.monsterConstants["maximum_physical_damage_reduction_%"],
 	ResistFloor = -200,
 	MaxResistCap = 90,
 	EvadeChanceCap = 95,
 	DodgeChanceCap = 75,
+	BlockChanceCap = 90,
 	SuppressionChanceCap = 100,
-	SuppressionEffect = 50,
+	SuppressionEffect = 40,
 	AvoidChanceCap = 75,
+	FortifyBaseDuration = 6,
+	ManaRegenBase = data.characterConstants["mana_regeneration_rate_per_minute_%"] / 60 / 100,
+	EnergyShieldRechargeBase = data.characterConstants["energy_shield_recharge_rate_per_minute_%"] / 60 / 100,
 	EnergyShieldRechargeBase = 0.33,
 	EnergyShieldRechargeDelay = 2,
-	WardRechargeDelay = 4,
+	WardRechargeDelay = 2,
 	Transfiguration = 0.3,
-	EnemyMaxResist = 75,
+	EnemyMaxResist = data.monsterConstants["base_maximum_all_resistances_%"],
 	LeechRateBase = 0.02,
 	DotDpsCap = 35791394, -- (2 ^ 31 - 1) / 60 (int max / 60 seconds)
 	BleedPercentBase = 70,
@@ -177,6 +199,7 @@ data.misc = { -- magic numbers
 	MineAuraRadiusBase = 35,
 	BrandAttachmentRangeBase = 30,
 	ProjectileDistanceCap = 150,
+	PlayerMovementSpeed = data.characterConstants["base_speed"],
 	MinStunChanceNeeded = 20,
 	StunBaseMult = 200,
 	StunBaseDuration = 0.35,
@@ -196,6 +219,8 @@ data.misc = { -- magic numbers
 	ehpCalcMaxDamage = 100000000,
 	-- max iterations can be increased for more accuracy this should be perfectly accurate unless it runs out of iterations and so high eHP values will be underestimated.
 	ehpCalcMaxIterationsToCalc = 50,
+	-- more iterations would reduce the cases where max hit would result in overkill damage or leave some life.
+	maxHitSmoothingPasses = 8,
 	-- maximum increase for stat weights, only used in trader for now.
 	maxStatIncrease = 2, -- 100% increased
 	-- PvP scaling used for hogm
@@ -251,17 +276,20 @@ data.cursePriority = {
 	["Boots"] = 7000,
 	["Ring 1"] = 8000,
 	["Ring 2"] = 9000,
-	["CurseFromEquipment"] = 10000,
+	["Ring 3"] = 10000,
+	["CurseFromEquipment"] = 11000,
 	["CurseFromAura"] = 20000,
 }
 
----@type string[] @List of all keystones not exclusive to timeless jewels.
+---@type string[] @List of all keystones not exclusive to timeless jewels or cluster jewels.
 data.keystones = {
 	"Acrobatics",
 	"Ancestral Bond",
 	"Arrow Dancing",
+	"Arsenal of Vengeance",
 	"Avatar of Fire",
 	"Blood Magic",
+	"Bloodsoaked Blade",
 	"Call to Arms",
 	"Chaos Inoculation",
 	"Conduit",
@@ -278,7 +306,6 @@ data.keystones = {
 	"Ghost Reaver",
 	"Glancing Blows",
 	"Hex Master",
-	"Hollow Palm Technique",
 	"Imbalanced Guard",
 	"Immortal Ambition",
 	"Inner Conviction",
@@ -295,15 +322,16 @@ data.keystones = {
 	"Perfect Agony",
 	"Phase Acrobatics",
 	"Point Blank",
+	"Power of Purpose",
 	"Precise Technique",
 	"Resolute Technique",
 	"Runebinder",
-	"Secrets of Suffering",
 	"Solipsism",
 	"Supreme Decadence",
 	"Supreme Ego",
 	"The Agnostic",
 	"The Impaler",
+	"Transcendence",
 	"Unwavering Stance",
 	"Vaal Pact",
 	"Versatile Combatant",
@@ -353,10 +381,19 @@ data.highPrecisionMods = {
 	["EnergyShieldRegen"] = {
 		["BASE"] = 1,
 	},
+	["RageRegen"] = {
+		["BASE"] = 1,
+	},
 	["LifeDegenPercent"] = {
 		["BASE"] = 2,
 	},
+	["LifeDegenPercentTincture"] = {
+		["BASE"] = 2,
+	},
 	["ManaDegenPercent"] = {
+		["BASE"] = 2,
+	},
+	["ManaDegenPercentTincture"] = {
 		["BASE"] = 2,
 	},
 	["EnergyShieldDegenPercent"] = {
@@ -436,7 +473,7 @@ data.highPrecisionMods = {
 	},
 	["SupportManaMultiplier"] = {
 		["MORE"] = 4,
-	}
+	},
 }
 
 data.weaponTypeInfo = {
@@ -502,6 +539,8 @@ data.jewelRadii = {
 		{ inner = 0, outer = 960, col = "^xBB6600", label = "Small" },
 		{ inner = 0, outer = 1440, col = "^x66FFCC", label = "Medium" },
 		{ inner = 0, outer = 1800, col = "^x2222CC", label = "Large" },
+		{ inner = 0, outer = 2400, col = "^xC100FF", label = "Very Large" },	
+		{ inner = 0, outer = 2880, col = "^x0B9300", label = "Massive" },
 
 		{ inner = 960, outer = 1320, col = "^xD35400", label = "Variable" },
 		{ inner = 1320, outer = 1680, col = "^x66FFCC", label = "Variable" },
@@ -516,6 +555,7 @@ data.jewelRadius = data.setJewelRadiiGlobally(latestTreeVersion)
 data.enchantmentSource = {
 	{ name = "ENKINDLING", label = "Enkindling Orb" },
 	{ name = "INSTILLING", label = "Instilling Orb" },
+	{ name = "RUNESMITH", label = "Runecraft Bench" },
 	{ name = "HEIST", label = "Heist" },
 	{ name = "HARVEST", label = "Harvest" },
 	{ name = "DEDICATION", label = "Dedication to the Goddess" },
@@ -536,6 +576,7 @@ data.itemMods = {
 	Item = LoadModule("Data/ModItem"),
 	Flask = LoadModule("Data/ModFlask"),
 	Tincture = LoadModule("Data/ModTincture"),
+	Graft = LoadModule("Data/ModGraft"),
 	Jewel = LoadModule("Data/ModJewel"),
 	JewelAbyss = LoadModule("Data/ModJewelAbyss"),
 	JewelCluster = LoadModule("Data/ModJewelCluster"),
@@ -549,13 +590,34 @@ data.enchantments = {
 	["Belt"] = LoadModule("Data/EnchantmentBelt"),
 	["Body Armour"] = LoadModule("Data/EnchantmentBody"),
 	["Weapon"] = LoadModule("Data/EnchantmentWeapon"),
-	["Flask"] = LoadModule("Data/EnchantmentFlask"),
+	["UtilityFlask"] = LoadModule("Data/EnchantmentFlask"),
 }
+do
+	data.enchantments["Flask"] = data.enchantments["UtilityFlask"]--["HARVEST"]
+	for baseType, _ in pairs(data.weaponTypeInfo) do
+		data.enchantments[baseType] = { }
+		for enchantmentType, enchantmentList in pairs(data.enchantments["Weapon"]) do
+			if type(enchantmentList[1]) == "string" then
+				data.enchantments[baseType][enchantmentType] = enchantmentList
+			elseif type(enchantmentList[1]) == "table" then
+				data.enchantments[baseType][enchantmentType] = {}
+				for _, enchantment in ipairs(enchantmentList) do
+					if enchantment.types[baseType] then
+						t_insert(data.enchantments[baseType][enchantmentType], table.concat(enchantment, "/"))
+					end
+				end
+			end
+		end
+	end					
+end
 data.essences = LoadModule("Data/Essence")
 data.veiledMods = LoadModule("Data/ModVeiled")
+data.beastCraft = LoadModule("Data/BeastCraft")
+data.necropolisMods = LoadModule("Data/ModNecropolis")
 data.crucible = LoadModule("Data/Crucible")
 data.pantheons = LoadModule("Data/Pantheons")
 data.costs = LoadModule("Data/Costs")
+
 do
 	local map = { }
 	for i, value in ipairs(data.costs) do
@@ -590,32 +652,104 @@ data.itemTagSpecial = {
 			"Cannot Evade",
 		},
 	},
+	["defence"] = {
+	},
 }
 data.itemTagSpecialExclusionPattern = {
 	["life"] = {
+		["amulet"] = {
+			"lower Life on Hit", -- The Eternal Struggle
+			"your Spectres' Life", -- The Jinxed Juju
+			"when on Full Life",
+			"when on Low Life",
+			"^Allocates",
+		},
 		["body armour"] = {
-			"increased Damage while Leeching Life",
 			"Life as Physical Damage",
 			"Life as Extra Maximum Energy Shield",
 			"maximum Life as Fire Damage",
+			"while on Full Life", -- foxshade
+			"while you are on Full Life", -- foxshade
 			"when on Full Life",
-			"Enemy's life",
-			"Life From You",
-			"^Socketed Gems are Supported by Level"
+			"when on Low Life",
+			"Gain Maximum Life instead of Maximum Energy Shield",
+			"^Socketed Gems are Supported by Level",
+			"^Allocates",
 		},
 		["boots"] = {
 			"Enemy's Life", -- Legacy of Fury
+			"^Enemies Cannot Leech Life", -- Sin Trek
+			'their Life as Chaos Damage', -- Beacon of Madness
+			"when on Full Life",
+			"when on Low Life",
+			"^Allocates",
 		},
 		["belt"] = {
 			"Life as Extra Maximum Energy Shield", -- Soul Tether
+			"Life Recovery from Flasks is applied to nearby Allies", -- The Druggery
+			"Life Flasks gain", -- The Druggery
+			"when on Full Life",
+			"when on Low Life",
+			"^Allocates",
+		},
+		["gloves"] = {
+			"maximum Life as Physical Damage", -- Haemophilia
+			"Traps Cost Life", -- Slavedriver's Hand
+			"when on Full Life",
+			"when on Low Life",
+			"^Allocates",
 		},
 		["helmet"] = {
 			"Recouped as Life", -- Flame Exarch
+			"Life when you Suppress", -- Elevore
+			"Leech when on Low Life", -- Deidbell
+			"while no Life is Reserved", -- Malachai's Awakening
+			"^Socketed Gems are Supported by Level", -- Shako
+			"when on Full Life",
+			"when on Low Life",
+			"^Allocates",
 		},
+		["ring 1"] = {
+			"Energy Shield instead of Life", -- Valyrium
+			"increased Damage while Leeching Life", -- Synthesis Implicit
+			"when on Full Life",
+			"when on Low Life",
+			"^Allocates",
+		},
+		["ring 2"] = {
+			"Energy Shield instead of Life", -- Valyrium
+			"increased Damage while Leeching Life", -- Synthesis Implicit
+			"when on Full Life",
+			"when on Low Life",
+			"^Allocates",
+		},
+		["weapon 1"] = {
+			"^Socketed Gems are Supported by Level", -- Hiltless, etc
+			"maximum Life as Chaos Damage", -- Obliteration
+			"total Maximum Life and Energy Shield as Fire Damage", -- Oni-Goroshi
+			"Life as Physical Damage", -- Crucible/Synthesis
+			"maximum Life as Fire Damage", -- Crucible
+			"when on Full Life",
+			"when on Low Life",
+			"^Allocates",
+
+		},
+		["weapon 2"] = {
+			"maximum Life as Chaos Damage", -- Obliteration
+			"^Socketed Gems Cost and Reserve Life", -- Prism Guardian
+			"increased Damage while Leeching Life", -- Synthesis Implicit ~ Quivers
+			"Life as Physical Damage", -- Crucible/Synthesis
+			"maximum Life as Fire Damage", -- Crucible
+			"when on Full Life",
+			"when on Low Life",
+			"^Allocates",
+		}
 	},
 	["evasion"] = {
 		["ring"] = {
 		},
+	},
+	["defence"] = {
 	},
 }
 
@@ -666,6 +800,7 @@ data.timelessJewelTypes = {
 	[3] = "Brutal Restraint",
 	[4] = "Militant Faith",
 	[5] = "Elegant Hubris",
+	[6] = "Heroic Tragedy",
 }
 data.timelessJewelSeedMin = {
 	[1] = 100,
@@ -673,6 +808,7 @@ data.timelessJewelSeedMin = {
 	[3] = 500,
 	[4] = 2000,
 	[5] = 2000 / 20,
+	[6] = 100,
 }
 data.timelessJewelSeedMax = {
 	[1] = 8000,
@@ -680,9 +816,10 @@ data.timelessJewelSeedMax = {
 	[3] = 8000,
 	[4] = 10000,
 	[5] = 160000 / 20,
+	[6] = 8000,
 }
 data.timelessJewelTradeIDs = LoadModule("Data/TimelessJewelData/LegionTradeIds")
-data.timelessJewelAdditions = 94 -- #legionAdditions
+data.timelessJewelAdditions = 96 -- #legionAdditions
 data.nodeIDList = LoadModule("Data/TimelessJewelData/NodeIndexMapping")
 data.timelessJewelLUTs = { }
 data.readLUT, data.repairLUTs = LoadModule("Modules/DataLegionLookUpTableHelper")
@@ -764,7 +901,7 @@ data.skillStatMapMeta = {
 			map = copyTable(map)
 			t[key] = map
 			for _, mod in ipairs(map) do
-				processMod(t._grantedEffect, mod)
+				processMod(t._grantedEffect, mod, key)
 			end
 			return map
 		end
@@ -793,14 +930,14 @@ for skillId, grantedEffect in pairs(data.skills) do
 	grantedEffect.statMap = grantedEffect.statMap or { }
 	setmetatable(grantedEffect.statMap, data.skillStatMapMeta)
 	grantedEffect.statMap._grantedEffect = grantedEffect
-	for _, map in pairs(grantedEffect.statMap) do
+	for name, map in pairs(grantedEffect.statMap) do
 		-- Some mods need different scalars for different stats, but the same value.  Putting them in a group allows this
 		for _, modOrGroup in ipairs(map) do
 			if modOrGroup.name then
-				processMod(grantedEffect, modOrGroup)
+				processMod(grantedEffect, modOrGroup, name)
 			else
 				for _, mod in ipairs(modOrGroup) do
-					processMod(grantedEffect, mod)
+					processMod(grantedEffect, mod, name)
 				end
 			end
 		end
@@ -842,8 +979,7 @@ local toAddGems = { }
 for gemId, gem in pairs(data.gems) do
     gem.name = sanitiseText(gem.name)
     setupGem(gem, gemId)
-    local loc, _ = gemId:find('Vaal')
-	if loc then
+	if gem.vaalGem then
 		data.gemGrantedEffectIdForVaalGemId[gem.secondaryGrantedEffectId] = gemId
 		for otherGemId, otherGem in pairs(data.gems) do
 			if otherGem.grantedEffectId == gem.secondaryGrantedEffectId then
@@ -853,7 +989,7 @@ for gemId, gem in pairs(data.gems) do
 		end
 	end
     for _, alt in ipairs{"AltX", "AltY"} do
-        if loc and data.skills[gem.secondaryGrantedEffectId..alt] then
+        if gem.vaalGem and data.skills[gem.secondaryGrantedEffectId..alt] then
 			data.gemGrantedEffectIdForVaalGemId[gem.secondaryGrantedEffectId..alt] = gemId..alt
 			data.gemVaalGemIdForBaseGemId[gemId..alt] = data.gemVaalGemIdForBaseGemId[gemId]..alt
             local newGem = { name, gameId, variantId, grantedEffectId, secondaryGrantedEffectId, vaalGem, tags = {}, tagString, reqStr, reqDex, reqInt, naturalMaxLevel }
@@ -898,7 +1034,7 @@ data.printMissingMinionSkills = function()
 	for _, minion in pairs(data.minions) do
 		for _, skillId in ipairs(minion.skillList) do
 			if not data.skills[skillId] and not missing[skillId] then
-				ConPrintf("'%s' missing skill '%s'", minion.name, skillId)
+				--ConPrintf("'%s' missing skill '%s'", minion.name, skillId)
 				missing[skillId] = true
 			end
 		end
@@ -1013,3 +1149,5 @@ for _, modId in ipairs(sortedMods) do
 end
 LoadModule("Data/Uniques/Special/Generated")
 LoadModule("Data/Uniques/Special/New")
+
+data.flavourText = LoadModule("Data/FlavourText")

@@ -3,26 +3,24 @@
 
 return {
 	[1]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Beam Splits towards {0} additional target"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Beam Splits towards {0} additional targets"
-				}
+				text="Beam Splits towards {0} additional target"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Beam Splits towards {0} additional targets"
 			}
 		},
 		name="beam_split_num",
@@ -31,26 +29,24 @@ return {
 		}
 	},
 	[2]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Beam Splits towards {0} additional target"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Beam Splits towards {0} additional targets"
-				}
+				text="Beam Splits towards {0} additional target"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Beam Splits towards {0} additional targets"
 			}
 		},
 		name="base_split_num",
@@ -59,17 +55,15 @@ return {
 		}
 	},
 	[3]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Modifiers to the number of times to Chain instead apply\nto the number of targets Beam Splits towards"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Modifiers to the number of times to Chain instead apply\nto the number of targets Beam Splits towards"
 			}
 		},
 		name="beam_splits_instead_of_chain",

@@ -67,6 +67,18 @@ League: Perandus
 {variant:1}Grants Last Breath when you Use a Skill during Effect, for 800% of Mana Cost
 {variant:2}Grants Last Breath when you Use a Skill during Effect, for (450-600)% of Mana Cost
 ]],
+[[
+Wellwater Phylactery
+Colossal Mana Flask
+Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 64
+(200-300)% increased Charges per use
+(150-200)% increased Amount Recovered
+(60-40)% less Duration
+Removes (10-15)% of Life when Used
+Starts Energy Shield Recharge when Used
+Energy Shield Recharge is not delayed by Damage during Effect
+]],
 -- Flask: Hybrid
 [[
 Divination Distillate
@@ -75,6 +87,7 @@ Variant: Pre 1.1.0
 Variant: Pre 2.2.0
 Variant: Pre 3.5.0
 Variant: Pre 3.15.0
+Variant: Pre 3.25.0
 Variant: Current
 {variant:1,2}+6% to all maximum Elemental Resistances during Effect
 {variant:3}+4% to all maximum Elemental Resistances during Effect
@@ -83,8 +96,10 @@ Variant: Current
 {variant:1,2,3,4}(40-60)% increased Rarity of Items found during Effect
 {variant:5}(20-30)% increased Rarity of Items found during Effect
 {variant:5}(8-12)% increased Quantity of Items found during Effect
+{variant:6}(30-50)% increased Rarity of Items found during Effect
 25% increased Light Radius during Effect
 {variant:4,5}+50% to Elemental Resistances during Effect
+{variant:6}+10% to Elemental Resistances during Effect
 ]],[[
 The Writhing Jar
 Hallowed Hybrid Flask
@@ -165,36 +180,51 @@ Silver Flask
 League: Betrayal
 Source: Drops from unique{Catarina, Master of Undeath}
 Has Alt Variant: true
-Variant: Crit Chance
+Selected Variant: 16
+Selected Alt Variant: 6
+Variant: Pre 3.26 Crit Chance
 Variant: Damage Taken is Leeched as Life
 Variant: Item Rarity
-Variant: Reduced Mana Cost
-Variant: Movement Speed/Stun Avoidance
+Variant: Pre 3.26 Movement Speed/Stun Avoidance
+Variant: Stun Avoidance
 Variant: Life Regen
 Variant: Reduced Reflected Damage Taken
+Variant: Physical Damage can Ignite
+Variant: Ignited enemies have Malediction
+Variant: Additional Curse
+Variant: Ignite Spread
+Variant: Ignite Leech
 Variant: Pre 3.15.0
 Variant: Pre 3.16.0 Crit Chance
-Variant: Current
+Variant: Pre 3.26
+Variant: Life on Kill
+Variant: Mana on Kill
+Variant: ES on Kill
 LevelReq: 48
 Implicits: 0
-{variant:10}+90 to maximum Charges
-{variant:8}Recharges 1 Charge when you Consume an Ignited corpse
-{variant:10}Recharges 5 Charges when you Consume an Ignited corpse
-{variant:8}Enemies Ignited by you during Effect take 10% increased Damage
-{variant:10}Enemies Ignited by you during Effect take (7-10)% increased Damage
-{variant:8,10}Recover (1-3)% of Life when you Kill an Enemy during Effect
-{variant:8,10}Recover (1-3)% of Mana when you Kill an Enemy during Effect
-{variant:8,10}Recover (1-3)% of Energy Shield when you Kill an Enemy during Effect
-{variant:10}(175-200)% increased Charges per use
-{variant:9}{crafted}(60-80)% increased Critical Strike Chance during Effect
+{variant:15}+90 to maximum Charges
+{variant:16,17,18}+(10-20) to maximum Charges
+{variant:13}Recharges 1 Charge when you Consume an Ignited corpse
+{variant:15,16,17,18}Recharges 5 Charges when you Consume an Ignited corpse
+{variant:13}Enemies Ignited by you during Effect take 10% increased Damage
+{variant:14,15,16,17,18}Enemies Ignited by you during Effect take (7-10)% increased Damage
+{variant:13,15,16}Recover (1-3)% of Life when you Kill an Enemy during Effect
+{variant:13,15,17}Recover (1-3)% of Mana when you Kill an Enemy during Effect
+{variant:13,15,18}Recover (1-3)% of Energy Shield when you Kill an Enemy during Effect
+{variant:14}(175-200)% increased Charges per use
+{variant:14}{crafted}(60-80)% increased Critical Strike Chance during Effect
 {variant:1}{crafted}(45-55)% increased Critical Strike Chance during Effect
 {variant:2}{crafted}15% of Damage Taken from Hits is Leeched as Life during Effect
 {variant:3}{crafted}(20-30)% increased Rarity of Items found during Effect
-{variant:4}{crafted}(20-25)% reduced Mana Cost of Skills during Effect
-{variant:5}{crafted}(8-12)% increased Movement Speed during Effect
-{variant:5}{crafted}50% Chance to avoid being Stunned during Effect
+{variant:4}{crafted}(8-12)% increased Movement Speed during Effect
+{variant:4,5}{crafted}50% Chance to avoid being Stunned during Effect
 {variant:6}{crafted}Regenerate 3% of Life per second during Effect
 {variant:7}{crafted}(60-80)% reduced Reflected Damage taken during Effect
+{variant:8}{crafted}Your Physical Damage can Ignite during Effect
+{variant:9}{crafted}Enemies Ignited by you during Effect have Malediction
+{variant:10}{crafted}You can apply an additional Curse during Effect
+{variant:11}{crafted}Ignites you inflict during Effect spread to other Enemies within 1.5 metres
+{variant:12}{crafted}Leech 1.5% of Expected Ignite Damage as Life when you Ignite an Enemy during Effect
 ]],[[
 Dying Sun
 Ruby Flask
@@ -366,13 +396,15 @@ Sapphire Flask
 Variant: Pre 2.2.0
 Variant: Pre 3.0.0
 Variant: Pre 3.15.0
+Variant: Pre 3.25.0
 Variant: Current
 {variant:1}30% of Physical Damage from Hits taken as Cold Damage during Effect
 {variant:2,3}20% of Physical Damage from Hits taken as Cold Damage during Effect
 {variant:4}(10-15)% of Physical Damage from Hits taken as Cold Damage during Effect
+{variant:5}(20-30)% of Fire and Lightning Damage from Hits taken as Cold Damage during Effect
 {variant:1,2}Gain (20-30)% of Physical Damage as Extra Cold Damage during effect
 {variant:3}Gain (15-20)% of Physical Damage as Extra Cold Damage during effect
-{variant:4}Gain (10-15)% of Physical Damage as Extra Cold Damage during effect
+{variant:4,5}Gain (10-15)% of Physical Damage as Extra Cold Damage during effect
 30% chance to Avoid being Chilled during Effect
 30% chance to Avoid being Frozen during Effect
 ]],[[
@@ -425,7 +457,7 @@ You are Shocked during Effect, causing 50% increased Damage taken
 {variant:4,8,10}20% of Physical Damage Converted to Lightning during Effect
 {variant:14}50% of Physical Damage Converted to Lightning during Effect
 {variant:15}(25-40)% increased Effect of Shocks you inflict during Effect
-{variant:15}Shocks you inflict during Effect spread to other Enemies in a radius of 20
+{variant:15}Shocks you inflict during Effect spread to other Enemies within 2 metres
 {variant:1,2,3,4}30% of Lightning Damage Leeched as Life during Effect
 {variant:5,6,7,8,9,10,11,12,13,14,15,16,17,18}20% of Lightning Damage Leeched as Life during Effect
 {variant:1,2,3,4}30% of Lightning Damage Leeched as Mana during Effect
@@ -463,29 +495,51 @@ Creates a Smoke Cloud on Use
 {variant:1}(50-70)% increased Damage Over Time during Effect
 {variant:2}(25-40)% increased Damage Over Time during Effect
 Grants Level 21 Despair Curse Aura during Effect
+]],[[
+Replica Witchfire Brew
+Stibnite Flask
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Creates a Smoke Cloud on Use
+(-10–10)% reduced Charges per use
+Grants Level 21 Vulnerability Curse Aura during Effect
+]],[[
+Wine of the Prophet
+Gold Flask
+Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 27
++60 to Maximum Charges
+(20-100)% increased Charges per Use
+Grants a random Divination buff for 20 seconds when used
 ]],
 -- Flask: Ward
 [[
 Elixir of the Unbroken Circle
 Iron Flask
+Variant: Pre 3.25.0
+Variant: Current
 League: Expedition
 Source: Drops from unique{Medved, Feller of Heroes} in normal{Expedition Logbook}
 Implicits: 1
 Restores Ward on use
-(20-40)% increased Duration
+{variant:1}(20-40)% increased Duration
+{variant:2}(50-80)% increased Duration
 Recover 4% of Life per Endurance Charge on use
 Lose all Endurance Charges on use
 Gain 1 Endurance Charge per Second during Effect
 ]],[[
 Olroth's Resolve
 Iron Flask
+Variant: Pre 3.25.0
+Variant: Current
 League: Expedition
 Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbook}
 Implicits: 1
 Restores Ward on use
 (50-40)% increased Charges per use
 Ward does not Break during Effect
-70% less Ward during Effect
+{variant:1}70% less Ward during Effect
+{variant:2}85% less Ward during Effect
 ]],[[
 Starlight Chalice
 Iron Flask
