@@ -707,7 +707,7 @@ function SkillsTabClass:CreateGemSlot(index)
 		gemInstance.skillId = nil
 		self:ProcessSocketGroup(self.displayGroup)
 		-- New gems need to be constrained by ProcessGemLevel
-		gemInstance.level = self:ProcessGemLevel(gemInstance.gemData, self.addingImbuedSupport)
+		gemInstance.level = self:ProcessGemLevel(gemInstance.gemData)
 		gemInstance.naturalMaxLevel = gemInstance.level
 		slot.level:SetText(gemInstance.level)
 		slot.count:SetText(gemInstance.count or 1)
