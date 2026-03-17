@@ -1696,34 +1696,74 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 	local pGroups = self.primaryBuild.skillsTab and self.primaryBuild.skillsTab.socketGroupList or {}
 	local cGroups = compareEntry.skillsTab and compareEntry.skillsTab.socketGroupList or {}
 
-	-- Helper: get the main (non-support) skill name from a socket group
-	local function getMainSkillName(group)
+	-- Helper: get the set of gem names in a socket group
+	local function getGemNameSet(group)
+		local set = {}
 		for _, gem in ipairs(group.gemList or {}) do
-			if gem.grantedEffect and not gem.grantedEffect.support then
-				return gem.grantedEffect.name
+			local name = gem.grantedEffect and gem.grantedEffect.name or gem.nameSpec
+			if name then
+				set[name] = true
 			end
 		end
-		return group.displayLabel or group.label
+		return set
 	end
 
-	-- Build lookup: main skill name → compare group index
-	local cNameToIndex = {}
+	-- Helper: compute Jaccard similarity between two gem name sets
+	local function groupSimilarity(setA, setB)
+		local intersection = 0
+		local union = 0
+		local allKeys = {}
+		for k in pairs(setA) do allKeys[k] = true end
+		for k in pairs(setB) do allKeys[k] = true end
+		for k in pairs(allKeys) do
+			union = union + 1
+			if setA[k] and setB[k] then
+				intersection = intersection + 1
+			end
+		end
+		if union == 0 then return 0 end
+		return intersection / union
+	end
+
+	-- Build gem name sets for all groups
+	local pSets = {}
+	for i, group in ipairs(pGroups) do
+		pSets[i] = getGemNameSet(group)
+	end
+	local cSets = {}
 	for i, group in ipairs(cGroups) do
-		local name = getMainSkillName(group)
-		if name and not cNameToIndex[name] then
-			cNameToIndex[name] = i
+		cSets[i] = getGemNameSet(group)
+	end
+
+	-- Compute all pairwise similarity scores
+	local scorePairs = {}
+	for pi = 1, #pGroups do
+		for ci = 1, #cGroups do
+			local score = groupSimilarity(pSets[pi], cSets[ci])
+			if score > 0 then
+				t_insert(scorePairs, { pIdx = pi, cIdx = ci, score = score })
+			end
 		end
 	end
 
-	-- Match primary groups to compare groups by main skill name
-	local renderPairs = {}
+	-- Sort by similarity descending (best matches first)
+	table.sort(scorePairs, function(a, b) return a.score > b.score end)
+
+	-- Greedy matching: assign best pairs first, each group used at most once
+	local pMatched = {}
 	local cMatched = {}
-	for i, group in ipairs(pGroups) do
-		local name = getMainSkillName(group)
-		if name and cNameToIndex[name] and not cMatched[cNameToIndex[name]] then
-			t_insert(renderPairs, { pIdx = i, cIdx = cNameToIndex[name] })
-			cMatched[cNameToIndex[name]] = true
-		else
+	local renderPairs = {}
+	for _, sp in ipairs(scorePairs) do
+		if not pMatched[sp.pIdx] and not cMatched[sp.cIdx] then
+			t_insert(renderPairs, { pIdx = sp.pIdx, cIdx = sp.cIdx })
+			pMatched[sp.pIdx] = true
+			cMatched[sp.cIdx] = true
+		end
+	end
+
+	-- Add unmatched primary groups
+	for i = 1, #pGroups do
+		if not pMatched[i] then
 			t_insert(renderPairs, { pIdx = i, cIdx = nil })
 		end
 	end
