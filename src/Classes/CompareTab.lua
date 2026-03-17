@@ -1711,7 +1711,7 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 		return set
 	end
 
-	-- Helper: compute Jaccard similarity between two gem name sets
+	-- Helper: compute similarity between two gem name sets
 	local function groupSimilarity(setA, setB)
 		local intersection = 0
 		local union = 0
