@@ -1010,7 +1010,6 @@ function TradeQueryGeneratorClass:FinishQuery()
 		"available",
 		"onlineleague",
 		"online",
-		"any",
 	}
 	local selectedTradeType = self.tradeTypes[self.tradeTypeIndex]
 	-- Generate trade query str and open in browser
@@ -1111,6 +1110,10 @@ function TradeQueryGeneratorClass:FinishQuery()
 				}
 			}
 		}
+	end
+
+	if options.account then
+		queryTable.query.filters.trade_filters.filters.account = {input = options.account}
 	end
 
 	if options.maxLevel and options.maxLevel > 0 then

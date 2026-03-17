@@ -285,6 +285,11 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 				table.insert(items, {
 					amount = trade_entry.listing.price.amount,
 					currency = trade_entry.listing.price.currency,
+					-- note: using these to travel to the hideout or for a
+					-- direct whisper is not allowed, even if they are provided
+					-- right here
+					-- hideout_token = trade_entry.listing.hideout_token,
+					-- whisper_token = trade_entry.listing.whisper_token,
 					item_string = common.base64.decode(trade_entry.item.extended.text),
 					whisper = trade_entry.listing.whisper,
 					weight = trade_entry.item.pseudoMods and trade_entry.item.pseudoMods[1]:match("Sum: (.+)") or "0",

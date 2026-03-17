@@ -283,7 +283,6 @@ on trade site to work on other leagues and realms)]]
 		"Instant buyout and in person",
 		"In person (online in league)",
 		"In person (online)",
-		"Any",
 	}
 	
 	self.controls.tradeTypeSelection = new("DropDownControl", { "TOPLEFT", self.controls.poesessidButton, "BOTTOMLEFT" },
@@ -943,6 +942,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 				return
 			end
 			context.controls["priceButton"..context.row_idx].label = "Searching..."
+			self.lastQuery = query
 			self.tradeQueryRequests:SearchWithQueryWeightAdjusted(self.pbRealm, self.pbLeague, query,
 				function(items, errMsg)
 					if errMsg then
@@ -1106,8 +1106,6 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 				local firstValidSlot = self:findValidSlotForWatchersEye()
 				local currentItem = firstValidSlot.selItemId ~= 0 and self.itemsTab.items[firstValidSlot.selItemId]
 				local eyeEquipped = currentItem and currentItem.name:find("Watcher's Eye")
-				-- for watcher's eye we can compare to an already existing one, or
-				-- default to comparing with all active sockets
 				self.itemsTab:AddItemTooltip(tooltip, item, eyeEquipped and firstValidSlot or nil, true)
 			else
 				self.itemsTab:AddItemTooltip(tooltip, item, slotTbl, true)
@@ -1119,23 +1117,53 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 		return self.itemIndexTbl[row_idx] and self.resultTbl[row_idx][self.itemIndexTbl[row_idx]].item_string ~= nil
 	end
 	-- Whisper so we can copy to clipboard
-	controls["whisperButton"..row_idx] = new("ButtonControl", { "TOPLEFT", controls["importButton"..row_idx], "TOPRIGHT"}, {8, 0, 185, row_height}, function()
-		return self.totalPrice[row_idx] and "Whisper for " .. self.totalPrice[row_idx].amount .. " " .. self.totalPrice[row_idx].currency or "Whisper"
-	end, function()
-		Copy(self.resultTbl[row_idx][self.itemIndexTbl[row_idx]].whisper)
-	end)
-	controls["whisperButton"..row_idx].enabled = function()
-		return self.itemIndexTbl[row_idx] and self.resultTbl[row_idx][self.itemIndexTbl[row_idx]].whisper ~= nil
-	end
-	controls["whisperButton"..row_idx].tooltipFunc = function(tooltip)
+	controls["whisperButton" .. row_idx] = new("ButtonControl",
+		{ "TOPLEFT", controls["importButton" .. row_idx], "TOPRIGHT" }, { 8, 0, 185, row_height }, function()
+			local itemResult = self.itemIndexTbl[row_idx] and self.resultTbl[row_idx][self.itemIndexTbl[row_idx]]
+
+			if not itemResult then return "" end
+
+			local price = self.totalPrice[row_idx] and
+				self.totalPrice[row_idx].amount .. " " .. self.totalPrice[row_idx].currency
+
+			if itemResult.whisper then
+				return price and "Whisper for " .. price or "Whisper"
+			else
+				return price and "Search for selected item"
+			end
+
+		end, function()
+			local itemResult = self.itemIndexTbl[row_idx] and self.resultTbl[row_idx][self.itemIndexTbl[row_idx]]
+			if  itemResult.whisper then
+				Copy(itemResult.whisper)
+			else
+				local exactQuery = dkjson.decode(self.lastQuery)
+				-- use trade sum to get the specific item. we could also add the
+				-- trader name as it is contained in the fetch responses, but
+				-- this alone doesn't seem to really result in multiple results.
+				-- trade weight min is exclusive while max is inclusive (makes no sense to me)
+				exactQuery.query.stats[1].value = { min = tonumber(itemResult.weight) - 0.1, max = tonumber(itemResult.weight) }
+
+				local exactQueryStr = dkjson.encode(exactQuery)
+				
+				self.tradeQueryRequests:SearchWithQuery(self.pbRealm, self.pbLeague, exactQueryStr, function(_, _)
+				end, {callbackQueryId = function(queryId)
+					local url = self.hostName.."trade/search/"..self.pbLeague.."/"..queryId
+					Copy(url)
+					OpenURL(url)
+				end})
+			end
+		end)
+
+	controls["whisperButton" .. row_idx].tooltipFunc = function(tooltip)
 		tooltip:Clear()
-		if self.itemIndexTbl[row_idx] and self.resultTbl[row_idx][self.itemIndexTbl[row_idx]].item_string then
-			tooltip.center = true
-			tooltip:AddLine(16, "Copies the item purchase whisper to the clipboard")
-		end
+		tooltip.center = true
+		local itemResult = self.itemIndexTbl[row_idx] and self.resultTbl[row_idx][self.itemIndexTbl[row_idx]]
+		local text = itemResult.whisper and "Copies the item purchase whisper to the clipboard" or
+			"Opens the search page to show the item"
+		tooltip:AddLine(16, text)
 	end
 end
-
 -- Method to update the Total Price string sum of all items
 function TradeQueryClass:GetTotalPriceString()
 	local text = ""
