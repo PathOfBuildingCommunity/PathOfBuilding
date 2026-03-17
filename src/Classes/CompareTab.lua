@@ -58,7 +58,7 @@ local CompareTabClass = newClass("CompareTab", "ControlHost", "Control", functio
 	self.treeSearchNeedsSync = true
 
 	-- Tree overlay mode (false = side-by-side, true = overlay with green/red/blue nodes)
-	self.treeOverlayMode = false
+	self.treeOverlayMode = true
 
 	-- Tooltip for item hover in Items view
 	self.itemTooltip = new("Tooltip")
@@ -364,7 +364,7 @@ function CompareTabClass:InitControls()
 		if not state and self.primaryBuild.treeTab and self.primaryBuild.treeTab.viewer then
 			self.primaryBuild.treeTab.viewer.compareSpec = nil
 		end
-	end)
+	end, nil, true)
 	self.controls.treeOverlayCheck.shown = treeFooterShown
 
 	-- Overlay-mode search (single search for primary viewer)
