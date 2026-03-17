@@ -63,6 +63,9 @@ local CompareTabClass = newClass("CompareTab", "ControlHost", "Control", functio
 	-- Tooltip for item hover in Items view
 	self.itemTooltip = new("Tooltip")
 
+	-- Tooltip for calcs hover breakdown
+	self.calcsTooltip = new("Tooltip")
+
 	-- Interactive config controls state
 	self.configControls = {}        -- { var -> { control, varData } }
 	self.configControlList = {}     -- ordered list for layout
@@ -1829,6 +1832,319 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 end
 
 -- ============================================================
+-- CALCS TOOLTIP HELPERS
+-- ============================================================
+
+-- Format a modifier value with its type for display
+function CompareTabClass:FormatCalcModValue(value, modType)
+	if modType == "BASE" then
+		return s_format("%+g base", value)
+	elseif modType == "INC" then
+		if value >= 0 then
+			return value .. "% increased"
+		else
+			return (-value) .. "% reduced"
+		end
+	elseif modType == "MORE" then
+		if value >= 0 then
+			return value .. "% more"
+		else
+			return (-value) .. "% less"
+		end
+	elseif modType == "OVERRIDE" then
+		return "Override: " .. tostring(value)
+	elseif modType == "FLAG" then
+		return value and "True" or "False"
+	else
+		return tostring(value)
+	end
+end
+
+-- Format CamelCase mod name to spaced words
+function CompareTabClass:FormatCalcModName(modName)
+	return modName:gsub("([%l%d]:?)(%u)", "%1 %2"):gsub("(%l)(%d)", "%1 %2")
+end
+
+-- Resolve a modifier's source to a human-readable name
+function CompareTabClass:ResolveSourceName(mod, build)
+	if not mod.source then return "" end
+	local sourceType = mod.source:match("[^:]+") or ""
+	if sourceType == "Item" then
+		local itemId = mod.source:match("Item:(%d+):.+")
+		local item = build.itemsTab and build.itemsTab.items[tonumber(itemId)]
+		if item then
+			return colorCodes[item.rarity] .. item.name
+		end
+	elseif sourceType == "Tree" then
+		local nodeId = mod.source:match("Tree:(%d+)")
+		if nodeId then
+			local nodeIdNum = tonumber(nodeId)
+			local node = (build.spec and build.spec.nodes[nodeIdNum])
+				or (build.spec and build.spec.tree and build.spec.tree.nodes[nodeIdNum])
+				or (build.latestTree and build.latestTree.nodes[nodeIdNum])
+			if node then
+				return node.dn or node.name or ""
+			end
+		end
+	elseif sourceType == "Skill" then
+		local skillId = mod.source:match("Skill:(.+)")
+		if skillId and build.data and build.data.skills[skillId] then
+			return build.data.skills[skillId].name
+		end
+	elseif sourceType == "Pantheon" then
+		return mod.source:match("Pantheon:(.+)") or ""
+	elseif sourceType == "Spectre" then
+		return mod.source:match("Spectre:(.+)") or ""
+	end
+	return ""
+end
+
+-- Get the modDB and config for a sectionData entry and actor
+function CompareTabClass:GetModStoreAndCfg(sectionData, actor)
+	local cfg = {}
+	if sectionData.cfg and actor.mainSkill and actor.mainSkill[sectionData.cfg .. "Cfg"] then
+		cfg = copyTable(actor.mainSkill[sectionData.cfg .. "Cfg"], true)
+	end
+	cfg.source = sectionData.modSource
+	cfg.actor = sectionData.actor
+
+	local modStore
+	if sectionData.enemy and actor.enemy then
+		modStore = actor.enemy.modDB
+	elseif sectionData.cfg and actor.mainSkill then
+		modStore = actor.mainSkill.skillModList
+	else
+		modStore = actor.modDB
+	end
+	return modStore, cfg
+end
+
+-- Tabulate modifiers for a sectionData entry and actor
+function CompareTabClass:TabulateMods(sectionData, actor)
+	local modStore, cfg = self:GetModStoreAndCfg(sectionData, actor)
+	if not modStore then return {} end
+
+	local rowList
+	if type(sectionData.modName) == "table" then
+		rowList = modStore:Tabulate(sectionData.modType, cfg, unpack(sectionData.modName))
+	else
+		rowList = modStore:Tabulate(sectionData.modType, cfg, sectionData.modName)
+	end
+	return rowList or {}
+end
+
+-- Build a unique key for a modifier row to match between builds
+function CompareTabClass:ModRowKey(row)
+	local src = row.mod.source or ""
+	local name = row.mod.name or ""
+	local mtype = row.mod.type or ""
+	-- Normalize Item sources by stripping the build-specific numeric ID
+	-- "Item:5:Body Armour" -> "Item:Body Armour" so same items match across builds
+	local normalizedSrc = src:gsub("^(Item):%d+:", "%1:")
+	return normalizedSrc .. "|" .. name .. "|" .. mtype
+end
+
+-- Format a single modifier row as a tooltip line
+function CompareTabClass:FormatModRow(row, sectionData, build)
+	local displayValue
+	if not sectionData.modType then
+		displayValue = self:FormatCalcModValue(row.value, row.mod.type)
+	else
+		displayValue = formatRound(row.value, 2)
+	end
+
+	local sourceType = row.mod.source and row.mod.source:match("[^:]+") or "?"
+	local sourceName = self:ResolveSourceName(row.mod, build)
+	local modName = ""
+	if type(sectionData.modName) == "table" then
+		modName = "  " .. self:FormatCalcModName(row.mod.name)
+	end
+
+	return displayValue, sourceType, sourceName, modName
+end
+
+-- Get breakdown text lines for a build's actor
+function CompareTabClass:GetBreakdownLines(sectionData, build)
+	if not sectionData.breakdown then return nil end
+	local calcsActor = build.calcsTab and build.calcsTab.calcsEnv and build.calcsTab.calcsEnv.player
+	if not calcsActor or not calcsActor.breakdown then return nil end
+
+	local breakdown
+	local ns, name = sectionData.breakdown:match("^(%a+)%.(%a+)$")
+	if ns then
+		breakdown = calcsActor.breakdown[ns] and calcsActor.breakdown[ns][name]
+	else
+		breakdown = calcsActor.breakdown[sectionData.breakdown]
+	end
+
+	if not breakdown or #breakdown == 0 then return nil end
+
+	local lines = {}
+	for _, line in ipairs(breakdown) do
+		if type(line) == "string" then
+			t_insert(lines, line)
+		end
+	end
+	return #lines > 0 and lines or nil
+end
+
+-- Draw the calcs hover tooltip showing breakdown for both builds with common/unique grouping
+function CompareTabClass:DrawCalcsTooltip(colData, rowLabel, rowX, rowY, rowW, rowH, vp, compareEntry)
+	local tooltip = self.calcsTooltip
+	if tooltip:CheckForUpdate(colData, rowLabel) then
+		-- Get calcsEnv actors (these have breakdown data populated)
+		local primaryCalcsActor = self.primaryBuild.calcsTab and self.primaryBuild.calcsTab.calcsEnv
+			and self.primaryBuild.calcsTab.calcsEnv.player
+		local compareCalcsActor = compareEntry.calcsTab and compareEntry.calcsTab.calcsEnv
+			and compareEntry.calcsTab.calcsEnv.player
+
+		local primaryActor = primaryCalcsActor or (self.primaryBuild.calcsTab.mainEnv and self.primaryBuild.calcsTab.mainEnv.player)
+		local compareActor = compareCalcsActor or (compareEntry.calcsTab.mainEnv and compareEntry.calcsTab.mainEnv.player)
+
+		if not primaryActor and not compareActor then
+			return
+		end
+
+		local primaryLabel = self:GetShortBuildName(self.primaryBuild.buildName)
+		local compareLabel = compareEntry.label or "Compare Build"
+
+		-- Tooltip header
+		tooltip:AddLine(16, "^7" .. (rowLabel or ""))
+		tooltip:AddSeparator(10)
+
+		-- Process each sectionData entry in colData
+		for _, sectionData in ipairs(colData) do
+			-- Show breakdown formulas per build (these are always build-specific)
+			if sectionData.breakdown then
+				local primaryLines = self:GetBreakdownLines(sectionData, self.primaryBuild)
+				local compareLines = self:GetBreakdownLines(sectionData, compareEntry)
+
+				if primaryLines then
+					tooltip:AddLine(14, colorCodes.POSITIVE .. primaryLabel .. ":")
+					for _, line in ipairs(primaryLines) do
+						tooltip:AddLine(14, "^7  " .. line)
+					end
+				end
+				if compareLines then
+					tooltip:AddLine(14, colorCodes.WARNING .. compareLabel .. ":")
+					for _, line in ipairs(compareLines) do
+						tooltip:AddLine(14, "^7  " .. line)
+					end
+				end
+				if primaryLines or compareLines then
+					tooltip:AddSeparator(10)
+				end
+			end
+
+			-- Show modifier sources split into common / primary-only / compare-only
+			if sectionData.modName then
+				local pRows = primaryActor and self:TabulateMods(sectionData, primaryActor) or {}
+				local cRows = compareActor and self:TabulateMods(sectionData, compareActor) or {}
+
+				if #pRows > 0 or #cRows > 0 then
+					-- Build lookup of compare rows by key
+					local cByKey = {}
+					for _, row in ipairs(cRows) do
+						local key = self:ModRowKey(row)
+						cByKey[key] = row
+					end
+
+					-- Classify into common, primary-only, compare-only
+					local common = {}    -- { { pRow, cRow }, ... }
+					local pOnly = {}
+					local cMatched = {}  -- keys that were matched
+
+					for _, pRow in ipairs(pRows) do
+						local key = self:ModRowKey(pRow)
+						if cByKey[key] then
+							t_insert(common, { pRow, cByKey[key] })
+							cMatched[key] = true
+						else
+							t_insert(pOnly, pRow)
+						end
+					end
+
+					local cOnly = {}
+					for _, cRow in ipairs(cRows) do
+						local key = self:ModRowKey(cRow)
+						if not cMatched[key] then
+							t_insert(cOnly, cRow)
+						end
+					end
+
+					-- Sub-section header (e.g., "Sources", "Increased Life Regeneration Rate")
+					local sectionLabel = sectionData.label or "Player modifiers"
+					tooltip:AddLine(14, "^7" .. sectionLabel .. ":")
+
+					-- Common modifiers
+					if #common > 0 then
+						-- Sort by primary value descending
+						table.sort(common, function(a, b)
+							if type(a[1].value) == "number" and type(b[1].value) == "number" then
+								return a[1].value > b[1].value
+							end
+							return false
+						end)
+						tooltip:AddLine(12, "^x808080  Common:")
+						for _, pair in ipairs(common) do
+							local pVal, sourceType, sourceName, modName = self:FormatModRow(pair[1], sectionData, self.primaryBuild)
+							local cVal = self:FormatModRow(pair[2], sectionData, compareEntry)
+							local valStr
+							if pVal == cVal then
+								valStr = s_format("^7%-10s", pVal)
+							else
+								valStr = colorCodes.POSITIVE .. s_format("%-5s", pVal) .. "^7/" .. colorCodes.WARNING .. s_format("%-5s", cVal)
+							end
+							local line = s_format("    %s ^7%-6s ^7%s%s", valStr, sourceType, sourceName, modName)
+							tooltip:AddLine(12, line)
+						end
+					end
+
+					-- Primary-only modifiers
+					if #pOnly > 0 then
+						table.sort(pOnly, function(a, b)
+							if type(a.value) == "number" and type(b.value) == "number" then
+								return a.value > b.value
+							end
+							return false
+						end)
+						tooltip:AddLine(12, colorCodes.POSITIVE .. "  " .. primaryLabel .. " only:")
+						for _, row in ipairs(pOnly) do
+							local displayValue, sourceType, sourceName, modName = self:FormatModRow(row, sectionData, self.primaryBuild)
+							local line = s_format("    ^7%-10s ^7%-6s ^7%s%s", displayValue, sourceType, sourceName, modName)
+							tooltip:AddLine(12, line)
+						end
+					end
+
+					-- Compare-only modifiers
+					if #cOnly > 0 then
+						table.sort(cOnly, function(a, b)
+							if type(a.value) == "number" and type(b.value) == "number" then
+								return a.value > b.value
+							end
+							return false
+						end)
+						tooltip:AddLine(12, colorCodes.WARNING .. "  " .. compareLabel .. " only:")
+						for _, row in ipairs(cOnly) do
+							local displayValue, sourceType, sourceName, modName = self:FormatModRow(row, sectionData, compareEntry)
+							local line = s_format("    ^7%-10s ^7%-6s ^7%s%s", displayValue, sourceType, sourceName, modName)
+							tooltip:AddLine(12, line)
+						end
+					end
+
+					-- Separator between sub-sections
+					tooltip:AddSeparator(6)
+				end
+			end
+		end
+	end
+
+	SetDrawLayer(nil, 100)
+	tooltip:Draw(rowX, rowY, rowW, rowH, vp)
+	SetDrawLayer(nil, 0)
+end
+
+-- ============================================================
 -- CALCS VIEW (card-based sections with comparison)
 -- ============================================================
 function CompareTabClass:DrawCalcs(vp, compareEntry)
@@ -1923,6 +2239,14 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 	-- Set viewport for scroll clipping
 	SetViewport(vp.x, vp.y, vp.width, vp.height)
 
+	-- Cursor position relative to viewport (for hover detection)
+	local cursorX, cursorY = GetCursorPos()
+	local vpCursorX = cursorX - vp.x
+	local vpCursorY = cursorY - vp.y
+	local hoverColData = nil
+	local hoverRowLabel = nil
+	local hoverRowX, hoverRowY, hoverRowW, hoverRowH = 0, 0, 0, 0
+
 	-- Draw header bar with build names
 	local headerY = 4 - self.scrollY
 	SetDrawColor(1, 1, 1)
@@ -1977,17 +2301,41 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 					local colData = rowData[1]
 					local textSize = rowData.textSize or 14
 
+					-- Hover highlight
+					local isHovered = vpCursorX >= x and vpCursorX < x + cardWidth
+						and vpCursorY >= lineY and vpCursorY < lineY + 18
+						and vpCursorY >= 0 and vpCursorY < vp.height
+					local rowHovered = isHovered and colData
+					if rowHovered then
+						-- Draw green border around hovered row (matching normal CalcsTab style)
+						SetDrawColor(0.25, 1, 0.25)
+						DrawImage(nil, x + 2, lineY, cardWidth - 4, 18)
+						SetDrawColor(rowData.bgCol or "^0")
+						DrawImage(nil, x + 3, lineY + 1, cardWidth - 6, 16)
+						hoverColData = colData
+						hoverRowLabel = rowData.label
+						hoverRowX = x
+						hoverRowY = lineY
+						hoverRowW = cardWidth
+						hoverRowH = 18
+					end
+
 					-- Label background and text
-					SetDrawColor(rowData.bgCol or "^0")
-					DrawImage(nil, x + 2, lineY, labelWidth - 2, 18)
+					local bgCol = rowData.bgCol or "^0"
+					if not rowHovered then
+						SetDrawColor(bgCol)
+						DrawImage(nil, x + 2, lineY, labelWidth - 2, 18)
+					end
 					local textColor = rowData.color or "^7"
 					DrawString(x + labelWidth, lineY + 1, "RIGHT_X", 16, "VAR", textColor .. rowData.label .. "^7:")
 
 					-- Primary value column
-					SetDrawColor(sec.colour)
-					DrawImage(nil, x + valCol1X - sepW, lineY, sepW, 18)
-					SetDrawColor(rowData.bgCol or "^0")
-					DrawImage(nil, x + valCol1X, lineY, valColWidth, 18)
+					if not rowHovered then
+						SetDrawColor(sec.colour)
+						DrawImage(nil, x + valCol1X - sepW, lineY, sepW, 18)
+						SetDrawColor(bgCol)
+						DrawImage(nil, x + valCol1X, lineY, valColWidth, 18)
+					end
 					if colData and colData.format then
 						local ok, str = pcall(self.FormatStr, self, colData.format, primaryActor, colData)
 						if ok and str then
@@ -1996,10 +2344,12 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 					end
 
 					-- Compare value column
-					SetDrawColor(sec.colour)
-					DrawImage(nil, x + valCol2X - sepW, lineY, sepW, 18)
-					SetDrawColor(rowData.bgCol or "^0")
-					DrawImage(nil, x + valCol2X, lineY, valColWidth, 18)
+					if not rowHovered then
+						SetDrawColor(sec.colour)
+						DrawImage(nil, x + valCol2X - sepW, lineY, sepW, 18)
+						SetDrawColor(bgCol)
+						DrawImage(nil, x + valCol2X, lineY, valColWidth, 18)
+					end
 					if colData and colData.format then
 						local ok, str = pcall(self.FormatStr, self, colData.format, compareActor, colData)
 						if ok and str then
@@ -2016,7 +2366,13 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 		end
 	end
 
-	SetViewport()
+	-- Draw hover tooltip for calcs breakdown (reset viewport first so tooltip can extend beyond)
+	if hoverColData then
+		SetViewport()
+		self:DrawCalcsTooltip(hoverColData, hoverRowLabel, hoverRowX + vp.x, hoverRowY + vp.y, hoverRowW, hoverRowH, vp, compareEntry)
+	else
+		SetViewport()
+	end
 end
 
 -- ============================================================
