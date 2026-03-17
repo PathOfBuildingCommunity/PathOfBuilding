@@ -891,6 +891,10 @@ function buildMode:GetLoadoutByName(loadoutName)
 	local configId = oneConfig and 1 or
 		findSetId(self.configTab.configSetOrderList, loadoutName, self.configTab.configSets, self.configListSpecialLinks)
 
+	if not specId and not itemId and not skillId and not configId then
+		return nil
+	end
+
 	return {
 		specId = specId,
 		itemSetId = itemId,
