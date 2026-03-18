@@ -615,6 +615,7 @@ function SkillsTabClass:PasteSocketGroup(testInput)
 	end
 end
 
+-- the imbued support control actively switches to the latest count of the current displayGroup's gemList so we can use the canSupport filtering
 local function updateImbuedSupportIndex(control, gemListCount)
 	if gemListCount > 0 then
 		control.index = gemListCount + 1
