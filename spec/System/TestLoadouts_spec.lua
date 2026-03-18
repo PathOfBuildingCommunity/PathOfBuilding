@@ -3,25 +3,25 @@ describe("TestLoadouts", function()
 		newBuild()
 
 		build.itemsTab:CreateDisplayItemFromRaw([[Dialla's Malefaction
-        Sage's Robe
-        Energy Shield: 95
-        EnergyShieldBasePercentile: 0
-        Variant: Pre 3.19.0
-        Variant: Current
-        Selected Variant: 2
-        Sage's Robe
-        Quality: 20
-        Sockets: R-G-B-B-B-B
-        LevelReq: 37
-        Implicits: 0
-        Gems can be Socketed in this Item ignoring Socket Colour
-        {variant:1}Gems Socketed in Red Sockets have +1 to Level
-        {variant:2}Gems Socketed in Red Sockets have +2 to Level
-        {variant:1}Gems Socketed in Green Sockets have +10% to Quality
-        {variant:2}Gems Socketed in Green Sockets have +30% to Quality
-        {variant:1}Gems Socketed in Blue Sockets gain 25% increased Experience
-        {variant:2}Gems Socketed in Blue Sockets gain 100% increased Experience
-        Has no Attribute Requirements]])
+		Sage's Robe
+		Energy Shield: 95
+		EnergyShieldBasePercentile: 0
+		Variant: Pre 3.19.0
+		Variant: Current
+		Selected Variant: 2
+		Sage's Robe
+		Quality: 20
+		Sockets: R-G-B-B-B-B
+		LevelReq: 37
+		Implicits: 0
+		Gems can be Socketed in this Item ignoring Socket Colour
+		{variant:1}Gems Socketed in Red Sockets have +1 to Level
+		{variant:2}Gems Socketed in Red Sockets have +2 to Level
+		{variant:1}Gems Socketed in Green Sockets have +10% to Quality
+		{variant:2}Gems Socketed in Green Sockets have +30% to Quality
+		{variant:1}Gems Socketed in Blue Sockets gain 25% increased Experience
+		{variant:2}Gems Socketed in Blue Sockets gain 100% increased Experience
+		Has no Attribute Requirements]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 	end)
