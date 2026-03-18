@@ -197,7 +197,6 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.compareSkillSetSelect.enabled = setsEnabled
-
 	-- Item set selector for comparison build
 	self.controls.compareItemSetLabel = new("LabelControl", {"LEFT", self.controls.compareSkillSetSelect, "RIGHT"}, {8, 0, 0, 16}, "^7Item set:")
 	self.controls.compareItemSetLabel.shown = setsEnabled
@@ -445,6 +444,22 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.rightVersionSelect.shown = treeFooterShown
+
+	-- Copy compared tree to primary build
+	self.controls.copySpecBtn = new("ButtonControl", {"LEFT", self.controls.rightVersionSelect, "RIGHT"}, {4, 0, 66, 20}, "Copy tree", function()
+		self:CopyCompareSpecToPrimary(false)
+	end)
+	self.controls.copySpecBtn.shown = treeFooterShown
+	self.controls.copySpecBtn.enabled = function()
+		local entry = self:GetActiveCompare()
+		return entry and entry.treeTab and entry.treeTab.specList[entry.treeTab.activeSpec] ~= nil
+	end
+
+	self.controls.copySpecUseBtn = new("ButtonControl", {"LEFT", self.controls.copySpecBtn, "RIGHT"}, {2, 0, 90, 20}, "Copy and use", function()
+		self:CopyCompareSpecToPrimary(true)
+	end)
+	self.controls.copySpecUseBtn.shown = treeFooterShown
+	self.controls.copySpecUseBtn.enabled = self.controls.copySpecBtn.enabled
 
 	-- Right search (footer, side-by-side only)
 	self.controls.rightTreeSearch = new("EditControl", {"TOPLEFT", self.controls.rightFooterAnchor, "TOPLEFT"}, {0, 0, 200, 20}, "", "Search", "%c", 100, function(buf)
@@ -785,6 +800,69 @@ function CompareTabClass:GetActiveCompare()
 		return self.compareEntries[self.activeCompareIndex]
 	end
 	return nil
+end
+
+-- Copy the compared build's currently selected tree spec into the primary build
+function CompareTabClass:CopyCompareSpecToPrimary(andUse)
+	local entry = self:GetActiveCompare()
+	if not entry or not entry.treeTab then return end
+	local sourceSpec = entry.treeTab.specList[entry.treeTab.activeSpec]
+	if not sourceSpec then return end
+
+	local primaryTreeTab = self.primaryBuild.treeTab
+
+	-- Create new spec from source (same pattern as PassiveSpecListControl Copy)
+	-- Note: we don't copy jewels because they reference item IDs in the compared
+	-- build's itemsTab which don't exist in the primary build
+	local newSpec = new("PassiveSpec", self.primaryBuild, sourceSpec.treeVersion)
+	newSpec.title = (sourceSpec.title or "Default") .. " (Compared)"
+	newSpec:RestoreUndoState(sourceSpec:CreateUndoState())
+	newSpec:BuildClusterJewelGraphs()
+
+	-- Add to primary build's spec list
+	t_insert(primaryTreeTab.specList, newSpec)
+
+	if andUse then
+		primaryTreeTab:SetActiveSpec(#primaryTreeTab.specList)
+		-- Restore primary build's window title
+		if self.primaryBuild.spec then
+			self.primaryBuild.spec:SetWindowTitleWithBuildClass()
+		end
+	end
+
+	-- Update items tab passive tree dropdown (same pattern as PassiveSpecListControl)
+	local itemsSpecSelect = self.primaryBuild.itemsTab.controls.specSelect
+	local newSpecList = {}
+	for i = 1, #primaryTreeTab.specList do
+		newSpecList[i] = primaryTreeTab.specList[i].title or "Default"
+	end
+	itemsSpecSelect:SetList(newSpecList)
+	itemsSpecSelect.selIndex = primaryTreeTab.activeSpec
+
+	self.primaryBuild.buildFlag = true
+end
+
+-- Copy a compared build's item into the primary build
+function CompareTabClass:CopyCompareItemToPrimary(slotName, compareEntry, andUse)
+	local cSlot = compareEntry.itemsTab and compareEntry.itemsTab.slots and compareEntry.itemsTab.slots[slotName]
+	local cItem = cSlot and compareEntry.itemsTab.items and compareEntry.itemsTab.items[cSlot.selItemId]
+	if not cItem or not cItem.raw then return end
+
+	local newItem = new("Item", cItem.raw)
+	newItem:NormaliseQuality()
+	local pItemsTab = self.primaryBuild.itemsTab
+	pItemsTab:AddItem(newItem, true) -- true = noAutoEquip
+
+	if andUse then
+		local pSlot = pItemsTab.slots[slotName]
+		if pSlot then
+			pSlot:SetSelItemId(newItem.id)
+		end
+	end
+
+	pItemsTab:PopulateSlots()
+	pItemsTab:AddUndoState()
+	self.primaryBuild.buildFlag = true
 end
 
 -- Open the import popup for adding a comparison build
@@ -1248,7 +1326,7 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 	if self.compareViewMode == "SUMMARY" then
 		self:DrawSummary(contentVP, compareEntry)
 	elseif self.compareViewMode == "ITEMS" then
-		self:DrawItems(contentVP, compareEntry)
+		self:DrawItems(contentVP, compareEntry, inputEvents)
 	elseif self.compareViewMode == "SKILLS" then
 		self:DrawSkills(contentVP, compareEntry)
 	elseif self.compareViewMode == "CALCS" then
@@ -1785,7 +1863,7 @@ function CompareTabClass:DrawItemExpanded(item, x, startY, colWidth, otherModMap
 	return drawY - startY
 end
 
-function CompareTabClass:DrawItems(vp, compareEntry)
+function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 	local lineHeight = 20
 	local colWidth = m_floor(vp.width / 2)
@@ -1797,11 +1875,15 @@ function CompareTabClass:DrawItems(vp, compareEntry)
 	-- Get cursor position relative to viewport for hover detection
 	local cursorX, cursorY = GetCursorPos()
 	cursorX = cursorX - vp.x
-	cursorY = cursorY - vp.y
+	cursorY = cursorY - (vp.y + checkboxOffset)
 	local hoverItem = nil
 	local hoverX, hoverY = 0, 0
 	local hoverW, hoverH = 0, 0
 	local hoverItemsTab = nil
+
+	-- Track item copy button clicks
+	local clickedCopySlot = nil
+	local clickedCopyUseSlot = nil
 
 	-- Headers
 	SetDrawColor(1, 1, 1)
@@ -1842,6 +1924,51 @@ function CompareTabClass:DrawItems(vp, compareEntry)
 				diffLabel = colorCodes.WARNING .. "(different)"
 			end
 			DrawString(colWidth - 10, drawY, "RIGHT", 14, "VAR", diffLabel)
+
+			-- Copy buttons for compare item (expanded mode)
+			if cItem then
+				local btnW = 60
+				local btnH = 18
+				local btn2X = vp.width - btnW - 8
+				local btn1X = btn2X - btnW - 4
+				local btnY = drawY + 1
+
+				-- "Copy" button
+				local b1Hover = cursorX >= btn1X and cursorX < btn1X + btnW
+					and cursorY >= btnY and cursorY < btnY + btnH
+				SetDrawColor(b1Hover and 0.5 or 0.35, b1Hover and 0.5 or 0.35, b1Hover and 0.5 or 0.35)
+				DrawImage(nil, btn1X, btnY, btnW, btnH)
+				SetDrawColor(0.1, 0.1, 0.1)
+				DrawImage(nil, btn1X + 1, btnY + 1, btnW - 2, btnH - 2)
+				SetDrawColor(1, 1, 1)
+				DrawString(btn1X + btnW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^7Copy")
+
+				-- "Copy+Use" button
+				local b2Hover = cursorX >= btn2X and cursorX < btn2X + btnW
+					and cursorY >= btnY and cursorY < btnY + btnH
+				SetDrawColor(b2Hover and 0.5 or 0.35, b2Hover and 0.5 or 0.35, b2Hover and 0.5 or 0.35)
+				DrawImage(nil, btn2X, btnY, btnW, btnH)
+				SetDrawColor(0.1, 0.1, 0.1)
+				DrawImage(nil, btn2X + 1, btnY + 1, btnW - 2, btnH - 2)
+				SetDrawColor(1, 1, 1)
+				DrawString(btn2X + btnW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^7Copy+Use")
+
+				-- Click detection
+				if inputEvents then
+					for id, event in ipairs(inputEvents) do
+						if event.type == "KeyUp" and event.key == "LEFTBUTTON" then
+							if b1Hover then
+								clickedCopySlot = slotName
+								inputEvents[id] = nil
+							elseif b2Hover then
+								clickedCopyUseSlot = slotName
+								inputEvents[id] = nil
+							end
+						end
+					end
+				end
+			end
+
 			drawY = drawY + 20
 
 			-- Build mod maps for diff highlighting
@@ -1899,6 +2026,50 @@ function CompareTabClass:DrawItems(vp, compareEntry)
 				hoverItemsTab = compareEntry.itemsTab
 			end
 
+			-- Copy buttons for compare item (compact mode)
+			if cItem then
+				local btnW = 60
+				local btnH = 18
+				local btn2X = vp.width - btnW - 8
+				local btn1X = btn2X - btnW - 4
+				local btnY = drawY
+
+				-- "Copy" button
+				local b1Hover = cursorX >= btn1X and cursorX < btn1X + btnW
+					and cursorY >= btnY and cursorY < btnY + btnH
+				SetDrawColor(b1Hover and 0.5 or 0.35, b1Hover and 0.5 or 0.35, b1Hover and 0.5 or 0.35)
+				DrawImage(nil, btn1X, btnY, btnW, btnH)
+				SetDrawColor(0.1, 0.1, 0.1)
+				DrawImage(nil, btn1X + 1, btnY + 1, btnW - 2, btnH - 2)
+				SetDrawColor(1, 1, 1)
+				DrawString(btn1X + btnW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^7Copy")
+
+				-- "Copy+Use" button
+				local b2Hover = cursorX >= btn2X and cursorX < btn2X + btnW
+					and cursorY >= btnY and cursorY < btnY + btnH
+				SetDrawColor(b2Hover and 0.5 or 0.35, b2Hover and 0.5 or 0.35, b2Hover and 0.5 or 0.35)
+				DrawImage(nil, btn2X, btnY, btnW, btnH)
+				SetDrawColor(0.1, 0.1, 0.1)
+				DrawImage(nil, btn2X + 1, btnY + 1, btnW - 2, btnH - 2)
+				SetDrawColor(1, 1, 1)
+				DrawString(btn2X + btnW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^7Copy+Use")
+
+				-- Click detection
+				if inputEvents then
+					for id, event in ipairs(inputEvents) do
+						if event.type == "KeyUp" and event.key == "LEFTBUTTON" then
+							if b1Hover then
+								clickedCopySlot = slotName
+								inputEvents[id] = nil
+							elseif b2Hover then
+								clickedCopyUseSlot = slotName
+								inputEvents[id] = nil
+							end
+						end
+					end
+				end
+			end
+
 			-- Show diff indicator
 			local isSame = pItem and cItem and pItem.name == cItem.name
 			local diffLabel = ""
@@ -1917,6 +2088,13 @@ function CompareTabClass:DrawItems(vp, compareEntry)
 
 			drawY = drawY + 20
 		end
+	end
+
+	-- Process item copy button clicks
+	if clickedCopySlot then
+		self:CopyCompareItemToPrimary(clickedCopySlot, compareEntry, false)
+	elseif clickedCopyUseSlot then
+		self:CopyCompareItemToPrimary(clickedCopyUseSlot, compareEntry, true)
 	end
 
 	-- Draw item tooltip on hover (compact mode only, on top of everything)
