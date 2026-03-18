@@ -169,10 +169,11 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.groupSlot = new("DropDownControl", { "TOPLEFT", self.anchorGroupDetail, "TOPLEFT" }, { 85, 28, 130, 20 }, groupSlotDropList, function(index, value)
 		-- maintain imbued support to new slot
 		if self.imbuedSupportBySlot[self.displayGroup.slot] and self.displayGroup.imbuedSupport then
-			if value.label ~= "None" then
+			if value.label ~= "None" and not self.imbuedSupportBySlot[value.label] then
 				self.imbuedSupportBySlot[value.label] = copyTable(self.imbuedSupportBySlot[self.displayGroup.slot], true)
 			else
-				self.controls.imbuedSupport.selIndex = 1 -- reset dropdown to None if socketedIn switched to None
+				self.controls.imbuedSupport.gemId = nil
+				self.controls.imbuedSupport:SetText("")
 				self.displayGroup.imbuedSupport = nil  -- reset saved support to None
 			end
 			self.imbuedSupportBySlot[self.displayGroup.slot] = nil
@@ -211,54 +212,38 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		self.build.buildFlag = true
 	end)
 
-	local imbuedSupportList = { }
-	local gemColor = "^7"
-	for _, gem in pairs(data.gems) do
-		if gem.tagString:match("Support") and not gem.tagString:match("Exceptional") and not gem.name:match("Awakened") then
-			-- wanted to add color but with sorting by name, it scrambled the gems AND we use value in the code later in CalcSetup and breaks Dropdown:SelByValue so we'd have to scrub it anyways
-			--if gem.grantedEffect then
-			--	if gem.grantedEffect.color == 1 then
-			--		gemColor = colorCodes.STRENGTH
-			--	elseif gem.grantedEffect.color == 2 then
-			--		gemColor = colorCodes.DEXTERITY
-			--	elseif gem.grantedEffect.color == 3 then
-			--		gemColor = colorCodes.INTELLIGENCE
-			--	end
-			--end
-			t_insert(imbuedSupportList, gem.name)
-		end
-	end
-	t_sort(imbuedSupportList)
-	t_insert(imbuedSupportList, 1, "None")
-
 	self.imbuedSupportBySlot = { }
 	self.controls.imbuedSupportLabel = new("LabelControl", { "LEFT", self.controls.includeInFullDPS, "RIGHT" }, { 12, 0, 0, 16 }, colorCodes.POSITIVE.."Imbued Support:")
-	self.controls.imbuedSupport = new("DropDownControl", { "LEFT", self.controls.imbuedSupportLabel, "RIGHT" }, { 8, 0, 250, 20 }, imbuedSupportList, function(_, value, slotName) -- slotName used on Import
-		local gemName = value:gsub("%^7", "")
-		if value == "None" then
-			self.imbuedSupportBySlot[slotName or self.displayGroup.slot] = nil
+	self.controls.imbuedSupport = new("GemSelectControl", { "LEFT", self.controls.imbuedSupportLabel, "RIGHT" }, { 8, 0, 250, 20 }, self, 1, function(gemData, _, _, slotName) -- slotName used on Import
+		if gemData and (type(gemData) == "string" or gemData.id) then
+			self.imbuedSupportBySlot[slotName or self.displayGroup.slot] = data.gems[gemData.id or gemData].grantedEffect
+			if self.displayGroup then
+				self.displayGroup.imbuedSupport = data.gems[gemData.id or gemData].name
+			end
+			self.build.buildFlag = true
 		else
-			self.imbuedSupportBySlot[slotName or self.displayGroup.slot] = data.gems[data.gemForBaseName[gemName:lower().." support"]].grantedEffect
+			self.imbuedSupportBySlot[slotName or self.displayGroup.slot] = nil
 		end
-
-		if self.displayGroup then
-			self.displayGroup.imbuedSupport = gemName
-		end
-		self.build.buildFlag = true
-	end)
+	end, nil, true)
 	self.controls.imbuedSupport.enabled = function()
 		-- socketedIn must be set and the displayGroup must have an imbued, otherwise disable the imbued dropdown
-		if self.displayGroup.slot and ((self.imbuedSupportBySlot[self.displayGroup.slot] and (self.displayGroup.imbuedSupport and self.displayGroup.imbuedSupport ~= "None") or not self.imbuedSupportBySlot[self.displayGroup.slot])) then
-			self.controls.imbuedSupport.tooltipText = nil
+		if self.displayGroup.slot and ((self.imbuedSupportBySlot[self.displayGroup.slot] and self.displayGroup.imbuedSupport) or not self.imbuedSupportBySlot[self.displayGroup.slot]) then
 			return true
 		else
-			self.controls.imbuedSupport.tooltipText = "Imbued supports must be socketed in an item."
 			return false
 		end
 	end
 	self.controls.imbuedSupportLabel.shown = function() -- don't show imbued for skills from items
 		return not self.displayGroup.source
 	end
+	self.controls.imbuedSupportClear = new("ButtonControl", { "LEFT", self.controls.imbuedSupportLabel, "RIGHT" }, { 264, 0, 80, 20}, "Clear", function()
+		self.controls.imbuedSupport.gemId = nil
+		self.controls.imbuedSupport:SetText("")
+		self.displayGroup.imbuedSupport = nil
+		self.imbuedSupportBySlot[self.displayGroup.slot] = nil
+
+		self.build.buildFlag = true
+	end)
 
 	self.controls.groupCountLabel = new("LabelControl", { "LEFT", self.controls.includeInFullDPS, "RIGHT" }, { 16, 0, 0, 16 }, "Count:")
 	self.controls.groupCountLabel.shown = function()
@@ -346,7 +331,7 @@ function SkillsTabClass:LoadSkill(node, skillSetId)
 	socketGroup.gemList = { }
 	if node.attrib.imbuedSupport and node.attrib.slot then
 		socketGroup.imbuedSupport = node.attrib.imbuedSupport
-		self.controls.imbuedSupport.selFunc(nil, socketGroup.imbuedSupport, socketGroup.slot)
+		self.controls.imbuedSupport.gemChangeFunc(data.gems[data.gemForBaseName[socketGroup.imbuedSupport:lower().." support"]], nil, nil, socketGroup.slot)
 	end
 
 	for _, child in ipairs(node) do
@@ -630,6 +615,12 @@ function SkillsTabClass:PasteSocketGroup(testInput)
 	end
 end
 
+local function updateImbuedSupportIndex(control, gemListCount)
+	if gemListCount > 0 then
+		control.index = gemListCount + 1
+	end
+end
+
 -- Create the controls for editing the gem at a given index
 function SkillsTabClass:CreateGemSlot(index)
 	local slot = { }
@@ -649,6 +640,7 @@ function SkillsTabClass:CreateGemSlot(index)
 			self.gemSlots[index2].enableGlobal2.state = gemInstance.enableGlobal2
 			self.gemSlots[index2].count:SetText(gemInstance.count or 1)
 		end
+		updateImbuedSupportIndex(self.controls.imbuedSupport, #self.displayGroup.gemList)
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
@@ -952,10 +944,12 @@ function SkillsTabClass:FindSkillGem(nameSpec)
 	return "Unrecognised gem name '" .. nameSpec .. "'"
 end
 
-function SkillsTabClass:ProcessGemLevel(gemData)
+function SkillsTabClass:ProcessGemLevel(gemData, imbued)
 	local grantedEffect = gemData.grantedEffect
 	local naturalMaxLevel = gemData.naturalMaxLevel
-	if self.defaultGemLevel == "awakenedMaximum" then
+	if imbued or self.defaultGemLevel == "levelOne" then
+		return 1
+	elseif self.defaultGemLevel == "awakenedMaximum" then
 		return naturalMaxLevel + 1
 	elseif self.defaultGemLevel == "corruptedMaximum" then
 		if grantedEffect.plusVersionOf then
@@ -965,8 +959,6 @@ function SkillsTabClass:ProcessGemLevel(gemData)
 		end
 	elseif self.defaultGemLevel == "normalMaximum" then
 		return naturalMaxLevel
-	elseif self.defaultGemLevel == "levelOne" then
-		return 1
 	else -- self.defaultGemLevel == "characterLevel"
 		local maxGemLevel = naturalMaxLevel
 		if not grantedEffect.levels[maxGemLevel] then
@@ -1056,6 +1048,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 			end
 		end
 	end
+	updateImbuedSupportIndex(self.controls.imbuedSupport, #socketGroup.gemList)
 end
 
 -- Set the skill to be displayed/edited
@@ -1070,7 +1063,13 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 		self.controls.groupEnabled.state = socketGroup.enabled
 		self.controls.includeInFullDPS.state = socketGroup.includeInFullDPS and socketGroup.enabled
 		self.controls.groupCount:SetText(socketGroup.groupCount or 1)
-		self.controls.imbuedSupport:SelByValue(socketGroup.imbuedSupport or "None")
+		if socketGroup.imbuedSupport then
+			self.controls.imbuedSupport.gemId = data.gems[data.gemForBaseName[socketGroup.imbuedSupport:lower().." support"]]
+			self.controls.imbuedSupport:SetText(socketGroup.imbuedSupport)
+		else
+			self.controls.imbuedSupport.gemId = nil
+			self.controls.imbuedSupport:SetText("")
+		end
 
 		-- Update the gem slot controls
 		self:UpdateGemSlots()

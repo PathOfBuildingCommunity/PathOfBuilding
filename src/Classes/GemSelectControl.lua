@@ -12,6 +12,7 @@ local m_max = math.max
 local m_floor = math.floor
 
 local toolTipText = "Prefix tag searches with a colon and exclude tags with a dash. e.g. :fire:lightning:-cold:area"
+local imbuedTooltipText = "Socketed in must be set in order to add an imbued support. Only one imbued support is allowed per socketed in."
 local altQualMap = {
 	["Default"] = "",
 	["Alternate1"] = "Anomalous ",
@@ -19,7 +20,7 @@ local altQualMap = {
 	["Alternate3"] = "Phantasmal ",
 }
 
-local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self, anchor, rect, skillsTab, index, changeFunc, forceTooltip)
+local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self, anchor, rect, skillsTab, index, changeFunc, forceTooltip, imbued)
 	self.EditControl(anchor, rect, nil, nil, "^ %a':-")
 	self.controls.scrollBar = new("ScrollBarControl", { "TOPRIGHT", self, "TOPRIGHT" }, {-1, 0, 18, 0}, (self.height - 4) * 4)
 	self.controls.scrollBar.y = function()
@@ -56,6 +57,7 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 		lifeReservationFlat = "Life",
 		lifeReservationPercent = "LifePercent",
 	}
+	self.imbuedSelect = imbued
 end)
 
 function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, qualityId, useFullDPS)
@@ -81,7 +83,7 @@ function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, qualityId, useF
 
 	-- Create gemInstance to represent the hovered gem
 	local gemInstance = gemList[self.index]
-	gemInstance.level = self.skillsTab:ProcessGemLevel(gemData)
+	gemInstance.level = self.skillsTab:ProcessGemLevel(gemData, self.imbuedSelect)
 	gemInstance.gemData = gemData
 	gemInstance.displayEffect = nil
 	if gemInstance.qualityId == nil or gemInstance.qualityId == "" then
@@ -136,6 +138,11 @@ function GemSelectClass:FilterSupport(gemId, gemData)
 	if gemData.grantedEffect.legacy and not self.skillsTab.showLegacyGems then
 		return false
 	end
+
+	if self.imbuedSelect then
+		return (gemData.grantedEffect.support and not (gemData.tagString:match("Exceptional")))
+	end
+
 	return (not gemData.grantedEffect.support
 		or showSupportTypes == "ALL"
 		or (showSupportTypes == "NORMAL" and not gemData.grantedEffect.plusVersionOf)
@@ -483,7 +490,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 				local qualityType = self:GetQualityType(self.list[self.hoverSel])
 				local output= self:CalcOutputWithThisGem(calcFunc, gemData, qualityType, self.skillsTab.sortGemsByDPSField == "FullDPS")
 				local gemInstance = {
-						level = self.skillsTab:ProcessGemLevel(gemData),
+						level = self.skillsTab:ProcessGemLevel(gemData, self.imbuedSelect),
 						qualityId = qualityType,
 						quality = self.skillsTab.defaultGemQuality or 0,
 						count = 1,
@@ -531,7 +538,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 				end
 				self:AddGemTooltip(gemInstance)
 			else
-				self.tooltip:AddLine(16, toolTipText)
+				self.tooltip:AddLine(16, self.imbuedSelect and imbuedTooltipText or toolTipText)
 			end
 
 			colorS = 0.5
@@ -546,23 +553,25 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 				self.tooltip:AddLine(16, "Only show Active gems")
 			end
 
-			-- support shortcut
-			sx = x + width - 16 - 2
-			SetDrawColor(colorS,colorS,colorS)
-			DrawImage(nil, sx, y+2, 16, height-4)
-			SetDrawColor(0,0,0)
-			DrawImage(nil, sx+1, y+2, 16-2, height-4)
-			SetDrawColor(colorS,colorS,colorS)
-			DrawString(sx + 8, y, "CENTER_X", height - 2, "VAR", "S")
+			if not self.imbuedSelect then
+				-- support shortcut
+				sx = x + width - 16 - 2
+				SetDrawColor(colorS,colorS,colorS)
+				DrawImage(nil, sx, y+2, 16, height-4)
+				SetDrawColor(0,0,0)
+				DrawImage(nil, sx+1, y+2, 16-2, height-4)
+				SetDrawColor(colorS,colorS,colorS)
+				DrawString(sx + 8, y, "CENTER_X", height - 2, "VAR", "S")
 
-			-- active shortcut
-			sx = x + width - (16*2) - (2*2)
-			SetDrawColor(colorA,colorA,colorA)
-			DrawImage(nil, sx, y+2, 16, height-4)
-			SetDrawColor(0,0,0)
-			DrawImage(nil, sx+1, y+2, 16-2, height-4)
-			SetDrawColor(colorA,colorA,colorA)
-			DrawString(sx + 8, y, "CENTER_X", height - 2, "VAR", "A")
+				-- active shortcut
+				sx = x + width - (16*2) - (2*2)
+				SetDrawColor(colorA,colorA,colorA)
+				DrawImage(nil, sx, y+2, 16, height-4)
+				SetDrawColor(0,0,0)
+				DrawImage(nil, sx+1, y+2, 16-2, height-4)
+				SetDrawColor(colorA,colorA,colorA)
+				DrawString(sx + 8, y, "CENTER_X", height - 2, "VAR", "A")
+			end
 
 			SetDrawLayer(nil, 10)
 			self.tooltip:Draw(x, y, width, height, viewPort)
@@ -900,4 +909,8 @@ function GemSelectClass:OnKeyUp(key)
 	end
 	local newSel = self.EditControl:OnKeyUp(key)
 	return newSel == self.EditControl and self or newSel
+end
+
+function GemSelectClass:UpdateIndex(index)
+	self.index = index
 end
