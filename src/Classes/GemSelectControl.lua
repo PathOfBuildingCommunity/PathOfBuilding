@@ -144,8 +144,8 @@ function GemSelectClass:FilterSupport(gemId, gemData)
 	end
 	return (not gemData.grantedEffect.support
 		or showSupportTypes == "ALL"
-		or (showSupportTypes == "NORMAL" and not gemData.grantedEffect.plusVersionOf)
-		or (showSupportTypes == "EXCEPTIONAL" and gemData.grantedEffect.plusVersionOf))
+		or (showSupportTypes == "NORMAL" and not (gemData.grantedEffect.plusVersionOf or gemData.tagString:match("Exceptional")))
+		or (showSupportTypes == "EXCEPTIONAL" and (gemData.grantedEffect.plusVersionOf or gemData.tagString:match("Exceptional"))))
 		and (self.skillsTab.showAltQualityGems or (not self.skillsTab.showAltQualityGems and self:GetQualityType(gemId) == "Default"))
 end
 
