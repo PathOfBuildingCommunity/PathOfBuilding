@@ -464,4 +464,59 @@ describe("TestItemParse", function()
 		assert.are.equal(1, #item.buffModLines)
 		assert.are.equal("+1500 to Armour", item.buffModLines[1].line)
 	end)
+
+	it("Catalyst quality from PoB internal format", function()
+		-- Fertile = index 3, Prismatic = index 7 in catalystList
+		local item = new("Item", raw("Catalyst: Fertile\nCatalystQuality: 20"))
+		assert.are.equals(3, item.catalyst)
+		assert.are.equals(20, item.catalystQuality)
+
+		item = new("Item", raw("Catalyst: Prismatic\nCatalystQuality: 12"))
+		assert.are.equals(7, item.catalyst)
+		assert.are.equals(12, item.catalystQuality)
+	end)
+
+	it("Catalyst quality from game clipboard format", function()
+		-- Game clipboard uses "Quality (X Modifiers)" header rather than "Catalyst:"
+		-- Life and Mana Modifiers -> Fertile = index 3
+		local item = new("Item", raw("Quality (Life and Mana Modifiers): +20% (augmented)"))
+		assert.are.equals(3, item.catalyst)
+		assert.are.equals(20, item.catalystQuality)
+
+		-- Resistance Modifiers -> Prismatic = index 7
+		item = new("Item", raw("Quality (Resistance Modifiers): +12% (augmented)"))
+		assert.are.equals(7, item.catalyst)
+		assert.are.equals(12, item.catalystQuality)
+	end)
+
+	it("PoB internal catalyst format takes precedence over clipboard format", function()
+		-- If both are present, the internal Catalyst: line wins (parsed first; clipboard guarded by 'not self.catalyst')
+		local item = new("Item", raw("Catalyst: Fertile\nCatalystQuality: 20\nQuality (Resistance Modifiers): +12% (augmented)"))
+		assert.are.equals(3, item.catalyst)   -- Fertile, not Prismatic
+		assert.are.equals(20, item.catalystQuality)
+	end)
+
+	it("valueScalar annotation parsed from mod line", function()
+		local item = new("Item", raw("{valueScalar:1.2}+50 to maximum Life"))
+		assert.are.equals(1.2, item.explicitModLines[1].valueScalar)
+	end)
+
+	it("valueScalar annotation preserved through BuildRaw round-trip", function()
+		local item = new("Item", raw("{valueScalar:1.2}+50 to maximum Life"))
+		assert.are.equals(1.2, item.explicitModLines[1].valueScalar)
+		-- Serialised raw should contain the annotation
+		local rawStr = item:BuildRaw()
+		assert.truthy(rawStr:find("valueScalar:1.2", 1, true))
+		-- Re-parsing restores the value
+		local item2 = new("Item", rawStr)
+		assert.are.equals(1.2, item2.explicitModLines[1].valueScalar)
+	end)
+
+	it("valueScalar of exactly 1 is not written to BuildRaw", function()
+		-- Scalar = 1 is a no-op; writing it would create noise in saved items
+		local item = new("Item", raw("+50 to maximum Life"))
+		assert.is_nil(item.explicitModLines[1].valueScalar)
+		local rawStr = item:BuildRaw()
+		assert.falsy(rawStr:find("valueScalar", 1, true))
+	end)
 end)
