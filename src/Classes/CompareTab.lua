@@ -63,6 +63,9 @@ local CompareTabClass = newClass("CompareTab", "ControlHost", "Control", functio
 	-- Tooltip for item hover in Items view
 	self.itemTooltip = new("Tooltip")
 
+	-- Items expanded mode (false = compact names only, true = full item details inline)
+	self.itemsExpandedMode = false
+
 	-- Tooltip for calcs hover breakdown
 	self.calcsTooltip = new("Tooltip")
 
@@ -375,6 +378,15 @@ function CompareTabClass:InitControls()
 	end, nil, nil, true)
 	self.controls.overlayTreeSearch.shown = function()
 		return self.compareViewMode == "TREE" and self:GetActiveCompare() ~= nil and self.treeOverlayMode
+	end
+
+	-- Items expanded mode toggle (positioned dynamically in Draw)
+	self.controls.itemsExpandedCheck = new("CheckBoxControl", nil, {0, 0, 20}, "Expanded mode", function(state)
+		self.itemsExpandedMode = state
+		self.scrollY = 0
+	end)
+	self.controls.itemsExpandedCheck.shown = function()
+		return self.compareViewMode == "ITEMS" and self:GetActiveCompare() ~= nil
 	end
 
 	-- Footer anchor controls (positioned dynamically in Draw, side-by-side only)
@@ -870,7 +882,7 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 	-- (must happen before ProcessControlsInput so controls render on top of backgrounds)
 	self.treeLayout = nil
 	if self.compareViewMode == "TREE" and compareEntry then
-		local headerHeight = 50   -- spec/version selectors + overlay checkbox + separator
+		local headerHeight = 58   -- spec/version selectors + overlay checkbox + separator + padding
 		local footerHeight = 30   -- search field(s)
 		local footerY = contentVP.y + contentVP.height - footerHeight
 
@@ -899,17 +911,17 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 
 			-- Position spec/version in header row 1
 			self.controls.leftSpecSelect.x = contentVP.x + 4
-			self.controls.leftSpecSelect.y = contentVP.y + 4
+			self.controls.leftSpecSelect.y = contentVP.y + 8
 			self.controls.leftSpecSelect.width = specWidth
 
 			local rightSpecX = contentVP.x + m_floor(contentVP.width / 2) + 4
 			self.controls.rightSpecSelect.x = rightSpecX
-			self.controls.rightSpecSelect.y = contentVP.y + 4
+			self.controls.rightSpecSelect.y = contentVP.y + 8
 			self.controls.rightSpecSelect.width = specWidth
 
 			-- Overlay checkbox in header row 2 (label draws LEFT of checkbox, needs ~140px clearance)
 			self.controls.treeOverlayCheck.x = contentVP.x + 155
-			self.controls.treeOverlayCheck.y = contentVP.y + 28
+			self.controls.treeOverlayCheck.y = contentVP.y + 34
 
 			-- Overlay search in footer (full width)
 			self.controls.overlayTreeSearch.x = contentVP.x + 4
@@ -946,16 +958,16 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 
 			-- Position spec/version in header row 1
 			self.controls.leftSpecSelect.x = contentVP.x + 4
-			self.controls.leftSpecSelect.y = contentVP.y + 4
+			self.controls.leftSpecSelect.y = contentVP.y + 8
 			self.controls.leftSpecSelect.width = specWidth
 
 			self.controls.rightSpecSelect.x = contentVP.x + m_floor(contentVP.width / 2) + 4
-			self.controls.rightSpecSelect.y = contentVP.y + 4
+			self.controls.rightSpecSelect.y = contentVP.y + 8
 			self.controls.rightSpecSelect.width = specWidth
 
 			-- Overlay checkbox in header row 2 (label draws LEFT of checkbox, needs ~140px clearance)
 			self.controls.treeOverlayCheck.x = contentVP.x + 155
-			self.controls.treeOverlayCheck.y = contentVP.y + 28
+			self.controls.treeOverlayCheck.y = contentVP.y + 34
 
 			-- Position footer search fields
 			self.controls.leftFooterAnchor.x = contentVP.x + 4
@@ -1035,9 +1047,9 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 
 		-- Position buttons at top of config view (above column headers)
 		self.controls.copyConfigBtn.x = contentVP.x + 10
-		self.controls.copyConfigBtn.y = contentVP.y + 4
+		self.controls.copyConfigBtn.y = contentVP.y + 8
 		self.controls.configToggleBtn.x = contentVP.x + 260
-		self.controls.configToggleBtn.y = contentVP.y + 4
+		self.controls.configToggleBtn.y = contentVP.y + 8
 
 		-- Build display list: Differences section first, then All Configurations
 		local cInput = compareEntry.configTab.input or {}
@@ -1225,6 +1237,13 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 		return
 	end
 
+	-- Position items expanded mode checkbox (inside content area, top-left)
+	-- Label draws to the left of the checkbox, so offset x by labelWidth to keep it visible
+	if self.compareViewMode == "ITEMS" then
+		self.controls.itemsExpandedCheck.x = contentVP.x + 10 + self.controls.itemsExpandedCheck.labelWidth
+		self.controls.itemsExpandedCheck.y = contentVP.y + 8
+	end
+
 	-- Dispatch to sub-view (TREE already drawn above)
 	if self.compareViewMode == "SUMMARY" then
 		self:DrawSummary(contentVP, compareEntry)
@@ -1312,7 +1331,7 @@ function CompareTabClass:DrawProgressSection(drawY, colWidth, vp, compareEntry)
 	local compareItemCount = 0
 	local matchingItemCount = 0
 	if self.primaryBuild.itemsTab and compareEntry.itemsTab then
-		local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt" }
+		local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 		for _, slotName in ipairs(baseSlots) do
 			local pSlot = self.primaryBuild.itemsTab.slots[slotName]
 			local cSlot = compareEntry.itemsTab.slots[slotName]
@@ -1561,13 +1580,218 @@ end
 -- ============================================================
 -- ITEMS VIEW
 -- ============================================================
+
+-- Helper: get rarity color code for an item
+local function getRarityColor(item)
+	if not item then return "^7" end
+	if item.rarity == "UNIQUE" then return colorCodes.UNIQUE
+	elseif item.rarity == "RARE" then return colorCodes.RARE
+	elseif item.rarity == "MAGIC" then return colorCodes.MAGIC
+	else return colorCodes.NORMAL end
+end
+
+-- Helper: normalize a mod line by replacing numbers with "#" for template matching
+local function modLineTemplate(line)
+	-- Replace decimal numbers first (e.g. "1.5"), then integers
+	return line:gsub("[%d]+%.?[%d]*", "#")
+end
+
+-- Helper: extract the first number from a mod line for value comparison
+local function modLineValue(line)
+	return tonumber(line:match("[%d]+%.?[%d]*")) or 0
+end
+
+-- Helper: build a mod comparison map from an item.
+-- Returns a table keyed by template string → { line = original text, value = first number }
+local function buildModMap(item)
+	local modMap = {}
+	if not item then return modMap end
+	for _, modList in ipairs{item.enchantModLines or {}, item.scourgeModLines or {}, item.implicitModLines or {}, item.explicitModLines or {}, item.crucibleModLines or {}} do
+		for _, modLine in ipairs(modList) do
+			if item:CheckModLineVariant(modLine) then
+				local formatted = itemLib.formatModLine(modLine)
+				if formatted then
+					local tmpl = modLineTemplate(modLine.line)
+					modMap[tmpl] = { line = modLine.line, value = modLineValue(modLine.line) }
+				end
+			end
+		end
+	end
+	return modMap
+end
+
+-- Draw a single item's full details at (x, startY) within colWidth.
+-- otherModMap: optional table from buildModMap() of the other item for diff highlighting.
+-- Returns the total height consumed.
+function CompareTabClass:DrawItemExpanded(item, x, startY, colWidth, otherModMap)
+	local lineHeight = 16
+	local fontSize = 14
+	local drawY = startY
+
+	if not item then
+		DrawString(x, drawY, "LEFT", fontSize, "VAR", "^8(empty)")
+		return lineHeight
+	end
+
+	-- Item name
+	local rarityColor = getRarityColor(item)
+	DrawString(x, drawY, "LEFT", 16, "VAR", rarityColor .. item.name)
+	drawY = drawY + 18
+
+	-- Base type label
+	local base = item.base
+	if base then
+		if base.weapon then
+			local weaponData = item.weaponData and item.weaponData[1]
+			if weaponData then
+				if weaponData.PhysicalDPS then
+					DrawString(x, drawY, "LEFT", fontSize, "VAR", s_format("^x7F7F7FPhys DPS: " .. colorCodes.MAGIC .. "%.1f", weaponData.PhysicalDPS))
+					drawY = drawY + lineHeight
+				end
+				if weaponData.ElementalDPS then
+					DrawString(x, drawY, "LEFT", fontSize, "VAR", s_format("^x7F7F7FEle DPS: " .. colorCodes.MAGIC .. "%.1f", weaponData.ElementalDPS))
+					drawY = drawY + lineHeight
+				end
+				if weaponData.ChaosDPS then
+					DrawString(x, drawY, "LEFT", fontSize, "VAR", s_format("^x7F7F7FChaos DPS: " .. colorCodes.MAGIC .. "%.1f", weaponData.ChaosDPS))
+					drawY = drawY + lineHeight
+				end
+				if weaponData.TotalDPS then
+					DrawString(x, drawY, "LEFT", fontSize, "VAR", s_format("^x7F7F7FTotal DPS: " .. colorCodes.MAGIC .. "%.1f", weaponData.TotalDPS))
+					drawY = drawY + lineHeight
+				end
+				DrawString(x, drawY, "LEFT", fontSize, "VAR", s_format("^x7F7F7FCrit: " .. colorCodes.MAGIC .. "%.2f%%", weaponData.CritChance))
+				drawY = drawY + lineHeight
+				DrawString(x, drawY, "LEFT", fontSize, "VAR", s_format("^x7F7F7FAPS: " .. colorCodes.MAGIC .. "%.2f", weaponData.AttackRate))
+				drawY = drawY + lineHeight
+			end
+		elseif base.armour then
+			local armourData = item.armourData
+			if armourData then
+				if armourData.Armour and armourData.Armour > 0 then
+					DrawString(x, drawY, "LEFT", fontSize, "VAR", s_format("^x7F7F7FArmour: " .. colorCodes.MAGIC .. "%d", armourData.Armour))
+					drawY = drawY + lineHeight
+				end
+				if armourData.Evasion and armourData.Evasion > 0 then
+					DrawString(x, drawY, "LEFT", fontSize, "VAR", s_format("^x7F7F7FEvasion: " .. colorCodes.MAGIC .. "%d", armourData.Evasion))
+					drawY = drawY + lineHeight
+				end
+				if armourData.EnergyShield and armourData.EnergyShield > 0 then
+					DrawString(x, drawY, "LEFT", fontSize, "VAR", s_format("^x7F7F7FES: " .. colorCodes.MAGIC .. "%d", armourData.EnergyShield))
+					drawY = drawY + lineHeight
+				end
+				if armourData.Ward and armourData.Ward > 0 then
+					DrawString(x, drawY, "LEFT", fontSize, "VAR", s_format("^x7F7F7FWard: " .. colorCodes.MAGIC .. "%d", armourData.Ward))
+					drawY = drawY + lineHeight
+				end
+				if armourData.BlockChance and armourData.BlockChance > 0 then
+					DrawString(x, drawY, "LEFT", fontSize, "VAR", s_format("^x7F7F7FBlock: " .. colorCodes.MAGIC .. "%d%%", armourData.BlockChance))
+					drawY = drawY + lineHeight
+				end
+			end
+		elseif base.flask then
+			local flaskData = item.flaskData
+			if flaskData then
+				if flaskData.lifeTotal then
+					DrawString(x, drawY, "LEFT", fontSize, "VAR", s_format("^x7F7F7FLife: " .. colorCodes.MAGIC .. "%d ^x7F7F7F(%.1fs)", flaskData.lifeTotal, flaskData.duration or 0))
+					drawY = drawY + lineHeight
+				end
+				if flaskData.manaTotal then
+					DrawString(x, drawY, "LEFT", fontSize, "VAR", s_format("^x7F7F7FMana: " .. colorCodes.MAGIC .. "%d ^x7F7F7F(%.1fs)", flaskData.manaTotal, flaskData.duration or 0))
+					drawY = drawY + lineHeight
+				end
+				if not flaskData.lifeTotal and not flaskData.manaTotal and flaskData.duration then
+					DrawString(x, drawY, "LEFT", fontSize, "VAR", s_format("^x7F7F7FDuration: " .. colorCodes.MAGIC .. "%.2fs", flaskData.duration))
+					drawY = drawY + lineHeight
+				end
+				if flaskData.chargesUsed and flaskData.chargesMax then
+					DrawString(x, drawY, "LEFT", fontSize, "VAR", s_format("^x7F7F7FCharges: " .. colorCodes.MAGIC .. "%d/%d", flaskData.chargesUsed, flaskData.chargesMax))
+					drawY = drawY + lineHeight
+				end
+				-- Flask buff mods
+				if item.buffModLines then
+					for _, modLine in pairs(item.buffModLines) do
+						local color = modLine.extra and colorCodes.UNSUPPORTED or colorCodes.MAGIC
+						DrawString(x, drawY, "LEFT", fontSize, "VAR", color .. modLine.line)
+						drawY = drawY + lineHeight
+					end
+				end
+			end
+		end
+
+		-- Quality (if not shown in type-specific section)
+		if item.quality and item.quality > 0 and not base.weapon and not base.armour and not base.flask then
+			DrawString(x, drawY, "LEFT", fontSize, "VAR", s_format("^x7F7F7FQuality: " .. colorCodes.MAGIC .. "+%d%%", item.quality))
+			drawY = drawY + lineHeight
+		end
+	end
+
+	-- Separator before mods
+	if drawY > startY + 18 then
+		drawY = drawY + 2
+	end
+
+	-- Mod lines with diff highlighting
+	for _, modListData in ipairs{item.enchantModLines or {}, item.scourgeModLines or {}, item.implicitModLines or {}, item.explicitModLines or {}, item.crucibleModLines or {}} do
+		local drewAny = false
+		for _, modLine in ipairs(modListData) do
+			if item:CheckModLineVariant(modLine) then
+				local formatted = itemLib.formatModLine(modLine)
+				if formatted then
+					if otherModMap then
+						local tmpl = modLineTemplate(modLine.line)
+						local otherEntry = otherModMap[tmpl]
+						if not otherEntry then
+							-- Mod exists only on this side
+							formatted = colorCodes.POSITIVE .. "+ " .. formatted
+						elseif otherEntry.line ~= modLine.line then
+							-- Same mod template but different values
+							local myVal = modLineValue(modLine.line)
+							local otherVal = otherEntry.value
+							if myVal > otherVal then
+								formatted = colorCodes.POSITIVE .. "> " .. formatted
+							elseif myVal < otherVal then
+								formatted = colorCodes.NEGATIVE .. "< " .. formatted
+							end
+							-- If equal after rounding, no indicator needed
+						end
+						-- If exact match (same line text), no indicator — it's identical
+					end
+					DrawString(x, drawY, "LEFT", fontSize, "VAR", formatted)
+					drawY = drawY + lineHeight
+					drewAny = true
+				end
+			end
+		end
+		if drewAny then
+			drawY = drawY + 2 -- small gap between mod sections
+		end
+	end
+
+	-- Corrupted/Split/Mirrored
+	if item.corrupted then
+		DrawString(x, drawY, "LEFT", fontSize, "VAR", colorCodes.NEGATIVE .. "Corrupted")
+		drawY = drawY + lineHeight
+	end
+	if item.split then
+		DrawString(x, drawY, "LEFT", fontSize, "VAR", colorCodes.NEGATIVE .. "Split")
+		drawY = drawY + lineHeight
+	end
+	if item.mirrored then
+		DrawString(x, drawY, "LEFT", fontSize, "VAR", colorCodes.NEGATIVE .. "Mirrored")
+		drawY = drawY + lineHeight
+	end
+
+	return drawY - startY
+end
+
 function CompareTabClass:DrawItems(vp, compareEntry)
-	local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt" }
+	local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 	local lineHeight = 20
-	local slotHeight = 46
 	local colWidth = m_floor(vp.width / 2)
 
-	SetViewport(vp.x, vp.y, vp.width, vp.height)
+	local checkboxOffset = 36 -- space for the expanded mode checkbox plus padding
+	SetViewport(vp.x, vp.y + checkboxOffset, vp.width, vp.height - checkboxOffset)
 	local drawY = 4 - self.scrollY
 
 	-- Get cursor position relative to viewport for hover detection
@@ -1591,83 +1815,111 @@ function CompareTabClass:DrawItems(vp, compareEntry)
 		DrawImage(nil, 4, drawY, vp.width - 8, 1)
 		drawY = drawY + 2
 
-		-- Slot label
-		SetDrawColor(1, 1, 1)
-		DrawString(10, drawY, "LEFT", 16, "VAR", "^7" .. slotName .. ":")
-
 		-- Get items from both builds
 		local pSlot = self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.slots and self.primaryBuild.itemsTab.slots[slotName]
 		local cSlot = compareEntry.itemsTab and compareEntry.itemsTab.slots and compareEntry.itemsTab.slots[slotName]
 		local pItem = pSlot and self.primaryBuild.itemsTab.items and self.primaryBuild.itemsTab.items[pSlot.selItemId]
 		local cItem = cSlot and compareEntry.itemsTab and compareEntry.itemsTab.items and compareEntry.itemsTab.items[cSlot.selItemId]
 
-		local pName = pItem and pItem.name or "(empty)"
-		local cName = cItem and cItem.name or "(empty)"
+		if self.itemsExpandedMode then
+			-- === EXPANDED MODE ===
+			-- Slot label
+			SetDrawColor(1, 1, 1)
+			DrawString(10, drawY, "LEFT", 16, "VAR", "^7" .. slotName .. ":")
 
-		-- Color code by rarity
-		local pColor = "^7"
-		if pItem then
-			if pItem.rarity == "UNIQUE" then pColor = colorCodes.UNIQUE
-			elseif pItem.rarity == "RARE" then pColor = colorCodes.RARE
-			elseif pItem.rarity == "MAGIC" then pColor = colorCodes.MAGIC
-			else pColor = colorCodes.NORMAL end
-		end
-		local cColor = "^7"
-		if cItem then
-			if cItem.rarity == "UNIQUE" then cColor = colorCodes.UNIQUE
-			elseif cItem.rarity == "RARE" then cColor = colorCodes.RARE
-			elseif cItem.rarity == "MAGIC" then cColor = colorCodes.MAGIC
-			else cColor = colorCodes.NORMAL end
-		end
+			-- Diff indicator next to slot label
+			local isSame = pItem and cItem and pItem.name == cItem.name
+			local diffLabel = ""
+			if not pItem and not cItem then
+				diffLabel = "^8(both empty)"
+			elseif isSame then
+				diffLabel = colorCodes.POSITIVE .. "(match)"
+			elseif not pItem then
+				diffLabel = colorCodes.NEGATIVE .. "(missing)"
+			elseif not cItem then
+				diffLabel = colorCodes.TIP .. "(extra)"
+			else
+				diffLabel = colorCodes.WARNING .. "(different)"
+			end
+			DrawString(colWidth - 10, drawY, "RIGHT", 14, "VAR", diffLabel)
+			drawY = drawY + 20
 
-		drawY = drawY + 18
+			-- Build mod maps for diff highlighting
+			local pModMap = buildModMap(pItem)
+			local cModMap = buildModMap(cItem)
 
-		-- Draw item names
-		DrawString(20, drawY, "LEFT", 16, "VAR", pColor .. pName)
-		DrawString(colWidth + 20, drawY, "LEFT", 16, "VAR", cColor .. cName)
+			-- Draw both items expanded side by side
+			local itemStartY = drawY
+			local leftHeight = self:DrawItemExpanded(pItem, 20, drawY, colWidth - 30, cModMap)
+			local rightHeight = self:DrawItemExpanded(cItem, colWidth + 20, drawY, colWidth - 30, pModMap)
 
-		-- Check hover on primary item (left column)
-		if pItem and cursorX >= 10 and cursorX < colWidth
-		   and cursorY >= drawY and cursorY < drawY + 18 then
-			hoverItem = pItem
-			hoverX = 20
-			hoverY = drawY
-			hoverW = colWidth - 30
-			hoverH = 18
-			hoverItemsTab = self.primaryBuild.itemsTab
-		end
+			-- Vertical separator between columns
+			SetDrawColor(0.25, 0.25, 0.25)
+			local maxH = m_max(leftHeight, rightHeight)
+			DrawImage(nil, colWidth, itemStartY, 1, maxH)
 
-		-- Check hover on compare item (right column)
-		if cItem and cursorX >= colWidth and cursorX < vp.width
-		   and cursorY >= drawY and cursorY < drawY + 18 then
-			hoverItem = cItem
-			hoverX = colWidth + 20
-			hoverY = drawY
-			hoverW = colWidth - 30
-			hoverH = 18
-			hoverItemsTab = compareEntry.itemsTab
-		end
-
-		-- Show diff indicator
-		local isSame = pItem and cItem and pItem.name == cItem.name
-		local diffLabel = ""
-		if not pItem and not cItem then
-			diffLabel = "^8(both empty)"
-		elseif isSame then
-			diffLabel = colorCodes.POSITIVE .. "(match)"
-		elseif not pItem then
-			diffLabel = colorCodes.NEGATIVE .. "(missing)"
-		elseif not cItem then
-			diffLabel = colorCodes.TIP .. "(extra)"
+			drawY = drawY + maxH + 6
 		else
-			diffLabel = colorCodes.WARNING .. "(different)"
-		end
-		DrawString(colWidth - 10, drawY, "RIGHT", 14, "VAR", diffLabel)
+			-- === COMPACT MODE (existing behavior) ===
+			-- Slot label
+			SetDrawColor(1, 1, 1)
+			DrawString(10, drawY, "LEFT", 16, "VAR", "^7" .. slotName .. ":")
 
-		drawY = drawY + 20
+			local pName = pItem and pItem.name or "(empty)"
+			local cName = cItem and cItem.name or "(empty)"
+
+			local pColor = getRarityColor(pItem)
+			local cColor = getRarityColor(cItem)
+
+			drawY = drawY + 18
+
+			-- Draw item names
+			DrawString(20, drawY, "LEFT", 16, "VAR", pColor .. pName)
+			DrawString(colWidth + 20, drawY, "LEFT", 16, "VAR", cColor .. cName)
+
+			-- Check hover on primary item (left column)
+			if pItem and cursorX >= 10 and cursorX < colWidth
+			   and cursorY >= drawY and cursorY < drawY + 18 then
+				hoverItem = pItem
+				hoverX = 20
+				hoverY = drawY
+				hoverW = colWidth - 30
+				hoverH = 18
+				hoverItemsTab = self.primaryBuild.itemsTab
+			end
+
+			-- Check hover on compare item (right column)
+			if cItem and cursorX >= colWidth and cursorX < vp.width
+			   and cursorY >= drawY and cursorY < drawY + 18 then
+				hoverItem = cItem
+				hoverX = colWidth + 20
+				hoverY = drawY
+				hoverW = colWidth - 30
+				hoverH = 18
+				hoverItemsTab = compareEntry.itemsTab
+			end
+
+			-- Show diff indicator
+			local isSame = pItem and cItem and pItem.name == cItem.name
+			local diffLabel = ""
+			if not pItem and not cItem then
+				diffLabel = "^8(both empty)"
+			elseif isSame then
+				diffLabel = colorCodes.POSITIVE .. "(match)"
+			elseif not pItem then
+				diffLabel = colorCodes.NEGATIVE .. "(missing)"
+			elseif not cItem then
+				diffLabel = colorCodes.TIP .. "(extra)"
+			else
+				diffLabel = colorCodes.WARNING .. "(different)"
+			end
+			DrawString(colWidth - 10, drawY, "RIGHT", 14, "VAR", diffLabel)
+
+			drawY = drawY + 20
+		end
 	end
 
-	-- Draw item tooltip on hover (on top of everything)
+	-- Draw item tooltip on hover (compact mode only, on top of everything)
 	if hoverItem and hoverItemsTab then
 		self.itemTooltip:Clear()
 		hoverItemsTab:AddItemTooltip(self.itemTooltip, hoverItem, nil)
@@ -1691,8 +1943,8 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 
 	-- Headers
 	SetDrawColor(1, 1, 1)
-	DrawString(10, drawY, "LEFT", 18, "VAR", colorCodes.POSITIVE .. self:GetShortBuildName(self.primaryBuild.buildName) .. " - Socket Groups")
-	DrawString(colWidth + 10, drawY, "LEFT", 18, "VAR", colorCodes.WARNING .. (compareEntry.label or "Compare Build") .. " - Socket Groups")
+	DrawString(10, drawY, "LEFT", 18, "VAR", colorCodes.POSITIVE .. self:GetShortBuildName(self.primaryBuild.buildName))
+	DrawString(colWidth + 10, drawY, "LEFT", 18, "VAR", colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
 	drawY = drawY + 24
 
 	-- Get socket groups from both builds
@@ -2382,7 +2634,7 @@ function CompareTabClass:DrawConfig(vp, compareEntry)
 	local rowHeight = 22
 	local sectionHeaderHeight = 24
 	local columnHeaderHeight = 20
-	local fixedHeaderHeight = 58 -- buttons + column headers + separator (not scrollable)
+	local fixedHeaderHeight = 66 -- buttons + column headers + separator (not scrollable)
 
 	-- Column positions (viewport-relative)
 	local col1 = 10
@@ -2391,9 +2643,9 @@ function CompareTabClass:DrawConfig(vp, compareEntry)
 
 	-- Fixed header area: buttons at top, then column headers + separator
 	SetViewport(vp.x, vp.y, vp.width, fixedHeaderHeight)
-	-- Buttons (Copy Config + Toggle) are drawn by ControlHost at y=4
+	-- Buttons (Copy Config + Toggle) are drawn by ControlHost at y=8
 	-- Column headers below buttons
-	local colHeaderY = 28
+	local colHeaderY = 36
 	SetDrawColor(1, 1, 1)
 	DrawString(col1, colHeaderY, "LEFT", columnHeaderHeight, "VAR", "^7Configuration Option")
 	DrawString(col2, colHeaderY, "LEFT", columnHeaderHeight, "VAR",
