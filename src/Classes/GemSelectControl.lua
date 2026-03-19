@@ -910,7 +910,3 @@ function GemSelectClass:OnKeyUp(key)
 	local newSel = self.EditControl:OnKeyUp(key)
 	return newSel == self.EditControl and self or newSel
 end
-
-function GemSelectClass:UpdateIndex(index)
-	self.index = index
-end
