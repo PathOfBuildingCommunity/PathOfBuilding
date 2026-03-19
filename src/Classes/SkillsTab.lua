@@ -216,10 +216,12 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.imbuedSupportLabel = new("LabelControl", { "LEFT", self.controls.includeInFullDPS, "RIGHT" }, { 12, 0, 0, 16 }, colorCodes.POSITIVE.."Imbued Support:")
 	self.controls.imbuedSupport = new("GemSelectControl", { "LEFT", self.controls.imbuedSupportLabel, "RIGHT" }, { 8, 0, 250, 20 }, self, 1, function(gemData, _, _, slotName) -- slotName used on Import
 		if gemData and (type(gemData) == "string" or gemData.id) then
-			self.imbuedSupportBySlot[slotName or self.displayGroup.slot] = data.gems[gemData.id or gemData].grantedEffect
+			local gem = data.gems[gemData.id or gemData]
+			self.imbuedSupportBySlot[slotName or self.displayGroup.slot] = gem.grantedEffect
 			if self.displayGroup then
-				self.displayGroup.imbuedSupport = data.gems[gemData.id or gemData].name
+				self.displayGroup.imbuedSupport = gem.name
 			end
+			self.controls.imbuedSupport:SetText(data.skillColorMap[gem.grantedEffect.color]..gem.name) -- hacky way to set gem color on gemSelect
 			self.build.buildFlag = true
 		else
 			self.imbuedSupportBySlot[slotName or self.displayGroup.slot] = nil
@@ -236,7 +238,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.imbuedSupportLabel.shown = function() -- don't show imbued for skills from items
 		return not self.displayGroup.source
 	end
-	self.controls.imbuedSupportClear = new("ButtonControl", { "LEFT", self.controls.imbuedSupportLabel, "RIGHT" }, { 264, 0, 80, 20}, "Clear", function()
+	self.controls.imbuedSupportClear = new("ButtonControl", { "LEFT", self.controls.imbuedSupportLabel, "RIGHT" }, { 260, 0, 20, 20}, "x", function()
 		self.controls.imbuedSupport.gemId = nil
 		self.controls.imbuedSupport:SetText("")
 		self.displayGroup.imbuedSupport = nil
@@ -244,6 +246,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 
 		self.build.buildFlag = true
 	end)
+	self.controls.imbuedSupportClear.tooltipText = "Remove this imbued support."
 
 	self.controls.groupCountLabel = new("LabelControl", { "LEFT", self.controls.includeInFullDPS, "RIGHT" }, { 16, 0, 0, 16 }, "Count:")
 	self.controls.groupCountLabel.shown = function()
@@ -514,7 +517,7 @@ function SkillsTabClass:Draw(viewPort, inputEvents)
 	self.controls.scrollBarH.y = viewPort.y + viewPort.height - 18
 
 	do
-		local maxX = self.controls.gemCountHeader:GetPos() + self.controls.gemCountHeader:GetSize() + 15
+		local maxX = self.controls.gemCountHeader:GetPos() + self.controls.gemCountHeader:GetSize() + 350
 		local contentWidth = maxX - self.x
 		self.controls.scrollBarH:SetContentDimension(contentWidth, viewPort.width)
 	end
@@ -689,7 +692,6 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.enableGlobal1.state = true
 			slot.enableGlobal2.state = true
 			slot.count:SetText(gemInstance.count)
-			--slot.imbued.state = false
 		elseif gemId == gemInstance.gemId then
 			if addUndo then
 				self:AddUndoState()
@@ -1065,8 +1067,9 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 		self.controls.includeInFullDPS.state = socketGroup.includeInFullDPS and socketGroup.enabled
 		self.controls.groupCount:SetText(socketGroup.groupCount or 1)
 		if socketGroup.imbuedSupport then
-			self.controls.imbuedSupport.gemId = data.gems[data.gemForBaseName[socketGroup.imbuedSupport:lower().." support"]]
-			self.controls.imbuedSupport:SetText(socketGroup.imbuedSupport)
+			local gemId = data.gems[data.gemForBaseName[socketGroup.imbuedSupport:lower().." support"]]
+			self.controls.imbuedSupport.gemId = gemId
+			self.controls.imbuedSupport:SetText(data.skillColorMap[gemId.grantedEffect.color]..socketGroup.imbuedSupport)
 		else
 			self.controls.imbuedSupport.gemId = nil
 			self.controls.imbuedSupport:SetText("")
