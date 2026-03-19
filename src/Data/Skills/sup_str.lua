@@ -2929,6 +2929,14 @@ skills["SupportHallow"] = {
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.RemoteMined, SkillType.OtherThingUsesSkill, SkillType.Trapped, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["hallowing_flame_magnitude_+%"] = {
+			mod("HallowingFlameMagnitude", "INC", nil)
+		},
+		["support_hallow_inflict_hallowing_flame_on_melee_hit"] = {
+			flag("Condition:CanInflictHallowingFlame", { type = "GlobalEffect", effectType = "Global" })
+		}
+	},
 	qualityStats = {
 		Default = {
 			{ "hallowing_flame_magnitude_+%", 0.5 },
