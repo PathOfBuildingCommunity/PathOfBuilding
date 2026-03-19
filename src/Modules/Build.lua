@@ -805,10 +805,9 @@ end
 function buildMode:DeleteLoadout(loadoutName, nextLoadoutName)
 	local loadout = self:GetLoadoutByName(loadoutName)
 	local nextLoadout = self:GetLoadoutByName(nextLoadoutName)
-	main:OpenMessagePopup("Delete Loadout - Next", "specId: " .. nextLoadout.specId .. "\nitemSetId: " .. nextLoadout.itemSetId .. "\nskillSetId: " .. nextLoadout.skillSetId .. "\nconfigSetId: " .. nextLoadout.configSetId)
 	if loadout.specId then
 		self.treeTab.specList[loadout.specId] = nil
-		self.treeTab:SetActiveSpec(1)
+		self.treeTab:SetActiveSpec(1, true)
 	end
 	if loadout.itemSetId then
 		self.itemsTab.itemSets[loadout.itemSetId] = nil

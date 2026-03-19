@@ -571,9 +571,9 @@ function TreeTabClass:SetActiveSpec(specId, deferSync)
 	if self.controls.versionSelect then
 		self.controls.versionSelect:SelByValue(curSpec.treeVersion, 'value')
 	end
-    if not deferSync then
-	    self.build:SyncLoadouts()
-    end
+	if not deferSync then
+		self.build:SyncLoadouts()
+	end
 end
 
 function TreeTabClass:SetCompareSpec(specId)

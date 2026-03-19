@@ -3,14 +3,12 @@
 -- Class: Build Set List
 -- Build set list control.
 --
-local t_insert = table.insert
 local t_remove = table.remove
-local m_max = math.max
-local s_format = string.format
 
 local BuildSetListClass = newClass("BuildSetListControl", "ListControl", function(self, anchor, rect, buildMode)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, buildMode.treeTab.specList)
 	self.buildMode = buildMode
+	self.buildSetService = new("BuildSetService", buildMode)
 	self.controls.copy = new("ButtonControl", { "BOTTOMLEFT", self, "TOP" }, { 2, -4, 60, 18 }, "Copy", function()
 		local loadoutNameToCopy = self.selValue.title or "Default"
 		local build = buildMode:GetLoadoutByName(loadoutNameToCopy)
@@ -38,7 +36,7 @@ local BuildSetListClass = newClass("BuildSetListControl", "ListControl", functio
 		end)
 end)
 
-function BuildSetListClass:RenameLoadout(spec, addOnName)
+function BuildSetListClass:RenameLoadout(spec)
 	local controls = {}
 	local specName = spec.title or "Default"
 	controls.label = new("LabelControl", nil, { 0, 20, 0, 16 }, "^7Enter name for this loadout:")
@@ -47,14 +45,7 @@ function BuildSetListClass:RenameLoadout(spec, addOnName)
 	end)
 	controls.save = new("ButtonControl", nil, { -45, 70, 80, 20 }, "Save", function()
 		local newTitle = controls.edit.buf
-		self.buildMode:RenameLoadout(specName, newTitle, function()
-			self.buildMode:SyncLoadouts()
-			self.buildMode.modFlag = true
-		end)
-		if addOnName then
-			self.selIndex = self.buildMode.treeTab.specListIdToOrderId[spec.id]
-			self.selValue = spec
-		end
+		self.buildSetService:RenameLoadout(specName, newTitle)
 		main:ClosePopup()
 	end)
 	controls.save.enabled = false
@@ -72,12 +63,8 @@ function BuildSetListClass:CopyLoadoutClick(build)
 		controls.save.enabled = buf:match("%S")
 	end)
 	controls.save = new("ButtonControl", nil, { -45, 70, 80, 20 }, "Save", function()
-		local newBuildName = controls.edit.buf
-		local newSpec = self.buildMode:CopyLoadout(build.specId, build.itemSetId, build.skillSetId, build.configSetId,
-			newBuildName)
-		self.buildMode:SyncLoadouts()
-		self.buildMode.modFlag = true
-		self.buildMode.controls.buildLoadouts:SetSel(newSpec.id + 1)
+		self.buildSetService:CopyLoadout(build.specId, build.itemSetId, build.skillSetId, build.configSetId,
+			controls.edit.buf)
 		main:ClosePopup()
 	end)
 	controls.save.enabled = false
@@ -94,12 +81,8 @@ function BuildSetListClass:NewLoadout()
 		controls.save.enabled = buf:match("%S")
 	end)
 	controls.save = new("ButtonControl", nil, { -45, 70, 80, 20 }, "Save", function()
-		self.buildMode:NewLoadout(controls.edit.buf, function()
-			self.buildMode:SyncLoadouts()
-			self.buildMode.modFlag = true
-			self.buildMode.controls.buildLoadouts:SetSel(1)
-			main:ClosePopup()
-		end)
+		self.buildSetService:NewLoadout(controls.edit.buf)
+		main:ClosePopup()
 	end)
 	controls.save.enabled = false
 	controls.cancel = new("ButtonControl", nil, { 45, 70, 80, 20 }, "Cancel", function()
@@ -136,9 +119,7 @@ function BuildSetListClass:OnSelDelete(index, spec)
 		main:OpenConfirmPopup("Delete Loadout", "Are you sure you want to delete '" .. (spec.title or "Default") .. "'?",
 			"Delete", function()
 				t_remove(self.list, index)
-				local nextLoadoutIndex = index <= self.buildMode.treeTab.activeSpec and m_max(1, index - 1) or self.buildMode.treeTab.activeSpec
-				local nextLoadout = self.list[nextLoadoutIndex]
-				self.buildMode:DeleteLoadout(spec.title or "Default", nextLoadout.title or "Default")
+				self.buildSetService:DeleteLoadout(index, self.list, spec)
 				self.selIndex = nil
 				self.selValue = nil
 			end)
