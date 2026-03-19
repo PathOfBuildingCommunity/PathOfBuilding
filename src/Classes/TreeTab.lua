@@ -2137,7 +2137,7 @@ function TreeTabClass:FindTimelessJewel()
 		local search = {
 			query = {
 				status = {
-					option = "available"
+					option = "securable"
 				},
 				stats = {
 					{
