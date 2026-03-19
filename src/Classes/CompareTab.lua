@@ -105,6 +105,9 @@ function CompareTabClass:InitControls()
 				self.treeSearchNeedsSync = true
 			end
 		end)
+		self.controls["subTab" .. tabName].shown = function()
+			return #self.compareEntries > 0
+		end
 		self.controls["subTab" .. tabName].locked = function()
 			return self.compareViewMode == mode
 		end
@@ -1182,7 +1185,7 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 
 		-- Position visible controls at absolute coords matching DrawConfig layout
 		local col2AbsX = contentVP.x + 300
-		local fixedHeaderHeight = 58 -- buttons + column headers + separator (not scrollable)
+		local fixedHeaderHeight = 66 -- buttons + column headers + separator (not scrollable)
 		local scrollTopAbs = contentVP.y + fixedHeaderHeight -- top of scrollable area
 		local startY = fixedHeaderHeight -- content starts after fixed header
 		local currentY = startY
@@ -1308,9 +1311,7 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 		DrawString(0, 40, "CENTER", 20, "VAR",
 			"^7No comparison build loaded.")
 		DrawString(0, 70, "CENTER", 16, "VAR",
-			"^7Click " .. colorCodes.POSITIVE .. "Import..." .. "^7 above to import a build to compare against,")
-		DrawString(0, 90, "CENTER", 16, "VAR",
-			"^7or use the " .. colorCodes.POSITIVE .. "Import/Export Build" .. "^7 tab with \"Import as comparison\" mode.")
+			"^7Click " .. colorCodes.POSITIVE .. "Import..." .. "^7 above to import a build to compare against.")
 		SetViewport()
 		return
 	end
@@ -1992,39 +1993,76 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 			SetDrawColor(1, 1, 1)
 			DrawString(10, drawY, "LEFT", 16, "VAR", "^7" .. slotName .. ":")
 
+			-- Diff indicator on slot label line
+			local isSame = pItem and cItem and pItem.name == cItem.name
+			local diffLabel = ""
+			if not pItem and not cItem then
+				diffLabel = "^8(both empty)"
+			elseif isSame then
+				diffLabel = colorCodes.POSITIVE .. "(match)"
+			elseif not pItem then
+				diffLabel = colorCodes.NEGATIVE .. "(missing)"
+			elseif not cItem then
+				diffLabel = colorCodes.TIP .. "(extra)"
+			else
+				diffLabel = colorCodes.WARNING .. "(different)"
+			end
+			DrawString(colWidth - 10, drawY, "RIGHT", 14, "VAR", diffLabel)
+
 			local pName = pItem and pItem.name or "(empty)"
 			local cName = cItem and cItem.name or "(empty)"
 
 			local pColor = getRarityColor(pItem)
 			local cColor = getRarityColor(cItem)
 
+			-- Measure text widths for precise hover detection
+			local pTextW = pItem and DrawStringWidth(16, "VAR", pColor .. pName) or 0
+			local cTextW = cItem and DrawStringWidth(16, "VAR", cColor .. cName) or 0
+
 			drawY = drawY + 18
 
-			-- Draw item names
-			DrawString(20, drawY, "LEFT", 16, "VAR", pColor .. pName)
-			DrawString(colWidth + 20, drawY, "LEFT", 16, "VAR", cColor .. cName)
-
-			-- Check hover on primary item (left column)
-			if pItem and cursorX >= 10 and cursorX < colWidth
-			   and cursorY >= drawY and cursorY < drawY + 18 then
+			-- Check hover on primary item (left column, text bounds only)
+			local pHover = pItem and cursorX >= 18 and cursorX < 22 + pTextW
+				and cursorY >= drawY and cursorY < drawY + 18
+			if pHover then
 				hoverItem = pItem
 				hoverX = 20
 				hoverY = drawY
-				hoverW = colWidth - 30
+				hoverW = pTextW + 4
 				hoverH = 18
 				hoverItemsTab = self.primaryBuild.itemsTab
 			end
 
-			-- Check hover on compare item (right column)
-			if cItem and cursorX >= colWidth and cursorX < vp.width
-			   and cursorY >= drawY and cursorY < drawY + 18 then
+			-- Check hover on compare item (right column, text bounds only)
+			local cHover = cItem and cursorX >= colWidth + 18 and cursorX < colWidth + 22 + cTextW
+				and cursorY >= drawY and cursorY < drawY + 18
+			if cHover then
 				hoverItem = cItem
 				hoverX = colWidth + 20
 				hoverY = drawY
-				hoverW = colWidth - 30
+				hoverW = cTextW + 4
 				hoverH = 18
 				hoverItemsTab = compareEntry.itemsTab
 			end
+
+			-- Draw hover border around text (matching ButtonControl style)
+			if pHover then
+				SetDrawColor(0.5, 0.5, 0.5)
+				DrawImage(nil, 18, drawY - 1, pTextW + 4, 20)
+				SetDrawColor(0, 0, 0)
+				DrawImage(nil, 19, drawY, pTextW + 2, 18)
+			end
+			if cHover then
+				SetDrawColor(0.5, 0.5, 0.5)
+				DrawImage(nil, colWidth + 18, drawY - 1, cTextW + 4, 20)
+				SetDrawColor(0, 0, 0)
+				DrawImage(nil, colWidth + 19, drawY, cTextW + 2, 18)
+			end
+
+			-- Draw item names
+			SetDrawColor(1, 1, 1)
+			DrawString(20, drawY, "LEFT", 16, "VAR", pColor .. pName)
+			DrawString(colWidth + 20, drawY, "LEFT", 16, "VAR", cColor .. cName)
 
 			-- Copy buttons for compare item (compact mode)
 			if cItem then
@@ -2069,22 +2107,6 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 					end
 				end
 			end
-
-			-- Show diff indicator
-			local isSame = pItem and cItem and pItem.name == cItem.name
-			local diffLabel = ""
-			if not pItem and not cItem then
-				diffLabel = "^8(both empty)"
-			elseif isSame then
-				diffLabel = colorCodes.POSITIVE .. "(match)"
-			elseif not pItem then
-				diffLabel = colorCodes.NEGATIVE .. "(missing)"
-			elseif not cItem then
-				diffLabel = colorCodes.TIP .. "(extra)"
-			else
-				diffLabel = colorCodes.WARNING .. "(different)"
-			end
-			DrawString(colWidth - 10, drawY, "RIGHT", 14, "VAR", diffLabel)
 
 			drawY = drawY + 20
 		end
