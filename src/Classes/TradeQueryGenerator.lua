@@ -927,15 +927,20 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 		self:GeneratePassiveNodeWeights(self.modData.PassiveNode)
 		return
 	end
-	self:GenerateModWeights(self.modData["Explicit"])
-	self:GenerateModWeights(self.modData["Implicit"])
+	local tradeMode = self.calcContext.options.tradeMode or 1
+	if tradeMode ~= 4 then
+		self:GenerateModWeights(self.modData["Explicit"])
+		if self.calcContext.options.includeImplicits then
+			self:GenerateModWeights(self.modData["Implicit"])
+		end
+	end
 	if self.calcContext.options.includeCorrupted then
 		self:GenerateModWeights(self.modData["Corrupted"])
 	end
 	if self.calcContext.options.includeScourge then
 		self:GenerateModWeights(self.modData["Scourge"])
 	end
-	if self.calcContext.options.includeEldritch then
+	if self.calcContext.options.includeEldritch and not (tradeMode == 4 and self.calcContext.options.isUnique) then
 		self:GenerateModWeights(self.modData["Eater"])
 		self:GenerateModWeights(self.modData["Exarch"])
 	end
@@ -1040,6 +1045,52 @@ local function consolidateToPseudo(modWeights)
 	return result
 end
 
+-- Returns {prefix=N, suffix=M} counting how many affixes on the item are crafted (bench) mods.
+-- Crafted mods are identified by having a 'types' table instead of weightKey/weightVal.
+function TradeQueryGeneratorClass:CountCraftedAffixes(prefixes, suffixes, affixes)
+	local prefixCount, suffixCount = 0, 0
+	for _, affix in ipairs(prefixes) do
+		local modId = affix.modId
+		if modId and modId ~= "None" and affixes[modId] and affixes[modId].types ~= nil then
+			prefixCount = prefixCount + 1
+		end
+	end
+	for _, affix in ipairs(suffixes) do
+		local modId = affix.modId
+		if modId and modId ~= "None" and affixes[modId] and affixes[modId].types ~= nil then
+			suffixCount = suffixCount + 1
+		end
+	end
+	return { prefix = prefixCount, suffix = suffixCount }
+end
+
+-- Builds count-type stat groups requiring the target item to have available crafting slots.
+-- Each crafted prefix/suffix on the current item requires the buyer to have an empty OR crafted slot.
+function TradeQueryGeneratorClass:BuildCraftedSlotFilters(prefixCount, suffixCount)
+	local result = {}
+	if prefixCount > 0 then
+		t_insert(result, {
+			type = "count",
+			value = { min = prefixCount },
+			filters = {
+				{ id = "pseudo.pseudo_number_of_empty_prefix_modifiers" },
+				{ id = "pseudo.pseudo_number_of_crafted_prefixes" },
+			}
+		})
+	end
+	if suffixCount > 0 then
+		t_insert(result, {
+			type = "count",
+			value = { min = suffixCount },
+			filters = {
+				{ id = "pseudo.pseudo_number_of_empty_suffix_modifiers" },
+				{ id = "pseudo.pseudo_number_of_crafted_suffixes" },
+			}
+		})
+	end
+	return result
+end
+
 function TradeQueryGeneratorClass:FinishQuery()
 	-- Calc original item Stats without anoint or enchant, and use that diff as a basis for default min sum.
 	local originalItem = self.calcContext.slot and self.itemsTab.items[self.calcContext.slot.selItemId]
@@ -1123,9 +1174,16 @@ function TradeQueryGeneratorClass:FinishQuery()
 
 	local effective_max = MAX_FILTERS - num_extra
 
+	-- Derive mode flags from the selected trade mode (1=Standard, 2=Upgrade, 3=Exact, 4=Implicit Upgrade)
+	local tradeMode = options.tradeMode or 1
+	local requireCurrentMods = tradeMode >= 2 and not (tradeMode == 4 and options.isUnique)
+	local includeWeights = tradeMode == 1 or tradeMode == 2
+	local includeImplicitWeights = tradeMode == 4
+
 	-- Collect required mod filters from the current item's mods if requested
 	local requiredModFilters = {}
-	if options.requireCurrentMods and originalItem then
+	local craftedSlotFilters = {}
+	if requireCurrentMods and originalItem then
 		-- Build separate normalized text -> tradeModId lookups so explicit and implicit
 		-- stat IDs are never confused with each other.
 		-- Also indexes overrideModLineSingular so "Has 1 Abyssal Socket" matches
@@ -1149,6 +1207,14 @@ function TradeQueryGeneratorClass:FinishQuery()
 		end
 		local explicitTextToId = buildTextLookup(self.modData.Explicit)
 		local implicitTextToId = buildTextLookup(self.modData.Implicit)
+		if options.includeEldritch then
+			for k, v in pairs(buildTextLookup(self.modData.Eater)) do
+				explicitTextToId[k] = explicitTextToId[k] or v
+			end
+			for k, v in pairs(buildTextLookup(self.modData.Exarch)) do
+				explicitTextToId[k] = explicitTextToId[k] or v
+			end
+		end
 
 		-- Build a tradeModId -> modTags lookup so we can check catalyst affectedness
 		-- from the trade stat ID alone, independent of line text or prefix metadata.
@@ -1221,8 +1287,19 @@ function TradeQueryGeneratorClass:FinishQuery()
 			end
 		end
 		addModLines(originalItem.explicitModLines, explicitTextToId, nil)
-		addModLines(originalItem.implicitModLines, implicitTextToId, explicitTextToId)
-		effective_max = math.max(0, effective_max - #requiredModFilters)
+		if tradeMode ~= 4 and options.includeImplicits then
+			addModLines(originalItem.implicitModLines, implicitTextToId, explicitTextToId)
+		end
+		if originalItem.prefixes and originalItem.suffixes and originalItem.affixes then
+			local craftedCounts = self:CountCraftedAffixes(originalItem.prefixes, originalItem.suffixes, originalItem.affixes)
+			craftedSlotFilters = self:BuildCraftedSlotFilters(craftedCounts.prefix, craftedCounts.suffix)
+		end
+		effective_max = math.max(0, effective_max - #requiredModFilters - #craftedSlotFilters)
+	end
+
+	-- Mode 3 (Exact): no weight search at all; Mode 4 keeps only the implicit weights already generated
+	if not includeWeights and not includeImplicitWeights then
+		self.modWeights = {}
 	end
 
 	local prioritizedMods = {}
@@ -1259,6 +1336,10 @@ function TradeQueryGeneratorClass:FinishQuery()
 	if #andFilters.filters > 0 then
 		t_insert(queryTable.query.stats, andFilters)
 	end
+	for _, slotFilter in ipairs(craftedSlotFilters) do
+		t_insert(queryTable.query.stats, slotFilter)
+		filters = filters + 1
+	end
 	
 	for _, entry in ipairs(self.modWeights) do
 		t_insert(queryTable.query.stats[1].filters, { id = entry.tradeModId, value = { weight = (entry.invert == true and entry.weight * -1 or entry.weight) } })
@@ -1266,6 +1347,10 @@ function TradeQueryGeneratorClass:FinishQuery()
 		if filters == effective_max then
 			break
 		end
+	end
+	-- Remove the weight group if it ended up empty (e.g. Exact mode produces no weight filters)
+	if #queryTable.query.stats[1].filters == 0 then
+		table.remove(queryTable.query.stats, 1)
 	end
 	if not options.includeMirrored then
 		queryTable.query.filters.misc_filters = {
@@ -1330,7 +1415,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 	end
 
 	local errMsg = nil
-	if #queryTable.query.stats[1].filters == 0 then
+	if #queryTable.query.stats == 0 then
 		-- No mods to filter
 		errMsg = "Could not generate search, found no mods to search for"
 	end
@@ -1380,11 +1465,10 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	updateLastAnchor(controls.includeMirrored)
 
 	local existingItemForSlot = slot and self.itemsTab.items[slot.selItemId]
-	if existingItemForSlot and not context.slotTbl.unique then
-		controls.requireCurrentMods = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Require current mods:", function(state) end)
-		controls.requireCurrentMods.state = (self.lastRequireCurrentMods == true)
-		controls.requireCurrentMods.tooltipText = "Add all mods on the current item as required minimum filters in the search."
-		updateLastAnchor(controls.requireCurrentMods)
+	if existingItemForSlot then
+		controls.includeImplicits = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Implicit Mods:", function(state) end)
+		controls.includeImplicits.state = (self.lastIncludeImplicits == nil or self.lastIncludeImplicits == true)
+		updateLastAnchor(controls.includeImplicits)
 	end
 
 	if not isJewelSlot and not isAbyssalJewelSlot and includeScourge then
@@ -1403,6 +1487,26 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		controls.includeEldritch = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Eldritch Mods:", function(state) end)
 		controls.includeEldritch.state = (self.lastIncludeEldritch == true)
 		updateLastAnchor(controls.includeEldritch)
+	end
+
+	if existingItemForSlot then
+		controls.tradeMode = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 160, 18}, {"Standard", "Upgrade", "Exact", "Implicit Upgrade"}, function(index, value)
+			if context.slotTbl.unique and (index == 2 or index == 3) then
+				controls.tradeMode.tooltipText = "^1This mode is intended for rare items only."
+			else
+				controls.tradeMode.tooltipText = nil
+			end
+		end)
+		controls.tradeMode.selIndex = self.lastTradeMode or 1
+		-- Initialise tooltip for the persisted selection
+		if context.slotTbl.unique then
+			local sel = self.lastTradeMode or 1
+			if sel == 2 or sel == 3 then
+				controls.tradeMode.tooltipText = "^1This mode is intended for rare items only."
+			end
+		end
+		controls.tradeModeLabel = new("LabelControl", {"RIGHT",controls.tradeMode,"LEFT"}, {-5, 0, 0, 16}, "Mode:")
+		updateLastAnchor(controls.tradeMode)
 	end
 
 	if isJewelSlot then
@@ -1486,9 +1590,11 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		if controls.includeMirrored then
 			self.lastIncludeMirrored, options.includeMirrored = controls.includeMirrored.state, controls.includeMirrored.state
 		end
-		if controls.requireCurrentMods then
-			self.lastRequireCurrentMods, options.requireCurrentMods = controls.requireCurrentMods.state, controls.requireCurrentMods.state
+		if controls.tradeMode then
+			self.lastTradeMode = controls.tradeMode.selIndex
+			options.tradeMode = controls.tradeMode.selIndex
 		end
+		options.isUnique = context.slotTbl and context.slotTbl.unique == true
 		if controls.includeCorrupted then
 			self.lastIncludeCorrupted, options.includeCorrupted = controls.includeCorrupted.state, controls.includeCorrupted.state
 		end
@@ -1497,6 +1603,11 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		end
 		if controls.includeEldritch then
 			self.lastIncludeEldritch, options.includeEldritch = controls.includeEldritch.state, controls.includeEldritch.state
+		end
+		if controls.includeImplicits then
+			self.lastIncludeImplicits, options.includeImplicits = controls.includeImplicits.state, controls.includeImplicits.state
+		else
+			options.includeImplicits = true
 		end
 		if controls.includeScourge then
 			self.lastIncludeScourge, options.includeScourge = controls.includeScourge.state, controls.includeScourge.state
