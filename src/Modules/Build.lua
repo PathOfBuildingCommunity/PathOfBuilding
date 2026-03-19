@@ -805,6 +805,7 @@ end
 function buildMode:DeleteLoadout(loadoutName, nextLoadoutName)
 	local loadout = self:GetLoadoutByName(loadoutName)
 	local nextLoadout = self:GetLoadoutByName(nextLoadoutName)
+	main:OpenMessagePopup("Delete Loadout - Next", "specId: " .. nextLoadout.specId .. "\nitemSetId: " .. nextLoadout.itemSetId .. "\nskillSetId: " .. nextLoadout.skillSetId .. "\nconfigSetId: " .. nextLoadout.configSetId)
 	if loadout.specId then
 		self.treeTab.specList[loadout.specId] = nil
 		self.treeTab:SetActiveSpec(1)
@@ -2035,9 +2036,10 @@ end
 -- Opens the build set manager
 function buildMode:OpenBuildSetManagePopup()
 	main:OpenPopup(370, 290, "Manage Build Sets", {
-		new("BuildSetListControl", nil, { 0, 50, 350, 200 }, self, self.treeTab),
+		new("BuildSetListControl", nil, { 0, 50, 350, 200 }, self),
 		new("ButtonControl", nil, { 0, 260, 90, 20 }, "Done", function()
 			main:ClosePopup()
+			self.controls.buildLoadouts:SetSel(self.treeTab.activeSpec + 1)
 		end),
 	})
 end

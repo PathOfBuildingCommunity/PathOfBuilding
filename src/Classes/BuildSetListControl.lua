@@ -8,11 +8,12 @@ local t_remove = table.remove
 local m_max = math.max
 local s_format = string.format
 
-local BuildSetListClass = newClass("BuildSetListControl", "ListControl", function(self, anchor, rect, buildMode, treeTab)
+local BuildSetListClass = newClass("BuildSetListControl", "ListControl", function(self, anchor, rect, buildMode)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, buildMode.treeTab.specList)
 	self.buildMode = buildMode
 	self.controls.copy = new("ButtonControl", { "BOTTOMLEFT", self, "TOP" }, { 2, -4, 60, 18 }, "Copy", function()
-		local build = buildMode:GetLoadoutByName(self.selValue.title)
+		local loadoutNameToCopy = self.selValue.title or "Default"
+		local build = buildMode:GetLoadoutByName(loadoutNameToCopy)
 		self:CopyLoadoutClick(build)
 	end)
 	self.controls.copy.enabled = function()
@@ -135,7 +136,7 @@ function BuildSetListClass:OnSelDelete(index, spec)
 		main:OpenConfirmPopup("Delete Loadout", "Are you sure you want to delete '" .. (spec.title or "Default") .. "'?",
 			"Delete", function()
 				t_remove(self.list, index)
-				local nextLoadoutIndex = index == self.buildMode.treeTab.activeSpec and m_max(1, index - 1) or index
+				local nextLoadoutIndex = index <= self.buildMode.treeTab.activeSpec and m_max(1, index - 1) or self.buildMode.treeTab.activeSpec
 				local nextLoadout = self.list[nextLoadoutIndex]
 				self.buildMode:DeleteLoadout(spec.title or "Default", nextLoadout.title or "Default")
 				self.selIndex = nil
