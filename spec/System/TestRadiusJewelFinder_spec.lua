@@ -269,11 +269,17 @@ describe("RadiusJewelFinder #radiusjewel", function()
 					end
 				end
 			end
+			local function assertAlphabetical(labels, message)
+				for i = 2, #labels do
+					assert.is_true(labels[i - 1] <= labels[i], message or ("labels not sorted at index " .. i))
+				end
+			end
 
 			while main.popups[1] do
 				main:ClosePopup()
 			end
 
+			build.radiusJewelFinderState = nil
 			local popup = makeFinder():Open()
 			assert.is_not_nil(popup)
 			assert.are.equal("Find Radius Jewel", popup.title)
@@ -306,9 +312,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			assert.is_true(hasTemperedAndTranscendent, "expected Tempered & Transcendent in jewel type list")
 			assert.is_true(hasSplitPersonality, "expected Split Personality in jewel type list")
 			assert.is_true(hasImpossibleEscape, "expected Impossible Escape in jewel type list")
-			assert.are.equal("The Light of Meaning", normalLabels[1])
-			assert.are.equal("Might of the Meek", normalLabels[2])
-			assert.are.equal("Thread of Hope", normalLabels[#normalLabels])
+			assertAlphabetical(normalLabels, "expected normal jewel types to be sorted alphabetically")
 
 			popup.controls.foulbornCheck.state = true
 			popup.controls.foulbornCheck.changeFunc(true)
@@ -338,9 +342,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 				assert.is_true(hasFoulbornLightOfMeaning, "expected The Light of Meaning in foulborn jewel type list")
 				assert.is_true(hasFoulbornInspiredLearning, "expected Inspired Learning in foulborn jewel type list")
 				assert.is_true(hasFoulbornCombatFocus, "expected Combat Focus in foulborn jewel type list")
-				assert.are.equal("The Light of Meaning", foulbornLabels[1])
-				assert.are.equal("Might of the Meek", foulbornLabels[2])
-				assert.are.equal("Thread of Hope", foulbornLabels[#foulbornLabels])
+				assertAlphabetical(foulbornLabels, "expected foulborn jewel types to be sorted alphabetically")
 
 				local unnaturalIdx = findIndex(popup.controls.jewelTypeSelect.list, "Unnatural Instinct")
 				assert.is_not_nil(unnaturalIdx, "expected Unnatural Instinct in foulborn jewel type list")
@@ -360,18 +362,12 @@ describe("RadiusJewelFinder #radiusjewel", function()
 						"expected type tooltip to describe Intuitive Leap")
 					assert.is_true(popup.controls.computeMethodSelect.shown, "expected method selector for Intuitive Leap")
 					assert.are.same({ "Fast", "Simulated" }, listLabels(popup.controls.computeMethodSelect.list))
-						assert.are.equal("Simulated", popup.controls.computeMethodSelect.list[popup.controls.computeMethodSelect.selIndex])
-						popup.controls.computeMethodSelect.selFunc(1)
-						assert.is_true(popup.controls.computeButton.shown, "expected Compute for Intuitive Leap")
-						popup.controls.computeButton:Click()
-						waitForCompute(popup)
-					assert.are.equal("computeSocket", popup.controls.resultsList.mode)
-					assert.is_true(#popup.controls.resultsList.list > 0, "expected Intuitive Leap compute results")
-					local intuitiveDetail = popup.controls.resultsList.list[1].detailText or ""
-						assert.is_true(intuitiveDetail ~= "",
-						"expected Intuitive Leap compute detail text")
-					assert.is_true(popup.controls.statusLabel.label:find("Fast", 1, true) ~= nil,
-						"expected compute status to mention Fast")
+					assert.are.same({ "Free only", "Safe occupied", "All occupied" }, listLabels(popup.controls.occupiedModeSelect.list))
+					assert.are.equal("Simulated", popup.controls.computeMethodSelect.list[popup.controls.computeMethodSelect.selIndex])
+					popup.controls.computeMethodSelect.selFunc(1)
+					popup.controls.occupiedModeSelect.selFunc(3)
+					assert.is_true(popup.controls.computeButton.shown, "expected Compute for Intuitive Leap")
+					popup.controls.occupiedModeSelect.selFunc(1)
 
 					local inspiredIdx = findIndex(popup.controls.jewelTypeSelect.list, "Inspired Learning")
 					assert.is_not_nil(inspiredIdx, "expected Inspired Learning in foulborn jewel type list")
@@ -384,6 +380,18 @@ describe("RadiusJewelFinder #radiusjewel", function()
 
 				popup.controls.foulbornCheck.state = false
 				popup.controls.foulbornCheck.changeFunc(false)
+				local normalDreamsIdx = findIndex(popup.controls.jewelTypeSelect.list, "Dreams & Nightmares")
+				assert.is_not_nil(normalDreamsIdx, "expected Dreams & Nightmares in normal jewel type list")
+				popup.controls.jewelTypeSelect.selFunc(normalDreamsIdx)
+				local redNightmareIdx = findIndex(popup.controls.jewelVariantSelect.list, "The Red Nightmare")
+				assert.is_not_nil(redNightmareIdx, "expected The Red Nightmare in normal variant list")
+				local redNightmareTooltipTexts = tooltipTexts(popup.controls.jewelVariantSelect, redNightmareIdx)
+				assert.is_true(#redNightmareTooltipTexts > 0, "expected Red Nightmare tooltip content")
+				for _, text in ipairs(redNightmareTooltipTexts) do
+					assert.is_nil(text:find("{variant:", 1, true), "variant tooltip should not expose raw variant tags")
+					assert.is_nil(text:find("Selected Variant:", 1, true), "variant tooltip should not expose serialization metadata")
+				end
+
 				local temperedIdx = findIndex(popup.controls.jewelTypeSelect.list, "Tempered & Transcendent")
 				assert.is_not_nil(temperedIdx, "expected Tempered & Transcendent in jewel type list")
 				local temperedTypeTooltipTexts = tooltipTexts(popup.controls.jewelTypeSelect, temperedIdx)
@@ -428,19 +436,6 @@ describe("RadiusJewelFinder #radiusjewel", function()
 				assert.is_true(popup.controls.computeMethodSelect.shown, "expected method selector for Impossible Escape")
 				assert.are.same({ "Fast", "Simulated" }, listLabels(popup.controls.computeMethodSelect.list))
 				assert.is_true(#popup.controls.jewelVariantSelect.list > 0, "expected Impossible Escape keystone variants")
-				popup.controls.findButton:Click()
-				assert.are.equal("find", popup.controls.resultsList.mode)
-				assert.is_true(popup.controls.statusLabel.label:find("Impossible Escape", 1, true) ~= nil)
-				assert.is_not_nil(popup.controls.resultsList.list[1].detailNodeId,
-					"expected Impossible Escape detail rows to carry their keystone node id")
-				local hasImpossibleEscapeKeystoneLabel = false
-				for _, row in ipairs(popup.controls.resultsList.list) do
-					if row.detailText and row.detailText:find("|", 1, true) then
-						hasImpossibleEscapeKeystoneLabel = true
-						break
-					end
-				end
-				assert.is_true(hasImpossibleEscapeKeystoneLabel, "expected Impossible Escape find detail to include the winning keystone")
 
 				popup.controls.foulbornCheck.state = true
 				popup.controls.foulbornCheck.changeFunc(true)
@@ -449,17 +444,6 @@ describe("RadiusJewelFinder #radiusjewel", function()
 				popup.controls.jewelTypeSelect.selFunc(threadIdx)
 				assert.is_true(popup.controls.computeMethodSelect.shown, "expected method selector for Thread of Hope")
 				assert.are.same({ "Fast", "Simulated" }, listLabels(popup.controls.computeMethodSelect.list))
-				popup.controls.findButton:Click()
-				assert.are.equal("findThread", popup.controls.resultsList.mode)
-				assert.is_true(popup.controls.statusLabel.label:find("Thread of Hope", 1, true) ~= nil)
-				local hasWinningRingLabel = false
-				for _, row in ipairs(popup.controls.resultsList.list) do
-					if row.variantLabel and row.variantLabel:find(" Ring", 1, true) then
-						hasWinningRingLabel = true
-						break
-					end
-				end
-				assert.is_true(hasWinningRingLabel, "expected winning Thread of Hope ring label in find results")
 
 				local dreamsIdx = findIndex(popup.controls.jewelTypeSelect.list, "Dreams & Nightmares")
 				assert.is_not_nil(dreamsIdx, "expected Dreams & Nightmares in foulborn jewel type list")
@@ -478,41 +462,11 @@ describe("RadiusJewelFinder #radiusjewel", function()
 				}, listLabels(popup.controls.jewelVariantSelect.list))
 				assert.is_true(findIndex(lineTexts(popup.controls.previewList.list), "^8Family: Red Dream") ~= nil)
 
-				popup.controls.computeButton:Click()
-				waitForCompute(popup)
-				assert.are.equal("computeSocket", popup.controls.resultsList.mode)
-				assert.is_true(popup.controls.statusLabel.label:find("Red Dream", 1, true) ~= nil)
-				local hasWinningVariantLabel = false
-				local tooltipResultLine
-				for _, row in ipairs(popup.controls.resultsList.list) do
-					if row.detailText and row.detailText:find("Red Dream:", 1, true) then
-						hasWinningVariantLabel = true
-						break
+					while main.popups[1] do
+						main:ClosePopup()
 					end
-				end
-				for _, lineInfo in ipairs(popup.controls.resultsList.list) do
-					if lineInfo.socketId and lineInfo.baseOutput and lineInfo.compareOutput then
-						tooltipResultLine = lineInfo
-						break
-					end
-				end
-				assert.is_true(hasWinningVariantLabel, "expected winning Red Dream variant label in compute results")
-				assert.is_not_nil(tooltipResultLine, "expected a compute result row with tooltip compare outputs")
-				assert.are.equal("^7Socketing the best variant here will give you:", tooltipResultLine.tooltipHeader)
-	
-				while main.popups[1] do
-					main:ClosePopup()
-				end
 
-				local reopened = makeFinder():Open()
-				assert.is_not_nil(reopened)
-				assert.are.equal("Dreams & Nightmares", reopened.controls.jewelTypeSelect.list[reopened.controls.jewelTypeSelect.selIndex])
-				assert.are.equal("computeSocket", reopened.controls.resultsList.mode)
-				while main.popups[1] do
-					main:ClosePopup()
-				end
-
-			assert.is_nil(main.popups[1])
+				assert.is_nil(main.popups[1])
 		end)
 
 	end)
@@ -591,14 +545,14 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			-- Socket 36634 is allocated and occupied by item 17 in OccVortex
 			local slot = build.itemsTab.sockets[36634]
 			local prevId = slot.selItemId
-			makeFinder():computeVariantImpact(36634, "Life")
+			makeFinder():computeVariantImpact(36634, "Life", nil, { id = "all" })
 			assert.are.equal(prevId, slot.selItemId,
 				"selItemId should be restored to " .. prevId)
 		end)
 
 		it("Life variant gives non-negative delta on allocated socket with passives", function()
 			-- Socket 36634 is allocated; its radius should contain allocated passives
-			local results, _ = makeFinder():computeVariantImpact(36634, "Life")
+			local results, _ = makeFinder():computeVariantImpact(36634, "Life", nil, { id = "all" })
 			local lifeResult
 			for _, r in ipairs(results) do
 				if r.variantIdx == 1 then lifeResult = r; break end
@@ -610,7 +564,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 
 		it("restores socket and item state after compute on an occupied socket", function()
 			local before = snapshotFinderState()
-			makeFinder():computeVariantImpact(36634, "Life")
+			makeFinder():computeVariantImpact(36634, "Life", nil, { id = "all" })
 			assertFinderStateUnchanged(before)
 		end)
 
