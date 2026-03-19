@@ -541,19 +541,19 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 				self.tooltip:AddLine(16, self.imbuedSelect and imbuedTooltipText or toolTipText)
 			end
 
-			colorS = 0.5
-			colorA = 0.5
-			if cursorX > (x + width - 18) then
-				colorS = 1
-				self.tooltip:Clear()
-				self.tooltip:AddLine(16, "Only show Support gems")
-			elseif (cursorX > (x + width - 40) and cursorX < (cursorX + width - 20)) then
-				colorA = 1
-				self.tooltip:Clear()
-				self.tooltip:AddLine(16, "Only show Active gems")
-			end
-
 			if not self.imbuedSelect then
+				colorS = 0.5
+				colorA = 0.5
+				if cursorX > (x + width - 18) then
+					colorS = 1
+					self.tooltip:Clear()
+					self.tooltip:AddLine(16, "Only show Support gems")
+				elseif (cursorX > (x + width - 40) and cursorX < (cursorX + width - 20)) then
+					colorA = 1
+					self.tooltip:Clear()
+					self.tooltip:AddLine(16, "Only show Active gems")
+				end
+
 				-- support shortcut
 				sx = x + width - 16 - 2
 				SetDrawColor(colorS,colorS,colorS)

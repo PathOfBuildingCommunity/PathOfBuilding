@@ -212,6 +212,11 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		self.build.buildFlag = true
 	end)
 
+	-- self.imbuedSupportBySlot is used by CalcSetup to add an ExtraSupport mod of the selected gem
+	-- Each displayGroup has its own "imbuedSupport" and is saved to the xml to load when changing sockets or loading a build
+	-- "slotName" is used on import, which uses builtInSupport to get the gemData and pass in here
+	-- buildFlag to true triggers the reload/run the CalcSetup to add on the support
+	-- the last var in the GemSelectControl init, the true, sets imbuedSelect to true which sets the level to 1 and support filtering
 	self.imbuedSupportBySlot = { }
 	self.controls.imbuedSupportLabel = new("LabelControl", { "LEFT", self.controls.includeInFullDPS, "RIGHT" }, { 12, 0, 0, 16 }, colorCodes.POSITIVE.."Imbued Support:")
 	self.controls.imbuedSupport = new("GemSelectControl", { "LEFT", self.controls.imbuedSupportLabel, "RIGHT" }, { 8, 0, 250, 20 }, self, 1, function(gemData, _, _, slotName) -- slotName used on Import
@@ -243,7 +248,6 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		self.controls.imbuedSupport:SetText("")
 		self.displayGroup.imbuedSupport = nil
 		self.imbuedSupportBySlot[self.displayGroup.slot] = nil
-
 		self.build.buildFlag = true
 	end)
 	self.controls.imbuedSupportClear.tooltipText = "Remove this imbued support."
