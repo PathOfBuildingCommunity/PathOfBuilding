@@ -219,18 +219,17 @@ end
 local function CWCHandler(env)
 	if not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillFlags.disable then
 		local triggeredSkills = {}
-		local trigRate = 0
 		local source = nil
 		local triggerName = "Cast While Channeling"
 		local output = env.player.output
 		local breakdown = env.player.breakdown
 		for _, skill in ipairs(env.player.activeSkillList) do
-			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
-			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
-			if env.player.mainSkill.triggeredBy.gemData and calcLib.canGrantedEffectSupportActiveSkill(env.player.mainSkill.triggeredBy.gemData.grantedEffect, skill) and skill ~= env.player.mainSkill and (match1 or match2) and not isTriggered(skill) then
-				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+			local canSupport = env.player.mainSkill.triggeredBy.gemData and calcLib.canGrantedEffectSupportActiveSkill(env.player.mainSkill.triggeredBy.gemData.grantedEffect, skill)
+			local slotMatch = slotMatch(env, skill)
+			if not source and skill.skillData.triggerTime and canSupport and skill ~= env.player.mainSkill and slotMatch and not isTriggered(skill) then
+				source = skill
 			end
-			if skill.skillData.triggeredWhileChannelling and (match1 or match2) then
+			if skill.skillData.triggeredWhileChannelling and slotMatch then
 				t_insert(triggeredSkills, packageSkillDataForSimulation(skill, env))
 			end
 		end
