@@ -16,7 +16,7 @@ local CompareEntryClass = newClass("CompareEntry", "ControlHost", function(self,
 	self.buildName = label or "Comparison Build"
 	self.xmlText = xmlText
 
-	-- Default build properties (mirrors Build.lua:Init lines 72-82)
+	-- Default build properties
 	self.viewMode = "TREE"
 	self.characterLevel = m_min(m_max(main.defaultCharLevel or 1, 1), 100)
 	self.targetVersion = liveTargetVersion
@@ -54,7 +54,7 @@ local CompareEntryClass = newClass("CompareEntry", "ControlHost", function(self,
 end)
 
 function CompareEntryClass:LoadFromXML(xmlText)
-	-- Parse the XML (same pattern as Build.lua:LoadDB, line 1834)
+	-- Parse the XML
 	local dbXML, errMsg = common.xml.ParseXML(xmlText)
 	if errMsg then
 		ConPrintf("CompareEntry: Error parsing XML: %s", errMsg)
@@ -65,7 +65,7 @@ function CompareEntryClass:LoadFromXML(xmlText)
 		return true
 	end
 
-	-- Load Build section first (same pattern as Build.lua:LoadDB, line 1848)
+	-- Load Build section first
 	for _, node in ipairs(dbXML[1]) do
 		if type(node) == "table" and node.elem == "Build" then
 			self:LoadBuildSection(node)
@@ -96,7 +96,7 @@ function CompareEntryClass:LoadFromXML(xmlText)
 		self.targetVersion = liveTargetVersion
 	end
 
-	-- Create tabs (same pattern as Build.lua lines 579-590)
+	-- Create tabs
 	-- PartyTab is replaced with a stub providing an empty enemyModList and actor
 	-- (CalcPerform.lua:1088 accesses build.partyTab.actor for party member buffs)
 	local partyActor = { Aura = {}, Curse = {}, Warcry = {}, Link = {}, modDB = new("ModDB"), output = {} }
@@ -108,7 +108,7 @@ function CompareEntryClass:LoadFromXML(xmlText)
 	self.skillsTab = new("SkillsTab", self)
 	self.calcsTab = new("CalcsTab", self)
 
-	-- Set up savers table (same pattern as Build.lua lines 593-606)
+	-- Set up savers table
 	self.savers = {
 		["Config"] = self.configTab,
 		["Tree"] = self.treeTab,
@@ -129,7 +129,7 @@ function CompareEntryClass:LoadFromXML(xmlText)
 		self.configTab.input[control] = self[control]
 	end
 
-	-- Load XML sections into tabs (same pattern as Build.lua lines 620-647)
+	-- Load XML sections into tabs
 	-- Defer passive trees until after items are loaded (jewel socket issue)
 	local deferredPassiveTrees = {}
 	for _, node in ipairs(self.xmlSectionList) do
@@ -157,12 +157,12 @@ function CompareEntryClass:LoadFromXML(xmlText)
 		end
 	end
 
-	-- Build calculation output tables (same pattern as Build.lua lines 654-657)
+	-- Build calculation output tables
 	self.calcsTab:BuildOutput()
 	self.buildFlag = false
 end
 
--- Load build section attributes (same pattern as Build.lua:Load, line 927)
+-- Load build section attributes
 function CompareEntryClass:LoadBuildSection(xml)
 	self.targetVersion = xml.attrib.targetVersion or legacyTargetVersion
 	if xml.attrib.viewMode then
@@ -243,7 +243,7 @@ function CompareEntryClass:SetMainSocketGroup(index)
 end
 
 function CompareEntryClass:RefreshSkillSelectControls(controls, mainGroup, suffix)
-	-- Populate skill select controls (adapted from Build.lua:RefreshSkillSelectControls, lines 1444-1542)
+	-- Populate skill select controls
 	if not controls or not controls.mainSocketGroup then return end
 	controls.mainSocketGroup.selIndex = mainGroup
 	wipeTable(controls.mainSocketGroup.list)
@@ -251,109 +251,120 @@ function CompareEntryClass:RefreshSkillSelectControls(controls, mainGroup, suffi
 		controls.mainSocketGroup.list[i] = { val = i, label = socketGroup.displayLabel }
 	end
 	controls.mainSocketGroup:CheckDroppedWidth(true)
-	if #controls.mainSocketGroup.list == 0 then
-		controls.mainSocketGroup.list[1] = { val = 1, label = "<No skills added yet>" }
+
+	-- Helper: hide all skill detail controls
+	local function hideAllSkillControls()
 		controls.mainSkill.shown = false
 		controls.mainSkillPart.shown = false
 		controls.mainSkillMineCount.shown = false
 		controls.mainSkillStageCount.shown = false
 		controls.mainSkillMinion.shown = false
 		controls.mainSkillMinionSkill.shown = false
+	end
+
+	if #controls.mainSocketGroup.list == 0 then
+		controls.mainSocketGroup.list[1] = { val = 1, label = "<No skills added yet>" }
+		hideAllSkillControls()
+		return
+	end
+
+	local mainSocketGroup = self.skillsTab.socketGroupList[mainGroup]
+	if not mainSocketGroup then
+		mainSocketGroup = self.skillsTab.socketGroupList[1]
+		mainGroup = 1
+	end
+	local displaySkillList = mainSocketGroup["displaySkillList"..suffix]
+	if not displaySkillList then
+		hideAllSkillControls()
+		return
+	end
+
+	-- Populate main skill dropdown
+	local mainActiveSkill = mainSocketGroup["mainActiveSkill"..suffix] or 1
+	wipeTable(controls.mainSkill.list)
+	for i, activeSkill in ipairs(displaySkillList) do
+		local explodeSource = activeSkill.activeEffect.srcInstance.explodeSource
+		local explodeSourceName = explodeSource and (explodeSource.name or explodeSource.dn)
+		local colourCoded = explodeSourceName and ("From "..colorCodes[explodeSource.rarity or "NORMAL"]..explodeSourceName)
+		t_insert(controls.mainSkill.list, { val = i, label = colourCoded or activeSkill.activeEffect.grantedEffect.name })
+	end
+	controls.mainSkill.enabled = #displaySkillList > 1
+	controls.mainSkill.selIndex = mainActiveSkill
+	controls.mainSkill.shown = true
+	hideAllSkillControls()
+	controls.mainSkill.shown = true -- restore after hideAll
+
+	local activeSkill = displaySkillList[mainActiveSkill] or displaySkillList[1]
+	if not activeSkill then return end
+	local activeEffect = activeSkill.activeEffect
+	if not activeEffect then return end
+
+	-- Skill parts
+	if activeEffect.grantedEffect.parts and #activeEffect.grantedEffect.parts > 1 then
+		controls.mainSkillPart.shown = true
+		wipeTable(controls.mainSkillPart.list)
+		for i, part in ipairs(activeEffect.grantedEffect.parts) do
+			t_insert(controls.mainSkillPart.list, { val = i, label = part.name })
+		end
+		controls.mainSkillPart.selIndex = activeEffect.srcInstance["skillPart"..suffix] or 1
+		local selectedPart = activeEffect.grantedEffect.parts[controls.mainSkillPart.selIndex]
+		if selectedPart and selectedPart.stages then
+			controls.mainSkillStageCount.shown = true
+			controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or selectedPart.stagesMin or 1)
+		end
+	end
+
+	-- Mine count
+	if activeSkill.skillFlags and activeSkill.skillFlags.mine then
+		controls.mainSkillMineCount.shown = true
+		controls.mainSkillMineCount.buf = tostring(activeEffect.srcInstance["skillMineCount"..suffix] or "")
+	end
+
+	-- Stage count (for multi-stage skills without parts)
+	if activeSkill.skillFlags and activeSkill.skillFlags.multiStage and not (activeEffect.grantedEffect.parts and #activeEffect.grantedEffect.parts > 1) then
+		controls.mainSkillStageCount.shown = true
+		controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeSkill.skillData.stagesMin or 1)
+	end
+
+	-- Minion controls
+	if activeSkill.skillFlags and not activeSkill.skillFlags.disable and (activeEffect.grantedEffect.minionList or (activeSkill.minionList and activeSkill.minionList[1])) then
+		self:RefreshMinionControls(controls, activeSkill, activeEffect, suffix)
+	end
+end
+
+function CompareEntryClass:RefreshMinionControls(controls, activeSkill, activeEffect, suffix)
+	wipeTable(controls.mainSkillMinion.list)
+	if activeEffect.grantedEffect.minionHasItemSet then
+		for _, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
+			local itemSet = self.itemsTab.itemSets[itemSetId]
+			t_insert(controls.mainSkillMinion.list, {
+				label = itemSet.title or "Default Item Set",
+				itemSetId = itemSetId,
+			})
+		end
+		controls.mainSkillMinion:SelByValue(activeEffect.srcInstance["skillMinionItemSet"..suffix] or 1, "itemSetId")
 	else
-		local mainSocketGroup = self.skillsTab.socketGroupList[mainGroup]
-		if not mainSocketGroup then
-			mainSocketGroup = self.skillsTab.socketGroupList[1]
-			mainGroup = 1
+		for _, minionId in ipairs(activeSkill.minionList) do
+			t_insert(controls.mainSkillMinion.list, {
+				label = self.data.minions[minionId] and self.data.minions[minionId].name or minionId,
+				minionId = minionId,
+			})
 		end
-		local displaySkillList = mainSocketGroup["displaySkillList"..suffix]
-		if not displaySkillList then
-			controls.mainSkill.shown = false
-			controls.mainSkillPart.shown = false
-			controls.mainSkillMineCount.shown = false
-			controls.mainSkillStageCount.shown = false
-			controls.mainSkillMinion.shown = false
-			controls.mainSkillMinionSkill.shown = false
-			return
+		controls.mainSkillMinion:SelByValue(activeEffect.srcInstance["skillMinion"..suffix] or (controls.mainSkillMinion.list[1] and controls.mainSkillMinion.list[1].minionId), "minionId")
+	end
+	controls.mainSkillMinion.enabled = #controls.mainSkillMinion.list > 1
+	controls.mainSkillMinion.shown = true
+
+	wipeTable(controls.mainSkillMinionSkill.list)
+	if activeSkill.minion then
+		for _, minionSkill in ipairs(activeSkill.minion.activeSkillList) do
+			t_insert(controls.mainSkillMinionSkill.list, minionSkill.activeEffect.grantedEffect.name)
 		end
-		local mainActiveSkill = mainSocketGroup["mainActiveSkill"..suffix] or 1
-		wipeTable(controls.mainSkill.list)
-		for i, activeSkill in ipairs(displaySkillList) do
-			local explodeSource = activeSkill.activeEffect.srcInstance.explodeSource
-			local explodeSourceName = explodeSource and (explodeSource.name or explodeSource.dn)
-			local colourCoded = explodeSourceName and ("From "..colorCodes[explodeSource.rarity or "NORMAL"]..explodeSourceName)
-			t_insert(controls.mainSkill.list, { val = i, label = colourCoded or activeSkill.activeEffect.grantedEffect.name })
-		end
-		controls.mainSkill.enabled = #displaySkillList > 1
-		controls.mainSkill.selIndex = mainActiveSkill
-		controls.mainSkill.shown = true
-		controls.mainSkillPart.shown = false
-		controls.mainSkillMineCount.shown = false
-		controls.mainSkillStageCount.shown = false
-		controls.mainSkillMinion.shown = false
-		controls.mainSkillMinionSkill.shown = false
-		if displaySkillList[1] then
-			local activeSkill = displaySkillList[mainActiveSkill]
-			if not activeSkill then
-				activeSkill = displaySkillList[1]
-			end
-			local activeEffect = activeSkill.activeEffect
-			if activeEffect then
-				if activeEffect.grantedEffect.parts and #activeEffect.grantedEffect.parts > 1 then
-					controls.mainSkillPart.shown = true
-					wipeTable(controls.mainSkillPart.list)
-					for i, part in ipairs(activeEffect.grantedEffect.parts) do
-						t_insert(controls.mainSkillPart.list, { val = i, label = part.name })
-					end
-					controls.mainSkillPart.selIndex = activeEffect.srcInstance["skillPart"..suffix] or 1
-					if activeEffect.grantedEffect.parts[controls.mainSkillPart.selIndex] and activeEffect.grantedEffect.parts[controls.mainSkillPart.selIndex].stages then
-						controls.mainSkillStageCount.shown = true
-						controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeEffect.grantedEffect.parts[controls.mainSkillPart.selIndex].stagesMin or 1)
-					end
-				end
-				if activeSkill.skillFlags and activeSkill.skillFlags.mine then
-					controls.mainSkillMineCount.shown = true
-					controls.mainSkillMineCount.buf = tostring(activeEffect.srcInstance["skillMineCount"..suffix] or "")
-				end
-				if activeSkill.skillFlags and activeSkill.skillFlags.multiStage and not (activeEffect.grantedEffect.parts and #activeEffect.grantedEffect.parts > 1) then
-					controls.mainSkillStageCount.shown = true
-					controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeSkill.skillData.stagesMin or 1)
-				end
-				if activeSkill.skillFlags and not activeSkill.skillFlags.disable and (activeEffect.grantedEffect.minionList or (activeSkill.minionList and activeSkill.minionList[1])) then
-					wipeTable(controls.mainSkillMinion.list)
-					if activeEffect.grantedEffect.minionHasItemSet then
-						for _, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
-							local itemSet = self.itemsTab.itemSets[itemSetId]
-							t_insert(controls.mainSkillMinion.list, {
-								label = itemSet.title or "Default Item Set",
-								itemSetId = itemSetId,
-							})
-						end
-						controls.mainSkillMinion:SelByValue(activeEffect.srcInstance["skillMinionItemSet"..suffix] or 1, "itemSetId")
-					else
-						for _, minionId in ipairs(activeSkill.minionList) do
-							t_insert(controls.mainSkillMinion.list, {
-								label = self.data.minions[minionId] and self.data.minions[minionId].name or minionId,
-								minionId = minionId,
-							})
-						end
-						controls.mainSkillMinion:SelByValue(activeEffect.srcInstance["skillMinion"..suffix] or (controls.mainSkillMinion.list[1] and controls.mainSkillMinion.list[1].minionId), "minionId")
-					end
-					controls.mainSkillMinion.enabled = #controls.mainSkillMinion.list > 1
-					controls.mainSkillMinion.shown = true
-					wipeTable(controls.mainSkillMinionSkill.list)
-					if activeSkill.minion then
-						for _, minionSkill in ipairs(activeSkill.minion.activeSkillList) do
-							t_insert(controls.mainSkillMinionSkill.list, minionSkill.activeEffect.grantedEffect.name)
-						end
-						controls.mainSkillMinionSkill.selIndex = activeEffect.srcInstance["skillMinionSkill"..suffix] or 1
-						controls.mainSkillMinionSkill.shown = true
-						controls.mainSkillMinionSkill.enabled = #controls.mainSkillMinionSkill.list > 1
-					else
-						t_insert(controls.mainSkillMinion.list, "<No spectres in build>")
-					end
-				end
-			end
-		end
+		controls.mainSkillMinionSkill.selIndex = activeEffect.srcInstance["skillMinionSkill"..suffix] or 1
+		controls.mainSkillMinionSkill.shown = true
+		controls.mainSkillMinionSkill.enabled = #controls.mainSkillMinionSkill.list > 1
+	else
+		t_insert(controls.mainSkillMinion.list, "<No spectres in build>")
 	end
 end
 
@@ -386,7 +397,7 @@ function CompareEntryClass:AddStatComparesToTooltip(tooltip, baseOutput, compare
 	return count
 end
 
--- Stat comparison (mirrors Build.lua:CompareStatList, line 1733)
+-- Stat comparison
 function CompareEntryClass:CompareStatList(tooltip, statList, actor, baseOutput, compareOutput, header, nodeCount)
 	local s_format = string.format
 	local count = 0

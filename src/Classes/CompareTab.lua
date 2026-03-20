@@ -10,7 +10,44 @@ local m_max = math.max
 local m_floor = math.floor
 local s_format = string.format
 
--- Flag matching for stat filtering (same logic as Build.lua lines 33-57)
+-- Layout constants (shared across Draw, DrawConfig, DrawItems, DrawCalcs, etc.)
+local LAYOUT = {
+	-- Main tab control bar
+	controlBarHeight = 96,
+
+	-- Tree view header/footer
+	treeHeaderHeight = 58,
+	treeFooterHeight = 30,
+	treeOverlayCheckX = 155,
+
+	-- Summary view columns
+	summaryCol1 = 10,
+	summaryCol2 = 300,
+	summaryCol3 = 450,
+	summaryCol4 = 600,
+
+	-- Items view
+	itemsCheckboxOffset = 36,
+	itemsCopyBtnW = 60,
+	itemsCopyBtnH = 18,
+
+	-- Calcs view
+	calcsMaxCardWidth = 400,
+	calcsLabelWidth = 132,
+	calcsSepW = 2,
+	calcsHeaderBarHeight = 24,
+
+	-- Config view (shared between Draw() layout and DrawConfig())
+	configRowHeight = 22,
+	configSectionHeaderHeight = 24,
+	configColumnHeaderHeight = 20,
+	configFixedHeaderHeight = 66,
+	configCol1 = 10,
+	configCol2 = 300,
+	configCol3 = 500,
+}
+
+-- Flag matching for stat filtering
 local function matchFlags(reqFlags, notFlags, flags)
 	if type(reqFlags) == "string" then
 		reqFlags = { reqFlags }
@@ -76,6 +113,10 @@ local CompareTabClass = newClass("CompareTab", "ControlHost", "Control", functio
 	self.configCompareId = nil      -- track which compare entry controls were built for
 	self.configToggle = false       -- show all / hide ineligible toggle
 	self.configDisplayList = {}     -- computed display order (headers + rows)
+
+	-- Pre-load static module data
+	self.configOptions = LoadModule("Modules/ConfigOptions")
+	self.calcSections = LoadModule("Modules/CalcSections")
 
 	-- Controls for the comparison screen
 	self:InitControls()
@@ -639,7 +680,7 @@ function CompareTabClass:RebuildConfigControls(compareEntry)
 
 	if not compareEntry then return end
 
-	local configOptions = LoadModule("Modules/ConfigOptions")
+	local configOptions = self.configOptions
 	local pInput = self.primaryBuild.configTab.input or {}
 	local primaryBuild = self.primaryBuild
 
@@ -934,8 +975,6 @@ end
 -- DRAW - Main render method
 -- ============================================================
 function CompareTabClass:Draw(viewPort, inputEvents)
-	local controlBarHeight = 96
-
 	-- Position top-bar controls
 	self.controls.subTabAnchor.x = viewPort.x + 4
 	self.controls.subTabAnchor.y = viewPort.y + 74
@@ -946,9 +985,9 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 
 	local contentVP = {
 		x = viewPort.x,
-		y = viewPort.y + controlBarHeight,
+		y = viewPort.y + LAYOUT.controlBarHeight,
 		width = viewPort.width,
-		height = viewPort.height - controlBarHeight,
+		height = viewPort.height - LAYOUT.controlBarHeight,
 	}
 
 	-- Get active comparison early (needed for footer positioning before ProcessControlsInput)
@@ -959,316 +998,14 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 		compareEntry:Rebuild()
 	end
 
-	-- Pre-draw tree footer backgrounds and position footer controls
+	-- Layout: position controls and draw backgrounds for current view mode
 	-- (must happen before ProcessControlsInput so controls render on top of backgrounds)
-	self.treeLayout = nil
-	if self.compareViewMode == "TREE" and compareEntry then
-		local headerHeight = 58   -- spec/version selectors + overlay checkbox + separator + padding
-		local footerHeight = 30   -- search field(s)
-		local footerY = contentVP.y + contentVP.height - footerHeight
-
-		if self.treeOverlayMode then
-			-- ========== OVERLAY MODE LAYOUT ==========
-			local specWidth = m_min(m_floor(contentVP.width * 0.25), 200)
-
-			self.treeLayout = {
-				overlay = true,
-				headerHeight = headerHeight,
-				footerHeight = footerHeight,
-				footerY = footerY,
-			}
-
-			-- Header background + separator
-			SetDrawColor(0.05, 0.05, 0.05)
-			DrawImage(nil, contentVP.x, contentVP.y, contentVP.width, headerHeight)
-			SetDrawColor(0.85, 0.85, 0.85)
-			DrawImage(nil, contentVP.x, contentVP.y + headerHeight - 2, contentVP.width, 2)
-
-			-- Footer background
-			SetDrawColor(0.05, 0.05, 0.05)
-			DrawImage(nil, contentVP.x, footerY, contentVP.width, footerHeight)
-			SetDrawColor(0.85, 0.85, 0.85)
-			DrawImage(nil, contentVP.x, footerY, contentVP.width, 2)
-
-			-- Position spec/version in header row 1
-			self.controls.leftSpecSelect.x = contentVP.x + 4
-			self.controls.leftSpecSelect.y = contentVP.y + 8
-			self.controls.leftSpecSelect.width = specWidth
-
-			local rightSpecX = contentVP.x + m_floor(contentVP.width / 2) + 4
-			self.controls.rightSpecSelect.x = rightSpecX
-			self.controls.rightSpecSelect.y = contentVP.y + 8
-			self.controls.rightSpecSelect.width = specWidth
-
-			-- Overlay checkbox in header row 2 (label draws LEFT of checkbox, needs ~140px clearance)
-			self.controls.treeOverlayCheck.x = contentVP.x + 155
-			self.controls.treeOverlayCheck.y = contentVP.y + 34
-
-			-- Overlay search in footer (full width)
-			self.controls.overlayTreeSearch.x = contentVP.x + 4
-			self.controls.overlayTreeSearch.y = footerY + 4
-			self.controls.overlayTreeSearch.width = contentVP.width - 8
-		else
-			-- ========== SIDE-BY-SIDE MODE LAYOUT ==========
-			local halfWidth = m_floor(contentVP.width / 2) - 2
-			local rightAbsX = contentVP.x + halfWidth + 4
-			local specWidth = m_min(m_floor(halfWidth * 0.55), 200)
-
-			self.treeLayout = {
-				overlay = false,
-				halfWidth = halfWidth,
-				headerHeight = headerHeight,
-				footerHeight = footerHeight,
-				footerY = footerY,
-				rightAbsX = rightAbsX,
-			}
-
-			-- Header background + separator
-			SetDrawColor(0.05, 0.05, 0.05)
-			DrawImage(nil, contentVP.x, contentVP.y, contentVP.width, headerHeight)
-			SetDrawColor(0.85, 0.85, 0.85)
-			DrawImage(nil, contentVP.x, contentVP.y + headerHeight - 2, contentVP.width, 2)
-
-			-- Footer backgrounds (two halves)
-			SetDrawColor(0.05, 0.05, 0.05)
-			DrawImage(nil, contentVP.x, footerY, halfWidth, footerHeight)
-			DrawImage(nil, rightAbsX, footerY, halfWidth, footerHeight)
-			SetDrawColor(0.85, 0.85, 0.85)
-			DrawImage(nil, contentVP.x, footerY, halfWidth, 2)
-			DrawImage(nil, rightAbsX, footerY, halfWidth, 2)
-
-			-- Position spec/version in header row 1
-			self.controls.leftSpecSelect.x = contentVP.x + 4
-			self.controls.leftSpecSelect.y = contentVP.y + 8
-			self.controls.leftSpecSelect.width = specWidth
-
-			self.controls.rightSpecSelect.x = contentVP.x + m_floor(contentVP.width / 2) + 4
-			self.controls.rightSpecSelect.y = contentVP.y + 8
-			self.controls.rightSpecSelect.width = specWidth
-
-			-- Overlay checkbox in header row 2 (label draws LEFT of checkbox, needs ~140px clearance)
-			self.controls.treeOverlayCheck.x = contentVP.x + 155
-			self.controls.treeOverlayCheck.y = contentVP.y + 34
-
-			-- Position footer search fields
-			self.controls.leftFooterAnchor.x = contentVP.x + 4
-			self.controls.leftFooterAnchor.y = footerY + 4
-			self.controls.leftTreeSearch.width = halfWidth - 8
-
-			self.controls.rightFooterAnchor.x = rightAbsX + 4
-			self.controls.rightFooterAnchor.y = footerY + 4
-			self.controls.rightTreeSearch.width = halfWidth - 8
-		end
-
-		-- (Common) Update spec dropdown lists
-		if self.primaryBuild.treeTab then
-			self.controls.leftSpecSelect.list = self.primaryBuild.treeTab:GetSpecList()
-			self.controls.leftSpecSelect.selIndex = self.primaryBuild.treeTab.activeSpec
-		end
-		if compareEntry.treeTab then
-			self.controls.rightSpecSelect.list = compareEntry.treeTab:GetSpecList()
-			self.controls.rightSpecSelect.selIndex = compareEntry.treeTab.activeSpec
-		end
-
-		-- (Common) Update version dropdown selection to match current spec
-		if self.primaryBuild.spec then
-			for i, ver in ipairs(self.treeVersionDropdownList) do
-				if ver.value == self.primaryBuild.spec.treeVersion then
-					self.controls.leftVersionSelect.selIndex = i
-					break
-				end
-			end
-		end
-		if compareEntry.spec then
-			for i, ver in ipairs(self.treeVersionDropdownList) do
-				if ver.value == compareEntry.spec.treeVersion then
-					self.controls.rightVersionSelect.selIndex = i
-					break
-				end
-			end
-		end
-
-		-- (Common) Sync search fields when entering tree mode or changing compare entry
-		if self.treeSearchNeedsSync then
-			self.treeSearchNeedsSync = false
-			if self.primaryBuild.treeTab and self.primaryBuild.treeTab.viewer then
-				self.controls.leftTreeSearch:SetText(self.primaryBuild.treeTab.viewer.searchStr or "")
-				self.controls.overlayTreeSearch:SetText(self.primaryBuild.treeTab.viewer.searchStr or "")
-			end
-			if compareEntry.treeTab and compareEntry.treeTab.viewer then
-				self.controls.rightTreeSearch:SetText(compareEntry.treeTab.viewer.searchStr or "")
-			end
-		end
-	end
-
-	-- Position config controls when in CONFIG view
-	if self.compareViewMode == "CONFIG" and compareEntry then
-		-- Rebuild controls if compare entry changed or config was modified
-		if self.configCompareId ~= self.activeCompareIndex or self.configNeedsRebuild then
-			self:RebuildConfigControls(compareEntry)
-			self.configCompareId = self.activeCompareIndex
-			self.configNeedsRebuild = false
-		end
-
-		-- Sync control values with current primary input (in case changed from normal Config tab)
-		local pInput = self.primaryBuild.configTab.input or {}
-		for var, ctrlInfo in pairs(self.configControls) do
-			local ctrl = ctrlInfo.control
-			local varData = ctrlInfo.varData
-			local pVal = pInput[var]
-			if varData.type == "check" then
-				ctrl.state = pVal or false
-			elseif varData.type == "count" or varData.type == "integer"
-					or varData.type == "countAllowZero" or varData.type == "float" then
-				ctrl:SetText(tostring(pVal or ""))
-			elseif varData.type == "list" then
-				ctrl:SelByValue(pVal or (varData.list[1] and varData.list[1].val), "val")
-			end
-		end
-
-		-- Position buttons at top of config view (above column headers)
-		self.controls.copyConfigBtn.x = contentVP.x + 10
-		self.controls.copyConfigBtn.y = contentVP.y + 8
-		self.controls.configToggleBtn.x = contentVP.x + 260
-		self.controls.configToggleBtn.y = contentVP.y + 8
-
-		-- Build display list: Differences section first, then All Configurations
-		local cInput = compareEntry.configTab.input or {}
-		local displayList = {}
-		local rowHeight = 22
-		local sectionHeaderHeight = 24
-
-		-- Collect differences
-		local diffs = {}
-		for _, ctrlInfo in ipairs(self.configControlList) do
-			local pVal = pInput[ctrlInfo.varData.var]
-			local cVal = cInput[ctrlInfo.varData.var]
-			if tostring(pVal or "") ~= tostring(cVal or "") then
-				t_insert(diffs, ctrlInfo)
-			end
-		end
-
-		-- Differences section
-		if #diffs > 0 then
-			t_insert(displayList, { type = "header", text = "Differences (" .. #diffs .. ")" })
-			for _, ctrlInfo in ipairs(diffs) do
-				t_insert(displayList, { type = "row", ctrlInfo = ctrlInfo })
-			end
-		end
-
-		-- Collect eligible non-diff options for "All Configurations" section
-		local configs = {}
-		for _, ctrlInfo in ipairs(self.configControlList) do
-			local pVal = pInput[ctrlInfo.varData.var]
-			local cVal = cInput[ctrlInfo.varData.var]
-			-- Only include non-diff options
-			if tostring(pVal or "") == tostring(cVal or "") then
-				if ctrlInfo.alwaysShow or (self.configToggle and ctrlInfo.showWithToggle) then
-					t_insert(configs, ctrlInfo)
-				end
-			end
-		end
-
-		if #configs > 0 then
-			t_insert(displayList, { type = "header", text = "All Configurations" })
-			for _, ctrlInfo in ipairs(configs) do
-				t_insert(displayList, { type = "row", ctrlInfo = ctrlInfo })
-			end
-		end
-
-		self.configDisplayList = displayList
-
-		-- First, hide ALL config controls (will selectively show visible ones)
-		for _, ctrlInfo in ipairs(self.configControlList) do
-			ctrlInfo.control.shown = function() return false end
-		end
-
-		-- Position visible controls at absolute coords matching DrawConfig layout
-		local col2AbsX = contentVP.x + 300
-		local fixedHeaderHeight = 66 -- buttons + column headers + separator (not scrollable)
-		local scrollTopAbs = contentVP.y + fixedHeaderHeight -- top of scrollable area
-		local startY = fixedHeaderHeight -- content starts after fixed header
-		local currentY = startY
-		for _, item in ipairs(displayList) do
-			if item.type == "header" then
-				currentY = currentY + sectionHeaderHeight
-			elseif item.type == "row" then
-				local absY = contentVP.y + currentY - self.scrollY
-				item.ctrlInfo.control.x = col2AbsX
-				item.ctrlInfo.control.y = absY
-				local cy = currentY -- capture for closure
-				item.ctrlInfo.control.shown = function()
-					local ay = contentVP.y + cy - self.scrollY
-					return ay >= scrollTopAbs - 20 and ay < contentVP.y + contentVP.height
-						and self.compareViewMode == "CONFIG" and self:GetActiveCompare() ~= nil
-				end
-				currentY = currentY + rowHeight
-			end
-		end
-	end
-
-	-- Update comparison build set selectors
+	self:LayoutTreeView(contentVP, compareEntry)
+	self:LayoutConfigView(contentVP, compareEntry)
 	if compareEntry then
-		-- Tree spec list (reuse GetSpecList from TreeTab)
-		if compareEntry.treeTab then
-			self.controls.compareSpecSelect.list = compareEntry.treeTab:GetSpecList()
-			self.controls.compareSpecSelect.selIndex = compareEntry.treeTab.activeSpec
-		end
-		-- Skill set list (pattern from SkillsTab:Draw lines 527-535)
-		if compareEntry.skillsTab then
-			local skillList = {}
-			for index, skillSetId in ipairs(compareEntry.skillsTab.skillSetOrderList) do
-				local skillSet = compareEntry.skillsTab.skillSets[skillSetId]
-				t_insert(skillList, skillSet.title or "Default")
-				if skillSetId == compareEntry.skillsTab.activeSkillSetId then
-					self.controls.compareSkillSetSelect.selIndex = index
-				end
-			end
-			self.controls.compareSkillSetSelect:SetList(skillList)
-		end
-		-- Item set list (pattern from ItemsTab:Draw lines 1293-1301)
-		if compareEntry.itemsTab then
-			local itemList = {}
-			for index, itemSetId in ipairs(compareEntry.itemsTab.itemSetOrderList) do
-				local itemSet = compareEntry.itemsTab.itemSets[itemSetId]
-				t_insert(itemList, itemSet.title or "Default")
-				if itemSetId == compareEntry.itemsTab.activeItemSetId then
-					self.controls.compareItemSetSelect.selIndex = index
-				end
-			end
-			self.controls.compareItemSetSelect:SetList(itemList)
-		end
-
-		-- Refresh comparison build skill selector controls
-		local cmpControls = {
-			mainSocketGroup = self.controls.cmpSocketGroup,
-			mainSkill = self.controls.cmpMainSkill,
-			mainSkillPart = self.controls.cmpSkillPart,
-			mainSkillStageCount = self.controls.cmpStageCount,
-			mainSkillMineCount = self.controls.cmpMineCount,
-			mainSkillMinion = self.controls.cmpMinion,
-			mainSkillMinionLibrary = { shown = false },
-			mainSkillMinionSkill = self.controls.cmpMinionSkill,
-		}
-		compareEntry:RefreshSkillSelectControls(cmpControls, compareEntry.mainSocketGroup, "")
+		self:UpdateSetSelectors(compareEntry)
 	end
-
-	-- Handle scroll events for scrollable views
-	local cursorX, cursorY = GetCursorPos()
-	local mouseInContent = cursorX >= contentVP.x and cursorX < contentVP.x + contentVP.width
-		and cursorY >= contentVP.y and cursorY < contentVP.y + contentVP.height
-
-	for id, event in ipairs(inputEvents) do
-		if event.type == "KeyDown" and mouseInContent then
-			if event.key == "WHEELUP" and self.compareViewMode ~= "TREE" then
-				self.scrollY = m_max(self.scrollY - 40, 0)
-				inputEvents[id] = nil
-			elseif event.key == "WHEELDOWN" and self.compareViewMode ~= "TREE" then
-				self.scrollY = self.scrollY + 40
-				inputEvents[id] = nil
-			end
-		end
-	end
+	self:HandleScrollInput(contentVP, inputEvents)
 
 	-- Process input events for our controls (including footer controls)
 	self:ProcessControlsInput(inputEvents, viewPort)
@@ -1338,6 +1075,327 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 end
 
 -- ============================================================
+-- DRAW HELPERS
+-- ============================================================
+
+-- Pre-draw tree header/footer backgrounds and position tree controls.
+-- Must run before ProcessControlsInput so controls render on top of backgrounds.
+function CompareTabClass:LayoutTreeView(contentVP, compareEntry)
+	self.treeLayout = nil
+	if self.compareViewMode ~= "TREE" or not compareEntry then return end
+
+	local headerHeight = LAYOUT.treeHeaderHeight
+	local footerHeight = LAYOUT.treeFooterHeight
+	local footerY = contentVP.y + contentVP.height - footerHeight
+
+	if self.treeOverlayMode then
+		-- ========== OVERLAY MODE LAYOUT ==========
+		local specWidth = m_min(m_floor(contentVP.width * 0.25), 200)
+
+		self.treeLayout = {
+			overlay = true,
+			headerHeight = headerHeight,
+			footerHeight = footerHeight,
+			footerY = footerY,
+		}
+
+		-- Header background + separator
+		SetDrawColor(0.05, 0.05, 0.05)
+		DrawImage(nil, contentVP.x, contentVP.y, contentVP.width, headerHeight)
+		SetDrawColor(0.85, 0.85, 0.85)
+		DrawImage(nil, contentVP.x, contentVP.y + headerHeight - 2, contentVP.width, 2)
+
+		-- Footer background
+		SetDrawColor(0.05, 0.05, 0.05)
+		DrawImage(nil, contentVP.x, footerY, contentVP.width, footerHeight)
+		SetDrawColor(0.85, 0.85, 0.85)
+		DrawImage(nil, contentVP.x, footerY, contentVP.width, 2)
+
+		-- Position spec/version in header row 1
+		self.controls.leftSpecSelect.x = contentVP.x + 4
+		self.controls.leftSpecSelect.y = contentVP.y + 8
+		self.controls.leftSpecSelect.width = specWidth
+
+		local rightSpecX = contentVP.x + m_floor(contentVP.width / 2) + 4
+		self.controls.rightSpecSelect.x = rightSpecX
+		self.controls.rightSpecSelect.y = contentVP.y + 8
+		self.controls.rightSpecSelect.width = specWidth
+
+		-- Overlay checkbox in header row 2
+		self.controls.treeOverlayCheck.x = contentVP.x + LAYOUT.treeOverlayCheckX
+		self.controls.treeOverlayCheck.y = contentVP.y + 34
+
+		-- Overlay search in footer (full width)
+		self.controls.overlayTreeSearch.x = contentVP.x + 4
+		self.controls.overlayTreeSearch.y = footerY + 4
+		self.controls.overlayTreeSearch.width = contentVP.width - 8
+	else
+		-- ========== SIDE-BY-SIDE MODE LAYOUT ==========
+		local halfWidth = m_floor(contentVP.width / 2) - 2
+		local rightAbsX = contentVP.x + halfWidth + 4
+		local specWidth = m_min(m_floor(halfWidth * 0.55), 200)
+
+		self.treeLayout = {
+			overlay = false,
+			halfWidth = halfWidth,
+			headerHeight = headerHeight,
+			footerHeight = footerHeight,
+			footerY = footerY,
+			rightAbsX = rightAbsX,
+		}
+
+		-- Header background + separator
+		SetDrawColor(0.05, 0.05, 0.05)
+		DrawImage(nil, contentVP.x, contentVP.y, contentVP.width, headerHeight)
+		SetDrawColor(0.85, 0.85, 0.85)
+		DrawImage(nil, contentVP.x, contentVP.y + headerHeight - 2, contentVP.width, 2)
+
+		-- Footer backgrounds (two halves)
+		SetDrawColor(0.05, 0.05, 0.05)
+		DrawImage(nil, contentVP.x, footerY, halfWidth, footerHeight)
+		DrawImage(nil, rightAbsX, footerY, halfWidth, footerHeight)
+		SetDrawColor(0.85, 0.85, 0.85)
+		DrawImage(nil, contentVP.x, footerY, halfWidth, 2)
+		DrawImage(nil, rightAbsX, footerY, halfWidth, 2)
+
+		-- Position spec/version in header row 1
+		self.controls.leftSpecSelect.x = contentVP.x + 4
+		self.controls.leftSpecSelect.y = contentVP.y + 8
+		self.controls.leftSpecSelect.width = specWidth
+
+		self.controls.rightSpecSelect.x = contentVP.x + m_floor(contentVP.width / 2) + 4
+		self.controls.rightSpecSelect.y = contentVP.y + 8
+		self.controls.rightSpecSelect.width = specWidth
+
+		-- Overlay checkbox in header row 2
+		self.controls.treeOverlayCheck.x = contentVP.x + LAYOUT.treeOverlayCheckX
+		self.controls.treeOverlayCheck.y = contentVP.y + 34
+
+		-- Position footer search fields
+		self.controls.leftFooterAnchor.x = contentVP.x + 4
+		self.controls.leftFooterAnchor.y = footerY + 4
+		self.controls.leftTreeSearch.width = halfWidth - 8
+
+		self.controls.rightFooterAnchor.x = rightAbsX + 4
+		self.controls.rightFooterAnchor.y = footerY + 4
+		self.controls.rightTreeSearch.width = halfWidth - 8
+	end
+
+	-- (Common) Update spec dropdown lists
+	if self.primaryBuild.treeTab then
+		self.controls.leftSpecSelect.list = self.primaryBuild.treeTab:GetSpecList()
+		self.controls.leftSpecSelect.selIndex = self.primaryBuild.treeTab.activeSpec
+	end
+	if compareEntry.treeTab then
+		self.controls.rightSpecSelect.list = compareEntry.treeTab:GetSpecList()
+		self.controls.rightSpecSelect.selIndex = compareEntry.treeTab.activeSpec
+	end
+
+	-- (Common) Update version dropdown selection to match current spec
+	if self.primaryBuild.spec then
+		for i, ver in ipairs(self.treeVersionDropdownList) do
+			if ver.value == self.primaryBuild.spec.treeVersion then
+				self.controls.leftVersionSelect.selIndex = i
+				break
+			end
+		end
+	end
+	if compareEntry.spec then
+		for i, ver in ipairs(self.treeVersionDropdownList) do
+			if ver.value == compareEntry.spec.treeVersion then
+				self.controls.rightVersionSelect.selIndex = i
+				break
+			end
+		end
+	end
+
+	-- (Common) Sync search fields when entering tree mode or changing compare entry
+	if self.treeSearchNeedsSync then
+		self.treeSearchNeedsSync = false
+		if self.primaryBuild.treeTab and self.primaryBuild.treeTab.viewer then
+			self.controls.leftTreeSearch:SetText(self.primaryBuild.treeTab.viewer.searchStr or "")
+			self.controls.overlayTreeSearch:SetText(self.primaryBuild.treeTab.viewer.searchStr or "")
+		end
+		if compareEntry.treeTab and compareEntry.treeTab.viewer then
+			self.controls.rightTreeSearch:SetText(compareEntry.treeTab.viewer.searchStr or "")
+		end
+	end
+end
+
+-- Position config controls and build display list when in CONFIG view.
+function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
+	if self.compareViewMode ~= "CONFIG" or not compareEntry then return end
+
+	-- Rebuild controls if compare entry changed or config was modified
+	if self.configCompareId ~= self.activeCompareIndex or self.configNeedsRebuild then
+		self:RebuildConfigControls(compareEntry)
+		self.configCompareId = self.activeCompareIndex
+		self.configNeedsRebuild = false
+	end
+
+	-- Sync control values with current primary input (in case changed from normal Config tab)
+	local pInput = self.primaryBuild.configTab.input or {}
+	for var, ctrlInfo in pairs(self.configControls) do
+		local ctrl = ctrlInfo.control
+		local varData = ctrlInfo.varData
+		local pVal = pInput[var]
+		if varData.type == "check" then
+			ctrl.state = pVal or false
+		elseif varData.type == "count" or varData.type == "integer"
+				or varData.type == "countAllowZero" or varData.type == "float" then
+			ctrl:SetText(tostring(pVal or ""))
+		elseif varData.type == "list" then
+			ctrl:SelByValue(pVal or (varData.list[1] and varData.list[1].val), "val")
+		end
+	end
+
+	-- Position buttons at top of config view (above column headers)
+	self.controls.copyConfigBtn.x = contentVP.x + 10
+	self.controls.copyConfigBtn.y = contentVP.y + 8
+	self.controls.configToggleBtn.x = contentVP.x + 260
+	self.controls.configToggleBtn.y = contentVP.y + 8
+
+	-- Build display list: Differences section first, then All Configurations
+	local cInput = compareEntry.configTab.input or {}
+	local displayList = {}
+	local rowHeight = LAYOUT.configRowHeight
+	local sectionHeaderHeight = LAYOUT.configSectionHeaderHeight
+
+	-- Collect differences
+	local diffs = {}
+	for _, ctrlInfo in ipairs(self.configControlList) do
+		local pVal = pInput[ctrlInfo.varData.var]
+		local cVal = cInput[ctrlInfo.varData.var]
+		if tostring(pVal or "") ~= tostring(cVal or "") then
+			t_insert(diffs, ctrlInfo)
+		end
+	end
+
+	-- Differences section
+	if #diffs > 0 then
+		t_insert(displayList, { type = "header", text = "Differences (" .. #diffs .. ")" })
+		for _, ctrlInfo in ipairs(diffs) do
+			t_insert(displayList, { type = "row", ctrlInfo = ctrlInfo })
+		end
+	end
+
+	-- Collect eligible non-diff options for "All Configurations" section
+	local configs = {}
+	for _, ctrlInfo in ipairs(self.configControlList) do
+		local pVal = pInput[ctrlInfo.varData.var]
+		local cVal = cInput[ctrlInfo.varData.var]
+		-- Only include non-diff options
+		if tostring(pVal or "") == tostring(cVal or "") then
+			if ctrlInfo.alwaysShow or (self.configToggle and ctrlInfo.showWithToggle) then
+				t_insert(configs, ctrlInfo)
+			end
+		end
+	end
+
+	if #configs > 0 then
+		t_insert(displayList, { type = "header", text = "All Configurations" })
+		for _, ctrlInfo in ipairs(configs) do
+			t_insert(displayList, { type = "row", ctrlInfo = ctrlInfo })
+		end
+	end
+
+	self.configDisplayList = displayList
+
+	-- First, hide ALL config controls (will selectively show visible ones)
+	for _, ctrlInfo in ipairs(self.configControlList) do
+		ctrlInfo.control.shown = function() return false end
+	end
+
+	-- Position visible controls at absolute coords matching DrawConfig layout
+	local col2AbsX = contentVP.x + LAYOUT.configCol2
+	local fixedHeaderHeight = LAYOUT.configFixedHeaderHeight
+	local scrollTopAbs = contentVP.y + fixedHeaderHeight -- top of scrollable area
+	local startY = fixedHeaderHeight -- content starts after fixed header
+	local currentY = startY
+	for _, item in ipairs(displayList) do
+		if item.type == "header" then
+			currentY = currentY + sectionHeaderHeight
+		elseif item.type == "row" then
+			local absY = contentVP.y + currentY - self.scrollY
+			item.ctrlInfo.control.x = col2AbsX
+			item.ctrlInfo.control.y = absY
+			local cy = currentY -- capture for closure
+			item.ctrlInfo.control.shown = function()
+				local ay = contentVP.y + cy - self.scrollY
+				return ay >= scrollTopAbs - 20 and ay < contentVP.y + contentVP.height
+					and self.compareViewMode == "CONFIG" and self:GetActiveCompare() ~= nil
+			end
+			currentY = currentY + rowHeight
+		end
+	end
+end
+
+-- Update comparison build set selectors (spec, skill set, item set, skill controls).
+function CompareTabClass:UpdateSetSelectors(compareEntry)
+	-- Tree spec list (reuse GetSpecList from TreeTab)
+	if compareEntry.treeTab then
+		self.controls.compareSpecSelect.list = compareEntry.treeTab:GetSpecList()
+		self.controls.compareSpecSelect.selIndex = compareEntry.treeTab.activeSpec
+	end
+	-- Skill set list
+	if compareEntry.skillsTab then
+		local skillList = {}
+		for index, skillSetId in ipairs(compareEntry.skillsTab.skillSetOrderList) do
+			local skillSet = compareEntry.skillsTab.skillSets[skillSetId]
+			t_insert(skillList, skillSet.title or "Default")
+			if skillSetId == compareEntry.skillsTab.activeSkillSetId then
+				self.controls.compareSkillSetSelect.selIndex = index
+			end
+		end
+		self.controls.compareSkillSetSelect:SetList(skillList)
+	end
+	-- Item set list
+	if compareEntry.itemsTab then
+		local itemList = {}
+		for index, itemSetId in ipairs(compareEntry.itemsTab.itemSetOrderList) do
+			local itemSet = compareEntry.itemsTab.itemSets[itemSetId]
+			t_insert(itemList, itemSet.title or "Default")
+			if itemSetId == compareEntry.itemsTab.activeItemSetId then
+				self.controls.compareItemSetSelect.selIndex = index
+			end
+		end
+		self.controls.compareItemSetSelect:SetList(itemList)
+	end
+
+	-- Refresh comparison build skill selector controls
+	local cmpControls = {
+		mainSocketGroup = self.controls.cmpSocketGroup,
+		mainSkill = self.controls.cmpMainSkill,
+		mainSkillPart = self.controls.cmpSkillPart,
+		mainSkillStageCount = self.controls.cmpStageCount,
+		mainSkillMineCount = self.controls.cmpMineCount,
+		mainSkillMinion = self.controls.cmpMinion,
+		mainSkillMinionLibrary = { shown = false },
+		mainSkillMinionSkill = self.controls.cmpMinionSkill,
+	}
+	compareEntry:RefreshSkillSelectControls(cmpControls, compareEntry.mainSocketGroup, "")
+end
+
+-- Handle scroll events for scrollable views.
+function CompareTabClass:HandleScrollInput(contentVP, inputEvents)
+	local cursorX, cursorY = GetCursorPos()
+	local mouseInContent = cursorX >= contentVP.x and cursorX < contentVP.x + contentVP.width
+		and cursorY >= contentVP.y and cursorY < contentVP.y + contentVP.height
+
+	for id, event in ipairs(inputEvents) do
+		if event.type == "KeyDown" and mouseInContent then
+			if event.key == "WHEELUP" and self.compareViewMode ~= "TREE" then
+				self.scrollY = m_max(self.scrollY - 40, 0)
+				inputEvents[id] = nil
+			elseif event.key == "WHEELDOWN" and self.compareViewMode ~= "TREE" then
+				self.scrollY = self.scrollY + 40
+				inputEvents[id] = nil
+			end
+		end
+	end
+end
+
+-- ============================================================
 -- SUMMARY VIEW
 -- ============================================================
 function CompareTabClass:DrawSummary(vp, compareEntry)
@@ -1351,10 +1409,10 @@ function CompareTabClass:DrawSummary(vp, compareEntry)
 	local headerHeight = 22
 
 	-- Column positions
-	local col1 = 10   -- Stat name
-	local col2 = 300  -- Primary value
-	local col3 = 450  -- Compare value
-	local col4 = 600  -- Difference
+	local col1 = LAYOUT.summaryCol1
+	local col2 = LAYOUT.summaryCol2
+	local col3 = LAYOUT.summaryCol3
+	local col4 = LAYOUT.summaryCol4
 
 	SetViewport(vp.x, vp.y, vp.width, vp.height)
 	local drawY = 4 - self.scrollY
@@ -1699,6 +1757,53 @@ local function buildModMap(item)
 	return modMap
 end
 
+-- Helper: get diff label string for an item slot comparison
+local function getSlotDiffLabel(pItem, cItem)
+	if not pItem and not cItem then
+		return "^8(both empty)"
+	end
+	if pItem and cItem and pItem.name == cItem.name then
+		return colorCodes.POSITIVE .. "(match)"
+	elseif not pItem then
+		return colorCodes.NEGATIVE .. "(missing)"
+	elseif not cItem then
+		return colorCodes.TIP .. "(extra)"
+	else
+		return colorCodes.WARNING .. "(different)"
+	end
+end
+
+-- Helper: draw Copy and Copy+Use buttons at the given position.
+-- Returns copyHovered, copyUseHovered booleans.
+local function drawCopyButtons(cursorX, cursorY, vpWidth, btnY)
+	local btnW = LAYOUT.itemsCopyBtnW
+	local btnH = LAYOUT.itemsCopyBtnH
+	local btn2X = vpWidth - btnW - 8
+	local btn1X = btn2X - btnW - 4
+
+	-- "Copy" button
+	local b1Hover = cursorX >= btn1X and cursorX < btn1X + btnW
+		and cursorY >= btnY and cursorY < btnY + btnH
+	SetDrawColor(b1Hover and 0.5 or 0.35, b1Hover and 0.5 or 0.35, b1Hover and 0.5 or 0.35)
+	DrawImage(nil, btn1X, btnY, btnW, btnH)
+	SetDrawColor(0.1, 0.1, 0.1)
+	DrawImage(nil, btn1X + 1, btnY + 1, btnW - 2, btnH - 2)
+	SetDrawColor(1, 1, 1)
+	DrawString(btn1X + btnW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^7Copy")
+
+	-- "Copy+Use" button
+	local b2Hover = cursorX >= btn2X and cursorX < btn2X + btnW
+		and cursorY >= btnY and cursorY < btnY + btnH
+	SetDrawColor(b2Hover and 0.5 or 0.35, b2Hover and 0.5 or 0.35, b2Hover and 0.5 or 0.35)
+	DrawImage(nil, btn2X, btnY, btnW, btnH)
+	SetDrawColor(0.1, 0.1, 0.1)
+	DrawImage(nil, btn2X + 1, btnY + 1, btnW - 2, btnH - 2)
+	SetDrawColor(1, 1, 1)
+	DrawString(btn2X + btnW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^7Copy+Use")
+
+	return b1Hover, b2Hover
+end
+
 -- Draw a single item's full details at (x, startY) within colWidth.
 -- otherModMap: optional table from buildModMap() of the other item for diff highlighting.
 -- Returns the total height consumed.
@@ -1869,7 +1974,7 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	local lineHeight = 20
 	local colWidth = m_floor(vp.width / 2)
 
-	local checkboxOffset = 36 -- space for the expanded mode checkbox plus padding
+	local checkboxOffset = LAYOUT.itemsCheckboxOffset
 	SetViewport(vp.x, vp.y + checkboxOffset, vp.width, vp.height - checkboxOffset)
 	local drawY = 4 - self.scrollY
 
@@ -1906,55 +2011,14 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 
 		if self.itemsExpandedMode then
 			-- === EXPANDED MODE ===
-			-- Slot label
+			-- Slot label + diff indicator
 			SetDrawColor(1, 1, 1)
 			DrawString(10, drawY, "LEFT", 16, "VAR", "^7" .. slotName .. ":")
+			DrawString(colWidth - 10, drawY, "RIGHT", 14, "VAR", getSlotDiffLabel(pItem, cItem))
 
-			-- Diff indicator next to slot label
-			local isSame = pItem and cItem and pItem.name == cItem.name
-			local diffLabel = ""
-			if not pItem and not cItem then
-				diffLabel = "^8(both empty)"
-			elseif isSame then
-				diffLabel = colorCodes.POSITIVE .. "(match)"
-			elseif not pItem then
-				diffLabel = colorCodes.NEGATIVE .. "(missing)"
-			elseif not cItem then
-				diffLabel = colorCodes.TIP .. "(extra)"
-			else
-				diffLabel = colorCodes.WARNING .. "(different)"
-			end
-			DrawString(colWidth - 10, drawY, "RIGHT", 14, "VAR", diffLabel)
-
-			-- Copy buttons for compare item (expanded mode)
+			-- Copy buttons for compare item
 			if cItem then
-				local btnW = 60
-				local btnH = 18
-				local btn2X = vp.width - btnW - 8
-				local btn1X = btn2X - btnW - 4
-				local btnY = drawY + 1
-
-				-- "Copy" button
-				local b1Hover = cursorX >= btn1X and cursorX < btn1X + btnW
-					and cursorY >= btnY and cursorY < btnY + btnH
-				SetDrawColor(b1Hover and 0.5 or 0.35, b1Hover and 0.5 or 0.35, b1Hover and 0.5 or 0.35)
-				DrawImage(nil, btn1X, btnY, btnW, btnH)
-				SetDrawColor(0.1, 0.1, 0.1)
-				DrawImage(nil, btn1X + 1, btnY + 1, btnW - 2, btnH - 2)
-				SetDrawColor(1, 1, 1)
-				DrawString(btn1X + btnW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^7Copy")
-
-				-- "Copy+Use" button
-				local b2Hover = cursorX >= btn2X and cursorX < btn2X + btnW
-					and cursorY >= btnY and cursorY < btnY + btnH
-				SetDrawColor(b2Hover and 0.5 or 0.35, b2Hover and 0.5 or 0.35, b2Hover and 0.5 or 0.35)
-				DrawImage(nil, btn2X, btnY, btnW, btnH)
-				SetDrawColor(0.1, 0.1, 0.1)
-				DrawImage(nil, btn2X + 1, btnY + 1, btnW - 2, btnH - 2)
-				SetDrawColor(1, 1, 1)
-				DrawString(btn2X + btnW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^7Copy+Use")
-
-				-- Click detection
+				local b1Hover, b2Hover = drawCopyButtons(cursorX, cursorY, vp.width, drawY + 1)
 				if inputEvents then
 					for id, event in ipairs(inputEvents) do
 						if event.type == "KeyUp" and event.key == "LEFTBUTTON" then
@@ -1988,26 +2052,11 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 
 			drawY = drawY + maxH + 6
 		else
-			-- === COMPACT MODE (existing behavior) ===
-			-- Slot label
+			-- === COMPACT MODE ===
+			-- Slot label + diff indicator
 			SetDrawColor(1, 1, 1)
 			DrawString(10, drawY, "LEFT", 16, "VAR", "^7" .. slotName .. ":")
-
-			-- Diff indicator on slot label line
-			local isSame = pItem and cItem and pItem.name == cItem.name
-			local diffLabel = ""
-			if not pItem and not cItem then
-				diffLabel = "^8(both empty)"
-			elseif isSame then
-				diffLabel = colorCodes.POSITIVE .. "(match)"
-			elseif not pItem then
-				diffLabel = colorCodes.NEGATIVE .. "(missing)"
-			elseif not cItem then
-				diffLabel = colorCodes.TIP .. "(extra)"
-			else
-				diffLabel = colorCodes.WARNING .. "(different)"
-			end
-			DrawString(colWidth - 10, drawY, "RIGHT", 14, "VAR", diffLabel)
+			DrawString(colWidth - 10, drawY, "RIGHT", 14, "VAR", getSlotDiffLabel(pItem, cItem))
 
 			local pName = pItem and pItem.name or "(empty)"
 			local cName = cItem and cItem.name or "(empty)"
@@ -2064,35 +2113,9 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 			DrawString(20, drawY, "LEFT", 16, "VAR", pColor .. pName)
 			DrawString(colWidth + 20, drawY, "LEFT", 16, "VAR", cColor .. cName)
 
-			-- Copy buttons for compare item (compact mode)
+			-- Copy buttons for compare item
 			if cItem then
-				local btnW = 60
-				local btnH = 18
-				local btn2X = vp.width - btnW - 8
-				local btn1X = btn2X - btnW - 4
-				local btnY = drawY
-
-				-- "Copy" button
-				local b1Hover = cursorX >= btn1X and cursorX < btn1X + btnW
-					and cursorY >= btnY and cursorY < btnY + btnH
-				SetDrawColor(b1Hover and 0.5 or 0.35, b1Hover and 0.5 or 0.35, b1Hover and 0.5 or 0.35)
-				DrawImage(nil, btn1X, btnY, btnW, btnH)
-				SetDrawColor(0.1, 0.1, 0.1)
-				DrawImage(nil, btn1X + 1, btnY + 1, btnW - 2, btnH - 2)
-				SetDrawColor(1, 1, 1)
-				DrawString(btn1X + btnW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^7Copy")
-
-				-- "Copy+Use" button
-				local b2Hover = cursorX >= btn2X and cursorX < btn2X + btnW
-					and cursorY >= btnY and cursorY < btnY + btnH
-				SetDrawColor(b2Hover and 0.5 or 0.35, b2Hover and 0.5 or 0.35, b2Hover and 0.5 or 0.35)
-				DrawImage(nil, btn2X, btnY, btnW, btnH)
-				SetDrawColor(0.1, 0.1, 0.1)
-				DrawImage(nil, btn2X + 1, btnY + 1, btnW - 2, btnH - 2)
-				SetDrawColor(1, 1, 1)
-				DrawString(btn2X + btnW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^7Copy+Use")
-
-				-- Click detection
+				local b1Hover, b2Hover = drawCopyButtons(cursorX, cursorY, vp.width, drawY)
 				if inputEvents then
 					for id, event in ipairs(inputEvents) do
 						if event.type == "KeyUp" and event.key == "LEFTBUTTON" then
@@ -2163,7 +2186,7 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 		return set
 	end
 
-	-- Helper: compute similarity between two gem name sets
+	-- Helper: compute Jaccard similarity between two gem name sets
 	local function groupSimilarity(setA, setB)
 		local intersection = 0
 		local union = 0
@@ -2608,16 +2631,11 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 	local compareActor = compareEnv.player
 	if not primaryActor or not compareActor then return end
 
-	-- Load section definitions (cached)
-	if not self.calcSections then
-		self.calcSections = LoadModule("Modules/CalcSections")
-	end
-
 	-- Card dimensions
 	-- Layout: [2px border | 130px label | 2px gap | 2px sep | valW | 2px sep | valW | 2px border]
-	local cardWidth = m_min(400, vp.width - 16)
-	local labelWidth = 132
-	local sepW = 2
+	local cardWidth = m_min(LAYOUT.calcsMaxCardWidth, vp.width - 16)
+	local labelWidth = LAYOUT.calcsLabelWidth
+	local sepW = LAYOUT.calcsSepW
 	local valColWidth = m_floor((cardWidth - 140) / 2)
 	local valCol1X = labelWidth + sepW * 2
 	local valCol2X = valCol1X + valColWidth + sepW
@@ -2625,7 +2643,7 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 	-- Layout parameters
 	local maxCol = m_max(1, m_floor(vp.width / (cardWidth + 8)))
 	local baseX = 4
-	local headerBarHeight = 24
+	local headerBarHeight = LAYOUT.calcsHeaderBarHeight
 	local baseY = headerBarHeight
 
 	-- Pre-compute section visibility and heights
@@ -2831,15 +2849,15 @@ end
 -- CONFIG VIEW
 -- ============================================================
 function CompareTabClass:DrawConfig(vp, compareEntry)
-	local rowHeight = 22
-	local sectionHeaderHeight = 24
-	local columnHeaderHeight = 20
-	local fixedHeaderHeight = 66 -- buttons + column headers + separator (not scrollable)
+	local rowHeight = LAYOUT.configRowHeight
+	local sectionHeaderHeight = LAYOUT.configSectionHeaderHeight
+	local columnHeaderHeight = LAYOUT.configColumnHeaderHeight
+	local fixedHeaderHeight = LAYOUT.configFixedHeaderHeight
 
 	-- Column positions (viewport-relative)
-	local col1 = 10
-	local col2 = 300    -- primary value (interactive controls drawn by ControlHost)
-	local col3 = 500    -- compare value (read-only)
+	local col1 = LAYOUT.configCol1
+	local col2 = LAYOUT.configCol2
+	local col3 = LAYOUT.configCol3
 
 	-- Fixed header area: buttons at top, then column headers + separator
 	SetViewport(vp.x, vp.y, vp.width, fixedHeaderHeight)
