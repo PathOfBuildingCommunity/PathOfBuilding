@@ -700,6 +700,8 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 		end
 	end
 
+	-- Character import uses current GGG cluster hashes.
+	self.build.spec.clusterHashFormatVersion = 2
 	self.build.spec:ImportFromNodeList(charPassiveData.character, 
 		charPassiveData.ascendancy, 
 		charPassiveData.alternate_ascendancy or 0, 
