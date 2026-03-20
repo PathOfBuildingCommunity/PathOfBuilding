@@ -1515,14 +1515,23 @@ local configTable = {
 		}
 	end,
 	["bursting toad"] = function(env)
+		local triggerInterval = m_huge
 		-- All gems in the socket group should return the same HexToadCooldown even when there are multiple hextoad support gems slotted
 		for _, skill in ipairs(env.player.activeSkillList) do
-			if skill ~= env.player.mainSkill and slotMatch(env, skill) then
-				local cooldown = skill.skillModList:Min(nil, "HexToadCooldown")
-				if cooldown then
-					return { trigRate = 1 / cooldown, source = env.player.mainSkill }
-				end
+			if skill.skillData.hextoadTriggerInterval then
+				triggerInterval = m_min(triggerInterval, skill.skillData.hextoadTriggerInterval)
 			end
+		end
+		if triggerInterval < m_huge then
+			env.player.mainSkill.skillFlags.globalTrigger = true
+			env.player.mainSkill.skillData.triggerRateCapOverride = 1 / triggerInterval
+			if env.player.breakdown then
+				env.player.breakdown.TriggerRateCap = {
+					s_format("1 / %.2f ^8(Hextoad trigger interval)", triggerInterval),
+					s_format("= %.2f", env.player.mainSkill.skillData.triggerRateCapOverride),
+				}
+			end
+			return {source = env.player.mainSkill}
 		end
 	end,
 }
