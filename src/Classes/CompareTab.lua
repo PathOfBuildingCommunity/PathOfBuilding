@@ -37,6 +37,9 @@ local LAYOUT = {
 	calcsSepW = 2,
 	calcsHeaderBarHeight = 24,
 
+	-- Power report section (inside Summary view)
+	powerReportLeft = 10,
+
 	-- Config view (shared between Draw() layout and DrawConfig())
 	configRowHeight = 22,
 	configSectionHeaderHeight = 24,
@@ -114,9 +117,19 @@ local CompareTabClass = newClass("CompareTab", "ControlHost", "Control", functio
 	self.configToggle = false       -- show all / hide ineligible toggle
 	self.configDisplayList = {}     -- computed display order (headers + rows)
 
+	-- Compare power report state
+	self.comparePowerStat = nil           -- selected data.powerStatList entry
+	self.comparePowerCategories = { treeNodes = true, items = true, gems = true }
+	self.comparePowerResults = nil        -- sorted list of result entries
+	self.comparePowerCoroutine = nil      -- active coroutine
+	self.comparePowerProgress = 0         -- 0-100
+	self.comparePowerDirty = false        -- flag to restart calculation
+	self.comparePowerCompareId = nil      -- track which compare entry was calculated
+
 	-- Pre-load static module data
 	self.configOptions = LoadModule("Modules/ConfigOptions")
 	self.calcSections = LoadModule("Modules/CalcSections")
+	self.calcs = LoadModule("Modules/Calcs")
 
 	-- Controls for the comparison screen
 	self:InitControls()
@@ -533,6 +546,60 @@ function CompareTabClass:InitControls()
 	self.controls.configToggleBtn.shown = function()
 		return self.compareViewMode == "CONFIG" and self:GetActiveCompare() ~= nil
 	end
+
+	-- ============================================================
+	-- Compare Power Report controls (Summary view)
+	-- ============================================================
+	local powerReportShown = function()
+		return self.compareViewMode == "SUMMARY" and #self.compareEntries > 0
+	end
+
+	-- Metric dropdown
+	local powerStatList = { { label = "-- Select Metric --", stat = nil } }
+	for _, entry in ipairs(data.powerStatList) do
+		if entry.stat and not entry.ignoreForNodes then
+			t_insert(powerStatList, entry)
+		end
+	end
+	self.controls.comparePowerStatSelect = new("DropDownControl", nil, {0, 0, 200, 20}, powerStatList, function(index, value)
+		if value and value.stat and value ~= self.comparePowerStat then
+			self.comparePowerStat = value
+			self.comparePowerDirty = true
+		elseif value and not value.stat then
+			self.comparePowerStat = nil
+			self.comparePowerResults = nil
+			self.comparePowerCoroutine = nil
+			self.comparePowerListSynced = false
+		end
+	end)
+	self.controls.comparePowerStatSelect.shown = powerReportShown
+	self.controls.comparePowerStatSelect.tooltipText = "Select a metric to calculate power report"
+
+	-- Category checkboxes
+	self.controls.comparePowerTreeCheck = new("CheckBoxControl", nil, {0, 0, 18}, "Tree:", function(state)
+		self.comparePowerCategories.treeNodes = state
+		self.comparePowerDirty = true
+	end, "Include passive tree nodes from compared build")
+	self.controls.comparePowerTreeCheck.shown = powerReportShown
+	self.controls.comparePowerTreeCheck.state = true
+
+	self.controls.comparePowerItemsCheck = new("CheckBoxControl", nil, {0, 0, 18}, "Items:", function(state)
+		self.comparePowerCategories.items = state
+		self.comparePowerDirty = true
+	end, "Include items from compared build")
+	self.controls.comparePowerItemsCheck.shown = powerReportShown
+	self.controls.comparePowerItemsCheck.state = true
+
+	self.controls.comparePowerGemsCheck = new("CheckBoxControl", nil, {0, 0, 18}, "Gems:", function(state)
+		self.comparePowerCategories.gems = state
+		self.comparePowerDirty = true
+	end, "Include skill gem groups from compared build")
+	self.controls.comparePowerGemsCheck.shown = powerReportShown
+	self.controls.comparePowerGemsCheck.state = true
+
+	-- Power report list control (static height, own scrollbar)
+	self.controls.comparePowerReportList = new("ComparePowerReportListControl", nil, {0, 0, 750, 250})
+	self.controls.comparePowerReportList.shown = powerReportShown
 end
 
 -- Get a short display name from a build name (strips "AccountName - " prefix)
@@ -1396,6 +1463,348 @@ function CompareTabClass:HandleScrollInput(contentVP, inputEvents)
 end
 
 -- ============================================================
+-- COMPARE POWER REPORT
+-- ============================================================
+
+-- Calculate the stat difference for a given power stat selection
+-- output: result from calcFunc (with the change applied)
+-- calcBase: baseline output (without the change)
+-- Returns positive value if the change improves the stat
+function CompareTabClass:CalculatePowerStat(selection, output, calcBase)
+	local withChange = output
+	local baseline = calcBase
+	if baseline.Minion and not selection.stat == "FullDPS" then
+		withChange = withChange.Minion
+		baseline = baseline.Minion
+	end
+	local withValue = withChange[selection.stat] or 0
+	local baseValue = baseline[selection.stat] or 0
+	if selection.transform then
+		withValue = selection.transform(withValue)
+		baseValue = selection.transform(baseValue)
+	end
+	return withValue - baseValue
+end
+
+-- Build a signature string for a socket group (sorted gem names)
+function CompareTabClass:GetSocketGroupSignature(group)
+	local names = {}
+	for _, gem in ipairs(group.gemList or {}) do
+		local name = gem.grantedEffect and gem.grantedEffect.name or gem.nameSpec
+		if name then
+			t_insert(names, name)
+		end
+	end
+	table.sort(names)
+	return table.concat(names, "+")
+end
+
+-- Get a display label for a socket group (active skills only)
+function CompareTabClass:GetSocketGroupLabel(group)
+	local names = {}
+	for _, gem in ipairs(group.gemList or {}) do
+		local isSupport = gem.grantedEffect and gem.grantedEffect.support
+		if not isSupport then
+			local name = gem.grantedEffect and gem.grantedEffect.name or gem.nameSpec
+			if name then
+				t_insert(names, name)
+			end
+		end
+	end
+	if #names == 0 then
+		-- Fallback: show all gem names if no active skills found
+		for _, gem in ipairs(group.gemList or {}) do
+			local name = gem.grantedEffect and gem.grantedEffect.name or gem.nameSpec
+			if name then
+				t_insert(names, name)
+			end
+		end
+	end
+	if #names == 0 then
+		return "(empty group)"
+	end
+	return table.concat(names, " + ")
+end
+
+-- Coroutine: calculate power of compared build elements against primary build
+function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories)
+	local results = {}
+	local useFullDPS = powerStat.stat == "FullDPS"
+
+	-- Get calculator for primary build
+	local calcFunc, calcBase = self.calcs.getMiscCalculator(self.primaryBuild)
+
+	-- Find display stat for formatting
+	local displayStat = nil
+	for _, ds in ipairs(self.primaryBuild.displayStats) do
+		if ds.stat == powerStat.stat then
+			displayStat = ds
+			break
+		end
+	end
+	if not displayStat then
+		displayStat = { fmt = ".1f" }
+	end
+
+	local total = 0
+	local processed = 0
+	local start = GetTime()
+
+	-- Count total work items for progress
+	if categories.treeNodes then
+		local compareNodes = compareEntry.spec and compareEntry.spec.allocNodes or {}
+		local primaryNodes = self.primaryBuild.spec and self.primaryBuild.spec.allocNodes or {}
+		for nodeId, node in pairs(compareNodes) do
+			if type(nodeId) == "number" and nodeId < 65536 and not primaryNodes[nodeId] then
+				local pNode = self.primaryBuild.spec.nodes[nodeId]
+				if pNode and (pNode.type == "Normal" or pNode.type == "Notable" or pNode.type == "Keystone") and not pNode.ascendancyName then
+					total = total + 1
+				end
+			end
+		end
+	end
+	if categories.items then
+		local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
+		for _, slotName in ipairs(baseSlots) do
+			local cSlot = compareEntry.itemsTab and compareEntry.itemsTab.slots[slotName]
+			local cItem = cSlot and compareEntry.itemsTab.items[cSlot.selItemId]
+			if cItem then
+				total = total + 1
+			end
+		end
+	end
+	if categories.gems then
+		local cGroups = compareEntry.skillsTab and compareEntry.skillsTab.socketGroupList or {}
+		total = total + #cGroups
+	end
+
+	if total == 0 then
+		self.comparePowerResults = results
+		self.comparePowerProgress = 100
+		return
+	end
+
+	-- Get baseline stat value for percentage calculation
+	local baseStatValue = calcBase[powerStat.stat] or 0
+	if powerStat.transform then
+		baseStatValue = powerStat.transform(baseStatValue)
+	end
+
+	-- Helper to format an impact value and compute percentage
+	local function formatImpact(impact)
+		local displayVal = impact * ((displayStat.pc or displayStat.mod) and 100 or 1)
+		local numStr = s_format("%" .. displayStat.fmt, displayVal)
+		numStr = formatNumSep(numStr)
+
+		-- Determine color
+		local isPositive = (displayVal > 0 and not displayStat.lowerIsBetter) or (displayVal < 0 and displayStat.lowerIsBetter)
+		local isNegative = (displayVal < 0 and not displayStat.lowerIsBetter) or (displayVal > 0 and displayStat.lowerIsBetter)
+		local color = isPositive and colorCodes.POSITIVE or isNegative and colorCodes.NEGATIVE or "^7"
+		local sign = displayVal > 0 and "+" or ""
+		local str = color .. sign .. numStr
+
+		-- Compute percentage change
+		local percent = 0
+		if baseStatValue ~= 0 then
+			percent = (impact / math.abs(baseStatValue)) * 100
+		end
+
+		-- Build combined string: "+1,234.5 (+4.3%)"
+		local combinedStr = str
+		if percent ~= 0 then
+			local pctStr = s_format("%+.1f%%", percent)
+			combinedStr = str .. " ^7(" .. color .. pctStr .. "^7)"
+		end
+
+		return str, displayVal, combinedStr, percent
+	end
+
+	-- ==========================================
+	-- Phase A: Tree Nodes
+	-- ==========================================
+	if categories.treeNodes then
+		local compareNodes = compareEntry.spec and compareEntry.spec.allocNodes or {}
+		local primaryNodes = self.primaryBuild.spec and self.primaryBuild.spec.allocNodes or {}
+		local cache = {}
+
+		for nodeId, _ in pairs(compareNodes) do
+			if type(nodeId) == "number" and nodeId < 65536 and not primaryNodes[nodeId] then
+				local pNode = self.primaryBuild.spec.nodes[nodeId]
+				if pNode and (pNode.type == "Normal" or pNode.type == "Notable" or pNode.type == "Keystone")
+						and not pNode.ascendancyName and pNode.modKey ~= "" then
+					local output
+					if cache[pNode.modKey] then
+						output = cache[pNode.modKey]
+					else
+						output = calcFunc({ addNodes = { [pNode] = true } }, useFullDPS)
+						cache[pNode.modKey] = output
+					end
+					local impact = self:CalculatePowerStat(powerStat, output, calcBase)
+					local pathDist = pNode.pathDist or 0
+					if pathDist == 0 then
+						pathDist = #(pNode.path or {})
+						if pathDist == 0 then pathDist = 1 end
+					end
+					local perPoint = impact / pathDist
+					local impactStr, impactVal, combinedImpactStr, impactPercent = formatImpact(impact)
+					local perPointStr = formatImpact(perPoint)
+
+					t_insert(results, {
+						category = "Tree",
+						categoryColor = "^7",
+						nameColor = "^7",
+						name = pNode.dn,
+						impact = impactVal,
+						impactStr = impactStr,
+						impactPercent = impactPercent,
+						combinedImpactStr = combinedImpactStr,
+						pathDist = pathDist,
+						perPoint = perPoint * ((displayStat.pc or displayStat.mod) and 100 or 1),
+						perPointStr = perPointStr,
+					})
+
+					processed = processed + 1
+					if coroutine.running() and GetTime() - start > 100 then
+						self.comparePowerProgress = m_floor(processed / total * 100)
+						coroutine.yield()
+						start = GetTime()
+					end
+				end
+			end
+		end
+	end
+
+	-- ==========================================
+	-- Phase B: Items
+	-- ==========================================
+	if categories.items then
+		local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
+		for _, slotName in ipairs(baseSlots) do
+			local cSlot = compareEntry.itemsTab and compareEntry.itemsTab.slots[slotName]
+			local cItem = cSlot and compareEntry.itemsTab.items[cSlot.selItemId]
+			if cItem and cItem.raw then
+				local newItem = new("Item", cItem.raw)
+				newItem:NormaliseQuality()
+				local output = calcFunc({ repSlotName = slotName, repItem = newItem }, useFullDPS)
+				local impact = self:CalculatePowerStat(powerStat, output, calcBase)
+				local impactStr, impactVal, combinedImpactStr, impactPercent = formatImpact(impact)
+
+				-- Get rarity color for item name
+				local rarityColor = colorCodes[cItem.rarity] or colorCodes.NORMAL
+
+				t_insert(results, {
+					category = "Item",
+					categoryColor = colorCodes.NORMAL,
+					nameColor = rarityColor,
+					name = (cItem.name or "Unknown") .. ", " .. slotName,
+					impact = impactVal,
+					impactStr = impactStr,
+					impactPercent = impactPercent,
+					combinedImpactStr = combinedImpactStr,
+					pathDist = nil,
+					perPoint = nil,
+					perPointStr = nil,
+				})
+			end
+			processed = processed + 1
+			if coroutine.running() and GetTime() - start > 100 then
+				self.comparePowerProgress = m_floor(processed / total * 100)
+				coroutine.yield()
+				start = GetTime()
+			end
+		end
+	end
+
+	-- ==========================================
+	-- Phase C: Skill Gems (socket groups)
+	-- ==========================================
+	if categories.gems then
+		local cGroups = compareEntry.skillsTab and compareEntry.skillsTab.socketGroupList or {}
+		local pGroups = self.primaryBuild.skillsTab and self.primaryBuild.skillsTab.socketGroupList or {}
+
+		-- Build signature set for primary groups
+		local pSignatures = {}
+		for _, group in ipairs(pGroups) do
+			pSignatures[self:GetSocketGroupSignature(group)] = true
+		end
+
+		for _, cGroup in ipairs(cGroups) do
+			local sig = self:GetSocketGroupSignature(cGroup)
+			if sig ~= "" and not pSignatures[sig] then
+				-- Temporarily add this socket group to primary build and recalculate
+				t_insert(pGroups, cGroup)
+				self.primaryBuild.buildFlag = true
+
+				-- Get a fresh calculator with the added group
+				local gemCalcFunc, gemCalcBase = self.calcs.getMiscCalculator(self.primaryBuild)
+				local impact = self:CalculatePowerStat(powerStat, gemCalcBase, calcBase)
+
+				-- Remove the temporarily added group
+				t_remove(pGroups)
+				self.primaryBuild.buildFlag = true
+
+				local impactStr, impactVal, combinedImpactStr, impactPercent = formatImpact(impact)
+				local label = self:GetSocketGroupLabel(cGroup)
+
+				t_insert(results, {
+					category = "Gem",
+					categoryColor = colorCodes.GEM,
+					nameColor = colorCodes.GEM,
+					name = label,
+					impact = impactVal,
+					impactStr = impactStr,
+					impactPercent = impactPercent,
+					combinedImpactStr = combinedImpactStr,
+					pathDist = nil,
+					perPoint = nil,
+					perPointStr = nil,
+				})
+			end
+			processed = processed + 1
+			if coroutine.running() and GetTime() - start > 100 then
+				self.comparePowerProgress = m_floor(processed / total * 100)
+				coroutine.yield()
+				start = GetTime()
+			end
+		end
+	end
+
+	self.comparePowerResults = results
+	self.comparePowerProgress = 100
+end
+
+-- Drive the compare power report coroutine
+function CompareTabClass:RunComparePowerReport(compareEntry)
+	-- Invalidate if compare entry changed
+	if self.comparePowerCompareId ~= compareEntry then
+		self.comparePowerCompareId = compareEntry
+		self.comparePowerDirty = true
+	end
+
+	-- Start new calculation if dirty
+	if self.comparePowerDirty and self.comparePowerStat then
+		self.comparePowerDirty = false
+		self.comparePowerResults = nil
+		self.comparePowerProgress = 0
+		self.comparePowerListSynced = false
+		self.comparePowerCoroutine = coroutine.create(function()
+			self:ComparePowerBuilder(compareEntry, self.comparePowerStat, self.comparePowerCategories)
+		end)
+	end
+
+	-- Resume coroutine
+	if self.comparePowerCoroutine then
+		local res, errMsg = coroutine.resume(self.comparePowerCoroutine)
+		if launch and launch.devMode and not res then
+			error(errMsg)
+		end
+		if coroutine.status(self.comparePowerCoroutine) == "dead" then
+			self.comparePowerCoroutine = nil
+		end
+	end
+end
+
+-- ============================================================
 -- SUMMARY VIEW
 -- ============================================================
 function CompareTabClass:DrawSummary(vp, compareEntry)
@@ -1437,104 +1846,85 @@ function CompareTabClass:DrawSummary(vp, compareEntry)
 
 	drawY = self:DrawStatList(drawY, vp, displayStats, primaryOutput, compareOutput, primaryEnv, compareEnv, col1, col2, col3, col4)
 
+	-- ========================================
+	-- Compare Power Report section
+	-- ========================================
+	drawY = drawY + 16
+
+	-- Separator
+	SetDrawColor(0.5, 0.5, 0.5)
+	DrawImage(nil, 4, drawY, vp.width - 8, 2)
+	drawY = drawY + 8
+
+	-- Header
+	SetDrawColor(1, 1, 1)
+	DrawString(LAYOUT.powerReportLeft, drawY, "LEFT", 20, "VAR", "^7Compare Power Report")
+	drawY = drawY + 24
+
+	-- Run the coroutine driver (advances calculation each frame)
+	self:RunComparePowerReport(compareEntry)
+
+	-- Position controls dynamically based on drawY
+	-- The controls need absolute screen positions (vp.x/vp.y offset + viewport-local drawY)
+	-- drawY already includes the scroll offset (starts at 4 - self.scrollY)
+	local controlY = vp.y + drawY
+	local ctrlBaseX = vp.x + LAYOUT.powerReportLeft
+
+	-- Metric dropdown
+	self.controls.comparePowerStatSelect.x = ctrlBaseX + 60
+	self.controls.comparePowerStatSelect.y = controlY
+
+	-- Label for dropdown
+	DrawString(LAYOUT.powerReportLeft, drawY, "LEFT", 16, "VAR", "^7Metric:")
+
+	-- Category checkboxes (positioned to the right of dropdown)
+	local checkX = ctrlBaseX + 280
+	self.controls.comparePowerTreeCheck.x = checkX + self.controls.comparePowerTreeCheck.labelWidth
+	self.controls.comparePowerTreeCheck.y = controlY
+	checkX = checkX + self.controls.comparePowerTreeCheck.labelWidth + 26
+
+	self.controls.comparePowerItemsCheck.x = checkX + self.controls.comparePowerItemsCheck.labelWidth
+	self.controls.comparePowerItemsCheck.y = controlY
+	checkX = checkX + self.controls.comparePowerItemsCheck.labelWidth + 26
+
+	self.controls.comparePowerGemsCheck.x = checkX + self.controls.comparePowerGemsCheck.labelWidth
+	self.controls.comparePowerGemsCheck.y = controlY
+
+	drawY = drawY + 28
+
+	-- Update the list control with current data (only when changed)
+	local listControl = self.controls.comparePowerReportList
+	if self.comparePowerCoroutine then
+		listControl:SetProgress(self.comparePowerProgress)
+		self.comparePowerListSynced = false
+	elseif self.comparePowerResults and not self.comparePowerListSynced then
+		listControl:SetReport(self.comparePowerStat, self.comparePowerResults)
+		self.comparePowerListSynced = true
+	elseif not self.comparePowerStat and not self.comparePowerListSynced then
+		listControl:SetReport(nil, nil)
+		self.comparePowerListSynced = true
+	end
+
+	-- Update the impact column label to match the selected stat
+	if self.comparePowerStat then
+		listControl.impactColumn.label = self.comparePowerStat.label or ""
+	end
+
+	-- Position the list control (absolute screen coordinates).
+	-- The list has a fixed height and its own internal scrollbar for rows.
+	-- Width matches the table columns (750) plus scrollbar (20px border/scroll area).
+	local listHeight = 250
+	local listWidth = 770
+	listControl.x = vp.x + LAYOUT.powerReportLeft
+	listControl.y = vp.y + drawY
+	listControl.width = listWidth
+	listControl.height = listHeight
+
+	drawY = drawY + listHeight + 20 -- bottom padding
+
 	SetViewport()
 end
 
-function CompareTabClass:DrawProgressSection(drawY, colWidth, vp, compareEntry)
-	local lineHeight = 16
-
-	-- Count matching passive nodes
-	local primaryNodes = self.primaryBuild.spec and self.primaryBuild.spec.allocNodes or {}
-	local compareNodes = compareEntry.spec and compareEntry.spec.allocNodes or {}
-	local primaryCount = 0
-	local compareCount = 0
-	local matchCount = 0
-	for nodeId, _ in pairs(primaryNodes) do
-		if type(nodeId) == "number" and nodeId < 65536 then -- Exclude special nodes
-			primaryCount = primaryCount + 1
-			if compareNodes[nodeId] then
-				matchCount = matchCount + 1
-			end
-		end
-	end
-	for nodeId, _ in pairs(compareNodes) do
-		if type(nodeId) == "number" and nodeId < 65536 then
-			compareCount = compareCount + 1
-		end
-	end
-
-	-- Count matching items
-	local primaryItemCount = 0
-	local compareItemCount = 0
-	local matchingItemCount = 0
-	if self.primaryBuild.itemsTab and compareEntry.itemsTab then
-		local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
-		for _, slotName in ipairs(baseSlots) do
-			local pSlot = self.primaryBuild.itemsTab.slots[slotName]
-			local cSlot = compareEntry.itemsTab.slots[slotName]
-			local pItem = pSlot and self.primaryBuild.itemsTab.items[pSlot.selItemId]
-			local cItem = cSlot and compareEntry.itemsTab.items[cSlot.selItemId]
-			if pItem then primaryItemCount = primaryItemCount + 1 end
-			if cItem then compareItemCount = compareItemCount + 1 end
-			if pItem and cItem and pItem.name == cItem.name then
-				matchingItemCount = matchingItemCount + 1
-			end
-		end
-	end
-
-	-- Count matching gems
-	local primaryGemCount = 0
-	local compareGemCount = 0
-	local matchingGemCount = 0
-	if self.primaryBuild.skillsTab and compareEntry.skillsTab then
-		local pGems = {}
-		for _, group in ipairs(self.primaryBuild.skillsTab.socketGroupList) do
-			for _, gem in ipairs(group.gemList) do
-				if gem.grantedEffect then
-					pGems[gem.grantedEffect.name] = true
-					primaryGemCount = primaryGemCount + 1
-				end
-			end
-		end
-		for _, group in ipairs(compareEntry.skillsTab.socketGroupList) do
-			for _, gem in ipairs(group.gemList) do
-				if gem.grantedEffect then
-					compareGemCount = compareGemCount + 1
-					if pGems[gem.grantedEffect.name] then
-						matchingGemCount = matchingGemCount + 1
-					end
-				end
-			end
-		end
-	end
-
-	SetDrawColor(1, 1, 1)
-	DrawString(10, drawY, "LEFT", 18, "VAR", "^7Progress toward comparison build:")
-	drawY = drawY + 22
-
-	-- Nodes progress
-	local nodePercent = compareCount > 0 and m_floor(matchCount / compareCount * 100) or 0
-	local nodeColor = nodePercent >= 90 and colorCodes.POSITIVE or nodePercent >= 50 and colorCodes.WARNING or colorCodes.NEGATIVE
-	DrawString(20, drawY, "LEFT", lineHeight, "VAR",
-		s_format("^7Passive Nodes: %s%d^7/%d matched (%s%d%%^7) - You: %d, Target: %d", nodeColor, matchCount, compareCount, nodeColor, nodePercent, primaryCount, compareCount))
-	drawY = drawY + lineHeight + 2
-
-	-- Items progress
-	local itemPercent = compareItemCount > 0 and m_floor(matchingItemCount / compareItemCount * 100) or 0
-	local itemColor = itemPercent >= 90 and colorCodes.POSITIVE or itemPercent >= 50 and colorCodes.WARNING or colorCodes.NEGATIVE
-	DrawString(20, drawY, "LEFT", lineHeight, "VAR",
-		s_format("^7Items: %s%d^7/%d matching (%s%d%%^7)", itemColor, matchingItemCount, compareItemCount, itemColor, itemPercent))
-	drawY = drawY + lineHeight + 2
-
-	-- Gems progress
-	local gemPercent = compareGemCount > 0 and m_floor(matchingGemCount / compareGemCount * 100) or 0
-	local gemColor = gemPercent >= 90 and colorCodes.POSITIVE or gemPercent >= 50 and colorCodes.WARNING or colorCodes.NEGATIVE
-	DrawString(20, drawY, "LEFT", lineHeight, "VAR",
-		s_format("^7Gems: %s%d^7/%d matching (%s%d%%^7)", gemColor, matchingGemCount, compareGemCount, gemColor, gemPercent))
-	drawY = drawY + lineHeight + 2
-
-	return drawY
-end
 
 function CompareTabClass:DrawStatList(drawY, vp, displayStats, primaryOutput, compareOutput, primaryEnv, compareEnv, col1, col2, col3, col4)
 	local lineHeight = 16
