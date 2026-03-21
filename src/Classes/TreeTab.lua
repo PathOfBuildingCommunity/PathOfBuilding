@@ -15,6 +15,7 @@ local m_min = math.min
 local m_floor = math.floor
 local m_abs = math.abs
 local s_format = string.format
+local WeightedScore = LoadModule("Modules/WeightedScore")
 local s_gsub = string.gsub
 local s_byte = string.byte
 local dkjson = require "dkjson"
@@ -270,6 +271,19 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		self.controls.powerReportList.shown = not self.controls.powerReportList.shown
 	end)
 
+	-- Edit Weights button (only shown when Weighted Score heatmap mode is active)
+	self.controls.editWeights = new("ButtonControl",
+		{ "LEFT", self.controls.powerReport, "RIGHT" }, { 8, 0, 130, 20 },
+		"Edit Weights...",
+		function()
+			local tq = self.build.itemsTab.tradeQuery
+			if tq then
+				tq:SetStatWeights(nil, function() self:SetPowerCalc(self.build.calcsTab.powerStat) end)
+			end
+		end
+	)
+	self.controls.editWeights.shown = false
+
 	-- Power Report List
 	local yPos = self.controls.treeHeatMap.y == 0 and self.controls.specSelect.height + 4 or self.controls.specSelect.height * 2 + 8
 	self.controls.powerReportList = new("PowerReportListControl", { "TOPLEFT", self.controls.specSelect, "BOTTOMLEFT" }, { 0, yPos, 700, 170 }, function(selectedNode)
@@ -458,6 +472,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 
 	self.controls.treeHeatMap.state = self.viewer.showHeatMap
 	self.controls.treeHeatMapStatSelect.shown = self.viewer.showHeatMap
+	self.controls.editWeights.shown = self.viewer.showHeatMap and self.build.calcsTab.powerStat and self.build.calcsTab.powerStat.isWeightedScore or false
 	self.controls.treeHeatMapStatSelect.list = self.powerStatList
 	self.controls.treeHeatMapStatSelect.selIndex = 1
 	self.controls.treeHeatMapStatSelect:CheckDroppedWidth(true)
@@ -1040,6 +1055,7 @@ function TreeTabClass:SetPowerCalc(powerStat)
 	self.build.buildFlag = true
 	self.build.calcsTab.powerBuildFlag = true
 	self.build.calcsTab.powerStat = powerStat
+	self.controls.editWeights.shown = powerStat and powerStat.isWeightedScore or false
 	self.controls.powerReportList:SetReport(powerStat, nil)
 	-- Remove old toast and clear dismissed state so toast can show for new power report
 	if self.powerBuilderToastId then

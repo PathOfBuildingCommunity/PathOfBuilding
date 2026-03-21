@@ -5,6 +5,7 @@
 --
 
 local dkjson = require "dkjson"
+local WeightedScore = LoadModule("Modules/WeightedScore")
 local curl = require("lcurl.safe")
 local m_max = math.max
 local s_format = string.format
@@ -172,32 +173,7 @@ local function canModSpawnForItemCategory(mod, category)
 end
 
 function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, statWeights)
-	local meanStatDiff = 0
-	local function ratioModSums(...)
-		local baseModSum = 0
-		local newModSum = 0
-		for _, mod in ipairs({ ... }) do
-			baseModSum = baseModSum + (baseOutput[mod] or 0)
-			newModSum = newModSum + (newOutput[mod] or 0)
-		end
-
-		if baseModSum == math.huge then
-			return 0
-		else
-			if newModSum == math.huge then
-				return data.misc.maxStatIncrease
-			else
-				return math.min(newModSum / ((baseModSum ~= 0) and baseModSum or 1), data.misc.maxStatIncrease)
-			end
-		end
-	end
-	for _, statTable in ipairs(statWeights) do
-		if statTable.stat == "FullDPS" and not (baseOutput["FullDPS"] and newOutput["FullDPS"]) then
-			meanStatDiff = meanStatDiff + ratioModSums("TotalDPS", "TotalDotDPS", "CombinedDPS") * statTable.weightMult
-		end
-		meanStatDiff = meanStatDiff + ratioModSums(statTable.stat) * statTable.weightMult
-	end
-	return meanStatDiff
+	return WeightedScore.computeRatioScore(baseOutput, newOutput, statWeights)
 end
 
 function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, itemCategoriesMask, itemCategoriesOverride)

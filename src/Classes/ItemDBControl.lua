@@ -8,7 +8,7 @@ local ipairs = ipairs
 local t_insert = table.insert
 local m_max = math.max
 local m_floor = math.floor
-
+local WeightedScore = LoadModule("Modules/WeightedScore")
 
 local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anchor, rect, itemsTab, db, dbType)
 	self.ListControl(anchor, rect, 16, "VERTICAL", false)
@@ -41,6 +41,14 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anch
 		self.controls.league = new("DropDownControl", {"LEFT",self.controls.sort,"RIGHT"}, {2, 0, 179, 18}, self.leagueList, function(index, value)
 			self.listBuildFlag = true
 		end)
+		self.controls.editWeights = new("ButtonControl", {"LEFT",self.controls.sort,"RIGHT"}, {2, 0, 179, 18}, "Edit Weights...", function()
+			local tq = self.itemsTab.tradeQuery
+			if tq then
+				tq:SetStatWeights(nil, function() self.listBuildFlag = true end)
+			end
+		end)
+		self.controls.league.shown = function() return self.sortMode ~= "WeightedScore" end
+		self.controls.editWeights.shown = function() return self.sortMode == "WeightedScore" end
 		self.controls.requirement = new("DropDownControl", {"LEFT",self.controls.sort,"BOTTOMLEFT"}, {0, 11, 179, 18}, { "Any requirements", "Current level", "Current attributes", "Current useable" }, function(index, value)
 			self.listBuildFlag = true
 		end)
@@ -198,6 +206,7 @@ function ItemDBClass:BuildSortOrder()
 				itemField=stat.itemField,
 				stat=stat.stat,
 				transform=stat.transform,
+				isWeightedScore=stat.isWeightedScore,
 			})
 		end
 	end
@@ -222,7 +231,27 @@ function ItemDBClass:ListBuilder()
 		end
 	end
 
-	if self.sortDetail and self.sortDetail.stat then -- stat-based
+	if self.sortDetail and self.sortDetail.isWeightedScore then
+		local start = GetTime()
+		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator(self.build)
+		local weights = WeightedScore.getWeights(self.itemsTab.build)
+		for itemIndex, item in ipairs(list) do
+			item.measuredPower = 0
+			for slotName, slot in pairs(self.itemsTab.slots) do
+				if self.itemsTab:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)) then
+					local output = calcFunc(item.base.flask and { toggleFlask = item } or item.base.tincture and { toggleTincture = item } or { repSlotName = slotName, repItem = item })
+					local score = WeightedScore.computeRatioScore(calcBase, output, weights)
+					item.measuredPower = m_max(item.measuredPower, score)
+				end
+			end
+			local now = GetTime()
+			if now - start > 50 then
+				self.defaultText = "^7Sorting... ("..m_floor(itemIndex/#list*100).."%)"
+				coroutine.yield()
+				start = now
+			end
+		end
+	elseif self.sortDetail and self.sortDetail.stat then -- stat-based
 		local useFullDPS = self.sortDetail.stat == "FullDPS"
 		local start = GetTime()
 		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator(self.build)

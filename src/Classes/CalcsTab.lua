@@ -8,6 +8,7 @@ local ipairs = ipairs
 local t_insert = table.insert
 local m_max = math.max
 local m_floor = math.floor
+local WeightedScore = LoadModule("Modules/WeightedScore")
 
 local buffModeDropList = {
 	{ label = "Unbuffed", buffMode = "UNBUFFED" },
@@ -614,6 +615,12 @@ function CalcsTabClass:PowerBuilder()
 end
 
 function CalcsTabClass:CalculatePowerStat(selection, original, modified)
+	if selection.isWeightedScore then
+		local weights = WeightedScore.getWeights(self.build)
+		local nodeScore = WeightedScore.computeRatioScore(modified, original, weights)
+		local baseScore = WeightedScore.computeRatioScore(modified, modified, weights)
+		return (nodeScore - baseScore) * 1000
+	end
 	if modified.Minion and selection.stat ~= "FullDPS" then
 		original = original.Minion
 		modified = modified.Minion
