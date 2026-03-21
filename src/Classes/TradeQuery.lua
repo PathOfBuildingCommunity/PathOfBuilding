@@ -666,7 +666,7 @@ Highest Weight - Displays the order retrieved from trade]]
 end
 
 -- Popup to set stat weight multipliers for sorting
-function TradeQueryClass:SetStatWeights(previousSelectionList)
+function TradeQueryClass:SetStatWeights(previousSelectionList, onSave)
 	previousSelectionList = previousSelectionList or {}
 	local controls = { }
 	local statList = { }
@@ -681,7 +681,7 @@ function TradeQueryClass:SetStatWeights(previousSelectionList)
 		{ -410, 45, 400, listHeight }, statList, sliderController)
 
 	for _, stat in ipairs(data.powerStatList) do
-		if not stat.ignoreForItems and stat.label ~= "Name" then
+		if not stat.ignoreForItems and stat.label ~= "Name" and not stat.isWeightedScore then
 			t_insert(statList, {
 				label = "0      :  "..stat.label,
 				stat = {
@@ -749,6 +749,7 @@ function TradeQueryClass:SetStatWeights(previousSelectionList)
 		for row_idx in pairs(self.resultTbl) do
 			self:UpdateControlsWithItems(row_idx)
 		end
+		if onSave then onSave() end
     end)
 	controls.cancel = new("ButtonControl"):ButtonControl({ "BOTTOM", nil, "BOTTOM" }, { 0, -10, 80, 20 }, "Cancel", function()
 		if previousSelectionList and #previousSelectionList > 0 then
