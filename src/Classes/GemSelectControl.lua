@@ -139,13 +139,14 @@ end
 
 function GemSelectClass:FilterSupport(gemId, gemData)
 	local showSupportTypes = self.skillsTab.showSupportGemTypes
+	local isLegacyAwakened = (gemData.grantedEffect.legacy and gemData.grantedEffect.plusVersionOf)
 	if gemData.grantedEffect.legacy and not self.skillsTab.showLegacyGems then
 		return false
 	end
 	return (not gemData.grantedEffect.support
 		or showSupportTypes == "ALL"
-		or (showSupportTypes == "NORMAL" and not (gemData.grantedEffect.plusVersionOf or gemData.tagString:match("Exceptional")))
-		or (showSupportTypes == "EXCEPTIONAL" and (gemData.grantedEffect.plusVersionOf or gemData.tagString:match("Exceptional"))))
+		or (showSupportTypes == "NORMAL" and not (isLegacyAwakened or gemData.tagString:match("Exceptional")))
+		or (showSupportTypes == "EXCEPTIONAL" and (isLegacyAwakened or gemData.tagString:match("Exceptional"))))
 		and (self.skillsTab.showAltQualityGems or (not self.skillsTab.showAltQualityGems and self:GetQualityType(gemId) == "Default"))
 end
 
