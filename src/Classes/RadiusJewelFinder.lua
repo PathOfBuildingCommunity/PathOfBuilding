@@ -3601,9 +3601,22 @@ end
 							if plan.resultNodeLabels and #plan.resultNodeLabels > 0 then
 								t_insert(summaryParts, s_format("%d node%s", #plan.resultNodeLabels, #plan.resultNodeLabels == 1 and "" or "s"))
 							elseif (not plan.detailText or plan.detailText == "") and variantLabel == "" then
-								t_insert(summaryParts, "jewel only")
+								local rIdx = selectedJewelType.radiusIndex
+								local socketNode = plan.socket and treeData.nodes[plan.socket.id]
+								local radiusNodes = rIdx and socketNode and socketNode.nodesInRadius and socketNode.nodesInRadius[rIdx]
+								if radiusNodes then
+									local matchCount = 0
+									for _, n in pairs(radiusNodes) do
+										if not n.ascendancyName and (n.type == "Notable" or n.type == "Keystone") then
+											matchCount = matchCount + 1
+										end
+									end
+									if matchCount > 0 then
+										t_insert(summaryParts, s_format("%d match%s", matchCount, matchCount == 1 and "" or "es"))
+									end
+								end
 							end
-							local detailText = #summaryParts > 0 and t_concat(summaryParts, " | ") or (plan.detailText or "jewel only")
+							local detailText = #summaryParts > 0 and t_concat(summaryParts, " | ") or (plan.detailText or "")
 							local detailNodeId = nil
 							if selectedJewelType.isImpossibleEscape and r.variant and r.variant.keystoneName then
 								local keystoneNode = treeData.keystoneMap[r.variant.keystoneName]
