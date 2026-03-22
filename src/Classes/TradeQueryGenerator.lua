@@ -102,6 +102,15 @@ local eldritchModSlots = {
 -- Populated by InitMods() from Data/PseudoStats.lua (or rebuilt when that file doesn't exist).
 local pseudoMemberLookup = {}
 
+-- Crafting-slot pseudo stat IDs looked up dynamically from the trade API stats.
+-- Populated by InitMods() so we never hardcode IDs that might change.
+local craftingSlotStatIds = {
+	emptyPrefix  = nil,
+	emptySuffix  = nil,
+	craftedPrefix = nil,
+	craftedSuffix = nil,
+}
+
 -- Normalizes a trade mod text for matching pseudo stats against their explicit/implicit equivalents.
 -- Strips +#%, digits, (Local)/(Global), the word "total", and a leading "to ".
 local function normTradeText(text)
@@ -436,7 +445,14 @@ function TradeQueryGeneratorClass:InitMods()
 			psFile:close()
 			local pseudoData = LoadModule("Data/PseudoStats.lua")
 			for modId, pseudoId in pairs(pseudoData) do
-				pseudoMemberLookup[modId] = pseudoId
+				if modId == "__craftingSlots__" then
+					-- Restore crafting-slot stat IDs saved by buildAndCachePseudoMapping
+					for k, v in pairs(pseudoId) do
+						craftingSlotStatIds[k] = v
+					end
+				else
+					pseudoMemberLookup[modId] = pseudoId
+				end
 			end
 		else
 			local tradeStats = fetchStats()
@@ -632,7 +648,7 @@ function TradeQueryGeneratorClass:InitMods()
 	queryModsFile:write("return " .. stringify(self.modData))
 	queryModsFile:close()
 
-	-- Build and cache pseudo stat mapping using the already-fetched API data
+	-- Build and cache pseudo stat mapping (also captures craftingSlotStatIds)
 	buildAndCachePseudoMapping(tradeQueryStatsParsed)
 end
 
@@ -928,8 +944,16 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 		return
 	end
 	local tradeMode = self.calcContext.options.tradeMode or 1
-	if tradeMode ~= 4 then
+	local existingItemIsUnique = self.calcContext.options.existingItemIsUnique
+	if tradeMode ~= 4 and not existingItemIsUnique then
+		-- Standard/Upgrade/Exact: generate explicit weights for rare items.
+		-- Skipped for unique items — their explicit mods are fixed; only implicit/corrupted vary.
 		self:GenerateModWeights(self.modData["Explicit"])
+		if self.calcContext.options.includeImplicits then
+			self:GenerateModWeights(self.modData["Implicit"])
+		end
+	elseif existingItemIsUnique then
+		-- Unique item search: only implicit and corrupted mods differ between copies.
 		if self.calcContext.options.includeImplicits then
 			self:GenerateModWeights(self.modData["Implicit"])
 		end
@@ -967,7 +991,8 @@ buildAndCachePseudoMapping = function(tradeQueryStatsParsed)
 		end
 	end
 
-	-- Match each pseudo stat against explicit/implicit members by normalized text
+	-- Match each pseudo stat against explicit/implicit members by normalized text.
+	-- Also capture crafting-slot stat IDs while iterating the Pseudo category.
 	local pseudoMapping = {}
 	for _, modTypeEntry in ipairs(tradeQueryStatsParsed.result) do
 		if modTypeEntry.label == "Pseudo" then
@@ -980,9 +1005,26 @@ buildAndCachePseudoMapping = function(tradeQueryStatsParsed)
 						pseudoMapping[memberId] = pseudoId
 					end
 				end
+				-- Capture crafting-slot stat IDs by matching display text keywords
+				local t = pseudoEntry.text:lower()
+				if t:find("empty prefix") then
+					craftingSlotStatIds.emptyPrefix = pseudoId
+				elseif t:find("empty suffix") then
+					craftingSlotStatIds.emptySuffix = pseudoId
+				elseif t:find("crafted prefix") then
+					craftingSlotStatIds.craftedPrefix = pseudoId
+				elseif t:find("crafted suffix") then
+					craftingSlotStatIds.craftedSuffix = pseudoId
+				end
 			end
 			break
 		end
+	end
+
+	-- Store crafting-slot IDs inside the mapping under a sentinel key so the cache
+	-- can restore them without an extra API call on subsequent launches.
+	if craftingSlotStatIds.emptyPrefix then
+		pseudoMapping["__craftingSlots__"] = craftingSlotStatIds
 	end
 
 	-- Save to cache
@@ -993,9 +1035,11 @@ buildAndCachePseudoMapping = function(tradeQueryStatsParsed)
 		pseudoStatsFile:close()
 	end
 
-	-- Populate module-level lookup
+	-- Populate module-level lookup (skip the sentinel key)
 	for modId, pseudoId in pairs(pseudoMapping) do
-		pseudoMemberLookup[modId] = pseudoId
+		if modId ~= "__craftingSlots__" then
+			pseudoMemberLookup[modId] = pseudoId
+		end
 	end
 end
 
@@ -1064,27 +1108,72 @@ function TradeQueryGeneratorClass:CountCraftedAffixes(prefixes, suffixes, affixe
 	return { prefix = prefixCount, suffix = suffixCount }
 end
 
+-- Matches crafted modLines against the affix pool(s) to count unique crafted prefixes/suffixes.
+-- One crafted affix can produce multiple stat lines; seenModIds prevents double-counting.
+-- itemAffixes   = originalItem.affixes (item-type-specific pool, e.g. data.itemMods["Boots"])
+-- globalAffixes = data.itemMods.Item   (universal pool where bench-crafted mods live)
+function TradeQueryGeneratorClass:CountCraftedAffixesFromModLines(modLines, itemAffixes, globalAffixes)
+	-- Build normalized mod-line text -> {affixType, modId} for every crafted entry in both pools.
+	-- Bench-crafted mods (the ones we care about) are always in globalAffixes; itemAffixes is
+	-- searched first so item-specific overrides win, then globalAffixes fills the rest.
+	local lineToAffix = {}
+	local function addPool(pool)
+		if not pool then return end
+		for modId, mod in pairs(pool) do
+			if mod.types then  -- only crafted mods use types instead of weightKey/weightVal
+				for _, line in ipairs(mod) do
+					local key = line:gsub("[#()0-9%-%+%.]", ""):gsub("%s+", " "):match("^%s*(.-)%s*$")
+					if key ~= "" and not lineToAffix[key] then
+						lineToAffix[key] = { affixType = mod.type, modId = modId }
+					end
+				end
+			end
+		end
+	end
+	addPool(itemAffixes)
+	addPool(globalAffixes)
+	-- Count unique crafted affixes; one affix may produce several modLines
+	local seenModIds = {}
+	local prefixCount, suffixCount = 0, 0
+	for _, modLine in ipairs(modLines) do
+		if modLine.crafted then
+			local key = modLine.line:gsub("[#()0-9%-%+%.]", ""):gsub("%s+", " "):match("^%s*(.-)%s*$")
+			local match = lineToAffix[key]
+			if match and not seenModIds[match.modId] then
+				seenModIds[match.modId] = true
+				if match.affixType == "Prefix" then
+					prefixCount = prefixCount + 1
+				elseif match.affixType == "Suffix" then
+					suffixCount = suffixCount + 1
+				end
+			end
+		end
+	end
+	return { prefix = prefixCount, suffix = suffixCount }
+end
+
 -- Builds count-type stat groups requiring the target item to have available crafting slots.
 -- Each crafted prefix/suffix on the current item requires the buyer to have an empty OR crafted slot.
+-- Stat IDs are resolved dynamically from the trade API (craftingSlotStatIds) to avoid hardcoding.
 function TradeQueryGeneratorClass:BuildCraftedSlotFilters(prefixCount, suffixCount)
 	local result = {}
-	if prefixCount > 0 then
+	if prefixCount > 0 and craftingSlotStatIds.emptyPrefix and craftingSlotStatIds.craftedPrefix then
 		t_insert(result, {
 			type = "count",
 			value = { min = prefixCount },
 			filters = {
-				{ id = "pseudo.pseudo_number_of_empty_prefix_modifiers" },
-				{ id = "pseudo.pseudo_number_of_crafted_prefixes" },
+				{ id = craftingSlotStatIds.emptyPrefix,  value = { min = 1 } },
+				{ id = craftingSlotStatIds.craftedPrefix, value = { min = 1 } },
 			}
 		})
 	end
-	if suffixCount > 0 then
+	if suffixCount > 0 and craftingSlotStatIds.emptySuffix and craftingSlotStatIds.craftedSuffix then
 		t_insert(result, {
 			type = "count",
 			value = { min = suffixCount },
 			filters = {
-				{ id = "pseudo.pseudo_number_of_empty_suffix_modifiers" },
-				{ id = "pseudo.pseudo_number_of_crafted_suffixes" },
+				{ id = craftingSlotStatIds.emptySuffix,  value = { min = 1 } },
+				{ id = craftingSlotStatIds.craftedSuffix, value = { min = 1 } },
 			}
 		})
 	end
@@ -1123,26 +1212,55 @@ function TradeQueryGeneratorClass:FinishQuery()
 	end)
 
 	-- Consolidate related explicit/implicit mods into pseudo stats to free up filter slots
-	self.modWeights = consolidateToPseudo(self.modWeights)
+	if self.calcContext.options.includePseudo then
+		self.modWeights = consolidateToPseudo(self.modWeights)
+	end
+
+	local options = self.calcContext.options
+	local existingItemIsUnique = options.existingItemIsUnique
 
 	-- A megalomaniac is not being compared to anything and the currentStatDiff will be 0, so just go for an arbitrary min weight - in this case triple the weight of the worst evaluated node.
 	local megalomaniacSpecialMinWeight = self.calcContext.special.itemName == "Megalomaniac" and self.modWeights[#self.modWeights] * 3
 	-- This Stat diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
 	-- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
 	local minWeight = megalomaniacSpecialMinWeight or currentStatDiff * 0.5
-	
+
+	-- For unique items we only weight implicit/corrupted mods (the ones that vary between copies).
+	-- The currentStatDiff includes the full item (fixed explicits too), so scale minWeight down
+	-- proportionally so that having just one good implicit/corrupted mod is enough to match.
+	if existingItemIsUnique then
+		local implicitCount = options.existingImplicitCount or 0
+		local totalCount    = options.existingTotalModCount or 0
+		local implicitRatio = (totalCount > 0) and (implicitCount / totalCount) or 0.2
+		minWeight = currentStatDiff * 0.5 * implicitRatio
+	end
+
 	-- Generate trade query str and open in browser
 	local filters = 0
+	-- For unique items: search by name and restrict to unique rarity instead of non-unique.
+	local typeFilters
+	if existingItemIsUnique and options.existingItemTitle then
+		typeFilters = {
+			type_filters = {
+				filters = {
+					category = { option = self.calcContext.itemCategoryQueryStr },
+					rarity = { option = "unique" }
+				}
+			}
+		}
+	else
+		typeFilters = self.calcContext.special.queryFilters or {
+			type_filters = {
+				filters = {
+					category = { option = self.calcContext.itemCategoryQueryStr },
+					rarity = { option = "nonunique" }
+				}
+			}
+		}
+	end
 	local queryTable = {
 		query = {
-			filters = self.calcContext.special.queryFilters or {
-				type_filters = {
-					filters = {
-						category = { option = self.calcContext.itemCategoryQueryStr },
-						rarity = { option = "nonunique" }
-					}
-				}
-			},
+			filters = typeFilters,
 			status = { option = "available" },
 			stats = {
 				{
@@ -1155,8 +1273,6 @@ function TradeQueryGeneratorClass:FinishQuery()
 		sort = { ["statgroup.0"] = "desc" },
 		engine = "new"
 	}
-
-	local options = self.calcContext.options
 
 	local num_extra = 2
 	if not options.includeMirrored then
@@ -1176,8 +1292,10 @@ function TradeQueryGeneratorClass:FinishQuery()
 
 	-- Derive mode flags from the selected trade mode (1=Standard, 2=Upgrade, 3=Exact, 4=Implicit Upgrade)
 	local tradeMode = options.tradeMode or 1
-	local requireCurrentMods = tradeMode >= 2 and not (tradeMode == 4 and options.isUnique)
-	local includeWeights = tradeMode == 1 or tradeMode == 2
+	-- For unique items the explicit mods are fixed on every copy — no point requiring them.
+	-- The implicit/corrupted mods (the interesting variation) go into the weight group instead.
+	local requireCurrentMods = tradeMode >= 2 and not (tradeMode == 4 and options.isUnique) and not existingItemIsUnique
+	local includeWeights = (tradeMode == 1 or tradeMode == 2) or existingItemIsUnique
 	local includeImplicitWeights = tradeMode == 4
 
 	-- Collect required mod filters from the current item's mods if requested
@@ -1188,12 +1306,25 @@ function TradeQueryGeneratorClass:FinishQuery()
 		-- stat IDs are never confused with each other.
 		-- Also indexes overrideModLineSingular so "Has 1 Abyssal Socket" matches
 		-- the entry whose plural text "Has # Abyssal Sockets" would otherwise not.
-		local function buildTextLookup(modTypeData)
+		-- preferLocal: when true, overrideModLine entries (local weapon/armour stats) take
+		-- priority over same-text global entries so e.g. weapon "Adds # to # Physical Damage"
+		-- maps to the (Local) trade stat rather than the global ring/jewel version.
+		local function buildTextLookup(modTypeData, preferLocal)
 			local lookup = {}
+			local localOverrides = {}
 			for _, entry in pairs(modTypeData) do
 				local key = entry.tradeMod.text:gsub("[#()0-9%-%+%.]",""):gsub("%s+", " ")
 				if key ~= "" and not lookup[key] then
 					lookup[key] = entry.tradeMod.id
+				end
+				-- overrideModLine is set for "(Local)" trade stats; its value is the item
+				-- display text without " (Local)", which is what modLine.line will contain.
+				local overrideLine = entry.specialCaseData and entry.specialCaseData.overrideModLine
+				if overrideLine then
+					local overrideKey = overrideLine:gsub("[#()0-9%-%+%.]",""):gsub("%s+", " ")
+					if overrideKey ~= "" then
+						localOverrides[overrideKey] = entry.tradeMod.id
+					end
 				end
 				local singular = entry.specialCaseData and entry.specialCaseData.overrideModLineSingular
 				if singular then
@@ -1203,9 +1334,17 @@ function TradeQueryGeneratorClass:FinishQuery()
 					end
 				end
 			end
+			-- Merge local overrides last so they win over any global entry with the same text.
+			-- Only do this for item types that actually carry local mods (weapons and armour).
+			if preferLocal then
+				for k, v in pairs(localOverrides) do
+					lookup[k] = v
+				end
+			end
 			return lookup
 		end
-		local explicitTextToId = buildTextLookup(self.modData.Explicit)
+		local preferLocal = originalItem.base and (originalItem.base.weapon or originalItem.base.armour) and true or false
+		local explicitTextToId = buildTextLookup(self.modData.Explicit, preferLocal)
 		local implicitTextToId = buildTextLookup(self.modData.Implicit)
 		if options.includeEldritch then
 			for k, v in pairs(buildTextLookup(self.modData.Eater)) do
@@ -1290,10 +1429,14 @@ function TradeQueryGeneratorClass:FinishQuery()
 		if tradeMode ~= 4 and options.includeImplicits then
 			addModLines(originalItem.implicitModLines, implicitTextToId, explicitTextToId)
 		end
-		if originalItem.prefixes and originalItem.suffixes and originalItem.affixes then
-			local craftedCounts = self:CountCraftedAffixes(originalItem.prefixes, originalItem.suffixes, originalItem.affixes)
-			craftedSlotFilters = self:BuildCraftedSlotFilters(craftedCounts.prefix, craftedCounts.suffix)
-		end
+		-- Crafted mods are always in explicitModLines with modLine.crafted = true.
+		-- We need both the item-specific pool (originalItem.affixes) and the universal bench-craft
+		-- pool (data.itemMods.Item) because bench-crafted mods live in the latter, not the former.
+		local craftedCounts = self:CountCraftedAffixesFromModLines(
+			originalItem.explicitModLines,
+			originalItem.affixes,
+			data.masterMods)
+		craftedSlotFilters = self:BuildCraftedSlotFilters(craftedCounts.prefix, craftedCounts.suffix)
 		effective_max = math.max(0, effective_max - #requiredModFilters - #craftedSlotFilters)
 	end
 
@@ -1317,8 +1460,15 @@ function TradeQueryGeneratorClass:FinishQuery()
 		queryTable.query[k] = v
 	end
 
+	-- For unique items inject the name so the trade site filters to that specific unique.
+	if existingItemIsUnique and options.existingItemTitle then
+		queryTable.query.name = options.existingItemTitle
+		if options.existingItemBase then
+			queryTable.query.type = options.existingItemBase
+		end
+	end
+
 	local andFilters = { type = "and", filters = { } }
-	local options = self.calcContext.options
 	if options.influence1 > 1 then
 		t_insert(andFilters.filters, { id = hasInfluenceModIds[options.influence1 - 1] })
 		filters = filters + 1
@@ -1352,12 +1502,18 @@ function TradeQueryGeneratorClass:FinishQuery()
 	if #queryTable.query.stats[1].filters == 0 then
 		table.remove(queryTable.query.stats, 1)
 	end
+	-- Build misc_filters for mirrored and/or corrupted exclusions.
+	local miscFilters = {}
 	if not options.includeMirrored then
+		miscFilters.mirrored = false
+	end
+	if not options.includeCorrupted then
+		miscFilters.corrupted = false
+	end
+	if next(miscFilters) then
 		queryTable.query.filters.misc_filters = {
 			disabled = false,
-			filters = {
-				mirrored = false,
-			}
+			filters = miscFilters,
 		}
 	end
 
@@ -1440,15 +1596,16 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	local isAmuletSlot = slot and slot.slotName == "Amulet"
 	local isEldritchModSlot = slot and eldritchModSlots[slot.slotName] == true
 
-	controls.includeCorrupted = new("CheckBoxControl", {"TOP",nil,"TOP"}, {-40, 30, 18}, "Corrupted Mods:", function(state) end)
-	controls.includeCorrupted.state = not context.slotTbl.alreadyCorrupted and (self.lastIncludeCorrupted == nil or self.lastIncludeCorrupted == true)
-	controls.includeCorrupted.enabled = not context.slotTbl.alreadyCorrupted
+	-- All controls are left-aligned in a single TOPLEFT chain.
+	-- The checkbox box sits at x≈176 (popup-relative); labels are drawn to its left.
+	controls.includeMirrored = new("CheckBoxControl", {"TOP",nil,"TOP"}, {-15, 30, 18}, "Mirrored items:", function(state) end)
+	controls.includeMirrored.state = (self.lastIncludeMirrored == nil or self.lastIncludeMirrored == true)
 
 	-- removing checkbox until synthesis mods are supported
-	--controls.includeSynthesis = new("CheckBoxControl", {"TOPRIGHT",controls.includeEldritch,"BOTTOMRIGHT"}, {0, 5, 18}, "Synthesis Mods:", function(state) end)
+	--controls.includeSynthesis = new("CheckBoxControl", {"TOPLEFT",controls.includeEldritch,"BOTTOMLEFT"}, {0, 5, 18}, "Synthesis Mods:", function(state) end)
 	--controls.includeSynthesis.state = (self.lastIncludeSynthesis == nil or self.lastIncludeSynthesis == true)
 
-	local lastItemAnchor = controls.includeCorrupted
+	local lastItemAnchor = controls.includeMirrored
 	local includeScourge = self.queryTab.pbLeagueRealName == "Standard" or self.queryTab.pbLeagueRealName == "Hardcore"
 
 	local function updateLastAnchor(anchor, height)
@@ -1460,37 +1617,20 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		options.special = { itemName = context.slotTbl.slotName }
 	end
 
-	controls.includeMirrored = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Mirrored items:", function(state) end)
-	controls.includeMirrored.state = (self.lastIncludeMirrored == nil or self.lastIncludeMirrored == true)
 	updateLastAnchor(controls.includeMirrored)
+
+	-- Corrupted Items: directly below Mirrored, before Mode.
+	-- Unchecked = exclude corrupted (adds corrupted=false to misc_filters, same pattern as mirrored).
+	-- Checked   = allow corrupted (Any) + include corrupted implicit weights.
+	controls.includeCorrupted = new("CheckBoxControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 18}, "Corrupted Items:", function(state) end)
+	controls.includeCorrupted.state = not context.slotTbl.alreadyCorrupted and (self.lastIncludeCorrupted == nil or self.lastIncludeCorrupted == true)
+	controls.includeCorrupted.enabled = not context.slotTbl.alreadyCorrupted
+	updateLastAnchor(controls.includeCorrupted)
 
 	local existingItemForSlot = slot and self.itemsTab.items[slot.selItemId]
 	if existingItemForSlot then
-		controls.includeImplicits = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Implicit Mods:", function(state) end)
-		controls.includeImplicits.state = (self.lastIncludeImplicits == nil or self.lastIncludeImplicits == true)
-		updateLastAnchor(controls.includeImplicits)
-	end
-
-	if not isJewelSlot and not isAbyssalJewelSlot and includeScourge then
-		controls.includeScourge = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Scourge Mods:", function(state) end)
-		controls.includeScourge.state = (self.lastIncludeScourge == nil or self.lastIncludeScourge == true)
-		updateLastAnchor(controls.includeScourge)
-	end
-
-	if isAmuletSlot then
-		controls.includeTalisman = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Talisman Mods:", function(state) end)
-		controls.includeTalisman.state = (self.lastIncludeTalisman == nil or self.lastIncludeTalisman == true)
-		updateLastAnchor(controls.includeTalisman)
-	end
-
-	if isEldritchModSlot then
-		controls.includeEldritch = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Eldritch Mods:", function(state) end)
-		controls.includeEldritch.state = (self.lastIncludeEldritch == true)
-		updateLastAnchor(controls.includeEldritch)
-	end
-
-	if existingItemForSlot then
-		controls.tradeMode = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 160, 18}, {"Standard", "Upgrade", "Exact", "Implicit Upgrade"}, function(index, value)
+		-- Mode dropdown: left-aligned below Mirrored
+		controls.tradeMode = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 140, 18}, {"Standard", "Upgrade", "Exact", "Implicit Upgrade"}, function(index, value)
 			if context.slotTbl.unique and (index == 2 or index == 3) then
 				controls.tradeMode.tooltipText = "^1This mode is intended for rare items only."
 			else
@@ -1507,6 +1647,35 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		end
 		controls.tradeModeLabel = new("LabelControl", {"RIGHT",controls.tradeMode,"LEFT"}, {-5, 0, 0, 16}, "Mode:")
 		updateLastAnchor(controls.tradeMode)
+
+		-- Pseudo Mods checkbox: below Mode, left-aligned
+		controls.includePseudo = new("CheckBoxControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 18}, "Pseudo Mods:", function(state) end)
+		controls.includePseudo.state = (self.lastIncludePseudo == true)
+		controls.includePseudo.tooltipText = "Consolidate related explicit/implicit mods into pseudo stat filters"
+		updateLastAnchor(controls.includePseudo)
+
+		-- Implicit Mods checkbox: below Pseudo Mods
+		controls.includeImplicits = new("CheckBoxControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 18}, "Implicit Mods:", function(state) end)
+		controls.includeImplicits.state = (self.lastIncludeImplicits == nil or self.lastIncludeImplicits == true)
+		updateLastAnchor(controls.includeImplicits)
+	end
+
+	if isEldritchModSlot then
+		controls.includeEldritch = new("CheckBoxControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 18}, "Eldritch Mods:", function(state) end)
+		controls.includeEldritch.state = (self.lastIncludeEldritch == true)
+		updateLastAnchor(controls.includeEldritch)
+	end
+
+	if not isJewelSlot and not isAbyssalJewelSlot and includeScourge then
+		controls.includeScourge = new("CheckBoxControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 18}, "Scourge Mods:", function(state) end)
+		controls.includeScourge.state = (self.lastIncludeScourge == nil or self.lastIncludeScourge == true)
+		updateLastAnchor(controls.includeScourge)
+	end
+
+	if isAmuletSlot then
+		controls.includeTalisman = new("CheckBoxControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 18}, "Talisman Mods:", function(state) end)
+		controls.includeTalisman.state = (self.lastIncludeTalisman == nil or self.lastIncludeTalisman == true)
+		updateLastAnchor(controls.includeTalisman)
 	end
 
 	if isJewelSlot then
@@ -1595,6 +1764,13 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 			options.tradeMode = controls.tradeMode.selIndex
 		end
 		options.isUnique = context.slotTbl and context.slotTbl.unique == true
+		-- Detect when the equipped item is a unique — drives name-based search with implicit/corrupted weight group
+		local existingItem = slot and self.itemsTab.items[slot.selItemId]
+		options.existingItemIsUnique = existingItem and existingItem.rarity == "UNIQUE" and not options.isUnique
+		options.existingItemTitle = options.existingItemIsUnique and existingItem.title or nil
+		options.existingItemBase  = options.existingItemIsUnique and existingItem.baseName or nil
+		options.existingImplicitCount = options.existingItemIsUnique and (#existingItem.implicitModLines + (existingItem.corrupted and 1 or 0)) or 0
+		options.existingTotalModCount = options.existingItemIsUnique and (#existingItem.implicitModLines + #existingItem.explicitModLines + (existingItem.corrupted and 1 or 0)) or 0
 		if controls.includeCorrupted then
 			self.lastIncludeCorrupted, options.includeCorrupted = controls.includeCorrupted.state, controls.includeCorrupted.state
 		end
@@ -1608,6 +1784,11 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 			self.lastIncludeImplicits, options.includeImplicits = controls.includeImplicits.state, controls.includeImplicits.state
 		else
 			options.includeImplicits = true
+		end
+		if controls.includePseudo then
+			self.lastIncludePseudo, options.includePseudo = controls.includePseudo.state, controls.includePseudo.state
+		else
+			options.includePseudo = true
 		end
 		if controls.includeScourge then
 			self.lastIncludeScourge, options.includeScourge = controls.includeScourge.state, controls.includeScourge.state

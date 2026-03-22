@@ -2,6 +2,12 @@
 -- Stat data (c) Grinding Gear Games
 
 return {
+	["__craftingSlots__"] = {
+		["craftedPrefix"] = "pseudo.pseudo_number_of_crafted_prefix_mods", 
+		["craftedSuffix"] = "pseudo.pseudo_number_of_crafted_suffix_mods", 
+		["emptyPrefix"] = "pseudo.pseudo_number_of_empty_prefix_mods", 
+		["emptySuffix"] = "pseudo.pseudo_number_of_empty_suffix_mods", 
+	}, 
 	["explicit.stat_1037193709"] = "pseudo.pseudo_adds_cold_damage", 
 	["explicit.stat_1050105434"] = "pseudo.pseudo_total_mana", 
 	["explicit.stat_1133016593"] = "pseudo.pseudo_adds_fire_damage_to_spells", 
