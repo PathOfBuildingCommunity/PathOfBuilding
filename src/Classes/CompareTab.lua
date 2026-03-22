@@ -119,7 +119,7 @@ local CompareTabClass = newClass("CompareTab", "ControlHost", "Control", functio
 
 	-- Compare power report state
 	self.comparePowerStat = nil           -- selected data.powerStatList entry
-	self.comparePowerCategories = { treeNodes = true, items = true, gems = true }
+	self.comparePowerCategories = { treeNodes = true, items = true, gems = true, config = true }
 	self.comparePowerResults = nil        -- sorted list of result entries
 	self.comparePowerCoroutine = nil      -- active coroutine
 	self.comparePowerProgress = 0         -- 0-100
@@ -597,6 +597,13 @@ function CompareTabClass:InitControls()
 	self.controls.comparePowerGemsCheck.shown = powerReportShown
 	self.controls.comparePowerGemsCheck.state = true
 
+	self.controls.comparePowerConfigCheck = new("CheckBoxControl", nil, {0, 0, 18}, "Config:", function(state)
+		self.comparePowerCategories.config = state
+		self.comparePowerDirty = true
+	end, "Include config option differences from compared build")
+	self.controls.comparePowerConfigCheck.shown = powerReportShown
+	self.controls.comparePowerConfigCheck.state = true
+
 	-- Power report list control (static height, own scrollbar)
 	self.controls.comparePowerReportList = new("ComparePowerReportListControl", nil, {0, 0, 750, 250})
 	self.controls.comparePowerReportList.shown = powerReportShown
@@ -734,6 +741,17 @@ function CompareTabClass:FormatConfigValue(varData, val)
 	else
 		return tostring(val)
 	end
+end
+
+-- Normalize config values so that functionally equivalent states compare equal
+-- (nil/false for checks, nil/0 for counts/integers/floats)
+function CompareTabClass:NormalizeConfigVals(varData, pVal, cVal)
+	if varData.type == "check" then
+		return pVal or false, cVal or false
+	elseif varData.type == "count" or varData.type == "integer" or varData.type == "float" then
+		return pVal or 0, cVal or 0
+	end
+	return pVal, cVal
 end
 
 -- Rebuild interactive config controls for all config options
@@ -1652,6 +1670,18 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 		local cGroups = compareEntry.skillsTab and compareEntry.skillsTab.socketGroupList or {}
 		total = total + #cGroups
 	end
+	if categories.config then
+		local pInput = self.primaryBuild.configTab.input or {}
+		local cInput = compareEntry.configTab.input or {}
+		for _, varData in ipairs(self.configOptions) do
+			if varData.var and varData.apply and varData.type ~= "text" then
+				local pVal, cVal = self:NormalizeConfigVals(varData, pInput[varData.var], cInput[varData.var])
+				if pVal ~= cVal then
+					total = total + 1
+				end
+			end
+		end
+	end
 
 	if total == 0 then
 		self.comparePowerResults = results
@@ -1769,7 +1799,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 
 				t_insert(results, {
 					category = "Item",
-					categoryColor = colorCodes.NORMAL,
+					categoryColor = rarityColor,
 					nameColor = rarityColor,
 					name = (cItem.name or "Unknown") .. ", " .. slotName,
 					impact = impactVal,
@@ -1850,7 +1880,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 
 					t_insert(results, {
 						category = "Item",
-						categoryColor = colorCodes.NORMAL,
+						categoryColor = rarityColor,
 						nameColor = rarityColor,
 						name = (jEntry.cItem.name or "Unknown") .. ", " .. bestSlotLabel,
 						impact = impactVal,
@@ -1922,6 +1952,80 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 				self.comparePowerProgress = m_floor(processed / total * 100)
 				coroutine.yield()
 				start = GetTime()
+			end
+		end
+	end
+
+	-- ==========================================
+	-- Config Options
+	-- ==========================================
+	if categories.config then
+		local pInput = self.primaryBuild.configTab.input
+		local cInput = compareEntry.configTab.input or {}
+
+		local function stripColors(s)
+			return s:gsub("%^%x", ""):gsub("%^x%x%x%x%x%x%x", "")
+		end
+
+		for _, varData in ipairs(self.configOptions) do
+			if varData.var and varData.apply and varData.type ~= "text" then
+				local pVal = pInput[varData.var]
+				local cVal = cInput[varData.var]
+				local pNorm, cNorm = self:NormalizeConfigVals(varData, pVal, cVal)
+
+				if pNorm ~= cNorm then
+					-- Save original value
+					local savedVal = pInput[varData.var]
+
+					-- Apply compare build's config value
+					pInput[varData.var] = cVal
+
+					-- Rebuild the mod list with the new config value
+					self.primaryBuild.configTab:BuildModList()
+					self.primaryBuild.buildFlag = true
+
+					-- Get a fresh calculator with the changed config
+					local cfgCalcFunc, cfgCalcBase = self.calcs.getMiscCalculator(self.primaryBuild)
+					local impact = self:CalculatePowerStat(powerStat, cfgCalcBase, calcBase)
+
+					-- Restore original value
+					pInput[varData.var] = savedVal
+					self.primaryBuild.configTab:BuildModList()
+					self.primaryBuild.buildFlag = true
+
+					local impactStr, impactVal, combinedImpactStr, impactPercent = formatImpact(impact)
+
+					-- Only include configs with non-zero impact
+					if impactVal ~= 0 then
+						-- Build display name with value change description
+						local displayName = varData.label or varData.var
+						displayName = displayName:gsub(":$", "")
+
+						local pDisplay = stripColors(self:FormatConfigValue(varData, pVal))
+						local cDisplay = stripColors(self:FormatConfigValue(varData, cVal))
+
+						t_insert(results, {
+							category = "Config",
+							categoryColor = colorCodes.FRACTURED,
+							nameColor = "^7",
+							name = displayName .. "  (" .. pDisplay .. " -> " .. cDisplay .. ")",
+							impact = impactVal,
+							impactStr = impactStr,
+							impactPercent = impactPercent,
+							combinedImpactStr = combinedImpactStr,
+							pathDist = nil,
+							perPoint = nil,
+							perPointStr = nil,
+						})
+					end
+
+					processed = processed + 1
+					if coroutine.running() and GetTime() - start > 100 then
+						self.comparePowerProgress = m_floor(processed / total * 100)
+						coroutine.yield()
+						start = GetTime()
+					end
+				end
 			end
 		end
 	end
@@ -2046,6 +2150,10 @@ function CompareTabClass:DrawSummary(vp, compareEntry)
 
 	self.controls.comparePowerGemsCheck.x = checkX + self.controls.comparePowerGemsCheck.labelWidth
 	self.controls.comparePowerGemsCheck.y = controlY
+	checkX = checkX + self.controls.comparePowerGemsCheck.labelWidth + 26
+
+	self.controls.comparePowerConfigCheck.x = checkX + self.controls.comparePowerConfigCheck.labelWidth
+	self.controls.comparePowerConfigCheck.y = controlY
 
 	drawY = drawY + 28
 
