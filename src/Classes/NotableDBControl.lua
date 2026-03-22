@@ -11,6 +11,7 @@ local m_max = math.max
 local m_floor = math.floor
 local m_huge = math.huge
 local s_format = string.format
+local WeightedScore = LoadModule("Modules/WeightedScore")
 
 ---@param node table
 ---@return boolean
@@ -95,6 +96,7 @@ function NotableDBClass:BuildSortOrder()
 				itemField=stat.itemField,
 				stat=stat.stat,
 				transform=stat.transform,
+				isWeightedScore=stat.isWeightedScore,
 			})
 		end
 	end
@@ -139,12 +141,17 @@ function NotableDBClass:ListBuilder()
 		local calcFunc = self.itemsTab.build.calcsTab:GetMiscCalculator()
 		local itemType = self.itemsTab.displayItem.base.type
 		local calcBase = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(nil) })
+		local weights = self.sortDetail.isWeightedScore and WeightedScore.getWeights(self.itemsTab.build)
 		self.sortMaxPower = 0
 		for nodeIndex, node in ipairs(list) do
 			node.measuredPower = 0
 			if node.modKey ~= "" then
 				local output = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(node) })
-				node.measuredPower = self:CalculatePowerStat(self.sortDetail, output, calcBase)
+				if self.sortDetail.isWeightedScore then
+					node.measuredPower = WeightedScore.computeRatioScore(calcBase, output, weights)
+				else
+					node.measuredPower = self:CalculatePowerStat(self.sortDetail, output, calcBase)
+				end
 				if node.measuredPower == m_huge then
 					t_insert(infinites, node)
 				else
