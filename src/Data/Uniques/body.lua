@@ -171,7 +171,6 @@ Physical Damage per 10 Strength
 Perfidy
 Glorious Plate
 League: Delirium
-Has Alt Variant: true
 Variant: Pre 3.25.0
 Variant: Current
 Implicits: 0
@@ -911,6 +910,17 @@ Implicits: 0
 5% increased Movement Speed
 20% chance to Poison on Hit with Attacks
 Cannot be Poisoned
+]],
+[[
+Rigwald's Hunt
+General's Brigandine
+Requires Level 66, 103 Str, 103 Dex
+(160-200)% increased Armour and Evasion
+Minions have (20-30)% increased Movement Speed
+Minions have 1% chance to deal Double Damage per Fortification on you
+(30-40)% increased Fortification Duration
+Minions have (6-12)% increased Attack Speed
+Increases and Reductions to Minion Maximum Life also apply to you at 15% of their value
 ]],
 -- Body: Armour/Energy Shield
 [[

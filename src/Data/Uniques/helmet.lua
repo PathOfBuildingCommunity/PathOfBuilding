@@ -172,6 +172,29 @@ Non-Instant Warcries ignore their Cooldown when Used
 Warcries Cost +15% of Life
 Warcry Skills have (15-25)% increased Area of Effect
 ]],
+[[
+Refuge in Isolation
+Paladin Crown
+Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Loneliness}
+Requires Level 78, 116 Str, 116 Int
+(350-650)% increased Armour
+(-50--40)% to all Elemental Resistances
++(13-29)% to Chaos Resistance
+(15-30)% of Elemental Damage from Hits taken as Physical Damage
+Physical Damage of Enemies Hitting you is Unlucky
+]],
+[[
+The Hallowed Monarch
+Faithful Helmet
+Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 73, 101 Str, 101 Int
+(150-230)% increased Armour
++(25-35)% to all Elemental Resistances
+50% increased Light Radius
+Link Skills can target Damageable Minions
+Your Linked Minions take (75-65)% less Damage
+On Killing a Rare monster, a random Linked Minion gains its Modifiers for 60 seconds
+]],
 -- Helmet: Evasion
 [[
 Alpha's Howl
@@ -817,6 +840,7 @@ Variant: Summoned Phantasms
 Variant: Summoned Skeletons
 Variant: Summoned Spectral Wolves
 Variant: Living Lightning
+Variant: Holy Armaments
 Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
 Requires Level 80, 224 Int
 +(50-100) to maximum Energy Shield
@@ -837,7 +861,6 @@ Requires Level 80, 224 Int
 {variant:12}Maximum number of Summoned Phantasms is Doubled
 {variant:13}Maximum number of Summoned Skeletons is Doubled
 {variant:14}Maximum number of Summoned Spectral Wolves is Doubled
-{variant:15}Maximum number of Living Lightning is Doubled
 {variant:1}Cannot have Minions other than Animated Weapons
 {variant:2}Cannot have Minions other than Summoned Golems
 {variant:3}Cannot have Minions other than Summoned Raging Spirits
@@ -852,7 +875,10 @@ Requires Level 80, 224 Int
 {variant:12}Cannot have Minions other than Summoned Phantasms
 {variant:13}Cannot have Minions other than Summoned Skeletons
 {variant:14}Cannot have Minions other than Summoned Spectral Wolves
+{variant:15}Maximum number of Living Lightning is Doubled
 {variant:15}Cannot have Minions other than Living Lightning
+{variant:16}Maximum number of Holy Armaments is Doubled
+{variant:16}Cannot have Minions other than Holy Armaments
 ]],
 -- Helmet: Armour/Evasion
 [[
@@ -1590,8 +1616,7 @@ Requires Level 57, 64 Dex, 64 Int
 The Tempest's Binding
 Callous Mask
 League: Harbinger
-Source: Created from item parts obtained from Boss in The Beachhead
-Upgrade: Upgrades to unique{The Tempest's Liberation} via currency{Deregulation Scroll}
+Source: No longer obtainable
 Requires Level 45, 51 Dex, 51 Int
 Socketed Gems are Supported by Level 18 Ice Bite
 Socketed Gems are Supported by Level 18 Innervate
@@ -1603,8 +1628,6 @@ Grants Summon Harbinger of Storms Skill
 ]],[[
 The Tempest's Liberation
 Callous Mask
-League: Harvest
-Source: Upgraded from unique{The Tempest's Binding} via currency{Deregulation Scroll}
 Requires Level 60, 51 Dex, 51 Int
 Socketed Gems are Supported by Level 18 Ice Bite
 Socketed Gems are Supported by Level 18 Innervate

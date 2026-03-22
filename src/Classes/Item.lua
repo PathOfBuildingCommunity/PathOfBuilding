@@ -756,7 +756,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.prefixes.limit = (self.prefixes.limit or 0) + (tonumber(lineLower:match("%+(%d+) prefix modifiers? allowed")) or 0) - (tonumber(lineLower:match("%-(%d+) prefix modifiers? allowed")) or 0)
 				elseif lineLower:match(" suffix modifiers? allowed") then
 					self.suffixes.limit = (self.suffixes.limit or 0) + (tonumber(lineLower:match("%+(%d+) suffix modifiers? allowed")) or 0) - (tonumber(lineLower:match("%-(%d+) suffix modifiers? allowed")) or 0)
-				elseif lineLower == "this item can be anointed by cassia" then
+				elseif lineLower:find("can be anointed") then -- blight uniques and Cord Belt
 					self.canBeAnointed = true
 				elseif lineLower == "can have a second enchantment modifier" then
 					self.canHaveTwoEnchants = true
@@ -1568,6 +1568,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		if self.base.flask.life or self.base.flask.mana then
 			-- Recovery flask
 			flaskData.instantPerc = calcLocal(modList, "FlaskInstantRecovery", "BASE", 0)
+			flaskData.instantLowLifePerc = calcLocal(modList, "FlaskLowLifeInstantRecovery", "BASE", 0)
 			local recoveryMod = 1 + calcLocal(modList, "FlaskRecovery", "INC", 0) / 100
 			local rateMod = 1 + calcLocal(modList, "FlaskRecoveryRate", "INC", 0) / 100
 			flaskData.duration = round(self.base.flask.duration * (1 + durationInc / 100) / rateMod * durationMore, 1)

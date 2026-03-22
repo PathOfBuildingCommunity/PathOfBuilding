@@ -30,7 +30,7 @@ local socketDropList = {
 	{ label = colorCodes.SCION.."W", color = "W" }
 }
 
-local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Ring 3", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5", "Graft 1", "Graft 2" }
+local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Ring 3", "Belt", "Graft 1", "Graft 2", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 
 local influenceInfo = itemLib.influenceInfo.all
 
@@ -56,6 +56,9 @@ for _, entry in pairs(data.flavourText) do
 	end
 end
 
+local function isAnointable(item)
+	return (item.canBeAnointed or item.base.type == "Amulet")
+end
 
 local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
@@ -141,6 +144,10 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 					return not abyssal.inactive and self.activeItemSet.useSecondWeaponSet
 				end
 				swapSlot.abyssalSocketList[i] = abyssal
+			end
+		elseif slotName == "Graft 1" or slotName == "Graft 2" then
+			slot.shown = function()
+				return self.build.spec.treeVersion:find("3_27")
 			end
 		elseif slotName == "Ring 3" then
 			slot.shown = function()
@@ -438,7 +445,7 @@ holding Shift will put it in the second.]])
 	self.controls.displayItemAddSocket.shown = function()
 		return #self.displayItem.sockets < self.displayItem.selectableSocketCount + self.displayItem.abyssalSocketCount
 	end
-	
+
 	-- Section: Enchant / Anoint / Corrupt
 	self.controls.displayItemSectionEnchant = new("Control", {"TOPLEFT",self.controls.displayItemSectionSockets,"BOTTOMLEFT"}, {0, 0, 0, function()
 		return (self.controls.displayItemEnchant:IsShown() or self.controls.displayItemEnchant2:IsShown() or self.controls.displayItemAnoint:IsShown() or self.controls.displayItemAnoint2:IsShown() or self.controls.displayItemCorrupt:IsShown() ) and 28 or 0
@@ -459,14 +466,14 @@ holding Shift will put it in the second.]])
 		self:AnointDisplayItem(1)
 	end)
 	self.controls.displayItemAnoint.shown = function()
-		return self.displayItem and (self.displayItem.base.type == "Amulet" or self.displayItem.canBeAnointed)
+		return self.displayItem and isAnointable(self.displayItem)
 	end
 	self.controls.displayItemAnoint2 = new("ButtonControl", {"TOPLEFT",self.controls.displayItemAnoint,"TOPRIGHT",true}, {8, 0, 100, 20}, "Anoint 2...", function()
 		self:AnointDisplayItem(2)
 	end)
 	self.controls.displayItemAnoint2.shown = function()
 		return self.displayItem and
-			(self.displayItem.base.type == "Amulet" or self.displayItem.canBeAnointed) and
+			isAnointable(self.displayItem) and
 			self.displayItem.canHaveTwoEnchants and
 			#self.displayItem.enchantModLines > 0
 	end
@@ -475,7 +482,7 @@ holding Shift will put it in the second.]])
 	end)
 	self.controls.displayItemAnoint3.shown = function()
 		return self.displayItem and
-			(self.displayItem.base.type == "Amulet" or self.displayItem.canBeAnointed) and
+			isAnointable(self.displayItem) and
 			self.displayItem.canHaveThreeEnchants and
 			#self.displayItem.enchantModLines > 1
 	end
@@ -484,7 +491,7 @@ holding Shift will put it in the second.]])
 	end)
 	self.controls.displayItemAnoint4.shown = function()
 		return self.displayItem and
-			(self.displayItem.base.type == "Amulet" or self.displayItem.canBeAnointed) and
+			isAnointable(self.displayItem) and
 			self.displayItem.canHaveFourEnchants and
 			#self.displayItem.enchantModLines > 2
 	end
@@ -1578,18 +1585,44 @@ function ItemsTabClass:DeleteItem(item, deferUndoState)
 	end
 end
 
+local function copyAnointsAndEldritchImplicits(newItem, activeItemSet, items)
+	local newItemType = newItem.base.type
+	if activeItemSet[newItemType] then
+		local currentItem = activeItemSet[newItemType].selItemId and items[activeItemSet[newItemType].selItemId]
+		-- if you don't have an equipped item that matches the type of the newItem, no need to do anything
+		if currentItem then
+			-- if the new item is anointable and does not have an anoint and your current respective item does, apply that anoint to the new item
+			if isAnointable(newItem) and #newItem.enchantModLines == 0 and activeItemSet[newItemType].selItemId > 0 then
+				local currentAnoint = currentItem.enchantModLines
+				if currentAnoint and #currentAnoint == 1 then -- skip if amulet has more than one anoint e.g. Stranglegasp
+					newItem.enchantModLines = currentAnoint
+				end
+			end
+			-- if the new item is a non-corrupted Normal, Magic, or Rare Helmet, Body Armour, Gloves, or Boots and does not have any influence
+			-- and your current respective item is Eater and/or Exarch, apply those implicits and influence to the new item
+			local eldritchBaseTypes = { "Helmet", "Body Armour", "Gloves", "Boots" }
+			local eldritchRarities = { "NORMAL", "MAGIC", "RARE" }
+			for _, influence in ipairs(itemLib.influenceInfo.default) do
+				if newItem[influence.key] then
+					return
+				end
+			end
+			if main.migrateEldritchImplicits and isValueInTable(eldritchBaseTypes, newItem.base.type) and isValueInTable(eldritchRarities, newItem.rarity)
+				and #newItem.implicitModLines == 0 and not newItem.corrupted and (currentItem.cleansing or currentItem.tangle) and currentItem.implicitModLines then
+					newItem.implicitModLines = currentItem.implicitModLines
+					newItem.tangle = currentItem.tangle
+					newItem.cleansing = currentItem.cleansing
+			end
+			newItem:BuildAndParseRaw()
+		end
+	end
+end
+
 -- Attempt to create a new item from the given item raw text and sets it as the new display item
 function ItemsTabClass:CreateDisplayItemFromRaw(itemRaw, normalise)
 	local newItem = new("Item", itemRaw)
 	if newItem.base then
-		-- if the new item is an amulet and does not have an anoint and your current amulet does, apply that anoint to the new item
-		if newItem.base.type == "Amulet" and #newItem.enchantModLines == 0 and self.activeItemSet["Amulet"].selItemId > 0 then
-			local currentAnoint = self.items[self.activeItemSet["Amulet"].selItemId].enchantModLines
-			if currentAnoint and #currentAnoint == 1 then -- skip if amulet has more than one anoint e.g. Stranglegasp
-				newItem.enchantModLines = currentAnoint
-				newItem:BuildAndParseRaw()
-			end
-		end
+		copyAnointsAndEldritchImplicits(newItem, self.activeItemSet, self.items)
 		if normalise then
 			newItem:NormaliseQuality()
 			newItem:BuildModList()
@@ -1783,10 +1816,17 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 			extraTags[skill.tag] = true
 		end
 	end
+	local selAffix = item[outputTable][outputIndex] and item[outputTable][outputIndex].modId
 	local affixList = { }
+	local retainedAffixes = { }
 	for modId, mod in pairs(item.affixes) do
-		if mod.type == type and not excludeGroups[mod.group] and item:GetModSpawnWeight(mod, extraTags) > 0 and not item:CheckIfModIsDelve(mod) then
-			t_insert(affixList, modId)
+		if mod.type == type and not excludeGroups[mod.group] and not item:CheckIfModIsDelve(mod) then
+			if item:GetModSpawnWeight(mod, extraTags) > 0 then
+				t_insert(affixList, modId)
+			elseif modId == selAffix then
+				t_insert(affixList, modId)
+				retainedAffixes[modId] = true
+			end
 		end
 	end
 	table.sort(affixList, function(a, b)
@@ -1821,7 +1861,9 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 			end
 			local modString = table.concat(mod, "/")
 			local label = modString
-			if item.type == "Flask" then
+			if retainedAffixes[modId] then
+				label = "^8[Retained] " .. modString
+			elseif item.type == "Flask" then
 				label = mod.affix .. "   ^8[" .. modString .. "]"
 			end
 			control.list[i + 1] = {

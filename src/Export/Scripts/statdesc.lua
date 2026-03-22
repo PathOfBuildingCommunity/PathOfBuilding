@@ -104,6 +104,7 @@ local statFileList = {
 	"minion_skill_stat_descriptions",
 	"minion_spell_skill_stat_descriptions",
 	"minion_spell_damage_skill_stat_descriptions",
+	"single_minion_spell_skill_stat_descriptions",
 	"monster_stat_descriptions",
 	"offering_skill_stat_descriptions",
 	"skill_stat_descriptions",

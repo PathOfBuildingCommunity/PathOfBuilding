@@ -1242,6 +1242,36 @@ return {
 	[52]={
 		[1]={
 			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buff grants {0}% increased Attack Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Buff grants {0}% reduced Attack Speed"
+			}
+		},
+		name="storm_blade_buff_attack_speed",
+		stats={
+			[1]="storm_blade_global_attack_speed_+%"
+		}
+	},
+	[53]={
+		[1]={
+			[1]={
 				[1]={
 					k="reminderstring",
 					v="ReminderTextUnaffectedBy"
@@ -1260,7 +1290,7 @@ return {
 			[1]="unaffected_by_temporal_chains"
 		}
 	},
-	[53]={
+	[54]={
 		[1]={
 			[1]={
 				limit={
@@ -1277,7 +1307,7 @@ return {
 			[1]="vaal_molten_shall_armour_+%_final"
 		}
 	},
-	[54]={
+	[55]={
 		[1]={
 			[1]={
 				limit={
@@ -1299,7 +1329,7 @@ return {
 			[2]="virtual_flame_link_maximum_fire_damage"
 		}
 	},
-	[55]={
+	[56]={
 		[1]={
 			[1]={
 				limit={
@@ -1321,7 +1351,7 @@ return {
 			[2]="virtual_storm_blade_maximum_lightning_damage"
 		}
 	},
-	[56]={
+	[57]={
 		[1]={
 			[1]={
 				limit={
@@ -1381,14 +1411,14 @@ return {
 	["damage_taken_goes_to_mana_%"]=26,
 	["display_bulwark_link_overrides_attack_block_and_maximum_attack_block"]=27,
 	["display_critical_link_overrides_main_hand_critical_strike_chance"]=28,
-	["display_link_stuff"]=56,
+	["display_link_stuff"]=57,
 	["display_skill_buff_grants_bleeding_immunity"]=29,
 	["energy_shield_lost_per_minute"]=30,
 	["flame_link_grants_chance_to_ignite_%"]=31,
 	["herald_of_ice_cold_damage_+%"]=7,
 	["herald_of_thunder_lightning_damage_+%"]=8,
 	["life_leech_is_applied_to_remora_link_targets_instead"]=35,
-	["link_grace_period_8_second_override"]=56,
+	["link_grace_period_8_second_override"]=57,
 	parent="skill_stat_descriptions",
 	["petrified_blood_%_life_loss_below_half_from_hit_to_prevent"]=32,
 	["petrified_blood_%_prevented_life_loss_to_lose_over_time"]=32,
@@ -1419,10 +1449,11 @@ return {
 	["spell_minimum_added_lightning_damage"]=5,
 	["stealth_+%"]=9,
 	["storm_blade_energy_shield_+%_final"]=51,
-	["unaffected_by_temporal_chains"]=52,
-	["vaal_molten_shall_armour_+%_final"]=53,
-	["virtual_flame_link_maximum_fire_damage"]=54,
-	["virtual_flame_link_minimum_fire_damage"]=54,
-	["virtual_storm_blade_maximum_lightning_damage"]=55,
-	["virtual_storm_blade_minimum_lightning_damage"]=55
+	["storm_blade_global_attack_speed_+%"]=52,
+	["unaffected_by_temporal_chains"]=53,
+	["vaal_molten_shall_armour_+%_final"]=54,
+	["virtual_flame_link_maximum_fire_damage"]=55,
+	["virtual_flame_link_minimum_fire_damage"]=55,
+	["virtual_storm_blade_maximum_lightning_damage"]=56,
+	["virtual_storm_blade_minimum_lightning_damage"]=56
 }

@@ -29,6 +29,7 @@ minions["RaisedZombie"] = {
 		mod("Armour", "INC", 40, 0, 0), -- MonsterImplicitDamageReduction1 [physical_damage_reduction_rating_+% = 40]
 		mod("StunThreshold", "INC", 30, 0, 0), -- RaiseZombieStunThreshold [stun_threshold_+% = 30]
 		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- set_monster_no_drops_or_experience [set_monster_no_drops_or_experience = 1]
 	},
 }
 
@@ -285,12 +286,12 @@ minions["SummonedSpectralWolf"] = {
 minions["SummonedSpectralTiger"] = {
 	name = "Spectral Tiger Companion",
 	monsterTags = { "animal_claw_weapon", "beast", "fast_movement", "feline_beast", "ghost", "has_dagger", "has_one_handed_melee", "light_armour", "mammal_beast", "melee", "physical_affinity", "red_blood", "undead", },
-	life = 24.5,
+	life = 12.25,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 24.5,
+	damage = 26.25,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	attackRange = 11,
@@ -302,6 +303,7 @@ minions["SummonedSpectralTiger"] = {
 	},
 	modList = {
 		mod("PhysicalDamageLifeLeech", "BASE", 100, 1, 0), -- SummonedWolfLifeLeech [life_leech_from_physical_attack_damage_permyriad = 10000]
+		mod("Speed", "INC", 20, 1, 0), -- MonsterImplicitFastAttack4 [attack_speed_+% = 20]
 	},
 }
 
@@ -330,6 +332,7 @@ minions["RaisedSkeleton"] = {
 		mod("BlockEffect", "BASE", 15, 0, 0), -- MonsterAttackBlock30Bypass15 [base_block_%_damage_taken = 15]
 		-- SummonSkeletonsSkeletonIsWarrior [summoned_skeleton_is_warrior = 1]
 		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- set_monster_no_drops_or_experience [set_monster_no_drops_or_experience = 1]
 	},
 }
 
@@ -356,6 +359,7 @@ minions["RaisedSkeletonCaster"] = {
 	modList = {
 		-- SummonSkeletonsSkeletonIsMage [summoned_skeleton_is_mage = 1]
 		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- set_monster_no_drops_or_experience [set_monster_no_drops_or_experience = 1]
 	},
 }
 
@@ -384,6 +388,7 @@ minions["RaisedSkeletonMeleeVaal"] = {
 		mod("BlockEffect", "BASE", 15, 0, 0), -- MonsterAttackBlock30Bypass15 [base_block_%_damage_taken = 15]
 		-- SummonSkeletonsSkeletonIsWarrior [summoned_skeleton_is_warrior = 1]
 		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- set_monster_no_drops_or_experience [set_monster_no_drops_or_experience = 1]
 	},
 }
 
@@ -408,6 +413,7 @@ minions["RaisedSkeletonArcherVaal"] = {
 	},
 	modList = {
 		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- set_monster_no_drops_or_experience [set_monster_no_drops_or_experience = 1]
 	},
 }
 
@@ -432,6 +438,7 @@ minions["RaisedSkeletonArcher"] = {
 	},
 	modList = {
 		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- set_monster_no_drops_or_experience [set_monster_no_drops_or_experience = 1]
 	},
 }
 
@@ -848,7 +855,7 @@ minions["AxisEliteSoldierDominatingBlowVaal"] = {
 	},
 	modList = {
 		-- set_item_drop_slots [set_item_drop_slots = 0]
-		mod("Damage", "MORE", 200),
+		mod("Damage", "MORE", 300),
 		mod("DamageTaken", "MORE", -70),
 	},
 }
@@ -903,7 +910,7 @@ minions["AbsolutionTemplarJudgeVaal"] = {
 	},
 	modList = {
 		-- set_item_drop_slots [set_item_drop_slots = 0]
-		mod("Damage", "MORE", 200),
+		mod("Damage", "MORE", 300),
 		mod("DamageTaken", "MORE", -70),
 	},
 }
@@ -1775,5 +1782,86 @@ minions["PenanceMarkPhantasm"] = {
 		-- set_monster_no_drops_or_experience [set_monster_no_drops_or_experience = 1]
 		mod("CurseImmune", "FLAG", 1, 0, 0), -- set_immune_to_curses [set_immune_to_curses = 1]
 		-- set_monster_can_grant_vaal_souls_if_no_experience [set_monster_can_grant_vaal_souls_if_no_experience = 1]
+	},
+}
+
+minions["HolyStrikeMinion"] = {
+	name = "Holy Armament",
+	monsterTags = { "construct", "fast_movement", "ghost_armour", "is_unarmed", "medium_height", "melee", "physical_affinity", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 0,
+	damageSpread = 0.2,
+	attackTime = 0,
+	attackRange = 12,
+	accuracy = 1,
+	limit = "ActiveHolyStrikeMinionLimit",
+	skillList = {
+		"HolyStrikeMinionAttack",
+	},
+	modList = {
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- set_base_cannot_be_stunned [set_base_cannot_be_stunned = 1]
+		mod("DamageTaken", "MORE", -100, 0, 0), -- set_base_cannot_be_damaged [set_base_cannot_be_damaged = 1]
+		-- set_cannot_be_knocked_back [set_cannot_be_knocked_back = 1]
+		-- set_untargetable_by_monster_ai [set_untargetable_by_monster_ai = 1]
+		-- set_immune_to_auras_from_other_teams [set_immune_to_auras_from_other_teams = 1]
+		-- set_hide_mini_life_bar [set_hide_mini_life_bar = 1]
+		mod("Life", "OVERRIDE", 1, 0, 0), -- set_maximum_life_is_one [set_maximum_life_is_one = 1]
+		-- set_cannot_die [set_cannot_die = 1]
+		-- set_cannot_be_splashed_from [set_cannot_be_splashed_from = 1]
+	},
+}
+
+minions["Hiveborn"] = {
+	name = "It That Crawls",
+	monsterTags = { "demon", "fast_movement", "insect", "melee", "not_int", "not_str", "red_blood", },
+	life = 2,
+	evasion = 0.25,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 3,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 11,
+	accuracy = 1,
+	limit = "ActiveHivebornLimit",
+	skillList = {
+		"MeleeAtAnimationSpeedComboCold",
+	},
+	modList = {
+		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+	},
+}
+
+minions["ShamblingUndead"] = {
+	name = "Ceaseless Flesh",
+	monsterTags = { "animal_claw_weapon", "flesh_armour", "is_unarmed", "melee", "physical_affinity", "red_blood", "undead", "very_slow_movement", },
+	life = 2.7,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 2.1,
+	damageSpread = 0.4,
+	attackTime = 1.17,
+	attackRange = 11,
+	accuracy = 3.4,
+	limit = "ShamblingUndeadLimit",
+	skillList = {
+		"MeleeAtAnimationSpeedChaos",
+		"ZombieSlam",
+		"GAZombieCorpseGroundImpact",
+	},
+	modList = {
+		mod("Armour", "INC", 40, 0, 0), -- MonsterImplicitDamageReduction1 [physical_damage_reduction_rating_+% = 40]
+		mod("StunThreshold", "INC", 30, 0, 0), -- RaiseZombieStunThreshold [stun_threshold_+% = 30]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
 	},
 }

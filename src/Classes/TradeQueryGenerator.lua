@@ -916,6 +916,9 @@ function TradeQueryGeneratorClass:FinishQuery()
 	
 	-- Sort by mean Stat diff rather than weight to more accurately prioritize stats that can contribute more
 	table.sort(self.modWeights, function(a, b)
+		if a.meanStatDiff == b.meanStatDiff then
+			return math.abs(a.weight) > math.abs(b.weight)
+		end
 		return a.meanStatDiff > b.meanStatDiff
 	end)
 	
@@ -967,9 +970,6 @@ function TradeQueryGeneratorClass:FinishQuery()
 	end
 
 	local effective_max = MAX_FILTERS - num_extra
-
-	-- Prioritize top mods by abs(weight)
-	table.sort(self.modWeights, function(a, b) return math.abs(a.weight) > math.abs(b.weight) end)
 
 	local prioritizedMods = {}
 	for _, entry in ipairs(self.modWeights) do
