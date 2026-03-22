@@ -3141,6 +3141,11 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 		DrawImage(nil, 4, drawY, vp.width - 8, 1)
 		drawY = drawY + 2
 
+		local pSet = pair.pIdx and pSets[pair.pIdx] or {}
+		local cSet = pair.cIdx and cSets[pair.cIdx] or {}
+		local pFinalGemY = drawY + lineHeight
+		local cFinalGemY = drawY + lineHeight
+
 		-- Primary group (left side)
 		local pGroup = pair.pIdx and pGroups[pair.pIdx]
 		if pGroup then
@@ -3155,9 +3160,28 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 				local gemColor = gem.color or colorCodes.GEM
 				local levelStr = gem.level and (" Lv" .. gem.level) or ""
 				local qualStr = gem.quality and gem.quality > 0 and ("/" .. gem.quality .. "q") or ""
-				DrawString(20, gemY, "LEFT", 14, "VAR", gemColor .. gemName .. "^7" .. levelStr .. qualStr)
+				local prefix = ""
+				if pair.cIdx and not cSet[gemName] then
+					prefix = colorCodes.POSITIVE .. "+ "
+				end
+				DrawString(20, gemY, "LEFT", 14, "VAR", prefix .. gemColor .. gemName .. "^7" .. levelStr .. qualStr)
 				gemY = gemY + 16
 			end
+			-- Show gems missing from primary but present in compare
+			if pair.cIdx then
+				local missing = {}
+				for name in pairs(cSet) do
+					if not pSet[name] then
+						t_insert(missing, name)
+					end
+				end
+				table.sort(missing)
+				for _, name in ipairs(missing) do
+					DrawString(20, gemY, "LEFT", 14, "VAR", colorCodes.NEGATIVE .. "- " .. name .. "^7")
+					gemY = gemY + 16
+				end
+			end
+			pFinalGemY = gemY
 		end
 
 		-- Compare group (right side)
@@ -3174,16 +3198,32 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 				local gemColor = gem.color or colorCodes.GEM
 				local levelStr = gem.level and (" Lv" .. gem.level) or ""
 				local qualStr = gem.quality and gem.quality > 0 and ("/" .. gem.quality .. "q") or ""
-				DrawString(colWidth + 20, gemY, "LEFT", 14, "VAR", gemColor .. gemName .. "^7" .. levelStr .. qualStr)
+				local prefix = ""
+				if pair.pIdx and not pSet[gemName] then
+					prefix = colorCodes.POSITIVE .. "+ "
+				end
+				DrawString(colWidth + 20, gemY, "LEFT", 14, "VAR", prefix .. gemColor .. gemName .. "^7" .. levelStr .. qualStr)
 				gemY = gemY + 16
 			end
+			-- Show gems missing from compare but present in primary
+			if pair.pIdx then
+				local missing = {}
+				for name in pairs(pSet) do
+					if not cSet[name] then
+						t_insert(missing, name)
+					end
+				end
+				table.sort(missing)
+				for _, name in ipairs(missing) do
+					DrawString(colWidth + 20, gemY, "LEFT", 14, "VAR", colorCodes.NEGATIVE .. "- " .. name .. "^7")
+					gemY = gemY + 16
+				end
+			end
+			cFinalGemY = gemY
 		end
 
 		-- Calculate height for this row
-		local pGemCount = pGroup and #(pGroup.gemList or {}) or 0
-		local cGemCount = cGroup and #(cGroup.gemList or {}) or 0
-		local rowGems = m_max(pGemCount, cGemCount)
-		drawY = drawY + lineHeight + rowGems * 16 + 6
+		drawY = drawY + m_max(pFinalGemY - drawY, cFinalGemY - drawY) + 6
 	end
 
 	SetViewport()
