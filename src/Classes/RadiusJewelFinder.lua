@@ -22,6 +22,7 @@ local t_concat = table.concat
 local s_format = string.format
 local m_huge = math.huge
 local m_abs = math.abs
+local WeightedScore = LoadModule("Modules/WeightedScore")
 
 local function formatSignedValue(value)
 	local sign = value >= 0 and "+" or ""
@@ -474,6 +475,11 @@ end
 function RadiusJewelFinderClass:getImpactValue(impactStat, output)
 	impactStat = normalizeImpactStat(impactStat)
 	local selection = impactStat.selection or impactStat
+	if selection.isWeightedScore then
+		local weights = WeightedScore.getWeights(self.build)
+		local _, buildBaseOutput = self.build.calcsTab:GetMiscCalculator()
+		return WeightedScore.computeRatioScore(buildBaseOutput, output, weights) * 1000
+	end
 	local scopedOutput = output
 	if scopedOutput and scopedOutput.Minion and selection.stat ~= "FullDPS" then
 		scopedOutput = scopedOutput.Minion
