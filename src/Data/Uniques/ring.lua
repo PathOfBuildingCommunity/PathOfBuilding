@@ -475,8 +475,8 @@ Implicits: 1
 {tags:resource}50% increased Mana Regeneration Rate
 {variant:2}{tags:resistance}+(30-40)% to Cold Resistance
 {variant:2}Cannot be Chilled
-{variant:1}Cannot be Frozen
 {variant:2}Cannot be Frozen
+{variant:1}Cannot be Frozen
 ]],[[
 Emberwake
 Ruby Ring
@@ -556,9 +556,9 @@ League: Necropolis
 Source: Created from 4 different unique{Grattus} family corpses in the normal{Necropolis}
 Requires Level 64
 Implicits: 1
+{tags:critical}(20-30)% increased Global Critical Strike Chance
 {tags:attack,speed}(5-10)% increased Attack Speed
 {tags:caster,speed}(5-10)% increased Cast Speed
-{tags:critical}(20-30)% increased Global Critical Strike Chance
 {tags:defences}+(40-60) to maximum Energy Shield
 {tags:resource}+(30-50) to maximum Life
 Attacks inflict Unnerve on Critical Strike for 4 seconds
@@ -1046,7 +1046,7 @@ Has 1 Socket
 {variant:2}{tags:resource}Socketed Golem Skills have Minions Regenerate 5% of Life per second
 {variant:1}+2 to Level of Socketed Golem Gems
 {variant:2}+3 to Level of Socketed Golem Gems
-{variant:1}Socketed Gems are Supported by Level 12 Lesser Multiple Projectiles
+{variant:1}Socketed Gems are Supported by Level 12 Multiple Projectiles
 {variant:1}Socketed Gems are Supported by Level 17 Minion Damage
 {tags:attribute}+(30-40) to Strength
 {tags:elemental_damage}(20-30)% increased Fire Damage
@@ -1149,15 +1149,23 @@ Implicits: 1
 {tags:elemental_damage,attack}Adds (8-15) to (20-28) Fire Damage to Attacks
 {variant:1}(20-40)% increased Rarity of Items found
 {variant:2,3,4,5}(10-20)% reduced Rarity of Items found
-{variant:1,2}Left ring slot: You and your Minions take 30% reduced Reflected Elemental Damage
-{variant:3}Left ring slot: You and your Minions take 40% reduced Reflected Elemental Damage
-{variant:4}Left ring slot: You and your Minions take 80% reduced Reflected Elemental Damage
-{variant:5}Left ring slot: 100% of Elemental Hit Damage from you and your Minions cannot be Reflected
-{variant:1,2}Right ring slot: You and your Minions take 30% reduced Reflected Physical Damage
-{variant:3}Right ring slot: You and your Minions take 40% reduced Reflected Physical Damage
-{variant:4}Right ring slot: You and your Minions take 80% reduced Reflected Physical Damage
 {tags:elemental_damage,attack}(20-30)% increased Elemental Damage with Attack Skills
-{variant:5}Right ring slot: 100% of Physical Hit Damage from you and your Minions cannot be Reflected
+{variant:1,2}Left ring slot: 30% of Elemental Hit Damage from you and
+{variant:1,2}your Minions cannot be Reflected
+{variant:3}Left ring slot: 40% of Elemental Hit Damage from you and
+{variant:3}your Minions cannot be Reflected
+{variant:4}Left ring slot: 80% of Elemental Hit Damage from you and
+{variant:4}your Minions cannot be Reflected
+{variant:5}Left ring slot: 100% of Elemental Hit Damage from you and
+{variant:5}your Minions cannot be Reflected
+{variant:1,2}Right ring slot: 30% of Physical Hit Damage from you and
+{variant:1,2}your Minions cannot be Reflected
+{variant:3}Right ring slot: 40% of Physical Hit Damage from you and
+{variant:3}your Minions cannot be Reflected
+{variant:4}Right ring slot: 80% of Physical Hit Damage from you and
+{variant:4}your Minions cannot be Reflected
+{variant:5}Right ring slot: 100% of Physical Hit Damage from you and
+{variant:5}your Minions cannot be Reflected
 ]],[[
 Snakepit
 Sapphire Ring
@@ -1231,10 +1239,10 @@ Implicits: 1
 {variant:1}5% chance to Freeze, Shock and Ignite
 {variant:2,3}10% chance to Freeze, Shock and Ignite
 {variant:1}{tags:elemental_damage}10% increased Elemental Damage with Hits and Ailments for
-{variant:2}{tags:elemental_damage}20% increased Elemental Damage with Hits and Ailments for
-{variant:3}{tags:elemental_damage}(30-40)% increased Elemental Damage with Hits and Ailments for
 {variant:1}{tags:elemental_damage}each type of Elemental Ailment on Enemy
+{variant:2}{tags:elemental_damage}20% increased Elemental Damage with Hits and Ailments for
 {variant:2}{tags:elemental_damage}each type of Elemental Ailment on Enemy
+{variant:3}{tags:elemental_damage}(30-40)% increased Elemental Damage with Hits and Ailments for
 {variant:3}{tags:elemental_damage}each type of Elemental Ailment on Enemy
 {variant:1}{tags:elemental_damage,attack}15% increased Elemental Damage with Attack Skills
 {variant:2}{tags:elemental_damage,attack}30% increased Elemental Damage with Attack Skills
@@ -1656,10 +1664,10 @@ Formless Ring
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
 Requires Level 42
 Implicits: 1
-{tags:jewellery_defense}(5-7)% increased Global Defences
+{tags:defences}(5-7)% increased Global Defences
 Grants Level 30 Herald of the Hive Skill
-{tags:jewellery_resistance}+(10–20)% to all Elemental Resistances
-{tags:jewellery_resistance}+(23–37)% to Chaos Resistance
+{tags:resistance}+(10-20)% to all Elemental Resistances
+{tags:resistance}+(23-37)% to Chaos Resistance
 ]],
 [[
 The Sundered Will
@@ -1667,14 +1675,15 @@ Fugitive Ring
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
 Requires Level 42
 Implicits: 2
-Cannot roll Modifiers of Non-Chaos Damage Types
-{tags:jewellery_resistance}+2% to maximum Chaos Resistance
-{tags:jewellery_attribute}+(7-13) to all Attributes
+{tags:resistance}+2% to maximum Chaos Resistance
+{tags:resistance}Cannot roll Modifiers of Non-Chaos Damage Types
+{tags:attribute}+(7-13) to all Attributes
 {tags:chaos_damage}Adds (7-11) to (17-23) Chaos Damage
-{tags:jewellery_resistance}+(13-29)% to Chaos Resistance
+{tags:resistance}+(13-29)% to Chaos Resistance
 (20-30)% increased Area of Effect of Aura Skills
 (20-35)% reduced Reservation Efficiency of Skills
-Increases and Reductions to Chaos Damage also apply to Effect of Auras from Chaos Skills at (10–15)% of their value, up to a maximum of 150%
+Increases and Reductions to Chaos Damage also apply to Effect of
+Auras from Chaos Skills at (10-15)% of their value, up to a maximum of 150%
 ]],
 [[
 The Unseen Hue
@@ -1686,28 +1695,29 @@ Variant: Brittle
 Variant: Sap
 Implicits: 1
 {tags:elemental_damage}(15-25)% increased Elemental Damage
-{tags:jewellery_resistance}+(5-30)% to Fire Resistance
-{tags:jewellery_resistance}+(5-30)% to Cold Resistance
-{tags:jewellery_resistance}+(5-30)% to Lightning Resistance
-{tags:caster,attack,speed}(6-12)% increased Attack and Cast Speed
+{tags:resistance}+(5-30)% to Fire Resistance
+{tags:resistance}+(5-30)% to Cold Resistance
+{tags:resistance}+(5-30)% to Lightning Resistance
+{tags:attack,caster,speed}(6-12)% increased Attack and Cast Speed
 (10-20)% increased Effect of Non-Damaging Ailments
-{variant:1}Hits with Prismatic Skills always Scorch
 {variant:2}Hits with Prismatic Skills always inflict Brittle
 {variant:3}Hits with Prismatic Skills always Sap
+{variant:1}Hits with Prismatic Skills always Scorch
 ]],[[
 The Will of Esh
 Synaptic Ring
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
 Requires Level 42
 Implicits: 2
-Cannot roll Modifiers of Non-Lightning Damage Types
-{tags:jewellery_resistance}+2% to maximum Lightning Resistance
-{tags:jewellery_attribute}+(15-25) to Intelligence
+{tags:resistance}+2% to maximum Lightning Resistance
+{tags:resistance}Cannot roll Modifiers of Non-Lightning Damage Types
+{tags:attribute}+(15-25) to Intelligence
 {tags:elemental_damage}Adds (1-2) to (43-56) Lightning Damage
-{tags:jewellery_resistance}+(20-30)% to Lightning Resistance
+{tags:resistance}+(20-30)% to Lightning Resistance
 (20-30)% increased Area of Effect of Aura Skills
 (20-35)% reduced Reservation Efficiency of Skills
-Increases and Reductions to Lightning Damage also apply to Effect of Auras from Lightning Skills at (10-15)% of their value, up to a maximum of 150%
+Increases and Reductions to Lightning Damage also apply to Effect of
+Auras from Lightning Skills at (10-15)% of their value, up to a maximum of 150%
 ]],
 [[
 The Will of Tul
@@ -1715,14 +1725,15 @@ Cryonic Ring
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
 Requires Level 42
 Implicits: 2
-Cannot roll Modifiers of Non-Cold Damage Types
-{tags:jewellery_resistance}+2% to maximum Cold Resistance
-{tags:jewellery_attribute}+(15-25) to Dexterity
+{tags:resistance}+2% to maximum Cold Resistance
+{tags:resistance}Cannot roll Modifiers of Non-Cold Damage Types
+{tags:attribute}+(15-25) to Dexterity
 {tags:elemental_damage}Adds (8-12) to (18-26) Cold Damage
-{tags:jewellery_resistance}+(20-30)% to Cold Resistance
+{tags:resistance}+(20-30)% to Cold Resistance
 (20-30)% increased Area of Effect of Aura Skills
 (20-35)% reduced Reservation Efficiency of Skills
-Increases and Reductions to Cold Damage also apply to Effect of Auras from Cold Skills at (10-15)% of their value, up to a maximum of 150%
+Increases and Reductions to Cold Damage also apply to Effect of
+Auras from Cold Skills at (10-15)% of their value, up to a maximum of 150%
 ]],
 [[
 The Will of Uul-Netol
@@ -1730,14 +1741,15 @@ Organic Ring
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
 Requires Level 42
 Implicits: 2
-Cannot roll Modifiers of Non-Physical Damage Types
 3% additional Physical Damage Reduction
-{tags:jewellery_attribute}+(15-25) to Strength
-Adds (8-12) to (14-20) Physical Damage
-{tags:jewellery_defense}(20-30)% increased Armour
+Cannot roll Modifiers of Non-Physical Damage Types
+{tags:attribute}+(15-25) to Strength
+{tags:physical_damage}Adds (8-12) to (14-20) Physical Damage
+{tags:defences}(20-30)% increased Armour
 (20-30)% increased Area of Effect of Aura Skills
 (20-35)% reduced Reservation Efficiency of Skills
-Increases and Reductions to Physical Damage also apply to Effect of Auras from Physical Skills at (10-15)% of their value, up to a maximum of 150%
+Increases and Reductions to Physical Damage also apply to Effect of
+Auras from Physical Skills at (10-15)% of their value, up to a maximum of 150%
 ]],
 [[
 The Will of Xoph
@@ -1745,14 +1757,15 @@ Enthalpic Ring
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
 Requires Level 42
 Implicits: 2
-Cannot roll Modifiers of Non-Fire Damage Types
-{tags:jewellery_resistance}+2% to maximum Fire Resistance
-{tags:jewellery_attribute}+(15-25) to Strength
+{tags:resistance}+2% to maximum Fire Resistance
+{tags:resistance}Cannot roll Modifiers of Non-Fire Damage Types
+{tags:attribute}+(15-25) to Strength
 {tags:elemental_damage}Adds (10-14) to (26-34) Fire Damage
-{tags:jewellery_resistance}+(20-30)% to Fire Resistance
+{tags:resistance}+(20-30)% to Fire Resistance
 (20-30)% increased Area of Effect of Aura Skills
 (20-35)% reduced Reservation Efficiency of Skills
-Increases and Reductions to Fire Damage also apply to Effect of Auras from Fire Skills at (10-15)% of their value, up to a maximum of 150%
+Increases and Reductions to Fire Damage also apply to Effect of
+Auras from Fire Skills at (10-15)% of their value, up to a maximum of 150%
 ]],
 [[
 Woespike
@@ -1762,13 +1775,13 @@ Variant: Pre 3.28.0
 Variant: Current
 Requires Level 80
 Implicits: 1
-{tags:attack,physical_damage}Adds (3-4) to (10-14) Physical Damage to Attacks
-{tags:jewellery_attribute}+(25-40) to Strength and Dexterity
-{tags:attack,physical_damage}Adds (8-12) to (18-24) Physical Damage to Attacks
+{tags:physical_damage,attack}Adds (3-4) to (10-14) Physical Damage to Attacks
+{tags:attribute}+(25-40) to Strength and Dexterity
+{tags:physical_damage,attack}Adds (8-12) to (18-24) Physical Damage to Attacks
 {tags:attack}(10-20)% chance to Impale Enemies on Hit with Attacks
-{variant:1}(40-25)% reduced Impale Duration
-{variant:2}(50-40)% less Impale Duration
 {variant:1}{tags:attack}(45-60)% chance on Melee Hit for the Strongest Impale on target to last for 1 additional Hit
 {variant:2}{tags:attack}(20-30)% chance on Melee Hit for the Strongest Impale on target to last for 1 additional Hit
+{variant:2}(40-50)% less Impale Duration
+{variant:1}(40-25)% reduced Impale Duration
 ]],
 }

@@ -1134,6 +1134,7 @@ Coral Ring
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.9.0
+Variant: Pre 3.28.0
 Variant: Current
 Requires Level 45
 Implicits: 1
@@ -1141,13 +1142,15 @@ IncreasedLifeImplicitRing1
 WeaponElementalDamageUniqueRing10
 AddedFireDamageUniqueRing10
 {variant:1}ItemFoundRarityDecreaseUniqueRing10[20,40]
-{variant:2,3,4}ItemFoundRarityDecreaseUniqueRing10
+{variant:2,3,4,5}ItemFoundRarityDecreaseUniqueRing10
 {variant:1,2}LeftRingSlotElementalReflectDamageTakenUniqueRing10[-30,-30]
 {variant:3}LeftRingSlotElementalReflectDamageTakenUniqueRing10[-40,-40]
-{variant:4}LeftRingSlotElementalReflectDamageTakenUniqueRing10
+{variant:4}LeftRingSlotElementalReflectDamageTakenUniqueRing10[-80,-80]
+{variant:5}LeftRingSlotElementalReflectDamageTakenUniqueRing10
 {variant:1,2}RightRingSlotPhysicalReflectDamageTakenUniqueRing10[-30,-30]
 {variant:3}RightRingSlotPhysicalReflectDamageTakenUniqueRing10[-40,-40]
-{variant:4}RightRingSlotPhysicalReflectDamageTakenUniqueRing10
+{variant:4}RightRingSlotPhysicalReflectDamageTakenUniqueRing10[-80,-80]
+{variant:5}RightRingSlotPhysicalReflectDamageTakenUniqueRing10
 ]],[[
 Snakepit
 Sapphire Ring
@@ -1631,8 +1634,125 @@ Unset Ring
 Requires Level 32
 Implicits: 1
 RingHasOneSocket
-MutatedUniqueBow12SummonWrithingWormEveryXMs
+SummonWrithingWormEveryXMsUnique__1
 TriggerSocketedSpellOnKillUnique__1
 LoseLifePerTargetUnique__2
 ManaGainPerTargetUnique__3
-]],}
+]],
+[[
+Lost Unity
+Formless Ring
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 42
+Implicits: 1
+FormlessBreachRingImplicit
+HeraldOfTheBreachUnique_1
+AllResistancesUnique__33
+ChaosResistUnique__36
+]],
+[[
+The Sundered Will
+Fugitive Ring
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 42
+Implicits: 1
+ChayulaBreachRingImplicit
+AllAttributesUnique__31
+GlobalAddedChaosDamageUnique__7
+ChaosResistUnique__35
+AuraIncreasedIncreasedAreaOfEffectUnique_3
+ReservationEfficiencyUnique__6
+ChaosDamageModsApplyToChaosAuraEffectAtPercentUnique_1
+]],
+[[
+The Unseen Hue
+Opal Ring
+Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 80
+Variant: Scorch
+Variant: Brittle
+Variant: Sap
+Implicits: 1
+ElementalDamagePercentImplicitAtlasRing_
+FireResistUnique__36
+ColdResistUnique__42
+LightningResistUnique__32
+AttackAndCastSpeedUnique__10
+NonDamagingAilmentEffectUnique_1
+{variant:1}PrismaticSkillsInflictScorchUnique_1
+{variant:2}PrismaticSkillsInflictBrittleUnique_1
+{variant:3}PrismaticSkillsInflictSapUnique_1
+]],[[
+The Will of Esh
+Synaptic Ring
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 42
+Implicits: 1
+EshBreachRingImplicit
+IntelligenceUniqueRing34
+GlobalAddedLightningDamageUnique__5
+LightningResistImplicitRing1
+AuraIncreasedIncreasedAreaOfEffectUnique_2
+ReservationEfficiencyUnique__10
+LightningDamageModsApplyToLightningAuraEffectAtPercentUnique_1
+]],
+[[
+The Will of Tul
+Cryonic Ring
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 42
+Implicits: 1
+TulBreachRingImplicit
+DexterityUnique__34
+GlobalAddedColdDamageUnique__5
+ColdResistImplicitRing1
+AuraIncreasedIncreasedAreaOfEffectUnique_2
+ReservationEfficiencyUnique__10
+ColdDamageModsApplyToColdAuraEffectAtPercentUnique_1
+]],
+[[
+The Will of Uul-Netol
+Organic Ring
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 42
+Implicits: 1
+UulNetolBreachRingImplicit
+StrengthUniqueRing31__
+GlobalAddedPhysicalDamageUnique__3
+GlobalPhysicalDamageReductionRatingPercentUnique__2
+AuraIncreasedIncreasedAreaOfEffectUnique_2
+ReservationEfficiencyUnique__10
+PhysicalDamageModsApplyToPhysicalAuraEffectAtPercentUnique_1
+]],
+[[
+The Will of Xoph
+Enthalpic Ring
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 42
+Implicits: 1
+XophBreachRingImplicit
+StrengthUniqueRing31__
+GlobalAddedFireDamageUnique__6
+FireResistImplicitRing1
+AuraIncreasedIncreasedAreaOfEffectUnique_2
+ReservationEfficiencyUnique__10
+FireDamageModsApplyToFireAuraEffectAtPercentUnique_1
+]],
+[[
+Woespike
+Steel Ring
+Source: Drops from unique{Uber Incarnation of Fear} in normal{Moment of Trauma}
+Variant: Pre 3.28.0
+Variant: Current
+Requires Level 80
+Implicits: 1
+AddedPhysicalDamageImplicitRing2
+StrengthAndDexterityUnique_1
+AddedPhysicalDamageUnique__12
+AttackImpaleChanceUnique__2
+{variant:1}(40-25)% reduced Impale Duration
+{variant:2}ImpaleDurationUnique_1[-50,-40]
+{variant:1}ChanceMeleeHitsDontRemoveSTRONGESTImpaleUnique_1[45,60]
+{variant:2}ChanceMeleeHitsDontRemoveSTRONGESTImpaleUnique_1
+]],
+}
