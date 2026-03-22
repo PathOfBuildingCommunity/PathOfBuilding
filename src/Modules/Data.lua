@@ -158,7 +158,12 @@ data.powerStatList = {
 	{ stat="BlockChance", label="Block Chance" },
 	{ stat="SpellBlockChance", label="Spell Block Chance" },
 	{ stat="SpellSuppressionChance", label="Spell Suppression Chance" },
-	{ stat="WeightedScore", label="Weighted Score", isWeightedScore=true },
+	{ stat="WeightedScore", label="Weighted Score", isWeightedScore=true, getValue=function(output, build)
+		local WeightedScore = LoadModule("Modules/WeightedScore")
+		local weights = WeightedScore.getWeights(build)
+		local _, buildBase = build.calcsTab:GetMiscCalculator()
+		return WeightedScore.computeRatioScore(buildBase, output, weights) * 1000
+	end },
 }
 
 data.misc = { -- magic numbers
