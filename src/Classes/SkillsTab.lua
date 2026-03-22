@@ -219,25 +219,24 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.imbuedSupportBySlot = { }
 	self.controls.imbuedSupportLabel = new("LabelControl", { "LEFT", self.controls.includeInFullDPS, "RIGHT" }, { 12, 0, 0, 16 }, colorCodes.POSITIVE.."Imbued Support:")
 	self.controls.imbuedSupport = new("GemSelectControl", { "LEFT", self.controls.imbuedSupportLabel, "RIGHT" }, { 8, 0, 250, 20 }, self, 1, function(gemData, _, _, slotName) -- slotName used on Import
+		if not (self.displayGroup or slotName) then
+			return
+		end
 		if gemData and (type(gemData) == "string" or gemData.id) then
 			local gem = data.gems[gemData.id or gemData]
 			self.imbuedSupportBySlot[slotName or self.displayGroup.slot] = gem.grantedEffect
 			if self.displayGroup then
 				self.displayGroup.imbuedSupport = gem.name
 			end
-			self.controls.imbuedSupport:SetText(data.skillColorMap[gem.grantedEffect.color]..gem.name) -- hacky way to set gem color on gemSelect
+			self.controls.imbuedSupport.inactiveCol = data.skillColorMap[gem.grantedEffect.color]
 			self.build.buildFlag = true
 		else
 			self.imbuedSupportBySlot[slotName or self.displayGroup.slot] = nil
 		end
-	end, nil, true)
+	end, true, true)
 	self.controls.imbuedSupport.enabled = function()
 		-- socketedIn must be set and the displayGroup must have an imbued, otherwise disable the imbued dropdown
-		if self.displayGroup.slot and ((self.imbuedSupportBySlot[self.displayGroup.slot] and self.displayGroup.imbuedSupport) or not self.imbuedSupportBySlot[self.displayGroup.slot]) then
-			return true
-		else
-			return false
-		end
+		return (self.displayGroup.slot and ((self.imbuedSupportBySlot[self.displayGroup.slot] and self.displayGroup.imbuedSupport) or not self.imbuedSupportBySlot[self.displayGroup.slot]))
 	end
 	self.controls.imbuedSupportLabel.shown = function() -- don't show imbued for skills from items
 		return not self.displayGroup.source
@@ -1072,7 +1071,8 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 		if socketGroup.imbuedSupport then
 			local gemId = data.gems[data.gemForBaseName[socketGroup.imbuedSupport:lower().." support"]]
 			self.controls.imbuedSupport.gemId = gemId
-			self.controls.imbuedSupport:SetText(data.skillColorMap[gemId.grantedEffect.color]..socketGroup.imbuedSupport)
+			self.controls.imbuedSupport:SetText(socketGroup.imbuedSupport)
+			self.controls.imbuedSupport.inactiveCol = data.skillColorMap[gemId.grantedEffect.color]
 		else
 			self.controls.imbuedSupport.gemId = nil
 			self.controls.imbuedSupport:SetText("")

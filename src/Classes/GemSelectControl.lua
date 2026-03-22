@@ -12,7 +12,7 @@ local m_max = math.max
 local m_floor = math.floor
 
 local toolTipText = "Prefix tag searches with a colon and exclude tags with a dash. e.g. :fire:lightning:-cold:area"
-local imbuedTooltipText = "Socketed in must be set in order to add an imbued support. Only one imbued support is allowed per socketed in."
+local imbuedTooltipText = "Socketed in must be set in order to add an imbued support.\nOnly one imbued support is allowed per socketed in."
 local altQualMap = {
 	["Default"] = "",
 	["Alternate1"] = "Anomalous ",
@@ -531,6 +531,18 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			local gemInstance = self.skillsTab.displayGroup.gemList[self.index]
 			local cursorX, cursorY = GetCursorPos()
 			self.tooltip:Clear()
+
+			if hoverControl and hoverControl.imbuedSelect then -- tooltip for imbued
+				gemInstance = { }
+				if type(hoverControl.gemId) == "string" then -- on select
+					gemInstance["gemData"] = hoverControl.gems[hoverControl.gemId]
+				else -- on load
+					gemInstance["gemData"] = hoverControl.gemId
+				end
+				gemInstance.level = 1
+				gemInstance.quality = 0
+			end
+
 			if gemInstance and gemInstance.gemData then
 				-- Check valid qualityId, set to 'Default' if missing
 				if gemInstance.qualityId == nil or gemInstance.qualityId == "" then
