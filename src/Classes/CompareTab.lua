@@ -9,6 +9,21 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 local s_format = string.format
+local dkjson = require "dkjson"
+local queryModsData = LoadModule("Data/QueryMods")
+
+-- Forward declarations for trade helper functions (defined later in the file)
+local findTradeModId
+local getTradeCategory
+local getTradeCategoryLabel
+local modLineValue
+
+-- Realm display name to API id mapping (used by Buy Similar popup and URL builder)
+local REALM_API_IDS = {
+	["PC"]   = "pc",
+	["PS4"]  = "sony",
+	["Xbox"] = "xbox",
+}
 
 -- Layout constants (shared across Draw, DrawConfig, DrawItems, DrawCalcs, etc.)
 local LAYOUT = {
@@ -30,6 +45,7 @@ local LAYOUT = {
 	itemsCheckboxOffset = 36,
 	itemsCopyBtnW = 60,
 	itemsCopyBtnH = 18,
+	itemsBuyBtnW = 60,
 
 	-- Calcs view
 	calcsMaxCardWidth = 400,
@@ -1060,6 +1076,361 @@ function CompareTabClass:CopyCompareItemToPrimary(slotName, compareEntry, andUse
 	pItemsTab:PopulateSlots()
 	pItemsTab:AddUndoState()
 	self.primaryBuild.buildFlag = true
+end
+
+-- Helper: create a numeric EditControl without +/- spinner buttons
+local function newPlainNumericEdit(anchor, rect, init, prompt, limit)
+	local ctrl = new("EditControl", anchor, rect, init, prompt, "%D", limit)
+	-- Remove the +/- spinner buttons that "%D" filter triggers
+	ctrl.isNumeric = false
+	if ctrl.controls then
+		if ctrl.controls.buttonDown then ctrl.controls.buttonDown.shown = false end
+		if ctrl.controls.buttonUp then ctrl.controls.buttonUp.shown = false end
+	end
+	return ctrl
+end
+
+-- Open the Buy Similar popup for a compared item
+function CompareTabClass:OpenBuySimilarPopup(item, slotName)
+	if not item then return end
+
+	local isUnique = item.rarity == "UNIQUE" or item.rarity == "RELIC"
+	local controls = {}
+	local rowHeight = 24
+	local popupWidth = 550
+	local leftMargin = 20
+	local minFieldX = popupWidth - 160
+	local maxFieldX = popupWidth - 80
+	local fieldW = 60
+	local fieldH = 20
+	local checkboxSize = 20
+
+	-- Collect mod entries with trade IDs
+	local modEntries = {}
+	local modTypeSources = {
+		{ list = item.implicitModLines, type = "implicit" },
+		{ list = item.enchantModLines, type = "enchant" },
+		{ list = item.scourgeModLines, type = "explicit" },
+		{ list = item.explicitModLines, type = "explicit" },
+		{ list = item.crucibleModLines, type = "explicit" },
+	}
+	for _, source in ipairs(modTypeSources) do
+		if source.list then
+			for _, modLine in ipairs(source.list) do
+				if item:CheckModLineVariant(modLine) then
+					local formatted = itemLib.formatModLine(modLine)
+					if formatted then
+						local tradeId = findTradeModId(modLine.line, source.type)
+						local value = modLineValue(modLine.line)
+						t_insert(modEntries, {
+							line = modLine.line,
+							formatted = formatted:gsub("%^x%x%x%x%x%x%x", ""):gsub("%^%x", ""), -- strip color codes
+							tradeId = tradeId,
+							value = value,
+							modType = source.type,
+						})
+					end
+				end
+			end
+		end
+	end
+
+	-- Collect defence stats for non-unique gear items
+	local defenceEntries = {}
+	if not isUnique and item.armourData and item.base and item.base.armour then
+		local defences = {
+			{ key = "Armour", label = "Armour", tradeKey = "ar" },
+			{ key = "Evasion", label = "Evasion", tradeKey = "ev" },
+			{ key = "EnergyShield", label = "Energy Shield", tradeKey = "es" },
+			{ key = "Ward", label = "Ward", tradeKey = "ward" },
+		}
+		for _, def in ipairs(defences) do
+			local val = item.armourData[def.key]
+			if val and val > 0 then
+				t_insert(defenceEntries, {
+					label = def.label,
+					value = val,
+					tradeKey = def.tradeKey,
+				})
+			end
+		end
+	end
+
+	-- Build controls
+	local ctrlY = 25
+
+	-- Realm and league dropdowns
+	local tradeQuery = self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.tradeQuery
+	local tradeQueryRequests = tradeQuery and tradeQuery.tradeQueryRequests
+	if not tradeQueryRequests then
+		tradeQueryRequests = new("TradeQueryRequests")
+	end
+
+	-- Helper to fetch and populate leagues for a given realm API id
+	local function fetchLeaguesForRealm(realmApiId)
+		controls.leagueDrop:SetList({"Loading..."})
+		controls.leagueDrop.selIndex = 1
+		tradeQueryRequests:FetchLeagues(realmApiId, function(leagues, errMsg)
+			if errMsg then
+				controls.leagueDrop:SetList({"Standard"})
+				return
+			end
+			local leagueList = {}
+			for _, league in ipairs(leagues) do
+				if league ~= "Standard" and league ~= "Ruthless" and league ~= "Hardcore" and league ~= "Hardcore Ruthless" then
+					if not (league:find("Hardcore") or league:find("Ruthless")) then
+						t_insert(leagueList, 1, league)
+					else
+						t_insert(leagueList, league)
+					end
+				end
+			end
+			t_insert(leagueList, "Standard")
+			t_insert(leagueList, "Hardcore")
+			t_insert(leagueList, "Ruthless")
+			t_insert(leagueList, "Hardcore Ruthless")
+			controls.leagueDrop:SetList(leagueList)
+		end)
+	end
+
+	-- Realm dropdown
+	controls.realmLabel = new("LabelControl", {"TOPLEFT", nil, "TOPLEFT"}, {leftMargin, ctrlY, 0, 16}, "^7Realm:")
+	controls.realmDrop = new("DropDownControl", {"LEFT", controls.realmLabel, "RIGHT"}, {4, 0, 80, 20}, {"PC", "PS4", "Xbox"}, function(index, value)
+		local realmApiId = REALM_API_IDS[value] or "pc"
+		fetchLeaguesForRealm(realmApiId)
+	end)
+
+	-- League dropdown
+	controls.leagueLabel = new("LabelControl", {"LEFT", controls.realmDrop, "RIGHT"}, {12, 0, 0, 16}, "^7League:")
+	controls.leagueDrop = new("DropDownControl", {"LEFT", controls.leagueLabel, "RIGHT"}, {4, 0, 160, 20}, {"Loading..."}, function(index, value)
+		-- League selection stored in the dropdown itself
+	end)
+	controls.leagueDrop.enabled = function() return #controls.leagueDrop.list > 0 and controls.leagueDrop.list[1] ~= "Loading..." end
+
+	-- Fetch initial leagues for default realm
+	fetchLeaguesForRealm("pc")
+	ctrlY = ctrlY + rowHeight + 4
+
+	if isUnique then
+		-- Unique item name label
+		controls.nameLabel = new("LabelControl", nil, {0, ctrlY, 0, 16}, "^x" .. (colorCodes[item.rarity] or "FFFFFF"):gsub("%^x","") .. item.name)
+		ctrlY = ctrlY + rowHeight
+	else
+		-- Category label
+		local categoryLabel = getTradeCategoryLabel(slotName, item)
+		controls.categoryLabel = new("LabelControl", {"TOPLEFT", nil, "TOPLEFT"}, {leftMargin, ctrlY, 0, 16}, "^7Category: " .. categoryLabel)
+		ctrlY = ctrlY + rowHeight
+
+		-- Base type checkbox
+		controls.baseTypeCheck = new("CheckBoxControl", nil, {-popupWidth/2 + leftMargin + checkboxSize/2, ctrlY, checkboxSize}, "", nil, nil)
+		controls.baseTypeLabel = new("LabelControl", {"LEFT", controls.baseTypeCheck, "RIGHT"}, {4, 0, 0, 16}, "^7Use specific base: " .. (item.baseName or "Unknown"))
+		ctrlY = ctrlY + rowHeight
+
+		-- Item level
+		ctrlY = ctrlY + 4
+		controls.ilvlLabel = new("LabelControl", {"TOPLEFT", nil, "TOPLEFT"}, {leftMargin, ctrlY, 0, 16}, "^7Item Level:")
+		controls.ilvlMin = newPlainNumericEdit(nil, {minFieldX - popupWidth/2, ctrlY, fieldW, fieldH}, "", "Min", 4)
+		controls.ilvlMax = newPlainNumericEdit(nil, {maxFieldX - popupWidth/2, ctrlY, fieldW, fieldH}, "", "Max", 4)
+		ctrlY = ctrlY + rowHeight
+
+		-- Defence stat rows
+		for i, def in ipairs(defenceEntries) do
+			local prefix = "def" .. i
+			controls[prefix .. "Check"] = new("CheckBoxControl", nil, {-popupWidth/2 + leftMargin + checkboxSize/2, ctrlY, checkboxSize}, "", nil, nil)
+			controls[prefix .. "Label"] = new("LabelControl", {"LEFT", controls[prefix .. "Check"], "RIGHT"}, {4, 0, 0, 16}, "^7" .. def.label)
+			controls[prefix .. "Min"] = newPlainNumericEdit(nil, {minFieldX - popupWidth/2, ctrlY, fieldW, fieldH}, tostring(m_floor(def.value)), "Min", 6)
+			controls[prefix .. "Max"] = newPlainNumericEdit(nil, {maxFieldX - popupWidth/2, ctrlY, fieldW, fieldH}, "", "Max", 6)
+			ctrlY = ctrlY + rowHeight
+		end
+
+		-- Separator between defence stats and mods
+		if #defenceEntries > 0 then
+			ctrlY = ctrlY + 8
+		end
+	end
+
+	-- Mod rows
+	for i, entry in ipairs(modEntries) do
+		local prefix = "mod" .. i
+		local canSearch = entry.tradeId ~= nil
+		controls[prefix .. "Check"] = new("CheckBoxControl", nil, {-popupWidth/2 + leftMargin + checkboxSize/2, ctrlY, checkboxSize}, "", nil, nil)
+		controls[prefix .. "Check"].enabled = function() return canSearch end
+		-- Truncate long mod text to fit
+		local displayText = entry.formatted
+		if #displayText > 45 then
+			displayText = displayText:sub(1, 42) .. "..."
+		end
+		controls[prefix .. "Label"] = new("LabelControl", {"LEFT", controls[prefix .. "Check"], "RIGHT"}, {4, 0, 0, 16}, (canSearch and "^7" or "^8") .. displayText)
+		controls[prefix .. "Min"] = newPlainNumericEdit(nil, {minFieldX - popupWidth/2, ctrlY, fieldW, fieldH}, entry.value ~= 0 and tostring(m_floor(entry.value)) or "", "Min", 8)
+		controls[prefix .. "Max"] = newPlainNumericEdit(nil, {maxFieldX - popupWidth/2, ctrlY, fieldW, fieldH}, "", "Max", 8)
+		if not canSearch then
+			controls[prefix .. "Min"].enabled = function() return false end
+			controls[prefix .. "Max"].enabled = function() return false end
+		end
+		ctrlY = ctrlY + rowHeight
+	end
+
+	-- Search button
+	ctrlY = ctrlY + 8
+	controls.search = new("ButtonControl", nil, {0, ctrlY, 100, 20}, "Generate URL", function()
+		local success, result = pcall(function()
+			return self:BuildBuySimilarURL(item, slotName, controls, modEntries, defenceEntries, isUnique)
+		end)
+		if success and result then
+			controls.uri:SetText(result, true)
+		elseif not success then
+			controls.uri:SetText("Error: " .. tostring(result), true)
+		else
+			controls.uri:SetText("Error: could not determine league", true)
+		end
+	end)
+	ctrlY = ctrlY + rowHeight + 4
+
+	-- URL field
+	controls.uri = new("EditControl", nil, {-30, ctrlY, popupWidth - 100, fieldH}, "", nil, "^%C\t\n")
+	controls.uri:SetPlaceholder("Press 'Generate URL' then Ctrl+Click to open")
+	controls.uri.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		if controls.uri.buf and controls.uri.buf ~= "" then
+			tooltip:AddLine(16, "^7Ctrl + Click to open in web browser")
+		end
+	end
+	controls.close = new("ButtonControl", nil, {popupWidth/2 - 50, ctrlY, 60, 20}, "Close", function()
+		main:ClosePopup()
+	end)
+
+	-- Calculate popup height from final control position
+	local popupHeight = ctrlY + fieldH + 16
+	if popupHeight > 600 then popupHeight = 600 end
+
+	local title = "Buy Similar"
+	main:OpenPopup(popupWidth, popupHeight, title, controls, "search", nil, "close")
+end
+
+-- Build the trade search URL based on popup selections
+function CompareTabClass:BuildBuySimilarURL(item, slotName, controls, modEntries, defenceEntries, isUnique)
+	-- Determine realm and league from the popup's dropdowns
+	local realmDisplayValue = controls.realmDrop and controls.realmDrop:GetSelValue() or "PC"
+	local realm = REALM_API_IDS[realmDisplayValue] or "pc"
+	local league = controls.leagueDrop and controls.leagueDrop:GetSelValue()
+	if not league or league == "" or league == "Loading..." then
+		league = "Standard"
+	end
+	local hostName = "https://www.pathofexile.com/"
+
+	-- Build query
+	local queryTable = {
+		query = {
+			status = { option = "online" },
+			stats = {
+				{
+					type = "and",
+					filters = {}
+				}
+			},
+		},
+		sort = { price = "asc" }
+	}
+	local queryFilters = {}
+
+	if isUnique then
+		-- Search by unique name
+		-- Strip "Foulborn" prefix from unique name for trade search
+		local tradeName = (item.title or item.name):gsub("^Foulborn%s+", "")
+		queryTable.query.name = tradeName
+		queryTable.query.type = item.baseName
+		-- If item is Foulborn, add the foulborn_item filter
+		if item.foulborn then
+			queryFilters.misc_filters = queryFilters.misc_filters or { filters = {} }
+			queryFilters.misc_filters.filters.foulborn_item = { option = "true" }
+		end
+	else
+		-- Category filter
+		local categoryStr = getTradeCategory(slotName, item)
+		if categoryStr then
+			queryFilters.type_filters = {
+				filters = {
+					category = { option = categoryStr }
+				}
+			}
+		end
+
+		-- Base type filter
+		if controls.baseTypeCheck and controls.baseTypeCheck.state then
+			queryTable.query.type = item.baseName
+		end
+
+		-- Item level filter
+		local ilvlMin = controls.ilvlMin and tonumber(controls.ilvlMin.buf)
+		local ilvlMax = controls.ilvlMax and tonumber(controls.ilvlMax.buf)
+		if ilvlMin or ilvlMax then
+			local ilvlFilter = {}
+			if ilvlMin then ilvlFilter.min = ilvlMin end
+			if ilvlMax then ilvlFilter.max = ilvlMax end
+			queryFilters.misc_filters = {
+				filters = {
+					ilvl = ilvlFilter
+				}
+			}
+		end
+
+		-- Defence stat filters
+		local armourFilters = {}
+		for i, def in ipairs(defenceEntries) do
+			local prefix = "def" .. i
+			if controls[prefix .. "Check"] and controls[prefix .. "Check"].state then
+				local minVal = tonumber(controls[prefix .. "Min"].buf)
+				local maxVal = tonumber(controls[prefix .. "Max"].buf)
+				local filter = {}
+				if minVal then filter.min = minVal end
+				if maxVal then filter.max = maxVal end
+				if minVal or maxVal then
+					armourFilters[def.tradeKey] = filter
+				end
+			end
+		end
+		if next(armourFilters) then
+			queryFilters.armour_filters = {
+				filters = armourFilters
+			}
+		end
+	end
+
+	-- Mod filters
+	for i, entry in ipairs(modEntries) do
+		local prefix = "mod" .. i
+		if entry.tradeId and controls[prefix .. "Check"] and controls[prefix .. "Check"].state then
+			local minVal = tonumber(controls[prefix .. "Min"].buf)
+			local maxVal = tonumber(controls[prefix .. "Max"].buf)
+			local filter = { id = entry.tradeId }
+			local value = {}
+			if minVal then value.min = minVal end
+			if maxVal then value.max = maxVal end
+			if next(value) then
+				filter.value = value
+			end
+			t_insert(queryTable.query.stats[1].filters, filter)
+		end
+	end
+
+	-- Only include filters if we have any
+	if next(queryFilters) then
+		queryTable.query.filters = queryFilters
+	end
+
+	-- Build URL
+	local queryJson = dkjson.encode(queryTable)
+	local url = hostName .. "trade/search"
+	if realm and realm ~= "" and realm ~= "pc" then
+		url = url .. "/" .. realm
+	end
+	local encodedLeague = league:gsub("[^%w%-%.%_%~]", function(c)
+		return string.format("%%%02X", string.byte(c))
+	end):gsub(" ", "+")
+	url = url .. "/" .. encodedLeague
+	url = url .. "?q=" .. urlEncode(queryJson)
+
+	return url
 end
 
 -- Open the import popup for adding a comparison build
@@ -2389,8 +2760,100 @@ local function modLineTemplate(line)
 end
 
 -- Helper: extract the first number from a mod line for value comparison
-local function modLineValue(line)
+modLineValue = function(line)
 	return tonumber(line:match("[%d]+%.?[%d]*")) or 0
+end
+
+-- Helper: lazily build a reverse lookup from QueryMods tradeMod.text → tradeMod.id
+local _tradeModLookup = nil
+local function getTradeModLookup()
+	if _tradeModLookup then return _tradeModLookup end
+	_tradeModLookup = {}
+	if not queryModsData then return _tradeModLookup end
+	for _groupName, mods in pairs(queryModsData) do
+		for _modKey, modData in pairs(mods) do
+			if type(modData) == "table" and modData.tradeMod then
+				local tmpl = modData.tradeMod.text
+				local modType = modData.tradeMod.type or "explicit"
+				local key = tmpl .. "|" .. modType
+				_tradeModLookup[key] = modData.tradeMod.id
+				-- Also store without type for fallback matching
+				if not _tradeModLookup[tmpl] then
+					_tradeModLookup[tmpl] = modData.tradeMod.id
+				end
+			end
+		end
+	end
+	return _tradeModLookup
+end
+
+-- Helper: find the trade stat ID for a mod line
+findTradeModId = function(modLine, modType)
+	local lookup = getTradeModLookup()
+	local tmpl = modLineTemplate(modLine)
+	-- Try exact match with type first
+	local key = tmpl .. "|" .. modType
+	if lookup[key] then
+		return lookup[key]
+	end
+	-- Try without leading +/- sign
+	local stripped = tmpl:gsub("^[%+%-]", "")
+	key = stripped .. "|" .. modType
+	if lookup[key] then
+		return lookup[key]
+	end
+	-- Fallback: match by template text only (any type)
+	if lookup[tmpl] then
+		return lookup[tmpl]
+	end
+	if lookup[stripped] then
+		return lookup[stripped]
+	end
+	return nil
+end
+
+-- Helper: map slot name + item type to trade API category string
+getTradeCategory = function(slotName, item)
+	if not item or not item.base then return nil end
+	local itemType = item.type or (item.base and item.base.type)
+	if slotName:find("^Weapon %d") then
+		if itemType == "Shield" then return "armour.shield"
+		elseif itemType == "Quiver" then return "armour.quiver"
+		elseif itemType == "Bow" then return "weapon.bow"
+		elseif itemType == "Staff" then return "weapon.staff"
+		elseif itemType == "Two Handed Sword" then return "weapon.twosword"
+		elseif itemType == "Two Handed Axe" then return "weapon.twoaxe"
+		elseif itemType == "Two Handed Mace" then return "weapon.twomace"
+		elseif itemType == "Fishing Rod" then return "weapon.rod"
+		elseif itemType == "One Handed Sword" then return "weapon.onesword"
+		elseif itemType == "One Handed Axe" then return "weapon.oneaxe"
+		elseif itemType == "One Handed Mace" or itemType == "Sceptre" then return "weapon.onemace"
+		elseif itemType == "Wand" then return "weapon.wand"
+		elseif itemType == "Dagger" then return "weapon.dagger"
+		elseif itemType == "Claw" then return "weapon.claw"
+		elseif itemType and itemType:find("Two Handed") then return "weapon.twomelee"
+		elseif itemType and itemType:find("One Handed") then return "weapon.one"
+		else return "weapon"
+		end
+	elseif slotName == "Body Armour" then return "armour.chest"
+	elseif slotName == "Helmet" then return "armour.helmet"
+	elseif slotName == "Gloves" then return "armour.gloves"
+	elseif slotName == "Boots" then return "armour.boots"
+	elseif slotName == "Amulet" then return "accessory.amulet"
+	elseif slotName == "Ring 1" or slotName == "Ring 2" or slotName == "Ring 3" then return "accessory.ring"
+	elseif slotName == "Belt" then return "accessory.belt"
+	elseif slotName:find("Abyssal") then return "jewel.abyss"
+	elseif slotName:find("Jewel") then return "jewel"
+	elseif slotName:find("Flask") then return "flask"
+	else return nil
+	end
+end
+
+-- Helper: get a display-friendly category name from slot name
+getTradeCategoryLabel = function(slotName, item)
+	if not item or not item.base then return "Item" end
+	local baseType = item.base.type or item.type
+	return baseType or "Item"
 end
 
 -- Helper: build a mod comparison map from an item.
@@ -2428,13 +2891,25 @@ local function getSlotDiffLabel(pItem, cItem)
 	end
 end
 
--- Helper: draw Copy and Copy+Use buttons at the given position.
--- Returns copyHovered, copyUseHovered booleans.
+-- Helper: draw Copy, Copy+Use, and Buy buttons at the given position.
+-- Returns copyHovered, copyUseHovered, buyHovered booleans.
 local function drawCopyButtons(cursorX, cursorY, vpWidth, btnY)
 	local btnW = LAYOUT.itemsCopyBtnW
 	local btnH = LAYOUT.itemsCopyBtnH
+	local buyW = LAYOUT.itemsBuyBtnW
 	local btn2X = vpWidth - btnW - 8
 	local btn1X = btn2X - btnW - 4
+	local btn3X = btn1X - buyW - 4
+
+	-- "Buy" button
+	local b3Hover = cursorX >= btn3X and cursorX < btn3X + buyW
+		and cursorY >= btnY and cursorY < btnY + btnH
+	SetDrawColor(b3Hover and 0.5 or 0.35, b3Hover and 0.5 or 0.35, b3Hover and 0.5 or 0.35)
+	DrawImage(nil, btn3X, btnY, buyW, btnH)
+	SetDrawColor(0.1, 0.1, 0.1)
+	DrawImage(nil, btn3X + 1, btnY + 1, buyW - 2, btnH - 2)
+	SetDrawColor(1, 1, 1)
+	DrawString(btn3X + buyW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^7Buy")
 
 	-- "Copy" button
 	local b1Hover = cursorX >= btn1X and cursorX < btn1X + btnW
@@ -2456,7 +2931,7 @@ local function drawCopyButtons(cursorX, cursorY, vpWidth, btnY)
 	SetDrawColor(1, 1, 1)
 	DrawString(btn2X + btnW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^7Copy+Use")
 
-	return b1Hover, b2Hover, btn2X, btnY, btnW, btnH
+	return b1Hover, b2Hover, b3Hover, btn2X, btnY, btnW, btnH
 end
 
 -- Draw a single item's full details at (x, startY) within colWidth.
@@ -2645,6 +3120,8 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	-- Track item copy button clicks
 	local clickedCopySlot = nil
 	local clickedCopyUseSlot = nil
+	local clickedBuySlot = nil
+	local clickedBuyItem = nil
 
 	-- Track Copy+Use button hover for stat comparison tooltip
 	local hoverCopyUseItem = nil
@@ -2677,9 +3154,9 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 			DrawString(10, drawY, "LEFT", 16, "VAR", "^7" .. slotName .. ":")
 			DrawString(colWidth - 10, drawY, "RIGHT", 14, "VAR", getSlotDiffLabel(pItem, cItem))
 
-			-- Copy buttons for compare item
+			-- Copy/Buy buttons for compare item
 			if cItem then
-				local b1Hover, b2Hover, b2X, b2Y, b2W, b2H = drawCopyButtons(cursorX, cursorY, vp.width, drawY + 1)
+				local b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H = drawCopyButtons(cursorX, cursorY, vp.width, drawY + 1)
 				if b2Hover then
 					hoverCopyUseItem = cItem
 					hoverCopyUseSlotName = slotName
@@ -2694,6 +3171,10 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 								inputEvents[id] = nil
 							elseif b2Hover then
 								clickedCopyUseSlot = slotName
+								inputEvents[id] = nil
+							elseif b3Hover then
+								clickedBuySlot = slotName
+								clickedBuyItem = cItem
 								inputEvents[id] = nil
 							end
 						end
@@ -2780,9 +3261,9 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 			DrawString(20, drawY, "LEFT", 16, "VAR", pColor .. pName)
 			DrawString(colWidth + 20, drawY, "LEFT", 16, "VAR", cColor .. cName)
 
-			-- Copy buttons for compare item
+			-- Copy/Buy buttons for compare item
 			if cItem then
-				local b1Hover, b2Hover, b2X, b2Y, b2W, b2H = drawCopyButtons(cursorX, cursorY, vp.width, drawY)
+				local b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H = drawCopyButtons(cursorX, cursorY, vp.width, drawY)
 				if b2Hover then
 					hoverCopyUseItem = cItem
 					hoverCopyUseSlotName = slotName
@@ -2797,6 +3278,10 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 								inputEvents[id] = nil
 							elseif b2Hover then
 								clickedCopyUseSlot = slotName
+								inputEvents[id] = nil
+							elseif b3Hover then
+								clickedBuySlot = slotName
+								clickedBuyItem = cItem
 								inputEvents[id] = nil
 							end
 						end
@@ -2841,9 +3326,9 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 				DrawString(10, drawY, "LEFT", 16, "VAR", "^7" .. jEntry.label .. ":" .. pWarn)
 				DrawString(colWidth - 10, drawY, "RIGHT", 14, "VAR", getSlotDiffLabel(pItem, cItem))
 
-				-- Copy buttons for compare jewel
+				-- Copy/Buy buttons for compare jewel
 				if cItem then
-					local b1Hover, b2Hover, b2X, b2Y, b2W, b2H = drawCopyButtons(cursorX, cursorY, vp.width, drawY + 1)
+					local b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H = drawCopyButtons(cursorX, cursorY, vp.width, drawY + 1)
 					if b2Hover then
 						hoverCopyUseItem = cItem
 						hoverCopyUseSlotName = jEntry.pSlotName
@@ -2858,6 +3343,10 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 									inputEvents[id] = nil
 								elseif b2Hover then
 									clickedCopyUseSlot = jEntry.pSlotName
+									inputEvents[id] = nil
+								elseif b3Hover then
+									clickedBuySlot = jEntry.pSlotName
+									clickedBuyItem = cItem
 									inputEvents[id] = nil
 								end
 							end
@@ -2943,9 +3432,9 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 				DrawString(20, drawY, "LEFT", 16, "VAR", pColor .. pName)
 				DrawString(colWidth + 20, drawY, "LEFT", 16, "VAR", cColor .. cName)
 
-				-- Copy buttons for compare jewel
+				-- Copy/Buy buttons for compare jewel
 				if cItem then
-					local b1Hover, b2Hover, b2X, b2Y, b2W, b2H = drawCopyButtons(cursorX, cursorY, vp.width, drawY)
+					local b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H = drawCopyButtons(cursorX, cursorY, vp.width, drawY)
 					if b2Hover then
 						hoverCopyUseItem = cItem
 						hoverCopyUseSlotName = jEntry.pSlotName
@@ -2960,6 +3449,10 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 									inputEvents[id] = nil
 								elseif b2Hover then
 									clickedCopyUseSlot = jEntry.pSlotName
+									inputEvents[id] = nil
+								elseif b3Hover then
+									clickedBuySlot = jEntry.pSlotName
+									clickedBuyItem = cItem
 									inputEvents[id] = nil
 								end
 							end
@@ -2977,6 +3470,11 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 		self:CopyCompareItemToPrimary(clickedCopySlot, compareEntry, false)
 	elseif clickedCopyUseSlot then
 		self:CopyCompareItemToPrimary(clickedCopyUseSlot, compareEntry, true)
+	end
+
+	-- Process buy button click
+	if clickedBuySlot and clickedBuyItem then
+		self:OpenBuySimilarPopup(clickedBuyItem, clickedBuySlot)
 	end
 
 	-- Draw item tooltip on hover (compact mode only, on top of everything)
