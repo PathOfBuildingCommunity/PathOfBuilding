@@ -79,8 +79,8 @@ IncreasedLifeUnique__114
 FireResistUnique__1
 LifeLeechPermyriadUnique__7
 LifeRegenerationNotAppliedUnique__1
-{variant:1}RageRegenerationPerLifeRegenerationUnique__1[6000,6000]
-{variant:2}RageRegenerationPerLifeRegenerationUnique__1[18000,18000]
+{variant:1}RageRegenerationPerLifeRegenerationUnique__1[100,100]
+{variant:2}RageRegenerationPerLifeRegenerationUnique__1[300,300]
 {variant:3}RageRegenerationPerLifeRegenerationUnique__1
 ]],[[
 Doryani's Fist
@@ -384,8 +384,8 @@ Requires Level 12, 21 Int
 {variant:1}SpellDamageUniqueStaff2[40,50]
 {variant:2}SpellDamageUniqueStaff2
 {variant:3}SpellDamageUniqueGlovesInt2
-{variant:1}IncreasedCastSpeedUniqueGlovesInt2[20,20]
-{variant:2}IncreasedCastSpeedUniqueGlovesInt2[15,15]
+{variant:1}IncreasedCastSpeedUniqueGlovesInt2[-20,-20]
+{variant:2}IncreasedCastSpeedUniqueGlovesInt2[-15,-15]
 {variant:3}IncreasedCastSpeedUniqueGlovesInt2
 {variant:1}LocalIncreasedEnergyShieldUniqueGlovesInt2[16,16]
 {variant:2}LocalIncreasedEnergyShieldUniqueGlovesInt2
@@ -472,7 +472,7 @@ LocalIncreaseSocketedElementalGemUniqueGlovesInt6
 SpellCriticalStrikeChanceUniqueGlovesInt6
 {variant:1,2}LocalIncreasedEnergyShieldUniqueGlovesInt6[280,350]
 {variant:3,4}LocalIncreasedEnergyShieldUniqueGlovesInt6
-{variant:1}ManaCostIncreaseUniqueGlovesInt6[80,80]
+{variant:1}ManaCostIncreaseUniqueGlovesInt6[-80,-80]
 {variant:2,3}ManaCostIncreaseUniqueGlovesInt6
 {variant:4}IncreaseGlobalFlatManaCostUnique__2
 EnergyShieldGainedFromEnemyDeathUniqueGlovesInt6
@@ -613,7 +613,7 @@ LocalIncreasedArmourAndEvasionUniqueGlovesStrDex4
 {variant:2,3}IncreasedLifeUniqueGlovesStrDex4
 {variant:1}ColdResistUniqueGlovesStrDex4[30,30]
 {variant:2,3}ColdResistUniqueGlovesStrDex4
-{variant:1,2}OnslaughtOnVaalSkillUseUniqueGlovesStrDex4[5,5]
+{variant:1,2}OnslaughtOnVaalSkillUseUniqueGlovesStrDex4[5000,5000]
 {variant:3}OnslaughtOnVaalSkillUseUniqueGlovesStrDex4
 ]],[[
 Worldcarver
@@ -753,7 +753,7 @@ SocketedCursesAreReflectedUniqueGlovesStrInt1
 ChillImmunityWhenChilledUniqueGlovesStrInt1
 FreezeImmunityWhenFrozenUniqueGlovesStrInt1
 IgniteImmunityWhenIgnitedUniqueGlovesStrInt1
-{variant:1}ShockImmunityWhenShockedUniqueGlovesStrInt1[1,1]
+{variant:1}ShockImmunityWhenShockedUniqueGlovesStrInt1[1000,1000]
 {variant:2}ShockImmunityWhenShockedUniqueGlovesStrInt1
 GrantFrenzyChargesToAlliesOnDeathUniqueGlovesStrInt1
 ]],[[
