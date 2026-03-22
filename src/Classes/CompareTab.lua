@@ -953,6 +953,74 @@ function CompareTabClass:CopyCompareSpecToPrimary(andUse)
 	self.primaryBuild.buildFlag = true
 end
 
+-- Build a list of jewel comparison entries between the primary and compare builds.
+-- Returns a sorted list of { label, nodeId, pItem, cItem, pSlotName, cSlotName } records.
+function CompareTabClass:GetJewelComparisonSlots(compareEntry)
+	local pSpec = self.primaryBuild.spec
+	local cSpec = compareEntry.spec
+	if not pSpec or not cSpec then return {} end
+
+	-- Collect union of all socket nodeIds that have a jewel equipped in either build
+	local nodeIds = {}
+	if pSpec.jewels then
+		for nodeId, itemId in pairs(pSpec.jewels) do
+			if itemId and itemId > 0 then
+				nodeIds[nodeId] = true
+			end
+		end
+	end
+	if cSpec.jewels then
+		for nodeId, itemId in pairs(cSpec.jewels) do
+			if itemId and itemId > 0 then
+				nodeIds[nodeId] = true
+			end
+		end
+	end
+
+	local result = {}
+	for nodeId in pairs(nodeIds) do
+		local pItemId = pSpec.jewels and pSpec.jewels[nodeId]
+		local cItemId = cSpec.jewels and cSpec.jewels[nodeId]
+		local pItem = pItemId and self.primaryBuild.itemsTab.items[pItemId]
+		local cItem = cItemId and compareEntry.itemsTab.items[cItemId]
+
+		-- Skip if neither build actually has a jewel here
+		if pItem or cItem then
+			local slotName = "Jewel "..nodeId
+			-- Derive a friendly label from the primary build's socket control if available
+			local label = slotName
+			local pSocket = self.primaryBuild.itemsTab.sockets and self.primaryBuild.itemsTab.sockets[nodeId]
+			if pSocket and pSocket.label then
+				label = pSocket.label
+			else
+				local cSocket = compareEntry.itemsTab.sockets and compareEntry.itemsTab.sockets[nodeId]
+				if cSocket and cSocket.label then
+					label = cSocket.label
+				end
+			end
+
+			-- Check if the socket node is allocated in each build's current tree
+			local pNodeAllocated = pSpec.allocNodes and pSpec.allocNodes[nodeId] and true or false
+			local cNodeAllocated = cSpec.allocNodes and cSpec.allocNodes[nodeId] and true or false
+
+			t_insert(result, {
+				label = label,
+				nodeId = nodeId,
+				pItem = pItem,
+				cItem = cItem,
+				pSlotName = slotName,
+				cSlotName = slotName,
+				pNodeAllocated = pNodeAllocated,
+				cNodeAllocated = cNodeAllocated,
+			})
+		end
+	end
+
+	-- Sort by nodeId for stable ordering
+	table.sort(result, function(a, b) return a.nodeId < b.nodeId end)
+	return result
+end
+
 -- Copy a compared build's item into the primary build
 function CompareTabClass:CopyCompareItemToPrimary(slotName, compareEntry, andUse)
 	local cSlot = compareEntry.itemsTab and compareEntry.itemsTab.slots and compareEntry.itemsTab.slots[slotName]
@@ -1572,6 +1640,13 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 				total = total + 1
 			end
 		end
+		-- Count jewels for progress tracking
+		local jewelSlots = self:GetJewelComparisonSlots(compareEntry)
+		for _, jEntry in ipairs(jewelSlots) do
+			if jEntry.cItem then
+				total = total + 1
+			end
+		end
 	end
 	if categories.gems then
 		local cGroups = compareEntry.skillsTab and compareEntry.skillsTab.socketGroupList or {}
@@ -1620,7 +1695,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 	end
 
 	-- ==========================================
-	-- Phase A: Tree Nodes
+	-- Tree Nodes
 	-- ==========================================
 	if categories.treeNodes then
 		local compareNodes = compareEntry.spec and compareEntry.spec.allocNodes or {}
@@ -1675,7 +1750,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 	end
 
 	-- ==========================================
-	-- Phase B: Items
+	-- Items
 	-- ==========================================
 	if categories.items then
 		local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
@@ -1716,7 +1791,89 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 	end
 
 	-- ==========================================
-	-- Phase C: Skill Gems (socket groups)
+	-- Jewels (included as items)
+	-- ==========================================
+	if categories.items then
+		-- Build list of jewel socket info in the primary build for fallback testing
+		-- Each entry has { slotName, nodeId, node, allocated }
+		local pSpec = self.primaryBuild.spec
+		local primaryJewelSockets = {}
+		for _, slot in ipairs(self.primaryBuild.itemsTab.orderedSlots) do
+			if slot.nodeId then
+				local node = pSpec.nodes[slot.nodeId]
+				local allocated = pSpec.allocNodes and pSpec.allocNodes[slot.nodeId] and true or false
+				if node then
+					t_insert(primaryJewelSockets, {
+						slotName = slot.slotName,
+						nodeId = slot.nodeId,
+						node = node,
+						allocated = allocated,
+					})
+				end
+			end
+		end
+
+		local jewelSlots = self:GetJewelComparisonSlots(compareEntry)
+		for _, jEntry in ipairs(jewelSlots) do
+			if jEntry.cItem and jEntry.cItem.raw then
+				local newItem = new("Item", jEntry.cItem.raw)
+				newItem:NormaliseQuality()
+
+				local bestImpactVal = nil
+				local bestSlotLabel = jEntry.label
+
+				if jEntry.pNodeAllocated then
+					-- Socket is allocated in primary build, test directly in that socket
+					local output = calcFunc({ repSlotName = jEntry.cSlotName, repItem = newItem }, useFullDPS)
+					bestImpactVal = self:CalculatePowerStat(powerStat, output, calcBase)
+				else
+					-- Socket is NOT allocated in primary build; try the jewel in every
+					-- jewel socket on the primary build's tree, temporarily allocating
+					-- unallocated sockets via addNodes so CalcSetup doesn't skip them
+					for _, socketInfo in ipairs(primaryJewelSockets) do
+						local override = { repSlotName = socketInfo.slotName, repItem = newItem }
+						if not socketInfo.allocated then
+							override.addNodes = { [socketInfo.node] = true }
+						end
+						local output = calcFunc(override, useFullDPS)
+						local impact = self:CalculatePowerStat(powerStat, output, calcBase)
+						if bestImpactVal == nil or impact > bestImpactVal then
+							bestImpactVal = impact
+							bestSlotLabel = jEntry.label .. " (best socket)"
+						end
+					end
+				end
+
+				if bestImpactVal ~= nil then
+					local impactStr, impactVal, combinedImpactStr, impactPercent = formatImpact(bestImpactVal)
+					local rarityColor = colorCodes[jEntry.cItem.rarity] or colorCodes.NORMAL
+
+					t_insert(results, {
+						category = "Item",
+						categoryColor = colorCodes.NORMAL,
+						nameColor = rarityColor,
+						name = (jEntry.cItem.name or "Unknown") .. ", " .. bestSlotLabel,
+						impact = impactVal,
+						impactStr = impactStr,
+						impactPercent = impactPercent,
+						combinedImpactStr = combinedImpactStr,
+						pathDist = nil,
+						perPoint = nil,
+						perPointStr = nil,
+					})
+				end
+			end
+			processed = processed + 1
+			if coroutine.running() and GetTime() - start > 100 then
+				self.comparePowerProgress = m_floor(processed / total * 100)
+				coroutine.yield()
+				start = GetTime()
+			end
+		end
+	end
+
+	-- ==========================================
+	-- Skill Gems (socket groups)
 	-- ==========================================
 	if categories.gems then
 		local cGroups = compareEntry.skillsTab and compareEntry.skillsTab.socketGroupList or {}
@@ -2191,7 +2348,7 @@ local function drawCopyButtons(cursorX, cursorY, vpWidth, btnY)
 	SetDrawColor(1, 1, 1)
 	DrawString(btn2X + btnW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^7Copy+Use")
 
-	return b1Hover, b2Hover
+	return b1Hover, b2Hover, btn2X, btnY, btnW, btnH
 end
 
 -- Draw a single item's full details at (x, startY) within colWidth.
@@ -2381,6 +2538,12 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	local clickedCopySlot = nil
 	local clickedCopyUseSlot = nil
 
+	-- Track Copy+Use button hover for stat comparison tooltip
+	local hoverCopyUseItem = nil
+	local hoverCopyUseSlotName = nil
+	local hoverCopyUseBtnX, hoverCopyUseBtnY = 0, 0
+	local hoverCopyUseBtnW, hoverCopyUseBtnH = 0, 0
+
 	-- Headers
 	SetDrawColor(1, 1, 1)
 	DrawString(10, drawY, "LEFT", 18, "VAR", colorCodes.POSITIVE .. self:GetShortBuildName(self.primaryBuild.buildName))
@@ -2408,7 +2571,13 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 
 			-- Copy buttons for compare item
 			if cItem then
-				local b1Hover, b2Hover = drawCopyButtons(cursorX, cursorY, vp.width, drawY + 1)
+				local b1Hover, b2Hover, b2X, b2Y, b2W, b2H = drawCopyButtons(cursorX, cursorY, vp.width, drawY + 1)
+				if b2Hover then
+					hoverCopyUseItem = cItem
+					hoverCopyUseSlotName = slotName
+					hoverCopyUseBtnX, hoverCopyUseBtnY = b2X, b2Y
+					hoverCopyUseBtnW, hoverCopyUseBtnH = b2W, b2H
+				end
 				if inputEvents then
 					for id, event in ipairs(inputEvents) do
 						if event.type == "KeyUp" and event.key == "LEFTBUTTON" then
@@ -2505,7 +2674,13 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 
 			-- Copy buttons for compare item
 			if cItem then
-				local b1Hover, b2Hover = drawCopyButtons(cursorX, cursorY, vp.width, drawY)
+				local b1Hover, b2Hover, b2X, b2Y, b2W, b2H = drawCopyButtons(cursorX, cursorY, vp.width, drawY)
+				if b2Hover then
+					hoverCopyUseItem = cItem
+					hoverCopyUseSlotName = slotName
+					hoverCopyUseBtnX, hoverCopyUseBtnY = b2X, b2Y
+					hoverCopyUseBtnW, hoverCopyUseBtnH = b2W, b2H
+				end
 				if inputEvents then
 					for id, event in ipairs(inputEvents) do
 						if event.type == "KeyUp" and event.key == "LEFTBUTTON" then
@@ -2525,6 +2700,170 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 		end
 	end
 
+	-- === JEWELS SECTION ===
+	local jewelSlots = self:GetJewelComparisonSlots(compareEntry)
+	if #jewelSlots > 0 then
+		-- Section header
+		drawY = drawY + 4
+		SetDrawColor(0.5, 0.5, 0.5)
+		DrawImage(nil, 4, drawY, vp.width - 8, 1)
+		drawY = drawY + 4
+		SetDrawColor(1, 1, 1)
+		DrawString(10, drawY, "LEFT", 16, "VAR", "^7-- Jewels --")
+		drawY = drawY + 20
+
+		for jIdx, jEntry in ipairs(jewelSlots) do
+			local pItem = jEntry.pItem
+			local cItem = jEntry.cItem
+
+			-- Separator (skip before first jewel since section header already has one)
+			if jIdx > 1 then
+				SetDrawColor(0.3, 0.3, 0.3)
+				DrawImage(nil, 4, drawY, vp.width - 8, 1)
+				drawY = drawY + 2
+			end
+
+			-- Tree allocation warning text
+			local pWarn = (pItem and not jEntry.pNodeAllocated) and colorCodes.WARNING .. "  (tree missing allocated node)" or ""
+			local cWarn = (cItem and not jEntry.cNodeAllocated) and colorCodes.WARNING .. "  (tree missing allocated node)" or ""
+
+			if self.itemsExpandedMode then
+				-- === EXPANDED MODE ===
+				SetDrawColor(1, 1, 1)
+				DrawString(10, drawY, "LEFT", 16, "VAR", "^7" .. jEntry.label .. ":" .. pWarn)
+				DrawString(colWidth - 10, drawY, "RIGHT", 14, "VAR", getSlotDiffLabel(pItem, cItem))
+
+				-- Copy buttons for compare jewel
+				if cItem then
+					local b1Hover, b2Hover, b2X, b2Y, b2W, b2H = drawCopyButtons(cursorX, cursorY, vp.width, drawY + 1)
+					if b2Hover then
+						hoverCopyUseItem = cItem
+						hoverCopyUseSlotName = jEntry.pSlotName
+						hoverCopyUseBtnX, hoverCopyUseBtnY = b2X, b2Y
+						hoverCopyUseBtnW, hoverCopyUseBtnH = b2W, b2H
+					end
+					if inputEvents then
+						for id, event in ipairs(inputEvents) do
+							if event.type == "KeyUp" and event.key == "LEFTBUTTON" then
+								if b1Hover then
+									clickedCopySlot = jEntry.cSlotName
+									inputEvents[id] = nil
+								elseif b2Hover then
+									clickedCopyUseSlot = jEntry.pSlotName
+									inputEvents[id] = nil
+								end
+							end
+						end
+					end
+				end
+
+				drawY = drawY + 20
+
+				-- Build mod maps for diff highlighting
+				local pModMap = buildModMap(pItem)
+				local cModMap = buildModMap(cItem)
+
+				-- Draw both items expanded side by side
+				local itemStartY = drawY
+				local leftHeight = self:DrawItemExpanded(pItem, 20, drawY, colWidth - 30, cModMap)
+				local rightHeight = self:DrawItemExpanded(cItem, colWidth + 20, drawY, colWidth - 30, pModMap)
+
+				-- Vertical separator between columns
+				SetDrawColor(0.25, 0.25, 0.25)
+				local maxH = m_max(leftHeight, rightHeight)
+				DrawImage(nil, colWidth, itemStartY, 1, maxH)
+
+				drawY = drawY + maxH + 6
+			else
+				-- === COMPACT MODE ===
+				SetDrawColor(1, 1, 1)
+				DrawString(10, drawY, "LEFT", 16, "VAR", "^7" .. jEntry.label .. ":")
+				DrawString(colWidth - 10, drawY, "RIGHT", 14, "VAR", getSlotDiffLabel(pItem, cItem))
+
+				local pName = (pItem and pItem.name or "(empty)") .. pWarn
+				local cName = (cItem and cItem.name or "(empty)") .. cWarn
+
+				local pColor = getRarityColor(pItem)
+				local cColor = getRarityColor(cItem)
+
+				-- Measure text widths for precise hover detection
+				local pTextW = pItem and DrawStringWidth(16, "VAR", pColor .. pName) or 0
+				local cTextW = cItem and DrawStringWidth(16, "VAR", cColor .. cName) or 0
+
+				drawY = drawY + 18
+
+				-- Check hover on primary jewel (left column)
+				local pHover = pItem and cursorX >= 18 and cursorX < 22 + pTextW
+					and cursorY >= drawY and cursorY < drawY + 18
+				if pHover then
+					hoverItem = pItem
+					hoverX = 20
+					hoverY = drawY
+					hoverW = pTextW + 4
+					hoverH = 18
+					hoverItemsTab = self.primaryBuild.itemsTab
+				end
+
+				-- Check hover on compare jewel (right column)
+				local cHover = cItem and cursorX >= colWidth + 18 and cursorX < colWidth + 22 + cTextW
+					and cursorY >= drawY and cursorY < drawY + 18
+				if cHover then
+					hoverItem = cItem
+					hoverX = colWidth + 20
+					hoverY = drawY
+					hoverW = cTextW + 4
+					hoverH = 18
+					hoverItemsTab = compareEntry.itemsTab
+				end
+
+				-- Draw hover border
+				if pHover then
+					SetDrawColor(0.5, 0.5, 0.5)
+					DrawImage(nil, 18, drawY - 1, pTextW + 4, 20)
+					SetDrawColor(0, 0, 0)
+					DrawImage(nil, 19, drawY, pTextW + 2, 18)
+				end
+				if cHover then
+					SetDrawColor(0.5, 0.5, 0.5)
+					DrawImage(nil, colWidth + 18, drawY - 1, cTextW + 4, 20)
+					SetDrawColor(0, 0, 0)
+					DrawImage(nil, colWidth + 19, drawY, cTextW + 2, 18)
+				end
+
+				-- Draw jewel names
+				SetDrawColor(1, 1, 1)
+				DrawString(20, drawY, "LEFT", 16, "VAR", pColor .. pName)
+				DrawString(colWidth + 20, drawY, "LEFT", 16, "VAR", cColor .. cName)
+
+				-- Copy buttons for compare jewel
+				if cItem then
+					local b1Hover, b2Hover, b2X, b2Y, b2W, b2H = drawCopyButtons(cursorX, cursorY, vp.width, drawY)
+					if b2Hover then
+						hoverCopyUseItem = cItem
+						hoverCopyUseSlotName = jEntry.pSlotName
+						hoverCopyUseBtnX, hoverCopyUseBtnY = b2X, b2Y
+						hoverCopyUseBtnW, hoverCopyUseBtnH = b2W, b2H
+					end
+					if inputEvents then
+						for id, event in ipairs(inputEvents) do
+							if event.type == "KeyUp" and event.key == "LEFTBUTTON" then
+								if b1Hover then
+									clickedCopySlot = jEntry.cSlotName
+									inputEvents[id] = nil
+								elseif b2Hover then
+									clickedCopyUseSlot = jEntry.pSlotName
+									inputEvents[id] = nil
+								end
+							end
+						end
+					end
+				end
+
+				drawY = drawY + 20
+			end
+		end
+	end
+
 	-- Process item copy button clicks
 	if clickedCopySlot then
 		self:CopyCompareItemToPrimary(clickedCopySlot, compareEntry, false)
@@ -2538,6 +2877,52 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 		hoverItemsTab:AddItemTooltip(self.itemTooltip, hoverItem, nil)
 		SetDrawLayer(nil, 100)
 		self.itemTooltip:Draw(hoverX, hoverY, hoverW, hoverH, vp)
+		SetDrawLayer(nil, 0)
+	end
+
+	-- Draw stat comparison tooltip when hovering Copy+Use button
+	if hoverCopyUseItem and hoverCopyUseSlotName and not hoverItem then
+		self.itemTooltip:Clear()
+		local calcFunc, calcBase = self.calcs.getMiscCalculator(self.primaryBuild)
+		if calcFunc then
+			-- Create a fresh item to evaluate
+			local newItem = new("Item", hoverCopyUseItem.raw)
+			newItem:NormaliseQuality()
+
+			-- Determine what's currently in the target slot
+			local pSlot = self.primaryBuild.itemsTab.slots[hoverCopyUseSlotName]
+			local selItem = pSlot and self.primaryBuild.itemsTab.items[pSlot.selItemId]
+
+			-- For jewel sockets that aren't allocated, temporarily allocate the node
+			local override = { repSlotName = hoverCopyUseSlotName, repItem = newItem }
+			if pSlot and pSlot.nodeId then
+				local pSpec = self.primaryBuild.spec
+				if pSpec and pSpec.allocNodes and not pSpec.allocNodes[pSlot.nodeId] then
+					local node = pSpec.nodes[pSlot.nodeId]
+					if node then
+						override.addNodes = { [node] = true }
+					end
+				end
+			end
+
+			local output = calcFunc(override)
+			local slotLabel = pSlot and pSlot.label or hoverCopyUseSlotName
+			local header
+			if selItem then
+				header = string.format("^7Equipping this item in %s will give you:\n(replacing %s%s^7)", slotLabel, colorCodes[selItem.rarity] or "^7", selItem.name)
+			else
+				header = string.format("^7Equipping this item in %s will give you:", slotLabel)
+			end
+			local count = self.primaryBuild:AddStatComparesToTooltip(self.itemTooltip, calcBase, output, header)
+			if count == 0 then
+				self.itemTooltip:AddLine(14, header)
+				self.itemTooltip:AddLine(14, "^7No changes.")
+			end
+		end
+		SetDrawLayer(nil, 100)
+		-- Force tooltip to the left of the button by passing a large width
+		-- so the right-side placement overflows and the Draw logic flips to left
+		self.itemTooltip:Draw(hoverCopyUseBtnX, hoverCopyUseBtnY, vp.width, hoverCopyUseBtnH, vp)
 		SetDrawLayer(nil, 0)
 	end
 
