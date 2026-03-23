@@ -879,7 +879,13 @@ function TradeQueryClass:addChaosEquivalentPriceToItems(items)
 end
 
 -- return valid slot for Watcher's Eye
+-- Tries to first return an existing watcher's eye slot if possible
 function TradeQueryClass:findValidSlotForWatchersEye()
+	for _, socket in pairs(self.itemsTab.sockets) do
+		if not socket.inactive and self.itemsTab.items[socket.selItemId].name:find("Watcher's Eye") then
+			return socket
+		end
+	end
 	local tmpWE=nil
 	for _,v in ipairs(data.uniques.generated) do
 		if v:find("Watcher's Eye") then
