@@ -23,6 +23,34 @@ local s_format = string.format
 local m_huge = math.huge
 local m_abs = math.abs
 
+-- Lightweight output snapshot for stat-comparison tooltips.
+-- Copies only scalar fields and the small tables needed by
+-- AddStatComparesToTooltip / AddRequirementWarningsToTooltip,
+-- skipping heavy sub-tables (SkillDPS, env, modDB, etc.)
+-- that would otherwise cause multi-GB memory usage.
+local function extractTooltipStats(output)
+	if not output then return nil end
+	local out = {}
+	for k, v in pairs(output) do
+		local t = type(v)
+		if t == "number" or t == "string" or t == "boolean" then
+			out[k] = v
+		end
+	end
+	-- Requirement fail lists (small tables with source references)
+	for _, key in ipairs({"ReqStrFailList", "ReqDexFailList", "ReqIntFailList", "ReqOmniFailList",
+						   "ReqStrItem", "ReqDexItem", "ReqIntItem", "ReqOmniItem"}) do
+		if output[key] then
+			out[key] = output[key]
+		end
+	end
+	-- Minion sub-output (same shallow treatment)
+	if output.Minion then
+		out.Minion = extractTooltipStats(output.Minion)
+	end
+	return out
+end
+
 local function formatSignedValue(value)
 	local sign = value >= 0 and "+" or ""
 	local col = value > 0 and "^2" or (value < 0 and "^1" or "^8")
@@ -1631,8 +1659,8 @@ function RadiusJewelFinderClass:computeVariantImpact(socketId, impactStat, progr
 			value = value,
 			delta = self:calculateImpactDelta(impactStat, baselineOutput, output),
 			replacedItemLabel = replacementContext.replacedItemLabel,
-			baseOutput = copyTableSafe(baselineOutput, false, true),
-			compareOutput = copyTableSafe(output, false, true),
+			baseOutput = extractTooltipStats(baselineOutput),
+			compareOutput = extractTooltipStats(output),
 		})
 	end
 
@@ -1673,8 +1701,8 @@ function RadiusJewelFinderClass:computeSocketImpact(sockets, rawText, impactStat
 				value = value,
 				delta = self:calculateImpactDelta(impactStat, baselineOutput, output),
 				replacedItemLabel = occupancy and occupancy.isOccupied and occupancy.itemLabel or nil,
-				baseOutput = copyTableSafe(baselineOutput, false, true),
-				compareOutput = copyTableSafe(output, false, true),
+				baseOutput = extractTooltipStats(baselineOutput),
+				compareOutput = extractTooltipStats(output),
 			})
 		end
 		progressTick(progress, socketIndex, #sockets, socket.label)
@@ -1723,8 +1751,8 @@ function RadiusJewelFinderClass:computeBestVariantSocketImpact(sockets, variants
 						value = value,
 						delta = delta,
 						replacedItemLabel = occupancy and occupancy.isOccupied and occupancy.itemLabel or nil,
-						baseOutput = copyTableSafe(baselineOutput, false, true),
-						compareOutput = copyTableSafe(output, false, true),
+						baseOutput = extractTooltipStats(baselineOutput),
+						compareOutput = extractTooltipStats(output),
 					}
 				end
 			end
@@ -1869,8 +1897,8 @@ local function buildConnectionlessPlanStep(baseOutput, baseValue, value, compare
 	return {
 		value = value,
 		delta = value - baseValue,
-		baseOutput = copyTableSafe(baseOutput, false, true),
-		compareOutput = copyTableSafe(compareOutput, false, true),
+		baseOutput = extractTooltipStats(baseOutput),
+		compareOutput = extractTooltipStats(compareOutput),
 		chosenNodes = snapshotNodes,
 		resultNodes = buildNodeEntries(snapshotNodes),
 		resultNodeLabels = buildNodeLabelList(snapshotNodes),
@@ -2265,8 +2293,8 @@ function RadiusJewelFinderClass:computeSplitPersonalitySocketImpact(sockets, imp
 						value = value,
 						delta = delta,
 						replacedItemLabel = occupancy and occupancy.isOccupied and occupancy.itemLabel or nil,
-						baseOutput = copyTableSafe(baselineOutput, false, true),
-						compareOutput = copyTableSafe(output, false, true),
+						baseOutput = extractTooltipStats(baselineOutput),
+						compareOutput = extractTooltipStats(output),
 						detailText = s_format("Dist %d | %s", splitDistance, variant.name),
 					}
 				end
