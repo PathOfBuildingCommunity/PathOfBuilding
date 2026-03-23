@@ -1118,7 +1118,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 	end
 	-- Whisper so we can copy to clipboard
 	controls["whisperButton" .. row_idx] = new("ButtonControl",
-		{ "TOPLEFT", controls["importButton" .. row_idx], "TOPRIGHT" }, { 8, 0, 185, row_height }, function()
+		{ "TOPLEFT", controls["importButton" .. row_idx], "TOPRIGHT" }, { 8, 0, 170, row_height }, function()
 			local itemResult = self.itemIndexTbl[row_idx] and self.resultTbl[row_idx][self.itemIndexTbl[row_idx]]
 
 			if not itemResult then return "" end
@@ -1129,7 +1129,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 			if itemResult.whisper then
 				return price and "Whisper for " .. price or "Whisper"
 			else
-				return price and "Search for selected item"
+				return price and "Search for " .. price or "Search"
 			end
 
 		end, function()
@@ -1138,11 +1138,14 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 				Copy(itemResult.whisper)
 			else
 				local exactQuery = dkjson.decode(self.lastQuery)
-				-- use trade sum to get the specific item. we could also add the
-				-- trader name as it is contained in the fetch responses, but
-				-- this alone doesn't seem to really result in multiple results.
-				-- trade weight min is exclusive while max is inclusive (makes no sense to me)
-				exactQuery.query.stats[1].value = { min = tonumber(itemResult.weight) - 0.1, max = tonumber(itemResult.weight) }
+				-- use trade sum to get the specific item. both min and max
+				-- weight fields seem to be inconsistent. making the minimum
+				-- e.g. exactly 172.3 as on the result item does not always work
+				exactQuery.query.stats[1].value = { min = floor(itemResult.weight, 1) - 0.1, max = round(itemResult.weight, 1) + 0.1 }
+				-- also apply trader name. this should make false positives
+				-- extremely unlikely. this doesn't seem to take up a filter
+				-- slot
+				exactQuery.query.filters.trade_filters = { filters = { account = itemResult.trader } }
 
 				local exactQueryStr = dkjson.encode(exactQuery)
 				

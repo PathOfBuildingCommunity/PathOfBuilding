@@ -292,6 +292,7 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 					-- whisper_token = trade_entry.listing.whisper_token,
 					item_string = common.base64.decode(trade_entry.item.extended.text),
 					whisper = trade_entry.listing.whisper,
+					trader = trade_entry.listing.account.name,
 					weight = trade_entry.item.pseudoMods and trade_entry.item.pseudoMods[1]:match("Sum: (.+)") or "0",
 					id = trade_entry.id
 				})
