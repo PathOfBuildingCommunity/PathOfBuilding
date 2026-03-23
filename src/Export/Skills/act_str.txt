@@ -438,7 +438,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill DefianceBanner
-#flags spell area duration aura banner
+#flags spell area duration aura
 	statMap = {
 		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
@@ -477,6 +477,23 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill DivineBlast
+#flags attack area shieldAttack
+	parts = {
+		{
+			name = "Beam Implosion",
+		},
+		{
+			name = "Explosion",
+		},
+	},
+	statMap = {
+		["discus_slam_damage_+%_final_for_shockwave"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }),
+		},
+	},
+#mods
+
 #skill DominatingBlow
 #flags attack melee duration minion
 	minionList = {
@@ -506,7 +523,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill DreadBanner
-#flags spell
+#flags spell area duration aura
 	statMap = {
 		["recover_X_life_on_block"] = {
 			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
@@ -1011,6 +1028,64 @@ local skills, mod, flag, skill = ...
 #flags spell totem projectile duration
 #mods
 
+#skill HolyHammers
+#flags attack area melee
+	parts = {
+		{
+			name = "Slam",
+		},
+		{
+			name = "First Hammer",
+		},
+		{
+			name = "Other Hammers",
+		},
+	},
+	statMap = {
+		["holy_hammers_damage_+%_final_for_initial_hammer_in_cascade"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+		["holy_hammers_damage_+%_final_if_consuming_power_charge"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "RemovablePowerCharge", limit = 1 }),
+		},
+	},
+#mods
+
+#skill HolyStrike
+#flags attack melee minion duration
+	minionList = {
+		"HolyStrikeMinion",
+	},
+	minionUses = {
+		["Weapon 1"] = true,
+	},
+	statMap = {
+		["skill_physical_damage_%_to_convert_to_lightning"] = {
+			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil),
+			mod("MinionModifier", "LIST", { mod = mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0) })
+		},
+	},
+#mods
+
+#skill Sweep
+#flags attack melee area
+	parts = {
+		{
+			name = "Melee Hit",
+		},
+		{
+			name = "Holy Hammer",
+		},
+	},
+	statMap = {
+		["holy_sweep_hammerfall_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
+#baseMod skill("radius", 24)
+#baseMod flag("CannotBeEvaded", { type = "SkillPart", skillPart = 2 })
+#mods
+
 #skill IceCrash
 #flags attack melee area
 	parts = {
@@ -1311,38 +1386,16 @@ local skills, mod, flag, skill = ...
 			t_insert(breakdown.OverlapChance, s_format("^8=^7 %.2f^8%%", output.OverlapChance))
 		end
 
-		local numProjectiles = skillModList:Sum("BASE", skillCfg, "ProjectileCount")
+		local numProjectiles = output.ProjectileCount
 		local dpsMult = 1
-		if skillPart == 3 or skillPart == 5 or skillPart == 6 then
+		if skillPart == 3 then
 			dpsMult = overlapChance * numProjectiles
-
-			if skillPart ~= 6 then
-				if breakdown then
-					breakdown.SkillDPSMultiplier = {}
-					t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
-					t_insert(breakdown.SkillDPSMultiplier, "^8= number of projectiles * overlap chance")
-					t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %d^8 *^7 %.3f^8", numProjectiles, overlapChance))
-					t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMult))
-				end
-			else
-				-- zenith: make an effective dpsMult for the weighted average of normal and 5th attack balls
-				local gemQuality = activeSkill.activeEffect.quality
-				local fifthAttackMulti = 1 + 8 + 0.1 * gemQuality
-				local fifthAttackOverallMulti = fifthAttackMulti * overlapChance * (numProjectiles + 5)
-				dpsMult = 0.8 * dpsMult + 0.2 * fifthAttackOverallMulti
-
-				if breakdown then
-					breakdown.SkillDPSMultiplier = {}
-					t_insert(breakdown.SkillDPSMultiplier, "Weighted average DPS multiplier for balls")
-					t_insert(breakdown.SkillDPSMultiplier, "^8= (0.8 * balls dps) + (0.2 * 5th attack balls dps)")
-					t_insert(breakdown.SkillDPSMultiplier, "^8= (0.8 * normal ball hit * overlap chance * number of projectiles) " ..
-						"+ (0.2 * ball hit * 5th attack multiplier * overlap chance * (number of projectiles + 5))")
-					t_insert(breakdown.SkillDPSMultiplier, "^8= ball hit * overlap chance * (0.8 * number of projectiles " ..
-						"+ 0.2 * 5th attack multiplier * (number of projectiles + 5))")
-					t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ball hit * ^7%.3f ^8* (0.8 * ^7%d ^8+ 0.2 * ^7%.1f ^8* ^7%d^8)",
-						overlapChance, numProjectiles, fifthAttackMulti, numProjectiles + 5))
-					t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ball hit * ^7 %.3f", dpsMult))
-				end
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, "^8= number of projectiles * overlap chance")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %d^8 *^7 %.3f^8", numProjectiles, overlapChance))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMult))
 			end
 		end
 		if dpsMult ~= 1 then
@@ -1405,16 +1458,89 @@ local skills, mod, flag, skill = ...
 			area = true,
 		},
 	},
-	preDamageFunc = skills.MoltenStrike.preDamageFunc,
+	preDamageFunc = function(activeSkill, output, breakdown)
+		local skillCfg = activeSkill.skillCfg
+		local skillData = activeSkill.skillData
+		local skillPart = activeSkill.skillPart
+		local skillModList = activeSkill.skillModList
+		local t_insert = table.insert
+		local s_format = string.format
+
+		-- melee part doesn't need to calc balls
+		if skillPart == 1 then
+			return
+		end
+
+		local enemyRadius = skillModList:Override(skillCfg, "EnemyRadius") or skillModList:Sum("BASE", skillCfg, "EnemyRadius")
+		local ballRadius = output.AreaOfEffectRadius
+		local innerRadius = output.AreaOfEffectRadiusSecondary
+		local outerRadius = output.AreaOfEffectRadiusTertiary
+
+		-- logic adapted from MoldyDwarf's calculator
+		local hitRange = enemyRadius + ballRadius - innerRadius
+		local landingRange = outerRadius - innerRadius
+		local overlapChance = math.min(1, hitRange / landingRange)
+		output.OverlapChance = overlapChance * 100
+
+		if breakdown then
+			breakdown.OverlapChance = { }
+			t_insert(breakdown.OverlapChance, "Chance for individual balls to land on the enemy:")
+			t_insert(breakdown.OverlapChance, "^8= (area where a ball can land on enemy) / (total area)")
+			t_insert(breakdown.OverlapChance, "^8= (enemy radius + ball radius - min travel) / (max travel - min travel)")
+			t_insert(breakdown.OverlapChance, s_format("^8= (^7%d^8 + ^7%d^8 - ^7%d) / (^7%d^8 - ^7%d)",
+				enemyRadius, ballRadius, innerRadius, outerRadius, innerRadius))
+			t_insert(breakdown.OverlapChance, s_format("^8=^7 %.2f^8%%", output.OverlapChance))
+		end
+
+		local numProjectiles = output.ProjectileCount
+		local dpsMult = 1
+		if skillPart == 3 or skillPart == 5 or skillPart == 6 then
+			dpsMult = overlapChance * numProjectiles
+
+			if skillPart ~= 6 then
+				if breakdown then
+					breakdown.SkillDPSMultiplier = {}
+					t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+					t_insert(breakdown.SkillDPSMultiplier, "^8= number of projectiles * overlap chance")
+					t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %d^8 *^7 %.3f^8", numProjectiles, overlapChance))
+					t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMult))
+				end
+			else
+				-- zenith: make an effective dpsMult for the weighted average of normal and 5th attack balls
+				local fifthAttackMulti = 1 + skillData.FifthStrikeDamage / 100
+				local fifthAttackOverallMulti = fifthAttackMulti * overlapChance * (numProjectiles + skillData.FifthStrikeProjectiles)
+				dpsMult = 0.8 * dpsMult + 0.2 * fifthAttackOverallMulti
+
+				if breakdown then
+					breakdown.SkillDPSMultiplier = {}
+					t_insert(breakdown.SkillDPSMultiplier, "Weighted average DPS multiplier for balls")
+					t_insert(breakdown.SkillDPSMultiplier, "^8= (0.8 * balls dps) + (0.2 * 5th attack balls dps)")
+					t_insert(breakdown.SkillDPSMultiplier, s_format("^8= (0.8 * normal ball hit * overlap chance * number of projectiles) " ..
+						"+ (0.2 * ball hit * 5th attack multiplier * overlap chance * (number of projectiles + %d))", skillData.FifthStrikeProjectiles))
+					t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ball hit * overlap chance * (0.8 * number of projectiles " ..
+						"+ 0.2 * 5th attack multiplier * (number of projectiles + %d))", skillData.FifthStrikeProjectiles))
+					t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ball hit * ^7%.3f ^8* (0.8 * ^7%d ^8+ 0.2 * ^7%.1f ^8* ^7%d^8)",
+						overlapChance, numProjectiles, fifthAttackMulti, numProjectiles + skillData.FifthStrikeProjectiles))
+					t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ball hit * ^7 %.3f", dpsMult))
+				end
+			end
+		end
+		if dpsMult ~= 1 then
+			skillData.dpsMultiplier = (skillData.dpsMultiplier or 1) * dpsMult
+			output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * dpsMult
+		end
+	end,
 	statMap = {
 		["active_skill_hit_ailment_damage_with_projectile_+%_final"] = {
 			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "SkillPart", skillPartList = { 2, 3, 4, 5, 6 } })
 		},
 		["molten_strike_every_5th_attack_projectiles_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "SkillPart", skillPartList = { 4, 5 } })
+			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "SkillPart", skillPartList = { 4, 5 } }),
+			skill("FifthStrikeDamage", nil),
 		},
 		["molten_strike_every_5th_attack_fire_X_additional_projectiles"] = {
-			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 4, 5 } })
+			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 4, 5 } }),
+			skill("FifthStrikeProjectiles", nil),
 		},
 	},
 #baseMod skill("projectileSpeedAppliesToMSAreaOfEffect", true)
@@ -1719,6 +1845,26 @@ local skills, mod, flag, skill = ...
 #flags spell totem duration
 #mods
 
+#skill SearingBondAltX
+#flags spell totem duration
+	parts = {
+		{
+			name = "Beam",
+		},
+		{
+			name = "Explosion",
+		},
+	},
+	statMap = {
+		["searing_bond_totems_detonation_damage_over_time_+%_final_per_active_totem"] = {
+			mod("Damage", "MORE", nil, ModFlag.Dot, 0,  { type = "PerStat", stat = "TotemsSummoned" }, { type = "SkillPart", skillPart = 2 }),
+		},
+		["number_of_additional_totems_allowed_per_maximum_power_charge"] = {
+			mod("ActiveTotemLimit", "BASE", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
+		},
+	},
+#mods
+
 #skill SeismicCry
 #flags warcry area duration
 	statMap = {
@@ -1789,7 +1935,15 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 })
 #mods
 
+#skill ShieldOfLight
+#flags attack melee area shieldAttack
+#mods
+
 #skill ShockwaveTotem
+#flags spell totem area duration
+#mods
+
+#skill ShockwaveTotemAltX
 #flags spell totem area duration
 #mods
 
@@ -1894,6 +2048,19 @@ local skills, mod, flag, skill = ...
 		},
 		["static_strike_zap_speed_+%"] = {
 			mod("StaticStrikeFrequency", "INC", nil),
+		},
+	},
+#baseMod skill("radius", 20)
+#mods
+
+#skill StaticStrikeAltX
+#flags attack melee duration
+	statMap = {
+		["static_strike_maximum_gathering_lightning_stacks"] = {
+			mod("Multiplier:StaticStrikeofGatheringLightningMaxStages", "BASE", nil),
+		},
+		["hit_and_ailment_damage_+%_final_per_gathering_lightning"] = {
+			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "Multiplier", var = "StaticStrikeofGatheringLightningStage" })
 		},
 	},
 #baseMod skill("radius", 20)
@@ -2114,11 +2281,6 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 12)
 #mods
 
-#skill Sweep
-#flags attack melee area
-#baseMod skill("radius", 24)
-#mods
-
 #skill TectonicSlam
 #flags attack melee area
 #baseMod skill("radius", 15)
@@ -2259,7 +2421,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill WarBanner
-#flags spell
+#flags spell area duration aura
 	statMap = {
 		["accuracy_rating_+%"] = {
 			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })

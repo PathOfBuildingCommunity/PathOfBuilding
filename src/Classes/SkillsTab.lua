@@ -50,12 +50,17 @@ Awakened gems default to their highest valid non-corrupted gem level.]],
 This hides gems with a minimum level requirement above your character level, preventing them from showing up in the dropdown list.]],
 		gemLevel = "characterLevel",
 	},
+	{
+		label = "Level 1",
+		description = "All gems default to level 1.",
+		gemLevel = "levelOne",
+	},
 }
 
 local showSupportGemTypeList = {
 	{ label = "All", show = "ALL" },
-	{ label = "Non-Awakened", show = "NORMAL" },
-	{ label = "Awakened", show = "AWAKENED" },
+	{ label = "Non-Exceptional", show = "NORMAL" },
+	{ label = "Exceptional", show = "EXCEPTIONAL" },
 }
 
 local sortGemTypeList = {
@@ -90,6 +95,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.sortGemsByDPSField = "CombinedDPS"
 	self.showSupportGemTypes = "ALL"
 	self.showAltQualityGems = false
+	self.showLegacyGems = false
 	self.defaultGemLevel = "normalMaximum"
 	self.defaultGemQuality = main.defaultGemQuality
 
@@ -122,7 +128,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	-- Gem options
 	local optionInputsX = 170
 	local optionInputsY = 45
-	self.controls.optionSection = new("SectionControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { 0, optionInputsY + 50, 360, 156 }, "Gem Options")
+	self.controls.optionSection = new("SectionControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { 0, optionInputsY + 50, 360, 180 }, "Gem Options")
 	self.controls.sortGemsByDPS = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 70, 20 }, "Sort gems by DPS:", function(state)
 		self.sortGemsByDPS = state
 	end, nil, true)
@@ -149,6 +155,9 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.showSupportGemTypesLabel = new("LabelControl", { "RIGHT", self.controls.showSupportGemTypes, "LEFT" }, { -4, 0, 0, 16 }, "^7Show support gems:")
 	self.controls.showAltQualityGems = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 166, 20 }, "^7Show quality variants:", function(state)
 		self.showAltQualityGems = state
+	end)
+	self.controls.showLegacyGems = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 190, 20 }, "^7Show legacy gems:", function(state)
+		self.showLegacyGems = state
 	end)
 
 	-- Socket group details
@@ -397,6 +406,10 @@ function SkillsTabClass:Load(xml, fileName)
 		self.showAltQualityGems = xml.attrib.showAltQualityGems == "true"
 	end
 	self.controls.showAltQualityGems.state = self.showAltQualityGems
+	if xml.attrib.showLegacyGems then
+		self.showLegacyGems = xml.attrib.showLegacyGems == "true"
+	end
+	self.controls.showLegacyGems.state = self.showLegacyGems
 	self.controls.showSupportGemTypes:SelByValue(xml.attrib.showSupportGemTypes or "ALL", "show")
 	self.controls.sortGemsByDPSFieldControl:SelByValue(xml.attrib.sortGemsByDPSField or "CombinedDPS", "type") 
 	self.showSupportGemTypes = self.controls.showSupportGemTypes:GetSelValueByKey("show")
@@ -432,7 +445,8 @@ function SkillsTabClass:Save(xml)
 		sortGemsByDPS = tostring(self.sortGemsByDPS),
 		showSupportGemTypes = self.showSupportGemTypes,
 		sortGemsByDPSField = self.sortGemsByDPSField,
-		showAltQualityGems = tostring(self.showAltQualityGems)
+		showAltQualityGems = tostring(self.showAltQualityGems),
+		showLegacyGems = tostring(self.showLegacyGems)
 	}
 	for _, skillSetId in ipairs(self.skillSetOrderList) do
 		local skillSet = self.skillSets[skillSetId]
@@ -1044,6 +1058,8 @@ function SkillsTabClass:ProcessGemLevel(gemData)
 		end
 	elseif self.defaultGemLevel == "normalMaximum" then
 		return naturalMaxLevel
+	elseif self.defaultGemLevel == "levelOne" then
+		return 1
 	else -- self.defaultGemLevel == "characterLevel"
 		local maxGemLevel = naturalMaxLevel
 		if not grantedEffect.levels[maxGemLevel] then

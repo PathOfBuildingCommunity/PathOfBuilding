@@ -1,3 +1,121 @@
+VERSION[2.63.0][2026/03/15]
+
+--- New to Path of Building ---
+* Add new 3.28 Uniques and add support for their mods (LocalIdentity, MrHB212)
+* Add support for defaulting gems to level 1 to help search for best Imbued Support (Peechey)
+* Add support for searching all sockets with Timeless Jewel finder (deathbeam)
+* Add support for Black Scythe Training Keystone (LocalIdentity)
+* Add support for "Lethal Dose" support and make "non-Poisoned Enemies" work with additional poisons (majochem)
+* Add support for Hallowing Flame mods (Paliak)
+* Add Holy Strike FullDPS override to not overstate melee damage  (LocalIdentity)
+* Add radius values for Queen's Demand and Rain of Arrows transfigured gems (Wires77)
+
+--- User Interface ---
+* Add Gem tooltip for Legacy Gems (LocalIdentity)
+* Add "Save As" build sorting options (xoxorwr)
+
+--- Fixed Calculations ---
+* Fix Mana Burn not applying at least 1 degen per stack (LocalIdentity)
+* Fix Cryogenesis not working correctly (Nostrademous)
+* Fix Consecrated Ground effect not scaling Accuracy from Shining Justice (LocalIdentity)
+* Fix Ynda's Stand and Olroth Bloodline not working correctly (LocalIdentity)
+* Fix Greater Chain not working correctly with Poison Conc of Bouncing (LocalIdentity)
+* Fix Holy Strike not scaling with Melee damage (LocalIdentity)
+* Fix Holy Strike Minion missing Lightning damage conversion from skill gem (zekyriah)
+* Fix Melee damage not scaling Hammers from Holy Hammers (LocalIdentity)
+* Fix Divine Blast scaling with Melee damage mods (Lexy)
+* Fix Viper Strike "20% Less Hit Damage while Dual Wielding" mod applying to Poison (LocalIdentity)
+* Fix calculation error with theoretical maximum Poison stacks (majochem)
+* Fix per Minion Limit calculation when using Congregation Support (LocalIdentity)
+* Fix General's Cry DPS not scaling properly with increased Warcry Cooldown (bangbangsheshotmedown)
+
+--- Fixed Behaviours ---
+* Fix PoB Trader not prioritising local weapon mods (LocalIdentity)
+* Fix Militant Faith protected nodes not working properly (LocalIdentity)
+* Fix Primal Roar (Farrul Bloodline) Minion damage mod not working (LocalIdentity)
+* Fix Varunastra not counting as a different weapon type for Dual Strike of Ambidexterity (Paliak)
+* Fix Reliquarian Widowhail node not working with regular bows (MrHB212)
+* Fix Charged Dash of Projection release states not appearing on calcs tab (LocalIdentity)
+* Fix Cruelty from Bitter Lash Bloodline not applying to main hand skills (LocalIdentity)
+* Fix Transfusion Support disabling Offering buffs (LocalIdentity)
+* Fix Curtain Call Mine throwing mods not working (LocalIdentity)
+
+--- Accuracy Improvements ---
+* Fix Heroic Tragedy trade search using wrong Keystone for Uhtred / Medved (LocalIdentity)
+* Fix Acceleration Shrine config tooltip (Peechey)
+
+VERSION[2.62.0][2026/03/09]
+
+--- New to Path of Building ---
+* Add Cord Belt base (LocalIdentity)
+* Add support for Hextoad trigger (Paliak)
+
+--- Fixed Calculations ---
+* Fix Reliquarian Widowhail Ascendancy not working (LocalIdentity)
+* Fix Void Shockwave 50% less Damage on non-repeat (LocalIdentity)
+
+
+VERSION[2.61.0][2026/03/09]
+
+--- 3.28 - Mirage ---
+* Add 3.28 Tree (LocalIdentity)
+* Add support for all new skill gems (LocalIdentity, Peechey)
+* Add new Heroic Tragedy Timeless Jewel (LocalIdentity)
+* Add support for new 3.28 uniques (Paliak, majochem, MrHB212)
+* Update existing skills with 3.28 changes (LocalIdentity)
+* Update uniques with 3.28 changes (EminGul)
+* Add support for Cryogenesis Bloodline node (EtherealCarnivore, LocalIdentity)
+* Add support for anointing Cord Belts (Peechey)
+* Add Essence of Desolation mod support (EtherealCarnivore, LocalIdentity)
+* Preserve cluster jewel notables when changing enchantment (EtherealCarnivore)
+* Update Energy Shield gain to Per 10 Intelligence (Blitz54)
+* Update Resonating and Replenishing Shrine buffs (EtherealCarnivore)
+* Hide legacy awakened gems from dropdown (EtherealCarnivore, LocalIdentity)
+* Add support for new Runegraft mods (LocalIdentity, EtherealCarnivore)
+* Add flavour text for 3.28 uniques (Blitz54)
+
+--- New to Path of Building ---
+* Auto-copy Eldritch Implicits when comparing gear (Peechey)
+* Add Split Personality path connector coloring (Devlin1991)
+* Show flavour text on Ascendancy and Bloodlines (Blitz54)
+* Add support for Soul Eater on Minions (LocalIdentity)
+* Add support for Shock Nova double hit (LocalIdentity)
+* Add support for Behemoth's Steel Willed Armour defence mod (LocalIdentity)
+* Add progress bar to power report (ALameLlama)
+* Add Stormburst calc for Exploding Orb Damage (LocalIdentity)
+* Add support for Mana Flask effects are not removed mod (deathbeam)
+* Fallback to build list when loading into a build that causes a crash (Paliak)
+
+--- User Interface ---
+* Fix position of elements in Items tab when using portrait mode (meehl)
+* Fix Mastery tooltip bug when pressing escape while hovering an option (Blitz54)
+* Remove discriminator alert when the account name field is empty (Goufix)
+* Hide graft slots if not using the 3.27 tree (Blitz54)
+
+--- Fixed Calculations ---
+* Fix Kinetic Fusillade calculations (Bobastic, LocalIdentity, nemrod10, Paliak)
+* Fix Spell Suppression Evasion mastery not working with some mods (danielztolnai)
+* Fix Radiant Faith calculations when using Foulborn Choir of the Storm (OriginalThing)
+* Fix Replica Nebulis damage calculation (ocombe)
+* Fix Ancestral and Seismic Cry incorrectly granting damage with Echoes of Creation to some skills (LocalIdentity)
+* Fix Enemy damage conversion mods scaling enemy damage (LocalIdentity)
+* Fix The Grey Wind unique not working properly with certain minion skills (TarikBeentjes61)
+
+--- Fixed Behaviours ---
+* Fix Animate Weapon not using Energy Blade weapon (TarikBeentjes61)
+* Fix parsing for Arcane Surge mod in Hierophant's Arcane Blessing (Peechey)
+* Fix Hand of Phrecia enabling Generosity Auras (LocalIdentity)
+* Fix Sublime Vision +1 max Frenzy charges mod not working with Masterful Form (Paliak)
+* Fix Additional Arrows mods mods applying to Projectiles from some skills (LocalIdentity)
+* Fix Summon Holy Relic enchant not working with Holy Relic of Conviction (LocalIdentity)
+* Fix Decay not being scaled by some DoT multi mods (LocalIdentity)
+* Fix Ancient Skull buff being granted to players when using Spiritual Aid / Command (LocalIdentity)
+* Fix Crab Barriers not being able to be set to 0 (jopotochny)
+
+--- Accuracy Improvements ---
+* Fix Maata's Teaching missing implicit (michelrtm)
+* Update The Queen's Hunger to show new veiled mods (michelrtm)
+
 VERSION[2.60.0][2026/01/28]
 
 --- New to Path of Building ---
@@ -8,7 +126,7 @@ VERSION[2.60.0][2026/01/28]
 --- Fixed Crashes ---
 * Fix crash on adding support gems and importing items to many builds (LocalIdentity)
 * Fix Radius Jewels in Shared Items Crashing on Load (Peechey)
-* Fix Crash when sorting gems while using Foulborn Gruthkel's Pelt (LocalIdentity)
+* Fix Crash when sorting gems while using Foulborn Gruthkul's Pelt (LocalIdentity)
 
 --- User Interface ---
 * Fix Foulborn Icons showing on tree nodes, and foil items not importing type (Blitz54)

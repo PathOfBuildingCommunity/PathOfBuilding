@@ -33,6 +33,7 @@ Decoy Totem                                  		----		DecoyTotem
 Defiance Banner                              		----		DefianceBanner
 Determination                                		----		Determination
 Devouring Totem                              		----		DevouringTotem
+Divine Blast                                 		----		DivineBlast
 Dominating Blow                              		----		DominatingBlow
 Dominating Blow of Inspiring                 		----		DominatingBlowAltX
 Doryani's Touch                              		----		DoryanisTouch
@@ -63,6 +64,9 @@ Herald of Purity                             		----		HeraldOfPurity
 His Burning Message                          		----		GraftSkillXophGeyserExplosion
 Holy Flame Totem                             		----		HolyFlameTotem
 Holy Flame Totem of Ire                      		----		HolyFlameTotemAltX
+Holy Hammers                                 		----		HolyHammers
+Holy Strike                                  		----		HolyStrike
+Holy Sweep                                   		----		Sweep
 Ice Crash                                    		----		IceCrash
 Ice Crash of Cadence                         		----		IceCrashAltX
 Immortal Call                                		----		ImmortalCall
@@ -92,15 +96,19 @@ Reap                                         		----		Reap
 Rejuvenation Totem                           		----		RejuvenationTotem
 Return to Dust                               		----		GraftSkillUulNetolHandSlam
 Searing Bond                                 		----		SearingBond
+Searing Bond of Detonation                   		----		SearingBondAltX
 Seismic Cry                                  		----		SeismicCry
 Seize the Flesh                              		----		GraftSkillUulNetolBoneSpires
 Shield Charge                                		----		ShieldCharge
 Shield Crush                                 		----		ShieldCrush
 Shield Crush of the Chieftain                		----		ShieldCrushAltX
+Shield of Light                              		----		ShieldOfLight
 Shockwave Totem                              		----		ShockwaveTotem
+Shockwave Totem of Authority                 		----		ShockwaveTotemAltX
 Smite                                        		----		Smite
 Smite of Divine Judgement                    		----		SmiteAltX
 Static Strike                                		----		StaticStrike
+Static Strike of Gathering Lightning         		----		StaticStrikeAltX
 Steelskin                                    		----		QuickGuard
 Summon Flame Golem                           		----		SummonFlameGolem
 Summon Flame Golem of Hordes                 		----		SummonFlameGolemAltX
@@ -111,7 +119,6 @@ Summon Stone Golem of Safeguarding           		----		SummonStoneGolemAltY
 Sunder                                       		----		Sunder
 Sunder of Earthbreaking                      		----		SunderAltX
 Sunder of Trarthus                           		----		SunderAltY
-Sweep                                        		----		Sweep
 Swordstorm                                   		----		Swordstorm
 Tectonic Slam                                		----		TectonicSlam
 Tectonic Slam of Cataclysm                   		----		TectonicSlamAltX
@@ -147,6 +154,7 @@ Warlord's Mark                               		----		WarlordsMark
 						--------- Support Strength ---------
 Added Fire Damage Support                    		----		SupportAddedFireDamage
 Ancestral Call Support                       		----		SupportAncestralCall
+Annihilation Support                         		----		SupportAnnhilation
 Arrogance Support                            		----		SupportArrogance
 Awakened Added Fire Damage Support           		----		SupportAwakenedAddedFireDamage
 Awakened Ancestral Call Support              		----		SupportAwakenedAncestralCall
@@ -161,8 +169,11 @@ Awakened Melee Splash Support                		----		SupportAwakenedMeleeSplash
 Awakened Multistrike Support                 		----		SupportAwakenedMultistrike
 Ballista Totem Support                       		----		SupportBallistaTotem
 Behead Support                               		----		SupportBehead
+Blessed Call Support                         		----		SupportBlessedCall
 Bloodlust Support                            		----		SupportBloodlust
+Bloodsoaked Banner Support                   		----		SupportBloodsoakedBanner
 Bloodthirst Support                          		----		SupportBloodthirst
+Bonespire Support                            		----		SupportBonespire	TriggeredSupportBonespire
 Brutality Support                            		----		SupportBrutality
 Burning Damage Support                       		----		SupportBurningDamage
 Cast on Melee Kill Support                   		----		SupportCastOnMeleeKill	SupportCastOnMeleeKillTriggered
@@ -174,18 +185,24 @@ Corrupting Cry Support                       		----		SupportCorruptingCry
 Cruelty Support                              		----		SupportCruelty
 Damage on Full Life Support                  		----		SupportDamageOnFullLife
 Divine Blessing Support                      		----		SupportDivineBlessing
+Divine Sentinel Support                      		----		SupportDivineSentinel
 Earthbreaker Support                         		----		SupportEarthbreaker
 Elemental Damage with Attacks Support        		----		SupportElementalDamageWithAttacks
 Empower Support                              		----		SupportEmpower
 Endurance Charge on Melee Stun Support       		----		SupportEnduranceChargeOnMeleeStun
 Eternal Blessing Support                     		----		SupportEternalBlessing
+Excommunicate Support                        		----		SupportExcommunicate
 Expert Retaliation Support                   		----		SupportExpertRetaliation
 Fire Penetration Support                     		----		SupportFirePenetration
+Fissure Support                              		----		SupportFissure	TriggeredSupportFissure
 Fist of War Support                          		----		SupportFistofWar
 Flamewood Support                            		----		SupportFlamewood	AvengingFlame
 Fortify Support                              		----		SupportFortify
 Generosity Support                           		----		SupportGenerosity
+Greater Ancestral Call Support               		----		SupportGreaterAncestralCall
+Greater Multistrike Support                  		----		SupportGreaterMultistrike
 Guardian's Blessing Support                  		----		SupportGuardiansBlessing	SupportGuardiansBlessingMinion
+Hallow Support                               		----		SupportHallow
 Inspiration Support                          		----		SupportInspiration
 Iron Grip Support                            		----		SupportIronGrip
 Iron Will Support                            		----		SupportIronWill
@@ -203,14 +220,19 @@ More Duration Support                        		----		SupportMoreDuration
 Multiple Totems Support                      		----		SupportMultipleTotems
 Multistrike Support                          		----		SupportMultistrike
 Overexertion Support                         		----		SupportOverexertion
+Overheat Support                             		----		SupportOverheat
 Pulverise Support                            		----		SupportPulverise
+Pyre Support                                 		----		SupportPyre	TriggeredSupportPyre
 Rage Support                                 		----		SupportRage
 Ruthless Support                             		----		SupportRuthless
 Shockwave Support                            		----		SupportShockwave	SupportBluntWeaponShockwave
 Spell Totem Support                          		----		SupportSpellTotem
 Stun Support                                 		----		SupportStun
+Transfusion Support                          		----		SupportTransfusion
 Trauma Support                               		----		SupportTrauma
 Urgent Orders Support                        		----		SupportUrgentOrders
+Vaal Temptation Support                      		----		SupportVaalTemptation
+Void Shockwave Support                       		----		SupportVoidShockwave	TriggeredSupportVoidShockwave
 Volatility Support                           		----		SupportVolatility
 
 						--------- Active Dexterity ---------
@@ -255,6 +277,7 @@ Burning Arrow of Vigour                      		----		BurningArrowAltX
 Caustic Arrow                                		----		CausticArrow
 Caustic Arrow of Poison                      		----		CausticArrowAltX
 Charged Dash                                 		----		ChargedDash
+Charged Dash of Projection                   		----		ChargedDashAltX
 Cobra Lash                                   		----		CobraLash
 Conflagration                                		----		Conflagration
 Cremation                                    		----		Cremation
@@ -289,6 +312,7 @@ Falling Crystals                             		----		GraftSkillTulIceMortar
 Fire Trap                                    		----		FireTrap
 Fire Trap of Blasting                        		----		FireTrapAltX
 Flamethrower Trap                            		----		FlamethrowerTrap
+Flamethrower Trap of Stability               		----		FlamethrowerTrapAltX
 Flammable Shot                               		----		OilArrow
 Flicker Strike                               		----		FlickerStrike
 Flicker Strike of Power                      		----		FlickerStrikeAltX
@@ -440,6 +464,7 @@ Blind Support                                		----		SupportBlind
 Block Chance Reduction Support               		----		SupportBlockChanceReduction
 Cast On Critical Strike Support              		----		SupportCastOnCriticalStrike	SupportCastOnCritTriggered
 Cast on Death Support                        		----		SupportCastOnDeath
+Cast on Ward Break Support                   		----		SupportCastOnWardBreak
 Chain Support                                		----		SupportChain
 Chance to Flee Support                       		----		SupportChanceToFlee
 Chance to Poison Support                     		----		SupportChanceToPoison
@@ -447,7 +472,9 @@ Charged Traps Support                        		----		SupportChargedTraps
 Close Combat Support                         		----		SupportCloseCombat
 Cluster Traps Support                        		----		SupportClusterTraps
 Cold Penetration Support                     		----		SupportColdPenetration
+Companionship Support                        		----		SupportCompanionship
 Critical Strike Affliction Support           		----		SupportCriticalStrikeAffliction
+Cull the Weak Support                        		----		SupportCullTheWeak
 Culling Strike Support                       		----		SupportCullingStrike
 Deadly Ailments Support                      		----		SupportDeadlyAilments
 Enhance Support                              		----		SupportEnhance
@@ -455,20 +482,26 @@ Faster Attacks Support                       		----		SupportFasterAttacks
 Faster Projectiles Support                   		----		SupportFasterProjectiles
 Focused Ballista Support                     		----		SupportFocusedBallista
 Fork Support                                 		----		SupportFork
+Greater Chain Support                        		----		SupportGreaterChain
+Greater Fork Support                         		----		SupportGreaterFork
 Greater Multiple Projectiles Support         		----		SupportGreaterMultipleProjectiles
 Greater Volley Support                       		----		SupportGreaterVolley
 Hypothermia Support                          		----		SupportHypothermia
 Ice Bite Support                             		----		SupportIceBite
 Impale Support                               		----		SupportImpale
-Lesser Multiple Projectiles Support          		----		SupportLesserMultipleProjectiles
+Invention Support                            		----		SupportInvention
+Lethal Dose Support                          		----		SupportLethalDose
 Locus Mine Support                           		----		SupportLocusMine
+Machinations Support                         		----		SupportMachinations
 Mana Leech Support                           		----		SupportManaLeech
 Manaforged Arrows Support                    		----		SupportManaforgedArrows
 Mark On Hit Support                          		----		SupportMarkOnHit
 Mirage Archer Support                        		----		SupportMirageArcher
 Momentum Support                             		----		SupportMomentum
+Multiple Projectiles Support                 		----		SupportLesserMultipleProjectiles
 Multiple Traps Support                       		----		SupportMultipleTraps
 Nightblade Support                           		----		SupportNightblade
+Pacifism Support                             		----		SupportPacifism
 Pierce Support                               		----		SupportPierce
 Point Blank Support                          		----		SupportPointBlank
 Returning Projectiles Support                		----		SupportReturningProjectiles
@@ -481,9 +514,11 @@ Swift Affliction Support                     		----		SupportSwiftAffliction
 Swift Assembly Support                       		----		SupportSwiftAssembly
 Trap Support                                 		----		SupportTrap
 Trap and Mine Damage Support                 		----		SupportTrapAndMineDamage
+Unholy Trinity Support                       		----		SupportUnholyTrinity
 Vicious Projectiles Support                  		----		SupportViciousProjectiles
 Vile Toxins Support                          		----		SupportVileToxins
 Void Manipulation Support                    		----		SupportVoidManipulation
+Voidstorm Support                            		----		SupportVoidstorm	TriggeredSupportVoidstorm
 Volley Support                               		----		SupportVolley
 Windburst Support                            		----		SupportWindburst	TriggeredSupportWindburst
 Withering Touch Support                      		----		SupportWitheringTouch
@@ -526,6 +561,7 @@ Crackling Lance                              		----		CracklingLance
 Crackling Lance of Branching                 		----		CracklingLanceAltX
 Crackling Lance of Disintegration            		----		CracklingLanceAltY
 Creeping Frost                               		----		CreepingFrost
+Creeping Frost of Floes                      		----		CreepingFrostAltX
 Damage Infusion                              		----		DamageInfusion
 Dark Pact                                    		----		DarkPact
 Dark Pact of Trarthus                        		----		DarkPactAltX
@@ -574,6 +610,7 @@ Frost Bomb of Forthcoming                    		----		FrostBombAltY
 Frost Bomb of Instability                    		----		FrostBombAltX
 Frost Shield                                 		----		FrostShield
 Frost Wall                                   		----		FrostWall
+Frost Wall of Encroachment                   		----		FrostWallAltX
 Frostbite                                    		----		Frostbite
 Frostblink                                   		----		Frostblink
 Frostblink of Wintry Blast                   		----		FrostblinkAltX
@@ -606,6 +643,7 @@ Kinetic Blast of Clustering                  		----		KineticBlastAltX
 Kinetic Bolt                                 		----		KineticBolt
 Kinetic Bolt of Fragmentation                		----		KineticBoltAltX
 Kinetic Fusillade                            		----		KineticFusillade
+Kinetic Fusillade of Detonation              		----		KineticFusilladeAltX
 Kinetic Rain                                 		----		KineticRain	KineticRainKineticInstability
 Kinetic Rain of Impact                       		----		KineticRainAltX
 Lightning Conduit                            		----		LightningConduit
@@ -623,6 +661,7 @@ Lightning Warp                               		----		LightningWarp
 Malevolence                                  		----		Malevolence
 Manabond                                     		----		Manabond
 Orb of Storms                                		----		OrbOfStorms
+Orb of Storms of Squalls                     		----		OrbOfStormsAltX
 Overcharged Sinews                           		----		GraftSkillEshJoltBuff
 Penance Brand                                		----		PenanceBrand
 Penance Brand of Conduction                  		----		PenanceBrandAltY
@@ -649,8 +688,10 @@ Scorching Ray                                		----		ScorchingRay
 Scorching Ray of Immolation                  		----		ScorchingRayAltX
 Shock Nova                                   		----		NewShockNova
 Shock Nova                                   		----		ShockNova
+Shock Nova of Procession                     		----		ShockNovaAltX
 Sigil of Power                               		----		SigilOfPower
 Siphoning Trap                               		----		SiphoningTrap
+Siphoning Trap of Pain                       		----		SiphoningTrapAltX
 Somatic Shell                                		----		SomaticShell
 Soul Link                                    		----		SoulLink
 Soulrend                                     		----		Soulrend
@@ -664,6 +705,7 @@ Spirit Offering                              		----		SpiritOffering
 Storm Brand                                  		----		StormBrand
 Storm Brand of Indecision                    		----		StormBrandAltX
 Storm Burst                                  		----		StormBurst
+Storm Burst of Repulsion                     		----		StormBurstAltX
 Storm Call                                   		----		StormCall
 Storm Call of Trarthus                       		----		StormCallAltX
 Stormbind                                    		----		Stormbind	RuneBlast
@@ -753,25 +795,40 @@ Cast while Channelling Support               		----		SupportCastWhileChannelling
 Charged Mines Support                        		----		SupportChargedMines
 Combustion Support                           		----		SupportCombustion
 Concentrated Effect Support                  		----		SupportConcentratedEffect
+Congregation Support                         		----		SupportCongregation
 Controlled Destruction Support               		----		SupportControlledDestruction
+Cooldown Recovery Support                    		----		SupportCooldownRecovery
 Cursed Ground Support                        		----		SupportCursedGround
 Decay Support                                		----		SupportDecay
 Devour Support                               		----		SupportDevour
 Efficacy Support                             		----		SupportEfficacy
+Eldritch Blasphemy Support                   		----		SupportEldritchBlasphemy
 Elemental Army Support                       		----		SupportElementalArmy
 Elemental Focus Support                      		----		SupportElementalFocus
 Elemental Penetration Support                		----		SupportElementalPenetration
 Elemental Proliferation Support              		----		SupportElementalProliferation
 Energy Leech Support                         		----		SupportEnergyLeech
 Enlighten Support                            		----		SupportEnlighten
+Exemplar Support                             		----		SupportExemplar
 Faster Casting Support                       		----		SupportFasterCasting
 Feeding Frenzy Support                       		----		SupportFeedingFrenzy
 Focused Channelling Support                  		----		SupportFocusedChannelling
+Foulgrasp Support                            		----		SupportFoulgrasp	TriggeredSupportFoulgrasp
 Fresh Meat Support                           		----		SupportFreshMeat
 Frigid Bond Support                          		----		SupportFrigidBond
+Frostmage Support                            		----		SupportFrostmage
+Gluttony Support                             		----		SupportGluttony
+Greater Devour Support                       		----		SupportGreaterDevour
+Greater Kinetic Instability Support          		----		SupportGreaterKineticInstability	TriggeredSupportGreaterKineticInstability
+Greater Spell Cascade Support                		----		SupportGreaterSpellCascade
+Greater Spell Echo Support                   		----		SupportGreaterSpellEcho
+Greater Unleash Support                      		----		SupportGreaterUnleash
 Hex Bloom Support                            		----		SupportHexBloom
+Hexpass Support                              		----		SupportHexpass
+Hextoad Support                              		----		SupportHextoad	TriggeredSupportHextoad
 Hextouch Support                             		----		SupportHextouch	SupportCurseOnHitCurse
 High-Impact Mine Support                     		----		SupportHighImpactMine
+Hiveborn Support                             		----		SupportHiveborn	TriggeredSupportHiveborn
 Ignite Proliferation Support                 		----		SupportIgniteProliferation
 Immolate Support                             		----		SupportImmolate
 Impending Doom Support                       		----		SupportImpendingDoom	DoomBlast
@@ -782,6 +839,7 @@ Infernal Legion Support                      		----		SupportInfernalLegion
 Infused Channelling Support                  		----		SupportInfusedChannelling
 Innervate Support                            		----		SupportInnervate
 Intensify Support                            		----		SupportIntensify
+Invert the Rules Support                     		----		SupportInvertTheRules
 Item Rarity Support                          		----		SupportItemRarity
 Kinetic Instability Support                  		----		SupportKineticInstability	TriggeredSupportKineticInstability
 Lightning Penetration Support                		----		SupportLightningPenetration
@@ -790,8 +848,10 @@ Meat Shield Support                          		----		SupportMeatShield
 Minefield Support                            		----		SupportMinefield
 Minion Damage Support                        		----		SupportMinionDamage
 Minion Life Support                          		----		SupportMinionLife
+Minion Pact Support                          		----		SupportMinionPact
 Minion Speed Support                         		----		SupportMinionSpeed
 Overcharge Support                           		----		SupportOvercharge
+Overloaded Intensity Support                 		----		SupportOverloadedIntensity
 Physical to Lightning Support                		----		SupportPhysicalToLightning
 Pinpoint Support                             		----		SupportPinpoint
 Power Charge On Critical Support             		----		SupportPowerChargeOnCritical
@@ -799,6 +859,7 @@ Predator Support                             		----		SupportPredator	SignalPrey
 Prismatic Burst Support                      		----		SupportPrismaticBurst	PrismaticBurst
 Sacred Wisps Support                         		----		SupportSacredWisps	SummonSacredWisp
 Sacrifice Support                            		----		SupportSacrifice
+Scornful Herald Support                      		----		SupportScornfulHerald
 Spell Cascade Support                        		----		SupportSpellCascade
 Spell Echo Support                           		----		SupportSpellEcho
 Spellblade Support                           		----		SupportSpellblade
@@ -807,6 +868,7 @@ Swiftbrand Support                           		----		SupportSwiftbrand
 Trinity Support                              		----		SupportTrinity
 Unbound Ailments Support                     		----		SupportUnboundAilments
 Unleash Support                              		----		SupportUnleash
+Vaal Sacrifice Support                       		----		SupportVaalSacrifice
 
 						--------- Active Other ---------
 Blinding Aura                                		----		BlindingAura
@@ -823,5 +885,6 @@ Vaal Breach                                  		----		VaalBreach
 Wand Teleport                                		----		WandTeleport
 
 						--------- Support Other ---------
+Eclipse Support                              		----		SupportEclipse
 Vaal Soul Harvesting                         		----		SupportVaalSoulHarvesting
 

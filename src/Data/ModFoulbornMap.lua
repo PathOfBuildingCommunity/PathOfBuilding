@@ -23,7 +23,7 @@ return {
 		"+1 to Maximum Endurance Charges",
 	},
 	["Amplification Rod"] = {
-		"Socketed Gems are Supported by Level 1 Awakened Spell Cascade",
+		"Socketed Gems are Supported by Level 1 Greater Spell Cascade",
 	},
 	["Anathema"] = {
 		"Curse Skills have (-30-30)% reduced Skill Effect Duration",
@@ -101,7 +101,7 @@ return {
 		"Projectiles Pierce all nearby Targets",
 	},
 	["Choir of the Storm"] = {
-		"Mana is increased by 50% of Overcapped Lightning Resistance",
+		"Mana is increased by 1% per 4% Overcapped Lightning Resistance",
 	},
 	["Cloak of Defiance"] = {
 		"Eldritch Battery",
@@ -148,7 +148,7 @@ return {
 		"Gain (15-30)% of Missing Unreserved Mana before being Hit by an Enemy",
 	},
 	["Deidbellow"] = {
-		"(25-50)% increased Warcry Buff Effect",
+		"(20-35)% increased Warcry Buff Effect",
 		"(20-40)% increased Warcry Cooldown Recovery Rate",
 	},
 	["Devoto's Devotion"] = {
@@ -178,8 +178,8 @@ return {
 		"10% of Damage taken Recouped as Life per Socketed Red Gem",
 	},
 	["Doon Cuebiyari"] = {
-		"1% increased maximum Energy Shield per 16 Strength when in Off Hand",
-		"1% increased maximum Mana per 12 Strength when in Main Hand",
+		"1% increased maximum Energy Shield per 25 Strength when in Off Hand",
+		"1% increased maximum Mana per 18 Strength when in Main Hand",
 	},
 	["Doryani's Fist"] = {
 		"30% chance to Sap Enemies",
@@ -211,6 +211,10 @@ return {
 		"Chaos Damage taken does not bypass Energy Shield while not on Low Mana",
 		"Damage cannot be Reflected",
 	},
+	["Eye of Chayula"] = {
+		"20% increased Quantity of Gold Dropped by Slain Enemies",
+		"20% reduced maximum Mana",
+	},
 	["Facebreaker"] = {
 		"(20-30)% increased Area of Effect while Unarmed",
 	},
@@ -222,6 +226,10 @@ return {
 	},
 	["Fleshcrafter"] = {
 		"Minions Leech 5% of Elemental Damage as Energy Shield",
+	},
+	["Fleshrender"] = {
+		"Damaging Ailments deal damage (20-40)% faster",
+		"(25-27)% increased Attack Speed",
 	},
 	["Frostbreath"] = {
 		"(60-100)% increased Critical Strike Chance",
@@ -237,7 +245,7 @@ return {
 	},
 	["Ghostwrithe"] = {
 		"50% of Chaos Damage taken Recouped as Life",
-		"Your Maximum Energy Shield is Equal to 50% of Your Maximum Life",
+		"Your Maximum Energy Shield is Equal to 40% of Your Maximum Life",
 	},
 	["Gifts from Above"] = {
 		"(25-40)% increased Effect of Consecrated Ground you create",
@@ -258,7 +266,7 @@ return {
 		"Your Warcries are disabled",
 	},
 	["Hand of Thought and Motion"] = {
-		"5% increased Accuracy Rating per 25 Intelligence",
+		"3% increased Accuracy Rating per 25 Intelligence",
 		"(8-12)% increased Strength",
 	},
 	["Hand of Wisdom and Action"] = {
@@ -298,6 +306,10 @@ return {
 	["Intuitive Leap"] = {
 		"Keystone Passive Skills in Radius can be Allocated without being connected to your tree Passage",
 	},
+	["Iron Heart"] = {
+		"Chance to Block Attack Damage is Unlucky",
+		"+1% Chance to Block Spell Damage per 50 Strength",
+	},
 	["Jorrhast's Blacksteel"] = {
 		"Maximum number of Animated Weapons is Doubled",
 		"Minions deal (50-70)% increased Damage if you've Hit Recently",
@@ -320,6 +332,14 @@ return {
 	},
 	["Kaom's Way"] = {
 		"(20-30)% increased total Power counted by Warcries",
+	},
+	["Khatal's Geyser"] = {
+		"Mana Flasks gain (1-3) Charge every 3 seconds",
+		"(12-14)% increased maximum Mana",
+	},
+	["Khatal's Weeping"] = {
+		"Life Flasks gain (1-3) Charge every 3 seconds",
+		"(8-10)% increased maximum Life",
 	},
 	["Kikazaru"] = {
 		"+2 Maximum Mana per Level",
@@ -475,7 +495,7 @@ return {
 		"(12-16)% increased Intelligence",
 	},
 	["Reverberation Rod"] = {
-		"Socketed Gems are Supported by Level 1 Awakened Spell Cascade",
+		"Socketed Gems are Supported by Level 1 Greater Spell Cascade",
 	},
 	["Rigwald's Command"] = {
 		"+10% Chance to Block Spell Damage while Dual Wielding",
@@ -505,6 +525,10 @@ return {
 	},
 	["Saffell's Frame"] = {
 		"Maximum Energy Shield is increased by Chaos Resistance",
+	},
+	["Saresh's Darkness"] = {
+		"(40-60)% chance to Avoid being Poisoned",
+		"(30-50)% increased Chaos Damage",
 	},
 	["Scold's Bridle"] = {
 		"(20-30)% increased Mana Cost of Skills",
@@ -546,6 +570,10 @@ return {
 	["Skyforth"] = {
 		"+(3-5)% to Critical Strike Multiplier per Power Charge",
 	},
+	["Skysunder"] = {
+		"(30-35)% increased Duration of Ailments on Enemies",
+		"(25-27)% increased Attack Speed",
+	},
 	["Snakebite"] = {
 		"+(100-130) to maximum Energy Shield",
 	},
@@ -554,6 +582,10 @@ return {
 	},
 	["Solaris Lorica"] = {
 		"25% of Elemental Damage from Hits taken as Chaos Damage",
+	},
+	["Solerai's Radiance"] = {
+		"(30-50)% increased Fire Damage",
+		"(40-60)% reduced Ignite Duration on you",
 	},
 	["Song of the Sirens"] = {
 		"Wombgift Bait",
@@ -580,11 +612,15 @@ return {
 		"Skills used by Traps have (40-60)% increased Area of Effect",
 	},
 	["The Anticipation"] = {
-		"(8-12)% of Armour applies to Fire, Cold and Lightning Damage taken from Hits if you've Blocked Recently",
+		"(8-12)% of Armour applies to Fire, Cold and Lightning Damage taken from Hits if you have Blocked Recently",
 		"+3% to maximum Chance to Block Attack Damage",
 	},
 	["The Aylardex"] = {
 		"Eldritch Battery",
+	},
+	["The Bane of Hope"] = {
+		"(14-18)% increased Attack Speed",
+		"(10-15)% chance on Hitting an Enemy for all Impales on that Enemy to last for an additional Hit",
 	},
 	["The Baron"] = {
 		"+1 to maximum number of Raised Zombies per 500 Intelligence",
@@ -610,9 +646,18 @@ return {
 	["The Dancing Duo"] = {
 		"Adds 1 to 777 Lightning Damage",
 	},
+	["The Desecrated Chalice"] = {
+		"+(25-30)% to Chaos Resistance",
+		"(20-22)% increased Attack Speed",
+		"Gain (35-45)% of Physical Damage as Extra Chaos Damage",
+	},
 	["The Embalmer"] = {
 		"Poisons you inflict deal Damage (15-20)% faster",
-		"On Killing a Poisoned Enemy, nearby Enemies are Poisoned",
+		"When you kill a Poisoned Enemy, Enemies within 1.5 metres are Poisoned",
+	},
+	["The Flame of Hope"] = {
+		"+(28-35)% to Fire Damage over Time Multiplier",
+		"(30-34)% increased Critical Strike Chance",
 	},
 	["The Formless Flame"] = {
 		"30% of Fire Damage from Hits taken as Physical Damage",
@@ -663,6 +708,12 @@ return {
 		"Gain an Endurance Charge each second while Stationary",
 		"Gain a Power Charge on Hit while Bleeding",
 	},
+	["The Sacred Chalice"] = {
+		"(20-22)% increased Attack Speed",
+		"Gain (20-25)% of Physical Damage as Extra Cold Damage",
+		"Gain (20-25)% of Physical Damage as Extra Fire Damage",
+		"Gain (20-25)% of Physical Damage as Extra Lightning Damage",
+	},
 	["The Searing Touch"] = {
 		"+(3-5) to maximum number of Summoned Searing Bond Totems",
 	},
@@ -707,7 +758,7 @@ return {
 		"(60-100)% increased Effect of Auras from Mines",
 	},
 	["Tulborn"] = {
-		"+(2-4) to Level of all Cold Spell Skill Gems",
+		"+(2-3) to Level of all Cold Spell Skill Gems",
 		"Gain a Power Charge after Spending a total of 200 Mana",
 	},
 	["Tulfall"] = {

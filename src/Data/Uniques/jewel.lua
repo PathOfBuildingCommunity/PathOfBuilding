@@ -74,8 +74,11 @@ Source: No longer obtainable
 ]],[[
 Bloodnotch
 Crimson Jewel
+Variant: Pre 3.28.0
+Variant: Current
 Limited to: 1
-(40-60)% of Damage Taken from Stunning Hits is Recovered as Life
+{variant:1}(40-60)% of Damage Taken from Stunning Hits is Recovered as Life
+{variant:2}(20-30)% of Damage Taken from Stunning Hits is Recovered as Life
 ]],[[
 Calamitous Visions
 Small Cluster Jewel
@@ -1822,7 +1825,6 @@ Brutal Restraint
 Timeless Jewel
 League: Legion
 Source: Drops from Maraketh Legion
-Requires Level: 20
 Limited to: 1 Historic
 Variant: Asenath (Dance with Death)
 Variant: Deshret (Wind Dancer) (Pre 3.11.0)
@@ -1841,7 +1843,6 @@ Elegant Hubris
 Timeless Jewel
 League: Legion
 Source: Drops from Eternal Legion
-Requires Level: 20
 Limited to: 1 Historic
 Variant: Cadiro (Supreme Decadence)
 Variant: Chitus (Supreme Ego) (Pre 3.11.0)
@@ -1860,7 +1861,6 @@ Glorious Vanity
 Timeless Jewel
 League: Legion
 Source: Drops from Vaal Legion
-Requires Level: 20
 Limited to: 1 Historic
 Variant: Doryani (Corrupted Soul)
 Variant: Xibaqua (Divine Flesh)
@@ -1875,11 +1875,26 @@ Implicits: 0
 Passives in radius are Conquered by the Vaal
 Historic
 ]],[[
+Heroic Tragedy
+Timeless Jewel
+League: Legion
+Source: Drops from Legion in Mirage
+Limited to: 1 Historic
+Variant: Vorana (Black Scythe Training)
+Variant: Uhtred (Celestial Mathematics)
+Variant: Medved (The Unbreaking Circle)
+Radius: Large
+Implicits: 0
+{variant:1}Remembrancing (100-8000) songworthy deeds by the line of Vorana
+{variant:2}Remembrancing (100-8000) songworthy deeds by the line of Uhtred
+{variant:3}Remembrancing (100-8000) songworthy deeds by the line of Medved
+Passives in radius are Conquered by the Kalguur
+Historic
+]],[[
 Lethal Pride
 Timeless Jewel
 League: Legion
 Source: Drops from Karui Legion
-Requires Level: 20
 Limited to: 1 Historic
 Variant: Kaom (Strength of Blood)
 Variant: Kiloava (Glancing Blows) (Pre 3.11.0)
@@ -1898,7 +1913,6 @@ Militant Faith
 Timeless Jewel
 League: Legion
 Source: Drops from Templar Legion
-Requires Level: 20
 Limited to: 1 Historic
 Has Alt Variant: true
 Has Alt Variant Two: true

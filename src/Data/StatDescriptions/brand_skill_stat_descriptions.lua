@@ -56,10 +56,6 @@ return {
 					[1]={
 						[1]="#",
 						[2]="#"
-					},
-					[2]={
-						[1]="#",
-						[2]="#"
 					}
 				},
 				text="Can be Attached for a total Duration of {0} seconds"
@@ -67,8 +63,7 @@ return {
 		},
 		name="base_duration_identifier",
 		stats={
-			[1]="base_skill_effect_duration",
-			[2]="quality_display_base_duration_is_quality"
+			[1]="base_skill_effect_duration"
 		}
 	},
 	[5]={
@@ -354,7 +349,6 @@ return {
 	["brands_per_target_limit"]=7,
 	["conduit_sigil_number_of_beam_targets"]=8,
 	parent="skill_stat_descriptions",
-	["quality_display_base_duration_is_quality"]=4,
 	["quality_display_sigil_attached_target_damage_is_gem"]=10,
 	["quality_display_storm_brand_is_gem"]=8,
 	["secondary_skill_effect_duration"]=9,

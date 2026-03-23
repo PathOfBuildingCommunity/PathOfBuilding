@@ -94,13 +94,6 @@ local skills, mod, flag, skill = ...
 #baseMod skill("triggeredByBrand", true)
 #mods
 
-#skill CreepingFrost
-#flags spell area projectile duration
-#baseMod skill("dotIsArea", true)
-#baseMod skill("radiusLabel", "Projectile Impact:")
-#baseMod skill("radiusSecondaryLabel", "DoT Area:")
-#mods
-
 #skill ArmageddonBrand
 #flags spell area duration brand
 	preDamageFunc = function(activeSkill, output)
@@ -740,6 +733,20 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 10)
 #mods
 
+#skill CreepingFrost
+#flags spell area projectile duration
+#baseMod skill("dotIsArea", true)
+#baseMod skill("radiusLabel", "Projectile Impact:")
+#baseMod skill("radiusSecondaryLabel", "DoT Area:")
+#mods
+
+#skill CreepingFrostAltX
+#flags spell area projectile duration
+#baseMod skill("dotIsArea", true)
+#baseMod skill("radiusLabel", "Projectile Impact:")
+#baseMod skill("radiusSecondaryLabel", "DoT Area:")
+#mods
+
 #skill DarkPact
 #flags spell area chaining
 	parts = {
@@ -1004,6 +1011,9 @@ local skills, mod, flag, skill = ...
 		},
 		["storm_blade_damage_+%_final_with_two_hand_weapon"] = {
 			mod("EnergyBladeDamage", "MORE", nil, 0, 0, { type = "Condition", var = "UsingTwoHandedWeapon" }, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
+		},
+		["storm_blade_global_attack_speed_+%"] = {
+			mod("EnergyBladeAttackSpeed", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
 		},
 		["storm_blade_minimum_lightning_damage"] = {
 			mod("EnergyBladeMinLightning", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
@@ -2325,33 +2335,198 @@ local skills, mod, flag, skill = ...
 		-- Calculate effective attack rate accounting for delayed projectile firing
 		-- Projectiles orbit for base_skill_effect_duration before firing
 		-- Recasting resets the timer, so attacking too fast wastes potential damage
-		local baseDuration = skillData.duration
-		local actualDuration = output.Duration or baseDuration
-		local ticksNeededForInitialDelay = math.ceil(actualDuration / data.misc.ServerTickTime)
-		local timePerProjectile = baseDelayBetweenProjectiles * output.DurationMod
-		local timeForAllProjectiles = timePerProjectile * projectileCount
-		local effectiveDelay = ticksNeededForInitialDelay * data.misc.ServerTickTime + math.ceil(timeForAllProjectiles / data.misc.ServerTickTime) * data.misc.ServerTickTime
-		local maxEffectiveAPS = 1 / effectiveDelay
+		-- Formula: totalTime = (hoverDelay + delayBetweenProj * nProj) * durationMod
+		local hoverDelay = skillData.duration
+		local durationMod = output.DurationMod
+		local baseTimeForAllProjectiles = baseDelayBetweenProjectiles * (projectileCount - 1)
+		local effectiveDelay = (hoverDelay + baseTimeForAllProjectiles) * durationMod
+		-- Testing in game showed playing in Lockstep rounded the duration to server ticks but Predictive did not
+		local effectiveDelayRounded = math.ceil(effectiveDelay / data.misc.ServerTickTime) * data.misc.ServerTickTime
+		local maxEffectiveAPS = 1 / effectiveDelayRounded
+		local maxEffectivePredictiveAPS = 1 / effectiveDelay
 		local currentAPS = output.Speed
 
 		output.KineticFusilladeMaxEffectiveAPS = maxEffectiveAPS
 
 		if breakdown then
 			local breakdownAPS = {}
-			t_insert(breakdownAPS, s_format("^1(These calculations are speculative and best-effort)", actualDuration))
-			t_insert(breakdownAPS, s_format("^8Delay of^7 %.3fs ^8before projectiles start firing", actualDuration))
-			t_insert(breakdownAPS, s_format("^8Each projectile fires sequentially with a^7 %.3fs ^8delay between each projectile", timePerProjectile))
-			t_insert(breakdownAPS, s_format("^8Server tick time:^7 %.3fs", data.misc.ServerTickTime))
-			t_insert(breakdownAPS, s_format("^8Ticks needed:^7 %d ^8(rounded up)", ticksNeededForInitialDelay + math.ceil(timeForAllProjectiles / data.misc.ServerTickTime)))
-			t_insert(breakdownAPS, s_format("^8Effective delay:^7 %.3fs", effectiveDelay))
-			t_insert(breakdownAPS, s_format("^8Max effective attack rate:^7 1 / %.3f = %.2f", effectiveDelay, maxEffectiveAPS))
+			t_insert(breakdownAPS, s_format("^8Base hover delay:^7 %.1fs", hoverDelay))
+			t_insert(breakdownAPS, s_format("^8Base delay between projectiles:^7 %.2fs", baseDelayBetweenProjectiles))
+			t_insert(breakdownAPS, s_format("^8Base time for^7 %d added ^8projectiles:^7 %.2fs x %d = %.1fs", (projectileCount - 1), baseDelayBetweenProjectiles, (projectileCount - 1), baseTimeForAllProjectiles))
+			t_insert(breakdownAPS, s_format("^8Duration modifier:^7 %.4f", durationMod))
+			t_insert(breakdownAPS, "")
+			t_insert(breakdownAPS, s_format("^6Lockstep"))
+			t_insert(breakdownAPS, s_format("^8Effective delay:^7 (%.1f + %.2f) x %.4f = %.4fs", hoverDelay, baseTimeForAllProjectiles, durationMod, effectiveDelay))
+			t_insert(breakdownAPS, s_format("^8Rounded up to nearest server tick^7 = %.4fs", effectiveDelayRounded))
+			t_insert(breakdownAPS, s_format("^8Max effective attack rate:^7 1 / %.4f = %.2f", effectiveDelayRounded, maxEffectiveAPS))
+			if currentAPS then
+				local currentInc = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed")
+				local neededInc = ((maxEffectiveAPS / currentAPS) * (1 + currentInc / 100) - 1) * 100
+				local additionalInc = neededInc - currentInc
+				local neededPredictiveInc = ((maxEffectivePredictiveAPS / currentAPS) * (1 + currentInc / 100) - 1) * 100
+				local additionalPredictiveInc = neededPredictiveInc - currentInc
+				if currentAPS > maxEffectiveAPS then
+					t_insert(breakdownAPS, s_format("^1Current attack rate (%.2f) exceeds max effective rate!", currentAPS))
+					t_insert(breakdownAPS, s_format("^1Reduce attack speed by at least^7 %d%% ^1", math.ceil(-additionalInc)))
+					t_insert(breakdownAPS, s_format("^1DPS is reduced by %.1f%%", (1 - maxEffectiveAPS / currentAPS) * 100))
+				else
+					t_insert(breakdownAPS, s_format("^2Current attack rate (%.2f) is within effective limits", currentAPS))
+					t_insert(breakdownAPS, s_format("^2You can add up to^7 %d%% ^2increased attack speed", math.floor(additionalInc)))
+				end
+				t_insert(breakdownAPS, "")
+				t_insert(breakdownAPS, s_format("^6Predictive"))
+				t_insert(breakdownAPS, s_format("^8Effective delay:^7 (%.1f + %.2f) x %.4f = %.4fs", hoverDelay, baseTimeForAllProjectiles, durationMod, effectiveDelay))
+				t_insert(breakdownAPS, s_format("^8Max effective attack rate:^7 1 / %.4f = %.2f", effectiveDelay, maxEffectivePredictiveAPS))
+				if currentAPS > maxEffectivePredictiveAPS then
+					t_insert(breakdownAPS, s_format("^1Current attack rate (%.2f) exceeds max effective rate!", currentAPS))
+					t_insert(breakdownAPS, s_format("^1Reduce attack speed by at least^7 %d%% ^1", math.ceil(-additionalPredictiveInc)))
+					t_insert(breakdownAPS, s_format("^1DPS is reduced by %.1f%%", (1 - maxEffectivePredictiveAPS / currentAPS) * 100))
+				else
+					t_insert(breakdownAPS, s_format("^2Current attack rate (%.2f) is within effective limits", currentAPS))
+					t_insert(breakdownAPS, s_format("^2You can add up to^7 %d%% ^2increased attack speed", math.floor(additionalPredictiveInc)))
+				end
+			end
+			breakdown.KineticFusilladeMaxEffectiveAPS = breakdownAPS
+		end
+
+		-- Adjust dpsMultiplier if attacking too fast (only for "All Projectiles" mode)
+		if activeSkill.skillPart == 1 then
 			if currentAPS and currentAPS > maxEffectiveAPS then
+				local efficiencyRatio = maxEffectiveAPS / currentAPS
+				local originalMultiplier = skillData.dpsMultiplier or output.ProjectileCount
+				skillData.dpsMultiplier = originalMultiplier * efficiencyRatio
+			end
+		end
+	end,
+	statMap = {
+		["kinetic_fusillade_damage_+%_final_per_projectile_fired"] = {
+			skill("damagePerProjectile", nil),
+		},
+		["kinetic_fusillade_base_delay_between_projectiles_ms"] = {
+			skill("delayPerProjectile", nil),
+			div = 1000,
+		},
+		["quality_display_kinetic_fusillade_is_gem"] = {
+			-- Display only
+		},
+		["kinetic_fusillade_maximum_floating_projectiles"] = {
+			mod("ProjectileCountMaximum", "OVERRIDE", nil)
+		},
+	},
+#mods
+
+#skill KineticFusilladeAltX
+#flags attack projectile area duration
+	parts = {
+		{
+			name = "All Projectiles",
+		},
+		{
+			name = "1 Projectile"
+		},
+	},
+	preDamageFunc = function(activeSkill, output, breakdown)
+		local skillData = activeSkill.skillData
+		local t_insert = table.insert
+		local s_format = string.format
+
+		if activeSkill.skillPart == 1 then
+			-- Set base dpsMultiplier for projectile count
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
+
+			-- Calculate average damage scaling for sequential projectiles
+			-- Each projectile does more damage based on how many came before it
+			local moreDamagePerProj = skillData.damagePerProjectile or 0
+			if moreDamagePerProj ~= 0 and output.ProjectileCount > 1 then
+				-- Average multiplier: sum of (0, X, 2X, 3X, ..., (n-1)X) / n
+				-- This equals: X * (0 + 1 + 2 + ... + (n-1)) / n = X * n(n-1)/2 / n = X * (n-1)/2
+				local avgMoreMult = moreDamagePerProj * (output.ProjectileCount - 1) / 2
+				activeSkill.skillModList:NewMod("Damage", "MORE", avgMoreMult, "Skill:KineticFusilladeofDetonation", ModFlag.Hit)
+
+				-- Store the average multiplier for display
+				output.KineticFusilladeAvgMoreMult = avgMoreMult
+
+				if breakdown then
+					local breakdownSequential = {}
+					t_insert(breakdownSequential, s_format("^8Each projectile deals^7 %d%%^8 more damage per previous projectile", moreDamagePerProj))
+					t_insert(breakdownSequential, s_format("^8With^7 %d^8 projectiles, damage progression is:^7", output.ProjectileCount))
+					for i = 1, output.ProjectileCount do
+						local projMult = moreDamagePerProj * (i - 1)
+						t_insert(breakdownSequential, s_format("  ^8Projectile %d:^7 %d%%^8 more damage", i, projMult))
+					end
+					t_insert(breakdownSequential, s_format("^8Average more multiplier:^7 %.1f%%", avgMoreMult))
+					breakdown.KineticFusilladeSequentialBreakdown = breakdownSequential
+					breakdown.ProjectileCount = breakdown.ProjectileCount or {}
+					t_insert(breakdown.ProjectileCount,s_format("^8Maximum number of Kinetic Fusilade projectiles:^7 %d", activeSkill.skillModList:Override(activeSkill.skillCfg, "ProjectileCountMaximum")))
+				end
+			end
+		end
+	end,
+	postCritFunc = function(activeSkill, output, breakdown)
+		local skillData = activeSkill.skillData
+		local t_insert = table.insert
+		local s_format = string.format
+
+		local baseDelayBetweenProjectiles = skillData.delayPerProjectile
+		local projectileCount = 1
+
+		if activeSkill.skillPart == 1 then
+			projectileCount = output.ProjectileCount
+		end
+
+		-- Calculate effective attack rate accounting for delayed projectile firing
+		-- Projectiles orbit for base_skill_effect_duration before firing
+		-- Recasting resets the timer, so attacking too fast wastes potential damage
+		-- Formula: totalTime = (hoverDelay + delayBetweenProj * nProj) * durationMod
+		local hoverDelay = skillData.duration
+		local durationMod = output.DurationMod
+		local baseTimeForAllProjectiles = baseDelayBetweenProjectiles * (projectileCount - 1)
+		local effectiveDelay = (hoverDelay + baseTimeForAllProjectiles) * durationMod
+		-- Testing in game showed playing in Lockstep rounded the duration to server ticks but Predictive did not
+		local effectiveDelayRounded = math.ceil(effectiveDelay / data.misc.ServerTickTime) * data.misc.ServerTickTime
+		local maxEffectiveAPS = 1 / effectiveDelayRounded
+		local maxEffectivePredictiveAPS = 1 / effectiveDelay
+		local currentAPS = output.Speed
+
+		output.KineticFusilladeMaxEffectiveAPS = maxEffectiveAPS
+
+		if breakdown then
+			local breakdownAPS = {}
+			t_insert(breakdownAPS, s_format("^8Base hover delay:^7 %.1fs", hoverDelay))
+			t_insert(breakdownAPS, s_format("^8Base delay between projectiles:^7 %.2fs", baseDelayBetweenProjectiles))
+			t_insert(breakdownAPS, s_format("^8Base time for^7 %d added ^8projectiles:^7 %.2fs x %d = %.1fs", (projectileCount - 1), baseDelayBetweenProjectiles, (projectileCount - 1), baseTimeForAllProjectiles))
+			t_insert(breakdownAPS, s_format("^8Duration modifier:^7 %.4f", durationMod))
+			t_insert(breakdownAPS, "")
+			t_insert(breakdownAPS, s_format("^6Lockstep"))
+			t_insert(breakdownAPS, s_format("^8Effective delay:^7 (%.1f + %.2f) x %.4f = %.4fs", hoverDelay, baseTimeForAllProjectiles, durationMod, effectiveDelay))
+			t_insert(breakdownAPS, s_format("^8Rounded up to nearest server tick^7 = %.4fs", effectiveDelayRounded))
+			t_insert(breakdownAPS, s_format("^8Max effective attack rate:^7 1 / %.4f = %.2f", effectiveDelayRounded, maxEffectiveAPS))
+			if currentAPS then
+				local currentInc = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed")
+				local neededInc = ((maxEffectiveAPS / currentAPS) * (1 + currentInc / 100) - 1) * 100
+				local additionalInc = neededInc - currentInc
+				local neededPredictiveInc = ((maxEffectivePredictiveAPS / currentAPS) * (1 + currentInc / 100) - 1) * 100
+				local additionalPredictiveInc = neededPredictiveInc - currentInc
+				if currentAPS > maxEffectiveAPS then
+					t_insert(breakdownAPS, s_format("^1Current attack rate (%.2f) exceeds max effective rate!", currentAPS))
+					t_insert(breakdownAPS, s_format("^1Reduce attack speed by at least^7 %d%% ^1", math.ceil(-additionalInc)))
+					t_insert(breakdownAPS, s_format("^1DPS is reduced by %.1f%%", (1 - maxEffectiveAPS / currentAPS) * 100))
+				else
+					t_insert(breakdownAPS, s_format("^2Current attack rate (%.2f) is within effective limits", currentAPS))
+					t_insert(breakdownAPS, s_format("^2You can add up to^7 %d%% ^2increased attack speed", math.floor(additionalInc)))
+				end
 				t_insert(breakdownAPS, "")
-				t_insert(breakdownAPS, s_format("^1Current attack rate (%.2f) exceeds max effective rate!", currentAPS))
-				t_insert(breakdownAPS, s_format("^1DPS is reduced by %.1f%%", (1 - maxEffectiveAPS / currentAPS) * 100))
-			elseif currentAPS then
-				t_insert(breakdownAPS, "")
-				t_insert(breakdownAPS, s_format("^2Current attack rate (%.2f) is within effective limits", currentAPS))
+				t_insert(breakdownAPS, s_format("^6Predictive"))
+				t_insert(breakdownAPS, s_format("^8Effective delay:^7 (%.1f + %.2f) x %.4f = %.4fs", hoverDelay, baseTimeForAllProjectiles, durationMod, effectiveDelay))
+				t_insert(breakdownAPS, s_format("^8Max effective attack rate:^7 1 / %.4f = %.2f", effectiveDelay, maxEffectivePredictiveAPS))
+				if currentAPS > maxEffectivePredictiveAPS then
+					t_insert(breakdownAPS, s_format("^1Current attack rate (%.2f) exceeds max effective rate!", currentAPS))
+					t_insert(breakdownAPS, s_format("^1Reduce attack speed by at least^7 %d%% ^1", math.ceil(-additionalPredictiveInc)))
+					t_insert(breakdownAPS, s_format("^1DPS is reduced by %.1f%%", (1 - maxEffectivePredictiveAPS / currentAPS) * 100))
+				else
+					t_insert(breakdownAPS, s_format("^2Current attack rate (%.2f) is within effective limits", currentAPS))
+					t_insert(breakdownAPS, s_format("^2You can add up to^7 %d%% ^2increased attack speed", math.floor(additionalPredictiveInc)))
+				end
 			end
 			breakdown.KineticFusilladeMaxEffectiveAPS = breakdownAPS
 		end
@@ -3057,6 +3232,25 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 28)
 #mods
 
+#skill OrbOfStormsAltX
+#flags spell chaining duration
+	parts = {
+		{
+			name = "Self Cast",
+		},
+		{
+			name = "Channelling",
+		},
+	},
+	statMap = {
+		["orb_of_storms_base_channelling_bolt_frequency_ms"] = {
+			skill("hitTimeOverride", nil, { type = "SkillPart", skillPart = 2 }),
+			div = 1000,
+		},
+	},
+#baseMod skill("radius", 28)
+#mods
+
 #skill PenanceBrand
 #flags spell area duration brand
 	preDamageFunc = function(activeSkill, output)
@@ -3480,6 +3674,9 @@ local skills, mod, flag, skill = ...
 #flags spell area
 	parts = {
 		{
+			name = "Ring + Nova",
+		},
+		{
 			name = "Ring",
 		},
 		{
@@ -3488,10 +3685,25 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["shock_nova_ring_chance_to_shock_+%"] =  {
-			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }),
 		},
 	},
 #baseMod skill("radius", 26)
+#baseMod skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 1 })
+#mods
+
+#skill ShockNovaAltX
+#flags spell area
+	parts = {
+		{
+			name = "Ring + Nova",
+		},
+		{
+			name = "Nova",
+		},
+	},
+#baseMod skill("radius", 26)
+#baseMod skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 1 })
 #mods
 
 #skill SigilOfPower
@@ -3542,6 +3754,12 @@ local skills, mod, flag, skill = ...
 			div = 60,
 		},
 	},
+#baseMod skill("debuff", true)
+#mods
+
+#skill SiphoningTrapAltX
+#flags spell trap duration
+#baseMod skill("debuff", true)
 #mods
 
 #skill SomaticShell
@@ -3832,7 +4050,10 @@ local skills, mod, flag, skill = ...
 		},
 		{
 			name = "Max Channelled Orbs"
-		}
+		},
+		{
+			name = "Max Duration Explode"
+		},
 	},
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 2 then
@@ -3841,6 +4062,10 @@ local skills, mod, flag, skill = ...
 			local jumpPeriod = activeSkill.skillData.repeatFrequency * 10
 			-- additional 1 tick upon spawn of orb
 			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * (1 + math.floor(duration * 10 / jumpPeriod))
+		elseif activeSkill.skillPart == 3 then
+			local remainingJumps = math.floor((activeSkill.skillData.duration * output.DurationMod + 0.001) / activeSkill.skillData.repeatFrequency)
+			-- Tested in-game and the skill grants more damage only after you have at least 0.8s duration
+			activeSkill.skillModList:NewMod("Damage", "MORE", math.max(activeSkill.skillData.remainingDurationDamage * remainingJumps - 100, 0), "Skill:StormBurst")
 		end
 	end,
 	statMap = {
@@ -3849,6 +4074,37 @@ local skills, mod, flag, skill = ...
 			div = 1000,
 		},
 		["storm_burst_new_damage_+%_final_per_remaining_teleport_zap"] = {
+			skill("remainingDurationDamage", nil),
+		},
+	},
+#baseMod skill("radius", 16)
+#baseMod skill("radiusSecondary", 22)
+#mods
+
+#skill StormBurstAltX
+#flags spell area duration
+	parts = {
+		{
+			name = "1 Orb Tick"
+		},
+		{
+			name = "Max Duration Explode"
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			local remainingJumps = math.floor((activeSkill.skillData.duration * output.DurationMod + 0.001) / activeSkill.skillData.repeatFrequency)
+			-- Tested in-game and the skill grants more damage only after you have at least 0.8s duration
+			activeSkill.skillModList:NewMod("Damage", "MORE", math.max(activeSkill.skillData.remainingDurationDamage * remainingJumps - 100, 0), "Skill:StormBurst")
+		end
+	end,
+	statMap = {
+		["display_storm_burst_jump_time_ms"] = {
+			skill("repeatFrequency", nil),
+			div = 1000,
+		},
+		["storm_burst_new_damage_+%_final_per_remaining_teleport_zap"] = {
+			skill("remainingDurationDamage", nil),
 		},
 	},
 #baseMod skill("radius", 16)
@@ -3978,9 +4234,6 @@ local skills, mod, flag, skill = ...
 		"HolyLivingRelic",
 	},
 	statMap = {
-		["base_number_of_relics_allowed"] = {
-			mod("ActiveHolyRelicLimit", "BASE", nil)
-		},
 		["holy_relic_nova_life_regeneration_rate_per_minute"] = {
 			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Holy Relic's Boon", effectCond = "HolyRelicBoonActive" }),
 			div = 60,
@@ -3995,11 +4248,6 @@ local skills, mod, flag, skill = ...
 #flags spell minion permanentMinion
 	minionList = {
 		"HolyLivingRelic",
-	},
-	statMap = {
-		["base_number_of_relics_allowed"] = {
-			mod("ActiveHolyRelicLimit", "BASE", nil)
-		},
 	},
 #mods
 

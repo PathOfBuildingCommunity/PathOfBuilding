@@ -146,18 +146,20 @@ Siege Axe
 Variant: Pre 1.0.0
 Variant: Pre 3.20.0
 Variant: Pre 3.26.0
+Variant: Pre 3.28.0
 Variant: Current
 Implicits: 0
 {variant:1}(160-200)% increased Physical Damage
 {variant:2}(100-140)% increased Physical Damage
-{variant:3,4}(140-180)% increased Physical Damage
+{variant:3,4,5}(140-180)% increased Physical Damage
 {variant:1,2}Adds 10 to 20 Physical Damage
-{variant:3,4}Adds 30 to 40 Physical Damage
+{variant:3,4,5}Adds 30 to 40 Physical Damage
 {variant:1,2,3}(20-25)% increased Attack Speed
-{variant:4}(25-35)% increased Attack Speed
+{variant:4,5}(25-35)% increased Attack Speed
 +(20-25)% to Cold Resistance
 Insufficient Mana doesn't prevent your Melee Attacks
 Your Physical Damage can Chill
+{variant:5}Eat (2-4) Souls when you Kill a Rare or Unique Enemy with this Weapon
 ]],[[
 Replica Soul Taker
 Siege Axe
@@ -181,6 +183,17 @@ Trigger Level 20 Starfall on Melee Critical Strike
 (20-30)% increased Critical Strike Chance
 (10-20)% increased Area of Effect
 Gain (40-60)% of Weapon Physical Damage as Extra Damage of a Random Element
+]],
+[[
+The Grey Wind
+Spectral Axe
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 33, 85 Str, 37 Dex
+(30-50)% increased Fire Damage
+Attacks with this Weapon have Added Fire Damage equal to (8-12)% of Player's Maximum Life
+Each Rage also grants +2% to Fire Damage Over Time Multiplier
+Nearby Enemies have Fire Exposure while at maximum Rage
++(-5-5) to Maximum Rage
 ]],
 -- Weapon: Two Handed Axe
 [[

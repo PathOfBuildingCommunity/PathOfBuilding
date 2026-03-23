@@ -117,8 +117,7 @@ Arrows deal 50% increased Damage with Hits and Ailments to Targets they Pierce
 The Fracturing Spinner
 Blunt Arrow Quiver
 League: Harbinger
-Source: Created from item parts obtained from Boss in The Beachhead
-Upgrade: Upgrades to unique{The Shattered Divinity} via currency{Fragmentation Scroll}
+Source: No longer obtainable
 Requires Level 60
 Implicits: 1
 (7-9) to (13-16) Added Physical Damage with Bow Attacks
@@ -130,8 +129,6 @@ Adds (19-22) to (30-35) Cold Damage to Spells and Attacks
 ]],[[
 The Shattered Divinity
 Blunt Arrow Quiver
-League: Harvest
-Source: Upgraded from unique{The Fracturing Spinner} via currency{Fragmentation Scroll}
 Requires Level 60
 Implicits: 1
 (7-9) to (13-16) Added Physical Damage with Bow Attacks

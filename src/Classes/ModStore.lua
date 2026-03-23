@@ -110,6 +110,19 @@ function ModStoreClass:ReplaceMod(...)
 	end
 end
 
+---ConvertMod
+---  Converts an existing mod to a new name, replacing it in the store.
+---  Finds a mod matching oldName with the same type, flags, keywordFlags, and source as the new mod.
+---  If no matching mod exists, the new mod is added instead.
+---@param oldName string @The name of the existing mod to convert
+---@param ... any @Parameters to be passed along to the modLib.createMod function (new name, type, value, source, ...)
+function ModStoreClass:ConvertMod(oldName, ...)
+	local mod = mod_createMod(...)
+	if not self:ConvertModInternal(oldName, mod) then
+		self:AddMod(mod)
+	end
+end
+
 function ModStoreClass:Combine(modType, cfg, ...)
 	if modType == "MORE" then
 		return self:More(cfg, ...)
@@ -207,6 +220,17 @@ function ModStoreClass:Max(cfg, ...)
 	return max		
 end
 
+function ModStoreClass:Min(cfg, ...)
+	local min
+	for _, value in ipairs(self:Tabulate("MIN", cfg, ...)) do
+		local val = self:EvalMod(value.mod, cfg)
+		if min == nil or val < min then
+			min = val
+		end	
+	end
+	return min
+end
+
 ---HasMod
 ---  Checks if a mod exists with the given properties.
 ---  Useful for determining if the other aggregate functions will find
@@ -276,7 +300,7 @@ function ModStoreClass:GetStat(stat, cfg)
 	if stat == "ManaUnreserved" and self.actor.output[stat] ~= self.actor.output[stat] then
 		-- 0% reserved = total mana
 		return self.actor.output["Mana"]
-	elseif stat == "ManaUnreserved" and not self.actor.output[stat] == nil and self.actor.output[stat] < 0 then
+	elseif stat == "ManaUnreserved" and self.actor.output[stat] ~= nil and self.actor.output[stat] < 0 then
 		-- This reverse engineers how much mana is unreserved before efficiency for accurate Arcane Cloak calcs
 		local reservedPercentBeforeEfficiency = (math.abs(self.actor.output["ManaUnreservedPercent"]) + 100) * ((100 + self.actor["ManaEfficiency"]) / 100)
 		return self.actor.output["Mana"] * (math.ceil(reservedPercentBeforeEfficiency) / 100);
