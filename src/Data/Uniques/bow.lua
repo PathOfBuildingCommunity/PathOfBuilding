@@ -269,9 +269,9 @@ Variant: Current
 Requires Level 60, 212 Dex
 Adds (130-150) to (270-300) Cold Damage
 {variant:2}(15-25)% increased Attack Speed
+{variant:2}+(400-500) to Accuracy Rating
 {variant:1}+(400-500) to Accuracy Rating
 4% increased Movement Speed per Frenzy Charge
-{variant:2}+(400-500) to Accuracy Rating
 2% chance to Avoid Elemental Damage from Hits per Frenzy Charge
 12 to 14 Added Cold Damage per Frenzy Charge
 0.5% of Attack Damage Leeched as Life per Frenzy Charge
@@ -356,9 +356,9 @@ Variant: Pre 3.28.0
 Variant: Current
 Requires Level 66, 212 Dex
 Implicits: 3
+{variant:7}(20-24)% increased Global Physical Damage
 {variant:2}(6-12)% increased Elemental Damage with Attack Skills
 {variant:3,4,5,6}(20-24)% increased Elemental Damage with Attack Skills
-{variant:7}(20-24)% increased Global Physical Damage
 {variant:1,2,3,4}(150-175)% increased Physical Damage
 {variant:5}(90-105)% increased Physical Damage
 {variant:6,7}(180-200)% increased Physical Damage
@@ -366,9 +366,9 @@ Implicits: 3
 {variant:6,7}Adds (7-14) to (24-34) Physical Damage
 {variant:1,2,3,4,5,6}(10-20)% increased Attack Speed
 +(80-100) to maximum Mana
-Hits can't be Evaded
 {variant:7}Attacks you use yourself Repeat an additional time
 {variant:7}Attacks you use yourself have 50% more Attack Speed
+Hits can't be Evaded
 {variant:4,5,6,7}Far Shot
 ]],[[
 Null's Inclination
@@ -451,13 +451,13 @@ Variant: Current
 {variant:2,3,4,5}Adds (15-30) to (70-95) Physical Damage
 {variant:6}Adds (10-16) to (45-60) Physical Damage
 (8-12)% increased Attack Speed
+{variant:1,2}Bow Attacks fire 4 additional Arrows
+{variant:3}Bow Attacks fire 2 additional Arrows
 20% reduced Projectile Speed
 {variant:5,6}Arrows fired from the first firing points always Pierce
 {variant:5,6}Arrows fired from the second firing points Fork
 {variant:5,6}Arrows fired from the third firing points Return to you
 {variant:5,6}Arrows fired from the fourth firing points Chain +2 times
-{variant:1,2}4 additional Arrows
-{variant:3}2 additional Arrows
 ]],[[
 Roth's Reach
 Recurve Bow
@@ -552,9 +552,9 @@ Variant: Current
 {variant:1,2}60% of Lightning Damage Converted to Chaos Damage
 {variant:3,4}100% of Lightning Damage Converted to Chaos Damage
 {variant:1,2}10% chance to Shock
+{variant:4}Treats Enemy Monster Chaos Resistance values as inverted
 Your Chaos Damage can Shock
 {variant:2,3}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
-{variant:4}Treats Enemy Monster Chaos Resistance values as inverted
 {variant:2,3,4}+40% to Maximum Effect of Shock
 ]],[[
 Windripper

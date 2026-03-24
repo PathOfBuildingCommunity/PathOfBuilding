@@ -12,12 +12,12 @@ Implicits: 2
 {variant:1}LifeGainPerTargetImplicit2Claw8[21,21]
 {variant:2}LifeGainPerTargetImplicit2Claw8
 SocketedGemsSupportedByFortifyUnique____1
+AdditionalBlockUnique__2
 LocalIncreasedPhysicalDamagePercentUniqueClaw6
 IncreasedEvasionRatingUnique___1
-IncreasedLifeUnique__107
 IncreasedEnergyShieldUnique__2
+IncreasedLifeUnique__11
 AttackerTakesDamageShieldImplicit7
-AdditionalBlockUnique__2
 ]],[[
 Replica Advancing Fortress
 Gut Ripper
@@ -43,7 +43,7 @@ LifeLeechPermyriadImplicitClaw2
 {variant:1}LocalIncreasedPhysicalDamagePercentUnique__1[80,100]
 {variant:2}LocalIncreasedPhysicalDamagePercentUnique__1
 LocalAddedPhysicalDamageUnique__1
-IncreasedAttackSpeedUnique__5
+LocalIncreasedAttackSpeedUnique__16
 MovementSpeedWhilePhasedUnique__1
 {variant:1}GainPhasingOnVaalSkillUseUnique__1[3000,3000]
 {variant:2}GainPhasingOnVaalSkillUseUnique__1
@@ -57,7 +57,7 @@ Implicits: 1
 LifeLeechPermyriadImplicitClaw2
 LocalIncreasedPhysicalDamagePercentUnique__1
 LocalAddedPhysicalDamageUnique__1
-IncreasedAttackSpeedUnique__5
+LocalIncreasedAttackSpeedUnique__16
 LifeGainedOnTauntingEnemyUnique__1
 OnslaughtOnKillingTauntedEnemyUnique__1
 TauntedEnemiesTakeIncreasedDamage_
@@ -73,8 +73,8 @@ Variant: Pre 3.11.0
 Variant: Current
 Requires Level 26, 39 Dex, 56 Int
 Implicits: 3
+{variant:2}LifeLeechPermyriadUniqueClaw6[200,200]
 {variant:1}LifeGainPerTargetImplicit2Claw4_1[8,8]
-{variant:2}LifeLeechPermyriadImplicitClaw2
 {variant:3,4,5,6}LifeGainPerTargetImplicit2Claw4_1
 {variant:1,2,3,4}SocketedItemsHaveChanceToFleeUniqueClaw6
 {variant:4,5}TriggeredAbyssalCryUnique__1
@@ -91,18 +91,22 @@ Bloodseeker
 Hellion's Paw
 Variant: Pre 3.0.0
 Variant: Pre 3.20.0
+Variant: Pre 3.28.0
 Variant: Current
 Requires Level 62, 131 Dex, 95 Int
 Implicits: 1
 LifeLeechPermyriadImplicitClaw1
 {variant:1}LocalIncreasedPhysicalDamagePercentUniqueClaw3[100,120]
 {variant:2}LocalIncreasedPhysicalDamagePercentUniqueClaw3[150,170]
-{variant:3}LocalIncreasedPhysicalDamagePercentUniqueClaw3
+{variant:3}LocalIncreasedPhysicalDamagePercentUniqueClaw3[200,220]
+{variant:4}LocalIncreasedPhysicalDamagePercentUniqueClaw3
 {variant:1,2}LocalAddedPhysicalDamageUniqueClaw3[10,10][12,12]
-{variant:3}LocalAddedPhysicalDamageUniqueClaw3
-LocalIncreasedAttackSpeedUniqueClaw3
+{variant:3,4}LocalAddedPhysicalDamageUniqueClaw3
+{variant:4}LIfeReservationEfficiencyUnique__1
+{variant:1,2,3}LocalIncreasedAttackSpeedUniqueClaw3
 LifeLeechPermyriadUniqueClaw3
-MovementVelocityUniqueClaw3
+{variant:1,2,3}MovementVelocityUniqueClaw3
+{variant:4}MaximumLifeLeechAmountPerLifeReservedUnique__1
 LocalLifeLeechIsInstantUniqueClaw3
 ]],[[
 Cybil's Paw
@@ -132,25 +136,30 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Pre 3.20.0
+Variant: Pre 3.28.0
 Variant: Current
-Implicits: 3
-{variant:1,2}LifeLeechPermyriadUnique__4
-{variant:3}LifeGainPerTargetImplicit2Claw12[31,31]
+Implicits: 4
+{variant:1,2}LifeLeechPermyriadImplicitClaw2[60,60]
 {variant:4,5,6}LifeLeechPermyriadImplicitClaw2
-{variant:1}+10% Chance to Block Attack Damage while Dual Wielding Claws
+{variant:3}LifeGainPerTargetImplicit2Claw12[31,31]
+{variant:7}LifeLeechAllAttackDamagePermyriadImplicitClaw2
+{variant:1}BlockWhileDualWieldingClawsUniqueClaw1[10,10]
 {variant:2,3,4,5,6}BlockWhileDualWieldingClawsUniqueClaw1
 {variant:1}LocalIncreasedPhysicalDamagePercentUniqueClaw1[80,120]
 {variant:2,3,4,5}LocalIncreasedPhysicalDamagePercentUniqueClaw1
-{variant:1}AddedLocalLightningDamageUniqueClaw1[1,1][50,50]
-{variant:2,3}AddedLocalLightningDamageUniqueClaw1[1,1][80,80]
-{variant:4,5}AddedLocalLightningDamageUniqueClaw1[1,1][200,200]
-{variant:6}AddedLocalLightningDamageUniqueClaw1
+{variant:1}LocalAddedLightningDamageUnique__1[1,1][50,50]
+{variant:2,3}LocalAddedLightningDamageUnique__1[1,1][80,80]
+{variant:4,5}LocalAddedLightningDamageUnique__1[1,1][200,200]
+{variant:6}AddedLocalLightningDamageUniqueClaw1[1,1][600,700]
+{variant:7}AddedLocalLightningDamageUniqueClaw1
 LocalIncreasedAttackSpeedUniqueClaw1
-IncreasedEnergyShieldUniqueClaw1
-{variant:1,2,3,4}LeechEnergyShieldInsteadofLife
+{variant:1,2,3,4,5,6}IncreasedEnergyShieldUniqueClaw1[30,40]
+{variant:7}IncreasedEnergyShieldUniqueClaw1
 {variant:5}MaximumESLeechAmountUnique__1_
-{variant:5,6}ESLeechFromAttacksNotRemovedOnFullESUnique__1
-{variant:5,6}KeystoneGhostReaverUnique__1
+{variant:5,6,7}ESLeechFromAttacksNotRemovedOnFullESUnique__1
+{variant:1,2,3,4}LeechEnergyShieldInsteadofLife
+{variant:7}MaximumESLeechAmountDoubledUnique__1
+{variant:5,6,7}KeystoneGhostReaverUnique__1
 ]],[[
 Hand of Thought and Motion
 {variant:1,2,3}Blinder
@@ -167,17 +176,17 @@ Implicits: 3
 {variant:1}LifeGainPerTargetImplicit2Claw10[10,10]
 {variant:2,3}LifeGainPerTargetImplicit2Claw10[12,12]
 {variant:4,5}LifeGainPerTargetImplicit2Claw10
-{variant:1,2,3}WeaponElementalDamageUnique__4
-{variant:1,2,3}LocalAddedLightningDamageUnique__4
-{variant:1,2,3}LocalIncreasedAttackSpeedUniqueClaw8
 {variant:4,5}PercentageDexterityUnique__3
 {variant:4,5}PercentageIntelligenceUnique__3
+{variant:1,2,3}LocalAddedLightningDamageUnique__4
+{variant:1,2,3}LocalIncreasedAttackSpeedUniqueClaw8
 {variant:4,5}MaximumLifeOnKillPercentUnique__1
-{variant:1,2}AddedLightningDamagePerIntelligenceUnique__2[1,1][3,3]
-{variant:3}AddedLightningDamagePerIntelligenceUnique__2
 {variant:4}AddedLightningDamagePerDexterityUnique__1[1,1][10,10]
 {variant:5}AddedLightningDamagePerDexterityUnique__1
+{variant:1,2}AddedLightningDamagePerIntelligenceUnique__2[1,1][3,3]
+{variant:3}AddedLightningDamagePerIntelligenceUnique__2
 {variant:4,5}CriticalStrikeChancePerIntelligenceUnique__1
+{variant:1,2,3}WeaponElementalDamageUnique__4
 ]],[[
 Hand of Wisdom and Action
 Imperial Claw
@@ -195,7 +204,7 @@ Implicits: 2
 PercentageDexterityUnique__3
 PercentageIntelligenceUnique__3
 {variant:4,5}LifeLeechFromAttacksPermyriadUnique__1
-{variant:1,2}AddedLightningDamagePerIntelligenceUnique__2[1,1][6,6]
+{variant:1,2}AddedLightningDamagePerIntelligenceUnique__1[1,1][6,6][10,10]
 {variant:3,4}AddedLightningDamagePerIntelligenceUnique__1[1,1][10,10]
 {variant:5}AddedLightningDamagePerIntelligenceUnique__1
 IncreasedAttackSpeedPerDexterityUnique__1
@@ -209,8 +218,8 @@ Variant: Pre 3.7.0
 Variant: Current
 Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
-{variant:1}LifeGainPerTargetImplicit2Claw10[25,25]
-{variant:2,3}LifeGainPerTargetImplicit2Claw10
+{variant:1}LifeGainPerTargetImplicit2Claw13[25,25]
+{variant:2,3}LifeGainPerTargetImplicit2Claw13
 LocalIncreasedPhysicalDamagePercentUnique__6
 LocalAddedPhysicalDamageUnique__3
 LocalIncreasedAttackSpeedUniqueClaw8
@@ -223,7 +232,7 @@ Nailed Fist
 Implicits: 1
 LifeGainPerTargetImplicitClaw1
 IncreasedAttackSpeedWhenOnLowLifeUniqueClaw4
-LocalIncreasedPhysicalDamagePercentUniqueClaw4
+LocalIncreasedPhysicalDamagePercentUniqueClaw5
 LocalAddedPhysicalDamagePercentUniqueClaw4
 IncreasedClawDamageOnLowLifeUniqueClaw4
 IncreasedAccuracyWhenOnLowLifeUniqueClaw4
@@ -275,8 +284,8 @@ LocalCriticalStrikeChanceUniqueClaw2
 {variant:2,3,4}LocalCriticalMultiplierUniqueClaw2
 PhysicalDamageConvertToChaosUniqueClaw2
 {variant:1,2,3}LocalPoisonOnHit
-{variant:4}LocalChanceToPoisonOnHitUnique__2
 StunThresholdReductionUniqueClaw2_
+{variant:4}LocalChanceToPoisonOnHitUnique__2
 ]],[[
 Ornament of the East
 Gut Ripper
@@ -318,7 +327,7 @@ Implicits: 1
 LifeLeechPermyriadImplicitClaw2
 {variant:1}SummonWolfOnKillUnique__1
 LocalAddedPhysicalDamageUnique__23_
-LocalIncreasedAttackSpeedUniqueClaw8
+LocalIncreasedAttackSpeedUniqueClaw9
 IncreasedMinionAttackSpeedUnique__1_
 MinionDamageAlsoAffectsYouUnique__1
 IncreasedMinionDamageIfYouHitEnemyUnique__1
@@ -333,7 +342,7 @@ Implicits: 2
 {variant:2}LifeGainPerTargetImplicit2Claw10
 LocalAddedPhysicalDamageUnique__14
 ColdDamagePercentUnique__8
-CriticalStrikeChanceUniqueBow9
+LocalCriticalStrikeChanceUnique__10
 ChanceToGainFrenzyChargeOnKillingFrozenEnemyUnique__1
 AdditionalChainWhileAtMaxFrenzyChargesUnique___1
 ChanceToFreezeUnique__3
@@ -364,10 +373,10 @@ Implicits: 2
 {variant:2}LifeGainPerTargetImplicit2Claw3
 StrengthUniqueClaw9
 DexterityUniqueClaw9
-15% reduced Accuracy Rating
 LocalAddedPhysicalDamageUniqueClaw9
 LocalIncreasedAttackSpeedUniqueClaw8
 DamageWithMovementSkillsUniqueClaw9
 AttackSpeedWithMovementSkillsUniqueClaw9
+AccuracyPercentUniqueClaw9
 ]],
 }

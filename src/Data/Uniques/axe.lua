@@ -157,8 +157,8 @@ Implicits: 0
 {variant:1,2,3}(20-25)% increased Attack Speed
 {variant:4,5}(25-35)% increased Attack Speed
 +(20-25)% to Cold Resistance
-Insufficient Mana doesn't prevent your Melee Attacks
 Your Physical Damage can Chill
+Insufficient Mana doesn't prevent your Melee Attacks
 {variant:5}Eat (2-4) Souls when you Kill a Rare or Unique Enemy with this Weapon
 ]],[[
 Replica Soul Taker

@@ -36,7 +36,7 @@ Implicits: 3
 IncreasedCastSpeedUniqueWand7
 ChaosResistUniqueWand7
 {variant:1,2,3}ManaCostIncreasedUniqueWand7
-{variant:3,4}Poisons you inflict deal Damage 20% faster
+{variant:3,4}FasterPoisonDamageUnique__1[20,20]
 {variant:5,6}FasterPoisonDamageUnique__1
 {variant:4,5,6}IncreaseGlobalFlatManaCostUnique__3_
 ]],[[
@@ -55,9 +55,9 @@ Implicits: 3
 {variant:5}AddedFireDamageSpellsAndAttacksImplicit1
 {variant:1,2}SummonRagingSpiritOnKillUnique__1[10,10]
 {variant:3,4,5}SummonRagingSpiritOnKillUnique__1
+{variant:2}FireDamageOverTimeMultiplierUnique__2_
 {variant:1}LocalAddedFireDamageUnique__2[10,14][18,22]
 {variant:3,4,5}LocalAddedFireDamageUnique__2
-{variant:2}FireDamageOverTimeMultiplierUnique__2_
 {variant:1,2}SpellAddedFireDamageUniqueWand10[4,6][7,9]
 {variant:3,4,5}SpellAddedFireDamageUniqueWand10[20,24][36,46]
 {variant:1}BurnDamageUnique__1[40,50]
@@ -103,7 +103,7 @@ SpellDamageOnWeaponImplicitWand13
 BlindingAuraSkillUnique__1
 {variant:1}LocalAddedPhysicalDamageUnique__4
 {variant:2}LocalAddedFireDamageUnique__6
-{variant:2}IncreasedAttackSpeedUniqueShieldDex6
+{variant:2}LocalIncreasedAttackSpeedUnique__42
 CriticalMultiplierUnique__1
 LightRadiusUnique__3
 CriticalChanceAgainstBlindedEnemiesUnique__1
@@ -119,10 +119,10 @@ Implicits: 1
 SpellDamageOnWeaponImplicitWand17
 LocalIncreasedPhysicalDamagePercentUnique__47
 {variant:1}PhysicalAddedAsFireUnique__4[10,30]
-{variant:1}PhysicalAddedAsColdUnique__3[10,30]
-{variant:1}PhysicalAddedAsLightningUnique__1[10,30]
 {variant:2}PhysicalAddedAsFireUnique__4
+{variant:1}PhysicalAddedAsColdUnique__3[10,30]
 {variant:2}PhysicalAddedAsColdUnique__3
+{variant:1}PhysicalAddedAsLightningUnique__1[10,30]
 {variant:2}PhysicalAddedAsLightningUnique__1
 AdditionalSacredWispUnique__1
 ]],[[
@@ -244,11 +244,11 @@ The Poet's Pen
 {variant:2}Somatic Wand
 Implicits: 1
 {variant:1}SpellDamageOnWeaponImplicitWand3
-{variant:2}KineticWandImplicit
 SocketedGemLevelPer25PlayerLevelsUnique__1
-AddsPhysicalDamagePer3PlayerLevelsUnique__1_
-LocalIncreasedAttackSpeedUnique__16
 TriggerSocketedSpellOnAttackUnique__1
+AddsPhysicalDamagePer3PlayerLevelsUnique__1_
+LocalIncreasedAttackSpeedUnique__24
+{variant:2}KineticWandImplicit
 ]],[[
 Reverberation Rod
 Spiraled Wand
@@ -261,7 +261,7 @@ Implicits: 3
 {variant:1}SpellDamageOnWeaponImplicitWand5[10,14]
 {variant:2,3,4}SpellDamageOnWeaponImplicitWand5
 {variant:5}AddedLightningDamageSpellsAndAttacksImplicit1
-{variant:1,2}LocalIncreaseSocketedGemLevelUnique__4
+{variant:1,2}LocalIncreaseSocketedGemLevelUniqueWand8[1,1]
 {variant:3,4,5}LocalIncreaseSocketedGemLevelUniqueWand8
 {variant:4,5}SupportedByArcaneSurgeUniqueWand8
 SupportedByEchoUniqueWand8New_
@@ -289,7 +289,7 @@ Variant: Current
 LevelReq: 36
 Implicits: 1
 SpellDamageOnWeaponImplicitWand5
-{variant:1}LocalIncreaseSocketedGemLevelUnique__2
+{variant:1}LocalIncreaseSocketedGemLevelUniqueWand8[1,1]
 {variant:2}LocalIncreaseSocketedGemLevelUniqueWand8
 SocketedGemsGetIncreasedAreaOfEffectUnique__1
 SupportedByEchoUniqueWand8
@@ -302,7 +302,7 @@ Variant: Pre 3.5.0
 Variant: Current
 Implicits: 1
 SpellDamageOnWeaponImplicitWand6
-ElementalDamagePercentAddedAsChaosUnique__1
+ElementalDamagePercentAddedAsChaosUnique__3
 CriticalStrikesDealNoDamageUnique__1
 {variant:1}SpellDamageIfYouHaveCritRecentlyUnique__1[120,120]
 {variant:2}SpellDamageIfYouHaveCritRecentlyUnique__1
@@ -336,10 +336,10 @@ Implicits: 3
 {variant:1}SpellDamageOnWeaponImplicitWand3[9,13]
 {variant:2}SpellDamageOnWeaponImplicitWand3
 {variant:3}AddedLightningDamageSpellsAndAttacksImplicit1
-LocalIncreasedPhysicalDamagePercentUnique__6
+LocalIncreasedPhysicalDamagePercentUnique__8
 LocalAddedLightningDamageUnique__2
 ManaRegenerationUnique__1
-IncreasedMaximumPowerChargesUnique__2
+IncreasedMaximumPowerChargesUniqueWand3
 PowerChargeOnKillChanceUnique__1
 ]],[[
 Tulborn
@@ -410,13 +410,13 @@ Variant: Current
 Implicits: 2
 {variant:1}SpellDamageOnWeaponImplicitWand6[11,14]
 {variant:2}SpellDamageOnWeaponImplicitWand6
-{variant:3}KineticWandImplicit
+{variant:1,2}SocketedGemsAdditionalProjectilesUniqueWand9
 {variant:1,2}LocalIncreasedPhysicalDamagePercentUniqueWand9[80,120]
 {variant:3}LocalIncreasedPhysicalDamagePercentUniqueWand9
 LocalAddedPhysicalDamageUniqueWand9
 LocalIncreasedAttackSpeedUniqueWand9
 LocalCriticalStrikeChanceUniqueWand9
-{variant:1,2}SocketedGemsAdditionalProjectilesUniqueWand9
+{variant:3}KineticWandImplicit
 {variant:3}MainHandAdditionalProjectilesWhileInOffHandUnique__1
 {variant:3}OffHandAreaOfEffectWhileInMainHandUnique__1
 ]],[[
@@ -458,4 +458,17 @@ AdditionalProjectilesUniqueWand_1
 ProjectileSpeedUnique__9
 IncreasedProjectileDamageUnique__1
 ProjectilesExpireOnHitUniqueWand_1
-]],}
+]],
+[[
+Unlight Extant
+Sage Wand
+Requires Level 30, 119 Int
+Implicits: 1
+SpellDamageOnWeaponImplicitWand6
+IncreasedChaosDamageUniqueWand_1
+IncreasedCastSpeedUniqueWand11
+GlobalChaosSpellGemsLevelUniqueWand_1
+ApplyMaximumWitherOnChaosSkillHitUnique__1
+CanOnlyInflictWitherAgainstFullLifeEnemies__1
+]],
+}

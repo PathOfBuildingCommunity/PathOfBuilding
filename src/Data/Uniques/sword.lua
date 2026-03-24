@@ -448,8 +448,8 @@ Implicits: 1
 40% increased Global Accuracy Rating
 (150-180)% increased Physical Damage
 Adds (20-25) to (40-50) Physical Damage
-+(400-500) to Accuracy Rating
 Gain 100 Life per Enemy Killed
++(400-500) to Accuracy Rating
 Has a Two Handed Sword Crucible Passive Skill Tree
 Crucible Passive Skill Tree is removed if this Modifier is removed
 ]],[[
@@ -880,11 +880,11 @@ Implicits: 2
 {variant:1,2}Minions deal (10-15)% increased Damage
 {variant:3,4}Minions deal (30-40)% increased Damage
 {variant:1,2,3}+1 to maximum number of Raised Zombies
-{variant:4}+(1-2) to maximum number of Raised Zombies
 {variant:1,2,3}+1 to maximum number of Spectres
+{variant:1,2,3}+1 to maximum number of Skeletons
+{variant:4}+(1-2) to maximum number of Raised Zombies
 {variant:4}+(1-2) to maximum number of Spectres
 {variant:4}+(1-2) to maximum number of Skeletons
-{variant:1,2,3}+1 to maximum number of Skeletons
 ]],[[
 Queen's Escape
 Ornate Sword

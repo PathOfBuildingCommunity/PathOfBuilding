@@ -74,7 +74,7 @@ Variant: Current
 LevelReq: 32
 Implicits: 0
 DisplaySocketedGemGetsChanceToFleeUniqueOneHandAxe3
-LocalIncreasedPhysicalDamagePercentUnique__17_
+LocalIncreasedPhysicalDamagePercentUnique__9
 {variant:1}LocalAddedPhysicalDamageUniqueOneHandAxe3[8,12][18,22]
 {variant:2}LocalAddedPhysicalDamageUniqueOneHandAxe3
 IncreasedLifeUniqueOneHandAxe3
@@ -119,7 +119,7 @@ Variant: Current
 Implicits: 0
 LocalIncreasedPhysicalDamagePercentUniqueOneHandAxe6
 LocalAddedPhysicalDamageUniqueOneHandAxe6
-{variant:1}LifeLeechPermyriadUnique__4
+{variant:1}LifeLeechPermyriadUniqueOneHandAxe6[60,60]
 {variant:2}LifeLeechPermyriadUniqueOneHandAxe6
 NearbyAlliesHaveCullingStrikeUniqueTwoHandAxe9
 GainOnslaughtWhenCullingEnemyUniqueOneHandAxe6
@@ -146,18 +146,20 @@ Siege Axe
 Variant: Pre 1.0.0
 Variant: Pre 3.20.0
 Variant: Pre 3.26.0
+Variant: Pre 3.28.0
 Variant: Current
 Implicits: 0
 {variant:1}LocalIncreasedPhysicalDamagePercentUniqueOneHandAxe1[160,200]
 {variant:2}LocalIncreasedPhysicalDamagePercentUniqueOneHandAxe1[100,140]
-{variant:3,4}LocalIncreasedPhysicalDamagePercentUniqueOneHandAxe1
+{variant:3,4,5}LocalIncreasedPhysicalDamagePercentUniqueOneHandAxe1
 {variant:1,2}LocalAddedPhysicalDamageOneHandAxe1[10,10][20,20]
-{variant:3,4}LocalAddedPhysicalDamageOneHandAxe1
+{variant:3,4,5}LocalAddedPhysicalDamageOneHandAxe1
 {variant:1,2,3}LocalIncreasedAttackSpeedUniqueOneHandAxe1[20,25]
-{variant:4}LocalIncreasedAttackSpeedUniqueOneHandAxe1
+{variant:4,5}LocalIncreasedAttackSpeedUniqueOneHandAxe1
 ColdResistUniqueOneHandAxe1_
 MeleeAttacksUsableWithoutManaUniqueOneHandAxe1
 PhysicalDamageCanChillUniqueDescentOneHandAxe1
+{variant:5}GainSoulEaterStackOnRareOrUniqueKillWithWeaponUnique__1
 ]],[[
 Replica Soul Taker
 Siege Axe
@@ -182,6 +184,17 @@ LocalCriticalStrikeChanceUniqueTwoHandAxe_1
 AreaOfEffectUnique_9
 WeaponPhysicalDamageAddedAsRandomElementUnique__2
 ]],
+[[
+The Grey Wind
+Spectral Axe
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 33, 85 Str, 37 Dex
+FireDamagePercentUnique__14
+LocalFireDamageFromLifePercentUnique_1
+FireDoTMultiPerRageUnique_1
+NearbyEnemiesHaveFireExposureWhileAtMaxRageUnique_1
+MaximumRageUnique__3
+]],
 -- Weapon: Two Handed Axe
 [[
 Atziri's Disfavour
@@ -199,7 +212,7 @@ Implicits: 1
 {variant:2}LocalAddedPhysicalDamageUniqueTwoHandAxe7[205,220][250,270]
 {variant:3}LocalAddedPhysicalDamageUniqueTwoHandAxe7
 LocalIncreasedAttackSpeedUniqueTwoHandAxe7
-CausesBleedingUniqueOneHandAxe5
+CausesBleedingUniqueOneHandAxe5Updated_
 {variant:1,2}LocalIncreasedMeleeWeaponRangeUniqueTwoHandAxe7_[2,2]
 {variant:3}LocalIncreasedMeleeWeaponRangeUniqueTwoHandAxe7_
 ]],[[
@@ -274,8 +287,8 @@ Implicits: 0
 LifeGainedFromEnemyDeathUniqueTwoHandAxe1
 IncreasedAccuracyUniqueTwoHandAxe1
 NearbyAlliesHaveCullingStrikeUniqueTwoHandAxe9
-{variant:3,4}RageOnAttackCritUnique__1
 {variant:5}RageOnMeleeHitE3
+{variant:3,4}RageOnAttackCritUnique__1
 {variant:3,4,5}PhysicalAddedAsFirePerRageUnique__1
 ]],[[
 Kingmaker
@@ -341,7 +354,7 @@ LocalIncreaseSocketedStrengthGemLevelUniqueTwoHandAxe3
 {variant:2}TriggerGoreShockwaveOnMeleeHitWith150StrengthUnique__2
 StrengthUniqueTwoHandAxe3
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe3
-LocalAddedPhysicalDamageUnique__18[35,45][80,90]
+LocalAddedPhysicalDamageUniqueTwoHandAxe3[35,45][80,90]
 PhysicalAddedAsFireUnique__2
 NearbyAlliesHaveCullingStrikeUniqueTwoHandAxe9
 ]],[[
@@ -353,7 +366,7 @@ Implicits: 0
 MoltenBurstOnMeleeHitUnique__1
 {variant:1}LocalIncreasedPhysicalDamagePercentUnique__17_[190,230]
 {variant:2}LocalIncreasedPhysicalDamagePercentUnique__17_
-IncreasedAttackSpeedUnique__5
+LocalIncreasedAttackSpeedUnique__2
 {variant:1}DamageConversionFireUnique__1[50,50]
 {variant:2}DamageConversionFireUnique__1
 PenetrateEnemyFireResistUnique__1
@@ -435,7 +448,7 @@ Variant: Current
 Implicits: 0
 SpellBlockPercentageUniqueTwoHandAxe6
 BlockWhileDualWieldingUniqueTwoHandAxe6
-LocalIncreasedPhysicalDamagePercentUniqueOneHandAxe6
+LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe6
 UniqueWingsOfEntropyCountsAsDualWielding
 {variant:1}OffHandBaseCriticalStrikeChanceUnique__1[800,1000]
 {variant:2}OffHandBaseCriticalStrikeChanceUnique__1

@@ -19,8 +19,8 @@ Fishing Rod
 Requires 8 Str, 8 Dex
 Implicits: 0
 FishingLureTypeUniqueFishingRod1
-(50-40)% reduced Quantity of Fish Caught
 FishingRarityUniqueFishingRod1
 FishingExoticFishUniqueFishingRod1
+(50-40)% reduced Quantity of Fish Caught
 ]]
 }

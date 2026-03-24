@@ -36,9 +36,9 @@ Implicits: 3
 (25-30)% increased Cast Speed
 +(5-10)% to Chaos Resistance
 {variant:1,2,3}40% increased Mana Cost of Skills
+{variant:3,4}Poisons you inflict deal Damage 20% faster
 {variant:5,6}Poisons you inflict deal Damage (30-50)% faster
 {variant:4,5,6}Lose 40 Mana when you use a Skill
-{variant:3,4}Poisons you inflict deal Damage 20% faster
 ]],[[
 Ashcaller
 {variant:1,2,3}Quartz Wand
@@ -150,6 +150,7 @@ Implicits: 3
 {variant:2,3}(22-26)% increased Spell Damage
 {variant:4}Minions deal (12-16)% increased Damage
 Cannot be used with Chaos Inoculation
+Reserves 30% of Life
 +(10-20) to Intelligence
 {variant:1,2}Minions have (10-20)% increased Movement Speed
 {variant:3,4}Minions have (20-30)% increased Movement Speed
@@ -157,7 +158,6 @@ Cannot be used with Chaos Inoculation
 {variant:3,4}Minions deal (50-70)% increased Damage
 +1 to maximum number of Raised Zombies
 +1 to maximum number of Spectres
-Reserves 30% of Life
 +1 to maximum number of Skeletons
 ]],[[
 Replica Midnight Bargain
@@ -171,11 +171,11 @@ Implicits: 2
 {variant:1}(22-26)% increased Spell Damage
 {variant:2}Minions deal (12-16)% increased Damage
 Cannot be used with Chaos Inoculation
+Reserves 30% of Life
 +(10-20) to Intelligence
 Minions have (40-50)% increased Movement Speed
 Minions deal (50-70)% increased Damage
 +6 to maximum number of Raging Spirits
-Reserves 30% of Life
 +3 to maximum number of Summoned Phantasms
 ]],[[
 Moonsorrow
@@ -329,8 +329,8 @@ Adds (26-35) to (95-105) Lightning Damage to Spells
 +2% Chance to Block Spell Damage per Power Charge
 Adds 3 to 9 Lightning Damage to Spells per Power Charge
 {variant:1}400 Lightning Damage taken per second per Power Charge if
-{variant:2,3}200 Lightning Damage taken per second per Power Charge if
 {variant:1}your Skills have dealt a Critical Strike Recently
+{variant:2,3}200 Lightning Damage taken per second per Power Charge if
 {variant:2,3}your Skills have dealt a Critical Strike Recently
 ]],[[
 Storm Prison

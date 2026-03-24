@@ -45,7 +45,7 @@ Implicits: 1
 (20-40)% increased Physical Damage
 Adds (3-6) to (9-13) Physical Damage
 10% increased Attack Speed
-{variant:1}10000% chance to cause Bleeding on Hit
+{variant:1}10% chance to cause Bleeding on Hit
 {variant:2}30% chance to cause Bleeding on Hit
 Extra gore
 ]],[[
@@ -92,8 +92,8 @@ Implicits: 1
 +(20-40) to Intelligence
 (40-60)% increased Fire Damage
 +1 to Level of all Fire Spell Skill Gems
+{variant:1}45% of Fire Damage Converted to Chaos Damage
 {variant:2,3}30% of Fire Damage Converted to Chaos Damage
-{variant:1}27% of Fire Damage Converted to Chaos Damage
 {variant:1,2}Your Chaos Damage Poisons Enemies
 {variant:3}Your Chaos Damage has 60% chance to Poison Enemies
 ]],[[
@@ -144,7 +144,7 @@ Implicits: 1
 Adds (70-85) to (110-118) Physical Damage
 30% increased Critical Strike Chance
 40% increased Attack Damage against Bleeding Enemies
-50% chance to cause Bleeding on Critical Strike
+50% chance to Cause Bleeding on Critical Strike
 You have Crimson Dance if you have dealt a Critical Strike Recently
 ]],[[
 Goblinedge
@@ -225,7 +225,7 @@ Implicits: 1
 {variant:4}(20-30)% increased Critical Strike Chance
 {variant:4}+(30-40)% to Global Critical Strike Multiplier
 {variant:1,2,3}+(6-10)% to all Elemental Resistances
-{variant:3,4}50% chance to cause Bleeding on Critical Strike
+{variant:3,4}50% chance to Cause Bleeding on Critical Strike
 {variant:3,4}50% chance to Cause Poison on Critical Strike
 {variant:1,2}Melee Critical Strikes have 25% chance to cause Bleeding
 {variant:1,2}Melee Critical Strikes have 25% chance to Poison the Enemy

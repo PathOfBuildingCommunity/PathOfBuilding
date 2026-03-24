@@ -10,8 +10,8 @@ Variant: Pre 3.7.0
 Variant: Current
 Requires Level 20, 71 Str
 Implicits: 2
-{variant:1}StunDurationImplicitMace1[20,20]
 {variant:2,3}StunThresholdReductionImplicitMace1
+{variant:1}StunDurationImplicitMace1[20,20]
 LocalIncreasedPhysicalDamagePercentUniqueOneHandMace1
 {variant:1,2}LocalIncreasedAttackSpeedUniqueOneHandMace1[50,50]
 {variant:3}LocalIncreasedAttackSpeedUniqueOneHandMace1
@@ -25,10 +25,10 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 66, 212 Str
 Implicits: 2
-{variant:1}StunDurationImplicitMace2[40,40]
 {variant:2}StunThresholdReductionImplicitMace2
+{variant:1}StunDurationImplicitMace1[40,40]
+LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace8
 LocalAddedPhysicalDamageUniqueOneHandMace5
-LocalIncreasedPhysicalDamageUniqueOneHandMace5
 StunThresholdReductionUniqueOneHandMace5
 CannotKnockBackUniqueOneHandMace5_
 ChillOnAttackStunUniqueOneHandMace5
@@ -39,13 +39,13 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 60, 212 Str
 Implicits: 2
-{variant:1}StunDurationImplicitMace2[40,40]
 {variant:2}StunThresholdReductionImplicitMace2
+{variant:1}StunDurationImplicitMace1[40,40]
 LocalIncreasedPhysicalDamageUniqueOneHandMace4
 LocalAddedColdDamageUniqueOneHandMace4_
 LocalCriticalStrikeChanceUniqueOneHandMace4
-ColdWeaponDamageUniqueOneHandMace4
 IncreasedRarityWhenSlayingFrozenUniqueOneHandMace4
+ColdWeaponDamageUniqueOneHandMace4
 ]],[[
 Cameria's Avarice
 Gavel
@@ -53,12 +53,12 @@ Source: Vendor Recipe
 Requires Level 60, 212 Str
 Implicits: 1
 StunThresholdReductionImplicitMace2
+GrantsLevel20IcicleNovaTriggerUnique__1
 LocalIncreasedPhysicalDamageUniqueOneHandMace4
 LocalAddedPhysicalDamageUnique__34
 LocalCriticalStrikeChanceUniqueOneHandMace4
 IncreasedRarityWhenSlayingFrozenUniqueOneHandMace4
 ColdWeaponDamageUniqueOneHandMace4
-GrantsLevel20IcicleNovaTriggerUnique__1
 ]],[[
 Clayshaper
 Rock Breaker
@@ -67,8 +67,8 @@ Variant: Pre 3.19.0
 Variant: Current
 Requires Level 41, 134 Str
 Implicits: 2
-{variant:1}StunDurationImplicitMace2[40,40]
 {variant:2}StunThresholdReductionImplicitMace2
+{variant:1}StunDurationImplicitMace1[40,40]
 GrantsLevel12StoneGolem
 LocalAddedPhysicalDamageUnique__9
 LocalIncreasedAttackSpeedUnique__10
@@ -83,16 +83,16 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 32, 107 Str
 Implicits: 2
-{variant:1}StunDurationImplicitMace1[20,20]
 {variant:2}StunThresholdReductionImplicitMace1
+{variant:1}StunDurationImplicitMace1[20,20]
 LocalIncreasedPhysicalDamagePercentUniqueOneHandMace8
 LocalAddedPhysicalDamageUniqueOneHandMace8
 LocalIncreasedAttackSpeedUniqueOneHandMace8
-LifeLeechPermyriad__1
+LifeLeechLocalPermyriadUniqueOneHandMace8__
+{variant:1}LifeLeechPhysicalAgainstBleedingEnemiesUniqueOneHandMace8[100,100]
+{variant:2}LifeLeechPhysicalAgainstBleedingEnemiesUniqueOneHandMace8
 {variant:1}LocalChanceToBleedUniqueOneHandMace8[10,10]
 {variant:2}LocalChanceToBleedUniqueOneHandMace8
-{variant:1}AttackDamageLifeLeechAgainstBleedingEnemiesUnique_1
-{variant:2}LifeLeechPhysicalAgainstBleedingEnemiesUniqueOneHandMace8
 ]],[[
 Frostbreath
 Ornate Mace
@@ -101,8 +101,8 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 50, 161 Str
 Implicits: 2
-{variant:1}StunDurationImplicitMace2[40,40]
 {variant:2,3}StunThresholdReductionImplicitMace2
+{variant:1}StunDurationImplicitMace1[40,40]
 {variant:1,2}LocalAddedPhysicalDamageUnique__6_[16,22][26,32]
 {variant:3}LocalAddedPhysicalDamageUnique__6_
 {variant:1,2}LocalAddedColdDamageUnique__2[16,22][26,32]
@@ -131,8 +131,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 10, 41 Str
 Implicits: 2
-{variant:1}StunDurationImplicitMace1[20,20]
 {variant:2}StunThresholdReductionImplicitMace1
+{variant:1}StunDurationImplicitMace1[20,20]
 LocalIncreasedPhysicalDamagePercentUniqueOneHandMace6
 LocalReducedAttackSpeedUniqueOneHandMace6
 StunThresholdReductionUniqueOneHandMace6
@@ -147,16 +147,16 @@ Variant: Pre 3.7.0
 Variant: Current
 Requires Level 20, 71 Str
 Implicits: 2
-{variant:1}StunDurationImplicitMace1[20,20]
 {variant:2,3}StunThresholdReductionImplicitMace1
-{variant:3}LocalIncreasedPhysicalDamagePercentUnique__7[160,200]
+{variant:1}StunDurationImplicitMace1[20,20]
+{variant:3}LocalIncreasedPhysicalDamagePercentUnique__55[160,200]
+{variant:1,2}LocalIncreasedPhysicalDamagePercentUnique__55
 {variant:1,2}IncreasedLifeImplicitShield1
-{variant:1,2}IncreasedManaUniqueBootsStrDex3
 {variant:3}IncreasedLifeUniqueOneHandMace7
+{variant:1,2}IncreasedManaUniqueBootsStrDex3
 {variant:3}IncreasedManaUniqueOneHandMace7
-{variant:1,2}LocalIncreasedPhysicalDamagePercentUnique__7
 ReducedMovementVelocityUniqueOneHandMace7
-{variant:1,2}AreaOfEffectUniqueOneHandMace7[10,10]
+{variant:1,2}AreaOfEffectImplicitTwoHandMace1__
 {variant:3}AreaOfEffectUniqueOneHandMace7
 {variant:1,2}AreaDamageUniqueOneHandMace7[10,15]
 {variant:3}AreaDamageUniqueOneHandMace7
@@ -170,17 +170,17 @@ Variant: Pre 3.15.0
 Variant: Current
 Requires Level 60, 412 Str, 300 Int
 Implicits: 2
-{variant:1,2,3}StunDurationImplicitMace2[40,40]
 {variant:4,5}StunThresholdReductionImplicitMace2
-LocalIncreasedPhysicalDamagePercentUniqueOneHandMace3
-AdditionalChainUniqueOneHandMace3
-{variant:1,2,3,4}WeaponLightningDamageUniqueOneHandMace3[30,40]
-{variant:5}WeaponLightningDamageUniqueOneHandMace3
-StrengthRequirementsUniqueOneHandMace3
-IntelligenceRequirementsUniqueOneHandMace3
+{variant:1,2,3}StunDurationImplicitMace1[40,40]
 {variant:1}CastSocketedLightningSpellsOnHit[50,50]
 {variant:2}CastSocketedLightningSpellsOnHit[30,30]
 {variant:3,4,5}CastSocketedLightningSpellsOnHit
+IntelligenceRequirementsUniqueOneHandMace3
+StrengthRequirementsUniqueOneHandMace3
+LocalIncreasedPhysicalDamagePercentUniqueOneHandMace3
+{variant:1,2,3,4}WeaponLightningDamageUniqueOneHandMace3[30,40]
+{variant:5}WeaponLightningDamageUniqueOneHandMace3
+AdditionalChainUniqueOneHandMace3
 {variant:1,2,3,4}Socketed Lightning Spells deal 100% increased Spell Damage if Triggered
 ]],[[
 Nebulis
@@ -195,8 +195,8 @@ ElementalDamagePercentImplicitSceptre3
 {variant:2}ClassicNebulisImplicitModifierMagnitudeUnique_1
 IncreasedCastSpeedUnique__16
 {variant:1}ColdDamagePerResistanceAbove75Unique__1
-{variant:1}LightningDamagePerResistanceAbove75Unique__1
 {variant:2}ElementalDamagePerResistanceAbove75Unique_1
+{variant:1}LightningDamagePerResistanceAbove75Unique__1
 ]],[[
 Replica Nebulis
 Void Sceptre
@@ -210,8 +210,8 @@ ElementalDamagePercentImplicitSceptre3
 {variant:2}ReplicaNebulisImplicitModifierMagnitudeUnique_1
 IncreasedCastSpeedUnique__14
 {variant:1}ColdDamagePerMissingColdResistanceUnique__1
-{variant:1}FireDamagePerMissingFireResistanceUnique__1
 {variant:2}ElementalDamagePerMissingResistanceUnique_1
+{variant:1}FireDamagePerMissingFireResistanceUnique__1
 ]],[[
 Nebuloch
 Nightmare Mace
@@ -221,7 +221,7 @@ Variant: Pre 3.4.0
 Variant: Current
 Requires Level 68, 212 Str
 Implicits: 1
-StunThresholdReductionUniqueGlovesDexInt2
+StunThresholdReductionImplicitMace1
 LocalAddedPhysicalDamageUnique__30_
 AttackPhysicalDamageAddedAsFireUnique__2
 ChaosResistancePerEnduranceChargeUnique__1_
@@ -230,6 +230,18 @@ AddedPhysicalDamagePerEnduranceChargeUnique__1
 ArmourPerEnduranceChargeUnique__1
 {variant:1}DamageTakenPerEnduranceChargeWhenHitUnique__1_[24000,24000]
 {variant:2}DamageTakenPerEnduranceChargeWhenHitUnique__1_
+]],
+[[
+The Monastery Bell
+Dream Mace
+Requires Level 32, 107 Str
+Implicits: 1
+StunThresholdReductionImplicitMace1
+LocalIncreasedPhysicalDamagePercentUniqueOneHandMace1
+LocalAddedPhyiscalDamageUnique__43
+IncreasedAttackSpeedUniqueShieldDex6
+BlockIsUnluckyUnique__1
+CountAsBlockingAttackFromShieldAttackFirstTargetUnique__1
 ]],
 -- Weapon: Sceptre
 [[
@@ -241,8 +253,8 @@ Variant: Current
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew22
-LocalIncreasedPhysicalDamagePercentUnique__20
-LocalIncreasedAttackSpeedUnique__4
+LocalIncreasedPhysicalDamagePercentUnique__29
+LocalIncreasedAttackSpeedUnique__20
 LocalCriticalStrikeChanceUnique__14
 ConvertPhysicaltoLightningUnique__3
 GainElementalOverloadEvery16SecondsUnique__1
@@ -255,13 +267,13 @@ Variant: Pre 2.3.0
 Variant: Current
 Requires Level 10, 22 Str, 22 Int
 Implicits: 2
-{variant:1}ElementalDamagePercentImplicitSceptre1[10,10]
+{variant:1}ElementalDamagePercentImplicitSceptreNew2[10,10]
 {variant:2}ElementalDamagePercentImplicitSceptreNew2
-IncreasedCastSpeedUnique__4
-SpellCriticalStrikeChanceUnique__1
 SpellAddedFireDamageUnique__4
 SpellAddedColdDamageUnique__3
 SpellAddedLightningDamageUnique__3
+IncreasedCastSpeedUnique__4
+SpellCriticalStrikeChanceUnique__1
 ]],[[
 Balefire
 Opal Sceptre
@@ -324,7 +336,7 @@ ElementalDamagePercentImplicitSceptreNew20
 LocalIncreasedPhysicalDamagePercentUnique__16
 {variant:1}IncreasedChaosDamageUnique__2[60,80]
 {variant:2}IncreasedChaosDamageUnique__2
-AreaOfEffectUnique__1
+AreaOfEffectImplicitTwoHandMace1__
 ChaosSkillEffectDurationUnique__1
 ]],[[
 Brutus' Lead Sprinkler
@@ -336,16 +348,16 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 28, 51 Str, 51 Int
 Implicits: 2
-{variant:1}ElementalDamagePercentImplicitSceptre1[10,10]
+{variant:1}ElementalDamagePercentImplicitSceptreNew6[10,10]
 {variant:2,3,4}ElementalDamagePercentImplicitSceptreNew6
 LocalIncreasedPhysicalDamageUniqueSceptre9
 {variant:1,2}LocalAddedFireDamageAgainstIgnitedEnemiesUniqueSceptre9
 LocalAddedPhysicalDamageUniqueSceptre9
+FireDamagePercentUniqueSceptre9
+LocalIncreasedAttackSpeedUnique__33
+LocalCriticalStrikeChanceUniqueTwoHandMace6
 {variant:3}AddedFireDamagePerStrengthUnique__1[2,2][4,4]
 {variant:4}AddedFireDamagePerStrengthUnique__1
-FireDamagePercentUniqueSceptre9
-LocalIncreasedAttackSpeedUnique__25
-LocalCriticalStrikeChanceUnique__3
 ]],[[
 Cerberus Limb
 Blood Sceptre
@@ -384,16 +396,16 @@ Implicits: 2
 {variant:9,10,11}GlobalSpellGemsLevelUnique__1
 {variant:1,2,3,4,5}GlobalChanceToBlindOnHitUniqueSceptre8[7,7]
 {variant:6,7,8,9,10,11}GlobalChanceToBlindOnHitUniqueSceptre8
-BlindImmunityUniqueSceptre8
-MaledictionOnBlindWhileBlindedUnique__1
 {variant:1,2}ManaGainedOnEnemyDeathPerLevelUniqueSceptre8
 {variant:1,2}EnergyShieldGainedOnEnemyDeathPerLevelUniqueSceptre8
+BlindImmunityUnique__1
+MaledictionOnBlindWhileBlindedUnique__1
+{variant:4,5,7,8}EnergyShieldPerLevelUnique__1[1,1]
+{variant:10,11}EnergyShieldPerLevelUnique__1
 {variant:3,4,6,7}LifePerLevelUnique__1[1,1]
 {variant:9,10}LifePerLevelUnique__1
 {variant:3,5,6,8}ManaPerLevelUnique__1[1,1]
 {variant:9,11}ManaPerLevelUnique__1
-{variant:4,5,7,8}EnergyShieldPerLevelUnique__1[1,1]
-{variant:10,11}EnergyShieldPerLevelUnique__1
 ]],[[
 Death's Hand
 Karui Sceptre
@@ -402,7 +414,7 @@ Variant: Pre 3.7.0
 Variant: Current
 Requires Level 56, 96 Str, 96 Int
 Implicits: 2
-{variant:1}ElementalDamagePercentImplicitSceptre1[10,10]
+{variant:1}ElementalDamagePercentImplicitSceptreNew16[10,10]
 {variant:2,3}ElementalDamagePercentImplicitSceptreNew16
 {variant:1,2}LocalAddedPhysicalDamageUniqueSceptre10[30,41][80,123]
 {variant:3}LocalAddedPhysicalDamageUniqueSceptre10
@@ -416,12 +428,12 @@ Variant: Pre 2.3.0
 Variant: Current
 Requires Level 64, 113 Str, 113 Int
 Implicits: 2
-{variant:1}ElementalDamagePercentImplicitSceptre1[10,10]
+{variant:1}ElementalDamagePercentImplicitSceptreNew20[10,10]
 {variant:2}ElementalDamagePercentImplicitSceptreNew20
+DisplaySocketedGemsSupportedByIronWillUniqueSceptre6
 StrengthUniqueSceptre6
 IncreasedCastSpeedUniqueSceptre6
 IncreasedManaUniqueSceptre6
-DisplaySocketedGemsSupportedByIronWillUniqueSceptre6
 DamagePerStrengthInMainHandUniqueSceptre6
 ArmourPerStrengthInOffHandUniqueSceptre6
 ]],[[
@@ -432,7 +444,7 @@ Variant: Pre 2.3.0
 Variant: Current
 Requires Level 75, 113 Str, 113 Int
 Implicits: 2
-{variant:1}ElementalDamagePercentImplicitSceptre1[10,10]
+{variant:1}ElementalDamagePercentImplicitSceptreNew21__[10,10]
 {variant:2}ElementalDamagePercentImplicitSceptreNew21__
 SocketedGemsGetElementalProliferationUniqueSceptre7
 LocalAddedPhysicalDamageUniqueSceptre7
@@ -448,7 +460,7 @@ Requires Level 35, 62 Str, 62 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew9
 AllAttributesUnique__18
-MinionDamageUniqueTwoHandSword4
+MinionDamageUnique__5
 SkeletonsCoverEnemiesInAshUnique__1
 SkeletonsTakeFireDamagrPerSecondUnique__1
 SkeletonsHaveAvatarOfFireUnique__1_
@@ -463,8 +475,8 @@ ElementalDamagePercentImplicitSceptreNew10
 AllAttributesUnique__11
 MinionDamageUnique__5
 ZombiesCoverInAshOnHitUnique__1
-Raised Zombies take (15.0-30.0)% of their Maximum Life per second as Fire Damage
 ZombiesHaveAvatarOfFireUnique__1
+ZombiesTakeFireDamagePerSecondUnique__1_
 ]],[[
 Maata's Teaching
 Karui Sceptre
@@ -488,8 +500,8 @@ Variant: Pre 3.19.0
 Variant: Current
 Requires Level 68, 104 Str, 122 Int
 Implicits: 2
-{variant:1,2}ElementalDamagePercentImplicitSceptre2[15,15]
-{variant:3,4,5}ElementalDamagePercentImplicitSceptreNew18
+{variant:1,2}ElementalDamagePercentImplicitSceptre3[15,15]
+{variant:3,4,5}ElementalDamagePercentImplicitSceptre3
 NumberOfZombiesSummonedPercentageUniqueSceptre3
 {variant:1}ZombieLifeUniqueSceptre3[500,500]
 {variant:2,3}ZombieLifeUniqueSceptre3[2000,2000]
@@ -523,7 +535,7 @@ Implicits: 2
 {variant:1,2,3,4}LifeGainPerTargetUniqueSceptre2
 {variant:1,2,3,4}LightRadiusUnique__11[25,25]
 {variant:5}LightRadiusUnique__11
-{variant:5}BattlemageKeystoneUnique__1
+{variant:5}BattlemageKeystoneUnique__3
 ]],[[
 Sign of the Sin Eater
 Tyrant's Sekhem
@@ -531,8 +543,8 @@ League: Legion
 Requires Level 58, 99 Str, 99 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew16
-StrengthIntelligenceUnique__2
 GrantsLevel30SmiteUnique__1
+StrengthIntelligenceUnique__2
 ElementalAilmentsOnYouInsteadOfAlliesUnique__1
 ]],[[
 Singularity
@@ -542,7 +554,7 @@ Variant: Pre 3.19.0
 Variant: Current
 Requires Level 62, 113 Str, 113 Int
 Implicits: 2
-{variant:1}ElementalDamagePercentImplicitSceptre1[10,10]
+{variant:1}ElementalDamagePercentImplicitSceptreNew11[10,10]
 {variant:2,3}ElementalDamagePercentImplicitSceptreNew11
 {variant:1,2}SpellAddedLightningDamageUnique__2[30,40][60,70]
 {variant:3}SpellAddedLightningDamageUnique__2
@@ -560,12 +572,12 @@ Variant: Pre 3.5.0
 Variant: Current
 Requires Level 20, 38 Str, 38 Int
 Implicits: 2
-{variant:1}ElementalDamagePercentImplicitSceptre1[10,10]
+{variant:1}ElementalDamagePercentImplicitSceptreNew5[10,10]
 {variant:2,3}ElementalDamagePercentImplicitSceptreNew5
 LocalIncreasedPhysicalDamagePercentUnique__13
 IncreasedDamageAgainstFrozenEnemiesUnique__1
-ColdDamagePercentUnique__3
 {variant:3}ColdDamageOverTimeMultiplierUnique__1
+ColdDamagePercentUnique__3
 IncreasedAttackSpeedTransformedUnique__1
 IncreasedCastSpeedUnique__1
 ChanceToFreezeUnique__1
@@ -574,18 +586,21 @@ The Supreme Truth
 Crystal Sceptre
 Variant: Pre 2.0.0
 Variant: Pre 2.3.0
+Variant: Pre 2.28.0
 Variant: Current
 Requires Level 41, 59 Str, 136 Int
 Implicits: 2
-{variant:1,2}ElementalDamagePercentImplicitSceptre3[20,20]
-{variant:3}ElementalDamagePercentImplicitSceptreNew15
-LocalIncreaseSocketedGemLevelUnique__2
-LocalIncreasedPhysicalDamagePercentUniqueDagger3
-LocalIncreasedAttackSpeedUniqueSceptre1
-{variant:1}MutatedUniqueBodyStr5ExperienceIncrease
-{variant:2,3}IncreasedExperienceUniqueSceptre1
-ElementalDamagePercentImplicitSceptre1
+{variant:1,2}ElementalDamagePercentImplicitSceptre2[20,20]
+{variant:3,4}ElementalDamagePercentImplicitSceptre2
+{variant:4}LocalInflictHallowingFlameOnHitUnique__1
+LocalIncreaseSocketedGemLevelUniqueSceptre1
 IncreasedIntelligenceRequirementsUniqueSceptre1
+LocalIncreasedPhysicalDamagePercentUniqueSceptre1
+LocalIncreasedAttackSpeedUniqueSceptre1
+{variant:1}IncreasedExperienceUniqueSceptre1[5,5]
+{variant:2,3}IncreasedExperienceUniqueSceptre1
+{variant:1,2,3}ElementalDamagePercentImplicitSceptre1
+
 ]],[[
 Yaomac's Accord
 Vaal Sceptre
@@ -604,12 +619,12 @@ Platinum Sceptre
 Source: Obtained from unique{Shipping} in normal{Kingsmarch}
 Requires Level 62, 113 Str, 113 Int
 Implicits: 1
-ElementalDamagePercentImplicitSceptreNew19
+ElementalDamagePercentImplicitSceptre2
 LocalAddedPhysicalDamageUnique__38
 AdditionalTotemsUniqueScepter_1
 Maximum2OfSameTotemUnique__1
 SummonTotemCastSpeedUnique__3
-MutatedUniqueTwoHandMace6KeystoneBattlemage
+BattlemageKeystoneUnique__2_
 ]],
 -- Weapon: Two Handed Mace
 [[
@@ -646,12 +661,12 @@ Implicits: 2
 {variant:2,3}StunDurationImplicitMace1
 LocalIncreaseSocketedMeleeGemLevelUniqueTwoHandMace5
 LocalIncreaseSocketedMinionGemLevelUniqueTwoHandMace5
+ReducedStrengthRequirementsUniqueTwoHandMace5
 {variant:1,2}LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace5[100,120]
 {variant:3}LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace5
 MaximumManaUniqueTwoHandMace5
 MinionLifeUniqueTwoHandMace5
 SkillEffectDurationUniqueTwoHandMace5
-ReducedStrengthRequirementsUniqueTwoHandMace5
 ]],[[
 Chaber Cairn
 Great Mallet
@@ -706,8 +721,8 @@ Requires Level 17, 62 Str
 Implicits: 2
 {variant:1}StunDurationImplicitMace2[40,40]
 {variant:2}StunDurationImplicitMace2
-LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace1
 StrengthUniqueTwoHandMace1
+LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace1
 StunThresholdReductionUniqueTwoHandMace1
 LifeLeechPermyriadUniqueTwoHandMace1
 StunDurationUniqueTwoHandMace1
@@ -721,9 +736,9 @@ Requires Level 36, 62 Str
 Implicits: 2
 {variant:1}StunDurationImplicitMace2[40,40]
 {variant:2}StunDurationImplicitMace2
+StrengthUniqueTwoHandMace1
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace1
 LocalAddedPhysicalDamageUnique__20_
-StrengthUniqueTwoHandMace1
 StunThresholdReductionUniqueTwoHandMace1
 LifeLeechPermyriadUniqueTwoHandMace1
 StunDurationUniqueTwoHandMace1
@@ -758,10 +773,10 @@ Implicits: 3
 {variant:4}ChanceForDoubleStunDurationImplicitMace_1
 {variant:1}LocalAddedPhysicalDamageUniqueTwoHandMace6[27,36][270,360]
 {variant:2,3,4}LocalAddedPhysicalDamageUniqueTwoHandMace6
-{variant:2,3,4}LocalCriticalStrikeChanceUnique__10
-AllResistancesUnique__17
-AlwaysHits
-CriticalMultiplierUniqueAmulet18
+{variant:2,3,4}LocalCriticalStrikeChanceUniqueTwoHandMace6
+AllResistancesUniqueTwoHandMace6_
+AlwaysHitsUniqueTwoHandMace6
+NoBonusesFromCriticalStrikes
 {variant:1,2}UndyingRageOnCritUniqueTwoHandMace6[2000,2000]
 {variant:3,4}UndyingRageOnCritUniqueTwoHandMace6
 ]],[[
@@ -776,7 +791,7 @@ LocalAddedPhysicalDamageUniqueTwoHandMace6
 LocalCriticalStrikeChanceUniqueTwoHandMace6
 AllResistancesUniqueTwoHandMace6_
 AlwaysHitsUniqueTwoHandMace6
-NoBonusesFromCriticalStrikes
+CriticalMultiplierUniqueAmulet18
 LocalEnergyShieldRegenerationIfCritRecentlyUnique__1
 ]],[[
 Marohi Erqi
@@ -787,26 +802,28 @@ Variant: Pre 3.7.0
 Variant: Pre 3.11.0
 Variant: Pre 3.19.0
 Variant: Pre 3.20.0
+Variant: Pre 3.28.0
 Variant: Current
 Requires Level 57, 182 Str
 Implicits: 3
-{variant:1}StunDurationImplicitMace1[20,20]
-{variant:2,3}StunDurationImplicitMace1
-{variant:4,5,6}StunDurationImplicitMace2
+{variant:1}StunDurationImplicitMace2[20,20]
+{variant:2,3}StunDurationImplicitMace2[30,30]
+{variant:4,5,6,7}StunDurationImplicitMace2
 {variant:1,2,3,4}SocketedGemsGetIncreasedAreaOfEffectUniqueTwoHandMace3
 {variant:1,2}LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace3[220,250]
 {variant:3}LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace3[230,260]
 {variant:4}LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace3[200,230]
 {variant:5}LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace3[400,500]
-{variant:6}LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace3
+{variant:6,7}LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace3
 {variant:1,2}LocalAddedPhysicalDamageOneHandAxe1[10,10][20,20]
 {variant:3,4}LocalAddedPhysicalDamageOneHandAxe1
 {variant:1,2,3,4}LocalIncreasedAttackSpeedUniqueTwoHandMace3[-10,-10]
-{variant:5,6}LocalIncreasedAttackSpeedUniqueTwoHandMace3
+{variant:5,6,7}LocalIncreasedAttackSpeedUniqueTwoHandMace3
 {variant:1,2,3,4}MovementVelocityUniqueTwoHandMace3
 StunDurationUniqueTwoHandMace3
 {variant:1,2,3,4}IncreasedAccuracyUniqueTwoHandMace3[-100,-100]
-{variant:5,6}IncreasedAccuracyUniqueTwoHandMace3
+{variant:5,6,7}IncreasedAccuracyUniqueTwoHandMace3
+{variant:7}AreaOfEffectUnique__10
 ]],[[
 Quecholli
 Jagged Maul
@@ -816,9 +833,9 @@ Requires Level 22, 77 Str
 Implicits: 2
 {variant:1}StunDurationImplicitMace1[20,20]
 {variant:2}StunDurationImplicitMace1
+AllAttributesUniqueTwoHandMace7
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace7
 LocalAddedPhysicalDamageUniqueTwoHandMace7
-AllAttributesUniqueTwoHandMace7
 LifeGainedFromEnemyDeathUniqueTwoHandMace7
 Enemies killed explode dealing 10% of their Life as Fire Damage
 ]],[[
@@ -828,11 +845,11 @@ Source: No longer obtainable
 Requires Level 61, 77 Str
 Implicits: 1
 StunDurationImplicitMace1
+AllAttributesUniqueTwoHandMace7
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace7
 LocalAddedPhysicalDamageUnique__32
-AllAttributesUniqueTwoHandMace7
+RecoverPercentMaxLifeOnKillUnique__2
 Enemies killed explode dealing 10% of their Life as Fire Damage
-RecoverPercentMaxLifeOnKillUnique__1
 ]],[[
 Serle's Masterwork
 Phantom Mace
@@ -841,9 +858,9 @@ Requires Level 53, 170 Str
 Implicits: 1
 StunThresholdReductionImplicitMace1
 StrengthUnique__25
-DexterityUnique__10_
+DexterityImplicitQuiver1
 LocalIncreasedPhysicalDamagePercentUnique__50
-AccuracyAgainstBleedingEnemiesUnique__1
+LocalIncreasedAccuracyUnique__3
 VillageTripleEnchant1H
 ]],[[
 Tawhoa's Felling
@@ -865,12 +882,12 @@ Variant: Pre 3.11.0
 Variant: Current
 Requires Level 65, 212 Str
 Implicits: 2
-{variant:1,2}StunDurationImplicitMace1
 {variant:3}PercentageStrengthImplicitMace1
+{variant:1,2}StunDurationImplicitMace1
 SocketedGemsSupportedByEnduranceChargeOnStunUnique__1
+IntelligenceUnique__5
 {variant:1}LocalAddedPhysicalDamageUnique__26[60,70][300,350]
 {variant:2,3}LocalAddedPhysicalDamageUnique__26
-IntelligenceUnique__5
 IncreasedPhysicalDamagePerEnduranceChargeUnique__1
 StunThresholdReductionUnique__1___
 ]],[[
@@ -884,7 +901,7 @@ Implicits: 2
 {variant:1}StunDurationImplicitMace1[20,20]
 {variant:2}StunDurationImplicitMace1
 LocalReducedAttackSpeedUnique__1
-LocalAlwaysCrit
+LocalAttacksAlwaysCritUnique__1
 ]],[[
 Replica Trypanon
 Great Mallet

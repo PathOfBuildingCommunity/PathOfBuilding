@@ -173,10 +173,10 @@ Implicits: 2
 {variant:4,5}15% reduced Enemy Stun Threshold
 {variant:1,2,3}40% increased Stun Duration on Enemies
 {variant:1}50% chance to Trigger a Socketed Lightning Spell on Hit, with a 0.25 second Cooldown
-{variant:2}30% chance to Trigger a Socketed Lightning Spell on Hit, with a 0.25 second Cooldown
-{variant:3,4,5}Trigger a Socketed Lightning Spell on Hit, with a 0.25 second Cooldown
 {variant:1}Socketed Lightning Spells have no Cost if Triggered
+{variant:2}30% chance to Trigger a Socketed Lightning Spell on Hit, with a 0.25 second Cooldown
 {variant:2}Socketed Lightning Spells have no Cost if Triggered
+{variant:3,4,5}Trigger a Socketed Lightning Spell on Hit, with a 0.25 second Cooldown
 {variant:3,4,5}Socketed Lightning Spells have no Cost if Triggered
 +300 Intelligence Requirement
 +200 Strength Requirement
@@ -479,8 +479,8 @@ Implicits: 1
 +(20-30) to all Attributes
 Minions deal (30-40)% increased Damage
 Raised Zombies Cover Enemies in Ash on Hit
+Raised Zombies take (15-30)% of their Maximum Life per second as Fire Damage
 Raised Zombies have Avatar of Fire
-Raised Zombies take (15.0-30.0)% of their Maximum Life per second as Fire Damage
 ]],[[
 Maata's Teaching
 Karui Sceptre
@@ -596,7 +596,8 @@ Variant: Current
 Requires Level 41, 59 Str, 136 Int
 Implicits: 2
 {variant:1,2}20% increased Elemental Damage
-{variant:3}30% increased Elemental Damage
+{variant:3,4}30% increased Elemental Damage
+{variant:4}Attacks with this weapon inflict Hallowing Flame on Hit
 +1 to Level of Socketed Gems
 60% increased Intelligence Requirement
 (80-100)% increased Physical Damage
@@ -604,7 +605,7 @@ Implicits: 2
 {variant:1}5% increased Experience gain
 {variant:2,3}3% increased Experience gain
 {variant:1,2,3}20% increased Elemental Damage
-{variant:4}Attacks with this Weapon inflict Hallowing Flame on Hit
+
 ]],[[
 Yaomac's Accord
 Vaal Sceptre
@@ -825,9 +826,9 @@ Implicits: 3
 {variant:5,6,7}25% reduced Attack Speed
 {variant:1,2,3,4}10% reduced Movement Speed
 (40-50)% increased Stun Duration on Enemies
+{variant:7}(40-50)% increased Area of Effect
 {variant:1,2,3,4}-100 to Accuracy Rating
 {variant:5,6,7}-500 to Accuracy Rating
-{variant:7}(40-50)% increased Area of Effect
 ]],[[
 Quecholli
 Jagged Maul

@@ -10,13 +10,13 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 66, 158 Str, 113 Int
 Implicits: 3
+{variant:3}StaffSpellBlockPercent3
 {variant:1}StaffBlockPercentImplicitStaff1[12,12]
 {variant:2}StaffBlockPercentImplicitStaff1[18,18]
-{variant:3}StaffSpellBlockPercent3
 IncreasedStrengthRequirementUniqueStaff8
 IntelligenceUniqueStaff8
 LightningDamagePercentUniqueStaff8
-{variant:1}VillageGlobalIncreaseLightningSpellSkillGemLevel
+{variant:1}LocalIncreaseSocketedLightningGemLevelUniqueStaff8[1,1]
 {variant:2,3}LocalIncreaseSocketedLightningGemLevelUniqueStaff8
 LightningPenetrationUniqueStaff8
 ShockDurationUniqueStaff8
@@ -28,15 +28,15 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 66, 158 Str, 113 Int
 Implicits: 3
+{variant:3}StaffSpellBlockPercent3
 {variant:1}StaffBlockPercentImplicitStaff1[12,12]
 {variant:2}StaffBlockPercentImplicitStaff1[18,18]
-{variant:3}StaffSpellBlockPercent3
-{variant:1}VillageGlobalIncreaseLightningSpellSkillGemLevel
-{variant:2,3}LocalIncreaseSocketedLightningGemLevelUniqueStaff8
+IncreasedStrengthRequirementUniqueStaff8
 IntelligenceUniqueStaff8
 LightningDamagePercentUniqueStaff8
+{variant:1}LocalIncreaseSocketedLightningGemLevelUniqueStaff8[1,1]
+{variant:2,3}LocalIncreaseSocketedLightningGemLevelUniqueStaff8
 ChanceToShockUniqueStaff8
-IncreasedStrengthRequirementUniqueStaff8
 LightningPenetrationUniqueStaff8
 ]],[[
 Agnerod South
@@ -46,15 +46,15 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 66, 158 Str, 113 Int
 Implicits: 3
+{variant:3}StaffSpellBlockPercent3
 {variant:1}StaffBlockPercentImplicitStaff1[12,12]
 {variant:2}StaffBlockPercentImplicitStaff1[18,18]
-{variant:3}StaffSpellBlockPercent3
-{variant:1}VillageGlobalIncreaseLightningSpellSkillGemLevel
-{variant:2,3}LocalIncreaseSocketedLightningGemLevelUniqueStaff8
+IncreasedStrengthRequirementUniqueStaff8
 IntelligenceUniqueStaff8
 LightningDamagePercentUniqueStaff8
+{variant:1}LocalIncreaseSocketedLightningGemLevelUniqueStaff8[1,1]
+{variant:2,3}LocalIncreaseSocketedLightningGemLevelUniqueStaff8
 MaximumLightningResistUniqueStaff8c
-IncreasedStrengthRequirementUniqueStaff8
 LightningPenetrationUniqueStaff8
 ]],[[
 Agnerod West
@@ -64,15 +64,15 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 66, 158 Str, 113 Int
 Implicits: 3
+{variant:3}StaffSpellBlockPercent3
 {variant:1}StaffBlockPercentImplicitStaff1[12,12]
 {variant:2}StaffBlockPercentImplicitStaff1[18,18]
-{variant:3}StaffSpellBlockPercent3
-{variant:1}VillageGlobalIncreaseLightningSpellSkillGemLevel
-{variant:2,3}LocalIncreaseSocketedLightningGemLevelUniqueStaff8
+IncreasedStrengthRequirementUniqueStaff8
 IntelligenceUniqueStaff8
 LightningDamagePercentUniqueStaff8
 SpellAddedLightningDamageTwoHandUniqueStaff8d
-IncreasedStrengthRequirementUniqueStaff8
+{variant:1}LocalIncreaseSocketedLightningGemLevelUniqueStaff8[1,1]
+{variant:2,3}LocalIncreaseSocketedLightningGemLevelUniqueStaff8
 LightningPenetrationUniqueStaff8
 ]],[[
 The Annihilating Light
@@ -82,8 +82,8 @@ Variant: Current
 Source: Drops from unique{The Searing Exarch} (Uber)
 Requires Level 68, 78 Str, 78 Int
 Implicits: 2
-{variant:1}StaffBlockPercentImplicitStaff1[18,18]
 {variant:2}StaffSpellBlockPercent2
+{variant:1}StaffBlockPercentImplicitStaff1[18,18]
 IncreasedElementalResistancesUnique__2_
 ElementalSkillsTripleDamageUnique__1
 ]],[[
@@ -185,7 +185,6 @@ Implicits: 2
 {variant:1}LocalAddedPhysicalDamageUnique__31[270,300][340,380]
 {variant:2}LocalAddedPhysicalDamageUnique__31[250,280][315,355]
 {variant:3,4}LocalAddedPhysicalDamageUnique__31
-{variant:1,2,3,4}BattlemageKeystoneUnique__2_
 MaximumSiphoningChargePerElderOrShaperItemUnique__1
 SiphoningChargeOnSkillUseUnique__1
 PhysicalDamageToAttacksPerSiphoningChargeUnique__1
@@ -193,6 +192,7 @@ NonChaosDamageAddedAsChaosPerSiphoningChargeUnique__1
 AdditionalPhysicalDamageReductionPerSiphoningChargeUnique__1
 LifeLeechPerSiphoningChargeUnique__1
 DamageTakenPerSiphoningChargeOnSkillUseUnique__1
+{variant:1,2,3,4}BattlemageKeystoneUnique__5
 ]],[[
 Duskdawn
 Maelström Staff
@@ -267,7 +267,7 @@ StaffBlockPercentUnique__4_
 {variant:4}CriticalBleedDotMultiplierUnique__1_
 {variant:1,2,3}LocalAddedPhysicalDamageUnique__28[160,185][200,225]
 {variant:4}LocalAddedPhysicalDamageUnique__28
-LocalCriticalStrikeChanceUnique__10
+LocalCriticalStrikeChanceUnique__9
 ]],[[
 The Yielding Mortality
 Imperial Staff
@@ -287,7 +287,7 @@ StaffBlockPercentUnique__4_
 {variant:3}CriticalBleedDotMultiplierUnique__1_
 {variant:1,2}LocalAddedPhysicalDamageUnique__28[160,185][200,225]
 {variant:3}LocalAddedPhysicalDamageUnique__28
-CriticalStrikeChanceUniqueBow9
+LocalCriticalStrikeChanceUnique__3
 ]],[[
 Femurs of the Saints
 Primordial Staff
@@ -297,17 +297,17 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 58, 99 Str, 99 Int
 Implicits: 3
+{variant:4}StaffSpellBlockPercent3
 {variant:1}StaffBlockPercentImplicitStaff1[12,12]
 {variant:2,3}StaffBlockPercentImplicitStaff1[18,18]
-{variant:4}StaffSpellBlockPercent3
-LocalIncreaseSocketedMinionGemLevelUnique__1
+LocalIncreaseSocketedMinionGemLevelUnique__2_
 {variant:3,4}MinionDamageUnique__3_
-{variant:3,4}AttackBlockPerSkeletonUnique__1
-{variant:1,2}MinionAttackAndCastSpeedPerSkeleton__1
 {variant:1,2}MinionLifeRegenerationPerRagingSpirit__1
-{variant:3,4}AttackAndCastSpeedPerRagingSpiritUnique__1
+{variant:1,2}MinionAttackAndCastSpeedPerSkeleton__1
 {variant:1,2}MinionDurationPerZombie__1
 {variant:1,2}MinionDamagePerSpectre__1
+{variant:3,4}AttackBlockPerSkeletonUnique__1
+{variant:3,4}AttackAndCastSpeedPerRagingSpiritUnique__1
 {variant:3,4}LifeRegenerationPerZombieUnique__1
 {variant:3,4}ManaRegenerationPerSpectreUnique__1
 ]],[[
@@ -317,9 +317,9 @@ Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
 Implicits: 3
+{variant:3}StaffSpellBlockPercentImplicitStaff__1
 {variant:1}StaffBlockPercentImplicitStaff1[12,12]
 {variant:2}StaffBlockPercentImplicitStaff1[18,18]
-{variant:3}StaffSpellBlockPercentImplicitStaff__1
 DisplaySupportedByTrapUniqueStaff4
 AllDamageUniqueStaff4
 MaximumLifeUniqueStaff4
@@ -332,8 +332,8 @@ Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 2
-{variant:1}StaffBlockPercentImplicitStaff1[18,18]
 {variant:2}StaffSpellBlockPercentImplicitStaff__1
+{variant:1}StaffBlockPercentImplicitStaff1[18,18]
 SupportedByMultiTotemUnique__1
 AllDamageUniqueStaff4
 MaximumLifeUniqueStaff4
@@ -346,8 +346,8 @@ Variant: Current
 League: Affliction
 Requires Level 58, 99 Str, 99 Int
 Implicits: 2
-{variant:1}StaffBlockPercentImplicitStaff1[18,18]
 {variant:2}StaffSpellBlockPercent3
+{variant:1}StaffBlockPercentImplicitStaff1[18,18]
 SocketedGemsGetBloodMagicUnique__1
 IncreasedCastSpeedUnique__25
 LifeDegenerationGracePeriodUnique__1
@@ -379,14 +379,14 @@ Variant: Current
 Source: No longer obtainable
 Requires Level 32
 Implicits: 2
-{variant:1}StaffBlockPercentImplicitStaff1[18,18]
 {variant:2}StaffSpellBlockPercentImplicitStaff__1
+{variant:1}StaffBlockPercentImplicitStaff1[18,18]
 DisplaySupportedByTrapUnique__1
 SupportedByClusterTrapUnique__1
 SupportedByTrapAndMineDamageUnique__1
-MaximumManaUniqueStaff4
-MaximumLifeUniqueStaff4
 AllDamageUniqueStaff4
+MaximumLifeUniqueStaff4
+MaximumManaUniqueStaff4
 ]],[[
 The Grey Spire
 Judgement Staff
@@ -395,12 +395,12 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 68, 113 Str, 113 Int
 Implicits: 3
-{variant:1}StaffBlockPercentImplicitStaff3[18,18]
 {variant:2}StaffSpellBlockPercentImplicitStaff__1
+{variant:1}StaffBlockPercentImplicitStaff3[18,18]
 {variant:3}StaffBlockPercentImplicitStaff3
 HasNoSockets
 AllDamageUnique__3
-LocalIncreasedAttackSpeedUnique__30
+LocalIncreasedAttackSpeedUnique__44
 IncreasedMaximumResistsUnique__1
 ]],[[
 Hegemony's Era
@@ -434,15 +434,15 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 52, 89 Str, 89 Int
 Implicits: 2
-{variant:1,2,3}StaffBlockPercentImplicitStaff1[18,18]
 {variant:4}StaffSpellBlockPercent2
+{variant:1,2,3}StaffBlockPercentImplicitStaff1[18,18]
 StaffBlockPercentUnique__3
+{variant:1,2,3,4}FireDamagePercentUnique__12___
 {variant:1,2}LocalAddedFireDamageUnique__3[350,400][500,600]
 {variant:3,4}LocalAddedFireDamageUnique__3
-{variant:1,2,3,4}BattlemageKeystoneUnique__1
-{variant:1,2,3,4}FireDamagePercentUnique__12___
-ImmuneToFreezeAndChillWhileIgnitedUnique__1
 FirePenetrationIfBlockedRecentlyUnique__1
+ImmuneToFreezeAndChillWhileIgnitedUnique__1
+{variant:1,2,3,4}BattlemageKeystoneUnique__4
 ]],[[
 Pillar of the Caged God
 Iron Staff
@@ -466,17 +466,20 @@ Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Pre 3.15.0
 Variant: Pre 3.25.0
+Variant: Pre 3.28.0
 Variant: Current
 Requires Level 68, 113 Str, 113 Int
 Implicits: 4
-{variant:1}StaffBlockPercentImplicitStaff1[12,12]
-{variant:2}StaffBlockPercentImplicitStaff1[18,18]
 {variant:3,4}StaffSpellBlockPercentImplicitStaff__1
-{variant:5}StaffBlockPercentImplicitStaff3
-SupportedByEchoUniqueStaff6
+{variant:1}StaffBlockPercentImplicitStaff3[12,12]
+{variant:2}StaffBlockPercentImplicitStaff3[18,18]
+{variant:5,6}StaffBlockPercentImplicitStaff3
+{variant:1,2,3,4,5}SupportedByEchoUniqueStaff6[30,30]
+{variant:6}SupportedByEchoUniqueStaff6
 SpellDamageUniqueStaff6
-{variant:1,2,3}MaximumManaUniqueStaff6[100,100]
-{variant:4,5}MaximumManaUniqueStaff6
+{variant:1,2,3}MaximumManaUniqueStaff5[100,100]
+{variant:4,5}MaximumManaUniqueStaff5[50,50]
+{variant:6}MaximumManaUniqueStaff6
 ]],[[
 Realmshaper
 Iron Staff
@@ -524,11 +527,11 @@ Variant: Pre 3.8.0
 Variant: Pre 3.25.0
 Variant: Current
 Implicits: 3
-{variant:1,2}StaffBlockPercentImplicitStaff1[12,12]
-{variant:3,4,5}StaffBlockPercentImplicitStaff1[18,18]
-{variant:6}StaffSpellBlockPercent3
-{variant:5,6}FireDamageOverTimeMultiplierUnique__1
+{variant:1,2}StaffBlockPercentImplicitStaff3[12,12]
+{variant:3,4,5}StaffBlockPercentImplicitStaff3[18,18]
+{variant:6}StaffBlockPercentImplicitStaff3
 {variant:1,2,3}SpellDamageUnique__10
+{variant:5,6}FireDamageOverTimeMultiplierUnique__1
 {variant:1,2,3}FireDamagePercentUniqueStaff1_[20,40]
 {variant:4,5,6}FireDamagePercentUniqueStaff1_
 IncreasedCastSpeedUniqueStaff1
@@ -580,9 +583,9 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 28, 51 Str, 51 Int
 Implicits: 3
+{variant:3}StaffSpellBlockPercentImplicitStaff__1
 {variant:1}StaffBlockPercentImplicitStaff1[12,12]
 {variant:2}StaffBlockPercentImplicitStaff1[18,18]
-{variant:3}StaffSpellBlockPercentImplicitStaff__1
 LocalIncreasedPhysicalDamagePercentUniqueStaff14
 LocalAddedColdDamageUniqueStaff14
 LocalAddedLightningDamageUniqueStaff14
@@ -604,7 +607,7 @@ StaffBlockPercentUnique__1
 LocalAddedPhysicalDamageUnique__33_
 LocalCriticalStrikeChanceUniqueStaff14
 ConvertPhysicalToColdUnique__2
-ConvertPhysicaltoLightningUnique__1
+ConvertPhysicaltoLightningUnique__4
 CannotBeShockedWhileChilledUnique__1
 ChanceToChillAttackersOnBlockUnique__1
 ChanceToShockAttackersOnBlockUnique__1_
@@ -620,14 +623,14 @@ Implicits: 3
 {variant:1,2}StaffBlockPercentImplicitStaff3[18,18]
 {variant:3}StaffBlockPercentImplicitStaff3[20,20]
 {variant:4}StaffBlockPercentImplicitStaff3
-{variant:1,2}VillageGlobalIncreaseColdSpellSkillGemLevel
-{variant:3,4}LocalIncreaseSocketedColdGemLevelUniqueStaff2
 {variant:1}SpellDamageUniqueStaff2[40,50]
 {variant:2,3,4}SpellDamageUniqueStaff2
 ColdDamagePercentUniqueStaff2
 IncreasedCastSpeedUniqueStaff2
+{variant:1,2}LocalIncreaseSocketedColdGemLevelUniqueStaff2[1,1]
+{variant:3,4}LocalIncreaseSocketedColdGemLevelUniqueStaff2
 ChanceToFreezeUniqueStaff2
-FrozenMonstersTakeIncreasedDamage
+FrozenMonstersTakeIncreasedDamageUnique__1
 ]],[[
 Tremor Rod
 Military Staff
@@ -660,9 +663,9 @@ Implicits: 3
 {variant:3}StaffBlockPercentImplicitStaff1
 LocalIncreaseSocketedSupportGemLevelUniqueStaff12
 IcestormUniqueStaff12
+PercentageIntelligenceUniqueStaff12_
 IncreasedCastSpeedUniqueStaff12
 SpellDamagePerIntelligenceUniqueStaff12
-PercentageIntelligenceUniqueStaff12_
 ]],[[
 Witchhunter's Judgment
 Highborn Staff
@@ -684,9 +687,9 @@ Variant: Current
 League: Crucible
 Implicits: 2
 {variant:1}StaffBlockPercentImplicitStaff1[18,18]
-{variant:2}StaffSpellBlockPercent2
+{variant:2}StaffBlockPercentImplicitStaff2
 HasOneSocketUnique__1
-SpellDamageOnWeaponUniqueDagger1
+SpellDamageUnique__15
 SpellCriticalStrikeChanceUnique__5
 IncreasedManaUnique__10
 LifeGainedFromEnemyDeathUnique__5
@@ -700,10 +703,10 @@ Variant: Pre 3.26.0
 Variant: Current
 Requires Level 28, 43 Str, 43 Int
 Implicits: 2
-{variant:1}StaffBlockPercentImplicitStaff1[18,18]
-{variant:2,3}StaffBlockPercentImplicitStaff1
-StaffBlockPercentUnique__5
-SpellDamageUnique__2
+{variant:1}StaffBlockPercentUnique__1[18,18]
+{variant:2,3}StaffBlockPercentUnique__1[20,20]
+StaffBlockPercentUnique__1
+SpellDamageUnique__18
 {variant:1,2}IncreasedEnergyShieldUnique__3[70,100]
 {variant:3}IncreasedEnergyShieldUnique__3
 LocalIncreaseSocketedGemLevelUnique___3
@@ -728,5 +731,20 @@ IncreasedCastSpeedUniqueStaff_1
 GlobalSpellGemsLevelUniqueStaff_1
 RemembranceGainedPerEnergyShieldUnique_1
 MaximumRemembranceUnique_1
-KeystoneEldritchBatteryUnique__1
-]],}
+KeystoneEldritchBatteryUnique__2
+]],
+[[
+Jiquani's Potential
+Imperial Staff
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 66, 113 Str, 113 Dex
+Implicits: 1
+StaffSpellBlockPercent3
+PercentageIntelligenceUnique__5
+MaximumLifeUnique__26
+GlobalSpellGemsLevelUniqueStaff_2
+IncreasedSkillCostUnique_1
+SpellLightningDamagePerIntelligenceUnique__1
+BloodMagic
+]],
+}

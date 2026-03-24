@@ -14,22 +14,22 @@ Requires Level 62, 212 Dex
 Source: Vendor Recipe
 Implicits: 1
 {variant:3}CriticalMultiplierImplicitBow1
+{variant:4,5}GrantsDashUnique__1_
 {variant:1}LocalAddedPhysicalDamageUnique__29___[60,70][180,210]
 {variant:2,3,4}LocalAddedPhysicalDamageUnique__29___[95,115][240,265]
 {variant:5}LocalAddedPhysicalDamageUnique__29___
 {variant:1,2,3}LocalIncreasedEvasionRatingPercentUnique__5
 {variant:1,2,3}AdditionalArrowsUniqueBow3
-{variant:1,2,3}DisplayIronReflexesFor8SecondsUnique__1
-{variant:1,2,3}ArborixMoreDamageAtCloseRangeUnique__1
-{variant:1,2,3}AttackCastMovementSpeedWhileYouDoNotHaveIronReflexesUnique__1
-{variant:1,2,3}FarShotWhileYouDoNotHaveIronReflexesUnique__1_
-{variant:4,5}GrantsDashUnique__1_
 {variant:4,5}ArrowsIfHaventUsedDashRecentlyUnique__1
 {variant:4,5}AttackSpeedIfHaventUsedDashRecentlyUnique__1
 {variant:4,5}EvasionRatingIfUsedDashRecentlyUnique__1
 {variant:4,5}MovementSpeedIfUsedDashRecentlyUnique__1
 {variant:4,5}DisableTravelSkillsExceptDashUnique__1
 {variant:4,5}IronReflexes
+{variant:1,2,3}DisplayIronReflexesFor8SecondsUnique__1
+{variant:1,2,3}ArborixMoreDamageAtCloseRangeUnique__1
+{variant:1,2,3}AttackCastMovementSpeedWhileYouDoNotHaveIronReflexesUnique__1
+{variant:1,2,3}FarShotWhileYouDoNotHaveIronReflexesUnique__1_
 ]],[[
 Chin Sol
 Assassin Bow
@@ -42,8 +42,8 @@ Variant: Pre 3.17.0
 Variant: Current
 Requires Level 62, 212 Dex
 Implicits: 2
-{variant:2,3}WeaponElementalDamageImplicitBow1[6,12]
 {variant:6,7}CriticalMultiplierImplicitBow1
+{variant:2,3}WeaponElementalDamageImplicitBow3[6,12]
 DexterityUniqueBow4
 {variant:1,2}LocalIncreasedPhysicalDamagePercentUniqueBow6[75,100]
 {variant:3,4}LocalIncreasedPhysicalDamagePercentUniqueBow6[150,180]
@@ -154,8 +154,8 @@ Variant: Pre 3.17.0
 Variant: Current
 Requires Level 62, 212 Dex
 Implicits: 2
-{variant:1,2}WeaponElementalDamageImplicitBow1[6,12]
 {variant:6,7}CriticalMultiplierImplicitBow1
+{variant:1,2}WeaponElementalDamageImplicitBow2[6,12]
 {variant:1,2,3}LocalIncreasedPhysicalDamagePercentUniqueBow5[100,125]
 {variant:4,5,6}LocalIncreasedPhysicalDamagePercentUniqueBow5[130,150]
 {variant:7}LocalIncreasedPhysicalDamagePercentUniqueBow5
@@ -164,8 +164,8 @@ Implicits: 2
 {variant:5,6,7}LocalAddedPhysicalDamageUniqueBow5
 {variant:1,2,3,4}LocalIncreasedAttackSpeedUniqueBow5[10,10]
 {variant:5,6,7}LocalIncreasedAttackSpeedUniqueBow5
-PhysicalDamageConvertToChaosUniqueBow5
 AccuracyPercentUniqueBow5
+PhysicalDamageConvertToChaosUniqueBow5
 PhysicalDamagePercentTakesAsChaosDamageUniqueBow5
 {variant:5,6,7}LocalChanceForPoisonDamage300FinalInflictedWithThisWeaponUnique__1_
 ]],[[
@@ -224,12 +224,12 @@ Implicits: 2
 {variant:3,4,5}WeaponElementalDamageImplicitBow1
 {variant:2,3}LocalAddedPhysicalDamageUniqueBow11[8,12][16,20]
 {variant:4,5}LocalAddedPhysicalDamageUniqueBow11
-LocalIncreasedAttackSpeedUniqueBow11
+LocalIncreasedAttackSpeedUniqueBow6
 {variant:1,2,3}CriticalStrikeChanceUniqueBow9
 ManaRegenerationUniqueBow11
 {variant:1,2,3}WeaponPhysicalDamageAddedAsRandomElementUniqueBow11[110,110]
 {variant:4}WeaponPhysicalDamageAddedAsRandomElementUniqueBow11
-{variant:5}LocalPhysicalDamageAddedAsEachElementTransformed
+{variant:5}LocalPhysicalDamageAddedAsEachElementTransformed2
 ]],[[
 Doomfletch's Prism
 Royal Bow
@@ -268,11 +268,11 @@ Variant: Pre 3.4.0
 Variant: Current
 Requires Level 60, 212 Dex
 LocalAddedColdDamageUnique__8
-MovementVelocityPerFrenzyChargeUnique__1
-{variant:1}AccuracyAgainstBleedingEnemiesUnique__1
 {variant:2}LocalIncreasedAccuracyUnique__2
-AddedColdDamagePerFrenzyChargeUnique__1
+{variant:1}AccuracyAgainstBleedingEnemiesUnique__1[400,500]
+MovementVelocityPerFrenzyChargeUnique__1
 AvoidElementalDamagePerFrenzyChargeUnique__1
+AddedColdDamagePerFrenzyChargeUnique__1
 AttackDamageLeechPerFrenzyChargeUnique__1
 {variant:1}DamageTakenPerFrenzyChargeMovingUnique__1[24000,24000]
 {variant:2}DamageTakenPerFrenzyChargeMovingUnique__1
@@ -287,17 +287,17 @@ Variant: Current
 Requires Level 53, 170 Dex
 Implicits: 1
 LocalCriticalStrikeChanceImplicitBow1
+DexterityUniqueBow7
 {variant:1,2}LocalIncreasedPhysicalDamagePercentUniqueBow7[90,100]
 {variant:3,4}LocalIncreasedPhysicalDamagePercentUniqueBow7[110,125]
 {variant:5}LocalIncreasedPhysicalDamagePercentUniqueBow7
 {variant:2,3,4,5}LocalAddedPhysicalDamageUniqueBow7
-DexterityUniqueBow7
+MovementVelocityUniqueBow7
 {variant:1,2,3}IncreasedAccuracyUniqueBow7[200,250]
 {variant:4,5}IncreasedAccuracyUniqueBow7
-ArrowPierceUniqueBow7
-MovementVelocityMarakethBowImplicit2
 {variant:1,2}CannotLeech
 {variant:3,4,5}CannotLeechLifeUnique__1
+ArrowPierceUniqueBow7
 ]],[[
 Replica Infractem
 Decimation Bow
@@ -351,20 +351,24 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.17.0
 Variant: Pre 3.20.0
+Variant: Pre 3.28.0
 Variant: Current
 Requires Level 66, 212 Dex
-Implicits: 2
+Implicits: 3
 {variant:2}WeaponElementalDamageImplicitBow1[6,12]
 {variant:3,4,5,6}WeaponElementalDamageImplicitBow1
+{variant:7}IncreasedPhysicalDamagePercentUniqueBowImplicit1
 {variant:1,2,3,4}LocalIncreasedPhysicalDamagePercentUniqueBow1[150,175]
 {variant:5}LocalIncreasedPhysicalDamagePercentUniqueBow1[90,105]
-{variant:6}LocalIncreasedPhysicalDamagePercentUniqueBow1
+{variant:6,7}LocalIncreasedPhysicalDamagePercentUniqueBow1
 {variant:1,2,3,4,5}LocalAddedPhysicalDamageUniqueBow1[6,12][20,32]
-{variant:6}LocalAddedPhysicalDamageUniqueBow1
-LocalIncreasedAttackSpeedUniqueBow1
+{variant:6,7}LocalAddedPhysicalDamageUniqueBow1
+{variant:1,2,3,4,5,6}LocalIncreasedAttackSpeedUniqueBow1
 IncreasedManaUniqueBow1
-AlwaysHits
-{variant:4,5,6}PlayerFarShotUnique__1
+AlwaysHitsUnique__1
+{variant:7}AttacksYouUseYourselfRepeatCountUnique__1
+{variant:7}AttacksYouUseYourselfAttackSpeedFinalUnique__1
+{variant:4,5,6,7}PlayerFarShotUnique__1
 ]],[[
 Null's Inclination
 Ranger Bow
@@ -372,14 +376,14 @@ Variant: Pre 3.14.0
 Variant: Pre 3.26.0
 Variant: Current
 Requires Level 60, 212 Dex, 212 Int
+CastSocketedMinionSpellsOnKillUniqueBow12
+IntelligenceRequirementsUniqueBow12
 AddedChaosDamageUniqueBow12
 LocalIncreasedAttackSpeedUniqueBow12
 ChaosResistUniqueBow12
 {variant:1}Minions deal 1% increased Damage per 10 Dexterity
 {variant:2}IncreasedMinionDamagePerDexterityUniqueBow12[1,1]
 {variant:3}IncreasedMinionDamagePerDexterityUniqueBow12
-IntelligenceRequirementsUniqueBow12
-CastSocketedMinionSpellsOnKillUniqueBow12
 ]],[[
 Nuro's Harp
 Harbinger Bow
@@ -406,15 +410,15 @@ Variant: Pre 2.6.0
 Variant: Pre 3.9.0
 Variant: Current
 Requires Level 5, 26 Dex
-DexterityUniqueBow4
+DexterityUniqueBow6
 {variant:2,3}LocalIncreasedPhysicalDamagePercentUniqueDescentBow1
 LocalIncreasedAttackSpeedUniqueBow4
-IncreasedAccuracyUniqueBow4
+{variant:2,3}ManaGainPerTargetUnique__2
 ProjectileSpeedUniqueBow4_
+IncreasedAccuracyUniqueBow4
 {variant:1}LocalIncreasedPhysicalDamagePercentUniqueBow4[-50,-50]
 {variant:2}LocalIncreasedPhysicalDamagePercentUniqueBow4[-40,-40]
 {variant:3}LocalIncreasedPhysicalDamagePercentUniqueBow4
-{variant:2,3}ManaGainPerTargetUnique__2
 ]],[[
 Replica Quill Rain
 Short Bow
@@ -444,14 +448,14 @@ Variant: Current
 {variant:1}LocalAddedPhysicalDamageUnique__16_[25,40][100,115]
 {variant:2,3,4,5}LocalAddedPhysicalDamageUnique__16_[15,30][70,95]
 {variant:6}LocalAddedPhysicalDamageUnique__16_
-IncreasedAttackSpeedUnique__5
-{variant:1,2}4 additional Arrows
-{variant:3}2 additional Arrows
+LocalIncreasedAttackSpeedUnique__9
 ProjectileSpeedUnique__3
 {variant:5,6}VolleyFirstPointPierceUnique__1_
 {variant:5,6}VolleySecondPointForkUnique__1
 {variant:5,6}VolleyThirdPointReturnUnique__1__
 {variant:5,6}VolleyFourthPointChainUnique__1
+{variant:1,2}AdditionalArrowsUnique__1[4,4]
+{variant:3}AdditionalArrowsUnique__1
 ]],[[
 Roth's Reach
 Recurve Bow
@@ -463,7 +467,7 @@ Implicits: 1
 {variant:2,3}CriticalMultiplierImplicitBow1
 LocalIncreasedPhysicalDamagePercentUniqueBow5
 {variant:1,2}LocalIncreasedAttackSpeedUnique__1
-{variant:1,2}AdditionalChainUnique__2
+{variant:1,2}AdditionalChainUnique__1[1,1]
 {variant:3}AdditionalChainUnique__1
 ProjectileSpeedUnique__2
 {variant:1,2}WeaponElementalDamageUnique__2[20,40]
@@ -478,8 +482,8 @@ LocalIncreaseSocketedBowGemLevelUniqueBow2
 {variant:1}LocalIncreasedPhysicalDamagePercentUniqueBow2[50,80]
 {variant:2}LocalIncreasedPhysicalDamagePercentUniqueBow2
 LocalIncreasedAttackSpeedUniqueBow2
-IncreasedAccuracyUniqueBow2
 ManaGainedFromEnemyDeathUniqueBow2
+IncreasedAccuracyUniqueBow2
 ]],[[
 Silverbough
 Crude Bow
@@ -490,8 +494,8 @@ LocalIncreaseSocketedBowGemLevelUniqueBow2
 LocalIncreasedPhysicalDamagePercentUniqueBow2
 LocalAddedPhysicalDamageUnique__19
 LocalIncreasedAttackSpeedUniqueBow2
-IncreasedAccuracyUniqueBow2
 ManaGainedFromEnemyDeathUniqueBow2
+IncreasedAccuracyUniqueBow2
 ]],[[
 Widowhail
 Crude Bow
@@ -511,9 +515,9 @@ LocalCriticalStrikeChanceImplicitBow1
 {variant:1}CriticalStrikeChanceForForkingArrowsUnique__1[100,100]
 {variant:2,3}CriticalStrikeChanceForForkingArrowsUnique__1
 {variant:1}ArrowsThatPierceCauseBleedingUnique__1
-{variant:2,3}ArrowsThatPierceHaveCritMultiUnique__1
 {variant:1}ArrowsAlwaysCritAfterPiercingUnique___1
 {variant:2,3}ArrowsAlwaysPierceAfterForkingUnique__1__
+{variant:2,3}ArrowsThatPierceHaveCritMultiUnique__1
 ]],[[
 Storm Cloud
 Long Bow
@@ -521,7 +525,7 @@ Variant: Pre 2.0.0
 Variant: Current
 Requires Level 9, 38 Dex
 LocalReducedPhysicalDamagePercentUniqueBow8
-{variant:1}LocalAddedLightningDamageUnique__6
+{variant:1}AddedLightningDamageUniqueBow8[1,1][75,75]
 {variant:2}AddedLightningDamageUniqueBow8
 LocalIncreasedAttackSpeedUniqueBow8
 ]],[[
@@ -538,16 +542,18 @@ Voltaxic Rift
 Spine Bow
 Variant: Pre 3.9.0
 Variant: Pre 3.20.0
+Variant: Pre 3.28.0
 Variant: Current
 {variant:1,2}LocalAddedLightningDamageUniqueBow10[1,1][275,325]
-{variant:3}LocalAddedLightningDamageUniqueBow10
+{variant:3,4}LocalAddedLightningDamageUniqueBow10
 LocalIncreasedAttackSpeedUniqueBow10
 {variant:1,2}ConvertLightningDamageToChaosUniqueBow10[60,60]
-{variant:3}ConvertLightningDamageToChaosUniqueBow10
+{variant:3,4}ConvertLightningDamageToChaosUniqueBow10
 {variant:1,2}ChanceToShockUniqueBow10
 ChaosDamageCanShockUniqueBow10
 {variant:2,3}AttacksShockAsIfDealingMoreDamageUniqueBow10
-{variant:2,3}MaximumShockOverrideUniqueBow10
+{variant:4}LocalTreatChaosResistanceAsInvertedUnique__1
+{variant:2,3,4}MaximumShockOverrideUniqueBow10
 ]],[[
 Windripper
 Imperial Bow
@@ -567,15 +573,15 @@ Implicits: 2
 {variant:1}AddedLightningDamageUniqueBow9[1,1][100,100]
 {variant:2,3,4}AddedLightningDamageUniqueBow9[1,1][80,100]
 {variant:5,6}AddedLightningDamageUniqueBow9
-LocalIncreasedAttackSpeedUniqueBow10
+LocalIncreasedAttackSpeedUniqueBow9
 {variant:1,2}CriticalStrikeChanceUniqueBow9[80,100]
 {variant:3,4}CriticalStrikeChanceUniqueBow9[60,80]
 {variant:5,6}CriticalStrikeChanceUniqueBow9
 {variant:1,2}ItemQuantityWhenFrozenUniqueBow9[25,25]
 {variant:3,4,5}ItemQuantityWhenFrozenUniqueBow9
-{variant:6}IncreasedRarityWhenSlayingFrozenUnique__1
 {variant:1,2}ItemRarityWhenShockedUniqueBow9[50,50]
 {variant:3,4,5,6}ItemRarityWhenShockedUniqueBow9
+{variant:6}IncreasedRarityWhenSlayingFrozenUnique__1
 ]],[[
 Replica Windripper
 Imperial Bow
@@ -587,7 +593,7 @@ WeaponElementalDamageImplicitBow1
 AddedColdDamageUniqueBow9
 AddedLightningDamageUniqueBow9
 LocalIncreasedAttackSpeedUniqueBow10
-CriticalStrikeChanceUniqueBow9
+LocalCriticalStrikeChanceUniqueBow11
 FrozenMonstersTakeIncreasedDamage
 GainEnergyShieldOnKillShockedEnemyUnique__1_
 ]],[[
@@ -605,7 +611,7 @@ Requires Level 23, 80 Dex
 {variant:1}LifeGainedOnKillingIgnitedEnemiesUnique__1[20,30]
 {variant:2}LifeGainedOnKillingIgnitedEnemiesUnique__1
 PhysicalAddedAsFireUnique__3
-ChanceToIgniteUnique__2
+ChanceToIgniteUnique__3
 {variant:2}AlwaysPierceBurningEnemiesUnique__1
 {variant:2}ArrowAddedFireDamagePerEnemyPiercedUnique__1
 ]],[[
@@ -626,5 +632,19 @@ ChanceToIgniteUnique__2
 {variant:1}GlobalIgniteProlifUnique__1[12,12]
 {variant:2}GlobalIgniteProlifUnique__1
 GainLifeOnIgnitingEnemyUnique__1
+]],
+[[
+Wing of the Wyvern
+Imperial Bow
+Source: Drops from unique{Uber Incarnation of Fear} in normal{Moment of Trauma}
+Requires Level 66, 212 Dex
+Implicits: 1
+WeaponElementalDamageImplicitBow1
+MainHandTriggerSocketedSpellOnFreezingHitUnique_1
+LocalAddedColdDamageUnique__11
+LocalAddedChaosDamageUnique__4
+LocalIncreasedAttackSpeedUnique__30
+ChaosDamageCanFreezeUnique_1
+BattlemageKeystoneUnique__1
 ]],
 }

@@ -102,12 +102,12 @@ Implicits: 1
 {variant:4}(200-250)% increased Physical Damage
 {variant:1,2}Adds 10 to 12 Physical Damage
 {variant:3,4}Adds 25 to 30 Physical Damage
-{variant:4}(15-25)% increased Life Reservation Efficiency of Skills
 {variant:1,2,3}5% increased Attack Speed
 1.2% of Physical Attack Damage Leeched as Life
 {variant:1,2,3}5% increased Movement Speed
-{variant:4}(5-10)% increased maximum Recovery per Life Leech for each 5% of Life Reserved
+{variant:4}(15-25)% increased Life Reservation Efficiency of Skills
 Life Leech from Hits with this Weapon is instant
+{variant:4}(5-10)% increased Maximum Recovery per Life Leech for each 5% of Life Reserved
 ]],[[
 Cybil's Paw
 Thresher Claw
@@ -378,6 +378,6 @@ Adds (2-6) to (16-22) Physical Damage
 (10-15)% increased Attack Speed
 20% increased Damage with Movement Skills
 15% increased Attack Speed with Movement Skills
-15% reduced Accuracy Rating
+15% reduced Global Accuracy Rating
 ]],
 }
