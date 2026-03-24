@@ -3453,7 +3453,7 @@ end
 							itemLabel = selectedDreamFamily.name
 						end
 						socketResults, baseline =
-							self:computeBestVariantSocketImpact(displayedVariants and jewelSockets or jewelSockets, displayedVariants, selectedImpactStat, progress, selectedMaxPoints, selectedOccupiedMode)
+							self:computeBestVariantSocketImpact(jewelSockets, displayedVariants, selectedImpactStat, progress, selectedMaxPoints, selectedOccupiedMode)
 					else
 						local rawText = selectedJewelType.rawText
 						socketResults, baseline =
@@ -3583,15 +3583,7 @@ end
 					local isSplitPersonalitySearch = selectedJewelType.isSplitPersonality == true
 					local selectedFoulbornActive = isSelectedFoulbornActive()
 					local radiusIndex
-					local smallRadiusIndex
-					if isImpossibleEscapeBestVariantSearch then
-						for i, radius in ipairs(data.jewelRadius) do
-							if radius.label == "Small" and radius.inner == 0 then
-								smallRadiusIndex = i
-								break
-							end
-						end
-					end
+					local smallRadiusIndex = isImpossibleEscapeBestVariantSearch and radiusIndexByLabel["Small"] or nil
 					if isThreadBestVariantSearch then
 						if selectedThreadVariant then
 							radiusIndex = selectedThreadVariant.radiusIndex
@@ -3599,7 +3591,7 @@ end
 					elseif isImpossibleEscapeBestVariantSearch or isSplitPersonalitySearch then
 						radiusIndex = nil
 				elseif selectedJewelType.name == "Intuitive Leap" and selectedFoulbornActive then
-				-- Le rayon Massive plein n'existe pas en natif, nous le gérons ci-dessous.
+				-- The full Massive radius doesn't exist natively; we handle it below.
 			elseif selectedJewelType.variants and selectedJewelVariant and selectedJewelVariant.radiusIndex then
 				radiusIndex = selectedJewelVariant.radiusIndex
 			else

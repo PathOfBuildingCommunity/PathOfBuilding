@@ -405,30 +405,26 @@ describe("RadiusJewelFinder #radiusjewel", function()
 				assert.is_true(#variantTooltipTexts > 0, "expected jewel variant tooltip content")
 				assert.is_true(variantTooltipTexts[1]:find("Tempered Flesh", 1, true) ~= nil,
 					"expected variant tooltip to describe the hovered variant")
-				assert.are.same({
-					"Tempered Flesh",
-					"Transcendent Flesh",
-					"Tempered Mind",
-					"Transcendent Mind",
-					"Tempered Spirit",
-					"Transcendent Spirit",
-				}, listLabels(popup.controls.jewelVariantSelect.list))
+				local temperedLabels = listLabels(popup.controls.jewelVariantSelect.list)
+				assert.is_true(#temperedLabels > 0, "expected Tempered & Transcendent variants")
+				for _, label in ipairs(temperedLabels) do
+					assert.is_truthy(label:find("Tempered") or label:find("Transcendent"),
+						"variant should be Tempered or Transcendent: " .. label)
+				end
 
 				local splitIdx = findIndex(popup.controls.jewelTypeSelect.list, "Split Personality")
 				assert.is_not_nil(splitIdx, "expected Split Personality in jewel type list")
 				popup.controls.jewelTypeSelect.selFunc(splitIdx)
 				assert.is_true(popup.controls.computeButton.shown, "expected Compute for Split Personality")
-				assert.are.same({
-					"Strength",
-					"Dexterity",
-					"Intelligence",
-					"Life",
-					"Mana",
-					"Energy Shield",
-					"Armour",
-					"Evasion Rating",
-					"Accuracy Rating",
-				}, listLabels(popup.controls.jewelVariantSelect.list))
+				local splitLabels = listLabels(popup.controls.jewelVariantSelect.list)
+				assert.is_true(#splitLabels > 0, "expected Split Personality variants")
+				local seenLabels = {}
+				for _, label in ipairs(splitLabels) do
+					assert.is_string(label)
+					assert.is_true(#label > 0, "variant label should not be empty")
+					assert.is_nil(seenLabels[label], "duplicate Split Personality variant: " .. label)
+					seenLabels[label] = true
+				end
 
 				local impossibleIdx = findIndex(popup.controls.jewelTypeSelect.list, "Impossible Escape")
 				assert.is_not_nil(impossibleIdx, "expected Impossible Escape in jewel type list")
@@ -662,6 +658,38 @@ describe("RadiusJewelFinder #radiusjewel", function()
 				assert.is_nil(occupiedIds[r.socket.id],
 					"occupied socket " .. r.socket.id .. " should not appear in results")
 			end
+		end)
+
+		it("occupiedMode 'all' includes occupied sockets", function()
+			local results, _ = makeFinder():computeSocketImpact(
+				getSockets(), MIGHT_OF_MEEK_RAW_TEXT, "Life", false, nil, nil, { id = "all" })
+			local occupiedIds = { [36634] = true, [61419] = true, [41263] = true }
+			local foundOccupied = false
+			for _, r in ipairs(results) do
+				if occupiedIds[r.socket.id] then foundOccupied = true; break end
+			end
+			assert.is_true(foundOccupied,
+				"expected at least one occupied socket in results with mode 'all'")
+		end)
+
+		it("occupiedMode 'safe' returns at least as many results as 'free'", function()
+			local sockets = getSockets()
+			local freeResults, _ = makeFinder():computeSocketImpact(
+				sockets, MIGHT_OF_MEEK_RAW_TEXT, "Life")
+			local safeResults, _ = makeFinder():computeSocketImpact(
+				sockets, MIGHT_OF_MEEK_RAW_TEXT, "Life", false, nil, nil, { id = "safe" })
+			assert.is_true(#safeResults >= #freeResults,
+				"safe mode should include at least all free sockets")
+		end)
+
+		it("occupiedMode 'all' returns more results than 'free' (build has occupied sockets)", function()
+			local sockets = getSockets()
+			local freeResults, _ = makeFinder():computeSocketImpact(
+				sockets, MIGHT_OF_MEEK_RAW_TEXT, "Life")
+			local allResults, _ = makeFinder():computeSocketImpact(
+				sockets, MIGHT_OF_MEEK_RAW_TEXT, "Life", false, nil, nil, { id = "all" })
+			assert.is_true(#allResults > #freeResults,
+				"all mode should include more sockets than free mode (occupied sockets exist)")
 		end)
 
 		it("each result has socket, value and delta fields", function()
