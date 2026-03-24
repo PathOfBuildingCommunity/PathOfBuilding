@@ -2424,6 +2424,16 @@ local function scoreUnallocPassives(nodes, allocNodes)
 	return s
 end
 
+local function scoreUnallocNotablesAndKeystones(nodes, allocNodes)
+	local s = 0
+	for nodeId, node in pairs(nodes) do
+		if not allocNodes[nodeId] and (node.type == "Notable" or node.type == "Keystone") then
+			s = s + 1
+		end
+	end
+	return s
+end
+
 local function buildJewelTypes(radiusIndexByLabel, isFoulborn)
 	local mightOfTheMeek
 	local inspiredLearning
@@ -2581,7 +2591,7 @@ local function buildJewelTypes(radiusIndexByLabel, isFoulborn)
 		scoreLabel = "attr in radius",
 		hasCompute = true,
 		score = function(nodes, allocNodes)
-			return getTemperedTranscendentVariants()[1].score(nodes, allocNodes)
+			return scoreRadiusAttributes(nodes, allocNodes, "Str", true, false)
 		end,
 		variants = getTemperedTranscendentVariants(),
 	})
@@ -2621,15 +2631,7 @@ local function buildJewelTypes(radiusIndexByLabel, isFoulborn)
 		scoreLabel = "unalloc notable/keystone near keystone",
 		hasCompute = true,
 		computeMethods = CONNECTIONLESS_COMPUTE_METHODS,
-		score = function(nodes, allocNodes)
-			local s = 0
-			for nodeId, node in pairs(nodes) do
-				if not allocNodes[nodeId] and (node.type == "Notable" or node.type == "Keystone") then
-					s = s + 1
-				end
-			end
-			return s
-		end,
+		score = scoreUnallocNotablesAndKeystones,
 		variants = getImpossibleEscapeVariants(),
 	})
 	t_insert(jewelTypes, {
@@ -2704,15 +2706,7 @@ local function buildJewelTypes(radiusIndexByLabel, isFoulborn)
 		hasCompute = true,
 		computeMethods = CONNECTIONLESS_COMPUTE_METHODS,
 		rawText = nil,
-		score = function(nodes, allocNodes)
-			local s = 0
-			for nodeId, node in pairs(nodes) do
-				if not allocNodes[nodeId] and (node.type == "Notable" or node.type == "Keystone") then
-					s = s + 1
-				end
-			end
-			return s
-		end,
+		score = scoreUnallocNotablesAndKeystones,
 	})
 	return jewelTypes
 end
@@ -2753,11 +2747,17 @@ function RadiusJewelFinderClass:Open()
 
 	-- Thread of Hope ring variants (annuli: inner > 0)
 	local threadVariants = { }
-	local threadNames = { "Small", "Medium", "Large", "Very Large", "Massive" }
+	local threadRawText = mustGetUniqueRawText("Thread of Hope")
+	local threadItem = new("Item", "Rarity: Unique\n" .. threadRawText)
 	local tIdx = 1
 	for i, r in ipairs(data.jewelRadius) do
 		if r.inner > 0 then
-			local ringName = threadNames[tIdx] or ("Ring " .. tIdx)
+			local ringName = threadItem.variantList and threadItem.variantList[tIdx]
+			if ringName then
+				ringName = ringName:gsub(" Ring$", "")
+			else
+				ringName = "Ring " .. tIdx
+			end
 			t_insert(threadVariants, { name = ringName, radiusIndex = i })
 			tIdx = tIdx + 1
 		end
