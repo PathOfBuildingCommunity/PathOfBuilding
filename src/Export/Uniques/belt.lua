@@ -317,8 +317,7 @@ Cloth Belt
 Variant: Pre 3.16.0
 Variant: Current
 League: Harbinger
-Source: Created from item parts obtained from Boss in The Beachhead
-Upgrade: Upgrades to unique{The Torrent's Reclamation} via currency{Time-light Scroll}
+Source: No longer obtainable
 LevelReq: 60
 Implicits: 1
 StunRecoveryImplicitBelt1

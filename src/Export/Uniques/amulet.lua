@@ -201,7 +201,7 @@ LevelReq: 52
 Implicits: 1
 HybridStrInt
 IncreasedManaUniqueAmulet1
-MutatedUniqueAmulet8ChaosResistance
+ChaosResistUnique__27
 IncreasedMaximumResistsUnique__2
 ElementalDamageReductionChaosResistUnique__1
 {variant:2}MaximumEnduranceFrenzyPowerChargesIs0Unique__1
@@ -1241,7 +1241,7 @@ ItemFoundRarityIncreaseImplicitAmulet1
 DexterityImplicitAmulet1
 IncreasedLifeUnique__102
 ColdResistUnique__5
-MutatedUniqueAmulet40CannotBeChilled
+CannotBeChilledUnique__1
 {variant:1}LifeRegenerationWhileFrozenUnique__1[1200,1200]
 {variant:2}LifeRegenerationWhileFrozenUnique__1
 ]],[[
@@ -1345,4 +1345,30 @@ AttacksGainMinMaxAddedChaosDamageBasedOnManaUnique__1
 {variant:2}AddedEnergyShieldFlatUnique_1
 PercentReducedMaximumManaUnique_1
 SkillsCostEnergyShieldInsteadOfManaLifeUnique__1
-]],}
+]],[[
+Bonemeld
+Marble Amulet
+Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 74
+Implicits: 1
+LifeRegenerationImplicitAmulet2
+AllAttributesUniqueAmulet22
+GlobalIncreaseMinionSpellSkillGemLevelUnique__5
+AllResistancesReducedPerActiveNonVaalSkillMinionUnique_1
+GlobalDefensesIncreasedPerActiveNonVaalSkillMinionUnique_1
+MinionsGainPercentOfYourResistancesUnique_1
+]],[[
+Haunting Memories
+Turquoise Amulet
+Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Loneliness}
+Requires Level 64
+Implicits: 1
+HybridDexInt
+ChanceToDodgeSpellsUnique__1
+SuppressedDamageBypassEnergyShieldUnique_1
+SuppressedDamageRecoupedAsEnergyShield_1
+DexterityAndIntelligenceUnique_2
+IncreasedEnergyShieldUnique__13
+IncreasedLifeUnique__71
+]],
+}

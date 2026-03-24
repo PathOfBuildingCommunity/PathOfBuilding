@@ -66,15 +66,14 @@ League: Perandus
 50% increased Charges per use
 {variant:1}Grants Last Breath when you Use a Skill during Effect, for 800% of Mana Cost
 {variant:2}Grants Last Breath when you Use a Skill during Effect, for (450-600)% of Mana Cost
-]],
-[[
+]],[[
 Wellwater Phylactery
 Colossal Mana Flask
 Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
 Requires Level 64
 (200-300)% increased Charges per use
 (150-200)% increased Amount Recovered
-(60-40)% less Duration
+(40-60)% less Duration
 Removes (10-15)% of Life when Used
 Starts Energy Shield Recharge when Used
 Energy Shield Recharge is not delayed by Damage during Effect
@@ -345,8 +344,8 @@ League: Legion
 Implicits: 1
 Creates Consecrated Ground on Use
 {variant:2}Life Recovery from Flasks also applies to Energy Shield during Effect
-(25-50)% increased Duration
 {variant:2}Zealot's Oath during Effect
+(25-50)% increased Duration
 {variant:1}Zealot's Oath during Effect
 ]],[[
 Replica Sorrow of the Divine
@@ -356,8 +355,8 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 Creates Consecrated Ground on Use
 Life Recovery from Flasks also applies to Energy Shield during Effect
-(25-50)% increased Duration
 Eldritch Battery during Effect
+(25-50)% increased Duration
 ]],[[
 Soul Catcher
 Quartz Flask

@@ -1352,32 +1352,30 @@ Implicits: 1
 {variant:2}{tags:defences}+(50-100) to maximum Energy Shield
 {tags:resource}(40-60)% reduced maximum Mana
 {tags:resource,defences}Skills Cost Energy Shield instead of Mana or Life
-]],
-[[
+]],[[
 Bonemeld
 Marble Amulet
 Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
 Requires Level 74
 Implicits: 1
-{tags:life}Regenerate (1.2-1.6)% of Life per second
-{tags:jewellery_attribute}+(10-20) to all Attributes
+{tags:resource}Regenerate (1.2-1.6)% of Life per second
+{tags:attribute}+(10-20) to all Attributes
 +(1-2) to Level of all Minion Skill Gems
-{tags:jewellery_resistance}-2% to all Resistances per Minion from your Non-Vaal Skills
-{tags:jewellery_defense}(3-4)% increased Defences per Minion from your Non-Vaal Skills
-{tags:jewellery_resistance}Minions gain added Resistances equal to 50% of your Resistances
-]],
-[[
+{tags:resistance}-2% to all Resistances per Minion from your Non-Vaal Skills
+{tags:defences}(3-4)% increased Defences per Minion from your Non-Vaal Skills
+{tags:resistance}Minions gain added Resistances equal to 50% of your Resistances
+]],[[
 Haunting Memories
 Turquoise Amulet
 Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Loneliness}
 Requires Level 64
 Implicits: 1
-{tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
+{tags:attribute}+(16-24) to Dexterity and Intelligence
 +(6-10)% chance to Suppress Spell Damage
 (50-100)% of Suppressed Spell Damage taken bypasses Energy Shield
 (50-100)% of Suppressed Spell Damage taken Recouped as Energy Shield
-{tags:jewellery_attribute}+(20-30) to Dexterity and Intelligence
-{tags:jewellery_defense}+(40-60) to maximum Energy Shield
-{tags:life}+(40-60) to maximum Life
+{tags:attribute}+(20-30) to Dexterity and Intelligence
+{tags:defences}+(40-60) to maximum Energy Shield
+{tags:resource}+(40-60) to maximum Life
 ]],
 }

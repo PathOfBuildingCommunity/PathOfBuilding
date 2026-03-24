@@ -334,12 +334,16 @@ Debuffs on you expire (15-20)% faster
 ]],[[
 The Torrent's Reclamation
 Cloth Belt
+Variant: Pre 3.16.0
+Variant: Current
 LevelReq: 60
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 Grants Summon Greater Harbinger of Time Skill
-{tags:resource,defences}(15-20)% increased Energy Shield Recovery rate
-{tags:resource,defences}(15-20)% increased Life Recovery rate
+{variant:1}{tags:resource,defences}(15-20)% increased Energy Shield Recovery rate
+{variant:1}{tags:resource,defences}(15-20)% increased Life Recovery rate
+{variant:2}{tags:resource,defences}(10-15)% increased Energy Shield Recovery rate
+{variant:2}{tags:resource,defences}(10-15)% increased Life Recovery rate
 {tags:attack,caster,speed}(10-15)% increased Attack and Cast Speed
 (15-20)% increased Cooldown Recovery Rate
 Debuffs on you expire (15-20)% faster
@@ -828,12 +832,8 @@ Variant: Dexterity/Strength
 Variant: Strength/Intelligence
 Variant: Elemental Resistances
 Implicits: 24
-{variant:20}{tags:attribute}(12-18)% increased Strength
-{variant:21}{tags:attribute}(12-18)% increased Strength
 {variant:19}{tags:attribute}(12-18)% increased Dexterity
 {variant:20}{tags:attribute}(12-18)% increased Dexterity
-{variant:19}{tags:attribute}(12-18)% increased Intelligence
-{variant:21}{tags:attribute}(12-18)% increased Intelligence
 {variant:7}{tags:defences}(24-30)% increased maximum Energy Shield
 {variant:8}{tags:resource}(18-24)% increased maximum Life
 {variant:11}(9-15)% increased Quantity of Items found
@@ -852,6 +852,10 @@ Implicits: 24
 {variant:16}Discipline has (45-60)% increased Aura Effect
 {variant:17}Grace has (45-60)% increased Aura Effect
 {variant:18}Malevolence has (45-60)% increased Aura Effect
+{variant:19}(12-18)% increased Intelligence
+{variant:20}(12-18)% increased Strength
+{variant:21}(12-18)% increased Strength
+{variant:21}(12-18)% increased Intelligence
 {variant:22}{tags:resistance}+(42-48)% to all Elemental Resistances
 Implicit Modifier magnitudes are tripled
 Corrupted

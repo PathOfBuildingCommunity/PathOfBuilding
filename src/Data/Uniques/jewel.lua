@@ -76,8 +76,6 @@ Bloodnotch
 Crimson Jewel
 Variant: Pre 3.28.0
 Variant: Current
-Variant: Pre 3.28.0
-Variant: Current
 Limited to: 1
 {variant:1}(40-60)% of Damage taken from Stunning Hits is Recovered as Life
 {variant:2}(20-30)% of Damage taken from Stunning Hits is Recovered as Life
@@ -336,7 +334,8 @@ Adds Secrets of Suffering
 Intuitive Leap
 Viridian Jewel
 Radius: Small
-Passives in Radius can be Allocated without being connected to your tree
+Passive Skills in Radius can be Allocated without being connected to your tree
+Passage
 ]],[[
 Izaro's Turmoil
 Crimson Jewel
@@ -778,8 +777,9 @@ Radius: Variable
 Implicits: 0
 {variant:1}Only affects Passives in Small Ring
 {variant:5}Only affects Passives in Massive Ring
-Passives in Radius can be Allocated without being connected to your tree
 -(20-10)% to all Elemental Resistances
+Passive Skills in Radius can be Allocated without being connected to your tree
+Passage
 {variant:2}Only affects Passives in Medium Ring
 {variant:3}Only affects Passives in Large Ring
 {variant:4}Only affects Passives in Very Large Ring
@@ -1316,7 +1316,7 @@ Source: Use currency{Vaal Orb} on normal{Crimson Jewel}
 Variant: Pre 3.14.0
 Variant: Current
 Limited to: 1
-{variant:1,2}(15-20)% increased Vaal Skill Effect Duration
+{variant:1,2}Vaal Skills have (15-20)% increased Skill Effect Duration
 {variant:2}Vaal Skills have (15-20)% chance to regain consumed Souls when used
 Corrupted
 ]],[[

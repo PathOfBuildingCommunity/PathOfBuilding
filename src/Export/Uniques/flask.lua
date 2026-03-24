@@ -63,6 +63,17 @@ League: Perandus
 FlaskChargesUsedUnique__3
 {variant:1}FlaskLifeGainOnSkillUseUnique__1[800,800]
 {variant:2}FlaskLifeGainOnSkillUseUnique__1
+]],[[
+Wellwater Phylactery
+Colossal Mana Flask
+Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 64
+LocalFlaskChargesUsedUniqueFlask36
+FlaskIncreasedRecoveryAmountUnique__2
+FlaskLessDurationUnique2
+LocalFlaskRemovePercentOfLifeOnUseUnique_7
+LocalFlaskStartEnergyShieldRechargeUnique_1
+LocalFlaskEnergyShieldRechargeNotDelayedByDamageDuringEffectUnique_1
 ]],
 -- Flask: Hybrid
 [[

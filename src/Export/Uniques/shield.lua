@@ -95,7 +95,7 @@ Variant: Pre 3.16.0
 Variant: Current
 Implicits: 1
 {variant:3,4}IncreasedLifeImplicitShield2
-{variant:1,2,3}LocalIncreasedArmourPercentAndStunRecoveryUniqueShieldStr1[200,250]
+{variant:1,2,3}LocalIncreasedArmourPercentAndStunRecoveryUniqueShieldStr1[200,250][20,20]
 {variant:4}LocalIncreasedArmourPercentAndStunRecoveryUniqueShieldStr1
 {variant:1}IncreasedLifeUniqueShieldStr1[80,100]
 {variant:2,3,4}IncreasedLifeUniqueShieldStr1
