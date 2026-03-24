@@ -3068,16 +3068,20 @@ function calcs.offence(env, actor, activeSkill)
 		elseif skillModList:Flag(cfg, "AllAddedDamageAsCold") then
 			addedDamageRedirectType = "Cold"
 		end
-		if addedDamageRedirectType and activeSkill.activeEffect.grantedEffect.name ~= "Elemental Hit" then
+		if addedDamageRedirectType then
 			for _, damageType in ipairs(dmgTypeList) do
 				if damageType ~= addedDamageRedirectType then
 					for _, value in ipairs(skillModList:Tabulate("BASE", cfg, damageType.."Min")) do
-						local mod = value.mod
+						if not value.mod.source:match("ElementalHit") then
+							local mod = value.mod
 							skillModList:ConvertMod(damageType.."Min", addedDamageRedirectType.."Min", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, { type = "Cryogenesis Added Damage" }, unpack(mod))
+						end
 					end
 					for _, value in ipairs(skillModList:Tabulate("BASE", cfg, damageType.."Max")) do
-						local mod = value.mod
+						if not value.mod.source:match("ElementalHit") then
+							local mod = value.mod
 							skillModList:ConvertMod(damageType.."Max", addedDamageRedirectType.."Max", "BASE", mod.value, mod.source, mod.flags, mod.keywordFlags, { type = "Cryogenesis Added Damage" }, unpack(mod))
+						end
 					end
 				end
 			end
