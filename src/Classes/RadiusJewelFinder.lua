@@ -615,101 +615,108 @@ local function buildVariantsFromUniqueItem(uniqueName, baseName)
 	return variants
 end
 
+local function discoverFoulbornVariants(uniqueName, radiusIndexByLabel)
+	local variants = { }
+	local generated = data.uniques.generated
+	if not generated then return variants end
+	local escapedName = uniqueName:gsub("([%(%)%.%%%+%-%*%?%[%]%^%$])", "%%%1")
+	for _, rawText in ipairs(generated) do
+		local comboIndex = rawText:match("^Foulborn " .. escapedName .. " (%d+)\n")
+		if comboIndex then
+			local radiusLabel = rawText:match("\nRadius: (%a+)")
+			local radiusIndex = radiusLabel and radiusIndexByLabel[radiusLabel]
+			t_insert(variants, {
+				name = "Foulborn " .. comboIndex,
+				rawText = rawText,
+				radiusIndex = radiusIndex,
+				isFoulborn = true,
+				comboIndex = tonumber(comboIndex),
+			})
+		end
+	end
+	t_sort(variants, function(a, b) return a.comboIndex < b.comboIndex end)
+	return variants
+end
+
+local function enrichUnnaturalInstinctFoulborn(variant)
+	local typeMap = { Notable = "Notable", Small = "Normal" }
+	local rawText = variant.rawText
+	local gainLabel = rawText:match("Unallocated (%w+) Passive Skills")
+	local loseLabel = rawText:match("Allocated (%w+) Passive Skills.-grant nothing")
+	local gainType = gainLabel and typeMap[gainLabel]
+	local loseType = loseLabel and typeMap[loseLabel]
+	if gainType and loseType then
+		local gainShort = gainType == "Notable" and "notable" or "small"
+		local loseShort = loseType == "Notable" and "notable" or "small"
+		variant.scoreLabel = "unalloc " .. gainShort .. " - alloc " .. loseShort
+		variant.score = function(nodes, allocNodes)
+			return scoreGainLoss(nodes, allocNodes, gainType, loseType)
+		end
+	end
+end
+
+local function enrichInspiredLearningFoulborn(variant)
+	local rawText = variant.rawText
+	if rawText:match("If no Notables Allocated") then
+		variant.scoreLabel = "no alloc notables"
+		variant.score = function(nodes, allocNodes)
+			for nodeId, node in pairs(nodes) do
+				if allocNodes[nodeId] and node.type == "Notable" then
+					return 0
+				end
+			end
+			return 1
+		end
+	elseif rawText:match("Small Passives Allocated") then
+		variant.scoreLabel = "alloc small passives"
+		variant.score = function(nodes, allocNodes)
+			local s = 0
+			for nodeId, node in pairs(nodes) do
+				if allocNodes[nodeId] and node.type == "Normal" then
+					s = s + 1
+				end
+			end
+			return s
+		end
+	end
+end
+
+local function enrichIntuitiveLeapFoulborn(variant)
+	local rawText = variant.rawText
+	if rawText:match("Massive Radius") then
+		variant.isMassiveRadius = true
+	end
+	if rawText:match("Keystone Passive Skills") then
+		variant.keystoneOnly = true
+		variant.scoreLabel = "unalloc keystones"
+		variant.score = function(nodes, allocNodes)
+			local s = 0
+			for nodeId, node in pairs(nodes) do
+				if not allocNodes[nodeId] and node.type == "Keystone" then
+					s = s + 1
+				end
+			end
+			return s
+		end
+	end
+end
+
+local function appendFoulbornVariants(jewelType, foulborn)
+	if #foulborn == 0 then return end
+	jewelType.variants = {
+		{ name = "Normal", rawText = jewelType.rawText, radiusIndex = jewelType.radiusIndex },
+	}
+	for _, fb in ipairs(foulborn) do
+		t_insert(jewelType.variants, fb)
+	end
+end
+
 local LIGHT_OF_MEANING_VARIANTS
 local function getLightOfMeaningVariants()
 	if not LIGHT_OF_MEANING_VARIANTS then
 		LIGHT_OF_MEANING_VARIANTS = buildVariantsFromUniqueItem("The Light of Meaning")
 	end
 	return LIGHT_OF_MEANING_VARIANTS
-end
-
-local MIGHT_OF_MEEK_FOULBORN_V1_RAW_TEXT = [[Might of the Meek
-Crimson Jewel
-Radius: Medium
-75% increased Effect of non-Keystone Passive Skills in Radius
-Notable Passive Skills in Radius grant nothing]]
-
-local MIGHT_OF_MEEK_FOULBORN_V2_RAW_TEXT = [[Might of the Meek
-Crimson Jewel
-Radius: Small
-100% increased Effect of non-Keystone Passive Skills in Radius
-Notable Passive Skills in Radius grant nothing]]
-
-local UNNATURAL_INSTINCT_FOULBORN_RAW_TEXT = [[Unnatural Instinct
-Viridian Jewel
-Limited to: 1
-Radius: Small
-Allocated Notable Passive Skills in Radius grant nothing
-Grants all bonuses of Unallocated Notable Passive Skills in Radius]]
-
-local INSPIRED_LEARNING_FOULBORN_LARGE_RAW_TEXT = [[Inspired Learning
-Crimson Jewel
-Radius: Large
-If no Notables Allocated in Radius, When you Kill a Rare monster, you gain 1 of its Modifiers for 20 seconds]]
-
-local INSPIRED_LEARNING_FOULBORN_SMALL_RAW_TEXT = [[Inspired Learning
-Crimson Jewel
-Radius: Small
-With (8-12) Small Passives Allocated in Radius, When you Kill a Rare monster, you gain 1 of its Modifiers for 20 seconds]]
-
-local LIONEYES_FALL_FOULBORN_RAW_TEXT = [[Lioneye's Fall
-Viridian Jewel
-Radius: Medium
-Increases and Reductions to Evasion Rating in Radius are Transformed to apply to Armour]]
-
-local INTUITIVE_LEAP_FOULBORN_RAW_TEXT = [[Intuitive Leap
-Viridian Jewel
-Radius: Massive
-Keystone Passive Skills in Radius can be Allocated without being connected to your tree]]
-
-local THE_RED_DREAM_FOULBORN_RAW_TEXT = [[The Red Dream
-Crimson Jewel
-Radius: Large
-Gain (6-10)% of Fire Damage as Extra Chaos Damage
-Passives granting Fire Resistance or all Elemental Resistances in Radius also grant increased Maximum Life at 50% of its value]]
-
-local THE_RED_NIGHTMARE_FOULBORN_RAW_TEXT = [[The Red Nightmare
-Crimson Jewel
-Radius: Large
-Gain (6-10)% of Fire Damage as Extra Chaos Damage
-Passives granting Fire Resistance or all Elemental Resistances in Radius also grant Fire Damage Converted to Chaos Damage at 100% of its value]]
-
-local THE_GREEN_DREAM_FOULBORN_RAW_TEXT = [[The Green Dream
-Viridian Jewel
-Radius: Large
-Gain (6-10)% of Cold Damage as Extra Chaos Damage
-Passives granting Cold Resistance or all Elemental Resistances in Radius also grant increased Maximum Mana at 75% of its value]]
-
-local THE_GREEN_NIGHTMARE_FOULBORN_RAW_TEXT = [[The Green Nightmare
-Viridian Jewel
-Radius: Large
-Gain (6-10)% of Cold Damage as Extra Chaos Damage
-Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Cold Damage Converted to Chaos Damage at 100% of its value]]
-
-local THE_BLUE_DREAM_FOULBORN_RAW_TEXT = [[The Blue Dream
-Cobalt Jewel
-Radius: Large
-Gain (6-10)% of Lightning Damage as Extra Chaos Damage
-Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant increased Maximum Energy Shield at 75% of its value]]
-
-local THE_BLUE_NIGHTMARE_FOULBORN_RAW_TEXT = [[The Blue Nightmare
-Cobalt Jewel
-Radius: Large
-Gain (6-10)% of Lightning Damage as Extra Chaos Damage
-Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant Lightning Damage Converted to Chaos Damage at 100% of its value]]
-
-local function buildJewelRawText(name, itemType, radius, mods, extra)
-	local lines = { name, itemType }
-	if extra then
-		for _, meta in ipairs(extra) do
-			t_insert(lines, meta)
-		end
-	end
-	t_insert(lines, "Radius: " .. radius)
-	for _, mod in ipairs(mods) do
-		t_insert(lines, mod)
-	end
-	return t_concat(lines, "\n")
 end
 
 local function scoreGainLoss(nodes, allocNodes, gainType, lossType)
@@ -835,142 +842,7 @@ local function getImpossibleEscapeVariants()
 	return IMPOSSIBLE_ESCAPE_VARIANTS
 end
 
-local UNNATURAL_INSTINCT_FOULBORN_VARIANTS = {
-	{
-		name = "Notables grant nothing",
-		dropdownLabel = "Small gain / notable loss",
-		scoreLabel = "unalloc small - alloc notable",
-		rawText = buildJewelRawText("Unnatural Instinct", "Viridian Jewel", "Small", {
-			"Allocated Notable Passive Skills in Radius grant nothing",
-			"Grants all bonuses of Unallocated Small Passive Skills in Radius",
-		}, { "Limited to: 1" }),
-		score = function(nodes, allocNodes)
-			return scoreGainLoss(nodes, allocNodes, "Normal", "Notable")
-		end,
-	},
-	{
-		name = "Unallocated Notables",
-		dropdownLabel = "Notable gain / small loss",
-		scoreLabel = "unalloc notable - alloc small",
-		rawText = buildJewelRawText("Unnatural Instinct", "Viridian Jewel", "Small", {
-			"Allocated Small Passive Skills in Radius grant nothing",
-			"Grants all bonuses of Unallocated Notable Passive Skills in Radius",
-		}, { "Limited to: 1" }),
-		score = function(nodes, allocNodes)
-			return scoreGainLoss(nodes, allocNodes, "Notable", "Normal")
-		end,
-	},
-	{
-		name = "Both Foulborn mods",
-		dropdownLabel = "Notable swap",
-		scoreLabel = "unalloc notable - alloc notable",
-		rawText = UNNATURAL_INSTINCT_FOULBORN_RAW_TEXT,
-		score = function(nodes, allocNodes)
-			return scoreGainLoss(nodes, allocNodes, "Notable", "Notable")
-		end,
-	},
-}
-
 local scoreAllocPassives
-
-local function buildDualModFoulbornVariants(itemName, itemType, baseMods, baseLabels, radiusVariant, altDamageVariants)
-	local variants = { }
-	local extra = { "Limited to: 1" }
-	local function addVariant(label, dropdownLabel, mod1, mod2)
-		local shortItemName = itemName:gsub("^The ", "")
-		t_insert(variants, {
-			name = itemName .. " (" .. label .. ")",
-			dropdownLabel = shortItemName .. ": " .. dropdownLabel,
-			family = itemName,
-			scoreLabel = "alloc passives",
-			rawText = buildJewelRawText(itemName, itemType, "Large", { mod1, mod2 }, extra),
-			score = function(nodes, allocNodes)
-				return scoreAllocPassives(nodes, allocNodes)
-			end,
-		})
-	end
-
-	addVariant(radiusVariant.label, radiusVariant.label .. " + " .. baseLabels[1], baseMods[1], radiusVariant.mod)
-	for _, alt in ipairs(altDamageVariants) do
-		addVariant(alt.label, alt.label .. " + " .. baseLabels[2], alt.mod, baseMods[2])
-		addVariant(radiusVariant.label .. " + " .. alt.shortLabel, radiusVariant.label .. " + " .. alt.shortLabel, alt.mod, radiusVariant.mod)
-	end
-	return variants
-end
-
-local DREAMS_NIGHTMARES_FOULBORN_VARIANTS = { }
-for _, variant in ipairs(buildDualModFoulbornVariants("The Red Dream", "Crimson Jewel", {
-	"Gain (6-10)% of Fire Damage as Extra Chaos Damage",
-	"Passives granting Fire Resistance or all Elemental Resistances in Radius also grant an equal chance to gain an Endurance Charge on Kill",
-}, { "Extra Chaos", "Endurance on Kill" }, {
-	label = "Max Life",
-	mod = "Passives granting Fire Resistance or all Elemental Resistances in Radius also grant increased Maximum Life at 50% of its value",
-}, {
-	{ label = "Chaos Res per Endurance", shortLabel = "Chaos Res", mod = "+4% to Chaos Resistance per Endurance Charge" },
-	{ label = "Fire Lucky", shortLabel = "Fire Lucky", mod = "Fire Damage with Hits is Lucky if you've Blocked an Attack Recently" },
-})) do
-	t_insert(DREAMS_NIGHTMARES_FOULBORN_VARIANTS, variant)
-end
-for _, variant in ipairs(buildDualModFoulbornVariants("The Red Nightmare", "Crimson Jewel", {
-	"Gain (6-10)% of Fire Damage as Extra Chaos Damage",
-	"Passives granting Fire Resistance or all Elemental Resistances in Radius also grant Chance to Block Attack Damage at 50% of its value",
-}, { "Extra Chaos", "Block" }, {
-	label = "Fire Conv to Chaos",
-	mod = "Passives granting Fire Resistance or all Elemental Resistances in Radius also grant Fire Damage Converted to Chaos Damage at 100% of its value",
-}, {
-	{ label = "Chaos Res per Endurance", shortLabel = "Chaos Res", mod = "+4% to Chaos Resistance per Endurance Charge" },
-	{ label = "Fire Lucky", shortLabel = "Fire Lucky", mod = "Fire Damage with Hits is Lucky if you've Blocked an Attack Recently" },
-})) do
-	t_insert(DREAMS_NIGHTMARES_FOULBORN_VARIANTS, variant)
-end
-for _, variant in ipairs(buildDualModFoulbornVariants("The Green Dream", "Viridian Jewel", {
-	"Gain (6-10)% of Cold Damage as Extra Chaos Damage",
-	"Passives granting Cold Resistance or all Elemental Resistances in Radius also grant an equal chance to gain a Frenzy Charge on Kill",
-}, { "Extra Chaos", "Frenzy on Kill" }, {
-	label = "Max Mana",
-	mod = "Passives granting Cold Resistance or all Elemental Resistances in Radius also grant increased Maximum Mana at 75% of its value",
-}, {
-	{ label = "Move Speed per Frenzy", shortLabel = "Move Speed", mod = "1% increased Movement Speed per Frenzy Charge" },
-	{ label = "Cold Lucky", shortLabel = "Cold Lucky", mod = "Cold Damage with Hits is Lucky if you've Suppressed Spell Damage Recently" },
-})) do
-	t_insert(DREAMS_NIGHTMARES_FOULBORN_VARIANTS, variant)
-end
-for _, variant in ipairs(buildDualModFoulbornVariants("The Green Nightmare", "Viridian Jewel", {
-	"Gain (6-10)% of Cold Damage as Extra Chaos Damage",
-	"Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Chance to Suppress Spell Damage at 70% of its value",
-}, { "Extra Chaos", "Suppress" }, {
-	label = "Cold Conv to Chaos",
-	mod = "Passives granting Cold Resistance or all Elemental Resistances in Radius also grant Cold Damage Converted to Chaos Damage at 100% of its value",
-}, {
-	{ label = "Move Speed per Frenzy", shortLabel = "Move Speed", mod = "1% increased Movement Speed per Frenzy Charge" },
-	{ label = "Cold Lucky", shortLabel = "Cold Lucky", mod = "Cold Damage with Hits is Lucky if you've Suppressed Spell Damage Recently" },
-})) do
-	t_insert(DREAMS_NIGHTMARES_FOULBORN_VARIANTS, variant)
-end
-for _, variant in ipairs(buildDualModFoulbornVariants("The Blue Dream", "Cobalt Jewel", {
-	"Gain (6-10)% of Lightning Damage as Extra Chaos Damage",
-	"Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant an equal chance to gain a Power Charge on Kill",
-}, { "Extra Chaos", "Power on Kill" }, {
-	label = "Max ES",
-	mod = "Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant increased Maximum Energy Shield at 75% of its value",
-}, {
-	{ label = "Crit Multi per Power Charge", shortLabel = "Crit Multi", mod = "+3% to Critical Strike Multiplier per Power Charge" },
-	{ label = "Lightning Lucky", shortLabel = "Lightning Lucky", mod = "Lightning Damage with Hits is Lucky if you've Blocked Spell Damage Recently" },
-})) do
-	t_insert(DREAMS_NIGHTMARES_FOULBORN_VARIANTS, variant)
-end
-for _, variant in ipairs(buildDualModFoulbornVariants("The Blue Nightmare", "Cobalt Jewel", {
-	"Gain (6-10)% of Lightning Damage as Extra Chaos Damage",
-	"Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant Chance to Block Spell Damage at 50% of its value",
-}, { "Extra Chaos", "Spell Block" }, {
-	label = "Lightning Conv to Chaos",
-	mod = "Passives granting Lightning Resistance or all Elemental Resistances in Radius also grant Lightning Damage Converted to Chaos Damage at 100% of its value",
-}, {
-	{ label = "Crit Multi per Power Charge", shortLabel = "Crit Multi", mod = "+3% to Critical Strike Multiplier per Power Charge" },
-	{ label = "Lightning Lucky", shortLabel = "Lightning Lucky", mod = "Lightning Damage with Hits is Lucky if you've Blocked Spell Damage Recently" },
-})) do
-	t_insert(DREAMS_NIGHTMARES_FOULBORN_VARIANTS, variant)
-end
 
 local function makeVariantDropdownEntry(variant)
 	local label = variant.dropdownLabel or variant.name
@@ -1028,11 +900,10 @@ local COL_MOD    = "^7"
 local COL_META   = "^8"
 local COL_NEG    = "^1"
 
-local function previewHeader(name, itemType, radius, extra, isFoulborn)
-	local prefix = isFoulborn and "Foulborn " or ""
+local function previewHeader(name, itemType, radius, extra)
 	radius = radius or "?"
 	local lines = {
-		{ height = 20, [1] = COL_UNIQUE .. prefix .. name },
+		{ height = 20, [1] = COL_UNIQUE .. name },
 		{ height = 16, [1] = COL_META   .. itemType },
 		{ height = 6,  [1] = "" },
 		{ height = 16, [1] = COL_META .. "Radius: " .. radius },
@@ -1046,7 +917,7 @@ local function previewHeader(name, itemType, radius, extra, isFoulborn)
 	return lines
 end
 
-local function previewFromRawText(rawText, isFoulborn, displayName, extraPreviewMeta)
+local function previewFromRawText(rawText, displayName, extraPreviewMeta)
 	local item = new("Item", "Rarity: Unique\n" .. rawText)
 	item:BuildModList()
 
@@ -1085,7 +956,7 @@ local function previewFromRawText(rawText, isFoulborn, displayName, extraPreview
 	addActiveModLines(item.implicitModLines)
 	addActiveModLines(item.explicitModLines)
 
-	local lines = previewHeader(itemName, itemType, radius, extra, isFoulborn)
+	local lines = previewHeader(itemName, itemType, radius, extra)
 	if extraPreviewMeta then
 		for _, meta in ipairs(extraPreviewMeta) do
 			t_insert(lines, { height = 16, [1] = COL_META .. meta })
@@ -1101,223 +972,212 @@ end
 
 local jewelPreviewFn  -- forward-declare so group functions can reference it by upvalue
 jewelPreviewFn = {
-	["The Light of Meaning"] = function(variant, isFoulborn)
+	["The Light of Meaning"] = function(variant)
 		if variant and variant.rawText then
-			return previewFromRawText(variant.rawText, isFoulborn, "The Light of Meaning (" .. variant.name .. ")")
+			return previewFromRawText(variant.rawText, "The Light of Meaning (" .. variant.name .. ")")
 		end
 		local lines = previewHeader("The Light of Meaning", "Prismatic Jewel", "Large",
-			{ "Limited to: 1", "Source: King of The Mists" }, isFoulborn)
+			{ "Limited to: 1", "Source: King of The Mists" })
 		for _, v in ipairs(getLightOfMeaningVariants()) do
 			t_insert(lines, { height = 14, [1] = COL_META .. "  " .. v.name })
 		end
 		return lines
 	end,
 
-	["Might of the Meek"] = function(variant, isFoulborn)
-		local radiusLabel = (isFoulborn and variant) and variant.radiusLabel or "Large"
-		local effect = (isFoulborn and variant) and variant.effect or "50%"
-		local lines = previewHeader("Might of the Meek", "Crimson Jewel", radiusLabel, nil, isFoulborn)
-		t_insert(lines, { height = 16, [1] = COL_MOD .. effect .. " increased Effect of non-Keystone" })
+	["Might of the Meek"] = function(variant)
+		if variant and variant.rawText then
+			return previewFromRawText(variant.rawText)
+		end
+		local lines = previewHeader("Might of the Meek", "Crimson Jewel", "Large")
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "50% increased Effect of non-Keystone" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "Passive Skills in Radius" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "Notable Passive Skills in Radius grant nothing" })
 		return lines
 	end,
 
-	["Unnatural Instinct"] = function(variant, isFoulborn)
-		if isFoulborn and variant and variant.rawText then
-			return previewFromRawText(variant.rawText, isFoulborn, "Unnatural Instinct (" .. variant.name .. ")")
+	["Unnatural Instinct"] = function(variant)
+		if variant and variant.rawText then
+			return previewFromRawText(variant.rawText)
 		end
 		local lines = previewHeader("Unnatural Instinct", "Viridian Jewel", "Small",
-			{ "Limited to: 1" }, isFoulborn)
-		if isFoulborn then
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Allocated Notable Passive Skills in" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Radius grant nothing" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Grants all bonuses of Unallocated" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Notable Passive Skills in Radius" })
-		else
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Allocated Small Passive Skills in" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Radius grant nothing" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Grants all bonuses of Unallocated" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Small Passive Skills in Radius" })
-		end
+			{ "Limited to: 1" })
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "Allocated Small Passive Skills in" })
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "Radius grant nothing" })
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "Grants all bonuses of Unallocated" })
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "Small Passive Skills in Radius" })
 		return lines
 	end,
 
-	["Inspired Learning"] = function(variant, isFoulborn)
-		if isFoulborn and variant and variant.rawText then
-			return previewFromRawText(variant.rawText, isFoulborn, "Inspired Learning (" .. variant.name .. ")")
+	["Inspired Learning"] = function(variant)
+		if variant and variant.rawText then
+			return previewFromRawText(variant.rawText)
 		end
-		local lines = previewHeader("Inspired Learning", "Crimson Jewel", "Small", nil, isFoulborn)
+		local lines = previewHeader("Inspired Learning", "Crimson Jewel", "Small")
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "With 4 Notables Allocated in Radius," })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "When you Kill a Rare monster, you gain" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "1 of its Modifiers for 20 seconds" })
 		return lines
 	end,
 
-	["Anatomical Knowledge"] = function(isFoulborn)
+	["Anatomical Knowledge"] = function()
 		local lines = previewHeader("Anatomical Knowledge", "Cobalt Jewel", "Large",
-			{ "Source: No longer obtainable" }, isFoulborn)
+			{ "Source: No longer obtainable" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "(6-8)% increased maximum Life" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "Adds 1 to Maximum Life per 3" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "Intelligence Allocated in Radius" })
 		return lines
 	end,
 
-	["Lioneye's Fall"] = function(isFoulborn)
-		local lines = previewHeader("Lioneye's Fall", "Viridian Jewel", "Medium", nil, isFoulborn)
-		if isFoulborn then
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Increases and Reductions to Evasion Rating" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "in Radius are Transformed to apply to Armour" })
-		else
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Melee and Melee Weapon Type modifiers" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "in Radius are Transformed to Bow Modifiers" })
-		end
-		return lines
-	end,
-
-	["Intuitive Leap"] = function(isFoulborn)
-		local radius = isFoulborn and "Massive" or "Small"
-		local lines = previewHeader("Intuitive Leap", "Viridian Jewel", radius, nil, isFoulborn)
-		if isFoulborn then
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Keystone Passive Skills in Radius can be" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Allocated without being connected to your tree" })
-		else
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives in Radius can be Allocated" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "without being connected to your tree" })
-		end
-		return lines
-	end,
-
-	["Tempered & Transcendent"] = function(variant, isFoulborn)
+	["Lioneye's Fall"] = function(variant)
 		if variant and variant.rawText then
-			return previewFromRawText(variant.rawText, isFoulborn, variant.name)
+			return previewFromRawText(variant.rawText)
 		end
-		local lines = previewHeader("Tempered & Transcendent", "Unique Jewel", "Medium", nil, isFoulborn)
+		local lines = previewHeader("Lioneye's Fall", "Viridian Jewel", "Medium")
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "Melee and Melee Weapon Type modifiers" })
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "in Radius are Transformed to Bow Modifiers" })
+		return lines
+	end,
+
+	["Intuitive Leap"] = function(variant)
+		if variant and variant.rawText then
+			return previewFromRawText(variant.rawText)
+		end
+		local lines = previewHeader("Intuitive Leap", "Viridian Jewel", "Small")
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives in Radius can be Allocated" })
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "without being connected to your tree" })
+		return lines
+	end,
+
+	["Tempered & Transcendent"] = function(variant)
+		if variant and variant.rawText then
+			return previewFromRawText(variant.rawText, variant.name)
+		end
+		local lines = previewHeader("Tempered & Transcendent", "Unique Jewel", "Medium")
 		t_insert(lines, { height = 14, [1] = COL_META .. "Tempered Flesh / Transcendent Flesh" })
 		t_insert(lines, { height = 14, [1] = COL_META .. "Tempered Mind / Transcendent Mind" })
 		t_insert(lines, { height = 14, [1] = COL_META .. "Tempered Spirit / Transcendent Spirit" })
 		return lines
 	end,
 
-	["Split Personality"] = function(variant, isFoulborn)
+	["Split Personality"] = function(variant)
 		if variant and variant.rawText then
-			return previewFromRawText(variant.rawText, isFoulborn, "Split Personality (" .. variant.name .. ")")
+			return previewFromRawText(variant.rawText, "Split Personality (" .. variant.name .. ")")
 		end
 		local lines = previewHeader("Split Personality", "Crimson Jewel", "Variable",
-			{ "Limited to: 2", "Source: Drops from the Simulacrum Encounter" }, isFoulborn)
+			{ "Limited to: 2", "Source: Drops from the Simulacrum Encounter" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "Socket effect scales with distance to class start" })
 		t_insert(lines, { height = 14, [1] = COL_META .. "Variants: Strength, Dexterity, Intelligence, Life" })
 		t_insert(lines, { height = 14, [1] = COL_META .. "Mana, Energy Shield, Armour, Evasion, Accuracy" })
 		return lines
 	end,
 
-	["Impossible Escape"] = function(variant, isFoulborn)
+	["Impossible Escape"] = function(variant)
 		if variant and variant.rawText then
-			return previewFromRawText(variant.rawText, isFoulborn, "Impossible Escape (" .. variant.name .. ")")
+			return previewFromRawText(variant.rawText, "Impossible Escape (" .. variant.name .. ")")
 		end
 		local lines = previewHeader("Impossible Escape", "Viridian Jewel", "Small",
-			{ "Limited to: 1", "Source: Drops from The Maven (Uber)" }, isFoulborn)
+			{ "Limited to: 1", "Source: Drops from The Maven (Uber)" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "Passive Skills in radius of the chosen" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "Keystone can be allocated without connection" })
 		return lines
 	end,
 
-	["Energy From Within"] = function(isFoulborn)
-		local lines = previewHeader("Energy From Within", "Cobalt Jewel", "Large", nil, isFoulborn)
+	["Energy From Within"] = function()
+		local lines = previewHeader("Energy From Within", "Cobalt Jewel", "Large")
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "3% increased maximum Energy Shield" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "Life mods in Radius apply to Energy Shield" })
 		return lines
 	end,
 
-	["Healthy Mind"] = function(isFoulborn)
+	["Healthy Mind"] = function()
 		local lines = previewHeader("Healthy Mind", "Cobalt Jewel", "Large",
-			{ "Limited to: 1" }, isFoulborn)
+			{ "Limited to: 1" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "15% increased maximum Mana" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "Life mods in Radius apply to Mana at 200%" })
 		return lines
 	end,
 
-	["Energised Armour"] = function(isFoulborn)
-		local lines = previewHeader("Energised Armour", "Crimson Jewel", "Large", nil, isFoulborn)
+	["Energised Armour"] = function()
+		local lines = previewHeader("Energised Armour", "Crimson Jewel", "Large")
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "15% increased Armour" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "ES mods in Radius apply to Armour at 200%" })
 		return lines
 	end,
 
-	["Brute Force Solution"] = function(isFoulborn)
-		local lines = previewHeader("Brute Force Solution", "Cobalt Jewel", "Large", nil, isFoulborn)
+	["Brute Force Solution"] = function()
+		local lines = previewHeader("Brute Force Solution", "Cobalt Jewel", "Large")
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "+16 to Intelligence" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "Strength from Passives -> Intelligence" })
 		return lines
 	end,
 
-	["Careful Planning"] = function(isFoulborn)
-		local lines = previewHeader("Careful Planning", "Viridian Jewel", "Large", nil, isFoulborn)
+	["Careful Planning"] = function()
+		local lines = previewHeader("Careful Planning", "Viridian Jewel", "Large")
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "+16 to Dexterity" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "Intelligence from Passives -> Dexterity" })
 		return lines
 	end,
 
-	["Efficient Training"] = function(isFoulborn)
-		local lines = previewHeader("Efficient Training", "Crimson Jewel", "Large", nil, isFoulborn)
+	["Efficient Training"] = function()
+		local lines = previewHeader("Efficient Training", "Crimson Jewel", "Large")
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "+16 to Strength" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "Intelligence from Passives -> Strength" })
 		return lines
 	end,
 
-	["Fertile Mind"] = function(isFoulborn)
-		local lines = previewHeader("Fertile Mind", "Cobalt Jewel", "Large", nil, isFoulborn)
+	["Fertile Mind"] = function()
+		local lines = previewHeader("Fertile Mind", "Cobalt Jewel", "Large")
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "+16 to Intelligence" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "Dexterity from Passives -> Intelligence" })
 		return lines
 	end,
 
-	["Fluid Motion"] = function(isFoulborn)
-		local lines = previewHeader("Fluid Motion", "Viridian Jewel", "Large", nil, isFoulborn)
+	["Fluid Motion"] = function()
+		local lines = previewHeader("Fluid Motion", "Viridian Jewel", "Large")
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "+16 to Dexterity" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "Strength from Passives -> Dexterity" })
 		return lines
 	end,
 
-	["Inertia"] = function(isFoulborn)
-		local lines = previewHeader("Inertia", "Crimson Jewel", "Large", nil, isFoulborn)
+	["Inertia"] = function()
+		local lines = previewHeader("Inertia", "Crimson Jewel", "Large")
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "+16 to Strength" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "Dexterity from Passives -> Strength" })
 		return lines
 	end,
 
-	["Combat Focus (Crimson)"] = function(isFoulborn)
+	["Combat Focus (Crimson)"] = function()
 		local lines = previewHeader("Combat Focus", "Crimson Jewel", "Medium",
-			{ "Limited to: 2", "Source: Vendor Recipe" }, isFoulborn)
+			{ "Limited to: 2", "Source: Vendor Recipe" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "10% increased Elemental Damage" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "Prismatic Skills lose Cold" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "with 40 total Str+Int in Radius" })
 		return lines
 	end,
 
-	["Combat Focus (Cobalt)"] = function(isFoulborn)
+	["Combat Focus (Cobalt)"] = function()
 		local lines = previewHeader("Combat Focus", "Cobalt Jewel", "Medium",
-			{ "Limited to: 2", "Source: Vendor Recipe" }, isFoulborn)
+			{ "Limited to: 2", "Source: Vendor Recipe" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "10% increased Elemental Damage" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "Prismatic Skills lose Fire" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "with 40 total Int+Dex in Radius" })
 		return lines
 	end,
 
-	["Combat Focus (Viridian)"] = function(isFoulborn)
+	["Combat Focus (Viridian)"] = function()
 		local lines = previewHeader("Combat Focus", "Viridian Jewel", "Medium",
-			{ "Limited to: 2", "Source: Vendor Recipe" }, isFoulborn)
+			{ "Limited to: 2", "Source: Vendor Recipe" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "10% increased Elemental Damage" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "Prismatic Skills lose Lightning" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "with 40 total Dex+Str in Radius" })
 		return lines
 	end,
 
-	["Attribute Conversion"] = function(variant, isFoulborn)
+	["Attribute Conversion"] = function(variant)
 		if variant and jewelPreviewFn[variant.name] then
-			return jewelPreviewFn[variant.name](isFoulborn)
+			return jewelPreviewFn[variant.name]()
 		end
-		local lines = previewHeader("Attribute Conversion", "Corrupted Jewel", "Large", nil, isFoulborn)
+		local lines = previewHeader("Attribute Conversion", "Corrupted Jewel", "Large")
 		t_insert(lines, { height = 14, [1] = COL_META .. "Brute Force Solution: Str -> Int" })
 		t_insert(lines, { height = 14, [1] = COL_META .. "Careful Planning:     Int -> Dex" })
 		t_insert(lines, { height = 14, [1] = COL_META .. "Efficient Training:   Int -> Str" })
@@ -1327,135 +1187,93 @@ jewelPreviewFn = {
 		return lines
 	end,
 
-	["Stat Conversion"] = function(variant, isFoulborn)
+	["Stat Conversion"] = function(variant)
 		if variant and jewelPreviewFn[variant.name] then
-			return jewelPreviewFn[variant.name](isFoulborn)
+			return jewelPreviewFn[variant.name]()
 		end
-		local lines = previewHeader("Stat Conversion", "Corrupted Jewel", "Large", nil, isFoulborn)
+		local lines = previewHeader("Stat Conversion", "Corrupted Jewel", "Large")
 		t_insert(lines, { height = 14, [1] = COL_META .. "Energy From Within: Life -> Energy Shield" })
 		t_insert(lines, { height = 14, [1] = COL_META .. "Healthy Mind:       Life -> Mana (200%)" })
 		t_insert(lines, { height = 14, [1] = COL_META .. "Energised Armour:   ES   -> Armour (200%)" })
 		return lines
 	end,
 
-	["Combat Focus"] = function(variant, isFoulborn)
+	["Combat Focus"] = function(variant)
 		if variant and jewelPreviewFn[variant.name] then
-			return jewelPreviewFn[variant.name](isFoulborn)
+			return jewelPreviewFn[variant.name]()
 		end
 		local lines = previewHeader("Combat Focus", "Jewel", "Medium",
-			{ "Limited to: 2", "Source: Vendor Recipe" }, isFoulborn)
+			{ "Limited to: 2", "Source: Vendor Recipe" })
 		t_insert(lines, { height = 14, [1] = COL_META .. "Crimson:  lose Cold    (Str+Int >= 40)" })
 		t_insert(lines, { height = 14, [1] = COL_META .. "Cobalt:   lose Fire    (Int+Dex >= 40)" })
 		t_insert(lines, { height = 14, [1] = COL_META .. "Viridian: lose Lightning (Dex+Str >= 40)" })
 		return lines
 	end,
 
-	["Dreams & Nightmares"] = function(variant, isFoulborn)
+	["Dreams & Nightmares"] = function(variant)
 		if variant and variant.rawText then
 			local extraPreviewMeta = nil
-			if isFoulborn and variant.family then
+			if variant.family then
 				extraPreviewMeta = { "Family: " .. variant.family:gsub("^The ", "") }
 			end
-			return previewFromRawText(variant.rawText, isFoulborn, variant.name, extraPreviewMeta)
+			return previewFromRawText(variant.rawText, variant.name, extraPreviewMeta)
 		end
-		if variant and jewelPreviewFn[variant.name] then
-			return jewelPreviewFn[variant.name](isFoulborn)
-		end
-		local lines = previewHeader("Dreams & Nightmares", "Unique Jewel", "Large", nil, isFoulborn)
-		if isFoulborn then
-			t_insert(lines, { height = 14, [1] = COL_META .. "The Red Dream:       Fire Res -> Max Life" })
-			t_insert(lines, { height = 14, [1] = COL_META .. "The Red Nightmare:   Fire Res -> Chaos Conv" })
-			t_insert(lines, { height = 14, [1] = COL_META .. "The Green Dream:     Cold Res -> Max Mana" })
-			t_insert(lines, { height = 14, [1] = COL_META .. "The Green Nightmare: Cold Res -> Chaos Conv" })
-			t_insert(lines, { height = 14, [1] = COL_META .. "The Blue Dream:      Lightning Res -> Max ES" })
-			t_insert(lines, { height = 14, [1] = COL_META .. "The Blue Nightmare:  Lightning Res -> Chaos Conv" })
-		else
-			t_insert(lines, { height = 14, [1] = COL_META .. "The Red Dream:       Fire Res -> Endurance on Kill" })
-			t_insert(lines, { height = 14, [1] = COL_META .. "The Red Nightmare:   Fire Res -> Block" })
-			t_insert(lines, { height = 14, [1] = COL_META .. "The Green Dream:     Cold Res -> Frenzy on Kill" })
-			t_insert(lines, { height = 14, [1] = COL_META .. "The Green Nightmare: Cold Res -> Suppress" })
-			t_insert(lines, { height = 14, [1] = COL_META .. "The Blue Dream:      Lightning Res -> Power on Kill" })
-			t_insert(lines, { height = 14, [1] = COL_META .. "The Blue Nightmare:  Lightning Res -> Spell Block" })
-		end
+		local lines = previewHeader("Dreams & Nightmares", "Unique Jewel", "Large")
+		t_insert(lines, { height = 14, [1] = COL_META .. "The Red Dream:       Fire Res -> Endurance on Kill" })
+		t_insert(lines, { height = 14, [1] = COL_META .. "The Red Nightmare:   Fire Res -> Block" })
+		t_insert(lines, { height = 14, [1] = COL_META .. "The Green Dream:     Cold Res -> Frenzy on Kill" })
+		t_insert(lines, { height = 14, [1] = COL_META .. "The Green Nightmare: Cold Res -> Suppress" })
+		t_insert(lines, { height = 14, [1] = COL_META .. "The Blue Dream:      Lightning Res -> Power on Kill" })
+		t_insert(lines, { height = 14, [1] = COL_META .. "The Blue Nightmare:  Lightning Res -> Spell Block" })
 		return lines
 	end,
 
-	["The Red Dream"] = function(isFoulborn)
-		local lines = previewHeader("The Red Dream", "Crimson Jewel", "Large", nil, isFoulborn)
-		if isFoulborn then
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Fire/All Res in Radius" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant increased Maximum Life at 50%" })
-		else
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Fire/All Res in Radius" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant Endurance Charge on Kill" })
-		end
+	["The Red Dream"] = function()
+		local lines = previewHeader("The Red Dream", "Crimson Jewel", "Large")
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Fire/All Res in Radius" })
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant Endurance Charge on Kill" })
 		return lines
 	end,
 
-	["The Red Nightmare"] = function(isFoulborn)
-		local lines = previewHeader("The Red Nightmare", "Crimson Jewel", "Large", nil, isFoulborn)
-		if isFoulborn then
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Fire/All Res in Radius" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant Fire Damage -> Chaos Conv at 100%" })
-		else
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Fire/All Res in Radius" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant Chance to Block at 50%" })
-		end
+	["The Red Nightmare"] = function()
+		local lines = previewHeader("The Red Nightmare", "Crimson Jewel", "Large")
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Fire/All Res in Radius" })
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant Chance to Block at 50%" })
 		return lines
 	end,
 
-	["The Green Dream"] = function(isFoulborn)
-		local lines = previewHeader("The Green Dream", "Viridian Jewel", "Large", nil, isFoulborn)
-		if isFoulborn then
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Cold/All Res in Radius" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant increased Maximum Mana at 75%" })
-		else
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Cold/All Res in Radius" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant Frenzy Charge on Kill" })
-		end
+	["The Green Dream"] = function()
+		local lines = previewHeader("The Green Dream", "Viridian Jewel", "Large")
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Cold/All Res in Radius" })
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant Frenzy Charge on Kill" })
 		return lines
 	end,
 
-	["The Green Nightmare"] = function(isFoulborn)
-		local lines = previewHeader("The Green Nightmare", "Viridian Jewel", "Large", nil, isFoulborn)
-		if isFoulborn then
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Cold/All Res in Radius" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant Cold Damage -> Chaos Conv at 100%" })
-		else
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Cold/All Res in Radius" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant Chance to Suppress at 70%" })
-		end
+	["The Green Nightmare"] = function()
+		local lines = previewHeader("The Green Nightmare", "Viridian Jewel", "Large")
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Cold/All Res in Radius" })
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant Chance to Suppress at 70%" })
 		return lines
 	end,
 
-	["The Blue Dream"] = function(isFoulborn)
-		local lines = previewHeader("The Blue Dream", "Cobalt Jewel", "Large", nil, isFoulborn)
-		if isFoulborn then
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Lightning/All Res in Radius" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant increased Maximum ES at 75%" })
-		else
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Lightning/All Res in Radius" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant Power Charge on Kill" })
-		end
+	["The Blue Dream"] = function()
+		local lines = previewHeader("The Blue Dream", "Cobalt Jewel", "Large")
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Lightning/All Res in Radius" })
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant Power Charge on Kill" })
 		return lines
 	end,
 
-	["The Blue Nightmare"] = function(isFoulborn)
-		local lines = previewHeader("The Blue Nightmare", "Cobalt Jewel", "Large", nil, isFoulborn)
-		if isFoulborn then
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Lightning/All Res in Radius" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant Lightning Damage -> Chaos Conv at 100%" })
-		else
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Lightning/All Res in Radius" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant Spell Block at 50%" })
-		end
+	["The Blue Nightmare"] = function()
+		local lines = previewHeader("The Blue Nightmare", "Cobalt Jewel", "Large")
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Lightning/All Res in Radius" })
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant Spell Block at 50%" })
 		return lines
 	end,
 
-	["Thread of Hope"] = function(ringName, isFoulborn)
+	["Thread of Hope"] = function(ringName)
 		local ring = ringName or "?"
 		local lines = previewHeader("Thread of Hope", "Crimson Jewel", "Variable",
-			{ "Source: Drops from Sirus, Awakener of Worlds" }, isFoulborn)
+			{ "Source: Drops from Sirus, Awakener of Worlds" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "Only affects Passives in " .. ring .. " Ring" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "Passive Skills in Radius can be Allocated" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "without being connected to your tree" })
@@ -1468,6 +1286,10 @@ jewelPreviewFn = {
 -- Exposed for testing; delegates to the local helper.
 function RadiusJewelFinderClass:buildVariantsFromUniqueItem(uniqueName, baseName)
 	return buildVariantsFromUniqueItem(uniqueName, baseName)
+end
+
+function RadiusJewelFinderClass:discoverFoulbornVariants(uniqueName, radiusIndexByLabel)
+	return discoverFoulbornVariants(uniqueName, radiusIndexByLabel)
 end
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -1595,7 +1417,7 @@ local function buildDisplayedConnectionlessPlans(result, socketBasePoints, basel
 end
 
 -- Compute jewel impact across all empty sockets (for non-variant jewels)
-function RadiusJewelFinderClass:computeSocketImpact(sockets, rawText, impactStat, isFoulborn, progress, maxTotalPoints, occupiedMode)
+function RadiusJewelFinderClass:computeSocketImpact(sockets, rawText, impactStat, progress, maxTotalPoints, occupiedMode)
 	impactStat = normalizeImpactStat(impactStat)
 	local calcFunc, baseOutput = self.build.calcsTab:GetMiscCalculator()
 	local realBaseline = self:getImpactValue(impactStat, baseOutput)
@@ -2044,7 +1866,7 @@ function RadiusJewelFinderClass:computeConnectionlessFastPlan(calcFunc, baseOutp
 	return result
 end
 
-function RadiusJewelFinderClass:computeIntuitiveLeapSocketImpact(sockets, impactStat, isFoulborn, methodId, planCache, progress, maxTotalPoints, occupiedMode)
+function RadiusJewelFinderClass:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant, methodId, planCache, progress, maxTotalPoints, occupiedMode)
 	impactStat = normalizeImpactStat(impactStat)
 	local calcFunc, baseOutput = self.build.calcsTab:GetMiscCalculator()
 	local realBaseline = self:getImpactValue(impactStat, baseOutput)
@@ -2055,6 +1877,10 @@ function RadiusJewelFinderClass:computeIntuitiveLeapSocketImpact(sockets, impact
 			radiusLookup[radius.label] = i
 		end
 	end
+
+	local isMassiveRadius = variant and variant.isMassiveRadius
+	local keystoneOnly = variant and variant.keystoneOnly or false
+	local rawText = (variant and variant.rawText) or mustGetUniqueRawText("Intuitive Leap")
 
 	local function collectMassiveNodes(socketNode)
 		local nodes = { }
@@ -2071,14 +1897,15 @@ function RadiusJewelFinderClass:computeIntuitiveLeapSocketImpact(sockets, impact
 		return nodes
 	end
 
-	local candidateOptions = isFoulborn and {
+	local candidateOptions = isMassiveRadius and {
 		collectNodes = collectMassiveNodes,
-		keystoneOnly = true,
+		keystoneOnly = keystoneOnly,
 	} or {
 		radiusIndex = radiusLookup["Small"],
 		keystoneOnly = false,
 	}
 
+	local variantKey = variant and variant.name or "normal"
 	local results = { }
 	for socketIndex, socket in ipairs(sockets) do
 		progressTick(progress, socketIndex - 1, #sockets, socket.label)
@@ -2089,14 +1916,14 @@ function RadiusJewelFinderClass:computeIntuitiveLeapSocketImpact(sockets, impact
 			local replacementContext = self:buildSocketReplacementContext(calcFunc, socket.id)
 			local socketNode = replacementContext.socketNode
 			local slotName = replacementContext.slotName
-			local item = new("Item", "Rarity: Unique\n" .. (isFoulborn and INTUITIVE_LEAP_FOULBORN_RAW_TEXT or mustGetUniqueRawText("Intuitive Leap")))
+			local item = new("Item", "Rarity: Unique\n" .. rawText)
 			item:BuildModList()
 			local candidates = self:collectConnectionlessCandidates(socketNode, candidateOptions)
 			local maxAdditionalNodes = maxTotalPoints and math.max(maxTotalPoints - accessCost, 0) or nil
 			local socketBaseline = self:getImpactValue(impactStat, replacementContext.baselineOutput)
 			local result
 			if methodId == "fast" then
-				local cacheKey = s_format("IL|%s|%s|%d", statField, isFoulborn and "1" or "0", socket.id)
+				local cacheKey = s_format("IL|%s|%s|%d", statField, variantKey, socket.id)
 				planCache[cacheKey] = planCache[cacheKey] or { }
 				result = self:computeConnectionlessFastPlan(calcFunc, replacementContext.baselineOutput, socketBaseline, socketNode, slotName, item, impactStat, candidates, nil, planCache[cacheKey], socket.label, socketProgress, maxAdditionalNodes)
 			else
@@ -2433,115 +2260,118 @@ local function scoreUnallocNotablesAndKeystones(nodes, allocNodes)
 	return s
 end
 
-local function buildJewelTypes(radiusIndexByLabel, isFoulborn)
-	local mightOfTheMeek
-	local inspiredLearning
-	if isFoulborn then
-		mightOfTheMeek = {
-			name = "Might of the Meek",
-			supportsFoulborn = true,
-			scoreLabel = "alloc small passives",
-			hasCompute = true,
-			variants = {
-				{
-					name = "Medium Radius (75%)",
-					radiusIndex = radiusIndexByLabel["Medium"],
-					radiusLabel = "Medium",
-					effect = "75%",
-					rawText = MIGHT_OF_MEEK_FOULBORN_V1_RAW_TEXT,
-				},
-				{
-					name = "Small Radius (100%)",
-					radiusIndex = radiusIndexByLabel["Small"],
-					radiusLabel = "Small",
-					effect = "100%",
-					rawText = MIGHT_OF_MEEK_FOULBORN_V2_RAW_TEXT,
-				}
-			},
-			score = function(nodes, allocNodes)
-				local s = 0
-				for nodeId, node in pairs(nodes) do
-					if allocNodes[nodeId] and node.type == "Normal" then
-						s = s + 1
-					end
+local function buildJewelTypes(radiusIndexByLabel)
+	local mightOfTheMeek = {
+		name = "Might of the Meek",
+		radiusIndex = radiusIndexByLabel["Large"],
+		scoreLabel = "alloc small passives",
+		hasCompute = true,
+		rawText = mustGetUniqueRawText("Might of the Meek"),
+		score = function(nodes, allocNodes)
+			local s = 0
+			for nodeId, node in pairs(nodes) do
+				if allocNodes[nodeId] and node.type == "Normal" then
+					s = s + 1
 				end
-				return s
-				end,
-			}
-		inspiredLearning = {
-			name = "Inspired Learning",
-			supportsFoulborn = true,
-			hasCompute = true,
-			scoreLabel = "no alloc notables",
-			variants = {
-				{
-					name = "No allocated notables",
-					dropdownLabel = "Large radius / no notables",
-					radiusIndex = radiusIndexByLabel["Large"],
-					rawText = INSPIRED_LEARNING_FOULBORN_LARGE_RAW_TEXT,
-					scoreLabel = "no alloc notables",
-					score = function(nodes, allocNodes)
-						for nodeId, node in pairs(nodes) do
-							if allocNodes[nodeId] and node.type == "Notable" then
-								return 0
-							end
-						end
-						return 1
-					end,
-				},
-				{
-					name = "Small passive threshold",
-					dropdownLabel = "Small radius / 8-12 small passives",
-					radiusIndex = radiusIndexByLabel["Small"],
-					rawText = INSPIRED_LEARNING_FOULBORN_SMALL_RAW_TEXT,
-					scoreLabel = "alloc small passives",
-					score = function(nodes, allocNodes)
-						local s = 0
-						for nodeId, node in pairs(nodes) do
-							if allocNodes[nodeId] and node.type == "Normal" then
-								s = s + 1
-							end
-						end
-						return s
-					end,
-				},
-			},
-		}
-	else
-		mightOfTheMeek = {
-			name = "Might of the Meek",
-			supportsFoulborn = true,
-			radiusIndex = radiusIndexByLabel["Large"],
-			scoreLabel = "alloc small passives",
-			hasCompute = true,
-			rawText = mustGetUniqueRawText("Might of the Meek"),
-			score = function(nodes, allocNodes)
-				local s = 0
-				for nodeId, node in pairs(nodes) do
-					if allocNodes[nodeId] and node.type == "Normal" then
-						s = s + 1
-					end
+			end
+			return s
+		end,
+	}
+	appendFoulbornVariants(mightOfTheMeek, discoverFoulbornVariants("Might of the Meek", radiusIndexByLabel))
+
+	local inspiredLearning = {
+		name = "Inspired Learning",
+		hasCompute = true,
+		radiusIndex = radiusIndexByLabel["Small"],
+		scoreLabel = "alloc notables",
+		rawText = mustGetUniqueRawText("Inspired Learning"),
+		score = function(nodes, allocNodes)
+			local s = 0
+			for nodeId, node in pairs(nodes) do
+				if allocNodes[nodeId] and node.type == "Notable" then
+					s = s + 1
 				end
-					return s
-				end,
-			}
-		inspiredLearning = {
-			name = "Inspired Learning",
-			supportsFoulborn = true,
-			hasCompute = true,
-			radiusIndex = radiusIndexByLabel["Small"],
-			scoreLabel = "alloc notables",
-			rawText = mustGetUniqueRawText("Inspired Learning"),
-			score = function(nodes, allocNodes)
-				local s = 0
-				for nodeId, node in pairs(nodes) do
-					if allocNodes[nodeId] and node.type == "Notable" then
-						s = s + 1
-					end
+			end
+			return s
+		end,
+	}
+	do
+		local fb = discoverFoulbornVariants("Inspired Learning", radiusIndexByLabel)
+		for _, v in ipairs(fb) do enrichInspiredLearningFoulborn(v) end
+		appendFoulbornVariants(inspiredLearning, fb)
+	end
+
+	local unnaturalInstinct = {
+		name = "Unnatural Instinct",
+		radiusIndex = radiusIndexByLabel["Small"],
+		scoreLabel = "unalloc small - alloc small",
+		hasCompute = true,
+		rawText = mustGetUniqueRawText("Unnatural Instinct"),
+		score = function(nodes, allocNodes)
+			local gained, lost = 0, 0
+			for nodeId, node in pairs(nodes) do
+				if node.type == "Normal" then
+					if allocNodes[nodeId] then lost = lost + 1
+					else gained = gained + 1 end
 				end
-				return s
-			end,
-		}
+			end
+			return gained - lost
+		end,
+	}
+	do
+		local fb = discoverFoulbornVariants("Unnatural Instinct", radiusIndexByLabel)
+		for _, v in ipairs(fb) do enrichUnnaturalInstinctFoulborn(v) end
+		appendFoulbornVariants(unnaturalInstinct, fb)
+	end
+
+	local lioneyesFall = {
+		name = "Lioneye's Fall",
+		radiusIndex = radiusIndexByLabel["Medium"],
+		scoreLabel = "alloc passives",
+		hasCompute = true,
+		rawText = mustGetUniqueRawText("Lioneye's Fall"),
+		score = scoreAllocPassives,
+	}
+	appendFoulbornVariants(lioneyesFall, discoverFoulbornVariants("Lioneye's Fall", radiusIndexByLabel))
+
+	local intuitiveLeap = {
+		name = "Intuitive Leap",
+		radiusIndex = radiusIndexByLabel["Small"],
+		scoreLabel = "unalloc passives",
+		hasCompute = true,
+		computeMethods = CONNECTIONLESS_COMPUTE_METHODS,
+		rawText = mustGetUniqueRawText("Intuitive Leap"),
+		score = function(nodes, allocNodes)
+			return scoreUnallocPassives(nodes, allocNodes)
+		end,
+	}
+	do
+		local fb = discoverFoulbornVariants("Intuitive Leap", radiusIndexByLabel)
+		for _, v in ipairs(fb) do enrichIntuitiveLeapFoulborn(v) end
+		appendFoulbornVariants(intuitiveLeap, fb)
+	end
+
+	local dreamsNightmaresFamilies = {
+		{ name = "The Red Dream",       baseName = "Crimson Jewel" },
+		{ name = "The Red Nightmare",   baseName = "Crimson Jewel" },
+		{ name = "The Green Dream",     baseName = "Viridian Jewel" },
+		{ name = "The Green Nightmare", baseName = "Viridian Jewel" },
+		{ name = "The Blue Dream",      baseName = "Cobalt Jewel" },
+		{ name = "The Blue Nightmare",  baseName = "Cobalt Jewel" },
+	}
+	local dreamsVariants = { }
+	for _, fam in ipairs(dreamsNightmaresFamilies) do
+		t_insert(dreamsVariants, {
+			name = fam.name,
+			family = fam.name,
+			rawText = mustGetCurrentUniqueRawText(fam.name),
+		})
+		local fb = discoverFoulbornVariants(fam.name, radiusIndexByLabel)
+		for _, v in ipairs(fb) do
+			v.family = fam.name
+			v.name = fam.name .. " (" .. v.name .. ")"
+			t_insert(dreamsVariants, v)
+		end
 	end
 
 	local jewelTypes = { }
@@ -2554,26 +2384,7 @@ local function buildJewelTypes(radiusIndexByLabel, isFoulborn)
 		variants = getLightOfMeaningVariants(),
 	})
 	t_insert(jewelTypes, mightOfTheMeek)
-	t_insert(jewelTypes, {
-		name = "Unnatural Instinct",
-		supportsFoulborn = true,
-		radiusIndex = radiusIndexByLabel["Small"],
-		scoreLabel = isFoulborn and "unalloc notable - alloc notable" or "unalloc small - alloc small",
-		hasCompute = true,
-		rawText = isFoulborn and UNNATURAL_INSTINCT_FOULBORN_RAW_TEXT or mustGetUniqueRawText("Unnatural Instinct"),
-		variants = isFoulborn and UNNATURAL_INSTINCT_FOULBORN_VARIANTS or nil,
-		score = function(nodes, allocNodes)
-			local gained, lost = 0, 0
-			local targetType = isFoulborn and "Notable" or "Normal"
-			for nodeId, node in pairs(nodes) do
-				if node.type == targetType then
-					if allocNodes[nodeId] then lost = lost + 1
-					else gained = gained + 1 end
-				end
-			end
-			return gained - lost
-		end,
-	})
+	t_insert(jewelTypes, unnaturalInstinct)
 	t_insert(jewelTypes, inspiredLearning)
 	t_insert(jewelTypes, {
 		name = "Anatomical Knowledge",
@@ -2594,36 +2405,8 @@ local function buildJewelTypes(radiusIndexByLabel, isFoulborn)
 		end,
 		variants = getTemperedTranscendentVariants(),
 	})
-	t_insert(jewelTypes, {
-		name = "Lioneye's Fall",
-		supportsFoulborn = true,
-		radiusIndex = radiusIndexByLabel["Medium"],
-		scoreLabel = "alloc passives",
-		hasCompute = true,
-		rawText = isFoulborn and LIONEYES_FALL_FOULBORN_RAW_TEXT or mustGetUniqueRawText("Lioneye's Fall"),
-		score = scoreAllocPassives,
-	})
-	t_insert(jewelTypes, {
-		name = "Intuitive Leap",
-		supportsFoulborn = true,
-		radiusIndex = radiusIndexByLabel["Small"],
-		scoreLabel = isFoulborn and "unalloc keystones" or "unalloc passives",
-		hasCompute = true,
-		computeMethods = CONNECTIONLESS_COMPUTE_METHODS,
-		rawText = isFoulborn and INTUITIVE_LEAP_FOULBORN_RAW_TEXT or mustGetUniqueRawText("Intuitive Leap"),
-		score = function(nodes, allocNodes)
-			if isFoulborn then
-				local s = 0
-				for nodeId, node in pairs(nodes) do
-					if not allocNodes[nodeId] and node.type == "Keystone" then
-						s = s + 1
-					end
-				end
-				return s
-			end
-			return scoreUnallocPassives(nodes, allocNodes)
-		end,
-	})
+	t_insert(jewelTypes, lioneyesFall)
+	t_insert(jewelTypes, intuitiveLeap)
 	t_insert(jewelTypes, {
 		name = "Impossible Escape",
 		isImpossibleEscape = true,
@@ -2684,19 +2467,11 @@ local function buildJewelTypes(radiusIndexByLabel, isFoulborn)
 	})
 	t_insert(jewelTypes, {
 		name = "Dreams & Nightmares",
-		supportsFoulborn = true,
 		radiusIndex = radiusIndexByLabel["Large"],
 		scoreLabel = "alloc passives",
 		hasCompute = true,
 		score = scoreAllocPassives,
-		variants = isFoulborn and DREAMS_NIGHTMARES_FOULBORN_VARIANTS or {
-			{ name = "The Red Dream",       rawText = mustGetCurrentUniqueRawText("The Red Dream") },
-			{ name = "The Red Nightmare",   rawText = mustGetCurrentUniqueRawText("The Red Nightmare") },
-			{ name = "The Green Dream",     rawText = mustGetCurrentUniqueRawText("The Green Dream") },
-			{ name = "The Green Nightmare", rawText = mustGetCurrentUniqueRawText("The Green Nightmare") },
-			{ name = "The Blue Dream",      rawText = mustGetCurrentUniqueRawText("The Blue Dream") },
-			{ name = "The Blue Nightmare",  rawText = mustGetCurrentUniqueRawText("The Blue Nightmare") },
-		},
+		variants = dreamsVariants,
 	})
 	t_insert(jewelTypes, {
 		name = "Thread of Hope",
@@ -2768,7 +2543,6 @@ function RadiusJewelFinderClass:Open()
 
 	-- Mutable state
 	local showLegacy             = false
-	local isFoulborn             = false
 	local activeJewelTypes       = { }   -- filtered view of jewelTypes
 	local selectedJewelType      = nil   -- set after first filter build
 	local selectedThreadVariant  = threadVariants[1]
@@ -2820,7 +2594,6 @@ function RadiusJewelFinderClass:Open()
 			return
 		end
 		finderState.showLegacy = showLegacy
-		finderState.isFoulborn = isFoulborn
 		finderState.jewelTypeName = selectedJewelType and selectedJewelType.name or nil
 		finderState.jewelVariantName = selectedJewelVariant and (selectedJewelVariant.dropdownLabel or selectedJewelVariant.name) or nil
 		finderState.threadVariantName = selectedThreadVariant and selectedThreadVariant.name or nil
@@ -2836,7 +2609,6 @@ function RadiusJewelFinderClass:Open()
 		local computeMethodKey = supportsComputeMethods and selectedComputeMethod and selectedComputeMethod.id or ""
 		return table.concat({
 			tostring(showLegacy and 1 or 0),
-			tostring((isFoulborn and selectedJewelType and selectedJewelType.supportsFoulborn == true) and 1 or 0),
 			selectedJewelType and selectedJewelType.name or "",
 			selectedJewelVariant and (selectedJewelVariant.dropdownLabel or selectedJewelVariant.name) or "",
 			selectedThreadVariant and selectedThreadVariant.name or "",
@@ -2908,19 +2680,23 @@ function RadiusJewelFinderClass:Open()
 			controls.statusLabel.label = statusMessage
 		end
 	end
-	local function isSelectedFoulbornActive()
-		return isFoulborn and selectedJewelType and selectedJewelType.supportsFoulborn == true
-	end
 	local function selectedJewelSupportsComputeMethods()
 		return selectedJewelType and selectedJewelType.computeMethods and #selectedJewelType.computeMethods > 0
+	end
+	local function hasVariantFamilies()
+		if not selectedJewelType or not selectedJewelType.variants then return false end
+		for _, v in ipairs(selectedJewelType.variants) do
+			if v.family then return true end
+		end
+		return false
 	end
 
 	local function getDisplayedVariants()
 		if not selectedJewelType or not selectedJewelType.variants then
 			return nil
 		end
-			if isSelectedFoulbornActive() and selectedJewelType.name == "Dreams & Nightmares" and selectedDreamFamily and selectedDreamFamily.value ~= "ALL" then
-				local variants = { }
+		if hasVariantFamilies() and selectedDreamFamily and selectedDreamFamily.value ~= "ALL" then
+			local variants = { }
 			for _, variant in ipairs(selectedJewelType.variants) do
 				if variant.family == selectedDreamFamily.value then
 					t_insert(variants, variant)
@@ -2931,7 +2707,7 @@ function RadiusJewelFinderClass:Open()
 	return selectedJewelType.variants
 end
 
-local function buildPreviewLinesForJewelType(jewelType, previewIsFoulborn, previewVariantOverride)
+local function buildPreviewLinesForJewelType(jewelType, previewVariantOverride)
 	if not jewelType then
 			return nil
 		end
@@ -2942,12 +2718,12 @@ local function buildPreviewLinesForJewelType(jewelType, previewIsFoulborn, previ
 	local selectedTypeMatches = selectedJewelType and selectedJewelType.name == jewelType.name
 	if jewelType.isThread then
 		local threadVariant = previewVariantOverride or selectedThreadVariant
-		return fn(threadVariant and threadVariant.name, previewIsFoulborn)
+		return fn(threadVariant and threadVariant.name)
 	elseif jewelType.variants then
 		local previewVariant = previewVariantOverride or ((selectedTypeMatches and selectedJewelVariant) or jewelType.variants[1])
-		return fn(previewVariant, previewIsFoulborn)
+		return fn(previewVariant)
 	end
-	return fn(nil, previewIsFoulborn)
+	return fn()
 end
 
 local function addPreviewLinesToTooltip(tooltip, lines)
@@ -2960,19 +2736,19 @@ local function addPreviewLinesToTooltip(tooltip, lines)
 	end
 end
 
-local function buildGenericTypeTooltipLinesForJewelType(jewelType, previewIsFoulborn)
+local function buildGenericTypeTooltipLinesForJewelType(jewelType)
 	if not jewelType then
 		return nil
 	end
 	if not (jewelType.isThread or jewelType.variants) then
-		local lines = buildPreviewLinesForJewelType(jewelType, previewIsFoulborn)
+		local lines = buildPreviewLinesForJewelType(jewelType)
 		if type(lines) ~= "table" then
 			return nil
 		end
 		return lines
 	end
 	local fn = jewelPreviewFn[jewelType.name]
-	local lines = fn and fn(nil, previewIsFoulborn) or nil
+	local lines = fn and fn() or nil
 	if type(lines) ~= "table" then
 		return nil
 	end
@@ -3109,7 +2885,7 @@ end
 			t_insert(previewListData, { height = 16, [1] = COL_META .. "(no preview)" })
 			return
 		end
-		local lines = buildPreviewLinesForJewelType(selectedJewelType, isSelectedFoulbornActive())
+		local lines = buildPreviewLinesForJewelType(selectedJewelType)
 		if type(lines) ~= "table" then
 			t_insert(previewListData, { height = 16, [1] = COL_META .. "(no preview)" })
 			return
@@ -3129,7 +2905,7 @@ end
 
 	-- ── Helper: rebuild jewel type dropdown after filter change ──────────────
 	local function rebuildJewelTypeDropdown()
-		jewelTypes = buildJewelTypes(radiusIndexByLabel, isFoulborn)
+		jewelTypes = buildJewelTypes(radiusIndexByLabel)
 		activeJewelTypes = { }
 		jtLabels = { }
 		for _, jt in ipairs(jewelTypes) do
@@ -3271,7 +3047,7 @@ end
 		local function syncSelectedJewelTypeControls()
 			local isThread = selectedJewelType.isThread == true
 			local hasVariants = selectedJewelType.variants ~= nil
-			local hasVariantFamilyFilter = isSelectedFoulbornActive() and selectedJewelType.name == "Dreams & Nightmares"
+			local hasVariantFamilyFilter = hasVariantFamilies()
 			local hasComputeMethods = selectedJewelSupportsComputeMethods()
 
 			controls.threadVariantLabel.shown  = isThread
@@ -3327,10 +3103,7 @@ end
 	end)
 	controls.jewelTypeSelect.tooltipFunc = function(tooltip, mode, index)
 		local jewelType = activeJewelTypes[index]
-		addPreviewLinesToTooltip(tooltip, buildGenericTypeTooltipLinesForJewelType(
-			jewelType,
-			isFoulborn and jewelType and jewelType.supportsFoulborn == true
-		))
+		addPreviewLinesToTooltip(tooltip, buildGenericTypeTooltipLinesForJewelType(jewelType))
 	end
 	controls.jewelVariantSelect.tooltipFunc = function(tooltip, mode, index)
 		local variants = getDisplayedVariants()
@@ -3338,22 +3111,14 @@ end
 		if not selectedJewelType or not variant then
 			return
 		end
-		addPreviewLinesToTooltip(tooltip, buildPreviewLinesForJewelType(
-			selectedJewelType,
-			isSelectedFoulbornActive(),
-			variant
-		))
+		addPreviewLinesToTooltip(tooltip, buildPreviewLinesForJewelType(selectedJewelType, variant))
 	end
 	controls.threadVariantSelect.tooltipFunc = function(tooltip, mode, index)
 		local variant = threadVariants[index]
 		if not selectedJewelType or not variant then
 			return
 		end
-		addPreviewLinesToTooltip(tooltip, buildPreviewLinesForJewelType(
-			selectedJewelType,
-			isSelectedFoulbornActive(),
-			variant
-		))
+		addPreviewLinesToTooltip(tooltip, buildPreviewLinesForJewelType(selectedJewelType, variant))
 	end
 	syncSelectedJewelTypeControls()
 
@@ -3422,7 +3187,6 @@ end
 			co = coroutine.create(function()
 				local ok, err = pcall(function()
 			local statLabel = selectedImpactStat.label
-			local selectedFoulbornActive = isSelectedFoulbornActive()
 			local computeMethod = selectedComputeMethod or findConnectionlessComputeMethod(nil)
 			local computeMethodLabel = selectedJewelSupportsComputeMethods() and computeMethod.label or nil
 
@@ -3431,7 +3195,7 @@ end
 					local socketResults, baseline
 					if selectedJewelType.name == "Intuitive Leap" then
 						socketResults, baseline =
-							self:computeIntuitiveLeapSocketImpact(jewelSockets, selectedImpactStat, selectedFoulbornActive, computeMethod.id, finderState.connectionlessPlanCache, progress, selectedMaxPoints, selectedOccupiedMode)
+							self:computeIntuitiveLeapSocketImpact(jewelSockets, selectedImpactStat, selectedJewelVariant, computeMethod.id, finderState.connectionlessPlanCache, progress, selectedMaxPoints, selectedOccupiedMode)
 					elseif selectedJewelType.isThread then
 						socketResults, baseline =
 							self:computeThreadOfHopeSocketImpact(jewelSockets, selectedImpactStat, threadVariants, computeMethod.id, finderState.connectionlessPlanCache, progress, selectedMaxPoints, selectedOccupiedMode)
@@ -3442,8 +3206,7 @@ end
 						socketResults, baseline =
 							self:computeSplitPersonalitySocketImpact(jewelSockets, selectedImpactStat, displayedVariants or getSplitPersonalityVariants(), progress, selectedMaxPoints, selectedOccupiedMode)
 					elseif displayedVariants and #displayedVariants > 0 then
-						if selectedFoulbornActive and selectedJewelType.name == "Dreams & Nightmares"
-						and selectedDreamFamily and selectedDreamFamily.value ~= "ALL" then
+						if hasVariantFamilies() and selectedDreamFamily and selectedDreamFamily.value ~= "ALL" then
 							itemLabel = selectedDreamFamily.name
 						end
 						socketResults, baseline =
@@ -3451,13 +3214,13 @@ end
 					else
 						local rawText = selectedJewelType.rawText
 						socketResults, baseline =
-							self:computeSocketImpact(jewelSockets, rawText, selectedImpactStat, selectedFoulbornActive, progress, selectedMaxPoints, selectedOccupiedMode)
+							self:computeSocketImpact(jewelSockets, rawText, selectedImpactStat, progress, selectedMaxPoints, selectedOccupiedMode)
 					end
 					local rows = { }
 					for _, r in ipairs(socketResults) do
 						local points = self:getSocketAccessCost(r.socket, { isOccupied = r.replacedItemLabel ~= nil })
 						local variantLabel = r.variant and (r.variant.dropdownLabel or r.variant.name) or ""
-						local itemTooltipLines = r.variant and buildPreviewLinesForJewelType(selectedJewelType, selectedFoulbornActive, r.variant) or nil
+						local itemTooltipLines = r.variant and buildPreviewLinesForJewelType(selectedJewelType, r.variant) or nil
 						local displayedPlans = (selectedJewelType.name == "Intuitive Leap" or selectedJewelType.isThread or selectedJewelType.isImpossibleEscape)
 							and buildDisplayedConnectionlessPlans(r, points, baseline)
 							or { r }
@@ -3557,15 +3320,6 @@ end
 		updatePreview()
 		runFind(false)
 	end)
-	controls.foulbornCheck = new("CheckBoxControl", TL, { 810, 54, 18 }, "Foulborn", function(state)
-		cancelComputeTask()
-		isFoulborn = state
-		saveFinderState()
-		rebuildJewelTypeDropdown()
-		syncSelectedJewelTypeControls()
-		updatePreview()
-		runFind(false)
-	end)
 
 	-- ── Find button ───────────────────────────────────────────────────────────
 	runFind = function(makePreferred)
@@ -3575,7 +3329,7 @@ end
 					local isThreadBestVariantSearch = selectedJewelType.isThread == true
 					local isImpossibleEscapeBestVariantSearch = selectedJewelType.isImpossibleEscape == true
 					local isSplitPersonalitySearch = selectedJewelType.isSplitPersonality == true
-					local selectedFoulbornActive = isSelectedFoulbornActive()
+					local isMassiveRadiusVariant = selectedJewelVariant and selectedJewelVariant.isMassiveRadius
 					local radiusIndex
 					local smallRadiusIndex = isImpossibleEscapeBestVariantSearch and radiusIndexByLabel["Small"] or nil
 					if isThreadBestVariantSearch then
@@ -3584,17 +3338,16 @@ end
 						end
 					elseif isImpossibleEscapeBestVariantSearch or isSplitPersonalitySearch then
 						radiusIndex = nil
-				elseif selectedJewelType.name == "Intuitive Leap" and selectedFoulbornActive then
+				elseif isMassiveRadiusVariant then
 				-- The full Massive radius doesn't exist natively; we handle it below.
 			elseif selectedJewelType.variants and selectedJewelVariant and selectedJewelVariant.radiusIndex then
 				radiusIndex = selectedJewelVariant.radiusIndex
 			else
 				radiusIndex = selectedJewelType.radiusIndex
 				end
-				
-				-- Sécurité : si le rayon n'est pas défini ou introuvable, on arrête la recherche.
+
 				if not isThreadBestVariantSearch and not isImpossibleEscapeBestVariantSearch and not isSplitPersonalitySearch
-				and not radiusIndex and not (selectedJewelType.name == "Intuitive Leap" and selectedFoulbornActive) then
+				and not radiusIndex and not isMassiveRadiusVariant then
 					return
 				end
 
@@ -3688,7 +3441,7 @@ end
 							})
 						else
 							local nodes
-							if selectedJewelType.name == "Intuitive Leap" and selectedFoulbornActive then
+							if isMassiveRadiusVariant then
 								-- Construction manuelle du cercle complet "Massive" (2400)
 								nodes = { }
 								for idx, r in ipairs(data.jewelRadius) do
@@ -3805,10 +3558,6 @@ end
 		if finderState.showLegacy ~= nil then
 			showLegacy = finderState.showLegacy
 			controls.showLegacyCheck.state = showLegacy
-		end
-		if finderState.isFoulborn ~= nil then
-			isFoulborn = finderState.isFoulborn
-			controls.foulbornCheck.state = isFoulborn
 		end
 		rebuildJewelTypeDropdown()
 
