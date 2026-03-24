@@ -2145,6 +2145,7 @@ function TreeTabClass:FindTimelessJewel()
 				label = "Sort by " .. stat.label,
 				stat = stat.stat,
 				transform = stat.transform,
+				getValue = stat.getValue,
 			})
 		end
 	end

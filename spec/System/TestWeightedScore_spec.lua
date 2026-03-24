@@ -250,4 +250,25 @@ describe("WeightedScore — tree integration", function()
 		local score = stat.getValue(baseOutput, build)
 		assert.is_true(score ~= 0)
 	end)
+
+	-- Pass: fallbackWeightsList entries for WeightedScore carry getValue
+	-- Fail: if getValue is not copied into the dropdown entry, generateFallbackWeights
+	--       receives selection.getValue = nil and falls back to output["WeightedScore"]
+	--       which is always nil, producing weight = -100 for every node
+	it("WeightedScore fallbackWeightsList entry carries getValue callback", function()
+		local found = nil
+		for _, entry in pairs(data.powerStatList) do
+			if entry.stat == "WeightedScore" and not entry.ignoreForItems and entry.label ~= "Name" then
+				found = {
+					label = "Sort by " .. entry.label,
+					stat = entry.stat,
+					transform = entry.transform,
+					getValue = entry.getValue,
+				}
+				break
+			end
+		end
+		assert.is_not_nil(found, "WeightedScore entry should appear in fallbackWeightsList candidates")
+		assert.is_function(found.getValue, "getValue must be propagated into the dropdown entry")
+	end)
 end)
