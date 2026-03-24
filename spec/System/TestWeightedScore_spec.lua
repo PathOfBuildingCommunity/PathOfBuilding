@@ -220,4 +220,34 @@ describe("WeightedScore — tree integration", function()
 		assert.is_not_nil(build.calcsTab.powerMax)
 		assert.is_true(build.calcsTab.powerMax.singleStat >= 0)
 	end)
+
+	-- Pass: getValue returns a positive score when the new output is better than base
+	-- Fail: reading output["WeightedScore"] (non-existent field) would return 0, giving
+	--       weight1 = (0/1 - 1)*100 = -100 for every fallback node regardless of actual impact
+	it("getValue on WeightedScore entry returns positive score for better output", function()
+		local stat = findStat("WeightedScore")
+		assert.is_not_nil(stat)
+		assert.is_function(stat.getValue)
+		local calcFunc = build.calcsTab:GetMiscCalculator(build)
+		local baseOutput = calcFunc()
+		-- Synthesize a "better" output by doubling FullDPS relative to base
+		local betterOutput = setmetatable({}, { __index = baseOutput })
+		betterOutput.FullDPS = (baseOutput.FullDPS or 0) * 2 + 1
+		local baseScore   = stat.getValue(baseOutput, build)
+		local betterScore = stat.getValue(betterOutput, build)
+		assert.is_true(betterScore > baseScore)
+	end)
+
+	-- Pass: getValue returns a non-zero base score (build has some meaningful output)
+	-- Fail: if getValue silently returned 0 for base, generateFallbackWeights would
+	--       set baseValue=1 and all weights would be computed against 1 instead of the
+	--       real build score, producing incorrect -100 values for all neutral nodes
+	it("getValue on WeightedScore entry returns non-zero score for current build output", function()
+		local stat = findStat("WeightedScore")
+		assert.is_not_nil(stat)
+		local calcFunc = build.calcsTab:GetMiscCalculator(build)
+		local baseOutput = calcFunc()
+		local score = stat.getValue(baseOutput, build)
+		assert.is_true(score ~= 0)
+	end)
 end)

@@ -1851,29 +1851,37 @@ function TreeTabClass:FindTimelessJewel()
 	local function generateFallbackWeights(nodes, selection)
 		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
 		local newList = { }
-		local baseOutput = calcFunc()
+		local baseRawOutput = calcFunc()
+		local baseOutput = baseRawOutput
 		if baseOutput.Minion then
 			baseOutput = baseOutput.Minion
 		end
-		local baseValue = baseOutput[selection.stat] or 1
-		if selection.transform then
-			baseValue = selection.transform(baseValue)
+		local function getStatValue(scopedOutput, rawOutput)
+			if selection.getValue then
+				return selection.getValue(rawOutput, self.build)
+			end
+			local value = scopedOutput[selection.stat] or 0
+			if selection.transform then
+				value = selection.transform(value)
+			end
+			return value
+		end
+		local baseValue = getStatValue(baseOutput, baseRawOutput)
+		if baseValue == 0 then
+			baseValue = 1
 		end
 		for _, newNode in ipairs(nodes) do
-			local output = nil
+			local rawOutput = nil
 			if newNode.calcMultiple then
-				output = calcFunc({ addNodes = { [newNode.node[1]] = true } })
+				rawOutput = calcFunc({ addNodes = { [newNode.node[1]] = true } })
 			else
-				output = calcFunc({ addNodes = { [newNode] = true } })
+				rawOutput = calcFunc({ addNodes = { [newNode] = true } })
 			end
-			if output.Minion then
-				output = output.Minion
+			local scopedOutput = rawOutput
+			if scopedOutput.Minion then
+				scopedOutput = scopedOutput.Minion
 			end
-			local outputValue = output[selection.stat] or 0
-			if selection.transform then
-				outputValue = selection.transform(outputValue)
-			end
-			outputValue = outputValue / baseValue
+			local outputValue = getStatValue(scopedOutput, rawOutput) / baseValue
 			if outputValue ~= outputValue then
 				outputValue = 1
 			end
@@ -1882,15 +1890,12 @@ function TreeTabClass:FindTimelessJewel()
 				weight1 = (outputValue - 1) / (newNode.divisor or 1)
 			})
 			if newNode.calcMultiple then
-				output = calcFunc({ addNodes = { [newNode.node[2]] = true } })
-				if output.Minion then
-					output = output.Minion
+				rawOutput = calcFunc({ addNodes = { [newNode.node[2]] = true } })
+				scopedOutput = rawOutput
+				if scopedOutput.Minion then
+					scopedOutput = scopedOutput.Minion
 				end
-				outputValue = output[selection.stat] or 0
-				if selection.transform then
-					outputValue = selection.transform(outputValue)
-				end
-				outputValue = outputValue / baseValue
+				outputValue = getStatValue(scopedOutput, rawOutput) / baseValue
 				if outputValue ~= outputValue then
 					outputValue = 1
 				end
