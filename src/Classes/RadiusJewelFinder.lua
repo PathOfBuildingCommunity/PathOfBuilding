@@ -1114,18 +1114,12 @@ jewelPreviewFn = {
 	end,
 
 	["Might of the Meek"] = function(variant, isFoulborn)
-		if isFoulborn and variant then
-			local lines = previewHeader("Might of the Meek", "Crimson Jewel", variant.radiusLabel, nil, isFoulborn)
-			t_insert(lines, { height = 16, [1] = COL_MOD .. variant.effect .. " increased Effect of non-Keystone" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Passive Skills in Radius" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Notable Passive Skills in Radius grant nothing" })
-			return lines
-		else
-			local lines = previewHeader("Might of the Meek", "Crimson Jewel", "Large", nil, isFoulborn)
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "50% increased Effect of non-Keystone" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Passive Skills in Radius" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Notable Passive Skills in Radius grant nothing" })
-		end
+		local radiusLabel = (isFoulborn and variant) and variant.radiusLabel or "Large"
+		local effect = (isFoulborn and variant) and variant.effect or "50%"
+		local lines = previewHeader("Might of the Meek", "Crimson Jewel", radiusLabel, nil, isFoulborn)
+		t_insert(lines, { height = 16, [1] = COL_MOD .. effect .. " increased Effect of non-Keystone" })
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "Passive Skills in Radius" })
+		t_insert(lines, { height = 16, [1] = COL_MOD .. "Notable Passive Skills in Radius grant nothing" })
 		return lines
 	end,
 
