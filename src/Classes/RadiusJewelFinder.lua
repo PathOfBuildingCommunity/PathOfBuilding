@@ -114,12 +114,21 @@ local RadiusJewelResultsListClass = newClass("RadiusJewelResultsListControl", "L
 			{ width = 90, label = "Ring", sortable = true },
 			{ width = 130, label = "Detail", sortable = true },
 		},
+		findAll = {
+			{ width = 120, label = "Jewel", sortable = true },
+			{ width = 130, label = "Socket", sortable = true },
+			{ width = 40, label = "Pts", sortable = true },
+			{ width = 60, label = "Score", sortable = true },
+			{ width = 65, label = "/Pt", sortable = true },
+			{ width = 145, label = "Detail", sortable = true },
+		},
 	}
 	self.defaultSortByMode = {
 		computeSocket = 5,
 		computeSocketAll = 6,
 		find = 4,
 		findThread = 4,
+		findAll = 5,
 	}
 	self.resultTooltip = new("Tooltip")
 	self.itemTooltip = new("Tooltip")
@@ -298,6 +307,20 @@ function RadiusJewelResultsListClass:ReSort(colIndex)
 		elseif colIndex == 6 and self.mode == "findThread" then
 			t_sort(self.list, function(a, b) return a.detailText < b.detailText end)
 		end
+	elseif self.mode == "findAll" then
+		if colIndex == 1 then
+			t_sort(self.list, function(a, b) return a.jewelName < b.jewelName end)
+		elseif colIndex == 2 then
+			t_sort(self.list, function(a, b) return a.socketLabel < b.socketLabel end)
+		elseif colIndex == 3 then
+			t_sort(self.list, function(a, b) return a.points < b.points end)
+		elseif colIndex == 4 then
+			t_sort(self.list, function(a, b) return a.score > b.score end)
+		elseif colIndex == 5 then
+			t_sort(self.list, function(a, b) return a.scorePerPointSort > b.scorePerPointSort end)
+		elseif colIndex == 6 then
+			t_sort(self.list, function(a, b) return a.detailText < b.detailText end)
+		end
 	end
 end
 
@@ -334,6 +357,14 @@ function RadiusJewelResultsListClass:GetRowValue(column, index, row)
 			or column == 3 and s_format("^7%d", row.score)
 			or column == 4 and (row.points == 0 and (row.score > 0 and "^2Free" or "^8Free") or s_format("^7%.2f", row.scorePerPoint))
 			or column == 5 and row.variantLabel
+			or column == 6 and row.detailText
+			or ""
+	elseif self.mode == "findAll" then
+		return column == 1 and row.jewelName
+			or column == 2 and row.socketLabel
+			or column == 3 and tostring(row.points)
+			or column == 4 and s_format("^7%d", row.score)
+			or column == 5 and (row.points == 0 and (row.score > 0 and "^2Free" or "^8Free") or s_format("^7%.2f", row.scorePerPoint))
 			or column == 6 and row.detailText
 			or ""
 	end
@@ -2631,12 +2662,15 @@ function RadiusJewelFinderClass:Open()
 	for _, v in ipairs(ALL_JEWELS_VIEW_OPTIONS) do t_insert(allJewelsViewLabels, v.label) end
 	local selectedAllJewelsView = ALL_JEWELS_VIEW_OPTIONS[1]
 	local lastComputeAllRows = nil
+	local lastFindAllRows = nil
 
 	local function filterBestPerSocket(rows)
 		local bestBySocket = { }
 		for _, row in ipairs(rows) do
 			local ex = bestBySocket[row.socketId]
-			if not ex or row.sortPctPerPoint > ex.sortPctPerPoint then
+			local sortVal = row.sortPctPerPoint or row.scorePerPointSort or 0
+			local exSortVal = ex and (ex.sortPctPerPoint or ex.scorePerPointSort or 0) or nil
+			if not ex or sortVal > exSortVal then
 				bestBySocket[row.socketId] = row
 			end
 		end
@@ -2702,6 +2736,11 @@ function RadiusJewelFinderClass:Open()
 		local rows = copyTableSafe(cache.rows, false, true)
 		if cache.mode == "computeSocketAll" then
 			lastComputeAllRows = rows
+			if selectedAllJewelsView.id == "bestPerSocket" then
+				rows = filterBestPerSocket(rows)
+			end
+		elseif cache.mode == "findAll" then
+			lastFindAllRows = rows
 			if selectedAllJewelsView.id == "bestPerSocket" then
 				rows = filterBestPerSocket(rows)
 			end
@@ -3086,7 +3125,12 @@ end
 	controls.allJewelsViewLabel = new("LabelControl", TL, { 278, 10, 0, 16 }, "^7View:")
 	controls.allJewelsViewSelect = new("DropDownControl", TL, { 278, 26, 160, 20 }, allJewelsViewLabels, function(idx)
 		selectedAllJewelsView = ALL_JEWELS_VIEW_OPTIONS[idx]
-		if lastComputeAllRows then
+		local curMode = controls.resultsList.mode
+		if curMode == "findAll" and lastFindAllRows then
+			local displayRows = selectedAllJewelsView.id == "bestPerSocket"
+				and filterBestPerSocket(lastFindAllRows) or lastFindAllRows
+			controls.resultsList:SetMode("findAll", displayRows, COL_META .. "(no results)")
+		elseif lastComputeAllRows then
 			local displayRows = selectedAllJewelsView.id == "bestPerSocket"
 				and filterBestPerSocket(lastComputeAllRows) or lastComputeAllRows
 			controls.resultsList:SetMode("computeSocketAll", displayRows, COL_META .. "(no compatible sockets)")
@@ -3164,7 +3208,7 @@ end
 					controls.computeButton.shown = true
 				end
 				if controls.findButton then
-					controls.findButton.shown = false
+					controls.findButton.shown = true
 				end
 				selectedJewelVariant = nil
 				return
@@ -3558,6 +3602,169 @@ end
 	-- ── Find button ───────────────────────────────────────────────────────────
 	runFind = function(makePreferred)
 			if selectedJewelType and selectedJewelType.isAllJewels then
+				controls.statusLabel.label = "^7Searching all jewels..."
+				local ok, err = pcall(function()
+					local allocNodes = self.build.spec.allocNodes
+					local allRows = { }
+
+					for _, jt in ipairs(activeJewelTypes) do
+						if jt.isAllJewels then goto continueType end
+
+						local typeResults = { }
+
+						if jt.isThread then
+							-- Thread of Hope: best ring per socket
+							for _, socket in ipairs(jewelSockets) do
+								local socketAllowed, occupancy = self:socketMatchesOccupiedMode(socket.id, selectedOccupiedMode)
+								local socketNode = treeData.nodes[socket.id]
+								if socketAllowed and socketNode and socketNode.nodesInRadius then
+									local best
+									for _, tv in ipairs(threadVariants) do
+										local nodes = socketNode.nodesInRadius[tv.radiusIndex]
+										if nodes then
+											local score = jt.score(nodes, allocNodes) or 0
+											if not best or score > best.score then
+												best = { socket = socket, score = score, variant = tv,
+													replacedItemLabel = occupancy and occupancy.isOccupied and occupancy.itemLabel or nil }
+											end
+										end
+									end
+									if best then t_insert(typeResults, best) end
+								end
+							end
+						elseif jt.isImpossibleEscape then
+							-- IE: find best keystone variant, score all sockets uniformly
+							local smallRI = radiusIndexByLabel["Small"]
+							local variants = jt.variants or { }
+							local bestIE
+							for _, variant in ipairs(variants) do
+								local keystoneNode = treeData.keystoneMap[variant.keystoneName]
+								local nodes = keystoneNode and keystoneNode.nodesInRadius and smallRI and keystoneNode.nodesInRadius[smallRI]
+								if nodes then
+									local score = jt.score(nodes, allocNodes) or 0
+									if not bestIE or score > bestIE.score then
+										bestIE = { score = score, variant = variant }
+									end
+								end
+							end
+							if bestIE then
+								for _, socket in ipairs(jewelSockets) do
+									local socketAllowed, occupancy = self:socketMatchesOccupiedMode(socket.id, selectedOccupiedMode)
+									if socketAllowed then
+										t_insert(typeResults, {
+											socket = socket, score = bestIE.score,
+											variant = bestIE.variant,
+											detailText = bestIE.variant.name,
+											replacedItemLabel = occupancy and occupancy.isOccupied and occupancy.itemLabel or nil,
+										})
+									end
+								end
+							end
+						elseif jt.isSplitPersonality then
+							-- Split Personality: distance scoring
+							for _, socket in ipairs(jewelSockets) do
+								local socketAllowed, occupancy = self:socketMatchesOccupiedMode(socket.id, selectedOccupiedMode)
+								if socketAllowed then
+									local score = socket.classStartDist or self:getSocketDistanceToClassStart(socket.id)
+									t_insert(typeResults, {
+										socket = socket, score = score,
+										detailText = s_format("dist %d", score),
+										replacedItemLabel = occupancy and occupancy.isOccupied and occupancy.itemLabel or nil,
+									})
+								end
+							end
+						elseif jt.variants then
+							-- Type with variants: best non-Foulborn variant per socket
+							local radiusIndex = jt.radiusIndex
+							for _, socket in ipairs(jewelSockets) do
+								local socketAllowed, occupancy = self:socketMatchesOccupiedMode(socket.id, selectedOccupiedMode)
+								local socketNode = treeData.nodes[socket.id]
+								if socketAllowed and socketNode and socketNode.nodesInRadius then
+									local best
+									for _, variant in ipairs(jt.variants) do
+										if not variant.isFoulborn then
+											local vRadiusIndex = variant.radiusIndex or radiusIndex
+											local nodes = vRadiusIndex and socketNode.nodesInRadius[vRadiusIndex]
+											if nodes then
+												local scoreFn = variant.score or jt.score
+												local score = scoreFn(nodes, allocNodes) or 0
+												if not best or score > best.score then
+													best = { socket = socket, score = score, variant = variant,
+														replacedItemLabel = occupancy and occupancy.isOccupied and occupancy.itemLabel or nil }
+												end
+											end
+										end
+									end
+									if best then t_insert(typeResults, best) end
+								end
+							end
+						else
+							-- Simple type: single radiusIndex + score
+							local radiusIndex = jt.radiusIndex
+							if radiusIndex then
+								for _, socket in ipairs(jewelSockets) do
+									local socketAllowed, occupancy = self:socketMatchesOccupiedMode(socket.id, selectedOccupiedMode)
+									local socketNode = treeData.nodes[socket.id]
+									if socketAllowed and socketNode and socketNode.nodesInRadius then
+										local nodes = socketNode.nodesInRadius[radiusIndex]
+										if nodes then
+											local score = jt.score(nodes, allocNodes) or 0
+											t_insert(typeResults, {
+												socket = socket, score = score,
+												replacedItemLabel = occupancy and occupancy.isOccupied and occupancy.itemLabel or nil,
+											})
+										end
+									end
+								end
+							end
+						end
+
+						-- Build rows from typeResults
+						for _, r in ipairs(typeResults) do
+							local points = self:getSocketAccessCost(r.socket, { isOccupied = r.replacedItemLabel ~= nil })
+							local scorePerPoint = points > 0 and (r.score / points) or r.score
+							local scorePerPointSort = points > 0 and scorePerPoint or (r.score >= 0 and math.huge or -math.huge)
+							local detailText = r.detailText or ""
+							if r.variant and detailText == "" then
+								if jt.isThread then
+									detailText = r.variant.name .. " Ring"
+								else
+									detailText = r.variant.name
+								end
+							end
+							t_insert(allRows, {
+								jewelName = jt.name,
+								socketLabel = r.socket.label,
+								socketId = r.socket.id,
+								points = points,
+								score = r.score or 0,
+								scorePerPoint = scorePerPoint,
+								scorePerPointSort = scorePerPointSort,
+								detailText = detailText,
+								replacedItemLabel = r.replacedItemLabel,
+							})
+						end
+
+						::continueType::
+					end
+
+					t_sort(allRows, function(a, b) return a.scorePerPointSort > b.scorePerPointSort end)
+					lastFindAllRows = allRows
+					local displayRows = selectedAllJewelsView.id == "bestPerSocket"
+						and filterBestPerSocket(allRows) or allRows
+					controls.resultsList:SetMode("findAll", displayRows, COL_META .. "(no results)")
+					controls.statusLabel.label = s_format("^7All jewels | %d results | score/pt", #allRows)
+					saveResultCache("find", "findAll", allRows, COL_META .. "(no results)", controls.statusLabel.label, makePreferred)
+					if not makePreferred then
+						restoreCachedResults()
+					end
+				end)
+				if not ok then
+					controls.statusLabel.label = "^1Error: " .. tostring(err)
+					controls.resultsList:SetMode("message", {
+						{ text = "^1" .. tostring(err) },
+					}, "^1Error")
+				end
 				return
 			end
 			controls.statusLabel.label = "^7Searching..."
