@@ -111,6 +111,62 @@ function PassiveTreeViewClass:GetCompareJewel(nodeId)
 	return nil
 end
 
+-- Returns the overlay asset name for a socketed jewel, or nil if no special overlay applies.
+function PassiveTreeViewClass:GetJewelSocketOverlay(jewel, isExpansion)
+	if jewel.baseName == "Crimson Jewel" then
+		return isExpansion and "JewelSocketActiveRedAlt" or "JewelSocketActiveRed"
+	elseif jewel.baseName == "Viridian Jewel" then
+		return isExpansion and "JewelSocketActiveGreenAlt" or "JewelSocketActiveGreen"
+	elseif jewel.baseName == "Cobalt Jewel" then
+		return isExpansion and "JewelSocketActiveBlueAlt" or "JewelSocketActiveBlue"
+	elseif jewel.baseName == "Prismatic Jewel" then
+		return isExpansion and "JewelSocketActivePrismaticAlt" or "JewelSocketActivePrismatic"
+	elseif jewel.base and jewel.base.subType == "Abyss" then
+		return isExpansion and "JewelSocketActiveAbyssAlt" or "JewelSocketActiveAbyss"
+	elseif jewel.base and jewel.base.subType == "Charm" then
+		if jewel.baseName == "Ursine Charm" then
+			return "CharmSocketActiveStr"
+		elseif jewel.baseName == "Corvine Charm" then
+			return "CharmSocketActiveInt"
+		elseif jewel.baseName == "Lupine Charm" then
+			return "CharmSocketActiveDex"
+		end
+	elseif jewel.baseName == "Timeless Jewel" then
+		return isExpansion and "JewelSocketActiveLegionAlt" or "JewelSocketActiveLegion"
+	elseif jewel.baseName == "Large Cluster Jewel" then
+		return "JewelSocketActiveAltPurple"
+	elseif jewel.baseName == "Medium Cluster Jewel" then
+		return "JewelSocketActiveAltBlue"
+	elseif jewel.baseName == "Small Cluster Jewel" then
+		return "JewelSocketActiveAltRed"
+	end
+end
+
+-- Returns the draw color for a node when compare overlay is active.
+-- Handles diff coloring for allocated/unallocated, mastery changes, and jewel socket differences.
+function PassiveTreeViewClass:GetCompareNodeColor(node, compareNode, spec, build, nodeDefaultColor)
+	if not compareNode then
+		return nodeDefaultColor
+	end
+	if compareNode.alloc and not node.alloc then
+		return 0, 1, 0
+	elseif not compareNode.alloc and node.alloc then
+		return 1, 0, 0
+	elseif node.type == "Mastery" and compareNode.alloc and node.alloc and node.sd ~= compareNode.sd then
+		return 0, 0, 1
+	elseif node.type == "Socket" and compareNode.alloc and node.alloc then
+		local pJewelId = spec.jewels[node.id]
+		local pJewel = pJewelId and build.itemsTab.items[pJewelId]
+		local cJewel = self:GetCompareJewel(node.id)
+		local pName = pJewel and pJewel.name or ""
+		local cName = cJewel and cJewel.name or ""
+		if pName ~= cName then
+			return 0, 0, 1
+		end
+	end
+	return nodeDefaultColor
+end
+
 function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	local spec = build.spec
 	local tree = spec.tree
@@ -742,33 +798,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				base = tree.assets[(node.name == "Charm Socket" and "Azmeri" or "" ) .. node.overlay[state .. (node.expansionJewel and "Alt" or "")]]
 				local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(nodeId)
 				if isAlloc and jewel then
-					if jewel.baseName == "Crimson Jewel" then
-						overlay = node.expansionJewel and "JewelSocketActiveRedAlt" or "JewelSocketActiveRed"
-					elseif jewel.baseName == "Viridian Jewel" then
-						overlay = node.expansionJewel and "JewelSocketActiveGreenAlt" or "JewelSocketActiveGreen"
-					elseif jewel.baseName == "Cobalt Jewel" then
-						overlay = node.expansionJewel and "JewelSocketActiveBlueAlt" or "JewelSocketActiveBlue"
-					elseif jewel.baseName == "Prismatic Jewel" then
-						overlay = node.expansionJewel and "JewelSocketActivePrismaticAlt" or "JewelSocketActivePrismatic"
-					elseif jewel.base.subType == "Abyss" then
-						overlay = node.expansionJewel and "JewelSocketActiveAbyssAlt" or "JewelSocketActiveAbyss"
-					elseif jewel.base.subType == "Charm" then
-						if jewel.baseName == "Ursine Charm" then
-							overlay = "CharmSocketActiveStr"
-						elseif jewel.baseName == "Corvine Charm" then
-							overlay = "CharmSocketActiveInt"
-						elseif jewel.baseName == "Lupine Charm" then
-							overlay = "CharmSocketActiveDex"
-						end
-					elseif jewel.baseName == "Timeless Jewel" then
-						overlay = node.expansionJewel and "JewelSocketActiveLegionAlt" or "JewelSocketActiveLegion"
-					elseif jewel.baseName == "Large Cluster Jewel" then
-						overlay = "JewelSocketActiveAltPurple"
-					elseif jewel.baseName == "Medium Cluster Jewel" then
-						overlay = "JewelSocketActiveAltBlue"
-					elseif jewel.baseName == "Small Cluster Jewel" then
-						overlay = "JewelSocketActiveAltRed"
-					end
+					overlay = self:GetJewelSocketOverlay(jewel, node.expansionJewel)
 				end
 		elseif node.type == "Mastery" then
 			local override = spec.hashOverrides and spec.hashOverrides[node.id]
@@ -849,35 +879,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					end
 				end
 			else
-				if compareNode then
-					if compareNode.alloc and not node.alloc then
-						-- Base has, current has not, color green (take these nodes to match)
-						SetDrawColor(0, 1, 0)
-					elseif not compareNode.alloc and node.alloc then
-						-- Base has not, current has, color red (Remove nodes to match)
-						SetDrawColor(1, 0, 0)
-					elseif node.type == "Mastery" and compareNode.alloc and node.alloc and node.sd ~= compareNode.sd then
-						-- Node is a mastery, both have it allocated, but mastery changed, color it blue
-						SetDrawColor(0, 0, 1)
-					elseif node.type == "Socket" and compareNode.alloc and node.alloc then
-						-- Both allocated socket, check if jewels differ
-						local pJewelId = spec.jewels[nodeId]
-						local pJewel = pJewelId and build.itemsTab.items[pJewelId]
-						local cJewel = self:GetCompareJewel(nodeId)
-						local pName = pJewel and pJewel.name or ""
-						local cName = cJewel and cJewel.name or ""
-						if pName ~= cName then
-							SetDrawColor(0, 0, 1)
-						else
-							SetDrawColor(nodeDefaultColor)
-						end
-					else
-						-- Both have or both have not
-						SetDrawColor(nodeDefaultColor)
-					end
-				else
-					SetDrawColor(nodeDefaultColor)
-				end
+				SetDrawColor(self:GetCompareNodeColor(node, compareNode, spec, build, nodeDefaultColor))
 			end
 		elseif launch.devModeAlt then
 			-- Debug display
@@ -889,35 +891,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				SetDrawColor(0, 0, 0)
 			end
 		else
-			if compareNode then
-				if compareNode.alloc and not node.alloc then
-					-- Base has, current has not, color green (take these nodes to match)
-					SetDrawColor(0, 1, 0)
-				elseif not compareNode.alloc and node.alloc then
-					-- Base has not, current has, color red (Remove nodes to match)
-					SetDrawColor(1, 0, 0)
-				elseif node.type == "Mastery" and compareNode.alloc and node.alloc and node.sd ~= compareNode.sd then
-					-- Node is a mastery, both have it allocated, but mastery changed, color it blue
-					SetDrawColor(0, 0, 1)
-				elseif node.type == "Socket" and compareNode.alloc and node.alloc then
-					-- Both allocated socket, check if jewels differ
-					local pJewelId = spec.jewels[nodeId]
-					local pJewel = pJewelId and build.itemsTab.items[pJewelId]
-					local cJewel = self:GetCompareJewel(nodeId)
-					local pName = pJewel and pJewel.name or ""
-					local cName = cJewel and cJewel.name or ""
-					if pName ~= cName then
-						SetDrawColor(0, 0, 1)
-					else
-						SetDrawColor(nodeDefaultColor)
-					end
-				else
-					-- Both have or both have not
-					SetDrawColor(nodeDefaultColor)
-				end
-			else
-				SetDrawColor(nodeDefaultColor)
-			end
+			SetDrawColor(self:GetCompareNodeColor(node, compareNode, spec, build, nodeDefaultColor))
 		end
 
 		-- Draw mastery/tattoo effect artwork
@@ -1034,25 +1008,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					-- Look up jewel from compare build to show correct colored socket overlay
 					local cJewel = self:GetCompareJewel(nodeId)
 					if cJewel then
-						if cJewel.baseName == "Crimson Jewel" then
-							overlay = compareNode.expansionJewel and "JewelSocketActiveRedAlt" or "JewelSocketActiveRed"
-						elseif cJewel.baseName == "Viridian Jewel" then
-							overlay = compareNode.expansionJewel and "JewelSocketActiveGreenAlt" or "JewelSocketActiveGreen"
-						elseif cJewel.baseName == "Cobalt Jewel" then
-							overlay = compareNode.expansionJewel and "JewelSocketActiveBlueAlt" or "JewelSocketActiveBlue"
-						elseif cJewel.baseName == "Prismatic Jewel" then
-							overlay = compareNode.expansionJewel and "JewelSocketActivePrismaticAlt" or "JewelSocketActivePrismatic"
-						elseif cJewel.base and cJewel.base.subType == "Abyss" then
-							overlay = compareNode.expansionJewel and "JewelSocketActiveAbyssAlt" or "JewelSocketActiveAbyss"
-						elseif cJewel.baseName == "Timeless Jewel" then
-							overlay = compareNode.expansionJewel and "JewelSocketActiveLegionAlt" or "JewelSocketActiveLegion"
-						elseif cJewel.baseName == "Large Cluster Jewel" then
-							overlay = "JewelSocketActiveAltPurple"
-						elseif cJewel.baseName == "Medium Cluster Jewel" then
-							overlay = "JewelSocketActiveAltBlue"
-						elseif cJewel.baseName == "Small Cluster Jewel" then
-							overlay = "JewelSocketActiveAltRed"
-						end
+						overlay = self:GetJewelSocketOverlay(cJewel, compareNode.expansionJewel)
 					end
 				elseif compareNode.type == "Mastery" then
 					if compareNode.masterySprites and compareNode.masterySprites.activeIcon then
