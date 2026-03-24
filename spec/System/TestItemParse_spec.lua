@@ -465,3 +465,151 @@ describe("TestItemParse", function()
 		assert.are.equal("+1500 to Armour", item.buffModLines[1].line)
 	end)
 end)
+
+describe("TestAdvancedItemParse", function()
+	it("parses item", function()
+		local advancedItem = new("Item", [[
+			Item Class: Belts
+			Rarity: Rare
+			Beast Snare
+			Cord Belt
+			--------
+			Requirements:
+			Level: 51
+			--------
+			Item Level: 83
+			--------
+			Allocates Surveillance (enchant)
+			--------
+			{ Implicit Modifier }
+			Can be Anointed
+			--------
+			{ Fractured Prefix Modifier "Thorny" (Tier: 2) — Damage, Physical }
+			Reflects 3(1-4) Physical Damage to Melee Attackers
+			{ Prefix Modifier "Fecund" (Tier: 1) — Life }
+			+142(130-144) to maximum Life
+			{ Prefix Modifier "Glowing" (Tier: 9) — Defences, Energy Shield }
+			+15(13-15) to maximum Energy Shield
+			{ Suffix Modifier "of the Tempest" (Tier: 4) — Elemental, Lightning, Resistance }
+			+34(30-35)% to Lightning Resistance
+			{ Master Crafted Suffix Modifier "of Craft" (Rank: 3) — Elemental, Cold, Resistance }
+			+35(29-35)% to Cold Resistance
+			--------
+			Fractured Item
+		]])
+
+		local equivalentCraftItem = new("Item", [[
+			Beast Snare
+			Cord Belt
+			Crafted: true
+			Prefix: {range:0.599}AttackerTakesDamage1
+			Prefix: {range:0.859}IncreasedLife9
+			Prefix: {range:0.845}IncreasedEnergyShield4
+			Suffix: {range:0.732}LightningResist5
+			Suffix: None
+			Suffix: None
+			LevelReq: 51
+			Implicits: 1
+			{crafted}Allocates Surveillance
+			Can be Anointed
+			+15 to maximum Energy Shield
+			+142 to maximum Life
+			+34% to Lightning Resistance
+			Reflects 3 Physical Damage to Melee Attackers
+			{tags:elemental,cold,resistance}{crafted}{range:1}+(29-35)% to Cold Resistance
+			]])
+
+		local catalyst = new("Item", [[
+			Item Class: Amulets
+			Rarity: Unique
+			Astramentis
+			Onyx Amulet
+			--------
+			Quality (Attribute Modifiers): +20% (augmented)
+			--------
+			Requirements:
+			Level: 20
+			--------
+			Item Level: 80
+			--------
+			Allocates Weathered Hunter (enchant)
+			--------
+			{ Implicit Modifier — Attribute  — 20% Increased }
+			+16(10-16) to all Attributes
+			(Attributes are Strength, Dexterity, and Intelligence)
+			--------
+			{ Unique Modifier — Attribute  — 20% Increased }
+			+86(80-100) to all Attributes
+			(Attributes are Strength, Dexterity, and Intelligence)
+			{ Unique Modifier — Physical, Attack }
+			-4 Physical Damage taken from Attack Hits
+			--------
+			Mindless rage will shake the world,
+			Cunning lies will bend it.
+			Reckless haste will break the world,
+			And into darkness send it.
+			--------
+			Note: ~b/o 50 chaos
+			]])
+		local godTestItem = new("Item", [[
+			Item Class: Sceptres
+			Rarity: Unique
+			Nebulis
+			Synthesised Void Sceptre
+			--------
+			Sceptre
+			Physical Damage: 50-76
+			Critical Strike Chance: 7.30%
+			Attacks per Second: 1.25
+			Weapon Range: 1.1 metres
+			Memory Strands: 58
+			--------
+			Requirements:
+			Level: 68
+			Str: 104
+			Int: 122
+			--------
+			Sockets: B R 
+			--------
+			Item Level: 87
+			--------
+			+30% to Fire Resistance (scourge)
+			22% reduced Global Defences (scourge)
+			(Armour, Evasion Rating and Energy Shield are the standard Defences) (scourge)
+			--------
+			8% increased Explicit Cold Modifier magnitudes (enchant)
+			Has 1 White Socket (enchant)
+			--------
+			{ Searing Exarch Implicit Modifier (Lesser) }
+			Tempest Shield has 15(15-17)% increased Buff Effect
+			{ Implicit Modifier — Damage, Critical  — 106% Increased }
+			+15(15-17)% to Global Critical Strike Multiplier
+			--------
+			{ Prefix Modifier "Freezing" (Tier: 5) — Damage, Elemental, Cold, Caster  — 8% Increased }
+			Adds 17(16-20) to 35(30-36) Cold Damage to Spells
+			{ Unique Modifier }
+			106(60-120)% increased Implicit Modifier magnitudes — Unscalable Value
+			(Implicit Modifiers are those that come from an item's type, rather than its random properties)
+			{ Master Crafted Suffix Modifier "of Craft" (Rank: 3) — Elemental, Cold, Resistance }
+			+35(29-35)% to Cold Resistance
+			{ Fractured Prefix Modifier "Thorny" (Tier: 2) — Damage, Physical }
+			Reflects 3(1-4) Physical Damage to Melee Attackers
+			{ Prefix Modifier "Veiled" }
+			Veiled Prefix
+			Searing Exarch Item
+			--------
+			{ Allocated Crucible Passive Skill (Tier: 2) }
+			Adds 2 to 6 Physical Damage to Spells
+			--------
+			Synthesised Item
+			--------
+			Corrupted
+			--------
+			Scourged
+			--------
+			Hinekora's Lock
+			--------
+			Note: ~b/o 2 chaos
+		]])
+	end)
+end)
