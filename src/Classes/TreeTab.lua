@@ -1949,7 +1949,13 @@ function TreeTabClass:FindTimelessJewel()
 	local function generateFallbackWeights(nodes, powerStat)
 		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
 		local newList = { }
-		local basePower = data.powerStatList.GetFromOutput(calcBase, powerStat)
+		local function getStatValue(output)
+			if powerStat.getValue then
+				return powerStat.getValue(output, self.build)
+			end
+			return data.powerStatList.GetFromOutput(output, powerStat)
+		end
+		local basePower = getStatValue(calcBase)
 		for _, newNode in ipairs(nodes) do
 			local powerEntry = { id = newNode.id }
 			-- nodes that have multiple lines are represented as a list in newNode.node
@@ -1957,7 +1963,7 @@ function TreeTabClass:FindTimelessJewel()
 			for i = 1, #nodeLines do
 				local node = nodeLines[i]
 				local nodeOutput = calcFunc({ addNodes = { [node] = true } })
-				local nodePower = data.powerStatList.GetFromOutput(nodeOutput, powerStat)
+				local nodePower = getStatValue(nodeOutput)
 				-- avoid infinity
 				if basePower == 0 then
 					powerEntry["weight" .. i] = 0
