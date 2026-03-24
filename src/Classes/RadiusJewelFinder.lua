@@ -3405,9 +3405,24 @@ end
 				end
 
 				for typeIndex, jt in ipairs(computableTypes) do
-					local typeProgress = progress:child(
+					local rawChild = progress:child(
 						(typeIndex - 1) / #computableTypes,
 						1 / #computableTypes)
+					local jtName = jt.name
+					local typeProgress = {
+						tick = function(self, done, total, label)
+							rawChild:tick(done, total, label and (jtName .. " | " .. label) or jtName)
+						end,
+						child = function(self, startFraction, spanFraction)
+							local inner = rawChild:child(startFraction, spanFraction)
+							return {
+								tick = function(_, done, total, label)
+									inner:tick(done, total, label and (jtName .. " | " .. label) or jtName)
+								end,
+								child = function(_, s, sp) return inner:child(s, sp) end,
+							}
+						end,
+					}
 					local socketResults, baseline
 
 					if jt.name == "Intuitive Leap" then
