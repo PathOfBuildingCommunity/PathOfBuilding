@@ -945,7 +945,7 @@ local function previewFromRawText(rawText, displayName, extraPreviewMeta)
 
 	local function addActiveModLines(modLineList)
 		for _, modLine in ipairs(modLineList or { }) do
-			if not modLine.extra and item:CheckModLineVariant(modLine) then
+			if item:CheckModLineVariant(modLine) then
 				for line in modLine.line:gmatch("[^\n]+") do
 					t_insert(mods, line)
 				end
