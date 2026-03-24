@@ -509,21 +509,6 @@ end
 -- Light of Meaning variants
 -- ─────────────────────────────────────────────────────────────────────────────
 
-local LIGHT_OF_MEANING_VARIANT_DEFS = {
-	{ name = "Life",             variantIndex = 1  },
-	{ name = "Energy Shield",    variantIndex = 2  },
-	{ name = "Mana",             variantIndex = 3  },
-	{ name = "Armour",           variantIndex = 4  },
-	{ name = "Evasion Rating",   variantIndex = 5  },
-	{ name = "Attributes",       variantIndex = 6  },
-	{ name = "Global Crit",      variantIndex = 7  },
-	{ name = "Physical Damage",  variantIndex = 8  },
-	{ name = "Lightning Damage", variantIndex = 9  },
-	{ name = "Cold Damage",      variantIndex = 10 },
-	{ name = "Fire Damage",      variantIndex = 11 },
-	{ name = "Chaos Damage",     variantIndex = 12 },
-	{ name = "Chaos Resistance", variantIndex = 13 },
-}
 
 local uniqueRawTextByName
 local uniqueRawTextByNameAndBase
@@ -612,19 +597,28 @@ local function mustGetCurrentUniqueRawText(name, baseName)
 	return mustGetUniqueVariantRawText(name, "Current", baseName)
 end
 
-local LIGHT_OF_MEANING_VARIANTS
-local function getLightOfMeaningVariants()
-	if not LIGHT_OF_MEANING_VARIANTS then
-		LIGHT_OF_MEANING_VARIANTS = { }
-		for _, def in ipairs(LIGHT_OF_MEANING_VARIANT_DEFS) do
-			local rawText = getUniqueVariantRawText("The Light of Meaning", def.variantIndex)
+local function buildVariantsFromUniqueItem(uniqueName, baseName)
+	local variants = { }
+	local baseRawText = mustGetUniqueRawText(uniqueName, baseName)
+	local item = new("Item", "Rarity: Unique\n" .. baseRawText)
+	if item.variantList then
+		for idx, variantName in ipairs(item.variantList) do
+			local rawText = getUniqueVariantRawText(uniqueName, idx, nil, baseName)
 			if rawText then
-				t_insert(LIGHT_OF_MEANING_VARIANTS, {
-					name = def.name,
+				t_insert(variants, {
+					name = variantName,
 					rawText = rawText,
 				})
 			end
 		end
+	end
+	return variants
+end
+
+local LIGHT_OF_MEANING_VARIANTS
+local function getLightOfMeaningVariants()
+	if not LIGHT_OF_MEANING_VARIANTS then
+		LIGHT_OF_MEANING_VARIANTS = buildVariantsFromUniqueItem("The Light of Meaning")
 	end
 	return LIGHT_OF_MEANING_VARIANTS
 end
@@ -828,17 +822,7 @@ end
 local SPLIT_PERSONALITY_VARIANTS
 local function getSplitPersonalityVariants()
 	if not SPLIT_PERSONALITY_VARIANTS then
-		SPLIT_PERSONALITY_VARIANTS = {
-			{ name = "Strength", rawText = mustGetUniqueVariantRawText("Split Personality", "Strength") },
-			{ name = "Dexterity", rawText = mustGetUniqueVariantRawText("Split Personality", "Dexterity") },
-			{ name = "Intelligence", rawText = mustGetUniqueVariantRawText("Split Personality", "Intelligence") },
-			{ name = "Life", rawText = mustGetUniqueVariantRawText("Split Personality", "Life") },
-			{ name = "Mana", rawText = mustGetUniqueVariantRawText("Split Personality", "Mana") },
-			{ name = "Energy Shield", rawText = mustGetUniqueVariantRawText("Split Personality", "Energy Shield") },
-			{ name = "Armour", rawText = mustGetUniqueVariantRawText("Split Personality", "Armour") },
-			{ name = "Evasion Rating", rawText = mustGetUniqueVariantRawText("Split Personality", "Evasion Rating") },
-			{ name = "Accuracy Rating", rawText = mustGetUniqueVariantRawText("Split Personality", "Accuracy Rating") },
-		}
+		SPLIT_PERSONALITY_VARIANTS = buildVariantsFromUniqueItem("Split Personality")
 	end
 	return SPLIT_PERSONALITY_VARIANTS
 end
