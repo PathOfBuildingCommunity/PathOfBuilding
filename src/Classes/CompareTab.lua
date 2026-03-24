@@ -42,7 +42,7 @@ local LAYOUT = {
 	summaryCol4 = 600,
 
 	-- Items view
-	itemsCheckboxOffset = 36,
+	itemsCheckboxOffset = 60,
 	itemsCopyBtnW = 60,
 	itemsCopyBtnH = 18,
 	itemsBuyBtnW = 60,
@@ -432,7 +432,7 @@ function CompareTabClass:InitControls()
 		})
 	end
 
-	-- Overlay toggle checkbox (positioned dynamically in Draw)
+	-- Overlay toggle checkbox
 	self.controls.treeOverlayCheck = new("CheckBoxControl", nil, {0, 0, 20}, "Overlay comparison", function(state)
 		self.treeOverlayMode = state
 		self.treeSearchNeedsSync = true
@@ -452,7 +452,7 @@ function CompareTabClass:InitControls()
 		return self.compareViewMode == "TREE" and self:GetActiveCompare() ~= nil and self.treeOverlayMode
 	end
 
-	-- Items expanded mode toggle (positioned dynamically in Draw)
+	-- Items expanded mode toggle
 	self.controls.itemsExpandedCheck = new("CheckBoxControl", nil, {0, 0, 20}, "Expanded mode", function(state)
 		self.itemsExpandedMode = state
 		self.scrollY = 0
@@ -461,7 +461,65 @@ function CompareTabClass:InitControls()
 		return self.compareViewMode == "ITEMS" and self:GetActiveCompare() ~= nil
 	end
 
-	-- Footer anchor controls (positioned dynamically in Draw, side-by-side only)
+	-- Item set dropdown for primary build
+	local itemsShown = function()
+		return self.compareViewMode == "ITEMS" and self:GetActiveCompare() ~= nil
+	end
+	self.controls.primaryItemSetLabel = new("LabelControl", nil, {0, 0, 0, 16}, "^7Item set:")
+	self.controls.primaryItemSetLabel.shown = itemsShown
+	self.controls.primaryItemSetSelect = new("DropDownControl", nil, {0, 0, 216, 20}, {}, function(index, value)
+		if self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.itemSetOrderList[index] then
+			self.primaryBuild.itemsTab:SetActiveItemSet(self.primaryBuild.itemsTab.itemSetOrderList[index])
+			self.primaryBuild.itemsTab:AddUndoState()
+		end
+	end)
+	self.controls.primaryItemSetSelect.enabled = itemsShown
+	self.controls.primaryItemSetSelect.shown = itemsShown
+
+	-- Item set dropdown for compare build
+	self.controls.compareItemSetLabel2 = new("LabelControl", nil, {0, 0, 0, 16}, "^7Item set:")
+	self.controls.compareItemSetLabel2.shown = itemsShown
+	self.controls.compareItemSetSelect2 = new("DropDownControl", nil, {0, 0, 216, 20}, {}, function(index, value)
+		local entry = self:GetActiveCompare()
+		if entry and entry.itemsTab and entry.itemsTab.itemSetOrderList[index] then
+			entry:SetActiveItemSet(entry.itemsTab.itemSetOrderList[index])
+		end
+	end)
+	self.controls.compareItemSetSelect2.enabled = itemsShown
+	self.controls.compareItemSetSelect2.shown = itemsShown
+
+	-- Tree set dropdown for primary build
+	self.controls.primaryTreeSetLabel = new("LabelControl", nil, {0, 0, 0, 16}, "^7Tree set:")
+	self.controls.primaryTreeSetLabel.shown = itemsShown
+	self.controls.primaryTreeSetSelect = new("DropDownControl", nil, {0, 0, 216, 20}, {}, function(index, value)
+		if self.primaryBuild.treeTab and self.primaryBuild.treeTab.specList[index] then
+			self.primaryBuild.modFlag = true
+			self.primaryBuild.treeTab:SetActiveSpec(index)
+		end
+	end)
+	self.controls.primaryTreeSetSelect.enabled = itemsShown
+	self.controls.primaryTreeSetSelect.shown = itemsShown
+	self.controls.primaryTreeSetSelect.maxDroppedWidth = 500
+	self.controls.primaryTreeSetSelect.enableDroppedWidth = true
+
+	-- Tree set dropdown for compare build
+	self.controls.compareTreeSetLabel = new("LabelControl", nil, {0, 0, 0, 16}, "^7Tree set:")
+	self.controls.compareTreeSetLabel.shown = itemsShown
+	self.controls.compareTreeSetSelect = new("DropDownControl", nil, {0, 0, 216, 20}, {}, function(index, value)
+		local entry = self:GetActiveCompare()
+		if entry and entry.treeTab and entry.treeTab.specList[index] then
+			entry:SetActiveSpec(index)
+			if self.primaryBuild.spec then
+				self.primaryBuild.spec:SetWindowTitleWithBuildClass()
+			end
+		end
+	end)
+	self.controls.compareTreeSetSelect.enabled = itemsShown
+	self.controls.compareTreeSetSelect.shown = itemsShown
+	self.controls.compareTreeSetSelect.maxDroppedWidth = 500
+	self.controls.compareTreeSetSelect.enableDroppedWidth = true
+
+	-- Footer anchor controls (side-by-side only)
 	self.controls.leftFooterAnchor = new("Control", nil, {0, 0, 0, 20})
 	self.controls.leftFooterAnchor.shown = treeSideBySideShown
 	self.controls.rightFooterAnchor = new("Control", nil, {0, 0, 0, 20})
@@ -1577,11 +1635,56 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 		return
 	end
 
-	-- Position items expanded mode checkbox (inside content area, top-left)
+	-- Position items expanded mode checkbox and item set dropdowns (inside content area, top-left)
 	-- Label draws to the left of the checkbox, so offset x by labelWidth to keep it visible
 	if self.compareViewMode == "ITEMS" then
 		self.controls.itemsExpandedCheck.x = contentVP.x + 10 + self.controls.itemsExpandedCheck.labelWidth
 		self.controls.itemsExpandedCheck.y = contentVP.y + 8
+
+		local colWidth = m_floor(contentVP.width / 2)
+		local itemSetLabelW = DrawStringWidth(16, "VAR", "^7Item set:") + 4
+
+		-- Item set dropdowns
+		local row1Y = contentVP.y + 34
+
+		-- Primary build item set dropdown
+		self.controls.primaryItemSetLabel.x = contentVP.x + 10
+		self.controls.primaryItemSetLabel.y = row1Y + 2
+		self.controls.primaryItemSetSelect.x = contentVP.x + 10 + itemSetLabelW
+		self.controls.primaryItemSetSelect.y = row1Y
+
+		-- Compare build item set dropdown
+		self.controls.compareItemSetLabel2.x = contentVP.x + colWidth + 10
+		self.controls.compareItemSetLabel2.y = row1Y + 2
+		self.controls.compareItemSetSelect2.x = contentVP.x + colWidth + 10 + itemSetLabelW
+		self.controls.compareItemSetSelect2.y = row1Y
+
+		-- Populate primary build item set list
+		if self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.itemSetOrderList then
+			local itemList = {}
+			for index, itemSetId in ipairs(self.primaryBuild.itemsTab.itemSetOrderList) do
+				local itemSet = self.primaryBuild.itemsTab.itemSets[itemSetId]
+				t_insert(itemList, itemSet.title or "Default")
+				if itemSetId == self.primaryBuild.itemsTab.activeItemSetId then
+					self.controls.primaryItemSetSelect.selIndex = index
+				end
+			end
+			self.controls.primaryItemSetSelect:SetList(itemList)
+		end
+
+		-- Populate compare build item set list
+		if compareEntry and compareEntry.itemsTab and compareEntry.itemsTab.itemSetOrderList then
+			local itemList = {}
+			for index, itemSetId in ipairs(compareEntry.itemsTab.itemSetOrderList) do
+				local itemSet = compareEntry.itemsTab.itemSets[itemSetId]
+				t_insert(itemList, itemSet.title or "Default")
+				if itemSetId == compareEntry.itemsTab.activeItemSetId then
+					self.controls.compareItemSetSelect2.selIndex = index
+				end
+			end
+			self.controls.compareItemSetSelect2:SetList(itemList)
+		end
+
 	end
 
 	-- Dispatch to sub-view (TREE already drawn above)
@@ -2892,14 +2995,15 @@ local function getSlotDiffLabel(pItem, cItem)
 end
 
 -- Helper: draw Copy, Copy+Use, and Buy buttons at the given position.
+-- btnStartX is the left edge where the first button (Buy) should appear.
 -- Returns copyHovered, copyUseHovered, buyHovered booleans.
-local function drawCopyButtons(cursorX, cursorY, vpWidth, btnY)
+local function drawCopyButtons(cursorX, cursorY, btnStartX, btnY)
 	local btnW = LAYOUT.itemsCopyBtnW
 	local btnH = LAYOUT.itemsCopyBtnH
 	local buyW = LAYOUT.itemsBuyBtnW
-	local btn2X = vpWidth - btnW - 8
-	local btn1X = btn2X - btnW - 4
-	local btn3X = btn1X - buyW - 4
+	local btn3X = btnStartX
+	local btn1X = btn3X + buyW + 4
+	local btn2X = btn1X + btnW + 4
 
 	-- "Buy" button
 	local b3Hover = cursorX >= btn3X and cursorX < btn3X + buyW
@@ -2932,6 +3036,108 @@ local function drawCopyButtons(cursorX, cursorY, vpWidth, btnY)
 	DrawString(btn2X + btnW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^7Copy+Use")
 
 	return b1Hover, b2Hover, b3Hover, btn2X, btnY, btnW, btnH
+end
+
+-- Helper: fit a colored item name within maxW pixels, truncating with "..." if needed.
+local function fitItemName(colorCode, name, maxW)
+	local display = colorCode .. name
+	if DrawStringWidth(16, "VAR", display) <= maxW then
+		return display
+	end
+	local lo, hi = 0, #name
+	while lo < hi do
+		local mid = m_floor((lo + hi + 1) / 2)
+		if DrawStringWidth(16, "VAR", colorCode .. name:sub(1, mid) .. "...") <= maxW then
+			lo = mid
+		else
+			hi = mid - 1
+		end
+	end
+	return colorCode .. name:sub(1, lo) .. "..."
+end
+
+-- Helper: draw a single compact-mode item row.
+-- Returns: pHover, cHover, b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H, hoverItem, hoverItemsTab
+local ITEM_BOX_W = 310
+local ITEM_BOX_H = 20
+
+local function drawCompactSlotRow(drawY, slotLabel, pItem, cItem,
+	colWidth, cursorX, cursorY, maxLabelW, primaryItemsTab, compareItemsTab, pWarn, cWarn)
+
+	local pName = pItem and pItem.name or "(empty)"
+	local cName = cItem and cItem.name or "(empty)"
+	if pWarn and pWarn ~= "" then pName = pName .. pWarn end
+	if cWarn and cWarn ~= "" then cName = cName .. cWarn end
+	local pColor = getRarityColor(pItem)
+	local cColor = getRarityColor(cItem)
+	local diffLabel = getSlotDiffLabel(pItem, cItem)
+
+	-- Layout positions (fixed 310px box width matching regular Items tab)
+	local labelX = 10
+	local pBoxX = labelX + maxLabelW + 4
+	local pBoxW = ITEM_BOX_W
+
+	local cBoxX = colWidth + 10
+	local cBoxW = ITEM_BOX_W
+
+	-- Diff indicator position
+	local diffX = pBoxX + pBoxW + 6
+
+	-- Hover detection
+	local pHover = pItem and cursorX >= pBoxX and cursorX < pBoxX + pBoxW
+		and cursorY >= drawY and cursorY < drawY + ITEM_BOX_H
+	local cHover = cItem and cursorX >= cBoxX and cursorX < cBoxX + cBoxW
+		and cursorY >= drawY and cursorY < drawY + ITEM_BOX_H
+
+	-- Draw slot label
+	SetDrawColor(1, 1, 1)
+	DrawString(labelX, drawY + 2, "LEFT", 16, "VAR", "^7" .. slotLabel .. ":")
+
+	-- Draw primary item box
+	local pBorderGray = pHover and 0.5 or 0.33
+	SetDrawColor(pBorderGray, pBorderGray, pBorderGray)
+	DrawImage(nil, pBoxX, drawY, pBoxW, ITEM_BOX_H)
+	SetDrawColor(0.05, 0.05, 0.05)
+	DrawImage(nil, pBoxX + 1, drawY + 1, pBoxW - 2, ITEM_BOX_H - 2)
+	SetDrawColor(1, 1, 1)
+	DrawString(pBoxX + 4, drawY + 2, "LEFT", 16, "VAR", fitItemName(pColor, pName, pBoxW - 8))
+
+	-- Draw diff indicator (between the two item boxes)
+	DrawString(diffX, drawY + 3, "LEFT", 14, "VAR", diffLabel)
+
+	-- Draw compare item box
+	local cBorderGray = cHover and 0.5 or 0.33
+	SetDrawColor(cBorderGray, cBorderGray, cBorderGray)
+	DrawImage(nil, cBoxX, drawY, cBoxW, ITEM_BOX_H)
+	SetDrawColor(0.05, 0.05, 0.05)
+	DrawImage(nil, cBoxX + 1, drawY + 1, cBoxW - 2, ITEM_BOX_H - 2)
+	SetDrawColor(1, 1, 1)
+	DrawString(cBoxX + 4, drawY + 2, "LEFT", 16, "VAR", fitItemName(cColor, cName, cBoxW - 8))
+
+	-- Draw buttons
+	local b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H
+	if cItem then
+		local btnStartX = cBoxX + cBoxW + 6
+		b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H =
+			drawCopyButtons(cursorX, cursorY, btnStartX, drawY + 1)
+	end
+
+	-- Determine hovered item and tooltip anchor position
+	local hoverItem = nil
+	local hoverItemsTab = nil
+	local hoverBoxX, hoverBoxY, hoverBoxW, hoverBoxH = 0, 0, 0, 0
+	if pHover then
+		hoverItem = pItem
+		hoverItemsTab = primaryItemsTab
+		hoverBoxX, hoverBoxY, hoverBoxW, hoverBoxH = pBoxX, drawY, pBoxW, ITEM_BOX_H
+	elseif cHover then
+		hoverItem = cItem
+		hoverItemsTab = compareItemsTab
+		hoverBoxX, hoverBoxY, hoverBoxW, hoverBoxH = cBoxX, drawY, cBoxW, ITEM_BOX_H
+	end
+
+	return pHover, cHover, b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H,
+		hoverItem, hoverItemsTab, hoverBoxX, hoverBoxY, hoverBoxW, hoverBoxH
 end
 
 -- Draw a single item's full details at (x, startY) within colWidth.
@@ -3135,6 +3341,14 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	DrawString(colWidth + 10, drawY, "LEFT", 18, "VAR", colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
 	drawY = drawY + 24
 
+	-- Pre-compute max slot label width for alignment
+	local maxLabelW = 0
+	for _, sn in ipairs(baseSlots) do
+		local w = DrawStringWidth(16, "VAR", "^7" .. sn .. ":")
+		if w > maxLabelW then maxLabelW = w end
+	end
+	maxLabelW = maxLabelW + 2
+
 	for _, slotName in ipairs(baseSlots) do
 		-- Separator
 		SetDrawColor(0.3, 0.3, 0.3)
@@ -3156,7 +3370,7 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 
 			-- Copy/Buy buttons for compare item
 			if cItem then
-				local b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H = drawCopyButtons(cursorX, cursorY, vp.width, drawY + 1)
+				local b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H = drawCopyButtons(cursorX, cursorY, vp.width - 196, drawY + 1)
 				if b2Hover then
 					hoverCopyUseItem = cItem
 					hoverCopyUseSlotName = slotName
@@ -3200,90 +3414,40 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 
 			drawY = drawY + maxH + 6
 		else
-			-- === COMPACT MODE ===
-			-- Slot label + diff indicator
-			SetDrawColor(1, 1, 1)
-			DrawString(10, drawY, "LEFT", 16, "VAR", "^7" .. slotName .. ":")
-			DrawString(colWidth - 10, drawY, "RIGHT", 14, "VAR", getSlotDiffLabel(pItem, cItem))
+			-- === COMPACT MODE (single-line with bordered boxes) ===
+			local pHover, cHover, b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H,
+				rowHoverItem, rowHoverItemsTab, rowHoverX, rowHoverY, rowHoverW, rowHoverH =
+				drawCompactSlotRow(drawY, slotName, pItem, cItem,
+					colWidth, cursorX, cursorY, maxLabelW,
+					self.primaryBuild.itemsTab, compareEntry.itemsTab)
 
-			local pName = pItem and pItem.name or "(empty)"
-			local cName = cItem and cItem.name or "(empty)"
-
-			local pColor = getRarityColor(pItem)
-			local cColor = getRarityColor(cItem)
-
-			-- Measure text widths for precise hover detection
-			local pTextW = pItem and DrawStringWidth(16, "VAR", pColor .. pName) or 0
-			local cTextW = cItem and DrawStringWidth(16, "VAR", cColor .. cName) or 0
-
-			drawY = drawY + 18
-
-			-- Check hover on primary item (left column, text bounds only)
-			local pHover = pItem and cursorX >= 18 and cursorX < 22 + pTextW
-				and cursorY >= drawY and cursorY < drawY + 18
-			if pHover then
-				hoverItem = pItem
-				hoverX = 20
-				hoverY = drawY
-				hoverW = pTextW + 4
-				hoverH = 18
-				hoverItemsTab = self.primaryBuild.itemsTab
+			if rowHoverItem then
+				hoverItem = rowHoverItem
+				hoverItemsTab = rowHoverItemsTab
+				hoverX, hoverY = rowHoverX, rowHoverY
+				hoverW, hoverH = rowHoverW, rowHoverH
 			end
 
-			-- Check hover on compare item (right column, text bounds only)
-			local cHover = cItem and cursorX >= colWidth + 18 and cursorX < colWidth + 22 + cTextW
-				and cursorY >= drawY and cursorY < drawY + 18
-			if cHover then
-				hoverItem = cItem
-				hoverX = colWidth + 20
-				hoverY = drawY
-				hoverW = cTextW + 4
-				hoverH = 18
-				hoverItemsTab = compareEntry.itemsTab
+			if b2Hover and cItem then
+				hoverCopyUseItem = cItem
+				hoverCopyUseSlotName = slotName
+				hoverCopyUseBtnX, hoverCopyUseBtnY = b2X, b2Y
+				hoverCopyUseBtnW, hoverCopyUseBtnH = b2W, b2H
 			end
 
-			-- Draw hover border around text (matching ButtonControl style)
-			if pHover then
-				SetDrawColor(0.5, 0.5, 0.5)
-				DrawImage(nil, 18, drawY - 1, pTextW + 4, 20)
-				SetDrawColor(0, 0, 0)
-				DrawImage(nil, 19, drawY, pTextW + 2, 18)
-			end
-			if cHover then
-				SetDrawColor(0.5, 0.5, 0.5)
-				DrawImage(nil, colWidth + 18, drawY - 1, cTextW + 4, 20)
-				SetDrawColor(0, 0, 0)
-				DrawImage(nil, colWidth + 19, drawY, cTextW + 2, 18)
-			end
-
-			-- Draw item names
-			SetDrawColor(1, 1, 1)
-			DrawString(20, drawY, "LEFT", 16, "VAR", pColor .. pName)
-			DrawString(colWidth + 20, drawY, "LEFT", 16, "VAR", cColor .. cName)
-
-			-- Copy/Buy buttons for compare item
-			if cItem then
-				local b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H = drawCopyButtons(cursorX, cursorY, vp.width, drawY)
-				if b2Hover then
-					hoverCopyUseItem = cItem
-					hoverCopyUseSlotName = slotName
-					hoverCopyUseBtnX, hoverCopyUseBtnY = b2X, b2Y
-					hoverCopyUseBtnW, hoverCopyUseBtnH = b2W, b2H
-				end
-				if inputEvents then
-					for id, event in ipairs(inputEvents) do
-						if event.type == "KeyUp" and event.key == "LEFTBUTTON" then
-							if b1Hover then
-								clickedCopySlot = slotName
-								inputEvents[id] = nil
-							elseif b2Hover then
-								clickedCopyUseSlot = slotName
-								inputEvents[id] = nil
-							elseif b3Hover then
-								clickedBuySlot = slotName
-								clickedBuyItem = cItem
-								inputEvents[id] = nil
-							end
+			if cItem and inputEvents then
+				for id, event in ipairs(inputEvents) do
+					if event.type == "KeyUp" and event.key == "LEFTBUTTON" then
+						if b1Hover then
+							clickedCopySlot = slotName
+							inputEvents[id] = nil
+						elseif b2Hover then
+							clickedCopyUseSlot = slotName
+							inputEvents[id] = nil
+						elseif b3Hover then
+							clickedBuySlot = slotName
+							clickedBuyItem = cItem
+							inputEvents[id] = nil
 						end
 					end
 				end
@@ -3293,17 +3457,52 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 		end
 	end
 
+	-- === TREE SET DROPDOWNS ===
+	drawY = drawY + 12
+	SetDrawColor(0.5, 0.5, 0.5)
+	DrawImage(nil, 4, drawY, vp.width - 8, 1)
+	drawY = drawY + 10
+
+	-- Convert drawY to absolute screen coords for control positioning
+	local absY = vp.y + checkboxOffset + drawY
+	local treeSetLabelW = DrawStringWidth(16, "VAR", "^7Tree set:") + 4
+
+	self.controls.primaryTreeSetLabel.x = vp.x + 10
+	self.controls.primaryTreeSetLabel.y = absY + 2
+	self.controls.primaryTreeSetSelect.x = vp.x + 10 + treeSetLabelW
+	self.controls.primaryTreeSetSelect.y = absY
+
+	self.controls.compareTreeSetLabel.x = vp.x + colWidth + 10
+	self.controls.compareTreeSetLabel.y = absY + 2
+	self.controls.compareTreeSetSelect.x = vp.x + colWidth + 10 + treeSetLabelW
+	self.controls.compareTreeSetSelect.y = absY
+
+	-- Populate tree set lists
+	if self.primaryBuild.treeTab then
+		self.controls.primaryTreeSetSelect.list = self.primaryBuild.treeTab:GetSpecList()
+		self.controls.primaryTreeSetSelect.selIndex = self.primaryBuild.treeTab.activeSpec
+	end
+	if compareEntry.treeTab then
+		self.controls.compareTreeSetSelect.list = compareEntry.treeTab:GetSpecList()
+		self.controls.compareTreeSetSelect.selIndex = compareEntry.treeTab.activeSpec
+	end
+
+	drawY = drawY + 24
+
 	-- === JEWELS SECTION ===
 	local jewelSlots = self:GetJewelComparisonSlots(compareEntry)
 	if #jewelSlots > 0 then
 		-- Section header
-		drawY = drawY + 4
-		SetDrawColor(0.5, 0.5, 0.5)
-		DrawImage(nil, 4, drawY, vp.width - 8, 1)
-		drawY = drawY + 4
 		SetDrawColor(1, 1, 1)
 		DrawString(10, drawY, "LEFT", 16, "VAR", "^7-- Jewels --")
 		drawY = drawY + 20
+
+		-- Pre-compute max jewel label width for alignment
+		local maxJewelLabelW = maxLabelW
+		for _, jE in ipairs(jewelSlots) do
+			local w = DrawStringWidth(16, "VAR", "^7" .. jE.label .. ":") + 2
+			if w > maxJewelLabelW then maxJewelLabelW = w end
+		end
 
 		for jIdx, jEntry in ipairs(jewelSlots) do
 			local pItem = jEntry.pItem
@@ -3328,7 +3527,7 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 
 				-- Copy/Buy buttons for compare jewel
 				if cItem then
-					local b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H = drawCopyButtons(cursorX, cursorY, vp.width, drawY + 1)
+					local b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H = drawCopyButtons(cursorX, cursorY, vp.width - 196, drawY + 1)
 					if b2Hover then
 						hoverCopyUseItem = cItem
 						hoverCopyUseSlotName = jEntry.pSlotName
@@ -3372,89 +3571,40 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 
 				drawY = drawY + maxH + 6
 			else
-				-- === COMPACT MODE ===
-				SetDrawColor(1, 1, 1)
-				DrawString(10, drawY, "LEFT", 16, "VAR", "^7" .. jEntry.label .. ":")
-				DrawString(colWidth - 10, drawY, "RIGHT", 14, "VAR", getSlotDiffLabel(pItem, cItem))
+				-- === COMPACT MODE (single-line with bordered boxes) ===
+				local pHover, cHover, b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H,
+					rowHoverItem, rowHoverItemsTab, rowHoverX, rowHoverY, rowHoverW, rowHoverH =
+					drawCompactSlotRow(drawY, jEntry.label, pItem, cItem,
+						colWidth, cursorX, cursorY, maxJewelLabelW,
+						self.primaryBuild.itemsTab, compareEntry.itemsTab, pWarn, cWarn)
 
-				local pName = (pItem and pItem.name or "(empty)") .. pWarn
-				local cName = (cItem and cItem.name or "(empty)") .. cWarn
-
-				local pColor = getRarityColor(pItem)
-				local cColor = getRarityColor(cItem)
-
-				-- Measure text widths for precise hover detection
-				local pTextW = pItem and DrawStringWidth(16, "VAR", pColor .. pName) or 0
-				local cTextW = cItem and DrawStringWidth(16, "VAR", cColor .. cName) or 0
-
-				drawY = drawY + 18
-
-				-- Check hover on primary jewel (left column)
-				local pHover = pItem and cursorX >= 18 and cursorX < 22 + pTextW
-					and cursorY >= drawY and cursorY < drawY + 18
-				if pHover then
-					hoverItem = pItem
-					hoverX = 20
-					hoverY = drawY
-					hoverW = pTextW + 4
-					hoverH = 18
-					hoverItemsTab = self.primaryBuild.itemsTab
+				if rowHoverItem then
+					hoverItem = rowHoverItem
+					hoverItemsTab = rowHoverItemsTab
+					hoverX, hoverY = rowHoverX, rowHoverY
+					hoverW, hoverH = rowHoverW, rowHoverH
 				end
 
-				-- Check hover on compare jewel (right column)
-				local cHover = cItem and cursorX >= colWidth + 18 and cursorX < colWidth + 22 + cTextW
-					and cursorY >= drawY and cursorY < drawY + 18
-				if cHover then
-					hoverItem = cItem
-					hoverX = colWidth + 20
-					hoverY = drawY
-					hoverW = cTextW + 4
-					hoverH = 18
-					hoverItemsTab = compareEntry.itemsTab
+				if b2Hover and cItem then
+					hoverCopyUseItem = cItem
+					hoverCopyUseSlotName = jEntry.pSlotName
+					hoverCopyUseBtnX, hoverCopyUseBtnY = b2X, b2Y
+					hoverCopyUseBtnW, hoverCopyUseBtnH = b2W, b2H
 				end
 
-				-- Draw hover border
-				if pHover then
-					SetDrawColor(0.5, 0.5, 0.5)
-					DrawImage(nil, 18, drawY - 1, pTextW + 4, 20)
-					SetDrawColor(0, 0, 0)
-					DrawImage(nil, 19, drawY, pTextW + 2, 18)
-				end
-				if cHover then
-					SetDrawColor(0.5, 0.5, 0.5)
-					DrawImage(nil, colWidth + 18, drawY - 1, cTextW + 4, 20)
-					SetDrawColor(0, 0, 0)
-					DrawImage(nil, colWidth + 19, drawY, cTextW + 2, 18)
-				end
-
-				-- Draw jewel names
-				SetDrawColor(1, 1, 1)
-				DrawString(20, drawY, "LEFT", 16, "VAR", pColor .. pName)
-				DrawString(colWidth + 20, drawY, "LEFT", 16, "VAR", cColor .. cName)
-
-				-- Copy/Buy buttons for compare jewel
-				if cItem then
-					local b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H = drawCopyButtons(cursorX, cursorY, vp.width, drawY)
-					if b2Hover then
-						hoverCopyUseItem = cItem
-						hoverCopyUseSlotName = jEntry.pSlotName
-						hoverCopyUseBtnX, hoverCopyUseBtnY = b2X, b2Y
-						hoverCopyUseBtnW, hoverCopyUseBtnH = b2W, b2H
-					end
-					if inputEvents then
-						for id, event in ipairs(inputEvents) do
-							if event.type == "KeyUp" and event.key == "LEFTBUTTON" then
-								if b1Hover then
-									clickedCopySlot = jEntry.cSlotName
-									inputEvents[id] = nil
-								elseif b2Hover then
-									clickedCopyUseSlot = jEntry.pSlotName
-									inputEvents[id] = nil
-								elseif b3Hover then
-									clickedBuySlot = jEntry.pSlotName
-									clickedBuyItem = cItem
-									inputEvents[id] = nil
-								end
+				if cItem and inputEvents then
+					for id, event in ipairs(inputEvents) do
+						if event.type == "KeyUp" and event.key == "LEFTBUTTON" then
+							if b1Hover then
+								clickedCopySlot = jEntry.cSlotName
+								inputEvents[id] = nil
+							elseif b2Hover then
+								clickedCopyUseSlot = jEntry.pSlotName
+								inputEvents[id] = nil
+							elseif b3Hover then
+								clickedBuySlot = jEntry.pSlotName
+								clickedBuyItem = cItem
+								inputEvents[id] = nil
 							end
 						end
 					end
