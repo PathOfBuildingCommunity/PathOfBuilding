@@ -202,8 +202,7 @@ Requires Level 47, 68 Str
 {variant:2}(5-10)% reduced Movement Speed
 10% chance to Knock Enemies Back on hit
 (30-50)% increased Projectile Damage
-]],
-[[
+]],[[
 The Caged Mammoth
 Antique Gauntlets
 Source: Drops from unique{Uber Incarnation of Fear} in normal{Moment of Trauma}
@@ -312,8 +311,7 @@ Adds (6-10) to (33-38) Lightning Damage
 (60-120)% increased Evasion Rating
 Critical Strikes do not inherently inflict non-Damaging Ailments
 Inflict non-Damaging Ailments as though dealing (100-200)% more Damage
-]],
-[[
+]],[[
 Hand of the Lords
 Carnal Mitts
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
@@ -883,7 +881,7 @@ Requires Level 77, 70 Str, 70 Int
 (15-25)% increased Life Regeneration rate
 15% increased Area of Effect of Aura Skills
 Excommunicate Enemies on Melee Hit for 3 seconds
-{variant:2}+(0.8-1.6)% to Critical Strike Chance against Excommunicated Enemies
+{variant:2}Melee Attacks have +(0.8-1.6)% to Critical Strike Chance against Excommunicated Enemies
 ]],
 -- Gloves: Evasion/Energy Shield
 [[

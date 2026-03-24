@@ -92,7 +92,7 @@ Requires Level 68, 120 Str
 {variant:2}MovementVelocityUniqueBootsA1
 PowerChargeOnHitWhilePoisonedUnique__1
 ChaosResistanceWhileStationaryUnique__1
-15% increased Movement Speed while Poisoned
+{variant:1}15% increased Movement Speed while Poisoned
 ItemNecroticFootprintsUnique__1s
 ChanceToBePoisonedBySpellsUnique__1_
 ]],[[

@@ -104,15 +104,15 @@ Golden Plate
 Variant: Pre 3.25.0
 Variant: Current
 Implicits: 0
+ReducedStrengthRequirementUniqueBodyStr5
 {variant:1}ItemFoundQuantityIncreaseUniqueBodyStr5
-{variant:1}ItemFoundRarityIncreaseImplicitRing1[30,50]
+{variant:1}ItemFoundRarityIncreaseUniqueBodyStr5[30,50]
 {variant:2}ItemFoundRarityIncreaseUniqueBodyStr5
 FireResistUniqueBodyStr5
 ColdResistUniqueBodyStr5
-{variant:1}LightningResistUniqueBodyStrDex2[-20,-20]
-{variant:2}(-20--10)% to Lightning Resistance
+{variant:1}LightningResistUniqueBodyStr5[-20,-20]
+{variant:2}LightningResistUniqueBodyStr5
 MovementVelocityUniqueBodyStr5
-ReducedStrengthRequirementUniqueBodyStr5
 ]],[[
 Kaom's Heart
 Glorious Plate
@@ -169,7 +169,6 @@ StrengthDamageBonus3Per10Unique__1
 Perfidy
 Glorious Plate
 League: Delirium
-Has Alt Variant: true
 Variant: Pre 3.25.0
 Variant: Current
 Implicits: 0
@@ -566,7 +565,7 @@ Variant: Current
 Implicits: 0
 {variant:1,2,3,4,5}SocketedGemsHaveAddedChaosDamageUnique__3[15,15]
 {variant:6}SocketedGemsHaveAddedChaosDamageUnique__3
-{variant:4,5}SocketedemsHaveBloodMagicUniqueShieldStrInt2
+{variant:4,5}SocketedGemsHaveBloodMagicUnique__1
 IntelligenceUniqueBodyInt3
 {variant:1}LocalIncreasedEnergyShieldUniqueBodyInt3[125,150]
 {variant:2}LocalIncreasedEnergyShieldUniqueBodyInt3[180,220]
@@ -574,7 +573,7 @@ IntelligenceUniqueBodyInt3
 {variant:5,6}LocalIncreasedEnergyShieldUniqueBodyInt3
 {variant:1,2,3}MaximumLifeUniqueAmulet6
 {variant:4,5,6}MaximumLifeUniqueBodyInt3
-{variant:1,2,3}MutatedUniqueBodyInt3BloodMagic
+{variant:1,2,3}BloodMagic
 {variant:6}LifeCostAsManaCostUnique__1
 ]],[[
 Replica Covenant
@@ -643,7 +642,6 @@ Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Implicits: 0
 {fractured}LocalIncreasedEnergyShieldPercentUnique__24
 StrengthIntelligenceRequirementsUnique__1
-Gain a Divine Charge on Hit
 DivineChargeOnHitUnique__1_
 GainDivinityOnMaxDivineChargeUnique__1
 NearbyAlliesCannotBeSlowedUnique__1
@@ -692,7 +690,7 @@ Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
 Upgrade: Upgrades to unique{Skin of the Lords} using currency{Blessing of Chayula}
 Implicits: 0
 Roll6LinkedRandomColourSocketsUnique__1
-MutatedUniqueBodyInt16LocalIncreaseSocketedGemLevel
+LocalIncreaseSocketedGemLevelUnique__2
 AllDefencesUnique__2
 ]],[[
 Soul Mantle
@@ -824,7 +822,7 @@ Implicits: 0
 {variant:1,2}IncreasedLifeUniqueBodyStrDex3_[40,60]
 {variant:3,4,5,6}IncreasedLifeUniqueBodyStrDex3_
 {variant:1,2,3,4}(0.4-0.6)% of Physical Attack Damage Leeched as Life
-{variant:5}LifeLeechPermyriadUniqueBodyStrDex3
+{variant:5}LifeLeechPermyriadUniqueBodyStrDex3[200,200]
 {variant:6}LifeLeechPermyriadUniqueBodyStrDex3
 LoseEnduranceChargesWhenHitUniqueBodyStrDex3
 EnduranceChargeOnKillUniqueBodyStrDex3
@@ -902,6 +900,16 @@ ColdResistUnique__19
 MovementVelocityUniqueBodyDex7
 ChanceToPoisonWithAttacksUnique___1
 CannotBePoisonedUnique__1
+]],[[
+Rigwald's Hunt
+General's Brigandine
+Requires Level 66, 103 Str, 103 Dex
+LocalIncreasedArmourAndEvasionUniqueBodyStrDex4
+MinionMovementSpeedUnique_1
+MinionDoubleDamageChancePerFortificationUnique__1
+FortifyDurationUnique_1
+MinionAttackSpeedUnique_1
+MinionLifeAlsoAffectsYouUnique__1
 ]],
 -- Body: Armour/Energy Shield
 [[
@@ -920,11 +928,11 @@ Implicits: 0
 {variant:1,2}AllResistancesUniqueBodyStrInt2[10,10]
 {variant:3,4,5}AllResistancesUniqueBodyStrInt2
 {variant:1,2,3,4}GainEnduranceChargeWhenCriticallyHit
-{variant:5}GainMaximumEnduranceChargesWhenCritUnique__1
 {variant:1,2,3}LifeRegenerationOnLowLifeUniqueBodyStrInt2
 {variant:1,2,3,4}ShareEnduranceChargesWithParty
-{variant:5}ShareMaximumEnduranceChargesPartyUnique__1
+{variant:5}GainMaximumEnduranceChargesWhenCritUnique__1
 {variant:4}LifeRegenerationIfHitRecentlyUnique__1
+{variant:5}ShareMaximumEnduranceChargesPartyUnique__1
 ]],[[
 Replica Ambu's Charge
 Crusader Chainmail
@@ -963,11 +971,11 @@ NearbyEnemyLightningResistanceEqualUnique__1
 ]],[[
 The Fourth Vow
 Devout Chainmail
-PhysicalDamageBypassesEnergyShieldUnique__1
 LocalIncreasedArmourAndEnergyShieldUnique__26
 ChaosResistUnique__25
-LifeRegenerationRatePercentageUniqueShieldStrInt3
+LifeRegenerationRatePercentUnique__5
 ArmourAppliesToChaosDamageUnique__1
+PhysicalDamageBypassesEnergyShieldUnique__1
 ]],[[
 Geofri's Sanctuary
 Elegant Ringmail
@@ -1019,12 +1027,11 @@ Saintly Chainmail
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 0
-{variant:1}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__2[60,80]
+{variant:1}IncreasedPhysicalDamageReductionRatingUnique__1[60,80]
 {variant:1}LocalIncreasedArmourAndEnergyShieldUniqueBodyStrInt5[120,140]
 {variant:2}LocalIncreasedArmourAndEnergyShieldUniqueBodyStrInt5
 IncreasedLifeUniqueBodyStrInt5
-{variant:1}(0.8-1)% of Physical Attack Damage Leeched as Life
-{variant:2}LifeLeechPermyriadUniqueBodyStrInt5
+{variant:1,2}LifeLeechPermyriadUniqueBodyStrInt5
 {variant:2}ElementalDamagePercentAddedAsChaosUnique__1
 ElementalDamageTakenAsChaosUniqueBodyStrInt5
 LightRadiusUniqueBodyStrInt5

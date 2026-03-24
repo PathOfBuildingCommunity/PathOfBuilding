@@ -111,8 +111,8 @@ Implicits: 0
 -10% to Fire Resistance
 +(20-30)% to Cold Resistance
 {variant:1}-20% to Lightning Resistance
+{variant:2}-(20-10)% to Lightning Resistance
 20% reduced Movement Speed
-{variant:2}(-20--10)% to Lightning Resistance
 ]],[[
 Kaom's Heart
 Glorious Plate
@@ -655,7 +655,6 @@ Nearby Allies' Action Speed cannot be modified to below Base Value
 Gain a Divine Charge on Hit
 You gain Divinity for 10 seconds on reaching maximum Divine Charges
 Lose all Divine Charges when you gain Divinity
-Gain a Divine Charge on Hit
 ]],[[
 Infernal Mantle
 {variant:1}Occultist's Vestment
@@ -910,8 +909,7 @@ Implicits: 0
 5% increased Movement Speed
 20% chance to Poison on Hit with Attacks
 Cannot be Poisoned
-]],
-[[
+]],[[
 Rigwald's Hunt
 General's Brigandine
 Requires Level 66, 103 Str, 103 Dex
@@ -965,9 +963,10 @@ Trigger Level 20 Animate Guardian's Weapon when Animated Guardian Kills an Enemy
 (150-190)% increased Armour and Energy Shield
 +(60-90) to maximum Life
 Animated Guardian deals 5% increased Damage per Animated Weapon
-Animated Minions' Melee Attacks deal Splash Damage to surrounding targets
-Animated Minions' Melee Attacks deal 50% less Splash Damage to surrounding targets
-You cannot have non-Animated Minions
+Animated and Manifested Minions' Melee Strikes deal Splash
+Damage to surrounding targets
+Animated and Manifested Minions' Melee Strikes deal 50% less Splash Damage
+You cannot have Non-Animated, Non-Manifested Minions
 ]],[[
 Doryani's Prototype
 Saint's Hauberk
@@ -1042,12 +1041,11 @@ Implicits: 0
 {variant:1}(120-140)% increased Armour and Energy Shield
 {variant:2}(220-240)% increased Armour and Energy Shield
 +(80-90) to maximum Life
-{variant:2}(0.8-1)% of Attack Damage Leeched as Life
+{variant:1,2}(0.8-1)% of Attack Damage Leeched as Life
 {variant:2}Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 25% of Elemental Damage from Hits taken as Chaos Damage
 (20-30)% increased Light Radius
 Light Radius is based on Energy Shield instead of Life
-{variant:1}(0.8-1)% of Physical Attack Damage Leeched as Life
 ]],[[
 The Ivory Tower
 Saint's Hauberk
@@ -1405,7 +1403,7 @@ Trigger a Socketed Spell on Unarmed Melee Critical Strike, with a 0.25 second Co
 (1-7)% increased Movement Speed
 +(0.1-0.7) metres to Melee Strike Range with Unarmed Attacks
 +(1-7)% to Unarmed Melee Attack Critical Strike Chance
-+(10-77)% to Critical Strike Multiplier with Unarmed Melee Attack
++(10-77)% to Critical Strike Multiplier with Unarmed Melee Attacks
 ]],
 -- Body: Armour/Evasion/Energy Shield
 [[

@@ -117,8 +117,7 @@ ArrowPierceAppliesToProjectileDamageUniqueQuiver3
 The Fracturing Spinner
 Blunt Arrow Quiver
 League: Harbinger
-Source: Created from item parts obtained from Boss in The Beachhead
-Upgrade: Upgrades to unique{The Shattered Divinity} via currency{Fragmentation Scroll}
+Source: No longer obtainable
 Requires Level 60
 Implicits: 1
 AddedPhysicalDamageImplicitQuiver6New
@@ -130,8 +129,6 @@ FireAndColdResistUnique__1
 ]],[[
 The Shattered Divinity
 Blunt Arrow Quiver
-League: Harvest
-Source: Upgraded from unique{The Fracturing Spinner} via currency{Fragmentation Scroll}
 Requires Level 60
 Implicits: 1
 AddedPhysicalDamageImplicitQuiver6New

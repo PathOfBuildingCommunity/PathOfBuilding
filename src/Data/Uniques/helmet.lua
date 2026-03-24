@@ -123,11 +123,11 @@ Requires Level 55, 114 Str
 {variant:2,3}(30-40)% increased Fire Damage
 {variant:1}(40-60)% increased Armour
 {variant:2,3}(100-120)% increased Armour
+{variant:2,3}10% increased Stun and Block Recovery
 {variant:3}+(50-70) to maximum Life
 +30% to Cold Resistance
 {variant:1,2}50% chance to Avoid being Chilled
 {variant:1,2}50% chance to Avoid being Frozen
-{variant:2,3}10% increased Stun and Block Recovery
 {variant:3}100% chance to Avoid being Chilled or Frozen if you have used a Fire Skill Recently
 ]],[[
 Kaom's Command
@@ -159,6 +159,7 @@ Reaver Helmet
 24% reduced maximum Life
 Regenerate (200-250) Life per second
 100% increased Stun and Block Recovery
+Reserves 8% of Life
 Nearby Enemy Monsters have at least 8% of Life Reserved
 ]],[[
 Howlcrack
@@ -178,7 +179,7 @@ Paladin Crown
 Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Loneliness}
 Requires Level 78, 116 Str, 116 Int
 (350-650)% increased Armour
-(-50--40)% to all Elemental Resistances
+-(50-40)% to all Elemental Resistances
 +(13-29)% to Chaos Resistance
 (15-30)% of Elemental Damage from Hits taken as Physical Damage
 Physical Damage of Enemies Hitting you is Unlucky
@@ -192,7 +193,7 @@ Requires Level 73, 101 Str, 101 Int
 +(25-35)% to all Elemental Resistances
 50% increased Light Radius
 Link Skills can target Damageable Minions
-Your Linked Minions take (75-65)% less Damage
+Your Linked Minions take (65-75)% less Damage
 On Killing a Rare monster, a random Linked Minion gains its Modifiers for 60 seconds
 ]],
 -- Helmet: Evasion
@@ -364,10 +365,10 @@ Requires Level 8, 23 Int
 (10-15)% increased Attack Speed
 {variant:1,2}(10-15)% increased Cast Speed
 {variant:2,3}+(30-50) to maximum Energy Shield
+{variant:2,3}(10-15)% increased Stun and Block Recovery
 {variant:1}50% increased Energy Shield
 30% increased Mana Regeneration Rate
 {variant:1,2}5% increased Movement Speed
-{variant:2,3}(10-15)% increased Stun and Block Recovery
 ]],[[
 Asenath's Chant
 Iron Circlet
@@ -634,8 +635,8 @@ Requires Level 59, 122 Int
 +(30-40)% to Fire Resistance
 (30-40)% increased Elemental Damage
 {variant:1}25% chance to Scorch Enemies
-{variant:2}(25-50)% chance to Scorch Enemies
 {variant:1}Cannot inflict Ignite
+{variant:2}(25-50)% chance to Scorch Enemies
 {variant:2}Cannot inflict Ignite
 {variant:1}10% increased Elemental Damage per Sextant affecting the area
 ]],[[
@@ -648,10 +649,9 @@ Requires Level 59, 122 Int
 +(30-40)% to Cold Resistance
 (30-40)% increased Elemental Damage
 {variant:1}25% chance to inflict Brittle
-{variant:2}(25-50)% chance to inflict Brittle
 {variant:1}Cannot inflict Freeze or Chill
+{variant:2}(25-50)% chance to inflict Brittle
 {variant:2}Cannot inflict Freeze or Chill
-Cannot inflict Freeze or Chill
 {variant:1}10% increased Elemental Damage per Sextant affecting the area
 ]],[[
 Hale Negator
@@ -680,11 +680,11 @@ Variant: Current
 Requires Level 69, 154 Int
 (150-180)% increased Energy Shield
 (6-10)% increased maximum Mana
+Recover (8-10)% of Life when you use a Mana Flask
 Non-instant Mana Recovery from Flasks is also Recovered as Life
 (50-60)% increased Cost of Skills for each 200 total Mana Spent Recently
 {variant:1}(50-60)% increased Spell Damage for each 200 total Mana you have Spent Recently, up to 2000%
 {variant:2}(20-25)% increased Spell Damage for each 200 total Mana you have Spent Recently, up to 2000%
-Recover (8-10)% of maximum Life when you use a Mana Flask
 ]],[[
 Mark of the Red Covenant
 Tribal Circlet
@@ -693,9 +693,9 @@ Variant: Pre 3.19.0
 Variant: Current
 Requires Level 26, 58 Int
 +(30-50) to maximum Energy Shield
+(10-15)% increased Stun and Block Recovery
 {variant:1}Minions have (10-15)% increased Movement Speed
 {variant:2}Minions have (25-45)% increased Movement Speed
-(10-15)% increased Stun and Block Recovery
 {variant:2}Summoned Raging Spirits deal (130-150)% increased Damage
 {variant:3}Summoned Raging Spirits deal (175-250)% increased Damage
 75% reduced Maximum number of Summoned Raging Spirits
@@ -775,10 +775,9 @@ Requires Level 59, 122 Int
 +(30-40)% to Lightning Resistance
 (30-40)% increased Elemental Damage
 {variant:1}25% chance to Sap Enemies
-{variant:2}(25-50)% chance to Sap Enemies
 {variant:1}Cannot inflict Shock
+{variant:2}(25-50)% chance to Sap Enemies
 {variant:2}Cannot inflict Shock
-Cannot inflict Shock
 {variant:1}10% increased Elemental Damage per Sextant affecting the area
 ]],[[
 Wraithlord
@@ -848,37 +847,37 @@ Requires Level 80, 224 Int
 +(27-37)% to Chaos Resistance
 50% reduced Light Radius
 {variant:1}Maximum number of Animated Weapons is Doubled
-{variant:2}Maximum number of Summoned Golems is Doubled
-{variant:3}Maximum number of Summoned Raging Spirits is Doubled
-{variant:4}Maximum number of Raised Spectres is Doubled
-{variant:5}Maximum number of Raised Spiders is Doubled
-{variant:6}Maximum number of Raised Zombies is Doubled
-{variant:7}Maximum number of Summoned Reapers is Doubled
-{variant:8}Maximum number of Sentinels of Absolution is Doubled
-{variant:9}Maximum number of Sentinels of Dominance is Doubled
-{variant:10}Maximum number of Sentinels of Purity is Doubled
-{variant:11}Maximum number of Summoned Holy Relics is Doubled
-{variant:12}Maximum number of Summoned Phantasms is Doubled
-{variant:13}Maximum number of Summoned Skeletons is Doubled
-{variant:14}Maximum number of Summoned Spectral Wolves is Doubled
 {variant:1}Cannot have Minions other than Animated Weapons
+{variant:2}Maximum number of Summoned Golems is Doubled
 {variant:2}Cannot have Minions other than Summoned Golems
+{variant:3}Maximum number of Summoned Raging Spirits is Doubled
 {variant:3}Cannot have Minions other than Summoned Raging Spirits
+{variant:4}Maximum number of Raised Spectres is Doubled
 {variant:4}Cannot have Minions other than Raised Spectres
+{variant:5}Maximum number of Raised Spiders is Doubled
 {variant:5}Cannot have Minions other than Raised Spiders
+{variant:6}Maximum number of Raised Zombies is Doubled
 {variant:6}Cannot have Minions other than Raised Zombies
+{variant:7}Maximum number of Summoned Reapers is Doubled
 {variant:7}Cannot have Minions other than Summoned Reapers
+{variant:8}Maximum number of Sentinels of Absolution is Doubled
 {variant:8}Cannot have Minions other than Sentinels of Absolution
+{variant:9}Maximum number of Sentinels of Dominance is Doubled
 {variant:9}Cannot have Minions other than Sentinels of Dominance
+{variant:10}Maximum number of Sentinels of Purity is Doubled
 {variant:10}Cannot have Minions other than Sentinels of Purity
+{variant:11}Maximum number of Summoned Holy Relics is Doubled
 {variant:11}Cannot have Minions other than Summoned Holy Relics
+{variant:12}Maximum number of Summoned Phantasms is Doubled
 {variant:12}Cannot have Minions other than Summoned Phantasms
+{variant:13}Maximum number of Summoned Skeletons is Doubled
 {variant:13}Cannot have Minions other than Summoned Skeletons
+{variant:14}Maximum number of Summoned Spectral Wolves is Doubled
 {variant:14}Cannot have Minions other than Summoned Spectral Wolves
 {variant:15}Maximum number of Living Lightning is Doubled
 {variant:15}Cannot have Minions other than Living Lightning
-{variant:16}Maximum number of Holy Armaments is Doubled
-{variant:16}Cannot have Minions other than Holy Armaments
+{variant:15}Maximum number of Holy Armaments is Doubled
+{variant:15}Cannot have Minions other than Holy Armaments
 ]],
 -- Helmet: Armour/Evasion
 [[
@@ -1142,6 +1141,7 @@ Has 1 Socket
 {variant:1}+(50-100) to maximum Life
 {variant:2}+(50-175) to maximum Life
 Nearby Enemies have -10% to all Resistances
+-10% to All Resistances
 You and Nearby Allies have 64 to 96 added Fire Damage per Red Socket
 You and Nearby Allies have 56 to 88 added Cold Damage per Green Socket
 You and Nearby Allies have 16 to 144 added Lightning Damage per Blue Socket
@@ -1169,13 +1169,13 @@ Geofri's Legacy
 Great Crown
 Source: No longer obtainable
 +1 to Level of Socketed Gems
++(15-20)% to Fire Resistance
++(15-20)% to Cold Resistance
 +(15-20)% to Lightning Resistance
 +(20-30)% to Chaos Resistance
 +1 to maximum number of Summoned Holy Relics
 Summoned Holy Relics have (20-25)% reduced Cooldown Recovery Rate
 (60-80)% increased Armour and Energy Shield
-+(15-20)% to Fire Resistance
-+(15-20)% to Cold Resistance
 ]],[[
 Honourhome
 Soldier Helmet
@@ -1202,8 +1202,8 @@ Variant: Pre 3.11.0
 Variant: Current
 Requires Level 44, 50 Str, 50 Int
 {variant:1}30% chance to Trigger Socketed Spells when you Spend at least 100 Mana on an
-{variant:2}50% chance to Trigger Socketed Spells when you Spend at least 100 Mana on an
 {variant:1}Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown
+{variant:2}50% chance to Trigger Socketed Spells when you Spend at least 100 Mana on an
 {variant:2}Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown
 15% reduced Cast Speed
 (70-80)% increased Armour and Energy Shield
@@ -1224,8 +1224,8 @@ Trigger Level 20 Spirit Burst when you Use a Skill while you have a Spirit Charg
 +1 to Maximum Spirit Charges per Abyss Jewel affecting you
 {variant:1,2}(15-20)% chance to gain a Spirit Charge on Kill
 {variant:3,4}Gain a Spirit Charge on Kill
-{variant:3,4}Gain 5% of Physical Damage as Extra Damage of each Element per Spirit Charge
 {variant:1,2}Recover (4-5)% of Life when you lose a Spirit Charge
+{variant:3,4}Gain 5% of Physical Damage as Extra Damage of each Element per Spirit Charge
 ]],[[
 Malachai's Vision
 Praetor Crown
@@ -1423,10 +1423,10 @@ Callous Mask
 Requires Level 45, 51 Dex, 51 Int
 (400-500)% increased Evasion and Energy Shield
 +(20-40)% to Fire Resistance
+Nearby Enemies have 50% increased Fire and Cold Resistances
 +(20-40)% to Cold Resistance
 25% chance to inflict Cold Exposure on Hit
 25% chance to inflict Fire Exposure on Hit
-Nearby Enemies have 50% increased Fire and Cold Resistances
 ]],[[
 Farrul's Bite
 Harlequin Mask
@@ -1455,8 +1455,8 @@ Vaal Mask
 League: Ultimatum
 Source: Drops from unique{The Trialmaster}
 Requires Level 62, 79 Dex, 72 Int
-Implicits: 1
 Variant: Area of Effect
+Implicits: 0
 Variant: Blind
 Variant: Mana Cost + Reservation
 Variant: Curse Effect

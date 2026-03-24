@@ -197,7 +197,18 @@ ProjectileSpeedUnique__2
 {variant:1}MovementVelocityUnique__2[-10,-10]
 {variant:2}MovementVelocityUnique__2
 KnockbackChanceUnique__1
-IncreasedProjectileDamageUnique__1
+IncreasedProjectileDamageUnique___12
+]],[[
+The Caged Mammoth
+Antique Gauntlets
+Source: Drops from unique{Uber Incarnation of Fear} in normal{Moment of Trauma}
+Requires Level 64, 58 Str
+AddedPhysicalDamageUnique__13
+IncreasedAttackSpeedUnique__8
+LocalIncreasedPhysicalDamageReductionRatingPercentUnique__37
+AdditionalRageLossPerMinute
+DamageTakenPer5RageCappedAt50PercentUnique_1
+MaximumRageHalvedUnique_1
 ]],
 -- Gloves: Evasion
 [[
@@ -296,6 +307,17 @@ GlobalAddedLightningDamageUnique__4
 LocalIncreasedEvasionRatingPercentUnique__16
 CriticalStrikesNotAlwaysApplyAilmentsUnique__1
 ApplyAilmentsMoreDamageUnique__1
+]],[[
+Hand of the Lords
+Carnal Mitts
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 68, 195 Dex, 195 Int
+TrapsApplySocketedCurseSkillsWhenTriggeredUnique_1
+GraspFromBeyondTrapUnique_1
+IncreasedLocalAttributeRequirementsUniqueGlovesDexInt1
+LocalIncreasedEvasionAndEnergyShieldUnique__39
+TrapThrowingSpeedUnique_1
+NumberOfAdditionalTrapsUnique_1
 ]],
 -- Gloves: Energy Shield
 [[
@@ -763,20 +785,21 @@ Shaper Item
 Source: Drops from unique{The Shaper}
 Variant: Pre 2.6.0
 Variant: Pre 3.10.0
+Variant: Pre 3.28.0
 Variant: Current
 Requires Level 66, 51 Str, 51 Int
-LocalIncreasedArmourAndEnergyShieldUnique__27
-{variant:1}AccuracyPerIntelligenceUnique__1[2,2][2,2]
+LocalIncreasedArmourAndEnergyShieldUnique__5
+{variant:1,4}AccuracyPerIntelligenceUnique__1[2,2][2,2]
 {variant:2,3}AccuracyPerIntelligenceUnique__1[4,4][2,2]
 LifePerDexterityUnique__1
-{variant:1,3}ManaPerStrengthUnique__1__[1,1][4,4]
+{variant:1,3,4}ManaPerStrengthUnique__1__[1,1][4,4]
 {variant:2}ManaPerStrengthUnique__1__[2,2][4,4]
-{variant:1,3}EnergyShieldPerStrengthUnique__1[1,1][10,10]
+{variant:1,3,4}EnergyShieldPerStrengthUnique__1[1,1][10,10]
 {variant:2}EnergyShieldPerStrengthUnique__1[2,2][10,10]
 {variant:1}EvasionRatingPerIntelligenceUnique__1[1,1][10,10]
-{variant:2,3}EvasionRatingPerIntelligenceUnique__1
+{variant:2,3,4}EvasionRatingPerIntelligenceUnique__1
 {variant:1}MeleePhysicalDamagePerDexterityUnique__1_[1,1][10,10]
-{variant:2,3}MeleePhysicalDamagePerDexterityUnique__1_
+{variant:2,3,4}MeleePhysicalDamagePerDexterityUnique__1_
 ]],[[
 Southbound
 Soldier Gloves
@@ -838,13 +861,15 @@ UniqueVolkuursGuidanceIgniteDurationFinal
 ]],[[
 Hand of Heresy
 Martyr Gloves
-Source: Drops from unique{Mercenary} after winning a duel
 League: Mercenaries of Trarthus
+Variant: Pre 3.28.0
+Variant: Current
 Requires Level 77, 70 Str, 70 Int
 LocalIncreasedArmourAndEnergyShieldUnique__30
-MutatedUniqueGlovesStrInt2LifeRegenerationRatePercentage
+LifeRegenerationUnique__6
 AuraIncreasedIncreasedAreaOfEffectUnique_1
 ExcommunicateOnMeleeHitUnique
+{variant:2}MeleeCritChanceAgainstExcommunicatedUnique__1
 ]],
 -- Gloves: Evasion/Energy Shield
 [[

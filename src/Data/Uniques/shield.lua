@@ -96,11 +96,12 @@ Variant: Current
 Implicits: 1
 {variant:3,4}+(20-30) to maximum Life
 {variant:1,2,3}(200-250)% increased Armour
+{variant:1,2,3}20% increased Stun and Block Recovery
 {variant:4}(180-220)% increased Armour
+{variant:4}20% increased Stun and Block Recovery
 {variant:1}+(80-100) to maximum Life
 {variant:2,3,4}+(160-180) to maximum Life
 5% reduced Movement Speed
-20% increased Stun and Block Recovery
 -25 Physical Damage taken from Projectile Attacks
 +5% Chance to Block
 ]],[[
@@ -416,8 +417,7 @@ Implicits: 1
 {variant:1,2,3}Reflects 1 to 1000 Physical Damage to Attackers on Block
 {variant:4}Reflects 1000 to 10000 Physical Damage to Attackers on Block
 {variant:2,3}10% of Damage you Reflect to Enemies when Hit is leeched as Life
-]],
-[[
+]],[[
 Cowards' Wail
 Ezomyte Tower Shield
 Requires Level 64, 159 Str
@@ -873,8 +873,7 @@ Implicits: 1
 {variant:1,2}+5% Chance to Block
 {variant:1}Curse Skills have 25% increased Skill Effect Duration
 {variant:2}Curse Skills have 100% increased Skill Effect Duration
-]],
-[[
+]],[[
 Bitter Instinct
 Spiny Round Shield
 Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Loneliness}
@@ -1063,7 +1062,8 @@ Implicits: 2
 The Unshattered Will
 Archon Kite Shield
 League: Harbinger
-Source: No longer obtainable
+Source: Created from item parts obtained from Boss in The Beachhead
+Upgrade: Upgrades to unique{The Immortal Will} via currency{Specularity Scroll}
 Implicits: 1
 +12% to all Elemental Resistances
 Grants Summon Harbinger of Focus Skill
@@ -1076,6 +1076,7 @@ Channelling Skills deal (50-70)% increased Damage
 The Immortal Will
 Archon Kite Shield
 League: Harvest
+Source: Upgraded from unique{The Unshattered Will} via currency{Specularity Scroll}
 Implicits: 1
 +12% to all Elemental Resistances
 Grants Summon Greater Harbinger of Focus Skill

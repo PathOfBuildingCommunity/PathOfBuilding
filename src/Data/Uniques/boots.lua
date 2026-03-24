@@ -94,7 +94,7 @@ Gain a Power Charge on Hit while Poisoned
 +30% to Chaos Resistance while stationary
 Necrotic Footprints
 50% chance for Spell Hits against you to inflict Poison
-15% increased Movement Speed while Poisoned
+{variant:1}15% increased Movement Speed while Poisoned
 ]],[[
 Kahuturoa's Certainty
 Ancient Greaves
@@ -1041,9 +1041,9 @@ League: Blight
 Source: Drops in Blighted Maps
 (100-150)% increased Evasion and Energy Shield
 (30-40)% increased Stun and Block Recovery
+(50-80)% increased Cooldown Recovery Rate of Travel Skills
 (30-40)% increased Mana Regeneration Rate while moving
 Your Movement Speed is 150% of its base value
-Travel Skills have (50-80)% increased Cooldown Recovery Speed
 This item can be anointed by Cassia
 ]],[[
 Replica Stampede

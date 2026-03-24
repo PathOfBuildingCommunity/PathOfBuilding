@@ -169,7 +169,7 @@ for _, name in pairs(itemTypes) do
 						if not max or max == "" then max = min end
 						-- Decimals mean it's not an exact value
 						-- There are more that should be multiplied, but they're near-impossible to detect this way
-						local multiplier = genericText:match("chance") and 1000 or genericText:match("per second") and 60 or 1
+						local multiplier = genericText:match("critical strike chance") and 1000 or genericText:match("per second") and 60 or 1
 						min = tonumber(min) * multiplier
 						max = tonumber(max) * multiplier
 						outLine = outLine .. "[" .. min .. "," .. max .. "]"

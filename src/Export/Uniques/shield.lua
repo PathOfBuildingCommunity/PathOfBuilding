@@ -95,9 +95,8 @@ Variant: Pre 3.16.0
 Variant: Current
 Implicits: 1
 {variant:3,4}IncreasedLifeImplicitShield2
-{variant:1,2,3}LocalIncreasedPhysicalDamageReductionRatingPercentUniqueBodyStr6
-{variant:4}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__14_
-StunRecoveryUniqueBootsStrDex1
+{variant:1,2,3}LocalIncreasedArmourPercentAndStunRecoveryUniqueShieldStr1[200,250]
+{variant:4}LocalIncreasedArmourPercentAndStunRecoveryUniqueShieldStr1
 {variant:1}IncreasedLifeUniqueShieldStr1[80,100]
 {variant:2,3,4}IncreasedLifeUniqueShieldStr1
 MovementVelocityUniqueShieldStr1
@@ -416,6 +415,18 @@ LifeLeechPermyriadUniqueShieldDex5
 {variant:1,2,3}ReflectDamageToAttackersOnBlockUniqueShieldDex5[1,1][1000,1000]
 {variant:4}ReflectDamageToAttackersOnBlockUniqueShieldDex5
 {variant:2,3}DamageYouReflectGainedAsLifeUnique__1
+]],[[
+Cowards' Wail
+Ezomyte Tower Shield
+Requires Level 64, 159 Str
+Implicits: 1
+IncreasedLifeImplicitShield3
+LocalIncreasedPhysicalDamageReductionRatingPercentUnique__38
+AdditionalBlockChanceUnique__13
+GhostTotemDurationUnique__1
+GhostTotemDamageUnique__1
+GhostTotemLimitUnique__1
+UnwaveringStanceUnique_2
 ]],
 -- Shield: Energy Shield
 [[
@@ -858,6 +869,18 @@ IncreasedSelfCurseDurationUniqueShieldStrDex2
 {variant:1,2}AdditionalBlockChanceUniqueShieldStrInt4[5,5]
 {variant:1}IncreasedCurseDurationUniqueShieldDex4[25,25]
 {variant:2}IncreasedCurseDurationUniqueShieldDex4
+]],[[
+Bitter Instinct
+Spiny Round Shield
+Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Loneliness}
+Requires Level 68, 85 Str, 85 Dex
+Implicits: 1
+BlockRecoveryImplicitShield1
+LocalIncreasedArmourAndEvasionUniqueShieldStrDex5
+AttackerTakesDamageUnique_1
+RetaliationSkillDamageUnique_1
+RetaliationSkillsBecomeUsableEveryXSecondsUnique_1
+RetaliateSkillUseWindowDuration_1
 ]],
 -- Shield: Armour/Energy Shield
 [[
@@ -893,7 +916,7 @@ ChaosDamageLifeLeechPermyriadUniqueShieldStrInt8
 {variant:1}UnholyMightOnBlockChanceUniqueShieldStrInt8
 {variant:2}UnholyMightOnBlockChanceUnique__1
 {variant:3}UnholyMightOnZeroEnergyShieldUnique__1
-MutatedUniqueBodyInt8ProfaneGroundInsteadOfConsecratedGround
+ProfaneGroundInsteadOfConsecratedGround__1_
 ]],[[
 Emperor's Vigilance
 Steel Kite Shield
@@ -978,9 +1001,9 @@ Variant: Current
 Implicits: 2
 {variant:1}AllResistancesImplicitShield2
 {variant:2,3,4}AllResistancesImplicitShield1
-{variant:1,2}MutatedUniqueShieldStrDex8SpellBlockPercentage[21,24]
-{variant:3}MutatedUniqueShieldStrDex8SpellBlockPercentage[15,20]
-{variant:4}MutatedUniqueShieldStrDex8SpellBlockPercentage
+{variant:1,2}SpellBlockPercentageUniqueShieldStrInt1[21,24]
+{variant:3}SpellBlockPercentageUniqueShieldStrInt1[15,20]
+{variant:4}SpellBlockPercentageUniqueShieldStrInt1
 SpellDamageUniqueShieldStrInt1
 {variant:1,2,3}AllResistancesUniqueShieldStrInt4
 {variant:4}AllResistancesUniqueShieldDex3
