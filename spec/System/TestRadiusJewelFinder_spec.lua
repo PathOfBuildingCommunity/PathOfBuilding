@@ -26,20 +26,6 @@ Radius: Large
 8% increased maximum Life
 Adds 1 to Maximum Life per 3 Intelligence Allocated in Radius]]
 
-local LOM_LIFE_RAW_TEXT = [[The Light of Meaning
-Prismatic Jewel
-Source: King of The Mists
-Limited to: 1
-Radius: Large
-Passive Skills in Radius also grant +5 to Maximum Life]]
-
-local LOM_ES_RAW_TEXT = [[The Light of Meaning
-Prismatic Jewel
-Source: King of The Mists
-Limited to: 1
-Radius: Large
-Passive Skills in Radius also grant 3% increased Energy Shield]]
-
 local function buildSplitPersonalityRawText(modLine)
 	return table.concat({
 		"Split Personality",
@@ -485,22 +471,58 @@ describe("RadiusJewelFinder #radiusjewel", function()
 
 	end)
 
+	-- ── buildVariantsFromUniqueItem ──────────────────────────────────────────
+
+	describe("buildVariantsFromUniqueItem", function()
+
+		it("builds Light of Meaning variants with valid name and rawText", function()
+			local variants = makeFinder():buildVariantsFromUniqueItem("The Light of Meaning")
+			assert.is_true(#variants > 0, "expected at least one LOM variant")
+			for _, v in ipairs(variants) do
+				assert.is_string(v.name)
+				assert.is_string(v.rawText)
+				assert.is_true(#v.name > 0, "variant name should not be empty")
+				assert.is_true(#v.rawText > 0, "variant rawText should not be empty")
+			end
+		end)
+
+		it("builds Split Personality variants with unique names", function()
+			local variants = makeFinder():buildVariantsFromUniqueItem("Split Personality")
+			assert.is_true(#variants > 0, "expected at least one Split Personality variant")
+			local seenNames = {}
+			for _, v in ipairs(variants) do
+				assert.is_string(v.name)
+				assert.is_string(v.rawText)
+				assert.is_nil(seenNames[v.name], "duplicate variant name: " .. v.name)
+				seenNames[v.name] = true
+			end
+		end)
+
+		it("variant rawText contains Selected Variant header", function()
+			local variants = makeFinder():buildVariantsFromUniqueItem("The Light of Meaning")
+			for _, v in ipairs(variants) do
+				assert.is_not_nil(v.rawText:match("Selected Variant: %d+"), "rawText should contain Selected Variant: " .. v.name)
+			end
+		end)
+
+	end)
+
 	-- ── computeBestVariantSocketImpact (LOM) ─────────────────────────────────
 
 	describe("computeBestVariantSocketImpact (LOM)", function()
-
-		local LOM_VARIANTS = {
-			{ name = "Life", rawText = LOM_LIFE_RAW_TEXT },
-			{ name = "Energy Shield", rawText = LOM_ES_RAW_TEXT },
-		}
 
 		local function getSockets()
 			return makeFinder():buildJewelSockets(getLargeRadiusIndex())
 		end
 
+		local function getLOMVariants()
+			return makeFinder():buildVariantsFromUniqueItem("The Light of Meaning")
+		end
+
 		it("returns one result per socket, picks the best variant", function()
 			local sockets = getSockets()
-			local results, baseline = makeFinder():computeBestVariantSocketImpact(sockets, LOM_VARIANTS, "Life")
+			local variants = getLOMVariants()
+			local results, baseline = makeFinder():computeBestVariantSocketImpact(sockets, variants, "Life")
 			assert.is_true(#results > 0, "expected at least one result")
 			assert.is_true(#results <= #sockets, "should not exceed socket count")
 			assert.is_number(baseline)
@@ -515,15 +537,14 @@ describe("RadiusJewelFinder #radiusjewel", function()
 
 		it("results are sorted by delta descending", function()
 			local sockets = getSockets()
-			local results, _ = makeFinder():computeBestVariantSocketImpact(sockets, LOM_VARIANTS, "Life")
+			local results, _ = makeFinder():computeBestVariantSocketImpact(sockets, getLOMVariants(), "Life")
 			assert.is_true(isSorted(results, "delta"),
 				"results should be sorted by delta descending")
 		end)
 
-		it("Life variant selected on sockets where it beats ES", function()
-			-- On an Occultist/Vortex build, Life variant should be picked for at least some sockets
+		it("Life variant selected on sockets where it beats others", function()
 			local sockets = getSockets()
-			local results, _ = makeFinder():computeBestVariantSocketImpact(sockets, LOM_VARIANTS, "Life")
+			local results, _ = makeFinder():computeBestVariantSocketImpact(sockets, getLOMVariants(), "Life")
 			local hasLife = false
 			for _, r in ipairs(results) do
 				if r.variant.name == "Life" then hasLife = true; break end
@@ -534,7 +555,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 		it("restores TotalLife after compute", function()
 			local sockets = getSockets()
 			local before = build.calcsTab.mainOutput["Life"]
-			makeFinder():computeBestVariantSocketImpact(sockets, LOM_VARIANTS, "Life")
+			makeFinder():computeBestVariantSocketImpact(sockets, getLOMVariants(), "Life")
 			local after = build.calcsTab.mainOutput["Life"]
 			assert.are.equal(before, after)
 		end)
@@ -542,13 +563,13 @@ describe("RadiusJewelFinder #radiusjewel", function()
 		it("restores socket and item state after compute", function()
 			local sockets = getSockets()
 			local before = snapshotFinderState()
-			makeFinder():computeBestVariantSocketImpact(sockets, LOM_VARIANTS, "Life")
+			makeFinder():computeBestVariantSocketImpact(sockets, getLOMVariants(), "Life")
 			assertFinderStateUnchanged(before)
 		end)
 
 		it("respects occupiedMode filter", function()
 			local sockets = getSockets()
-			local results, _ = makeFinder():computeBestVariantSocketImpact(sockets, LOM_VARIANTS, "Life", nil, nil, { id = "all" })
+			local results, _ = makeFinder():computeBestVariantSocketImpact(sockets, getLOMVariants(), "Life", nil, nil, { id = "all" })
 			assert.is_true(#results > 0, "expected results with occupied mode 'all'")
 		end)
 

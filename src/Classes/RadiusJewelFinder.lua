@@ -1471,6 +1471,11 @@ jewelPreviewFn = {
 	end,
 }
 
+-- Exposed for testing; delegates to the local helper.
+function RadiusJewelFinderClass:buildVariantsFromUniqueItem(uniqueName, baseName)
+	return buildVariantsFromUniqueItem(uniqueName, baseName)
+end
+
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Build jewel socket list
 -- ─────────────────────────────────────────────────────────────────────────────
