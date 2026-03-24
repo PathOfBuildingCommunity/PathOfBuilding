@@ -90,6 +90,15 @@ local RadiusJewelResultsListClass = newClass("RadiusJewelResultsListControl", "L
 			{ width = 65, label = "%/Pt", sortable = true },
 			{ width = 150, label = "Detail", sortable = true },
 		},
+		computeSocketAll = {
+			{ width = 120, label = "Jewel", sortable = true },
+			{ width = 130, label = "Socket", sortable = true },
+			{ width = 40, label = "Pts", sortable = true },
+			{ width = 75, label = "Gain", sortable = true },
+			{ width = 60, label = "%", sortable = true },
+			{ width = 65, label = "%/Pt", sortable = true },
+			{ width = 70, label = "Detail", sortable = true },
+		},
 		find = {
 			{ width = 170, label = "Socket", sortable = true },
 			{ width = 40, label = "Pts", sortable = true },
@@ -108,6 +117,7 @@ local RadiusJewelResultsListClass = newClass("RadiusJewelResultsListControl", "L
 	}
 	self.defaultSortByMode = {
 		computeSocket = 5,
+		computeSocketAll = 6,
 		find = 4,
 		findThread = 4,
 	}
@@ -254,6 +264,22 @@ function RadiusJewelResultsListClass:ReSort(colIndex)
 		elseif colIndex == 6 then
 			t_sort(self.list, function(a, b) return a.detailText < b.detailText end)
 		end
+	elseif self.mode == "computeSocketAll" then
+		if colIndex == 1 then
+			t_sort(self.list, function(a, b) return a.jewelName < b.jewelName end)
+		elseif colIndex == 2 then
+			t_sort(self.list, function(a, b) return a.socketLabel < b.socketLabel end)
+		elseif colIndex == 3 then
+			t_sort(self.list, function(a, b) return a.points < b.points end)
+		elseif colIndex == 4 then
+			t_sort(self.list, function(a, b) return a.delta > b.delta end)
+		elseif colIndex == 5 then
+			t_sort(self.list, function(a, b) return a.pct > b.pct end)
+		elseif colIndex == 6 then
+			t_sort(self.list, function(a, b) return a.sortPctPerPoint > b.sortPctPerPoint end)
+		elseif colIndex == 7 then
+			t_sort(self.list, function(a, b) return a.detailText < b.detailText end)
+		end
 	elseif self.mode == "find" or self.mode == "findThread" then
 		if colIndex == 1 then
 			t_sort(self.list, function(a, b) return a.socketLabel < b.socketLabel end)
@@ -285,6 +311,15 @@ function RadiusJewelResultsListClass:GetRowValue(column, index, row)
 			or column == 4 and formatSignedPercent(row.pct)
 			or column == 5 and formatPerPointDisplay(row.pctPerPoint, row.points)
 			or column == 6 and row.detailText
+			or ""
+	elseif self.mode == "computeSocketAll" then
+		return column == 1 and row.jewelName
+			or column == 2 and row.socketLabel
+			or column == 3 and tostring(row.points)
+			or column == 4 and formatSignedValue(row.delta)
+			or column == 5 and formatSignedPercent(row.pct)
+			or column == 6 and formatPerPointDisplay(row.pctPerPoint, row.points)
+			or column == 7 and row.detailText
 			or ""
 	elseif self.mode == "find" then
 		return column == 1 and row.socketLabel
@@ -369,19 +404,23 @@ function RadiusJewelResultsListClass:Draw(viewPort, noTooltip)
 	end
 	local detailColumnByMode = {
 		computeSocket = 6,
+		computeSocketAll = 7,
 		find = 5,
 		findThread = 6,
 	}
 	local socketColumnByMode = {
 		computeSocket = 1,
+		computeSocketAll = 2,
 		find = 1,
 		findThread = 1,
 	}
 	local statColumnsByMode = {
 		computeSocket = { [3] = true, [4] = true, [5] = true },
+		computeSocketAll = { [4] = true, [5] = true, [6] = true },
 	}
 	local itemColumnsByMode = {
 		computeSocket = { [6] = true },
+		computeSocketAll = { [7] = true },
 		find = { [5] = true },
 		findThread = { [6] = true },
 	}
@@ -2584,6 +2623,30 @@ function RadiusJewelFinderClass:Open()
 	finderState.computeCache = finderState.computeCache or { }
 	finderState.resultViewByKey = finderState.resultViewByKey or { }
 	finderState.connectionlessPlanCache = finderState.connectionlessPlanCache or { }
+	local ALL_JEWELS_VIEW_OPTIONS = {
+		{ id = "all",           label = "All results" },
+		{ id = "bestPerSocket", label = "Best per socket" },
+	}
+	local allJewelsViewLabels = { }
+	for _, v in ipairs(ALL_JEWELS_VIEW_OPTIONS) do t_insert(allJewelsViewLabels, v.label) end
+	local selectedAllJewelsView = ALL_JEWELS_VIEW_OPTIONS[1]
+	local lastComputeAllRows = nil
+
+	local function filterBestPerSocket(rows)
+		local bestBySocket = { }
+		for _, row in ipairs(rows) do
+			local ex = bestBySocket[row.socketId]
+			if not ex or row.sortPctPerPoint > ex.sortPctPerPoint then
+				bestBySocket[row.socketId] = row
+			end
+		end
+		local filtered = { }
+		for _, row in pairs(bestBySocket) do
+			t_insert(filtered, row)
+		end
+		return filtered
+	end
+
 	local suppressFinderStateSave = false
 	local runFind
 	local computeContext
@@ -2602,6 +2665,7 @@ function RadiusJewelFinderClass:Open()
 		finderState.computeMethodId = selectedComputeMethod and selectedComputeMethod.id or nil
 		finderState.maxPoints = selectedMaxPoints
 		finderState.occupiedModeId = selectedOccupiedMode and selectedOccupiedMode.id or nil
+		finderState.allJewelsViewId = selectedAllJewelsView and selectedAllJewelsView.id or nil
 	end
 
 	local function getSelectionKey()
@@ -2635,7 +2699,14 @@ function RadiusJewelFinderClass:Open()
 		if not cache then
 			return false
 		end
-		controls.resultsList:SetMode(cache.mode, copyTableSafe(cache.rows, false, true), cache.defaultText)
+		local rows = copyTableSafe(cache.rows, false, true)
+		if cache.mode == "computeSocketAll" then
+			lastComputeAllRows = rows
+			if selectedAllJewelsView.id == "bestPerSocket" then
+				rows = filterBestPerSocket(rows)
+			end
+		end
+		controls.resultsList:SetMode(cache.mode, rows, cache.defaultText)
 		controls.statusLabel.label = cache.statusLabel or controls.statusLabel.label
 		return true
 	end
@@ -2778,6 +2849,7 @@ end
 			or (controls.jewelVariantSelect and controls.jewelVariantSelect.dropped)
 			or (controls.threadVariantSelect and controls.threadVariantSelect.dropped)
 			or (controls.variantFamilySelect and controls.variantFamilySelect.dropped)
+			or (controls.allJewelsViewSelect and controls.allJewelsViewSelect.dropped)
 			or (controls.impactStatSelect and controls.impactStatSelect.dropped)
 			or (controls.occupiedModeSelect and controls.occupiedModeSelect.dropped)
 	end
@@ -2885,6 +2957,17 @@ end
 			t_insert(previewListData, { height = 16, [1] = COL_META .. "(no preview)" })
 			return
 		end
+		if selectedJewelType.isAllJewels then
+			t_insert(previewListData, { height = 16, [1] = "^7Evaluate all jewel types at once." })
+			if selectedAllJewelsView.id == "bestPerSocket" then
+				t_insert(previewListData, { height = 16, [1] = "^7Shows the single best jewel for each socket." })
+			else
+				t_insert(previewListData, { height = 16, [1] = "^7Results ranked globally by %/Pt." })
+			end
+			t_insert(previewListData, { height = 6,  [1] = "" })
+			t_insert(previewListData, { height = 16, [1] = COL_META .. "Click Compute to start." })
+			return
+		end
 		local lines = buildPreviewLinesForJewelType(selectedJewelType)
 		if type(lines) ~= "table" then
 			t_insert(previewListData, { height = 16, [1] = COL_META .. "(no preview)" })
@@ -2922,6 +3005,11 @@ end
 			end
 			return false
 		end)
+		t_insert(activeJewelTypes, 1, {
+			name = "All jewels",
+			isAllJewels = true,
+			hasCompute = true,
+		})
 		for _, jt in ipairs(activeJewelTypes) do
 			t_insert(jtLabels, jt.name)
 		end
@@ -2994,6 +3082,20 @@ end
 	controls.occupiedModeLabel.shown = true
 	controls.occupiedModeSelect.shown = true
 
+	-- All-jewels view mode selector
+	controls.allJewelsViewLabel = new("LabelControl", TL, { 278, 10, 0, 16 }, "^7View:")
+	controls.allJewelsViewSelect = new("DropDownControl", TL, { 278, 26, 160, 20 }, allJewelsViewLabels, function(idx)
+		selectedAllJewelsView = ALL_JEWELS_VIEW_OPTIONS[idx]
+		if lastComputeAllRows then
+			local displayRows = selectedAllJewelsView.id == "bestPerSocket"
+				and filterBestPerSocket(lastComputeAllRows) or lastComputeAllRows
+			controls.resultsList:SetMode("computeSocketAll", displayRows, COL_META .. "(no compatible sockets)")
+		end
+		saveFinderState()
+	end)
+	controls.allJewelsViewLabel.shown = false
+	controls.allJewelsViewSelect.shown = false
+
 		-- Thread ring selector (shown when Thread of Hope selected)
 		controls.threadVariantLabel = new("LabelControl", TL, { 278, 10, 0, 16 }, "^7Preview ring:")
 	controls.threadVariantSelect = new("DropDownControl", TL, { 278, 26, 200, 20 }, tvLabels, function(idx)
@@ -3045,6 +3147,30 @@ end
 		controls.jewelVariantSelect.shown = false
 
 		local function syncSelectedJewelTypeControls()
+			if selectedJewelType.isAllJewels then
+				controls.allJewelsViewLabel.shown  = true
+				controls.allJewelsViewSelect.shown = true
+				controls.threadVariantLabel.shown  = false
+				controls.threadVariantSelect.shown = false
+				controls.variantFamilyLabel.shown  = false
+				controls.variantFamilySelect.shown = false
+				controls.jewelVariantLabel.shown   = false
+				controls.jewelVariantSelect.shown  = false
+				controls.computeMethodLabel.shown  = false
+				controls.computeMethodSelect.shown = false
+				controls.impactStatLabel.shown     = true
+				controls.impactStatSelect.shown    = true
+				if controls.computeButton then
+					controls.computeButton.shown = true
+				end
+				if controls.findButton then
+					controls.findButton.shown = false
+				end
+				selectedJewelVariant = nil
+				return
+			end
+			controls.allJewelsViewLabel.shown  = false
+			controls.allJewelsViewSelect.shown = false
 			local isThread = selectedJewelType.isThread == true
 			local hasVariants = selectedJewelType.variants ~= nil
 			local hasVariantFamilyFilter = hasVariantFamilies()
@@ -3060,6 +3186,9 @@ end
 			controls.computeMethodSelect.shown = hasComputeMethods
 			controls.impactStatLabel.shown     = selectedJewelType.hasCompute
 			controls.impactStatSelect.shown    = selectedJewelType.hasCompute
+			if controls.findButton then
+				controls.findButton.shown = true
+			end
 			if controls.computeButton then
 				controls.computeButton.shown = selectedJewelType.hasCompute
 			end
@@ -3103,6 +3232,12 @@ end
 	end)
 	controls.jewelTypeSelect.tooltipFunc = function(tooltip, mode, index)
 		local jewelType = activeJewelTypes[index]
+		if jewelType and jewelType.isAllJewels then
+			tooltip:Clear(true)
+			tooltip:AddLine(16, "^7Evaluate every jewel type at once.")
+			tooltip:AddLine(16, "^7Results ranked globally by %%/Pt.")
+			return
+		end
 		addPreviewLinesToTooltip(tooltip, buildGenericTypeTooltipLinesForJewelType(jewelType))
 	end
 	controls.jewelVariantSelect.tooltipFunc = function(tooltip, mode, index)
@@ -3173,6 +3308,74 @@ end
 		}
 		return tracker
 	end
+	local function buildComputeRows(jewelType, socketResults, baseline)
+		local rows = { }
+		for _, r in ipairs(socketResults) do
+			local points = self:getSocketAccessCost(r.socket, { isOccupied = r.replacedItemLabel ~= nil })
+			local variantLabel = r.variant and (r.variant.dropdownLabel or r.variant.name) or ""
+			local itemTooltipLines = r.variant and buildPreviewLinesForJewelType(jewelType, r.variant) or nil
+			local displayedPlans = (jewelType.name == "Intuitive Leap" or jewelType.isThread or jewelType.isImpossibleEscape)
+				and buildDisplayedConnectionlessPlans(r, points, baseline)
+				or { r }
+			for _, plan in ipairs(displayedPlans) do
+				local pct = calculateImpactPercent(plan.delta, baseline)
+				local totalPoints = points + (plan.addedNodeCount or 0)
+				local summaryParts = { }
+				if variantLabel ~= "" then
+					t_insert(summaryParts, variantLabel)
+				end
+				if plan.resultNodeLabels and #plan.resultNodeLabels > 0 then
+					t_insert(summaryParts, s_format("%d node%s", #plan.resultNodeLabels, #plan.resultNodeLabels == 1 and "" or "s"))
+				elseif (not plan.detailText or plan.detailText == "") and variantLabel == "" then
+					local rIdx = jewelType.radiusIndex
+					local socketNode = plan.socket and treeData.nodes[plan.socket.id]
+					local radiusNodes = rIdx and socketNode and socketNode.nodesInRadius and socketNode.nodesInRadius[rIdx]
+					if radiusNodes then
+						local matchCount = 0
+						for _, n in pairs(radiusNodes) do
+							if not n.ascendancyName and (n.type == "Notable" or n.type == "Keystone") then
+								matchCount = matchCount + 1
+							end
+						end
+						if matchCount > 0 then
+							t_insert(summaryParts, s_format("%d match%s", matchCount, matchCount == 1 and "" or "es"))
+						end
+					end
+				end
+				local detailText = #summaryParts > 0 and t_concat(summaryParts, " | ") or (plan.detailText or "")
+				local detailNodeId = nil
+				if jewelType.isImpossibleEscape and r.variant and r.variant.keystoneName then
+					local keystoneNode = treeData.keystoneMap[r.variant.keystoneName]
+					detailNodeId = keystoneNode and keystoneNode.id or nil
+				end
+				t_insert(rows, {
+					socketLabel = r.socket.label,
+					socketId = r.socket.id,
+					points = totalPoints,
+					delta = plan.delta,
+					pct = pct,
+					pctPerPoint = totalPoints > 0 and (pct / totalPoints) or pct,
+					sortPctPerPoint = totalPoints > 0 and (pct / totalPoints) or (pct >= 0 and math.huge or -math.huge),
+					detailText = detailText,
+					detailNodeId = detailNodeId,
+					resultNodes = plan.resultNodes,
+					resultNodeLabels = plan.resultNodeLabels,
+					replacedItemLabel = r.replacedItemLabel,
+					itemTooltipLines = itemTooltipLines,
+					baseOutput = plan.baseOutput,
+					compareOutput = plan.compareOutput,
+					jewelName = jewelType.name,
+					tooltipHeader = jewelType.isThread and "^7Socketing this jewel and allocating the best ring plan here will give you:"
+						or jewelType.name == "Intuitive Leap" and "^7Socketing this jewel and allocating the best nodes here will give you:"
+						or jewelType.isImpossibleEscape and "^7Socketing this jewel and allocating the best keystone plan here will give you:"
+						or variantLabel ~= "" and "^7Socketing the best variant here will give you:"
+						or "^7Socketing this jewel will give you:",
+				})
+			end
+		end
+		return rows
+	end
+
 	controls.computeButton = new("ButtonControl", TL, { 968, 26, 72, 20 }, "Compute", function()
 		if computeContext then
 			cancelComputeTask("^8Compute cancelled")
@@ -3190,6 +3393,83 @@ end
 			local computeMethod = selectedComputeMethod or findConnectionlessComputeMethod(nil)
 			local computeMethodLabel = selectedJewelSupportsComputeMethods() and computeMethod.label or nil
 
+			if selectedJewelType.isAllJewels then
+				local allRows = { }
+				local globalBaseline
+
+				local computableTypes = { }
+				for _, jt in ipairs(activeJewelTypes) do
+					if not jt.isAllJewels and jt.hasCompute then
+						t_insert(computableTypes, jt)
+					end
+				end
+
+				for typeIndex, jt in ipairs(computableTypes) do
+					local typeProgress = progress:child(
+						(typeIndex - 1) / #computableTypes,
+						1 / #computableTypes)
+					local socketResults, baseline
+
+					if jt.name == "Intuitive Leap" then
+						socketResults, baseline =
+							self:computeIntuitiveLeapSocketImpact(jewelSockets, selectedImpactStat, nil,
+								computeMethod.id, finderState.connectionlessPlanCache, typeProgress, selectedMaxPoints, selectedOccupiedMode)
+					elseif jt.isThread then
+						socketResults, baseline =
+							self:computeThreadOfHopeSocketImpact(jewelSockets, selectedImpactStat, threadVariants,
+								computeMethod.id, finderState.connectionlessPlanCache, typeProgress, selectedMaxPoints, selectedOccupiedMode)
+					elseif jt.isImpossibleEscape then
+						socketResults, baseline =
+							self:computeImpossibleEscapeSocketImpact(jewelSockets, selectedImpactStat,
+								jt.variants or getImpossibleEscapeVariants(),
+								computeMethod.id, finderState.connectionlessPlanCache, typeProgress, selectedMaxPoints, selectedOccupiedMode)
+					elseif jt.isSplitPersonality then
+						socketResults, baseline =
+							self:computeSplitPersonalitySocketImpact(jewelSockets, selectedImpactStat,
+								jt.variants or getSplitPersonalityVariants(),
+								typeProgress, selectedMaxPoints, selectedOccupiedMode)
+					elseif jt.variants and #jt.variants > 0 then
+						socketResults, baseline =
+							self:computeBestVariantSocketImpact(jewelSockets, jt.variants, selectedImpactStat,
+								typeProgress, selectedMaxPoints, selectedOccupiedMode)
+					else
+						socketResults, baseline =
+							self:computeSocketImpact(jewelSockets, jt.rawText, selectedImpactStat,
+								typeProgress, selectedMaxPoints, selectedOccupiedMode)
+					end
+
+					globalBaseline = globalBaseline or baseline
+
+					local typeRows = buildComputeRows(jt, socketResults, baseline)
+
+					-- For connectionless types: keep only the best row per socket
+					if jt.name == "Intuitive Leap" or jt.isThread or jt.isImpossibleEscape then
+						local bestBySocket = { }
+						for _, row in ipairs(typeRows) do
+							local ex = bestBySocket[row.socketId]
+							if not ex or row.sortPctPerPoint > ex.sortPctPerPoint then
+								bestBySocket[row.socketId] = row
+							end
+						end
+						typeRows = { }
+						for _, row in pairs(bestBySocket) do
+							t_insert(typeRows, row)
+						end
+					end
+
+					for _, row in ipairs(typeRows) do
+						t_insert(allRows, row)
+					end
+				end
+
+				globalBaseline = globalBaseline or 0
+				lastComputeAllRows = allRows
+				local displayRows = selectedAllJewelsView.id == "bestPerSocket"
+					and filterBestPerSocket(allRows) or allRows
+				controls.resultsList:SetMode("computeSocketAll", displayRows, COL_META .. "(no compatible sockets)")
+				controls.statusLabel.label = formatComputeStatus("All jewels", statLabel, globalBaseline, computeMethodLabel)
+				saveResultCache("compute", "computeSocketAll", allRows, COL_META .. "(no compatible sockets)", controls.statusLabel.label, true)
+			else
 					local displayedVariants = getDisplayedVariants()
 					local itemLabel = selectedJewelType.name
 					local socketResults, baseline
@@ -3216,72 +3496,11 @@ end
 						socketResults, baseline =
 							self:computeSocketImpact(jewelSockets, rawText, selectedImpactStat, progress, selectedMaxPoints, selectedOccupiedMode)
 					end
-					local rows = { }
-					for _, r in ipairs(socketResults) do
-						local points = self:getSocketAccessCost(r.socket, { isOccupied = r.replacedItemLabel ~= nil })
-						local variantLabel = r.variant and (r.variant.dropdownLabel or r.variant.name) or ""
-						local itemTooltipLines = r.variant and buildPreviewLinesForJewelType(selectedJewelType, r.variant) or nil
-						local displayedPlans = (selectedJewelType.name == "Intuitive Leap" or selectedJewelType.isThread or selectedJewelType.isImpossibleEscape)
-							and buildDisplayedConnectionlessPlans(r, points, baseline)
-							or { r }
-						for _, plan in ipairs(displayedPlans) do
-							local pct = calculateImpactPercent(plan.delta, baseline)
-							local totalPoints = points + (plan.addedNodeCount or 0)
-							local summaryParts = { }
-							if variantLabel ~= "" then
-								t_insert(summaryParts, variantLabel)
-							end
-							if plan.resultNodeLabels and #plan.resultNodeLabels > 0 then
-								t_insert(summaryParts, s_format("%d node%s", #plan.resultNodeLabels, #plan.resultNodeLabels == 1 and "" or "s"))
-							elseif (not plan.detailText or plan.detailText == "") and variantLabel == "" then
-								local rIdx = selectedJewelType.radiusIndex
-								local socketNode = plan.socket and treeData.nodes[plan.socket.id]
-								local radiusNodes = rIdx and socketNode and socketNode.nodesInRadius and socketNode.nodesInRadius[rIdx]
-								if radiusNodes then
-									local matchCount = 0
-									for _, n in pairs(radiusNodes) do
-										if not n.ascendancyName and (n.type == "Notable" or n.type == "Keystone") then
-											matchCount = matchCount + 1
-										end
-									end
-									if matchCount > 0 then
-										t_insert(summaryParts, s_format("%d match%s", matchCount, matchCount == 1 and "" or "es"))
-									end
-								end
-							end
-							local detailText = #summaryParts > 0 and t_concat(summaryParts, " | ") or (plan.detailText or "")
-							local detailNodeId = nil
-							if selectedJewelType.isImpossibleEscape and r.variant and r.variant.keystoneName then
-								local keystoneNode = treeData.keystoneMap[r.variant.keystoneName]
-								detailNodeId = keystoneNode and keystoneNode.id or nil
-							end
-							t_insert(rows, {
-								socketLabel = r.socket.label,
-								socketId = r.socket.id,
-								points = totalPoints,
-								delta = plan.delta,
-								pct = pct,
-								pctPerPoint = totalPoints > 0 and (pct / totalPoints) or pct,
-								sortPctPerPoint = totalPoints > 0 and (pct / totalPoints) or (pct >= 0 and math.huge or -math.huge),
-								detailText = detailText,
-								detailNodeId = detailNodeId,
-								resultNodes = plan.resultNodes,
-								resultNodeLabels = plan.resultNodeLabels,
-								replacedItemLabel = r.replacedItemLabel,
-								itemTooltipLines = itemTooltipLines,
-								baseOutput = plan.baseOutput,
-								compareOutput = plan.compareOutput,
-								tooltipHeader = selectedJewelType.isThread and "^7Socketing this jewel and allocating the best ring plan here will give you:"
-									or selectedJewelType.name == "Intuitive Leap" and "^7Socketing this jewel and allocating the best nodes here will give you:"
-									or selectedJewelType.isImpossibleEscape and "^7Socketing this jewel and allocating the best keystone plan here will give you:"
-									or variantLabel ~= "" and "^7Socketing the best variant here will give you:"
-									or "^7Socketing this jewel will give you:",
-							})
-						end
-					end
+					local rows = buildComputeRows(selectedJewelType, socketResults, baseline)
 					controls.resultsList:SetMode("computeSocket", rows, COL_META .. "(no compatible sockets)")
 					controls.statusLabel.label = formatComputeStatus(itemLabel, statLabel, baseline, computeMethodLabel)
 					saveResultCache("compute", "computeSocket", rows, COL_META .. "(no compatible sockets)", controls.statusLabel.label, true)
+			end
 				end)
 				if not ok then
 					error(err)
@@ -3323,6 +3542,9 @@ end
 
 	-- ── Find button ───────────────────────────────────────────────────────────
 	runFind = function(makePreferred)
+			if selectedJewelType and selectedJewelType.isAllJewels then
+				return
+			end
 			controls.statusLabel.label = "^7Searching..."
 			local ok, err = pcall(function()
 					local allocNodes  = self.build.spec.allocNodes
@@ -3603,6 +3825,15 @@ end
 				if option.id == finderState.occupiedModeId then
 					selectedOccupiedMode = option
 					controls.occupiedModeSelect.selIndex = i
+					break
+				end
+			end
+		end
+		if finderState.allJewelsViewId then
+			for i, option in ipairs(ALL_JEWELS_VIEW_OPTIONS) do
+				if option.id == finderState.allJewelsViewId then
+					selectedAllJewelsView = option
+					controls.allJewelsViewSelect.selIndex = i
 					break
 				end
 			end
