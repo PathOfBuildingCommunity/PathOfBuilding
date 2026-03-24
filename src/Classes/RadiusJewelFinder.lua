@@ -82,11 +82,6 @@ local RadiusJewelResultsListClass = newClass("RadiusJewelResultsListControl", "L
 		message = {
 			{ width = rect[3] - 22, label = "" },
 		},
-		computeVariant = {
-			{ width = 300, label = "Variant", sortable = true },
-			{ width = 120, label = "Gain", sortable = true },
-			{ width = 120, label = "%", sortable = true },
-		},
 		computeSocket = {
 			{ width = 170, label = "Socket", sortable = true },
 			{ width = 40, label = "Pts", sortable = true },
@@ -112,7 +107,6 @@ local RadiusJewelResultsListClass = newClass("RadiusJewelResultsListControl", "L
 		},
 	}
 	self.defaultSortByMode = {
-		computeVariant = 2,
 		computeSocket = 5,
 		find = 4,
 		findThread = 4,
@@ -246,15 +240,7 @@ function RadiusJewelResultsListClass:SetMode(mode, list, defaultText)
 end
 
 function RadiusJewelResultsListClass:ReSort(colIndex)
-	if self.mode == "computeVariant" then
-		if colIndex == 1 then
-			t_sort(self.list, function(a, b) return a.variantLabel < b.variantLabel end)
-		elseif colIndex == 2 then
-			t_sort(self.list, function(a, b) return a.delta > b.delta end)
-		elseif colIndex == 3 then
-			t_sort(self.list, function(a, b) return a.pct > b.pct end)
-		end
-	elseif self.mode == "computeSocket" then
+	if self.mode == "computeSocket" then
 		if colIndex == 1 then
 			t_sort(self.list, function(a, b) return a.socketLabel < b.socketLabel end)
 		elseif colIndex == 2 then
@@ -292,11 +278,6 @@ end
 function RadiusJewelResultsListClass:GetRowValue(column, index, row)
 	if self.mode == "message" then
 		return column == 1 and row.text or ""
-	elseif self.mode == "computeVariant" then
-		return column == 1 and row.variantLabel
-			or column == 2 and formatSignedValue(row.delta)
-			or column == 3 and formatSignedPercent(row.pct)
-			or ""
 	elseif self.mode == "computeSocket" then
 		return column == 1 and row.socketLabel
 			or column == 2 and tostring(row.points)
@@ -392,17 +373,14 @@ function RadiusJewelResultsListClass:Draw(viewPort, noTooltip)
 		findThread = 6,
 	}
 	local socketColumnByMode = {
-		computeVariant = nil,
 		computeSocket = 1,
 		find = 1,
 		findThread = 1,
 	}
 	local statColumnsByMode = {
-		computeVariant = { [2] = true, [3] = true },
 		computeSocket = { [3] = true, [4] = true, [5] = true },
 	}
 	local itemColumnsByMode = {
-		computeVariant = { [1] = true },
 		computeSocket = { [6] = true },
 		find = { [5] = true },
 		findThread = { [6] = true },
@@ -531,20 +509,20 @@ end
 -- Light of Meaning variants
 -- ─────────────────────────────────────────────────────────────────────────────
 
-local LIGHT_OF_MEANING_VARIANTS = {
-	{ name = "Life",             mod = "+5 to Maximum Life",                  bonus = "+5 Life" },
-	{ name = "Energy Shield",    mod = "3% increased Energy Shield",           bonus = "3% inc ES" },
-	{ name = "Mana",             mod = "+5 to Maximum Mana",                  bonus = "+5 Mana" },
-	{ name = "Armour",           mod = "7% increased Armour",                 bonus = "7% inc Armour" },
-	{ name = "Evasion Rating",   mod = "7% increased Evasion Rating",         bonus = "7% inc Evasion" },
-	{ name = "Attributes",       mod = "+2 to all Attributes",                bonus = "+2 Attributes" },
-	{ name = "Global Crit",      mod = "5% increased Global Critical Strike", bonus = "5% inc Crit" },
-	{ name = "Physical Damage",  mod = "6% increased Physical Damage",        bonus = "6% inc Phys" },
-	{ name = "Lightning Damage", mod = "6% increased Lightning Damage",       bonus = "6% inc Lightning" },
-	{ name = "Cold Damage",      mod = "6% increased Cold Damage",            bonus = "6% inc Cold" },
-	{ name = "Fire Damage",      mod = "6% increased Fire Damage",            bonus = "6% inc Fire" },
-	{ name = "Chaos Damage",     mod = "6% increased Chaos Damage",           bonus = "6% inc Chaos" },
-	{ name = "Chaos Resistance", mod = "+4% to Chaos Resistance",             bonus = "+4% Chaos Res" },
+local LIGHT_OF_MEANING_VARIANT_DEFS = {
+	{ name = "Life",             variantIndex = 1  },
+	{ name = "Energy Shield",    variantIndex = 2  },
+	{ name = "Mana",             variantIndex = 3  },
+	{ name = "Armour",           variantIndex = 4  },
+	{ name = "Evasion Rating",   variantIndex = 5  },
+	{ name = "Attributes",       variantIndex = 6  },
+	{ name = "Global Crit",      variantIndex = 7  },
+	{ name = "Physical Damage",  variantIndex = 8  },
+	{ name = "Lightning Damage", variantIndex = 9  },
+	{ name = "Cold Damage",      variantIndex = 10 },
+	{ name = "Fire Damage",      variantIndex = 11 },
+	{ name = "Chaos Damage",     variantIndex = 12 },
+	{ name = "Chaos Resistance", variantIndex = 13 },
 }
 
 local uniqueRawTextByName
@@ -632,6 +610,23 @@ end
 
 local function mustGetCurrentUniqueRawText(name, baseName)
 	return mustGetUniqueVariantRawText(name, "Current", baseName)
+end
+
+local LIGHT_OF_MEANING_VARIANTS
+local function getLightOfMeaningVariants()
+	if not LIGHT_OF_MEANING_VARIANTS then
+		LIGHT_OF_MEANING_VARIANTS = { }
+		for _, def in ipairs(LIGHT_OF_MEANING_VARIANT_DEFS) do
+			local rawText = getUniqueVariantRawText("The Light of Meaning", def.variantIndex)
+			if rawText then
+				t_insert(LIGHT_OF_MEANING_VARIANTS, {
+					name = def.name,
+					rawText = rawText,
+				})
+			end
+		end
+	end
+	return LIGHT_OF_MEANING_VARIANTS
 end
 
 local MIGHT_OF_MEEK_FOULBORN_V1_RAW_TEXT = [[Might of the Meek
@@ -1123,15 +1118,13 @@ end
 local jewelPreviewFn  -- forward-declare so group functions can reference it by upvalue
 jewelPreviewFn = {
 	["The Light of Meaning"] = function(variant, isFoulborn)
+		if variant and variant.rawText then
+			return previewFromRawText(variant.rawText, isFoulborn, "The Light of Meaning (" .. variant.name .. ")")
+		end
 		local lines = previewHeader("The Light of Meaning", "Prismatic Jewel", "Large",
 			{ "Limited to: 1", "Source: King of The Mists" }, isFoulborn)
-		if variant then
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "Passive Skills in Radius also grant:" })
-			t_insert(lines, { height = 16, [1] = COL_MOD .. "  " .. variant.mod })
-		else
-			for _, v in ipairs(LIGHT_OF_MEANING_VARIANTS) do
-				t_insert(lines, { height = 14, [1] = COL_META .. "  " .. v.name .. ": " .. v.mod })
-			end
+		for _, v in ipairs(getLightOfMeaningVariants()) do
+			t_insert(lines, { height = 14, [1] = COL_META .. "  " .. v.name })
 		end
 		return lines
 	end,
@@ -1579,7 +1572,7 @@ function RadiusJewelFinderClass:getSocketAccessCost(socket, occupancy)
 end
 
 -- ─────────────────────────────────────────────────────────────────────────────
--- LOM variant impact: equip each variant, rebuild, measure stat delta
+-- Compute helpers
 -- ─────────────────────────────────────────────────────────────────────────────
 
 local function progressTick(progress, done, total, label)
@@ -1616,56 +1609,6 @@ local function buildDisplayedConnectionlessPlans(result, socketBasePoints, basel
 		t_insert(displayedPlans, finalPlan)
 	end
 	return displayedPlans
-end
-
-function RadiusJewelFinderClass:computeVariantImpact(socketId, impactStat, progress, occupiedMode)
-	impactStat = normalizeImpactStat(impactStat)
-	local slot = self.build.itemsTab.sockets[socketId]
-	if not slot then
-		return { }, 0
-	end
-	local socketNode = self.build.spec.nodes[socketId]
-	if not socketNode then
-		return { }, 0
-	end
-
-	local calcFunc, baseOutput = self.build.calcsTab:GetMiscCalculator()
-	local slotName = "Jewel " .. tostring(socketId)
-	local realBaseline = self:getImpactValue(impactStat, baseOutput)
-	local socketAllowed = self:socketMatchesOccupiedMode(socketId, occupiedMode)
-	if not socketAllowed then
-		return { }, realBaseline
-	end
-	local replacementContext = self:buildSocketReplacementContext(calcFunc, socketId)
-	local baselineOutput = replacementContext.baselineOutput
-	local baseline = self:getImpactValue(impactStat, baselineOutput)
-	local variantResults = { }
-
-	for i, variant in ipairs(LIGHT_OF_MEANING_VARIANTS) do
-		progressTick(progress, i, #LIGHT_OF_MEANING_VARIANTS, variant.name)
-		local text = mustGetUniqueRawText("The Light of Meaning")
-		local item = new("Item", "Rarity: Unique\n" .. text)
-		item.variant = i
-		item:BuildModList()
-		local output = calcFunc({
-			addNodes = { [socketNode] = true },
-			repSlotName = slotName,
-			repItem = item,
-		})
-		local value = self:getImpactValue(impactStat, output)
-		t_insert(variantResults, {
-			variant = variant,
-			variantIdx = i,
-			value = value,
-			delta = self:calculateImpactDelta(impactStat, baselineOutput, output),
-			replacedItemLabel = replacementContext.replacedItemLabel,
-			baseOutput = extractTooltipStats(baselineOutput),
-			compareOutput = extractTooltipStats(output),
-		})
-	end
-
-	t_sort(variantResults, function(a, b) return a.delta > b.delta end)
-	return variantResults, realBaseline
 end
 
 -- Compute jewel impact across all empty sockets (for non-variant jewels)
@@ -2613,8 +2556,9 @@ local function buildJewelTypes(radiusIndexByLabel, isFoulborn)
 		name = "The Light of Meaning",
 		radiusIndex = radiusIndexByLabel["Large"],
 		scoreLabel = "alloc passives",
-		isLightOfMeaning = true,
+		hasCompute = true,
 		score = scoreAllocPassives,
+		variants = getLightOfMeaningVariants(),
 	})
 	t_insert(jewelTypes, mightOfTheMeek)
 	t_insert(jewelTypes, {
@@ -2790,7 +2734,7 @@ local function buildJewelTypes(radiusIndexByLabel, isFoulborn)
 end
 
 local function jewelTypeSortOrder(jt)
-	if jt.isLightOfMeaning then return 10 end
+	if jt.name == "The Light of Meaning" then return 10 end
 	if jt.name == "Might of the Meek" then return 20 end
 	if jt.name == "Unnatural Instinct" then return 30 end
 	if jt.name == "Inspired Learning" then return 40 end
@@ -2845,7 +2789,6 @@ function RadiusJewelFinderClass:Open()
 	local activeJewelTypes       = { }   -- filtered view of jewelTypes
 	local selectedJewelType      = nil   -- set after first filter build
 	local selectedThreadVariant  = threadVariants[1]
-	local selectedLOMVariant     = LIGHT_OF_MEANING_VARIANTS[1]
 	local selectedJewelVariant   = nil  -- set when jewel type has built-in variants
 	local selectedComputeMethod  = CONNECTIONLESS_COMPUTE_METHODS[2]
 	local selectedMaxPoints      = nil
@@ -2871,10 +2814,6 @@ function RadiusJewelFinderClass:Open()
 	local tvLabels = { }
 	for _, tv in ipairs(threadVariants) do t_insert(tvLabels, tv.name .. " Ring") end
 
-	local lomLabels = { }
-	for _, v in ipairs(LIGHT_OF_MEANING_VARIANTS) do t_insert(lomLabels, v.name) end
-
-	local selectedSocket = jewelSockets[1]
 	local socketViewer = new("PassiveTreeView")
 
 	local impactStatLabels = { }
@@ -2901,14 +2840,12 @@ function RadiusJewelFinderClass:Open()
 		finderState.isFoulborn = isFoulborn
 		finderState.jewelTypeName = selectedJewelType and selectedJewelType.name or nil
 		finderState.jewelVariantName = selectedJewelVariant and (selectedJewelVariant.dropdownLabel or selectedJewelVariant.name) or nil
-		finderState.lomVariantName = selectedLOMVariant and selectedLOMVariant.name or nil
 		finderState.threadVariantName = selectedThreadVariant and selectedThreadVariant.name or nil
 		finderState.dreamFamilyValue = selectedDreamFamily and selectedDreamFamily.value or nil
 		finderState.impactStatLabel = selectedImpactStat and selectedImpactStat.label or nil
 		finderState.computeMethodId = selectedComputeMethod and selectedComputeMethod.id or nil
 		finderState.maxPoints = selectedMaxPoints
 		finderState.occupiedModeId = selectedOccupiedMode and selectedOccupiedMode.id or nil
-		finderState.socketId = selectedSocket and selectedSocket.id or nil
 	end
 
 	local function getSelectionKey()
@@ -2919,14 +2856,12 @@ function RadiusJewelFinderClass:Open()
 			tostring((isFoulborn and selectedJewelType and selectedJewelType.supportsFoulborn == true) and 1 or 0),
 			selectedJewelType and selectedJewelType.name or "",
 			selectedJewelVariant and (selectedJewelVariant.dropdownLabel or selectedJewelVariant.name) or "",
-			selectedLOMVariant and selectedLOMVariant.name or "",
 			selectedThreadVariant and selectedThreadVariant.name or "",
 			selectedDreamFamily and selectedDreamFamily.value or "",
 			selectedImpactStat and selectedImpactStat.field or "",
 			computeMethodKey,
 			selectedMaxPoints and tostring(selectedMaxPoints) or "",
 			selectedOccupiedMode and selectedOccupiedMode.id or "",
-			selectedSocket and tostring(selectedSocket.id) or "",
 		}, "|")
 	end
 
@@ -2967,9 +2902,6 @@ function RadiusJewelFinderClass:Open()
 			return s_format("^7%s | %s %.1f | %s | %%/pt", itemLabel, statLabel, baseline, methodLabel)
 		end
 		return s_format("^7%s | %s %.1f | %%/pt", itemLabel, statLabel, baseline)
-	end
-	local function formatVariantStatus(label, statLabel, baseline)
-		return s_format("^7%s | %s %.1f", label, statLabel, baseline)
 	end
 	local function formatReplacementLabel(replacedItemLabel)
 		return replacedItemLabel and ("Replace " .. replacedItemLabel) or "Free socket"
@@ -3025,9 +2957,7 @@ local function buildPreviewLinesForJewelType(jewelType, previewIsFoulborn, previ
 			return nil
 	end
 	local selectedTypeMatches = selectedJewelType and selectedJewelType.name == jewelType.name
-	if jewelType.isLightOfMeaning then
-		return fn(previewVariantOverride or selectedLOMVariant, previewIsFoulborn)
-	elseif jewelType.isThread then
+	if jewelType.isThread then
 		local threadVariant = previewVariantOverride or selectedThreadVariant
 		return fn(threadVariant and threadVariant.name, previewIsFoulborn)
 	elseif jewelType.variants then
@@ -3051,7 +2981,7 @@ local function buildGenericTypeTooltipLinesForJewelType(jewelType, previewIsFoul
 	if not jewelType then
 		return nil
 	end
-	if not (jewelType.isLightOfMeaning or jewelType.isThread or jewelType.variants) then
+	if not (jewelType.isThread or jewelType.variants) then
 		local lines = buildPreviewLinesForJewelType(jewelType, previewIsFoulborn)
 		if type(lines) ~= "table" then
 			return nil
@@ -3076,9 +3006,7 @@ local function buildGenericTypeTooltipLinesForJewelType(jewelType, previewIsFoul
 		end
 	end
 	local note
-	if jewelType.isLightOfMeaning then
-		note = "Multiple stat variants available"
-	elseif jewelType.isThread then
+	if jewelType.isThread then
 		note = "Multiple ring sizes available"
 	else
 		note = "Multiple variants available"
@@ -3089,12 +3017,10 @@ end
 	local function isAnyFinderDropdownDropped()
 		return (controls.jewelTypeSelect and controls.jewelTypeSelect.dropped)
 			or (controls.jewelVariantSelect and controls.jewelVariantSelect.dropped)
-			or (controls.lomVariantSelect and controls.lomVariantSelect.dropped)
 			or (controls.threadVariantSelect and controls.threadVariantSelect.dropped)
 			or (controls.variantFamilySelect and controls.variantFamilySelect.dropped)
 			or (controls.impactStatSelect and controls.impactStatSelect.dropped)
 			or (controls.occupiedModeSelect and controls.occupiedModeSelect.dropped)
-			or (controls.socketSelect and controls.socketSelect.dropped)
 	end
 
 	local function syncDisplayedVariants()
@@ -3280,16 +3206,6 @@ end
 	controls.computeMethodLabel.shown = false
 	controls.computeMethodSelect.shown = false
 
-	-- Right panel: socket selector (shown when LOM selected)
-	controls.socketLabel = new("LabelControl", TL, { 600, 10, 0, 16 }, "^7Socket:")
-	controls.socketSelect = new("TimelessJewelSocketControl", TL, { 600, 26, 210, 20 }, jewelSockets, function(_idx, value)
-		cancelComputeTask()
-		selectedSocket = value
-		saveFinderState()
-	end, self.build, socketViewer)
-	controls.socketLabel.shown = true
-	controls.socketSelect.shown = true
-
 	-- Impact stat selector (shown when jewel has compute)
 	controls.impactStatLabel = new("LabelControl", TL, { 820, 10, 0, 16 }, "^7Stat:")
 	controls.impactStatSelect = new("DropDownControl", TL, { 820, 26, 140, 20 }, impactStatLabels, function(idx)
@@ -3318,18 +3234,6 @@ end
 	end)
 	controls.occupiedModeLabel.shown = true
 	controls.occupiedModeSelect.shown = true
-
-	-- LOM variant selector (shown when LOM selected)
-	controls.lomVariantLabel = new("LabelControl", TL, { 278, 10, 0, 16 }, "^7Variant:")
-	controls.lomVariantSelect = new("DropDownControl", TL, { 278, 26, 200, 20 }, lomLabels, function(idx)
-		cancelComputeTask()
-		selectedLOMVariant = LIGHT_OF_MEANING_VARIANTS[idx]
-		saveFinderState()
-		updatePreview()
-		runFind(false)
-	end)
-	controls.lomVariantLabel.shown = true
-	controls.lomVariantSelect.shown = true
 
 		-- Thread ring selector (shown when Thread of Hope selected)
 		controls.threadVariantLabel = new("LabelControl", TL, { 278, 10, 0, 16 }, "^7Preview ring:")
@@ -3382,14 +3286,11 @@ end
 		controls.jewelVariantSelect.shown = false
 
 		local function syncSelectedJewelTypeControls()
-			local isLOM = selectedJewelType.isLightOfMeaning == true
 			local isThread = selectedJewelType.isThread == true
 			local hasVariants = selectedJewelType.variants ~= nil
 			local hasVariantFamilyFilter = isSelectedFoulbornActive() and selectedJewelType.name == "Dreams & Nightmares"
 			local hasComputeMethods = selectedJewelSupportsComputeMethods()
 
-			controls.lomVariantLabel.shown     = isLOM
-			controls.lomVariantSelect.shown    = isLOM
 			controls.threadVariantLabel.shown  = isThread
 			controls.threadVariantSelect.shown = isThread
 			controls.variantFamilyLabel.shown  = hasVariantFamilyFilter
@@ -3398,12 +3299,10 @@ end
 			controls.jewelVariantSelect.shown  = hasVariants
 			controls.computeMethodLabel.shown  = hasComputeMethods
 			controls.computeMethodSelect.shown = hasComputeMethods
-			controls.socketLabel.shown         = isLOM
-			controls.socketSelect.shown        = isLOM
-			controls.impactStatLabel.shown     = isLOM or selectedJewelType.hasCompute
-			controls.impactStatSelect.shown    = isLOM or selectedJewelType.hasCompute
+			controls.impactStatLabel.shown     = selectedJewelType.hasCompute
+			controls.impactStatSelect.shown    = selectedJewelType.hasCompute
 			if controls.computeButton then
-				controls.computeButton.shown = isLOM or selectedJewelType.hasCompute
+				controls.computeButton.shown = selectedJewelType.hasCompute
 			end
 
 			if hasVariants then
@@ -3462,17 +3361,6 @@ end
 			variant
 		))
 	end
-	controls.lomVariantSelect.tooltipFunc = function(tooltip, mode, index)
-		local variant = LIGHT_OF_MEANING_VARIANTS[index]
-		if not selectedJewelType or not variant then
-			return
-		end
-		addPreviewLinesToTooltip(tooltip, buildPreviewLinesForJewelType(
-			selectedJewelType,
-			isSelectedFoulbornActive(),
-			variant
-		))
-	end
 	controls.threadVariantSelect.tooltipFunc = function(tooltip, mode, index)
 		local variant = threadVariants[index]
 		if not selectedJewelType or not variant then
@@ -3486,7 +3374,7 @@ end
 	end
 	syncSelectedJewelTypeControls()
 
-	-- Compute button: LOM = variant ranking at socket, others = socket ranking
+	-- Compute button: socket ranking with best variant per socket
 	-- Results go into the left panel (resultListData); jewel preview stays intact.
 	local function makeComputeProgressTracker()
 		local tracker
@@ -3555,38 +3443,6 @@ end
 			local computeMethod = selectedComputeMethod or findConnectionlessComputeMethod(nil)
 			local computeMethodLabel = selectedJewelSupportsComputeMethods() and computeMethod.label or nil
 
-					if selectedJewelType.isLightOfMeaning then
-						if not selectedSocket then return end
-						local selectedSocketAccessCost = self:getSocketAccessCost(selectedSocket)
-						if selectedMaxPoints and selectedSocketAccessCost > selectedMaxPoints then
-							controls.resultsList:SetMode("computeVariant", { }, COL_META .. "(socket exceeds max points)")
-							controls.statusLabel.label = formatVariantStatus(selectedSocket.label, statLabel, 0)
-							saveResultCache("compute", "computeVariant", { }, COL_META .. "(socket exceeds max points)", controls.statusLabel.label, true)
-							return
-						end
-						local variantResults, baseline =
-						self:computeVariantImpact(selectedSocket.id, selectedImpactStat, progress, selectedOccupiedMode)
-						local rows = { }
-						for rank, r in ipairs(variantResults) do
-							local pct  = calculateImpactPercent(r.delta, baseline)
-							t_insert(rows, {
-								variantLabel = s_format("%02d. %s", rank, r.variant.name),
-								delta = r.delta,
-								pct = pct,
-								socketLabel = selectedSocket.label,
-								socketId = selectedSocket.id,
-								detailText = formatReplacementLabel(r.replacedItemLabel),
-								replacedItemLabel = r.replacedItemLabel,
-								itemTooltipLines = buildPreviewLinesForJewelType(selectedJewelType, false, r.variant),
-								baseOutput = r.baseOutput,
-								compareOutput = r.compareOutput,
-								tooltipHeader = "^7Socketing this variant will give you:",
-							})
-						end
-						controls.resultsList:SetMode("computeVariant", rows, COL_META .. "(no compatible socket)")
-						controls.statusLabel.label = formatVariantStatus(selectedSocket.label, statLabel, baseline)
-						saveResultCache("compute", "computeVariant", rows, COL_META .. "(no compatible socket)", controls.statusLabel.label, true)
-					else
 					local displayedVariants = getDisplayedVariants()
 					local itemLabel = selectedJewelType.name
 					local socketResults, baseline
@@ -3680,7 +3536,6 @@ end
 					controls.resultsList:SetMode("computeSocket", rows, COL_META .. "(no compatible sockets)")
 					controls.statusLabel.label = formatComputeStatus(itemLabel, statLabel, baseline, computeMethodLabel)
 					saveResultCache("compute", "computeSocket", rows, COL_META .. "(no compatible sockets)", controls.statusLabel.label, true)
-				end
 				end)
 				if not ok then
 					error(err)
@@ -4037,25 +3892,7 @@ end
 				end
 			end
 		end
-		if finderState.socketId then
-			for i, socket in ipairs(jewelSockets) do
-				if socket.id == finderState.socketId then
-					selectedSocket = socket
-					controls.socketSelect.selIndex = i
-					break
-				end
-			end
-		end
-
-		if selectedJewelType and selectedJewelType.isLightOfMeaning and finderState.lomVariantName then
-			for i, variant in ipairs(LIGHT_OF_MEANING_VARIANTS) do
-				if variant.name == finderState.lomVariantName then
-					selectedLOMVariant = variant
-					controls.lomVariantSelect.selIndex = i
-					break
-				end
-			end
-		elseif selectedJewelType and selectedJewelType.isThread and finderState.threadVariantName then
+		if selectedJewelType and selectedJewelType.isThread and finderState.threadVariantName then
 			for i, variant in ipairs(threadVariants) do
 				if variant.name == finderState.threadVariantName then
 					selectedThreadVariant = variant
