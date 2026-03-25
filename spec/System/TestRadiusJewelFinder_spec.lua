@@ -73,13 +73,26 @@ end
 
 local function makeImpossibleEscapeTestVariant()
 	local smallRadiusIndex = getSmallRadiusIndex()
+	local allocNodes = build.spec.allocNodes
 	for keystoneName, node in pairs(build.spec.tree.keystoneMap or {}) do
 		if node and node.nodesInRadius and node.nodesInRadius[smallRadiusIndex] then
-			return {
-				name = keystoneName,
-				keystoneName = keystoneName,
-				rawText = buildImpossibleEscapeRawText(keystoneName),
-			}
+			-- Ensure there is at least one unallocated candidate node
+			local hasCandidate = false
+			for nodeId, n in pairs(node.nodesInRadius[smallRadiusIndex]) do
+				if not allocNodes[nodeId] and not n.ascendancyName
+						and n.type ~= "Socket" and n.type ~= "ClassStart"
+						and n.type ~= "AscendClassStart" and n.type ~= "Mastery" then
+					hasCandidate = true
+					break
+				end
+			end
+			if hasCandidate then
+				return {
+					name = keystoneName,
+					keystoneName = keystoneName,
+					rawText = buildImpossibleEscapeRawText(keystoneName),
+				}
+			end
 		end
 	end
 end
