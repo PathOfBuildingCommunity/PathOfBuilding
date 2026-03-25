@@ -338,7 +338,7 @@ function Class:computeConnectionlessSimulatedPlan(calcFunc, baseOutput, baseValu
 	return result
 end
 
-function Class:computeConnectionlessFastPlan(calcFunc, baseOutput, baseValue, socketNode, slotName, item, impactStat, candidates, variantLabel, deltaCache, progressLabel, progress, maxAdditionalNodes)
+function Class:computeConnectionlessFastPlan(calcFunc, baseOutput, baseValue, socketNode, slotName, item, impactStat, candidates, variantLabel, deltaCache, progressLabel, progress, maxAdditionalNodes, skipPlanSteps)
 	impactStat = normalizeImpactStat(impactStat)
 	local jewelOnlyOutput = calcFunc({
 		addNodes = { [socketNode] = true },
@@ -384,15 +384,30 @@ function Class:computeConnectionlessFastPlan(calcFunc, baseOutput, baseValue, so
 		end
 		t_insert(chosenNodes, entry.node)
 	end
-	local planSteps = { }
 
 	local addNodes = { [socketNode] = true }
+	for _, node in ipairs(chosenNodes) do
+		addNodes[node] = true
+	end
+
+	if skipPlanSteps then
+		local finalOutput = calcFunc({
+			addNodes = addNodes,
+			repSlotName = slotName,
+			repItem = item,
+		})
+		local finalValue = self:getImpactValue(impactStat, finalOutput)
+		return buildConnectionlessPlanStep(baseOutput, baseValue, finalValue, finalOutput, chosenNodes, variantLabel)
+	end
+
+	local planSteps = { }
 	local prefixNodes = { }
+	local prefixAddNodes = { [socketNode] = true }
 	for _, node in ipairs(chosenNodes) do
 		t_insert(prefixNodes, node)
-		addNodes[node] = true
+		prefixAddNodes[node] = true
 		local prefixOutput = calcFunc({
-			addNodes = addNodes,
+			addNodes = prefixAddNodes,
 			repSlotName = slotName,
 			repItem = item,
 		})
@@ -499,7 +514,7 @@ function Class:computeBestVariantSocketImpact(sockets, variants, impactStat, pro
 	return results, realBaseline
 end
 
-function Class:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant, methodId, planCache, progress, maxTotalPoints, occupiedMode)
+function Class:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant, methodId, planCache, progress, maxTotalPoints, occupiedMode, skipPlanSteps)
 	impactStat = normalizeImpactStat(impactStat)
 	local calcFunc, baseOutput = self.build.calcsTab:GetMiscCalculator()
 	local realBaseline = self:getImpactValue(impactStat, baseOutput)
@@ -559,7 +574,7 @@ function Class:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant, me
 				if methodId == "fast" then
 					local cacheKey = s_format("IL|%s|%s|%d", statField, variantKey, socket.id)
 					planCache[cacheKey] = planCache[cacheKey] or { }
-					result = self:computeConnectionlessFastPlan(calcFunc, replacementContext.baselineOutput, socketBaseline, socketNode, slotName, item, impactStat, candidates, nil, planCache[cacheKey], socket.label, socketProgress, maxAdditionalNodes)
+					result = self:computeConnectionlessFastPlan(calcFunc, replacementContext.baselineOutput, socketBaseline, socketNode, slotName, item, impactStat, candidates, nil, planCache[cacheKey], socket.label, socketProgress, maxAdditionalNodes, skipPlanSteps)
 				else
 					result = self:computeConnectionlessSimulatedPlan(calcFunc, replacementContext.baselineOutput, socketBaseline, socketNode, slotName, item, impactStat, candidates, nil, socket.label, socketProgress, maxAdditionalNodes)
 				end
@@ -575,7 +590,7 @@ function Class:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant, me
 	return results, realBaseline
 end
 
-function Class:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVariants, methodId, planCache, progress, maxTotalPoints, occupiedMode)
+function Class:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVariants, methodId, planCache, progress, maxTotalPoints, occupiedMode, skipPlanSteps)
 	impactStat = normalizeImpactStat(impactStat)
 	local calcFunc, baseOutput = self.build.calcsTab:GetMiscCalculator()
 	local realBaseline = self:getImpactValue(impactStat, baseOutput)
@@ -615,7 +630,7 @@ function Class:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVarian
 					if methodId == "fast" then
 						local cacheKey = s_format("TOH|%s|%d|%d", statField, socket.id, variantIndex)
 						planCache[cacheKey] = planCache[cacheKey] or { }
-						result = self:computeConnectionlessFastPlan(calcFunc, replacementContext.baselineOutput, socketBaseline, socketNode, slotName, item, impactStat, candidates, threadVariant.name .. " Ring", planCache[cacheKey], socket.label .. " | " .. threadVariant.name .. " Ring", variantProgress, maxAdditionalNodes)
+						result = self:computeConnectionlessFastPlan(calcFunc, replacementContext.baselineOutput, socketBaseline, socketNode, slotName, item, impactStat, candidates, threadVariant.name .. " Ring", planCache[cacheKey], socket.label .. " | " .. threadVariant.name .. " Ring", variantProgress, maxAdditionalNodes, skipPlanSteps)
 					else
 						result = self:computeConnectionlessSimulatedPlan(calcFunc, replacementContext.baselineOutput, socketBaseline, socketNode, slotName, item, impactStat, candidates, threadVariant.name .. " Ring", socket.label .. " | " .. threadVariant.name .. " Ring", variantProgress, maxAdditionalNodes)
 					end
@@ -716,7 +731,7 @@ function Class:computeSplitPersonalitySocketImpact(sockets, impactStat, variants
 	return results, realBaseline
 end
 
-function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants, methodId, planCache, progress, maxTotalPoints, occupiedMode)
+function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants, methodId, planCache, progress, maxTotalPoints, occupiedMode, skipPlanSteps)
 	impactStat = normalizeImpactStat(impactStat)
 	local calcFunc, baseOutput = self.build.calcsTab:GetMiscCalculator()
 	local realBaseline = self:getImpactValue(impactStat, baseOutput)
@@ -819,7 +834,8 @@ function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants
 						planCache[cacheKey],
 						variant.name,
 						planProgress,
-						maxAdditionalNodes
+						maxAdditionalNodes,
+						skipPlanSteps
 					)
 				else
 					result = self:computeConnectionlessSimulatedPlan(

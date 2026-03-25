@@ -1622,16 +1622,16 @@ end
 					if jt.name == "Intuitive Leap" then
 						socketResults, baseline =
 							self:computeIntuitiveLeapSocketImpact(jewelSockets, selectedImpactStat, nil,
-								computeMethod.id, finderState.connectionlessPlanCache, typeProgress, selectedMaxPoints, selectedOccupiedMode)
+								computeMethod.id, finderState.connectionlessPlanCache, typeProgress, selectedMaxPoints, selectedOccupiedMode, true)
 					elseif jt.isThread then
 						socketResults, baseline =
 							self:computeThreadOfHopeSocketImpact(jewelSockets, selectedImpactStat, threadVariants,
-								computeMethod.id, finderState.connectionlessPlanCache, typeProgress, selectedMaxPoints, selectedOccupiedMode)
+								computeMethod.id, finderState.connectionlessPlanCache, typeProgress, selectedMaxPoints, selectedOccupiedMode, true)
 					elseif jt.isImpossibleEscape then
 						socketResults, baseline =
 							self:computeImpossibleEscapeSocketImpact(jewelSockets, selectedImpactStat,
 								jt.variants or getImpossibleEscapeVariants(),
-								computeMethod.id, finderState.connectionlessPlanCache, typeProgress, selectedMaxPoints, selectedOccupiedMode)
+								computeMethod.id, finderState.connectionlessPlanCache, typeProgress, selectedMaxPoints, selectedOccupiedMode, true)
 					elseif jt.isSplitPersonality then
 						socketResults, baseline =
 							self:computeSplitPersonalitySocketImpact(jewelSockets, selectedImpactStat,
