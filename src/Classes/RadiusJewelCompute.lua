@@ -824,9 +824,7 @@ function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants
 				local maxAdditionalNodes = groupEntry.remainingBudget >= 0 and groupEntry.remainingBudget or nil
 				local result
 				if methodId == "fast" then
-					local cacheKey = groupEntry.occupancy and groupEntry.occupancy.isOccupied
-						and s_format("IE|%s|%s|%d", statField, variant.name, representativeSocket.id)
-						or s_format("IE|%s|%s|free", statField, variant.name)
+					local cacheKey = s_format("IE|%s|%s", statField, variant.name)
 					planCache[cacheKey] = planCache[cacheKey] or { }
 					result = self:computeConnectionlessFastPlan(
 						calcFunc,
