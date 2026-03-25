@@ -340,13 +340,19 @@ end
 
 function Class:computeConnectionlessFastPlan(calcFunc, baseOutput, baseValue, socketNode, slotName, item, impactStat, candidates, variantLabel, deltaCache, progressLabel, progress, maxAdditionalNodes, skipPlanSteps)
 	impactStat = normalizeImpactStat(impactStat)
-	local jewelOnlyOutput = calcFunc({
-		addNodes = { [socketNode] = true },
-		repSlotName = slotName,
-		repItem = item,
-	})
-	local jewelOnlyValue = self:getImpactValue(impactStat, jewelOnlyOutput)
+	local jewelOnlyOutput, jewelOnlyValue
+	local function ensureJewelOnly()
+		if not jewelOnlyOutput then
+			jewelOnlyOutput = calcFunc({
+				addNodes = { [socketNode] = true },
+				repSlotName = slotName,
+				repItem = item,
+			})
+			jewelOnlyValue = self:getImpactValue(impactStat, jewelOnlyOutput)
+		end
+	end
 	if maxAdditionalNodes and maxAdditionalNodes <= 0 then
+		ensureJewelOnly()
 		local chosenNodes = { }
 		return buildConnectionlessPlanStep(baseOutput, baseValue, jewelOnlyValue, jewelOnlyOutput, chosenNodes, variantLabel)
 	end
@@ -355,6 +361,7 @@ function Class:computeConnectionlessFastPlan(calcFunc, baseOutput, baseValue, so
 		progressTick(progress, candidateIndex, #candidates, progressLabel)
 		local delta = deltaCache[node.id]
 		if delta == nil then
+			ensureJewelOnly()
 			local output = calcFunc({
 				addNodes = { [socketNode] = true, [node] = true },
 				repSlotName = slotName,
@@ -572,7 +579,7 @@ function Class:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant, me
 				local socketBaseline = self:getImpactValue(impactStat, replacementContext.baselineOutput)
 				local result
 				if methodId == "fast" then
-					local cacheKey = s_format("IL|%s|%s|%d", statField, variantKey, socket.id)
+					local cacheKey = s_format("IL|%s|%s", statField, variantKey)
 					planCache[cacheKey] = planCache[cacheKey] or { }
 					result = self:computeConnectionlessFastPlan(calcFunc, replacementContext.baselineOutput, socketBaseline, socketNode, slotName, item, impactStat, candidates, nil, planCache[cacheKey], socket.label, socketProgress, maxAdditionalNodes, skipPlanSteps)
 				else
@@ -628,7 +635,7 @@ function Class:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVarian
 					local maxAdditionalNodes = maxTotalPoints and math.max(maxTotalPoints - accessCost, 0) or nil
 					local result
 					if methodId == "fast" then
-						local cacheKey = s_format("TOH|%s|%d|%d", statField, socket.id, variantIndex)
+						local cacheKey = s_format("TOH|%s", statField)
 						planCache[cacheKey] = planCache[cacheKey] or { }
 						result = self:computeConnectionlessFastPlan(calcFunc, replacementContext.baselineOutput, socketBaseline, socketNode, slotName, item, impactStat, candidates, threadVariant.name .. " Ring", planCache[cacheKey], socket.label .. " | " .. threadVariant.name .. " Ring", variantProgress, maxAdditionalNodes, skipPlanSteps)
 					else
