@@ -809,6 +809,9 @@ function RadiusJewelFinderClass:Open()
 		for _, row in pairs(bestBySocket) do
 			t_insert(filtered, row)
 		end
+		t_sort(filtered, function(a, b)
+			return (a.sortPctPerPoint or a.scorePerPointSort or 0) > (b.sortPctPerPoint or b.scorePerPointSort or 0)
+		end)
 		return filtered
 	end
 
@@ -816,6 +819,16 @@ function RadiusJewelFinderClass:Open()
 	local runFind
 	local computeContext
 	local cancelComputeTask
+	local searchStartTime
+
+	local function formatElapsed(startTime)
+		if not startTime then return "" end
+		local ms = GetTime() - startTime
+		if ms < 1000 then
+			return s_format(" ^8(%dms)", ms)
+		end
+		return s_format(" ^8(%.1fs)", ms / 1000)
+	end
 
 	local function saveFinderState()
 		if suppressFinderStateSave then
@@ -1560,6 +1573,7 @@ end
 		end
 
 		controls.computeButton.label = "Cancel"
+		searchStartTime = GetTime()
 		setComputeProgress("^7Computing...")
 		local progress = makeComputeProgressTracker()
 		computeContext = {
@@ -1658,7 +1672,7 @@ end
 				local displayRows = selectedAllJewelsView.id == "bestPerSocket"
 					and filterBestPerSocket(allRows) or allRows
 				controls.resultsList:SetMode("computeSocketAll", displayRows, COL_META .. "(no compatible sockets)")
-				controls.statusLabel.label = formatComputeStatus("All jewels", statLabel, globalBaseline, computeMethodLabel)
+				controls.statusLabel.label = formatComputeStatus("All jewels", statLabel, globalBaseline, computeMethodLabel) .. formatElapsed(searchStartTime)
 				saveResultCache("compute", "computeSocketAll", allRows, COL_META .. "(no compatible sockets)", controls.statusLabel.label, true)
 			else
 					local displayedVariants = getDisplayedVariants()
@@ -1689,7 +1703,7 @@ end
 					end
 					local rows = buildComputeRows(selectedJewelType, socketResults, baseline)
 					controls.resultsList:SetMode("computeSocket", rows, COL_META .. "(no compatible sockets)")
-					controls.statusLabel.label = formatComputeStatus(itemLabel, statLabel, baseline, computeMethodLabel)
+					controls.statusLabel.label = formatComputeStatus(itemLabel, statLabel, baseline, computeMethodLabel) .. formatElapsed(searchStartTime)
 					saveResultCache("compute", "computeSocket", rows, COL_META .. "(no compatible sockets)", controls.statusLabel.label, true)
 			end
 				end)
@@ -1733,6 +1747,7 @@ end
 
 	-- ── Find button ───────────────────────────────────────────────────────────
 	runFind = function(makePreferred)
+			searchStartTime = GetTime()
 			if selectedJewelType and selectedJewelType.isAllJewels then
 				controls.statusLabel.label = "^7Searching all jewels..."
 				local ok, err = pcall(function()
@@ -1886,7 +1901,7 @@ end
 					local displayRows = selectedAllJewelsView.id == "bestPerSocket"
 						and filterBestPerSocket(allRows) or allRows
 					controls.resultsList:SetMode("findAll", displayRows, COL_META .. "(no results)")
-					controls.statusLabel.label = s_format("^7All jewels | %d results | score/pt", #allRows)
+					controls.statusLabel.label = s_format("^7All jewels | %d results | score/pt", #allRows) .. formatElapsed(searchStartTime)
 					saveResultCache("find", "findAll", allRows, COL_META .. "(no results)", controls.statusLabel.label, makePreferred)
 					if not makePreferred then
 						restoreCachedResults()
@@ -2104,13 +2119,14 @@ end
 						})
 					end
 					controls.resultsList:SetMode(isThreadBestVariantSearch and "findThread" or "find", rows, COL_META .. "(no results)")
-					controls.statusLabel.label = isThreadBestVariantSearch
+					local elapsed = formatElapsed(searchStartTime)
+					controls.statusLabel.label = (isThreadBestVariantSearch
 						and s_format("^7Thread of Hope | %d | score/pt", #results)
 						or isImpossibleEscapeBestVariantSearch
 						and s_format("^7Impossible Escape | %d | score/pt", #results)
 						or isSplitPersonalitySearch
 						and s_format("^7Split Personality | %d | score/pt", #results)
-						or s_format("^7%d results | score/pt", #results)
+						or s_format("^7%d results | score/pt", #results)) .. elapsed
 					saveResultCache("find", isThreadBestVariantSearch and "findThread" or "find", rows, COL_META .. "(no results)", controls.statusLabel.label, makePreferred)
 					if not makePreferred then
 						restoreCachedResults()
