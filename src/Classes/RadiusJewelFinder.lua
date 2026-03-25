@@ -1540,6 +1540,7 @@ end
 					baseOutput = plan.baseOutput,
 					compareOutput = plan.compareOutput,
 					jewelName = jewelType.name,
+					applyRawText = r.variant and r.variant.rawText or jewelType.rawText,
 					tooltipHeader = jewelType.isThread and "^7Socketing this jewel and allocating the best ring plan here will give you:"
 						or jewelType.name == "Intuitive Leap" and "^7Socketing this jewel and allocating the best nodes here will give you:"
 						or jewelType.isImpossibleEscape and "^7Socketing this jewel and allocating the best keystone plan here will give you:"
@@ -1873,6 +1874,7 @@ end
 								scorePerPointSort = scorePerPointSort,
 								detailText = detailText,
 								replacedItemLabel = r.replacedItemLabel,
+								applyRawText = (r.variant and r.variant.rawText) or jt.rawText,
 							})
 						end
 
@@ -2096,6 +2098,9 @@ end
 							detailNodeId = detailNodeId,
 							topNodes = copyTableSafe(r.topNodes, false, true),
 							replacedItemLabel = r.replacedItemLabel,
+							applyRawText = (r.variant and r.variant.rawText)
+								or (selectedJewelVariant and selectedJewelVariant.rawText)
+								or selectedJewelType.rawText,
 						})
 					end
 					controls.resultsList:SetMode(isThreadBestVariantSearch and "findThread" or "find", rows, COL_META .. "(no results)")
@@ -2121,6 +2126,23 @@ end
 		controls.findButton = new("ButtonControl", TL, { 10, 444, 100, 20 }, "Find", function()
 			cancelComputeTask()
 			runFind(true)
+		end)
+
+		controls.applyButton = new("ButtonControl", TL, { 490, 444, 80, 20 }, "Apply", function()
+			local idx = controls.resultsList.selIndex
+			local row = idx and controls.resultsList.list[idx]
+			if not row or not row.applyRawText then return end
+
+			local item = new("Item", "Rarity: Unique\n" .. row.applyRawText)
+			item:BuildModList()
+			self.build.itemsTab:AddItem(item, true)
+
+			local slot = self.build.itemsTab.sockets[row.socketId]
+			if slot then
+				slot:SetSelItemId(item.id)
+			end
+			self.build.itemsTab:PopulateSlots()
+			self.build.buildFlag = true
 		end)
 
 	local function restoreFinderState()
