@@ -82,6 +82,11 @@ local tradeStatCategoryIndices = {
 	["PassiveNode"] = 2,
 }
 
+-- Strips numeric tokens and punctuation for text-based mod matching.
+local function normalizeModText(text)
+	return text:gsub("[#()0-9%-%+%.]",""):gsub("%s+", " ")
+end
+
 local influenceSuffixes = { "_shaper", "_elder", "_adjudicator", "_basilisk", "_crusader", "_eyrie"}
 local influenceDropdownNames = { "None" }
 local hasInfluenceModIds = { }
@@ -125,21 +130,21 @@ local function normTradeText(text)
 	return (text:match("^%s*(.-)%s*$"))
 end
 
--- Forward declaration — defined below, after the class method definitions.
+-- Forward declaration - defined below, after the class method definitions.
 local buildAndCachePseudoMapping
 
 -- Hard-coded fallbacks for pseudo texts that don't normalize to the same form as any explicit/implicit text.
 -- Key = normalized pseudo text; value = list of explicit/implicit tradeModIds to map to that pseudo.
 local pseudoNormFallbacks = {
-	-- Pseudo "+#% total Attack Speed" → "attack speed"; explicit "#% increased Attack Speed" → "increased attack speed"
+	-- Pseudo "+#% total Attack Speed" -> "attack speed"; explicit "#% increased Attack Speed" -> "increased attack speed"
 	["attack speed"]                      = { "explicit.stat_681332047",  "implicit.stat_681332047"  },
-	-- Pseudo "+#% total Cast Speed" → "cast speed"; explicit "#% increased Cast Speed" → "increased cast speed"
+	-- Pseudo "+#% total Cast Speed" -> "cast speed"; explicit "#% increased Cast Speed" -> "increased cast speed"
 	["cast speed"]                        = { "explicit.stat_2891184298", "implicit.stat_2891184298" },
-	-- Pseudo "+#% Global Critical Strike Chance" → "global critical strike chance";
-	-- explicit "#% increased Global Critical Strike Chance" → "increased global critical strike chance"
+	-- Pseudo "+#% Global Critical Strike Chance" -> "global critical strike chance";
+	-- explicit "#% increased Global Critical Strike Chance" -> "increased global critical strike chance"
 	["global critical strike chance"]     = { "explicit.stat_587431675",  "implicit.stat_587431675"  },
-	-- Pseudo "+#% total Critical Strike Chance for Spells" → "critical strike chance for spells";
-	-- explicit "#% increased Critical Strike Chance for Spells" → "increased critical strike chance for spells"
+	-- Pseudo "+#% total Critical Strike Chance for Spells" -> "critical strike chance for spells";
+	-- explicit "#% increased Critical Strike Chance for Spells" -> "increased critical strike chance for spells"
 	["critical strike chance for spells"] = { "explicit.stat_737908626",  "implicit.stat_737908626"  },
 }
 
@@ -456,6 +461,9 @@ function TradeQueryGeneratorClass:InitMods()
 			end
 		else
 			local tradeStats = fetchStats()
+			if not tradeStats then
+				return
+			end
 			tradeStats:gsub("\n", " ")
 			local tradeQueryStatsParsed = dkjson.decode(tradeStats)
 			buildAndCachePseudoMapping(tradeQueryStatsParsed)
@@ -476,6 +484,9 @@ function TradeQueryGeneratorClass:InitMods()
 
 	-- originates from: https://www.pathofexile.com/api/trade/data/stats
 	local tradeStats = fetchStats()
+	if not tradeStats then
+		return
+	end
 	tradeStats:gsub("\n", " ")
 	local tradeQueryStatsParsed = dkjson.decode(tradeStats)
 
@@ -1122,7 +1133,7 @@ function TradeQueryGeneratorClass:CountCraftedAffixesFromModLines(modLines, item
 		for modId, mod in pairs(pool) do
 			if mod.types then  -- only crafted mods use types instead of weightKey/weightVal
 				for _, line in ipairs(mod) do
-					local key = line:gsub("[#()0-9%-%+%.]", ""):gsub("%s+", " "):match("^%s*(.-)%s*$")
+					local key = normalizeModText(line):match("^%s*(.-)%s*$")
 					if key ~= "" and not lineToAffix[key] then
 						lineToAffix[key] = { affixType = mod.type, modId = modId }
 					end
@@ -1137,7 +1148,7 @@ function TradeQueryGeneratorClass:CountCraftedAffixesFromModLines(modLines, item
 	local prefixCount, suffixCount = 0, 0
 	for _, modLine in ipairs(modLines) do
 		if modLine.crafted then
-			local key = modLine.line:gsub("[#()0-9%-%+%.]", ""):gsub("%s+", " "):match("^%s*(.-)%s*$")
+			local key = normalizeModText(modLine.line):match("^%s*(.-)%s*$")
 			local match = lineToAffix[key]
 			if match and not seenModIds[match.modId] then
 				seenModIds[match.modId] = true
@@ -1311,32 +1322,35 @@ function TradeQueryGeneratorClass:FinishQuery()
 		-- maps to the (Local) trade stat rather than the global ring/jewel version.
 		local function buildTextLookup(modTypeData, preferLocal)
 			local lookup = {}
-			local localOverrides = {}
+			-- Only allocate the local-override table when the caller needs it.
+			local localOverrides = preferLocal and {} or nil
 			for _, entry in pairs(modTypeData) do
-				local key = entry.tradeMod.text:gsub("[#()0-9%-%+%.]",""):gsub("%s+", " ")
+				local key = normalizeModText(entry.tradeMod.text)
 				if key ~= "" and not lookup[key] then
 					lookup[key] = entry.tradeMod.id
 				end
 				-- overrideModLine is set for "(Local)" trade stats; its value is the item
 				-- display text without " (Local)", which is what modLine.line will contain.
-				local overrideLine = entry.specialCaseData and entry.specialCaseData.overrideModLine
-				if overrideLine then
-					local overrideKey = overrideLine:gsub("[#()0-9%-%+%.]",""):gsub("%s+", " ")
-					if overrideKey ~= "" then
-						localOverrides[overrideKey] = entry.tradeMod.id
+				if localOverrides then
+					local overrideLine = entry.specialCaseData and entry.specialCaseData.overrideModLine
+					if overrideLine then
+						local overrideKey = normalizeModText(overrideLine)
+						if overrideKey ~= "" then
+							localOverrides[overrideKey] = entry.tradeMod.id
+						end
 					end
 				end
 				local singular = entry.specialCaseData and entry.specialCaseData.overrideModLineSingular
 				if singular then
-					local singKey = singular:gsub("[#()0-9%-%+%.]",""):gsub("%s+", " ")
+					local singKey = normalizeModText(singular)
 					if singKey ~= "" and not lookup[singKey] then
 						lookup[singKey] = entry.tradeMod.id
 					end
 				end
 			end
 			-- Merge local overrides last so they win over any global entry with the same text.
-			-- Only do this for item types that actually carry local mods (weapons and armour).
-			if preferLocal then
+			-- Only done for item types that actually carry local mods (weapons and armour).
+			if localOverrides then
 				for k, v in pairs(localOverrides) do
 					lookup[k] = v
 				end
@@ -1347,11 +1361,10 @@ function TradeQueryGeneratorClass:FinishQuery()
 		local explicitTextToId = buildTextLookup(self.modData.Explicit, preferLocal)
 		local implicitTextToId = buildTextLookup(self.modData.Implicit)
 		if options.includeEldritch then
-			for k, v in pairs(buildTextLookup(self.modData.Eater)) do
-				explicitTextToId[k] = explicitTextToId[k] or v
-			end
-			for k, v in pairs(buildTextLookup(self.modData.Exarch)) do
-				explicitTextToId[k] = explicitTextToId[k] or v
+			for _, eldritchModType in ipairs({ "Eater", "Exarch" }) do
+				for k, v in pairs(buildTextLookup(self.modData[eldritchModType])) do
+					explicitTextToId[k] = explicitTextToId[k] or v
+				end
 			end
 		end
 
@@ -1387,7 +1400,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 		local function addModLines(modLines, primaryLookup, fallbackLookup)
 			for _, modLine in ipairs(modLines) do
 				if not modLine.crafted then
-					local matchStr = modLine.line:gsub("[#()0-9%-%+%.]",""):gsub("%s+", " ")
+					local matchStr = normalizeModText(modLine.line)
 					local tradeModId = primaryLookup[matchStr]
 					local usedFallback = false
 					if not tradeModId and fallbackLookup then

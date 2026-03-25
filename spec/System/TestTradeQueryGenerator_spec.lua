@@ -238,5 +238,63 @@ describe("TradeQueryGenerator", function()
             assert.are.equal(1, #filters)
             assert.are.equal(2, filters[1].value.min)
         end)
+
+        -- Pass: Each individual stat in the count group has value.min = 1 so the trade API
+        --       evaluates them correctly. Without this the filter silently matches everything.
+        -- Fail: Missing value field = trade site ignores the stat, returning uncrafted items
+        it("each stat inside the count group has value.min = 1", function()
+            local filters = mock_queryGen:BuildCraftedSlotFilters(1, 0)
+            assert.are.equal(1, #filters)
+            for _, stat in ipairs(filters[1].filters) do
+                assert.is_not_nil(stat.value, "stat missing value field: " .. tostring(stat.id))
+                assert.are.equal(1, stat.value.min)
+            end
+        end)
+    end)
+
+    describe("CountCraftedAffixesFromModLines", function()
+        -- Uses the item's explicitModLines (modLine.crafted = true) rather than the affix
+        -- slot tables, which is the only reliable source for PoB-crafted items.
+        -- Pool entries: numeric-indexed text lines + type (string) + types (table, marks crafted).
+
+        -- Synthetic affix pool covering both a crafted suffix and a crafted prefix.
+        local syntheticPool = {
+            CraftedMana1  = { "(25-34) to maximum Mana",      type = "Suffix", types = { str = true } },
+            CraftedArmour1 = { "(30-40)% increased Armour",   type = "Prefix", types = { str = true } },
+        }
+
+        -- Pass: A crafted suffix mod line matches the pool and suffixCount = 1
+        -- Fail: Count stays 0 = crafted mod not matched, no slot filter emitted
+        it("counts a crafted suffix mod line", function()
+            local modLines = {
+                { line = "+29 to maximum Mana",          crafted = true  },
+                { line = "+45 to maximum Energy Shield", crafted = false },
+            }
+            local result = mock_queryGen:CountCraftedAffixesFromModLines(modLines, syntheticPool, nil)
+            assert.are.equal(0, result.prefix)
+            assert.are.equal(1, result.suffix)
+        end)
+
+        -- Pass: A crafted prefix mod line matches the pool and prefixCount = 1
+        -- Fail: prefix count stays 0 = Prefix type not recognised, filter uses wrong slot
+        it("counts a crafted prefix mod line", function()
+            local modLines = {
+                { line = "35% increased Armour", crafted = true },
+            }
+            local result = mock_queryGen:CountCraftedAffixesFromModLines(modLines, syntheticPool, nil)
+            assert.are.equal(1, result.prefix)
+            assert.are.equal(0, result.suffix)
+        end)
+
+        -- Pass: Non-crafted mod lines are ignored; counts stay zero
+        -- Fail: Any non-zero count means regular mods trigger spurious slot filters
+        it("ignores non-crafted mod lines", function()
+            local modLines = {
+                { line = "+45 to maximum Energy Shield", crafted = false },
+            }
+            local result = mock_queryGen:CountCraftedAffixesFromModLines(modLines, syntheticPool, nil)
+            assert.are.equal(0, result.prefix)
+            assert.are.equal(0, result.suffix)
+        end)
     end)
 end)

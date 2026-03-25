@@ -24,6 +24,19 @@ local catalystTags = {
 	{ "jewellery_elemental" ,"elemental_damage" },
 	{ "critical" },
 }
+-- Maps game clipboard "Quality (X Modifiers)" label to catalyst index (same order as catalystList/catalystTags).
+local catalystQualityModifier = {
+	["Attack Modifiers"]            = 1,
+	["Speed Modifiers"]             = 2,
+	["Life and Mana Modifiers"]     = 3,
+	["Caster Modifiers"]            = 4,
+	["Attribute Modifiers"]         = 5,
+	["Physical and Chaos Modifiers"]= 6,
+	["Resistance Modifiers"]        = 7,
+	["Defense Modifiers"]           = 8,
+	["Elemental Modifiers"]         = 9,
+	["Critical Modifiers"]          = 10,
+}
 
 local function getCatalystScalar(catalystId, tags, quality)
 	if not catalystId or type(catalystId) ~= "number" or not catalystTags[catalystId] or not tags or type(tags) ~= "table" or #tags == 0 then
@@ -582,19 +595,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.catalystQuality = specToNumber(specVal)
 				elseif specName:match("^Quality %((.-)%)$") and not self.catalyst then
 					-- Game clipboard format: "Quality (Life and Mana Modifiers): +20% (augmented)"
-					local qualityModifierToCatalyst = {
-						["Attack Modifiers"] = 1,
-						["Speed Modifiers"] = 2,
-						["Life and Mana Modifiers"] = 3,
-						["Caster Modifiers"] = 4,
-						["Attribute Modifiers"] = 5,
-						["Physical and Chaos Modifiers"] = 6,
-						["Resistance Modifiers"] = 7,
-						["Defense Modifiers"] = 8,
-						["Elemental Modifiers"] = 9,
-						["Critical Modifiers"] = 10,
-					}
-					local catalystId = qualityModifierToCatalyst[specName:match("^Quality %((.-)%)$")]
+					local qualityModType = specName:match("^Quality %((.-)%)$")
+					local catalystId = catalystQualityModifier[qualityModType]
 					if catalystId then
 						self.catalyst = catalystId
 						self.catalystQuality = tonumber(specVal:match("(%d+)"))
