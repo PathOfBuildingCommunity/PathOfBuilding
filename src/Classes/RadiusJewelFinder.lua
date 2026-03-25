@@ -221,8 +221,10 @@ function RadiusJewelDetailListClass:Draw(viewPort)
 	local scale = self.build.spec.tree.size / 1500
 	self.socketViewer.zoomX = -node.x / scale
 	self.socketViewer.zoomY = -node.y / scale
+	self.socketViewer.searchStrResults[hoverLine.nodeId] = true
 	SetViewport(viewerX + 2, viewerY + 2, 300, 300)
 	self.socketViewer:Draw(self.build, { x = 0, y = 0, width = 300, height = 300 }, { })
+	self.socketViewer.searchStrResults[hoverLine.nodeId] = nil
 	SetDrawLayer(nil, 30)
 	SetDrawColor(1, 1, 1, 0.2)
 	DrawImage(nil, 149, 0, 2, 300)
@@ -486,8 +488,10 @@ function RadiusJewelResultsListClass:Draw(viewPort, noTooltip)
 			local scale = self.build.spec.tree.size / 1500
 			self.socketViewer.zoomX = -node.x / scale
 			self.socketViewer.zoomY = -node.y / scale
+			self.socketViewer.searchStrResults[hoverNodeId] = true
 			SetViewport(viewerX + 2, viewerY + 2, 300, 300)
 			self.socketViewer:Draw(self.build, { x = 0, y = 0, width = 300, height = 300 }, { })
+			self.socketViewer.searchStrResults[hoverNodeId] = nil
 			SetDrawLayer(nil, 30)
 			SetDrawColor(1, 1, 1, 0.2)
 			DrawImage(nil, 149, 0, 2, 300)
