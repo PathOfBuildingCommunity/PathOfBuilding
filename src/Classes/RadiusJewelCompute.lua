@@ -420,25 +420,25 @@ function Class:computeConnectionlessFastPlan(calcFunc, baseOutput, baseValue, so
 	local planSteps = { }
 	local prefixNodes = { }
 	local prefixAddNodes = { [socketNode] = true }
+	local lastOutput, lastValue
 	for _, node in ipairs(chosenNodes) do
 		t_insert(prefixNodes, node)
 		prefixAddNodes[node] = true
-		local prefixOutput = calcFunc({
+		lastOutput = calcFunc({
 			addNodes = prefixAddNodes,
 			repSlotName = slotName,
 			repItem = item,
 		})
-		local prefixValue = self:getImpactValue(impactStat, prefixOutput)
-		t_insert(planSteps, buildConnectionlessPlanStep(baseOutput, baseValue, prefixValue, prefixOutput, prefixNodes, variantLabel))
+		lastValue = self:getImpactValue(impactStat, lastOutput)
+		t_insert(planSteps, buildConnectionlessPlanStep(baseOutput, baseValue, lastValue, lastOutput, prefixNodes, variantLabel))
 	end
-	local finalOutput = calcFunc({
-		addNodes = addNodes,
-		repSlotName = slotName,
-		repItem = item,
-	})
-	local finalValue = self:getImpactValue(impactStat, finalOutput)
+	if not lastOutput then
+		ensureJewelOnly()
+		lastOutput = jewelOnlyOutput
+		lastValue = jewelOnlyValue
+	end
 
-	local result = buildConnectionlessPlanStep(baseOutput, baseValue, finalValue, finalOutput, chosenNodes, variantLabel)
+	local result = buildConnectionlessPlanStep(baseOutput, baseValue, lastValue, lastOutput, chosenNodes, variantLabel)
 	result.planSteps = planSteps
 	return result
 end
@@ -643,7 +643,7 @@ function Class:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVarian
 				local item = threadItems[variantIndex]
 				local candidates = self:collectConnectionlessCandidates(socketNode, {
 					radiusIndex = threadVariant.radiusIndex,
-					notableOrKeystoneOnly = methodId == "fast",
+					notableOrKeystoneOnly = skipPlanSteps or methodId == "fast",
 				})
 				if #candidates > 0 then
 					local maxAdditionalNodes = maxTotalPoints and math.max(maxTotalPoints - accessCost, 0) or nil
