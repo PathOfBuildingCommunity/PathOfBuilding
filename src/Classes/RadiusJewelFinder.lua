@@ -800,22 +800,29 @@ function RadiusJewelFinderClass:Open()
 	local lastFindAllRows = nil
 
 	local function filterBestPerSocket(rows)
-		local bestBySocket = { }
+		local sorted = { }
 		for _, row in ipairs(rows) do
-			local ex = bestBySocket[row.socketId]
-			local sortVal = row.sortPctPerPoint or row.scorePerPointSort or 0
-			local exSortVal = ex and (ex.sortPctPerPoint or ex.scorePerPointSort or 0) or nil
-			if not ex or sortVal > exSortVal then
-				bestBySocket[row.socketId] = row
-			end
+			t_insert(sorted, row)
 		end
-		local filtered = { }
-		for _, row in pairs(bestBySocket) do
-			t_insert(filtered, row)
-		end
-		t_sort(filtered, function(a, b)
+		t_sort(sorted, function(a, b)
 			return (a.sortPctPerPoint or a.scorePerPointSort or 0) > (b.sortPctPerPoint or b.scorePerPointSort or 0)
 		end)
+		local usedSockets = { }
+		local limitCounts = { }
+		local filtered = { }
+		for _, row in ipairs(sorted) do
+			if not usedSockets[row.socketId] then
+				local limitKey = row.jewelLimitKey
+				local limit = row.jewelLimit
+				if not limit or (limitCounts[limitKey] or 0) < limit then
+					usedSockets[row.socketId] = true
+					if limitKey and limit then
+						limitCounts[limitKey] = (limitCounts[limitKey] or 0) + 1
+					end
+					t_insert(filtered, row)
+				end
+			end
+		end
 		return filtered
 	end
 
@@ -1506,6 +1513,9 @@ end
 			local points = self:getSocketAccessCost(r.socket, { isOccupied = r.replacedItemLabel ~= nil })
 			local variantLabel = r.variant and (r.variant.dropdownLabel or r.variant.name) or ""
 			local itemTooltipLines = r.variant and buildPreviewLinesForJewelType(jewelType, r.variant) or nil
+			local applyRawText = r.variant and r.variant.rawText or jewelType.rawText
+			local jewelLimitKey = applyRawText and applyRawText:match("^([^\n]+)") or jewelType.name
+			local jewelLimit = jewelType.limit or (applyRawText and tonumber(applyRawText:match("Limited to: (%d+)"))) or nil
 			local displayedPlans = (jewelType.name == "Intuitive Leap" or jewelType.isThread or jewelType.isImpossibleEscape)
 				and buildDisplayedConnectionlessPlans(r, points, baseline)
 				or { r }
@@ -1557,7 +1567,9 @@ end
 					baseOutput = plan.baseOutput,
 					compareOutput = plan.compareOutput,
 					jewelName = jewelType.name,
-					applyRawText = r.variant and r.variant.rawText or jewelType.rawText,
+					jewelLimitKey = jewelLimitKey,
+					jewelLimit = jewelLimit,
+					applyRawText = applyRawText,
 					tooltipHeader = jewelType.isThread and "^7Socketing this jewel and allocating the best ring plan here will give you:"
 						or jewelType.name == "Intuitive Leap" and "^7Socketing this jewel and allocating the best nodes here will give you:"
 						or jewelType.isImpossibleEscape and "^7Socketing this jewel and allocating the best keystone plan here will give you:"
@@ -1883,8 +1895,11 @@ end
 									detailText = r.variant.name
 								end
 							end
+							local findApplyRawText = (r.variant and r.variant.rawText) or jt.rawText
 							t_insert(allRows, {
 								jewelName = jt.name,
+								jewelLimitKey = findApplyRawText and findApplyRawText:match("^([^\n]+)") or jt.name,
+								jewelLimit = jt.limit or (findApplyRawText and tonumber(findApplyRawText:match("Limited to: (%d+)"))) or nil,
 								socketLabel = r.socket.label,
 								socketId = r.socket.id,
 								points = points,
@@ -1893,7 +1908,7 @@ end
 								scorePerPointSort = scorePerPointSort,
 								detailText = detailText,
 								replacedItemLabel = r.replacedItemLabel,
-								applyRawText = (r.variant and r.variant.rawText) or jt.rawText,
+								applyRawText = findApplyRawText,
 							})
 						end
 

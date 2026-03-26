@@ -978,6 +978,7 @@ function M.buildJewelTypes(radiusIndexByLabel)
 	local jewelTypes = { }
 	t_insert(jewelTypes, {
 		name = "The Light of Meaning",
+		limit = 1,
 		radiusIndex = radiusIndexByLabel["Large"],
 		scoreLabel = "alloc passives",
 		hasCompute = true,

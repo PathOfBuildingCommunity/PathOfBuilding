@@ -41,6 +41,7 @@ local function buildImpossibleEscapeRawText(keystoneName)
 	return table.concat({
 		"Impossible Escape",
 		"Viridian Jewel",
+		"Limited to: 1",
 		"Small",
 		"Passive Skills in radius of " .. keystoneName .. " can be allocated without being connected to your tree",
 		"Corrupted",
@@ -866,6 +867,32 @@ describe("RadiusJewelFinder #radiusjewel", function()
 				assert.is_true(totalPoints <= maxPoints,
 					"socket " .. result.socket.id .. " plan exceeded max points")
 			end
+		end)
+
+	end)
+
+	-- ── Jewel limit parsing ─────────────────────────────────────────────────
+
+	describe("jewel limit parsing from raw text", function()
+
+		it("parses Limited to: 1 from Impossible Escape raw text", function()
+			local rawText = buildImpossibleEscapeRawText("Acrobatics")
+			local limitKey = rawText:match("^([^\n]+)")
+			local limit = tonumber(rawText:match("Limited to: (%d+)"))
+			assert.are.equals("Impossible Escape", limitKey)
+			assert.are.equals(1, limit)
+		end)
+
+		it("parses Limited to: 1 from Unnatural Instinct raw text", function()
+			local limitKey = UNNATURAL_INSTINCT_RAW_TEXT:match("^([^\n]+)")
+			local limit = tonumber(UNNATURAL_INSTINCT_RAW_TEXT:match("Limited to: (%d+)"))
+			assert.are.equals("Unnatural Instinct", limitKey)
+			assert.are.equals(1, limit)
+		end)
+
+		it("returns nil limit for jewels without Limited to", function()
+			local limit = tonumber(MIGHT_OF_MEEK_RAW_TEXT:match("Limited to: (%d+)"))
+			assert.is_nil(limit)
 		end)
 
 	end)
