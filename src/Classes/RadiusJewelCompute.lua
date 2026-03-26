@@ -38,7 +38,7 @@ local function progressChild(progress, startFraction, spanFraction)
 	return progress
 end
 
-local function isConnectionlessCandidateNode(node, keystoneOnly)
+local function isConnectionlessCandidateNode(node, keystoneOnly, notableOrKeystoneOnly)
 	if not node then
 		return false
 	end
@@ -50,6 +50,9 @@ local function isConnectionlessCandidateNode(node, keystoneOnly)
 	end
 	if keystoneOnly then
 		return node.type == "Keystone"
+	end
+	if notableOrKeystoneOnly then
+		return node.type == "Keystone" or node.type == "Notable"
 	end
 	return true
 end
@@ -251,7 +254,7 @@ function Class:collectConnectionlessCandidates(socketNode, options)
 		return candidates
 	end
 	for nodeId, node in pairs(sourceNodes) do
-		if not seen[nodeId] and not allocNodes[nodeId] and isConnectionlessCandidateNode(node, options.keystoneOnly) then
+		if not seen[nodeId] and not allocNodes[nodeId] and isConnectionlessCandidateNode(node, options.keystoneOnly, options.notableOrKeystoneOnly) then
 			t_insert(candidates, node)
 			seen[nodeId] = true
 		end
@@ -752,6 +755,7 @@ function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants
 		end
 	end
 
+	local notableOrKeystoneOnly = skipPlanSteps -- All Jewels mode: only evaluate notables/keystones
 	local variantContexts = { }
 	for _, variant in ipairs(variants) do
 		local keystoneNode = self.build.spec.tree.keystoneMap[variant.keystoneName]
@@ -760,6 +764,7 @@ function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants
 				collectNodes = function()
 					return keystoneNode.nodesInRadius[smallRadiusIndex]
 				end,
+				notableOrKeystoneOnly = notableOrKeystoneOnly,
 			})
 			if #candidates > 0 then
 				local item = new("Item", "Rarity: Unique\n" .. variant.rawText)
