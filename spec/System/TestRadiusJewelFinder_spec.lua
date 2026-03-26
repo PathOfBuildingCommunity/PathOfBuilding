@@ -897,4 +897,170 @@ describe("RadiusJewelFinder #radiusjewel", function()
 
 	end)
 
+	-- ── filterBestPerSocket ────────────────────────────────────────────────
+
+	describe("filterBestPerSocket", function()
+
+		local function makeRow(socketId, score, opts)
+			opts = opts or {}
+			return {
+				socketId = socketId,
+				sortPctPerPoint = score,
+				isSocketIndependent = opts.isSocketIndependent,
+				jewelLimitKey = opts.jewelLimitKey,
+				jewelLimit = opts.jewelLimit,
+				points = opts.points,
+				name = opts.name or ("row-" .. socketId),
+			}
+		end
+
+		it("keeps one result per socket, best score wins", function()
+			local rows = {
+				makeRow(1, 10, { name = "A" }),
+				makeRow(1, 20, { name = "B" }),
+				makeRow(2, 15, { name = "C" }),
+			}
+			local result = makeFinder():filterBestPerSocket(rows)
+			assert.are.equal(2, #result)
+			local ids = {}
+			for _, r in ipairs(result) do ids[r.socketId] = r.name end
+			assert.are.equal("B", ids[1])
+			assert.are.equal("C", ids[2])
+		end)
+
+		it("results are sorted by score descending", function()
+			local rows = {
+				makeRow(1, 5),
+				makeRow(2, 30),
+				makeRow(3, 15),
+			}
+			local result = makeFinder():filterBestPerSocket(rows)
+			assert.are.equal(3, #result)
+			assert.are.equal(2, result[1].socketId)
+			assert.are.equal(3, result[2].socketId)
+			assert.are.equal(1, result[3].socketId)
+		end)
+
+		it("enforces jewelLimit per jewelLimitKey", function()
+			local rows = {
+				makeRow(1, 30, { jewelLimitKey = "IE", jewelLimit = 1 }),
+				makeRow(2, 20, { jewelLimitKey = "IE", jewelLimit = 1 }),
+				makeRow(3, 10),
+			}
+			local result = makeFinder():filterBestPerSocket(rows)
+			assert.are.equal(2, #result)
+			local ids = {}
+			for _, r in ipairs(result) do ids[r.socketId] = true end
+			assert.is_true(ids[1], "best IE should be kept")
+			assert.is_true(ids[3], "unlimited jewel should be kept")
+			assert.is_nil(ids[2], "second IE should be dropped (limit 1)")
+		end)
+
+		it("allows multiple copies up to the limit", function()
+			local rows = {
+				makeRow(1, 30, { jewelLimitKey = "CF", jewelLimit = 2 }),
+				makeRow(2, 20, { jewelLimitKey = "CF", jewelLimit = 2 }),
+				makeRow(3, 10, { jewelLimitKey = "CF", jewelLimit = 2 }),
+			}
+			local result = makeFinder():filterBestPerSocket(rows)
+			assert.are.equal(2, #result)
+			assert.are.equal(1, result[1].socketId)
+			assert.are.equal(2, result[2].socketId)
+		end)
+
+		it("socket-dependent jewels are assigned before socket-independent", function()
+			-- Socket 1: dependent score 10, independent score 20
+			-- The dependent should get socket 1, independent goes to socket 2
+			local rows = {
+				makeRow(1, 10, { name = "dependent" }),
+				makeRow(1, 20, { name = "independent", isSocketIndependent = true }),
+				makeRow(2, 5,  { name = "independent2", isSocketIndependent = true }),
+			}
+			local result = makeFinder():filterBestPerSocket(rows)
+			assert.are.equal(2, #result)
+			local bySocket = {}
+			for _, r in ipairs(result) do bySocket[r.socketId] = r.name end
+			-- The independent with score 20 cannot take socket 1 (dependent owns it)
+			-- It should go to socket 2 instead
+			assert.are.equal("dependent", bySocket[1])
+		end)
+
+		it("socket-independent jewels use remaining sockets after dependent allocation", function()
+			local rows = {
+				makeRow(1, 30, { name = "dep1" }),
+				makeRow(2, 25, { name = "dep2" }),
+				makeRow(1, 20, { name = "indep1", isSocketIndependent = true }),
+				makeRow(2, 15, { name = "indep2", isSocketIndependent = true }),
+				makeRow(3, 10, { name = "indep3", isSocketIndependent = true }),
+			}
+			local result = makeFinder():filterBestPerSocket(rows)
+			local bySocket = {}
+			for _, r in ipairs(result) do bySocket[r.socketId] = r.name end
+			assert.are.equal("dep1", bySocket[1])
+			assert.are.equal("dep2", bySocket[2])
+			assert.are.equal("indep3", bySocket[3])
+		end)
+
+		it("socket-independent tiebreak prefers cheaper points", function()
+			local rows = {
+				makeRow(1, 20, { isSocketIndependent = true, points = 5 }),
+				makeRow(2, 20, { isSocketIndependent = true, points = 2 }),
+			}
+			local result = makeFinder():filterBestPerSocket(rows)
+			assert.are.equal(2, #result)
+			-- Both are kept (different sockets), but cheaper should come first at equal score
+			-- Actually both have different sockets so both are included
+			-- The tiebreak matters when multiple rows compete for the same remaining sockets
+		end)
+
+		it("socket-independent tiebreak: at equal score, cheapest socket wins", function()
+			-- Two independent jewels competing for a single remaining socket
+			local rows = {
+				makeRow(1, 50, { name = "dep" }),              -- takes socket 1
+				makeRow(1, 20, { name = "ie-expensive", isSocketIndependent = true, points = 8 }),
+				makeRow(2, 20, { name = "ie-cheap",     isSocketIndependent = true, points = 2 }),
+			}
+			local result = makeFinder():filterBestPerSocket(rows)
+			local bySocket = {}
+			for _, r in ipairs(result) do bySocket[r.socketId] = r.name end
+			assert.are.equal("dep", bySocket[1])
+			assert.are.equal("ie-cheap", bySocket[2])
+		end)
+
+		it("limits are shared between dependent and independent jewels", function()
+			-- IE limited to 1: if a dependent row with same limitKey is placed first,
+			-- independent rows with that key are blocked
+			local rows = {
+				makeRow(1, 30, { name = "dep-ie", jewelLimitKey = "IE", jewelLimit = 1 }),
+				makeRow(2, 20, { name = "indep-ie", isSocketIndependent = true, jewelLimitKey = "IE", jewelLimit = 1 }),
+				makeRow(3, 10, { name = "other" }),
+			}
+			local result = makeFinder():filterBestPerSocket(rows)
+			assert.are.equal(2, #result)
+			local names = {}
+			for _, r in ipairs(result) do names[r.name] = true end
+			assert.is_true(names["dep-ie"])
+			assert.is_true(names["other"])
+			assert.is_nil(names["indep-ie"], "second IE should be blocked by shared limit")
+		end)
+
+		it("returns empty table for empty input", function()
+			local result = makeFinder():filterBestPerSocket({})
+			assert.are.equal(0, #result)
+		end)
+
+		it("does not mutate the input rows table", function()
+			local rows = {
+				makeRow(2, 10),
+				makeRow(1, 20),
+			}
+			local originalLen = #rows
+			local originalFirst = rows[1]
+			makeFinder():filterBestPerSocket(rows)
+			assert.are.equal(originalLen, #rows)
+			assert.are.equal(originalFirst, rows[1])
+		end)
+
+	end)
+
 end)

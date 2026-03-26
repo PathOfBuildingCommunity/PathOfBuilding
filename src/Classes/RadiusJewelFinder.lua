@@ -710,6 +710,79 @@ local buildDisplayedConnectionlessPlans = LoadModule("Classes/RadiusJewelCompute
 })
 
 -- ─────────────────────────────────────────────────────────────────────────────
+-- Best-per-socket allocation
+-- ─────────────────────────────────────────────────────────────────────────────
+
+--- Filter rows to keep at most one result per socket, respecting jewel limits
+--- and prioritising socket-dependent jewels over socket-independent ones.
+---
+--- Each row is expected to carry:
+---   socketId            (number)   – jewel socket id
+---   sortPctPerPoint / scorePerPointSort (number) – sort key (higher = better)
+---   isSocketIndependent (boolean?) – true for jewels like IE
+---   jewelLimitKey       (string?)  – grouping key for the "Limited to: X" cap
+---   jewelLimit          (number?)  – max copies allowed (nil = unlimited)
+---   points              (number?)  – total point cost (tie-break for independent)
+function RadiusJewelFinderClass:filterBestPerSocket(rows)
+	local sorted = { }
+	for _, row in ipairs(rows) do
+		t_insert(sorted, row)
+	end
+	t_sort(sorted, function(a, b)
+		return (a.sortPctPerPoint or a.scorePerPointSort or 0) > (b.sortPctPerPoint or b.scorePerPointSort or 0)
+	end)
+	local usedSockets = { }
+	local limitCounts = { }
+	local filtered = { }
+	-- Pass 1: assign socket-dependent jewels first (they need specific sockets)
+	for _, row in ipairs(sorted) do
+		if not row.isSocketIndependent and not usedSockets[row.socketId] then
+			local limitKey = row.jewelLimitKey
+			local limit = row.jewelLimit
+			if not limit or (limitCounts[limitKey] or 0) < limit then
+				usedSockets[row.socketId] = true
+				if limitKey and limit then
+					limitCounts[limitKey] = (limitCounts[limitKey] or 0) + 1
+				end
+				t_insert(filtered, row)
+			end
+		end
+	end
+	-- Pass 2: assign socket-independent jewels (e.g. IE) to remaining sockets, cheapest first
+	local independentSorted = { }
+	for _, row in ipairs(sorted) do
+		if row.isSocketIndependent then
+			t_insert(independentSorted, row)
+		end
+	end
+	t_sort(independentSorted, function(a, b)
+		local aScore = a.sortPctPerPoint or a.scorePerPointSort or 0
+		local bScore = b.sortPctPerPoint or b.scorePerPointSort or 0
+		if aScore ~= bScore then
+			return aScore > bScore
+		end
+		return (a.points or 0) < (b.points or 0)
+	end)
+	for _, row in ipairs(independentSorted) do
+		if not usedSockets[row.socketId] then
+			local limitKey = row.jewelLimitKey
+			local limit = row.jewelLimit
+			if not limit or (limitCounts[limitKey] or 0) < limit then
+				usedSockets[row.socketId] = true
+				if limitKey and limit then
+					limitCounts[limitKey] = (limitCounts[limitKey] or 0) + 1
+				end
+				t_insert(filtered, row)
+			end
+		end
+	end
+	t_sort(filtered, function(a, b)
+		return (a.sortPctPerPoint or a.scorePerPointSort or 0) > (b.sortPctPerPoint or b.scorePerPointSort or 0)
+	end)
+	return filtered
+end
+
+-- ─────────────────────────────────────────────────────────────────────────────
 -- Open popup
 -- ─────────────────────────────────────────────────────────────────────────────
 
@@ -800,62 +873,7 @@ function RadiusJewelFinderClass:Open()
 	local lastFindAllRows = nil
 
 	local function filterBestPerSocket(rows)
-		local sorted = { }
-		for _, row in ipairs(rows) do
-			t_insert(sorted, row)
-		end
-		t_sort(sorted, function(a, b)
-			return (a.sortPctPerPoint or a.scorePerPointSort or 0) > (b.sortPctPerPoint or b.scorePerPointSort or 0)
-		end)
-		local usedSockets = { }
-		local limitCounts = { }
-		local filtered = { }
-		-- Pass 1: assign socket-dependent jewels first (they need specific sockets)
-		for _, row in ipairs(sorted) do
-			if not row.isSocketIndependent and not usedSockets[row.socketId] then
-				local limitKey = row.jewelLimitKey
-				local limit = row.jewelLimit
-				if not limit or (limitCounts[limitKey] or 0) < limit then
-					usedSockets[row.socketId] = true
-					if limitKey and limit then
-						limitCounts[limitKey] = (limitCounts[limitKey] or 0) + 1
-					end
-					t_insert(filtered, row)
-				end
-			end
-		end
-		-- Pass 2: assign socket-independent jewels (e.g. IE) to remaining sockets, cheapest first
-		local independentSorted = { }
-		for _, row in ipairs(sorted) do
-			if row.isSocketIndependent then
-				t_insert(independentSorted, row)
-			end
-		end
-		t_sort(independentSorted, function(a, b)
-			local aScore = a.sortPctPerPoint or a.scorePerPointSort or 0
-			local bScore = b.sortPctPerPoint or b.scorePerPointSort or 0
-			if aScore ~= bScore then
-				return aScore > bScore
-			end
-			return (a.points or 0) < (b.points or 0)
-		end)
-		for _, row in ipairs(independentSorted) do
-			if not usedSockets[row.socketId] then
-				local limitKey = row.jewelLimitKey
-				local limit = row.jewelLimit
-				if not limit or (limitCounts[limitKey] or 0) < limit then
-					usedSockets[row.socketId] = true
-					if limitKey and limit then
-						limitCounts[limitKey] = (limitCounts[limitKey] or 0) + 1
-					end
-					t_insert(filtered, row)
-				end
-			end
-		end
-		t_sort(filtered, function(a, b)
-			return (a.sortPctPerPoint or a.scorePerPointSort or 0) > (b.sortPctPerPoint or b.scorePerPointSort or 0)
-		end)
-		return filtered
+		return self:filterBestPerSocket(rows)
 	end
 
 	local suppressFinderStateSave = false
