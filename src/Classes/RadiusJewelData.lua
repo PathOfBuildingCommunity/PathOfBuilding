@@ -96,7 +96,7 @@ local function getUniqueVariantRawText(name, variantSelector, fallbackRawText, b
 		return fallbackRawText or rawText
 	end
 	item.variant = selectedVariant
-	local builtRaw = item:BuildRaw():gsub("^Rarity: Unique\n", "")
+	local builtRaw = item:BuildRaw():gsub("^Rarity: %w+\n", "")
 	uniqueVariantRawTextCache[cacheKey] = builtRaw
 	return builtRaw
 end
