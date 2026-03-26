@@ -323,7 +323,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			assert.is_true(popup.controls.computeMethodSelect.shown, "expected method selector for Intuitive Leap")
 			assert.are.same({ "Fast", "Simulated" }, listLabels(popup.controls.computeMethodSelect.list))
 			assert.are.same({ "Free only", "Safe occupied", "All occupied" }, listLabels(popup.controls.occupiedModeSelect.list))
-			assert.are.equal("Simulated", popup.controls.computeMethodSelect.list[popup.controls.computeMethodSelect.selIndex])
+			assert.are.equal("Fast", popup.controls.computeMethodSelect.list[popup.controls.computeMethodSelect.selIndex])
 
 			-- Dreams & Nightmares: variant tooltips
 			local normalDreamsIdx = findIndex(popup.controls.jewelTypeSelect.list, "Dreams & Nightmares")

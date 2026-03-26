@@ -1012,6 +1012,7 @@ function M.buildJewelTypes(radiusIndexByLabel)
 	t_insert(jewelTypes, {
 		name = "Impossible Escape",
 		isImpossibleEscape = true,
+		isSocketIndependent = true,
 		scoreLabel = "unalloc notable/keystone near keystone",
 		hasCompute = true,
 		computeMethods = M.CONNECTIONLESS_COMPUTE_METHODS,

@@ -752,7 +752,7 @@ function RadiusJewelFinderClass:Open()
 	local selectedJewelType      = nil   -- set after first filter build
 	local selectedThreadVariant  = threadVariants[1]
 	local selectedJewelVariant   = nil  -- set when jewel type has built-in variants
-	local selectedComputeMethod  = CONNECTIONLESS_COMPUTE_METHODS[2]
+	local selectedComputeMethod  = CONNECTIONLESS_COMPUTE_METHODS[1]
 	local selectedMaxPoints      = 20
 	local selectedOccupiedMode   = OCCUPIED_SOCKET_OPTIONS[1]
 	local dreamFamilyOptions     = {
@@ -810,7 +810,36 @@ function RadiusJewelFinderClass:Open()
 		local usedSockets = { }
 		local limitCounts = { }
 		local filtered = { }
+		-- Pass 1: assign socket-dependent jewels first (they need specific sockets)
 		for _, row in ipairs(sorted) do
+			if not row.isSocketIndependent and not usedSockets[row.socketId] then
+				local limitKey = row.jewelLimitKey
+				local limit = row.jewelLimit
+				if not limit or (limitCounts[limitKey] or 0) < limit then
+					usedSockets[row.socketId] = true
+					if limitKey and limit then
+						limitCounts[limitKey] = (limitCounts[limitKey] or 0) + 1
+					end
+					t_insert(filtered, row)
+				end
+			end
+		end
+		-- Pass 2: assign socket-independent jewels (e.g. IE) to remaining sockets, cheapest first
+		local independentSorted = { }
+		for _, row in ipairs(sorted) do
+			if row.isSocketIndependent then
+				t_insert(independentSorted, row)
+			end
+		end
+		t_sort(independentSorted, function(a, b)
+			local aScore = a.sortPctPerPoint or a.scorePerPointSort or 0
+			local bScore = b.sortPctPerPoint or b.scorePerPointSort or 0
+			if aScore ~= bScore then
+				return aScore > bScore
+			end
+			return (a.points or 0) < (b.points or 0)
+		end)
+		for _, row in ipairs(independentSorted) do
 			if not usedSockets[row.socketId] then
 				local limitKey = row.jewelLimitKey
 				local limit = row.jewelLimit
@@ -823,6 +852,9 @@ function RadiusJewelFinderClass:Open()
 				end
 			end
 		end
+		t_sort(filtered, function(a, b)
+			return (a.sortPctPerPoint or a.scorePerPointSort or 0) > (b.sortPctPerPoint or b.scorePerPointSort or 0)
+		end)
 		return filtered
 	end
 
@@ -1569,6 +1601,7 @@ end
 					jewelName = jewelType.name,
 					jewelLimitKey = jewelLimitKey,
 					jewelLimit = jewelLimit,
+					isSocketIndependent = jewelType.isSocketIndependent,
 					applyRawText = applyRawText,
 					tooltipHeader = jewelType.isThread and "^7Socketing this jewel and allocating the best ring plan here will give you:"
 						or jewelType.name == "Intuitive Leap" and "^7Socketing this jewel and allocating the best nodes here will give you:"
@@ -1615,20 +1648,17 @@ end
 						(typeIndex - 1) / #computableTypes,
 						1 / #computableTypes)
 					local jtName = jt.name
-					local typeProgress = {
-						tick = function(self, done, total, label)
-							rawChild:tick(done, total, label and (jtName .. " | " .. label) or jtName)
-						end,
-						child = function(self, startFraction, spanFraction)
-							local inner = rawChild:child(startFraction, spanFraction)
-							return {
-								tick = function(_, done, total, label)
-									inner:tick(done, total, label and (jtName .. " | " .. label) or jtName)
-								end,
-								child = function(_, s, sp) return inner:child(s, sp) end,
-							}
-						end,
-					}
+					local function wrapProgress(base)
+						return {
+							tick = function(self, done, total, label)
+								base:tick(done, total, label and (jtName .. " | " .. label) or jtName)
+							end,
+							child = function(self, startFraction, spanFraction)
+								return wrapProgress(base:child(startFraction, spanFraction))
+							end,
+						}
+					end
+					local typeProgress = wrapProgress(rawChild)
 					local socketResults, baseline
 
 					if jt.name == "Intuitive Leap" then
@@ -1900,6 +1930,7 @@ end
 								jewelName = jt.name,
 								jewelLimitKey = findApplyRawText and findApplyRawText:match("^([^\n]+)") or jt.name,
 								jewelLimit = jt.limit or (findApplyRawText and tonumber(findApplyRawText:match("Limited to: (%d+)"))) or nil,
+								isSocketIndependent = jt.isSocketIndependent,
 								socketLabel = r.socket.label,
 								socketId = r.socket.id,
 								points = points,
