@@ -1194,9 +1194,6 @@ end
 
 	local function updatePreview()
 		wipeTable(previewListData)
-		if controls.jewelTypeSelect and controls.jewelTypeSelect.dropped then
-			return
-		end
 		if not selectedJewelType then
 			t_insert(previewListData, { height = 16, [1] = COL_META .. "(no preview)" })
 			return
