@@ -1610,7 +1610,7 @@ end
 					delta = plan.delta,
 					pct = pct,
 					pctPerPoint = totalPoints > 0 and (pct / totalPoints) or pct,
-					sortPctPerPoint = totalPoints > 0 and (pct / totalPoints) or (pct >= 0 and math.huge or -math.huge),
+					sortPctPerPoint = totalPoints > 0 and (pct / totalPoints) or pct,
 					detailText = detailText,
 					detailNodeId = detailNodeId,
 					resultNodes = plan.resultNodes,
@@ -1937,7 +1937,7 @@ end
 						for _, r in ipairs(typeResults) do
 							local points = self:getSocketAccessCost(r.socket, { isOccupied = r.replacedItemLabel ~= nil })
 							local scorePerPoint = points > 0 and (r.score / points) or r.score
-							local scorePerPointSort = points > 0 and scorePerPoint or (r.score >= 0 and math.huge or -math.huge)
+							local scorePerPointSort = points > 0 and scorePerPoint or r.score
 							local detailText = r.detailText or ""
 							if r.variant and detailText == "" then
 								if jt.isThread then
@@ -2160,7 +2160,7 @@ end
 							or selectedJewelType.scoreLabel
 						local points = self:getSocketAccessCost(r.socket, { isOccupied = r.replacedItemLabel ~= nil })
 						local scorePerPoint = points > 0 and (r.score / points) or r.score
-						local scorePerPointSort = points > 0 and scorePerPoint or (r.score >= 0 and math.huge or -math.huge)
+						local scorePerPointSort = points > 0 and scorePerPoint or r.score
 						local detailText = r.detailText
 						if not detailText or detailText == "" then
 							detailText = #r.topNodes > 0 and s_format("%d match%s", #r.topNodes, #r.topNodes == 1 and "" or "es") or scoreLabel
