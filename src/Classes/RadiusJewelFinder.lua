@@ -753,7 +753,7 @@ function RadiusJewelFinderClass:Open()
 	local selectedThreadVariant  = threadVariants[1]
 	local selectedJewelVariant   = nil  -- set when jewel type has built-in variants
 	local selectedComputeMethod  = CONNECTIONLESS_COMPUTE_METHODS[2]
-	local selectedMaxPoints      = nil
+	local selectedMaxPoints      = 20
 	local selectedOccupiedMode   = OCCUPIED_SOCKET_OPTIONS[1]
 	local dreamFamilyOptions     = {
 		{ name = "All", value = "ALL" },
@@ -1258,7 +1258,7 @@ end
 	controls.impactStatSelect.shown = true
 
 	controls.maxPointsLabel = new("LabelControl", TL, { 120, 444, 0, 16 }, "^7Max pts:")
-	controls.maxPointsEdit = new("EditControl", TL, { 182, 442, 56, 20 }, "", nil, "%D", 3, function(buf)
+	controls.maxPointsEdit = new("EditControl", TL, { 182, 442, 56, 20 }, tostring(selectedMaxPoints), nil, "%D", 3, function(buf)
 		cancelComputeTask()
 		selectedMaxPoints = buf ~= "" and tonumber(buf) or nil
 		saveFinderState()
