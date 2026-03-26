@@ -841,6 +841,7 @@ function RadiusJewelFinderClass:Open()
 
 	local TL       = { "TOPLEFT", nil, "TOPLEFT" }
 	local controls = { }
+	local applySelectedResult  -- forward declaration (used by OnSelClick + applyButton)
 
 	-- ── Dropdown label lists ──────────────────────────────────────────────────
 	-- (jtLabels is built dynamically via rebuildJewelTypeDropdown)
@@ -1224,6 +1225,11 @@ end
 		controls.resultsList.suppressTooltipFunc = isAnyFinderDropdownDropped
 		controls.resultsList.OnSelect = function(_, _, row)
 			updateResultDetails(row)
+		end
+		controls.resultsList.OnSelClick = function(_, index, value, doubleClick)
+			if doubleClick then
+				applySelectedResult()
+			end
 		end
 		controls.resultsList:SetMode("message", { }, COL_META .. "Click Find to search")
 
@@ -2209,7 +2215,7 @@ end
 			runFind(true)
 		end)
 
-		controls.applyButton = new("ButtonControl", TL, { 490, 444, 80, 20 }, "Apply", function()
+		applySelectedResult = function()
 			local idx = controls.resultsList.selIndex
 			local row = idx and controls.resultsList.list[idx]
 			if not row or not row.applyRawText then return end
@@ -2224,7 +2230,23 @@ end
 			end
 			self.build.itemsTab:PopulateSlots()
 			self.build.buildFlag = true
-		end)
+		end
+		controls.applyButton = new("ButtonControl", TL, { 490, 444, 80, 20 }, "Apply", applySelectedResult)
+		controls.applyButton.enabled = function()
+			local idx = controls.resultsList.selIndex
+			return idx and controls.resultsList.list[idx] and controls.resultsList.list[idx].applyRawText ~= nil
+		end
+		controls.applyButton.tooltipFunc = function(tooltip)
+			local idx = controls.resultsList.selIndex
+			local row = idx and controls.resultsList.list[idx]
+			if not row or not row.applyRawText then
+				tooltip:Clear(true)
+				tooltip:AddLine(16, "^7Select a result to apply.")
+				return
+			end
+			tooltip:Clear(true)
+			tooltip:AddLine(16, "^7Equip ^x33FF77" .. (row.jewelName or "jewel") .. " ^7in ^x33FF77" .. (row.socketLabel or "socket"))
+		end
 
 	local function restoreFinderState()
 		if not finderState.jewelTypeName then
@@ -2337,5 +2359,16 @@ end
 
 	-- Initialise preview and open popup
 	restoreFinderState()
-	return main:OpenPopup(1060, 474, "Find Radius Jewel", controls)
+	local popup = main:OpenPopup(1060, 474, "Find Radius Jewel", controls, nil, nil, "closeButton")
+	local baseProcessInput = popup.ProcessInput
+	popup.ProcessInput = function(self, inputEvents, viewPort)
+		for _, event in ipairs(inputEvents) do
+			if event.type == "KeyDown" and event.key == "RETURN" and IsKeyDown("CTRL") then
+				controls.computeButton:Click()
+				return
+			end
+		end
+		baseProcessInput(self, inputEvents, viewPort)
+	end
+	return popup
 end
