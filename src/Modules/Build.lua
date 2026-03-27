@@ -1367,8 +1367,8 @@ function buildMode:OpenSpectreLibrary()
 		end
 	end)
 	local controls = { }
-	controls.list = new("MinionListControl", nil, {-100, 40, 190, 250}, self.data, destList)
-	controls.source = new("MinionSearchListControl", nil, {100, 60, 190, 230}, self.data, sourceList, controls.list)
+	controls.list = new("MinionListControl", nil, {-139, 40, 265, 250}, self.data, destList)
+	controls.source = new("MinionSearchListControl", nil, {139, 60, 265, 230}, self.data, sourceList, controls.list)
 	controls.save = new("ButtonControl", nil, {-45, 330, 80, 20}, "Save", function()
 		self.spectreList = destList
 		self.modFlag = true
@@ -1378,9 +1378,9 @@ function buildMode:OpenSpectreLibrary()
 	controls.cancel = new("ButtonControl", nil, {45, 330, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
-	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {24, 2, 0, 16}, "^7Spectres in your Library must be assigned to an active")
-	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {20, 18, 0, 16}, "^7Raise Spectre gem for their buffs and curses to activate")
-	local spectrePopup = main:OpenPopup(410, 360, "Spectre Library", controls)
+	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {99, 2, 0, 16}, "^7Spectres in your Library must be assigned to an active")
+	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {95, 18, 0, 16}, "^7Raise Spectre gem for their buffs and curses to activate")
+	local spectrePopup = main:OpenPopup(575, 360, "Spectre Library", controls)
 	spectrePopup:SelectControl(spectrePopup.controls.source.controls.searchText)
 end
 
