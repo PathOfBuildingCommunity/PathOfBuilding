@@ -774,10 +774,12 @@ function RadiusJewelFinderClass:findConnectionlessDependentNodes(socketId, item)
 	if not next(allocInRadius) then return { } end
 
 	-- BFS: mark nodes naturally connected from outside the radius
+	-- Note: spec.nodes has the `linked` arrays; treeData.nodes does not.
+	local specNodes = spec.nodes
 	local connected = { }
 	local queue = { }
 	for nid, _ in pairs(allocInRadius) do
-		local node = treeData.nodes[nid] or radiusNodes[nid]
+		local node = specNodes[nid]
 		if node and node.linked then
 			for _, other in ipairs(node.linked) do
 				if spec.allocNodes[other.id] and not radiusNodes[other.id] then
@@ -793,7 +795,7 @@ function RadiusJewelFinderClass:findConnectionlessDependentNodes(socketId, item)
 	while qi <= #queue do
 		local nid = queue[qi]
 		qi = qi + 1
-		local node = treeData.nodes[nid] or radiusNodes[nid]
+		local node = specNodes[nid]
 		if node and node.linked then
 			for _, other in ipairs(node.linked) do
 				if allocInRadius[other.id] and not connected[other.id] then
