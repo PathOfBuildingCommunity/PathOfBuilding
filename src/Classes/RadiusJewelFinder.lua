@@ -73,6 +73,16 @@ local function formatPerPointDisplay(value, points)
 	return formatSignedPercent(value)
 end
 
+local ACTION_COLORS = {
+	new     = "^2",
+	move    = "^x33AAFF",
+	replace = "^xFFAA33",
+	keep    = "^8",
+}
+local function colorSocketLabel(row)
+	return (row.action and ACTION_COLORS[row.action] or "") .. row.socketLabel
+end
+
 local RadiusJewelResultsListClass = newClass("RadiusJewelResultsListControl", "ListControl", function(self, anchor, rect, build, socketViewer)
 	self.ListControl(anchor, rect, 16, "VERTICAL", false)
 	self.build = build
@@ -333,7 +343,7 @@ function RadiusJewelResultsListClass:GetRowValue(column, index, row)
 	if self.mode == "message" then
 		return column == 1 and row.text or ""
 	elseif self.mode == "computeSocket" then
-		return column == 1 and row.socketLabel
+		return column == 1 and colorSocketLabel(row)
 			or column == 2 and tostring(row.points)
 			or column == 3 and formatSignedValue(row.delta)
 			or column == 4 and formatSignedPercent(row.pct)
@@ -342,7 +352,7 @@ function RadiusJewelResultsListClass:GetRowValue(column, index, row)
 			or ""
 	elseif self.mode == "computeSocketAll" then
 		return column == 1 and row.jewelName
-			or column == 2 and row.socketLabel
+			or column == 2 and colorSocketLabel(row)
 			or column == 3 and tostring(row.points)
 			or column == 4 and formatSignedValue(row.delta)
 			or column == 5 and formatSignedPercent(row.pct)
@@ -350,14 +360,14 @@ function RadiusJewelResultsListClass:GetRowValue(column, index, row)
 			or column == 7 and row.detailText
 			or ""
 	elseif self.mode == "find" then
-		return column == 1 and row.socketLabel
+		return column == 1 and colorSocketLabel(row)
 			or column == 2 and tostring(row.points)
 			or column == 3 and s_format("^7%d", row.score)
 			or column == 4 and (row.points == 0 and (row.score > 0 and "^2Free" or "^8Free") or s_format("^7%.2f", row.scorePerPoint))
 			or column == 5 and row.detailText
 			or ""
 	elseif self.mode == "findThread" then
-		return column == 1 and row.socketLabel
+		return column == 1 and colorSocketLabel(row)
 			or column == 2 and tostring(row.points)
 			or column == 3 and s_format("^7%d", row.score)
 			or column == 4 and (row.points == 0 and (row.score > 0 and "^2Free" or "^8Free") or s_format("^7%.2f", row.scorePerPoint))
@@ -366,7 +376,7 @@ function RadiusJewelResultsListClass:GetRowValue(column, index, row)
 			or ""
 	elseif self.mode == "findAll" then
 		return column == 1 and row.jewelName
-			or column == 2 and row.socketLabel
+			or column == 2 and colorSocketLabel(row)
 			or column == 3 and tostring(row.points)
 			or column == 4 and s_format("^7%d", row.score)
 			or column == 5 and (row.points == 0 and (row.score > 0 and "^2Free" or "^8Free") or s_format("^7%.2f", row.scorePerPoint))
@@ -689,6 +699,158 @@ function RadiusJewelFinderClass:getSocketAccessCost(socket, occupancy)
 	return type(socket) == "table" and (socket.pathDist or 0) or 0
 end
 
+-- Find all sockets where a jewel matching this type is currently equipped.
+-- Returns a list of { socketId, slot, itemId, item } entries.
+-- Only returns results when the number of equipped copies >= the jewel's limit.
+function RadiusJewelFinderClass:findEquippedJewelSockets(jewelType)
+	local equipped = { }
+	local limit
+	for socketId, slot in pairs(self.build.itemsTab.sockets) do
+		if slot.selItemId and slot.selItemId ~= 0 then
+			local item = self.build.itemsTab.items[slot.selItemId]
+			if item and item.title == jewelType.name then
+				limit = limit or item.limit
+				t_insert(equipped, {
+					socketId = socketId,
+					slot = slot,
+					itemId = slot.selItemId,
+					item = item,
+				})
+			end
+		end
+	end
+	if not limit or #equipped < limit then
+		return { }
+	end
+	return equipped
+end
+
+-- Find allocated nodes that depend on a connectionless jewel (IE, IL, ToH).
+-- Returns a list of nodeIds that should be temporarily unallocated.
+function RadiusJewelFinderClass:findConnectionlessDependentNodes(socketId, item)
+	local spec = self.build.spec
+	local treeData = spec.tree or self.build.tree
+	local socketNode = treeData.nodes[socketId]
+	if not socketNode then return { } end
+
+	-- Collect all nodes in the jewel's radius
+	local radiusNodes = { }
+	if item.jewelData and item.jewelData.impossibleEscapeKeystones then
+		-- IE: nodes in Small radius around each keystone
+		local smallRI
+		for i, radius in ipairs(data.jewelRadius) do
+			if radius.label == "Small" and radius.inner == 0 then
+				smallRI = i
+				break
+			end
+		end
+		if smallRI and treeData.keystoneMap then
+			for keystoneName, _ in pairs(item.jewelData.impossibleEscapeKeystones) do
+				local ksNode = treeData.keystoneMap[keystoneName]
+				if ksNode and ksNode.nodesInRadius and ksNode.nodesInRadius[smallRI] then
+					for nid, n in pairs(ksNode.nodesInRadius[smallRI]) do
+						radiusNodes[nid] = n
+					end
+				end
+			end
+		end
+	elseif item.jewelRadiusIndex and socketNode.nodesInRadius then
+		-- IL / ToH: nodes in the jewel's radius around the socket
+		local nodes = socketNode.nodesInRadius[item.jewelRadiusIndex]
+		if nodes then
+			for nid, n in pairs(nodes) do
+				radiusNodes[nid] = n
+			end
+		end
+	end
+
+	-- Find allocated nodes in the radius
+	local allocInRadius = { }
+	for nid, _ in pairs(radiusNodes) do
+		if spec.allocNodes[nid] then
+			allocInRadius[nid] = true
+		end
+	end
+	if not next(allocInRadius) then return { } end
+
+	-- BFS: mark nodes naturally connected from outside the radius
+	local connected = { }
+	local queue = { }
+	for nid, _ in pairs(allocInRadius) do
+		local node = treeData.nodes[nid] or radiusNodes[nid]
+		if node and node.linked then
+			for _, other in ipairs(node.linked) do
+				if spec.allocNodes[other.id] and not radiusNodes[other.id] then
+					connected[nid] = true
+					t_insert(queue, nid)
+					break
+				end
+			end
+		end
+	end
+	-- Propagate connectivity within the radius
+	local qi = 1
+	while qi <= #queue do
+		local nid = queue[qi]
+		qi = qi + 1
+		local node = treeData.nodes[nid] or radiusNodes[nid]
+		if node and node.linked then
+			for _, other in ipairs(node.linked) do
+				if allocInRadius[other.id] and not connected[other.id] then
+					connected[other.id] = true
+					t_insert(queue, other.id)
+				end
+			end
+		end
+	end
+
+	-- Nodes in radius that are allocated but NOT naturally connected
+	local dependent = { }
+	for nid, _ in pairs(allocInRadius) do
+		if not connected[nid] then
+			t_insert(dependent, nid)
+		end
+	end
+	return dependent
+end
+
+function RadiusJewelFinderClass:removeEquippedJewels(equippedList)
+	local spec = self.build.spec
+	for _, entry in ipairs(equippedList) do
+		-- Find connectionless dependent nodes before removing the item
+		entry.savedAllocNodes = { }
+		local dependentNodes = self:findConnectionlessDependentNodes(entry.socketId, entry.item)
+		for _, nid in ipairs(dependentNodes) do
+			entry.savedAllocNodes[nid] = spec.allocNodes[nid]
+			spec.allocNodes[nid] = nil
+		end
+		-- Remove the jewel from the socket
+		entry.savedSelItemId = entry.slot.selItemId
+		entry.savedSpecJewel = spec.jewels[entry.socketId]
+		entry.slot.selItemId = 0
+		spec.jewels[entry.socketId] = 0
+	end
+	return equippedList
+end
+
+function RadiusJewelFinderClass:restoreEquippedJewels(equippedList)
+	local spec = self.build.spec
+	for _, entry in ipairs(equippedList) do
+		if entry.savedSelItemId then
+			entry.slot.selItemId = entry.savedSelItemId
+			spec.jewels[entry.socketId] = entry.savedSpecJewel
+			entry.savedSelItemId = nil
+			entry.savedSpecJewel = nil
+		end
+		if entry.savedAllocNodes then
+			for nid, node in pairs(entry.savedAllocNodes) do
+				spec.allocNodes[nid] = node
+			end
+			entry.savedAllocNodes = nil
+		end
+	end
+end
+
 local function buildNodeLabelList(nodes)
 	local labels = { }
 	for _, node in ipairs(nodes or { }) do
@@ -987,6 +1149,9 @@ function RadiusJewelFinderClass:Open()
 		if not computeContext then
 			return
 		end
+		if computeContext.removedJewels and #computeContext.removedJewels > 0 then
+			self:restoreEquippedJewels(computeContext.removedJewels)
+		end
 		main.onFrameFuncs["RadiusJewelFinderCompute"] = nil
 		computeContext = nil
 		if controls.computeButton then
@@ -1152,8 +1317,16 @@ end
 		if row.variantLabel and row.variantLabel ~= "" then
 			t_insert(resultDetailListData, { height = 16, [1] = "^7Variant: " .. row.variantLabel })
 		end
-		if row.replacedItemLabel then
-			t_insert(resultDetailListData, { height = 16, [1] = "^7Replaces: " .. row.replacedItemLabel })
+		if row.action == "keep" then
+			t_insert(resultDetailListData, { height = 16, [1] = "^8Already equipped here" })
+		elseif row.action == "move" then
+			local moveText = "^x33AAFFMove here"
+			if row.replacedItemLabel then
+				moveText = moveText .. " ^7(replaces " .. row.replacedItemLabel .. ")"
+			end
+			t_insert(resultDetailListData, { height = 16, [1] = moveText })
+		elseif row.replacedItemLabel then
+			t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33Replaces: ^7" .. row.replacedItemLabel })
 		else
 			t_insert(resultDetailListData, { height = 16, [1] = "^7Socket state: Free socket" })
 		end
@@ -1560,10 +1733,18 @@ end
 		}
 		return tracker
 	end
-	local function buildComputeRows(jewelType, socketResults, baseline)
+	local function buildComputeRows(jewelType, socketResults, baseline, equippedList)
+		local equippedSocketIds = { }
+		local existingSocketId
+		for _, entry in ipairs(equippedList or { }) do
+			equippedSocketIds[entry.socketId] = true
+			existingSocketId = existingSocketId or entry.socketId
+		end
 		local rows = { }
 		for _, r in ipairs(socketResults) do
-			local points = self:getSocketAccessCost(r.socket, { isOccupied = r.replacedItemLabel ~= nil })
+			local isEquippedSocket = equippedSocketIds[r.socket.id]
+			local points = isEquippedSocket and 0
+				or self:getSocketAccessCost(r.socket, { isOccupied = r.replacedItemLabel ~= nil })
 			local variantLabel = r.variant and (r.variant.dropdownLabel or r.variant.name) or ""
 			local itemTooltipLines = r.variant and buildPreviewLinesForJewelType(jewelType, r.variant) or nil
 			local applyRawText = r.variant and r.variant.rawText or jewelType.rawText
@@ -1603,6 +1784,16 @@ end
 					local keystoneNode = treeData.keystoneMap[r.variant.keystoneName]
 					detailNodeId = keystoneNode and keystoneNode.id or nil
 				end
+				local action
+				if isEquippedSocket then
+					action = "keep"
+				elseif existingSocketId then
+					action = "move"
+				elseif r.replacedItemLabel then
+					action = "replace"
+				else
+					action = "new"
+				end
 				t_insert(rows, {
 					socketLabel = r.socket.label,
 					socketId = r.socket.id,
@@ -1624,6 +1815,7 @@ end
 					jewelLimit = jewelLimit,
 					isSocketIndependent = jewelType.isSocketIndependent,
 					applyRawText = applyRawText,
+					action = action,
 					tooltipHeader = jewelType.isThread and "^7Socketing this jewel and allocating the best ring plan here will give you:"
 						or jewelType.name == "Intuitive Leap" and "^7Socketing this jewel and allocating the best nodes here will give you:"
 						or jewelType.isImpossibleEscape and "^7Socketing this jewel and allocating the best keystone plan here will give you:"
@@ -1680,6 +1872,9 @@ end
 						}
 					end
 					local typeProgress = wrapProgress(rawChild)
+					local equippedList = self:findEquippedJewelSockets(jt)
+					local removedJewels = self:removeEquippedJewels(equippedList)
+					computeContext.removedJewels = removedJewels
 					local socketResults, baseline
 
 					if jt.name == "Intuitive Leap" then
@@ -1711,8 +1906,10 @@ end
 					end
 
 					globalBaseline = globalBaseline or baseline
+					self:restoreEquippedJewels(removedJewels)
+					computeContext.removedJewels = nil
 
-					local typeRows = buildComputeRows(jt, socketResults, baseline)
+					local typeRows = buildComputeRows(jt, socketResults, baseline, equippedList)
 
 					-- For connectionless types: keep only the best row per socket
 					if jt.name == "Intuitive Leap" or jt.isThread or jt.isImpossibleEscape then
@@ -1744,6 +1941,9 @@ end
 			else
 					local displayedVariants = getDisplayedVariants()
 					local itemLabel = selectedJewelType.name
+					local equippedList = self:findEquippedJewelSockets(selectedJewelType)
+					local removedJewels = self:removeEquippedJewels(equippedList)
+					computeContext.removedJewels = removedJewels
 					local socketResults, baseline
 					if selectedJewelType.name == "Intuitive Leap" then
 						socketResults, baseline =
@@ -1768,7 +1968,9 @@ end
 						socketResults, baseline =
 							self:computeSocketImpact(jewelSockets, rawText, selectedImpactStat, progress, selectedMaxPoints, selectedOccupiedMode)
 					end
-					local rows = buildComputeRows(selectedJewelType, socketResults, baseline)
+					self:restoreEquippedJewels(removedJewels)
+					computeContext.removedJewels = nil
+					local rows = buildComputeRows(selectedJewelType, socketResults, baseline, equippedList)
 					controls.resultsList:SetMode("computeSocket", rows, COL_META .. "(no compatible sockets)")
 					controls.statusLabel.label = formatComputeStatus(itemLabel, statLabel, baseline, computeMethodLabel) .. formatElapsed(searchStartTime)
 					saveResultCache("compute", "computeSocket", rows, COL_META .. "(no compatible sockets)", controls.statusLabel.label, true)
@@ -1934,8 +2136,17 @@ end
 						end
 
 						-- Build rows from typeResults
+						local equippedList = self:findEquippedJewelSockets(jt)
+						local equippedSocketIds = { }
+						local existingSocketId
+						for _, entry in ipairs(equippedList) do
+							equippedSocketIds[entry.socketId] = true
+							existingSocketId = existingSocketId or entry.socketId
+						end
 						for _, r in ipairs(typeResults) do
-							local points = self:getSocketAccessCost(r.socket, { isOccupied = r.replacedItemLabel ~= nil })
+							local isEquippedSocket = equippedSocketIds[r.socket.id]
+							local points = isEquippedSocket and 0
+								or self:getSocketAccessCost(r.socket, { isOccupied = r.replacedItemLabel ~= nil })
 							local scorePerPoint = points > 0 and (r.score / points) or r.score
 							local scorePerPointSort = points > 0 and scorePerPoint or r.score
 							local detailText = r.detailText or ""
@@ -1945,6 +2156,16 @@ end
 								else
 									detailText = r.variant.name
 								end
+							end
+							local action
+							if isEquippedSocket then
+								action = "keep"
+							elseif existingSocketId then
+								action = "move"
+							elseif r.replacedItemLabel then
+								action = "replace"
+							else
+								action = "new"
 							end
 							local findApplyRawText = (r.variant and r.variant.rawText) or jt.rawText
 							t_insert(allRows, {
@@ -1961,6 +2182,7 @@ end
 								detailText = detailText,
 								replacedItemLabel = r.replacedItemLabel,
 								applyRawText = findApplyRawText,
+								action = action,
 							})
 						end
 
@@ -2148,6 +2370,13 @@ end
 
 					t_sort(results, function(a, b) return (a.score or 0) > (b.score or 0) end)
 
+					local equippedList = self:findEquippedJewelSockets(selectedJewelType)
+					local equippedSocketIds = { }
+					local existingSocketId
+					for _, entry in ipairs(equippedList) do
+						equippedSocketIds[entry.socketId] = true
+						existingSocketId = existingSocketId or entry.socketId
+					end
 					local rows = { }
 					for _, r in ipairs(results) do
 						local topLabels = buildNodeLabelList(r.topNodes)
@@ -2158,7 +2387,9 @@ end
 
 						local scoreLabel = (selectedJewelType.variants and selectedJewelVariant and selectedJewelVariant.scoreLabel)
 							or selectedJewelType.scoreLabel
-						local points = self:getSocketAccessCost(r.socket, { isOccupied = r.replacedItemLabel ~= nil })
+						local isEquippedSocket = equippedSocketIds[r.socket.id]
+						local points = isEquippedSocket and 0
+							or self:getSocketAccessCost(r.socket, { isOccupied = r.replacedItemLabel ~= nil })
 						local scorePerPoint = points > 0 and (r.score / points) or r.score
 						local scorePerPointSort = points > 0 and scorePerPoint or r.score
 						local detailText = r.detailText
@@ -2172,6 +2403,16 @@ end
 							local keystoneNode = treeData.keystoneMap[r.variant.keystoneName]
 							detailNodeId = keystoneNode and keystoneNode.id or nil
 						end
+						local action
+						if isEquippedSocket then
+							action = "keep"
+						elseif existingSocketId then
+							action = "move"
+						elseif r.replacedItemLabel then
+							action = "replace"
+						else
+							action = "new"
+						end
 						t_insert(rows, {
 							socketLabel = r.socket.label,
 							socketId = r.socket.id,
@@ -2184,6 +2425,7 @@ end
 							detailNodeId = detailNodeId,
 							topNodes = copyTableSafe(r.topNodes, false, true),
 							replacedItemLabel = r.replacedItemLabel,
+							action = action,
 							applyRawText = (r.variant and r.variant.rawText)
 								or (selectedJewelVariant and selectedJewelVariant.rawText)
 								or selectedJewelType.rawText,
