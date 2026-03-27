@@ -2260,6 +2260,4 @@ skills["LegionKaruiMeleeCombo2"] = {
 			mod("Duration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
-#baseMod skill("buffAllies", true)
-#baseMod skill("buffMinions", true)
 #mods

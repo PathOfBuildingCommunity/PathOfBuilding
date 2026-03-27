@@ -11593,10 +11593,6 @@ skills["FaridunCasterUndeadDamageOverTimeAura"] = {
 		area = true,
 		aura = true,
 	},
-	baseMods = {
-		skill("buffAllies", true),
-		skill("buffMinions", true),
-	},
 	constantStats = {
 		{ "active_skill_area_of_effect_radius_+%_final", 50 },
 	},
