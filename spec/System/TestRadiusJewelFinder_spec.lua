@@ -1063,4 +1063,321 @@ describe("RadiusJewelFinder #radiusjewel", function()
 
 	end)
 
+	-- ── Move-aware compute helpers ─────────────────────────────────────────
+
+	describe("move-aware compute helpers", function()
+
+		local ALLOC_SOCKET_IDS = { 36634, 61419, 41263 }
+
+		local function equipFakeJewel(socketId, title, limit, extras)
+			local slot = build.itemsTab.sockets[socketId]
+			assert.is_not_nil(slot, "socket " .. socketId .. " should exist")
+			local fakeItemId = 999000 + socketId
+			local item = { title = title, limit = limit }
+			if extras then
+				for k, v in pairs(extras) do item[k] = v end
+			end
+			build.itemsTab.items[fakeItemId] = item
+			slot.selItemId = fakeItemId
+			build.spec.jewels[socketId] = fakeItemId
+			return item, fakeItemId
+		end
+
+		local function getTestRadiusIndex()
+			return getLargeRadiusIndex()
+		end
+
+		-- Find a jewel socket whose radius contains at least one unallocated node
+		-- with NO allocated neighbors outside the radius ("isolated").
+		-- Note: `linked` is on spec.nodes, not spec.tree.nodes.
+		local function findIsolatedRadiusNode(radiusIndex)
+			local treeData = build.spec.tree
+			for socketId, socketData in pairs(build.spec.nodes) do
+				if socketData.isJewelSocket then
+					local socketNode = treeData.nodes[socketId]
+					if socketNode and socketNode.nodesInRadius and socketNode.nodesInRadius[radiusIndex] then
+						local radiusNodes = socketNode.nodesInRadius[radiusIndex]
+						for nid, _ in pairs(radiusNodes) do
+							if not build.spec.allocNodes[nid] then
+								local specNode = build.spec.nodes[nid]
+								local isolated = true
+								if specNode and specNode.linked then
+									for _, other in ipairs(specNode.linked) do
+										if build.spec.allocNodes[other.id] and not radiusNodes[other.id] then
+											isolated = false
+											break
+										end
+									end
+								end
+								if isolated then
+									return socketId, nid
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+
+		-- Find an unallocated radius node that has at least one linked neighbor
+		-- OUTSIDE the radius.  Returns socketId, nodeId, outsideNeighborId.
+		-- Note: `linked` is on spec.nodes, not spec.tree.nodes.
+		local function findRadiusNodeWithOutsideNeighbor(radiusIndex)
+			local treeData = build.spec.tree
+			for socketId, socketData in pairs(build.spec.nodes) do
+				if socketData.isJewelSocket then
+					local socketNode = treeData.nodes[socketId]
+					if socketNode and socketNode.nodesInRadius and socketNode.nodesInRadius[radiusIndex] then
+						local radiusNodes = socketNode.nodesInRadius[radiusIndex]
+						for nid, _ in pairs(radiusNodes) do
+							if not build.spec.allocNodes[nid] then
+								local specNode = build.spec.nodes[nid]
+								if specNode and specNode.linked then
+									for _, other in ipairs(specNode.linked) do
+										if not radiusNodes[other.id] then
+											return socketId, nid, other.id
+										end
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+
+		-- ── findEquippedJewelSockets ────────────────────────────────────
+
+		describe("findEquippedJewelSockets", function()
+
+			it("returns empty when no jewel of that type is equipped", function()
+				local result = makeFinder():findEquippedJewelSockets({ name = "Thread of Hope" })
+				assert.are.equal(0, #result)
+			end)
+
+			it("returns empty when equipped jewel has no limit", function()
+				equipFakeJewel(ALLOC_SOCKET_IDS[1], "Might of the Meek", nil)
+				local result = makeFinder():findEquippedJewelSockets({ name = "Might of the Meek" })
+				assert.are.equal(0, #result)
+			end)
+
+			it("returns entries when limited jewel count reaches limit", function()
+				equipFakeJewel(ALLOC_SOCKET_IDS[1], "Thread of Hope", 1)
+				local result = makeFinder():findEquippedJewelSockets({ name = "Thread of Hope" })
+				assert.are.equal(1, #result)
+				assert.are.equal(ALLOC_SOCKET_IDS[1], result[1].socketId)
+				assert.are.equal("Thread of Hope", result[1].item.title)
+			end)
+
+			it("returns empty when equipped count is below limit", function()
+				equipFakeJewel(ALLOC_SOCKET_IDS[1], "Combat Focus", 2)
+				local result = makeFinder():findEquippedJewelSockets({ name = "Combat Focus" })
+				assert.are.equal(0, #result, "1 equipped < limit 2")
+			end)
+
+			it("returns all entries when count equals limit", function()
+				equipFakeJewel(ALLOC_SOCKET_IDS[1], "Combat Focus", 2)
+				equipFakeJewel(ALLOC_SOCKET_IDS[2], "Combat Focus", 2)
+				local result = makeFinder():findEquippedJewelSockets({ name = "Combat Focus" })
+				assert.are.equal(2, #result)
+			end)
+
+			it("does not match jewels with different title", function()
+				equipFakeJewel(ALLOC_SOCKET_IDS[1], "Thread of Hope", 1)
+				local result = makeFinder():findEquippedJewelSockets({ name = "Impossible Escape" })
+				assert.are.equal(0, #result)
+			end)
+
+		end)
+
+		-- ── findConnectionlessDependentNodes ─────────────────────────────
+
+		describe("findConnectionlessDependentNodes", function()
+
+			it("returns empty for items without connectionless properties", function()
+				local result = makeFinder():findConnectionlessDependentNodes(ALLOC_SOCKET_IDS[1], { title = "Might of the Meek" })
+				assert.are.equal(0, #result)
+			end)
+
+			it("returns empty for invalid socketId", function()
+				local item = { jewelRadiusIndex = getTestRadiusIndex() }
+				local result = makeFinder():findConnectionlessDependentNodes(999999, item)
+				assert.are.equal(0, #result)
+			end)
+
+			it("returns empty when no nodes are allocated in radius", function()
+				local treeData = build.spec.tree
+				local smallRI = getTestRadiusIndex()
+				local testSocketId
+				for socketId, _ in pairs(build.itemsTab.sockets) do
+					local node = treeData.nodes[socketId]
+					if node and node.nodesInRadius and node.nodesInRadius[smallRI]
+							and next(node.nodesInRadius[smallRI]) then
+						local hasAllocated = false
+						for nid, _ in pairs(node.nodesInRadius[smallRI]) do
+							if build.spec.allocNodes[nid] then
+								hasAllocated = true
+								break
+							end
+						end
+						if not hasAllocated then
+							testSocketId = socketId
+							break
+						end
+					end
+				end
+				if not testSocketId then pending("no suitable socket found") end
+				local item = { jewelRadiusIndex = smallRI }
+				local result = makeFinder():findConnectionlessDependentNodes(testSocketId, item)
+				assert.are.equal(0, #result)
+			end)
+
+			it("returns isolated allocated nodes in radius as dependent", function()
+				local smallRI = getTestRadiusIndex()
+				local testSocketId, testNodeId = findIsolatedRadiusNode(smallRI)
+				if not testSocketId then pending("no suitable isolated radius node found") end
+
+				build.spec.allocNodes[testNodeId] = build.spec.tree.nodes[testNodeId]
+
+				local item = { jewelRadiusIndex = smallRI }
+				local result = makeFinder():findConnectionlessDependentNodes(testSocketId, item)
+
+				assert.is_true(#result > 0, "expected at least one dependent node")
+				local found = false
+				for _, nid in ipairs(result) do
+					if nid == testNodeId then found = true; break end
+				end
+				assert.is_true(found, "expected node " .. testNodeId .. " in dependent nodes")
+			end)
+
+			it("excludes nodes naturally connected from outside the radius", function()
+				local treeData = build.spec.tree
+				local ri = getTestRadiusIndex()
+				local testSocketId, testNodeId, outsideNeighborId = findRadiusNodeWithOutsideNeighbor(ri)
+				if not testSocketId then pending("no radius node with outside neighbor found") end
+
+				-- Allocate both the radius node and its outside neighbor
+				build.spec.allocNodes[testNodeId] = treeData.nodes[testNodeId]
+				build.spec.allocNodes[outsideNeighborId] = treeData.nodes[outsideNeighborId]
+
+				local item = { jewelRadiusIndex = ri }
+				local result = makeFinder():findConnectionlessDependentNodes(testSocketId, item)
+
+				local found = false
+				for _, nid in ipairs(result) do
+					if nid == testNodeId then found = true; break end
+				end
+				assert.is_false(found, "node connected from outside radius should not be dependent")
+			end)
+
+			it("handles IE keystoneMap path", function()
+				local variant = makeImpossibleEscapeTestVariant()
+				if not variant then pending("no suitable IE keystone variant") end
+
+				local item = {
+					jewelData = { impossibleEscapeKeystones = { [variant.keystoneName] = true } },
+				}
+				-- Should return empty since no extra nodes are allocated in the keystone radius
+				local result = makeFinder():findConnectionlessDependentNodes(ALLOC_SOCKET_IDS[1], item)
+				assert.is_table(result)
+			end)
+
+		end)
+
+		-- ── removeEquippedJewels / restoreEquippedJewels ────────────────
+
+		describe("removeEquippedJewels / restoreEquippedJewels", function()
+
+			it("round-trip: state identical after remove+restore", function()
+				equipFakeJewel(ALLOC_SOCKET_IDS[1], "Thread of Hope", 1, {
+					jewelRadiusIndex = getTestRadiusIndex(),
+				})
+				local finder = makeFinder()
+				local equippedList = finder:findEquippedJewelSockets({ name = "Thread of Hope" })
+				assert.are.equal(1, #equippedList)
+
+				local beforeSlotId = build.itemsTab.sockets[ALLOC_SOCKET_IDS[1]].selItemId
+				local beforeSpecJewel = build.spec.jewels[ALLOC_SOCKET_IDS[1]]
+				local beforeAllocKeys = {}
+				for nid, _ in pairs(build.spec.allocNodes) do
+					beforeAllocKeys[nid] = true
+				end
+
+				finder:removeEquippedJewels(equippedList)
+				finder:restoreEquippedJewels(equippedList)
+
+				assert.are.equal(beforeSlotId, build.itemsTab.sockets[ALLOC_SOCKET_IDS[1]].selItemId)
+				assert.are.equal(beforeSpecJewel, build.spec.jewels[ALLOC_SOCKET_IDS[1]])
+				for nid, _ in pairs(beforeAllocKeys) do
+					assert.is_not_nil(build.spec.allocNodes[nid],
+						"allocNode " .. nid .. " should be restored")
+				end
+			end)
+
+			it("remove clears slot.selItemId and spec.jewels", function()
+				equipFakeJewel(ALLOC_SOCKET_IDS[1], "Thread of Hope", 1)
+				local finder = makeFinder()
+				local equippedList = finder:findEquippedJewelSockets({ name = "Thread of Hope" })
+
+				finder:removeEquippedJewels(equippedList)
+
+				assert.are.equal(0, build.itemsTab.sockets[ALLOC_SOCKET_IDS[1]].selItemId)
+				assert.are.equal(0, build.spec.jewels[ALLOC_SOCKET_IDS[1]])
+
+				finder:restoreEquippedJewels(equippedList)
+			end)
+
+			it("remove clears dependent connectionless nodes from allocNodes", function()
+				local smallRI = getTestRadiusIndex()
+				local testSocketId, testNodeId = findIsolatedRadiusNode(smallRI)
+				if not testSocketId then pending("no suitable isolated radius node") end
+
+				-- Allocate the isolated node (simulating connectionless allocation)
+				build.spec.allocNodes[testNodeId] = build.spec.tree.nodes[testNodeId]
+
+				equipFakeJewel(testSocketId, "Intuitive Leap", 1, {
+					jewelRadiusIndex = smallRI,
+				})
+
+				local finder = makeFinder()
+				local equippedList = finder:findEquippedJewelSockets({ name = "Intuitive Leap" })
+				assert.are.equal(1, #equippedList)
+
+				finder:removeEquippedJewels(equippedList)
+				assert.is_nil(build.spec.allocNodes[testNodeId],
+					"dependent node " .. testNodeId .. " should be removed")
+
+				finder:restoreEquippedJewels(equippedList)
+				assert.is_not_nil(build.spec.allocNodes[testNodeId],
+					"dependent node " .. testNodeId .. " should be restored")
+			end)
+
+			it("remove preserves naturally connected nodes in radius", function()
+				local treeData = build.spec.tree
+				local ri = getTestRadiusIndex()
+				local testSocketId, testNodeId, outsideNeighborId = findRadiusNodeWithOutsideNeighbor(ri)
+				if not testSocketId then pending("no radius node with outside neighbor found") end
+
+				build.spec.allocNodes[testNodeId] = treeData.nodes[testNodeId]
+				build.spec.allocNodes[outsideNeighborId] = treeData.nodes[outsideNeighborId]
+
+				equipFakeJewel(testSocketId, "Intuitive Leap", 1, {
+					jewelRadiusIndex = ri,
+				})
+
+				local finder = makeFinder()
+				local equippedList = finder:findEquippedJewelSockets({ name = "Intuitive Leap" })
+				assert.are.equal(1, #equippedList)
+
+				finder:removeEquippedJewels(equippedList)
+				assert.is_not_nil(build.spec.allocNodes[testNodeId],
+					"connected node " .. testNodeId .. " should NOT be removed")
+
+				finder:restoreEquippedJewels(equippedList)
+			end)
+
+		end)
+
+	end)
+
 end)
