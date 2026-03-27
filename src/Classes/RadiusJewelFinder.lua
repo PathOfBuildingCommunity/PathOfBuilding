@@ -74,10 +74,11 @@ local function formatPerPointDisplay(value, points)
 end
 
 local ACTION_COLORS = {
-	new     = "^2",
-	move    = "^x33AAFF",
-	replace = "^xFFAA33",
-	keep    = "^8",
+	new         = "^2",
+	move        = "^x33AAFF",
+	movereplace = "^xBB88FF",
+	replace     = "^xFFAA33",
+	keep        = "^8",
 }
 local function colorSocketLabel(row)
 	return (row.action and ACTION_COLORS[row.action] or "") .. row.socketLabel
@@ -700,8 +701,8 @@ function RadiusJewelFinderClass:getSocketAccessCost(socket, occupancy)
 end
 
 -- Find all sockets where a jewel matching this type is currently equipped.
--- Returns a list of { socketId, slot, itemId, item } entries.
--- Only returns results when the number of equipped copies >= the jewel's limit.
+-- Returns a list of { socketId, slot, itemId, item } entries with an .atLimit flag.
+-- .atLimit is true when the jewel has a limit and the number of equipped copies >= that limit.
 function RadiusJewelFinderClass:findEquippedJewelSockets(jewelType)
 	local equipped = { }
 	local limit
@@ -719,9 +720,7 @@ function RadiusJewelFinderClass:findEquippedJewelSockets(jewelType)
 			end
 		end
 	end
-	if not limit or #equipped < limit then
-		return { }
-	end
+	equipped.atLimit = limit ~= nil and #equipped >= limit
 	return equipped
 end
 
@@ -1321,12 +1320,10 @@ end
 		end
 		if row.action == "keep" then
 			t_insert(resultDetailListData, { height = 16, [1] = "^8Already equipped here" })
+		elseif row.action == "movereplace" then
+			t_insert(resultDetailListData, { height = 16, [1] = "^xBB88FFMove here ^7(replaces " .. (row.replacedItemLabel or "?") .. ")" })
 		elseif row.action == "move" then
-			local moveText = "^x33AAFFMove here"
-			if row.replacedItemLabel then
-				moveText = moveText .. " ^7(replaces " .. row.replacedItemLabel .. ")"
-			end
-			t_insert(resultDetailListData, { height = 16, [1] = moveText })
+			t_insert(resultDetailListData, { height = 16, [1] = "^x33AAFFMove here" })
 		elseif row.replacedItemLabel then
 			t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33Replaces: ^7" .. row.replacedItemLabel })
 		else
@@ -1740,7 +1737,19 @@ end
 		local existingSocketId
 		for _, entry in ipairs(equippedList or { }) do
 			equippedSocketIds[entry.socketId] = true
-			existingSocketId = existingSocketId or entry.socketId
+			if equippedList.atLimit then
+				existingSocketId = existingSocketId or entry.socketId
+			end
+		end
+		-- For limited jewels at capacity, find the keep delta so move rows show the net effect
+		local keepDelta = 0
+		if existingSocketId then
+			for _, r in ipairs(socketResults) do
+				if equippedSocketIds[r.socket.id] then
+					keepDelta = r.delta or 0
+					break
+				end
+			end
 		end
 		local rows = { }
 		for _, r in ipairs(socketResults) do
@@ -1756,7 +1765,11 @@ end
 				and buildDisplayedConnectionlessPlans(r, points, baseline)
 				or { r }
 			for _, plan in ipairs(displayedPlans) do
-				local pct = calculateImpactPercent(plan.delta, baseline)
+				local displayDelta = plan.delta
+				if existingSocketId and not isEquippedSocket then
+					displayDelta = plan.delta - keepDelta
+				end
+				local pct = calculateImpactPercent(displayDelta, baseline)
 				local totalPoints = points + (plan.addedNodeCount or 0)
 				local summaryParts = { }
 				if variantLabel ~= "" then
@@ -1789,6 +1802,8 @@ end
 				local action
 				if isEquippedSocket then
 					action = "keep"
+				elseif existingSocketId and r.replacedItemLabel then
+					action = "movereplace"
 				elseif existingSocketId then
 					action = "move"
 				elseif r.replacedItemLabel then
@@ -1800,7 +1815,7 @@ end
 					socketLabel = r.socket.label,
 					socketId = r.socket.id,
 					points = totalPoints,
-					delta = plan.delta,
+					delta = displayDelta,
 					pct = pct,
 					pctPerPoint = totalPoints > 0 and (pct / totalPoints) or pct,
 					sortPctPerPoint = totalPoints > 0 and (pct / totalPoints) or pct,
@@ -1875,7 +1890,7 @@ end
 					end
 					local typeProgress = wrapProgress(rawChild)
 					local equippedList = self:findEquippedJewelSockets(jt)
-					local removedJewels = self:removeEquippedJewels(equippedList)
+					local removedJewels = equippedList.atLimit and self:removeEquippedJewels(equippedList) or { }
 					computeContext.removedJewels = removedJewels
 					local socketResults, baseline
 
@@ -1944,7 +1959,7 @@ end
 					local displayedVariants = getDisplayedVariants()
 					local itemLabel = selectedJewelType.name
 					local equippedList = self:findEquippedJewelSockets(selectedJewelType)
-					local removedJewels = self:removeEquippedJewels(equippedList)
+					local removedJewels = equippedList.atLimit and self:removeEquippedJewels(equippedList) or { }
 					computeContext.removedJewels = removedJewels
 					local socketResults, baseline
 					if selectedJewelType.name == "Intuitive Leap" then
@@ -2143,7 +2158,9 @@ end
 						local existingSocketId
 						for _, entry in ipairs(equippedList) do
 							equippedSocketIds[entry.socketId] = true
-							existingSocketId = existingSocketId or entry.socketId
+							if equippedList.atLimit then
+								existingSocketId = existingSocketId or entry.socketId
+							end
 						end
 						for _, r in ipairs(typeResults) do
 							local isEquippedSocket = equippedSocketIds[r.socket.id]
@@ -2162,6 +2179,8 @@ end
 							local action
 							if isEquippedSocket then
 								action = "keep"
+							elseif existingSocketId and r.replacedItemLabel then
+								action = "movereplace"
 							elseif existingSocketId then
 								action = "move"
 							elseif r.replacedItemLabel then
@@ -2377,7 +2396,9 @@ end
 					local existingSocketId
 					for _, entry in ipairs(equippedList) do
 						equippedSocketIds[entry.socketId] = true
-						existingSocketId = existingSocketId or entry.socketId
+						if equippedList.atLimit then
+							existingSocketId = existingSocketId or entry.socketId
+						end
 					end
 					local rows = { }
 					for _, r in ipairs(results) do
@@ -2408,6 +2429,8 @@ end
 						local action
 						if isEquippedSocket then
 							action = "keep"
+						elseif existingSocketId and r.replacedItemLabel then
+							action = "movereplace"
 						elseif existingSocketId then
 							action = "move"
 						elseif r.replacedItemLabel then
