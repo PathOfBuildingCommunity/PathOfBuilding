@@ -1178,8 +1178,10 @@ function CompareTabClass:OpenBuySimilarPopup(item, slotName)
 				if item:CheckModLineVariant(modLine) then
 					local formatted = itemLib.formatModLine(modLine)
 					if formatted then
-						local tradeId = findTradeModId(modLine.line, source.type)
-						local value = modLineValue(modLine.line)
+						-- Use range-resolved text for matching
+						local resolvedLine = (modLine.range and itemLib.applyRange(modLine.line, modLine.range, modLine.valueScalar)) or modLine.line
+						local tradeId = findTradeModId(resolvedLine, source.type)
+						local value = modLineValue(resolvedLine)
 						t_insert(modEntries, {
 							line = modLine.line,
 							formatted = formatted:gsub("%^x%x%x%x%x%x%x", ""):gsub("%^%x", ""), -- strip color codes
@@ -2876,13 +2878,25 @@ local function getTradeModLookup()
 	for _groupName, mods in pairs(queryModsData) do
 		for _modKey, modData in pairs(mods) do
 			if type(modData) == "table" and modData.tradeMod then
-				local tmpl = modData.tradeMod.text
+				local text = modData.tradeMod.text
 				local modType = modData.tradeMod.type or "explicit"
-				local key = tmpl .. "|" .. modType
-				_tradeModLookup[key] = modData.tradeMod.id
-				-- Also store without type for fallback matching
-				if not _tradeModLookup[tmpl] then
-					_tradeModLookup[tmpl] = modData.tradeMod.id
+				local id = modData.tradeMod.id
+				local key = text .. "|" .. modType
+				_tradeModLookup[key] = id
+				if not _tradeModLookup[text] then
+					_tradeModLookup[text] = id
+				end
+				-- Also store with template-converted text for mods with literal numbers
+				-- (e.g. "1 Added Passive Skill is X" → "# Added Passive Skill is X")
+				local tmpl = modLineTemplate(text)
+				if tmpl ~= text then
+					local tmplKey = tmpl .. "|" .. modType
+					if not _tradeModLookup[tmplKey] then
+						_tradeModLookup[tmplKey] = id
+					end
+					if not _tradeModLookup[tmpl] then
+						_tradeModLookup[tmpl] = id
+					end
 				end
 			end
 		end
@@ -2890,8 +2904,54 @@ local function getTradeModLookup()
 	return _tradeModLookup
 end
 
+-- Helper: lazily fetch and cache the trade API stats for comprehensive mod matching
+-- Covers mods not in QueryMods.lua (cluster enchants, unique-specific mods, etc.)
+local _tradeStatsLookup = nil
+local _tradeStatsFetched = false
+local function getTradeStatsLookup()
+	if _tradeStatsFetched then return _tradeStatsLookup end
+	_tradeStatsFetched = true
+	local tradeStats = ""
+	local easy = common.curl.easy()
+	if not easy then return nil end
+	easy:setopt_url("https://www.pathofexile.com/api/trade/data/stats")
+	easy:setopt_useragent("Path of Building/" .. (launch.versionNumber or ""))
+	easy:setopt_writefunction(function(d)
+		tradeStats = tradeStats .. d
+		return true
+	end)
+	local ok = easy:perform()
+	easy:close()
+	if not ok or tradeStats == "" then return nil end
+	local parsed = dkjson.decode(tradeStats)
+	if not parsed or not parsed.result then return nil end
+	_tradeStatsLookup = {}
+	for _, category in ipairs(parsed.result) do
+		local catLabel = category.label
+		for _, entry in ipairs(category.entries) do
+			local stripped = entry.text:gsub("[#()0-9%-%+%.]", "")
+			local key = stripped .. "|" .. catLabel
+			if not _tradeStatsLookup[key] then
+				_tradeStatsLookup[key] = entry
+			end
+			if not _tradeStatsLookup[stripped] then
+				_tradeStatsLookup[stripped] = entry
+			end
+		end
+	end
+	return _tradeStatsLookup
+end
+
+-- Map source types used in OpenBuySimilarPopup to trade API category labels
+local sourceTypeToCategory = {
+	["implicit"] = "Implicit",
+	["explicit"] = "Explicit",
+	["enchant"] = "Enchant",
+}
+
 -- Helper: find the trade stat ID for a mod line
 findTradeModId = function(modLine, modType)
+	-- Try QueryMods-based lookup
 	local lookup = getTradeModLookup()
 	local tmpl = modLineTemplate(modLine)
 	-- Try exact match with type first
@@ -2912,6 +2972,24 @@ findTradeModId = function(modLine, modType)
 	if lookup[stripped] then
 		return lookup[stripped]
 	end
+
+	-- Try trade API stats (covers mods not in QueryMods)
+	local tradeStats = getTradeStatsLookup()
+	if tradeStats then
+		local strippedLine = modLine:gsub("[#()0-9%-%+%.]", "")
+		local category = sourceTypeToCategory[modType]
+		if category then
+			local catKey = strippedLine .. "|" .. category
+			if tradeStats[catKey] then
+				return tradeStats[catKey].id
+			end
+		end
+		-- Fallback: any category
+		if tradeStats[strippedLine] then
+			return tradeStats[strippedLine].id
+		end
+	end
+
 	return nil
 end
 
