@@ -25,6 +25,18 @@ local REALM_API_IDS = {
 	["Xbox"] = "xbox",
 }
 
+-- Listed status display names and their API option values
+local LISTED_STATUS_OPTIONS = {
+	{ label = "Instant Buyout & In Person", apiValue = "available" },
+	{ label = "Instant Buyout", apiValue = "securable" },
+	{ label = "In Person (Online)", apiValue = "online" },
+	{ label = "Any", apiValue = "any" },
+}
+local LISTED_STATUS_LABELS = { }
+for i, entry in ipairs(LISTED_STATUS_OPTIONS) do
+	LISTED_STATUS_LABELS[i] = entry.label
+end
+
 -- Layout constants (shared across Draw, DrawConfig, DrawItems, DrawCalcs, etc.)
 local LAYOUT = {
 	-- Main tab control bar
@@ -1155,7 +1167,7 @@ function CompareTabClass:OpenBuySimilarPopup(item, slotName)
 	local isUnique = item.rarity == "UNIQUE" or item.rarity == "RELIC"
 	local controls = {}
 	local rowHeight = 24
-	local popupWidth = 550
+	local popupWidth = 700
 	local leftMargin = 20
 	local minFieldX = popupWidth - 160
 	local maxFieldX = popupWidth - 80
@@ -1266,6 +1278,12 @@ function CompareTabClass:OpenBuySimilarPopup(item, slotName)
 		-- League selection stored in the dropdown itself
 	end)
 	controls.leagueDrop.enabled = function() return #controls.leagueDrop.list > 0 and controls.leagueDrop.list[1] ~= "Loading..." end
+
+	-- Listed status dropdown
+	controls.listedLabel = new("LabelControl", {"LEFT", controls.leagueDrop, "RIGHT"}, {12, 0, 0, 16}, "^7Listed:")
+	controls.listedDrop = new("DropDownControl", {"LEFT", controls.listedLabel, "RIGHT"}, {4, 0, 180, 20}, LISTED_STATUS_LABELS, function(index, value)
+		-- Listed status selection stored in the dropdown itself
+	end)
 
 	-- Fetch initial leagues for default realm
 	fetchLeaguesForRealm("pc")
@@ -1378,10 +1396,14 @@ function CompareTabClass:BuildBuySimilarURL(item, slotName, controls, modEntries
 	end
 	local hostName = "https://www.pathofexile.com/"
 
+	-- Determine listed status from dropdown
+	local listedIndex = controls.listedDrop and controls.listedDrop.selIndex or 1
+	local listedApiValue = LISTED_STATUS_OPTIONS[listedIndex] and LISTED_STATUS_OPTIONS[listedIndex].apiValue or "available"
+
 	-- Build query
 	local queryTable = {
 		query = {
-			status = { option = "online" },
+			status = { option = listedApiValue },
 			stats = {
 				{
 					type = "and",
