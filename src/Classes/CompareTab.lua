@@ -2149,6 +2149,9 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 	end
 	if categories.items then
 		local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
+		if self:ShouldShowRing3(compareEntry) then
+			t_insert(baseSlots, 10, "Ring 3")
+		end
 		for _, slotName in ipairs(baseSlots) do
 			local cSlot = compareEntry.itemsTab and compareEntry.itemsTab.slots[slotName]
 			local cItem = cSlot and compareEntry.itemsTab.items[cSlot.selItemId]
@@ -2282,6 +2285,9 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 	-- ==========================================
 	if categories.items then
 		local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
+		if self:ShouldShowRing3(compareEntry) then
+			t_insert(baseSlots, 10, "Ring 3")
+		end
 		for _, slotName in ipairs(baseSlots) do
 			local cSlot = compareEntry.itemsTab and compareEntry.itemsTab.slots[slotName]
 			local cItem = cSlot and compareEntry.itemsTab.items[cSlot.selItemId]
@@ -3097,7 +3103,7 @@ end
 -- Helper: draw Copy, Copy+Use, and Buy buttons at the given position.
 -- btnStartX is the left edge where the first button (Buy) should appear.
 -- Returns copyHovered, copyUseHovered, buyHovered booleans.
-local function drawCopyButtons(cursorX, cursorY, btnStartX, btnY)
+local function drawCopyButtons(cursorX, cursorY, btnStartX, btnY, slotMissing)
 	local btnW = LAYOUT.itemsCopyBtnW
 	local btnH = LAYOUT.itemsCopyBtnH
 	local buyW = LAYOUT.itemsBuyBtnW
@@ -3125,15 +3131,23 @@ local function drawCopyButtons(cursorX, cursorY, btnStartX, btnY)
 	SetDrawColor(1, 1, 1)
 	DrawString(btn1X + btnW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^7Copy")
 
-	-- "Copy+Use" button
-	local b2Hover = cursorX >= btn2X and cursorX < btn2X + btnW
-		and cursorY >= btnY and cursorY < btnY + btnH
-	SetDrawColor(b2Hover and 0.5 or 0.35, b2Hover and 0.5 or 0.35, b2Hover and 0.5 or 0.35)
-	DrawImage(nil, btn2X, btnY, btnW, btnH)
-	SetDrawColor(0.1, 0.1, 0.1)
-	DrawImage(nil, btn2X + 1, btnY + 1, btnW - 2, btnH - 2)
-	SetDrawColor(1, 1, 1)
-	DrawString(btn2X + btnW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^7Copy+Use")
+	local b2Hover
+	if slotMissing then
+		-- Show "Missing slot" label instead of Copy+Use button
+		SetDrawColor(1, 1, 1)
+		DrawString(btn2X + btnW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^xBBBBBBMissing slot")
+		b2Hover = false
+	else
+		-- "Copy+Use" button
+		b2Hover = cursorX >= btn2X and cursorX < btn2X + btnW
+			and cursorY >= btnY and cursorY < btnY + btnH
+		SetDrawColor(b2Hover and 0.5 or 0.35, b2Hover and 0.5 or 0.35, b2Hover and 0.5 or 0.35)
+		DrawImage(nil, btn2X, btnY, btnW, btnH)
+		SetDrawColor(0.1, 0.1, 0.1)
+		DrawImage(nil, btn2X + 1, btnY + 1, btnW - 2, btnH - 2)
+		SetDrawColor(1, 1, 1)
+		DrawString(btn2X + btnW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^7Copy+Use")
+	end
 
 	return b1Hover, b2Hover, b3Hover, btn2X, btnY, btnW, btnH
 end
@@ -3162,7 +3176,7 @@ local ITEM_BOX_W = 310
 local ITEM_BOX_H = 20
 
 local function drawCompactSlotRow(drawY, slotLabel, pItem, cItem,
-	colWidth, cursorX, cursorY, maxLabelW, primaryItemsTab, compareItemsTab, pWarn, cWarn)
+	colWidth, cursorX, cursorY, maxLabelW, primaryItemsTab, compareItemsTab, pWarn, cWarn, slotMissing)
 
 	local pName = pItem and pItem.name or "(empty)"
 	local cName = cItem and cItem.name or "(empty)"
@@ -3219,7 +3233,7 @@ local function drawCompactSlotRow(drawY, slotLabel, pItem, cItem,
 	if cItem then
 		local btnStartX = cBoxX + cBoxW + 6
 		b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H =
-			drawCopyButtons(cursorX, cursorY, btnStartX, drawY + 1)
+			drawCopyButtons(cursorX, cursorY, btnStartX, drawY + 1, slotMissing)
 	end
 
 	-- Determine hovered item and tooltip anchor position
@@ -3405,8 +3419,21 @@ function CompareTabClass:DrawItemExpanded(item, x, startY, colWidth, otherModMap
 	return drawY - startY
 end
 
+function CompareTabClass:ShouldShowRing3(compareEntry)
+	local primaryEnv = self.primaryBuild.calcsTab and self.primaryBuild.calcsTab.mainEnv
+	local compareEnv = compareEntry.calcsTab and compareEntry.calcsTab.mainEnv
+	local primaryHas = primaryEnv and primaryEnv.modDB:Flag(nil, "AdditionalRingSlot")
+	local compareHas = compareEnv and compareEnv.modDB:Flag(nil, "AdditionalRingSlot")
+	return primaryHas or compareHas
+end
+
 function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
+	if self:ShouldShowRing3(compareEntry) then
+		t_insert(baseSlots, 10, "Ring 3")
+	end
+	local primaryEnv = self.primaryBuild.calcsTab and self.primaryBuild.calcsTab.mainEnv
+	local primaryHasRing3 = primaryEnv and primaryEnv.modDB:Flag(nil, "AdditionalRingSlot")
 	local lineHeight = 20
 	local colWidth = m_floor(vp.width / 2)
 
@@ -3470,7 +3497,8 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 
 			-- Copy/Buy buttons for compare item
 			if cItem then
-				local b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H = drawCopyButtons(cursorX, cursorY, vp.width - 196, drawY + 1)
+				local slotMissing = slotName == "Ring 3" and not primaryHasRing3
+				local b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H = drawCopyButtons(cursorX, cursorY, vp.width - 196, drawY + 1, slotMissing)
 				if b2Hover then
 					hoverCopyUseItem = cItem
 					hoverCopyUseSlotName = slotName
@@ -3519,7 +3547,8 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 				rowHoverItem, rowHoverItemsTab, rowHoverX, rowHoverY, rowHoverW, rowHoverH =
 				drawCompactSlotRow(drawY, slotName, pItem, cItem,
 					colWidth, cursorX, cursorY, maxLabelW,
-					self.primaryBuild.itemsTab, compareEntry.itemsTab)
+					self.primaryBuild.itemsTab, compareEntry.itemsTab, nil, nil,
+					slotName == "Ring 3" and not primaryHasRing3)
 
 			if rowHoverItem then
 				hoverItem = rowHoverItem
