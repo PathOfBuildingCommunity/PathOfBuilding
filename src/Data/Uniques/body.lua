@@ -169,20 +169,13 @@ Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10
 Perfidy
 Glorious Plate
 League: Delirium
-Has Alt Variant: true
-Variant: War Banner (Pre 3.25.0)
-Variant: Dread Banner (Pre 3.25.0)
-Variant: Defiance Banner (Pre 3.25.0)
+Variant: Pre 3.25.0
 Variant: Current
 Implicits: 0
+Having a placed Banner does not prevent you gaining Valour
 (25-40)% increased Melee Damage
 +(60-90) to maximum Life
-{variant:1,2,3}You can have two different Banners at the same time
-{variant:1,2,3}Banners you are carrying gain 1 Stage on Melee Hit, up to 5 per second
-{variant:1}War Banner has (100-200)% increased Adrenaline duration
-{variant:2}Dread Banner grants an additional +(2-4) to maximum Fortification when placing the Banner
-{variant:3}Defiance Banner has (100-200)% increased Taunt duration
-{variant:4}Having a placed Banner does not prevent you gaining Valour
+{variant:2}(25-50)% increased Valour gained
 ]],[[
 Pragmatism
 Colosseum Plate
