@@ -14,7 +14,6 @@ end)
 function BuildSetServiceClass:NewLoadout(name)
 	self.buildMode:NewLoadout(name, function()
 		self.buildMode:SyncLoadouts()
-		self.buildMode.modFlag = true
 		self.buildMode.controls.buildLoadouts:SetSel(1)
 	end)
 end
@@ -22,14 +21,12 @@ end
 function BuildSetServiceClass:CopyLoadout(specId, itemSetId, skillSetId, configSetId, newName)
 	local newSpec = self.buildMode:CopyLoadout(specId, itemSetId, skillSetId, configSetId, newName)
 	self.buildMode:SyncLoadouts()
-	self.buildMode.modFlag = true
 	self.buildMode.controls.buildLoadouts:SetSel(newSpec.id + 1)
 end
 
 function BuildSetServiceClass:RenameLoadout(oldName, newName)
 	self.buildMode:RenameLoadout(oldName, newName, function()
 		self.buildMode:SyncLoadouts()
-		self.buildMode.modFlag = true
 	end)
 end
 

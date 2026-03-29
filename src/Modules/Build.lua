@@ -783,6 +783,7 @@ function buildMode:CopyLoadout(copyTreeId, copyItemSetId, copySkillSetId, copyCo
 	t_insert(self.itemsTab.itemSetOrderList, newItemSet.id)
 	t_insert(self.skillsTab.skillSetOrderList, newSkillSet.id)
 	t_insert(self.configTab.configSetOrderList, newConfigSet.id)
+	self.modFlag = true
 	return newSpec, newItemSet, newSkillSet, newConfigSet
 end
 
@@ -798,6 +799,7 @@ function buildMode:AddLoadout(loadoutName, newSpec, newItemSet, newSkillSet, new
 
 	t_insert(self.configTab.configSetOrderList, newConfigSet.id)
 	newConfigSet.title = loadoutName
+	self.modFlag = true
 
 	callback()
 end
@@ -855,6 +857,7 @@ function buildMode:DeleteLoadout(loadoutName, nextLoadoutName)
 			t_remove(self.configTab.configSetOrderList, index)
 		end
 	end
+	self.modFlag = true
 
 	local nextLoadout = self:GetLoadoutByName(nextLoadoutName)
 	self:SetActiveLoadout(nextLoadout)
@@ -878,6 +881,7 @@ function buildMode:RenameLoadout(oldName, newName, callback)
 		self.configTab.configSets[loadout.configSetId].title = newName
 		self.configTab.modFlag = true
 	end
+	self.modFlag = true
 	callback()
 end
 

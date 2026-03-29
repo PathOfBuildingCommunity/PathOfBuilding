@@ -41,6 +41,7 @@ describe("TestLoadouts", function()
 				-- There are 5 static items in the list
 				assert.are.equals(7, #build.controls.buildLoadouts.list)
 				assert.are.equals(loadoutName, build.controls.buildLoadouts.list[3])
+				assert.is_true(build.modFlag)
 			end)
 
 			it("calls the callback function", function()
@@ -50,6 +51,7 @@ describe("TestLoadouts", function()
 				-- There are 5 static items in the list
 				assert.are.equals(7, #build.controls.buildLoadouts.list)
 				assert.are.equals(true, callbackCalled)
+				assert.is_true(build.modFlag)
 			end)
 		end)
 
@@ -71,6 +73,7 @@ describe("TestLoadouts", function()
 				assert.is_same(loadoutName, newItemSet.title)
 				assert.is_same(loadoutName, newSkillSet.title)
 				assert.is_same(loadoutName, newConfigSet.title)
+				assert.is_true(build.modFlag)
 			end)
 		end)
 
@@ -100,6 +103,7 @@ describe("TestLoadouts", function()
 				assert.is_same(nextLoadout.itemSetId, build.itemsTab.displayItemSetId)
 				assert.is_same(nextLoadout.skillSetId, build.skillsTab.displaySkillSetId)
 				assert.is_same(nextLoadout.configSetId, build.configTab.displayConfigSetId)
+				assert.is_true(build.modFlag)
 			end)
 
 			it("Deleting the first loadout with one other loadout decrements the index for the remaining sets",
@@ -137,6 +141,7 @@ describe("TestLoadouts", function()
 					assert.is_same(nextLoadout.itemSetId, build.itemsTab.displayItemSetId)
 					assert.is_same(nextLoadout.skillSetId, build.skillsTab.displaySkillSetId)
 					assert.is_same(nextLoadout.configSetId, build.configTab.displayConfigSetId)
+					assert.is_true(build.modFlag)
 				end)
 
 			it(
@@ -174,6 +179,7 @@ describe("TestLoadouts", function()
 					assert.is_same(nextLoadout1.itemSetId, build.itemsTab.displayItemSetId)
 					assert.is_same(nextLoadout1.skillSetId, build.skillsTab.displaySkillSetId)
 					assert.is_same(nextLoadout1.configSetId, build.configTab.displayConfigSetId)
+					assert.is_true(build.modFlag)
 				end)
 		end)
 
@@ -199,6 +205,7 @@ describe("TestLoadouts", function()
 				assert.is_true(callbackCalled)
 				-- Old name should no longer exist
 				assert.is_nil(build:GetLoadoutByName(oldName))
+				assert.is_true(build.modFlag)
 			end)
 		end)
 	end)
