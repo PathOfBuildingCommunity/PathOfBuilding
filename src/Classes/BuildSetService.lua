@@ -34,7 +34,7 @@ function BuildSetServiceClass:RenameLoadout(oldName, newName)
 end
 
 function BuildSetServiceClass:DeleteLoadout(index, list, spec)
-	local nextLoadoutIndex = index <= self.buildMode.treeTab.activeSpec and m_max(1, index - 1) or
+	local nextLoadoutIndex = index == self.buildMode.treeTab.activeSpec and (index > 1 and index - 1 or index + 1) or
 		self.buildMode.treeTab.activeSpec
 	local nextLoadout = list[nextLoadoutIndex]
 	self.buildMode:DeleteLoadout(spec.title or "Default", nextLoadout.title or "Default")

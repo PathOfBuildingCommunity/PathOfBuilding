@@ -118,7 +118,6 @@ function BuildSetListClass:OnSelDelete(index, spec)
 	if #self.list > 1 then
 		main:OpenConfirmPopup("Delete Loadout", "Are you sure you want to delete '" .. (spec.title or "Default") .. "'?",
 			"Delete", function()
-				t_remove(self.list, index)
 				self.buildSetService:DeleteLoadout(index, self.list, spec)
 				self.selIndex = nil
 				self.selValue = nil

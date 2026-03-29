@@ -803,25 +803,60 @@ function buildMode:AddLoadout(loadoutName, newSpec, newItemSet, newSkillSet, new
 end
 
 function buildMode:DeleteLoadout(loadoutName, nextLoadoutName)
-	local loadout = self:GetLoadoutByName(loadoutName)
-	local nextLoadout = self:GetLoadoutByName(nextLoadoutName)
-	if loadout.specId then
-		self.treeTab.specList[loadout.specId] = nil
-		self.treeTab:SetActiveSpec(1, true)
-	end
-	if loadout.itemSetId then
-		self.itemsTab.itemSets[loadout.itemSetId] = nil
-		t_remove(self.itemsTab.itemSetOrderList, loadout.itemSetId)
-	end
-	if loadout.skillSetId then
-		self.skillsTab.skillSets[loadout.skillSetId] = nil
-		t_remove(self.skillsTab.skillSetOrderList, loadout.skillSetId)
-	end
-	if loadout.configSetId then
-		self.configTab.configSets[loadout.configSetId] = nil
-		t_remove(self.configTab.configSetOrderList, loadout.configSetId)
+	local function reverseLookup(setOrderList, value)
+		for id, set in ipairs(setOrderList) do
+			if set == value then
+				return id
+			end
+		end
+		return nil
 	end
 
+	local loadout = self:GetLoadoutByName(loadoutName)
+	if loadout.specId then
+		t_remove(self.treeTab.specList, loadout.specId)
+	end
+	if loadout.itemSetId then
+		if #self.itemsTab.itemSetOrderList == 2 then
+			local itemSetId = self.itemsTab.itemSetOrderList[1] == loadout.itemSetId and self.itemsTab.itemSetOrderList[2] or self.itemsTab.itemSetOrderList[1]
+			local itemSet = self.itemsTab.itemSets[itemSetId]
+			itemSet.id = 1
+			self.itemsTab.itemSets = { itemSet }
+			self.itemsTab.itemSetOrderList = { 1 }
+		else
+			self.itemsTab.itemSets[loadout.itemSetId] = nil
+			local index = reverseLookup(self.itemsTab.itemSetOrderList, loadout.itemSetId)
+			t_remove(self.itemsTab.itemSetOrderList, index)
+		end
+	end
+	if loadout.skillSetId then
+		if #self.skillsTab.skillSetOrderList == 2 then
+			local skillSetId = self.skillsTab.skillSetOrderList[1] == loadout.skillSetId and self.skillsTab.skillSetOrderList[2] or self.skillsTab.skillSetOrderList[1]
+			local skillSet = self.skillsTab.skillSets[skillSetId]
+			skillSet.id = 1
+			self.skillsTab.skillSets = { skillSet }
+			self.skillsTab.skillSetOrderList = { 1 }
+		else
+			self.skillsTab.skillSets[loadout.skillSetId] = nil
+			local index = reverseLookup(self.skillsTab.skillSetOrderList, loadout.skillSetId)
+			t_remove(self.skillsTab.skillSetOrderList, index)
+		end
+	end
+	if loadout.configSetId then
+		if #self.configTab.configSetOrderList == 2 then
+			local configSetId = self.configTab.configSetOrderList[1] == loadout.configSetId and self.configTab.configSetOrderList[2] or self.configTab.configSetOrderList[1]
+			local configSet = self.configTab.configSets[configSetId]
+			configSet.id = 1
+			self.configTab.configSets = { configSet }
+			self.configTab.configSetOrderList = { 1 }
+		else
+			self.configTab.configSets[loadout.configSetId] = nil
+			local index = reverseLookup(self.configTab.configSetOrderList, loadout.configSetId)
+			t_remove(self.configTab.configSetOrderList, index)
+		end
+	end
+
+	local nextLoadout = self:GetLoadoutByName(nextLoadoutName)
 	self:SetActiveLoadout(nextLoadout)
 end
 
