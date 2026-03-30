@@ -1008,7 +1008,7 @@ end
 
 function ConfigTabClass:OpenImportConfigSetPopup()
 	local controls = { }
-	controls.nameLabel = new("LabelControl", nil, {-180, 20, 0, 16}, "Enter name for this config set:")
+	controls.nameLabel = new("LabelControl", nil, {-175, 20, 0, 16}, "Enter name for this config set:")
 	controls.name = new("EditControl", nil, {100, 20, 350, 18}, "", nil, nil, nil, function(buf)
 		controls.msg.label = ""
 		controls.import.enabled = buf:match("%S") and controls.edit.buf:match("%S")
