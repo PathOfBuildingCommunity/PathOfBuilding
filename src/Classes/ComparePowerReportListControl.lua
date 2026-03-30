@@ -50,6 +50,10 @@ function ComparePowerReportListClass:SetProgress(progress)
 end
 
 function ComparePowerReportListClass:Draw(viewPort, noTooltip)
+	if self.hoverIndex ~= self.lastTooltipIndex then
+		self.tooltip.updateParams = nil
+	end
+	self.lastTooltipIndex = self.hoverIndex
 	self.ListControl.Draw(self, viewPort, noTooltip)
 	-- Draw status text below column headers when the list is empty
 	if #self.list == 0 and self.statusText then
@@ -102,6 +106,39 @@ function ComparePowerReportListClass:ReList()
 	end
 	for _, entry in ipairs(self.reportData) do
 		t_insert(self.list, entry)
+	end
+end
+
+function ComparePowerReportListClass:AddValueTooltip(tooltip, index, entry)
+	if main.popups[1] then
+		tooltip:Clear()
+		return
+	end
+
+	local build = self.compareTab and self.compareTab.primaryBuild
+	if not build then
+		tooltip:Clear()
+		return
+	end
+
+	if entry.category == "Tree" and entry.nodeId then
+		local node = build.spec.nodes[entry.nodeId]
+		if node then
+			if tooltip:CheckForUpdate(node, IsKeyDown("SHIFT"), launch.devModeAlt, build.outputRevision) then
+				local viewer = build.treeTab and build.treeTab.viewer
+				if viewer then
+					viewer:AddNodeTooltip(tooltip, node, build)
+				end
+			end
+		else
+			tooltip:Clear()
+		end
+	elseif entry.category == "Item" and entry.itemObj then
+		if tooltip:CheckForUpdate(entry.itemObj, IsKeyDown("SHIFT"), launch.devModeAlt, build.outputRevision) then
+			build.itemsTab:AddItemTooltip(tooltip, entry.itemObj)
+		end
+	else
+		tooltip:Clear()
 	end
 end
 

@@ -692,6 +692,7 @@ function CompareTabClass:InitControls()
 
 	-- Power report list control (static height, own scrollbar)
 	self.controls.comparePowerReportList = new("ComparePowerReportListControl", nil, {0, 0, 750, 250})
+	self.controls.comparePowerReportList.compareTab = self
 	self.controls.comparePowerReportList.shown = powerReportShown
 end
 
@@ -2322,6 +2323,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 						categoryColor = "^7",
 						nameColor = "^7",
 						name = pNode.dn,
+						nodeId = nodeId,
 						impact = impactVal,
 						impactStr = impactStr,
 						impactPercent = impactPercent,
@@ -2368,6 +2370,8 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 					categoryColor = rarityColor,
 					nameColor = rarityColor,
 					name = (cItem.name or "Unknown") .. ", " .. slotName,
+					itemObj = newItem,
+					slotName = slotName,
 					impact = impactVal,
 					impactStr = impactStr,
 					impactPercent = impactPercent,
@@ -2449,6 +2453,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 						categoryColor = rarityColor,
 						nameColor = rarityColor,
 						name = (jEntry.cItem.name or "Unknown") .. ", " .. bestSlotLabel,
+						itemObj = newItem,
 						impact = impactVal,
 						impactStr = impactStr,
 						impactPercent = impactPercent,
