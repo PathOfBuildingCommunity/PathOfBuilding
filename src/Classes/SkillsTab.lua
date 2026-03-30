@@ -1372,7 +1372,7 @@ function SkillsTabClass:SetActiveSkillSet(skillSetId, deferSync)
 
 	-- set the loadout option to the dummy option since it is now dirty
 	self:SetDisplayGroup(self.socketGroupList[1])
-    if not deferSync then
-	    self.build:SyncLoadouts()
-    end
+	if not deferSync then
+		self.build:SyncLoadouts()
+	end
 end
