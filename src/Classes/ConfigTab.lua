@@ -946,12 +946,122 @@ function ConfigTabClass:RestoreUndoState(state)
 end
 
 function ConfigTabClass:OpenConfigSetManagePopup()
+	local listControl = new("ConfigSetListControl", nil, {0, 50, 350, 200}, self)
+	local importConfig = new("ButtonControl", nil, {-99, 259, 90, 20}, "Import Config", function()
+		self:OpenImportConfigSetPopup()
+	end)
+	local exportConfig = new("ButtonControl", {"LEFT", importConfig, "RIGHT"}, {8, 0, 90, 20}, "Export Config", function()
+		if listControl.selValue then
+			self:OpenExportConfigSetPopup(self.configSets[listControl.selValue])
+		end
+	end)
+	exportConfig.enabled = function()
+		return listControl.selValue ~= nil
+	end
 	main:OpenPopup(370, 290, "Manage Config Sets", {
-		new("ConfigSetListControl", nil, {0, 50, 350, 200}, self),
-		new("ButtonControl", nil, {0, 260, 90, 20}, "Done", function()
+		listControl,
+		importConfig,
+		exportConfig,
+		new("ButtonControl", {"LEFT", exportConfig, "RIGHT"}, {8, 0, 90, 20}, "Done", function()
 			main:ClosePopup()
 		end),
 	})
+end
+
+function ConfigTabClass:OpenExportConfigSetPopup(configSet)
+	local xmlNode = { elem = "ConfigSet", attrib = { title = configSet.title } }
+	for k, v in pairs(configSet.input) do
+		if v ~= self:GetDefaultState(k, type(v)) then
+			local node = { elem = "Input", attrib = { name = k } }
+			if type(v) == "number" then
+				node.attrib.number = tostring(v)
+			elseif type(v) == "boolean" then
+				node.attrib.boolean = tostring(v)
+			else
+				node.attrib.string = tostring(v)
+			end
+			t_insert(xmlNode, node)
+		end
+	end
+	for k, v in pairs(configSet.placeholder) do
+		local node = { elem = "Placeholder", attrib = { name = k } }
+		if type(v) == "number" then
+			node.attrib.number = tostring(v)
+		else
+			node.attrib.string = tostring(v)
+		end
+		t_insert(xmlNode, node)
+	end
+	local xmlText = common.xml.ComposeXML(xmlNode)
+	local code = common.base64.encode(Deflate(xmlText)):gsub("+", "-"):gsub("/", "_")
+	local controls = { }
+	controls.label = new("LabelControl", nil, {0, 20, 0, 16}, "Config set code:")
+	controls.edit = new("EditControl", nil, {0, 40, 350, 18}, code, nil, "%Z")
+	controls.copy = new("ButtonControl", nil, {-45, 70, 80, 20}, "Copy", function()
+		Copy(code)
+	end)
+	controls.done = new("ButtonControl", nil, {45, 70, 80, 20}, "Done", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(380, 100, "Export Config Set", controls, "done", "edit")
+end
+
+function ConfigTabClass:OpenImportConfigSetPopup()
+	local controls = { }
+	controls.nameLabel = new("LabelControl", nil, {-180, 20, 0, 16}, "Enter name for this config set:")
+	controls.name = new("EditControl", nil, {100, 20, 350, 18}, "", nil, nil, nil, function(buf)
+		controls.msg.label = ""
+		controls.import.enabled = buf:match("%S") and controls.edit.buf:match("%S")
+	end)
+	controls.editLabel = new("LabelControl", nil, {-150, 45, 0, 16}, "Enter config set code:")
+	controls.edit = new("EditControl", nil, {100, 45, 350, 18}, "", nil, nil, nil, function(buf)
+		controls.msg.label = ""
+		controls.import.enabled = buf:match("%S") and controls.name.buf:match("%S")
+	end)
+	controls.msg = new("LabelControl", nil, {0, 65, 0, 16}, "")
+	controls.import = new("ButtonControl", nil, {-45, 85, 80, 20}, "Import", function()
+		local buf = controls.edit.buf
+		if #buf == 0 then return end
+		local xmlText = Inflate(common.base64.decode(buf:gsub("-", "+"):gsub("_", "/")))
+		if not xmlText then
+			controls.msg.label = "^1Invalid code"
+			return
+		end
+		local parsedXML, errMsg = common.xml.ParseXML(xmlText)
+		if errMsg or not parsedXML or not parsedXML[1] or parsedXML[1].elem ~= "ConfigSet" then
+			controls.msg.label = "^1Invalid config set code"
+			return
+		end
+		local xmlConfigSet = parsedXML[1]
+		local newConfigSet = self:NewConfigSet(nil, controls.name.buf)
+		for _, child in ipairs(xmlConfigSet) do
+			if child.elem == "Input" and child.attrib.name then
+				if child.attrib.number then
+					newConfigSet.input[child.attrib.name] = tonumber(child.attrib.number)
+				elseif child.attrib.boolean then
+					newConfigSet.input[child.attrib.name] = child.attrib.boolean == "true"
+				elseif child.attrib.string then
+					newConfigSet.input[child.attrib.name] = child.attrib.string
+				end
+			elseif child.elem == "Placeholder" and child.attrib.name then
+				if child.attrib.number then
+					newConfigSet.placeholder[child.attrib.name] = tonumber(child.attrib.number)
+				elseif child.attrib.string then
+					newConfigSet.placeholder[child.attrib.name] = child.attrib.string
+				end
+			end
+		end
+		t_insert(self.configSetOrderList, newConfigSet.id)
+		self.modFlag = true
+		self:AddUndoState()
+		self.build:SyncLoadouts()
+		main:ClosePopup()
+	end)
+	controls.import.enabled = false
+	controls.cancel = new("ButtonControl", nil, {45, 85, 80, 20}, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(580, 115, "Import Config Set", controls, "import", "name")
 end
 
 -- Creates a new config set
