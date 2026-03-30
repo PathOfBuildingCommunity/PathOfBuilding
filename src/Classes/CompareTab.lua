@@ -963,6 +963,68 @@ function CompareTabClass:ImportFromCode(code)
 	return self:ImportBuild(xmlText, "Imported build")
 end
 
+-- Save comparison builds to the build file
+function CompareTabClass:Save(xml)
+	xml.attrib = {
+		activeCompareIndex = tostring(self.activeCompareIndex),
+	}
+	for _, entry in ipairs(self.compareEntries) do
+		local attrib = {
+			label = entry.label,
+			buildCode = common.base64.encode(Deflate(entry.xmlText)):gsub("+","-"):gsub("/","_"),
+		}
+		if entry.treeTab then
+			attrib.activeSpec = tostring(entry.treeTab.activeSpec)
+		end
+		if entry.skillsTab then
+			attrib.activeSkillSetId = tostring(entry.skillsTab.activeSkillSetId)
+		end
+		if entry.itemsTab then
+			attrib.activeItemSetId = tostring(entry.itemsTab.activeItemSetId)
+		end
+		t_insert(xml, {
+			elem = "CompareEntry",
+			attrib = attrib,
+		})
+	end
+end
+
+-- Load comparison builds from the build file
+function CompareTabClass:Load(xml, dbFileName)
+	local savedIndex = tonumber(xml.attrib and xml.attrib.activeCompareIndex) or 0
+	for _, child in ipairs(xml) do
+		if type(child) == "table" and child.elem == "CompareEntry" then
+			local code = child.attrib and child.attrib.buildCode
+			if code then
+				local xmlText = Inflate(common.base64.decode(code:gsub("-","+"):gsub("_","/")))
+				if xmlText then
+					if self:ImportBuild(xmlText, child.attrib.label or "Comparison Build") then
+						local entry = self.compareEntries[#self.compareEntries]
+						local savedSpec = tonumber(child.attrib.activeSpec)
+						if savedSpec and entry.treeTab and entry.treeTab.specList[savedSpec] then
+							entry:SetActiveSpec(savedSpec)
+						end
+						local savedSkillSet = tonumber(child.attrib.activeSkillSetId)
+						if savedSkillSet and entry.skillsTab then
+							entry:SetActiveSkillSet(savedSkillSet)
+						end
+						local savedItemSet = tonumber(child.attrib.activeItemSetId)
+						if savedItemSet and entry.itemsTab then
+							entry:SetActiveItemSet(savedItemSet)
+						end
+					end
+				end
+			end
+		end
+	end
+	if #self.compareEntries > 0 then
+		self.activeCompareIndex = m_max(1, m_min(savedIndex, #self.compareEntries))
+	else
+		self.activeCompareIndex = 0
+	end
+	self:UpdateBuildSelector()
+end
+
 -- Remove a comparison build
 function CompareTabClass:RemoveBuild(index)
 	if index >= 1 and index <= #self.compareEntries then
