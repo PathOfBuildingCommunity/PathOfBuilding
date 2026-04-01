@@ -2073,8 +2073,8 @@ end
 
 -- Opens the build set manager
 function buildMode:OpenBuildSetManagePopup()
-	main:OpenPopup(370, 290, "Manage Build Sets", {
-		new("BuildSetListControl", nil, { 0, 50, 350, 200 }, self),
+	main:OpenPopup(400, 290, "Manage Loadouts", {
+		new("BuildSetListControl", nil, { 0, 50, 380, 200 }, self),
 		new("ButtonControl", nil, { 0, 260, 90, 20 }, "Done", function()
 			main:ClosePopup()
 			self.controls.buildLoadouts:SetSel(self.treeTab.activeSpec + 1)
