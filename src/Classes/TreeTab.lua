@@ -907,8 +907,8 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	end
 
 	buildMods(selectedNode)
-	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {150, 25, 0, 16}, "^7Modifier:")
-	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {155, 25, 250, 18}, modGroups, function(idx) constructUI(modGroups[idx]) end)
+	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {170, 25, 0, 16}, "^7Modifier:")
+	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {175, 25, 250, 18}, modGroups, function(idx) constructUI(modGroups[idx]) end)
 	controls.modSelect.selIndex = self.defaultTattoo[nodeName] or 1
 	controls.modSelect.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
@@ -938,24 +938,46 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		main:ClosePopup()
 	end)
 
-	local function getTattooCount()
+	local function getTattooCount(tooltip)
+		if tooltip then
+			tooltip:Clear()
+		end
 		local count = 0
+		local tattooSdMap = { }
+
 		for _, node in pairs(self.build.spec.hashOverrides) do
 			if node.isTattoo and not node.dn:find("Runegraft") then
+				if tooltip then
+					local combined = ""
+					for _, line in ipairs(node.sd) do
+						if not (line:match("Limited") or line:match("Requires")) then -- clean up some legacy tattoo lines
+							combined = combined.." "..line
+						end
+					end
+					if tattooSdMap[combined] then
+						tattooSdMap[combined] = tattooSdMap[combined] + 1
+					else
+						tattooSdMap[combined] = 1
+					end
+				end
 				count = count + 1
 			end
+		end
+		for line, mult in pairs(tattooSdMap) do
+			tooltip:AddLine(16, colorCodes.COLD.."("..mult..") ^7"..line)
 		end
 		if count > 50 then
 			count = colorCodes.NEGATIVE..count
 		end
 		return count
 	end
-	controls.totalTattoos = new("LabelControl", nil, { 0, 95, 0, 16 }, "^7Tattoo Count: ".. getTattooCount() .."/50" )
+	controls.totalTattoos = new("ButtonControl", nil, { 0, 95, 145, 20 }, "^7Tattoo Count: ".. getTattooCount() .."/50", function() return end)
+	controls.totalTattoos.tooltipFunc = function(tooltip, mode, index, value) getTattooCount(tooltip) end
 	main:OpenPopup(600, 105, "Replace Modifier of Node", controls, "save")
 	constructUI(modGroups[self.defaultTattoo[nodeName] or 1])
 	
 	-- Show Legacy Tattoos
-	controls.showLegacyTattoo = new("CheckBoxControl", { "LEFT", controls.totalTattoos, "RIGHT" }, { 205, 0, 20 }, "Show Legacy Tattoos:", function(state)
+	controls.showLegacyTattoo = new("CheckBoxControl", { "LEFT", controls.totalTattoos, "RIGHT" }, { 195, 0, 20 }, "Show Legacy Tattoos:", function(state)
 		self.showLegacyTattoo = state
 		buildMods(selectedNode)
 	end)
