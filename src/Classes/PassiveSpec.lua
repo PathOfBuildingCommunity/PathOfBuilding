@@ -801,6 +801,16 @@ function PassiveSpecClass:DeallocNode(node)
 		self:DeallocSingleNode(depNode)
 	end
 
+	-- clear any item in Ring 3 when The Unseen Hand is deallocated
+	if node.id == 43902 and node.dn:match("Unseen Hand") then
+		local ringSlot = self.build.itemsTab.slots["Ring 3"]
+		if ringSlot then
+			ringSlot.selIndex = 1
+			ringSlot:SetSelItemId(0)
+			self.build.buildFlag = true
+		end
+	end
+
 	-- Rebuild all paths and dependencies for all allocated nodes
 	self:BuildAllDependsAndPaths()
 end
