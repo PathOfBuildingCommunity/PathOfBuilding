@@ -1746,7 +1746,7 @@ function ItemsTabClass:UpdateClusterJewelControls()
 
 	-- Update added node count slider
 	local countControl = self.controls.displayItemClusterJewelNodeCount
-	item.clusterJewelNodeCount = m_min(m_max(item.clusterJewelNodeCount or item.clusterJewel.maxNodes, item.clusterJewel.minNodes), item.clusterJewel.maxNodes)
+	item.clusterJewelNodeCount = m_min(m_max(item.clusterJewelNodeCount or item.clusterJewel.minNodes, item.clusterJewel.minNodes), item.clusterJewel.maxNodes)
 	countControl.divCount = item.clusterJewel.maxNodes - item.clusterJewel.minNodes
 	countControl.val = (item.clusterJewelNodeCount - item.clusterJewel.minNodes) / (item.clusterJewel.maxNodes - item.clusterJewel.minNodes)
 
@@ -1756,7 +1756,7 @@ end
 function ItemsTabClass:CraftClusterJewel()
 	local item = self.displayItem
 	wipeTable(item.enchantModLines)
-	t_insert(item.enchantModLines, { line = "Adds "..(item.clusterJewelNodeCount or item.clusterJewel.maxNodes).." Passive Skills", crafted = true })
+	t_insert(item.enchantModLines, { line = "Adds "..(item.clusterJewelNodeCount or item.clusterJewel.minNodes).." Passive Skills", crafted = true })
 	if item.clusterJewel.size == "Large" then
 		t_insert(item.enchantModLines, { line = "2 Added Passive Skills are Jewel Sockets", crafted = true })
 	elseif item.clusterJewel.size == "Medium" then
