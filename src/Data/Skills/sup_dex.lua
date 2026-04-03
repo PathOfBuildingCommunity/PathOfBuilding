@@ -2671,6 +2671,9 @@ skills["SupportLethalDose"] = {
 		["support_lethal_dose_poison_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison),
 		},
+		["additional_poisons_+_to_apply_vs_non_poisoned_enemies"] = {
+			mod("AdditionalPoisonStacks", "BASE", nil, 0, 0, {type = "Condition", var = "NonPoisonedOnly"}),
+		},
 	},
 	qualityStats = {
 		Default = {
