@@ -118,6 +118,7 @@ function main:Init()
 	self.showFlavourText = true
 	self.showAnimations = true
 	self.showAllItemAffixes = true
+	self.useAdvancedTimelessJewelFinder = false
 	self.errorReadingSettings = false
 
 	if not SetDPIScaleOverridePercent then SetDPIScaleOverridePercent = function(scale) end end
@@ -625,6 +626,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.showAllItemAffixes then
 					self.showAllItemAffixes = node.attrib.showAllItemAffixes == "true"
 				end
+				if node.attrib.useAdvancedTimelessJewelFinder then
+					self.useAdvancedTimelessJewelFinder = node.attrib.useAdvancedTimelessJewelFinder == "true"
+				end
 				if node.attrib.dpiScaleOverridePercent then
 					self.dpiScaleOverridePercent = tonumber(node.attrib.dpiScaleOverridePercent) or 0
 					SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
@@ -760,6 +764,7 @@ function main:SaveSettings()
 		showFlavourText = tostring(self.showFlavourText),
 		showAnimations = tostring(self.showAnimations),
 		showAllItemAffixes = tostring(self.showAllItemAffixes),
+		useAdvancedTimelessJewelFinder = tostring(self.useAdvancedTimelessJewelFinder),
 		dpiScaleOverridePercent = tostring(self.dpiScaleOverridePercent),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
@@ -975,6 +980,12 @@ function main:OpenOptionsPopup()
 	controls.showAllItemAffixes.tooltipText = "Display all item affix slots as a stacked list instead of hiding them in dropdowns"
 
 	nextRow()
+	controls.useAdvancedTimelessJewelFinder = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, currentY, 20 }, "^7Use advanced Timeless Jewel Finder:", function(state)
+		self.useAdvancedTimelessJewelFinder = state
+	end)
+	controls.useAdvancedTimelessJewelFinder.tooltipText = "When enabled, the Timeless Jewel button opens the original advanced finder instead of the default Timeless Jewel Finder."
+
+	nextRow()
 	drawSectionHeader("build", "Build-related options")
 
 	controls.showThousandsSeparators = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT"}, { defaultLabelPlacementX, currentY, 20 }, "^7Show thousands separators:", function(state)
@@ -1072,6 +1083,7 @@ function main:OpenOptionsPopup()
 	controls.showFlavourText.state = self.showFlavourText
 	controls.showAnimations.state = self.showAnimations
 	controls.showAllItemAffixes.state = self.showAllItemAffixes
+	controls.useAdvancedTimelessJewelFinder.state = self.useAdvancedTimelessJewelFinder
 	local initialNodePowerTheme = self.nodePowerTheme
 	local initialColorPositive = self.colorPositive
 	local initialColorNegative = self.colorNegative
@@ -1095,6 +1107,7 @@ function main:OpenOptionsPopup()
 	local initialShowFlavourText = self.showFlavourText
 	local initialShowAnimations = self.showAnimations
 	local initialShowAllItemAffixes = self.showAllItemAffixes
+	local initialUseAdvancedTimelessJewelFinder = self.useAdvancedTimelessJewelFinder
 	local initialDpiScaleOverridePercent = self.dpiScaleOverridePercent
 
 	-- last line with buttons has more spacing
@@ -1152,6 +1165,7 @@ function main:OpenOptionsPopup()
 		self.showFlavourText = initialShowFlavourText
 		self.showAnimations = initialShowAnimations
 		self.showAllItemAffixes = initialShowAllItemAffixes
+		self.useAdvancedTimelessJewelFinder = initialUseAdvancedTimelessJewelFinder
 		self.dpiScaleOverridePercent = initialDpiScaleOverridePercent
 		SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
 		main:ClosePopup()

@@ -184,7 +184,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.tradeLeaguesList = { }
 	-- Find Timeless Jewel Button
 	self.controls.findTimelessJewel = new("ButtonControl", { "LEFT", self.controls.treeSearch, "RIGHT" }, { 8, 0, 150, 20 }, "Find Timeless Jewel", function()
-		self:FindTimelessJewel()
+		self:OpenTimelessJewelFinder()
 	end)
 
 	--Default index for Tattoos
@@ -391,11 +391,11 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 								+ self.controls.versionSelect.width + self.controls.versionSelect.x
 								+ (self.isComparing and (self.controls.compareSelect.width + self.controls.compareSelect.x) or 0)
 	
-	local widthSecondLineControls = self.controls.treeSearch.width + 8
-									+ self.controls.findTimelessJewel.width + self.controls.findTimelessJewel.x
-									+ self.controls.treeHeatMap.width + 130
-									+ self.controls.nodePowerMaxDepthSelect.width + self.controls.nodePowerMaxDepthSelect.x
-									+ (self.isCustomMaxDepth and (self.controls.nodePowerMaxDepthCustom.width + self.controls.nodePowerMaxDepthCustom.x) or 0)
+		local widthSecondLineControls = self.controls.treeSearch.width + 8
+										+ self.controls.findTimelessJewel.width + self.controls.findTimelessJewel.x
+										+ self.controls.treeHeatMap.width + 130
+										+ self.controls.nodePowerMaxDepthSelect.width + self.controls.nodePowerMaxDepthSelect.x
+										+ (self.isCustomMaxDepth and (self.controls.nodePowerMaxDepthCustom.width + self.controls.nodePowerMaxDepthCustom.x) or 0)
 									+ (self.viewer.showHeatMap and (self.controls.treeHeatMapStatSelect.width + self.controls.treeHeatMapStatSelect.x 
 																	+ self.controls.powerReport.width + self.controls.powerReport.x) or 0)
 	
@@ -409,10 +409,10 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 		self.controls.powerReportList:SetAnchor("TOPLEFT", self.controls.treeSearch, "BOTTOMLEFT", 0, self.controls.treeSearch.height + 6)
 	end
 
-	-- Check second line
-	if viewPort.width >= widthSecondLineControls + rightMargin then
-		self.controls.treeHeatMap:SetAnchor("LEFT", self.controls.findTimelessJewel, "RIGHT", 130, 0)
-	else
+		-- Check second line
+		if viewPort.width >= widthSecondLineControls + rightMargin then
+			self.controls.treeHeatMap:SetAnchor("LEFT", self.controls.findTimelessJewel, "RIGHT", 130, 0)
+		else
 		linesHeight = linesHeight * 2
 		self.controls.treeHeatMap:SetAnchor("TOPLEFT", self.controls.treeSearch, "BOTTOMLEFT", 124, 4)
 		self.controls.powerReportList:SetAnchor("TOPLEFT", self.controls.treeHeatMap, "BOTTOMLEFT", -124, self.controls.treeHeatMap.height + 6)
@@ -1138,126 +1138,190 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 	return report
 end
 
-function TreeTabClass:FindTimelessJewel()
-	local socketViewer = new("PassiveTreeView")
-	local treeData = self.build.spec.tree
-	local legionNodes = treeData.legion.nodes
-	local legionAdditions = treeData.legion.additions
-	local timelessData = self.build.timelessData
-	local controls = { }
-	local modData = { }
-	local ignoredMods = { "Might of the Vaal", "Legacy of the Vaal", "Strength", "Add Strength", "Dex", "Add Dexterity", "Devotion", "Price of Glory", "Ward" }
-	local totalMods = { [2] = "Strength", [3] = "Dexterity", [4] = "Devotion" }
-	local totalModIDs = {
-		["total_strength"] = { ["karui_notable_add_strength"] = true, ["karui_attribute_strength"] = true, ["karui_small_strength"] = true },
-		["total_dexterity"] = { ["maraketh_notable_add_dexterity"] = true, ["maraketh_attribute_dex"] = true, ["maraketh_small_dex"] = true },
-		["total_devotion"] = { ["templar_notable_devotion"] = true, ["templar_devotion_node"] = true, ["templar_small_devotion"] = true }
+function TreeTabClass:OpenTimelessJewelFinder()
+	if main.useAdvancedTimelessJewelFinder then
+		self:OpenAdvancedTimelessJewelFinder()
+	else
+		self:OpenTimelessJewelFinderPopup()
+	end
+end
+
+function TreeTabClass:GetTimelessFinderStaticData()
+	local powerTypes = { }
+	for _, stat in ipairs(data.powerStatList) do
+		if not stat.ignoreForItems and not stat.combinedOffDef and stat.label ~= "Name" then
+			t_insert(powerTypes, {
+				label = stat.label,
+				stat = stat.stat,
+				transform = stat.transform,
+			})
+		end
+	end
+	return {
+		ignoredMods = { "Might of the Vaal", "Legacy of the Vaal", "Strength", "Add Strength", "Dex", "Add Dexterity", "Devotion", "Price of Glory", "Ward" },
+		totalMods = { [2] = "Strength", [3] = "Dexterity", [4] = "Devotion" },
+		totalModIDs = {
+			["total_strength"] = { ["karui_notable_add_strength"] = true, ["karui_attribute_strength"] = true, ["karui_small_strength"] = true },
+			["total_dexterity"] = { ["maraketh_notable_add_dexterity"] = true, ["maraketh_attribute_dex"] = true, ["maraketh_small_dex"] = true },
+			["total_devotion"] = { ["templar_notable_devotion"] = true, ["templar_devotion_node"] = true, ["templar_small_devotion"] = true },
+		},
+		reverseTotalModIDs = {
+			["karui_notable_add_strength"] = true,
+			["karui_attribute_strength"] = true,
+			["karui_small_strength"] = true,
+			["maraketh_notable_add_dexterity"] = true,
+			["maraketh_attribute_dex"] = true,
+			["maraketh_small_dex"] = true,
+			["templar_notable_devotion"] = true,
+			["templar_devotion_node"] = true,
+			["templar_small_devotion"] = true,
+		},
+		jewelTypes = {
+			{ label = "Glorious Vanity", name = "vaal", id = 1 },
+			{ label = "Lethal Pride", name = "karui", id = 2 },
+			{ label = "Brutal Restraint", name = "maraketh", id = 3 },
+			{ label = "Militant Faith", name = "templar", id = 4 },
+			{ label = "Elegant Hubris", name = "eternal", id = 5 },
+			{ label = "Heroic Tragedy", name = "kalguur", id = 6 },
+		},
+		conquerorTypes = {
+			[1] = {
+				{ label = "Any", id = 1 },
+				{ label = "Doryani (Corrupted Soul)", id = 2 },
+				{ label = "Xibaqua (Divine Flesh)", id = 3 },
+				{ label = "Ahuana (Immortal Ambition)", id = 4 },
+			},
+			[2] = {
+				{ label = "Any", id = 1 },
+				{ label = "Kaom (Strength of Blood)", id = 2 },
+				{ label = "Rakiata (Tempered by War)", id = 3 },
+				{ label = "Akoya (Chainbreaker)", id = 4 },
+			},
+			[3] = {
+				{ label = "Any", id = 1 },
+				{ label = "Asenath (Dance with Death)", id = 2 },
+				{ label = "Nasima (Second Sight)", id = 3 },
+				{ label = "Balbala (The Traitor)", id = 4 },
+			},
+			[4] = {
+				{ label = "Any", id = 1 },
+				{ label = "Avarius (Power of Purpose)", id = 2 },
+				{ label = "Dominus (Inner Conviction)", id = 3 },
+				{ label = "Maxarius (Transcendence)", id = 4 },
+			},
+			[5] = {
+				{ label = "Any", id = 1 },
+				{ label = "Cadiro (Supreme Decadence)", id = 2 },
+				{ label = "Victario (Supreme Grandstanding)", id = 3 },
+				{ label = "Caspiro (Supreme Ostentation)", id = 4 },
+			},
+			[6] = {
+				{ label = "Any", id = 1 },
+				{ label = "Vorana (Black Scythe Training)", id = 2 },
+				{ label = "Uhtred (Celestial Mathematics)", id = 3 },
+				{ label = "Medved (The Unbreaking Circle)", id = 4 },
+			},
+		},
+		devotionVariants = {
+			{ id = 1, label = "Any" },
+			{ id = 2, label = "Totem Damage" },
+			{ id = 3, label = "Brand Damage" },
+			{ id = 4, label = "Channelling Damage" },
+			{ id = 5, label = "Area Damage" },
+			{ id = 6, label = "Elemental Damage" },
+			{ id = 7, label = "Elemental Resistances" },
+			{ id = 8, label = "Effect of non-Damaging Ailments" },
+			{ id = 9, label = "Elemental Ailment Duration" },
+			{ id = 10, label = "Duration of Curses" },
+			{ id = 11, label = "Minion Attack and Cast Speed" },
+			{ id = 12, label = "Minions Accuracy Rating" },
+			{ id = 13, label = "Mana Regen" },
+			{ id = 14, label = "Skill Cost" },
+			{ id = 15, label = "Non-Curse Aura Effect" },
+			{ id = 16, label = "Defences from Shield" },
+		},
+		devotionVariantMods = {
+			{ id = 2, label = "Totem Damage", modLine = "4% increased Totem Damage per 10 Devotion" },
+			{ id = 3, label = "Brand Damage", modLine = "4% increased Brand Damage per 10 Devotion" },
+			{ id = 4, label = "Channelling Damage", modLine = "Channelling Skills deal 4% increased Damage per 10 Devotion" },
+			{ id = 5, label = "Area Damage", modLine = "4% increased Area Damage per 10 Devotion" },
+			{ id = 6, label = "Elemental Damage", modLine = "4% increased Elemental Damage per 10 Devotion" },
+			{ id = 7, label = "Elemental Resistances", modLine = "+2% to all Elemental Resistances per 10 Devotion" },
+			{ id = 8, label = "Effect of non-Damaging Ailments", modLine = "3% increased Effect of non-Damaging Ailments on Enemies per 10 Devotion" },
+			{ id = 9, label = "Elemental Ailment Duration", modLine = "4% reduced Elemental Ailment Duration on you per 10 Devotion" },
+			{ id = 10, label = "Duration of Curses", modLine = "4% reduced Duration of Curses on you per 10 Devotion" },
+			{ id = 11, label = "Minion Attack and Cast Speed", modLine = "1% increased Minion Attack and Cast Speed per 10 Devotion" },
+			{ id = 12, label = "Minions Accuracy Rating", modLine = "Minions have +60 to Accuracy Rating per 10 Devotion" },
+			{ id = 13, label = "Mana Regen", modLine = "Regenerate 0.6 Mana per Second per 10 Devotion" },
+			{ id = 14, label = "Skill Cost", modLine = "1% reduced Mana Cost of Skills per 10 Devotion" },
+			{ id = 15, label = "Non-Curse Aura Effect", modLine = "1% increased effect of Non-Curse Auras per 10 Devotion" },
+			{ id = 16, label = "Defences from Shield", modLine = "3% increased Defences from Equipped Shield per 10 Devotion" },
+		},
+		anyDevotionVariant = { id = 1, label = "Any" },
+		powerTypes = powerTypes,
 	}
-	local reverseTotalModIDs = {
-		["karui_notable_add_strength"] = true,
-		["karui_attribute_strength"] = true,
-		["karui_small_strength"] = true,
-		["maraketh_notable_add_dexterity"] = true,
-		["maraketh_attribute_dex"] = true,
-		["maraketh_small_dex"] = true,
-		["templar_notable_devotion"] = true,
-		["templar_devotion_node"] = true,
-		["templar_small_devotion"] = true
-	}
-	local jewelTypes = {
-		{ label = "Glorious Vanity", name = "vaal", id = 1 },
-		{ label = "Lethal Pride", name = "karui", id = 2 },
-		{ label = "Brutal Restraint", name = "maraketh", id = 3 },
-		{ label = "Militant Faith", name = "templar", id = 4 },
-		{ label = "Elegant Hubris", name = "eternal", id = 5 },
-		{ label = "Heroic Tragedy", name = "kalguur", id = 6 }
-	}
-	-- rebuild `timelessData.jewelType` as we only store the minimum amount of `jewelType` data in build XML
-	if next(timelessData.jewelType) then
-		for idx, jewelType in ipairs(jewelTypes) do
-			if jewelType.id == timelessData.jewelType.id then
-				timelessData.jewelType = jewelType
+end
+
+function TreeTabClass:RestoreTimelessFinderSelection(selection, timelessStatic, includePowerType)
+	if type(selection.jewelType) == "table" and next(selection.jewelType) then
+		local foundJewelType
+		for _, jewelType in ipairs(timelessStatic.jewelTypes) do
+			if jewelType.id == selection.jewelType.id then
+				selection.jewelType = jewelType
+				foundJewelType = true
 				break
 			end
 		end
+		if not foundJewelType then
+			selection.jewelType = timelessStatic.jewelTypes[1]
+		end
 	else
-		timelessData.jewelType = jewelTypes[1]
+		selection.jewelType = timelessStatic.jewelTypes[1]
 	end
-	local conquerorTypes = {
-		[1] = {
-			{ label = "Any", id = 1 },
-			{ label = "Doryani (Corrupted Soul)", id = 2 },
-			{ label = "Xibaqua (Divine Flesh)", id = 3 },
-			{ label = "Ahuana (Immortal Ambition)", id = 4 }
-		},
-		[2] = {
-			{ label = "Any", id = 1 },
-			{ label = "Kaom (Strength of Blood)", id = 2 },
-			{ label = "Rakiata (Tempered by War)", id = 3 },
-			{ label = "Akoya (Chainbreaker)", id = 4 }
-		},
-		[3] = {
-			{ label = "Any", id = 1 },
-			{ label = "Asenath (Dance with Death)", id = 2 },
-			{ label = "Nasima (Second Sight)", id = 3 },
-			{ label = "Balbala (The Traitor)", id = 4 }
-		},
-		[4] = {
-			{ label = "Any", id = 1 },
-			{ label = "Avarius (Power of Purpose)", id = 2 },
-			{ label = "Dominus (Inner Conviction)", id = 3 },
-			{ label = "Maxarius (Transcendence)", id = 4 }
-		},
-		[5] = {
-			{ label = "Any", id = 1 },
-			{ label = "Cadiro (Supreme Decadence)", id = 2 },
-			{ label = "Victario (Supreme Grandstanding)", id = 3 },
-			{ label = "Caspiro (Supreme Ostentation)", id = 4 }
-		},
-		[6] = {
-			{ label = "Any", id = 1 },
-			{ label = "Vorana (Black Scythe Training)", id = 2 },
-			{ label = "Uhtred (Celestial Mathematics)", id = 3 },
-			{ label = "Medved (The Unbreaking Circle)", id = 4 }
-		}
-	}
-	-- rebuild `timelessData.conquerorType` as we only store the minimum amount of `conquerorType` data in build XML
-	if next(timelessData.conquerorType) then
-		for idx, conquerorType in ipairs(conquerorTypes[timelessData.jewelType.id]) do
-			if conquerorType.id == timelessData.conquerorType.id then
-				timelessData.conquerorType = conquerorType
+	if type(selection.conquerorType) == "table" and next(selection.conquerorType) then
+		local foundConquerorType
+		for _, conquerorType in ipairs(timelessStatic.conquerorTypes[selection.jewelType.id]) do
+			if conquerorType.id == selection.conquerorType.id then
+				selection.conquerorType = conquerorType
+				foundConquerorType = true
 				break
 			end
 		end
+		if not foundConquerorType then
+			selection.conquerorType = timelessStatic.conquerorTypes[selection.jewelType.id][1]
+		end
 	else
-		timelessData.conquerorType = conquerorTypes[timelessData.jewelType.id][1]
+		selection.conquerorType = timelessStatic.conquerorTypes[selection.jewelType.id][1]
 	end
-	local devotionVariants = {
-		{ id = 1 , label = "Any" },
-		{ id = 2 , label = "Totem Damage" },
-		{ id = 3 , label = "Brand Damage" },
-		{ id = 4 , label = "Channelling Damage" },
-		{ id = 5 , label = "Area Damage" },
-		{ id = 6 , label = "Elemental Damage" },
-		{ id = 7 , label = "Elemental Resistances" },
-		{ id = 8 , label = "Effect of non-Damaging Ailments" },
-		{ id = 9 , label = "Elemental Ailment Duration" },
-		{ id = 10, label = "Duration of Curses" },
-		{ id = 11, label = "Minion Attack and Cast Speed" },
-		{ id = 12, label = "Minions Accuracy Rating" },
-		{ id = 13, label = "Mana Regen" },
-		{ id = 14, label = "Skill Cost" },
-		{ id = 15, label = "Non-Curse Aura Effect" },
-		{ id = 16, label = "Defences from Shield" }
-	}
+	if includePowerType then
+		if type(selection.powerType) == "table" and next(selection.powerType) then
+			local foundPowerType
+			for _, powerType in ipairs(timelessStatic.powerTypes) do
+				if powerType.stat == selection.powerType.stat then
+					selection.powerType = powerType
+					foundPowerType = true
+					break
+				end
+			end
+			if not foundPowerType then
+				selection.powerType = timelessStatic.powerTypes[1]
+			end
+		else
+			selection.powerType = timelessStatic.powerTypes[1]
+		end
+	end
+	return selection
+end
+
+function TreeTabClass:BuildTimelessJewelSockets(treeData, selectedSocket)
 	local jewelSockets = { }
 	t_insert(jewelSockets, {
 		label = "All Sockets",
 		keystone = "Multi-Socket Search",
-		id = -1
+		id = -1,
 	})
 	for socketId, socketData in pairs(self.build.spec.nodes) do
-		if socketData.isJewelSocket and socketData.name ~= "Charm Socket"then
+		if socketData.isJewelSocket and socketData.name ~= "Charm Socket" then
 			local keystone = "Unknown"
 			if socketId == 26725 then
 				keystone = "Marauder"
@@ -1284,25 +1348,606 @@ function TreeTabClass:FindTimelessJewel()
 			t_insert(jewelSockets, {
 				label = label,
 				keystone = keystone,
-				id = socketId
+				id = socketId,
 			})
 		end
 	end
-	-- Sort all sockets except all sockets option
 	local allSocketsEntry = t_remove(jewelSockets, 1)
 	t_sort(jewelSockets, function(a, b) return a.label < b.label end)
 	t_insert(jewelSockets, 1, allSocketsEntry)
-	-- rebuild `timelessData.jewelSocket` as we only store the minimum amount of `jewelSocket` data in build XML
-	if next(timelessData.jewelSocket) then
-		for idx, jewelSocket in ipairs(jewelSockets) do
-			if jewelSocket.id == timelessData.jewelSocket.id then
-				timelessData.jewelSocket = jewelSocket
+	if type(selectedSocket) == "table" and next(selectedSocket) then
+		for _, jewelSocket in ipairs(jewelSockets) do
+			if jewelSocket.id == selectedSocket.id then
+				return jewelSockets, jewelSocket
+			end
+		end
+	end
+	return jewelSockets, jewelSockets[1]
+end
+
+function TreeTabClass:GetTimelessFinderLayout()
+	local popupMargin = 40
+	local maxPopupWidth = m_max(980, main.screenW - popupMargin)
+	local maxPopupHeight = m_max(640, main.screenH - popupMargin)
+	local layout = {
+		popup = {
+			width = m_min(1292, maxPopupWidth),
+			height = m_min(780, maxPopupHeight),
+		},
+		left = {
+			labelX = 24,
+			inputX = 145,
+			inputWidth = 250,
+		},
+		nodeFilters = {
+			firstY = 113,
+			rowGap = 22,
+		},
+		power = {
+			y = 186,
+			buttonGap = 8,
+			buttonWidth = 110,
+		},
+		addNode = {
+			y = 216,
+			inputWidth = 250,
+			buttonGap = 8,
+			addWidth = 50,
+			clearWidth = 52,
+		},
+		stats = {
+			headerY = 262,
+			rowY = 287,
+			rowHeight = 24,
+			maxRows = 17,
+			labelX = 26,
+			labelLimit = 50,
+			headerOffset = -11,
+			inputOffset = -7,
+			inputWidth = 48,
+			minInputWidth = 48,
+			removeOffset = -5,
+			removeWidth = 18,
+			totalMinimumWeightSpacingY = 8,
+			columns = {
+				weight1 = 299,
+				weight2 = 363,
+				minimum = 427,
+				remove = 491,
+			},
+		},
+		results = {
+			x = 548,
+			labelY = 25,
+			leagueSelectX = 612,
+			leagueSelectY = 23,
+			listY = 49,
+			listWidth = 720,
+			listHeight = 645,
+			tradeButtonX = 1098,
+			tradeButtonY = 23,
+			hintY = 6,
+		},
+		buttons = {
+			width = 90,
+			gap = 10,
+			y = 738,
+		},
+	}
+	layout.buttons.y = layout.popup.height - 42
+	layout.addNode.addX = layout.left.inputX + layout.addNode.inputWidth + layout.addNode.buttonGap
+	layout.addNode.clearX = layout.addNode.addX + layout.addNode.addWidth + layout.addNode.buttonGap
+	layout.stats.tableX = layout.left.labelX - 4
+	layout.stats.tableY = layout.stats.headerY - 4
+	layout.stats.tableRight = layout.addNode.clearX + layout.addNode.clearWidth
+	layout.stats.tableWidth = layout.stats.tableRight - layout.stats.tableX
+	layout.stats.maxRows = m_min(layout.stats.maxRows, m_max(8, m_floor((layout.buttons.y - 36 - layout.stats.totalMinimumWeightSpacingY - layout.stats.tableY - 28) / layout.stats.rowHeight)))
+	layout.stats.tableHeight = layout.stats.maxRows * layout.stats.rowHeight + 28
+	layout.stats.totalMinimumWeightLabelY = layout.stats.tableY + layout.stats.tableHeight + layout.stats.totalMinimumWeightSpacingY
+	layout.stats.totalMinimumWeightInputX = layout.stats.columns.minimum + layout.stats.inputOffset
+	layout.stats.totalMinimumWeightInputY = layout.stats.totalMinimumWeightLabelY - 2
+	layout.results.leagueSelectX = layout.results.x + 64
+	layout.results.listWidth = layout.popup.width - layout.results.x - 24
+	layout.results.tradeButtonX = layout.popup.width - 24 - 170
+	layout.results.listHeight = layout.stats.tableY + layout.stats.tableHeight - layout.results.listY
+	return layout
+end
+
+function TreeTabClass:GetDefaultTimelessFinderData()
+	return {
+		jewelType = { },
+		conquerorType = { },
+		jewelSocket = { },
+		powerType = { },
+		searchFilter = "",
+		nodeFilters = { allocatedOnly = true, notables = false, smallPassives = false },
+		selectedStats = { },
+		totalMinimumWeight = 0,
+	}
+end
+
+function TreeTabClass:NewTimelessFinderHeaderLabel(anchor, rect, label, font, align)
+	local control = new("Control", anchor, rect)
+	control.label = label
+	control.font = font or "VAR"
+	control.align = align or "LEFT"
+	control.tooltip = new("Tooltip")
+	control.width = function()
+		return DrawStringWidth(control:GetProperty("height"), control.font, control:GetProperty("label"))
+	end
+	function control:Draw(viewPort, noTooltip)
+		local x, y = self:GetPos()
+		local width, height = self:GetSize()
+		DrawString(x, y, self.align, height, self.font, self:GetProperty("label"))
+		if not noTooltip and self:IsMouseInBounds() and self.tooltipFunc then
+			SetDrawLayer(nil, 100)
+			self.tooltipFunc(self.tooltip)
+			self.tooltip:Draw(x, y, width, height, viewPort)
+			SetDrawLayer(nil, 0)
+		end
+	end
+	return control
+end
+
+function TreeTabClass:NewTimelessFinderRowLabel(anchor, rect, labelFunc, tooltipFunc)
+	local control = new("Control", anchor, rect)
+	control.tooltip = new("Tooltip")
+	function control:Draw(viewPort, noTooltip)
+		local x, y = self:GetPos()
+		local width, height = self:GetSize()
+		local label = labelFunc()
+			local drawLabel = StripEscapes(label or "")
+			local clipWidth = DrawStringWidth(height, "VAR", "...")
+			if DrawStringWidth(height, "VAR", drawLabel) > width then
+				local clipIndex = DrawStringCursorIndex(height, "VAR", drawLabel, width - clipWidth, 0)
+				drawLabel = drawLabel:sub(1, clipIndex - 1) .. "..."
+			end
+			DrawString(x, y, "LEFT", height, "VAR", "^7" .. drawLabel)
+			if not noTooltip and self:IsMouseInBounds() and tooltipFunc then
+				SetDrawLayer(nil, 100)
+				tooltipFunc(control.tooltip)
+			control.tooltip:Draw(x, y, width, height, viewPort)
+			SetDrawLayer(nil, 0)
+		end
+	end
+	return control
+end
+
+function TreeTabClass:NewTimelessFinderFlatValueCell(anchor, rect, valueFunc)
+	local control = new("Control", anchor, rect)
+	function control:Draw()
+		local x, y = self:GetPos()
+		local width, height = self:GetSize()
+		SetDrawColor(0.08, 0.08, 0.08)
+		DrawImage(nil, x, y, width, height)
+		local value = valueFunc()
+		if value and value ~= "" then
+			DrawString(x + 2, y + 2, "LEFT", height - 4, "VAR", "^8" .. value)
+		end
+	end
+	return control
+end
+
+function TreeTabClass:NewTimelessFinderHintLabel(x, y, width, label)
+	local hintWidth = DrawStringWidth(14, "VAR", StripEscapes(label))
+	local control = new("Control", {"TOPLEFT", nil, "TOPLEFT"}, {x + width - hintWidth, y, hintWidth, 14})
+	function control:Draw()
+		local controlX, controlY = self:GetPos()
+		local _, controlHeight = self:GetSize()
+		DrawString(controlX, controlY, "LEFT", controlHeight, "VAR", label)
+	end
+	return control
+end
+
+function TreeTabClass:HasSearchableTimelessFinderStats(selectedStats)
+	for _, row in ipairs(selectedStats or { }) do
+		if not row.devotionVariantId then
+			return true
+		end
+	end
+	return false
+end
+
+function TreeTabClass:FormatTimelessFinderStatLabel(label, maxLength)
+	local out = StripEscapes(label or "")
+	out = out:gsub("%s+", " ")
+	if #out > maxLength then
+		out = out:sub(1, maxLength - 3) .. "..."
+	end
+	return out
+end
+
+function TreeTabClass:TimelessFinderEntrySupportsSecondaryWeight(entry)
+	return entry
+		and entry.type == "vaal"
+		and entry.descriptions
+		and entry.descriptions[2] ~= nil
+		and not entry.devotionVariantId
+		and not entry.totalMod
+end
+
+function TreeTabClass:ResetTimelessFinderResults(controls, timelessData)
+	wipeTable(timelessData.searchResults)
+	wipeTable(timelessData.sharedResults)
+	if controls.searchTradeButton then
+		controls.searchTradeButton.enabled = false
+		controls.searchTradeButton.lastSearch = nil
+		controls.searchTradeButton.label = "Copy Trade URL"
+	end
+	if controls.searchResults then
+		controls.searchResults.highlightIndex = nil
+		controls.searchResults.selIndex = nil
+	end
+end
+
+function TreeTabClass:GetTimelessFinderSelectedDevotionVariants(selectedStats, timelessStatic)
+	local variant1 = timelessStatic.anyDevotionVariant
+	local variant2 = timelessStatic.anyDevotionVariant
+	local seenVariant = { }
+	for _, row in ipairs(selectedStats) do
+		if row.devotionVariantId and not seenVariant[row.devotionVariantId] then
+			local variant = timelessStatic.devotionVariants[row.devotionVariantId]
+			if variant1.id == 1 then
+				variant1 = variant
+			elseif variant2.id == 1 then
+				variant2 = variant
+				break
+			end
+			seenVariant[row.devotionVariantId] = true
+		end
+	end
+	return variant1, variant2
+end
+
+function TreeTabClass:BuildTimelessFinderModData(legionNodes, legionAdditions, jewelType, ignoredMods, totalMods, devotionVariantMods)
+	local modData = { }
+	local modById = { }
+	local smallModData = { }
+
+	local function addEntry(targetList, id, label, descriptions, searchFilter, extraData)
+		local entry = {
+			label = label,
+			descriptions = descriptions,
+			type = jewelType.name,
+			id = id,
+			searchFilter = searchFilter,
+		}
+		if extraData then
+			for key, value in pairs(extraData) do
+				entry[key] = value
+			end
+		end
+		t_insert(targetList, entry)
+		modById[entry.id] = entry
+	end
+
+	for _, node in pairs(legionNodes) do
+		if node.id:match("^" .. jewelType.name .. "_.+") and not isValueInArray(ignoredMods, node.dn) and not node.ks then
+			local descriptions = copyTable(node.sd)
+			if node["not"] then
+				addEntry(modData, node.id, node.dn, descriptions, node.dn .. " " .. t_concat(descriptions, " "))
+			else
+				addEntry(smallModData, node.id, node.dn, descriptions, node.dn .. " " .. t_concat(descriptions, " "))
+			end
+		end
+	end
+
+	for _, addition in pairs(legionAdditions) do
+		if addition.id:match("^" .. jewelType.name .. "_.+") and not isValueInArray(ignoredMods, addition.dn) and jewelType.name ~= "vaal" then
+			local descriptions = copyTable(addition.sd)
+			addEntry(modData, addition.id, addition.dn, descriptions, addition.dn .. " " .. t_concat(descriptions, " "))
+		end
+	end
+
+	if jewelType.id == 4 then
+		for _, variant in ipairs(devotionVariantMods) do
+			addEntry(modData, "devotion_variant_" .. variant.id, variant.label, {
+				variant.modLine,
+			}, variant.label .. " " .. variant.modLine, {
+				devotionVariantId = variant.id,
+			})
+		end
+	end
+
+	t_sort(modData, function(a, b) return a.label < b.label end)
+	t_sort(smallModData, function(a, b) return a.label < b.label end)
+
+	if totalMods[jewelType.id] then
+		local label = "Total " .. totalMods[jewelType.id]
+		local totalEntry = {
+			label = label,
+			descriptions = { "This is a hybrid node containing all additions to " .. totalMods[jewelType.id] },
+			type = jewelType.name,
+			id = "total_" .. totalMods[jewelType.id]:lower(),
+			totalMod = true,
+			searchFilter = label,
+		}
+		t_insert(modData, 1, totalEntry)
+		modById[totalEntry.id] = totalEntry
+	end
+
+	for _, entry in ipairs(smallModData) do
+		t_insert(modData, entry)
+	end
+	t_insert(modData, 1, { label = "..." })
+
+	return modData, modById
+end
+
+function TreeTabClass:InitTimelessTradeLeagueControls(controls, selectKey, msgKey)
+	self.tradeQueryRequests = self.tradeQueryRequests or new("TradeQueryRequests")
+	controls[msgKey] = controls[msgKey] or new("LabelControl", nil, { -280, 5, 0, 16 }, "")
+	if #self.tradeLeaguesList > 0 then
+		controls[selectKey]:SetList(self.tradeLeaguesList)
+		for i, league in ipairs(self.tradeLeaguesList) do
+			if league == self.timelessJewelLeagueSelect then
+				controls[selectKey]:SetSel(i)
 				break
 			end
 		end
+		if not controls[selectKey].selIndex then
+			controls[selectKey]:SetSel(1)
+			self.timelessJewelLeagueSelect = self.tradeLeaguesList[1]
+		end
 	else
-		timelessData.jewelSocket = jewelSockets[1]
+		self.tradeQueryRequests:FetchLeagues("pc", function(leagues, errMsg)
+			if errMsg then
+				controls[msgKey].label = "^1Error fetching league list, default league will be used\n" .. errMsg .. "^7"
+				return
+			end
+			local tempLeagueTable = { }
+			for _, league in ipairs(leagues) do
+				if league ~= "Standard" and league ~= "Ruthless" and league ~= "Hardcore" and league ~= "Hardcore Ruthless" then
+					if not (league:find("Hardcore") or league:find("Ruthless")) then
+						t_insert(tempLeagueTable, league)
+						for _, val in ipairs(self.tradeLeaguesList) do
+							t_insert(tempLeagueTable, val)
+						end
+						self.tradeLeaguesList = copyTable(tempLeagueTable)
+					else
+						t_insert(self.tradeLeaguesList, league)
+					end
+				end
+			end
+			t_insert(self.tradeLeaguesList, "Standard")
+			t_insert(self.tradeLeaguesList, "Hardcore")
+			t_insert(self.tradeLeaguesList, "Ruthless")
+			t_insert(self.tradeLeaguesList, "Hardcore Ruthless")
+			controls[selectKey]:SetList(self.tradeLeaguesList)
+			if #self.tradeLeaguesList > 0 then
+				controls[selectKey]:SetSel(1)
+				self.timelessJewelLeagueSelect = self.tradeLeaguesList[1]
+			end
+		end)
 	end
+end
+
+function TreeTabClass:FormatTimelessSearchValue(input)
+	local matchPattern1 = " 0"
+	local replacePattern1 = "   "
+	local matchPattern2 = ".0 "
+	local replacePattern2 = "    "
+	local matchPattern3 = "  %."
+	local replacePattern3 = "0."
+	local matchPattern4 = "%.([0-9])0"
+	local replacePattern4 = ".%1  "
+	return (" " .. s_format("%006.2f", input))
+		:gsub(matchPattern1, replacePattern1):gsub(matchPattern1, replacePattern1)
+		:gsub(matchPattern2, replacePattern2):gsub(matchPattern2, replacePattern2)
+		:gsub(matchPattern3, replacePattern3)
+		:gsub(matchPattern4, replacePattern4)
+end
+
+function TreeTabClass:FormatTimelessSearchResults(resultNodes, seedWeights, desiredNodes, socketInfo, jewelTypeId, totalMinimumWeight)
+	local results = { }
+	for seedMatch, seedData in pairs(resultNodes) do
+		local passesMin = (not totalMinimumWeight) or (seedWeights[seedMatch] >= totalMinimumWeight)
+		if seedWeights[seedMatch] > 0 and passesMin then
+			local socketLabel = socketInfo and (socketInfo.label or socketInfo.keystone or (socketInfo.id and tostring(socketInfo.id))) or nil
+			local labelPrefix = socketLabel and (socketLabel .. " | ") or ""
+			local result = {
+				label = labelPrefix .. seedMatch .. ":",
+				seed = seedMatch,
+				total = seedWeights[seedMatch],
+			}
+			if socketInfo then
+				result.socketId = socketInfo.id
+				result.socketLabel = socketLabel
+			end
+			if jewelTypeId == 1 or jewelTypeId == 3 then
+				if seedMatch < 1000 then
+					result.label = "  " .. result.label
+				end
+			elseif jewelTypeId == 4 then
+				if seedMatch < 10000 then
+					result.label = "  " .. result.label
+				end
+			else
+				if seedMatch < 10000 then
+					result.label = "    " .. result.label
+				elseif seedMatch < 100000 then
+					result.label = "  " .. result.label
+				end
+			end
+			result.readableNodes = { }
+			local sortedNodeArray = { }
+			for legionId, desiredNode in pairs(desiredNodes) do
+				if seedData[legionId] then
+					if desiredNode.desiredIdx == 8 then
+						sortedNodeArray[8] = " ..."
+					elseif desiredNode.desiredIdx < 8 then
+						sortedNodeArray[desiredNode.desiredIdx] = self:FormatTimelessSearchValue(seedData[legionId].totalWeight)
+					end
+					result[legionId] = result[legionId] or { }
+					result[legionId].targetNodeNames = seedData[legionId].targetNodeNames
+					result[legionId].totalWeight = seedData[legionId].totalWeight
+					t_insert(result.readableNodes, {
+						desiredIdx = desiredNode.desiredIdx,
+						displayName = desiredNode.displayName,
+						descriptions = desiredNode.descriptions,
+						targetNodeNames = seedData[legionId].targetNodeNames,
+						totalWeight = seedData[legionId].totalWeight,
+					})
+				elseif desiredNode.desiredIdx < 8 then
+					sortedNodeArray[desiredNode.desiredIdx] = "     0     "
+				end
+			end
+			t_sort(result.readableNodes, function(a, b)
+				return a.desiredIdx < b.desiredIdx
+			end)
+			result.label = result.label .. t_concat(sortedNodeArray)
+			t_insert(results, result)
+		end
+	end
+	return results
+end
+
+function TreeTabClass:ApplyTimelessFinderSearchResults(timelessState, controls, jewelSockets, searchSingleSocket, sharedResultsSetup)
+	wipeTable(timelessState.searchResults)
+	wipeTable(timelessState.sharedResults)
+	local selectedSocket = timelessState.jewelSocket
+	if selectedSocket.id == -1 then
+		sharedResultsSetup(timelessState.sharedResults, true)
+		for socketIdx = 2, #jewelSockets do
+			local currentSocket = jewelSockets[socketIdx]
+			local searchResult = searchSingleSocket(currentSocket.id, currentSocket)
+			if searchResult then
+				timelessState.sharedResults.desiredNodes = searchResult.desiredNodes
+				for _, result in ipairs(searchResult.results) do
+					t_insert(timelessState.searchResults, result)
+				end
+			end
+		end
+		t_sort(timelessState.searchResults, function(a, b)
+			if a.total == b.total then
+				return (a.socketLabel or "") < (b.socketLabel or "")
+			end
+			return a.total > b.total
+		end)
+	else
+		sharedResultsSetup(timelessState.sharedResults, false)
+		local searchResult = searchSingleSocket(selectedSocket.id, selectedSocket)
+		if searchResult then
+			timelessState.sharedResults.desiredNodes = searchResult.desiredNodes
+			for _, result in ipairs(searchResult.results) do
+				t_insert(timelessState.searchResults, result)
+			end
+			t_sort(timelessState.searchResults, function(a, b) return a.total > b.total end)
+		end
+	end
+	controls.searchTradeButton.enabled = timelessState.searchResults and #timelessState.searchResults > 0
+	controls.searchTradeButton.lastSearch = nil
+	controls.searchTradeButton.label = "Copy Trade URL"
+	controls.searchResults.highlightIndex = nil
+	controls.searchResults.selIndex = #timelessState.searchResults > 0 and 1 or nil
+end
+
+function TreeTabClass:CopyTimelessTradeURL(controls, timelessState, jewelTypeId, opts)
+	opts = opts or { }
+	local seedTrades = { }
+	local startRow = controls.searchResults.selIndex or 1
+	local conquerorId = timelessState.sharedResults.conqueror and timelessState.sharedResults.conqueror.id or 1
+	local endRow = startRow + m_floor(10 / ((conquerorId == 1) and 3 or 1))
+	if controls.searchResults.highlightIndex then
+		startRow = m_min(controls.searchResults.selIndex, controls.searchResults.highlightIndex)
+		endRow = m_max(controls.searchResults.selIndex, controls.searchResults.highlightIndex)
+	end
+
+	local seedCount = m_min(#timelessState.searchResults - startRow, endRow - startRow) + 1
+	local prevSearch = controls.searchTradeButton.lastSearch
+	if prevSearch and prevSearch[1] == startRow and prevSearch[2] == seedCount then
+		startRow = endRow + 1
+		if startRow > #timelessState.searchResults then
+			return
+		end
+		seedCount = m_min(#timelessState.searchResults - startRow + 1, seedCount)
+		endRow = startRow + seedCount - 1
+	end
+	controls.searchResults.selIndex = startRow
+	controls.searchResults.highlightIndex = endRow
+	controls.searchTradeButton.lastSearch = { startRow, seedCount }
+
+	local conquerorKeystoneTradeIds = data.timelessJewelTradeIDs[jewelTypeId].keystone
+	local conquerorTradeIds = { conquerorKeystoneTradeIds[1], conquerorKeystoneTradeIds[2], conquerorKeystoneTradeIds[3] }
+	if conquerorId > 1 then
+		conquerorTradeIds = { conquerorKeystoneTradeIds[conquerorId - 1] }
+	end
+
+	for i = startRow, startRow + seedCount - 1 do
+		local result = timelessState.searchResults[i]
+		for _, tradeId in ipairs(conquerorTradeIds) do
+			t_insert(seedTrades, {
+				id = tradeId,
+				value = {
+					min = result.seed,
+					max = result.seed,
+				},
+			})
+		end
+	end
+
+	local search = {
+		query = {
+			status = {
+				option = opts.status or "available",
+			},
+			stats = {
+				{
+					filters = seedTrades,
+					type = "count",
+					value = {
+						min = 1,
+					},
+				},
+			},
+		},
+		sort = {
+			price = "asc",
+		},
+	}
+
+	if opts.devotionVariants and data.timelessJewelTradeIDs[jewelTypeId].devotion ~= nil then
+		local devotionFilters = { }
+		if opts.devotionVariants[1] and opts.devotionVariants[1].id > 1 then
+			t_insert(devotionFilters, { id = data.timelessJewelTradeIDs[jewelTypeId].devotion[opts.devotionVariants[1].id - 1] })
+		end
+		if opts.devotionVariants[2] and opts.devotionVariants[2].id > 1 then
+			t_insert(devotionFilters, { id = data.timelessJewelTradeIDs[jewelTypeId].devotion[opts.devotionVariants[2].id - 1] })
+		end
+		if next(devotionFilters) then
+			t_insert(search.query.stats, {
+				filters = devotionFilters,
+				type = "and",
+			})
+		end
+	end
+
+	self.timelessJewelLeagueSelect = self.timelessJewelLeagueSelect or (self.tradeLeaguesList and #self.tradeLeaguesList > 0 and self.tradeLeaguesList[1]) or ""
+	Copy("https://www.pathofexile.com/trade/search/" .. self.timelessJewelLeagueSelect .. (opts.trailingSlash and "/" or "") .. "?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
+		return s_format("%%%02X", s_byte(a))
+	end)))
+	controls.searchTradeButton.label = "Copy Next Trade URL"
+end
+
+function TreeTabClass:OpenAdvancedTimelessJewelFinder()
+	local socketViewer = new("PassiveTreeView")
+	local treeData = self.build.spec.tree
+	local legionNodes = treeData.legion.nodes
+	local legionAdditions = treeData.legion.additions
+	local timelessData = self.build.timelessData
+	local timelessStatic = self:GetTimelessFinderStaticData()
+	local controls = { }
+	local modData = { }
+	local ignoredMods = timelessStatic.ignoredMods
+	local totalMods = timelessStatic.totalMods
+	local totalModIDs = timelessStatic.totalModIDs
+	local reverseTotalModIDs = timelessStatic.reverseTotalModIDs
+	local jewelTypes = timelessStatic.jewelTypes
+	local conquerorTypes = timelessStatic.conquerorTypes
+	local devotionVariants = timelessStatic.devotionVariants
+	self:RestoreTimelessFinderSelection(timelessData, timelessStatic, false)
+	local jewelSockets
+	jewelSockets, timelessData.jewelSocket = self:BuildTimelessJewelSockets(treeData, timelessData.jewelSocket)
 
 	local function buildMods()
 		wipeTable(modData)
@@ -2049,135 +2694,16 @@ function TreeTabClass:FindTimelessJewel()
 	controls.searchTradeLeagueSelect = new("DropDownControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, { -175, -5, 140, 20 }, nil, function(_, value)
 		self.timelessJewelLeagueSelect = value
 	end)
-	self.tradeQueryRequests = new("TradeQueryRequests")
-	controls.msg = new("LabelControl", nil, { -280, 5, 0, 16 }, "")
-	if #self.tradeLeaguesList > 0 then
-		controls.searchTradeLeagueSelect:SetList(self.tradeLeaguesList)
-		-- restore the last league selected
-		for i, league in ipairs(self.tradeLeaguesList) do
-			if league == self.timelessJewelLeagueSelect then
-				controls.searchTradeLeagueSelect:SetSel(i)
-				break
-			end
-		end
-	else
-		self.tradeQueryRequests:FetchLeagues("pc", function(leagues, errMsg)
-			if errMsg then
-				controls.msg.label = "^1Error fetching league list, default league will be used\n"..errMsg.."^7"
-				return
-			end
-			local tempLeagueTable = { }
-			for _, league in ipairs(leagues) do
-				if league ~= "Standard" and  league ~= "Ruthless" and league ~= "Hardcore" and league ~= "Hardcore Ruthless" then
-					if not (league:find("Hardcore") or league:find("Ruthless")) then
-						-- set the dynamic, base league name to index 1 to sync league shown in dropdown on load with default/old behavior of copy trade url
-						t_insert(tempLeagueTable, league)
-						for _, val in ipairs(self.tradeLeaguesList) do
-							t_insert(tempLeagueTable, val)
-						end
-						self.tradeLeaguesList = copyTable(tempLeagueTable)
-					else
-						t_insert(self.tradeLeaguesList, league)
-					end
-				end
-			end
-			t_insert(self.tradeLeaguesList, "Standard")
-			t_insert(self.tradeLeaguesList, "Hardcore")
-			t_insert(self.tradeLeaguesList, "Ruthless")
-			t_insert(self.tradeLeaguesList, "Hardcore Ruthless")
-			controls.searchTradeLeagueSelect:SetList(self.tradeLeaguesList)
-		end)
-	end
+	self:InitTimelessTradeLeagueControls(controls, "searchTradeLeagueSelect", "msg")
 	controls.searchTradeButton = new("ButtonControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, { 0, -5, 170, 20 }, "Copy Trade URL", function()
-		local seedTrades = {}
-		local startRow = controls.searchResults.selIndex or 1
-		local endRow = startRow + m_floor(10 / ((timelessData.sharedResults.conqueror.id == 1) and 3 or 1))
-		if controls.searchResults.highlightIndex then
-			startRow = m_min(controls.searchResults.selIndex, controls.searchResults.highlightIndex)
-			endRow = m_max(controls.searchResults.selIndex, controls.searchResults.highlightIndex)
-		end
-
-		local seedCount = m_min(#timelessData.searchResults - startRow, endRow - startRow) + 1
-		-- update if not highlighted already
-
-		local prevSearch = controls.searchTradeButton.lastSearch
-		if prevSearch and prevSearch[1] == startRow and prevSearch[2] == seedCount then
-			startRow = endRow + 1
-			if (startRow > #timelessData.searchResults) then
-				return
-			end
-			seedCount = m_min(#timelessData.searchResults - startRow + 1, seedCount)
-			endRow = startRow + seedCount - 1
-		end
-		controls.searchResults.selIndex = startRow
-		controls.searchResults.highlightIndex = endRow
-
-		controls.searchTradeButton.lastSearch = {startRow, seedCount}
-
-		for i = startRow, startRow + seedCount - 1 do
-			local result = timelessData.searchResults[i]
-
-			local conquerorKeystoneTradeIds = data.timelessJewelTradeIDs[timelessData.jewelType.id].keystone
-			local conquerorTradeIds = { conquerorKeystoneTradeIds[1], conquerorKeystoneTradeIds[2], conquerorKeystoneTradeIds[3] }
-			if timelessData.sharedResults.conqueror.id > 1 then
-				conquerorTradeIds = { conquerorKeystoneTradeIds[timelessData.sharedResults.conqueror.id - 1] }
-			end
-
-			for _, tradeId in ipairs(conquerorTradeIds) do
-				t_insert(seedTrades, {
-					id = tradeId,
-					value = {
-						min = result.seed,
-						max = result.seed
-					}
-				})
-			end
-		end
-
-		local search = {
-			query = {
-				status = {
-					option = "available"
-				},
-				stats = {
-					{
-						filters = seedTrades,
-						type = "count",
-						value = {
-							min = 1
-						}
-					}
-				}
+		self:CopyTimelessTradeURL(controls, timelessData, timelessData.jewelType.id, {
+			status = "available",
+			trailingSlash = true,
+			devotionVariants = {
+				timelessData.sharedResults.devotionVariant1,
+				timelessData.sharedResults.devotionVariant2,
 			},
-			sort = {
-				price = "asc"
-			}
-		}
-
-		if data.timelessJewelTradeIDs[timelessData.jewelType.id].devotion ~= nil then
-			local devotionFilters = {}
-			if timelessData.sharedResults.devotionVariant1.id > 1 then
-				t_insert(devotionFilters, { id = data.timelessJewelTradeIDs[timelessData.jewelType.id].devotion[timelessData.sharedResults.devotionVariant1.id - 1] })
-			end
-			if timelessData.sharedResults.devotionVariant2.id > 1 then
-				t_insert(devotionFilters, { id = data.timelessJewelTradeIDs[timelessData.jewelType.id].devotion[timelessData.sharedResults.devotionVariant2.id - 1] })
-			end
-			if next(devotionFilters) then
-				t_insert(search.query.stats, {
-					filters = devotionFilters,
-					type = "and"
-				})
-			end
-		end
-
-		-- if the league was not selected via dropdown, then default to the first league in the dropdown or "" if the leagues could not be read
-		self.timelessJewelLeagueSelect = self.timelessJewelLeagueSelect or (self.tradeLeaguesList and #self.tradeLeaguesList > 0 and self.tradeLeaguesList[1]) or ""
-
-		Copy("https://www.pathofexile.com/trade/search/"..(self.timelessJewelLeagueSelect).."/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
-			return s_format("%%%02X", s_byte(a))
-		end)))
-
-		controls.searchTradeButton.label = "Copy Next Trade URL"
+		})
 	end)
 	controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0
 	controls.searchTradeButton.tooltipFunc = function(tooltip, mode, index, value)
@@ -2439,142 +2965,31 @@ function TreeTabClass:FindTimelessJewel()
 		}
 	end
 
-	local function formatSearchValue(input)
-		local   matchPattern1 = " 0"
-		local replacePattern1 = "   "
-		local   matchPattern2 = ".0 "
-		local replacePattern2 = "    "
-		local   matchPattern3 = "  %."
-		local replacePattern3 = "0."
-		local   matchPattern4 = "%.([0-9])0"
-		local replacePattern4 = ".%1  "
-		return (" " .. s_format("%006.2f", input))
-		:gsub(matchPattern1, replacePattern1):gsub(matchPattern1, replacePattern1)
-		:gsub(matchPattern2, replacePattern2):gsub(matchPattern2, replacePattern2)
-		:gsub(matchPattern3, replacePattern3)
-		:gsub(matchPattern4, replacePattern4)
-	end
-
 	local function formatResults(resultNodes, seedWeights, desiredNodes, socketInfo)
-		local results = { }
-		for seedMatch, seedData in pairs(resultNodes) do
-			-- filter out the results so that only the ones that beat the total minimum weight parameter remain in search results
-			local passesMin = (not timelessData.totalMinimumWeight) or (seedWeights[seedMatch] >= timelessData.totalMinimumWeight)
-			if seedWeights[seedMatch] > 0 and passesMin then
-				local labelPrefix = socketInfo and (socketInfo.label .. " | ") or ""
-				local result = { 
-					label = labelPrefix .. seedMatch .. ":",
-					seed = seedMatch,
-					total = seedWeights[seedMatch]
-				}
-				if socketInfo then
-					result.socketId = socketInfo.id
-					result.socketLabel = socketInfo.label
-				end
-				if timelessData.jewelType.id == 1 or timelessData.jewelType.id == 3 then
-					-- Glorious Vanity [100-8000], Brutal Restraint [500-8000]
-					if seedMatch < 1000 then
-						result.label = "  " .. result.label
-					end
-				elseif timelessData.jewelType.id == 4 then
-					-- Militant Faith [2000-10000]
-					if seedMatch < 10000 then
-						result.label = "  " .. result.label
-					end
-				else
-					-- Elegant Hubris [2000-160000]
-					if seedMatch < 10000 then
-						result.label = "    " .. result.label
-					elseif seedMatch < 100000 then
-						result.label = "  " .. result.label
-					end
-				end
-				local sortedNodeArray = { }
-				for legionId, desiredNode in pairs(desiredNodes) do
-					if seedData[legionId] then
-						if desiredNode.desiredIdx == 8 then
-							sortedNodeArray[8] = " ..."
-						elseif desiredNode.desiredIdx < 8 then
-							sortedNodeArray[desiredNode.desiredIdx] = formatSearchValue(seedData[legionId].totalWeight)
-						end
-						result[legionId] = result[legionId] or { }
-						result[legionId].targetNodeNames = seedData[legionId].targetNodeNames
-					elseif desiredNode.desiredIdx < 8 then
-						sortedNodeArray[desiredNode.desiredIdx] = "     0     "
-					end
-				end
-				result.label = result.label .. t_concat(sortedNodeArray)
-				t_insert(results, result)
-			end
-		end
-		return results
+		return self:FormatTimelessSearchResults(resultNodes, seedWeights, desiredNodes, socketInfo, timelessData.jewelType.id, timelessData.totalMinimumWeight)
 	end
 
 	controls.searchButton = new("ButtonControl", nil, {buttonX, 485, width, 20}, "Search", function()
-		if timelessData.jewelSocket.id == -1 then
-			wipeTable(timelessData.searchResults)
-			wipeTable(timelessData.sharedResults)
-			timelessData.sharedResults.type = timelessData.jewelType
-			timelessData.sharedResults.conqueror = timelessData.conquerorType
-			timelessData.sharedResults.devotionVariant1 = devotionVariants[timelessData.devotionVariant1]
-			timelessData.sharedResults.devotionVariant2 = devotionVariants[timelessData.devotionVariant2]
-			timelessData.sharedResults.multiSocket = true
-			
-			for socketIdx = 2, #jewelSockets do
-				local currentSocket = jewelSockets[socketIdx]
-				local searchResult = searchSingleSocket(currentSocket.id, currentSocket)
-				if searchResult then
-					local resultNodes = searchResult.resultNodes
-					local seedWeights = searchResult.seedWeights
-					local desiredNodes = searchResult.desiredNodes
-					
-					timelessData.sharedResults.desiredNodes = desiredNodes
-					
-					for _, result in ipairs(formatResults(resultNodes, seedWeights, desiredNodes, currentSocket)) do
-						timelessData.searchResults[#timelessData.searchResults + 1] = result
-					end
-				end
+		self:ApplyTimelessFinderSearchResults(timelessData, controls, jewelSockets, function(socketId, socketInfo)
+			local searchResult = searchSingleSocket(socketId, socketInfo)
+			if not searchResult then
+				return nil
 			end
-			
-			t_sort(timelessData.searchResults, function(a, b) 
-				if a.total == b.total then
-					return (a.socketLabel or "") < (b.socketLabel or "")
-				end
-				return a.total > b.total 
-			end)
-			
-			controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0
-			controls.searchTradeButton.lastSearch = nil
-			controls.searchTradeButton.label = "Copy Trade URL"
-			controls.searchResults.highlightIndex = nil
-			controls.searchResults.selIndex = 1
-		else
-			local searchResult = searchSingleSocket(timelessData.jewelSocket.id, timelessData.jewelSocket)
-			if searchResult then
-				local resultNodes = searchResult.resultNodes
-				local seedWeights = searchResult.seedWeights
-				local desiredNodes = searchResult.desiredNodes
-				
-				wipeTable(timelessData.searchResults)
-				wipeTable(timelessData.sharedResults)
-				timelessData.sharedResults.type = timelessData.jewelType
-				timelessData.sharedResults.conqueror = timelessData.conquerorType
-				timelessData.sharedResults.devotionVariant1 = devotionVariants[timelessData.devotionVariant1]
-				timelessData.sharedResults.devotionVariant2 = devotionVariants[timelessData.devotionVariant2]
-				timelessData.sharedResults.socket = timelessData.jewelSocket
-				timelessData.sharedResults.desiredNodes = desiredNodes
-				
-				for _, result in ipairs(formatResults(resultNodes, seedWeights, desiredNodes, nil)) do
-					timelessData.searchResults[#timelessData.searchResults + 1] = result
-				end
-				t_sort(timelessData.searchResults, function(a, b) return a.total > b.total end)
-				controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0
-				controls.searchTradeButton.lastSearch = nil
-				controls.searchTradeButton.label = "Copy Trade URL"
-				controls.searchResults.highlightIndex = nil
-				controls.searchResults.selIndex = 1
+			return {
+				desiredNodes = searchResult.desiredNodes,
+				results = formatResults(searchResult.resultNodes, searchResult.seedWeights, searchResult.desiredNodes, timelessData.jewelSocket.id == -1 and socketInfo or nil),
+			}
+		end, function(sharedResults, isMultiSocket)
+			sharedResults.type = timelessData.jewelType
+			sharedResults.conqueror = timelessData.conquerorType
+			sharedResults.devotionVariant1 = devotionVariants[timelessData.devotionVariant1]
+			sharedResults.devotionVariant2 = devotionVariants[timelessData.devotionVariant2]
+			if isMultiSocket then
+				sharedResults.multiSocket = true
+			else
+				sharedResults.socket = timelessData.jewelSocket
 			end
-		end
+		end)
 	end)
 	controls.resetButton = new("ButtonControl", nil, {buttonX + (width + divider), 485, width, 20}, "Reset", function()
 		updateSearchList("", true)
@@ -2587,5 +3002,899 @@ function TreeTabClass:FindTimelessJewel()
 		main:ClosePopup()
 	end)
 
-	main:OpenPopup(910, 517, "Find a Timeless Jewel", controls)
+	main:OpenPopup(910, 517, "Find a Timeless Jewel (Advanced)", controls)
+end
+
+function TreeTabClass:OpenTimelessJewelFinderPopup()
+	local socketViewer = new("PassiveTreeView")
+	local treeData = self.build.spec.tree
+	local legionNodes = treeData.legion.nodes
+	local legionAdditions = treeData.legion.additions
+	local timelessData = self.build.timelessData
+	local timelessStatic = self:GetTimelessFinderStaticData()
+	local layout = self:GetTimelessFinderLayout()
+	local timelessFinderData = timelessData.finder or timelessData.simplified or self:GetDefaultTimelessFinderData()
+	timelessData.finder = timelessFinderData
+	timelessData.simplified = nil
+
+	local controls = { }
+	local selectedRows = { }
+	local modData
+	local modById
+	local ignoredMods = timelessStatic.ignoredMods
+	local totalMods = timelessStatic.totalMods
+	local totalModIDs = timelessStatic.totalModIDs
+	local reverseTotalModIDs = timelessStatic.reverseTotalModIDs
+	local devotionVariantMods = timelessStatic.devotionVariantMods
+	local jewelTypes = timelessStatic.jewelTypes
+	local conquerorTypes = timelessStatic.conquerorTypes
+	local powerTypes = timelessStatic.powerTypes
+
+	-- Restore saved finder state against the current static data.
+	self:RestoreTimelessFinderSelection(timelessFinderData, timelessStatic, true)
+	timelessFinderData.selectedStats = timelessFinderData.selectedStats or { }
+	timelessFinderData.searchFilter = timelessFinderData.searchFilter or ""
+	timelessFinderData.nodeFilters = timelessFinderData.nodeFilters or { allocatedOnly = true, notables = false, smallPassives = false }
+	timelessFinderData.totalMinimumWeight = tonumber(timelessFinderData.totalMinimumWeight) or 0
+	self:ResetTimelessFinderResults(controls, timelessData)
+
+	local jewelSockets
+	jewelSockets, timelessFinderData.jewelSocket = self:BuildTimelessJewelSockets(treeData, timelessFinderData.jewelSocket)
+
+	local function buildMods()
+		modData, modById = self:BuildTimelessFinderModData(legionNodes, legionAdditions, timelessFinderData.jewelType, ignoredMods, totalMods, devotionVariantMods)
+		for _, row in ipairs(timelessFinderData.selectedStats) do
+			local entry = modById[row.id]
+			if entry then
+				row.label = entry.label
+				row.descriptions = copyTable(entry.descriptions)
+				row.type = entry.type
+				row.totalMod = entry.totalMod
+				row.devotionVariantId = entry.devotionVariantId
+				row.supportsWeight2 = self:TimelessFinderEntrySupportsSecondaryWeight(entry)
+				row.weight2 = row.weight2 or row.weight or 0
+			end
+		end
+	end
+
+	-- Keep the add-node dropdown in sync with the selected jewel type.
+	local function updateAvailableStatList()
+		if not controls.availableStatSelect then
+			return
+		end
+		local selectedId = controls.availableStatSelect:GetSelValue() and controls.availableStatSelect:GetSelValue().id
+		controls.availableStatSelect:SetList(copyTable(modData, true))
+		controls.availableStatSelect.selIndex = 1
+		if selectedId then
+			for idx, entry in ipairs(controls.availableStatSelect.list) do
+				if entry.id == selectedId then
+					controls.availableStatSelect.selIndex = idx
+					break
+				end
+			end
+		end
+		controls.availableStatSelect:CheckDroppedWidth(true)
+	end
+
+	local maxVisibleRows = layout.stats.maxRows
+
+	local function hasSearchableSelectedStats()
+		return self:HasSearchableTimelessFinderStats(timelessFinderData.selectedStats)
+	end
+
+	local function getSelectedDevotionRowCount()
+		local count = 0
+		for _, row in ipairs(timelessFinderData.selectedStats) do
+			if row.devotionVariantId then
+				count = count + 1
+			end
+		end
+		return count
+	end
+
+	local function isSelectedStat(entry)
+		if not entry or not entry.id then
+			return false
+		end
+		for _, row in ipairs(timelessFinderData.selectedStats) do
+			if row.id == entry.id then
+				return true
+			end
+		end
+		return false
+	end
+
+	local function selectedEntryWouldExceedDevotionLimit(entry)
+		return entry and entry.devotionVariantId and not isSelectedStat(entry) and getSelectedDevotionRowCount() >= 2
+	end
+
+	local function refreshSelectedList()
+		for idx = 1, maxVisibleRows do
+			local row = timelessFinderData.selectedStats[idx]
+			local rowControls = selectedRows[idx]
+			if row and rowControls then
+				rowControls.weight:SetText(s_format("%.2f", row.weight or 0))
+				rowControls.weight2:SetText(row.supportsWeight2 and s_format("%.2f", row.weight2 or row.weight or 0) or "")
+				rowControls.min:SetText(s_format("%.2f", row.min or 0))
+			end
+		end
+	end
+
+	local resetSearchResults
+	local invalidateSearchResults
+
+	local function clearSelectedStats()
+		wipeTable(timelessFinderData.selectedStats)
+		refreshSelectedList()
+		resetSearchResults()
+		self.build.modFlag = true
+	end
+
+	resetSearchResults = function()
+		self:ResetTimelessFinderResults(controls, timelessData)
+	end
+
+	invalidateSearchResults = function()
+		resetSearchResults()
+	end
+
+	local function addSelectedStat(entry, weight, minValue, weight2)
+		if not entry or not entry.id then
+			return
+		end
+		for idx, row in ipairs(timelessFinderData.selectedStats) do
+			if row.id == entry.id then
+				refreshSelectedList()
+				return
+			end
+		end
+		if entry.devotionVariantId and getSelectedDevotionRowCount() >= 2 then
+			return
+		end
+		local row = {
+			id = entry.id,
+			label = entry.label,
+			descriptions = copyTable(entry.descriptions),
+			type = entry.type,
+			totalMod = entry.totalMod,
+			devotionVariantId = entry.devotionVariantId,
+			supportsWeight2 = self:TimelessFinderEntrySupportsSecondaryWeight(entry),
+			weight = weight or 1,
+			weight2 = weight2 or weight or 1,
+			min = minValue or 0,
+		}
+		t_insert(timelessFinderData.selectedStats, row)
+		refreshSelectedList()
+		invalidateSearchResults()
+		self.build.modFlag = true
+	end
+
+	local function generateFallbackWeights(nodes, selection)
+		local calcFunc = self.build.calcsTab:GetMiscCalculator()
+		if not calcFunc then
+			return { }
+		end
+		local newList = { }
+		local baseOutput = calcFunc()
+		if baseOutput.Minion then
+			baseOutput = baseOutput.Minion
+		end
+		local baseValue = baseOutput[selection.stat] or 1
+		if selection.transform then
+			baseValue = selection.transform(baseValue)
+		end
+		for _, newNode in ipairs(nodes) do
+			local output
+			if newNode.calcMultiple then
+				output = calcFunc({ addNodes = { [newNode.node[1]] = true } })
+			else
+				output = calcFunc({ addNodes = { [newNode] = true } })
+			end
+			if output.Minion then
+				output = output.Minion
+			end
+			local outputValue = output[selection.stat] or 0
+			if selection.transform then
+				outputValue = selection.transform(outputValue)
+			end
+			outputValue = outputValue / baseValue
+			if outputValue ~= outputValue then
+				outputValue = 1
+			end
+			t_insert(newList, {
+				id = newNode.id,
+				weight1 = (outputValue - 1) / (newNode.divisor or 1),
+			})
+			if newNode.calcMultiple then
+				output = calcFunc({ addNodes = { [newNode.node[2]] = true } })
+				if output.Minion then
+					output = output.Minion
+				end
+				outputValue = output[selection.stat] or 0
+				if selection.transform then
+					outputValue = selection.transform(outputValue)
+				end
+				outputValue = outputValue / baseValue
+				if outputValue ~= outputValue then
+					outputValue = 1
+				end
+				newList[#newList].weight2 = (outputValue - 1) / (newNode.divisor or 1)
+			end
+		end
+		return newList
+	end
+
+	local function replaceHelperFunc(statToFix, statKey, statMod, value)
+		if statMod.fmt == "g" then
+			if statKey:find("per_minute") then
+				value = round(value / 60, 1)
+			elseif statKey:find("permyriad") then
+				value = value / 100
+			elseif statKey:find("_ms") then
+				value = value / 1000
+			end
+		end
+		if statMod.min ~= statMod.max then
+			return statToFix:gsub("%(" .. statMod.min .. "%-" .. statMod.max .. "%)", value)
+		elseif statMod.min ~= value then
+			return statToFix:gsub(statMod.min, value)
+		end
+		return statToFix
+	end
+
+	local function generateSelectedStatsFromPower()
+		local nodes = { }
+		for _, modNode in ipairs(modData) do
+			if modNode.id then
+				local newNode
+				for _, legionNode in ipairs(legionNodes) do
+					if legionNode.id == modNode.id or (totalModIDs[modNode.id] and totalModIDs[modNode.id][legionNode.id]) then
+						newNode = { id = modNode.id }
+						if modNode.type == "vaal" then
+							if #legionNode.sd == 2 then
+								newNode.calcMultiple = true
+								if legionNode.modListGenerated then
+									newNode.node = copyTable(legionNode.modListGenerated)
+								else
+									local modList1 = modLib.parseMod(replaceHelperFunc(legionNode.sd[1], legionNode.sortedStats[1], legionNode.stats[legionNode.sortedStats[1]], 100))
+									local modList2 = modLib.parseMod(replaceHelperFunc(legionNode.sd[2], legionNode.sortedStats[2], legionNode.stats[legionNode.sortedStats[2]], 100))
+									local modLists = { { modList = modList1 }, { modList = modList2 } }
+									legionNode.modListGenerated = copyTable(modLists)
+									newNode.node = copyTable(modLists)
+								end
+								newNode.node[1].id = legionNode.id
+								newNode.node[2].id = legionNode.id
+							else
+								if legionNode.modListGenerated then
+									newNode.modList = copyTable(legionNode.modListGenerated)
+								else
+									local modList = modLib.parseMod(replaceHelperFunc(legionNode.sd[1], legionNode.sortedStats[1], legionNode.stats[legionNode.sortedStats[1]], 100))
+									legionNode.modListGenerated = modList
+									newNode.modList = modList
+								end
+							end
+							newNode.divisor = 100
+						else
+							newNode.modList = legionNode.modList
+							if modNode.totalMod then
+								newNode.divisor = legionNode.modList[1].value
+							end
+						end
+						break
+					end
+				end
+				if not newNode then
+					for _, legionAddition in ipairs(legionAdditions) do
+						if legionAddition.id == modNode.id or (totalModIDs[modNode.id] and totalModIDs[modNode.id][legionAddition.id]) then
+							newNode = { id = modNode.id }
+							if legionAddition.modList then
+								newNode.modList = legionAddition.modList
+							elseif legionAddition.modListGenerated then
+								newNode.modList = legionAddition.modListGenerated
+							else
+								local line = legionAddition.sd[1]
+								if modNode.type == "vaal" then
+									for key, stat in pairs(legionAddition.stats) do
+										line = replaceHelperFunc(line, key, stat, 100)
+									end
+								end
+								local modList = modLib.parseMod(line)
+								legionAddition.modListGenerated = modList
+								newNode.modList = modList
+							end
+							if modNode.type == "vaal" then
+								newNode.divisor = 100
+							elseif modNode.totalMod then
+								newNode.divisor = newNode.modList[1].value
+							end
+							break
+						end
+					end
+				end
+				if newNode then
+					t_insert(nodes, newNode)
+				end
+			end
+		end
+		local generated = generateFallbackWeights(nodes, controls.powerTypeSelect:GetSelValue())
+		local weightedRows = { }
+		wipeTable(timelessFinderData.selectedStats)
+		for _, weightedNode in ipairs(generated) do
+			local weight1 = round((weightedNode.weight1 or 0) * 100, 3)
+			local weight2 = round((weightedNode.weight2 or weightedNode.weight1 or 0) * 100, 3)
+			local weight = m_max(weight1, weight2)
+			if weight > 0 and modById[weightedNode.id] then
+				t_insert(weightedRows, {
+					entry = modById[weightedNode.id],
+					weight = weight,
+					weight2 = weight2,
+				})
+			end
+		end
+		t_sort(weightedRows, function(a, b)
+			if a.weight == b.weight then
+				return a.entry.label < b.entry.label
+			end
+			return a.weight > b.weight
+		end)
+		for idx = 1, m_min(#weightedRows, maxVisibleRows) do
+			local row = weightedRows[idx]
+			addSelectedStat(row.entry, row.weight, 0, row.weight2)
+		end
+		refreshSelectedList()
+	end
+
+	local function buildDesiredNodes()
+		local desiredNodes = { }
+		local minimumWeights = { }
+		local desiredIdx = 0
+		for _, row in ipairs(timelessFinderData.selectedStats) do
+			if not row.devotionVariantId then
+				desiredIdx = desiredIdx + 1
+				local rowId = row.totalMod and "totalStat" or row.id
+				desiredNodes[rowId] = {
+					nodeWeight = row.weight or 0,
+					nodeWeight2 = row.weight2 or row.weight or 0,
+					displayName = row.label,
+					descriptions = row.descriptions,
+					desiredIdx = desiredIdx,
+				}
+				if (row.min or 0) > 0 then
+					t_insert(minimumWeights, { reqNode = rowId, weight = row.min })
+				end
+			end
+		end
+		return desiredNodes, minimumWeights
+	end
+
+	local function searchSingleSocket(socketId, socketInfo)
+		if not treeData.nodes[socketId] or not treeData.nodes[socketId].isJewelSocket then
+			return nil
+		end
+		local desiredNodes, minimumWeights = buildDesiredNodes()
+		if not next(desiredNodes) then
+			return nil
+		end
+
+		local radiusNodes = treeData.nodes[socketId].nodesInRadius[3]
+		local allocatedNodes = { }
+		local targetNodes = { }
+		local targetSmallNodes = { attributeSmalls = 0, otherSmalls = 0 }
+		local resultNodes = { }
+		local rootNodes = { }
+
+		for _, class in pairs(treeData.classes) do
+			rootNodes[class.startNodeId] = true
+		end
+
+		for nodeId in pairs(radiusNodes) do
+			allocatedNodes[nodeId] = self.build.calcsTab.mainEnv.grantedPassives[nodeId] ~= nil or self.build.spec.allocNodes[nodeId] ~= nil
+		end
+
+		for nodeId in pairs(radiusNodes) do
+			local node = treeData.nodes[nodeId]
+			local isMastery = node.masteryEffects and next(node.masteryEffects) ~= nil
+			local isSmallPassive = not node.isNotable and not node.isJewelSocket and not node.isKeystone and not rootNodes[nodeId] and not isMastery
+			local includeNode = false
+			if not rootNodes[nodeId] and not node.isJewelSocket and not node.isKeystone and not isMastery then
+				if timelessFinderData.nodeFilters.allocatedOnly and allocatedNodes[nodeId] then
+					includeNode = true
+				end
+				if timelessFinderData.nodeFilters.notables and node.isNotable then
+					includeNode = true
+				end
+				if timelessFinderData.nodeFilters.smallPassives and isSmallPassive then
+					includeNode = true
+				end
+			end
+
+			if includeNode then
+				if node.isNotable then
+					targetNodes[nodeId] = true
+				elseif isSmallPassive then
+					targetNodes[nodeId] = true
+					if desiredNodes["totalStat"] then
+						if isValueInArray({ "Strength", "Intelligence", "Dexterity" }, node.dn) then
+							targetSmallNodes.attributeSmalls = targetSmallNodes.attributeSmalls + 1
+						else
+							targetSmallNodes.otherSmalls = targetSmallNodes.otherSmalls + 1
+						end
+					end
+				elseif timelessFinderData.jewelType.id == 1 then
+					targetNodes[nodeId] = true
+				elseif desiredNodes["totalStat"] then
+					if isValueInArray({ "Strength", "Intelligence", "Dexterity" }, node.dn) then
+						targetSmallNodes.attributeSmalls = targetSmallNodes.attributeSmalls + 1
+					else
+						targetSmallNodes.otherSmalls = targetSmallNodes.otherSmalls + 1
+					end
+				end
+			end
+		end
+
+		local seedWeights = { }
+		local seedMultiplier = timelessFinderData.jewelType.id == 5 and 20 or 1
+		for curSeed = data.timelessJewelSeedMin[timelessFinderData.jewelType.id] * seedMultiplier, data.timelessJewelSeedMax[timelessFinderData.jewelType.id] * seedMultiplier, seedMultiplier do
+			local invalidSeed = false
+			seedWeights[curSeed] = 0
+			resultNodes[curSeed] = { }
+			for targetNode in pairs(targetNodes) do
+				local jewelDataTbl = data.readLUT(curSeed, targetNode, timelessFinderData.jewelType.id)
+				if not next(jewelDataTbl) then
+					ConPrintf("Missing LUT: " .. timelessFinderData.jewelType.label)
+				else
+					local curNode
+					local curNodeId
+					if jewelDataTbl[1] >= data.timelessJewelAdditions then
+						curNode = legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions]
+						curNodeId = curNode and curNode.id or nil
+					else
+						curNode = legionAdditions[jewelDataTbl[1] + 1]
+						curNodeId = curNode and curNode.id or nil
+					end
+					local isCountedSmallTotal = desiredNodes["totalStat"] and reverseTotalModIDs[curNodeId] and not treeData.nodes[targetNode].isNotable
+					if desiredNodes["totalStat"] and reverseTotalModIDs[curNodeId] and not isCountedSmallTotal then
+						curNodeId = "totalStat"
+					end
+					if timelessFinderData.jewelType.id == 1 then
+						local headerSize = #jewelDataTbl
+						if headerSize == 2 or headerSize == 3 then
+							if desiredNodes[curNodeId] then
+								resultNodes[curSeed][curNodeId] = resultNodes[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
+								local statMod1 = curNode.stats[curNode.sortedStats[1]]
+								local weight = desiredNodes[curNodeId].nodeWeight * jewelDataTbl[statMod1.index + 1]
+								local statMod2 = curNode.stats[curNode.sortedStats[2]]
+								if statMod2 then
+									weight = weight + desiredNodes[curNodeId].nodeWeight2 * jewelDataTbl[statMod2.index + 1]
+								end
+								t_insert(resultNodes[curSeed][curNodeId], targetNode)
+								t_insert(resultNodes[curSeed][curNodeId].targetNodeNames, treeData.nodes[targetNode].name)
+								resultNodes[curSeed][curNodeId].totalWeight = resultNodes[curSeed][curNodeId].totalWeight + weight
+								seedWeights[curSeed] = seedWeights[curSeed] + weight
+							end
+						elseif headerSize == 6 or headerSize == 8 then
+							for i = 1, headerSize / 2 do
+								curNode = legionAdditions[jewelDataTbl[i] + 1]
+								curNodeId = curNode and curNode.id or nil
+								if desiredNodes[curNodeId] then
+									resultNodes[curSeed][curNodeId] = resultNodes[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
+									local weight = desiredNodes[curNodeId].nodeWeight * jewelDataTbl[i + (headerSize / 2)]
+									resultNodes[curSeed][curNodeId].totalWeight = resultNodes[curSeed][curNodeId].totalWeight + weight
+									t_insert(resultNodes[curSeed][curNodeId], targetNode)
+									t_insert(resultNodes[curSeed][curNodeId].targetNodeNames, treeData.nodes[targetNode].name)
+									seedWeights[curSeed] = seedWeights[curSeed] + weight
+								end
+							end
+							if invalidSeed then
+								break
+							end
+						end
+					elseif desiredNodes[curNodeId] then
+						resultNodes[curSeed][curNodeId] = resultNodes[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
+						resultNodes[curSeed][curNodeId].totalWeight = resultNodes[curSeed][curNodeId].totalWeight + desiredNodes[curNodeId].nodeWeight
+						t_insert(resultNodes[curSeed][curNodeId], targetNode)
+						t_insert(resultNodes[curSeed][curNodeId].targetNodeNames, treeData.nodes[targetNode].name)
+						seedWeights[curSeed] = seedWeights[curSeed] + desiredNodes[curNodeId].nodeWeight
+					end
+				end
+			end
+			if invalidSeed then
+				resultNodes[curSeed] = nil
+			elseif resultNodes[curSeed] and desiredNodes["totalStat"] then
+				resultNodes[curSeed]["totalStat"] = resultNodes[curSeed]["totalStat"] or { targetNodeNames = { }, totalWeight = 0 }
+				if timelessFinderData.jewelType.id == 4 then
+					local addedWeight = desiredNodes["totalStat"].nodeWeight * (5 * targetSmallNodes.otherSmalls + 10 * targetSmallNodes.attributeSmalls)
+					addedWeight = addedWeight + resultNodes[curSeed]["totalStat"].totalWeight * 4
+					resultNodes[curSeed]["totalStat"].totalWeight = resultNodes[curSeed]["totalStat"].totalWeight + addedWeight
+					seedWeights[curSeed] = seedWeights[curSeed] + addedWeight
+				else
+					local addedWeight = desiredNodes["totalStat"].nodeWeight * (4 * targetSmallNodes.otherSmalls + 2 * targetSmallNodes.attributeSmalls)
+					addedWeight = addedWeight + resultNodes[curSeed]["totalStat"].totalWeight * 19
+					resultNodes[curSeed]["totalStat"].totalWeight = resultNodes[curSeed]["totalStat"].totalWeight + addedWeight
+					seedWeights[curSeed] = seedWeights[curSeed] + addedWeight
+				end
+			end
+			if resultNodes[curSeed] then
+				for _, val in ipairs(minimumWeights) do
+					if (resultNodes[curSeed][val.reqNode] and resultNodes[curSeed][val.reqNode].totalWeight or 0) < val.weight then
+						resultNodes[curSeed] = nil
+						break
+					end
+				end
+			end
+		end
+
+		return {
+			resultNodes = resultNodes,
+			seedWeights = seedWeights,
+			desiredNodes = desiredNodes,
+			socketInfo = socketInfo,
+		}
+	end
+
+	local function formatResults(resultNodes, seedWeights, desiredNodes, socketInfo)
+		return self:FormatTimelessSearchResults(resultNodes, seedWeights, desiredNodes, socketInfo, timelessFinderData.jewelType.id, timelessFinderData.totalMinimumWeight)
+	end
+
+	-- Top-level finder controls.
+	controls.jewelSelectLabel = new("LabelControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.left.labelX, 25, 0, 16}, "^7Jewel Type:")
+	controls.jewelSelect = new("DropDownControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.left.inputX, 23, layout.left.inputWidth, 18}, jewelTypes, function(_, value)
+		timelessFinderData.jewelType = value
+		controls.conquerorSelect:SetList(conquerorTypes[value.id])
+		controls.conquerorSelect.selIndex = 1
+		timelessFinderData.conquerorType = conquerorTypes[value.id][1]
+		buildMods()
+		updateAvailableStatList()
+		clearSelectedStats()
+		self.build.modFlag = true
+	end)
+	controls.jewelSelect.selIndex = timelessFinderData.jewelType.id
+
+	controls.conquerorSelectLabel = new("LabelControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.left.labelX, 55, 0, 16}, "^7Conqueror:")
+	controls.conquerorSelect = new("DropDownControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.left.inputX, 53, layout.left.inputWidth, 18}, conquerorTypes[timelessFinderData.jewelType.id], function(_, value)
+		timelessFinderData.conquerorType = value
+		invalidateSearchResults()
+		self.build.modFlag = true
+	end)
+	controls.conquerorSelect.selIndex = timelessFinderData.conquerorType.id
+
+	controls.socketSelectLabel = new("LabelControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.left.labelX, 85, 0, 16}, "^7Jewel Socket:")
+	controls.socketSelect = new("TimelessJewelSocketControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.left.inputX, 83, layout.left.inputWidth, 18}, jewelSockets, function(_, value)
+		timelessFinderData.jewelSocket = value
+		invalidateSearchResults()
+		self.build.modFlag = true
+	end, self.build, socketViewer)
+	for idx, jewelSocket in ipairs(jewelSockets) do
+		if jewelSocket.id == timelessFinderData.jewelSocket.id then
+			controls.socketSelect.selIndex = idx
+			break
+		end
+	end
+
+	controls.nodeFilterLabel = new("LabelControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.left.labelX, layout.nodeFilters.firstY, 0, 16}, "^7Consider Nodes:")
+	controls.nodeFilterAllocated = new("CheckBoxControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.left.inputX, layout.nodeFilters.firstY, 18}, nil, function(state)
+		timelessFinderData.nodeFilters.allocatedOnly = state
+		invalidateSearchResults()
+		self.build.modFlag = true
+	end, nil, timelessFinderData.nodeFilters.allocatedOnly)
+	controls.nodeFilterAllocatedLabel = new("LabelControl", {"LEFT", controls.nodeFilterAllocated, "RIGHT"}, {6, 0, 0, 16}, "^7Allocated in radius")
+	controls.nodeFilterAllocated.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7Consider only currently allocated nodes within the selected jewel radius.")
+	end
+	controls.nodeFilterAllocatedLabel.tooltipFunc = controls.nodeFilterAllocated.tooltipFunc
+	controls.nodeFilterNotables = new("CheckBoxControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.left.inputX, layout.nodeFilters.firstY + layout.nodeFilters.rowGap, 18}, nil, function(state)
+		timelessFinderData.nodeFilters.notables = state
+		invalidateSearchResults()
+		self.build.modFlag = true
+	end, nil, timelessFinderData.nodeFilters.notables)
+	controls.nodeFilterNotablesLabel = new("LabelControl", {"LEFT", controls.nodeFilterNotables, "RIGHT"}, {6, 0, 0, 16}, "^7All notables in radius")
+	controls.nodeFilterNotables.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7Consider every notable node within the selected jewel radius, whether allocated or not.")
+	end
+	controls.nodeFilterNotablesLabel.tooltipFunc = controls.nodeFilterNotables.tooltipFunc
+	controls.nodeFilterSmalls = new("CheckBoxControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.left.inputX, layout.nodeFilters.firstY + layout.nodeFilters.rowGap * 2, 18}, nil, function(state)
+		timelessFinderData.nodeFilters.smallPassives = state
+		invalidateSearchResults()
+		self.build.modFlag = true
+	end, nil, timelessFinderData.nodeFilters.smallPassives)
+	controls.nodeFilterSmallsLabel = new("LabelControl", {"LEFT", controls.nodeFilterSmalls, "RIGHT"}, {6, 0, 0, 16}, "^7All small passives in radius")
+	controls.nodeFilterSmalls.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7Consider every small passive node within the selected jewel radius, whether allocated or not.")
+	end
+	controls.nodeFilterSmallsLabel.tooltipFunc = controls.nodeFilterSmalls.tooltipFunc
+
+	controls.powerTypeLabel = new("LabelControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.left.labelX, layout.power.y + 2, 0, 16}, "^7Power Type:")
+	controls.powerTypeSelect = new("DropDownControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.left.inputX, layout.power.y, layout.left.inputWidth, 18}, powerTypes, function(_, value)
+		timelessFinderData.powerType = value
+		invalidateSearchResults()
+		self.build.modFlag = true
+	end)
+	for idx, powerType in ipairs(powerTypes) do
+		if powerType.stat == timelessFinderData.powerType.stat then
+			controls.powerTypeSelect.selIndex = idx
+			break
+		end
+	end
+	controls.powerTypeGenerateButton = new("ButtonControl", {"LEFT", controls.powerTypeSelect, "RIGHT"}, {layout.power.buttonGap, 0, layout.power.buttonWidth, 18}, "Generate", function()
+		generateSelectedStatsFromPower()
+	end)
+	controls.powerTypeGenerateButton.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7Generate the stat list from the selected power type.")
+		tooltip:AddLine(16, "^7This replaces the current weighted node list, which can then be edited manually.")
+	end
+
+	controls.totalMinimumWeightLabel = new("LabelControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.left.labelX, layout.stats.totalMinimumWeightLabelY, 0, 16}, "^7Minimum Total Weight:")
+	controls.totalMinimumWeight = new("EditControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.stats.totalMinimumWeightInputX, layout.stats.totalMinimumWeightInputY, layout.stats.inputWidth, 18}, "", nil, "^%d.", 10, function(buf)
+		timelessFinderData.totalMinimumWeight = tonumber(buf) or 0
+		invalidateSearchResults()
+		self.build.modFlag = true
+	end)
+	controls.totalMinimumWeight:SetText(tostring(timelessFinderData.totalMinimumWeight))
+
+	buildMods()
+	controls.availableStatLabel = new("LabelControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.left.labelX, layout.addNode.y + 2, 0, 16}, "^7Add Node Type:")
+	controls.availableStatSelect = new("DropDownControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.left.inputX, layout.addNode.y, layout.addNode.inputWidth, 18}, copyTable(modData, true), nil)
+	controls.availableStatSelect.maxDroppedWidth = 760
+	controls.availableStatSelect.enableDroppedWidth = true
+	controls.availableStatSelect.controls.scrollBar.enabled = true
+	controls.availableStatSelect.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		if mode ~= "OUT" and value and value.descriptions then
+			for _, line in ipairs(value.descriptions) do
+				tooltip:AddLine(16, "^7" .. line)
+			end
+		end
+	end
+	controls.addSelectedStat = new("ButtonControl", {"LEFT", controls.availableStatSelect, "RIGHT"}, {layout.addNode.buttonGap, 0, layout.addNode.addWidth, 18}, "Add", function()
+		local value = controls.availableStatSelect:GetSelValue()
+		if value and value.id then
+			addSelectedStat(value, 1, 0)
+		end
+	end)
+	controls.addSelectedStat.enabled = function()
+		local value = controls.availableStatSelect:GetSelValue()
+		return #timelessFinderData.selectedStats < maxVisibleRows and not selectedEntryWouldExceedDevotionLimit(value)
+	end
+	controls.addSelectedStat.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		local value = controls.availableStatSelect:GetSelValue()
+		if selectedEntryWouldExceedDevotionLimit(value) then
+			tooltip:AddLine(16, "^7You can select at most two Militant Faith devotion modifiers")
+		elseif #timelessFinderData.selectedStats >= maxVisibleRows then
+			tooltip:AddLine(16, "^7Maximum number of entries reached")
+		else
+			tooltip:AddLine(16, "^7Add the selected stat to the list.")
+		end
+	end
+	controls.clearSelectedStats = new("ButtonControl", {"LEFT", controls.addSelectedStat, "RIGHT"}, {layout.addNode.buttonGap, 0, layout.addNode.clearWidth, 18}, "Clear", function()
+		clearSelectedStats()
+	end)
+
+	-- Selected weighted node types table.
+	controls.statsTableGrid = new("Control", {"TOPLEFT", nil, "TOPLEFT"}, {layout.stats.tableX, layout.stats.tableY, layout.stats.tableWidth, layout.stats.tableHeight})
+	controls.statsTableGrid.zOrder = -10
+	function controls.statsTableGrid:Draw()
+		local x, y = self:GetPos()
+		local width, height = self:GetSize()
+		local col1 = x + (layout.stats.columns.weight1 - layout.left.labelX + layout.stats.headerOffset)
+		local col2 = x + (layout.stats.columns.weight2 - layout.left.labelX + layout.stats.headerOffset)
+		local col3 = x + (layout.stats.columns.minimum - layout.left.labelX + layout.stats.headerOffset)
+		local col4 = x + (layout.stats.columns.remove - layout.left.labelX + layout.stats.headerOffset)
+		SetDrawColor(0, 0, 0)
+		DrawImage(nil, x + 2, y + 24, width - 4, height - 26)
+		SetDrawColor(0.66, 0.66, 0.66)
+		DrawImage(nil, x, y, width, 2)
+		DrawImage(nil, x, y + height - 1, width, 2)
+		DrawImage(nil, x, y, 2, height)
+		DrawImage(nil, x + width - 1, y, 2, height)
+		DrawImage(nil, x, y + 22, width, 2)
+		DrawImage(nil, col1, y + 22, 2, height - 22)
+		DrawImage(nil, col2, y + 22, 2, height - 22)
+		DrawImage(nil, col3, y + 22, 2, height - 22)
+		DrawImage(nil, col4, y + 22, 2, height - 22)
+	end
+	controls.selectedStatLabel = self:NewTimelessFinderHeaderLabel({"TOPLEFT", nil, "TOPLEFT"}, {layout.stats.labelX, layout.stats.headerY, 0, 16}, "^7Weighted Node Types", "VAR BOLD")
+	controls.selectedWeight1Label = self:NewTimelessFinderHeaderLabel({"TOPLEFT", nil, "TOPLEFT"}, {layout.stats.columns.weight1 + layout.stats.headerOffset, layout.stats.headerY, 0, 16}, "^7Weight 1", "VAR")
+	controls.selectedWeight1Label.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7Weight applied to the first stat line shown in the node tooltip.")
+	end
+	controls.selectedWeight2Label = self:NewTimelessFinderHeaderLabel({"TOPLEFT", nil, "TOPLEFT"}, {layout.stats.columns.weight2 + layout.stats.headerOffset, layout.stats.headerY, 0, 16}, "^7Weight 2", "VAR")
+	controls.selectedWeight2Label.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7Weight applied to the second stat line shown in the node tooltip, if any.")
+	end
+	controls.selectedMinLabel = self:NewTimelessFinderHeaderLabel({"TOPLEFT", nil, "TOPLEFT"}, {layout.stats.columns.minimum + layout.stats.headerOffset, layout.stats.headerY, 0, 16}, "^8Minimum", "VAR")
+	for idx = 1, maxVisibleRows do
+		local y = layout.stats.rowY + (idx - 1) * layout.stats.rowHeight
+		local rowControls = { }
+		rowControls.label = self:NewTimelessFinderRowLabel({"TOPLEFT", nil, "TOPLEFT"}, {layout.stats.labelX, y + 1, layout.stats.columns.weight1 - layout.stats.labelX - 12, 16}, function()
+			local row = timelessFinderData.selectedStats[idx]
+			return "^7" .. self:FormatTimelessFinderStatLabel(row and row.label or "", layout.stats.labelLimit)
+		end, function(tooltip)
+			tooltip:Clear()
+			local row = timelessFinderData.selectedStats[idx]
+			if row and row.descriptions then
+				for _, line in ipairs(row.descriptions) do
+					tooltip:AddLine(16, "^7" .. line)
+				end
+			end
+		end)
+		rowControls.label.shown = function()
+			return timelessFinderData.selectedStats[idx] ~= nil
+		end
+		rowControls.weight = new("EditControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.stats.columns.weight1 + layout.stats.inputOffset, y, layout.stats.inputWidth, 18}, "", nil, "^%d.", 10, function(buf)
+			local row = timelessFinderData.selectedStats[idx]
+			if row then
+				row.weight = tonumber(buf) or 0
+				invalidateSearchResults()
+				self.build.modFlag = true
+			end
+		end)
+		rowControls.weight.textCol = "^8"
+		rowControls.weight.inactiveCol = "^8"
+		rowControls.weight.borderFunc = function()
+			return 0.36, 0.36, 0.36
+		end
+		rowControls.weight.shown = function()
+			return timelessFinderData.selectedStats[idx] ~= nil
+		end
+		rowControls.weight2 = new("EditControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.stats.columns.weight2 + layout.stats.inputOffset, y, layout.stats.inputWidth, 18}, "", nil, "^%d.", 10, function(buf)
+			local row = timelessFinderData.selectedStats[idx]
+			if row and row.supportsWeight2 then
+				row.weight2 = tonumber(buf) or 0
+				invalidateSearchResults()
+				self.build.modFlag = true
+			end
+		end)
+		rowControls.weight2.textCol = "^8"
+		rowControls.weight2.inactiveCol = "^8"
+		rowControls.weight2.borderFunc = function()
+			return 0.36, 0.36, 0.36
+		end
+		rowControls.weight2.shown = function()
+			local row = timelessFinderData.selectedStats[idx]
+			return row ~= nil and row.supportsWeight2
+		end
+		rowControls.weight2.enabled = function()
+			local row = timelessFinderData.selectedStats[idx]
+			return row and row.supportsWeight2
+		end
+		rowControls.weight2Flat = self:NewTimelessFinderFlatValueCell({"TOPLEFT", nil, "TOPLEFT"}, {layout.stats.columns.weight2 + layout.stats.inputOffset, y, layout.stats.inputWidth, 18}, function()
+			local row = timelessFinderData.selectedStats[idx]
+			if row and not row.supportsWeight2 then
+				return ""
+			end
+			return nil
+		end)
+		rowControls.weight2Flat.shown = function()
+			local row = timelessFinderData.selectedStats[idx]
+			return row ~= nil and not row.supportsWeight2
+		end
+		rowControls.min = new("EditControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.stats.columns.minimum + layout.stats.inputOffset, y, layout.stats.minInputWidth, 18}, "", nil, "^%d.", 10, function(buf)
+			local row = timelessFinderData.selectedStats[idx]
+			if row then
+				row.min = tonumber(buf) or 0
+				invalidateSearchResults()
+				self.build.modFlag = true
+			end
+		end)
+		rowControls.min.textCol = "^8"
+		rowControls.min.inactiveCol = "^9"
+		rowControls.min.borderFunc = function()
+			return 0.30, 0.30, 0.30
+		end
+		rowControls.min.shown = function()
+			return timelessFinderData.selectedStats[idx] ~= nil
+		end
+		rowControls.remove = new("ButtonControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.stats.columns.remove + layout.stats.removeOffset, y, layout.stats.removeWidth, 18}, "X", function()
+			if timelessFinderData.selectedStats[idx] then
+				t_remove(timelessFinderData.selectedStats, idx)
+				refreshSelectedList()
+				invalidateSearchResults()
+				self.build.modFlag = true
+			end
+		end)
+		rowControls.remove.shown = function()
+			return timelessFinderData.selectedStats[idx] ~= nil
+		end
+		selectedRows[idx] = rowControls
+		controls["selectedRowLabel" .. idx] = rowControls.label
+		controls["selectedRowWeight" .. idx] = rowControls.weight
+		controls["selectedRowWeight2" .. idx] = rowControls.weight2
+		controls["selectedRowWeight2Flat" .. idx] = rowControls.weight2Flat
+		controls["selectedRowMin" .. idx] = rowControls.min
+		controls["selectedRowRemove" .. idx] = rowControls.remove
+	end
+	-- Search results and trade helpers.
+	controls.searchResultsLabel = new("LabelControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.results.x, layout.results.labelY, 0, 16}, "^7Results:")
+	controls.searchResults = new("TimelessJewelReadableListControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.results.x, layout.results.listY, layout.results.listWidth, layout.results.listHeight}, self.build)
+	controls.searchTradeLeagueSelect = new("DropDownControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.results.leagueSelectX, layout.results.leagueSelectY, 160, 20}, nil, function(_, value)
+		self.timelessJewelLeagueSelect = value
+	end)
+	self:InitTimelessTradeLeagueControls(controls, "searchTradeLeagueSelect", "msg")
+	controls.searchAdvancedHint = self:NewTimelessFinderHintLabel(layout.results.x, layout.results.listY + layout.results.listHeight + layout.results.hintY, layout.results.listWidth, "^8The advanced Timeless Jewel Finder can be enabled in the Options menu.")
+
+	controls.searchTradeButton = new("ButtonControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.results.tradeButtonX, layout.results.tradeButtonY, 170, 20}, "Copy Trade URL", function()
+		self:CopyTimelessTradeURL(controls, timelessData, timelessFinderData.jewelType.id, {
+			status = "available",
+			devotionVariants = {
+				timelessData.sharedResults.devotionVariant1,
+				timelessData.sharedResults.devotionVariant2,
+			},
+		})
+	end)
+	controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0
+
+	local width = layout.buttons.width
+	local divider = layout.buttons.gap
+
+	controls.searchButton = new("ButtonControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.left.labelX, layout.buttons.y, width, 20}, "Search", function()
+		if not hasSearchableSelectedStats() then
+			resetSearchResults()
+			return
+		end
+		local searchState = {
+			jewelSocket = timelessFinderData.jewelSocket,
+			searchResults = timelessData.searchResults,
+			sharedResults = timelessData.sharedResults,
+		}
+		self:ApplyTimelessFinderSearchResults(searchState, controls, jewelSockets, function(socketId, socketInfo)
+			local searchResult = searchSingleSocket(socketId, socketInfo)
+			if not searchResult then
+				return nil
+			end
+			return {
+				desiredNodes = searchResult.desiredNodes,
+				results = formatResults(searchResult.resultNodes, searchResult.seedWeights, searchResult.desiredNodes, socketInfo),
+			}
+		end, function(sharedResults, isMultiSocket)
+			local devotionVariant1, devotionVariant2 = self:GetTimelessFinderSelectedDevotionVariants(timelessFinderData.selectedStats, timelessStatic)
+			sharedResults.type = timelessFinderData.jewelType
+			sharedResults.conqueror = timelessFinderData.conquerorType
+			sharedResults.devotionVariant1 = devotionVariant1
+			sharedResults.devotionVariant2 = devotionVariant2
+			if isMultiSocket then
+				sharedResults.multiSocket = true
+			else
+				sharedResults.socket = timelessFinderData.jewelSocket
+			end
+		end)
+	end)
+	controls.searchButton.enabled = function()
+		return hasSearchableSelectedStats()
+	end
+	controls.searchButton.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		if #timelessFinderData.selectedStats == 0 then
+			tooltip:AddLine(16, "^7Select at least one stat before searching")
+		elseif not hasSearchableSelectedStats() then
+			tooltip:AddLine(16, "^7Select at least one searchable node type before searching")
+		else
+			tooltip:AddLine(16, "^7Search with the current stat list.")
+		end
+	end
+	controls.resetButton = new("ButtonControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.left.labelX + width + divider, layout.buttons.y, width, 20}, "Reset", function()
+		clearSelectedStats()
+		timelessFinderData.totalMinimumWeight = 0
+		controls.totalMinimumWeight:SetText("0")
+		timelessFinderData.nodeFilters.allocatedOnly = true
+		timelessFinderData.nodeFilters.notables = false
+		timelessFinderData.nodeFilters.smallPassives = false
+		controls.nodeFilterAllocated.state = true
+		controls.nodeFilterNotables.state = false
+		controls.nodeFilterSmalls.state = false
+		self.build.modFlag = true
+	end)
+	controls.closeButton = new("ButtonControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.left.labelX + (width + divider) * 2, layout.buttons.y, width, 20}, "Cancel", function()
+		main:ClosePopup()
+	end)
+
+	refreshSelectedList()
+	updateAvailableStatList()
+	main:OpenPopup(layout.popup.width, layout.popup.height, "Find a Timeless Jewel", controls)
 end

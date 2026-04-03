@@ -515,7 +515,6 @@ end
 
 function DropDownClass:SetList(textList)
 	if textList then
-		wipeTable(self.list)
 		self.list = textList
 		  --check width on new list
 		self:CheckDroppedWidth(self.enableDroppedWidth)

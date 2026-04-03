@@ -3,7 +3,8 @@
 -- Class: Control Host
 -- Host for UI controls
 --
-
+local t_insert = table.insert
+local t_sort = table.sort
 local ControlHostClass = newClass("ControlHost", function(self)
 	self.controls = { }
 end)
@@ -86,8 +87,37 @@ function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 end
 
 function ControlHostClass:DrawControls(viewPort, selControl)
+	local negZOrder = nil
+	local posZOrder = nil
 	for _, control in pairs(self.controls) do
-		if control:IsShown() and control.Draw then
+		if control.zOrder and control:IsShown() and control.Draw then
+			if control.zOrder < 0 then
+				negZOrder = negZOrder or { }
+				t_insert(negZOrder, control)
+			elseif control.zOrder > 0 then
+				posZOrder = posZOrder or { }
+				t_insert(posZOrder, control)
+			end
+		end
+	end
+	if negZOrder then
+		t_sort(negZOrder, function(a, b)
+			return a.zOrder < b.zOrder
+		end)
+		for _, control in ipairs(negZOrder) do
+			control:Draw(viewPort, (self.selControl and self.selControl.hasFocus and self.selControl ~= control) or (selControl and selControl.hasFocus and selControl ~= control))
+		end
+	end
+	for _, control in pairs(self.controls) do
+		if (not control.zOrder or control.zOrder == 0) and control:IsShown() and control.Draw then
+			control:Draw(viewPort, (self.selControl and self.selControl.hasFocus and self.selControl ~= control) or (selControl and selControl.hasFocus and selControl ~= control))
+		end
+	end
+	if posZOrder then
+		t_sort(posZOrder, function(a, b)
+			return a.zOrder < b.zOrder
+		end)
+		for _, control in ipairs(posZOrder) do
 			control:Draw(viewPort, (self.selControl and self.selControl.hasFocus and self.selControl ~= control) or (selControl and selControl.hasFocus and selControl ~= control))
 		end
 	end

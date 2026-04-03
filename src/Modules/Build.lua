@@ -73,7 +73,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	-- Load build file
 	self.xmlSectionList = { }
 	self.spectreList = { }
-	self.timelessData = { jewelType = { }, conquerorType = { }, devotionVariant1 = 1, devotionVariant2 = 1, jewelSocket = { }, fallbackWeightMode = { }, searchList = "", searchListFallback = "", searchResults = { }, sharedResults = { } }
+	self.timelessData = { jewelType = { }, conquerorType = { }, devotionVariant1 = 1, devotionVariant2 = 1, jewelSocket = { }, fallbackWeightMode = { }, searchList = "", searchListFallback = "", searchResults = { }, sharedResults = { }, finder = { selectedStats = { } } }
 	self.viewMode = "TREE"
 	self.characterLevel = m_min(m_max(main.defaultCharLevel or 1, 1), 100)
 	self.targetVersion = liveTargetVersion
@@ -961,6 +961,31 @@ function buildMode:Load(xml, fileName)
 			self.timelessData.socketFilterDistance = tonumber(child.attrib.socketFilterDistance) or 0
 			self.timelessData.searchList = child.attrib.searchList
 			self.timelessData.searchListFallback = child.attrib.searchListFallback
+			self.timelessData.finder = {
+				jewelType = { id = tonumber(child.attrib.finderJewelTypeId) },
+				conquerorType = { id = tonumber(child.attrib.finderConquerorTypeId) },
+				jewelSocket = { id = tonumber(child.attrib.finderJewelSocketId) },
+				powerType = { stat = child.attrib.finderPowerTypeStat },
+				nodeFilters = {
+					allocatedOnly = child.attrib.finderAllocatedOnly ~= "false",
+					notables = child.attrib.finderNotables == "true",
+					smallPassives = child.attrib.finderSmallPassives == "true",
+				},
+				totalMinimumWeight = tonumber(child.attrib.finderTotalMinimumWeight) or 0,
+				selectedStats = { },
+			}
+			for _, finderChild in ipairs(child) do
+				if finderChild.elem == "TimelessFinderStat" and finderChild.attrib.id then
+					t_insert(self.timelessData.finder.selectedStats, {
+						id = finderChild.attrib.id,
+						label = finderChild.attrib.label,
+						weight = tonumber(finderChild.attrib.weight) or 0,
+						weight2 = tonumber(finderChild.attrib.weight2) or tonumber(finderChild.attrib.weight) or 0,
+						min = tonumber(finderChild.attrib.min) or 0,
+						totalMod = finderChild.attrib.totalMod == "true",
+					})
+				end
+			end
 		end
 	end
 end
@@ -1041,9 +1066,34 @@ function buildMode:Save(xml)
 			socketFilter = self.timelessData.socketFilter and "true",
 			socketFilterDistance = self.timelessData.socketFilterDistance and tostring(self.timelessData.socketFilterDistance),
 			searchList = self.timelessData.searchList and tostring(self.timelessData.searchList),
-			searchListFallback = self.timelessData.searchListFallback and tostring(self.timelessData.searchListFallback)
+			searchListFallback = self.timelessData.searchListFallback and tostring(self.timelessData.searchListFallback),
+			finderJewelTypeId = self.timelessData.finder and next(self.timelessData.finder.jewelType or { }) and tostring(self.timelessData.finder.jewelType.id),
+			finderConquerorTypeId = self.timelessData.finder and next(self.timelessData.finder.conquerorType or { }) and tostring(self.timelessData.finder.conquerorType.id),
+			finderJewelSocketId = self.timelessData.finder and next(self.timelessData.finder.jewelSocket or { }) and tostring(self.timelessData.finder.jewelSocket.id),
+			finderPowerTypeStat = self.timelessData.finder and next(self.timelessData.finder.powerType or { }) and tostring(self.timelessData.finder.powerType.stat),
+			finderAllocatedOnly = self.timelessData.finder and self.timelessData.finder.nodeFilters and tostring(self.timelessData.finder.nodeFilters.allocatedOnly ~= false) or nil,
+			finderNotables = self.timelessData.finder and self.timelessData.finder.nodeFilters and tostring(self.timelessData.finder.nodeFilters.notables == true) or nil,
+			finderSmallPassives = self.timelessData.finder and self.timelessData.finder.nodeFilters and tostring(self.timelessData.finder.nodeFilters.smallPassives == true) or nil,
+			finderTotalMinimumWeight = self.timelessData.finder and tostring(self.timelessData.finder.totalMinimumWeight or 0),
 		}
 	}
+	if self.timelessData.finder and self.timelessData.finder.selectedStats then
+		for _, row in ipairs(self.timelessData.finder.selectedStats) do
+			if row.id then
+				t_insert(timelessData, {
+					elem = "TimelessFinderStat",
+					attrib = {
+						id = row.id,
+						label = row.label,
+						weight = tostring(row.weight or 0),
+						weight2 = tostring(row.weight2 or row.weight or 0),
+						min = tostring(row.min or 0),
+						totalMod = row.totalMod and "true" or nil,
+					},
+				})
+			end
+		end
+	end
 	t_insert(xml, timelessData)
 end
 
