@@ -151,7 +151,7 @@ local CompareTabClass = newClass("CompareTab", "ControlHost", "Control", functio
 
 	-- Compare power report state
 	self.comparePowerStat = nil           -- selected data.powerStatList entry
-	self.comparePowerCategories = { treeNodes = true, items = true, gems = true, config = true }
+	self.comparePowerCategories = { treeNodes = true, items = true, skillGems = true, supportGems = true, config = true }
 	self.comparePowerResults = nil        -- sorted list of result entries
 	self.comparePowerCoroutine = nil      -- active coroutine
 	self.comparePowerProgress = 0         -- 0-100
@@ -735,12 +735,19 @@ function CompareTabClass:InitControls()
 	self.controls.comparePowerItemsCheck.shown = powerReportShown
 	self.controls.comparePowerItemsCheck.state = true
 
-	self.controls.comparePowerGemsCheck = new("CheckBoxControl", nil, {0, 0, 18}, "Gems:", function(state)
-		self.comparePowerCategories.gems = state
+	self.controls.comparePowerGemsCheck = new("CheckBoxControl", nil, {0, 0, 18}, "Skill gems:", function(state)
+		self.comparePowerCategories.skillGems = state
 		self.comparePowerDirty = true
-	end, "Include skill gem groups from compared build")
+	end, "Include skill gem groups unique to compared build")
 	self.controls.comparePowerGemsCheck.shown = powerReportShown
 	self.controls.comparePowerGemsCheck.state = true
+
+	self.controls.comparePowerSupportGemsCheck = new("CheckBoxControl", nil, {0, 0, 18}, "Support gems:", function(state)
+		self.comparePowerCategories.supportGems = state
+		self.comparePowerDirty = true
+	end, "Include support gems from compared build's active skill")
+	self.controls.comparePowerSupportGemsCheck.shown = powerReportShown
+	self.controls.comparePowerSupportGemsCheck.state = true
 
 	self.controls.comparePowerConfigCheck = new("CheckBoxControl", nil, {0, 0, 18}, "Config:", function(state)
 		self.comparePowerCategories.config = state
@@ -2317,6 +2324,14 @@ function CompareTabClass:CalculatePowerStat(selection, output, calcBase)
 	return withValue - baseValue
 end
 
+-- Resolve the granted effect for a gem instance
+function CompareTabClass:GetGemGrantedEffect(gem)
+	if gem.gemData and gem.gemData.grantedEffect then
+		return gem.gemData.grantedEffect
+	end
+	return gem.grantedEffect
+end
+
 -- Build a signature string for a socket group (sorted gem names)
 function CompareTabClass:GetSocketGroupSignature(group)
 	local names = {}
@@ -2414,9 +2429,33 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 			end
 		end
 	end
-	if categories.gems then
+	if categories.skillGems then
 		local cGroups = compareEntry.skillsTab and compareEntry.skillsTab.socketGroupList or {}
 		total = total + #cGroups
+	end
+	if categories.supportGems then
+		local cMainGroup = compareEntry.skillsTab and compareEntry.skillsTab.socketGroupList[compareEntry.mainSocketGroup]
+		local pMainGroup = self.primaryBuild.skillsTab and self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.mainSocketGroup]
+		if cMainGroup and pMainGroup then
+			-- Count support gems in compared build's main group not in primary's main group
+			local pSupportNames = {}
+			for _, gem in ipairs(pMainGroup.gemList or {}) do
+				local ge = self:GetGemGrantedEffect(gem)
+				if ge and ge.support then
+					local name = ge.name or gem.nameSpec
+					if name then pSupportNames[name] = true end
+				end
+			end
+			for _, gem in ipairs(cMainGroup.gemList or {}) do
+				local ge = self:GetGemGrantedEffect(gem)
+				if ge and ge.support then
+					local name = ge.name or gem.nameSpec
+					if name and not pSupportNames[name] then
+						total = total + 1
+					end
+				end
+			end
+		end
 	end
 	if categories.config then
 		local pInput = self.primaryBuild.configTab.input or {}
@@ -2660,7 +2699,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 	-- ==========================================
 	-- Skill Gems (socket groups)
 	-- ==========================================
-	if categories.gems then
+	if categories.skillGems then
 		local cGroups = compareEntry.skillsTab and compareEntry.skillsTab.socketGroupList or {}
 		local pGroups = self.primaryBuild.skillsTab and self.primaryBuild.skillsTab.socketGroupList or {}
 
@@ -2678,7 +2717,9 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 				self.primaryBuild.buildFlag = true
 
 				-- Get a fresh calculator with the added group (pcall to guarantee cleanup)
-				local ok, gemCalcFunc, gemCalcBase = pcall(self.calcs.getMiscCalculator, self.calcs, self.primaryBuild)
+				local ok, gemCalcFunc, gemCalcBase = pcall(function()
+					return self.calcs.getMiscCalculator(self.primaryBuild)
+				end)
 
 				-- Always remove the temporarily added group
 				t_remove(pGroups)
@@ -2693,7 +2734,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 					local label = self:GetSocketGroupLabel(cGroup)
 
 					t_insert(results, {
-						category = "Gem",
+						category = "Skill gem",
 						categoryColor = colorCodes.GEM,
 						nameColor = colorCodes.GEM,
 						name = label,
@@ -2712,6 +2753,87 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 				self.comparePowerProgress = m_floor(processed / total * 100)
 				coroutine.yield()
 				start = GetTime()
+			end
+		end
+	end
+
+	-- ==========================================
+	-- Support Gems (from compared build's active skill)
+	-- ==========================================
+	if categories.supportGems then
+		local cMainGroup = compareEntry.skillsTab and compareEntry.skillsTab.socketGroupList[compareEntry.mainSocketGroup]
+		local pMainGroup = self.primaryBuild.skillsTab and self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.mainSocketGroup]
+
+		if cMainGroup and pMainGroup then
+			-- Collect support gem names already in primary build's main group
+			local pSupportNames = {}
+			for _, gem in ipairs(pMainGroup.gemList or {}) do
+				local ge = self:GetGemGrantedEffect(gem)
+				if ge and ge.support then
+					local name = ge.name or gem.nameSpec
+					if name then pSupportNames[name] = true end
+				end
+			end
+
+			for _, cGem in ipairs(cMainGroup.gemList or {}) do
+				local cGrantedEffect = self:GetGemGrantedEffect(cGem)
+				if cGrantedEffect and cGrantedEffect.support then
+					local name = cGrantedEffect.name or cGem.nameSpec
+					if name and not pSupportNames[name] then
+						-- Create a temporary copy of this support gem
+						local tempGem = {
+							nameSpec = cGem.nameSpec,
+							level = cGem.level,
+							quality = cGem.quality,
+							qualityId = cGem.qualityId,
+							enabled = cGem.enabled,
+							grantedEffect = cGem.grantedEffect,
+							gemData = cGem.gemData,
+							count = cGem.count,
+							enableGlobal1 = cGem.enableGlobal1,
+							enableGlobal2 = cGem.enableGlobal2,
+						}
+
+						-- Temporarily add to primary build's main socket group
+						t_insert(pMainGroup.gemList, tempGem)
+						self.primaryBuild.buildFlag = true
+
+						local ok, sgCalcFunc, sgCalcBase = pcall(function()
+							return self.calcs.getMiscCalculator(self.primaryBuild)
+						end)
+
+						-- Always remove the temporarily added gem
+						t_remove(pMainGroup.gemList)
+						self.primaryBuild.buildFlag = true
+
+						if not ok then
+							ConPrintf("Compare power (support gem): %s", tostring(sgCalcFunc))
+						else
+							local impact = self:CalculatePowerStat(powerStat, sgCalcBase, calcBase)
+							local impactStr, impactVal, combinedImpactStr, impactPercent = formatImpact(impact)
+
+							t_insert(results, {
+								category = "Support gem",
+								categoryColor = colorCodes.GEM,
+								nameColor = colorCodes.GEM,
+								name = name,
+								impact = impactVal,
+								impactStr = impactStr,
+								impactPercent = impactPercent,
+								combinedImpactStr = combinedImpactStr,
+								pathDist = nil,
+								perPoint = nil,
+								perPointStr = nil,
+							})
+						end
+						processed = processed + 1
+						if coroutine.running() and GetTime() - start > 100 then
+							self.comparePowerProgress = m_floor(processed / total * 100)
+							coroutine.yield()
+							start = GetTime()
+						end
+					end
+				end
 			end
 		end
 	end
@@ -2925,6 +3047,10 @@ function CompareTabClass:DrawSummary(vp, compareEntry)
 	self.controls.comparePowerGemsCheck.x = checkX + self.controls.comparePowerGemsCheck.labelWidth
 	self.controls.comparePowerGemsCheck.y = controlY
 	checkX = checkX + self.controls.comparePowerGemsCheck.labelWidth + 26
+
+	self.controls.comparePowerSupportGemsCheck.x = checkX + self.controls.comparePowerSupportGemsCheck.labelWidth
+	self.controls.comparePowerSupportGemsCheck.y = controlY
+	checkX = checkX + self.controls.comparePowerSupportGemsCheck.labelWidth + 26
 
 	self.controls.comparePowerConfigCheck.x = checkX + self.controls.comparePowerConfigCheck.labelWidth
 	self.controls.comparePowerConfigCheck.y = controlY
