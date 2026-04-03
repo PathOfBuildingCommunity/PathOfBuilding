@@ -1701,6 +1701,9 @@ function buildMode:InsertItemWarnings()
 			InsertIfNew(self.controls.warnings.lines, "You have too many gems in your "..warning.." slot")
 		end
 	end
+	if self.calcsTab.mainEnv.itemWarnings.missingAnointWarning then
+		InsertIfNew(self.controls.warnings.lines, "You have eligible items missing an anoint: "..table.concat(self.calcsTab.mainEnv.itemWarnings.missingAnointWarning, ", "))
+	end
 end
 
 -- Build list of side bar stats
