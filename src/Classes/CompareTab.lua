@@ -2657,30 +2657,35 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 				t_insert(pGroups, cGroup)
 				self.primaryBuild.buildFlag = true
 
-				-- Get a fresh calculator with the added group
-				local gemCalcFunc, gemCalcBase = self.calcs.getMiscCalculator(self.primaryBuild)
-				local impact = self:CalculatePowerStat(powerStat, gemCalcBase, calcBase)
+				-- Get a fresh calculator with the added group (pcall to guarantee cleanup)
+				local ok, gemCalcFunc, gemCalcBase = pcall(self.calcs.getMiscCalculator, self.calcs, self.primaryBuild)
 
-				-- Remove the temporarily added group
+				-- Always remove the temporarily added group
 				t_remove(pGroups)
 				self.primaryBuild.buildFlag = true
 
-				local impactStr, impactVal, combinedImpactStr, impactPercent = formatImpact(impact)
-				local label = self:GetSocketGroupLabel(cGroup)
+				if not ok then
+					-- gemCalcFunc contains the error message on failure; skip this group
+					ConPrintf("Compare power (gem): %s", tostring(gemCalcFunc))
+				else
+					local impact = self:CalculatePowerStat(powerStat, gemCalcBase, calcBase)
+					local impactStr, impactVal, combinedImpactStr, impactPercent = formatImpact(impact)
+					local label = self:GetSocketGroupLabel(cGroup)
 
-				t_insert(results, {
-					category = "Gem",
-					categoryColor = colorCodes.GEM,
-					nameColor = colorCodes.GEM,
-					name = label,
-					impact = impactVal,
-					impactStr = impactStr,
-					impactPercent = impactPercent,
-					combinedImpactStr = combinedImpactStr,
-					pathDist = nil,
-					perPoint = nil,
-					perPointStr = nil,
-				})
+					t_insert(results, {
+						category = "Gem",
+						categoryColor = colorCodes.GEM,
+						nameColor = colorCodes.GEM,
+						name = label,
+						impact = impactVal,
+						impactStr = impactStr,
+						impactPercent = impactPercent,
+						combinedImpactStr = combinedImpactStr,
+						pathDist = nil,
+						perPoint = nil,
+						perPointStr = nil,
+					})
+				end
 			end
 			processed = processed + 1
 			if coroutine.running() and GetTime() - start > 100 then
@@ -2715,43 +2720,48 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 					-- Apply compare build's config value
 					pInput[varData.var] = cVal
 
-					-- Rebuild the mod list with the new config value
-					self.primaryBuild.configTab:BuildModList()
-					self.primaryBuild.buildFlag = true
+					-- Rebuild and calculate (pcall to guarantee restore on error)
+					local ok, cfgCalcFunc, cfgCalcBase = pcall(function()
+						self.primaryBuild.configTab:BuildModList()
+						self.primaryBuild.buildFlag = true
+						return self.calcs.getMiscCalculator(self.primaryBuild)
+					end)
 
-					-- Get a fresh calculator with the changed config
-					local cfgCalcFunc, cfgCalcBase = self.calcs.getMiscCalculator(self.primaryBuild)
-					local impact = self:CalculatePowerStat(powerStat, cfgCalcBase, calcBase)
-
-					-- Restore original value
+					-- Always restore original value
 					pInput[varData.var] = savedVal
 					self.primaryBuild.configTab:BuildModList()
 					self.primaryBuild.buildFlag = true
 
-					local impactStr, impactVal, combinedImpactStr, impactPercent = formatImpact(impact)
+					if not ok then
+						-- cfgCalcFunc contains the error message on failure; skip this config
+						ConPrintf("Compare power (config): %s", tostring(cfgCalcFunc))
+					else
+						local impact = self:CalculatePowerStat(powerStat, cfgCalcBase, calcBase)
+						local impactStr, impactVal, combinedImpactStr, impactPercent = formatImpact(impact)
 
-					-- Only include configs with non-zero impact
-					if impactVal ~= 0 then
-						-- Build display name with value change description
-						local displayName = varData.label or varData.var
-						displayName = displayName:gsub(":$", "")
+						-- Only include configs with non-zero impact
+						if impactVal ~= 0 then
+							-- Build display name with value change description
+							local displayName = varData.label or varData.var
+							displayName = displayName:gsub(":$", "")
 
-						local pDisplay = stripColors(self:FormatConfigValue(varData, pVal))
-						local cDisplay = stripColors(self:FormatConfigValue(varData, cVal))
+							local pDisplay = stripColors(self:FormatConfigValue(varData, pVal))
+							local cDisplay = stripColors(self:FormatConfigValue(varData, cVal))
 
-						t_insert(results, {
-							category = "Config",
-							categoryColor = colorCodes.FRACTURED,
-							nameColor = "^7",
-							name = displayName .. "  (" .. pDisplay .. " -> " .. cDisplay .. ")",
-							impact = impactVal,
-							impactStr = impactStr,
-							impactPercent = impactPercent,
-							combinedImpactStr = combinedImpactStr,
-							pathDist = nil,
-							perPoint = nil,
-							perPointStr = nil,
-						})
+							t_insert(results, {
+								category = "Config",
+								categoryColor = colorCodes.FRACTURED,
+								nameColor = "^7",
+								name = displayName .. "  (" .. pDisplay .. " -> " .. cDisplay .. ")",
+								impact = impactVal,
+								impactStr = impactStr,
+								impactPercent = impactPercent,
+								combinedImpactStr = combinedImpactStr,
+								pathDist = nil,
+								perPoint = nil,
+								perPointStr = nil,
+							})
+						end
 					end
 
 					processed = processed + 1
