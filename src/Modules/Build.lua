@@ -1043,6 +1043,7 @@ function buildMode:ResetModFlags()
 	self.skillsTab.modFlag = false
 	self.itemsTab.modFlag = false
 	self.calcsTab.modFlag = false
+	self.compareTab.modFlag = false
 end
 
 function buildMode:OnFrame(inputEvents)
@@ -1153,7 +1154,7 @@ function buildMode:OnFrame(inputEvents)
 		self.compareTab:Draw(tabViewPort, inputEvents)
 	end
 
-	self.unsaved = self.modFlag or self.notesTab.modFlag or self.partyTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.treeTab.searchFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
+	self.unsaved = self.modFlag or self.notesTab.modFlag or self.partyTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.treeTab.searchFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag or self.compareTab.modFlag
 
 	SetDrawLayer(5)
 
