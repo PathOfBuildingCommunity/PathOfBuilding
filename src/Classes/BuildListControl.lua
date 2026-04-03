@@ -175,6 +175,13 @@ function BuildListClass:GetRowValue(column, index, build)
 			label = ">> " .. build.folderName
 		else
 			label = build.buildName or "?"
+			if build.compareLabels and #build.compareLabels > 0 then
+				if #build.compareLabels == 1 then
+					label = label .. " (+" .. build.compareLabels[1] .. ")"
+				else
+					label = label .. " (+" .. #build.compareLabels .. " compared builds)"
+				end
+			end
 		end
 		if self.cutBuild and self.cutBuild.buildName == build.buildName and self.cutBuild.folderName == build.folderName then
 			return "^xC0B0B0"..label
