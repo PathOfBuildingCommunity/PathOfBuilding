@@ -70,12 +70,14 @@ local LAYOUT = {
 
 	-- Config view (shared between Draw() layout and DrawConfig())
 	configRowHeight = 22,
-	configSectionHeaderHeight = 24,
 	configColumnHeaderHeight = 20,
-	configFixedHeaderHeight = 66,
-	configCol1 = 10,
-	configCol2 = 300,
-	configCol3 = 500,
+	configFixedHeaderHeight = 92,
+	configSectionWidth = 560,
+	configSectionGap = 18,
+	configSectionInnerPad = 20,
+	configLabelOffset = 10,
+	configCol2 = 234,
+	configCol3 = 400,
 }
 
 -- Flag matching for stat filtering
@@ -143,7 +145,9 @@ local CompareTabClass = newClass("CompareTab", "ControlHost", "Control", functio
 	self.configNeedsRebuild = true  -- trigger initial build
 	self.configCompareId = nil      -- track which compare entry controls were built for
 	self.configToggle = false       -- show all / hide ineligible toggle
-	self.configDisplayList = {}     -- computed display order (headers + rows)
+	self.configSections = {}        -- section groups from ConfigOptions
+	self.configSectionLayout = {}   -- computed section layout for drawing
+	self.configTotalContentHeight = 0
 
 	-- Compare power report state
 	self.comparePowerStat = nil           -- selected data.powerStatList entry
@@ -292,6 +296,22 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.compareItemSetSelect.enabled = setsEnabled
+	-- Config set selector for comparison build
+	self.controls.compareConfigSetLabel = new("LabelControl", {"LEFT", self.controls.compareItemSetSelect, "RIGHT"}, {8, 0, 0, 16}, "^7Config set:")
+	self.controls.compareConfigSetLabel.shown = setsEnabled
+	self.controls.compareConfigSetSelect = new("DropDownControl", {"LEFT", self.controls.compareConfigSetLabel, "RIGHT"}, {2, 0, 150, 20}, {}, function(index, value)
+		local entry = self:GetActiveCompare()
+		if entry and entry.configTab then
+			local setId = entry.configTab.configSetOrderList[index]
+			if setId then
+				entry.configTab:SetActiveConfigSet(setId)
+				entry.buildFlag = true
+				self.configNeedsRebuild = true
+			end
+		end
+	end)
+	self.controls.compareConfigSetSelect.enabled = setsEnabled
+	self.controls.compareConfigSetSelect.enableDroppedWidth = true
 
 	-- ============================================================
 	-- Comparison build main skill selector (row between sets and sub-tabs)
@@ -633,6 +653,32 @@ function CompareTabClass:InitControls()
 		return self.compareViewMode == "CONFIG" and self:GetActiveCompare() ~= nil
 	end
 
+	-- Config view: search bar
+	self.controls.configSearchEdit = new("EditControl", nil, {0, 0, 200, 20}, "", "Search", "%c", 100, nil, nil, nil, true)
+	self.controls.configSearchEdit.shown = function()
+		return self.compareViewMode == "CONFIG" and self:GetActiveCompare() ~= nil
+	end
+
+	-- Config view: primary build config set dropdown
+	local configShown = function()
+		return self.compareViewMode == "CONFIG" and self:GetActiveCompare() ~= nil
+	end
+	self.controls.configPrimarySetLabel = new("LabelControl", nil, {0, 0, 0, 16}, "^7Config set:")
+	self.controls.configPrimarySetLabel.shown = configShown
+	self.controls.configPrimarySetSelect = new("DropDownControl", nil, {0, 0, 150, 20}, nil, function(index, value)
+		local configTab = self.primaryBuild.configTab
+		local setId = configTab.configSetOrderList[index]
+		if setId then
+			configTab:SetActiveConfigSet(setId)
+			self.configNeedsRebuild = true
+		end
+	end)
+	self.controls.configPrimarySetSelect.shown = configShown
+	self.controls.configPrimarySetSelect.enableDroppedWidth = true
+	self.controls.configPrimarySetSelect.enabled = function()
+		return #self.primaryBuild.configTab.configSetOrderList > 1
+	end
+
 	-- ============================================================
 	-- Compare Power Report controls (Summary view)
 	-- ============================================================
@@ -841,59 +887,81 @@ function CompareTabClass:NormalizeConfigVals(varData, pVal, cVal)
 	return pVal, cVal
 end
 
--- Rebuild interactive config controls for all config options
+-- Create a single config control for a given varData, writing to the specified input/configTab/build
+local function makeConfigControl(varData, inputTable, configTab, buildObj)
+	local control
+	local pVal = inputTable[varData.var]
+	if varData.type == "check" then
+		control = new("CheckBoxControl", nil, {0, 0, 18}, nil, function(state)
+			inputTable[varData.var] = state
+			configTab:UpdateControls()
+			configTab:BuildModList()
+			buildObj.buildFlag = true
+		end)
+		control.state = pVal or false
+	elseif varData.type == "count" or varData.type == "integer"
+			or varData.type == "countAllowZero" or varData.type == "float" then
+		local filter = (varData.type == "integer" and "^%-%d")
+			or (varData.type == "float" and "^%d.") or "%D"
+		control = new("EditControl", nil, {0, 0, 90, 18},
+			tostring(pVal or ""), nil, filter, 7,
+			function(buf)
+				inputTable[varData.var] = tonumber(buf)
+				configTab:UpdateControls()
+				configTab:BuildModList()
+				buildObj.buildFlag = true
+			end)
+	elseif varData.type == "list" and varData.list then
+		control = new("DropDownControl", nil, {0, 0, 150, 18},
+			varData.list, function(index, value)
+				inputTable[varData.var] = value.val
+				configTab:UpdateControls()
+				configTab:BuildModList()
+				buildObj.buildFlag = true
+			end)
+		control:SelByValue(pVal or (varData.list[1] and varData.list[1].val), "val")
+	end
+	if control then
+		control.shown = function() return false end
+	end
+	return control
+end
+
+-- Rebuild interactive config controls for all config options (both primary and compare builds)
 function CompareTabClass:RebuildConfigControls(compareEntry)
 	-- Remove old config controls
 	for var, _ in pairs(self.configControls) do
-		self.controls["cfg_" .. var] = nil
+		self.controls["cfg_p_" .. var] = nil
+		self.controls["cfg_c_" .. var] = nil
 	end
 	self.configControls = {}
 	self.configControlList = {}
+	self.configSections = {}
 
 	if not compareEntry then return end
 
 	local configOptions = self.configOptions
 	local pInput = self.primaryBuild.configTab.input or {}
+	local cInput = compareEntry.configTab.input or {}
 	local primaryBuild = self.primaryBuild
 
+	local currentSection = nil
 	for _, varData in ipairs(configOptions) do
-		if varData.var and varData.type ~= "text" then
-			local pVal = pInput[varData.var]
-			local control
-			if varData.type == "check" then
-				control = new("CheckBoxControl", nil, {0, 0, 18}, nil, function(state)
-					primaryBuild.configTab.input[varData.var] = state
-					primaryBuild.configTab:UpdateControls()
-					primaryBuild.configTab:BuildModList()
-					primaryBuild.buildFlag = true
-				end)
-				control.state = pVal or false
-			elseif varData.type == "count" or varData.type == "integer"
-					or varData.type == "countAllowZero" or varData.type == "float" then
-				local filter = (varData.type == "integer" and "^%-%d")
-					or (varData.type == "float" and "^%d.") or "%D"
-				control = new("EditControl", nil, {0, 0, 90, 18},
-					tostring(pVal or ""), nil, filter, 7,
-					function(buf)
-						primaryBuild.configTab.input[varData.var] = tonumber(buf)
-						primaryBuild.configTab:UpdateControls()
-						primaryBuild.configTab:BuildModList()
-						primaryBuild.buildFlag = true
-					end)
-			elseif varData.type == "list" and varData.list then
-				control = new("DropDownControl", nil, {0, 0, 150, 18},
-					varData.list, function(index, value)
-						primaryBuild.configTab.input[varData.var] = value.val
-						primaryBuild.configTab:UpdateControls()
-						primaryBuild.configTab:BuildModList()
-						primaryBuild.buildFlag = true
-					end)
-				control:SelByValue(pVal or (varData.list[1] and varData.list[1].val), "val")
+		if varData.section then
+			-- Skip "Custom Modifiers" section
+			if varData.section ~= "Custom Modifiers" then
+				currentSection = { name = varData.section, col = varData.col, items = {} }
+				t_insert(self.configSections, currentSection)
+			else
+				currentSection = nil
 			end
+		elseif currentSection and varData.var and varData.type ~= "text" then
+			local pCtrl = makeConfigControl(varData, pInput, self.primaryBuild.configTab, primaryBuild)
+			local cCtrl = makeConfigControl(varData, cInput, compareEntry.configTab, compareEntry)
 
-			if control then
-				control.shown = function() return false end -- hidden until positioned
-				self.controls["cfg_" .. varData.var] = control
+			if pCtrl and cCtrl then
+				self.controls["cfg_p_" .. varData.var] = pCtrl
+				self.controls["cfg_c_" .. varData.var] = cCtrl
 
 				-- Determine eligibility category (matches ConfigTab's isShowAllConfig logic)
 				local isHardConditional = varData.ifOption or varData.ifSkill
@@ -914,16 +982,16 @@ function CompareTabClass:RebuildConfigControls(compareEntry)
 					or varData.ifEnemyStat or varData.ifEnemyCond or varData.legacy
 
 				local ctrlInfo = {
-					control = control,
+					primaryControl = pCtrl,
+					compareControl = cCtrl,
 					varData = varData,
 					visible = false,
-					-- Always shown in "All Configurations" (no conditions at all)
 					alwaysShow = not hasAnyCondition and not isKeywordExcluded,
-					-- Shown in "All Configurations" when toggle is ON (simple conditions only)
 					showWithToggle = not isHardConditional and not isKeywordExcluded,
 				}
 				self.configControls[varData.var] = ctrlInfo
 				t_insert(self.configControlList, ctrlInfo)
+				t_insert(currentSection.items, ctrlInfo)
 			end
 		end
 	end
@@ -983,6 +1051,9 @@ function CompareTabClass:Save(xml)
 		if entry.itemsTab then
 			attrib.activeItemSetId = tostring(entry.itemsTab.activeItemSetId)
 		end
+		if entry.configTab then
+			attrib.activeConfigSetId = tostring(entry.configTab.activeConfigSetId)
+		end
 		t_insert(xml, {
 			elem = "CompareEntry",
 			attrib = attrib,
@@ -1012,6 +1083,10 @@ function CompareTabClass:Load(xml, dbFileName)
 						local savedItemSet = tonumber(child.attrib.activeItemSetId)
 						if savedItemSet and entry.itemsTab then
 							entry:SetActiveItemSet(savedItemSet)
+						end
+						local savedConfigSet = tonumber(child.attrib.activeConfigSetId)
+						if savedConfigSet and entry.configTab and entry.configTab.configSets[savedConfigSet] then
+							entry.configTab:SetActiveConfigSet(savedConfigSet)
 						end
 					end
 				end
@@ -1936,7 +2011,19 @@ function CompareTabClass:LayoutTreeView(contentVP, compareEntry)
 	end
 end
 
--- Position config controls and build display list when in CONFIG view.
+-- Sync a single control's displayed value with the actual input value
+local function syncControlValue(ctrl, varData, val)
+	if varData.type == "check" then
+		ctrl.state = val or false
+	elseif varData.type == "count" or varData.type == "integer"
+			or varData.type == "countAllowZero" or varData.type == "float" then
+		ctrl:SetText(tostring(val or ""))
+	elseif varData.type == "list" then
+		ctrl:SelByValue(val or (varData.list[1] and varData.list[1].val), "val")
+	end
+end
+
+-- Position config controls and build section-grouped display when in CONFIG view.
 function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 	if self.compareViewMode ~= "CONFIG" or not compareEntry then return end
 
@@ -1947,101 +2034,156 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 		self.configNeedsRebuild = false
 	end
 
-	-- Sync control values with current primary input (in case changed from normal Config tab)
+	-- Sync control values with current input (in case changed from normal Config tab or externally)
 	local pInput = self.primaryBuild.configTab.input or {}
-	for var, ctrlInfo in pairs(self.configControls) do
-		local ctrl = ctrlInfo.control
-		local varData = ctrlInfo.varData
-		local pVal = pInput[var]
-		if varData.type == "check" then
-			ctrl.state = pVal or false
-		elseif varData.type == "count" or varData.type == "integer"
-				or varData.type == "countAllowZero" or varData.type == "float" then
-			ctrl:SetText(tostring(pVal or ""))
-		elseif varData.type == "list" then
-			ctrl:SelByValue(pVal or (varData.list[1] and varData.list[1].val), "val")
-		end
-	end
-
-	-- Position buttons at top of config view (above column headers)
-	self.controls.copyConfigBtn.x = contentVP.x + 10
-	self.controls.copyConfigBtn.y = contentVP.y + 8
-	self.controls.configToggleBtn.x = contentVP.x + 260
-	self.controls.configToggleBtn.y = contentVP.y + 8
-
-	-- Build display list: Differences section first, then All Configurations
 	local cInput = compareEntry.configTab.input or {}
-	local displayList = {}
+	for var, ctrlInfo in pairs(self.configControls) do
+		local varData = ctrlInfo.varData
+		syncControlValue(ctrlInfo.primaryControl, varData, pInput[var])
+		syncControlValue(ctrlInfo.compareControl, varData, cInput[var])
+	end
+
+	-- Position header controls
+	local row1Y = contentVP.y + 4
+	local row2Y = contentVP.y + 28
+	self.controls.copyConfigBtn.x = contentVP.x + 10
+	self.controls.copyConfigBtn.y = row1Y
+	self.controls.configToggleBtn.x = contentVP.x + 260
+	self.controls.configToggleBtn.y = row1Y
+
+	self.controls.configSearchEdit.x = contentVP.x + 10
+	self.controls.configSearchEdit.y = row2Y
+
+	-- Update primary config set dropdown list
+	local pConfigTab = self.primaryBuild.configTab
+	local pSetList = {}
+	for index, setId in ipairs(pConfigTab.configSetOrderList) do
+		local configSet = pConfigTab.configSets[setId]
+		t_insert(pSetList, configSet and configSet.title or "Default")
+		if setId == pConfigTab.activeConfigSetId then
+			self.controls.configPrimarySetSelect.selIndex = index
+		end
+	end
+	self.controls.configPrimarySetSelect:SetList(pSetList)
+	self.controls.configPrimarySetLabel.x = contentVP.x + 220
+	self.controls.configPrimarySetLabel.y = row2Y + 2
+	self.controls.configPrimarySetSelect.x = contentVP.x + 290
+	self.controls.configPrimarySetSelect.y = row2Y
+
+	-- Build section layout: multi-column grid, mirroring regular ConfigTab
 	local rowHeight = LAYOUT.configRowHeight
-	local sectionHeaderHeight = LAYOUT.configSectionHeaderHeight
+	local sectionInnerPad = LAYOUT.configSectionInnerPad
+	local sectionGap = LAYOUT.configSectionGap
+	local fixedHeaderHeight = LAYOUT.configFixedHeaderHeight
+	local sectionWidth = LAYOUT.configSectionWidth
+	local scrollableH = contentVP.height - fixedHeaderHeight
 
-	-- Collect differences
-	local diffs = {}
+	-- Hide ALL config controls first (selectively shown below)
 	for _, ctrlInfo in ipairs(self.configControlList) do
-		local pVal = pInput[ctrlInfo.varData.var]
-		local cVal = cInput[ctrlInfo.varData.var]
-		if tostring(pVal or "") ~= tostring(cVal or "") then
-			t_insert(diffs, ctrlInfo)
-		end
+		ctrlInfo.primaryControl.shown = function() return false end
+		ctrlInfo.compareControl.shown = function() return false end
 	end
 
-	-- Differences section
-	if #diffs > 0 then
-		t_insert(displayList, { type = "header", text = "Differences (" .. #diffs .. ")" })
-		for _, ctrlInfo in ipairs(diffs) do
-			t_insert(displayList, { type = "row", ctrlInfo = ctrlInfo })
-		end
+	-- Search filter: match config labels against search text
+	local searchStr = self.controls.configSearchEdit.buf:lower():gsub("[%-%.%+%[%]%$%^%%%?%*]", "%%%0")
+	local hasSearch = searchStr and searchStr:match("%S")
+	local function searchMatch(varData)
+		if not hasSearch then return true end
+		local err, match = PCall(string.matchOrPattern, (varData.label or ""):lower(), searchStr)
+		return not err and match
 	end
 
-	-- Collect eligible non-diff options for "All Configurations" section
-	local configs = {}
-	for _, ctrlInfo in ipairs(self.configControlList) do
-		local pVal = pInput[ctrlInfo.varData.var]
-		local cVal = cInput[ctrlInfo.varData.var]
-		-- Only include non-diff options
-		if tostring(pVal or "") == tostring(cVal or "") then
-			if ctrlInfo.alwaysShow or (self.configToggle and ctrlInfo.showWithToggle) then
-				t_insert(configs, ctrlInfo)
+	-- First pass: compute rows and height for each section
+	local visibleSections = {}
+	for _, section in ipairs(self.configSections) do
+		local diffs = {}
+		local commons = {}
+		for _, ctrlInfo in ipairs(section.items) do
+			if searchMatch(ctrlInfo.varData) then
+				local pVal, cVal = self:NormalizeConfigVals(ctrlInfo.varData,
+					pInput[ctrlInfo.varData.var], cInput[ctrlInfo.varData.var])
+				local isDiff = tostring(pVal) ~= tostring(cVal)
+				if isDiff then
+					t_insert(diffs, ctrlInfo)
+				elseif ctrlInfo.alwaysShow or (self.configToggle and ctrlInfo.showWithToggle) then
+					t_insert(commons, ctrlInfo)
+				end
 			end
 		end
-	end
 
-	if #configs > 0 then
-		t_insert(displayList, { type = "header", text = "All Configurations" })
-		for _, ctrlInfo in ipairs(configs) do
-			t_insert(displayList, { type = "row", ctrlInfo = ctrlInfo })
+		local rows = {}
+		for _, ci in ipairs(diffs) do t_insert(rows, { ctrlInfo = ci, isDiff = true }) end
+		for _, ci in ipairs(commons) do t_insert(rows, { ctrlInfo = ci, isDiff = false }) end
+
+		if #rows > 0 then
+			local sectionHeight = sectionInnerPad + #rows * rowHeight + 8
+			t_insert(visibleSections, {
+				name = section.name,
+				col = section.col,
+				rows = rows,
+				height = sectionHeight,
+				diffCount = #diffs,
+			})
 		end
 	end
 
-	self.configDisplayList = displayList
+	-- Second pass: multi-column placement (same algorithm as ConfigTab)
+	local maxCol = m_floor((contentVP.width - 10) / sectionWidth)
+	if maxCol < 1 then maxCol = 1 end
+	local colY = { 0 }
+	local maxColY = 0
+	local sectionLayout = {}
 
-	-- First, hide ALL config controls (will selectively show visible ones)
-	for _, ctrlInfo in ipairs(self.configControlList) do
-		ctrlInfo.control.shown = function() return false end
+	for _, sec in ipairs(visibleSections) do
+		local h = sec.height
+		local col
+		-- Try preferred column if it fits
+		if sec.col and (colY[sec.col] or 0) + h + 28 <= scrollableH
+				and 10 + sec.col * sectionWidth <= contentVP.width then
+			col = sec.col
+		else
+			-- Find shortest column
+			col = 1
+			for c = 2, maxCol do
+				colY[c] = colY[c] or 0
+				if colY[c] < colY[col] then
+					col = c
+				end
+			end
+		end
+		colY[col] = colY[col] or 0
+		sec.x = 10 + (col - 1) * sectionWidth
+		sec.y = colY[col] + sectionGap
+		colY[col] = colY[col] + h + sectionGap
+		maxColY = m_max(maxColY, colY[col])
+		t_insert(sectionLayout, sec)
 	end
 
-	-- Position visible controls at absolute coords matching DrawConfig layout
-	local col2AbsX = contentVP.x + LAYOUT.configCol2
-	local fixedHeaderHeight = LAYOUT.configFixedHeaderHeight
-	local scrollTopAbs = contentVP.y + fixedHeaderHeight -- top of scrollable area
-	local startY = fixedHeaderHeight -- content starts after fixed header
-	local currentY = startY
-	for _, item in ipairs(displayList) do
-		if item.type == "header" then
-			currentY = currentY + sectionHeaderHeight
-		elseif item.type == "row" then
-			local absY = contentVP.y + currentY - self.scrollY
-			item.ctrlInfo.control.x = col2AbsX
-			item.ctrlInfo.control.y = absY
-			local cy = currentY -- capture for closure
-			item.ctrlInfo.control.shown = function()
-				local ay = contentVP.y + cy - self.scrollY
+	-- Third pass: position controls at absolute coords
+	local scrollTopAbs = contentVP.y + fixedHeaderHeight
+	for _, sec in ipairs(sectionLayout) do
+		local sectionAbsX = contentVP.x + sec.x
+		local rowY = sec.y + sectionInnerPad
+		for _, row in ipairs(sec.rows) do
+			local ci = row.ctrlInfo
+			ci.primaryControl.x = sectionAbsX + LAYOUT.configCol2
+			ci.primaryControl.y = contentVP.y + fixedHeaderHeight + rowY - self.scrollY
+			ci.compareControl.x = sectionAbsX + LAYOUT.configCol3
+			ci.compareControl.y = contentVP.y + fixedHeaderHeight + rowY - self.scrollY
+			local capturedRowY = rowY
+			local shownFn = function()
+				local ay = contentVP.y + fixedHeaderHeight + capturedRowY - self.scrollY
 				return ay >= scrollTopAbs - 20 and ay < contentVP.y + contentVP.height
 					and self.compareViewMode == "CONFIG" and self:GetActiveCompare() ~= nil
 			end
-			currentY = currentY + rowHeight
+			ci.primaryControl.shown = shownFn
+			ci.compareControl.shown = shownFn
+			rowY = rowY + rowHeight
 		end
 	end
+
+	self.configSectionLayout = sectionLayout
+	self.configTotalContentHeight = maxColY + sectionGap
 end
 
 -- Update comparison build set selectors (spec, skill set, item set, skill controls).
@@ -2075,6 +2217,18 @@ function CompareTabClass:UpdateSetSelectors(compareEntry)
 		end
 		self.controls.compareItemSetSelect:SetList(itemList)
 	end
+	-- Config set list
+	if compareEntry.configTab then
+		local configList = {}
+		for index, configSetId in ipairs(compareEntry.configTab.configSetOrderList) do
+			local configSet = compareEntry.configTab.configSets[configSetId]
+			t_insert(configList, configSet and configSet.title or "Default")
+			if configSetId == compareEntry.configTab.activeConfigSetId then
+				self.controls.compareConfigSetSelect.selIndex = index
+			end
+		end
+		self.controls.compareConfigSetSelect:SetList(configList)
+	end
 
 	-- Refresh comparison build skill selector controls
 	local cmpControls = {
@@ -2102,7 +2256,14 @@ function CompareTabClass:HandleScrollInput(contentVP, inputEvents)
 				self.scrollY = m_max(self.scrollY - 40, 0)
 				inputEvents[id] = nil
 			elseif event.key == "WHEELDOWN" and self.compareViewMode ~= "TREE" then
-				self.scrollY = self.scrollY + 40
+				local maxScroll = 0
+				if self.compareViewMode == "CONFIG" and self.configTotalContentHeight then
+					local scrollViewH = contentVP.height - LAYOUT.configFixedHeaderHeight
+					maxScroll = m_max(self.configTotalContentHeight - scrollViewH, 0)
+				else
+					maxScroll = 99999
+				end
+				self.scrollY = m_min(self.scrollY + 40, maxScroll)
 				inputEvents[id] = nil
 			end
 		end
@@ -4617,30 +4778,27 @@ end
 -- ============================================================
 function CompareTabClass:DrawConfig(vp, compareEntry)
 	local rowHeight = LAYOUT.configRowHeight
-	local sectionHeaderHeight = LAYOUT.configSectionHeaderHeight
 	local columnHeaderHeight = LAYOUT.configColumnHeaderHeight
 	local fixedHeaderHeight = LAYOUT.configFixedHeaderHeight
+	local sectionInnerPad = LAYOUT.configSectionInnerPad
+	local sectionWidth = LAYOUT.configSectionWidth
+	local labelOffset = LAYOUT.configLabelOffset
 
-	-- Column positions (viewport-relative)
-	local col1 = LAYOUT.configCol1
-	local col2 = LAYOUT.configCol2
-	local col3 = LAYOUT.configCol3
-
-	-- Fixed header area: buttons at top, then column headers + separator
+	-- Fixed header area: row 1 = buttons, row 2 = search/dropdowns, then column headers + separator
 	SetViewport(vp.x, vp.y, vp.width, fixedHeaderHeight)
-	-- Buttons (Copy Config + Toggle) are drawn by ControlHost at y=8
-	-- Column headers below buttons
-	local colHeaderY = 36
+	-- Controls are drawn by ControlHost (positioned in LayoutConfigView)
+	local colHeaderY = 54
 	SetDrawColor(1, 1, 1)
-	DrawString(col1, colHeaderY, "LEFT", columnHeaderHeight, "VAR", "^7Configuration Option")
-	DrawString(col2, colHeaderY, "LEFT", columnHeaderHeight, "VAR",
+	-- Column headers aligned with first column's control offsets
+	local headerBaseX = 10
+	DrawString(headerBaseX + LAYOUT.configCol2, colHeaderY, "LEFT", columnHeaderHeight, "VAR",
 		colorCodes.POSITIVE .. self:GetShortBuildName(self.primaryBuild.buildName))
-	DrawString(col3, colHeaderY, "LEFT", columnHeaderHeight, "VAR",
+	DrawString(headerBaseX + LAYOUT.configCol3, colHeaderY, "LEFT", columnHeaderHeight, "VAR",
 		colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
 	SetDrawColor(0.5, 0.5, 0.5)
 	DrawImage(nil, 4, colHeaderY + columnHeaderHeight + 4, vp.width - 8, 2)
 
-	-- Scrollable content area (clipped below fixed header so content can't bleed through buttons)
+	-- Scrollable content area (clipped below fixed header)
 	local scrollH = vp.height - fixedHeaderHeight
 	if scrollH <= 0 then
 		SetViewport()
@@ -4648,39 +4806,61 @@ function CompareTabClass:DrawConfig(vp, compareEntry)
 	end
 	SetViewport(vp.x, vp.y + fixedHeaderHeight, vp.width, scrollH)
 
-	local cInput = compareEntry.configTab.input or {}
-	local currentY = 0 -- relative to scrollable viewport
+	-- Draw section boxes
+	for _, sec in ipairs(self.configSectionLayout) do
+		local boxX = sec.x
+		local boxY = sec.y - self.scrollY
+		local boxH = sec.height
 
-	-- Draw from the computed display list (built in Draw())
-	for _, item in ipairs(self.configDisplayList) do
-		if item.type == "header" then
-			local headerY = currentY - self.scrollY
-			if headerY + sectionHeaderHeight >= 0 and headerY < scrollH then
-				-- Section header text
-				SetDrawColor(1, 1, 1)
-				DrawString(col1, headerY + 4, "LEFT", 16, "VAR BOLD", "^7" .. item.text)
-				-- Thin separator below header
-				SetDrawColor(0.4, 0.4, 0.4)
-				DrawImage(nil, col1, headerY + sectionHeaderHeight - 2, vp.width - col1 * 2, 1)
+		-- Skip entirely off-screen sections
+		if boxY + boxH >= 0 and boxY < scrollH then
+			-- Draw section box
+			SetDrawLayer(nil, -10)
+			SetDrawColor(0.66, 0.66, 0.66)
+			DrawImage(nil, boxX, boxY, sectionWidth, boxH)
+			SetDrawColor(0.1, 0.1, 0.1)
+			DrawImage(nil, boxX + 2, boxY + 2, sectionWidth - 4, boxH - 4)
+			SetDrawLayer(nil, 0)
+
+			-- Draw section label badge
+			local labelText = sec.name
+			if sec.diffCount > 0 then
+				labelText = labelText .. "  (" .. sec.diffCount .. " diff)"
 			end
-			currentY = currentY + sectionHeaderHeight
-		elseif item.type == "row" then
-			local rowY = currentY - self.scrollY
-			if rowY + rowHeight >= 0 and rowY < scrollH then
-				local varData = item.ctrlInfo.varData
-				-- Label (col1)
-				SetDrawColor(1, 1, 1)
-				DrawString(col1, rowY + 2, "LEFT", 16, "VAR", "^7" .. (varData.label or varData.var))
-				-- Compare value (col3, read-only)
-				local cVal = cInput[varData.var]
-				local cStr = self:FormatConfigValue(varData, cVal)
-				DrawString(col3, rowY + 2, "LEFT", 16, "VAR", "^7" .. cStr)
+			local labelWidth = DrawStringWidth(14, "VAR", labelText)
+			SetDrawColor(0.66, 0.66, 0.66)
+			DrawImage(nil, boxX + 6, boxY - 8, labelWidth + 6, 18)
+			SetDrawColor(0, 0, 0)
+			DrawImage(nil, boxX + 7, boxY - 7, labelWidth + 4, 16)
+			SetDrawColor(1, 1, 1)
+			DrawString(boxX + 9, boxY - 6, "LEFT", 14, "VAR", labelText)
+
+			-- Draw rows inside section
+			local rowY = boxY + sectionInnerPad
+			for _, row in ipairs(sec.rows) do
+				if rowY + rowHeight >= 0 and rowY < scrollH then
+					local varData = row.ctrlInfo.varData
+					-- Subtle highlight for diff rows
+					if row.isDiff then
+						SetDrawLayer(nil, -5)
+						SetDrawColor(0.18, 0.14, 0.08)
+						DrawImage(nil, boxX + 3, rowY, sectionWidth - 6, rowHeight)
+						SetDrawLayer(nil, 0)
+					end
+					-- Label (reduce font size for long labels, matching ConfigTab behavior)
+					local labelStr = varData.label or varData.var
+					local labelSize = DrawStringWidth(14, "VAR", labelStr) > 228 and 12 or 14
+					SetDrawColor(1, 1, 1)
+					DrawString(boxX + labelOffset, rowY + 2, "LEFT", labelSize, "VAR",
+						"^7" .. labelStr)
+					-- Controls are drawn by ControlHost (positioned in LayoutConfigView)
+				end
+				rowY = rowY + rowHeight
 			end
-			currentY = currentY + rowHeight
 		end
 	end
 
-	if #self.configDisplayList == 0 then
+	if #self.configSectionLayout == 0 then
 		DrawString(10, -self.scrollY, "LEFT", 16, "VAR",
 			colorCodes.POSITIVE .. "No configuration options to display.")
 	end
