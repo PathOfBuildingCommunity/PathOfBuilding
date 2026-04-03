@@ -2813,11 +2813,19 @@ function CompareTabClass:DrawSummary(vp, compareEntry)
 	local lineHeight = 18
 	local headerHeight = 22
 
-	-- Column positions
+	-- Column positions (col3R and col4 shift right dynamically to avoid name overlap)
 	local col1 = LAYOUT.summaryCol1
 	local col2R = LAYOUT.summaryCol2Right
-	local col3R = LAYOUT.summaryCol3Right
-	local col4 = LAYOUT.summaryCol4
+
+	local primaryName = self:GetShortBuildName(self.primaryBuild.buildName)
+	local compareName = compareEntry.label or "Compare Build"
+	local primaryNameW = DrawStringWidth(headerHeight, "VAR", primaryName)
+	local compareNameW = DrawStringWidth(headerHeight, "VAR", compareName)
+
+	local minCol3R = col2R + compareNameW + 16
+	local maxCol3R = vp.width - 200
+	local col3R = m_min(m_max(LAYOUT.summaryCol3Right, minCol3R), maxCol3R)
+	local col4 = col3R + 20
 
 	SetViewport(vp.x, vp.y, vp.width, vp.height)
 	local drawY = 4 - self.scrollY
@@ -2825,9 +2833,9 @@ function CompareTabClass:DrawSummary(vp, compareEntry)
 	-- Headers
 	SetDrawColor(1, 1, 1)
 	DrawString(col1, drawY, "LEFT", headerHeight, "VAR", "^7Stat")
-	DrawString(col2R, drawY, "RIGHT_X", headerHeight, "VAR", colorCodes.POSITIVE .. self:GetShortBuildName(self.primaryBuild.buildName))
+	DrawString(col2R, drawY, "RIGHT_X", headerHeight, "VAR", colorCodes.POSITIVE .. primaryName)
 	DrawString(col3R, drawY, "RIGHT_X", headerHeight, "VAR",
-		colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
+		colorCodes.WARNING .. compareName)
 	DrawString(col4, drawY, "LEFT", headerHeight, "VAR", "^7Difference")
 	drawY = drawY + headerHeight + 4
 
