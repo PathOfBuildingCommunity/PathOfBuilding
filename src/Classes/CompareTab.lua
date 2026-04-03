@@ -37,6 +37,9 @@ for i, entry in ipairs(LISTED_STATUS_OPTIONS) do
 	LISTED_STATUS_LABELS[i] = entry.label
 end
 
+-- Node IDs below this value are normal passive tree nodes; IDs at or above are cluster jewel nodes
+local CLUSTER_NODE_OFFSET = 65536
+
 -- Layout constants (shared across Draw, DrawConfig, DrawItems, DrawCalcs, etc.)
 local LAYOUT = {
 	-- Main tab control bar
@@ -2401,7 +2404,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 		local compareNodes = compareEntry.spec and compareEntry.spec.allocNodes or {}
 		local primaryNodes = self.primaryBuild.spec and self.primaryBuild.spec.allocNodes or {}
 		for nodeId, node in pairs(compareNodes) do
-			if type(nodeId) == "number" and nodeId < 65536 and not primaryNodes[nodeId] then
+			if type(nodeId) == "number" and nodeId < CLUSTER_NODE_OFFSET and not primaryNodes[nodeId] then
 				local pNode = self.primaryBuild.spec.nodes[nodeId]
 				if pNode and (pNode.type == "Normal" or pNode.type == "Notable" or pNode.type == "Keystone") and not pNode.ascendancyName then
 					total = total + 1
@@ -2520,7 +2523,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 		local cache = {}
 
 		for nodeId, _ in pairs(compareNodes) do
-			if type(nodeId) == "number" and nodeId < 65536 and not primaryNodes[nodeId] then
+			if type(nodeId) == "number" and nodeId < CLUSTER_NODE_OFFSET and not primaryNodes[nodeId] then
 				local pNode = self.primaryBuild.spec.nodes[nodeId]
 				if pNode and (pNode.type == "Normal" or pNode.type == "Notable" or pNode.type == "Keystone")
 						and not pNode.ascendancyName and pNode.modKey ~= "" then
