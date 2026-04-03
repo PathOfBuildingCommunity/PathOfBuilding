@@ -4152,7 +4152,104 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 		end
 	end
 
-	-- Draw matched pairs
+	-- Helper: check if gemA supports gemB (mirrors GemSelectControl:CheckSupporting)
+	local function checkSupporting(gemA, gemB)
+		if not gemA.gemData or not gemB.gemData then return false end
+		return (gemA.gemData.grantedEffect and gemA.gemData.grantedEffect.support
+			and gemB.gemData.grantedEffect and not gemB.gemData.grantedEffect.support
+			and gemA.supportEffect and gemA.supportEffect.isSupporting
+			and gemA.supportEffect.isSupporting[gemB])
+		or (gemA.gemData.secondaryGrantedEffect
+			and gemA.gemData.secondaryGrantedEffect.support
+			and gemB.gemData.grantedEffect and not gemB.gemData.grantedEffect.support
+			and gemA.supportEffect and gemA.supportEffect.isSupporting
+			and gemA.supportEffect.isSupporting[gemB])
+	end
+
+	local gemFontSize = 16
+	local gemLineHeight = 18
+	local gemTextWidth = colWidth - 30
+
+	-- Position pre-pass: compute gem positions without drawing to enable hover hit-testing
+	local gemEntries = {} -- { gem, x, y, group }
+	local preY = 4 - self.scrollY + 24 -- after headers
+	for _, pair in ipairs(renderPairs) do
+		preY = preY + 2 -- separator
+		local pSet = pair.pIdx and pSets[pair.pIdx] or {}
+		local cSet = pair.cIdx and cSets[pair.cIdx] or {}
+		local pGemY = preY + lineHeight
+		local cGemY = preY + lineHeight
+
+		-- Primary group gems
+		local pGroup = pair.pIdx and pGroups[pair.pIdx]
+		if pGroup then
+			for _, gem in ipairs(pGroup.gemList or {}) do
+				t_insert(gemEntries, { gem = gem, x = 20, y = pGemY, group = pGroup })
+				pGemY = pGemY + gemLineHeight
+			end
+			if pair.cIdx then
+				for name in pairs(cSet) do
+					if not pSet[name] then
+						pGemY = pGemY + gemLineHeight -- missing gem placeholder
+					end
+				end
+			end
+		end
+
+		-- Compare group gems
+		local cGroup = pair.cIdx and cGroups[pair.cIdx]
+		if cGroup then
+			for _, gem in ipairs(cGroup.gemList or {}) do
+				t_insert(gemEntries, { gem = gem, x = colWidth + 20, y = cGemY, group = cGroup })
+				cGemY = cGemY + gemLineHeight
+			end
+			if pair.pIdx then
+				for name in pairs(pSet) do
+					if not cSet[name] then
+						cGemY = cGemY + gemLineHeight
+					end
+				end
+			end
+		end
+
+		preY = preY + m_max(pGemY - preY, cGemY - preY) + 6
+	end
+
+	-- Hit-test: find hovered gem
+	local cursorX, cursorY = GetCursorPos()
+	local localCursorX = cursorX - vp.x
+	local localCursorY = cursorY - vp.y
+	local hoveredEntry = nil
+	if localCursorX >= 0 and localCursorX < vp.width and localCursorY >= 0 and localCursorY < vp.height then
+		for _, entry in ipairs(gemEntries) do
+			if localCursorX >= entry.x and localCursorX < entry.x + gemTextWidth
+				and localCursorY >= entry.y and localCursorY < entry.y + gemLineHeight then
+				hoveredEntry = entry
+				break
+			end
+		end
+	end
+
+	-- Build set of highlighted gems based on hover
+	local highlightSet = {}
+	if hoveredEntry then
+		highlightSet[hoveredEntry.gem] = true
+		for _, entry in ipairs(gemEntries) do
+			if entry.group == hoveredEntry.group and entry.gem ~= hoveredEntry.gem then
+				if checkSupporting(hoveredEntry.gem, entry.gem) or checkSupporting(entry.gem, hoveredEntry.gem) then
+					highlightSet[entry.gem] = true
+				end
+			end
+		end
+		-- Only keep highlights if there's at least one linked gem (not just the hovered one)
+		local count = 0
+		for _ in pairs(highlightSet) do count = count + 1 end
+		if count <= 1 then
+			highlightSet = {}
+		end
+	end
+
+	-- Draw pass
 	for _, pair in ipairs(renderPairs) do
 		SetDrawColor(0.3, 0.3, 0.3)
 		DrawImage(nil, 4, drawY, vp.width - 8, 1)
@@ -4173,6 +4270,10 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 			DrawString(10, drawY, "LEFT", 16, "VAR", "^7" .. groupLabel)
 			local gemY = drawY + lineHeight
 			for _, gem in ipairs(pGroup.gemList or {}) do
+				if highlightSet[gem] then
+					SetDrawColor(0.33, 1, 0.33, 0.25)
+					DrawImage(nil, 20, gemY, gemTextWidth, gemLineHeight)
+				end
 				local gemName = gem.grantedEffect and gem.grantedEffect.name or gem.nameSpec or "?"
 				local gemColor = gem.color or colorCodes.GEM
 				local levelStr = gem.level and (" Lv" .. gem.level) or ""
@@ -4181,8 +4282,8 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 				if pair.cIdx and not cSet[gemName] then
 					prefix = colorCodes.POSITIVE .. "+ "
 				end
-				DrawString(20, gemY, "LEFT", 14, "VAR", prefix .. gemColor .. gemName .. "^7" .. levelStr .. qualStr)
-				gemY = gemY + 16
+				DrawString(20, gemY, "LEFT", gemFontSize, "VAR", prefix .. gemColor .. gemName .. "^7" .. levelStr .. qualStr)
+				gemY = gemY + gemLineHeight
 			end
 			-- Show gems missing from primary but present in compare
 			if pair.cIdx then
@@ -4194,8 +4295,8 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 				end
 				table.sort(missing)
 				for _, name in ipairs(missing) do
-					DrawString(20, gemY, "LEFT", 14, "VAR", colorCodes.NEGATIVE .. "- " .. name .. "^7")
-					gemY = gemY + 16
+					DrawString(20, gemY, "LEFT", gemFontSize, "VAR", colorCodes.NEGATIVE .. "- " .. name .. "^7")
+					gemY = gemY + gemLineHeight
 				end
 			end
 			pFinalGemY = gemY
@@ -4211,6 +4312,10 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 			DrawString(colWidth + 10, drawY, "LEFT", 16, "VAR", "^7" .. groupLabel)
 			local gemY = drawY + lineHeight
 			for _, gem in ipairs(cGroup.gemList or {}) do
+				if highlightSet[gem] then
+					SetDrawColor(0.33, 1, 0.33, 0.25)
+					DrawImage(nil, colWidth + 20, gemY, gemTextWidth, gemLineHeight)
+				end
 				local gemName = gem.grantedEffect and gem.grantedEffect.name or gem.nameSpec or "?"
 				local gemColor = gem.color or colorCodes.GEM
 				local levelStr = gem.level and (" Lv" .. gem.level) or ""
@@ -4219,8 +4324,8 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 				if pair.pIdx and not pSet[gemName] then
 					prefix = colorCodes.POSITIVE .. "+ "
 				end
-				DrawString(colWidth + 20, gemY, "LEFT", 14, "VAR", prefix .. gemColor .. gemName .. "^7" .. levelStr .. qualStr)
-				gemY = gemY + 16
+				DrawString(colWidth + 20, gemY, "LEFT", gemFontSize, "VAR", prefix .. gemColor .. gemName .. "^7" .. levelStr .. qualStr)
+				gemY = gemY + gemLineHeight
 			end
 			-- Show gems missing from compare but present in primary
 			if pair.pIdx then
@@ -4232,8 +4337,8 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 				end
 				table.sort(missing)
 				for _, name in ipairs(missing) do
-					DrawString(colWidth + 20, gemY, "LEFT", 14, "VAR", colorCodes.NEGATIVE .. "- " .. name .. "^7")
-					gemY = gemY + 16
+					DrawString(colWidth + 20, gemY, "LEFT", gemFontSize, "VAR", colorCodes.NEGATIVE .. "- " .. name .. "^7")
+					gemY = gemY + gemLineHeight
 				end
 			end
 			cFinalGemY = gemY
