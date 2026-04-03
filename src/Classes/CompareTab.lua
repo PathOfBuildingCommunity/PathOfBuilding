@@ -49,8 +49,8 @@ local LAYOUT = {
 
 	-- Summary view columns
 	summaryCol1 = 10,
-	summaryCol2 = 300,
-	summaryCol3 = 450,
+	summaryCol2Right = 440,
+	summaryCol3Right = 580,
 	summaryCol4 = 600,
 
 	-- Items view
@@ -2812,8 +2812,8 @@ function CompareTabClass:DrawSummary(vp, compareEntry)
 
 	-- Column positions
 	local col1 = LAYOUT.summaryCol1
-	local col2 = LAYOUT.summaryCol2
-	local col3 = LAYOUT.summaryCol3
+	local col2R = LAYOUT.summaryCol2Right
+	local col3R = LAYOUT.summaryCol3Right
 	local col4 = LAYOUT.summaryCol4
 
 	SetViewport(vp.x, vp.y, vp.width, vp.height)
@@ -2822,8 +2822,9 @@ function CompareTabClass:DrawSummary(vp, compareEntry)
 	-- Headers
 	SetDrawColor(1, 1, 1)
 	DrawString(col1, drawY, "LEFT", headerHeight, "VAR", "^7Stat")
-	DrawString(col2, drawY, "LEFT", headerHeight, "VAR", colorCodes.POSITIVE .. self:GetShortBuildName(self.primaryBuild.buildName))
-	DrawString(col3, drawY, "LEFT", headerHeight, "VAR", colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
+	DrawString(col2R, drawY, "RIGHT_X", headerHeight, "VAR", colorCodes.POSITIVE .. self:GetShortBuildName(self.primaryBuild.buildName))
+	DrawString(col3R, drawY, "RIGHT_X", headerHeight, "VAR",
+		colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
 	DrawString(col4, drawY, "LEFT", headerHeight, "VAR", "^7Difference")
 	drawY = drawY + headerHeight + 4
 
@@ -2837,7 +2838,7 @@ function CompareTabClass:DrawSummary(vp, compareEntry)
 	local primaryEnv = self.primaryBuild.calcsTab.mainEnv
 	local compareEnv = compareEntry.calcsTab.mainEnv
 
-	drawY = self:DrawStatList(drawY, vp, displayStats, primaryOutput, compareOutput, primaryEnv, compareEnv, col1, col2, col3, col4)
+	drawY = self:DrawStatList(drawY, displayStats, primaryOutput, compareOutput, primaryEnv, compareEnv, col1, col4, col2R, col3R)
 
 	-- ========================================
 	-- Compare Power Report section
@@ -2923,7 +2924,7 @@ function CompareTabClass:DrawSummary(vp, compareEntry)
 end
 
 
-function CompareTabClass:DrawStatList(drawY, vp, displayStats, primaryOutput, compareOutput, primaryEnv, compareEnv, col1, col2, col3, col4)
+function CompareTabClass:DrawStatList(drawY, displayStats, primaryOutput, compareOutput, primaryEnv, compareEnv, col1, col4, col2R, col3R)
 	local lineHeight = 16
 
 	-- Get skill flags from both builds for stat filtering
@@ -2989,8 +2990,8 @@ function CompareTabClass:DrawStatList(drawY, vp, displayStats, primaryOutput, co
 				-- Draw stat row
 				local labelColor = statData.color or "^7"
 				DrawString(col1, drawY, "LEFT", lineHeight, "VAR", labelColor .. (statData.label or statData.stat))
-				DrawString(col2, drawY, "LEFT", lineHeight, "VAR", "^7" .. primaryStr)
-				DrawString(col3, drawY, "LEFT", lineHeight, "VAR", diffColor .. compareStr)
+				DrawString(col2R, drawY, "RIGHT_X", lineHeight, "VAR", "^7" .. primaryStr)
+				DrawString(col3R, drawY, "RIGHT_X", lineHeight, "VAR", colorCodes.SPLITPERSONALITY .. compareStr)
 				if diffStr ~= "" then
 					DrawString(col4, drawY, "LEFT", lineHeight, "VAR", diffColor .. diffStr)
 				end
@@ -3004,8 +3005,8 @@ function CompareTabClass:DrawStatList(drawY, vp, displayStats, primaryOutput, co
 				local primaryShown = statData.condFunc(primaryOutput)
 				local compareShown = statData.condFunc(compareOutput)
 				DrawString(col1, drawY, "LEFT", lineHeight, "VAR", labelColor .. statData.label)
-				DrawString(col2, drawY, "LEFT", lineHeight, "VAR", "^7" .. (primaryShown and valStr or "-"))
-				DrawString(col3, drawY, "LEFT", lineHeight, "VAR", "^7" .. (compareShown and valStr or "-"))
+				DrawString(col2R, drawY, "RIGHT_X", lineHeight, "VAR", "^7" .. (primaryShown and valStr or "-"))
+				DrawString(col3R, drawY, "RIGHT_X", lineHeight, "VAR", colorCodes.WARNING .. (compareShown and valStr or "-"))
 				drawY = drawY + lineHeight + 1
 			end
 		end
