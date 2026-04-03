@@ -37,6 +37,8 @@ local function calculateMirage(env, config)
 	if mirageSkill then
 		local newSkill, newEnv = calcs.copyActiveSkill(env, "CALCULATOR", mirageSkill)
 		newSkill.skillCfg.skillCond["usedByMirage"] = true
+		newSkill.skillFlags.multiPart = nil
+		newSkill.skillFlags.haveMinion = nil
 		newEnv.limitedSkills = newEnv.limitedSkills or {}
 		newEnv.limitedSkills[cacheSkillUUID(newSkill, newEnv)] = true
 		newSkill.skillData.mirageUses = env.player.mainSkill.skillData.storedUses
@@ -150,21 +152,8 @@ function calcs.mirages(env)
 			postCalcFunc = function(env, newSkill, newEnv)
 				env.player.mainSkill = newSkill
 				env.player.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. newSkill.activeEffect.grantedEffect.name
-
-				-- Re-link over the output
 				env.player.output = newEnv.player.output
-				if newSkill.minion then
-					env.minion = newEnv.player.mainSkill.minion
-					env.minion.output = newEnv.minion.output
-				end
-
-				-- Re-link over the breakdown (if present)
-				if newEnv.player.breakdown then
-					env.player.breakdown = newEnv.player.breakdown
-					if newSkill.minion then
-						env.minion.breakdown = newEnv.minion.breakdown
-					end
-				end
+				env.player.breakdown = newEnv.player.breakdown or env.player.breakdown
 			end,
 			mirageSkillNotFoundFunc = function(env, config)
 				env.player.mainSkill.disableReason = "No Saviour active skill found"
