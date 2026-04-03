@@ -2250,8 +2250,11 @@ function CompareTabClass:HandleScrollInput(contentVP, inputEvents)
 	local mouseInContent = cursorX >= contentVP.x and cursorX < contentVP.x + contentVP.width
 		and cursorY >= contentVP.y and cursorY < contentVP.y + contentVP.height
 
+	local listControl = self.controls.comparePowerReportList
+	local mouseOverList = listControl:IsShown() and listControl:IsMouseOver()
+
 	for id, event in ipairs(inputEvents) do
-		if event.type == "KeyDown" and mouseInContent then
+		if event.type == "KeyDown" and mouseInContent and not mouseOverList then
 			if event.key == "WHEELUP" and self.compareViewMode ~= "TREE" then
 				self.scrollY = m_max(self.scrollY - 40, 0)
 				inputEvents[id] = nil
