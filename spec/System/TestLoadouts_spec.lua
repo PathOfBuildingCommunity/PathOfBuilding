@@ -298,6 +298,116 @@ describe("TestLoadouts", function()
 			end)
 		end)
 
+		describe("CustomLoadout", function()
+			it("creates a new loadout with default values (all -1)", function()
+				local loadoutName = "Custom Loadout"
+				buildSetService:CustomLoadout(-1, -1, -1, -1, loadoutName)
+				assert.are.equals(7, #build.controls.buildLoadouts.list)
+				assert.are.equals(loadoutName, build.controls.buildLoadouts.list[3])
+				assert.is_true(build.modFlag)
+			end)
+
+			it("creates a new loadout by copying existing spec, item, skill, and config sets", function()
+				local loadoutName = "Custom Loadout from Existing"
+				local loadoutToCopy = build:GetLoadoutByName("Default")
+				buildSetService:CustomLoadout(loadoutToCopy.specId, loadoutToCopy.itemSetId, loadoutToCopy.skillSetId,
+					loadoutToCopy.configSetId, loadoutName)
+				assert.are.equals(7, #build.controls.buildLoadouts.list)
+				assert.are.equals(loadoutName, build.controls.buildLoadouts.list[3])
+				assert.is_true(build.modFlag)
+			end)
+
+			it("creates new sets when id is -1, copies existing when id is valid", function()
+				-- Create initial custom loadout with all new sets
+				buildSetService:CustomLoadout(-1, -1, -1, -1, "All New Sets")
+				assert.are.equals(2, #build.treeTab.specList)
+				assert.are.equals(2, #build.skillsTab.skillSets)
+				assert.are.equals(2, #build.itemsTab.itemSets)
+				assert.are.equals(2, #build.configTab.configSets)
+
+				-- Create second loadout mixing new and existing sets
+				local existingItemSet = build.itemsTab.itemSets[1]
+				local existingSkillSet = build.skillsTab.skillSets[1]
+				local existingConfigSet = build.configTab.configSets[1]
+
+				local mixedLoadoutName = "Mixed Sets"
+				buildSetService:CustomLoadout(-1, existingItemSet.id, existingSkillSet.id, existingConfigSet.id,
+					mixedLoadoutName)
+				assert.are.equals(3, #build.treeTab.specList)
+				assert.are.equals(3, #build.skillsTab.skillSets)
+				assert.are.equals(3, #build.itemsTab.itemSets)
+				assert.are.equals(3, #build.configTab.configSets)
+
+				local mixedLoadout = build:GetLoadoutByName(mixedLoadoutName)
+				local newSpec = build.treeTab.specList[mixedLoadout.specId]
+				local newItemSet = build.itemsTab.itemSets[build.itemsTab.itemSetOrderList[mixedLoadout.itemSetId]]
+				local newSkillSet = build.skillsTab.skillSets
+					[build.skillsTab.skillSetOrderList[mixedLoadout.skillSetId]]
+				local newConfigSet = build.configTab.configSets
+					[build.configTab.configSetOrderList[mixedLoadout.configSetId]]
+				assert.is_not.same(build.itemsTab.itemSetOrderList[mixedLoadout.itemSetId], existingItemSet.id)
+				assert.is_not.same(build.skillsTab.skillSetOrderList[mixedLoadout.skillSetId], existingSkillSet.id)
+				assert.is_not.same(build.configTab.configSetOrderList[mixedLoadout.configSetId], existingConfigSet.id)
+				assert.is_same(mixedLoadoutName, newSpec.title)
+				assert.is_same(mixedLoadoutName, newItemSet.title)
+				assert.is_same(mixedLoadoutName, newSkillSet.title)
+				assert.is_same(mixedLoadoutName, newConfigSet.title)
+				assert.is_true(build.modFlag)
+			end)
+
+			it("sets the newly created loadout as selected", function()
+				local loadoutName = "Should Be Selected"
+				buildSetService:CustomLoadout(-1, -1, -1, -1, loadoutName)
+				assert.are.equals(3, build.controls.buildLoadouts.selIndex)
+				assert.are.equals(loadoutName, build.controls.buildLoadouts:GetSelValue())
+				assert.is_true(build.modFlag)
+			end)
+
+			it("calls AddLoadout internally and triggers callback", function()
+				local loadoutName = "Custom Callback Test"
+				buildSetService:CustomLoadout(-1, -1, -1, -1, loadoutName)
+				build:SyncLoadouts()
+				assert.are.equals(7, #build.controls.buildLoadouts.list)
+				local loadout = build:GetLoadoutByName(loadoutName)
+				assert.is_not_nil(build.treeTab.specList[loadout.specId])
+				assert.is_not_nil(build.itemsTab.itemSets[loadout.itemSetId])
+				assert.is_not_nil(build.skillsTab.skillSets[loadout.skillSetId])
+				assert.is_not_nil(build.configTab.configSets[loadout.configSetId])
+				assert.is_true(build.modFlag)
+			end)
+
+			it("handles copy with partial existing sets", function()
+				-- Create first custom loadout
+				buildSetService:CustomLoadout(-1, -1, -1, -1, "Custom 1")
+				assert.are.equals(7, #build.controls.buildLoadouts.list)
+
+				-- Get the first loadout and copy only spec and item sets
+				local custom1 = build:GetLoadoutByName("Custom 1")
+				local existingItemSet = build.itemsTab.itemSets[1]
+
+				buildSetService:CustomLoadout(custom1.specId, existingItemSet.id, -1, -1, "Custom 1 Modified")
+				assert.are.equals(8, #build.controls.buildLoadouts.list)
+
+				-- Verify the loadout was created with new sets
+				local modifiedCustom = build:GetLoadoutByName("Custom 1 Modified")
+				assert.is_not_nil(modifiedCustom)
+				assert.is_true(build.modFlag)
+			end)
+
+			it("works with copy of existing loadout combined with new sets", function()
+				local copyLoadout = build:GetLoadoutByName("Default")
+				buildSetService:CustomLoadout(copyLoadout.specId, -1, -1, -1, "Custom from Default")
+				assert.are.equals(7, #build.controls.buildLoadouts.list)
+
+				-- Verify new sets were created
+				local customFromDefault = build:GetLoadoutByName("Custom from Default")
+				assert.is_not.same(customFromDefault.itemSetId, copyLoadout.itemSetId)
+				assert.is_not.same(customFromDefault.skillSetId, copyLoadout.skillSetId)
+				assert.is_not.same(customFromDefault.configSetId, copyLoadout.configSetId)
+				assert.is_true(build.modFlag)
+			end)
+		end)
+
 		describe("Integration", function()
 			it("completes a loadout lifecycle", function()
 				-- 2 New Loadouts, Copy 2, Delete one of each
