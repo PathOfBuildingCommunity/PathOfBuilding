@@ -129,6 +129,9 @@ local CompareTabClass = newClass("CompareTab", "ControlHost", "Control", functio
 	self.configSectionLayout = {}   -- computed section layout for drawing
 	self.configTotalContentHeight = 0
 
+	-- Notes view state
+	self.notesActiveEntry = nil
+
 	-- Compare power report state
 	self.comparePowerStat = nil           -- selected data.powerStatList entry
 	self.comparePowerCategories = { treeNodes = true, items = true, skillGems = true, supportGems = true, config = true }
@@ -149,8 +152,8 @@ end)
 
 function CompareTabClass:InitControls()
 	-- Sub-tab buttons
-	local subTabs = { "Summary", "Tree", "Skills", "Items", "Calcs", "Config" }
-	local subTabModes = { "SUMMARY", "TREE", "SKILLS", "ITEMS", "CALCS", "CONFIG" }
+	local subTabs = { "Summary", "Tree", "Skills", "Items", "Calcs", "Config", "Notes" }
+	local subTabModes = { "SUMMARY", "TREE", "SKILLS", "ITEMS", "CALCS", "CONFIG", "NOTES" }
 
 	self.controls.subTabAnchor = new("Control", nil, {0, 0, 0, 20})
 	for i, tabName in ipairs(subTabs) do
@@ -179,12 +182,23 @@ function CompareTabClass:InitControls()
 		end
 	end
 
+	-- Notes sub-tab controls
+	self.controls.notesDesc = new("LabelControl", nil, {0, 0, 0, 16}, "^7These are the notes from the compared build. Any edits here are saved with this comparison and do not affect the main build's notes.")
+	self.controls.notesDesc.shown = function()
+		return self.compareViewMode == "NOTES" and #self.compareEntries > 0
+	end
+	self.controls.notesEdit = new("EditControl", nil, {0, 0, 0, 0}, "", nil, "^%C\t\n", nil, nil, 16, true)
+	self.controls.notesEdit.shown = function()
+		return self.compareViewMode == "NOTES" and #self.compareEntries > 0
+	end
+
 	-- Build B selector dropdown
 	self.controls.compareBuildLabel = new("LabelControl", {"TOPLEFT", self.controls.subTabAnchor, "TOPLEFT"}, {0, -70, 0, 16}, "^7Compare with:")
 	self.controls.compareBuildSelect = new("DropDownControl", {"LEFT", self.controls.compareBuildLabel, "RIGHT"}, {4, 0, 250, 20}, {}, function(index, value)
 		if index and index > 0 and index <= #self.compareEntries then
 			self.activeCompareIndex = index
 			self.treeSearchNeedsSync = true
+			self.notesActiveEntry = nil
 		end
 	end)
 	self.controls.compareBuildSelect.enabled = function()
@@ -1041,6 +1055,10 @@ function CompareTabClass:Save(xml)
 	xml.attrib = {
 		activeCompareIndex = tostring(self.activeCompareIndex),
 	}
+	-- Sync current notes edit buffer to the active entry before saving
+	if self.notesActiveEntry then
+		self.notesActiveEntry.notesText = self.controls.notesEdit.buf
+	end
 	for _, entry in ipairs(self.compareEntries) do
 		local attrib = {
 			label = entry.label,
@@ -1058,10 +1076,14 @@ function CompareTabClass:Save(xml)
 		if entry.configTab then
 			attrib.activeConfigSetId = tostring(entry.configTab.activeConfigSetId)
 		end
-		t_insert(xml, {
+		local entryNode = {
 			elem = "CompareEntry",
 			attrib = attrib,
-		})
+		}
+		if entry.notesText and entry.notesText ~= "" then
+			t_insert(entryNode, { elem = "Notes", attrib = {}, entry.notesText })
+		end
+		t_insert(xml, entryNode)
 	end
 end
 
@@ -1092,6 +1114,18 @@ function CompareTabClass:Load(xml, dbFileName)
 						if savedConfigSet and entry.configTab and entry.configTab.configSets[savedConfigSet] then
 							entry.configTab:SetActiveConfigSet(savedConfigSet)
 						end
+						-- Restore edited notes (overrides notes from original build XML)
+						for _, grandchild in ipairs(child) do
+							if type(grandchild) == "table" and grandchild.elem == "Notes" then
+								for _, text in ipairs(grandchild) do
+									if type(text) == "string" then
+										entry.notesText = text
+										break
+									end
+								end
+								break
+							end
+						end
 					end
 				end
 			end
@@ -1110,6 +1144,7 @@ function CompareTabClass:RemoveBuild(index)
 	if index >= 1 and index <= #self.compareEntries then
 		t_remove(self.compareEntries, index)
 		self.modFlag = true
+		self.notesActiveEntry = nil
 		if self.activeCompareIndex > #self.compareEntries then
 			self.activeCompareIndex = #self.compareEntries
 		end
@@ -1500,6 +1535,8 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 		self:DrawCalcs(contentVP, compareEntry)
 	elseif self.compareViewMode == "CONFIG" then
 		self:DrawConfig(contentVP, compareEntry)
+	elseif self.compareViewMode == "NOTES" then
+		self:DrawNotes(contentVP, compareEntry, inputEvents)
 	end
 end
 
@@ -4075,6 +4112,49 @@ function CompareTabClass:DrawConfig(vp, compareEntry)
 	end
 
 	SetViewport()
+end
+
+function CompareTabClass:DrawNotes(vp, compareEntry, inputEvents)
+	if not compareEntry then return end
+
+	-- Sync EditControl with the active compare entry
+	if self.notesActiveEntry ~= compareEntry then
+		self.controls.notesEdit:SetText(compareEntry.notesText or "")
+		self.notesActiveEntry = compareEntry
+	end
+
+	-- Handle undo/redo
+	for id, event in ipairs(inputEvents) do
+		if event.type == "KeyDown" then
+			if event.key == "z" and IsKeyDown("CTRL") then
+				self.controls.notesEdit:Undo()
+			elseif event.key == "y" and IsKeyDown("CTRL") then
+				self.controls.notesEdit:Redo()
+			end
+		end
+	end
+
+	-- Position label and edit control
+	self.controls.notesDesc.x = vp.x + 8
+	self.controls.notesDesc.y = vp.y + 8
+
+	local editY = vp.y + 30
+	self.controls.notesEdit.x = vp.x + 8
+	self.controls.notesEdit.y = editY
+	self.controls.notesEdit.width = function()
+		return vp.width - 16
+	end
+	self.controls.notesEdit.height = function()
+		return vp.height - 38
+	end
+
+	-- Sync edits back to the compare entry
+	if compareEntry.notesText ~= self.controls.notesEdit.buf then
+		compareEntry.notesText = self.controls.notesEdit.buf
+		self.modFlag = true
+	end
+
+	main:DrawBackground(vp)
 end
 
 return CompareTabClass

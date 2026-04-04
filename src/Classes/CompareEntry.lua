@@ -25,6 +25,7 @@ local CompareEntryClass = newClass("CompareEntry", "ControlHost", function(self,
 	self.pantheonMinorGod = "None"
 	self.characterLevelAutoMode = main.defaultCharLevel == 1 or main.defaultCharLevel == nil
 	self.mainSocketGroup = 1
+	self.notesText = ""
 
 	self.spectreList = {}
 	self.timelessData = {
@@ -148,6 +149,19 @@ function CompareEntryClass:LoadFromXML(xmlText)
 	for _, saver in pairs(self.savers) do
 		if saver.PostLoad then
 			saver:PostLoad()
+		end
+	end
+
+	-- Extract notes from the build XML
+	for _, node in ipairs(self.xmlSectionList) do
+		if node.elem == "Notes" then
+			for _, child in ipairs(node) do
+				if type(child) == "string" then
+					self.notesText = child
+					break
+				end
+			end
+			break
 		end
 	end
 
