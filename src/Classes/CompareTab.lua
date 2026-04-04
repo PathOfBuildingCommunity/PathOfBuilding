@@ -833,6 +833,27 @@ function CompareTabClass:FormatStr(str, actor, colData)
 	return str
 end
 
+-- Populate a set-selector dropdown from a tab's ordered set list.
+-- tab: the tab object (e.g. itemsTab, skillsTab, configTab)
+-- orderListField/setsField/activeIdField: string keys on tab
+-- control: the DropDownControl to populate
+function CompareTabClass:PopulateSetDropdown(tab, orderListField, setsField, activeIdField, control)
+	local list = {}
+	local orderList = tab[orderListField]
+	local sets = tab[setsField]
+	local activeId = tab[activeIdField]
+	if orderList then
+		for index, setId in ipairs(orderList) do
+			local set = sets[setId]
+			t_insert(list, (set and set.title) or "Default")
+			if setId == activeId then
+				control.selIndex = index
+			end
+		end
+	end
+	control:SetList(list)
+end
+
 -- Check visibility flags for a section/row against an actor
 function CompareTabClass:CheckCalcFlag(obj, actor)
 	if not actor or not actor.mainSkill then return true end
@@ -1498,28 +1519,12 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 
 		-- Populate primary build item set list
 		if self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.itemSetOrderList then
-			local itemList = {}
-			for index, itemSetId in ipairs(self.primaryBuild.itemsTab.itemSetOrderList) do
-				local itemSet = self.primaryBuild.itemsTab.itemSets[itemSetId]
-				t_insert(itemList, itemSet.title or "Default")
-				if itemSetId == self.primaryBuild.itemsTab.activeItemSetId then
-					self.controls.primaryItemSetSelect.selIndex = index
-				end
-			end
-			self.controls.primaryItemSetSelect:SetList(itemList)
+			self:PopulateSetDropdown(self.primaryBuild.itemsTab, "itemSetOrderList", "itemSets", "activeItemSetId", self.controls.primaryItemSetSelect)
 		end
 
 		-- Populate compare build item set list
 		if compareEntry and compareEntry.itemsTab and compareEntry.itemsTab.itemSetOrderList then
-			local itemList = {}
-			for index, itemSetId in ipairs(compareEntry.itemsTab.itemSetOrderList) do
-				local itemSet = compareEntry.itemsTab.itemSets[itemSetId]
-				t_insert(itemList, itemSet.title or "Default")
-				if itemSetId == compareEntry.itemsTab.activeItemSetId then
-					self.controls.compareItemSetSelect2.selIndex = index
-				end
-			end
-			self.controls.compareItemSetSelect2:SetList(itemList)
+			self:PopulateSetDropdown(compareEntry.itemsTab, "itemSetOrderList", "itemSets", "activeItemSetId", self.controls.compareItemSetSelect2)
 		end
 
 	end
@@ -1872,39 +1877,15 @@ function CompareTabClass:UpdateSetSelectors(compareEntry)
 	end
 	-- Skill set list
 	if compareEntry.skillsTab then
-		local skillList = {}
-		for index, skillSetId in ipairs(compareEntry.skillsTab.skillSetOrderList) do
-			local skillSet = compareEntry.skillsTab.skillSets[skillSetId]
-			t_insert(skillList, skillSet.title or "Default")
-			if skillSetId == compareEntry.skillsTab.activeSkillSetId then
-				self.controls.compareSkillSetSelect.selIndex = index
-			end
-		end
-		self.controls.compareSkillSetSelect:SetList(skillList)
+		self:PopulateSetDropdown(compareEntry.skillsTab, "skillSetOrderList", "skillSets", "activeSkillSetId", self.controls.compareSkillSetSelect)
 	end
 	-- Item set list
 	if compareEntry.itemsTab then
-		local itemList = {}
-		for index, itemSetId in ipairs(compareEntry.itemsTab.itemSetOrderList) do
-			local itemSet = compareEntry.itemsTab.itemSets[itemSetId]
-			t_insert(itemList, itemSet.title or "Default")
-			if itemSetId == compareEntry.itemsTab.activeItemSetId then
-				self.controls.compareItemSetSelect.selIndex = index
-			end
-		end
-		self.controls.compareItemSetSelect:SetList(itemList)
+		self:PopulateSetDropdown(compareEntry.itemsTab, "itemSetOrderList", "itemSets", "activeItemSetId", self.controls.compareItemSetSelect)
 	end
 	-- Config set list
 	if compareEntry.configTab then
-		local configList = {}
-		for index, configSetId in ipairs(compareEntry.configTab.configSetOrderList) do
-			local configSet = compareEntry.configTab.configSets[configSetId]
-			t_insert(configList, configSet and configSet.title or "Default")
-			if configSetId == compareEntry.configTab.activeConfigSetId then
-				self.controls.compareConfigSetSelect.selIndex = index
-			end
-		end
-		self.controls.compareConfigSetSelect:SetList(configList)
+		self:PopulateSetDropdown(compareEntry.configTab, "configSetOrderList", "configSets", "activeConfigSetId", self.controls.compareConfigSetSelect)
 	end
 
 	-- Refresh comparison build skill selector controls
@@ -3145,6 +3126,83 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	end
 	maxLabelW = maxLabelW + 2
 
+	-- Helper: process copy/buy button hover state and click events for a slot.
+	-- Closes over hoverCopyUse*/clicked* locals above.
+	local function processSlotButtons(b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H, cItem, copySlotName, copyUseSlotName)
+		if b2Hover and cItem then
+			hoverCopyUseItem = cItem
+			hoverCopyUseSlotName = copyUseSlotName
+			hoverCopyUseBtnX, hoverCopyUseBtnY = b2X, b2Y
+			hoverCopyUseBtnW, hoverCopyUseBtnH = b2W, b2H
+		end
+		if cItem and inputEvents then
+			for id, event in ipairs(inputEvents) do
+				if event.type == "KeyUp" and event.key == "LEFTBUTTON" then
+					if b1Hover then
+						clickedCopySlot = copySlotName
+						inputEvents[id] = nil
+					elseif b2Hover then
+						clickedCopyUseSlot = copyUseSlotName
+						inputEvents[id] = nil
+					elseif b3Hover then
+						clickedBuySlot = copyUseSlotName
+						clickedBuyItem = cItem
+						inputEvents[id] = nil
+					end
+				end
+			end
+		end
+	end
+
+	-- Helper: draw a single slot entry (expanded or compact mode).
+	-- Closes over drawY, colWidth, cursorX/Y, vp, self, compareEntry, hoverItem/hoverX/Y/W/H/hoverItemsTab.
+	local function drawSlotEntry(label, pItem, cItem, copySlotName, copyUseSlotName, labelW, pWarn, cWarn, slotMissing)
+		if self.itemsExpandedMode then
+			-- === EXPANDED MODE ===
+			SetDrawColor(1, 1, 1)
+			DrawString(10, drawY, "LEFT", 16, "VAR", "^7" .. label .. ":" .. (pWarn or ""))
+			DrawString(colWidth - 10, drawY, "RIGHT", 14, "VAR", tradeHelpers.getSlotDiffLabel(pItem, cItem))
+
+			if cItem then
+				local b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H = tradeHelpers.drawCopyButtons(cursorX, cursorY, vp.width - 196, drawY + 1, slotMissing, LAYOUT.itemsCopyBtnW, LAYOUT.itemsCopyBtnH, LAYOUT.itemsBuyBtnW)
+				processSlotButtons(b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H, cItem, copySlotName, copyUseSlotName)
+			end
+
+			drawY = drawY + 20
+
+			local pModMap = tradeHelpers.buildModMap(pItem)
+			local cModMap = tradeHelpers.buildModMap(cItem)
+			local itemStartY = drawY
+			local leftHeight = self:DrawItemExpanded(pItem, 20, drawY, colWidth - 30, cModMap)
+			local rightHeight = self:DrawItemExpanded(cItem, colWidth + 20, drawY, colWidth - 30, pModMap)
+
+			SetDrawColor(0.25, 0.25, 0.25)
+			local maxH = m_max(leftHeight, rightHeight)
+			DrawImage(nil, colWidth, itemStartY, 1, maxH)
+
+			drawY = drawY + maxH + 6
+		else
+			-- === COMPACT MODE ===
+			local pHover, cHover, b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H,
+				rowHoverItem, rowHoverItemsTab, rowHoverX, rowHoverY, rowHoverW, rowHoverH =
+				tradeHelpers.drawCompactSlotRow(drawY, label, pItem, cItem,
+					colWidth, cursorX, cursorY, labelW,
+					self.primaryBuild.itemsTab, compareEntry.itemsTab, pWarn, cWarn, slotMissing,
+					LAYOUT.itemsCopyBtnW, LAYOUT.itemsCopyBtnH, LAYOUT.itemsBuyBtnW)
+
+			if rowHoverItem then
+				hoverItem = rowHoverItem
+				hoverItemsTab = rowHoverItemsTab
+				hoverX, hoverY = rowHoverX, rowHoverY
+				hoverW, hoverH = rowHoverW, rowHoverH
+			end
+
+			processSlotButtons(b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H, cItem, copySlotName, copyUseSlotName)
+
+			drawY = drawY + 20
+		end
+	end
+
 	for _, slotName in ipairs(baseSlots) do
 		-- Separator
 		SetDrawColor(0.3, 0.3, 0.3)
@@ -3157,103 +3215,8 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 		local pItem = pSlot and self.primaryBuild.itemsTab.items and self.primaryBuild.itemsTab.items[pSlot.selItemId]
 		local cItem = cSlot and compareEntry.itemsTab and compareEntry.itemsTab.items and compareEntry.itemsTab.items[cSlot.selItemId]
 
-		if self.itemsExpandedMode then
-			-- === EXPANDED MODE ===
-			-- Slot label + diff indicator
-			SetDrawColor(1, 1, 1)
-			DrawString(10, drawY, "LEFT", 16, "VAR", "^7" .. slotName .. ":")
-			DrawString(colWidth - 10, drawY, "RIGHT", 14, "VAR", tradeHelpers.getSlotDiffLabel(pItem, cItem))
-
-			-- Copy/Buy buttons for compare item
-			if cItem then
-				local slotMissing = slotName == "Ring 3" and not primaryHasRing3
-				local b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H = tradeHelpers.drawCopyButtons(cursorX, cursorY, vp.width - 196, drawY + 1, slotMissing, LAYOUT.itemsCopyBtnW, LAYOUT.itemsCopyBtnH, LAYOUT.itemsBuyBtnW)
-				if b2Hover then
-					hoverCopyUseItem = cItem
-					hoverCopyUseSlotName = slotName
-					hoverCopyUseBtnX, hoverCopyUseBtnY = b2X, b2Y
-					hoverCopyUseBtnW, hoverCopyUseBtnH = b2W, b2H
-				end
-				if inputEvents then
-					for id, event in ipairs(inputEvents) do
-						if event.type == "KeyUp" and event.key == "LEFTBUTTON" then
-							if b1Hover then
-								clickedCopySlot = slotName
-								inputEvents[id] = nil
-							elseif b2Hover then
-								clickedCopyUseSlot = slotName
-								inputEvents[id] = nil
-							elseif b3Hover then
-								clickedBuySlot = slotName
-								clickedBuyItem = cItem
-								inputEvents[id] = nil
-							end
-						end
-					end
-				end
-			end
-
-			drawY = drawY + 20
-
-			-- Build mod maps for diff highlighting
-			local pModMap = tradeHelpers.buildModMap(pItem)
-			local cModMap = tradeHelpers.buildModMap(cItem)
-
-			-- Draw both items expanded side by side
-			local itemStartY = drawY
-			local leftHeight = self:DrawItemExpanded(pItem, 20, drawY, colWidth - 30, cModMap)
-			local rightHeight = self:DrawItemExpanded(cItem, colWidth + 20, drawY, colWidth - 30, pModMap)
-
-			-- Vertical separator between columns
-			SetDrawColor(0.25, 0.25, 0.25)
-			local maxH = m_max(leftHeight, rightHeight)
-			DrawImage(nil, colWidth, itemStartY, 1, maxH)
-
-			drawY = drawY + maxH + 6
-		else
-			-- === COMPACT MODE (single-line with bordered boxes) ===
-			local pHover, cHover, b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H,
-				rowHoverItem, rowHoverItemsTab, rowHoverX, rowHoverY, rowHoverW, rowHoverH =
-				tradeHelpers.drawCompactSlotRow(drawY, slotName, pItem, cItem,
-					colWidth, cursorX, cursorY, maxLabelW,
-					self.primaryBuild.itemsTab, compareEntry.itemsTab, nil, nil,
-					slotName == "Ring 3" and not primaryHasRing3,
-					LAYOUT.itemsCopyBtnW, LAYOUT.itemsCopyBtnH, LAYOUT.itemsBuyBtnW)
-
-			if rowHoverItem then
-				hoverItem = rowHoverItem
-				hoverItemsTab = rowHoverItemsTab
-				hoverX, hoverY = rowHoverX, rowHoverY
-				hoverW, hoverH = rowHoverW, rowHoverH
-			end
-
-			if b2Hover and cItem then
-				hoverCopyUseItem = cItem
-				hoverCopyUseSlotName = slotName
-				hoverCopyUseBtnX, hoverCopyUseBtnY = b2X, b2Y
-				hoverCopyUseBtnW, hoverCopyUseBtnH = b2W, b2H
-			end
-
-			if cItem and inputEvents then
-				for id, event in ipairs(inputEvents) do
-					if event.type == "KeyUp" and event.key == "LEFTBUTTON" then
-						if b1Hover then
-							clickedCopySlot = slotName
-							inputEvents[id] = nil
-						elseif b2Hover then
-							clickedCopyUseSlot = slotName
-							inputEvents[id] = nil
-						elseif b3Hover then
-							clickedBuySlot = slotName
-							clickedBuyItem = cItem
-							inputEvents[id] = nil
-						end
-					end
-				end
-			end
-
-			drawY = drawY + 20
-		end
+		local slotMissing = slotName == "Ring 3" and not primaryHasRing3
+		drawSlotEntry(slotName, pItem, cItem, slotName, slotName, maxLabelW, nil, nil, slotMissing)
 	end
 
 	-- === TREE SET DROPDOWNS ===
@@ -3304,9 +3267,6 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 		end
 
 		for jIdx, jEntry in ipairs(jewelSlots) do
-			local pItem = jEntry.pItem
-			local cItem = jEntry.cItem
-
 			-- Separator (skip before first jewel since section header already has one)
 			if jIdx > 1 then
 				SetDrawColor(0.3, 0.3, 0.3)
@@ -3315,103 +3275,10 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 			end
 
 			-- Tree allocation warning text
-			local pWarn = (pItem and not jEntry.pNodeAllocated) and colorCodes.WARNING .. "  (tree missing allocated node)" or ""
-			local cWarn = (cItem and not jEntry.cNodeAllocated) and colorCodes.WARNING .. "  (tree missing allocated node)" or ""
+			local pWarn = (jEntry.pItem and not jEntry.pNodeAllocated) and colorCodes.WARNING .. "  (tree missing allocated node)" or ""
+			local cWarn = (jEntry.cItem and not jEntry.cNodeAllocated) and colorCodes.WARNING .. "  (tree missing allocated node)" or ""
 
-			if self.itemsExpandedMode then
-				-- === EXPANDED MODE ===
-				SetDrawColor(1, 1, 1)
-				DrawString(10, drawY, "LEFT", 16, "VAR", "^7" .. jEntry.label .. ":" .. pWarn)
-				DrawString(colWidth - 10, drawY, "RIGHT", 14, "VAR", tradeHelpers.getSlotDiffLabel(pItem, cItem))
-
-				-- Copy/Buy buttons for compare jewel
-				if cItem then
-					local b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H = tradeHelpers.drawCopyButtons(cursorX, cursorY, vp.width - 196, drawY + 1, nil, LAYOUT.itemsCopyBtnW, LAYOUT.itemsCopyBtnH, LAYOUT.itemsBuyBtnW)
-					if b2Hover then
-						hoverCopyUseItem = cItem
-						hoverCopyUseSlotName = jEntry.pSlotName
-						hoverCopyUseBtnX, hoverCopyUseBtnY = b2X, b2Y
-						hoverCopyUseBtnW, hoverCopyUseBtnH = b2W, b2H
-					end
-					if inputEvents then
-						for id, event in ipairs(inputEvents) do
-							if event.type == "KeyUp" and event.key == "LEFTBUTTON" then
-								if b1Hover then
-									clickedCopySlot = jEntry.cSlotName
-									inputEvents[id] = nil
-								elseif b2Hover then
-									clickedCopyUseSlot = jEntry.pSlotName
-									inputEvents[id] = nil
-								elseif b3Hover then
-									clickedBuySlot = jEntry.pSlotName
-									clickedBuyItem = cItem
-									inputEvents[id] = nil
-								end
-							end
-						end
-					end
-				end
-
-				drawY = drawY + 20
-
-				-- Build mod maps for diff highlighting
-				local pModMap = tradeHelpers.buildModMap(pItem)
-				local cModMap = tradeHelpers.buildModMap(cItem)
-
-				-- Draw both items expanded side by side
-				local itemStartY = drawY
-				local leftHeight = self:DrawItemExpanded(pItem, 20, drawY, colWidth - 30, cModMap)
-				local rightHeight = self:DrawItemExpanded(cItem, colWidth + 20, drawY, colWidth - 30, pModMap)
-
-				-- Vertical separator between columns
-				SetDrawColor(0.25, 0.25, 0.25)
-				local maxH = m_max(leftHeight, rightHeight)
-				DrawImage(nil, colWidth, itemStartY, 1, maxH)
-
-				drawY = drawY + maxH + 6
-			else
-				-- === COMPACT MODE (single-line with bordered boxes) ===
-				local pHover, cHover, b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H,
-					rowHoverItem, rowHoverItemsTab, rowHoverX, rowHoverY, rowHoverW, rowHoverH =
-					tradeHelpers.drawCompactSlotRow(drawY, jEntry.label, pItem, cItem,
-						colWidth, cursorX, cursorY, maxJewelLabelW,
-						self.primaryBuild.itemsTab, compareEntry.itemsTab, pWarn, cWarn, nil,
-						LAYOUT.itemsCopyBtnW, LAYOUT.itemsCopyBtnH, LAYOUT.itemsBuyBtnW)
-
-				if rowHoverItem then
-					hoverItem = rowHoverItem
-					hoverItemsTab = rowHoverItemsTab
-					hoverX, hoverY = rowHoverX, rowHoverY
-					hoverW, hoverH = rowHoverW, rowHoverH
-				end
-
-				if b2Hover and cItem then
-					hoverCopyUseItem = cItem
-					hoverCopyUseSlotName = jEntry.pSlotName
-					hoverCopyUseBtnX, hoverCopyUseBtnY = b2X, b2Y
-					hoverCopyUseBtnW, hoverCopyUseBtnH = b2W, b2H
-				end
-
-				if cItem and inputEvents then
-					for id, event in ipairs(inputEvents) do
-						if event.type == "KeyUp" and event.key == "LEFTBUTTON" then
-							if b1Hover then
-								clickedCopySlot = jEntry.cSlotName
-								inputEvents[id] = nil
-							elseif b2Hover then
-								clickedCopyUseSlot = jEntry.pSlotName
-								inputEvents[id] = nil
-							elseif b3Hover then
-								clickedBuySlot = jEntry.pSlotName
-								clickedBuyItem = cItem
-								inputEvents[id] = nil
-							end
-						end
-					end
-				end
-
-				drawY = drawY + 20
-			end
+			drawSlotEntry(jEntry.label, jEntry.pItem, jEntry.cItem, jEntry.cSlotName, jEntry.pSlotName, maxJewelLabelW, pWarn, cWarn, nil)
 		end
 	end
 
