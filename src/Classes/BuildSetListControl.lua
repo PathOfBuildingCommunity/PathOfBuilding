@@ -14,17 +14,19 @@ local BuildSetListClass = newClass("BuildSetListControl", "ListControl", functio
 		function()
 			self:NewLoadout()
 		end)
-	self.controls.rename = new("ButtonControl", { "LEFT", self.controls.new, "RIGHT" }, { 5, 0, 60, 18 }, "Rename", function()
-		self:RenameLoadout(self.selValue)
-	end)
+	self.controls.rename = new("ButtonControl", { "LEFT", self.controls.new, "RIGHT" }, { 5, 0, 60, 18 }, "Rename",
+		function()
+			self:RenameLoadout(self.selValue)
+		end)
 	self.controls.rename.enabled = function()
 		return self.selValue ~= nil
 	end
-	self.controls.copy = new("ButtonControl", { "LEFT", self.controls.rename, "RIGHT" }, { 5, 0, 60, 18 }, "Copy", function()
-		local loadoutNameToCopy = self.selValue.title or "Default"
-		local build = buildMode:GetLoadoutByName(loadoutNameToCopy)
-		self:CopyLoadoutClick(build)
-	end)
+	self.controls.copy = new("ButtonControl", { "LEFT", self.controls.rename, "RIGHT" }, { 5, 0, 60, 18 }, "Copy",
+		function()
+			local loadoutNameToCopy = self.selValue.title or "Default"
+			local build = buildMode:GetLoadoutByName(loadoutNameToCopy)
+			self:CopyLoadoutClick(build)
+		end)
 	self.controls.copy.enabled = function()
 		return self.selValue ~= nil
 	end
@@ -148,7 +150,21 @@ function BuildSetListClass:CopyCustom(build)
 		"^7Copy from Config Set:")
 
 	controls.save = new("ButtonControl", nil, { -45, 270, 80, 20 }, "Save", function()
-		self.buildSetService:CopyLoadout(build.specId, build.itemSetId, build.skillSetId, build.configSetId,
+		local treeIndex = controls.treeDropDown.selIndex
+		local itemIndex = controls.itemDropDown.selIndex
+		local skillIndex = controls.skillDropDown.selIndex
+		local configIndex = controls.configDropDown.selIndex
+
+		local newSpecId = treeIndex == 1 and -1 or (treeIndex > 1 and treeIndex - 1)
+		local newItemSetId = itemIndex == 1 and -1 or
+			(itemIndex > 1 and self.buildMode.itemsTab.itemSetOrderList[itemIndex - 1] or 0)
+		local newSkillSetId = skillIndex == 1 and -1 or
+			(skillIndex > 1 and self.buildMode.skillsTab.skillSetOrderList[skillIndex - 1] or 0)
+		local newConfigSetId = configIndex == 1 and -1 or
+			(configIndex > 1 and self.buildMode.configTab.configSetOrderList[configIndex - 1] or 0)
+
+		print(newSpecId, newItemSetId, self.buildMode.itemsTab.itemSets[newItemSetId].title, newSkillSetId, newConfigSetId)
+		self.buildSetService:CustomLoadout(newSpecId, newItemSetId, newSkillSetId, newConfigSetId,
 			controls.edit.buf)
 		main:ClosePopup()
 	end)
