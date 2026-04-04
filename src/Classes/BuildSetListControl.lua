@@ -163,7 +163,6 @@ function BuildSetListClass:CopyCustom(build)
 		local newConfigSetId = configIndex == 1 and -1 or
 			(configIndex > 1 and self.buildMode.configTab.configSetOrderList[configIndex - 1] or 0)
 
-		print(newSpecId, newItemSetId, self.buildMode.itemsTab.itemSets[newItemSetId].title, newSkillSetId, newConfigSetId)
 		self.buildSetService:CustomLoadout(newSpecId, newItemSetId, newSkillSetId, newConfigSetId,
 			controls.edit.buf)
 		main:ClosePopup()

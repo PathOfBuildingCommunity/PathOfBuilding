@@ -857,7 +857,8 @@ function buildMode:DeleteLoadout(loadoutName, nextLoadoutName)
 	end
 	if loadout.itemSetId then
 		if #self.itemsTab.itemSetOrderList == 2 then
-			local itemSetId = self.itemsTab.itemSetOrderList[1] == loadout.itemSetId and self.itemsTab.itemSetOrderList[2] or self.itemsTab.itemSetOrderList[1]
+			local itemSetId = self.itemsTab.itemSetOrderList[1] == loadout.itemSetId and
+				self.itemsTab.itemSetOrderList[2] or self.itemsTab.itemSetOrderList[1]
 			local itemSet = self.itemsTab.itemSets[itemSetId]
 			itemSet.id = 1
 			self.itemsTab.itemSets = { itemSet }
@@ -870,7 +871,8 @@ function buildMode:DeleteLoadout(loadoutName, nextLoadoutName)
 	end
 	if loadout.skillSetId then
 		if #self.skillsTab.skillSetOrderList == 2 then
-			local skillSetId = self.skillsTab.skillSetOrderList[1] == loadout.skillSetId and self.skillsTab.skillSetOrderList[2] or self.skillsTab.skillSetOrderList[1]
+			local skillSetId = self.skillsTab.skillSetOrderList[1] == loadout.skillSetId and
+				self.skillsTab.skillSetOrderList[2] or self.skillsTab.skillSetOrderList[1]
 			local skillSet = self.skillsTab.skillSets[skillSetId]
 			skillSet.id = 1
 			self.skillsTab.skillSets = { skillSet }
@@ -883,7 +885,8 @@ function buildMode:DeleteLoadout(loadoutName, nextLoadoutName)
 	end
 	if loadout.configSetId then
 		if #self.configTab.configSetOrderList == 2 then
-			local configSetId = self.configTab.configSetOrderList[1] == loadout.configSetId and self.configTab.configSetOrderList[2] or self.configTab.configSetOrderList[1]
+			local configSetId = self.configTab.configSetOrderList[1] == loadout.configSetId and
+				self.configTab.configSetOrderList[2] or self.configTab.configSetOrderList[1]
 			local configSet = self.configTab.configSets[configSetId]
 			configSet.id = 1
 			self.configTab.configSets = { configSet }
