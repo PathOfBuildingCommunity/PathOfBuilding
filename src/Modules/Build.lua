@@ -804,6 +804,48 @@ function buildMode:AddLoadout(loadoutName, newSpec, newItemSet, newSkillSet, new
 	callback()
 end
 
+function buildMode:CustomLoadout(specId, itemSetId, skillSetId, configSetId, name)
+	local newSpec
+	if specId == -1 then
+		newSpec = new("PassiveSpec", self, latestTreeVersion)
+		newSpec.id = #self.treeTab.specList + 1
+		t_insert(self.treeTab.specList, newSpec)
+	else
+		newSpec = self.treeTab:CopyTree(specId, name)
+	end
+	newSpec.title = name
+
+	local newItemSet
+	if itemSetId == -1 then
+		newItemSet = self.itemsTab:NewItemSet(#self.itemsTab.itemSets + 1)
+	else
+		newItemSet = self.itemsTab:CopyItemSet(itemSetId, name)
+	end
+	t_insert(self.itemsTab.itemSetOrderList, newItemSet.id)
+	newItemSet.title = name
+
+	local newSkillSet
+	if skillSetId == -1 then
+		newSkillSet = self.skillsTab:NewSkillSet(#self.skillsTab.skillSets + 1)
+	else
+		newSkillSet = self.skillsTab:CopySkillSet(skillSetId, name)
+	end
+	t_insert(self.skillsTab.skillSetOrderList, newSkillSet.id)
+	newSkillSet.title = name
+
+	local newConfigSet
+	if configSetId == -1 then
+		newConfigSet = self.configTab:NewConfigSet(#self.configTab.configSets + 1)
+	else
+		newConfigSet = self.configTab:CopyConfigSet(configSetId, name)
+	end
+	t_insert(self.configTab.configSetOrderList, newConfigSet.id)
+	newConfigSet.title = name
+
+	self.modFlag = true
+	return newSpec, newItemSet, newSkillSet, newConfigSet
+end
+
 function buildMode:DeleteLoadout(loadoutName, nextLoadoutName)
 	local function reverseLookup(setOrderList, value)
 		for id, set in ipairs(setOrderList) do
