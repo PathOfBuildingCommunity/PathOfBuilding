@@ -924,13 +924,17 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 	if self.calcContext.options.includeScourge then
 		self:GenerateModWeights(self.modData["Scourge"])
 	end
-	if self.calcContext.options.includeEldritch then
+	if self.calcContext.options.includeEldritch and
+		-- skip weights if we need an influenced item as they can produce really
+		-- bad results due to the filter limit
+	    self.calcContext.options.influence1 == 1 and
+		self.calcContext.options.influence2 == 1 then
 		self:GenerateModWeights(self.modData["Eater"])
 		self:GenerateModWeights(self.modData["Exarch"])
 	end
-	if self.calcContext.options.includeSynthesis then
-		self:GenerateModWeights(self.modData["Synthesis"])
-	end
+	-- if self.calcContext.options.includeSynthesis then
+	-- 	self:GenerateModWeights(self.modData["Synthesis"])
+	-- end
 end
 
 function TradeQueryGeneratorClass:addMoreWEMods()
@@ -1184,7 +1188,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	local isAmuletSlot = slot and slot.slotName == "Amulet"
 	local isEldritchModSlot = slot and eldritchModSlots[slot.slotName] == true
 
-	controls.includeCorrupted = new("CheckBoxControl", {"TOP",nil,"TOP"}, {-40, 30, 18}, "Corrupted Mods:", function(state) end)
+	controls.includeCorrupted = new("CheckBoxControl", {"TOP",nil,"TOP"}, {-40, 30, 18}, "Corrupted Mods:", function(state) end, "Includes corruption implicit modifiers in the weighted sum. Note that there is a maximum search filter count which means this might cause other weights to not be included.")
 	controls.includeCorrupted.state = not context.slotTbl.alreadyCorrupted and (self.lastIncludeCorrupted == nil or self.lastIncludeCorrupted == true)
 	controls.includeCorrupted.enabled = not context.slotTbl.alreadyCorrupted
 
@@ -1214,19 +1218,13 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	if not isJewelSlot and not isAbyssalJewelSlot and includeScourge then
 		controls.includeScourge = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Scourge Mods:", function(state) end)
 		controls.includeScourge.state = (self.lastIncludeScourge == nil or self.lastIncludeScourge == true)
-		updateLastAnchor(controls.includeScourge)
+		updateLastAnchor(controls.includrecteScourge)
 	end
 
 	if isAmuletSlot then
 		controls.includeTalisman = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Talisman Mods:", function(state) end)
 		controls.includeTalisman.state = (self.lastIncludeTalisman == nil or self.lastIncludeTalisman == true)
 		updateLastAnchor(controls.includeTalisman)
-	end
-
-	if isEldritchModSlot then
-		controls.includeEldritch = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Eldritch Mods:", function(state) end)
-		controls.includeEldritch.state = (self.lastIncludeEldritch == true)
-		updateLastAnchor(controls.includeEldritch)
 	end
 
 	if isJewelSlot and context.slotTbl.slotName ~= "Watcher's Eye" then
@@ -1315,19 +1313,18 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		main:ClosePopup()
 
 		self.tradeTypeIndex = context.controls.tradeTypeSelection.selIndex
-
+		options.includeEldritch = context.controls.eldritchEnchantMode:GetSelValue() == "Include Weights" and
+			isEldritchModSlot
+		options.useCurrentEnchantsImplicits = context.controls.eldritchEnchantMode:GetSelValue() == "Copy Current"
 		if controls.includeMirrored then
 			self.lastIncludeMirrored, options.includeMirrored = controls.includeMirrored.state, controls.includeMirrored.state
 		end
 		if controls.includeCorrupted then
 			self.lastIncludeCorrupted, options.includeCorrupted = controls.includeCorrupted.state, controls.includeCorrupted.state
 		end
-		if controls.includeSynthesis then
-			self.lastIncludeSynthesis, options.includeSynthesis = controls.includeSynthesis.state, controls.includeSynthesis.state
-		end
-		if controls.includeEldritch then
-			self.lastIncludeEldritch, options.includeEldritch = controls.includeEldritch.state, controls.includeEldritch.state
-		end
+		-- if controls.includeSynthesis then
+		-- 	self.lastIncludeSynthesis, options.includeSynthesis = controls.includeSynthesis.state, controls.includeSynthesis.state
+		-- end
 		if controls.includeScourge then
 			self.lastIncludeScourge, options.includeScourge = controls.includeScourge.state, controls.includeScourge.state
 		end

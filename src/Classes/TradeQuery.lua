@@ -357,16 +357,23 @@ Highest Stat Value / Price - Sorts from highest to lowest Stat Value per currenc
 Lowest Price - Sorts from lowest to highest price of retrieved items
 Highest Weight - Displays the order retrieved from trade]]
 	self.controls.itemSortSelection:SetSel(self.pbItemSortSelectionIndex)
-	self.controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.itemSortSelection, "TOPLEFT"}, {-4, 0, 60, 16}, "^7Sort By:")
+	self.controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.itemSortSelection, "TOPLEFT"}, {-4, 0, 56, 16}, "^7Sort By:")
 
-	-- Use Enchant in DPS sorting
-	self.controls.enchantInSort = new("CheckBoxControl", {"TOPRIGHT",self.controls.fetchCountEdit,"TOPLEFT"}, {-8, 0, row_height}, "Include Enchants:", function(state)
-		self.enchantInSort = state
-		for row_idx, _ in pairs(self.resultTbl) do
-			self:UpdateControlsWithItems(row_idx)
-		end
-	end)
-	self.controls.enchantInSort.tooltipText = "This includes enchants in sorting that occurs after trade results have been retrieved"
+	-- Implicit mod and enchant behaviour in searching and sorting
+	local eldritchTooltip =
+	[[Controls how eldritch implicits and enchants are treated.
+Copy Current: current implicit modifiers and enchants are copied to the item before sorting, and eldritch weights are not used in the search.
+Include Weights: eldritch mod weights are used for searching items and the results are not edited.
+Ignored: eldritch mod weights are not used, enchants are removed before sorting.
+Note that the search filter limit might make results with implicit weights misleading.]]
+	local eldritchOptions = { "Copy Current", "Include Weights", "Ignored" }
+	self.controls.eldritchEnchantMode = new("DropDownControl", { "TOPRIGHT", self.controls.fetchCountEdit, "TOPLEFT" },
+		{ -4, 0, 120, row_height },
+		eldritchOptions, function(state) self.lastEldritchEnchantMode = state end, eldritchTooltip)
+	self.controls.eldritchEnchantMode:SetSel(self.lastEldritchEnchantMode or 1)
+	self.controls.eldritchEnchantLabel = new("LabelControl", { "RIGHT", self.controls.eldritchEnchantMode, "LEFT" },
+		{ -4, 0, 50, 16 },
+		"^7Implicits and Enchants:")
 
 	-- Realm selection
 	self.controls.realmLabel = new("LabelControl", {"LEFT", self.controls.setSelect, "RIGHT"}, {18, 0, 20, row_height - 4}, "^7Realm:")
@@ -762,10 +769,17 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 		table.sort(result.evaluation, function(a, b) return a.weight > b.weight end)
 	else
 		local item = new("Item", result.item_string)
-		if not self.enchantInSort then -- Calc item DPS without anoint or enchant as these can generally be added after.
-			item.enchantModLines = { }
+
+		-- if applicable: apply same eldritch implicits or anoints as equipped
+		if self.controls.eldritchEnchantMode:GetSelValue() == "Copy Current" then
+			self.itemsTab:CopyAnointsAndEldritchImplicits(item, true, true)
+		elseif self.controls.eldritchEnchantMode:GetSelValue() == "Ignored" then
+			item.enchantModLines = {}
 			item:BuildAndParseRaw()
 		end
+		-- edit the item string so that the user can see what was evaluated
+		result.item_string = item:BuildRaw()
+
 		local output = self:ReduceOutput(calcFunc({ repSlotName = slotName, repItem = item }))
 		local weight = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output, self.statSortSelectionList)
 		result.evaluation = {{ output = output, weight = weight }}

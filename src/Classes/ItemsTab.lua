@@ -1585,14 +1585,14 @@ function ItemsTabClass:DeleteItem(item, deferUndoState)
 	end
 end
 
-local function copyAnointsAndEldritchImplicits(newItem, activeItemSet, items)
-	local newItemType = newItem.base.type
-	if activeItemSet[newItemType] then
-		local currentItem = activeItemSet[newItemType].selItemId and items[activeItemSet[newItemType].selItemId]
+function ItemsTabClass:CopyAnointsAndEldritchImplicits(newItem, migrateEldritchImplicits, overwrite)
+	local newItemType = newItem.base.weapon and "Weapon 1" or newItem.base.type
+	if self.activeItemSet[newItemType] then
+		local currentItem = self.activeItemSet[newItemType].selItemId and self.items[self.activeItemSet[newItemType].selItemId]
 		-- if you don't have an equipped item that matches the type of the newItem, no need to do anything
 		if currentItem then
 			-- if the new item is anointable and does not have an anoint and your current respective item does, apply that anoint to the new item
-			if isAnointable(newItem) and #newItem.enchantModLines == 0 and activeItemSet[newItemType].selItemId > 0 then
+			if isAnointable(newItem) and (#newItem.enchantModLines == 0 or overwrite) and self.activeItemSet[newItemType].selItemId > 0 then
 				local currentAnoint = currentItem.enchantModLines
 				if currentAnoint and #currentAnoint == 1 then -- skip if amulet has more than one anoint e.g. Stranglegasp
 					newItem.enchantModLines = currentAnoint
@@ -1607,12 +1607,24 @@ local function copyAnointsAndEldritchImplicits(newItem, activeItemSet, items)
 					return
 				end
 			end
-			if main.migrateEldritchImplicits and isValueInTable(eldritchBaseTypes, newItem.base.type) and isValueInTable(eldritchRarities, newItem.rarity)
-				and #newItem.implicitModLines == 0 and not newItem.corrupted and (currentItem.cleansing or currentItem.tangle) and currentItem.implicitModLines then
+			
+			local modifiableItem = not (newItem.corrupted or newItem.mirrored)
+			if migrateEldritchImplicits and isValueInTable(eldritchBaseTypes, newItem.base.type) and isValueInTable(eldritchRarities, newItem.rarity)
+				and (#newItem.implicitModLines == 0 or overwrite) and modifiableItem and (currentItem.cleansing or currentItem.tangle) and currentItem.implicitModLines then
 					newItem.implicitModLines = currentItem.implicitModLines
 					newItem.tangle = currentItem.tangle
 					newItem.cleansing = currentItem.cleansing
 			end
+
+			-- harvest and heist enchantments on modifiable body armour or weapons
+			if newItem.base.weapon or newItem.base.type == "Body Armour"
+				and (#newItem.enchantModLines == 0 or overwrite)
+				and self.activeItemSet[newItemType].selItemId > 0
+				and modifiableItem and currentItem.enchantModLines
+				then
+					newItem.enchantModLines = currentItem.enchantModLines
+			end
+
 			newItem:BuildAndParseRaw()
 		end
 	end
@@ -1622,7 +1634,7 @@ end
 function ItemsTabClass:CreateDisplayItemFromRaw(itemRaw, normalise)
 	local newItem = new("Item", itemRaw)
 	if newItem.base then
-		copyAnointsAndEldritchImplicits(newItem, self.activeItemSet, self.items)
+		self:CopyAnointsAndEldritchImplicits(newItem, main.migrateEldritchImplicits, false)
 		if normalise then
 			newItem:NormaliseQuality()
 			newItem:BuildModList()
