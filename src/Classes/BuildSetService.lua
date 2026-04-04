@@ -13,10 +13,9 @@ local BuildSetServiceClass = newClass("BuildSetService", function(self, buildMod
 end)
 
 function BuildSetServiceClass:NewLoadout(name)
-	self.buildMode:NewLoadout(name, function()
-		self.buildMode:SyncLoadouts()
-		self.buildMode.controls.buildLoadouts:SetSel(1)
-	end)
+	self.buildMode:NewLoadout(name)
+	self.buildMode:SyncLoadouts()
+	self.buildMode.controls.buildLoadouts:SetSel(1)
 end
 
 function BuildSetServiceClass:CopyLoadout(specId, itemSetId, skillSetId, configSetId, newName)
@@ -26,9 +25,8 @@ function BuildSetServiceClass:CopyLoadout(specId, itemSetId, skillSetId, configS
 end
 
 function BuildSetServiceClass:RenameLoadout(oldName, newName)
-	self.buildMode:RenameLoadout(oldName, newName, function()
-		self.buildMode:SyncLoadouts()
-	end)
+	self.buildMode:RenameLoadout(oldName, newName)
+	self.buildMode:SyncLoadouts()
 end
 
 function BuildSetServiceClass:DeleteLoadout(index, list, spec)

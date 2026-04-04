@@ -36,21 +36,11 @@ describe("TestLoadouts", function()
 		describe("NewLoadout", function()
 			it("Creates a new loadout with the correct name", function()
 				local loadoutName = "Loadout Name"
-				build:NewLoadout(loadoutName, function() end)
+				build:NewLoadout(loadoutName)
 				build:SyncLoadouts()
 				-- There are 5 static items in the list
 				assert.are.equals(7, #build.controls.buildLoadouts.list)
 				assert.are.equals(loadoutName, build.controls.buildLoadouts.list[3])
-				assert.is_true(build.modFlag)
-			end)
-
-			it("calls the callback function", function()
-				local callbackCalled = false
-				build:NewLoadout("Loadout Name", function() callbackCalled = true end)
-				build:SyncLoadouts()
-				-- There are 5 static items in the list
-				assert.are.equals(7, #build.controls.buildLoadouts.list)
-				assert.are.equals(true, callbackCalled)
 				assert.is_true(build.modFlag)
 			end)
 		end)
@@ -80,7 +70,7 @@ describe("TestLoadouts", function()
 		describe("DeleteLoadout", function()
 			it("Deletes a loadout and sets the next to the requested loadout by name", function()
 				local loadoutNameToDelete = "Delete Me"
-				build:NewLoadout(loadoutNameToDelete, function() end)
+				build:NewLoadout(loadoutNameToDelete)
 				build:SyncLoadouts()
 				-- There are 5 static items in the list
 				assert.are.equals(7, #build.controls.buildLoadouts.list)
@@ -110,7 +100,7 @@ describe("TestLoadouts", function()
 				function()
 					local loadoutNameToDelete = "Default"
 					local nextLoadout = "Do not delete"
-					build:NewLoadout(nextLoadout, function() end)
+					build:NewLoadout(nextLoadout)
 					build:SyncLoadouts()
 					-- There are 5 static items in the list
 					assert.are.equals(7, #build.controls.buildLoadouts.list)
@@ -150,8 +140,8 @@ describe("TestLoadouts", function()
 					local loadoutNameToDelete = "Default"
 					local nextLoadout1 = "Do not delete 1"
 					local nextLoadout2 = "Do not delete 2"
-					build:NewLoadout(nextLoadout1, function() end)
-					build:NewLoadout(nextLoadout2, function() end)
+					build:NewLoadout(nextLoadout1)
+					build:NewLoadout(nextLoadout2)
 					build:SyncLoadouts()
 					-- There are 5 static items in the list
 					assert.are.equals(8, #build.controls.buildLoadouts.list)
@@ -187,11 +177,10 @@ describe("TestLoadouts", function()
 			it("renames a loadout and calls the callback", function()
 				local oldName = "Old Loadout"
 				local newName = "New Loadout"
-				local callbackCalled = false
-				build:NewLoadout(oldName, function() end)
+				build:NewLoadout(oldName)
 				build:SyncLoadouts()
 
-				build:RenameLoadout(oldName, newName, function() callbackCalled = true end)
+				build:RenameLoadout(oldName, newName)
 				build:SyncLoadouts()
 				-- Verify the new name appears in the loadout list
 				assert.is_same(newName, build.controls.buildLoadouts.list[3])
@@ -201,8 +190,6 @@ describe("TestLoadouts", function()
 				assert.is_same(newName, build.itemsTab.itemSets[loadout.itemSetId].title)
 				assert.is_same(newName, build.skillsTab.skillSets[loadout.skillSetId].title)
 				assert.is_same(newName, build.configTab.configSets[loadout.configSetId].title)
-				-- Ensure callback was called
-				assert.is_true(callbackCalled)
 				-- Old name should no longer exist
 				assert.is_nil(build:GetLoadoutByName(oldName))
 				assert.is_true(build.modFlag)

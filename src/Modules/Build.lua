@@ -766,12 +766,12 @@ function buildMode:SyncLoadouts()
 	return treeList, itemList, skillList, configList
 end
 
-function buildMode:NewLoadout(loadoutName, callback --[[function]])
+function buildMode:NewLoadout(loadoutName)
 	local newSpec = new("PassiveSpec", self, latestTreeVersion)
 	local newItemSet = self.itemsTab:NewItemSet(#self.itemsTab.itemSets + 1)
 	local newSkillSet = self.skillsTab:NewSkillSet(#self.skillsTab.skillSets + 1)
 	local newConfigSet = self.configTab:NewConfigSet(#self.configTab.configSets + 1)
-	self:AddLoadout(loadoutName, newSpec, newItemSet, newSkillSet, newConfigSet, callback)
+	self:AddLoadout(loadoutName, newSpec, newItemSet, newSkillSet, newConfigSet)
 end
 
 function buildMode:CopyLoadout(copyTreeId, copyItemSetId, copySkillSetId, copyConfigSetId, loadoutName)
@@ -787,7 +787,7 @@ function buildMode:CopyLoadout(copyTreeId, copyItemSetId, copySkillSetId, copyCo
 	return newSpec, newItemSet, newSkillSet, newConfigSet
 end
 
-function buildMode:AddLoadout(loadoutName, newSpec, newItemSet, newSkillSet, newConfigSet, callback --[[function]])
+function buildMode:AddLoadout(loadoutName, newSpec, newItemSet, newSkillSet, newConfigSet)
 	t_insert(self.treeTab.specList, newSpec)
 	newSpec.title = loadoutName
 
@@ -800,8 +800,6 @@ function buildMode:AddLoadout(loadoutName, newSpec, newItemSet, newSkillSet, new
 	t_insert(self.configTab.configSetOrderList, newConfigSet.id)
 	newConfigSet.title = loadoutName
 	self.modFlag = true
-
-	callback()
 end
 
 function buildMode:CustomLoadout(specId, itemSetId, skillSetId, configSetId, name)
@@ -905,7 +903,7 @@ function buildMode:DeleteLoadout(loadoutName, nextLoadoutName)
 	self:SetActiveLoadout(nextLoadout)
 end
 
-function buildMode:RenameLoadout(oldName, newName, callback)
+function buildMode:RenameLoadout(oldName, newName)
 	local loadout = self:GetLoadoutByName(oldName)
 	if loadout.specId then
 		self.treeTab.specList[loadout.specId].title = newName
@@ -924,7 +922,6 @@ function buildMode:RenameLoadout(oldName, newName, callback)
 		self.configTab.modFlag = true
 	end
 	self.modFlag = true
-	callback()
 end
 
 function buildMode:GetLoadoutByName(loadoutName)
