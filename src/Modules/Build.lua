@@ -775,13 +775,9 @@ function buildMode:NewLoadout(loadoutName)
 	t_insert(self.treeTab.specList, newSpec)
 	newSpec.title = loadoutName
 
-	t_insert(self.itemsTab.itemSetOrderList, newItemSet.id)
+	self:InsertAllSetOrderList(newItemSet.id, newSkillSet.id, newConfigSet.id)
 	newItemSet.title = loadoutName
-
-	t_insert(self.skillsTab.skillSetOrderList, newSkillSet.id)
 	newSkillSet.title = loadoutName
-
-	t_insert(self.configTab.configSetOrderList, newConfigSet.id)
 	newConfigSet.title = loadoutName
 	self.modFlag = true
 end
@@ -792,9 +788,7 @@ function buildMode:CopyLoadout(copyTreeId, copyItemSetId, copySkillSetId, copyCo
 	local newSkillSet = self.skillsTab:CopySkillSet(copySkillSetId, loadoutName)
 	local newConfigSet = self.configTab:CopyConfigSet(copyConfigSetId, loadoutName)
 
-	t_insert(self.itemsTab.itemSetOrderList, newItemSet.id)
-	t_insert(self.skillsTab.skillSetOrderList, newSkillSet.id)
-	t_insert(self.configTab.configSetOrderList, newConfigSet.id)
+	self:InsertAllSetOrderList(newItemSet.id, newSkillSet.id, newConfigSet.id)
 	self.modFlag = true
 	return newSpec, newItemSet, newSkillSet, newConfigSet
 end
@@ -816,7 +810,6 @@ function buildMode:CustomLoadout(specId, itemSetId, skillSetId, configSetId, nam
 	else
 		newItemSet = self.itemsTab:CopyItemSet(itemSetId, name)
 	end
-	t_insert(self.itemsTab.itemSetOrderList, newItemSet.id)
 	newItemSet.title = name
 
 	local newSkillSet
@@ -825,7 +818,6 @@ function buildMode:CustomLoadout(specId, itemSetId, skillSetId, configSetId, nam
 	else
 		newSkillSet = self.skillsTab:CopySkillSet(skillSetId, name)
 	end
-	t_insert(self.skillsTab.skillSetOrderList, newSkillSet.id)
 	newSkillSet.title = name
 
 	local newConfigSet
@@ -834,9 +826,9 @@ function buildMode:CustomLoadout(specId, itemSetId, skillSetId, configSetId, nam
 	else
 		newConfigSet = self.configTab:CopyConfigSet(configSetId, name)
 	end
-	t_insert(self.configTab.configSetOrderList, newConfigSet.id)
 	newConfigSet.title = name
 
+	self:InsertAllSetOrderList(newItemSet.id, newSkillSet.id, newConfigSet.id)
 	self.modFlag = true
 	return newSpec, newItemSet, newSkillSet, newConfigSet
 end
@@ -922,6 +914,12 @@ function buildMode:RenameLoadout(oldName, newName)
 		self.configTab.modFlag = true
 	end
 	self.modFlag = true
+end
+
+function buildMode:InsertAllSetOrderList(itemSetId, skillSetId, configSetId)
+	t_insert(self.itemsTab.itemSetOrderList, itemSetId)
+	t_insert(self.skillsTab.skillSetOrderList, skillSetId)
+	t_insert(self.configTab.configSetOrderList, configSetId)
 end
 
 function buildMode:GetLoadoutByName(loadoutName)

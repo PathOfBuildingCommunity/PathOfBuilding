@@ -25,14 +25,14 @@ local BuildSetListClass = newClass("BuildSetListControl", "ListControl", functio
 		function()
 			local loadoutNameToCopy = self.selValue.title or "Default"
 			local build = buildMode:GetLoadoutByName(loadoutNameToCopy)
-			self:CopyLoadoutClick(build)
+			self:CopyLoadout(build)
 		end)
 	self.controls.copy.enabled = function()
 		return self.selValue ~= nil
 	end
 	self.controls.delete = new("ButtonControl", { "LEFT", self.controls.copy, "RIGHT" }, { 5, 0, 60, 18 }, "Delete",
 		function()
-			self:OnSelDelete(self.selIndex, self.selValue)
+			self:DeleteLoadout(self.selIndex, self.selValue)
 		end)
 	self.controls.delete.enabled = function()
 		return self.selValue ~= nil and #self.list > 1
@@ -41,7 +41,7 @@ local BuildSetListClass = newClass("BuildSetListControl", "ListControl", functio
 		"New/Copy Custom",
 		function()
 			if self.selValue == nil then
-				self:CopyCustom({
+				self:CustomLoadout({
 					specId = 0,
 					itemSetId = 0,
 					skillSetId = 0,
@@ -50,7 +50,7 @@ local BuildSetListClass = newClass("BuildSetListControl", "ListControl", functio
 			else
 				local loadoutNameToCopy = self.selValue.title or "Default"
 				local build = buildMode:GetLoadoutByName(loadoutNameToCopy)
-				self:CopyCustom(build)
+				self:CustomLoadout(build)
 			end
 		end)
 end)
@@ -74,7 +74,7 @@ function BuildSetListClass:RenameLoadout(spec)
 	main:OpenPopup(370, 100, specName and "Rename Loadout" or "Set Name", controls, "save", "edit", "cancel")
 end
 
-function BuildSetListClass:CopyLoadoutClick(build)
+function BuildSetListClass:CopyLoadout(build)
 	local controls = {}
 	local buildName = self.buildMode.treeTab.specList[build.specId].title
 	controls.label = new("LabelControl", nil, { 0, 20, 0, 16 }, "^7Enter name for this loadout:")
@@ -93,7 +93,7 @@ function BuildSetListClass:CopyLoadoutClick(build)
 	main:OpenPopup(370, 100, buildName and "Rename" or "Set Name", controls, "save", "edit", "cancel")
 end
 
-function BuildSetListClass:CopyCustom(build)
+function BuildSetListClass:CustomLoadout(build)
 	local function getList(setList, orderList, activeId)
 		local newSetList = { "^7New" }
 		local activeIndex = 1
@@ -214,7 +214,7 @@ function BuildSetListClass:OnSelClick(index, spec, doubleClick)
 	end
 end
 
-function BuildSetListClass:OnSelDelete(index, spec)
+function BuildSetListClass:DeleteLoadout(index, spec)
 	if #self.list > 1 then
 		main:OpenConfirmPopup("Delete Loadout", "Are you sure you want to delete '" .. (spec.title or "Default") .. "'?",
 			"Delete", function()
