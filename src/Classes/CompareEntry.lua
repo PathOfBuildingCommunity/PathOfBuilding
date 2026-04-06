@@ -171,7 +171,7 @@ function CompareEntryClass:LoadFromXML(xmlText)
 		end
 	end
 
-	-- Build calculation output tables
+	self:SyncCalcsSkillSelection()
 	self.calcsTab:BuildOutput()
 	self.buildFlag = false
 end
@@ -215,6 +215,27 @@ end
 
 function CompareEntryClass:GetSpec()
 	return self.spec
+end
+
+function CompareEntryClass:SyncCalcsSkillSelection()
+	self.calcsTab.input.skill_number = self.mainSocketGroup
+
+	local mainGroup = self.skillsTab and self.skillsTab.socketGroupList[self.mainSocketGroup]
+	if not mainGroup then return end
+
+	mainGroup.mainActiveSkillCalcs = mainGroup.mainActiveSkill
+
+	local displaySkillList = mainGroup.displaySkillList
+	local activeSkill = displaySkillList and displaySkillList[mainGroup.mainActiveSkill or 1]
+	if activeSkill and activeSkill.activeEffect and activeSkill.activeEffect.srcInstance then
+		local src = activeSkill.activeEffect.srcInstance
+		src.skillPartCalcs = src.skillPart
+		src.skillStageCountCalcs = src.skillStageCount
+		src.skillMineCountCalcs = src.skillMineCount
+		src.skillMinionCalcs = src.skillMinion
+		src.skillMinionItemSetCalcs = src.skillMinionItemSet
+		src.skillMinionSkillCalcs = src.skillMinionSkill
+	end
 end
 
 function CompareEntryClass:Rebuild()

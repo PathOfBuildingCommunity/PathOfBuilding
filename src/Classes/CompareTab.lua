@@ -450,6 +450,239 @@ function CompareTabClass:InitControls()
 	self.controls.cmpMinionSkill.shown = false
 
 	-- ============================================================
+	-- Calcs view skill detail controls (per-build, independent of sidebar & regular Calcs tab)
+	-- ============================================================
+	local calcsBuffModeDropList = {
+		{ label = "Unbuffed", buffMode = "UNBUFFED" },
+		{ label = "Buffed", buffMode = "BUFFED" },
+		{ label = "In Combat", buffMode = "COMBAT" },
+		{ label = "Effective DPS", buffMode = "EFFECTIVE" },
+	}
+	-- Primary build calcs skill controls
+	self.controls.primCalcsSocketGroup = new("DropDownControl", nil, {0, 0, 200, 18}, {}, function(index, value)
+		self.primaryBuild.calcsTab.input.skill_number = index
+		self.primaryBuild.buildFlag = true
+	end)
+	self.controls.primCalcsSocketGroup.shown = false
+	self.controls.primCalcsSocketGroup.maxDroppedWidth = 400
+	self.controls.primCalcsSocketGroup.enableDroppedWidth = true
+
+	self.controls.primCalcsMainSkill = new("DropDownControl", nil, {0, 0, 200, 18}, {}, function(index, value)
+		local mainSocketGroup = self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.calcsTab.input.skill_number]
+		if mainSocketGroup then
+			mainSocketGroup.mainActiveSkillCalcs = index
+			self.primaryBuild.buildFlag = true
+		end
+	end)
+	self.controls.primCalcsMainSkill.shown = false
+
+	self.controls.primCalcsSkillPart = new("DropDownControl", nil, {0, 0, 150, 18}, {}, function(index, value)
+		local mainSocketGroup = self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.calcsTab.input.skill_number]
+		if mainSocketGroup then
+			local displaySkillList = mainSocketGroup.displaySkillListCalcs
+			local activeSkill = displaySkillList and displaySkillList[mainSocketGroup.mainActiveSkillCalcs or 1]
+			if activeSkill and activeSkill.activeEffect then
+				activeSkill.activeEffect.srcInstance.skillPartCalcs = index
+				self.primaryBuild.buildFlag = true
+			end
+		end
+	end)
+	self.controls.primCalcsSkillPart.shown = false
+
+	self.controls.primCalcsStageCount = new("EditControl", nil, {0, 0, 52, 18}, "", nil, "%D", 5, function(buf)
+		local mainSocketGroup = self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.calcsTab.input.skill_number]
+		if mainSocketGroup then
+			local displaySkillList = mainSocketGroup.displaySkillListCalcs
+			local activeSkill = displaySkillList and displaySkillList[mainSocketGroup.mainActiveSkillCalcs or 1]
+			if activeSkill and activeSkill.activeEffect then
+				activeSkill.activeEffect.srcInstance.skillStageCountCalcs = tonumber(buf)
+				self.primaryBuild.buildFlag = true
+			end
+		end
+	end)
+	self.controls.primCalcsStageCount.shown = false
+
+	self.controls.primCalcsMineCount = new("EditControl", nil, {0, 0, 52, 18}, "", nil, "%D", 5, function(buf)
+		local mainSocketGroup = self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.calcsTab.input.skill_number]
+		if mainSocketGroup then
+			local displaySkillList = mainSocketGroup.displaySkillListCalcs
+			local activeSkill = displaySkillList and displaySkillList[mainSocketGroup.mainActiveSkillCalcs or 1]
+			if activeSkill and activeSkill.activeEffect then
+				activeSkill.activeEffect.srcInstance.skillMineCountCalcs = tonumber(buf)
+				self.primaryBuild.buildFlag = true
+			end
+		end
+	end)
+	self.controls.primCalcsMineCount.shown = false
+
+	self.controls.primCalcsMinion = new("DropDownControl", nil, {0, 0, 140, 18}, {}, function(index, value)
+		local mainSocketGroup = self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.calcsTab.input.skill_number]
+		if mainSocketGroup then
+			local displaySkillList = mainSocketGroup.displaySkillListCalcs
+			local activeSkill = displaySkillList and displaySkillList[mainSocketGroup.mainActiveSkillCalcs or 1]
+			if activeSkill and activeSkill.activeEffect then
+				local selected = self.controls.primCalcsMinion.list[index]
+				if selected then
+					if selected.itemSetId then
+						activeSkill.activeEffect.srcInstance.skillMinionItemSetCalcs = selected.itemSetId
+					elseif selected.minionId then
+						activeSkill.activeEffect.srcInstance.skillMinionCalcs = selected.minionId
+					end
+					self.primaryBuild.buildFlag = true
+				end
+			end
+		end
+	end)
+	self.controls.primCalcsMinion.shown = false
+
+	self.controls.primCalcsMinionSkill = new("DropDownControl", nil, {0, 0, 140, 18}, {}, function(index, value)
+		local mainSocketGroup = self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.calcsTab.input.skill_number]
+		if mainSocketGroup then
+			local displaySkillList = mainSocketGroup.displaySkillListCalcs
+			local activeSkill = displaySkillList and displaySkillList[mainSocketGroup.mainActiveSkillCalcs or 1]
+			if activeSkill and activeSkill.activeEffect then
+				activeSkill.activeEffect.srcInstance.skillMinionSkillCalcs = index
+				self.primaryBuild.buildFlag = true
+			end
+		end
+	end)
+	self.controls.primCalcsMinionSkill.shown = false
+
+	self.controls.primCalcsMode = new("DropDownControl", nil, {0, 0, 120, 18}, calcsBuffModeDropList, function(index, value)
+		self.primaryBuild.calcsTab.input.misc_buffMode = value.buffMode
+		self.primaryBuild.buildFlag = true
+	end)
+	self.controls.primCalcsMode.shown = false
+
+	-- Compare build calcs skill controls
+	self.controls.cmpCalcsSocketGroup = new("DropDownControl", nil, {0, 0, 200, 18}, {}, function(index, value)
+		local entry = self:GetActiveCompare()
+		if entry then
+			entry.calcsTab.input.skill_number = index
+			entry.buildFlag = true
+			self.modFlag = true
+		end
+	end)
+	self.controls.cmpCalcsSocketGroup.shown = false
+	self.controls.cmpCalcsSocketGroup.maxDroppedWidth = 400
+	self.controls.cmpCalcsSocketGroup.enableDroppedWidth = true
+
+	self.controls.cmpCalcsMainSkill = new("DropDownControl", nil, {0, 0, 200, 18}, {}, function(index, value)
+		local entry = self:GetActiveCompare()
+		if entry then
+			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.calcsTab.input.skill_number]
+			if mainSocketGroup then
+				mainSocketGroup.mainActiveSkillCalcs = index
+				entry.buildFlag = true
+				self.modFlag = true
+			end
+		end
+	end)
+	self.controls.cmpCalcsMainSkill.shown = false
+
+	self.controls.cmpCalcsSkillPart = new("DropDownControl", nil, {0, 0, 150, 18}, {}, function(index, value)
+		local entry = self:GetActiveCompare()
+		if entry then
+			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.calcsTab.input.skill_number]
+			if mainSocketGroup then
+				local displaySkillList = mainSocketGroup.displaySkillListCalcs
+				local activeSkill = displaySkillList and displaySkillList[mainSocketGroup.mainActiveSkillCalcs or 1]
+				if activeSkill and activeSkill.activeEffect then
+					activeSkill.activeEffect.srcInstance.skillPartCalcs = index
+					entry.buildFlag = true
+					self.modFlag = true
+				end
+			end
+		end
+	end)
+	self.controls.cmpCalcsSkillPart.shown = false
+
+	self.controls.cmpCalcsStageCount = new("EditControl", nil, {0, 0, 52, 18}, "", nil, "%D", 5, function(buf)
+		local entry = self:GetActiveCompare()
+		if entry then
+			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.calcsTab.input.skill_number]
+			if mainSocketGroup then
+				local displaySkillList = mainSocketGroup.displaySkillListCalcs
+				local activeSkill = displaySkillList and displaySkillList[mainSocketGroup.mainActiveSkillCalcs or 1]
+				if activeSkill and activeSkill.activeEffect then
+					activeSkill.activeEffect.srcInstance.skillStageCountCalcs = tonumber(buf)
+					entry.buildFlag = true
+					self.modFlag = true
+				end
+			end
+		end
+	end)
+	self.controls.cmpCalcsStageCount.shown = false
+
+	self.controls.cmpCalcsMineCount = new("EditControl", nil, {0, 0, 52, 18}, "", nil, "%D", 5, function(buf)
+		local entry = self:GetActiveCompare()
+		if entry then
+			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.calcsTab.input.skill_number]
+			if mainSocketGroup then
+				local displaySkillList = mainSocketGroup.displaySkillListCalcs
+				local activeSkill = displaySkillList and displaySkillList[mainSocketGroup.mainActiveSkillCalcs or 1]
+				if activeSkill and activeSkill.activeEffect then
+					activeSkill.activeEffect.srcInstance.skillMineCountCalcs = tonumber(buf)
+					entry.buildFlag = true
+					self.modFlag = true
+				end
+			end
+		end
+	end)
+	self.controls.cmpCalcsMineCount.shown = false
+
+	self.controls.cmpCalcsMinion = new("DropDownControl", nil, {0, 0, 140, 18}, {}, function(index, value)
+		local entry = self:GetActiveCompare()
+		if entry then
+			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.calcsTab.input.skill_number]
+			if mainSocketGroup then
+				local displaySkillList = mainSocketGroup.displaySkillListCalcs
+				local activeSkill = displaySkillList and displaySkillList[mainSocketGroup.mainActiveSkillCalcs or 1]
+				if activeSkill and activeSkill.activeEffect then
+					local selected = self.controls.cmpCalcsMinion.list[index]
+					if selected then
+						if selected.itemSetId then
+							activeSkill.activeEffect.srcInstance.skillMinionItemSetCalcs = selected.itemSetId
+						elseif selected.minionId then
+							activeSkill.activeEffect.srcInstance.skillMinionCalcs = selected.minionId
+						end
+						entry.buildFlag = true
+						self.modFlag = true
+					end
+				end
+			end
+		end
+	end)
+	self.controls.cmpCalcsMinion.shown = false
+
+	self.controls.cmpCalcsMinionSkill = new("DropDownControl", nil, {0, 0, 140, 18}, {}, function(index, value)
+		local entry = self:GetActiveCompare()
+		if entry then
+			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.calcsTab.input.skill_number]
+			if mainSocketGroup then
+				local displaySkillList = mainSocketGroup.displaySkillListCalcs
+				local activeSkill = displaySkillList and displaySkillList[mainSocketGroup.mainActiveSkillCalcs or 1]
+				if activeSkill and activeSkill.activeEffect then
+					activeSkill.activeEffect.srcInstance.skillMinionSkillCalcs = index
+					entry.buildFlag = true
+					self.modFlag = true
+				end
+			end
+		end
+	end)
+	self.controls.cmpCalcsMinionSkill.shown = false
+
+	self.controls.cmpCalcsMode = new("DropDownControl", nil, {0, 0, 120, 18}, calcsBuffModeDropList, function(index, value)
+		local entry = self:GetActiveCompare()
+		if entry then
+			entry.calcsTab.input.misc_buffMode = value.buffMode
+			entry.buildFlag = true
+			self.modFlag = true
+		end
+	end)
+	self.controls.cmpCalcsMode.shown = false
+
+	-- ============================================================
 	-- Tree footer controls (visible only in TREE view mode with a comparison loaded)
 	-- ============================================================
 	local treeFooterShown = function()
@@ -1445,7 +1678,18 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 	if compareEntry then
 		self:UpdateSetSelectors(compareEntry)
 	end
+	-- Layout and refresh calcs skill detail controls
+	self.calcsSkillHeaderHeight = 0
+	if self.compareViewMode == "CALCS" and compareEntry then
+		self.calcsSkillHeaderHeight = self:LayoutCalcsSkillControls(contentVP, compareEntry)
+	end
 	self:HandleScrollInput(contentVP, inputEvents)
+
+	-- Draw calcs skill header background
+	if self.compareViewMode == "CALCS" and self.calcsSkillHeaderHeight > 0 then
+		SetDrawColor(0.05, 0.05, 0.05)
+		DrawImage(nil, contentVP.x, contentVP.y, contentVP.width, self.calcsSkillHeaderHeight)
+	end
 
 	-- Process input events for our controls (including footer controls)
 	self:ProcessControlsInput(inputEvents, viewPort)
@@ -1900,6 +2144,177 @@ function CompareTabClass:UpdateSetSelectors(compareEntry)
 		mainSkillMinionSkill = self.controls.cmpMinionSkill,
 	}
 	compareEntry:RefreshSkillSelectControls(cmpControls, compareEntry.mainSocketGroup, "")
+end
+
+-- Refresh calcs skill detail controls for both builds.
+function CompareTabClass:RefreshCalcsSkillControls(compareEntry)
+	-- Build control maps for RefreshSkillSelectControls
+	local primControls = {
+		mainSocketGroup = self.controls.primCalcsSocketGroup,
+		mainSkill = self.controls.primCalcsMainSkill,
+		mainSkillPart = self.controls.primCalcsSkillPart,
+		mainSkillStageCount = self.controls.primCalcsStageCount,
+		mainSkillMineCount = self.controls.primCalcsMineCount,
+		mainSkillMinion = self.controls.primCalcsMinion,
+		mainSkillMinionLibrary = { shown = false },
+		mainSkillMinionSkill = self.controls.primCalcsMinionSkill,
+	}
+	self.primaryBuild:RefreshSkillSelectControls(primControls, self.primaryBuild.calcsTab.input.skill_number, "Calcs")
+	self.controls.primCalcsSocketGroup.shown = true
+	self.controls.primCalcsMode.shown = true
+	self.controls.primCalcsMode:SelByValue(self.primaryBuild.calcsTab.input.misc_buffMode, "buffMode")
+
+	local cmpControls = {
+		mainSocketGroup = self.controls.cmpCalcsSocketGroup,
+		mainSkill = self.controls.cmpCalcsMainSkill,
+		mainSkillPart = self.controls.cmpCalcsSkillPart,
+		mainSkillStageCount = self.controls.cmpCalcsStageCount,
+		mainSkillMineCount = self.controls.cmpCalcsMineCount,
+		mainSkillMinion = self.controls.cmpCalcsMinion,
+		mainSkillMinionLibrary = { shown = false },
+		mainSkillMinionSkill = self.controls.cmpCalcsMinionSkill,
+	}
+	compareEntry:RefreshSkillSelectControls(cmpControls, compareEntry.calcsTab.input.skill_number, "Calcs")
+	self.controls.cmpCalcsSocketGroup.shown = true
+	self.controls.cmpCalcsMode.shown = true
+	self.controls.cmpCalcsMode:SelByValue(compareEntry.calcsTab.input.misc_buffMode, "buffMode")
+
+	-- Wrap .shown booleans set by RefreshSkillSelectControls with a view-mode gate,
+	-- so controls auto-hide when not in CALCS mode (matching configShown pattern)
+	local calcsControlNames = {
+		"primCalcsSocketGroup", "primCalcsMainSkill", "primCalcsSkillPart",
+		"primCalcsStageCount", "primCalcsMineCount", "primCalcsMinion",
+		"primCalcsMinionSkill", "primCalcsMode",
+		"cmpCalcsSocketGroup", "cmpCalcsMainSkill", "cmpCalcsSkillPart",
+		"cmpCalcsStageCount", "cmpCalcsMineCount", "cmpCalcsMinion",
+		"cmpCalcsMinionSkill", "cmpCalcsMode",
+	}
+	for _, name in ipairs(calcsControlNames) do
+		local ctrl = self.controls[name]
+		local baseShown = ctrl.shown
+		if baseShown then
+			ctrl.shown = function()
+				return self.compareViewMode == "CALCS" and self:GetActiveCompare() ~= nil
+					and (type(baseShown) == "function" and baseShown() or baseShown)
+			end
+		end
+	end
+end
+
+-- Layout calcs skill detail controls into a two-column header area
+function CompareTabClass:LayoutCalcsSkillControls(vp, compareEntry)
+	if self.compareViewMode ~= "CALCS" or not compareEntry then return 0 end
+
+	self:RefreshCalcsSkillControls(compareEntry)
+
+	local colWidth = m_floor((vp.width - 20) / 2)
+	local leftX = vp.x + 4
+	local rightX = leftX + colWidth + 12
+	local labelW = 100
+	local controlW = colWidth - labelW - 8
+	local rowH = 22
+	local y = vp.y + 4
+
+	-- Helper to position a row of label + control
+	local function layoutRow(control, x, currentY, width)
+		if control.shown == false or (type(control.shown) == "function" and not control:IsShown()) then
+			return false
+		end
+		control.x = x + labelW
+		control.y = currentY
+		if control.width then
+			control.width = m_min(width or controlW, control.width)
+		end
+		return true
+	end
+
+	-- Track max rows for both columns
+	local leftY = y
+	local rightY = y
+
+	-- Title row
+	leftY = leftY + rowH
+	rightY = rightY + rowH
+
+	-- Socket Group
+	layoutRow(self.controls.primCalcsSocketGroup, leftX, leftY, controlW)
+	layoutRow(self.controls.cmpCalcsSocketGroup, rightX, rightY, controlW)
+	leftY = leftY + rowH
+	rightY = rightY + rowH
+
+	-- Active Skill
+	if layoutRow(self.controls.primCalcsMainSkill, leftX, leftY, controlW) then
+		leftY = leftY + rowH
+	end
+	if layoutRow(self.controls.cmpCalcsMainSkill, rightX, rightY, controlW) then
+		rightY = rightY + rowH
+	end
+
+	-- Skill Part
+	if layoutRow(self.controls.primCalcsSkillPart, leftX, leftY, controlW) then
+		leftY = leftY + rowH
+	end
+	if layoutRow(self.controls.cmpCalcsSkillPart, rightX, rightY, controlW) then
+		rightY = rightY + rowH
+	end
+
+	-- Stage Count
+	if layoutRow(self.controls.primCalcsStageCount, leftX, leftY) then
+		leftY = leftY + rowH
+	end
+	if layoutRow(self.controls.cmpCalcsStageCount, rightX, rightY) then
+		rightY = rightY + rowH
+	end
+
+	-- Mine Count
+	if layoutRow(self.controls.primCalcsMineCount, leftX, leftY) then
+		leftY = leftY + rowH
+	end
+	if layoutRow(self.controls.cmpCalcsMineCount, rightX, rightY) then
+		rightY = rightY + rowH
+	end
+
+	-- Minion
+	if layoutRow(self.controls.primCalcsMinion, leftX, leftY, controlW) then
+		leftY = leftY + rowH
+	end
+	if layoutRow(self.controls.cmpCalcsMinion, rightX, rightY, controlW) then
+		rightY = rightY + rowH
+	end
+
+	-- Minion Skill
+	if layoutRow(self.controls.primCalcsMinionSkill, leftX, leftY, controlW) then
+		leftY = leftY + rowH
+	end
+	if layoutRow(self.controls.cmpCalcsMinionSkill, rightX, rightY, controlW) then
+		rightY = rightY + rowH
+	end
+
+	-- Calc Mode
+	layoutRow(self.controls.primCalcsMode, leftX, leftY)
+	layoutRow(self.controls.cmpCalcsMode, rightX, rightY)
+	leftY = leftY + rowH
+	rightY = rightY + rowH
+
+	-- Account for text info lines (Aura/Buffs, Combat Buffs, Curses) + separator
+	local textLinesHeight = 2 -- padding before text
+	local primaryEnv = self.primaryBuild.calcsTab and self.primaryBuild.calcsTab.calcsEnv
+	local compareEnv = compareEntry.calcsTab and compareEntry.calcsTab.calcsEnv
+	local pOutput = primaryEnv and primaryEnv.player and primaryEnv.player.output
+	local cOutput = compareEnv and compareEnv.player and compareEnv.player.output
+	if pOutput or cOutput then
+		local infoKeys = { "BuffList", "CombatList", "CurseList" }
+		for _, key in ipairs(infoKeys) do
+			local pVal = pOutput and pOutput[key]
+			local cVal = cOutput and cOutput[key]
+			if (pVal and pVal ~= "") or (cVal and cVal ~= "") then
+				textLinesHeight = textLinesHeight + 18
+			end
+		end
+	end
+
+	local headerHeight = m_max(leftY, rightY) - vp.y + textLinesHeight + 4 -- +4 for separator padding
+	return headerHeight
 end
 
 -- Handle scroll events for scrollable views.
@@ -3663,14 +4078,140 @@ end
 -- ============================================================
 -- CALCS VIEW (card-based sections with comparison)
 -- ============================================================
+
+-- Draw the skill detail header area with labels for controls and text info lines
+function CompareTabClass:DrawCalcsSkillHeader(vp, compareEntry, headerHeight, primaryEnv, compareEnv)
+	local colWidth = m_floor((vp.width - 20) / 2)
+	local leftX = vp.x + 4
+	local rightX = leftX + colWidth + 12
+	local labelW = 100
+	local rowH = 22
+	local y = vp.y + 4
+
+	-- Build name headers
+	SetDrawColor(1, 1, 1)
+	DrawString(leftX, y + 2, "LEFT", 16, "VAR BOLD",
+		colorCodes.POSITIVE .. self:GetShortBuildName(self.primaryBuild.buildName))
+	DrawString(rightX, y + 2, "LEFT", 16, "VAR BOLD",
+		colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
+	y = y + rowH
+
+	-- Draw labels next to each control row
+	local function drawLabel(label, x, cy, control)
+		if control.shown == false or (type(control.shown) == "function" and not control:IsShown()) then
+			return false
+		end
+		DrawString(x, cy + 2, "LEFT", 14, "VAR", "^7" .. label .. ":")
+		return true
+	end
+
+	local leftY = y
+	local rightY = y
+
+	-- Socket Group
+	drawLabel("Socket Group", leftX, leftY, self.controls.primCalcsSocketGroup)
+	drawLabel("Socket Group", rightX, rightY, self.controls.cmpCalcsSocketGroup)
+	leftY = leftY + rowH
+	rightY = rightY + rowH
+
+	-- Active Skill
+	if drawLabel("Active Skill", leftX, leftY, self.controls.primCalcsMainSkill) then leftY = leftY + rowH end
+	if drawLabel("Active Skill", rightX, rightY, self.controls.cmpCalcsMainSkill) then rightY = rightY + rowH end
+
+	-- Skill Part
+	if drawLabel("Skill Part", leftX, leftY, self.controls.primCalcsSkillPart) then leftY = leftY + rowH end
+	if drawLabel("Skill Part", rightX, rightY, self.controls.cmpCalcsSkillPart) then rightY = rightY + rowH end
+
+	-- Stage Count
+	if drawLabel("Stages", leftX, leftY, self.controls.primCalcsStageCount) then leftY = leftY + rowH end
+	if drawLabel("Stages", rightX, rightY, self.controls.cmpCalcsStageCount) then rightY = rightY + rowH end
+
+	-- Mine Count
+	if drawLabel("Mines", leftX, leftY, self.controls.primCalcsMineCount) then leftY = leftY + rowH end
+	if drawLabel("Mines", rightX, rightY, self.controls.cmpCalcsMineCount) then rightY = rightY + rowH end
+
+	-- Minion
+	if drawLabel("Minion", leftX, leftY, self.controls.primCalcsMinion) then leftY = leftY + rowH end
+	if drawLabel("Minion", rightX, rightY, self.controls.cmpCalcsMinion) then rightY = rightY + rowH end
+
+	-- Minion Skill
+	if drawLabel("Minion Skill", leftX, leftY, self.controls.primCalcsMinionSkill) then leftY = leftY + rowH end
+	if drawLabel("Minion Skill", rightX, rightY, self.controls.cmpCalcsMinionSkill) then rightY = rightY + rowH end
+
+	-- Calc Mode
+	drawLabel("Calc Mode", leftX, leftY, self.controls.primCalcsMode)
+	drawLabel("Calc Mode", rightX, rightY, self.controls.cmpCalcsMode)
+	leftY = leftY + rowH
+	rightY = rightY + rowH
+
+	-- Text info lines (Aura/Buffs, Combat Buffs, Curses)
+	local textY = m_max(leftY, rightY) + 2
+	local pOutput = primaryEnv.player and primaryEnv.player.output
+	local cOutput = compareEnv.player and compareEnv.player.output
+	self.calcsSkillHeaderHover = nil  -- Reset hover state
+	if pOutput or cOutput then
+		local cursorX, cursorY = GetCursorPos()
+		local infoLines = {
+			{ label = "Aura/Buff Skills", key = "BuffList", breakdown = "SkillBuffs" },
+			{ label = "Combat Buffs", key = "CombatList" },
+			{ label = "Curses/Debuffs", key = "CurseList", breakdown = "SkillDebuffs" },
+		}
+		for _, info in ipairs(infoLines) do
+			local pVal = pOutput and pOutput[info.key]
+			local cVal = cOutput and cOutput[info.key]
+			if (pVal and pVal ~= "") or (cVal and cVal ~= "") then
+				-- Check hover per-side for lines that have breakdown data
+				if info.breakdown and cursorY >= textY and cursorY < textY + 18 then
+					local onLeft = cursorX >= leftX and cursorX < rightX
+					local onRight = cursorX >= rightX and cursorX < vp.x + vp.width
+					if onLeft then
+						SetDrawColor(0.15, 0.25, 0.15)
+						DrawImage(nil, leftX, textY, colWidth, 18)
+						self.calcsSkillHeaderHover = {
+							breakdown = info.breakdown,
+							label = info.label,
+							build = self.primaryBuild,
+							x = leftX, y = textY, w = colWidth, h = 18,
+						}
+					elseif onRight then
+						SetDrawColor(0.15, 0.25, 0.15)
+						DrawImage(nil, rightX, textY, colWidth, 18)
+						self.calcsSkillHeaderHover = {
+							breakdown = info.breakdown,
+							label = info.label,
+							build = compareEntry,
+							x = rightX, y = textY, w = colWidth, h = 18,
+						}
+					end
+				end
+				DrawString(leftX, textY + 1, "LEFT", 14, "VAR", "^7" .. info.label .. ": " .. (pVal or ""))
+				DrawString(rightX, textY + 1, "LEFT", 14, "VAR", "^7" .. info.label .. ": " .. (cVal or ""))
+				textY = textY + 18
+			end
+		end
+	end
+
+	-- Separator line
+	SetDrawColor(0.4, 0.4, 0.4)
+	DrawImage(nil, vp.x + 2, vp.y + headerHeight - 2, vp.width - 4, 1)
+end
+
 function CompareTabClass:DrawCalcs(vp, compareEntry)
-	-- Get actors from both builds (use mainEnv, not calcsEnv, so skill dropdown is respected)
-	local primaryEnv = self.primaryBuild.calcsTab.mainEnv
-	local compareEnv = compareEntry.calcsTab and compareEntry.calcsTab.mainEnv
+	-- Use calcsEnv for both values and tooltips (has breakdown data + respects Calcs skill selection)
+	local primaryEnv = self.primaryBuild.calcsTab.calcsEnv
+	local compareEnv = compareEntry.calcsTab and compareEntry.calcsTab.calcsEnv
 	if not primaryEnv or not compareEnv then return end
 	local primaryActor = primaryEnv.player
 	local compareActor = compareEnv.player
 	if not primaryActor or not compareActor then return end
+
+	-- Skill detail header height
+	local skillHeaderHeight = self.calcsSkillHeaderHeight or 0
+
+	-- Draw skill detail header background and labels
+	if skillHeaderHeight > 0 then
+		self:DrawCalcsSkillHeader(vp, compareEntry, skillHeaderHeight, primaryEnv, compareEnv)
+	end
 
 	-- Card dimensions
 	-- Layout: [2px border | 130px label | 2px gap | 2px sep | valW | 2px sep | valW | 2px border]
@@ -3747,26 +4288,16 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 		maxY = m_max(maxY, colY[col])
 	end
 
-	-- Set viewport for scroll clipping
-	SetViewport(vp.x, vp.y, vp.width, vp.height)
+	-- Set viewport for scroll clipping, offset below skill header so cards can't bleed into it
+	SetViewport(vp.x, vp.y + skillHeaderHeight, vp.width, vp.height - skillHeaderHeight)
 
 	-- Cursor position relative to viewport (for hover detection)
 	local cursorX, cursorY = GetCursorPos()
 	local vpCursorX = cursorX - vp.x
-	local vpCursorY = cursorY - vp.y
+	local vpCursorY = cursorY - (vp.y + skillHeaderHeight)
 	local hoverColData = nil
 	local hoverRowLabel = nil
 	local hoverRowX, hoverRowY, hoverRowW, hoverRowH = 0, 0, 0, 0
-
-	-- Draw header bar with build names
-	local headerY = 4 - self.scrollY
-	SetDrawColor(1, 1, 1)
-	DrawString(baseX + valCol1X, headerY, "LEFT", 14, "VAR",
-		colorCodes.POSITIVE .. self:GetShortBuildName(self.primaryBuild.buildName))
-	DrawString(baseX + valCol2X, headerY, "LEFT", 14, "VAR",
-		colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
-	SetDrawColor(0.5, 0.5, 0.5)
-	DrawImage(nil, 4, headerY + 16, vp.width - 8, 1)
 
 	-- Draw section cards
 	for _, sec in ipairs(sections) do
@@ -3880,7 +4411,14 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 	-- Draw hover tooltip for calcs breakdown (reset viewport first so tooltip can extend beyond)
 	if hoverColData then
 		SetViewport()
-		self:DrawCalcsTooltip(hoverColData, hoverRowLabel, hoverRowX + vp.x, hoverRowY + vp.y, hoverRowW, hoverRowH, vp, compareEntry)
+		self:DrawCalcsTooltip(hoverColData, hoverRowLabel, hoverRowX + vp.x, hoverRowY + vp.y + skillHeaderHeight, hoverRowW, hoverRowH, vp, compareEntry)
+	elseif self.calcsSkillHeaderHover then
+		SetViewport()
+		local hover = self.calcsSkillHeaderHover
+		calcsHelpers.DrawSkillBreakdownPanel(
+			hover.build, hover.breakdown, hover.label,
+			hover.x, hover.y, hover.w, hover.h, vp
+		)
 	else
 		SetViewport()
 	end

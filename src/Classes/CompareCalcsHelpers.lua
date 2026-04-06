@@ -317,4 +317,151 @@ function M.DrawCalcsTooltip(tooltip, primaryBuild, primaryLabel, colData, rowLab
 	SetDrawLayer(nil, 0)
 end
 
+-- Resolve a modifier's source name for breakdown panel display
+local function resolveModSource(mod, build)
+	local sourceType = mod.source and mod.source:match("[^:]+") or "?"
+	local sourceName = ""
+	if sourceType == "Item" then
+		local itemId = mod.source:match("Item:(%d+):.+")
+		local item = build.itemsTab and build.itemsTab.items[tonumber(itemId)]
+		if item then
+			sourceName = colorCodes[item.rarity] .. item.name
+		end
+	elseif sourceType == "Tree" then
+		local nodeId = mod.source:match("Tree:(%d+)")
+		if nodeId then
+			local nodeIdNum = tonumber(nodeId)
+			local node = (build.spec and build.spec.nodes[nodeIdNum])
+				or (build.spec and build.spec.tree and build.spec.tree.nodes[nodeIdNum])
+				or (build.latestTree and build.latestTree.nodes[nodeIdNum])
+			if node then
+				sourceName = node.dn or node.name or ""
+			end
+		end
+	elseif sourceType == "Skill" then
+		local skillId = mod.source:match("Skill:(.+)")
+		if skillId and build.data and build.data.skills[skillId] then
+			sourceName = build.data.skills[skillId].name
+		end
+	elseif sourceType == "Pantheon" then
+		sourceName = mod.source:match("Pantheon:(.+)") or ""
+	elseif sourceType == "Spectre" then
+		sourceName = mod.source:match("Spectre:(.+)") or ""
+	end
+	return sourceType, sourceName
+end
+
+-- Draw a breakdown panel for a single build's SkillBuffs or SkillDebuffs,
+function M.DrawSkillBreakdownPanel(build, breakdownKey, label, cellX, cellY, cellW, cellH, vp)
+	local player = build.calcsTab and build.calcsTab.calcsEnv
+		and build.calcsTab.calcsEnv.player
+	if not player or not player.breakdown then return end
+
+	local breakdown = player.breakdown[breakdownKey]
+	if not breakdown or not breakdown.modList or #breakdown.modList == 0 then return end
+
+	local modList = breakdown.modList
+
+	-- Sort by mod name then value
+	local rowList = {}
+	for _, entry in ipairs(modList) do
+		t_insert(rowList, entry)
+	end
+	table.sort(rowList, function(a, b)
+		return a.mod.name > b.mod.name or (a.mod.name == b.mod.name
+			and type(a.value) == "number" and type(b.value) == "number"
+			and a.value > b.value)
+	end)
+
+	-- Process rows: compute display strings and measure column widths
+	local colDefs = {
+		{ label = "Value", key = "displayValue" },
+		{ label = "Stat", key = "name" },
+		{ label = "Source", key = "source" },
+		{ label = "Source Name", key = "sourceName" },
+	}
+
+	local rows = {}
+	for _, entry in ipairs(rowList) do
+		local mod = entry.mod
+		local row = {}
+		row.displayValue = M.FormatCalcModValue(entry.value, mod.type)
+		row.name = M.FormatCalcModName(mod.name or "")
+		local sourceType, sourceName = resolveModSource(mod, build)
+		row.source = sourceType
+		row.sourceName = sourceName
+		t_insert(rows, row)
+	end
+
+	-- Measure column widths
+	for _, col in ipairs(colDefs) do
+		col.width = DrawStringWidth(16, "VAR", col.label) + 6
+		for _, row in ipairs(rows) do
+			if row[col.key] then
+				col.width = math.max(col.width, DrawStringWidth(12, "VAR", row[col.key]) + 6)
+			end
+		end
+	end
+
+	-- Calculate panel size
+	local panelPadding = 4
+	local headerRowH = 20
+	local dataRowH = 14
+	local panelW = panelPadding
+	for _, col in ipairs(colDefs) do
+		panelW = panelW + col.width
+	end
+	local panelH = headerRowH + #rows * dataRowH + 4
+
+	-- Position panel next to the hovered cell (right side, or left if no room)
+	local panelX = cellX + cellW + 5
+	if panelX + panelW > vp.x + vp.width then
+		panelX = math.max(vp.x, cellX - 5 - panelW)
+	end
+	local panelY = math.min(cellY, vp.y + vp.height - panelH)
+
+	-- Draw background
+	SetDrawLayer(nil, 10)
+	SetDrawColor(0, 0, 0, 0.9)
+	DrawImage(nil, panelX + 2, panelY + 2, panelW - 4, panelH - 4)
+
+	-- Draw border
+	SetDrawLayer(nil, 11)
+	SetDrawColor(0.33, 0.66, 0.33)
+	DrawImage(nil, panelX, panelY, panelW, 2)
+	DrawImage(nil, panelX, panelY + panelH - 2, panelW, 2)
+	DrawImage(nil, panelX, panelY, 2, panelH)
+	DrawImage(nil, panelX + panelW - 2, panelY, 2, panelH)
+	SetDrawLayer(nil, 10)
+
+	-- Draw column headers and separators
+	local colX = panelX + panelPadding
+	for i, col in ipairs(colDefs) do
+		col.x = colX
+		if i > 1 then
+			SetDrawColor(0.5, 0.5, 0.5)
+			DrawImage(nil, colX - 2, panelY + 2, 1, panelH - 4)
+		end
+		SetDrawColor(1, 1, 1)
+		DrawString(colX, panelY + 2, "LEFT", 16, "VAR", col.label)
+		colX = colX + col.width
+	end
+
+	-- Draw rows
+	local rowY = panelY + headerRowH
+	for _, row in ipairs(rows) do
+		-- Row separator
+		SetDrawColor(0.5, 0.5, 0.5)
+		DrawImage(nil, panelX + 2, rowY - 1, panelW - 4, 1)
+		for _, col in ipairs(colDefs) do
+			if row[col.key] and row[col.key] ~= "" then
+				DrawString(col.x, rowY + 1, "LEFT", 12, "VAR", "^7" .. row[col.key])
+			end
+		end
+		rowY = rowY + dataRowH
+	end
+
+	SetDrawLayer(nil, 0)
+end
+
 return M
