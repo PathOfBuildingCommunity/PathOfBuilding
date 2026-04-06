@@ -359,22 +359,6 @@ Highest Weight - Displays the order retrieved from trade]]
 	self.controls.itemSortSelection:SetSel(self.pbItemSortSelectionIndex)
 	self.controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.itemSortSelection, "TOPLEFT"}, {-4, 0, 56, 16}, "^7Sort By:")
 
-	-- Implicit mod and enchant behaviour in searching and sorting
-	local eldritchTooltip =
-	[[Controls how eldritch implicits and enchants are treated.
-Copy Current: current implicit modifiers and enchants are copied to the item before sorting, and eldritch weights are not used in the search.
-Include Weights: eldritch mod weights are used for searching items and the results are not edited.
-Ignored: eldritch mod weights are not used, enchants are removed before sorting.
-Note that the search filter limit might make results with implicit weights misleading.]]
-	local eldritchOptions = { "Copy Current", "Include Weights", "Ignored" }
-	self.controls.eldritchEnchantMode = new("DropDownControl", { "TOPRIGHT", self.controls.fetchCountEdit, "TOPLEFT" },
-		{ -4, 0, 120, row_height },
-		eldritchOptions, function(state) self.lastEldritchEnchantMode = state end, eldritchTooltip)
-	self.controls.eldritchEnchantMode:SetSel(self.lastEldritchEnchantMode or 1)
-	self.controls.eldritchEnchantLabel = new("LabelControl", { "RIGHT", self.controls.eldritchEnchantMode, "LEFT" },
-		{ -4, 0, 50, 16 },
-		"^7Implicits and Enchants:")
-
 	-- Realm selection
 	self.controls.realmLabel = new("LabelControl", {"LEFT", self.controls.setSelect, "RIGHT"}, {18, 0, 20, row_height - 4}, "^7Realm:")
 	self.controls.realm = new("DropDownControl", {"LEFT", self.controls.realmLabel, "RIGHT"}, {6, 0, 150, row_height}, self.realmDropList, function(index, value)
@@ -770,16 +754,6 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 	else
 		local item = new("Item", result.item_string)
 
-		-- if applicable: apply same eldritch implicits or anoints as equipped
-		if self.controls.eldritchEnchantMode:GetSelValue() == "Copy Current" then
-			self.itemsTab:CopyAnointsAndEldritchImplicits(item, true, true)
-		elseif self.controls.eldritchEnchantMode:GetSelValue() == "Ignored" then
-			item.enchantModLines = {}
-			item:BuildAndParseRaw()
-		end
-		-- edit the item string so that the user can see what was evaluated
-		result.item_string = item:BuildRaw()
-
 		local output = self:ReduceOutput(calcFunc({ repSlotName = slotName, repItem = item }))
 		local weight = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output, self.statSortSelectionList)
 		result.evaluation = {{ output = output, weight = weight }}
@@ -966,6 +940,26 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 					else
 						self:SetNotice(context.controls.pbNotice, "")
 					end
+
+					-- replace eldritch mods or enchants if the user requested
+					-- so in TradeQueryGenerator
+					if self.tradeQueryGenerator.lastCopyEldritch or
+						self.tradeQueryGenerator.lastCopyEnchantMode == "Copy Current" then
+						ConPrintf("Replacing")
+						for i, _ in ipairs(items) do
+							local item = new("Item", items[i].item_string)
+							self.itemsTab:CopyAnointsAndEldritchImplicits(item, true, true)
+							items[i].item_string = item:BuildRaw()
+						end
+					elseif self.tradeQueryGenerator.lastCopyEnchantMode == "Remove" then
+						for i, _ in ipairs(items) do
+							local item = new("Item", items[i].item_string)
+							item.enchantModLines = {}
+							items[i].item_string = item:BuildRaw()
+						end
+					end
+
+
 					self.resultTbl[context.row_idx] = items
 					self:UpdateControlsWithItems(context.row_idx)
 					context.controls["priceButton"..context.row_idx].label =  "Price Item"

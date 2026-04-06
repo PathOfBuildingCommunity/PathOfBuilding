@@ -1585,7 +1585,7 @@ function ItemsTabClass:DeleteItem(item, deferUndoState)
 	end
 end
 
-function ItemsTabClass:CopyAnointsAndEldritchImplicits(newItem, migrateEldritchImplicits, overwrite)
+function ItemsTabClass:CopyAnointsAndEldritchImplicits(newItem, copyEldritchImplicits, overwrite)
 	local newItemType = newItem.base.weapon and "Weapon 1" or newItem.base.type
 	if self.activeItemSet[newItemType] then
 		local currentItem = self.activeItemSet[newItemType].selItemId and self.items[self.activeItemSet[newItemType].selItemId]
@@ -1609,7 +1609,7 @@ function ItemsTabClass:CopyAnointsAndEldritchImplicits(newItem, migrateEldritchI
 			end
 			
 			local modifiableItem = not (newItem.corrupted or newItem.mirrored)
-			if migrateEldritchImplicits and isValueInTable(eldritchBaseTypes, newItem.base.type) and isValueInTable(eldritchRarities, newItem.rarity)
+			if copyEldritchImplicits and isValueInTable(eldritchBaseTypes, newItem.base.type) and isValueInTable(eldritchRarities, newItem.rarity)
 				and (#newItem.implicitModLines == 0 or overwrite) and modifiableItem and (currentItem.cleansing or currentItem.tangle) and currentItem.implicitModLines then
 					newItem.implicitModLines = currentItem.implicitModLines
 					newItem.tangle = currentItem.tangle

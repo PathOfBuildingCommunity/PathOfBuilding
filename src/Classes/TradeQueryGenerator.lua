@@ -1186,9 +1186,11 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	local isJewelSlot = slot and slot.slotName:find("Jewel") ~= nil
 	local isAbyssalJewelSlot = slot and slot.slotName:find("Abyssal") ~= nil
 	local isAmuletSlot = slot and slot.slotName == "Amulet"
+	local isBeltSlot = slot and slot.slotName == "Belt"
+	local isWeaponSlot = slot and (slot.slotName == "Weapon 1" or slot.slotName == "Weapon 2")
 	local isEldritchModSlot = slot and eldritchModSlots[slot.slotName] == true
 
-	controls.includeCorrupted = new("CheckBoxControl", {"TOP",nil,"TOP"}, {-40, 30, 18}, "Corrupted Mods:", function(state) end, "Includes corruption implicit modifiers in the weighted sum. Note that there is a maximum search filter count which means this might cause other weights to not be included.")
+	controls.includeCorrupted = new("CheckBoxControl", {"TOP",nil,"TOP"}, {-40, 30, 18}, "Corrupted Mods:", function(state) end, "Includes corruption implicit modifiers in the weighted sum.\nNote that there is a maximum search filter count which means this might cause other weights to not be included.")
 	controls.includeCorrupted.state = not context.slotTbl.alreadyCorrupted and (self.lastIncludeCorrupted == nil or self.lastIncludeCorrupted == true)
 	controls.includeCorrupted.enabled = not context.slotTbl.alreadyCorrupted
 
@@ -1210,7 +1212,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 
 	-- these unique items cannot be mirrored
 	if not context.slotTbl.unique then
-		controls.includeMirrored = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Mirrored items:", function(state) end)
+		controls.includeMirrored = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Mirrored Items:", function(state) end)
 		controls.includeMirrored.state = (self.lastIncludeMirrored == nil or self.lastIncludeMirrored == true)
 		updateLastAnchor(controls.includeMirrored)
 	end
@@ -1227,19 +1229,58 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		updateLastAnchor(controls.includeTalisman)
 	end
 
+	-- Implicit mod and enchant behaviour in searching and sorting
+	if isEldritchModSlot then
+		controls.includeEldritch = new("CheckBoxControl", { "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 18 },
+			"Eldritch Mods:", function(state) end,
+			"Includes corruption implicit modifiers in the weighted sum.\nNote that there is a maximum search filter count which means this might cause other weights to not be included.")
+		controls.includeEldritch.state = (self.lastIncludeEldritch == true)
+		updateLastAnchor(controls.includeEldritch)
+
+		local eldritchTooltip = "Replaces the eldritch modifiers on search results with the eldritch modifiers from your currently equipped item."
+		local labelText = "Copy Current Implicits:"
+		controls.copyEldritch = new("CheckBoxControl",
+			{ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" },
+			{ 0, 5, 18, 18 },
+			labelText, function(state) end, eldritchTooltip, false)
+		controls.copyEldritch.state = self.lastCopyEldritch or false
+		updateLastAnchor(controls.copyEldritch)
+	end
+	if isAmuletSlot or isBeltSlot or isWeaponSlot then
+		local enchantTooltip = [[Keep: enchants will be unchanged on the search results.
+Copy Current: current enchants will be applied to the search result items.
+Remove: enchants will be removed from the search results.]]
+		local copyEnchantList = {"Keep", "Copy Current", "Remove"}
+		controls.copyEnchantMode = new("DropDownControl",
+			{ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" },
+			{ 0, 5, 120, 18 },
+			copyEnchantList, function(state) end, enchantTooltip)
+		controls.copyEnchantMode.state = self.lastCopyEnchantMode or false
+		controls.copyEnchantModeLabel = new("LabelControl", { "RIGHT", controls.copyEnchantMode, "LEFT" }, {-4, 0, 80, 16}, "^7Enchant Behaviour:")
+		updateLastAnchor(controls.copyEnchantMode)
+	end
 	if isJewelSlot and context.slotTbl.slotName ~= "Watcher's Eye" then
 		controls.jewelType = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 100, 18}, { "Any", "Base", "Abyss" }, function(index, value) end)
 		controls.jewelType.selIndex = self.lastJewelType or 1
 		controls.jewelTypeLabel = new("LabelControl", {"RIGHT",controls.jewelType,"LEFT"}, {-5, 0, 0, 16}, "Jewel Type:")
 		updateLastAnchor(controls.jewelType)
 	elseif slot and not isAbyssalJewelSlot and context.slotTbl.slotName ~= "Watcher's Eye" then
-		controls.influence1 = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 100, 18}, influenceDropdownNames, function(index, value) end)
-		controls.influence1.selIndex = self.lastInfluence1 or 1
-		controls.influence1Label = new("LabelControl", {"RIGHT",controls.influence1,"LEFT"}, {-5, 0, 0, 16}, "Influence 1:")
+		local selFunc = function(_index, value)
+			-- influenced items can't have eldritch implicits
+			if controls.copyEldritchOrEnchant and isEldritchModSlot then
+				controls.copyEldritchOrEnchant.enabled = value == "None"
+			end
+		end
+		controls.influence1 = new("DropDownControl", { "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 100, 18 },
+			influenceDropdownNames, selFunc)
+		controls.influence1:SetSel(self.lastInfluence1 or 1)
+		controls.influence1Label = new("LabelControl", {"RIGHT",controls.influence1,"LEFT"}, {-5, 0, 0, 16}, "^7Influence 1:")
 
-		controls.influence2 = new("DropDownControl", {"TOPLEFT",controls.influence1,"BOTTOMLEFT"}, {0, 5, 100, 18}, influenceDropdownNames, function(index, value) end)
-		controls.influence2.selIndex = self.lastInfluence2 or 1
-		controls.influence2Label = new("LabelControl", {"RIGHT",controls.influence2,"LEFT"}, {-5, 0, 0, 16}, "Influence 2:")
+		controls.influence2 = new("DropDownControl", { "TOPLEFT", controls.influence1, "BOTTOMLEFT" }, { 0, 5, 100, 18 },
+			influenceDropdownNames, selFunc)
+		controls.influence2:SetSel(self.lastInfluence2 or 1)
+		controls.influence2Label = new("LabelControl", { "RIGHT", controls.influence2, "LEFT" }, { -5, 0, 0, 16 },
+			"^7Influence 2:")
 		updateLastAnchor(controls.influence2, 46)
 	elseif isAbyssalJewelSlot then
 		controls.jewelType = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 100, 18}, { "Abyss" }, nil)
@@ -1247,7 +1288,6 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		controls.jewelTypeLabel = new("LabelControl", {"RIGHT",controls.jewelType,"LEFT"}, {-5, 0, 0, 16}, "Jewel Type:")
 		updateLastAnchor(controls.jewelType)
 	end
-
 	-- Add max price limit selection dropbox
 	local currencyDropdownNames = { }
 	for _, currency in ipairs(currencyTable) do
@@ -1269,12 +1309,12 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	if slot and not isJewelSlot and not isAbyssalJewelSlot and not slot.slotName:find("Flask") then
 		controls.sockets = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 70, 18}, nil, nil, "%D")
 		controls.sockets.buf = self.lastSockets and tostring(self.lastSockets) or ""
-		controls.socketsLabel = new("LabelControl", {"RIGHT",controls.sockets,"LEFT"}, {-5, 0, 0, 16}, "# of Empty Sockets:")
+		controls.socketsLabel = new("LabelControl", {"RIGHT",controls.sockets,"LEFT"}, {-5, 0, 0, 16}, "^7# of Empty Sockets:")
 		updateLastAnchor(controls.sockets)
 
 		if not slot.slotName:find("Belt") and not slot.slotName:find("Ring") and not slot.slotName:find("Amulet") then
 			controls.links = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 70, 18}, nil, nil, "%D")
-			controls.linksLabel = new("LabelControl", {"RIGHT",controls.links,"LEFT"}, {-5, 0, 0, 16}, "# of Links:")
+			controls.linksLabel = new("LabelControl", {"RIGHT",controls.links,"LEFT"}, {-5, 0, 0, 16}, "^7# of Links:")
 			updateLastAnchor(controls.links)
 		end
 	end
@@ -1313,9 +1353,10 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		main:ClosePopup()
 
 		self.tradeTypeIndex = context.controls.tradeTypeSelection.selIndex
-		options.includeEldritch = context.controls.eldritchEnchantMode:GetSelValue() == "Include Weights" and
-			isEldritchModSlot
-		options.useCurrentEnchantsImplicits = context.controls.eldritchEnchantMode:GetSelValue() == "Copy Current"
+
+		self.lastCopyEldritch = controls.copyEldritch and controls.copyEldritch.state
+		self.lastCopyEnchantMode = controls.copyEnchantMode and controls.copyEnchantMode:GetSelValue()
+
 		if controls.includeMirrored then
 			self.lastIncludeMirrored, options.includeMirrored = controls.includeMirrored.state, controls.includeMirrored.state
 		end
@@ -1325,6 +1366,10 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		-- if controls.includeSynthesis then
 		-- 	self.lastIncludeSynthesis, options.includeSynthesis = controls.includeSynthesis.state, controls.includeSynthesis.state
 		-- end
+		if controls.includeEldritch then
+			self.lastIncludeEldritch, options.includeEldritch = controls.includeEldritch.state,
+			controls.includeEldritch.state
+		end
 		if controls.includeScourge then
 			self.lastIncludeScourge, options.includeScourge = controls.includeScourge.state, controls.includeScourge.state
 		end
