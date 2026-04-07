@@ -184,11 +184,16 @@ function TradeQueryClass:PriceBuilderProcessPoENinjaResponse(resp)
 	if resp then
 		-- Populate the chaos-converted values for each tradeId
 		for currencyName, chaosEquivalent in pairs(resp) do
+			local currencyName = currencyName:lower()
 			if self.currencyConversionTradeMap[currencyName] then
 				self.pbCurrencyConversion[self.pbLeague][self.currencyConversionTradeMap[currencyName]] = chaosEquivalent
 			else
 				ConPrintf("Unhandled Currency Name: '"..currencyName.."'")
 			end
+		end
+		-- if nothing was actually found, we should add a notice
+		if #self.pbCurrencyConversion[self.pbLeague] == 0 then
+			self:SetNotice(self.controls.pbNotice, "PoE Ninja JSON Processing Error")
 		end
 	else
 		self:SetNotice(self.controls.pbNotice, "PoE Ninja JSON Processing Error")
