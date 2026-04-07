@@ -1366,18 +1366,16 @@ function TreeTabClass:BuildTimelessJewelSockets(treeData, selectedSocket)
 end
 
 function TreeTabClass:GetTimelessFinderLayout()
-	local popupMargin = 40
-	local maxPopupWidth = m_max(980, main.screenW - popupMargin)
-	local maxPopupHeight = m_max(640, main.screenH - popupMargin)
+	local viewPort = main.viewPort or { width = main.screenW or 1018 }
 	local layout = {
 		popup = {
-			width = m_min(1292, maxPopupWidth),
-			height = m_min(780, maxPopupHeight),
+			width = m_min(1000, viewPort.width - 28),
+			height = 658,
 		},
 		left = {
 			labelX = 24,
 			inputX = 145,
-			inputWidth = 250,
+			inputWidth = 200,
 		},
 		nodeFilters = {
 			firstY = 113,
@@ -1386,20 +1384,20 @@ function TreeTabClass:GetTimelessFinderLayout()
 		power = {
 			y = 186,
 			buttonGap = 8,
-			buttonWidth = 110,
+			buttonWidth = 90,
 		},
 		addNode = {
 			y = 216,
-			inputWidth = 250,
-			buttonGap = 8,
-			addWidth = 50,
-			clearWidth = 52,
+			inputWidth = 200,
+			buttonGap = 10,
+			addWidth = 54,
+			clearWidth = 24,
 		},
 		stats = {
 			headerY = 262,
 			rowY = 287,
 			rowHeight = 24,
-			maxRows = 17,
+			maxRows = 12,
 			labelX = 26,
 			labelLimit = 50,
 			headerOffset = -11,
@@ -1410,14 +1408,14 @@ function TreeTabClass:GetTimelessFinderLayout()
 			removeWidth = 18,
 			totalMinimumWeightSpacingY = 8,
 			columns = {
-				weight1 = 299,
-				weight2 = 363,
-				minimum = 427,
-				remove = 491,
+				weight1 = 228,
+				weight2 = 292,
+				minimum = 356,
+				remove = 420,
 			},
 		},
 		results = {
-			x = 548,
+			gapX = 23,
 			labelY = 25,
 			leagueSelectX = 612,
 			leagueSelectY = 23,
@@ -1441,14 +1439,14 @@ function TreeTabClass:GetTimelessFinderLayout()
 	layout.stats.tableY = layout.stats.headerY - 4
 	layout.stats.tableRight = layout.addNode.clearX + layout.addNode.clearWidth
 	layout.stats.tableWidth = layout.stats.tableRight - layout.stats.tableX
-	layout.stats.maxRows = m_min(layout.stats.maxRows, m_max(8, m_floor((layout.buttons.y - 36 - layout.stats.totalMinimumWeightSpacingY - layout.stats.tableY - 28) / layout.stats.rowHeight)))
 	layout.stats.tableHeight = layout.stats.maxRows * layout.stats.rowHeight + 28
 	layout.stats.totalMinimumWeightLabelY = layout.stats.tableY + layout.stats.tableHeight + layout.stats.totalMinimumWeightSpacingY
 	layout.stats.totalMinimumWeightInputX = layout.stats.columns.minimum + layout.stats.inputOffset
 	layout.stats.totalMinimumWeightInputY = layout.stats.totalMinimumWeightLabelY - 2
+	layout.results.x = layout.stats.tableRight + layout.results.gapX
 	layout.results.leagueSelectX = layout.results.x + 64
-	layout.results.listWidth = layout.popup.width - layout.results.x - 24
-	layout.results.tradeButtonX = layout.popup.width - 24 - 170
+	layout.results.listWidth = layout.popup.width - layout.results.x - 20
+	layout.results.tradeButtonX = layout.results.x + layout.results.listWidth - 170
 	layout.results.listHeight = layout.stats.tableY + layout.stats.tableHeight - layout.results.listY
 	return layout
 end
@@ -3638,7 +3636,7 @@ function TreeTabClass:OpenTimelessJewelFinderPopup()
 	buildMods()
 	controls.availableStatLabel = new("LabelControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.left.labelX, layout.addNode.y + 2, 0, 16}, "^7Add Node Type:")
 	controls.availableStatSelect = new("DropDownControl", {"TOPLEFT", nil, "TOPLEFT"}, {layout.left.inputX, layout.addNode.y, layout.addNode.inputWidth, 18}, copyTable(modData, true), nil)
-	controls.availableStatSelect.maxDroppedWidth = 760
+	controls.availableStatSelect.maxDroppedWidth = 506
 	controls.availableStatSelect.enableDroppedWidth = true
 	controls.availableStatSelect.controls.scrollBar.enabled = true
 	controls.availableStatSelect.tooltipFunc = function(tooltip, mode, index, value)
@@ -3670,7 +3668,7 @@ function TreeTabClass:OpenTimelessJewelFinderPopup()
 			tooltip:AddLine(16, "^7Add the selected stat to the list.")
 		end
 	end
-	controls.clearSelectedStats = new("ButtonControl", {"LEFT", controls.addSelectedStat, "RIGHT"}, {layout.addNode.buttonGap, 0, layout.addNode.clearWidth, 18}, "Clear", function()
+	controls.clearSelectedStats = new("ButtonControl", {"LEFT", controls.addSelectedStat, "RIGHT"}, {layout.addNode.buttonGap, 0, layout.addNode.clearWidth, 18}, "X", function()
 		clearSelectedStats()
 	end)
 
