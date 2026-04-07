@@ -924,13 +924,32 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 	if self.calcContext.options.includeScourge then
 		self:GenerateModWeights(self.modData["Scourge"])
 	end
-	if self.calcContext.options.includeEldritch and
+	if self.calcContext.options.includeEldritch ~= "None" and
 		-- skip weights if we need an influenced item as they can produce really
 		-- bad results due to the filter limit
-	    self.calcContext.options.influence1 == 1 and
+		self.calcContext.options.influence1 == 1 and
 		self.calcContext.options.influence2 == 1 then
-		self:GenerateModWeights(self.modData["Eater"])
-		self:GenerateModWeights(self.modData["Exarch"])
+		local omitConditional = self.calcContext.options.includeEldritch == "Omit While"
+		local eaterMods = self.modData["Eater"]
+		local exarchMods = self.modData["Exarch"]
+		if omitConditional then
+			local function filterMods(mods)
+				local filtered = {}
+				for name, mod in pairs(mods) do
+					-- the user might want to skip these because they're generally
+					-- not used much, but there are a lot of them and the higher
+					-- power causes them to take up a lot of filter slots
+					if not name:match(".*PinnaclePresence$") and not name:match(".*UniquePresence$") then
+						filtered[name] = mod
+					end
+				end
+				return filtered
+			end
+			eaterMods = filterMods(self.modData["Eater"])
+			exarchMods = filterMods(self.modData["Exarch"])
+		end
+		self:GenerateModWeights(eaterMods)
+		self:GenerateModWeights(exarchMods)
 	end
 	-- if self.calcContext.options.includeSynthesis then
 	-- 	self:GenerateModWeights(self.modData["Synthesis"])
@@ -1231,10 +1250,17 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 
 	-- Implicit mod and enchant behaviour in searching and sorting
 	if isEldritchModSlot then
-		controls.includeEldritch = new("CheckBoxControl", { "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 18 },
-			"Eldritch Mods:", function(state) end,
-			"Includes corruption implicit modifiers in the weighted sum.\nNote that there is a maximum search filter count which means this might cause other weights to not be included.")
-		controls.includeEldritch.state = (self.lastIncludeEldritch == true)
+		local eldritchTooltip = [[Controls the inclusion of eldritch mod weights in the weighted sum.
+None: no weights are generated.
+All: weights are generated for all eldritch implicit modifiers.
+Omit while: weights are generated, but conditional "While unique/atlas boss" modifiers are skipped.
+It is often not recommended to use "All" as this includes a lot of high power modifiers,
+which will cause other useful modifiers to be left out in the weighted sum.]]
+		controls.includeEldritch = new("DropDownControl", { "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 92, 18 },
+			{ "None", "All", "Omit While" }, function(_state) end, eldritchTooltip)
+		controls.includeEldritchLabel = new("LabelControl", { "RIGHT", controls.includeEldritch, "LEFT" },
+			{ -4, 0, 80, 16 }, "Eldritch Mods:")
+		controls.includeEldritch:SetSel(self.lastIncludeEldritch or 1)
 		updateLastAnchor(controls.includeEldritch)
 
 		local eldritchTooltip = "Replaces the eldritch modifiers on search results with the eldritch modifiers from your currently equipped item."
@@ -1247,16 +1273,19 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		updateLastAnchor(controls.copyEldritch)
 	end
 	if isAmuletSlot or isBeltSlot or isWeaponSlot then
-		local enchantTooltip = [[Keep: enchants will be unchanged on the search results.
-Copy Current: current enchants will be applied to the search result items.
-Remove: enchants will be removed from the search results.]]
-		local copyEnchantList = {"Keep", "Copy Current", "Remove"}
+		local term = isWeaponSlot and "enchants" or "anoints"
+		local enchantTooltip = s_format([[Keep: %s will be unchanged on the search results.
+Copy Current: current %s will be applied to the search result items.
+Remove: %s will be removed from the search results.]], term, term, term)
+		local copyEnchantList = { "Keep", "Copy Current", "Remove" }
 		controls.copyEnchantMode = new("DropDownControl",
 			{ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" },
 			{ 0, 5, 120, 18 },
 			copyEnchantList, function(state) end, enchantTooltip)
 		controls.copyEnchantMode.state = self.lastCopyEnchantMode or false
-		controls.copyEnchantModeLabel = new("LabelControl", { "RIGHT", controls.copyEnchantMode, "LEFT" }, {-4, 0, 80, 16}, "^7Enchant Behaviour:")
+		local labelText = isWeaponSlot and "^7Enchant Behaviour:" or "^7Anoint Behaviour:"
+		controls.copyEnchantModeLabel = new("LabelControl", { "RIGHT", controls.copyEnchantMode, "LEFT" },
+			{ -4, 0, 80, 16 }, labelText)
 		updateLastAnchor(controls.copyEnchantMode)
 	end
 	if isJewelSlot and context.slotTbl.slotName ~= "Watcher's Eye" then
@@ -1367,8 +1396,8 @@ Remove: enchants will be removed from the search results.]]
 		-- 	self.lastIncludeSynthesis, options.includeSynthesis = controls.includeSynthesis.state, controls.includeSynthesis.state
 		-- end
 		if controls.includeEldritch then
-			self.lastIncludeEldritch, options.includeEldritch = controls.includeEldritch.state,
-			controls.includeEldritch.state
+			self.lastIncludeEldritch, options.includeEldritch = controls.includeEldritch.selIndex,
+			controls.includeEldritch:GetSelValue()
 		end
 		if controls.includeScourge then
 			self.lastIncludeScourge, options.includeScourge = controls.includeScourge.state, controls.includeScourge.state
