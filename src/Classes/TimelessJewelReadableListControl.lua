@@ -78,7 +78,7 @@ local function getReadableNodeSummary(readableNodes)
 		return a.count > b.count
 	end)
 	local parts = { }
-	local maxShown = m_min(6, #summaryNodes)
+	local maxShown = m_min(4, #summaryNodes)
 	for index = 1, maxShown do
 		local nodeData = summaryNodes[index]
 		parts[#parts + 1] = nodeData.displayName .. " x" .. nodeData.count
