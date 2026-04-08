@@ -39,19 +39,21 @@ describe("TradeQuery Currency Conversion", function()
 		end)
 	end)
 
-	describe("PriceBuilderProcessPoENinjaResponse", function()
-		-- Pass: Processes without error, restoring map
-		-- Fail: Corrupts map or crashes, indicating fragile API response handling, breaking future conversions
-		it("handles unmapped currency", function()
-			local orig_conv = mock_tradeQuery.currencyConversionTradeMap
-			mock_tradeQuery.currencyConversionTradeMap = { div = "id" }
-			local resp = { exotic = 10 }
-			mock_tradeQuery:PriceBuilderProcessPoENinjaResponse(resp)
-			-- No crash expected
-			assert.is_true(true)
+    describe("PriceBuilderProcessPoENinjaResponse", function()
+        -- Pass: Processes without error, restoring map while adding a notice
+        -- Fail: Corrupts map or crashes, indicating fragile API response handling, breaking future conversions
+        it("handles unmapped currency", function()
+            local orig_conv = mock_tradeQuery.currencyConversionTradeMap
+            mock_tradeQuery.currencyConversionTradeMap = { div = "id" }
+			mock_tradeQuery.controls.pbNotice = { label = ""}
+            local resp = { exotic = 10 }
+            mock_tradeQuery:PriceBuilderProcessPoENinjaResponse(resp)
+            -- No crash expected
+            assert.is_true(true)
+			assert.is_true(mock_tradeQuery.controls.pbNotice.label == "No currencies received from PoE Ninja")
 			mock_tradeQuery.currencyConversionTradeMap = orig_conv
-		end)
-	end)
+        end)
+    end)
 
 	describe("GetTotalPriceString", function()
 		-- Pass: Sums and formats correctly (e.g., "5 chaos, 10 div")

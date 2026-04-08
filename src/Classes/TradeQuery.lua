@@ -193,7 +193,7 @@ function TradeQueryClass:PriceBuilderProcessPoENinjaResponse(resp)
 		end
 		-- if nothing was actually found, we should add a notice
 		if #self.pbCurrencyConversion[self.pbLeague] == 0 then
-			self:SetNotice(self.controls.pbNotice, "PoE Ninja JSON Processing Error")
+			self:SetNotice(self.controls.pbNotice, "No currencies received from PoE Ninja")
 		end
 	else
 		self:SetNotice(self.controls.pbNotice, "PoE Ninja JSON Processing Error")
