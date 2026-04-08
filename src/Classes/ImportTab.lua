@@ -746,6 +746,10 @@ local function getSocketGroupReimportKey(socketGroup)
 end
 
 local function snapshotSocketGroupReimportState(socketGroup, isMainGroup)
+	local gemEnabledStates = { }
+	for gemIndex, gem in ipairs(socketGroup.gemList) do
+		gemEnabledStates[gemIndex] = gem.enabled
+	end
 	return {
 		enabled = socketGroup.enabled,
 		includeInFullDPS = socketGroup.includeInFullDPS,
@@ -753,6 +757,7 @@ local function snapshotSocketGroupReimportState(socketGroup, isMainGroup)
 		label = socketGroup.label,
 		mainActiveSkill = socketGroup.mainActiveSkill,
 		mainActiveSkillCalcs = socketGroup.mainActiveSkillCalcs,
+		gemEnabledStates = gemEnabledStates,
 		isMainGroup = isMainGroup,
 	}
 end
@@ -764,6 +769,13 @@ local function applySocketGroupReimportState(socketGroup, state)
 	socketGroup.label = state.label
 	socketGroup.mainActiveSkill = state.mainActiveSkill
 	socketGroup.mainActiveSkillCalcs = state.mainActiveSkillCalcs
+	if state.gemEnabledStates then
+		for gemIndex, enabled in ipairs(state.gemEnabledStates) do
+			if socketGroup.gemList[gemIndex] then
+				socketGroup.gemList[gemIndex].enabled = enabled
+			end
+		end
+	end
 end
 
 function ImportTabClass:ImportItemsAndSkills(json)
