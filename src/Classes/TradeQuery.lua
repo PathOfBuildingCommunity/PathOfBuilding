@@ -770,6 +770,22 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 end
 
 -- Method to update controls after a search is completed
+function TradeQueryClass:UpdateDropdownList(row_idx)
+	local dropdownLabels = {}
+
+	if not self.resultTbl[row_idx] then return end
+
+	for result_index = 1, #self.resultTbl[row_idx] do
+
+		local pb_index = self.sortedResultTbl[row_idx][result_index].index
+		local result = self.resultTbl[row_idx][pb_index]
+		local price = string.format(" %s(%d %s)", colorCodes["CURRENCY"], result.amount, result.currency)
+		local item = new("Item", result.item_string)
+		table.insert(dropdownLabels, colorCodes[item.rarity] .. item.name .. price)
+	end
+	self.controls["resultDropdown".. row_idx].selIndex = 1
+	self.controls["resultDropdown".. row_idx]:SetList(dropdownLabels)
+end
 function TradeQueryClass:UpdateControlsWithItems(row_idx)
 	local sortMode = self.itemSortSelectionList[self.pbItemSortSelectionIndex]
 	local sortedItems, errMsg = self:SortFetchResults(row_idx, sortMode)
@@ -793,14 +809,7 @@ function TradeQueryClass:UpdateControlsWithItems(row_idx)
 		amount = self.resultTbl[row_idx][pb_index].amount,
 	}
 	self.controls.fullPrice.label = "Total Price: " .. self:GetTotalPriceString()
-	local dropdownLabels = {}
-	for result_index = 1, #self.resultTbl[row_idx] do
-		local pb_index = self.sortedResultTbl[row_idx][result_index].index
-		local item = new("Item", self.resultTbl[row_idx][pb_index].item_string)
-		table.insert(dropdownLabels, colorCodes[item.rarity]..item.name)
-	end
-	self.controls["resultDropdown".. row_idx].selIndex = 1
-	self.controls["resultDropdown".. row_idx]:SetList(dropdownLabels)
+	self:UpdateDropdownList(row_idx)
 end
 
 -- Method to set the current result return in the pane based of an index
@@ -1051,15 +1060,11 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 		self.controls.fullPrice.label = "Total Price: " .. self:GetTotalPriceString()
 	end)
 	controls["changeButton"..row_idx].shown = function() return self.resultTbl[row_idx] end
-	local dropdownLabels = {}
-	for _, sortedResult in ipairs(self.sortedResultTbl[row_idx] or {}) do
-		local item = new("Item", self.resultTbl[row_idx][sortedResult.index].item_string)
-		table.insert(dropdownLabels, colorCodes[item.rarity]..item.name)
-	end
-	controls["resultDropdown"..row_idx] = new("DropDownControl", { "TOPLEFT", controls["changeButton"..row_idx], "TOPRIGHT"}, {8, 0, 325, row_height}, dropdownLabels, function(index)
+	controls["resultDropdown"..row_idx] = new("DropDownControl", { "TOPLEFT", controls["changeButton"..row_idx], "TOPRIGHT"}, {8, 0, 325, row_height}, {}, function(index)
 		self.itemIndexTbl[row_idx] = self.sortedResultTbl[row_idx][index].index
 		self:SetFetchResultReturn(row_idx, self.itemIndexTbl[row_idx])
 	end)
+	self:UpdateDropdownList(row_idx)
 	local function addMegalomaniacCompareToTooltipIfApplicable(tooltip, result_index)
 		if slotTbl.slotName ~= "Megalomaniac" then
 			return
