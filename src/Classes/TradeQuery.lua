@@ -192,7 +192,7 @@ function TradeQueryClass:PriceBuilderProcessPoENinjaResponse(resp)
 			end
 		end
 		-- if nothing was actually found, we should add a notice
-		if #self.pbCurrencyConversion[self.pbLeague] == 0 then
+		if next(self.pbCurrencyConversion[self.pbLeague]) == nil then
 			self:SetNotice(self.controls.pbNotice, "No currencies received from PoE Ninja")
 		end
 	else
