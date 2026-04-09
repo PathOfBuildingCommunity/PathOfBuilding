@@ -204,10 +204,6 @@ function BuildSetListClass:GetRowValue(column, index, spec)
 	end
 end
 
-function BuildSetListClass:OnOrderChange()
-	self.buildMode.modFlag = true
-end
-
 function BuildSetListClass:OnSelClick(index, spec, doubleClick)
 	if doubleClick and index ~= self.buildMode.treeTab.activeSpec then
 		self.buildMode.controls.buildLoadouts:SetSel(index + 1)
@@ -229,4 +225,8 @@ function BuildSetListClass:OnSelKeyDown(index, spec, key)
 	if key == "F2" then
 		self:RenameLoadout(spec)
 	end
+end
+
+function BuildSetListClass:OnOrderChange(oldIndex, newIndex)
+	self.buildSetService:ReorderLoadout(oldIndex, newIndex)
 end
