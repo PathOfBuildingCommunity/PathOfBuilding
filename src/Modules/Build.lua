@@ -1005,6 +1005,38 @@ function buildMode:SetActiveLoadout(loadout)
 	self:SyncLoadouts()
 end
 
+function buildMode:ReorderLoadout(oldIndex, newIndex)
+	if oldIndex == newIndex then
+		return
+	end
+
+	self.modFlag = true
+	
+	if oldIndex < newIndex then
+		if oldIndex > self.treeTab.activeSpec or newIndex < self.treeTab.activeSpec then
+			return
+		end
+
+		if oldIndex == self.treeTab.activeSpec then
+			self:SetActiveLoadout(self:GetLoadoutByName(self.treeTab.specList[newIndex].title or "Default"))
+		elseif newIndex >= self.treeTab.activeSpec then
+			self:SetActiveLoadout(self:GetLoadoutByName(self.treeTab.specList[self.treeTab.activeSpec - 1].title or
+				"Default"))
+		end
+	else
+		if oldIndex < self.treeTab.activeSpec or newIndex > self.treeTab.activeSpec then
+			return
+		end
+
+		if oldIndex == self.treeTab.activeSpec then
+			self:SetActiveLoadout(self:GetLoadoutByName(self.treeTab.specList[newIndex].title or "Default"))
+		elseif newIndex <= self.treeTab.activeSpec then
+			self:SetActiveLoadout(self:GetLoadoutByName(self.treeTab.specList[self.treeTab.activeSpec + 1].title or
+				"Default"))
+		end
+	end
+end
+
 function buildMode:EstimatePlayerProgress()
 	local PointsUsed, AscUsed, SecondaryAscUsed = self.spec:CountAllocNodes()
 	local extra = self.calcsTab.mainOutput and self.calcsTab.mainOutput.ExtraPoints or 0

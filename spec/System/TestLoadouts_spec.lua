@@ -1,4 +1,5 @@
 local t_insert = table.insert
+local t_remove = table.remove
 
 describe("TestLoadouts", function()
 	before_each(function()
@@ -192,6 +193,156 @@ describe("TestLoadouts", function()
 				assert.is_same(newName, build.configTab.configSets[loadout.configSetId].title)
 				-- Old name should no longer exist
 				assert.is_nil(build:GetLoadoutByName(oldName))
+				assert.is_true(build.modFlag)
+			end)
+		end)
+
+		describe("ReorderLoadout", function()
+			local function assertActiveLoadoutByName(expectedName)
+				local activeSpec = build.treeTab.specList[build.treeTab.activeSpec]
+				local activeItemSet = build.itemsTab.itemSets[build.itemsTab.activeItemSetId]
+				local activeSkillSet = build.skillsTab.skillSets[build.skillsTab.activeSkillSetId]
+				local activeConfigSet = build.configTab.configSets[build.configTab.activeConfigSetId]
+				assert.is_not_nil(activeSpec)
+				assert.is_same(expectedName, activeSpec.title)
+				assert.is_not_nil(activeItemSet)
+				assert.is_same(expectedName, activeItemSet.title)
+				assert.is_not_nil(activeSkillSet)
+				assert.is_same(expectedName, activeSkillSet.title)
+				assert.is_not_nil(activeConfigSet)
+				assert.is_same(expectedName, activeConfigSet.title)
+			end
+
+			it("does not reorder loadouts when oldIndex is the same as newIndex", function()
+				build:NewLoadout("Loadout A")
+				build:NewLoadout("Loadout B")
+				build:NewLoadout("Loadout C")
+				build.modFlag = false
+
+				build:SetActiveLoadout(build:GetLoadoutByName("Loadout A"))
+
+				local spec = build.treeTab.specList[2]
+				t_remove(build.treeTab.specList, 2)
+				t_insert(build.treeTab.specList, 2, spec)
+				build:ReorderLoadout(2, 2)
+
+				assert.is_same(4, #build.treeTab.specList)
+				assert.is_same("Loadout A", build.treeTab.specList[2].title)
+				assertActiveLoadoutByName("Loadout A")
+				assert.is_false(build.modFlag)
+			end)
+
+			it("reorders loadouts when oldIndex is less than newIndex and activeSpec is at oldIndex", function()
+				build:NewLoadout("Loadout A")
+				build:NewLoadout("Loadout B")
+				build:NewLoadout("Loadout C")
+				build.modFlag = false
+
+				build:SetActiveLoadout(build:GetLoadoutByName("Loadout A"))
+
+				local spec = build.treeTab.specList[2]
+				t_remove(build.treeTab.specList, 2)
+				t_insert(build.treeTab.specList, 4, spec)
+				build:ReorderLoadout(2, 4)
+
+				assert.is_same(4, #build.treeTab.specList)
+				assert.is_same("Loadout A", build.treeTab.specList[4].title)
+				assertActiveLoadoutByName("Loadout A")
+				assert.is_true(build.modFlag)
+			end)
+
+			it("reorders loadouts when oldIndex is less than newIndex and activeSpec is before oldIndex", function()
+				build:NewLoadout("Loadout A")
+				build:NewLoadout("Loadout B")
+				build:NewLoadout("Loadout C")
+				build.modFlag = false
+
+				build:SetActiveLoadout(build:GetLoadoutByName("Loadout C"))
+
+				local spec = build.treeTab.specList[2]
+				t_remove(build.treeTab.specList, 2)
+				t_insert(build.treeTab.specList, 3, spec)
+				build:ReorderLoadout(2, 3)
+
+				assert.is_same(4, #build.treeTab.specList)
+				assert.is_same("Loadout A", build.treeTab.specList[3].title)
+				assertActiveLoadoutByName("Loadout C")
+				assert.is_true(build.modFlag)
+			end)
+
+			it("reorders loadouts when oldIndex is less than newIndex and activeSpec is after oldIndex", function()
+				build:NewLoadout("Loadout A")
+				build:NewLoadout("Loadout B")
+				build:NewLoadout("Loadout C")
+				build.modFlag = false
+
+				build:SetActiveLoadout(build:GetLoadoutByName("Loadout B"))
+
+				local spec = build.treeTab.specList[2]
+				t_remove(build.treeTab.specList, 2)
+				t_insert(build.treeTab.specList, 4, spec)
+				build:ReorderLoadout(2, 4)
+
+				assert.is_same(4, #build.treeTab.specList)
+				assert.is_same("Loadout A", build.treeTab.specList[4].title)
+				assertActiveLoadoutByName("Loadout B")
+				assert.is_true(build.modFlag)
+			end)
+
+			it("reorders loadouts when oldIndex is greater than newIndex and activeSpec is at oldIndex", function()
+				build:NewLoadout("Loadout A")
+				build:NewLoadout("Loadout B")
+				build:NewLoadout("Loadout C")
+				build.modFlag = false
+
+				build:SetActiveLoadout(build:GetLoadoutByName("Loadout C"))
+
+				local spec = build.treeTab.specList[4]
+				t_remove(build.treeTab.specList, 4)
+				t_insert(build.treeTab.specList, 2, spec)
+				build:ReorderLoadout(4, 2)
+
+				assert.is_same(4, #build.treeTab.specList)
+				assert.is_same("Loadout C", build.treeTab.specList[2].title)
+				assertActiveLoadoutByName("Loadout C")
+				assert.is_true(build.modFlag)
+			end)
+
+			it("reorders loadouts when oldIndex is greater than newIndex and activeSpec is before newIndex", function()
+				build:NewLoadout("Loadout A")
+				build:NewLoadout("Loadout B")
+				build:NewLoadout("Loadout C")
+				build.modFlag = false
+
+				build:SetActiveLoadout(build:GetLoadoutByName("Loadout B"))
+
+				local spec = build.treeTab.specList[4]
+				t_remove(build.treeTab.specList, 4)
+				t_insert(build.treeTab.specList, 2, spec)
+				build:ReorderLoadout(4, 2)
+
+				assert.is_same(4, #build.treeTab.specList)
+				assert.is_same("Loadout C", build.treeTab.specList[2].title)
+				assertActiveLoadoutByName("Loadout B")
+				assert.is_true(build.modFlag)
+			end)
+
+			it("reorders loadouts when oldIndex is greater than newIndex and activeSpec is after newIndex", function()
+				build:NewLoadout("Loadout A")
+				build:NewLoadout("Loadout B")
+				build:NewLoadout("Loadout C")
+				build.modFlag = false
+
+				build:SetActiveLoadout(build:GetLoadoutByName("Loadout A"))
+
+				local spec = build.treeTab.specList[4]
+				t_remove(build.treeTab.specList, 4)
+				t_insert(build.treeTab.specList, 3, spec)
+				build:ReorderLoadout(4, 3)
+
+				assert.is_same(4, #build.treeTab.specList)
+				assert.is_same("Loadout C", build.treeTab.specList[3].title)
+				assertActiveLoadoutByName("Loadout A")
 				assert.is_true(build.modFlag)
 			end)
 		end)

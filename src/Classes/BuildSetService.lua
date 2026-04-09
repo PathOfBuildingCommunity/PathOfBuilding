@@ -44,29 +44,5 @@ function BuildSetServiceClass:CustomLoadout(specId, itemSetId, skillSetId, confi
 end
 
 function BuildSetServiceClass:ReorderLoadout(oldIndex, newIndex)
-	if oldIndex < newIndex then
-		if oldIndex > self.buildMode.treeTab.activeSpec or newIndex < self.buildMode.treeTab.activeSpec then
-			return
-		end
-
-		if oldIndex == self.buildMode.treeTab.activeSpec then
-			self.buildMode:SetActiveLoadout(self.buildMode:GetLoadoutByName(self.buildMode.treeTab.specList[newIndex]
-				.title or "Default"))
-		elseif newIndex >= self.buildMode.treeTab.activeSpec then
-			self.buildMode:SetActiveLoadout(self.buildMode:GetLoadoutByName(self.buildMode.treeTab.specList
-				[self.buildMode.treeTab.activeSpec - 1].title or "Default"))
-		end
-	else
-		if oldIndex < self.buildMode.treeTab.activeSpec or newIndex > self.buildMode.treeTab.activeSpec then
-			return
-		end
-
-		if oldIndex == self.buildMode.treeTab.activeSpec then
-			self.buildMode:SetActiveLoadout(self.buildMode:GetLoadoutByName(self.buildMode.treeTab.specList[newIndex]
-				.title or "Default"))
-		elseif newIndex <= self.buildMode.treeTab.activeSpec then
-			self.buildMode:SetActiveLoadout(self.buildMode:GetLoadoutByName(self.buildMode.treeTab.specList
-				[self.buildMode.treeTab.activeSpec + 1].title or "Default"))
-		end
-	end
+	self.buildMode:ReorderLoadout(oldIndex, newIndex)
 end
