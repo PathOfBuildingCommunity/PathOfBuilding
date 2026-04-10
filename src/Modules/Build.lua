@@ -1012,29 +1012,19 @@ function buildMode:ReorderLoadout(oldIndex, newIndex)
 
 	self.modFlag = true
 	
-	if oldIndex < newIndex then
-		if oldIndex > self.treeTab.activeSpec or newIndex < self.treeTab.activeSpec then
-			return
-		end
+	local activeLoadout = self.treeTab.activeSpec
 
-		if oldIndex == self.treeTab.activeSpec then
-			self:SetActiveLoadout(self:GetLoadoutByName(self.treeTab.specList[newIndex].title or "Default"))
-		elseif newIndex >= self.treeTab.activeSpec then
-			self:SetActiveLoadout(self:GetLoadoutByName(self.treeTab.specList[self.treeTab.activeSpec - 1].title or
-				"Default"))
-		end
-	else
-		if oldIndex < self.treeTab.activeSpec or newIndex > self.treeTab.activeSpec then
-			return
-		end
+	local minVal = m_min(oldIndex, newIndex)
+	local maxVal = m_max(oldIndex, newIndex)
+	if activeLoadout < minVal or activeLoadout > maxVal then return end
 
-		if oldIndex == self.treeTab.activeSpec then
-			self:SetActiveLoadout(self:GetLoadoutByName(self.treeTab.specList[newIndex].title or "Default"))
-		elseif newIndex <= self.treeTab.activeSpec then
-			self:SetActiveLoadout(self:GetLoadoutByName(self.treeTab.specList[self.treeTab.activeSpec + 1].title or
-				"Default"))
-		end
+	if oldIndex == activeLoadout then
+		activeLoadout = newIndex
+	elseif minVal <= activeLoadout and activeLoadout < maxVal then
+		activeLoadout = activeLoadout + (oldIndex > newIndex and 1 or -1)
 	end
+
+	self:SetActiveLoadout(self:GetLoadoutByName(self.treeTab.specList[activeLoadout].title or "Default"))
 end
 
 function buildMode:EstimatePlayerProgress()
