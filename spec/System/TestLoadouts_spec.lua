@@ -49,7 +49,7 @@ describe("TestLoadouts", function()
 		describe("CopyLoadout", function()
 			it("Copies a loadout with a new name", function()
 				local loadoutName = "Loadout Name"
-				local newSpec, newItemSet, newSkillSet, newConfigSet = build:CopyLoadout(1, 1, 1, 1, loadoutName)
+				local newSpec, newItemSet, newSkillSet, newConfigSet = build:CopyLoadout("Default", loadoutName)
 				build:SyncLoadouts()
 				-- There are 5 static items in the list
 				assert.are.equals(7, #build.controls.buildLoadouts.list)
@@ -367,9 +367,7 @@ describe("TestLoadouts", function()
 		describe("CopyLoadout", function()
 			it("copies an existing loadout and selects it", function()
 				local loadoutName = "Loadout Name"
-				local loadoutToCopy = build:GetLoadoutByName("Default")
-				buildSetService:CopyLoadout(loadoutToCopy.specId, loadoutToCopy.itemSetId, loadoutToCopy.skillSetId,
-					loadoutToCopy.configSetId, loadoutName)
+				buildSetService:CopyLoadout("Default", loadoutName)
 				assert.are.equals(7, #build.controls.buildLoadouts.list)
 				assert.are.equals(loadoutName, build.controls.buildLoadouts.list[3])
 				assert.are.equals(3, build.controls.buildLoadouts.selIndex)
@@ -560,18 +558,14 @@ describe("TestLoadouts", function()
 				build:SetActiveLoadout(build:GetLoadoutByName(currentLoadout))
 				assert.are.equals(4, build.controls.buildLoadouts.selIndex)
 
-				local loadoutToCopy = build:GetLoadoutByName(newLoadout1)
-				buildSetService:CopyLoadout(loadoutToCopy.specId, loadoutToCopy.itemSetId, loadoutToCopy.skillSetId,
-					loadoutToCopy.configSetId, copyLoadout1)
+				buildSetService:CopyLoadout(newLoadout1, copyLoadout1)
 
 				assert.are.equals(9, #build.controls.buildLoadouts.list)
 				assert.are.equals(copyLoadout1, build.controls.buildLoadouts.list[5])
 				assert.are.equals(5, build.controls.buildLoadouts.selIndex)
 				assert.is_true(build.modFlag)
 
-				local loadoutToCopy = build:GetLoadoutByName(newLoadout2)
-				buildSetService:CopyLoadout(loadoutToCopy.specId, loadoutToCopy.itemSetId, loadoutToCopy.skillSetId,
-					loadoutToCopy.configSetId, copyLoadout2)
+				buildSetService:CopyLoadout(newLoadout2, copyLoadout2)
 
 				assert.are.equals(10, #build.controls.buildLoadouts.list)
 				assert.are.equals(copyLoadout2, build.controls.buildLoadouts.list[6])
@@ -620,9 +614,7 @@ describe("TestLoadouts", function()
 
 				for i = 1, 3 do
 					local copyLoadoutName = loadoutNames[i] .. " Copy"
-					local loadoutToCopy = build:GetLoadoutByName(loadoutNames[4])
-					buildSetService:CopyLoadout(loadoutToCopy.specId, loadoutToCopy.itemSetId, loadoutToCopy.skillSetId,
-						loadoutToCopy.configSetId, copyLoadoutName)
+					buildSetService:CopyLoadout(loadoutNames[4], copyLoadoutName)
 					assert.are.equals(6 + i, #build.controls.buildLoadouts.list)
 					assert.are.equals(copyLoadoutName, build.controls.buildLoadouts.list[2 + i])
 				end

@@ -18,8 +18,8 @@ function BuildSetServiceClass:NewLoadout(name)
 	self.buildMode.controls.buildLoadouts:SetSel(1)
 end
 
-function BuildSetServiceClass:CopyLoadout(specId, itemSetId, skillSetId, configSetId, newName)
-	local newSpec = self.buildMode:CopyLoadout(specId, itemSetId, skillSetId, configSetId, newName)
+function BuildSetServiceClass:CopyLoadout(copyLoadoutName, newName)
+	local newSpec = self.buildMode:CopyLoadout(copyLoadoutName, newName)
 	self.buildMode:SyncLoadouts()
 	self.buildMode.controls.buildLoadouts:SetSel(newSpec.id + 1)
 end

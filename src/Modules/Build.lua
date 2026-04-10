@@ -782,11 +782,14 @@ function buildMode:NewLoadout(loadoutName)
 	self.modFlag = true
 end
 
-function buildMode:CopyLoadout(copyTreeId, copyItemSetId, copySkillSetId, copyConfigSetId, loadoutName)
-	local newSpec = self.treeTab:CopyTree(copyTreeId, loadoutName)
-	local newItemSet = self.itemsTab:CopyItemSet(copyItemSetId, loadoutName)
-	local newSkillSet = self.skillsTab:CopySkillSet(copySkillSetId, loadoutName)
-	local newConfigSet = self.configTab:CopyConfigSet(copyConfigSetId, loadoutName)
+function buildMode:CopyLoadout(copyLoadoutName, loadoutName)
+	local loadout = self:GetLoadoutByName(copyLoadoutName)
+	if not loadout then return end
+
+	local newSpec = self.treeTab:CopyTree(loadout.specId, loadoutName)
+	local newItemSet = self.itemsTab:CopyItemSet(loadout.itemSetId, loadoutName)
+	local newSkillSet = self.skillsTab:CopySkillSet(loadout.skillSetId, loadoutName)
+	local newConfigSet = self.configTab:CopyConfigSet(loadout.configSetId, loadoutName)
 
 	self:InsertAllSetOrderList(newItemSet.id, newSkillSet.id, newConfigSet.id)
 	self.modFlag = true

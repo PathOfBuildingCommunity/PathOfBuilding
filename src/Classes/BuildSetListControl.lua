@@ -24,8 +24,7 @@ local BuildSetListClass = newClass("BuildSetListControl", "ListControl", functio
 	self.controls.copy = new("ButtonControl", { "LEFT", self.controls.rename, "RIGHT" }, { 5, 0, 60, 18 }, "Copy",
 		function()
 			local loadoutNameToCopy = self.selValue.title or "Default"
-			local build = buildMode:GetLoadoutByName(loadoutNameToCopy)
-			self:CopyLoadout(build)
+			self:CopyLoadout(loadoutNameToCopy)
 		end)
 	self.controls.copy.enabled = function()
 		return self.selValue ~= nil
@@ -74,23 +73,21 @@ function BuildSetListClass:RenameLoadout(spec)
 	main:OpenPopup(370, 100, specName and "Rename Loadout" or "Set Name", controls, "save", "edit", "cancel")
 end
 
-function BuildSetListClass:CopyLoadout(build)
+function BuildSetListClass:CopyLoadout(loadoutName)
 	local controls = {}
-	local buildName = self.buildMode.treeTab.specList[build.specId].title
 	controls.label = new("LabelControl", nil, { 0, 20, 0, 16 }, "^7Enter name for this loadout:")
-	controls.edit = new("EditControl", nil, { 0, 40, 350, 20 }, buildName, nil, nil, 100, function(buf)
+	controls.edit = new("EditControl", nil, { 0, 40, 350, 20 }, loadoutName, nil, nil, 100, function(buf)
 		controls.save.enabled = buf:match("%S")
 	end)
 	controls.save = new("ButtonControl", nil, { -45, 70, 80, 20 }, "Save", function()
-		self.buildSetService:CopyLoadout(build.specId, build.itemSetId, build.skillSetId, build.configSetId,
-			controls.edit.buf)
+		self.buildSetService:CopyLoadout(loadoutName, controls.edit.buf)
 		main:ClosePopup()
 	end)
 	controls.save.enabled = false
 	controls.cancel = new("ButtonControl", nil, { 45, 70, 80, 20 }, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(370, 100, buildName and "Rename" or "Set Name", controls, "save", "edit", "cancel")
+	main:OpenPopup(370, 100, loadoutName and "Rename" or "Set Name", controls, "save", "edit", "cancel")
 end
 
 function BuildSetListClass:CustomLoadout(build)
