@@ -162,6 +162,8 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Undying/CityStalkerMaleCasterArmour
 #spectre Metadata/Monsters/Undying/UndyingOutcastPuncture
 #spectre Metadata/Monsters/Undying/UndyingOutcastWhirlingBlades
+-- Unholy Aberration
+#spectre Metadata/Monsters/SpiderPlated/SpiderPlatedUnholyEmerge
 -- Wicker Man
 #spectre Metadata/Monsters/WickerMan/WickerMan
 -- Redemption Sentry
