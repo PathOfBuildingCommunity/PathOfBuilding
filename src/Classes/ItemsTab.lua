@@ -4016,48 +4016,104 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				t_insert(compareSlots, slot)
 			end
 		end
-		table.sort(compareSlots, function(a, b)
-			if a ~= b then
-				if slot == a then
-					return true
-				end
-				if slot == b then
-					return false
-				end
-			end
-			if a.selItemId ~= b.selItemId then
-				if item == self.items[a.selItemId] then
-					return true
-				end
-				if item == self.items[b.selItemId] then
-					return false
-				end
-			end
-			local aNum = tonumber(a.slotName:match("%d+"))
-			local bNum = tonumber(b.slotName:match("%d+"))
-			if aNum and bNum then
-				return aNum < bNum
-			else
-				return a.slotName < b.slotName
-			end
-		end)
 
-		-- Add comparisons for each slot
-		for _, compareSlot in pairs(compareSlots) do
-			if not main.slotOnlyTooltips or (slot and (slot.nodeId == compareSlot.nodeId or slot.slotName == compareSlot.slotName)) or not slot or slot == compareSlot then
-				local selItem = self.items[compareSlot.selItemId]
-				local output = calcFunc({ repSlotName = compareSlot.slotName, repItem = item ~= selItem and item or nil})
-				local header
-				if item == selItem then
-					header = "^7Removing this item from "..compareSlot.label.." will give you:"
-				else
-					header = string.format("^7Equipping this item in %s will give you:%s", compareSlot.label, selItem and "\n(replacing "..colorCodes[selItem.rarity]..selItem.name.."^7)" or "")
+		tooltip:AddLine(14, colorCodes.TIP .. "Tip: Press Ctrl+D to disable the display of stat differences.")
+
+		local function getReplacedItemAndOutput(compareSlot)
+			local selItem = self.items[compareSlot.selItemId]
+			local output = calcFunc({ repSlotName = compareSlot.slotName, repItem = item ~= selItem and item or nil })
+			return selItem, output
+		end
+		local function addCompareForSlot(compareSlot, selItem, output)
+			if not selItem or not output then
+				selItem, output = getReplacedItemAndOutput(compareSlot)
+			end
+			local header
+			if item == selItem then
+				header = "^7Removing this item from "..compareSlot.label.." will give you:"
+			else
+				header = string.format("^7Equipping this item in %s will give you:%s", compareSlot.label or compareSlot.slotName, selItem and "\n(replacing "..colorCodes[selItem.rarity]..selItem.name.."^7)" or "")
+			end
+			self.build:AddStatComparesToTooltip(tooltip, calcBase, output, header)
+		end
+
+		-- if we have a specific slot to compare to, and the user has "Show
+		-- tooltips only for affected slots" checked, we can just compare that
+		-- one slot
+		if main.slotOnlyTooltips and slot then
+			addCompareForSlot(slot)
+			return
+		end
+
+		
+		local slots = {}
+		local isUnique = item.rarity == "UNIQUE" or item.rarity == "RELIC"
+		local currentSameUniqueCount = 0
+		for _, compareSlot in ipairs(compareSlots) do
+			local selItem, output = getReplacedItemAndOutput(compareSlot)
+			local isSameUnique = isUnique and selItem and item.name == selItem.name
+			if isUnique and isSameUnique and item.limit then
+				currentSameUniqueCount = currentSameUniqueCount + 1
+			end
+			table.insert(slots,
+				{ selItem = selItem, output = output, compareSlot = compareSlot, isSameUnique = isSameUnique })
+		end
+
+		-- limited uniques: only compare to slots with the same item if more don't fit
+		if currentSameUniqueCount == item.limit then
+			for _, slotEntry in ipairs(slots) do
+				if slotEntry.isSameUnique then
+					addCompareForSlot(slotEntry.compareSlot, slotEntry.selItem, slotEntry.output)
 				end
-				self.build:AddStatComparesToTooltip(tooltip, calcBase, output, header)
+			end
+			return
+		end
+
+		
+		-- either the same unique or same base type
+		local function similar(compareItem, sameUnique)
+			-- empty slot
+			if not compareItem then return 0 end
+
+			local sameBaseType = not isUnique
+				and compareItem.rarity ~= "UNIQUE" and compareItem.rarity ~= "RELIC"
+				and item.base.type == compareItem.base.type
+				and item.base.subType == compareItem.base.subType
+			if sameBaseType or sameUnique then
+				return 1
+			else
+				return 0
 			end
 		end
+		-- sort by:
+		-- 1. empty sockets
+		-- 2. same base group jewel or unique
+		-- 3. DPS
+		-- 4. EHP
+		local function sortFunc(a, b)
+			if a == b then return end
+
+			local aParams = { a.compareSlot.selItemId == 0 and 1 or 0, similar(a.selItem, a.isSameUnique), a.output.FullDPS, a.output.CombinedDPS, a.output.TotalEHP, a.compareSlot.label }
+			local bParams = { b.compareSlot.selItemId == 0 and 1 or 0, similar(b.selItem, b.isSameUnique), b.output.FullDPS, b
+				.output.CombinedDPS, b.output.TotalEHP, b.compareSlot.label }
+			for i = 1, #aParams do
+				if aParams[i] == nil or bParams[i] == nil then
+					-- continue
+				elseif aParams[i] > bParams[i] then
+					return true
+				elseif aParams[i] < bParams[i] then
+					return false
+				end
+			end
+			return true
+		end
+		table.sort(slots, sortFunc)
+		
+		for _, slotEntry in ipairs(slots) do
+			addCompareForSlot(slotEntry.compareSlot, slotEntry.selItem, slotEntry.output)
+		end
+		
 	end
-	tooltip:AddLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to disable the display of stat differences.")
 
 	if launch.devModeAlt then
 		-- Modifier debugging info

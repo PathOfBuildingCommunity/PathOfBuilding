@@ -1105,14 +1105,11 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 		local item = new("Item", result.item_string)
 		tooltip:Clear()
 		if slotTbl.slotName == "Watcher's Eye" then
-			local firstValidSlot = self:findValidSlotForWatchersEye()
-			local currentItem = firstValidSlot.selItemId ~= 0 and self.itemsTab.items[firstValidSlot.selItemId] 
-			local eyeEquipped = currentItem and currentItem.name:find("Watcher's Eye")
-			-- for watcher's eye we can compare to an already existing one, or
-			-- default to comparing with all active sockets
-			self.itemsTab:AddItemTooltip(tooltip, item, eyeEquipped and firstValidSlot or nil)
+			-- for watcher's eye we don't have a target slot. this will also
+			-- mean we compare against an existing watcher's eye if one exists
+			self.itemsTab:AddItemTooltip(tooltip, item, nil)
 		else
-			self.itemsTab:AddItemTooltip(tooltip, item, slotTbl)
+			self.itemsTab:AddItemTooltip(tooltip, item, activeSlot)
 		end
 		addMegalomaniacCompareToTooltipIfApplicable(tooltip, pb_index)
 		tooltip:AddSeparator(10)
@@ -1141,17 +1138,11 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 			-- item.baseName is nil and throws error in the following AddItemTooltip func
 			-- if the item is unidentified
 			local item = new("Item", item_string)
-			-- for watcher's eye we can compare to an already existing one, or
-			-- default to comparing with all active sockets
 			if slotTbl.slotName == "Watcher's Eye" then
-				local firstValidSlot = self:findValidSlotForWatchersEye()
-				local currentItem = firstValidSlot.selItemId ~= 0 and self.itemsTab.items[firstValidSlot.selItemId]
-				local eyeEquipped = currentItem and currentItem.name:find("Watcher's Eye")
-				-- for watcher's eye we can compare to an already existing one, or
-				-- default to comparing with all active sockets
-				self.itemsTab:AddItemTooltip(tooltip, item, eyeEquipped and firstValidSlot or nil, true)
+				-- we have no comparison slot for the watcher's eye
+				self.itemsTab:AddItemTooltip(tooltip, item, nil, true)
 			else
-				self.itemsTab:AddItemTooltip(tooltip, item, slotTbl, true)
+				self.itemsTab:AddItemTooltip(tooltip, item, activeSlot, true)
 			end
 			addMegalomaniacCompareToTooltipIfApplicable(tooltip, selected_result_index)
 		end
