@@ -2400,10 +2400,10 @@ local specialModList = {
 	["exerted attacks have (%d+)%% chance to deal double damage"] = function(num) return { mod("ExertDoubleDamageChance", "BASE", num, nil, ModFlag.Attack, 0) } end,
 	-- Duelist (Fatal flourish)
 	["final repeat of attack skills deals (%d+)%% more damage"] = function(num) return { mod("RepeatFinalDamage", "MORE", num, nil, ModFlag.Attack, 0,
-		{ type = "SkillType", skillTypeList = { SkillType.Retaliation, SkillType.Travel, SkillType.Channel, SkillType.Instant, SkillType.Triggered }, neg = true }),
+		{ type = "SkillType", skillTypeList = { SkillType.Travel }, neg = true }),
 	} end,
 	["non%-travel attack skills repeat an additional time"] = { mod("RepeatCount", "BASE", 1, nil, ModFlag.Attack, 0,
-		{ type = "SkillType", skillTypeList = { SkillType.Retaliation, SkillType.Travel, SkillType.Channel, SkillType.Instant, SkillType.Triggered }, neg = true },
+		{ type = "SkillType", skillTypeList = { SkillType.Travel }, neg = true },
 		{ type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} })
 	},
 	-- Ascendant

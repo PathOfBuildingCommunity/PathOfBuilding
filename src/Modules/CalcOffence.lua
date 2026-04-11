@@ -759,7 +759,19 @@ function calcs.offence(env, actor, activeSkill)
 		-- Applies DPS multiplier based on projectile count
 		skillData.dpsMultiplier = skillModList:Sum("BASE", skillCfg, "ProjectileCount")
 	end
-	output.Repeats = 1 + (skillModList:Sum("BASE", skillCfg, "RepeatCount") or 0)
+
+	local function repeatSkillTypesCheck(activeSkillTypes)
+		local excludeSkillTypes = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.Triggered,
+			SkillType.HasReservation, SkillType.Instant, SkillType.NonRepeatable, SkillType.CreatesMinion,
+		}
+		for _, type in ipairs(excludeSkillTypes) do
+			if activeSkillTypes[type] then
+				return false
+			end
+		end
+		return (activeSkillTypes[SkillType.Multicastable] or activeSkillTypes[SkillType.Multistrikeable])
+	end
+	output.Repeats = 1 + (repeatSkillTypesCheck(activeSkill.skillTypes) and (skillModList:Sum("BASE", skillCfg, "RepeatCount") or 0) or 0)
 	if output.Repeats > 1 then
 		output.RepeatCount = output.Repeats
 		-- handle all the multipliers from Repeats

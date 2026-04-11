@@ -8668,7 +8668,7 @@ c["Exposure you inflict applies at least -18% to the affected Resistance"]={{[1]
 c["Extra Gore"]={{},nil}
 c["Extra gore"]={{},nil}
 c["Far Shot"]={{[1]={flags=0,keywordFlags=0,name="FarShot",type="FLAG",value=true}},nil}
-c["Final Repeat of Attack Skills deals 60% more Damage"]={{[1]={[1]={neg=true,skillTypeList={[1]=132,[2]=90,[3]=57,[4]=74,[5]=41},type="SkillType"},flags=1,keywordFlags=0,name="RepeatFinalDamage",type="MORE",value=60}},nil}
+c["Final Repeat of Attack Skills deals 60% more Damage"]={{[1]={[1]={neg=true,skillTypeList={[1]=90},type="SkillType"},flags=1,keywordFlags=0,name="RepeatFinalDamage",type="MORE",value=60}},nil}
 c["Final Repeat of Spells has 40% increased Area of Effect"]={{[1]={[1]={neg=true,type="Condition",var="CastOnFrostbolt"},[2]={type="Condition",varList={[1]="averageRepeat",[2]="alwaysFinalRepeat"}},flags=2,keywordFlags=0,name="RepeatFinalAreaOfEffect",type="INC",value=40}},nil}
 c["Fire Exposure you inflict applies an extra -5% to Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="ExtraFireExposure",type="BASE",value=-5}},nil}
 c["Fire Resistance is 75%"]={{[1]={flags=0,keywordFlags=0,name="FireResist",type="OVERRIDE",value=75}},nil}
@@ -10337,7 +10337,7 @@ c["Non-Damaging Elemental Ailments you inflict have 100% more Effect"]={{[1]={fl
 c["Non-Damaging Elemental Ailments you inflict spread to nearby enemies within 2 metres"]={nil,"Non-Damaging Elemental Ailments you inflict spread to nearby enemies within 2 metres "}
 c["Non-Damaging Elemental Ailments you inflict spread to nearby enemies within 2 metres Non-Damaging Elemental Ailments you inflict have 100% more Effect"]={nil,"Non-Damaging Elemental Ailments you inflict spread to nearby enemies within 2 metres Non-Damaging Elemental Ailments you inflict have 100% more Effect "}
 c["Non-Exerted Attacks deal no Damage"]={nil,"Non-Exerted Attacks deal no Damage "}
-c["Non-Travel Attack Skills Repeat an additional Time"]={{[1]={[1]={neg=true,skillTypeList={[1]=132,[2]=90,[3]=57,[4]=74,[5]=41},type="SkillType"},[2]={type="Condition",varList={[1]="averageRepeat",[2]="alwaysFinalRepeat"}},flags=1,keywordFlags=0,name="RepeatCount",type="BASE",value=1}},nil}
+c["Non-Travel Attack Skills Repeat an additional Time"]={{[1]={[1]={neg=true,skillTypeList={[1]=90},type="SkillType"},[2]={type="Condition",varList={[1]="averageRepeat",[2]="alwaysFinalRepeat"}},flags=1,keywordFlags=0,name="RepeatCount",type="BASE",value=1}},nil}
 c["Non-Unique Jewels cause Small and Notable Passive Skills in a Large Radius to"]={nil,"Non-Unique Jewels cause Small and Notable Passive Skills in a Large Radius to "}
 c["Non-Unique Utility Flasks you Use apply to Linked Targets"]={{[1]={flags=0,keywordFlags=0,name="ExtraLinkEffect",type="LIST",value={mod={[1]={effectType="Global",type="GlobalEffect",unscalable=true},flags=0,keywordFlags=0,name="ParentNonUniqueFlasksAppliedToYou",type="FLAG",value=true}}}},nil}
 c["Non-Vaal Strike Skills target 1 additional nearby Enemy"]={{[1]={[1]={skillType=25,type="SkillType"},[2]={neg=true,skillType=42,type="SkillType"},flags=0,keywordFlags=0,name="AdditionalStrikeTarget",type="BASE",value=1}},nil}
