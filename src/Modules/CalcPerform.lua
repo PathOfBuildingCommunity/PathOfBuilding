@@ -3200,10 +3200,10 @@ function calcs.perform(env, skipEHP)
 		local magnitude = modDB:Override(nil, "HallowingFlameMagnitude")
 
 		if env.mode == "MAIN" or not magnitude then
-			local magnitudeinc = modDB:Sum("INC", nil, "HallowingFlameMagnitude")
-			magnitude = magnitude or magnitudeinc
+			local magnitudeInc = modDB:Sum("INC", nil, "HallowingFlameMagnitude")
+			magnitude = magnitude or magnitudeInc
 			if env.mode == "MAIN" then
-				env.build.configTab.varControls['conditionHallowingFlameMagnitude']:SetPlaceholder(magnitudeinc, true)
+				env.build.configTab.varControls['conditionHallowingFlameMagnitude']:SetPlaceholder(magnitudeInc, true)
 			end
 		end
 
