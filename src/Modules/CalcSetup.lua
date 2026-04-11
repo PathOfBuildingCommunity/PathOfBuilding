@@ -14,21 +14,6 @@ local m_max = math.max
 
 local tempTable1 = { }
 
-local function isAnointableItem(item)
-	return item and item.base and (item.canBeAnointed or item.base.type == "Amulet")
-end
-
-local function itemHasAnoint(item)
-	for _, modList in ipairs({ item.enchantModLines, item.scourgeModLines, item.implicitModLines, item.explicitModLines, item.crucibleModLines }) do
-		for _, mod in ipairs(modList or {}) do
-			if mod.line and mod.line:find("Allocates ", 1, true) then
-				return true
-			end
-		end
-	end
-	return false
-end
-
 -- Initialise modifier database with stats and conditions common to all actors
 function calcs.initModDB(env, modDB)
 	modDB:NewMod("FireResistMax", "BASE", data.characterConstants["base_maximum_all_resistances_%"], "Base")
@@ -895,9 +880,14 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 		for _, slot in ipairs(build.itemsTab.orderedSlots) do
 			local item = items[slot.slotName]
-			if isAnointableItem(item) and not itemHasAnoint(item) then
+			local missingAnoints = build.itemsTab:getMissingAnointCount(item)
+			if missingAnoints > 0 then
+				local slotLabel = slot.label
+				if missingAnoints > 1 then
+					slotLabel = slotLabel .. " (" .. missingAnoints .. " missing)"
+				end
 				env.itemWarnings.missingAnointWarning = env.itemWarnings.missingAnointWarning or { }
-				t_insert(env.itemWarnings.missingAnointWarning, slot.label)
+				t_insert(env.itemWarnings.missingAnointWarning, slotLabel)
 			end
 		end
 
