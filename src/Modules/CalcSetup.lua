@@ -687,6 +687,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 					goto continue
 				end
 			end
+			-- ignore item in Ring 3 if The Unseen Hand is not allocated
+			if slotName == "Ring 3" and not (env.allocNodes[43902] and env.allocNodes[43902].dn:match("Unseen Hand")) then
+				goto continue
+			end
 			local item
 			if slotName == override.repSlotName then
 				item = override.repItem
