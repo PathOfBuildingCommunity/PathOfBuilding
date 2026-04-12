@@ -763,7 +763,7 @@ function calcs.offence(env, actor, activeSkill)
 	-- attack that are traps and mines can repeat with Fatal Flourish and deal 160% more damage
 	local fatalFlourishAttackTrapOrMine = activeSkill.skillTypes[SkillType.Attack] and (activeSkill.skillTypes[SkillType.Trapped] or activeSkill.skillTypes[SkillType.RemoteMined])
 	local function repeatSkillTypesCheck(activeSkillTypes)
-		if fatalFlourishAttackTrapOrMine or (activeSkillTypes[SkillType.RangedAttack] and (activeSkill.skillTypes[SkillType.Trappable] or activeSkill.skillTypes[SkillType.Mineable])) then
+		if fatalFlourishAttackTrapOrMine or (activeSkillTypes[SkillType.RangedAttack] and (activeSkillTypes[SkillType.Trappable] or activeSkillTypes[SkillType.Mineable])) then
 			return true
 		end
 		local excludeSkillTypes = { SkillType.SummonsTotem, SkillType.HasReservation, SkillType.Instant, SkillType.NonRepeatable, SkillType.CreatesMinion }
