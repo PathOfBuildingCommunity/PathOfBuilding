@@ -3883,6 +3883,119 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 	local gemLineHeight = 18
 	local gemTextWidth = colWidth - 30
 
+	-- Helper: build aligned display lists for a matched pair of groups
+	-- Common gems appear first, then additional, then missing
+	local function getGemName(gem)
+		return gem.grantedEffect and gem.grantedEffect.name or gem.nameSpec
+	end
+
+	local function buildAlignedGemLists(pGroup, cGroup, pSet, cSet)
+		local pDisplay = {}
+		local cDisplay = {}
+
+		-- Build name->gem lookup for compare side (common gems only)
+		local cGemByName = {}
+		if cGroup then
+			for _, gem in ipairs(cGroup.gemList or {}) do
+				local name = getGemName(gem)
+				if name and pSet[name] and not cGemByName[name] then
+					cGemByName[name] = gem
+				end
+			end
+		end
+
+		-- Common gems in primary build's order
+		local emittedCommon = {}
+		if pGroup then
+			for _, gem in ipairs(pGroup.gemList or {}) do
+				local name = getGemName(gem)
+				if name and cSet[name] and not emittedCommon[name] then
+					emittedCommon[name] = true
+					t_insert(pDisplay, { gem = gem, name = name, status = "common" })
+					t_insert(cDisplay, { gem = cGemByName[name], name = name, status = "common" })
+				end
+			end
+		end
+
+		-- Additional gems (unique to each side), preserving original order
+		if pGroup then
+			for _, gem in ipairs(pGroup.gemList or {}) do
+				local name = getGemName(gem)
+				if name and not cSet[name] then
+					t_insert(pDisplay, { gem = gem, name = name, status = "additional" })
+				end
+			end
+		end
+		if cGroup then
+			for _, gem in ipairs(cGroup.gemList or {}) do
+				local name = getGemName(gem)
+				if name and not pSet[name] then
+					t_insert(cDisplay, { gem = gem, name = name, status = "additional" })
+				end
+			end
+		end
+
+		-- Missing gems (sorted alphabetically)
+		if pGroup and cGroup then
+			local pMissing = {}
+			local cMissing = {}
+			for name in pairs(cSet) do
+				if not pSet[name] then t_insert(pMissing, name) end
+			end
+			for name in pairs(pSet) do
+				if not cSet[name] then t_insert(cMissing, name) end
+			end
+			table.sort(pMissing)
+			table.sort(cMissing)
+			for _, name in ipairs(pMissing) do
+				t_insert(pDisplay, { gem = nil, name = name, status = "missing" })
+			end
+			for _, name in ipairs(cMissing) do
+				t_insert(cDisplay, { gem = nil, name = name, status = "missing" })
+			end
+		end
+
+		return pDisplay, cDisplay
+	end
+
+	-- Helper: collect gem positions from a display list into gemEntries for hit-testing
+	local function collectGemEntries(gemEntries, displayList, xOffset, startY, group)
+		local y = startY
+		for _, entry in ipairs(displayList) do
+			if entry.gem then
+				t_insert(gemEntries, { gem = entry.gem, x = xOffset, y = y, group = group })
+			end
+			y = y + gemLineHeight
+		end
+		return y
+	end
+
+	-- Helper: draw a list of gems (common, additional, missing) at a given x offset
+	local function drawGemList(displayList, xOffset, startY, highlightSet)
+		local y = startY
+		for _, entry in ipairs(displayList) do
+			if entry.status == "missing" then
+				DrawString(xOffset, y, "LEFT", gemFontSize, "VAR", colorCodes.NEGATIVE .. "- " .. entry.name .. "^7")
+			elseif entry.gem then
+				if highlightSet[entry.gem] then
+					SetDrawColor(0.33, 1, 0.33, 0.25)
+					DrawImage(nil, xOffset, y, gemTextWidth, gemLineHeight)
+				end
+				local gemName = entry.gem.grantedEffect and entry.gem.grantedEffect.name or entry.gem.nameSpec or "?"
+				local gemColor = entry.gem.color or colorCodes.GEM
+				local levelStr = entry.gem.level and (" Lv" .. entry.gem.level) or ""
+				local qualStr = entry.gem.quality and entry.gem.quality > 0 and ("/" .. entry.gem.quality .. "q") or ""
+				local prefix = ""
+				if entry.status == "additional" then
+					prefix = colorCodes.POSITIVE .. "+ "
+				end
+				DrawString(xOffset, y, "LEFT", gemFontSize, "VAR", prefix .. gemColor .. gemName .. "^7" .. levelStr .. qualStr)
+			end
+			y = y + gemLineHeight
+		end
+		return y
+	end
+
 	-- Position pre-pass: compute gem positions without drawing to enable hover hit-testing
 	local gemEntries = {} -- { gem, x, y, group }
 	local preY = 4 - self.scrollY + 24 -- after headers
@@ -3890,40 +4003,13 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 		preY = preY + 2 -- separator
 		local pSet = pair.pIdx and pSets[pair.pIdx] or {}
 		local cSet = pair.cIdx and cSets[pair.cIdx] or {}
-		local pGemY = preY + lineHeight
-		local cGemY = preY + lineHeight
 
-		-- Primary group gems
 		local pGroup = pair.pIdx and pGroups[pair.pIdx]
-		if pGroup then
-			for _, gem in ipairs(pGroup.gemList or {}) do
-				t_insert(gemEntries, { gem = gem, x = 20, y = pGemY, group = pGroup })
-				pGemY = pGemY + gemLineHeight
-			end
-			if pair.cIdx then
-				for name in pairs(cSet) do
-					if not pSet[name] then
-						pGemY = pGemY + gemLineHeight -- missing gem placeholder
-					end
-				end
-			end
-		end
-
-		-- Compare group gems
 		local cGroup = pair.cIdx and cGroups[pair.cIdx]
-		if cGroup then
-			for _, gem in ipairs(cGroup.gemList or {}) do
-				t_insert(gemEntries, { gem = gem, x = colWidth + 20, y = cGemY, group = cGroup })
-				cGemY = cGemY + gemLineHeight
-			end
-			if pair.pIdx then
-				for name in pairs(pSet) do
-					if not cSet[name] then
-						cGemY = cGemY + gemLineHeight
-					end
-				end
-			end
-		end
+		local pDisplayList, cDisplayList = buildAlignedGemLists(pGroup, cGroup, pSet, cSet)
+
+		local pGemY = collectGemEntries(gemEntries, pDisplayList, 20, preY + lineHeight, pGroup)
+		local cGemY = collectGemEntries(gemEntries, cDisplayList, colWidth + 20, preY + lineHeight, cGroup)
 
 		preY = preY + m_max(pGemY - preY, cGemY - preY) + 6
 	end
@@ -3973,89 +4059,31 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 		local pFinalGemY = drawY + lineHeight
 		local cFinalGemY = drawY + lineHeight
 
-		-- Primary group (left side)
+		-- Build aligned display lists
 		local pGroup = pair.pIdx and pGroups[pair.pIdx]
+		local cGroup = pair.cIdx and cGroups[pair.cIdx]
+		local pDisplayList, cDisplayList = buildAlignedGemLists(pGroup, cGroup, pSet, cSet)
+
+		-- Primary group label (left side)
 		if pGroup then
 			local groupLabel = pGroup.displayLabel or pGroup.label or ("Group " .. pair.pIdx)
 			if pGroup.slot then
 				groupLabel = groupLabel .. " (" .. pGroup.slot .. ")"
 			end
 			DrawString(10, drawY, "LEFT", 16, "VAR", "^7" .. groupLabel)
-			local gemY = drawY + lineHeight
-			for _, gem in ipairs(pGroup.gemList or {}) do
-				if highlightSet[gem] then
-					SetDrawColor(0.33, 1, 0.33, 0.25)
-					DrawImage(nil, 20, gemY, gemTextWidth, gemLineHeight)
-				end
-				local gemName = gem.grantedEffect and gem.grantedEffect.name or gem.nameSpec or "?"
-				local gemColor = gem.color or colorCodes.GEM
-				local levelStr = gem.level and (" Lv" .. gem.level) or ""
-				local qualStr = gem.quality and gem.quality > 0 and ("/" .. gem.quality .. "q") or ""
-				local prefix = ""
-				if pair.cIdx and not cSet[gemName] then
-					prefix = colorCodes.POSITIVE .. "+ "
-				end
-				DrawString(20, gemY, "LEFT", gemFontSize, "VAR", prefix .. gemColor .. gemName .. "^7" .. levelStr .. qualStr)
-				gemY = gemY + gemLineHeight
-			end
-			-- Show gems missing from primary but present in compare
-			if pair.cIdx then
-				local missing = {}
-				for name in pairs(cSet) do
-					if not pSet[name] then
-						t_insert(missing, name)
-					end
-				end
-				table.sort(missing)
-				for _, name in ipairs(missing) do
-					DrawString(20, gemY, "LEFT", gemFontSize, "VAR", colorCodes.NEGATIVE .. "- " .. name .. "^7")
-					gemY = gemY + gemLineHeight
-				end
-			end
-			pFinalGemY = gemY
 		end
 
-		-- Compare group (right side)
-		local cGroup = pair.cIdx and cGroups[pair.cIdx]
+		-- Compare group label (right side)
 		if cGroup then
 			local groupLabel = cGroup.displayLabel or cGroup.label or ("Group " .. pair.cIdx)
 			if cGroup.slot then
 				groupLabel = groupLabel .. " (" .. cGroup.slot .. ")"
 			end
 			DrawString(colWidth + 10, drawY, "LEFT", 16, "VAR", "^7" .. groupLabel)
-			local gemY = drawY + lineHeight
-			for _, gem in ipairs(cGroup.gemList or {}) do
-				if highlightSet[gem] then
-					SetDrawColor(0.33, 1, 0.33, 0.25)
-					DrawImage(nil, colWidth + 20, gemY, gemTextWidth, gemLineHeight)
-				end
-				local gemName = gem.grantedEffect and gem.grantedEffect.name or gem.nameSpec or "?"
-				local gemColor = gem.color or colorCodes.GEM
-				local levelStr = gem.level and (" Lv" .. gem.level) or ""
-				local qualStr = gem.quality and gem.quality > 0 and ("/" .. gem.quality .. "q") or ""
-				local prefix = ""
-				if pair.pIdx and not pSet[gemName] then
-					prefix = colorCodes.POSITIVE .. "+ "
-				end
-				DrawString(colWidth + 20, gemY, "LEFT", gemFontSize, "VAR", prefix .. gemColor .. gemName .. "^7" .. levelStr .. qualStr)
-				gemY = gemY + gemLineHeight
-			end
-			-- Show gems missing from compare but present in primary
-			if pair.pIdx then
-				local missing = {}
-				for name in pairs(pSet) do
-					if not cSet[name] then
-						t_insert(missing, name)
-					end
-				end
-				table.sort(missing)
-				for _, name in ipairs(missing) do
-					DrawString(colWidth + 20, gemY, "LEFT", gemFontSize, "VAR", colorCodes.NEGATIVE .. "- " .. name .. "^7")
-					gemY = gemY + gemLineHeight
-				end
-			end
-			cFinalGemY = gemY
 		end
+
+		pFinalGemY = drawGemList(pDisplayList, 20, drawY + lineHeight, highlightSet)
+		cFinalGemY = drawGemList(cDisplayList, colWidth + 20, drawY + lineHeight, highlightSet)
 
 		-- Calculate height for this row
 		drawY = drawY + m_max(pFinalGemY - drawY, cFinalGemY - drawY) + 6
