@@ -647,14 +647,12 @@ Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Implicits: 0
 +600 Strength and Intelligence Requirement
 {fractured}(180-230)% increased Energy Shield
-Never deal Critical Strikes
-Nearby Enemies cannot deal Critical Strikes
-Action Speed cannot be modified to below Base Value
-Nearby Allies' Action Speed cannot be modified to below Base Value
 +10 to maximum Divine Charges
 Gain a Divine Charge on Hit
 You gain Divinity for 10 seconds on reaching maximum Divine Charges
 Lose all Divine Charges when you gain Divinity
+Nearby Allies' Action Speed cannot be modified to below Base Value
+Nearby Enemies cannot deal Critical Strikes
 ]],[[
 Infernal Mantle
 {variant:1}Occultist's Vestment

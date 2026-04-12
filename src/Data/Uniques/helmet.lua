@@ -159,7 +159,6 @@ Reaver Helmet
 24% reduced maximum Life
 Regenerate (200-250) Life per second
 100% increased Stun and Block Recovery
-Reserves 8% of Life
 Nearby Enemy Monsters have at least 8% of Life Reserved
 ]],[[
 Howlcrack
@@ -1141,7 +1140,6 @@ Has 1 Socket
 {variant:1}+(50-100) to maximum Life
 {variant:2}+(50-175) to maximum Life
 Nearby Enemies have -10% to all Resistances
--10% to All Resistances
 You and Nearby Allies have 64 to 96 added Fire Damage per Red Socket
 You and Nearby Allies have 56 to 88 added Cold Damage per Green Socket
 You and Nearby Allies have 16 to 144 added Lightning Damage per Blue Socket
@@ -1423,10 +1421,10 @@ Callous Mask
 Requires Level 45, 51 Dex, 51 Int
 (400-500)% increased Evasion and Energy Shield
 +(20-40)% to Fire Resistance
-Nearby Enemies have 50% increased Fire and Cold Resistances
 +(20-40)% to Cold Resistance
 25% chance to inflict Cold Exposure on Hit
 25% chance to inflict Fire Exposure on Hit
+Nearby Enemies have 50% increased Fire and Cold Resistances
 ]],[[
 Farrul's Bite
 Harlequin Mask

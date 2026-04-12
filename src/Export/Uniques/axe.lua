@@ -121,7 +121,7 @@ LocalIncreasedPhysicalDamagePercentUniqueOneHandAxe6
 LocalAddedPhysicalDamageUniqueOneHandAxe6
 {variant:1}LifeLeechPermyriadUniqueOneHandAxe6[60,60]
 {variant:2}LifeLeechPermyriadUniqueOneHandAxe6
-NearbyAlliesHaveCullingStrikeUniqueTwoHandAxe9
+CullingStrikeUnique__1
 GainOnslaughtWhenCullingEnemyUniqueOneHandAxe6
 CannotBeChilledWhenOnslaughtUniqueOneHandAxe6
 ]],[[
@@ -286,7 +286,7 @@ Implicits: 0
 {variant:1,2}LocalAddedFireDamageUniqueTwoHandAxe1
 LifeGainedFromEnemyDeathUniqueTwoHandAxe1
 IncreasedAccuracyUniqueTwoHandAxe1
-NearbyAlliesHaveCullingStrikeUniqueTwoHandAxe9
+CullingStrikeUnique__1
 {variant:5}RageOnMeleeHitE3
 {variant:3,4}RageOnAttackCritUnique__1
 {variant:3,4,5}PhysicalAddedAsFirePerRageUnique__1
@@ -341,7 +341,7 @@ LocalIncreaseSocketedStrengthGemLevelUniqueTwoHandAxe3
 StrengthUniqueTwoHandAxe3
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe3
 LocalAddedPhysicalDamageUniqueTwoHandAxe3
-NearbyAlliesHaveCullingStrikeUniqueTwoHandAxe9
+CullingStrikeUnique__1
 ]],[[
 The Cauteriser
 Woodsplitter
@@ -356,7 +356,7 @@ StrengthUniqueTwoHandAxe3
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe3
 LocalAddedPhysicalDamageUniqueTwoHandAxe3[35,45][80,90]
 PhysicalAddedAsFireUnique__2
-NearbyAlliesHaveCullingStrikeUniqueTwoHandAxe9
+CullingStrikeUnique__1
 ]],[[
 Ngamahu's Flame
 Abyssal Axe
@@ -378,7 +378,7 @@ LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe2
 ItemFoundRarityIncreaseUniqueTwoHandAxe2
 LifeGainedFromEnemyDeathUniqueTwoHandAxe2
 MovementVelocityOnFullLifeUniqueTwoHandAxe2
-NearbyAlliesHaveCullingStrikeUniqueTwoHandAxe9
+CullingStrikeUnique__1
 AlwaysHits
 ]],[[
 Sinvicta's Mettle

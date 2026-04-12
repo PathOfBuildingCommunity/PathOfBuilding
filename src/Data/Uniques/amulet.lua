@@ -155,13 +155,11 @@ Implicits: 1
 {variant:6,7,8,9}{tags:defences}(15-20)% increased Evasion Rating
 {variant:10,11,12,13,14,15,16}{tags:defences}(15-20)% increased maximum Energy Shield
 {tags:resource}+(50-70) to maximum Life
-{variant:1,2,3,4,5}10% reduced Stun and Block Recovery
-{variant:1,2,3,4,5}Nearby Enemies have 10% reduced Stun and Block Recovery
-{variant:1,2,3,4,5}10% reduced Stun and Block Recovery
-{variant:1,2,3,4,5}Nearby Enemies have 10% reduced Stun and Block Recovery
 {variant:17}{tags:defences}(15-20)% increased Global Defences
 {variant:10,11,12,13,14,15,16}{tags:critical}Hits against Nearby Enemies have 50% increased Critical Strike Chance
 {variant:6,7,8,9}Nearby Enemies grant 25% increased Flask Charges
+{variant:1,2,3,4,5}Nearby Enemies have 10% reduced Stun and Block Recovery
+{variant:1,2,3,4,5}Nearby Enemies have 10% reduced Stun and Block Recovery
 {variant:1}Anger has no Reservation
 {variant:10}Clarity has no Reservation
 {variant:12}Malevolence has no Reservation
