@@ -1518,7 +1518,7 @@ Limited to: 1
 AttackDamageWhileHoldingShieldUnique__1
 {variant:1}SpectralShieldThrowThresholdJewel1_[20,20]
 SpectralShieldThrowThresholdJewel2
-{variant:2,3}SpectralShieldThrowThresholdJewel1_[15,15]
+{variant:2,3}SpectralShieldThrowThresholdJewel1_
 {variant:3}Corrupted
 ]],[[
 Self-Flagellation
