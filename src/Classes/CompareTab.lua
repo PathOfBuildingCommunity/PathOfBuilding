@@ -3438,8 +3438,8 @@ function CompareTabClass:DrawItemExpanded(item, x, startY, colWidth, otherModMap
 				local formatted = itemLib.formatModLine(modLine)
 				if formatted then
 					if otherModMap then
-						local tmpl = tradeHelpers.modLineTemplate(modLine.line)
-						local otherEntry = otherModMap[tmpl]
+						local template = tradeHelpers.modLineTemplate(modLine.line)
+						local otherEntry = otherModMap[template]
 						if not otherEntry then
 							-- Mod exists only on this side
 							formatted = colorCodes.POSITIVE .. "+ " .. formatted

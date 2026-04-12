@@ -48,14 +48,14 @@ local function getTradeModLookup()
 				end
 				-- Also store with template-converted text for mods with literal numbers
 				-- (e.g. "1 Added Passive Skill is X" → "# Added Passive Skill is X")
-				local tmpl = M.modLineTemplate(text)
-				if tmpl ~= text then
-					local tmplKey = tmpl .. "|" .. modType
-					if not _tradeModLookup[tmplKey] then
-						_tradeModLookup[tmplKey] = id
+				local template = M.modLineTemplate(text)
+				if template ~= text then
+					local templateKey = template .. "|" .. modType
+					if not _tradeModLookup[templateKey] then
+						_tradeModLookup[templateKey] = id
 					end
-					if not _tradeModLookup[tmpl] then
-						_tradeModLookup[tmpl] = id
+					if not _tradeModLookup[template] then
+						_tradeModLookup[template] = id
 					end
 				end
 			end
@@ -113,21 +113,21 @@ M.sourceTypeToCategory = {
 function M.findTradeModId(modLine, modType)
 	-- Try QueryMods-based lookup
 	local lookup = getTradeModLookup()
-	local tmpl = M.modLineTemplate(modLine)
+	local template = M.modLineTemplate(modLine)
 	-- Try exact match with type first
-	local key = tmpl .. "|" .. modType
+	local key = template .. "|" .. modType
 	if lookup[key] then
 		return lookup[key]
 	end
 	-- Try without leading +/- sign
-	local stripped = tmpl:gsub("^[%+%-]", "")
+	local stripped = template:gsub("^[%+%-]", "")
 	key = stripped .. "|" .. modType
 	if lookup[key] then
 		return lookup[key]
 	end
 	-- Fallback: match by template text only (any type)
-	if lookup[tmpl] then
-		return lookup[tmpl]
+	if lookup[template] then
+		return lookup[template]
 	end
 	if lookup[stripped] then
 		return lookup[stripped]
@@ -207,8 +207,8 @@ function M.buildModMap(item)
 			if item:CheckModLineVariant(modLine) then
 				local formatted = itemLib.formatModLine(modLine)
 				if formatted then
-					local tmpl = M.modLineTemplate(modLine.line)
-					modMap[tmpl] = { line = modLine.line, value = M.modLineValue(modLine.line) }
+					local template = M.modLineTemplate(modLine.line)
+					modMap[template] = { line = modLine.line, value = M.modLineValue(modLine.line) }
 				end
 			end
 		end
