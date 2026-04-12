@@ -1801,7 +1801,6 @@ c["-10 Physical Damage taken from Attack Hits"]={{[1]={flags=0,keywordFlags=0,na
 c["-10 Physical Damage taken from Hits"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenWhenHit",type="BASE",value=-10}},nil}
 c["-10 Physical Damage taken from Projectile Attacks"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromProjectileAttacks",type="BASE",value=-10}},nil}
 c["-10% Chance to Block"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=-10}},nil}
-c["-10% to All Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=-10},[2]={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=-10}},nil}
 c["-10% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=-10}},nil}
 c["-10% to Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=-10}},nil}
 c["-10% to Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="FireResist",type="BASE",value=-10}},nil}
@@ -1815,7 +1814,6 @@ c["-100 Fire Damage taken from Hits"]={{[1]={flags=0,keywordFlags=0,name="FireDa
 c["-100 to Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=-100}},nil}
 c["-13 Physical Damage taken from Attack Hits"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromAttacks",type="BASE",value=-13}},nil}
 c["-14 Physical Damage taken from Attack Hits"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromAttacks",type="BASE",value=-14}},nil}
-c["-15% additional Physical Damage Reduction"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageReduction",type="BASE",value=-15}},nil}
 c["-15% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=-15}},nil}
 c["-15% to Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningResist",type="BASE",value=-15}},nil}
 c["-15% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=-15}},nil}
@@ -2731,7 +2729,6 @@ c["10% reduced Projectile Speed"]={{[1]={flags=0,keywordFlags=0,name="Projectile
 c["10% reduced Quantity of Items found"]={{[1]={flags=0,keywordFlags=0,name="LootQuantity",type="INC",value=-10}},nil}
 c["10% reduced Skill Effect Duration"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="INC",value=-10}},nil}
 c["10% reduced Strength"]={{[1]={flags=0,keywordFlags=0,name="Str",type="INC",value=-10}},nil}
-c["10% reduced Stun and Block Recovery"]={{[1]={flags=0,keywordFlags=0,name="StunRecovery",type="INC",value=-10}},nil}
 c["10% reduced Trap Duration"]={{[1]={flags=0,keywordFlags=0,name="TrapDuration",type="INC",value=-10}},nil}
 c["10% reduced maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="INC",value=-10}},nil}
 c["100% Chance to Cause Monster to Flee on Block"]={{}," to Cause Monster to Flee on Block "}
@@ -9662,6 +9659,7 @@ c["Lose a Power Charge each second if you have not Detonated Mines Recently"]={n
 c["Lose all Defiance when you reach 10 Defiance"]={nil,"Lose all Defiance when you reach 10 Defiance "}
 c["Lose all Defiance when you reach 10 Defiance Gain 3% of Missing Unreserved Life before being Hit by an Enemy Per Defiance"]={nil,"Lose all Defiance when you reach 10 Defiance Gain 3% of Missing Unreserved Life before being Hit by an Enemy Per Defiance "}
 c["Lose all Divine Charges when you gain Divinity"]={nil,"Lose all Divine Charges when you gain Divinity "}
+c["Lose all Divine Charges when you gain Divinity Nearby Allies' Action Speed cannot be modified to below Base Value"]={nil,"Lose all Divine Charges when you gain Divinity Nearby Allies' Action Speed cannot be modified to below Base Value "}
 c["Lose all Eaten Souls when you use a Flask"]={nil,"Lose all Eaten Souls when you use a Flask "}
 c["Lose all Endurance Charges on use"]={nil,"Lose all Endurance Charges on use "}
 c["Lose all Endurance Charges on use Gain 1 Endurance Charge per Second during Effect"]={nil,"Lose all Endurance Charges on use Gain 1 Endurance Charge per Second during Effect "}
@@ -10147,7 +10145,7 @@ c["Nearby Enemies cannot gain Power, Frenzy or Endurance Charges"]={nil,"cannot 
 c["Nearby Enemies cannot gain Power, Frenzy or Endurance Charges Projectile Barrages have no spread"]={nil,"cannot gain Power, Frenzy or Endurance Charges Projectile Barrages have no spread "}
 c["Nearby Enemies deal 8% less Elemental Damage"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ElementalDamage",type="MORE",value=-8}}}},nil}
 c["Nearby Enemies grant 25% increased Flask Charges"]={nil,"grant 25% increased Flask Charges "}
-c["Nearby Enemies grant 25% increased Flask Charges Anger has no Reservation"]={nil,"grant 25% increased Flask Charges Anger has no Reservation "}
+c["Nearby Enemies grant 25% increased Flask Charges Nearby Enemies have 10% reduced Stun and Block Recovery"]={nil,"grant 25% increased Flask Charges Nearby Enemies have 10% reduced Stun and Block Recovery "}
 c["Nearby Enemies have -10% to all Resistances"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=-10}}},[2]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=-10}}}},nil}
 c["Nearby Enemies have -20% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=-20}}}},nil}
 c["Nearby Enemies have -20% to Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=-20}}}},nil}
@@ -11164,7 +11162,6 @@ c["Requires Level 45, 35 Dex, 35 Int +40 to Dexterity"]={nil,"Requires Level 45,
 c["Requires Level 55, 52 Dex, 52 Int"]={nil,"Requires Level 55, 52 Dex, 52 Int "}
 c["Requires Level 55, 52 Dex, 52 Int +60 to maximum Mana"]={nil,"Requires Level 55, 52 Dex, 52 Int +60 to maximum Mana "}
 c["Reserves 30% of Life"]={{[1]={flags=0,keywordFlags=0,name="ExtraLifeReserved",type="BASE",value=30}},nil}
-c["Reserves 8% of Life"]={{[1]={flags=0,keywordFlags=0,name="ExtraLifeReserved",type="BASE",value=8}},nil}
 c["Resolute Technique"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Resolute Technique"}},nil}
 c["Restores Ward on use"]={nil,"Restores Ward on use "}
 c["Restores Ward on use 10% reduced Charges per use"]={nil,"Restores Ward on use 10% reduced Charges per use "}
