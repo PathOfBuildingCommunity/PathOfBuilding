@@ -2508,6 +2508,7 @@ skills["MistyReflection"] = {
 		"skill_cannot_be_knocked_back",
 		"skill_cannot_be_stunned",
 		"spell_cast_time_cannot_be_modified",
+		"disable_skill_repeats",
 	},
 	notMinionStat = {
 		"base_cooldown_speed_+%",

@@ -9404,7 +9404,7 @@ return {
 		name = "The Sands of Time",
 		text = {
 			"A future of untold power and doom opened",
-			"before Zarokh in that moment. He realized",
+			"before Zarokh in that moment. He realised",
 			"there was not one Time, but many...",
 		},
 	},

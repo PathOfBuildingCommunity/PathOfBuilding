@@ -4409,7 +4409,7 @@ skills["TriggeredSupportPyre"] = {
 	name = "Call the Pyre",
 	baseTypeName = "Call the Pyre",
 	color = 1,
-	description = "Calls forth pillars of ashen flame. These pillars deal Fire damage in an area, and cover Enemies they hit in Ash.",
+	description = "Calls forth pillars of ashen flame. These pillars deal Fire damage in an area, and cover Enemies they hit in Ash. Requires a Melee Weapon or Unarmed.",
 	skillTypes = { [SkillType.Fire] = true, [SkillType.Area] = true, [SkillType.Attack] = true, [SkillType.Cooldown] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.SkillGrantedBySupport] = true, },
 	weaponTypes = {
 		["Claw"] = true,
