@@ -20,7 +20,7 @@ local CLUSTER_NODE_OFFSET = 65536
 -- Layout constants (shared across Draw, DrawConfig, DrawItems, DrawCalcs, etc.)
 local LAYOUT = {
 	-- Main tab control bar
-	controlBarHeight = 96,
+	controlBarHeight = 126,
 
 	-- Tree view header/footer
 	treeHeaderHeight = 58,
@@ -193,7 +193,7 @@ function CompareTabClass:InitControls()
 	end
 
 	-- Build B selector dropdown
-	self.controls.compareBuildLabel = new("LabelControl", {"TOPLEFT", self.controls.subTabAnchor, "TOPLEFT"}, {0, -70, 0, 16}, "^7Compare with:")
+	self.controls.compareBuildLabel = new("LabelControl", {"TOPLEFT", self.controls.subTabAnchor, "TOPLEFT"}, {0, -88, 0, 16}, "^7Compare with:")
 	self.controls.compareBuildSelect = new("DropDownControl", {"LEFT", self.controls.compareBuildLabel, "RIGHT"}, {4, 0, 250, 20}, {}, function(index, value)
 		if index and index > 0 and index <= #self.compareEntries then
 			self.activeCompareIndex = index
@@ -250,11 +250,8 @@ function CompareTabClass:InitControls()
 		return #self.compareEntries > 0
 	end
 
-	self.controls.compareSetsLabel = new("LabelControl", {"TOPLEFT", self.controls.subTabAnchor, "TOPLEFT"}, {0, -44, 0, 16}, "^7Sets:")
-	self.controls.compareSetsLabel.shown = setsEnabled
-
 	-- Tree spec selector for comparison build
-	self.controls.compareSpecLabel = new("LabelControl", {"LEFT", self.controls.compareSetsLabel, "RIGHT"}, {4, 0, 0, 16}, "^7Tree set:")
+	self.controls.compareSpecLabel = new("LabelControl", {"TOPLEFT", self.controls.subTabAnchor, "TOPLEFT"}, {0, -54, 0, 16}, "^7Tree set:")
 	self.controls.compareSpecLabel.shown = setsEnabled
 	self.controls.compareSpecSelect = new("DropDownControl", {"LEFT", self.controls.compareSpecLabel, "RIGHT"}, {2, 0, 150, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
@@ -314,7 +311,7 @@ function CompareTabClass:InitControls()
 	-- ============================================================
 	-- Comparison build main skill selector (row between sets and sub-tabs)
 	-- ============================================================
-	self.controls.cmpSkillLabel = new("LabelControl", {"TOPLEFT", self.controls.subTabAnchor, "TOPLEFT"}, {0, -22, 0, 16}, "^7Skill:")
+	self.controls.cmpSkillLabel = new("LabelControl", {"TOPLEFT", self.controls.subTabAnchor, "TOPLEFT"}, {0, -32, 0, 16}, "^7Skill:")
 	self.controls.cmpSkillLabel.shown = setsEnabled
 
 	-- Socket group dropdown
@@ -1650,7 +1647,15 @@ end
 function CompareTabClass:Draw(viewPort, inputEvents)
 	-- Position top-bar controls
 	self.controls.subTabAnchor.x = viewPort.x + 4
-	self.controls.subTabAnchor.y = viewPort.y + 74
+	self.controls.subTabAnchor.y = viewPort.y + 96
+
+	-- Draw dividers between top-bar sections when a comparison is loaded
+	if #self.compareEntries > 0 then
+		SetDrawColor(0.25, 0.25, 0.25)
+		DrawImage(nil, viewPort.x + 4, viewPort.y + 32, viewPort.width - 8, 2)
+		DrawImage(nil, viewPort.x + 4, viewPort.y + 88, viewPort.width - 8, 2)
+		DrawImage(nil, viewPort.x + 4, viewPort.y + 122, viewPort.width - 8, 2)
+	end
 
 	self.controls.compareBuildLabel.x = function()
 		return 0
@@ -4118,9 +4123,9 @@ function CompareTabClass:DrawCalcsSkillHeader(vp, compareEntry, headerHeight, pr
 
 	-- Build name headers
 	SetDrawColor(1, 1, 1)
-	DrawString(leftX, y + 2, "LEFT", 16, "VAR BOLD",
+	DrawString(leftX, y + 2, "LEFT", 18, "VAR",
 		colorCodes.POSITIVE .. self:GetShortBuildName(self.primaryBuild.buildName))
-	DrawString(rightX, y + 2, "LEFT", 16, "VAR BOLD",
+	DrawString(rightX, y + 2, "LEFT", 18, "VAR",
 		colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
 	y = y + rowH
 
