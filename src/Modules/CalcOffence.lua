@@ -760,16 +760,16 @@ function calcs.offence(env, actor, activeSkill)
 		skillData.dpsMultiplier = skillModList:Sum("BASE", skillCfg, "ProjectileCount")
 	end
 
+	-- attack traps and mines can repeat with Fatal Flourish
+	local fatalFlourishAttackTrapOrMine = activeSkill.skillTypes[SkillType.Attack] and (activeSkill.skillTypes[SkillType.Trapped] or activeSkill.skillTypes[SkillType.RemoteMined])
 	local function repeatSkillTypesCheck(activeSkillTypes)
-		local excludeSkillTypes = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.Triggered,
-			SkillType.HasReservation, SkillType.Instant, SkillType.NonRepeatable, SkillType.CreatesMinion,
-		}
+		local excludeSkillTypes = { SkillType.SummonsTotem, SkillType.HasReservation, SkillType.Instant, SkillType.NonRepeatable, SkillType.CreatesMinion }
 		for _, type in ipairs(excludeSkillTypes) do
 			if activeSkillTypes[type] then
 				return false
 			end
 		end
-		return (activeSkillTypes[SkillType.Multicastable] or activeSkillTypes[SkillType.Multistrikeable])
+		return (fatalFlourishAttackTrapOrMine or activeSkillTypes[SkillType.Multicastable] or activeSkillTypes[SkillType.Multistrikeable])
 	end
 	output.Repeats = 1 + (repeatSkillTypesCheck(activeSkill.skillTypes) and (skillModList:Sum("BASE", skillCfg, "RepeatCount") or 0) or 0)
 	if output.Repeats > 1 then
@@ -807,7 +807,7 @@ function calcs.offence(env, actor, activeSkill)
 				local modValue = mod.value
 				DamageFinalMoreValueTotal = DamageFinalMoreValueTotal * (1 + modValue / 100)
 				DamageMoreValueTotal = DamageMoreValueTotal + modValue
-				if env.configInput.repeatMode == "AVERAGE" and not skillModList:Flag(nil, "OnlyFinalRepeat") then
+				if env.configInput.repeatMode == "AVERAGE" and not skillModList:Flag(nil, "OnlyFinalRepeat") and not fatalFlourishAttackTrapOrMine then
 					modValue = modValue / output.Repeats
 				end
 				skillModList:NewMod("Damage", "MORE", modValue, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
@@ -5636,6 +5636,10 @@ function calcs.offence(env, actor, activeSkill)
 			local useSpeed = 1
 			local timeType
 			if skillFlags.trap or skillFlags.mine then
+				-- the repeat from Fatal Flourish does not increase the cost of traps or mines
+				if fatalFlourishAttackTrapOrMine and repeats > 1 then
+					repeats = repeats - 1
+				end
 				local preSpeed = output.TrapThrowingSpeed or output.MineLayingSpeed
 				local cooldown = output.TrapCooldown or output.Cooldown
 				useSpeed = (cooldown and cooldown > 0 and 1 / cooldown or preSpeed) / repeats
