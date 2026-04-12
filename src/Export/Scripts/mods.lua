@@ -63,13 +63,6 @@ local function writeMods(outName, condFunc)
 					out:write('type = "Eater", ')
 				end
 				out:write('affix = "', mod.Name, '", ')
-				for index, value in pairs(mod.Family) do
-					if string.find(value.Id, "LocalDisplayNearbyEnemy") and #stats > index and #orders > index then
-						table.remove(stats, index)
-						table.remove(orders, index)
-						break
-					end
- 				end
 				if string.find(mod.Id, "EldritchImplicitUniquePresence") and #stats > 0 and #orders > 0 then
 					for i, stat in ipairs(stats) do
 						stats[i] = "While a Unique Enemy is in your Presence, ".. stat
