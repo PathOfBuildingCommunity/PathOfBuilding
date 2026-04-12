@@ -1425,13 +1425,6 @@ function calcs.perform(env, skipEHP)
 		end
 	end
 
-	if modDB:Flag(env.player.mainSkill.skillCfg, "Condition:CanInflictHallowingFlame") then
-		local magnitude = 1 + modDB:Sum("INC", nil, "HallowingFlameMagnitude") / 100
-		local val = m_floor(25 * magnitude) -- Hallowing flame grants Attack Hits against you gain 25% of Physical Damage as Extra Fire Damage
-		modDB:NewMod("Multiplier:HallowingFlameMax", "BASE", 1, "Base")
-		modDB:NewMod("ExtraAura", "LIST", { onlyAllies = true, mod = modLib.createMod("PhysicalDamageGainAsLightning", "BASE", val, "Hallowing Flame", { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "ActorCondition", actor = "enemy", var = "HallowingFlame" }, { type = "Multiplier", var = "HallowingFlame", actor = "enemy", limitActor = "parent", limitVar = "HallowingFlameMax" }) })
-	end
-
 	-- Special handling of Mageblood
 	local maxLeftActiveMagicUtilityCount = modDB:Sum("BASE", nil, "LeftActiveMagicUtilityFlasks")
 	local maxRightActiveMagicUtilityCount = modDB:Sum("BASE", nil, "RightActiveMagicUtilityFlasks")
@@ -2127,6 +2120,8 @@ function calcs.perform(env, skipEHP)
 				-- Nothing!
 			elseif buff.enemyCond and not enemyDB:GetCondition(buff.enemyCond) then
 				-- Also nothing :/
+			elseif buff.type == "Global" then
+				modDB:AddList(buff.modList) -- Allows a skill mod to affect other skills through modDB
 			elseif buff.type == "Buff" and not skillModList:Flag(skillCfg, "DisableBuff") then
 				if env.mode_buffs and (not activeSkill.skillFlags.totem or buff.allowTotemBuff) then
 					local skillCfg = buff.activeSkillBuff and skillCfg
@@ -3200,6 +3195,23 @@ function calcs.perform(env, skipEHP)
 		doActorLifeMana(env.player)
 		doActorLifeManaReservation(env.player, true)
 	end
+
+	if not env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "Condition:CanInflictHallowingFlame") then
+		local magnitude = modDB:Override(nil, "HallowingFlameMagnitude")
+
+		if env.mode == "MAIN" or not magnitude then
+			local magnitudeInc = modDB:Sum("INC", nil, "HallowingFlameMagnitude")
+			magnitude = magnitude or magnitudeInc
+			if env.mode == "MAIN" then
+				env.build.configTab.varControls['conditionHallowingFlameMagnitude']:SetPlaceholder(magnitudeInc, true)
+			end
+		end
+
+		local val = m_floor(25 * (1 + magnitude / 100)) -- Hallowing flame grants Attack Hits against you gain 25% of Physical Damage as Extra Fire Damage
+		modDB:NewMod("Multiplier:HallowingFlameMax", "BASE", 1, "Base")
+		modDB:NewMod("ExtraAura", "LIST", { onlyAllies = true, mod = modLib.createMod("PhysicalDamageGainAsLightning", "BASE", val, "Hallowing Flame", { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "ActorCondition", actor = "enemy", var = "HallowingFlame" }, { type = "Multiplier", var = "HallowingFlame", actor = "enemy", limitActor = "parent", limitVar = "HallowingFlameMax" }) })
+	end
+
 
 	-- Check for extra auras
 	buffExports["Aura"]["extraAura"] = { effectMult = 1, modList = new("ModList") }

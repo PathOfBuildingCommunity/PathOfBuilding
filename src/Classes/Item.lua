@@ -1371,11 +1371,11 @@ local function calcLocal(modList, name, type, flags)
 	return result
 end
 
--- Build list of modifiers in a given slot number (1 or 2) while applying local modifiers and adding quality
+-- Build list of modifiers in a given slot number while applying local modifiers and adding quality
 function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 	local slotName = self:GetPrimarySlot()
-	if slotNum == 2 then
-		slotName = slotName:gsub("1", "2")
+	if slotNum ~= 1 then
+		slotName = slotName:gsub("1", tostring(slotNum))
 	end
 	local modList = new("ModList")
 	for _, baseMod in ipairs(baseList) do

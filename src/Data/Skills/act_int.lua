@@ -7288,7 +7288,7 @@ skills["VaalFlameblast"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "VaalFlameblastStage" }),
 		},
 		["vaal_flameblast_radius_+_per_stage"] = {
-			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "VaalFlameblastStageAfterFirst" }),
 		},
 	},
 	baseFlags = {
@@ -7297,7 +7297,7 @@ skills["VaalFlameblast"] = {
 	},
 	baseMods = {
 		mod("Multiplier:VaalFlameblastMaxStages", "BASE", 15),
-		skill("radius", 35),
+		skill("radius", 45),
 	},
 	qualityStats = {
 		Default = {

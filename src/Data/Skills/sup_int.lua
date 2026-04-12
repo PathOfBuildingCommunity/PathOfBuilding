@@ -3130,7 +3130,7 @@ skills["SupportHextoad"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["hex_zone_trigger_hextoad_every_x_ms"] = {
-			mod("HexToadCooldown", "MIN", nil),
+			skill("hextoadTriggerInterval", nil),
 			div = 1000
 		},
 	},

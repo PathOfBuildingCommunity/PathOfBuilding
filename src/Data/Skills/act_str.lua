@@ -9514,7 +9514,7 @@ skills["SearingBondAltX"] = {
 			mod("Damage", "MORE", nil, ModFlag.Dot, 0,  { type = "PerStat", stat = "TotemsSummoned" }, { type = "SkillPart", skillPart = 2 }),
 		},
 		["number_of_additional_totems_allowed_per_maximum_power_charge"] = {
-			mod("ActiveTotemLimit", "BASE", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
+			mod("ActiveTotemLimit", "BASE", nil, 0, 0, { type = "PerStat", stat = "PowerChargesMax" }),
 		},
 	},
 	baseFlags = {
