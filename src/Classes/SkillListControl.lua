@@ -84,6 +84,27 @@ function SkillListClass:GetRowValue(column, index, socketGroup)
 		if socketGroup.includeInFullDPS then 
 			label = label .. colorCodes.CUSTOM .. " (FullDPS)"
 		end
+		
+		if not socketGroup.source then
+			local colorStr = ""
+			for _, gem in ipairs(socketGroup.gemList) do
+				if gem.gemData or gem.grantedEffect then
+					local grantedEffect = gem.grantedEffect or (gem.gemData and gem.gemData.grantedEffect)
+					if grantedEffect then
+						local char = grantedEffect.color == 1 and "R" or grantedEffect.color == 2 and "G" or grantedEffect.color == 3 and "B" or "W"
+						local colorCode = gem.color or ""
+						if colorStr:len() > 0 then
+							colorStr = colorStr .. "^7-"
+						end
+						colorStr = colorStr .. colorCode .. char
+					end
+				end
+			end
+			if colorStr:len() > 0 then
+				label = label .. " ^7" .. colorStr
+			end
+		end
+
 		return label
 	end
 end

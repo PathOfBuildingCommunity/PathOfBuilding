@@ -737,6 +737,7 @@ local modNameList = {
 	["effect of chill and shock on you"] = { "SelfChillEffect", "SelfShockEffect" },
 	["chill effect"] = "EnemyChillEffect",
 	["effect of chill you inflict"] = "EnemyChillEffect",
+	["effect of chills you inflict"] = "EnemyChillEffect",
 	["effect of cold ailments"] = { "EnemyChillEffect" , "EnemyBrittleEffect" },
 	["effect of chill on you"] = "SelfChillEffect",
 	["effect of freeze on you"] = "SelfFreezeEffect",
@@ -1697,7 +1698,7 @@ local modTagList = {
 	["while not ignited, frozen or shocked"] = { tag = { type = "Condition", varList = { "Ignited", "Frozen", "Shocked" }, neg = true } },
 	["while bleeding"] = { tag = { type = "Condition", var = "Bleeding" } },
 	["while poisoned"] = { tag = { type = "Condition", var = "Poisoned" } },
-	["while you are poisoned"] = { tag = { type = "Condition", var = "Poisoned" } },
+	["wh[ei][nl][ e] ?you are poisoned"] = { tag = { type = "Condition", var = "Poisoned" } },
 	["while cursed"] = { tag = { type = "Condition", var = "Cursed" } },
 	["while not cursed"] = { tag = { type = "Condition", var = "Cursed", neg = true } },
 	["while there is only one nearby enemy"] = { tagList = { { type = "Multiplier", var = "NearbyEnemies", limit = 1 }, { type = "Condition", var = "OnlyOneNearbyEnemy" } } },
@@ -3620,7 +3621,7 @@ local specialModList = {
 	["hits with prismatic skills always ?i?n?f?l?i?c?t? (%w+)"] = function(_, type) return {
 		mod("Enemy" .. firstToUpper(type) .. "Chance", "BASE", 100, nil, ModFlag.Hit, { type = "SkillType", skillType = SkillType.RandomElement }),
 	} end,
-	["critical strikes do not inherently apply non%-damaging ailments"] = {
+	["critical strikes do not [ia][np][fp]l[iy]c?t? non%-damaging ailments"] = {
 		flag("CritsDontAlwaysChill"),
 		flag("CritsDontAlwaysFreeze"),
 		flag("CritsDontAlwaysShock"),
@@ -4162,7 +4163,7 @@ local specialModList = {
 	["non%-curse auras from your skills only apply to you and linked targets"] = { flag("SelfAurasAffectYouAndLinkedTarget", { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true }) },
 	["linked targets always count as in range of non%-curse auras from your skills"] = { },
 	["gain unholy might on block for (%d) seconds"] = { flag("Condition:UnholyMight", { type = "Condition", var = "BlockedRecently"}), flag("Condition:CanWither", { type = "Condition", var = "BlockedRecently"}), },
-	["your warcries inflict hallowing flame"] = { flag("Condition:CanInflictHallowingFlame") },
+	["your warcries inflict hallowing flame"] = { flag("Condition:CanInflictHallowingFlame", { type = "Condition", var = "UsedWarcryRecently" }) },
 	["attacks with this weapon inflict hallowing flame on hit"] = { flag("Condition:CanInflictHallowingFlame") },
 	["inflict hallowing flame on hit while on consecrated ground"] = { flag("Condition:CanInflictHallowingFlame", { type = "Condition", var = "OnConsecratedGround" }) },
 	["inflict hallowing flame on melee hit"] = { flag("Condition:CanInflictHallowingFlame") },
@@ -4400,7 +4401,7 @@ local specialModList = {
 	["arrows always pierce"] = { flag("PierceAllTargets", nil, 0, KeywordFlag.Arrow) },
 	["arrows pierce all targets"] = { flag("PierceAllTargets", nil, 0, KeywordFlag.Arrow) },
 	["arrows that pierce cause bleeding"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Projectile, KeywordFlag.Arrow, { type = "StatThreshold", stat = "PierceCount", threshold = 1 }) },
-	["arrows that pierce have (%d+)%% chance to cause bleeding"] = function(num) return { mod("BleedChance", "BASE", num, nil, ModFlag.Projectile, KeywordFlag.Arrow, { type = "StatThreshold", stat = "PierceCount", threshold = 1 }) } end,
+	["arrows that pierce have (%d+)%% chance to [ic][na][fu][ls][ie]c?t? bleeding"] = function(num) return { mod("BleedChance", "BASE", num, nil, ModFlag.Projectile, KeywordFlag.Arrow, { type = "StatThreshold", stat = "PierceCount", threshold = 1 }) } end,
 	["arrows that pierce deal (%d+)%% increased damage"] = function(num) return { mod("Damage", "INC", num, nil, ModFlag.Projectile, KeywordFlag.Arrow, { type = "StatThreshold", stat = "PierceCount", threshold = 1 }) } end,
 	["projectiles gain (%d+)%% of non%-chaos damage as extra chaos damage per chain"] = function(num) return { mod("NonChaosDamageGainAsChaos", "BASE", num, nil, ModFlag.Projectile, { type = "PerStat", stat = "Chain" }) } end,
 	["projectiles that have chained gain (%d+)%% of non%-chaos damage as extra chaos damage"] = function(num) return { mod("NonChaosDamageGainAsChaos", "BASE", num, nil, ModFlag.Projectile, { type = "StatThreshold", stat = "Chain", threshold = 1 }) } end,
@@ -5272,6 +5273,9 @@ local specialModList = {
 	["gain %d+ rage on critical hit with attacks, no more than once every [%d%.]+ seconds"] = {
 		flag("Condition:CanGainRage"),
 	},
+	["gain %d+ rage on critical hit with attacks"] = {
+		flag("Condition:CanGainRage"),
+	},
 	["warcry skills' cooldown time is (%d+) seconds"] = function(num) return { mod("CooldownRecovery", "OVERRIDE", num, nil, 0, KeywordFlag.Warcry) } end,
 	["non%-instant warcries you use yourself have no cooldown"] = function(num) return { mod("CooldownRecovery", "OVERRIDE", 0, nil, 0, KeywordFlag.Warcry, { type = "SkillType", skillTypeList = { SkillType.Instant, SkillType.Totem, SkillType.Triggered }, neg = true }) } end,
 	["non%-instant warcries ignore their cooldown when used"] = function(num) return { mod("CooldownRecovery", "OVERRIDE", 0, nil, 0, KeywordFlag.Warcry, { type = "SkillType", skillType = SkillType.Instant, neg = true }) } end,
@@ -5451,6 +5455,9 @@ local specialModList = {
 		mod("EnemyPhysicalDamageReduction", "BASE", -num, nil, { type = "Condition", var = "SacrificialZeal" }),
 	} end,
 	["(%d+)%% chance for hits to ignore enemy physical damage reduction while you have sacrificial zeal"] = function(num) return {
+		mod("ChanceToIgnoreEnemyPhysicalDamageReduction", "BASE", num, nil, { type = "Condition", var = "SacrificialZeal" }),
+	} end,
+	["hits have (%d+)%% chance to ignore enemy physical damage reduction while you have sacrificial zeal"] = function(num) return {
 		mod("ChanceToIgnoreEnemyPhysicalDamageReduction", "BASE", num, nil, { type = "Condition", var = "SacrificialZeal" }),
 	} end,
 	["minions attacks overwhelm (%d+)%% physical damage reduction"] = function(num) return {

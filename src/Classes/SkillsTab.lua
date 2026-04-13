@@ -776,7 +776,7 @@ function SkillsTabClass:CreateGemSlot(index)
 				-- Do the stats one at a time because we're not guaranteed to get the descriptions in the same order we look at them here
 				local stats = { }
 				stats[qual[1]] = qual[2] * 20
-				local descriptions = self.build.data.describeStats(stats, grantedEffect.statDescriptionScope)
+				local descriptions = self.build.data.describeStats(stats, grantedEffect.statDescriptionScope, true)
 				-- line may be nil if the value results in no line due to not being enough quality
 				for _, line in ipairs(descriptions) do
 					if line then

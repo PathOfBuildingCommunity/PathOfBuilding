@@ -675,6 +675,7 @@ data.itemTagSpecialExclusionPattern = {
 			"Gain Maximum Life instead of Maximum Energy Shield",
 			"^Socketed Gems are Supported by Level",
 			"^Allocates",
+			"Void Spawns' Life", -- Servant of Decay
 		},
 		["boots"] = {
 			"Enemy's Life", -- Legacy of Fury

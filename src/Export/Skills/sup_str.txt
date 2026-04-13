@@ -420,6 +420,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportHallow
+	statMap = {
+		["hallowing_flame_magnitude_+%"] = {
+			mod("HallowingFlameMagnitude", "INC", nil)
+		},
+		["support_hallow_inflict_hallowing_flame_on_melee_hit"] = {
+			flag("Condition:CanInflictHallowingFlame", { type = "GlobalEffect", effectType = "Global" })
+		}
+	},
 #mods
 
 #skill SupportMoreDuration

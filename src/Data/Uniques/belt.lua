@@ -12,9 +12,9 @@ Source: Drops from unique{The Maven}
 LevelReq: 68
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
-{tags:jewellery_defense}+(600-700) to Armour
-{tags:life}(12-15)% increased maximum Life
-{tags:jewellery_resistance}+(40-60)% to Fire Resistance
+{tags:defences}+(600-700) to Armour
+{tags:resource}(12-15)% increased maximum Life
+{tags:resistance}+(40-60)% to Fire Resistance
 {variant:2}+1 to Maximum Endurance Charges
 Modifiers to Minimum Endurance Charges instead apply to Minimum Brutal Charges
 Maximum Brutal Charges is equal to Maximum Endurance Charges
@@ -27,14 +27,14 @@ Variant: Pre 3.16.0
 Variant: Current
 LevelReq: 44
 Implicits: 1
-{tags:jewellery_defense}+(9-20) to maximum Energy Shield
-{tags:jewellery_defense}+300 to Evasion Rating
-{variant:1}{tags:jewellery_defense}+(35-45) to maximum Energy Shield
-{variant:2,3}{tags:jewellery_defense}+(75-80) to maximum Energy Shield
-{tags:jewellery_resistance}+(10-15)% to all Elemental Resistances
+{tags:defences}+(9-20) to maximum Energy Shield
+{tags:defences}+300 to Evasion Rating
+{variant:1}{tags:defences}+(35-45) to maximum Energy Shield
+{variant:2,3}{tags:defences}+(75-80) to maximum Energy Shield
+{tags:resistance}+(10-15)% to all Elemental Resistances
 You have Phasing if Energy Shield Recharge has started Recently
-{variant:1,2}6% increased Evasion while Phasing
-{variant:3}30% increased Evasion while Phasing
+{variant:1,2}{tags:defences}6% increased Evasion Rating while Phasing
+{variant:3}{tags:defences}30% increased Evasion Rating while Phasing
 {tags:speed}10% increased Movement Speed while Phasing
 ]],[[
 Auxium
@@ -46,28 +46,28 @@ Variant: Pre 3.5.0
 Variant: Current
 {variant:1,2}LevelReq: 70
 Implicits: 2
-{variant:1,2}{tags:jewellery_defense}+(9-20) to maximum Energy Shield
-{variant:3,4}{tags:jewellery_defense}+(60-80) to maximum Energy Shield
-{tags:jewellery_defense}+(60-70) to maximum Energy Shield
-{tags:mana}+(45-55) to maximum Mana
-{variant:1}{tags:attack,mana}0.2% of Physical Attack Damage Leeched as Mana per Power Charge
+{variant:1,2}{tags:defences}+(9-20) to maximum Energy Shield
+{variant:3,4}{tags:defences}+(60-80) to maximum Energy Shield
+{tags:defences}+(60-70) to maximum Energy Shield
+{tags:resource}+(45-55) to maximum Mana
 {variant:2,3}Chill Effect and Freeze Duration on you are based on 65% of Energy Shield
 {variant:4}Chill Effect and Freeze Duration on you are based on 100% of Energy Shield
-{variant:1}{tags:attack,jewellery_elemental}(20-30)% increased Elemental Damage with Attack Skills
-{variant:2,3}{tags:attack,jewellery_elemental}(10-20)% increased Elemental Damage with Attack Skills
-{variant:4}{tags:attack,jewellery_elemental}(20-25)% increased Elemental Damage with Attack Skills per Power Charge
-{variant:2,3,4}{tags:attack,mana}0.2% of Attack Damage Leeched as Mana per Power Charge
+{variant:1}{tags:elemental_damage,attack}(20-30)% increased Elemental Damage with Attack Skills
+{variant:2,3}{tags:elemental_damage,attack}(10-20)% increased Elemental Damage with Attack Skills
+{variant:4}{tags:elemental_damage,attack}(20-25)% increased Elemental Damage with Attack Skills per Power Charge
+{variant:2,3,4}{tags:resource,attack}0.2% of Attack Damage Leeched as Mana per Power Charge
+{variant:1}{tags:attack,mana}0.2% of Physical Attack Damage Leeched as Mana per Power Charge
 ]],[[
 The Burden of Truth
 Crystal Belt
 Source: Drops from unique{Sirus, Awakener of Worlds}
 LevelReq: 79
 Implicits: 1
-{tags:jewellery_defense}+(60-80) to maximum Energy Shield
-{tags:life}(30-40)% increased Life Recovery from Flasks
-33% of Chaos Damage taken does not bypass Energy Shield
+{tags:defences}+(60-80) to maximum Energy Shield
 33% of Non-Chaos Damage taken bypasses Energy Shield
-{tags:jewellery_defense}Gain (5-10)% of Maximum Life as Extra Maximum Energy Shield
+{tags:resource}(30-40)% increased Life Recovery from Flasks
+33% of Chaos Damage taken does not bypass Energy Shield
+{tags:defences}Gain (5-10)% of Maximum Life as Extra Maximum Energy Shield
 Supreme Decadence
 ]],[[
 Bated Breath
@@ -76,12 +76,12 @@ Variant: Pre 2.6.0
 Variant: Current
 LevelReq: 22
 Implicits: 1
-{tags:jewellery_defense}+(9-20) to maximum Energy Shield
-{tags:jewellery_attribute}+(15-25) to Intelligence
+{tags:defences}+(9-20) to maximum Energy Shield
+{tags:attribute}+(15-25) to Intelligence
 10% increased Damage
-{tags:jewellery_defense}+(20-30) to maximum Energy Shield
-{variant:2}{tags:jewellery_defense}20% increased maximum Energy Shield
-{tags:jewellery_defense}50% increased Energy Shield Recharge Rate
+{tags:defences}+(20-30) to maximum Energy Shield
+{variant:2}{tags:defences}20% increased maximum Energy Shield
+{tags:defences}50% increased Energy Shield Recharge Rate
 ]],[[
 Replica Bated Breath
 Chain Belt
@@ -89,8 +89,8 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 LevelReq: 22
 Implicits: 1
-{tags:jewellery_defense}+(9-20) to maximum Energy Shield
-{tags:jewellery_attribute}+(15-25) to Intelligence
+{tags:defences}+(9-20) to maximum Energy Shield
+{tags:attribute}+(15-25) to Intelligence
 10% increased Damage
 50% increased Fishing Pool Consumption
 20% increased Fishing Range
@@ -104,11 +104,10 @@ League: Harvest
 Source: Drops from unique{Ersi, Mother of Thorns} in normal{The Sacred Grove}
 LevelReq: 68
 Implicits: 1
-{tags:life}+(25-40) to maximum Life
-{tags:attack,physical_damage}Adds (5-7) to (11-12) Physical Damage to Attacks
+{tags:resource}+(25-40) to maximum Life
+{tags:physical_damage,attack}Adds (5-7) to (11-12) Physical Damage to Attacks
 (20-30)% increased Stun Duration on Enemies
 Nearby Enemies are Crushed while you have at least 25 Rage
-{variant:1}{tags:physical_damage}(4-6)% increased Physical Damage per 10 Rage
 {variant:1}+20 to Maximum Rage
 {variant:2}+10 to Maximum Rage
 ]],[[
@@ -118,13 +117,13 @@ Variant: Pre 2.6.0
 Variant: Current
 LevelReq: 20
 Implicits: 1
-{tags:jewellery_attribute}+(25-35) to Strength
+{tags:attribute}+(25-35) to Strength
 {variant:1}10% reduced Chance to Block Attack and Spell Damage
 {tags:physical_damage}(15-25)% increased Global Physical Damage
 {tags:critical}You take 30% reduced Extra Damage from Critical Strikes
-{tags:life}+(30-40) to maximum Life
-{variant:1}{tags:jewellery_resistance}+(6-10)% to all Elemental Resistances
-{variant:2}{tags:jewellery_resistance}+(10-15)% to all Elemental Resistances
+{tags:resource}+(30-40) to maximum Life
+{variant:1}{tags:resistance}+(6-10)% to all Elemental Resistances
+{variant:2}{tags:resistance}+(10-15)% to all Elemental Resistances
 {variant:2}Nearby Enemies are Intimidated
 ]],[[
 Bisco's Leash
@@ -133,10 +132,10 @@ Variant: Pre 3.25.0
 Variant: Current
 LevelReq: 30
 Implicits: 1
-{tags:jewellery_attribute}+(25-35) to Strength
+{tags:attribute}+(25-35) to Strength
+{variant:2}{tags:attribute}+(10-15) to all Attributes
 {variant:1}5% increased Quantity of Items found
-{variant:2}{tags:jewellery_attribute}+(10-15) to all Attributes
-{tags:jewellery_resistance}+(20-40)% to Cold Resistance
+{tags:resistance}+(20-40)% to Cold Resistance
 1% increased Rarity of Items found per 15 Rampage Kills
 Rampage
 ]],[[
@@ -145,9 +144,9 @@ Cloth Belt
 LevelReq: 16
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
-{tags:jewellery_attribute}+(20-30) to Dexterity
-{tags:jewellery_attribute}+(20-30) to Intelligence
-{tags:life}+(60-80) to Maximum Life
+{tags:attribute}+(20-30) to Dexterity
+{tags:attribute}+(20-30) to Intelligence
+{tags:resource}+(60-80) to maximum Life
 Every 5 seconds, gain one of the following for 5 seconds:
 Your Hits are always Critical Strikes
 Hits against you are always Critical Strikes
@@ -162,9 +161,9 @@ League: Heist
 Source: Drops from unique{Friedrich Tarollo, Slave Merchant} in normal{Contract: The Slaver King}
 LevelReq: 61
 Implicits: 1
-{tags:jewellery_defense}+(9-20) to maximum Energy Shield
-{tags:life}+(60-80) to maximum Life
-{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:defences}+(9-20) to maximum Energy Shield
+{tags:resource}+(60-80) to maximum Life
+{tags:resistance}+(17-23)% to Chaos Resistance
 Enemy Hits inflict Temporal Chains on you
 When you lose Temporal Chains you gain maximum Rage
 Immune to Curses while you have at least 25 Rage
@@ -178,14 +177,14 @@ Source: Opening normal{Experimental Chest} in normal{Hybridisation Chamber}
 Upgrade: Upgrades to unique{Coward's Legacy} via currency{Vial of Consequence}
 LevelReq: 22
 Implicits: 1
-{tags:jewellery_defense}+(9-20) to maximum Energy Shield
+{tags:defences}+(9-20) to maximum Energy Shield
+{variant:1}{tags:attribute}+(10-15) to all Attributes
+{variant:2}{tags:attribute}+(15-20) to all Attributes
 {variant:1}(20-25)% increased Damage
-{variant:1}{tags:jewellery_attribute}+(10-15) to all Attributes
-{variant:2}{tags:jewellery_attribute}+(15-20) to all Attributes
 {tags:speed}(5-10)% increased Movement Speed
-Damage from Enemies Hitting you is Unlucky while you are Cursed with Vulnerability
-{variant:2}{tags:life}You count as on Full Life while you are Cursed with Vulnerability
-{tags:caster}You are cursed with Vulnerability
+Damage of Enemies Hitting you is Unlucky while you are Cursed with Vulnerability
+{variant:2}{tags:resource}You count as on Full Life while you are Cursed with Vulnerability
+{tags:caster}You are Cursed with Vulnerability
 ]],[[
 Coward's Legacy
 Chain Belt
@@ -193,11 +192,11 @@ League: Incursion
 Source: Upgraded from unique{Coward's Chains} via currency{Vial of Consequence}
 LevelReq: 52
 Implicits: 1
-{tags:jewellery_defense}+(9-20) to maximum Energy Shield
-{tags:jewellery_attribute}+(15-20) to all Attributes
+{tags:defences}+(9-20) to maximum Energy Shield
+{tags:attribute}+(15-20) to all Attributes
 {tags:speed}(5-10)% increased Movement Speed
 {tags:caster}50% increased Effect of Curses on you
-{tags:life}You count as on Low Life while you are Cursed with Vulnerability
+{tags:resource}You count as on Low Life while you are Cursed with Vulnerability
 {tags:caster}You are Cursed with Vulnerability
 ]],[[
 Cyclopean Coil
@@ -206,9 +205,9 @@ Elder Item
 Source: Drops from unique{The Elder}
 LevelReq: 68
 Implicits: 1
-{tags:life}+(25-40) to maximum Life
-{tags:life}+(60-80) to maximum Life
-{tags:jewellery_attribute}(5-15)% increased Attributes
+{tags:resource}+(25-40) to maximum Life
+{tags:attribute}(5-15)% increased Attributes
+{tags:resource}+(60-80) to maximum Life
 Cannot be Frozen if Dexterity is higher than Intelligence
 Cannot be Ignited if Strength is higher than Dexterity
 Cannot be Shocked if Intelligence is higher than Strength
@@ -241,30 +240,26 @@ Variant: Current (Cold)
 Variant: Current (Lightning)
 LevelReq: 68
 Implicits: 1
-{tags:jewellery_attribute}+(25-35) to Strength
+{tags:attribute}+(25-35) to Strength
 {variant:1,5}{tags:physical_damage}(20-30)% increased Global Physical Damage
-{variant:2,6}{tags:jewellery_elemental}(20-30)% increased Fire Damage
-{variant:3,7}{tags:jewellery_elemental}(20-30)% increased Cold Damage
-{variant:4,8}{tags:jewellery_elemental}(20-30)% increased Lightning Damage
-{variant:2,3,4,6,7,8}{tags:jewellery_defense}+(300-350) to Armour
-{variant:1,3,4,5,7,8}{tags:jewellery_resistance}+(30-35)% to Fire Resistance
-{variant:1,2,4,5,6,8}{tags:jewellery_resistance}+(30-35)% to Cold Resistance
-{variant:1,2,3,5,6,7}{tags:jewellery_resistance}+(30-35)% to Lightning Resistance
-{variant:1}{tags:life}0.2% of Physical Damage Leeched as Life
-{variant:5}{tags:life}0.6% of Physical Damage Leeched as Life
-{variant:2}{tags:life}0.2% of Fire Damage Leeched as Life
-{variant:6}{tags:life}0.6% of Fire Damage Leeched as Life
-{variant:3}{tags:life}0.2% of Cold Damage Leeched as Life
-{variant:7}{tags:life}0.6% of Cold Damage Leeched as Life
-{variant:4}{tags:life}0.2% of Lightning Damage Leeched as Life
-{variant:8}{tags:life}0.6% of Lightning Damage Leeched as Life
-{variant:1,5}25% reduced Enemy Stun Threshold during any Flask Effect
+{variant:2,6}{tags:elemental_damage}(20-30)% increased Fire Damage
+{variant:3,7}{tags:elemental_damage}(20-30)% increased Cold Damage
+{variant:4,8}{tags:elemental_damage}(20-30)% increased Lightning Damage
+{variant:2,3,4,6,7,8}{tags:defences}+(300-350) to Armour
+{variant:1,3,4,5,7,8}{tags:resistance}+(30-35)% to Fire Resistance
+{variant:1,2,4,5,6,8}{tags:resistance}+(30-35)% to Cold Resistance
+{variant:1,2,3,5,6,7}{tags:resistance}+(30-35)% to Lightning Resistance
+{variant:5}{tags:resource}0.6% of Physical Damage Leeched as Life
+{variant:6}{tags:resource}0.6% of Fire Damage Leeched as Life
+{variant:7}{tags:resource}0.6% of Cold Damage Leeched as Life
+{variant:8}{tags:resource}0.6% of Lightning Damage Leeched as Life
 {variant:2}10% chance to Ignite during any Flask Effect
 {variant:6}(20-30)% chance to Ignite during any Flask Effect
 {variant:3}10% chance to Freeze during any Flask Effect
 {variant:7}(20-30)% chance to Freeze during any Flask Effect
 {variant:4}10% chance to Shock during any Flask Effect
 {variant:8}(20-30)% chance to Shock during any Flask Effect
+{variant:1,5}25% reduced Enemy Stun Threshold during any Flask Effect
 ]],[[
 The Druggery
 Cloth Belt
@@ -272,7 +267,7 @@ League: Heist
 LevelReq: 48
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
-{tags:jewellery_attribute}+(20-30) to all Attributes
+{tags:attribute}+(20-30) to all Attributes
 (15-25)% increased Flask Charges gained
 (10-20)% increased Flask Charges used
 (10-20)% increased Flask Effect Duration
@@ -285,15 +280,15 @@ Variant: Pre 2.6.0
 Variant: Current
 LevelReq: 52
 Implicits: 1
-{tags:jewellery_attribute}+(25-35) to Strength
-{tags:life}+(70-85) to maximum Life
-{tags:jewellery_resistance}+(20-40)% to Fire Resistance
-{tags:jewellery_resistance}+(20-40)% to Cold Resistance
-{variant:1}{tags:attack,life}0.6% of Attack Damage Leeched as Life against Chilled enemies
-{variant:2}{tags:attack,life}1% of Attack Damage Leeched as Life against Chilled enemies
-{variant:1}{tags:jewellery_elemental,attack}Ignites you inflict with Attacks deal Damage 20% faster
-{variant:2}{tags:jewellery_elemental,attack}Ignites you inflict with Attacks deal Damage 35% faster
-Deal no Physical Damage
+{tags:attribute}+(25-35) to Strength
+{tags:resource}+(70-85) to maximum Life
+{tags:resistance}+(20-40)% to Fire Resistance
+{tags:resistance}+(20-40)% to Cold Resistance
+{variant:1}{tags:resource,attack}0.6% of Attack Damage Leeched as Life against Chilled Enemies
+{variant:2}{tags:resource,attack}1% of Attack Damage Leeched as Life against Chilled Enemies
+{variant:1}{tags:elemental_damage,attack}Ignites you inflict with Attacks deal Damage 20% faster
+{variant:2}{tags:elemental_damage,attack}Ignites you inflict with Attacks deal Damage 35% faster
+{tags:physical_damage}Deal no Physical Damage
 ]],[[
 Faminebind
 Rustic Sash
@@ -301,11 +296,11 @@ League: Talisman Standard, Talisman Hardcore
 LevelReq: 18
 Implicits: 1
 {tags:physical_damage}(12-24)% increased Global Physical Damage
-{tags:jewellery_resistance}+(20-30)% to Cold Resistance
+{tags:resistance}+(20-30)% to Cold Resistance
 20% increased Projectile Damage
 30% reduced Flask Charges gained
 60% increased Flask Effect Duration
-Deals 50 Chaos Damage per second to nearby Enemies
+{tags:chaos_damage}Deals 50 Chaos Damage per second to nearby Enemies
 ]],[[
 Feastbind
 Rustic Sash
@@ -313,11 +308,11 @@ League: Talisman Standard, Talisman Hardcore
 LevelReq: 11
 Implicits: 1
 {tags:physical_damage}(12-24)% increased Global Physical Damage
-{tags:attack,physical_damage}Adds 5 to 10 Physical Damage to Attacks
-{tags:life}+(20-40) to maximum Life
-{tags:attack,life}0.2% of Physical Attack Damage Leeched as Life
+{tags:physical_damage,attack}Adds 5 to 10 Physical Damage to Attacks
+{tags:resource}+(20-40) to maximum Life
+{tags:resource,attack}0.2% of Physical Attack Damage Leeched as Life
 50% increased Flask Charges gained during any Flask Effect
-{tags:mana}50% increased Mana Regeneration Rate during any Flask Effect
+{tags:resource}50% increased Mana Regeneration Rate during any Flask Effect
 ]],[[
 The Flow Untethered
 Cloth Belt
@@ -329,23 +324,27 @@ LevelReq: 60
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 Grants Summon Harbinger of Time Skill
-{variant:1}{tags:jewellery_defense}(15-20)% increased Energy Shield Recovery rate
-{variant:2}{tags:jewellery_defense}(10-15)% increased Energy Shield Recovery rate
-{variant:1}{tags:life}(15-20)% increased Life Recovery rate
-{variant:2}{tags:life}(10-15)% increased Life Recovery rate
-{tags:caster,attack,speed}(10-15)% increased Attack and Cast Speed
+{variant:1}{tags:resource,defences}(15-20)% increased Energy Shield Recovery rate
+{variant:1}{tags:resource,defences}(15-20)% increased Life Recovery rate
+{variant:2}{tags:resource,defences}(10-15)% increased Energy Shield Recovery rate
+{variant:2}{tags:resource,defences}(10-15)% increased Life Recovery rate
+{tags:attack,caster,speed}(10-15)% increased Attack and Cast Speed
 (15-20)% increased Cooldown Recovery Rate
 Debuffs on you expire (15-20)% faster
 ]],[[
 The Torrent's Reclamation
 Cloth Belt
+Variant: Pre 3.16.0
+Variant: Current
 LevelReq: 60
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 Grants Summon Greater Harbinger of Time Skill
-{tags:jewellery_defense}(15-20)% increased Energy Shield Recovery rate
-{tags:life}(15-20)% increased Life Recovery rate
-{tags:caster,attack,speed}(10-15)% increased Attack and Cast Speed
+{variant:1}{tags:resource,defences}(15-20)% increased Energy Shield Recovery rate
+{variant:1}{tags:resource,defences}(15-20)% increased Life Recovery rate
+{variant:2}{tags:resource,defences}(10-15)% increased Energy Shield Recovery rate
+{variant:2}{tags:resource,defences}(10-15)% increased Life Recovery rate
+{tags:attack,caster,speed}(10-15)% increased Attack and Cast Speed
 (15-20)% increased Cooldown Recovery Rate
 Debuffs on you expire (15-20)% faster
 ]],[[
@@ -355,15 +354,15 @@ Variant: Pre 3.12.0
 Variant: Current
 LevelReq: 48
 Implicits: 1
-{tags:life}+(25-40) to maximum Life
-{variant:1}Trigger Level 30 Poacher's Mark when you Hit a Rare or Unique Enemy
-{tags:life}+(60-80) to maximum Life
+{tags:resource}+(25-40) to maximum Life
+{variant:1}{tags:caster}Trigger Level 30 Poacher's Mark when you Hit a Rare or Unique Enemy and have no Mark
+{tags:resource}+(60-80) to maximum Life
 {variant:1}Culling Strike against Enemies Cursed with Poacher's Mark
 {variant:2}You have Culling Strike against Cursed Enemies
-{variant:2}{tags:life}Gain (20-28) Life per Cursed Enemy Hit with Attacks
-{variant:2}{tags:mana}Gain (10-14) Mana per Cursed Enemy Hit with Attacks
+{variant:2}{tags:resource,attack}Gain (20-28) Life per Cursed Enemy Hit with Attacks
+{variant:2}{tags:resource,attack}Gain (10-14) Mana per Cursed Enemy Hit with Attacks
 {tags:physical_damage}Take (100-200) Physical Damage when you use a Movement Skill
-You have no Armour or Maximum Energy Shield
+{tags:defences}You have no Armour or Maximum Energy Shield
 ]],[[
 Graven's Secret
 Cloth Belt
@@ -374,9 +373,9 @@ Source: Drops from unique{The Maven}
 LevelReq: 68
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
-{tags:jewellery_defense}+(60-70) to Energy Shield
-{tags:mana}(16-20)% increased maximum Mana
-{tags:jewellery_resistance}+(40-60)% to Lightning Resistance
+{tags:defences}+(60-70) to maximum Energy Shield
+{tags:resource}(16-20)% increased maximum Mana
+{tags:resistance}+(40-60)% to Lightning Resistance
 {variant:2}+1 to Maximum Power Charges
 Modifiers to Minimum Power Charges instead apply to Minimum Absorption Charges
 Maximum Absorption Charges is equal to Maximum Power Charges
@@ -387,10 +386,10 @@ Leather Belt
 League: Nemesis
 LevelReq: 40
 Implicits: 1
-{tags:life}+(25-40) to maximum Life
-{tags:jewellery_attribute}+(40-55) to Strength
-{tags:jewellery_attribute}+(40-55) to Dexterity
-{tags:life}+(50-60) to maximum Life
+{tags:resource}+(25-40) to maximum Life
+{tags:attribute}+(40-55) to Strength
+{tags:attribute}+(40-55) to Dexterity
+{tags:resource}+(50-60) to maximum Life
 (20-30)% increased Damage with Hits against Rare monsters
 When you Kill a Rare monster, you gain its Modifiers for 60 seconds
 ]],[[
@@ -400,10 +399,10 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 LevelReq: 40
 Implicits: 1
-{tags:life}+(25-40) to maximum Life
-{tags:jewellery_attribute}+(40-55) to Strength
-{tags:jewellery_attribute}+(40-55) to Dexterity
-{tags:life}+(50-60) to maximum Life
+{tags:resource}+(25-40) to maximum Life
+{tags:attribute}+(40-55) to Strength
+{tags:attribute}+(40-55) to Dexterity
+{tags:resource}+(50-60) to maximum Life
 (20-30)% increased Damage with Hits against Magic monsters
 20% chance when you Kill a Magic Monster to gain its Modifiers for 60 seconds
 ]],[[
@@ -432,30 +431,30 @@ Variant: Energy Shield Regen (Current)
 Variant: Lucky Crit Chance while Focused (Current)
 LevelReq: 60
 Implicits: 1
-{tags:life}+(25-40) to maximum Life
-{tags:jewellery_resistance}+(30-40)% to Cold Resistance
+{tags:resource}+(25-40) to maximum Life
+{tags:resistance}+(30-40)% to Cold Resistance
 Chill nearby Enemies when you Focus, causing 30% reduced Action Speed
 {variant:1,2,3,4,5,6,7,8,9,10}Focus has (15-25)% increased Cooldown Recovery Rate
 {variant:11,12,13,14,15,16,17,18,19}Focus has (30-50)% increased Cooldown Recovery Rate
 (50-70)% increased Damage with Hits and Ailments against Chilled Enemies
 {variant:1}{crafted}{tags:life}Regenerate 2% of Life per second during any Flask Effect
-{variant:2}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Fire and Chaos Resistances
-{variant:3}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
-{variant:4}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
-{variant:5}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Dexterity
-{variant:6}{crafted}{tags:jewellery_attribute}+(6-17) to Dexterity and Intelligence
-{variant:7}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Intelligence
-{variant:8}{crafted}(7-12)% increased Trap Throwing Speed
-{variant:9}{crafted}{tags:jewellery_defense}Regenerate 120 Energy Shield per second while a Rare or Unique Enemy is Nearby
+{variant:2}{crafted}{tags:resistance}+(8-15)% to Fire and Chaos Resistances
+{variant:3}{crafted}{tags:resistance}+(8-15)% to Cold and Chaos Resistances
+{variant:4}{crafted}{tags:resistance}+(8-15)% to Lightning and Chaos Resistances
+{variant:5}{crafted}{tags:attribute}+(6-17) to Strength and Dexterity
+{variant:6}{crafted}{tags:attribute}+(6-17) to Dexterity and Intelligence
+{variant:7}{crafted}{tags:attribute}+(6-17) to Strength and Intelligence
+{variant:8}{crafted}{tags:speed}(7-12)% increased Trap Throwing Speed
+{variant:9}{crafted}{tags:defences}Regenerate 120 Energy Shield per second while a Rare or Unique Enemy is Nearby
 {variant:10,19}{crafted}Your Critical Strike Chance is Lucky while Focused
-{variant:11}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Fire and Chaos Resistances
-{variant:12}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Cold and Chaos Resistances
-{variant:13}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Lightning and Chaos Resistances
-{variant:14}{crafted}{tags:jewellery_attribute}+(31-35) to Strength and Dexterity
-{variant:15}{crafted}{tags:jewellery_attribute}+(31-35) to Dexterity and Intelligence
-{variant:16}{crafted}{tags:jewellery_attribute}+(31-35) to Strength and Intelligence
-{variant:17}{crafted}(14-16)% increased Trap Throwing Speed
-{variant:18}{crafted}{tags:jewellery_defense}Regenerate 200 Energy Shield per second while a Rare or Unique Enemy is Nearby
+{variant:11}{crafted}{tags:resistance}+(16-20)% to Fire and Chaos Resistances
+{variant:12}{crafted}{tags:resistance}+(16-20)% to Cold and Chaos Resistances
+{variant:13}{crafted}{tags:resistance}+(16-20)% to Lightning and Chaos Resistances
+{variant:14}{crafted}{tags:attribute}+(31-35) to Strength and Dexterity
+{variant:15}{crafted}{tags:attribute}+(31-35) to Dexterity and Intelligence
+{variant:16}{crafted}{tags:attribute}+(31-35) to Strength and Intelligence
+{variant:17}{crafted}{tags:speed}(14-16)% increased Trap Throwing Speed
+{variant:18}{crafted}{tags:defences}Regenerate 200 Energy Shield per second while a Rare or Unique Enemy is Nearby
 {variant:19}{crafted}Focus has (5-8)% increased Cooldown Recovery Rate
 ]],[[
 Immortal Flesh
@@ -466,25 +465,25 @@ Variant: Pre 3.19.0
 Variant: Current
 LevelReq: 50
 Implicits: 1
-{tags:life}+(25-40) to maximum Life
-{tags:life}+(75-100) to maximum Life
-{variant:1,2,3}{tags:life}Regenerate (66.7-75) Life per second
-{variant:4}{tags:life}Regenerate (200-350) Life per second
-{tags:mana}Regenerate (8-10) Mana per second
-{variant:1}{tags:jewellery_resistance}-40% to all Elemental Resistances
-{variant:3,4}{tags:jewellery_resistance}-(15-25)% to all Elemental Resistances
-{variant:1}{tags:jewellery_resistance}-10% to all maximum Resistances
-{variant:2}{tags:jewellery_resistance}-5% to all maximum Resistances
-{tags:physical_damage}-(50-40) Physical Damage taken from Attack Hits
-{tags:jewellery_defense}40% increased Armour while not Ignited, Frozen or Shocked
+{tags:resource}+(25-40) to maximum Life
+{tags:resource}+(75-100) to maximum Life
+{variant:1,2,3}{tags:resource}Regenerate (66.7-75) Life per second
+{variant:4}{tags:resource}Regenerate (200-350) Life per second
+{tags:resource}Regenerate (8-10) Mana per second
+{variant:1}{tags:resistance}-40% to all Elemental Resistances
+{variant:3,4}{tags:resistance}-(25-15)% to all Elemental Resistances
+{variant:1}{tags:resistance}-10% to all maximum Resistances
+{variant:2}{tags:resistance}-5% to all maximum Resistances
+{tags:attack}-(50-40) Physical Damage taken from Attack Hits
+{tags:defences}40% increased Armour while not Ignited, Frozen or Shocked
 ]],[[
 Kaom's Binding
 Heavy Belt
 LevelReq: 56
 Implicits: 1
-{tags:jewellery_attribute}+(25-35) to Strength
-{tags:jewellery_attribute}+(30-40) to Strength
-{tags:jewellery_defense}+(300-500) to Armour
+{tags:attribute}+(25-35) to Strength
+{tags:attribute}+(30-40) to Strength
+{tags:defences}+(300-500) to Armour
 Take no Burning Damage if you've stopped taking Burning Damage Recently
 Nearby Enemies Convert 25% of their Physical Damage to Fire
 ]],[[
@@ -492,9 +491,9 @@ Leash of Oblation
 Leather Belt
 LevelReq: 49
 Implicits: 1
-{tags:life}+(25-40) to maximum Life
-{tags:jewellery_attribute}+(15-20) to all Attributes
-{tags:life}+(50-70) to maximum Life
+{tags:resource}+(25-40) to maximum Life
+{tags:attribute}+(15-20) to all Attributes
+{tags:resource}+(50-70) to maximum Life
 You can have an Offering of each type
 Offering Skills have 50% reduced Duration
 ]],[[
@@ -506,11 +505,11 @@ Variant: Current
 LevelReq: 16
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
-{tags:jewellery_attribute}+(40-50) to Strength
+{tags:attribute}+(40-50) to Strength
 {variant:1,2}{tags:physical_damage}(25-40)% increased Global Physical Damage
-{variant:3}{tags:jewellery_resistance}+(20-25)% to all Elemental Resistances
+{variant:3}{tags:resistance}+(20-25)% to all Elemental Resistances
 50% increased Flask Charges gained
-{variant:2}{tags:jewellery_resistance}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
+{variant:2}{tags:resistance}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
 {variant:3}10% chance to deal Double Damage while you have at least 200 Strength
 {variant:3}5% chance to deal Triple Damage while you have at least 400 Strength
 ]],[[
@@ -520,11 +519,11 @@ Source: No longer obtainable
 LevelReq: 48
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
-{tags:jewellery_attribute}+(40-50) to Strength
-{tags:jewellery_attribute}+(40-50) to Dexterity
+{tags:attribute}+(40-50) to Strength
+{tags:attribute}+(40-50) to Dexterity
 {tags:physical_damage}(25-40)% increased Global Physical Damage
 50% increased Flask Charges gained
-{tags:jewellery_resistance}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
+{tags:resistance}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
 {tags:attack}(40-50)% increased Projectile Attack Damage while you have at least 200 Dexterity
 ]],[[
 The Tactician
@@ -533,22 +532,22 @@ Source: No longer obtainable
 LevelReq: 48
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
-{tags:jewellery_attribute}+(40-50) to Strength
-{tags:jewellery_attribute}+(40-50) to Intelligence
+{tags:attribute}+(40-50) to Strength
+{tags:attribute}+(40-50) to Intelligence
 {tags:physical_damage}(25-40)% increased Global Physical Damage
 50% increased Flask Charges gained
-{tags:jewellery_resistance}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
+{tags:resistance}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
 {tags:critical}(50-60)% increased Critical Strike Chance while you have at least 200 Intelligence
 ]],[[
 Mageblood
 Heavy Belt
 LevelReq: 44
 Implicits: 1
-{tags:jewellery_attribute}+(25-35) to Strength
-{tags:jewellery_attribute}+(30-50) to Dexterity
-{tags:jewellery_resistance}+(15-25)% to Fire Resistance
-{tags:jewellery_resistance}+(15-25)% to Cold Resistance
-Magic Utility Flask cannot be Used
+{tags:attribute}+(25-35) to Strength
+{tags:attribute}+(30-50) to Dexterity
+{tags:resistance}+(15-25)% to Fire Resistance
+{tags:resistance}+(15-25)% to Cold Resistance
+Magic Utility Flasks cannot be Used
 Leftmost (2-4) Magic Utility Flasks constantly apply their Flask Effects to you
 Magic Utility Flask Effects cannot be removed
 ]],[[
@@ -556,8 +555,8 @@ Maligaro's Restraint
 Chain Belt
 LevelReq: 44
 Implicits: 1
-{tags:jewellery_defense}+(9-20) to maximum Energy Shield
-{tags:jewellery_elemental,attack}Adds 1 to (30-50) Lightning Damage to Attacks
+{tags:defences}+(9-20) to maximum Energy Shield
+{tags:elemental_damage,attack}Adds 1 to (30-50) Lightning Damage to Attacks
 100% increased Shock Duration on you
 Shocks you cause are reflected back to you
 60% increased Damage while Shocked
@@ -568,34 +567,36 @@ Heavy Belt
 Variant: Pre 2.0.0
 Variant: Current
 Implicits: 1
-{tags:jewellery_attribute}+(25-35) to Strength
-{tags:jewellery_attribute}+25 to Strength
-{variant:1}{tags:attack,physical_damage}Adds 10 to 20 Physical Damage to Attacks
-{variant:2}{tags:attack,physical_damage}Adds 5 to 15 Physical Damage to Attacks
-{tags:life}10% increased maximum Life
-{tags:jewellery_resistance}+(10-20)% to Cold Resistance
-{tags:life}25% increased Flask Life Recovery rate
+{tags:attribute}+(25-35) to Strength
+{tags:attribute}+25 to Strength
+{variant:1}{tags:physical_damage,attack}Adds 5 to 15 Physical Damage to Attacks
+{variant:2}{tags:physical_damage,attack}Adds 10 to 20 Physical Damage to Attacks
+{tags:resource}10% increased maximum Life
+{tags:resistance}+(10-20)% to Cold Resistance
+{tags:resource}25% increased Flask Life Recovery rate
 ]],[[
 Mother's Embrace
 Heavy Belt
 LevelReq: 40
 Implicits: 1
-{tags:jewellery_attribute}+(25-35) to Strength
-{tags:life}+(50-70) to maximum Life
-{tags:jewellery_resistance}+(20-30)% to Cold Resistance
+{tags:attribute}+(25-35) to Strength
+{tags:resource}+(50-70) to maximum Life
+{tags:resistance}+(20-30)% to Cold Resistance
 Your Minions use your Flasks when summoned
-Minions have (40-25)% reduced Flask Charges used
+Minions have (25-40)% reduced Flask Charges used
 Minions have (50-80)% increased Flask Effect Duration
 ]],[[
 Nevalius Inheritance
 Cloth Belt
 League: Necropolis
 Requires Level 16
-+(20-30) to Dexterity
-150% Increased Flask Effect Duration
-Flasks applied to you have 60% Reduced Effect
-2% Reduced Flask Effect Duration per Level
-Flasks applied to you have 1% Increased Effect per Level
+Implicits: 1
+(15-25)% increased Stun and Block Recovery
+{tags:attribute}+(20-30) to Dexterity
+150% increased Flask Effect Duration
+Flasks applied to you have 60% reduced Effect
+2% reduced Flask Effect Duration per Level
+Flasks applied to you have 1% increased Effect per Level
 ]],[[
 Olesya's Delight
 Cloth Belt
@@ -606,8 +607,8 @@ Source: Drops from unique{The Maven}
 LevelReq: 68
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
-{tags:jewellery_defense}+(600-700) to Evasion Rating
-{tags:jewellery_resistance}+(40-60)% to Cold Resistance
+{tags:defences}+(600-700) to Evasion Rating
+{tags:resistance}+(40-60)% to Cold Resistance
 {tags:speed}(8-12)% increased Movement Speed
 {variant:2}+1 to Maximum Frenzy Charges
 Modifiers to Minimum Frenzy Charges instead apply to Minimum Affliction Charges
@@ -621,31 +622,31 @@ Variant: Pre 3.25.0
 Variant: Current
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
-{tags:jewellery_attribute}+(20-30) to all Attributes
+{tags:attribute}+(20-30) to all Attributes
 {variant:1}(8-12)% increased Quantity of Items found
 {variant:2}(6-8)% increased Quantity of Items found
 {variant:3}(10-20)% increased Rarity of Items found
-{tags:jewellery_resistance}+20% to Fire Resistance
+{tags:resistance}+20% to Fire Resistance
 20% increased Flask Effect Duration
-{tags:physical_damage}-2 Physical Damage taken from Attack Hits
+{tags:attack}-2 Physical Damage taken from Attack Hits
 ]],[[
 Ceinture of Benevolence
 Cloth Belt
 LevelReq: 40
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
-{tags:jewellery_attribute}+(20-40) to Dexterity
-{tags:mana}+(40-60) to maximum Mana
-(10-7)% reduced Flask Charges used
+{tags:attribute}+(20-40) to Dexterity
+{tags:resource}+(40-60) to maximum Mana
+(7-10)% reduced Flask Charges used
 Non-Unique Utility Flasks you Use apply to Linked Targets
 ]],[[
 Chain of Endurance
 Chain Belt
 LevelReq: 14
-+(9-20) to maximum Energy Shield
-+(40-50) to Maximum Life
+{tags:defences}+(9-20) to maximum Energy Shield
+{tags:resource}+(40-50) to maximum Life
 (40-60)% increased Stun and Block Recovery
-Reflects (100-150) Physical Damage to Melee Attackers
+{tags:physical_damage}Reflects (100-150) Physical Damage to Melee Attackers
 Regenerate 2% of Life per second for each different Ailment affecting you
 ]],[[
 Perseverance
@@ -653,12 +654,12 @@ Vanguard Belt
 Variant: Pre 3.16.0
 Variant: Current
 Implicits: 1
-{tags:jewellery_defense}+(260-320) to Armour and Evasion Rating
-{tags:life}(4-8)% increased maximum Life
-{tags:jewellery_resistance}+(20-40)% to Cold Resistance
+{tags:defences}+(260-320) to Armour and Evasion Rating
+{tags:resource}(4-8)% increased maximum Life
+{tags:resistance}+(20-40)% to Cold Resistance
 {tags:attack}1% increased Attack Damage per 200 of the lowest of Armour and Evasion Rating
 {variant:1}Melee Hits which Stun have (14-20)% chance to Fortify
-{variant:2}{tags:attack}Melee Hits which Stun Fortify
+{variant:2}Melee Hits which Stun Fortify
 You have Onslaught while Fortified
 ]],[[
 Prismweave
@@ -669,19 +670,19 @@ Variant: Current
 LevelReq: 25
 Implicits: 1
 {tags:physical_damage}(12-24)% increased Global Physical Damage
-{variant:1}{tags:jewellery_elemental,attack}Adds (3-4) to (7-8) Fire Damage to Attacks
-{variant:2}{tags:jewellery_elemental,attack}Adds (7-8) to (15-16) Fire Damage to Attacks
-{variant:3}{tags:jewellery_elemental,attack}Adds (14-16) to (30-32) Fire Damage to Attacks
-{variant:1}{tags:jewellery_elemental,attack}Adds (2-3) to (5-7) Cold Damage to Attacks
-{variant:2}{tags:jewellery_elemental,attack}Adds (5-6) to (12-14) Cold Damage to Attacks
-{variant:3}{tags:jewellery_elemental,attack}Adds (10-12) to (24-28) Cold Damage to Attacks
-{variant:1}{tags:jewellery_elemental,attack}Adds 1 to (13-17) Lightning Damage to Attacks
-{variant:2}{tags:jewellery_elemental,attack}Adds 1 to (30-34) Lightning Damage to Attacks
-{variant:3}{tags:jewellery_elemental,attack}Adds 1 to (60-68) Lightning Damage to Attacks
-{variant:1,2}{tags:jewellery_resistance}+(6-8)% to all Elemental Resistances
-{variant:3}{tags:jewellery_resistance}+(6-15)% to all Elemental Resistances
-{tags:jewellery_elemental,attack}30% increased Elemental Damage with Attack Skills during any Flask Effect
-{variant:1,2}10% increased Elemental Damage with Attack Skills
+{variant:1}{tags:elemental_damage,attack}Adds (3-4) to (7-8) Fire Damage to Attacks
+{variant:2}{tags:elemental_damage,attack}Adds (7-8) to (15-16) Fire Damage to Attacks
+{variant:3}{tags:elemental_damage,attack}Adds (14-16) to (30-32) Fire Damage to Attacks
+{variant:1}{tags:elemental_damage,attack}Adds (2-3) to (5-7) Cold Damage to Attacks
+{variant:2}{tags:elemental_damage,attack}Adds (5-6) to (12-14) Cold Damage to Attacks
+{variant:3}{tags:elemental_damage,attack}Adds (10-12) to (24-28) Cold Damage to Attacks
+{variant:1}{tags:elemental_damage,attack}Adds 1 to (13-17) Lightning Damage to Attacks
+{variant:2}{tags:elemental_damage,attack}Adds 1 to (30-34) Lightning Damage to Attacks
+{variant:3}{tags:elemental_damage,attack}Adds 1 to (60-68) Lightning Damage to Attacks
+{variant:1,2}{tags:resistance}+(6-8)% to all Elemental Resistances
+{variant:3}{tags:resistance}+(6-15)% to all Elemental Resistances
+{tags:elemental_damage,attack}30% increased Elemental Damage with Attack Skills during any Flask Effect
+{variant:1,2}{tags:elemental_damage,attack}10% increased Elemental Damage with Attack Skills
 ]],[[
 Replica Prismweave
 Rustic Sash
@@ -692,25 +693,25 @@ Variant: Current
 LevelReq: 25
 Implicits: 1
 {tags:physical_damage}(12-24)% increased Global Physical Damage
-{variant:1}{tags:jewellery_elemental,caster}Adds (7-8) to (15-16) Fire Damage to Spells
-{variant:2}{tags:jewellery_elemental,caster}Adds (14-16) to (30-32) Fire Damage to Spells
-{variant:1}{tags:jewellery_elemental,caster}Adds (5-6) to (12-14) Cold Damage to Spells
-{variant:2}{tags:jewellery_elemental,caster}Adds (10-12) to (24-28) Cold Damage to Spells
-{variant:1}{tags:jewellery_elemental,caster}Adds 1 to (30-34) Lightning Damage to Spells
-{variant:2}{tags:jewellery_elemental,caster}Adds 1 to (60-68) Lightning Damage to Spells
-{variant:1}{tags:jewellery_resistance}+(6-8)% to all Elemental Resistances
-{variant:2}{tags:jewellery_resistance}+(6-15)% to all Elemental Resistances
-{variant:1}{tags:jewellery_elemental}10% increased Elemental Damage
-{tags:jewellery_elemental}30% increased Elemental Damage during any Flask Effect
+{variant:1}{tags:elemental_damage,caster}Adds (7-8) to (15-16) Fire Damage to Spells
+{variant:2}{tags:elemental_damage,caster}Adds (14-16) to (30-32) Fire Damage to Spells
+{variant:1}{tags:elemental_damage,caster}Adds (5-6) to (12-14) Cold Damage to Spells
+{variant:2}{tags:elemental_damage,caster}Adds (10-12) to (24-28) Cold Damage to Spells
+{variant:1}{tags:elemental_damage,caster}Adds 1 to (30-34) Lightning Damage to Spells
+{variant:2}{tags:elemental_damage,caster}Adds 1 to (60-68) Lightning Damage to Spells
+{variant:1}{tags:resistance}+(6-8)% to all Elemental Resistances
+{variant:2}{tags:resistance}+(6-15)% to all Elemental Resistances
+{variant:1}{tags:elemental_damage}10% increased Elemental Damage
+{tags:elemental_damage}30% increased Elemental Damage during any Flask Effect
 ]],[[
 Pyroshock Clasp
 Leather Belt
 League: Heist
 LevelReq: 43
 Implicits: 1
-{tags:life}+(25-40) to maximum Life
-{tags:jewellery_attribute}+(30-40) to Dexterity
-{tags:jewellery_defense}+(300-500) to Evasion Rating
+{tags:resource}+(25-40) to maximum Life
+{tags:attribute}+(30-40) to Dexterity
+{tags:defences}+(300-500) to Evasion Rating
 (10-15)% increased Duration of Elemental Ailments on Enemies
 Enemies Ignited by you have (10-15)% of Physical Damage they deal converted to Fire
 Enemies Shocked by you have (10-15)% of Physical Damage they deal converted to Lightning
@@ -722,12 +723,12 @@ Source: Vendor Recipe
 LevelReq: 44
 Implicits: 1
 {tags:physical_damage}(12-24)% increased Global Physical Damage
-{tags:life}+(60-80) to maximum Life
-{tags:jewellery_resistance}+(25-40)% to Cold Resistance
-{tags:attack,life}0.4% of Physical Attack Damage Leeched as Life
+{tags:resource}+(60-80) to maximum Life
+{tags:resistance}+(25-40)% to Cold Resistance
+{tags:resource,attack}0.4% of Physical Attack Damage Leeched as Life
 60% increased Flask Effect Duration
 30% reduced Flask Charges gained during any Flask Effect
-{tags:chaos_damage,life}200% of Life Leech applies to enemies as Chaos Damage
+{tags:chaos_damage,resource}200% of Life Leech applies to Enemies as Chaos Damage
 {tags:speed}15% increased Movement Speed during any Flask Effect
 ]],[[
 Ryslatha's Coil
@@ -737,25 +738,25 @@ Variant: Current
 LevelReq: 20
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
-{tags:jewellery_attribute}+(20-40) to Strength
-{variant:1}{tags:attack,physical}20% less Minimum Physical Attack Damage
-{variant:2}{tags:attack,physical}(30-40)% less Minimum Physical Attack Damage
-{variant:1}{tags:attack,physical}20% more Maximum Physical Attack Damage
-{variant:2}{tags:attack,physical}(30-40)% more Maximum Physical Attack Damage
-{tags:attack,physical_damage}Adds 1 to (15-20) Physical Damage to Attacks
-{variant:2}{tags:life}+(80-100) to maximum Life
-{tags:life}Gain 50 Life when you Stun an Enemy
+{tags:attribute}+(20-40) to Strength
+{variant:1}{tags:physical_damage,attack}20% more Maximum Physical Attack Damage
+{variant:2}{tags:physical_damage,attack}(30-40)% more Maximum Physical Attack Damage
+{variant:1}{tags:physical_damage,attack}20% less Minimum Physical Attack Damage
+{variant:2}{tags:physical_damage,attack}(30-40)% less Minimum Physical Attack Damage
+{tags:physical_damage,attack}Adds 1 to (15-20) Physical Damage to Attacks
+{variant:2}{tags:resource}+(80-100) to maximum Life
+{tags:resource}Gain 50 Life when you Stun an Enemy
 ]],[[
 Siegebreaker
 Heavy Belt
 LevelReq: 44
 Implicits: 1
-{tags:jewellery_attribute}+(25-35) to Strength
-{tags:jewellery_defense}(6-10)% increased maximum Energy Shield
-{tags:life}(6-10)% increased maximum Life
-{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:attribute}+(25-35) to Strength
+{tags:defences}(6-10)% increased maximum Energy Shield
+{tags:resource}(6-10)% increased maximum Life
+{tags:resistance}+(17-23)% to Chaos Resistance
 {tags:attack}Minions have 5% chance to Taunt on Hit with Attacks
-Your Minions spread Caustic Ground on Death, dealing 20% of their maximum Life as Chaos Damage per second
+{tags:chaos_damage}Your Minions spread Caustic Ground on Death, dealing 20% of their maximum Life as Chaos Damage per second
 ]],[[
 Replica Siegebreaker
 Heavy Belt
@@ -763,11 +764,11 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 LevelReq: 44
 Implicits: 1
-{tags:jewellery_attribute}+(25-35) to Strength
-{tags:jewellery_defense}(6-10)% increased maximum Energy Shield
-{tags:life}(6-10)% increased maximum Life
-{tags:jewellery_resistance}+(15-25)% to Fire Resistance
-{tags:jewellery_elemental}Your Minions spread Burning Ground on Death, dealing 20% of their maximum Life as Fire Damage per second
+{tags:attribute}+(25-35) to Strength
+{tags:defences}(6-10)% increased maximum Energy Shield
+{tags:resource}(6-10)% increased maximum Life
+{tags:resistance}+(15-25)% to Fire Resistance
+{tags:elemental_damage}Your Minions spread Burning Ground on Death, dealing 20% of their maximum Life as Fire Damage per second
 {tags:attack}Minions have 5% chance to Maim Enemies on Hit with Attacks
 ]],[[
 Soul Tether
@@ -775,9 +776,9 @@ Cloth Belt
 LevelReq: 48
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
-{tags:jewellery_attribute}+(20-40) to Intelligence
-{tags:jewellery_defense}Gain (4-6)% of Maximum Life as Extra Maximum Energy Shield
-Immortal Ambition
+{tags:attribute}+(20-40) to Intelligence
+{tags:defences}Gain (4-6)% of Maximum Life as Extra Maximum Energy Shield
+{tags:resource,defences}Immortal Ambition
 ]],[[
 Replica Soul Tether
 Cloth Belt
@@ -786,21 +787,21 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 LevelReq: 48
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
-{tags:jewellery_attribute}+(20-40) to Strength
-{tags:jewellery_defense}Gain (4-6)% of Maximum Life as Extra Maximum Energy Shield
-Corrupted Soul
+{tags:attribute}+(20-40) to Strength
+{tags:defences}Gain (4-6)% of Maximum Life as Extra Maximum Energy Shield
+{tags:defences}Corrupted Soul
 ]],[[
 Soulthirst
 Cloth Belt
 LevelReq: 45
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
-{tags:life}+(60-80) to maximum Life
-{tags:jewellery_resistance}+15% to all Elemental Resistances
-{tags:mana}(20-30)% increased Mana Recovery from Flasks
+{tags:resource}+(60-80) to maximum Life
+{tags:resistance}+15% to all Elemental Resistances
+{tags:resource}(20-30)% increased Mana Recovery from Flasks
 (20-30)% reduced Flask Effect Duration
 Gain Soul Eater during any Flask Effect
-Lose Souls gained from Soul Eater when you use a Flask
+Lose all Eaten Souls when you use a Flask
 ]],[[
 String of Servitude
 Heavy Belt
@@ -829,17 +830,19 @@ Variant: Dexterity/Strength
 Variant: Strength/Intelligence
 Variant: Elemental Resistances
 Implicits: 24
+{variant:19}{tags:attribute}(12-18)% increased Dexterity
+{variant:20}{tags:attribute}(12-18)% increased Dexterity
+{variant:7}{tags:defences}(24-30)% increased maximum Energy Shield
+{variant:8}{tags:resource}(18-24)% increased maximum Life
+{variant:11}(9-15)% increased Quantity of Items found
+{variant:10}(60-90)% increased Rarity of Items found
 {variant:1}(24-30)% increased Area of Effect
+{variant:6}(36-45)% increased Skill Effect Duration
 {variant:2}{tags:critical}+(60-75)% to Critical Strike Multiplier during any Flask Effect
 {variant:3}{tags:speed}(24-36)% increased Attack Speed during any Flask Effect
 {variant:4}{tags:speed}(24-36)% increased Cast Speed during any Flask Effect
 {variant:5}{tags:critical}(105-120)% increased Critical Strike Chance during any Flask Effect
-{variant:6}(36-45)% increased Skill Effect Duration
-{variant:7}(24-30)% increased maximum Energy Shield
-{variant:8}(18-24)% increased maximum Life
 {variant:9}{tags:speed}(24-36)% increased Movement Speed during any Flask Effect
-{variant:10}(60-90)% increased Rarity of Items found
-{variant:11}(9-15)% increased Quantity of Items found
 {variant:12}Wrath has (45-60)% increased Aura Effect
 {variant:13}Anger has (45-60)% increased Aura Effect
 {variant:14}Hatred has (45-60)% increased Aura Effect
@@ -848,12 +851,10 @@ Implicits: 24
 {variant:17}Grace has (45-60)% increased Aura Effect
 {variant:18}Malevolence has (45-60)% increased Aura Effect
 {variant:19}(12-18)% increased Intelligence
-{variant:19}(12-18)% increased Dexterity
-{variant:20}(12-18)% increased Dexterity
 {variant:20}(12-18)% increased Strength
 {variant:21}(12-18)% increased Strength
 {variant:21}(12-18)% increased Intelligence
-{variant:22}{tags:jewellery_resistance}+(42-48)% to all Elemental Resistances
+{variant:22}{tags:resistance}+(42-48)% to all Elemental Resistances
 Implicit Modifier magnitudes are tripled
 Corrupted
 ]],[[
@@ -865,8 +866,8 @@ LevelReq: 37
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {variant:1}(30-40)% increased Trap Damage
-{variant:1}{tags:mana}20% increased Mana Regeneration Rate
-{tags:jewellery_resistance}+(20-30)% to Fire Resistance
+{variant:1}{tags:resource}20% increased Mana Regeneration Rate
+{tags:resistance}+(20-30)% to Fire Resistance
 {variant:1}80% reduced Trap Duration
 {variant:2}(50-75)% reduced Trap Duration
 25% increased Light Radius
@@ -880,12 +881,12 @@ League: Ritual
 Source: Purchase from Ritual Reward
 LevelReq: 52
 Implicits: 1
-{tags:jewellery_attribute}+(25-35) to Strength
-{tags:jewellery_defense}+(800-1200) to Armour
-{tags:life}Regenerate (50-70) Life per second
+{tags:attribute}+(25-35) to Strength
+{tags:defences}+(800-1200) to Armour
+{tags:resource}Regenerate (50-70) Life per second
 20% increased Stun Threshold
-{tags:jewellery_defense}10% reduced Armour per 50 Strength
-Imbalanced Guard
+{tags:defences}10% reduced Armour per 50 Strength
+{tags:defences}Imbalanced Guard
 ]],[[
 The Tides of Time
 Vanguard Belt
@@ -893,22 +894,22 @@ Shaper Item
 Source: Drops from unique{The Shaper} (Uber)
 Requires Level 78
 Implicits: 1
-{tags:jewellery_defense}+(260-320) to Armour and Evasion Rating
-{tags:life,mana}100% Increased Life Recovery from Flasks
-{tags:life,mana}100% Increased Mana Recovery from Flasks
-Flasks applied to you have 25% Increased Effect
-Life Flasks gain (0-3) charges every 3 seconds
-Mana Flasks gain (0-3) charges every 3 seconds
-Utility Flasks gain (0-3) charges every 3 seconds
+{tags:defences}+(260-320) to Armour and Evasion Rating
+{tags:resource}100% increased Life Recovery from Flasks
+{tags:resource}100% increased Mana Recovery from Flasks
+Flasks applied to you have 25% increased Effect
+Life Flasks gain (0-3) Charges every 3 seconds
+Mana Flasks gain (0-3) Charges every 3 seconds
+Utility Flasks gain (0-3) Charges every 3 seconds
 ]],[[
 Umbilicus Immortalis
 Leather Belt
 League: Perandus
 LevelReq: 30
 Implicits: 1
-{tags:life}+(25-40) to maximum Life
-{tags:life}(8-12)% increased maximum Life
-{tags:life}Regenerate 2% of Life per second
+{tags:resource}+(25-40) to maximum Life
+{tags:resource}(8-12)% increased maximum Life
+{tags:resource}Regenerate 2% of Life per second
 Flasks do not apply to you
 Flasks you Use apply to your Raised Zombies and Spectres
 ]],[[
@@ -918,17 +919,17 @@ Variant: Pre 3.19.0
 Variant: Current
 LevelReq: 41
 Implicits: 1
-{tags:life}+(25-40) to Maximum Life
-{tags:jewellery_attribute}+(20-30) to Strength
-{tags:jewellery_attribute}+(20-30) to Intelligence
-{variant:1}{tags:jewellery_resistance}+(10-20)% to Cold Resistance
-{variant:2}{tags:jewellery_resistance}+(20-30)% to Cold Resistance
-{variant:1}{tags:attack,life}0.4% of Physical Attack Damage Leeched as Life
-{variant:2}{tags:attack,life}2% of Physical Attack Damage Leeched as Life
-{variant:1}{tags:attack,mana}0.4% of Physical Attack Damage Leeched as Mana
-{variant:2}{tags:attack,mana}2% of Physical Attack Damage Leeched as Mana
-{variant:2}(500-1000)% increased total Recovery per second from Life Leech
-{variant:2}(500-1000)% increased total Recovery per second from Mana Leech
+{tags:resource}+(25-40) to maximum Life
+{tags:attribute}+(20-30) to Strength
+{tags:attribute}+(20-30) to Intelligence
+{variant:1}{tags:resistance}+(10-20)% to Cold Resistance
+{variant:2}{tags:resistance}+(20-30)% to Cold Resistance
+{variant:1}{tags:resource,attack}0.4% of Physical Attack Damage Leeched as Life
+{variant:2}{tags:resource,attack}2% of Physical Attack Damage Leeched as Life
+{variant:1}{tags:resource,attack}0.4% of Physical Attack Damage Leeched as Mana
+{variant:2}{tags:resource,attack}2% of Physical Attack Damage Leeched as Mana
+{variant:2}{tags:resource}(500-1000)% increased total Recovery per second from Life Leech
+{variant:2}{tags:resource}(500-1000)% increased total Recovery per second from Mana Leech
 ]],[[
 Ynda's Stand
 Studded Belt
@@ -936,10 +937,10 @@ League: Settlers of Kalguur
 Requires Level 52
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
-{tags:life}Regenerate (30-50) Life per second
-{tags:jewellery_resistance}+(20-30)% to Fire Resistance
-{tags:jewellery_resistance}+(20-30)% to Cold Resistance
-{tags:jewellery_defense}Gain Ward Instead of 50% of Armour and Evasion Rating From Equipped Body Armour
+{tags:resource}Regenerate (30-50) Life per second
+{tags:resistance}+(20-30)% to Fire Resistance
+{tags:resistance}+(20-30)% to Cold Resistance
+{tags:defences}Gain Ward instead of 50% of Armour and Evasion Rating from Equipped Body Armour
 ]],[[
 Binds of Bloody Vengeance
 Vanguard Belt
@@ -947,9 +948,9 @@ Source: Drops from unique{Mercenary} after winning a duel
 League: Mercenaries of Trarthus
 Requires Level 78
 Implicits: 1
-{tags:jewellery_defense}+(260-320) to Armour and Evasion Rating
-{tags:jewellery_defense}+(200-400) to Armour
-{tags:life}+(60-90) to maximum Life
+{tags:defences}+(260-320) to Armour and Evasion Rating
+{tags:defences}+(200-400) to Armour
+{tags:resource}+(60-90) to maximum Life
 (20-40)% increased Attack Damage if you've been Hit Recently
 All Hits with your next Non-Channelling Attack within 4 seconds of taking a Critical Strike will be Critical Strikes
 ]],[[
@@ -959,10 +960,11 @@ Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness
 Requires Level 16
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
-{tags:jewellery_attribute}+(20-30) to Dexterity and Intelligence
-{tags:mana}(10-20)% increased Mana Reservation Efficiency of Skills
-{tags:speed}(15-25)% increased Trap and Mine Throwing Speed
+{tags:attribute}+(20-30) to Dexterity and Intelligence
+{tags:resource}(10-20)% increased Mana Reservation Efficiency of Skills
 Summon Skitterbots also summons a Scorching Skitterbot
 Summoned Skitterbots' Auras affect you as well as Enemies
 (50-75)% increased Effect of Non-Damaging Ailments inflicted by Summoned Skitterbots
-]]}
+{tags:speed}(15-25)% increased Trap and Mine Throwing Speed
+]],
+}
