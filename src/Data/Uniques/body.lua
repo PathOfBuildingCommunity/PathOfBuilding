@@ -22,8 +22,8 @@ Implicits: 0
 {variant:1}Adds 2 to 4 Physical Damage to Attacks
 {variant:1}+(12-20) to maximum Life
 {variant:2}+(30-60) to maximum Life
-{variant:1}-2 Physical Damage taken from Attacks
-{variant:2}-(10-15) Physical Damage taken from Attacks
+{variant:1}-2 Physical Damage taken from Attack Hits
+{variant:2}-(15-10) Physical Damage taken from Attack Hits
 {variant:1}40% of Melee Physical Damage taken reflected to Attacker
 {variant:2}1000% of Melee Physical Damage taken reflected to Attacker
 ]],[[
@@ -35,7 +35,7 @@ Implicits: 0
 Adds 2 to 4 Physical Damage to Attacks
 +2000 to Armour
 +(12-20) to maximum Life
--2 Physical Damage taken from Attacks
+-2 Physical Damage taken from Attack Hits
 40% of Melee Physical Damage taken reflected to Attacker
 ]],[[
 The Brass Dome
@@ -43,14 +43,14 @@ Gladiator Plate
 Variant: Pre 3.16.0
 Variant: Current
 Implicits: 0
+{variant:1}30% reduced Chance to Block Attack and Spell Damage
 {variant:1}(600-650)% increased Armour
 {variant:2}(350-400)% increased Armour
-{variant:1}30% reduced Chance to Block Attack and Spell Damage
-{variant:1}10% reduced Movement Speed
-{variant:1}50% increased Shock Duration on You
-Take no Extra Damage from Critical Strikes
 {variant:2}+(1-5)% to all maximum Elemental Resistances
+{variant:1}10% reduced Movement Speed
+{variant:1}50% increased Shock Duration on you
 {variant:2}Strength provides no bonus to Maximum Life
+Take no Extra Damage from Critical Strikes
 ]],[[
 Craiceann's Carapace
 Golden Plate
@@ -81,7 +81,7 @@ Implicits: 1
 {variant:3}+(60-70) to maximum Life
 1% of Attack Damage Leeched as Life
 {variant:1,2}Deals 450 Chaos Damage per second to nearby Enemies
-{variant:1}You take 450 Chaos Damage per second for 10 seconds on Kill
+{variant:1}You take 450 Chaos Damage per second for 0 seconds on Kill
 {variant:2,3}You take 450 Chaos Damage per second for 3 seconds on Kill
 Gore Footprints
 ]],[[
@@ -95,7 +95,7 @@ Implicits: 0
 Grants Level 20 Unhinge Skill
 (40-60)% more Critical Strike Chance while Insane
 Enemies Killed by your Hits are destroyed while Insane
-{variant:1}(15-25)% less Physical and Chaos Damage Taken while Sane
+{variant:1}(15-25)% more Physical and Chaos Damage Taken while Sane
 {variant:2}(30-40)% less Physical and Chaos Damage Taken while Sane
 Regenerate 10% Life over one second when Hit while Sane
 ]],[[
@@ -104,15 +104,15 @@ Golden Plate
 Variant: Pre 3.25.0
 Variant: Current
 Implicits: 0
+30% reduced Strength Requirement
 {variant:1}(10-15)% increased Quantity of Items found
 {variant:1}(30-50)% increased Rarity of Items found
 {variant:2}100% increased Rarity of Items found
 -10% to Fire Resistance
 +(20-30)% to Cold Resistance
 {variant:1}-20% to Lightning Resistance
-{variant:2}(-20--10)% to Lightning Resistance
+{variant:2}-(20-10)% to Lightning Resistance
 20% reduced Movement Speed
-30% reduced Strength Requirement
 ]],[[
 Kaom's Heart
 Glorious Plate
@@ -140,10 +140,10 @@ Variant: Pre 3.5.0
 Variant: Current
 Implicits: 0
 Socketed Gems are Supported by Level 15 Pierce
+{variant:2}+160 Dexterity Requirement
 (200-250)% increased Armour
 +(60-100) to maximum Life
 0.4% of Physical Attack Damage Leeched as Mana
-{variant:2}+160 Dexterity Requirement
 Enemy Projectiles Pierce you
 ]],[[
 Iron Heart
@@ -154,7 +154,8 @@ Implicits: 0
 (80-100)% increased Armour
 10% reduced Movement Speed
 Cannot Block Spell Damage
-Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10 Strength
+Strength's Damage Bonus instead grants 3% increased Melee
+Physical Damage per 10 Strength
 ]],[[
 The Iron Fortress
 Crusader Plate
@@ -164,25 +165,19 @@ Chance to Block Spell Damage is Unlucky
 +(60-120) to Strength
 (80-100)% increased Armour
 10% reduced Movement Speed
-Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10 Strength
+Strength's Damage Bonus instead grants 3% increased Melee
+Physical Damage per 10 Strength
 ]],[[
 Perfidy
 Glorious Plate
 League: Delirium
-Has Alt Variant: true
-Variant: War Banner (Pre 3.25.0)
-Variant: Dread Banner (Pre 3.25.0)
-Variant: Defiance Banner (Pre 3.25.0)
+Variant: Pre 3.25.0
 Variant: Current
 Implicits: 0
+Having a placed Banner does not prevent you gaining Valour
 (25-40)% increased Melee Damage
 +(60-90) to maximum Life
-{variant:1,2,3}You can have two different Banners at the same time
-{variant:1,2,3}Banners you are carrying gain 1 Stage on Melee Hit, up to 5 per second
-{variant:1}War Banner has (100-200)% increased Adrenaline duration
-{variant:2}Dread Banner grants an additional +(2-4) to maximum Fortification when placing the Banner
-{variant:3}Defiance Banner has (100-200)% increased Taunt duration
-{variant:4}Having a placed Banner does not prevent you gaining Valour
+{variant:2}(25-50)% increased Valour gained
 ]],[[
 Pragmatism
 Colosseum Plate
@@ -191,7 +186,7 @@ Requires Level 49, 134 Str
 +12 to Level of Socketed Skill Gems
 (80-120)% increased Armour
 +(60-100) to maximum Mana
--2 to Level of Socketed Skill Gems per Socketed Gem
+-2 to level of Socketed Skill Gems per Socketed Gem
 ]],[[
 Solaris Lorica
 Copper Plate
@@ -211,8 +206,8 @@ Majestic Plate
 Requires Level 53, 145 Str
 (60-100)% increased Armour
 Recover (1-3)% of Life on Kill
-(30-40)% Increased Stun and Block Recovery
-+(700-1000) to maximum Life if there are no Life Modifiers on other Equipped items
+(30-40)% increased Stun and Block Recovery
++(700-1000) to maximum Life if there are no Life Modifiers on other Equipped Items
 ]],
 -- Body: Evasion
 [[
@@ -256,12 +251,12 @@ Strapped Leather
 Source: No longer obtainable
 LevelReq: 57
 Implicits: 0
+15% increased Dexterity
 10% increased Attack Speed
 +(600-700) to Evasion Rating
 +(30-40)% to Cold Resistance
 5% increased Movement Speed
 (20-25)% increased Mana Recovery from Flasks
-15% increased Dexterity
 1% increased Damage per 15 Dexterity
 ]],[[
 Bronn's Lithe
@@ -318,11 +313,11 @@ Source: No longer obtainable
 Implicits: 0
 +(20-30) to Dexterity
 Adds 5 to 12 Physical Damage to Attacks
-+1500 to Evasion Rating while on Full Life
 +(400-500) to Evasion Rating
++1500 to Evasion Rating while on Full Life
 (120-150)% increased Evasion Rating
 10% increased Movement Speed
-Enemies are Unlucky when Damaging you while you are on Full Life
+Damage of Enemies Hitting you is Unlucky while you are on Full Life
 ]],[[
 Hyrri's Ire
 Zodiac Leather
@@ -333,27 +328,27 @@ Variant: Pre 3.5.0
 Variant: Pre 3.9.0
 Variant: Current
 Implicits: 0
+{variant:3,4,5,6}+30% chance to Suppress Spell Damage
 {variant:1,2,3}+(20-30) to Dexterity
 {variant:4,5,6}+(40-50) to Dexterity
 {variant:1}(80-120)% increased Evasion Rating
 {variant:2,3,4,5,6}(140-220)% increased Evasion Rating
 25% increased Chill Duration on Enemies
-{variant:1,2,3}Adds 13 to 24 Cold Damage to Bow Attacks
-{variant:4}Adds (50-60) to (70-80) Cold Damage to Bow Attacks
-{variant:5}Adds (173-188) to (240-262) Cold Damage to Bow Attacks
-{variant:6}Adds (100-145) to (160-200) Cold Damage to Bow Attacks
+{variant:1,2,3}13 to 24 Added Cold Damage with Bow Attacks
+{variant:4}(50-60) to (70-80) Added Cold Damage with Bow Attacks
+{variant:5}(173-188) to (240-262) Added Cold Damage with Bow Attacks
+{variant:6}(105-145) to (160-200) Added Cold Damage with Bow Attacks
 {variant:1,2}Acrobatics
-{variant:3,4,5,6}30% chance to Suppress Spell Damage
 ]],[[
 Replica Hyrri's Ire
 Zodiac Leather
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 +30% chance to Suppress Spell Damage
-+(40–50) to Intelligence
-(140–220)% increased Evasion Rating
++(40-50) to Intelligence
+(140-220)% increased Evasion Rating
 25% increased Shock Duration on Enemies
-(12–18) to (231–347) Added Lightning Damage with Wand Attacks
+(12-18) to (231-347) Added Lightning Damage with Wand Attacks
 ]],[[
 Kintsugi
 Exquisite Leather
@@ -365,7 +360,7 @@ Implicits: 0
 {variant:2}(120-160)% increased Evasion Rating
 {variant:3}(160-220)% increased Evasion Rating
 {variant:1}+(60-80) to maximum Life
-+30% to Fire Resistance
++(30-50)% to Fire Resistance
 {variant:1}20% less Damage taken if you have not been Hit Recently
 {variant:2,3}35% less Damage taken if you have not been Hit Recently
 {variant:1}50% increased Evasion Rating if you have been Hit Recently
@@ -413,8 +408,8 @@ Variant: Pre 3.16.0
 Variant: Pre 3.21.0
 Variant: Current
 Implicits: 0
-{variant:1}10% chance to Suppress Spell Damage
-{variant:2}20% chance to Suppress Spell Damage
+{variant:1}+10% chance to Suppress Spell Damage
+{variant:2}+20% chance to Suppress Spell Damage
 {variant:1,2}+(30-40) to Dexterity
 {variant:3}(10-15)% increased Dexterity
 {variant:1}(30-50)% increased Evasion Rating
@@ -423,8 +418,7 @@ Implicits: 0
 {variant:1,2}25% increased Arctic Armour Buff Effect
 {variant:3}50% increased Arctic Armour Buff Effect
 {variant:3}Arctic Armour has no Reservation
-{variant:1}Evasion Rating is increased by Uncapped Cold Resistance
-{variant:2}Evasion Rating is increased by Overcapped Cold Resistance
+{variant:1,2}Evasion Rating is increased by Overcapped Cold Resistance
 ]],[[
 The Perfect Form
 Zodiac Leather
@@ -444,8 +438,7 @@ Implicits: 0
 {variant:2}+(70-100) to maximum Life
 -30% to Cold Resistance
 {variant:1,2}Arctic Armour has no Reservation
-{variant:1}Evasion Rating is increased by Uncapped Cold Resistance
-{variant:2,3}Evasion Rating is increased by Overcapped Cold Resistance
+Evasion Rating is increased by Overcapped Cold Resistance
 Acrobatics
 ]],[[
 Replica Perfect Form
@@ -465,9 +458,8 @@ Implicits: 0
 {variant:1}+(50-80) to maximum Life
 {variant:2,3}+(70-100) to maximum Life
 -30% to Cold Resistance
-{variant:1}Evasion Rating is increased by Uncapped Cold Resistance
-{variant:4}+20% chance to Block Attack Damage
-{variant:2,3,4}Evasion Rating is increased by Overcapped Cold Resistance
+{variant:4}+20% Chance to Block Attack Damage
+{variant:1,2,3,4}Evasion Rating is increased by Overcapped Cold Resistance
 {variant:3}Flesh and Stone has no Reservation
 {variant:3}Hollow Palm Technique
 {variant:4}Versatile Combatant
@@ -484,22 +476,22 @@ Implicits: 0
 {variant:1,4}Grants Level 20 Summon Bestial Rhoa Skill
 {variant:2,5}Grants Level 20 Summon Bestial Snake Skill
 {variant:3,6}Grants Level 20 Summon Bestial Ursa Skill
-+(300-400) to Accuracy Rating
 (130-150)% increased Evasion Rating
 +(90-100) to maximum Life
++(300-400) to Accuracy Rating
 Projectile Attack Skills have (40-60)% increased Critical Strike Chance
+{variant:3}Adds (11-16) to (21-25) Physical Damage to Attacks while you have a Bestial Minion
+{variant:6}Adds (18-24) to (30-36) Physical Damage to Attacks while you have a Bestial Minion
+{variant:2}Adds (13-19) to (23-29) Chaos Damage to Attacks while you have a Bestial Minion
+{variant:5}Adds (23-31) to (37-47) Chaos Damage to Attacks while you have a Bestial Minion
+{variant:1}(10-15)% increased Attack and Movement Speed while you have a Bestial Minion
+{variant:4}(10-20)% increased Attack and Movement Speed while you have a Bestial Minion
 {variant:1}Projectiles from Attacks have 20% chance to Maim on Hit while you have a Bestial Minion
 {variant:4}Projectiles from Attacks have 100% chance to Maim on Hit while you have a Bestial Minion
 {variant:2}Projectiles from Attacks have 20% chance to Poison on Hit while you have a Bestial Minion
 {variant:5}Projectiles from Attacks have 100% chance to Poison on Hit while you have a Bestial Minion
 {variant:3}Projectiles from Attacks have 20% chance to inflict Bleeding on Hit while you have a Bestial Minion
 {variant:6}Projectiles from Attacks have 100% chance to inflict Bleeding on Hit while you have a Bestial Minion
-{variant:1}(10-15)% increased Attack and Movement Speed while you have a Bestial Minion
-{variant:4}(10-20)% increased Attack and Movement Speed while you have a Bestial Minion
-{variant:2}Adds (13-19)-(23-29) Chaos Damage to Attacks while you have a Bestial Minion
-{variant:5}Adds (18-24)-(30-36) Chaos Damage to Attacks while you have a Bestial Minion
-{variant:3}Adds (11-16)-(21-25) Physical Damage to Attacks while you have a Bestial Minion
-{variant:6}Adds (23-31)-(37-47) Physical Damage to Attacks while you have a Bestial Minion
 ]],
 -- Body: Energy Shield
 [[
@@ -507,8 +499,8 @@ The Apostate
 Cabalist Regalia
 Requires Level 35
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex} (Uber)
-+(30–50) to Strength
-+(20–30)% to all Elemental Resistances
++(30-50) to Strength
++(20-30)% to all Elemental Resistances
 Gain Maximum Life instead of Maximum Energy Shield from Equipped Armour Items
 ]],[[
 The Beast Fur Shawl
@@ -518,11 +510,11 @@ Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
 40% increased Spell Damage
-{variant:1}+(50-65) to maximum Energy Shield
+{variant:1}+(55-65) to maximum Energy Shield
 {variant:2}+(15-25) to maximum Energy Shield
 {variant:1,2}(110-130)% increased Energy Shield
 {variant:3}(120-160)% increased Energy Shield
-{variant:1,2}(30-40)% increased Energy Shield Recovery Rate
+{variant:1,2}(30-40)% increased Energy Shield Recovery rate
 {variant:3}(50-100)% increased Energy Shield Recovery rate
 10% increased Area of Effect
 {variant:1,2}5% increased Damage taken
@@ -583,8 +575,8 @@ Implicits: 0
 {variant:5,6}(210-250)% increased Energy Shield
 {variant:1,2,3}20% reduced maximum Life
 {variant:4,5,6}10% increased maximum Life
-{variant:1,2,3}Blood Magic
 {variant:6}Skills gain a Base Life Cost equal to 100% of Base Mana Cost
+{variant:1,2,3}Blood Magic
 ]],[[
 Replica Covenant
 Spidersilk Robe
@@ -620,11 +612,11 @@ Socketed Gems are Supported by Level 20 Blasphemy
 Grants Level 20 Summon Doedre's Effigy Skill
 Socketed Hex Curse Skills are Triggered by Doedre's Effigy when Summoned
 Hexes from Socketed Skills can apply 5 additional Curses
-{variant:2}20% less Effect of Curses from Socketed Hex Skills
-{variant:3}20% less Effect of your Curses
+20% less Effect of Curses from Socketed Hex Skills
 +(30-40) to Intelligence
 (130-150)% increased Energy Shield
-{variant:1}(33-25)% reduced Effect of your Curses
+{variant:1}(25-33)% reduced Effect of your Curses
+{variant:3}20% less Effect of your Curses
 ]],[[
 Fenumus' Shroud
 Widowsilk Robe
@@ -643,23 +635,23 @@ Necromancer Silks
 League: Harvest
 Implicits: 0
 (100-150)% increased Energy Shield
-Minions Convert 2% of their Maximum Life to Maximum Energy Shield per 1% Chaos Resistance they have
 Chaos Damage taken does not bypass Minions' Energy Shield
 Minions have (50-100)% faster start of Energy Shield Recharge
 While Minions have Energy Shield, their Hits Ignore Monster Elemental Resistances
+Minions Convert 2% of their Maximum Life to Maximum Energy Shield per 1% Chaos Resistance they have
 ]],[[
 Garb of the Ephemeral
 Savant's Robe
 League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Implicits: 0
-{fractured}(180-230)% increased Energy Shield
 +600 Strength and Intelligence Requirement
-Gain a Divine Charge on Hit
+{fractured}(180-230)% increased Energy Shield
 +10 to maximum Divine Charges
+Gain a Divine Charge on Hit
 You gain Divinity for 10 seconds on reaching maximum Divine Charges
 Lose all Divine Charges when you gain Divinity
-Nearby Allies' Action Speed cannot be modified to below base value
+Nearby Allies' Action Speed cannot be modified to below Base Value
 Nearby Enemies cannot deal Critical Strikes
 ]],[[
 Infernal Mantle
@@ -696,7 +688,7 @@ Implicits: 1
 10% faster start of Energy Shield Recharge
 +(30-40)% to Lightning Resistance
 Reflects 1 to 250 Lightning Damage to Melee Attackers
-Chaos Damage does not bypass Energy Shield
+Chaos Damage taken does not bypass Energy Shield
 ]],[[
 Skin of the Loyal
 Simple Robe
@@ -781,8 +773,8 @@ Variant: Pre 1.3.0
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 0
-{variant:1}Adds 1 to 25 Lightning Damage
 {variant:2,3,4}Adds 1 to 40 Lightning Damage to Attacks
+{variant:1}Adds 1 to 25 Lightning Damage
 {variant:1,2,3}(75-100)% increased Energy Shield
 {variant:4}(125-150)% increased Energy Shield
 {variant:1}+(20-25)% to Chaos Resistance
@@ -808,7 +800,7 @@ Implicits: 0
 (30-40)% increased maximum Life
 +(10-15)% to all Elemental Resistances
 50% increased Flask Life Recovery rate
-Extra Gore
+Extra gore
 ]],[[
 Cherrubim's Maleficence
 Triumphant Lamellar
@@ -836,16 +828,16 @@ Implicits: 0
 {variant:4,5,6}(180-220)% increased Armour and Evasion
 {variant:1,2}+(40-60) to maximum Life
 {variant:3,4,5,6}+(60-90) to maximum Life
-{variant:1,2,3,4}(0.4-0.6)% of Physical Attack Damage Leeched as Life
-{variant:5}2% of Physical Attack Damage Leeched as Life
+{variant:5}2% of Attack Damage Leeched as Life
 {variant:6}2% of Attack Damage Leeched as Life
 You lose all Endurance Charges when Hit
 You gain an Endurance Charge on Kill
-{variant:1}You gain Onslaught for 1 seconds per Endurance Charge when Hit
+{variant:1}You gain Onslaught for 1 second per Endurance Charge when Hit
 {variant:2}You gain Onslaught for 2 seconds per Endurance Charge when Hit
 {variant:3,4,5,6}You gain Onslaught for 5 seconds per Endurance Charge when Hit
-{variant:3,4}(60-100)% increased Onslaught Effect
-{variant:5,6}100% increased Onslaught Effect
+{variant:3,4}(60-100)% increased Effect of Onslaught on you
+{variant:5,6}100% increased Effect of Onslaught on you
+{variant:1,2,3,4}(0.4-0.6)% of Physical Attack Damage Leeched as Life
 ]],[[
 Farrul's Fur
 Triumphant Lamellar
@@ -855,7 +847,7 @@ Implicits: 0
 (100-150)% increased Armour and Evasion
 +(80-100) to maximum Life
 Aspect of the Cat has no Reservation
-+2.00 seconds to Cat's Stealth Duration
++2 seconds to Cat's Stealth Duration
 Gain up to your maximum number of Frenzy and Power Charges when you gain Cat's Stealth
 You have Phasing while you have Cat's Stealth
 ]],[[
@@ -866,8 +858,8 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 (100-150)% increased Armour and Evasion
 +(80-100) to maximum Life
-+2.00 seconds to Cat's Agility Duration
 Aspect of the Cat has no Reservation
++2 seconds to Cat's Stealth Duration
 Gain up to your maximum number of Frenzy and Endurance Charges when you gain Cat's Agility
 You have Onslaught while you have Cat's Agility
 ]],[[
@@ -879,7 +871,7 @@ Variant: Current
 Implicits: 0
 {variant:1}(60-100)% increased Global Physical Damage
 {variant:2,3}100% increased Global Physical Damage
-{variant:3}(300-400)% increased Armour and Evasion Rating
+{variant:3}(300-400)% increased Armour and Evasion
 {variant:1}+(130-160) to maximum Life
 {variant:2}+(200-240) to maximum Life
 {variant:3}+(240-300) to maximum Life
@@ -915,8 +907,7 @@ Implicits: 0
 5% increased Movement Speed
 20% chance to Poison on Hit with Attacks
 Cannot be Poisoned
-]],
-[[
+]],[[
 Rigwald's Hunt
 General's Brigandine
 Requires Level 66, 103 Str, 103 Dex
@@ -944,11 +935,11 @@ Implicits: 0
 {variant:1,2}+10% to all Elemental Resistances
 {variant:3,4,5}+15% to all Elemental Resistances
 {variant:1,2,3,4}Gain an Endurance Charge when you take a Critical Strike
-{variant:5}Gain up to maximum Endurance Charges when you take a Critical Strike
-{variant:1,2,3}Regenerate 2% of Life per Second while on Low Life
+{variant:1,2,3}Regenerate 2% of Life per second while on Low Life
 {variant:1,2,3,4}Share Endurance Charges with nearby party members
-{variant:5}Your nearby party members maximum Endurance Charges is equal to yours
+{variant:5}Gain up to maximum Endurance Charges when you take a Critical Strike
 {variant:4}Regenerate 2% of Life per second if you have been Hit Recently
+{variant:5}Your nearby party members maximum Endurance Charges is equal to yours
 ]],[[
 Replica Ambu's Charge
 Crusader Chainmail
@@ -970,8 +961,9 @@ Trigger Level 20 Animate Guardian's Weapon when Animated Guardian Kills an Enemy
 (150-190)% increased Armour and Energy Shield
 +(60-90) to maximum Life
 Animated Guardian deals 5% increased Damage per Animated Weapon
-Animated Minions' Melee Attacks deal Splash Damage to surrounding targets
-Animated Minions' Melee Attacks deal 50% less Damage to surrounding targets
+Animated and Manifested Minions' Melee Strikes deal Splash
+Damage to surrounding targets
+Animated and Manifested Minions' Melee Strikes deal 50% less Splash Damage
 You cannot have Non-Animated, Non-Manifested Minions
 ]],[[
 Doryani's Prototype
@@ -987,11 +979,11 @@ Nearby Enemies have Lightning Resistance equal to yours
 ]],[[
 The Fourth Vow
 Devout Chainmail
-Physical Damage taken bypasses Energy Shield
 (150-250)% increased Armour and Energy Shield
 +(17-29)% to Chaos Resistance
 Regenerate 3% of Life per second
 Armour also applies to Chaos Damage taken from Hits
+Physical Damage taken bypasses Energy Shield
 ]],[[
 Geofri's Sanctuary
 Elegant Ringmail
@@ -1047,8 +1039,7 @@ Implicits: 0
 {variant:1}(120-140)% increased Armour and Energy Shield
 {variant:2}(220-240)% increased Armour and Energy Shield
 +(80-90) to maximum Life
-{variant:1}(0.8-1)% of Physical Attack Damage Leeched as Life
-{variant:2}(0.8-1)% of Attack Damage Leeched as Life
+{variant:1,2}(0.8-1)% of Attack Damage Leeched as Life
 {variant:2}Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 25% of Elemental Damage from Hits taken as Chaos Damage
 (20-30)% increased Light Radius
@@ -1147,8 +1138,7 @@ Trigger Level 10 Contaminate when you Kill an Enemy
 (7-10)% increased maximum Life
 {variant:1}+(17-23)% to Chaos Resistance
 {variant:2}+(29-43)% to Chaos Resistance
-{variant:1}Enemies on Fungal Ground you Kill Explode, dealing 5% of their Life as Chaos Damage
-{variant:2}Enemies on Fungal Ground you Kill Explode, dealing 10% of their Life as Chaos Damage
+Enemies on Fungal Ground you Kill Explode, dealing 10% of their Life as Chaos Damage
 You have Fungal Ground around you while stationary
 This item can be anointed by Cassia
 ]],[[
@@ -1176,8 +1166,8 @@ Grants Level 15 Blood Offering Skill
 (15-25)% increased maximum Life
 Minions have (20-30)% increased maximum Life
 Regenerate 1% of Life per second
-{variant:1}Minions have (6-10)% chance to Suppress Spell Damage
-{variant:2}Minions have (12-15)% chance to Suppress Spell Damage
+{variant:1}Minions have +(6-10)% chance to Suppress Spell Damage
+{variant:2}Minions have +(12-15)% chance to Suppress Spell Damage
 ]],[[
 Carcass Jack
 Varnished Coat
@@ -1206,8 +1196,8 @@ Implicits: 0
 {variant:4,5}(300-400)% increased Evasion and Energy Shield
 {variant:1,2}+(90-110) to maximum Mana
 {variant:3,4,5}+(100-150) to maximum Mana
-{variant:1,2}(40-50)% increased Mana Regeneration Rate
 {variant:3,4,5}Regenerate 1% of Mana per second
+{variant:1,2}(40-50)% increased Mana Regeneration Rate
 {variant:1,3,4}10% of Damage is taken from Mana before Life
 Mind Over Matter
 ]],[[
@@ -1270,8 +1260,9 @@ Implicits: 0
 {variant:1,2}(25-40)% increased Effect of Shock
 {variant:3}(15-25)% increased Effect of Shock
 {variant:1}Shocked Enemies you Kill Explode, dealing (5-10)% of
+{variant:1}their Life as Lightning Damage which cannot Shock
 {variant:2,3}Shocked Enemies you Kill Explode, dealing 5% of
-their Life as Lightning Damage which cannot Shock
+{variant:2,3}their Life as Lightning Damage which cannot Shock
 Unaffected by Shock
 ]],[[
 The Restless Ward
@@ -1363,7 +1354,7 @@ Implicits: 1
 +(80-100) to maximum Life
 Temporal Rift has no Reservation
 (80-100)% of Damage taken Recouped as Life
-Debuffs on you Expire (80-100)% faster
+Debuffs on you expire (80-100)% faster
 ]],[[
 Tinkerskin
 Sadist Garb
@@ -1410,7 +1401,7 @@ Trigger a Socketed Spell on Unarmed Melee Critical Strike, with a 0.25 second Co
 (1-7)% increased Movement Speed
 +(0.1-0.7) metres to Melee Strike Range with Unarmed Attacks
 +(1-7)% to Unarmed Melee Attack Critical Strike Chance
-+(10-77)% to Critical Strike Multiplier with Unarmed Melee Attack
++(10-77)% to Critical Strike Multiplier with Unarmed Melee Attacks
 ]],
 -- Body: Armour/Evasion/Energy Shield
 [[
@@ -1455,13 +1446,13 @@ Implicits: 1
 {variant:1,10}(380-420)% increased Armour
 {variant:2,11}(200-220)% increased Evasion Rating and Armour
 {variant:3,12}(380-420)% increased Evasion Rating
-{variant:4,5,13,14}(200-220)% increased Evasion and Energy Shield
-{variant:6,15}(270-300)% increased Energy Shield
 {variant:7,8,16,17}(200-220)% increased Armour and Energy Shield
+{variant:4,5,13,14}(200-220)% increased Evasion and Energy Shield
 {variant:9,18}(270-340)% increased Armour, Evasion and Energy Shield
-{variant:1,2,3,4,7,10,11,12,13,16}+(90-100) to Maximum Life
-{variant:5,6,8}+(90-100) to Maximum Energy Shield
-{variant:14,15,17}+(70-80) to Maximum Energy Shield
+{variant:5,6,8}+(90-100) to maximum Energy Shield
+{variant:14,15,17}+(70-80) to maximum Energy Shield
+{variant:6,15}(270-300)% increased Energy Shield
+{variant:1,2,3,4,7,10,11,12,13,16}+(90-100) to maximum Life
 +(20-24)% to all Elemental Resistances
 Gain 100 Life per Enemy Killed
 Gain 100 Mana per Enemy Killed
@@ -1478,9 +1469,9 @@ Has an additional Implicit Mod
 {variant:2}(250-350)% increased Armour, Evasion and Energy Shield
 Recover (3-5)% of Life on Kill
 Recover (3-5)% of Energy Shield on Kill
--(6-4)% to all Resistances for each Corrupted Item Equipped
-8% increased Maximum Energy Shield for each Corrupted Item Equipped
 6% increased Maximum Life for each Corrupted Item Equipped
+8% increased Maximum Energy Shield for each Corrupted Item Equipped
+-(6-4)% to all Resistances for each Corrupted Item Equipped
 Corrupted
 ]],
 }

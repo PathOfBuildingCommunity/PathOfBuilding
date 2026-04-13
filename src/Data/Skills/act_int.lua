@@ -7288,7 +7288,7 @@ skills["VaalFlameblast"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "VaalFlameblastStage" }),
 		},
 		["vaal_flameblast_radius_+_per_stage"] = {
-			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "VaalFlameblastStageAfterFirst" }),
 		},
 	},
 	baseFlags = {
@@ -7297,7 +7297,7 @@ skills["VaalFlameblast"] = {
 	},
 	baseMods = {
 		mod("Multiplier:VaalFlameblastMaxStages", "BASE", 15),
-		skill("radius", 35),
+		skill("radius", 45),
 	},
 	qualityStats = {
 		Default = {
@@ -8567,7 +8567,7 @@ skills["FrostblinkAltX"] = {
 	baseEffectiveness = 1.6200000047684,
 	incrementalEffectiveness = 0.047499999403954,
 	description = "Teleport to a location, damaging enemies in an area at both ends of the teleport. Deals higher damage to chilled enemies, then removes chill from them. Cannot be supported by Unleash.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Movement] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Travel] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.DynamicCooldown] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Movement] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Travel] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.DynamicCooldown] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.85,
 	statMap = {
@@ -11479,7 +11479,7 @@ skills["KineticFusilladeAltX"] = {
 				-- Average multiplier: sum of (0, X, 2X, 3X, ..., (n-1)X) / n
 				-- This equals: X * (0 + 1 + 2 + ... + (n-1)) / n = X * n(n-1)/2 / n = X * (n-1)/2
 				local avgMoreMult = moreDamagePerProj * (output.ProjectileCount - 1) / 2
-				activeSkill.skillModList:NewMod("Damage", "MORE", avgMoreMult, "Skill:KineticFusilladeofDetonation", ModFlag.Hit)
+				activeSkill.skillModList:NewMod("Damage", "MORE", avgMoreMult, "Skill:KineticFusilladeAltX", ModFlag.Hit)
 
 				-- Store the average multiplier for display
 				output.KineticFusilladeAvgMoreMult = avgMoreMult
@@ -15597,6 +15597,7 @@ skills["RaiseZombieAltY"] = {
 		"infinite_minion_duration",
 		"quality_display_raise_zombie_is_gem",
 		"raise_zombie_does_not_use_corpses",
+		"dont_replace_minion_if_level_changed",
 	},
 	levels = {
 		[1] = { 1, levelRequirement = 1, statInterpolation = { 1, }, cost = { Mana = 6, }, },

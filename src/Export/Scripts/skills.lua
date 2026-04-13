@@ -534,6 +534,7 @@ out:write('-- Gem data (c) Grinding Gear Games\n\nreturn {\n')
 for skillGem in dat("SkillGems"):Rows() do
 	for _, gemEffect in ipairs(skillGem.GemVariants) do
 		if gems[gemEffect.Id] then
+			gems[gemEffect.Id] = nil -- Some skills have an additional old version that exists in the game files and messes up transfigured gem matching
 			out:write('\t["', "Metadata/Items/Gems/SkillGem" .. gemEffect.Id, '"] = {\n')
 			out:write('\t\tname = "', fullNameGems[skillGem.BaseItemType.Id] and skillGem.BaseItemType.Name or trueGemNames[gemEffect.Id] or skillGem.BaseItemType.Name:gsub(" Support",""), '",\n')
 			-- Hybrid gems (e.g. Vaal gems) use the display name of the active skill e.g. Vaal Summon Skeletons of Sorcery

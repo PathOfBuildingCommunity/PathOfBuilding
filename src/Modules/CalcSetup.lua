@@ -687,6 +687,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 					goto continue
 				end
 			end
+			-- ignore item in Ring 3 if The Unseen Hand is not allocated
+			if slotName == "Ring 3" and not env.initialNodeModDB:Flag(nil, "AdditionalRingSlot") then
+				goto continue
+			end
 			local item
 			if slotName == override.repSlotName then
 				item = override.repItem
@@ -875,6 +879,19 @@ function calcs.initEnv(build, mode, override, specEnv)
 			end
 			for slot in pairs(trueDisabled) do
 				items[slot] = nil
+			end
+		end
+
+		for _, slot in ipairs(build.itemsTab.orderedSlots) do
+			local item = items[slot.slotName]
+			local missingAnoints = build.itemsTab:getMissingAnointCount(item)
+			if missingAnoints > 0 then
+				local slotLabel = slot.label
+				if missingAnoints > 1 then
+					slotLabel = slotLabel .. " (" .. missingAnoints .. " missing)"
+				end
+				env.itemWarnings.missingAnointWarning = env.itemWarnings.missingAnointWarning or { }
+				t_insert(env.itemWarnings.missingAnointWarning, slotLabel)
 			end
 		end
 
@@ -1786,6 +1803,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			activeSkill.skillData.soulPreventionDuration = activeSkill.soulPreventionDuration
 			activeSkill.skillData.totemLevel = skillData.totemLevel
 			activeSkill.skillData.damageEffectiveness = skillData.damageEffectiveness
+			activeSkill.skillData.stagesMax = skillData.stagesMax
 			activeSkill.skillData.manaReservationPercent = skillData.manaReservationPercent
 		end
 	end

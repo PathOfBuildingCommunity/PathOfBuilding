@@ -4037,10 +4037,10 @@ skills["ChargedDash"] = {
 		},
 	},
 	preDamageFunc = function(activeSkill, output)
-		   if activeSkill.skillPart == 3 then
-			   local finalWaveDamageModifier = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "chargedDashFinalDamageModifier")
-			   activeSkill.skillModList:NewMod("Damage", "MORE", finalWaveDamageModifier, "Skill:ChargedDash", ModFlag.Attack, { type = "Release Damage", skillPart = 3 })
-		   end
+		if activeSkill.skillPart == 3 then
+			local finalWaveDamageModifier = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "chargedDashFinalDamageModifier")
+			activeSkill.skillModList:NewMod("Damage", "MORE", finalWaveDamageModifier, "Skill:ChargedDash", ModFlag.Attack, { type = "Release Damage", skillPart = 3 })
+		end
 	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
@@ -4164,10 +4164,10 @@ skills["ChargedDashAltX"] = {
 		},
 	},
 	preDamageFunc = function(activeSkill, output)
-		   if activeSkill.skillPart == 3 then
-			   local finalWaveDamageModifier = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "chargedDashFinalDamageModifier")
-			   activeSkill.skillModList:NewMod("Damage", "MORE", finalWaveDamageModifier, "Skill:ChargedDashofProjection", ModFlag.Attack, { type = "Release Damage", skillPart = 3 })
-		   end
+		if activeSkill.skillPart == 3 then
+			local finalWaveDamageModifier = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "chargedDashFinalDamageModifier")
+			activeSkill.skillModList:NewMod("Damage", "MORE", finalWaveDamageModifier, "Skill:ChargedDashAltX", ModFlag.Attack, { type = "Release Damage", skillPart = 3 })
+		end
 	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {

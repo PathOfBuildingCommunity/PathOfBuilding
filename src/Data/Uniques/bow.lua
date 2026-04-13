@@ -14,22 +14,22 @@ Requires Level 62, 212 Dex
 Source: Vendor Recipe
 Implicits: 1
 {variant:3}+(15-25)% to Global Critical Strike Multiplier
+{variant:4,5}Grants Level 30 Dash Skill
 {variant:1}Adds (60-70) to (180-210) Physical Damage
 {variant:2,3,4}Adds (95-115) to (240-265) Physical Damage
 {variant:5}Adds (80-100) to (200-225) Physical Damage
 {variant:1,2,3}(80-100)% increased Evasion Rating
 {variant:1,2,3}Bow Attacks fire 2 additional Arrows
-{variant:1,2,3}Every 16 seconds you gain Iron Reflexes for 8 seconds
-{variant:1,2,3}30% more Damage with Arrow Hits at Close Range while you have Iron Reflexes
-{variant:1,2,3}30% increased Attack, Cast and Movement Speed while you do not have Iron Reflexes
-{variant:1,2,3}You have Far Shot while you do not have Iron Reflexes
-{variant:4,5}Grants Level 30 Dash Skill
 {variant:4,5}Bow Attacks fire 2 additional Arrows if you haven't Cast Dash recently
 {variant:4,5}(20-30)% increased Attack Speed if you haven't Cast Dash recently
 {variant:4,5}(100-160)% increased Evasion Rating if you've Cast Dash recently
 {variant:4,5}(20-30)% increased Movement Speed if you've Cast Dash recently
 {variant:4,5}Travel Skills other than Dash are Disabled
 {variant:4,5}Iron Reflexes
+{variant:1,2,3}Every 16 seconds you gain Iron Reflexes for 8 seconds
+{variant:1,2,3}30% more Damage with Arrow Hits at Close Range while you have Iron Reflexes
+{variant:1,2,3}30% increased Attack, Cast and Movement Speed while you do not have Iron Reflexes
+{variant:1,2,3}You have Far Shot while you do not have Iron Reflexes
 ]],[[
 Chin Sol
 Assassin Bow
@@ -42,8 +42,8 @@ Variant: Pre 3.17.0
 Variant: Current
 Requires Level 62, 212 Dex
 Implicits: 2
-{variant:2,3}(6-12)% increased Elemental Damage with Attack Skills
 {variant:6,7}+(15-25)% to Global Critical Strike Multiplier
+{variant:2,3}(6-12)% increased Elemental Damage with Attack Skills
 +(10-20) to Dexterity
 {variant:1,2}(75-100)% increased Physical Damage
 {variant:3,4}(150-180)% increased Physical Damage
@@ -52,8 +52,8 @@ Implicits: 2
 Adds 25 to 50 Fire Damage
 {variant:1,2}5% increased Attack Speed
 {variant:3,4,5,6,7}(10-14)% increased Attack Speed
-{variant:1,2,3,4}100% More Damage with Arrow Hits at Close Range
-{variant:5,6,7}50% More Damage with Arrow Hits at Close Range
+{variant:1,2,3,4}100% more Damage with Arrow Hits at Close Range
+{variant:5,6,7}50% more Damage with Arrow Hits at Close Range
 Bow Knockback at Close Range
 ]],[[
 The Crimson Storm
@@ -94,10 +94,13 @@ Variant: Current
 Requires Level 57, 190 Dex
 Implicits: 1
 {variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14}(4-6)% increased Movement Speed
-{variant:15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31}6% increased Movement Speed
 {variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14}(140-170)% increased Physical Damage
 {variant:15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31}(60-80)% increased Physical Damage
+{variant:7}(8-16)% increased Attack Speed
+{variant:8}(8-16)% increased Attack Speed
+{variant:9}(7-13)% increased Cast Speed
 (25-35)% increased Critical Strike Chance
+{variant:15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31}6% increased Movement Speed
 50% chance to inflict Bleeding on Critical Strike with Attacks
 Enemies you inflict Bleeding on grant (60-100)% increased Flask Charges
 Adds (100-120) to (150-165) Physical Damage against Bleeding Enemies
@@ -108,11 +111,8 @@ Adds (100-120) to (150-165) Physical Damage against Bleeding Enemies
 {variant:4}{crafted}(5-6)% increased Damage per Frenzy Charge
 {variant:5}{crafted}(5-6)% increased Damage per Endurance Charge
 {variant:6}{crafted}+(30-250) to Accuracy Rating
-{variant:7}{crafted}(8-16)% increased Attack Speed
 {variant:6,7}{crafted}+(7-18)% to Quality
-{variant:8}{crafted}(8-16)% increased Attack Speed
 {variant:8}{crafted}10% chance to Trigger Level 1 Blood Rage when you Kill an Enemy
-{variant:9}{crafted}(7-13)% increased Cast Speed
 {variant:9}{crafted}10% chance to gain Arcane Surge when you Kill an Enemy
 {variant:10}{crafted}Minions have (16-28)% increased Attack Speed
 {variant:10}{crafted}Minions have (16-28)% increased Cast Speed
@@ -154,8 +154,8 @@ Variant: Pre 3.17.0
 Variant: Current
 Requires Level 62, 212 Dex
 Implicits: 2
-{variant:1,2}(6-12)% increased Elemental Damage with Attack Skills
 {variant:6,7}+(15-25)% to Global Critical Strike Multiplier
+{variant:1,2}(6-12)% increased Elemental Damage with Attack Skills
 {variant:1,2,3}(100-125)% increased Physical Damage
 {variant:4,5,6}(130-150)% increased Physical Damage
 {variant:7}(60-80)% increased Physical Damage
@@ -164,8 +164,8 @@ Implicits: 2
 {variant:5,6,7}Adds (15-20) to (25-30) Physical Damage
 {variant:1,2,3,4}10% increased Attack Speed
 {variant:5,6,7}20% increased Attack Speed
+(15-30)% increased Global Accuracy Rating
 25% of Physical Damage Converted to Chaos Damage
-(15-30)% increased Accuracy Rating
 25% of Physical Damage from Hits taken as Chaos Damage
 {variant:5,6,7}20% chance for Poisons inflicted with this Weapon to deal 300% more Damage
 ]],[[
@@ -187,7 +187,7 @@ Implicits: 1
 {variant:1,2,4}+100% to Global Critical Strike Multiplier
 {variant:3}+150% to Global Critical Strike Multiplier
 {variant:5,6,7}+50% to Global Critical Strike Multiplier
-{variant:1,2,3,4,5,6}Adds an additional Arrow
+{variant:1,2,3,4,5,6}Bow Attacks fire an additional Arrow
 {variant:7}Bow Attacks fire 2 additional Arrows
 ]],[[
 Death's Opus
@@ -257,8 +257,8 @@ Requires Level 58, 185 Dex
 (120-160)% increased Physical Damage
 (16-20)% increased Attack Speed
 Lose all Frenzy Charges on reaching Maximum Frenzy Charges to make the next Bow Attack you perform fire that many additional Arrows
-+(30-50)% to Global Critical Strike Multiplier while you have a Frenzy Charge
-(20-40)% chance to gain a Frenzy Charge for each enemy you hit with a Critical Strike
++(30-50)% Global Critical Strike Multiplier while you have a Frenzy Charge
+(20-40)% chance to gain a Frenzy Charge for each Enemy you hit with a Critical Strike
 ]],[[
 Hopeshredder
 Ranger Bow
@@ -268,11 +268,12 @@ Variant: Pre 3.4.0
 Variant: Current
 Requires Level 60, 212 Dex
 Adds (130-150) to (270-300) Cold Damage
-4% increased Movement Speed per Frenzy Charge
-+(400-500) to Accuracy Rating
 {variant:2}(15-25)% increased Attack Speed
-12 to 14 Cold Damage per Frenzy Charge
-2% chance to Avoid Elemental Damage when Hit per Frenzy Charge
+{variant:2}+(400-500) to Accuracy Rating
+{variant:1}+(400-500) to Accuracy Rating
+4% increased Movement Speed per Frenzy Charge
+2% chance to Avoid Elemental Damage from Hits per Frenzy Charge
+12 to 14 Added Cold Damage per Frenzy Charge
 0.5% of Attack Damage Leeched as Life per Frenzy Charge
 {variant:1}400 Cold Damage taken per second per Frenzy Charge while moving
 {variant:2}200 Cold Damage taken per second per Frenzy Charge while moving
@@ -287,17 +288,17 @@ Variant: Current
 Requires Level 53, 170 Dex
 Implicits: 1
 (30-50)% increased Critical Strike Chance
++(20-30) to Dexterity
 {variant:1,2}(90-100)% increased Physical Damage
 {variant:3,4}(110-125)% increased Physical Damage
 {variant:5}(70-80)% increased Physical Damage
 {variant:2,3,4,5}Adds (25-35) to (36-45) Physical Damage
-+(20-30) to Dexterity
+10% increased Movement Speed
 {variant:1,2,3}+(200-250) to Accuracy Rating
 {variant:4,5}+(350-400) to Accuracy Rating
-Arrows Pierce all Targets
-10% increased Movement Speed
 {variant:1,2}Cannot Leech
 {variant:3,4,5}Cannot Leech Life
+Arrows Pierce all Targets
 ]],[[
 Replica Infractem
 Decimation Bow
@@ -327,7 +328,7 @@ Adds (8-12) to (16-24) Physical Damage
 (14-20)% increased Attack Speed
 (14-20)% increased Totem Life
 (14-20)% increased Totem Placement speed
-Can have 1 additional Siege Ballista Totem per 200 Dexterity
+Siege Ballista has +1 to maximum number of Summoned Totems per 200 Dexterity
 Adds 1 to 3 Physical Damage to Attacks per 25 Dexterity
 ]],[[
 Replica Iron Commander
@@ -355,9 +356,9 @@ Variant: Pre 3.28.0
 Variant: Current
 Requires Level 66, 212 Dex
 Implicits: 3
+{variant:7}(20-24)% increased Global Physical Damage
 {variant:2}(6-12)% increased Elemental Damage with Attack Skills
 {variant:3,4,5,6}(20-24)% increased Elemental Damage with Attack Skills
-{variant:7}(20-24)% increased Global Physical Damage
 {variant:1,2,3,4}(150-175)% increased Physical Damage
 {variant:5}(90-105)% increased Physical Damage
 {variant:6,7}(180-200)% increased Physical Damage
@@ -365,9 +366,9 @@ Implicits: 3
 {variant:6,7}Adds (7-14) to (24-34) Physical Damage
 {variant:1,2,3,4,5,6}(10-20)% increased Attack Speed
 +(80-100) to maximum Mana
-Hits can't be Evaded
 {variant:7}Attacks you use yourself Repeat an additional time
 {variant:7}Attacks you use yourself have 50% more Attack Speed
+Hits can't be Evaded
 {variant:4,5,6,7}Far Shot
 ]],[[
 Null's Inclination
@@ -376,14 +377,15 @@ Variant: Pre 3.14.0
 Variant: Pre 3.26.0
 Variant: Current
 Requires Level 60, 212 Dex, 212 Int
+Trigger Socketed Minion Spells on Kill with this Weapon
+Minion Spells Triggered by this Item have a 0.25 second Cooldown with 5 Uses
++212 Intelligence Requirement
 Adds (50-80) to (130-180) Chaos Damage
 (7-12)% increased Attack Speed
 +(7-11)% to Chaos Resistance
-{variant:1}Minions deal 1% increased Damage per 10 Dexterity
 {variant:2}Minions deal 1% increased Damage per 5 Dexterity
 {variant:3}Minions deal 2% increased Damage per 5 Dexterity
-+212 Intelligence Requirement
-Cast Socketed Minion Spells on Kill with this Weapon
+{variant:1}Minions deal 1% increased Damage per 10 Dexterity
 ]],[[
 Nuro's Harp
 Harbinger Bow
@@ -402,7 +404,7 @@ No Physical Damage
 Create Consecrated Ground when you Shatter an Enemy
 {variant:2}40% increased Effect of Chilled Ground
 {variant:3}(30-50)% increased Effect of Chilled Ground
-{variant:3}(30-50)% increased Effect of Consecrated Ground
+{variant:3}(30-50)% increased Effect of Consecrated Ground you create
 ]],[[
 Quill Rain
 Short Bow
@@ -413,12 +415,12 @@ Requires Level 5, 26 Dex
 +(10-20) to Dexterity
 {variant:2,3}100% increased Physical Damage
 100% increased Attack Speed
-+(25-50) to Accuracy Rating
+{variant:2,3}Grants 2 Mana per Enemy Hit
 (50-100)% increased Projectile Speed
++(25-50) to Accuracy Rating
 {variant:1}50% less Damage
 {variant:2}40% less Damage
 {variant:3}30% less Damage
-{variant:2,3}Gain 2 Mana per Enemy Hit with Attacks
 ]],[[
 Replica Quill Rain
 Short Bow
@@ -429,7 +431,7 @@ Socketed Gems are Supported by Level 1 Arrow Nova
 +(10-20) to Dexterity
 100% increased Physical Damage
 (25-30)% increased Attack Speed
-Gain 2 Mana per Enemy Hit with Attacks
+Grants 2 Mana per Enemy Hit
 (50-100)% increased Projectile Speed
 +(25-50) to Accuracy Rating
 ]],[[
@@ -449,8 +451,8 @@ Variant: Current
 {variant:2,3,4,5}Adds (15-30) to (70-95) Physical Damage
 {variant:6}Adds (10-16) to (45-60) Physical Damage
 (8-12)% increased Attack Speed
-{variant:1,2}4 additional Arrows
-{variant:3}2 additional Arrows
+{variant:1,2}Bow Attacks fire 4 additional Arrows
+{variant:3}Bow Attacks fire 2 additional Arrows
 20% reduced Projectile Speed
 {variant:5,6}Arrows fired from the first firing points always Pierce
 {variant:5,6}Arrows fired from the second firing points Fork
@@ -482,8 +484,8 @@ Requires Level 2
 {variant:1}(50-80)% increased Physical Damage
 {variant:2}(80-100)% increased Physical Damage
 10% increased Attack Speed
-+30 to Accuracy Rating
 Gain 10 Mana per Enemy Killed
++30 to Accuracy Rating
 ]],[[
 Silverbough
 Crude Bow
@@ -494,8 +496,8 @@ Requires Level 36
 (80-100)% increased Physical Damage
 Adds (15-25) to (50-60) Physical Damage
 10% increased Attack Speed
-+30 to Accuracy Rating
 Gain 10 Mana per Enemy Killed
++30 to Accuracy Rating
 ]],[[
 Widowhail
 Crude Bow
@@ -514,10 +516,10 @@ Implicits: 1
 {variant:3}Adds (80-95) to (220-240) Physical Damage
 {variant:1}100% increased Critical Strike Chance with arrows that Fork
 {variant:2,3}(150-200)% increased Critical Strike Chance with arrows that Fork
-{variant:1}Arrows that Pierce have 50% chance to cause Bleeding
-{variant:2,3}Arrows that Pierce have +50% to Critical Strike Multiplier
+{variant:1}Arrows that Pierce have 50% chance to inflict Bleeding
 {variant:1}Arrows Pierce all Targets after Chaining
 {variant:2,3}Arrows Pierce all Targets after Forking
+{variant:2,3}Arrows that Pierce have +50% to Critical Strike Multiplier
 ]],[[
 Storm Cloud
 Long Bow
@@ -550,9 +552,9 @@ Variant: Current
 {variant:1,2}60% of Lightning Damage Converted to Chaos Damage
 {variant:3,4}100% of Lightning Damage Converted to Chaos Damage
 {variant:1,2}10% chance to Shock
+{variant:4}Treats Enemy Monster Chaos Resistance values as inverted
 Your Chaos Damage can Shock
 {variant:2,3}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
-{variant:4}Treats Enemy Monster Chaos Resistance values as inverted
 {variant:2,3,4}+40% to Maximum Effect of Shock
 ]],[[
 Windripper
@@ -577,11 +579,11 @@ Implicits: 2
 {variant:1,2}(80-100)% increased Critical Strike Chance
 {variant:3,4}(60-80)% increased Critical Strike Chance
 {variant:5,6}(30-40)% increased Critical Strike Chance
-{variant:1,2}25% increased Quantity of Items Dropped by Slain Frozen enemies
+{variant:1,2}25% increased Quantity of Items Dropped by Slain Frozen Enemies
 {variant:3,4,5}15% increased Quantity of Items Dropped by Slain Frozen Enemies
-{variant:6}30% increased Rarity of Items Dropped by Slain Frozen Enemies
-{variant:1,2}50% increased Rarity of Items Dropped by Slain Shocked enemies
+{variant:1,2}50% increased Rarity of Items Dropped by Slain Shocked Enemies
 {variant:3,4,5,6}30% increased Rarity of Items Dropped by Slain Shocked Enemies
+{variant:6}30% increased Rarity of Items Dropped by Frozen Enemies
 ]],[[
 Replica Windripper
 Imperial Bow
@@ -629,8 +631,8 @@ Requires Level 64, 185 Dex
 {variant:4}(165-195)% increased Physical Damage
 50% of Physical Damage Converted to Fire Damage
 10% chance to Ignite
-{variant:1}Ignites your Skills cause spread to other Enemies within 1.2 metres
-{variant:2}Ignites your Skills cause spread to other Enemies within 1.5 metres
+{variant:1}Ignites you inflict spread to other Enemies within 1.2 metres
+{variant:2}Ignites you inflict spread to other Enemies within 1.5 metres
 Recover (40-60) Life when you Ignite an Enemy
 ]],
 [[
