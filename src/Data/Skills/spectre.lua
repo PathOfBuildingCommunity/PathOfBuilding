@@ -7953,7 +7953,7 @@ skills["AzmeriBasiliskShoulderMortar"] = {
 		{ "projectile_spread_radius", 8 },
 		{ "projectile_minimum_range", 15 },
 		{ "skill_physical_damage_%_to_convert_to_chaos", 60 },
-		{ "base_poison_duration_+%", 100 },
+		{ "active_skill_poison_duration_+%_final", 100 },
 		{ "base_chance_to_poison_on_hit_%", 60 },
 	},
 	stats = {
@@ -8034,7 +8034,7 @@ skills["AzmeriBasiliskDecapitateRightToLeft"] = {
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_chaos", 40 },
-		{ "base_poison_duration_+%", 50 },
+		{ "active_skill_poison_duration_+%_final", 50 },
 		{ "base_poison_damage_+%", 0 },
 		{ "base_chance_to_poison_on_hit_%", 40 },
 	},
@@ -8141,7 +8141,7 @@ skills["AzmeriBasiliskDualProjectileImpact"] = {
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_chaos", 40 },
-		{ "base_poison_duration_+%", 50 },
+		{ "active_skill_poison_duration_+%_final", 50 },
 		{ "base_chance_to_poison_on_hit_%", 60 },
 	},
 	stats = {
@@ -8197,7 +8197,7 @@ skills["AzmeriBasiliskShoulderMortar2"] = {
 		{ "projectile_spread_radius", 13 },
 		{ "projectile_minimum_range", 15 },
 		{ "skill_physical_damage_%_to_convert_to_chaos", 60 },
-		{ "base_poison_duration_+%", 100 },
+		{ "active_skill_poison_duration_+%_final", 100 },
 		{ "base_chance_to_poison_on_hit_%", 60 },
 	},
 	stats = {

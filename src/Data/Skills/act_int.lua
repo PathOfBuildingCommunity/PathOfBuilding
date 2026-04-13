@@ -8567,7 +8567,7 @@ skills["FrostblinkAltX"] = {
 	baseEffectiveness = 1.6200000047684,
 	incrementalEffectiveness = 0.047499999403954,
 	description = "Teleport to a location, damaging enemies in an area at both ends of the teleport. Deals higher damage to chilled enemies, then removes chill from them. Cannot be supported by Unleash.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Movement] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Travel] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.DynamicCooldown] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Movement] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Travel] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.DynamicCooldown] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.85,
 	statMap = {
@@ -15597,6 +15597,7 @@ skills["RaiseZombieAltY"] = {
 		"infinite_minion_duration",
 		"quality_display_raise_zombie_is_gem",
 		"raise_zombie_does_not_use_corpses",
+		"dont_replace_minion_if_level_changed",
 	},
 	levels = {
 		[1] = { 1, levelRequirement = 1, statInterpolation = { 1, }, cost = { Mana = 6, }, },
