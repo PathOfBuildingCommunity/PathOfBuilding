@@ -25,8 +25,8 @@ describe("TestImportReimport", function()
 		}
 	end
 
-	-- Build a minimal import payload so the tests stay focused on state, not fixture noise.
-	local function buildImportPayload(itemTypeLine, inventoryId, socketedItems)
+	-- Build a minimal import item so the tests stay focused on state, not fixture noise.
+	local function makeImportItem(itemTypeLine, inventoryId, socketedItems, itemId)
 		local maxSocketIndex = 0
 		for _, socketedItem in ipairs(socketedItems) do
 			maxSocketIndex = math.max(maxSocketIndex, socketedItem.socket + 1)
@@ -35,28 +35,33 @@ describe("TestImportReimport", function()
 		for index = 1, maxSocketIndex do
 			sockets[index] = { group = 0, sColour = DEFAULT_SOCKET_COLOR }
 		end
+		return {
+			id = itemId or TEST_IMPORT_ITEM_ID,
+			frameType = 0,
+			name = "",
+			typeLine = itemTypeLine,
+			inventoryId = inventoryId,
+			ilvl = DEFAULT_ITEM_LEVEL,
+			properties = {},
+			sockets = sockets,
+			socketedItems = socketedItems,
+		}
+	end
+
+	-- Build a minimal import payload so the tests stay focused on state, not fixture noise.
+	local function buildImportPayload(items)
 		return dkjson.encode({
 			character = { level = DEFAULT_CHARACTER_LEVEL },
-			items = {
-				{
-					id = TEST_IMPORT_ITEM_ID,
-					frameType = 0,
-					name = "",
-					typeLine = itemTypeLine,
-					inventoryId = inventoryId,
-					ilvl = DEFAULT_ITEM_LEVEL,
-					properties = {},
-					sockets = sockets,
-					socketedItems = socketedItems,
-				}
-			},
+			items = items,
 		})
 	end
 
 	local function reimportSocketedItemsWithOptions(itemTypeLine, inventoryId, socketedItems, clearItems)
 		build.importTab.controls.charImportItemsClearSkills.state = true
 		build.importTab.controls.charImportItemsClearItems.state = clearItems
-		build.importTab:ImportItemsAndSkills(buildImportPayload(itemTypeLine, inventoryId, socketedItems))
+		build.importTab:ImportItemsAndSkills(buildImportPayload({
+			makeImportItem(itemTypeLine, inventoryId, socketedItems),
+		}))
 		runCallback("OnFrame")
 	end
 
@@ -109,10 +114,12 @@ Added Fire Damage 1/0 Default DISABLED 1
 
 		build.importTab.controls.charImportItemsClearSkills.state = true
 		build.importTab.controls.charImportItemsClearItems.state = false
-		build.importTab:ImportItemsAndSkills(buildImportPayload("Iron Hat", "Helm", {
-			makeSocketedGemEntry(0, false, "Cleave", 1),
-			makeSocketedGemEntry(1, false, "Heavy Strike", 1),
-			makeSocketedGemEntry(2, true, "Added Fire Damage Support", 2),
+		build.importTab:ImportItemsAndSkills(buildImportPayload({
+			makeImportItem("Iron Hat", "Helm", {
+				makeSocketedGemEntry(0, false, "Cleave", 1),
+				makeSocketedGemEntry(1, false, "Heavy Strike", 1),
+				makeSocketedGemEntry(2, true, "Added Fire Damage Support", 2),
+			}),
 		}))
 		runCallback("OnFrame")
 
@@ -150,6 +157,55 @@ Added Fire Damage 1/0 Default DISABLED 1
 		assert.are.equal(2, socketGroup.mainActiveSkill)
 		assert.are.equal(2, socketGroup.gemList[3].level)
 		assert.is_false(socketGroup.gemList[3].enabled)
+	end)
+
+	it("preserves two socket groups when reimporting items and skills", function()
+		build.skillsTab:PasteSocketGroup([[
+Slot: Helmet
+Cleave 1/0 Default  1
+Heavy Strike 1/0 Default  1
+Added Fire Damage 1/0 Default DISABLED 1
+]])
+		runCallback("OnFrame")
+
+		build.skillsTab:PasteSocketGroup([[
+Slot: Gloves
+Blight 20/0 Default  1
+]])
+		runCallback("OnFrame")
+
+		local helmetGroup = build.skillsTab.socketGroupList[1]
+		helmetGroup.includeInFullDPS = true
+		helmetGroup.mainActiveSkill = 2
+		local glovesGroup = build.skillsTab.socketGroupList[2]
+		glovesGroup.enabled = false
+		runCallback("OnFrame")
+
+		build.importTab.controls.charImportItemsClearSkills.state = true
+		build.importTab.controls.charImportItemsClearItems.state = false
+		build.importTab:ImportItemsAndSkills(buildImportPayload({
+			makeImportItem("Iron Hat", "Helm", {
+				makeSocketedGemEntry(0, false, "Cleave", 1),
+				makeSocketedGemEntry(1, false, "Heavy Strike", 1),
+				makeSocketedGemEntry(2, true, "Added Fire Damage Support", 2),
+			}, "test-import-item-helmet"),
+			makeImportItem("Rawhide Gloves", "Gloves", {
+				makeSocketedGemEntry(0, false, "Blight", 20),
+			}, "test-import-item-gloves"),
+		}))
+		runCallback("OnFrame")
+
+		local groupsBySlot = {}
+		for _, socketGroup in ipairs(build.skillsTab.socketGroupList) do
+			groupsBySlot[socketGroup.slot] = socketGroup
+		end
+
+		assert.are.equal(2, #build.skillsTab.socketGroupList)
+		assert.is_not_nil(groupsBySlot.Helmet)
+		assert.is_not_nil(groupsBySlot.Gloves)
+		assert.is_true(groupsBySlot.Helmet.includeInFullDPS)
+		assert.are.equal(2, groupsBySlot.Helmet.mainActiveSkill)
+		assert.is_false(groupsBySlot.Gloves.enabled)
 	end)
 
 	it("preserves skill part selection when reimporting items and skills", function()
