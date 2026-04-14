@@ -1,43 +1,64 @@
 describe("TestImportReimport", function()
+	local dkjson = require "dkjson"
+	local DEFAULT_CHARACTER_LEVEL = 12
+	local DEFAULT_ITEM_LEVEL = 10
+	local TEST_IMPORT_ITEM_ID = "test-import-item-1"
+	local DEFAULT_SOCKET_COLOR = "R"
+
 	before_each(function()
 		newBuild()
 	end)
 
+	local function makeGemProperties(level)
+		return {
+			{ name = "Level", values = { { tostring(level), 0 } } },
+			{ name = "Quality", values = { { "+0%", 0 } } },
+		}
+	end
+
+	local function makeSocketedGemEntry(socket, support, typeLine, level)
+		return {
+			socket = socket,
+			support = support,
+			typeLine = typeLine,
+			properties = makeGemProperties(level),
+		}
+	end
+
+	-- Build a minimal import payload so the tests stay focused on state, not fixture noise.
+	local function buildImportPayload(itemTypeLine, inventoryId, socketedItems)
+		local maxSocketIndex = 0
+		for _, socketedItem in ipairs(socketedItems) do
+			maxSocketIndex = math.max(maxSocketIndex, socketedItem.socket + 1)
+		end
+		local sockets = {}
+		for index = 1, maxSocketIndex do
+			sockets[index] = { group = 0, sColour = DEFAULT_SOCKET_COLOR }
+		end
+		return dkjson.encode({
+			character = { level = DEFAULT_CHARACTER_LEVEL },
+			items = {
+				{
+					id = TEST_IMPORT_ITEM_ID,
+					frameType = 0,
+					name = "",
+					typeLine = itemTypeLine,
+					inventoryId = inventoryId,
+					ilvl = DEFAULT_ITEM_LEVEL,
+					properties = {},
+					sockets = sockets,
+					socketedItems = socketedItems,
+				}
+			},
+		})
+	end
+
 	local function reimportSingleSocketedGem(itemTypeLine, inventoryId, gemName)
 		build.importTab.controls.charImportItemsClearSkills.state = true
 		build.importTab.controls.charImportItemsClearItems.state = false
-		build.importTab:ImportItemsAndSkills(string.format([=[
-{
-	"character": {
-		"level": 12
-	},
-	"items": [
-		{
-			"id": "item-1",
-			"frameType": 0,
-			"name": "",
-			"typeLine": "%s",
-			"inventoryId": "%s",
-			"ilvl": 10,
-			"properties": [],
-			"sockets": [
-				{ "group": 0, "sColour": "R" }
-			],
-			"socketedItems": [
-				{
-					"socket": 0,
-					"support": false,
-					"typeLine": "%s",
-					"properties": [
-						{ "name": "Level", "values": [["20", 0]] },
-						{ "name": "Quality", "values": [["+0%%", 0]] }
-					]
-				}
-			]
-		}
-	]
-}
-]=], itemTypeLine, inventoryId, gemName))
+		build.importTab:ImportItemsAndSkills(buildImportPayload(itemTypeLine, inventoryId, {
+			makeSocketedGemEntry(0, false, gemName, 20),
+		}))
 		runCallback("OnFrame")
 	end
 
@@ -80,58 +101,11 @@ Added Fire Damage 1/0 Default DISABLED 1
 
 		build.importTab.controls.charImportItemsClearSkills.state = true
 		build.importTab.controls.charImportItemsClearItems.state = false
-		build.importTab:ImportItemsAndSkills([=[
-{
-	"character": {
-		"level": 12
-	},
-	"items": [
-		{
-			"id": "helm-1",
-			"frameType": 0,
-			"name": "",
-			"typeLine": "Iron Hat",
-			"inventoryId": "Helm",
-			"ilvl": 10,
-			"properties": [],
-			"sockets": [
-				{ "group": 0, "sColour": "R" },
-				{ "group": 0, "sColour": "R" },
-				{ "group": 0, "sColour": "R" }
-			],
-			"socketedItems": [
-				{
-					"socket": 0,
-					"support": false,
-					"typeLine": "Cleave",
-					"properties": [
-						{ "name": "Level", "values": [["1", 0]] },
-						{ "name": "Quality", "values": [["+0%", 0]] }
-					]
-				},
-				{
-					"socket": 1,
-					"support": false,
-					"typeLine": "Heavy Strike",
-					"properties": [
-						{ "name": "Level", "values": [["1", 0]] },
-						{ "name": "Quality", "values": [["+0%", 0]] }
-					]
-				},
-				{
-					"socket": 2,
-					"support": true,
-					"typeLine": "Added Fire Damage Support",
-					"properties": [
-						{ "name": "Level", "values": [["2", 0]] },
-						{ "name": "Quality", "values": [["+0%", 0]] }
-					]
-				}
-			]
-		}
-	]
-}
-]=])
+		build.importTab:ImportItemsAndSkills(buildImportPayload("Iron Hat", "Helm", {
+			makeSocketedGemEntry(0, false, "Cleave", 1),
+			makeSocketedGemEntry(1, false, "Heavy Strike", 1),
+			makeSocketedGemEntry(2, true, "Added Fire Damage Support", 2),
+		}))
 		runCallback("OnFrame")
 
 		socketGroup = build.skillsTab.socketGroupList[1]
