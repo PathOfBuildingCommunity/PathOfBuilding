@@ -1590,8 +1590,8 @@ function CompareTabClass:OpenImportPopup()
 			controls.go.onClick()
 		end
 	end
-	controls.nameLabel = new("LabelControl", nil, {-175, 80, 0, 16}, "^7Name:")
-	controls.name = new("EditControl", nil, {40, 80, 300, 20}, "", "Name (optional)", nil, 100, nil)
+
+	controls.name = new("EditControl", nil, {0, 80, 450, 20}, "", "Name (optional)", nil, 100, nil)
 	controls.state = new("LabelControl", {"TOPLEFT", controls.name, "BOTTOMLEFT"}, {0, 4, 0, 16})
 	controls.state.label = function()
 		return stateText or ""
