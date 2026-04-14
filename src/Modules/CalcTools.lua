@@ -176,10 +176,7 @@ end
 function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 	local stats = { }
 	if skillInstance.quality > 0 and grantedEffect.qualityStats then
-		local qualityStats = grantedEffect.qualityStats.Default
-		if not qualityStats then
-			qualityStats = grantedEffect.qualityStats
-		end
+		local qualityStats = grantedEffect.qualityStats
 		for _, stat in ipairs(qualityStats) do
 			stats[stat[1]] = (stats[stat[1]] or 0) + math.modf(stat[2] * skillInstance.quality)
 		end

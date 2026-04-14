@@ -722,16 +722,20 @@ function SkillsTabClass:CreateGemSlot(index)
 					end
 				end
 			end
-			-- Check if there is a quality of this type for the effect
-			if gemData and gemData.grantedEffect.qualityStats and gemData.grantedEffect.qualityStats["Default"] then
-				local qualityTable = gemData.grantedEffect.qualityStats["Default"]
-				addQualityLines(qualityTable, gemData.grantedEffect)
-				tooltip:AddSeparator(10)
+			-- Check if there is quality for the effect
+			if gemData and gemData.grantedEffect and gemData.grantedEffect.qualityStats then
+				local qualityTable = gemData.grantedEffect.qualityStats
+				if qualityTable[1] then
+					addQualityLines(qualityTable, gemData.grantedEffect)
+					tooltip:AddSeparator(10)
+				end
 			end
-			if gemData and gemData.secondaryGrantedEffect and gemData.secondaryGrantedEffect.qualityStats and gemData.secondaryGrantedEffect.qualityStats["Default"] then
-				local qualityTable = gemData.secondaryGrantedEffect.qualityStats["Default"]
-				addQualityLines(qualityTable, gemData.secondaryGrantedEffect)
-				tooltip:AddSeparator(10)
+			if gemData and gemData.secondaryGrantedEffect and gemData.secondaryGrantedEffect.qualityStats then
+				local qualityTable = gemData.secondaryGrantedEffect.qualityStats
+				if qualityTable[1] then
+					addQualityLines(qualityTable, gemData.secondaryGrantedEffect)
+					tooltip:AddSeparator(10)
+				end
 			end
 
 			local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
