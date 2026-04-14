@@ -12,13 +12,7 @@ local m_max = math.max
 local m_floor = math.floor
 
 local toolTipText = "Prefix tag searches with a colon and exclude tags with a dash. e.g. :fire:lightning:-cold:area"
-local imbuedTooltipText = "Socketed in must be set in order to add an imbued support.\nOnly one imbued support is allowed per socketed in."
-local altQualMap = {
-	["Default"] = "",
-	["Alternate1"] = "Anomalous ",
-	["Alternate2"] = "Divergent ",
-	["Alternate3"] = "Phantasmal ",
-}
+local imbuedTooltipText = "\"Socketed in\" item must be set in order to add an imbued support.\nOnly one imbued support is allowed per item."
 
 local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self, anchor, rect, skillsTab, index, changeFunc, forceTooltip, imbued)
 	self.EditControl(anchor, rect, nil, nil, "^ %a':-")
@@ -148,7 +142,6 @@ function GemSelectClass:FilterSupport(gemId, gemData)
 		or showSupportTypes == "ALL"
 		or (showSupportTypes == "NORMAL" and not (isLegacyAwakened or gemData.tagString:match("Exceptional")))
 		or (showSupportTypes == "EXCEPTIONAL" and (isLegacyAwakened or gemData.tagString:match("Exceptional"))))
-		and (self.skillsTab.showAltQualityGems or (not self.skillsTab.showAltQualityGems and self:GetQualityType(gemId) == "Default"))
 end
 
 function GemSelectClass:BuildList(buf)

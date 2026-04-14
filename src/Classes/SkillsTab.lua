@@ -217,7 +217,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	-- buildFlag to true triggers the reload/run the CalcSetup to add on the support
 	-- the last var in the GemSelectControl init, the true, sets imbuedSelect to true which sets the level to 1 and support filtering
 	self.imbuedSupportBySlot = { }
-	self.controls.imbuedSupportLabel = new("LabelControl", { "LEFT", self.controls.includeInFullDPS, "RIGHT" }, { 12, 0, 0, 16 }, colorCodes.POSITIVE.."Imbued Support:")
+	self.controls.imbuedSupportLabel = new("LabelControl", { "LEFT", self.controls.groupSlotLabel, "LEFT" }, { 86, 28, 0, 16 }, colorCodes.CRAFTED.."Imbued Support:")
 	self.controls.imbuedSupport = new("GemSelectControl", { "LEFT", self.controls.imbuedSupportLabel, "RIGHT" }, { 8, 0, 250, 20 }, self, 1, function(gemData, _, _, slotName) -- slotName used on Import
 		if not (self.displayGroup or slotName) then
 			return
@@ -234,9 +234,11 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 			self.imbuedSupportBySlot[slotName or self.displayGroup.slot] = nil
 		end
 	end, true, true)
+	local function isImbuedEnabled() -- socketedIn must be set and the displayGroup must have an imbued, otherwise disable the imbued dropdown
+		return (self.displayGroup and self.displayGroup.slot and ((self.imbuedSupportBySlot[self.displayGroup.slot] and self.displayGroup.imbuedSupport) or not self.imbuedSupportBySlot[self.displayGroup.slot]))
+	end
 	self.controls.imbuedSupport.enabled = function()
-		-- socketedIn must be set and the displayGroup must have an imbued, otherwise disable the imbued dropdown
-		return (self.displayGroup.slot and ((self.imbuedSupportBySlot[self.displayGroup.slot] and self.displayGroup.imbuedSupport) or not self.imbuedSupportBySlot[self.displayGroup.slot]))
+		return isImbuedEnabled()
 	end
 	self.controls.imbuedSupportLabel.shown = function() -- don't show imbued for skills from items
 		return not self.displayGroup.source
@@ -248,6 +250,9 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		self.imbuedSupportBySlot[self.displayGroup.slot] = nil
 		self.build.buildFlag = true
 	end)
+	self.controls.imbuedSupportClear.enabled = function()
+		return isImbuedEnabled()
+	end
 	self.controls.imbuedSupportClear.tooltipText = "Remove this imbued support."
 
 	self.controls.groupCountLabel = new("LabelControl", { "LEFT", self.controls.includeInFullDPS, "RIGHT" }, { 16, 0, 0, 16 }, "Count:")
@@ -308,7 +313,7 @@ will automatically apply to the skill.]]
 	self:SetActiveSkillSet(1)
 
 	-- Skill gem slots
-	self.anchorGemSlots = new("Control", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, {0, 28 + 28 + 16, 0, 0})
+	self.anchorGemSlots = new("Control", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, {0, 28 + 28 + 16 + 28, 0, 0})
 	self.gemSlots = { }
 	self:CreateGemSlot(1)
 	self.controls.gemNameHeader = new("LabelControl", {"BOTTOMLEFT", self.gemSlots[1].nameSpec, "TOPLEFT"}, {0, -2, 0, 16}, "^7Gem name:")
