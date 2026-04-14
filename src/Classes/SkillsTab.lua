@@ -1302,6 +1302,19 @@ function SkillsTabClass:NewSkillSet(skillSetId)
 	return skillSet
 end
 
+function SkillsTabClass:RebuildImbuedSupportBySlot()
+	wipeTable(self.imbuedSupportBySlot)
+	for _, socketGroup in ipairs(self.socketGroupList) do
+		if socketGroup.slot and socketGroup.imbuedSupport then
+			local gemId = data.gemForBaseName[socketGroup.imbuedSupport:lower().." support"]
+			local gem = gemId and data.gems[gemId]
+			if gem and gem.grantedEffect then
+				self.imbuedSupportBySlot[socketGroup.slot] = gem.grantedEffect
+			end
+		end
+	end
+end
+
 -- Changes the active skill set
 function SkillsTabClass:SetActiveSkillSet(skillSetId)
 	-- Initialize skill sets if needed
@@ -1319,6 +1332,7 @@ function SkillsTabClass:SetActiveSkillSet(skillSetId)
 	end
 
 	self.socketGroupList = self.skillSets[skillSetId].socketGroupList
+	self:RebuildImbuedSupportBySlot()
 	self.controls.groupList.list = self.socketGroupList
 	self.activeSkillSetId = skillSetId
 	self.build.buildFlag = true
