@@ -884,9 +884,6 @@ skills["BattlemagesCrySupport"] = {
 			skill("triggeredByBattleMageCry", true),
 		},
 	},
-	qualityStats = {
-		{ "dummy_stat_display_nothing", 0 },
-	},
 	stats = {
 		"support_divine_cry_damage_+%_final",
 		"triggered_by_divine_cry",
@@ -4563,9 +4560,6 @@ skills["FrozenSweep"] = {
 	baseMods = {
 		skill("radius", 25),
 	},
-	qualityStats = {
-		{ "dummy_stat_display_nothing", 0 },
-	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_cold", 100 },
 		{ "skill_disabled_unless_cloned", 1 },
@@ -6704,9 +6698,6 @@ skills["Combust"] = {
 	},
 	baseMods = {
 		skill("showAverage", true),
-	},
-	qualityStats = {
-		{ "dummy_stat_display_nothing", 0 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_fire", 60 },

@@ -405,7 +405,9 @@ directiveTable.skill = function(state, args, out)
 		skill.qualityStats = { }
 		for i, qualityStatsRow in ipairs(dat("GrantedEffectQualityStats"):GetRowList("GrantedEffect", granted)) do
 			for j, stat in ipairs(qualityStatsRow.GrantedStats) do
-				table.insert(skill.qualityStats, { stat.Id, qualityStatsRow.StatValues[j] / 1000 })
+				if stat.Id ~= "dummy_stat_display_nothing" then
+					table.insert(skill.qualityStats, { stat.Id, qualityStatsRow.StatValues[j] / 1000 })
+				end
 				--ConPrintf("%s %s", granted.ActiveSkill.DisplayName, stat.Id)
 			end
 		end

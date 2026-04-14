@@ -17718,9 +17718,6 @@ skills["ChannelledSnipeSupport"] = {
 	baseMods = {
 		flag("TriggeredBySnipe"),
 	},
-	qualityStats = {
-		{ "dummy_stat_display_nothing", 0 },
-	},
 	constantStats = {
 		{ "snipe_triggered_skill_damage_+%_final", -40 },
 		{ "base_number_of_projectiles", 3 },
@@ -18334,9 +18331,6 @@ skills["SupportIntuitiveLink"] = {
 		["support_trigger_link_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
-	},
-	qualityStats = {
-		{ "dummy_stat_display_nothing", 0 },
 	},
 	stats = {
 		"support_trigger_link_damage_+%_final",

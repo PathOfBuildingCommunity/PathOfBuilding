@@ -645,9 +645,6 @@ skills["SupportBrandSupport"] = {
 	baseMods = {
 		skill("triggeredByBrand", true),
 	},
-	qualityStats = {
-		{ "dummy_stat_display_nothing", 0 },
-	},
 	constantStats = {
 		{ "support_brand_area_of_effect_+%_final", -40 },
 		{ "chaining_range_+%", -40 },
@@ -1755,9 +1752,6 @@ skills["SupportDarkRitualAltX"] = {
 		["support_bane_curse_effect_+%_final"] = {
 			mod("CurseEffect", "MORE", nil),
 		},
-	},
-	qualityStats = {
-		{ "dummy_stat_display_nothing", 0.001 },
 	},
 	constantStats = {
 		{ "support_bane_curse_effect_+%_final", -25 },
@@ -16975,9 +16969,6 @@ skills["Spellslinger"] = {
 	},
 	baseFlags = {
 		spell = true,
-	},
-	qualityStats = {
-		{ "dummy_stat_display_nothing", 0 },
 	},
 	stats = {
 		"spellslinger_mana_reservation",

@@ -1393,9 +1393,6 @@ skills["SupportHextouch"] = {
 		["hextouch_support_curse_duration_+%_final"] = {
 		},
 	},
-	qualityStats = {
-		{ "dummy_stat_display_nothing", 0 },
-	},
 	constantStats = {
 		{ "apply_linked_curses_on_hit_%", 100 },
 	},
@@ -1707,9 +1704,6 @@ skills["SignalPrey"] = {
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0,
 	baseFlags = {
-	},
-	qualityStats = {
-		{ "dummy_stat_display_nothing", 0 },
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 8000 },
@@ -3413,9 +3407,6 @@ skills["SupportImpendingDoom"] = {
 		["trigger_vicious_hex_explosion_when_curse_ends"] = {
 			-- Display only
 		},
-	},
-	qualityStats = {
-		{ "dummy_stat_display_nothing", 0 },
 	},
 	stats = {
 		"trigger_vicious_hex_explosion_when_curse_ends",
@@ -5306,9 +5297,6 @@ skills["SupportPrismaticBurst"] = {
 		["trigger_prismatic_burst_on_hit_%_chance"] = {
 			-- Display only
 		},
-	},
-	qualityStats = {
-		{ "dummy_stat_display_nothing", 0 },
 	},
 	constantStats = {
 		{ "trigger_prismatic_burst_on_hit_%_chance", 100 },

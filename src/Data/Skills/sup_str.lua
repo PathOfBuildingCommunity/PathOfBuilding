@@ -2445,9 +2445,6 @@ skills["AvengingFlame"] = {
 		spell = true,
 		projectile = true,
 	},
-	qualityStats = {
-		{ "dummy_stat_display_nothing", 0 },
-	},
 	constantStats = {
 		{ "active_skill_base_area_of_effect_radius", 13 },
 	},
@@ -2778,9 +2775,6 @@ skills["SupportGuardiansBlessingMinion"] = {
 			mod("MinionModifier", "LIST", { mod = mod("PhysicalDegen", "BASE", nil, 0, 0, { type = "PercentStat", stat = "EnergyShield", percent = 1 }) }),
 			div = 60,
 		},
-	},
-	qualityStats = {
-		{ "dummy_stat_display_nothing", 0.25 },
 	},
 	stats = {
 		"support_guardians_blessing_minion_physical_damage_%_of_maximum_life_and_ES_taken_per_minute",
