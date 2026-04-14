@@ -758,6 +758,7 @@ function ImportTabClass:ImportItemsAndSkills(json)
 			end
 		end
 		wipeTable(self.build.skillsTab.socketGroupList)
+		self.build.skillsTab:RebuildImbuedSupportBySlot()
 	end
 	self.charImportStatus = colorCodes.POSITIVE.."Items and skills successfully imported."
 	--ConPrintTable(charItemData)
