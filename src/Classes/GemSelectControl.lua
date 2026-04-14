@@ -796,7 +796,7 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 	local width, height = self:GetSize()
 	local cursorX, cursorY = GetCursorPos()
 	-- constrain cursor to the height of the control
-	if key == "LEFTBUTTON" and (cursorY > y and cursorY < (y + height)) then
+	if not self.imbuedSelect and key == "LEFTBUTTON" and (cursorY > y and cursorY < (y + height)) then
 		-- no need to constrain right side of the S overlay as that's outside hover
 		if cursorX > (x + width - 18) then
 			self.sortGemsBy = "support" -- only need to change sortBy, code will continue to UpdateSortCache
