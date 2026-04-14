@@ -1484,6 +1484,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 				local function addExtraSupports(value, grantedEffect, level)
 					local grantedEffect = grantedEffect or env.data.skills[value.skillId]
+					if value and grantedEffect then -- Only item ExtraSupport gems should be flagged as fromItem. Imbued gems do not pass this check
+						grantedEffect.fromItem = true
+					end
 					-- Some skill gems share the same name as support gems, e.g. Barrage.
 					-- Since a support gem is expected here, if the first lookup returns a skill, then
 					-- prepending "Support" to the skillId will find the support version of the gem.
