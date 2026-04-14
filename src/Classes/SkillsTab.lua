@@ -219,19 +219,24 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.imbuedSupportBySlot = { }
 	self.controls.imbuedSupportLabel = new("LabelControl", { "LEFT", self.controls.groupSlotLabel, "LEFT" }, { 86, 28, 0, 16 }, colorCodes.CRAFTED.."Imbued Support:")
 	self.controls.imbuedSupport = new("GemSelectControl", { "LEFT", self.controls.imbuedSupportLabel, "RIGHT" }, { 8, 0, 250, 20 }, self, 1, function(gemData, _, _, slotName) -- slotName used on Import
-		if not (self.displayGroup or slotName) then
+		local targetSlot = slotName or (self.displayGroup and self.displayGroup.slot)
+		if not targetSlot then
 			return
 		end
+		local updateDisplayGroup = self.displayGroup and targetSlot == self.displayGroup.slot
 		if gemData and (type(gemData) == "string" or gemData.id) then
 			local gem = data.gems[gemData.id or gemData]
-			self.imbuedSupportBySlot[slotName or self.displayGroup.slot] = gem.grantedEffect
-			if self.displayGroup then
+			self.imbuedSupportBySlot[targetSlot] = gem.grantedEffect
+			if updateDisplayGroup then
 				self.displayGroup.imbuedSupport = gem.name
 			end
 			self.controls.imbuedSupport.inactiveCol = data.skillColorMap[gem.grantedEffect.color]
 			self.build.buildFlag = true
 		else
-			self.imbuedSupportBySlot[slotName or self.displayGroup.slot] = nil
+			self.imbuedSupportBySlot[targetSlot] = nil
+			if updateDisplayGroup then
+				self.displayGroup.imbuedSupport = nil
+			end
 		end
 	end, true, true)
 	local function isImbuedEnabled() -- socketedIn must be set and the displayGroup must have an imbued, otherwise disable the imbued dropdown
