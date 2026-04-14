@@ -61,7 +61,6 @@ function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, useFullDPS)
 	else
 		gemList[self.index] = {
 			level = gemData.naturalMaxLevel,
-			qualityId = "Default",
 			quality = self.skillsTab.defaultGemQuality or 0,
 			count = 1,
 			enabled = true,
@@ -78,7 +77,6 @@ function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, useFullDPS)
 	gemInstance.level = self.skillsTab:ProcessGemLevel(gemData)
 	gemInstance.gemData = gemData
 	gemInstance.displayEffect = nil
-	gemInstance.qualityId = "Default"
 	-- Calculate the impact of using this gem
 	local output = calcFunc(nil, useFullDPS)
 	-- Put the original gem back into the list
@@ -471,7 +469,6 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 				local output= self:CalcOutputWithThisGem(calcFunc, gemData, self.skillsTab.sortGemsByDPSField == "FullDPS")
 				local gemInstance = {
 						level = self.skillsTab:ProcessGemLevel(gemData),
-						qualityId = "Default",
 						quality = self.skillsTab.defaultGemQuality or 0,
 						count = 1,
 						enabled = true,
@@ -512,7 +509,6 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			local cursorX, cursorY = GetCursorPos()
 			self.tooltip:Clear()
 			if gemInstance and gemInstance.gemData then
-				gemInstance.qualityId = "Default"
 				self:AddGemTooltip(gemInstance)
 			else
 				self.tooltip:AddLine(16, toolTipText)

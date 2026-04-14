@@ -176,8 +176,7 @@ end
 function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 	local stats = { }
 	if skillInstance.quality > 0 and grantedEffect.qualityStats then
-		local qualityId = skillInstance.qualityId or "Default"
-		local qualityStats = grantedEffect.qualityStats[qualityId]
+		local qualityStats = grantedEffect.qualityStats.Default
 		if not qualityStats then
 			qualityStats = grantedEffect.qualityStats
 		end
