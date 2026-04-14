@@ -1116,11 +1116,11 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			self:ImportItem(socketedItem, slotName .. " Abyssal Socket "..abyssalSocketId)
 			abyssalSocketId = abyssalSocketId + 1
 		else
-			local normalizedBasename, qualityType = sanitiseText(socketedItem.typeLine)
+			local normalizedBasename = sanitiseText(socketedItem.typeLine)
 			local gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
 			if socketedItem.hybrid then
 				-- Used by transfigured gems and dual-skill gems (currently just Stormbind) 
-				normalizedBasename, qualityType = sanitiseText(socketedItem.hybrid.baseTypeName)
+				normalizedBasename = sanitiseText(socketedItem.hybrid.baseTypeName)
 				gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
 				if gemId and socketedItem.hybrid.isVaalGem then
 					gemId = self.build.data.gemGrantedEffectIdForVaalGemId[self.build.data.gems[gemId].grantedEffectId]
@@ -1130,7 +1130,6 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 				local gemInstance = { level = 20, quality = 0, enabled = true, enableGlobal1 = true, gemId = gemId }
 				gemInstance.nameSpec = self.build.data.gems[gemId].name
 				gemInstance.support = socketedItem.support
-				gemInstance.qualityId = qualityType
 				for _, property in pairs(socketedItem.properties) do
 					if property.name == "Level" then
 						gemInstance.level = tonumber(property.values[1][1]:match("%d+"))

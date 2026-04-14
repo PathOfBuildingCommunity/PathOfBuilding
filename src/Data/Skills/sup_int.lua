@@ -18,9 +18,7 @@ skills["SupportAddedChaosDamage"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "chaos_damage_+%", 0.5 },
-		},
+		{ "chaos_damage_+%", 0.5 },
 	},
 	stats = {
 		"global_minimum_added_chaos_damage",
@@ -83,9 +81,7 @@ skills["SupportAwakenedAddedChaosDamage"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	legacy = true,
 	qualityStats = {
-		Default = {
-			{ "chaos_damage_+%", 0.5 },
-		},
+		{ "chaos_damage_+%", 0.5 },
 	},
 	stats = {
 		"global_minimum_added_chaos_damage",
@@ -127,9 +123,7 @@ skills["SupportAddedLightningDamage"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "lightning_damage_+%", 0.5 },
-		},
+		{ "lightning_damage_+%", 0.5 },
 	},
 	stats = {
 		"global_minimum_added_lightning_damage",
@@ -192,9 +186,7 @@ skills["SupportAwakenedAddedLightningDamage"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	legacy = true,
 	qualityStats = {
-		Default = {
-			{ "lightning_damage_+%", 0.5 },
-		},
+		{ "lightning_damage_+%", 0.5 },
 	},
 	stats = {
 		"global_minimum_added_lightning_damage",
@@ -245,9 +237,7 @@ skills["SupportArcaneSurge"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "spell_damage_+%", 0.5 },
-		},
+		{ "spell_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_arcane_surge_base_duration_ms", 4000 },
@@ -321,9 +311,7 @@ skills["SupportArchmage"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "spell_damage_+%", 0.5 },
-		},
+		{ "spell_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "manaweave_cost_equals_%_unreserved_mana", 5 },
@@ -392,9 +380,7 @@ skills["SupportBlasphemy"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "curse_area_of_effect_+%", 1 },
-		},
+		{ "curse_area_of_effect_+%", 1 },
 	},
 	constantStats = {
 		{ "support_blasphemy_curse_effect_+%_final", -25 },
@@ -467,9 +453,7 @@ skills["SupportAwakenedBlasphemy"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "curse_area_of_effect_+%", 1 },
-		},
+		{ "curse_area_of_effect_+%", 1 },
 	},
 	constantStats = {
 		{ "support_blasphemy_curse_effect_+%_final", -25 },
@@ -525,9 +509,7 @@ skills["SupportEldritchBlasphemy"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "curse_area_of_effect_+%", 1 },
-		},
+		{ "curse_area_of_effect_+%", 1 },
 	},
 	constantStats = {
 		{ "support_blasphemy_curse_effect_+%_final", -25 },
@@ -578,9 +560,7 @@ skills["SupportBonechill"] = {
 		skill("supportBonechill", true),
 	},
 	qualityStats = {
-		Default = {
-			{ "cold_damage_+%", 0.5 },
-		},
+		{ "cold_damage_+%", 0.5 },
 	},
 	stats = {
 		"chill_effect_+%",
@@ -642,9 +622,7 @@ skills["SupportCastWhenStunned"] = {
 	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "cast_on_stunned_%", 1 },
-		},
+		{ "cast_on_stunned_%", 1 },
 	},
 	stats = {
 		"cast_on_stunned_%",
@@ -715,9 +693,7 @@ skills["SupportCastWhileChannelling"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "channelled_skill_damage_+%", 0.5 },
-		},
+		{ "channelled_skill_damage_+%", 0.5 },
 	},
 	stats = {
 		"cast_while_channelling_time_ms",
@@ -784,9 +760,7 @@ skills["SupportCastWhileChannellingTriggered"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "triggered_skill_damage_+%", 0.5 },
-		},
+		{ "triggered_skill_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_cast_while_channelling_triggered_skill_damage_+%_final", -30 },
@@ -858,9 +832,7 @@ skills["SupportAwakenedCastWhileChannelling"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "channelled_skill_damage_+%", 0.5 },
-		},
+		{ "channelled_skill_damage_+%", 0.5 },
 	},
 	stats = {
 		"cast_while_channelling_time_ms",
@@ -909,9 +881,7 @@ skills["SupportCastWhileChannellingTriggeredPlus"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "triggered_skill_damage_+%", 0.5 },
-		},
+		{ "triggered_skill_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_cast_while_channelling_triggered_skill_damage_+%_final", -30 },
@@ -962,9 +932,7 @@ skills["SupportCombustion"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "fire_damage_+%", 0.5 },
-		},
+		{ "fire_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "base_chance_to_ignite_%", 25 },
@@ -1026,9 +994,7 @@ skills["SupportChargedMines"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "mine_damage_+%", 0.5 },
-		},
+		{ "mine_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "mine_throwing_speed_+%_per_frenzy_charge", 10 },
@@ -1096,9 +1062,7 @@ skills["SupportCongregation"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "minion_movement_speed_+%", 0.5 },
-		},
+		{ "minion_movement_speed_+%", 0.5 },
 	},
 	stats = {
 		"support_undead_army_minion_maximum_count_+%_final",
@@ -1140,9 +1104,7 @@ skills["SupportConcentratedEffect"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "area_damage_+%", 0.5 },
-		},
+		{ "area_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_concentrated_effect_skill_area_of_effect_+%_final", -30 },
@@ -1211,9 +1173,7 @@ skills["SupportControlledDestruction"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "spell_damage_+%", 0.5 },
-		},
+		{ "spell_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_controlled_destruction_critical_strike_chance_+%_final", -80 },
@@ -1284,9 +1244,7 @@ skills["SupportAwakenedControlledDestruction"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "spell_damage_+%", 0.5 },
-		},
+		{ "spell_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_controlled_destruction_critical_strike_chance_+%_final", -80 },
@@ -1329,9 +1287,7 @@ skills["SupportCooldownRecovery"] = {
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 0.25 },
-		},
+		{ "base_cooldown_speed_+%", 0.25 },
 	},
 	stats = {
 		"base_cooldown_speed_+%",
@@ -1367,9 +1323,7 @@ skills["SupportCursedGround"] = {
 	excludeSkillTypes = { SkillType.Aura, SkillType.SupportedByBane, },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "curse_area_of_effect_+%", 0.5 },
-		},
+		{ "curse_area_of_effect_+%", 0.5 },
 	},
 	stats = {
 		"base_hex_zone_skill_duration_ms",
@@ -1437,11 +1391,6 @@ skills["SupportHextouch"] = {
 		["support_hextouch_curse_effect_+%_final"] = {
 		},
 		["hextouch_support_curse_duration_+%_final"] = {
-		},
-	},
-	qualityStats = {
-		Default = {
-			{ "dummy_stat_display_nothing", 0 },
 		},
 	},
 	constantStats = {
@@ -1516,9 +1465,7 @@ skills["SupportCurseOnHitCurse"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "base_curse_duration_+%", 0.5 },
-		},
+		{ "base_curse_duration_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_hextouch_curse_effect_+%_final", -35 },
@@ -1645,9 +1592,7 @@ skills["SupportCurseOnHitCursePlus"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "base_curse_duration_+%", 0.5 },
-		},
+		{ "base_curse_duration_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_hextouch_curse_effect_+%_final", -35 },
@@ -1700,9 +1645,7 @@ skills["SupportPredator"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "minion_damage_+%", 0.5 },
-		},
+		{ "minion_damage_+%", 0.5 },
 	},
 	stats = {
 		"support_minion_focus_fire_damage_+%_final_vs_focussed_target",
@@ -1761,11 +1704,6 @@ skills["SignalPrey"] = {
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0,
 	baseFlags = {
-	},
-	qualityStats = {
-		Default = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 8000 },
@@ -1828,9 +1766,7 @@ skills["SupportDecay"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "chaos_damage_+%", 0.5 },
-		},
+		{ "chaos_damage_+%", 0.5 },
 	},
 	stats = {
 		"deal_chaos_damage_per_second_for_10_seconds_on_hit",
@@ -1896,9 +1832,7 @@ skills["SupportDevour"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "damage_+%_if_you_have_consumed_a_corpse_recently", 4 },
-		},
+		{ "damage_+%_if_you_have_consumed_a_corpse_recently", 4 },
 	},
 	stats = {
 		"killing_blow_consumes_corpse_restore_x_life",
@@ -1971,9 +1905,7 @@ skills["SupportGreaterDevour"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "killing_blow_consumes_corpse_chance_to_gain_soul_per_power_permillage", 0.5 },
-		},
+		{ "killing_blow_consumes_corpse_chance_to_gain_soul_per_power_permillage", 0.5 },
 	},
 	stats = {
 		"killing_blow_consumes_corpse_restore_x_life",
@@ -2016,9 +1948,7 @@ skills["SupportEfficacy"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "damage_over_time_+%", 0.5 },
-		},
+		{ "damage_over_time_+%", 0.5 },
 	},
 	stats = {
 		"support_efficacy_damage_over_time_+%_final",
@@ -2082,9 +2012,7 @@ skills["SupportElementalFocus"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "elemental_damage_+%", 0.5 },
-		},
+		{ "elemental_damage_+%", 0.5 },
 	},
 	stats = {
 		"support_gem_elemental_damage_+%_final",
@@ -2150,9 +2078,7 @@ skills["SupportAwakenedElementalFocus"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "elemental_damage_+%", 0.5 },
-		},
+		{ "elemental_damage_+%", 0.5 },
 	},
 	stats = {
 		"support_gem_elemental_damage_+%_final",
@@ -2192,9 +2118,7 @@ skills["SupportElementalProliferation"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "base_elemental_status_ailment_duration_+%", 0.5 },
-		},
+		{ "base_elemental_status_ailment_duration_+%", 0.5 },
 	},
 	constantStats = {
 		{ "chance_to_freeze_shock_ignite_%", 20 },
@@ -2263,9 +2187,7 @@ skills["SupportEnergyLeech"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "damage_+%_while_es_leeching", 1 },
-		},
+		{ "damage_+%_while_es_leeching", 1 },
 	},
 	stats = {
 		"energy_shield_leech_from_any_damage_permyriad",
@@ -2325,9 +2247,7 @@ skills["SupportEnlighten"] = {
 	supportGemsOnly = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "local_gem_experience_gain_+%", 5 },
-		},
+		{ "local_gem_experience_gain_+%", 5 },
 	},
 	stats = {
 	},
@@ -2356,9 +2276,7 @@ skills["SupportAwakenedEnlighten"] = {
 	plusVersionOf = "SupportEnlighten",
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "local_gem_experience_gain_+%", 5 },
-		},
+		{ "local_gem_experience_gain_+%", 5 },
 	},
 	stats = {
 	},
@@ -2404,9 +2322,7 @@ skills["SupportExemplar"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "minion_critical_strike_chance_+%", 1 },
-		},
+		{ "minion_critical_strike_chance_+%", 1 },
 	},
 	stats = {
 		"minion_critical_strike_chance_+%_per_attack_crit_recently_up_to_100",
@@ -2466,9 +2382,7 @@ skills["SupportFasterCasting"] = {
 	excludeSkillTypes = { SkillType.Instant, SkillType.FixedCastTime, },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "base_cast_speed_+%", 0.5 },
-		},
+		{ "base_cast_speed_+%", 0.5 },
 	},
 	stats = {
 		"base_cast_speed_+%",
@@ -2531,9 +2445,7 @@ skills["SupportFeedingFrenzy"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "minion_movement_speed_+%", 0.5 },
-		},
+		{ "minion_movement_speed_+%", 0.5 },
 	},
 	stats = {
 		"minion_grant_puppet_master_buff_to_parent_on_hit_%",
@@ -2602,9 +2514,7 @@ skills["SupportFocusedChannelling"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cast_speed_+%", 0.5 },
-		},
+		{ "base_cast_speed_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_focus_channel_cost_+%_final_per_second_channelling_up_to_100%", 20 },
@@ -2713,9 +2623,7 @@ skills["TriggeredSupportFoulgrasp"] = {
 		duration = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "graft_skill_esh_lightning_hands_number_of_hands_spawned", 0.1 },
-		},
+		{ "graft_skill_esh_lightning_hands_number_of_hands_spawned", 0.1 },
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 8000 },
@@ -2774,9 +2682,7 @@ skills["SupportFreshMeat"] = {
 		mod("MinionModifier", "LIST", { mod = mod("Condition:Adrenaline", "FLAG", true) }, 0, 0, { type = "Condition", var = "FreshMeatActive" }),
 	},
 	qualityStats = {
-		Default = {
-			{ "minion_critical_strike_chance_+%", 1 },
-		},
+		{ "minion_critical_strike_chance_+%", 1 },
 	},
 	constantStats = {
 		{ "support_recent_minions_effect_duration_is_%_summon_duration", 10 },
@@ -2849,9 +2755,7 @@ skills["SupportFrigidBond"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "support_damaging_links_base_duration_ms", 100 },
-		},
+		{ "support_damaging_links_base_duration_ms", 100 },
 	},
 	constantStats = {
 		{ "support_damaging_links_base_duration_ms", 2000 },
@@ -2926,9 +2830,7 @@ skills["SupportFrostmage"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "spell_damage_+%", 0.5 },
-		},
+		{ "spell_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "frostmage_cost_equals_%_reserved_mana", 5 },
@@ -2973,9 +2875,7 @@ skills["SupportGluttony"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "projectile_damage_+%", 0.5 },
-		},
+		{ "projectile_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "gain_X_wildshard_stacks_on_cast", 1 },
@@ -3016,9 +2916,7 @@ skills["SupportHexBloom"] = {
 	excludeSkillTypes = { SkillType.Aura, SkillType.PreventHexTransfer, },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "hex_transfer_on_death_range_+%", 0.2 },
-		},
+		{ "hex_transfer_on_death_range_+%", 0.2 },
 	},
 	constantStats = {
 		{ "transfer_hexes_to_X_nearby_enemies_on_kill", 1 },
@@ -3088,9 +2986,7 @@ skills["SupportHexpass"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "base_curse_duration_+%", 0.5 },
-		},
+		{ "base_curse_duration_+%", 0.5 },
 	},
 	constantStats = {
 		{ "chance_to_ignore_hexproof_%", 100 },
@@ -3135,9 +3031,7 @@ skills["SupportHextoad"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "curse_area_of_effect_+%", 0.5 },
-		},
+		{ "curse_area_of_effect_+%", 0.5 },
 	},
 	stats = {
 		"base_hex_zone_skill_duration_ms",
@@ -3232,9 +3126,7 @@ skills["SupportHighImpactMine"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "mine_damage_+%", 0.5 },
-		},
+		{ "mine_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_remote_mine_2_base_mine_duration", 5000 },
@@ -3344,9 +3236,7 @@ skills["TriggeredSupportHiveborn"] = {
 		duration = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "base_graft_skill_tul_summon_maximum_allowed_demons", 0.1 },
-		},
+		{ "base_graft_skill_tul_summon_maximum_allowed_demons", 0.1 },
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 10000 },
@@ -3394,9 +3284,7 @@ skills["SupportIgniteProliferation"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "fire_damage_+%", 0.5 },
-		},
+		{ "fire_damage_+%", 0.5 },
 	},
 	stats = {
 		"support_ignite_proliferation_radius",
@@ -3457,9 +3345,7 @@ skills["SupportImmolate"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "fire_damage_+%", 0.5 },
-		},
+		{ "fire_damage_+%", 0.5 },
 	},
 	stats = {
 		"global_minimum_added_fire_damage_vs_burning_enemies",
@@ -3520,11 +3406,6 @@ skills["SupportImpendingDoom"] = {
 	statMap = {
 		["trigger_vicious_hex_explosion_when_curse_ends"] = {
 			-- Display only
-		},
-	},
-	qualityStats = {
-		Default = {
-			{ "dummy_stat_display_nothing", 0 },
 		},
 	},
 	stats = {
@@ -3591,9 +3472,7 @@ skills["DoomBlast"] = {
 		skill("radius", 20),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
+		{ "base_skill_area_of_effect_+%", 0.5 },
 	},
 	stats = {
 		"spell_minimum_base_chaos_damage",
@@ -3659,9 +3538,7 @@ skills["SupportIncreasedAreaOfEffect"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "area_damage_+%", 0.5 },
-		},
+		{ "area_damage_+%", 0.5 },
 	},
 	stats = {
 		"base_skill_area_of_effect_+%",
@@ -3726,9 +3603,7 @@ skills["SupportAwakenedIncreasedAreaofEffect"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "area_damage_+%", 0.5 },
-		},
+		{ "area_damage_+%", 0.5 },
 	},
 	stats = {
 		"base_skill_area_of_effect_+%",
@@ -3768,9 +3643,7 @@ skills["SupportIncreasedCriticalDamage"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "base_critical_strike_multiplier_+", 0.5 },
-		},
+		{ "base_critical_strike_multiplier_+", 0.5 },
 	},
 	stats = {
 		"base_critical_strike_multiplier_+",
@@ -3829,9 +3702,7 @@ skills["SupportIncreasedCriticalStrikes"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "critical_strike_chance_+%", 1 },
-		},
+		{ "critical_strike_chance_+%", 1 },
 	},
 	constantStats = {
 		{ "additional_base_critical_strike_chance", 200 },
@@ -3905,9 +3776,7 @@ skills["SupportInfernalLegion"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "minion_damage_+%", 0.5 },
-		},
+		{ "minion_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "minion_fire_damage_%_of_maximum_life_taken_per_minute", 2400 },
@@ -3978,9 +3847,7 @@ skills["SupportInfusedChannelling"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "support_storm_barrier_damage_taken_when_hit_+%_final_while_channelling", -0.1 },
-		},
+		{ "support_storm_barrier_damage_taken_when_hit_+%_final_while_channelling", -0.1 },
 	},
 	constantStats = {
 		{ "support_storm_barrier_damage_taken_when_hit_+%_final_while_channelling", -12 },
@@ -4054,9 +3921,7 @@ skills["SupportInnervate"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "support_innervate_buff_base_duration_ms", 100 },
-		},
+		{ "support_innervate_buff_base_duration_ms", 100 },
 	},
 	constantStats = {
 		{ "base_chance_to_shock_%", 20 },
@@ -4130,9 +3995,7 @@ skills["SupportIntensify"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "area_damage_+%", 0.5 },
-		},
+		{ "area_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_spell_boost_area_of_effect_+%_final_per_charge", -15 },
@@ -4198,9 +4061,7 @@ skills["SupportInvertTheRules"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "elemental_damage_+%", 0.5 },
-		},
+		{ "elemental_damage_+%", 0.5 },
 	},
 	stats = {
 		"treat_enemy_resistances_as_negated_on_elemental_damage_hit_%_chance",
@@ -4234,9 +4095,7 @@ skills["SupportItemRarity"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "base_killed_monster_dropped_item_rarity_+%", 0.5 },
-		},
+		{ "base_killed_monster_dropped_item_rarity_+%", 0.5 },
 	},
 	stats = {
 		"base_killed_monster_dropped_item_rarity_+%",
@@ -4298,9 +4157,7 @@ skills["SupportKineticInstability"] = {
 	},
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "attack_damage_+%", 0.5 },
-		},
+		{ "attack_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_kinetic_instability_chance_to_create_instability_on_kill_%", 100 },
@@ -4438,9 +4295,7 @@ skills["SupportGreaterKineticInstability"] = {
 	},
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "attack_damage_+%", 0.5 },
-		},
+		{ "attack_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_kinetic_instability_chance_to_create_instability_on_critical_strike_%", 100 },
@@ -4523,9 +4378,7 @@ skills["SupportLightningPenetration"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "lightning_damage_+%", 0.5 },
-		},
+		{ "lightning_damage_+%", 0.5 },
 	},
 	stats = {
 		"base_reduce_enemy_lightning_resistance_%",
@@ -4651,9 +4504,7 @@ skills["TriggeredSupportLivingLightning"] = {
 		minion = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "living_lightning_number_of_attacks", 0.1 },
-		},
+		{ "living_lightning_number_of_attacks", 0.1 },
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 5000 },
@@ -4723,9 +4574,7 @@ skills["SupportAwakenedLightningPenetration"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	legacy = true,
 	qualityStats = {
-		Default = {
-			{ "lightning_damage_+%", 0.5 },
-		},
+		{ "lightning_damage_+%", 0.5 },
 	},
 	stats = {
 		"base_reduce_enemy_lightning_resistance_%",
@@ -4775,9 +4624,7 @@ skills["SupportMeatShield"] = {
 		}
 	},
 	qualityStats = {
-		Default = {
-			{ "support_minion_defensive_stance_minion_damage_taken_+%_final", -0.25 },
-		},
+		{ "support_minion_defensive_stance_minion_damage_taken_+%_final", -0.25 },
 	},
 	constantStats = {
 		{ "minion_chance_to_taunt_on_hit_%", 20 },
@@ -4846,9 +4693,7 @@ skills["SupportMinefield"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "mine_laying_speed_+%", 0.25 },
-		},
+		{ "mine_laying_speed_+%", 0.25 },
 	},
 	constantStats = {
 		{ "number_of_additional_mines_to_place", 4 },
@@ -4917,9 +4762,7 @@ skills["SupportMinionDamage"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "minion_damage_+%", 0.5 },
-		},
+		{ "minion_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_minion_damage_minion_life_+%_final", -25 },
@@ -4987,9 +4830,7 @@ skills["SupportAwakenedMinionDamage"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "minion_damage_+%", 0.5 },
-		},
+		{ "minion_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_minion_damage_minion_life_+%_final", -25 },
@@ -5037,9 +4878,7 @@ skills["SupportMinionLife"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "minion_maximum_life_+%", 1 },
-		},
+		{ "minion_maximum_life_+%", 1 },
 	},
 	stats = {
 		"support_minion_maximum_life_+%_final",
@@ -5105,9 +4944,7 @@ skills["SupportMinionPact"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "spell_damage_+%", 0.5 },
-		},
+		{ "spell_damage_+%", 0.5 },
 	},
 	stats = {
 		"support_minion_pact_sacrifice_nearby_damageable_minion_to_gain_permillage_of_max_life_as_physical_damage",
@@ -5144,9 +4981,7 @@ skills["SupportMinionSpeed"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "minion_movement_speed_+%", 0.5 },
-		},
+		{ "minion_movement_speed_+%", 0.5 },
 	},
 	stats = {
 		"minion_movement_speed_+%",
@@ -5213,9 +5048,7 @@ skills["SupportElementalArmy"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "minion_maximum_all_elemental_resistances_%", 0.1 },
-		},
+		{ "minion_maximum_all_elemental_resistances_%", 0.1 },
 	},
 	constantStats = {
 		{ "minions_inflict_exposure_on_hit_%_chance", 100 },
@@ -5286,9 +5119,7 @@ skills["SupportOvercharge"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "shock_duration_+%", 1 },
-		},
+		{ "shock_duration_+%", 1 },
 	},
 	constantStats = {
 		{ "base_chance_to_shock_%", 50 },
@@ -5360,9 +5191,7 @@ skills["SupportOverloadedIntensity"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "spell_damage_+%", 0.5 },
-		},
+		{ "spell_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "gain_overloaded_intensity_for_x_ms_after_losing_6_intensity", 10000 },
@@ -5403,9 +5232,7 @@ skills["SupportPhysicalToLightning"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "physical_damage_+%", 0.5 },
-		},
+		{ "physical_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
@@ -5469,11 +5296,6 @@ skills["SupportPrismaticBurst"] = {
 	statMap = {
 		["trigger_prismatic_burst_on_hit_%_chance"] = {
 			-- Display only
-		},
-	},
-	qualityStats = {
-		Default = {
-			{ "dummy_stat_display_nothing", 0 },
 		},
 	},
 	constantStats = {
@@ -5561,9 +5383,7 @@ skills["PrismaticBurst"] = {
 		skill("radius", 13),
 	},
 	qualityStats = {
-		Default = {
-			{ "elemental_damage_+%", 1 },
-		},
+		{ "elemental_damage_+%", 1 },
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",
@@ -5657,9 +5477,7 @@ skills["SupportPinpoint"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "projectile_damage_+%", 0.5 },
-		},
+		{ "projectile_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "number_of_additional_projectiles", 3 },
@@ -5732,9 +5550,7 @@ skills["SupportPowerChargeOnCritical"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "add_power_charge_on_critical_strike_%", 0.5 },
-		},
+		{ "add_power_charge_on_critical_strike_%", 0.5 },
 	},
 	constantStats = {
 		{ "support_power_charge_on_crit_damage_+%_final_per_power_charge", 4 },
@@ -5806,9 +5622,7 @@ skills["SupportBlastchainMine"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "mine_damage_+%", 0.5 },
-		},
+		{ "mine_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "base_mine_duration", 5000 },
@@ -5890,9 +5704,7 @@ skills["SupportSacredWisps"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "attack_damage_+%", 0.5 },
-		},
+		{ "attack_damage_+%", 0.5 },
 	},
 	stats = {
 		"skill_used_by_sacred_wisp_damage_+%_final",
@@ -6035,9 +5847,7 @@ skills["SupportSacrifice"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "chaos_damage_+%", 0.5 },
-		},
+		{ "chaos_damage_+%", 0.5 },
 	},
 	stats = {
 		"support_sacrifice_sacrifice_%_of_current_life",
@@ -6105,9 +5915,7 @@ skills["SupportScornfulHerald"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "base_critical_strike_multiplier_+", 0.5 },
-		},
+		{ "base_critical_strike_multiplier_+", 0.5 },
 	},
 	stats = {
 		"additional_base_critical_strike_chance",
@@ -6147,9 +5955,7 @@ skills["SupportSpellblade"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "spell_damage_+%", 0.5 },
-		},
+		{ "spell_damage_+%", 0.5 },
 	},
 	stats = {
 		"support_spell_weapon_damage_gain_%_of_one_hand_melee_weapon_damage_as_added_spell_damage",
@@ -6219,9 +6025,7 @@ skills["SupportSpellCascade"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
+		{ "base_skill_area_of_effect_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_spell_cascade_number_of_cascades_per_side", 1 },
@@ -6298,9 +6102,7 @@ skills["SupportAwakenedSpellCascade"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
+		{ "base_skill_area_of_effect_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_spell_cascade_number_of_cascades_per_side", 1 },
@@ -6357,9 +6159,7 @@ skills["SupportGreaterSpellCascade"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
+		{ "base_skill_area_of_effect_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_spell_cascade_number_of_cascades_per_side", 1 },
@@ -6409,9 +6209,7 @@ skills["SupportSpellEcho"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "spell_damage_+%", 0.5 },
-		},
+		{ "spell_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "base_spell_repeat_count", 1 },
@@ -6486,9 +6284,7 @@ skills["SupportGreaterSpellEcho"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "spell_damage_+%", 0.5 },
-		},
+		{ "spell_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "base_spell_repeat_count", 2 },
@@ -6539,9 +6335,7 @@ skills["SupportAwakenedSpellEcho"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "spell_damage_+%", 0.5 },
-		},
+		{ "spell_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "base_spell_repeat_count", 1 },
@@ -6598,9 +6392,7 @@ skills["SupportSummonPhantasm"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "chance_to_summon_support_ghost_on_killing_blow_%", 0.5 },
-		},
+		{ "chance_to_summon_support_ghost_on_killing_blow_%", 0.5 },
 	},
 	constantStats = {
 		{ "support_ghost_base_duration", 15000 },
@@ -6677,9 +6469,7 @@ skills["SupportSwiftbrand"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "support_rapid_activation_brand_activation_rate_+%_final", 0.25 },
-		},
+		{ "support_rapid_activation_brand_activation_rate_+%_final", 0.25 },
 	},
 	constantStats = {
 		{ "support_rapid_activation_brand_skill_only_primary_duration_+%_final", -65 },
@@ -6751,9 +6541,7 @@ skills["SupportTrinity"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "elemental_damage_+%", 0.5 },
-		},
+		{ "elemental_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "elemental_damage_+%_final_per_5_lowest_resonance", 3 },
@@ -6823,9 +6611,7 @@ skills["SupportUnboundAilments"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "base_all_ailment_duration_+%", 0.5 },
-		},
+		{ "base_all_ailment_duration_+%", 0.5 },
 	},
 	stats = {
 		"base_all_ailment_duration_+%",
@@ -6892,9 +6678,7 @@ skills["SupportAwakenedUnboundAilments"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "base_all_ailment_duration_+%", 0.5 },
-		},
+		{ "base_all_ailment_duration_+%", 0.5 },
 	},
 	stats = {
 		"base_all_ailment_duration_+%",
@@ -6949,9 +6733,7 @@ skills["SupportUnleash"] = {
 		flag("HasSeals"),
 	},
 	qualityStats = {
-		Default = {
-			{ "spell_damage_+%", 0.5 },
-		},
+		{ "spell_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_anticipation_rapid_fire_count", 3 },
@@ -7033,9 +6815,7 @@ skills["SupportAwakenedUnleash"] = {
 		flag("HasSeals"),
 	},
 	qualityStats = {
-		Default = {
-			{ "spell_damage_+%", 0.5 },
-		},
+		{ "spell_damage_+%", 0.5 },
 	},
 	stats = {
 		"support_anticipation_rapid_fire_count",
@@ -7095,9 +6875,7 @@ skills["SupportGreaterUnleash"] = {
 		flag("HasSeals"),
 	},
 	qualityStats = {
-		Default = {
-			{ "spell_damage_+%", 0.5 },
-		},
+		{ "spell_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_anticipation_rapid_fire_count", 4 },
@@ -7142,9 +6920,7 @@ skills["SupportVaalSacrifice"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "spell_damage_+%", 0.5 },
-		},
+		{ "spell_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "base_spell_repeat_count", 1 },

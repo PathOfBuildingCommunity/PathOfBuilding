@@ -1531,7 +1531,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 								grantedEffect = grantedEffect,
 								level = gemInstance.level,
 								quality = gemInstance.quality,
-								qualityId = gemInstance.qualityId,
 								srcInstance = gemInstance,
 								gemData = gemInstance.gemData,
 								superseded = false,
@@ -1603,7 +1602,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 									grantedEffect = grantedEffect,
 									level = gemInstance.level,
 									quality = gemInstance.quality,
-									qualityId = gemInstance.qualityId,
 									srcInstance = gemInstance,
 									gemData = gemInstance.gemData,
 								}

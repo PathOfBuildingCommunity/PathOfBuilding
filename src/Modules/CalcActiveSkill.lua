@@ -171,7 +171,6 @@ function calcs.copyActiveSkill(env, mode, skill)
 	if skill.activeEffect.srcInstance then
 		activeEffect.level = skill.activeEffect.srcInstance.level
 		activeEffect.quality = skill.activeEffect.srcInstance.quality
-		activeEffect.qualityId = skill.activeEffect.srcInstance.qualityId
 		activeEffect.srcInstance = skill.activeEffect.srcInstance
 		activeEffect.gemData = skill.activeEffect.srcInstance.gemData
 	end
