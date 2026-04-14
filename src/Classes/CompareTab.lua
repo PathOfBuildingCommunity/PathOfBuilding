@@ -232,6 +232,10 @@ function CompareTabClass:InitControls()
 			tooltip:AddLine(14, "^7Go to Import/Export Build tab and select a character first.")
 		end
 	end
+	self.controls.reimportBtn.enabled = function()
+		local importTab = self.primaryBuild.importTab
+		return importTab and importTab.charImportMode == "SELECTCHAR"
+	end
 
 	-- Remove comparison build button
 	self.controls.removeBtn = new("ButtonControl", {"LEFT", self.controls.reimportBtn, "RIGHT"}, {4, 0, 70, 20}, "Remove", function()
@@ -1409,14 +1413,6 @@ end
 -- Re-import primary build using character import (same as Import/Export tab)
 function CompareTabClass:ReimportPrimary()
 	local importTab = self.primaryBuild.importTab
-	if not importTab then
-		main:OpenMessagePopup("Re-import", "Import tab not available.")
-		return
-	end
-	if importTab.charImportMode ~= "SELECTCHAR" then
-		main:OpenMessagePopup("Re-import", "No character selected.\nGo to the Import/Export Build tab, enter your account name,\nand select a character first.")
-		return
-	end
 	-- Set clear checkboxes to true (delete existing jewels, skills, equipment)
 	importTab.controls.charImportTreeClearJewels.state = true
 	importTab.controls.charImportItemsClearSkills.state = true
