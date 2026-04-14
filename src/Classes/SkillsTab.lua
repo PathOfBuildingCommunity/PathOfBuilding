@@ -168,8 +168,8 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.groupSlot = new("DropDownControl", { "TOPLEFT", self.anchorGroupDetail, "TOPLEFT" }, { 85, 28, 130, 20 }, groupSlotDropList, function(index, value)
 		-- maintain imbued support to new slot
 		if self.imbuedSupportBySlot[self.displayGroup.slot] and self.displayGroup.imbuedSupport then
-			if value.label ~= "None" and not self.imbuedSupportBySlot[value.label] then
-				self.imbuedSupportBySlot[value.label] = copyTable(self.imbuedSupportBySlot[self.displayGroup.slot], true)
+			if value.slotName and not self.imbuedSupportBySlot[value.slotName] then
+				self.imbuedSupportBySlot[value.slotName] = copyTable(self.imbuedSupportBySlot[self.displayGroup.slot], true)
 			else
 				self.controls.imbuedSupport.gemId = nil
 				self.controls.imbuedSupport:SetText("")
