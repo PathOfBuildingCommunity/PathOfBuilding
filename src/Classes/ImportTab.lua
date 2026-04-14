@@ -746,9 +746,17 @@ local function getSocketGroupReimportKey(socketGroup)
 end
 
 local function snapshotSocketGroupReimportState(socketGroup, isMainGroup)
-	local gemEnabledStates = { }
+	local gemStates = { }
 	for gemIndex, gem in ipairs(socketGroup.gemList) do
-		gemEnabledStates[gemIndex] = gem.enabled
+		gemStates[gemIndex] = {
+			enabled = gem.enabled,
+			skillPart = gem.skillPart,
+			skillPartCalcs = gem.skillPartCalcs,
+			skillStageCount = gem.skillStageCount,
+			skillStageCountCalcs = gem.skillStageCountCalcs,
+			skillMineCount = gem.skillMineCount,
+			skillMineCountCalcs = gem.skillMineCountCalcs,
+		}
 	end
 	return {
 		enabled = socketGroup.enabled,
@@ -757,9 +765,19 @@ local function snapshotSocketGroupReimportState(socketGroup, isMainGroup)
 		label = socketGroup.label,
 		mainActiveSkill = socketGroup.mainActiveSkill,
 		mainActiveSkillCalcs = socketGroup.mainActiveSkillCalcs,
-		gemEnabledStates = gemEnabledStates,
+		gemStates = gemStates,
 		isMainGroup = isMainGroup,
 	}
+end
+
+local function applyGemReimportState(gem, state)
+	gem.enabled = state.enabled
+	gem.skillPart = state.skillPart
+	gem.skillPartCalcs = state.skillPartCalcs
+	gem.skillStageCount = state.skillStageCount
+	gem.skillStageCountCalcs = state.skillStageCountCalcs
+	gem.skillMineCount = state.skillMineCount
+	gem.skillMineCountCalcs = state.skillMineCountCalcs
 end
 
 local function applySocketGroupReimportState(socketGroup, state)
@@ -769,10 +787,10 @@ local function applySocketGroupReimportState(socketGroup, state)
 	socketGroup.label = state.label
 	socketGroup.mainActiveSkill = state.mainActiveSkill
 	socketGroup.mainActiveSkillCalcs = state.mainActiveSkillCalcs
-	if state.gemEnabledStates then
-		for gemIndex, enabled in ipairs(state.gemEnabledStates) do
+	if state.gemStates then
+		for gemIndex, gemState in ipairs(state.gemStates) do
 			if socketGroup.gemList[gemIndex] then
-				socketGroup.gemList[gemIndex].enabled = enabled
+				applyGemReimportState(socketGroup.gemList[gemIndex], gemState)
 			end
 		end
 	end
