@@ -759,7 +759,7 @@ function GemSelectClass:OnFocusGained()
 	self:UpdateSortCache()
 	self:BuildList("")
 	for index, gemId in pairs(self.list) do
-		if self.gems[gemId].name == self.buf then
+		if self.gems[gemId] and self.gems[gemId].name == self.buf then
 			self.selIndex = index
 			self:ScrollSelIntoView()
 			break
