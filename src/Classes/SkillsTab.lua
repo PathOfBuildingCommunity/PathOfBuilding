@@ -75,13 +75,6 @@ local sortGemTypeList = {
 	{ label = "Effective Hit Pool", type = "TotalEHP" },
 }
 
-local alternateGemQualityList ={
-	{ label = "Default", type = "Default" },
-	{ label = "Anomalous", type = "Alternate1" },
-	{ label = "Divergent", type = "Alternate2" },
-	{ label = "Phantasmal", type = "Alternate3" },
-}
-
 local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
 	self.ControlHost()
@@ -94,7 +87,6 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.sortGemsByDPS = true
 	self.sortGemsByDPSField = "CombinedDPS"
 	self.showSupportGemTypes = "ALL"
-	self.showAltQualityGems = false
 	self.showLegacyGems = false
 	self.defaultGemLevel = "normalMaximum"
 	self.defaultGemQuality = main.defaultGemQuality
@@ -128,7 +120,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	-- Gem options
 	local optionInputsX = 170
 	local optionInputsY = 45
-	self.controls.optionSection = new("SectionControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { 0, optionInputsY + 50, 360, 180 }, "Gem Options")
+	self.controls.optionSection = new("SectionControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { 0, optionInputsY + 50, 360, 156 }, "Gem Options")
 	self.controls.sortGemsByDPS = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 70, 20 }, "Sort gems by DPS:", function(state)
 		self.sortGemsByDPS = state
 	end, nil, true)
@@ -153,10 +145,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		self.showSupportGemTypes = value.show
 	end)
 	self.controls.showSupportGemTypesLabel = new("LabelControl", { "RIGHT", self.controls.showSupportGemTypes, "LEFT" }, { -4, 0, 0, 16 }, "^7Show support gems:")
-	self.controls.showAltQualityGems = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 166, 20 }, "^7Show quality variants:", function(state)
-		self.showAltQualityGems = state
-	end)
-	self.controls.showLegacyGems = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 190, 20 }, "^7Show legacy gems:", function(state)
+	self.controls.showLegacyGems = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 166, 20 }, "^7Show legacy gems:", function(state)
 		self.showLegacyGems = state
 	end)
 
@@ -272,33 +261,11 @@ will automatically apply to the skill.]]
 	self:CreateGemSlot(1)
 	self.controls.gemNameHeader = new("LabelControl", {"BOTTOMLEFT", self.gemSlots[1].nameSpec, "TOPLEFT"}, {0, -2, 0, 16}, "^7Gem name:")
 	self.controls.gemLevelHeader = new("LabelControl", {"BOTTOMLEFT", self.gemSlots[1].level, "TOPLEFT"}, {0, -2, 0, 16}, "^7Level:")
-	self.controls.gemQualityIdHeader = new("LabelControl", {"BOTTOMLEFT", self.gemSlots[1].qualityId, "TOPLEFT"}, {0, -2, 0, 16}, "^7Variant:")
 	self.controls.gemQualityHeader = new("LabelControl", {"BOTTOMLEFT", self.gemSlots[1].quality, "TOPLEFT"}, {0, -2, 0, 16}, "^7Quality:")
 	self.controls.gemEnableHeader = new("LabelControl", {"BOTTOMLEFT", self.gemSlots[1].enabled, "TOPLEFT"}, {-16, -2, 0, 16}, "^7Enabled:")
 	self.controls.gemCountHeader = new("LabelControl", {"BOTTOMLEFT", self.gemSlots[1].count, "TOPLEFT"}, {8, -2, 0, 16}, "^7Count:")
 end)
 
--- parse real gem name and quality by omitting the first word if alt qual is set
-function SkillsTabClass:GetBaseNameAndQuality(gemTypeLine, quality)
-	gemTypeLine = sanitiseText(gemTypeLine)
-	-- if quality is default or nil check the gem type line if we have alt qual by comparing to the existing list
-	if gemTypeLine and (quality == nil or quality == "" or quality == "Default") then
-		local firstword, otherwords = gemTypeLine:match("(%w+)%s(.+)")
-		if firstword and otherwords then
-			for _, entry in ipairs(alternateGemQualityList) do
-				if firstword == entry.label then
-					-- return the gem name minus <altqual> without a leading space and the new resolved type
-					if entry.type == nil or entry.type == "" then
-						entry.type = "Default"
-					end
-					return otherwords, entry.type
-				end
-			end
-		end
-	end
-	-- no alt qual found, return gemTypeLine as is and either existing quality or Default if none is set
-	return gemTypeLine, quality or "Default"
-end
 
 function SkillsTabClass:LoadSkill(node, skillSetId)
 	if node.elem ~= "Skill" then
@@ -351,13 +318,7 @@ function SkillsTabClass:LoadSkill(node, skillSetId)
 		end
 		gemInstance.level = tonumber(child.attrib.level)
 		gemInstance.quality = tonumber(child.attrib.quality)
-		local nameSpecOverride, qualityOverrideId = SkillsTabClass:GetBaseNameAndQuality(gemInstance.nameSpec, child.attrib.qualityId)
-		gemInstance.nameSpec = nameSpecOverride
-		gemInstance.qualityId = qualityOverrideId
-
-		if gemInstance.gemData then
-			gemInstance.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
-		end
+		gemInstance.nameSpec = sanitiseText(gemInstance.nameSpec)
 		gemInstance.enabled = not child.attrib.enabled and true or child.attrib.enabled == "true"
 		gemInstance.enableGlobal1 = not child.attrib.enableGlobal1 or child.attrib.enableGlobal1 == "true"
 		gemInstance.enableGlobal2 = child.attrib.enableGlobal2 == "true"
@@ -402,10 +363,6 @@ function SkillsTabClass:Load(xml, fileName)
 		self.sortGemsByDPS = xml.attrib.sortGemsByDPS == "true"
 	end
 	self.controls.sortGemsByDPS.state = self.sortGemsByDPS
-	if xml.attrib.showAltQualityGems then
-		self.showAltQualityGems = xml.attrib.showAltQualityGems == "true"
-	end
-	self.controls.showAltQualityGems.state = self.showAltQualityGems
 	if xml.attrib.showLegacyGems then
 		self.showLegacyGems = xml.attrib.showLegacyGems == "true"
 	end
@@ -445,8 +402,7 @@ function SkillsTabClass:Save(xml)
 		sortGemsByDPS = tostring(self.sortGemsByDPS),
 		showSupportGemTypes = self.showSupportGemTypes,
 		sortGemsByDPSField = self.sortGemsByDPSField,
-		showAltQualityGems = tostring(self.showAltQualityGems),
-		showLegacyGems = tostring(self.showLegacyGems)
+		showLegacyGems = tostring(self.showLegacyGems),
 	}
 	for _, skillSetId in ipairs(self.skillSetOrderList) do
 		local skillSet = self.skillSets[skillSetId]
@@ -472,7 +428,6 @@ function SkillsTabClass:Save(xml)
 					variantId = gemInstance.gemData and gemInstance.gemData.variantId,
 					level = tostring(gemInstance.level),
 					quality = tostring(gemInstance.quality),
-					qualityId = gemInstance.qualityId,
 					enabled = tostring(gemInstance.enabled),
 					enableGlobal1 = tostring(gemInstance.enableGlobal1),
 					enableGlobal2 = tostring(gemInstance.enableGlobal2),
@@ -568,7 +523,7 @@ function SkillsTabClass:CopySocketGroup(socketGroup)
 		skillText = skillText .. "Slot: " .. socketGroup.slot .. "\r\n"
 	end
 	for _, gemInstance in ipairs(socketGroup.gemList) do
-		skillText = skillText .. string.format("%s %d/%d %s %s %d\r\n", gemInstance.nameSpec, gemInstance.level, gemInstance.quality, gemInstance.qualityId, gemInstance.enabled and "" or "DISABLED", gemInstance.count or 1)
+		skillText = skillText .. string.format("%s %d/%d %s %s %d\r\n", gemInstance.nameSpec, gemInstance.level, gemInstance.quality, gemInstance.enabled and "" or "DISABLED", gemInstance.count or 1)
 	end
 	Copy(skillText)
 end
@@ -585,12 +540,11 @@ function SkillsTabClass:PasteSocketGroup(testInput)
 		if slot then
 			newGroup.slot = slot
 		end
-		for nameSpec, level, quality, qualityId, state, count in skillText:gmatch("([ %a']+) (%d+)/(%d+) (%a+%d?) ?(%a*) (%d+)") do
+		for nameSpec, level, quality, state, count in skillText:gmatch("([ %a']+) (%d+)/(%d+) (%a+%d?) ?(%a*) (%d+)") do
 			t_insert(newGroup.gemList, {
 				nameSpec = nameSpec,
 				level = tonumber(level) or 20,
 				quality = tonumber(quality) or 0,
-				qualityId = qualityId,
 				enabled = state ~= "DISABLED",
 				count = tonumber(count) or 1,
 				enableGlobal1 = true,
@@ -622,8 +576,6 @@ function SkillsTabClass:CreateGemSlot(index)
 			self.gemSlots[index2].nameSpec:SetText(gemInstance.nameSpec)
 			self.gemSlots[index2].level:SetText(gemInstance.level)
 			self.gemSlots[index2].quality:SetText(gemInstance.quality)
-			self.gemSlots[index2].qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
-			self.gemSlots[index2].qualityId:SelByValue(gemInstance.qualityId, "type")
 			self.gemSlots[index2].enabled.state = gemInstance.enabled
 			self.gemSlots[index2].enableGlobal1.state = gemInstance.enableGlobal1
 			self.gemSlots[index2].enableGlobal2.state = gemInstance.enableGlobal2
@@ -650,7 +602,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."Delete"] = slot.delete
 
 	-- Gem name specification
-	slot.nameSpec = new("GemSelectControl", { "LEFT", slot.delete, "RIGHT" }, { 2, 0, 300, 20 }, self, index, function(gemId, qualityId, addUndo)
+	slot.nameSpec = new("GemSelectControl", { "LEFT", slot.delete, "RIGHT" }, { 2, 0, 300, 20 }, self, index, function(gemId, addUndo)
 		if not self.displayGroup then
 			return
 		end
@@ -663,7 +615,6 @@ function SkillsTabClass:CreateGemSlot(index)
 				nameSpec = "",
 				level = 1,
 				quality = self.defaultGemQuality or 0,
-				qualityId = "Default",
 				enabled = true,
 				enableGlobal1 = true,
 				enableGlobal2 = true,
@@ -673,7 +624,6 @@ function SkillsTabClass:CreateGemSlot(index)
 			self.displayGroup.gemList[index] = gemInstance
 			slot.level:SetText(gemInstance.level)
 			slot.quality:SetText(gemInstance.quality)
-			slot.qualityId:SelByValue(gemInstance.qualityId)
 			slot.enabled.state = true
 			slot.enableGlobal1.state = true
 			slot.enableGlobal2.state = true
@@ -690,10 +640,6 @@ function SkillsTabClass:CreateGemSlot(index)
 		-- New gems need to be constrained by ProcessGemLevel
 		gemInstance.level = self:ProcessGemLevel(gemInstance.gemData)
 		gemInstance.naturalMaxLevel = gemInstance.level
-		-- Gem changed, update the list and default the quality id
-		slot.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
-		slot.qualityId:SelByValue(qualityId or "Default", "type")
-		gemInstance.qualityId = qualityId or "Default"
 		slot.level:SetText(gemInstance.level)
 		slot.count:SetText(gemInstance.count or 1)
 		if addUndo then
@@ -708,11 +654,9 @@ function SkillsTabClass:CreateGemSlot(index)
 	slot.level = new("EditControl", { "LEFT", slot.nameSpec, "RIGHT" }, { 2, 0, 60, 20 }, nil, nil, "%D", 2, function(buf)
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
-			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, enableGlobal2 = true, count = 1, new = true }
+			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, enabled = true, enableGlobal1 = true, enableGlobal2 = true, count = 1, new = true }
 			self.displayGroup.gemList[index] = gemInstance
-			slot.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
 			slot.quality:SetText(gemInstance.quality)
-			slot.qualityId:SelByValue(gemInstance.qualityId, "type")
 			slot.enabled.state = true
 			slot.enableGlobal1.state = true
 			slot.count:SetText(gemInstance.count)
@@ -728,101 +672,11 @@ function SkillsTabClass:CreateGemSlot(index)
 	end
 	self.controls["gemSlot"..index.."Level"] = slot.level
 
-	-- Gem quality id
-	slot.qualityId = new("DropDownControl",  {"LEFT",slot.level,"RIGHT"}, {2, 0, 90, 20}, alternateGemQualityList, function(dropDownIndex, value)
-		local gemInstance = self.displayGroup.gemList[index]
-		if not gemInstance then
-			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, enableGlobal2 = true, count = 1, new = true }
-			self.displayGroup.gemList[index] = gemInstance
-			slot.level:SetText(gemInstance.level)
-			slot.enabled.state = true
-			slot.enableGlobal1.state = true
-			slot.count:SetText(gemInstance.count)
-		end
-		gemInstance.qualityId = value.type
-		self:ProcessSocketGroup(self.displayGroup)
-		self:AddUndoState()
-		self.build.buildFlag = true
-	end)
-	slot.qualityId.enabled = function()
-		return index <= #self.displayGroup.gemList
-	end
-	slot.qualityId.tooltipFunc = function(tooltip)
-		-- Reset the tooltip
-		tooltip:Clear()
-		-- Get the gem instance from the skills
-		local gemInstance = self.displayGroup.gemList[index]
-		if not gemInstance then
-			return
-		end
-		local gemData = gemInstance.gemData
-		-- Get the hovered quality item
-		local hoveredQuality
-		if not slot.qualityId.dropped then
-			hoveredQuality = alternateGemQualityList[slot.qualityId.selIndex]
-		else
-			hoveredQuality = alternateGemQualityList[slot.qualityId.hoverSel]
-		end
-		-- gem data may not be initialized yet, or the quality may be nil, which happens when just floating over the dropdown
-		if not gemData or not hoveredQuality then
-			return
-		end
-		-- Function for both granted effect and secondary such as vaal
-		local addQualityLines = function(qualityList, grantedEffect)
-			tooltip:AddLine(18, colorCodes.GEM..grantedEffect.name)
-			-- Hardcoded to use 20% quality instead of grabbing from gem, this is for consistency and so we always show something
-			tooltip:AddLine(16, colorCodes.NORMAL.."At +20% Quality:")
-			for k, qual in pairs(qualityList) do
-				-- Do the stats one at a time because we're not guaranteed to get the descriptions in the same order we look at them here
-				local stats = { }
-				stats[qual[1]] = qual[2] * 20
-				local descriptions = self.build.data.describeStats(stats, grantedEffect.statDescriptionScope, true)
-				-- line may be nil if the value results in no line due to not being enough quality
-				for _, line in ipairs(descriptions) do
-					if line then
-						-- Check if we have a handler for the mod in the gem's statMap or in the shared stat map for skills
-						if grantedEffect.statMap[qual[1]] or self.build.data.skillStatMap[qual[1]] then
-							tooltip:AddLine(16, colorCodes.MAGIC..line)
-						else
-							local line = colorCodes.UNSUPPORTED..line
-							line = main.notSupportedModTooltips and (line .. main.notSupportedTooltipText) or line
-							tooltip:AddLine(16, line)
-						end
-					end
-				end
-			end
-		end
-		-- Check if there is a quality of this type for the effect
-		if gemData and gemData.grantedEffect.qualityStats and gemData.grantedEffect.qualityStats[hoveredQuality.type] then
-			local qualityTable = gemData.grantedEffect.qualityStats[hoveredQuality.type]
-			addQualityLines(qualityTable, gemData.grantedEffect)
-		end
-		if gemData and gemData.secondaryGrantedEffect and gemData.secondaryGrantedEffect.qualityStats and gemData.secondaryGrantedEffect.qualityStats[hoveredQuality.type] then
-			local qualityTable = gemData.secondaryGrantedEffect.qualityStats[hoveredQuality.type]
-			tooltip:AddSeparator(10)
-			addQualityLines(qualityTable, gemData.secondaryGrantedEffect)
-		end
-		-- Add stat comparisons for hovered quality (based on set quality)
-		if self.displayGroup.gemList[index] then
-			local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
-			if calcFunc then
-				local tempQual = self.displayGroup.gemList[index].qualityId
-				self.displayGroup.gemList[index].qualityId = hoveredQuality.type
-				self:ProcessSocketGroup(self.displayGroup)
-				local output = calcFunc()
-				self.displayGroup.gemList[index].qualityId = tempQual
-				tooltip:AddSeparator(10)
-				self.build:AddStatComparesToTooltip(tooltip, calcBase, output, "^7Switching to this quality variant will give you:")
-			end
-		end
-	end
-	self.controls["gemSlot"..index.."QualityId"] = slot.qualityId
-
 	-- Gem quality
-	slot.quality = new("EditControl", {"LEFT",slot.qualityId,"RIGHT"}, {2, 0, 60, 20}, nil, nil, "%D", 2, function(buf)
+	slot.quality = new("EditControl", {"LEFT",slot.level,"RIGHT"}, {2, 0, 60, 20}, nil, nil, "%D", 2, function(buf)
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
-			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, enableGlobal2 = true, count = 1, new = true }
+			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, enabled = true, enableGlobal1 = true, enableGlobal2 = true, count = 1, new = true }
 			self.displayGroup.gemList[index] = gemInstance
 			slot.level:SetText(gemInstance.level)
 			slot.enabled.state = true
@@ -836,15 +690,57 @@ function SkillsTabClass:CreateGemSlot(index)
 	end)
 	slot.quality.tooltipFunc = function(tooltip)
 		if tooltip:CheckForUpdate(self.build.outputRevision, self.displayGroup) then
-			if self.displayGroup.gemList[index] then
-				local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
-				if calcFunc then
-					local storedQuality = self.displayGroup.gemList[index].quality
-					self.displayGroup.gemList[index].quality = 20
-					local output = calcFunc()
-					self.displayGroup.gemList[index].quality = storedQuality
-					self.build:AddStatComparesToTooltip(tooltip, calcBase, output, "^7Setting to 20 quality will give you:")
+			-- Get the gem instance from the skills
+			local gemInstance = self.displayGroup.gemList[index]
+			if not gemInstance then
+				return
+			end
+			local gemData = gemInstance.gemData
+
+			-- Function for both granted effect and secondary such as vaal
+			local addQualityLines = function(qualityList, grantedEffect)
+				tooltip:AddLine(18, colorCodes.GEM..grantedEffect.name)
+				-- Hardcoded to use 20% quality instead of grabbing from gem, this is for consistency and so we always show something
+				tooltip:AddLine(16, colorCodes.NORMAL.."At +20% Quality:")
+				for k, qual in pairs(qualityList) do
+					-- Do the stats one at a time because we're not guaranteed to get the descriptions in the same order we look at them here
+					local stats = { }
+					stats[qual[1]] = qual[2] * 20
+					local descriptions = self.build.data.describeStats(stats, grantedEffect.statDescriptionScope)
+					-- line may be nil if the value results in no line due to not being enough quality
+					for _, line in ipairs(descriptions) do
+						if line then
+							-- Check if we have a handler for the mod in the gem's statMap or in the shared stat map for skills
+							if grantedEffect.statMap[qual[1]] or self.build.data.skillStatMap[qual[1]] then
+								tooltip:AddLine(16, colorCodes.MAGIC..line)
+							else
+								local line = colorCodes.UNSUPPORTED..line
+								line = main.notSupportedModTooltips and (line .. main.notSupportedTooltipText) or line
+								tooltip:AddLine(16, line)
+							end
+						end
+					end
 				end
+			end
+			-- Check if there is a quality of this type for the effect
+			if gemData and gemData.grantedEffect.qualityStats and gemData.grantedEffect.qualityStats["Default"] then
+				local qualityTable = gemData.grantedEffect.qualityStats["Default"]
+				addQualityLines(qualityTable, gemData.grantedEffect)
+				tooltip:AddSeparator(10)
+			end
+			if gemData and gemData.secondaryGrantedEffect and gemData.secondaryGrantedEffect.qualityStats and gemData.secondaryGrantedEffect.qualityStats["Default"] then
+				local qualityTable = gemData.secondaryGrantedEffect.qualityStats["Default"]
+				addQualityLines(qualityTable, gemData.secondaryGrantedEffect)
+				tooltip:AddSeparator(10)
+			end
+
+			local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
+			if calcFunc then
+				local storedQuality = self.displayGroup.gemList[index].quality
+				self.displayGroup.gemList[index].quality = 20
+				local output = calcFunc()
+				self.displayGroup.gemList[index].quality = storedQuality
+				self.build:AddStatComparesToTooltip(tooltip, calcBase, output, "^7Setting to 20 quality will give you:")
 			end
 		end
 	end
@@ -858,12 +754,10 @@ function SkillsTabClass:CreateGemSlot(index)
 	slot.enabled = new("CheckBoxControl", {"LEFT",slot.quality,"RIGHT"}, {18, 0, 20}, nil, function(state)
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
-			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, enableGlobal2 = true, count = 1, new = true }
+			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, enabled = true, enableGlobal1 = true, enableGlobal2 = true, count = 1, new = true }
 			self.displayGroup.gemList[index] = gemInstance
 			slot.level:SetText(gemInstance.level)
 			slot.quality:SetText(gemInstance.quality)
-			slot.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
-			slot.qualityId:SelByValue(gemInstance.qualityId, "type")
 			slot.count:SetText(gemInstance.count)
 		end
 		if not gemInstance.gemData.vaalGem then
@@ -899,12 +793,10 @@ function SkillsTabClass:CreateGemSlot(index)
 	slot.count = new("EditControl", {"LEFT",slot.enabled,"RIGHT"}, {18, 0, 60, 20}, nil, nil, "%D", 2, function(buf)
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
-			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, count = 1, new = true }
+			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, enabled = true, enableGlobal1 = true, count = 1, new = true }
 			self.displayGroup.gemList[index] = gemInstance
 			slot.level:SetText(gemInstance.level)
-			slot.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
 			slot.quality:SetText(gemInstance.quality)
-			slot.qualityId:SelByValue(gemInstance.qualityId, "type")
 			slot.enabled.state = true
 			slot.enableGlobal1.state = true
 		end
@@ -984,17 +876,6 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."EnableGlobal2"] = slot.enableGlobal2
 end
 
-function SkillsTabClass:getGemAltQualityList(gemData)
-	local altQualList = { }
-
-	for indx, entry in ipairs(alternateGemQualityList) do
-		if gemData and (gemData.grantedEffect.qualityStats and gemData.grantedEffect.qualityStats[entry.type] or (gemData.secondaryGrantedEffect and gemData.secondaryGrantedEffect.qualityStats and gemData.secondaryGrantedEffect.qualityStats[entry.type])) then
-			t_insert(altQualList, entry)
-		end
-	end
-	return #altQualList > 0 and altQualList or {{ label = "Default", type = "Default" }}
-end
-
 -- Update the gem slot controls to reflect the currently displayed socket group
 function SkillsTabClass:UpdateGemSlots()
 	if not self.displayGroup then
@@ -1009,7 +890,6 @@ function SkillsTabClass:UpdateGemSlots()
 			slot.nameSpec:SetText("")
 			slot.level:SetText("")
 			slot.quality:SetText("")
-			slot.qualityId:SelByValue("Default", "type")
 			slot.enabled.state = false
 			slot.count:SetText(1)
 		else
@@ -1170,8 +1050,6 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 			self.gemSlots[index].nameSpec:SetText(gemInstance.nameSpec)
 			self.gemSlots[index].level:SetText(gemInstance.level)
 			self.gemSlots[index].quality:SetText(gemInstance.quality)
-			self.gemSlots[index].qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
-			self.gemSlots[index].qualityId:SelByValue(gemInstance.qualityId, "type")
 			self.gemSlots[index].enabled.state = gemInstance.enabled
 			self.gemSlots[index].enableGlobal1.state = gemInstance.enableGlobal1
 			self.gemSlots[index].enableGlobal2.state = gemInstance.enableGlobal2
