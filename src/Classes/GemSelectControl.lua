@@ -107,12 +107,19 @@ function GemSelectClass:PopulateGemList()
 		if (self.sortGemsBy and gemData.tags[self.sortGemsBy] == true or not self.sortGemsBy) then
 			local levelRequirement = gemData.grantedEffect.levels[1].levelRequirement or 1
 			if characterLevel >= levelRequirement or not matchLevel then
-				if (showExceptional or showAll) and ((gemData.grantedEffect.legacy and gemData.grantedEffect.plusVersionOf) or gemData.tagString:match("Exceptional")) then
-					if self.skillsTab.showLegacyGems or not gemData.grantedEffect.legacy then
+				if self.imbuedSelect then
+					-- Imbued dropdown only allows non-exceptional support gems.
+					if gemData.grantedEffect.support and not gemData.tagString:match("Exceptional") then
 						self.gems["Default:" .. gemId] = gemData
 					end
-				elseif showNormal or showAll then
-					self.gems["Default:" .. gemId] = gemData
+				else
+					if (showExceptional or showAll) and ((gemData.grantedEffect.legacy and gemData.grantedEffect.plusVersionOf) or gemData.tagString:match("Exceptional")) then
+						if self.skillsTab.showLegacyGems or not gemData.grantedEffect.legacy then
+							self.gems["Default:" .. gemId] = gemData
+						end
+					elseif showNormal or showAll then
+						self.gems["Default:" .. gemId] = gemData
+					end
 				end
 			end
 		end
