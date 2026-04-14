@@ -36,6 +36,7 @@ local LAYOUT = {
 	-- Items view
 	itemsCheckboxOffset = 60,
 	itemsCopyBtnW = 60,
+	itemsCopyUseBtnW = 78,
 	itemsCopyBtnH = 18,
 	itemsBuyBtnW = 60,
 
@@ -211,7 +212,7 @@ function CompareTabClass:InitControls()
 	end)
 
 	-- Re-import current build button
-	self.controls.reimportBtn = new("ButtonControl", {"LEFT", self.controls.importBtn, "RIGHT"}, {4, 0, 120, 20}, "Re-import Current", function()
+	self.controls.reimportBtn = new("ButtonControl", {"LEFT", self.controls.importBtn, "RIGHT"}, {4, 0, 140, 20}, "Re-import Current", function()
 		self:ReimportPrimary()
 	end)
 	self.controls.reimportBtn.tooltipFunc = function(tooltip)
@@ -850,7 +851,7 @@ function CompareTabClass:InitControls()
 	self.controls.rightVersionSelect.shown = treeFooterShown
 
 	-- Copy compared tree to primary build
-	self.controls.copySpecBtn = new("ButtonControl", {"LEFT", self.controls.rightVersionSelect, "RIGHT"}, {4, 0, 66, 20}, "Copy tree", function()
+	self.controls.copySpecBtn = new("ButtonControl", {"LEFT", self.controls.rightVersionSelect, "RIGHT"}, {4, 0, 76, 20}, "Copy tree", function()
 		self:CopyCompareSpecToPrimary(false)
 	end)
 	self.controls.copySpecBtn.shown = treeFooterShown
@@ -859,7 +860,7 @@ function CompareTabClass:InitControls()
 		return entry and entry.treeTab and entry.treeTab.specList[entry.treeTab.activeSpec] ~= nil
 	end
 
-	self.controls.copySpecUseBtn = new("ButtonControl", {"LEFT", self.controls.copySpecBtn, "RIGHT"}, {2, 0, 90, 20}, "Copy and use", function()
+	self.controls.copySpecUseBtn = new("ButtonControl", {"LEFT", self.controls.copySpecBtn, "RIGHT"}, {2, 0, 100, 20}, "Copy and use", function()
 		self:CopyCompareSpecToPrimary(true)
 	end)
 	self.controls.copySpecUseBtn.shown = treeFooterShown
@@ -3586,7 +3587,7 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 			DrawString(colWidth - 10, drawY, "RIGHT", 14, "VAR", tradeHelpers.getSlotDiffLabel(pItem, cItem))
 
 			if cItem then
-				local b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H = tradeHelpers.drawCopyButtons(cursorX, cursorY, vp.width - 196, drawY + 1, slotMissing, LAYOUT.itemsCopyBtnW, LAYOUT.itemsCopyBtnH, LAYOUT.itemsBuyBtnW)
+				local b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H = tradeHelpers.drawCopyButtons(cursorX, cursorY, vp.width - 214, drawY + 1, slotMissing, LAYOUT.itemsCopyBtnW, LAYOUT.itemsCopyBtnH, LAYOUT.itemsBuyBtnW, LAYOUT.itemsCopyUseBtnW)
 				processSlotButtons(b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H, cItem, copySlotName, copyUseSlotName)
 			end
 
@@ -3610,7 +3611,7 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 				tradeHelpers.drawCompactSlotRow(drawY, label, pItem, cItem,
 					colWidth, cursorX, cursorY, labelW,
 					self.primaryBuild.itemsTab, compareEntry.itemsTab, pWarn, cWarn, slotMissing,
-					LAYOUT.itemsCopyBtnW, LAYOUT.itemsCopyBtnH, LAYOUT.itemsBuyBtnW)
+					LAYOUT.itemsCopyBtnW, LAYOUT.itemsCopyBtnH, LAYOUT.itemsBuyBtnW, LAYOUT.itemsCopyUseBtnW)
 
 			if rowHoverItem then
 				hoverItem = rowHoverItem

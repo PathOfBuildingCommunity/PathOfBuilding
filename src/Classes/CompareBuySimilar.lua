@@ -180,8 +180,8 @@ function M.openPopup(item, slotName, primaryBuild)
 	local rowHeight = 24
 	local popupWidth = 700
 	local leftMargin = 20
-	local minFieldX = popupWidth - 160
-	local maxFieldX = popupWidth - 80
+	local minFieldX = popupWidth - 130
+	local maxFieldX = popupWidth - 50
 	local fieldW = 60
 	local fieldH = 20
 	local checkboxSize = 20
@@ -291,10 +291,10 @@ function M.openPopup(item, slotName, primaryBuild)
 	controls.leagueDrop.enabled = function() return #controls.leagueDrop.list > 0 and controls.leagueDrop.list[1] ~= "Loading..." end
 
 	-- Listed status dropdown
-	controls.listedLabel = new("LabelControl", {"LEFT", controls.leagueDrop, "RIGHT"}, {12, 0, 0, 16}, "^7Listed:")
-	controls.listedDrop = new("DropDownControl", {"LEFT", controls.listedLabel, "RIGHT"}, {4, 0, 180, 20}, LISTED_STATUS_LABELS, function(index, value)
+	controls.listedDrop = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, {-leftMargin, ctrlY, 242, 20}, LISTED_STATUS_LABELS, function(index, value)
 		-- Listed status selection stored in the dropdown itself
 	end)
+	controls.listedLabel = new("LabelControl", {"RIGHT", controls.listedDrop, "LEFT"}, {-4, 0, 0, 16}, "^7Listed:")
 
 	-- Fetch initial leagues for default realm
 	fetchLeaguesForRealm("pc")
@@ -361,7 +361,7 @@ function M.openPopup(item, slotName, primaryBuild)
 
 	-- Search button
 	ctrlY = ctrlY + 8
-	controls.search = new("ButtonControl", nil, {0, ctrlY, 100, 20}, "Generate URL", function()
+	controls.search = new("ButtonControl", nil, {0, ctrlY, 110, 20}, "Generate URL", function()
 		local success, result = pcall(function()
 			return buildURL(item, slotName, controls, modEntries, defenceEntries, isUnique)
 		end)

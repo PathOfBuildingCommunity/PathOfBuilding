@@ -236,53 +236,62 @@ end
 -- btnStartX is the left edge where the first button (Buy) should appear.
 -- copyBtnW, copyBtnH, buyBtnW are button dimensions (passed from LAYOUT by caller).
 -- Returns copyHovered, copyUseHovered, buyHovered booleans.
-function M.drawCopyButtons(cursorX, cursorY, btnStartX, btnY, slotMissing, copyBtnW, copyBtnH, buyBtnW)
-	local btnW = copyBtnW
-	local btnH = copyBtnH
-	local buyW = buyBtnW
+function M.drawCopyButtons(cursorX, cursorY, btnStartX, btnY, slotMissing, copyBtnW, copyBtnH, buyBtnW, copyUseBtnW)
+	local btnW     = copyBtnW
+	local btnH     = copyBtnH
+	local buyW     = buyBtnW
+	local copyUseW = copyUseBtnW
 	local btn3X = btnStartX
 	local btn1X = btn3X + buyW + 4
 	local btn2X = btn1X + btnW + 4
 
+	local function drawBtn(x, w, hover, label)
+		local pressed = hover and IsKeyDown("LEFTBUTTON")
+		-- Outer border
+		if hover then
+			SetDrawColor(1, 1, 1)
+		else
+			SetDrawColor(0.5, 0.5, 0.5)
+		end
+		DrawImage(nil, x, btnY, w, btnH)
+		-- Inner fill
+		if pressed then
+			SetDrawColor(0.5, 0.5, 0.5)
+		elseif hover then
+			SetDrawColor(0.33, 0.33, 0.33)
+		else
+			SetDrawColor(0, 0, 0)
+		end
+		DrawImage(nil, x + 1, btnY + 1, w - 2, btnH - 2)
+		-- Label
+		SetDrawColor(1, 1, 1)
+		DrawString(x + w / 2, btnY + 1, "CENTER_X", 14, "VAR", label)
+	end
+
 	-- "Buy" button
 	local b3Hover = cursorX >= btn3X and cursorX < btn3X + buyW
 		and cursorY >= btnY and cursorY < btnY + btnH
-	SetDrawColor(b3Hover and 0.5 or 0.35, b3Hover and 0.5 or 0.35, b3Hover and 0.5 or 0.35)
-	DrawImage(nil, btn3X, btnY, buyW, btnH)
-	SetDrawColor(0.1, 0.1, 0.1)
-	DrawImage(nil, btn3X + 1, btnY + 1, buyW - 2, btnH - 2)
-	SetDrawColor(1, 1, 1)
-	DrawString(btn3X + buyW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^7Buy")
+	drawBtn(btn3X, buyW, b3Hover, "^7Buy")
 
 	-- "Copy" button
 	local b1Hover = cursorX >= btn1X and cursorX < btn1X + btnW
 		and cursorY >= btnY and cursorY < btnY + btnH
-	SetDrawColor(b1Hover and 0.5 or 0.35, b1Hover and 0.5 or 0.35, b1Hover and 0.5 or 0.35)
-	DrawImage(nil, btn1X, btnY, btnW, btnH)
-	SetDrawColor(0.1, 0.1, 0.1)
-	DrawImage(nil, btn1X + 1, btnY + 1, btnW - 2, btnH - 2)
-	SetDrawColor(1, 1, 1)
-	DrawString(btn1X + btnW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^7Copy")
+	drawBtn(btn1X, btnW, b1Hover, "^7Copy")
 
 	local b2Hover
 	if slotMissing then
 		-- Show "Missing slot" label instead of Copy+Use button
 		SetDrawColor(1, 1, 1)
-		DrawString(btn2X + btnW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^xBBBBBBMissing slot")
+		DrawString(btn2X + copyUseW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^xBBBBBBMissing slot")
 		b2Hover = false
 	else
 		-- "Copy+Use" button
-		b2Hover = cursorX >= btn2X and cursorX < btn2X + btnW
+		b2Hover = cursorX >= btn2X and cursorX < btn2X + copyUseW
 			and cursorY >= btnY and cursorY < btnY + btnH
-		SetDrawColor(b2Hover and 0.5 or 0.35, b2Hover and 0.5 or 0.35, b2Hover and 0.5 or 0.35)
-		DrawImage(nil, btn2X, btnY, btnW, btnH)
-		SetDrawColor(0.1, 0.1, 0.1)
-		DrawImage(nil, btn2X + 1, btnY + 1, btnW - 2, btnH - 2)
-		SetDrawColor(1, 1, 1)
-		DrawString(btn2X + btnW / 2, btnY + 1, "CENTER_X", 14, "VAR", "^7Copy+Use")
+		drawBtn(btn2X, copyUseW, b2Hover, "^7Copy+Use")
 	end
 
-	return b1Hover, b2Hover, b3Hover, btn2X, btnY, btnW, btnH
+	return b1Hover, b2Hover, b3Hover, btn2X, btnY, copyUseW, btnH
 end
 
 -- Helper: fit a colored item name within maxW pixels, truncating with "..." if needed.
@@ -311,7 +320,7 @@ local ITEM_BOX_H = 20
 
 function M.drawCompactSlotRow(drawY, slotLabel, pItem, cItem,
 	colWidth, cursorX, cursorY, maxLabelW, primaryItemsTab, compareItemsTab, pWarn, cWarn, slotMissing,
-	copyBtnW, copyBtnH, buyBtnW)
+	copyBtnW, copyBtnH, buyBtnW, copyUseBtnW)
 
 	local pName = pItem and pItem.name or "(empty)"
 	local cName = cItem and cItem.name or "(empty)"
@@ -368,7 +377,7 @@ function M.drawCompactSlotRow(drawY, slotLabel, pItem, cItem,
 	if cItem then
 		local btnStartX = cBoxX + cBoxW + 6
 		b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H =
-			M.drawCopyButtons(cursorX, cursorY, btnStartX, drawY + 1, slotMissing, copyBtnW, copyBtnH, buyBtnW)
+			M.drawCopyButtons(cursorX, cursorY, btnStartX, drawY + 1, slotMissing, copyBtnW, copyBtnH, buyBtnW, copyUseBtnW)
 	end
 
 	-- Determine hovered item and tooltip anchor position
