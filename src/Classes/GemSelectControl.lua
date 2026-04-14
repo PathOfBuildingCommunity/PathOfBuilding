@@ -135,7 +135,7 @@ function GemSelectClass:FilterSupport(gemId, gemData)
 	end
 
 	if self.imbuedSelect then
-		return (gemData.grantedEffect.support and not (gemData.tagString:match("Exceptional")))
+		return gemData.grantedEffect.support and not gemData.tagString:match("Exceptional")	and self.sortCache.canSupport[gemId]
 	end
 
 	return (not gemData.grantedEffect.support
@@ -288,7 +288,7 @@ function GemSelectClass:UpdateSortCache()
 		for gemId, gemData in pairs(self.gems) do
 			if gemData.grantedEffect.support then
 				for _, activeSkill in ipairs(self.skillsTab.displayGroup.displaySkillList) do
-					if calcLib.canGrantedEffectSupportActiveSkill(gemData.grantedEffect, activeSkill) then
+					if calcLib.canGrantedEffectSupportActiveSkill(gemData.grantedEffect, activeSkill, self.imbuedSelect) then
 						sortCache.canSupport[gemId] = true
 						break
 					end
@@ -303,7 +303,7 @@ function GemSelectClass:UpdateSortCache()
 				for gemId, gemData in pairs(self.gems) do
 					if gemData.grantedEffect.support then
 						for _, activeSkill in ipairs(group.displaySkillList) do
-							if calcLib.canGrantedEffectSupportActiveSkill(gemData.grantedEffect, activeSkill) then
+							if calcLib.canGrantedEffectSupportActiveSkill(gemData.grantedEffect, activeSkill, self.imbuedSelect) then
 								sortCache.canSupport[gemId] = true
 								break
 							end
@@ -316,7 +316,7 @@ function GemSelectClass:UpdateSortCache()
 					for gemId, gemData in pairs(self.gems) do
 						if gemData.grantedEffect.support then
 							for _, activeSkill in ipairs(group.displaySkillList) do
-								if calcLib.canGrantedEffectSupportActiveSkill(gemData.grantedEffect, activeSkill) then
+								if calcLib.canGrantedEffectSupportActiveSkill(gemData.grantedEffect, activeSkill, self.imbuedSelect) then
 									sortCache.canSupport[gemId] = true
 									break
 								end

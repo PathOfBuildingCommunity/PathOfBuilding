@@ -82,7 +82,7 @@ function calcLib.doesTypeExpressionMatch(checkTypes, skillTypes, minionTypes)
 end
 
 -- Check if given support skill can support the given active skill
-function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill)
+function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill, imbuedSupport)
 	if grantedEffect.unsupported or activeSkill.activeEffect.grantedEffect.cannotBeSupported then
 		return false
 	end
@@ -95,8 +95,15 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill)
 		return false
 	end
 
-	local effectiveSkillTypes = activeSkill.summonSkill and activeSkill.summonSkill.skillTypes or activeSkill.skillTypes
-	local effectiveMinionTypes = not grantedEffect.ignoreMinionTypes and (activeSkill.summonSkill and activeSkill.summonSkill.minionSkillTypes or activeSkill.minionSkillTypes)
+	local effectiveSkillTypes
+	local effectiveMinionTypes
+	if imbuedSupport then -- Use the skillTypes from the gem so it ignores any support added types
+		effectiveSkillTypes = activeSkill.summonSkill and activeSkill.summonSkill.activeEffect.grantedEffect.skillTypes or activeSkill.activeEffect.grantedEffect.skillTypes
+		effectiveMinionTypes = not grantedEffect.ignoreMinionTypes and (activeSkill.summonSkill and activeSkill.summonSkill.activeEffect.grantedEffect.minionSkillTypes or activeSkill.activeEffect.grantedEffect.minionSkillTypes)
+	else
+		effectiveSkillTypes = activeSkill.summonSkill and activeSkill.summonSkill.skillTypes or activeSkill.skillTypes
+		effectiveMinionTypes = not grantedEffect.ignoreMinionTypes and (activeSkill.summonSkill and activeSkill.summonSkill.minionSkillTypes or activeSkill.minionSkillTypes)
+	end
 
 	-- if the activeSkill is a Minion's skill like "Default Attack", use minion's skillTypes instead for exclusions
 	-- otherwise compare support to activeSkill directly
