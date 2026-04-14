@@ -54,7 +54,7 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 	self.imbuedSelect = imbued
 end)
 
-function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, qualityId, useFullDPS)
+function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, useFullDPS)
 	local gemList = self.skillsTab.displayGroup.gemList
 	local displayGemList = self.skillsTab.displayGroup.displayGemList
 	local oldGem
@@ -63,7 +63,7 @@ function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, qualityId, useF
 	else
 		gemList[self.index] = {
 			level = gemData.naturalMaxLevel,
-			qualityId = qualityId,
+			qualityId = "Default",
 			quality = self.skillsTab.defaultGemQuality or 0,
 			count = 1,
 			enabled = true,
@@ -80,9 +80,7 @@ function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, qualityId, useF
 	gemInstance.level = self.skillsTab:ProcessGemLevel(gemData, self.imbuedSelect)
 	gemInstance.gemData = gemData
 	gemInstance.displayEffect = nil
-	if gemInstance.qualityId == nil or gemInstance.qualityId == "" then
-		gemInstance.qualityId = "Default"
-	end
+	gemInstance.qualityId = "Default"
 	-- Calculate the impact of using this gem
 	local output = calcFunc(nil, useFullDPS)
 	-- Put the original gem back into the list
@@ -121,10 +119,6 @@ function GemSelectClass:PopulateGemList()
 			end
 		end
 	end
-end
-
-function GemSelectClass:GetQualityType() -- todo: whatever is using this adds the Default quality to gems, it seems, can't fully remove yet?
-	return "Default"
 end
 
 function GemSelectClass:FilterSupport(gemId, gemData)
@@ -338,7 +332,7 @@ function GemSelectClass:UpdateSortCache()
 		sortCache.dps[gemId] = baseDPS
 		-- Ignore gems that don't support the active skill
 		if sortCache.canSupport[gemId] or (gemData.grantedEffect.hasGlobalEffect and not gemData.grantedEffect.support) then
-			local output = self:CalcOutputWithThisGem(calcFunc, gemData, self:GetQualityType(gemId), useFullDPS)
+			local output = self:CalcOutputWithThisGem(calcFunc, gemData, useFullDPS)
 			-- Check for nil because some fields may not be populated, default to 0
 			sortCache.dps[gemId] = (dpsField == "FullDPS" and output[dpsField] ~= nil and output[dpsField]) or (output.Minion and output.Minion.CombinedDPS) or (output[dpsField] ~= nil and output[dpsField]) or 0
 		end
@@ -383,7 +377,7 @@ function GemSelectClass:UpdateGem(setText, addUndo)
 	if setText then
 		self:SetText(self.gemName)
 	end
-	self.gemChangeFunc(self.gemId and self.gemId:gsub("%w+:", ""), self:GetQualityType(self.gemId), addUndo and self.gemName ~= self.initialBuf)
+	self.gemChangeFunc(self.gemId and self.gemId:gsub("%w+:", ""), "Default", addUndo and self.gemName ~= self.initialBuf)
 end
 
 function GemSelectClass:ScrollSelIntoView()
@@ -481,11 +475,10 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			if calcFunc then
 				self.tooltip:Clear()
 				local gemData = self.gems[self.list[self.hoverSel]]
-				local qualityType = self:GetQualityType(self.list[self.hoverSel])
-				local output= self:CalcOutputWithThisGem(calcFunc, gemData, qualityType, self.skillsTab.sortGemsByDPSField == "FullDPS")
+				local output= self:CalcOutputWithThisGem(calcFunc, gemData, self.skillsTab.sortGemsByDPSField == "FullDPS")
 				local gemInstance = {
 						level = self.skillsTab:ProcessGemLevel(gemData, self.imbuedSelect),
-						qualityId = qualityType,
+						qualityId = "Default",
 						quality = self.skillsTab.defaultGemQuality or 0,
 						count = 1,
 						enabled = true,
@@ -538,10 +531,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			end
 
 			if gemInstance and gemInstance.gemData then
-				-- Check valid qualityId, set to 'Default' if missing
-				if gemInstance.qualityId == nil or gemInstance.qualityId == "" then
-					gemInstance.qualityId = "Default"
-				end
+				gemInstance.qualityId = "Default"
 				self:AddGemTooltip(gemInstance)
 			else
 				self.tooltip:AddLine(16, self.imbuedSelect and imbuedTooltipText or toolTipText)
