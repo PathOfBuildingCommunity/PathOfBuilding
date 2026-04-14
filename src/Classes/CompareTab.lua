@@ -946,7 +946,13 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.comparePowerStatSelect.shown = powerReportShown
-	self.controls.comparePowerStatSelect.tooltipText = "Select a metric to calculate power report"
+	self.controls.comparePowerStatSelect.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		if mode == "OUT" or self.controls.comparePowerStatSelect.dropped then
+			return
+		end
+		tooltip:AddLine(14, "Select a metric to calculate power report")
+	end
 
 	-- Category checkboxes
 	self.controls.comparePowerTreeCheck = new("CheckBoxControl", nil, {0, 0, 18}, "Tree:", function(state)
