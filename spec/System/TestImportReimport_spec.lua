@@ -53,13 +53,21 @@ describe("TestImportReimport", function()
 		})
 	end
 
-	local function reimportSingleSocketedGem(itemTypeLine, inventoryId, gemName)
+	local function reimportSocketedItemsWithOptions(itemTypeLine, inventoryId, socketedItems, clearItems)
 		build.importTab.controls.charImportItemsClearSkills.state = true
-		build.importTab.controls.charImportItemsClearItems.state = false
-		build.importTab:ImportItemsAndSkills(buildImportPayload(itemTypeLine, inventoryId, {
-			makeSocketedGemEntry(0, false, gemName, 20),
-		}))
+		build.importTab.controls.charImportItemsClearItems.state = clearItems
+		build.importTab:ImportItemsAndSkills(buildImportPayload(itemTypeLine, inventoryId, socketedItems))
 		runCallback("OnFrame")
+	end
+
+	local function reimportSingleSocketedGemWithOptions(itemTypeLine, inventoryId, gemName, clearItems)
+		reimportSocketedItemsWithOptions(itemTypeLine, inventoryId, {
+			makeSocketedGemEntry(0, false, gemName, 20),
+		}, clearItems)
+	end
+
+	local function reimportSingleSocketedGem(itemTypeLine, inventoryId, gemName)
+		reimportSingleSocketedGemWithOptions(itemTypeLine, inventoryId, gemName, false)
 	end
 
 	local function assertReimportPreservesSkillSubstate(slotName, itemTypeLine, inventoryId, gemName, fieldName, fieldValue)
@@ -107,6 +115,34 @@ Added Fire Damage 1/0 Default DISABLED 1
 			makeSocketedGemEntry(2, true, "Added Fire Damage Support", 2),
 		}))
 		runCallback("OnFrame")
+
+		socketGroup = build.skillsTab.socketGroupList[1]
+		assert.are.equal("Helmet", socketGroup.slot)
+		assert.is_true(socketGroup.includeInFullDPS)
+		assert.are.equal(2, socketGroup.mainActiveSkill)
+		assert.are.equal(2, socketGroup.gemList[3].level)
+		assert.is_false(socketGroup.gemList[3].enabled)
+	end)
+
+	it("preserves full DPS state and disabled gems when reimporting with deleted equipment", function()
+		build.skillsTab:PasteSocketGroup([[
+Slot: Helmet
+Cleave 1/0 Default  1
+Heavy Strike 1/0 Default  1
+Added Fire Damage 1/0 Default DISABLED 1
+]])
+		runCallback("OnFrame")
+
+		local socketGroup = build.skillsTab.socketGroupList[1]
+		socketGroup.includeInFullDPS = true
+		socketGroup.mainActiveSkill = 2
+		runCallback("OnFrame")
+
+		reimportSocketedItemsWithOptions("Iron Hat", "Helm", {
+			makeSocketedGemEntry(0, false, "Cleave", 1),
+			makeSocketedGemEntry(1, false, "Heavy Strike", 1),
+			makeSocketedGemEntry(2, true, "Added Fire Damage Support", 2),
+		}, true)
 
 		socketGroup = build.skillsTab.socketGroupList[1]
 		assert.are.equal("Helmet", socketGroup.slot)
