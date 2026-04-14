@@ -56,7 +56,7 @@ describe("TestLoadouts", function()
 				-- First index is the "Loadout: " header, second index is the start of the loadouts
 				assert.is_not.same(build.controls.buildLoadouts.list[2], build.controls.buildLoadouts.list[3])
 				assert.are.equals(loadoutName, build.controls.buildLoadouts.list[3])
-				assert.is_not.same(newSpec, build.spec)
+				assert.is_not.same(newSpec, build.treeTab.specList[1])
 				assert.is_not.same(newItemSet, build.itemsTab.itemSets[1])
 				assert.is_not.same(newSkillSet, build.skillsTab.skillSets[1])
 				assert.is_not.same(newConfigSet, build.configTab.configSets[1])
@@ -618,6 +618,27 @@ describe("TestLoadouts", function()
 					assert.are.equals(6 + i, #build.controls.buildLoadouts.list)
 					assert.are.equals(copyLoadoutName, build.controls.buildLoadouts.list[2 + i])
 				end
+			end)
+
+			it("New Loadout, delete config, rename default, create custom", function()
+				local newLoadoutName = "New Loadout"
+				buildSetService:NewLoadout(newLoadoutName)
+				assert.are.equals(7, #build.controls.buildLoadouts.list)
+				local newLoadout = build:GetLoadoutByName(newLoadoutName)
+				build.configTab:DeleteConfigSet(newLoadout.configSetId)
+				build.configTab.configSets[1].title = "Config 1"
+
+				local customLoadoutName = "Custom Loadout"
+				buildSetService:CustomLoadout(-1, -1, -1, 1, customLoadoutName)
+				assert.are.equals(6, #build.controls.buildLoadouts.list)
+				assert.are.equals(customLoadoutName, build.controls.buildLoadouts.list[2])
+				assert.are.equals(customLoadoutName, build.controls.buildLoadouts:GetSelValue())
+				local customLoadout = build:GetLoadoutByName(customLoadoutName)
+				assert.are.equals(2, customLoadout.configSetId)
+				assert.are.equals(3, customLoadout.itemSetId)
+				assert.are.equals(3, customLoadout.skillSetId)
+				assert.are.equals(3, customLoadout.specId)
+				assert.is_true(build.modFlag)
 			end)
 		end)
 	end)

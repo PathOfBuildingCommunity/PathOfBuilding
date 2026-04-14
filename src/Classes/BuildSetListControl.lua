@@ -159,10 +159,12 @@ function BuildSetListClass:CustomLoadout(build)
 			(skillIndex > 1 and self.buildMode.skillsTab.skillSetOrderList[skillIndex - 1] or 0)
 		local newConfigSetId = configIndex == 1 and -1 or
 			(configIndex > 1 and self.buildMode.configTab.configSetOrderList[configIndex - 1] or 0)
-
+		print("Before CustomLoadout: ", newSpecId, newItemSetId, newSkillSetId, newConfigSetId)
 		self.buildSetService:CustomLoadout(newSpecId, newItemSetId, newSkillSetId, newConfigSetId,
 			controls.edit.buf)
+		print("After CustomLoadout: ", newSpecId, newItemSetId, newSkillSetId, newConfigSetId)
 		main:ClosePopup()
+		print("After ClosePopup: ", newSpecId, newItemSetId, newSkillSetId, newConfigSetId)
 	end)
 	controls.save.enabled = false
 	controls.cancel = new("ButtonControl", nil, { 45, 270, 80, 20 }, "Cancel", function()

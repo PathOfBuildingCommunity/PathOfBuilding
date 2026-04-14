@@ -4,6 +4,7 @@
 -- Configuration tab for the current build.
 --
 local t_insert = table.insert
+local t_remove = table.remove
 local t_maxn = table.maxn
 local m_min = math.min
 local m_max = math.max
@@ -982,6 +983,17 @@ function ConfigTabClass:CopyConfigSet(configSetId, newConfigSetName)
 	newConfigSet.title = newConfigSetName or configSet.title .. " (Copy)"
 	t_insert(self.configSets, newConfigSet)
 	return newConfigSet
+end
+
+-- Deletes a config set
+function ConfigTabClass:DeleteConfigSet(configSetId, orderListIndex)
+	t_remove(self.configSetOrderList, orderListIndex)
+	self.configSets[configSetId] = nil
+	if configSetId == self.activeConfigSetId then
+		self:SetActiveConfigSet(self.configSetOrderList[m_max(1, orderListIndex - 1)])
+	end
+	self:AddUndoState()
+	self.build:SyncLoadouts()
 end
 
 -- Changes the active config set

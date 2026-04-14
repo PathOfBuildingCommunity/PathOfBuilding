@@ -19,9 +19,7 @@ function BuildSetServiceClass:NewLoadout(name)
 end
 
 function BuildSetServiceClass:CopyLoadout(copyLoadoutName, newName)
-	local newSpec = self.buildMode:CopyLoadout(copyLoadoutName, newName)
-	self.buildMode:SyncLoadouts()
-	self.buildMode.controls.buildLoadouts:SetSel(newSpec.id + 1)
+	self.buildMode:CopyLoadout(copyLoadoutName, newName)
 end
 
 function BuildSetServiceClass:RenameLoadout(oldName, newName)
@@ -37,10 +35,7 @@ function BuildSetServiceClass:DeleteLoadout(index, list, spec)
 end
 
 function BuildSetServiceClass:CustomLoadout(specId, itemSetId, skillSetId, configSetId, name)
-	local newSpec = self.buildMode:CustomLoadout(specId, itemSetId, skillSetId, configSetId, name)
-	self.buildMode:SyncLoadouts()
-	local selectedIndex = newSpec.id and newSpec.id or #self.buildMode.treeTab.specList
-	self.buildMode.controls.buildLoadouts:SetSel(selectedIndex + 1)
+	self.buildMode:CustomLoadout(specId, itemSetId, skillSetId, configSetId, name)
 end
 
 function BuildSetServiceClass:ReorderLoadout(oldIndex, newIndex)

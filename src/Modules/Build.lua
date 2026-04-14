@@ -792,6 +792,10 @@ function buildMode:CopyLoadout(copyLoadoutName, loadoutName)
 	local newConfigSet = self.configTab:CopyConfigSet(loadout.configSetId, loadoutName)
 
 	self:InsertAllSetOrderList(newItemSet.id, newSkillSet.id, newConfigSet.id)
+
+	local copyLoadout = self:GetLoadoutByName(loadoutName)
+	self:SetActiveLoadout(copyLoadout)
+
 	self.modFlag = true
 	return newSpec, newItemSet, newSkillSet, newConfigSet
 end
@@ -832,6 +836,10 @@ function buildMode:CustomLoadout(specId, itemSetId, skillSetId, configSetId, nam
 	newConfigSet.title = name
 
 	self:InsertAllSetOrderList(newItemSet.id, newSkillSet.id, newConfigSet.id)
+	
+	local customLoadout = self:GetLoadoutByName(name)
+	self:SetActiveLoadout(customLoadout)
+
 	self.modFlag = true
 	return newSpec, newItemSet, newSkillSet, newConfigSet
 end
@@ -1006,6 +1014,13 @@ function buildMode:SetActiveLoadout(loadout)
 		self.configTab:SetActiveConfigSet(newConfigId, false, true)
 	end
 	self:SyncLoadouts()
+
+	for i, loadoutName in ipairs(self.controls.buildLoadouts.list) do
+		if loadoutName == (self.treeTab.specList[newSpecId].title) then
+			self.controls.buildLoadouts:SetSel(i)
+			break
+		end
+	end
 end
 
 function buildMode:ReorderLoadout(oldIndex, newIndex)
