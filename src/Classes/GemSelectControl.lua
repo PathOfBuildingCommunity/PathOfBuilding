@@ -368,7 +368,7 @@ function GemSelectClass:UpdateGem(setText, addUndo)
 	if setText then
 		self:SetText(self.gemName)
 	end
-	self.gemChangeFunc(self.gemId and self.gemId:gsub("%w+:", ""), "Default", addUndo and self.gemName ~= self.initialBuf)
+	self.gemChangeFunc(self.gemId and self.gemId:gsub("%w+:", ""), addUndo and self.gemName ~= self.initialBuf)
 end
 
 function GemSelectClass:ScrollSelIntoView()
