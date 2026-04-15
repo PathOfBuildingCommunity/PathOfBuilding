@@ -221,7 +221,14 @@ local function doActorAttribsConditions(env, actor)
 		if (actor.weaponData1.type == "Dagger" or actor.weaponData1.countsAsAll1H) and (actor.weaponData2.type == "Dagger" or actor.weaponData2.countsAsAll1H) then
 			condList["DualWieldingDaggers"] = true
 		end
-		if (env.data.weaponTypeInfo[actor.weaponData1.type].label or actor.weaponData1.subType or actor.weaponData1.type) ~= (env.data.weaponTypeInfo[actor.weaponData2.type].label or actor.weaponData2.subType or actor.weaponData2.type) then
+		local function getWeaponType(weaponData)
+			-- GGG treats thrusting one handed swords as the same class as one handed swords
+			if weaponData.type == "One Handed Sword" and weaponData.subType == "Thrusting" then
+				return "One Handed Sword"
+			end
+			return env.data.weaponTypeInfo[weaponData.type].label or weaponData.subType or weaponData.type
+		end
+		if getWeaponType(actor.weaponData1) ~= getWeaponType(actor.weaponData2) then
 			local info1 = env.data.weaponTypeInfo[actor.weaponData1.type]
 			local info2 = env.data.weaponTypeInfo[actor.weaponData2.type]
 			if info1.oneHand and info2.oneHand then
