@@ -1176,12 +1176,11 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 			else
 				local exactQuery = dkjson.decode(self.lastQuery)
 				-- use trade sum to get the specific item. both min and max
-				-- weight fields seem to be inconsistent. making the minimum
-				-- e.g. exactly 172.3 as on the result item does not always work
-				exactQuery.query.stats[1].value = { min = floor(itemResult.weight, 1) - 0.1, max = round(itemResult.weight, 1) + 0.1 }
+				-- weight on site uses floats but only shows integer in the api
+				-- e.g. weight of 172.3 shows up as 172 in the api
+				exactQuery.query.stats[1].value = { min = floor(itemResult.weight, 1) - 1, max = round(itemResult.weight, 1) + 1 }
 				-- also apply trader name. this should make false positives
-				-- extremely unlikely. this doesn't seem to take up a filter
-				-- slot
+				-- extremely unlikely. this doesn't seem to take up a filter slot
 				exactQuery.query.filters.trade_filters = { filters = { account = itemResult.trader } }
 
 				local exactQueryStr = dkjson.encode(exactQuery)
