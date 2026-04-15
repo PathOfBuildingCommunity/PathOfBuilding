@@ -1033,6 +1033,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 		"available",
 		"onlineleague",
 		"online",
+		"any",
 	}
 	local selectedTradeType = self.tradeTypes[self.tradeTypeIndex]
 	-- Generate trade query str and open in browser

@@ -288,6 +288,7 @@ on trade site to work on other leagues and realms)]]
 		"Instant buyout and in person",
 		"In person (online in league)",
 		"In person (online)",
+		"Any (includes offline)"
 	}
 	
 	self.controls.tradeTypeSelection = new("DropDownControl", { "TOPLEFT", self.controls.poesessidButton, "BOTTOMLEFT" },
