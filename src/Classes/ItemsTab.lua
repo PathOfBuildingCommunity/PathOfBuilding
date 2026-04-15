@@ -1617,12 +1617,8 @@ function ItemsTabClass:CopyAnointsAndEldritchImplicits(newItem, copyEldritchImpl
 			end
 
 			-- harvest and heist enchantments on modifiable body armour or weapons
-			if newItem.base.weapon or newItem.base.type == "Body Armour"
-				and (#newItem.enchantModLines == 0 or overwrite)
-				and self.activeItemSet[newItemType].selItemId > 0
-				and modifiableItem and currentItem.enchantModLines
-				then
-					newItem.enchantModLines = currentItem.enchantModLines
+			if (newItem.base.weapon or newItem.base.type == "Body Armour") and (#newItem.enchantModLines == 0 or overwrite)	and self.activeItemSet[newItemType].selItemId > 0 and modifiableItem and currentItem.enchantModLines then
+				newItem.enchantModLines = currentItem.enchantModLines
 			end
 
 			newItem:BuildAndParseRaw()
