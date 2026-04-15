@@ -133,8 +133,9 @@ Loadouts can be selected from the dropdown in the top middle of the screen. Sele
 
     3) If there is only one set for a set type (except passive tree), e.g. "Default" config set, it will be assigned to all existing loadouts.
 
-The "New Loadout" option allows the user to create all four sets from a single popup for convenience.
+The "New Loadout" option allows the user to create all four sets from a single popup for convenience. If you check the current active sets option, it will make a new loadout by copying all the active sets and giving them the new name.
 The "Sync" option is a backup option to force the UI to update in case the user has changed this data behind the scenes.
+All options that allow you to enter a name only support exact name match, although you can technically add an identifier in the name, but be careful of giving multiple loadouts the same identifier. Things will get krangled quickly.
 
 
 ---[Party Tab]

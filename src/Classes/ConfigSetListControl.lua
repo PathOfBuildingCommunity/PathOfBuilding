@@ -10,15 +10,19 @@ local m_max = math.max
 local ConfigSetListClass = newClass("ConfigSetListControl", "ListControl", function(self, anchor, rect, configTab)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, configTab.configSetOrderList)
 	self.configTab = configTab
-	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
-		local configSet = configTab.configSets[self.selValue]
+	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function(id) -- id is for Loadouts using copy.onClick()
+		local configSet = configTab.configSets[id or self.selValue]
 		local newConfigSet = copyTable(configSet)
 		newConfigSet.id = 1
 		while configTab.configSets[newConfigSet.id] do
 			newConfigSet.id = newConfigSet.id + 1
 		end
 		configTab.configSets[newConfigSet.id] = newConfigSet
-		self:RenameSet(newConfigSet, true)
+		if not id then
+			self:RenameSet(newConfigSet, true)
+		else
+			return newConfigSet
+		end
 	end)
 	self.controls.copy.enabled = function()
 		return self.selValue ~= nil
@@ -100,6 +104,23 @@ function ConfigSetListClass:OnSelDelete(index, configSetId)
 			self.configTab:AddUndoState()
 			self.configTab.build:SyncLoadouts()
 		end)
+	end
+end
+
+-- bypass confirmation popup, used by Loadouts
+function ConfigSetListClass:DeleteById(index, configSetId, sync)
+	if #self.list > 1 then
+		t_remove(self.list, index)
+		self.configTab.configSets[configSetId] = nil
+		self.selIndex = nil
+		self.selValue = nil
+		if configSetId == self.configTab.activeConfigSetId then
+			self.configTab:SetActiveConfigSet(self.list[m_max(1, index - 1)])
+		end
+		self.configTab:AddUndoState()
+		if sync then
+			self.configTab.build:SyncLoadouts()
+		end
 	end
 end
 

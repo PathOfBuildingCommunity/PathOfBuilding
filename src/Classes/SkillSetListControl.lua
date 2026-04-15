@@ -11,8 +11,8 @@ local s_format = string.format
 local SkillSetListClass = newClass("SkillSetListControl", "ListControl", function(self, anchor, rect, skillsTab)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, skillsTab.skillSetOrderList)
 	self.skillsTab = skillsTab
-	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
-		local skillSet = skillsTab.skillSets[self.selValue]
+	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function(id) -- id is for Loadouts using copy.onClick()
+		local skillSet = skillsTab.skillSets[id or self.selValue]
 		local newSkillSet = copyTable(skillSet, true)
 		newSkillSet.socketGroupList = { }
 		for socketGroupIndex, socketGroup in pairs(skillSet.socketGroupList) do
@@ -28,7 +28,11 @@ local SkillSetListClass = newClass("SkillSetListControl", "ListControl", functio
 			newSkillSet.id = newSkillSet.id + 1
 		end
 		skillsTab.skillSets[newSkillSet.id] = newSkillSet
-		self:RenameSet(newSkillSet, true)
+		if not id then
+			self:RenameSet(newSkillSet, true)
+		else
+			return newSkillSet
+		end
 	end)
 	self.controls.copy.enabled = function()
 		return self.selValue ~= nil
@@ -110,6 +114,23 @@ function SkillSetListClass:OnSelDelete(index, skillSetId)
 			self.skillsTab:AddUndoState()
 			self.skillsTab.build:SyncLoadouts()
 		end)
+	end
+end
+
+-- bypass confirmation popup, used by Loadouts
+function SkillSetListClass:DeleteById(index, skillSetId, sync)
+	if #self.list > 1 then
+		t_remove(self.list, index)
+		self.skillsTab.skillSets[skillSetId] = nil
+		self.selIndex = nil
+		self.selValue = nil
+		if skillSetId == self.skillsTab.activeSkillSetId then
+			self.skillsTab:SetActiveSkillSet(self.list[m_max(1, index - 1)])
+		end
+		self.skillsTab:AddUndoState()
+		if sync then
+			self.skillsTab.build:SyncLoadouts()
+		end
 	end
 end
 
