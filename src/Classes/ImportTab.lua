@@ -523,11 +523,11 @@ function ImportTabClass:DownloadCharacterList()
 			if self.lastLeague then
 				charSelectLeague:SelByValue(self.lastLeague, "league")
 				-- check that it worked
-				if charSelectLeague:GetSelValue("league") ~= self.lastLeague then
+				if charSelectLeague:GetSelValueByKey("league") ~= self.lastLeague then
 					-- League maybe over, Character will be in standard
 					standardLeagueName = FindMatchingStandardLeague(self.lastLeague)
 					self.controls.charSelectLeague:SelByValue(standardLeagueName, "league")
-					if charSelectLeague:GetSelValue("league") ~= standardLeagueName then
+					if charSelectLeague:GetSelValueByKey("league") ~= standardLeagueName then
 						-- give up and select the first entry. Ruthless mode may not have Standard equivalents
 						charSelectLeague.selIndex = 1
 					else
@@ -645,7 +645,7 @@ function ImportTabClass:DownloadPassiveTree()
 		end
 		self.lastCharacterHash = common.sha1(charData.name)
 		if not self.lastLeague then
-			self.lastLeague = charSelectLeague:GetSelValue("league")
+			self.lastLeague = charSelectLeague:GetSelValueByKey("league")
 		end
 		self:ImportPassiveTreeAndJewels(response.body, charData)
 	end, sessionID and { header = "Cookie: POESESSID=" .. sessionID })
@@ -670,7 +670,7 @@ function ImportTabClass:DownloadItems()
 		end
 		self.lastCharacterHash = common.sha1(charData.name)
 		if not self.lastLeague then
-			self.lastLeague = charSelectLeague:GetSelValue("league")
+			self.lastLeague = charSelectLeague:GetSelValueByKey("league")
 		end
 		self:ImportItemsAndSkills(response.body)
 	end, sessionID and { header = "Cookie: POESESSID=" .. sessionID })
@@ -756,7 +756,7 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	self.build.spec:BuildClusterJewelGraphs()
 	self.build.spec:AddUndoState()
 	if not self.lastLeague then
-		self.lastLeague = charSelectLeague:GetSelValue("league")
+		self.lastLeague = charSelectLeague:GetSelValueByKey("league")
 	end
 	self.build.characterLevel = charData.level
 	self.build.characterLevelAutoMode = false
