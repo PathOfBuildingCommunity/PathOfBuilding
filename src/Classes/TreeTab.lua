@@ -2248,6 +2248,7 @@ function TreeTabClass:FindTimelessJewel()
 								t_insert(tempLeagueTable, val)
 							end
 							leagueList = copyTable(tempLeagueTable)
+							self.tradeLeaguesList[currentRealmId] = leagueList
 						else
 							t_insert(leagueList, league)
 						end
