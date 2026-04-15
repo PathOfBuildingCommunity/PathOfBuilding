@@ -591,7 +591,7 @@ function SkillsTabClass:CopySocketGroup(socketGroup)
 		skillText = skillText .. "Slot: " .. socketGroup.slot .. "\r\n"
 	end
 	for _, gemInstance in ipairs(socketGroup.gemList) do
-		skillText = skillText .. string.format("%s %d/%d %s %d\r\n", gemInstance.nameSpec, gemInstance.level, gemInstance.quality, gemInstance.enabled and "ENABLED" or "DISABLED", gemInstance.count or 1)
+		skillText = skillText .. string.format("%s %d/%d %s %d\r\n", gemInstance.nameSpec, gemInstance.level, gemInstance.quality, gemInstance.enabled and "" or "DISABLED", gemInstance.count or 1)
 	end
 	Copy(skillText)
 end
@@ -608,7 +608,7 @@ function SkillsTabClass:PasteSocketGroup(testInput)
 		if slot then
 			newGroup.slot = slot
 		end
-		for nameSpec, level, quality, state, count in skillText:gmatch("([ %a']+) (%d+)/(%d+) (%a+%d?) ?(%a*) (%d+)") do
+		for nameSpec, level, quality, state, count in skillText:gmatch("([ %a']+) (%d+)/(%d+) ?(%a*) (%d+)") do
 			t_insert(newGroup.gemList, {
 				nameSpec = nameSpec,
 				level = tonumber(level) or 20,

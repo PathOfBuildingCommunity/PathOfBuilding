@@ -78,7 +78,7 @@ describe("TestImportReimport", function()
 	local function assertReimportPreservesSkillSubstate(slotName, itemTypeLine, inventoryId, gemName, fieldName, fieldValue)
 		build.skillsTab:PasteSocketGroup(string.format([[
 Slot: %s
-%s 20/0 Default  1
+%s 20/0  1
 ]], slotName, gemName))
 		runCallback("OnFrame")
 
@@ -101,9 +101,9 @@ Slot: %s
 	it("preserves full DPS state and manually disabled gems when reimporting items and skills", function()
 		build.skillsTab:PasteSocketGroup([[
 Slot: Helmet
-Cleave 1/0 Default  1
-Heavy Strike 1/0 Default  1
-Added Fire Damage 1/0 Default DISABLED 1
+Cleave 1/0  1
+Heavy Strike 1/0  1
+Added Fire Damage 1/0 DISABLED 1
 ]])
 		runCallback("OnFrame")
 
@@ -134,9 +134,9 @@ Added Fire Damage 1/0 Default DISABLED 1
 	it("preserves full DPS state and disabled gems when reimporting with deleted equipment", function()
 		build.skillsTab:PasteSocketGroup([[
 Slot: Helmet
-Cleave 1/0 Default  1
-Heavy Strike 1/0 Default  1
-Added Fire Damage 1/0 Default DISABLED 1
+Cleave 1/0  1
+Heavy Strike 1/0  1
+Added Fire Damage 1/0 DISABLED 1
 ]])
 		runCallback("OnFrame")
 
@@ -162,15 +162,15 @@ Added Fire Damage 1/0 Default DISABLED 1
 	it("preserves two socket groups when reimporting items and skills", function()
 		build.skillsTab:PasteSocketGroup([[
 Slot: Helmet
-Cleave 1/0 Default  1
-Heavy Strike 1/0 Default  1
-Added Fire Damage 1/0 Default DISABLED 1
+Cleave 1/0  1
+Heavy Strike 1/0  1
+Added Fire Damage 1/0 DISABLED 1
 ]])
 		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup([[
 Slot: Gloves
-Blight 20/0 Default  1
+Blight 20/0  1
 ]])
 		runCallback("OnFrame")
 
