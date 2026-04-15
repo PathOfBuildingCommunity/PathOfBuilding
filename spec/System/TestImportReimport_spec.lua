@@ -219,4 +219,8 @@ Blight 20/0  1
 	it("preserves mine count when reimporting items and skills", function()
 		assertReimportPreservesSkillSubstate("Gloves", "Rawhide Gloves", "Gloves", "Pyroclast Mine", "skillMineCount", 12)
 	end)
+	
+	it("preserves minion skill when reimporting items and skills", function()
+		assertReimportPreservesSkillSubstate("Gloves", "Rawhide Gloves", "Gloves", "Summon Chaos Golem", "skillMinionSkill", 3)
+	end)
 end)
