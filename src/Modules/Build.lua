@@ -68,6 +68,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	if not buildName then
 		main:SetMode("LIST")
 	end
+	self.saveAsSortMode = "NAME"
 
 	-- Load build file
 	self.xmlSectionList = { }
@@ -1310,10 +1311,14 @@ function buildMode:OpenSaveAsPopup()
 			end
 		end)
 	end)
-	controls.folder = new("FolderListControl", nil, {0, 115, 450, 100}, self.dbFileSubPath, function(subPath)
+
+	controls.folder = new("FolderListControl", nil, {0, 115, 450, 400}, self.dbFileSubPath, function(subPath)
 		updateBuildName()
 	end)
-	controls.save = new("ButtonControl", nil, {-45, 225, 80, 20}, "Save", function()
+	controls.folder.sortMode = self.saveAsSortMode
+	controls.folder:SortList()
+
+	controls.save = new("ButtonControl", nil, {-45, 525, 80, 20}, "Save", function()
 		main:ClosePopup()
 		self.dbFileName = newFileName
 		self.buildName = newBuildName
@@ -1321,7 +1326,7 @@ function buildMode:OpenSaveAsPopup()
 		self:SaveDBFile()
 		self.spec:SetWindowTitleWithBuildClass()
 	end)
-	controls.close = new("ButtonControl", nil, {45, 225, 80, 20}, "Cancel", function()
+	controls.close = new("ButtonControl", nil, {45, 525, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 		self.actionOnSave = nil
 	end)
@@ -1333,7 +1338,18 @@ function buildMode:OpenSaveAsPopup()
 		controls.save.enabled = false
 	end
 
-	main:OpenPopup(470, 255, self.dbFileName and "Save As" or "Save", controls, "save", "edit", "close")
+	controls.buildSortMode = new("DropDownControl", { "TOPRIGHT", nil, "TOPRIGHT" }, { -10, 70, 120, 18 }, {
+		{ label = "Sort By Name", mode = "NAME" },
+		{ label = "Sort By Last Edited", mode = "EDITED" },
+	}, function(index, value)
+		self.saveAsSortMode = value.mode
+		controls.folder.sortMode = value.mode
+		controls.folder:SortList()
+	end)
+	controls.buildSortMode.tooltipText = "Sort folders by name or date modified."
+	controls.buildSortMode:SelByValue(self.saveAsSortMode, "mode")
+
+	main:OpenPopup(470, 555, self.dbFileName and "Save As" or "Save", controls, "save", "edit", "close")
 end
 
 -- Open the spectre library popup
@@ -1351,8 +1367,8 @@ function buildMode:OpenSpectreLibrary()
 		end
 	end)
 	local controls = { }
-	controls.list = new("MinionListControl", nil, {-100, 40, 190, 250}, self.data, destList)
-	controls.source = new("MinionSearchListControl", nil, {100, 60, 190, 230}, self.data, sourceList, controls.list)
+	controls.list = new("MinionListControl", nil, {-139, 40, 265, 250}, self.data, destList)
+	controls.source = new("MinionSearchListControl", nil, {139, 60, 265, 230}, self.data, sourceList, controls.list)
 	controls.save = new("ButtonControl", nil, {-45, 330, 80, 20}, "Save", function()
 		self.spectreList = destList
 		self.modFlag = true
@@ -1362,9 +1378,9 @@ function buildMode:OpenSpectreLibrary()
 	controls.cancel = new("ButtonControl", nil, {45, 330, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
-	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {24, 2, 0, 16}, "^7Spectres in your Library must be assigned to an active")
-	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {20, 18, 0, 16}, "^7Raise Spectre gem for their buffs and curses to activate")
-	local spectrePopup = main:OpenPopup(410, 360, "Spectre Library", controls)
+	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {99, 2, 0, 16}, "^7Spectres in your Library must be assigned to an active")
+	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {95, 18, 0, 16}, "^7Raise Spectre gem for their buffs and curses to activate")
+	local spectrePopup = main:OpenPopup(575, 360, "Spectre Library", controls)
 	spectrePopup:SelectControl(spectrePopup.controls.source.controls.searchText)
 end
 
@@ -1482,7 +1498,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 					controls.mainSkillPart.selIndex = activeEffect.srcInstance["skillPart"..suffix] or 1
 					if activeEffect.grantedEffect.parts[controls.mainSkillPart.selIndex].stages then
 						controls.mainSkillStageCount.shown = true
-						controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeEffect.grantedEffect.parts[controls.mainSkillPart.selIndex].stagesMin or 1)
+						controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeSkill.skillData.stagesMax or activeEffect.grantedEffect.parts[controls.mainSkillPart.selIndex].stagesMin or 1)
 					end
 				end
 				if activeSkill.skillFlags.mine then
@@ -1491,7 +1507,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 				end
 				if activeSkill.skillFlags.multiStage and not (activeEffect.grantedEffect.parts and #activeEffect.grantedEffect.parts > 1) then
 					controls.mainSkillStageCount.shown = true
-					controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeSkill.skillData.stagesMin or 1)
+					controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeSkill.skillData.stagesMax or activeSkill.skillData.stagesMin or 1)
 				end
 				if not activeSkill.skillFlags.disable and (activeEffect.grantedEffect.minionList or activeSkill.minionList[1]) then
 					wipeTable(controls.mainSkillMinion.list)
@@ -1684,6 +1700,9 @@ function buildMode:InsertItemWarnings()
 		for _, warning in ipairs(self.calcsTab.mainEnv.itemWarnings.socketLimitWarning) do
 			InsertIfNew(self.controls.warnings.lines, "You have too many gems in your "..warning.." slot")
 		end
+	end
+	if self.calcsTab.mainEnv.itemWarnings.missingAnointWarning then
+		InsertIfNew(self.controls.warnings.lines, "You have eligible items missing an anoint: "..table.concat(self.calcsTab.mainEnv.itemWarnings.missingAnointWarning, ", "))
 	end
 end
 

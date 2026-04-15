@@ -219,18 +219,19 @@ end
 local function CWCHandler(env)
 	if not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillFlags.disable then
 		local triggeredSkills = {}
-		local trigRate = 0
 		local source = nil
 		local triggerName = "Cast While Channeling"
 		local output = env.player.output
 		local breakdown = env.player.breakdown
 		for _, skill in ipairs(env.player.activeSkillList) do
-			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
-			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
-			if env.player.mainSkill.triggeredBy.gemData and calcLib.canGrantedEffectSupportActiveSkill(env.player.mainSkill.triggeredBy.gemData.grantedEffect, skill) and skill ~= env.player.mainSkill and (match1 or match2) and not isTriggered(skill) then
-				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+			local slotMatch = slotMatch(env, skill)
+			if not source then
+				local canSupport = env.player.mainSkill.triggeredBy.gemData and calcLib.canGrantedEffectSupportActiveSkill(env.player.mainSkill.triggeredBy.gemData.grantedEffect, skill)
+				if skill.skillData.triggerTime and canSupport and skill ~= env.player.mainSkill and slotMatch and not isTriggered(skill) then
+					source = skill
+				end
 			end
-			if skill.skillData.triggeredWhileChannelling and (match1 or match2) then
+			if skill.skillData.triggeredWhileChannelling and slotMatch then
 				t_insert(triggeredSkills, packageSkillDataForSimulation(skill, env))
 			end
 		end
@@ -245,8 +246,8 @@ local function CWCHandler(env)
 			output.addsCastTime = processAddedCastTime(env.player.mainSkill, breakdown)
 
 			local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery") or 1
-			local adjTriggerInterval = m_ceil(source.skillData.triggerTime * data.misc.ServerTickRate) / data.misc.ServerTickRate
-			local triggerRateOfTrigger = 1/adjTriggerInterval
+			local triggerInterval = source.skillData.triggerTime
+			local triggerRateOfTrigger = 1 / triggerInterval
 			local triggeredCD = env.player.mainSkill.skillData.cooldown
 			local cooldownOverride = env.player.mainSkill.skillModList:Override(env.player.mainSkill.skillCfg, "CooldownRecovery")
 
@@ -269,8 +270,7 @@ local function CWCHandler(env)
 			if breakdown then
 				if triggeredCD or cooldownOverride then
 					breakdown.TriggerRateCap = {
-						s_format("Cast While Channeling triggers %s every %.2fs while channeling %s ", triggeredName, source.skillData.triggerTime, source.activeEffect.grantedEffect.name),
-						s_format("%.3f ^8(adjusted for server tick rate)", adjTriggerInterval),
+						s_format("Cast While Channeling triggers %s every %.2fs while channeling %s ", triggeredName, triggerInterval, source.activeEffect.grantedEffect.name),
 						"",
 						s_format("%.2f ^8(base cooldown of triggered skill)", triggeredCD),
 						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
@@ -284,8 +284,7 @@ local function CWCHandler(env)
 					end
 				else
 					breakdown.TriggerRateCap = {
-						s_format("Cast While Channeling triggers %s every %.2fs while channeling %s ", triggeredName, source.skillData.triggerTime, source.activeEffect.grantedEffect.name),
-						s_format("%.3f ^8(adjusted for server tick rate)", adjTriggerInterval),
+						s_format("Cast While Channeling triggers %s every %.2fs while channeling %s ", triggeredName, triggerInterval, source.activeEffect.grantedEffect.name),
 						"",
 						triggeredName .. " has no base cooldown or cooldown override",
 						"",
@@ -294,7 +293,7 @@ local function CWCHandler(env)
 
 				local function extraIncreaseNeeded(affectedCD)
 					if not cooldownOverride then
-						local nextBreakpoint = effCDTriggeredSkill - adjTriggerInterval
+						local nextBreakpoint = effCDTriggeredSkill - triggerInterval
 						local timeOverBreakpoint = triggeredTotalCooldown - nextBreakpoint
 						local alreadyReducedTime = triggeredTotalCooldown * icdr - triggeredTotalCooldown
 						if timeOverBreakpoint < affectedCD then
@@ -377,7 +376,7 @@ local function CWCHandler(env)
 
 			-- Account for Trigger-related INC/MORE modifiers
 			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
-			env.player.output.ChannelTimeToTrigger = source.skillData.triggerTime
+			env.player.output.ChannelTimeToTrigger = triggerInterval
 			env.player.mainSkill.skillData.triggered = true
 			env.player.mainSkill.skillFlags.globalTrigger = true
 			env.player.mainSkill.skillData.triggerRate = output.SkillTriggerRate
@@ -1135,6 +1134,10 @@ local configTable = {
 			env.player.mainSkill.infoMessage = "Squirming Terror requires recent kills"
 		end
 	end,
+	["kinetic flux"] = function()
+		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and slotMatch(env, skill) end,
+				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByKineticFlux and slotMatch(env, skill) end}
+	end,
 	["cast on critical strike"] = function()
 		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and slotMatch(env, skill) end,
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCoc and slotMatch(env, skill) end}
@@ -1230,10 +1233,10 @@ local configTable = {
 		if env.player.mainSkill.activeEffect.grantedEffect.name == "Autoexertion" then
 			env.player.mainSkill.skillFlags.globalTrigger = true
 			env.player.mainSkill.skillFlags.skipEffectiveRate = true
-		else -- Needed to get the cooldown form the active part
+		else -- Needed to get the cooldown from the active part
 			-- Autoexertion has cooldown as part of its support part
 			-- Not really sure which one should apply here
-			-- Applying the one form the active part to be consistent
+			-- Applying the one from the active part to be consistent
 			-- with skills like Automation and Spellslinger
 			for _, skill in ipairs(env.player.activeSkillList) do
 				if skill.activeEffect.grantedEffect.name == "Autoexertion" then
@@ -1247,6 +1250,12 @@ local configTable = {
 		return {triggerOnUse = true,
 				useCastRate = true,
 				source = env.player.mainSkill}
+	end,
+	["seize the flesh"] = function(env)
+		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Warcry] and slotMatch(env, skill) end}
+	end,
+	["fissure"] = function(env)
+		return {triggerOnUse = true, triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Slam] and slotMatch(env, skill) end}
 	end,
 	["mark on hit"] = function()
 		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] end}
@@ -1330,8 +1339,22 @@ local configTable = {
 	["prismatic burst"] = function(env)
 		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Attack] and slotMatch(env, skill) end}
 	end,
+	["voidstorm"] = function(env)
+		return {triggerOnUse = true, triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Attack] and skill.skillTypes[SkillType.Rain] and slotMatch(env, skill) end}
+	end,
 	["shockwave"] = function(env)
 		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] and slotMatch(env, skill) end}
+	end,
+	["void shockwave"] = function(env)
+		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] and slotMatch(env, skill) end}
+	end,
+	["call the pyre"] = function(env)
+		if env.enemy.modDB:Flag(nil, "Condition:Ignited") then
+			return {triggerChance =  50, -- too much of a pain to pull this from the triggering skill
+				triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] and slotMatch(env, skill) end}
+		else
+			env.player.mainSkill.infoMessage = "Call the Pyre requires Ignited enemies"
+		end
 	end,
 	["manaforged arrows"] = function(env)
 		return {triggerOnUse = true,
@@ -1484,6 +1507,33 @@ local configTable = {
 				triggeredSkillCond = function(env, skill)
 					return skill.skillData.triggeredBySettlersEnchantTrigger and slotMatch(env, skill)
 				end}
+	end,
+	["replica gifts from above"] = function()
+		return {
+			triggerSkillCond = function(env, skill)
+				return not skill.skillTypes[SkillType.SummonsTotem] and skill.skillTypes[SkillType.Attack]
+			end
+		}
+	end,
+	["bursting toad"] = function(env)
+		local triggerInterval = m_huge
+		-- All gems in the socket group should return the same HexToadCooldown even when there are multiple hextoad support gems slotted
+		for _, skill in ipairs(env.player.activeSkillList) do
+			if skill.skillData.hextoadTriggerInterval then
+				triggerInterval = m_min(triggerInterval, skill.skillData.hextoadTriggerInterval)
+			end
+		end
+		if triggerInterval < m_huge then
+			env.player.mainSkill.skillFlags.globalTrigger = true
+			env.player.mainSkill.skillData.triggerRateCapOverride = 1 / triggerInterval
+			if env.player.breakdown then
+				env.player.breakdown.TriggerRateCap = {
+					s_format("1 / %.2f ^8(Hextoad trigger interval)", triggerInterval),
+					s_format("= %.2f", env.player.mainSkill.skillData.triggerRateCapOverride),
+				}
+			end
+			return {source = env.player.mainSkill}
+		end
 	end,
 }
 

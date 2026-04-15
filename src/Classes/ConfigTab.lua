@@ -168,7 +168,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" or varData.type == "float" then
-				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 90, 18}, "", nil, (varData.type == "integer" and "^%-%d") or (varData.type == "float" and "^%d.") or "%D", 7, function(buf, placeholder)
+				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 90, 18}, "", nil, (varData.type == "integer" and "^%-%d") or (varData.type == "float" and "^%d.") or "%D", 10, function(buf, placeholder)
 					if placeholder then
 						self.configSets[self.activeConfigSetId].placeholder[varData.var] = tonumber(buf)
 					else
@@ -327,6 +327,18 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					for _, mod in ipairs(mods) do
 						out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
 					end
+					return out
+				end))
+			end
+			if varData.ifCondTrue then
+				t_insert(shownFuncs, listOrSingleIfOption(varData.ifCondTrue, function(ifOption)
+					return self.build.calcsTab.mainEnv.player.modDB.conditions[ifOption]
+				end))
+				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifCondTrue, function(ifOption)
+					if not launch.devModeAlt then
+						return
+					end
+					local out = "Condition state: " .. ifOption .. "=" .. tostring(self.build.calcsTab.mainEnv.player.modDB.conditions[ifOption])
 					return out
 				end))
 			end

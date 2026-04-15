@@ -81,6 +81,9 @@ function PassiveSpecClass:Init(treeVersion, convert)
 
 	-- Keys are node IDs, values are the replacement node
 	self.hashOverrides = { }
+
+	-- Cached highlight path for Split Personality jewels
+	self.splitPersonalityPath = { }
 end
 
 function PassiveSpecClass:Load(xml, dbFileName)
@@ -950,6 +953,67 @@ function PassiveSpecClass:SetNodeDistanceToClassStart(root)
 	end
 end
 
+-- Determine the shortest path from the given node to the class' start
+-- Only allocated nodes can be traversed
+function PassiveSpecClass:GetShortestPathToClassStart(rootId)
+	local root = self.nodes[rootId]
+	if not root or not root.alloc or not root.connectedToStart then
+		return nil
+	end
+
+	-- Stop once the current class' starting node is reached
+	local targetNodeId = self.curClass.startNodeId
+
+	local parent = { }
+	parent[root.id] = nil
+
+	local queue = { root }
+	local o, i = 1, 2 -- Out, in
+	while o < i do
+		local node = queue[o]
+		o = o + 1
+		-- Iterate through all nodes that are connected to this one
+		for _, other in ipairs(node.linked) do
+			-- If this connected node is the correct class start node, then construct and return the path
+			if other.id == targetNodeId then
+				local path = { [root.id] = true, [other.id] = true }
+				local cur = node
+				while cur do
+					path[cur.id] = true
+					cur = parent[cur.id]
+				end
+				return path
+			end
+
+			-- Otherwise, record the parent of this node if it hasn't already been visited
+			if other.alloc and node.type ~= "Mastery" and other.type ~= "ClassStart" and other.type ~= "AscendClassStart" and not parent[other.id] and other.id ~= root.id then
+				parent[other.id] = node
+
+				-- Add the other node to the end of the queue
+				queue[i] = other
+				i = i + 1
+			end
+		end
+	end
+	return nil
+end
+
+function PassiveSpecClass:BuildSplitPersonalityPath()
+	local splitPersonalityPath = { }
+	for nodeId, itemId in pairs(self.jewels) do
+		local item = self.build.itemsTab.items[itemId]
+		if item and item.jewelData and item.jewelData.jewelIncEffectFromClassStart then
+			local path = self:GetShortestPathToClassStart(nodeId)
+			if path then
+				for id in pairs(path) do
+					splitPersonalityPath[id] = true
+				end
+			end
+		end
+	end
+	self.splitPersonalityPath = splitPersonalityPath
+end
+
 function PassiveSpecClass:AddMasteryEffectOptionsToNode(node)
 	node.sd = {}
 	if node.masteryEffects ~= nil and #node.masteryEffects > 0 then
@@ -1072,6 +1136,8 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				jewelType = 3
 			elseif conqueredBy.conqueror.type == "templar" then
 				jewelType = 4
+			elseif conqueredBy.conqueror.type == "kalguur" then
+				jewelType = 6
 			end
 			local seed = conqueredBy.id
 			if jewelType == 5 then
@@ -1218,6 +1284,9 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				elseif conqueredBy.conqueror.type == "maraketh" then
 					local dex = (isValueInArray(attributes, node.dn) or node.isTattoo) and "2" or "4"
 					self:NodeAdditionOrReplacementFromString(node, " \n+" .. dex .. " to Dexterity")
+				elseif conqueredBy.conqueror.type == "kalguur" then
+					local ward = (isValueInArray(attributes, node.dn) or node.isTattoo) and "1" or "2"
+					self:NodeAdditionOrReplacementFromString(node, " \n" .. ward .. "% increased Ward")
 				elseif conqueredBy.conqueror.type == "templar" then
 					if (isValueInArray(attributes, node.dn) or node.isTattoo) then
 						local legionNode = legionNodes[91] -- templar_devotion_node
@@ -1237,6 +1306,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	-- Add selected mastery effect mods to mastery nodes
 	self.allocatedMasteryCount = 0
 	self.allocatedNotableCount = 0
+	self.allocatedKeystoneCount = 0
 	self.allocatedMasteryTypes = { }
 	self.allocatedMasteryTypeCount = 0
 	self.allocatedTattooTypes = { }
@@ -1279,6 +1349,8 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				self:AddMasteryEffectOptionsToNode(node)
 			elseif node.type == "Notable" and node.alloc then
 				self.allocatedNotableCount = self.allocatedNotableCount + 1
+			elseif node.type == "Keystone" and node.alloc then
+				self.allocatedKeystoneCount = self.allocatedKeystoneCount + 1	
 			end
 			if node.isTattoo and node.alloc and node.overrideType then
 				if not self.allocatedTattooTypes[node.overrideType] then
@@ -1462,6 +1534,8 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			end
 		end
 	end
+
+	self:BuildSplitPersonalityPath()
 end
 
 function PassiveSpecClass:ReplaceNode(old, newNode)

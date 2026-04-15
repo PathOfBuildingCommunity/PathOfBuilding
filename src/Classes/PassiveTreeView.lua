@@ -48,6 +48,10 @@ local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.vaal1:Load("TreeData/PassiveSkillScreenVaalJewelCircle1.png", "CLAMP")
 	self.vaal2 = NewImageHandle()
 	self.vaal2:Load("TreeData/PassiveSkillScreenVaalJewelCircle2.png", "CLAMP")
+	self.kalguur1 = NewImageHandle()
+	self.kalguur1:Load("TreeData/PassiveSkillScreenKalguuranJewelCircle1.png", "CLAMP")
+	self.kalguur2 = NewImageHandle()
+	self.kalguur2:Load("TreeData/PassiveSkillScreenKalguuranJewelCircle2.png", "CLAMP")
 
 	self.tooltip = new("Tooltip")
 
@@ -269,6 +273,9 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		end
 	end
 
+	-- Split Personality highlight
+	local splitPersonalityPath = spec.splitPersonalityPath or { }
+
 	if treeClick == "LEFT" then
 		if hoverNode then
 			-- User left-clicked on a node
@@ -464,6 +471,46 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					SetDrawColor(1, 1, 1, 0.25)
 				end
 				self:DrawAsset(tree.assets["Classes"..group.ascendancyName], scrX, scrY, scale)
+
+				if tree.classes[1].ascendancies then
+					local ascendancyData
+					local isAlternateAscendancy = false
+					-- Search normal ascendancies
+					for _, class in ipairs(tree.classes) do
+						for _, ascendancy in ipairs(class.ascendancies) do
+							if ascendancy.id == group.ascendancyName then
+								ascendancyData = ascendancy
+								break
+							end
+						end
+						if ascendancyData then break end
+					end
+
+					-- Search alternate ascendancies if not found
+					if not ascendancyData and tree.alternate_ascendancies then
+						for _, ascendancy in pairs(tree.alternate_ascendancies) do
+							if ascendancy.id == group.ascendancyName then
+								ascendancyData = ascendancy
+								isAlternateAscendancy = true
+								break
+							end
+						end
+					end
+					if ascendancyData and ascendancyData.flavourTextRect then
+						local rect = ascendancyData.flavourTextRect
+						local textColor = "^x" .. ascendancyData.flavourTextColour
+
+						-- Normal ascendancy images are 1300x1300, bloodline appears to be 1488x1412
+						local offsetX = rect.x - (isAlternateAscendancy and 744 or 650)
+						local offsetY = rect.y - (isAlternateAscendancy and 706 or 650)
+
+						local textX, textY = treeToScreen(group.x + offsetX, group.y + offsetY)
+
+						DrawString(textX, textY, "LEFT", 52 * scale, "FONTIN ITALIC", textColor .. ascendancyData.flavourText)
+					end
+				else
+					ConPrintTable(tree.classes)
+				end
 				SetDrawColor(1, 1, 1)
 			end
 		elseif group.oo[3] then
@@ -503,7 +550,13 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	end
 	local function renderConnector(connector)
 		local node1, node2 = spec.nodes[connector.nodeId1], spec.nodes[connector.nodeId2]
-		setConnectorColor(1, 1, 1)
+		local connectorDefaultColor = "^xFFFFFF"
+
+		if splitPersonalityPath[node1.id] and splitPersonalityPath[node2.id] then
+			connectorDefaultColor = colorCodes.SPLITPERSONALITY
+		end
+
+		setConnectorColor(connectorDefaultColor)
 		local state = getState(node1, node2)
 		local baseState = state
 		if self.compareSpec then
@@ -589,6 +642,12 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 		local base, overlay, effect
 		local isAlloc = node.alloc or build.calcsTab.mainEnv.grantedPassives[nodeId] or (compareNode and compareNode.alloc)
+		local nodeDefaultColor = "^xFFFFFF"
+
+		if splitPersonalityPath[node.id] then
+			nodeDefaultColor = colorCodes.SPLITPERSONALITY
+		end
+
 		SetDrawLayer(nil, 25)
 		if node.type == "ClassStart" then
 			overlay = isAlloc and node.startArt or "PSStartNodeBackgroundInactive"
@@ -734,11 +793,11 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						-- Node is a mastery, both have it allocated, but mastery changed, color it blue
 						SetDrawColor(0, 0, 1)
 					else
-						-- Both have or both have not, use white
-						SetDrawColor(1, 1, 1)
+						-- Both have or both have not
+						SetDrawColor(nodeDefaultColor)
 					end
 				else
-					SetDrawColor(1, 1, 1)
+					SetDrawColor(nodeDefaultColor)
 				end
 			end
 		elseif launch.devModeAlt then
@@ -762,11 +821,11 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					-- Node is a mastery, both have it allocated, but mastery changed, color it blue
 					SetDrawColor(0, 0, 1)
 				else
-					-- Both have or both have not, use white
-					SetDrawColor(1, 1, 1)
-				end
+					-- Both have or both have not
+					SetDrawColor(nodeDefaultColor)
+				end	
 			else
-				SetDrawColor(1, 1, 1)
+				SetDrawColor(nodeDefaultColor)
 			end
 		end
 
@@ -934,6 +993,9 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					elseif jewel.title:match("^Militant Faith") then
 						self:DrawImageRotated(self.templar1, scrX, scrY, outerSize * 2, outerSize * 2, -0.7)
 						self:DrawImageRotated(self.templar2, scrX, scrY, outerSize * 2, outerSize * 2, 0.7)
+					elseif jewel.title:match("^Heroic Tragedy") then
+						self:DrawImageRotated(self.kalguur1, scrX, scrY, outerSize * 2, outerSize * 2, -0.7)
+						self:DrawImageRotated(self.kalguur2, scrX, scrY, outerSize * 2, outerSize * 2, 0.7)
 					else
 						self:DrawImageRotated(self.jewelShadedOuterRing, scrX, scrY, outerSize * 2, outerSize * 2, -0.7)
 						self:DrawImageRotated(self.jewelShadedOuterRingFlipped, scrX, scrY, outerSize * 2, outerSize * 2, 0.7)

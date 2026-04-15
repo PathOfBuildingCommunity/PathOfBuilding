@@ -104,12 +104,12 @@ local function getTagBasedModifiers(tagName, itemSlotName)
 									if data.itemTagSpecial[tagName] and data.itemTagSpecial[tagName][itemSlotName] then
 										for _, specialMod in ipairs(data.itemTagSpecial[tagName][itemSlotName]) do
 											if dv:lower():find(specialMod:lower()) then
-												exclude = true
+												excluded = true
 												break
 											end
 										end
 									end
-									if exclude then
+									if excluded then
 										found = true
 										break
 									end
@@ -131,12 +131,12 @@ local function getTagBasedModifiers(tagName, itemSlotName)
 							if data.itemTagSpecial[tagName] and data.itemTagSpecial[tagName][itemSlotName] then
 								for _, specialMod in ipairs(data.itemTagSpecial[tagName][itemSlotName]) do
 									if dv:lower():find(specialMod:lower()) then
-										exclude = true
+										excluded = true
 										break
 									end
 								end
 							end
-							if exclude then
+							if excluded then
 								found = true
 								break
 							end
@@ -444,16 +444,16 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						end
 					end
 				elseif specName == "Radius" and self.type == "Jewel" then
-					self.jewelRadiusLabel = specVal:match("^%a+")
-					if specVal:match("^%a+") == "Variable" then
-                        -- Jewel radius is variable and must be read from it's mods instead after they are parsed
-                        deferJewelRadiusIndexAssignment = true
-                    else
-                        for index, data in pairs(data.jewelRadius) do
-                            if specVal:match("^%a+") == data.label then
-                                self.jewelRadiusIndex = index
-                                break
-                            end
+					self.jewelRadiusLabel = specVal:match("^[%a ]+")
+					if specVal:match("^[%a ]+") == "Variable" then
+						-- Jewel radius is variable and must be read from it's mods instead after they are parsed
+						deferJewelRadiusIndexAssignment = true
+					else
+						for index, data in pairs(data.jewelRadius) do
+							if specVal:match("^[%a ]+") == data.label then
+								self.jewelRadiusIndex = index
+								break
+							end
 						end
 					end
 				elseif specName == "Limited to" and self.type == "Jewel" then
@@ -756,7 +756,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.prefixes.limit = (self.prefixes.limit or 0) + (tonumber(lineLower:match("%+(%d+) prefix modifiers? allowed")) or 0) - (tonumber(lineLower:match("%-(%d+) prefix modifiers? allowed")) or 0)
 				elseif lineLower:match(" suffix modifiers? allowed") then
 					self.suffixes.limit = (self.suffixes.limit or 0) + (tonumber(lineLower:match("%+(%d+) suffix modifiers? allowed")) or 0) - (tonumber(lineLower:match("%-(%d+) suffix modifiers? allowed")) or 0)
-				elseif lineLower == "this item can be anointed by cassia" then
+				elseif lineLower:find("can be anointed") then -- blight uniques and Cord Belt
 					self.canBeAnointed = true
 				elseif lineLower == "can have a second enchantment modifier" then
 					self.canHaveTwoEnchants = true
@@ -1371,11 +1371,11 @@ local function calcLocal(modList, name, type, flags)
 	return result
 end
 
--- Build list of modifiers in a given slot number (1 or 2) while applying local modifiers and adding quality
+-- Build list of modifiers in a given slot number while applying local modifiers and adding quality
 function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 	local slotName = self:GetPrimarySlot()
-	if slotNum == 2 then
-		slotName = slotName:gsub("1", "2")
+	if slotNum ~= 1 then
+		slotName = slotName:gsub("1", tostring(slotNum))
 	end
 	local modList = new("ModList")
 	for _, baseMod in ipairs(baseList) do
@@ -1568,6 +1568,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		if self.base.flask.life or self.base.flask.mana then
 			-- Recovery flask
 			flaskData.instantPerc = calcLocal(modList, "FlaskInstantRecovery", "BASE", 0)
+			flaskData.instantLowLifePerc = calcLocal(modList, "FlaskLowLifeInstantRecovery", "BASE", 0)
 			local recoveryMod = 1 + calcLocal(modList, "FlaskRecovery", "INC", 0) / 100
 			local rateMod = 1 + calcLocal(modList, "FlaskRecoveryRate", "INC", 0) / 100
 			flaskData.duration = round(self.base.flask.duration * (1 + durationInc / 100) / rateMod * durationMore, 1)

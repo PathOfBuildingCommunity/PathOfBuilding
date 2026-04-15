@@ -70,7 +70,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 	end
 	self.controls.accountNameGo.tooltipFunc = function(tooltip)
 		tooltip:Clear()
-		if not self.controls.accountName.buf:match("[#%-]%d%d%d%d$") then
+		if not self.controls.accountName.buf:match("[#%-]%d%d%d%d$") and self.controls.accountName.buf ~= "" then
 			tooltip:AddLine(16, "^7Missing discriminator e.g. " .. self.controls.accountName.buf .. "#1234")
 		end
 	end
@@ -97,7 +97,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 
 	self.controls.accountNameMissingDiscriminator = new("LabelControl", {"TOPLEFT",self.controls.accountName,"BOTTOMLEFT"}, {0, 8, 0, 16}, "^1Missing discriminator e.g. #1234")
 	self.controls.accountNameMissingDiscriminator.shown = function()
-		return not self.controls.accountName.buf:match("[#%-]%d%d%d%d$")
+		return not self.controls.accountName.buf:match("[#%-]%d%d%d%d$") and self.controls.accountName.buf ~= ""
 	end
 
 	self.controls.accountNameUnicode = new("LabelControl", {"TOPLEFT",self.controls.accountRealm,"BOTTOMLEFT"}, {0, 34, 0, 14}, "^7Note: if the account name contains non-ASCII characters it must be pasted into the textbox,\nnot typed manually.")
@@ -542,7 +542,7 @@ function ImportTabClass:BuildCharacterList(league)
 					elseif (charClass == "Juggernaut" or charClass == "Berserker" or charClass == "Chieftain" or
 						charClass == "Antiquarian" or charClass == "Behemoth" or charClass == "Ancestral Commander") then
 						classColor = colorCodes["MARAUDER"]
-					elseif (charClass == "Ascendant" or charClass == "Scavenger") then
+					elseif (charClass == "Ascendant" or charClass == "Reliquarian" or charClass == "Scavenger") then
 						classColor = colorCodes["SCION"]
 					end
 				end
@@ -832,6 +832,7 @@ function ImportTabClass:ImportItemsAndSkills(json)
 			t_insert(preservedSocketGroupStateByKey[key], snapshotSocketGroupReimportState(socketGroup, index == self.build.mainSocketGroup))
 		end
 		wipeTable(self.build.skillsTab.socketGroupList)
+		self.build.skillsTab:RebuildImbuedSupportBySlot()
 	end
 	self.charImportStatus = colorCodes.POSITIVE.."Items and skills successfully imported."
 	--ConPrintTable(charItemData)
@@ -1206,11 +1207,11 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			self:ImportItem(socketedItem, slotName .. " Abyssal Socket "..abyssalSocketId)
 			abyssalSocketId = abyssalSocketId + 1
 		else
-			local normalizedBasename, qualityType = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.typeLine, nil)
+			local normalizedBasename = sanitiseText(socketedItem.typeLine)
 			local gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
 			if socketedItem.hybrid then
 				-- Used by transfigured gems and dual-skill gems (currently just Stormbind) 
-				normalizedBasename, qualityType  = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.hybrid.baseTypeName, nil)
+				normalizedBasename = sanitiseText(socketedItem.hybrid.baseTypeName)
 				gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
 				if gemId and socketedItem.hybrid.isVaalGem then
 					gemId = self.build.data.gemGrantedEffectIdForVaalGemId[self.build.data.gems[gemId].grantedEffectId]
@@ -1220,7 +1221,6 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 				local gemInstance = { level = 20, quality = 0, enabled = true, enableGlobal1 = true, gemId = gemId }
 				gemInstance.nameSpec = self.build.data.gems[gemId].name
 				gemInstance.support = socketedItem.support
-				gemInstance.qualityId = qualityType
 				for _, property in pairs(socketedItem.properties) do
 					if property.name == "Level" then
 						gemInstance.level = tonumber(property.values[1][1]:match("%d+"))
@@ -1238,6 +1238,10 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 					t_insert(socketGroup.gemList, 1, gemInstance)
 				else
 					t_insert(socketGroup.gemList, gemInstance)
+				end
+				if socketedItem.builtInSupport then
+					socketGroup.imbuedSupport = socketedItem.builtInSupport:gsub("Supported by Level 1 ", "")
+					self.build.skillsTab.controls.imbuedSupport.gemChangeFunc(data.gems[data.gemForBaseName[socketGroup.imbuedSupport:lower().." support"]], nil, nil, slotName)
 				end
 			end
 		end
