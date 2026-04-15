@@ -1183,7 +1183,10 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 				exactQuery.query.stats[1].value = { min = floor(itemResult.weight, 1) - 1, max = round(itemResult.weight, 1) + 1 }
 				-- also apply trader name. this should make false positives
 				-- extremely unlikely. this doesn't seem to take up a filter slot
-				exactQuery.query.filters.trade_filters = { filters = { account = itemResult.trader } }
+				exactQuery.query.filters = exactQuery.query.filters or { }
+				exactQuery.query.filters.trade_filters = exactQuery.query.filters.trade_filters or { filters = { } }
+				exactQuery.query.filters.trade_filters.filters = exactQuery.query.filters.trade_filters.filters or { }
+				exactQuery.query.filters.trade_filters.filters.account = { input = itemResult.trader }
 
 				local exactQueryStr = dkjson.encode(exactQuery)
 				
