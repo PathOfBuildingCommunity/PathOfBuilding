@@ -3,7 +3,70 @@ if not loadStatFile then
 end
 loadStatFile("passive_skill_stat_descriptions.txt")
 
-local out = io.open("../Data/LegionPassives.lua", "w")
+-- This table lists errors in the ggpk dat files
+local datErrors = {
+	["templar_notable_minimum_frenzy_charge"] = {
+		["match"] = {
+			["Name"] = "Powerful Faith",
+		},
+		["replace"] = {
+			["Id"] = "templar_notable_minimum_power_charge",
+		},
+	},
+	["templar_notable_minimum_power_charge"] = {
+		["match"] = {
+			["Name"] = "Frenzied Faith",
+		},
+		["replace"] = {
+			["Id"] = "templar_notable_minimum_frenzy_charge",
+		},
+	},
+	["karui_notable_add_physical_taken_as_fire"] = {
+		["match"] = {
+			["Id"] = "karui_notable_add_physical_taken_as_fire",
+		},
+		["replace"] = {
+			["Id"] = "karui_notable_add_rage_on_melee_hit",
+		},
+	},
+	["karui_notable_add_faster_burn"] = {
+		["match"] = {
+			["Id"] = "karui_notable_add_faster_burn",
+		},
+		["replace"] = {
+			["Id"] = "karui_notable_add_faster_ignite",
+		},
+	},
+	["maraketh_notable_add_ailment_avoid"] = {
+		["match"] = {
+			["Id"] = "maraketh_notable_add_ailment_avoid",
+		},
+		["replace"] = {
+			["Id"] = "maraketh_notable_add_stun_avoid",
+		},
+	},
+	["maraketh_notable_add_flask_effect"] = {
+		["match"] = {
+			["Id"] = "maraketh_notable_add_flask_effect",
+		},
+		["replace"] = {
+			["Id"] = "maraketh_notable_add_alchemists_genius",
+		},
+	},
+}
+
+local fixDatErrors = function(row)
+	if datErrors[row.Id] then
+		for field, value in pairs(datErrors[row.Id].match) do
+			if row[field] ~= value then return end
+		end
+		for field, value in pairs(datErrors[row.Id].replace) do
+			row[field] = value
+		end
+	end
+end
+
+local out = io.open("../Data/TimelessJewelData/LegionPassives.lua", "w")
 
 local stats = dat("Stats")
 local alternatePassiveSkillDat = dat("AlternatePassiveSkills")
@@ -19,7 +82,7 @@ function stringify(thing)
 		return ""..thing;
 	elseif type(thing) == 'table' then
 		local s = "{";
-		for k,v in pairs(thing) do
+		for k,v in pairsSortByKey(thing) do
 			s = s.."\n\t"
 			if type(k) == 'number' then
 				s = s.."["..k.."] = "
@@ -45,7 +108,7 @@ end
 
 function parseStats(datFileRow, legionPassive)
 	local descOrders = {}
-	for idx,statKey in pairs(datFileRow.StatsKeys) do
+	for idx,statKey in ipairs(datFileRow.StatsKeys) do
 		local refRow = type(statKey) == "number" and statKey + 1 or statKey._rowIndex
 		local statId = stats:ReadCell(refRow, 1)
 		local range = datFileRow["Stat"..idx]
@@ -68,15 +131,15 @@ function parseStats(datFileRow, legionPassive)
 	-- Have to re-sort since we described the stats earlier
 	table.sort(legionPassive.sd, function(a, b) return descOrders[a] < descOrders[b] end)
 	local sortedStats = {}
-	for stat in pairs(legionPassive.stats) do
+	for stat in pairsSortByKey(legionPassive.stats) do
 		table.insert(sortedStats, stat)
 	end
 	-- Finally get what we want, sorted stats by order
-	table.sort(sortedStats, function(a, b) return legionPassive.stats[a].statOrder < legionPassive.stats[b].statOrder  end)
+	table.sort(sortedStats, function(a, b) return legionPassive.stats[a].statOrder and legionPassive.stats[a].statOrder < legionPassive.stats[b].statOrder  end)
 	legionPassive.sortedStats = sortedStats
 end
 
----@type table <string, table> @this is the structure used to generate the final data file Data/LegionPassives
+---@type table <string, table> @this is the structure used to generate the final data file Data/TimelessJewelData/LegionPassives
 local data = { }
 data.nodes = { }
 data.groups = { }
@@ -90,6 +153,7 @@ for i=1, alternatePassiveSkillDat.rowCount do
 		local key = alternatePassiveSkillDat.spec[j].name
 		datFileRow[key] = alternatePassiveSkillDat:ReadCell(i, j)
 	end
+	fixDatErrors(datFileRow)
 	---@type table<string, boolean|string|number|table>
 	local legionPassiveNode = {}
 	-- id
@@ -125,7 +189,7 @@ for i=1, alternatePassiveSkillDat.rowCount do
             [1] = "Energy Shield starts at zero",
             [2] = "Cannot Recharge or Regenerate Energy Shield",
             [3] = "Lose 5% of Energy Shield per second",
-            [4] = "Life Leech effects are not removed at Full Life",
+            [4] = "Life Leech effects are not removed when Unreserved Life is Filled",
             [5] = "Life Leech effects Recover Energy Shield instead while on Full Life"
         }
     end
@@ -154,7 +218,7 @@ data.groups[LEGION_PASSIVE_GROUP] = {
     ["n"] = {}
 }
 
-for k,v in pairs(data.nodes) do
+for k,v in ipairs(data.nodes) do
 	table.insert(data.groups[LEGION_PASSIVE_GROUP].n, k)
 end
 
@@ -165,6 +229,7 @@ for i=1, alternatePassiveAdditionsDat.rowCount do
 		local key = alternatePassiveAdditionsDat.spec[j].name
 		datFileRow[key] = alternatePassiveAdditionsDat:ReadCell(i, j)
 	end
+	fixDatErrors(datFileRow)
 
 	---@type table<string, boolean|string|number|table>
 	local legionPassiveAddition = {}

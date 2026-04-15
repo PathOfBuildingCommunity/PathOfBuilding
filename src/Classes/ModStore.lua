@@ -8,6 +8,7 @@ local pairs = pairs
 local select = select
 local t_insert = table.insert
 local m_floor = math.floor
+local m_ceil = math.ceil
 local m_min = math.min
 local m_max = math.max
 local m_modf = math.modf
@@ -33,7 +34,7 @@ local ModStoreClass = newClass("ModStore", function(self, parent)
 	self.conditions = { }
 end)
 
-function ModStoreClass:ScaleAddMod(mod, scale)
+function ModStoreClass:ScaleAddMod(mod, scale, replace)
 	local unscalable = false
 	for _, effects in ipairs(mod) do
 		if effects.unscalable then
@@ -44,22 +45,29 @@ function ModStoreClass:ScaleAddMod(mod, scale)
 	if scale == 1 or unscalable then
 		self:AddMod(mod)
 	else
-		scale = m_max(scale, 0)
 		local scaledMod = copyTable(mod)
 		local subMod = scaledMod
-		if type(scaledMod.value) == "table" and scaledMod.value.mod then
-			subMod = scaledMod.value.mod
+		if type(scaledMod.value) == "table" then
+			if scaledMod.value.mod then
+				subMod = scaledMod.value.mod
+			elseif scaledMod.value.keyOfScaledMod then
+				scaledMod.value[scaledMod.value.keyOfScaledMod] = round(scaledMod.value[scaledMod.value.keyOfScaledMod] * scale, 2)
+			end
 		end
 		if type(subMod.value) == "number" then
 			local precision = ((data.highPrecisionMods[subMod.name] and data.highPrecisionMods[subMod.name][subMod.type])) or ((m_floor(subMod.value) ~= subMod.value) and data.defaultHighPrecision) or nil
 			if precision then
 				local power = 10 ^ precision
-				subMod.value = math.floor(subMod.value * scale * power) / power
+				subMod.value = m_floor(subMod.value * scale * power) / power
 			else
 				subMod.value = m_modf(round(subMod.value * scale, 2))
 			end
 		end
-		self:AddMod(scaledMod)
+		if replace then
+			self:ReplaceModInternal(scaledMod)
+		else
+			self:AddMod(scaledMod)
+		end
 	end
 end
 
@@ -69,12 +77,12 @@ function ModStoreClass:CopyList(modList)
 	end
 end
 
-function ModStoreClass:ScaleAddList(modList, scale)
+function ModStoreClass:ScaleAddList(modList, scale, replace)
 	if scale == 1 then
 		self:AddList(modList)
 	else
 		for i = 1, #modList do
-			self:ScaleAddMod(modList[i], scale)
+			self:ScaleAddMod(modList[i], scale, replace)
 		end
 	end
 end
@@ -98,6 +106,19 @@ end
 function ModStoreClass:ReplaceMod(...)
 	local mod = mod_createMod(...)
 	if not self:ReplaceModInternal(mod) then
+		self:AddMod(mod)
+	end
+end
+
+---ConvertMod
+---  Converts an existing mod to a new name, replacing it in the store.
+---  Finds a mod matching oldName with the same type, flags, keywordFlags, and source as the new mod.
+---  If no matching mod exists, the new mod is added instead.
+---@param oldName string @The name of the existing mod to convert
+---@param ... any @Parameters to be passed along to the modLib.createMod function (new name, type, value, source, ...)
+function ModStoreClass:ConvertMod(oldName, ...)
+	local mod = mod_createMod(...)
+	if not self:ConvertModInternal(oldName, mod) then
 		self:AddMod(mod)
 	end
 end
@@ -199,6 +220,17 @@ function ModStoreClass:Max(cfg, ...)
 	return max		
 end
 
+function ModStoreClass:Min(cfg, ...)
+	local min
+	for _, value in ipairs(self:Tabulate("MIN", cfg, ...)) do
+		local val = self:EvalMod(value.mod, cfg)
+		if min == nil or val < min then
+			min = val
+		end	
+	end
+	return min
+end
+
 ---HasMod
 ---  Checks if a mod exists with the given properties.
 ---  Useful for determining if the other aggregate functions will find
@@ -223,26 +255,52 @@ function ModStoreClass:GetCondition(var, cfg, noMod)
 end
 
 function ModStoreClass:GetMultiplier(var, cfg, noMod)
-	return (self.multipliers[var] or 0) + (self.parent and self.parent:GetMultiplier(var, cfg, true) or 0) + (not noMod and self:Sum("BASE", cfg, multiplierName[var]) or 0)
+	return (not noMod and self:Override(cfg, multiplierName[var])) or (self.multipliers[var] or 0) + (self.parent and self.parent:GetMultiplier(var, cfg, true) or 0) + (not noMod and self:Sum("BASE", cfg, multiplierName[var]) or 0)
 end
 
 function ModStoreClass:GetStat(stat, cfg)
+	-- Checks if any buff in buffList matches
+	-- Was needed for skills that provide multiple buffs (e.g. Herald of Agony) and can't be accesses with `buffList[1]`
+	local function isNameInBuffList(buffList, name)
+		for _, buff in ipairs(buffList) do
+			if buff.name == name then return true end
+		end
+		return false
+	end
 	if stat == "ManaReservedPercent" then
 		local reservedPercentMana = 0
-		for _, activeSkill in ipairs(self.actor.activeSkillList) do
-			if (activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and activeSkill.buffList[1].name == cfg.skillName) then
-				local manaBase = activeSkill.skillData["ManaReservedBase"] or 0
-				reservedPercentMana = manaBase / self.actor.output["Mana"] * 100
-				break
+		-- Check if mana is 0 (i.e. from Blood Magic) to avoid division by 0.
+		local totalMana = self.actor.output["Mana"]
+		if totalMana == 0 then return 0 else
+			for _, activeSkill in ipairs(self.actor.activeSkillList) do
+				if (activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and cfg and (isNameInBuffList(activeSkill.buffList, cfg.skillName) or isNameInBuffList(activeSkill.buffList, cfg.summonSkillName)) ) then
+					local manaBase = activeSkill.skillData["ManaReservedBase"] or 0
+					reservedPercentMana = m_floor(manaBase / totalMana * 100)
+					break
+				end
 			end
+			return m_min(reservedPercentMana, 100) --Don't let people get more than 100% reservation for aura effect.
 		end
-		return m_min(reservedPercentMana, 100) --Don't let people get more than 100% reservation for aura effect.
+	end
+	if stat == "LifeReservedPercent" then
+		local reservedPercentLife = 0
+		local totalLife = self.actor.output["Life"]
+		if totalLife == 0 then return 0 else
+			for _, activeSkill in ipairs(self.actor.activeSkillList) do
+				if (activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and cfg and (isNameInBuffList(activeSkill.buffList, cfg.skillName) or isNameInBuffList(activeSkill.buffList, cfg.summonSkillName)) ) then
+					local lifeBase = activeSkill.skillData["LifeReservedBase"] or 0
+					reservedPercentLife = m_floor(lifeBase / totalLife * 100)
+					break
+				end
+			end
+			return m_min(reservedPercentLife, 100) --Don't let people get more than 100% reservation for aura effect.
+		end
 	end
 	-- if ReservationEfficiency is -100, ManaUnreserved is nan which breaks everything if Arcane Cloak is enabled
 	if stat == "ManaUnreserved" and self.actor.output[stat] ~= self.actor.output[stat] then
 		-- 0% reserved = total mana
 		return self.actor.output["Mana"]
-	elseif stat == "ManaUnreserved" and not self.actor.output[stat] == nil and self.actor.output[stat] < 0 then
+	elseif stat == "ManaUnreserved" and self.actor.output[stat] ~= nil and self.actor.output[stat] < 0 then
 		-- This reverse engineers how much mana is unreserved before efficiency for accurate Arcane Cloak calcs
 		local reservedPercentBeforeEfficiency = (math.abs(self.actor.output["ManaUnreservedPercent"]) + 100) * ((100 + self.actor["ManaEfficiency"]) / 100)
 		return self.actor.output["Mana"] * (math.ceil(reservedPercentBeforeEfficiency) / 100);
@@ -251,12 +309,16 @@ function ModStoreClass:GetStat(stat, cfg)
 	end
 end
 
-function ModStoreClass:EvalMod(mod, cfg)
+function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 	local value = mod.value
+	local GetStat = self.GetStat
+	local GetMultiplier = self.GetMultiplier
+	local GetCondition = self.GetCondition
 	for _, tag in ipairs(mod) do
 		if tag.type == "Multiplier" then
 			local target = self
 			local limitTarget = self
+
 			-- Allow limiting a self multiplier on a parent multiplier (eg. Agony Crawler on player virulence)
 			-- This explicit target is necessary because even though the GetMultiplier method does call self.parent.GetMultiplier, it does so with noMod = true,
 			-- disabling the summation (3rd part): (not noMod and self:Sum("BASE", cfg, multiplierName[var]) or 0)
@@ -277,20 +339,32 @@ function ModStoreClass:EvalMod(mod, cfg)
 			local base = 0
 			if tag.varList then
 				for _, var in pairs(tag.varList) do
-					base = base + target:GetMultiplier(var, cfg)
+					base = base + GetMultiplier(target, var, cfg)
 				end
 			else
-				base = target:GetMultiplier(tag.var, cfg)
+				base = GetMultiplier(target, tag.var, cfg)
+			end
+			if tag.divVar then
+				tag.div = GetMultiplier(self, tag.divVar, cfg)
 			end
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
+			if tag.noFloor then
+				mult = base / (tag.div or 1)
+			end
 			local limitTotal
-			if tag.limit or tag.limitVar then
-				local limit = tag.limit or limitTarget:GetMultiplier(tag.limitVar, cfg)
+			local limitNegTotal
+			if tag.limit or tag.limitVar or tag.limitStat then
+				local limit = tag.limit or tag.limitVar and GetMultiplier(limitTarget, tag.limitVar, cfg) or tag.limitStat and GetStat(limitTarget, tag.limitStat, cfg)
 				if tag.limitTotal then
 					limitTotal = limit
+				elseif tag.limitNegTotal then
+					limitNegTotal = limit
 				else
 					mult = m_min(mult, limit)
 				end
+			end
+			if tag.invert and mult ~= 0 then
+				mult = 1 / mult
 			end
 			if type(value) == "table" then
 				value = copyTable(value)
@@ -299,10 +373,16 @@ function ModStoreClass:EvalMod(mod, cfg)
 					if limitTotal then
 						value.mod.value = m_min(value.mod.value, limitTotal)
 					end
+					if limitNegTotal then
+						value.mod.value = m_max(value.mod.value, limitNegTotal)
+					end
 				else
 					value.value = value.value * mult + (tag.base or 0)
 					if limitTotal then
 						value.value = m_min(value.value, limitTotal)
+					end
+					if limitNegTotal then
+						value.value = m_max(value.value, limitNegTotal)
 					end
 				end
 			else
@@ -310,9 +390,20 @@ function ModStoreClass:EvalMod(mod, cfg)
 				if limitTotal then
 					value = m_min(value, limitTotal)
 				end
+				if limitNegTotal then
+					value = m_max(value, limitNegTotal)
+				end
 			end
 		elseif tag.type == "MultiplierThreshold" then
 			local target = self
+			local thresholdTarget = self
+			if tag.thresholdActor then
+				if self.actor[tag.thresholdActor] then
+					thresholdTarget = self.actor[tag.thresholdActor].modDB
+				else
+					return
+				end
+			end
 			if tag.actor then
 				if self.actor[tag.actor] then
 					target = self.actor[tag.actor].modDB
@@ -323,13 +414,13 @@ function ModStoreClass:EvalMod(mod, cfg)
 			local mult = 0
 			if tag.varList then
 				for _, var in pairs(tag.varList) do
-					mult = mult + target:GetMultiplier(var, cfg)
+					mult = mult + GetMultiplier(target, var, cfg)
 				end
 			else
-				mult = target:GetMultiplier(tag.var, cfg)
+				mult = GetMultiplier(target, tag.var, cfg)
 			end
-			local threshold = tag.threshold or target:GetMultiplier(tag.thresholdVar, cfg)
-			if (tag.upper and mult > threshold) or (not tag.upper and mult < threshold) then
+			local threshold = tag.threshold or GetMultiplier(tag.thresholdActor and thresholdTarget or target, tag.thresholdVar, cfg)
+			if (tag.upper and mult > threshold) or (tag.equals and mult ~= threshold) or (not (tag.upper and tag.exact) and mult < threshold) then
 				return
 			end
 		elseif tag.type == "PerStat" then
@@ -343,15 +434,18 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if tag.statList then
 				base = 0
 				for _, stat in ipairs(tag.statList) do
-					base = base + target:GetStat(stat, cfg)
+					base = base + GetStat(target, stat, cfg)
 				end
 			else
-				base = target:GetStat(tag.stat, cfg)
+				base = GetStat(target, tag.stat, cfg)
+			end
+			if tag.divVar then
+				tag.div = GetMultiplier(self, tag.divVar, cfg)
 			end
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
 			local limitTotal
 			if tag.limit or tag.limitVar then
-				local limit = tag.limit or self:GetMultiplier(tag.limitVar, cfg)
+				local limit = tag.limit or GetMultiplier(self, tag.limitVar, cfg)
 				if tag.limitTotal then
 					limitTotal = limit
 				else
@@ -379,18 +473,28 @@ function ModStoreClass:EvalMod(mod, cfg)
 			end
 		elseif tag.type == "PercentStat" then
 			local base
+			local target = self
+			-- This functions similar to the above tagTypes in regard to which actor to use, but for PercentStat
+			-- if the actor is 'parent', we don't want to return if we're already using 'parent', just keep using 'self'
+			if tag.actor and self.actor[tag.actor] then
+				target = self.actor[tag.actor].modDB
+			end
 			if tag.statList then
 				base = 0
 				for _, stat in ipairs(tag.statList) do
-					base = base + self:GetStat(stat, cfg)
+					base = base + GetStat(target, stat, cfg)
 				end
 			else
-				base = self:GetStat(tag.stat, cfg)
+				base = GetStat(target, tag.stat, cfg)
 			end
-			local mult = base * (tag.percent and tag.percent / 100 or 1)
+			local percent = tag.percent or GetMultiplier(self, tag.percentVar, cfg)
+			local mult = base * (percent and percent / 100 or 1)
+			if tag.floor then
+				mult = m_floor(mult)
+			end
 			local limitTotal
 			if tag.limit or tag.limitVar then
-				local limit = tag.limit or self:GetMultiplier(tag.limitVar, cfg)
+				local limit = tag.limit or GetMultiplier(self, tag.limitVar, cfg)
 				if tag.limitTotal then
 					limitTotal = limit
 				else
@@ -400,18 +504,18 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if type(value) == "table" then
 				value = copyTable(value)
 				if value.mod then
-					value.mod.value = value.mod.value * mult + (tag.base or 0)
+					value.mod.value = m_ceil(value.mod.value * mult + (tag.base or 0))
 					if limitTotal then
 						value.mod.value = m_min(value.mod.value, limitTotal)
 					end
 				else
-					value.value = value.value * mult + (tag.base or 0)
+					value.value = m_ceil(value.value * mult + (tag.base or 0))
 					if limitTotal then
 						value.value = m_min(value.value, limitTotal)
 					end
 				end
 			else
-				value = value * mult + (tag.base or 0)
+				value = m_ceil(value * mult + (tag.base or 0))
 				if limitTotal then
 					value = m_min(value, limitTotal)
 				end
@@ -421,12 +525,16 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if tag.statList then
 				stat = 0
 				for _, stat in ipairs(tag.statList) do
-					stat = stat + self:GetStat(stat, cfg)
+					stat = stat + GetStat(self, stat, cfg)
 				end
 			else
-				stat = self:GetStat(tag.stat, cfg)
+				stat = GetStat(self, tag.stat, cfg)
 			end
-			local threshold = tag.threshold or self:GetStat(tag.thresholdStat, cfg)
+			local threshold = tag.threshold or GetStat(self, tag.thresholdStat, cfg)
+			if tag.thresholdPercent or tag.thresholdPercentVar then
+				local thresholdPercent = tag.thresholdPercent or GetMultiplier(self, tag.thresholdPercentVar, cfg)
+				threshold = threshold * (thresholdPercent and thresholdPercent / 100 or 1)
+			end
 			if (tag.upper and stat > threshold) or (not tag.upper and stat < threshold) then
 				return
 			end
@@ -476,18 +584,18 @@ function ModStoreClass:EvalMod(mod, cfg)
 						if not allOneH["Added"..var] then
 							return
 						end
-					elseif self:GetCondition(var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[var]) then
+					elseif GetCondition(self, var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[var]) then
 						match = true
 						break
 					end
 				end
 			else
 				if tag.neg and allOneH and allOneH["Added"..tag.var] ~= nil then
-					if not allOneH["Added"..var] then
+					if not allOneH["Added"..tag.var] then
 						return
 					end
 				else
-					match = self:GetCondition(tag.var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[tag.var])
+					match = GetCondition(self, tag.var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[tag.var])
 				end
 			end
 			if tag.neg then
@@ -502,22 +610,95 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if tag.actor then
 				target = self.actor[tag.actor] and self.actor[tag.actor].modDB
 			end
-			if target then
+			if target and (tag.var or tag.varList) then
 				if tag.varList then
 					for _, var in pairs(tag.varList) do
-						if target:GetCondition(var, cfg) then
+						if GetCondition(target, var, cfg) then
 							match = true
 							break
 						end
 					end
 				else
-					match = target:GetCondition(tag.var, cfg)
+					match = GetCondition(target, tag.var, cfg)
 				end
+			elseif tag.actor and cfg and tag.actor == cfg.actor then
+				match = true
 			end
 			if tag.neg then
 				match = not match
 			end
 			if not match then
+				return
+			end
+		elseif tag.type == "ItemCondition" then
+			local matches = {}
+			local itemSlot = tag.itemSlot:lower():gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end):gsub('^%s*(.-)%s*$', '%1')
+			local items = {}
+			if tag.allSlots then
+				items = self.actor.itemList
+			elseif self.actor.itemList then
+				if tag.bothSlots then
+					local itemSlot1 = self.actor.itemList[itemSlot .. " 1"]
+					local itemSlot2 = self.actor.itemList[itemSlot .. " 2"]
+					if itemSlot1 and itemSlot1.name:match("Kalandra's Touch") then itemSlot1 = itemSlot2 end
+					if itemSlot2 and itemSlot2.name:match("Kalandra's Touch") then itemSlot2 = itemSlot1 end
+					if itemSlot1 and itemSlot2 then
+						items = {[itemSlot .. " 1"] = itemSlot1, [itemSlot .. " 2"] = itemSlot2}
+					end
+				else
+					local item = self.actor.itemList[itemSlot] or (cfg and cfg.item)
+					if item and item.name and item.name:match("Kalandra's Touch") then
+						item = self.actor.itemList[itemSlot:gsub("%d$", {["1"] = "2", ["2"] = "1"})]
+					end
+					items = { [itemSlot] = (item or (cfg and cfg.item)) }
+				end
+			end
+			if tag.searchCond then
+				for slot, item in pairs(items) do
+					if (not tag.allSlots or tag.allSlots and (item.type ~= "Jewel" and item.type ~= "Graft")) and slot ~= itemSlot or not tag.excludeSelf then
+						t_insert(matches, item:FindModifierSubstring(tag.searchCond:lower(), slot:lower()))
+					end
+				end
+			end
+			if tag.rarityCond then
+				for _, item in pairs(items) do
+					t_insert(matches, item.rarity == tag.rarityCond)
+				end
+			end
+			if tag.corruptedCond then
+				for _, item in pairs(items) do
+					t_insert(matches, item.corrupted == tag.corruptedCond)
+				end
+			end
+			if tag.shaperCond then
+				for _, item in pairs(items) do
+					t_insert(matches, item.shaper == tag.shaperCond)
+				end
+			end
+			if tag.elderCond then
+				for _, item in pairs(items) do
+					t_insert(matches, item.elder == tag.elderCond)
+				end
+			end
+			if tag.nameCond then
+				for _, item in pairs(items) do
+					t_insert(matches, item.name and item.name:lower() == tag.nameCond:lower())
+				end
+			end
+			local hasItems = false
+			for _, item in pairs(items) do
+				hasItems = true
+				break
+			end
+
+			local match = true
+			for _, bool in ipairs(matches) do
+				if bool == (tag.neg or false) then
+					match = false
+					break
+				end
+			end
+			if not match or (not hasItems and not tag.neg) then
 				return
 			end
 		elseif tag.type == "SocketedIn" then
@@ -564,16 +745,31 @@ function ModStoreClass:EvalMod(mod, cfg)
 			end
 		elseif tag.type == "SkillName" then
 			local match = false
-			local matchName = tag.summonSkill and (cfg and cfg.summonSkillName or "") or (cfg and cfg.skillName)
-			if tag.skillNameList then
-				for _, name in pairs(tag.skillNameList) do
-					if name == matchName then
-						match = true
-						break
+			if tag.includeTransfigured then
+				local matchGameId = tag.summonSkill and (cfg and calcLib.getGameIdFromGemName(cfg.summonSkillName, true) or "") or (cfg and cfg.skillName and calcLib.getGameIdFromGemName(cfg.skillName, true) or "")
+				if tag.skillNameList then
+					for _, name in pairs(tag.skillNameList) do
+						if name and matchGameId == calcLib.getGameIdFromGemName(name, true) then
+							match = true
+							break
+						end
 					end
+				else
+					match = (tag.skillName and matchGameId == calcLib.getGameIdFromGemName(tag.skillName, true))
 				end
 			else
-				match = (tag.skillName == matchName)
+				local matchName = tag.summonSkill and (cfg and cfg.summonSkillName or "") or (cfg and cfg.skillName or "")
+				matchName = matchName:lower()
+				if tag.skillNameList then
+					for _, name in pairs(tag.skillNameList) do
+						if name:lower() == matchName then
+							match = true
+							break
+						end
+					end
+				else
+					match = (tag.skillName and tag.skillName:lower() == matchName)
+				end
 			end
 			if tag.neg then
 				match = not match
@@ -659,7 +855,50 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if band(cfg.keywordFlags, tag.keywordFlags) ~= tag.keywordFlags then
 				return
 			end
+		elseif tag.type == "MonsterTag" then
+			-- actor should be a minion to apply
+			if not self.actor or not self.actor.minionData or not self.actor.minionData.monsterTags then
+				return
+			end
+
+			local match = false
+
+			-- validate for actor and minionData
+			for _, tagList in pairs(self.actor.minionData.monsterTags) do
+				local matchName = tagList:lower()
+				if tag.monsterTagList then
+					for _, name in pairs(tag.monsterTagList) do
+						if name:lower() == matchName then
+							match = true
+							break
+						end
+					end
+				else
+					match = (tag.monsterTag and tag.monsterTag:lower() == matchName)
+				end
+				if match == true then
+					break
+				end
+			end
+			if tag.neg then
+				match = not match
+			end
+			if not match then
+				return
+			end
 		end
-	end	
+	end
+
+	-- Apply global limits
+	for _, tag in ipairs(mod) do
+		if globalLimits and tag.globalLimit and tag.globalLimitKey then
+			value = value or 0
+			globalLimits[tag.globalLimitKey] = globalLimits[tag.globalLimitKey] or 0
+			if globalLimits[tag.globalLimitKey] + value > tag.globalLimit then
+				value = tag.globalLimit - globalLimits[tag.globalLimitKey]
+			end
+			globalLimits[tag.globalLimitKey] = globalLimits[tag.globalLimitKey] + value
+		end
+	end
 	return value
 end

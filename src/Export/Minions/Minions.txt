@@ -37,8 +37,12 @@ local minions, mod = ...
 #mod mod("Condition:FullLife", "FLAG", true)
 #emit
 
-#monster Metadata/Monsters/Lion/SummonedSpectralWolf SummonedSpectralWolf
+#monster Metadata/Monsters/SummonedWolf/SummonedWolf SummonedSpectralWolf
 #limit ActiveWolfLimit
+#emit
+
+#monster Metadata/Monsters/SummonedTiger/SummonedTiger SummonedSpectralTiger
+#limit ActiveTigerLimit
 #emit
 
 #monster Metadata/Monsters/RaisedSkeletons/RaisedSkeletonStandard RaisedSkeleton
@@ -51,11 +55,28 @@ local minions, mod = ...
 #skill SkeletonMinionProjectileLightning
 #emit
 
-#monster Metadata/Monsters/RaisedSkeletons/RaisedSkeletonRanged1Army RaisedSkeletonArcher
+#monster Metadata/Monsters/RaisedSkeletons/RaisedSkeletonMelee1Army RaisedSkeletonMeleeVaal
 #limit ActiveSkeletonLimit
 #emit
 
-#monster Metadata/Monsters/Clone/RangerClone Clone
+#monster Metadata/Monsters/RaisedSkeletons/RaisedSkeletonRanged1Army RaisedSkeletonArcherVaal
+#limit ActiveSkeletonLimit
+#emit
+
+#monster Metadata/Monsters/RaisedSkeletons/RaisedSkeletonRanged1Quality RaisedSkeletonArcher
+#limit ActiveSkeletonLimit
+#emit
+
+#monster Metadata/Monsters/Clone/MarauderClone Clone
+#emit
+
+#monster Metadata/Monsters/Clone/MarauderCloneImmobile ArrowClone
+#emit
+
+#monster Metadata/Monsters/Clone/MarauderCloneImmobileRainOfArrows ArrowCloneRoA
+#emit
+
+#monster Metadata/Monsters/Clone/MarauderCloneImmobileElementalShot ArrowCloneEle
 #emit
 
 #monster Metadata/Monsters/SummonedSpider/SummonedSpider SpiderMinion
@@ -63,17 +84,21 @@ local minions, mod = ...
 #emit
 
 #monster Metadata/Monsters/AnimatedItem/AnimatedWeapon AnimatedWeapon
+#limit ActiveAnimatedWeaponLimit
 #emit
 
 #monster Metadata/Monsters/AnimatedItem/AnimatedArmour AnimatedArmour
-#mod mod("Speed", "MORE", 10, ModFlag.Attack, 0, { type = "Condition", var = "DualWielding" })
-#mod mod("BlockChance", "BASE", 15, 0, 0, { type = "Condition", var = "DualWielding" })
 #emit
 
 #monster Metadata/Monsters/IcyRagingSpirit/IcyRagingSpirit IcyRagingSpirit
 #emit
 
 #monster Metadata/Monsters/AnimatedItem/UniqueAnimatedWeapon UniqueAnimatedWeapon
+#limit ActiveAnimatedWeaponLimit
+#mod mod("Life", "MORE", 698), -- MonsterUnique2
+#mod mod("Damage", "MORE", 70), -- MonsterUnique5
+#mod mod("Speed", "MORE", 33, ModFlag.Attack), -- MonsterUnique8
+#mod mod("Damage", "MORE", -33, ModFlag.Attack), -- MonsterUnique8
 #emit
 
 #monster Metadata/Monsters/SummonedPhantasm/SummonedPhantasm SummonedPhantasm
@@ -93,9 +118,23 @@ local minions, mod = ...
 #emit
 
 #monster Metadata/Monsters/Axis/AxisEliteSoldierDominatingBlow AxisEliteSoldierDominatingBlow
+#limit ActiveSentinelOfDominanceLimit
+#emit
+
+#monster Metadata/Monsters/Axis/AxisEliteSoldierDominatingBlowVaal AxisEliteSoldierDominatingBlowVaal
+#limit ActiveSentinelOfDominanceLimit
+#mod mod("Damage", "MORE", 300)
+#mod mod("DamageTaken", "MORE", -70)
 #emit
 
 #monster Metadata/Monsters/TemplarJudge/AbsolutionTemplarJudge AbsolutionTemplarJudge
+#limit ActiveSentinelOfAbsolutionLimit
+#emit
+
+#monster Metadata/Monsters/TemplarJudge/AbsolutionTemplarJudgeVaal AbsolutionTemplarJudgeVaal
+#limit ActiveSentinelOfAbsolutionLimit
+#mod mod("Damage", "MORE", 300)
+#mod mod("DamageTaken", "MORE", -70)
 #emit
 
 #monster Metadata/Monsters/Rhoas/RhoaUniqueSummoned RhoaUniqueSummoned
@@ -120,9 +159,104 @@ local minions, mod = ...
 #monster Metadata/Monsters/Skitterbot/SkitterbotLightning SkitterbotLightning
 #emit
 
+#monster Metadata/Monsters/Skitterbot/SkitterbotFire SkitterbotFire
+#emit
+
 #monster Metadata/Monsters/SummonedReaper/SummonedReaper SummonedReaper
+#limit ActiveReaperLimit
 #emit
 
 #monster Metadata/Monsters/LeagueExpedition/Arbalest/SummonedArbalest SummonedArbalists
 #limit ActiveArbalistLimit
+#emit
+
+#monster Metadata/Monsters/Axis/AxisEliteSoldierRadiance GuardianSentinel
+#emit
+
+-- This is a fake Minion to apply all 3 auras
+minions["GuardianRelicAll"] = {
+	name = "All Relics",
+	life = 4,
+	energyShield = 0.6,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 1,
+	damageSpread = 0,
+	attackTime = 1,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"RelicTeleport",
+		"Anger",
+		"Hatred",
+		"Wrath",
+	},
+	modList = {
+		-- EmergeSpeedHigh [emerge_speed_+% = 0]
+	},
+}
+
+#monster Metadata/Monsters/AnimatedItem/ElementalLivingRelicFire GuardianRelicFire
+#emit
+
+#monster Metadata/Monsters/AnimatedItem/ElementalLivingRelicCold GuardianRelicCold
+#emit
+
+#monster Metadata/Monsters/AnimatedItem/ElementalLivingRelicLightning GuardianRelicLightning
+#emit
+
+#monster Metadata/Monsters/ElderTentacle/ElderTentacleMinionLargePlayer VoidSpawn
+#limit ActiveVoidSpawnLimit
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralAhuanaMinion AncestralAhuanaMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralAkoyaMinion AncestralAkoyaMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralIkiahoMinion AncestralIkiahoMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralKahuturoaMinion_ AncestralKahuturoaMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralKaomMinion_ AncestralKaomMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralKiloavaMinion__ AncestralKiloavaMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralMaataMinion AncestralMaataMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralRakiataMinion AncestralRakiataMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralTawhanukuMinion AncestralTawhanukuMinion
+#emit
+
+#monster Metadata/Monsters/LeagueAncestral/AncestralUtulaMinion_ AncestralUtulaMinion
+#emit
+
+#monster Metadata/Monsters/LivingLightning/LivingLightningSummoned LivingLightningMinion
+#limit ActiveLivingLightningLimit
+#emit
+
+#monster Metadata/Monsters/SummonedPhantasm/SummonedPhantasmPenanceMark PenanceMarkPhantasm
+#hostile true
+#emit
+
+#monster Metadata/Monsters/AnimatedItem/HolyStrikeAnimatedWeapon HolyStrikeMinion
+#limit ActiveHolyStrikeMinionLimit
+#emit
+
+#monster Metadata/Monsters/Breach/BreachFodderHandSpiderGraftSummoned Hiveborn
+#limit ActiveHivebornLimit
+#emit
+
+#monster Metadata/Monsters/RaisedZombies/RestlessDeadPlayerSummoned ShamblingUndead
+#limit ShamblingUndeadLimit
 #emit

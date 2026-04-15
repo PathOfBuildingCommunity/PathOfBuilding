@@ -1,10 +1,9 @@
 """This script requires Python 3.10.0 or higher to run."""
 
 import configparser
-import functools
+import fnmatch
 import hashlib
 import logging
-import operator
 import pathlib
 import re
 import xml.etree.ElementTree as Et
@@ -13,24 +12,9 @@ from typing import Any, Callable
 alphanumeric_pattern = re.compile(r"(\d+)")
 
 
-def _compose(f: Callable[[Any], Any], g: Callable[[Any], Any]) -> Callable[[Any], Any]:
-    """Composition of two functions f and g."""
-    return lambda *args, **kwargs: f(g(*args, **kwargs))
-
-
-def _complement(f: Callable[[Any], bool]) -> Callable[[Any], bool]:
-    """Logical complement of function f."""
-    return _compose(operator.not_, f)
-
-
-def _identity(f: Callable[[Any], Any]) -> Callable[[Any], Any]:
-    """Identity function."""
-    return f
-
-
-def _exclude_file(file_names: set[str], path: pathlib.Path) -> bool:
-    """Whether to exclude a single file."""
-    return path.name in file_names
+def _exclude_file(file_patterns: set[str], path: pathlib.Path) -> bool:
+    """Whether to exclude a single file. Supports glob patterns (e.g., '*.scm')."""
+    return any(fnmatch.fnmatch(path.name, pattern) for pattern in file_patterns)
 
 
 def _exclude_directory(directory_names: set[str], path: pathlib.Path) -> bool:
@@ -40,6 +24,17 @@ def _exclude_directory(directory_names: set[str], path: pathlib.Path) -> bool:
         or all(a == b for a, b in zip(directory.split("/"), path.parts))
         for directory in directory_names
     )
+
+
+def _parse_list_option(config: configparser.ConfigParser, section: str, option: str) -> set[str]:
+    """Split a comma-separated option into a cleaned set of entries."""
+    if not config.has_option(section, option):
+        return set()
+    return {
+        entry
+        for entry in map(str.strip, config[section][option].split(","))
+        if entry
+    }
 
 
 def _alphanumeric(key: str) -> list[int | str]:
@@ -90,22 +85,21 @@ def create_manifest(version: str | None = None, replace: bool = False) -> None:
         )
         parts.append(attributes)
 
-    rules = {
-        "include-files": (_complement, _exclude_file),
-        "include-directories": (_complement, _exclude_directory),
-        "exclude-files": (_identity, _exclude_file),
-        "exclude-directories": (_identity, _exclude_directory),
-    }
     files: list[dict[str, str]] = []
     for section in config.sections():
-        exclusion_checks = [
-            modifier(functools.partial(check, set(config[section][option].split(","))))
-            for option, (modifier, check) in rules.items()
-            if config.has_option(section, option)
-        ]
+        include_files = _parse_list_option(config, section, "include-files")
+        include_dirs = _parse_list_option(config, section, "include-directories")
+        exclude_files = _parse_list_option(config, section, "exclude-files")
+        exclude_dirs = _parse_list_option(config, section, "exclude-directories")
         source = pathlib.Path(config[section]["path"])
         for path in source.glob("**/*.*"):
-            if any(is_excluded(path) for is_excluded in exclusion_checks):
+            if include_files and not _exclude_file(include_files, path):
+                continue
+            if include_dirs and not _exclude_directory(include_dirs, path):
+                continue
+            if exclude_files and _exclude_file(exclude_files, path):
+                continue
+            if exclude_dirs and _exclude_directory(exclude_dirs, path):
                 continue
             data = path.read_bytes()
             sha1 = hashlib.sha1(data).hexdigest()

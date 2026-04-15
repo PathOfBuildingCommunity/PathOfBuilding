@@ -1,4 +1,4 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
 
 return {
 -- Weapon: One Handed Axe
@@ -8,10 +8,13 @@ Butcher Axe
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
+Variant: Pre 3.26.0
+Variant: Current
 Has no Sockets
 (200-250)% increased Physical Damage
 You have no Intelligence
-Critical Strike Chance is (20-30)% for Hits with this Weapon
+{variant:1}Critical Strike Chance is (20-30)% for Hits with this Weapon
+{variant:2}Critical Strike Chance is (30-40)% for Hits with this Weapon
 ]],[[
 Dreadarc
 Cleaver
@@ -90,9 +93,9 @@ Implicits: 0
 Adds (11-14) to (18-23) Physical Damage
 {variant:1}(10-15)% increased Attack Speed
 {variant:1}2% of Physical Attack Damage Leeched as Life
-{variant:1}50% reduced total Recovery per second from Life Leech
 25% chance to cause Bleeding on Hit
 {variant:2}+(25-35)% to Damage over Time Multiplier for Bleeding from Hits with this Weapon
+{variant:1}50% reduced total Recovery per second from Life Leech
 ]],[[
 Moonbender's Wing
 Tomahawk
@@ -127,6 +130,7 @@ Royal Axe
 League: Talisman Standard, Talisman Hardcore
 Source: Drops from unique{Rigwald, the Wolven King} (Level 75+)
 Variant: Pre 3.11.0
+Variant: Pre 3.25.0
 Variant: Current
 Implicits: 0
 Adds (50-70) to (135-165) Physical Damage
@@ -135,22 +139,27 @@ Adds (50-70) to (135-165) Physical Damage
 {variant:1}35% increased Attack Speed with Swords
 {variant:1}25% chance to cause Bleeding on Hit
 {variant:2}+25 to Maximum Rage while wielding a Sword
+{variant:3}+10 to Maximum Rage while wielding a Sword
 ]],[[
 Soul Taker
 Siege Axe
 Variant: Pre 1.0.0
 Variant: Pre 3.20.0
+Variant: Pre 3.26.0
+Variant: Pre 3.28.0
 Variant: Current
 Implicits: 0
 {variant:1}(160-200)% increased Physical Damage
 {variant:2}(100-140)% increased Physical Damage
-{variant:3}(140-180)% increased Physical Damage
+{variant:3,4,5}(140-180)% increased Physical Damage
 {variant:1,2}Adds 10 to 20 Physical Damage
-{variant:3}Adds 30 to 40 Physical Damage
-(20-25)% increased Attack Speed
+{variant:3,4,5}Adds 30 to 40 Physical Damage
+{variant:1,2,3}(20-25)% increased Attack Speed
+{variant:4,5}(25-35)% increased Attack Speed
 +(20-25)% to Cold Resistance
-Insufficient Mana doesn't prevent your Melee Attacks
 Your Physical Damage can Chill
+Insufficient Mana doesn't prevent your Melee Attacks
+{variant:5}Eat (2-4) Souls when you Kill a Rare or Unique Enemy with this Weapon
 ]],[[
 Replica Soul Taker
 Siege Axe
@@ -163,6 +172,28 @@ Adds 10 to 20 Physical Damage
 +(20-25)% to Cold Resistance
 Your Physical Damage can Freeze
 Eldritch Battery
+]],[[
+Starcaller
+Abyssal Axe
+Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
+Requires Level 55, 128 Str, 60 Dex
+Trigger Level 20 Starfall on Melee Critical Strike
++(10-20) to all Attributes
+(120-180)% increased Physical Damage
+(20-30)% increased Critical Strike Chance
+(10-20)% increased Area of Effect
+Gain (40-60)% of Weapon Physical Damage as Extra Damage of a random Element
+]],
+[[
+The Grey Wind
+Spectral Axe
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Requires Level 33, 85 Str, 37 Dex
+(30-50)% increased Fire Damage
+Attacks with this Weapon have Added Fire Damage equal to (8-12)% of Player's Maximum Life
+Each Rage also grants +2% to Fire Damage Over Time Multiplier
+Nearby Enemies have Fire Exposure while at maximum Rage
++(-5-5) to Maximum Rage
 ]],
 -- Weapon: Two Handed Axe
 [[
@@ -182,8 +213,8 @@ Implicits: 1
 {variant:3}Adds (310-330) to (370-390) Physical Damage
 (12-16)% increased Attack Speed
 25% chance to cause Bleeding on Hit
-{variant:1,2}+2 to Weapon Range
-{variant:3}+10 to Weapon Range
+{variant:1,2}+0.2 metres to Weapon Range
+{variant:3}+1 metres to Weapon Range
 ]],[[
 The Blood Reaper
 Headsman Axe
@@ -204,8 +235,8 @@ Debeon's Dirge
 Despot Axe
 Implicits: 0
 Adds (310-350) to (460-500) Cold Damage
-15% increased Movement Speed if you've used a Warcry Recently
-150% increased Elemental Damage if you've used a Warcry Recently
+15% increased Movement Speed if you've Warcried Recently
+150% increased Elemental Damage if you've Warcried Recently
 Warcries Knock Back and Interrupt Enemies in a smaller Area
 ]],[[
 The Harvest
@@ -246,17 +277,19 @@ League: Legion
 Variant: Pre 1.0.0
 Variant: Pre 3.7.0
 Variant: Pre 3.11.0
+Variant: Pre 3.25.0
 Variant: Current
 Implicits: 0
 {variant:1}(120-150)% increased Physical Damage
 {variant:2,3}(160-220)% increased Physical Damage
-{variant:4}(100-140)% increased Physical Damage
+{variant:4,5}(100-140)% increased Physical Damage
 {variant:1,2}Adds (16-21) to (32-38) Fire Damage
 Gain 20 Life per Enemy Killed
 +(150-250) to Accuracy Rating
 Culling Strike
-{variant:3,4}Gain 1 Rage on Critical Hit with attacks, no more than once every 0.5 seconds
-{variant:3,4}Gain 1% of Physical Damage as Extra Fire Damage per 1 Rage
+{variant:5}Gain 5 Rage on Melee Hit
+{variant:3,4}Gain 1 Rage on Critical Strike with Attacks
+{variant:3,4,5}Every Rage also grants 1% of Physical Damage as Extra Fire Damage
 ]],[[
 Kingmaker
 Despot Axe
@@ -361,28 +394,37 @@ Gain a Frenzy Charge on every 50th Rampage Kill
 Rampage
 ]],[[
 Uul-Netol's Kiss
-Labrys
+{variant:1}Labrys
+{variant:2}Vaal Axe
+Variant: Pre 3.21.0
+Variant: Current
 League: Breach
 Source: Drops in Uul-Netol Breach or from unique{Uul-Netol, Unburdened Flesh}
 Upgrade: Upgrades to unique{Uul-Netol's Embrace} using currency{Blessing of Uul-Netol}
-Implicits: 0
-(140-170)% increased Physical Damage
+Implicits: 1
+{variant:2}25% chance to Maim on Hit
+{variant:1}(140-170)% increased Physical Damage
+{variant:2}(230-270)% increased Physical Damage
 15% reduced Attack Speed
-25% chance to Curse Enemies with Vulnerability on Hit
-Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
+Curse Enemies with Vulnerability on Hit
+{variant:1}Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
+{variant:2}Exerted Attacks deal 200% increased Damage
+{variant:2}Exerted Attacks Knock Enemies Back on Hit
 ]],[[
 Uul-Netol's Embrace
 Vaal Axe
 League: Breach
 Source: Upgraded from unique{Uul-Netol's Kiss} using currency{Blessing of Uul-Netol}
 Variant: Pre 3.11.0
+Variant: Pre 3.21.0
 Variant: Current
 Implicits: 1
-{variant:2}25% chance to Maim on Hit
+{variant:2,3}25% chance to Maim on Hit
 Trigger Level 20 Bone Nova when you Hit a Bleeding Enemy
 (280-320)% increased Physical Damage
-(30-25)% reduced Attack Speed
-Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
+(25-30)% reduced Attack Speed
+{variant:3}25% chance to cause Bleeding on Hit
+{variant:1,2}Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
 ]],[[
 Wideswing
 Poleaxe
@@ -395,19 +437,23 @@ Socketed Gems are Supported by Level 20 Increased Area of Effect
 Gain 10 Mana per Enemy Killed
 {variant:1}+(50-80) to Accuracy Rating
 {variant:2}+(120-150) to Accuracy Rating
-+2 to Weapon Range
++0.2 metres to Weapon Range
 ]],[[
 Replica Wings of Entropy
 Ezomyte Axe
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
+Variant: Pre 3.26.0
+Variant: Current
 Implicits: 0
 (7-10)% Chance to Block Spell Damage
 +(8-12)% Chance to Block Attack Damage while Dual Wielding
 (60-80)% increased Physical Damage
 Counts as Dual Wielding
-+(8-10)% to Off Hand Critical Strike Chance
-(50-70)% more Main Hand attack speed
+{variant:1}+(8-10)% to Off Hand Critical Strike Chance
+{variant:2}+(10-20)% to Off Hand Critical Strike Chance
+{variant:1}(50-70)% more Main Hand attack speed
+{variant:2}(50-100)% more Main Hand attack speed
 ]],[[
 Wings of Entropy
 {variant:1,2,3,4}Sundering Axe
@@ -416,21 +462,24 @@ Variant: Pre 1.3.0
 Variant: Pre 2.0.0
 Variant: Pre 3.4.0
 Variant: Pre 3.11.0
+Variant: Pre 3.26.0
 Variant: Current
 Implicits: 0
 {variant:1,2,3}7% Chance to Block Spell Damage
 {variant:4}(6-7)% Chance to Block Spell Damage
-{variant:5}(7-10)% Chance to Block Spell Damage
+{variant:5,6}(7-10)% Chance to Block Spell Damage
 {variant:1}+10% Chance to Block Attack Damage while Dual Wielding
 {variant:2,3,4}+8% Chance to Block Attack Damage while Dual Wielding
-{variant:5}+(8-12)% Chance to Block Attack Damage while Dual Wielding
+{variant:5,6}+(8-12)% Chance to Block Attack Damage while Dual Wielding
 {variant:1,2}(80-120)% increased Physical Damage
 {variant:3,4}(100-120)% increased Physical Damage
-{variant:5}(60-80)% increased Physical Damage
+{variant:5,6}(60-80)% increased Physical Damage
 {variant:1,2,3,4}Adds (55-65) to (100-120) Fire Damage in Main Hand
 {variant:5}Adds (75-100) to (165-200) Fire Damage in Main Hand
+{variant:6}Adds (150-200) to (330-400) Fire Damage in Main Hand
 {variant:1,2,3,4}Adds (55-65) to (100-120) Chaos Damage in Off Hand
 {variant:5}Adds (75-100) to (165-200) Chaos Damage in Off Hand
+{variant:6}Adds (151-199) to (331-401) Chaos Damage in Off Hand
 Counts as Dual Wielding
 ]],
 }

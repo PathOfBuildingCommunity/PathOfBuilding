@@ -4,24 +4,91 @@ out:write('local data = ...\n')
 local evasion = ""
 local accuracy = ""
 local life = ""
+local altLife1 = ""
+local altLife2 = ""
 local allyLife = ""
+local allyDamage = ""
 local damage = ""
 local armour = ""
+local ailmentThreshold = ""
+local monsterPhysConversionMulti = ""
 for stats in dat("DefaultMonsterStats"):Rows() do
 	evasion = evasion .. stats.Evasion .. ", "
 	accuracy = accuracy .. stats.Accuracy .. ", "
 	life = life .. stats.MonsterLife .. ", "
+	altLife1 = altLife1 .. stats.AltLife1 .. ", "
+	altLife2 = altLife2 .. stats.AltLife2 .. ", "
 	allyLife = allyLife .. stats.MinionLife .. ", "
 	damage = damage .. stats.Damage .. ", "
-	armour = armour .. stats.Armour .. ", "
+	allyDamage = allyDamage .. stats.MinionDamage .. ", "
+	--armour = armour .. stats.Armour .. ", " The table here is wrong so we generate it instead
+	ailmentThreshold = ailmentThreshold .. stats.AilmentThreshold .. ", "
+	monsterPhysConversionMulti = monsterPhysConversionMulti .. stats.MonsterPhysConversionMulti .. ", "
+end
+for i = 1, 100 do
+	armour = armour .. math.floor((10 + 2 * i ) * ( ( 1 + dat("GameConstants"):GetRow("Id", "MonsterDamageReductionImprovement").Value / dat("GameConstants"):GetRow("Id", "MonsterDamageReductionImprovement").Divisor / 100 ) ^ i)) .. ", "
 end
 out:write('-- From DefaultMonsterStats.dat\n')
-out:write('data.monsterEvasionTable = { '..evasion..'}\n')
+out:write('data.monsterEvasionTable = { '..evasion..'}\n') --This table is off by about 0.5% in some cases but is quicker than generating the value at runtime
 out:write('data.monsterAccuracyTable = { '..accuracy..'}\n')
 out:write('data.monsterLifeTable = { '..life..'}\n')
+out:write('data.monsterLifeTable2 = { '..altLife1..'}\n')
+out:write('data.monsterLifeTable3 = { '..altLife2..'}\n')
 out:write('data.monsterAllyLifeTable = { '..allyLife..'}\n')
 out:write('data.monsterDamageTable = { '..damage..'}\n')
+out:write('data.monsterAllyDamageTable = { '..allyDamage..'}\n')
 out:write('data.monsterArmourTable = { '..armour..'}\n')
+out:write('data.monsterAilmentThresholdTable = { '..ailmentThreshold..'}\n')
+out:write('data.monsterPhysConversionMultiTable = { '..monsterPhysConversionMulti..'}\n')
+
+out:write('-- From GameConstants.dat\n')
+out:write('data.gameConstants = {\n')
+for row in dat("GameConstants"):Rows() do
+	out:write('\t["' .. row.Id .. '"] = ' .. row.Value / row.Divisor .. ',\n')
+end
+out:write('}\n')
+
+out:write('-- From Metadata/Characters/Character.ot\n')
+out:write('data.characterConstants = {\n')
+local file = getFile("Metadata/Characters/Character.ot")
+if not file then return nil end
+local text = convertUTF16to8(file)
+local inWantedBlock = false
+for line in text:gmatch("[^\r\n]+") do
+	-- Detect start of a block
+	if line:match("^Stats") or line:match("^Pathfinding") then
+		inWantedBlock = true
+	elseif inWantedBlock and line:match("^}") then
+		inWantedBlock = false
+	elseif inWantedBlock and line:find("=") then
+		local key, value = line:gsub("%s+",""):match("^(.-)=(.+)$")
+		if key and value then
+			out:write('\t["' .. key .. '"] = ' .. value .. ',\n')
+		end
+	end
+end
+out:write('}\n')
+
+out:write('-- From Metadata/Monsters/Monster.ot\n')
+out:write('data.monsterConstants = {\n')
+local file = getFile("Metadata/Monsters/Monster.ot")
+if not file then return nil end
+local text = convertUTF16to8(file)
+local inWantedBlock = false
+for line in text:gmatch("[^\r\n]+") do
+	-- Detect start of a block
+	if line:match("^Stats") then
+		inWantedBlock = true
+	elseif inWantedBlock and line:match("^}") then
+		inWantedBlock = false
+	elseif inWantedBlock and line:find("=") then
+		local key, value = line:gsub("%s+",""):match("^(.-)=(.+)$")
+		if key and value then
+			out:write('\t["' .. key .. '"] = ' .. value .. ',\n')
+		end
+	end
+end
+out:write('}\n')
 
 local totemMult = ""
 local keys = { }
@@ -64,6 +131,13 @@ end
 out:write('-- From MonsterMapBossDifficulty.dat\n')
 out:write('data.mapLevelBossLifeMult = { '..mapBossLifeMult..'}\n')
 out:write('data.mapLevelBossAilmentMult = { '..mapBossAilmentMult..'}\n')
+
+out:write('-- From VillageBalancePerLevelShared.dat\n')
+out:write('data.goldRespecPrices = { ')
+for row in dat("VillageBalancePerLevelShared"):Rows() do
+	out:write(row.GoldRespec .. ', ')
+end
+out:write('}\n')
 
 out:close()
 

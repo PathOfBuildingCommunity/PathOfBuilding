@@ -1,4 +1,4 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
 
 return {
 -- Weapon: Fishing Rod
@@ -19,8 +19,8 @@ Fishing Rod
 Requires 8 Str, 8 Dex
 Implicits: 0
 Siren Worm Bait
-(50-40)% reduced Quantity of Fish Caught
 (50-60)% increased Rarity of Fish Caught
 You can catch Exotic Fish
+(50-40)% reduced Quantity of Fish Caught
 ]]
 }

@@ -7,7 +7,9 @@ liveTargetVersion = "3_0"
 -- Skill tree versions
 ---Added for convenient indexing of skill tree versions.
 ---@type string[]
-treeVersionList = { "2_6", "3_6", "3_7", "3_8", "3_9", "3_10", "3_11", "3_12", "3_13", "3_14", "3_15", "3_16", "3_17", "3_18", "3_19", "3_20", }
+treeVersionList = { "2_6", "3_6", "3_7", "3_8", "3_9", "3_10", "3_11", "3_12", "3_13", "3_14", "3_15", "3_16", "3_17", "3_18", "3_19", "3_20", "3_21",
+					"3_22_ruthless", "3_22", "3_23_ruthless", "3_23", "3_24_ruthless", "3_24", "3_25_ruthless", "3_25_ruthless_alternate", "3_25_alternate", "3_25",
+					"3_26_ruthless", "3_26_ruthless_alternate", "3_26_alternate", "3_26", "3_27_ruthless", "3_27_ruthless_alternate", "3_27_alternate", "3_27", "3_28_ruthless", "3_28_ruthless_alternate", "3_28_alternate", "3_28" }
 --- Always points to the latest skill tree version.
 latestTreeVersion = treeVersionList[#treeVersionList]
 ---Tree version where multiple skill trees per build were introduced to PoBC.
@@ -95,4 +97,153 @@ treeVersions = {
 		num = 3.20,
 		url = "https://www.pathofexile.com/passive-skill-tree/3.20.0/",
 	},
+	["3_21"] = {
+		display = "3.21",
+		num = 3.21,
+		url = "https://www.pathofexile.com/passive-skill-tree/3.21.0/",
+	},
+	["3_22_ruthless"] = {
+		display = "3.22 (ruthless)",
+		num = 3.22,
+		url = "https://www.pathofexile.com/passive-skill-tree/ruthless/",
+	},
+	["3_22"] = {
+		display = "3.22",
+		num = 3.22,
+		url = "https://www.pathofexile.com/passive-skill-tree/3.22.0/",
+	},
+	["3_23_ruthless"] = {
+		display = "3.23 (ruthless)",
+		num = 3.23,
+		url = "https://www.pathofexile.com/passive-skill-tree/ruthless/",
+	},
+	["3_23"] = {
+		display = "3.23",
+		num = 3.23,
+		url = "https://www.pathofexile.com/passive-skill-tree/3.23.0/",
+	},
+	["3_24_ruthless"] = {
+		display = "3.24 (ruthless)",
+		num = 3.24,
+		url = "https://www.pathofexile.com/passive-skill-tree/ruthless/",
+	},
+	["3_24"] = {
+		display = "3.24",
+		num = 3.24,
+		url = "https://www.pathofexile.com/passive-skill-tree/3.24.0/",
+	},
+	["3_25_ruthless"] = {
+		display = "3.25 (ruthless)",
+		num = 3.25,
+		url = "https://www.pathofexile.com/passive-skill-tree/ruthless/",
+	},
+	["3_25"] = {
+		display = "3.25",
+		num = 3.25,
+		url = "https://www.pathofexile.com/passive-skill-tree/3.25.0/",
+	},
+	["3_25_ruthless_alternate"] = {
+		display = "3.25 (ruthless alternate)",
+		num = 3.25,
+		url = "https://www.pathofexile.com/passive-skill-tree/ruthless-alternate/",
+	},
+	["3_25_alternate"] = {
+		display = "3.25 (alternate)",
+		num = 3.25,
+		url = "https://www.pathofexile.com/passive-skill-tree/alternate/",
+	},
+	["3_26_ruthless"] = {
+		display = "3.26 (ruthless)",
+		num = 3.26,
+		url = "https://www.pathofexile.com/passive-skill-tree/ruthless/",
+	},
+	["3_26_ruthless_alternate"] = {
+		display = "3.26 (ruthless alternate)",
+		num = 3.26,
+		url = "https://www.pathofexile.com/passive-skill-tree/ruthless-alternate/",
+	},
+	["3_26_alternate"] = {
+		display = "3.26 (alternate)",
+		num = 3.26,
+		url = "https://www.pathofexile.com/passive-skill-tree/alternate/",
+	},
+	["3_26"] = {
+		display = "3.26",
+		num = 3.26,
+		url = "https://www.pathofexile.com/passive-skill-tree/3.26.0/",
+	},
+	["3_27_ruthless"] = {
+		display = "3.27 (ruthless)",
+		num = 3.27,
+		url = "https://www.pathofexile.com/passive-skill-tree/ruthless/",
+	},
+	["3_27_ruthless_alternate"] = {
+		display = "3.27 (ruthless alternate)",
+		num = 3.27,
+		url = "https://www.pathofexile.com/passive-skill-tree/ruthless-alternate/",
+	},
+	["3_27_alternate"] = {
+		display = "3.27 (alternate)",
+		num = 3.27,
+		url = "https://www.pathofexile.com/passive-skill-tree/alternate/",
+	},
+	["3_27"] = {
+		display = "3.27",
+		num = 3.27,
+		url = "https://www.pathofexile.com/passive-skill-tree/3.27.0/",
+	},
+	["3_28_ruthless"] = {
+		display = "3.28 (ruthless)",
+		num = 3.28,
+		url = "https://www.pathofexile.com/passive-skill-tree/ruthless/",
+	},
+	["3_28_ruthless_alternate"] = {
+		display = "3.28 (ruthless alternate)",
+		num = 3.28,
+		url = "https://www.pathofexile.com/passive-skill-tree/ruthless-alternate/",
+	},
+	["3_28_alternate"] = {
+		display = "3.28 (alternate)",
+		num = 3.28,
+		url = "https://www.pathofexile.com/passive-skill-tree/alternate/",
+	},
+	["3_28"] = {
+		display = "3.28",
+		num = 3.28,
+		url = "https://www.pathofexile.com/passive-skill-tree/3.28.0/",
+	},
+}
+
+---Mapping PoEPlanner.com version when importing trees from there (https://cdn.poeplanner.com/json/versions.json)
+poePlannerVersions = {
+	[43] = "3_27",
+	[42] = "3_27_ruthless",
+	[37] = "3_26",
+	[36] = "3_26_ruthless",
+	[35] = "3_25_alternate",
+	[34] = "3_25_ruthless_alternate",
+	[33] = "3_25",
+	[32] = "3_25_ruthless",
+	[31] = "3_24",
+	[30] = "3_23_ruthless",
+	[29] = "3_23",
+	[28] = "3_22_ruthless",
+	[27] = "3_22",
+	[26] = "3_21",
+	[25] = "3_20",
+	[24] = "3_19",
+	[23] = "3_18",
+	[22] = "3_17",
+	[21] = "3_16",
+	[19] = "3_15",
+	[18] = "3_14",
+	[17] = "3_13",
+	[16] = "3_12",
+	[15] = "3_11",
+	[14] = "3_10",
+	[13] = "3_9",
+	[12] = "3_8",
+	[11] = "3_7",
+	[10] = "3_6",
+	[3] = "2_6"
 }

@@ -4,7 +4,7 @@
 -- Module: Update Check
 -- Checks for updates
 --
-local connectionProtocol, proxyURL = ...
+local connectionProtocol, proxyURL, noSSL = ...
 
 local xml = require("xml")
 local sha1 = require("sha1")
@@ -27,6 +27,11 @@ local function downloadFileText(source, file)
 		end
 		if proxyURL then
 			easy:setopt(curl.OPT_PROXY, proxyURL)
+		end
+		if noSSL then
+			easy:setopt(curl.OPT_SSL_VERIFYPEER, 0)
+			easy:setopt(curl.OPT_SSL_VERIFYHOST, 0)
+			ConPrintf("SSL verification disabled")
 		end
 		easy:setopt_writefunction(function(data)
 			text = text..data 
@@ -59,6 +64,11 @@ local function downloadFile(source, file, outName)
 		if proxyURL then
 			easy:setopt(curl.OPT_PROXY, proxyURL)
 		end
+		if noSSL then
+			easy:setopt(curl.OPT_SSL_VERIFYPEER, 0)
+			easy:setopt(curl.OPT_SSL_VERIFYHOST, 0)
+			ConPrintf("SSL verification disabled")
+		end
 		local file = io.open(outName, "wb+")
 		easy:setopt_writefunction(file)
 		local _, error = easy:perform()
@@ -78,8 +88,11 @@ end
 
 ConPrintf("Checking for update...")
 
-local scriptPath = GetScriptPath()
-local runtimePath = GetRuntimePath()
+-- Use built-in helpers to obtain absolute paths without spawning a shell.
+local scriptPath, scriptFallback = GetScriptPath()
+scriptPath = scriptPath or scriptFallback or "."
+local runtimePath, runtimeFallback = GetRuntimePath()
+runtimePath = runtimePath or runtimeFallback or scriptPath
 
 -- Load and process local manifest
 local localVer
@@ -214,7 +227,6 @@ for index, data in ipairs(updateFiles) do
 	source = source:gsub("{branch}", localBranch)
 	local fileName = scriptPath.."/Update/"..data.name:gsub("[\\/]","{slash}")
 	data.updateFileName = fileName
-	local content
 	local zipName = source:match("/([^/]+%.zip)$")
 	if zipName then
 		if not zipFiles[zipName] then
@@ -238,8 +250,20 @@ for index, data in ipairs(updateFiles) do
 			ConPrintf("Couldn't extract '%s' from '%s' (zip open failed)", data.name, zipName)
 		end
 	else
-		ConPrintf("Downloading %s... (%d of %d)", data.name, index, #updateFiles)
-		downloadFile(source, data.name, fileName)
+		local skipDownload
+		local file = io.open(fileName, "rb")
+		if file then
+			local content = file:read("*all")
+			if data.sha1 == sha1(content) or data.sha1 == sha1(content:gsub("\n", "\r\n")) then
+				ConPrintf("Using file from previous update attempt '%s'", fileName)
+				skipDownload = true
+			end
+			file:close()
+		end
+		if not skipDownload then
+			ConPrintf("Downloading %s... (%d of %d)", data.name, index, #updateFiles)
+			downloadFile(source, data.name, fileName)
+		end
 	end
 	local file = io.open(fileName, "rb")
 	if not file then

@@ -8,6 +8,7 @@
 -- .dragTargetList  [List of controls that can receive drag events from this list control]
 -- .showRowSeparators  [Shows separators between rows]
 -- :GetRowValue(column, index, value)  [Required; called to retrieve the text for the given column of the given list value]
+-- :GetRowIcon(column, index, value)  [Called to retrieve the icon for the given column of the given list value]
 -- :AddValueTooltip(index, value)  [Called to add the tooltip for the given list value]
 -- :GetDragValue(index, value)  [Called to retrieve the drag type and object for the given list value]
 -- :CanReceiveDrag(type, value)  [Called on drag target to determine if it can receive this value]
@@ -29,8 +30,8 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
-local ListClass = newClass("ListControl", "Control", "ControlHost", function(self, anchor, x, y, width, height, rowHeight, scroll, isMutable, list, forceTooltip)
-	self.Control(anchor, x, y, width, height)
+local ListClass = newClass("ListControl", "Control", "ControlHost", function(self, anchor, rect, rowHeight, scroll, isMutable, list, forceTooltip)
+	self.Control(anchor, rect)
 	self.ControlHost()
 	self.rowHeight = rowHeight
 	self.scroll = scroll
@@ -47,7 +48,7 @@ local ListClass = newClass("ListControl", "Control", "ControlHost", function(sel
 			self.scrollH = false
 		end
 	end
-	self.controls.scrollBarH = new("ScrollBarControl", {"BOTTOM",self,"BOTTOM"}, -8, -1, 0, self.scroll and 16 or 0, rowHeight * 2, "HORIZONTAL") {
+	self.controls.scrollBarH = new("ScrollBarControl", {"BOTTOM",self,"BOTTOM"}, {-8, -1, 0, self.scroll and 16 or 0}, rowHeight * 2, "HORIZONTAL") {
 		shown = function()
 			return self.scrollH
 		end,
@@ -56,7 +57,7 @@ local ListClass = newClass("ListControl", "Control", "ControlHost", function(sel
 			return width - 18
 		end
 	}
-	self.controls.scrollBarV = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, -1, 0, self.scroll and 16 or 0, 0, rowHeight * 2, "VERTICAL") {
+	self.controls.scrollBarV = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, {-1, 0, self.scroll and 16 or 0, 0}, rowHeight * 2, "VERTICAL") {
 		y = function()
 			return (self.scrollH and -8 or 0)
 		end,
@@ -69,6 +70,7 @@ local ListClass = newClass("ListControl", "Control", "ControlHost", function(sel
 		self.controls.scrollBarH.shown = false
 		self.controls.scrollBarV.shown = false
 	end
+	self.labelPositionOffset = {0, 0}
 end)
 
 function ListClass:SelectIndex(index)
@@ -175,7 +177,7 @@ function ListClass:Draw(viewPort, noTooltip)
 
 	local label = self:GetProperty("label") 
 	if label then
-		DrawString(x, y - 20, "LEFT", 16, self.font, label)
+		DrawString(x + self.labelPositionOffset[1], y - 20 + self.labelPositionOffset[2], "LEFT", 16, self.font, label)
 	end
 	if self.otherDragSource and not self.CanDragToValue then
 		SetDrawColor(0.2, 0.6, 0.2)
@@ -210,6 +212,10 @@ function ListClass:Draw(viewPort, noTooltip)
 			local lineY = rowHeight * (index - 1) - scrollOffsetV + (self.colLabels and 18 or 0)
 			local value = list[index]
 			local text = self:GetRowValue(colIndex, index, value)
+			local icon = nil
+			if self.GetRowIcon then 
+				icon = self:GetRowIcon(colIndex, index, value)
+			end
 			local textWidth = DrawStringWidth(textHeight, colFont, text)
 			if textWidth > colWidth - 2 then
 				local clipIndex = DrawStringCursorIndex(textHeight, colFont, text, colWidth - clipWidth - 2, 0)
@@ -263,7 +269,13 @@ function ListClass:Draw(viewPort, noTooltip)
 			if not self.SetHighlightColor or not self:SetHighlightColor(index, value) then
 				SetDrawColor(1, 1, 1)
 			end
-			DrawString(colOffset, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
+			-- TODO: handle icon size properly, for now assume they are 16x16
+			if icon == nil then
+				DrawString(colOffset, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
+			else
+				DrawImage(icon, colOffset, lineY, 16, 16)
+				DrawString(colOffset + 16 + 2, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
+			end
 		end
 		if self.colLabels then
 			local mOver = relX >= colOffset and relX <= colOffset + colWidth and relY >= 0 and relY <= 18
@@ -334,10 +346,12 @@ function ListClass:OnKeyDown(key, doubleClick)
 				newSelect = index
 			end
 		else
+			local scrollOffsetH = self.controls.scrollBarH.offset
 			for colIndex, column in ipairs(self.colList) do
 				local relX = cursorX - (x + 2)
 				local relY = cursorY - (y + 2)
-				local mOver = relX >= column._offset and relX <= column._offset + column._width and relY >= 0 and relY <= 18
+				local adjustedRelX = relX + scrollOffsetH
+				local mOver = adjustedRelX >= column._offset and adjustedRelX <= column._offset + column._width and relY >= 0 and relY <= 18
 				if self:GetColumnProperty(column, "sortable") and mOver and self.ReSort then
 					self:ReSort(colIndex)
 				end
@@ -392,13 +406,13 @@ function ListClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
 	end
-	if key == "WHEELDOWN" then
+	if self.controls.scrollBarV:IsScrollDownKey(key) then
 		if self.scroll and self.scrollH and IsKeyDown("SHIFT") then
 			self.controls.scrollBarH:Scroll(1)
 		else
 			self.controls.scrollBarV:Scroll(1)
 		end
-	elseif key == "WHEELUP" then
+	elseif self.controls.scrollBarV:IsScrollUpKey(key) then
 		if self.scroll and self.scrollH and IsKeyDown("SHIFT") then
 			self.controls.scrollBarH:Scroll(-1)
 		else

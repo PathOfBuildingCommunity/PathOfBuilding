@@ -2,7 +2,7 @@
 local itemBases = ...
 
 #type Amulet
-#baseTags amulet
+#influenceBaseTag amulet
 
 #baseMatch Metadata/Items/Amulets/Amulet%d+
 #baseMatch Metadata/Items/Amulet/AmuletAtlas%d+

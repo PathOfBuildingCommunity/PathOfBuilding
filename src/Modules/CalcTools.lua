@@ -48,8 +48,8 @@ function calcLib.validateGemLevel(gemInstance)
 			gemInstance.level = m_min(#grantedEffect.levels, gemInstance.level)
 		end
 	end
-	if not grantedEffect.levels[gemInstance.level] and gemInstance.gemData and gemInstance.gemData.defaultLevel then
-		gemInstance.level = gemInstance.gemData.defaultLevel
+	if not grantedEffect.levels[gemInstance.level] and gemInstance.gemData and gemInstance.gemData.naturalMaxLevel then
+		gemInstance.level = gemInstance.gemData.naturalMaxLevel
 	end
 	if not grantedEffect.levels[gemInstance.level] then
 		-- That failed, so just grab any level
@@ -82,64 +82,100 @@ function calcLib.doesTypeExpressionMatch(checkTypes, skillTypes, minionTypes)
 end
 
 -- Check if given support skill can support the given active skill
-function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill)
+function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill, imbuedSupport)
 	if grantedEffect.unsupported or activeSkill.activeEffect.grantedEffect.cannotBeSupported then
 		return false
 	end
 	if grantedEffect.supportGemsOnly and not activeSkill.activeEffect.gemData then
 		return false
 	end
-	if grantedEffect.excludeSkillTypes[1] and calcLib.doesTypeExpressionMatch(grantedEffect.excludeSkillTypes, activeSkill.skillTypes) then
+
+	-- Special case for things like Forbidden Shako or Hungry Loop with  for example Prismatic Burst and another compatible support
+	if grantedEffect.fromItem and grantedEffect.support and (activeSkill.activeEffect.grantedEffect.fromItem or activeSkill.activeEffect.grantedEffect.modSource:sub(1, #"Item") == "Item" or (activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.fromItem)) then
 		return false
 	end
-	return not grantedEffect.requireSkillTypes[1] or calcLib.doesTypeExpressionMatch(grantedEffect.requireSkillTypes, activeSkill.skillTypes, not grantedEffect.ignoreMinionTypes and activeSkill.minionSkillTypes)
+
+	local effectiveSkillTypes
+	local effectiveMinionTypes
+	if imbuedSupport then -- Use the skillTypes from the gem so it ignores any support added types
+		effectiveSkillTypes = activeSkill.summonSkill and activeSkill.summonSkill.activeEffect.grantedEffect.skillTypes or activeSkill.activeEffect.grantedEffect.skillTypes
+		effectiveMinionTypes = not grantedEffect.ignoreMinionTypes and (activeSkill.summonSkill and activeSkill.summonSkill.activeEffect.grantedEffect.minionSkillTypes or activeSkill.activeEffect.grantedEffect.minionSkillTypes)
+	else
+		effectiveSkillTypes = activeSkill.summonSkill and activeSkill.summonSkill.skillTypes or activeSkill.skillTypes
+		effectiveMinionTypes = not grantedEffect.ignoreMinionTypes and (activeSkill.summonSkill and activeSkill.summonSkill.minionSkillTypes or activeSkill.minionSkillTypes)
+	end
+
+	-- if the activeSkill is a Minion's skill like "Default Attack", use minion's skillTypes instead for exclusions
+	-- otherwise compare support to activeSkill directly
+	if grantedEffect.excludeSkillTypes[1] and calcLib.doesTypeExpressionMatch(grantedEffect.excludeSkillTypes, effectiveSkillTypes) then
+		return false
+	end
+	if grantedEffect.isTrigger and activeSkill.actor.enemy.player ~= activeSkill.actor then
+		return false
+	end
+	-- Special case for Sacred Wisps, i.e. Wisps Support has a weaponType of Wand so it should only match with Active Skills that at least have Wand as a weaponType.
+	-- Super special case for Varunastra, e.g. allow Nightblade to support Smite.
+	local actorHasAllOneHand = (activeSkill.actor.weaponData1 and activeSkill.actor.weaponData1.countsAsAll1H) or (activeSkill.actor.weaponData2 and activeSkill.actor.weaponData2.countsAsAll1H)
+	if grantedEffect.weaponTypes then
+		-- Build a lookup of the active skill's weapon types
+		local activeTypeLookup = { }
+		if activeSkill.activeEffect.grantedEffect.weaponTypes then
+			for activeType in pairs(activeSkill.activeEffect.grantedEffect.weaponTypes) do
+				activeTypeLookup[activeType] = true
+			end
+		end
+		-- If the support expects a weapon type but the active skill doesn't have any (e.g. shield skills), it's not a match.
+		if not next(activeTypeLookup) then
+			return false
+		end
+		-- Varunastra counts as every one-handed melee weapon type, but notably not Wand or Shield.
+		if actorHasAllOneHand then
+			activeTypeLookup["Claw"] = true
+			activeTypeLookup["Dagger"] = true
+			activeTypeLookup["One Handed Axe"] = true
+			activeTypeLookup["One Handed Mace"] = true
+			activeTypeLookup["One Handed Sword"] = true
+		end
+		local typeMatch = false
+		for grantedType in pairs(grantedEffect.weaponTypes) do
+			if activeTypeLookup[grantedType] then
+				typeMatch = true
+				break
+			end
+		end
+		-- No match, does not support the active skill
+		if not typeMatch then
+			return false
+		end
+	end
+	return not grantedEffect.requireSkillTypes[1] or calcLib.doesTypeExpressionMatch(grantedEffect.requireSkillTypes, effectiveSkillTypes, effectiveMinionTypes)
 end
 
 -- Check if given gem is of the given type ("all", "strength", "melee", etc)
-function calcLib.gemIsType(gem, type)
+function calcLib.gemIsType(gem, type, includeTransfigured)
 	return (type == "all" or 
 			(type == "elemental" and (gem.tags.fire or gem.tags.cold or gem.tags.lightning)) or 
 			(type == "aoe" and gem.tags.area) or
 			(type == "trap or mine" and (gem.tags.trap or gem.tags.mine)) or
-			(type == "active skill" and gem.tags.active_skill) or
+			((type == "active skill" or type == "grants_active_skill" or type == "skill") and gem.tags.grants_active_skill and not gem.tags.support) or
 			(type == "non-vaal" and not gem.tags.vaal) or
+			(type == "non-exceptional" and not gem.tags.exceptional) or
 			(type == gem.name:lower()) or
-			gem.tags[type])
+			(type == gem.name:lower():gsub("^vaal ", "")) or
+			(includeTransfigured and calcLib.isGemIdSame(gem.name, type, true)) or
+			((type ~= "active skill" and type ~= "grants_active_skill" and type ~= "skill") and gem.tags[type]))
 end
 
--- From PyPoE's formula.py
+-- In-game formula
 function calcLib.getGemStatRequirement(level, isSupport, multi)
 	if multi == 0 then
 		return 0
 	end
-	local a, b
+	local statType = 0.7
 	if isSupport then
-		b = 6 * multi / 100
-		if multi == 100 then
-			a = 1.495
-		elseif multi == 60 then
-			a = 0.945
-		elseif multi == 40 then
-			a = 0.6575
-		else
-			return 0
-		end
-	else
-		b = 8 * multi / 100
-		if multi == 100 then
-			a = 2.1
-			b = 7.75
-		elseif multi == 75 then
-			a = 1.619
-		elseif multi == 60 then
-			a = 1.325
-		elseif multi == 40 then
-			a = 0.924
-		else
-			return 0
-		end
+		statType = 0.5
 	end
-	local req = round(level * a + b)
+	local req = round( ( 20 + ( level - 3 ) * 3 ) * ( multi / 100 ) ^ 0.9 * statType )
 	return req < 14 and 0 or req
 end
 
@@ -147,11 +183,7 @@ end
 function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 	local stats = { }
 	if skillInstance.quality > 0 and grantedEffect.qualityStats then
-		local qualityId = skillInstance.qualityId or "Default"
-		local qualityStats = grantedEffect.qualityStats[qualityId]
-		if not qualityStats then
-			qualityStats = grantedEffect.qualityStats
-		end
+		local qualityStats = grantedEffect.qualityStats
 		for _, stat in ipairs(qualityStats) do
 			stats[stat[1]] = (stats[stat[1]] or 0) + math.modf(stat[2] * skillInstance.quality)
 		end
@@ -167,7 +199,7 @@ function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 				-- Effectiveness interpolation
 				if not availableEffectiveness then
 					availableEffectiveness =
-					(3.885209 + 0.360246 * (actorLevel - 1)) * (grantedEffect.baseEffectiveness or 1)
+					(data.gameConstants["SkillDamageBaseEffectiveness"] + data.gameConstants["SkillDamageIncrementalEffectiveness"] * (actorLevel - 1)) * (grantedEffect.baseEffectiveness or 1)
 							* (1 + (grantedEffect.incrementalEffectiveness or 0)) ^ (actorLevel - 1)
 				end
 				statValue = round(availableEffectiveness * level[index])
@@ -187,12 +219,16 @@ function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 					end
 				end
 
-				local nextLevelIndex = m_min(currentLevelIndex + 1, #orderedLevels)
-				local nextReq = grantedEffect.levels[orderedLevels[nextLevelIndex]].levelRequirement
-				local prevReq = grantedEffect.levels[orderedLevels[nextLevelIndex - 1]].levelRequirement
-				local nextStat = grantedEffect.levels[orderedLevels[nextLevelIndex]][index]
-				local prevStat = grantedEffect.levels[orderedLevels[nextLevelIndex - 1]][index]
-				statValue = round(prevStat + (nextStat - prevStat) * (actorLevel - prevReq) / (nextReq - prevReq))
+				if #orderedLevels > 1 then
+					local nextLevelIndex = m_min(currentLevelIndex + 1, #orderedLevels)
+					local nextReq = grantedEffect.levels[orderedLevels[nextLevelIndex]].levelRequirement
+					local prevReq = grantedEffect.levels[orderedLevels[nextLevelIndex - 1]].levelRequirement
+					local nextStat = grantedEffect.levels[orderedLevels[nextLevelIndex]][index]
+					local prevStat = grantedEffect.levels[orderedLevels[nextLevelIndex - 1]][index]
+					statValue = round(prevStat + (nextStat - prevStat) * (actorLevel - prevReq) / (nextReq - prevReq))
+				else
+					statValue = round(grantedEffect.levels[orderedLevels[currentLevelIndex]][index])
+				end
 			end
 		end
 		stats[stat] = (stats[stat] or 0) + statValue
@@ -225,4 +261,34 @@ function calcLib.getConvertedModTags(mod, multiplier, minionMods)
 		end
 	end
 	return modifiers
+end
+
+--- Get the gameId from the gemName which will be the same as the base gem for transfigured gems
+--- @param gemName string
+--- @param dropVaal boolean
+--- @return string
+function calcLib.getGameIdFromGemName(gemName, dropVaal)
+	if type(gemName) ~= "string" then
+		return
+	end
+	local gemId = data.gemForBaseName[gemName:lower()]
+	if not gemId then return end
+	local gameId 
+	if dropVaal and data.gems[gemId].vaalGem then
+		gameId = data.gems[data.gemVaalGemIdForBaseGemId[gemId]].gameId
+	else
+		gameId = data.gems[gemId].gameId
+	end
+	return gameId
+end
+
+--- Use getGameIdFromGemName to get gameId from the gemName and passed in type. Return true if they're the same and not nil
+--- @param gemName string
+--- @param type string
+--- @param dropVaal boolean 
+--- @return boolean
+function calcLib.isGemIdSame(gemName, typeName, dropVaal)
+	local gemNameId = calcLib.getGameIdFromGemName(gemName, dropVaal)
+	local typeId = calcLib.getGameIdFromGemName(typeName, dropVaal)
+	return gemNameId and typeId and gemNameId == typeId
 end

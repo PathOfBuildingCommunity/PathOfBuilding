@@ -1,0 +1,199 @@
+---[Help File Introduction]
+
+This file contains a list of shortcuts and other misc information about PoB functionality
+While holding shift scroll bars in the help section and version history will jump to the previous/next section while scrolling
+
+---[Contents]
+
+---[FAQ]
+
+---[Hotkeys]
+
+General Shortcuts:
+
+Ctrl + 1	Jump to tree tab
+Ctrl + 2	Jump to skills tab
+Ctrl + 3	Jump to items tab
+Ctrl + 4	Jump to calcs tab
+Ctrl + 5	Jump to config tab
+Ctrl + 6	Jump to notes tab
+Ctrl + 7	Jump to party tab
+Ctrl + I	Jump to import tab
+Ctrl + A	Select all
+Ctrl + C	Copy
+Ctrl + D	Toggle stat diff display (Passive Tree tab / Items tab)
+Ctrl + F	Show find / search box (e.g. unique item / tree)
+Ctrl + M	Manage Trees (Tree tab only)
+Ctrl + N	New build (in build selection menu)
+Ctrl + S	Save build to file
+Ctrl + U	Check for update
+Ctrl + V or RMB	Paste
+Ctrl + W or
+Mouse 4	Close Build (gives save prompt if unsaved)
+Ctrl + X	Cut
+Ctrl + Y	Redo
+Ctrl + Z	Undo
+Ctrl + BSP / DEL	Faster text delete
+Ctrl + + /-/0	Zoom in / Out / Reset
+F1	Open item/gem/etc in poewiki.net, or if nothing to open, opens help file
+F2	Rename item, set, etc.
+E	On an equipped item will open it on the edit menu on the right.
+Ctrl + LMB	Enable / disable gems
+Ctrl + RMB	Enable / disable gems from Full DPS
+Mouse 4/5	Undo / Redo path respectively (in build selection menu)
+Shift	While scrolling on a slider makes it 5* times faster
+Ctrl	While scrolling on a slider makes it 5* times slower
+* default of 5, some scroll bars have more or less extreme modifiers to scroll speed
+  and scroll bars in help section and version history will jump to the previous/next section
+
+When creating an item either through item creator or adding an item pressing ctrl will add it to the first slot
+    and ctrl+shift will add it to the second slot e.g. offhand for a weapon.
+
+Passive Tree Shortcuts:
+
+Ctrl	Hide tooltips while held
+P	Toggle node power
+PgUp/PgDn/MWheel	Zoom in / out (hold with shift to increase the amount of zoom x 3)
+Ctrl + LMB	Zoom in on mouse cursor position
+Hold Shift	Enable "path trace mode"
+	(highlighted nodes will stay highlighted, and will be allocated when a node is clicked on the tree)
+Up/Down arrow	Select previous/next tree respectively
+
+Developer Use
+
+General Shortcuts:
+
+Ctrl + `	Toggle console (console supports most standard editing shortcuts)
+Pause	Toggle profiling
+DEV[ ]
+DEV[Developer Mode Shortcuts:]
+DEV[ ]
+DEV[Ctrl	Rebuild mod cache (hold key during reload / refresh)]
+DEV[Ctrl + Shift	Allow tree download]
+DEV[Alt	Show advanced mod breakdown / passing]
+DEV[F5	Restart]
+DEV[F6	Run garbage collector]
+DEV[Shift	Copy export xml to clipboard (hold key during export)]
+
+---[Other Notable Things]
+
+Adding ^ and then a number or hex code before text will change the colour of the text, eg ^^77 will make the following text white until the next colour marker is set.
+
+---[Timeless Jewels]
+
+DEV[Developer Information:]
+DEV[The Timeless jewels determine what effect they have on a node based on the "Look up Tables" in \src\Data\TimelessJewelData]
+DEV[The LuTs for the timeless jewels come from https://github.com/Regisle/TimelessJewelData]
+DEV[ ]
+DEV[These can be generated if that repo is out of date (see RELEASE.md)]
+DEV[ ]
+Timeless jewels modify nodes in a radius based on their seed, the same seed will apply the same changes to the same small/notable nodes so that is the number you look for. The Conqueror (name on the jewel) only affects the keystone.
+
+Path of Building has an inbuilt tool in the tree tab to search through seeds to find stats that would be good for your build.
+Clicking the "Find Timeless Jewel" button on the bottom bar in the tree tab will open a UI that lets you:
+Select which jewel type, which jewel socket to search for, and which conqueror from that jewel
+    ("Any" will just use the first conqueror if you add it to build, more on that later)
+
+The filter nodes option makes it only check nodes that are allocated when searching a jewel socket.
+Next, a node change/addition can be selected with the "search for node" dropdown,
+    The values for the stats added are controlled by primary/secondary (in the case of 2 stats from 1 node) node weights
+    If that type has already been added, then moving those sliders will change the values
+    These values can also be edited directly in the "Desired Nodes" box
+    A minimum weight can be added for a node. This will filter results to only seeds with at least that much weight from those nodes.
+    If the minimum weight bar is at max, it will turn it into "required", this just means the node needs to show up at least once
+
+There are 2 different boxes these weights can be entered into, a basic one, and the "fallback" weights.
+    If a node is in both it will only use the value from desired. The fallback weights can automatically be populated by using
+    the fallback weight mode, selecting a method of determining the weights (a stat to sort by) and clicking generate.
+    These can then be copied from the fallback nodes box to the desired nodes box if you want to generate a different type
+        eg. If you want to sort by combined dps and ehp, you generate one, copy it over and then generate the other
+
+Lastly is the search results box. This will list seeds from the best to the worst based on your search parameters.
+    Double-clicking one will add the jewel with that seed and keystone to your build.
+    Clicking "Copy Trade URL" will copy a few results to a trade link which can be pasted into your browser.
+    Doing this multiple times will copy later results in case the first one didn't show results.
+    If you click 1 result and shift-click another it will highlight multiple, you can then click "Copy trade URL" to search all of them
+
+Militant Faith jewels also have the option to select the other mods on the jewel
+
+Advanced tricks:
+    For Militant Faith, if you don't want any nodes to change, you can just sort by devotion. As unchanged nodes add devotion, the ones with the most devotion will be the ones with unchanged nodes
+
+---[Loadouts]
+
+Loadouts can be selected from the dropdown in the top middle of the screen. Selecting a Loadout will load all four sets at once. These are automatically registered based on one of three conditions:
+
+    1) All four sets share the same name and colour formatting, e.g. "Leveling"
+        - If you have a set named ^4Leveling^7, it will not match to other sets named Leveling
+
+    2) All four sets have the same alphanumeric identifier inside of braces { } at the end of the name, e.g. "Leveling Tree {1}", "Leveling Items {1}", "Leveling Skills {1}", "Leveling Config {1}"
+        - If you would like a single set to be used in multiple Loadouts, you can put the identifiers in the braces separated by commas. For example, an Item Set could be named "Early Game {1,2}" and there could be Tree, Skill, and Config Sets with {1} and {2}, resulting in two loadouts linked to the same Item Set
+        - The name of the Loadout in the dropdown is based on the name of the Tree Set, identifiers are shown for clarity when using sets multiple times
+        - These sets can have differing colour formatting so long as the identifier texts match
+
+    3) If there is only one set for a set type (except passive tree), e.g. "Default" config set, it will be assigned to all existing loadouts.
+
+The "New Loadout" option allows the user to create all four sets from a single popup for convenience.
+The "Sync" option is a backup option to force the UI to update in case the user has changed this data behind the scenes.
+
+
+---[Party Tab]
+
+The Party tab Allows you to import support characters and have their auras and curses apply
+
+To import a build it must be exported with "Export support" enabled in the import/export tab and must be imported in the party tab
+You can import a specific type like aura or curse, or import to all
+You can also set it to append to a section rather than replace it (curses and links are always replaced if new one has a curse/link)
+
+This does not add the auras, curses or links into the skills tab, but they do show up on calcs tab under "aura and buff skills" as well as "curses and debuffs" respectively
+They also show other effects they add, like when physical damage reduction is applied by an aurabot with the Guardian node
+
+Auras with the highest effect will take priority
+Your curses will take priority over a support's
+
+Links skills use stats from party members if they are exported
+Some Enemy conditions and Modifiers may not be properly exported, please let us know if something is broken
+Some auras like Mines which use a stack value for their effect will not apply as their stack value is missing
+
+---[Skills Tab]
+
+The skills tab allows you to plan out the skills you will use for your character. To access this tab, click on "Skills" in the tab at the top left of the screen next to "Tree" and "Items".
+
+From here, you can view all of the skills in your build. There are a few different UI elements that you can use to group your skills and make DPS calculations easier.
+
+The top left window lets you view Socket Groups. Skills can be organized into Socket Groups to show which support gems are applied to certain skills. You can add a socket group by clicking New and selecting a skill from the drop-down.
+For example, you could add a socket group for Vitality and then attach Arrogance to the group as a support.
+You can also add labels and organize your skills by type (auras, mobility, damage, etc). This is a great way to keep track of skill changes across skill sets as you level.
+
+Skill sets can be thought of as collections of socket groups. There is a select box above the socket groups window that will let you switch between them.
+A great way to use these is to create skill sets for different level gaps, allowing you to plan out which skills you can run at certain points in your levelling progression.
+They are also a nice way to showcase different skill options for your build. One set could show the skills you run to maximize DPS, while another could show a better setup for survivability or maybe mapping. Click Manage next to the select box to add, remove, rename, and copy skill sets.
+
+If you click on a skill in one of your socket groups, a table will appear on the right showing you the details of that group. You can set which piece of gear the skills are socketed in, as well as the level of each skill, the variant, quality, and count.
+Hovering over a skill will display a full description of that skill and toggling the "Enabled" checkbox will enable or disable that skill from your build. You can also use the "Include in Full DPS" checkbox to include or exclude that skill from the Full DPS calculation displayed on the left panel.
+This can be useful for seeing how much damage you are getting from specific skills as well as specific groups of skills in your gear. You may also want to make a socket group simply for display purposes and then you can exclude that from DPS calculations.
+
+Finally, underneath the Socket Groups window is the Gem Options box. This will let you configure the level of your skills gems as well as sort them by different types of DPS. Really useful for viewing total potential damage vs damage at different levels.
+
+
+---[Items Tab]
+
+The Item Tab in Path of Building allows you to plan out the gear you will use for your character. To access the Item Tab, click on the "Items" tab located at the top of the screen.
+
+From here, you can view all of the gear slots for your character, such as your weapon, chest armour, and boots. To add an item to a slot, click on the arrow button on the right side of the slot. This will bring up a list of all the items available in your build, which are visible in the "All items" window.
+If you wish to add more items, you can copy and paste items using CTRL+C (from the game or trade website) and CTRL+V into the "Shared items" window. Additionally, you can craft items using the "Craft item..." button on the top or create completely customizable items using the "Create custom..." option.
+
+The item sets section located at the top of the screen can be used to save multiple sets of items and easily switch between them. You can add, remove, rename, and copy new sets using the "Manage..." button.
+
+If you want to search for item upgrades, you can use the "Trade for these items" button to quickly search for items that can improve your gear.
+
+---[Similar Builds Popup]
+
+The Similar Builds Popup allows you to search for builds similar to your current character.
+
+To access the Similar Builds Popup, click on the "Similar Builds" button located at the top of the screen.
+
+It will fetch the builds most similar to your character and sort them by the latest league and match score.
+
+For best results, make sure to select your main item set, tree, and skills before opening the popup.
+If you are using leveling gear/tree, it will match with other leveling builds.

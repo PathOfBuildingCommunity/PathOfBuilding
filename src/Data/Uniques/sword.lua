@@ -7,11 +7,11 @@ Ahn's Might
 Midnight Blade
 Implicits: 1
 40% increased Global Accuracy Rating
++100 Strength Requirement
 Adds (80-115) to (150-205) Physical Damage
 (15-25)% increased Critical Strike Chance
 -1 to Maximum Frenzy Charges
 10% increased Area of Effect
-+100 Strength Requirement
 +50% Global Critical Strike Multiplier while you have no Frenzy Charges
 +(400-500) to Accuracy Rating while at Maximum Frenzy Charges
 ]],[[
@@ -65,20 +65,23 @@ Dusk Blade
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
+Variant: Pre 3.23.0
+Variant: Pre 3.26.0
 Variant: Current
 Implicits: 2
 {variant:1,2}18% increased Global Accuracy Rating
-{variant:3,4}40% increased Global Accuracy Rating
+{variant:3,4,5,6}40% increased Global Accuracy Rating
 +10 to Intelligence
 {variant:1}100% increased Physical Damage
 {variant:2,3}150% increased Physical Damage
-{variant:4}Adds 1 to 75 Lightning Damage
+{variant:4,5,6}Adds 1 to 75 Lightning Damage
 50% increased Global Critical Strike Chance
 (40-50)% increased maximum Energy Shield
 {variant:1,2,3}10% reduced maximum Life
-{variant:4}25% reduced maximum Life
+{variant:4,5,6}25% reduced maximum Life
 {variant:1,2,3}(0.6-1)% of Physical Attack Damage Leeched as Mana
-{variant:4}Attacks with this Weapon have Added Maximum Lightning Damage equal to 20% of your Maximum Energy Shield
+{variant:4,5}Attacks with this Weapon have Added Maximum Lightning Damage equal to 20% of Player's Maximum Energy Shield
+{variant:6}Attacks with this Weapon have Added Maximum Lightning Damage equal to (10-15)% of Player's Maximum Energy Shield
 ]],[[
 The Goddess Scorned
 Elegant Sword
@@ -116,7 +119,7 @@ Adds (3-6) to (33-66) Physical Damage
 Gain (66-99)% of Sword Physical Damage as Extra Fire Damage
 Gain Her Blessing for 3 seconds when you Ignite an Enemy
 33% chance to Blind nearby Enemies when gaining Her Blessing
-Cannot be Frozen, Chilled or Ignited with Her Blessing
+100% chance to Avoid being Ignited, Chilled or Frozen with Her Blessing
 20% increased Attack and Movement Speed with Her Blessing
 ]],[[
 Grelwood Shank
@@ -186,6 +189,8 @@ Attacks with this Weapon Maim on hit
 ]],[[
 Replica Innsbury Edge
 Elder Sword
+Variant: Pre 3.25.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
@@ -193,21 +198,23 @@ Implicits: 1
 (100-140)% increased Physical Damage
 0.2% of Chaos Damage Leeched as Life
 50% of Physical Damage Converted to Chaos Damage
-10% of Physical Damage from Hits taken as Chaos Damage
+{variant:1}10% of Physical Damage from Hits taken as Chaos Damage
 Inflict Withered for 2 seconds on Hit with this Weapon
 ]],[[
 The Iron Mass
 Gladius
+Variant: Pre 3.24.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 40% increased Global Accuracy Rating
-(140-175)% increased Physical Damage
+{variant:1}(140-175)% increased Physical Damage
+{variant:2}(175-200)% increased Physical Damage
 (14-18)% increased Attack Speed
 Unholy Might
-(20-25)% chance to inflict Withered for 2 seconds on Hit with this Weapon
-Summoned Skeleton Warriors wield a copy of this Weapon while in your Main Hand
-Summoned Skeleton Warriors deal Triple Damage with this
+Summoned Skeleton Warriors and Soldiers wield this Weapon while in your Main Hand
+Summoned Skeleton Warriors and Soldiers deal Triple Damage with this
 Weapon if you've Hit with this Weapon Recently
 ]],[[
 Lakishu's Blade
@@ -222,7 +229,19 @@ Socketed Gems are supported by Level 1 Multistrike
 Adds (5-8) to (10-14) Physical Damage
 (10-15)% increased Attack Speed
 20% chance to Avoid being Stunned
-(40-30)% reduced Stun and Block Recovery
+(30-40)% reduced Stun and Block Recovery
+]],[[
+The Living Blade
+Ezomyte Blade
+League: Settlers of Kalguur
+Requires Level 61, 113 Str, 113 Dex
+Implicits: 1
++25% to Global Critical Strike Multiplier
+(100-140)% increased Physical Damage
+(25-35)% increased Attack Speed
+Cannot be Poisoned
+You can have an additional Tincture active
+10% chance to remove 1 Mana Burn on Kill
 ]],[[
 Oni-Goroshi
 Charan's Sword
@@ -267,7 +286,7 @@ Implicits: 2
 25% increased Global Physical Damage with Weapons per Red Socket
 12% increased Global Attack Speed per Green Socket
 0.4% of Physical Attack Damage Leeched as Mana per Blue Socket
-+2 to Melee Strike Range per White Socket
++0.2 metres to Melee Strike Range per White Socket
 ]],[[
 Razor of the Seventh Sun
 Midnight Blade
@@ -353,22 +372,23 @@ League: Talisman Standard, Talisman Hardcore
 Source: Drops from unique{Rigwald, the Wolven King} (Level 75+)
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
+Variant: Pre 3.25.0
 Variant: Current
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
-{variant:2,3}40% increased Global Accuracy Rating
+{variant:2,3,4}40% increased Global Accuracy Rating
 +10% Chance to Block Attack Damage while Dual Wielding
 Adds (60-80) to (150-180) Physical Damage
 {variant:1,2}80% increased Physical Damage with Axes
 +(350-400) to Accuracy Rating
 {variant:1,2}15% chance to gain a Frenzy Charge on Kill
-{variant:3}+1% to Damage over Time Multiplier for Bleeding per Rage while wielding an Axe
+{variant:3}Each Rage also grants +1% to Damage over Time Multiplier for Bleeding while wielding an Axe
+{variant:4}Each Rage also grants +2% to Damage over Time Multiplier for Bleeding while wielding an Axe
 ]],[[
 The Rippling Thoughts
 Legion Sword
 League: Harbinger
-Source: Created from item parts obtained from Boss in The Beachhead
-Upgrade: Upgrades to unique{The Surging Thoughts} via currency{Electroshock Scroll}
+Source: No longer obtainable
 Implicits: 1
 40% increased Global Accuracy Rating
 Grants Summon Harbinger of the Arcane Skill
@@ -381,8 +401,6 @@ Adds 1 to (60-70) Lightning Damage to Spells
 ]],[[
 The Surging Thoughts
 Legion Sword
-League: Harvest
-Source: Upgraded from unique{The Rippling Thoughts} via currency{Electroshock Scroll}
 Implicits: 1
 40% increased Global Accuracy Rating
 Grants Summon Greater Harbinger of the Arcane Skill
@@ -397,7 +415,7 @@ The Saviour
 Legion Sword
 Variant: Pre 3.20.0
 Variant: Current
-Source: Drops from unique{Sirus, Awakener of Worlds}
+Source: Drops from unique{Sirus, Awakener of Worlds} (Uber)
 Implicits: 1
 40% increased Global Accuracy Rating
 Triggers Level 20 Reflection when Equipped
@@ -423,23 +441,40 @@ Adds (75-92) to (125-154) Physical Damage
 (60-80)% increased Global Critical Strike Chance when in Main Hand
 +8% Chance to Block Attack Damage when in Off Hand
 ]],[[
+The Redblade
+Gladius
+League: Crucible
+Implicits: 1
+40% increased Global Accuracy Rating
+(150-180)% increased Physical Damage
+Adds (20-25) to (40-50) Physical Damage
+Gain 100 Life per Enemy Killed
++(400-500) to Accuracy Rating
+Has a Two Handed Sword Crucible Passive Skill Tree
+Crucible Passive Skill Tree is removed if this Modifier is removed
+]],[[
 Severed in Sleep
 Cutlass
 Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
 Upgrade: Upgrades to unique{United in Dream} using currency{Blessing of Chayula}
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
+Variant: Pre 3.21.0
 Variant: Current
 League: Breach
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
-{variant:2,3}40% increased Global Accuracy Rating
-+(10-20) to all Attributes
-Minions deal (20-30)% increased Damage
-Minions have +17% to Chaos Resistance
+{variant:2,3,4}40% increased Global Accuracy Rating
+{variant:4}Grants Level 25 Envy Skill
+{variant:1,2,3}+(10-20) to all Attributes
+{variant:1,2,3}Minions deal (20-30)% increased Damage
+{variant:1,2,3}Minions have +17% to Chaos Resistance
+{variant:4}Minions have +29% to Chaos Resistance
 {variant:1,2}Minions Poison Enemies on Hit
 {variant:3}Minions have 60% chance to Poison Enemies on Hit
-Minions Recover 20% of Life on Killing a Poisoned Enemy
+{variant:4}Minions have 60% chance to inflict Withered on Hit
+{variant:4}Minions have +5% to Critical Strike Multiplier per Withered Debuff on Enemy
+{variant:1,2,3}Minions Recover 20% of Life on Killing a Poisoned Enemy
 ]],[[
 United in Dream
 Cutlass
@@ -447,20 +482,22 @@ Source: Upgraded from unique{Severed in Sleep} using currency{Blessing of Chayul
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.16.0
+Variant: Pre 3.21.0
 Variant: Current
 League: Breach
 LevelReq: 69
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
-{variant:2,3,4}40% increased Global Accuracy Rating
+{variant:2,3,4,5}40% increased Global Accuracy Rating
 {variant:1,2,3}Grants Level 15 Envy Skill
-{variant:4}Grants Level 25 Envy Skill
+{variant:4,5}Grants Level 25 Envy Skill
 {variant:1,2,3}Minions deal (30-40)% increased Damage
 {variant:4}Minions deal (60-80)% increased Damage
 Minions have +29% to Chaos Resistance
 {variant:1,2}Minions Poison Enemies on Hit
-{variant:3,4}Minions have 60% chance to Poison Enemies on Hit
-Minions Leech 5% of Damage as Life against Poisoned Enemies
+{variant:3,4,5}Minions have 60% chance to Poison Enemies on Hit
+{variant:1,2,3,4}Minions Leech 5% of Damage as Life against Poisoned Enemies
+{variant:5}Minions Recover 10% of Life on Killing a Poisoned Enemy
 ]],[[
 Story of the Vaal
 {variant:1}Variscite Blade
@@ -540,7 +577,7 @@ Implicits: 2
 {variant:1,2}(40-60)% increased Physical Damage
 {variant:3}(80-100)% increased Physical Damage
 Adds (30-45) to (80-100) Physical Damage
-Gain (2-3) Mana per Enemy Hit with Attacks
+Grants (2-3) Mana per Enemy Hit
 Counts as all One Handed Melee Weapon Types
 ]],
 -- Weapon: Thrusting Sword
@@ -574,7 +611,7 @@ Implicits: 3
 +30 to maximum Mana
 5% increased Movement Speed
 30% increased Elemental Damage
-+2 to Weapon Range
++0.2 metres to Weapon Range
 ]],[[
 Cospri's Malice
 Jewelled Foil
@@ -584,11 +621,11 @@ Implicits: 2
 {variant:1}+30% to Global Critical Strike Multiplier
 {variant:2}+25% to Global Critical Strike Multiplier
 Trigger a Socketed Cold Spell on Melee Critical Strike, with a 0.25 second Cooldown
++257 Intelligence Requirement
 No Physical Damage
 Adds (80-100) to (160-200) Cold Damage
 Adds (40-60) to (90-110) Cold Damage to Spells
 (8-14)% increased Attack Speed
-+257 Intelligence Requirement
 60% increased Critical Strike Chance against Chilled Enemies
 ]],[[
 Daresso's Passion
@@ -630,9 +667,21 @@ No Physical Damage
 Adds 1 to (40-50) Lightning Damage
 (25-30)% increased Attack Speed
 Grants 2 Life per Enemy Hit
-{variant:1,2}5% Chance to Shock
+{variant:1,2}5% chance to Shock
 {variant:3}(15-20)% chance to Shock
 {variant:3}Herald of Thunder has 50% increased Buff Effect
+]],[[
+Nametaker
+Graceful Sword
+League: Affliction
+Requires Level 50, 78 Str, 94 Dex
+Implicits: 1
++350 to Accuracy Rating
+(20-40)% increased Critical Strike Chance
+2% of Physical Attack Damage Leeched as Life
+2% of Physical Attack Damage Leeched as Mana
+Hits with this Weapon have +10% to Critical Strike Multiplier per Enemy Power
+5% of Leech from Hits with this Weapon is Instant per Enemy Power
 ]],[[
 The Goddess Bound
 Whalebone Rapier
@@ -679,7 +728,7 @@ The Dancing Duo
 Reaver Sword
 Source: No longer obtainable
 Variant: Pre 3.11.0
-Variant: Pre 3.17.0
+Variant: Current
 Implicits: 2
 {variant:1}40% increased Global Accuracy Rating
 {variant:2}60% increased Global Accuracy Rating
@@ -688,8 +737,9 @@ Implicits: 2
 (25-30)% increased Attack Speed
 5% increased Movement Speed
 Triggers Level 15 Manifest Dancing Dervishes on Rampage
-Manifested Dancing Dervish disables both weapon slots
-Manifested Dancing Dervish dies when Rampage ends
+Manifested Dancing Dervishes disables both weapon slots
+Manifested Dancing Dervishes die when Rampage ends
+Melee Hits count as Rampage Kills
 Rampage
 ]],[[
 Doomsower
@@ -700,9 +750,9 @@ Variant: Pre 3.8.0
 Variant: Pre 3.11.0
 Variant: Current
 Implicits: 3
+{variant:5}+50 to Strength and Dexterity
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3,4}+470 to Accuracy Rating
-{variant:5}+50 to Strength and Dexterity
 Socketed Melee Gems have 15% increased Area of Effect
 {variant:1,2,3}Socketed Red Gems get 10% Physical Damage as Extra Fire Damage
 {variant:1,2,3,4}(50-70)% increased Physical Damage
@@ -724,13 +774,13 @@ Implicits: 3
 {variant:1}18% increased Global Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
 {variant:3,4}60% increased Global Accuracy Rating
-+1 to Level of Socketed Active Skill Gems
++1 to Level of Socketed Skill Gems
 {variant:2,3,4}(40-60)% increased Physical Damage
 {variant:1}(60-80)% increased Physical Damage
 Adds (60-68) to (90-102) Chaos Damage
 {variant:1}Gain 1 Life on Kill per Level
-{variant:1,2,4}1% increased Chaos Damage per Level
 {variant:1}1% increased Elemental Damage per Level
+{variant:1,2,4}1% increased Chaos Damage per Level
 {variant:2,3,4}Adds 1 to 2 Physical Damage to Attacks per Level
 ]],[[
 Hiltless
@@ -746,7 +796,7 @@ Socketed Gems are Supported by Level 1 Lifetap
 Adds (90-115) to (230-260) Physical Damage
 (40-50)% increased Critical Strike Chance
 Enemies you Attack Reflect 100 Physical Damage to you
-+2 to Weapon range
++0.2 metres to Weapon Range
 ]],[[
 Kondo's Pride
 Ezomyte Blade
@@ -755,8 +805,8 @@ Variant: Pre 3.11.0
 Variant: Current
 Implicits: 3
 {variant:1}18% increased Global Accuracy Rating
-{variant:2}+435 to Accuracy Rating
 {variant:3}+25% to Global Critical Strike Multiplier
+{variant:2}+435 to Accuracy Rating
 {variant:1,2}(270-320)% increased Physical Damage
 {variant:3}(220-250)% increased Physical Damage
 0.6% of Physical Attack Damage Leeched as Life
@@ -786,6 +836,8 @@ Gain a Frenzy Charge if an Attack Ignites an Enemy
 ]],[[
 Replica Oro's Sacrifice
 Infernal Sword
+Variant: Pre 3.23.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
@@ -793,41 +845,46 @@ Implicits: 1
 No Physical Damage
 Adds (385-440) to (490-545) Cold Damage
 (10-15)% increased Attack Speed
-1% of Damage against Frozen Enemies Leeched as Life
+{variant:1}1% of Damage against Frozen Enemies Leeched as Life
 20% chance to Freeze
 10% increased Physical Damage taken
 10% increased Cold Damage taken
+{variant:2}Culling Strike against Frozen Enemies
 Gain an Endurance Charge if an Attack Freezes an Enemy
 ]],[[
 Echoforge
 Infernal Sword
-Source: Drops from unique{The Maven} (Uber)
+Source: Drops from unique{The Maven}
 Implicits: 1
 30% increased Chaos Damage
 Adds (600-650) to (750-800) Chaos Damage
-(-16-16)% increased Attack Speed
+(-16-16)% reduced Attack Speed
 +(-200-200) to maximum Life
 Your Chaos Damage can Shock
-(-40-40)% increased Area of Effect for Attacks
+(-40-40)% reduced Area of Effect for Attacks
 Deal no Physical or Elemental Damage
 ]],[[
 Queen's Decree
 Ornate Sword
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
+Variant: Pre 3.26.0
 Variant: Current
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
-{variant:2,3}+185 to Accuracy Rating
+{variant:2,3,4}+185 to Accuracy Rating
 25% increased Strength Requirement
 {variant:1,2}Minions have (10-15)% increased maximum Life
-{variant:3}Minions have (30-40)% increased maximum Life
+{variant:3,4}Minions have (30-40)% increased maximum Life
 (150-200)% increased Skeleton Duration
 {variant:1,2}Minions deal (10-15)% increased Damage
-{variant:3}Minions deal (30-40)% increased Damage
-+1 to maximum number of Raised Zombies
-+1 to maximum number of Spectres
-+1 to maximum number of Skeletons
+{variant:3,4}Minions deal (30-40)% increased Damage
+{variant:1,2,3}+1 to maximum number of Raised Zombies
+{variant:1,2,3}+1 to maximum number of Spectres
+{variant:1,2,3}+1 to maximum number of Skeletons
+{variant:4}+(1-2) to maximum number of Raised Zombies
+{variant:4}+(1-2) to maximum number of Spectres
+{variant:4}+(1-2) to maximum number of Skeletons
 ]],[[
 Queen's Escape
 Ornate Sword
@@ -840,6 +897,7 @@ Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3}+185 to Accuracy Rating
 25% increased Strength Requirement
+25% increased Strength Requirement
 {variant:1,2}Minions have (10-15)% increased maximum Life
 {variant:3}Minions have (30-40)% increased maximum Life
 Minions have (80-100)% increased Movement Speed
@@ -849,7 +907,16 @@ Minions have (80-100)% increased Movement Speed
 +1 to maximum number of Raised Zombies
 +1 to maximum number of Spectres
 +1 to maximum number of Skeletons
-25% increased Strength Requirement
+]],[[
+Rakiata's Dance
+Engraved Greatsword
+Requires Level 48, 91 Str, 76 Dex
+Implicits: 1
+60% increased Global Accuracy Rating
+Adds (150-200) to (300-350) Cold Damage
+Adds 1 to (550-600) Lightning Damage
+(15-20)% increased Attack Speed
+Treats Enemy Monster Elemental Resistance values as inverted
 ]],[[
 Rigwald's Charge
 Highland Blade
@@ -887,13 +954,13 @@ Cannot be Frozen
 Starforge
 Infernal Sword
 Shaper Item
-Source: Drops from unique{The Shaper}
+Source: Drops from unique{The Shaper} (Uber)
 Variant: Pre 3.11.0
 Variant: Pre 3.20.0
 Variant: Current
 Implicits: 2
-{variant:1}30% increased Global Accuracy Rating
 {variant:2,3}30% increased Global Physical Damage
+{variant:1}30% increased Global Accuracy Rating
 {variant:1}(400-500)% increased Physical Damage
 {variant:2}(200-300)% increased Physical Damage
 {variant:3}(400-450)% increased Physical Damage
@@ -924,7 +991,7 @@ Voidforge
 Infernal Sword
 Shaper Item
 Elder Item
-Source: Drops from unique{The Elder} (Uber)
+Source: Drops from unique{The Elder} (Uber Uber)
 Variant: Pre 3.11.0
 Variant: Pre 3.20.0
 Variant: Current
@@ -940,5 +1007,20 @@ Your Elemental Damage can Shock
 {variant:3}Gain 700% of Weapon Physical Damage as Extra Damage of a random Element
 20% increased Area of Effect for Attacks
 Deal no Non-Elemental Damage
+]],
+[[
+The Golden Charlatan
+Lion Sword
+Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 65, 104 Str, 122 Dex
+Implicits: 1
++50 to Strength and Dexterity
++200 Intelligence Requirement
+(200-300)% increased Physical Damage
+(10-16)% increased Attack Speed
+(100-200)% increased Critical Strike Chance
+Critical Strikes with this Weapon do not deal extra Damage
+Gain a random Shrine Buff for 30 seconds when you Kill a Rare or Unique Enemy
++1 to maximum Mana per 2 Intelligence
 ]],
 }

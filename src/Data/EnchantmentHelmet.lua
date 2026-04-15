@@ -4,12 +4,12 @@
 return {
 	["Absolution"] = {
 		["MERCILESS"] = {
-			"20% increased Absolution Duration",
+			"20% increased Sentinel of Absolution Duration",
 			"8% increased Absolution Cast Speed",
 			"Summoned Sentinels of Absolution have 16% increased Area of Effect",
 		},
 		["ENDGAME"] = {
-			"30% increased Absolution Duration",
+			"30% increased Sentinel of Absolution Duration",
 			"12% increased Absolution Cast Speed",
 			"Summoned Sentinels of Absolution have 24% increased Area of Effect",
 		},
@@ -270,11 +270,13 @@ return {
 			"25% increased Blade Vortex Spell Damage",
 			"20% increased Blade Vortex Duration",
 			"16% increased Blade Vortex Area of Effect",
+			"Blade Vortex has +2% to Critical Strike Multiplier for each blade",
 		},
 		["ENDGAME"] = {
 			"40% increased Blade Vortex Spell Damage",
 			"30% increased Blade Vortex Duration",
 			"24% increased Blade Vortex Area of Effect",
+			"Blade Vortex has +3% to Critical Strike Multiplier for each blade",
 		},
 	},
 	["Bladefall"] = {
@@ -296,7 +298,7 @@ return {
 			"Bladestorm deals 25% increased Damage",
 		},
 		["ENDGAME"] = {
-			"+1 to maximum number of Bladestorms",
+			"+1 to Maximum number of Bladestorms at a time",
 			"Sand Bladestorms move with 75% increased speed",
 			"Bladestorm deals 40% increased Damage",
 		},
@@ -425,24 +427,24 @@ return {
 	},
 	["Chain Hook"] = {
 		["MERCILESS"] = {
-			"Chain Hook has a 25% chance to grant +1 Rage if it Hits Enemies",
+			"Chain Hook grants 1 Rage if it Hits Enemies",
 			"Chain Hook deals 25% increased Damage",
 		},
 		["ENDGAME"] = {
-			"Chain Hook has a 40% chance to grant +1 Rage if it Hits Enemies",
-			"Chain Hook has +1 Radius per 12 Rage",
+			"Chain Hook grants 1 Rage if it Hits Enemies",
+			"Chain Hook has +0.1 metres to radius per 12 Rage",
 			"Chain Hook deals 40% increased Damage",
 		},
 	},
 	["Charged Dash"] = {
 		["MERCILESS"] = {
 			"25% increased Charged Dash Damage",
-			"Charged Dash has +4 to Radius of each Wave's last damage Area",
+			"Charged Dash has +0.4 metres to radius of each Wave's last damage Area",
 			"Charged Dash has 10% more Movement Speed",
 		},
 		["ENDGAME"] = {
 			"40% increased Charged Dash Damage",
-			"Charged Dash has +6 to Radius of each Wave's last damage Area",
+			"Charged Dash has +0.6 metres to radius of each Wave's last damage Area",
 			"Charged Dash has 15% more Movement Speed",
 		},
 	},
@@ -705,12 +707,12 @@ return {
 	["Discharge"] = {
 		["MERCILESS"] = {
 			"20% chance for Discharge to deal Damage without removing Charges",
-			"Discharge has +3 to Radius",
+			"+0.3 metres to Discharge radius",
 			"25% increased Discharge Damage",
 		},
 		["ENDGAME"] = {
 			"30% chance for Discharge to deal Damage without removing Charges",
-			"Discharge has +5 to Radius",
+			"+0.5 metres to Discharge radius",
 			"40% increased Discharge Damage",
 		},
 	},
@@ -830,7 +832,7 @@ return {
 		},
 		["ENDGAME"] = {
 			"Enduring Cry has 30% increased Cooldown Recovery Rate",
-			"Enduring Cry grants 1 additional Endurance Charge",
+			"Enduring Cry grants 1 additional Endurance Charge to you and Allied Players",
 		},
 	},
 	["Energy Blade"] = {
@@ -1374,12 +1376,12 @@ return {
 		["MERCILESS"] = {
 			"Hexblast deals 25% increased Damage",
 			"Hexblast has 16% increased Area of Effect",
-			"Hexblast has 10% chance to not remove a Hex",
+			"Hexblast has +10% chance to remove a Hex",
 		},
 		["ENDGAME"] = {
 			"Hexblast deals 40% increased Damage",
 			"Hexblast has 24% increased Area of Effect",
-			"Hexblast has 15% chance to not remove a Hex",
+			"Hexblast has +15% chance to remove a Hex",
 		},
 	},
 	["Holy Flame Totem"] = {
@@ -1394,6 +1396,18 @@ return {
 			"Holy Flame Totem fires 2 additional Projectiles",
 			"Holy Flame Totem has 30% increased Projectile Speed",
 			"Consecrated Ground from Holy Flame Totem applies 9% increased Damage taken to Enemies",
+		},
+	},
+	["Holy Sweep"] = {
+		["MERCILESS"] = {
+			"25% increased Holy Sweep Damage",
+			"Holy Sweep has a 20% chance to grant an Endurance Charge on Hit",
+			"16% increased Holy Sweep Area of Effect",
+		},
+		["ENDGAME"] = {
+			"40% increased Holy Sweep Damage",
+			"Holy Sweep has a 30% chance to grant an Endurance Charge on Hit",
+			"24% increased Holy Sweep Area of Effect",
 		},
 	},
 	["Hydrosphere"] = {
@@ -1609,7 +1623,7 @@ return {
 		["MERCILESS"] = {
 			"25% increased Lightning Arrow Damage",
 			"16% increased Lightning Arrow Area of Effect",
-			"Lightning Arrow hits an additional Enemy",
+			"Lightning Arrow hits 1 additional Enemy",
 		},
 		["ENDGAME"] = {
 			"40% increased Lightning Arrow Damage",
@@ -1849,13 +1863,13 @@ return {
 			"25% increased Power Siphon Damage",
 			"30% Chance to gain an additional Power Charge on Kill with Power Siphon",
 			"10% increased Power Siphon Attack Speed",
-			"Power Siphon fires an additional Projectile",
+			"Power Siphon fires at up to 1 additional target",
 		},
 		["ENDGAME"] = {
 			"40% increased Power Siphon Damage",
 			"45% Chance to gain an additional Power Charge on Kill with Power Siphon",
 			"15% increased Power Siphon Attack Speed",
-			"Power Siphon fires 2 additional Projectiles",
+			"Power Siphon fires at up to 2 additional targets",
 		},
 	},
 	["Precision"] = {
@@ -1987,13 +2001,13 @@ return {
 	},
 	["Raise Spectre"] = {
 		["MERCILESS"] = {
-			"Spectres have 25% increased Damage",
-			"Spectres have 8% increased Attack and Cast Speed",
+			"Raised Spectres have 25% increased Damage",
+			"Raised Spectres have 8% increased Attack and Cast Speed",
 			"+24% to Raised Spectre Elemental Resistances",
 		},
 		["ENDGAME"] = {
-			"Spectres have 40% increased Damage",
-			"Spectres have 12% increased Attack and Cast Speed",
+			"Raised Spectres have 40% increased Damage",
+			"Raised Spectres have 12% increased Attack and Cast Speed",
 			"+36% to Raised Spectre Elemental Resistances",
 		},
 	},
@@ -2010,11 +2024,7 @@ return {
 		},
 	},
 	["Rallying Cry"] = {
-		["MERCILESS"] = {
-			"10% increased Rallying Cry Buff Effect",
-		},
 		["ENDGAME"] = {
-			"15% increased Rallying Cry Buff Effect",
 			"Rallying Cry Exerts 1 additional Attack",
 		},
 	},
@@ -2051,11 +2061,11 @@ return {
 	},
 	["Rejuvenation Totem"] = {
 		["MERCILESS"] = {
-			"Gain 10% of Rejuvenation Totem Life Regeneration as extra Mana Regeneration",
+			"Rejuvenation Totem also grants Mana Regeneration equal to 10% of its Life Regeneration",
 			"30% increased Rejuvenation Totem Aura Effect",
 		},
 		["ENDGAME"] = {
-			"Gain 15% of Rejuvenation Totem Life Regeneration as extra Mana Regeneration",
+			"Rejuvenation Totem also grants Mana Regeneration equal to 15% of its Life Regeneration",
 			"45% increased Rejuvenation Totem Aura Effect",
 		},
 	},
@@ -2112,7 +2122,7 @@ return {
 		["ENDGAME"] = {
 			"Scourge Arrow deals 40% increased Damage",
 			"Scourge Arrow has 8% chance to Poison per Stage",
-			"Scourge Arrow creates an additional spore pod at Maximum Stages",
+			"Scourge Arrow creates +1 Spore Pod",
 		},
 	},
 	["Searing Bond"] = {
@@ -2274,6 +2284,17 @@ return {
 			"Smoke Mine grants additional 30% increased Movement Speed",
 		},
 	},
+	["Snipe"] = {
+		["MERCILESS"] = {
+			"10% increased Attack Speed with Snipe",
+			"35% chance to Avoid being Stunned while Channelling Snipe",
+		},
+		["ENDGAME"] = {
+			"+1 to maximum Snipe Stages",
+			"15% increased Attack Speed with Snipe",
+			"50% chance to Avoid being Stunned while Channelling Snipe",
+		},
+	},
 	["Sniper's Mark"] = {
 		["MERCILESS"] = {
 			"Sniper's Mark has 10% increased Curse Effect",
@@ -2293,11 +2314,11 @@ return {
 	["Soulrend"] = {
 		["MERCILESS"] = {
 			"Soulrend deals 25% increased Damage",
-			"Soulrend also Hinders Enemies, with 25% reduced Movement Speed",
+			"Soulrend also Hinders Enemies when applying its Debuff, with 25% reduced Movement Speed",
 		},
 		["ENDGAME"] = {
 			"Soulrend deals 40% increased Damage",
-			"Soulrend also Hinders Enemies, with 40% reduced Movement Speed",
+			"Soulrend also Hinders Enemies when applying its Debuff, with 40% reduced Movement Speed",
 			"Soulrend fires an additional Projectile",
 		},
 	},
@@ -2396,7 +2417,7 @@ return {
 			"25% increased Static Strike Damage",
 			"30% increased Static Strike Duration",
 			"16% increased Static Strike Area of Effect",
-			"Static Strike has +1 maximum Beam Targets",
+			"Static Strike has +1 maximum Beam Target",
 		},
 		["ENDGAME"] = {
 			"40% increased Static Strike Damage",
@@ -2582,14 +2603,14 @@ return {
 			"30% increased Summon Reaper Cooldown Recovery Rate",
 		},
 	},
-	["Summon Skeleton"] = {
+	["Summon Skeletons"] = {
 		["MERCILESS"] = {
 			"Skeletons deal 25% increased Damage",
-			"20% chance to Summon an additional Skeleton Warrior with Summon Skeleton",
+			"20% chance to Summon an additional Skeleton with Summon Skeletons",
 		},
 		["ENDGAME"] = {
 			"Skeletons deal 40% increased Damage",
-			"40% chance to Summon an additional Skeleton Warrior with Summon Skeleton",
+			"40% chance to Summon an additional Skeleton with Summon Skeletons",
 		},
 	},
 	["Summon Skitterbots"] = {
@@ -2624,18 +2645,6 @@ return {
 			"Sunder has 40% increased Damage",
 			"Sunder has 24% increased Area of Effect",
 			"Sunder has 20% reduced delay between Areas in the Wave",
-		},
-	},
-	["Sweep"] = {
-		["MERCILESS"] = {
-			"25% increased Sweep Damage",
-			"Sweep has a 20% chance to grant an Endurance Charge on Hit",
-			"16% increased Sweep Area of Effect",
-		},
-		["ENDGAME"] = {
-			"40% increased Sweep Damage",
-			"Sweep has a 30% chance to grant an Endurance Charge on Hit",
-			"24% increased Sweep Area of Effect",
 		},
 	},
 	["Tectonic Slam"] = {
@@ -2722,14 +2731,6 @@ return {
 			"Unearth Spawns corpses with +5 Level",
 			"40% increased Unearth Damage",
 			"12% increased Unearth Cast Speed",
-		},
-	},
-	["Vaal Blade Vortex"] = {
-		["MERCILESS"] = {
-			"Blade Vortex has +2% to Critical Strike Multiplier for each blade",
-		},
-		["ENDGAME"] = {
-			"Blade Vortex has +3% to Critical Strike Multiplier for each blade",
 		},
 	},
 	["Vampiric Link"] = {
@@ -2969,6 +2970,14 @@ return {
 		},
 		["ENDGAME"] = {
 			"Zealotry has 30% increased Mana Reservation Efficiency",
+		},
+	},
+	["[DNT] Old Rallying Cry"] = {
+		["MERCILESS"] = {
+			"10% increased Rallying Cry Buff Effect",
+		},
+		["ENDGAME"] = {
+			"15% increased Rallying Cry Buff Effect",
 		},
 	},
 }

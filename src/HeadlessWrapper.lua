@@ -44,10 +44,17 @@ function imageHandleClass:ImageSize()
 end
 
 -- Rendering
-function RenderInit() end
+function RenderInit(flag, ...) end
 function GetScreenSize()
 	return 1920, 1080
 end
+function GetScreenScale()
+	return 1
+end
+function GetDPIScaleOverridePercent()
+	return 1
+end
+function SetDPIScaleOverridePercent(scale) end
 function SetClearColor(r, g, b, a) end
 function SetDrawLayer(layer, subLayer) end
 function SetViewport(x, y, width, height) end
@@ -62,7 +69,7 @@ function DrawStringCursorIndex(height, font, text, cursorX, cursorY)
 	return 0
 end
 function StripEscapes(text)
-	return text:gsub("^%d",""):gsub("^x%x%x%x%x%x%x","")
+	return text:gsub("%^%d",""):gsub("%^x%x%x%x%x%x%x","")
 end
 function GetAsyncCount()
 	return 0
@@ -139,7 +146,7 @@ function PCall(func, ...)
 		return nil, unpack(ret)
 	else
 		return ret[2]
-	end	
+	end
 end
 function ConPrintf(fmt, ...)
 	-- Optional
@@ -153,6 +160,15 @@ function OpenURL(url) end
 function SetProfiling(isEnabled) end
 function Restart() end
 function Exit() end
+function TakeScreenshot() end
+
+---@return string? provider
+---@return string? version
+---@return number? status
+function GetCloudProvider(fullPath)
+	return nil, nil, nil
+end
+
 
 local l_require = require
 function require(name)
@@ -169,7 +185,7 @@ dofile("Launch.lua")
 -- Prevents loading of ModCache
 -- Allows running mod parsing related tests without pushing ModCache
 -- The CI env var will be true when run from github workflows but should be false for other tools using the headless wrapper 
-mainObject.continuousIntegrationMode = os.getenv("CI") 
+mainObject.continuousIntegrationMode = os.getenv("CI")
 
 runCallback("OnInit")
 runCallback("OnFrame") -- Need at least one frame for everything to initialise

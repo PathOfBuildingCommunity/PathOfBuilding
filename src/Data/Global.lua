@@ -25,6 +25,7 @@ colorCodes = {
 	CHAOS = "^xD02090",
 	POSITIVE = "^x33FF77",
 	NEGATIVE = "^xDD0022",
+	HIGHLIGHT ="^xFF0000",
 	OFFENCE = "^xE07030",
 	DEFENCE = "^x8080E0",
 	SCION = "^xFFF0F0",
@@ -41,6 +42,7 @@ colorCodes = {
 	SHAPER = "^x55BBFF",
 	ELDER = "^xAA77CC",
 	FRACTURED = "^xA29160",
+	MUTATED = "^xCD2285",
 	ADJUDICATOR = "^xE9F831",
 	BASILISK = "^x00CB3A",
 	CRUSADER = "^x2946FC",
@@ -54,6 +56,8 @@ colorCodes = {
 	BRITTLEBG = "^x00122b",
 	SAPBG = "^x261500",
 	SCOURGE = "^xFF6E25",
+	CRUCIBLE = "^xFFA500",
+	SPLITPERSONALITY = "^xFFD62A"
 }
 colorCodes.STRENGTH = colorCodes.MARAUDER
 colorCodes.DEXTERITY = colorCodes.RANGER
@@ -63,9 +67,32 @@ colorCodes.LIFE = colorCodes.MARAUDER
 colorCodes.MANA = colorCodes.WITCH
 colorCodes.ES = colorCodes.SOURCE
 colorCodes.WARD = colorCodes.RARE
+colorCodes.ARMOUR = colorCodes.NORMAL
 colorCodes.EVASION = colorCodes.POSITIVE
 colorCodes.RAGE = colorCodes.WARNING
 colorCodes.PHYS = colorCodes.NORMAL
+
+defaultColorCodes = copyTable(colorCodes)
+function updateColorCode(code, color)
+ 	if colorCodes[code] then
+		colorCodes[code] = color:gsub("^0", "^")
+		if code == "HIGHLIGHT" then
+			rgbColor = hexToRGB(color)
+		end
+	end
+end
+
+function hexToRGB(hex)
+	hex = hex:gsub("0x", "") -- Remove "0x" prefix
+	hex = hex:gsub("#","") -- Remove '#' if present
+	if #hex ~= 6 then
+		return nil
+	end
+	local r = (tonumber(hex:sub(1, 2), 16)) / 255
+	local g = (tonumber(hex:sub(3, 4), 16)) / 255
+	local b = (tonumber(hex:sub(5, 6), 16)) / 255
+	return {r, g, b}
+end
 
 ModFlag = { }
 -- Damage modes
@@ -94,11 +121,11 @@ ModFlag.Wand =		 0x00800000
 ModFlag.Unarmed =	 0x01000000
 ModFlag.Fishing =	 0x02000000
 -- Weapon classes
-ModFlag.WeaponMelee =0x02000000
-ModFlag.WeaponRanged=0x04000000
-ModFlag.Weapon1H =	 0x08000000
-ModFlag.Weapon2H =	 0x10000000
-ModFlag.WeaponMask = 0x1FFF0000
+ModFlag.WeaponMelee =0x04000000
+ModFlag.WeaponRanged=0x08000000
+ModFlag.Weapon1H =	 0x10000000
+ModFlag.Weapon2H =	 0x20000000
+ModFlag.WeaponMask = 0x2FFF0000
 
 KeywordFlag = { }
 -- Skill keywords
@@ -113,6 +140,7 @@ KeywordFlag.Lightning =	0x00000080
 KeywordFlag.Chaos =		0x00000100
 KeywordFlag.Vaal =		0x00000200
 KeywordFlag.Bow =		0x00000400
+KeywordFlag.Arrow =		0x00000800
 -- Skill types
 KeywordFlag.Trap =		0x00001000
 KeywordFlag.Mine =		0x00002000
@@ -140,17 +168,44 @@ KeywordFlag.MatchAll =	0x40000000
 -- Helper function to compare KeywordFlags
 local band = bit.band
 local MatchAllMask = bit.bnot(KeywordFlag.MatchAll)
+
+-- Two-level numeric-key cache to avoid building string keys or allocating tables per call.
+local matchKeywordFlagsCache = {}
+function ClearMatchKeywordFlagsCache()
+	-- cheap full reset without reallocating the outer table
+	for k in pairs(matchKeywordFlagsCache) do
+		matchKeywordFlagsCache[k] = nil
+	end
+end
+
 ---@param keywordFlags number The KeywordFlags to be compared to.
 ---@param modKeywordFlags number The KeywordFlags stored in the mod.
 ---@return boolean Whether the KeywordFlags in the mod are satisfied.
 function MatchKeywordFlags(keywordFlags, modKeywordFlags)
-	local matchAll = band(modKeywordFlags, KeywordFlag.MatchAll) ~= 0
-	modKeywordFlags = band(modKeywordFlags, MatchAllMask)
-	keywordFlags = band(keywordFlags, MatchAllMask)
-	if matchAll then
-		return band(keywordFlags, modKeywordFlags) == modKeywordFlags
+	-- Cache lookup
+	local row = matchKeywordFlagsCache[keywordFlags]
+	if row then
+		local cached = row[modKeywordFlags]
+		if cached ~= nil then
+			return cached
+		end
+	else
+		row = {}
+		matchKeywordFlagsCache[keywordFlags] = row
 	end
-	return modKeywordFlags == 0 or band(keywordFlags, modKeywordFlags) ~= 0
+	-- Not in cache, compute normally
+	local matchAll = band(modKeywordFlags, KeywordFlag.MatchAll) ~= 0
+	local modMasked = band(modKeywordFlags, MatchAllMask)
+	local keywordMasked = band(keywordFlags, MatchAllMask)
+
+	local matches
+	if matchAll then
+		matches = band(keywordMasked, modMasked) == modMasked
+	else
+		matches = (modMasked == 0) or (band(keywordMasked, modMasked) ~= 0)
+	end
+	row[modKeywordFlags] = matches -- Add to cache
+	return matches
 end
 
 -- Active skill types, used in ActiveSkills.dat and GrantedEffects.dat
@@ -279,16 +334,27 @@ SkillType = {
 	DynamicCooldown = 121,
 	Microtransaction = 122,
 	OwnerCannotUse = 123,
-	ProjectilesNotFired = 124,
+	ProjectilesNumberModifiersNotApplied = 124,
 	TotemsAreBallistae = 125,
+	SkillGrantedBySupport = 126,
+	PreventHexTransfer = 127,
+	MinionsAreUndamagable = 128,
+	InnateTrauma = 129,
+	DualWieldRequiresDifferentTypes = 130,
+	NoVolley = 131,
+	Retaliation = 132,
+	NeverExertable = 133,
+	DisallowTriggerSupports = 134,
+	ProjectileCannotReturn = 135,
+	Offering = 136,
+	SupportedByBane = 137,
+	WandAttack = 138,
+	GainsIntensity = 139,
+	CreatesSentinelMinion = 140,
+	SupportedByAutoExertion = 141,
 }
 
 GlobalCache = { 
-	cachedData = { MAIN = {}, CALCS = {}, CALCULATOR = {}, CACHE = {}, },
-	deleteGroup = { },
-	excludeFullDpsList = { },
-	noCache = nil,
-	useFullDPS = false,
-	numActiveSkillInFullDPS = 0,
+	cachedData = { MAIN = {}, CALCS = {}, CALCULATOR = {} },
 }
 

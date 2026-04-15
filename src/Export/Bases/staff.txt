@@ -2,12 +2,12 @@
 local itemBases = ...
 
 #type Staff
-#baseTags weapon twohand staff two_hand_weapon
+#influenceBaseTag staff
 #socketLimit 6
 #baseMatch BaseType Metadata/Items/Weapons/TwoHandWeapons/Staves/AbstractStaff
 
 #type Staff
 #subType Warstaff
-#baseTags weapon twohand two_hand_weapon attack_staff staff
+#influenceBaseTag warstaff
 #socketLimit 6
 #baseMatch BaseType Metadata/Items/Weapons/TwoHandWeapons/Staves/AbstractWarstaff

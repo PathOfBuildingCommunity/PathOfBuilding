@@ -11,19 +11,19 @@ return {
 					[1] = { line = "You cannot be Stunned if you've been Stunned or Blocked a Stunning Hit in the past 2 seconds", value = { 1 }, },
 				},
 			},
-			[2] = { name = "Captain Tanner Lightfoot",
+			[2] = { name = "Puruna, the Challenger",
 				mods = {
 					-- base_stun_recovery_+%
 					[1] = { line = "30% increased Stun and Block Recovery", value = { 30 }, },
 				},
 			},
-			[3] = { name = "Captain Clayborne, The Accursed",
+			[3] = { name = "Merveil, the Returned",
 				mods = {
 					-- base_avoid_freeze_%
 					[1] = { line = "100% chance to Avoid being Frozen", value = { 100 }, },
 				},
 			},
-			[4] = { name = "Merveil, the Returned",
+			[4] = { name = "Nassar, Lion of the Seas",
 				mods = {
 					-- chill_effectiveness_on_self_+%
 					[1] = { line = "50% reduced Effect of Chill on you", value = { -50 }, },
@@ -40,7 +40,7 @@ return {
 					[1] = { line = "10% reduced Damage taken from Damage Over Time", value = { -10 }, },
 				},
 			},
-			[2] = { name = "The Primal One",
+			[2] = { name = "Hybrid Widow",
 				mods = {
 					-- life_and_energy_shield_recovery_rate_+%_if_stopped_taking_damage_over_time_recently
 					[1] = { line = "20% increased Recovery rate of Life and Energy Shield if you've stopped taking Damage Over Time Recently", value = { 20 }, },
@@ -52,7 +52,7 @@ return {
 					[1] = { line = "Debuffs on you expire 20% faster", value = { 20 }, },
 				},
 			},
-			[4] = { name = "Armala, the Widow",
+			[4] = { name = "Drought-Maddened Rhoa",
 				mods = {
 					-- additional_chaos_resistance_against_damage_over_time_%
 					[1] = { line = "+40% Chaos Resistance against Damage Over Time", value = { 40 }, },
@@ -71,13 +71,13 @@ return {
 					[2] = { line = "20% chance to take 50% less Area Damage from Hits", value = { 20 }, },
 				},
 			},
-			[2] = { name = "Jorus, Sky's Edge",
+			[2] = { name = "Fire and Fury",
 				mods = {
 					-- elemental_damage_taken_+%_if_not_hit_recently
 					[1] = { line = "8% reduced Elemental Damage taken if you haven't been Hit Recently", value = { -8 }, },
 				},
 			},
-			[3] = { name = "Forest of Flames",
+			[3] = { name = "Kitava, The Destroyer",
 				mods = {
 					-- self_take_no_extra_damage_from_critical_strikes_if_have_been_crit_recently
 					[1] = { line = "Take no Extra Damage from Critical Strikes if you have taken a Critical Strike Recently", value = { 1 }, },
@@ -102,34 +102,24 @@ return {
 					[2] = { line = "1% increased Movement Speed for each nearby Enemy, up to 8%", value = { 1 }, },
 				},
 			},
-			[2] = { name = "Sebbert, Crescent's Point",
+			[2] = { name = "Fragment of Winter",
 				mods = {
 					-- base_avoid_projectiles_%_chance
 					[1] = { line = "10% chance to avoid Projectiles", value = { 10 }, },
 				},
 			},
-			[3] = { name = "Corruptor Eedaiak",
+			[3] = { name = "Glace",
 				mods = {
 					-- elemental_damage_taken_+%_if_been_hit_recently
 					[1] = { line = "6% reduced Elemental Damage taken if you have been Hit Recently", value = { -6 }, },
 				},
 			},
-			[4] = { name = "Khor, Sister of Shadows",
+			[4] = { name = "Sebbert, Crescent's Point",
 				mods = {
 					-- avoid_chained_projectile_%_chance
 					[1] = { line = "Avoid Projectiles that have Chained", value = { 100 }, },
 				},
 			},
-		},
-	},
-	["Minor God 1"] = {
-		isMajorGod = false,
-		souls = {
-		},
-	},
-	["Minor God 2"] = {
-		isMajorGod = false,
-		souls = {
 		},
 	},
 	["Abberath"] = {
@@ -141,7 +131,7 @@ return {
 					[1] = { line = "60% less Duration of Ignite on You", value = { -60 }, },
 				},
 			},
-			[2] = { name = "Megaera",
+			[2] = { name = "Mephod, the Earth Scorcher",
 				mods = {
 					-- unaffected_by_burning_ground
 					[1] = { line = "Unaffected by Burning Ground", value = { 1 }, },
@@ -149,11 +139,6 @@ return {
 					[2] = { line = "10% increased Movement Speed while on Burning Ground", value = { 10 }, },
 				},
 			},
-		},
-	},
-	["Minor God 4"] = {
-		isMajorGod = false,
-		souls = {
 		},
 	},
 	["Gruthkul"] = {
@@ -178,8 +163,8 @@ return {
 		souls = {
 			[1] = { name = "Soul of Yugul",
 				mods = {
-					-- reflect_damage_taken_and_minion_reflect_damage_taken_+%
-					[1] = { line = "You and your Minions take 50% reduced Reflected Damage", value = { -50 }, },
+					-- %_of_your_and_your_minions_damage_cannot_be_reflected
+					[1] = { line = "50% of Hit Damage from you and your Minions cannot be Reflected", value = { 50 }, },
 					-- reflect_hexes_chance_%
 					[2] = { line = "50% chance to Reflect Hexes", value = { 50 }, },
 				},
@@ -203,7 +188,7 @@ return {
 					[2] = { line = "You cannot be Poisoned while there are at least 3 Poisons on you", value = { 3 }, },
 				},
 			},
-			[2] = { name = "The Restless Shade",
+			[2] = { name = "The Blacksmith",
 				mods = {
 					-- chaos_damage_taken_+%
 					[1] = { line = "5% reduced Chaos Damage taken", value = { -5 }, },
@@ -219,20 +204,15 @@ return {
 			[1] = { name = "Soul of Tukohama",
 				mods = {
 					-- while_stationary_gain_additional_physical_damage_reduction_%
-					[1] = { line = "While stationary, gain 3% additional Physical Damage Reduction every second, up to a maximum of 9%", value = { 3 }, },
+					[1] = { line = "3% additional Physical Damage Reduction per second you've been stationary, up to a maximum of 9%", value = { 3 }, },
 				},
 			},
-			[2] = { name = "The Cursed King",
+			[2] = { name = "Tahsin, Warmaker",
 				mods = {
 					-- life_regeneration_rate_per_minute_%_while_stationary
 					[1] = { line = "Regenerate 2% of Life per second while stationary", value = { 120 }, },
 				},
 			},
-		},
-	},
-	["Minor God 9"] = {
-		isMajorGod = false,
-		souls = {
 		},
 	},
 	["Ralakesh"] = {
@@ -246,7 +226,7 @@ return {
 					[2] = { line = "Moving while Bleeding doesn't cause you to take extra Damage", value = { 1 }, },
 				},
 			},
-			[2] = { name = "The Sanguine Siren",
+			[2] = { name = "Drek, Apex Hunter",
 				mods = {
 					-- cannot_gain_corrupted_blood_while_you_have_at_least_5_stacks
 					[1] = { line = "Corrupted Blood cannot be inflicted on you if you have at least 5 Corrupted Blood Debuffs on you", value = { 1 }, },
@@ -263,7 +243,7 @@ return {
 					[1] = { line = "60% reduced Effect of Shock on you", value = { -60 }, },
 				},
 			},
-			[2] = { name = "Pesquin, the Mad Baron",
+			[2] = { name = "Stalker of the Endless Dunes",
 				mods = {
 					-- cannot_be_blinded
 					[1] = { line = "Cannot be Blinded", value = { 1 }, },
@@ -284,7 +264,7 @@ return {
 					[2] = { line = "60% increased Life Recovery from Flasks used when on Low Life", value = { 60 }, },
 				},
 			},
-			[2] = { name = "Gorulis, Will-Thief",
+			[2] = { name = "Tunneltrap",
 				mods = {
 					-- enemy_life_regeneration_rate_+%_for_4_seconds_on_hit
 					[1] = { line = "Enemies you've Hit Recently have 50% reduced Life Regeneration rate", value = { -50 }, },

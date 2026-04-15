@@ -25,13 +25,7 @@ Steps:
 
 ## GGPK Data updates
 
-Updating data from the GGPK uses the PoB exporter (see CONTRIBUTING.md#exporting-ggpk-data-from-path-of-exile), followed by some manual tweaks that haven't been fixed in a script, yet.
-
-Steps:
-1. Run each script in the Exporter in order
-2. Revert the following changes similar to the linked examples:
-    - [Fix stats on Rigwald's Pack](https://github.com/PathOfBuildingCommunity/PathOfBuilding/commit/85912cc8631bf55f999f8dfbda5fa6510252518c#diff-72415c450079cf8e5de1f00680f4918fd78e43aea4ed78dc5906d5ccf6fb66fb)
-    - [Make sure the description of a keystone isn't removed](src/Data/LegionPassives.lua#L3911-L3915)
+Updating data from the GGPK uses the PoB exporter (see CONTRIBUTING.md#exporting-ggpk-data-from-path-of-exile).  Run each script in order, then check the differences in data to make sure nothing is missing that is expected.
 
 ## Skill tree updates
 
@@ -43,10 +37,12 @@ The JSON data and required skill tree assets should come in a `.zip` archive.
 Steps:
 1. Download the `.zip` archive.
 2. Create a new directory in `./src/TreeData` with the following schema:
-    `<major_league_version>_<minor_league_version>`.
+    `<major_league_version>_<minor_league_version>`. For alternate or ruthless trees, add the suffixing as appropriate.
     For 3.14, the correct directory name would be `3_14`.
+    For 3.25 Ruthless 'alternate' tree, the correct directory name would be `3_25_ruthless_alternate`.
 3. Copy the following file from the `.zip` archive root to the new directory:
    * `data.json`.
+   Note for Ruthless for example, the exported data from GGG will be `ruthless.json`, and this file should be copied into the new directory and renamed to `data.json` for the following steps to pick it up.
 4. Copy the following files from the `assets` subdirectory in the `.zip` archive to the
     new directory:
     * `mastery-active-effect-3.png`
@@ -56,11 +52,42 @@ Steps:
     * `skills-3.jpg`
     * `skills-disabled-3.jpg`.
 5. Run `./fix_ascendancy_positions.py`.
-6. Open `./src/GameVersions.lua` and update `treeVersionList` and `treeVersions`
+6. Open `./src/GameVersions.lua` and update `treeVersionList`, `treeVersions`, and `poePlannerVersions`.  The latter can be found via https://cdn.poeplanner.com/json/versions.json
    according to the file's format. This is important, otherwise the JSON data converter
    won't trigger.
 7. Restart Path of Building Community. This should result in a new file `tree.lua`.
-8. Remove `data.json` from the new directory. Do not commit this file.
+8. Remove `data.json` and `sprites.json` from the new directories. Do not commit these files.
+
+## Timeless Jewel updates
+
+The Timeless jewels determine what effect they have on a node based on the "Look up Tables" in \src\Data\TimelessJewelData
+The LuTs for the Timeless jewels come from https://github.com/Regisle/TimelessJewelData
+More information can be found there.
+
+The LuTs PoB uses are slightly different due to historical reasons, and so they can be generated using the generator from there.
+
+
+-------------------------------------------------------------------------------------------------------
+Steps to Generate Timeless Jewel LuTs for PoB:
+1. Clone repo from https://github.com/Regisle/TimelessJewelData/tree/Generator
+2. Open DatafileGenerator.sln in Visual Studio
+3. Grab new data.json tree file
+4. Grab new AlternatePassiveAdditions.json and AlternatePassiveSkills.json from https://snosme.github.io/poe-dat-viewer/ and clicking on 'Export data' in the top right
+5. Run following commands in the Visual Studio command prompt order, adjusting for file location
+	dotnet run --project DataFileGenerator
+	E:\PoB Dev Work\TimelessJewelData\AlternatePassiveAdditions.json
+	E:\PoB Dev Work\TimelessJewelData\AlternatePassiveSkills.json
+	E:\PoB Dev Work\GGG Skill Tree\data.json
+	E:\PoB Dev Work\PathOfBuildingCommunity\src\Data\TimelessJewelData
+6. Choose Compressed
+7. Replace updated Files in \src\Data\TimelessJewelData
+
+Alt tab out and back in to make right click paste work
+------------------------------------------------------------------------------------------------------- 
+
+If updated this way making a PR to https://github.com/Regisle/TimelessJewelData with the files in the format it uses is appreciated.
+To do this follow steps 1-5 the same and choose the other option for step 6.
+
 
 ## Installer creation
 

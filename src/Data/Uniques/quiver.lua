@@ -1,8 +1,18 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
 
 return {
 -- Quiver
 [[
+Ahuana's Bite
+Sharktooth Arrow Quiver
+LevelReq: 56
+Implicits: 1
+Gain (6-8) Life per Enemy Hit with Attacks
+Adds (30-40) to (60-70) Cold Damage to Attacks
++(20-30)% to Cold Resistance
+Enemies Chilled by your Hits have Damage taken increased by Chill Effect
+Chill Enemies as though dealing (60-100)% more Damage
+]],[[
 Asphyxia's Wrath
 {variant:1,2}Two-Point Arrow Quiver
 {variant:3}Feathered Arrow Quiver
@@ -20,7 +30,7 @@ Implicits: 2
 Gain 20% of Physical Damage as Extra Cold Damage
 (7-10)% chance to Freeze
 {variant:1}40% reduced Area of Effect of Hex Skills
-Hexes on Slain Enemies are transferred to a nearby Enemy
+Hexes Transfer to all Enemies within 3 metres when Hexed Enemy dies
 ]],[[
 Blackgleam
 {variant:1}Cured Quiver
@@ -34,8 +44,8 @@ Variant: Current
 {variant:4}LevelReq: 45
 Implicits: 3
 {variant:1}Adds 2 to 4 Fire Damage to Attacks
-{variant:2,3}4 to 8 Added Fire Damage with Bow Attacks
 {variant:4}Adds (12-15) to (24-27) Fire Damage to Attacks
+{variant:2,3}4 to 8 Added Fire Damage with Bow Attacks
 10% increased Attack Speed
 {variant:1}+20 to Evasion Rating
 {variant:2,3,4}+(80-100) to Evasion Rating
@@ -57,8 +67,8 @@ Source: No longer obtainable
 {variant:4}LevelReq: 45
 Implicits: 3
 {variant:1}Adds 2 to 4 Fire Damage to Attacks
-{variant:2,3}4 to 8 Added Fire Damage with Bow Attacks
 {variant:4}Adds (12-15) to (24-27) Fire Damage to Attacks
+{variant:2,3}4 to 8 Added Fire Damage with Bow Attacks
 10% increased Attack Speed
 {variant:1}+20 to Evasion Rating
 {variant:2,3,4}+(80-100) to Evasion Rating
@@ -79,7 +89,7 @@ Implicits: 1
 25% reduced Projectile Speed
 {variant:1}(60-80)% increased Stun Duration on Enemies
 {variant:2}(140-200)% increased Stun Duration on Enemies
-Adds 6 to 10 Physical Damage to Attacks with Bows
+6 to 10 Added Physical Damage with Bow Attacks
 ]],[[
 Cragfall
 Serrated Arrow Quiver
@@ -90,7 +100,7 @@ Implicits: 1
 (20-25)% reduced Enemy Stun Threshold
 25% reduced Projectile Speed
 (60-80)% increased Stun Duration on Enemies
-Adds 6 to 10 Physical Damage to Attacks with Bows
+6 to 10 Added Physical Damage with Bow Attacks
 50% chance to double Stun Duration
 ]],[[
 Drillneck
@@ -101,17 +111,16 @@ Arrows Pierce an additional Target
 (8-12)% increased Attack Speed
 +350 to Evasion Rating
 +(40-50) to maximum Life
-Adds (10-14) to (19-24) Physical Damage to Attacks with Bows
+(10-14) to (19-24) Added Physical Damage with Bow Attacks
 Arrows deal 50% increased Damage with Hits and Ailments to Targets they Pierce
 ]],[[
 The Fracturing Spinner
 Blunt Arrow Quiver
 League: Harbinger
-Source: Created from item parts obtained from Boss in The Beachhead
-Upgrade: Upgrades to unique{The Shattered Divinity} via currency{Fragmentation Scroll}
+Source: No longer obtainable
 Requires Level 60
 Implicits: 1
-(7-9) to (13-16) Added Physical Damage with Bow Attacks
+Adds (7-9) to (13-16) Physical Damage to Attacks
 Grants Summon Harbinger of Directions Skill
 +(30-50) to Strength and Dexterity
 Adds (19-22) to (30-35) Fire Damage to Spells and Attacks
@@ -120,11 +129,9 @@ Adds (19-22) to (30-35) Cold Damage to Spells and Attacks
 ]],[[
 The Shattered Divinity
 Blunt Arrow Quiver
-League: Harvest
-Source: Upgraded from unique{The Fracturing Spinner} via currency{Fragmentation Scroll}
 Requires Level 60
 Implicits: 1
-(7-9) to (13-16) Added Physical Damage with Bow Attacks
+Adds (7-9) to (13-16) Physical Damage to Attacks
 Grants Summon Greater Harbinger of Directions Skill
 +(30-50) to Strength and Dexterity
 Adds (19-22) to (30-35) Fire Damage to Spells and Attacks
@@ -145,7 +152,7 @@ Gain (6-8) Life per Enemy Hit with Attacks
 {variant:2}Adds 10 to 20 Cold Damage to Attacks
 (7-10)% increased Attack Speed
 Gain (2-3) Life per Enemy Hit with Attacks
-10% increased Area of Effect of Area Skills
+10% increased Area of Effect
 ]],[[
 Hyrri's Demise
 Sharktooth Arrow Quiver
@@ -180,7 +187,8 @@ Requires Level 45
 Implicits: 1
 Has 1 Socket
 Has 2 Sockets
-Trigger a Socketed Bow Skill when you Cast a Spell while wielding a Bow
+Trigger a Socketed Bow Skill when you Cast a Spell while
+wielding a Bow, with a 1 second Cooldown
 (7-12)% increased Cast Speed
 +(50-70) to maximum Life
 5% chance to Blind Enemies on Hit with Attacks
@@ -199,8 +207,8 @@ Implicits: 2
 {variant:2,3}10% increased Attack Speed
 +(50-70) to maximum Life
 +(12-16)% to Chaos Resistance
-{variant:1}Adds (5-7) to (8-10) Physical Damage to Attacks with Bows
-{variant:2,3}Adds (8-10) to (14-16) Physical Damage to Attacks with Bows
+{variant:1}(5-7) to (8-10) Added Physical Damage with Bow Attacks
+{variant:2,3}(8-10) to (14-16) Added Physical Damage with Bow Attacks
 {variant:1}10% chance to create a Smoke Cloud when Hit
 {variant:2,3}25% chance to create a Smoke Cloud when Hit
 {variant:1}(20-40)% increased Damage with Hits and Ailments against Blinded Enemies
@@ -212,8 +220,8 @@ Rearguard
 Variant: Pre 3.17.0
 Variant: Current
 Implicits: 2
+{variant:2}Adds (7-9) to (13-16) Physical Damage to Attacks
 {variant:1}6 to 12 Added Physical Damage with Bow Attacks
-{variant:2}(7-9) to (13-16) Added Physical Damage with Bow Attacks
 (20-24)% Chance to Block Attack Damage
 (12-15)% Chance to Block Spell Damage
 +(400-450) to Armour
@@ -235,14 +243,18 @@ Implicits: 1
 Gain 7 Life per Enemy Hit with Attacks
 20% reduced Projectile Speed
 (30-50)% increased Projectile Damage
-{variant:1}Projectiles Fork
 {variant:2}Arrows Fork
+{variant:1}Projectiles Fork
 ]],[[
 Saemus' Gift
-Spike-Point Arrow Quiver
+{variant:1}Spike-Point Arrow Quiver
+{variant:2}Feathered Arrow Quiver
+Variant: Pre 3.17.0
+Variant: Current
 Requires Level 45
-Implicits: 1
-(20-30)% increased Critical Strike Chance with Bows
+Implicits: 2
+{variant:1}(20-30)% increased Critical Strike Chance with Bows
+{variant:2}(20-30)% increased Projectile Speed
 +(30-40) to Dexterity
 (8-12)% increased Cast Speed
 +(30-60) to maximum Life
@@ -258,10 +270,10 @@ Variant: Current
 League: Harvest
 Requires Level 57
 Implicits: 2
+{variant:2}Adds (12-15) to (24-27) Physical Damage to Attacks
 {variant:1}6 to 12 Added Physical Damage with Bow Attacks
-{variant:2}(12-16) to (24-27) Added Physical Damage with Bow Attacks
 +(20-40) to Dexterity
-(150-200) Life Regenerated per Second while in Blood Stance
+Regenerate (150-200) Life per Second while in Blood Stance
 (40-60)% increased Projectile Damage while in Blood Stance
 +(700-1000) to Evasion Rating while in Sand Stance
 (20-30)% increased Area of Effect while in Sand Stance
@@ -284,14 +296,14 @@ Variant: Pre 3.17.0
 Variant: Current
 LevelReq: 52
 Implicits: 2
-{variant:1}6 to 12 Added Physical Damage with Bow Attacks
 {variant:2}(8-10)% increased Attack Speed
+{variant:1}6 to 12 Added Physical Damage with Bow Attacks
 Grants Call of Steel
 (30-60)% increased Evasion Rating and Armour
 Deal no Non-Physical Damage
 Attacks that Fire Projectiles Consume up to 1 additional Steel Shard
 Skills Fire 3 additional Projectiles for 4 seconds after
-you consume a total of 12 Steel Shards
+you consume a total of 8 Steel Shards
 ]],[[
 Soul Strike
 Spike-Point Arrow Quiver
@@ -304,9 +316,9 @@ Implicits: 1
 Adds (13-18) to (26-32) Chaos Damage to Attacks
 (8-12)% increased Attack Speed
 +(100-120) to maximum Energy Shield
-40% reduced Energy Shield Recharge Rate
 {variant:1}150% faster start of Energy Shield Recharge
 {variant:2}80% faster start of Energy Shield Recharge
+40% reduced Energy Shield Recharge Rate
 ]],[[
 Replica Soul Strike
 Spike-Point Arrow Quiver
@@ -320,7 +332,7 @@ Adds (13-18) to (26-32) Physical Damage to Attacks
 (8-12)% increased Attack Speed
 +(60-80) to maximum Life
 80% reduced Maximum Recovery per Life Leech
-40% increased Maximum total Recovery per second from Life Leech
+40% increased Maximum total Life Recovery per second from Leech
 ]],[[
 Voidfletcher
 {variant:1,2}Penetrating Arrow Quiver
@@ -341,8 +353,9 @@ Adds (30-40) to (80-100) Cold Damage to Attacks
 +(20-30)% to Cold Resistance
 Gain (20-40) Mana per Enemy Killed
 30% increased Projectile Speed
-5 Maximum Void Charges
+{variant:1}5 Maximum Void Charges
 {variant:1}Gain a Void Charge every second
+{variant:2,3}5 Maximum Void Charges
 {variant:2,3}Gain a Void Charge every 0.5 seconds
 ]],[[
 The Poised Prism
@@ -355,5 +368,46 @@ Implicits: 1
 Adds 1 to 2 Cold Damage to Attacks per 10 Dexterity
 Adds 1 to 2 Fire Damage to Attacks per 10 Strength
 Adds 0 to 3 Lightning Damage to Attacks per 10 Intelligence
-]],
-}
+]],[[
+Spinehail
+Vile Arrow Quiver
+Source: Drops from unique{Catarina} in normal{Mastermind's Lair}
+Variant: Minion Damage affects you
+Variant: Minion Attack Speed affects you
+Variant: Minion Cast Speed affects you
+Variant: Cast Speed with Minion Skills
+Variant: Minions are Aggressive
+Variant: Armour and Evasion Rating
+Variant: Evasion Rating and Energy Shield
+Variant: Life and Mana Regen
+Variant: Mana and Life Regen
+Variant: Fire and Cold Damage
+Variant: Fire and Lightning Damage
+Variant: Cold and Lightning Damage
+Requires Level 55
+Implicits: 1
+Gain (10-15)% of Physical Damage as Extra Chaos Damage
++(10-20) to Dexterity and Intelligence
+(7-14)% increased Attack Speed
+Minions deal (30-50)% increased Damage
+(5-10) to (12-24) Added Physical Damage with Bow Attacks
+Bow Attacks Sacrifice a random Damageable Minion to fire (1-3) additional Arrow
+{variant:1}Increases and Reductions to Minion Damage also affect you
+{variant:2}Increases and Reductions to Minion Attack Speed also affect you
+{variant:3}Increases and Reductions to Minion Cast Speed also affect you
+{variant:4}(20-40)% increased Cast Speed with Minion Skills
+{variant:5}Minions are Aggressive
+{variant:6}+(365-400) to Armour and Evasion Rating
+{variant:7}+(365-400) to Evasion Rating
+{variant:7}+(31-35) to maximum Energy Shield
+{variant:8}+(55-60) to maximum Life
+{variant:8}Regenerate 5.3 Mana per second
+{variant:9}+(55-60) to maximum Mana
+{variant:9}Regenerate 33.3 Life per second
+{variant:10}Adds (14-16) to (20-22) Fire Damage
+{variant:10}Adds (14-16) to (20-22) Cold Damage
+{variant:11}Adds (14-16) to (20-22) Fire Damage
+{variant:11}Adds (14-16) to (20-22) Lightning Damage
+{variant:12}Adds (14-16) to (20-22) Cold Damage
+{variant:12}Adds (14-16) to (20-22) Lightning Damage
+]],}

@@ -45,8 +45,29 @@ function ModListClass:ReplaceModInternal(mod)
 	return false
 end
 
-function ModListClass:MergeMod(mod)
-	if mod.type == "BASE" or mod.type == "INC" then
+---ConvertModInternal
+---  Converts an existing mod with oldName to a new mod with a different name.
+---  If no matching mod exists, then the function returns false
+---@param oldName string @The name of the existing mod to find
+---@param mod table @The new mod to replace it with
+---@return boolean @Whether any mod was converted
+function ModListClass:ConvertModInternal(oldName, mod)
+	for i, curMod in ipairs(self) do
+		if oldName == curMod.name and mod.type == curMod.type and mod.flags == curMod.flags and mod.keywordFlags == curMod.keywordFlags and mod.source == curMod.source then
+			self[i] = mod
+			return true
+		end
+	end
+
+	if self.parent then
+		return self.parent:ConvertModInternal(oldName, mod)
+	end
+
+	return false
+end
+
+function ModListClass:MergeMod(mod, skipNonAdditive)
+	if mod.type == "BASE" or mod.type == "INC" or mod.type == "MORE" then
 		for i = 1, #self do
 			if modLib.compareModParams(self[i], mod) then
 				self[i] = copyTable(self[i], true)
@@ -55,7 +76,9 @@ function ModListClass:MergeMod(mod)
 			end
 		end
 	end
-	self:AddMod(mod)
+	if not skipNonAdditive then
+		self:AddMod(mod)
+	end
 end
 
 function ModListClass:AddList(modList)
@@ -94,6 +117,7 @@ end
 
 function ModListClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 	local result = 1
+	local modPrecision = nil
 	for i = 1, select('#', ...) do
 		local modResult = 1 --The more multipliers for each mod are computed to the nearest percent then applied.
 		local modName = select(i, ...)
@@ -105,9 +129,19 @@ function ModListClass:MoreInternal(context, cfg, flags, keywordFlags, source, ..
 				else
 					modResult = modResult * (1 + mod.value / 100)
 				end
+				if modPrecision then
+					modPrecision = m_max(modPrecision, (data.highPrecisionMods[mod.name] and data.highPrecisionMods[mod.name][mod.type]) or modPrecision)
+				else
+					modPrecision = (data.highPrecisionMods[mod.name] and data.highPrecisionMods[mod.name][mod.type]) or nil
+				end
 			end
 		end
-		result = result * round(modResult,2)
+		if modPrecision then
+			local power = 10 ^ modPrecision
+			result = math.floor(result * modResult * power) / power
+		else
+			result = result * round(modResult, 2)
+		end
 	end
 	if self.parent then
 		result = result * self.parent:MoreInternal(context, cfg, flags, keywordFlags, source, ...)

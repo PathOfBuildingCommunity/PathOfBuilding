@@ -3,26 +3,24 @@
 
 return {
 	[1]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Minions throw up to 1 additional Trap"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions throw up to {0} additional Traps"
-				}
+				text="Minions throw up to 1 additional Trap"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions throw up to {0} additional Traps"
 			}
 		},
 		name="num_additional_traps",
@@ -31,34 +29,32 @@ return {
 		}
 	},
 	[2]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextMultipleMines"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Minions throw up to 1 additional Mine"
+					k="reminderstring",
+					v="ReminderTextMultipleMines"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextMultipleMines"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions throw up to {0} additional Mines"
-				}
+						[1]=1,
+						[2]=1
+					}
+				},
+				text="Minions throw up to 1 additional Mine"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextMultipleMines"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions throw up to {0} additional Mines"
 			}
 		},
 		name="num_additional_mines",
@@ -67,26 +63,24 @@ return {
 		}
 	},
 	[3]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Minions can have an additional Trap placed at a time"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions can have {0} additional Traps placed at a time"
-				}
+				text="Minions can have an additional Trap placed at a time"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions can have {0} additional Traps placed at a time"
 			}
 		},
 		name="num_additional_traps_allowed",
@@ -95,26 +89,24 @@ return {
 		}
 	},
 	[4]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Minions can have an additional Mine placed at a time"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions can have {0} additional Mines placed at a time"
-				}
+				text="Minions can have an additional Mine placed at a time"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions can have {0} additional Mines placed at a time"
 			}
 		},
 		name="num_additional_mines_allowed",
@@ -123,17 +115,15 @@ return {
 		}
 	},
 	[5]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Traps are thrown randomly"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Traps are thrown randomly"
 			}
 		},
 		name="trap_throw_random",
@@ -142,30 +132,28 @@ return {
 		}
 	},
 	[6]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Cast Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Cast Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Cast Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Cast Speed"
 			}
 		},
 		name="cast_speed_incr",
@@ -174,30 +162,28 @@ return {
 		}
 	},
 	[7]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% more Cast Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% less Cast Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% more Cast Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% less Cast Speed"
 			}
 		},
 		name="multicast_cast_speed_incr",
@@ -206,30 +192,28 @@ return {
 		}
 	},
 	[8]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Attack Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Attack Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Attack Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Attack Speed"
 			}
 		},
 		name="attack_speed_incr",
@@ -238,30 +222,28 @@ return {
 		}
 	},
 	[9]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0} additional Accuracy Rating"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions lose {0} Accuracy Rating"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0} additional Accuracy Rating"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions lose {0} Accuracy Rating"
 			}
 		},
 		name="accuracy_rating",
@@ -270,30 +252,28 @@ return {
 		}
 	},
 	[10]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Accuracy Rating"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Accuracy Rating"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Accuracy Rating"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Accuracy Rating"
 			}
 		},
 		name="accuracy_rating_incr",
@@ -302,30 +282,28 @@ return {
 		}
 	},
 	[11]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Critical Strike Chance"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Critical Strike Chance"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Critical Strike Chance"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Critical Strike Chance"
 			}
 		},
 		name="critical_strike_chance_incr",
@@ -334,30 +312,28 @@ return {
 		}
 	},
 	[12]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% more Critical Strike Chance"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% less Critical Strike Chance"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% more Critical Strike Chance"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% less Critical Strike Chance"
 			}
 		},
 		name="controlled_destruction_critical_strike_chance",
@@ -366,17 +342,15 @@ return {
 		}
 	},
 	[13]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions have {0:+d}% to Critical Strike Multiplier"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions have {0:+d}% to Critical Strike Multiplier"
 			}
 		},
 		name="critical_strike_multiplier_incr",
@@ -385,57 +359,53 @@ return {
 		}
 	},
 	[14]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions gain {0} Life per Enemy they Hit"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions lose {0} Life per Enemy they Hit"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions gain {0} Life per Enemy they Hit"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions lose {0} Life per Enemy they Hit"
 			}
 		},
 		name="life_gain_per_target",
 		stats={
-			[1]="life_gain_per_target"
+			[1]="base_life_gain_per_target"
 		}
 	},
 	[15]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="divide_by_one_hundred",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextLifeLeech"
+				},
+				limit={
 					[1]={
-						k="divide_by_one_hundred",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextLifeLeech"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions Leech {0}% of Damage as Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions Leech {0}% of Damage as Life"
 			}
 		},
 		name="life_leech_from_any",
@@ -444,25 +414,23 @@ return {
 		}
 	},
 	[16]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="divide_by_one_hundred",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextEnergyShieldLeech"
+				},
+				limit={
 					[1]={
-						k="divide_by_one_hundred",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextEnergyShieldLeech"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions Leech {0}% of Damage as Energy Shield"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions Leech {0}% of Damage as Energy Shield"
 			}
 		},
 		name="energy_shield_leech_from_any",
@@ -471,34 +439,32 @@ return {
 		}
 	},
 	[17]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextKnockback"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Minions have an additional {0}% chance to Knock Enemies Back on Hit"
+					k="reminderstring",
+					v="ReminderTextKnockback"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextKnockback"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Minions knock Enemies Back on Hit"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Minions have an additional {0}% chance to Knock Enemies Back on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextKnockback"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Minions knock Enemies Back on Hit"
 			}
 		},
 		name="knockback_chance",
@@ -507,30 +473,28 @@ return {
 		}
 	},
 	[18]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Knockback Distance"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Knockback Distance"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Knockback Distance"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Knockback Distance"
 			}
 		},
 		name="knockback_distance",
@@ -539,38 +503,36 @@ return {
 		}
 	},
 	[19]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextStunThreshold"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextStunThreshold"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% reduced Enemy Stun Threshold"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% reduced Enemy Stun Threshold"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextStunThreshold"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextStunThreshold"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% increased Enemy Stun Threshold"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% increased Enemy Stun Threshold"
 			}
 		},
 		name="stun_threshold_reduction_incr",
@@ -579,30 +541,28 @@ return {
 		}
 	},
 	[20]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Rarity of Items Dropped by enemies Slain by Minions"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Rarity of Items Dropped by enemies Slain by Minions"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Rarity of Items Dropped by enemies Slain by Minions"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Rarity of Items Dropped by enemies Slain by Minions"
 			}
 		},
 		name="killed_monster_dropped_item_rarity_incr",
@@ -611,30 +571,28 @@ return {
 		}
 	},
 	[21]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Quantity of Items Dropped by enemies Slain by Minions"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Quantity of Items Dropped by enemies Slain by Minions"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Quantity of Items Dropped by enemies Slain by Minions"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Quantity of Items Dropped by enemies Slain by Minions"
 			}
 		},
 		name="killed_monster_dropped_item_quantity_incr",
@@ -643,59 +601,57 @@ return {
 		}
 	},
 	[22]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextFreeze"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions always Freeze Enemies"
+					k="reminderstring",
+					v="ReminderTextFreeze"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextFreeze"
+						[1]="#",
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
-					},
-					text="Minions always Freeze Enemies"
+					[2]={
+						[1]=1,
+						[2]="#"
+					}
 				},
-				[3]={
+				text="Minions always Freeze Enemies"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextFreeze"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextFreeze"
+						[1]=100,
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
+					[2]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Minions always Freeze Enemies"
+			},
+			[3]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextFreeze"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
 					},
-					text="Minions have {0}% chance to Freeze enemies"
-				}
+					[2]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Minions have {0}% chance to Freeze enemies"
 			}
 		},
 		name="freeze_chance",
@@ -705,21 +661,19 @@ return {
 		}
 	},
 	[23]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextShock"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextShock"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% chance to Shock enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% chance to Shock enemies"
 			}
 		},
 		name="shock_chance",
@@ -728,21 +682,19 @@ return {
 		}
 	},
 	[24]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextIgnite"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextIgnite"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% chance to Ignite enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% chance to Ignite enemies"
 			}
 		},
 		name="burn_chance",
@@ -751,17 +703,19 @@ return {
 		}
 	},
 	[25]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% chance to cause Monsters to Flee when Hit"
-				}
+					k="reminderstring",
+					v="ReminderTextFlee"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% chance to cause Monsters to Flee when Hit"
 			}
 		},
 		name="chance_to_flee",
@@ -770,30 +724,28 @@ return {
 		}
 	},
 	[26]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Area of Effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Area of Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Area of Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Area of Effect"
 			}
 		},
 		name="area_of_effect_incr",
@@ -802,30 +754,28 @@ return {
 		}
 	},
 	[27]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% more Area of Effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% less Area of Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% more Area of Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% less Area of Effect"
 			}
 		},
 		name="concentrated_area_of_effect",
@@ -834,30 +784,28 @@ return {
 		}
 	},
 	[28]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Aura Area of Effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Aura Area of Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Aura Area of Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Aura Area of Effect"
 			}
 		},
 		name="aura_area_of_effect_incr",
@@ -866,30 +814,28 @@ return {
 		}
 	},
 	[29]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased effect of their Auras"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced effect of their Auras"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased effect of their Auras"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced effect of their Auras"
 			}
 		},
 		name="aura_effect_incr",
@@ -898,30 +844,28 @@ return {
 		}
 	},
 	[30]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Projectile Speed"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Projectile Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Projectile Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Projectile Speed"
 			}
 		},
 		name="projectile_speed_incr",
@@ -930,26 +874,24 @@ return {
 		}
 	},
 	[31]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Minions fire {0} additional Projectile"
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Minions fire {0} additional Projectiles"
-				}
+				text="Minions fire {0} additional Projectile"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Minions fire {0} additional Projectiles"
 			}
 		},
 		name="additional_projectiles",
@@ -958,30 +900,28 @@ return {
 		}
 	},
 	[32]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Stun Duration on enemies"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Stun Duration on enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Stun Duration on enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Stun Duration on enemies"
 			}
 		},
 		name="stun_duration_incr",
@@ -990,30 +930,28 @@ return {
 		}
 	},
 	[33]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Chill Effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Chill Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Chill Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Chill Effect"
 			}
 		},
 		name="chill_effect",
@@ -1022,30 +960,28 @@ return {
 		}
 	},
 	[34]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Shock Effect"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Shock Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Shock Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Shock Effect"
 			}
 		},
 		name="shock_effect",
@@ -1054,30 +990,28 @@ return {
 		}
 	},
 	[35]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Ignite Duration on enemies"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Ignite Duration on enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Ignite Duration on enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Ignite Duration on enemies"
 			}
 		},
 		name="burn_duration",
@@ -1086,30 +1020,28 @@ return {
 		}
 	},
 	[36]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Chill Duration on enemies"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Chill Duration on enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Chill Duration on enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Chill Duration on enemies"
 			}
 		},
 		name="chill_duration",
@@ -1118,30 +1050,28 @@ return {
 		}
 	},
 	[37]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Freeze Duration on enemies"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Freeze Duration on enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Freeze Duration on enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Freeze Duration on enemies"
 			}
 		},
 		name="freeze_duration",
@@ -1150,30 +1080,28 @@ return {
 		}
 	},
 	[38]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Shock Duration on enemies"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Shock Duration on enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Shock Duration on enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Shock Duration on enemies"
 			}
 		},
 		name="shock_duration",
@@ -1182,21 +1110,19 @@ return {
 		}
 	},
 	[39]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextElementalAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextElementalAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Elemental Ailments caused by Minions also spread to nearby enemies"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Elemental Ailments caused by Minions also spread to nearby enemies"
 			}
 		},
 		name="elemental_status_aura",
@@ -1205,17 +1131,15 @@ return {
 		}
 	},
 	[40]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Ignites caused by Minions spread to other nearby Enemies"
-				}
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Ignites caused by Minions spread to other nearby Enemies"
 			}
 		},
 		name="ignite_aura",
@@ -1224,88 +1148,86 @@ return {
 		}
 	},
 	[41]={
-		lang={
-			English={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextBleeding"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						}
-					},
-					text="Minions' Attacks have {0}% chance to cause Bleeding"
+					k="reminderstring",
+					v="ReminderTextBleeding"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextBleeding"
+						[1]=0,
+						[2]=99
 					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						}
+					[2]={
+						[1]=0,
+						[2]=0
 					},
-					text="Minions' Attacks cause Bleeding"
+					[3]={
+						[1]=0,
+						[2]=0
+					}
 				},
-				[3]={
+				text="Minions' Attacks have {0}% chance to cause Bleeding"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextBleeding"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextBleeding"
+						[1]=100,
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						}
+					[2]={
+						[1]=0,
+						[2]=0
 					},
-					text="Minions' Attacks cause Bleeding"
+					[3]={
+						[1]=0,
+						[2]=0
+					}
 				},
-				[4]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						},
-						[3]={
-							[1]="#",
-							[2]="#"
-						}
+				text="Minions' Attacks cause Bleeding"
+			},
+			[3]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextBleeding"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Minions cannot cause Bleeding"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					},
+					[3]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Minions' Attacks cause Bleeding"
+			},
+			[4]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					},
+					[2]={
+						[1]="#",
+						[2]="#"
+					},
+					[3]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions cannot cause Bleeding"
 			}
 		},
 		name="bleeding_chance",
@@ -1316,30 +1238,58 @@ return {
 		}
 	},
 	[42]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Melee Physical Damage"
-				},
-				[2]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Melee Physical Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minion's Attacks deal {0}% more Damage with Bleeding"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minion's Attacks deal {0}% less Damage with Bleeding"
+			}
+		},
+		name="chance_to_bleed_damage_incr",
+		stats={
+			[1]="support_chance_to_bleed_bleeding_damage_+%_final"
+		}
+	},
+	[43]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Melee Physical Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Melee Physical Damage"
 			}
 		},
 		name="support_melee_physical_damage_final_incr",
@@ -1347,31 +1297,29 @@ return {
 			[1]="support_melee_physical_damage_+%_final"
 		}
 	},
-	[43]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage with Bleeding and Poison caused by Melee Hits"
-				},
-				[2]={
+	[44]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage with Bleeding and Poison caused by Melee Hits"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage with Bleeding and Poison caused by Melee Hits"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage with Bleeding and Poison caused by Melee Hits"
 			}
 		},
 		name="support_melee_physical_damage_ailment_damage_final_incr",
@@ -1379,31 +1327,29 @@ return {
 			[1]="support_melee_physical_damage_poison_and_bleeding_damage_+%_final_from_melee_hits"
 		}
 	},
-	[44]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage"
-				},
-				[2]={
+	[45]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage"
 			}
 		},
 		name="trigger_link_damage",
@@ -1411,39 +1357,37 @@ return {
 			[1]="support_trigger_link_damage_+%_final"
 		}
 	},
-	[45]={
-		lang={
-			English={
+	[46]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextLowLife"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextLowLife"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage while they are on Low Life"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage while they are on Low Life"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextLowLife"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextLowLife"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage while they are on Low Life"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage while they are on Low Life"
 			}
 		},
 		name="hysteria_damage_low_life",
@@ -1451,31 +1395,29 @@ return {
 			[1]="essence_hysteria_boots_damage_+%_final_while_on_low_life"
 		}
 	},
-	[46]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage with Attack Skills while on Full Life"
-				},
-				[2]={
+	[47]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage with Attack Skills while on Full Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage with Attack Skills while on Full Life"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage with Attack Skills while on Full Life"
 			}
 		},
 		name="support_damage_full_life_incr",
@@ -1483,31 +1425,29 @@ return {
 			[1]="support_damage_while_on_full_life_+%_final"
 		}
 	},
-	[47]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% increased Attack Damage"
-				},
-				[2]={
+	[48]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% reduced Attack Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% increased Attack Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% reduced Attack Damage"
 			}
 		},
 		name="attack_damage_incr",
@@ -1515,31 +1455,29 @@ return {
 			[1]="attack_damage_+%"
 		}
 	},
-	[48]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% increased Physical Damage"
-				},
-				[2]={
+	[49]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% reduced Physical Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% increased Physical Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% reduced Physical Damage"
 			}
 		},
 		name="unused_identifier_physical_damage",
@@ -1547,31 +1485,29 @@ return {
 			[1]="physical_damage_+%"
 		}
 	},
-	[49]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Physical Damage"
-				},
-				[2]={
+	[50]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Physical Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Physical Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Physical Damage"
 			}
 		},
 		name="unused_identifier_physical_damage_final",
@@ -1579,31 +1515,29 @@ return {
 			[1]="active_skill_physical_damage_+%_final"
 		}
 	},
-	[50]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Elemental Damage"
-				},
-				[2]={
+	[51]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Elemental Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Elemental Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Elemental Damage"
 			}
 		},
 		name="unused_identifier_elemental_damage_final",
@@ -1611,31 +1545,29 @@ return {
 			[1]="active_skill_elemental_damage_+%_final"
 		}
 	},
-	[51]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Projectile Damage"
-				},
-				[2]={
+	[52]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Projectile Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Projectile Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Projectile Damage"
 			}
 		},
 		name="multiple_projectile_damage_final",
@@ -1643,31 +1575,63 @@ return {
 			[1]="support_multiple_projectile_damage_+%_final"
 		}
 	},
-	[52]={
-		lang={
-			English={
+	[53]={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Projectile Damage"
+					k="reminderstring",
+					v="ReminderTextPoison"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Projectile Damage"
-				}
+						[1]=1,
+						[2]=1
+					}
+				},
+				text="Minions that Poison non-Poisoned Enemies inflict an additional Poison"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextPoison"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions that Poison non-Poisoned Enemies inflict {0} additional Poisons"
+			}
+		},
+		name="additional_poisons_vs_non_poisoned_enemies",
+		stats={
+			[1]="additional_poisons_+_to_apply_vs_non_poisoned_enemies"
+		}
+	},
+	[54]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Projectile Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Projectile Damage"
 			}
 		},
 		name="lesser_multiple_projectile_damage_final",
@@ -1675,31 +1639,29 @@ return {
 			[1]="support_lesser_multiple_projectile_damage_+%_final"
 		}
 	},
-	[53]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Area Damage"
-				},
-				[2]={
+	[55]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Area Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Area Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Area Damage"
 			}
 		},
 		name="area_concentrate_damage_final",
@@ -1707,22 +1669,20 @@ return {
 			[1]="support_area_concentrate_area_damage_+%_final"
 		}
 	},
-	[54]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+	[56]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Minions' Attacks deal {0} to {1} additional Physical Damage"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions' Attacks deal {0} to {1} additional Physical Damage"
 			}
 		},
 		name="added_physical_attack_damage",
@@ -1731,26 +1691,24 @@ return {
 			[2]="attack_maximum_added_physical_damage"
 		}
 	},
-	[55]={
-		lang={
-			English={
+	[57]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextLingeringBlades"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextLingeringBlades"
+						[1]="#",
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Animated Lingering Blades deal {0} to {1} Added Attack Physical Damage"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Animated Lingering Blades deal {0} to {1} Added Attack Physical Damage"
 			}
 		},
 		name="animated_vestige_damage_add",
@@ -1759,22 +1717,20 @@ return {
 			[2]="attack_maximum_added_physical_damage_for_ethereal_blades"
 		}
 	},
-	[56]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+	[58]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Minions deal {0} to {1} additional Cold Damage"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions deal {0} to {1} additional Cold Damage"
 			}
 		},
 		name="added_cold_damage",
@@ -1783,22 +1739,20 @@ return {
 			[2]="global_maximum_added_cold_damage"
 		}
 	},
-	[57]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+	[59]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Minions deal {0} to {1} additional Lightning Damage"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions deal {0} to {1} additional Lightning Damage"
 			}
 		},
 		name="added_lightning_damage",
@@ -1807,22 +1761,20 @@ return {
 			[2]="global_maximum_added_lightning_damage"
 		}
 	},
-	[58]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+	[60]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Minions deal {0} to {1} additional Chaos Damage"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions deal {0} to {1} additional Chaos Damage"
 			}
 		},
 		name="added_chaos_damage",
@@ -1831,31 +1783,29 @@ return {
 			[2]="global_maximum_added_chaos_damage"
 		}
 	},
-	[59]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% increased Physical Damage with Melee Attacks"
-				},
-				[2]={
+	[61]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% reduced Physical Damage with Melee Attacks"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% increased Physical Damage with Melee Attacks"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% reduced Physical Damage with Melee Attacks"
 			}
 		},
 		name="melee_physical_damage_incr",
@@ -1863,18 +1813,16 @@ return {
 			[1]="melee_physical_damage_+%"
 		}
 	},
-	[60]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% of their Physical Damage as Extra Fire Damage"
-				}
+	[62]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% of their Physical Damage as Extra Fire Damage"
 			}
 		},
 		name="physical_damage_to_add_as_fire",
@@ -1882,18 +1830,16 @@ return {
 			[1]="physical_damage_%_to_add_as_fire"
 		}
 	},
-	[61]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% of Minion Cold Damage Converted to Fire Damage"
-				}
+	[63]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% of Minion Cold Damage Converted to Fire Damage"
 			}
 		},
 		name="cold_damage_to_convert_to_fire",
@@ -1901,18 +1847,54 @@ return {
 			[1]="skill_cold_damage_%_to_convert_to_fire"
 		}
 	},
-	[62]={
-		lang={
-			English={
+	[64]={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% of their Physical Damage as Extra Chaos Damage"
-				}
+					k="reminderstring",
+					v="ReminderTextPoison"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage with Poison"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextPoison"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage with Poison"
+			}
+		},
+		name="support_lethal_dose_poison_damage",
+		stats={
+			[1]="support_lethal_dose_poison_damage_+%_final"
+		}
+	},
+	[65]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% of their Physical Damage as Extra Chaos Damage"
 			}
 		},
 		name="physical_damage_to_add_as_chaos",
@@ -1920,18 +1902,16 @@ return {
 			[1]="physical_damage_%_to_add_as_chaos"
 		}
 	},
-	[63]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% of Physical Damage as Extra Lightning Damage"
-				}
+	[66]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% of Physical Damage as Extra Lightning Damage"
 			}
 		},
 		name="physical_damage_to_add_as_lightning",
@@ -1939,18 +1919,16 @@ return {
 			[1]="physical_damage_%_to_add_as_lightning"
 		}
 	},
-	[64]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions Convert {0}% of Physical Damage to Lightning Damage"
-				}
+	[67]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions Convert {0}% of Physical Damage to Lightning Damage"
 			}
 		},
 		name="physical_damage_to_convert_to_lightning",
@@ -1958,31 +1936,29 @@ return {
 			[1]="skill_physical_damage_%_to_convert_to_lightning"
 		}
 	},
-	[65]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% increased Damage"
-				},
-				[2]={
+	[68]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% reduced Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% increased Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% reduced Damage"
 			}
 		},
 		name="damage_incr",
@@ -1990,31 +1966,29 @@ return {
 			[1]="damage_+%"
 		}
 	},
-	[66]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% increased Fire Damage"
-				},
-				[2]={
+	[69]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% reduced Fire Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% increased Fire Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% reduced Fire Damage"
 			}
 		},
 		name="fire_damage_incr",
@@ -2022,31 +1996,29 @@ return {
 			[1]="fire_damage_+%"
 		}
 	},
-	[67]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% increased Cold Damage"
-				},
-				[2]={
+	[70]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% reduced Cold Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% increased Cold Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% reduced Cold Damage"
 			}
 		},
 		name="cold_damage_incr",
@@ -2054,31 +2026,29 @@ return {
 			[1]="cold_damage_+%"
 		}
 	},
-	[68]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% increased Lightning Damage"
-				},
-				[2]={
+	[71]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% reduced Lightning Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% increased Lightning Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% reduced Lightning Damage"
 			}
 		},
 		name="lightning_damage_incr",
@@ -2086,31 +2056,29 @@ return {
 			[1]="lightning_damage_+%"
 		}
 	},
-	[69]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% increased Chaos Damage"
-				},
-				[2]={
+	[72]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% reduced Chaos Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% increased Chaos Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% reduced Chaos Damage"
 			}
 		},
 		name="chaos_damage_incr",
@@ -2118,31 +2086,29 @@ return {
 			[1]="chaos_damage_+%"
 		}
 	},
-	[70]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Elemental Damage with Attack Skills"
-				},
-				[2]={
+	[73]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Elemental Damage with Attack Skills"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Elemental Damage with Attack Skills"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Elemental Damage with Attack Skills"
 			}
 		},
 		name="support_attack_elemental_damage_final",
@@ -2150,31 +2116,29 @@ return {
 			[1]="support_attack_skills_elemental_damage_+%_final"
 		}
 	},
-	[71]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% increased Elemental Damage with Weapons"
-				},
-				[2]={
+	[74]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% reduced Elemental Damage with Weapons"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% increased Elemental Damage with Weapons"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% reduced Elemental Damage with Weapons"
 			}
 		},
 		name="weapon_elemental_damage_incr",
@@ -2182,31 +2146,29 @@ return {
 			[1]="weapon_elemental_damage_+%"
 		}
 	},
-	[72]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% increased Elemental Damage"
-				},
-				[2]={
+	[75]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% reduced Elemental Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% increased Elemental Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% reduced Elemental Damage"
 			}
 		},
 		name="elemental_damage_incr",
@@ -2214,31 +2176,29 @@ return {
 			[1]="elemental_damage_+%"
 		}
 	},
-	[73]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage"
-				},
-				[2]={
+	[76]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage"
 			}
 		},
 		name="support_more_minion_damage",
@@ -2246,31 +2206,29 @@ return {
 			[1]="support_minion_damage_+%_final"
 		}
 	},
-	[74]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Spell Damage"
-				},
-				[2]={
+	[77]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Spell Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Spell Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Spell Damage"
 			}
 		},
 		name="controlled_destruction",
@@ -2278,31 +2236,29 @@ return {
 			[1]="support_controlled_destruction_spell_damage_+%_final"
 		}
 	},
-	[75]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Spell Damage"
-				},
-				[2]={
+	[78]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Spell Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Spell Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Spell Damage"
 			}
 		},
 		name="support_efficacy_spell_damage",
@@ -2310,31 +2266,29 @@ return {
 			[1]="support_efficacy_spell_damage_+%_final"
 		}
 	},
-	[76]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% increased Spell Damage"
-				},
-				[2]={
+	[79]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% reduced Spell Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% increased Spell Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% reduced Spell Damage"
 			}
 		},
 		name="spell_damage_incr",
@@ -2342,39 +2296,37 @@ return {
 			[1]="spell_damage_+%"
 		}
 	},
-	[77]={
-		lang={
-			English={
+	[80]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage with Ailments"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage with Ailments"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage with Ailments"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage with Ailments"
 			}
 		},
 		name="support_better_ailments_bonus",
@@ -2382,31 +2334,29 @@ return {
 			[1]="support_better_ailments_ailment_damage_+%_final"
 		}
 	},
-	[78]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage with Hits"
-				},
-				[2]={
+	[81]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage with Hits"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage with Hits"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage with Hits"
 			}
 		},
 		name="support_better_ailments_malus",
@@ -2414,31 +2364,29 @@ return {
 			[1]="support_better_ailments_hit_damage_+%_final"
 		}
 	},
-	[79]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Fire Damage"
-				},
-				[2]={
+	[82]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Fire Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Fire Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Fire Damage"
 			}
 		},
 		name="support_chance_to_ignite_damage",
@@ -2446,31 +2394,29 @@ return {
 			[1]="support_chance_to_ignite_fire_damage_+%_final"
 		}
 	},
-	[80]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage with Hits"
-				},
-				[2]={
+	[83]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage with Hits"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage with Hits"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage with Hits"
 			}
 		},
 		name="support_cruelty_hit_damage",
@@ -2478,31 +2424,29 @@ return {
 			[1]="support_cruelty_hit_damage_+%_final"
 		}
 	},
-	[81]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage with Ignite"
-				},
-				[2]={
+	[84]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage with Ignite"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage with Ignite"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage with Ignite"
 			}
 		},
 		name="ignite_prolif_damage",
@@ -2510,31 +2454,29 @@ return {
 			[1]="support_ignite_prolif_ignite_damage_+%_final"
 		}
 	},
-	[82]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage over Time"
-				},
-				[2]={
+	[85]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage over Time"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage over Time"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage over Time"
 			}
 		},
 		name="rapid_decay",
@@ -2542,31 +2484,29 @@ return {
 			[1]="support_rapid_decay_damage_over_time_+%_final"
 		}
 	},
-	[83]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage over Time"
-				},
-				[2]={
+	[86]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage over Time"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage over Time"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage over Time"
 			}
 		},
 		name="support_efficacy_dot",
@@ -2574,39 +2514,37 @@ return {
 			[1]="support_efficacy_damage_over_time_+%_final"
 		}
 	},
-	[84]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage with Hits for each Poison on the Enemy, up to {1}"
-				},
-				[2]={
+	[87]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
+						[1]=1,
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage with Hits for each Poison on the Enemy, up to {1}"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
 					},
-					text="Minions deal {0}% less Damage with Hits for each Poison on the Enemy, up to {1}"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% less Damage with Hits for each Poison on the Enemy, up to {1}"
 			}
 		},
 		name="support_debilitate_hit_damage",
@@ -2615,31 +2553,29 @@ return {
 			[2]="support_debilitate_hit_damage_max_poison_stacks"
 		}
 	},
-	[85]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage with Poison"
-				},
-				[2]={
+	[88]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage with Poison"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage with Poison"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage with Poison"
 			}
 		},
 		name="support_debilitate_poison_damage",
@@ -2647,31 +2583,29 @@ return {
 			[1]="support_debilitate_poison_damage_+%_final"
 		}
 	},
-	[86]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage with Poison"
-				},
-				[2]={
+	[89]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage with Poison"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage with Poison"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage with Poison"
 			}
 		},
 		name="support_poison_poison_damage",
@@ -2679,31 +2613,29 @@ return {
 			[1]="support_poison_poison_damage_+%_final"
 		}
 	},
-	[87]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% increased Damage over Time"
-				},
-				[2]={
+	[90]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% reduced Damage over Time"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% increased Damage over Time"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% reduced Damage over Time"
 			}
 		},
 		name="damage_over_time_incr",
@@ -2711,31 +2643,29 @@ return {
 			[1]="damage_over_time_+%"
 		}
 	},
-	[88]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage"
-				},
-				[2]={
+	[91]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage"
 			}
 		},
 		name="minion_damage_final",
@@ -2743,31 +2673,29 @@ return {
 			[1]="active_skill_minion_damage_+%_final"
 		}
 	},
-	[89]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Physical Damage"
-				},
-				[2]={
+	[92]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Physical Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Physical Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Physical Damage"
 			}
 		},
 		name="minion_physical_damage_final",
@@ -2775,27 +2703,25 @@ return {
 			[1]="active_skill_minion_physical_damage_+%_final"
 		}
 	},
-	[90]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Maximum {0} Raised Zombie"
+	[93]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Maximum {0} Raised Zombies"
-				}
+				text="Maximum {0} Raised Zombie"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]=99
+					}
+				},
+				text="Maximum {0} Raised Zombies"
 			}
 		},
 		name="number_of_zombies",
@@ -2803,27 +2729,25 @@ return {
 			[1]="number_of_zombies_allowed"
 		}
 	},
-	[91]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Maximum {0} Raised Spectre"
+	[94]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Maximum {0} Raised Spectres"
-				}
+				text="Maximum {0} Raised Spectre"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Maximum {0} Raised Spectres"
 			}
 		},
 		name="number_of_spectres",
@@ -2831,27 +2755,25 @@ return {
 			[1]="number_of_spectres_allowed"
 		}
 	},
-	[92]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Maximum {0} Summoned Raging Spirit"
+	[95]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Maximum {0} Summoned Raging Spirits"
-				}
+				text="Maximum {0} Summoned Raging Spirit"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Maximum {0} Summoned Raging Spirits"
 			}
 		},
 		name="number_of_raging_spirits",
@@ -2859,27 +2781,34 @@ return {
 			[1]="number_of_raging_spirits_allowed"
 		}
 	},
-	[93]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Maximum {0} Animated Weapon"
+	[96]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Maximum {0} Animated Weapons"
-				}
+				text="{0:+d} to maximum number of Animated Weapons"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
+				},
+				text="Maximum {0} Animated Weapon"
+			},
+			[3]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Maximum {0} Animated Weapons"
 			}
 		},
 		name="number_of_animated_weapons",
@@ -2887,27 +2816,25 @@ return {
 			[1]="number_of_animated_weapons_allowed"
 		}
 	},
-	[94]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Maximum {0} Summoned Bestial Minion"
+	[97]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Maximum {0} Summoned Bestial Minion"
-				}
+				text="Maximum {0} Summoned Bestial Minion"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Maximum {0} Summoned Bestial Minion"
 			}
 		},
 		name="number_of_beasts",
@@ -2915,18 +2842,16 @@ return {
 			[1]="base_number_of_beast_minions_allowed"
 		}
 	},
-	[95]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Maximum 1 Summoned Harbinger"
-				}
+	[98]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Maximum 1 Summoned Harbinger"
 			}
 		},
 		name="display_one_harbinger_allowed",
@@ -2934,27 +2859,25 @@ return {
 			[1]="display_one_harbinger_allowed"
 		}
 	},
-	[96]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Maximum {0} Summoned Golem"
+	[99]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Maximum {0} Summoned Golems"
-				}
+				text="Maximum {0} Summoned Golem"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Maximum {0} Summoned Golems"
 			}
 		},
 		name="number_of_golems",
@@ -2962,27 +2885,25 @@ return {
 			[1]="number_of_golems_allowed"
 		}
 	},
-	[97]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Maximum {0} Summoned Spectral Wolf"
+	[100]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Maximum {0} Summoned Spectral Wolves"
-				}
+				text="Maximum {0} Summoned Spectral Wolf"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Maximum {0} Summoned Spectral Wolves"
 			}
 		},
 		name="number_of_wolves_allowed",
@@ -2990,18 +2911,16 @@ return {
 			[1]="virtual_number_of_wolves_allowed"
 		}
 	},
-	[98]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0} maximum Life"
-				}
+	[101]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0} maximum Life"
 			}
 		},
 		name="display_minion_life",
@@ -3009,27 +2928,25 @@ return {
 			[1]="display_minion_maximum_life"
 		}
 	},
-	[99]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Maximum {0} Summoned Skeleton"
+	[102]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Maximum {0} Summoned Skeleton"
-				}
+				text="Maximum {0} Summoned Skeleton"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Maximum {0} Summoned Skeletons"
 			}
 		},
 		name="number_of_skeletons_allowed",
@@ -3037,83 +2954,197 @@ return {
 			[1]="number_of_skeletons_allowed"
 		}
 	},
-	[100]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Maximum {0} Raised Spiders"
+	[103]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Maximum {0} Raised Spiders"
-				}
+				text="Maximum {0} Raised Spiders"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Maximum {0} Raised Spiders"
 			}
 		},
 		name="number_of_spiders",
 		stats={
-			[1]="number_of_spider_minions_allowed"
+			[1]="virtual_number_of_spider_minions_allowed"
 		}
 	},
-	[101]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
+	[104]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
 					},
-					text="Summons {0} Skeleton Warrior"
+					[2]={
+						[1]="#",
+						[2]="#"
+					},
+					[3]={
+						[1]=0,
+						[2]=0
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
+				text="Summons {0} Skeleton Warrior"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
 					},
-					text="Summons {0} Skeleton Warriors"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					},
+					[3]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Summons {0} Skeleton Warriors"
+			},
+			[3]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					},
+					[2]={
+						[1]="#",
+						[2]="#"
+					},
+					[3]={
+						[1]="!",
+						[2]=0
+					}
+				},
+				text="Summons {0} Skeleton Soldiers"
+			},
+			[4]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					},
+					[2]={
+						[1]="#",
+						[2]="#"
+					},
+					[3]={
+						[1]="!",
+						[2]=0
+					}
+				},
+				text="Summons {0} Skeleton Soldiers"
+			},
+			[5]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
+					},
+					[2]={
+						[1]=1,
+						[2]=1
+					},
+					[3]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Summons {1} Skeleton Warrior"
+			},
+			[6]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
+					},
+					[2]={
+						[1]=2,
+						[2]="#"
+					},
+					[3]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Summons {1} Skeleton Warriors"
+			},
+			[7]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
+					},
+					[2]={
+						[1]=1,
+						[2]=1
+					},
+					[3]={
+						[1]="!",
+						[2]=0
+					}
+				},
+				text="Summons {1} Skeleton Soldiers"
+			},
+			[8]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
+					},
+					[2]={
+						[1]=2,
+						[2]="#"
+					},
+					[3]={
+						[1]="!",
+						[2]=0
+					}
+				},
+				text="Summons {1} Skeleton Soldiers"
 			}
 		},
 		name="melee_skeletons_to_summon",
 		stats={
-			[1]="number_of_melee_skeletons_to_summon"
+			[1]="virtual_number_of_melee_skeletons_to_summon",
+			[2]="number_of_melee_skeletons_to_summon",
+			[3]="skeletons_are_vaal"
 		}
 	},
-	[102]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Summons {0} Skeleton Archer"
+	[105]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Summons {0} Skeleton Archers"
-				}
+				text="Summons {0} Skeleton Archer"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Summons {0} Skeleton Archers"
 			}
 		},
 		name="archer_skeletons_to_summon",
@@ -3121,27 +3152,25 @@ return {
 			[1]="number_of_archer_skeletons_to_summon"
 		}
 	},
-	[103]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Summons {0} Skeleton Mage"
+	[106]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Summons {0} Skeleton Mages"
-				}
+				text="Summons {0} Skeleton Mage"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Summons {0} Skeleton Mages"
 			}
 		},
 		name="mage_skeletons_to_summon",
@@ -3149,27 +3178,25 @@ return {
 			[1]="number_of_mage_skeletons_to_summon"
 		}
 	},
-	[104]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Summons {0} Skeleton General"
+	[107]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Summons {0} Skeleton Generals"
-				}
+				text="Summons {0} Skeleton General"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Summons {0} Skeleton Generals"
 			}
 		},
 		name="leader_skeletons_to_summon",
@@ -3177,22 +3204,20 @@ return {
 			[1]="number_of_leader_skeletons_to_summon"
 		}
 	},
-	[105]={
-		lang={
-			English={
+	[108]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextCullingStrike"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextCullingStrike"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have Culling Strike"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have Culling Strike"
 			}
 		},
 		name="culling_strike",
@@ -3200,18 +3225,16 @@ return {
 			[1]="kill_enemy_on_hit_if_under_10%_life"
 		}
 	},
-	[106]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions have Point Blank"
-				}
+	[109]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions have Point Blank"
 			}
 		},
 		name="point_blank",
@@ -3219,54 +3242,50 @@ return {
 			[1]="keystone_point_blank"
 		}
 	},
-	[107]={
-		lang={
-			English={
+	[110]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextBlind"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextBlind"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% chance to Blind enemies on hit"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% chance to Blind enemies on hit"
 			}
 		},
 		name="chance_to_blind",
 		stats={
-			[1]="global_chance_to_blind_on_hit_%"
+			[1]="virtual_chance_to_blind_on_hit_%"
 		}
 	},
-	[108]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Blinding duration"
-				},
-				[2]={
+	[111]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Blinding duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Blinding duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Blinding duration"
 			}
 		},
 		name="blind_duration_incr",
@@ -3274,18 +3293,16 @@ return {
 			[1]="blind_duration_+%"
 		}
 	},
-	[109]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions Penetrate {0}% Fire Resistance"
-				}
+	[112]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions Penetrate {0}% Fire Resistance"
 			}
 		},
 		name="fire_penetration",
@@ -3293,18 +3310,16 @@ return {
 			[1]="base_reduce_enemy_fire_resistance_%"
 		}
 	},
-	[110]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions Penetrate {0}% Cold Resistance"
-				}
+	[113]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions Penetrate {0}% Cold Resistance"
 			}
 		},
 		name="cold_penetration",
@@ -3312,18 +3327,16 @@ return {
 			[1]="base_reduce_enemy_cold_resistance_%"
 		}
 	},
-	[111]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions Penetrate {0}% Elemental Resistances"
-				}
+	[114]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions Penetrate {0}% Elemental Resistances"
 			}
 		},
 		name="elemental_penetration",
@@ -3331,18 +3344,16 @@ return {
 			[1]="reduce_enemy_elemental_resistance_%"
 		}
 	},
-	[112]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions Penetrate {0}% Lightning Resistance"
-				}
+	[115]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions Penetrate {0}% Lightning Resistance"
 			}
 		},
 		name="lightning_penetration",
@@ -3350,18 +3361,16 @@ return {
 			[1]="base_reduce_enemy_lightning_resistance_%"
 		}
 	},
-	[113]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minion's Skills Chain {0:+d} Times"
-				}
+	[116]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions' Skills Chain {0:+d} Times"
 			}
 		},
 		name="minion_chain_num",
@@ -3369,18 +3378,16 @@ return {
 			[1]="number_of_chains"
 		}
 	},
-	[114]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions' Projectiles Split towards {0} additional targets"
-				}
+	[117]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions' Projectiles Split towards {0} additional targets"
 			}
 		},
 		name="base_split_num",
@@ -3388,27 +3395,25 @@ return {
 			[1]="projectile_number_to_split"
 		}
 	},
-	[115]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Minion's Projectiles Fork"
+	[118]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minion's Projectiles Fork {0} additional times"
-				}
+				text="Minion's Projectiles Fork"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minion's Projectiles Fork {0} times"
 			}
 		},
 		name="fork",
@@ -3416,220 +3421,111 @@ return {
 			[1]="virtual_number_of_forks_for_projectiles_final"
 		}
 	},
-	[116]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						},
-						[4]={
-							[1]=1,
-							[2]=99
-						}
+	[119]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
 					},
-					text="Minion's Projectiles have {3}% chance to Return to them from final target"
+					[2]={
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						},
-						[4]={
-							[1]=100,
-							[2]="#"
-						}
+				text="Minions' Projectiles have {1}% chance to Return to them"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
 					},
-					text="Minion's Projectiles Return to them from final target"
+					[2]={
+						[1]=100,
+						[2]="#"
+					}
 				},
-				[3]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]=1,
-							[2]=99
-						},
-						[4]={
-							[1]=0,
-							[2]=0
-						}
+				text="Minions' Projectiles Return to them"
+			},
+			[3]={
+				limit={
+					[1]={
+						[1]="!",
+						[2]=0
 					},
-					text="Minion's Projectiles have {2}% chance to Return to them"
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
 				},
-				[4]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]=100,
-							[2]="#"
-						},
-						[4]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minion's Projectiles Return to them"
-				},
-				[5]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]=1,
-							[2]=99
-						},
-						[4]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Minion's Projectiles have {2}% chance to Return to them, +{3}% chance from a final target"
-				},
-				[6]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]=1,
-							[2]=99
-						},
-						[4]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Minion's Projectiles Return to them from final target, and have {2}% chance to Return at end of flight"
-				},
-				[7]={
-					limit={
-						[1]={
-							[1]="!",
-							[2]=0
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]="#",
-							[2]="#"
-						},
-						[4]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minion's Projectiles Return to them from final target"
-				},
-				[8]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]="!",
-							[2]=0
-						},
-						[3]={
-							[1]="#",
-							[2]="#"
-						},
-						[4]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minion's Projectiles Return to them at end of flight"
-				},
-				[9]={
-					limit={
-						[1]={
-							[1]="!",
-							[2]=0
-						},
-						[2]={
-							[1]="!",
-							[2]=0
-						},
-						[3]={
-							[1]="#",
-							[2]="#"
-						},
-						[4]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minion's Projectiles Return to them"
-				}
+				text="Minions' Projectiles Return to them"
 			}
 		},
 		name="return",
 		stats={
 			[1]="projectiles_return",
-			[2]="projectiles_return_if_no_hit_object",
-			[3]="projectile_return_%_chance",
-			[4]="projectiles_chance_to_return_%_from_final_target"
+			[2]="projectile_return_%_chance"
 		}
 	},
-	[117]={
-		lang={
-			English={
+	[120]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions' Returning Projectiles Pierce all Targets"
+			}
+		},
+		name="returning_pierce",
+		stats={
+			[1]="returning_projectiles_always_pierce"
+		}
+	},
+	[121]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions' Projectiles deal {0}% more Damage with Hits and Ailments while Returning"
+			},
+			[2]={
 				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minion's Melee Strike Skills deal Splash Damage to Surrounding Targets"
-				}
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions' Projectiles deal {0}% less Damage with Hits and Ailments while Returning"
+			}
+		},
+		name="support_return_returning_projectile_damage_incr",
+		stats={
+			[1]="support_return_returning_projectiles_damage_+%_final"
+		}
+	},
+	[122]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minion's Melee Strike Skills deal Splash Damage to Surrounding Targets"
 			}
 		},
 		name="base_melee_splash",
@@ -3637,18 +3533,16 @@ return {
 			[1]="melee_splash"
 		}
 	},
-	[118]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minion's Melee Attacks repeat {0} additional times"
-				}
+	[123]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minion's Melee Attacks repeat {0} additional times"
 			}
 		},
 		name="melee_mulitple_attacks",
@@ -3656,27 +3550,25 @@ return {
 			[1]="base_melee_attack_repeat_count"
 		}
 	},
-	[119]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Minion's Spells Repeat an additional time"
+	[124]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Minion's Spells Repeat an additional {0} times"
-				}
+				text="Minion's Spells Repeat an additional time"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Minion's Spells Repeat an additional {0} times"
 			}
 		},
 		name="base_multicast",
@@ -3684,31 +3576,29 @@ return {
 			[1]="base_spell_repeat_count"
 		}
 	},
-	[120]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Duration of Cruelty"
-				},
-				[2]={
+	[125]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Duration of Cruelty"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Duration of Cruelty"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Duration of Cruelty"
 			}
 		},
 		name="cruelty_duration_incr",
@@ -3716,27 +3606,25 @@ return {
 			[1]="cruelty_duration_+%"
 		}
 	},
-	[121]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Minions have {0}% chance to gain a Power Charge on Critical Strike"
+	[126]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Minions gain a Power Charge on Critical Strike"
-				}
+				text="Minions have {0}% chance to gain a Power Charge on Critical Strike"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Minions gain a Power Charge on Critical Strike"
 			}
 		},
 		name="power_charge_on_crit_chance",
@@ -3744,31 +3632,29 @@ return {
 			[1]="add_power_charge_on_critical_strike_%"
 		}
 	},
-	[122]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% more Melee Attack Speed"
-				},
-				[2]={
+	[127]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% less Melee Attack Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% more Melee Attack Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% less Melee Attack Speed"
 			}
 		},
 		name="multiple_attacks_speed",
@@ -3776,31 +3662,29 @@ return {
 			[1]="support_multiple_attacks_melee_attack_speed_+%_final"
 		}
 	},
-	[123]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Attack Damage"
-				},
-				[2]={
+	[128]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Attack Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Attack Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Attack Damage"
 			}
 		},
 		name="multiple_attack_damage",
@@ -3808,31 +3692,29 @@ return {
 			[1]="support_multiple_attack_damage_+%_final"
 		}
 	},
-	[124]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Burning Damage"
-				},
-				[2]={
+	[129]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Burning Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Burning Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Burning Damage"
 			}
 		},
 		name="burn_damage",
@@ -3840,31 +3722,29 @@ return {
 			[1]="burn_damage_+%"
 		}
 	},
-	[125]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage"
-				},
-				[2]={
+	[130]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage"
 			}
 		},
 		name="mine_damage",
@@ -3872,31 +3752,29 @@ return {
 			[1]="support_gem_mine_damage_+%_final"
 		}
 	},
-	[126]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage"
-				},
-				[2]={
+	[131]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage"
 			}
 		},
 		name="mine_damage_2_electric_boogaloo",
@@ -3904,31 +3782,29 @@ return {
 			[1]="support_remote_mine_2_damage_+%_final"
 		}
 	},
-	[127]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage"
-				},
-				[2]={
+	[132]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage"
 			}
 		},
 		name="totem_damage",
@@ -3936,31 +3812,29 @@ return {
 			[1]="support_totem_damage_+%_final"
 		}
 	},
-	[128]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage"
-				},
-				[2]={
+	[133]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage"
 			}
 		},
 		name="echo_damage",
@@ -3968,31 +3842,29 @@ return {
 			[1]="support_echo_damage_+%_final"
 		}
 	},
-	[129]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage"
-				},
-				[2]={
+	[134]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage"
 			}
 		},
 		name="multithrow_damage",
@@ -4000,31 +3872,29 @@ return {
 			[1]="support_multithrow_damage_+%_final"
 		}
 	},
-	[130]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage"
-				},
-				[2]={
+	[135]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage"
 			}
 		},
 		name="cast_on_damage_taken_damage",
@@ -4032,31 +3902,29 @@ return {
 			[1]="cast_on_damage_taken_damage_+%_final"
 		}
 	},
-	[131]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage with Hits"
-				},
-				[2]={
+	[136]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage with Hits"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage with Hits"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage with Hits"
 			}
 		},
 		name="chain_damage",
@@ -4064,31 +3932,29 @@ return {
 			[1]="support_chain_hit_damage_+%_final"
 		}
 	},
-	[132]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Projectile Damage"
-				},
-				[2]={
+	[137]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Projectile Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Projectile Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Projectile Damage"
 			}
 		},
 		name="split_damage",
@@ -4096,31 +3962,29 @@ return {
 			[1]="support_split_projectile_damage_+%_final"
 		}
 	},
-	[133]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Projectile Damage"
-				},
-				[2]={
+	[138]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Projectile Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Projectile Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Projectile Damage"
 			}
 		},
 		name="fork_damage",
@@ -4128,48 +3992,46 @@ return {
 			[1]="support_fork_projectile_damage_+%_final"
 		}
 	},
-	[134]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=0,
-							[2]=99
-						}
+	[139]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
 					},
-					text="Minions have {1}% chance to gain an Endurance Charge when they Stun an Enemy with a Melee Hit"
+					[2]={
+						[1]=0,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=100,
-							[2]="#"
-						}
+				text="Minions have {1}% chance to gain an Endurance Charge when they Stun an Enemy with a Melee Hit"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
 					},
-					text="Minions gain an Endurance Charge when they Stun an Enemy with a Melee Hit"
+					[2]={
+						[1]=100,
+						[2]="#"
+					}
 				},
-				[3]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+				text="Minions gain an Endurance Charge when they Stun an Enemy with a Melee Hit"
+			},
+			[3]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Minions gain an Endurance Charge when they Stun an Enemy with a Melee Hit"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions gain an Endurance Charge when they Stun an Enemy with a Melee Hit"
 			}
 		},
 		name="endurance_charge_on_stun",
@@ -4178,31 +4040,29 @@ return {
 			[2]="gain_endurance_charge_on_melee_stun_%"
 		}
 	},
-	[135]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Movement Speed"
-				},
-				[2]={
+	[140]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Movement Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Movement Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Movement Speed"
 			}
 		},
 		name="movement_speed_incr",
@@ -4210,31 +4070,29 @@ return {
 			[1]="base_movement_velocity_+%"
 		}
 	},
-	[136]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Duration"
-				},
-				[2]={
+	[141]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Duration"
 			}
 		},
 		name="skill_duration_incr",
@@ -4242,39 +4100,37 @@ return {
 			[1]="skill_effect_duration_+%"
 		}
 	},
-	[137]={
-		lang={
-			English={
+	[142]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextLowLife"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextLowLife"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Attack Speed when on Low Life"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Attack Speed when on Low Life"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextLowLife"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextLowLife"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Attack Speed when on Low Life"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Attack Speed when on Low Life"
 			}
 		},
 		name="attack_speed_incr_on_low_life",
@@ -4282,39 +4138,37 @@ return {
 			[1]="attack_speed_+%_when_on_low_life"
 		}
 	},
-	[138]={
-		lang={
-			English={
+	[143]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextLowLife"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextLowLife"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Cast Speed when on Low Life"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Cast Speed when on Low Life"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextLowLife"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextLowLife"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Cast Speed when on Low Life"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Cast Speed when on Low Life"
 			}
 		},
 		name="cast_speed_incr_on_low_life",
@@ -4322,31 +4176,29 @@ return {
 			[1]="cast_speed_+%_when_on_low_life"
 		}
 	},
-	[139]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions's Attacks deal {0}% more Damage with Bleeding and Poison caused by Projectile Hits"
-				},
-				[2]={
+	[144]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions's Attacks deal {0}% more Damage with Bleeding and Poison caused by Projectile Hits"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions's Attacks deal {0}% more Damage with Bleeding and Poison caused by Projectile Hits"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions's Attacks deal {0}% more Damage with Bleeding and Poison caused by Projectile Hits"
 			}
 		},
 		name="support_projectile_attack_phys_ailment_damage_incr",
@@ -4354,31 +4206,29 @@ return {
 			[1]="support_phys_proj_attack_damage_bleeing_and_poison_damage_+%_final_from_projectile_hits"
 		}
 	},
-	[140]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Physical Projectile Attack Damage"
-				},
-				[2]={
+	[145]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Physical Projectile Attack Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Physical Projectile Attack Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Physical Projectile Attack Damage"
 			}
 		},
 		name="support_projectile_attack_phys_incr",
@@ -4386,31 +4236,29 @@ return {
 			[1]="support_projectile_attack_physical_damage_+%_final"
 		}
 	},
-	[141]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% more Projectile Attack Speed"
-				},
-				[2]={
+	[146]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% less Projectile Attack Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% more Projectile Attack Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% less Projectile Attack Speed"
 			}
 		},
 		name="support_projectile_attack_speed_incr",
@@ -4418,31 +4266,29 @@ return {
 			[1]="support_projectile_attack_speed_+%_final"
 		}
 	},
-	[142]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% increased Projectile Damage"
-				},
-				[2]={
+	[147]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% reduced Projectile Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% increased Projectile Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% reduced Projectile Damage"
 			}
 		},
 		name="projectile_damage_incr",
@@ -4450,18 +4296,16 @@ return {
 			[1]="projectile_damage_+%"
 		}
 	},
-	[143]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions' Skills Cost Life instead of Mana"
-				}
+	[148]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions' Skills Cost Life instead of Mana"
 			}
 		},
 		name="skill_cost_life_instead_mana",
@@ -4469,18 +4313,16 @@ return {
 			[1]="base_skill_cost_life_instead_of_mana"
 		}
 	},
-	[144]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions' Skills Reserve Life instead of Mana"
-				}
+	[149]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions' Skills Reserve Life instead of Mana"
 			}
 		},
 		name="skill_reserve_life_instead_mana",
@@ -4488,18 +4330,16 @@ return {
 			[1]="base_skill_reserve_life_instead_of_mana"
 		}
 	},
-	[145]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="This Skill and Minions Spend Life instead of Mana for Skill Effects"
-				}
+	[150]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="This Skill and Minions Spend Life instead of Mana for Skill Effects"
 			}
 		},
 		name="skill_spend_life_instead_mana",
@@ -4507,31 +4347,29 @@ return {
 			[1]="base_use_life_in_place_of_mana"
 		}
 	},
-	[146]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Melee Physical Damage against Bleeding Enemies"
-				},
-				[2]={
+	[151]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Melee Physical Damage against Bleeding Enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Melee Physical Damage against Bleeding Enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Melee Physical Damage against Bleeding Enemies"
 			}
 		},
 		name="bloodlust_damage",
@@ -4539,31 +4377,29 @@ return {
 			[1]="support_bloodlust_melee_physical_damage_+%_final_vs_bleeding_enemies"
 		}
 	},
-	[147]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% increased Melee Damage against Bleeding Enemies"
-				},
-				[2]={
+	[152]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% reduced Melee Damage against Bleeding Enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% increased Melee Damage against Bleeding Enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% reduced Melee Damage against Bleeding Enemies"
 			}
 		},
 		name="bloodlust_damage_incr",
@@ -4571,43 +4407,41 @@ return {
 			[1]="melee_damage_vs_bleeding_enemies_+%"
 		}
 	},
-	[148]={
-		lang={
-			English={
+	[153]={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextFortifyingHit"
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextFortification"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Minions' Melee Hits have {0}% chance to Fortify"
+					k="reminderstring",
+					v="ReminderTextFortifyingHit"
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextFortification"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextFortifyingHit"
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextFortification"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Minions' Melee Hits Fortify"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Minions' Melee Hits have {0}% chance to Fortify"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextFortifyingHit"
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextFortification"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Minions' Melee Hits Fortify"
 			}
 		},
 		name="chance_to_fortify_on_melee_hit",
@@ -4615,31 +4449,29 @@ return {
 			[1]="chance_to_fortify_on_melee_hit_+%"
 		}
 	},
-	[149]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="This Skill and Minions have {0}% increased Mine Throwing Speed"
-				},
-				[2]={
+	[154]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="This Skill and Minions have {0}% reduced Mine Throwing Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="This Skill and Minions have {0}% increased Mine Throwing Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="This Skill and Minions have {0}% reduced Mine Throwing Speed"
 			}
 		},
 		name="mine_laying_speed_incr",
@@ -4647,22 +4479,20 @@ return {
 			[1]="mine_laying_speed_+%"
 		}
 	},
-	[150]={
-		lang={
-			English={
+	[155]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextFreeze"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextFreeze"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions have {0:d}% chance to Freeze Enemies which are Chilled"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions have {0:d}% chance to Freeze Enemies which are Chilled"
 			}
 		},
 		name="freeze_chance_vs_chilled",
@@ -4670,39 +4500,37 @@ return {
 			[1]="additional_chance_to_freeze_chilled_enemies_%"
 		}
 	},
-	[151]={
-		lang={
-			English={
+	[156]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage with Hits and Ailments against Chilled Enemies"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage with Hits and Ailments against Chilled Enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage with Hits and Ailments against Chilled Enemies"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage with Hits and Ailments against Chilled Enemies"
 			}
 		},
 		name="hypothermia_damage",
@@ -4710,31 +4538,29 @@ return {
 			[1]="support_hypothermia_damage_+%_vs_chilled_enemies_final"
 		}
 	},
-	[152]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Trap Throwing Speed"
-				},
-				[2]={
+	[157]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Trap Throwing Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Trap Throwing Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Trap Throwing Speed"
 			}
 		},
 		name="trap_throw_speed_incr",
@@ -4742,31 +4568,29 @@ return {
 			[1]="trap_throwing_speed_+%"
 		}
 	},
-	[153]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Mine Throwing Speed"
-				},
-				[2]={
+	[158]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Mine Throwing Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Mine Throwing Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Mine Throwing Speed"
 			}
 		},
 		name="mine_laying_speed_incr",
@@ -4774,31 +4598,29 @@ return {
 			[1]="mine_laying_speed_+%"
 		}
 	},
-	[154]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Trap and Mine Damage"
-				},
-				[2]={
+	[159]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Trap and Mine Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Trap and Mine Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Trap and Mine Damage"
 			}
 		},
 		name="trap_mine_damage",
@@ -4806,31 +4628,29 @@ return {
 			[1]="support_trap_and_mine_damage_+%_final"
 		}
 	},
-	[155]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage"
-				},
-				[2]={
+	[160]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage"
 			}
 		},
 		name="cluster_trap_damage_incr",
@@ -4838,31 +4658,29 @@ return {
 			[1]="support_clustertrap_damage_+%_final"
 		}
 	},
-	[156]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage"
-				},
-				[2]={
+	[161]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage"
 			}
 		},
 		name="minefield_damage",
@@ -4870,31 +4688,29 @@ return {
 			[1]="support_minefield_mine_damage_+%_final"
 		}
 	},
-	[157]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Chaos Damage"
-				},
-				[2]={
+	[162]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Chaos Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Chaos Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Chaos Damage"
 			}
 		},
 		name="void_manipulation",
@@ -4902,31 +4718,29 @@ return {
 			[1]="support_void_manipulation_chaos_damage_+%_final"
 		}
 	},
-	[158]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Elemental Damage"
-				},
-				[2]={
+	[163]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Elemental Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Elemental Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Elemental Damage"
 			}
 		},
 		name="elemental_focus_damage",
@@ -4934,22 +4748,20 @@ return {
 			[1]="support_gem_elemental_damage_+%_final"
 		}
 	},
-	[159]={
-		lang={
-			English={
+	[164]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextElementalAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextElementalAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions cannot inflict Elemental Ailments"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions cannot inflict Elemental Ailments"
 			}
 		},
 		name="cannot_inflict_ailments",
@@ -4957,22 +4769,20 @@ return {
 			[1]="cannot_inflict_status_ailments"
 		}
 	},
-	[160]={
-		lang={
-			English={
+	[165]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextPoison"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextPoison"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions Poison Enemies on Hit"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions Poison Enemies on Hit"
 			}
 		},
 		name="poison_on_hit",
@@ -4980,31 +4790,29 @@ return {
 			[1]="global_poison_on_hit"
 		}
 	},
-	[161]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Damage with Poison"
-				},
-				[2]={
+	[166]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Damage with Poison"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Damage with Poison"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Damage with Poison"
 			}
 		},
 		name="poison_damage",
@@ -5012,31 +4820,29 @@ return {
 			[1]="base_poison_damage_+%"
 		}
 	},
-	[162]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Poison Duration"
-				},
-				[2]={
+	[167]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Poison Duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Poison Duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Poison Duration"
 			}
 		},
 		name="poison_duration",
@@ -5044,31 +4850,29 @@ return {
 			[1]="base_poison_duration_+%"
 		}
 	},
-	[163]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% more Melee Splash Area of Effect"
-				},
-				[2]={
+	[168]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% less Melee Splash Area of Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% more Melee Splash Area of Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% less Melee Splash Area of Effect"
 			}
 		},
 		name="melee_splash_radius",
@@ -5076,18 +4880,97 @@ return {
 			[1]="melee_splash_area_of_effect_+%_final"
 		}
 	},
-	[164]={
-		lang={
-			English={
+	[169]={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Every third use of Minion's Attacks deals a Ruthless Blow with Melee Hits"
-				}
+					k="divide_by_one_hundred",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions have {0:+d}% to Critical Strike Chance"
+			}
+		},
+		name="additional_crit",
+		stats={
+			[1]="additional_base_critical_strike_chance"
+		}
+	},
+	[170]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Maximum Attack Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Maximum Attack Damage"
+			}
+		},
+		name="volatility_max",
+		stats={
+			[1]="maximum_attack_damage_+%_final_from_volatility_support"
+		}
+	},
+	[171]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Minimum Attack Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Minimum Attack Damage"
+			}
+		},
+		name="volatility_min",
+		stats={
+			[1]="minimum_attack_damage_+%_final_from_volatility_support"
+		}
+	},
+	[172]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Every third use of Minion's Attacks deals a Ruthless Blow with Melee Hits"
 			}
 		},
 		name="support_ruthless_count",
@@ -5095,18 +4978,16 @@ return {
 			[1]="support_ruthless_big_hit_max_count"
 		}
 	},
-	[165]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minion's Ruthless Blows deal {0}% more Melee Damage"
-				}
+	[173]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minion's Ruthless Blows deal {0}% more Melee Damage"
 			}
 		},
 		name="support_ruthless_damage",
@@ -5114,41 +4995,37 @@ return {
 			[1]="support_ruthless_big_hit_damage_+%_final"
 		}
 	},
-	[166]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minion's Ruthless Blows deal {0}% more Damage with Bleeding caused by Melee Hits"
-				}
+	[174]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minion's Ruthless Blows deal {0}% more Damage with Ailments caused by Melee Hits"
 			}
 		},
-		name="support_ruthless_bleeding_damage",
+		name="support_ruthless_ailment_damage",
 		stats={
-			[1]="support_ruthless_blow_bleeding_damage_from_melee_hits_+%_final"
+			[1]="support_ruthless_blow_ailment_damage_from_melee_hits_+%_final"
 		}
 	},
-	[167]={
-		lang={
-			English={
+	[175]={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minion's Ruthless Blows have a base Stun Duration of {0} seconds"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minion's Ruthless Blows have a base Stun Duration of {0} seconds"
 			}
 		},
 		name="support_ruthless_stun",
@@ -5156,18 +5033,16 @@ return {
 			[1]="support_ruthless_big_hit_stun_base_duration_override_ms"
 		}
 	},
-	[168]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Maximum {0} Summoned Skitterbot of each type"
-				}
+	[176]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Maximum {0} Summoned Skitterbot of each type"
 			}
 		},
 		name="skitterbots_limit",
@@ -5175,31 +5050,29 @@ return {
 			[1]="display_skitterbot_limit_per_type"
 		}
 	},
-	[169]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions gain {0}% more Added Damage"
-				},
-				[2]={
+	[177]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions gain {0}% less Added Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions gain {0}% more Added Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions gain {0}% less Added Damage"
 			}
 		},
 		name="minion_added_damage",
@@ -5207,31 +5080,29 @@ return {
 			[1]="active_skill_minion_added_damage_+%_final"
 		}
 	},
-	[170]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% more Duration"
-				},
-				[2]={
+	[178]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% less Duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% more Duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% less Duration"
 			}
 		},
 		name="quality_duration_final",
@@ -5239,18 +5110,16 @@ return {
 			[1]="active_skill_quality_duration_+%_final"
 		}
 	},
-	[171]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Increases and Reductions to Damage with Bows also apply to Minions"
-				}
+	[179]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Increases and Reductions to Damage with Bows also apply to Minions"
 			}
 		},
 		name="additive_bow_damage_applies_to_minions",
@@ -5258,31 +5127,29 @@ return {
 			[1]="additive_modifiers_to_bow_damage_also_apply_to_minions"
 		}
 	},
-	[172]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% increased Area Damage"
-				},
-				[2]={
+	[180]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% reduced Area Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% increased Area Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% reduced Area Damage"
 			}
 		},
 		name="area_damage_incr",
@@ -5290,31 +5157,29 @@ return {
 			[1]="area_damage_+%"
 		}
 	},
-	[173]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Attack and Cast Speed"
-				},
-				[2]={
+	[181]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Attack and Cast Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Attack and Cast Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Attack and Cast Speed"
 			}
 		},
 		name="attack_and_cast_speed_incr",
@@ -5322,26 +5187,24 @@ return {
 			[1]="attack_and_cast_speed_+%"
 		}
 	},
-	[174]={
-		lang={
-			English={
+	[182]={
+		[1]={
+			[1]={
 				[1]={
+					k="divide_by_one_hundred",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextManaLeech"
+				},
+				limit={
 					[1]={
-						k="divide_by_one_hundred",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextManaLeech"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minion's Attack Skills Leech {0}% of Damage as Mana"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minion's Attack Skills Leech {0}% of Damage as Mana"
 			}
 		},
 		name="mana_leech_from_any",
@@ -5349,31 +5212,29 @@ return {
 			[1]="attack_skill_mana_leech_from_any_damage_permyriad"
 		}
 	},
-	[175]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Attack Speed while they have at least 20 Rage"
-				},
-				[2]={
+	[183]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions Skills have {0}% reduced Attack Speed while they have at least 20 Rage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Attack Speed while they have at least 20 Rage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions Skills have {0}% reduced Attack Speed while they have at least 20 Rage"
 			}
 		},
 		name="attack_speed_with_rage",
@@ -5381,35 +5242,33 @@ return {
 			[1]="attack_speed_+%_with_atleast_20_rage"
 		}
 	},
-	[176]={
-		lang={
-			English={
+	[184]={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextImpale"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Minions' Attacks have {0}% chance to Impale Enemies on Hit"
+					k="reminderstring",
+					v="ReminderTextImpale"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextImpale"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Minions' Attacks always Impale Enemies on Hit"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Minions' Attacks have {0}% chance to Impale Enemies on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextImpale"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Minions' Attacks always Impale Enemies on Hit"
 			}
 		},
 		name="attack_impale_chance",
@@ -5417,31 +5276,29 @@ return {
 			[1]="attacks_impale_on_hit_%_chance"
 		}
 	},
-	[177]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Projectiles Fired by Minions have {0}% increased Projectile spread"
-				},
-				[2]={
+	[185]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Projectiles Fired by Minions have {0}% reduced Projectile spread"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Projectiles Fired by Minions have {0}% increased Projectile spread"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Projectiles Fired by Minions have {0}% reduced Projectile spread"
 			}
 		},
 		name="barrage_projectile_spread_incr",
@@ -5449,39 +5306,37 @@ return {
 			[1]="barrage_support_projectile_spread_+%"
 		}
 	},
-	[178]={
-		lang={
-			English={
+	[186]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Duration of Ailments on Enemies"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Duration of Ailments inflicted by Minions"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Duration of Ailments on Enemies"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Duration of Ailments inflicted by Minions"
 			}
 		},
 		name="ailment_duration_incr",
@@ -5489,35 +5344,33 @@ return {
 			[1]="base_all_ailment_duration_+%"
 		}
 	},
-	[179]={
-		lang={
-			English={
+	[187]={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextPoison"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Minions have {0}% chance to Poison on Hit"
+					k="reminderstring",
+					v="ReminderTextPoison"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextPoison"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Minions always Poison on Hit"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Minions have {0}% chance to Poison on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextPoison"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Minions always Poison on Hit"
 			}
 		},
 		name="poison_chance",
@@ -5525,18 +5378,16 @@ return {
 			[1]="base_chance_to_poison_on_hit_%"
 		}
 	},
-	[180]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions deal no Chaos Damage"
-				}
+	[188]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions deal no Chaos Damage"
 			}
 		},
 		name="deal_no_chaos",
@@ -5544,35 +5395,33 @@ return {
 			[1]="base_deal_no_chaos_damage"
 		}
 	},
-	[181]={
-		lang={
-			English={
+	[189]={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextColdExposure"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Minions have {0}% chance to inflict Cold Exposure on Hit"
+					k="reminderstring",
+					v="ReminderTextColdExposure"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextColdExposure"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Minions inflict Cold Exposure on Hit"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Minions have {0}% chance to inflict Cold Exposure on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextColdExposure"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Minions inflict Cold Exposure on Hit"
 			}
 		},
 		name="inflict_cold_exposure_on_hit_chance",
@@ -5580,35 +5429,33 @@ return {
 			[1]="base_inflict_cold_exposure_on_hit_%_chance"
 		}
 	},
-	[182]={
-		lang={
-			English={
+	[190]={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextFireExposure"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Minions have {0}% chance to inflict Fire Exposure on Hit"
+					k="reminderstring",
+					v="ReminderTextFireExposure"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextFireExposure"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Minions inflict Fire Exposure on Hit"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Minions have {0}% chance to inflict Fire Exposure on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextFireExposure"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Minions inflict Fire Exposure on Hit"
 			}
 		},
 		name="inflict_fire_exposure_on_hit_chance",
@@ -5616,35 +5463,33 @@ return {
 			[1]="base_inflict_fire_exposure_on_hit_%_chance"
 		}
 	},
-	[183]={
-		lang={
-			English={
+	[191]={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextLightningExposure"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Minions have {0}% chance to inflict Lightning Exposure on Hit"
+					k="reminderstring",
+					v="ReminderTextLightningExposure"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextLightningExposure"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Minions inflict Lightning Exposure on Hit"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Minions have {0}% chance to inflict Lightning Exposure on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextLightningExposure"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Minions inflict Lightning Exposure on Hit"
 			}
 		},
 		name="inflict_lightning_exposure_on_hit_chance",
@@ -5652,26 +5497,24 @@ return {
 			[1]="base_inflict_lightning_exposure_on_hit_%_chance"
 		}
 	},
-	[184]={
-		lang={
-			English={
+	[192]={
+		[1]={
+			[1]={
 				[1]={
+					k="divide_by_one_hundred",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextLifeLeech"
+				},
+				limit={
 					[1]={
-						k="divide_by_one_hundred",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextLifeLeech"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% of Chaos Damage Leeched as Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% of Chaos Damage Leeched as Life"
 			}
 		},
 		name="life_leech_from_chaos_damage",
@@ -5679,27 +5522,25 @@ return {
 			[1]="base_life_leech_from_chaos_damage_permyriad"
 		}
 	},
-	[185]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="{0}% chance to Summon a Phantasm when Non-Phantasm Minions Hit a Rare or Unique Enemy"
+	[193]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Summon a Phantasm when Non-Phantasm Minions Hit a Rare or Unique Enemy"
-				}
+				text="{0}% chance to Summon a Phantasm when Non-Phantasm Minions Hit a Rare or Unique Enemy"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Summon a Phantasm when Non-Phantasm Minions Hit a Rare or Unique Enemy"
 			}
 		},
 		name="ghost_rare_chance",
@@ -5707,27 +5548,25 @@ return {
 			[1]="chance_to_summon_support_ghost_on_hitting_rare_or_unique_%"
 		}
 	},
-	[186]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="{0}% chance to Summon a Phantasm when Non-Phantasm Minions deal a Killing Blow"
+	[194]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Summon a Phantasm when Non-Phantasm Minions deal a Killing Blow"
-				}
+				text="{0}% chance to Summon a Phantasm when Non-Phantasm Minions deal a Killing Blow"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Summon a Phantasm when Non-Phantasm Minions deal a Killing Blow"
 			}
 		},
 		name="ghost_chance",
@@ -5735,39 +5574,37 @@ return {
 			[1]="chance_to_summon_support_ghost_on_killing_blow_%"
 		}
 	},
-	[187]={
-		lang={
-			English={
+	[195]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextColdAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextColdAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions Have {0}% increased Effect of Cold Ailments"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions Have {0}% increased Effect of Cold Ailments"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextColdAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextColdAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions Have {0}% reduced Effect of Cold Ailments"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions Have {0}% reduced Effect of Cold Ailments"
 			}
 		},
 		name="cold_ailment_effect_incr",
@@ -5775,31 +5612,63 @@ return {
 			[1]="cold_ailment_effect_+%"
 		}
 	},
-	[188]={
-		lang={
-			English={
+	[196]={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="This Skill has {0}% increased Critical Strike Chance per Inspiration Charge"
+					k="reminderstring",
+					v="ReminderTextCoveredInFrost"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="This Skill has {0}% reduced Critical Strike Chance per Inspiration Charge"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Minions have {0}% chance to Cover Enemies in Frost on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextCoveredInFrost"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Minions Cover Enemies in Frost on Hit"
+			}
+		},
+		name="cover_in_frost_on_hit_chance",
+		stats={
+			[1]="cover_in_frost_on_hit_%"
+		}
+	},
+	[197]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="This Skill has {0}% increased Critical Strike Chance per Inspiration Charge"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="This Skill has {0}% reduced Critical Strike Chance per Inspiration Charge"
 			}
 		},
 		name="crit_chance_per_righteous_charge",
@@ -5807,31 +5676,29 @@ return {
 			[1]="critical_strike_chance_+%_per_righteous_charge"
 		}
 	},
-	[189]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Critical Strike Chance against Blinded Enemies"
-				},
-				[2]={
+	[198]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Critical Strike Chance against Blinded Enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Critical Strike Chance against Blinded Enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Critical Strike Chance against Blinded Enemies"
 			}
 		},
 		name="critical_strike_chance_incr_vs_blinded_enemies",
@@ -5839,31 +5706,29 @@ return {
 			[1]="critical_strike_chance_+%_vs_blinded_enemies"
 		}
 	},
-	[190]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Effect of Cruelty granted by Minions"
-				},
-				[2]={
+	[199]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Effect of Cruelty granted by Minions"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Effect of Cruelty granted by Minions"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Effect of Cruelty granted by Minions"
 			}
 		},
 		name="cruelty_effect_incr",
@@ -5871,35 +5736,33 @@ return {
 			[1]="cruelty_effect_+%"
 		}
 	},
-	[191]={
-		lang={
-			English={
+	[200]={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextCrushedNoDuration"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Minions have {}% chance to Crush for 2 seconds on Hit"
+					k="reminderstring",
+					v="ReminderTextCrushedNoDuration"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextCrushedNoDuration"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Minions Crush for 2 seconds on Hit"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Minions have {}% chance to Crush for 2 seconds on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextCrushedNoDuration"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Minions Crush for 2 seconds on Hit"
 			}
 		},
 		name="crush_on_hit_chance",
@@ -5907,39 +5770,75 @@ return {
 			[1]="crush_for_2_seconds_on_hit_%_chance"
 		}
 	},
-	[192]={
-		lang={
-			English={
+	[201]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextRecently"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% increased Damage with Hits and Ailments per Freeze, Shock or Ignite on Enemy"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% increased Damage if they have Consumed a corpse Recently"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextRecently"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% reduced Damage with Hits and Ailments  per Freeze, Shock or Ignite on Enemy"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% reduced Damage if they have Consumed a corpse Recently"
+			}
+		},
+		name="damage_if_consumed_corpse_recently",
+		stats={
+			[1]="damage_+%_if_you_have_consumed_a_corpse_recently"
+		}
+	},
+	[202]={
+		[1]={
+			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% increased Damage with Hits and Ailments per Freeze, Shock or Ignite on Enemy"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% reduced Damage with Hits and Ailments  per Freeze, Shock or Ignite on Enemy"
 			}
 		},
 		name="damage_incr_per_ailment",
@@ -5947,31 +5846,29 @@ return {
 			[1]="damage_+%_vs_enemies_per_freeze_shock_ignite"
 		}
 	},
-	[193]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% increased Damage while Leeching Energy Shield"
-				},
-				[2]={
+	[203]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% reduced Damage while Leeching Energy Shield"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% increased Damage while Leeching Energy Shield"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% reduced Damage while Leeching Energy Shield"
 			}
 		},
 		name="damage_while_es_leeching",
@@ -5979,31 +5876,29 @@ return {
 			[1]="damage_+%_while_es_leeching"
 		}
 	},
-	[194]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% increased Damage while Leeching Life"
-				},
-				[2]={
+	[204]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% reduced Damage while Leeching Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% increased Damage while Leeching Life"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% reduced Damage while Leeching Life"
 			}
 		},
 		name="damage_while_life_leeching",
@@ -6011,31 +5906,29 @@ return {
 			[1]="damage_+%_while_life_leeching"
 		}
 	},
-	[195]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% increased Damage while Leeching Mana"
-				},
-				[2]={
+	[205]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% reduced Damage while Leeching Mana"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% increased Damage while Leeching Mana"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% reduced Damage while Leeching Mana"
 			}
 		},
 		name="damage_while_mana_leeching",
@@ -6043,39 +5936,37 @@ return {
 			[1]="damage_+%_while_mana_leeching"
 		}
 	},
-	[196]={
-		lang={
-			English={
+	[206]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% increased Damage with Hits and Ailments per Curse on Enemy"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% increased Damage with Hits and Ailments per Curse on Enemy"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% reduced Damage with Hits and Ailments per Curse on Enemy"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% reduced Damage with Hits and Ailments per Curse on Enemy"
 			}
 		},
 		name="damage_per_enemy_curse_incr",
@@ -6083,18 +5974,16 @@ return {
 			[1]="damage_vs_cursed_enemies_per_enemy_curse_+%"
 		}
 	},
-	[197]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% increased Damage with Hits against Enemies that are on Low Life"
-				}
+	[207]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% increased Damage with Hits against Enemies that are on Low Life"
 			}
 		},
 		name="damage_vs_enemies_on_low_life_incr",
@@ -6102,22 +5991,20 @@ return {
 			[1]="damage_vs_enemies_on_low_life_+%"
 		}
 	},
-	[198]={
-		lang={
-			English={
+	[208]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Damaging Ailments inflicted by Minions deal damage {0}% faster"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Damaging Ailments inflicted by Minions deal damage {0}% faster"
 			}
 		},
 		name="damaging_ailments_deal_damage_faster",
@@ -6125,18 +6012,16 @@ return {
 			[1]="damaging_ailments_deal_damage_+%_faster"
 		}
 	},
-	[199]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions inflict Decay on Hit, dealing {0} Chaos Damage per second for 8 seconds"
-				}
+	[209]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions inflict Decay on Hit, dealing {0} Chaos Damage per second for 8 seconds"
 			}
 		},
 		name="decay_on_hit",
@@ -6144,18 +6029,16 @@ return {
 			[1]="deal_chaos_damage_per_second_for_10_seconds_on_hit"
 		}
 	},
-	[200]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions deal no Elemental Damage"
-				}
+	[210]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions deal no Elemental Damage"
 			}
 		},
 		name="deal_no_elemental",
@@ -6163,31 +6046,29 @@ return {
 			[1]="deal_no_elemental_damage"
 		}
 	},
-	[201]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage"
-				},
-				[2]={
+	[211]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage"
 			}
 		},
 		name="deathmark_minion_damage",
@@ -6195,22 +6076,37 @@ return {
 			[1]="deathmark_minion_damage_+%_final"
 		}
 	},
-	[202]={
-		lang={
-			English={
-				[1]={
+	[212]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextChillNonHitNoDuration"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Chilling Skitterbot's Aura Chills Enemies near it"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions' Level is equal to yours"
+			}
+		},
+		name="minion_actor_level_is_user_level",
+		stats={
+			[1]="display_minion_actor_level_is_user_level"
+		}
+	},
+	[213]={
+		[1]={
+			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextChillNonHitNoDuration"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Chilling Skitterbot's Aura Chills Enemies near it"
 			}
 		},
 		name="skitterbot_chill",
@@ -6218,22 +6114,20 @@ return {
 			[1]="display_skitterbot_chilling_aura"
 		}
 	},
-	[203]={
-		lang={
-			English={
+	[214]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextShockNonHitNoDuration"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextShockNonHitNoDuration"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Shocking Skitterbot's Aura Shocks Enemies near it"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Shocking Skitterbot's Aura Shocks Enemies near it"
 			}
 		},
 		name="skitterbot_shock",
@@ -6241,31 +6135,50 @@ return {
 			[1]="display_skitterbot_shocking_aura"
 		}
 	},
-	[204]={
-		lang={
-			English={
+	[215]={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="This Skill has {0}% more Elemental Damage per Inspiration Charge"
+					k="reminderstring",
+					v="ReminderTextScorchNonHitNoDuration"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="This Skill has {0}% less Elemental Damage per Inspiration Charge"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Scorching Skitterbot's Aura Scorches Enemies near it"
+			}
+		},
+		name="skitterbot_scorch",
+		stats={
+			[1]="summon_fire_skitterbot"
+		}
+	},
+	[216]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="This Skill has {0}% more Elemental Damage per Inspiration Charge"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="This Skill has {0}% less Elemental Damage per Inspiration Charge"
 			}
 		},
 		name="elemental_damage_per_righteous_charge",
@@ -6273,31 +6186,33 @@ return {
 			[1]="elemental_damage_+%_final_per_righteous_charge"
 		}
 	},
-	[205]={
-		lang={
-			English={
+	[217]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Enemies Shocked by Minions have {0}% increased Movement Speed"
+			},
+			[2]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Enemies Shocked by Minions have {0}% increased Movement Speed"
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="canonical_line",
+					v=true
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Enemies Shocked by Minions have {0}% reduced Movement Speed"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Enemies Shocked by Minions have {0}% reduced Movement Speed"
 			}
 		},
 		name="shocked_movement_speed",
@@ -6305,31 +6220,29 @@ return {
 			[1]="enemies_you_shock_movement_speed_+%"
 		}
 	},
-	[206]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Enemies Shocked by Minions take {0}% increased Physical Damage"
-				},
-				[2]={
+	[218]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Enemies Shocked by Minions take {0}% reduced Physical Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Enemies Shocked by Minions take {0}% increased Physical Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Enemies Shocked by Minions take {0}% reduced Physical Damage"
 			}
 		},
 		name="shocked_enemy_physical_damage",
@@ -6337,22 +6250,20 @@ return {
 			[1]="enemies_you_shock_take_%_increased_physical_damage"
 		}
 	},
-	[207]={
-		lang={
-			English={
+	[219]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextOverwhelm"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextOverwhelm"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions Overwhelm {0}% Physical Damage Reduction"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions Overwhelm {0}% Physical Damage Reduction"
 			}
 		},
 		name="enemy_phys_reduction_percent",
@@ -6360,27 +6271,51 @@ return {
 			[1]="enemy_phys_reduction_%_penalty_vs_hit"
 		}
 	},
-	[208]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]=99
-						}
-					},
-					text="Minions have {0}% chance to gain a Frenzy Charge on Killing Blow against Enemies with at least 5 Poisons"
+	[220]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Minions gain a Frenzy Charge on Killing Blow against Enemies with at least 5 Poisons"
-				}
+				text="Minion Killing Blows cause Enemies to have a {0}% chance to Explode, dealing a tenth of their maximum Life as Damage of a Random Element"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Minion Killing Blows cause Enemies to Explode, dealing a tenth of their maximum Life as Damage of a Random Element"
+			}
+		},
+		name="enemies_explode_random_element_on_killing_blow",
+		stats={
+			[1]="explode_enemies_for_10%_life_as_random_element_on_killing_blow_chance_%"
+		}
+	},
+	[221]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]=99
+					}
+				},
+				text="Minions have {0}% chance to gain a Frenzy Charge on Killing Blow against Enemies with at least 5 Poisons"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Minions gain a Frenzy Charge on Killing Blow against Enemies with at least 5 Poisons"
 			}
 		},
 		name="frenzy_on_kill_blow_vs_5_poison",
@@ -6388,18 +6323,16 @@ return {
 			[1]="gain_frenzy_charge_on_killing_blow_vs_enemies_with_5+_poisons_%"
 		}
 	},
-	[209]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% chance to gain a Power Charge on Killing Blow"
-				}
+	[222]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% chance to gain a Power Charge on Killing Blow"
 			}
 		},
 		name="gain_power_charge_on_kill_chance",
@@ -6407,22 +6340,71 @@ return {
 			[1]="gain_power_charge_on_kill_with_hit_%"
 		}
 	},
-	[210]={
-		lang={
-			English={
-				[1]={
+	[223]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextCruelty"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions gain Cruelty on Hit"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Maximum {0} Hiveborn"
+			}
+		},
+		name="tul_summon_maximum_allowed_demons",
+		stats={
+			[1]="graft_skill_tul_summon_maximum_allowed_demons"
+		}
+	},
+	[224]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions Explode on Death, dealing {0}% of their maximum Life as Damage of their chosen Element"
+			}
+		},
+		name="elemental_relic_explode",
+		stats={
+			[1]="guardian_relic_explode_on_death_for_%_life_as_element_damage"
+		}
+	},
+	[225]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minion Hits cannot kill Enemies"
+			}
+		},
+		name="hits_cannot_kill",
+		stats={
+			[1]="hits_cannot_kill_enemies"
+		}
+	},
+	[226]={
+		[1]={
+			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextCruelty"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions gain Cruelty on Hit"
 			}
 		},
 		name="hits_grant_cruelty",
@@ -6430,18 +6412,16 @@ return {
 			[1]="hits_grant_cruelty"
 		}
 	},
-	[211]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Enemies Ignited by Minions have {0:+d}% to Fire Resistance"
-				}
+	[227]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Enemies Ignited by Minions have {0:+d}% to Fire Resistance"
 			}
 		},
 		name="ignites_apply_fire_res",
@@ -6449,31 +6429,29 @@ return {
 			[1]="ignites_apply_fire_resistance_+"
 		}
 	},
-	[212]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions' Attacks have {0}% increased Impale Effect"
-				},
-				[2]={
+	[228]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions' Attacks have {0}% reduced Impale Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions' Attacks have {0}% increased Impale Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions' Attacks have {0}% reduced Impale Effect"
 			}
 		},
 		name="impale_effect",
@@ -6481,22 +6459,20 @@ return {
 			[1]="impale_debuff_effect_+%"
 		}
 	},
-	[213]={
-		lang={
-			English={
+	[229]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextOverwhelm"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextOverwhelm"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Impale Damage dealt to Enemies Impaled by Minions Overwhelms {0}% Physical Damage Reduction"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Impale Damage dealt to Enemies Impaled by Minions Overwhelms {0}% Physical Damage Reduction"
 			}
 		},
 		name="impale_phys_reduction_penalty",
@@ -6504,18 +6480,16 @@ return {
 			[1]="impale_phys_reduction_%_penalty"
 		}
 	},
-	[214]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Physical Damage"
-				}
+	[230]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Physical Damage"
 			}
 		},
 		name="impale_phys_damage",
@@ -6523,31 +6497,29 @@ return {
 			[1]="impale_support_physical_damage_+%_final"
 		}
 	},
-	[215]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Area Damage"
-				},
-				[2]={
+	[231]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Area Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Area Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Area Damage"
 			}
 		},
 		name="inc_area_plus_damage_final",
@@ -6555,18 +6527,33 @@ return {
 			[1]="inc_aoe_plus_more_area_damage_+%_final"
 		}
 	},
-	[216]={
-		lang={
-			English={
+	[232]={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions have {0:+d} to Radius of their Burning Effect"
-				}
+					k="locations_to_metres",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]=10,
+						[2]=10
+					}
+				},
+				text="Minions have {0:+d} metre to Radius of their Burning Effect"
+			},
+			[2]={
+				[1]={
+					k="locations_to_metres",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions have {0:+d} metres to Radius of their Burning Effect"
 			}
 		},
 		name="infernal_legion_radius_plus",
@@ -6574,22 +6561,20 @@ return {
 			[1]="infernal_legion_minions_have_burning_effect_radius_+"
 		}
 	},
-	[217]={
-		lang={
-			English={
+	[233]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextAll3Exposures"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextAll3Exposures"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions inflict Fire, Cold, and Lightning Exposure on Hit"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions inflict Fire, Cold, and Lightning Exposure on Hit"
 			}
 		},
 		name="inflict_all_exposure_on_hit",
@@ -6597,18 +6582,85 @@ return {
 			[1]="inflict_all_exposure_on_hit"
 		}
 	},
-	[218]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
+	[234]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions kill Normal and Magic Rarity Enemies that have {0}% Life or lower when Hit"
+			}
+		},
+		name="normal_or_magic_enemy_cull",
+		stats={
+			[1]="kill_normal_or_magic_enemy_on_hit_if_under_x%_life"
+		}
+	},
+	[235]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
 					},
-					text="Minions have {0}% chance to Knock Enemies Back with Hits at Close Range"
-				}
+					[2]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions' Killing Blows Consume corpses to Recover {0} Life and {1} Mana"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					},
+					[2]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Minions' Killing Blows Consume corpses to Recover {0} Life"
+			},
+			[3]={
+				limit={
+					[1]={
+						[1]=0,
+						[2]=0
+					},
+					[2]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions' Killing Blows Consume corpses to Recover {1} Mana"
+			}
+		},
+		name="killing_blow_consume_corpse_add_flat_life",
+		stats={
+			[1]="killing_blow_consumes_corpse_restore_x_life",
+			[2]="killing_blow_consumes_corpse_restore_x_mana"
+		}
+	},
+	[236]={
+		[1]={
+			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextCloseRange"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% chance to Knock Enemies Back with Hits at Close Range"
 			}
 		},
 		name="close_range_knockback",
@@ -6616,39 +6668,37 @@ return {
 			[1]="knockback_chance_%_at_close_range"
 		}
 	},
-	[219]={
-		lang={
-			English={
+	[237]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextLightningAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextLightningAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Effect of Lightning Ailments"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Effect of Lightning Ailments"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextLightningAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextLightningAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Effect of Lightning Ailments"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Effect of Lightning Ailments"
 			}
 		},
 		name="lightning_ailment_effect_incr",
@@ -6656,27 +6706,25 @@ return {
 			[1]="lightning_ailment_effect_+%"
 		}
 	},
-	[220]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Minions Attacks have {0}% chance to Maim on Hit"
+	[238]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Minions Attacks always Maim on Hit"
-				}
+				text="Minions Attacks have {0}% chance to Maim on Hit"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Minions Attacks always Maim on Hit"
 			}
 		},
 		name="maim_chance",
@@ -6684,31 +6732,29 @@ return {
 			[1]="maim_on_hit_%"
 		}
 	},
-	[221]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions' Skills have {0}% increased Critical Strike Chance per Power Charge if used by Mines"
-				},
-				[2]={
+	[239]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions' Skills have {0}% reduced Critical Strike Chance per Power Charge if used by Mines"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions' Skills have {0}% increased Critical Strike Chance per Power Charge if used by Mines"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions' Skills have {0}% reduced Critical Strike Chance per Power Charge if used by Mines"
 			}
 		},
 		name="mine_crit_chance_per_power_charge",
@@ -6716,31 +6762,29 @@ return {
 			[1]="mine_critical_strike_chance_+%_per_power_charge"
 		}
 	},
-	[222]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="This Skill and Minions have {0}% increased Mine Throwing Speed per Frenzy Charge"
-				},
-				[2]={
+	[240]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="This Skill and Minions have {0}% reduced Mine Throwing Speed per Frenzy Charge"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="This Skill and Minions have {0}% increased Mine Throwing Speed per Frenzy Charge"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="This Skill and Minions have {0}% reduced Mine Throwing Speed per Frenzy Charge"
 			}
 		},
 		name="mine_throwing_speed_per_frenzy_charge",
@@ -6748,22 +6792,20 @@ return {
 			[1]="mine_throwing_speed_+%_per_frenzy_charge"
 		}
 	},
-	[223]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+	[241]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Minions have {0} to {1} added Cold Damage per Frenzy Charge"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions have {0} to {1} added Cold Damage per Frenzy Charge"
 			}
 		},
 		name="support_ice_bite_damage",
@@ -6772,31 +6814,29 @@ return {
 			[2]="maximum_added_cold_damage_per_frenzy_charge"
 		}
 	},
-	[224]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% more Attack Speed"
-				},
-				[2]={
+	[242]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% less Attack Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% more Attack Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% less Attack Speed"
 			}
 		},
 		name="minion_attack_speed_more",
@@ -6804,22 +6844,20 @@ return {
 			[1]="active_skill_minion_attack_speed_+%_final"
 		}
 	},
-	[225]={
-		lang={
-			English={
+	[243]={
+		[1]={
+			[1]={
 				[1]={
+					k="per_minute_to_per_second",
+					v=1
+				},
+				limit={
 					[1]={
-						k="per_minute_to_per_second",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions take {0}% of their Maximum Life as Fire Damage per second"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions take {0}% of their Maximum Life as Fire Damage per second"
 			}
 		},
 		name="support_burning_minions_self_burn",
@@ -6827,27 +6865,42 @@ return {
 			[1]="minion_fire_damage_%_of_maximum_life_taken_per_minute"
 		}
 	},
-	[226]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="{0}% chance to gain a Rampage Kill when Minions Hit a Rare or Unique Enemy"
+	[244]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Gain a Rampage Kill when Minions Hit a Rare or Unique Enemy"
-				}
+				text="Minions' Hits can't be Evaded"
+			}
+		},
+		name="minions_always_hit",
+		stats={
+			[1]="minion_global_always_hit"
+		}
+	},
+	[245]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="{0}% chance to gain a Rampage Kill when Minions Hit a Rare or Unique Enemy"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Gain a Rampage Kill when Minions Hit a Rare or Unique Enemy"
 			}
 		},
 		name="minion_grants_rampage_on_hit",
@@ -6855,26 +6908,41 @@ return {
 			[1]="minion_grants_rampage_kill_to_parent_on_hitting_rare_or_unique_enemy_%"
 		}
 	},
-	[227]={
-		lang={
-			English={
-				[1]={
+	[246]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="divide_by_one_hundred",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextLifeLeech"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions Leech {0}% of Elemental Damage as Life"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions' Level is equal to yours, up to a maximum of {0}"
+			}
+		},
+		name="minion_level_is_user_level_capped",
+		stats={
+			[1]="minion_actor_level_is_user_level_up_to_maximum"
+		}
+	},
+	[247]={
+		[1]={
+			[1]={
+				[1]={
+					k="divide_by_one_hundred",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextLifeLeech"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions Leech {0}% of Elemental Damage as Life"
 			}
 		},
 		name="minion_elemental_damage_life_leech",
@@ -6882,18 +6950,16 @@ return {
 			[1]="minion_life_leech_from_elemental_damage_permyriad"
 		}
 	},
-	[228]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions recover {0}% of Life on Hit"
-				}
+	[248]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions recover {0}% of Life on Hit"
 			}
 		},
 		name="feeding_frenzy_life_on_hit",
@@ -6901,18 +6967,16 @@ return {
 			[1]="minion_recover_%_maximum_life_on_hit"
 		}
 	},
-	[229]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions cannot Taunt Enemies"
-				}
+	[249]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions cannot Taunt Enemies"
 			}
 		},
 		name="minions_cannot_taunt",
@@ -6920,18 +6984,16 @@ return {
 			[1]="minions_cannot_taunt_enemies"
 		}
 	},
-	[230]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Modifiers to Claw Critical Strike Chance also apply to Minions"
-				}
+	[250]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Modifiers to Claw Critical Strike Chance also apply to Minions"
 			}
 		},
 		name="minion_claw_crit_multi",
@@ -6939,18 +7001,16 @@ return {
 			[1]="modifiers_to_claw_critical_strike_chance_apply_minion_critical_strike_chance"
 		}
 	},
-	[231]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Modifiers to Claw Critical Strike Multiplier also apply to Minions"
-				}
+	[251]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Modifiers to Claw Critical Strike Multiplier also apply to Minions"
 			}
 		},
 		name="minion_claw_crit",
@@ -6958,31 +7018,29 @@ return {
 			[1]="modifiers_to_claw_critical_strike_multiplier_apply_minion_critical_strike_multiplier"
 		}
 	},
-	[232]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Projectiles Fired by Minions have {0}% increased Projectile spread"
-				},
-				[2]={
+	[252]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Projectiles Fired by Minions have {0}% reduced Projectile spread"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Projectiles Fired by Minions have {0}% increased Projectile spread"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Projectiles Fired by Minions have {0}% reduced Projectile spread"
 			}
 		},
 		name="multiple_projectiles_projectile_spread_incr",
@@ -6990,31 +7048,29 @@ return {
 			[1]="multiple_projectiles_projectile_spread_+%"
 		}
 	},
-	[233]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minion's Melee Attacks have {0}% increased Area of Effect per Repeat"
-				},
-				[2]={
+	[253]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minion's Melee Attacks have {0}% reduced Area of Effect per Repeat"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minion's Melee Attacks have {0}% increased Area of Effect per Repeat"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minion's Melee Attacks have {0}% reduced Area of Effect per Repeat"
 			}
 		},
 		name="multistrike_area_of_effect_per_repeat",
@@ -7022,31 +7078,29 @@ return {
 			[1]="multistrike_area_of_effect_+%_per_repeat"
 		}
 	},
-	[234]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minion's Melee Attack's First Repeat deals {0}% more Damage"
-				},
-				[2]={
+	[254]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minion's Melee Attack's First Repeat deals {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minion's Melee Attack's First Repeat deals {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minion's Melee Attack's First Repeat deals {0}% less Damage"
 			}
 		},
 		name="multistrike_first_repeat_damage",
@@ -7054,31 +7108,29 @@ return {
 			[1]="multistrike_damage_+%_final_on_first_repeat"
 		}
 	},
-	[235]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minion's Melee Attack's Second Repeat deals {0}% more Damage"
-				},
-				[2]={
+	[255]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minion's Melee Attack's Second Repeat deals {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minion's Melee Attack's Second Repeat deals {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minion's Melee Attack's Second Repeat deals {0}% less Damage"
 			}
 		},
 		name="multistrike_second_repeat_damage",
@@ -7086,31 +7138,29 @@ return {
 			[1]="multistrike_damage_+%_final_on_second_repeat"
 		}
 	},
-	[236]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minion's Melee Attack's Third Repeat deals {0}% more Damage"
-				},
-				[2]={
+	[256]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minion's Melee Attack's Third Repeat deals {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minion's Melee Attack's Third Repeat deals {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minion's Melee Attack's Third Repeat deals {0}% less Damage"
 			}
 		},
 		name="multistrike_third_repeat_damage",
@@ -7118,39 +7168,37 @@ return {
 			[1]="multistrike_damage_+%_final_on_third_repeat"
 		}
 	},
-	[237]={
-		lang={
-			English={
+	[257]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextNonDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextNonDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Effect of non-Damaging Ailments on Enemies"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Effect of non-Damaging Ailments on Enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextNonDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextNonDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Effect of non-Damaging Ailments on Enemies"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Effect of non-Damaging Ailments on Enemies"
 			}
 		},
 		name="ailment_non_damaging_incr_effect",
@@ -7158,27 +7206,85 @@ return {
 			[1]="non_damaging_ailment_effect_+%"
 		}
 	},
-	[238]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Summons {0} Arbalist"
+	[258]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Summons {0} Arbalists"
-				}
+				text="Reapers cause your Non-Reaper Minions to deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Reapers cause your Non-Reaper Minions to deal {0}% less Damage"
+			}
+		},
+		name="non_reaper_minion_damage_final",
+		stats={
+			[1]="active_skill_non_reaper_minion_damage_+%_final"
+		}
+	},
+	[259]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Reapers cause your Non-Reaper Minions to have {0}% more Maximum Life"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Reapers cause your Non-Reaper Minions to have {0}% less Maximum Life"
+			}
+		},
+		name="non_reaper_minion_life_final",
+		stats={
+			[1]="active_skill_non_reaper_minion_maximum_life_+%_final"
+		}
+	},
+	[260]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
+				},
+				text="Summons {0} Arbalist"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Summons {0} Arbalists"
 			}
 		},
 		name="number_of_arbalists",
@@ -7186,31 +7292,133 @@ return {
 			[1]="number_of_arbalists"
 		}
 	},
-	[239]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased distance between Firing Points"
-				},
-				[2]={
+	[261]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced distance between Firing Points"
-				}
+						[1]=1,
+						[2]=1
+					}
+				},
+				text="Maximum {0} Visiting Harbinger of the Arcane"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Maximum {0} Visiting Harbingers of the Arcane"
+			}
+		},
+		name="number_of_harbinger_arcane_ascendancy_minions",
+		stats={
+			[1]="number_of_harbinger_arcane_ascendancy_minions_allowed"
+		}
+	},
+	[262]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
+				},
+				text="Maximum {0} Visiting Harbinger of Focus"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Maximum {0} Visiting Harbingers of Focus"
+			}
+		},
+		name="number_of_harbinger_focus_ascendancy_minions",
+		stats={
+			[1]="number_of_harbinger_focus_ascendancy_minions_allowed"
+		}
+	},
+	[263]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
+				},
+				text="Maximum {0} Visiting Harbinger of Time"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Maximum {0} Visiting Harbingers of Time"
+			}
+		},
+		name="number_of_harbinger_time_ascendancy_minions",
+		stats={
+			[1]="number_of_harbinger_time_ascendancy_minions_allowed"
+		}
+	},
+	[264]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
+				},
+				text="Maximum {0} Summoned Spectral Tiger"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Maximum {0} Summoned Spectral Tigers"
+			}
+		},
+		name="number_of_tigers_allowed",
+		stats={
+			[1]="number_of_tigers_allowed"
+		}
+	},
+	[265]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased distance between Firing Points"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced distance between Firing Points"
 			}
 		},
 		name="firing_point_distance_incr",
@@ -7218,27 +7426,25 @@ return {
 			[1]="parallel_projectile_firing_point_x_dist_+%"
 		}
 	},
-	[240]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="This Skill and Minions have {0}% chance to gain a Frenzy Charge when a Mine is Detonated targeting an Enemy"
+	[266]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]=100
-						}
-					},
-					text="This Skill and Minions gain a Frenzy Charge when a Mine is Detonated targeting an Enemy"
-				}
+				text="This Skill and Minions have {0}% chance to gain a Frenzy Charge when a Mine is Detonated targeting an Enemy"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]=100
+					}
+				},
+				text="This Skill and Minions gain a Frenzy Charge when a Mine is Detonated targeting an Enemy"
 			}
 		},
 		name="frenzy_charge_on_mine_detonate",
@@ -7246,27 +7452,25 @@ return {
 			[1]="%_chance_to_gain_frenzy_charge_on_mine_detonated_targeting_an_enemy"
 		}
 	},
-	[241]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="This Skill and Minions have {0}% chance to gain a Frenzy Charge when your Trap is triggered by an Enemy"
+	[267]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]=100
-						}
-					},
-					text="This Skill and Minions have gain a Frenzy Charge when your Trap is triggered by an Enemy"
-				}
+				text="This Skill and Minions have {0}% chance to gain a Frenzy Charge when your Trap is triggered by an Enemy"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]=100
+					}
+				},
+				text="This Skill and Minions have gain a Frenzy Charge when your Trap is triggered by an Enemy"
 			}
 		},
 		name="frenzy_charge_on_trap_trig",
@@ -7274,27 +7478,25 @@ return {
 			[1]="%_chance_to_gain_frenzy_charge_on_trap_triggered_by_an_enemy"
 		}
 	},
-	[242]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="This Skill and Minions have {0}% chance to gain a Power Charge when a Mine is Detonated targeting an Enemy"
+	[268]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]=100
-						}
-					},
-					text="This Skill and Minions gain a Power Charge when a Mine is Detonated targeting an Enemy"
-				}
+				text="This Skill and Minions have {0}% chance to gain a Power Charge when a Mine is Detonated targeting an Enemy"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]=100
+					}
+				},
+				text="This Skill and Minions gain a Power Charge when a Mine is Detonated targeting an Enemy"
 			}
 		},
 		name="power_charge_on_mine_detonate",
@@ -7302,27 +7504,25 @@ return {
 			[1]="%_chance_to_gain_power_charge_on_mine_detonated_targeting_an_enemy"
 		}
 	},
-	[243]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="This Skill and Minions have {0}% chance to gain a Power Charge when your Trap is triggered by an Enemy"
+	[269]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]=100
-						}
-					},
-					text="This Skill and Minions gain a Power Charge when your Trap is triggered by an Enemy"
-				}
+				text="This Skill and Minions have {0}% chance to gain a Power Charge when your Trap is triggered by an Enemy"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]=100
+					}
+				},
+				text="This Skill and Minions gain a Power Charge when your Trap is triggered by an Enemy"
 			}
 		},
 		name="power_charge_on_trap_trig",
@@ -7330,27 +7530,42 @@ return {
 			[1]="%_chance_to_gain_power_charge_on_trap_triggered_by_an_enemy"
 		}
 	},
-	[244]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Minion's Projectiles Pierce an additional Target"
+	[270]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Minion's Projectiles Pierce {0} additional Targets"
-				}
+				text="Minions' Projectiles have {0}% chance to Return to you an additional Time"
+			}
+		},
+		name="projectile_additional_return_chance",
+		stats={
+			[1]="projectile_additional_return_chance_%"
+		}
+	},
+	[271]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
+				},
+				text="Minion's Projectiles Pierce an additional Target"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Minion's Projectiles Pierce {0} additional Targets"
 			}
 		},
 		name="base_pierce_num",
@@ -7358,27 +7573,25 @@ return {
 			[1]="projectile_base_number_of_targets_to_pierce"
 		}
 	},
-	[245]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]=99
-						}
-					},
-					text="Projectiles Fired by Minions have {0}% chance not to Pierce Enemies"
+	[272]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]=99
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Projectiles Fired by Minions Cannot Pierce Enemies"
-				}
+				text="Projectiles Fired by Minions have {0}% chance not to Pierce Enemies"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Projectiles Fired by Minions Cannot Pierce Enemies"
 			}
 		},
 		name="chance_to_not_pierce",
@@ -7386,31 +7599,29 @@ return {
 			[1]="projectile_chance_to_not_pierce_%"
 		}
 	},
-	[246]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions' Projectiles that have Pierced deal {0}% increased Damage"
-				},
-				[2]={
+	[273]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions' Projectiles that have Pierced deal {0}% reduced Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions' Projectiles that have Pierced deal {0}% increased Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions' Projectiles that have Pierced deal {0}% reduced Damage"
 			}
 		},
 		name="proj_damage_if_pierced",
@@ -7418,31 +7629,29 @@ return {
 			[1]="projectile_damage_+%_if_pierced_enemy"
 		}
 	},
-	[247]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions' Projectiles deal {0}% increased Damage with Hits to nearby Enemies"
-				},
-				[2]={
+	[274]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions' Projectiles deal {0}% reduced Damage with Hits to nearby Enemies"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions' Projectiles deal {0}% increased Damage with Hits to nearby Enemies"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions' Projectiles deal {0}% reduced Damage with Hits to nearby Enemies"
 			}
 		},
 		name="nearby_projectile_damage_incr",
@@ -7450,18 +7659,33 @@ return {
 			[1]="projectile_damage_+%_vs_nearby_enemies"
 		}
 	},
-	[248]={
-		lang={
-			English={
+	[275]={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Projectiles Fired by Minions Pierce all Targets within {0} units"
-				}
+					k="locations_to_metres",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]=10,
+						[2]=10
+					}
+				},
+				text="Projectiles Fired by Minions Pierce all Targets within {0} metre"
+			},
+			[2]={
+				[1]={
+					k="locations_to_metres",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Projectiles Fired by Minions Pierce all Targets within {0} metres"
 			}
 		},
 		name="pierce_all_targets_in_x_range",
@@ -7469,22 +7693,20 @@ return {
 			[1]="projectiles_pierce_all_targets_in_x_range"
 		}
 	},
-	[249]={
-		lang={
-			English={
+	[276]={
+		[1]={
+			[1]={
 				[1]={
+					k="divide_by_one_hundred",
+					v=1
+				},
+				limit={
 					[1]={
-						k="divide_by_one_hundred",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions Recover {0}% of Life when you Stun an Enemy"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions Recover {0}% of Life when you Stun an Enemy"
 			}
 		},
 		name="life_recover_on_stun",
@@ -7492,18 +7714,16 @@ return {
 			[1]="recover_%_life_when_stunning_an_enemy_permyriad"
 		}
 	},
-	[250]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions Penetrate {0}% Chaos Resistance"
-				}
+	[277]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions Penetrate {0}% Chaos Resistance"
 			}
 		},
 		name="chaos_penetration",
@@ -7511,31 +7731,29 @@ return {
 			[1]="reduce_enemy_chaos_resistance_%"
 		}
 	},
-	[251]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="{0}% increased Effect of Shocks Minions inflict with Critical Strikes"
-				},
-				[2]={
+	[278]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="{0}% reduced Effect of Shocks Minions inflict with Critical Strikes"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% increased Effect of Shocks Minions inflict with Critical Strikes"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% reduced Effect of Shocks Minions inflict with Critical Strikes"
 			}
 		},
 		name="critical_shock_effect",
@@ -7543,39 +7761,37 @@ return {
 			[1]="shock_effect_+%_with_critical_strikes"
 		}
 	},
-	[252]={
-		lang={
-			English={
+	[279]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Duration of Skills and Duration of Damaging Ailments"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Duration of Skills and Duration of Damaging Ailments"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Duration of Skills and Damaging Ailments"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Duration of Skills and Damaging Ailments"
 			}
 		},
 		name="skill_and_damaging_ailment_duration_incr",
@@ -7583,18 +7799,16 @@ return {
 			[1]="skill_effect_and_damaging_ailment_duration_+%"
 		}
 	},
-	[253]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions Convert {0}% of Physical Damage to Chaos Damage"
-				}
+	[280]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions Convert {0}% of Physical Damage to Chaos Damage"
 			}
 		},
 		name="physical_damage_to_convert_to_chaos",
@@ -7602,22 +7816,20 @@ return {
 			[1]="skill_physical_damage_%_to_convert_to_chaos"
 		}
 	},
-	[254]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
+	[281]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
 					},
-					text="Minions Convert {0}% of Physical Damage to Cold Damage"
-				}
+					[2]={
+						[1]=0,
+						[2]=0
+					}
+				},
+				text="Minions Convert {0}% of Physical Damage to Cold Damage"
 			}
 		},
 		name="physical_damage_to_convert_to_cold",
@@ -7626,18 +7838,16 @@ return {
 			[2]="active_skill_display_suppress_physical_to_cold_damage_conversion"
 		}
 	},
-	[255]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions Convert {0}% of Physical Damage to Fire Damage"
-				}
+	[282]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions Convert {0}% of Physical Damage to Fire Damage"
 			}
 		},
 		name="physical_damage_to_convert_to_fire",
@@ -7645,31 +7855,29 @@ return {
 			[1]="skill_physical_damage_%_to_convert_to_fire"
 		}
 	},
-	[256]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Skitterbots grant {0}% more Trap and Mine Damage"
-				},
-				[2]={
+	[283]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Skitterbots grant {0}% less Trap and Mine Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Skitterbots grant {0}% more Trap and Mine Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Skitterbots grant {0}% less Trap and Mine Damage"
 			}
 		},
 		name="skitterbots_trap_mine_damage",
@@ -7677,22 +7885,54 @@ return {
 			[1]="skitterbots_trap_mine_damage_+%_final"
 		}
 	},
-	[257]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+	[284]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Buff grants {0}% increased Attack and Cast Speed"
+			}
+		},
+		name="tiger_speed",
+		stats={
+			[1]="spectral_tiger_grants_attack_and_cast_speed_+%"
+		}
+	},
+	[285]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Buff grants {0}% increased Critical Strike Chance"
+			}
+		},
+		name="tiger_crit",
+		stats={
+			[1]="spectral_tiger_grants_critical_strike_chance_+%"
+		}
+	},
+	[286]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Buff grants {0} to {1} Added Attack Physical Damage"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Buff grants {0} to {1} Added Attack Physical Damage"
 			}
 		},
 		name="wolf_damage",
@@ -7701,31 +7941,29 @@ return {
 			[2]="spectral_wolf_grants_attack_maximum_added_physical_damage"
 		}
 	},
-	[258]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Physical Damage"
-				},
-				[2]={
+	[287]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Physical Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Physical Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Physical Damage"
 			}
 		},
 		name="brutality_phys_damage",
@@ -7733,39 +7971,37 @@ return {
 			[1]="support_brutality_physical_damage_+%_final"
 		}
 	},
-	[259]={
-		lang={
-			English={
+	[288]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextChillingArea"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextChillingArea"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Enemies in Chilling Areas from Minion's Skills take {0}% increased Cold Damage over Time"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Enemies in Chilling Areas from Minion's Skills take {0}% increased Cold Damage over Time"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextChillingArea"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextChillingArea"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Enemies in Chilling Areas from Minion's Skills take {0}% reduced Cold Damage over Time"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Enemies in Chilling Areas from Minion's Skills take {0}% reduced Cold Damage over Time"
 			}
 		},
 		name="support_chilling_areas_incr_cold_dot_taken",
@@ -7773,22 +8009,20 @@ return {
 			[1]="support_chilling_areas_also_grant_cold_damage_taken_per_minute_+%"
 		}
 	},
-	[260]={
-		lang={
-			English={
+	[289]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextChillingArea"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextChillingArea"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Enemies in Chilling Areas from Minion's Skills have Cold Damage taken increased by Chill Effect"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Enemies in Chilling Areas from Minion's Skills have Cold Damage taken increased by Chill Effect"
 			}
 		},
 		name="support_chilling_areas_incr_cold_damage_taken",
@@ -7796,31 +8030,29 @@ return {
 			[1]="support_chilling_areas_also_grant_cold_damage_taken_+%_equal_to_slow_amount"
 		}
 	},
-	[261]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Enemies Chilled by Minions take {0}% increased Cold Damage over Time"
-				},
-				[2]={
+	[290]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Enemies Chilled by Minions take {0}% reduced Cold Damage over Time"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Enemies Chilled by Minions take {0}% increased Cold Damage over Time"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Enemies Chilled by Minions take {0}% reduced Cold Damage over Time"
 			}
 		},
 		name="support_chills_incr_cold_dot_taken",
@@ -7828,18 +8060,16 @@ return {
 			[1]="support_chills_also_grant_cold_damage_taken_per_minute_+%"
 		}
 	},
-	[262]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Enemies Chilled by Minions have Cold Damage taken increased by Chill Effect"
-				}
+	[291]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Enemies Chilled by Minions have Cold Damage taken increased by Chill Effect"
 			}
 		},
 		name="support_chills_incr_cold_damage_taken",
@@ -7847,31 +8077,29 @@ return {
 			[1]="support_chills_also_grant_cold_damage_taken_+%_equal_to_slow_amount"
 		}
 	},
-	[263]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage while on Full Energy Shield"
-				},
-				[2]={
+	[292]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage while on Full Energy Shield"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage while on Full Energy Shield"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage while on Full Energy Shield"
 			}
 		},
 		name="support_damage_full_es_incr",
@@ -7879,31 +8107,29 @@ return {
 			[1]="support_energy_shield_leech_damage_+%_on_full_energy_shield_final"
 		}
 	},
-	[264]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage while Leeching Energy Shield"
-				},
-				[2]={
+	[293]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage while Leeching Energy Shield"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage while Leeching Energy Shield"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage while Leeching Energy Shield"
 			}
 		},
 		name="damage_while_es_leeching_more",
@@ -7911,31 +8137,29 @@ return {
 			[1]="support_energy_shield_leech_damage_+%_while_leeching_energy_shield_final"
 		}
 	},
-	[265]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage with Hits and Ailments against Enemies on Low Life"
-				},
-				[2]={
+	[294]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage with Hits and Ailments against Enemies on Low Life"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage with Hits and Ailments against Enemies on Low Life"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage with Hits and Ailments against Enemies on Low Life"
 			}
 		},
 		name="executioner_low_life_damage",
@@ -7943,22 +8167,20 @@ return {
 			[1]="support_executioner_damage_vs_enemies_on_low_life_+%_final"
 		}
 	},
-	[266]={
-		lang={
-			English={
+	[295]={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds_0dp",
+					v=1
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds_0dp",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions Killing a Rare Monster with a Hit from a Strike Skill with a Melee Weapon gain one of its Modifiers for a base Duration of {0} seconds"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions Killing a Rare Monster with a Hit from a Strike Skill with a Melee Weapon gain one of its Modifiers for a base Duration of {0} seconds"
 			}
 		},
 		name="executioner_steal_mod",
@@ -7966,18 +8188,16 @@ return {
 			[1]="support_executioner_gain_one_rare_monster_mod_on_kill_ms"
 		}
 	},
-	[267]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% chance to refresh Duration of their granted Modifier by up to 5 seconds on Hitting a Rare or Unique Enemy"
-				}
+	[296]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% chance to refresh Duration of their granted Modifier by up to 5 seconds on Hitting a Rare or Unique Enemy"
 			}
 		},
 		name="executioner_refresh_stolen_mod",
@@ -7985,31 +8205,67 @@ return {
 			[1]="support_executioner_refresh_stolen_mod_on_hitting_rare_or_unique_monster_chance_%"
 		}
 	},
-	[268]={
-		lang={
-			English={
+	[297]={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage with Ailments caused by Melee Hits"
+					k="reminderstring",
+					v="ReminderTextAilments"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0}% more Duration of Ailments inflicted by Minions"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage with Ailments caused by Melee Hits"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0}% less Duration of Ailments inflicted by Minions"
+			}
+		},
+		name="support_faster_ailments_duration",
+		stats={
+			[1]="support_faster_ailments_ailment_duration_+%_final"
+		}
+	},
+	[298]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage with Ailments caused by Melee Hits"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage with Ailments caused by Melee Hits"
 			}
 		},
 		name="support_fortify_ailment_damage_final_incr",
@@ -8017,31 +8273,29 @@ return {
 			[1]="support_fortify_ailment_damage_+%_final_from_melee_hits"
 		}
 	},
-	[269]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Melee Damage"
-				},
-				[2]={
+	[299]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Melee Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Melee Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Melee Damage"
 			}
 		},
 		name="support_fortify_melee_damage_final_incr",
@@ -8049,31 +8303,29 @@ return {
 			[1]="support_fortify_melee_damage_+%_final"
 		}
 	},
-	[270]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Projectile Damage"
-				},
-				[2]={
+	[300]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Projectile Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Projectile Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Projectile Damage"
 			}
 		},
 		name="greater_volley_projectiles_damage_final",
@@ -8081,31 +8333,29 @@ return {
 			[1]="support_greater_volley_projectile_damage_+%_final"
 		}
 	},
-	[271]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Cold Damage Over Time"
-				},
-				[2]={
+	[301]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Cold Damage Over Time"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Cold Damage Over Time"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Cold Damage Over Time"
 			}
 		},
 		name="hypothermia_cold_damage",
@@ -8113,31 +8363,59 @@ return {
 			[1]="support_hypothermia_cold_damage_over_time_+%_final"
 		}
 	},
-	[272]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Physical Damage"
-				},
-				[2]={
+	[302]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Physical Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% more Duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% less Duration"
+			}
+		},
+		name="support_more_duration",
+		stats={
+			[1]="support_more_duration_skill_effect_duration_+%_final"
+		}
+	},
+	[303]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Physical Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Physical Damage"
 			}
 		},
 		name="maim_phys_damage",
@@ -8145,31 +8423,29 @@ return {
 			[1]="support_maim_chance_physical_damage_+%_final"
 		}
 	},
-	[273]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Enemies Maimed by Minions take {0}% increased Physical Damage"
-				},
-				[2]={
+	[304]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Enemies Maimed by Minions take {0}% reduced Physical Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Enemies Maimed by Minions take {0}% increased Physical Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Enemies Maimed by Minions take {0}% reduced Physical Damage"
 			}
 		},
 		name="maimed_phys_damage_taken_incr",
@@ -8177,22 +8453,20 @@ return {
 			[1]="support_maimed_enemies_physical_damage_taken_+%"
 		}
 	},
-	[274]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
+	[305]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Minions deal {0} to {1} added Fire Damage against Burning Enemies"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions deal {0} to {1} added Fire Damage against Burning Enemies"
 			}
 		},
 		name="added_fire_against_burning",
@@ -8201,31 +8475,29 @@ return {
 			[2]="global_maximum_added_fire_damage_vs_burning_enemies"
 		}
 	},
-	[275]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% increased Critical Strike Chance against the Prey"
-				},
-				[2]={
+	[306]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% reduced Critical Strike Chance against the Prey"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Critical Strike Chance against the Prey"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Critical Strike Chance against the Prey"
 			}
 		},
 		name="deathmark_crit_chance_vs_target",
@@ -8233,18 +8505,16 @@ return {
 			[1]="support_minion_focus_fire_critical_strike_chance_+%_vs_focused_target"
 		}
 	},
-	[276]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions have {0:+d}% to Critical Strike Multiplier against the Prey"
-				}
+	[307]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions have {0:+d}% to Critical Strike Multiplier against the Prey"
 			}
 		},
 		name="deathmark_crit_multi_vs_target",
@@ -8252,31 +8522,29 @@ return {
 			[1]="support_minion_focus_fire_critical_strike_multiplier_+_vs_focused_target"
 		}
 	},
-	[277]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage to the Prey with Hits and Ailments"
-				},
-				[2]={
+	[308]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage to the Prey with Hits and Ailments"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage to the Prey with Hits and Ailments"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage to the Prey with Hits and Ailments"
 			}
 		},
 		name="deathmark_damage_to_target",
@@ -8284,22 +8552,20 @@ return {
 			[1]="support_minion_focus_fire_damage_+%_final_vs_focussed_target"
 		}
 	},
-	[278]={
-		lang={
-			English={
+	[309]={
+		[1]={
+			[1]={
 				[1]={
+					k="per_minute_to_per_second",
+					v=1
+				},
+				limit={
 					[1]={
-						k="per_minute_to_per_second",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0} Base Fire Damage per second to Enemies near them"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0} Base Fire Damage per second to Enemies near them"
 			}
 		},
 		name="support_burning_minions_aura_burn",
@@ -8307,31 +8573,29 @@ return {
 			[1]="support_minion_instability_minion_base_fire_area_damage_per_minute"
 		}
 	},
-	[279]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Elemental Damage"
-				},
-				[2]={
+	[310]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Elemental Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Elemental Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Elemental Damage"
 			}
 		},
 		name="minion_totem_resistance_support_damage",
@@ -8339,18 +8603,16 @@ return {
 			[1]="support_minion_totem_resistance_elemental_damage_+%_final"
 		}
 	},
-	[280]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions always target the Prey if possible"
-				}
+	[311]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions always target the Prey if possible"
 			}
 		},
 		name="deathmark_target",
@@ -8358,26 +8620,149 @@ return {
 			[1]="support_minion_use_focussed_target"
 		}
 	},
-	[281]={
-		lang={
-			English={
-				[1]={
+	[312]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% increased Attack Speed per Momentum"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% reduced Attack Speed per Momentum"
+			}
+		},
+		name="momentum_attack_speed",
+		stats={
+			[1]="support_momentum_attack_speed_+%_per_stack"
+		}
+	},
+	[313]={
+		[1]={
+			[1]={
+				[1]={
+					k="milliseconds_to_seconds_1dp",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
 					[2]={
-						k="reminderstring",
-						v="ReminderTextOverpowered"
+						[1]="#",
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
+					[3]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="When Minions reach {2} Momentum, they lose all Momentum and gain Swiftness for a Base Duration of {0} seconds"
+			}
+		},
+		name="momentum_buff_duration",
+		stats={
+			[1]="support_momentum_base_buff_duration_ms",
+			[2]="support_momentum_buff_duration_ms",
+			[3]="support_momentum_max_stacks"
+		}
+	},
+	[314]={
+		[1]={
+			[1]={
+				[1]={
+					k="milliseconds_to_seconds_2dp",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
-					text="Minions inflict Overpowered for a base Duration of {0} seconds when Their Hits are Blocked"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions gain 1 Momentum when they Attack\nMinions gain 1 Momentum every {0} seconds while Channelling an Attack\nMinions lose all Momentum if they Move"
+			}
+		},
+		name="momentum_generation",
+		stats={
+			[1]="support_momentum_stack_while_channelling_base_ms",
+			[2]="support_momentum_stack_while_channelling_ms"
+		}
+	},
+	[315]={
+		[1]={
+			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions consume all Fortification on Melee Attack, dealing {0}% more Damage with\nAilments per 3 Fortification consumed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions consume all Fortification on Melee Attack, dealing {0}% less Damage with\nAilments per 3 Fortification consumed"
+			}
+		},
+		name="support_overheat_ailment_damage",
+		stats={
+			[1]="support_overheat_ailment_damage_+%_final_per_3_fortification_consumed"
+		}
+	},
+	[316]={
+		[1]={
+			[1]={
+				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextOverpowered"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions inflict Overpowered for a base Duration of {0} seconds when Their Hits are Blocked"
 			}
 		},
 		name="support_overpowered_on_enemy_block_base_duration",
@@ -8385,27 +8770,25 @@ return {
 			[1]="support_overpowered_base_duration_ms"
 		}
 	},
-	[282]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Minions also fire Projectiles from up to {0} point on each side of them"
+	[317]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
 				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Minions fire Projectiles from up to {0} points on each side of them"
-				}
+				text="Minions also fire Projectiles from up to {0} point on each side of them"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Minions fire Projectiles from up to {0} points on each side of them"
 			}
 		},
 		name="support_parallel_projectiles",
@@ -8413,31 +8796,29 @@ return {
 			[1]="support_parallel_projectile_number_of_points_per_side"
 		}
 	},
-	[283]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Projectile Damage"
-				},
-				[2]={
+	[318]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Projectile Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Projectile Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Projectile Damage"
 			}
 		},
 		name="parallel_projectiles_damage_final",
@@ -8445,31 +8826,29 @@ return {
 			[1]="support_parallel_projectiles_damage_+%_final"
 		}
 	},
-	[284]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage per Power Charge"
-				},
-				[2]={
+	[319]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage per Power Charge"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage per Power Charge"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage per Power Charge"
 			}
 		},
 		name="power_charge_on_crit_damage",
@@ -8477,31 +8856,29 @@ return {
 			[1]="support_power_charge_on_crit_damage_+%_final_per_power_charge"
 		}
 	},
-	[285]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% more Area of Effect"
-				},
-				[2]={
+	[320]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% less Area of Effect"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% more Area of Effect"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% less Area of Effect"
 			}
 		},
 		name="pulverise_area_of_effect",
@@ -8509,31 +8886,29 @@ return {
 			[1]="support_pulverise_area_of_effect_+%_final"
 		}
 	},
-	[286]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% more Attack Speed"
-				},
-				[2]={
+	[321]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% less Attack Speed"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% more Attack Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% less Attack Speed"
 			}
 		},
 		name="pulverise_attack_speed",
@@ -8541,31 +8916,29 @@ return {
 			[1]="support_pulverise_attack_speed_+%_final"
 		}
 	},
-	[287]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Melee Area Damage"
-				},
-				[2]={
+	[322]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Melee Area Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Melee Area Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Melee Area Damage"
 			}
 		},
 		name="pulverise_melee_area_damage",
@@ -8573,31 +8946,29 @@ return {
 			[1]="support_pulverise_melee_area_damage_+%_final"
 		}
 	},
-	[288]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage"
-				},
-				[2]={
+	[323]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage"
 			}
 		},
 		name="pure_shock_less_damage",
@@ -8605,31 +8976,29 @@ return {
 			[1]="support_pure_shock_damage_+%_final"
 		}
 	},
-	[289]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions Shock Enemies as though dealing {0}% more Damage"
-				},
-				[2]={
+	[324]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions Shock Enemies as though dealing {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions Shock Enemies as though dealing {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions Shock Enemies as though dealing {0}% less Damage"
 			}
 		},
 		name="support_shock_with_more_damage",
@@ -8637,18 +9006,114 @@ return {
 			[1]="support_pure_shock_shock_as_though_damage_+%_final"
 		}
 	},
-	[290]={
-		lang={
-			English={
+	[325]={
+		[1]={
+			[1]={
 				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
+					k="reminderstring",
+					v="ReminderTextRecently"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
 					},
-					text="Enemies have -{0}% chance to Block Attack or Spell Damage from Minions"
-				}
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions' Skills deal {0}% more Damage for each Ignite inflicted with that Skill Recently"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				[2]={
+					k="negate",
+					v=2
+				},
+				[3]={
+					k="reminderstring",
+					v="ReminderTextRecently"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					},
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions' Skills deal {0}% less Damage for each Ignite inflicted with that Skill Recently, up to a maximum of {1}%"
+			}
+		},
+		name="support_recent_ignites_damage",
+		stats={
+			[1]="support_recent_ignites_damage_per_recent_ignite_+%_final",
+			[2]="support_recent_ignites_damage_per_recent_ignite_+%_final_minimum"
+		}
+	},
+	[326]={
+		[1]={
+			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextRecently"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					},
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions' Skills deal {0}% more Damage with Ignite for each Ignite inflicted with that Skill Recently, up to a maximum of {1}%"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextRecently"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					},
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions' Skills deal {0}% less Damage with Ignite for each Ignite inflicted with that Skill Recently"
+			}
+		},
+		name="support_recent_ignites_ignite_damage",
+		stats={
+			[1]="support_recent_ignites_ignite_damage_per_recent_ignite_+%_final",
+			[2]="support_recent_ignites_ignite_damage_per_recent_ignite_+%_final_maximum"
+		}
+	},
+	[327]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Enemies have -{0}% chance to Block Attack or Spell Damage from Minions"
 			}
 		},
 		name="support_reduced_block_chance",
@@ -8656,31 +9121,29 @@ return {
 			[1]="support_reduce_enemy_block_and_spell_block_%"
 		}
 	},
-	[291]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% more Duration"
-				},
-				[2]={
+	[328]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions have {0}% less Duration"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% more Duration"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions have {0}% less Duration"
 			}
 		},
 		name="support_less_duration",
@@ -8688,30 +9151,101 @@ return {
 			[1]="support_reduced_duration_skill_effect_duration_+%_final"
 		}
 	},
-	[292]={
-		lang={
-			English={
+	[329]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextRupture"
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=2
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions' Critical Strikes that inflict Bleeding also inflict Rupture"
+			}
+		},
+		name="rupture_on_crit_bleed",
+		stats={
+			[1]="critical_strikes_that_inflict_bleeding_also_rupture"
+		}
+	},
+	[330]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Targets take {0}% more Damage from Bleeding per Rupture on them from Minions"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Targets take {0}% less Damage from Bleeding per Rupture on them from Minions"
+			}
+		},
+		name="rupture_damage_taken",
+		stats={
+			[1]="support_rupture_bleeding_damage_taken_+%_final"
+		}
+	},
+	[331]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Bleeding expires {0}% more quickly per Rupture from Minions on targets"
+			},
+			[2]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Bleeding expires {0}% less quickly per Rupture from Minions on targets"
+			}
+		},
+		name="rupture_time_passed",
+		stats={
+			[1]="support_rupture_bleeding_time_passed_+%_final"
+		}
+	},
+	[332]={
+		[1]={
+			[1]={
+				[1]={
+					k="milliseconds_to_seconds",
+					v=2
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextOnslaught"
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
 					},
 					[2]={
-						k="reminderstring",
-						v="ReminderTextOnslaught"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions have {0}% chance to gain Onslaught for {1} seconds when they Hit a Unique Enemy"
-				}
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions have {0}% chance to gain Onslaught for {1} seconds when they Hit a Unique Enemy"
 			}
 		},
 		name="support_scion_unique_chance",
@@ -8720,34 +9254,32 @@ return {
 			[2]="support_scion_onslaught_on_unique_hit_duration_ms"
 		}
 	},
-	[293]={
-		lang={
-			English={
+	[333]={
+		[1]={
+			[1]={
 				[1]={
+					k="milliseconds_to_seconds",
+					v=3
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextOnslaught"
+				},
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=3
+						[1]="#",
+						[2]="#"
 					},
 					[2]={
-						k="reminderstring",
-						v="ReminderTextOnslaught"
+						[1]="#",
+						[2]="#"
 					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						},
-						[3]={
-							[1]="!",
-							[2]=0
-						}
-					},
-					text="Minions have {0}% chance to gain Onslaught for {2} seconds on\ndealing a Killing Blow"
-				}
+					[3]={
+						[1]="!",
+						[2]=0
+					}
+				},
+				text="Minions have {0}% chance to gain Onslaught for {2} seconds on\ndealing a Killing Blow"
 			}
 		},
 		name="support_scion_chance",
@@ -8757,18 +9289,16 @@ return {
 			[3]="virtual_support_scion_onslaught_on_killing_blow_duration_ms"
 		}
 	},
-	[294]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions deal up to {0}% more Melee Damage to Enemies, based on proximity"
-				}
+	[334]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions deal up to {0}% more Melee Damage to Enemies, based on proximity"
 			}
 		},
 		name="support_slashing_damage_from_distance",
@@ -8776,31 +9306,29 @@ return {
 			[1]="support_slashing_damage_+%_final_from_distance"
 		}
 	},
-	[295]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minion's Final Repeat deals {0}% more Damage"
-				},
-				[2]={
+	[335]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minion's Final Repeat deals {0}% less Damage"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minion's Final Repeat deals {0}% more Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minion's Final Repeat deals {0}% less Damage"
 			}
 		},
 		name="spell_echo_final_repeat_damage",
@@ -8808,39 +9336,37 @@ return {
 			[1]="support_spell_echo_final_repeat_damage_+%_final"
 		}
 	},
-	[296]={
-		lang={
-			English={
+	[336]={
+		[1]={
+			[1]={
 				[1]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Minions deal {0}% more Damage with Ailments"
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Minions deal {0}% more Damage with Ailments"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
 				},
 				[2]={
+					k="reminderstring",
+					v="ReminderTextDamagingAilments"
+				},
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					[2]={
-						k="reminderstring",
-						v="ReminderTextDamagingAilments"
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Minions deal {0}% less Damage with Ailments"
-				}
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Minions deal {0}% less Damage with Ailments"
 			}
 		},
 		name="ailment_damage_incr",
@@ -8848,35 +9374,33 @@ return {
 			[1]="support_unbound_ailments_ailment_damage_+%_final"
 		}
 	},
-	[297]={
-		lang={
-			English={
+	[337]={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1000,
-							[2]=1000
-						}
-					},
-					text="Withered inflicted by Minions has a base duration of {0} second"
+					k="milliseconds_to_seconds",
+					v=1
 				},
-				[2]={
+				limit={
 					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Withered inflicted by Minions has a base duration of {0} seconds"
-				}
+						[1]=1000,
+						[2]=1000
+					}
+				},
+				text="Withered inflicted by Minions has a base duration of {0} second"
+			},
+			[2]={
+				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Withered inflicted by Minions has a base duration of {0} seconds"
 			}
 		},
 		name="withered_support_base_duration",
@@ -8884,18 +9408,16 @@ return {
 			[1]="support_withered_base_duration_ms"
 		}
 	},
-	[298]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minions' Skills have {0:+d}% to Critical Strike Multiplier per Power Charge when used by Traps"
-				}
+	[338]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Minions' Skills have {0:+d}% to Critical Strike Multiplier per Power Charge when used by Traps"
 			}
 		},
 		name="trap_crit_per_power_charge",
@@ -8903,31 +9425,29 @@ return {
 			[1]="trap_critical_strike_multiplier_+_per_power_charge"
 		}
 	},
-	[299]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="This Skill and Minions have {0}% increased Trap Throwing Speed per Frenzy Charge"
-				},
-				[2]={
+	[339]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="This Skill and Minions have {0}% reduced Trap Throwing Speed per Frenzy Charge"
-				}
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="This Skill and Minions have {0}% increased Trap Throwing Speed per Frenzy Charge"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="This Skill and Minions have {0}% reduced Trap Throwing Speed per Frenzy Charge"
 			}
 		},
 		name="trap_throwing_speed_per_frenzy",
@@ -8935,35 +9455,127 @@ return {
 			[1]="trap_throwing_speed_+%_per_frenzy_charge"
 		}
 	},
-	[300]={
-		lang={
-			English={
-				[1]={
+	[340]={
+		[1]={
+			[1]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextWithered"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Minions have {0}% chance to inflict Withered on Hit"
+						[1]=1,
+						[2]=99
+					}
 				},
-				[2]={
+				text="Hits from Minions have {0}% chance to treat Enemy Monster Elemental Resistance values as inverted"
+			},
+			[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextWithered"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Minions inflict Withered on Hit"
-				}
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Hits from Minions treat Enemy Monster Elemental Resistance values as inverted"
+			}
+		},
+		name="invert_elemental_resistance",
+		stats={
+			[1]="treat_enemy_resistances_as_negated_on_elemental_damage_hit_%_chance"
+		}
+	},
+	[341]={
+		[1]={
+			[1]={
+				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]=1000,
+						[2]=1000
+					}
+				},
+				text="Withered inflicted by Minions has a base duration of {0} second"
+			},
+			[2]={
+				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Withered inflicted by Minions has a base duration of {0} seconds"
+			}
+		},
+		name="void_spawn_withered_duration",
+		stats={
+			[1]="void_spawn_withered_base_duration_ms"
+		}
+	},
+	[342]={
+		[1]={
+			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextWithered"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Minions have {0}% chance to inflict Withered on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextWithered"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Minions inflict Withered on Hit"
+			}
+		},
+		name="void_spawn_withered_chance",
+		stats={
+			[1]="void_spawn_withered_on_hit_chance_%"
+		}
+	},
+	[343]={
+		[1]={
+			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextWithered"
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Minions have {0}% chance to inflict Withered on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextWithered"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Minions inflict Withered on Hit"
 			}
 		},
 		name="withered_on_hit_chance",
@@ -8971,35 +9583,33 @@ return {
 			[1]="withered_on_hit_chance_%"
 		}
 	},
-	[301]={
-		lang={
-			English={
+	[344]={
+		[1]={
+			[1]={
 				[1]={
-					[1]={
-						k="reminderstring",
-						v="ReminderTextWithered"
-					},
-					limit={
-						[1]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Agony Crawler has {0}% chance to inflict Withered for 2 seconds on Hit"
+					k="reminderstring",
+					v="ReminderTextWithered"
 				},
-				[2]={
+				limit={
 					[1]={
-						k="reminderstring",
-						v="ReminderTextWithered"
-					},
-					limit={
-						[1]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Agony Crawler inflicts Withered for 2 seconds on Hit"
-				}
+						[1]=1,
+						[2]=99
+					}
+				},
+				text="Agony Crawler has {0}% chance to inflict Withered for 2 seconds on Hit"
+			},
+			[2]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextWithered"
+				},
+				limit={
+					[1]={
+						[1]=100,
+						[2]="#"
+					}
+				},
+				text="Agony Crawler inflicts Withered for 2 seconds on Hit"
 			}
 		},
 		name="wither_2_seconds_chance",
@@ -9007,325 +9617,374 @@ return {
 			[1]="withered_on_hit_for_2_seconds_%_chance"
 		}
 	},
-	["%_chance_to_gain_frenzy_charge_on_mine_detonated_targeting_an_enemy"]=240,
-	["%_chance_to_gain_frenzy_charge_on_trap_triggered_by_an_enemy"]=241,
-	["%_chance_to_gain_power_charge_on_mine_detonated_targeting_an_enemy"]=242,
-	["%_chance_to_gain_power_charge_on_trap_triggered_by_an_enemy"]=243,
+	["%_chance_to_gain_frenzy_charge_on_mine_detonated_targeting_an_enemy"]=266,
+	["%_chance_to_gain_frenzy_charge_on_trap_triggered_by_an_enemy"]=267,
+	["%_chance_to_gain_power_charge_on_mine_detonated_targeting_an_enemy"]=268,
+	["%_chance_to_gain_power_charge_on_trap_triggered_by_an_enemy"]=269,
 	["accuracy_rating"]=9,
 	["accuracy_rating_+%"]=10,
-	["active_skill_display_suppress_physical_to_cold_damage_conversion"]=254,
-	["active_skill_elemental_damage_+%_final"]=50,
-	["active_skill_minion_added_damage_+%_final"]=169,
-	["active_skill_minion_attack_speed_+%_final"]=224,
-	["active_skill_minion_damage_+%_final"]=88,
-	["active_skill_minion_physical_damage_+%_final"]=89,
-	["active_skill_physical_damage_+%_final"]=49,
-	["active_skill_quality_duration_+%_final"]=170,
-	["add_power_charge_on_critical_strike_%"]=121,
-	["additional_chance_to_freeze_chilled_enemies_%"]=150,
-	["additive_modifiers_to_bow_damage_also_apply_to_minions"]=171,
+	["active_skill_display_suppress_physical_to_cold_damage_conversion"]=281,
+	["active_skill_elemental_damage_+%_final"]=51,
+	["active_skill_minion_added_damage_+%_final"]=177,
+	["active_skill_minion_attack_speed_+%_final"]=242,
+	["active_skill_minion_damage_+%_final"]=91,
+	["active_skill_minion_physical_damage_+%_final"]=92,
+	["active_skill_non_reaper_minion_damage_+%_final"]=258,
+	["active_skill_non_reaper_minion_maximum_life_+%_final"]=259,
+	["active_skill_physical_damage_+%_final"]=50,
+	["active_skill_quality_duration_+%_final"]=178,
+	["add_power_charge_on_critical_strike_%"]=126,
+	["additional_base_critical_strike_chance"]=169,
+	["additional_chance_to_freeze_chilled_enemies_%"]=155,
+	["additional_poisons_+_to_apply_vs_non_poisoned_enemies"]=53,
+	["additive_modifiers_to_bow_damage_also_apply_to_minions"]=179,
 	["always_freeze"]=22,
-	["area_damage_+%"]=172,
-	["attack_and_cast_speed_+%"]=173,
-	["attack_damage_+%"]=47,
-	["attack_maximum_added_physical_damage"]=54,
-	["attack_maximum_added_physical_damage_for_ethereal_blades"]=55,
-	["attack_minimum_added_physical_damage"]=54,
-	["attack_minimum_added_physical_damage_for_ethereal_blades"]=55,
-	["attack_skill_mana_leech_from_any_damage_permyriad"]=174,
+	["area_damage_+%"]=180,
+	["attack_and_cast_speed_+%"]=181,
+	["attack_damage_+%"]=48,
+	["attack_maximum_added_physical_damage"]=56,
+	["attack_maximum_added_physical_damage_for_ethereal_blades"]=57,
+	["attack_minimum_added_physical_damage"]=56,
+	["attack_minimum_added_physical_damage_for_ethereal_blades"]=57,
+	["attack_skill_mana_leech_from_any_damage_permyriad"]=182,
 	["attack_speed_+%"]=8,
-	["attack_speed_+%_when_on_low_life"]=137,
-	["attack_speed_+%_with_atleast_20_rage"]=175,
-	["attacks_impale_on_hit_%_chance"]=176,
+	["attack_speed_+%_when_on_low_life"]=142,
+	["attack_speed_+%_with_atleast_20_rage"]=183,
+	["attacks_impale_on_hit_%_chance"]=184,
 	["aura_effect_+%"]=29,
-	["barrage_support_projectile_spread_+%"]=177,
-	["base_all_ailment_duration_+%"]=178,
+	["barrage_support_projectile_spread_+%"]=185,
+	["base_all_ailment_duration_+%"]=186,
 	["base_aura_area_of_effect_+%"]=28,
 	["base_cast_speed_+%"]=6,
 	["base_chance_to_freeze_%"]=22,
 	["base_chance_to_ignite_%"]=24,
-	["base_chance_to_poison_on_hit_%"]=179,
+	["base_chance_to_poison_on_hit_%"]=187,
 	["base_chance_to_shock_%"]=23,
 	["base_critical_strike_multiplier_+"]=13,
-	["base_deal_no_chaos_damage"]=180,
+	["base_deal_no_chaos_damage"]=188,
 	["base_global_chance_to_knockback_%"]=17,
-	["base_inflict_cold_exposure_on_hit_%_chance"]=181,
-	["base_inflict_fire_exposure_on_hit_%_chance"]=182,
-	["base_inflict_lightning_exposure_on_hit_%_chance"]=183,
-	["base_life_leech_from_chaos_damage_permyriad"]=184,
-	["base_melee_attack_repeat_count"]=118,
-	["base_movement_velocity_+%"]=135,
-	["base_number_of_beast_minions_allowed"]=94,
-	["base_poison_damage_+%"]=161,
-	["base_poison_duration_+%"]=162,
+	["base_inflict_cold_exposure_on_hit_%_chance"]=189,
+	["base_inflict_fire_exposure_on_hit_%_chance"]=190,
+	["base_inflict_lightning_exposure_on_hit_%_chance"]=191,
+	["base_life_gain_per_target"]=14,
+	["base_life_leech_from_chaos_damage_permyriad"]=192,
+	["base_melee_attack_repeat_count"]=123,
+	["base_movement_velocity_+%"]=140,
+	["base_number_of_beast_minions_allowed"]=97,
+	["base_poison_damage_+%"]=166,
+	["base_poison_duration_+%"]=167,
 	["base_projectile_speed_+%"]=30,
-	["base_reduce_enemy_cold_resistance_%"]=110,
-	["base_reduce_enemy_fire_resistance_%"]=109,
-	["base_reduce_enemy_lightning_resistance_%"]=112,
+	["base_reduce_enemy_cold_resistance_%"]=113,
+	["base_reduce_enemy_fire_resistance_%"]=112,
+	["base_reduce_enemy_lightning_resistance_%"]=115,
 	["base_skill_area_of_effect_+%"]=26,
-	["base_skill_cost_life_instead_of_mana"]=143,
-	["base_skill_reserve_life_instead_of_mana"]=144,
-	["base_spell_repeat_count"]=119,
+	["base_skill_cost_life_instead_of_mana"]=148,
+	["base_skill_reserve_life_instead_of_mana"]=149,
+	["base_spell_repeat_count"]=124,
 	["base_stun_duration_+%"]=32,
 	["base_stun_threshold_reduction_+%"]=19,
-	["base_use_life_in_place_of_mana"]=145,
+	["base_use_life_in_place_of_mana"]=150,
 	["bleed_on_hit_with_attacks_%"]=41,
-	["blind_duration_+%"]=108,
-	["burn_damage_+%"]=124,
+	["blind_duration_+%"]=111,
+	["burn_damage_+%"]=129,
 	["cannot_cause_bleeding"]=41,
-	["cannot_inflict_status_ailments"]=159,
-	["cast_on_damage_taken_damage_+%_final"]=130,
-	["cast_speed_+%_when_on_low_life"]=138,
-	["chance_to_fortify_on_melee_hit_+%"]=148,
-	["chance_to_summon_support_ghost_on_hitting_rare_or_unique_%"]=185,
-	["chance_to_summon_support_ghost_on_killing_blow_%"]=186,
-	["chaos_damage_+%"]=69,
+	["cannot_inflict_status_ailments"]=164,
+	["cast_on_damage_taken_damage_+%_final"]=135,
+	["cast_speed_+%_when_on_low_life"]=143,
+	["chance_to_fortify_on_melee_hit_+%"]=153,
+	["chance_to_summon_support_ghost_on_hitting_rare_or_unique_%"]=193,
+	["chance_to_summon_support_ghost_on_killing_blow_%"]=194,
+	["chaos_damage_+%"]=72,
 	["chill_duration_+%"]=36,
 	["chill_effect_+%"]=33,
-	["cold_ailment_effect_+%"]=187,
-	["cold_damage_+%"]=67,
+	["cold_ailment_effect_+%"]=195,
+	["cold_damage_+%"]=70,
+	["cover_in_frost_on_hit_%"]=196,
 	["critical_strike_chance_+%"]=11,
-	["critical_strike_chance_+%_per_righteous_charge"]=188,
-	["critical_strike_chance_+%_vs_blinded_enemies"]=189,
-	["cruelty_duration_+%"]=120,
-	["cruelty_effect_+%"]=190,
-	["crush_for_2_seconds_on_hit_%_chance"]=191,
-	["damage_+%"]=65,
-	["damage_+%_vs_enemies_per_freeze_shock_ignite"]=192,
-	["damage_+%_while_es_leeching"]=193,
-	["damage_+%_while_life_leeching"]=194,
-	["damage_+%_while_mana_leeching"]=195,
-	["damage_over_time_+%"]=87,
-	["damage_vs_cursed_enemies_per_enemy_curse_+%"]=196,
-	["damage_vs_enemies_on_low_life_+%"]=197,
-	["damaging_ailments_deal_damage_+%_faster"]=198,
-	["deal_chaos_damage_per_second_for_10_seconds_on_hit"]=199,
-	["deal_no_elemental_damage"]=200,
-	["deathmark_minion_damage_+%_final"]=201,
-	["display_minion_maximum_life"]=98,
-	["display_one_harbinger_allowed"]=95,
-	["display_skitterbot_chilling_aura"]=202,
-	["display_skitterbot_limit_per_type"]=168,
-	["display_skitterbot_shocking_aura"]=203,
-	["elemental_damage_+%"]=72,
-	["elemental_damage_+%_final_per_righteous_charge"]=204,
+	["critical_strike_chance_+%_per_righteous_charge"]=197,
+	["critical_strike_chance_+%_vs_blinded_enemies"]=198,
+	["critical_strikes_that_inflict_bleeding_also_rupture"]=329,
+	["cruelty_duration_+%"]=125,
+	["cruelty_effect_+%"]=199,
+	["crush_for_2_seconds_on_hit_%_chance"]=200,
+	["damage_+%"]=68,
+	["damage_+%_if_you_have_consumed_a_corpse_recently"]=201,
+	["damage_+%_vs_enemies_per_freeze_shock_ignite"]=202,
+	["damage_+%_while_es_leeching"]=203,
+	["damage_+%_while_life_leeching"]=204,
+	["damage_+%_while_mana_leeching"]=205,
+	["damage_over_time_+%"]=90,
+	["damage_vs_cursed_enemies_per_enemy_curse_+%"]=206,
+	["damage_vs_enemies_on_low_life_+%"]=207,
+	["damaging_ailments_deal_damage_+%_faster"]=208,
+	["deal_chaos_damage_per_second_for_10_seconds_on_hit"]=209,
+	["deal_no_elemental_damage"]=210,
+	["deathmark_minion_damage_+%_final"]=211,
+	["display_minion_actor_level_is_user_level"]=212,
+	["display_minion_maximum_life"]=101,
+	["display_one_harbinger_allowed"]=98,
+	["display_skitterbot_chilling_aura"]=213,
+	["display_skitterbot_limit_per_type"]=176,
+	["display_skitterbot_shocking_aura"]=214,
+	["elemental_damage_+%"]=75,
+	["elemental_damage_+%_final_per_righteous_charge"]=216,
 	["elemental_status_effect_aura_radius"]=39,
-	["enemies_you_shock_movement_speed_+%"]=205,
-	["enemies_you_shock_take_%_increased_physical_damage"]=206,
-	["enemy_phys_reduction_%_penalty_vs_hit"]=207,
+	["enemies_you_shock_movement_speed_+%"]=217,
+	["enemies_you_shock_take_%_increased_physical_damage"]=218,
+	["enemy_phys_reduction_%_penalty_vs_hit"]=219,
 	["energy_shield_leech_from_any_damage_permyriad"]=16,
-	["essence_hysteria_boots_damage_+%_final_while_on_low_life"]=45,
-	["fire_damage_+%"]=66,
+	["essence_hysteria_boots_damage_+%_final_while_on_low_life"]=46,
+	["explode_enemies_for_10%_life_as_random_element_on_killing_blow_chance_%"]=220,
+	["fire_damage_+%"]=69,
 	["freeze_duration_+%"]=37,
-	["gain_endurance_charge_on_melee_stun"]=134,
-	["gain_endurance_charge_on_melee_stun_%"]=134,
-	["gain_frenzy_charge_on_killing_blow_vs_enemies_with_5+_poisons_%"]=208,
-	["gain_power_charge_on_kill_with_hit_%"]=209,
+	["gain_endurance_charge_on_melee_stun"]=139,
+	["gain_endurance_charge_on_melee_stun_%"]=139,
+	["gain_frenzy_charge_on_killing_blow_vs_enemies_with_5+_poisons_%"]=221,
+	["gain_power_charge_on_kill_with_hit_%"]=222,
 	["global_bleed_on_hit"]=41,
-	["global_chance_to_blind_on_hit_%"]=107,
 	["global_hit_causes_monster_flee_%"]=25,
-	["global_maximum_added_chaos_damage"]=58,
-	["global_maximum_added_cold_damage"]=56,
-	["global_maximum_added_fire_damage_vs_burning_enemies"]=274,
-	["global_maximum_added_lightning_damage"]=57,
-	["global_minimum_added_chaos_damage"]=58,
-	["global_minimum_added_cold_damage"]=56,
-	["global_minimum_added_fire_damage_vs_burning_enemies"]=274,
-	["global_minimum_added_lightning_damage"]=57,
-	["global_poison_on_hit"]=160,
-	["hits_grant_cruelty"]=210,
+	["global_maximum_added_chaos_damage"]=60,
+	["global_maximum_added_cold_damage"]=58,
+	["global_maximum_added_fire_damage_vs_burning_enemies"]=305,
+	["global_maximum_added_lightning_damage"]=59,
+	["global_minimum_added_chaos_damage"]=60,
+	["global_minimum_added_cold_damage"]=58,
+	["global_minimum_added_fire_damage_vs_burning_enemies"]=305,
+	["global_minimum_added_lightning_damage"]=59,
+	["global_poison_on_hit"]=165,
+	["graft_skill_tul_summon_maximum_allowed_demons"]=223,
+	["guardian_relic_explode_on_death_for_%_life_as_element_damage"]=224,
+	["hits_cannot_kill_enemies"]=225,
+	["hits_grant_cruelty"]=226,
 	["ignite_duration_+%"]=35,
-	["ignites_apply_fire_resistance_+"]=211,
-	["impale_debuff_effect_+%"]=212,
-	["impale_phys_reduction_%_penalty"]=213,
-	["impale_support_physical_damage_+%_final"]=214,
-	["inc_aoe_plus_more_area_damage_+%_final"]=215,
-	["infernal_legion_minions_have_burning_effect_radius_+"]=216,
-	["inflict_all_exposure_on_hit"]=217,
-	["keystone_point_blank"]=106,
-	["kill_enemy_on_hit_if_under_10%_life"]=105,
+	["ignites_apply_fire_resistance_+"]=227,
+	["impale_debuff_effect_+%"]=228,
+	["impale_phys_reduction_%_penalty"]=229,
+	["impale_support_physical_damage_+%_final"]=230,
+	["inc_aoe_plus_more_area_damage_+%_final"]=231,
+	["infernal_legion_minions_have_burning_effect_radius_+"]=232,
+	["inflict_all_exposure_on_hit"]=233,
+	["keystone_point_blank"]=109,
+	["kill_enemy_on_hit_if_under_10%_life"]=108,
+	["kill_normal_or_magic_enemy_on_hit_if_under_x%_life"]=234,
 	["killed_monster_dropped_item_quantity_+%"]=21,
 	["killed_monster_dropped_item_rarity_+%"]=20,
-	["knockback_chance_%_at_close_range"]=218,
+	["killing_blow_consumes_corpse_restore_x_life"]=235,
+	["killing_blow_consumes_corpse_restore_x_mana"]=235,
+	["knockback_chance_%_at_close_range"]=236,
 	["knockback_distance_+%"]=18,
-	["life_gain_per_target"]=14,
 	["life_leech_from_any_damage_permyriad"]=15,
-	["lightning_ailment_effect_+%"]=219,
-	["lightning_damage_+%"]=68,
-	["maim_on_hit_%"]=220,
-	["maximum_added_cold_damage_per_frenzy_charge"]=223,
-	["melee_damage_vs_bleeding_enemies_+%"]=147,
-	["melee_physical_damage_+%"]=59,
-	["melee_splash"]=117,
-	["melee_splash_area_of_effect_+%_final"]=163,
-	["mine_critical_strike_chance_+%_per_power_charge"]=221,
-	["mine_laying_speed_+%"]=153,
-	["mine_throwing_speed_+%_per_frenzy_charge"]=222,
-	["minimum_added_cold_damage_per_frenzy_charge"]=223,
-	["minion_fire_damage_%_of_maximum_life_taken_per_minute"]=225,
-	["minion_grants_rampage_kill_to_parent_on_hitting_rare_or_unique_enemy_%"]=226,
-	["minion_life_leech_from_elemental_damage_permyriad"]=227,
-	["minion_recover_%_maximum_life_on_hit"]=228,
-	["minions_cannot_taunt_enemies"]=229,
-	["modifiers_to_claw_critical_strike_chance_apply_minion_critical_strike_chance"]=230,
-	["modifiers_to_claw_critical_strike_multiplier_apply_minion_critical_strike_multiplier"]=231,
-	["multiple_projectiles_projectile_spread_+%"]=232,
-	["multistrike_area_of_effect_+%_per_repeat"]=233,
-	["multistrike_damage_+%_final_on_first_repeat"]=234,
-	["multistrike_damage_+%_final_on_second_repeat"]=235,
-	["multistrike_damage_+%_final_on_third_repeat"]=236,
-	["non_damaging_ailment_effect_+%"]=237,
+	["lightning_ailment_effect_+%"]=237,
+	["lightning_damage_+%"]=71,
+	["maim_on_hit_%"]=238,
+	["maximum_added_cold_damage_per_frenzy_charge"]=241,
+	["maximum_attack_damage_+%_final_from_volatility_support"]=170,
+	["melee_damage_vs_bleeding_enemies_+%"]=152,
+	["melee_physical_damage_+%"]=61,
+	["melee_splash"]=122,
+	["melee_splash_area_of_effect_+%_final"]=168,
+	["mine_critical_strike_chance_+%_per_power_charge"]=239,
+	["mine_laying_speed_+%"]=158,
+	["mine_throwing_speed_+%_per_frenzy_charge"]=240,
+	["minimum_added_cold_damage_per_frenzy_charge"]=241,
+	["minimum_attack_damage_+%_final_from_volatility_support"]=171,
+	["minion_actor_level_is_user_level_up_to_maximum"]=246,
+	["minion_fire_damage_%_of_maximum_life_taken_per_minute"]=243,
+	["minion_global_always_hit"]=244,
+	["minion_grants_rampage_kill_to_parent_on_hitting_rare_or_unique_enemy_%"]=245,
+	["minion_life_leech_from_elemental_damage_permyriad"]=247,
+	["minion_recover_%_maximum_life_on_hit"]=248,
+	["minions_cannot_taunt_enemies"]=249,
+	["modifiers_to_claw_critical_strike_chance_apply_minion_critical_strike_chance"]=250,
+	["modifiers_to_claw_critical_strike_multiplier_apply_minion_critical_strike_multiplier"]=251,
+	["multiple_projectiles_projectile_spread_+%"]=252,
+	["multistrike_area_of_effect_+%_per_repeat"]=253,
+	["multistrike_damage_+%_final_on_first_repeat"]=254,
+	["multistrike_damage_+%_final_on_second_repeat"]=255,
+	["multistrike_damage_+%_final_on_third_repeat"]=256,
+	["non_damaging_ailment_effect_+%"]=257,
 	["number_of_additional_mines_to_place"]=2,
 	["number_of_additional_projectiles"]=31,
 	["number_of_additional_remote_mines_allowed"]=4,
 	["number_of_additional_traps_allowed"]=3,
 	["number_of_additional_traps_to_throw"]=1,
-	["number_of_animated_weapons_allowed"]=93,
-	["number_of_arbalists"]=238,
-	["number_of_archer_skeletons_to_summon"]=102,
-	["number_of_chains"]=113,
-	["number_of_golems_allowed"]=96,
-	["number_of_leader_skeletons_to_summon"]=104,
-	["number_of_mage_skeletons_to_summon"]=103,
-	["number_of_melee_skeletons_to_summon"]=101,
-	["number_of_raging_spirits_allowed"]=92,
-	["number_of_skeletons_allowed"]=99,
-	["number_of_spectres_allowed"]=91,
-	["number_of_spider_minions_allowed"]=100,
-	["number_of_zombies_allowed"]=90,
-	["parallel_projectile_firing_point_x_dist_+%"]=239,
+	["number_of_animated_weapons_allowed"]=96,
+	["number_of_arbalists"]=260,
+	["number_of_archer_skeletons_to_summon"]=105,
+	["number_of_chains"]=116,
+	["number_of_golems_allowed"]=99,
+	["number_of_harbinger_arcane_ascendancy_minions_allowed"]=261,
+	["number_of_harbinger_focus_ascendancy_minions_allowed"]=262,
+	["number_of_harbinger_time_ascendancy_minions_allowed"]=263,
+	["number_of_leader_skeletons_to_summon"]=107,
+	["number_of_mage_skeletons_to_summon"]=106,
+	["number_of_melee_skeletons_to_summon"]=104,
+	["number_of_raging_spirits_allowed"]=95,
+	["number_of_skeletons_allowed"]=102,
+	["number_of_spectres_allowed"]=94,
+	["number_of_tigers_allowed"]=264,
+	["number_of_zombies_allowed"]=93,
+	["parallel_projectile_firing_point_x_dist_+%"]=265,
 	parent="skill_stat_descriptions",
-	["physical_damage_%_to_add_as_chaos"]=62,
-	["physical_damage_%_to_add_as_fire"]=60,
-	["physical_damage_%_to_add_as_lightning"]=63,
-	["physical_damage_+%"]=48,
-	["projectile_base_number_of_targets_to_pierce"]=244,
-	["projectile_chance_to_not_pierce_%"]=245,
-	["projectile_damage_+%"]=142,
-	["projectile_damage_+%_if_pierced_enemy"]=246,
-	["projectile_damage_+%_vs_nearby_enemies"]=247,
-	["projectile_number_to_split"]=114,
-	["projectile_return_%_chance"]=116,
-	["projectiles_chance_to_return_%_from_final_target"]=116,
-	["projectiles_pierce_all_targets_in_x_range"]=248,
-	["projectiles_return"]=116,
-	["projectiles_return_if_no_hit_object"]=116,
-	["recover_%_life_when_stunning_an_enemy_permyriad"]=249,
-	["reduce_enemy_chaos_resistance_%"]=250,
-	["reduce_enemy_elemental_resistance_%"]=111,
+	["physical_damage_%_to_add_as_chaos"]=65,
+	["physical_damage_%_to_add_as_fire"]=62,
+	["physical_damage_%_to_add_as_lightning"]=66,
+	["physical_damage_+%"]=49,
+	["projectile_additional_return_chance_%"]=270,
+	["projectile_base_number_of_targets_to_pierce"]=271,
+	["projectile_chance_to_not_pierce_%"]=272,
+	["projectile_damage_+%"]=147,
+	["projectile_damage_+%_if_pierced_enemy"]=273,
+	["projectile_damage_+%_vs_nearby_enemies"]=274,
+	["projectile_number_to_split"]=117,
+	["projectile_return_%_chance"]=119,
+	["projectiles_pierce_all_targets_in_x_range"]=275,
+	["projectiles_return"]=119,
+	["recover_%_life_when_stunning_an_enemy_permyriad"]=276,
+	["reduce_enemy_chaos_resistance_%"]=277,
+	["reduce_enemy_elemental_resistance_%"]=114,
+	["returning_projectiles_always_pierce"]=120,
 	["shock_duration_+%"]=38,
 	["shock_effect_+%"]=34,
-	["shock_effect_+%_with_critical_strikes"]=251,
-	["skill_cold_damage_%_to_convert_to_fire"]=61,
-	["skill_effect_and_damaging_ailment_duration_+%"]=252,
-	["skill_effect_duration_+%"]=136,
-	["skill_physical_damage_%_to_convert_to_chaos"]=253,
-	["skill_physical_damage_%_to_convert_to_cold"]=254,
-	["skill_physical_damage_%_to_convert_to_fire"]=255,
-	["skill_physical_damage_%_to_convert_to_lightning"]=64,
-	["skitterbots_trap_mine_damage_+%_final"]=256,
-	["spectral_wolf_grants_attack_maximum_added_physical_damage"]=257,
-	["spectral_wolf_grants_attack_minimum_added_physical_damage"]=257,
-	["spell_damage_+%"]=76,
-	["support_area_concentrate_area_damage_+%_final"]=53,
-	["support_attack_skills_elemental_damage_+%_final"]=70,
-	["support_better_ailments_ailment_damage_+%_final"]=77,
-	["support_better_ailments_hit_damage_+%_final"]=78,
-	["support_bloodlust_melee_physical_damage_+%_final_vs_bleeding_enemies"]=146,
-	["support_brutality_physical_damage_+%_final"]=258,
-	["support_chain_hit_damage_+%_final"]=131,
-	["support_chance_to_ignite_fire_damage_+%_final"]=79,
-	["support_chilling_areas_also_grant_cold_damage_taken_+%_equal_to_slow_amount"]=260,
-	["support_chilling_areas_also_grant_cold_damage_taken_per_minute_+%"]=259,
-	["support_chills_also_grant_cold_damage_taken_+%_equal_to_slow_amount"]=262,
-	["support_chills_also_grant_cold_damage_taken_per_minute_+%"]=261,
-	["support_clustertrap_damage_+%_final"]=155,
+	["shock_effect_+%_with_critical_strikes"]=278,
+	["skeletons_are_vaal"]=104,
+	["skill_cold_damage_%_to_convert_to_fire"]=63,
+	["skill_effect_and_damaging_ailment_duration_+%"]=279,
+	["skill_effect_duration_+%"]=141,
+	["skill_physical_damage_%_to_convert_to_chaos"]=280,
+	["skill_physical_damage_%_to_convert_to_cold"]=281,
+	["skill_physical_damage_%_to_convert_to_fire"]=282,
+	["skill_physical_damage_%_to_convert_to_lightning"]=67,
+	["skitterbots_trap_mine_damage_+%_final"]=283,
+	["spectral_tiger_grants_attack_and_cast_speed_+%"]=284,
+	["spectral_tiger_grants_critical_strike_chance_+%"]=285,
+	["spectral_wolf_grants_attack_maximum_added_physical_damage"]=286,
+	["spectral_wolf_grants_attack_minimum_added_physical_damage"]=286,
+	["spell_damage_+%"]=79,
+	["summon_fire_skitterbot"]=215,
+	["support_area_concentrate_area_damage_+%_final"]=55,
+	["support_attack_skills_elemental_damage_+%_final"]=73,
+	["support_better_ailments_ailment_damage_+%_final"]=80,
+	["support_better_ailments_hit_damage_+%_final"]=81,
+	["support_bloodlust_melee_physical_damage_+%_final_vs_bleeding_enemies"]=151,
+	["support_brutality_physical_damage_+%_final"]=287,
+	["support_chain_hit_damage_+%_final"]=136,
+	["support_chance_to_bleed_bleeding_damage_+%_final"]=42,
+	["support_chance_to_ignite_fire_damage_+%_final"]=82,
+	["support_chilling_areas_also_grant_cold_damage_taken_+%_equal_to_slow_amount"]=289,
+	["support_chilling_areas_also_grant_cold_damage_taken_per_minute_+%"]=288,
+	["support_chills_also_grant_cold_damage_taken_+%_equal_to_slow_amount"]=291,
+	["support_chills_also_grant_cold_damage_taken_per_minute_+%"]=290,
+	["support_clustertrap_damage_+%_final"]=160,
 	["support_concentrated_effect_skill_area_of_effect_+%_final"]=27,
 	["support_controlled_destruction_critical_strike_chance_+%_final"]=12,
-	["support_controlled_destruction_spell_damage_+%_final"]=74,
-	["support_cruelty_hit_damage_+%_final"]=80,
-	["support_damage_while_on_full_life_+%_final"]=46,
-	["support_debilitate_hit_damage_+%_final_per_poison_stack"]=84,
-	["support_debilitate_hit_damage_max_poison_stacks"]=84,
-	["support_debilitate_poison_damage_+%_final"]=85,
-	["support_echo_damage_+%_final"]=128,
-	["support_efficacy_damage_over_time_+%_final"]=83,
-	["support_efficacy_spell_damage_+%_final"]=75,
-	["support_energy_shield_leech_damage_+%_on_full_energy_shield_final"]=263,
-	["support_energy_shield_leech_damage_+%_while_leeching_energy_shield_final"]=264,
-	["support_executioner_damage_vs_enemies_on_low_life_+%_final"]=265,
-	["support_executioner_gain_one_rare_monster_mod_on_kill_ms"]=266,
-	["support_executioner_refresh_stolen_mod_on_hitting_rare_or_unique_monster_chance_%"]=267,
-	["support_fork_projectile_damage_+%_final"]=133,
-	["support_fortify_ailment_damage_+%_final_from_melee_hits"]=268,
-	["support_fortify_melee_damage_+%_final"]=269,
-	["support_gem_elemental_damage_+%_final"]=158,
-	["support_gem_mine_damage_+%_final"]=125,
-	["support_greater_volley_projectile_damage_+%_final"]=270,
-	["support_hypothermia_cold_damage_over_time_+%_final"]=271,
-	["support_hypothermia_damage_+%_vs_chilled_enemies_final"]=151,
-	["support_ignite_prolif_ignite_damage_+%_final"]=81,
+	["support_controlled_destruction_spell_damage_+%_final"]=77,
+	["support_cruelty_hit_damage_+%_final"]=83,
+	["support_damage_while_on_full_life_+%_final"]=47,
+	["support_debilitate_hit_damage_+%_final_per_poison_stack"]=87,
+	["support_debilitate_hit_damage_max_poison_stacks"]=87,
+	["support_debilitate_poison_damage_+%_final"]=88,
+	["support_echo_damage_+%_final"]=133,
+	["support_efficacy_damage_over_time_+%_final"]=86,
+	["support_efficacy_spell_damage_+%_final"]=78,
+	["support_energy_shield_leech_damage_+%_on_full_energy_shield_final"]=292,
+	["support_energy_shield_leech_damage_+%_while_leeching_energy_shield_final"]=293,
+	["support_executioner_damage_vs_enemies_on_low_life_+%_final"]=294,
+	["support_executioner_gain_one_rare_monster_mod_on_kill_ms"]=295,
+	["support_executioner_refresh_stolen_mod_on_hitting_rare_or_unique_monster_chance_%"]=296,
+	["support_faster_ailments_ailment_duration_+%_final"]=297,
+	["support_fork_projectile_damage_+%_final"]=138,
+	["support_fortify_ailment_damage_+%_final_from_melee_hits"]=298,
+	["support_fortify_melee_damage_+%_final"]=299,
+	["support_gem_elemental_damage_+%_final"]=163,
+	["support_gem_mine_damage_+%_final"]=130,
+	["support_greater_volley_projectile_damage_+%_final"]=300,
+	["support_hypothermia_cold_damage_over_time_+%_final"]=301,
+	["support_hypothermia_damage_+%_vs_chilled_enemies_final"]=156,
+	["support_ignite_prolif_ignite_damage_+%_final"]=84,
 	["support_ignite_proliferation_radius"]=40,
-	["support_lesser_multiple_projectile_damage_+%_final"]=52,
-	["support_maim_chance_physical_damage_+%_final"]=272,
-	["support_maimed_enemies_physical_damage_taken_+%"]=273,
-	["support_melee_physical_damage_+%_final"]=42,
-	["support_melee_physical_damage_poison_and_bleeding_damage_+%_final_from_melee_hits"]=43,
-	["support_minefield_mine_damage_+%_final"]=156,
-	["support_minion_damage_+%_final"]=73,
-	["support_minion_focus_fire_critical_strike_chance_+%_vs_focused_target"]=275,
-	["support_minion_focus_fire_critical_strike_multiplier_+_vs_focused_target"]=276,
-	["support_minion_focus_fire_damage_+%_final_vs_focussed_target"]=277,
-	["support_minion_instability_minion_base_fire_area_damage_per_minute"]=278,
-	["support_minion_totem_resistance_elemental_damage_+%_final"]=279,
-	["support_minion_use_focussed_target"]=280,
+	["support_lesser_multiple_projectile_damage_+%_final"]=54,
+	["support_lethal_dose_poison_damage_+%_final"]=64,
+	["support_maim_chance_physical_damage_+%_final"]=303,
+	["support_maimed_enemies_physical_damage_taken_+%"]=304,
+	["support_melee_physical_damage_+%_final"]=43,
+	["support_melee_physical_damage_poison_and_bleeding_damage_+%_final_from_melee_hits"]=44,
+	["support_minefield_mine_damage_+%_final"]=161,
+	["support_minion_damage_+%_final"]=76,
+	["support_minion_focus_fire_critical_strike_chance_+%_vs_focused_target"]=306,
+	["support_minion_focus_fire_critical_strike_multiplier_+_vs_focused_target"]=307,
+	["support_minion_focus_fire_damage_+%_final_vs_focussed_target"]=308,
+	["support_minion_instability_minion_base_fire_area_damage_per_minute"]=309,
+	["support_minion_totem_resistance_elemental_damage_+%_final"]=310,
+	["support_minion_use_focussed_target"]=311,
+	["support_momentum_attack_speed_+%_per_stack"]=312,
+	["support_momentum_base_buff_duration_ms"]=313,
+	["support_momentum_buff_duration_ms"]=313,
+	["support_momentum_max_stacks"]=313,
+	["support_momentum_stack_while_channelling_base_ms"]=314,
+	["support_momentum_stack_while_channelling_ms"]=314,
+	["support_more_duration_skill_effect_duration_+%_final"]=302,
 	["support_multicast_cast_speed_+%_final"]=7,
-	["support_multiple_attack_damage_+%_final"]=123,
-	["support_multiple_attacks_melee_attack_speed_+%_final"]=122,
-	["support_multiple_projectile_damage_+%_final"]=51,
-	["support_multithrow_damage_+%_final"]=129,
-	["support_overpowered_base_duration_ms"]=281,
-	["support_parallel_projectile_number_of_points_per_side"]=282,
-	["support_parallel_projectiles_damage_+%_final"]=283,
-	["support_phys_proj_attack_damage_bleeing_and_poison_damage_+%_final_from_projectile_hits"]=139,
-	["support_poison_poison_damage_+%_final"]=86,
-	["support_power_charge_on_crit_damage_+%_final_per_power_charge"]=284,
-	["support_projectile_attack_physical_damage_+%_final"]=140,
-	["support_projectile_attack_speed_+%_final"]=141,
-	["support_pulverise_area_of_effect_+%_final"]=285,
-	["support_pulverise_attack_speed_+%_final"]=286,
-	["support_pulverise_melee_area_damage_+%_final"]=287,
-	["support_pure_shock_damage_+%_final"]=288,
-	["support_pure_shock_shock_as_though_damage_+%_final"]=289,
-	["support_rapid_decay_damage_over_time_+%_final"]=82,
-	["support_reduce_enemy_block_and_spell_block_%"]=290,
-	["support_reduced_duration_skill_effect_duration_+%_final"]=291,
-	["support_remote_mine_2_damage_+%_final"]=126,
-	["support_ruthless_big_hit_damage_+%_final"]=165,
-	["support_ruthless_big_hit_max_count"]=164,
-	["support_ruthless_big_hit_stun_base_duration_override_ms"]=167,
-	["support_ruthless_blow_bleeding_damage_from_melee_hits_+%_final"]=166,
-	["support_scion_onslaught_for_3_seconds_on_hitting_unique_enemy_%_chance"]=292,
-	["support_scion_onslaught_on_killing_blow_%_chance"]=293,
-	["support_scion_onslaught_on_killing_blow_duration_ms"]=293,
-	["support_scion_onslaught_on_unique_hit_duration_ms"]=292,
-	["support_slashing_damage_+%_final_from_distance"]=294,
-	["support_spell_echo_final_repeat_damage_+%_final"]=295,
-	["support_split_projectile_damage_+%_final"]=132,
-	["support_totem_damage_+%_final"]=127,
-	["support_trap_and_mine_damage_+%_final"]=154,
-	["support_trigger_link_damage_+%_final"]=44,
-	["support_unbound_ailments_ailment_damage_+%_final"]=296,
-	["support_void_manipulation_chaos_damage_+%_final"]=157,
-	["support_withered_base_duration_ms"]=297,
+	["support_multiple_attack_damage_+%_final"]=128,
+	["support_multiple_attacks_melee_attack_speed_+%_final"]=127,
+	["support_multiple_projectile_damage_+%_final"]=52,
+	["support_multithrow_damage_+%_final"]=134,
+	["support_overheat_ailment_damage_+%_final_per_3_fortification_consumed"]=315,
+	["support_overpowered_base_duration_ms"]=316,
+	["support_parallel_projectile_number_of_points_per_side"]=317,
+	["support_parallel_projectiles_damage_+%_final"]=318,
+	["support_phys_proj_attack_damage_bleeing_and_poison_damage_+%_final_from_projectile_hits"]=144,
+	["support_poison_poison_damage_+%_final"]=89,
+	["support_power_charge_on_crit_damage_+%_final_per_power_charge"]=319,
+	["support_projectile_attack_physical_damage_+%_final"]=145,
+	["support_projectile_attack_speed_+%_final"]=146,
+	["support_pulverise_area_of_effect_+%_final"]=320,
+	["support_pulverise_attack_speed_+%_final"]=321,
+	["support_pulverise_melee_area_damage_+%_final"]=322,
+	["support_pure_shock_damage_+%_final"]=323,
+	["support_pure_shock_shock_as_though_damage_+%_final"]=324,
+	["support_rapid_decay_damage_over_time_+%_final"]=85,
+	["support_recent_ignites_damage_per_recent_ignite_+%_final"]=325,
+	["support_recent_ignites_damage_per_recent_ignite_+%_final_minimum"]=325,
+	["support_recent_ignites_ignite_damage_per_recent_ignite_+%_final"]=326,
+	["support_recent_ignites_ignite_damage_per_recent_ignite_+%_final_maximum"]=326,
+	["support_reduce_enemy_block_and_spell_block_%"]=327,
+	["support_reduced_duration_skill_effect_duration_+%_final"]=328,
+	["support_remote_mine_2_damage_+%_final"]=131,
+	["support_return_returning_projectiles_damage_+%_final"]=121,
+	["support_rupture_bleeding_damage_taken_+%_final"]=330,
+	["support_rupture_bleeding_time_passed_+%_final"]=331,
+	["support_ruthless_big_hit_damage_+%_final"]=173,
+	["support_ruthless_big_hit_max_count"]=172,
+	["support_ruthless_big_hit_stun_base_duration_override_ms"]=175,
+	["support_ruthless_blow_ailment_damage_from_melee_hits_+%_final"]=174,
+	["support_scion_onslaught_for_3_seconds_on_hitting_unique_enemy_%_chance"]=332,
+	["support_scion_onslaught_on_killing_blow_%_chance"]=333,
+	["support_scion_onslaught_on_killing_blow_duration_ms"]=333,
+	["support_scion_onslaught_on_unique_hit_duration_ms"]=332,
+	["support_slashing_damage_+%_final_from_distance"]=334,
+	["support_spell_echo_final_repeat_damage_+%_final"]=335,
+	["support_split_projectile_damage_+%_final"]=137,
+	["support_totem_damage_+%_final"]=132,
+	["support_trap_and_mine_damage_+%_final"]=159,
+	["support_trigger_link_damage_+%_final"]=45,
+	["support_unbound_ailments_ailment_damage_+%_final"]=336,
+	["support_void_manipulation_chaos_damage_+%_final"]=162,
+	["support_withered_base_duration_ms"]=337,
 	["throw_traps_in_circle_radius"]=5,
-	["trap_critical_strike_multiplier_+_per_power_charge"]=298,
-	["trap_throwing_speed_+%"]=152,
-	["trap_throwing_speed_+%_per_frenzy_charge"]=299,
-	["virtual_number_of_forks_for_projectiles_final"]=115,
-	["virtual_number_of_wolves_allowed"]=97,
-	["virtual_support_scion_onslaught_on_killing_blow_duration_ms"]=293,
-	["weapon_elemental_damage_+%"]=71,
-	["withered_on_hit_chance_%"]=300,
-	["withered_on_hit_for_2_seconds_%_chance"]=301
+	["trap_critical_strike_multiplier_+_per_power_charge"]=338,
+	["trap_throwing_speed_+%"]=157,
+	["trap_throwing_speed_+%_per_frenzy_charge"]=339,
+	["treat_enemy_resistances_as_negated_on_elemental_damage_hit_%_chance"]=340,
+	["virtual_chance_to_blind_on_hit_%"]=110,
+	["virtual_number_of_forks_for_projectiles_final"]=118,
+	["virtual_number_of_melee_skeletons_to_summon"]=104,
+	["virtual_number_of_spider_minions_allowed"]=103,
+	["virtual_number_of_wolves_allowed"]=100,
+	["virtual_support_scion_onslaught_on_killing_blow_duration_ms"]=333,
+	["void_spawn_withered_base_duration_ms"]=341,
+	["void_spawn_withered_on_hit_chance_%"]=342,
+	["weapon_elemental_damage_+%"]=74,
+	["withered_on_hit_chance_%"]=343,
+	["withered_on_hit_for_2_seconds_%_chance"]=344
 }

@@ -38,6 +38,41 @@ local function tableToString(tbl, pre)
 	return tableString .. " }"
 end
 
+local function getOTStats(OTFile, modList)
+	local file = OTFile..".ot"
+	local text
+	if main.ggpk.ot[file] then
+		text = main.ggpk.ot[file]
+	elseif getFile(file) then
+		text = convertUTF16to8(getFile(file))
+		main.ggpk.ot[file] = text
+	else
+		print("Invalid OT File location: "..file)
+		return modList
+	end
+	local inWantedBlock = false
+	if text then
+		for line in text:gmatch("[^\r\n]+") do
+			local superClass = line:match("extends \"(.+)\"")
+			if superClass and superClass ~= "Metadata/Monsters/Monster" and superClass ~= "nothing" then
+				modList = getOTStats(superClass, modList)
+			end
+			-- Detect start of a block
+			if line:match("^Stats") then
+				inWantedBlock = true
+			elseif inWantedBlock and line:match("^}") then
+				inWantedBlock = false
+			elseif inWantedBlock and line:find("=") and not line:find("//") then
+				local key, value = line:gsub("%s+",""):match("^(.-)=(.+)$")
+				if key and value then
+					table.insert(modList, { Id = key, Stat1 = { Id = key }, Stat1Value = { tonumber(value) } })
+				end
+			end
+		end
+	end
+	return modList
+end
+
 local itemClassMap = {
 	["Claw"] = "Claw",
 	["Dagger"] = "Dagger",
@@ -64,6 +99,7 @@ directiveTable.monster = function(state, args, out)
 	state.varietyId = nil
 	state.name = nil
 	state.limit = nil
+	state.hostile = nil
 	state.extraModList = { }
 	state.extraSkillList = { }
 	for arg in args:gmatch("%S+") do
@@ -88,6 +124,11 @@ directiveTable.limit = function(state, args, out)
 	state.limit = args
 end
 
+-- #hostile [true|false]
+directiveTable.hostile = function(state, args, out)
+	state.hostile = args
+end
+
 -- #mod <ModDecl>
 directiveTable.mod = function(state, args, out)
 	table.insert(state.extraModList, args)
@@ -100,6 +141,7 @@ end
 
 -- #emit
 directiveTable.emit = function(state, args, out)
+
 	local monsterVariety = dat("MonsterVarieties"):GetRow("Id", state.varietyId)
 	if not monsterVariety then
 		print("Invalid Variety: "..state.varietyId)
@@ -107,12 +149,29 @@ directiveTable.emit = function(state, args, out)
 	end
 	out:write('minions["', state.name, '"] = {\n')
 	out:write('\tname = "', monsterVariety.Name, '",\n')
+	out:write('\tmonsterTags = { ')
+		for _, tag in ipairs(monsterVariety.Tags) do
+			out:write('"',tag.Id, '", ')
+		end
+	out:write('},\n')
+	if monsterVariety.Type.BaseDamageIgnoresAttackSpeed then
+		out:write('\tbaseDamageIgnoresAttackSpeed = true,\n')
+	end
 	out:write('\tlife = ', (monsterVariety.LifeMultiplier/100), ',\n')
+	if monsterVariety.Type.AltLife1 then
+		out:write('\tlifeScaling = "AltLife1",\n')
+	end
+	if monsterVariety.Type.AltLife2 then
+		out:write('\tlifeScaling = "AltLife2",\n')
+	end
 	if monsterVariety.Type.EnergyShield ~= 0 then
 		out:write('\tenergyShield = ', (0.4 * monsterVariety.Type.EnergyShield / 100), ',\n')
 	end
 	if monsterVariety.Type.Armour ~= 0 then
 		out:write('\tarmour = ', monsterVariety.Type.Armour / 100, ',\n')
+	end
+	if monsterVariety.Type.Evasion ~= 0 then
+		out:write('\tevasion = ', monsterVariety.Type.Evasion / 100, ',\n')
 	end
 	out:write('\tfireResist = ', monsterVariety.Type.Resistances.FireMerciless, ',\n')
 	out:write('\tcoldResist = ', monsterVariety.Type.Resistances.ColdMerciless, ',\n')
@@ -141,6 +200,9 @@ directiveTable.emit = function(state, args, out)
 	if state.limit then
 		out:write('\tlimit = "', state.limit, '",\n')
 	end
+	if state.hostile then
+		out:write('\thostile = ', state.hostile, ',\n')
+	end
 	out:write('\tskillList = {\n')
 	for _, grantedEffect in ipairs(monsterVariety.GrantedEffects) do
 		out:write('\t\t"', grantedEffect.Id, '",\n')
@@ -149,12 +211,16 @@ directiveTable.emit = function(state, args, out)
 		out:write('\t\t"', skill, '",\n')
 	end
 	out:write('\t},\n')
+
 	local modList = { }
 	for _, mod in ipairs(monsterVariety.Mods) do
 		table.insert(modList, mod)
 	end
 	for _, mod in ipairs(monsterVariety.SpecialMods) do
 		table.insert(modList, mod)
+	end
+	if monsterVariety.ObjectType and monsterVariety.ObjectType ~= "Metadata/Monsters/Monster"then
+		modList = getOTStats(monsterVariety.ObjectType, modList)
 	end
 	out:write('\tmodList = {\n')
 	for _, mod in ipairs(modList) do
@@ -165,7 +231,7 @@ directiveTable.emit = function(state, args, out)
 				if skillStatMap[mod["Stat"..i].Id] then
 					local newMod = skillStatMap[mod["Stat"..i].Id][1]
 					--mod("Speed", "INC", -80, ModFlag.Cast, KeywordFlag.Curse)
-					out:write('\t\tmod("', newMod.name, '", "', newMod.type, '", ', newMod.value and tableToString(newMod.value) or (skillStatMap[mod["Stat"..i].Id].value or mod["Stat"..i.."Value"][1] * (skillStatMap[mod["Stat"..i].Id].mult or 1) / (skillStatMap[mod["Stat"..i].Id].div or 1)), ', ', newMod.flags or 0, ', ', newMod.keywordFlags or 0)
+					out:write('\t\tmod("', newMod.name, '", "', newMod.type, '", ', newMod.value and type(newMod.value) ~= "boolean" and tableToString(newMod.value) or (skillStatMap[mod["Stat"..i].Id].value or mod["Stat"..i.."Value"][1] * (skillStatMap[mod["Stat"..i].Id].mult or 1) / (skillStatMap[mod["Stat"..i].Id].div or 1)), ', ', newMod.flags or 0, ', ', newMod.keywordFlags or 0)
 					for _, extra in ipairs(newMod) do
 						out:write(', ', tableToString(extra))
 					end

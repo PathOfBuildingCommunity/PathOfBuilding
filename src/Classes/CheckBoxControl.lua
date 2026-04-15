@@ -3,10 +3,12 @@
 -- Class: Check Box Control
 -- Basic check box control.
 --
-local CheckBoxClass = newClass("CheckBoxControl", "Control", "TooltipHost", function(self, anchor, x, y, size, label, changeFunc, tooltipText, initialState)
-	self.Control(anchor, x, y, size, size)
+local CheckBoxClass = newClass("CheckBoxControl", "Control", "TooltipHost", function(self, anchor, rect, label, changeFunc, tooltipText, initialState)
+	rect[4] = rect[3] or 0
+	self.Control(anchor, rect)
 	self.TooltipHost(tooltipText)
 	self.label = label
+	self.labelWidth = DrawStringWidth(self.width - 4, "VAR", label or "") + 5
 	self.changeFunc = changeFunc
 	self.state = initialState
 end)
@@ -22,9 +24,8 @@ function CheckBoxClass:IsMouseOver()
 	-- move x left by label width, increase width by label width
 	local label = self:GetProperty("label")
 	if label then
-		local labelWidth = DrawStringWidth(height - 4, "VAR", label) + 5
-		x = x - labelWidth
-		width = width + labelWidth
+		x = x - self.labelWidth
+		width = width + self.labelWidth
 	end
 	return cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
 end
@@ -38,6 +39,9 @@ function CheckBoxClass:Draw(viewPort, noTooltip)
 		SetDrawColor(0.33, 0.33, 0.33)
 	elseif mOver then
 		SetDrawColor(1, 1, 1)
+	elseif self.borderFunc then
+		local r, g, b = self.borderFunc()
+		SetDrawColor(r, g, b)
 	else
 		SetDrawColor(0.5, 0.5, 0.5)
 	end

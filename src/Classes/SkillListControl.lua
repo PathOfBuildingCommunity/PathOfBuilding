@@ -6,20 +6,40 @@
 local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
+local slot_map = {
+	["Weapon 1"] 		= { icon = NewImageHandle(), path = "Assets/icon_weapon.png" },
+	["Weapon 2"] 		= { icon = NewImageHandle(), path = "Assets/icon_weapon_2.png" },
+	["Weapon 1 Swap"] 	= { icon = NewImageHandle(), path = "Assets/icon_weapon_swap.png" },
+	["Weapon 2 Swap"] 	= { icon = NewImageHandle(), path = "Assets/icon_weapon_2_swap.png" },
+	["Bow"] 			= { icon = NewImageHandle(), path = "Assets/icon_bow.png" },
+	["Quiver"] 			= { icon = NewImageHandle(), path = "Assets/icon_quiver.png" },
+	["Shield"] 			= { icon = NewImageHandle(), path = "Assets/icon_shield.png" },
+	["Shield Swap"] 	= { icon = NewImageHandle(), path = "Assets/icon_shield_swap.png" },
+	["Helmet"] 			= { icon = NewImageHandle(), path = "Assets/icon_helmet.png" },
+	["Body Armour"] 	= { icon = NewImageHandle(), path = "Assets/icon_body_armour.png" },
+	["Gloves"] 			= { icon = NewImageHandle(), path = "Assets/icon_gloves.png" },
+	["Boots"] 			= { icon = NewImageHandle(), path = "Assets/icon_boots.png" },
+	["Amulet"] 			= { icon = NewImageHandle(), path = "Assets/icon_amulet.png" },
+	["Ring 1"] 			= { icon = NewImageHandle(), path = "Assets/icon_ring_left.png" },
+	["Ring 2"] 			= { icon = NewImageHandle(), path = "Assets/icon_ring_right.png" },
+	["Ring 3"] 			= { icon = NewImageHandle(), path = "Assets/icon_ring_right.png" },
+	["Belt"] 			= { icon = NewImageHandle(), path = "Assets/icon_belt.png" },
+}
 
-local SkillListClass = newClass("SkillListControl", "ListControl", function(self, anchor, x, y, width, height, skillsTab)
-	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, skillsTab.socketGroupList)
+local SkillListClass = newClass("SkillListControl", "ListControl", function(self, anchor, rect, skillsTab)
+	self.ListControl(anchor, rect, 16, "VERTICAL", true, skillsTab.socketGroupList)
 	self.skillsTab = skillsTab
 	self.label = "^7Socket Groups:"
-	self.controls.delete = new("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, 0, -2, 60, 18, "Delete", function()
+	self.controls.delete = new("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, {0, -2, 60, 18}, "Delete", function()
 		self:OnSelDelete(self.selIndex, self.selValue)
 	end)
 	self.controls.delete.enabled = function()
 		return self.selValue ~= nil and self.selValue.source == nil
 	end
-	self.controls.deleteAll = new("ButtonControl", {"RIGHT",self.controls.delete,"LEFT"}, -4, 0, 70, 18, "Delete All", function()
+	self.controls.deleteAll = new("ButtonControl", {"RIGHT",self.controls.delete,"LEFT"}, {-4, 0, 70, 18}, "Delete All", function()
 		main:OpenConfirmPopup("Delete All", "Are you sure you want to delete all socket groups in this build?", "Delete", function()
 			wipeTable(self.list)
+			skillsTab:RebuildImbuedSupportBySlot()
 			skillsTab:SetDisplayGroup()
 			skillsTab:AddUndoState()
 			skillsTab.build.buildFlag = true
@@ -30,7 +50,7 @@ local SkillListClass = newClass("SkillListControl", "ListControl", function(self
 	self.controls.deleteAll.enabled = function()
 		return #self.list > 0 
 	end
-	self.controls.new = new("ButtonControl", {"RIGHT",self.controls.deleteAll,"LEFT"}, -4, 0, 60, 18, "New", function()
+	self.controls.new = new("ButtonControl", {"RIGHT",self.controls.deleteAll,"LEFT"}, {-4, 0, 60, 18}, "New", function()
 		local newGroup = { 
 			label = "", 
 			enabled = true, 
@@ -44,20 +64,48 @@ local SkillListClass = newClass("SkillListControl", "ListControl", function(self
 		skillsTab.build.buildFlag = true
 		return skillsTab.gemSlots[1].nameSpec
 	end)
+	for k, x in pairs(slot_map) do
+		x.icon:Load(x.path)
+	end
 end)
 
 function SkillListClass:GetRowValue(column, index, socketGroup)
 	if column == 1 then
 		local label = socketGroup.displayLabel or "?"
-		if not socketGroup.enabled or not socketGroup.slotEnabled then
-			label = "^x7F7F7F" .. label .. " (Disabled)"
+		local currentMainSkill = self.skillsTab.build.mainSocketGroup == index
+		local disabled = not socketGroup.enabled or not socketGroup.slotEnabled
+		if disabled then
+			local colour = currentMainSkill and "" or "^x7F7F7F"
+			label = colour .. label .. " (Disabled)"
 		end
-		if self.skillsTab.build.mainSocketGroup == index then 
-			label = label .. colorCodes.RELIC .. " (Active)"
+		if currentMainSkill then 
+			local activeLabel = disabled and " (Forced Active)" or " (Active)"
+			label = label .. colorCodes.RELIC .. activeLabel
 		end
 		if socketGroup.includeInFullDPS then 
 			label = label .. colorCodes.CUSTOM .. " (FullDPS)"
 		end
+		
+		if not socketGroup.source then
+			local colorStr = ""
+			for _, gem in ipairs(socketGroup.gemList) do
+				if gem.gemData or gem.grantedEffect then
+					local grantedEffect = gem.grantedEffect or (gem.gemData and gem.gemData.grantedEffect)
+					if grantedEffect then
+						local char = grantedEffect.color == 1 and "R" or grantedEffect.color == 2 and "G" or grantedEffect.color == 3 and "B" or "W"
+						local colorCode = gem.color or ""
+						if colorStr:len() > 0 then
+							colorStr = colorStr .. "^7-"
+						end
+						colorStr = colorStr .. colorCode .. char
+					end
+				end
+			end
+			if colorStr:len() > 0 then
+				label = label .. " ^7" .. colorStr
+			end
+		end
+
 		return label
 	end
 end
@@ -118,6 +166,7 @@ function SkillListClass:OnSelDelete(index, socketGroup)
 		main:OpenMessagePopup("Delete Socket Group", "This socket group cannot be deleted as it is created by an equipped item.")
 	elseif not socketGroup.gemList[1] then
 		t_remove(self.list, index)
+		self.skillsTab:RebuildImbuedSupportBySlot()
 		if self.skillsTab.displayGroup == socketGroup then
 			self.skillsTab.displayGroup = nil
 		end
@@ -128,6 +177,7 @@ function SkillListClass:OnSelDelete(index, socketGroup)
 	else
 		main:OpenConfirmPopup("Delete Socket Group", "Are you sure you want to delete '"..socketGroup.displayLabel.."'?", "Delete", function()
 			t_remove(self.list, index)
+			self.skillsTab:RebuildImbuedSupportBySlot()
 			if self.skillsTab.displayGroup == socketGroup then
 				self.skillsTab:SetDisplayGroup()
 			end
@@ -146,11 +196,15 @@ function SkillListClass:OnHoverKeyUp(key)
 			-- Get the first gem in the group
 			local gem = item.gemList[1]
 			if gem then
-				itemLib.wiki.openGem(gem.gemData)
+				-- either the skill is from a gem or granted from an item/passive
+				itemLib.wiki.openGem(gem.gemData or gem.grantedEffect.name)
 			end
 		elseif key == "RIGHTBUTTON" then
 			if IsKeyDown("CTRL") then
 				item.includeInFullDPS = not item.includeInFullDPS
+				if item == self.skillsTab.displayGroup then
+					self.skillsTab:SetDisplayGroup(item)
+				end
 				self.skillsTab:AddUndoState()
 				self.skillsTab.build.buildFlag = true
 			else
@@ -163,8 +217,44 @@ function SkillListClass:OnHoverKeyUp(key)
 			end
 		elseif key == "LEFTBUTTON" and IsKeyDown("CTRL") then
 			item.enabled = not item.enabled
+			if item == self.skillsTab.displayGroup then
+				self.skillsTab:SetDisplayGroup(item)
+			end
 			self.skillsTab:AddUndoState()
 			self.skillsTab.build.buildFlag = true
 		end
+	end
+end
+
+
+function SkillListClass:Draw(viewPort)
+	self.ListControl.Draw(self, viewPort)
+end
+
+function SkillListClass:GetRowIcon(column, index, socketGroup)
+	if column == 1 then
+		local slot = socketGroup.slot
+		local itemsTab = self.skillsTab.build.itemsTab
+		local weapon1Sel = itemsTab.activeItemSet["Weapon 1"].selItemId or 0
+		local weapon1Type = itemsTab.items[weapon1Sel] and itemsTab.items[weapon1Sel].base.type or "None"
+		local weapon1SwapSel = itemsTab.activeItemSet["Weapon 1 Swap"].selItemId or 0
+		local weapon1SwapType = itemsTab.items[weapon1SwapSel] and itemsTab.items[weapon1SwapSel].base.type or "None"
+		local weapon2Sel = itemsTab.activeItemSet["Weapon 2"].selItemId or 0
+		local weapon2Type = itemsTab.items[weapon2Sel] and itemsTab.items[weapon2Sel].base.type or "None"
+		local weapon2SwapSel = itemsTab.activeItemSet["Weapon 2 Swap"].selItemId or 0
+		local weapon2SwapType = itemsTab.items[weapon2SwapSel] and itemsTab.items[weapon2SwapSel].base.type or "None"
+		if slot == "Weapon 1" and weapon1Type == "Bow" then
+			slot = weapon1Type
+		end
+		if slot == "Weapon 1 Swap" and weapon1SwapType == "Bow" then
+			slot = weapon1SwapType.." Swap"
+		end
+		if slot == "Weapon 2" and (weapon2Type == "Quiver" or weapon2Type == "Shield") then
+			slot = weapon2Type
+		end
+		if slot == "Weapon 2 Swap" and (weapon2SwapType == "Quiver" or weapon2SwapType == "Shield") then
+			slot = weapon2SwapType.." Swap"
+		end
+		return slot_map[slot] and slot_map[slot].icon
 	end
 end
