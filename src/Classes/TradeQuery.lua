@@ -362,7 +362,7 @@ Highest Stat Value - Sort from highest to lowest Stat Value change of equipping 
 Highest Stat Value / Price - Sorts from highest to lowest by estimated Stat Value per currency
 Lowest Price - Sorts from lowest to highest price of retrieved items
 Highest Weight - Displays the order retrieved from trade]]
-	-- avoid calling selfunc to avoid updating controls before they are
+	-- avoid calling selFunc to avoid updating controls before they are
 	-- initialised
 	-- https://github.com/PathOfBuildingCommunity/PathOfBuilding/issues/9678
 	self.controls.itemSortSelection:SetSel(self.pbItemSortSelectionIndex, true)

@@ -2268,7 +2268,7 @@ function TreeTabClass:FindTimelessJewel()
 	-- remember previous choice
 	controls.realmSelection:SetSel(self.selectedRealmIndex or 1)
 	-- manually call the function because when initialising, because the
-	-- function doesnt get called when the selection index doesnt change
+	-- function does not get called when the selection index stays the same
 	controls.realmSelection.selFunc(controls.realmSelection.selIndex) 
 	controls.realmLabel = new("LabelControl", { "TOPRIGHT", controls.realmSelection, "TOPLEFT" },
 		{ -labelSpacing, 0, 0, labelHeight }, "^7Realm:")
