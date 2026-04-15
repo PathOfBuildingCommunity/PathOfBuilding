@@ -859,7 +859,7 @@ function TradeQueryClass:SortFetchResults(row_idx, mode)
 		return newTbl
 	elseif mode == self.sortModes.StatValue  then
 		for result_index = 1, #self.resultTbl[row_idx] do
-			ConPrintf("%.3f", getResultWeight(result_index))
+			--ConPrintf("%.3f", getResultWeight(result_index))
 			t_insert(newTbl, { outputAttr = getResultWeight(result_index), index = result_index })
 		end
 		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
@@ -977,7 +977,6 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 					-- so in TradeQueryGenerator
 					if self.tradeQueryGenerator.lastCopyEldritch or
 						self.tradeQueryGenerator.lastCopyEnchantMode == "Copy Current" then
-						ConPrintf("Replacing")
 						for i, _ in ipairs(items) do
 							local item = new("Item", items[i].item_string)
 							self.itemsTab:CopyAnointsAndEldritchImplicits(item, true, true)
