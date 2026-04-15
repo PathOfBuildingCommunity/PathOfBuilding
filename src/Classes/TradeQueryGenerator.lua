@@ -1297,8 +1297,8 @@ Remove: %s will be removed from the search results.]], term, term, term)
 	elseif slot and not isAbyssalJewelSlot and context.slotTbl.slotName ~= "Watcher's Eye" then
 		local selFunc = function(_index, value)
 			-- influenced items can't have eldritch implicits
-			if controls.copyEldritchOrEnchant and isEldritchModSlot then
-				controls.copyEldritchOrEnchant.enabled = value == "None"
+			if controls.copyEldritch and isEldritchModSlot then
+				controls.copyEldritch.enabled = value == "None"
 			end
 		end
 		controls.influence1 = new("DropDownControl", { "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 100, 18 },
