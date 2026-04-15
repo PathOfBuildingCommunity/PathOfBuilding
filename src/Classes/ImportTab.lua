@@ -37,8 +37,8 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 	self.controls.accountNameHeader.shown = function()
 		return self.charImportMode == "GETACCOUNTNAME"
 	end
-	self.controls.accountRealm = new("DropDownControl", {"TOPLEFT",self.controls.accountNameHeader,"BOTTOMLEFT"}, {0, 4, 60, 20}, realmList )
-	self.controls.accountRealm:SelByValue( main.lastRealm or "PC", "id" )
+	self.controls.accountRealm = new("DropDownControl", {"TOPLEFT",self.controls.accountNameHeader,"BOTTOMLEFT"}, {0, 4, 60, 20}, realmList)
+	self.controls.accountRealm:SelByValue(main.lastRealm or "PC", "id")
 	self.controls.accountName = new("EditControl", {"LEFT",self.controls.accountRealm,"RIGHT"}, {8, 0, 200, 20}, main.lastAccountName or "", nil, "%c", nil, nil, nil, nil, true)
 	self.controls.accountName.pasteFilter = function(text)
 		return text:gsub(".", function(c)
@@ -369,9 +369,9 @@ end)
 
 function ImportTabClass:Load(xml, fileName)
 	self.lastRealm = xml.attrib.lastRealm
-	self.controls.accountRealm:SelByValue( self.lastRealm or main.lastRealm or "PC", "id" )
+	self.controls.accountRealm:SelByValue(self.lastRealm or main.lastRealm or "PC", "id")
 	self.lastLeague = xml.attrib.lastLeague
-	self.controls.charSelectLeague:SelByValue( self.lastLeague or "Standard", "id" )
+	self.controls.charSelectLeague:SelByValue(self.lastLeague or "Standard", "id")
 	self.lastAccountHash = xml.attrib.lastAccountHash
 	self.importLink = xml.attrib.importLink
 	self.controls.enablePartyExportBuffs.state = xml.attrib.exportParty == "true"
@@ -521,12 +521,12 @@ function ImportTabClass:DownloadCharacterList()
 			})
 			-- set the league combo to the last used if possible, used for previously imported characters
 			if self.lastLeague then
-				charSelectLeague:SelByValue( self.lastLeague, "league" )
+				charSelectLeague:SelByValue(self.lastLeague, "league")
 				-- check that it worked
 				if charSelectLeague:GetSelValue("league") ~= self.lastLeague then
 					-- League maybe over, Character will be in standard
 					standardLeagueName = FindMatchingStandardLeague(self.lastLeague)
-					self.controls.charSelectLeague:SelByValue( standardLeagueName, "league" )
+					self.controls.charSelectLeague:SelByValue(standardLeagueName, "league")
 					if charSelectLeague:GetSelValue("league") ~= standardLeagueName then
 						-- give up and select the first entry. Ruthless mode may not have Standard equivalents
 						charSelectLeague.selIndex = 1
