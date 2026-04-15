@@ -49,6 +49,8 @@ describe("TradeQuery Currency Conversion", function()
 		it("handles unmapped currency", function()
 			local orig_conv = mock_tradeQuery.currencyConversionTradeMap
 			mock_tradeQuery.currencyConversionTradeMap = { div = "id" }
+			mock_tradeQuery.pbLeague = "league"
+			mock_tradeQuery.pbCurrencyConversion = { league = {} }
 			mock_tradeQuery.controls.pbNotice = { label = ""}
 		 	local resp = { exotic = 10 }
 			mock_tradeQuery:PriceBuilderProcessPoENinjaResponse(resp)
