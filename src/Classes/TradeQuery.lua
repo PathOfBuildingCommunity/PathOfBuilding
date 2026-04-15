@@ -1038,11 +1038,12 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 	controls["priceButton"..row_idx] = new("ButtonControl", { "TOPLEFT", controls["uri"..row_idx], "TOPRIGHT"}, {8, 0, 100, row_height}, "Price Item",
 		function()
 			controls["priceButton"..row_idx].label = "Searching..."
-			self.tradeQueryRequests:SearchWithURL(controls["uri"..row_idx].buf, function(items, errMsg)
+			self.tradeQueryRequests:SearchWithURL(controls["uri"..row_idx].buf, function(items, errMsg, query)
 				if errMsg then
 					self:SetNotice(controls.pbNotice, "Error: " .. errMsg)
 				else
 					self:SetNotice(controls.pbNotice, "")
+					self.lastQuery = query
 					self.resultTbl[row_idx] = items
 					self:UpdateControlsWithItems(row_idx)
 				end

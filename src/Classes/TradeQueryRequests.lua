@@ -302,7 +302,7 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 	})
 end
 
----@param callback fun(items:table, errMsg:string)
+---@param callback fun(items:table, errMsg:string, query:string)
 function TradeQueryRequestsClass:SearchWithURL(url, callback)
 	local subpath = url:match(self.hostName .. "trade/search/(.+)$")
 	local paths = {}
@@ -310,7 +310,7 @@ function TradeQueryRequestsClass:SearchWithURL(url, callback)
 		table.insert(paths, path)
 	end
 	if #paths < 2 or #paths > 3 then
-		return callback(nil, "Invalid URL")
+		return callback(nil, "Invalid URL", nil)
 	end
 	local realm, league, queryId
 	if #paths == 3 then
@@ -320,9 +320,11 @@ function TradeQueryRequestsClass:SearchWithURL(url, callback)
 	queryId = paths[#paths]
 	self:FetchSearchQueryHTML(realm, league, queryId, function(query, errMsg)
 		if errMsg then
-			return callback(nil, errMsg)
+			return callback(nil, errMsg, nil)
 		end
-		self:SearchWithQuery(realm, league, query, callback)
+		self:SearchWithQuery(realm, league, query, function(items, searchErrMsg)
+			callback(items, searchErrMsg, query)
+		end)
 	end)
 end
 
