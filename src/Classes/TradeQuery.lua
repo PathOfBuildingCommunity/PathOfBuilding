@@ -882,7 +882,8 @@ end
 -- Tries to first return an existing watcher's eye slot if possible
 function TradeQueryClass:findValidSlotForWatchersEye()
 	for _, socket in pairs(self.itemsTab.sockets) do
-		if not socket.inactive and self.itemsTab.items[socket.selItemId].name:find("Watcher's Eye") then
+		local socketItem = self.itemsTab.items[socket.selItemId]
+		if not socket.inactive and socketItem and socketItem.name and socketItem.name:find("Watcher's Eye") then
 			return socket
 		end
 	end
