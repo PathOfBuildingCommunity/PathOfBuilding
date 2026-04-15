@@ -756,6 +756,10 @@ local function snapshotSocketGroupReimportState(socketGroup, isMainGroup)
 			skillStageCountCalcs = gem.skillStageCountCalcs,
 			skillMineCount = gem.skillMineCount,
 			skillMineCountCalcs = gem.skillMineCountCalcs,
+			skillMinionSkill = gem.skillMinionSkill,
+			skillMinionSkillCalcs = gem.skillMinionSkillCalcs,
+			enableGlobal1 = gem.enableGlobal1,
+			enableGlobal2 = gem.enableGlobal2,
 		}
 	end
 	return {
@@ -778,6 +782,10 @@ local function applyGemReimportState(gem, state)
 	gem.skillStageCountCalcs = state.skillStageCountCalcs
 	gem.skillMineCount = state.skillMineCount
 	gem.skillMineCountCalcs = state.skillMineCountCalcs
+	gem.skillMinionSkill = state.skillMinionSkill
+	gem.skillMinionSkillCalcs = state.skillMinionSkillCalcs
+	gem.enableGlobal1 = state.enableGlobal1
+	gem.enableGlobal2 = state.enableGlobal2
 end
 
 local function applySocketGroupReimportState(socketGroup, state)
