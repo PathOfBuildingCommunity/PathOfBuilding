@@ -880,10 +880,8 @@ skills["Convocation"] = {
 		skill("buffNotPlayer", true),
 	},
 	qualityStats = {
-		Default = {
-			{ "skill_effect_duration_+%", 1 },
-			{ "base_cooldown_speed_+%", 1 },
-		},
+		{ "skill_effect_duration_+%", 1 },
+		{ "base_cooldown_speed_+%", 1 },
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 2000 },
@@ -1183,9 +1181,7 @@ skills["GemDetonateMines"] = {
 		spell = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "mine_detonation_speed_+%", 1 },
-		},
+		{ "mine_detonation_speed_+%", 1 },
 	},
 	constantStats = {
 		{ "display_mine_deontation_mechanics_detonation_speed_+%_final_per_sequence_mine", 10 },
@@ -1223,9 +1219,7 @@ skills["SupportDivineBlessing"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "aura_effect_+%", 0.25 },
-		},
+		{ "aura_effect_+%", 0.25 },
 	},
 	constantStats = {
 		{ "base_spell_cast_time_ms_override", 500 },
@@ -1406,9 +1400,7 @@ skills["SupportEarthbreaker"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "totem_damage_+%", 0.5 },
-		},
+		{ "totem_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "base_totem_duration", 12000 },
@@ -1484,9 +1476,7 @@ skills["SupportEclipse"] = {
 	supportGemsOnly = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "local_gem_experience_gain_+%", 5 },
-		},
+		{ "local_gem_experience_gain_+%", 5 },
 	},
 	stats = {
 		"supported_active_skill_gem_level_+",
@@ -1521,9 +1511,7 @@ skills["SupportElementalPenetration"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	qualityStats = {
-		Default = {
-			{ "elemental_damage_+%", 0.5 },
-		},
+		{ "elemental_damage_+%", 0.5 },
 	},
 	stats = {
 		"reduce_enemy_elemental_resistance_%",
@@ -2508,6 +2496,7 @@ skills["MistyReflection"] = {
 		"skill_cannot_be_knocked_back",
 		"skill_cannot_be_stunned",
 		"spell_cast_time_cannot_be_modified",
+		"disable_skill_repeats",
 	},
 	notMinionStat = {
 		"base_cooldown_speed_+%",
@@ -2670,9 +2659,7 @@ skills["Portal"] = {
 		spell = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cast_speed_+%", 3 },
-		},
+		{ "base_cast_speed_+%", 3 },
 	},
 	stats = {
 		"base_deal_no_damage",
@@ -4653,9 +4640,7 @@ skills["VaalBreach"] = {
 		spell = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cast_speed_+%", 3 },
-		},
+		{ "base_cast_speed_+%", 3 },
 	},
 	stats = {
 		"base_deal_no_damage",

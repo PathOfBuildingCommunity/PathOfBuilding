@@ -9,7 +9,7 @@ describe("TestAilments", function()
 
 	it("maximum shock value", function()
 		-- Shock Nova
-		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nShock Nova 4/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nShock Nova 4/0  1\n")
 		runCallback("OnFrame")
 		assert.are.equals(round(50 + 10), build.calcsTab.mainOutput.MaximumShock)
 
@@ -23,7 +23,7 @@ describe("TestAilments", function()
 	it("bleed is buffed by bleed chance", function()
 		build.itemsTab:CreateDisplayItemFromRaw("New Item\nKarui Chopper")
 		build.itemsTab:AddDisplayItem()
-		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nHeavy Strike 1/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nHeavy Strike 1/0  1\n")
 		build.configTab.input.customMods = "\z
 		attacks have 10% chance to cause bleeding\n\z
 		"

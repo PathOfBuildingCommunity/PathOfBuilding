@@ -1920,14 +1920,17 @@ Huge sets the radius to 11.
 	{ var = "conditionEnemyCrushed", type = "check", label = "Is the enemy Crushed?", tooltip = "Crushed enemies have 15% reduced Physical Damage Reduction.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Crushed", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyHallowingFlame", type = "check", label = "Is enemy affected by Hallowing Flame?", ifFlag = "Condition:CanInflictHallowingFlame", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyHallowingFlame", type = "check", label = "Is enemy affected by Hallowing Flame?", ifFlag = "Condition:CanInflictHallowingFlame", apply = function(val, modList, enemyModList, build)
 		enemyModList:NewMod("Condition:HallowingFlame", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "multiplierEnemyHallowingFlame", type = "count", label = "Hallowing Flame Stacks", ifOption = "conditionEnemyHallowingFlame", ifMod = "Multiplier:HallowingFlameMax", defaultPlaceholderState = 1, tooltip = "Amount of Hallowing Flame stacks applied to the enemy.", apply = function(val, modList, enemyModList)
+	{ var = "multiplierEnemyHallowingFlame", type = "count", label = "Hallowing Flame stacks", ifOption = "conditionEnemyHallowingFlame", defaultPlaceholderState = 1, tooltip = "Amount of Hallowing Flame stacks applied to the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:HallowingFlame", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "multiplierHallowingFlameStacksRemovedByAlly", type = "countAllowZero", label = "Hallowing Flames removed by an ally recently", ifOption = "conditionEnemyHallowingFlame", ifMult = "HallowingFlameStacksRemovedByAlly", defaultPlaceholderState = 1, tooltip = "Amount of Hallowing Flame stacks removed from enemies by allies recently.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:HallowingFlameStacksRemovedByAlly", "BASE", val, "Config")
+	end },
+	{ var = "conditionHallowingFlameMagnitude", type = "countAllowZero", label = "Inc. magnitude of Hallowing Flame stacks", ifOption = "conditionEnemyHallowingFlame", tooltip = "The magnitude of Hallowing Flame stacks applied to the enemy", apply = function(val, modList, enemyModList)
+		modList:NewMod("HallowingFlameMagnitude", "OVERRIDE", val, "Config")
 	end },
 	{ var = "conditionNearLinkedTarget", type = "check", label = "Is the enemy near you Linked target?", ifEnemyCond = "NearLinkedTarget", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:NearLinkedTarget", "FLAG", true, "Config", { type = "Condition", var = "Effective" })

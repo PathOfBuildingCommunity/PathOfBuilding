@@ -6077,7 +6077,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2238792070", 
+				["id"] = "implicit.stat_744082851", 
 				["text"] = "#% of Chaos Damage Leeched as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -45910,26 +45910,27 @@ return {
 		}, 
 		["346_IncreasedCastSpeedSpellEcho"] = {
 			["1HMace"] = {
-				["max"] = 1, 
-				["min"] = 1, 
+				["max"] = 20, 
+				["min"] = 18, 
 			}, 
 			["1HWeapon"] = {
-				["max"] = 1, 
-				["min"] = 1, 
+				["max"] = 20, 
+				["min"] = 18, 
 			}, 
 			["Dagger"] = {
-				["max"] = 1, 
-				["min"] = 1, 
+				["max"] = 20, 
+				["min"] = 18, 
 			}, 
 			["Wand"] = {
-				["max"] = 1, 
-				["min"] = 1, 
+				["max"] = 20, 
+				["min"] = 18, 
 			}, 
+			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_725896422", 
-				["text"] = "Socketed Gems are Supported by Level 10 Spell Echo", 
+				["id"] = "explicit.stat_438778966", 
+				["text"] = "Socketed Gems are Supported by Level # Spell Echo", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -69508,7 +69509,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_141810208", 
+				["id"] = "implicit.stat_1828023575", 
 				["text"] = "#% of Attack Damage Leeched as Life", 
 				["type"] = "implicit", 
 			}, 
@@ -69578,7 +69579,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2238792070", 
+				["id"] = "implicit.stat_744082851", 
 				["text"] = "#% of Chaos Damage Leeched as Life", 
 				["type"] = "implicit", 
 			}, 

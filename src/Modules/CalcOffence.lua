@@ -759,7 +759,17 @@ function calcs.offence(env, actor, activeSkill)
 		-- Applies DPS multiplier based on projectile count
 		skillData.dpsMultiplier = skillModList:Sum("BASE", skillCfg, "ProjectileCount")
 	end
-	output.Repeats = 1 + (skillModList:Sum("BASE", skillCfg, "RepeatCount") or 0)
+	
+	local function repeatSkillTypesCheck(activeSkillTypes)
+		local excludeSkillTypes = { SkillType.Instant, SkillType.Channel, SkillType.Triggered, SkillType.Retaliation, SkillType.NonRepeatable }
+		for _, type in ipairs(excludeSkillTypes) do
+			if activeSkillTypes[type] then
+				return false
+			end
+		end
+		return not skillModList:Flag(nil, "CannotRepeat") and ((activeSkillTypes[SkillType.Attack] or activeSkillTypes[SkillType.Spell]))
+	end
+	output.Repeats = 1 + (repeatSkillTypesCheck(activeSkill.skillTypes) and skillModList:Sum("BASE", skillCfg, "RepeatCount") or 0)
 	if output.Repeats > 1 then
 		output.RepeatCount = output.Repeats
 		-- handle all the multipliers from Repeats
@@ -842,6 +852,9 @@ function calcs.offence(env, actor, activeSkill)
 					skillModList:NewMod("Damage", "MORE", (100 * output.Repeats + DamageFinalMoreValueTotal) / (1 + DamageFinalMoreValueTotal / 100) - 100, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
 				end
 			end
+			if skillFlags.trap or skillFlags.mine then
+				skillModList:NewMod("DPS", "MORE", (output.Repeats - 1) * 100, "Repeat Count")
+			end
 		end
 	end
 	if skillModList:Flag(nil, "WeaponPhysAppliesToSpells") then
@@ -872,22 +885,14 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	if skillData.gainPercentBaseDaggerDamageToSpells then
-		local mult = skillData.gainPercentBaseDaggerDamageToSpells / 100
-		if actor.weaponData1.type == "Dagger" and actor.weaponData2.type == "Dagger" then
-			for _, damageType in ipairs(dmgTypeList) do
-				skillModList:NewMod(damageType.."Min", "BASE", m_floor(((actor.weaponData1[damageType.."Min"] or 0) + (actor.weaponData2[damageType.."Min"] or 0)) / 2 * mult), "Blade Blast of Dagger Detonation", ModFlag.Spell)
-				skillModList:NewMod(damageType.."Max", "BASE", m_floor(((actor.weaponData1[damageType.."Max"] or 0) + (actor.weaponData2[damageType.."Max"] or 0)) / 2 * mult), "Blade Blast of Dagger Detonation", ModFlag.Spell)
-			end
-		elseif actor.weaponData1.type == "Dagger" then
-			for _, damageType in ipairs(dmgTypeList) do
-				skillModList:NewMod(damageType.."Min", "BASE", m_floor((actor.weaponData1[damageType.."Min"] or 0) * mult), "Blade Blast of Dagger Detonation", ModFlag.Spell)
-				skillModList:NewMod(damageType.."Max", "BASE", m_floor((actor.weaponData1[damageType.."Max"] or 0) * mult), "Blade Blast of Dagger Detonation", ModFlag.Spell)
-			end
-		elseif actor.weaponData2.type == "Dagger" then
-			for _, damageType in ipairs(dmgTypeList) do
-				skillModList:NewMod(damageType.."Min", "BASE", m_floor((actor.weaponData2[damageType.."Min"] or 0) * mult), "Blade Blast of Dagger Detonation", ModFlag.Spell)
-				skillModList:NewMod(damageType.."Max", "BASE", m_floor((actor.weaponData2[damageType.."Max"] or 0) * mult), "Blade Blast of Dagger Detonation", ModFlag.Spell)
-			end
+		local weapon1IsDagger = actor.weaponData1.AddedUsingDagger or actor.weaponData1.type == "Dagger"
+		local weapon2IsDagger = actor.weaponData2.AddedUsingDagger or actor.weaponData2.type == "Dagger"
+		local mult = skillData.gainPercentBaseDaggerDamageToSpells / 100 * ((weapon1IsDagger and weapon2IsDagger and 0.5) or 1)
+		for _, damageType in ipairs(dmgTypeList) do
+			local baseMin = (weapon1IsDagger and actor.weaponData1[damageType.."Min"] or 0) + (weapon2IsDagger and actor.weaponData2[damageType.."Min"] or 0)
+			local baseMax = (weapon1IsDagger and actor.weaponData1[damageType.."Max"] or 0) + (weapon2IsDagger and actor.weaponData2[damageType.."Max"] or 0)
+			skillModList:NewMod(damageType.."Min", "BASE", m_floor(baseMin * mult), "Blade Blast of Dagger Detonation", ModFlag.Spell)
+			skillModList:NewMod(damageType.."Max", "BASE", m_floor(baseMax * mult), "Blade Blast of Dagger Detonation", ModFlag.Spell)
 		end
 	end
 
@@ -5626,7 +5631,7 @@ function calcs.offence(env, actor, activeSkill)
 			if skillFlags.trap or skillFlags.mine then
 				local preSpeed = output.TrapThrowingSpeed or output.MineLayingSpeed
 				local cooldown = output.TrapCooldown or output.Cooldown
-				useSpeed = (cooldown and cooldown > 0 and 1 / cooldown or preSpeed) / repeats
+				useSpeed = (cooldown and cooldown > 0 and 1 / cooldown or preSpeed)
 				timeType = skillFlags.trap and "trap throwing" or "mine laying"
 			elseif skillFlags.totem then
 				useSpeed = (output.Cooldown and output.Cooldown > 0 and (output.TotemPlacementSpeed > 0 and output.TotemPlacementSpeed or 1 / output.Cooldown) or output.TotemPlacementSpeed) / repeats

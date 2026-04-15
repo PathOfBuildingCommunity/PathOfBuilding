@@ -221,7 +221,14 @@ local function doActorAttribsConditions(env, actor)
 		if (actor.weaponData1.type == "Dagger" or actor.weaponData1.countsAsAll1H) and (actor.weaponData2.type == "Dagger" or actor.weaponData2.countsAsAll1H) then
 			condList["DualWieldingDaggers"] = true
 		end
-		if (env.data.weaponTypeInfo[actor.weaponData1.type].label or actor.weaponData1.subType or actor.weaponData1.type) ~= (env.data.weaponTypeInfo[actor.weaponData2.type].label or actor.weaponData2.subType or actor.weaponData2.type) then
+		local function getWeaponType(weaponData)
+			-- GGG treats thrusting one handed swords as the same class as one handed swords
+			if weaponData.type == "One Handed Sword" and weaponData.subType == "Thrusting" then
+				return "One Handed Sword"
+			end
+			return env.data.weaponTypeInfo[weaponData.type].label or weaponData.subType or weaponData.type
+		end
+		if getWeaponType(actor.weaponData1) ~= getWeaponType(actor.weaponData2) then
 			local info1 = env.data.weaponTypeInfo[actor.weaponData1.type]
 			local info2 = env.data.weaponTypeInfo[actor.weaponData2.type]
 			if info1.oneHand and info2.oneHand then
@@ -1425,13 +1432,6 @@ function calcs.perform(env, skipEHP)
 		end
 	end
 
-	if modDB:Flag(env.player.mainSkill.skillCfg, "Condition:CanInflictHallowingFlame") then
-		local magnitude = 1 + modDB:Sum("INC", nil, "HallowingFlameMagnitude") / 100
-		local val = m_floor(25 * magnitude) -- Hallowing flame grants Attack Hits against you gain 25% of Physical Damage as Extra Fire Damage
-		modDB:NewMod("Multiplier:HallowingFlameMax", "BASE", 1, "Base")
-		modDB:NewMod("ExtraAura", "LIST", { onlyAllies = true, mod = modLib.createMod("PhysicalDamageGainAsLightning", "BASE", val, "Hallowing Flame", { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "ActorCondition", actor = "enemy", var = "HallowingFlame" }, { type = "Multiplier", var = "HallowingFlame", actor = "enemy", limitActor = "parent", limitVar = "HallowingFlameMax" }) })
-	end
-
 	-- Special handling of Mageblood
 	local maxLeftActiveMagicUtilityCount = modDB:Sum("BASE", nil, "LeftActiveMagicUtilityFlasks")
 	local maxRightActiveMagicUtilityCount = modDB:Sum("BASE", nil, "RightActiveMagicUtilityFlasks")
@@ -2032,54 +2032,66 @@ function calcs.perform(env, skipEHP)
 	local allyBuffs = env.partyMembers["Aura"]
 	local buffExports = { Aura = {}, Curse = {}, Warcry = {}, Link = {}, EnemyMods = {}, EnemyConditions = {}, PlayerMods = {} }
 	local hasActiveSpectreSkill = false
+	local activeSpectreList = { }
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		if not activeSkill.skillFlags.disable then
 			local skillId = activeSkill.activeEffect.grantedEffect.id
 			if skillId and skillId:match("^RaiseSpectre") then
 				hasActiveSpectreSkill = true
-				break
+				if activeSkill.minion and activeSkill.minion.type then
+					t_insert(activeSpectreList, activeSkill.minion.type)
+				end
 			end
 		end
 	end
 	if hasActiveSpectreSkill then
 		for spectreId = 1, #env.spec.build.spectreList do
-			local spectreData = data.minions[env.spec.build.spectreList[spectreId]]
-			if not modDB.conditions["HaveBeastSpectre"] then
-				-- Change to grab from monster family using CorpseTypeTags.dat if other monster families are needed in the future
-				for _, tagName in ipairs(spectreData.monsterTags) do
-					if tagName == "beast" then
-						modDB.conditions["HaveBeastSpectre"] = true
-						break
-					end
+			local isThisSpectreActive = false
+			for _, spectreType in ipairs(activeSpectreList) do
+				if env.spec.build.spectreList[spectreId] == spectreType then
+					isThisSpectreActive = true
+					break
 				end
 			end
-			for modId = 1, #spectreData.modList do
-				local modData = spectreData.modList[modId]
-				if modData.name == "EnemyCurseLimit" then
-					minionCurses.limit = modData.value + 1
-					break
-				elseif modData.name == "AllyModifier" and modData.type == "LIST" then
-					buffs["Spectre"] = buffs["Spectre"] or new("ModList")
-					minionBuffs["Spectre"] = minionBuffs["Spectre"] or new("ModList")
-					for _, modValue in pairs(modData.value) do
-						local copyModValue = copyTable(modValue)
-						copyModValue.source = "Spectre:"..spectreData.name
-						t_insert(minionBuffs["Spectre"], copyModValue)
-						t_insert(buffs["Spectre"], copyModValue)
+			if isThisSpectreActive then
+				local spectreData = data.minions[env.spec.build.spectreList[spectreId]]
+				if not modDB.conditions["HaveBeastSpectre"] then
+					-- Change to grab from monster family using CorpseTypeTags.dat if other monster families are needed in the future
+					for _, tagName in ipairs(spectreData.monsterTags) do
+						if tagName == "beast" then
+							modDB.conditions["HaveBeastSpectre"] = true
+							break
+						end
 					end
-				elseif modData.name == "MinionModifier" and modData.type == "LIST" then
-					minionBuffs["Spectre"] = minionBuffs["Spectre"] or new("ModList")
-					for _, modValue in pairs(modData.value) do
-						local copyModValue = copyTable(modValue)
-						copyModValue.source = "Spectre:"..spectreData.name
-						t_insert(minionBuffs["Spectre"], copyModValue)
-					end
-				elseif modData.name == "PlayerModifier" and modData.type == "LIST" then
-					buffs["Spectre"] = buffs["Spectre"] or new("ModList")
-					for _, modValue in pairs(modData.value) do
-						local copyModValue = copyTable(modValue)
-						copyModValue.source = "Spectre:"..spectreData.name
-						t_insert(buffs["Spectre"], copyModValue)
+				end
+				for modId = 1, #spectreData.modList do
+					local modData = spectreData.modList[modId]
+					if modData.name == "EnemyCurseLimit" then
+						minionCurses.limit = modData.value + 1
+						break
+					elseif modData.name == "AllyModifier" and modData.type == "LIST" then
+						buffs["Spectre"] = buffs["Spectre"] or new("ModList")
+						minionBuffs["Spectre"] = minionBuffs["Spectre"] or new("ModList")
+						for _, modValue in pairs(modData.value) do
+							local copyModValue = copyTable(modValue)
+							copyModValue.source = "Spectre:"..spectreData.name
+							t_insert(minionBuffs["Spectre"], copyModValue)
+							t_insert(buffs["Spectre"], copyModValue)
+						end
+					elseif modData.name == "MinionModifier" and modData.type == "LIST" then
+						minionBuffs["Spectre"] = minionBuffs["Spectre"] or new("ModList")
+						for _, modValue in pairs(modData.value) do
+							local copyModValue = copyTable(modValue)
+							copyModValue.source = "Spectre:"..spectreData.name
+							t_insert(minionBuffs["Spectre"], copyModValue)
+						end
+					elseif modData.name == "PlayerModifier" and modData.type == "LIST" then
+						buffs["Spectre"] = buffs["Spectre"] or new("ModList")
+						for _, modValue in pairs(modData.value) do
+							local copyModValue = copyTable(modValue)
+							copyModValue.source = "Spectre:"..spectreData.name
+							t_insert(buffs["Spectre"], copyModValue)
+						end
 					end
 				end
 			end
@@ -2127,6 +2139,8 @@ function calcs.perform(env, skipEHP)
 				-- Nothing!
 			elseif buff.enemyCond and not enemyDB:GetCondition(buff.enemyCond) then
 				-- Also nothing :/
+			elseif buff.type == "Global" then
+				modDB:AddList(buff.modList) -- Allows a skill mod to affect other skills through modDB
 			elseif buff.type == "Buff" and not skillModList:Flag(skillCfg, "DisableBuff") then
 				if env.mode_buffs and (not activeSkill.skillFlags.totem or buff.allowTotemBuff) then
 					local skillCfg = buff.activeSkillBuff and skillCfg
@@ -3200,6 +3214,23 @@ function calcs.perform(env, skipEHP)
 		doActorLifeMana(env.player)
 		doActorLifeManaReservation(env.player, true)
 	end
+
+	if not env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "Condition:CanInflictHallowingFlame") then
+		local magnitude = modDB:Override(nil, "HallowingFlameMagnitude")
+
+		if env.mode == "MAIN" or not magnitude then
+			local magnitudeInc = modDB:Sum("INC", nil, "HallowingFlameMagnitude")
+			magnitude = magnitude or magnitudeInc
+			if env.mode == "MAIN" then
+				env.build.configTab.varControls['conditionHallowingFlameMagnitude']:SetPlaceholder(magnitudeInc, true)
+			end
+		end
+
+		local val = m_floor(25 * (1 + magnitude / 100)) -- Hallowing flame grants Attack Hits against you gain 25% of Physical Damage as Extra Fire Damage
+		modDB:NewMod("Multiplier:HallowingFlameMax", "BASE", 1, "Base")
+		modDB:NewMod("ExtraAura", "LIST", { onlyAllies = true, mod = modLib.createMod("PhysicalDamageGainAsLightning", "BASE", val, "Hallowing Flame", { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "ActorCondition", actor = "enemy", var = "HallowingFlame" }, { type = "Multiplier", var = "HallowingFlame", actor = "enemy", limitActor = "parent", limitVar = "HallowingFlameMax" }) })
+	end
+
 
 	-- Check for extra auras
 	buffExports["Aura"]["extraAura"] = { effectMult = 1, modList = new("ModList") }

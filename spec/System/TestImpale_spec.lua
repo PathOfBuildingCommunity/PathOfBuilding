@@ -286,7 +286,7 @@ describe("TestAttacks", function()
 
 	it("impale dual wield simultaneous attack", function()
 		newBuild()
-		build.skillsTab:PasteSocketGroup("Cleave 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Cleave 20/0  1\n")
 		-- exactly 100
 		build.itemsTab:CreateDisplayItemFromRaw("New Item\nVaal Blade\nQuality: 0\nAdds 54 to 14 physical damage\n50% chance to Impale Enemies on Hit with Attacks")
 		build.itemsTab:AddDisplayItem()
