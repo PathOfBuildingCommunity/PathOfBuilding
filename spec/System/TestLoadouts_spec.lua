@@ -105,20 +105,19 @@ describe("TestLoadouts", function()
 					build:SyncLoadouts()
 					-- There are 5 static items in the list
 					assert.are.equals(7, #build.controls.buildLoadouts.list)
-					local loadoutToDelete = build:GetLoadoutByName(loadoutNameToDelete)
 
 					build:DeleteLoadout(loadoutNameToDelete, nextLoadout)
 					build:SyncLoadouts()
 
 					assert.are.equals(1, #build.treeTab.specList)
-					assert.are.equals(1, #build.skillsTab.skillSets)
-					assert.are.equals(1, #build.itemsTab.itemSets)
-					assert.are.equals(1, #build.configTab.configSets)
+					assert.are.equals(1, build.skillsTab.activeSkillSetId)
+					assert.are.equals(1, build.itemsTab.activeItemSetId)
+					assert.are.equals(2, build.configTab.activeConfigSetId)
 
 					assert.are.equals(nextLoadout, build.treeTab.specList[1].title)
-					assert.are.equals(nextLoadout, build.skillsTab.skillSets[1].title)
-					assert.are.equals(nextLoadout, build.itemsTab.itemSets[1].title)
-					assert.are.equals(nextLoadout, build.configTab.configSets[1].title)
+					assert.are.equals(nextLoadout, build.skillsTab.skillSets[build.skillsTab.activeSkillSetId].title)
+					assert.are.equals(nextLoadout, build.itemsTab.itemSets[build.itemsTab.activeItemSetId].title)
+					assert.are.equals(nextLoadout, build.configTab.configSets[build.configTab.activeConfigSetId].title)
 
 					assert.are.equals(1, #build.itemsTab.itemSetOrderList)
 					assert.are.equals(1, #build.skillsTab.skillSetOrderList)
@@ -126,12 +125,8 @@ describe("TestLoadouts", function()
 
 					assert.are.equals(1, build.itemsTab.itemSetOrderList[1])
 					assert.are.equals(1, build.skillsTab.skillSetOrderList[1])
-					assert.are.equals(1, build.configTab.configSetOrderList[1])
+					assert.are.equals(2, build.configTab.configSetOrderList[1])
 
-					assert.is_same(1, build.treeTab.activeSpec)
-					assert.is_same(1, build.itemsTab.activeItemSetId)
-					assert.is_same(1, build.skillsTab.activeSkillSetId)
-					assert.is_same(1, build.configTab.activeConfigSetId)
 					assert.is_true(build.modFlag)
 				end)
 
@@ -412,7 +407,7 @@ describe("TestLoadouts", function()
 				buildSetService:DeleteLoadout(1, build.treeTab.specList, build.treeTab.specList[specIdToDelete])
 				assert.are.equals(6, #build.controls.buildLoadouts.list)
 				-- Default loadout return when only one loadout remains
-				assert.is_same({ itemSetId = 1, skillSetId = 1, configSetId = 1 },
+				assert.is_same({ itemSetId = 1, skillSetId = 1, configSetId = 2 },
 					build:GetLoadoutByName(loadoutNameToDelete))
 				assert.are.equals(2, build.controls.buildLoadouts.selIndex)
 				assert.are.equals("Do not delete", build.controls.buildLoadouts:GetSelValue())
@@ -625,7 +620,7 @@ describe("TestLoadouts", function()
 				buildSetService:NewLoadout(newLoadoutName)
 				assert.are.equals(7, #build.controls.buildLoadouts.list)
 				local newLoadout = build:GetLoadoutByName(newLoadoutName)
-				build.configTab:DeleteConfigSet(newLoadout.configSetId)
+				build.configTab:DeleteConfigSet(newLoadout.configSetId, 2)
 				build.configTab.configSets[1].title = "Config 1"
 
 				local customLoadoutName = "Custom Loadout"
@@ -640,6 +635,20 @@ describe("TestLoadouts", function()
 				assert.are.equals(3, customLoadout.specId)
 				assert.is_true(build.modFlag)
 			end)
+
+			it("does not leave the config set in a broken state when deleting the last configset along with the loadout",
+				function()
+					local loadoutName = "Loadout To Delete"
+					buildSetService:NewLoadout(loadoutName)
+					assert.are.equals(7, #build.controls.buildLoadouts.list)
+					build.configTab:DeleteConfigSet(build.configTab.configSetOrderList[1], 1)
+					assert.are.equals(1, #build.configTab.configSetOrderList)
+					local loadout = build:GetLoadoutByName(loadoutName)
+					buildSetService:DeleteLoadout(2, build.treeTab.specList, build.treeTab.specList[loadout.specId])
+					assert.are.equals(1, #build.configTab.configSetOrderList)
+					assert.are.equals(6, #build.controls.buildLoadouts.list)
+					assert.are.equals("Default", build.controls.buildLoadouts.list[2])
+				end)
 		end)
 	end)
 end)
