@@ -1141,6 +1141,8 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 				local firstValidSlot = self:findValidSlotForWatchersEye()
 				local currentItem = firstValidSlot.selItemId ~= 0 and self.itemsTab.items[firstValidSlot.selItemId]
 				local eyeEquipped = currentItem and currentItem.name:find("Watcher's Eye")
+				-- for watcher's eye we can compare to an already existing one, or
+				-- default to comparing with all active sockets
 				self.itemsTab:AddItemTooltip(tooltip, item, eyeEquipped and firstValidSlot or nil, true)
 			else
 				self.itemsTab:AddItemTooltip(tooltip, item, slotTbl, true)
