@@ -1218,7 +1218,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	--controls.includeSynthesis.state = (self.lastIncludeSynthesis == nil or self.lastIncludeSynthesis == true)
 
 	local lastItemAnchor = controls.includeCorrupted
-	local includeScourge = self.queryTab.pbLeagueRealName == "Standard" or self.queryTab.pbLeagueRealName == "Hardcore"
+	local includeScourge = self.queryTab.pbLeague == "Standard" or self.queryTab.pbLeague == "Hardcore"
 
 	local function updateLastAnchor(anchor, height)
 		lastItemAnchor = anchor
@@ -1239,7 +1239,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	if not isJewelSlot and not isAbyssalJewelSlot and includeScourge then
 		controls.includeScourge = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Scourge Mods:", function(state) end)
 		controls.includeScourge.state = (self.lastIncludeScourge == nil or self.lastIncludeScourge == true)
-		updateLastAnchor(controls.includrecteScourge)
+		updateLastAnchor(controls.includeScourge)
 	end
 
 	if isAmuletSlot then
