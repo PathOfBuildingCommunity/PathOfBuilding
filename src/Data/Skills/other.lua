@@ -1203,8 +1203,8 @@ skills["GemDetonateMines"] = {
 	},
 }
 skills["SupportDivineBlessing"] = {
-	name = "SupportDivineBlessing",
-	hidden = true,
+	name = "Divine Blessing",
+	description = "Supports aura skills that create permanent auras around you, changing their reservation to a cost and making them temporary. Cannot support banner or stance skills.",
 	color = 1,
 	support = true,
 	requireSkillTypes = { SkillType.CanHaveBlessing, },
@@ -1376,8 +1376,8 @@ skills["ElementalAegis"] = {
 	},
 }
 skills["SupportEarthbreaker"] = {
-	name = "SupportEarthbreaker",
-	hidden = true,
+	name = "Earthbreaker",
+	description = "Supports slam skills, causing them to summon an ancestor totem that uses the skill for you while you're near it. Being near it grants you increased area of effect for melee skills.",
 	color = 1,
 	support = true,
 	requireSkillTypes = { SkillType.Slam, SkillType.Totemable, SkillType.AND, },

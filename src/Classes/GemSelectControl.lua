@@ -109,7 +109,7 @@ function GemSelectClass:PopulateGemList()
 	local characterLevel = self.skillsTab.build and self.skillsTab.build.characterLevel or 1
 
 	for gemId, gemData in pairs(self.skillsTab.build.data.gems) do
-		if (self.sortGemsBy and gemData.tags[self.sortGemsBy] == true or not self.sortGemsBy) then
+		if not gemData.grantedEffect.fromItem and (self.sortGemsBy and gemData.tags[self.sortGemsBy] == true or not self.sortGemsBy) then
 			local levelRequirement = gemData.grantedEffect.levels[1].levelRequirement or 1
 			if characterLevel >= levelRequirement or not matchLevel then
 				if self.imbuedSelect then

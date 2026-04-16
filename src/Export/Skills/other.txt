@@ -388,7 +388,6 @@ local skills, mod, flag, skill = ...
 #flags spell
 #mods
 
-#noGem
 #skill SupportDivineBlessing
 	fromItem = true,
 	statMap = {
@@ -415,7 +414,6 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#noGem
 #skill SupportEarthbreaker
 	fromItem = true,
 	addFlags = {
