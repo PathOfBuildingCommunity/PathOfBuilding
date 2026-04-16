@@ -4094,9 +4094,9 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		local function sortFunc(a, b)
 			if a == b then return end
 
-			local aParams = { a.compareSlot.selItemId == 0 and 1 or 0, similar(a.selItem, a.isSameUnique), a.output.FullDPS, a.output.CombinedDPS, a.output.TotalEHP, a.compareSlot.label }
+			local aParams = { a.compareSlot.selItemId == 0 and 1 or 0, similar(a.selItem, a.isSameUnique), a.output.FullDPS, a.output.CombinedDPS, a.output.TotalEHP, a.compareSlot.label, a.compareSlot.slotName }
 			local bParams = { b.compareSlot.selItemId == 0 and 1 or 0, similar(b.selItem, b.isSameUnique), b.output.FullDPS, b
-				.output.CombinedDPS, b.output.TotalEHP, b.compareSlot.label }
+				.output.CombinedDPS, b.output.TotalEHP, b.compareSlot.label, b.compareSlot.slotName }
 			for i = 1, #aParams do
 				if aParams[i] == nil or bParams[i] == nil then
 					-- continue
@@ -4106,7 +4106,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 					return false
 				end
 			end
-			return true
+			return false
 		end
 		table.sort(slots, sortFunc)
 		
