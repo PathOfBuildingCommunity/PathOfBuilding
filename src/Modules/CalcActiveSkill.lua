@@ -194,11 +194,34 @@ local function getWeaponFlags(env, weaponData, weaponTypes, skillTypeDualWieldOn
 	if not info then
 		return
 	end
+
+	local function matchesWeaponType(weaponData, types, skillTypeDualWieldOnly)
+		-- Wings of Entropy
+		if weaponData.countsAsDualWielding then
+			if skillTypeDualWieldOnly then
+				return true
+			end
+			return (types[weaponData.type] or types["One Handed "..info.flag]) and types["One Handed "..info.flag]
+		end
+		-- Varunastra
+		if weaponData.countsAsAll1H then
+			return types["Claw"]
+				or types["Dagger"]
+				or types["One Handed Axe"]
+				or types["One Handed Mace"]
+				or types["One Handed Sword"]
+		end
+		-- Normal weapon matching
+		if types[weaponData.type] then
+			return true
+		end
+
+		return false
+	end
+
 	if weaponTypes then
 		for _, types in ipairs(weaponTypes) do
-			if weaponData.countsAsDualWielding and ((not skillTypeDualWieldOnly and (not types[weaponData.type] or not types["One Handed "..info.flag])) and (not types["One Handed "..info.flag])) -- Wings of Entropy
-				or (not weaponData.countsAsDualWielding and not types[weaponData.type] and (not weaponData.countsAsAll1H or not (types["Claw"] or types["Dagger"] or types["One Handed Axe"] or types["One Handed Mace"] or types["One Handed Sword"])))
-			then
+			if not matchesWeaponType(weaponData, types, skillTypeDualWieldOnly) then
 				return nil, info
 			end
 		end
