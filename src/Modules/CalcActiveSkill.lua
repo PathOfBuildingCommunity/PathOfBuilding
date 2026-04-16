@@ -212,11 +212,7 @@ local function getWeaponFlags(env, weaponData, weaponTypes, skillTypeDualWieldOn
 				or types["One Handed Sword"]
 		end
 		-- Normal weapon matching
-		if types[weaponData.type] then
-			return true
-		end
-
-		return false
+		return types[weaponData.type]
 	end
 
 	if weaponTypes then
