@@ -979,7 +979,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 						self.tradeQueryGenerator.lastCopyEnchantMode == "Copy Current" then
 						for i, _ in ipairs(items) do
 							local item = new("Item", items[i].item_string)
-							self.itemsTab:CopyAnointsAndEldritchImplicits(item, true, true)
+							self.itemsTab:CopyAnointsAndEldritchImplicits(item, true, true, context.slotTbl.slotName)
 							items[i].item_string = item:BuildRaw()
 						end
 					elseif self.tradeQueryGenerator.lastCopyEnchantMode == "Remove" then

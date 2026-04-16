@@ -1585,8 +1585,8 @@ function ItemsTabClass:DeleteItem(item, deferUndoState)
 	end
 end
 
-function ItemsTabClass:CopyAnointsAndEldritchImplicits(newItem, copyEldritchImplicits, overwrite)
-	local newItemType = newItem.base.weapon and "Weapon 1" or newItem.base.type
+function ItemsTabClass:CopyAnointsAndEldritchImplicits(newItem, copyEldritchImplicits, overwrite, sourceSlotName)
+	local newItemType = sourceSlotName or (newItem.base.weapon and "Weapon 1" or newItem.base.type)
 	if self.activeItemSet[newItemType] then
 		local currentItem = self.activeItemSet[newItemType].selItemId and self.items[self.activeItemSet[newItemType].selItemId]
 		-- if you don't have an equipped item that matches the type of the newItem, no need to do anything
