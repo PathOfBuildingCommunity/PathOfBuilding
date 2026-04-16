@@ -46,6 +46,8 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.allLeagues = {}
 	-- realm id-text table to pair realm name with API parameter
 	self.realmIds = {}
+	-- last query for each row
+	self.lastQueries = {}
 
 	self.tradeQueryRequests = new("TradeQueryRequests")
 	main.onFrameFuncs["TradeQueryRequests"] = function()
@@ -960,7 +962,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 				return
 			end
 			context.controls["priceButton"..context.row_idx].label = "Searching..."
-			self.lastQuery = query
+			self.lastQueries[row_idx] = query
 			self.tradeQueryRequests:SearchWithQueryWeightAdjusted(self.pbRealm, self.pbLeague, query,
 				function(items, errMsg)
 					if errMsg then
@@ -1041,7 +1043,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 					self:SetNotice(controls.pbNotice, "Error: " .. errMsg)
 				else
 					self:SetNotice(controls.pbNotice, "")
-					self.lastQuery = query
+					self.lastQueries[row_idx] = query
 					self.resultTbl[row_idx] = items
 					self:UpdateControlsWithItems(row_idx)
 				end
@@ -1180,7 +1182,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 			if  itemResult.whisper then
 				Copy(itemResult.whisper)
 			else
-				local exactQuery = dkjson.decode(self.lastQuery)
+				local exactQuery = dkjson.decode(self.lastQueries[row_idx])
 				-- use trade sum to get the specific item. both min and max
 				-- weight on site uses floats but only shows integer in the api
 				-- e.g. weight of 172.3 shows up as 172 in the api
