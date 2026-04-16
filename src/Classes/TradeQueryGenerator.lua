@@ -1295,10 +1295,12 @@ Remove: %s will be removed from the search results.]], term, term, term)
 		controls.jewelTypeLabel = new("LabelControl", {"RIGHT",controls.jewelType,"LEFT"}, {-5, 0, 0, 16}, "Jewel Type:")
 		updateLastAnchor(controls.jewelType)
 	elseif slot and not isAbyssalJewelSlot and context.slotTbl.slotName ~= "Watcher's Eye" then
-		local selFunc = function(_index, value)
+		local selFunc = function()
 			-- influenced items can't have eldritch implicits
 			if controls.copyEldritch and isEldritchModSlot then
-				controls.copyEldritch.enabled = value == "None"
+				local hasInfluence1 = controls.influence1 and controls.influence1:GetSelValue() ~= "None"
+				local hasInfluence2 = controls.influence2 and controls.influence2:GetSelValue() ~= "None"
+				controls.copyEldritch.enabled = not hasInfluence1 and not hasInfluence2
 			end
 		end
 		controls.influence1 = new("DropDownControl", { "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 100, 18 },
@@ -1309,6 +1311,7 @@ Remove: %s will be removed from the search results.]], term, term, term)
 		controls.influence2 = new("DropDownControl", { "TOPLEFT", controls.influence1, "BOTTOMLEFT" }, { 0, 5, 100, 18 },
 			influenceDropdownNames, selFunc)
 		controls.influence2:SetSel(self.lastInfluence2 or 1)
+		selFunc()
 		controls.influence2Label = new("LabelControl", { "RIGHT", controls.influence2, "LEFT" }, { -5, 0, 0, 16 },
 			"^7Influence 2:")
 		updateLastAnchor(controls.influence2, 46)
