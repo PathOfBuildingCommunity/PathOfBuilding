@@ -4041,7 +4041,8 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		-- tooltips only for affected slots" checked, we can just compare that
 		-- one slot
 		if main.slotOnlyTooltips and slot then
-			addCompareForSlot(slot)
+			slot = type(slot) ~= "string" and slot or self.slots[slot]
+			if slot then addCompareForSlot(slot) end
 			return
 		end
 
