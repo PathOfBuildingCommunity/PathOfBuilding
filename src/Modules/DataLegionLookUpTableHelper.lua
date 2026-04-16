@@ -158,6 +158,14 @@ local function loadTimelessJewel(jewelType, nodeID)
 	end
 end
 
+local function convertLocalIdToGlobalId(jewelType, localId)
+	local mappingByJewelType = data.nodeIDList.localIdToGlobalId
+	if mappingByJewelType and mappingByJewelType[jewelType] and mappingByJewelType[jewelType][localId] ~= nil then
+		return mappingByJewelType[jewelType][localId]
+	end
+	return localId
+end
+
 --[[
 -- the generation functions needs to be ported to LUA
 local generateNode(jewelType, seed, nodeID)
@@ -184,7 +192,7 @@ local function repairLUTs()
 	ConPrintf("Error NodeIndexMapping file empty")
 	local nodeIDList = {  }
 	GetScriptPath()
-	for _, jewelType in ipairs({2, 3, 4, 5}) do
+	for _, jewelType in ipairs({2, 3, 4, 5, 6}) do
 		loadTimelessJewel(jewelType, 1)
 		local jewelTypeName = data.timelessJewelTypes[jewelType]:gsub("%s+", "")
 		local jewelData = loadJewelFile(jewelTypeName)
@@ -299,13 +307,22 @@ local function readLUT(seed, nodeID, jewelType)
 		-- "Glorious Vanity"
 		if jewelType == 1 then
 			local result = { }
-
-			for i = 1, data.timelessJewelLUTs[jewelType].sizes:byte(index * seedSize + seedOffset + 1) do
+			local dataLength = data.timelessJewelLUTs[jewelType].sizes:byte(index * seedSize + seedOffset + 1)
+			for i = 1, dataLength do
 				result[i] = data.timelessJewelLUTs[jewelType].data[index + 1][seedOffset + 1]:byte(i)
+			end
+			-- replacement id in first byte, or addition ids in first half for legacy/might variants
+			if dataLength == 2 or dataLength == 3 then
+				result[1] = convertLocalIdToGlobalId(jewelType, result[1])
+			elseif dataLength == 6 or dataLength == 8 then
+				for i = 1, (dataLength / 2) do
+					result[i] = convertLocalIdToGlobalId(jewelType, result[i])
+				end
 			end
 			return result
 		elseif index <= data.nodeIDList["sizeNotable"] then
-			return { data.timelessJewelLUTs[jewelType].data:byte(index * seedSize + seedOffset + 1) }
+			local localId = data.timelessJewelLUTs[jewelType].data:byte(index * seedSize + seedOffset + 1)
+			return { convertLocalIdToGlobalId(jewelType, localId) }
 		end
 	else
 		ConPrintf("ERROR: Missing Index lookup for nodeID: "..nodeID)

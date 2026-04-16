@@ -8,7 +8,7 @@ describe("TetsItemMods", function()
 	end)
 
 	it("Dialla's socket mods", function()
-		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nArc 20/0 Default  1\nArc 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nArc 20/0  1\nArc 20/0  1\n")
 		runCallback("OnFrame")
 
 		build.itemsTab:CreateDisplayItemFromRaw([[Dialla's Malefaction
@@ -61,7 +61,7 @@ describe("TetsItemMods", function()
 
 		local lightningResBefore = build.calcsTab.mainOutput.LightningResist
 
-		build.skillsTab:PasteSocketGroup("Slot: Ring 1\nWrath 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Ring 1\nWrath 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.are_not.equals(lightningResBefore, build.calcsTab.mainOutput.LightningResist)
@@ -96,7 +96,7 @@ describe("TetsItemMods", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nSmite 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nSmite 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.is_true(build.calcsTab.mainEnv.keystonesAdded["Vaal Pact"])
@@ -124,7 +124,7 @@ describe("TetsItemMods", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\nNightblade 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\nNightblade 20/0  1\n")
 		runCallback("OnFrame")
 		local nonElusiveCritMult = build.calcsTab.mainOutput.CritMultiplier
 
@@ -160,7 +160,7 @@ describe("TetsItemMods", function()
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Cyclone 20/0 Default  1\nClose Combat 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Cyclone 20/0  1\nClose Combat 20/0  1\n")
 		runCallback("OnFrame")
 
 		local farDPS = build.calcsTab.mainOutput.TotalDPS
@@ -200,7 +200,7 @@ describe("TetsItemMods", function()
 	
 	it("Kalandra's Touch influence copy", function()
 
-		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nSmite 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nSmite 20/0  1\n")
 		runCallback("OnFrame")
 
 		local dmg = build.calcsTab.mainOutput.AverageDamage
@@ -527,7 +527,7 @@ describe("TetsItemMods", function()
 			{range:1}(15-20)% increased Cold Damage per 1% Missing Cold Resistance, up to a maximum of 300%
 			{range:1}(15-20)% increased Fire Damage per 1% Missing Fire Resistance, up to a maximum of 300%]])
 		build.itemsTab:AddDisplayItem()
-		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nFireball 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nFireball 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.are_not.equals(340, build.calcsTab.mainEnv.modDB:Sum("INC", "FireDamage"))
@@ -547,10 +547,69 @@ describe("TetsItemMods", function()
 			Armour: 32
 		]])
 		build.itemsTab:AddDisplayItem()
-		build.skillsTab:PasteSocketGroup("Arc 20/0 Default  1")
+		build.skillsTab:PasteSocketGroup("Arc 20/0  1")
 
 		assert.are_not.equals(40, build.calcsTab.mainEnv.modDB:Sum("INC", { flags = ModFlag.Cast }, "Speed"))
 		assert.are_not.equals(64, build.calcsTab.mainOutput.Armour)
 		runCallback("OnFrame")
+	end)
+	
+	it("Heralds apply exposure with Heraldry", function()
+		build.skillsTab:PasteSocketGroup("Arc 20/0  1\nHerald of Thunder 20/0  1\n")
+		runCallback("OnFrame")
+		
+		assert.are.equals(0.5, build.calcsTab.calcsOutput.LightningEffMult)
+				
+		build.configTab.input.customMods = [[
+		Nearby Enemies have Cold Exposure while you are affected by Herald of Ice
+		Nearby Enemies have Fire Exposure while you are affected by Herald of Ash
+		Nearby Enemies have Lightning Exposure while you are affected by Herald of Thunder
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(0.6, build.calcsTab.calcsOutput.LightningEffMult)
+	end)
+	
+	it("Enemy self curse effect", function()
+		build.skillsTab:PasteSocketGroup("Arc 20/0  1\nConductivity 14/0  1\n")
+		runCallback("OnFrame")
+		
+		assert.are.equals(0.8, build.calcsTab.calcsOutput.LightningEffMult)
+				
+		build.configTab.input.customMods = [[
+		Nearby Enemies have 20% increased Effect of Curses on them
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(0.86, build.calcsTab.calcsOutput.LightningEffMult)
+	end)
+	
+	it("Max charges with conditional mod", function() -- see #9442
+		build.skillsTab:PasteSocketGroup("Grace 20/20  1\n")
+		runCallback("OnFrame")
+		
+		local baseFrenzyChargesMax = build.calcsTab.calcsOutput.FrenzyChargesMax
+		local baseEnduranceChargesMax = build.calcsTab.calcsOutput.EnduranceChargesMax
+		
+		build.configTab.input.customMods = [[
+			+1 to Maximum Frenzy Charges while affected by Grace
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(baseFrenzyChargesMax + 1, build.calcsTab.calcsOutput.FrenzyChargesMax)
+		assert.are.equals(baseEnduranceChargesMax, build.calcsTab.calcsOutput.EnduranceChargesMax)
+		
+		build.configTab.input.customMods = [[
+			Your Maximum Endurance Charges is equal to your Maximum Frenzy Charges
+			+1 to Maximum Frenzy Charges while affected by Grace
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(baseFrenzyChargesMax + 1, build.calcsTab.calcsOutput.FrenzyChargesMax)
+		assert.are.equals(baseEnduranceChargesMax + 1, build.calcsTab.calcsOutput.EnduranceChargesMax)
 	end)
 end)

@@ -38,7 +38,8 @@ for i, _ in ipairs(types) do
 			if skillGem.IsSupport then
 				local gemName = skillGem.BaseItemType.Name
 				local gemId = gemEffect.Id
-				if skillGem.GemColour == i and not gemId:match("Unknown") and not gemId:match("Playtest") and not gemId:match("Royale") and not gemName:match("DNT") and not gemName:match("UNUSED") and not gemName:match("NOT CURRENTLY USED") and not gemName:match("WIP") and not gemName:match("Unnamed") then
+				if skillGem.GemColour == i and not gemId:match("Unknown") and not gemId:match("Playtest") and not gemId:match("Royale") and not gemName:match("DNT") and not gemName:match("UNUSED") and not gemName:match("NOT CURRENTLY USED")
+					and not gemName:match("WIP") and not gemName:match("Unnamed")  and not gemEffect.Description:match("DNT") then
 					local temp = skillGem.BaseItemType.Name..string.rep(" ", 45 - string.len(skillGem.BaseItemType.Name)).."\t\t----\t\t"..gemEffect.GrantedEffect.Id
 					local temp1 = skillGem.BaseItemType.Name..grantedEffectString(gemEffect.GrantedEffect)
 					if gemEffect.GrantedEffect2 then
@@ -51,8 +52,9 @@ for i, _ in ipairs(types) do
 			else
 				local gemName = gemEffect.GrantedEffect.ActiveSkill.DisplayName
 				local gemId = gemEffect.Id
-				 if gemName ~= "" and types[i] == colour and not gemId:match("Unknown") and not gemId:match("Playtest") and not gemId:match("Royale") and not gemName:match("%.%.%.") and not gemName:match("DNT") and not gemName:match("UNUSED") and not gemName:match("NOT CURRENTLY USED") and not gemName:match("Unnamed") and not gemEffect.GrantedEffect.Id:match("HardMode") and not skillGem.BaseItemType.Name:match("DNT") 
-				 and not (skillGem.IsVaalGem and gemEffect.Variant ~= 4) then
+				 if gemName ~= "" and types[i] == colour and not gemId:match("Unknown") and not gemId:match("Playtest") and not gemId:match("Royale") and not gemName:match("%.%.%.") and not gemName:match("DNT") and not gemName:match("UNUSED")
+					 and not gemName:match("NOT CURRENTLY USED") and not gemName:match("Unnamed") and not gemEffect.GrantedEffect.Id:match("HardMode") and not skillGem.BaseItemType.Name:match("DNT") and not gemEffect.Description:match("DNT")
+				 and not (skillGem.IsVaalGem and gemEffect.Variant ~= 5) then
 					local temp = gemName..string.rep(" ", 45 - string.len(gemName)).."\t\t----\t\t"..gemEffect.GrantedEffect.Id
 					local temp1 = gemName..grantedEffectString(gemEffect.GrantedEffect)
 				 	if gemEffect.GrantedEffect2 and not skillGem.IsVaalGem then

@@ -7,26 +7,39 @@
 buildSites = { }
 
 -- Import/Export websites list used in dropdowns
+-- label: What a user sees in the export dropdown and when the import box recognizes the website
+-- id: Protocol handler id used to load builds with the pob: URL scheme e.g. pob://Maxroll/siteSpecificBuildId
+-- matchURL: A pattern to match URLs belonging to this website to show a valid url message in ImportTab
+-- regexURL: Copied link from website to extract the build ID and pass to downloadURL to get the raw build XML
+-- downloadURL: The URL to download the raw build code
+-- codeOut: Gets prepended to returned code from postUrl.  Needed to enable export in ImportTab
+-- postUrl: The URL to upload a build code.  Needed to enable export in ImportTab
+-- postFields: The POST fields prepended to base64-encoded XML.  Needed to enable export in ImportTab
+-- linkURL: The URL pattern to link to the provided build code (Unused currently)
 buildSites.websiteList = {
 	{
-		label = "pobb.in", id = "POBBin", matchURL = "pobb%.in/.+", regexURL = "pobb%.in/(.+)%s*$", downloadURL = "pobb.in/pob/%1",
+		label = "Maxroll", id = "Maxroll", matchURL = "^https://maxroll%.gg/poe/pob/.*", regexURL = "maxroll%.gg/poe/pob/(.+)%s*$", downloadURL = "maxroll%.gg/poe/api/pob/%1",
+		codeOut = "https://maxroll.gg/poe/pob/", postUrl = "https://maxroll.gg/poe/api/pob", postFields = "pobCode=", linkURL = "maxroll%.gg/poe/pob/%1"
+	},
+	{
+		label = "pobb.in", id = "POBBin", matchURL = "^https://pobb%.in/.+", regexURL = "pobb%.in/(.+)%s*$", downloadURL = "pobb.in/pob/%1",
 		codeOut = "https://pobb.in/", postUrl = "https://pobb.in/pob/", postFields = "", linkURL = "pobb.in/%1"
 	},
 	{
-		label = "PoeNinja", id = "PoeNinja", matchURL = "poe%.ninja/?p?o?e?1?/pob/%w+", regexURL = "poe%.ninja(/?p?o?e?1?)/pob/(%w+)%s*$", downloadURL = "poe.ninja%1/pob/raw/%2",
+		label = "PoeNinja", id = "PoeNinja", matchURL = "^https://poe%.ninja/?p?o?e?1?/pob/%w+", regexURL = "poe%.ninja/?p?o?e?1?/pob/(%w+)%s*$", downloadURL = "poe.ninja/poe1/pob/raw/%1",
 		codeOut = "", postUrl = "https://poe.ninja/poe1/pob/api/upload", postFields = "code=", linkURL="poe.ninja/poe1/pob/%1"
 	},
 	{
-		label = "Pastebin.com", id = "pastebin", matchURL = "pastebin%.com/%w+", regexURL = "pastebin%.com/(%w+)%s*$", downloadURL = "pastebin.com/raw/%1", linkURL = "pastebin.com/%1"
+		label = "Pastebin.com", id = "pastebin", matchURL = "^https://pastebin%.com/%w+", regexURL = "pastebin%.com/(%w+)%s*$", downloadURL = "pastebin.com/raw/%1", linkURL = "pastebin.com/%1"
 	},
-	{ label = "PastebinP.com", id = "pastebinProxy", matchURL = "pastebinp%.com/%w+", regexURL = "pastebinp%.com/(%w+)%s*$", downloadURL = "pastebinp.com/raw/%1", linkURL = "pastebin.com/%1" },
-	{ label = "Rentry.co", id = "rentry", matchURL = "rentry%.co/%w+", regexURL = "rentry%.co/(%w+)%s*$", downloadURL = "rentry.co/paste/%1/raw", linkURL = "rentry.co/%1" },
-	{ label = "poedb.tw", id = "PoEDB", matchURL = "poedb%.tw/.+", regexURL = "poedb%.tw/pob/(.+)%s*$", downloadURL = "poedb.tw/pob/%1/raw", codeOut = "", postUrl = "https://poedb.tw/pob/api/gen", postFields = "", linkURL = "poedb.tw/pob/%1" },
+	{ label = "PastebinP.com", id = "pastebinProxy", matchURL = "^https://pastebinp%.com/%w+", regexURL = "pastebinp%.com/(%w+)%s*$", downloadURL = "pastebinp.com/raw/%1", linkURL = "pastebin.com/%1" },
+	{ label = "Rentry.co", id = "rentry", matchURL = "^https://rentry%.co/%w+", regexURL = "rentry%.co/(%w+)%s*$", downloadURL = "rentry.co/paste/%1/raw", linkURL = "rentry.co/%1" },
+	{ label = "poedb.tw", id = "PoEDB", matchURL = "^https://poedb%.tw/.+", regexURL = "poedb%.tw/pob/(.+)%s*$", downloadURL = "poedb.tw/pob/%1/raw", codeOut = "", postUrl = "https://poedb.tw/pob/api/gen", postFields = "", linkURL = "poedb.tw/pob/%1" },
 }
 
 --- Uploads a PoB build code to a website
---- @param websiteInfo Table Contains the postUrl, any postParams, and a prefix to add to the response
---- @param buildCode String The build code that will be uploaded
+--- @param websiteInfo table Contains the postUrl, any postParams, and a prefix to add to the response
+--- @param buildCode string The build code that will be uploaded
 function buildSites.UploadBuild(buildCode, websiteInfo)
 	local response
 	if websiteInfo then
@@ -65,9 +78,9 @@ function buildSites.UploadBuild(buildCode, websiteInfo)
 end
 
 --- Downloads a PoB build code from a website
---- @param link String A link to the site that contains the link to the raw build code
---- @param websiteInfo Table Contains the downloadUrl
---- @param callback Function The function to call when the download is complete
+--- @param link string A link to the site that contains the link to the raw build code
+--- @param websiteInfo table? Contains the downloadUrl
+--- @param callback function The function to call when the download is complete
 function buildSites.DownloadBuild(link, websiteInfo, callback)
 	local siteCodeURL
 	-- Only called on program start via protocol handler
@@ -96,10 +109,10 @@ function buildSites.DownloadBuild(link, websiteInfo, callback)
 end
 
 -- Parses and converts URI's to import links. Currently only supports protocol handler URI's, extend as needed.
--- @param uri String Example: pob://pobbin/<id> or pob://poeninja/<id>
+-- @param uri string Example: pob://pobbin/<id> or pob://poeninja/<id>
 function buildSites.ParseImportLinkFromURI(uri)
 	local importLink = nil
-	
+
 	-- Check if it's an URI from protocol handler
 	for _, siteInfo in ipairs(buildSites.websiteList) do
 		if uri:match("^pob:[/\\]*" .. siteInfo.id:lower() .. "[/\\]+(.+)") then

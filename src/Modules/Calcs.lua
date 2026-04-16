@@ -238,7 +238,8 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					end
 					-- This is a fix to prevent skills such as Absolution or Dominating Blow from being counted multiple times when increasing minions count
 					if (activeSkill.activeEffect.grantedEffect.name:match("Absolution") and fullEnv.modDB:Flag(false, "Condition:AbsolutionSkillDamageCountedOnce"))
-						or (activeSkill.activeEffect.grantedEffect.name:match("Dominating Blow") and fullEnv.modDB:Flag(false, "Condition:DominatingBlowSkillDamageCountedOnce")) then
+						or (activeSkill.activeEffect.grantedEffect.name:match("Dominating Blow") and fullEnv.modDB:Flag(false, "Condition:DominatingBlowSkillDamageCountedOnce"))
+						or (activeSkill.activeEffect.grantedEffect.name:match("Holy Strike") and fullEnv.modDB:Flag(false, "Condition:HolyStrikeSkillDamageCountedOnce"))then
 						activeSkillCount = 1
 						activeSkill.infoMessage2 = "Skill Damage"
 					end
@@ -393,7 +394,7 @@ function calcs.buildActiveSkill(env, mode, skill, targetUUID, limitedProcessingF
 	-- env.limitedSkills contains a map of uuids that should be limited in calculation
 	-- this is in order to prevent infinite recursion loops
 	fullEnv.limitedSkills = fullEnv.limitedSkills or {}
-	for _, uuid in ipairs(env.limitedSkills or {}) do
+	for uuid, _ in pairs(env.limitedSkills or {}) do
 		fullEnv.limitedSkills[uuid] = true
 	end
 	for _, uuid in ipairs(limitedProcessingFlags or {}) do
@@ -445,8 +446,11 @@ function calcs.buildOutput(build, mode)
 							local reservation = GlobalCache.cachedData[mode][uuid].Env.player.mainSkill and GlobalCache.cachedData[mode][uuid].Env.player.mainSkill.skillData[rawPool .. "ReservedPercent"]
 							-- Skill has both cost and reservation check if there's available pool for raw cost before reservation
 							if not reservation or (reservation and (totalPool + m_ceil((output[rawPool] or 0) * reservation / 100)) < cachedCost) then
-								output[costResource.."Warning"] = output[costResource.."Warning"] or {}
-								t_insert(output[costResource.."Warning"], skill.activeEffect.grantedEffect.name)
+								if env.player.mainSkill and env.player.mainSkill.activeEffect.grantedEffect.name == skill.activeEffect.grantedEffect.name then
+									output[costResource.."Warning"] = true
+								end
+								output[costResource.."WarningList"] = output[costResource.."WarningList"] or {}
+								t_insert(output[costResource.."WarningList"], skill.activeEffect.grantedEffect.name)
 							end
 						end
 					end
@@ -455,8 +459,8 @@ function calcs.buildOutput(build, mode)
 					local cachedCost = GlobalCache.cachedData[mode][uuid].Env.player.output[costResource]
 					if cachedCost then
 						if (output[pool] or 0) < cachedCost then
-							output[costResource.."PercentCostWarning"] = output[costResource.."PercentCostWarning"] or {}
-							t_insert(output[costResource.."PercentCostWarning"], skill.activeEffect.grantedEffect.name)
+							output[costResource.."PercentCostWarningList"] = output[costResource.."PercentCostWarningList"] or {}
+							t_insert(output[costResource.."PercentCostWarningList"], skill.activeEffect.grantedEffect.name)
 						end
 					end
 				end
@@ -717,6 +721,15 @@ function calcs.buildOutput(build, mode)
 		end
 		if env.modDB:Flag(nil, "GloomShrine") then
 			t_insert(combatList, "Gloom Shrine")
+		end
+		if env.modDB:Flag(nil, "GreaterFreezingShrine") then
+			t_insert(combatList, "Greater Freezing Shrine")
+		end
+		if env.modDB:Flag(nil, "GreaterShockingShrine") then
+			t_insert(combatList, "Greater Shocking Shrine")
+		end
+		if env.modDB:Flag(nil, "GreaterSkeletalShrine") then
+			t_insert(combatList, "Greater Skeletal Shrine")
 		end
 		if env.modDB:Flag(nil, "ImpenetrableShrine") then
 			t_insert(combatList, "Impenetrable Shrine")

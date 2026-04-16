@@ -43,45 +43,54 @@ Implicits: 3
 Ashcaller
 {variant:1,2,3}Quartz Wand
 {variant:4}Carved Wand
+{variant:5}Goat's Horn
 Variant: Pre 3.8.0
 Variant: Pre 3.19.0
 Variant: Pre 3.21.0
+Variant: Pre 3.27.0
 Variant: Current
-Implicits: 2
+Implicits: 3
 {variant:1,2,3}(18-22)% increased Spell Damage
 {variant:4}(11-15)% increased Spell Damage
-{variant:1,2}10% chance to Trigger Level 8 Summon Raging Spirit on Kill
-{variant:3,4}25% chance to Trigger Level 10 Summon Raging Spirit on Kill
-{variant:1}Adds (10-14) to (18-22) Fire Damage
-{variant:3,4}Adds (20-24) to (38-46) Fire Damage
+{variant:5}Adds (1-2) to (3-4) Fire Damage to Spells and Attacks
+{variant:1,2}10% chance to Trigger Level 10 Summon Raging Spirit on Kill
+{variant:3,4,5}25% chance to Trigger Level 10 Summon Raging Spirit on Kill
 {variant:2}+(15-25)% to Fire Damage over Time Multiplier
+{variant:1}Adds (10-14) to (18-22) Fire Damage
+{variant:3,4,5}Adds (20-24) to (38-46) Fire Damage
 {variant:1,2}Adds (4-6) to (7-9) Fire Damage to Spells
-{variant:3,4}Adds (20-24) to (36-46) Fire Damage to Spells
+{variant:3,4,5}Adds (20-24) to (36-46) Fire Damage to Spells
 {variant:1}(40-50)% increased Burning Damage
 {variant:2}(20-30)% increased Burning Damage
 {variant:1,2}(16-22)% chance to Ignite
-{variant:3,4}10% chance to Cover Enemies in Ash on Hit
+{variant:3,4,5}10% chance to Cover Enemies in Ash on Hit
 ]],[[
 Eclipse Solaris
 {variant:1,2,3,4}Crystal Wand
 {variant:5}Engraved Wand
+{variant:6}Faun's Horn
 Variant: Pre 2.2.0
 Variant: Pre 2.3.0
 Variant: Pre 3.10.0
 Variant: Pre 3.21.0
+Variant: Pre 3.27.0
 Variant: Current
-Implicits: 3
+Implicits: 4
 {variant:1,2}(14-18)% increased Spell Damage
 {variant:3,4}(29-33)% increased Spell Damage
 {variant:5}(22-26)% increased Spell Damage
+{variant:6}Adds (5-10) to (11-13) Fire Damage to Spells and Attacks
 {variant:1,2,3}Adds (18-22) to (36-44) Physical Damage
 {variant:4,5}Adds (30-45) to (60-80) Fire Damage
 {variant:4,5}(6-10)% increased Attack Speed
+{variant:6}(20-26)% increased Attack Speed
 {variant:1}+(18-30)% to Global Critical Strike Multiplier
-{variant:2,3,4,5}+(27-33)% to Global Critical Strike Multiplier
-20% increased Light Radius
+{variant:2,3,4,5,6}+(27-33)% to Global Critical Strike Multiplier
+{variant:1,2,3,4,5}20% increased Light Radius
+{variant:6}(15-20)% increased Light Radius
 Nearby Enemies are Blinded
 (120-140)% increased Critical Strike Chance against Blinded Enemies
+Adds 2 to 5 Fire Damage to Attacks for every 1% your Light Radius is above base value
 ]],[[
 Corona Solaris
 Crystal Wand
@@ -108,14 +117,14 @@ Variant: Pre 3.26.0
 Variant: Current
 Implicits: 1
 (36-40)% increased Spell Damage
-(300-350)% Increased Physical Damage
+(300-350)% increased Physical Damage
 {variant:1}Gain (10-30)% of Physical Damage as Extra Fire Damage
-{variant:1}Gain (10-30)% of Physical Damage as Extra Cold Damage
-{variant:1}Gain (10-30)% of Physical Damage as Extra Lightning Damage
 {variant:2}Gain (10-50)% of Physical Damage as Extra Fire Damage
+{variant:1}Gain (10-30)% of Physical Damage as Extra Cold Damage
 {variant:2}Gain (10-50)% of Physical Damage as Extra Cold Damage
+{variant:1}Gain (10-30)% of Physical Damage as Extra Lightning Damage
 {variant:2}Gain (10-50)% of Physical Damage as Extra Lightning Damage
-+1 to Maximum number of Sacred Wisps
++1 to maximum number of Sacred Wisps
 +1 to number of Sacred Wisps Summoned
 ]],[[
 Lifesprig
@@ -130,54 +139,65 @@ Implicits: 1
 Regenerate (6-8) Life over 1 second for each Spell you Cast
 ]],[[
 Midnight Bargain
-Engraved Wand
+{variant:1,2,3}Engraved Wand
+{variant:4}Calling Wand
 Variant: Pre 2.3.0
 Variant: Pre 3.8.0
+Variant: Pre 3.27.0
 Variant: Current
-Implicits: 2
+Implicits: 3
 {variant:1}(12-16)% increased Spell Damage
 {variant:2,3}(22-26)% increased Spell Damage
+{variant:4}Minions deal (12-16)% increased Damage
+Cannot be used with Chaos Inoculation
+Reserves 30% of Life
 +(10-20) to Intelligence
 {variant:1,2}Minions have (10-20)% increased Movement Speed
-{variant:3}Minions have (20-30)% increased Movement Speed
+{variant:3,4}Minions have (20-30)% increased Movement Speed
 {variant:1,2}Minions deal (10-30)% increased Damage
-{variant:3}Minions deal (50-70)% increased Damage
-+1 to Maximum number of Raised Zombies
-+1 to Maximum number of Spectres
-+1 to Maximum number of Skeletons
-Reserves 30% of Life
-Cannot be used with Chaos Inoculation
+{variant:3,4}Minions deal (50-70)% increased Damage
++1 to maximum number of Raised Zombies
++1 to maximum number of Spectres
++1 to maximum number of Skeletons
 ]],[[
 Replica Midnight Bargain
-Engraved Wand
+{variant:1}Engraved Wand
+{variant:2}Calling Wand
+Variant: Pre 3.27.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Implicits: 1
-(22-26)% increased Spell Damage
+Implicits: 2
+{variant:1}(22-26)% increased Spell Damage
+{variant:2}Minions deal (12-16)% increased Damage
 Cannot be used with Chaos Inoculation
+Reserves 30% of Life
 +(10-20) to Intelligence
 Minions have (40-50)% increased Movement Speed
 Minions deal (50-70)% increased Damage
 +6 to maximum number of Raging Spirits
-Reserves 30% of Life
 +3 to maximum number of Summoned Phantasms
 ]],[[
 Moonsorrow
 Imbued Wand
+{variant:1,2,3,4}Imbued Wand
+{variant:5}Kinetic Wand
 Variant: Pre 2.0.0
 Variant: Pre 2.3.0
 Variant: Pre 3.0.0
+Variant: Pre 3.27.0
 Variant: Current
-Implicits: 2
+Implicits: 3
 {variant:1,2}(15-19)% increased Spell Damage
 {variant:3,4}(33-37)% increased Spell Damage
+{variant:5}Cannot roll Caster Modifiers
 {variant:1,2,3}Socketed Gems are supported by Level 5 Blind
-{variant:4}Socketed Gems are supported by Level 20 Blind
+{variant:4,5}Socketed Gems are supported by Level 20 Blind
 +10 to Intelligence
 (30-40)% increased Spell Damage
 {variant:1}125% increased Physical Damage
 {variant:2,3}175% increased Physical Damage
-{variant:4}(250-275)% increased Physical Damage
+{variant:4,5}(250-275)% increased Physical Damage
 (20-30)% increased Lightning Damage
 10% increased Cast Speed
 10% chance to Blind Enemies on hit
@@ -185,48 +205,55 @@ Implicits: 2
 Obliteration
 {variant:1,2,3,4}Demon's Horn
 {variant:5}Imbued Wand
+{variant:6}Omen Wand
 Variant: Pre 2.3.0
 Variant: Pre 3.10.0
 Variant: Pre 3.19.0
 Variant: Pre 3.21.0
+Variant: Pre 3.27.0
 Variant: Current
-Implicits: 3
+Implicits: 4
 {variant:1}(15-18)% increased Spell Damage
 {variant:2,3,4}(31-35)% increased Spell Damage
 {variant:5}(33-37)% increased Spell Damage
+{variant:6}(27-31)% increased Spell Damage
 {variant:1,2}Adds (24-30) to (80-92) Physical Damage
 {variant:3}Adds (25-50) to (85-125) Physical Damage
 {variant:1,2,3}(26-32)% increased Critical Strike Chance
 {variant:1,2,3}Gain (13-15)% of Physical Damage as Extra Chaos Damage
-{variant:4,5}Gain (30-40)% of Physical Damage as Extra Chaos Damage
+{variant:4,5,6}Gain (30-40)% of Physical Damage as Extra Chaos Damage
 Enemies you Kill have a 20% chance to Explode, dealing a quarter of their maximum Life as Chaos Damage
 ]],[[
 Piscator's Vigil
 {variant:1,2,3}Tornado Wand
 {variant:4}Imbued Wand
+{variant:5}Kinetic Wand
 Variant: Pre 2.3.0
 Variant: Pre 2.6.0
 Variant: Pre 3.21.0
 Variant: Current
-Implicits: 3
+Implicits: 4
 {variant:1}(16-19)% increased Spell Damage
 {variant:2,3}(35-39)% increased Spell Damage
 {variant:4}(33-37)% increased Spell Damage
+{variant:5}Cannot roll Caster Modifiers
 No Physical Damage
 (10-18)% increased Attack Speed
 (20-30)% increased Critical Strike Chance
 +(340-400) to Accuracy Rating
 Attacks with this Weapon have (100-115)% increased Elemental Damage
-{variant:3,4}Damage with Weapons Penetrates 5% Elemental Resistances
+{variant:3,4,5}Damage with Weapons Penetrates 5% Elemental Resistances
 ]],[[
 The Poet's Pen
-Carved Wand
+{variant:1}Carved Wand
+{variant:2}Somatic Wand
 Implicits: 1
-(11-15)% increased Spell Damage
-+1 to Level of Socketed Active Skill Gems per 25 Player Levels
+{variant:1}(11-15)% increased Spell Damage
++1 to Level of Socketed Skill Gems per 25 Player Levels
+Trigger a Socketed Spell when you Attack with this Weapon, with a 0.25 second Cooldown
 Adds 3 to 5 Physical Damage to Attacks with this Weapon per 3 Player Levels
 (8-12)% increased Attack Speed
-Trigger a Socketed Spell when you Attack with this Weapon, with a 0.25 second Cooldown
+{variant:2}Cannot roll Caster Modifiers
 ]],[[
 Reverberation Rod
 Spiraled Wand
@@ -282,7 +309,7 @@ Implicits: 1
 (17-21)% increased Spell Damage
 Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 Critical Strikes deal no Damage
-{variant:1}120% increased Spell Damage if you've dealt a Critical Strike Recently
+{variant:1}120% increased Spell Damage if you've dealt a Critical Strike in the past 8 seconds
 {variant:2}200% increased Spell Damage if you've dealt a Critical Strike in the past 8 seconds
 ]],[[
 Shimmeron
@@ -301,8 +328,10 @@ Adds (26-35) to (95-105) Lightning Damage to Spells
 +0.3% Critical Strike Chance per Power Charge
 +2% Chance to Block Spell Damage per Power Charge
 Adds 3 to 9 Lightning Damage to Spells per Power Charge
-{variant:1}400 Lightning Damage taken per second per Power Charge if you've dealt a Critical Strike Recently
-{variant:2,3}200 Lightning Damage taken per second per Power Charge if your Skills have dealt a Critical Strike Recently
+{variant:1}400 Lightning Damage taken per second per Power Charge if
+{variant:1}your Skills have dealt a Critical Strike Recently
+{variant:2,3}200 Lightning Damage taken per second per Power Charge if
+{variant:2,3}your Skills have dealt a Critical Strike Recently
 ]],[[
 Storm Prison
 {variant:1,2}Carved Wand
@@ -317,7 +346,7 @@ Implicits: 3
 (40-60)% increased Physical Damage
 Adds 1 to (35-45) Lightning Damage
 (15-25)% increased Mana Regeneration Rate
-+1 to Maximum Power Charge
++1 to Maximum Power Charges
 (25-35)% chance to gain a Power Charge on Kill
 ]],[[
 Tulborn
@@ -332,8 +361,8 @@ Upgrade: Upgrades to unique{Tulfall} using currency{Blessing of Tul}
 Implicits: 2
 {variant:1,2}(15-19)% increased Spell Damage
 {variant:3}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
-{variant:1,2}(10-15)% increased Cast Speed
 {variant:3}Adds (120-140) to (150-170) Cold Damage to Spells
+{variant:1,2}(10-15)% increased Cast Speed
 {variant:1,2}50% chance to gain a Power Charge on Killing a Frozen Enemy
 {variant:3}Gain a Power Charge on Killing a Frozen Enemy
 {variant:1,2}Adds 10 to 20 Cold Damage to Spells per Power Charge
@@ -380,24 +409,35 @@ Gain a Frenzy Charge on reaching Maximum Power Charges
 Take 500 Cold Damage on reaching Maximum Power Charges
 ]],[[
 Twyzel
-Sage Wand
+{variant:1,2}Sage Wand
+{variant:3}Blasting Wand
 Variant: Pre 2.3.0
+Variant: Pre 2.27.0
 Variant: Current
 Implicits: 2
 {variant:1}(11-14)% increased Spell Damage
 {variant:2}(17-21)% increased Spell Damage
-(80-120)% increased Physical Damage
+{variant:1,2}Socketed Gems fire an additional Projectile
+{variant:1,2}(80-120)% increased Physical Damage
+{variant:3}(80-140)% increased Physical Damage
 Adds (5-8) to (13-17) Physical Damage
 (5-10)% increased Attack Speed
 (10-20)% increased Critical Strike Chance
-Socketed Gems fire an additional Projectile
+{variant:3}Cannot roll Caster Modifiers
+{variant:3}Attacks fire (1-2) additional Projectile when in Off Hand
+{variant:3}Attacks have (40-60)% increased Area of Effect when in Main Hand
 ]],[[
 Replica Twyzel
-Sage Wand
+{variant:1}Sage Wand
+{variant:2}Blasting Wand
+Variant: Pre 2.27.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Implicits: 1
-(17-21)% increased Spell Damage
+Implicits: 2
+{variant:1}(17-21)% increased Spell Damage
+{variant:2}Cannot roll Caster Modifiers
+(110-170)% increased Physical Damage
 (5-10)% increased Attack Speed
 (20-40)% increased Critical Strike Chance
 Attacks fire an additional Projectile
@@ -425,4 +465,17 @@ Skills fire (2-3) additional Projectiles
 (10-20)% increased Projectile Speed
 (30-50)% increased Projectile Damage
 Projectiles cannot continue after colliding with targets
-]],}
+]],
+[[
+Unlight Extant
+Sage Wand
+Requires Level 30, 119 Int
+Implicits: 1
+(17-21)% increased Spell Damage
+(31-43)% increased Chaos Damage
+(7-13)% increased Cast Speed
++1 to Level of all Chaos Spell Skill Gems
+Chaos Skills inflict up to 15 Withered Debuffs on Hit for (5-7) seconds
+Cannot Inflict Wither on targets that are not on Full Life
+]],
+}

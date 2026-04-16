@@ -42,6 +42,19 @@ if launch.devMode and profiler == nil then
 	ConPrintf("Unable to Load Profiler")
 end
 
+-- Optimize coroutines to run at full framerate
+local co_create = coroutine.create
+local active_coroutines = setmetatable({}, { __mode = "k" })
+function coroutine.create(func)
+	local co = co_create(func)
+	active_coroutines[co] = true
+	return co
+end
+
+function coroutine._list()
+	return active_coroutines
+end
+
 -- Class library
 common.classes = { }
 local function addSuperParents(class, parent)
@@ -949,4 +962,15 @@ function ImportBuild(importLink, callback)
 		-- try to decode input buffer
 		callback(Inflate(common.base64.decode(importLink:gsub("-", "+"):gsub("_", "/"))), nil)
 	end
+end
+
+-- Returns virtual screen size
+function GetVirtualScreenSize()
+	local width, height = GetScreenSize()
+	local scale = GetScreenScale and GetScreenScale() or 1.0
+	if scale ~= 1.0 then
+		width = math.floor(width / scale)
+		height = math.floor(height / scale)
+	end
+	return width, height
 end

@@ -70,10 +70,6 @@ local skills, mod, flag, skill = ...
 
 #skill AnimateWeaponAltX
 #flags spell minion duration
-	minionHasItemSet = true,
-	minionUses = {
-		["Weapon 1"] = true,
-	},
 	minionList = {
 		"AnimatedWeapon",
 	},
@@ -82,6 +78,7 @@ local skills, mod, flag, skill = ...
 			mod("Multiplier:AnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
 		},
 	},
+#baseMod skill("minionUseMainHandWeapon", true)
 #mods
 
 #skill AnimateWeaponAltY
@@ -293,7 +290,7 @@ local skills, mod, flag, skill = ...
 #flags spell area
 	statMap = {
 		["gain_%_of_base_dagger_damage_as_added_spell_damage"] = {
-			skill("gainPercentBaseDaggerDamage", nil),
+			skill("gainPercentBaseDaggerDamageToSpells", nil),
 		},
 	},
 #mods
@@ -690,10 +687,10 @@ local skills, mod, flag, skill = ...
 		},
 	},
 	preDamageFunc = function(activeSkill, output)
-		   if activeSkill.skillPart == 3 then
-			   local finalWaveDamageModifier = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "chargedDashFinalDamageModifier")
-			   activeSkill.skillModList:NewMod("Damage", "MORE", finalWaveDamageModifier, "Skill:ChargedDash", ModFlag.Attack, { type = "Release Damage", skillPart = 3 })
-		   end
+		if activeSkill.skillPart == 3 then
+			local finalWaveDamageModifier = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "chargedDashFinalDamageModifier")
+			activeSkill.skillModList:NewMod("Damage", "MORE", finalWaveDamageModifier, "Skill:ChargedDash", ModFlag.Attack, { type = "Release Damage", skillPart = 3 })
+		end
 	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
@@ -717,11 +714,74 @@ local skills, mod, flag, skill = ...
 #baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 3 })
 #mods
 
+#skill ChargedDashAltX
+#flags attack melee area
+	parts = {
+		{
+			name = "Channelling, No Stages",
+		},
+		{
+			name = "Channelling, Max Stages",
+		},
+		{
+			name = "Release",
+			stages = true,
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 3 then
+			local finalWaveDamageModifier = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "chargedDashFinalDamageModifier")
+			activeSkill.skillModList:NewMod("Damage", "MORE", finalWaveDamageModifier, "Skill:ChargedDashAltX", ModFlag.Attack, { type = "Release Damage", skillPart = 3 })
+		end
+	end,
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["charged_dash_damage_+%_final"] = {
+			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
+		},
+		["charged_dash_damage_+%_final_per_stack"] = {
+			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type = "Multiplier", var = "ChargedDashofProjectionStage" }, { type = "SkillPart", skillPart = 3 }),
+		},
+		["charged_dash_channelling_damage_at_full_stacks_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
+#baseMod skill("radius", 14)
+#baseMod skill("radiusLabel", "Start of Dash:")
+#baseMod skill("radiusSecondary", 26)
+#baseMod skill("radiusSecondaryLabel", "End of Dash:")
+#baseMod skill("hitTimeMultiplier", 2, { type = "Skill", skillPartList = { 1, 2 } })
+#baseMod mod("Multiplier:ChargedDashofProjectionMaxStages", "BASE", 15)
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 3 })
+#mods
+
 #skill CobraLash
 #flags attack projectile
 	statMap = {
 		["cobra_lash_hit_and_ailment_damage_+%_final_for_each_remaining_chain"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "PerStat", stat = "ChainRemaining" }, { type = "SkillType", skillType = SkillType.Projectile })
+		},
+	},
+#mods
+
+#skill Conflagration
+#flags attack projectile area duration
+	parts = {
+		{
+			name = "Projectile",
+		},
+		{
+			name = "Explosion",
+		},
+	},
+	statMap = {
+		["napalm_arrow_detonation_hit_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 } )
+		},
+		["base_fire_damage_to_deal_per_minute"] = {
+			skill("FireDot", nil, { type = "SkillPart", skillPart = 2 }),
+			div = 60,
 		},
 	},
 #mods
@@ -878,7 +938,7 @@ local skills, mod, flag, skill = ...
 			skill("radiusExtra", nil, { type = "Multiplier", var = "CycloneofTumultStage" }),
 		},
 	},
-#baseMod skill("radius", 11)
+#baseMod skill("radius", 16)
 #mods
 
 #skill VaalCyclone
@@ -1078,6 +1138,24 @@ local skills, mod, flag, skill = ...
 		},
 	},
 	statMap = {
+		["attack_minimum_added_cold_damage_for_elemental_hit"] = {
+			mod("ColdMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_cold_damage_for_elemental_hit"] = {
+			mod("ColdMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_minimum_added_fire_damage_for_elemental_hit"] = {
+			mod("FireMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_fire_damage_for_elemental_hit"] = {
+			mod("FireMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_minimum_added_lightning_damage_for_elemental_hit"] = {
+			mod("LightningMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_lightning_damage_for_elemental_hit"] = {
+			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
 		["elemental_hit_damage_+%_final_per_enemy_elemental_ailment"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" }),
 		},
@@ -1128,6 +1206,27 @@ local skills, mod, flag, skill = ...
 		},
 	},
 	statMap = {
+		["elemental_hit_damage_+%_final_per_enemy_elemental_ailment"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" }),
+		},
+		["attack_minimum_added_cold_damage_for_elemental_hit"] = {
+			mod("ColdMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_cold_damage_for_elemental_hit"] = {
+			mod("ColdMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_minimum_added_fire_damage_for_elemental_hit"] = {
+			mod("FireMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_fire_damage_for_elemental_hit"] = {
+			mod("FireMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_minimum_added_lightning_damage_for_elemental_hit"] = {
+			mod("LightningMin", "BASE", nil, 0, KeywordFlag.Attack),
+		},
+		["attack_maximum_added_lightning_damage_for_elemental_hit"] = {
+			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack),
+		},
 		["elemental_hit_damage_+%_final_per_enemy_elemental_ailment"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" }),
 		},
@@ -1569,6 +1668,30 @@ local skills, mod, flag, skill = ...
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 	},
+#baseMod skill("radius", 32)
+#mods
+
+#skill FlamethrowerTrapAltX
+#flags spell trap area duration
+	preDamageFunc = function(activeSkill, output, breakdown)
+		local t_insert = table.insert
+		local s_format = string.format
+
+		local duration = output.Duration
+		local cooldown = output.TrapCooldown
+		local averageActiveTraps = duration / cooldown
+		output.AverageActiveTraps = averageActiveTraps
+		activeSkill.skillData.hitTimeOverride = 0.1
+		activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * averageActiveTraps
+
+		if breakdown then
+			breakdown.AverageActiveTraps = { }
+			t_insert(breakdown.AverageActiveTraps, "Average active traps, not considering stored cooldown uses:")
+			t_insert(breakdown.AverageActiveTraps, s_format("%.2f^8 (skill duration)", duration))
+			t_insert(breakdown.AverageActiveTraps, s_format("/ %.2f^8 (cooldown)", cooldown))
+			t_insert(breakdown.AverageActiveTraps, s_format("= %.2f traps", averageActiveTraps))
+		end
+	end,
 #baseMod skill("radius", 32)
 #mods
 
@@ -2145,7 +2268,7 @@ local skills, mod, flag, skill = ...
 #flags spell duration
 	statMap = {
 		["phase_run_melee_physical_damage_+%_final"] = {
-			mod("PhysicalDamage", "MORE", nil, ModFlag.Melee, 0, { type = "SkillType", skillType = SkillType.Totem, neg = true }, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("PhysicalDamage", "MORE", nil, ModFlag.Melee, 0, { type = "SkillType", skillType = SkillType.SummonsTotem, neg = true }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
@@ -2374,11 +2497,13 @@ local skills, mod, flag, skill = ...
 
 #skill RainOfArrowsAltX
 #flags attack projectile area
+#baseMod skill("radius", 10)
 #baseMod flag("OneShotProj")
 #mods
 
 #skill RainOfArrowsAltY
 #flags attack projectile area
+#baseMod skill("radius", 10)
 #baseMod flag("OneShotProj")
 #mods
 
@@ -3066,7 +3191,7 @@ local skills, mod, flag, skill = ...
 		if activeSkill.skillPart == 2 and (output.ReturnChance or 0) == 0 then
 			local averageSecondaryProjectiles = output.ProjectileCount + (output.SplitCount or 0)
 			-- if barrage then only shoots 1 projectile at a time, but those can still split and still releases at least 1 secondary projectile
-			if activeSkill.skillModList:Flag(nil, "SequentialProjectiles") and not activeSkill.skillModList:Flag(nil, "OneShotProj") and not activeSkill.skillModList:Flag(nil,"NoAdditionalProjectiles") and not activeSkill.skillModList:Flag(nil, "TriggeredBySnipe") then
+			if activeSkill.skillModList:Flag(nil, "SequentialProjectiles") and not activeSkill.skillModList:Flag(nil, "OneShotProj") and not activeSkill.skillModList:Flag(nil,"NoAdditionalProjectiles") and not activeSkill.skillModList:Flag(nil,"SingleProjectile") and not activeSkill.skillModList:Flag(nil, "TriggeredBySnipe") then
 				averageSecondaryProjectiles = 1 + (output.SplitCount or 0)
 			end
 			-- default to 20% per secondary projectile, so 60% base, and 80% with helm enchant
@@ -3116,7 +3241,7 @@ local skills, mod, flag, skill = ...
 #flags attack melee duration
 	statMap = {
 		["viper_strike_dual_wield_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "DualWielding" }),
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "DualWielding" }),
 		},
 		["viper_strike_dual_wield_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "Condition", var = "DualWielding" }),
@@ -3130,6 +3255,12 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["active_skill_poison_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison),
+		},
+		["viper_strike_dual_wield_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "DualWielding" }),
+		},
+		["viper_strike_dual_wield_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "Condition", var = "DualWielding" }),
 		},
 		["quality_display_active_skill_poison_damage_final_is_gem"] = {
 			-- Display only
@@ -3417,6 +3548,51 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["debuff_time_passed_+%"] = {
 			mod("SelfDebuffExpirationRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+		},
+	},
+#mods
+
+#skill Thunderstorm
+#flags attack projectile area duration
+	parts = {
+		{
+			name = "Projectile",
+		},
+		{
+			name = "Storm Explosion",
+			stages = true,
+		},
+	},
+	statMap = {
+		["windstorm_storm_hit_damage_+%_final_on_detonation"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 } )
+		},
+		["windstorm_storm_maximum_stages"] = {
+			mod("Multiplier:ThunderstormMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+		["windstorm_storm_area_of_effect_+%_final_per_stage"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "ThunderstormStage" }, { type = "SkillPart", skillPart = 2 }),
+		},
+		["base_windstorm_storm_stage_gained_per_X_ms"] = {
+			skill("hitTimeOverride", nil, { type = "Multiplier", var = "ThunderstormStage" }, { type = "SkillPart", skillPart = 2 }),
+			div = 1000,
+		},
+		["base_skill_show_average_damage_instead_of_dps"] = {
+			skill("showAverage", true,  { type = "SkillPart", skillPart = 2 }),
+		},
+	},
+#mods
+
+#skill ThunderstormMiniTornados
+#flags attack duration
+	parts = {
+		{
+			name = "Projectile",
+			projectile = true,
+		},
+		{
+			name = "Explosion",
+			area = true,
 		},
 	},
 #mods

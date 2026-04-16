@@ -82,7 +82,7 @@ function calcLib.doesTypeExpressionMatch(checkTypes, skillTypes, minionTypes)
 end
 
 -- Check if given support skill can support the given active skill
-function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill)
+function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill, imbuedSupport)
 	if grantedEffect.unsupported or activeSkill.activeEffect.grantedEffect.cannotBeSupported then
 		return false
 	end
@@ -95,8 +95,15 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill)
 		return false
 	end
 
-	local effectiveSkillTypes = activeSkill.summonSkill and activeSkill.summonSkill.skillTypes or activeSkill.skillTypes
-	local effectiveMinionTypes = not grantedEffect.ignoreMinionTypes and (activeSkill.summonSkill and activeSkill.summonSkill.minionSkillTypes or activeSkill.minionSkillTypes)
+	local effectiveSkillTypes
+	local effectiveMinionTypes
+	if imbuedSupport then -- Use the skillTypes from the gem so it ignores any support added types
+		effectiveSkillTypes = activeSkill.summonSkill and activeSkill.summonSkill.activeEffect.grantedEffect.skillTypes or activeSkill.activeEffect.grantedEffect.skillTypes
+		effectiveMinionTypes = not grantedEffect.ignoreMinionTypes and (activeSkill.summonSkill and activeSkill.summonSkill.activeEffect.grantedEffect.minionSkillTypes or activeSkill.activeEffect.grantedEffect.minionSkillTypes)
+	else
+		effectiveSkillTypes = activeSkill.summonSkill and activeSkill.summonSkill.skillTypes or activeSkill.skillTypes
+		effectiveMinionTypes = not grantedEffect.ignoreMinionTypes and (activeSkill.summonSkill and activeSkill.summonSkill.minionSkillTypes or activeSkill.minionSkillTypes)
+	end
 
 	-- if the activeSkill is a Minion's skill like "Default Attack", use minion's skillTypes instead for exclusions
 	-- otherwise compare support to activeSkill directly
@@ -105,6 +112,41 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill)
 	end
 	if grantedEffect.isTrigger and activeSkill.actor.enemy.player ~= activeSkill.actor then
 		return false
+	end
+	-- Special case for Sacred Wisps, i.e. Wisps Support has a weaponType of Wand so it should only match with Active Skills that at least have Wand as a weaponType.
+	-- Super special case for Varunastra, e.g. allow Nightblade to support Smite.
+	local actorHasAllOneHand = (activeSkill.actor.weaponData1 and activeSkill.actor.weaponData1.countsAsAll1H) or (activeSkill.actor.weaponData2 and activeSkill.actor.weaponData2.countsAsAll1H)
+	if grantedEffect.weaponTypes then
+		-- Build a lookup of the active skill's weapon types
+		local activeTypeLookup = { }
+		if activeSkill.activeEffect.grantedEffect.weaponTypes then
+			for activeType in pairs(activeSkill.activeEffect.grantedEffect.weaponTypes) do
+				activeTypeLookup[activeType] = true
+			end
+		end
+		-- If the support expects a weapon type but the active skill doesn't have any (e.g. shield skills), it's not a match.
+		if not next(activeTypeLookup) then
+			return false
+		end
+		-- Varunastra counts as every one-handed melee weapon type, but notably not Wand or Shield.
+		if actorHasAllOneHand then
+			activeTypeLookup["Claw"] = true
+			activeTypeLookup["Dagger"] = true
+			activeTypeLookup["One Handed Axe"] = true
+			activeTypeLookup["One Handed Mace"] = true
+			activeTypeLookup["One Handed Sword"] = true
+		end
+		local typeMatch = false
+		for grantedType in pairs(grantedEffect.weaponTypes) do
+			if activeTypeLookup[grantedType] then
+				typeMatch = true
+				break
+			end
+		end
+		-- No match, does not support the active skill
+		if not typeMatch then
+			return false
+		end
 	end
 	return not grantedEffect.requireSkillTypes[1] or calcLib.doesTypeExpressionMatch(grantedEffect.requireSkillTypes, effectiveSkillTypes, effectiveMinionTypes)
 end
@@ -141,11 +183,7 @@ end
 function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 	local stats = { }
 	if skillInstance.quality > 0 and grantedEffect.qualityStats then
-		local qualityId = skillInstance.qualityId or "Default"
-		local qualityStats = grantedEffect.qualityStats[qualityId]
-		if not qualityStats then
-			qualityStats = grantedEffect.qualityStats
-		end
+		local qualityStats = grantedEffect.qualityStats
 		for _, stat in ipairs(qualityStats) do
 			stats[stat[1]] = (stats[stat[1]] or 0) + math.modf(stat[2] * skillInstance.quality)
 		end

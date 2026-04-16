@@ -1,6 +1,6 @@
 name: Calculation bug report
 description: Create a bug report to help us fix incorrect calculations in Path of Building for PoE1.
-labels: ["bug:calculation"]
+labels: ["bug: calculation"]
 body:
   - type: markdown
     attributes:
