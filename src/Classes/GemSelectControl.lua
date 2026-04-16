@@ -58,6 +58,11 @@ function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, useFullDPS)
 	local gemList = self.skillsTab.displayGroup.gemList
 	local displayGemList = self.skillsTab.displayGroup.displayGemList
 	local oldGem
+
+	-- the imbuedSupport control actively switches to the latest index of the current displayGroup's gemList so we can use the canSupport filtering
+	if self.imbuedSelect then
+		self.index = #gemList + 1
+	end
 	if gemList[self.index] then
 		oldGem = copyTable(gemList[self.index], true)
 	else

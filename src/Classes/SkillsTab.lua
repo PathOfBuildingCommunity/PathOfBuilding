@@ -630,13 +630,6 @@ function SkillsTabClass:PasteSocketGroup(testInput)
 	end
 end
 
--- the imbued support control actively switches to the latest count of the current displayGroup's gemList so we can use the canSupport filtering
-local function updateImbuedSupportIndex(control, gemListCount)
-	if gemListCount > 0 then
-		control.index = gemListCount + 1
-	end
-end
-
 -- Create the controls for editing the gem at a given index
 function SkillsTabClass:CreateGemSlot(index)
 	local slot = { }
@@ -656,7 +649,6 @@ function SkillsTabClass:CreateGemSlot(index)
 			self.gemSlots[index2].enableGlobal2.state = gemInstance.enableGlobal2
 			self.gemSlots[index2].count:SetText(gemInstance.count or 1)
 		end
-		updateImbuedSupportIndex(self.controls.imbuedSupport, #self.displayGroup.gemList)
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
@@ -1109,7 +1101,6 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 			end
 		end
 	end
-	updateImbuedSupportIndex(self.controls.imbuedSupport, #socketGroup.gemList)
 end
 
 -- Set the skill to be displayed/edited
