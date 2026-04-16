@@ -198,10 +198,7 @@ local function getWeaponFlags(env, weaponData, weaponTypes, skillTypeDualWieldOn
 	local function matchesWeaponType(weaponData, types, skillTypeDualWieldOnly)
 		-- Wings of Entropy
 		if weaponData.countsAsDualWielding then
-			if skillTypeDualWieldOnly then
-				return true
-			end
-			return (types[weaponData.type] or types["One Handed "..info.flag]) and types["One Handed "..info.flag]
+			return skillTypeDualWieldOnly or types["One Handed "..info.flag]
 		end
 		-- Varunastra
 		if weaponData.countsAsAll1H then
