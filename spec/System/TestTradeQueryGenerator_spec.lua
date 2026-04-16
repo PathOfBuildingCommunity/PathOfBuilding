@@ -1,5 +1,5 @@
 describe("TradeQueryGenerator", function()
-	local mock_queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
+	local mock_queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {}, GetTradeStatusOption = function() return "online" end })
 
 	describe("ProcessMod", function()
 		-- Pass: Mod line maps correctly to trade stat entry without error
@@ -153,6 +153,113 @@ describe("TradeQueryGenerator", function()
 		end)
 	end)
 
+	describe("Influence query state", function()
+		local IGNORE = mock_queryGen._INFLUENCE_IGNORE_INDEX  -- 1
+		local NONE   = mock_queryGen._INFLUENCE_NONE_INDEX    -- 2
+		local ANY    = mock_queryGen._INFLUENCE_ANY_INDEX     -- 3
+		local SHAPER = ANY + 1  -- 4
+		local ELDER  = ANY + 2  -- 5
+		local resolve = mock_queryGen._resolveInfluenceQueryState
+		local cost    = mock_queryGen._getInfluenceFilterCost
+		local needs   = mock_queryGen._needsHasInfluenceFilter
+
+		-- None: uses pseudo_has_influence=0 (1 slot instead of 6-slot NOT filter)
+		it("None uses 1-slot pseudo_has_influence=0", function()
+			local state = resolve(NONE, IGNORE)
+			assert.are.equal(state.exactCount, 0)
+			assert.is_true(state.hasNoneConstraint)
+			assert.are.equal(cost(state), 1)
+			assert.is_true(needs(state))
+		end)
+
+		-- Shaper+None: needs pseudo_has_influence=1 to cap at 1 influence (avoids Shaper+Elder matches)
+		it("Shaper+None uses 2-slot filter (specific + pseudo_has_influence=1)", function()
+			local state = resolve(SHAPER, NONE)
+			assert.are.equal(state.exactCount, 1)
+			assert.is_true(state.hasNoneConstraint)
+			assert.are.equal(#state.specificInfluenceModIds, 1)
+			assert.are.equal(cost(state), 2)
+			assert.is_true(needs(state))
+		end)
+
+		-- Shaper+Elder: 2 named influences, no None → no pseudo_has_influence needed (saves 1 slot)
+		it("Shaper+Elder uses 2-slot filter (specific mods only, no pseudo_has_influence)", function()
+			local state = resolve(SHAPER, ELDER)
+			assert.are.equal(state.exactCount, 2)
+			assert.is_false(state.hasNoneConstraint)
+			assert.are.equal(#state.specificInfluenceModIds, 2)
+			assert.are.equal(cost(state), 2)
+			assert.is_false(needs(state))
+		end)
+
+		-- Any+Ignore: minCount=1 → pseudo_has_influence min=1 (1 slot)
+		it("Any uses 1-slot pseudo_has_influence min=1", function()
+			local state = resolve(ANY, IGNORE)
+			assert.are.equal(state.minCount, 1)
+			assert.are.equal(state.exactCount, nil)
+			assert.are.equal(cost(state), 1)
+			assert.is_true(needs(state))
+		end)
+
+		-- Any+Shaper: exactCount=2 with one unnamed slot → needs pseudo_has_influence=2
+		it("Any+Shaper uses 2-slot filter (specific + pseudo_has_influence=2)", function()
+			local state = resolve(ANY, SHAPER)
+			assert.are.equal(state.exactCount, 2)
+			assert.is_false(state.hasNoneConstraint)
+			assert.are.equal(#state.specificInfluenceModIds, 1)
+			assert.are.equal(cost(state), 2)
+			assert.is_true(needs(state))
+		end)
+
+		-- pseudo_has_influence mod ID is correct
+		it("hasAnyInfluenceModId is pseudo.pseudo_has_influence_count", function()
+			assert.are.equal(mock_queryGen._hasAnyInfluenceModId, "pseudo.pseudo_has_influence_count")
+		end)
+	end)
+
+	describe("Eldritch mod weights", function()
+		local IGNORE = mock_queryGen._INFLUENCE_IGNORE_INDEX
+		local NONE = mock_queryGen._INFLUENCE_NONE_INDEX
+		local ANY = mock_queryGen._INFLUENCE_ANY_INDEX
+
+		local function generatesEldritchWeights(influence1, influence2)
+			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
+			local eaterMod = { }
+			local exarchMod = { }
+			queryGen.modData = {
+				Explicit = { },
+				Implicit = { },
+				Eater = { EaterMod = eaterMod },
+				Exarch = { ExarchMod = exarchMod },
+			}
+			queryGen.calcContext = {
+				special = { },
+				options = {
+					includeEldritch = "Keep regular",
+					influence1 = influence1,
+					influence2 = influence2,
+				},
+			}
+			local generated = { }
+			queryGen.GenerateModWeights = function(_, mods)
+				for _, mod in pairs(mods) do
+					generated[mod] = true
+				end
+			end
+
+			queryGen:ExecuteQuery()
+			return generated[eaterMod] == true and generated[exarchMod] == true
+		end
+
+		it("skips weights when Any requires an influenced item", function()
+			assert.is_false(generatesEldritchWeights(ANY, IGNORE))
+		end)
+
+		it("keeps weights when both influence slots are unconstrained or empty", function()
+			assert.is_true(generatesEldritchWeights(IGNORE, NONE))
+		end)
+	end)
+
 	describe("Filter prioritization", function()
 		it("counts socket and link constraints against MAX_FILTERS", function()
 			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = { items = {} } })
@@ -187,7 +294,8 @@ describe("TradeQueryGenerator", function()
 
 			queryGen:FinishQuery()
 
-			assert.are.equal(31, #query.stats[1].filters)
+			-- Ignore / Ignore uses no influence slots: 36 - mirrored - sockets - links.
+			assert.are.equal(33, #query.stats[1].filters)
 			assert.is_not_nil(query.filters.socket_filters.filters.sockets)
 			assert.is_not_nil(query.filters.socket_filters.filters.links)
 		end)
