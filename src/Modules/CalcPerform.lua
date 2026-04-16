@@ -1703,6 +1703,11 @@ function calcs.perform(env, skipEHP)
 	
 	
 	local function mergeTinctures(tinctures)
+		local tincturesNotInflictManaBurn = m_min(modDB:Sum("BASE", nil, "TincturesNotInflictManaBurn"), 100)
+		local canGainRequiredBurn = modDB:Flag(nil, "Condition:WeepingWoundsInsteadOfManaBurn") or (tincturesNotInflictManaBurn < 100 and (output.ManaUnreserved or 0) > 0)
+		if not canGainRequiredBurn then
+			return
+		end
 		local tinctureBuffs = { }
 		local tinctureConditions = {}
 		local tinctureBuffsPerBase = {}
@@ -1773,7 +1778,6 @@ function calcs.perform(env, skipEHP)
 		-- This needs to be done in 2 steps to account for effects affecting life recovery from flasks
 		-- For example Sorrow of the Divine and buffs (like flask recovery watchers eye)
 		mergeFlasks(env.flasks, false, true)
-		mergeTinctures(env.tinctures)
 
 		-- Merge keystones again to catch any that were added by flasks
 		modLib.mergeKeystones(env, env.modDB)
@@ -1920,6 +1924,10 @@ function calcs.perform(env, skipEHP)
 
 	-- Set the life/mana reservations (hold off on GrantReserved"..pool.."AsAura)
 	doActorLifeManaReservation(env.player, not modDB:Flag(nil, "ManaIncreasedByOvercappedLightningRes"))
+
+	if env.mode_combat then
+		mergeTinctures(env.tinctures)
+	end
 
 		-- Process attribute requirements
 	do
