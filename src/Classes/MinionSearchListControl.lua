@@ -13,7 +13,7 @@ local MinionSearchListClass = newClass("MinionSearchListControl", "MinionListCon
 	self.unfilteredList = copyTable(list)
 	self.isMutable = false
 
-	self.controls.searchText = new("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, 128, 18}, "", "Search", "%c", 100, function(buf)
+	self.controls.searchText = new("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, 203, 18}, "", "Search", "%c", 100, function(buf)
 		self:ListFilterChanged(buf, self.controls.searchModeDropDown.selIndex)
 	end, nil, nil, true)	
 	

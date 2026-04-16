@@ -1032,7 +1032,7 @@ function main:OpenOptionsPopup()
 	nextRow()
 	controls.slotOnlyTooltips = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, { defaultLabelPlacementX, currentY, 20 }, "^7Show tooltips only for affected slots:", function(state)
 		self.slotOnlyTooltips = state
-	end)
+	end, "Shows comparisons in tooltips only for the slot you are currently placing the item in, instead of all slots.")
 	controls.slotOnlyTooltips.state = self.slotOnlyTooltips
 
 	nextRow()

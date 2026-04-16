@@ -23,7 +23,7 @@ local oldMethod = {
 	CleansingFireWall = { Fire = { 3304.677, 20 } },
 	GSConsumeBossDisintegrateBeam = { Lightning = { 3735.061, 50 } },
 	MavenSuperFireProjectileImpact = { Fire = { 4955.383, 0 }, SkillUberDamageMult = 201 },
-	MavenMemoryGame = { Physical = { 34505.376, 0 } },
+	MavenMemoryGame = { Physical = { 8626.344, 0 } },
 }
 
 -- exports and calculates the damage multipliers of the skill

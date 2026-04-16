@@ -18,9 +18,7 @@ skills["SupportAddedColdDamage"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "cold_damage_+%", 0.5 },
-		},
+		{ "cold_damage_+%", 0.5 },
 	},
 	stats = {
 		"global_minimum_added_cold_damage",
@@ -83,9 +81,7 @@ skills["SupportAwakenedAddedColdDamage"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	legacy = true,
 	qualityStats = {
-		Default = {
-			{ "cold_damage_+%", 0.5 },
-		},
+		{ "cold_damage_+%", 0.5 },
 	},
 	stats = {
 		"global_minimum_added_cold_damage",
@@ -126,9 +122,7 @@ skills["SupportAdditionalAccuracy"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "accuracy_rating_+%", 1 },
-		},
+		{ "accuracy_rating_+%", 1 },
 	},
 	stats = {
 		"accuracy_rating",
@@ -196,9 +190,7 @@ skills["SupportArrowNova"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "projectile_damage_+%", 0.5 },
-		},
+		{ "projectile_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "number_of_additional_projectiles", 4 },
@@ -275,9 +267,7 @@ skills["SupportAwakenedArrowNova"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "projectile_damage_+%", 0.5 },
-		},
+		{ "projectile_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "number_of_additional_projectiles", 5 },
@@ -341,9 +331,7 @@ skills["SupportBarrage"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "projectile_damage_+%", 0.5 },
-		},
+		{ "projectile_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "number_of_additional_projectiles", 3 },
@@ -408,9 +396,7 @@ skills["SupportBlind"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "blind_effect_+%", 0.5 },
-		},
+		{ "blind_effect_+%", 0.5 },
 	},
 	constantStats = {
 		{ "global_chance_to_blind_on_hit_%", 10 },
@@ -479,9 +465,7 @@ skills["SupportBlockChanceReduction"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "global_reduce_enemy_block_%", 0.25 },
-		},
+		{ "global_reduce_enemy_block_%", 0.25 },
 	},
 	constantStats = {
 		{ "support_overpowered_base_duration_ms", 4000 },
@@ -548,9 +532,7 @@ skills["SupportCastOnCriticalStrike"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "attack_critical_strike_chance_+%", 1 },
-		},
+		{ "attack_critical_strike_chance_+%", 1 },
 	},
 	constantStats = {
 		{ "cast_linked_spells_on_attack_crit_%", 100 },
@@ -617,9 +599,7 @@ skills["SupportCastOnCritTriggered"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "spell_critical_strike_chance_+%", 1 },
-		},
+		{ "spell_critical_strike_chance_+%", 1 },
 	},
 	stats = {
 		"support_cast_on_crit_spell_damage_+%_final",
@@ -687,9 +667,7 @@ skills["SupportAwakenedCastOnCriticalStrike"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "attack_critical_strike_chance_+%", 1 },
-		},
+		{ "attack_critical_strike_chance_+%", 1 },
 	},
 	constantStats = {
 		{ "cast_linked_spells_on_attack_crit_%", 100 },
@@ -737,9 +715,7 @@ skills["SupportCastOnCritTriggeredPlus"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "spell_critical_strike_chance_+%", 1 },
-		},
+		{ "spell_critical_strike_chance_+%", 1 },
 	},
 	stats = {
 		"support_cast_on_crit_spell_damage_+%_final",
@@ -795,9 +771,7 @@ skills["SupportCastOnDeath"] = {
 		skill("triggeredOnDeath", true),
 	},
 	qualityStats = {
-		Default = {
-			{ "area_of_effect_+%_while_dead", 3 },
-		},
+		{ "area_of_effect_+%_while_dead", 3 },
 	},
 	constantStats = {
 		{ "cast_on_death_%", 100 },
@@ -868,9 +842,7 @@ skills["SupportCastOnWardBreak"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "spell_damage_+%", 0.5 },
-		},
+		{ "spell_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "trigger_on_ward_break_%_chance", 100 },
@@ -914,9 +886,7 @@ skills["SupportChain"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "chaining_range_+%", 0.5 },
-		},
+		{ "chaining_range_+%", 0.5 },
 	},
 	constantStats = {
 		{ "number_of_chains", 2 },
@@ -985,9 +955,7 @@ skills["SupportAwakenedChain"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "chaining_range_+%", 0.5 },
-		},
+		{ "chaining_range_+%", 0.5 },
 	},
 	constantStats = {
 		{ "number_of_chains", 3 },
@@ -1030,9 +998,7 @@ skills["SupportGreaterChain"] = {
 	plusVersionOf = "SupportChain",
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "chaining_range_+%", 0.5 },
-		},
+		{ "chaining_range_+%", 0.5 },
 	},
 	constantStats = {
 		{ "number_of_chains", 1 },
@@ -1070,9 +1036,7 @@ skills["SupportChanceToFlee"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "global_hit_causes_monster_flee_%", 1 },
-		},
+		{ "global_hit_causes_monster_flee_%", 1 },
 	},
 	stats = {
 		"global_hit_causes_monster_flee_%",
@@ -1135,9 +1099,7 @@ skills["SupportChargedTraps"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "trap_damage_+%", 0.5 },
-		},
+		{ "trap_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "trap_throwing_speed_+%_per_frenzy_charge", 10 },
@@ -1224,9 +1186,7 @@ skills["SupportCloseCombat"] = {
 		flag("Condition:SupportedByCloseCombat"),
 	},
 	qualityStats = {
-		Default = {
-			{ "close_combat_damage_to_close_range_+%", 0.5 },
-		},
+		{ "close_combat_damage_to_close_range_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_slashing_buff_base_duration_ms", 2000 },
@@ -1295,9 +1255,7 @@ skills["SupportClusterTraps"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "trap_trigger_radius_+%", 1 },
-		},
+		{ "trap_trigger_radius_+%", 1 },
 	},
 	constantStats = {
 		{ "number_of_additional_traps_to_throw", 2 },
@@ -1361,9 +1319,7 @@ skills["SupportColdPenetration"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "cold_damage_+%", 0.5 },
-		},
+		{ "cold_damage_+%", 0.5 },
 	},
 	stats = {
 		"base_reduce_enemy_cold_resistance_%",
@@ -1423,9 +1379,7 @@ skills["SupportAwakenedColdPenetration"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	legacy = true,
 	qualityStats = {
-		Default = {
-			{ "cold_damage_+%", 0.5 },
-		},
+		{ "cold_damage_+%", 0.5 },
 	},
 	stats = {
 		"base_reduce_enemy_cold_resistance_%",
@@ -1464,9 +1418,7 @@ skills["SupportCompanionship"] = {
 	excludeSkillTypes = { SkillType.MinionsAreUndamagable, SkillType.Triggered, },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "minion_maximum_life_+%", 1 },
-		},
+		{ "minion_maximum_life_+%", 1 },
 	},
 	constantStats = {
 		{ "damage_removed_from_minions_before_life_or_es_%_if_only_one_minion", 15 },
@@ -1502,9 +1454,7 @@ skills["SupportCriticalStrikeAffliction"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "critical_ailment_dot_multiplier_+", 0.5 },
-		},
+		{ "critical_ailment_dot_multiplier_+", 0.5 },
 	},
 	stats = {
 		"critical_ailment_dot_multiplier_+",
@@ -1563,9 +1513,7 @@ skills["SupportCullTheWeak"] = {
 	plusVersionOf = "SupportCullingStrike",
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "recover_%_maximum_life_on_cull", 0.1 },
-		},
+		{ "recover_%_maximum_life_on_cull", 0.1 },
 	},
 	stats = {
 		"kill_normal_or_magic_enemy_on_hit_if_under_x%_life",
@@ -1598,9 +1546,7 @@ skills["SupportCullingStrike"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "recover_%_maximum_life_on_cull", 0.1 },
-		},
+		{ "recover_%_maximum_life_on_cull", 0.1 },
 	},
 	stats = {
 		"damage_+%",
@@ -1667,9 +1613,7 @@ skills["SupportDeadlyAilments"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "damage_over_time_+%", 0.5 },
-		},
+		{ "damage_over_time_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_better_ailments_hit_damage_+%_final", -80 },
@@ -1740,9 +1684,7 @@ skills["SupportAwakenedDeadlyAilments"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "damage_over_time_+%", 0.5 },
-		},
+		{ "damage_over_time_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_better_ailments_hit_damage_+%_final", -80 },
@@ -1784,9 +1726,7 @@ skills["SupportEnhance"] = {
 	supportGemsOnly = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "local_gem_experience_gain_+%", 5 },
-		},
+		{ "local_gem_experience_gain_+%", 5 },
 	},
 	stats = {
 		"supported_active_skill_gem_quality_%",
@@ -1816,9 +1756,7 @@ skills["SupportAwakenedEnhance"] = {
 	plusVersionOf = "SupportEnhance",
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "local_gem_experience_gain_+%", 5 },
-		},
+		{ "local_gem_experience_gain_+%", 5 },
 	},
 	stats = {
 		"supported_active_skill_gem_quality_%",
@@ -1857,9 +1795,7 @@ skills["SupportFasterAttacks"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "attack_speed_+%", 0.5 },
-		},
+		{ "attack_speed_+%", 0.5 },
 	},
 	stats = {
 		"attack_speed_+%",
@@ -1918,9 +1854,7 @@ skills["SupportFasterProjectiles"] = {
 	excludeSkillTypes = { SkillType.FixedSpeedProjectile, },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "base_projectile_speed_+%", 0.5 },
-		},
+		{ "base_projectile_speed_+%", 0.5 },
 	},
 	stats = {
 		"base_projectile_speed_+%",
@@ -1988,9 +1922,7 @@ skills["SupportFocusedBallista"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "totem_damage_+%", 0.5 },
-		},
+		{ "totem_damage_+%", 0.5 },
 	},
 	stats = {
 		"support_focused_ballista_totem_attack_speed_+%_final",
@@ -2060,9 +1992,7 @@ skills["SupportFork"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "projectile_damage_+%", 0.5 },
-		},
+		{ "projectile_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "terrain_arrow_attachment_chance_reduction_+%", 100 },
@@ -2131,9 +2061,7 @@ skills["SupportAwakenedFork"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "projectile_damage_+%", 0.5 },
-		},
+		{ "projectile_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "number_of_additional_forks_base", 1 },
@@ -2177,9 +2105,7 @@ skills["SupportGreaterFork"] = {
 	plusVersionOf = "SupportFork",
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "projectile_damage_+%", 0.5 },
-		},
+		{ "projectile_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "number_of_additional_forks_base", 1 },
@@ -2224,9 +2150,7 @@ skills["SupportGreaterMultipleProjectiles"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "projectile_damage_+%", 0.5 },
-		},
+		{ "projectile_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "number_of_additional_projectiles", 4 },
@@ -2295,9 +2219,7 @@ skills["SupportAwakenedGreaterMultipleProjectiles"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "projectile_damage_+%", 0.5 },
-		},
+		{ "projectile_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "number_of_additional_projectiles", 5 },
@@ -2345,9 +2267,7 @@ skills["SupportGreaterVolley"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "projectile_damage_+%", 1 },
-		},
+		{ "projectile_damage_+%", 1 },
 	},
 	constantStats = {
 		{ "support_parallel_projectile_number_of_points_per_side", 4 },
@@ -2418,9 +2338,7 @@ skills["SupportHypothermia"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "additional_chance_to_freeze_chilled_enemies_%", 1 },
-		},
+		{ "additional_chance_to_freeze_chilled_enemies_%", 1 },
 	},
 	constantStats = {
 		{ "additional_chance_to_freeze_chilled_enemies_%", 20 },
@@ -2484,9 +2402,7 @@ skills["SupportIceBite"] = {
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "damage_+%_per_frenzy_charge", 0.1 },
-		},
+		{ "damage_+%_per_frenzy_charge", 0.1 },
 	},
 	constantStats = {
 		{ "base_chance_to_freeze_%", 15 },
@@ -2560,9 +2476,7 @@ skills["SupportImpale"] = {
 		}
 	},
 	qualityStats = {
-		Default = {
-			{ "impale_debuff_effect_+%", 0.5 },
-		},
+		{ "impale_debuff_effect_+%", 0.5 },
 	},
 	constantStats = {
 		{ "attacks_impale_on_hit_%_chance", 60 },
@@ -2631,10 +2545,8 @@ skills["SupportInvention"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "trap_duration_+%", 1 },
-			{ "mine_duration_+%", 1 },
-		},
+		{ "trap_duration_+%", 1 },
+		{ "mine_duration_+%", 1 },
 	},
 	stats = {
 		"support_invention_trap_and_mine_damage_+%_final_per_second_placed_up_to_100",
@@ -2676,9 +2588,7 @@ skills["SupportLethalDose"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "base_poison_damage_+%", 0.5 },
-		},
+		{ "base_poison_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "additional_poisons_+_to_apply_vs_non_poisoned_enemies", 2 },
@@ -2726,9 +2636,7 @@ skills["SupportLocusMine"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "mine_laying_speed_+%", 0.5 },
-		},
+		{ "mine_laying_speed_+%", 0.5 },
 	},
 	constantStats = {
 		{ "number_of_additional_mines_to_place", 2 },
@@ -2811,9 +2719,7 @@ skills["SupportMachinations"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "chaos_damage_+%", 0.5 },
-		},
+		{ "chaos_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "skill_cost_+%_per_keystone", 10 },
@@ -2854,9 +2760,7 @@ skills["SupportChanceToPoison"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "base_poison_damage_+%", 0.5 },
-		},
+		{ "base_poison_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "base_chance_to_poison_on_hit_%", 40 },
@@ -2919,9 +2823,7 @@ skills["SupportManaLeech"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "damage_+%_while_mana_leeching", 0.5 },
-		},
+		{ "damage_+%_while_mana_leeching", 0.5 },
 	},
 	stats = {
 		"attack_skill_mana_leech_from_any_damage_permyriad",
@@ -2997,9 +2899,7 @@ skills["SupportManaforgedArrows"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 0.5 },
-		},
+		{ "base_cooldown_speed_+%", 0.5 },
 	},
 	constantStats = {
 		{ "triggered_by_manaforged_arrows_support_%_chance", 100 },
@@ -3063,9 +2963,7 @@ skills["SupportMarkOnHit"] = {
 	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "mark_skills_curse_effect_+%", 0.25 },
-		},
+		{ "mark_skills_curse_effect_+%", 0.25 },
 	},
 	stats = {
 		"mark_skills_curse_effect_+%",
@@ -3140,9 +3038,7 @@ skills["SupportMirageArcher"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "attack_damage_+%", 0.5 },
-		},
+		{ "attack_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_mirage_archer_base_duration", 4000 },
@@ -3225,9 +3121,7 @@ skills["SupportMomentum"] = {
 		flag("SupportedByMomentum"),
 	},
 	qualityStats = {
-		Default = {
-			{ "support_momentum_base_buff_duration_ms", 25 },
-		},
+		{ "support_momentum_base_buff_duration_ms", 25 },
 	},
 	constantStats = {
 		{ "support_momentum_base_buff_duration_ms", 1500 },
@@ -3298,9 +3192,7 @@ skills["SupportLesserMultipleProjectiles"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "projectile_damage_+%", 0.5 },
-		},
+		{ "projectile_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "number_of_additional_projectiles", 2 },
@@ -3367,9 +3259,7 @@ skills["SupportMultipleTraps"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "trap_trigger_radius_+%", 1 },
-		},
+		{ "trap_trigger_radius_+%", 1 },
 	},
 	constantStats = {
 		{ "number_of_additional_traps_to_throw", 2 },
@@ -3445,9 +3335,7 @@ skills["SupportNightblade"] = {
 		flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
-		Default = {
-			{ "critical_strike_chance_+%", 1 },
-		},
+		{ "critical_strike_chance_+%", 1 },
 	},
 	constantStats = {
 		{ "gain_elusive_on_crit_%_chance", 100 },
@@ -3512,9 +3400,7 @@ skills["SupportPacifism"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "global_hit_causes_monster_flee_%", 0.5 },
-		},
+		{ "global_hit_causes_monster_flee_%", 0.5 },
 	},
 	stats = {
 		"global_hit_causes_monster_flee_%",
@@ -3554,9 +3440,7 @@ skills["SupportPierce"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "projectile_damage_+%", 0.5 },
-		},
+		{ "projectile_damage_+%", 0.5 },
 	},
 	stats = {
 		"projectile_base_number_of_targets_to_pierce",
@@ -3623,9 +3507,7 @@ skills["SupportPointBlank"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "projectile_damage_+%", 0.5 },
-		},
+		{ "projectile_damage_+%", 0.5 },
 	},
 	stats = {
 		"projectile_damage_+%",
@@ -3695,9 +3577,7 @@ skills["SupportRupture"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "critical_strike_chance_+%", 1 },
-		},
+		{ "critical_strike_chance_+%", 1 },
 	},
 	constantStats = {
 		{ "support_rupture_bleeding_time_passed_+%_final", 25 },
@@ -3764,9 +3644,7 @@ skills["SupportSadism"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "damage_over_time_+%", 0.5 },
-		},
+		{ "damage_over_time_+%", 0.5 },
 	},
 	stats = {
 		"damaging_ailments_deal_damage_+%_faster",
@@ -3825,9 +3703,7 @@ skills["SupportSecondWind"] = {
 	excludeSkillTypes = { SkillType.Triggered, },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 0.25 },
-		},
+		{ "base_cooldown_speed_+%", 0.25 },
 	},
 	constantStats = {
 		{ "support_added_cooldown_count_if_not_instant", 1 },
@@ -3899,9 +3775,7 @@ skills["SupportSlowerProjectiles"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "projectile_damage_+%", 0.5 },
-		},
+		{ "projectile_damage_+%", 0.5 },
 	},
 	stats = {
 		"support_slower_projectiles_projectile_speed_+%_final",
@@ -3965,9 +3839,7 @@ skills["SupportSwiftAffliction"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "damage_over_time_+%", 0.5 },
-		},
+		{ "damage_over_time_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_swift_affliction_skill_effect_and_damaging_ailment_duration_+%_final", -25 },
@@ -4028,9 +3900,7 @@ skills["SupportReturningProjectiles"] = {
 	excludeSkillTypes = { SkillType.ProjectileCannotReturn, },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "base_projectile_speed_+%", 0.5 },
-		},
+		{ "base_projectile_speed_+%", 0.5 },
 	},
 	stats = {
 		"support_return_returning_projectiles_damage_+%_final",
@@ -4097,9 +3967,7 @@ skills["SupportAwakenedSwiftAffliction"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "damage_over_time_+%", 0.5 },
-		},
+		{ "damage_over_time_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_swift_affliction_skill_effect_and_damaging_ailment_duration_+%_final", -25 },
@@ -4140,10 +4008,8 @@ skills["SupportSwiftAssembly"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "mine_laying_speed_+%", 0.25 },
-			{ "trap_throwing_speed_+%", 0.25 },
-		},
+		{ "mine_laying_speed_+%", 0.25 },
+		{ "trap_throwing_speed_+%", 0.25 },
 	},
 	constantStats = {
 		{ "throw_traps_in_circle_radius", 20 },
@@ -4216,9 +4082,7 @@ skills["SupportTrap"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "trap_damage_+%", 0.5 },
-		},
+		{ "trap_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "base_trap_duration", 4000 },
@@ -4286,9 +4150,7 @@ skills["SupportAdvancedTraps"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "trap_damage_+%", 0.5 },
-		},
+		{ "trap_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "multi_trap_and_mine_support_flags", 16 },
@@ -4361,9 +4223,7 @@ skills["SupportTrapAndMineDamage"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "damage_+%", 0.5 },
-		},
+		{ "damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_trap_and_mine_damage_trap_throwing_speed_+%_final", -10 },
@@ -4439,9 +4299,7 @@ skills["SupportUnholyTrinity"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "damage_+%", 0.5 },
-		},
+		{ "damage_+%", 0.5 },
 	},
 	stats = {
 		"damage_+%_final_per_10_lowest_unholy_resonance",
@@ -4496,9 +4354,7 @@ skills["SupportViciousProjectiles"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "physical_damage_+%", 0.5 },
-		},
+		{ "physical_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_projectile_attack_speed_+%_final", -10 },
@@ -4577,9 +4433,7 @@ skills["SupportAwakenedViciousProjectiles"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "physical_damage_+%", 0.5 },
-		},
+		{ "physical_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_projectile_attack_speed_+%_final", -10 },
@@ -4633,9 +4487,7 @@ skills["SupportVileToxins"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "base_poison_damage_+%", 0.5 },
-		},
+		{ "base_poison_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_debilitate_hit_damage_+%_final_per_poison_stack", 5 },
@@ -4702,9 +4554,7 @@ skills["SupportVoidManipulation"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "chaos_damage_+%", 0.5 },
-		},
+		{ "chaos_damage_+%", 0.5 },
 	},
 	stats = {
 		"support_void_manipulation_chaos_damage_+%_final",
@@ -4770,9 +4620,7 @@ skills["SupportAwakenedVoidManipulation"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "chaos_damage_+%", 0.5 },
-		},
+		{ "chaos_damage_+%", 0.5 },
 	},
 	stats = {
 		"support_void_manipulation_chaos_damage_+%_final",
@@ -4821,9 +4669,7 @@ skills["SupportVoidstorm"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "area_damage_+%", 0.5 },
-		},
+		{ "area_damage_+%", 0.5 },
 	},
 	stats = {
 		"support_voidstorm_trigger_voidstorm_on_rain_skill_impact",
@@ -4877,9 +4723,7 @@ skills["TriggeredSupportVoidstorm"] = {
 		projectile = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "area_damage_+%", 0.5 },
-		},
+		{ "area_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "windstorm_storm_maximum_stages", 10 },
@@ -4929,9 +4773,7 @@ skills["SupportVolley"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "projectile_damage_+%", 0.5 },
-		},
+		{ "projectile_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_parallel_projectile_number_of_points_per_side", 2 },
@@ -4995,9 +4837,7 @@ skills["SupportWindburst"] = {
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "projectile_damage_+%", 0.5 },
-		},
+		{ "projectile_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_trigger_tornados_on_attack_hit_after_moving_X_metres", 10 },
@@ -5139,9 +4979,7 @@ skills["SupportWitheringTouch"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "chaos_damage_+%", 0.5 },
-		},
+		{ "chaos_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_withered_base_duration_ms", 2000 },
