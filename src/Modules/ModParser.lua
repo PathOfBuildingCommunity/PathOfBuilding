@@ -1824,6 +1824,7 @@ local modTagList = {
 	["if you haven't gained a frenzy charge recently"] = { tag = { type = "Condition", var = "GainedFrenzyChargeRecently", neg = true } },
 	["if you've stopped taking damage over time recently"] = { tag = { type = "Condition", var = "StoppedTakingDamageOverTimeRecently" } },
 	["if you've used an amethyst flask recently"] = { tag = { type = "Condition", var = "UsedAmethystFlaskRecently" } },
+	["if you've used a ruby flask recently"] = { tag = { type = "Condition", var = "UsedRubyFlaskRecently" } },
 	["if you've used a sapphire flask recently"] = { tag = { type = "Condition", var = "UsedSapphireFlaskRecently" } },
 	["if you've used a topaz flask recently"] = { tag = { type = "Condition", var = "UsedTopazFlaskRecently" } },
 	["during soul gain prevention"] = { tag = { type = "Condition", var = "SoulGainPrevention" } },

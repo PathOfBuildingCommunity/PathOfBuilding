@@ -1073,6 +1073,9 @@ Huge sets the radius to 11.
 	{ var = "conditionUsedAmethystFlaskRecently", type = "check", label = "Used an Amethyst Flask recently?", ifCond = "UsedAmethystFlaskRecently", ifCondTrue = "HaveAmethystFlask", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:UsedAmethystFlaskRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "HaveAmethystFlask" })
 	end },
+	{ var = "conditionUsedRubyFlaskRecently", type = "check", label = "Used a Ruby Flask recently?", ifCond = "UsedRubyFlaskRecently", ifCondTrue = "HaveRubyFlask", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:UsedRubyFlaskRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "HaveRubyFlask" })
+	end },
 	{ var = "conditionUsedSapphireFlaskRecently", type = "check", label = "Used a Sapphire Flask recently?", ifCond = "UsedSapphireFlaskRecently", ifCondTrue = "HaveSapphireFlask", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:UsedSapphireFlaskRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "HaveSapphireFlask" })
 	end },
