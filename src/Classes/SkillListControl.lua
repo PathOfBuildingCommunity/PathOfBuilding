@@ -89,7 +89,7 @@ function SkillListClass:GetRowValue(column, index, socketGroup)
 		if not socketGroup.source then
 			local colorStr = ""
 			for _, gem in ipairs(socketGroup.gemList) do
-				if gem.gemData or gem.grantedEffect then
+				if (gem.gemData or gem.grantedEffect) and gem.enabled then
 					local grantedEffect = gem.grantedEffect or (gem.gemData and gem.gemData.grantedEffect)
 					if grantedEffect then
 						local char = grantedEffect.color == 1 and "R" or grantedEffect.color == 2 and "G" or grantedEffect.color == 3 and "B" or "W"
