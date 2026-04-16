@@ -149,7 +149,11 @@ return {
 	skill("poisonDurationIsSkillDuration", true),
 },
 ["cannot_poison_poisoned_enemies"] = {
-	flag("Condition:SinglePoison"),
+	flag("Condition:NonPoisonedOnly"),
+	mod("PoisonStackLimit", "MIN", 1),
+},
+["cannot_inflict_additional_poisons"] = {
+	flag("CannotMultiplePoison"),
 },
 ["spell_damage_modifiers_apply_to_skill_dot"] = {
 	skill("dotIsSpell", true),
@@ -220,6 +224,13 @@ return {
 	skill("triggeredByCoc", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 	skill("triggerOnCrit", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
+["triggered_by_kinetic_instability_support"] = {
+	skill("chanceToTriggerOnCrit", nil, { type = "SkillType", skillType = SkillType.Attack }),
+},
+["triggered_by_kinetic_instability_support"] = {
+	skill("triggeredByKineticFlux", true, { type = "SkillType", skillType = SkillType.Attack }),
+	skill("triggerOnCrit", true, { type = "SkillType", skillType = SkillType.Attack }),
+},
 ["cast_linked_spells_on_attack_crit_%"] = {
 	skill("chanceToTriggerOnCrit", nil, { type = "SkillType", skillType = SkillType.Attack }),
 },
@@ -283,6 +294,9 @@ return {
 },
 ["skill_repeat_count"] = {
 	mod("RepeatCount", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Multicastable }),
+},
+["disable_skill_repeats"] = {
+	flag("CannotRepeat"),
 },
 ["display_skill_minions_level_is_corpse_level"] = {
 	skill("minionLevelIsEnemyLevel", true),
@@ -517,9 +531,15 @@ return {
 ["base_spell_cooldown_speed_+%"] = {
 	mod("CooldownRecovery", "INC", nil),
 },
+["cooldown_recovery_rate_+%_per_100_ward"] = {
+	mod("CooldownRecovery", "INC", nil, 0, 0, { type = "PerStat", stat = "Ward", div = 100 }),
+},
 ["base_cooldown_modifier_ms"] = {
 	mod("CooldownRecovery", "BASE", nil),
 	div = 1000,
+},
+["warcry_cooldown_speed_+%"] = {
+	mod("CooldownRecovery", "INC", nil, 0, KeywordFlag.Warcry),
 },
 ["additional_weapon_base_attack_time_ms"] = {
 	mod("Speed", "BASE", nil, ModFlag.Attack),
@@ -1312,11 +1332,14 @@ return {
 	mod("LinkEffectOnSelf", "INC", nil),
 },
 -- Projectiles
+["skill_can_fire_arrows"] = {
+	skillFlag = "arrow",
+},
 ["base_projectile_speed_+%"] = {
 	mod("ProjectileSpeed", "INC", nil),
 },
 ["base_arrow_speed_+%"] = {
-	mod("ProjectileSpeed", "INC", nil),
+	mod("ProjectileSpeed", "INC", nil, 0, KeywordFlag.Arrow),
 },
 ["active_skill_projectile_speed_+%_final"] = {
 	mod("ProjectileSpeed", "MORE", nil),
@@ -1325,7 +1348,7 @@ return {
 	mod("PierceCount", "BASE", nil),
 },
 ["arrow_base_number_of_targets_to_pierce"] = {
-	mod("PierceCount", "BASE", nil, ModFlag.Attack),
+	mod("PierceCount", "BASE", nil, 0, KeywordFlag.Arrow),
 },
 ["pierce_%"] = {
 	mod("PierceChance", "BASE", nil),
@@ -1367,11 +1390,11 @@ return {
 	flag("NoAdditionalProjectiles"),
 },
 ["base_number_of_arrows"] = {
-	mod("ProjectileCount", "BASE", nil),
+	mod("ProjectileCount", "BASE", nil, 0, KeywordFlag.Arrow),
 	base = -1,
 },
 ["number_of_additional_arrows"] = {
-	mod("ProjectileCount", "BASE", nil),
+	mod("ProjectileCount", "BASE", nil, 0, KeywordFlag.Arrow),
 },
 ["base_number_of_projectiles"] = {
 	mod("ProjectileCount", "BASE", nil),
@@ -1390,6 +1413,9 @@ return {
 },
 ["number_of_chains"] = {
 	mod("ChainCountMax", "BASE", nil),
+},
+["support_chain_count_+%_final"] = {
+	mod("ChainCountMax", "MORE", nil),
 },
 ["additional_beam_only_chains"] = {
 	mod("BeamChainCountMax", "BASE", nil),
@@ -1640,6 +1666,12 @@ return {
 ["off_hand_base_weapon_attack_duration_ms"] = {
 	skill("setOffHandAttackTime", nil),
 },
+["off_hand_minimum_added_physical_damage_per_15_shield_armour"] = {
+	mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", stat = "ArmourOnWeapon 2", div = 15 }),
+},
+["off_hand_maximum_added_physical_damage_per_15_shield_armour"] = {
+	mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", stat = "ArmourOnWeapon 2", div = 15 }),
+},
 ["off_hand_minimum_added_physical_damage_per_15_shield_armour_and_evasion_rating"] = {
 	mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
 },
@@ -1657,6 +1689,10 @@ return {
 },
 ["off_hand_maximum_added_fire_damage_per_15_shield_armour"] = {
 	mod("FireMax", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", stat = "ArmourOnWeapon 2", div = 15 }),
+},
+["off_hand_critical_strike_chance_+_per_10_es_on_shield"] = {
+	mod("CritChance", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShieldOnWeapon 2", div = 10, }),
+	div = 100,
 },
 ["additional_critical_strike_chance_per_10_shield_maximum_energy_shield_permyriad"] = {
 	mod("CritChance", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShieldOnWeapon 2", div = 10, }),
@@ -1741,6 +1777,9 @@ return {
 ["number_of_additional_traps_allowed"] = {
 	mod("ActiveTrapLimit", "BASE", nil),
 },
+["trap_duration_+%"] = {
+	mod("TrapDuration", "BASE", nil),
+},
 ["trap_throwing_speed_+%"] = {
 	mod("TrapThrowingSpeed", "INC", nil),
 },
@@ -1771,6 +1810,9 @@ return {
 -- Mine
 ["number_of_additional_remote_mines_allowed"] = {
 	mod("ActiveMineLimit", "BASE", nil),
+},
+["mine_duration_+%"] = {
+	mod("MineDuration", "BASE", nil),
 },
 ["mine_laying_speed_+%"] = {
 	mod("MineLayingSpeed", "INC", nil),
@@ -1859,6 +1901,9 @@ return {
 ["minion_damage_+%_on_full_life"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, 0, {type = "Condition", var = "FullLife"}) }),
 },
+["minion_attack_speed_+%_when_on_low_life"] = {
+	mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", nil, ModFlag.Attack, 0, {type = "Condition", var = "LowLife"}) }),
+},
 ["active_skill_minion_bleeding_damage_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed) }),
 },
@@ -1888,6 +1933,9 @@ return {
 },
 ["base_minion_duration_+%"] = {
 	mod("Duration", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.CreatesMinion }),
+},
+["minion_area_of_effect_+%"] = {
+	mod("MinionModifier", "LIST", { mod = mod("AreaOfEffect", "INC", nil) }),
 },
 ["minion_skill_area_of_effect_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("AreaOfEffect", "INC", nil) }),
@@ -1932,6 +1980,12 @@ return {
 ["base_number_of_golems_allowed"] = {
 	mod("ActiveGolemLimit", "BASE", nil),
 },
+["base_number_of_reapers_allowed"] = {
+	mod("ActiveReaperLimit", "BASE", nil)
+},
+["base_number_of_relics_allowed"] = {
+	mod("ActiveHolyRelicLimit", "BASE", nil)
+},
 ["base_number_of_arbalists"] = {
 	mod("ActiveArbalistLimit", "BASE", nil),
 },
@@ -1953,8 +2007,20 @@ return {
 ["base_number_of_void_spawns_allowed"] = {
 	mod("ActiveVoidSpawnLimit", "BASE", nil),
 },
+["base_max_number_of_absolution_sentinels"] = {
+	mod("ActiveSentinelOfAbsolutionLimit", "BASE", nil),
+},
 ["base_number_of_living_lightning_allowed"] = {
 	mod("ActiveLivingLightningLimit", "BASE", nil),
+},
+["base_holy_strike_maximum_number_of_animated_weapons"] = {
+	mod("ActiveHolyStrikeMinionLimit", "BASE", nil),
+},
+["base_graft_skill_tul_summon_maximum_allowed_demons"] = {
+	mod("ActiveHivebornLimit", "BASE", nil),
+},
+["base_number_of_restless_dead_allowed"] = {
+	mod("ShamblingUndeadLimit", "BASE", nil),
 },
 ["active_skill_minion_damage_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
@@ -1985,6 +2051,9 @@ return {
 },
 ["minions_deal_%_of_physical_damage_as_additional_chaos_damage"] = {
 	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageGainAsChaos", "BASE", nil) }),
+},
+["minion_melee_range_+"] = {
+	mod("MinionModifier", "LIST", { mod = mod("MeleeWeaponRange", "BASE", nil), }),
 },
 ["maximum_life_+%_for_corpses_you_create"] = {
 	mod("CorpseLife", "INC", nil),
@@ -2137,6 +2206,9 @@ return {
 	mod("CullPercent", "MAX", nil),
 	value = 10
 },
+["kill_normal_or_magic_enemy_on_hit_if_under_x%_life"] = {
+	mod("CullPercent", "MAX", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique", neg = true }),
+},
 ["spell_cast_time_added_to_cooldown_if_triggered"] = {
 	flag("SpellCastTimeAddedToCooldownIfTriggered"),
 },
@@ -2217,6 +2289,9 @@ return {
 ["supported_active_skill_gem_level_+"] = {
 	mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = nil }),
 },
+["supported_active_skill_gem_quality_%"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "quality", value = nil }),
+},
 --Aura
 ["supported_aura_skill_gem_level_+"] = {
 	mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Aura }),
@@ -2269,7 +2344,13 @@ return {
 ["quality_display_spell_damage_to_attack_damage_is_gem"] = {
 	-- Display only
 },
+["quality_display_static_strike_gathering_lightning_is_gem"] = {
+	-- Display only
+},
 ["retaliation_base_use_window_duration_ms"] = {
+	-- Display only
+},
+["is_totem"] = {
 	-- Display only
 },
 }

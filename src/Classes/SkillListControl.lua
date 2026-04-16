@@ -39,6 +39,7 @@ local SkillListClass = newClass("SkillListControl", "ListControl", function(self
 	self.controls.deleteAll = new("ButtonControl", {"RIGHT",self.controls.delete,"LEFT"}, {-4, 0, 70, 18}, "Delete All", function()
 		main:OpenConfirmPopup("Delete All", "Are you sure you want to delete all socket groups in this build?", "Delete", function()
 			wipeTable(self.list)
+			skillsTab:RebuildImbuedSupportBySlot()
 			skillsTab:SetDisplayGroup()
 			skillsTab:AddUndoState()
 			skillsTab.build.buildFlag = true
@@ -84,6 +85,27 @@ function SkillListClass:GetRowValue(column, index, socketGroup)
 		if socketGroup.includeInFullDPS then 
 			label = label .. colorCodes.CUSTOM .. " (FullDPS)"
 		end
+		
+		if not socketGroup.source then
+			local colorStr = ""
+			for _, gem in ipairs(socketGroup.gemList) do
+				if (gem.gemData or gem.grantedEffect) and gem.enabled then
+					local grantedEffect = gem.grantedEffect or (gem.gemData and gem.gemData.grantedEffect)
+					if grantedEffect then
+						local char = grantedEffect.color == 1 and "R" or grantedEffect.color == 2 and "G" or grantedEffect.color == 3 and "B" or "W"
+						local colorCode = gem.color or ""
+						if colorStr:len() > 0 then
+							colorStr = colorStr .. "^7-"
+						end
+						colorStr = colorStr .. colorCode .. char
+					end
+				end
+			end
+			if colorStr:len() > 0 then
+				label = label .. " ^7" .. colorStr
+			end
+		end
+
 		return label
 	end
 end
@@ -144,6 +166,7 @@ function SkillListClass:OnSelDelete(index, socketGroup)
 		main:OpenMessagePopup("Delete Socket Group", "This socket group cannot be deleted as it is created by an equipped item.")
 	elseif not socketGroup.gemList[1] then
 		t_remove(self.list, index)
+		self.skillsTab:RebuildImbuedSupportBySlot()
 		if self.skillsTab.displayGroup == socketGroup then
 			self.skillsTab.displayGroup = nil
 		end
@@ -154,6 +177,7 @@ function SkillListClass:OnSelDelete(index, socketGroup)
 	else
 		main:OpenConfirmPopup("Delete Socket Group", "Are you sure you want to delete '"..socketGroup.displayLabel.."'?", "Delete", function()
 			t_remove(self.list, index)
+			self.skillsTab:RebuildImbuedSupportBySlot()
 			if self.skillsTab.displayGroup == socketGroup then
 				self.skillsTab:SetDisplayGroup()
 			end

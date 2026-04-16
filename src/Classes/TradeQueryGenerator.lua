@@ -80,6 +80,7 @@ local tradeStatCategoryIndices = {
 	["Exarch"] = 3,
 	["Synthesis"] = 3,
 	["PassiveNode"] = 2,
+	["WatchersEye"] = 2,
 }
 
 local influenceSuffixes = { "_shaper", "_elder", "_adjudicator", "_basilisk", "_crusader", "_eyrie"}
@@ -406,6 +407,7 @@ function TradeQueryGeneratorClass:InitMods()
 		["Exarch"] = { },
 		["Synthesis"] = { },
 		["PassiveNode"] = { },
+		["WatchersEye"] = { },
 	}
 
 	-- originates from: https://www.pathofexile.com/api/trade/data/stats
@@ -464,6 +466,17 @@ function TradeQueryGeneratorClass:InitMods()
 	end
 	self:GenerateModData(clusterNotableMods, tradeQueryStatsParsed)
 
+	-- Watcher's Eye
+	local watchersEyeMods = {}
+	for _,v in pairs(data.uniqueMods["Watcher's Eye"]) do
+		if v.Id:find("SublimeVision") or v.Id:find("SummonArbalist") then
+			goto continue
+		end
+		watchersEyeMods[v.Id] = v.mod
+		watchersEyeMods[v.Id].type = "WatchersEye"
+		::continue::
+	end
+	self:GenerateModData(watchersEyeMods,tradeQueryStatsParsed,{ ["BaseJewel"] = true, ["AnyJewel"] = true },{["AnyJewel"]="AnyJewel"})
 		-- Base item implicit mods. A lot of this code is duplicated from generateModData(), but with important small logical flow changes to handle the format differences
 		local subTypeState = { }
 		local function updateRangeSubType(range, entry)
@@ -727,6 +740,28 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 				calcNodesInsteadOfMods = true,
 			}
 		end
+		if options.special.itemName == "Watcher's Eye" then
+			special={
+				queryExtra = {
+					name = "Watcher's Eye"
+				},
+				queryFilters = {
+					type_filters = {
+						filters = {
+							category = {
+								option = "jewel"
+							},
+							rarity = {
+								option = "unique"
+							}
+						}
+					}
+				},
+				watchersEye = true
+			}
+			itemCategory = "AnyJewel"
+			itemCategoryQueryStr = "jewel"
+		end
 	elseif slot.slotName:find("^Weapon %d") then
 		if existingItem then
 			if existingItem.type == "Shield" then
@@ -874,6 +909,13 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 		self:GeneratePassiveNodeWeights(self.modData.PassiveNode)
 		return
 	end
+	if self.calcContext.special.watchersEye then
+		self:GenerateModWeights(self.modData.WatchersEye)
+		if self.calcContext.options.includeCorrupted then
+			self:GenerateModWeights(self.modData["Corrupted"])
+		end
+		return
+	end
 	self:GenerateModWeights(self.modData["Explicit"])
 	self:GenerateModWeights(self.modData["Implicit"])
 	if self.calcContext.options.includeCorrupted then
@@ -882,12 +924,65 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 	if self.calcContext.options.includeScourge then
 		self:GenerateModWeights(self.modData["Scourge"])
 	end
-	if self.calcContext.options.includeEldritch then
-		self:GenerateModWeights(self.modData["Eater"])
-		self:GenerateModWeights(self.modData["Exarch"])
+	if self.calcContext.options.includeEldritch ~= "None" and
+		-- skip weights if we need an influenced item as they can produce really
+		-- bad results due to the filter limit
+		self.calcContext.options.influence1 == 1 and
+		self.calcContext.options.influence2 == 1 then
+		local omitConditional = self.calcContext.options.includeEldritch == "Omit While"
+		local eaterMods = self.modData["Eater"]
+		local exarchMods = self.modData["Exarch"]
+		if omitConditional then
+			local function filterMods(mods)
+				local filtered = {}
+				for name, mod in pairs(mods) do
+					-- the user might want to skip these because they're generally
+					-- not used much, but there are a lot of them and the higher
+					-- power causes them to take up a lot of filter slots
+					if not name:match(".*PinnaclePresence$") and not name:match(".*UniquePresence$") then
+						filtered[name] = mod
+					end
+				end
+				return filtered
+			end
+			eaterMods = filterMods(self.modData["Eater"])
+			exarchMods = filterMods(self.modData["Exarch"])
+		end
+		self:GenerateModWeights(eaterMods)
+		self:GenerateModWeights(exarchMods)
 	end
-	if self.calcContext.options.includeSynthesis then
-		self:GenerateModWeights(self.modData["Synthesis"])
+	-- if self.calcContext.options.includeSynthesis then
+	-- 	self:GenerateModWeights(self.modData["Synthesis"])
+	-- end
+end
+
+function TradeQueryGeneratorClass:addMoreWEMods()
+	local function getTableOfTradeModIds(tbl)
+		local tmpTable={}
+		for _,val in ipairs(tbl) do
+			table.insert(tmpTable,val.tradeModId)
+		end
+		return tmpTable
+	end
+	for _,skillGroup in ipairs(self.itemsTab.build.skillsTab.socketGroupList) do
+		for _,gem in ipairs(skillGroup.gemList) do
+			local tmpAura=""
+			if not gem.enabled then
+				goto continue
+			elseif gem.nameSpec:find("Vaal") and gem.enableGlobal2 then
+				tmpAura=gem.nameSpec:gsub("Vaal ",""):gsub("Impurity","Purity"):gsub("of","Of"):gsub(" ","")
+			elseif gem.gemData and gem.gemData.tags.aura or gem.fromItem then
+				tmpAura=gem.nameSpec:gsub("of","Of"):gsub(" ","")
+			else
+				goto continue
+			end
+			for id,mod in pairs(self.modData.WatchersEye) do
+				if id:find(tmpAura) and not isValueInTable(getTableOfTradeModIds(self.modWeights),mod.tradeMod.id) then
+					table.insert(self.modWeights,{invert=false,meanStatDiff=0,weight=0,tradeModId=mod.tradeMod.id})
+				end
+			end
+			::continue::
+		end
 	end
 end
 
@@ -914,8 +1009,15 @@ function TradeQueryGeneratorClass:FinishQuery()
 	local originalOutput = originalItem and self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }) or self.calcContext.baseOutput
 	local currentStatDiff = TradeQueryGeneratorClass.WeightedRatioOutputs(self.calcContext.baseOutput, originalOutput, self.calcContext.options.statWeights) * 1000 - (self.calcContext.baseStatValue or 0)
 	
+	if self.calcContext.options.includeAllWEMods then
+		self:addMoreWEMods()
+	end
+
 	-- Sort by mean Stat diff rather than weight to more accurately prioritize stats that can contribute more
 	table.sort(self.modWeights, function(a, b)
+		if a.meanStatDiff == b.meanStatDiff then
+			return math.abs(a.weight) > math.abs(b.weight)
+		end
 		return a.meanStatDiff > b.meanStatDiff
 	end)
 	
@@ -924,7 +1026,16 @@ function TradeQueryGeneratorClass:FinishQuery()
 	-- This Stat diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
 	-- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
 	local minWeight = megalomaniacSpecialMinWeight or currentStatDiff * 0.5
-	
+
+	-- what the trade site API uses for the above
+	self.tradeTypes = {
+		"securable",
+		"available",
+		"onlineleague",
+		"online",
+		"any",
+	}
+	local selectedTradeType = self.tradeTypes[self.tradeTypeIndex]
 	-- Generate trade query str and open in browser
 	local filters = 0
 	local queryTable = {
@@ -937,7 +1048,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 					}
 				}
 			},
-			status = { option = "available" },
+			status = { option = selectedTradeType },
 			stats = {
 				{
 					type = "weight",
@@ -949,13 +1060,41 @@ function TradeQueryGeneratorClass:FinishQuery()
 		sort = { ["statgroup.0"] = "desc" },
 		engine = "new"
 	}
-	
+
+	local options = self.calcContext.options
+
+	local num_extra = 2
+	if not options.includeMirrored then
+		num_extra = num_extra + 1
+	end
+	if options.maxPrice and options.maxPrice > 0 then
+		num_extra = num_extra + 1
+	end
+	if options.maxLevel and options.maxLevel > 0 then
+		num_extra = num_extra + 1
+	end
+	if options.sockets and options.sockets > 0 then
+		num_extra = num_extra + 1
+	end
+
+	local effective_max = MAX_FILTERS - num_extra
+
+	local prioritizedMods = {}
+	for _, entry in ipairs(self.modWeights) do
+		if #prioritizedMods < effective_max then
+			table.insert(prioritizedMods, entry)
+		else
+			break
+		end
+	end
+
+	self.modWeights = prioritizedMods
+
 	for k, v in pairs(self.calcContext.special.queryExtra or {}) do
 		queryTable.query[k] = v
 	end
 
 	local andFilters = { type = "and", filters = { } }
-
 	local options = self.calcContext.options
 	if options.influence1 > 1 then
 		t_insert(andFilters.filters, { id = hasInfluenceModIds[options.influence1 - 1] })
@@ -969,11 +1108,11 @@ function TradeQueryGeneratorClass:FinishQuery()
 	if #andFilters.filters > 0 then
 		t_insert(queryTable.query.stats, andFilters)
 	end
-
-	for _, entry in pairs(self.modWeights) do
+	
+	for _, entry in ipairs(self.modWeights) do
 		t_insert(queryTable.query.stats[1].filters, { id = entry.tradeModId, value = { weight = (entry.invert == true and entry.weight * -1 or entry.weight) } })
 		filters = filters + 1
-		if filters == MAX_FILTERS then
+		if filters == effective_max then
 			break
 		end
 	end
@@ -995,6 +1134,10 @@ function TradeQueryGeneratorClass:FinishQuery()
 				}
 			}
 		}
+	end
+
+	if options.account then
+		queryTable.query.filters.trade_filters.filters.account = {input = options.account}
 	end
 
 	if options.maxLevel and options.maxLevel > 0 then
@@ -1063,9 +1206,11 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	local isJewelSlot = slot and slot.slotName:find("Jewel") ~= nil
 	local isAbyssalJewelSlot = slot and slot.slotName:find("Abyssal") ~= nil
 	local isAmuletSlot = slot and slot.slotName == "Amulet"
+	local isBeltSlot = slot and slot.slotName == "Belt"
+	local isWeaponSlot = slot and (slot.slotName == "Weapon 1" or slot.slotName == "Weapon 2")
 	local isEldritchModSlot = slot and eldritchModSlots[slot.slotName] == true
 
-	controls.includeCorrupted = new("CheckBoxControl", {"TOP",nil,"TOP"}, {-40, 30, 18}, "Corrupted Mods:", function(state) end)
+	controls.includeCorrupted = new("CheckBoxControl", {"TOP",nil,"TOP"}, {-40, 30, 18}, "Corrupted Mods:", function(state) end, "Includes corruption implicit modifiers in the weighted sum.\nNote that there is a maximum search filter count which means this might cause other weights to not be included.")
 	controls.includeCorrupted.state = not context.slotTbl.alreadyCorrupted and (self.lastIncludeCorrupted == nil or self.lastIncludeCorrupted == true)
 	controls.includeCorrupted.enabled = not context.slotTbl.alreadyCorrupted
 
@@ -1074,7 +1219,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	--controls.includeSynthesis.state = (self.lastIncludeSynthesis == nil or self.lastIncludeSynthesis == true)
 
 	local lastItemAnchor = controls.includeCorrupted
-	local includeScourge = self.queryTab.pbLeagueRealName == "Standard" or self.queryTab.pbLeagueRealName == "Hardcore"
+	local includeScourge = self.queryTab.pbLeague == "Standard" or self.queryTab.pbLeague == "Hardcore"
 
 	local function updateLastAnchor(anchor, height)
 		lastItemAnchor = anchor
@@ -1085,9 +1230,12 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		options.special = { itemName = context.slotTbl.slotName }
 	end
 
-	controls.includeMirrored = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Mirrored items:", function(state) end)
-	controls.includeMirrored.state = (self.lastIncludeMirrored == nil or self.lastIncludeMirrored == true)
-	updateLastAnchor(controls.includeMirrored)
+	-- these unique items cannot be mirrored
+	if not context.slotTbl.unique then
+		controls.includeMirrored = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Mirrored Items:", function(state) end)
+		controls.includeMirrored.state = (self.lastIncludeMirrored == nil or self.lastIncludeMirrored == true)
+		updateLastAnchor(controls.includeMirrored)
+	end
 
 	if not isJewelSlot and not isAbyssalJewelSlot and includeScourge then
 		controls.includeScourge = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Scourge Mods:", function(state) end)
@@ -1101,25 +1249,71 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		updateLastAnchor(controls.includeTalisman)
 	end
 
+	-- Implicit mod and enchant behaviour in searching and sorting
 	if isEldritchModSlot then
-		controls.includeEldritch = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Eldritch Mods:", function(state) end)
-		controls.includeEldritch.state = (self.lastIncludeEldritch == true)
+		local eldritchTooltip = [[Controls the inclusion of eldritch mod weights in the weighted sum.
+None: no weights are generated.
+All: weights are generated for all eldritch implicit modifiers.
+Omit while: weights are generated, but conditional "While unique/atlas boss" modifiers are skipped.
+It is often not recommended to use "All" as this includes a lot of high power modifiers,
+which will cause other useful modifiers to be left out in the weighted sum.]]
+		controls.includeEldritch = new("DropDownControl", { "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 92, 18 },
+			{ "None", "All", "Omit While" }, function(_state) end, eldritchTooltip)
+		controls.includeEldritchLabel = new("LabelControl", { "RIGHT", controls.includeEldritch, "LEFT" },
+			{ -4, 0, 80, 16 }, "Eldritch Mods:")
+		controls.includeEldritch:SetSel(self.lastIncludeEldritch or 1)
 		updateLastAnchor(controls.includeEldritch)
-	end
 
-	if isJewelSlot then
+		local eldritchTooltip = "Replaces the eldritch modifiers on search results with the eldritch modifiers from your currently equipped item."
+		local labelText = "Copy Current Implicits:"
+		controls.copyEldritch = new("CheckBoxControl",
+			{ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" },
+			{ 0, 5, 18, 18 },
+			labelText, function(state) end, eldritchTooltip, false)
+		controls.copyEldritch.state = self.lastCopyEldritch or false
+		updateLastAnchor(controls.copyEldritch)
+	end
+	if isAmuletSlot or isBeltSlot or isWeaponSlot then
+		local term = isWeaponSlot and "enchants" or "anoints"
+		local enchantTooltip = s_format([[Keep: %s will be unchanged on the search results.
+Copy Current: current %s will be applied to the search result items.
+Remove: %s will be removed from the search results.]], term, term, term)
+		local copyEnchantList = { "Keep", "Copy Current", "Remove" }
+		controls.copyEnchantMode = new("DropDownControl",
+			{ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" },
+			{ 0, 5, 120, 18 },
+			copyEnchantList, function(state) end, enchantTooltip)
+		controls.copyEnchantMode.state = self.lastCopyEnchantMode or false
+		local labelText = isWeaponSlot and "^7Enchant Behaviour:" or "^7Anoint Behaviour:"
+		controls.copyEnchantModeLabel = new("LabelControl", { "RIGHT", controls.copyEnchantMode, "LEFT" },
+			{ -4, 0, 80, 16 }, labelText)
+		updateLastAnchor(controls.copyEnchantMode)
+	end
+	if isJewelSlot and context.slotTbl.slotName ~= "Watcher's Eye" then
 		controls.jewelType = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 100, 18}, { "Any", "Base", "Abyss" }, function(index, value) end)
 		controls.jewelType.selIndex = self.lastJewelType or 1
 		controls.jewelTypeLabel = new("LabelControl", {"RIGHT",controls.jewelType,"LEFT"}, {-5, 0, 0, 16}, "Jewel Type:")
 		updateLastAnchor(controls.jewelType)
-	elseif slot and not isAbyssalJewelSlot then
-		controls.influence1 = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 100, 18}, influenceDropdownNames, function(index, value) end)
-		controls.influence1.selIndex = self.lastInfluence1 or 1
-		controls.influence1Label = new("LabelControl", {"RIGHT",controls.influence1,"LEFT"}, {-5, 0, 0, 16}, "Influence 1:")
+	elseif slot and not isAbyssalJewelSlot and context.slotTbl.slotName ~= "Watcher's Eye" then
+		local selFunc = function()
+			-- influenced items can't have eldritch implicits
+			if controls.copyEldritch and isEldritchModSlot then
+				local hasInfluence1 = controls.influence1 and controls.influence1:GetSelValue() ~= "None"
+				local hasInfluence2 = controls.influence2 and controls.influence2:GetSelValue() ~= "None"
+				controls.copyEldritch.enabled = not hasInfluence1 and not hasInfluence2
+			end
+		end
+		controls.influence1 = new("DropDownControl", { "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 100, 18 },
+			influenceDropdownNames, selFunc)
+		controls.influence1:SetSel(self.lastInfluence1 or 1)
+		controls.influence1Label = new("LabelControl", {"RIGHT",controls.influence1,"LEFT"}, {-5, 0, 0, 16}, "^7Influence 1:")
 
-		controls.influence2 = new("DropDownControl", {"TOPLEFT",controls.influence1,"BOTTOMLEFT"}, {0, 5, 100, 18}, influenceDropdownNames, function(index, value) end)
-		controls.influence2.selIndex = self.lastInfluence2 or 1
-		controls.influence2Label = new("LabelControl", {"RIGHT",controls.influence2,"LEFT"}, {-5, 0, 0, 16}, "Influence 2:")
+		controls.influence2 = new("DropDownControl", { "TOPLEFT", controls.influence1, "BOTTOMLEFT" }, { 0, 5, 100, 18 },
+			influenceDropdownNames, selFunc)
+		controls.influence2:SetSel(self.lastInfluence2 or 1)
+		selFunc()
+		controls.influence2Label = new("LabelControl", { "RIGHT", controls.influence2, "LEFT" }, { -5, 0, 0, 16 },
+			"^7Influence 2:")
 		updateLastAnchor(controls.influence2, 46)
 	elseif isAbyssalJewelSlot then
 		controls.jewelType = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 100, 18}, { "Abyss" }, nil)
@@ -1127,7 +1321,6 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		controls.jewelTypeLabel = new("LabelControl", {"RIGHT",controls.jewelType,"LEFT"}, {-5, 0, 0, 16}, "Jewel Type:")
 		updateLastAnchor(controls.jewelType)
 	end
-
 	-- Add max price limit selection dropbox
 	local currencyDropdownNames = { }
 	for _, currency in ipairs(currencyTable) do
@@ -1148,12 +1341,13 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	-- basic filtering by slot for sockets and links, Megalomaniac does not have slot and Sockets use "Jewel nodeId"
 	if slot and not isJewelSlot and not isAbyssalJewelSlot and not slot.slotName:find("Flask") then
 		controls.sockets = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 70, 18}, nil, nil, "%D")
-		controls.socketsLabel = new("LabelControl", {"RIGHT",controls.sockets,"LEFT"}, {-5, 0, 0, 16}, "# of Sockets:")
+		controls.sockets.buf = self.lastSockets and tostring(self.lastSockets) or ""
+		controls.socketsLabel = new("LabelControl", {"RIGHT",controls.sockets,"LEFT"}, {-5, 0, 0, 16}, "^7# of Empty Sockets:")
 		updateLastAnchor(controls.sockets)
 
 		if not slot.slotName:find("Belt") and not slot.slotName:find("Ring") and not slot.slotName:find("Amulet") then
 			controls.links = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 70, 18}, nil, nil, "%D")
-			controls.linksLabel = new("LabelControl", {"RIGHT",controls.links,"LEFT"}, {-5, 0, 0, 16}, "# of Links:")
+			controls.linksLabel = new("LabelControl", {"RIGHT",controls.links,"LEFT"}, {-5, 0, 0, 16}, "^7# of Links:")
 			updateLastAnchor(controls.links)
 		end
 	end
@@ -1181,8 +1375,20 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	end
 	popupHeight = popupHeight + 4
 
+	if context.slotTbl.slotName == "Watcher's Eye" then
+		controls.includeAllWEMods = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Include all Watcher's Eye mods:", function(state) end)
+		controls.includeAllWEMods.tooltipText = "Include mods that could not have a weight calculated for them at weight 0."
+		lastItemAnchor = controls.includeAllWEMods
+		popupHeight = popupHeight + 23
+	end
+
 	controls.generateQuery = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, {-45, -10, 80, 20}, "Execute", function()
 		main:ClosePopup()
+
+		self.tradeTypeIndex = context.controls.tradeTypeSelection.selIndex
+
+		self.lastCopyEldritch = controls.copyEldritch and controls.copyEldritch.state
+		self.lastCopyEnchantMode = controls.copyEnchantMode and controls.copyEnchantMode:GetSelValue()
 
 		if controls.includeMirrored then
 			self.lastIncludeMirrored, options.includeMirrored = controls.includeMirrored.state, controls.includeMirrored.state
@@ -1190,11 +1396,12 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		if controls.includeCorrupted then
 			self.lastIncludeCorrupted, options.includeCorrupted = controls.includeCorrupted.state, controls.includeCorrupted.state
 		end
-		if controls.includeSynthesis then
-			self.lastIncludeSynthesis, options.includeSynthesis = controls.includeSynthesis.state, controls.includeSynthesis.state
-		end
+		-- if controls.includeSynthesis then
+		-- 	self.lastIncludeSynthesis, options.includeSynthesis = controls.includeSynthesis.state, controls.includeSynthesis.state
+		-- end
 		if controls.includeEldritch then
-			self.lastIncludeEldritch, options.includeEldritch = controls.includeEldritch.state, controls.includeEldritch.state
+			self.lastIncludeEldritch, options.includeEldritch = controls.includeEldritch.selIndex,
+			controls.includeEldritch:GetSelValue()
 		end
 		if controls.includeScourge then
 			self.lastIncludeScourge, options.includeScourge = controls.includeScourge.state, controls.includeScourge.state
@@ -1228,9 +1435,13 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		end
 		if controls.sockets and controls.sockets.buf then
 			options.sockets = tonumber(controls.sockets.buf)
+			self.lastSockets = options.sockets
 		end
 		if controls.links and controls.links.buf then
 			options.links = tonumber(controls.links.buf)
+		end
+		if controls.includeAllWEMods then
+			options.includeAllWEMods = controls.includeAllWEMods.state
 		end
 		options.statWeights = statWeights
 

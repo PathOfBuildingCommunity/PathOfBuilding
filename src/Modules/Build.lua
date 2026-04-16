@@ -68,6 +68,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	if not buildName then
 		main:SetMode("LIST")
 	end
+	self.saveAsSortMode = "NAME"
 
 	-- Load build file
 	self.xmlSectionList = { }
@@ -181,9 +182,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		local x, y = control:GetPos()
 		local width, height = control:GetSize()
 		SetDrawColor(1, 1, 1)
-		DrawImage(nil, x, y, width, height)
+		DrawImage(nil, x, y, width + 2, height)
 		SetDrawColor(0, 0, 0)
-		DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
+		DrawImage(nil, x + 1, y + 1, width, height - 2)
 		SetDrawColor(1, 1, 1)
 		DrawString(x + 4, y + 2, "LEFT", 16, "FIXED", control.str)
 		if control:IsMouseInBounds() then
@@ -194,14 +195,14 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			SetDrawLayer(nil, 0)
 		end
 	end
-	self.controls.levelScalingButton = new("ButtonControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, {12, 0, 50, 20}, self.characterLevelAutoMode and "Auto" or "Manual", function()
+	self.controls.levelScalingButton = new("ButtonControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, {10, 0, 50, 20}, self.characterLevelAutoMode and "Auto" or "Manual", function()
 		self.characterLevelAutoMode = not self.characterLevelAutoMode
 		self.controls.levelScalingButton.label = self.characterLevelAutoMode and "Auto" or "Manual"
 		self.configTab:BuildModList()
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.characterLevel = new("EditControl", {"LEFT",self.controls.levelScalingButton,"RIGHT"}, {8, 0, 106, 20}, "", "Level", "%D", 3, function(buf)
+	self.controls.characterLevel = new("EditControl", {"LEFT",self.controls.levelScalingButton,"RIGHT"}, {5, 0, 106, 20}, "", "Level", "%D", 3, function(buf)
 		self.characterLevel = m_min(m_max(tonumber(buf) or 1, 1), 100)
 		self.configTab:BuildModList()
 		self.modFlag = true
@@ -238,7 +239,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			end
 		end
 	end
-	self.controls.classDrop = new("DropDownControl", {"LEFT",self.controls.characterLevel,"RIGHT"}, {8, 0, 100, 20}, nil, function(index, value)
+	self.controls.classDrop = new("DropDownControl", {"LEFT",self.controls.characterLevel,"RIGHT"}, {5, 0, 85, 20}, nil, function(index, value)
 		if value.classId ~= self.spec.curClassId then
 			if self.spec:CountAllocNodes() == 0 or self.spec:IsClassConnected(value.classId) then
 				self.spec:SelectClass(value.classId)
@@ -262,28 +263,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			end
 		end
 	end)
-	self.controls.ascendDrop = new("DropDownControl", {"LEFT",self.controls.classDrop,"RIGHT"}, {8, 0, 120, 20}, nil, function(index, value)
-		self.spec:SelectAscendClass(value.ascendClassId)
-		self.spec:AddUndoState()
-		self.spec:SetWindowTitleWithBuildClass()
-		self.buildFlag = true
-	end)
-	self.controls.secondaryAscendDrop = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, {8, 0, 160, 20}, {
-		{ label = "None", ascendClassId = 0 },
-	}, function(index, value)
-		if not value or not self.spec then
-			return
-		end
-		self.spec:SelectSecondaryAscendClass(value.ascendClassId)
-		self.spec:AddUndoState()
-		self.spec:SetWindowTitleWithBuildClass()
-		self.buildFlag = true
-	end)
-	self.controls.secondaryAscendDrop.enableDroppedWidth = true
-	self.controls.secondaryAscendDrop.maxDroppedWidth = 360
-	local initialSecondarySelection = (self.spec and self.spec.curSecondaryAscendClassId) or 0
-	self.controls.secondaryAscendDrop:SelByValue(initialSecondarySelection, "ascendClassId")
-	self.controls.buildLoadouts = new("DropDownControl", {"LEFT",self.controls.secondaryAscendDrop,"RIGHT"}, {8, 0, 190, 20}, {}, function(index, value)
+	self.controls.buildLoadouts = new("DropDownControl", {"LEFT",self.controls.classDrop,"RIGHT"}, {5, 0, 190, 20}, {}, function(index, value)
 		if value == "^7^7Loadouts:" or value == "^7^7-----" then
 			self.controls.buildLoadouts:SetSel(1)
 			return
@@ -1112,44 +1092,6 @@ function buildMode:OnFrame(inputEvents)
 	self:ProcessControlsInput(inputEvents, main.viewPort)
 
 	self.controls.classDrop:SelByValue(self.spec.curClassId, "classId")
-	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValueByKey("ascendancies")
-	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassId, "ascendClassId")
-	self.controls.ascendDrop:CheckDroppedWidth(true)
-	local secondaryDrop = self.controls.secondaryAscendDrop
-	if secondaryDrop then
-		local legacyAlternateAscendancyIds = {
-			Warden = true,
-			Warlock = true,
-			Primalist = true,
-		}
-		local entries = {
-			{ label = "None", ascendClassId = 0 },
-		}
-		local selection = (self.spec and self.spec.curSecondaryAscendClassId) or 0
-		if self.spec and self.spec.tree then
-			local altAscendancies = self.spec.tree.alternate_ascendancies
-			if altAscendancies then
-				local sortable = { }
-				for ascendClassId, ascendClass in pairs(altAscendancies) do
-					if ascendClass and ascendClass.id then
-						if not legacyAlternateAscendancyIds[ascendClass.id] or ascendClassId == selection then
-							t_insert(sortable, { label = ascendClass.name, ascendClassId = ascendClassId })
-						end
-					end
-				end
-				t_sort(sortable, function(a, b)
-					return a.label < b.label
-				end)
-				for _, entry in ipairs(sortable) do
-					t_insert(entries, entry)
-				end
-			end
-		end
-		secondaryDrop:SetList(entries)
-		secondaryDrop:SelByValue(selection, "ascendClassId")
-		secondaryDrop:CheckDroppedWidth(true)
-		secondaryDrop.enabled = self.spec ~= nil and #entries > 1
-	end
 
 	if self.buildFlag then
 		-- Wipe Global Cache
@@ -1310,10 +1252,14 @@ function buildMode:OpenSaveAsPopup()
 			end
 		end)
 	end)
-	controls.folder = new("FolderListControl", nil, {0, 115, 450, 100}, self.dbFileSubPath, function(subPath)
+
+	controls.folder = new("FolderListControl", nil, {0, 115, 450, 400}, self.dbFileSubPath, function(subPath)
 		updateBuildName()
 	end)
-	controls.save = new("ButtonControl", nil, {-45, 225, 80, 20}, "Save", function()
+	controls.folder.sortMode = self.saveAsSortMode
+	controls.folder:SortList()
+
+	controls.save = new("ButtonControl", nil, {-45, 525, 80, 20}, "Save", function()
 		main:ClosePopup()
 		self.dbFileName = newFileName
 		self.buildName = newBuildName
@@ -1321,7 +1267,7 @@ function buildMode:OpenSaveAsPopup()
 		self:SaveDBFile()
 		self.spec:SetWindowTitleWithBuildClass()
 	end)
-	controls.close = new("ButtonControl", nil, {45, 225, 80, 20}, "Cancel", function()
+	controls.close = new("ButtonControl", nil, {45, 525, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 		self.actionOnSave = nil
 	end)
@@ -1333,7 +1279,18 @@ function buildMode:OpenSaveAsPopup()
 		controls.save.enabled = false
 	end
 
-	main:OpenPopup(470, 255, self.dbFileName and "Save As" or "Save", controls, "save", "edit", "close")
+	controls.buildSortMode = new("DropDownControl", { "TOPRIGHT", nil, "TOPRIGHT" }, { -10, 70, 120, 18 }, {
+		{ label = "Sort By Name", mode = "NAME" },
+		{ label = "Sort By Last Edited", mode = "EDITED" },
+	}, function(index, value)
+		self.saveAsSortMode = value.mode
+		controls.folder.sortMode = value.mode
+		controls.folder:SortList()
+	end)
+	controls.buildSortMode.tooltipText = "Sort folders by name or date modified."
+	controls.buildSortMode:SelByValue(self.saveAsSortMode, "mode")
+
+	main:OpenPopup(470, 555, self.dbFileName and "Save As" or "Save", controls, "save", "edit", "close")
 end
 
 -- Open the spectre library popup
@@ -1351,8 +1308,8 @@ function buildMode:OpenSpectreLibrary()
 		end
 	end)
 	local controls = { }
-	controls.list = new("MinionListControl", nil, {-100, 40, 190, 250}, self.data, destList)
-	controls.source = new("MinionSearchListControl", nil, {100, 60, 190, 230}, self.data, sourceList, controls.list)
+	controls.list = new("MinionListControl", nil, {-139, 40, 265, 250}, self.data, destList)
+	controls.source = new("MinionSearchListControl", nil, {139, 60, 265, 230}, self.data, sourceList, controls.list)
 	controls.save = new("ButtonControl", nil, {-45, 330, 80, 20}, "Save", function()
 		self.spectreList = destList
 		self.modFlag = true
@@ -1362,9 +1319,9 @@ function buildMode:OpenSpectreLibrary()
 	controls.cancel = new("ButtonControl", nil, {45, 330, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
-	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {24, 2, 0, 16}, "^7Spectres in your Library must be assigned to an active")
-	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {20, 18, 0, 16}, "^7Raise Spectre gem for their buffs and curses to activate")
-	local spectrePopup = main:OpenPopup(410, 360, "Spectre Library", controls)
+	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {99, 2, 0, 16}, "^7Spectres in your Library must be assigned to an active")
+	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, {95, 18, 0, 16}, "^7Raise Spectre gem for their buffs and curses to activate")
+	local spectrePopup = main:OpenPopup(575, 360, "Spectre Library", controls)
 	spectrePopup:SelectControl(spectrePopup.controls.source.controls.searchText)
 end
 
@@ -1482,7 +1439,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 					controls.mainSkillPart.selIndex = activeEffect.srcInstance["skillPart"..suffix] or 1
 					if activeEffect.grantedEffect.parts[controls.mainSkillPart.selIndex].stages then
 						controls.mainSkillStageCount.shown = true
-						controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeEffect.grantedEffect.parts[controls.mainSkillPart.selIndex].stagesMin or 1)
+						controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeSkill.skillData.stagesMax or activeEffect.grantedEffect.parts[controls.mainSkillPart.selIndex].stagesMin or 1)
 					end
 				end
 				if activeSkill.skillFlags.mine then
@@ -1491,7 +1448,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 				end
 				if activeSkill.skillFlags.multiStage and not (activeEffect.grantedEffect.parts and #activeEffect.grantedEffect.parts > 1) then
 					controls.mainSkillStageCount.shown = true
-					controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeSkill.skillData.stagesMin or 1)
+					controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeSkill.skillData.stagesMax or activeSkill.skillData.stagesMin or 1)
 				end
 				if not activeSkill.skillFlags.disable and (activeEffect.grantedEffect.minionList or activeSkill.minionList[1]) then
 					wipeTable(controls.mainSkillMinion.list)
@@ -1684,6 +1641,9 @@ function buildMode:InsertItemWarnings()
 		for _, warning in ipairs(self.calcsTab.mainEnv.itemWarnings.socketLimitWarning) do
 			InsertIfNew(self.controls.warnings.lines, "You have too many gems in your "..warning.." slot")
 		end
+	end
+	if self.calcsTab.mainEnv.itemWarnings.missingAnointWarning then
+		InsertIfNew(self.controls.warnings.lines, "You have eligible items missing an anoint: "..table.concat(self.calcsTab.mainEnv.itemWarnings.missingAnointWarning, ", "))
 	end
 end
 

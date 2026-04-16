@@ -1,22 +1,55 @@
 name: Port changes to PoB2
+run-name: "Port PR #${{ github.event.pull_request.number || inputs.pr_number }} - ${{ github.event.pull_request.title || 'Manual dispatch' }}"
 
 on:
-    pull_request_target:
-        types: [closed]
-
-env:
-    LABEL_STRING: ${{ join(github.event.pull_request.labels.*.name, ',') }}
+  pull_request_target:
+    types: [closed]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: PoB1 PR number to port
+        required: true
+        type: number
 
 jobs:
-    backport:
-        if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'pob2')
-        runs-on: ubuntu-latest
-        steps:
-            - name: Notify PathOfBuilding repo
-              uses: peter-evans/repository-dispatch@v3
-              with:
-                token: ${{ secrets.WIRES77_PAT }}
-                repository: ${{ github.repository_owner }}/PathOfBuilding-PoE2
-                event-type: port-changes
-                client-payload: '{"patch_url": "${{ github.event.pull_request.patch_url }}", "msg": "Apply changes from ${{ github.event.pull_request.html_url }}", "id": ${{ github.event.pull_request.number }}, "title": "${{ github.event.pull_request.title }}", "labels": "${{ env.LABEL_STRING }}", "name": "${{ github.event.pull_request.user.name }}", "user": "${{ github.event.pull_request.user.login }}"}'
+  backport:
+    if: github.event_name == 'workflow_dispatch' || (github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'pob2'))
+    runs-on: ubuntu-latest
+    steps:
+      - name: Determine PR number
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request_target" ]; then
+            echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> "$GITHUB_ENV"
+          else
+            echo "PR_NUMBER=${{ github.event.inputs.pr_number }}" >> "$GITHUB_ENV"
+          fi
 
+      - name: Fetch PR details
+        id: payload
+        uses: actions/github-script@v7
+        with:
+          result-encoding: string
+          script: |
+            const pr = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: process.env.PR_NUMBER
+            });
+            const labels = pr.data.labels.map(l => l.name).join(',');
+            return JSON.stringify({
+              patch_url: pr.data.patch_url,
+              msg: `Apply changes from ${pr.data.html_url}`,
+              id: pr.data.number,
+              title: pr.data.title,
+              labels,
+              name: pr.data.user.name || pr.data.user.login,
+              user: pr.data.user.login,
+            });
+
+      - name: Notify PathOfBuilding-PoE2 repo
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.WIRES77_PAT }}
+          repository: ${{ github.repository_owner }}/PathOfBuilding-PoE2
+          event-type: port-changes
+          client-payload: ${{ steps.payload.outputs.result }}

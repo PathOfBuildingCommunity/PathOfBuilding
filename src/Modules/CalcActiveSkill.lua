@@ -107,36 +107,15 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	activeSkill.effectList = { activeEffect }
 	local rejectedSupportsIndices = {}
 
-	-- Return first compatible support grantedEffect plus a flag indicating the support has a support component
-	local function getGrantedSupportEffect(supportEffect)
-		local hasSupport = false
-		if supportEffect.gemData then
-			for _, grantedEffect in ipairs(supportEffect.gemData.grantedEffectList) do
-				if grantedEffect and grantedEffect.support then
-					hasSupport = true
-					if calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill) then
-						return grantedEffect, true
-					end
+	for index, supportEffect in ipairs(supportList) do
+		-- Pass 1: Add skill types from compatible supports
+		if supportEffect.grantedEffect.support then
+			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+				for _, skillType in pairs(supportEffect.grantedEffect.addSkillTypes) do
+					activeSkill.skillTypes[skillType] = true
 				end
 			end
-		elseif supportEffect.grantedEffect then
-			hasSupport = true
-			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
-				return supportEffect.grantedEffect, true
-			end
-		end
-		return nil, hasSupport
-	end
-
-	for index, supportEffect in ipairs(supportList) do
-		-- Loop through grantedEffectList until we find a support gem if the gem has an active and support component e.g. Autoexertion
-		local grantedSupportEffect, hasSupport = getGrantedSupportEffect(supportEffect)
-		if grantedSupportEffect then
-			-- Pass 1: Add skill types from compatible supports
-			for _, skillType in pairs(grantedSupportEffect.addSkillTypes) do
-				activeSkill.skillTypes[skillType] = true
-			end
-		elseif hasSupport then
+		else
 			t_insert(rejectedSupportsIndices, index)
 		end
 	end
@@ -148,12 +127,13 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 		notAddedNewSupport = true
 		for index, supportEffectIndex in ipairs(rejectedSupportsIndices) do
 			local supportEffect = supportList[supportEffectIndex]
-			local grantedSupportEffect = getGrantedSupportEffect(supportEffect)
-			if grantedSupportEffect then
-				notAddedNewSupport = false
-				rejectedSupportsIndices[index] = nil
-				for _, skillType in pairs(grantedSupportEffect.addSkillTypes) do
-					activeSkill.skillTypes[skillType] = true
+			if supportEffect.grantedEffect.support then
+				if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+					notAddedNewSupport = false
+					rejectedSupportsIndices[index] = nil
+					for _, skillType in pairs(supportEffect.grantedEffect.addSkillTypes) do
+						activeSkill.skillTypes[skillType] = true
+					end
 				end
 			end
 		end
@@ -161,16 +141,17 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	
 	for _, supportEffect in ipairs(supportList) do
 		-- Pass 2: Add all compatible supports
-		local grantedSupportEffect = getGrantedSupportEffect(supportEffect)
-		if grantedSupportEffect then
-			t_insert(activeSkill.effectList, supportEffect)
-			if supportEffect.isSupporting and activeEffect.srcInstance then
-				supportEffect.isSupporting[activeEffect.srcInstance] = true
-			end
-			if grantedSupportEffect.addFlags and not summonSkill then
-				-- Support skill adds flags to supported skills (eg. Remote Mine adds 'mine')
-				for k in pairs(grantedSupportEffect.addFlags) do
-					skillFlags[k] = true
+		if supportEffect.grantedEffect.support then
+			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+				t_insert(activeSkill.effectList, supportEffect)
+				if supportEffect.isSupporting and activeEffect.srcInstance then
+					supportEffect.isSupporting[activeEffect.srcInstance] = true
+				end
+				if supportEffect.grantedEffect.addFlags and not summonSkill then
+					-- Support skill adds flags to supported skills (eg. Remote Mine adds 'mine')
+					for k in pairs(supportEffect.grantedEffect.addFlags) do
+						skillFlags[k] = true
+					end
 				end
 			end
 		end
@@ -190,9 +171,8 @@ function calcs.copyActiveSkill(env, mode, skill)
 	if skill.activeEffect.srcInstance then
 		activeEffect.level = skill.activeEffect.srcInstance.level
 		activeEffect.quality = skill.activeEffect.srcInstance.quality
-		activeEffect.qualityId = skill.activeEffect.srcInstance.qualityId
 		activeEffect.srcInstance = skill.activeEffect.srcInstance
-		activeEffect.gemData = skill.activeEffect.srcInstance.gemDat
+		activeEffect.gemData = skill.activeEffect.srcInstance.gemData
 	end
 
 	local newSkill = calcs.createActiveSkill(activeEffect, skill.supportList, skill.actor, skill.socketGroup, skill.summonSkill)
@@ -327,7 +307,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		if not skillTypes[SkillType.MainHandOnly] and not skillFlags.forceMainHand then
 			local weapon2Flags, weapon2Info = getWeaponFlags(env, activeSkill.actor.weaponData2, weaponTypes)
 			if weapon2Flags then
-				if skillTypes[SkillType.DualWieldRequiresDifferentTypes] and (activeSkill.actor.weaponData1.type == activeSkill.actor.weaponData2.type) then
+				if skillTypes[SkillType.DualWieldRequiresDifferentTypes] and (activeSkill.actor.weaponData1.type == activeSkill.actor.weaponData2.type) and not (activeSkill.actor.weaponData2.countsAsAll1H or activeSkill.actor.weaponData1.countsAsAll1H) then
 					-- Skill requires a different compatible off hand weapon to main hand weapon
 					skillFlags.disable = true
 					activeSkill.disableReason = activeSkill.disableReason or "Weapon Types Need to be Different"
@@ -349,6 +329,13 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		end
 	end
 
+	-- Apply stat-map flagged skill flags.
+	for stat, statValue in pairs(calcLib.buildSkillInstanceStats(activeEffect, activeGrantedEffect)) do
+		local map = activeGrantedEffect.statMap[stat]
+		if statValue ~= 0 and map and map.skillFlag then
+			skillFlags[map.skillFlag] = true
+		end
+	end
 	-- Build skill mod flag set
 	local skillModFlags = 0
 	if skillFlags.hit then
@@ -412,6 +399,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	end
 	if skillFlags.brand then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Brand)
+	end
+	if skillFlags.arrow then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Arrow)
 	end
 	if skillFlags.totem then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Totem)
@@ -624,16 +614,15 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		end
 	end
 
-	if skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStages") > 0 then
+	local limit = skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStages")
+	activeSkill.skillData.stagesMax = limit > 0 and limit or nil
+	if limit > 0 then
 		skillFlags.multiStage = true
-		activeSkill.activeStageCount = m_max((env.mode == "CALCS" and activeEffect.srcInstance.skillStageCountCalcs) or (env.mode ~= "CALCS" and activeEffect.srcInstance.skillStageCount) or 1, 1 + skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MinimumStage"))
-		local limit = skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStages")
-		if limit > 0 then
-			if activeSkill.activeStageCount and activeSkill.activeStageCount > 0 then
-				skillModList:NewMod("Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."Stage", "BASE", m_min(limit, activeSkill.activeStageCount), "Base")
-				activeSkill.activeStageCount = (activeSkill.activeStageCount or 0) - 1
-				skillModList:NewMod("Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."StageAfterFirst", "BASE", m_min(limit - 1, activeSkill.activeStageCount), "Base")
-			end
+		activeSkill.activeStageCount = m_max((env.mode == "CALCS" and activeEffect.srcInstance.skillStageCountCalcs) or (env.mode ~= "CALCS" and activeEffect.srcInstance.skillStageCount) or activeSkill.skillData.stagesMax or 1, 1 + skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MinimumStage"))
+		if activeSkill.activeStageCount and activeSkill.activeStageCount > 0 then
+			skillModList:NewMod("Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."Stage", "BASE", m_min(limit, activeSkill.activeStageCount), "Base")
+			activeSkill.activeStageCount = (activeSkill.activeStageCount or 0) - 1
+			skillModList:NewMod("Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."StageAfterFirst", "BASE", m_min(limit - 1, activeSkill.activeStageCount), "Base")
 		end
 	elseif noPotentialStage and activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then
 		activeEffect.srcInstance.skillStageCountCalcs = nil
@@ -731,7 +720,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				activeEffect.srcInstance.skillMinionItemSetCalcs = nil
 				activeEffect.srcInstance.skillMinionItemSet = nil
 			end
-			if activeSkill.skillData.minionUseBowAndQuiver and env.player.weaponData1.type == "Bow" then
+			if (activeSkill.skillData.minionUseBowAndQuiver and env.player.weaponData1.type == "Bow") or activeSkill.skillData.minionUseMainHandWeapon then
 				minion.weaponData1 = env.player.weaponData1
 			elseif env.theIronMass and minionType == "RaisedSkeleton" then
 				minion.weaponData1 = env.player.weaponData1
