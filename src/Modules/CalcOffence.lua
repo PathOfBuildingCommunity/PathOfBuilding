@@ -4418,7 +4418,10 @@ function calcs.offence(env, actor, activeSkill)
 			durationMod = m_max(durationMod, 0)
 			globalOutput.PoisonDuration = durationBase * durationMod / rateMod * debuffDurationMult
 			-- The chance any given hit applies poison
-			local poisonChance = output.PoisonChanceOnHit / 100 * (1 - output.CritChance / 100) + output.PoisonChanceOnCrit / 100 * output.CritChance / 100
+			local chaosPoisonChance = (output.ChaosHitAverage or 0) > 0 and output.ChaosPoisonChance or 0
+			local poisonChanceOnHit = m_min(100, output.PoisonChanceOnHit + chaosPoisonChance)
+			local poisonChanceOnCrit = m_min(100, output.PoisonChanceOnCrit + chaosPoisonChance)
+			local poisonChance = poisonChanceOnHit / 100 * (1 - output.CritChance / 100) + poisonChanceOnCrit / 100 * output.CritChance / 100
 			
 			-- Handling of "inflict x additional poisons"
 			local additionalPoisonStacks = 1
