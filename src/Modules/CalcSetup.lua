@@ -921,8 +921,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 					env.flaskSlotOccupied[flaskNum] = true
 				end
 				if item.base.subType == "Life" then
+					setLifeRecoveryFromFlasks(item)
 					local highestCharges = env.itemModDB.multipliers["LifeFlaskCharges"] or 0
-          setLifeRecoveryFromFlasks(item)
 					if item.flaskData.chargesMax > highestCharges then
 						env.itemModDB.multipliers["LifeFlaskCharges"] = item.flaskData.chargesMax
 					end
