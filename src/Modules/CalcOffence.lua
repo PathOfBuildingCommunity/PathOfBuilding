@@ -3135,6 +3135,7 @@ function calcs.offence(env, actor, activeSkill)
 		local totalHitMin, totalHitMax, totalHitAvg = 0, 0, 0
 		local totalCritMin, totalCritMax, totalCritAvg = 0, 0, 0
 		local ghostReaver = skillModList:Flag(nil, "GhostReaver")
+		local ghostReaverLifeLeech = 0
 		output.LifeLeech = 0
 		output.LifeLeechInstant = 0
 		output.EnergyShieldLeech = 0
@@ -3376,11 +3377,6 @@ function calcs.offence(env, actor, activeSkill)
 						manaLeech = skillModList:Sum("BASE", cfg, "DamageLeech", "DamageManaLeech", damageType.."DamageManaLeech", isElemental[damageType] and "ElementalDamageManaLeech" or nil) + enemyDB:Sum("BASE", cfg, "SelfDamageManaLeech") / 100
 					end
 
-					if ghostReaver and not noLifeLeech then
-						energyShieldLeech = energyShieldLeech + lifeLeech
-						lifeLeech = 0
-					end
-
 					if lifeLeech > 0 and not noLifeLeech then
 						lifeLeechTotal = lifeLeechTotal + damageTypeHitAvg * lifeLeech / 100
 					end
@@ -3413,7 +3409,7 @@ function calcs.offence(env, actor, activeSkill)
 					totalHitMax = totalHitMax + damageTypeHitMax
 				end
 			end
-			if skillData.lifeLeechPerUse then
+			if skillData.lifeLeechPerUse and not noLifeLeech then
 				lifeLeechTotal = lifeLeechTotal + skillData.lifeLeechPerUse
 			end
 			if skillData.manaLeechPerUse then
@@ -3421,12 +3417,23 @@ function calcs.offence(env, actor, activeSkill)
 			end
 
 			-- leech caps per instance
-			lifeLeechTotal = m_min(lifeLeechTotal, globalOutput.MaxLifeLeechInstance)
+			if ghostReaver then
+				lifeLeechTotal = m_min(lifeLeechTotal, globalOutput.MaxEnergyShieldLeechInstance)
+			else
+				lifeLeechTotal = m_min(lifeLeechTotal, globalOutput.MaxLifeLeechInstance)
+			end
 			energyShieldLeechTotal = m_min(energyShieldLeechTotal, globalOutput.MaxEnergyShieldLeechInstance)
 			manaLeechTotal = m_min(manaLeechTotal, globalOutput.MaxManaLeechInstance)
+			if ghostReaver and noEnergyShieldLeech then
+				lifeLeechTotal = 0
+			end
 
 			local portion = (pass == 1) and (output.CritChance / 100) or (1 - output.CritChance / 100)
-			output.LifeLeech = output.LifeLeech + lifeLeechTotal * portion
+			if ghostReaver then
+				ghostReaverLifeLeech = ghostReaverLifeLeech + lifeLeechTotal * portion
+			else
+				output.LifeLeech = output.LifeLeech + lifeLeechTotal * portion
+			end
 			output.EnergyShieldLeech = output.EnergyShieldLeech + energyShieldLeechTotal * portion
 			output.ManaLeech = output.ManaLeech + manaLeechTotal * portion
 		end
@@ -3473,6 +3480,11 @@ function calcs.offence(env, actor, activeSkill)
 		if output.LifeLeechInstantProportion > 0 then
 			output.LifeLeechInstant = output.LifeLeech * output.LifeLeechInstantProportion
 			output.LifeLeech = output.LifeLeech * (1 - output.LifeLeechInstantProportion)
+		end
+		if ghostReaver and ghostReaverLifeLeech > 0 then
+			output.EnergyShieldLeech = output.EnergyShieldLeech + ghostReaverLifeLeech
+			output.LifeLeech = 0
+			output.LifeLeechInstant = 0
 		end
 		output.EnergyShieldLeechInstantProportion = m_max(m_min(skillModList:Sum("BASE", cfg, "InstantEnergyShieldLeech") or 0, 100), 0) / 100
 		if output.EnergyShieldLeechInstantProportion > 0 then
