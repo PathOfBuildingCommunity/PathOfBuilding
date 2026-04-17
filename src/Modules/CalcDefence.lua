@@ -2701,7 +2701,10 @@ function calcs.buildDefenceEstimations(env, actor)
 		if poolTable.Life >= 0 and damageTotal >= maxDamage then -- If still living and the amount of damage exceeds maximum threshold we survived infinite number of hits.
 			return m_huge
 		end
-		return numHits
+		if numHits ~= numHits then
+			return 0
+		end
+		return m_max(numHits, 0)
 	end
 	
 	if damageCategoryConfig ~= "DamageOverTime" then
@@ -3161,9 +3164,12 @@ function calcs.buildDefenceEstimations(env, actor)
 					local damageConvertedMulti = convertPercent / 100
 					local totalHitPool = output[damageConvertedType.."TotalHitPool"]
 					local totalTakenMulti = output[damageConvertedType.."AfterReductionTakenHitMulti"] * (1 - output["VaalArcticArmourMitigation"])
-
-					if effectiveAppliedArmour == 0 and convertPercent == 100 then	-- use a simpler calculation for no armour DR
-						local drMulti = output[damageConvertedType.."ResistTakenHitMulti"] * (1 - output[damageConvertedType.."DamageReduction"] / 100)
+					if damageConvertedMulti <= 0 then
+						local takenWithoutIncoming = m_max(takenFlat, 0) * totalTakenMulti
+						hitTaken = takenWithoutIncoming >= totalHitPool and 0 or m_huge
+					elseif effectiveAppliedArmour == 0 and convertPercent == 100 then -- use a simpler calculation for no armour DR
+						local totalResistMult = output[damageConvertedType.."ResistTakenHitMulti"]
+						local drMulti = totalResistMult * (1 - output[damageConvertedType.."DamageReduction"] / 100)
 						hitTaken = m_max(totalHitPool / damageConvertedMulti / drMulti - takenFlat, 0) / totalTakenMulti
 					else
 						-- get relevant raw reductions and reduction modifiers
@@ -3194,7 +3200,7 @@ function calcs.buildDefenceEstimations(env, actor)
 						local b = ((enemyOverwhelmPercent / 100 - flatDR) * effectiveAppliedArmour * totalTakenMulti - 5 * (totalHitPool - takenFlat * totalTakenMulti)) * resistXConvert
 						local c = -effectiveAppliedArmour * (totalHitPool - takenFlat * totalTakenMulti)
 
-						local RAW = (m_sqrt(b * b - 4 * a * c) - b) / (2 * a)
+						local RAW = a ~= 0 and (m_sqrt(m_max(b * b - 4 * a * c, 0)) - b) / (2 * a) or m_huge
 
 						-- tack on some caps
 						local noDRMaxHit = totalHitPool / damageConvertedMulti / totalResistMult / totalTakenMulti * (1 - takenFlat * totalTakenMulti / totalHitPool)
@@ -3220,9 +3226,18 @@ function calcs.buildDefenceEstimations(env, actor)
 					local passOverkill = passPools.OverkillDamage - passPools.hitPoolRemaining
 					local passRatio = 0
 					for partType, _ in pairs(passDamages) do
-						passRatio = m_max(passRatio, (passOverkill + output[partType.."TotalHitPool"]) / output[partType.."TotalHitPool"])
+						local partPool = output[partType.."TotalHitPool"] or 0
+						if partPool > 0 then
+							passRatio = m_max(passRatio, (passOverkill + partPool) / partPool)
+						end
 					end
-					local stepSize = n > 1 and m_min(m_abs((passOverkill - previousOverkill) / previousOverkill), 2) or 1
+					if passRatio <= 0 then
+						passRatio = 1
+					end
+					local stepSize = 1
+					if n > 1 and previousOverkill and previousOverkill ~= 0 and previousOverkill == previousOverkill then
+						stepSize = m_min(m_abs((passOverkill - previousOverkill) / previousOverkill), 2)
+					end
 					local stepAdjust = stepSize > 1 and -passOverkill / stepSize or n > 1 and -passOverkill * stepSize or 0
 					previousOverkill = passOverkill
 					passIncomingDamage = (passIncomingDamage + stepAdjust) / m_sqrt(passRatio)
