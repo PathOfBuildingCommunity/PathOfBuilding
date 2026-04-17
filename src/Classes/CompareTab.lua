@@ -1030,73 +1030,6 @@ function CompareTabClass:GetShortBuildName(fullName)
 	return fullName
 end
 
--- Format a numeric value with separator and rounding
-function CompareTabClass:FormatVal(val, p)
-	return formatNumSep(tostring(round(val, p)))
-end
-
--- Resolve format strings against an actor's output/modDB
--- Handles: {output:Key}, {p:output:Key}, {p:mod:indices}
-function CompareTabClass:FormatStr(str, actor, colData)
-	if not actor then return "" end
-	str = str:gsub("{output:([%a%.:]+)}", function(c)
-		local ns, var = c:match("^(%a+)%.(%a+)$")
-		if ns then
-			return actor.output[ns] and actor.output[ns][var] or ""
-		else
-			return actor.output[c] or ""
-		end
-	end)
-	str = str:gsub("{(%d+):output:([%a%.:]+)}", function(p, c)
-		local ns, var = c:match("^(%a+)%.(%a+)$")
-		if ns then
-			return self:FormatVal(actor.output[ns] and actor.output[ns][var] or 0, tonumber(p))
-		else
-			return self:FormatVal(actor.output[c] or 0, tonumber(p))
-		end
-	end)
-	str = str:gsub("{(%d+):mod:([%d,]+)}", function(p, n)
-		local numList = { }
-		for num in n:gmatch("%d+") do
-			t_insert(numList, tonumber(num))
-		end
-		if not colData[numList[1]] or not colData[numList[1]].modType then
-			return "?"
-		end
-		local modType = colData[numList[1]].modType
-		local modTotal = modType == "MORE" and 1 or 0
-		for _, num in ipairs(numList) do
-			local sectionData = colData[num]
-			if not sectionData then break end
-			local modCfg = (sectionData.cfg and actor.mainSkill and actor.mainSkill[sectionData.cfg.."Cfg"]) or { }
-			if sectionData.modSource then
-				modCfg.source = sectionData.modSource
-			end
-			if sectionData.actor then
-				modCfg.actor = sectionData.actor
-			end
-			local modVal
-			local modStore = (sectionData.enemy and actor.enemy and actor.enemy.modDB) or (sectionData.cfg and actor.mainSkill and actor.mainSkill.skillModList) or actor.modDB
-			if not modStore then break end
-			if type(sectionData.modName) == "table" then
-				modVal = modStore:Combine(sectionData.modType, modCfg, unpack(sectionData.modName))
-			else
-				modVal = modStore:Combine(sectionData.modType, modCfg, sectionData.modName)
-			end
-			if modType == "MORE" then
-				modTotal = modTotal * modVal
-			else
-				modTotal = modTotal + modVal
-			end
-		end
-		if modType == "MORE" then
-			modTotal = (modTotal - 1) * 100
-		end
-		return self:FormatVal(modTotal, tonumber(p))
-	end)
-	return str
-end
-
 -- Populate a set-selector dropdown from a tab's ordered set list.
 -- tab: the tab object (e.g. itemsTab, skillsTab, configTab)
 -- orderListField/setsField/activeIdField: string keys on tab
@@ -4399,8 +4332,8 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 				if subSec.data and subSec.data.extra then
 					local extraTextW = DrawStringWidth(16, "VAR BOLD", subSec.label .. ":")
 					local extraX = x + 3 + extraTextW + 8
-					local ok1, pExtra = pcall(self.FormatStr, self, subSec.data.extra, primaryActor)
-					local ok2, cExtra = pcall(self.FormatStr, self, subSec.data.extra, compareActor)
+					local ok1, pExtra = pcall(formatCalcStr, subSec.data.extra, primaryActor)
+					local ok2, cExtra = pcall(formatCalcStr, subSec.data.extra, compareActor)
 					if ok1 and ok2 then
 						DrawString(extraX, lineY + 3, "LEFT", 16, "VAR",
 							colorCodes.POSITIVE .. pExtra .. "  ^8|  " .. colorCodes.WARNING .. cExtra)
@@ -4452,7 +4385,7 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 						DrawImage(nil, x + valCol1X, lineY, valColWidth, 18)
 					end
 					if colData and colData.format then
-						local ok, str = pcall(self.FormatStr, self, colData.format, primaryActor, colData)
+						local ok, str = pcall(formatCalcStr, colData.format, primaryActor, colData)
 						if ok and str then
 							DrawString(x + valCol1X + 2, lineY + 9 - textSize / 2, "LEFT", textSize, "VAR", "^7" .. str)
 						end
@@ -4466,7 +4399,7 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 						DrawImage(nil, x + valCol2X, lineY, valColWidth, 18)
 					end
 					if colData and colData.format then
-						local ok, str = pcall(self.FormatStr, self, colData.format, compareActor, colData)
+						local ok, str = pcall(formatCalcStr, colData.format, compareActor, colData)
 						if ok and str then
 							DrawString(x + valCol2X + 2, lineY + 9 - textSize / 2, "LEFT", textSize, "VAR", "^7" .. str)
 						end
