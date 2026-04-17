@@ -2539,8 +2539,9 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 	-- Helper to format an impact value and compute percentage
 	local function formatImpact(impact)
 		local displayVal = impact * ((displayStat.pc or displayStat.mod) and 100 or 1)
-		local numStr = s_format("%" .. displayStat.fmt, displayVal)
-		numStr = formatNumSep(numStr)
+		local rawNumStr = s_format("%" .. displayStat.fmt, displayVal)
+		local isZero = (tonumber(rawNumStr) == 0)
+		local numStr = formatNumSep(rawNumStr)
 
 		-- Determine color
 		local isPositive = (displayVal > 0 and not displayStat.lowerIsBetter) or (displayVal < 0 and displayStat.lowerIsBetter)
@@ -2562,7 +2563,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 			combinedStr = str .. " ^7(" .. color .. pctStr .. "^7)"
 		end
 
-		return str, displayVal, combinedStr, percent
+		return str, displayVal, combinedStr, percent, isZero
 	end
 
 	-- ==========================================
@@ -2592,23 +2593,25 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 						if pathDist == 0 then pathDist = 1 end
 					end
 					local perPoint = impact / pathDist
-					local impactStr, impactVal, combinedImpactStr, impactPercent = formatImpact(impact)
+					local impactStr, impactVal, combinedImpactStr, impactPercent, impactIsZero = formatImpact(impact)
 					local perPointStr = formatImpact(perPoint)
 
-					t_insert(results, {
-						category = "Tree",
-						categoryColor = "^7",
-						nameColor = "^7",
-						name = pNode.dn,
-						nodeId = nodeId,
-						impact = impactVal,
-						impactStr = impactStr,
-						impactPercent = impactPercent,
-						combinedImpactStr = combinedImpactStr,
-						pathDist = pathDist,
-						perPoint = perPoint * ((displayStat.pc or displayStat.mod) and 100 or 1),
-						perPointStr = perPointStr,
-					})
+					if not impactIsZero then
+						t_insert(results, {
+							category = "Tree",
+							categoryColor = "^7",
+							nameColor = "^7",
+							name = pNode.dn,
+							nodeId = nodeId,
+							impact = impactVal,
+							impactStr = impactStr,
+							impactPercent = impactPercent,
+							combinedImpactStr = combinedImpactStr,
+							pathDist = pathDist,
+							perPoint = perPoint * ((displayStat.pc or displayStat.mod) and 100 or 1),
+							perPointStr = perPointStr,
+						})
+					end
 
 					processed = processed + 1
 					if coroutine.running() and GetTime() - start > 100 then
@@ -2632,31 +2635,35 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 		for _, slotName in ipairs(baseSlots) do
 			local cSlot = compareEntry.itemsTab and compareEntry.itemsTab.slots[slotName]
 			local cItem = cSlot and compareEntry.itemsTab.items[cSlot.selItemId]
-			if cItem and cItem.raw then
+			local pSlot = self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.slots[slotName]
+			local pItem = pSlot and self.primaryBuild.itemsTab.items[pSlot.selItemId]
+			if cItem and cItem.raw and not (pItem and pItem.name == cItem.name) then
 				local newItem = new("Item", cItem.raw)
 				newItem:NormaliseQuality()
 				local output = calcFunc({ repSlotName = slotName, repItem = newItem }, useFullDPS)
 				local impact = self:CalculatePowerStat(powerStat, output, calcBase)
-				local impactStr, impactVal, combinedImpactStr, impactPercent = formatImpact(impact)
+				local impactStr, impactVal, combinedImpactStr, impactPercent, impactIsZero = formatImpact(impact)
 
-				-- Get rarity color for item name
-				local rarityColor = colorCodes[cItem.rarity] or colorCodes.NORMAL
+				if not impactIsZero then
+					-- Get rarity color for item name
+					local rarityColor = colorCodes[cItem.rarity] or colorCodes.NORMAL
 
-				t_insert(results, {
-					category = "Item",
-					categoryColor = rarityColor,
-					nameColor = rarityColor,
-					name = (cItem.name or "Unknown") .. ", " .. slotName,
-					itemObj = newItem,
-					slotName = slotName,
-					impact = impactVal,
-					impactStr = impactStr,
-					impactPercent = impactPercent,
-					combinedImpactStr = combinedImpactStr,
-					pathDist = nil,
-					perPoint = nil,
-					perPointStr = nil,
-				})
+					t_insert(results, {
+						category = "Item",
+						categoryColor = rarityColor,
+						nameColor = rarityColor,
+						name = (cItem.name or "Unknown") .. ", " .. slotName,
+						itemObj = newItem,
+						slotName = slotName,
+						impact = impactVal,
+						impactStr = impactStr,
+						impactPercent = impactPercent,
+						combinedImpactStr = combinedImpactStr,
+						pathDist = nil,
+						perPoint = nil,
+						perPointStr = nil,
+					})
+				end
 			end
 			processed = processed + 1
 			if coroutine.running() and GetTime() - start > 100 then
@@ -2692,7 +2699,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 
 		local jewelSlots = self:GetJewelComparisonSlots(compareEntry)
 		for _, jEntry in ipairs(jewelSlots) do
-			if jEntry.cItem and jEntry.cItem.raw then
+			if jEntry.cItem and jEntry.cItem.raw and not (jEntry.pItem and jEntry.pItem.name == jEntry.cItem.name) then
 				local newItem = new("Item", jEntry.cItem.raw)
 				newItem:NormaliseQuality()
 
@@ -2722,7 +2729,8 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 				end
 
 				if bestImpactVal ~= nil then
-					local impactStr, impactVal, combinedImpactStr, impactPercent = formatImpact(bestImpactVal)
+					local impactStr, impactVal, combinedImpactStr, impactPercent, impactIsZero = formatImpact(bestImpactVal)
+					if not impactIsZero then
 					local rarityColor = colorCodes[jEntry.cItem.rarity] or colorCodes.NORMAL
 
 					t_insert(results, {
@@ -2739,6 +2747,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 						perPoint = nil,
 						perPointStr = nil,
 					})
+					end
 				end
 			end
 			processed = processed + 1
@@ -2784,22 +2793,24 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 					ConPrintf("Compare power (gem): %s", tostring(gemCalcFunc))
 				else
 					local impact = self:CalculatePowerStat(powerStat, gemCalcBase, calcBase)
-					local impactStr, impactVal, combinedImpactStr, impactPercent = formatImpact(impact)
-					local label = self:GetSocketGroupLabel(cGroup)
+					local impactStr, impactVal, combinedImpactStr, impactPercent, impactIsZero = formatImpact(impact)
+					if not impactIsZero then
+						local label = self:GetSocketGroupLabel(cGroup)
 
-					t_insert(results, {
-						category = "Skill gem",
-						categoryColor = colorCodes.GEM,
-						nameColor = colorCodes.GEM,
-						name = label,
-						impact = impactVal,
-						impactStr = impactStr,
-						impactPercent = impactPercent,
-						combinedImpactStr = combinedImpactStr,
-						pathDist = nil,
-						perPoint = nil,
-						perPointStr = nil,
-					})
+						t_insert(results, {
+							category = "Skill gem",
+							categoryColor = colorCodes.GEM,
+							nameColor = colorCodes.GEM,
+							name = label,
+							impact = impactVal,
+							impactStr = impactStr,
+							impactPercent = impactPercent,
+							combinedImpactStr = combinedImpactStr,
+							pathDist = nil,
+							perPoint = nil,
+							perPointStr = nil,
+						})
+					end
 				end
 			end
 			processed = processed + 1
@@ -2864,21 +2875,23 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 							ConPrintf("Compare power (support gem): %s", tostring(sgCalcFunc))
 						else
 							local impact = self:CalculatePowerStat(powerStat, sgCalcBase, calcBase)
-							local impactStr, impactVal, combinedImpactStr, impactPercent = formatImpact(impact)
+							local impactStr, impactVal, combinedImpactStr, impactPercent, impactIsZero = formatImpact(impact)
 
-							t_insert(results, {
-								category = "Support gem",
-								categoryColor = colorCodes.GEM,
-								nameColor = colorCodes.GEM,
-								name = name,
-								impact = impactVal,
-								impactStr = impactStr,
-								impactPercent = impactPercent,
-								combinedImpactStr = combinedImpactStr,
-								pathDist = nil,
-								perPoint = nil,
-								perPointStr = nil,
-							})
+							if not impactIsZero then
+								t_insert(results, {
+									category = "Support gem",
+									categoryColor = colorCodes.GEM,
+									nameColor = colorCodes.GEM,
+									name = name,
+									impact = impactVal,
+									impactStr = impactStr,
+									impactPercent = impactPercent,
+									combinedImpactStr = combinedImpactStr,
+									pathDist = nil,
+									perPoint = nil,
+									perPointStr = nil,
+								})
+							end
 						end
 						processed = processed + 1
 						if coroutine.running() and GetTime() - start > 100 then
@@ -2933,10 +2946,10 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 						ConPrintf("Compare power (config): %s", tostring(cfgCalcFunc))
 					else
 						local impact = self:CalculatePowerStat(powerStat, cfgCalcBase, calcBase)
-						local impactStr, impactVal, combinedImpactStr, impactPercent = formatImpact(impact)
+						local impactStr, impactVal, combinedImpactStr, impactPercent, impactIsZero = formatImpact(impact)
 
 						-- Only include configs with non-zero impact
-						if impactVal ~= 0 then
+						if not impactIsZero then
 							-- Build display name with value change description
 							local displayName = varData.label or varData.var
 							displayName = displayName:gsub(":$", "")
