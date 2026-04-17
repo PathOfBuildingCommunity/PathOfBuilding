@@ -4366,7 +4366,7 @@ function CompareTabClass:DrawConfig(vp, compareEntry)
 	SetDrawColor(1, 1, 1)
 	-- Column headers aligned with first column's control offsets
 	local headerBaseX = 10
-	DrawString(headerBaseX + LAYOUT.configCol2, colHeaderY, "LEFT", columnHeaderHeight, "VAR",
+	DrawString(headerBaseX + LAYOUT.configCol3 - 8, colHeaderY, "RIGHT_X", columnHeaderHeight, "VAR",
 		colorCodes.POSITIVE .. self:GetShortBuildName(self.primaryBuild.buildName))
 	DrawString(headerBaseX + LAYOUT.configCol3, colHeaderY, "LEFT", columnHeaderHeight, "VAR",
 		colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
