@@ -653,7 +653,7 @@ describe("TestItemMods", function()
 		runCallback("OnFrame")
 
 
-		build.skillsTab:PasteSocketGroup("Lacerate of Hemmorhage 20/0  1")
+		build.skillsTab:PasteSocketGroup("Lacerate of Haemorrhage 20/0  1")
 		runCallback("OnFrame")
 		assert.True(build.calcsTab.mainEnv.player.mainSkill.skillFlags.disable == nil)
 
