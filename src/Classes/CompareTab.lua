@@ -13,6 +13,7 @@ local dkjson = require "dkjson"
 local tradeHelpers = LoadModule("Classes/CompareTradeHelpers")
 local buySimilar = LoadModule("Classes/CompareBuySimilar")
 local calcsHelpers = LoadModule("Classes/CompareCalcsHelpers")
+local buildListHelpers = LoadModule("Modules/BuildListHelpers")
 
 -- Node IDs below this value are normal passive tree nodes; IDs at or above are cluster jewel nodes
 local CLUSTER_NODE_OFFSET = 65536
@@ -183,11 +184,6 @@ function CompareTabClass:InitControls()
 		end
 	end
 
-	-- Notes sub-tab controls
-	self.controls.notesDesc = new("LabelControl", nil, {0, 0, 0, 16}, "^7These are the notes from the compared build. Any edits here are saved with this comparison and do not affect the main build's notes.")
-	self.controls.notesDesc.shown = function()
-		return self.compareViewMode == "NOTES" and #self.compareEntries > 0
-	end
 	self.controls.notesEdit = new("EditControl", nil, {0, 0, 0, 0}, "", nil, "^%C\t\n", nil, nil, 16, true)
 	self.controls.notesEdit.shown = function()
 		return self.compareViewMode == "NOTES" and #self.compareEntries > 0
@@ -1396,7 +1392,7 @@ function CompareTabClass:OpenImportPopup()
 	controls.state.label = function()
 		return stateText or ""
 	end
-	controls.go = new("ButtonControl", nil, {-45, 130, 80, 20}, "Import", function()
+	controls.go = new("ButtonControl", nil, {-118, 130, 80, 20}, "Import", function()
 		local buf = controls.input.buf
 		if not buf or buf == "" then
 			return
@@ -1433,10 +1429,113 @@ function CompareTabClass:OpenImportPopup()
 			stateText = colorCodes.NEGATIVE .. "Invalid build code"
 		end
 	end)
-	controls.cancel = new("ButtonControl", nil, {45, 130, 80, 20}, "Cancel", function()
+	controls.importFolder = new("ButtonControl", nil, {0, 130, 140, 20}, "Import from Folder", function()
+		main:ClosePopup()
+		self:OpenImportFolderPopup()
+	end)
+	controls.cancel = new("ButtonControl", nil, {118, 130, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(500, 160, "Import Comparison Build", controls, "go", "input", "cancel")
+end
+
+-- Open the "Import from Folder" popup: browse the user's local builds folder and
+-- import the selected build file as a comparison.
+function CompareTabClass:OpenImportFolderPopup()
+	local controls = {}
+	local searchText = ""
+	local sortMode = main.buildSortMode
+
+	-- Minimal listMode-like host consumed by BuildListControl/PathControl.
+	local listHost = {
+		subPath = "",
+		list = { },
+		controls = { },
+	}
+	function listHost:BuildList()
+		wipeTable(self.list)
+		local scanned = buildListHelpers.ScanFolder(self.subPath, searchText)
+		for _, entry in ipairs(scanned) do
+			t_insert(self.list, entry)
+		end
+		buildListHelpers.SortList(self.list, sortMode)
+	end
+	function listHost:SelectControl(control)
+		-- Focus is managed by the popup's ControlHost; this is a no-op for the popup list.
+	end
+
+	-- Import the given build entry (xml file on disk) as a comparison.
+	local function importBuildEntry(build)
+		local fileHnd = io.open(build.fullFileName, "r")
+		if not fileHnd then
+			main:OpenMessagePopup("Import Error", "Couldn't open '"..build.fullFileName.."'.")
+			return
+		end
+		local xmlText = fileHnd:read("*a")
+		fileHnd:close()
+		if not xmlText or xmlText == "" then
+			main:OpenMessagePopup("Import Error", "Build file is empty or unreadable.")
+			return
+		end
+		if self:ImportBuild(xmlText, build.buildName) then
+			main:ClosePopup()
+		else
+			main:OpenMessagePopup("Import Error", "Failed to import build for comparison.")
+		end
+	end
+
+	-- Search box and sort dropdown sit above the build list.
+	controls.searchText = new("EditControl", {"TOPLEFT", nil, "TOPLEFT"}, {15, 25, 450, 20}, "", "Search", "%c%(%)", 100, function(buf)
+		searchText = buf
+		listHost:BuildList()
+	end, nil, nil, true)
+	controls.sort = new("DropDownControl", {"TOPLEFT", nil, "TOPLEFT"}, {475, 25, 210, 20}, buildListHelpers.buildSortDropList, function(index, value)
+		sortMode = value.sortMode
+		main.buildSortMode = value.sortMode
+		buildListHelpers.SortList(listHost.list, sortMode)
+	end)
+	controls.sort:SelByValue(sortMode, "sortMode")
+
+	-- Build list itself. Reuses BuildListControl (which provides the PathControl breadcrumbs)
+	controls.buildList = new("BuildListControl", {"TOPLEFT", nil, "TOPLEFT"}, {15, 75, 0, 0}, listHost)
+	controls.buildList.width = function() return 670 end
+	controls.buildList.height = function() return 355 end
+
+	-- Override instance methods on the BuildListControl to tailor it for the popup:
+	-- navigate folders, import builds, and suppress rename/delete/drag behaviors.
+	function controls.buildList:LoadBuild(build)
+		if build.folderName then
+			self.controls.path:SetSubPath(self.listMode.subPath .. build.folderName .. "/")
+		else
+			importBuildEntry(build)
+		end
+	end
+	function controls.buildList:OnSelKeyDown(index, build, key)
+		if key == "RETURN" then
+			self:LoadBuild(build)
+		end
+	end
+	function controls.buildList:CanReceiveDrag() return false end
+	function controls.buildList:OnSelCopy() end
+	function controls.buildList:OnSelCut() end
+	function controls.buildList:OnSelDelete() end
+	function controls.buildList.controls.path:CanReceiveDrag() return false end
+
+	-- Populate the initial list now that the control (and its path control) exist.
+	listHost:BuildList()
+
+	controls.open = new("ButtonControl", {"TOPLEFT", nil, "TOPLEFT"}, {255, 465, 80, 20}, "Open", function()
+		local sel = controls.buildList.selValue
+		if sel then
+			controls.buildList:LoadBuild(sel)
+		end
+	end)
+	controls.open.enabled = function() return controls.buildList.selValue ~= nil end
+	controls.close = new("ButtonControl", {"TOPLEFT", nil, "TOPLEFT"}, {365, 465, 80, 20}, "Close", function()
+		main:ClosePopup()
+	end)
+
+	main:OpenPopup(700, 500, "Import from Folder", controls, "open", "searchText", "close")
 end
 
 -- ============================================================
@@ -4364,13 +4463,8 @@ function CompareTabClass:DrawNotes(vp, compareEntry, inputEvents)
 		end
 	end
 
-	-- Position label and edit control
-	self.controls.notesDesc.x = vp.x + 8
-	self.controls.notesDesc.y = vp.y + 8
-
-	local editY = vp.y + 30
 	self.controls.notesEdit.x = vp.x + 8
-	self.controls.notesEdit.y = editY
+	self.controls.notesEdit.y = vp.y + 8
 	self.controls.notesEdit.width = function()
 		return vp.width - 16
 	end
