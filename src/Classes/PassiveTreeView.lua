@@ -418,7 +418,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		elseif hoverNode and (hoverNode.isTattoo
 			or (hoverNode.type == "Normal" and (hoverNode.dn == "Strength" or hoverNode.dn == "Dexterity" or hoverNode.dn == "Intelligence"))
 			or (hoverNode.type == "Notable" and #hoverNode.sd > 0 and (hoverNode.sd[1]:match("+30 to Dexterity") or hoverNode.sd[1]:match("+30 to Strength") or hoverNode.sd[1]:match("+30 to Intelligence")))
-			or hoverNode.type == "Keystone")
+			or hoverNode.type == "Keystone") and not hoverNode.expansionSkill
 		then
 			build.treeTab:ModifyNodePopup(hoverNode, viewPort)
 			build.buildFlag = true
@@ -1351,7 +1351,8 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	if node and (node.isTattoo
 			or (node.type == "Normal" and (node.dn == "Strength" or node.dn == "Dexterity" or node.dn == "Intelligence"))
 			or (node.type == "Notable" and #node.sd > 0 and (node.sd[1]:match("+30 to Dexterity") or node.sd[1]:match("+30 to Strength") or node.sd[1]:match("+30 to Intelligence")))
-			or (node.type == "Keystone" and not node.expansionSkill) or (node.type == "Mastery"))
+			or (node.type == "Keystone") or (node.type == "Mastery"))
+			and not node.expansionSkill
 	then
 		tooltip:AddSeparator(14)
 		local nodeEditType = (node.type == "Mastery") and "runegraft" or "tattoo"
