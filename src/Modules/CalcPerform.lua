@@ -3189,8 +3189,16 @@ function calcs.perform(env, skipEHP)
 
 	-- Foulborn Choir of the Storm, needs to be after main auras (incase purity of lightning/elements auras) but before extra auras (Radiant Faith)
 	if modDB:Flag(nil, "ManaIncreasedByOvercappedLightningRes") then
-		-- Calclate resistances for ManaIncreasedByOvercappedLightningRes
-		calcs.resistances(env.player)
+		-- Calculate resistances for ManaIncreasedByOvercappedLightningRes without mutating conversion mods on the player ModDB.
+		local tempResistActor = {
+			modDB = new("ModDB", modDB),
+			output = output,
+			activeSkillList = env.player.activeSkillList,
+			enemy = env.player.enemy,
+		}
+		tempResistActor.player = tempResistActor
+		tempResistActor.modDB.actor = tempResistActor
+		calcs.resistances(tempResistActor)
 		-- Set the life/mana reservations again as we now have increased mana from overcapped lightning resistance
 		doActorLifeMana(env.player)
 		doActorLifeManaReservation(env.player, true)

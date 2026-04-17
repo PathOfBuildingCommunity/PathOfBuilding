@@ -358,6 +358,26 @@ describe("TestDefence", function()
 		build.skillsTab.socketGroupList = {}
 	end)
 
+	it("foulborn resistance conversion remains stable across recalculation", function()
+		build.configTab.input.enemyIsBoss = "None"
+		build.configTab.input.customMods = "\z
+		+300 to fire resistance\n\z
+		modifiers to fire resistance also apply to cold and lightning resistances at 50% of their value\n\z
+		mana is increased by 100% of overcapped lightning resistance\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(90, build.calcsTab.calcsOutput.LightningResistTotal)
+		assert.are.equals(15, build.calcsTab.calcsOutput.LightningResistOverCap)
+
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(90, build.calcsTab.calcsOutput.LightningResistTotal)
+		assert.are.equals(15, build.calcsTab.calcsOutput.LightningResistOverCap)
+	end)
+
 	-- fun part
 	it("armoured max hits", function()
 		build.configTab.input.enemyIsBoss = "None"
