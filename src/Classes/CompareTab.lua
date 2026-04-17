@@ -1051,46 +1051,6 @@ function CompareTabClass:PopulateSetDropdown(tab, orderListField, setsField, act
 	control:SetList(list)
 end
 
--- Check visibility flags for a section/row against an actor
-function CompareTabClass:CheckCalcFlag(obj, actor)
-	if not actor or not actor.mainSkill then return true end
-	local skillFlags = actor.mainSkill.skillFlags or {}
-	if obj.flag and not skillFlags[obj.flag] then
-		return false
-	end
-	if obj.flagList then
-		for _, flag in ipairs(obj.flagList) do
-			if not skillFlags[flag] then
-				return false
-			end
-		end
-	end
-	if obj.playerFlag and not skillFlags[obj.playerFlag] then
-		return false
-	end
-	if obj.notFlag and skillFlags[obj.notFlag] then
-		return false
-	end
-	if obj.notFlagList then
-		for _, flag in ipairs(obj.notFlagList) do
-			if skillFlags[flag] then
-				return false
-			end
-		end
-	end
-	if obj.haveOutput then
-		local ns, var = obj.haveOutput:match("^(%a+)%.(%a+)$")
-		if ns then
-			if not actor.output[ns] or not actor.output[ns][var] or actor.output[ns][var] == 0 then
-				return false
-			end
-		elseif not actor.output[obj.haveOutput] or actor.output[obj.haveOutput] == 0 then
-			return false
-		end
-	end
-	return true
-end
-
 -- Format a config value for read-only display
 function CompareTabClass:FormatConfigValue(varData, val)
 	if val == nil then return "^8(not set)" end
@@ -2287,26 +2247,6 @@ end
 -- COMPARE POWER REPORT
 -- ============================================================
 
--- Calculate the stat difference for a given power stat selection
--- output: result from calcFunc (with the change applied)
--- calcBase: baseline output (without the change)
--- Returns positive value if the change improves the stat
-function CompareTabClass:CalculatePowerStat(selection, output, calcBase)
-	local withChange = output
-	local baseline = calcBase
-	if baseline.Minion and not selection.stat == "FullDPS" then
-		withChange = withChange.Minion
-		baseline = baseline.Minion
-	end
-	local withValue = withChange[selection.stat] or 0
-	local baseValue = baseline[selection.stat] or 0
-	if selection.transform then
-		withValue = selection.transform(withValue)
-		baseValue = selection.transform(baseValue)
-	end
-	return withValue - baseValue
-end
-
 -- Resolve the granted effect for a gem instance
 function CompareTabClass:GetGemGrantedEffect(gem)
 	if gem.gemData and gem.gemData.grantedEffect then
@@ -2515,7 +2455,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 						output = calcFunc({ addNodes = { [pNode] = true } }, useFullDPS)
 						cache[pNode.modKey] = output
 					end
-					local impact = self:CalculatePowerStat(powerStat, output, calcBase)
+					local impact = self.primaryBuild.calcsTab:CalculatePowerStat(powerStat, output, calcBase)
 					local pathDist = pNode.pathDist or 0
 					if pathDist == 0 then
 						pathDist = #(pNode.path or {})
@@ -2570,7 +2510,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 				local newItem = new("Item", cItem.raw)
 				newItem:NormaliseQuality()
 				local output = calcFunc({ repSlotName = slotName, repItem = newItem }, useFullDPS)
-				local impact = self:CalculatePowerStat(powerStat, output, calcBase)
+				local impact = self.primaryBuild.calcsTab:CalculatePowerStat(powerStat, output, calcBase)
 				local impactStr, impactVal, combinedImpactStr, impactPercent, impactIsZero = formatImpact(impact)
 
 				if not impactIsZero then
@@ -2638,7 +2578,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 				if jEntry.pNodeAllocated then
 					-- Socket is allocated in primary build, test directly in that socket
 					local output = calcFunc({ repSlotName = jEntry.cSlotName, repItem = newItem }, useFullDPS)
-					bestImpactVal = self:CalculatePowerStat(powerStat, output, calcBase)
+					bestImpactVal = self.primaryBuild.calcsTab:CalculatePowerStat(powerStat, output, calcBase)
 				else
 					-- Socket is NOT allocated in primary build; try the jewel in every
 					-- jewel socket on the primary build's tree, temporarily allocating
@@ -2649,7 +2589,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 							override.addNodes = { [socketInfo.node] = true }
 						end
 						local output = calcFunc(override, useFullDPS)
-						local impact = self:CalculatePowerStat(powerStat, output, calcBase)
+						local impact = self.primaryBuild.calcsTab:CalculatePowerStat(powerStat, output, calcBase)
 						if bestImpactVal == nil or impact > bestImpactVal then
 							bestImpactVal = impact
 							bestSlotLabel = jEntry.label .. " (best socket)"
@@ -2721,7 +2661,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 					-- gemCalcFunc contains the error message on failure; skip this group
 					ConPrintf("Compare power (gem): %s", tostring(gemCalcFunc))
 				else
-					local impact = self:CalculatePowerStat(powerStat, gemCalcBase, calcBase)
+					local impact = self.primaryBuild.calcsTab:CalculatePowerStat(powerStat, gemCalcBase, calcBase)
 					local impactStr, impactVal, combinedImpactStr, impactPercent, impactIsZero = formatImpact(impact)
 					if not impactIsZero then
 						local label = self:GetSocketGroupLabel(cGroup)
@@ -2803,7 +2743,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 						if not ok then
 							ConPrintf("Compare power (support gem): %s", tostring(sgCalcFunc))
 						else
-							local impact = self:CalculatePowerStat(powerStat, sgCalcBase, calcBase)
+							local impact = self.primaryBuild.calcsTab:CalculatePowerStat(powerStat, sgCalcBase, calcBase)
 							local impactStr, impactVal, combinedImpactStr, impactPercent, impactIsZero = formatImpact(impact)
 
 							if not impactIsZero then
@@ -2874,7 +2814,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 						-- cfgCalcFunc contains the error message on failure; skip this config
 						ConPrintf("Compare power (config): %s", tostring(cfgCalcFunc))
 					else
-						local impact = self:CalculatePowerStat(powerStat, cfgCalcBase, calcBase)
+						local impact = self.primaryBuild.calcsTab:CalculatePowerStat(powerStat, cfgCalcBase, calcBase)
 						local impactStr, impactVal, combinedImpactStr, impactPercent, impactIsZero = formatImpact(impact)
 
 						-- Only include configs with non-zero impact
@@ -4233,7 +4173,7 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 		local secWidth, id, group, colour, subSections = secDef[1], secDef[2], secDef[3], secDef[4], secDef[5]
 		local secData = subSections[1].data
 		-- Check section-level flags against primary actor
-		if self:CheckCalcFlag(secData, primaryActor) then
+		if self.primaryBuild.calcsTab:CheckFlag(secData, primaryActor) then
 			local subSecInfo = {}
 			local sectionHasRows = false
 			for _, subSec in ipairs(subSections) do
@@ -4241,7 +4181,7 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 				for _, rowData in ipairs(subSec.data) do
 					-- Only include rows with a label and a first column with a format string
 					if rowData.label and rowData[1] and rowData[1].format then
-						if self:CheckCalcFlag(rowData, primaryActor) or self:CheckCalcFlag(rowData, compareActor) then
+						if self.primaryBuild.calcsTab:CheckFlag(rowData, primaryActor) or self.primaryBuild.calcsTab:CheckFlag(rowData, compareActor) then
 							t_insert(rows, rowData)
 						end
 					end
