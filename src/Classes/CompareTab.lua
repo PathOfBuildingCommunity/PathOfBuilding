@@ -995,6 +995,13 @@ function CompareTabClass:InitControls()
 	self.controls.comparePowerReportList = new("ComparePowerReportListControl", nil, {0, 0, 750, 250})
 	self.controls.comparePowerReportList.compareTab = self
 	self.controls.comparePowerReportList.shown = powerReportShown
+
+	-- Scrollbar for Calcs sub-tab
+	self.controls.calcsScrollBar = new("ScrollBarControl", nil, {0, 0, 18, 0}, 50, "VERTICAL", true)
+	local calcsScrollBar = self.controls.calcsScrollBar
+	self.controls.calcsScrollBar.shown = function()
+		return self.compareViewMode == "CALCS" and self:GetActiveCompare() ~= nil and calcsScrollBar.enabled
+	end
 end
 
 -- Get a short display name from a build name (strips "AccountName - " prefix)
@@ -2336,7 +2343,15 @@ function CompareTabClass:HandleScrollInput(contentVP, inputEvents)
 
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" and mouseInContent and not mouseOverList then
-			if event.key == "WHEELUP" and self.compareViewMode ~= "TREE" then
+			if self.compareViewMode == "CALCS" then
+				if event.key == "WHEELUP" then
+					self.controls.calcsScrollBar:Scroll(-1)
+					inputEvents[id] = nil
+				elseif event.key == "WHEELDOWN" then
+					self.controls.calcsScrollBar:Scroll(1)
+					inputEvents[id] = nil
+				end
+			elseif event.key == "WHEELUP" and self.compareViewMode ~= "TREE" then
 				self.scrollY = m_max(self.scrollY - 40, 0)
 				inputEvents[id] = nil
 			elseif event.key == "WHEELDOWN" and self.compareViewMode ~= "TREE" then
@@ -4262,9 +4277,13 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 		self:DrawCalcsSkillHeader(vp, compareEntry, skillHeaderHeight, primaryEnv, compareEnv)
 	end
 
+	-- Reserve space on the right for the scrollbar
+	local scrollBarWidth = 20
+	local gridWidth = vp.width - scrollBarWidth
+
 	-- Card dimensions
 	-- Layout: [2px border | 130px label | 2px gap | 2px sep | valW | 2px sep | valW | 2px border]
-	local cardWidth = m_min(LAYOUT.calcsMaxCardWidth, vp.width - 16)
+	local cardWidth = m_min(LAYOUT.calcsMaxCardWidth, gridWidth - 16)
 	local labelWidth = LAYOUT.calcsLabelWidth
 	local sepW = LAYOUT.calcsSepW
 	local valColWidth = m_floor((cardWidth - 140) / 2)
@@ -4272,7 +4291,7 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 	local valCol2X = valCol1X + valColWidth + sepW
 
 	-- Layout parameters
-	local maxCol = m_max(1, m_floor(vp.width / (cardWidth + 8)))
+	local maxCol = m_max(1, m_floor(gridWidth / (cardWidth + 8)))
 	local baseX = 4
 	local headerBarHeight = LAYOUT.calcsHeaderBarHeight
 	local baseY = headerBarHeight
@@ -4337,8 +4356,15 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 		maxY = m_max(maxY, colY[col])
 	end
 
+	-- Position scrollbar and set content dimensions based on laid-out content
+	local scrollBar = self.controls.calcsScrollBar
+	scrollBar.x = vp.x + vp.width - 18
+	scrollBar.y = vp.y + skillHeaderHeight
+	scrollBar.height = vp.height - skillHeaderHeight
+	scrollBar:SetContentDimension(maxY + 26, vp.height - skillHeaderHeight)
+
 	-- Set viewport for scroll clipping, offset below skill header so cards can't bleed into it
-	SetViewport(vp.x, vp.y + skillHeaderHeight, vp.width, vp.height - skillHeaderHeight)
+	SetViewport(vp.x, vp.y + skillHeaderHeight, gridWidth, vp.height - skillHeaderHeight)
 
 	-- Cursor position relative to viewport (for hover detection)
 	local cursorX, cursorY = GetCursorPos()
@@ -4351,7 +4377,7 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 	-- Draw section cards
 	for _, sec in ipairs(sections) do
 		local x = sec.drawX
-		local y = sec.drawY - self.scrollY
+		local y = sec.drawY - scrollBar.offset
 
 		-- Skip if entirely off-screen
 		if y + sec.height >= 0 and y < vp.height then
