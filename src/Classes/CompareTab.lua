@@ -2271,73 +2271,26 @@ function CompareTabClass:LayoutCalcsSkillControls(vp, compareEntry)
 	leftY = leftY + rowH
 	rightY = rightY + rowH
 
-	-- Socket Group
-	layoutRow(self.controls.primCalcsSocketGroup, leftX, leftY, controlW)
-	layoutRow(self.controls.cmpCalcsSocketGroup, rightX, rightY, controlW)
-	leftY = leftY + rowH
-	rightY = rightY + rowH
-
-	-- Active Skill
-	if layoutRow(self.controls.primCalcsMainSkill, leftX, leftY, controlW) then
-		leftY = leftY + rowH
+	-- { suffix, useControlW, alwaysAdvance }
+	local calcsRows = {
+		{ "SocketGroup",  true,  true  },
+		{ "MainSkill",    true,  false },
+		{ "SkillPart",    true,  false },
+		{ "StageCount",   false, false },
+		{ "MineCount",    false, false },
+		{ "ShowMinion",   false, false },
+		{ "Minion",       true,  false },
+		{ "MinionSkill",  true,  false },
+		{ "Mode",         false, true  },
+	}
+	for _, row in ipairs(calcsRows) do
+		local suffix, useControlW, alwaysAdvance = row[1], row[2], row[3]
+		local width = useControlW and controlW or nil
+		local primShown = layoutRow(self.controls["primCalcs" .. suffix], leftX, leftY, width)
+		local cmpShown = layoutRow(self.controls["cmpCalcs" .. suffix], rightX, rightY, width)
+		if primShown or alwaysAdvance then leftY = leftY + rowH end
+		if cmpShown or alwaysAdvance then rightY = rightY + rowH end
 	end
-	if layoutRow(self.controls.cmpCalcsMainSkill, rightX, rightY, controlW) then
-		rightY = rightY + rowH
-	end
-
-	-- Skill Part
-	if layoutRow(self.controls.primCalcsSkillPart, leftX, leftY, controlW) then
-		leftY = leftY + rowH
-	end
-	if layoutRow(self.controls.cmpCalcsSkillPart, rightX, rightY, controlW) then
-		rightY = rightY + rowH
-	end
-
-	-- Stage Count
-	if layoutRow(self.controls.primCalcsStageCount, leftX, leftY) then
-		leftY = leftY + rowH
-	end
-	if layoutRow(self.controls.cmpCalcsStageCount, rightX, rightY) then
-		rightY = rightY + rowH
-	end
-
-	-- Mine Count
-	if layoutRow(self.controls.primCalcsMineCount, leftX, leftY) then
-		leftY = leftY + rowH
-	end
-	if layoutRow(self.controls.cmpCalcsMineCount, rightX, rightY) then
-		rightY = rightY + rowH
-	end
-
-	-- Show Minion Stats
-	if layoutRow(self.controls.primCalcsShowMinion, leftX, leftY) then
-		leftY = leftY + rowH
-	end
-	if layoutRow(self.controls.cmpCalcsShowMinion, rightX, rightY) then
-		rightY = rightY + rowH
-	end
-
-	-- Minion
-	if layoutRow(self.controls.primCalcsMinion, leftX, leftY, controlW) then
-		leftY = leftY + rowH
-	end
-	if layoutRow(self.controls.cmpCalcsMinion, rightX, rightY, controlW) then
-		rightY = rightY + rowH
-	end
-
-	-- Minion Skill
-	if layoutRow(self.controls.primCalcsMinionSkill, leftX, leftY, controlW) then
-		leftY = leftY + rowH
-	end
-	if layoutRow(self.controls.cmpCalcsMinionSkill, rightX, rightY, controlW) then
-		rightY = rightY + rowH
-	end
-
-	-- Calc Mode
-	layoutRow(self.controls.primCalcsMode, leftX, leftY)
-	layoutRow(self.controls.cmpCalcsMode, rightX, rightY)
-	leftY = leftY + rowH
-	rightY = rightY + rowH
 
 	-- Account for text info lines (Aura/Buffs, Combat Buffs, Curses) + separator
 	local textLinesHeight = 2 -- padding before text
