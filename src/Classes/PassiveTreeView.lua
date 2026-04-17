@@ -1351,7 +1351,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	if node and (node.isTattoo
 			or (node.type == "Normal" and (node.dn == "Strength" or node.dn == "Dexterity" or node.dn == "Intelligence"))
 			or (node.type == "Notable" and #node.sd > 0 and (node.sd[1]:match("+30 to Dexterity") or node.sd[1]:match("+30 to Strength") or node.sd[1]:match("+30 to Intelligence")))
-			or (node.type == "Keystone") or (node.type == "Mastery") )
+			or (node.type == "Keystone" and not node.expansionSkill) or (node.type == "Mastery"))
 	then
 		tooltip:AddSeparator(14)
 		local nodeEditType = (node.type == "Mastery") and "runegraft" or "tattoo"

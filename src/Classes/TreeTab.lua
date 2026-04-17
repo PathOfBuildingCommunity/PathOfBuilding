@@ -838,6 +838,11 @@ function TreeTabClass:OpenExportPopup()
 end
 
 function TreeTabClass:ModifyNodePopup(selectedNode)
+	-- ignore cluster jewel Keystones like Secrets of Suffering
+	if selectedNode.type == "Keystone" and selectedNode.expansionSkill then
+		return
+	end
+
 	local controls = { }
 	local modGroups = { }
 	local treeNodes = self.build.spec.tree.nodes
