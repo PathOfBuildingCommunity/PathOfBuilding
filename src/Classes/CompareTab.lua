@@ -517,6 +517,12 @@ function CompareTabClass:InitControls()
 	end)
 	self.controls.primCalcsMineCount.shown = false
 
+	self.controls.primCalcsShowMinion = new("CheckBoxControl", nil, {0, 0, 18}, nil, function(state)
+		self.primaryBuild.calcsTab.input.showMinion = state
+		self.primaryBuild.buildFlag = true
+	end, "Show stats for the minion instead of the player.")
+	self.controls.primCalcsShowMinion.shown = false
+
 	self.controls.primCalcsMinion = new("DropDownControl", nil, {0, 0, 140, 18}, {}, function(index, value)
 		local mainSocketGroup = self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.calcsTab.input.skill_number]
 		if mainSocketGroup then
@@ -632,6 +638,16 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.cmpCalcsMineCount.shown = false
+
+	self.controls.cmpCalcsShowMinion = new("CheckBoxControl", nil, {0, 0, 18}, nil, function(state)
+		local entry = self:GetActiveCompare()
+		if entry then
+			entry.calcsTab.input.showMinion = state
+			entry.buildFlag = true
+			self.modFlag = true
+		end
+	end, "Show stats for the minion instead of the player.")
+	self.controls.cmpCalcsShowMinion.shown = false
 
 	self.controls.cmpCalcsMinion = new("DropDownControl", nil, {0, 0, 140, 18}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
@@ -2178,6 +2194,8 @@ function CompareTabClass:RefreshCalcsSkillControls(compareEntry)
 	self.controls.primCalcsSocketGroup.shown = true
 	self.controls.primCalcsMode.shown = true
 	self.controls.primCalcsMode:SelByValue(self.primaryBuild.calcsTab.input.misc_buffMode, "buffMode")
+	self.controls.primCalcsShowMinion.shown = self.controls.primCalcsMinion.shown == true
+	self.controls.primCalcsShowMinion.state = self.primaryBuild.calcsTab.input.showMinion and true or false
 
 	local cmpControls = {
 		mainSocketGroup = self.controls.cmpCalcsSocketGroup,
@@ -2193,15 +2211,17 @@ function CompareTabClass:RefreshCalcsSkillControls(compareEntry)
 	self.controls.cmpCalcsSocketGroup.shown = true
 	self.controls.cmpCalcsMode.shown = true
 	self.controls.cmpCalcsMode:SelByValue(compareEntry.calcsTab.input.misc_buffMode, "buffMode")
+	self.controls.cmpCalcsShowMinion.shown = self.controls.cmpCalcsMinion.shown == true
+	self.controls.cmpCalcsShowMinion.state = compareEntry.calcsTab.input.showMinion and true or false
 
 	-- Wrap .shown booleans set by RefreshSkillSelectControls with a view-mode gate,
 	-- so controls auto-hide when not in CALCS mode (matching configShown pattern)
 	local calcsControlNames = {
 		"primCalcsSocketGroup", "primCalcsMainSkill", "primCalcsSkillPart",
-		"primCalcsStageCount", "primCalcsMineCount", "primCalcsMinion",
+		"primCalcsStageCount", "primCalcsMineCount", "primCalcsShowMinion", "primCalcsMinion",
 		"primCalcsMinionSkill", "primCalcsMode",
 		"cmpCalcsSocketGroup", "cmpCalcsMainSkill", "cmpCalcsSkillPart",
-		"cmpCalcsStageCount", "cmpCalcsMineCount", "cmpCalcsMinion",
+		"cmpCalcsStageCount", "cmpCalcsMineCount", "cmpCalcsShowMinion", "cmpCalcsMinion",
 		"cmpCalcsMinionSkill", "cmpCalcsMode",
 	}
 	for _, name in ipairs(calcsControlNames) do
@@ -2225,7 +2245,7 @@ function CompareTabClass:LayoutCalcsSkillControls(vp, compareEntry)
 	local colWidth = m_floor((vp.width - 20) / 2)
 	local leftX = vp.x + 4
 	local rightX = leftX + colWidth + 12
-	local labelW = 100
+	local labelW = 140
 	local controlW = colWidth - labelW - 8
 	local rowH = 22
 	local y = vp.y + 4
@@ -2286,6 +2306,14 @@ function CompareTabClass:LayoutCalcsSkillControls(vp, compareEntry)
 		leftY = leftY + rowH
 	end
 	if layoutRow(self.controls.cmpCalcsMineCount, rightX, rightY) then
+		rightY = rightY + rowH
+	end
+
+	-- Show Minion Stats
+	if layoutRow(self.controls.primCalcsShowMinion, leftX, leftY) then
+		leftY = leftY + rowH
+	end
+	if layoutRow(self.controls.cmpCalcsShowMinion, rightX, rightY) then
 		rightY = rightY + rowH
 	end
 
@@ -3038,8 +3066,20 @@ end
 -- SUMMARY VIEW
 -- ============================================================
 function CompareTabClass:DrawSummary(vp, compareEntry)
-	local primaryOutput = self.primaryBuild.calcsTab.mainOutput
-	local compareOutput = compareEntry:GetOutput()
+	local primaryCalcs = self.primaryBuild.calcsTab
+	local compareCalcs = compareEntry.calcsTab
+	local primaryEnvMain = primaryCalcs and primaryCalcs.mainEnv
+	local compareEnvMain = compareCalcs and compareCalcs.mainEnv
+
+	-- If each selected builds skill is a minion skill, use it
+	local primaryMinionSkill = primaryEnvMain and primaryEnvMain.player and primaryEnvMain.player.mainSkill
+		and primaryEnvMain.player.mainSkill.minion and primaryEnvMain.minion
+	local compareMinionSkill = compareEnvMain and compareEnvMain.player and compareEnvMain.player.mainSkill
+		and compareEnvMain.player.mainSkill.minion and compareEnvMain.minion
+	local summaryUseMinion = primaryMinionSkill or compareMinionSkill
+
+	local primaryOutput = primaryMinionSkill and primaryEnvMain.minion.output or primaryCalcs.mainOutput
+	local compareOutput = compareMinionSkill and compareEnvMain.minion.output or compareEntry:GetOutput()
 	if not primaryOutput or not compareOutput then
 		return
 	end
@@ -3079,11 +3119,11 @@ function CompareTabClass:DrawSummary(vp, compareEntry)
 	drawY = drawY + 6
 
 	-- Stat comparison
-	local displayStats = self.primaryBuild.displayStats
-	local primaryEnv = self.primaryBuild.calcsTab.mainEnv
-	local compareEnv = compareEntry.calcsTab.mainEnv
+	local displayStats = summaryUseMinion and self.primaryBuild.minionDisplayStats or self.primaryBuild.displayStats
+	local primaryActor = primaryMinionSkill and primaryEnvMain.minion or primaryEnvMain.player
+	local compareActor = compareMinionSkill and compareEnvMain.minion or compareEnvMain.player
 
-	drawY = self:DrawStatList(drawY, displayStats, primaryOutput, compareOutput, primaryEnv, compareEnv, col1, col4, col2R, col3R)
+	drawY = self:DrawStatList(drawY, displayStats, primaryOutput, compareOutput, primaryActor, compareActor, col1, col4, col2R, col3R)
 
 	-- ========================================
 	-- Compare Power Report section
@@ -3173,12 +3213,13 @@ function CompareTabClass:DrawSummary(vp, compareEntry)
 end
 
 
-function CompareTabClass:DrawStatList(drawY, displayStats, primaryOutput, compareOutput, primaryEnv, compareEnv, col1, col4, col2R, col3R)
+function CompareTabClass:DrawStatList(drawY, displayStats, primaryOutput, compareOutput, primaryActor, compareActor, col1, col4, col2R, col3R)
 	local lineHeight = 16
 
-	-- Get skill flags from both builds for stat filtering
-	local primaryFlags = primaryEnv and primaryEnv.player and primaryEnv.player.mainSkill and primaryEnv.player.mainSkill.skillFlags or {}
-	local compareFlags = compareEnv and compareEnv.player and compareEnv.player.mainSkill and compareEnv.player.mainSkill.skillFlags or {}
+	-- Get skill flags from each build's selected actor (player, or minion when the
+	-- top-section "Skill:" is a minion skill) for stat filtering
+	local primaryFlags = primaryActor and primaryActor.mainSkill and primaryActor.mainSkill.skillFlags or {}
+	local compareFlags = compareActor and compareActor.mainSkill and compareActor.mainSkill.skillFlags or {}
 
 	for _, statData in ipairs(displayStats) do
 		if not statData.stat and not statData.label then
@@ -4194,6 +4235,10 @@ function CompareTabClass:DrawCalcsSkillHeader(vp, compareEntry, headerHeight, pr
 	if drawLabel("Mines", leftX, leftY, self.controls.primCalcsMineCount) then leftY = leftY + rowH end
 	if drawLabel("Mines", rightX, rightY, self.controls.cmpCalcsMineCount) then rightY = rightY + rowH end
 
+	-- Show Minion Stats
+	if drawLabel("Show Minion Stats", leftX, leftY, self.controls.primCalcsShowMinion) then leftY = leftY + rowH end
+	if drawLabel("Show Minion Stats", rightX, rightY, self.controls.cmpCalcsShowMinion) then rightY = rightY + rowH end
+
 	-- Minion
 	if drawLabel("Minion", leftX, leftY, self.controls.primCalcsMinion) then leftY = leftY + rowH end
 	if drawLabel("Minion", rightX, rightY, self.controls.cmpCalcsMinion) then rightY = rightY + rowH end
@@ -4265,8 +4310,8 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 	local primaryEnv = self.primaryBuild.calcsTab.calcsEnv
 	local compareEnv = compareEntry.calcsTab and compareEntry.calcsTab.calcsEnv
 	if not primaryEnv or not compareEnv then return end
-	local primaryActor = primaryEnv.player
-	local compareActor = compareEnv.player
+	local primaryActor = (self.primaryBuild.calcsTab.input.showMinion and primaryEnv.minion) or primaryEnv.player
+	local compareActor = (compareEntry.calcsTab.input.showMinion and compareEnv.minion) or compareEnv.player
 	if not primaryActor or not compareActor then return end
 
 	-- Skill detail header height
