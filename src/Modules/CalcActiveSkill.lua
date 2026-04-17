@@ -195,7 +195,7 @@ local function getWeaponFlags(env, weaponData, weaponTypes, skillTypeDualWieldOn
 		return
 	end
 
-	local function matchesWeaponType(weaponData, types, skillTypeDualWieldOnly)
+	local function matchesWeaponType(types)
 		-- Wings of Entropy
 		if weaponData.countsAsDualWielding then
 			return skillTypeDualWieldOnly or types["One Handed "..info.flag]
@@ -214,7 +214,7 @@ local function getWeaponFlags(env, weaponData, weaponTypes, skillTypeDualWieldOn
 
 	if weaponTypes then
 		for _, types in ipairs(weaponTypes) do
-			if not matchesWeaponType(weaponData, types, skillTypeDualWieldOnly) then
+			if not matchesWeaponType(types) then
 				return nil, info
 			end
 		end
