@@ -1379,7 +1379,8 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		local cAllocated = self.compareSpec.allocNodes and self.compareSpec.allocNodes[node.id]
 		if cJewel and cAllocated then
 			-- Show the compare build's jewel tooltip instead of generic socket info
-			cItemsTab:AddItemTooltip(tooltip, cJewel, { nodeId = node.id })
+			local socket = build.itemsTab:GetSocketAndJewelForNodeID(node.id)
+			cItemsTab:AddItemTooltip(tooltip, cJewel, socket)
 			tooltip:AddSeparator(14)
 			tooltip:AddLine(14, colorCodes.DEXTERITY .. "Jewel from compared build")
 			tooltip:AddLine(14, colorCodes.TIP.."Tip: Hold Shift or Ctrl to hide this tooltip.")
@@ -1607,7 +1608,7 @@ function PassiveTreeViewClass:AddCompareNodeTooltip(tooltip, node, build)
 		local cJewel = self:GetCompareJewel(node.id)
 		local cItemsTab = self.compareSpec.build and self.compareSpec.build.itemsTab
 		if cJewel and cItemsTab then
-			cItemsTab:AddItemTooltip(tooltip, cJewel, { nodeId = node.id })
+			cItemsTab:AddItemTooltip(tooltip, cJewel, nil)
 		else
 			self:AddCompareNodeName(tooltip, node)
 		end
