@@ -18,72 +18,11 @@ describe("TestConfigSetCodec", function()
 		_G.Inflate = savedInflate
 	end)
 
-	-- Mirrors the serialisation logic in ConfigTabClass:OpenExportConfigSetPopup.
-	local function encodeConfigSet(configSet, configTab)
-		local xmlNode = { elem = "ConfigSet", attrib = { title = configSet.title } }
-		for k, v in pairs(configSet.input) do
-			if v ~= configTab:GetDefaultState(k, type(v)) then
-				local node = { elem = "Input", attrib = { name = k } }
-				if type(v) == "number" then
-					node.attrib.number = tostring(v)
-				elseif type(v) == "boolean" then
-					node.attrib.boolean = tostring(v)
-				else
-					node.attrib.string = tostring(v)
-				end
-				table.insert(xmlNode, node)
-			end
-		end
-		for k, v in pairs(configSet.placeholder) do
-			local node = { elem = "Placeholder", attrib = { name = k } }
-			if type(v) == "number" then
-				node.attrib.number = tostring(v)
-			else
-				node.attrib.string = tostring(v)
-			end
-			table.insert(xmlNode, node)
-		end
-		local xmlText = common.xml.ComposeXML(xmlNode)
-		return common.base64.encode(Deflate(xmlText)):gsub("+", "-"):gsub("/", "_")
-	end
-
-	-- Mirrors the deserialisation logic in ConfigTabClass:OpenImportConfigSetPopup.
-	local function decodeConfigSet(code, configTab, name)
-		local xmlText = Inflate(common.base64.decode(code:gsub("-", "+"):gsub("_", "/")))
-		if not xmlText or #xmlText == 0 then
-			return nil, "decode failed"
-		end
-		local parsedXML, errMsg = common.xml.ParseXML(xmlText)
-		if errMsg or not parsedXML or not parsedXML[1] or parsedXML[1].elem ~= "ConfigSet" then
-			return nil, errMsg or "invalid config set code"
-		end
-		local xmlConfigSet = parsedXML[1]
-		local newConfigSet = configTab:NewConfigSet(nil, name or xmlConfigSet.attrib.title or "Imported")
-		for _, child in ipairs(xmlConfigSet) do
-			if child.elem == "Input" and child.attrib.name then
-				if child.attrib.number then
-					newConfigSet.input[child.attrib.name] = tonumber(child.attrib.number)
-				elseif child.attrib.boolean then
-					newConfigSet.input[child.attrib.name] = child.attrib.boolean == "true"
-				elseif child.attrib.string then
-					newConfigSet.input[child.attrib.name] = child.attrib.string
-				end
-			elseif child.elem == "Placeholder" and child.attrib.name then
-				if child.attrib.number then
-					newConfigSet.placeholder[child.attrib.name] = tonumber(child.attrib.number)
-				elseif child.attrib.string then
-					newConfigSet.placeholder[child.attrib.name] = child.attrib.string
-				end
-			end
-		end
-		return newConfigSet, nil
-	end
-
 	it("export produces a non-empty base64 code", function()
 		local configTab = build.configTab
 		local configSet = configTab.configSets[configTab.activeConfigSetId]
 		configSet.input["usePowerCharges"] = true
-		local code = encodeConfigSet(configSet, configTab)
+		local code = configTab:EncodeConfigSet(configSet)
 		assert.is_not_nil(code)
 		assert.is_true(#code > 0)
 	end)
@@ -92,8 +31,8 @@ describe("TestConfigSetCodec", function()
 		local configTab = build.configTab
 		local configSet = configTab.configSets[configTab.activeConfigSetId]
 		configSet.input["usePowerCharges"] = true
-		local code = encodeConfigSet(configSet, configTab)
-		local imported, err = decodeConfigSet(code, configTab, "Test")
+		local code = configTab:EncodeConfigSet(configSet)
+		local imported, err = configTab:DecodeConfigSet(code, "Test")
 		assert.is_nil(err)
 		assert.is_not_nil(imported)
 		assert.are.equal(true, imported.input["usePowerCharges"])
@@ -105,8 +44,8 @@ describe("TestConfigSetCodec", function()
 		-- Use 75 to avoid matching any boss-level placeholder (83/84/85),
 		-- which would cause GetDefaultState skip export.
 		configSet.input["enemyLevel"] = 75
-		local code = encodeConfigSet(configSet, configTab)
-		local imported, err = decodeConfigSet(code, configTab, "Test")
+		local code = configTab:EncodeConfigSet(configSet)
+		local imported, err = configTab:DecodeConfigSet(code, "Test")
 		assert.is_nil(err)
 		assert.is_not_nil(imported)
 		assert.are.equal(75, imported.input["enemyLevel"])
@@ -117,8 +56,8 @@ describe("TestConfigSetCodec", function()
 		local configSet = configTab.configSets[configTab.activeConfigSetId]
 		-- "Uber" is non-default (default is "Pinnacle" from defaultIndex=3)
 		configSet.input["enemyIsBoss"] = "Uber"
-		local code = encodeConfigSet(configSet, configTab)
-		local imported, err = decodeConfigSet(code, configTab, "Test")
+		local code = configTab:EncodeConfigSet(configSet)
+		local imported, err = configTab:DecodeConfigSet(code, "Test")
 		assert.is_nil(err)
 		assert.is_not_nil(imported)
 		assert.are.equal("Uber", imported.input["enemyIsBoss"])
@@ -130,8 +69,8 @@ describe("TestConfigSetCodec", function()
 		configSet.input["usePowerCharges"] = true
 		configSet.input["enemyLevel"] = 75
 		configSet.input["enemyIsBoss"] = "Uber"
-		local code = encodeConfigSet(configSet, configTab)
-		local imported, err = decodeConfigSet(code, configTab, "Multi")
+		local code = configTab:EncodeConfigSet(configSet)
+		local imported, err = configTab:DecodeConfigSet(code, "Multi")
 		assert.is_nil(err)
 		assert.is_not_nil(imported)
 		assert.are.equal(true, imported.input["usePowerCharges"])
@@ -143,8 +82,8 @@ describe("TestConfigSetCodec", function()
 		local configTab = build.configTab
 		local configSet = configTab.configSets[configTab.activeConfigSetId]
 		configSet.title = "Original Title"
-		local code = encodeConfigSet(configSet, configTab)
-		local imported, err = decodeConfigSet(code, configTab, "Custom Name")
+		local code = configTab:EncodeConfigSet(configSet)
+		local imported, err = configTab:DecodeConfigSet(code, "Custom Name")
 		assert.is_nil(err)
 		assert.is_not_nil(imported)
 		assert.are.equal("Custom Name", imported.title)
@@ -153,9 +92,9 @@ describe("TestConfigSetCodec", function()
 	it("export and re-import of an unmodified config set succeeds", function()
 		local configTab = build.configTab
 		local configSet = configTab.configSets[configTab.activeConfigSetId]
-		local code = encodeConfigSet(configSet, configTab)
+		local code = configTab:EncodeConfigSet(configSet)
 		assert.is_true(#code > 0)
-		local imported, err = decodeConfigSet(code, configTab, "Imported")
+		local imported, err = configTab:DecodeConfigSet(code, "Imported")
 		assert.is_nil(err)
 		assert.is_not_nil(imported)
 		assert.are.equal("Imported", imported.title)
@@ -163,7 +102,7 @@ describe("TestConfigSetCodec", function()
 
 	it("returns error for garbage input", function()
 		local configTab = build.configTab
-		local _, err = decodeConfigSet("!!!not_valid!!!", configTab, "Test")
+		local _, err = configTab:DecodeConfigSet("!!!not_valid!!!", "Test")
 		assert.is_not_nil(err)
 	end)
 
@@ -171,7 +110,7 @@ describe("TestConfigSetCodec", function()
 		local configTab = build.configTab
 		local xmlText = "<PathOfBuilding></PathOfBuilding>"
 		local code = common.base64.encode(Deflate(xmlText)):gsub("+", "-"):gsub("/", "_")
-		local _, err = decodeConfigSet(code, configTab, "Test")
+		local _, err = configTab:DecodeConfigSet(code, "Test")
 		assert.is_not_nil(err)
 	end)
 end)
