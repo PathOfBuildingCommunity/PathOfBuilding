@@ -858,6 +858,7 @@ Enemies killed explode dealing 10% of their Life as Fire Damage
 ]],[[
 Serle's Masterwork
 Phantom Mace
+Source: No longer obtainable
 League: Settlers of Kalguur
 Requires Level 53, 170 Str
 Implicits: 1
