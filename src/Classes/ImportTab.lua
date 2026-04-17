@@ -318,7 +318,6 @@ You can get this from your web browser's cookies while logged into the Path of E
 			-- Import as comparison build
 			if self.build.compareTab then
 				if self.build.compareTab:ImportBuild(self.importCodeXML, "Imported comparison") then
-					self.build.compareTab.modFlag = true
 					self.build.viewMode = "COMPARE"
 				else
 					main:OpenMessagePopup("Import Error", "Failed to import build for comparison.")

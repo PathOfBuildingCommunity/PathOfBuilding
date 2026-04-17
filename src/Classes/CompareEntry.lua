@@ -41,7 +41,6 @@ local CompareEntryClass = newClass("CompareEntry", "ControlHost", function(self,
 	self.data = data
 
 	-- Flags
-	self.modFlag = false
 	self.buildFlag = false
 	self.outputRevision = 1
 
@@ -273,7 +272,6 @@ end
 
 function CompareEntryClass:SetMainSocketGroup(index)
 	self.mainSocketGroup = index
-	self.modFlag = true
 	self.buildFlag = true
 end
 

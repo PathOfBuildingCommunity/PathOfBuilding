@@ -220,10 +220,6 @@ function listMode:BuildList()
 				main:OpenCloudErrorPopup(build.fullFileName)
 				return
 			end
-			build.compareLabels = { }
-			for label in fileText:gmatch('<CompareEntry[^>]-label="([^"]*)"') do
-				t_insert(build.compareLabels, label)
-			end
 			fileText = fileText:match("(<Build.->)")
 			if fileText then
 				local xml = common.xml.ParseXML(fileText.."</Build>")

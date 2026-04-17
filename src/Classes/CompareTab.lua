@@ -262,7 +262,6 @@ function CompareTabClass:InitControls()
 		local entry = self:GetActiveCompare()
 		if entry and entry.treeTab and entry.treeTab.specList[index] then
 			entry:SetActiveSpec(index)
-			self.modFlag = true
 			-- Restore primary build's window title (SetActiveSpec changes it)
 			if self.primaryBuild.spec then
 				self.primaryBuild.spec:SetWindowTitleWithBuildClass()
@@ -280,7 +279,6 @@ function CompareTabClass:InitControls()
 		local entry = self:GetActiveCompare()
 		if entry and entry.skillsTab and entry.skillsTab.skillSetOrderList[index] then
 			entry:SetActiveSkillSet(entry.skillsTab.skillSetOrderList[index])
-			self.modFlag = true
 		end
 	end)
 	self.controls.compareSkillSetSelect.enabled = setsEnabled
@@ -291,7 +289,6 @@ function CompareTabClass:InitControls()
 		local entry = self:GetActiveCompare()
 		if entry and entry.itemsTab and entry.itemsTab.itemSetOrderList[index] then
 			entry:SetActiveItemSet(entry.itemsTab.itemSetOrderList[index])
-			self.modFlag = true
 		end
 	end)
 	self.controls.compareItemSetSelect.enabled = setsEnabled
@@ -305,7 +302,6 @@ function CompareTabClass:InitControls()
 			if setId then
 				entry.configTab:SetActiveConfigSet(setId)
 				entry.buildFlag = true
-				self.modFlag = true
 				self.configNeedsRebuild = true
 			end
 		end
@@ -337,8 +333,6 @@ function CompareTabClass:InitControls()
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
 			if mainSocketGroup then
 				mainSocketGroup.mainActiveSkill = index
-				entry.modFlag = true
-				self.modFlag = true
 				entry.buildFlag = true
 			end
 		end
@@ -355,8 +349,6 @@ function CompareTabClass:InitControls()
 				local activeSkill = displaySkillList and displaySkillList[mainSocketGroup.mainActiveSkill or 1]
 				if activeSkill and activeSkill.activeEffect then
 					activeSkill.activeEffect.srcInstance.skillPart = index
-					entry.modFlag = true
-					self.modFlag = true
 					entry.buildFlag = true
 				end
 			end
@@ -376,8 +368,6 @@ function CompareTabClass:InitControls()
 				local activeSkill = displaySkillList and displaySkillList[mainSocketGroup.mainActiveSkill or 1]
 				if activeSkill and activeSkill.activeEffect then
 					activeSkill.activeEffect.srcInstance.skillStageCount = tonumber(buf)
-					entry.modFlag = true
-					self.modFlag = true
 					entry.buildFlag = true
 				end
 			end
@@ -397,8 +387,6 @@ function CompareTabClass:InitControls()
 				local activeSkill = displaySkillList and displaySkillList[mainSocketGroup.mainActiveSkill or 1]
 				if activeSkill and activeSkill.activeEffect then
 					activeSkill.activeEffect.srcInstance.skillMineCount = tonumber(buf)
-					entry.modFlag = true
-					self.modFlag = true
 					entry.buildFlag = true
 				end
 			end
@@ -422,8 +410,6 @@ function CompareTabClass:InitControls()
 						elseif selected.minionId then
 							activeSkill.activeEffect.srcInstance.skillMinion = selected.minionId
 						end
-						entry.modFlag = true
-						self.modFlag = true
 						entry.buildFlag = true
 					end
 				end
@@ -442,8 +428,6 @@ function CompareTabClass:InitControls()
 				local activeSkill = displaySkillList and displaySkillList[mainSocketGroup.mainActiveSkill or 1]
 				if activeSkill and activeSkill.activeEffect then
 					activeSkill.activeEffect.srcInstance.skillMinionSkill = index
-					entry.modFlag = true
-					self.modFlag = true
 					entry.buildFlag = true
 				end
 			end
@@ -568,7 +552,6 @@ function CompareTabClass:InitControls()
 		if entry then
 			entry.calcsTab.input.skill_number = index
 			entry.buildFlag = true
-			self.modFlag = true
 		end
 	end)
 	self.controls.cmpCalcsSocketGroup.shown = false
@@ -582,7 +565,6 @@ function CompareTabClass:InitControls()
 			if mainSocketGroup then
 				mainSocketGroup.mainActiveSkillCalcs = index
 				entry.buildFlag = true
-				self.modFlag = true
 			end
 		end
 	end)
@@ -598,7 +580,6 @@ function CompareTabClass:InitControls()
 				if activeSkill and activeSkill.activeEffect then
 					activeSkill.activeEffect.srcInstance.skillPartCalcs = index
 					entry.buildFlag = true
-					self.modFlag = true
 				end
 			end
 		end
@@ -615,7 +596,6 @@ function CompareTabClass:InitControls()
 				if activeSkill and activeSkill.activeEffect then
 					activeSkill.activeEffect.srcInstance.skillStageCountCalcs = tonumber(buf)
 					entry.buildFlag = true
-					self.modFlag = true
 				end
 			end
 		end
@@ -632,7 +612,6 @@ function CompareTabClass:InitControls()
 				if activeSkill and activeSkill.activeEffect then
 					activeSkill.activeEffect.srcInstance.skillMineCountCalcs = tonumber(buf)
 					entry.buildFlag = true
-					self.modFlag = true
 				end
 			end
 		end
@@ -644,7 +623,6 @@ function CompareTabClass:InitControls()
 		if entry then
 			entry.calcsTab.input.showMinion = state
 			entry.buildFlag = true
-			self.modFlag = true
 		end
 	end, "Show stats for the minion instead of the player.")
 	self.controls.cmpCalcsShowMinion.shown = false
@@ -665,7 +643,6 @@ function CompareTabClass:InitControls()
 							activeSkill.activeEffect.srcInstance.skillMinionCalcs = selected.minionId
 						end
 						entry.buildFlag = true
-						self.modFlag = true
 					end
 				end
 			end
@@ -683,7 +660,6 @@ function CompareTabClass:InitControls()
 				if activeSkill and activeSkill.activeEffect then
 					activeSkill.activeEffect.srcInstance.skillMinionSkillCalcs = index
 					entry.buildFlag = true
-					self.modFlag = true
 				end
 			end
 		end
@@ -695,7 +671,6 @@ function CompareTabClass:InitControls()
 		if entry then
 			entry.calcsTab.input.misc_buffMode = value.buffMode
 			entry.buildFlag = true
-			self.modFlag = true
 		end
 	end)
 	self.controls.cmpCalcsMode.shown = false
@@ -770,7 +745,6 @@ function CompareTabClass:InitControls()
 		local entry = self:GetActiveCompare()
 		if entry and entry.itemsTab and entry.itemsTab.itemSetOrderList[index] then
 			entry:SetActiveItemSet(entry.itemsTab.itemSetOrderList[index])
-			self.modFlag = true
 		end
 	end)
 	self.controls.compareItemSetSelect2.enabled = itemsShown
@@ -797,7 +771,6 @@ function CompareTabClass:InitControls()
 		local entry = self:GetActiveCompare()
 		if entry and entry.treeTab and entry.treeTab.specList[index] then
 			entry:SetActiveSpec(index)
-			self.modFlag = true
 			if self.primaryBuild.spec then
 				self.primaryBuild.spec:SetWindowTitleWithBuildClass()
 			end
@@ -845,7 +818,6 @@ function CompareTabClass:InitControls()
 		local entry = self:GetActiveCompare()
 		if entry and entry.treeTab and entry.treeTab.specList[index] then
 			entry:SetActiveSpec(index)
-			self.modFlag = true
 			-- Restore primary build's window title (compare entry's SetActiveSpec changes it)
 			if self.primaryBuild.spec then
 				self.primaryBuild.spec:SetWindowTitleWithBuildClass()
@@ -1222,106 +1194,15 @@ function CompareTabClass:ImportFromCode(code)
 		return false
 	end
 	if self:ImportBuild(xmlText, "Imported build") then
-		self.modFlag = true
 		return true
 	end
 	return false
-end
-
--- Save comparison builds to the build file
-function CompareTabClass:Save(xml)
-	xml.attrib = {
-		activeCompareIndex = tostring(self.activeCompareIndex),
-	}
-	-- Sync current notes edit buffer to the active entry before saving
-	if self.notesActiveEntry then
-		self.notesActiveEntry.notesText = self.controls.notesEdit.buf
-	end
-	for _, entry in ipairs(self.compareEntries) do
-		local attrib = {
-			label = entry.label,
-			buildCode = common.base64.encode(Deflate(entry.xmlText)):gsub("+","-"):gsub("/","_"),
-		}
-		if entry.treeTab then
-			attrib.activeSpec = tostring(entry.treeTab.activeSpec)
-		end
-		if entry.skillsTab then
-			attrib.activeSkillSetId = tostring(entry.skillsTab.activeSkillSetId)
-		end
-		if entry.itemsTab then
-			attrib.activeItemSetId = tostring(entry.itemsTab.activeItemSetId)
-		end
-		if entry.configTab then
-			attrib.activeConfigSetId = tostring(entry.configTab.activeConfigSetId)
-		end
-		local entryNode = {
-			elem = "CompareEntry",
-			attrib = attrib,
-		}
-		if entry.notesText and entry.notesText ~= "" then
-			t_insert(entryNode, { elem = "Notes", attrib = {}, entry.notesText })
-		end
-		t_insert(xml, entryNode)
-	end
-end
-
--- Load comparison builds from the build file
-function CompareTabClass:Load(xml, dbFileName)
-	local savedIndex = tonumber(xml.attrib and xml.attrib.activeCompareIndex) or 0
-	for _, child in ipairs(xml) do
-		if type(child) == "table" and child.elem == "CompareEntry" then
-			local code = child.attrib and child.attrib.buildCode
-			if code then
-				local xmlText = Inflate(common.base64.decode(code:gsub("-","+"):gsub("_","/")))
-				if xmlText then
-					if self:ImportBuild(xmlText, child.attrib.label or "Comparison Build") then
-						local entry = self.compareEntries[#self.compareEntries]
-						local savedSpec = tonumber(child.attrib.activeSpec)
-						if savedSpec and entry.treeTab and entry.treeTab.specList[savedSpec] then
-							entry:SetActiveSpec(savedSpec)
-						end
-						local savedSkillSet = tonumber(child.attrib.activeSkillSetId)
-						if savedSkillSet and entry.skillsTab then
-							entry:SetActiveSkillSet(savedSkillSet)
-						end
-						local savedItemSet = tonumber(child.attrib.activeItemSetId)
-						if savedItemSet and entry.itemsTab then
-							entry:SetActiveItemSet(savedItemSet)
-						end
-						local savedConfigSet = tonumber(child.attrib.activeConfigSetId)
-						if savedConfigSet and entry.configTab and entry.configTab.configSets[savedConfigSet] then
-							entry.configTab:SetActiveConfigSet(savedConfigSet)
-						end
-						-- Restore edited notes (overrides notes from original build XML)
-						for _, grandchild in ipairs(child) do
-							if type(grandchild) == "table" and grandchild.elem == "Notes" then
-								for _, text in ipairs(grandchild) do
-									if type(text) == "string" then
-										entry.notesText = text
-										break
-									end
-								end
-								break
-							end
-						end
-					end
-				end
-			end
-		end
-	end
-	if #self.compareEntries > 0 then
-		self.activeCompareIndex = m_max(1, m_min(savedIndex, #self.compareEntries))
-	else
-		self.activeCompareIndex = 0
-	end
-	self:UpdateBuildSelector()
 end
 
 -- Remove a comparison build
 function CompareTabClass:RemoveBuild(index)
 	if index >= 1 and index <= #self.compareEntries then
 		t_remove(self.compareEntries, index)
-		self.modFlag = true
 		self.notesActiveEntry = nil
 		if self.activeCompareIndex > #self.compareEntries then
 			self.activeCompareIndex = #self.compareEntries
@@ -1531,7 +1412,6 @@ function CompareTabClass:OpenImportPopup()
 						local xmlText = Inflate(common.base64.decode(codeData:gsub("-","+"):gsub("_","/")))
 						if xmlText then
 							self:ImportBuild(xmlText, customName or ("Imported from " .. site.label))
-							self.modFlag = true
 							main:ClosePopup()
 						else
 							stateText = colorCodes.NEGATIVE .. "Failed to decode build data"
@@ -1548,7 +1428,6 @@ function CompareTabClass:OpenImportPopup()
 		local xmlText = Inflate(common.base64.decode(buf:gsub("-","+"):gsub("_","/")))
 		if xmlText then
 			self:ImportBuild(xmlText, customName or "Imported build")
-			self.modFlag = true
 			main:ClosePopup()
 		else
 			stateText = colorCodes.NEGATIVE .. "Invalid build code"
@@ -4502,7 +4381,6 @@ function CompareTabClass:DrawNotes(vp, compareEntry, inputEvents)
 	-- Sync edits back to the compare entry
 	if compareEntry.notesText ~= self.controls.notesEdit.buf then
 		compareEntry.notesText = self.controls.notesEdit.buf
-		self.modFlag = true
 	end
 
 	main:DrawBackground(vp)
