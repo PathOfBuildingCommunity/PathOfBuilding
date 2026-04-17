@@ -614,13 +614,6 @@ describe("TestItemMods", function()
 	end)
 
 	it("Test Wings of Entropy skill disabled", function()
-		local function switchSocketGroup(index)
-			build.mainSocketGroup = index
-			build.modFlag = true
-			build.buildFlag = true
-			runCallback("OnFrame")
-		end
-
 		build.itemsTab:CreateDisplayItemFromRaw([[
 			Wings of Entropy
 			{variant:1,2,3,4}Sundering Axe
@@ -652,44 +645,25 @@ describe("TestItemMods", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
+		local function testSkill(skill, index, expected)
+			build.skillsTab:PasteSocketGroup(skill.." 20/0  1")
+			runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Lacerate of Haemorrhage 20/0  1")
-		runCallback("OnFrame")
-		assert.True(build.calcsTab.mainEnv.player.mainSkill.skillFlags.disable == nil)
+			build.mainSocketGroup = index
+			build.modFlag = true
+			build.buildFlag = true
+			runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Lacerate of Butchering 20/0  1")
-		runCallback("OnFrame")
-		switchSocketGroup(2)
-		assert.True(build.calcsTab.mainEnv.player.mainSkill.skillFlags.disable == true)
+			assert.True(build.calcsTab.mainEnv.player.mainSkill.skillFlags.disable == expected)
+		end
 
-		build.skillsTab:PasteSocketGroup("Ice Crash of Cadence 20/0  1")
-		runCallback("OnFrame")
-		switchSocketGroup(3)
-		assert.True(build.calcsTab.mainEnv.player.mainSkill.skillFlags.disable == nil)
-
-		build.skillsTab:PasteSocketGroup("Swordstorm 20/0  1")
-		runCallback("OnFrame")
-		switchSocketGroup(4)
-		assert.True(build.calcsTab.mainEnv.player.mainSkill.skillFlags.disable == nil)
-
-		build.skillsTab:PasteSocketGroup("Ground Slam of Earthshaking 20/0  1")
-		runCallback("OnFrame")
-		switchSocketGroup(5)
-		assert.True(build.calcsTab.mainEnv.player.mainSkill.skillFlags.disable == true)
-
-		build.skillsTab:PasteSocketGroup("Sunder 20/0  1")
-		runCallback("OnFrame")
-		switchSocketGroup(6)
-		assert.True(build.calcsTab.mainEnv.player.mainSkill.skillFlags.disable == nil)
-
-		build.skillsTab:PasteSocketGroup("Chain Hook 20/0  1")
-		runCallback("OnFrame")
-		switchSocketGroup(7)
-		assert.True(build.calcsTab.mainEnv.player.mainSkill.skillFlags.disable == nil)
-
-		build.skillsTab:PasteSocketGroup("Dual Strike of Ambidexterity 20/0  1")
-		runCallback("OnFrame")
-		switchSocketGroup(8)
-		assert.True(build.calcsTab.mainEnv.player.mainSkill.skillFlags.disable == true)
+		testSkill("Lacerate of Haemorrhage", 1, nil)
+		testSkill("Lacerate of Butchering", 2, true)
+		testSkill("Ice Crash of Cadence", 3, nil)
+		testSkill("Swordstorm", 4, nil)
+		testSkill("Ground Slam of Earthshaking", 5, true)
+		testSkill("Sunder", 6, nil)
+		testSkill("Chain Hook", 7, nil)
+		testSkill("Dual Strike of Ambidexterity", 8, true)
 	end)
 end)
