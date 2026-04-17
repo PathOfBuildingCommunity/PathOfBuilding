@@ -9,6 +9,7 @@ local curl = require("lcurl.safe")
 local m_max = math.max
 local s_format = string.format
 local t_insert = table.insert
+local tradeHelpers = LoadModule("Classes/CompareTradeHelpers")
 
 -- TODO generate these from data files
 local itemCategoryTags = {
@@ -762,103 +763,25 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 			itemCategory = "AnyJewel"
 			itemCategoryQueryStr = "jewel"
 		end
-	elseif slot.slotName:find("^Weapon %d") then
-		if existingItem then
-			if existingItem.type == "Shield" then
-				itemCategoryQueryStr = "armour.shield"
-				itemCategory = "Shield"
-			elseif existingItem.type == "Quiver" then
-				itemCategoryQueryStr = "armour.quiver"
-				itemCategory = "Quiver"
-			elseif existingItem.type == "Bow" then
-				itemCategoryQueryStr = "weapon.bow"
-				itemCategory = "Bow"
-			elseif existingItem.type == "Staff" then
-				itemCategoryQueryStr = "weapon.staff"
-				itemCategory = "Staff"
-			elseif existingItem.type == "Two Handed Sword" then
-				itemCategoryQueryStr = "weapon.twosword"
-				itemCategory = "2HSword"
-			elseif existingItem.type == "Two Handed Axe" then
-				itemCategoryQueryStr = "weapon.twoaxe"
-				itemCategory = "2HAxe"
-			elseif existingItem.type == "Two Handed Mace" then
-				itemCategoryQueryStr = "weapon.twomace"
-				itemCategory = "2HMace"
-			elseif existingItem.type == "Fishing Rod" then
-				itemCategoryQueryStr = "weapon.rod"
-				itemCategory = "FishingRod"
-			elseif existingItem.type == "One Handed Sword" then
-				itemCategoryQueryStr = "weapon.onesword"
-				itemCategory = "1HSword"
-			elseif existingItem.type == "One Handed Axe" then
-				itemCategoryQueryStr = "weapon.oneaxe"
-				itemCategory = "1HAxe"
-			elseif existingItem.type == "One Handed Mace" or existingItem.type == "Sceptre" then
-				itemCategoryQueryStr = "weapon.onemace"
-				itemCategory = "1HMace"
-			elseif existingItem.type == "Wand" then
-				itemCategoryQueryStr = "weapon.wand"
-				itemCategory = "Wand"
-			elseif existingItem.type == "Dagger" then
-				itemCategoryQueryStr = "weapon.dagger"
-				itemCategory = "Dagger"
-			elseif existingItem.type == "Claw" then
-				itemCategoryQueryStr = "weapon.claw"
-				itemCategory = "Claw"
-			elseif existingItem.type:find("Two Handed") ~= nil then
-				itemCategoryQueryStr = "weapon.twomelee"
-				itemCategory = "2HWeapon"
-			elseif existingItem.type:find("One Handed") ~= nil then
-				itemCategoryQueryStr = "weapon.one"
-				itemCategory = "1HWeapon"
-			else
-				logToFile("'%s' is not supported for weighted trade query generation", existingItem.type)
-				return
-			end
-		else
-			-- Item does not exist in this slot so assume 1H weapon
-			itemCategoryQueryStr = "weapon.one"
-			itemCategory = "1HWeapon"
-		end
-	elseif slot.slotName == "Body Armour" then
-		itemCategoryQueryStr = "armour.chest"
-		itemCategory = "Chest"
-	elseif slot.slotName == "Helmet" then
-		itemCategoryQueryStr = "armour.helmet"
-		itemCategory = "Helmet"
-	elseif slot.slotName == "Gloves" then
-		itemCategoryQueryStr = "armour.gloves"
-		itemCategory = "Gloves"
-	elseif slot.slotName == "Boots" then
-		itemCategoryQueryStr = "armour.boots"
-		itemCategory = "Boots"
-	elseif slot.slotName == "Amulet" then
-		itemCategoryQueryStr = "accessory.amulet"
-		itemCategory = "Amulet"
-	elseif slot.slotName == "Ring 1" or slot.slotName == "Ring 2" or slot.slotName == "Ring 3" then
-		itemCategoryQueryStr = "accessory.ring"
-		itemCategory = "Ring"
-	elseif slot.slotName == "Belt" then
-		itemCategoryQueryStr = "accessory.belt"
-		itemCategory = "Belt"
-	elseif slot.slotName:find("Abyssal") ~= nil then
-		itemCategoryQueryStr = "jewel.abyss"
-		itemCategory = "AbyssJewel"
-	elseif slot.slotName:find("Jewel") ~= nil then
-		itemCategoryQueryStr = "jewel"
-		itemCategory = options.jewelType .. "Jewel"
-		if itemCategory == "AbyssJewel" then
-			itemCategoryQueryStr = "jewel.abyss"
-		elseif itemCategory == "BaseJewel" then
-			itemCategoryQueryStr = "jewel.base"
-		end
-	elseif slot.slotName:find("Flask") ~= nil then
-		itemCategoryQueryStr = "flask"
-		itemCategory = "Flask"
 	else
-		logToFile("'%s' is not supported for weighted trade query generation", existingItem and existingItem.type or "n/a")
-		return
+		itemCategoryQueryStr, itemCategory = tradeHelpers.getTradeCategoryInfo(slot.slotName, existingItem)
+
+		-- Generic Jewel slot: caller selects the jewel subtype.
+		if slot.slotName:find("Jewel") ~= nil and not slot.slotName:find("Abyssal") then
+			itemCategory = options.jewelType .. "Jewel"
+			if itemCategory == "AbyssJewel" then
+				itemCategoryQueryStr = "jewel.abyss"
+			elseif itemCategory == "BaseJewel" then
+				itemCategoryQueryStr = "jewel.base"
+			else
+				itemCategoryQueryStr = "jewel"
+			end
+		end
+
+		if not itemCategoryQueryStr then
+			logToFile("'%s' is not supported for weighted trade query generation", existingItem and existingItem.type or "n/a")
+			return
+		end
 	end
 
 	-- Create a temp item for the slot with no mods

@@ -153,41 +153,51 @@ function M.findTradeModId(modLine, modType)
 	return nil
 end
 
+-- Map slot name + item type to (trade API category string, itemCategoryTags key).
+-- queryStr:      e.g. "armour.shield", "weapon.onemace"
+-- categoryLabel: e.g. "Shield", "1HMace", "1HWeapon" (nil for flask / generic jewel / unsupported)
+function M.getTradeCategoryInfo(slotName, item)
+	if not slotName then return nil, nil end
+	local itemType = item and (item.type or (item.base and item.base.type))
+	if slotName:find("^Weapon %d") then
+		if not itemType then return "weapon.one", "1HWeapon" end
+		if itemType == "Shield" then return "armour.shield", "Shield"
+		elseif itemType == "Quiver" then return "armour.quiver", "Quiver"
+		elseif itemType == "Bow" then return "weapon.bow", "Bow"
+		elseif itemType == "Staff" then return "weapon.staff", "Staff"
+		elseif itemType == "Two Handed Sword" then return "weapon.twosword", "2HSword"
+		elseif itemType == "Two Handed Axe" then return "weapon.twoaxe", "2HAxe"
+		elseif itemType == "Two Handed Mace" then return "weapon.twomace", "2HMace"
+		elseif itemType == "Fishing Rod" then return "weapon.rod", "FishingRod"
+		elseif itemType == "One Handed Sword" then return "weapon.onesword", "1HSword"
+		elseif itemType == "One Handed Axe" then return "weapon.oneaxe", "1HAxe"
+		elseif itemType == "One Handed Mace" or itemType == "Sceptre" then return "weapon.onemace", "1HMace"
+		elseif itemType == "Wand" then return "weapon.wand", "Wand"
+		elseif itemType == "Dagger" then return "weapon.dagger", "Dagger"
+		elseif itemType == "Claw" then return "weapon.claw", "Claw"
+		elseif itemType:find("Two Handed") then return "weapon.twomelee", "2HWeapon"
+		elseif itemType:find("One Handed") then return "weapon.one", "1HWeapon"
+		else return "weapon", "1HWeapon"
+		end
+	elseif slotName == "Body Armour" then return "armour.chest", "Chest"
+	elseif slotName == "Helmet" then return "armour.helmet", "Helmet"
+	elseif slotName == "Gloves" then return "armour.gloves", "Gloves"
+	elseif slotName == "Boots" then return "armour.boots", "Boots"
+	elseif slotName == "Amulet" then return "accessory.amulet", "Amulet"
+	elseif slotName == "Ring 1" or slotName == "Ring 2" or slotName == "Ring 3" then return "accessory.ring", "Ring"
+	elseif slotName == "Belt" then return "accessory.belt", "Belt"
+	elseif slotName:find("Abyssal") then return "jewel.abyss", "AbyssJewel"
+	elseif slotName:find("Jewel") then return "jewel", nil
+	elseif slotName:find("Flask") then return "flask", "Flask"
+	else return nil, nil
+	end
+end
+
 -- Helper: map slot name + item type to trade API category string
 function M.getTradeCategory(slotName, item)
 	if not item or not item.base then return nil end
-	local itemType = item.type or (item.base and item.base.type)
-	if slotName:find("^Weapon %d") then
-		if itemType == "Shield" then return "armour.shield"
-		elseif itemType == "Quiver" then return "armour.quiver"
-		elseif itemType == "Bow" then return "weapon.bow"
-		elseif itemType == "Staff" then return "weapon.staff"
-		elseif itemType == "Two Handed Sword" then return "weapon.twosword"
-		elseif itemType == "Two Handed Axe" then return "weapon.twoaxe"
-		elseif itemType == "Two Handed Mace" then return "weapon.twomace"
-		elseif itemType == "Fishing Rod" then return "weapon.rod"
-		elseif itemType == "One Handed Sword" then return "weapon.onesword"
-		elseif itemType == "One Handed Axe" then return "weapon.oneaxe"
-		elseif itemType == "One Handed Mace" or itemType == "Sceptre" then return "weapon.onemace"
-		elseif itemType == "Wand" then return "weapon.wand"
-		elseif itemType == "Dagger" then return "weapon.dagger"
-		elseif itemType == "Claw" then return "weapon.claw"
-		elseif itemType and itemType:find("Two Handed") then return "weapon.twomelee"
-		elseif itemType and itemType:find("One Handed") then return "weapon.one"
-		else return "weapon"
-		end
-	elseif slotName == "Body Armour" then return "armour.chest"
-	elseif slotName == "Helmet" then return "armour.helmet"
-	elseif slotName == "Gloves" then return "armour.gloves"
-	elseif slotName == "Boots" then return "armour.boots"
-	elseif slotName == "Amulet" then return "accessory.amulet"
-	elseif slotName == "Ring 1" or slotName == "Ring 2" or slotName == "Ring 3" then return "accessory.ring"
-	elseif slotName == "Belt" then return "accessory.belt"
-	elseif slotName:find("Abyssal") then return "jewel.abyss"
-	elseif slotName:find("Jewel") then return "jewel"
-	elseif slotName:find("Flask") then return "flask"
-	else return nil
-	end
+	local queryStr = M.getTradeCategoryInfo(slotName, item)
+	return queryStr
 end
 
 -- Helper: get a display-friendly category name from slot name
