@@ -1661,7 +1661,7 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 
 		local colWidth = m_max(m_floor(contentVP.width / 2), LAYOUT.itemsMinColWidth)
 		local itemSetLabelW = DrawStringWidth(16, "VAR", "^7Item set:") + 4
-		local scrollOffsetX = -(self.itemsScrollX or 0)
+		local scrollOffsetX = -((self.controls.itemsHScrollBar and self.controls.itemsHScrollBar.offset) or 0)
 
 		-- Item set dropdowns
 		local row1Y = contentVP.y + 34
