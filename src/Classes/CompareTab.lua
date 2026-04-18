@@ -2019,9 +2019,8 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 			ci.primaryControl.y = contentVP.y + fixedHeaderHeight + rowY - self.scrollY
 			ci.compareControl.x = sectionAbsX + LAYOUT.configCol3
 			ci.compareControl.y = contentVP.y + fixedHeaderHeight + rowY - self.scrollY
-			local capturedRowY = rowY
 			local shownFn = function()
-				local ay = contentVP.y + fixedHeaderHeight + capturedRowY - self.scrollY
+				local ay = ci.primaryControl.y
 				return ay >= scrollTopAbs and ay + ctrlH <= scrollBottomAbs
 					and self.compareViewMode == "CONFIG" and self:GetActiveCompare() ~= nil
 			end
