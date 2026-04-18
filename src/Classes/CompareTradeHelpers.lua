@@ -333,6 +333,7 @@ end
 -- Returns: pHover, cHover, b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H, hoverItem, hoverItemsTab
 -- copyBtnW, copyBtnH, buyBtnW are button dimensions (passed from LAYOUT by caller).
 local ITEM_BOX_W = 310
+M.ITEM_BOX_W = ITEM_BOX_W
 local ITEM_BOX_H = 20
 
 function M.drawCompactSlotRow(drawY, slotLabel, pItem, cItem,
