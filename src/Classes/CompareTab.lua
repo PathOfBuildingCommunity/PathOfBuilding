@@ -3639,14 +3639,48 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 	drawY = drawY + 24
 
 	-- Get socket groups from both builds
-	local pGroups = self.primaryBuild.skillsTab and self.primaryBuild.skillsTab.socketGroupList or {}
-	local cGroups = compareEntry.skillsTab and compareEntry.skillsTab.socketGroupList or {}
+	local pSkillsTab = self.primaryBuild.skillsTab
+	local cSkillsTab = compareEntry.skillsTab
+	local pGroups = pSkillsTab and pSkillsTab.socketGroupList or {}
+	local cGroups = cSkillsTab and cSkillsTab.socketGroupList or {}
+
+	-- Imbued supports live on socketGroup.imbuedSupport (a name string) rather than in gemList,
+	-- so synthesize a minimal gem-like entry that the rendering can treat like any other gem
+	local imbuedGemCache = {}
+	local function getImbuedGem(group, skillsTab)
+		if not group or not group.imbuedSupport then return nil end
+		if imbuedGemCache[group] then return imbuedGemCache[group] end
+		-- Prefer the grantedEffect cached on skillsTab; fall back to a direct data lookup
+		-- (mirrors SkillsTab:RebuildImbuedSupportBySlot) in case the tab hasn't been primed.
+		local grantedEffect = skillsTab and skillsTab.imbuedSupportBySlot and group.slot and skillsTab.imbuedSupportBySlot[group.slot]
+		if not grantedEffect then
+			local gemId = data.gemForBaseName and data.gemForBaseName[group.imbuedSupport:lower() .. " support"]
+			grantedEffect = gemId and data.gems[gemId] and data.gems[gemId].grantedEffect or nil
+		end
+		local entry = {
+			grantedEffect = grantedEffect,
+			nameSpec = group.imbuedSupport,
+			level = 1,
+			quality = 0,
+			color = grantedEffect and data.skillColorMap[grantedEffect.color] or nil,
+			isImbuedSupport = true,
+		}
+		imbuedGemCache[group] = entry
+		return entry
+	end
 
 	-- Helper: get the set of gem names in a socket group
-	local function getGemNameSet(group)
+	local function getGemNameSet(group, skillsTab)
 		local set = {}
 		for _, gem in ipairs(group.gemList or {}) do
 			local name = gem.grantedEffect and gem.grantedEffect.name or gem.nameSpec
+			if name then
+				set[name] = true
+			end
+		end
+		local imbuedGem = getImbuedGem(group, skillsTab)
+		if imbuedGem then
+			local name = imbuedGem.grantedEffect and imbuedGem.grantedEffect.name or imbuedGem.nameSpec
 			if name then
 				set[name] = true
 			end
@@ -3674,11 +3708,11 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 	-- Build gem name sets for all groups
 	local pSets = {}
 	for i, group in ipairs(pGroups) do
-		pSets[i] = getGemNameSet(group)
+		pSets[i] = getGemNameSet(group, pSkillsTab)
 	end
 	local cSets = {}
 	for i, group in ipairs(cGroups) do
-		cSets[i] = getGemNameSet(group)
+		cSets[i] = getGemNameSet(group, cSkillsTab)
 	end
 
 	-- Compute all pairwise similarity scores
@@ -3722,6 +3756,12 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 
 	-- Helper: check if gemA supports gemB (mirrors GemSelectControl:CheckSupporting)
 	local function checkSupporting(gemA, gemB)
+		-- Synthesized imbued-support entries lack gemData/supportEffect wiring, but by definition
+		-- they support any active (non-support) gem in the group.
+		if gemA.isImbuedSupport then
+			local bEffect = gemB.grantedEffect or (gemB.gemData and gemB.gemData.grantedEffect)
+			return bEffect and not bEffect.support or false
+		end
 		if not gemA.gemData or not gemB.gemData then return false end
 		return (gemA.gemData.grantedEffect and gemA.gemData.grantedEffect.support
 			and gemB.gemData.grantedEffect and not gemB.gemData.grantedEffect.support
@@ -3744,49 +3784,58 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 		return gem.grantedEffect and gem.grantedEffect.name or gem.nameSpec
 	end
 
+	-- Helper: build an iterable gem list for a group that appends its imbued support (if any)
+	local function getGemsWithImbued(group, skillsTab)
+		if not group then return {} end
+		local gems = {}
+		for _, gem in ipairs(group.gemList or {}) do
+			t_insert(gems, gem)
+		end
+		local imbuedGem = getImbuedGem(group, skillsTab)
+		if imbuedGem then
+			t_insert(gems, imbuedGem)
+		end
+		return gems
+	end
+
 	local function buildAlignedGemLists(pGroup, cGroup, pSet, cSet)
 		local pDisplay = {}
 		local cDisplay = {}
 
+		local pGems = getGemsWithImbued(pGroup, pSkillsTab)
+		local cGems = getGemsWithImbued(cGroup, cSkillsTab)
+
 		-- Build name->gem lookup for compare side (common gems only)
 		local cGemByName = {}
-		if cGroup then
-			for _, gem in ipairs(cGroup.gemList or {}) do
-				local name = getGemName(gem)
-				if name and pSet[name] and not cGemByName[name] then
-					cGemByName[name] = gem
-				end
+		for _, gem in ipairs(cGems) do
+			local name = getGemName(gem)
+			if name and pSet[name] and not cGemByName[name] then
+				cGemByName[name] = gem
 			end
 		end
 
 		-- Common gems in primary build's order
 		local emittedCommon = {}
-		if pGroup then
-			for _, gem in ipairs(pGroup.gemList or {}) do
-				local name = getGemName(gem)
-				if name and cSet[name] and not emittedCommon[name] then
-					emittedCommon[name] = true
-					t_insert(pDisplay, { gem = gem, name = name, status = "common" })
-					t_insert(cDisplay, { gem = cGemByName[name], name = name, status = "common" })
-				end
+		for _, gem in ipairs(pGems) do
+			local name = getGemName(gem)
+			if name and cSet[name] and not emittedCommon[name] then
+				emittedCommon[name] = true
+				t_insert(pDisplay, { gem = gem, name = name, status = "common" })
+				t_insert(cDisplay, { gem = cGemByName[name], name = name, status = "common" })
 			end
 		end
 
 		-- Additional gems (unique to each side), preserving original order
-		if pGroup then
-			for _, gem in ipairs(pGroup.gemList or {}) do
-				local name = getGemName(gem)
-				if name and not cSet[name] then
-					t_insert(pDisplay, { gem = gem, name = name, status = "additional" })
-				end
+		for _, gem in ipairs(pGems) do
+			local name = getGemName(gem)
+			if name and not cSet[name] then
+				t_insert(pDisplay, { gem = gem, name = name, status = "additional" })
 			end
 		end
-		if cGroup then
-			for _, gem in ipairs(cGroup.gemList or {}) do
-				local name = getGemName(gem)
-				if name and not pSet[name] then
-					t_insert(cDisplay, { gem = gem, name = name, status = "additional" })
-				end
+		for _, gem in ipairs(cGems) do
+			local name = getGemName(gem)
+			if name and not pSet[name] then
+				t_insert(cDisplay, { gem = gem, name = name, status = "additional" })
 			end
 		end
 
