@@ -1,3 +1,85 @@
+VERSION[2.64.0][2026/04/18]
+
+--- New to Path of Building ---
+* Add build comparison tab (oboking)
+* Add support for Imbued Supports (Peechey)
+* Add Unholy Aberration spectre (arielrahamim)
+* Add support for Lethal Dose support (majochem)
+* Add Life Recharge to sidebar when using Eternal Youth (LocalIdentity)
+* Add Conjuror of Rot Spectre (Peechey)
+* Add support for listing all active Tattoos (Peechey)
+* Add warning for eligible items missing an anoint (OursCodeur)
+* Default staged skills to their maximum stages (OursCodeur)
+* Preserve skill selection on character re-import (mcagnion)
+* Remember league for imported characters (pHiney)
+* Watcher's eye trade search (vaisest)
+* Trader improvements (vaisest)
+* Add more specific jewel tooltip comparison sorting (vaisest)
+
+--- Fixed Crashes ---
+* Fix crash when both Blight + Blight of Contagion use "Maximum Sustainable Stacks" (rasmuskl)
+* Fix crash caused by Phantasm Support being copied with mirage skills that take over mainSKill (Paliak)
+* Fix CwC crash when using skills from items and multiple link groups (Paliak)
+* Fix crash when hovering over more damage calc breakdown for Kinetic Fusillade of Destruction (FenikSRT4)
+
+--- User Interface ---
+* Add gem color indicators to socket group labels (valar-22)
+* Default crafted cluster jewels to minimum passives (OursCodeur)
+* Improve Hextoad breakdown and simplify calcs (Paliak)
+* Fix Gem quality tooltips (LocalIdentity)
+* Fix Loadouts dropdown not showing on smaller screens (Peechey)
+* Guard Trader result dropdown tooltip against stale state (mcagnion)
+* Dismiss power report toast message when checkbox is unticked (MrHB212)
+
+--- Fixed Calculations ---
+* Fix Cast while Channelling trigger interval being rounded to tick rate (Paliak)
+* Fix Bleed chance over 100% scaling Vicious Skewering Impale effect (LocalIdentity)
+* Fix Molten Strike of the Zenith Total Weighted Ball Average calc (LocalIdentity)
+* Fix Generals Cry damage calculation with some skills (LocalIdentity)
+* Fix Searing Bond of Detonation using Power charges instead of Max Power Charges (Wires77)
+* Fix Varunastra not counting for Blade Blast of Dagger Detonation (Paliak)
+* Add config option for Hallowing Flame magnitude (Paliak)
+* Fix calculations for skills that can repeat (Peechey)
+* Fix spectre buffs global effects applying just by existing in the spectre library (nofate121)
+* Fix Maven Memory Game damage (LocalIdentity)
+* Fix Poisonous Concoction Added Damage from disabled Life Flasks (Peechey)
+* Fix issue with converted damage showing no poison stacks (wh98yap-hub)
+* Fix Ghost Reaver instant leech calculation (LocalIdentity)
+* Fix negative eHP and NaN Max hit values for some builds (LocalIdentity)
+* Fix Catalyst scaling for Added Damage mods (Peechey)
+* Fix for Chieftain resist nodes applying effects twice due to Foulborn Choir of the Storm (EminGul)
+
+--- Fixed Behaviours ---
+* Fix Replica Dragonfang's Flight not working with transfigured Lightning Tendrils (LocalIdentity)
+* Fix Earthbreaker Totems Slam skills benefiting from Exert bonuses (LocalIdentity)
+* Fix Exposure mods on Balance of Terror not working (LocalIdentity)
+* Fix Ahuana's Bite and Bonechill's "inc damage taken" mods stacking (LocalIdentity)
+* Fix Resistance Shrine not granting max Chaos Resistance (LocalIdentity)
+* Fix Animate Weapon of Self Reflection not granting weapon mods to minion (LocalIdentity)
+* Fix Cryogenesis disabling flat damage from other sources when using Ele Hit (Wires77)
+* Fix issues with gems socketed in Ring slot 3 (Paliak)
+* Fix Vaal Flameblast base AoE and scaling (Blitz54)
+* Fix Servant of Decay affecting Life Mastery (Peechey)
+* Fix filtering Support gems in SkillsTab (Peechey)
+* Fix mods on Ring 3 applying when The Unseen Hand isn't allocated (Peechey)
+* Fix Dual Wield mastery granting damage when using a Thrusting + non-thrusting sword (LocalIdentity)
+* Remove tattoo tooltip and popup for cluster jewel keystones (Peechey)
+* Fix Tinctures applying their effects even when you have no Mana (LocalIdentity)
+* Fix cluster import sometimes not allocating the correct nodes (LocalIdentity)
+
+--- Accuracy Improvements ---
+* Fix Perfidy missing 3.25.0 changes (LocalIdentity)
+* Fix Summon Reaper and Animate Guardian missing gem tooltip lines (LocalIdentity)
+* Fix Sacred Chalice missing fire mod (Nightblade)
+* Fix Divine Blessing and Earthbreaker appearing in gem list (LocalIdentity)
+* Tag Serle's Masterwork as unobtainable (LocalIdentity)
+
+--- Fixed Bugs ---
+* Fix URL spoofing issue with imported URLs (Wires77)
+
+--- Other changes ---
+* Change character limit for ConfigTab "count" object from 7 to 10 (Vanqy9316)
+
 VERSION[2.63.0][2026/03/15]
 
 --- New to Path of Building ---
