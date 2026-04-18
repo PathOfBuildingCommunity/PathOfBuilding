@@ -78,7 +78,7 @@ local function isRelevantForBuild(varData, build)
 		if ifVal then
 			local envTable = mainEnv[p.env] or {}
 			if not anyIfValue(ifVal, function(opt)
-				return envTable[opt] or (p.impliable and implied())
+				return envTable[opt] or (p.canImply and implied())
 			end) then return false end
 		end
 	end

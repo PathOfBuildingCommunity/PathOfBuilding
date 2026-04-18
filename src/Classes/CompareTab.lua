@@ -132,6 +132,11 @@ local CompareTabClass = newClass("CompareTab", "ControlHost", "Control", functio
 	-- Scroll offset for scrollable views
 	self.scrollY = 0
 
+	-- Total content height for scroll clamping (populated at end of each Draw* pass)
+	self.summaryTotalContentHeight = 0
+	self.itemsTotalContentHeight = 0
+	self.skillsTotalContentHeight = 0
+
 	-- Tree layout cache (set in Draw, used by DrawTree)
 	self.treeLayout = nil
 
@@ -2222,11 +2227,17 @@ function CompareTabClass:HandleScrollInput(contentVP, inputEvents)
 				inputEvents[id] = nil
 			elseif event.key == "WHEELDOWN" and self.compareViewMode ~= "TREE" then
 				local maxScroll = 0
+				local viewportH = contentVP.height
 				if self.compareViewMode == "CONFIG" and self.configTotalContentHeight then
-					local scrollViewH = contentVP.height - LAYOUT.configFixedHeaderHeight
+					local scrollViewH = viewportH - LAYOUT.configFixedHeaderHeight
 					maxScroll = m_max(self.configTotalContentHeight - scrollViewH, 0)
-				else
-					maxScroll = 99999
+				elseif self.compareViewMode == "SUMMARY" and self.summaryTotalContentHeight > 0 then
+					maxScroll = m_max(self.summaryTotalContentHeight - viewportH, 0)
+				elseif self.compareViewMode == "ITEMS" and self.itemsTotalContentHeight > 0 then
+					local scrollViewH = viewportH - LAYOUT.itemsCheckboxOffset
+					maxScroll = m_max(self.itemsTotalContentHeight - scrollViewH, 0)
+				elseif self.compareViewMode == "SKILLS" and self.skillsTotalContentHeight > 0 then
+					maxScroll = m_max(self.skillsTotalContentHeight - viewportH, 0)
 				end
 				self.scrollY = m_min(self.scrollY + 40, maxScroll)
 				inputEvents[id] = nil
@@ -3027,6 +3038,8 @@ function CompareTabClass:DrawSummary(vp, compareEntry)
 
 	drawY = drawY + listHeight + 20 -- bottom padding
 
+	self.summaryTotalContentHeight = drawY + self.scrollY + 36
+
 	SetViewport()
 end
 
@@ -3659,6 +3672,8 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 		SetDrawLayer(nil, 0)
 	end
 
+	self.itemsTotalContentHeight = drawY + self.scrollY + 36
+
 	SetViewport()
 end
 
@@ -4032,6 +4047,8 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 		-- Calculate height for this row
 		drawY = drawY + m_max(pFinalGemY - drawY, cFinalGemY - drawY) + 6
 	end
+
+	self.skillsTotalContentHeight = drawY + self.scrollY + 36
 
 	SetViewport()
 end
