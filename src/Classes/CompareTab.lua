@@ -83,7 +83,8 @@ local LAYOUT = {
 	configColumnHeaderHeight = 20,
 	configFixedHeaderHeight = 92,
 	configSectionWidth = 560,
-	configSectionGap = 18,
+	configSectionGap = 24,
+	configSectionColumnGap = 10,
 	configSectionInnerPad = 20,
 	configLabelOffset = 10,
 	configCol2 = 234,
@@ -1127,8 +1128,8 @@ function CompareTabClass:RebuildConfigControls(compareEntry)
 	local currentSection = nil
 	for _, varData in ipairs(configOptions) do
 		if varData.section then
-			-- Skip "Custom Modifiers" section
-			if varData.section ~= "Custom Modifiers" then
+			-- Skip sections not relevant in Compare view
+			if varData.section ~= "Custom Modifiers" and varData.section ~= "Map Modifiers and Player Debuffs" then
 				currentSection = { name = varData.section, col = varData.col, items = {} }
 				t_insert(self.configSections, currentSection)
 			else
@@ -1900,6 +1901,7 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 	local sectionGap = LAYOUT.configSectionGap
 	local fixedHeaderHeight = LAYOUT.configFixedHeaderHeight
 	local sectionWidth = LAYOUT.configSectionWidth
+	local columnStride = sectionWidth + LAYOUT.configSectionColumnGap
 	local scrollableH = contentVP.height - fixedHeaderHeight
 
 	-- Hide ALL config controls first (selectively shown below)
@@ -1957,7 +1959,7 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 	end
 
 	-- Second pass: multi-column placement (same algorithm as ConfigTab)
-	local maxCol = m_floor((contentVP.width - 10) / sectionWidth)
+	local maxCol = m_floor((contentVP.width - 10) / columnStride)
 	if maxCol < 1 then maxCol = 1 end
 	local colY = { 0 }
 	local maxColY = 0
@@ -1968,7 +1970,7 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 		local col
 		-- Try preferred column if it fits
 		if sec.col and (colY[sec.col] or 0) + h + 28 <= scrollableH
-				and 10 + sec.col * sectionWidth <= contentVP.width then
+				and 10 + sec.col * columnStride <= contentVP.width then
 			col = sec.col
 		else
 			-- Find shortest column
@@ -1981,7 +1983,7 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 			end
 		end
 		colY[col] = colY[col] or 0
-		sec.x = 10 + (col - 1) * sectionWidth
+		sec.x = 10 + (col - 1) * columnStride
 		sec.y = colY[col] + sectionGap
 		colY[col] = colY[col] + h + sectionGap
 		maxColY = m_max(maxColY, colY[col])
