@@ -436,7 +436,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportElementalPenetration Elemental Penetration
-	fromItem = true,
 #mods
 
 #skill ElementalWarding

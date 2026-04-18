@@ -883,7 +883,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportGreaterSpellEcho
-	fromItem = true,
 	statMap = {
 		["support_greater_spell_echo_spell_damage_+%_final_per_repeat"] = {
 			mod("RepeatPerRepeatDamage", "MORE", nil, 0, 0, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),

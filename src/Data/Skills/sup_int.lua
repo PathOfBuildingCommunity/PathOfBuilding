@@ -6271,7 +6271,6 @@ skills["SupportGreaterSpellEcho"] = {
 	excludeSkillTypes = { SkillType.Brand, SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.Triggered, SkillType.HasReservation, SkillType.Vaal, SkillType.Instant, SkillType.NonRepeatable, SkillType.CreatesMinion, SkillType.NOT, SkillType.AND, },
 	plusVersionOf = "SupportSpellEcho",
 	statDescriptionScope = "gem_stat_descriptions",
-	fromItem = true,
 	statMap = {
 		["support_greater_spell_echo_spell_damage_+%_final_per_repeat"] = {
 			mod("RepeatPerRepeatDamage", "MORE", nil, 0, 0, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),

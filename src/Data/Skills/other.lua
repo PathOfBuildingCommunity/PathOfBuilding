@@ -1509,7 +1509,6 @@ skills["SupportElementalPenetration"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	fromItem = true,
 	qualityStats = {
 		{ "elemental_damage_+%", 0.5 },
 	},
