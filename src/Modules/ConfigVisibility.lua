@@ -9,16 +9,16 @@
 -- Labels containing any of these keywords stay hidden even when "Show All Configurations" is on.
 local EXCLUDE_KEYWORDS = { "recently", "in the last", "in the past", "in last", "in past", "pvp" }
 
--- Simple predicates of the form `varData.ifX` → `mainEnv.YUsed[opt]`, with imply-cond fallback when `impliable` is true.
+-- Simple predicates of the form `varData.ifX` → `mainEnv.YUsed[opt]`, with imply-cond fallback when `canImply` is true.
 local SIMPLE_PREDICATES = {
-	{ key = "ifCond",       env = "conditionsUsed",       impliable = true },
-	{ key = "ifMinionCond", env = "minionConditionsUsed", impliable = true },
-	{ key = "ifEnemyCond",  env = "enemyConditionsUsed",  impliable = true },
-	{ key = "ifMult",       env = "multipliersUsed",      impliable = true },
-	{ key = "ifEnemyMult",  env = "enemyMultipliersUsed", impliable = true },
-	{ key = "ifEnemyStat",  env = "enemyPerStatsUsed",    impliable = true },
-	{ key = "ifTagType",    env = "tagTypesUsed",         impliable = true },
-	{ key = "ifMod",        env = "modsUsed",             impliable = true },
+	{ key = "ifCond",       env = "conditionsUsed",       canImply = true },
+	{ key = "ifMinionCond", env = "minionConditionsUsed", canImply = true },
+	{ key = "ifEnemyCond",  env = "enemyConditionsUsed",  canImply = true },
+	{ key = "ifMult",       env = "multipliersUsed",      canImply = true },
+	{ key = "ifEnemyMult",  env = "enemyMultipliersUsed", canImply = true },
+	{ key = "ifEnemyStat",  env = "enemyPerStatsUsed",    canImply = true },
+	{ key = "ifTagType",    env = "tagTypesUsed",         canImply = true },
+	{ key = "ifMod",        env = "modsUsed",             canImply = true },
 }
 
 -- Run `predicate` against either a single value or a list of values.
