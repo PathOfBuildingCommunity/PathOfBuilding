@@ -81,7 +81,7 @@ local LAYOUT = {
 	-- Config view (shared between Draw() layout and DrawConfig())
 	configRowHeight = 22,
 	configColumnHeaderHeight = 20,
-	configFixedHeaderHeight = 92,
+	configFixedHeaderHeight = 82,
 	configSectionWidth = 560,
 	configSectionGap = 24,
 	configSectionColumnGap = 10,
@@ -1992,6 +1992,8 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 
 	-- Third pass: position controls at absolute coords
 	local scrollTopAbs = contentVP.y + fixedHeaderHeight
+	local scrollBottomAbs = contentVP.y + contentVP.height
+	local ctrlH = rowHeight
 	for _, sec in ipairs(sectionLayout) do
 		local sectionAbsX = contentVP.x + sec.x
 		local rowY = sec.y + sectionInnerPad
@@ -2004,7 +2006,7 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 			local capturedRowY = rowY
 			local shownFn = function()
 				local ay = contentVP.y + fixedHeaderHeight + capturedRowY - self.scrollY
-				return ay >= scrollTopAbs - 20 and ay < contentVP.y + contentVP.height
+				return ay >= scrollTopAbs and ay + ctrlH <= scrollBottomAbs
 					and self.compareViewMode == "CONFIG" and self:GetActiveCompare() ~= nil
 			end
 			ci.primaryControl.shown = shownFn
