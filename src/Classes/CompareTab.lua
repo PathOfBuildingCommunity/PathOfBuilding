@@ -14,6 +14,7 @@ local tradeHelpers = LoadModule("Classes/CompareTradeHelpers")
 local buySimilar = LoadModule("Classes/CompareBuySimilar")
 local calcsHelpers = LoadModule("Classes/CompareCalcsHelpers")
 local buildListHelpers = LoadModule("Modules/BuildListHelpers")
+local configVisibility = LoadModule("Modules/ConfigVisibility")
 
 -- Node IDs below this value are normal passive tree nodes; IDs at or above are cluster jewel nodes
 local CLUSTER_NODE_OFFSET = 65536
@@ -1114,31 +1115,11 @@ function CompareTabClass:RebuildConfigControls(compareEntry)
 				self.controls["cfg_p_" .. varData.var] = pCtrl
 				self.controls["cfg_c_" .. varData.var] = cCtrl
 
-				-- Determine eligibility category (matches ConfigTab's isShowAllConfig logic)
-				local isHardConditional = varData.ifOption or varData.ifSkill
-					or varData.ifSkillData or varData.ifSkillFlag or varData.legacy
-				local isKeywordExcluded = false
-				if varData.label then
-					local labelLower = varData.label:lower()
-					for _, kw in ipairs({"recently", "in the last", "in the past", "in last", "in past", "pvp"}) do
-						if labelLower:find(kw) then
-							isKeywordExcluded = true
-							break
-						end
-					end
-				end
-				local hasAnyCondition = varData.ifCond or varData.ifOption or varData.ifSkill
-					or varData.ifSkillFlag or varData.ifSkillData or varData.ifSkillList
-					or varData.ifNode or varData.ifMod or varData.ifMult
-					or varData.ifEnemyStat or varData.ifEnemyCond or varData.legacy
-
 				local ctrlInfo = {
 					primaryControl = pCtrl,
 					compareControl = cCtrl,
 					varData = varData,
 					visible = false,
-					alwaysShow = not hasAnyCondition and not isKeywordExcluded,
-					showWithToggle = not isHardConditional and not isKeywordExcluded,
 				}
 				self.configControls[varData.var] = ctrlInfo
 				t_insert(self.configControlList, ctrlInfo)
@@ -1921,8 +1902,13 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 				local isDiff = tostring(pVal) ~= tostring(cVal)
 				if isDiff then
 					t_insert(diffs, ctrlInfo)
-				elseif ctrlInfo.alwaysShow or (self.configToggle and ctrlInfo.showWithToggle) then
-					t_insert(commons, ctrlInfo)
+				else
+					local varData = ctrlInfo.varData
+					local relevant = configVisibility.isRelevantForBuild(varData, self.primaryBuild)
+							or configVisibility.isRelevantForBuild(varData, compareEntry)
+					if relevant or (self.configToggle and not configVisibility.isShowAllExcluded(varData)) then
+						t_insert(commons, ctrlInfo)
+					end
 				end
 			end
 		end
