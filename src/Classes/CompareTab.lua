@@ -65,7 +65,7 @@ local LAYOUT = {
 	-- Items view
 	itemsCheckboxOffset = 60,
 	itemsCopyBtnW = 60,
-	itemsCopyUseBtnW = 78,
+	itemsEquipBtnW = 60,
 	itemsCopyBtnH = 18,
 	itemsBuyBtnW = 60,
 	itemsMinColWidth = 700,
@@ -3541,15 +3541,15 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 
 	-- Track item copy button clicks
 	local clickedCopySlot = nil
-	local clickedCopyUseSlot = nil
+	local clickedEquipSlot = nil
 	local clickedBuySlot = nil
 	local clickedBuyItem = nil
 
-	-- Track Copy+Use button hover for stat comparison tooltip
-	local hoverCopyUseItem = nil
-	local hoverCopyUseSlotName = nil
-	local hoverCopyUseBtnX, hoverCopyUseBtnY = 0, 0
-	local hoverCopyUseBtnW, hoverCopyUseBtnH = 0, 0
+	-- Track Equip button hover for stat comparison tooltip
+	local hoverEquipItem = nil
+	local hoverEquipSlotName = nil
+	local hoverEquipBtnX, hoverEquipBtnY = 0, 0
+	local hoverEquipBtnW, hoverEquipBtnH = 0, 0
 
 	-- Headers
 	SetDrawColor(1, 1, 1)
@@ -3558,13 +3558,13 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	drawY = drawY + 24
 
 	-- Helper: process copy/buy button hover state and click events for a slot.
-	-- Closes over hoverCopyUse*/clicked* locals above.
-	local function processSlotButtons(b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H, cItem, copySlotName, copyUseSlotName)
+	-- Closes over hoverEquip*/clicked* locals above.
+	local function processSlotButtons(b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H, cItem, copySlotName, equipSlotName)
 		if b2Hover and cItem then
-			hoverCopyUseItem = cItem
-			hoverCopyUseSlotName = copyUseSlotName
-			hoverCopyUseBtnX, hoverCopyUseBtnY = b2X, b2Y
-			hoverCopyUseBtnW, hoverCopyUseBtnH = b2W, b2H
+			hoverEquipItem = cItem
+			hoverEquipSlotName = equipSlotName
+			hoverEquipBtnX, hoverEquipBtnY = b2X, b2Y
+			hoverEquipBtnW, hoverEquipBtnH = b2W, b2H
 		end
 		if cItem and inputEvents then
 			for id, event in ipairs(inputEvents) do
@@ -3573,10 +3573,10 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 						clickedCopySlot = copySlotName
 						inputEvents[id] = nil
 					elseif b2Hover then
-						clickedCopyUseSlot = copyUseSlotName
+						clickedEquipSlot = equipSlotName
 						inputEvents[id] = nil
 					elseif b3Hover then
-						clickedBuySlot = copyUseSlotName
+						clickedBuySlot = equipSlotName
 						clickedBuyItem = cItem
 						inputEvents[id] = nil
 					end
@@ -3587,7 +3587,7 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 
 	-- Helper: draw a single slot entry (expanded or compact mode).
 	-- Closes over drawY, colWidth, cursorX/Y, vp, self, compareEntry, hoverItem/hoverX/Y/W/H/hoverItemsTab.
-	local function drawSlotEntry(label, pItem, cItem, copySlotName, copyUseSlotName, labelW, pWarn, cWarn, slotMissing)
+	local function drawSlotEntry(label, pItem, cItem, copySlotName, equipSlotName, labelW, pWarn, cWarn, slotMissing)
 		if self.itemsExpandedMode then
 			-- === EXPANDED MODE ===
 			SetDrawColor(1, 1, 1)
@@ -3596,8 +3596,8 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 			DrawString(scrollOffsetX + 10 + labelEndW + 8, drawY + 2, "LEFT", 14, "VAR", tradeHelpers.getSlotDiffLabel(pItem, cItem))
 
 			if cItem then
-				local b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H = tradeHelpers.drawCopyButtons(cursorX, cursorY, scrollOffsetX + contentWidth - 214, drawY + 21, slotMissing, LAYOUT.itemsCopyBtnW, LAYOUT.itemsCopyBtnH, LAYOUT.itemsBuyBtnW, LAYOUT.itemsCopyUseBtnW)
-				processSlotButtons(b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H, cItem, copySlotName, copyUseSlotName)
+				local b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H = tradeHelpers.drawCopyButtons(cursorX, cursorY, scrollOffsetX + contentWidth - 214, drawY + 21, slotMissing, LAYOUT.itemsCopyBtnW, LAYOUT.itemsCopyBtnH, LAYOUT.itemsBuyBtnW, LAYOUT.itemsEquipBtnW)
+				processSlotButtons(b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H, cItem, copySlotName, equipSlotName)
 			end
 
 			drawY = drawY + 20
@@ -3620,7 +3620,7 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 				tradeHelpers.drawCompactSlotRow(drawY, label, pItem, cItem,
 					colWidth, cursorX, cursorY, labelW,
 					self.primaryBuild.itemsTab, compareEntry.itemsTab, pWarn, cWarn, slotMissing,
-					LAYOUT.itemsCopyBtnW, LAYOUT.itemsCopyBtnH, LAYOUT.itemsBuyBtnW, LAYOUT.itemsCopyUseBtnW, scrollOffsetX)
+					LAYOUT.itemsCopyBtnW, LAYOUT.itemsCopyBtnH, LAYOUT.itemsBuyBtnW, LAYOUT.itemsEquipBtnW, scrollOffsetX)
 
 			if rowHoverItem then
 				hoverItem = rowHoverItem
@@ -3629,7 +3629,7 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 				hoverW, hoverH = rowHoverW, rowHoverH
 			end
 
-			processSlotButtons(b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H, cItem, copySlotName, copyUseSlotName)
+			processSlotButtons(b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H, cItem, copySlotName, equipSlotName)
 
 			drawY = drawY + 20
 		end
@@ -3694,8 +3694,8 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	-- Process item copy button clicks
 	if clickedCopySlot then
 		self:CopyCompareItemToPrimary(clickedCopySlot, compareEntry, false)
-	elseif clickedCopyUseSlot then
-		self:CopyCompareItemToPrimary(clickedCopyUseSlot, compareEntry, true)
+	elseif clickedEquipSlot then
+		self:CopyCompareItemToPrimary(clickedEquipSlot, compareEntry, true)
 	end
 
 	-- Process buy button click
@@ -3712,21 +3712,21 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 		SetDrawLayer(nil, 0)
 	end
 
-	-- Draw stat comparison tooltip when hovering Copy+Use button
-	if hoverCopyUseItem and hoverCopyUseSlotName and not hoverItem then
+	-- Draw stat comparison tooltip when hovering Equip button
+	if hoverEquipItem and hoverEquipSlotName and not hoverItem then
 		self.itemTooltip:Clear()
 		local calcFunc, calcBase = self.calcs.getMiscCalculator(self.primaryBuild)
 		if calcFunc then
 			-- Create a fresh item to evaluate
-			local newItem = new("Item", hoverCopyUseItem.raw)
+			local newItem = new("Item", hoverEquipItem.raw)
 			newItem:NormaliseQuality()
 
 			-- Determine what's currently in the target slot
-			local pSlot = self.primaryBuild.itemsTab.slots[hoverCopyUseSlotName]
+			local pSlot = self.primaryBuild.itemsTab.slots[hoverEquipSlotName]
 			local selItem = pSlot and self.primaryBuild.itemsTab.items[pSlot.selItemId]
 
 			-- For jewel sockets that aren't allocated, temporarily allocate the node
-			local override = { repSlotName = hoverCopyUseSlotName, repItem = newItem }
+			local override = { repSlotName = hoverEquipSlotName, repItem = newItem }
 			if pSlot and pSlot.nodeId then
 				local pSpec = self.primaryBuild.spec
 				if pSpec and pSpec.allocNodes and not pSpec.allocNodes[pSlot.nodeId] then
@@ -3738,7 +3738,7 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 			end
 
 			local output = calcFunc(override)
-			local slotLabel = pSlot and pSlot.label or hoverCopyUseSlotName
+			local slotLabel = pSlot and pSlot.label or hoverEquipSlotName
 			local header
 			if selItem then
 				header = string.format("^7Equipping this item in %s will give you:\n(replacing %s%s^7)", slotLabel, colorCodes[selItem.rarity] or "^7", selItem.name)
@@ -3754,7 +3754,7 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 		SetDrawLayer(nil, 100)
 		-- Force tooltip to the left of the button by passing a large width
 		-- so the right-side placement overflows and the Draw logic flips to left
-		self.itemTooltip:Draw(hoverCopyUseBtnX, hoverCopyUseBtnY, vp.width, hoverCopyUseBtnH, vp)
+		self.itemTooltip:Draw(hoverEquipBtnX, hoverEquipBtnY, vp.width, hoverEquipBtnH, vp)
 		SetDrawLayer(nil, 0)
 	end
 
