@@ -4047,6 +4047,30 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 		end
 		return groupLabel
 	end
+	local function getGroupSlotIcon(skillsTab, idx, group)
+		local groupList = skillsTab and skillsTab.controls and skillsTab.controls.groupList
+		if not groupList or not groupList.GetRowIcon or not group then
+			return nil
+		end
+		return groupList:GetRowIcon(1, idx, group)
+	end
+	local groupHeaderX = 10
+	local groupHeaderIconSize = 16
+	local groupHeaderIconGap = 2
+	local groupHeaderTextIndent = groupHeaderIconSize + groupHeaderIconGap
+	local groupHeaderTextX = groupHeaderX + groupHeaderTextIndent
+	local function getGroupHeaderWidth(group, idx)
+		return groupHeaderTextX + DrawStringWidth(18, "VAR", "^7" .. getGroupLabel(group, idx))
+	end
+	local function drawGroupHeader(skillsTab, group, idx, x, y)
+		local icon = getGroupSlotIcon(skillsTab, idx, group)
+		local textX = x + groupHeaderTextIndent
+		if icon then
+			SetDrawColor(1, 1, 1)
+			DrawImage(icon, x, y, groupHeaderIconSize, groupHeaderIconSize)
+		end
+		DrawString(textX, y, "LEFT", 18, "VAR", "^7" .. getGroupLabel(group, idx))
+	end
 
 	local displayListsByPair = {}
 	local maxPrimaryW = 0
@@ -4059,12 +4083,12 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 		displayListsByPair[idx] = { p = pDisplay, c = cDisplay }
 
 		if pGroup then
-			local w = 10 + DrawStringWidth(16, "VAR", "^7" .. getGroupLabel(pGroup, pair.pIdx))
+			local w = getGroupHeaderWidth(pGroup, pair.pIdx)
 			if w > maxPrimaryW then maxPrimaryW = w end
 		end
 		for _, entry in ipairs(pDisplay) do
 			local line = buildGemDisplayString(entry)
-			local w = 20 + DrawStringWidth(gemFontSize, "VAR", line)
+			local w = groupHeaderTextX + DrawStringWidth(gemFontSize, "VAR", line)
 			if w > maxPrimaryW then maxPrimaryW = w end
 		end
 	end
@@ -4076,7 +4100,7 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 	local colWidth = maxPrimaryW + LAYOUT.compareColGap
 	local contentWidth = colWidth * 2
 	local needsHScroll = contentWidth > vp.width
-	local gemTextWidth = colWidth - 30
+	local gemTextWidth = colWidth - (groupHeaderTextX + 10)
 
 	-- Configure horizontal scrollbar
 	local hBar = self.controls.skillsHScrollBar
@@ -4108,8 +4132,8 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 		local pGroup = pair.pIdx and pGroups[pair.pIdx]
 		local cGroup = pair.cIdx and cGroups[pair.cIdx]
 
-		local pGemY = collectGemEntries(gemEntries, pDisplayList, scrollOffsetX + 20, preY + lineHeight, pGroup)
-		local cGemY = collectGemEntries(gemEntries, cDisplayList, scrollOffsetX + colWidth + 20, preY + lineHeight, cGroup)
+		local pGemY = collectGemEntries(gemEntries, pDisplayList, scrollOffsetX + groupHeaderTextX, preY + lineHeight, pGroup)
+		local cGemY = collectGemEntries(gemEntries, cDisplayList, scrollOffsetX + colWidth + groupHeaderTextX, preY + lineHeight, cGroup)
 
 		preY = preY + m_max(pGemY - preY, cGemY - preY) + 6
 	end
@@ -4163,14 +4187,14 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 		local cGroup = pair.cIdx and cGroups[pair.cIdx]
 
 		if pGroup then
-			DrawString(scrollOffsetX + 10, drawY, "LEFT", 16, "VAR", "^7" .. getGroupLabel(pGroup, pair.pIdx))
+			drawGroupHeader(pSkillsTab, pGroup, pair.pIdx, scrollOffsetX + groupHeaderX, drawY)
 		end
 		if cGroup then
-			DrawString(scrollOffsetX + colWidth + 10, drawY, "LEFT", 16, "VAR", "^7" .. getGroupLabel(cGroup, pair.cIdx))
+			drawGroupHeader(cSkillsTab, cGroup, pair.cIdx, scrollOffsetX + colWidth + groupHeaderX, drawY)
 		end
 
-		pFinalGemY = drawGemList(pDisplayList, scrollOffsetX + 20, drawY + lineHeight, highlightSet, gemTextWidth)
-		cFinalGemY = drawGemList(cDisplayList, scrollOffsetX + colWidth + 20, drawY + lineHeight, highlightSet, gemTextWidth)
+		pFinalGemY = drawGemList(pDisplayList, scrollOffsetX + groupHeaderTextX, drawY + lineHeight, highlightSet, gemTextWidth)
+		cFinalGemY = drawGemList(cDisplayList, scrollOffsetX + colWidth + groupHeaderTextX, drawY + lineHeight, highlightSet, gemTextWidth)
 
 		drawY = drawY + m_max(pFinalGemY - drawY, cFinalGemY - drawY) + 6
 	end
