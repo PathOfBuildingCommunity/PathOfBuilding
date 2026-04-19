@@ -1617,7 +1617,6 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 	if self.compareViewMode == "CALCS" and compareEntry then
 		self.calcsSkillHeaderHeight = self:LayoutCalcsSkillControls(contentVP, compareEntry)
 	end
-	self:HandleScrollInput(contentVP, inputEvents)
 
 	-- Draw calcs skill header background
 	if self.compareViewMode == "CALCS" and self.calcsSkillHeaderHeight > 0 then
@@ -1627,6 +1626,7 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 
 	-- Process input events for our controls (including footer controls)
 	self:ProcessControlsInput(inputEvents, viewPort)
+	self:HandleScrollInput(contentVP, inputEvents)
 
 	-- Draw TREE view BEFORE controls so header dropdowns render on top of the tree
 	if self.compareViewMode == "TREE" and compareEntry then
@@ -2249,7 +2249,7 @@ function CompareTabClass:HandleScrollInput(contentVP, inputEvents)
 	local mouseOverList = listControl:IsShown() and listControl:IsMouseOver()
 
 	for id, event in ipairs(inputEvents) do
-		if event.type == "KeyDown" and mouseInContent and not mouseOverList then
+		if event.type == "KeyUp" and mouseInContent and not mouseOverList then
 			if self.compareViewMode == "CALCS" then
 				if event.key == "WHEELUP" then
 					self.controls.calcsScrollBar:Scroll(-1)
