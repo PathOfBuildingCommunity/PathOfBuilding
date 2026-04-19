@@ -1566,6 +1566,7 @@ end
 -- DRAW - Main render method
 -- ============================================================
 function CompareTabClass:Draw(viewPort, inputEvents)
+	main:DrawBackground(viewPort)
 	-- Position top-bar controls
 	self.controls.subTabAnchor.x = viewPort.x + 4
 	self.controls.subTabAnchor.y = viewPort.y + 96
