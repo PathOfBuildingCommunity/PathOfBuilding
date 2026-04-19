@@ -378,7 +378,9 @@ end
 
 function GemSelectClass:UpdateGem(setText, addUndo)
 	local gemId = self.list[m_max(self.selIndex, 1)]
-	if self.buf:match("%S") and self.gems[gemId] then
+	local bufMatchesGem = (self.gems[gemId] and self.buf:lower() == self.gems[gemId].name:lower()) -- currently only for imbued GemControl: don't process unless the buffer equals an actual gem, whether typed, clicked, or navigated with arrows
+
+	if self.gems[gemId] and (not self.imbuedSelect or bufMatchesGem) then
 		self.gemId = gemId
 	else
 		self.gemId = nil

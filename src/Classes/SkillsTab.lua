@@ -233,9 +233,13 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 			self.controls.imbuedSupport.inactiveCol = data.skillColorMap[gem.grantedEffect.color]
 			self.build.buildFlag = true
 		else
+			local cleanUp = self.imbuedSupportBySlot[targetSlot]
 			self.imbuedSupportBySlot[targetSlot] = nil
 			if updateDisplayGroup then
 				self.displayGroup.imbuedSupport = nil
+			end
+			if cleanUp then -- an imbued existed before clearing it, so reprocess
+				self.build.buildFlag = true
 			end
 		end
 	end, true, true)
@@ -251,9 +255,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.imbuedSupportClear = new("ButtonControl", { "LEFT", self.controls.imbuedSupportLabel, "RIGHT" }, { 260, 0, 20, 20}, "x", function()
 		self.controls.imbuedSupport.gemId = nil
 		self.controls.imbuedSupport:SetText("")
-		self.displayGroup.imbuedSupport = nil
-		self.imbuedSupportBySlot[self.displayGroup.slot] = nil
-		self.build.buildFlag = true
+		self.controls.imbuedSupport:gemChangeFunc(nil)
 	end)
 	self.controls.imbuedSupportClear.enabled = function()
 		return isImbuedEnabled()
