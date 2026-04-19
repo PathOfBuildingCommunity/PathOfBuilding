@@ -919,38 +919,44 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 		end
 		return
 	end
-
 	local tradeMode = self.calcContext.options.tradeMode or 1
 	local existingItemIsUnique = self.calcContext.options.existingItemIsUnique
+	local implMode = self.calcContext.options.includeImplicits
+
 	if tradeMode ~= 4 and not existingItemIsUnique then
 		-- Standard/Upgrade/Exact: generate explicit weights for rare items.
 		-- Skipped for unique items — their explicit mods are fixed; only implicit/corrupted vary.
 		self:GenerateModWeights(self.modData["Explicit"])
-		if self.calcContext.options.includeImplicits then
+		if implMode == "All" or implMode == "Without Eldritch" or implMode == "Eldritch limited" then
 			self:GenerateModWeights(self.modData["Implicit"])
 		end
 	elseif existingItemIsUnique then
-		-- Unique item search: only implicit/corrupted mods differ between copies.
-		if self.calcContext.options.includeImplicits then
+		-- Unique item search: only implicit and corrupted mods differ between copies.
+		if implMode == "All" or implMode == "Without Eldritch" or implMode == "Eldritch limited" then
 			self:GenerateModWeights(self.modData["Implicit"])
 		end
 	end
-	if self.calcContext.options.includeCorrupted then
+	-- Corrupted implicits share the "implicit.*" trade-ID namespace.
+	-- When the user selects "None" for implicit mods they expect NO implicit-category
+	-- stats in the weighted group, so skip corrupted weights in that case too.
+	-- (The includeCorrupted checkbox still controls result filtering via misc_filters.)
+	if self.calcContext.options.includeCorrupted and implMode ~= "None" then
 		self:GenerateModWeights(self.modData["Corrupted"])
 	end
 	if self.calcContext.options.includeScourge then
 		self:GenerateModWeights(self.modData["Scourge"])
 	end
-	if self.calcContext.options.includeEldritch ~= "None" and
-		not (tradeMode == 4 and self.calcContext.options.isUnique) and
+	-- Eldritch weights: "All" uses the full Eater/Exarch pool; "Eldritch limited" strips
+	-- conditional boss-presence mods (PinnaclePresence/UniquePresence) to save filter slots.
+	-- "Without Eldritch" and "None" intentionally skip this block.
+	if (implMode == "All" or implMode == "Eldritch limited") and
 		-- skip weights if we need an influenced item as they can produce really
 		-- bad results due to the filter limit
 		self.calcContext.options.influence1 == 1 and
 		self.calcContext.options.influence2 == 1 then
-		local omitConditional = self.calcContext.options.includeEldritch == "Omit While"
 		local eaterMods = self.modData["Eater"]
 		local exarchMods = self.modData["Exarch"]
-		if omitConditional then
+		if implMode == "Eldritch limited" then
 			local function filterMods(mods)
 				local filtered = {}
 				for name, mod in pairs(mods) do
@@ -1345,6 +1351,10 @@ function TradeQueryGeneratorClass:FinishQuery()
 	-- Collect required mod filters from the current item's mods if requested
 	local requiredModFilters = {}
 	local craftedSlotFilters = {}
+	-- Implicit required filters apply to Modes 2 and 3 (same scope as explicit required filters).
+	-- Mode 1: weights only, no required filters.
+	-- Mode 4: implicits are the search target, not a required constraint.
+	local needImplicitFilters = (tradeMode == 2 or tradeMode == 3) and options.includeImplicits ~= "None"
 	if requireCurrentMods and originalItem then
 		-- Build separate normalized text -> tradeModId lookups so explicit and implicit
 		-- stat IDs are never confused with each other.
@@ -1393,7 +1403,9 @@ function TradeQueryGeneratorClass:FinishQuery()
 		local preferLocal = originalItem.base and (originalItem.base.weapon or originalItem.base.armour) and true or false
 		local explicitTextToId = buildTextLookup(self.modData.Explicit, preferLocal)
 		local implicitTextToId = buildTextLookup(self.modData.Implicit)
-		if options.includeEldritch and options.includeEldritch ~= "None" then
+		-- Augment the explicit lookup with Eldritch stat IDs so Eldritch mod lines on the item
+		-- are found when building required filters. Skipped for "None" and "Without Eldritch".
+		if options.includeImplicits ~= "None" and options.includeImplicits ~= "Without Eldritch" then
 			for _, eldritchModType in ipairs({ "Eater", "Exarch" }) do
 				for k, v in pairs(buildTextLookup(self.modData[eldritchModType])) do
 					explicitTextToId[k] = explicitTextToId[k] or v
@@ -1472,7 +1484,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 			end
 		end
 		addModLines(originalItem.explicitModLines, explicitTextToId, nil)
-		if tradeMode ~= 4 and options.includeImplicits then
+		if needImplicitFilters then
 			addModLines(originalItem.implicitModLines, implicitTextToId, explicitTextToId)
 		end
 		-- Crafted mods are always in explicitModLines with modLine.crafted = true.
@@ -1648,13 +1660,21 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	local isWeaponSlot = slot and (slot.slotName == "Weapon 1" or slot.slotName == "Weapon 2")
 	local isEldritchModSlot = slot and eldritchModSlots[slot.slotName] == true
 
+	-- All controls are left-aligned in a single TOPLEFT chain.
+	-- The checkbox box sits at x≈176 (popup-relative); labels are drawn to its left.
+	-- Mirrored Items: top of chain, skip for unique items (they can't be mirrored).
+	local lastItemAnchor
+	if not context.slotTbl.unique then
+		controls.includeMirrored = new("CheckBoxControl", {"TOP",nil,"TOP"}, {-15, 30, 18}, "Mirrored items:", function(state) end)
+		controls.includeMirrored.state = (self.lastIncludeMirrored == nil or self.lastIncludeMirrored == true)
+		lastItemAnchor = controls.includeMirrored
+	end
 
 	-- removing checkbox until synthesis mods are supported
 	--controls.includeSynthesis = new("CheckBoxControl", {"TOPLEFT",controls.includeEldritch,"BOTTOMLEFT"}, {0, 5, 18}, "Synthesis Mods:", function(state) end)
 	--controls.includeSynthesis.state = (self.lastIncludeSynthesis == nil or self.lastIncludeSynthesis == true)
 
-	local lastItemAnchor = nil
-	local includeScourge = self.queryTab.pbLeagueRealName == "Standard" or self.queryTab.pbLeagueRealName == "Hardcore" or self.queryTab.pbLeague == "Standard" or self.queryTab.pbLeague == "Hardcore"
+	local includeScourge = self.queryTab.pbLeague == "Standard" or self.queryTab.pbLeague == "Hardcore"
 
 	local function updateLastAnchor(anchor, height)
 		lastItemAnchor = anchor
@@ -1665,17 +1685,16 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		options.special = { itemName = context.slotTbl.slotName }
 	end
 
-	-- these unique items cannot be mirrored
-	if not context.slotTbl.unique then
-		controls.includeMirrored = new("CheckBoxControl", {"TOP",nil,"TOP"}, {-15, 30, 18}, "Mirrored Items:", function(state) end)
-		controls.includeMirrored.state = (self.lastIncludeMirrored == nil or self.lastIncludeMirrored == true)
+	if controls.includeMirrored then
 		updateLastAnchor(controls.includeMirrored)
 	end
 
-	-- Corrupted Items: directly below Mirrored, before Mode.
+	-- Corrupted Items: below Mirrored (or at top for unique items where Mirrored is hidden).
 	-- Unchecked = exclude corrupted (adds corrupted=false to misc_filters, same pattern as mirrored).
 	-- Checked   = allow corrupted (Any) + include corrupted implicit weights.
-	controls.includeCorrupted = new("CheckBoxControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 18}, "Corrupted Items:", function(state) end)
+	local corruptedAnchor = lastItemAnchor and {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"} or {"TOP",nil,"TOP"}
+	local corruptedRect   = lastItemAnchor and {0, 5, 18} or {-15, 30, 18}
+	controls.includeCorrupted = new("CheckBoxControl", corruptedAnchor, corruptedRect, "Corrupted Items:", function(state) end)
 	controls.includeCorrupted.state = not context.slotTbl.alreadyCorrupted and (self.lastIncludeCorrupted == nil or self.lastIncludeCorrupted == true)
 	controls.includeCorrupted.enabled = not context.slotTbl.alreadyCorrupted
 	updateLastAnchor(controls.includeCorrupted)
@@ -1707,16 +1726,19 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		controls.includePseudo.tooltipText = "Consolidate related explicit/implicit mods into pseudo stat filters"
 		updateLastAnchor(controls.includePseudo)
 
-		-- Implicit Mods checkbox: below Pseudo Mods
-		controls.includeImplicits = new("CheckBoxControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 18}, "Implicit Mods:", function(state) end)
-		controls.includeImplicits.state = (self.lastIncludeImplicits == nil or self.lastIncludeImplicits == true)
+		-- Implicit Mods dropdown: controls which mods from the implicit/Eldritch pools
+		-- enter the weight and required-filter groups.  Eldritch mods are a sub-pool.
+		controls.includeImplicits = new("DropDownControl",
+			{"TOPLEFT", lastItemAnchor, "BOTTOMLEFT"}, {0, 5, 120, 18},
+			{"None", "Without Eldritch", "Eldritch limited", "All"}, function(_state) end,
+			"Controls which implicit mods (including Eldritch) enter weight/filter groups.\n" ..
+			"None: skip implicits entirely.\n" ..
+			"Without Eldritch: regular implicits only, no Eldritch weights.\n" ..
+			"Eldritch limited: all implicits + Eldritch, skipping boss-conditional mods.\n" ..
+			"All: full implicit + Eldritch pool.")
+		controls.includeImplicitsLabel = new("LabelControl", {"RIGHT", controls.includeImplicits, "LEFT"}, {-4, 0, 80, 16}, "Implicit Mods:")
+		controls.includeImplicits:SetSel(self.lastIncludeImplicits or 4)  -- default: All (index 4)
 		updateLastAnchor(controls.includeImplicits)
-	end
-
-	if isEldritchModSlot then
-		controls.includeEldritch = new("CheckBoxControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 18}, "Eldritch Mods:", function(state) end)
-		controls.includeEldritch.state = (self.lastIncludeEldritch == true)
-		updateLastAnchor(controls.includeEldritch)
 	end
 
 	if not isJewelSlot and not isAbyssalJewelSlot and includeScourge then
@@ -1731,28 +1753,19 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		updateLastAnchor(controls.includeTalisman)
 	end
 
-	-- Implicit mod and enchant behaviour in searching and sorting
+	-- Copy Current Implicits: post-fetch operation that replaces Eldritch implicits on
+	-- every result item with those from the currently equipped item.
+	-- Only meaningful for Eldritch-capable slots (Helmet/Body Armour/Gloves/Boots).
 	if isEldritchModSlot then
-		local eldritchTooltip = [[Controls the inclusion of eldritch mod weights in the weighted sum.
-None: no weights are generated.
-All: weights are generated for all eldritch implicit modifiers.
-Omit while: weights are generated, but conditional "While unique/atlas boss" modifiers are skipped.
-It is often not recommended to use "All" as this includes a lot of high power modifiers,
-which will cause other useful modifiers to be left out in the weighted sum.]]
-		controls.includeEldritch = new("DropDownControl", { "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 92, 18 },
-			{ "None", "All", "Omit While" }, function(_state) end, eldritchTooltip)
-		controls.includeEldritchLabel = new("LabelControl", { "RIGHT", controls.includeEldritch, "LEFT" },
-			{ -4, 0, 80, 16 }, "Eldritch Mods:")
-		controls.includeEldritch:SetSel(self.lastIncludeEldritch or 1)
-		updateLastAnchor(controls.includeEldritch)
-
-		local eldritchTooltip = "Replaces the eldritch modifiers on search results with the eldritch modifiers from your currently equipped item."
-		local labelText = "Copy Current Implicits:"
 		controls.copyEldritch = new("CheckBoxControl",
-			{ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" },
-			{ 0, 5, 18, 18 },
-			labelText, function(state) end, eldritchTooltip, false)
-		controls.copyEldritch.state = self.lastCopyEldritch or false
+			{"TOPLEFT", lastItemAnchor, "BOTTOMLEFT"}, {0, 5, 18},
+			"Copy Current Implicits:", function(state) end)
+		controls.copyEldritch.state = self.lastCopyEldritch == true
+		controls.copyEldritch.tooltipText =
+			"Replaces the Eldritch implicits on each result item with those from your\n" ..
+			"currently equipped item (skipped for corrupted, mirrored, or Unique items).\n" ..
+			"Consider setting Implicit Mods to None when using this — the Eldritch pool\n" ..
+			"will be copied from your item rather than searched."
 		updateLastAnchor(controls.copyEldritch)
 	end
 	if isAmuletSlot or isBeltSlot or isWeaponSlot then
@@ -1777,14 +1790,7 @@ Remove: %s will be removed from the search results.]], term, term, term)
 		controls.jewelTypeLabel = new("LabelControl", {"RIGHT",controls.jewelType,"LEFT"}, {-5, 0, 0, 16}, "Jewel Type:")
 		updateLastAnchor(controls.jewelType)
 	elseif slot and not isAbyssalJewelSlot and context.slotTbl.slotName ~= "Watcher's Eye" then
-		local selFunc = function()
-			-- influenced items can't have eldritch implicits
-			if controls.copyEldritch and isEldritchModSlot then
-				local hasInfluence1 = controls.influence1 and controls.influence1:GetSelValue() ~= "None"
-				local hasInfluence2 = controls.influence2 and controls.influence2:GetSelValue() ~= "None"
-				controls.copyEldritch.enabled = not hasInfluence1 and not hasInfluence2
-			end
-		end
+		local selFunc = function() end
 		controls.influence1 = new("DropDownControl", { "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 100, 18 },
 			influenceDropdownNames, selFunc)
 		controls.influence1:SetSel(self.lastInfluence1 or 1)
@@ -1869,7 +1875,6 @@ Remove: %s will be removed from the search results.]], term, term, term)
 
 		self.tradeTypeIndex = context.controls.tradeTypeSelection.selIndex
 
-		self.lastCopyEldritch = controls.copyEldritch and controls.copyEldritch.state
 		self.lastCopyEnchantMode = controls.copyEnchantMode and controls.copyEnchantMode:GetSelValue()
 
 		if controls.includeMirrored then
@@ -1893,14 +1898,14 @@ Remove: %s will be removed from the search results.]], term, term, term)
 		-- if controls.includeSynthesis then
 		-- 	self.lastIncludeSynthesis, options.includeSynthesis = controls.includeSynthesis.state, controls.includeSynthesis.state
 		-- end
-		if controls.includeEldritch then
-			self.lastIncludeEldritch, options.includeEldritch = controls.includeEldritch.selIndex,
-			controls.includeEldritch:GetSelValue()
-		end
 		if controls.includeImplicits then
-			self.lastIncludeImplicits, options.includeImplicits = controls.includeImplicits.state, controls.includeImplicits.state
+			self.lastIncludeImplicits = controls.includeImplicits.selIndex
+			options.includeImplicits = controls.includeImplicits:GetSelValue()
 		else
-			options.includeImplicits = true
+			options.includeImplicits = "All"
+		end
+		if controls.copyEldritch then
+			self.lastCopyEldritch = controls.copyEldritch.state
 		end
 		if controls.includePseudo then
 			self.lastIncludePseudo, options.includePseudo = controls.includePseudo.state, controls.includePseudo.state
