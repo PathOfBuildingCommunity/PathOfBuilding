@@ -2249,7 +2249,7 @@ function CompareTabClass:LayoutCalcsSkillControls(vp, compareEntry)
 	local colWidth = m_floor((vp.width - 20) / 2)
 	local leftX = vp.x + 4
 	local rightX = leftX + colWidth + 12
-	local labelW = 140
+	local labelW = 120
 	local controlW = colWidth - labelW - 8
 	local rowH = 22
 	local y = vp.y + 4
