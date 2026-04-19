@@ -1559,6 +1559,11 @@ function CompareTabClass:OpenImportFolderPopup()
 			self:LoadBuild(build)
 		end
 	end
+	function controls.buildList:OnHoverKeyUp(key)
+		if self.controls.scrollBarV:IsScrollDownKey(key) or self.controls.scrollBarV:IsScrollUpKey(key) then
+			self:OnKeyUp(key)
+		end
+	end
 	function controls.buildList:CanReceiveDrag() return false end
 	function controls.buildList:OnSelCopy() end
 	function controls.buildList:OnSelCut() end
