@@ -3770,17 +3770,20 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	end
 
 	-- Draw item tooltip on hover (compact mode only, on top of everything)
+	SetViewport()
+	local maxTooltipWidth = m_min(600, m_max(260, vp.width - 24))
 	if hoverItem and hoverItemsTab then
 		self.itemTooltip:Clear()
-		hoverItemsTab:AddItemTooltip(self.itemTooltip, hoverItem, nil)
+		hoverItemsTab:AddItemTooltip(self.itemTooltip, hoverItem, nil, nil, maxTooltipWidth)
 		SetDrawLayer(nil, 100)
-		self.itemTooltip:Draw(hoverX, hoverY, hoverW, hoverH, vp)
+		self.itemTooltip:Draw(vp.x + hoverX, vp.y + checkboxOffset + hoverY, hoverW, hoverH, vp)
 		SetDrawLayer(nil, 0)
 	end
 
 	-- Draw stat comparison tooltip when hovering Equip button
 	if hoverEquipItem and hoverEquipSlotName and not hoverItem then
 		self.itemTooltip:Clear()
+		self.itemTooltip.maxWidth = maxTooltipWidth
 		local calcFunc, calcBase = self.calcs.getMiscCalculator(self.primaryBuild)
 		if calcFunc then
 			-- Create a fresh item to evaluate
@@ -3820,7 +3823,7 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 		SetDrawLayer(nil, 100)
 		-- Force tooltip to the left of the button by passing a large width
 		-- so the right-side placement overflows and the Draw logic flips to left
-		self.itemTooltip:Draw(hoverEquipBtnX, hoverEquipBtnY, vp.width, hoverEquipBtnH, vp)
+		self.itemTooltip:Draw(vp.x + hoverEquipBtnX, vp.y + checkboxOffset + hoverEquipBtnY, vp.width, hoverEquipBtnH, vp)
 		SetDrawLayer(nil, 0)
 	end
 

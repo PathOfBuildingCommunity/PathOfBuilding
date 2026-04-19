@@ -3394,12 +3394,12 @@ function ItemsTabClass:FormatItemSource(text)
 			   :gsub("prophecy{([^}]+)}",colorCodes.PROPHECY.."%1"..colorCodes.SOURCE)
 end
 
-function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
+function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 	local fontSizeSmall = main.showFlavourText and 16 or 14
 	local fontSizeBig = main.showFlavourText and 18 or 16
 	local fontSizeTitle = main.showFlavourText and 22 or 20
 	local rarityCode = colorCodes[item.rarity]
-	tooltip.maxWidth = 600 -- Should instead get the longest mod and set the width to that. Some flavour text is way too long so we need a cap of sorts.
+	tooltip.maxWidth = m_min(maxWidth or 600, 600) -- Cap very long lines. Can use a narrower width for small viewports
 	tooltip.tooltipHeader = item.rarity
 	tooltip.foilType = item.foilType
 	tooltip.center = true
