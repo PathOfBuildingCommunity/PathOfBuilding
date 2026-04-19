@@ -263,7 +263,7 @@ will automatically apply to the skill.]]
 	-- Initialise skill sets
 	self.skillSets = { }
 	self.skillSetOrderList = { 1 }
-	self:NewSkillSet(1)
+	self:CreateSkillSet(1)
 	self:SetActiveSkillSet(1)
 
 	-- Skill gem slots
@@ -419,7 +419,7 @@ function SkillsTabClass:Load(xml, fileName)
 			-- Old format, initialize skill sets if needed
 			if not self.skillSetOrderList[1] then
 				self.skillSetOrderList[1] = 1
-				self:NewSkillSet(1)
+				self:CreateSkillSet(1)
 			end
 			self:LoadSkill(node, 1)
 		end
@@ -1321,13 +1321,21 @@ function SkillsTabClass:OpenSkillSetManagePopup()
 	})
 end
 
--- Creates a new skill set
-function SkillsTabClass:NewSkillSet(skillSetId)
-	local skillSet = { id = skillSetId, socketGroupList = {} }
+-- Creates a new skill set without adding to order list
+function SkillsTabClass:CreateSkillSet(skillSetId, title)
+	local skillSet = { id = skillSetId, title = title, socketGroupList = {} }
 	if not skillSetId then
-		skillSet.id = t_maxn(self.skillSets) + 1
+		skillSet.id = #self.skillSets + 1
 	end
 	self.skillSets[skillSet.id] = skillSet
+	return skillSet
+end
+
+-- Creates a new skill set with title, adds to order list and sets modFlag
+function SkillsTabClass:NewSkillSet(skillSetId, title)
+	local skillSet = self:CreateSkillSet(skillSetId, title)
+	t_insert(self.skillSetOrderList, skillSet.id)
+	self.modFlag = true
 	return skillSet
 end
 
@@ -1346,7 +1354,26 @@ function SkillsTabClass:CopySkillSet(sourceSkillSetId, newSkillSetName)
 	end
 	newSkillSet.id = #self.skillSets + 1
 	self.skillSets[newSkillSet.id] = newSkillSet
+	t_insert(self.skillSetOrderList, newSkillSet.id)
+	self.modFlag = true
 	return newSkillSet
+end
+
+function SkillsTabClass:RenameSkillSet(skillSetId, newTitle)
+	local skillSet = self.skillSets[skillSetId]
+	
+	if not skillSet then
+		return
+	end
+
+	skillSet.title = newTitle
+	self.modFlag = true
+end
+
+function SkillsTabClass:DeleteSkillSet(skillSetId, orderListIndex)
+	t_remove(self.skillSetOrderList, orderListIndex)
+	self.skillSets[skillSetId] = nil
+	self.modFlag = true
 end
 
 -- Changes the active skill set
@@ -1354,7 +1381,7 @@ function SkillsTabClass:SetActiveSkillSet(skillSetId, deferSync)
 	-- Initialize skill sets if needed
 	if not self.skillSetOrderList[1] then
 		self.skillSetOrderList[1] = 1
-		self:NewSkillSet(1)
+		self:CreateSkillSet(1)
 	end
 
 	if not skillSetId then

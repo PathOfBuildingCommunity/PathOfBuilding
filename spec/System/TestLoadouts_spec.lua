@@ -186,6 +186,11 @@ describe("TestLoadouts", function()
 				assert.is_same(newName, build.itemsTab.itemSets[loadout.itemSetId].title)
 				assert.is_same(newName, build.skillsTab.skillSets[loadout.skillSetId].title)
 				assert.is_same(newName, build.configTab.configSets[loadout.configSetId].title)
+				-- Verify mod flags set on all tabs
+				assert.is_true(build.treeTab.modFlag)
+				assert.is_true(build.itemsTab.modFlag)
+				assert.is_true(build.skillsTab.modFlag)
+				assert.is_true(build.configTab.modFlag)
 				-- Old name should no longer exist
 				assert.is_nil(build:GetLoadoutByName(oldName))
 				assert.is_true(build.modFlag)
