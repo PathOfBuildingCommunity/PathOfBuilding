@@ -2955,6 +2955,10 @@ return {
 					k="negate",
 					v=1
 				},
+				[2]={
+					k="canonical_line",
+					v=true
+				},
 				limit={
 					[1]={
 						[1]="#",

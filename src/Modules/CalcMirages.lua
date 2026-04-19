@@ -37,6 +37,8 @@ local function calculateMirage(env, config)
 	if mirageSkill then
 		local newSkill, newEnv = calcs.copyActiveSkill(env, "CALCULATOR", mirageSkill)
 		newSkill.skillCfg.skillCond["usedByMirage"] = true
+		newSkill.skillFlags.multiPart = nil
+		newSkill.skillFlags.haveMinion = nil
 		newEnv.limitedSkills = newEnv.limitedSkills or {}
 		newEnv.limitedSkills[cacheSkillUUID(newSkill, newEnv)] = true
 		newSkill.skillData.mirageUses = env.player.mainSkill.skillData.storedUses
@@ -150,21 +152,8 @@ function calcs.mirages(env)
 			postCalcFunc = function(env, newSkill, newEnv)
 				env.player.mainSkill = newSkill
 				env.player.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. newSkill.activeEffect.grantedEffect.name
-
-				-- Re-link over the output
 				env.player.output = newEnv.player.output
-				if newSkill.minion then
-					env.minion = newEnv.player.mainSkill.minion
-					env.minion.output = newEnv.minion.output
-				end
-
-				-- Re-link over the breakdown (if present)
-				if newEnv.player.breakdown then
-					env.player.breakdown = newEnv.player.breakdown
-					if newSkill.minion then
-						env.minion.breakdown = newEnv.minion.breakdown
-					end
-				end
+				env.player.breakdown = newEnv.player.breakdown or env.player.breakdown
 			end,
 			mirageSkillNotFoundFunc = function(env, config)
 				env.player.mainSkill.disableReason = "No Saviour active skill found"
@@ -393,15 +382,16 @@ function calcs.mirages(env)
 		if env.player.mainSkill.skillTypes[SkillType.Channel] then
 			mirageSpawnTime = mirageSpawnTime + 1
 		else
-			mirageSpawnTime = mirageSpawnTime + (mainSkillOutputCache.HitTime or mainSkillOutputCache.Time)
-			env.player.mainSkill.skillData.timeOverride = 1
+			env.player.mainSkill.skillData.hitTimeOverride = 1
 		end
 
 		-- This is so that it's consistent with the info message but removing this could make it more accurate numbers wise
 		mirageSpawnTime = round(mirageSpawnTime, 2)
 
-		-- Scale dps with GC's cooldown
-		env.player.mainSkill.skillData.dpsMultiplier = (env.player.mainSkill.skillData.dpsMultiplier or 1) * (1 / cooldown)
+		-- Scale dps with GC's cooldown / attack time
+		-- TODO This should use the contact point of the animation instead of the total attack time
+		cooldown = m_max(cooldown, mainSkillOutputCache.HitTime or mainSkillOutputCache.Time)
+		env.player.mainSkill.skillModList:NewMod("DPS", "MORE", (1 / cooldown - 1) * 100, "General's Cry Cooldown")
 
 		-- Does not use player resources
 		env.player.mainSkill.skillModList:NewMod("HasNoCost", "FLAG", true, "Used by mirage")

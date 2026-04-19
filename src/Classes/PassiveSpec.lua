@@ -84,10 +84,15 @@ function PassiveSpecClass:Init(treeVersion, convert)
 
 	-- Cached highlight path for Split Personality jewels
 	self.splitPersonalityPath = { }
+
+	-- Cluster hash format version used by saved builds; 2 is current.
+	self.clusterHashFormatVersion = 2
 end
 
 function PassiveSpecClass:Load(xml, dbFileName)
 	self.title = xml.attrib.title
+	-- Specs without this attribute predate the hash-fix migration and are treated as legacy.
+	self.clusterHashFormatVersion = tonumber(xml.attrib.clusterHashFormatVersion) or (xml.attrib.nodes and 1 or 2)
 	local url
 	for _, node in pairs(xml) do
 		if type(node) == "table" then
@@ -190,6 +195,7 @@ function PassiveSpecClass:Save(xml)
 	xml.attrib = {
 		title = self.title,
 		treeVersion = self.treeVersion,
+		clusterHashFormatVersion = tostring(self.clusterHashFormatVersion or 2),
 		-- New format
 		classId = tostring(self.curClassId),
 		ascendClassId = tostring(self.curAscendClassId),
@@ -866,6 +872,17 @@ function PassiveSpecClass:GetJewel(itemId)
 		return
 	end
 	return item
+end
+
+function PassiveSpecClass:GetSocketedJewel(nodeId)
+	local itemId = self.jewels[nodeId]
+	if (not itemId or itemId == 0) and self.legacyClusterNodeMapReverse then
+		local legacyNodeId = self.legacyClusterNodeMapReverse[nodeId]
+		if legacyNodeId then
+			itemId = self.jewels[legacyNodeId]
+		end
+	end
+	return self:GetJewel(itemId)
 end
 
 -- Perform a breadth-first search of the tree, starting from this node, and determine if it is the closest node to any other nodes
@@ -1573,7 +1590,83 @@ function PassiveSpecClass:ReconnectNodeToClassStart(node)
 	end
 end
 
+-- Initializes temporary lookup tables used when loading legacy (v1) cluster hashes.
+-- Returns true when legacy conversion is active for this graph rebuild.
+function PassiveSpecClass:BeginLegacyClusterHashConversion()
+	local needsLegacyClusterHashConversion = (self.clusterHashFormatVersion or 2) < 2
+	self.legacyClusterNodeMap = needsLegacyClusterHashConversion and { } or nil
+	self.legacyClusterNodeMapReverse = needsLegacyClusterHashConversion and { } or nil
+	return needsLegacyClusterHashConversion
+end
+
+-- Legacy conversion updates node IDs while rebuilding cluster subgraphs.
+-- This helper keeps forward and reverse mappings in sync.
+function PassiveSpecClass:RegisterLegacyClusterNodeMap(legacyNodeId, currentNodeId)
+	if not self.legacyClusterNodeMap or not legacyNodeId or not currentNodeId then
+		return
+	end
+	self.legacyClusterNodeMap[legacyNodeId] = currentNodeId
+	if self.legacyClusterNodeMapReverse then
+		self.legacyClusterNodeMapReverse[currentNodeId] = legacyNodeId
+	end
+end
+
+-- Returns the remapped node ID when a valid legacy -> current cluster mapping exists.
+function PassiveSpecClass:GetMappedClusterNodeId(nodeId)
+	local mappedNodeId = self.legacyClusterNodeMap and self.legacyClusterNodeMap[nodeId]
+	if mappedNodeId and self.nodes[mappedNodeId] then
+		return mappedNodeId
+	end
+	return nodeId
+end
+
+-- Applies legacy -> current remapping to both cluster allocations and socketed jewel ownership.
+function PassiveSpecClass:ApplyLegacyClusterNodeRemap()
+	if not self.legacyClusterNodeMap then
+		return
+	end
+
+	local convertedNodeIds = { }
+	local seenNodeIds = { }
+	for _, nodeId in ipairs(self.allocSubgraphNodes) do
+		nodeId = self:GetMappedClusterNodeId(nodeId)
+		if not seenNodeIds[nodeId] then
+			seenNodeIds[nodeId] = true
+			t_insert(convertedNodeIds, nodeId)
+		end
+	end
+	self.allocSubgraphNodes = convertedNodeIds
+
+	-- Legacy cluster socket IDs can be normal tree node IDs (< 65536), so they bypass allocSubgraphNodes.
+	-- Move any such allocations onto their mapped current cluster node IDs.
+	for legacyNodeId, currentNodeId in pairs(self.legacyClusterNodeMap) do
+		if legacyNodeId ~= currentNodeId and self.allocNodes[legacyNodeId] and self.nodes[currentNodeId] then
+			self.allocNodes[legacyNodeId].alloc = false
+			self.allocNodes[legacyNodeId] = nil
+			if not seenNodeIds[currentNodeId] then
+				seenNodeIds[currentNodeId] = true
+				t_insert(self.allocSubgraphNodes, currentNodeId)
+			end
+		end
+	end
+
+	local convertedJewels = { }
+	for nodeId, itemId in pairs(self.jewels) do
+		convertedJewels[self:GetMappedClusterNodeId(nodeId)] = itemId
+	end
+	self.jewels = convertedJewels
+end
+
+-- Finalizes cluster hash conversion state after each graph rebuild.
+function PassiveSpecClass:EndLegacyClusterHashConversion()
+	self.clusterHashFormatVersion = 2
+	self.legacyClusterNodeMap = nil
+	self.legacyClusterNodeMapReverse = nil
+end
+
 function PassiveSpecClass:BuildClusterJewelGraphs()
+	local needsLegacyClusterHashConversion = self:BeginLegacyClusterHashConversion()
+
 	-- Remove old subgraphs
 	for id, subGraph in pairs(self.subGraphs) do
 		for _, node in ipairs(subGraph.nodes) do
@@ -1611,11 +1704,15 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 	end
 	for nodeId in pairs(self.tree.sockets) do
 		local node = self.tree.nodes[nodeId]
-		local jewel = self:GetJewel(self.jewels[nodeId])
+		local jewel = self:GetSocketedJewel(nodeId)
 		if node and node.expansionJewel and node.expansionJewel.size == 2 and jewel and jewel.jewelData.clusterJewelValid then
 			-- This is a Large Jewel Socket, and it has a cluster jewel in it
 			self:BuildSubgraph(jewel, self.nodes[nodeId], nil, nil, importedNodes, importedGroups)
 		end
+	end
+
+	if needsLegacyClusterHashConversion then
+		self:ApplyLegacyClusterNodeRemap()
 	end
 
 	-- (Re-)allocate subgraph nodes
@@ -1625,7 +1722,9 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 			node.alloc = true
 			if not self.allocNodes[nodeId] then
 				self.allocNodes[nodeId] = node
-				t_insert(self.allocExtendedNodes, nodeId)
+				if not isValueInArray(self.allocExtendedNodes, nodeId) then
+					t_insert(self.allocExtendedNodes, nodeId)
+				end
 			end
 		end
 	end
@@ -1636,6 +1735,95 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 
 	-- Rebuild node search cache because the tree might have changed
 	self.build.treeTab.viewer.searchStrCached = ""
+	self:EndLegacyClusterHashConversion()
+end
+
+-- Finds a specific expansion socket entry within a passive-tree group.
+function PassiveSpecClass:FindClusterSocket(group, index)
+	for _, nodeId in ipairs(group.n) do
+		local node = self.tree.nodes[tonumber(nodeId)]
+		if node.expansionJewel and node.expansionJewel.index == index then
+			return node
+		end
+	end
+end
+
+-- Legacy parser behavior downsized the proxy group while descending into nested clusters.
+-- Reproducing that traversal lets us recover legacy socket IDs for migration.
+function PassiveSpecClass:BuildLegacyProxyGroup(proxyGroup, expansionJewelSize, clusterSizeIndex)
+	local legacyGroup = proxyGroup
+	local groupSize = expansionJewelSize
+	local guard = 0
+	while clusterSizeIndex < groupSize and guard < 4 do
+		local socket = self:FindClusterSocket(legacyGroup, 1) or self:FindClusterSocket(legacyGroup, 0)
+		if not socket then
+			break
+		end
+		local legacyProxyNode = self.tree.nodes[tonumber(socket.expansionJewel.proxy)]
+		if not legacyProxyNode or not legacyProxyNode.group then
+			break
+		end
+		legacyGroup = legacyProxyNode.group
+		groupSize = socket.expansionJewel.size
+		guard = guard + 1
+	end
+	return legacyGroup
+end
+
+-- Converts cluster orbit indices between different node-count spaces.
+-- 12<->16 mappings reflect the 3.17 cluster export change; 6<->16 supports legacy nested mapping.
+function PassiveSpecClass:TranslateClusterOrbitIndex(srcOidx, srcNodesPerOrbit, destNodesPerOrbit)
+	if srcNodesPerOrbit == destNodesPerOrbit then
+		return srcOidx
+	elseif srcNodesPerOrbit == 12 and destNodesPerOrbit == 16 then
+		return ({[0] = 0, 1,    3, 4, 5,    7, 8, 9,    11, 12, 13,     15})[srcOidx]
+	elseif srcNodesPerOrbit == 16 and destNodesPerOrbit == 12 then
+		return ({[0] = 0, 1, 1, 2, 3, 4, 4, 5, 6, 7, 7,  8,  9, 10, 10, 11})[srcOidx]
+	elseif srcNodesPerOrbit == 6 and destNodesPerOrbit == 16 then
+		return ({[0] = 0, 3, 5, 8, 11, 13})[srcOidx]
+	elseif srcNodesPerOrbit == 16 and destNodesPerOrbit == 6 then
+		return ({[0] = 0, 0, 0, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 5, 5, 5})[srcOidx]
+	else
+		-- there is no known case where this should happen...
+		launch:ShowErrMsg("^1Error: unexpected cluster jewel node counts %d -> %d", srcNodesPerOrbit, destNodesPerOrbit)
+		-- ...but if a future patch adds one, this should end up only a little krangled, close enough for initial skill data imports:
+		return m_floor(srcOidx * destNodesPerOrbit / srcNodesPerOrbit)
+	end
+end
+
+-- Applies proxy orbit offsets and converts from cluster template indices into tree orbit-space indices.
+function PassiveSpecClass:ApplyClusterOrbitIndexAdjustment(indicies, startOidx, clusterTotalIndicies, skillsPerOrbit)
+	for _, node in pairs(indicies) do
+		local correctedNodeOidxRelativeToClusterIndicies = (node.oidx + startOidx) % clusterTotalIndicies
+		node.oidx = self:TranslateClusterOrbitIndex(correctedNodeOidxRelativeToClusterIndicies, clusterTotalIndicies, skillsPerOrbit)
+	end
+end
+
+-- Builds additional legacy node mappings by matching equivalent nodes in legacy and current orbit spaces.
+function PassiveSpecClass:BuildLegacyClusterOrbitMappings(indicies, proxyNode, clusterTotalIndicies, skillsPerOrbit)
+	if not self.legacyClusterNodeMap then
+		return
+	end
+
+	local legacySkillsPerOrbit = self.tree.skillsPerOrbit[proxyNode.o + 1]
+	local legacyProxyNodeOidxRelativeToClusterIndicies = self:TranslateClusterOrbitIndex(proxyNode.oidx, legacySkillsPerOrbit, clusterTotalIndicies)
+	local legacyNodeIdsByOidx = { }
+	local currentNodeIdsByOidx = { }
+	for nodeIndex, node in pairs(indicies) do
+		local legacyNodeOidxRelativeToClusterIndicies = (nodeIndex + legacyProxyNodeOidxRelativeToClusterIndicies) % clusterTotalIndicies
+		local legacyNodeOidx = self:TranslateClusterOrbitIndex(legacyNodeOidxRelativeToClusterIndicies, clusterTotalIndicies, legacySkillsPerOrbit)
+		legacyNodeIdsByOidx[legacyNodeOidx] = node.id
+
+		local currentNodeOidxRelativeToClusterIndicies = self:TranslateClusterOrbitIndex(node.oidx, skillsPerOrbit, clusterTotalIndicies)
+		local currentNodeOidxInLegacySkillsPerOrbit = self:TranslateClusterOrbitIndex(currentNodeOidxRelativeToClusterIndicies, clusterTotalIndicies, legacySkillsPerOrbit)
+		currentNodeIdsByOidx[currentNodeOidxInLegacySkillsPerOrbit] = node.id
+	end
+	for oidx, legacyNodeId in pairs(legacyNodeIdsByOidx) do
+		local currentNodeId = currentNodeIdsByOidx[oidx]
+		if currentNodeId and legacyNodeId ~= currentNodeId then
+			self:RegisterLegacyClusterNodeMap(legacyNodeId, currentNodeId)
+		end
+	end
 end
 
 function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importedNodes, importedGroups)
@@ -1715,6 +1903,10 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 	end
 
 	local function addToAllocatedSubgraphNodes(node)
+		-- Don't add to allocSubgraphNodes if node already exists
+		if isValueInArray(self.allocSubgraphNodes, node.id) then
+			return false
+		end
 		local proxyGroup = matchGroup(expansionJewel.proxy)
 		if proxyGroup then
 			for id, data in pairs(importedNodes) do
@@ -1761,34 +1953,13 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 		self.nodes[node.id] = node
 		if addToAllocatedSubgraphNodes(node) then
 			t_insert(self.allocSubgraphNodes, node.id)
-			t_insert(self.allocExtendedNodes, node.id)
 		end
 		return
 	end
 
-	local function findSocket(group, index)
-		-- Find the given socket index in the group
-		for _, nodeId in ipairs(group.n) do
-			local node = self.tree.nodes[tonumber(nodeId)]
-			if node.expansionJewel and node.expansionJewel.index == index then
-				return node
-			end
-		end
-	end
-
-	-- Check if we need to downsize the group
-	local groupSize = expansionJewel.size
-	upSize = upSize or 0
-	while clusterJewel.sizeIndex < groupSize do
-		-- Look for the socket with index 1 first (middle socket of large groups), then index 0
-		local socket = findSocket(proxyGroup, 1) or findSocket(proxyGroup, 0)
-		assert(socket, "Downsizing socket not found")
-
-		-- Grab the proxy node/group from the socket
-		proxyNode = self.tree.nodes[tonumber(socket.expansionJewel.proxy)]
-		proxyGroup = proxyNode.group
-		groupSize = socket.expansionJewel.size
-		upSize = upSize + 1
+	local legacyProxyGroup
+	if self.legacyClusterNodeMap then
+		legacyProxyGroup = self:BuildLegacyProxyGroup(proxyGroup, expansionJewel.size, clusterJewel.sizeIndex)
 	end
 
 	-- Initialise orbit flags
@@ -1840,7 +2011,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 
 	local function makeJewel(nodeIndex, jewelIndex)
 		-- Look for the socket
-		local socket = findSocket(proxyGroup, jewelIndex)
+		local socket = self:FindClusterSocket(proxyGroup, jewelIndex)
 		assert(socket, "Socket not found (ran out of sockets nani?)")
 
 		-- Construct the new node
@@ -1857,6 +2028,13 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 		}
 		t_insert(subGraph.nodes, node)
 		indicies[nodeIndex] = node
+
+		if legacyProxyGroup and self.legacyClusterNodeMap then
+			local legacySocket = self:FindClusterSocket(legacyProxyGroup, jewelIndex)
+			if legacySocket then
+				self:RegisterLegacyClusterNodeMap(legacySocket.id, node.id)
+			end
+		end
 	end
 
 	-- First pass: sockets
@@ -1982,35 +2160,11 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 	assert(indicies[0], "No entrance to subgraph")
 	subGraph.entranceNode = indicies[0]
 
-	-- The nodes' oidx values we just calculated are all relative to the totalIndicies properties of Data/ClusterJewels,
-	-- but the PassiveTree rendering logic treats node.oidx as relative to the tree.skillsPerOrbit constants. Those used
-	-- to be the same, but as of 3.17 they can differ, so we need to translate the ClusterJewels-relative indices into
-	-- tree.skillsPerOrbit-relative indices before we invoke tree:ProcessNode or do math against proxyNode.oidx.
-	--
-	-- The specific 12<->16 mappings are derived from https://github.com/grindinggear/skilltree-export/blob/3.17.0/README.md
-	local function translateOidx(srcOidx, srcNodesPerOrbit, destNodesPerOrbit)
-		if srcNodesPerOrbit == destNodesPerOrbit then
-			return srcOidx
-		elseif srcNodesPerOrbit == 12 and destNodesPerOrbit == 16 then
-			return ({[0] = 0, 1,    3, 4, 5,    7, 8, 9,    11, 12, 13,     15})[srcOidx]
-		elseif srcNodesPerOrbit == 16 and destNodesPerOrbit == 12 then
-			return ({[0] = 0, 1, 1, 2, 3, 4, 4, 5, 6, 7, 7,  8,  9, 10, 10, 11})[srcOidx]
-		else
-			-- there is no known case where this should happen...
-			launch:ShowErrMsg("^1Error: unexpected cluster jewel node counts %d -> %d", srcNodesPerOrbit, destNodesPerOrbit)
-			-- ...but if a future patch adds one, this should end up only a little krangled, close enough for initial skill data imports:
-			return m_floor(srcOidx * destNodesPerOrbit / srcNodesPerOrbit)
-		end
-	end
-	local proxyNodeSkillsPerOrbit = self.tree.skillsPerOrbit[proxyNode.o+1]
-
-	-- Translate oidx positioning to TreeData-relative values
-	for _, node in pairs(indicies) do
-		local proxyNodeOidxRelativeToClusterIndicies = translateOidx(proxyNode.oidx, proxyNodeSkillsPerOrbit, clusterJewel.totalIndicies)
-		local correctedNodeOidxRelativeToClusterIndicies = (node.oidx + proxyNodeOidxRelativeToClusterIndicies) % clusterJewel.totalIndicies
-		local correctedNodeOidxRelativeToTreeSkillsPerOrbit = translateOidx(correctedNodeOidxRelativeToClusterIndicies, clusterJewel.totalIndicies, proxyNodeSkillsPerOrbit)
-		node.oidx = correctedNodeOidxRelativeToTreeSkillsPerOrbit
-	end
+	-- Convert from cluster-template index space into the tree's orbit index space.
+	local skillsPerOrbit = self.tree.skillsPerOrbit[clusterJewel.sizeIndex+2]
+	local startOidx = data.clusterJewels.orbitOffsets[proxyNode.id][clusterJewel.sizeIndex]
+	self:ApplyClusterOrbitIndexAdjustment(indicies, startOidx, clusterJewel.totalIndicies, skillsPerOrbit)
+	self:BuildLegacyClusterOrbitMappings(indicies, proxyNode, clusterJewel.totalIndicies, skillsPerOrbit)
 
 	-- Perform processing on nodes to calculate positions, parse mods, and other goodies
 	for _, node in ipairs(subGraph.nodes) do
@@ -2050,7 +2204,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 		end
 		if node.type == "Socket" then
 			-- Recurse to smaller jewels
-			local jewel = self:GetJewel(self.jewels[node.id])
+			local jewel = self:GetSocketedJewel(node.id)
 			if jewel and jewel.jewelData.clusterJewelValid then
 				self:BuildSubgraph(jewel, node, id, upSize, importedNodes, importedGroups)
 			end

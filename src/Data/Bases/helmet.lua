@@ -552,8 +552,8 @@ itemBases["Sorrow Mask"] = {
 	socketLimit = 4,
 	tags = { armour = true, default = true, helmet = true, not_for_sale = true, str_dex_armour = true, },
 	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
-	implicit = "+2% to maximum Chaos Resistance\n-15% additional Physical Damage Reduction\nYou are Crushed",
-	implicitModTypes = { {  }, {  }, {  }, },
+	implicit = "+2% to maximum Chaos Resistance\nYou are Crushed",
+	implicitModTypes = { {  }, {  }, },
 	armour = { ArmourBaseMin = 42, ArmourBaseMax = 49, EvasionBaseMin = 42, EvasionBaseMax = 49, },
 	req = { level = 15, str = 20, dex = 20, },
 }
@@ -563,8 +563,8 @@ itemBases["Atonement Mask"] = {
 	socketLimit = 4,
 	tags = { armour = true, default = true, helmet = true, not_for_sale = true, str_dex_armour = true, },
 	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
-	implicit = "+3% to maximum Chaos Resistance\n-15% additional Physical Damage Reduction\nYou are Crushed",
-	implicitModTypes = { {  }, {  }, {  }, },
+	implicit = "+3% to maximum Chaos Resistance\nYou are Crushed",
+	implicitModTypes = { {  }, {  }, },
 	armour = { ArmourBaseMin = 122, ArmourBaseMax = 140, EvasionBaseMin = 122, EvasionBaseMax = 140, },
 	req = { level = 45, str = 51, dex = 51, },
 }
@@ -574,8 +574,8 @@ itemBases["Penitent Mask"] = {
 	socketLimit = 4,
 	tags = { armour = true, default = true, helmet = true, not_for_sale = true, str_dex_armour = true, },
 	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
-	implicit = "+4% to maximum Chaos Resistance\n-15% additional Physical Damage Reduction\nYou are Crushed",
-	implicitModTypes = { {  }, {  }, {  }, },
+	implicit = "+4% to maximum Chaos Resistance\nYou are Crushed",
+	implicitModTypes = { {  }, {  }, },
 	armour = { ArmourBaseMin = 185, ArmourBaseMax = 212, EvasionBaseMin = 185, EvasionBaseMax = 212, },
 	req = { level = 75, str = 79, dex = 79, },
 }

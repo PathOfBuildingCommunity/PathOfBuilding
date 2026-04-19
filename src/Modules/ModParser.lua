@@ -737,6 +737,7 @@ local modNameList = {
 	["effect of chill and shock on you"] = { "SelfChillEffect", "SelfShockEffect" },
 	["chill effect"] = "EnemyChillEffect",
 	["effect of chill you inflict"] = "EnemyChillEffect",
+	["effect of chills you inflict"] = "EnemyChillEffect",
 	["effect of cold ailments"] = { "EnemyChillEffect" , "EnemyBrittleEffect" },
 	["effect of chill on you"] = "SelfChillEffect",
 	["effect of freeze on you"] = "SelfFreezeEffect",
@@ -1697,7 +1698,7 @@ local modTagList = {
 	["while not ignited, frozen or shocked"] = { tag = { type = "Condition", varList = { "Ignited", "Frozen", "Shocked" }, neg = true } },
 	["while bleeding"] = { tag = { type = "Condition", var = "Bleeding" } },
 	["while poisoned"] = { tag = { type = "Condition", var = "Poisoned" } },
-	["while you are poisoned"] = { tag = { type = "Condition", var = "Poisoned" } },
+	["wh[ei][nl][ e] ?you are poisoned"] = { tag = { type = "Condition", var = "Poisoned" } },
 	["while cursed"] = { tag = { type = "Condition", var = "Cursed" } },
 	["while not cursed"] = { tag = { type = "Condition", var = "Cursed", neg = true } },
 	["while there is only one nearby enemy"] = { tagList = { { type = "Multiplier", var = "NearbyEnemies", limit = 1 }, { type = "Condition", var = "OnlyOneNearbyEnemy" } } },
@@ -1823,6 +1824,7 @@ local modTagList = {
 	["if you haven't gained a frenzy charge recently"] = { tag = { type = "Condition", var = "GainedFrenzyChargeRecently", neg = true } },
 	["if you've stopped taking damage over time recently"] = { tag = { type = "Condition", var = "StoppedTakingDamageOverTimeRecently" } },
 	["if you've used an amethyst flask recently"] = { tag = { type = "Condition", var = "UsedAmethystFlaskRecently" } },
+	["if you've used a ruby flask recently"] = { tag = { type = "Condition", var = "UsedRubyFlaskRecently" } },
 	["if you've used a sapphire flask recently"] = { tag = { type = "Condition", var = "UsedSapphireFlaskRecently" } },
 	["if you've used a topaz flask recently"] = { tag = { type = "Condition", var = "UsedTopazFlaskRecently" } },
 	["during soul gain prevention"] = { tag = { type = "Condition", var = "SoulGainPrevention" } },
@@ -2398,9 +2400,6 @@ local specialModList = {
 	-- Exerted Attacks
 	["exerted attacks deal (%d+)%% increased damage"] = function(num) return { mod("ExertIncrease", "INC", num, nil, ModFlag.Attack, 0) } end,
 	["exerted attacks have (%d+)%% chance to deal double damage"] = function(num) return { mod("ExertDoubleDamageChance", "BASE", num, nil, ModFlag.Attack, 0) } end,
-	-- Duelist (Fatal flourish)
-	["final repeat of attack skills deals (%d+)%% more damage"] = function(num) return { mod("RepeatFinalDamage", "MORE", num, nil, ModFlag.Attack, 0) } end,
-	["non%-travel attack skills repeat an additional time"] = { mod("RepeatCount", "BASE", 1, nil, ModFlag.Attack, 0, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }) },
 	-- Ascendant
 	["grants (%d+) passive skill points?"] = function(num) return { mod("ExtraPoints", "BASE", num) } end,
 	["can allocate passives from the %a+'s starting point"] = { },
@@ -3623,7 +3622,7 @@ local specialModList = {
 	["hits with prismatic skills always ?i?n?f?l?i?c?t? (%w+)"] = function(_, type) return {
 		mod("Enemy" .. firstToUpper(type) .. "Chance", "BASE", 100, nil, ModFlag.Hit, { type = "SkillType", skillType = SkillType.RandomElement }),
 	} end,
-	["critical strikes do not inherently apply non%-damaging ailments"] = {
+	["critical strikes do not [ia][np][fp]l[iy]c?t? non%-damaging ailments"] = {
 		flag("CritsDontAlwaysChill"),
 		flag("CritsDontAlwaysFreeze"),
 		flag("CritsDontAlwaysShock"),
@@ -4071,8 +4070,11 @@ local specialModList = {
 	["nearby enemies have lightning exposure while you are affected by herald of thunder"] = {
 		mod("EnemyModifier", "LIST", { mod = mod("LightningExposure", "BASE", -10) }, { type = "Condition", var = "Effective" }, { type = "Condition", var = "AffectedByHeraldofThunder" }),
 	},
-	["i?n?f?l?i?c?t? ?(%a-) exposure on hit if you've cast (.-) in the past (%d+) seconds"] = function (_, exposureType, curse) return {
-		mod("EnemyModifier", "LIST", { mod = mod(exposureType:gsub("^%l", string.upper).."Exposure", "BASE", -10) }, nil,  ModFlag.Hit, { type = "Condition", var = "SelfCast"..curse:gsub("^%l", string.upper):gsub(" %l", string.upper):gsub(" ", "") }, { type = "Condition", var = "Effective" })
+	["(%a+) exposure on hit if you've cast (.-) in the past (%d+) seconds"] = function (_, exposureType, curse) return {
+		mod("EnemyModifier", "LIST", { mod = mod(firstToUpper(exposureType).."Exposure", "BASE", -10) }, { type = "Condition", var = "SelfCast"..firstToUpper(curse):gsub(" %l", string.upper):gsub(" ", "") }, { type = "Condition", var = "Effective" })
+	} end,
+	["inflict (%a+) exposure on hit if you've cast (.-) in the past (%d+) seconds"] = function (_, exposureType, curse) return {
+		mod("EnemyModifier", "LIST", { mod = mod(firstToUpper(exposureType).."Exposure", "BASE", -10) }, { type = "Condition", var = "SelfCast"..firstToUpper(curse):gsub(" %l", string.upper):gsub(" ", "") }, { type = "Condition", var = "Effective" })
 	} end,
 	["inflict fire, cold and lightning exposure on nearby enemies when used"] = {
 		mod("EnemyModifier", "LIST", { mod = mod("FireExposure", "BASE", -10) }, { type = "Condition", var = "Effective" }, { type = "Condition", var = "UsingFlask" }),
@@ -4130,6 +4132,7 @@ local specialModList = {
 	["([%a%s]+) has (%d+)%% increased effect"] = function(_, skill, num) return { mod("BuffEffect", "INC", num, { type = "SkillId", skillId = gemIdLookup[skill]}) } end,
 	["debuffs on you expire (%d+)%% faster"] = function(num) return { mod("SelfDebuffExpirationRate", "BASE", num) } end,
 	["debuffs on you expire (%d+)%% slower"] = function(num) return { mod("SelfDebuffExpirationRate", "BASE", -num) } end,
+	["debuffs on you expire (%d+)%% faster while affected by haste"] = function(num) return { mod("SelfDebuffExpirationRate", "BASE", num, { type = "Condition", var = "AffectedByHaste"}) } end,
 	["warcries debilitate enemies for (%d+) seconds?"] = { mod("DebilitateChance", "BASE", 100) },
 	["debilitate enemies for (%d+) seconds? when you suppress their spell damage"] = { mod("DebilitateChance", "BASE", 100) },
 	["debilitate nearby enemies for (%d+) seconds? when f?l?a?s?k? ?effect ends"] = { mod("DebilitateChance", "BASE", 100) },
@@ -4162,7 +4165,7 @@ local specialModList = {
 	["non%-curse auras from your skills only apply to you and linked targets"] = { flag("SelfAurasAffectYouAndLinkedTarget", { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true }) },
 	["linked targets always count as in range of non%-curse auras from your skills"] = { },
 	["gain unholy might on block for (%d) seconds"] = { flag("Condition:UnholyMight", { type = "Condition", var = "BlockedRecently"}), flag("Condition:CanWither", { type = "Condition", var = "BlockedRecently"}), },
-	["your warcries inflict hallowing flame"] = { flag("Condition:CanInflictHallowingFlame") },
+	["your warcries inflict hallowing flame"] = { flag("Condition:CanInflictHallowingFlame", { type = "Condition", var = "UsedWarcryRecently" }) },
 	["attacks with this weapon inflict hallowing flame on hit"] = { flag("Condition:CanInflictHallowingFlame") },
 	["inflict hallowing flame on hit while on consecrated ground"] = { flag("Condition:CanInflictHallowingFlame", { type = "Condition", var = "OnConsecratedGround" }) },
 	["inflict hallowing flame on melee hit"] = { flag("Condition:CanInflictHallowingFlame") },
@@ -4400,7 +4403,7 @@ local specialModList = {
 	["arrows always pierce"] = { flag("PierceAllTargets", nil, 0, KeywordFlag.Arrow) },
 	["arrows pierce all targets"] = { flag("PierceAllTargets", nil, 0, KeywordFlag.Arrow) },
 	["arrows that pierce cause bleeding"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Projectile, KeywordFlag.Arrow, { type = "StatThreshold", stat = "PierceCount", threshold = 1 }) },
-	["arrows that pierce have (%d+)%% chance to cause bleeding"] = function(num) return { mod("BleedChance", "BASE", num, nil, ModFlag.Projectile, KeywordFlag.Arrow, { type = "StatThreshold", stat = "PierceCount", threshold = 1 }) } end,
+	["arrows that pierce have (%d+)%% chance to [ic][na][fu][ls][ie]c?t? bleeding"] = function(num) return { mod("BleedChance", "BASE", num, nil, ModFlag.Projectile, KeywordFlag.Arrow, { type = "StatThreshold", stat = "PierceCount", threshold = 1 }) } end,
 	["arrows that pierce deal (%d+)%% increased damage"] = function(num) return { mod("Damage", "INC", num, nil, ModFlag.Projectile, KeywordFlag.Arrow, { type = "StatThreshold", stat = "PierceCount", threshold = 1 }) } end,
 	["projectiles gain (%d+)%% of non%-chaos damage as extra chaos damage per chain"] = function(num) return { mod("NonChaosDamageGainAsChaos", "BASE", num, nil, ModFlag.Projectile, { type = "PerStat", stat = "Chain" }) } end,
 	["projectiles that have chained gain (%d+)%% of non%-chaos damage as extra chaos damage"] = function(num) return { mod("NonChaosDamageGainAsChaos", "BASE", num, nil, ModFlag.Projectile, { type = "StatThreshold", stat = "Chain", threshold = 1 }) } end,
@@ -4679,6 +4682,9 @@ local specialModList = {
 	["immun[ei]t?y? to chill"] = { flag("ChillImmune"), },
 	["cannot be ignited"] = { flag("IgniteImmune"), },
 	["immun[ei]t?y? to ignite"] = { flag("IgniteImmune"), },
+	["immune to ignite while affected by purity of fire"] = { flag("IgniteImmune", { type = "Condition", var = "AffectedByPurityofFire" }) },
+	["immune to freeze while affected by purity of ice"] = { flag("FreezeImmune", { type = "Condition", var = "AffectedByPurityofIce" }) },
+	["immune to shock while affected by purity of lightning"] = { flag("ShockImmune", { type = "Condition", var = "AffectedByPurityofLightning" }) },
 	["critical strikes against you do not inherently inflict elemental ailments"] = { flag("CritsOnYouDontAlwaysApplyElementalAilments"), },
 	["cannot be ignited while at maximum endurance charges"] = { flag("IgniteImmune", {type = "StatThreshold", stat = "EnduranceCharges", thresholdStat = "EnduranceChargesMax" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }), },
 	["grants immunity to ignite for (%d+) seconds if used while ignited"] = { flag("IgniteImmune", { type = "Condition", var = "UsingFlask" }), },
@@ -4755,6 +4761,13 @@ local specialModList = {
 	["unaffected by curses"] = { mod("CurseEffectOnSelf", "MORE", -100, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["you are immune to curses"] = { flag("CurseImmune") },
 	["unaffected by curses while affected by zealotry"] = { mod("CurseEffectOnSelf", "MORE", -100, { type = "Condition", var = "AffectedByZealotry" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
+	["unaffected by vulnerability while affected by determination"] = { mod("CurseEffectOnSelf", "MORE", -100, { type = "SkillName", skillName = "Vulnerability" }, { type = "Condition", var = "AffectedByDetermination" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
+	["unaffected by enfeeble while affected by grace"] = { mod("CurseEffectOnSelf", "MORE", -100, { type = "SkillName", skillName = "Enfeeble" }, { type = "Condition", var = "AffectedByGrace" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
+	["unaffected by temporal chains while affected by haste"] = { mod("CurseEffectOnSelf", "MORE", -100, { type = "SkillName", skillName = "Temporal Chains" }, { type = "Condition", var = "AffectedByHaste" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
+	["unaffected by elemental weakness while affected by purity of elements"] = { mod("CurseEffectOnSelf", "MORE", -100, { type = "SkillName", skillName = "Elemental Weakness" },  { type = "Condition", var = "AffectedByPurityofElements" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
+	["unaffected by flammability while affected by purity of fire"] = { mod("CurseEffectOnSelf", "MORE", -100, { type = "SkillName", skillName = "Flammability" }, { type = "Condition", var = "AffectedByPurityofFire" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
+	["unaffected by frostbite while affected by purity of ice"] = { mod("CurseEffectOnSelf", "MORE", -100, { type = "SkillName", skillName = "Frostbite" }, { type = "Condition", var = "AffectedByPurityofIce" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
+	["unaffected by conductivity while affected by purity of lightning"] = { mod("CurseEffectOnSelf", "MORE", -100, { type = "SkillName", skillName = "Conductivity" }, { type = "Condition", var = "AffectedByPurityofLightning" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["immun[ei]t?y? to curses while you have at least (%d+) rage"] = function(num) return { flag("CurseImmune", { type = "MultiplierThreshold", var = "Rage", threshold = num }) } end,
 	["you cannot be cursed with silence"] = { flag("SilenceImmune") },
 	["unaffected by ignite"] = { mod("SelfIgniteEffect", "MORE", -100) },
@@ -4773,6 +4786,8 @@ local specialModList = {
 		mod("SelfIgniteEffect", "MORE", -100),
 		mod("SelfPoisonEffect", "MORE", -100),
 	},
+	["unaffected by bleeding while affected by malevolence"] = { mod("SelfBleedEffect", "MORE", -100, { type = "Condition", var = "AffectedByMalevolence" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
+	["unaffected by poison while affected by malevolence"] = { mod("SelfPoisonEffect", "MORE", -100, { type = "Condition", var = "AffectedByMalevolence" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["unaffected by (.+) if (%d+) (%a+) items are equipped"] = function (_, ailment, thresh, influence) return {
 		mod("Self"..ailment:gsub("^%l", string.upper).."Effect", "MORE", -100, { type = "MultiplierThreshold", var = firstToUpper(influence) .. "Item", threshold = tonumber(thresh) })
 	} end,
@@ -4866,6 +4881,7 @@ local specialModList = {
 		-- MultiplierThreshold is on RageStacks because Rage is only set in CalcPerform if Condition:CanGainRage is true, Bear's Girdle does not flag CanGainRage
 		mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated") }, { type = "MultiplierThreshold", var = "RageStack", threshold = 1 })
 	},
+	["your hits intimidate enemies for (%d+) seconds while you are using pride"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated") }, { type = "Condition", var = "AffectedByPride" }) },
 	-- Flasks
 	["flasks do not apply to you"] = { flag("FlasksDoNotApplyToPlayer") },
 	["flasks apply to your zombies and spectres"] = { flag("FlasksApplyToMinion", { type = "SkillName", skillNameList = { "Raise Zombie", "Raise Spectre" }, includeTransfigured = true }) },
@@ -5272,6 +5288,9 @@ local specialModList = {
 	["gain %d+ rage on critical hit with attacks, no more than once every [%d%.]+ seconds"] = {
 		flag("Condition:CanGainRage"),
 	},
+	["gain %d+ rage on critical hit with attacks"] = {
+		flag("Condition:CanGainRage"),
+	},
 	["warcry skills' cooldown time is (%d+) seconds"] = function(num) return { mod("CooldownRecovery", "OVERRIDE", num, nil, 0, KeywordFlag.Warcry) } end,
 	["non%-instant warcries you use yourself have no cooldown"] = function(num) return { mod("CooldownRecovery", "OVERRIDE", 0, nil, 0, KeywordFlag.Warcry, { type = "SkillType", skillTypeList = { SkillType.Instant, SkillType.Totem, SkillType.Triggered }, neg = true }) } end,
 	["non%-instant warcries ignore their cooldown when used"] = function(num) return { mod("CooldownRecovery", "OVERRIDE", 0, nil, 0, KeywordFlag.Warcry, { type = "SkillType", skillType = SkillType.Instant, neg = true }) } end,
@@ -5453,6 +5472,9 @@ local specialModList = {
 	["(%d+)%% chance for hits to ignore enemy physical damage reduction while you have sacrificial zeal"] = function(num) return {
 		mod("ChanceToIgnoreEnemyPhysicalDamageReduction", "BASE", num, nil, { type = "Condition", var = "SacrificialZeal" }),
 	} end,
+	["hits have (%d+)%% chance to ignore enemy physical damage reduction while you have sacrificial zeal"] = function(num) return {
+		mod("ChanceToIgnoreEnemyPhysicalDamageReduction", "BASE", num, nil, { type = "Condition", var = "SacrificialZeal" }),
+	} end,
 	["minions attacks overwhelm (%d+)%% physical damage reduction"] = function(num) return {
 		mod("MinionModifier", "LIST", { mod = mod("EnemyPhysicalDamageReduction", "BASE", -num, { type = "SkillType", skillType = SkillType.Attack }) })
 	} end,
@@ -5488,6 +5510,8 @@ local specialModList = {
 	["attacks you use yourself repeat an additional time"] = {
 		mod("RepeatCount", "BASE", 1, nil, ModFlag.Attack, 0, { type = "SkillType", neg = true, skillTypeList = { SkillType.SummonsTotem, SkillType.RemoteMined, SkillType.Trapped, SkillType.Triggered } }, { type = "Condition", neg = true, var = "usedByMirage" }, { type = "Condition", varList = { "averageRepeat", "alwaysFinalRepeat" } }),
 	},
+	["final repeat of attack skills deals (%d+)%% more damage"] = function(num) return { mod("RepeatFinalDamage", "MORE", num, nil, 0, KeywordFlag.Attack) } end,
+	["non%-travel attack skills repeat an additional time"] = { mod("RepeatCount", "BASE", 1, nil, 0, KeywordFlag.Attack, { type = "SkillType", skillType = SkillType.Travel, neg = true }, { type = "Condition", varList = { "averageRepeat", "alwaysFinalRepeat" } }) },
 	["viper strike and pestilent strike deal (%d+)%% increased attack damage per frenzy charge"] = function(num) return { mod("Damage", "INC", num, nil, ModFlag.Attack, { type = "Multiplier", var = "FrenzyCharge" }, { type = "SkillName", skillNameList = { "Viper Strike", "Pestilent Strike" }, includeTransfigured = true }) } end,
 	["shield charge and chain hook have (%d+)%% increased attack speed per (%d+) rampage kills"] = function(inc, _, num) return { mod("Speed", "INC", inc, nil, ModFlag.Attack, { type = "Multiplier", var = "Rampage", div = num, limit = 1000 / num, limitTotal = true }, { type = "SkillName", skillNameList = { "Shield Charge", "Chain Hook" }, includeTransfigured = true }) } end,
 	["tectonic slam and infernal blow deal (%d+)%% increased attack damage per (%d+) armour"] = function(inc, _, num) return { mod("Damage", "INC", inc, nil, ModFlag.Attack, { type = "PerStat", stat = "Armour", div = num }, { type = "SkillName", skillNameList = { "Tectonic Slam", "Infernal Blow" }, includeTransfigured = true }) } end,

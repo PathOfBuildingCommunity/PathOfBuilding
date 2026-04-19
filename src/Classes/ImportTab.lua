@@ -37,8 +37,8 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 	self.controls.accountNameHeader.shown = function()
 		return self.charImportMode == "GETACCOUNTNAME"
 	end
-	self.controls.accountRealm = new("DropDownControl", {"TOPLEFT",self.controls.accountNameHeader,"BOTTOMLEFT"}, {0, 4, 60, 20}, realmList )
-	self.controls.accountRealm:SelByValue( main.lastRealm or "PC", "id" )
+	self.controls.accountRealm = new("DropDownControl", {"TOPLEFT",self.controls.accountNameHeader,"BOTTOMLEFT"}, {0, 4, 60, 20}, realmList)
+	self.controls.accountRealm:SelByValue(main.lastRealm or "PC", "id")
 	self.controls.accountName = new("EditControl", {"LEFT",self.controls.accountRealm,"RIGHT"}, {8, 0, 200, 20}, main.lastAccountName or "", nil, "%c", nil, nil, nil, nil, true)
 	self.controls.accountName.pasteFilter = function(text)
 		return text:gsub(".", function(c)
@@ -314,6 +314,15 @@ You can get this from your web browser's cookies while logged into the Path of E
 				self.build:Init(self.build.dbFileName, self.build.buildName, self.importCodeXML, false, self.importCodeSite and self.controls.importCodeIn.buf or nil)
 				self.build.viewMode = "TREE"
 			end)
+		elseif self.controls.importCodeMode.selIndex == 3 then
+			-- Import as comparison build
+			if self.build.compareTab then
+				if self.build.compareTab:ImportBuild(self.importCodeXML, "Imported comparison") then
+					self.build.viewMode = "COMPARE"
+				else
+					main:OpenMessagePopup("Import Error", "Failed to import build for comparison.")
+				end
+			end
 		else
 			self.build:Shutdown()
 			self.build:Init(false, "Imported build", self.importCodeXML, false, self.importCodeSite and self.controls.importCodeIn.buf or nil)
@@ -331,9 +340,9 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.importCodeState.label = function()
 		return self.importCodeDetail or ""
 	end
-	self.controls.importCodeMode = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, {0, 4, 160, 20}, { "Import to this build", "Import to a new build" })
+	self.controls.importCodeMode = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, {0, 4, 200, 20}, { "Import to this build", "Import to a new build", "Import as comparison" })
 	self.controls.importCodeMode.enabled = function()
-		return self.build.dbFileName and self.importCodeValid
+		return (self.build.dbFileName or self.controls.importCodeMode.selIndex == 3) and self.importCodeValid
 	end
 	self.controls.importCodeGo = new("ButtonControl", {"LEFT",self.controls.importCodeMode,"RIGHT"}, {8, 0, 160, 20}, "Import", function()
 		if self.importCodeSite and not self.importCodeXML then
@@ -369,7 +378,9 @@ end)
 
 function ImportTabClass:Load(xml, fileName)
 	self.lastRealm = xml.attrib.lastRealm
-	self.controls.accountRealm:SelByValue( self.lastRealm or main.lastRealm or "PC", "id" )
+	self.controls.accountRealm:SelByValue(self.lastRealm or main.lastRealm or "PC", "id")
+	self.lastLeague = xml.attrib.lastLeague
+	self.controls.charSelectLeague:SelByValue(self.lastLeague or "Standard", "id")
 	self.lastAccountHash = xml.attrib.lastAccountHash
 	self.importLink = xml.attrib.importLink
 	self.controls.enablePartyExportBuffs.state = xml.attrib.exportParty == "true"
@@ -387,6 +398,7 @@ end
 function ImportTabClass:Save(xml)
 	xml.attrib = {
 		lastRealm = self.lastRealm,
+		lastLeague = self.lastLeague,
 		lastAccountHash = self.lastAccountHash,
 		lastCharacterHash = self.lastCharacterHash,
 		exportParty = tostring(self.controls.enablePartyExportBuffs.state),
@@ -414,6 +426,23 @@ function ImportTabClass:Draw(viewPort, inputEvents)
 end
 
 function ImportTabClass:DownloadCharacterList()
+	function FindMatchingStandardLeague(league)
+		-- Find a Standard league name for a given league name
+		-- Reference https://api.pathofexile.com/league?realm=pc
+		if string.find(league, "Hardcore") then
+			return "Hardcore"
+		elseif string.find(league, "HC SSF") then
+			-- includes Ruthless "HC SSF R "
+			return "SSF Hardcore"
+		elseif string.find(league, "SSF") then
+			-- Any non HardCore SSF's - includes Ruthless "SSF R "
+			return "SSF Standard"
+		else
+			-- normal league and ruthless league (Sanctum, Ruthless Sanctum)
+			return "Standard"
+		end
+	end	
+	
 	self.charImportMode = "DOWNLOADCHARLIST"
 	self.charImportStatus = "Retrieving character list..."
 	local realm = realmList[self.controls.accountRealm.selIndex]
@@ -488,6 +517,7 @@ function ImportTabClass:DownloadCharacterList()
 				end
 			end
 			table.sort(leagueList)
+			charSelectLeague = self.controls.charSelectLeague
 			wipeTable(self.controls.charSelectLeague.list)
 			for _, league in ipairs(leagueList) do
 				t_insert(self.controls.charSelectLeague.list, {
@@ -498,8 +528,25 @@ function ImportTabClass:DownloadCharacterList()
 			t_insert(self.controls.charSelectLeague.list, {
 				label = "All",
 			})
-			if self.controls.charSelectLeague.selIndex > #self.controls.charSelectLeague.list then
-				self.controls.charSelectLeague.selIndex = 1
+			-- set the league combo to the last used if possible, used for previously imported characters
+			if self.lastLeague then
+				charSelectLeague:SelByValue(self.lastLeague, "league")
+				-- check that it worked
+				if charSelectLeague:GetSelValueByKey("league") ~= self.lastLeague then
+					-- League maybe over, Character will be in standard
+					standardLeagueName = FindMatchingStandardLeague(self.lastLeague)
+					self.controls.charSelectLeague:SelByValue(standardLeagueName, "league")
+					if charSelectLeague:GetSelValueByKey("league") ~= standardLeagueName then
+						-- give up and select the first entry. Ruthless mode may not have Standard equivalents
+						charSelectLeague.selIndex = 1
+					else
+						self.lastLeague = standardLeagueName
+					end
+				end
+			else
+				if self.controls.charSelectLeague.selIndex > #self.controls.charSelectLeague.list then
+					self.controls.charSelectLeague.selIndex = 1
+				end
 			end
 			self.lastCharList = charList
 			self:BuildCharacterList(self.controls.charSelectLeague:GetSelValueByKey("league"))
@@ -606,6 +653,9 @@ function ImportTabClass:DownloadPassiveTree()
 			return
 		end
 		self.lastCharacterHash = common.sha1(charData.name)
+		if not self.lastLeague then
+			self.lastLeague = charSelectLeague:GetSelValueByKey("league")
+		end
 		self:ImportPassiveTreeAndJewels(response.body, charData)
 	end, sessionID and { header = "Cookie: POESESSID=" .. sessionID })
 end
@@ -628,6 +678,9 @@ function ImportTabClass:DownloadItems()
 			return
 		end
 		self.lastCharacterHash = common.sha1(charData.name)
+		if not self.lastLeague then
+			self.lastLeague = charSelectLeague:GetSelValueByKey("league")
+		end
 		self:ImportItemsAndSkills(response.body)
 	end, sessionID and { header = "Cookie: POESESSID=" .. sessionID })
 end
@@ -700,6 +753,8 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 		end
 	end
 
+	-- Character import uses current GGG cluster hashes.
+	self.build.spec.clusterHashFormatVersion = 2
 	self.build.spec:ImportFromNodeList(charPassiveData.character, 
 		charPassiveData.ascendancy, 
 		charPassiveData.alternate_ascendancy or 0, 
@@ -711,6 +766,9 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	self.build.treeTab:SetActiveSpec(self.build.treeTab.activeSpec)
 	self.build.spec:BuildClusterJewelGraphs()
 	self.build.spec:AddUndoState()
+	if not self.lastLeague then
+		self.lastLeague = charSelectLeague:GetSelValueByKey("league")
+	end
 	self.build.characterLevel = charData.level
 	self.build.characterLevelAutoMode = false
 	self.build.configTab:UpdateLevel()
@@ -727,6 +785,91 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	end
 	self.build.configTab.varControls["resistancePenalty"]:SetSel(resistancePenaltyIndex)
 	main:SetWindowTitleSubtext(string.format("%s (%s, %s, %s)", self.build.buildName, charData.name, charData.class, charData.league))
+end
+
+local SOCKET_GROUP_REIMPORT_KEY_SEPARATOR = "\31"
+
+local function getSocketGroupReimportKey(socketGroup)
+	-- Use a rarely-used separator to avoid accidental collisions when concatenating fields.
+	local gemNameParts = { }
+	for _, gem in ipairs(socketGroup.gemList) do
+		t_insert(gemNameParts, (gem.nameSpec or ""):lower())
+	end
+	return table.concat({
+		socketGroup.slot or "",
+		socketGroup.source or "",
+		tostring(#socketGroup.gemList),
+		table.concat(gemNameParts, SOCKET_GROUP_REIMPORT_KEY_SEPARATOR),
+	}, SOCKET_GROUP_REIMPORT_KEY_SEPARATOR)
+end
+
+local function snapshotSocketGroupReimportState(socketGroup, isMainGroup)
+	local gemStates = { }
+	for gemIndex, gem in ipairs(socketGroup.gemList) do
+		gemStates[gemIndex] = {
+			enabled = gem.enabled,
+			count = gem.count,
+			skillPart = gem.skillPart,
+			skillPartCalcs = gem.skillPartCalcs,
+			skillStageCount = gem.skillStageCount,
+			skillStageCountCalcs = gem.skillStageCountCalcs,
+			skillMineCount = gem.skillMineCount,
+			skillMineCountCalcs = gem.skillMineCountCalcs,
+			skillMinion = gem.skillMinion,
+			skillMinionCalcs = gem.skillMinionCalcs,
+			skillMinionItemSet = gem.skillMinionItemSet,
+			skillMinionItemSetCalcs = gem.skillMinionItemSetCalcs,
+			skillMinionSkill = gem.skillMinionSkill,
+			skillMinionSkillCalcs = gem.skillMinionSkillCalcs,
+			enableGlobal1 = gem.enableGlobal1,
+			enableGlobal2 = gem.enableGlobal2,
+		}
+	end
+	return {
+		enabled = socketGroup.enabled,
+		includeInFullDPS = socketGroup.includeInFullDPS,
+		groupCount = socketGroup.groupCount,
+		label = socketGroup.label,
+		mainActiveSkill = socketGroup.mainActiveSkill,
+		mainActiveSkillCalcs = socketGroup.mainActiveSkillCalcs,
+		gemStates = gemStates,
+		isMainGroup = isMainGroup,
+	}
+end
+
+local function applyGemReimportState(gem, state)
+	gem.enabled = state.enabled
+	gem.count = state.count
+	gem.skillPart = state.skillPart
+	gem.skillPartCalcs = state.skillPartCalcs
+	gem.skillStageCount = state.skillStageCount
+	gem.skillStageCountCalcs = state.skillStageCountCalcs
+	gem.skillMineCount = state.skillMineCount
+	gem.skillMineCountCalcs = state.skillMineCountCalcs
+	gem.skillMinion = state.skillMinion
+	gem.skillMinionCalcs = state.skillMinionCalcs
+	gem.skillMinionItemSet = state.skillMinionItemSet
+	gem.skillMinionItemSetCalcs = state.skillMinionItemSetCalcs
+	gem.skillMinionSkill = state.skillMinionSkill
+	gem.skillMinionSkillCalcs = state.skillMinionSkillCalcs
+	gem.enableGlobal1 = state.enableGlobal1
+	gem.enableGlobal2 = state.enableGlobal2
+end
+
+local function applySocketGroupReimportState(socketGroup, state)
+	socketGroup.enabled = state.enabled
+	socketGroup.includeInFullDPS = state.includeInFullDPS
+	socketGroup.groupCount = state.groupCount
+	socketGroup.label = state.label
+	socketGroup.mainActiveSkill = state.mainActiveSkill
+	socketGroup.mainActiveSkillCalcs = state.mainActiveSkillCalcs
+	if state.gemStates then
+		for gemIndex, gemState in ipairs(state.gemStates) do
+			if socketGroup.gemList[gemIndex] then
+				applyGemReimportState(socketGroup.gemList[gemIndex], gemState)
+			end
+		end
+	end
 end
 
 function ImportTabClass:ImportItemsAndSkills(json)
@@ -748,8 +891,10 @@ function ImportTabClass:ImportItemsAndSkills(json)
 
 	local mainSkillEmpty = #self.build.skillsTab.socketGroupList == 0
 	local skillOrder
+	local preservedSocketGroupStateByKey
 	if self.controls.charImportItemsClearSkills.state then
 		skillOrder = { }
+		preservedSocketGroupStateByKey = { }
 		for _, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
 			for _, gem in ipairs(socketGroup.gemList) do
 				if gem.grantedEffect and not gem.grantedEffect.support then
@@ -757,7 +902,13 @@ function ImportTabClass:ImportItemsAndSkills(json)
 				end
 			end
 		end
+		for index, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
+			local key = getSocketGroupReimportKey(socketGroup)
+			preservedSocketGroupStateByKey[key] = preservedSocketGroupStateByKey[key] or { }
+			t_insert(preservedSocketGroupStateByKey[key], snapshotSocketGroupReimportState(socketGroup, index == self.build.mainSocketGroup))
+		end
 		wipeTable(self.build.skillsTab.socketGroupList)
+		self.build.skillsTab:RebuildImbuedSupportBySlot()
 	end
 	self.charImportStatus = colorCodes.POSITIVE.."Items and skills successfully imported."
 	--ConPrintTable(charItemData)
@@ -800,6 +951,22 @@ function ImportTabClass:ImportItemsAndSkills(json)
 				return orderA
 			end
 		end)
+	end
+	if preservedSocketGroupStateByKey then
+		local restoredMainSocketGroup
+		for index, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
+			local stateList = preservedSocketGroupStateByKey[getSocketGroupReimportKey(socketGroup)]
+			if stateList and stateList[1] then
+				local state = t_remove(stateList, 1)
+				applySocketGroupReimportState(socketGroup, state)
+				if state.isMainGroup then
+					restoredMainSocketGroup = index
+				end
+			end
+		end
+		if restoredMainSocketGroup then
+			self.build.mainSocketGroup = restoredMainSocketGroup
+		end
 	end
 	if mainSkillEmpty then
 		self.build.mainSocketGroup = self:GuessMainSocketGroup()
@@ -1116,11 +1283,11 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			self:ImportItem(socketedItem, slotName .. " Abyssal Socket "..abyssalSocketId)
 			abyssalSocketId = abyssalSocketId + 1
 		else
-			local normalizedBasename, qualityType = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.typeLine, nil)
+			local normalizedBasename = sanitiseText(socketedItem.typeLine)
 			local gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
 			if socketedItem.hybrid then
 				-- Used by transfigured gems and dual-skill gems (currently just Stormbind) 
-				normalizedBasename, qualityType  = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.hybrid.baseTypeName, nil)
+				normalizedBasename = sanitiseText(socketedItem.hybrid.baseTypeName)
 				gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
 				if gemId and socketedItem.hybrid.isVaalGem then
 					gemId = self.build.data.gemGrantedEffectIdForVaalGemId[self.build.data.gems[gemId].grantedEffectId]
@@ -1130,7 +1297,6 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 				local gemInstance = { level = 20, quality = 0, enabled = true, enableGlobal1 = true, gemId = gemId }
 				gemInstance.nameSpec = self.build.data.gems[gemId].name
 				gemInstance.support = socketedItem.support
-				gemInstance.qualityId = qualityType
 				for _, property in pairs(socketedItem.properties) do
 					if property.name == "Level" then
 						gemInstance.level = tonumber(property.values[1][1]:match("%d+"))
@@ -1148,6 +1314,10 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 					t_insert(socketGroup.gemList, 1, gemInstance)
 				else
 					t_insert(socketGroup.gemList, gemInstance)
+				end
+				if socketedItem.builtInSupport then
+					socketGroup.imbuedSupport = socketedItem.builtInSupport:gsub("Supported by Level 1 ", "")
+					self.build.skillsTab.controls.imbuedSupport.gemChangeFunc(data.gems[data.gemForBaseName[socketGroup.imbuedSupport:lower().." support"]], nil, nil, slotName)
 				end
 			end
 		end

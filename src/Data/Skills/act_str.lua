@@ -36,9 +36,7 @@ skills["Absolution"] = {
 		skill("radius", 25),
 	},
 	qualityStats = {
-		Default = {
-			{ "minion_cooldown_recovery_+%", 2 },
-		},
+		{ "minion_cooldown_recovery_+%", 2 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
@@ -134,9 +132,7 @@ skills["AbsolutionAltX"] = {
 		skill("radius", 25),
 	},
 	qualityStats = {
-		Default = {
-			{ "active_skill_additive_minion_damage_modifiers_apply_to_all_damage_at_%_value", 2.5 },
-		},
+		{ "active_skill_additive_minion_damage_modifiers_apply_to_all_damage_at_%_value", 2.5 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
@@ -226,9 +222,7 @@ skills["VaalAbsolution"] = {
 		area = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "minion_cooldown_recovery_+%", 2 },
-		},
+		{ "minion_cooldown_recovery_+%", 2 },
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 20000 },
@@ -315,9 +309,7 @@ skills["AncestralCry"] = {
 		skill("radius", 60),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 2 },
-		},
+		{ "base_cooldown_speed_+%", 2 },
 	},
 	constantStats = {
 		{ "skill_empowers_next_x_melee_attacks", 8 },
@@ -414,9 +406,7 @@ skills["Anger"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_skill_area_of_effect_+%", 2 },
-		},
+		{ "base_skill_area_of_effect_+%", 2 },
 	},
 	stats = {
 		"attack_minimum_added_fire_damage",
@@ -499,9 +489,7 @@ skills["AnimateGuardian"] = {
 		permanentMinion = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "minion_movement_speed_+%", 2 },
-		},
+		{ "minion_movement_speed_+%", 2 },
 	},
 	constantStats = {
 		{ "emerge_speed_+%", 100 },
@@ -588,9 +576,7 @@ skills["AnimateGuardianAltX"] = {
 		permanentMinion = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "minion_movement_speed_+%", 2 },
-		},
+		{ "minion_movement_speed_+%", 2 },
 	},
 	constantStats = {
 		{ "emerge_speed_+%", 100 },
@@ -732,9 +718,7 @@ skills["SupportAutoexertion"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 0.5 },
-		},
+		{ "base_cooldown_speed_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_autoexertion_base_mana_cost_override", 10 },
@@ -819,9 +803,7 @@ skills["BattlemagesCry"] = {
 		skill("radius", 60),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 2 },
-		},
+		{ "base_cooldown_speed_+%", 2 },
 	},
 	constantStats = {
 		{ "skill_empowers_next_x_melee_attacks", 5 },
@@ -902,11 +884,6 @@ skills["BattlemagesCrySupport"] = {
 			skill("triggeredByBattleMageCry", true),
 		},
 	},
-	qualityStats = {
-		Default = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
-	},
 	stats = {
 		"support_divine_cry_damage_+%_final",
 		"triggered_by_divine_cry",
@@ -972,9 +949,7 @@ skills["Berserk"] = {
 		spell = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 0.5 },
-		},
+		{ "base_cooldown_speed_+%", 0.5 },
 	},
 	constantStats = {
 		{ "berserk_minimum_rage", 5 },
@@ -1077,9 +1052,7 @@ skills["Bladestorm"] = {
 		mod("BleedChance", "BASE", 100, ModFlag.Attack, 0, { type = "Condition", var = "BloodStance" }, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
-		Default = {
-			{ "bladestorm_maximum_number_of_storms_allowed", 0.05 },
-		},
+		{ "bladestorm_maximum_number_of_storms_allowed", 0.05 },
 	},
 	constantStats = {
 		{ "bladestorm_storm_damage_+%_final", -50 },
@@ -1186,9 +1159,7 @@ skills["BladestormAltX"] = {
 		skill("radiusSecondaryLabel", "Area of bladestorms:"),
 	},
 	qualityStats = {
-		Default = {
-			{ "bladestorm_maximum_number_of_storms_allowed", 0.05 },
-		},
+		{ "bladestorm_maximum_number_of_storms_allowed", 0.05 },
 	},
 	constantStats = {
 		{ "bladestorm_storm_damage_+%_final", -50 },
@@ -1279,9 +1250,7 @@ skills["BloodAndSand"] = {
 		spell = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 0.5 },
-		},
+		{ "base_cooldown_speed_+%", 0.5 },
 	},
 	constantStats = {
 		{ "blood_sand_stance_melee_skills_area_of_effect_+%_final_in_blood_stance", -5 },
@@ -1377,9 +1346,7 @@ skills["Boneshatter"] = {
 		flag("HasTrauma"),
 	},
 	qualityStats = {
-		Default = {
-			{ "trauma_strike_damage_+%_final_per_trauma", 0.05 },
-		},
+		{ "trauma_strike_damage_+%_final_per_trauma", 0.05 },
 	},
 	constantStats = {
 		{ "trauma_strike_shockwave_area_of_effect_+%_per_100ms_stun_duration_up_to_400%", 15 },
@@ -1492,9 +1459,7 @@ skills["BoneshatterAltX"] = {
 		flag("HasTrauma"),
 	},
 	qualityStats = {
-		Default = {
-			{ "trauma_strike_damage_+%_final_per_trauma_capped", 0.25 },
-		},
+		{ "trauma_strike_damage_+%_final_per_trauma_capped", 0.25 },
 	},
 	constantStats = {
 		{ "trauma_strike_shockwave_area_of_effect_+%_per_100ms_stun_duration_up_to_400%", 15 },
@@ -1591,9 +1556,7 @@ skills["BoneshatterAltY"] = {
 		skill("radius", 14, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
-		Default = {
-			{ "active_skill_damage_+%_final_vs_stunned_enemies", 1 },
-		},
+		{ "active_skill_damage_+%_final_vs_stunned_enemies", 1 },
 	},
 	constantStats = {
 		{ "trauma_strike_shockwave_area_of_effect_+%_per_100ms_stun_duration_up_to_400%", 20 },
@@ -1678,9 +1641,7 @@ skills["ChainHook"] = {
 		skill("radius", 24),
 	},
 	qualityStats = {
-		Default = {
-			{ "gain_x_rage_on_attack_hit", 0.05 },
-		},
+		{ "gain_x_rage_on_attack_hit", 0.05 },
 	},
 	constantStats = {
 		{ "chain_strike_cone_radius_+_per_x_rage", 5 },
@@ -1770,9 +1731,7 @@ skills["ChainHookAltY"] = {
 		skill("radiusSecondaryLabel", "Chain length:"),
 	},
 	qualityStats = {
-		Default = {
-			{ "chain_hook_attaches_to_X_targets", 0.15 },
-		},
+		{ "chain_hook_attaches_to_X_targets", 0.15 },
 	},
 	constantStats = {
 		{ "chain_strike_cone_radius_+_per_x_rage", 5 },
@@ -1856,9 +1815,7 @@ skills["Cleave"] = {
 		skill("radius", 20),
 	},
 	qualityStats = {
-		Default = {
-			{ "cleave_+1_base_radius_per_nearby_enemy_up_to_10", 1 },
-		},
+		{ "cleave_+1_base_radius_per_nearby_enemy_up_to_10", 1 },
 	},
 	constantStats = {
 		{ "active_skill_merged_damage_+%_final_while_dual_wielding", -40 },
@@ -1946,9 +1903,7 @@ skills["CleaveAltX"] = {
 		skill("radius", 20),
 	},
 	qualityStats = {
-		Default = {
-			{ "gain_x_rage_on_attack_hit", 0.05 },
-		},
+		{ "gain_x_rage_on_attack_hit", 0.05 },
 	},
 	constantStats = {
 		{ "active_skill_merged_damage_+%_final_while_dual_wielding", -40 },
@@ -2039,9 +1994,7 @@ skills["VaalCleave"] = {
 		mod("CullPercent", "MAX", 10, 0, 0, { type = "SkillName", skillName = "Cleave", includeTransfigured = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } ),
 	},
 	qualityStats = {
-		Default = {
-			{ "cleave_+1_base_radius_per_nearby_enemy_up_to_10", 1 },
-		},
+		{ "cleave_+1_base_radius_per_nearby_enemy_up_to_10", 1 },
 	},
 	constantStats = {
 		{ "active_skill_merged_damage_+%_final_while_dual_wielding", -40 },
@@ -2147,9 +2100,7 @@ skills["ConsecratedPath"] = {
 		skill("radius", 23),
 	},
 	qualityStats = {
-		Default = {
-			{ "groundslam_damage_to_close_targets_+%_final", 0.75 },
-		},
+		{ "groundslam_damage_to_close_targets_+%_final", 0.75 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_fire", 50 },
@@ -2243,9 +2194,7 @@ skills["ConsecratedPathAltX"] = {
 		skill("radius", 23),
 	},
 	qualityStats = {
-		Default = {
-			{ "groundslam_damage_to_close_targets_+%_final", 0.75 },
-		},
+		{ "groundslam_damage_to_close_targets_+%_final", 0.75 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_fire", 50 },
@@ -2325,9 +2274,7 @@ skills["CorruptingFever"] = {
 		mod("Damage", "MORE", 100, ModFlag.Dot, 0, { type = "Multiplier", var = "CorruptingFeverStageAfterFirst"}),
 	},
 	qualityStats = {
-		Default = {
-			{ "skill_effect_duration_+%", 1 },
-		},
+		{ "skill_effect_duration_+%", 1 },
 	},
 	constantStats = {
 		{ "base_secondary_skill_effect_duration", 1000 },
@@ -2408,9 +2355,7 @@ skills["CrushingFist"] = {
 		area = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 1 },
-		},
+		{ "base_cooldown_speed_+%", 1 },
 	},
 	constantStats = {
 		{ "retaliation_base_use_window_duration_ms", 2000 },
@@ -2487,9 +2432,7 @@ skills["DecoyTotem"] = {
 		skill("radius", 60),
 	},
 	qualityStats = {
-		Default = {
-			{ "totem_life_+%_final", 1 },
-		},
+		{ "totem_life_+%_final", 1 },
 	},
 	constantStats = {
 		{ "base_totem_duration", 8000 },
@@ -2574,9 +2517,7 @@ skills["DefianceBanner"] = {
 		flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_skill_effect_duration", 100 },
-		},
+		{ "base_skill_effect_duration", 100 },
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 10000 },
@@ -2658,9 +2599,7 @@ skills["Determination"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_skill_area_of_effect_+%", 2 },
-		},
+		{ "base_skill_area_of_effect_+%", 2 },
 	},
 	stats = {
 		"determination_aura_armour_+%_final",
@@ -2739,9 +2678,7 @@ skills["DevouringTotem"] = {
 		duration = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "totem_life_+%_final", 1 },
-		},
+		{ "totem_life_+%_final", 1 },
 	},
 	constantStats = {
 		{ "base_totem_duration", 8000 },
@@ -2827,9 +2764,7 @@ skills["DivineBlast"] = {
 		shieldAttack = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "active_skill_base_radius_+", 0.15 },
-		},
+		{ "active_skill_base_radius_+", 0.15 },
 	},
 	constantStats = {
 		{ "discus_slam_damage_+%_final_for_shockwave", 100 },
@@ -2934,9 +2869,7 @@ skills["DominatingBlow"] = {
 		minion = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "minion_cooldown_recovery_+%", 2 },
-		},
+		{ "minion_cooldown_recovery_+%", 2 },
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 3000 },
@@ -3028,9 +2961,7 @@ skills["DominatingBlowAltX"] = {
 		minion = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "active_skill_additive_minion_damage_modifiers_apply_to_all_damage_at_%_value", 2.5 },
-		},
+		{ "active_skill_additive_minion_damage_modifiers_apply_to_all_damage_at_%_value", 2.5 },
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 3000 },
@@ -3111,9 +3042,7 @@ skills["VaalDomination"] = {
 		minion = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "minion_cooldown_recovery_+%", 2 },
-		},
+		{ "minion_cooldown_recovery_+%", 2 },
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 30000 },
@@ -3197,9 +3126,7 @@ skills["DreadBanner"] = {
 		flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_skill_effect_duration", 100 },
-		},
+		{ "base_skill_effect_duration", 100 },
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 10000 },
@@ -3306,9 +3233,7 @@ skills["Earthquake"] = {
 		skill("radius", 28, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
-		Default = {
-			{ "quake_slam_fully_charged_explosion_damage_+%_final", 1.5 },
-		},
+		{ "quake_slam_fully_charged_explosion_damage_+%_final", 1.5 },
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 1000 },
@@ -3413,9 +3338,7 @@ skills["EarthquakeAltX"] = {
 		skill("radius", 28, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_skill_effect_duration", 25 },
-		},
+		{ "base_skill_effect_duration", 25 },
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 2500 },
@@ -3518,9 +3441,7 @@ skills["VaalEarthquake"] = {
 		skill("radius", 28, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
-		Default = {
-			{ "quake_slam_fully_charged_explosion_damage_+%_final", 1.5 },
-		},
+		{ "quake_slam_fully_charged_explosion_damage_+%_final", 1.5 },
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 1000 },
@@ -3629,10 +3550,8 @@ skills["Earthshatter"] = {
 		skill("radius", 18, { type = "SkillPart", skillPart = 1 }),
 	},
 	qualityStats = {
-		Default = {
-			{ "spike_slam_num_spikes", 0.05 },
-			{ "spike_slam_max_spikes", 0.15 },
-		},
+		{ "spike_slam_num_spikes", 0.05 },
+		{ "spike_slam_max_spikes", 0.15 },
 	},
 	constantStats = {
 		{ "spike_slam_explosion_damage_+%_final", -30 },
@@ -3739,10 +3658,8 @@ skills["EarthshatterAltX"] = {
 		skill("radius", 18, { type = "SkillPart", skillPart = 1 }),
 	},
 	qualityStats = {
-		Default = {
-			{ "spike_slam_num_spikes", 0.05 },
-			{ "spike_slam_max_spikes", 0.15 },
-		},
+		{ "spike_slam_num_spikes", 0.05 },
+		{ "spike_slam_max_spikes", 0.15 },
 	},
 	constantStats = {
 		{ "spike_slam_explosion_damage_+%_final", -30 },
@@ -3849,9 +3766,7 @@ skills["EarthshatterAltY"] = {
 		skill("radius", 18, { type = "SkillPart", skillPart = 1 }),
 	},
 	qualityStats = {
-		Default = {
-			{ "spike_slam_explosion_damage_+%_final", 1 },
-		},
+		{ "spike_slam_explosion_damage_+%_final", 1 },
 	},
 	constantStats = {
 		{ "spike_slam_explosion_damage_+%_final", 100 },
@@ -3933,9 +3848,7 @@ skills["EnduringCry"] = {
 		skill("radius", 60),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 2 },
-		},
+		{ "base_cooldown_speed_+%", 2 },
 	},
 	constantStats = {
 		{ "endurance_charge_granted_per_X_monster_power_during_endurance_warcry", 5 },
@@ -4026,9 +3939,7 @@ skills["Eviscerate"] = {
 		skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 1 },
-		},
+		{ "base_cooldown_speed_+%", 1 },
 	},
 	constantStats = {
 		{ "retaliation_base_use_window_duration_ms", 2000 },
@@ -4119,9 +4030,7 @@ skills["Exsanguinate"] = {
 		mod("FireDamage", "MORE", 100, bit.bor(ModFlag.Spell,ModFlag.Dot), 0, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage" }),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_skill_effect_duration", 75 },
-		},
+		{ "base_skill_effect_duration", 75 },
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 1000 },
@@ -4210,9 +4119,7 @@ skills["ExsanguinateAltX"] = {
 		mod("FireDamage", "MORE", 100, bit.bor(ModFlag.Spell,ModFlag.Dot), 0, { type = "Multiplier", var = "ExsanguinateofTransmissionStageAfterFirst"}, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage" }),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_skill_effect_duration", 100 },
-		},
+		{ "base_skill_effect_duration", 100 },
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 2000 },
@@ -4304,9 +4211,7 @@ skills["FlameLink"] = {
 		duration = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "base_skill_effect_duration", 75 },
-		},
+		{ "base_skill_effect_duration", 75 },
 	},
 	constantStats = {
 		{ "flame_link_added_fire_damage_from_life_%", 5 },
@@ -4389,9 +4294,7 @@ skills["FleshAndStone"] = {
 		skill("radius", 28),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 0.5 },
-		},
+		{ "base_cooldown_speed_+%", 0.5 },
 	},
 	constantStats = {
 		{ "active_skill_base_area_of_effect_radius", 28 },
@@ -4468,9 +4371,7 @@ skills["FrozenLegion"] = {
 		spell = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 1 },
-		},
+		{ "base_cooldown_speed_+%", 1 },
 	},
 	constantStats = {
 		{ "ring_of_ice_placement_distance", 28 },
@@ -4541,9 +4442,7 @@ skills["FrozenLegionAltX"] = {
 		spell = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 1 },
-		},
+		{ "base_cooldown_speed_+%", 1 },
 	},
 	constantStats = {
 		{ "ring_of_ice_placement_distance", 28 },
@@ -4660,11 +4559,6 @@ skills["FrozenSweep"] = {
 	},
 	baseMods = {
 		skill("radius", 25),
-	},
-	qualityStats = {
-		Default = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_cold", 100 },
@@ -4862,9 +4756,7 @@ skills["GeneralsCry"] = {
 		skill("radius", 60),
 	},
 	qualityStats = {
-		Default = {
-			{ "maximum_number_of_spiritual_cry_warriors", 0.05 },
-		},
+		{ "maximum_number_of_spiritual_cry_warriors", 0.05 },
 	},
 	constantStats = {
 		{ "spiritual_cry_doubles_summoned_per_5_MP", 2 },
@@ -5024,9 +4916,7 @@ skills["GlacialHammer"] = {
 		melee = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "glacial_hammer_third_hit_freeze_as_though_dealt_damage_+%", 5 },
-		},
+		{ "glacial_hammer_third_hit_freeze_as_though_dealt_damage_+%", 5 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_cold", 100 },
@@ -5107,9 +4997,7 @@ skills["GlacialHammerAltX"] = {
 		melee = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "base_critical_strike_multiplier_+", 2 },
-		},
+		{ "base_critical_strike_multiplier_+", 2 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_cold", 100 },
@@ -5186,9 +5074,7 @@ skills["VaalGlacialHammer"] = {
 		skill("radius", 20),
 	},
 	qualityStats = {
-		Default = {
-			{ "cold_ailment_duration_+%", 2 },
-		},
+		{ "cold_ailment_duration_+%", 2 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_cold", 100 },
@@ -5286,9 +5172,7 @@ skills["GroundSlam"] = {
 		skill("radius", 35),
 	},
 	qualityStats = {
-		Default = {
-			{ "groundslam_damage_to_close_targets_+%_final", 1 },
-		},
+		{ "groundslam_damage_to_close_targets_+%_final", 1 },
 	},
 	constantStats = {
 		{ "base_stun_threshold_reduction_+%", 25 },
@@ -5378,9 +5262,7 @@ skills["GroundSlamAltX"] = {
 		skill("radius", 35),
 	},
 	qualityStats = {
-		Default = {
-			{ "groundslam_damage_to_close_targets_+%_final", 1 },
-		},
+		{ "groundslam_damage_to_close_targets_+%_final", 1 },
 	},
 	constantStats = {
 		{ "base_stun_threshold_reduction_+%", 25 },
@@ -5477,9 +5359,7 @@ skills["VaalGroundSlam"] = {
 		skill("radius", 39),
 	},
 	qualityStats = {
-		Default = {
-			{ "groundslam_damage_to_close_targets_+%_final", 1 },
-		},
+		{ "groundslam_damage_to_close_targets_+%_final", 1 },
 	},
 	constantStats = {
 		{ "base_stun_duration_+%", 200 },
@@ -5571,9 +5451,7 @@ skills["HeavyStrike"] = {
 		melee = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "chance_to_deal_double_damage_%", 1 },
-		},
+		{ "chance_to_deal_double_damage_%", 1 },
 	},
 	constantStats = {
 		{ "base_stun_threshold_reduction_+%", 25 },
@@ -5641,9 +5519,7 @@ skills["HeavyStrikeAltY"] = {
 		melee = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value", 1 },
-		},
+		{ "active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value", 1 },
 	},
 	constantStats = {
 		{ "chance_to_deal_double_damage_%_per_10_intelligence", 2 },
@@ -5730,9 +5606,7 @@ skills["HeraldOfAsh"] = {
 		flag("dotIsHeraldOfAsh"),
 	},
 	qualityStats = {
-		Default = {
-			{ "herald_of_ash_burning_%_overkill_damage_per_minute", 15 },
-		},
+		{ "herald_of_ash_burning_%_overkill_damage_per_minute", 15 },
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 4000 },
@@ -5815,9 +5689,7 @@ skills["HeraldOfPurity"] = {
 		duration = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "minion_cooldown_recovery_+%", 2 },
-		},
+		{ "minion_cooldown_recovery_+%", 2 },
 	},
 	constantStats = {
 		{ "base_number_of_champions_of_light_allowed", 4 },
@@ -5901,9 +5773,7 @@ skills["HolyFlameTotem"] = {
 		skill("radius", 16),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_projectile_speed_+%", 2 },
-		},
+		{ "base_projectile_speed_+%", 2 },
 	},
 	constantStats = {
 		{ "base_totem_duration", 8000 },
@@ -5989,9 +5859,7 @@ skills["HolyFlameTotemAltX"] = {
 		duration = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "holy_flame_totem_consecrated_ground_area_+%", 2 },
-		},
+		{ "holy_flame_totem_consecrated_ground_area_+%", 2 },
 	},
 	constantStats = {
 		{ "base_totem_duration", 8000 },
@@ -6098,9 +5966,7 @@ skills["HolyHammers"] = {
 		melee = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "holy_hammers_damage_+%_final_if_consuming_power_charge", 1 },
-		},
+		{ "holy_hammers_damage_+%_final_if_consuming_power_charge", 1 },
 	},
 	constantStats = {
 		{ "holy_hammers_num_additional_hammerslams_if_consuming_power_charge", 2 },
@@ -6192,9 +6058,7 @@ skills["HolyStrike"] = {
 		duration = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "minion_melee_range_+", 0.25 },
-		},
+		{ "minion_melee_range_+", 0.25 },
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 10000 },
@@ -6290,9 +6154,7 @@ skills["Sweep"] = {
 		flag("CannotBeEvaded", { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
-		Default = {
-			{ "holy_sweep_number_of_holy_bolts_to_create", 0.15 },
-		},
+		{ "holy_sweep_number_of_holy_bolts_to_create", 0.15 },
 	},
 	constantStats = {
 		{ "active_skill_base_secondary_area_of_effect_radius", 12 },
@@ -6406,9 +6268,7 @@ skills["IceCrash"] = {
 		skill("radiusTertiaryLabel", "Third hit:"),
 	},
 	qualityStats = {
-		Default = {
-			{ "physical_damage_%_to_add_as_cold", 0.75 },
-		},
+		{ "physical_damage_%_to_add_as_cold", 0.75 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_cold", 100 },
@@ -6494,9 +6354,7 @@ skills["IceCrashAltX"] = {
 		area = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "physical_damage_%_to_add_as_cold", 1 },
-		},
+		{ "physical_damage_%_to_add_as_cold", 1 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_cold", 100 },
@@ -6583,9 +6441,7 @@ skills["ImmortalCall"] = {
 		duration = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 1 },
-		},
+		{ "base_cooldown_speed_+%", 1 },
 	},
 	constantStats = {
 		{ "mortal_call_physical_damage_taken_per_endurance_charge_consumed_final_permyriad", -1500 },
@@ -6659,9 +6515,7 @@ skills["VaalImmortalCall"] = {
 		flag("Condition:CannotDie", { type = "GlobalEffect", effectType = "Guard" }),
 	},
 	qualityStats = {
-		Default = {
-			{ "skill_effect_duration_+%", 1 },
-		},
+		{ "skill_effect_duration_+%", 1 },
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 400 },
@@ -6745,9 +6599,7 @@ skills["InfernalCry"] = {
 		skill("radiusLabel", "Warcry area:"),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 2 },
-		},
+		{ "base_cooldown_speed_+%", 2 },
 	},
 	constantStats = {
 		{ "infernal_cry_%_max_life_as_fire_on_death", 8 },
@@ -6846,11 +6698,6 @@ skills["Combust"] = {
 	},
 	baseMods = {
 		skill("showAverage", true),
-	},
-	qualityStats = {
-		Default = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_fire", 60 },
@@ -6971,9 +6818,7 @@ skills["InfernalBlow"] = {
 		skill("radiusLabel", "Explosion area:", { type = "SkillPart", skillPartList = { 2, 3 } }),
 	},
 	qualityStats = {
-		Default = {
-			{ "infernal_blow_explosion_damage_%_of_total_per_stack", 0.5 },
-		},
+		{ "infernal_blow_explosion_damage_%_of_total_per_stack", 0.5 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_fire", 60 },
@@ -7091,9 +6936,7 @@ skills["InfernalBlowAltX"] = {
 		mod("Multiplier:DebuffStack", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 3 }),
 	},
 	qualityStats = {
-		Default = {
-			{ "infernal_blow_explosion_damage_%_of_total_per_stack", 0.5 },
-		},
+		{ "infernal_blow_explosion_damage_%_of_total_per_stack", 0.5 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_fire", 60 },
@@ -7175,9 +7018,7 @@ skills["IntimidatingCry"] = {
 		skill("radius", 60),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 2 },
-		},
+		{ "base_cooldown_speed_+%", 2 },
 	},
 	constantStats = {
 		{ "intimidating_cry_movement_speed_+%_per_5_power_up_to_cap", 3 },
@@ -7267,9 +7108,7 @@ skills["LeapSlam"] = {
 		area = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "stun_duration_+%_vs_enemies_that_are_on_full_life", 2 },
-		},
+		{ "stun_duration_+%_vs_enemies_that_are_on_full_life", 2 },
 	},
 	constantStats = {
 		{ "additional_weapon_base_attack_time_ms", 550 },
@@ -7350,9 +7189,7 @@ skills["LeapSlamAltX"] = {
 		area = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "stun_duration_+%_vs_enemies_that_are_on_full_life", 2 },
-		},
+		{ "stun_duration_+%_vs_enemies_that_are_on_full_life", 2 },
 	},
 	constantStats = {
 		{ "active_skill_base_area_of_effect_radius", 25 },
@@ -7448,9 +7285,7 @@ skills["MoltenShell"] = {
 		skill("radius", 15),
 	},
 	qualityStats = {
-		Default = {
-			{ "skill_effect_duration_+%", 1 },
-		},
+		{ "skill_effect_duration_+%", 1 },
 	},
 	constantStats = {
 		{ "skill_override_pvp_scaling_time_ms", 200 },
@@ -7549,9 +7384,7 @@ skills["VaalMoltenShell"] = {
 		duration = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "skill_effect_duration_+%", 1 },
-		},
+		{ "skill_effect_duration_+%", 1 },
 	},
 	constantStats = {
 		{ "skill_override_pvp_scaling_time_ms", 1400 },
@@ -7687,38 +7520,16 @@ skills["MoltenStrike"] = {
 			t_insert(breakdown.OverlapChance, s_format("^8=^7 %.2f^8%%", output.OverlapChance))
 		end
 
-		local numProjectiles = skillModList:Sum("BASE", skillCfg, "ProjectileCount")
+		local numProjectiles = output.ProjectileCount
 		local dpsMult = 1
-		if skillPart == 3 or skillPart == 5 or skillPart == 6 then
+		if skillPart == 3 then
 			dpsMult = overlapChance * numProjectiles
-
-			if skillPart ~= 6 then
-				if breakdown then
-					breakdown.SkillDPSMultiplier = {}
-					t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
-					t_insert(breakdown.SkillDPSMultiplier, "^8= number of projectiles * overlap chance")
-					t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %d^8 *^7 %.3f^8", numProjectiles, overlapChance))
-					t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMult))
-				end
-			else
-				-- zenith: make an effective dpsMult for the weighted average of normal and 5th attack balls
-				local gemQuality = activeSkill.activeEffect.quality
-				local fifthAttackMulti = 1 + 8 + 0.1 * gemQuality
-				local fifthAttackOverallMulti = fifthAttackMulti * overlapChance * (numProjectiles + 5)
-				dpsMult = 0.8 * dpsMult + 0.2 * fifthAttackOverallMulti
-
-				if breakdown then
-					breakdown.SkillDPSMultiplier = {}
-					t_insert(breakdown.SkillDPSMultiplier, "Weighted average DPS multiplier for balls")
-					t_insert(breakdown.SkillDPSMultiplier, "^8= (0.8 * balls dps) + (0.2 * 5th attack balls dps)")
-					t_insert(breakdown.SkillDPSMultiplier, "^8= (0.8 * normal ball hit * overlap chance * number of projectiles) " ..
-						"+ (0.2 * ball hit * 5th attack multiplier * overlap chance * (number of projectiles + 5))")
-					t_insert(breakdown.SkillDPSMultiplier, "^8= ball hit * overlap chance * (0.8 * number of projectiles " ..
-						"+ 0.2 * 5th attack multiplier * (number of projectiles + 5))")
-					t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ball hit * ^7%.3f ^8* (0.8 * ^7%d ^8+ 0.2 * ^7%.1f ^8* ^7%d^8)",
-						overlapChance, numProjectiles, fifthAttackMulti, numProjectiles + 5))
-					t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ball hit * ^7 %.3f", dpsMult))
-				end
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, "^8= number of projectiles * overlap chance")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %d^8 *^7 %.3f^8", numProjectiles, overlapChance))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMult))
 			end
 		end
 		if dpsMult ~= 1 then
@@ -7748,9 +7559,7 @@ skills["MoltenStrike"] = {
 		flag("CannotSplit"),
 	},
 	qualityStats = {
-		Default = {
-			{ "active_skill_hit_ailment_damage_with_projectile_+%_final", 0.5 },
-		},
+		{ "active_skill_hit_ailment_damage_with_projectile_+%_final", 0.5 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_fire", 60 },
@@ -7856,16 +7665,89 @@ skills["MoltenStrikeAltX"] = {
 			area = true,
 		},
 	},
-	preDamageFunc = skills.MoltenStrike.preDamageFunc,
+	preDamageFunc = function(activeSkill, output, breakdown)
+		local skillCfg = activeSkill.skillCfg
+		local skillData = activeSkill.skillData
+		local skillPart = activeSkill.skillPart
+		local skillModList = activeSkill.skillModList
+		local t_insert = table.insert
+		local s_format = string.format
+
+		-- melee part doesn't need to calc balls
+		if skillPart == 1 then
+			return
+		end
+
+		local enemyRadius = skillModList:Override(skillCfg, "EnemyRadius") or skillModList:Sum("BASE", skillCfg, "EnemyRadius")
+		local ballRadius = output.AreaOfEffectRadius
+		local innerRadius = output.AreaOfEffectRadiusSecondary
+		local outerRadius = output.AreaOfEffectRadiusTertiary
+
+		-- logic adapted from MoldyDwarf's calculator
+		local hitRange = enemyRadius + ballRadius - innerRadius
+		local landingRange = outerRadius - innerRadius
+		local overlapChance = math.min(1, hitRange / landingRange)
+		output.OverlapChance = overlapChance * 100
+
+		if breakdown then
+			breakdown.OverlapChance = { }
+			t_insert(breakdown.OverlapChance, "Chance for individual balls to land on the enemy:")
+			t_insert(breakdown.OverlapChance, "^8= (area where a ball can land on enemy) / (total area)")
+			t_insert(breakdown.OverlapChance, "^8= (enemy radius + ball radius - min travel) / (max travel - min travel)")
+			t_insert(breakdown.OverlapChance, s_format("^8= (^7%d^8 + ^7%d^8 - ^7%d) / (^7%d^8 - ^7%d)",
+				enemyRadius, ballRadius, innerRadius, outerRadius, innerRadius))
+			t_insert(breakdown.OverlapChance, s_format("^8=^7 %.2f^8%%", output.OverlapChance))
+		end
+
+		local numProjectiles = output.ProjectileCount
+		local dpsMult = 1
+		if skillPart == 3 or skillPart == 5 or skillPart == 6 then
+			dpsMult = overlapChance * numProjectiles
+
+			if skillPart ~= 6 then
+				if breakdown then
+					breakdown.SkillDPSMultiplier = {}
+					t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+					t_insert(breakdown.SkillDPSMultiplier, "^8= number of projectiles * overlap chance")
+					t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %d^8 *^7 %.3f^8", numProjectiles, overlapChance))
+					t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMult))
+				end
+			else
+				-- zenith: make an effective dpsMult for the weighted average of normal and 5th attack balls
+				local fifthAttackMulti = 1 + skillData.FifthStrikeDamage / 100
+				local fifthAttackOverallMulti = fifthAttackMulti * overlapChance * (numProjectiles + skillData.FifthStrikeProjectiles)
+				dpsMult = 0.8 * dpsMult + 0.2 * fifthAttackOverallMulti
+
+				if breakdown then
+					breakdown.SkillDPSMultiplier = {}
+					t_insert(breakdown.SkillDPSMultiplier, "Weighted average DPS multiplier for balls")
+					t_insert(breakdown.SkillDPSMultiplier, "^8= (0.8 * balls dps) + (0.2 * 5th attack balls dps)")
+					t_insert(breakdown.SkillDPSMultiplier, s_format("^8= (0.8 * normal ball hit * overlap chance * number of projectiles) " ..
+						"+ (0.2 * ball hit * 5th attack multiplier * overlap chance * (number of projectiles + %d))", skillData.FifthStrikeProjectiles))
+					t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ball hit * overlap chance * (0.8 * number of projectiles " ..
+						"+ 0.2 * 5th attack multiplier * (number of projectiles + %d))", skillData.FifthStrikeProjectiles))
+					t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ball hit * ^7%.3f ^8* (0.8 * ^7%d ^8+ 0.2 * ^7%.1f ^8* ^7%d^8)",
+						overlapChance, numProjectiles, fifthAttackMulti, numProjectiles + skillData.FifthStrikeProjectiles))
+					t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ball hit * ^7 %.3f", dpsMult))
+				end
+			end
+		end
+		if dpsMult ~= 1 then
+			skillData.dpsMultiplier = (skillData.dpsMultiplier or 1) * dpsMult
+			output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * dpsMult
+		end
+	end,
 	statMap = {
 		["active_skill_hit_ailment_damage_with_projectile_+%_final"] = {
 			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "SkillPart", skillPartList = { 2, 3, 4, 5, 6 } })
 		},
 		["molten_strike_every_5th_attack_projectiles_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "SkillPart", skillPartList = { 4, 5 } })
+			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "SkillPart", skillPartList = { 4, 5 } }),
+			skill("FifthStrikeDamage", nil),
 		},
 		["molten_strike_every_5th_attack_fire_X_additional_projectiles"] = {
-			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 4, 5 } })
+			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 4, 5 } }),
+			skill("FifthStrikeProjectiles", nil),
 		},
 	},
 	baseFlags = {
@@ -7885,9 +7767,7 @@ skills["MoltenStrikeAltX"] = {
 		flag("CannotSplit"),
 	},
 	qualityStats = {
-		Default = {
-			{ "molten_strike_every_5th_attack_projectiles_damage_+%_final", 10 },
-		},
+		{ "molten_strike_every_5th_attack_projectiles_damage_+%_final", 10 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_fire", 60 },
@@ -8003,9 +7883,7 @@ skills["VaalMoltenStrike"] = {
 		flag("CannotSplit"),
 	},
 	qualityStats = {
-		Default = {
-			{ "active_skill_hit_ailment_damage_with_projectile_+%_final", 0.5 },
-		},
+		{ "active_skill_hit_ailment_damage_with_projectile_+%_final", 0.5 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_fire", 60 },
@@ -8105,9 +7983,7 @@ skills["Perforate"] = {
 		skill("radius", 8, { type = "Condition", var = "BloodStance" }),
 	},
 	qualityStats = {
-		Default = {
-			{ "blood_spears_base_number_of_spears", 0.1 },
-		},
+		{ "blood_spears_base_number_of_spears", 0.1 },
 	},
 	constantStats = {
 		{ "blood_spears_base_number_of_spears", 7 },
@@ -8206,10 +8082,8 @@ skills["PerforateAltX"] = {
 		skill("radius", 8, { type = "Condition", var = "BloodStance" }),
 	},
 	qualityStats = {
-		Default = {
-			{ "blood_spears_damage_+%_final_in_blood_stance", 0.25 },
-			{ "skill_area_of_effect_+%_final_in_sand_stance", 1 },
-		},
+		{ "blood_spears_damage_+%_final_in_blood_stance", 0.25 },
+		{ "skill_area_of_effect_+%_final_in_sand_stance", 1 },
 	},
 	constantStats = {
 		{ "blood_spears_base_number_of_spears", 5 },
@@ -8302,9 +8176,7 @@ skills["PerforateAltY"] = {
 		skill("radius", 11),
 	},
 	qualityStats = {
-		Default = {
-			{ "active_skill_bleeding_damage_+%_final", 1 },
-		},
+		{ "active_skill_bleeding_damage_+%_final", 1 },
 	},
 	constantStats = {
 		{ "blood_spears_base_number_of_spears", 6 },
@@ -8389,9 +8261,7 @@ skills["PetrifiedBlood"] = {
 	baseFlags = {
 	},
 	qualityStats = {
-		Default = {
-			{ "petrified_blood_%_prevented_life_loss_to_lose_over_time", -0.25 },
-		},
+		{ "petrified_blood_%_prevented_life_loss_to_lose_over_time", -0.25 },
 	},
 	constantStats = {
 		{ "petrified_blood_%_life_loss_below_half_from_hit_to_prevent", 40 },
@@ -8469,9 +8339,7 @@ skills["Pride"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_skill_area_of_effect_+%", 2 },
-		},
+		{ "base_skill_area_of_effect_+%", 2 },
 	},
 	stats = {
 		"physical_damage_aura_nearby_enemies_physical_damage_taken_+%",
@@ -8547,9 +8415,7 @@ skills["ProtectiveLink"] = {
 		duration = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "base_skill_effect_duration", 75 },
-		},
+		{ "base_skill_effect_duration", 75 },
 	},
 	stats = {
 		"bulwark_link_grants_recover_X_life_on_block",
@@ -8631,9 +8497,7 @@ skills["Punishment"] = {
 		mod("DebilitateChance", "BASE", 100),
 	},
 	qualityStats = {
-		Default = {
-			{ "debilitate_self_for_x_milliseconds_on_hit", 50 },
-		},
+		{ "debilitate_self_for_x_milliseconds_on_hit", 50 },
 	},
 	constantStats = {
 		{ "debilitate_self_for_x_milliseconds_on_hit", 2000 },
@@ -8717,9 +8581,7 @@ skills["PurityOfFire"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_fire_damage_resistance_%", 0.5 },
-		},
+		{ "base_fire_damage_resistance_%", 0.5 },
 	},
 	stats = {
 		"base_fire_damage_resistance_%",
@@ -8799,9 +8661,7 @@ skills["VaalImpurityOfFire"] = {
 		duration = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "base_skill_area_of_effect_+%", 2 },
-		},
+		{ "base_skill_area_of_effect_+%", 2 },
 	},
 	constantStats = {
 		{ "base_maximum_fire_damage_resistance_%", 5 },
@@ -8924,9 +8784,7 @@ skills["RageVortex"] = {
 		duration = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "rage_slash_sacrifice_rage_%", 0.25 },
-		},
+		{ "rage_slash_sacrifice_rage_%", 0.25 },
 	},
 	constantStats = {
 		{ "rage_slash_sacrifice_rage_%", 20 },
@@ -9023,9 +8881,7 @@ skills["RageVortexAltX"] = {
 		duration = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "active_skill_base_area_of_effect_radius", 0.1 },
-		},
+		{ "active_skill_base_area_of_effect_radius", 0.1 },
 	},
 	constantStats = {
 		{ "rage_slash_maximum_vortices", 1 },
@@ -9115,9 +8971,7 @@ skills["RallyingCry"] = {
 		skill("radius", 60),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 2 },
-		},
+		{ "base_cooldown_speed_+%", 2 },
 	},
 	constantStats = {
 		{ "rallying_cry_damage_+%_final_from_osm_per_nearby_ally", 5 },
@@ -9209,9 +9063,7 @@ skills["RejuvenationTotem"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
-		Default = {
-			{ "totem_life_+%_final", 1 },
-		},
+		{ "totem_life_+%_final", 1 },
 	},
 	constantStats = {
 		{ "base_totem_duration", 8000 },
@@ -9296,9 +9148,7 @@ skills["VaalRejuvenationTotem"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
-		Default = {
-			{ "totem_life_+%_final", 1 },
-		},
+		{ "totem_life_+%_final", 1 },
 	},
 	constantStats = {
 		{ "base_totem_duration", 4000 },
@@ -9378,9 +9228,7 @@ skills["SearingBond"] = {
 		duration = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "number_of_additional_totems_allowed", 0.1 },
-		},
+		{ "number_of_additional_totems_allowed", 0.1 },
 	},
 	constantStats = {
 		{ "base_totem_duration", 8000 },
@@ -9463,7 +9311,7 @@ skills["SearingBondAltX"] = {
 			mod("Damage", "MORE", nil, ModFlag.Dot, 0,  { type = "PerStat", stat = "TotemsSummoned" }, { type = "SkillPart", skillPart = 2 }),
 		},
 		["number_of_additional_totems_allowed_per_maximum_power_charge"] = {
-			mod("ActiveTotemLimit", "BASE", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
+			mod("ActiveTotemLimit", "BASE", nil, 0, 0, { type = "PerStat", stat = "PowerChargesMax" }),
 		},
 	},
 	baseFlags = {
@@ -9472,9 +9320,7 @@ skills["SearingBondAltX"] = {
 		duration = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "searing_bond_totems_detonation_damage_over_time_+%_final_per_active_totem", 0.5 },
-		},
+		{ "searing_bond_totems_detonation_damage_over_time_+%_final_per_active_totem", 0.5 },
 	},
 	constantStats = {
 		{ "base_totem_duration", 8000 },
@@ -9572,9 +9418,7 @@ skills["SeismicCry"] = {
 		skill("radius", 60),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 2 },
-		},
+		{ "base_cooldown_speed_+%", 2 },
 	},
 	constantStats = {
 		{ "skill_empowers_next_x_melee_attacks", 6 },
@@ -9665,9 +9509,7 @@ skills["ShieldCharge"] = {
 		skill("radiusTertiaryLabel", "Charging area:"),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_movement_velocity_+%", 1 },
-		},
+		{ "base_movement_velocity_+%", 1 },
 	},
 	constantStats = {
 		{ "shield_charge_scaling_stun_threshold_reduction_+%_at_maximum_range", 75 },
@@ -9765,9 +9607,7 @@ skills["ShieldCrush"] = {
 		skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
-		Default = {
-			{ "shield_crush_damage_+%_final_from_distance", 0.5 },
-		},
+		{ "shield_crush_damage_+%_final_from_distance", 0.5 },
 	},
 	stats = {
 		"off_hand_local_minimum_added_physical_damage",
@@ -9861,9 +9701,7 @@ skills["ShieldCrushAltX"] = {
 		skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
-		Default = {
-			{ "shield_crush_helmet_enchantment_aoe_+%_final", 2 },
-		},
+		{ "shield_crush_helmet_enchantment_aoe_+%_final", 2 },
 	},
 	stats = {
 		"off_hand_local_minimum_added_fire_damage",
@@ -9935,9 +9773,7 @@ skills["ShieldOfLight"] = {
 		shieldAttack = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 1 },
-		},
+		{ "base_cooldown_speed_+%", 1 },
 	},
 	constantStats = {
 		{ "retaliation_base_use_window_duration_ms", 2000 },
@@ -10030,9 +9866,7 @@ skills["ShockwaveTotem"] = {
 		duration = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "active_skill_base_radius_+", 0.1 },
-		},
+		{ "active_skill_base_radius_+", 0.1 },
 	},
 	constantStats = {
 		{ "base_totem_duration", 8000 },
@@ -10112,9 +9946,7 @@ skills["ShockwaveTotemAltX"] = {
 		duration = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "active_skill_base_radius_+", 0.15 },
-		},
+		{ "active_skill_base_radius_+", 0.15 },
 	},
 	constantStats = {
 		{ "base_totem_duration", 8000 },
@@ -10235,10 +10067,8 @@ skills["Smite"] = {
 		skill("radiusSecondaryLabel", "Aura area:"),
 	},
 	qualityStats = {
-		Default = {
-			{ "active_skill_area_damage_+%_final", 0.5 },
-			{ "quality_display_active_skill_area_damage_quality_negated_from_gem", 1 },
-		},
+		{ "active_skill_area_damage_+%_final", 0.5 },
+		{ "quality_display_active_skill_area_damage_quality_negated_from_gem", 1 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
@@ -10343,9 +10173,7 @@ skills["SmiteAltX"] = {
 		area = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "smite_lightning_target_range", 1 },
-		},
+		{ "smite_lightning_target_range", 1 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
@@ -10461,9 +10289,7 @@ skills["VaalSmite"] = {
 		skill("radiusSecondaryLabel", "Aura area:"),
 	},
 	qualityStats = {
-		Default = {
-			{ "active_skill_area_damage_+%_final", 0.5 },
-		},
+		{ "active_skill_area_damage_+%_final", 0.5 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
@@ -10590,9 +10416,7 @@ skills["StaticStrike"] = {
 		skill("radius", 20),
 	},
 	qualityStats = {
-		Default = {
-			{ "static_strike_zap_speed_+%", 1 },
-		},
+		{ "static_strike_zap_speed_+%", 1 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
@@ -10687,9 +10511,7 @@ skills["StaticStrikeAltX"] = {
 		skill("radius", 20),
 	},
 	qualityStats = {
-		Default = {
-			{ "static_strike_maximum_gathering_lightning_stacks", 0.1 },
-		},
+		{ "static_strike_maximum_gathering_lightning_stacks", 0.1 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
@@ -10778,9 +10600,7 @@ skills["Swordstorm"] = {
 		skill("doubleHitsWhenDualWielding", true),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 1 },
-		},
+		{ "base_cooldown_speed_+%", 1 },
 	},
 	constantStats = {
 		{ "retaliation_base_use_window_duration_ms", 2000 },
@@ -10864,9 +10684,7 @@ skills["QuickGuard"] = {
 		mod("AvoidBleed", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 0.5 },
-		},
+		{ "base_cooldown_speed_+%", 0.5 },
 	},
 	constantStats = {
 		{ "quick_guard_damage_absorbed_%", 70 },
@@ -10957,9 +10775,7 @@ skills["Reap"] = {
 		skill("debuff", true),
 	},
 	qualityStats = {
-		Default = {
-			{ "blood_scythe_damage_+%_final_per_charge", 0.25 },
-		},
+		{ "blood_scythe_damage_+%_final_per_charge", 0.25 },
 	},
 	constantStats = {
 		{ "blood_scythe_damage_+%_final_per_charge", 15 },
@@ -11055,9 +10871,7 @@ skills["VaalReap"] = {
 		skill("dotIsArea", true),
 	},
 	qualityStats = {
-		Default = {
-			{ "blood_scythe_damage_+%_final_per_charge", 0.25 },
-		},
+		{ "blood_scythe_damage_+%_final_per_charge", 0.25 },
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 5000 },
@@ -11154,9 +10968,7 @@ skills["SummonFlameGolem"] = {
 		flag("Condition:HaveFireGolem", { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
-		Default = {
-			{ "golem_buff_effect_+%", 1 },
-		},
+		{ "golem_buff_effect_+%", 1 },
 	},
 	constantStats = {
 		{ "base_number_of_golems_allowed", 1 },
@@ -11235,9 +11047,7 @@ skills["SummonFlameGolemAltX"] = {
 		flag("Condition:HaveFireGolem", { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
-		Default = {
-			{ "minion_cooldown_recovery_+%", 2 },
-		},
+		{ "minion_cooldown_recovery_+%", 2 },
 	},
 	constantStats = {
 		{ "base_number_of_golems_allowed", 3 },
@@ -11315,9 +11125,7 @@ skills["SummonFlameGolemAltY"] = {
 		flag("Condition:HaveFireGolem", { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 2 },
-		},
+		{ "base_cooldown_speed_+%", 2 },
 	},
 	constantStats = {
 		{ "base_number_of_golems_allowed", 1 },
@@ -11407,9 +11215,7 @@ skills["SummonStoneGolem"] = {
 		flag("Condition:HavePhysicalGolem", { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
-		Default = {
-			{ "golem_buff_effect_+%", 1 },
-		},
+		{ "golem_buff_effect_+%", 1 },
 	},
 	constantStats = {
 		{ "base_number_of_golems_allowed", 1 },
@@ -11488,9 +11294,7 @@ skills["SummonStoneGolemAltX"] = {
 		flag("Condition:HavePhysicalGolem", { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
-		Default = {
-			{ "minion_cooldown_recovery_+%", 2 },
-		},
+		{ "minion_cooldown_recovery_+%", 2 },
 	},
 	constantStats = {
 		{ "base_number_of_golems_allowed", 3 },
@@ -11568,9 +11372,7 @@ skills["SummonStoneGolemAltY"] = {
 		flag("Condition:HavePhysicalGolem", { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
-		Default = {
-			{ "golem_buff_effect_+%", 1 },
-		},
+		{ "golem_buff_effect_+%", 1 },
 	},
 	constantStats = {
 		{ "base_number_of_golems_allowed", 1 },
@@ -11676,9 +11478,7 @@ skills["Sunder"] = {
 		mod("Multiplier:SunderWaveArea", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
-		Default = {
-			{ "sunder_wave_radius_+_per_step", 0.05 },
-		},
+		{ "sunder_wave_radius_+_per_step", 0.05 },
 	},
 	constantStats = {
 		{ "shockwave_slam_explosion_damage_+%_final", -40 },
@@ -11782,9 +11582,7 @@ skills["SunderAltX"] = {
 		skill("radius", 12),
 	},
 	qualityStats = {
-		Default = {
-			{ "sunder_wave_max_steps", 0.1 },
-		},
+		{ "sunder_wave_max_steps", 0.1 },
 	},
 	constantStats = {
 		{ "shockwave_slam_explosion_damage_+%_final", -40 },
@@ -11896,9 +11694,7 @@ skills["SunderAltY"] = {
 		skill("radius", 12),
 	},
 	qualityStats = {
-		Default = {
-			{ "sunder_wave_delay_+%", -0.5 },
-		},
+		{ "sunder_wave_delay_+%", -0.5 },
 	},
 	constantStats = {
 		{ "shockwave_slam_explosion_damage_+%_final", -40 },
@@ -11993,9 +11789,7 @@ skills["TectonicSlam"] = {
 		skill("radiusSecondaryLabel", "Fissure Width:"),
 	},
 	qualityStats = {
-		Default = {
-			{ "tectonic_slam_side_crack_additional_chance_%", 1.5 },
-		},
+		{ "tectonic_slam_side_crack_additional_chance_%", 1.5 },
 	},
 	constantStats = {
 		{ "tectonic_slam_side_crack_additional_chance_%_per_endurance_charge", 5 },
@@ -12094,9 +11888,7 @@ skills["TectonicSlamAltX"] = {
 		skill("radiusSecondaryLabel", "Fissure Width:"),
 	},
 	qualityStats = {
-		Default = {
-			{ "endurance_charge_slam_damage_+%_final_per_endurance_charge_consumed", 0.25 },
-		},
+		{ "endurance_charge_slam_damage_+%_final_per_endurance_charge_consumed", 0.25 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_fire", 60 },
@@ -12180,9 +11972,7 @@ skills["VengefulCry"] = {
 		duration = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 2 },
-		},
+		{ "base_cooldown_speed_+%", 2 },
 	},
 	constantStats = {
 		{ "retaliation_base_use_window_duration_ms", 2000 },
@@ -12272,9 +12062,7 @@ skills["VigilantStrike"] = {
 		melee = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "active_skill_attack_damage_+%_final_per_endurance_charge", 0.2 },
-		},
+		{ "active_skill_attack_damage_+%_final_per_endurance_charge", 0.2 },
 	},
 	constantStats = {
 		{ "gain_fortify_on_melee_hit_ms", 8000 },
@@ -12347,9 +12135,7 @@ skills["Vitality"] = {
 		skill("radius", 40),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_skill_area_of_effect_+%", 2 },
-		},
+		{ "base_skill_area_of_effect_+%", 2 },
 	},
 	stats = {
 		"base_life_regeneration_rate_per_minute",
@@ -12447,9 +12233,7 @@ skills["VolcanicFissure"] = {
 		flag("CannotSplit"),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_number_of_projectiles", 0.1 },
-		},
+		{ "base_number_of_projectiles", 0.1 },
 	},
 	constantStats = {
 		{ "active_skill_hit_ailment_damage_with_projectile_+%_final", -50 },
@@ -12529,9 +12313,7 @@ skills["VolcanicFissureAltX"] = {
 		slam = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "vaal_volcanic_fissure_crack_repeat_count", 0.05 },
-		},
+		{ "vaal_volcanic_fissure_crack_repeat_count", 0.05 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_fire", 60 },
@@ -12623,9 +12405,7 @@ skills["VaalVolcanicFissure"] = {
 		flag("CannotSplit"),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_number_of_projectiles", 0.1 },
-		},
+		{ "base_number_of_projectiles", 0.1 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_fire", 60 },
@@ -12716,9 +12496,7 @@ skills["Vulnerability"] = {
 		skill("radius", 22),
 	},
 	qualityStats = {
-		Default = {
-			{ "enemy_aggravate_bleeding_on_attack_hit_chance_%_against_self", 0.5 },
-		},
+		{ "enemy_aggravate_bleeding_on_attack_hit_chance_%_against_self", 0.5 },
 	},
 	constantStats = {
 		{ "receive_bleeding_chance_%_when_hit_by_attack", 25 },
@@ -12809,9 +12587,7 @@ skills["WarlordsMark"] = {
 		skill("debuff", true),
 	},
 	qualityStats = {
-		Default = {
-			{ "grant_attacker_endurance_charge_when_hit_%_chance", 0.25 },
-		},
+		{ "grant_attacker_endurance_charge_when_hit_%_chance", 0.25 },
 	},
 	constantStats = {
 		{ "enemy_grant_X_rage_on_stun", 10 },
@@ -12894,9 +12670,7 @@ skills["WarBanner"] = {
 		flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_skill_effect_duration", 100 },
-		},
+		{ "base_skill_effect_duration", 100 },
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 10000 },

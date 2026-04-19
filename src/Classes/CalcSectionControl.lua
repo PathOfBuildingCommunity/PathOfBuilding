@@ -157,64 +157,6 @@ function CalcSectionClass:UpdatePos()
 	end
 end
 
-function CalcSectionClass:FormatVal(val, p)
-	return formatNumSep(tostring(round(val, p)))
-end
-
-function CalcSectionClass:FormatStr(str, actor, colData)
-	str = str:gsub("{output:([%a%.:]+)}", function(c) 
-		local ns, var = c:match("^(%a+)%.(%a+)$")
-		if ns then
-			return actor.output[ns] and actor.output[ns][var] or ""
-		else
-			return actor.output[c] or ""
-		end
-	end)
-	str = str:gsub("{(%d+):output:([%a%.:]+)}", function(p, c) 
-		local ns, var = c:match("^(%a+)%.(%a+)$")
-		if ns then
-			return self:FormatVal(actor.output[ns] and actor.output[ns][var] or 0, tonumber(p))
-		else
-			return self:FormatVal(actor.output[c] or 0, tonumber(p))
-		end
-	end)
-	str = str:gsub("{(%d+):mod:([%d,]+)}", function(p, n)
-		local numList = { }
-		for num in n:gmatch("%d+") do
-			t_insert(numList, tonumber(num))
-		end
-		local modType = colData[numList[1]].modType
-		local modTotal = modType == "MORE" and 1 or 0
-		for _, num in ipairs(numList) do
-			local sectionData = colData[num]
-			local modCfg = (sectionData.cfg and actor.mainSkill[sectionData.cfg.."Cfg"]) or { }
-			if sectionData.modSource then
-				modCfg.source = sectionData.modSource
-			end
-			if sectionData.actor then
-				modCfg.actor = sectionData.actor
-			end
-			local modVal
-			local modStore = (sectionData.enemy and actor.enemy.modDB) or (sectionData.cfg and actor.mainSkill.skillModList) or actor.modDB
-			if type(sectionData.modName) == "table" then
-				modVal = modStore:Combine(sectionData.modType, modCfg, unpack(sectionData.modName))
-			else
-				modVal = modStore:Combine(sectionData.modType, modCfg, sectionData.modName)
-			end
-			if modType == "MORE" then
-				modTotal = modTotal * modVal
-			else
-				modTotal = modTotal + modVal
-			end
-		end
-		if modType == "MORE" then
-			modTotal = (modTotal - 1) * 100
-		end
-		return self:FormatVal(modTotal, tonumber(p)) 
-	end)
-	return str
-end
-
 function CalcSectionClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
@@ -245,7 +187,7 @@ function CalcSectionClass:Draw(viewPort, noTooltip)
 			DrawString(x + 3, lineY + 3, "LEFT", 16, "VAR BOLD", textColor..subSec.label..":")
 			if subSec.data.extra then
 				local x = x + 3 + DrawStringWidth(16, "VAR BOLD", subSec.label) + 10
-				DrawString(x, lineY + 3, "LEFT", 16, "VAR", "^7"..self:FormatStr(subSec.data.extra, actor))
+				DrawString(x, lineY + 3, "LEFT", 16, "VAR", "^7"..formatCalcStr(subSec.data.extra, actor))
 			end
 		end
 		-- Draw line below label
@@ -300,7 +242,7 @@ function CalcSectionClass:Draw(viewPort, noTooltip)
 							end
 							local textSize = rowData.textSize or 14
 							SetViewport(colData.x + 3, colData.y, colData.width - 4, colData.height)
-							DrawString(1, 9 - textSize/2, "LEFT", textSize, "VAR", "^7"..self:FormatStr(colData.format, actor, colData))
+							DrawString(1, 9 - textSize/2, "LEFT", textSize, "VAR", "^7"..formatCalcStr(colData.format, actor, colData))
 							SetViewport()
 						end
 					end
