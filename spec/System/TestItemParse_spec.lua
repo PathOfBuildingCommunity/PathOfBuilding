@@ -519,6 +519,8 @@ describe("TestAdvancedItemParse", function()
 			{tags:elemental,cold,resistance}{crafted}{range:1}+(29-35)% to Cold Resistance
 			]])
 
+		assert.are.equals(advancedItem:BuildRaw(), equivalentCraftItem:BuildRaw())
+
 		local catalyst = new("Item", [[
 			Item Class: Amulets
 			Rarity: Unique
@@ -587,6 +589,12 @@ describe("TestAdvancedItemParse", function()
 			--------
 			{ Prefix Modifier "Freezing" (Tier: 5) — Damage, Elemental, Cold, Caster  — 8% Increased }
 			Adds 17(16-20) to 35(30-36) Cold Damage to Spells
+			{ Prefix Modifier "Beetle's" (Tier: 6) — Defences, Armour }
+			9(6-13)% increased Armour
+			7(6-7)% increased Stun and Block Recovery
+			{ Master Crafted Prefix Modifier "Upgraded" — Life, Defences, Armour }
+			21(18-21)% increased Armour
+			+18(17-19) to maximum Life
 			{ Unique Modifier }
 			106(60-120)% increased Implicit Modifier magnitudes — Unscalable Value
 			(Implicit Modifiers are those that come from an item's type, rather than its random properties)
