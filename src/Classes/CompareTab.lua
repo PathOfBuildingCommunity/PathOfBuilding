@@ -2300,9 +2300,9 @@ function CompareTabClass:LayoutCalcsSkillControls(vp, compareEntry)
 	local textLinesHeight = 2 -- padding before text
 	local primaryEnv = self.primaryBuild.calcsTab and self.primaryBuild.calcsTab.calcsEnv
 	local compareEnv = compareEntry.calcsTab and compareEntry.calcsTab.calcsEnv
-	local pOutput = primaryEnv and primaryEnv.player and primaryEnv.player.output
-	local cOutput = compareEnv and compareEnv.player and compareEnv.player.output
-	if pOutput or cOutput then
+	local primaryOutput = primaryEnv and primaryEnv.player and primaryEnv.player.output
+	local compareOutput = compareEnv and compareEnv.player and compareEnv.player.output
+	if primaryOutput or compareOutput then
 		local wrapWidth = colWidth - 8
 		local infoLabels = {
 			BuffList = "Aura/Buff Skills",
@@ -2311,13 +2311,13 @@ function CompareTabClass:LayoutCalcsSkillControls(vp, compareEntry)
 		}
 		local infoKeys = { "BuffList", "CombatList", "CurseList" }
 		for _, key in ipairs(infoKeys) do
-			local pVal = pOutput and pOutput[key]
-			local cVal = cOutput and cOutput[key]
-			if (pVal and pVal ~= "") or (cVal and cVal ~= "") then
+			local primaryValue = primaryOutput and primaryOutput[key]
+			local compareValue = compareOutput and compareOutput[key]
+			if (primaryValue and primaryValue ~= "") or (compareValue and compareValue ~= "") then
 				local label = infoLabels[key]
-				local pLines = (pVal and pVal ~= "") and #wrapInfoLine(label .. ": " .. pVal, wrapWidth) or 0
-				local cLines = (cVal and cVal ~= "") and #wrapInfoLine(label .. ": " .. cVal, wrapWidth) or 0
-				textLinesHeight = textLinesHeight + m_max(pLines, cLines, 1) * 18
+				local primaryLineCount = (primaryValue and primaryValue ~= "") and #wrapInfoLine(label .. ": " .. primaryValue, wrapWidth) or 0
+				local compareLineCount = (compareValue and compareValue ~= "") and #wrapInfoLine(label .. ": " .. compareValue, wrapWidth) or 0
+				textLinesHeight = textLinesHeight + m_max(primaryLineCount, compareLineCount, 1) * 18
 			end
 		end
 	end
@@ -4405,10 +4405,10 @@ function CompareTabClass:DrawCalcsSkillHeader(vp, compareEntry, headerHeight, pr
 
 	-- Text info lines (Aura/Buffs, Combat Buffs, Curses)
 	local textY = m_max(leftY, rightY) + 2
-	local pOutput = primaryEnv.player and primaryEnv.player.output
-	local cOutput = compareEnv.player and compareEnv.player.output
+	local primaryOutput = primaryEnv.player and primaryEnv.player.output
+	local compareOutput = compareEnv.player and compareEnv.player.output
 	self.calcsSkillHeaderHover = nil  -- Reset hover state
-	if pOutput or cOutput then
+	if primaryOutput or compareOutput then
 		local cursorX, cursorY = GetCursorPos()
 		local wrapWidth = colWidth - 8
 		local infoLines = {
@@ -4417,42 +4417,42 @@ function CompareTabClass:DrawCalcsSkillHeader(vp, compareEntry, headerHeight, pr
 			{ label = "Curses/Debuffs", key = "CurseList", breakdown = "SkillDebuffs" },
 		}
 		for _, info in ipairs(infoLines) do
-			local pVal = pOutput and pOutput[info.key]
-			local cVal = cOutput and cOutput[info.key]
-			if (pVal and pVal ~= "") or (cVal and cVal ~= "") then
-				local pLines = (pVal and pVal ~= "") and wrapInfoLine(info.label .. ": " .. pVal, wrapWidth) or {}
-				local cLines = (cVal and cVal ~= "") and wrapInfoLine(info.label .. ": " .. cVal, wrapWidth) or {}
-				local pH = #pLines * 18
-				local cH = #cLines * 18
-				local rowH = m_max(pH, cH, 18)
+			local primaryValue = primaryOutput and primaryOutput[info.key]
+			local compareValue = compareOutput and compareOutput[info.key]
+			if (primaryValue and primaryValue ~= "") or (compareValue and compareValue ~= "") then
+				local primaryLines = (primaryValue and primaryValue ~= "") and wrapInfoLine(info.label .. ": " .. primaryValue, wrapWidth) or {}
+				local compareLines = (compareValue and compareValue ~= "") and wrapInfoLine(info.label .. ": " .. compareValue, wrapWidth) or {}
+				local primaryHeight = #primaryLines * 18
+				local compareHeight = #compareLines * 18
+				local rowH = m_max(primaryHeight, compareHeight, 18)
 				-- Check hover per-side for lines that have breakdown data
 				if info.breakdown and cursorY >= textY and cursorY < textY + rowH then
-					local onLeft = cursorX >= leftX and cursorX < rightX and pH > 0 and cursorY < textY + pH
-					local onRight = cursorX >= rightX and cursorX < vp.x + vp.width and cH > 0 and cursorY < textY + cH
+					local onLeft = cursorX >= leftX and cursorX < rightX and primaryHeight > 0 and cursorY < textY + primaryHeight
+					local onRight = cursorX >= rightX and cursorX < vp.x + vp.width and compareHeight > 0 and cursorY < textY + compareHeight
 					if onLeft then
 						SetDrawColor(0.15, 0.25, 0.15)
-						DrawImage(nil, leftX, textY, colWidth, pH)
+						DrawImage(nil, leftX, textY, colWidth, primaryHeight)
 						self.calcsSkillHeaderHover = {
 							breakdown = info.breakdown,
 							label = info.label,
 							build = self.primaryBuild,
-							x = leftX, y = textY, w = colWidth, h = pH,
+							x = leftX, y = textY, w = colWidth, h = primaryHeight,
 						}
 					elseif onRight then
 						SetDrawColor(0.15, 0.25, 0.15)
-						DrawImage(nil, rightX, textY, colWidth, cH)
+						DrawImage(nil, rightX, textY, colWidth, compareHeight)
 						self.calcsSkillHeaderHover = {
 							breakdown = info.breakdown,
 							label = info.label,
 							build = compareEntry,
-							x = rightX, y = textY, w = colWidth, h = cH,
+							x = rightX, y = textY, w = colWidth, h = compareHeight,
 						}
 					end
 				end
-				for i, line in ipairs(pLines) do
+				for i, line in ipairs(primaryLines) do
 					DrawString(leftX, textY + 1 + (i - 1) * 18, "LEFT", 14, "VAR", "^7" .. line)
 				end
-				for i, line in ipairs(cLines) do
+				for i, line in ipairs(compareLines) do
 					DrawString(rightX, textY + 1 + (i - 1) * 18, "LEFT", 14, "VAR", "^7" .. line)
 				end
 				textY = textY + rowH
@@ -4661,11 +4661,11 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 				if subSec.data and subSec.data.extra then
 					local extraTextW = DrawStringWidth(16, "VAR BOLD", subSec.label .. ":")
 					local extraX = x + 3 + extraTextW + 8
-					local ok1, pExtra = pcall(formatCalcStr, subSec.data.extra, primaryActor)
-					local ok2, cExtra = pcall(formatCalcStr, subSec.data.extra, compareActor)
-					if ok1 and ok2 then
+					local primaryExtraOk, primaryExtraText = pcall(formatCalcStr, subSec.data.extra, primaryActor)
+					local compareExtraOk, compareExtraText = pcall(formatCalcStr, subSec.data.extra, compareActor)
+					if primaryExtraOk and compareExtraOk then
 						DrawString(extraX, lineY + 3, "LEFT", 16, "VAR",
-							colorCodes.POSITIVE .. pExtra .. "  ^8|  " .. colorCodes.WARNING .. cExtra)
+							colorCodes.POSITIVE .. primaryExtraText .. "  ^8|  " .. colorCodes.WARNING .. compareExtraText)
 					end
 				end
 				-- Separator below header
