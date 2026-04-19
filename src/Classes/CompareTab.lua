@@ -1018,6 +1018,16 @@ function CompareTabClass:InitControls()
 		return self.compareViewMode == "CALCS" and self:GetActiveCompare() ~= nil and calcsScrollBar.enabled
 	end
 
+	-- Shared vertical scrollbar for Summary/Items/Skills/Config sub-tabs
+	self.controls.viewScrollBar = new("ScrollBarControl", nil, {0, 0, 18, 0}, 50, "VERTICAL", true)
+	local viewScrollBar = self.controls.viewScrollBar
+	self.controls.viewScrollBar.shown = function()
+		return self:GetActiveCompare() ~= nil
+			and self.compareViewMode ~= "TREE"
+			and self.compareViewMode ~= "CALCS"
+			and viewScrollBar.enabled
+	end
+
 	-- Horizontal scrollbar for Items sub-tab
 	self.controls.itemsHScrollBar = new("ScrollBarControl", nil, {0, 0, 0, LAYOUT.itemsHScrollBarHeight}, 60, "HORIZONTAL", true)
 	local itemsHScrollBar = self.controls.itemsHScrollBar
@@ -1624,12 +1634,49 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 		DrawImage(nil, contentVP.x, contentVP.y, contentVP.width, self.calcsSkillHeaderHeight)
 	end
 
+	-- Layout shared vertical scrollbar for Summary/Items/Skills/Config.
+	local mode = self.compareViewMode
+	local viewScrollBar = self.controls.viewScrollBar
+	if compareEntry and mode ~= "TREE" and mode ~= "CALCS" then
+		local topReserve = 0
+		local bottomReserve = 0
+		local contentHeight = 0
+		if mode == "SUMMARY" then
+			contentHeight = self.summaryTotalContentHeight or 0
+		elseif mode == "CONFIG" then
+			topReserve = LAYOUT.configFixedHeaderHeight
+			contentHeight = self.configTotalContentHeight or 0
+		elseif mode == "ITEMS" then
+			topReserve = LAYOUT.itemsCheckboxOffset
+			bottomReserve = self.controls.itemsHScrollBar.enabled and LAYOUT.itemsHScrollBarHeight or 0
+			contentHeight = self.itemsTotalContentHeight or 0
+		elseif mode == "SKILLS" then
+			bottomReserve = self.controls.skillsHScrollBar.enabled and LAYOUT.skillsHScrollBarHeight or 0
+			contentHeight = self.skillsTotalContentHeight or 0
+		end
+		local viewHeight = m_max(contentVP.height - topReserve - bottomReserve, 0)
+		viewScrollBar.x = contentVP.x + contentVP.width - 18
+		viewScrollBar.y = contentVP.y + topReserve
+		viewScrollBar.height = viewHeight
+		viewScrollBar:SetContentDimension(contentHeight, viewHeight)
+		viewScrollBar:SetOffset(self.scrollY)
+		self.scrollY = viewScrollBar.offset
+	else
+		viewScrollBar:SetContentDimension(0, contentVP.height)
+		viewScrollBar:SetOffset(0)
+	end
+
 	-- Process input events for our controls (including footer controls)
 	self:ProcessControlsInput(inputEvents, viewPort)
 	self:HandleScrollInput(contentVP, inputEvents)
+	if self.controls.viewScrollBar:IsShown() then
+		self.scrollY = self.controls.viewScrollBar.offset
+	end
+
+	local drawingTree = self.compareViewMode == "TREE" and compareEntry ~= nil
 
 	-- Draw TREE view BEFORE controls so header dropdowns render on top of the tree
-	if self.compareViewMode == "TREE" and compareEntry then
+	if drawingTree then
 		self:DrawTree(contentVP, inputEvents, compareEntry)
 
 		-- Elevate to main draw layer 1 (matching TreeTab pattern) so controls
@@ -1651,14 +1698,6 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 		end
 	end
 
-	-- Draw controls (at main layer 1 when in TREE mode, above all tree content)
-	self:DrawControls(viewPort)
-
-	-- Reset to default draw layer after controls
-	if self.compareViewMode == "TREE" and compareEntry then
-		SetDrawLayer(0)
-	end
-
 	if not compareEntry then
 		-- No comparison build loaded - show instructions
 		SetViewport(contentVP.x, contentVP.y, contentVP.width, contentVP.height)
@@ -1668,57 +1707,63 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 		DrawString(0, 70, "CENTER", 16, "VAR",
 			"^7Click " .. colorCodes.POSITIVE .. "Import..." .. "^7 above to import a build to compare against.")
 		SetViewport()
-		return
-	end
+	else
+		-- Position items expanded mode checkbox and item set dropdowns (inside content area, top-left)
+		-- Label draws to the left of the checkbox, so offset x by labelWidth to keep it visible
+		if self.compareViewMode == "ITEMS" then
+			self.controls.itemsExpandedCheck.x = contentVP.x + 10 + self.controls.itemsExpandedCheck.labelWidth
+			self.controls.itemsExpandedCheck.y = contentVP.y + 8
 
-	-- Position items expanded mode checkbox and item set dropdowns (inside content area, top-left)
-	-- Label draws to the left of the checkbox, so offset x by labelWidth to keep it visible
-	if self.compareViewMode == "ITEMS" then
-		self.controls.itemsExpandedCheck.x = contentVP.x + 10 + self.controls.itemsExpandedCheck.labelWidth
-		self.controls.itemsExpandedCheck.y = contentVP.y + 8
+			local colWidth = self.itemsColWidth or m_max(m_floor(contentVP.width / 2), LAYOUT.itemsMinColWidth)
+			local itemSetLabelW = DrawStringWidth(16, "VAR", "^7Item set:") + 4
+			local scrollOffsetX = -((self.controls.itemsHScrollBar and self.controls.itemsHScrollBar.offset) or 0)
 
-		local colWidth = self.itemsColWidth or m_max(m_floor(contentVP.width / 2), LAYOUT.itemsMinColWidth)
-		local itemSetLabelW = DrawStringWidth(16, "VAR", "^7Item set:") + 4
-		local scrollOffsetX = -((self.controls.itemsHScrollBar and self.controls.itemsHScrollBar.offset) or 0)
+			-- Item set dropdowns
+			local row1Y = contentVP.y + 34
 
-		-- Item set dropdowns
-		local row1Y = contentVP.y + 34
+			-- Primary build item set dropdown
+			self.controls.primaryItemSetLabel.x = contentVP.x + scrollOffsetX + 10
+			self.controls.primaryItemSetLabel.y = row1Y + 2
+			self.controls.primaryItemSetSelect.x = contentVP.x + scrollOffsetX + 10 + itemSetLabelW
+			self.controls.primaryItemSetSelect.y = row1Y
 
-		-- Primary build item set dropdown
-		self.controls.primaryItemSetLabel.x = contentVP.x + scrollOffsetX + 10
-		self.controls.primaryItemSetLabel.y = row1Y + 2
-		self.controls.primaryItemSetSelect.x = contentVP.x + scrollOffsetX + 10 + itemSetLabelW
-		self.controls.primaryItemSetSelect.y = row1Y
+			-- Compare build item set dropdown
+			self.controls.compareItemSetLabel2.x = contentVP.x + scrollOffsetX + colWidth + 10
+			self.controls.compareItemSetLabel2.y = row1Y + 2
+			self.controls.compareItemSetSelect2.x = contentVP.x + scrollOffsetX + colWidth + 10 + itemSetLabelW
+			self.controls.compareItemSetSelect2.y = row1Y
 
-		-- Compare build item set dropdown
-		self.controls.compareItemSetLabel2.x = contentVP.x + scrollOffsetX + colWidth + 10
-		self.controls.compareItemSetLabel2.y = row1Y + 2
-		self.controls.compareItemSetSelect2.x = contentVP.x + scrollOffsetX + colWidth + 10 + itemSetLabelW
-		self.controls.compareItemSetSelect2.y = row1Y
+			-- Populate primary build item set list
+			if self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.itemSetOrderList then
+				self:PopulateSetDropdown(self.primaryBuild.itemsTab, "itemSetOrderList", "itemSets", "activeItemSetId", self.controls.primaryItemSetSelect)
+			end
 
-		-- Populate primary build item set list
-		if self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.itemSetOrderList then
-			self:PopulateSetDropdown(self.primaryBuild.itemsTab, "itemSetOrderList", "itemSets", "activeItemSetId", self.controls.primaryItemSetSelect)
+			-- Populate compare build item set list
+			if compareEntry and compareEntry.itemsTab and compareEntry.itemsTab.itemSetOrderList then
+				self:PopulateSetDropdown(compareEntry.itemsTab, "itemSetOrderList", "itemSets", "activeItemSetId", self.controls.compareItemSetSelect2)
+			end
 		end
 
-		-- Populate compare build item set list
-		if compareEntry and compareEntry.itemsTab and compareEntry.itemsTab.itemSetOrderList then
-			self:PopulateSetDropdown(compareEntry.itemsTab, "itemSetOrderList", "itemSets", "activeItemSetId", self.controls.compareItemSetSelect2)
+		-- Dispatch to sub-view (TREE already drawn above)
+		if self.compareViewMode == "SUMMARY" then
+			self:DrawSummary(contentVP, compareEntry)
+		elseif self.compareViewMode == "ITEMS" then
+			self:DrawItems(contentVP, compareEntry, inputEvents)
+		elseif self.compareViewMode == "SKILLS" then
+			self:DrawSkills(contentVP, compareEntry)
+		elseif self.compareViewMode == "CALCS" then
+			self:DrawCalcs(contentVP, compareEntry)
+		elseif self.compareViewMode == "CONFIG" then
+			self:DrawConfig(contentVP, compareEntry)
 		end
-
 	end
 
-	-- Dispatch to sub-view (TREE already drawn above)
-	if self.compareViewMode == "SUMMARY" then
-		self:DrawSummary(contentVP, compareEntry)
-	elseif self.compareViewMode == "ITEMS" then
-		self:DrawItems(contentVP, compareEntry, inputEvents)
-	elseif self.compareViewMode == "SKILLS" then
-		self:DrawSkills(contentVP, compareEntry)
-	elseif self.compareViewMode == "CALCS" then
-		self:DrawCalcs(contentVP, compareEntry)
-	elseif self.compareViewMode == "CONFIG" then
-		self:DrawConfig(contentVP, compareEntry)
+	self:DrawControls(viewPort)
+	if drawingTree then
+		SetDrawLayer(0)
+	end
+	if self.controls.viewScrollBar:IsShown() then
+		self.scrollY = self.controls.viewScrollBar.offset
 	end
 end
 
@@ -2247,6 +2292,7 @@ function CompareTabClass:HandleScrollInput(contentVP, inputEvents)
 
 	local listControl = self.controls.comparePowerReportList
 	local mouseOverList = listControl:IsShown() and listControl:IsMouseOver()
+	local mouseOverViewScrollBar = self.controls.viewScrollBar:IsShown() and self.controls.viewScrollBar:IsMouseOver()
 
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyUp" and mouseInContent and not mouseOverList then
@@ -2258,10 +2304,12 @@ function CompareTabClass:HandleScrollInput(contentVP, inputEvents)
 					self.controls.calcsScrollBar:Scroll(1)
 					inputEvents[id] = nil
 				end
-			elseif event.key == "WHEELUP" and self.compareViewMode ~= "TREE" then
+			elseif event.key == "WHEELUP" and self.compareViewMode ~= "TREE" and not mouseOverViewScrollBar then
 				self.scrollY = m_max(self.scrollY - 40, 0)
+				self.controls.viewScrollBar:SetOffset(self.scrollY)
+				self.scrollY = self.controls.viewScrollBar.offset
 				inputEvents[id] = nil
-			elseif event.key == "WHEELDOWN" and self.compareViewMode ~= "TREE" then
+			elseif event.key == "WHEELDOWN" and self.compareViewMode ~= "TREE" and not mouseOverViewScrollBar then
 				local maxScroll = 0
 				local viewportH = contentVP.height
 				if self.compareViewMode == "CONFIG" and self.configTotalContentHeight then
@@ -2278,6 +2326,8 @@ function CompareTabClass:HandleScrollInput(contentVP, inputEvents)
 					maxScroll = m_max(self.skillsTotalContentHeight - (viewportH - hBarReserve), 0)
 				end
 				self.scrollY = m_min(self.scrollY + 40, maxScroll)
+				self.controls.viewScrollBar:SetOffset(self.scrollY)
+				self.scrollY = self.controls.viewScrollBar.offset
 				inputEvents[id] = nil
 			end
 		end
@@ -3066,9 +3116,9 @@ function CompareTabClass:DrawSummary(vp, compareEntry)
 
 	-- Position the list control (absolute screen coordinates).
 	-- The list has a fixed height and its own internal scrollbar for rows.
-	-- Width matches the table columns (750) plus scrollbar (20px border/scroll area).
+	-- Width matches the table columns (720) plus scrollbar (20px border/scroll area).
 	local listHeight = 250
-	local listWidth = 770
+	local listWidth = 740
 	listControl.x = vp.x + LAYOUT.powerReportLeft
 	listControl.y = vp.y + drawY
 	listControl.width = listWidth
