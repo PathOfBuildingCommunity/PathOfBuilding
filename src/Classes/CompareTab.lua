@@ -343,7 +343,7 @@ function CompareTabClass:InitControls()
 	self.controls.cmpSkillLabel.shown = setsEnabled
 
 	-- Socket group dropdown
-	self.controls.cmpSocketGroup = new("DropDownControl", {"LEFT", self.controls.cmpSkillLabel, "RIGHT"}, {2, 0, 200, 20}, {}, function(index, value)
+	self.controls.cmpSocketGroup = new("DropDownControl", {"LEFT", self.controls.cmpSkillLabel, "RIGHT"}, {4, 0, 200, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
 			entry:SetMainSocketGroup(index)
@@ -354,7 +354,7 @@ function CompareTabClass:InitControls()
 	self.controls.cmpSocketGroup.enableDroppedWidth = true
 
 	-- Active skill within group
-	self.controls.cmpMainSkill = new("DropDownControl", {"LEFT", self.controls.cmpSocketGroup, "RIGHT"}, {2, 0, 150, 20}, {}, function(index, value)
+	self.controls.cmpMainSkill = new("DropDownControl", {"LEFT", self.controls.cmpSocketGroup, "RIGHT"}, {4, 0, 225, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
@@ -367,7 +367,7 @@ function CompareTabClass:InitControls()
 	self.controls.cmpMainSkill.shown = false
 
 	-- Skill part (multi-part skills)
-	self.controls.cmpSkillPart = new("DropDownControl", {"LEFT", self.controls.cmpMainSkill, "RIGHT"}, {2, 0, 100, 20}, {}, function(index, value)
+	self.controls.cmpSkillPart = new("DropDownControl", {"LEFT", self.controls.cmpMainSkill, "RIGHT"}, {4, 0, 200, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
@@ -384,9 +384,9 @@ function CompareTabClass:InitControls()
 	self.controls.cmpSkillPart.shown = false
 
 	-- Stage count
-	self.controls.cmpStageCountLabel = new("LabelControl", {"LEFT", self.controls.cmpSkillPart, "RIGHT"}, {4, 0, 0, 16}, "^7Stages:")
+	self.controls.cmpStageCountLabel = new("LabelControl", {"LEFT", self.controls.cmpSkillPart, "RIGHT"}, {6, 0, 0, 16}, "^7Stages:")
 	self.controls.cmpStageCountLabel.shown = function() return self.controls.cmpStageCount.shown end
-	self.controls.cmpStageCount = new("EditControl", {"LEFT", self.controls.cmpStageCountLabel, "RIGHT"}, {2, 0, 52, 20}, "", nil, "%D", 5, function(buf)
+	self.controls.cmpStageCount = new("EditControl", {"LEFT", self.controls.cmpStageCountLabel, "RIGHT"}, {4, 0, 52, 20}, "", nil, "%D", 5, function(buf)
 		local entry = self:GetActiveCompare()
 		if entry then
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
@@ -403,9 +403,9 @@ function CompareTabClass:InitControls()
 	self.controls.cmpStageCount.shown = false
 
 	-- Mine count
-	self.controls.cmpMineCountLabel = new("LabelControl", {"LEFT", self.controls.cmpStageCount, "RIGHT"}, {4, 0, 0, 16}, "^7Mines:")
+	self.controls.cmpMineCountLabel = new("LabelControl", {"LEFT", self.controls.cmpStageCount, "RIGHT"}, {6, 0, 0, 16}, "^7Mines:")
 	self.controls.cmpMineCountLabel.shown = function() return self.controls.cmpMineCount.shown end
-	self.controls.cmpMineCount = new("EditControl", {"LEFT", self.controls.cmpMineCountLabel, "RIGHT"}, {2, 0, 52, 20}, "", nil, "%D", 5, function(buf)
+	self.controls.cmpMineCount = new("EditControl", {"LEFT", self.controls.cmpMineCountLabel, "RIGHT"}, {4, 0, 52, 20}, "", nil, "%D", 5, function(buf)
 		local entry = self:GetActiveCompare()
 		if entry then
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
@@ -422,7 +422,7 @@ function CompareTabClass:InitControls()
 	self.controls.cmpMineCount.shown = false
 
 	-- Minion selector
-	self.controls.cmpMinion = new("DropDownControl", {"LEFT", self.controls.cmpMineCount, "RIGHT"}, {4, 0, 140, 20}, {}, function(index, value)
+	self.controls.cmpMinion = new("DropDownControl", {"LEFT", self.controls.cmpMineCount, "RIGHT"}, {6, 0, 140, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
@@ -446,7 +446,7 @@ function CompareTabClass:InitControls()
 	self.controls.cmpMinion.shown = false
 
 	-- Minion skill selector
-	self.controls.cmpMinionSkill = new("DropDownControl", {"LEFT", self.controls.cmpMinion, "RIGHT"}, {2, 0, 140, 20}, {}, function(index, value)
+	self.controls.cmpMinionSkill = new("DropDownControl", {"LEFT", self.controls.cmpMinion, "RIGHT"}, {4, 0, 140, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
