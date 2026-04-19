@@ -911,7 +911,7 @@ function CompareTabClass:InitControls()
 	end
 
 	-- Config view: search bar
-	self.controls.configSearchEdit = new("EditControl", nil, {0, 0, 200, 20}, "", "Search", "%c", 100, nil, nil, nil, true)
+	self.controls.configSearchEdit = new("EditControl", nil, {0, 0, 240, 20}, "", "Search", "%c", 100, nil, nil, nil, true)
 	self.controls.configSearchEdit.shown = function()
 		return self.compareViewMode == "CONFIG" and self:GetActiveCompare() ~= nil
 	end
@@ -1605,6 +1605,13 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 	if compareEntry then
 		self:UpdateSetSelectors(compareEntry)
 	end
+	for _, event in ipairs(inputEvents) do
+		if event.type == "KeyDown" and event.key == "f" and IsKeyDown("CTRL") then
+			if self.compareViewMode == "CONFIG" and compareEntry then
+				self:SelectControl(self.controls.configSearchEdit)
+			end
+		end
+	end
 	-- Layout and refresh calcs skill detail controls
 	self.calcsSkillHeaderHeight = 0
 	if self.compareViewMode == "CALCS" and compareEntry then
@@ -1898,12 +1905,19 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 	-- Position header controls
 	local row1Y = contentVP.y + 4
 	local row2Y = contentVP.y + 28
-	self.controls.copyConfigBtn.x = contentVP.x + 10
-	self.controls.copyConfigBtn.y = row1Y
-	self.controls.configToggleBtn.x = contentVP.x + 260
-	self.controls.configToggleBtn.y = row1Y
+	local configHeaderLeftX = contentVP.x + 10
+	local configSetSelectX = contentVP.x + 80
+	local configSetSelectW = 225
+	local inputEndX = configSetSelectX + configSetSelectW
+	local actionX = inputEndX + 10
 
-	self.controls.configSearchEdit.x = contentVP.x + 10
+	self.controls.copyConfigBtn.x = actionX
+	self.controls.copyConfigBtn.y = row1Y
+	self.controls.configToggleBtn.x = actionX
+	self.controls.configToggleBtn.y = row2Y
+
+	self.controls.configSearchEdit.x = configHeaderLeftX
+	self.controls.configSearchEdit.width = inputEndX - configHeaderLeftX
 	self.controls.configSearchEdit.y = row2Y
 
 	-- Update primary config set dropdown list
@@ -1917,10 +1931,11 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 		end
 	end
 	self.controls.configPrimarySetSelect:SetList(pSetList)
-	self.controls.configPrimarySetLabel.x = contentVP.x + 220
-	self.controls.configPrimarySetLabel.y = row2Y + 2
-	self.controls.configPrimarySetSelect.x = contentVP.x + 290
-	self.controls.configPrimarySetSelect.y = row2Y
+	self.controls.configPrimarySetLabel.x = configHeaderLeftX
+	self.controls.configPrimarySetLabel.y = row1Y + 2
+	self.controls.configPrimarySetSelect.x = configSetSelectX
+	self.controls.configPrimarySetSelect.width = configSetSelectW
+	self.controls.configPrimarySetSelect.y = row1Y
 
 	-- Build section layout: multi-column grid, mirroring regular ConfigTab
 	local rowHeight = LAYOUT.configRowHeight
