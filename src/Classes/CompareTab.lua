@@ -3915,8 +3915,8 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 		elseif entry.gem then
 			local gemName = entry.gem.grantedEffect and entry.gem.grantedEffect.name or entry.gem.nameSpec or "?"
 			local gemColor = entry.gem.color or colorCodes.GEM
-			local levelStr = entry.gem.level and (" Lv" .. entry.gem.level) or ""
-			local qualStr = entry.gem.quality and entry.gem.quality > 0 and ("/" .. entry.gem.quality .. "q") or ""
+			local levelStr = entry.gem.level and (" " .. entry.gem.level) or ""
+			local qualStr = entry.gem.quality and ("/" .. entry.gem.quality .. "") or ""
 			local prefix = ""
 			if entry.status == "additional" then
 				prefix = colorCodes.POSITIVE .. "+ "
