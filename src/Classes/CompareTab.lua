@@ -1105,7 +1105,7 @@ function CompareTabClass:NormalizeConfigVals(varData, pVal, cVal)
 end
 
 -- Create a single config control for a given varData, writing to the specified input/configTab/build
-local function makeConfigControl(varData, inputTable, configTab, buildObj)
+local function makeConfigControl(varData, inputTable, configTab, buildObj, sourceControl)
 	local control
 	local pVal = inputTable[varData.var]
 	if varData.type == "check" then
@@ -1140,6 +1140,12 @@ local function makeConfigControl(varData, inputTable, configTab, buildObj)
 	end
 	if control then
 		control.shown = function() return false end
+		-- Reuse tooltip behavior from the source ConfigTab control so compare view
+		-- matches normal Config tab hover help (including dynamic tooltip funcs).
+		if sourceControl then
+			control.tooltipText = sourceControl.tooltipText
+			control.tooltipFunc = sourceControl.tooltipFunc
+		end
 	end
 	return control
 end
@@ -1173,8 +1179,10 @@ function CompareTabClass:RebuildConfigControls(compareEntry)
 				currentSection = nil
 			end
 		elseif currentSection and varData.var and varData.type ~= "text" then
-			local pCtrl = makeConfigControl(varData, pInput, self.primaryBuild.configTab, primaryBuild)
-			local cCtrl = makeConfigControl(varData, cInput, compareEntry.configTab, compareEntry)
+			local pSource = self.primaryBuild.configTab.varControls and self.primaryBuild.configTab.varControls[varData.var]
+			local cSource = compareEntry.configTab.varControls and compareEntry.configTab.varControls[varData.var]
+			local pCtrl = makeConfigControl(varData, pInput, self.primaryBuild.configTab, primaryBuild, pSource)
+			local cCtrl = makeConfigControl(varData, cInput, compareEntry.configTab, compareEntry, cSource)
 
 			if pCtrl and cCtrl then
 				self.controls["cfg_p_" .. varData.var] = pCtrl
