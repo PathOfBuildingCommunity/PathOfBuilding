@@ -79,7 +79,7 @@ local LAYOUT = {
 	calcsMaxCardWidth = 400,
 	calcsLabelWidth = 132,
 	calcsSepW = 2,
-	calcsHeaderBarHeight = 24,
+	calcsHeaderBarHeight = 12,
 
 	-- Power report section (inside Summary view)
 	powerReportLeft = 10,
@@ -162,6 +162,7 @@ local CompareTabClass = newClass("CompareTab", "ControlHost", "Control", functio
 
 	-- Tooltip for calcs hover breakdown
 	self.calcsTooltip = new("Tooltip")
+	self.calcsShowOnlyDifferences = true
 
 	-- Interactive config controls state
 	self.configControls = {}        -- { var -> { control, varData } }
@@ -703,6 +704,13 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.cmpCalcsMode.shown = false
+
+	self.controls.calcsShowOnlyDifferencesCheck = new("CheckBoxControl", nil, {0, 0, 18}, "Show only differences", function(state)
+		self.calcsShowOnlyDifferences = state
+	end, "Show only rows that differ between both builds. Disable to include unchanged rows.")
+	self.controls.calcsShowOnlyDifferencesCheck.shown = function()
+		return self.compareViewMode == "CALCS" and self:GetActiveCompare() ~= nil
+	end
 
 	-- ============================================================
 	-- Tree footer controls (visible only in TREE view mode with a comparison loaded)
@@ -2314,7 +2322,12 @@ function CompareTabClass:LayoutCalcsSkillControls(vp, compareEntry)
 		end
 	end
 
-	local headerHeight = m_max(leftY, rightY) - vp.y + textLinesHeight + 4 -- +4 for separator padding
+	local textBaseY = m_max(leftY, rightY)
+	local headerHeight = textBaseY - vp.y + textLinesHeight + 4 -- + separator padding
+	local showOnlyDiffCheck = self.controls.calcsShowOnlyDifferencesCheck
+	showOnlyDiffCheck.state = self.calcsShowOnlyDifferences and true or false
+	showOnlyDiffCheck.x = leftX + showOnlyDiffCheck.labelWidth + 2
+	showOnlyDiffCheck.y = vp.y + headerHeight + 4
 	return headerHeight
 end
 
@@ -4449,7 +4462,52 @@ function CompareTabClass:DrawCalcsSkillHeader(vp, compareEntry, headerHeight, pr
 
 	-- Separator line
 	SetDrawColor(0.4, 0.4, 0.4)
-	DrawImage(nil, vp.x + 2, vp.y + headerHeight - 2, vp.width - 4, 1)
+	DrawImage(nil, vp.x + 2, vp.y + headerHeight - 2, vp.width - 4, 2)
+end
+
+local function calcRowMatchesBetweenBuilds(self, colData, primaryActor, compareActor, compareEntry)
+	if not colData or not colData.format then return false end
+	local primaryFormatOk, primaryFormattedValue = pcall(formatCalcStr, colData.format, primaryActor, colData)
+	local compareFormatOk, compareFormattedValue = pcall(formatCalcStr, colData.format, compareActor, colData)
+	if not primaryFormatOk or not compareFormatOk or tostring(primaryFormattedValue or "") ~= tostring(compareFormattedValue or "") then
+		return false
+	end
+	for _, sectionData in ipairs(colData) do
+		if sectionData.modName then -- Compare mod rows to see if they match
+			local primaryRows = calcsHelpers.TabulateMods(sectionData, primaryActor)
+			local compareRows = calcsHelpers.TabulateMods(sectionData, compareActor)
+			if #primaryRows ~= #compareRows then return false end
+			local counts = {}
+			for _, row in ipairs(primaryRows) do
+				local key = calcsHelpers.ModRowKey(row) .. "|" .. tostring(row.value)
+				counts[key] = (counts[key] or 0) + 1
+			end
+			for _, row in ipairs(compareRows) do
+				local key = calcsHelpers.ModRowKey(row) .. "|" .. tostring(row.value)
+				local count = counts[key]
+				if not count then return false end
+				counts[key] = count > 1 and count - 1 or nil
+			end
+		end
+		if sectionData.breakdown then -- Compare breakdown to see if they are the same
+			local primaryBreakdownLines = calcsHelpers.GetBreakdownLines(sectionData, self.primaryBuild)
+			local compareBreakdownLines = calcsHelpers.GetBreakdownLines(sectionData, compareEntry)
+			local primaryLineCount = primaryBreakdownLines and #primaryBreakdownLines or 0
+			local compareLineCount = compareBreakdownLines and #compareBreakdownLines or 0
+			if primaryLineCount ~= compareLineCount then return false end
+			for i = 1, primaryLineCount do
+				if primaryBreakdownLines[i] ~= compareBreakdownLines[i] then return false end
+			end
+		end
+	end
+	return true
+end
+
+local function subSectionExtraMatches(subSecData, primaryActor, compareActor)
+	if not subSecData or not subSecData.extra then return true end
+	local primaryExtraOk, primaryExtraText = pcall(formatCalcStr, subSecData.extra, primaryActor)
+	local compareExtraOk, compareExtraText = pcall(formatCalcStr, subSecData.extra, compareActor)
+	return primaryExtraOk and compareExtraOk and tostring(primaryExtraText or "") == tostring(compareExtraText or "")
 end
 
 function CompareTabClass:DrawCalcs(vp, compareEntry)
@@ -4486,7 +4544,8 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 	local maxCol = m_max(1, m_floor(gridWidth / (cardWidth + 8)))
 	local baseX = 4
 	local headerBarHeight = LAYOUT.calcsHeaderBarHeight
-	local baseY = headerBarHeight
+	local filterRowOffset = self.controls.calcsShowOnlyDifferencesCheck:IsShown() and 12 or 0
+	local baseY = headerBarHeight + filterRowOffset
 
 	-- Pre-compute section visibility and heights
 	local sections = {}
@@ -4502,12 +4561,21 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 				for _, rowData in ipairs(subSec.data) do
 					-- Only include rows with a label and a first column with a format string
 					if rowData.label and rowData[1] and rowData[1].format then
-						if self.primaryBuild.calcsTab:CheckFlag(rowData, primaryActor) or self.primaryBuild.calcsTab:CheckFlag(rowData, compareActor) then
-							t_insert(rows, rowData)
+						local primaryVisible = self.primaryBuild.calcsTab:CheckFlag(rowData, primaryActor)
+						local compareVisible = self.primaryBuild.calcsTab:CheckFlag(rowData, compareActor)
+						if primaryVisible or compareVisible then
+							local keepRow = true
+							if self.calcsShowOnlyDifferences and primaryVisible and compareVisible then
+								keepRow = not calcRowMatchesBetweenBuilds(self, rowData[1], primaryActor, compareActor, compareEntry)
+							end
+							if keepRow then
+								t_insert(rows, rowData)
+							end
 						end
 					end
 				end
-				if #rows > 0 then
+				local keepSubSection = #rows > 0 or (self.calcsShowOnlyDifferences and not subSectionExtraMatches(subSec.data, primaryActor, compareActor))
+				if keepSubSection then
 					t_insert(subSecInfo, { label = subSec.label, rows = rows, data = subSec.data })
 					sectionHasRows = true
 				end
