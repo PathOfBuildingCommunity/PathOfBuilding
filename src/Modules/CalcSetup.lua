@@ -1516,7 +1516,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 				end
 				-- if the slot has an imbued support, add it as an ExtraSupport
 				if build.skillsTab.imbuedSupportBySlot and build.skillsTab.imbuedSupportBySlot[slotName] and group.imbuedSupport then
-					addExtraSupports(nil, build.skillsTab.imbuedSupportBySlot[slotName], 1)
+					local imbuedSupport = build.skillsTab.imbuedSupportBySlot[slotName]
+					addExtraSupports(nil, imbuedSupport, 1)
+					local imbuedGemData = env.data.gems[env.data.gemForSkill[imbuedSupport]]
+					if imbuedGemData and imbuedGemData.secondaryGrantedEffect and imbuedGemData.secondaryGrantedEffect.support then
+						addExtraSupports(nil, imbuedGemData.secondaryGrantedEffect, 1)
+					end
 				end
 
 				for gemIndex, gemInstance in ipairs(group.gemList) do
