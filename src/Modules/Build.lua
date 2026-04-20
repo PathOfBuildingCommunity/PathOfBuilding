@@ -107,6 +107,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	self.abortSave = true
 
 	wipeTable(self.controls)
+	self.secondaryAscendDropAltAscendancies = nil
+	self.secondaryAscendDropLegacySelection = nil
+	self.secondaryAscendDropEntryCount = nil
 
 	local miscTooltip = new("Tooltip")
 
@@ -1071,6 +1074,53 @@ function buildMode:ResetModFlags()
 	self.calcsTab.modFlag = false
 end
 
+function buildMode:UpdateSecondaryAscendancyDropdown(forceListUpdate)
+	local secondaryDrop = self.controls.secondaryAscendDrop
+	if not secondaryDrop then
+		return
+	end
+	local legacyAlternateAscendancyIds = {
+		Warden = true,
+		Warlock = true,
+		Primalist = true,
+	}
+	local selection = (self.spec and self.spec.curSecondaryAscendClassId) or 0
+	local altAscendancies = self.spec and self.spec.tree and self.spec.tree.alternate_ascendancies
+	local selectedAscendancy = altAscendancies and altAscendancies[selection]
+	local selectedLegacyAscendancy = selectedAscendancy and legacyAlternateAscendancyIds[selectedAscendancy.id] and selectedAscendancy.id or nil
+	if forceListUpdate
+		or self.secondaryAscendDropAltAscendancies ~= altAscendancies
+		or self.secondaryAscendDropLegacySelection ~= selectedLegacyAscendancy
+	then
+		local entries = {
+			{ label = "None", ascendClassId = 0 },
+		}
+		if altAscendancies then
+			local sortable = { }
+			for ascendClassId, ascendClass in pairs(altAscendancies) do
+				if ascendClass and ascendClass.id then
+					if not legacyAlternateAscendancyIds[ascendClass.id] or ascendClassId == selection then
+						t_insert(sortable, { label = ascendClass.name, ascendClassId = ascendClassId })
+					end
+				end
+			end
+			t_sort(sortable, function(a, b)
+				return a.label < b.label
+			end)
+			for _, entry in ipairs(sortable) do
+				t_insert(entries, entry)
+			end
+		end
+		secondaryDrop:SetList(entries)
+		secondaryDrop:CheckDroppedWidth(true)
+		self.secondaryAscendDropEntryCount = #entries
+		self.secondaryAscendDropAltAscendancies = altAscendancies
+		self.secondaryAscendDropLegacySelection = selectedLegacyAscendancy
+	end
+	secondaryDrop:SelByValue(selection, "ascendClassId")
+	secondaryDrop.enabled = self.spec ~= nil and (self.secondaryAscendDropEntryCount or 1) > 1
+end
+
 function buildMode:OnFrame(inputEvents)
 	-- Stop at drawing the background if the loaded build needs to be converted
 	if not self.targetVersion then
@@ -1127,41 +1177,7 @@ function buildMode:OnFrame(inputEvents)
 	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValueByKey("ascendancies")
 	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassId, "ascendClassId")
 	self.controls.ascendDrop:CheckDroppedWidth(true)
-	local secondaryDrop = self.controls.secondaryAscendDrop
-	if secondaryDrop then
-		local legacyAlternateAscendancyIds = {
-			Warden = true,
-			Warlock = true,
-			Primalist = true,
-		}
-		local entries = {
-			{ label = "None", ascendClassId = 0 },
-		}
-		local selection = (self.spec and self.spec.curSecondaryAscendClassId) or 0
-		if self.spec and self.spec.tree then
-			local altAscendancies = self.spec.tree.alternate_ascendancies
-			if altAscendancies then
-				local sortable = { }
-				for ascendClassId, ascendClass in pairs(altAscendancies) do
-					if ascendClass and ascendClass.id then
-						if not legacyAlternateAscendancyIds[ascendClass.id] or ascendClassId == selection then
-							t_insert(sortable, { label = ascendClass.name, ascendClassId = ascendClassId })
-						end
-					end
-				end
-				t_sort(sortable, function(a, b)
-					return a.label < b.label
-				end)
-				for _, entry in ipairs(sortable) do
-					t_insert(entries, entry)
-				end
-			end
-		end
-		secondaryDrop:SetList(entries)
-		secondaryDrop:SelByValue(selection, "ascendClassId")
-		secondaryDrop:CheckDroppedWidth(true)
-		secondaryDrop.enabled = self.spec ~= nil and #entries > 1
-	end
+	self:UpdateSecondaryAscendancyDropdown()
 
 	if self.buildFlag then
 		-- Wipe Global Cache
