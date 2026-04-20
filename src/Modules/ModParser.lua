@@ -4934,19 +4934,19 @@ local specialModList = {
 	["profane ground you create inflicts malediction on enemies"] = { mod("EnemyModifier", "LIST", { mod = flag("HasMalediction", { type = "Condition", var = "OnProfaneGround" }) })	},
 	["profane ground you create also affects you and your allies, granting chaotic might"] = { mod("ExtraAura", "LIST", { mod = flag("Condition:ChaoticMight", { type = "Condition", var = "OnProfaneGround" }) }) },
 	["raised beast spectres have farrul's farric presence"] = {
-		mod("ExtraAura", "LIST", { mod = mod("Accuracy", "INC", 80) }, { type = "Condition", var = "HaveBeastSpectre" }),
-		mod("ExtraAura", "LIST", { mod = mod("CritChance", "INC", 120) }, { type = "Condition", var = "HaveBeastSpectre" }),
-		mod("ExtraAura", "LIST", { mod = mod("ReduceCritExtraDamage", "BASE", 100) }, { type = "Condition", var = "HaveBeastSpectre" }),
+		mod("ExtraAura", "LIST", { fromAllies = true, mod = mod("Accuracy", "INC", 80) }, { type = "Condition", var = "HaveBeastSpectre" }),
+		mod("ExtraAura", "LIST", { fromAllies = true, mod = mod("CritChance", "INC", 120) }, { type = "Condition", var = "HaveBeastSpectre" }),
+		mod("ExtraAura", "LIST", { fromAllies = true, mod = mod("ReduceCritExtraDamage", "BASE", 100) }, { type = "Condition", var = "HaveBeastSpectre" }),
 	},
 	["raised beast spectres have farrul's fertile presence"] = {
-		mod("ExtraAura", "LIST", { mod = mod("Damage", "INC", 100) }, { type = "Condition", var = "HaveBeastSpectre" }),
-		mod("ExtraAura", "LIST", { mod = mod("LifeRegenPercent", "BASE", 3) }, { type = "Condition", var = "HaveBeastSpectre" }),
-		mod("ExtraAura", "LIST", { mod = flag("StunImmune") }, { type = "Condition", var = "HaveBeastSpectre" }),
+		mod("ExtraAura", "LIST", { fromAllies = true, mod = mod("Damage", "INC", 100) }, { type = "Condition", var = "HaveBeastSpectre" }),
+		mod("ExtraAura", "LIST", { fromAllies = true, mod = mod("LifeRegenPercent", "BASE", 3) }, { type = "Condition", var = "HaveBeastSpectre" }),
+		mod("ExtraAura", "LIST", { fromAllies = true, mod = flag("StunImmune") }, { type = "Condition", var = "HaveBeastSpectre" }),
 	},
 	["raised beast spectres have farrul's wild presence"] = {
-		mod("ExtraAura", "LIST", { mod = mod("Speed", "INC", 20) }, { type = "Condition", var = "HaveBeastSpectre" }),
-		mod("ExtraAura", "LIST", { mod = mod("MovementSpeed", "INC", 20) }, { type = "Condition", var = "HaveBeastSpectre" }),
-		mod("ExtraAura", "LIST", { mod = mod("MinimumActionSpeed", "MAX", 100) }, { type = "Condition", var = "HaveBeastSpectre" }),
+		mod("ExtraAura", "LIST", { fromAllies = true, mod = mod("Speed", "INC", 20) }, { type = "Condition", var = "HaveBeastSpectre" }),
+		mod("ExtraAura", "LIST", { fromAllies = true, mod = mod("MovementSpeed", "INC", 20) }, { type = "Condition", var = "HaveBeastSpectre" }),
+		mod("ExtraAura", "LIST", { fromAllies = true, mod = mod("MinimumActionSpeed", "MAX", 100) }, { type = "Condition", var = "HaveBeastSpectre" }),
 	},
 	["gain alchemist's genius when you use a flask"] = {
 		flag("Condition:CanHaveAlchemistGenius"),
