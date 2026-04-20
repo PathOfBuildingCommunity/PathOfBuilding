@@ -1342,14 +1342,29 @@ Remove: %s will be removed from the search results.]], term, term, term)
 			end
 		end
 
+		local influenceTooltipText = table.concat({
+			"^7Influence filter (both fields combine):",
+			"Ignore / Ignore: no filter",
+			"None / None: no influences",
+			"Any / None: exactly 1 influence",
+			"<specific> / None: exactly 1, that specific",
+			"Any / Ignore: at least 1 influence",
+			"<specific> / Ignore: at least 1, that specific",
+			"Any / Any: exactly 2 influences",
+			"<specific> / Any: exactly 2, including that specific",
+			"<specific A> / <specific B>: exactly 2, both specifics",
+		}, "\n")
+
 		controls.influence1 = new("DropDownControl", { "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 100, 18 },
 			influenceDropdownNames, refreshInfluenceDependentControls)
 		controls.influence1:SetSel(self.lastInfluence1 or INFLUENCE_IGNORE_INDEX)
+		controls.influence1.tooltipText = influenceTooltipText
 		controls.influence1Label = new("LabelControl", {"RIGHT",controls.influence1,"LEFT"}, {-5, 0, 0, 16}, "^7Influence 1:")
 
 		controls.influence2 = new("DropDownControl", { "TOPLEFT", controls.influence1, "BOTTOMLEFT" }, { 0, 5, 100, 18 },
 			influenceDropdownNames, refreshInfluenceDependentControls)
 		controls.influence2:SetSel(self.lastInfluence2 or INFLUENCE_IGNORE_INDEX)
+		controls.influence2.tooltipText = influenceTooltipText
 		refreshInfluenceDependentControls()
 		controls.influence2Label = new("LabelControl", { "RIGHT", controls.influence2, "LEFT" }, { -5, 0, 0, 16 },
 			"^7Influence 2:")
