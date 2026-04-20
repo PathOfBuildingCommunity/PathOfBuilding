@@ -1,5 +1,27 @@
 # Changelog
 
+## [v2.65.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.65.0) (2026/04/20)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.64.0...v2.65.0)
+
+
+## What's Changed
+### Fixed Crashes
+- Fix crash when opening some builds with cluster jewels [\#9790](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9790) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix crash when selecting some Imbued gems [\#9793](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9793) ([LocalIdentity](https://github.com/LocalIdentity))
+### User Interface
+- Add scrollbars and tweak layout of compare tab [\#9798](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9798) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add checkbox to only show differences in compare calcs tab [\#9798](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9798) ([LocalIdentity](https://github.com/LocalIdentity))
+- Show Bloodline Ascendancy in top bar again [\#9797](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9797) ([Peechey](https://github.com/Peechey))
+### Fixed Calculations
+- Fix some buffs applying incorrectly to the player and minions [\#9789](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9789) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix imbued trigger supports not working [\#9793](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9793) ([LocalIdentity](https://github.com/LocalIdentity))
+### Fixed Behaviours
+- Fix Elemental Penetration Support and Greater Spell Echo not appearing in gem list [\#9782](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9782) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix some gems being hidden from gem list [\#9796](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9796) ([LocalIdentity](https://github.com/LocalIdentity))
+
+
+
 ## [v2.64.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.64.0) (2026/04/18)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.63.0...v2.64.0)
