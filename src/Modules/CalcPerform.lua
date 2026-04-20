@@ -2147,7 +2147,7 @@ function calcs.perform(env, skipEHP)
 				-- Nothing!
 			elseif buff.enemyCond and not enemyDB:GetCondition(buff.enemyCond) then
 				-- Also nothing :/
-			elseif buff.type == "Global" then
+			elseif buff.type == "GlobalDB" then
 				modDB:AddList(buff.modList) -- Allows a skill mod to affect other skills through modDB
 			elseif buff.type == "Buff" and not skillModList:Flag(skillCfg, "DisableBuff") then
 				if env.mode_buffs and (not activeSkill.skillFlags.totem or buff.allowTotemBuff) then

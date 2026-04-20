@@ -2838,7 +2838,7 @@ skills["SupportHallow"] = {
 			mod("HallowingFlameMagnitude", "INC", nil)
 		},
 		["support_hallow_inflict_hallowing_flame_on_melee_hit"] = {
-			flag("Condition:CanInflictHallowingFlame", { type = "GlobalEffect", effectType = "Global" })
+			flag("Condition:CanInflictHallowingFlame", { type = "GlobalEffect", effectType = "GlobalDB" })
 		}
 	},
 	qualityStats = {
