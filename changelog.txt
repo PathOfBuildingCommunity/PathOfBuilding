@@ -1,3 +1,21 @@
+VERSION[2.64.1][2026/04/20]
+
+--- Fixed Crashes ---
+* Fix crash on opening some builds with cluster jewels (LocalIdentity)
+* Fix crash on selecting some Imbued gems + trigger supports not working (LocalIdentity)
+
+--- User Interface ---
+* Fix Compare UI and only show differences in Calcs tab (LocalIdentity)
+* Show Bloodline Ascendancy in top bar again (Peechey)
+
+--- Fixed Calculations ---
+* Fix some buffs applying incorrectly to the player and minions (LocalIdentity)
+
+--- Fixed Behaviours ---
+* Fix Elemental Penetration Support and Greater Spell Echo not appearing in gem list (LocalIdentity)
+* Fix some gems being hidden from gem list (LocalIdentity)
+
+
 VERSION[2.64.0][2026/04/18]
 
 --- New to Path of Building ---
