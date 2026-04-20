@@ -192,7 +192,7 @@ local function needsHasInfluenceFilter(influenceState)
 	return influenceState.minCount ~= nil
 end
 
-local function getInfluenceFilterCost(influenceState)
+local function countInfluenceFilters(influenceState)
 	local cost = #influenceState.specificInfluenceModIds
 	if needsHasInfluenceFilter(influenceState) then
 		cost = cost + 1
@@ -1082,9 +1082,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 
 	local options = self.calcContext.options
 	local influenceState = resolveInfluenceQueryState(options.influence1, options.influence2)
-	local influenceFilterCost = getInfluenceFilterCost(influenceState)
-
-	local num_extra = influenceFilterCost
+	local num_extra = countInfluenceFilters(influenceState)
 	if not options.includeMirrored then
 		num_extra = num_extra + 1
 	end
@@ -1226,7 +1224,7 @@ end
 
 -- Test accessors for influence query state logic (not used in production paths)
 TradeQueryGeneratorClass._resolveInfluenceQueryState = resolveInfluenceQueryState
-TradeQueryGeneratorClass._getInfluenceFilterCost = getInfluenceFilterCost
+TradeQueryGeneratorClass._countInfluenceFilters = countInfluenceFilters
 TradeQueryGeneratorClass._needsHasInfluenceFilter = needsHasInfluenceFilter
 TradeQueryGeneratorClass._hasAnyInfluenceModId = hasAnyInfluenceModId
 TradeQueryGeneratorClass._INFLUENCE_IGNORE_INDEX = INFLUENCE_IGNORE_INDEX

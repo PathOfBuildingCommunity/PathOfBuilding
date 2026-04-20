@@ -44,7 +44,7 @@ describe("TradeQueryGenerator", function()
 		local SHAPER = ANY + 1  -- 4
 		local ELDER  = ANY + 2  -- 5
 		local resolve = mock_queryGen._resolveInfluenceQueryState
-		local cost    = mock_queryGen._getInfluenceFilterCost
+		local count   = mock_queryGen._countInfluenceFilters
 		local needs   = mock_queryGen._needsHasInfluenceFilter
 
 		-- None: uses pseudo_has_influence=0 (1 slot instead of 6-slot NOT filter)
@@ -52,7 +52,7 @@ describe("TradeQueryGenerator", function()
 			local state = resolve(NONE, IGNORE)
 			assert.are.equal(state.exactCount, 0)
 			assert.is_true(state.hasNoneConstraint)
-			assert.are.equal(cost(state), 1)
+			assert.are.equal(count(state), 1)
 			assert.is_true(needs(state))
 		end)
 
@@ -62,7 +62,7 @@ describe("TradeQueryGenerator", function()
 			assert.are.equal(state.exactCount, 1)
 			assert.is_true(state.hasNoneConstraint)
 			assert.are.equal(#state.specificInfluenceModIds, 1)
-			assert.are.equal(cost(state), 2)
+			assert.are.equal(count(state), 2)
 			assert.is_true(needs(state))
 		end)
 
@@ -72,7 +72,7 @@ describe("TradeQueryGenerator", function()
 			assert.are.equal(state.exactCount, 2)
 			assert.is_false(state.hasNoneConstraint)
 			assert.are.equal(#state.specificInfluenceModIds, 2)
-			assert.are.equal(cost(state), 2)
+			assert.are.equal(count(state), 2)
 			assert.is_false(needs(state))
 		end)
 
@@ -81,7 +81,7 @@ describe("TradeQueryGenerator", function()
 			local state = resolve(ANY, IGNORE)
 			assert.are.equal(state.minCount, 1)
 			assert.are.equal(state.exactCount, nil)
-			assert.are.equal(cost(state), 1)
+			assert.are.equal(count(state), 1)
 			assert.is_true(needs(state))
 		end)
 
@@ -91,7 +91,7 @@ describe("TradeQueryGenerator", function()
 			assert.are.equal(state.exactCount, 2)
 			assert.is_false(state.hasNoneConstraint)
 			assert.are.equal(#state.specificInfluenceModIds, 1)
-			assert.are.equal(cost(state), 2)
+			assert.are.equal(count(state), 2)
 			assert.is_true(needs(state))
 		end)
 
@@ -112,7 +112,7 @@ describe("TradeQueryGenerator", function()
 			assert.are.equal(dup.hasNoneConstraint, paired.hasNoneConstraint)
 			assert.are.equal(#dup.specificInfluenceModIds, #paired.specificInfluenceModIds)
 			assert.are.equal(dup.specificInfluenceModIds[1], paired.specificInfluenceModIds[1])
-			assert.are.equal(cost(dup), cost(paired))
+			assert.are.equal(count(dup), count(paired))
 			assert.are.equal(needs(dup), needs(paired))
 		end)
 
