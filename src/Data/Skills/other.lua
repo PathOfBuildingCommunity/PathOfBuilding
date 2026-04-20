@@ -1212,6 +1212,7 @@ skills["SupportDivineBlessing"] = {
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.InbuiltTrigger, },
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
+	hideFromGemList = true,
 	statMap = {
 		["support_aura_duration_base_buff_duration"] = {
 			skill("auraDuration", nil),
@@ -1385,6 +1386,7 @@ skills["SupportEarthbreaker"] = {
 	excludeSkillTypes = { SkillType.InbuiltTrigger, },
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
+	hideFromGemList = true,
 	addFlags = {
 		totem = true,
 	},
