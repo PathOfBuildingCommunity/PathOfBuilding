@@ -4980,6 +4980,53 @@ skills["HarvestRhexScreechDebuff"] = {
 	},
 }
 
+skills["GAHarvestMinerHammerSlam"] = {
+	name = "Hammer Slam",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2.67,
+	baseFlags = {
+		attack = true,
+		area = true,
+		triggerable = true,
+	},
+	stats = {
+		"is_area_damage",
+		"cast_time_overrides_attack_duration",
+	},
+	levels = {
+		[1] = { baseMultiplier = 2, cooldown = 8, levelRequirement = 1, storedUses = 1, },
+	},
+}skills["EDSHarvestMinerHammerSmoke"] = {
+	name = "Hammer Smoke",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0.40000000596046,
+	incrementalEffectiveness = 0.028999999165535,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"is_area_damage",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}
 skills["LegionTemplarJudgeBallLightning"] = {
 	name = "Ball Lightning",
 	hidden = true,
@@ -5213,6 +5260,106 @@ skills["HeistThugRangedExplosiveArrow"] = {
 		"use_scaled_contact_offset",
 		"projectile_uses_contact_position",
 		"maintain_projectile_direction_when_using_contact_position",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["HeistCultistUnarmedLeap"] = {
+	name = "Whirling Blades",
+	hidden = true,
+	color = 4,
+	description = "Dive through enemies, dealing weapon damage. If dual wielding attacks with both weapons, dealing the damage of both in one hit. Only works with Daggers, Claws, and One-Handed Swords.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, },
+	weaponTypes = {
+		["Claw"] = true,
+		["Dagger"] = true,
+		["One Handed Sword"] = true,
+		["Thrusting One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.13,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		movement = true,
+	},
+	constantStats = {
+		{ "skill_sound_variation", 2 },
+	},
+	stats = {
+		"ignores_proximity_shield",
+		"cast_time_overrides_attack_duration",
+	},
+	levels = {
+		[1] = { cooldown = 9, levelRequirement = 0, storedUses = 1, },
+	},
+}
+skills["HeistProjectUnarmedMelee1"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		projectile = true,
+	},
+	stats = {
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["GAHeistCultistUnarmedLeapImpact"] = {
+	name = "Whirling Blades Impact",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.333,
+	baseFlags = {
+		attack = true,
+		area = true,
+		triggerable = true,
+	},
+	stats = {
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["EDSHeistScienceUnarmedGas"] = {
+	name = "Gas",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0.40000000596046,
+	incrementalEffectiveness = 0.028999999165535,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	stats = {
+		"spell_minimum_base_chaos_damage",
+		"spell_maximum_base_chaos_damage",
+		"is_area_damage",
+		"visual_hit_effect_chaos_is_green",
+	},
+	notMinionStat = {
+		"spell_minimum_base_chaos_damage",
+		"spell_maximum_base_chaos_damage",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, statInterpolation = { 3, 3, }, },
@@ -11604,5 +11751,137 @@ skills["FaridunCasterUndeadDamageOverTimeAura"] = {
 	levels = {
 		[1] = { 14, 10, cooldown = 0.5, levelRequirement = 0, storedUses = 1, statInterpolation = { 2, 2, }, },
 		[2] = { 17, 14, cooldown = 0.5, levelRequirement = 80, storedUses = 1, statInterpolation = { 2, 2, }, },
+	},
+}
+skills["MPSHellscapeFleshEliteBasicProj"] = {
+	name = "Projectile",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.5,
+	incrementalEffectiveness = 0.032000001519918,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.166,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		triggerable = true,
+	},
+	constantStats = {
+		{ "monster_projectile_variation", 207 },
+		{ "spell_maximum_action_distance_+%", -50 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["GPSHellscapeFleshEliteSpikeBarrage"] = {
+	name = "Spike Barrage",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.7999999523163,
+	incrementalEffectiveness = 0.02449999935925,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		projectile = true,
+		triggerable = true,
+	},
+	constantStats = {
+		{ "spell_maximum_action_distance_+%", -50 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"base_is_projectile",
+		"use_scaled_contact_offset",
+		"projectile_uses_contact_position",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 7, critChance = 5, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["GSHellscapeFleshEliteBloodOrbExplosion"] = {
+	name = "Blood Orb Explosion",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 5,
+	incrementalEffectiveness = 0.033250000327826,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"is_area_damage",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["VaalOverseerHeavyStrike"] = {
+	name = "Heavy Strike",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Attacks enemies with a forceful blow. Requires a Mace, Sceptre, Axe, Sword or Staff.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, },
+	weaponTypes = {
+		["One Handed Axe"] = true,
+		["One Handed Mace"] = true,
+		["One Handed Sword"] = true,
+		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "base_stun_threshold_reduction_+%", 1 },
+		{ "skill_physical_damage_%_to_convert_to_fire", 40 },
+	},
+	stats = {
+		"action_attack_or_cast_time_uses_animation_length",
+		"global_knockback",
+	},
+	levels = {
+		[1] = { baseMultiplier = 1.26, cooldown = 2, levelRequirement = 1, storedUses = 1, },
+		[2] = { baseMultiplier = 1.26, cooldown = 2, levelRequirement = 68, storedUses = 1, },
 	},
 }
