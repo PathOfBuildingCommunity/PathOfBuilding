@@ -149,15 +149,20 @@ local function resolveInfluenceQueryState(selection1, selection2)
 			ignoreSelectionCount = ignoreSelectionCount + 1
 		elseif isNoInfluenceSelection(selectionIndex) then
 			noneSelectionCount = noneSelectionCount + 1
+		elseif isSpecificInfluenceSelection(selectionIndex) then
+			local influenceModId = hasInfluenceModIds[selectionIndex - INFLUENCE_ANY_INDEX]
+			if not seenSpecificInfluenceModIds[influenceModId] then
+				seenSpecificInfluenceModIds[influenceModId] = true
+				t_insert(state.specificInfluenceModIds, influenceModId)
+				positiveSelectionCount = positiveSelectionCount + 1
+			else
+				-- Same specific on both sides is redundant at the item level; treat the
+				-- second slot as None so the pair behaves exactly like <specific> / None
+				-- (exactly 1 of that type, pseudo_has_influence capped at 1).
+				state.hasNoneConstraint = true
+			end
 		else
 			positiveSelectionCount = positiveSelectionCount + 1
-			if isSpecificInfluenceSelection(selectionIndex) then
-				local influenceModId = hasInfluenceModIds[selectionIndex - INFLUENCE_ANY_INDEX]
-				if not seenSpecificInfluenceModIds[influenceModId] then
-					seenSpecificInfluenceModIds[influenceModId] = true
-					t_insert(state.specificInfluenceModIds, influenceModId)
-				end
-			end
 		end
 	end
 
@@ -1328,29 +1333,7 @@ Remove: %s will be removed from the search results.]], term, term, term)
 		controls.jewelTypeLabel = new("LabelControl", {"RIGHT",controls.jewelType,"LEFT"}, {-5, 0, 0, 16}, "Jewel Type:")
 		updateLastAnchor(controls.jewelType)
 	elseif slot and not isAbyssalJewelSlot and context.slotTbl.slotName ~= "Watcher's Eye" then
-		local function normalizeInfluenceSelections(changedControl)
-			local changedDropdown = changedControl == 1 and controls.influence1 or changedControl == 2 and controls.influence2 or nil
-			local otherDropdown = changedControl == 1 and controls.influence2 or changedControl == 2 and controls.influence1 or nil
-
-			if changedDropdown and otherDropdown then
-				if isIgnoredSelection(changedDropdown.selIndex) and isNoInfluenceSelection(otherDropdown.selIndex) then
-					changedDropdown:SetSel(INFLUENCE_NONE_INDEX)
-					return
-				elseif isNoInfluenceSelection(changedDropdown.selIndex) and isIgnoredSelection(otherDropdown.selIndex) then
-					otherDropdown:SetSel(INFLUENCE_NONE_INDEX)
-					return
-				elseif isSpecificInfluenceSelection(changedDropdown.selIndex) and changedDropdown.selIndex == otherDropdown.selIndex then
-					changedDropdown:SetSel(INFLUENCE_ANY_INDEX)
-					return
-				end
-			end
-
-			if isIgnoredSelection(controls.influence1.selIndex) and isNoInfluenceSelection(controls.influence2.selIndex) then
-				controls.influence1:SetSel(INFLUENCE_NONE_INDEX)
-			elseif isNoInfluenceSelection(controls.influence1.selIndex) and isIgnoredSelection(controls.influence2.selIndex) then
-				controls.influence2:SetSel(INFLUENCE_NONE_INDEX)
-			end
-
+		local function refreshInfluenceDependentControls()
 			-- influenced items can't have eldritch implicits
 			if controls.copyEldritch and isEldritchModSlot then
 				local hasInfluence1 = controls.influence1 and not isIgnoredSelection(controls.influence1.selIndex) and not isNoInfluenceSelection(controls.influence1.selIndex)
@@ -1360,14 +1343,14 @@ Remove: %s will be removed from the search results.]], term, term, term)
 		end
 
 		controls.influence1 = new("DropDownControl", { "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 100, 18 },
-			influenceDropdownNames, function() normalizeInfluenceSelections(1) end)
+			influenceDropdownNames, refreshInfluenceDependentControls)
 		controls.influence1:SetSel(self.lastInfluence1 or INFLUENCE_IGNORE_INDEX)
 		controls.influence1Label = new("LabelControl", {"RIGHT",controls.influence1,"LEFT"}, {-5, 0, 0, 16}, "^7Influence 1:")
 
 		controls.influence2 = new("DropDownControl", { "TOPLEFT", controls.influence1, "BOTTOMLEFT" }, { 0, 5, 100, 18 },
-			influenceDropdownNames, function() normalizeInfluenceSelections(2) end)
+			influenceDropdownNames, refreshInfluenceDependentControls)
 		controls.influence2:SetSel(self.lastInfluence2 or INFLUENCE_IGNORE_INDEX)
-		normalizeInfluenceSelections()
+		refreshInfluenceDependentControls()
 		controls.influence2Label = new("LabelControl", { "RIGHT", controls.influence2, "LEFT" }, { -5, 0, 0, 16 },
 			"^7Influence 2:")
 		updateLastAnchor(controls.influence2, 46)

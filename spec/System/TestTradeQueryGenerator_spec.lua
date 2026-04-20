@@ -99,6 +99,27 @@ describe("TradeQueryGenerator", function()
 		it("hasAnyInfluenceModId is pseudo.pseudo_has_influence_count", function()
 			assert.are.equal(mock_queryGen._hasAnyInfluenceModId, "pseudo.pseudo_has_influence_count")
 		end)
+
+		-- Same specific influence on both sides is redundant at the item level and must
+		-- collapse to the <specific> / None semantic (exactly 1 of that type), not
+		-- double-count and not collapse to <specific> / Ignore. Verify via the
+		-- needsHasInfluenceFilter gate that builds the pseudo_has_influence cap — without
+		-- it, the query would match items with any number of influences including Shaper.
+		it("Shaper+Shaper produces the full Shaper+None query state", function()
+			local dup = resolve(SHAPER, SHAPER)
+			local paired = resolve(SHAPER, NONE)
+			assert.are.equal(dup.exactCount, paired.exactCount)
+			assert.are.equal(dup.hasNoneConstraint, paired.hasNoneConstraint)
+			assert.are.equal(#dup.specificInfluenceModIds, #paired.specificInfluenceModIds)
+			assert.are.equal(dup.specificInfluenceModIds[1], paired.specificInfluenceModIds[1])
+			assert.are.equal(cost(dup), cost(paired))
+			assert.are.equal(needs(dup), needs(paired))
+		end)
+
+		it("Shaper+Shaper needs the pseudo_has_influence cap to enforce exactly 1", function()
+			local state = resolve(SHAPER, SHAPER)
+			assert.is_true(needs(state))
+		end)
 	end)
 
 	describe("Filter prioritization", function()
