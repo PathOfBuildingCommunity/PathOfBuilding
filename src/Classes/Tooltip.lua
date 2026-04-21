@@ -300,7 +300,12 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 
 	return columns, maxColumnHeight, drawStack
 end
-
+--- Draws tooltip to screen
+---@param x number x-coordinate to draw the tooltip at
+---@param y number y-coordinate to draw the tooltip at
+---@param w number|nil optional width of the UI element being hovered over. Tooltip will position itself outside this box (if possible)
+---@param h number|nil optional height of the UI element being hovered over. Needs to be provided alongside `w`
+---@param viewPort table A table `{x, y, width, height}` contains active screen boundaries
 function TooltipClass:Draw(x, y, w, h, viewPort)
 	if #self.lines == 0 then
 		return
@@ -355,7 +360,8 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	end
 	local ttX = x
 	local ttY = y
-	if w and h then
+	local isHoverToolTip = w and h -- `w` and `h` typically only provided for hover tooltips
+	if isHoverToolTip then
 		ttX = ttX + w + 5
 		if ttX + ttW > viewPort.x + viewPort.width then
 			ttX = m_max(viewPort.x, x - 5 - ttW)
@@ -370,11 +376,22 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	-- Initial column calculation
 	local columns, maxColumnHeight, drawStack = self:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 
-	-- If extra columns don't fit, shift to left and recalculate drawStack
-	if columns > 1 and ttW * columns + ttX >= viewPort.x + viewPort.width then
-		ttX = m_max(viewPort.x, viewPort.x + viewPort.width - ttW * columns)
-		columns, maxColumnHeight, drawStack = self:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
-	end
+	-- If hover tooltip and extra columns don't fit, shift to left and adjust drawStack (because hover tooltips can't scroll)
+	if columns > 1 and isHoverToolTip and ttW * columns + ttX >= viewPort.x + viewPort.width then
+        local newX = m_max(viewPort.x, viewPort.x + viewPort.width - ttW * columns)
+        local offsetX = newX - ttX
+        ttX = newX
+        
+        for _, line in ipairs(drawStack) do
+            if #line < 6 then
+				-- Text element entries have 6 entries and `x` at `[2]`
+                line[2] = line[2] + offsetX
+            else
+				-- Image, Separators, etc. have 5 entries and `x` at `[1]`
+                line[1] = line[1] + offsetX
+            end
+        end
+    end
 
 	-- background shading currently must be drawn before text lines.  API change will allow something like the commented lines below
 	SetDrawColor(0, 0, 0, .85)
