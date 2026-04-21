@@ -832,7 +832,7 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 				self.dropped = false
 				self.selIndex = self.hoverSel
 				self:SetText(self.gems[self.list[self.selIndex]].name)
-				self:UpdateGem(false, true, false)
+				self:UpdateGem(false, true)
 				return
 			end
 		elseif key == "RETURN" then
