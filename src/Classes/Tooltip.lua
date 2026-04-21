@@ -367,8 +367,14 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 			ttY = m_max(viewPort.y, y + h - ttH)
 		end
 	end
-
+	-- Initial column calculation
 	local columns, maxColumnHeight, drawStack = self:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
+
+	-- If extra columns don't fit, shift to left and recalculate drawStack
+	if columns > 1 and ttW * columns + ttX >= viewPort.x + viewPort.width then
+		ttX = m_max(viewPort.x, viewPort.x + viewPort.width - ttW * columns)
+		columns, maxColumnHeight, drawStack = self:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
+	end
 
 	-- background shading currently must be drawn before text lines.  API change will allow something like the commented lines below
 	SetDrawColor(0, 0, 0, .85)
