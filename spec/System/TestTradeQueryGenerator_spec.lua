@@ -37,88 +37,89 @@ describe("TradeQueryGenerator", function()
 		end)
 	end)
 
-	describe("Influence query state", function()
+	describe("Influence query fragments", function()
 		local IGNORE = mock_queryGen._INFLUENCE_IGNORE_INDEX  -- 1
 		local NONE   = mock_queryGen._INFLUENCE_NONE_INDEX    -- 2
 		local ANY    = mock_queryGen._INFLUENCE_ANY_INDEX     -- 3
 		local SHAPER = ANY + 1  -- 4
 		local ELDER  = ANY + 2  -- 5
-		local resolve = mock_queryGen._resolveInfluenceQueryState
-		local count   = mock_queryGen._countInfluenceFilters
-		local needs   = mock_queryGen._needsHasInfluenceFilter
+		local build  = mock_queryGen._buildInfluenceFilters
+		local HAS_INFLUENCE = mock_queryGen._hasAnyInfluenceModId  -- "pseudo.pseudo_has_influence_count"
+		local HAS_SHAPER = "pseudo.pseudo_has_shaper_influence"
 
-		-- None: uses pseudo_has_influence=0 (1 slot instead of 6-slot NOT filter)
-		it("None uses 1-slot pseudo_has_influence=0", function()
-			local state = resolve(NONE, IGNORE)
-			assert.are.equal(state.exactCount, 0)
-			assert.is_true(state.hasNoneConstraint)
-			assert.are.equal(count(state), 1)
-			assert.is_true(needs(state))
+		it("Ignore / Ignore produces no filters", function()
+			local andGroup, topStats, slots = build(IGNORE, IGNORE)
+			assert.are.equal(#andGroup, 0)
+			assert.are.equal(#topStats, 0)
+			assert.are.equal(slots, 0)
 		end)
 
-		-- Shaper+None: needs pseudo_has_influence=1 to cap at 1 influence (avoids Shaper+Elder matches)
-		it("Shaper+None uses 2-slot filter (specific + pseudo_has_influence=1)", function()
-			local state = resolve(SHAPER, NONE)
-			assert.are.equal(state.exactCount, 1)
-			assert.is_true(state.hasNoneConstraint)
-			assert.are.equal(#state.specificInfluenceModIds, 1)
-			assert.are.equal(count(state), 2)
-			assert.is_true(needs(state))
+		it("None / None emits a NOT clause at the top level (no influences)", function()
+			local andGroup, topStats, slots = build(NONE, NONE)
+			assert.are.equal(#andGroup, 0)
+			assert.are.equal(#topStats, 1)
+			assert.are.same(topStats[1], { type = "not", filters = { { id = HAS_INFLUENCE } } })
+			assert.are.equal(slots, 1)
 		end)
 
-		-- Shaper+Elder: 2 named influences, no None → no pseudo_has_influence needed (saves 1 slot)
-		it("Shaper+Elder uses 2-slot filter (specific mods only, no pseudo_has_influence)", function()
-			local state = resolve(SHAPER, ELDER)
-			assert.are.equal(state.exactCount, 2)
-			assert.is_false(state.hasNoneConstraint)
-			assert.are.equal(#state.specificInfluenceModIds, 2)
-			assert.are.equal(count(state), 2)
-			assert.is_false(needs(state))
+		it("Any / Ignore caps min=1 (at least one influence)", function()
+			local andGroup, topStats, slots = build(ANY, IGNORE)
+			assert.are.equal(#topStats, 0)
+			assert.are.same(andGroup, { { id = HAS_INFLUENCE, value = { min = 1 } } })
+			assert.are.equal(slots, 1)
 		end)
 
-		-- Any+Ignore: minCount=1 → pseudo_has_influence min=1 (1 slot)
-		it("Any uses 1-slot pseudo_has_influence min=1", function()
-			local state = resolve(ANY, IGNORE)
-			assert.are.equal(state.minCount, 1)
-			assert.are.equal(state.exactCount, nil)
-			assert.are.equal(count(state), 1)
-			assert.is_true(needs(state))
+		it("Shaper / None caps exactly 1 of that specific", function()
+			local andGroup, topStats, slots = build(SHAPER, NONE)
+			assert.are.equal(#topStats, 0)
+			assert.are.same(andGroup, {
+				{ id = HAS_INFLUENCE, value = { min = 1, max = 1 } },
+				{ id = HAS_SHAPER },
+			})
+			assert.are.equal(slots, 2)
 		end)
 
-		-- Any+Shaper: exactCount=2 with one unnamed slot → needs pseudo_has_influence=2
-		it("Any+Shaper uses 2-slot filter (specific + pseudo_has_influence=2)", function()
-			local state = resolve(ANY, SHAPER)
-			assert.are.equal(state.exactCount, 2)
-			assert.is_false(state.hasNoneConstraint)
-			assert.are.equal(#state.specificInfluenceModIds, 1)
-			assert.are.equal(count(state), 2)
-			assert.is_true(needs(state))
+		it("Shaper / Ignore requires the specific without a count cap", function()
+			local andGroup, topStats, slots = build(SHAPER, IGNORE)
+			assert.are.equal(#topStats, 0)
+			assert.are.same(andGroup, { { id = HAS_SHAPER } })
+			assert.are.equal(slots, 1)
 		end)
 
-		-- pseudo_has_influence mod ID is correct
-		it("hasAnyInfluenceModId is pseudo.pseudo_has_influence_count", function()
-			assert.are.equal(mock_queryGen._hasAnyInfluenceModId, "pseudo.pseudo_has_influence_count")
+		it("Any / Any caps exactly 2 influences", function()
+			local andGroup, topStats, slots = build(ANY, ANY)
+			assert.are.equal(#topStats, 0)
+			assert.are.same(andGroup, { { id = HAS_INFLUENCE, value = { min = 2, max = 2 } } })
+			assert.are.equal(slots, 1)
 		end)
 
-		-- Same specific influence on both sides is redundant at the item level and must
-		-- collapse to the <specific> / None semantic (exactly 1 of that type), not
-		-- double-count and not collapse to <specific> / Ignore. Verify via the
-		-- needsHasInfluenceFilter gate that builds the pseudo_has_influence cap — without
-		-- it, the query would match items with any number of influences including Shaper.
-		it("Shaper+Shaper produces the full Shaper+None query state", function()
-			local dup = resolve(SHAPER, SHAPER)
-			local paired = resolve(SHAPER, NONE)
-			assert.are.equal(dup.exactCount, paired.exactCount)
-			assert.are.equal(dup.hasNoneConstraint, paired.hasNoneConstraint)
-			assert.are.equal(#dup.specificInfluenceModIds, #paired.specificInfluenceModIds)
-			assert.are.equal(dup.specificInfluenceModIds[1], paired.specificInfluenceModIds[1])
-			assert.are.equal(count(dup), count(paired))
-			assert.are.equal(needs(dup), needs(paired))
+		it("Shaper / Any caps exactly 2 including Shaper", function()
+			local andGroup, topStats, slots = build(SHAPER, ANY)
+			assert.are.equal(#topStats, 0)
+			assert.are.same(andGroup, {
+				{ id = HAS_INFLUENCE, value = { min = 2, max = 2 } },
+				{ id = HAS_SHAPER },
+			})
+			assert.are.equal(slots, 2)
 		end)
 
-		it("Shaper+Shaper needs the pseudo_has_influence cap to enforce exactly 1", function()
-			local state = resolve(SHAPER, SHAPER)
-			assert.is_true(needs(state))
+		it("Shaper / Elder requires both specifics without a count cap", function()
+			local andGroup, topStats, slots = build(SHAPER, ELDER)
+			assert.are.equal(#topStats, 0)
+			assert.are.equal(#andGroup, 2)
+			assert.are.equal(slots, 2)
+		end)
+
+		-- Same specific on both sides is redundant at the item level and must produce
+		-- the exact same filter set as <specific> / None (exactly 1 of that type).
+		-- Without the None-constraint dedup, it would silently fall back to the
+		-- <specific> / Ignore form and fail to cap the influence count.
+		it("Shaper / Shaper produces the same filters as Shaper / None", function()
+			local dupAnd, dupStats, dupSlots = build(SHAPER, SHAPER)
+			local pairedAnd, pairedStats, pairedSlots = build(SHAPER, NONE)
+			assert.are.same(dupAnd, pairedAnd)
+			assert.are.same(dupStats, pairedStats)
+			assert.are.equal(dupSlots, pairedSlots)
 		end)
 	end)
 

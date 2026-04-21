@@ -193,11 +193,39 @@ local function needsHasInfluenceFilter(influenceState)
 end
 
 local function countInfluenceFilters(influenceState)
-	local cost = #influenceState.specificInfluenceModIds
+	local count = #influenceState.specificInfluenceModIds
 	if needsHasInfluenceFilter(influenceState) then
-		cost = cost + 1
+		count = count + 1
 	end
-	return cost
+	return count
+end
+
+-- Builds the influence-related trade query fragments from the two dropdown
+-- selections. Returns three values so callers can plug the fragments into the
+-- final query and size the remaining filter budget in a single call:
+--   andGroup: filters to append inside the top-level AND group
+--   topStats: filters to append directly to queryTable.query.stats
+--            (only non-empty when the pair represents "no influences", which
+--            requires a NOT clause rather than a value range)
+--   slotCount: total filter slots the influence fragments will consume
+local function buildInfluenceFilters(selection1, selection2)
+	local state = resolveInfluenceQueryState(selection1, selection2)
+	local andGroup = { }
+	local topStats = { }
+	if needsHasInfluenceFilter(state) then
+		if state.exactCount == 0 then
+			-- "has 0 influences" cannot be queried with a value range; use NOT instead.
+			t_insert(topStats, { type = "not", filters = { { id = hasAnyInfluenceModId } } })
+		elseif state.exactCount ~= nil then
+			t_insert(andGroup, { id = hasAnyInfluenceModId, value = { min = state.exactCount, max = state.exactCount } })
+		else
+			t_insert(andGroup, { id = hasAnyInfluenceModId, value = { min = state.minCount } })
+		end
+	end
+	for _, modId in ipairs(state.specificInfluenceModIds) do
+		t_insert(andGroup, { id = modId })
+	end
+	return andGroup, topStats, countInfluenceFilters(state)
 end
 
 local TradeQueryGeneratorClass = newClass("TradeQueryGenerator", function(self, queryTab)
@@ -1081,8 +1109,8 @@ function TradeQueryGeneratorClass:FinishQuery()
 	}
 
 	local options = self.calcContext.options
-	local influenceState = resolveInfluenceQueryState(options.influence1, options.influence2)
-	local num_extra = countInfluenceFilters(influenceState)
+	local influenceAndGroup, influenceTopStats, influenceSlotCount = buildInfluenceFilters(options.influence1, options.influence2)
+	local num_extra = influenceSlotCount
 	if not options.includeMirrored then
 		num_extra = num_extra + 1
 	end
@@ -1115,22 +1143,13 @@ function TradeQueryGeneratorClass:FinishQuery()
 
 	local andFilters = { type = "and", filters = { } }
 	local options = self.calcContext.options
-	if needsHasInfluenceFilter(influenceState) then
-		if influenceState.exactCount == 0 then
-			-- "has 0 influences" cannot be queried with a value range; use NOT instead
-			t_insert(queryTable.query.stats, { type = "not", filters = { { id = hasAnyInfluenceModId } } })
-		elseif influenceState.exactCount ~= nil then
-			t_insert(andFilters.filters, { id = hasAnyInfluenceModId, value = { min = influenceState.exactCount, max = influenceState.exactCount } })
-		else
-			t_insert(andFilters.filters, { id = hasAnyInfluenceModId, value = { min = influenceState.minCount } })
-		end
-		filters = filters + 1
+	for _, stat in ipairs(influenceTopStats) do
+		t_insert(queryTable.query.stats, stat)
 	end
-
-	for _, modId in ipairs(influenceState.specificInfluenceModIds) do
-		t_insert(andFilters.filters, { id = modId })
-		filters = filters + 1
+	for _, filter in ipairs(influenceAndGroup) do
+		t_insert(andFilters.filters, filter)
 	end
+	filters = filters + influenceSlotCount
 
 	if #andFilters.filters > 0 then
 		t_insert(queryTable.query.stats, andFilters)
@@ -1222,10 +1241,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 	main:ClosePopup()
 end
 
--- Test accessors for influence query state logic (not used in production paths)
-TradeQueryGeneratorClass._resolveInfluenceQueryState = resolveInfluenceQueryState
-TradeQueryGeneratorClass._countInfluenceFilters = countInfluenceFilters
-TradeQueryGeneratorClass._needsHasInfluenceFilter = needsHasInfluenceFilter
+TradeQueryGeneratorClass._buildInfluenceFilters = buildInfluenceFilters
 TradeQueryGeneratorClass._hasAnyInfluenceModId = hasAnyInfluenceModId
 TradeQueryGeneratorClass._INFLUENCE_IGNORE_INDEX = INFLUENCE_IGNORE_INDEX
 TradeQueryGeneratorClass._INFLUENCE_NONE_INDEX = INFLUENCE_NONE_INDEX
