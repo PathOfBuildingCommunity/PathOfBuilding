@@ -1172,10 +1172,10 @@ function main:OpenOptionsPopup(savedState)
 		updateColorCode("NEGATIVE", self.colorNegative)
 		self.colorHighlight = savedState.colorHighlight
 		updateColorCode("HIGHLIGHT", self.colorHighlight)
-		self.showThousandsSeparators = savedState.chousandsSeparatorDisplay
+		self.showThousandsSeparators = savedState.showThousandsSeparators
 		self.thousandsSeparator = savedState.thousandsSeparator
 		self.decimalSeparator = savedState.decimalSeparator
-		self.showTitlebarName = savedState.titlebarName
+		self.showTitlebarName = savedState.showTitlebarName
 		self.betaTest = savedState.betaTest
 		self.edgeSearchHighlight = savedState.edgeSearchHighlight
 		self.defaultGemQuality = savedState.defaultGemQuality
