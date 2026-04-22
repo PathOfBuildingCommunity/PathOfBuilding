@@ -235,7 +235,7 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 			local curX = ttX + ttW / 2 - totalWidth / 2
 			-- Draw title
 			t_insert(drawStack, {curX, y + (titleSize - titleSize)/2, "LEFT", titleSize, font, title.text})
-			curX = curX + DrawStringWidth(titleSize, font, title.text) + 6
+			curX = curX + DrawStringWidth(titleSize, font, title.text) + (H_PAD / 2)
 
 			-- Draw oils
 			local maxOilHeight = 0
@@ -273,7 +273,7 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 			if lineCentered == nil then
 				lineCentered = self.center
 			end
-			local lineX = lineCentered and (x + ttW / 2) or (x + 6)
+			local lineX = lineCentered and (x + ttW / 2) or (x + (H_PAD / 2))
 			local lineAlign = lineCentered and "CENTER_X" or "LEFT"
 
 			t_insert(drawStack, {lineX, y, lineAlign, data.size, font, data.text})
@@ -287,7 +287,7 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 				columns = columns + 1
 			end
 			currentBlock = data.block
-			t_insert(drawStack, {{ handle = data.separatorImage, isSeparator = true }, x + 6, y, ttW - 12, sepSize})
+			t_insert(drawStack, {{ handle = data.separatorImage, isSeparator = true }, x + (H_PAD / 2), y, ttW - H_PAD, sepSize})
 			y = y + sepSize + 2
 
 		elseif self.lines[i + 1] and self.lines[i - 1] and self.lines[i + 1].text then
