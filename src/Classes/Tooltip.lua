@@ -195,6 +195,17 @@ function TooltipClass:GetDynamicSize(viewPort)
 	return ttW + H_PAD, ttH + V_PAD
 end
 
+--- Calculates the column breaks, layout heights, and individual rendering instructions for tooltip lines.
+--- By default, items exceeding window height will wrap to a new column.
+---@param ttY number Base y-coordinate for the tooltip content
+---@param ttX number Base x-coordinate for the tooltip content
+---@param ttH number The total estimated height of the tooltip content, used to determine column breakpoints
+---@param ttW number The pixel width of the primary (first) tooltip column
+---@param viewPort table A table `{x, y, width, height}` containing active screen boundaries
+---@return number columns The total number of layout columns generated
+---@return number maxColumnHeight The maximum pixel height reached across all formatted columns
+---@return table drawStack An array of sequential rendering instructions (texts, images, separators, and their coordinates)
+---@return number extraColumnWidth The required dynamic pixel width calculated for any additional columns beyond the first
 function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 	local y = ttY + 2 * BORDER_WIDTH
 	if self.titleYOffset then
