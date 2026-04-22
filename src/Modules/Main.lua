@@ -814,9 +814,40 @@ function main:ChangeUserPath(newUserPath, ignoreBuild)
 	self:LoadSettings(ignoreBuild)
 	self:LoadSharedItems()
 end
-
-function main:OpenOptionsPopup()
+--- Opens the popup for the "Options" menu
+--- @param savedState table|nil optional passing of saved values, in case of reopening `{nodePowerTheme, colorPositive, ...}`
+function main:OpenOptionsPopup(savedState)
 	local controls = { }
+
+	-- Check for `savedState` or assign initial values
+	-- NOTE: update both this and the `controls.cancel` section below, when adding new options
+	savedState = savedState or {
+        nodePowerTheme = self.nodePowerTheme,
+        colorPositive = self.colorPositive,
+        colorNegative = self.colorNegative,
+        colorHighlight = self.colorHighlight,
+        showThousandsSeparators = self.showThousandsSeparators,
+        thousandsSeparator = self.thousandsSeparator,
+        decimalSeparator = self.decimalSeparator,
+        showTitlebarName = self.showTitlebarName,
+        betaTest = self.betaTest,
+        edgeSearchHighlight = self.edgeSearchHighlight,
+        defaultGemQuality = self.defaultGemQuality or 0,
+        defaultCharLevel = self.defaultCharLevel or 1,
+        defaultItemAffixQuality = self.defaultItemAffixQuality or 0.5,
+        showWarnings = self.showWarnings,
+        slotOnlyTooltips = self.slotOnlyTooltips,
+        migrateEldritchImplicits = self.migrateEldritchImplicits,
+        notSupportedModTooltips = self.notSupportedModTooltips,
+        invertSliderScrollDirection = self.invertSliderScrollDirection,
+        disableDevAutoSave = self.disableDevAutoSave,
+        showPublicBuilds = self.showPublicBuilds,
+        showFlavourText = self.showFlavourText,
+        showAnimations = self.showAnimations,
+        showAllItemAffixes = self.showAllItemAffixes,
+        dpiScaleOverridePercent = self.dpiScaleOverridePercent
+    }
+
 	-- NOTE: Height needs to be adjusted if more menu options are added
 	local oneColumnHeightReq = 850 -- Min height required to not split menu into two columns
 	local columnWidth = 600
@@ -897,7 +928,7 @@ function main:OpenOptionsPopup()
 		SetDPIScaleOverridePercent(value.percent)
 		self.screenW, self.screenH = GetVirtualScreenSize() -- refresh screen size immediately
 		self:ClosePopup()
-		self:OpenOptionsPopup()
+		self:OpenOptionsPopup(savedState)
 	end)
 	controls.dpiScaleOverrideLabel = new("LabelControl", { "RIGHT", controls.dpiScaleOverride, "LEFT" }, { defaultLabelSpacingPx, 0, 0, 16 }, "^7UI scaling override:")
 	controls.dpiScaleOverride.tooltipText = "Overrides Windows DPI scaling inside Path of Building.\nChoose a percentage between 100% and 250% or revert to the system default."
@@ -1100,30 +1131,6 @@ function main:OpenOptionsPopup()
 	controls.showFlavourText.state = self.showFlavourText
 	controls.showAnimations.state = self.showAnimations
 	controls.showAllItemAffixes.state = self.showAllItemAffixes
-	local initialNodePowerTheme = self.nodePowerTheme
-	local initialColorPositive = self.colorPositive
-	local initialColorNegative = self.colorNegative
-	local initialColorHighlight = self.colorHighlight
-	local initialThousandsSeparatorDisplay = self.showThousandsSeparators
-	local initialTitlebarName = self.showTitlebarName
-	local initialThousandsSeparator = self.thousandsSeparator
-	local initialDecimalSeparator = self.decimalSeparator
-	local initialBetaTest = self.betaTest
-	local initialEdgeSearchHighlight = self.edgeSearchHighlight
-	local initialDefaultGemQuality = self.defaultGemQuality or 0
-	local initialDefaultCharLevel = self.defaultCharLevel or 1
-	local initialDefaultItemAffixQuality = self.defaultItemAffixQuality or 0.5
-	local initialShowWarnings = self.showWarnings
-	local initialSlotOnlyTooltips = self.slotOnlyTooltips
-	local initialMigrateEldritchImplicits = self.migrateEldritchImplicits
-	local initialNotSupportedModTooltips = self.notSupportedModTooltips
-	local initialInvertSliderScrollDirection = self.invertSliderScrollDirection
-	local initialDisableDevAutoSave = self.disableDevAutoSave
-	local initialShowPublicBuilds = self.showPublicBuilds
-	local initialShowFlavourText = self.showFlavourText
-	local initialShowAnimations = self.showAnimations
-	local initialShowAllItemAffixes = self.showAllItemAffixes
-	local initialDpiScaleOverridePercent = self.dpiScaleOverridePercent
 
 	-- Adjust height in case of two-column layout
 	currentY = m_max(leftColumnMaxY, currentY)
@@ -1158,33 +1165,33 @@ function main:OpenOptionsPopup()
 		main:SaveSettings()
 	end)
 	controls.cancel = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, {45, -10, 80, 20}, "Cancel", function()
-		self.nodePowerTheme = initialNodePowerTheme
-		self.colorPositive = initialColorPositive
+		self.nodePowerTheme = savedState.nodePowerTheme
+		self.colorPositive = savedState.colorPositive
 		updateColorCode("POSITIVE", self.colorPositive)
-		self.colorNegative = initialColorNegative
+		self.colorNegative = savedState.colorNegative
 		updateColorCode("NEGATIVE", self.colorNegative)
-		self.colorHighlight = initialColorHighlight
+		self.colorHighlight = savedState.colorHighlight
 		updateColorCode("HIGHLIGHT", self.colorHighlight)
-		self.showThousandsSeparators = initialThousandsSeparatorDisplay
-		self.thousandsSeparator = initialThousandsSeparator
-		self.decimalSeparator = initialDecimalSeparator
-		self.showTitlebarName = initialTitlebarName
-		self.betaTest = initialBetaTest
-		self.edgeSearchHighlight = initialEdgeSearchHighlight
-		self.defaultGemQuality = initialDefaultGemQuality
-		self.defaultCharLevel = initialDefaultCharLevel
-		self.defaultItemAffixQuality = initialDefaultItemAffixQuality
-		self.showWarnings = initialShowWarnings
-		self.slotOnlyTooltips = initialSlotOnlyTooltips
-		self.migrateEldritchImplicits = initialMigrateEldritchImplicits
-		self.notSupportedModTooltips = initialNotSupportedModTooltips
-		self.invertSliderScrollDirection = initialInvertSliderScrollDirection
-		self.disableDevAutoSave = initialDisableDevAutoSave
-		self.showPublicBuilds = initialShowPublicBuilds
-		self.showFlavourText = initialShowFlavourText
-		self.showAnimations = initialShowAnimations
-		self.showAllItemAffixes = initialShowAllItemAffixes
-		self.dpiScaleOverridePercent = initialDpiScaleOverridePercent
+		self.showThousandsSeparators = savedState.chousandsSeparatorDisplay
+		self.thousandsSeparator = savedState.thousandsSeparator
+		self.decimalSeparator = savedState.decimalSeparator
+		self.showTitlebarName = savedState.titlebarName
+		self.betaTest = savedState.betaTest
+		self.edgeSearchHighlight = savedState.edgeSearchHighlight
+		self.defaultGemQuality = savedState.defaultGemQuality
+		self.defaultCharLevel = savedState.defaultCharLevel
+		self.defaultItemAffixQuality = savedState.defaultItemAffixQuality
+		self.showWarnings = savedState.showWarnings
+		self.slotOnlyTooltips = savedState.slotOnlyTooltips
+		self.migrateEldritchImplicits = savedState.migrateEldritchImplicits
+		self.notSupportedModTooltips = savedState.notSupportedModTooltips
+		self.invertSliderScrollDirection = savedState.invertSliderScrollDirection
+		self.disableDevAutoSave = savedState.disableDevAutoSave
+		self.showPublicBuilds = savedState.showPublicBuilds
+		self.showFlavourText = savedState.showFlavourText
+		self.showAnimations = savedState.showAnimations
+		self.showAllItemAffixes = savedState.showAllItemAffixes
+		self.dpiScaleOverridePercent = savedState.dpiScaleOverridePercent
 		SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
 		main:ClosePopup()
 	end)
