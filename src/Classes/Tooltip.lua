@@ -186,8 +186,11 @@ end
 
 function TooltipClass:GetDynamicSize(viewPort)
 	local staticttW, staticttH = self:GetSize()
-	local columns, ttH = self:CalculateColumns(0, 0, staticttH, staticttW, viewPort)
-	local ttW = columns * staticttW
+	local columns, ttH, _, extraColumnWidth = self:CalculateColumns(0, 0, staticttH, staticttW, viewPort)
+	
+	-- ensure extra column width has sensible value
+	extraColumnWidth = (columns > 1 and extraColumnWidth > 0) and extraColumnWidth or staticttW 
+	local ttW = staticttW + (m_max(columns - 1, 0) * extraColumnWidth)
 
 	return ttW + H_PAD, ttH + V_PAD
 end
@@ -200,6 +203,7 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 	local x = ttX
 	local columns = 1 -- reset to count columns by block heights
 	local currentBlock = 1
+	local extraColumnWidth = 0
 	local maxColumnHeight = 0
 	local drawStack = {}
 	local font
@@ -279,6 +283,11 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 			t_insert(drawStack, {lineX, y, lineAlign, data.size, font, data.text})
 			y = y + data.size + 2
 
+			-- track max width for extra columns
+			if columns > 1 then
+				extraColumnWidth = m_max(extraColumnWidth, DrawStringWidth(data.size, font, data.text) + H_PAD)
+			end
+
 		elseif data.separatorImage and main.showFlavourText then
 			local sepSize = data.size or 10
 			if currentBlock ~= data.block and y + sepSize > ttY + math.min(ttH, viewPort.height) then
@@ -298,7 +307,44 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 		maxColumnHeight = m_max(y - ttY + 2 * BORDER_WIDTH, maxColumnHeight)
 	end
 
-	return columns, maxColumnHeight, drawStack
+	-- Resizing/Shrinking drawStack elements in extra columns
+    -- NOTE: this logic depends on the current structure of `drawStack` --> needs adjustment if lengths or coordinates logic changes
+    if columns > 1 and extraColumnWidth > 0 then        
+        for _, line in ipairs(drawStack) do
+            local isText = #line >= 6 -- Text elements have 6 props, images/separators have 5
+            local xIdx = isText and 1 or 2 -- `x` value at index 1 for text, 2 otherwise
+            local origX = line[xIdx]
+
+            -- calculate column index (origX is at least x * original widths from start)
+            local colIndex = m_floor((origX - ttX) / ttW) + 1
+            
+            if colIndex > 1 then
+                local oldBaseX = ttX + ttW * (colIndex - 1)
+                local newBaseX = ttX + ttW + extraColumnWidth * (colIndex - 2) -- `- 2` because first column is unchanged
+
+                -- Update x coordinates
+                if isText and line[3] == "CENTER_X" then
+					-- centered texts
+                    line[xIdx] = newBaseX + extraColumnWidth / 2
+                else
+					-- "LEFT" aligned text and images (NOTE: "RIGHT" aligned does not seem to exist)
+                    line[xIdx] = origX - oldBaseX + newBaseX
+                end
+
+                -- Resize separators/dividers (technically unlikely to appear in extra columns, but just in case)
+                if not isText then
+					-- separator images have `width` value at index 4
+                    if line[1] and type(line[1]) == "table" and line[1].isSeparator then
+                        line[4] = extraColumnWidth - H_PAD -- "fancy" separators get extra padding
+                    else
+                        line[4] = extraColumnWidth - BORDER_WIDTH
+                    end
+                end
+            end
+        end
+    end
+
+	return columns, maxColumnHeight, drawStack, extraColumnWidth
 end
 --- Draws tooltip to screen
 ---@param x number x-coordinate to draw the tooltip at
@@ -374,11 +420,15 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		end
 	end
 	-- Initial column calculation
-	local columns, maxColumnHeight, drawStack = self:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
+	local columns, maxColumnHeight, drawStack, extraColumnWidth = self:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
+
+	-- ensure extraColumnWidth has sensible value and calculate new total width (original width + extraColumns)
+	extraColumnWidth = (columns > 1 and extraColumnWidth > 0) and extraColumnWidth or ttW
+    local totalDrawWidth = ttW + (m_max(columns - 1, 0) * extraColumnWidth)
 
 	-- If hover tooltip and extra columns don't fit, shift to left and adjust drawStack (because hover tooltips can't scroll)
-	if columns > 1 and isHoverToolTip and ttW * columns + ttX >= viewPort.x + viewPort.width then
-        local newX = m_max(viewPort.x, viewPort.x + viewPort.width - ttW * columns)
+	if columns > 1 and isHoverToolTip and totalDrawWidth + ttX >= viewPort.x + viewPort.width then
+        local newX = m_max(viewPort.x, viewPort.x + viewPort.width - totalDrawWidth)
         local offsetX = newX - ttX
         ttX = newX
         
@@ -396,7 +446,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	-- background shading currently must be drawn before text lines.  API change will allow something like the commented lines below
 	SetDrawColor(0, 0, 0, .85)
 	--SetDrawLayer(nil, GetDrawLayer() - 5)
-	DrawImage(nil, ttX, ttY + BORDER_WIDTH, ttW * columns - BORDER_WIDTH, maxColumnHeight - 2 * BORDER_WIDTH)
+	DrawImage(nil, ttX, ttY + BORDER_WIDTH, totalDrawWidth - BORDER_WIDTH, maxColumnHeight - 2 * BORDER_WIDTH)
 	--SetDrawLayer(nil, GetDrawLayer())
 	SetDrawColor(1, 1, 1)
 
@@ -540,11 +590,16 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	else
 		SetDrawColor(unpack(self.color))
 	end
+
+	-- draw vertical borders, accounting for separate extra column width
 	for i = 0, columns do
-		DrawImage(nil, ttX + ttW * i - BORDER_WIDTH * math.ceil(i^2 / (i^2 + 1)), ttY, BORDER_WIDTH, maxColumnHeight)
+		local extraColXOffset = i > 0 and ttW + ((i - 1) * extraColumnWidth) or 0
+		local currentX = ttX + extraColXOffset
+		DrawImage(nil, currentX - BORDER_WIDTH * math.ceil(i^2 / (i^2 + 1)), ttY, BORDER_WIDTH, maxColumnHeight)
 	end
-	DrawImage(nil, ttX, ttY, ttW * columns, BORDER_WIDTH) -- top border
-	DrawImage(nil, ttX, ttY + maxColumnHeight - BORDER_WIDTH, ttW * columns, BORDER_WIDTH) -- bottom border
+	-- draw horizontal borders
+	DrawImage(nil, ttX, ttY, totalDrawWidth, BORDER_WIDTH) -- top
+	DrawImage(nil, ttX, ttY + maxColumnHeight - BORDER_WIDTH, totalDrawWidth, BORDER_WIDTH) -- bottom
 
 	return ttW, ttH
 end
