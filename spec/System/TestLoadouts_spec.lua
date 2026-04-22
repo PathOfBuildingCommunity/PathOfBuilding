@@ -110,8 +110,8 @@ describe("TestLoadouts", function()
 					build:SyncLoadouts()
 
 					assert.are.equals(1, #build.treeTab.specList)
-					assert.are.equals(1, build.skillsTab.activeSkillSetId)
-					assert.are.equals(1, build.itemsTab.activeItemSetId)
+					assert.are.equals(2, build.skillsTab.activeSkillSetId)
+					assert.are.equals(2, build.itemsTab.activeItemSetId)
 					assert.are.equals(2, build.configTab.activeConfigSetId)
 
 					assert.are.equals(nextLoadout, build.treeTab.specList[1].title)
@@ -123,8 +123,8 @@ describe("TestLoadouts", function()
 					assert.are.equals(1, #build.skillsTab.skillSetOrderList)
 					assert.are.equals(1, #build.configTab.configSetOrderList)
 
-					assert.are.equals(1, build.itemsTab.itemSetOrderList[1])
-					assert.are.equals(1, build.skillsTab.skillSetOrderList[1])
+					assert.are.equals(2, build.itemsTab.itemSetOrderList[1])
+					assert.are.equals(2, build.skillsTab.skillSetOrderList[1])
 					assert.are.equals(2, build.configTab.configSetOrderList[1])
 
 					assert.is_true(build.modFlag)
@@ -412,7 +412,7 @@ describe("TestLoadouts", function()
 				buildSetService:DeleteLoadout(1, build.treeTab.specList, build.treeTab.specList[specIdToDelete])
 				assert.are.equals(6, #build.controls.buildLoadouts.list)
 				-- Default loadout return when only one loadout remains
-				assert.is_same({ itemSetId = 1, skillSetId = 1, configSetId = 2 },
+				assert.is_same({ itemSetId = 2, skillSetId = 2, configSetId = 2 },
 					build:GetLoadoutByName(loadoutNameToDelete))
 				assert.are.equals(2, build.controls.buildLoadouts.selIndex)
 				assert.are.equals("Do not delete", build.controls.buildLoadouts:GetSelValue())
@@ -651,6 +651,20 @@ describe("TestLoadouts", function()
 					local loadout = build:GetLoadoutByName(loadoutName)
 					buildSetService:DeleteLoadout(2, build.treeTab.specList, build.treeTab.specList[loadout.specId])
 					assert.are.equals(1, #build.configTab.configSetOrderList)
+					assert.are.equals(6, #build.controls.buildLoadouts.list)
+					assert.are.equals("Default", build.controls.buildLoadouts.list[2])
+				end)
+
+			it("does not leave the item set in a broken state when deleting the last item set along with the loadout",
+				function()
+					local loadoutName = "Loadout To Delete"
+					buildSetService:NewLoadout(loadoutName)
+					assert.are.equals(7, #build.controls.buildLoadouts.list)
+					build.itemsTab:DeleteItemSet(build.itemsTab.itemSetOrderList[1], 1)
+					assert.are.equals(1, #build.itemsTab.itemSetOrderList)
+					local loadout = build:GetLoadoutByName(loadoutName)
+					buildSetService:DeleteLoadout(2, build.treeTab.specList, build.treeTab.specList[loadout.specId])
+					assert.are.equals(1, #build.itemsTab.itemSetOrderList)
 					assert.are.equals(6, #build.controls.buildLoadouts.list)
 					assert.are.equals("Default", build.controls.buildLoadouts.list[2])
 				end)

@@ -768,16 +768,13 @@ end
 
 function buildMode:NewLoadout(loadoutName)
 	local newSpec = new("PassiveSpec", self, latestTreeVersion)
-	local newItemSet = self.itemsTab:NewItemSet(#self.itemsTab.itemSets + 1)
+	local newItemSet = self.itemsTab:NewItemSet(#self.itemsTab.itemSets + 1, loadoutName)
 	local newSkillSet = self.skillsTab:NewSkillSet(#self.skillsTab.skillSets + 1, loadoutName)
 	local newConfigSet = self.configTab:NewConfigSet(#self.configTab.configSets + 1, loadoutName)
 
 	t_insert(self.treeTab.specList, newSpec)
 	newSpec.title = loadoutName
 
-	self:InsertAllSetOrderList(newItemSet.id, newSkillSet.id, newConfigSet.id)
-	newItemSet.title = loadoutName
-	newSkillSet.title = loadoutName
 	self.modFlag = true
 end
 
@@ -789,8 +786,6 @@ function buildMode:CopyLoadout(copyLoadoutName, loadoutName)
 	local newItemSet = self.itemsTab:CopyItemSet(loadout.itemSetId, loadoutName)
 	local newSkillSet = self.skillsTab:CopySkillSet(loadout.skillSetId, loadoutName)
 	local newConfigSet = self.configTab:CopyConfigSet(loadout.configSetId, loadoutName)
-
-	self:InsertAllSetOrderList(newItemSet.id, newSkillSet.id, newConfigSet.id)
 
 	local copyLoadout = self:GetLoadoutByName(loadoutName)
 	self:SetActiveLoadout(copyLoadout)
@@ -812,11 +807,10 @@ function buildMode:CustomLoadout(specId, itemSetId, skillSetId, configSetId, nam
 
 	local newItemSet
 	if itemSetId == -1 then
-		newItemSet = self.itemsTab:NewItemSet(#self.itemsTab.itemSets + 1)
+		newItemSet = self.itemsTab:NewItemSet(#self.itemsTab.itemSets + 1, name)
 	else
 		newItemSet = self.itemsTab:CopyItemSet(itemSetId, name)
 	end
-	newItemSet.title = name
 
 	local newSkillSet
 	if skillSetId == -1 then
@@ -832,8 +826,6 @@ function buildMode:CustomLoadout(specId, itemSetId, skillSetId, configSetId, nam
 	else
 		newConfigSet = self.configTab:CopyConfigSet(configSetId, name)
 	end
-
-	self:InsertAllSetOrderList(newItemSet.id, newSkillSet.id, newConfigSet.id)
 	
 	local customLoadout = self:GetLoadoutByName(name)
 	self:SetActiveLoadout(customLoadout)
@@ -857,18 +849,8 @@ function buildMode:DeleteLoadout(loadoutName, nextLoadoutName)
 		t_remove(self.treeTab.specList, loadout.specId)
 	end
 	if loadout.itemSetId then
-		if #self.itemsTab.itemSetOrderList == 2 then
-			local itemSetId = self.itemsTab.itemSetOrderList[1] == loadout.itemSetId and
-				self.itemsTab.itemSetOrderList[2] or self.itemsTab.itemSetOrderList[1]
-			local itemSet = self.itemsTab.itemSets[itemSetId]
-			itemSet.id = 1
-			self.itemsTab.itemSets = { itemSet }
-			self.itemsTab.itemSetOrderList = { 1 }
-		else
-			self.itemsTab.itemSets[loadout.itemSetId] = nil
-			local index = reverseLookup(self.itemsTab.itemSetOrderList, loadout.itemSetId)
-			t_remove(self.itemsTab.itemSetOrderList, index)
-		end
+		local index = reverseLookup(self.itemsTab.itemSetOrderList, loadout.itemSetId)
+		self.itemsTab:DeleteItemSet(loadout.itemSetId, index)
 	end
 	if loadout.skillSetId then
 		local index = reverseLookup(self.skillsTab.skillSetOrderList, loadout.skillSetId)
@@ -891,8 +873,7 @@ function buildMode:RenameLoadout(oldName, newName)
 		self.treeTab.modFlag = true
 	end
 	if loadout.itemSetId then
-		self.itemsTab.itemSets[loadout.itemSetId].title = newName
-		self.itemsTab.modFlag = true
+		self.itemsTab:RenameItemSet(loadout.itemSetId, newName)
 	end
 	if loadout.skillSetId then
 		self.skillsTab:RenameSkillSet(loadout.skillSetId, newName)
@@ -901,10 +882,6 @@ function buildMode:RenameLoadout(oldName, newName)
 		self.configTab:RenameConfigSet(loadout.configSetId, newName)
 	end
 	self.modFlag = true
-end
-
-function buildMode:InsertAllSetOrderList(itemSetId, skillSetId, configSetId)
-	t_insert(self.itemsTab.itemSetOrderList, itemSetId)
 end
 
 function buildMode:GetLoadoutByName(loadoutName)
@@ -971,16 +948,14 @@ function buildMode:SetActiveLoadout(loadout)
 
 	local newSpecId, newItemId, newSkillId, newConfigId = loadout.specId, loadout.itemSetId, loadout.skillSetId,
 		loadout.configSetId
-	if newSpecId == nil or newItemId == nil then
+	if newSpecId == nil then
 		return
 	end
 
 	if newSpecId ~= self.treeTab.activeSpec then
 		self.treeTab:SetActiveSpec(newSpecId, true)
 	end
-	if newItemId ~= self.itemsTab.activeItemSetId then
-		self.itemsTab:SetActiveItemSet(newItemId, true)
-	end
+	self.itemsTab:SetActiveItemSet(newItemId, true)
 	self.skillsTab:SetActiveSkillSet(newSkillId, true)
 	self.configTab:SetActiveConfigSet(newConfigId, false, true)
 	self:SyncLoadouts()
