@@ -41,6 +41,12 @@ function TimelessJewelListControlClass:SetHighlightColor(index, value)
 	return false
 end
 
+function TimelessJewelListControlClass:ScrollToIndex(index)
+	if self.scroll then
+		self.controls.scrollBarV:SetOffset((index - 1) * self.rowHeight)
+	end
+end
+
 function TimelessJewelListControlClass:OverrideSelectIndex(index)
 	if IsKeyDown("SHIFT") and self.selIndex then
 		self.highlightIndex = index
