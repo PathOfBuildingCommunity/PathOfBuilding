@@ -34,7 +34,7 @@ function ConfigSetServiceClass:DeleteConfigSet(configSetId, orderListIndex)
 	if #self.configTab.configSetOrderList > 1 then
 		self.configTab:DeleteConfigSet(configSetId, orderListIndex)
 		if configSetId == self.configTab.activeConfigSetId then
-			self.configTab:SetActiveConfigSet(self.configTab.configSetOrderList[m_max(1, orderListIndex - 1)])
+			self.configTab:SetActiveConfigSet(self.configTab.configSetOrderList[m_max(1, orderListIndex - 1)], false, true)
 		end
 		self.configTab:AddUndoState()
 		self.configTab.build:SyncLoadouts()

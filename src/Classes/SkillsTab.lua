@@ -425,7 +425,7 @@ function SkillsTabClass:Load(xml, fileName)
 		end
 
 		if node.elem == "SkillSet" then
-			local skillSet = self:NewSkillSet(tonumber(node.attrib.id))
+			local skillSet = self:CreateSkillSet(tonumber(node.attrib.id))
 			skillSet.title = node.attrib.title
 			t_insert(self.skillSetOrderList, skillSet.id)
 			for _, subNode in ipairs(node) do

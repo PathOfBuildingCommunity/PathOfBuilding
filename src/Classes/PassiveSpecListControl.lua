@@ -11,8 +11,8 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, treeTab.specList)
 	self.treeTab = treeTab
 	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
-		local newSpec = treeTab:CopyTree(self.selValue)
-		self:RenameSpec(newSpec, "Copy Tree", true)
+		local newSpec = treeTab:CopyTree(self.selIndex)
+		self:RenameSpec(newSpec, "Copy Tree")
 	end)
 	self.controls.copy.enabled = function()
 		return self.selValue ~= nil
