@@ -224,6 +224,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 			return
 		end
 		local updateDisplayGroup = self.displayGroup and targetSlot == self.displayGroup.slot
+		self:AddUndoState()
 		if gemData and (type(gemData) == "string" or gemData.id) then
 			local gem = data.gems[gemData.id or gemData]
 			self.imbuedSupportBySlot[targetSlot] = gem.grantedEffect
@@ -238,7 +239,6 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 				self.displayGroup.imbuedSupport = nil
 			end
 		end
-		self.modFlag = true
 	end, true, true)
 	local function isImbuedEnabled() -- socketedIn must be set and the displayGroup must have an imbued, otherwise disable the imbued dropdown
 		return (self.displayGroup and self.displayGroup.slot and ((self.imbuedSupportBySlot[self.displayGroup.slot] and self.displayGroup.imbuedSupport) or not self.imbuedSupportBySlot[self.displayGroup.slot]))
@@ -254,8 +254,8 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		self.controls.imbuedSupport:SetText("")
 		self.displayGroup.imbuedSupport = nil
 		self.imbuedSupportBySlot[self.displayGroup.slot] = nil
+		self:AddUndoState()
 		self.build.buildFlag = true
-		self.modFlag = true
 	end)
 	self.controls.imbuedSupportClear.enabled = function()
 		return isImbuedEnabled()
