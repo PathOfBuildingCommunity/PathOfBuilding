@@ -238,6 +238,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 				self.displayGroup.imbuedSupport = nil
 			end
 		end
+		self.modFlag = true
 	end, true, true)
 	local function isImbuedEnabled() -- socketedIn must be set and the displayGroup must have an imbued, otherwise disable the imbued dropdown
 		return (self.displayGroup and self.displayGroup.slot and ((self.imbuedSupportBySlot[self.displayGroup.slot] and self.displayGroup.imbuedSupport) or not self.imbuedSupportBySlot[self.displayGroup.slot]))
@@ -254,6 +255,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		self.displayGroup.imbuedSupport = nil
 		self.imbuedSupportBySlot[self.displayGroup.slot] = nil
 		self.build.buildFlag = true
+		self.modFlag = true
 	end)
 	self.controls.imbuedSupportClear.enabled = function()
 		return isImbuedEnabled()
