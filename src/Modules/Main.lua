@@ -822,31 +822,31 @@ function main:OpenOptionsPopup(savedState)
 	-- Check for `savedState` or assign initial values
 	-- NOTE: update both this and the `controls.cancel` section below, when adding new options
 	savedState = savedState or {
-        nodePowerTheme = self.nodePowerTheme,
-        colorPositive = self.colorPositive,
-        colorNegative = self.colorNegative,
-        colorHighlight = self.colorHighlight,
-        showThousandsSeparators = self.showThousandsSeparators,
-        thousandsSeparator = self.thousandsSeparator,
-        decimalSeparator = self.decimalSeparator,
-        showTitlebarName = self.showTitlebarName,
-        betaTest = self.betaTest,
-        edgeSearchHighlight = self.edgeSearchHighlight,
-        defaultGemQuality = self.defaultGemQuality or 0,
-        defaultCharLevel = self.defaultCharLevel or 1,
-        defaultItemAffixQuality = self.defaultItemAffixQuality or 0.5,
-        showWarnings = self.showWarnings,
-        slotOnlyTooltips = self.slotOnlyTooltips,
-        migrateEldritchImplicits = self.migrateEldritchImplicits,
-        notSupportedModTooltips = self.notSupportedModTooltips,
-        invertSliderScrollDirection = self.invertSliderScrollDirection,
-        disableDevAutoSave = self.disableDevAutoSave,
-        showPublicBuilds = self.showPublicBuilds,
-        showFlavourText = self.showFlavourText,
-        showAnimations = self.showAnimations,
-        showAllItemAffixes = self.showAllItemAffixes,
-        dpiScaleOverridePercent = self.dpiScaleOverridePercent
-    }
+		nodePowerTheme = self.nodePowerTheme,
+		colorPositive = self.colorPositive,
+		colorNegative = self.colorNegative,
+		colorHighlight = self.colorHighlight,
+		showThousandsSeparators = self.showThousandsSeparators,
+		thousandsSeparator = self.thousandsSeparator,
+		decimalSeparator = self.decimalSeparator,
+		showTitlebarName = self.showTitlebarName,
+		betaTest = self.betaTest,
+		edgeSearchHighlight = self.edgeSearchHighlight,
+		defaultGemQuality = self.defaultGemQuality or 0,
+		defaultCharLevel = self.defaultCharLevel or 1,
+		defaultItemAffixQuality = self.defaultItemAffixQuality or 0.5,
+		showWarnings = self.showWarnings,
+		slotOnlyTooltips = self.slotOnlyTooltips,
+		migrateEldritchImplicits = self.migrateEldritchImplicits,
+		notSupportedModTooltips = self.notSupportedModTooltips,
+		invertSliderScrollDirection = self.invertSliderScrollDirection,
+		disableDevAutoSave = self.disableDevAutoSave,
+		showPublicBuilds = self.showPublicBuilds,
+		showFlavourText = self.showFlavourText,
+		showAnimations = self.showAnimations,
+		showAllItemAffixes = self.showAllItemAffixes,
+		dpiScaleOverridePercent = self.dpiScaleOverridePercent
+	}
 
 	-- NOTE: Height needs to be adjusted if more menu options are added
 	local oneColumnHeightReq = 850 -- Min height required to not split menu into two columns
@@ -857,11 +857,11 @@ function main:OpenOptionsPopup(savedState)
 	local currentX = 0 -- initialized at `0`, only used for two-column layouts
 
 	-- Determine layout limits and modes
-    local useTwoColumns = self.screenH < oneColumnHeightReq and self.screenW >= columnWidth * 2
-    local useScrollBar = self.screenH < oneColumnHeightReq and not useTwoColumns
+	local useTwoColumns = self.screenH < oneColumnHeightReq and self.screenW >= columnWidth * 2
+	local useScrollBar = self.screenH < oneColumnHeightReq and not useTwoColumns
 	local scrollBarWidth = useScrollBar and 18 or 0
-    
-    local popupWidth = useTwoColumns and columnWidth * 2 or columnWidth
+	
+	local popupWidth = useTwoColumns and columnWidth * 2 or columnWidth
 
 	-- Scrollbar anchor
 	controls.sectionAnchor = new("Control", { "TOPLEFT", nil, "TOPLEFT" }, { 0, 0, popupWidth, 0 })
@@ -979,7 +979,7 @@ function main:OpenOptionsPopup(savedState)
 		"The default value is " .. tostring(defaultColorCodes.NEGATIVE:gsub('^(^)', '0')) .. ".\nIf updating while inside a build, please re-load the build after saving."
 
 	nextRow()
-  
+
 	controls.colorHighlight = new("EditControl", { "TOPLEFT", controls.sectionAnchor, "TOPLEFT" }, { currentX + defaultLabelPlacementX, currentY, 100, 18 }, tostring(self.colorHighlight:gsub('^(^)', '0')), nil, nil, 8, function(buf)
 		local match = string.match(buf, "0x%x+")
 		if match and #match == 8 then
@@ -1215,34 +1215,34 @@ function main:OpenOptionsPopup(savedState)
 
 	-- Modify draw controls to "clip" elements in case the scrollbar is used
 	popup.DrawControls = function(self, viewPort)
-            if not useScrollBar then
-                return originalDrawControls(self, viewPort)
-            end
+			if not useScrollBar then
+				return originalDrawControls(self, viewPort)
+			end
 			-- define clipping area
 			local x, y = self:GetPos()
 			local width, height = self:GetSize() 
-            local clipY_top = y + 20          -- just below title
-            local clipY_bottom = y + height - 40  -- just above buttons
+			local clipY_top = y + 20 -- just below title
+			local clipY_bottom = y + height - 40 -- just above buttons
 
-            for id, control in pairs(self.controls) do
-                -- always draw static UI elements
-                if control == controls.scrollBar or control == controls.save or control == controls.cancel then
-                    if control:IsShown() and control.Draw then
-                        control:Draw(viewPort, (self.selControl and self.selControl.hasFocus and self.selControl ~= control) or nil)
-                    end
-                else
-                    -- hide elements outside clipping area
-                    if control:IsShown() and control.Draw then
-                        local cx, cy = control:GetPos()
-                        local cw, ch = control:GetSize()
-                        
-                        if cy >= clipY_top and (cy + ch) <= clipY_bottom then
-                            control:Draw(viewPort, (self.selControl and self.selControl.hasFocus and self.selControl ~= control) or nil)
-                        end
-                    end
-                end
-            end
-        end
+			for id, control in pairs(self.controls) do
+				-- always draw static UI elements
+				if control == controls.scrollBar or control == controls.save or control == controls.cancel then
+					if control:IsShown() and control.Draw then
+						control:Draw(viewPort, (self.selControl and self.selControl.hasFocus and self.selControl ~= control) or nil)
+					end
+				else
+					-- hide elements outside clipping area
+					if control:IsShown() and control.Draw then
+						local cx, cy = control:GetPos()
+						local cw, ch = control:GetSize()
+						
+						if cy >= clipY_top and (cy + ch) <= clipY_bottom then
+							control:Draw(viewPort, (self.selControl and self.selControl.hasFocus and self.selControl ~= control) or nil)
+						end
+					end
+				end
+			end
+		end
 end
 
 function main:SetManifestBranch(branchName)
@@ -1357,7 +1357,7 @@ function main:OpenAboutPopup(helpSectionIndex)
 						else
 							local Lines = self:WrapString(line, textSize, popupWidth - 135)
 							for i, line2 in ipairs(Lines) do
-								t_insert(helpList, { height = textSize, (dev and "^x8888FF" or "^7")..(i > 1 and "    " or "")..line2 })
+								t_insert(helpList, { height = textSize, (dev and "^x8888FF" or "^7")..(i > 1 and "	" or "")..line2 })
 							end
 						end
 					end
