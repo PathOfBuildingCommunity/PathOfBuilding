@@ -319,41 +319,41 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 	end
 
 	-- Resizing/Shrinking drawStack elements in extra columns
-    -- NOTE: this logic depends on the current structure of `drawStack` --> needs adjustment if lengths or coordinates logic changes
-    if columns > 1 and extraColumnWidth > 0 then        
-        for _, line in ipairs(drawStack) do
-            local isText = #line >= 6 -- Text elements have 6 props, images/separators have 5
-            local xIdx = isText and 1 or 2 -- `x` value at index 1 for text, 2 otherwise
-            local origX = line[xIdx]
+	-- NOTE: this logic depends on the current structure of `drawStack` --> needs adjustment if lengths or coordinates logic changes
+	if columns > 1 and extraColumnWidth > 0 then
+	 	for _, line in ipairs(drawStack) do
+			local isText = #line >= 6 -- Text elements have 6 props, images/separators have 5
+			local xIdx = isText and 1 or 2 -- `x` value at index 1 for text, 2 otherwise
+			local origX = line[xIdx]
 
-            -- calculate column index (origX is at least x * original widths from start)
-            local colIndex = m_floor((origX - ttX) / ttW) + 1
-            
-            if colIndex > 1 then
-                local oldBaseX = ttX + ttW * (colIndex - 1)
-                local newBaseX = ttX + ttW + extraColumnWidth * (colIndex - 2) -- `- 2` because first column is unchanged
+			-- calculate column index (origX is at least x * original widths from start)
+			local colIndex = m_floor((origX - ttX) / ttW) + 1
+			
+			if colIndex > 1 then
+				local oldBaseX = ttX + ttW * (colIndex - 1)
+				local newBaseX = ttX + ttW + extraColumnWidth * (colIndex - 2) -- `- 2` because first column is unchanged
 
-                -- Update x coordinates
-                if isText and line[3] == "CENTER_X" then
+				-- Update x coordinates
+				if isText and line[3] == "CENTER_X" then
 					-- centered texts
-                    line[xIdx] = newBaseX + extraColumnWidth / 2
-                else
+					line[xIdx] = newBaseX + extraColumnWidth / 2
+				else
 					-- "LEFT" aligned text and images (NOTE: "RIGHT" aligned does not seem to exist)
-                    line[xIdx] = origX - oldBaseX + newBaseX
-                end
+					line[xIdx] = origX - oldBaseX + newBaseX
+				end
 
-                -- Resize separators/dividers (technically unlikely to appear in extra columns, but just in case)
-                if not isText then
+				-- Resize separators/dividers (technically unlikely to appear in extra columns, but just in case)
+				if not isText then
 					-- separator images have `width` value at index 4
-                    if line[1] and type(line[1]) == "table" and line[1].isSeparator then
-                        line[4] = extraColumnWidth - H_PAD -- "fancy" separators get extra padding
-                    else
-                        line[4] = extraColumnWidth - BORDER_WIDTH
-                    end
-                end
-            end
-        end
-    end
+					if line[1] and type(line[1]) == "table" and line[1].isSeparator then
+						line[4] = extraColumnWidth - H_PAD -- "fancy" separators get extra padding
+					else
+						line[4] = extraColumnWidth - BORDER_WIDTH
+					end
+				end
+			end
+		end
+	end
 
 	return columns, maxColumnHeight, drawStack, extraColumnWidth
 end
@@ -435,24 +435,24 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 
 	-- ensure extraColumnWidth has sensible value and calculate new total width (original width + extraColumns)
 	extraColumnWidth = (columns > 1 and extraColumnWidth > 0) and extraColumnWidth or ttW
-    local totalDrawWidth = ttW + (m_max(columns - 1, 0) * extraColumnWidth)
+	local totalDrawWidth = ttW + (m_max(columns - 1, 0) * extraColumnWidth)
 
 	-- If hover tooltip and extra columns don't fit, shift to left and adjust drawStack (because hover tooltips can't scroll)
 	if columns > 1 and isHoverToolTip and totalDrawWidth + ttX >= viewPort.x + viewPort.width then
-        local newX = m_max(viewPort.x, viewPort.x + viewPort.width - totalDrawWidth)
-        local offsetX = newX - ttX
-        ttX = newX
-        
-        for _, line in ipairs(drawStack) do
-            if #line < 6 then
+		local newX = m_max(viewPort.x, viewPort.x + viewPort.width - totalDrawWidth)
+		local offsetX = newX - ttX
+		ttX = newX
+		
+		for _, line in ipairs(drawStack) do
+			if #line < 6 then
 				-- Text element entries have 6 entries and `x` at `[2]`
-                line[2] = line[2] + offsetX
-            else
+				line[2] = line[2] + offsetX
+			else
 				-- Image, Separators, etc. have 5 entries and `x` at `[1]`
-                line[1] = line[1] + offsetX
-            end
-        end
-    end
+				line[1] = line[1] + offsetX
+			end
+		end
+	end
 
 	-- background shading currently must be drawn before text lines.  API change will allow something like the commented lines below
 	SetDrawColor(0, 0, 0, .85)
