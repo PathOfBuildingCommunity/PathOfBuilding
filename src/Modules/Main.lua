@@ -1357,7 +1357,7 @@ function main:OpenAboutPopup(helpSectionIndex)
 						else
 							local Lines = self:WrapString(line, textSize, popupWidth - 135)
 							for i, line2 in ipairs(Lines) do
-								t_insert(helpList, { height = textSize, (dev and "^x8888FF" or "^7")..(i > 1 and "	" or "")..line2 })
+								t_insert(helpList, { height = textSize, (dev and "^x8888FF" or "^7")..(i > 1 and "    " or "")..line2 })
 							end
 						end
 					end
