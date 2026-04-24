@@ -48,7 +48,9 @@ end
 function MinionListClass:AddValueTooltip(tooltip, index, minionId)
 	if tooltip:CheckForUpdate(minionId) then
 		local minion = self.data.minions[minionId]
-		tooltip:AddLine(18, "^7"..minion.name)
+		tooltip.center = true
+		tooltip:AddLine(20, "^7"..minion.name, "FONTIN SC")
+		tooltip.center = false
 		tooltip:AddSeparator(10)
 		tooltip:AddLine(14, s_format("^7Life Multiplier: x%.2f", minion.life))
 		if minion.energyShield then
@@ -115,5 +117,46 @@ function MinionListClass:OnSelDelete(index, minionId)
 		t_remove(self.list, index)
 		self.selIndex = nil
 		self.selValue = nil
+	end
+end
+
+local SpawnListClass = newClass("SpawnListControl", "ListControl", function(self, anchor, rect, data, list, label)
+	self.ListControl(anchor, rect, 16, "VERTICAL", false)
+	self.data = data
+	self.label = label or "^7Available Items:"
+end)
+
+function SpawnListClass:GetRowValue(column, index, spawnLocation)
+		return spawnLocation
+end
+
+function SpawnListClass:AddValueTooltip(tooltip, index, value)
+	if tooltip:CheckForUpdate(value) then
+		local foundArea = nil
+		for _, area in pairs(data.worldAreas) do
+			if area.name == value and #area .monsterVarieties > 0 then
+				foundArea = area
+				break
+			end
+		end
+		if foundArea then
+			tooltip:AddLine(18, foundArea.name)
+			if foundArea.description and foundArea.description ~= "" then
+				tooltip:AddLine(14, colorCodes.CURRENCY .. '"' .. foundArea.description .. '"')
+			end
+			if foundArea.bossVarieties and #foundArea.bossVarieties > 0 then
+				tooltip:AddLine(14, colorCodes.UNIQUE.. "Bosses: ^7" .. table.concat(foundArea.bossVarieties, ", "))
+			end
+			tooltip:AddLine(14, "^7Area Level: "..foundArea.level)
+			tooltip:AddSeparator(10)
+			tooltip:AddLine(14, "^7Spectres:")
+			for _, monsterName in ipairs(foundArea.monsterVarieties) do
+				tooltip:AddLine(14, " - " .. monsterName)
+			end
+		elseif value == "Found in Maps" then
+			-- no tooltip
+		else
+			tooltip:AddLine(14, "^7World area not found: " .. tostring(value))
+		end
 	end
 end

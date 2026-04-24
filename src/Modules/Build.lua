@@ -1413,10 +1413,10 @@ function buildMode:OpenSpectreLibrary()
 		local totalArmour = self.data.monsterArmourTable[m_min(minionLevel, 100)]
 		local totalEvasion = self.data.monsterEvasionTable[m_min(minionLevel, 100)]
 		if minion.armour then
-			totalArmour = (1 + minion.armour) * totalArmour
+			totalArmour = (minion.armour) * totalArmour
 		end
 		if minion.evasion then
-			totalEvasion = (1 + minion.evasion) * totalEvasion
+			totalEvasion = (minion.evasion) * totalEvasion
 		end
 		-- Check if minion.modList contains a mod for BlockChance and use it for blockLabel
 		local blockChance = 0
@@ -1441,6 +1441,7 @@ function buildMode:OpenSpectreLibrary()
 		controls.armourLabel.armourValue = round(totalArmour)
 		controls.blockLabel.blockValue = blockChance
 		controls.evasionLabel.evasionValue = round(totalEvasion)
+		controls.spawnLocations.list = spawnLocationList
 		controls.resistsLabel.resistsValue = (
 			colorCodes.FIRE..minion.fireResist.."^7 / "..
 			colorCodes.COLD..minion.coldResist.."^7 / "..
@@ -1605,6 +1606,7 @@ function buildMode:OpenSpectreLibrary()
 			DrawString(xPos + (labelWidth / 2), yPos + 24, "CENTER_X", 16, "VAR", self.movementSpeedValue)
 		end	
 	end
+	controls.spawnLocations = new("SpawnListControl", {"TOP", controls.movementSpeedLabel, "TOP"}, {2, 73, 244, 68}, self.data, nil, "Spawns:")
 end
 
 function buildMode:UpdateClassDropdowns(treeVersion)

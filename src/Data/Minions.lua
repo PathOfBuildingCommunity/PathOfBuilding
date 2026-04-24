@@ -32,7 +32,6 @@ minions["RaisedZombie"] = {
 		mod("Armour", "INC", 40, 0, 0), -- MonsterImplicitDamageReduction1 [physical_damage_reduction_rating_+% = 40]
 		mod("StunThreshold", "INC", 30, 0, 0), -- RaiseZombieStunThreshold [stun_threshold_+% = 30]
 		-- set_item_drop_slots [set_item_drop_slots = 0]
-		-- set_monster_no_drops_or_experience [set_monster_no_drops_or_experience = 1]
 	},
 }
 
@@ -54,12 +53,6 @@ minions["SummonedChaosGolem"] = {
 	limit = "ActiveGolemLimit",
 	baseMovementSpeed = 40,
 	spawnLocation = {
-		"The Beacon (Act 6)",
-		"The Cavern of Anger (Act 6)",
-		"The Coast (Act 1)",
-		"The Eternal Laboratory (Act 8)",
-		"The Tidal Island (Act 1)",
-		"The Tidal Island (Act 6)",
 	},
 	skillList = {
 		"Melee",
@@ -97,11 +90,10 @@ minions["SummonedFlameGolem"] = {
 	limit = "ActiveGolemLimit",
 	baseMovementSpeed = 42,
 	spawnLocation = {
-		"Sanctuary (Map)",
 		"The Beacon (Act 6)",
-		"The Cavern of Anger (Act 6)",
 		"The Coast (Act 1)",
 		"The Eternal Laboratory (Act 8)",
+		"The Harvest (Act 4)",
 		"The Tidal Island (Act 1)",
 	},
 	skillList = {
@@ -140,14 +132,11 @@ minions["SummonedIceGolem"] = {
 	limit = "ActiveGolemLimit",
 	baseMovementSpeed = 40,
 	spawnLocation = {
-		"Cortex (Act 11)",
-		"Distant Memory",
-		"Fractured Laboratory",
-		"Fragmented Memory",
-		"Memory Void",
-		"Rewritten Distant Memory (Act 11)",
+		"Infused Beachhead (Map)",
+		"The Beachhead (Map)",
+		"The Coast (Act 1)",
 		"The Eternal Laboratory (Act 8)",
-		"The Temple of Decay Level 2 (Act 7)",
+		"The Tidal Island (Act 1)",
 	},
 	skillList = {
 		"Melee",
@@ -186,8 +175,6 @@ minions["SummonedLightningGolem"] = {
 	limit = "ActiveGolemLimit",
 	baseMovementSpeed = 40,
 	spawnLocation = {
-		"The Boiling Lake (Act 9)",
-		"The Harvest (Act 4)",
 	},
 	skillList = {
 		"LightningGolemArcSummoned",
@@ -226,7 +213,6 @@ minions["SummonedStoneGolem"] = {
 	limit = "ActiveGolemLimit",
 	baseMovementSpeed = 42,
 	spawnLocation = {
-		"Sanctuary (Map)",
 	},
 	skillList = {
 		"Melee",
@@ -254,6 +240,10 @@ minions["SummonedRagingSpirit"] = {
 	limit = "ActiveRagingSpiritLimit",
 	baseMovementSpeed = 45,
 	spawnLocation = {
+		"Citadel (Map)",
+		"The Den (Act 7)",
+		"The Dread Thicket (Act 2)",
+		"The Riverways (Act 2)",
 	},
 	skillList = {
 		"SumonRagingSpiritMelee",
@@ -290,9 +280,6 @@ minions["SummonedEssenceSpirit"] = {
 	accuracy = 3.4,
 	baseMovementSpeed = 45,
 	spawnLocation = {
-		"Oriath Square (Act 5)",
-		"The Eternal Laboratory (Act 8)",
-		"The Templar Courts (Act 5)",
 	},
 	skillList = {
 		"RagingSpiritMeleeAttack",
@@ -381,7 +368,6 @@ minions["RaisedSkeleton"] = {
 	limit = "ActiveSkeletonLimit",
 	baseMovementSpeed = 28,
 	spawnLocation = {
-		"The Lake of Kalandra",
 	},
 	skillList = {
 		"Melee",
@@ -392,7 +378,6 @@ minions["RaisedSkeleton"] = {
 		mod("BlockEffect", "BASE", 15, 0, 0), -- MonsterAttackBlock30Bypass15 [base_block_%_damage_taken = 15]
 		-- SummonSkeletonsSkeletonIsWarrior [summoned_skeleton_is_warrior = 1]
 		-- set_item_drop_slots [set_item_drop_slots = 0]
-		-- set_monster_no_drops_or_experience [set_monster_no_drops_or_experience = 1]
 	},
 }
 
@@ -413,7 +398,12 @@ minions["RaisedSkeletonCaster"] = {
 	limit = "ActiveSkeletonLimit",
 	baseMovementSpeed = 14,
 	spawnLocation = {
-		"The Lake of Kalandra",
+		"Fragmented Memory",
+		"Memory Void",
+		"The Canals (Act 10)",
+		"The Cathedral Rooftop (Act 10)",
+		"The Eternal Laboratory (Act 8)",
+		"The Feeding Trough (Act 10)",
 	},
 	skillList = {
 		"SkeletonMinionProjectileCold",
@@ -423,7 +413,6 @@ minions["RaisedSkeletonCaster"] = {
 	modList = {
 		-- SummonSkeletonsSkeletonIsMage [summoned_skeleton_is_mage = 1]
 		-- set_item_drop_slots [set_item_drop_slots = 0]
-		-- set_monster_no_drops_or_experience [set_monster_no_drops_or_experience = 1]
 	},
 }
 
@@ -455,7 +444,6 @@ minions["RaisedSkeletonMeleeVaal"] = {
 		mod("BlockEffect", "BASE", 15, 0, 0), -- MonsterAttackBlock30Bypass15 [base_block_%_damage_taken = 15]
 		-- SummonSkeletonsSkeletonIsWarrior [summoned_skeleton_is_warrior = 1]
 		-- set_item_drop_slots [set_item_drop_slots = 0]
-		-- set_monster_no_drops_or_experience [set_monster_no_drops_or_experience = 1]
 	},
 }
 
@@ -477,14 +465,13 @@ minions["RaisedSkeletonArcherVaal"] = {
 	limit = "ActiveSkeletonLimit",
 	baseMovementSpeed = 18,
 	spawnLocation = {
-		"The Lake of Kalandra",
+		"The Submerged Passage (Act 1)",
 	},
 	skillList = {
 		"Melee",
 	},
 	modList = {
 		-- set_item_drop_slots [set_item_drop_slots = 0]
-		-- set_monster_no_drops_or_experience [set_monster_no_drops_or_experience = 1]
 	},
 }
 
@@ -506,14 +493,13 @@ minions["RaisedSkeletonArcher"] = {
 	limit = "ActiveSkeletonLimit",
 	baseMovementSpeed = 9,
 	spawnLocation = {
-		"The Lake of Kalandra",
+		"The Submerged Passage (Act 1)",
 	},
 	skillList = {
 		"Melee",
 	},
 	modList = {
 		-- set_item_drop_slots [set_item_drop_slots = 0]
-		-- set_monster_no_drops_or_experience [set_monster_no_drops_or_experience = 1]
 	},
 }
 
@@ -537,19 +523,13 @@ minions["Clone"] = {
 		"Fortress (Map)",
 		"Fragmented Memory",
 		"Memory Void",
-		"Path of Exile Royale (Act 1)",
 		"Sanctuary (Map)",
 		"The Aqueduct (Act 4)",
-		"The Blood Aqueduct (Act 9)",
 		"The Broken Bridge (Act 7)",
-		"The Chamber of Sins Level 2 (Act 7)",
 		"The Crossroads (Act 7)",
 		"The Dried Lake (Act 4)",
 		"The Eternal Laboratory (Act 8)",
 		"The Foothills (Act 9)",
-		"The Grand Promenade (Act 8)",
-		"The Imperial Gardens (Act 3)",
-		"The Western Forest (Act 6)",
 		"Ziggurat (Map)",
 	},
 	skillList = {
@@ -585,19 +565,13 @@ minions["ArrowClone"] = {
 		"Fortress (Map)",
 		"Fragmented Memory",
 		"Memory Void",
-		"Path of Exile Royale (Act 1)",
 		"Sanctuary (Map)",
 		"The Aqueduct (Act 4)",
-		"The Blood Aqueduct (Act 9)",
 		"The Broken Bridge (Act 7)",
-		"The Chamber of Sins Level 2 (Act 7)",
 		"The Crossroads (Act 7)",
 		"The Dried Lake (Act 4)",
 		"The Eternal Laboratory (Act 8)",
 		"The Foothills (Act 9)",
-		"The Grand Promenade (Act 8)",
-		"The Imperial Gardens (Act 3)",
-		"The Western Forest (Act 6)",
 		"Ziggurat (Map)",
 	},
 	skillList = {
@@ -633,19 +607,13 @@ minions["ArrowCloneRoA"] = {
 		"Fortress (Map)",
 		"Fragmented Memory",
 		"Memory Void",
-		"Path of Exile Royale (Act 1)",
 		"Sanctuary (Map)",
 		"The Aqueduct (Act 4)",
-		"The Blood Aqueduct (Act 9)",
 		"The Broken Bridge (Act 7)",
-		"The Chamber of Sins Level 2 (Act 7)",
 		"The Crossroads (Act 7)",
 		"The Dried Lake (Act 4)",
 		"The Eternal Laboratory (Act 8)",
 		"The Foothills (Act 9)",
-		"The Grand Promenade (Act 8)",
-		"The Imperial Gardens (Act 3)",
-		"The Western Forest (Act 6)",
 		"Ziggurat (Map)",
 	},
 	skillList = {
@@ -681,19 +649,13 @@ minions["ArrowCloneEle"] = {
 		"Fortress (Map)",
 		"Fragmented Memory",
 		"Memory Void",
-		"Path of Exile Royale (Act 1)",
 		"Sanctuary (Map)",
 		"The Aqueduct (Act 4)",
-		"The Blood Aqueduct (Act 9)",
 		"The Broken Bridge (Act 7)",
-		"The Chamber of Sins Level 2 (Act 7)",
 		"The Crossroads (Act 7)",
 		"The Dried Lake (Act 4)",
 		"The Eternal Laboratory (Act 8)",
 		"The Foothills (Act 9)",
-		"The Grand Promenade (Act 8)",
-		"The Imperial Gardens (Act 3)",
-		"The Western Forest (Act 6)",
 		"Ziggurat (Map)",
 	},
 	skillList = {
@@ -758,6 +720,9 @@ minions["AnimatedWeapon"] = {
 	limit = "ActiveAnimatedWeaponLimit",
 	baseMovementSpeed = 45,
 	spawnLocation = {
+		"The Eternal Laboratory (Act 8)",
+		"The Reliquary (Act 10)",
+		"The Reliquary (Act 5)",
 	},
 	skillList = {
 		"Melee",
@@ -786,6 +751,9 @@ minions["AnimatedArmour"] = {
 	accuracy = 3.4,
 	baseMovementSpeed = 32,
 	spawnLocation = {
+		"The Blood Aqueduct (Act 9)",
+		"The Eternal Laboratory (Act 8)",
+		"The Grand Promenade (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -908,11 +876,6 @@ minions["HeraldOfAgonySpiderPlated"] = {
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 50,
 	spawnLocation = {
-		"Abomination (Map)",
-		"Citadel (Map)",
-		"Fortress (Map)",
-		"Sanctuary (Map)",
-		"Ziggurat (Map)",
 	},
 	skillList = {
 		"HeraldOfAgonyMinionMortar",
@@ -951,10 +914,13 @@ minions["AxisEliteSoldierHeraldOfLight"] = {
 	limit = "ActiveSentinelOfPurityLimit",
 	baseMovementSpeed = 38,
 	spawnLocation = {
+		"Mastermind's Lair (Act 11)",
+		"Syndicate Hideout",
 		"The Eternal Laboratory (Act 8)",
 		"The Solaris Concourse (Act 8)",
 		"The Solaris Temple Level 1 (Act 8)",
 		"The Solaris Temple Level 2 (Act 8)",
+		"The Twilight Temple (Map)",
 	},
 	skillList = {
 		"Melee",
@@ -1084,6 +1050,7 @@ minions["AbsolutionTemplarJudge"] = {
 	limit = "ActiveSentinelOfAbsolutionLimit",
 	baseMovementSpeed = 40,
 	spawnLocation = {
+		"The Tunnel (Act 9)",
 	},
 	skillList = {
 		"Melee",
@@ -1487,10 +1454,9 @@ minions["GuardianSentinel"] = {
 	attackTime = 0.83,
 	attackRange = 17,
 	accuracy = 3.4,
-	baseMovementSpeed = 11,
+	baseMovementSpeed = 15,
 	spawnLocation = {
 		"The Harbour Bridge (Act 8)",
-		"The Twilight Temple (Map)",
 	},
 	skillList = {
 		"TeleportVaalDomination",
@@ -1771,6 +1737,7 @@ minions["AncestralKahuturoaMinion"] = {
 	accuracy = 1,
 	baseMovementSpeed = 46,
 	spawnLocation = {
+		"The Viridian Wildwood (Act 1)",
 	},
 	skillList = {
 		"KahuturoaMelee",
@@ -1844,7 +1811,6 @@ minions["AncestralKiloavaMinion"] = {
 	accuracy = 1,
 	baseMovementSpeed = 46,
 	spawnLocation = {
-		"Crux of Nothingness (Map)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeedUnique",
@@ -2094,6 +2060,9 @@ minions["HolyStrikeMinion"] = {
 	attackRange = 12,
 	accuracy = 1,
 	limit = "ActiveHolyStrikeMinionLimit",
+	baseMovementSpeed = 39,
+	spawnLocation = {
+	},
 	skillList = {
 		"HolyStrikeMinionAttack",
 	},
@@ -2126,6 +2095,9 @@ minions["Hiveborn"] = {
 	attackRange = 11,
 	accuracy = 1,
 	limit = "ActiveHivebornLimit",
+	baseMovementSpeed = 41,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedComboCold",
 	},
@@ -2148,6 +2120,9 @@ minions["ShamblingUndead"] = {
 	attackRange = 11,
 	accuracy = 3.4,
 	limit = "ShamblingUndeadLimit",
+	baseMovementSpeed = 7,
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeedChaos",
 		"ZombieSlam",

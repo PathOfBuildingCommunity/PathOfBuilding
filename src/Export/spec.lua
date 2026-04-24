@@ -7420,45 +7420,38 @@ return {
 		},
 		[2]={
 			list=false,
-			name="Regular_WorldArea",
+			name="Regular_WorldAreasKey",
 			refTo="WorldAreas",
 			type="Key",
 			width=150
 		},
 		[3]={
 			list=false,
-			name="",
-			refTo="",
+			name="Unique_WorldAreasKey",
+			refTo="WorldAreas",
 			type="Key",
 			width=150
 		},
 		[4]={
 			list=false,
-			name="",
-			refTo="",
+			name="MapUpgrade_BaseItemTypesKey",
+			refTo="BaseItemTypes",
 			type="Key",
-			width=100
+			width=210
 		},
 		[5]={
 			list=true,
-			name="",
-			refTo="",
+			name="MonsterPacksKey",
+			refTo="MonsterPacks",
 			type="Key",
-			width=320
+			width=250
 		},
 		[6]={
 			list=false,
-			name="",
-			refTo="",
-			type="ShortKey",
+			name="AchievementItem",
+			refTo="AchievementItems",
+			type="Key",
 			width=370
-		},
-		[7]={
-			list=false,
-			name="",
-			refTo="",
-			type="ShortKey",
-			width=150
 		}
 	},
 	mapseries={
@@ -9467,17 +9460,17 @@ return {
 		},
 		[6]={
 			list=false,
-			name="",
+			name="BossMonsterSpawnChance",
 			refTo="",
 			type="Int",
-			width=80
+			width=160
 		},
 		[7]={
 			list=false,
-			name="",
+			name="BossMonsterCount",
 			refTo="",
 			type="Int",
-			width=80
+			width=120
 		},
 		[8]={
 			list=true,
@@ -9505,33 +9498,33 @@ return {
 			name="",
 			refTo="",
 			type="String",
-			width=150
+			width=280
 		},
 		[12]={
 			list=true,
-			name="",
-			refTo="",
+			name="TagsKey",
+			refTo="Tags",
 			type="Key",
 			width=150
 		},
 		[13]={
 			list=false,
-			name="",
+			name="MinLevel",
 			refTo="",
 			type="Int",
 			width=80
 		},
 		[14]={
 			list=false,
-			name="",
+			name="MaxLevel",
 			refTo="",
 			type="Int",
 			width=80
 		},
 		[15]={
 			list=true,
-			name="",
-			refTo="",
+			name="WorldAreas2",
+			refTo="WorldAreas",
 			type="Key",
 			width=150
 		},
@@ -9544,8 +9537,8 @@ return {
 		},
 		[17]={
 			list=false,
-			name="",
-			refTo="",
+			name="PackFormation",
+			refTo="PackFormation",
 			type="Key",
 			width=150
 		},
@@ -9607,8 +9600,8 @@ return {
 		},
 		[26]={
 			list=false,
-			name="",
-			refTo="",
+			name="NecropolisPack",
+			refTo="NecropolisPacks",
 			type="Key",
 			width=150
 		}

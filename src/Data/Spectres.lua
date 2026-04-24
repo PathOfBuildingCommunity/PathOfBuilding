@@ -185,7 +185,6 @@ minions["Metadata/Monsters/Axis/AxisExperimenter2"] = {
 	weaponType1 = "Wand",
 	baseMovementSpeed = 17,
 	spawnLocation = {
-		"The Hidden Underbelly (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -558,8 +557,6 @@ minions["Metadata/Monsters/BoneStalker/BoneStalker"] = {
 	weaponType1 = "One Handed Axe",
 	baseMovementSpeed = 30,
 	spawnLocation = {
-		"The Descent (Act 9)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -588,8 +585,11 @@ minions["Metadata/Monsters/Bull/Bull"] = {
 	weaponType1 = "One Handed Mace",
 	baseMovementSpeed = 30,
 	spawnLocation = {
-		"The Belly of the Beast (Act 9)",
-		"The Rotting Core (Act 9)",
+		"Abomination (Map)",
+		"Citadel (Map)",
+		"Fortress (Map)",
+		"Sanctuary (Map)",
+		"Ziggurat (Map)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -616,7 +616,7 @@ minions["Metadata/Monster/CageSpider/CageSpider2"] = {
 	baseMovementSpeed = 22,
 	spawnLocation = {
 		"The Eternal Laboratory (Act 8)",
-		"The Twilight Strand (Act 6)",
+		"The Ravaged Square (Act 10)",
 	},
 	skillList = {
 		"Melee",
@@ -883,9 +883,14 @@ minions["Metadata/Monsters/DemonFemale/DemonFemale"] = {
 	accuracy = 1,
 	baseMovementSpeed = 43,
 	spawnLocation = {
+		"Abomination (Map)",
+		"Citadel (Map)",
+		"Fortress (Map)",
+		"Sanctuary (Map)",
 		"The Eternal Laboratory (Act 8)",
 		"The Lunaris Concourse (Act 8)",
 		"The Lunaris Temple Level 2 (Act 8)",
+		"Ziggurat (Map)",
 	},
 	skillList = {
 		"Melee",
@@ -912,10 +917,13 @@ minions["Metadata/Monsters/DemonModular/DemonFemaleRanged"] = {
 	accuracy = 1,
 	baseMovementSpeed = 32,
 	spawnLocation = {
+		"Doedre's Cesspool (Act 8)",
+		"Fragmented Memory",
+		"Memory Void",
 		"The Eternal Laboratory (Act 8)",
-		"The Riverways (Act 6)",
-		"The Sewers (Act 3)",
-		"The Wetlands (Act 6)",
+		"The Sceptre of God (Act 3)",
+		"The Toxic Conduits (Act 8)",
+		"The Upper Sceptre of God (Act 3)",
 	},
 	skillList = {
 		"DemonFemaleRangedGeometryProjectileLeft",
@@ -947,6 +955,11 @@ minions["Metadata/Monsters/DemonModular/DemonFemaleRanged2"] = {
 	accuracy = 1,
 	baseMovementSpeed = 32,
 	spawnLocation = {
+		"The Eternal Laboratory (Act 8)",
+		"The Lake of Kalandra",
+		"The Riverways (Act 6)",
+		"The Wetlands (Act 6)",
+		"Untainted Paradise (Map)",
 	},
 	skillList = {
 		"DemonFemaleRangedProjectile2",
@@ -998,7 +1011,7 @@ minions["Metadata/Monsters/DemonModular/DemonModularFire"] = {
 	baseMovementSpeed = 20,
 	spawnLocation = {
 		"The Harbour Bridge (Act 8)",
-		"The Twilight Temple (Map)",
+		"The Putrid Cloister (Map)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -1080,9 +1093,6 @@ minions["Metadata/Monsters/GemMonster/Iguana"] = {
 	accuracy = 1,
 	baseMovementSpeed = 25,
 	spawnLocation = {
-		"Fragmented Memory",
-		"Memory Void",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"IguanaProjectile",
@@ -1110,6 +1120,12 @@ minions["Metadata/Monsters/GemMonster/IguanaChrome"] = {
 	accuracy = 1,
 	baseMovementSpeed = 25,
 	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"Olmec's Sanctum (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Solaris Temple Level 1 (Act 3)",
+		"The Solaris Temple Level 2 (Act 3)",
 	},
 	skillList = {
 		"IguanaProjectileChrome",
@@ -1247,8 +1263,6 @@ minions["Metadata/Monsters/Grappler/Grappler"] = {
 	accuracy = 1,
 	baseMovementSpeed = 37,
 	spawnLocation = {
-		"Fragmented Memory",
-		"Memory Void",
 		"The Docks (Act 3)",
 		"The Eternal Laboratory (Act 8)",
 		"The Quay (Act 8)",
@@ -1314,10 +1328,14 @@ minions["Metadata/Monsters/Guardians/GuardianFire"] = {
 	spawnLocation = {
 		"Fragmented Memory",
 		"Memory Void",
+		"The City of Sarn (Act 3)",
 		"The Eternal Laboratory (Act 8)",
 		"The Imperial Fields (Act 8)",
+		"The Marketplace (Act 3)",
 		"The Sarn Ramparts (Act 8)",
 		"The Slums (Act 3)",
+		"The Southern Forest (Act 2)",
+		"The Southern Forest (Act 6)",
 		"The Twilight Temple (Map)",
 	},
 	skillList = {
@@ -1349,6 +1367,9 @@ minions["Metadata/Monsters/Guardians/GuardianFire_BlueMaps"] = {
 	accuracy = 1,
 	baseMovementSpeed = 26,
 	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
 		"The Imperial Fields (Act 8)",
 		"The Sarn Ramparts (Act 8)",
 	},
@@ -1379,7 +1400,6 @@ minions["Metadata/Monsters/Guardians/GuardianLightning"] = {
 	baseMovementSpeed = 26,
 	spawnLocation = {
 		"The Eternal Laboratory (Act 8)",
-		"The Slums (Act 3)",
 		"The Twilight Temple (Map)",
 	},
 	skillList = {
@@ -1407,6 +1427,9 @@ minions["Metadata/Monsters/HalfSkeleton/HalfSkeleton"] = {
 	weaponType1 = "Dagger",
 	baseMovementSpeed = 32,
 	spawnLocation = {
+		"The Desecrated Chambers (Act 10)",
+		"The Eternal Laboratory (Act 8)",
+		"The Grand Arena (Act 4)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -1461,13 +1484,8 @@ minions["Metadata/Monsters/incaminion/Fragment"] = {
 	accuracy = 1,
 	baseMovementSpeed = 32,
 	spawnLocation = {
-		"Abomination (Map)",
-		"Citadel (Map)",
-		"Fortress (Map)",
-		"Sanctuary (Map)",
 		"The Temple of Atzoatl",
 		"The Temple of Decay Level 2 (Act 7)",
-		"Ziggurat (Map)",
 	},
 	skillList = {
 		"IncaMinionProjectile",
@@ -1573,6 +1591,7 @@ minions["Metadata/Monsters/KaomWarrior/KaomWarrior7"] = {
 	accuracy = 1,
 	baseMovementSpeed = 28,
 	spawnLocation = {
+		"Daresso's Dream (Act 4)",
 	},
 	skillList = {
 		"Melee",
@@ -1831,9 +1850,19 @@ minions["Metadata/Monster/KitavaDemon/KitavaDemon"] = {
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 28,
 	spawnLocation = {
+		"Abomination (Map)",
+		"Citadel (Map)",
+		"Fortress (Map)",
+		"Fragmented Memory",
+		"Memory Void",
+		"Sanctuary (Map)",
+		"The Climb (Act 1)",
 		"The Control Blocks (Act 10)",
+		"The Control Blocks (Act 5)",
 		"The Eternal Laboratory (Act 8)",
-		"The Twilight Strand (Act 6)",
+		"The Ridge (Act 6)",
+		"The Slave Pens (Act 5)",
+		"Ziggurat (Map)",
 	},
 	skillList = {
 		"KitavaDemonLeapSlam",
@@ -1865,6 +1894,8 @@ minions["Metadata/Monsters/Kiweth/Kiweth"] = {
 	accuracy = 1,
 	baseMovementSpeed = 27,
 	spawnLocation = {
+		"Olmec's Sanctum (Map)",
+		"The Crematorium (Act 3)",
 		"The Eternal Laboratory (Act 8)",
 		"The Rotting Core (Act 9)",
 	},
@@ -2015,8 +2046,8 @@ minions["Metadata/Monsters/MassSkeleton/MassSkeleton"] = {
 		"Memory Void",
 		"The Crystal Veins (Act 4)",
 		"The Eternal Laboratory (Act 8)",
+		"The Mines Level 1 (Act 4)",
 		"The Mines Level 2 (Act 4)",
-		"The Tunnel (Act 9)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -2044,6 +2075,10 @@ minions["Metadata/Monsters/Miner/MinerLantern"] = {
 	accuracy = 1,
 	baseMovementSpeed = 10,
 	spawnLocation = {
+		"Fragmented Memory",
+		"Kaom's Stronghold (Act 4)",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MinerThrowFire",
@@ -2070,8 +2105,13 @@ minions["Metadata/Monsters/Miner/MinerLanternCrystalVeins"] = {
 	accuracy = 1,
 	baseMovementSpeed = 10,
 	spawnLocation = {
-		"The Quarry (Act 9)",
-		"The Tunnel (Act 9)",
+		"Fragmented Memory",
+		"Kaom's Stronghold (Act 4)",
+		"Memory Void",
+		"The Coast (Act 6)",
+		"The Eternal Laboratory (Act 8)",
+		"The Karui Fortress (Act 6)",
+		"The Mud Flats (Act 6)",
 	},
 	skillList = {
 		"MinerThrowFire",
@@ -2098,13 +2138,6 @@ minions["Metadata/Monsters/Monkeys/FlameBearer"] = {
 	accuracy = 1,
 	baseMovementSpeed = 33,
 	spawnLocation = {
-		"Fragmented Memory",
-		"Memory Void",
-		"Olmec's Sanctum (Map)",
-		"The Ancient Pyramid (Act 2)",
-		"The Catacombs (Act 3)",
-		"The Caverns (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -2277,6 +2310,9 @@ minions["Metadata/Monsters/Necromancer/NecromancerFrostbite"] = {
 	accuracy = 1,
 	baseMovementSpeed = 13,
 	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -2412,10 +2448,8 @@ minions["Metadata/Monsters/Pyromaniac/PyromaniacFire"] = {
 	accuracy = 1,
 	baseMovementSpeed = 27,
 	spawnLocation = {
-		"Fragmented Memory",
-		"Memory Void",
 		"Olmec's Sanctum (Map)",
-		"The Eternal Laboratory (Act 8)",
+		"The City of Sarn (Act 3)",
 	},
 	skillList = {
 		"PyroFireball",
@@ -2444,7 +2478,6 @@ minions["Metadata/Monsters/Pyromaniac/PyromaniacPoison"] = {
 	accuracy = 1,
 	baseMovementSpeed = 27,
 	spawnLocation = {
-		"The City of Sarn (Act 3)",
 	},
 	skillList = {
 		"MonsterCausticBomb",
@@ -2749,9 +2782,11 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowLightning3"] = {
 	weaponType1 = "Bow",
 	baseMovementSpeed = 11,
 	spawnLocation = {
-		"The Eternal Laboratory (Act 8)",
-		"The Foothills (Act 9)",
-		"The High Gardens (Act 8)",
+		"Abomination (Map)",
+		"Citadel (Map)",
+		"Fortress (Map)",
+		"Sanctuary (Map)",
+		"Ziggurat (Map)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -2863,6 +2898,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowLightning2"] = {
 	weaponType1 = "Bow",
 	baseMovementSpeed = 11,
 	spawnLocation = {
+		"The High Gardens (Act 8)",
 		"The Imperial Gardens (Act 3)",
 	},
 	skillList = {
@@ -3279,7 +3315,7 @@ minions["Metadata/Monsters/Statue/StoneStatueMaleBow"] = {
 	spawnLocation = {
 		"The Blood Aqueduct (Act 9)",
 		"The Eternal Laboratory (Act 8)",
-		"The Lunaris Temple Level 2 (Act 3)",
+		"The Twilight Temple (Map)",
 	},
 	skillList = {
 		"Melee",
@@ -3396,8 +3432,6 @@ minions["Metadata/Monsters/Undying/CityStalkerMaleCasterArmour"] = {
 	accuracy = 1,
 	baseMovementSpeed = 37,
 	spawnLocation = {
-		"The Grain Gate (Act 8)",
-		"The Quay (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -3471,6 +3505,9 @@ minions["Metadata/Monsters/SpiderPlated/SpiderPlatedUnholyEmerge"] = {
 	attackTime = 1.95,
 	attackRange = 18,
 	accuracy = 1,
+	baseMovementSpeed = 37,
+	spawnLocation = {
+	},
 	skillList = {
 		"Melee",
 	},
@@ -3649,21 +3686,8 @@ minions["Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_"] = {
 	accuracy = 1,
 	baseMovementSpeed = 75,
 	spawnLocation = {
-		"Chayula's Domain (Map)",
-		"Esh's Domain (Map)",
-		"Fragmented Memory",
-		"Memory Void",
-		"The Canals (Act 10)",
-		"The Cathedral Rooftop (Act 10)",
-		"The Cathedral Rooftop (Act 5)",
 		"The Eternal Laboratory (Act 8)",
-		"The Feeding Trough (Act 10)",
-		"The Ruined Square (Act 5)",
-		"The Torched Courts (Act 10)",
-		"The Torched Courts (Act 5)",
-		"Tul's Domain (Map)",
-		"Uul-Netol's Domain (Map)",
-		"Xoph's Domain (Map)",
+		"The Grand Promenade (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -3984,11 +4008,6 @@ minions["Metadata/Monsters/LeagueHeist/Robot/RobotPyreKnightEliteSpectre"] = {
 	accuracy = 1,
 	baseMovementSpeed = 37,
 	spawnLocation = {
-		"Abomination (Map)",
-		"Citadel (Map)",
-		"Fortress (Map)",
-		"Sanctuary (Map)",
-		"Ziggurat (Map)",
 	},
 	skillList = {
 		"DoLiterallyNothing",
@@ -4331,6 +4350,12 @@ minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre"] = {
 	accuracy = 1,
 	baseMovementSpeed = 40,
 	spawnLocation = {
+		"Cortex (Act 11)",
+		"Distant Memory",
+		"Fractured Laboratory",
+		"Fragmented Memory",
+		"Memory Void",
+		"Rewritten Distant Memory (Act 11)",
 	},
 	skillList = {
 		"SynthesisSoulstealerProjectilePhysical",
@@ -4430,16 +4455,6 @@ minions["Metadata/Monsters/MinerLarge/MinerLargeCommanderBreachSpectre"] = {
 	accuracy = 1,
 	baseMovementSpeed = 16,
 	spawnLocation = {
-		"Abomination (Map)",
-		"Chayula's Domain (Map)",
-		"Citadel (Map)",
-		"Esh's Domain (Map)",
-		"Fortress (Map)",
-		"Sanctuary (Map)",
-		"Tul's Domain (Map)",
-		"Uul-Netol's Domain (Map)",
-		"Xoph's Domain (Map)",
-		"Ziggurat (Map)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -4650,16 +4665,13 @@ minions["Metadata/Monsters/Hellion/HellionBreachHowlSpectre"] = {
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 37,
 	spawnLocation = {
-		"Abomination (Map)",
 		"Chayula's Domain (Map)",
-		"Citadel (Map)",
 		"Esh's Domain (Map)",
-		"Fortress (Map)",
-		"Sanctuary (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Grand Promenade (Act 8)",
 		"Tul's Domain (Map)",
 		"Uul-Netol's Domain (Map)",
 		"Xoph's Domain (Map)",
-		"Ziggurat (Map)",
 	},
 	skillList = {
 		"Melee",
@@ -8078,7 +8090,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockLow"] = {
 	monsterTags = { "caster", "human", "humanoid", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 2.04,
-	energyShield = 0.16,
+	energyShield = 0.4,
 	fireResist = 0,
 	coldResist = 0,
 	lightningResist = 0,
@@ -8088,6 +8100,9 @@ minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockLow"] = {
 	attackTime = 1.5,
 	attackRange = 60,
 	accuracy = 1,
+	baseMovementSpeed = 24,
+	spawnLocation = {
+	},
 	skillList = {
 		"SSMFaridunWarlockBloodLocust",
 		"SOFaridunWarlockPustule",
@@ -8105,7 +8120,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockMid_"] = {
 	monsterTags = { "caster", "human", "humanoid", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 2.04,
-	energyShield = 0.16,
+	energyShield = 0.4,
 	fireResist = 0,
 	coldResist = 0,
 	lightningResist = 0,
@@ -8115,6 +8130,9 @@ minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockMid_"] = {
 	attackTime = 1.5,
 	attackRange = 60,
 	accuracy = 1,
+	baseMovementSpeed = 24,
+	spawnLocation = {
+	},
 	skillList = {
 		"SSMFaridunWarlockBloodLocust",
 		"SOFaridunWarlockPustule",
@@ -8133,7 +8151,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockHigh"] = {
 	monsterTags = { "caster", "human", "humanoid", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 2.04,
-	energyShield = 0.16,
+	energyShield = 0.4,
 	fireResist = 0,
 	coldResist = 0,
 	lightningResist = 0,
@@ -8143,6 +8161,9 @@ minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockHigh"] = {
 	attackTime = 1.5,
 	attackRange = 60,
 	accuracy = 1,
+	baseMovementSpeed = 24,
+	spawnLocation = {
+	},
 	skillList = {
 		"SSMFaridunWarlockBloodLocust",
 		"SOFaridunWarlockPustule",
