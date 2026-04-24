@@ -741,13 +741,19 @@ function ImportTabClass:ImportPassiveTreeAndJewels(charData)
 	self.build.itemsTab:AddUndoState()
 
 
-
+	local alternateAscendancyId
+	if charPassiveData.alternate_ascendancy then
+		local bloodline = self.build.latestTree.secondaryAscendNameMap[charPassiveData.alternate_ascendancy]
+		alternateAscendancyId = bloodline.ascendClassId
+	else
+		alternateAscendancyId = 0
+	end
 	-- Character import uses current GGG cluster hashes.
 	self.build.spec.clusterHashFormatVersion = 2
 	self.build.spec:ImportFromNodeList(charData.class,
 		nil, 
 		nil, 
-		charPassiveData.alternate_ascendancy or 0,
+		alternateAscendancyId,
 		charPassiveData.hashes,
 		charPassiveData.skill_overrides, 
 		charPassiveData.mastery_effects or {},
@@ -882,15 +888,7 @@ local function applySocketGroupReimportState(socketGroup, state)
 	end
 end
 
-function ImportTabClass:ImportItemsAndSkills(json)
-	--local out = io.open("get-items.json", "w")
-	--out:write(json)
-	--out:close()
-	local charItemData, errMsg = self:ProcessJSON(json)
-	if errMsg then
-		self.charImportStatus = colorCodes.NEGATIVE.."Error processing character data, try again later."
-		return
-	end
+function ImportTabClass:ImportItemsAndSkills(charData)
 	if self.controls.charImportItemsClearItems.state then
 		for _, slot in pairs(self.build.itemsTab.slots) do
 			if slot.selItemId ~= 0 and not slot.nodeId then
@@ -922,7 +920,7 @@ function ImportTabClass:ImportItemsAndSkills(json)
 	end
 	self.charImportStatus = colorCodes.POSITIVE.."Items and skills successfully imported."
 	--ConPrintTable(charItemData)
-	for _, itemData in pairs(charItemData.items) do
+	for _, itemData in ipairs(charData.equipment) do
 		self:ImportItem(itemData)
 	end
 	if skillOrder then
@@ -984,11 +982,11 @@ function ImportTabClass:ImportItemsAndSkills(json)
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
 	self.build.skillsTab:AddUndoState()
-	self.build.characterLevel = charItemData.character.level
+	self.build.characterLevel = charData.level
 	self.build.configTab:UpdateLevel()
-	self.build.controls.characterLevel:SetText(charItemData.character.level)
+	self.build.controls.characterLevel:SetText(tostring(charData.level))
 	self.build.buildFlag = true
-	return charItemData.character -- For the wrapper
+	return charData -- For the wrapper
 end
 
 local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE", [9] = "RELIC", [10] = "RELIC" }
