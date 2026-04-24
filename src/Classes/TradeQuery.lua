@@ -34,8 +34,9 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	-- default set of trade item sort selection
 	self.slotTables = { }
 	self.pbItemSortSelectionIndex = 1
+	-- for each league, a table of values of each currency in div
+	--- @type table<string, table<string, integer>>
 	self.pbCurrencyConversion = { }
-	self.currencyConversionTradeMap = { }
 	self.lastCurrencyConversionRequest = 0
 	self.lastCurrencyFileTime = { }
 	self.pbFileTimestampDiff = { }
@@ -45,13 +46,44 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	-- table holding all realm/league pairs. (allLeagues[realm] = [league.id,...])
 	self.allLeagues = {}
 	-- realm id-text table to pair realm name with API parameter
-	self.realmIds = {}
+	self.realmIds = {
+		["PC"] = "pc",
+		["Xbox"] = "xbox",
+		["Sony"] = "sony"
+	}
+	--- @type integer?
+	self.backoffFinish = nil
 	-- last query for each row
 	self.lastQueries = {}
 
 	self.tradeQueryRequests = new("TradeQueryRequests")
+	local function onRateLimit(backoff)
+		self.backoffFinish = get_time() + backoff
+		self.countDown = coroutine.create(function()
+			while self.backoffFinish do
+				local now = get_time()
+				if self.backoffFinish < (now + 0.5) then
+					self.backoffFinish = nil
+					self:SetNotice(self.controls.pbNotice, "")
+					return
+				end
+				local msg = s_format("Rate limited. Retrying after %s seconds...",  self.backoffFinish - now)
+				self:SetNotice(self.controls.pbNotice, colorCodes.WARNING..msg)
+				coroutine.yield()
+			end
+		end)
+	end
 	main.onFrameFuncs["TradeQueryRequests"] = function()
-		self.tradeQueryRequests:ProcessQueue()
+		self.tradeQueryRequests:ProcessQueue(onRateLimit)
+		if self.countDown then
+			coroutine.resume(self.countDown)
+			if coroutine.status(self.countDown) == "dead" then
+				self.countDown = nil
+			end
+		end
+	end
+	if not main.api then
+		main.api = new("PoEAPI", main.lastToken, main.lastRefreshToken, main.tokenExpiry)
 	end
 
 	-- set
@@ -121,20 +153,13 @@ function TradeQueryClass:PullLeagueList()
 		end)
 end
 
--- Method to convert currency to chaos equivalent
-function TradeQueryClass:ConvertCurrencyToChaos(currency, amount)
-	local conversionTable = self.pbCurrencyConversion[self.pbLeague]
-
-	-- we take the ceiling of all prices to integer chaos
-	-- to prevent dealing with shenanigans of people asking 4.9 chaos
-	if conversionTable and conversionTable[currency:lower()] then
-		--ConPrintf("Converted '"..currency.."' at " ..tostring(conversionTable[currency:lower()]))
-		return m_ceil(amount * conversionTable[currency:lower()])
-	elseif currency:lower() == "chaos" then
-		return m_ceil(amount)
-	else
-		ConPrintf("Unhandled Currency Conversion: '" .. currency:lower() .. "'")
-		return nil
+--- @param currencyId string
+--- @param amount integer
+--- @return number?
+function TradeQueryClass:ConvertCurrencyToDivs(currencyId, amount)
+	local map = self.pbCurrencyConversion[self.pbLeague]
+	if map and map[currencyId] then
+		return amount * map[currencyId]
 	end
 end
 
@@ -146,60 +171,62 @@ function TradeQueryClass:PullPoENinjaCurrencyConversion(league)
 		self:SetNotice(self.controls.pbNotice, "PoE Ninja Rate Limit Exceeded: " .. tostring(3600 - (now - self.lastCurrencyConversionRequest)))
 		return
 	end
-	-- We are getting currency short-names from Poe API before getting PoeNinja rates
-	-- Potentially, currency short-names could be cached but this request runs
-	-- once per hour at most and the Poe API response is already Cloudflare cached
-	self:FetchCurrencyConversionTable(function(data, errMsg)
-		if errMsg then
-			self:SetNotice(self.controls.pbNotice, "Error: " .. tostring(errMsg))
-			return
-		end
-		self.pbCurrencyConversion[league] = { }
-		self.lastCurrencyConversionRequest = now
-		launch:DownloadPage(
-			"https://poe.ninja/api/data/CurrencyRates?league=" .. urlEncode(league),
-			function(response, errMsg)
-				if errMsg then
-					self:SetNotice(self.controls.pbNotice, "Error: " .. tostring(errMsg))
-					return
-				end
-				local json_data = dkjson.decode(response.body)
-				if not json_data then
-					self:SetNotice(self.controls.pbNotice, "Failed to Get PoE Ninja response")
-					return
-				end
-				self:PriceBuilderProcessPoENinjaResponse(json_data, self.controls)
-				local print_str = ""
-				for key, value in pairs(self.pbCurrencyConversion[self.pbLeague]) do
-					print_str = print_str .. '"'..key..'": '..tostring(value)..','
-				end
-				local foo = io.open("../"..self.pbLeague.."_currency_values.json", "w")
-				foo:write("{" .. print_str .. '"updateTime": ' .. tostring(get_time()) .. "}")
-				foo:close()
-				self:SetCurrencyConversionButton()
-			end)
-	end)
+
+	self.pbCurrencyConversion[league] = { }
+	self.lastCurrencyConversionRequest = now
+	launch:DownloadPage(
+		"https://poe.ninja/poe1/api/economy/exchange/current/overview?type=Currency&league=" .. urlEncode(league),
+		function(response, errMsg)
+			if errMsg then
+				self:SetNotice(self.controls.pbNotice, "Error: " .. tostring(errMsg))
+				return
+			end
+			local json_data = dkjson.decode(response.body)
+			if not json_data or not json_data.lines then
+				self:SetNotice(self.controls.pbNotice, "Failed to Get PoE Ninja response")
+				return
+			end
+			if not self:PriceBuilderProcessPoENinjaResponse(json_data.lines) then
+				-- don't edit json on failure
+				return
+			end
+			local print_str = ""
+			for key, value in pairs(self.pbCurrencyConversion[self.pbLeague]) do
+				print_str = print_str .. '"'..key..'": '..tostring(value)..','
+			end
+			local foo = io.open("../"..self.pbLeague.."_currency_values.json", "w")
+			foo:write("{" .. print_str .. '"updateTime": ' .. tostring(get_time()) .. "}")
+			foo:close()
+			self:SetCurrencyConversionButton()
+		end)
+
 end
 
 -- Method to process the PoE.Ninja response
-function TradeQueryClass:PriceBuilderProcessPoENinjaResponse(resp)
-	if resp then
-		-- Populate the chaos-converted values for each tradeId
-		for currencyName, chaosEquivalent in pairs(resp) do
-			local currencyName = currencyName:lower()
-			if self.currencyConversionTradeMap[currencyName] then
-				self.pbCurrencyConversion[self.pbLeague][self.currencyConversionTradeMap[currencyName]] = chaosEquivalent
-			else
-				ConPrintf("Unhandled Currency Name: '"..currencyName.."'")
-			end
+--- @param responseLines table[]
+--- @return bool
+function TradeQueryClass:PriceBuilderProcessPoENinjaResponse(responseLines)
+	-- Populate the divine-converted values for each tradeId
+	for _, currencyDetails in ipairs(responseLines) do
+		-- these use the same ids as the trade site, which are also short
+		-- readable names, like "transmute" or "aug", which means there's no
+		-- need for conversion.
+		local id = currencyDetails.id
+		-- poe.ninja uses divs as the primary currency, and as far as I know,
+		-- this figure is equivalent to the best ratio in equivalent divs
+		local divs = currencyDetails.primaryValue
+		if not id or not divs then
+			self:SetNotice(self.controls.pbNotice, "Currencies not updated: malformed PoE Ninja response")
+			return false
 		end
-		-- if nothing was actually found, we should add a notice
-		if next(self.pbCurrencyConversion[self.pbLeague]) == nil then
-			self:SetNotice(self.controls.pbNotice, "No currencies received from PoE Ninja")
-		end
-	else
-		self:SetNotice(self.controls.pbNotice, "PoE Ninja JSON Processing Error")
+		self.pbCurrencyConversion[self.pbLeague][id] = divs
 	end
+	-- if nothing was actually found, we should add a notice
+	if next(self.pbCurrencyConversion[self.pbLeague]) == nil then
+		self:SetNotice(self.controls.pbNotice, "No currencies received from PoE Ninja")
+		return false
+	end
+	return true
 end
 
 local function initStatSortSelectionList(list)
@@ -250,35 +277,71 @@ function TradeQueryClass:PriceItem()
 		return #self.itemsTab.itemSetOrderList > 1
 	end
 
-	self.controls.poesessidButton = new("ButtonControl", {"TOPLEFT", self.controls.setSelect, "TOPLEFT"}, {0, row_height + row_vertical_padding, 188, row_height}, function() return main.POESESSID ~= "" and "^2Session Mode" or colorCodes.WARNING.."No Session Mode" end, function()
-		local poesessid_controls = {}
-		poesessid_controls.sessionInput = new("EditControl", nil, {0, 18, 350, 18}, main.POESESSID, nil, "%X", 32)
-		poesessid_controls.sessionInput:SetProtected(true)
-		poesessid_controls.sessionInput.placeholder = "Enter your session ID here"
-		poesessid_controls.sessionInput.tooltipText = "You can get this from your web browser's cookies while logged into the Path of Exile website."
-		poesessid_controls.save = new("ButtonControl", {"TOPRIGHT", poesessid_controls.sessionInput, "TOP"}, {-8, 24, 90, row_height}, "Save", function()
-			main.POESESSID = poesessid_controls.sessionInput.buf
-			main:ClosePopup()
+	self.loginStatus = function() 
+		if main.api.authToken then
+			self.clickTime = nil
+			return "Authenticated"
+		elseif self.clickTime then
+			local left = m_max(0,(self.clickTime + 30) - os.time())
+			if left == 0 then
+				self.clickTime = nil
+				return "Not authenticated"
+			else
+				return "Logging in... (" .. left .. ")"
+			end
+		else
+			return colorCodes.WARNING.."Not authenticated"
+		end
+	end
+
+	if main.api.authToken then
+		main.api:ValidateAuth(function(valid, _updateSettings)
+			if valid then
+				return
+			else
+				main.api:ResetDetails()
+			end
+		end)
+	end
+	self.controls.poesessidButton = new("ButtonControl", {"TOPLEFT", self.controls.setSelect, "TOPLEFT"}, {0, row_height + row_vertical_padding, 188, row_height}, self.loginStatus, function()
+		-- LOGIN
+		if not main.api.authToken then
+			main.api:FetchAuthToken(function()
+				if main.api.authToken then
+					self.loginStatus = "Authenticated"
+
+					main.lastToken = main.api.authToken
+					main.lastRefreshToken = main.api.refreshToken
+					main.tokenExpiry = main.api.tokenExpiry
+					main:SaveSettings()
+				else
+					self.loginStatus = colorCodes.WARNING.."Not authenticated"
+				end
+			end)
+			self.clickTime = os.time()
+		-- LOGOUT
+		else
+			main.lastToken = nil
+			main.api.authToken = nil
+			main.lastRefreshToken = nil
+			main.api.refreshToken = nil
+			main.tokenExpiry = nil
+			main.api.tokenExpiry = nil
 			main:SaveSettings()
-			self:UpdateRealms()
-		end)
-		poesessid_controls.save.enabled = function() return #poesessid_controls.sessionInput.buf == 32 or poesessid_controls.sessionInput.buf == "" end
-		poesessid_controls.cancel = new("ButtonControl", {"TOPLEFT", poesessid_controls.sessionInput, "TOP"}, {8, 24, 90, row_height}, "Cancel", function()
-			main:ClosePopup()
-		end)
-		main:OpenPopup(364, 72, "Change session ID", poesessid_controls)
+		end
 	end)
 	self.controls.poesessidButton.tooltipText = [[
-The Trader feature supports two modes of operation depending on the POESESSID availability.
-You can click this button to enter your POESESSID.
+The Trader feature supports two modes of operation depending on the authorization availability.
+You can click this button to authorize PoB by logging in.
 
 ^2Session Mode^7
-- Requires POESESSID.
+- Requires authorization on pathofexile.com.
 - You can search, compare, and quickly import items without leaving Path of Building.
+- You can select an item and search it directly.
 - You can generate and perform searches for the private leagues you are participating.
 
 ^xFF9922No Session Mode^7
-- Doesn't require POESESSID.
+- Doesn't require authorization.
 - You cannot search and compare items in Path of Building.
 - You can generate weighted search URLs but have to visit the trade site and manually import items.
 - You can only generate weighted searches for public leagues. (Generated searches can be modified
@@ -292,7 +355,7 @@ on trade site to work on other leagues and realms)]]
 		"In person (online)",
 		"Any (includes offline)"
 	}
-	
+
 	self.controls.tradeTypeSelection = new("DropDownControl", { "TOPLEFT", self.controls.poesessidButton, "BOTTOMLEFT" },
 		{ 0, row_vertical_padding, 188, row_height }, self.tradeTypes, function(index, value)
 			self.tradeTypeIndex = index
@@ -302,7 +365,7 @@ on trade site to work on other leagues and realms)]]
 
 	-- Fetches Box
 	self.maxFetchPerSearchDefault = 2
-	self.controls.fetchCountEdit = new("EditControl", {"TOPRIGHT", nil, "TOPRIGHT"}, {-12, 19, 154, row_height}, "", "Fetch Pages", "%D", 3, function(buf)
+	self.controls.fetchCountEdit = new("EditControl", {"TOPRIGHT", nil, "TOPRIGHT"}, {-12, 19, 150, row_height}, "", "Fetch Pages", "%D", 3, function(buf)
 		self.maxFetchPages = m_min(m_max(tonumber(buf) or self.maxFetchPerSearchDefault, 1), 10)
 		self.tradeQueryRequests.maxFetchPerSearch = 10 * self.maxFetchPages
 		self.controls.fetchCountEdit.focusValue = self.maxFetchPages
@@ -464,7 +527,27 @@ Highest Weight - Displays the order retrieved from trade]]
 		t_insert(slotTables, { slotName = self.itemsTab.sockets[nodeId].label, nodeId = nodeId })
 	end
 
-	self.controls.sectionAnchor = new("LabelControl", {"LEFT", self.controls.tradeTypeSelection, "LEFT"}, {0, row_vertical_padding + row_height, 0, 0}, "")
+	self.controls.authenticateButton = new("ButtonControl", {"TOPLEFT",self.controls.characterImportAnchor,"TOPLEFT"}, {0, 0, 200, 16}, "^7Authorize with Path of Exile", function()
+		main.api:FetchAuthToken(function()
+			if main.api.authToken then
+				self.charImportStatus = "Authenticated"
+
+				main.lastToken = main.api.authToken
+				main.lastRefreshToken = main.api.refreshToken
+				main.tokenExpiry = main.api.tokenExpiry
+				main:SaveSettings()
+			else
+				self.charImportStatus = colorCodes.WARNING.."Not authenticated"
+			end
+		end)
+		local clickTime = os.time()
+		self.charImportStatus = function() return "Logging in... (" .. m_max(0, (clickTime + 30) - os.time()) .. ")" end
+	end)
+	self.controls.authenticateButton.shown = function()
+		return self.charImportMode == "AUTHENTICATION"
+	end
+
+	self.controls.sectionAnchor = new("LabelControl", {"LEFT", self.controls.tradeTypeSelection, "LEFT"}, {0, row_vertical_padding, 0, 0}, "")
 	top_pane_alignment_ref = {"TOPLEFT", self.controls.sectionAnchor, "TOPLEFT"}
 	local scrollBarShown = #slotTables > 21 -- clipping starts beyond this
 	-- dynamically hide rows that are above or below the scrollBar
@@ -530,13 +613,17 @@ Highest Weight - Displays the order retrieved from trade]]
 		main:ClosePopup()
 		-- there's a case where if you have a socket(s) allocated, open TradeQuery, close it, dealloc, then open TradeQuery again
 		-- the deallocated socket controls were still showing, so this will remove all dynamically created controls from items
-		wipeItemControls()
+
+		-- later note: this is disabled because it causes the trader to crash if
+		-- it's closed mid-search
+		-- wipeItemControls()
 	end)
 
 	self.controls.updateCurrencyConversion = new("ButtonControl", {"BOTTOMLEFT", nil, "BOTTOMLEFT"}, {pane_margins_horizontal, -pane_margins_vertical, 240, row_height}, "Get Currency Conversion Rates", function()
 		self:PullPoENinjaCurrencyConversion(self.pbLeague)
 	end)
 	self.controls.pbNotice = new("LabelControl",  {"BOTTOMRIGHT", nil, "BOTTOMRIGHT"}, {-row_height - pane_margins_vertical - row_vertical_padding, -pane_margins_vertical, 300, row_height}, "")
+	self:SetCurrencyConversionButton()
 
 	-- used in PopupDialog:Draw()
 	local function scrollBarFunc()
@@ -791,10 +878,10 @@ function TradeQueryClass:UpdateControlsWithItems(row_idx)
 	local sortMode = self.itemSortSelectionList[self.pbItemSortSelectionIndex]
 	local sortedItems, errMsg = self:SortFetchResults(row_idx, sortMode)
 	if errMsg == "MissingConversionRates" then
-		self:SetNotice(self.controls.pbNotice, "^4Price sorting is not available, falling back to Stat Value sort.")
+		self:SetNotice(self.controls.pbNotice, "^4Please update currency rates to sort by price. Falling back to Stat Value sort.")
 		sortedItems, errMsg = self:SortFetchResults(row_idx, self.sortModes.StatValue)
-	end
-	if errMsg then
+		return
+	elseif errMsg then
 		self:SetNotice(self.controls.pbNotice, "Error: " .. errMsg)
 		return
 	else
@@ -837,19 +924,20 @@ function TradeQueryClass:SortFetchResults(row_idx, mode)
 		end
 		return sum
 	end
+	--- @return table<integer, number>?
 	local function getPriceTable()
-		local out = {}
-		local pricedItems = self:addChaosEquivalentPriceToItems(self.resultTbl[row_idx])
-		if pricedItems == nil then
-			return nil
+		--- @type table<integer, number>
+		local divPrices = {}	
+		for idx, item in ipairs(self.resultTbl[row_idx]) do
+			if item.currency and item.amount then
+				local divs = self:ConvertCurrencyToDivs(item.currency, item.amount)
+				if not divs then
+					return nil
+				end
+				divPrices[idx] = divs
+			else return nil end
 		end
-		for index, tbl in pairs(pricedItems) do
-			local chaosAmount = self:ConvertCurrencyToChaos(tbl.currency, tbl.amount)
-			if chaosAmount > 0 then
-				out[index] = chaosAmount
-			end
-		end
-		return out
+		return divPrices
 	end
 	local newTbl = {}
 	if mode == self.sortModes.Weight then
@@ -859,7 +947,6 @@ function TradeQueryClass:SortFetchResults(row_idx, mode)
 		return newTbl
 	elseif mode == self.sortModes.StatValue  then
 		for result_index = 1, #self.resultTbl[row_idx] do
-			--ConPrintf("%.3f", getResultWeight(result_index))
 			t_insert(newTbl, { outputAttr = getResultWeight(result_index), index = result_index })
 		end
 		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
@@ -879,7 +966,7 @@ function TradeQueryClass:SortFetchResults(row_idx, mode)
 			-- still seems to overrate very cheap items that are bad
 
 			-- scaling factor for price
-			local k = 0.03
+			local k = 0.1
 			t_insert(newTbl,
 				{ outputAttr = getResultWeight(result_index) - k * math.log(priceTable[result_index], 10), index =
 				result_index })
@@ -898,19 +985,6 @@ function TradeQueryClass:SortFetchResults(row_idx, mode)
 		return nil, "InvalidSort"
 	end
 	return newTbl
-end
-
---- Convert item prices to chaos equivalent using poeninja data, returns nil if fails to convert any
-function TradeQueryClass:addChaosEquivalentPriceToItems(items)
-	local outputItems = copyTable(items)
-	for _, item in ipairs(outputItems) do
-		local chaosAmount = self:ConvertCurrencyToChaos(item.currency, item.amount)
-		if chaosAmount == nil then
-			return nil
-		end
-		item.chaosEquivalent = chaosAmount
-	end
-	return outputItems
 end
 
 -- return valid slot for Watcher's Eye
@@ -935,7 +1009,6 @@ function TradeQueryClass:findValidSlotForWatchersEye()
 		end
 	end
 end
-
 -- Method to generate pane elements for each item slot
 function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, row_vertical_padding, row_height)
 	local controls = self.controls
@@ -955,8 +1028,8 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 			else
 				self:SetNotice(context.controls.pbNotice, "")
 			end
-			if main.POESESSID == nil or main.POESESSID == "" then
-				local url = self.tradeQueryRequests:buildUrl(self.hostName .. "trade/search", self.pbRealm, self.pbLeague)
+			if main.api.authToken == nil then
+				local url = self.tradeQueryRequests:buildUrl(self.hostName .. "trade2/search", self.pbRealm, self.pbLeague)
 				url = url .. "?q=" .. urlEncode(query)
 				controls["uri"..context.row_idx]:SetText(url, true)
 				return
@@ -1006,7 +1079,10 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 	end)
 	controls["bestButton"..row_idx].shown = function() return not self.resultTbl[row_idx] end
 	controls["bestButton"..row_idx].enabled = function() return self.pbLeague end
-	controls["bestButton"..row_idx].tooltipText = "Creates a weighted search to find the highest Stat Value items for this slot."
+	controls["bestButton"..row_idx].tooltipText = [[Creates a weighted search to find the highest Stat Value items for this slot.
+Note that even if you are authenticated, you can click this button again to show the search link.
+If you have additional requirements that the trade tool doesn't cover (e.g. Adorned Magic jewels),
+you can add them, copy the link here, and press "Price Item" to evaluate the items.]]
 	local pbURL
 	controls["uri"..row_idx] = new("EditControl", { "TOPLEFT", controls["bestButton"..row_idx], "TOPRIGHT"}, {8, 0, 514, row_height}, nil, nil, "^%C\t\n", nil, function(buf)
 		local subpath = buf:match(self.hostName .. "trade/search/(.+)$") or ""
@@ -1051,15 +1127,15 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 			end)
 		end)
 	controls["priceButton"..row_idx].enabled = function()
-		local poesessidAvailable = main.POESESSID and main.POESESSID ~= ""
+		local isAuthorized = main.api.authToken ~= nil
 		local validURL = controls["uri"..row_idx].validURL
 		local isSearching = controls["priceButton"..row_idx].label == "Searching..."
-		return poesessidAvailable and validURL and not isSearching
+		return isAuthorized and validURL and not isSearching
 	end
 	controls["priceButton"..row_idx].tooltipFunc = function(tooltip)
 		tooltip:Clear()
-		if not main.POESESSID or main.POESESSID == "" then
-			tooltip:AddLine(16, "You must set your POESESSID to use search feature")
+		if not main.api.authToken then
+			tooltip:AddLine(16, "You must log in to use the search feature")
 		elseif not controls["uri"..row_idx].validURL then
 			tooltip:AddLine(16, "Enter a valid trade URL")
 		end
@@ -1162,7 +1238,9 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 			local price = self.totalPrice[row_idx] and
 				self.totalPrice[row_idx].amount .. " " .. self.totalPrice[row_idx].currency
 
-			if itemResult.whisper then
+			-- we also check the price type so we can prefer instant buyout over
+			-- whisper
+			if itemResult.whisper and (itemResult.priceType ~= "~b/o") then
 				return price and "Whisper for " .. price or "Whisper"
 			else
 				return price and "Search for " .. price or "Search"
@@ -1170,7 +1248,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 
 		end, function()
 			local itemResult = self.itemIndexTbl[row_idx] and self.resultTbl[row_idx][self.itemIndexTbl[row_idx]]
-			if  itemResult.whisper then
+			if  itemResult.whisper and (itemResult.priceType ~= "~b/o") then
 				Copy(itemResult.whisper)
 			else
 				local exactQuery = dkjson.decode(self.lastQueries[row_idx])
@@ -1186,13 +1264,11 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 				exactQuery.query.filters.trade_filters.filters.account = { input = itemResult.trader }
 
 				local exactQueryStr = dkjson.encode(exactQuery)
-				
-				self.tradeQueryRequests:SearchWithQuery(self.pbRealm, self.pbLeague, exactQueryStr, function(_, _)
-				end, {callbackQueryId = function(queryId)
-					local url = self.hostName.."trade/search/"..self.pbLeague.."/"..queryId
-					Copy(url)
-					OpenURL(url)
-				end})
+
+				local encodedUrl = s_format("https://www.pathofexile.com/trade/search/%s?q=%s", self.pbLeague, urlEncode(exactQueryStr))
+
+				Copy(encodedUrl)
+				OpenURL(encodedUrl)
 			end
 		end)
 
@@ -1205,6 +1281,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 		tooltip:AddLine(16, text)
 	end
 end
+
 -- Method to update the Total Price string sum of all items
 function TradeQueryClass:GetTotalPriceString()
 	local text = ""
@@ -1244,38 +1321,26 @@ function TradeQueryClass:UpdateRealms()
 		self.controls.realm:SetSel(self.pbRealmIndex)
 	end
 
-	if main.POESESSID and main.POESESSID ~= "" then
-		-- Fetch from trade page using POESESSID, includes private leagues
-		ConPrintf("Fetching realms and leagues using POESESSID")
-		self.tradeQueryRequests:FetchRealmsAndLeaguesHTML(function(data, errMsg)
+	-- use trade leagues api to get trade leagues including private leagues is valid.
+	for _, realmId in pairs (self.realmIds) do
+		self.tradeQueryRequests:FetchLeagues(realmId, function(leagues, errMsg)
 			if errMsg then
-				self:SetNotice(self.controls.pbNotice, "Error while fetching league list: "..errMsg)
-				return
+				self:SetNotice(self.controls.pbNotice, "Using Fallback Error while fetching league list: "..errMsg)
 			end
-			local leagues = data.leagues
 			self.allLeagues = {}
-			for _, value in ipairs(leagues) do
-				if not self.allLeagues[value.realm] then self.allLeagues[value.realm] = {} end
-				t_insert(self.allLeagues[value.realm], value.id)
-			end
-			self.realmIds = {}
-			for _, value in pairs(data.realms) do
-				-- filter out only Path of Exile one realms, as poe2 is not supported yet
-				if value.text:match("PoE 1 ") then
-					self.realmIds[value.text:gsub("PoE 1 ", "")] = value.id
-				end
+			for _, league in ipairs(leagues) do
+				if not self.allLeagues[realmId] then self.allLeagues[realmId] = {} end
+				t_insert(self.allLeagues[realmId], league)
 			end
 			setRealmDropList()
 
 		end)
-	else
-		-- Fallback to static list
-		ConPrintf("Using static realms list")
-		self.realmIds = {
-			["PC"]   = "pc",
-			["PS4"]  = "sony",
-			["Xbox"] = "xbox",
-		}
-		setRealmDropList()
 	end
+
+	-- perform a generic search to make sure the authorization is valid.
+	self.tradeQueryRequests:PerformSearch("pc", "Standard", [[{"query":{"status":{"option":"online"},"stats":[{"type":"and","filters":[]}]},"sort":{"price":"asc"}}]], function(response, errMsg) 
+		if errMsg then
+			self:SetNotice(self.controls.pbNotice, "Error: " .. tostring(errMsg))
+		end
+	end)
 end
