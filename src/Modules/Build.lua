@@ -1789,6 +1789,10 @@ function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compare
 			if statData.stat == "FullDPS" and not compareOutput[statData.stat] then
 				diff = 0
 			end
+			if statData.statRequired then -- ReqInt, ReqStr, ReqDex, ReqOmni
+				local baseStat = statData.stat:gsub("Req", "")
+				diff = m_max(0, statVal2 - (compareOutput[baseStat] or 0)) -- if baseStat > requiredStat, we don't need to add a line for the requiredStat
+			end
 			if (diff > 0.001 or diff < -0.001) and (not statData.condFunc or statData.condFunc(statVal1,compareOutput) or statData.condFunc(statVal2,baseOutput)) then
 				if count == 0 then
 					tooltip:AddLine(14, header)
