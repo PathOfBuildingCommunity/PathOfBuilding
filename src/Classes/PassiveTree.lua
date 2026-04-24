@@ -103,7 +103,8 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	-- Build maps of class name -> class table
 	self.classNameMap = { }
 	self.ascendNameMap = { }
-	self.classNotables = { }
+	self.internalAscendNameMap = {}
+	self.classNotables = {}
 
 	for classId, class in pairs(self.classes) do
 		if versionNum >= 3.10 then
@@ -121,6 +122,14 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				flavourText = ascendClass.flavourText,
 				flavourTextRect = ascendClass.flavourTextRect,
 			}
+			if ascendClass.internalId then
+				self.internalAscendNameMap[ascendClass.internalId] = {
+					classId = classId,
+					class = class,
+					ascendClassId = ascendClassId,
+					ascendClass = ascendClass
+				}
+			end
 		end
 	end
 	

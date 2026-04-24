@@ -3,6 +3,7 @@
 -- It can be run using a standard lua interpreter, although LuaJIT is preferable
 
 
+
 -- Callbacks
 local callbackTable = { }
 local mainObject
@@ -212,11 +213,15 @@ function loadBuildFromXML(xmlText, name)
 	mainObject.main:SetMode("BUILD", false, name or "", xmlText)
 	runCallback("OnFrame")
 end
-function loadBuildFromJSON(getItemsJSON, getPassiveSkillsJSON)
+function loadBuildFromJSON(characterJSON)
 	mainObject.main:SetMode("BUILD", false, "")
 	runCallback("OnFrame")
-	local charData = build.importTab:ImportItemsAndSkills(getItemsJSON)
-	build.importTab:ImportPassiveTreeAndJewels(getPassiveSkillsJSON, charData)
+	-- characterJSON could, for example, be the response from the PoE API:
+	-- https://www.pathofexile.com/developer/docs/reference#characters-get
+	local dkjson = require "dkjson"
+	local input = dkjson.decode(characterJSON)
+	local charData = build.importTab:ImportItemsAndSkills(input)
+	build.importTab:ImportPassiveTreeAndJewels(input)
 	-- You now have a build without a correct main skill selected, or any configuration options set
 	-- Good luck!
 end
