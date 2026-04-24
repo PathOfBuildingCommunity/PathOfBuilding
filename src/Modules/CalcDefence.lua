@@ -84,8 +84,13 @@ function calcs.applyDmgTakenConversion(activeSkill, output, breakdown, sourceTyp
 			local reductMult = 1
 
 			local percentOfArmourApplies = m_min((not activeSkill.skillModList:Flag(nil, "ArmourDoesNotApplyTo"..damageType.."DamageTaken") and activeSkill.skillModList:Sum("BASE", nil, "ArmourAppliesTo"..damageType.."DamageTaken") or 0), 100)
-			if percentOfArmourApplies > 0 then
+			local physicalReductionBasedOnWard = damageType == "Physical" and activeSkill.skillModList:Flag(nil, "PhysicalReductionBasedOnWard")
+			if percentOfArmourApplies > 0 or physicalReductionBasedOnWard then
 				local effArmour = (output.Armour * percentOfArmourApplies / 100) * (1 + output.ArmourDefense)
+				if physicalReductionBasedOnWard then
+					local multiplier = activeSkill.skillModList:Override(nil, "PhysicalReductionBasedOnWardPercent") / 100
+					effArmour = output.Ward * multiplier
+				end
 				local effDamage = damage * resMult
 				armourReduct = round(effArmour ~= 0 and damage * resMult ~= 0 and (effArmour / (effArmour + effDamage * 5) * 100) or 0)
 				armourReduct = m_min(output.DamageReductionMax, armourReduct)
@@ -471,42 +476,40 @@ local function incomingDamageBreakdown(breakdownTable, poolsRemaining, output)
 	return breakdownTable
 end
 
--- Performs all ingame and related defensive calculations
-function calcs.defence(env, actor)
+-- Performs defensive calculations used by conditionals
+function calcs.defenceForConditionals(env, actor)
 	local modDB = actor.modDB
-	local enemyDB = actor.enemy.modDB
 	local output = actor.output
-	local breakdown = actor.breakdown
 
-	local condList = modDB.conditions
-
-	-- Action Speed
-	output.ActionSpeedMod = calcs.actionSpeedMod(actor)
-	
 	-- Armour defence types for conditionals
 	for _, slot in pairs({"Helmet","Gloves","Boots","Body Armour","Weapon 2","Weapon 3"}) do
 		local armourData = actor.itemList[slot] and actor.itemList[slot].armourData
 		if armourData then
-			wardBase = not modDB:Flag(nil, "GainNoWardFrom" .. slot) and armourData.Ward or 0
+			local wardBase = not modDB:Flag(nil, "GainNoWardFrom" .. slot) and armourData.Ward or 0
 			if wardBase > 0 then
 				output["WardOn"..slot] = wardBase
 			end
-			energyShieldBase = not modDB:Flag(nil, "GainNoEnergyShieldFrom" .. slot) and armourData.EnergyShield or 0
+			local energyShieldBase = not modDB:Flag(nil, "GainNoEnergyShieldFrom" .. slot) and armourData.EnergyShield or 0
 			if energyShieldBase > 0 then
 				output["EnergyShieldOn"..slot] = energyShieldBase
 			end
-			armourBase = not modDB:Flag(nil, "GainNoArmourFrom" .. slot) and armourData.Armour or 0
+			local armourBase = not modDB:Flag(nil, "GainNoArmourFrom" .. slot) and armourData.Armour or 0
 			if armourBase > 0 then
 				output["ArmourOn"..slot] = armourBase
 			end
-			evasionBase = not modDB:Flag(nil, "GainNoEvasionFrom" .. slot) and armourData.Evasion or 0
+			local evasionBase = not modDB:Flag(nil, "GainNoEvasionFrom" .. slot) and armourData.Evasion or 0
 			if evasionBase > 0 then
 				output["EvasionOn"..slot] = evasionBase
 			end
 		end
 	end
+end
 
-	-- Resistances
+-- Performs resistance calculations
+function calcs.resistances(actor)
+	local modDB = actor.modDB
+	local output = actor.output
+	local breakdown = actor.breakdown
 	output["PhysicalResist"] = 0
 	
 	-- Process Resistance conversion mods
@@ -529,7 +532,7 @@ function calcs.defence(env, actor)
 			end
 		end
 	end
-	
+
 	for _, resFrom in ipairs(resistTypeList) do
 		local res
 		for _, resTo in ipairs(resistTypeList) do
@@ -605,9 +608,6 @@ function calcs.defence(env, actor)
 		local dotFinal = m_max(m_min(dotTotal, max), min)
 		local totemFinal = m_max(m_min(totemTotal, totemMax), min)
 		
-		if env.minion and modDB:Sum("BASE", nil, "ResistanceAddedToMinions") > 0 then
-			env.minion.modDB:NewMod(elem.."Resist", "BASE", m_floor(final * modDB:Sum("BASE", nil, "ResistanceAddedToMinions") / 100), "Player")
-		end
 
 		output[elem.."Resist"] = final
 		output[elem.."ResistTotal"] = total
@@ -632,8 +632,29 @@ function calcs.defence(env, actor)
 			}
 		end
 	end
-	-- Formless Inferno, Foulborn Choir of the Storm
-	if actor == env.minion or actor == env.player then
+end
+
+-- Performs all ingame and related defensive calculations
+function calcs.defence(env, actor)
+	local modDB = actor.modDB
+	local enemyDB = actor.enemy.modDB
+	local output = actor.output
+	local breakdown = actor.breakdown
+
+	local condList = modDB.conditions
+
+	-- Action Speed
+	output.ActionSpeedMod = calcs.actionSpeedMod(actor)
+
+	calcs.resistances(actor)
+	if env.minion and modDB:Sum("BASE", nil, "ResistanceAddedToMinions") > 0 then
+		for _, elem in ipairs(resistTypeList) do
+			local final = output[elem.."Resist"]
+			env.minion.modDB:NewMod(elem.."Resist", "BASE", m_floor(final * modDB:Sum("BASE", nil, "ResistanceAddedToMinions") / 100), "Player")
+		end
+	end
+	-- Formless Inferno
+	if actor == env.minion then
 		doActorLifeMana(actor)
 		doActorLifeManaReservation(actor)
 	end
@@ -823,7 +844,18 @@ function calcs.defence(env, actor)
 			local armourData = actor.itemList[slot] and actor.itemList[slot].armourData
 			if armourData then
 				slotCfg.slotName = slot
+				energyShieldBase = not modDB:Flag(nil, "GainNoEnergyShieldFrom" .. slot) and armourData.EnergyShield or 0
+				armourBase = not modDB:Flag(nil, "GainNoArmourFrom" .. slot) and armourData.Armour or 0
+				evasionBase = not modDB:Flag(nil, "GainNoEvasionFrom" .. slot) and armourData.Evasion or 0
 				wardBase = not modDB:Flag(nil, "GainNoWardFrom" .. slot) and armourData.Ward or 0
+				if slot == "Body Armour" and modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard") then
+					local conversion = m_min(modDB:Sum("BASE", nil, "BodyArmourArmourEvasionToWardPercent") / 100, 1)
+					local convertedArmour = armourBase *  conversion
+					local convertedEvasion = evasionBase *  conversion
+					armourBase = armourBase - convertedArmour
+					evasionBase = evasionBase - convertedEvasion
+					wardBase = wardBase + (convertedEvasion + convertedArmour)
+				end
 				if wardBase > 0 then
 					if modDB:Flag(nil, "EnergyShieldToWard") then
 						local inc = modDB:Sum("INC", slotCfg, "Ward", "Defences", "EnergyShield")
@@ -848,7 +880,6 @@ function calcs.defence(env, actor)
 						end
 					end
 				end
-				energyShieldBase = not modDB:Flag(nil, "GainNoEnergyShieldFrom" .. slot) and armourData.EnergyShield or 0
 				if energyShieldBase > 0 then
 					if modDB:Flag(nil, "EnergyShieldToWard") then
 						local more = modDB:More(slotCfg, "EnergyShield", "Defences")
@@ -871,22 +902,14 @@ function calcs.defence(env, actor)
 						end
 					end
 				end
-				armourBase = not modDB:Flag(nil, "GainNoArmourFrom" .. slot) and armourData.Armour or 0
 				if armourBase > 0 then
-					if slot == "Body Armour" and modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard")then
-						armourBase = armourBase * (1 - ((m_min(modDB:Sum("BASE", nil, "BodyArmourArmourEvasionToWardPercent"), 100) or 0) / 100))
-					end
 					armour = armour + armourBase * calcLib.mod(modDB, slotCfg, "Armour", "ArmourAndEvasion", "Defences", slot.."ESAndArmour")
 					gearArmour = gearArmour + armourBase
 					if breakdown then
 						breakdown.slot(slot, nil, slotCfg, armourBase, nil, "Armour", "ArmourAndEvasion", "Defences", slot.."ESAndArmour")
 					end
 				end
-				evasionBase = not modDB:Flag(nil, "GainNoEvasionFrom" .. slot) and armourData.Evasion or 0
 				if evasionBase > 0 then
-					if slot == "Body Armour" and modDB:Flag(nil, "ConvertBodyArmourArmourEvasionToWard")then
-						evasionBase = evasionBase * (1 - ((m_min(modDB:Sum("BASE", nil, "BodyArmourArmourEvasionToWardPercent"), 100) or 0) / 100))
-					end
 					gearEvasion = gearEvasion + evasionBase
 					if breakdown then
 						breakdown.slot(slot, nil, slotCfg, evasionBase, nil, "Evasion", "ArmourAndEvasion", "Defences")
@@ -1050,9 +1073,18 @@ function calcs.defence(env, actor)
 			local enemyAccuracy = round(calcLib.val(enemyDB, "Accuracy"))
 			local evadeChance = modDB:Sum("BASE", nil, "EvadeChance")
 			local hitChance = calcLib.mod(enemyDB, nil, "HitChance")
-			output.EvadeChance = 100 - (calcs.hitChance(output.Evasion, enemyAccuracy) - evadeChance) * hitChance
-			output.MeleeEvadeChance = m_max(0, m_min(data.misc.EvadeChanceCap, (100 - (calcs.hitChance(output.MeleeEvasion, enemyAccuracy) - evadeChance) * hitChance) * calcLib.mod(modDB, nil, "EvadeChance", "MeleeEvadeChance")))
-			output.ProjectileEvadeChance = m_max(0, m_min(data.misc.EvadeChanceCap, (100 - (calcs.hitChance(output.ProjectileEvasion, enemyAccuracy) - evadeChance) * hitChance) * calcLib.mod(modDB, nil, "EvadeChance", "ProjectileEvadeChance")))
+			local evadeStat = output.Evasion
+			local meleeEvadeStat= output.MeleeEvasion
+			local projectileEvadeStat= output.ProjectileEvasion
+			if modDB:Flag(nil, "EvadeChanceBasedOnWard") then
+				local multiplier = modDB:Override(nil, "EvadeChanceBasedOnWardPercent") / 100
+				evadeStat = output.Ward * multiplier
+				meleeEvadeStat = evadeStat
+				projectileEvadeStat = evadeStat
+			end
+			output.EvadeChance = 100 - (calcs.hitChance(evadeStat, enemyAccuracy) - evadeChance) * hitChance
+			output.MeleeEvadeChance = m_max(0, m_min(data.misc.EvadeChanceCap, (100 - (calcs.hitChance(meleeEvadeStat, enemyAccuracy) - evadeChance) * hitChance) * calcLib.mod(modDB, nil, "EvadeChance", "MeleeEvadeChance")))
+			output.ProjectileEvadeChance = m_max(0, m_min(data.misc.EvadeChanceCap, (100 - (calcs.hitChance(projectileEvadeStat, enemyAccuracy) - evadeChance) * hitChance) * calcLib.mod(modDB, nil, "EvadeChance", "ProjectileEvadeChance")))
 			-- Condition for displaying evade chance only if melee or projectile evade chance have the same values
 			if output.MeleeEvadeChance ~= output.ProjectileEvadeChance then
 				output.splitEvade = true
@@ -1069,13 +1101,13 @@ function calcs.defence(env, actor)
 				breakdown.MeleeEvadeChance = {
 					s_format("Enemy level: %d ^8(%s the Configuration tab)", env.enemyLevel, env.configInput.enemyLevel and "overridden from" or "can be overridden in"),
 					s_format("Average enemy accuracy: %d", enemyAccuracy),
-					s_format("Effective Evasion: %d", output.MeleeEvasion),
+					s_format("Effective Evasion: %d", meleeEvadeStat),
 					s_format("Approximate melee evade chance: %d%%", output.MeleeEvadeChance),
 				}
 				breakdown.ProjectileEvadeChance = {
 					s_format("Enemy level: %d ^8(%s the Configuration tab)", env.enemyLevel, env.configInput.enemyLevel and "overridden from" or "can be overridden in"),
 					s_format("Average enemy accuracy: %d", enemyAccuracy),
-					s_format("Effective Evasion: %d", output.ProjectileEvasion),
+					s_format("Effective Evasion: %d", projectileEvadeStat),
 					s_format("Approximate projectile evade chance: %d%%", output.ProjectileEvadeChance),
 				}
 			end
@@ -1251,7 +1283,9 @@ function calcs.defence(env, actor)
 			output[resource.."Regen"] = regenRate
 		end
 		output[resource.."RegenInc"] = inc
-		local baseDegen = (modDB:Sum("BASE", nil, resource.."Degen") + pool * modDB:Sum("BASE", nil, resource.."DegenPercent") / 100)
+		local baseDegen = modDB:Sum("BASE", nil, resource.."Degen") + (pool * modDB:Sum("BASE", nil, resource.."DegenPercent") / 100)
+		local tinctureDegenPercent = modDB:Sum("BASE", nil, resource.."DegenPercentTincture")
+		baseDegen = baseDegen +	m_max(pool * tinctureDegenPercent / 100, tinctureDegenPercent) -- tincture minimum 1 degen per stack
 		local degenRate = (baseDegen > 0) and baseDegen * calcLib.mod(modDB, nil, resource.."Degen") or 0
 		output[resource.."Degen"] = degenRate
 		local recoveryRate = modDB:Sum("BASE", nil, resource.."Recovery") * recoveryRateMod
@@ -1703,10 +1737,11 @@ function calcs.buildDefenceEstimations(env, actor)
 				-- Calculate the amount converted/gained as
 				for _, damageTypeTo in ipairs(dmgTypeList) do
 					local gainAsPercent = enemyDB:Sum("BASE", enemyCfg, (damageType.."DamageGainAs"..damageTypeTo)) / 100
-					local conversionPercent = (conversions[damageTypeTo.."skill"] + conversions[damageTypeTo]) / 100
-					if conversionPercent > 0 and damageType == "Physical" and damageTypeTo ~= "Chaos" then
+					local conversionPercent = conversions[damageTypeTo] / 100
+					local skillConversionPercent = conversions[damageTypeTo.."skill"] / 100
+					if skillConversionPercent > 0 and damageType == "Physical" and damageTypeTo ~= "Chaos" then
 						local physBonus = 1 + data.monsterPhysConversionMultiTable[env.enemyLevel] / 100
-						conversionPercent = conversionPercent * physBonus
+						conversionPercent = conversionPercent + skillConversionPercent * physBonus
 					end
 					if gainAsPercent > 0 or conversionPercent > 0 then
 						enemyDamageConversion[damageTypeTo] = enemyDamageConversion[damageTypeTo] or { }
@@ -1921,6 +1956,11 @@ function calcs.buildDefenceEstimations(env, actor)
 		local impaleArmourReduct = 0
 		local percentOfArmourApplies = m_min((not modDB:Flag(nil, "ArmourDoesNotApplyTo"..damageType.."DamageTaken") and modDB:Sum("BASE", nil, "ArmourAppliesTo"..damageType.."DamageTaken") or 0), 100)
 		local effectiveAppliedArmour = (output.Armour * percentOfArmourApplies / 100) * (1 + output.ArmourDefense)
+		local physicalReductionBasedOnWard = damageType == "Physical" and modDB:Flag(nil, "PhysicalReductionBasedOnWard")
+		if physicalReductionBasedOnWard then
+			local multiplier = modDB:Override(nil, "PhysicalReductionBasedOnWardPercent") / 100
+			effectiveAppliedArmour = output.Ward * multiplier
+		end
 		local resMult = 1 - (resist - enemyPen) / 100
 		local reductMult = 1
 		local takenFlat = modDB:Sum("BASE", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
@@ -1932,7 +1972,7 @@ function calcs.buildDefenceEstimations(env, actor)
 			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks") / 2 + modDB:Sum("BASE", nil, damageType.."DamageTakenFromProjectileAttacks") / 4 + modDB:Sum("BASE", nil, "DamageTakenFromSpells", damageType.."DamageTakenFromSpells") / 2 + modDB:Sum("BASE", nil, "DamageTakenFromSpellProjectiles", damageType.."DamageTakenFromSpellProjectiles") / 4
 		end
 		output[damageType.."takenFlat"] = takenFlat
-		if percentOfArmourApplies > 0 then
+		if percentOfArmourApplies > 0 or physicalReductionBasedOnWard then
 			armourReduct = calcs.armourReduction(effectiveAppliedArmour, damage * resMult)
 			armourReduct = m_min(output.DamageReductionMax, armourReduct)
 			if impaleDamage > 0 then
@@ -1954,7 +1994,7 @@ function calcs.buildDefenceEstimations(env, actor)
 				else
 					t_insert(breakdown[damageType.."DamageReduction"], s_format("Enemy Hit Damage: %d ^8(total incoming damage)", damage))
 				end
-				if percentOfArmourApplies ~= 100 then
+				if percentOfArmourApplies ~= 100 and not physicalReductionBasedOnWard then
 					t_insert(breakdown[damageType.."DamageReduction"], s_format("%d%% percent of armour applies", percentOfArmourApplies))
 				end
 				t_insert(breakdown[damageType.."DamageReduction"], s_format("Reduction from Armour: %d%%", armourReduct))
@@ -2014,7 +2054,7 @@ function calcs.buildDefenceEstimations(env, actor)
 				else
 					t_insert(breakdown[damageType.."TakenHitMult"], s_format("Enemy Hit Damage: %d ^8(total incoming damage)", damage))
 				end
-				if percentOfArmourApplies ~= 100 then
+				if percentOfArmourApplies ~= 100 and not physicalReductionBasedOnWard then
 					t_insert(breakdown[damageType.."TakenHitMult"], s_format("%d%% percent of armour applies", percentOfArmourApplies))
 				end
 				t_insert(breakdown[damageType.."TakenHitMult"], s_format("Reduction from Armour: %.2f", 1 - armourReduct / 100))
@@ -2661,7 +2701,10 @@ function calcs.buildDefenceEstimations(env, actor)
 		if poolTable.Life >= 0 and damageTotal >= maxDamage then -- If still living and the amount of damage exceeds maximum threshold we survived infinite number of hits.
 			return m_huge
 		end
-		return numHits
+		if numHits ~= numHits then
+			return 0
+		end
+		return m_max(numHits, 0)
 	end
 	
 	if damageCategoryConfig ~= "DamageOverTime" then
@@ -3121,9 +3164,12 @@ function calcs.buildDefenceEstimations(env, actor)
 					local damageConvertedMulti = convertPercent / 100
 					local totalHitPool = output[damageConvertedType.."TotalHitPool"]
 					local totalTakenMulti = output[damageConvertedType.."AfterReductionTakenHitMulti"] * (1 - output["VaalArcticArmourMitigation"])
-
-					if effectiveAppliedArmour == 0 and convertPercent == 100 then	-- use a simpler calculation for no armour DR
-						local drMulti = output[damageConvertedType.."ResistTakenHitMulti"] * (1 - output[damageConvertedType.."DamageReduction"] / 100)
+					if damageConvertedMulti <= 0 then
+						local takenWithoutIncoming = m_max(takenFlat, 0) * totalTakenMulti
+						hitTaken = takenWithoutIncoming >= totalHitPool and 0 or m_huge
+					elseif effectiveAppliedArmour == 0 and convertPercent == 100 then -- use a simpler calculation for no armour DR
+						local totalResistMult = output[damageConvertedType.."ResistTakenHitMulti"]
+						local drMulti = totalResistMult * (1 - output[damageConvertedType.."DamageReduction"] / 100)
 						hitTaken = m_max(totalHitPool / damageConvertedMulti / drMulti - takenFlat, 0) / totalTakenMulti
 					else
 						-- get relevant raw reductions and reduction modifiers
@@ -3154,7 +3200,7 @@ function calcs.buildDefenceEstimations(env, actor)
 						local b = ((enemyOverwhelmPercent / 100 - flatDR) * effectiveAppliedArmour * totalTakenMulti - 5 * (totalHitPool - takenFlat * totalTakenMulti)) * resistXConvert
 						local c = -effectiveAppliedArmour * (totalHitPool - takenFlat * totalTakenMulti)
 
-						local RAW = (m_sqrt(b * b - 4 * a * c) - b) / (2 * a)
+						local RAW = a ~= 0 and (m_sqrt(m_max(b * b - 4 * a * c, 0)) - b) / (2 * a) or m_huge
 
 						-- tack on some caps
 						local noDRMaxHit = totalHitPool / damageConvertedMulti / totalResistMult / totalTakenMulti * (1 - takenFlat * totalTakenMulti / totalHitPool)
@@ -3180,9 +3226,18 @@ function calcs.buildDefenceEstimations(env, actor)
 					local passOverkill = passPools.OverkillDamage - passPools.hitPoolRemaining
 					local passRatio = 0
 					for partType, _ in pairs(passDamages) do
-						passRatio = m_max(passRatio, (passOverkill + output[partType.."TotalHitPool"]) / output[partType.."TotalHitPool"])
+						local partPool = output[partType.."TotalHitPool"] or 0
+						if partPool > 0 then
+							passRatio = m_max(passRatio, (passOverkill + partPool) / partPool)
+						end
 					end
-					local stepSize = n > 1 and m_min(m_abs((passOverkill - previousOverkill) / previousOverkill), 2) or 1
+					if passRatio <= 0 then
+						passRatio = 1
+					end
+					local stepSize = 1
+					if n > 1 and previousOverkill and previousOverkill ~= 0 and previousOverkill == previousOverkill then
+						stepSize = m_min(m_abs((passOverkill - previousOverkill) / previousOverkill), 2)
+					end
 					local stepAdjust = stepSize > 1 and -passOverkill / stepSize or n > 1 and -passOverkill * stepSize or 0
 					previousOverkill = passOverkill
 					passIncomingDamage = (passIncomingDamage + stepAdjust) / m_sqrt(passRatio)

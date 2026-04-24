@@ -238,7 +238,8 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					end
 					-- This is a fix to prevent skills such as Absolution or Dominating Blow from being counted multiple times when increasing minions count
 					if (activeSkill.activeEffect.grantedEffect.name:match("Absolution") and fullEnv.modDB:Flag(false, "Condition:AbsolutionSkillDamageCountedOnce"))
-						or (activeSkill.activeEffect.grantedEffect.name:match("Dominating Blow") and fullEnv.modDB:Flag(false, "Condition:DominatingBlowSkillDamageCountedOnce")) then
+						or (activeSkill.activeEffect.grantedEffect.name:match("Dominating Blow") and fullEnv.modDB:Flag(false, "Condition:DominatingBlowSkillDamageCountedOnce"))
+						or (activeSkill.activeEffect.grantedEffect.name:match("Holy Strike") and fullEnv.modDB:Flag(false, "Condition:HolyStrikeSkillDamageCountedOnce"))then
 						activeSkillCount = 1
 						activeSkill.infoMessage2 = "Skill Damage"
 					end
@@ -393,7 +394,7 @@ function calcs.buildActiveSkill(env, mode, skill, targetUUID, limitedProcessingF
 	-- env.limitedSkills contains a map of uuids that should be limited in calculation
 	-- this is in order to prevent infinite recursion loops
 	fullEnv.limitedSkills = fullEnv.limitedSkills or {}
-	for _, uuid in ipairs(env.limitedSkills or {}) do
+	for uuid, _ in pairs(env.limitedSkills or {}) do
 		fullEnv.limitedSkills[uuid] = true
 	end
 	for _, uuid in ipairs(limitedProcessingFlags or {}) do
@@ -720,6 +721,15 @@ function calcs.buildOutput(build, mode)
 		end
 		if env.modDB:Flag(nil, "GloomShrine") then
 			t_insert(combatList, "Gloom Shrine")
+		end
+		if env.modDB:Flag(nil, "GreaterFreezingShrine") then
+			t_insert(combatList, "Greater Freezing Shrine")
+		end
+		if env.modDB:Flag(nil, "GreaterShockingShrine") then
+			t_insert(combatList, "Greater Shocking Shrine")
+		end
+		if env.modDB:Flag(nil, "GreaterSkeletalShrine") then
+			t_insert(combatList, "Greater Skeletal Shrine")
 		end
 		if env.modDB:Flag(nil, "ImpenetrableShrine") then
 			t_insert(combatList, "Impenetrable Shrine")

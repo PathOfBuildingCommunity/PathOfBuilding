@@ -56,7 +56,8 @@ colorCodes = {
 	BRITTLEBG = "^x00122b",
 	SAPBG = "^x261500",
 	SCOURGE = "^xFF6E25",
-	CRUCIBLE = "^xFFA500"
+	CRUCIBLE = "^xFFA500",
+	SPLITPERSONALITY = "^xFFD62A"
 }
 colorCodes.STRENGTH = colorCodes.MARAUDER
 colorCodes.DEXTERITY = colorCodes.RANGER
@@ -139,6 +140,7 @@ KeywordFlag.Lightning =	0x00000080
 KeywordFlag.Chaos =		0x00000100
 KeywordFlag.Vaal =		0x00000200
 KeywordFlag.Bow =		0x00000400
+KeywordFlag.Arrow =		0x00000800
 -- Skill types
 KeywordFlag.Trap =		0x00001000
 KeywordFlag.Mine =		0x00002000
@@ -332,11 +334,11 @@ SkillType = {
 	DynamicCooldown = 121,
 	Microtransaction = 122,
 	OwnerCannotUse = 123,
-	ProjectilesNotFired = 124,
+	ProjectilesNumberModifiersNotApplied = 124,
 	TotemsAreBallistae = 125,
 	SkillGrantedBySupport = 126,
 	PreventHexTransfer = 127,
-	MinionsAreUndamageable = 128,
+	MinionsAreUndamagable = 128,
 	InnateTrauma = 129,
 	DualWieldRequiresDifferentTypes = 130,
 	NoVolley = 131,
@@ -347,6 +349,9 @@ SkillType = {
 	Offering = 136,
 	SupportedByBane = 137,
 	WandAttack = 138,
+	GainsIntensity = 139,
+	CreatesSentinelMinion = 140,
+	SupportedByAutoExertion = 141,
 }
 
 GlobalCache = { 

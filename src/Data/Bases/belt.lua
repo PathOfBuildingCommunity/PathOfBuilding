@@ -98,6 +98,14 @@ itemBases["Stygian Vise"] = {
 	implicitModTypes = { {  }, },
 	req = { },
 }
+itemBases["Cord Belt"] = {
+	type = "Belt",
+	tags = { belt = true, default = true, not_for_sale = true, },
+	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
+	implicit = "Can be Anointed",
+	implicitModTypes = { {  }, },
+	req = { },
+}
 
 itemBases["Golden Obi"] = {
 	type = "Belt",

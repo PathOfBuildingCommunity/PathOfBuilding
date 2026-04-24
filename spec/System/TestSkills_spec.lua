@@ -13,11 +13,11 @@ describe("TestAttacks", function()
 		runCallback("OnFrame")
 		assert.are.equals(205, build.calcsTab.mainEnv.minion.modDB:Sum("BASE", build.calcsTab.mainEnv.minion.mainSkill.skillCfg, "ChaosMin"))
 
-		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nAwakened Generosity 4/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nAwakened Generosity 4/0  1\n")
 		runCallback("OnFrame")
 		assert.are.equals(round(205 * 1.43), build.calcsTab.mainEnv.minion.modDB:Sum("BASE", build.calcsTab.mainEnv.minion.mainSkill.skillCfg, "ChaosMin"))
 
-		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nAwakened Generosity 5/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nAwakened Generosity 5/0  1\n")
 		runCallback("OnFrame")
 		-- No Envy level increase, so base should still be 205
 		assert.are.equals(round(205 * 1.44), build.calcsTab.mainEnv.minion.modDB:Sum("BASE", build.calcsTab.mainEnv.minion.mainSkill.skillCfg, "ChaosMin"))
@@ -43,10 +43,10 @@ describe("TestAttacks", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Mirage Archer 20/0 Default  1\nRain of Arrows 20/0 Default  1\nManaforged Arrows 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Mirage Archer 20/0  1\nRain of Arrows 20/0  1\nManaforged Arrows 20/0  1\n")
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Toxic Rain 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Toxic Rain 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.MirageDPS ~= nil)
@@ -71,14 +71,14 @@ describe("TestAttacks", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Power Siphon 20/0 Default  1\nSacred Wisps 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Power Siphon 20/0  1\nSacred Wisps 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.MirageDPS ~= nil)
 	end)
 	
 	it("Test Scorching ray applying exposure at max stages", function()
-		build.skillsTab:PasteSocketGroup("Scorching Ray 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Scorching Ray 20/0  1\n")
 		runCallback("OnFrame")
 		
 		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
@@ -101,7 +101,7 @@ describe("TestAttacks", function()
 	end)
 
 	it("Test Adrenaline affecting blight max stage count", function()
-		build.skillsTab:PasteSocketGroup("Blight 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Blight 20/0  1\n")
 		runCallback("OnFrame")
 		
 		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
