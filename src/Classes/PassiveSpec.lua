@@ -1929,7 +1929,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 				if proxyGroup == data.group then
 					if node.oidx == data.orbitIndex and not data.isMastery then
 						for _, extendedId in ipairs(importedGroups[proxyGroup].nodes) do
-							if id == tonumber(extendedId) and inExtendedHashes(id) then
+							if id == extendedId and inExtendedHashes(tonumber(id)) then
 								return true
 							end
 						end
