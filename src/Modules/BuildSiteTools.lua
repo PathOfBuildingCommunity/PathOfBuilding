@@ -86,7 +86,8 @@ function buildSites.DownloadBuild(link, websiteInfo, callback)
 	-- Only called on program start via protocol handler
 	if not websiteInfo then
 		-- Inline build code: pob://code/<base64url-build-code> — no HTTP fetch.
-		local inlineCode = link:match("^pob:[/\\]*code[/\\]+(.+)")
+		-- "code" is a reserved id; do not add a websiteList entry with id = "code".
+		local inlineCode = link:match("^pob:[/\\]*code[/\\]+([%w_%-]+=?=?)$")
 		if inlineCode then
 			callback(true, inlineCode, link)
 			return
