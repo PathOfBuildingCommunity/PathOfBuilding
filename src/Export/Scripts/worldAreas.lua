@@ -115,12 +115,18 @@ end
 -- Step 3: EndGameMaps
 for map in dat("Maps"):Rows() do
 	local areaRefs = {}
+	if map.Regular_WorldAreasKey then
+		table.insert(areaRefs, map.Regular_WorldAreasKey)
+	end
+	if map.Unique_WorldAreasKey then
+		table.insert(areaRefs, map.Unique_WorldAreasKey)
+	end
 	for _, area in ipairs(areaRefs) do
 		local areaId = area.Id
 		areaIdToMonsters[areaId] = areaIdToMonsters[areaId] or {}
 		local seen = areaIdToMonsters[areaId .. "_seen"] or {}
-		if map.NativePacks then
-			for _, pack in ipairs(map.NativePacks) do
+		if map.MonsterPacksKey then
+			for _, pack in ipairs(map.MonsterPacksKey) do
 				for _, name in ipairs(packIdToMonsters[pack.Id] or {}) do
 					if not seen[name] then
 						table.insert(areaIdToMonsters[areaId], name)

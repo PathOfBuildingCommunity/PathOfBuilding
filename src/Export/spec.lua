@@ -7704,7 +7704,7 @@ return {
 			name="MonsterPacksKey",
 			refTo="MonsterPacks",
 			type="Key",
-			width=250
+			width=270
 		},
 		[6]={
 			list=false,
@@ -7753,7 +7753,7 @@ return {
 			name="MapsKey3",
 			refTo="Maps",
 			type="ShortKey",
-			width=150
+			width=350
 		},
 		[13]={
 			list=false,

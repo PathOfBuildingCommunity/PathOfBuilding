@@ -7745,6 +7745,12 @@ worldAreas["MapTier1_1"] = {
 	level = 66,
 	isMap = true,
 	monsterVarieties = {
+		"Bone Husk",
+		"Brittle Poacher",
+		"Frost Harbinger",
+		"Plagued Bowman",
+		"Sparking Mage",
+		"Vexing Archer",
 	},
 	bossVarieties = {
 		"Pagan Bishop of Agony",
@@ -7759,12 +7765,14 @@ worldAreas["MapTier1_1Unique"] = {
 	level = 66,
 	isMap = true,
 	monsterVarieties = {
+		"Bone Husk",
 		"Brittle Bleeder",
 		"Brittle Poacher",
 		"Frost Harbinger",
 		"Necromancer",
 		"Plagued Bowman",
 		"Sparking Mage",
+		"Vexing Archer",
 	},
 	bossVarieties = {
 		"Infector of Dreams",
@@ -7779,6 +7787,14 @@ worldAreas["MapTier1_2"] = {
 	level = 66,
 	isMap = true,
 	monsterVarieties = {
+		"Ash Prophet",
+		"Death Bishop",
+		"Defiler",
+		"Diabolist",
+		"Frost Harbinger",
+		"Necromancer",
+		"Sin Lord",
+		"Sparking Mage",
 	},
 	bossVarieties = {
 		"Penitentiary Incarcerator",
@@ -7793,6 +7809,9 @@ worldAreas["MapTier1_3"] = {
 	level = 66,
 	isMap = true,
 	monsterVarieties = {
+		"Armour Cruncher",
+		"Hairy Bonecruncher",
+		"Shaggy Monstrosity",
 	},
 	bossVarieties = {
 		"Void Anomaly",
@@ -7807,6 +7826,9 @@ worldAreas["MapTier1_4"] = {
 	level = 66,
 	isMap = true,
 	monsterVarieties = {
+		"Burned Miscreation",
+		"Slashed Miscreation",
+		"Whipping Miscreation",
 	},
 	bossVarieties = {
 		"Visceris",
@@ -7849,6 +7871,7 @@ worldAreas["MapTier1_7"] = {
 	level = 66,
 	isMap = true,
 	monsterVarieties = {
+		"Carnage Chieftain",
 	},
 	bossVarieties = {
 		"Blood Progenitor",
@@ -7863,6 +7886,7 @@ worldAreas["MapTier1_7Unique"] = {
 	level = 66,
 	isMap = true,
 	monsterVarieties = {
+		"Carnage Chieftain",
 	},
 	bossVarieties = {
 		"Prime Ape",
@@ -7910,6 +7934,8 @@ worldAreas["MapTier2_2"] = {
 	level = 67,
 	isMap = true,
 	monsterVarieties = {
+		"Undying Impaler",
+		"Undying Incinerator",
 	},
 	bossVarieties = {
 		"The Steel Soul",
@@ -7924,6 +7950,7 @@ worldAreas["MapTier2_3"] = {
 	level = 67,
 	isMap = true,
 	monsterVarieties = {
+		"Bramble Cobra",
 	},
 	bossVarieties = {
 		"The Primal One",
@@ -7938,6 +7965,10 @@ worldAreas["MapTier2_4"] = {
 	level = 67,
 	isMap = true,
 	monsterVarieties = {
+		"Bearded Devil",
+		"Bearded Shaman",
+		"Goatman",
+		"Goatman Shaman",
 	},
 	bossVarieties = {
 		"Puruna, the Challenger",
@@ -7952,6 +7983,10 @@ worldAreas["MapTier2_4Unique"] = {
 	level = 67,
 	isMap = true,
 	monsterVarieties = {
+		"Bearded Devil",
+		"Bearded Shaman",
+		"Goatman",
+		"Goatman Shaman",
 	},
 	bossVarieties = {
 		"Merveil, the Reflection",
@@ -7981,6 +8016,7 @@ worldAreas["MapTier2_6"] = {
 	level = 67,
 	isMap = true,
 	monsterVarieties = {
+		"Fetid Maw",
 	},
 	bossVarieties = {
 		"Arachnoxia",
@@ -8010,6 +8046,8 @@ worldAreas["MapTier3_1"] = {
 	level = 68,
 	isMap = true,
 	monsterVarieties = {
+		"Undying Impaler",
+		"Undying Outcast",
 	},
 	bossVarieties = {
 		"Hephaeus, The Hammer",
@@ -8024,6 +8062,7 @@ worldAreas["MapTier3_2"] = {
 	level = 68,
 	isMap = true,
 	monsterVarieties = {
+		"Leaping Spider",
 	},
 	bossVarieties = {
 		"Thraxia",
@@ -8038,6 +8077,7 @@ worldAreas["MapTier3_3"] = {
 	level = 68,
 	isMap = true,
 	monsterVarieties = {
+		"Ancient Construct",
 	},
 	bossVarieties = {
 		"The Broken Prince",
@@ -8054,6 +8094,7 @@ worldAreas["MapTier3_3Unique"] = {
 	level = 68,
 	isMap = true,
 	monsterVarieties = {
+		"Ancient Construct",
 	},
 }
 
@@ -8093,6 +8134,10 @@ worldAreas["MapTier3_5"] = {
 	level = 68,
 	isMap = true,
 	monsterVarieties = {
+		"Alira's Deadeye",
+		"Kraityn's Sentry",
+		"Oak's Devoted",
+		"Oak's Sniper",
 	},
 	bossVarieties = {
 		"Aulen Greychain",
@@ -8121,6 +8166,7 @@ worldAreas["MapTier3_7"] = {
 	level = 68,
 	isMap = true,
 	monsterVarieties = {
+		"Colossal Bonestalker",
 	},
 	bossVarieties = {
 		"He of Many Pieces",
@@ -8135,6 +8181,12 @@ worldAreas["MapTier4_1"] = {
 	level = 69,
 	isMap = true,
 	monsterVarieties = {
+		"Bone Husk",
+		"Brittle Poacher",
+		"Frost Harbinger",
+		"Plagued Bowman",
+		"Sparking Mage",
+		"Vexing Archer",
 	},
 	bossVarieties = {
 		"Xixic, High Necromancer",
@@ -8219,6 +8271,7 @@ worldAreas["MapTier4_5"] = {
 	level = 69,
 	isMap = true,
 	monsterVarieties = {
+		"Leaping Spider",
 	},
 	bossVarieties = {
 		"Enticer of Rot",
@@ -8259,6 +8312,11 @@ worldAreas["MapTier5_1"] = {
 	level = 70,
 	isMap = true,
 	monsterVarieties = {
+		"Merveil's Attendant",
+		"Merveil's Blessed",
+		"Merveil's Chosen",
+		"Merveil's Retainer",
+		"Singing Siren",
 	},
 	bossVarieties = {
 		"It That Fell",
@@ -8273,6 +8331,7 @@ worldAreas["MapTier5_2"] = {
 	level = 70,
 	isMap = true,
 	monsterVarieties = {
+		"Foreman",
 	},
 	bossVarieties = {
 		"Ancient Architect",
@@ -8346,6 +8405,8 @@ worldAreas["MapTier6_1"] = {
 	level = 71,
 	isMap = true,
 	monsterVarieties = {
+		"Flame Sentinel",
+		"Galvanic Ribbon",
 	},
 	bossVarieties = {
 		"Jorus, Sky's Edge",
@@ -8361,7 +8422,9 @@ worldAreas["MapTier6_1Unique"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Burned Miscreation",
+		"Flame Sentinel",
 		"Flesh Sculptor",
+		"Galvanic Ribbon",
 		"Mortality Experimenter",
 		"Reanimator",
 		"Tentacle Miscreation",
@@ -8380,6 +8443,7 @@ worldAreas["MapTier6_2"] = {
 	level = 71,
 	isMap = true,
 	monsterVarieties = {
+		"Leaping Spider",
 	},
 	bossVarieties = {
 		"Spinner of False Hope",
@@ -8441,6 +8505,8 @@ worldAreas["MapTier6_5"] = {
 	level = 71,
 	isMap = true,
 	monsterVarieties = {
+		"Blackguard Arcmage",
+		"Blackguard Mage",
 	},
 	bossVarieties = {
 		"Tyrant",
@@ -8474,6 +8540,7 @@ worldAreas["MapTier7_1"] = {
 	level = 72,
 	isMap = true,
 	monsterVarieties = {
+		"Whipping Miscreation",
 	},
 	bossVarieties = {
 		"High Lithomancer",
@@ -8493,6 +8560,7 @@ worldAreas["MapTier7_1Unique"] = {
 		"Defiler",
 		"Tentacle Miscreation",
 		"Undying Incinerator",
+		"Whipping Miscreation",
 	},
 }
 
@@ -8504,6 +8572,7 @@ worldAreas["MapTier7_2"] = {
 	level = 72,
 	isMap = true,
 	monsterVarieties = {
+		"Undying Alchemist",
 	},
 	bossVarieties = {
 		"Portentia, the Foul",
@@ -8532,6 +8601,7 @@ worldAreas["MapTier7_4"] = {
 	level = 72,
 	isMap = true,
 	monsterVarieties = {
+		"Bramble Cobra",
 	},
 	bossVarieties = {
 		"Queen of the Great Tangle",
@@ -8560,6 +8630,12 @@ worldAreas["MapTier8_1"] = {
 	level = 73,
 	isMap = true,
 	monsterVarieties = {
+		"Bone Husk",
+		"Brittle Poacher",
+		"Frost Harbinger",
+		"Plagued Bowman",
+		"Sparking Mage",
+		"Vexing Archer",
 	},
 	bossVarieties = {
 		"Shock and Horror",
@@ -8574,6 +8650,7 @@ worldAreas["MapTier8_2"] = {
 	level = 73,
 	isMap = true,
 	monsterVarieties = {
+		"Carrion Queen",
 	},
 	bossVarieties = {
 		"Gnar, Eater of Carrion",
@@ -8603,6 +8680,7 @@ worldAreas["MapTier8_4"] = {
 	level = 73,
 	isMap = true,
 	monsterVarieties = {
+		"Cannibal Fire-eater",
 	},
 	bossVarieties = {
 		"Titan of the Grove",
@@ -8673,6 +8751,7 @@ worldAreas["MapTier9_3"] = {
 	level = 74,
 	isMap = true,
 	monsterVarieties = {
+		"Dune Hellion",
 	},
 	bossVarieties = {
 		"Rek'tar, the Breaker",
@@ -8687,6 +8766,7 @@ worldAreas["MapTier9_4"] = {
 	level = 74,
 	isMap = true,
 	monsterVarieties = {
+		"Plumed Chimeral",
 	},
 	bossVarieties = {
 		"Excellis Aurafix",
@@ -8701,6 +8781,12 @@ worldAreas["MapTier10_1"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Ash Prophet",
+		"Death Bishop",
+		"Defiler",
+		"Frost Harbinger",
+		"Sin Lord",
+		"Sparking Mage",
 	},
 	bossVarieties = {
 		"Burtok, Conjurer of Bones",
@@ -8715,6 +8801,12 @@ worldAreas["MapTier10_1Unique"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Ash Prophet",
+		"Death Bishop",
+		"Defiler",
+		"Frost Harbinger",
+		"Sin Lord",
+		"Sparking Mage",
 		"Vaal Slayer",
 	},
 	bossVarieties = {
@@ -8730,6 +8822,12 @@ worldAreas["MapTier10_2"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Bone Husk",
+		"Brittle Poacher",
+		"Frost Harbinger",
+		"Plagued Bowman",
+		"Sparking Mage",
+		"Vexing Archer",
 	},
 	bossVarieties = {
 		"Puruna, the Challenger",
@@ -8759,6 +8857,7 @@ worldAreas["MapTier11_1"] = {
 	level = 76,
 	isMap = true,
 	monsterVarieties = {
+		"Cinder Elemental",
 	},
 	bossVarieties = {
 		"Fire and Fury",
@@ -8773,6 +8872,8 @@ worldAreas["MapTier11_2"] = {
 	level = 76,
 	isMap = true,
 	monsterVarieties = {
+		"Undying Impaler",
+		"Undying Outcast",
 	},
 	bossVarieties = {
 		"Orra Greengate",
@@ -8807,6 +8908,9 @@ worldAreas["MapTier12_1"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Cursed Mariner",
+		"Spectral Bowman",
+		"Spectral Scoundrel",
 	},
 	bossVarieties = {
 		"Musky 'Two-Eyes' Grenn",
@@ -8823,6 +8927,8 @@ worldAreas["MapTier12_2"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Mortality Experimenter",
+		"Reanimator",
 	},
 	bossVarieties = {
 		"Piety the Empyrean",
@@ -8866,6 +8972,7 @@ worldAreas["MapTier13_1"] = {
 	level = 78,
 	isMap = true,
 	monsterVarieties = {
+		"Undying Evangelist",
 	},
 	bossVarieties = {
 		"God's Chosen",
@@ -8881,6 +8988,8 @@ worldAreas["MapTier13_2"] = {
 	level = 78,
 	isMap = true,
 	monsterVarieties = {
+		"Avian Retch",
+		"Gluttonous Gull",
 	},
 	bossVarieties = {
 		"Oriath's Virtue",
@@ -8913,6 +9022,12 @@ worldAreas["Map2Tier1_1"] = {
 	level = 68,
 	isMap = true,
 	monsterVarieties = {
+		"Bone Husk",
+		"Brittle Poacher",
+		"Frost Harbinger",
+		"Plagued Bowman",
+		"Sparking Mage",
+		"Vexing Archer",
 	},
 	bossVarieties = {
 		"Pagan Bishop of Agony",
@@ -8927,12 +9042,14 @@ worldAreas["Map2Tier1_1Unique"] = {
 	level = 68,
 	isMap = true,
 	monsterVarieties = {
+		"Bone Husk",
 		"Brittle Bleeder",
 		"Brittle Poacher",
 		"Frost Harbinger",
 		"Necromancer",
 		"Plagued Bowman",
 		"Sparking Mage",
+		"Vexing Archer",
 	},
 	bossVarieties = {
 		"Infector of Dreams",
@@ -8947,6 +9064,14 @@ worldAreas["Map2Tier1_2"] = {
 	level = 68,
 	isMap = true,
 	monsterVarieties = {
+		"Ash Prophet",
+		"Death Bishop",
+		"Defiler",
+		"Diabolist",
+		"Frost Harbinger",
+		"Necromancer",
+		"Sin Lord",
+		"Sparking Mage",
 	},
 	bossVarieties = {
 		"Penitentiary Incarcerator",
@@ -8961,6 +9086,9 @@ worldAreas["Map2Tier1_3"] = {
 	level = 68,
 	isMap = true,
 	monsterVarieties = {
+		"Armour Cruncher",
+		"Hairy Bonecruncher",
+		"Shaggy Monstrosity",
 	},
 	bossVarieties = {
 		"Void Anomaly",
@@ -9003,6 +9131,7 @@ worldAreas["Map2Tier1_6"] = {
 	level = 68,
 	isMap = true,
 	monsterVarieties = {
+		"Carnage Chieftain",
 	},
 	bossVarieties = {
 		"Blood Progenitor",
@@ -9017,6 +9146,7 @@ worldAreas["Map2Tier1_6Unique"] = {
 	level = 68,
 	isMap = true,
 	monsterVarieties = {
+		"Carnage Chieftain",
 	},
 	bossVarieties = {
 		"Prime Ape",
@@ -9050,6 +9180,7 @@ worldAreas["Map2Tier2_1"] = {
 	level = 69,
 	isMap = true,
 	monsterVarieties = {
+		"Fetid Maw",
 	},
 	bossVarieties = {
 		"Arachnoxia",
@@ -9078,6 +9209,7 @@ worldAreas["Map2Tier2_3"] = {
 	level = 69,
 	isMap = true,
 	monsterVarieties = {
+		"Bramble Cobra",
 	},
 	bossVarieties = {
 		"The Primal One",
@@ -9092,6 +9224,10 @@ worldAreas["Map2Tier2_4"] = {
 	level = 69,
 	isMap = true,
 	monsterVarieties = {
+		"Bearded Devil",
+		"Bearded Shaman",
+		"Goatman",
+		"Goatman Shaman",
 	},
 	bossVarieties = {
 		"Puruna, the Challenger",
@@ -9106,6 +9242,10 @@ worldAreas["Map2Tier2_4Unique"] = {
 	level = 69,
 	isMap = true,
 	monsterVarieties = {
+		"Bearded Devil",
+		"Bearded Shaman",
+		"Goatman",
+		"Goatman Shaman",
 	},
 	bossVarieties = {
 		"Merveil, the Reflection",
@@ -9164,6 +9304,8 @@ worldAreas["Map2Tier3_1"] = {
 	level = 70,
 	isMap = true,
 	monsterVarieties = {
+		"Undying Impaler",
+		"Undying Outcast",
 	},
 	bossVarieties = {
 		"Hephaeus, The Hammer",
@@ -9178,6 +9320,7 @@ worldAreas["Map2Tier3_2"] = {
 	level = 70,
 	isMap = true,
 	monsterVarieties = {
+		"Leaping Spider",
 	},
 	bossVarieties = {
 		"Thraxia",
@@ -9192,6 +9335,7 @@ worldAreas["Map2Tier3_3"] = {
 	level = 70,
 	isMap = true,
 	monsterVarieties = {
+		"Ancient Construct",
 	},
 	bossVarieties = {
 		"The Broken Prince",
@@ -9208,6 +9352,7 @@ worldAreas["Map2Tier3_3Unique"] = {
 	level = 70,
 	isMap = true,
 	monsterVarieties = {
+		"Ancient Construct",
 	},
 }
 
@@ -9247,6 +9392,7 @@ worldAreas["Map2Tier3_5"] = {
 	level = 70,
 	isMap = true,
 	monsterVarieties = {
+		"Pocked Lanternbearer",
 	},
 	bossVarieties = {
 		"Avatar of Undoing",
@@ -9275,6 +9421,7 @@ worldAreas["Map2Tier3_7"] = {
 	level = 70,
 	isMap = true,
 	monsterVarieties = {
+		"Colossal Bonestalker",
 	},
 	bossVarieties = {
 		"He of Many Pieces",
@@ -9364,6 +9511,7 @@ worldAreas["Map2Tier4_5"] = {
 	level = 71,
 	isMap = true,
 	monsterVarieties = {
+		"Leaping Spider",
 	},
 	bossVarieties = {
 		"Enticer of Rot",
@@ -9404,6 +9552,7 @@ worldAreas["Map2Tier4_7"] = {
 	level = 71,
 	isMap = true,
 	monsterVarieties = {
+		"Stygian Revenant",
 	},
 	bossVarieties = {
 		"Erythrophagia",
@@ -9418,6 +9567,11 @@ worldAreas["Map2Tier5_1"] = {
 	level = 72,
 	isMap = true,
 	monsterVarieties = {
+		"Merveil's Attendant",
+		"Merveil's Blessed",
+		"Merveil's Chosen",
+		"Merveil's Retainer",
+		"Singing Siren",
 	},
 	bossVarieties = {
 		"It That Fell",
@@ -9432,6 +9586,11 @@ worldAreas["Map2Tier5_1Unique"] = {
 	level = 72,
 	isMap = true,
 	monsterVarieties = {
+		"Merveil's Attendant",
+		"Merveil's Blessed",
+		"Merveil's Chosen",
+		"Merveil's Retainer",
+		"Singing Siren",
 	},
 	bossVarieties = {
 		"Winterfang",
@@ -9448,6 +9607,7 @@ worldAreas["Map2Tier5_2"] = {
 	level = 72,
 	isMap = true,
 	monsterVarieties = {
+		"Foreman",
 	},
 	bossVarieties = {
 		"Ancient Architect",
@@ -9521,6 +9681,8 @@ worldAreas["Map2Tier6_1"] = {
 	level = 73,
 	isMap = true,
 	monsterVarieties = {
+		"Flame Sentinel",
+		"Galvanic Ribbon",
 	},
 	bossVarieties = {
 		"Jorus, Sky's Edge",
@@ -9536,7 +9698,9 @@ worldAreas["Map2Tier6_1Unique"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Burned Miscreation",
+		"Flame Sentinel",
 		"Flesh Sculptor",
+		"Galvanic Ribbon",
 		"Mortality Experimenter",
 		"Reanimator",
 		"Tentacle Miscreation",
@@ -9555,6 +9719,7 @@ worldAreas["Map2Tier6_2"] = {
 	level = 73,
 	isMap = true,
 	monsterVarieties = {
+		"Leaping Spider",
 	},
 	bossVarieties = {
 		"Spinner of False Hope",
@@ -9616,6 +9781,8 @@ worldAreas["Map2Tier6_5"] = {
 	level = 73,
 	isMap = true,
 	monsterVarieties = {
+		"Blackguard Arcmage",
+		"Blackguard Mage",
 	},
 	bossVarieties = {
 		"Tyrant",
@@ -9691,6 +9858,7 @@ worldAreas["Map2Tier7_1"] = {
 	level = 74,
 	isMap = true,
 	monsterVarieties = {
+		"Whipping Miscreation",
 	},
 	bossVarieties = {
 		"High Lithomancer",
@@ -9710,6 +9878,7 @@ worldAreas["Map2Tier7_1Unique"] = {
 		"Defiler",
 		"Tentacle Miscreation",
 		"Undying Incinerator",
+		"Whipping Miscreation",
 	},
 }
 
@@ -9721,6 +9890,7 @@ worldAreas["Map2Tier7_2"] = {
 	level = 74,
 	isMap = true,
 	monsterVarieties = {
+		"Undying Alchemist",
 	},
 	bossVarieties = {
 		"Portentia, the Foul",
@@ -9749,6 +9919,7 @@ worldAreas["Map2Tier7_4"] = {
 	level = 74,
 	isMap = true,
 	monsterVarieties = {
+		"Bramble Cobra",
 	},
 	bossVarieties = {
 		"Queen of the Great Tangle",
@@ -9777,6 +9948,12 @@ worldAreas["Map2Tier8_1"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Bone Husk",
+		"Brittle Poacher",
+		"Frost Harbinger",
+		"Plagued Bowman",
+		"Sparking Mage",
+		"Vexing Archer",
 	},
 	bossVarieties = {
 		"Shock and Horror",
@@ -9791,6 +9968,7 @@ worldAreas["Map2Tier8_2"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Carrion Queen",
 	},
 	bossVarieties = {
 		"Gnar, Eater of Carrion",
@@ -9820,6 +9998,7 @@ worldAreas["Map2Tier8_4"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Cannibal Fire-eater",
 	},
 	bossVarieties = {
 		"Titan of the Grove",
@@ -9876,6 +10055,7 @@ worldAreas["Map2Tier9_3"] = {
 	level = 76,
 	isMap = true,
 	monsterVarieties = {
+		"Dune Hellion",
 	},
 	bossVarieties = {
 		"Rek'tar, the Breaker",
@@ -9890,6 +10070,7 @@ worldAreas["Map2Tier9_4"] = {
 	level = 76,
 	isMap = true,
 	monsterVarieties = {
+		"Plumed Chimeral",
 	},
 	bossVarieties = {
 		"Excellis Aurafix",
@@ -9918,6 +10099,12 @@ worldAreas["Map2Tier10_1"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Ash Prophet",
+		"Death Bishop",
+		"Defiler",
+		"Frost Harbinger",
+		"Sin Lord",
+		"Sparking Mage",
 	},
 	bossVarieties = {
 		"Burtok, Conjurer of Bones",
@@ -9932,6 +10119,12 @@ worldAreas["Map2Tier10_1Unique"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Ash Prophet",
+		"Death Bishop",
+		"Defiler",
+		"Frost Harbinger",
+		"Sin Lord",
+		"Sparking Mage",
 		"Vaal Slayer",
 	},
 	bossVarieties = {
@@ -9947,6 +10140,12 @@ worldAreas["Map2Tier10_2"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Bone Husk",
+		"Brittle Poacher",
+		"Frost Harbinger",
+		"Plagued Bowman",
+		"Sparking Mage",
+		"Vexing Archer",
 	},
 	bossVarieties = {
 		"Puruna, the Challenger",
@@ -10017,6 +10216,7 @@ worldAreas["Map2Tier11_1"] = {
 	level = 78,
 	isMap = true,
 	monsterVarieties = {
+		"Cinder Elemental",
 	},
 	bossVarieties = {
 		"Fire and Fury",
@@ -10031,6 +10231,8 @@ worldAreas["Map2Tier11_2"] = {
 	level = 78,
 	isMap = true,
 	monsterVarieties = {
+		"Undying Impaler",
+		"Undying Outcast",
 	},
 	bossVarieties = {
 		"Orra Greengate",
@@ -10065,6 +10267,10 @@ worldAreas["Map2Tier11_4"] = {
 	level = 78,
 	isMap = true,
 	monsterVarieties = {
+		"Alira's Deadeye",
+		"Kraityn's Sentry",
+		"Oak's Devoted",
+		"Oak's Sniper",
 	},
 	bossVarieties = {
 		"Aulen Greychain",
@@ -10079,6 +10285,9 @@ worldAreas["Map2Tier12_1"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Cursed Mariner",
+		"Spectral Bowman",
+		"Spectral Scoundrel",
 	},
 	bossVarieties = {
 		"Musky 'Two-Eyes' Grenn",
@@ -10095,6 +10304,9 @@ worldAreas["Map2Tier12_2"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Burned Miscreation",
+		"Slashed Miscreation",
+		"Whipping Miscreation",
 	},
 	bossVarieties = {
 		"Visceris",
@@ -10123,6 +10335,9 @@ worldAreas["Map2Tier12_4"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Knitted Horror",
+		"Undying Impaler",
+		"Undying Incinerator",
 	},
 	bossVarieties = {
 		"The Steel Soul",
@@ -10137,6 +10352,7 @@ worldAreas["Map2Tier13_1"] = {
 	level = 80,
 	isMap = true,
 	monsterVarieties = {
+		"Knitted Horror",
 	},
 	bossVarieties = {
 		"The Brittle Emperor",
@@ -10151,6 +10367,8 @@ worldAreas["Map2Tier13_2"] = {
 	level = 80,
 	isMap = true,
 	monsterVarieties = {
+		"Avian Retch",
+		"Gluttonous Gull",
 	},
 	bossVarieties = {
 		"Oriath's Virtue",
@@ -10167,6 +10385,8 @@ worldAreas["Map2Tier13_2Unique"] = {
 	level = 80,
 	isMap = true,
 	monsterVarieties = {
+		"Avian Retch",
+		"Gluttonous Gull",
 	},
 	bossVarieties = {
 		"Avatar of Thunder",
@@ -10210,6 +10430,7 @@ worldAreas["Map2Tier14_1"] = {
 	level = 81,
 	isMap = true,
 	monsterVarieties = {
+		"Undying Evangelist",
 	},
 	bossVarieties = {
 		"God's Chosen",
@@ -10225,6 +10446,8 @@ worldAreas["Map2Tier14_2"] = {
 	level = 81,
 	isMap = true,
 	monsterVarieties = {
+		"Mortality Experimenter",
+		"Reanimator",
 	},
 	bossVarieties = {
 		"Piety the Empyrean",
@@ -10312,6 +10535,7 @@ worldAreas["Map2Tier15_1"] = {
 	level = 82,
 	isMap = true,
 	monsterVarieties = {
+		"Gut Flayer",
 	},
 	bossVarieties = {
 		"Eater of Souls",
@@ -10326,6 +10550,7 @@ worldAreas["Map2Tier15_2"] = {
 	level = 82,
 	isMap = true,
 	monsterVarieties = {
+		"Kaom's Chosen",
 	},
 	bossVarieties = {
 		"The Infernal King",
@@ -10340,6 +10565,7 @@ worldAreas["Map2Tier15_3"] = {
 	level = 82,
 	isMap = true,
 	monsterVarieties = {
+		"Fighting Bull",
 	},
 	bossVarieties = {
 		"Ambrius, Legion Slayer",
@@ -10383,6 +10609,7 @@ worldAreas["MapAtlasCrystalOre"] = {
 	level = 68,
 	isMap = true,
 	monsterVarieties = {
+		"Pocked Illuminator",
 	},
 	bossVarieties = {
 		"Lord of the Hollows",
@@ -10441,6 +10668,8 @@ worldAreas["MapAtlasFactory"] = {
 	level = 69,
 	isMap = true,
 	monsterVarieties = {
+		"Cinder Elemental",
+		"Undying Incinerator",
 	},
 	bossVarieties = {
 		"Pesquin, the Mad Baron",
@@ -10455,6 +10684,7 @@ worldAreas["MapAtlasGhetto"] = {
 	level = 69,
 	isMap = true,
 	monsterVarieties = {
+		"Carrion Queen",
 	},
 	bossVarieties = {
 		"Hephaeus, The Hammer",
@@ -10497,6 +10727,7 @@ worldAreas["MapAtlasCavern"] = {
 	level = 70,
 	isMap = true,
 	monsterVarieties = {
+		"Spectral Bowman",
 	},
 	bossVarieties = {
 		"The Eroding One",
@@ -10525,6 +10756,7 @@ worldAreas["MapAtlasGrotto"] = {
 	level = 70,
 	isMap = true,
 	monsterVarieties = {
+		"Shaggy Monstrosity",
 	},
 	bossVarieties = {
 		"Void Anomaly",
@@ -10553,6 +10785,7 @@ worldAreas["MapAtlasSewer"] = {
 	level = 70,
 	isMap = true,
 	monsterVarieties = {
+		"Undying Grappler",
 	},
 	bossVarieties = {
 		"Arachnoxia",
@@ -10567,6 +10800,7 @@ worldAreas["MapAtlasVaalPyramid"] = {
 	level = 70,
 	isMap = true,
 	monsterVarieties = {
+		"Ancient Construct",
 	},
 	bossVarieties = {
 		"The Broken Prince",
@@ -10583,6 +10817,7 @@ worldAreas["MapAtlasVaalPyramidUnique_"] = {
 	level = 70,
 	isMap = true,
 	monsterVarieties = {
+		"Ancient Construct",
 	},
 }
 
@@ -10594,6 +10829,7 @@ worldAreas["MapAtlasAcademy"] = {
 	level = 71,
 	isMap = true,
 	monsterVarieties = {
+		"Undying Evangelist",
 	},
 	bossVarieties = {
 		"The Arbiter of Knowledge",
@@ -10608,6 +10844,9 @@ worldAreas["MapAtlasMuseumUnique"] = {
 	level = 76,
 	isMap = true,
 	monsterVarieties = {
+		"Brittle Poacher",
+		"Colossal Bonestalker",
+		"Undying Evangelist",
 	},
 	bossVarieties = {
 		"Headmistress Braeta",
@@ -10643,6 +10882,7 @@ worldAreas["MapAtlasDungeon"] = {
 	level = 71,
 	isMap = true,
 	monsterVarieties = {
+		"Diabolist",
 	},
 	bossVarieties = {
 		"Penitentiary Incarcerator",
@@ -10673,6 +10913,8 @@ worldAreas["MapAtlasPhantasmagoria"] = {
 	level = 71,
 	isMap = true,
 	monsterVarieties = {
+		"Gut Flayer",
+		"Noisome Ophidian",
 	},
 	bossVarieties = {
 		"Erythrophagia",
@@ -10687,6 +10929,7 @@ worldAreas["MapAtlasVilla"] = {
 	level = 71,
 	isMap = true,
 	monsterVarieties = {
+		"Plumed Chimeral",
 	},
 	bossVarieties = {
 		"The High Templar",
@@ -10729,6 +10972,7 @@ worldAreas["MapAtlasDryPeninsula"] = {
 	level = 72,
 	isMap = true,
 	monsterVarieties = {
+		"Hairy Bonecruncher",
 	},
 	bossVarieties = {
 		"Titan of the Grove",
@@ -10757,6 +11001,7 @@ worldAreas["MapAtlasMesa"] = {
 	level = 72,
 	isMap = true,
 	monsterVarieties = {
+		"Avian Retch",
 	},
 	bossVarieties = {
 		"Oak the Mighty",
@@ -10799,6 +11044,7 @@ worldAreas["MapAtlasPrimordialPool"] = {
 	level = 72,
 	isMap = true,
 	monsterVarieties = {
+		"Noisome Ophidian",
 	},
 	bossVarieties = {
 		"Nightmare's Omen",
@@ -10813,6 +11059,7 @@ worldAreas["MapAtlasSpiderLair_"] = {
 	level = 72,
 	isMap = true,
 	monsterVarieties = {
+		"Leaping Spider",
 	},
 	bossVarieties = {
 		"Thraxia",
@@ -10827,6 +11074,8 @@ worldAreas["MapAtlasTower"] = {
 	level = 72,
 	isMap = true,
 	monsterVarieties = {
+		"Ash Prophet",
+		"Incinerated Mage",
 	},
 	bossVarieties = {
 		"Liantra",
@@ -10842,6 +11091,8 @@ worldAreas["MapAtlasCanyon"] = {
 	level = 73,
 	isMap = true,
 	monsterVarieties = {
+		"Goatman Fire-raiser",
+		"Goatman Shaman",
 	},
 	bossVarieties = {
 		"Gnar, Eater of Carrion",
@@ -10857,6 +11108,7 @@ worldAreas["MapAtlasQuarry"] = {
 	level = 73,
 	isMap = true,
 	monsterVarieties = {
+		"Pocked Lanternbearer",
 	},
 	bossVarieties = {
 		"Avatar of Undoing",
@@ -10871,6 +11123,7 @@ worldAreas["MapAtlasRacecourse"] = {
 	level = 73,
 	isMap = true,
 	monsterVarieties = {
+		"Fighting Bull",
 	},
 	bossVarieties = {
 		"Shredder of Gladiators",
@@ -10887,6 +11140,7 @@ worldAreas["MapAtlasRamparts"] = {
 	level = 73,
 	isMap = true,
 	monsterVarieties = {
+		"Blackguard Mage",
 	},
 	bossVarieties = {
 		"Legius Garhall",
@@ -10976,6 +11230,7 @@ worldAreas["MapAtlasWharf"] = {
 	level = 73,
 	isMap = true,
 	monsterVarieties = {
+		"Voidbearer",
 	},
 	bossVarieties = {
 		"Stone of the Currents",
@@ -11018,6 +11273,7 @@ worldAreas["MapAtlasCatacomb_"] = {
 	level = 74,
 	isMap = true,
 	monsterVarieties = {
+		"Death Bishop",
 	},
 	bossVarieties = {
 		"Xixic, High Necromancer",
@@ -11060,6 +11316,9 @@ worldAreas["MapAtlasCells"] = {
 	level = 74,
 	isMap = true,
 	monsterVarieties = {
+		"Ash Prophet",
+		"Cinder Elemental",
+		"Undying Incinerator",
 	},
 	bossVarieties = {
 		"Shock and Horror",
@@ -11074,6 +11333,7 @@ worldAreas["MapAtlasArmory"] = {
 	level = 74,
 	isMap = true,
 	monsterVarieties = {
+		"Mortality Experimenter",
 	},
 	bossVarieties = {
 		"Warmonger",
@@ -11088,6 +11348,8 @@ worldAreas["MapAtlasAshenWood"] = {
 	level = 74,
 	isMap = true,
 	monsterVarieties = {
+		"Dune Hellion",
+		"Hairy Bonecruncher",
 	},
 	bossVarieties = {
 		"Lord of the Ashen Arrow",
@@ -11130,6 +11392,8 @@ worldAreas["MapAtlasArena"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Bearded Devil",
+		"Fighting Bull",
 	},
 	bossVarieties = {
 		"Avatar of the Huntress",
@@ -11146,6 +11410,7 @@ worldAreas["MapAtlasBog"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Merveil's Attendant",
 	},
 	bossVarieties = {
 		"Skullbeak",
@@ -11174,6 +11439,7 @@ worldAreas["MapAtlasBarrows"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Murk Fiend",
 	},
 	bossVarieties = {
 		"Beast of the Pits",
@@ -11188,6 +11454,8 @@ worldAreas["MapAtlasAtoll"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Gluttonous Gull",
+		"Goatman",
 	},
 	bossVarieties = {
 		"Puruna, the Challenger",
@@ -11202,6 +11470,8 @@ worldAreas["MapAtlasAtollUnique"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Gluttonous Gull",
+		"Goatman",
 	},
 	bossVarieties = {
 		"Merveil, the Reflection",
@@ -11217,6 +11487,7 @@ worldAreas["MapAtlasPier"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Voidbearer",
 	},
 	bossVarieties = {
 		"Ancient Architect",
@@ -11231,6 +11502,7 @@ worldAreas["MapAtlasShore"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Cannibal Fire-eater",
 	},
 	bossVarieties = {
 		"Belcer, the Pirate Lord",
@@ -11245,6 +11517,7 @@ worldAreas["MapAtlasTropicalIsland"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Bramble Cobra",
 	},
 	bossVarieties = {
 		"Blood Progenitor",
@@ -11259,6 +11532,7 @@ worldAreas["MapAtlasTropicalIslandUnique"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Bramble Cobra",
 	},
 	bossVarieties = {
 		"Prime Ape",
@@ -11278,6 +11552,8 @@ worldAreas["MapAtlasCoves"] = {
 	level = 76,
 	isMap = true,
 	monsterVarieties = {
+		"Cursed Mariner",
+		"Spectral Bowman",
 	},
 	bossVarieties = {
 		"Telvar, the Inebriated",
@@ -11293,6 +11569,7 @@ worldAreas["MapAtlasCrypt"] = {
 	level = 76,
 	isMap = true,
 	monsterVarieties = {
+		"Necromancer",
 	},
 	bossVarieties = {
 		"Pagan Bishop of Agony",
@@ -11327,6 +11604,9 @@ worldAreas["MapAtlasMuseum"] = {
 	level = 76,
 	isMap = true,
 	monsterVarieties = {
+		"Brittle Poacher",
+		"Colossal Bonestalker",
+		"Undying Evangelist",
 	},
 	bossVarieties = {
 		"He of Many Pieces",
@@ -11341,6 +11621,7 @@ worldAreas["MapAtlasOrchard"] = {
 	level = 76,
 	isMap = true,
 	monsterVarieties = {
+		"Plumed Chimeral",
 	},
 	bossVarieties = {
 		"Vision of Justice",
@@ -11384,6 +11665,8 @@ worldAreas["MapAtlasPromenade"] = {
 	level = 76,
 	isMap = true,
 	monsterVarieties = {
+		"Blackguard Arcmage",
+		"Mortality Experimenter",
 	},
 	bossVarieties = {
 		"Blackguard Avenger",
@@ -11399,6 +11682,8 @@ worldAreas["MapAtlasPromenadeUnique"] = {
 	level = 76,
 	isMap = true,
 	monsterVarieties = {
+		"Blackguard Arcmage",
+		"Mortality Experimenter",
 	},
 }
 
@@ -11438,6 +11723,8 @@ worldAreas["MapAtlasTemple"] = {
 	level = 76,
 	isMap = true,
 	monsterVarieties = {
+		"Flame Sentinel",
+		"Galvanic Ribbon",
 	},
 	bossVarieties = {
 		"Jorus, Sky's Edge",
@@ -11453,7 +11740,9 @@ worldAreas["MapAtlasTempleUnique"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Burned Miscreation",
+		"Flame Sentinel",
 		"Flesh Sculptor",
+		"Galvanic Ribbon",
 		"Mortality Experimenter",
 		"Reanimator",
 		"Tentacle Miscreation",
@@ -11472,6 +11761,8 @@ worldAreas["MapAtlasColonnade"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Flame Sentinel",
+		"Galvanic Ribbon",
 	},
 	bossVarieties = {
 		"Tyrant",
@@ -11486,6 +11777,7 @@ worldAreas["MapAtlasArsenal"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Undying Outcast",
 	},
 	bossVarieties = {
 		"The Steel Soul",
@@ -11500,6 +11792,7 @@ worldAreas["MapAtlasCourtyard"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Avian Retch",
 	},
 	bossVarieties = {
 		"Oriath's Virtue",
@@ -11516,6 +11809,7 @@ worldAreas["MapAtlasCourtyardUnique"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Avian Retch",
 	},
 	bossVarieties = {
 		"Avatar of Thunder",
@@ -11544,6 +11838,7 @@ worldAreas["MapAtlasQuay"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Voidbearer",
 	},
 	bossVarieties = {
 		"Unravelling Horror",
@@ -11558,6 +11853,7 @@ worldAreas["MapAtlasTerrace"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Plumed Chimeral",
 	},
 	bossVarieties = {
 		"Sallazzang",
@@ -11572,6 +11868,8 @@ worldAreas["MapAtlasUndergroundRiver"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Armour Cruncher",
+		"Shaggy Monstrosity",
 	},
 	bossVarieties = {
 		"It That Fell",
@@ -11586,6 +11884,8 @@ worldAreas["MapAtlasUndergroundRiverUnique"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Armour Cruncher",
+		"Shaggy Monstrosity",
 	},
 	bossVarieties = {
 		"Winterfang",
@@ -11602,6 +11902,7 @@ worldAreas["MapAtlasBazaar"] = {
 	level = 78,
 	isMap = true,
 	monsterVarieties = {
+		"Undying Impaler",
 	},
 	bossVarieties = {
 		"Ancient Sculptor",
@@ -11643,6 +11944,7 @@ worldAreas["MapAtlasExcavation"] = {
 	level = 78,
 	isMap = true,
 	monsterVarieties = {
+		"Ancient Construct",
 	},
 	bossVarieties = {
 		"Shrieker Eihal",
@@ -11658,6 +11960,7 @@ worldAreas["MapAtlasPrecinct"] = {
 	level = 78,
 	isMap = true,
 	monsterVarieties = {
+		"Carrion Queen",
 	},
 	bossVarieties = {
 		"Orra Greengate",
@@ -11678,6 +11981,9 @@ worldAreas["MapAtlasTortureChamber"] = {
 	level = 78,
 	isMap = true,
 	monsterVarieties = {
+		"Brittle Bleeder",
+		"Diabolist",
+		"Necromancer",
 	},
 	bossVarieties = {
 		"High Lithomancer",
@@ -11693,8 +11999,11 @@ worldAreas["MapAtlasTortureChamberUnique"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Archer Statue",
+		"Brittle Bleeder",
 		"Burned Miscreation",
 		"Defiler",
+		"Diabolist",
+		"Necromancer",
 		"Tentacle Miscreation",
 		"Undying Incinerator",
 	},
@@ -11722,6 +12031,7 @@ worldAreas["MapAtlasWasteland"] = {
 	level = 78,
 	isMap = true,
 	monsterVarieties = {
+		"Avian Retch",
 	},
 	bossVarieties = {
 		"The Brittle Emperor",
@@ -11736,6 +12046,8 @@ worldAreas["MapAtlasCrematorium"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Incinerated Mage",
+		"Undying Evangelist",
 	},
 	bossVarieties = {
 		"Fire and Fury",
@@ -11750,6 +12062,7 @@ worldAreas["MapAtlasEstuary"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Voidbearer",
 	},
 	bossVarieties = {
 		"Sumter the Twisted",
@@ -11764,6 +12077,7 @@ worldAreas["MapAtlasNecropolis"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Necromancer",
 	},
 	bossVarieties = {
 		"Burtok, Conjurer of Bones",
@@ -11778,6 +12092,7 @@ worldAreas["MapAtlasNecropolisUnique"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Necromancer",
 		"Vaal Slayer",
 	},
 	bossVarieties = {
@@ -11793,6 +12108,8 @@ worldAreas["MapAtlasPlateau"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Bearded Devil",
+		"Bearded Shaman",
 	},
 	bossVarieties = {
 		"Puruna, the Challenger",
@@ -11808,6 +12125,8 @@ worldAreas["MapAtlasIvoryTemple"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Avian Retch",
+		"Plumed Chimeral",
 	},
 	bossVarieties = {
 		"Sanctum Enforcer",
@@ -11823,6 +12142,7 @@ worldAreas["MapAtlasResidence"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Undying Grappler",
 	},
 	bossVarieties = {
 		"Excellis Aurafix",
@@ -11881,6 +12201,9 @@ worldAreas["MapAtlasBeacon"] = {
 	level = 80,
 	isMap = true,
 	monsterVarieties = {
+		"Dune Hellion",
+		"Gluttonous Gull",
+		"Goatman",
 	},
 	bossVarieties = {
 		"Uruk Baleh",
@@ -11898,6 +12221,7 @@ worldAreas["MapAtlasGorge"] = {
 	level = 80,
 	isMap = true,
 	monsterVarieties = {
+		"Goatman",
 	},
 	bossVarieties = {
 		"Rek'tar, the Breaker",
@@ -11912,6 +12236,7 @@ worldAreas["MapAtlasHighGardens"] = {
 	level = 80,
 	isMap = true,
 	monsterVarieties = {
+		"Chrome-infused Chimeral",
 	},
 	bossVarieties = {
 		"Varhesh, Shimmering Aberration",
@@ -11940,6 +12265,8 @@ worldAreas["MapAtlasScriptorium"] = {
 	level = 80,
 	isMap = true,
 	monsterVarieties = {
+		"Colossal Bonestalker",
+		"Undying Grappler",
 	},
 	bossVarieties = {
 		"Gisale, Thought Thief",
@@ -11954,6 +12281,7 @@ worldAreas["MapAtlasSulphurWastes"] = {
 	level = 80,
 	isMap = true,
 	monsterVarieties = {
+		"Avian Retch",
 	},
 	bossVarieties = {
 		"Mirage of Bones",
@@ -11982,6 +12310,7 @@ worldAreas["MapAtlasMaze"] = {
 	level = 81,
 	isMap = true,
 	monsterVarieties = {
+		"Ancient Construct",
 	},
 	bossVarieties = {
 		"Shadow of the Vaal",
@@ -11996,6 +12325,8 @@ worldAreas["MapAtlasMineralPools"] = {
 	level = 81,
 	isMap = true,
 	monsterVarieties = {
+		"Merveil's Blessed",
+		"Singing Siren",
 	},
 	bossVarieties = {
 		"Shock and Horror",
@@ -12010,6 +12341,7 @@ worldAreas["MapAtlasPalace"] = {
 	level = 81,
 	isMap = true,
 	monsterVarieties = {
+		"Voidbearer",
 	},
 	bossVarieties = {
 		"God's Chosen",
@@ -12025,6 +12357,8 @@ worldAreas["MapAtlasShrine"] = {
 	level = 81,
 	isMap = true,
 	monsterVarieties = {
+		"Burned Miscreation",
+		"Tentacle Miscreation",
 	},
 	bossVarieties = {
 		"Piety the Empyrean",
@@ -12039,6 +12373,8 @@ worldAreas["MapAtlasSprings"] = {
 	level = 81,
 	isMap = true,
 	monsterVarieties = {
+		"Bramble Cobra",
+		"Oak's Devoted",
 	},
 	bossVarieties = {
 		"Aulen Greychain",
@@ -12053,6 +12389,7 @@ worldAreas["MapAtlasVolcano"] = {
 	level = 81,
 	isMap = true,
 	monsterVarieties = {
+		"Kaom's Chosen",
 	},
 	bossVarieties = {
 		"Forest of Flames",
@@ -12067,6 +12404,8 @@ worldAreas["MapAtlasAbyss"] = {
 	level = 82,
 	isMap = true,
 	monsterVarieties = {
+		"Kaom's Chosen",
+		"Voidbearer",
 	},
 	bossVarieties = {
 		"The Infernal King",
@@ -12095,6 +12434,8 @@ worldAreas["MapAtlasCore"] = {
 	level = 82,
 	isMap = true,
 	monsterVarieties = {
+		"Noisome Ophidian",
+		"Stygian Revenant",
 	},
 	bossVarieties = {
 		"Eater of Souls",
@@ -12123,6 +12464,9 @@ worldAreas["MapAtlasOvergrownRuin"] = {
 	level = 82,
 	isMap = true,
 	monsterVarieties = {
+		"Brittle Poacher",
+		"Sin Lord",
+		"Sparking Mage",
 	},
 	bossVarieties = {
 		"Visceris",
@@ -12137,6 +12481,8 @@ worldAreas["MapAtlasChimera"] = {
 	level = 83,
 	isMap = true,
 	monsterVarieties = {
+		"Bearded Devil",
+		"Goatman",
 	},
 	bossVarieties = {
 		"Guardian of the Chimera",
@@ -12151,6 +12497,7 @@ worldAreas["MapAtlasHydra"] = {
 	level = 83,
 	isMap = true,
 	monsterVarieties = {
+		"Undying Grappler",
 	},
 	bossVarieties = {
 		"Guardian of the Hydra",
@@ -12165,6 +12512,9 @@ worldAreas["MapAtlasPhoenix"] = {
 	level = 83,
 	isMap = true,
 	monsterVarieties = {
+		"Ash Prophet",
+		"Cinder Elemental",
+		"Undying Incinerator",
 	},
 	bossVarieties = {
 		"Guardian of the Phoenix",
@@ -12179,6 +12529,7 @@ worldAreas["MapAtlasMinotaur"] = {
 	level = 83,
 	isMap = true,
 	monsterVarieties = {
+		"Hairy Bonecruncher",
 	},
 	bossVarieties = {
 		"Guardian of the Minotaur",
@@ -12207,6 +12558,9 @@ worldAreas["MapAtlasVaalTemple"] = {
 	level = 83,
 	isMap = true,
 	monsterVarieties = {
+		"Ash Prophet",
+		"Death Bishop",
+		"Sin Lord",
 	},
 	bossVarieties = {
 		"K'aj Q'ura",
@@ -12666,6 +13020,9 @@ worldAreas["MapWorldsBeach"] = {
 	level = 68,
 	isMap = true,
 	monsterVarieties = {
+		"Cursed Mariner",
+		"Spectral Bowman",
+		"Spectral Scoundrel",
 	},
 	bossVarieties = {
 		"Glace",
@@ -12704,6 +13061,9 @@ worldAreas["MapWorldsDungeon"] = {
 	level = 68,
 	isMap = true,
 	monsterVarieties = {
+		"Defiler",
+		"Sin Lord",
+		"Sparking Mage",
 	},
 	bossVarieties = {
 		"Penitentiary Incarcerator",
@@ -12722,6 +13082,8 @@ worldAreas["MapWorldsAlleyways"] = {
 	level = 69,
 	isMap = true,
 	monsterVarieties = {
+		"Kiln Mother",
+		"Wicker Man",
 	},
 	bossVarieties = {
 		"Calderus",
@@ -12740,6 +13102,7 @@ worldAreas["MapWorldsPen"] = {
 	level = 69,
 	isMap = true,
 	monsterVarieties = {
+		"Slave Driver",
 	},
 	bossVarieties = {
 		"Arwyn, the Houndmaster",
@@ -12754,6 +13117,7 @@ worldAreas["MapWorldsDesert"] = {
 	level = 69,
 	isMap = true,
 	monsterVarieties = {
+		"Sandworn Slaves",
 	},
 	bossVarieties = {
 		"Preethi, Eye-Pecker",
@@ -12864,6 +13228,7 @@ worldAreas["MapWorldsSprings"] = {
 	level = 70,
 	isMap = true,
 	monsterVarieties = {
+		"Oak's Devoted",
 	},
 	bossVarieties = {
 		"Aulen Greychain",
@@ -12979,6 +13344,8 @@ worldAreas["MapWorldsArcade"] = {
 	level = 70,
 	isMap = true,
 	monsterVarieties = {
+		"Flame Sentinel",
+		"Galvanic Ribbon",
 	},
 	bossVarieties = {
 		"Herald of Ashes",
@@ -12998,6 +13365,7 @@ worldAreas["MapWorldsCitySquare"] = {
 	level = 71,
 	isMap = true,
 	monsterVarieties = {
+		"Slave Driver",
 	},
 	bossVarieties = {
 		"Carius, the Unnatural",
@@ -13127,6 +13495,8 @@ worldAreas["MapWorldsGrotto"] = {
 	level = 71,
 	isMap = true,
 	monsterVarieties = {
+		"Hairy Bonecruncher",
+		"Shaggy Monstrosity",
 	},
 	bossVarieties = {
 		"Void Anomaly",
@@ -13141,6 +13511,10 @@ worldAreas["MapWorldsGorge"] = {
 	level = 71,
 	isMap = true,
 	monsterVarieties = {
+		"Bearded Devil",
+		"Bearded Shaman",
+		"Goatman",
+		"Goatman Shaman",
 	},
 	bossVarieties = {
 		"Rek'tar, the Breaker",
@@ -13158,6 +13532,7 @@ worldAreas["MapWorldsVolcano"] = {
 	level = 71,
 	isMap = true,
 	monsterVarieties = {
+		"Kaom's Chosen",
 	},
 	bossVarieties = {
 		"Forest of Flames",
@@ -13268,6 +13643,7 @@ worldAreas["MapWorldsMaze"] = {
 	level = 72,
 	isMap = true,
 	monsterVarieties = {
+		"Vaal Slayer",
 	},
 	bossVarieties = {
 		"Shadow of the Vaal",
@@ -13286,6 +13662,7 @@ worldAreas["MapWorldsMazeUnique"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Ancient Construct",
+		"Vaal Slayer",
 	},
 	bossVarieties = {
 		"The Apex Assembly",
@@ -13314,6 +13691,7 @@ worldAreas["MapWorldsToxicSewer"] = {
 	level = 72,
 	isMap = true,
 	monsterVarieties = {
+		"Undying Alchemist",
 	},
 	bossVarieties = {
 		"Arachnoxia",
@@ -13328,6 +13706,7 @@ worldAreas["MapWorldsAncientCity"] = {
 	level = 72,
 	isMap = true,
 	monsterVarieties = {
+		"Vaal Slayer",
 	},
 	bossVarieties = {
 		"Legius Garhall",
@@ -13346,6 +13725,7 @@ worldAreas["MapWorldsIvoryTemple"] = {
 	level = 72,
 	isMap = true,
 	monsterVarieties = {
+		"Solar Guard",
 	},
 	bossVarieties = {
 		"Sanctum Enforcer",
@@ -13365,6 +13745,7 @@ worldAreas["MapWorldsSpiderLair"] = {
 	level = 72,
 	isMap = true,
 	monsterVarieties = {
+		"Leaping Spider",
 	},
 	bossVarieties = {
 		"Thraxia",
@@ -13379,6 +13760,8 @@ worldAreas["MapWorldsBarrows"] = {
 	level = 72,
 	isMap = true,
 	monsterVarieties = {
+		"Hairy Bonecruncher",
+		"Shaggy Monstrosity",
 	},
 	bossVarieties = {
 		"Beast of the Pits",
@@ -13397,6 +13780,9 @@ worldAreas["MapWorldsMausoleum"] = {
 	level = 73,
 	isMap = true,
 	monsterVarieties = {
+		"Bone Husk",
+		"Bone Stalker",
+		"Desecrated Saint",
 	},
 	bossVarieties = {
 		"Tolman, the Exhumer",
@@ -13432,6 +13818,7 @@ worldAreas["MapWorldsJungleValley"] = {
 	level = 73,
 	isMap = true,
 	monsterVarieties = {
+		"Leaping Spider",
 	},
 	bossVarieties = {
 		"Queen of the Great Tangle",
@@ -13446,6 +13833,9 @@ worldAreas["MapWorldsPhantasmagoria"] = {
 	level = 73,
 	isMap = true,
 	monsterVarieties = {
+		"Gut Flayer",
+		"Noisome Ophidian",
+		"Stygian Revenant",
 	},
 	bossVarieties = {
 		"Erythrophagia",
@@ -13474,6 +13864,8 @@ worldAreas["MapWorldsThicket"] = {
 	level = 73,
 	isMap = true,
 	monsterVarieties = {
+		"Carnage Chieftain",
+		"Host Chieftain",
 	},
 	bossVarieties = {
 		"The Primal One",
@@ -13492,6 +13884,7 @@ worldAreas["MapWorldsWharf"] = {
 	level = 73,
 	isMap = true,
 	monsterVarieties = {
+		"Foreman",
 	},
 	bossVarieties = {
 		"Stone of the Currents",
@@ -13572,6 +13965,8 @@ worldAreas["MapWorldsCemetery"] = {
 	level = 73,
 	isMap = true,
 	monsterVarieties = {
+		"Frost Harbinger",
+		"Sparking Mage",
 	},
 	bossVarieties = {
 		"Erebix, Light's Bane",
@@ -13595,6 +13990,8 @@ worldAreas["MapWorldsCemeteryUnique"] = {
 	level = 73,
 	isMap = true,
 	monsterVarieties = {
+		"Frost Harbinger",
+		"Sparking Mage",
 	},
 	bossVarieties = {
 		"Maker of Mires",
@@ -13613,6 +14010,11 @@ worldAreas["MapWorldsUndergroundSea"] = {
 	level = 73,
 	isMap = true,
 	monsterVarieties = {
+		"Merveil's Attendant",
+		"Merveil's Blessed",
+		"Merveil's Chosen",
+		"Merveil's Retainer",
+		"Singing Siren",
 	},
 	bossVarieties = {
 		"Merveil, the Reflection",
@@ -13631,6 +14033,8 @@ worldAreas["MapWorldsTribunal"] = {
 	level = 74,
 	isMap = true,
 	monsterVarieties = {
+		"Undying Impaler",
+		"Undying Incinerator",
 	},
 	bossVarieties = {
 		"Megaera",
@@ -13667,6 +14071,7 @@ worldAreas["MapWorldsLavaChamber"] = {
 	level = 74,
 	isMap = true,
 	monsterVarieties = {
+		"Ash Prophet",
 	},
 	bossVarieties = {
 		"Fire and Fury",
@@ -13684,6 +14089,7 @@ worldAreas["MapWorldsResidence"] = {
 	level = 74,
 	isMap = true,
 	monsterVarieties = {
+		"Undying Evangelist",
 	},
 	bossVarieties = {
 		"Excellis Aurafix",
@@ -13698,6 +14104,7 @@ worldAreas["MapWorldsRamparts"] = {
 	level = 74,
 	isMap = true,
 	monsterVarieties = {
+		"Carrion Queen",
 	},
 	bossVarieties = {
 		"The Reaver",
@@ -13747,6 +14154,12 @@ worldAreas["MapWorldsBoneCrypt"] = {
 	level = 74,
 	isMap = true,
 	monsterVarieties = {
+		"Ash Prophet",
+		"Death Bishop",
+		"Defiler",
+		"Frost Harbinger",
+		"Sin Lord",
+		"Sparking Mage",
 	},
 	bossVarieties = {
 		"Xixic, High Necromancer",
@@ -13772,16 +14185,19 @@ worldAreas["MapWorldsBoneCryptUnique"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Alira's Deadeye",
+		"Ash Prophet",
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Bramble Cobra",
 		"Cinder Elemental",
 		"Death Bishop",
 		"Defiler",
+		"Frost Harbinger",
 		"Galvanic Ribbon",
 		"Goatman",
 		"Goatman Shaman",
 		"Incinerated Mage",
+		"Sin Lord",
 		"Sparking Mage",
 		"Undying Alchemist",
 		"Undying Incinerator",
@@ -13839,6 +14255,7 @@ worldAreas["MapWorldsGardens"] = {
 	level = 74,
 	isMap = true,
 	monsterVarieties = {
+		"Plumed Chimeral",
 	},
 	bossVarieties = {
 		"Sallazzang",
@@ -13853,6 +14270,7 @@ worldAreas["MapWorldsArachnidNest"] = {
 	level = 74,
 	isMap = true,
 	monsterVarieties = {
+		"Leaping Spider",
 	},
 	bossVarieties = {
 		"Spinner of False Hope",
@@ -13867,6 +14285,7 @@ worldAreas["MapWorldsBazaar"] = {
 	level = 74,
 	isMap = true,
 	monsterVarieties = {
+		"Frost Sentinel",
 	},
 	bossVarieties = {
 		"Ancient Sculptor",
@@ -13909,6 +14328,9 @@ worldAreas["MapWorldsOvergrownRuin"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Burned Miscreation",
+		"Mortality Experimenter",
+		"Slashed Miscreation",
 	},
 	bossVarieties = {
 		"Visceris",
@@ -13928,6 +14350,7 @@ worldAreas["MapWorldsVaalPyramid"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Vaal Slayer",
 	},
 	bossVarieties = {
 		"The Broken Prince",
@@ -13949,6 +14372,7 @@ worldAreas["MapWorldsVaalPyramidUnique"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Vaal Slayer",
 	},
 }
 
@@ -13960,6 +14384,7 @@ worldAreas["MapWorldsGeode"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Pocked Lanternbearer",
 	},
 	bossVarieties = {
 		"Avatar of Undoing",
@@ -13974,6 +14399,9 @@ worldAreas["MapWorldsArmoury"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Blackguard Arcmage",
+		"Blackguard Mage",
+		"Reanimator",
 	},
 	bossVarieties = {
 		"Warmonger",
@@ -13992,6 +14420,7 @@ worldAreas["MapWorldsCourtyard"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Avian Retch",
 	},
 	bossVarieties = {
 		"Oriath's Virtue",
@@ -14018,6 +14447,7 @@ worldAreas["MapWorldsCourtyardUnique"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Avian Retch",
 	},
 	bossVarieties = {
 		"Avatar of Thunder",
@@ -14036,6 +14466,7 @@ worldAreas["MapWorldsMudGeyser"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Diabolist",
 	},
 	bossVarieties = {
 		"Tunneltrap",
@@ -14050,6 +14481,7 @@ worldAreas["MapWorldsShore"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Cannibal Fire-eater",
 	},
 	bossVarieties = {
 		"Belcer, the Pirate Lord",
@@ -14069,6 +14501,7 @@ worldAreas["MapWorldsShoreUnique"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Cannibal Fire-eater",
 	},
 	bossVarieties = {
 		"Fairgraves, Never Dying",
@@ -14088,6 +14521,8 @@ worldAreas["MapWorldsTropicalIsland"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Carnage Chieftain",
+		"Host Chieftain",
 	},
 	bossVarieties = {
 		"Blood Progenitor",
@@ -14107,6 +14542,8 @@ worldAreas["MapWorldsTropicalIslandUnique"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Carnage Chieftain",
+		"Host Chieftain",
 	},
 	bossVarieties = {
 		"Prime Ape",
@@ -14131,6 +14568,11 @@ worldAreas["MapWorldsMineralPools"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Merveil's Attendant",
+		"Merveil's Blessed",
+		"Merveil's Chosen",
+		"Merveil's Retainer",
+		"Singing Siren",
 	},
 	bossVarieties = {
 		"Shock and Horror",
@@ -14149,6 +14591,7 @@ worldAreas["MapWorldsMoonTemple"] = {
 	level = 76,
 	isMap = true,
 	monsterVarieties = {
+		"Lunaris Concubine",
 	},
 	bossVarieties = {
 		"Sebbert, Crescent's Point",
@@ -14238,6 +14681,8 @@ worldAreas["MapWorldsPlateau"] = {
 	level = 76,
 	isMap = true,
 	monsterVarieties = {
+		"Alpine Shaman",
+		"Colossus Crusher",
 	},
 	bossVarieties = {
 		"Puruna, the Challenger",
@@ -14253,6 +14698,7 @@ worldAreas["MapWorldsEstuary"] = {
 	level = 76,
 	isMap = true,
 	monsterVarieties = {
+		"Freezing Wolf",
 	},
 	bossVarieties = {
 		"Sumter the Twisted",
@@ -14281,6 +14727,7 @@ worldAreas["MapWorldsTemple"] = {
 	level = 76,
 	isMap = true,
 	monsterVarieties = {
+		"Solaris Champion",
 	},
 	bossVarieties = {
 		"Jorus, Sky's Edge",
@@ -14306,6 +14753,7 @@ worldAreas["MapWorldsTempleUnique"] = {
 		"Flesh Sculptor",
 		"Mortality Experimenter",
 		"Reanimator",
+		"Solaris Champion",
 		"Tentacle Miscreation",
 		"Whipping Miscreation",
 	},
@@ -14326,6 +14774,7 @@ worldAreas["MapWorldsArena"] = {
 	level = 76,
 	isMap = true,
 	monsterVarieties = {
+		"Fighting Bull",
 	},
 	bossVarieties = {
 		"Avatar of the Huntress",
@@ -14445,6 +14894,7 @@ worldAreas["MapWorldsBelfry"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Kitava's Herald",
 	},
 	bossVarieties = {
 		"Lord of the Grey",
@@ -14464,6 +14914,7 @@ worldAreas["MapWorldsArachnidTomb"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Leaping Spider",
 	},
 	bossVarieties = {
 		"Hybrid Widow",
@@ -14482,6 +14933,7 @@ worldAreas["MapWorldsWasteland"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Knitted Horror",
 	},
 	bossVarieties = {
 		"The Brittle Emperor",
@@ -14520,6 +14972,7 @@ worldAreas["MapWorldsBog"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Diabolist",
 	},
 	bossVarieties = {
 		"Skullbeak",
@@ -14534,6 +14987,7 @@ worldAreas["MapWorldsPier"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Foreman",
 	},
 	bossVarieties = {
 		"Ancient Architect",
@@ -14552,6 +15006,7 @@ worldAreas["MapWorldsCursedCrypt"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Bone Stalker",
 	},
 	bossVarieties = {
 		"Pagan Bishop of Agony",
@@ -14576,6 +15031,7 @@ worldAreas["MapWorldsCursedCryptUnique"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Bone Stalker",
 		"Brittle Bleeder",
 		"Brittle Poacher",
 		"Frost Harbinger",
@@ -14655,6 +15111,8 @@ worldAreas["MapWorldsLair"] = {
 	level = 78,
 	isMap = true,
 	monsterVarieties = {
+		"Hairy Bonecruncher",
+		"Shaggy Monstrosity",
 	},
 	bossVarieties = {
 		"Lycius, Midnight's Howl",
@@ -14669,6 +15127,7 @@ worldAreas["MapWorldsColonnade"] = {
 	level = 78,
 	isMap = true,
 	monsterVarieties = {
+		"Solaris Champion",
 	},
 	bossVarieties = {
 		"Tyrant",
@@ -14687,6 +15146,9 @@ worldAreas["MapWorldsPrimordialPool"] = {
 	level = 78,
 	isMap = true,
 	monsterVarieties = {
+		"Gut Flayer",
+		"Noisome Ophidian",
+		"Stygian Revenant",
 	},
 	bossVarieties = {
 		"Nightmare's Omen",
@@ -14701,6 +15163,7 @@ worldAreas["MapWorldsSpiderForest"] = {
 	level = 78,
 	isMap = true,
 	monsterVarieties = {
+		"Leaping Spider",
 	},
 	bossVarieties = {
 		"Enticer of Rot",
@@ -14719,6 +15182,9 @@ worldAreas["MapWorldsCoves"] = {
 	level = 78,
 	isMap = true,
 	monsterVarieties = {
+		"Cursed Mariner",
+		"Spectral Bowman",
+		"Spectral Scoundrel",
 	},
 	bossVarieties = {
 		"Telvar, the Inebriated",
@@ -14775,6 +15241,9 @@ worldAreas["MapWorldsMesa"] = {
 	level = 78,
 	isMap = true,
 	monsterVarieties = {
+		"Kraityn's Sentry",
+		"Oak's Devoted",
+		"Oak's Sniper",
 	},
 	bossVarieties = {
 		"Oak the Mighty",
@@ -14792,6 +15261,7 @@ worldAreas["MapWorldsPit"] = {
 	level = 78,
 	isMap = true,
 	monsterVarieties = {
+		"Fighting Bull",
 	},
 	bossVarieties = {
 		"Olof, Son of the Headsman",
@@ -14899,6 +15369,7 @@ worldAreas["MapWorldsCastleRuins"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Kraityn's Sentry",
 	},
 	bossVarieties = {
 		"Leif, the Swift-Handed",
@@ -14913,6 +15384,7 @@ worldAreas["MapWorldsCrystalOre"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Pocked Lanternbearer",
 	},
 	bossVarieties = {
 		"Lord of the Hollows",
@@ -14929,6 +15401,7 @@ worldAreas["MapWorldsVilla"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Plumed Chimeral",
 	},
 	bossVarieties = {
 		"The High Templar",
@@ -14947,6 +15420,10 @@ worldAreas["MapWorldsTortureChamber"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Bone Husk",
+		"Brittle Poacher",
+		"Plagued Bowman",
+		"Vexing Archer",
 	},
 	bossVarieties = {
 		"High Lithomancer",
@@ -14968,10 +15445,14 @@ worldAreas["MapWorldsTortureChamberUnique"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Archer Statue",
+		"Bone Husk",
+		"Brittle Poacher",
 		"Burned Miscreation",
 		"Defiler",
+		"Plagued Bowman",
 		"Tentacle Miscreation",
 		"Undying Incinerator",
+		"Vexing Archer",
 	},
 }
 
@@ -14987,6 +15468,7 @@ worldAreas["MapWorldsNecropolis"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Colossal Bonestalker",
 	},
 	bossVarieties = {
 		"Burtok, Conjurer of Bones",
@@ -15006,6 +15488,7 @@ worldAreas["MapWorldsNecropolisUnique"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Colossal Bonestalker",
 		"Vaal Slayer",
 	},
 	bossVarieties = {
@@ -15024,6 +15507,7 @@ worldAreas["MapWorldsRacecourse_"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Fighting Bull",
 	},
 	bossVarieties = {
 		"Shredder of Gladiators",
@@ -15040,6 +15524,7 @@ worldAreas["MapWorldsCaldera"] = {
 	level = 80,
 	isMap = true,
 	monsterVarieties = {
+		"Kaom's Chosen",
 	},
 	bossVarieties = {
 		"The Infernal King",
@@ -15058,6 +15543,8 @@ worldAreas["MapWorldsGhetto"] = {
 	level = 80,
 	isMap = true,
 	monsterVarieties = {
+		"Undying Impaler",
+		"Undying Outcast",
 	},
 	bossVarieties = {
 		"Lady Stormflay",
@@ -15089,6 +15576,9 @@ worldAreas["MapWorldsMalformation"] = {
 	level = 80,
 	isMap = true,
 	monsterVarieties = {
+		"Gut Flayer",
+		"Noisome Ophidian",
+		"Stygian Revenant",
 	},
 	bossVarieties = {
 		"Nightmare Manifest",
@@ -15107,6 +15597,7 @@ worldAreas["MapWorldsTerrace"] = {
 	level = 80,
 	isMap = true,
 	monsterVarieties = {
+		"Chrome-infused Chimeral",
 	},
 	bossVarieties = {
 		"Varhesh, Shimmering Aberration",
@@ -15124,6 +15615,9 @@ worldAreas["MapWorldsShrine"] = {
 	level = 80,
 	isMap = true,
 	monsterVarieties = {
+		"Burned Miscreation",
+		"Slashed Miscreation",
+		"Whipping Miscreation",
 	},
 	bossVarieties = {
 		"Piety the Empyrean",
@@ -15174,6 +15668,9 @@ worldAreas["MapWorldsCore"] = {
 	level = 80,
 	isMap = true,
 	monsterVarieties = {
+		"Gut Flayer",
+		"Noisome Ophidian",
+		"Stygian Revenant",
 	},
 	bossVarieties = {
 		"Eater of Souls",
@@ -15188,6 +15685,7 @@ worldAreas["MapWorldsColosseum"] = {
 	level = 81,
 	isMap = true,
 	monsterVarieties = {
+		"Fighting Bull",
 	},
 	bossVarieties = {
 		"Ambrius, Legion Slayer",
@@ -15206,6 +15704,7 @@ worldAreas["MapWorldsAcidLakes"] = {
 	level = 81,
 	isMap = true,
 	monsterVarieties = {
+		"Fetid Maw",
 	},
 	bossVarieties = {
 		"Rama, The Kinslayer",
@@ -15232,6 +15731,7 @@ worldAreas["MapWorldsDarkForest"] = {
 	level = 81,
 	isMap = true,
 	monsterVarieties = {
+		"Bramble Cobra",
 	},
 	bossVarieties = {
 		"The Cursed King",
@@ -15303,6 +15803,7 @@ worldAreas["MapWorldsPalace"] = {
 	level = 81,
 	isMap = true,
 	monsterVarieties = {
+		"Undying Evangelist",
 	},
 	bossVarieties = {
 		"God's Chosen",
@@ -15322,6 +15823,7 @@ worldAreas["MapWorldsLavaLake"] = {
 	level = 82,
 	isMap = true,
 	monsterVarieties = {
+		"Tukohama's Vanguard",
 	},
 	bossVarieties = {
 		"Kitava, The Destroyer",
@@ -15350,6 +15852,7 @@ worldAreas["MapWorldsSunkenCity"] = {
 	level = 82,
 	isMap = true,
 	monsterVarieties = {
+		"Leaping Spider",
 	},
 	bossVarieties = {
 		"Armala, the Widow",
@@ -15387,6 +15890,9 @@ worldAreas["MapWorldsCarcass"] = {
 	level = 82,
 	isMap = true,
 	monsterVarieties = {
+		"Gut Flayer",
+		"Noisome Ophidian",
+		"Stygian Revenant",
 	},
 	bossVarieties = {
 		"Amalgam of Nightmares",
@@ -15405,6 +15911,7 @@ worldAreas["MapWorldsChimera"] = {
 	level = 83,
 	isMap = true,
 	monsterVarieties = {
+		"Dune Hellion",
 	},
 	bossVarieties = {
 		"Guardian of the Chimera",
@@ -15424,6 +15931,7 @@ worldAreas["MapWorldsHydra"] = {
 	level = 83,
 	isMap = true,
 	monsterVarieties = {
+		"Lunarsworn Wintermage",
 	},
 	bossVarieties = {
 		"Guardian of the Hydra",
@@ -15443,6 +15951,7 @@ worldAreas["MapWorldsPhoenix"] = {
 	level = 83,
 	isMap = true,
 	monsterVarieties = {
+		"Cinder Elemental",
 	},
 	bossVarieties = {
 		"Guardian of the Phoenix",
@@ -15494,6 +16003,7 @@ worldAreas["MapWorldsVaalTemple"] = {
 	level = 83,
 	isMap = true,
 	monsterVarieties = {
+		"Ancient Construct",
 	},
 	bossVarieties = {
 		"K'aj Q'ura",
@@ -15651,6 +16161,9 @@ worldAreas["MapWorldsFrozenCabins"] = {
 	level = 69,
 	isMap = true,
 	monsterVarieties = {
+		"Cursed Mariner",
+		"Spectral Bowman",
+		"Spectral Scoundrel",
 	},
 	bossVarieties = {
 		"Captain Clayborne, The Accursed",
@@ -15737,6 +16250,7 @@ worldAreas["MapWorldsFoundry"] = {
 	level = 82,
 	isMap = true,
 	monsterVarieties = {
+		"Mortality Experimenter",
 	},
 	bossVarieties = {
 		"Ciergan, Shadow Alchemist",
@@ -15790,6 +16304,7 @@ worldAreas["MapWorldsSilo"] = {
 	level = 72,
 	isMap = true,
 	monsterVarieties = {
+		"Crazed Driver",
 	},
 	bossVarieties = {
 		"Renkarr, The Kiln Keeper",
