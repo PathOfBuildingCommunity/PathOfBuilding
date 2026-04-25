@@ -134,7 +134,7 @@ function SpawnListClass:AddValueTooltip(tooltip, index, value)
 	if tooltip:CheckForUpdate(value) then
 		local foundArea = nil
 		for _, area in pairs(data.worldAreas) do
-			if area.name == value and #area .monsterVarieties > 0 then
+			if area.name == value then
 				foundArea = area
 				break
 			end
