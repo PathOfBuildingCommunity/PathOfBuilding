@@ -1420,11 +1420,13 @@ function buildMode:OpenSpectreLibrary()
 		end
 		-- Check if minion.modList contains a mod for BlockChance and use it for blockLabel
 		local blockChance = 0
+		local spellBlockChance = 0
 		if minion.modList then
 			for _, mod in ipairs(minion.modList) do
 				if mod.name == "BlockChance" then
 					blockChance = mod.value
-					break
+				elseif mod.name == "SpellBlockChance" then
+					spellBlockChance = mod.value
 				end
 			end
 		end
@@ -1439,7 +1441,7 @@ function buildMode:OpenSpectreLibrary()
 		controls.lifeLabel.lifeValue = round(totalLife)
 		controls.energyshieldLabel.energyShieldValue = round(totalES)
 		controls.armourLabel.armourValue = round(totalArmour)
-		controls.blockLabel.blockValue = blockChance
+		controls.blockLabel.blockValue = blockChance .. "% / " .. spellBlockChance .. "%"
 		controls.evasionLabel.evasionValue = round(totalEvasion)
 		controls.spawnLocations.list = spawnLocationList
 		controls.resistsLabel.resistsValue = (
