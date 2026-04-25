@@ -44,6 +44,7 @@ function PoEAPIClass:ValidateAuth(callback)
 				self.authToken = responseLua.access_token
 				self.refreshToken = responseLua.refresh_token
 				self.tokenExpiry = os.time() + responseLua.expires_in
+				self:UpdateMain()
 				self.retries = 0
 				callback(true, true)
 			end, { body = formText })
@@ -65,6 +66,15 @@ function PoEAPIClass:ResetDetails()
 	self.authToken = nil
 	self.refreshToken = nil
 	self.tokenExpiry = nil
+	self:UpdateMain()
+end
+
+--- updates main so that API details are saved across restarts
+function PoEAPIClass:UpdateMain()
+	main.authToken = self.authToken
+	main.refreshToken = self.refreshToken
+	main.tokenExpiry = self.tokenExpiry
+	main:SaveSettings()
 end
 
 --- @param callback fun(errCode: string?)
@@ -117,6 +127,7 @@ function PoEAPIClass:FetchAuthToken(callback)
 					self.authToken = responseLua.access_token
 					self.refreshToken = responseLua.refresh_token
 					self.tokenExpiry = os.time() + responseLua.expires_in
+					self:UpdateMain()
 					self.retries = 0
 					SetForeground()
 					callback()
@@ -161,7 +172,8 @@ function PoEAPIClass:DownloadWithRefresh(endpoint, callback)
 		end, { header = "Authorization: Bearer " .. self.authToken })
 	end)
 end
---- @alias DownloadCallback fun(timeOrBody: table|integer, err: string?)
+
+--- @alias DownloadCallback fun(body: table?, err: string?, timeout: integer?)
 --- @param policy string
 --- @param url string
 --- @param callback DownloadCallback
@@ -175,14 +187,15 @@ function PoEAPIClass:DownloadWithRateLimit(policy, url, callback)
 			self.rateLimiter:UpdateFromHeader(response.header, policy)
 			if response.header:match("HTTP/[%d%.]+ (%d+)") == "429" then
 				timeNext = self.rateLimiter:NextRequestTime(policy, now)
-				callback(timeNext, "Response code: 429")
+				callback(nil, "Response code: 429", timeNext)
 				return
 			end
-			callback(response.body, errMsg)
+			local responseLua = dkjson.decode(response.body)
+			callback(responseLua, errMsg, nil)
 		end
 		self:DownloadWithRefresh(url, onComplete)
 	else
-		callback(timeNext, "Response code: 429")
+		callback(nil, "Response code: 429", timeNext)
 	end
 end
 
