@@ -253,12 +253,26 @@ directiveTable.emit = function(state, args, out)
 	end
 	out:write('minions["', state.name, '"] = {\n')
 	out:write('\tname = "', monsterVariety.Name, '",\n')
+
+	local hasTag = {}
+	local monsterCategory
+
 	out:write('\tmonsterTags = { ')
-		for _, tag in ipairs(monsterVariety.Tags) do
-			out:write('"',tag.Id, '", ')
-		end
+	for _, tag in ipairs(monsterVariety.Tags) do
+		out:write('"',tag.Id, '", ')
+		hasTag[tag.Id] = true
+	end
 	out:write('},\n')
-		if #state.extraFlags > 0 then
+
+	monsterCategory =
+		hasTag["eldritch"] and "Eldritch" or -- Perfect Hydra has Eldritch, Beast, and Human. But priority is Eldritch.
+		hasTag["beast"]    and "Beast" or
+		hasTag["demon"]    and "Demon" or
+		hasTag["construct"]and "Construct" or
+		hasTag["undead"]   and "Undead" or
+		hasTag["human"]    and "Humanoid" -- Humanoid tag is on many more things
+		
+	if #state.extraFlags > 0 then
 		out:write('\textraFlags = {\n')
 		for _, flag in ipairs(state.extraFlags) do
 			out:write('\t\t', flag, ' = true,\n')
@@ -312,6 +326,9 @@ directiveTable.emit = function(state, args, out)
 		out:write('\tlimit = "', state.limit, '",\n')
 	end
 	out:write('\tbaseMovementSpeed = ', monsterVariety.MovementSpeed, ',\n')
+	if monsterCategory then
+		out:write('\tmonsterCategory = "', (monsterCategory), '",\n')
+	end
 	out:write('\tspawnLocation = {\n')
 	table.sort(worldAreaNames)
 	for _, name in ipairs(worldAreaNames) do

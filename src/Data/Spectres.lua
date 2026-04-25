@@ -26,6 +26,7 @@ minions["Metadata/Monsters/Axis/AxisCaster"] = {
 	weaponType1 = "Wand",
 	weaponType2 = "Shield",
 	baseMovementSpeed = 33,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Armoury (Map)",
 		"Blackguard Salute (Map)",
@@ -66,6 +67,7 @@ minions["Metadata/Monsters/Axis/AxisCasterArc"] = {
 	weaponType1 = "Wand",
 	weaponType2 = "Shield",
 	baseMovementSpeed = 33,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Armoury (Map)",
 		"Blackguard Salute (Map)",
@@ -108,6 +110,7 @@ minions["Metadata/Monsters/Axis/AxisCasterLunaris"] = {
 	weaponType1 = "Wand",
 	weaponType2 = "Shield",
 	baseMovementSpeed = 33,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Lair of the Hydra (Map)",
 		"The Eternal Laboratory (Act 8)",
@@ -144,6 +147,7 @@ minions["Metadata/Monsters/Axis/AxisEliteSoldier3Champion"] = {
 	accuracy = 1,
 	weaponType1 = "Two Handed Sword",
 	baseMovementSpeed = 31,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Colonnade (Map)",
 		"Poorjoy's Asylum (Map)",
@@ -184,6 +188,7 @@ minions["Metadata/Monsters/Axis/AxisExperimenter"] = {
 	accuracy = 1,
 	weaponType1 = "Wand",
 	baseMovementSpeed = 17,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Armoury (Map)",
 		"Blackguard Salute (Map)",
@@ -225,6 +230,7 @@ minions["Metadata/Monsters/Axis/AxisExperimenter2"] = {
 	accuracy = 1,
 	weaponType1 = "Wand",
 	baseMovementSpeed = 17,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Fragmented Memory",
 		"Memory Void",
@@ -258,6 +264,7 @@ minions["Metadata/Monsters/Axis/AxisExperimenterRaiseZombie"] = {
 	accuracy = 1,
 	weaponType1 = "Wand",
 	baseMovementSpeed = 17,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Armoury (Map)",
 		"Fragmented Memory",
@@ -295,6 +302,7 @@ minions["Metadata/Monsters/Bandits/BanditBowExplosiveArrow"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Fragmented Memory",
 		"Fungal Hollow (Map)",
@@ -329,6 +337,7 @@ minions["Metadata/Monsters/Bandits/BanditBowPoisonArrow"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Fragmented Memory",
 		"Fungal Hollow (Map)",
@@ -361,6 +370,7 @@ minions["Metadata/Monsters/Bandits/BanditMeleeWarlordsMarkMaul"] = {
 	accuracy = 1,
 	weaponType1 = "Two Handed Mace",
 	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Fungal Hollow (Map)",
 		"Mesa (Map)",
@@ -392,6 +402,7 @@ minions["Metadata/Monsters/Bandit/DockworkerChampion_"] = {
 	accuracy = 1,
 	weaponType1 = "Two Handed Mace",
 	baseMovementSpeed = 25,
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Pier (Map)",
 		"The Eternal Laboratory (Act 8)",
@@ -423,6 +434,7 @@ minions["Metadata/Monsters/Bandits/BanditBowChampion"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 22,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Castle Ruins (Map)",
 		"Fungal Hollow (Map)",
@@ -456,6 +468,7 @@ minions["Metadata/Monsters/Bandits/BanditRangedTornadoShotPetrified"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -481,6 +494,7 @@ minions["Metadata/Monsters/Beasts/BeastCaveDegenAura"] = {
 	attackRange = 14,
 	accuracy = 1,
 	baseMovementSpeed = 19,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Barrows (Map)",
 		"Caer Blaidd, Wolfpack's Den (Map)",
@@ -514,6 +528,7 @@ minions["Metadata/Monsters/Beasts/BeastVulnerabilityCurse"] = {
 	attackRange = 14,
 	accuracy = 1,
 	baseMovementSpeed = 19,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Caer Blaidd, Wolfpack's Den (Map)",
 		"Grotto (Map)",
@@ -543,6 +558,7 @@ minions["Metadata/Monsters/Beasts/BeastCleaveEnduringCry"] = {
 	attackRange = 14,
 	accuracy = 1,
 	baseMovementSpeed = 19,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Ashen Wood (Map)",
 		"Barrows (Map)",
@@ -588,6 +604,7 @@ minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
 	baseMovementSpeed = 36,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Fragmented Memory",
 		"Memory Void",
@@ -624,6 +641,7 @@ minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodParasite"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
 	baseMovementSpeed = 36,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"The Ashen Fields (Act 7)",
 		"The Eternal Laboratory (Act 8)",
@@ -658,6 +676,7 @@ minions["Metadata/Monsters/BoneStalker/BoneStalker"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Axe",
 	baseMovementSpeed = 30,
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Cursed Crypt (Map)",
 		"Fragmented Memory",
@@ -694,6 +713,7 @@ minions["Metadata/Monsters/Bull/Bull"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
 	baseMovementSpeed = 30,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Arena (Map)",
 		"Colosseum (Map)",
@@ -725,6 +745,7 @@ minions["Metadata/Monster/CageSpider/CageSpider2"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 22,
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Desert (Map)",
 		"The Eternal Laboratory (Act 8)",
@@ -755,6 +776,7 @@ minions["Metadata/Monsters/Cannibal/CannibalMaleChampion"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
 	baseMovementSpeed = 44,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Mao Kun (Map)",
 		"Peninsula (Map)",
@@ -788,6 +810,7 @@ minions["Metadata/Monsters/Goatman/GoatmanLeapSlam"] = {
 	attackRange = 7,
 	accuracy = 1,
 	baseMovementSpeed = 25,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Atoll (Map)",
 		"Fragmented Memory",
@@ -827,6 +850,7 @@ minions["Metadata/Monsters/Goatman/GoatmanLightningLeapSlamMaps"] = {
 	attackRange = 7,
 	accuracy = 1,
 	baseMovementSpeed = 25,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Arena (Map)",
 		"Atoll (Map)",
@@ -868,6 +892,7 @@ minions["Metadata/Monsters/Goatman/GoatmanShamanFireball"] = {
 	accuracy = 1,
 	weaponType1 = "Staff",
 	baseMovementSpeed = 23,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Atoll (Map)",
 		"Canyon (Map)",
@@ -903,6 +928,7 @@ minions["Metadata/Monsters/Goatman/GoatmanShamanFireChampion"] = {
 	accuracy = 1,
 	weaponType1 = "Staff",
 	baseMovementSpeed = 25,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Canyon (Map)",
 		"Prisoner's Gate (Act 6)",
@@ -933,6 +959,7 @@ minions["Metadata/Monsters/Goatman/GoatmanShamanLightning"] = {
 	accuracy = 1,
 	weaponType1 = "Staff",
 	baseMovementSpeed = 23,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Atoll (Map)",
 		"Fragmented Memory",
@@ -970,6 +997,7 @@ minions["Metadata/Monsters/Goatman/MountainGoatmanChampion"] = {
 	accuracy = 1,
 	weaponType1 = "Two Handed Mace",
 	baseMovementSpeed = 30,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Fragmented Memory",
 		"Memory Void",
@@ -1003,6 +1031,7 @@ minions["Metadata/Monsters/Goatman/MountainGoatmanShamanIceSpear"] = {
 	accuracy = 1,
 	weaponType1 = "Staff",
 	baseMovementSpeed = 23,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Fragmented Memory",
 		"Memory Void",
@@ -1032,6 +1061,7 @@ minions["Metadata/Monsters/DemonFemale/DemonFemale"] = {
 	attackRange = 18,
 	accuracy = 1,
 	baseMovementSpeed = 43,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Fragmented Memory",
 		"Memory Void",
@@ -1068,6 +1098,7 @@ minions["Metadata/Monsters/DemonModular/DemonFemaleRanged"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 32,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Fragmented Memory",
 		"Memory Void",
@@ -1107,6 +1138,7 @@ minions["Metadata/Monsters/DemonModular/DemonFemaleRanged2"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 32,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Moon Temple (Map)",
 		"The Eternal Laboratory (Act 8)",
@@ -1137,6 +1169,7 @@ minions["Metadata/Monsters/DemonModular/DemonModularBladeVortex"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 20,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Fragmented Memory",
 		"Memory Void",
@@ -1167,6 +1200,7 @@ minions["Metadata/Monsters/DemonModular/DemonModularFire"] = {
 	attackRange = 9,
 	accuracy = 1,
 	baseMovementSpeed = 20,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Fragmented Memory",
 		"Memory Void",
@@ -1203,6 +1237,7 @@ minions["Metadata/Monsters/Frog/Frog"] = {
 	attackRange = 7,
 	accuracy = 1,
 	baseMovementSpeed = 25,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Acid Caverns (Map)",
 		"The Eternal Laboratory (Act 8)",
@@ -1234,6 +1269,7 @@ minions["Metadata/Monsters/Frog/Frog2"] = {
 	attackRange = 7,
 	accuracy = 1,
 	baseMovementSpeed = 25,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Barrows (Map)",
 	},
@@ -1263,6 +1299,7 @@ minions["Metadata/Monsters/GemMonster/Iguana"] = {
 	attackRange = 9,
 	accuracy = 1,
 	baseMovementSpeed = 25,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Fragmented Memory",
 		"Gardens (Map)",
@@ -1302,6 +1339,7 @@ minions["Metadata/Monsters/GemMonster/IguanaChrome"] = {
 	attackRange = 9,
 	accuracy = 1,
 	baseMovementSpeed = 25,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Terrace (Map)",
 		"The Eternal Laboratory (Act 8)",
@@ -1336,6 +1374,7 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateBlackBowMaps"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 40,
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Beach (Map)",
 		"Coves (Map)",
@@ -1377,6 +1416,7 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateBlackFlickerStrikeMaps"] = {
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Shield",
 	baseMovementSpeed = 42,
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Beach (Map)",
 		"Coves (Map)",
@@ -1419,6 +1459,7 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateGreenBladeVortex"] = {
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Shield",
 	baseMovementSpeed = 42,
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Beach (Map)",
 		"Coves (Map)",
@@ -1458,6 +1499,7 @@ minions["Metadata/Monsters/Grappler/Grappler"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 37,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Doedre's Cesspool (Act 8)",
 		"Fragmented Memory",
@@ -1498,6 +1540,7 @@ minions["Metadata/Monsters/Grappler/GrapplerLabyrinth"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 37,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1529,6 +1572,7 @@ minions["Metadata/Monsters/Guardians/GuardianFire"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 26,
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"Arcade (Map)",
 		"Colonnade (Map)",
@@ -1575,6 +1619,7 @@ minions["Metadata/Monsters/Guardians/GuardianFire_BlueMaps"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 26,
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"Bazaar (Map)",
 		"The Eternal Laboratory (Act 8)",
@@ -1609,6 +1654,7 @@ minions["Metadata/Monsters/Guardians/GuardianLightning"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 26,
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"Arcade (Map)",
 		"Colonnade (Map)",
@@ -1646,6 +1692,7 @@ minions["Metadata/Monsters/HalfSkeleton/HalfSkeleton"] = {
 	accuracy = 1,
 	weaponType1 = "Dagger",
 	baseMovementSpeed = 32,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Carcass (Map)",
 		"Core (Map)",
@@ -1687,6 +1734,7 @@ minions["Metadata/Monsters/HolyFireElemental/HolyFireElementalSolarisBeam"] = {
 	attackRange = 9,
 	accuracy = 1,
 	baseMovementSpeed = 35,
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"Ivory Temple (Map)",
 		"The Eternal Laboratory (Act 8)",
@@ -1721,6 +1769,7 @@ minions["Metadata/Monsters/incaminion/Fragment"] = {
 	attackRange = 25,
 	accuracy = 1,
 	baseMovementSpeed = 32,
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"Doryani's Machinarium (Map)",
 		"Excavation (Map)",
@@ -1761,6 +1810,7 @@ minions["Metadata/Monsters/InsectSpawner/InsectSpawner"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 16,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Canyon (Map)",
 		"Fragmented Memory",
@@ -1798,6 +1848,7 @@ minions["Metadata/Monsters/KaomWarrior/KaomWarrior2"] = {
 	attackRange = 9,
 	accuracy = 1,
 	baseMovementSpeed = 28,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Caldera (Map)",
 		"Fragmented Memory",
@@ -1829,6 +1880,7 @@ minions["Metadata/Monsters/KaomWarrior/KaomWarrior3"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 28,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Caldera (Map)",
 		"Fragmented Memory",
@@ -1859,6 +1911,7 @@ minions["Metadata/Monsters/KaomWarrior/KaomWarrior7"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 28,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Fragmented Memory",
 		"Lava Lake (Map)",
@@ -1901,6 +1954,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodDelve"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 35,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"The Temple of Atzoatl",
 	},
@@ -1929,6 +1983,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodChampionDelve"] = 
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 35,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"The Temple of Atzoatl",
 	},
@@ -1958,6 +2013,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosDelve"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 35,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"The Temple of Atzoatl",
 	},
@@ -1986,6 +2042,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosChampionDelve"] = 
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 35,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"The Temple of Atzoatl",
 	},
@@ -2016,6 +2073,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireDelve"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 35,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"The Temple of Atzoatl",
 	},
@@ -2044,6 +2102,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireChampionDelve_"] = 
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 35,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"The Temple of Atzoatl",
 	},
@@ -2073,6 +2132,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningDelve"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 35,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"The Temple of Atzoatl",
 	},
@@ -2101,6 +2161,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampionDelve_
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 35,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"The Temple of Atzoatl",
 	},
@@ -2132,6 +2193,7 @@ minions["Metadata/Monster/KitavaDemon/KitavaDemon"] = {
 	damageFixup = 0.33,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 28,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Belfry (Map)",
 		"Fragmented Memory",
@@ -2172,6 +2234,7 @@ minions["Metadata/Monsters/Kiweth/Kiweth"] = {
 	attackRange = 11,
 	accuracy = 1,
 	baseMovementSpeed = 27,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Courtyard (Map)",
 		"Fragmented Memory",
@@ -2211,6 +2274,7 @@ minions["Metadata/Monsters/Kiweth/KiwethSeagull"] = {
 	attackRange = 11,
 	accuracy = 1,
 	baseMovementSpeed = 27,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Atoll (Map)",
 		"Courtyard (Map)",
@@ -2253,6 +2317,7 @@ minions["Metadata/Monsters/LeagueDelve/ProtoVaalWarriorElite"] = {
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "One Handed Sword",
 	baseMovementSpeed = 43,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -2279,6 +2344,7 @@ minions["Metadata/Monsters/Lion/LionDesertSkinPuncture"] = {
 	attackRange = 10,
 	accuracy = 1,
 	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Ashen Wood (Map)",
 		"Fragmented Memory",
@@ -2312,6 +2378,7 @@ minions["Metadata/Monsters/Lion/LionWolf3Champion"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
 	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Estuary (Map)",
 		"The Descent (Act 9)",
@@ -2342,6 +2409,7 @@ minions["Metadata/Monsters/MassSkeleton/MassSkeleton"] = {
 	attackRange = 11,
 	accuracy = 1,
 	baseMovementSpeed = 30,
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Arsenal (Map)",
 		"Fragmented Memory",
@@ -2376,6 +2444,7 @@ minions["Metadata/Monsters/Miner/MinerLantern"] = {
 	attackRange = 9,
 	accuracy = 1,
 	baseMovementSpeed = 10,
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Crystal Ore (Map)",
 		"Fragmented Memory",
@@ -2409,6 +2478,7 @@ minions["Metadata/Monsters/Miner/MinerLanternCrystalVeins"] = {
 	attackRange = 9,
 	accuracy = 1,
 	baseMovementSpeed = 10,
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Crystal Ore (Map)",
 		"The Crystal Veins (Act 4)",
@@ -2437,6 +2507,7 @@ minions["Metadata/Monsters/Monkeys/FlameBearer"] = {
 	attackRange = 7,
 	accuracy = 1,
 	baseMovementSpeed = 33,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Caldera (Map)",
 		"Estuary (Map)",
@@ -2475,6 +2546,7 @@ minions["Metadata/Monsters/MossMonster/FireMonster"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 12,
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"Cells (Map)",
 		"Factory (Map)",
@@ -2508,6 +2580,7 @@ minions["Metadata/Monsters/MotherOfFlames/MotherOfFlamesZombie"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 28,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Alleyways (Map)",
 		"Fragmented Memory",
@@ -2539,6 +2612,7 @@ minions["Metadata/Monsters/Necromancer/NecromancerConductivity"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 13,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Bone Crypt (Map)",
 		"Death and Taxes (Map)",
@@ -2582,6 +2656,7 @@ minions["Metadata/Monsters/Necromancer/NecromancerEnfeebleCurse"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 13,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Bog (Map)",
 		"Dungeon (Map)",
@@ -2620,6 +2695,7 @@ minions["Metadata/Monsters/Necromancer/NecromancerFlamability"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 13,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Bone Crypt (Map)",
 		"Cells (Map)",
@@ -2667,6 +2743,7 @@ minions["Metadata/Monsters/Necromancer/NecromancerFrostbite"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 13,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Bone Crypt (Map)",
 		"Death and Taxes (Map)",
@@ -2708,6 +2785,7 @@ minions["Metadata/Monsters/Necromancer/NecromancerElementalWeakness"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 13,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Bone Crypt (Map)",
 		"Death and Taxes (Map)",
@@ -2747,6 +2825,7 @@ minions["Metadata/Monsters/Necromancer/NecromancerProjectileWeakness"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 13,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Cursed Crypt (Map)",
 		"Death and Taxes (Map)",
@@ -2786,6 +2865,7 @@ minions["Metadata/Monsters/Necromancer/NecromancerVulnerability"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 13,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Cursed Crypt (Map)",
 		"Death and Taxes (Map)",
@@ -2826,6 +2906,7 @@ minions["Metadata/Monsters/Pyromaniac/PyromaniacFire"] = {
 	attackRange = 7,
 	accuracy = 1,
 	baseMovementSpeed = 27,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Arsenal (Map)",
 		"Cells (Map)",
@@ -2865,6 +2946,7 @@ minions["Metadata/Monsters/Pyromaniac/PyromaniacPoison"] = {
 	attackRange = 7,
 	accuracy = 1,
 	baseMovementSpeed = 27,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Doedre's Cesspool (Act 8)",
 		"Fragmented Memory",
@@ -2899,6 +2981,7 @@ minions["Metadata/Monsters/Revenant/Revenant"] = {
 	attackRange = 10,
 	accuracy = 1,
 	baseMovementSpeed = 38,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Carcass (Map)",
 		"Core (Map)",
@@ -2940,6 +3023,7 @@ minions["Metadata/Monsters/Seawitch/SeaWitchFrostBolt"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 24,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Caer Blaidd, Wolfpack's Den (Map)",
 		"Fragmented Memory",
@@ -2973,6 +3057,7 @@ minions["Metadata/Monsters/Seawitch/SeaWitchScreech"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 21,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Caer Blaidd, Wolfpack's Den (Map)",
 		"Fragmented Memory",
@@ -3009,6 +3094,7 @@ minions["Metadata/Monsters/Seawitch/SeaWitchSpawnExploding"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 22,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Bog (Map)",
 		"Caer Blaidd, Wolfpack's Den (Map)",
@@ -3046,6 +3132,7 @@ minions["Metadata/Monsters/Seawitch/SeaWitchSpawnTemporalChains"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 22,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Caer Blaidd, Wolfpack's Den (Map)",
 		"Fragmented Memory",
@@ -3081,6 +3168,7 @@ minions["Metadata/Monsters/Seawitch/SeaWitchVulnerabilityCurse"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 22,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Caer Blaidd, Wolfpack's Den (Map)",
 		"Mineral Pools (Map)",
@@ -3114,6 +3202,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowPuncture"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 11,
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Oba's Cursed Trove (Map)",
 		"Primordial Blocks (Map)",
@@ -3148,6 +3237,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowLightning"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 11,
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Bone Crypt (Map)",
 		"Cells (Map)",
@@ -3193,6 +3283,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeLarge"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
 	baseMovementSpeed = 16,
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Death and Taxes (Map)",
 		"Museum (Map)",
@@ -3228,6 +3319,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowLightning3"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 11,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -3254,6 +3346,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterColdMultipleProjectiles"] = {
 	attackRange = 46,
 	accuracy = 1,
 	baseMovementSpeed = 10,
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Bone Crypt (Map)",
 		"Cells (Map)",
@@ -3294,6 +3387,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterFireMultipleProjectiles2"] = 
 	attackRange = 46,
 	accuracy = 1,
 	baseMovementSpeed = 14,
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Lava Chamber (Map)",
 		"Olmec's Sanctum (Map)",
@@ -3327,6 +3421,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowPoison"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 11,
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Bone Crypt (Map)",
 		"Cells (Map)",
@@ -3363,6 +3458,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowLightning2"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 11,
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"The City of Sarn (Act 3)",
 		"The Eternal Laboratory (Act 8)",
@@ -3392,6 +3488,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowLightning4"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 11,
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"The Chamber of Sins Level 1 (Act 2)",
 		"The Chamber of Sins Level 1 (Act 7)",
@@ -3420,6 +3517,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterLightningSpark"] = {
 	attackRange = 46,
 	accuracy = 1,
 	baseMovementSpeed = 10,
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Bone Crypt (Map)",
 		"Cells (Map)",
@@ -3463,6 +3561,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonBlackCaster1_"] = {
 	attackRange = 46,
 	accuracy = 1,
 	baseMovementSpeed = 11,
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Fragmented Memory",
 		"Mausoleum (Map)",
@@ -3498,6 +3597,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 11,
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Bone Crypt (Map)",
 		"Cells (Map)",
@@ -3534,6 +3634,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionC
 	accuracy = 1,
 	weaponType1 = "Two Handed Sword",
 	baseMovementSpeed = 10,
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"The Temple of Atzoatl",
 	},
@@ -3563,6 +3664,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowKnightElemental"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 11,
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"Ancient City (Map)",
 		"Death and Taxes (Map)",
@@ -3601,6 +3703,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeBlackAbyssBoneLance"] = {
 	accuracy = 1,
 	weaponType1 = "Two Handed Mace",
 	baseMovementSpeed = 23,
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Ziggurat (Map)",
 	},
@@ -3633,6 +3736,7 @@ minions["Metadata/Monsters/SkeletonCannon/SkeletonCannon1"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 30,
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Bone Crypt (Map)",
 		"Cells (Map)",
@@ -3674,6 +3778,7 @@ minions["Metadata/Monsters/Snake/SnakeMeleeSpit"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 30,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Dark Forest (Map)",
 		"Fragmented Memory",
@@ -3717,6 +3822,7 @@ minions["Metadata/Monsters/Snake/SnakeScorpionMultiShot"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 30,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -3744,6 +3850,7 @@ minions["Metadata/Monsters/Spiders/SpiderThornFlickerStrike"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Arachnid Nest (Map)",
 		"Arachnid Tomb (Map)",
@@ -3779,6 +3886,7 @@ minions["Metadata/Monsters/Spiders/SpiderThornViperStrikeFlickerStrike"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -3808,6 +3916,7 @@ minions["Metadata/Monsters/Statue/DaressoStatueLargeMaleSpear"] = {
 	damageFixup = 0.33,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 22,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -3838,6 +3947,7 @@ minions["Metadata/Monsters/Statue/StoneStatueMaleBow"] = {
 	damageFixup = 0.11,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 19,
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"Oba's Cursed Trove (Map)",
 	},
@@ -3869,6 +3979,7 @@ minions["Metadata/Monsters/Taster/Taster"] = {
 	accuracy = 1,
 	weaponType1 = "Dagger",
 	baseMovementSpeed = 36,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Carcass (Map)",
 		"Core (Map)",
@@ -3910,6 +4021,7 @@ minions["Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriver"] = {
 	weaponType1 = "One Handed Mace",
 	weaponType2 = "One Handed Mace",
 	baseMovementSpeed = 32,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"City Square (Map)",
 		"Fragmented Memory",
@@ -3945,6 +4057,7 @@ minions["Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriverKitava"] = {
 	weaponType1 = "One Handed Mace",
 	weaponType2 = "One Handed Mace",
 	baseMovementSpeed = 32,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Silo (Map)",
 		"The Control Blocks (Act 10)",
@@ -3977,6 +4090,7 @@ minions["Metadata/Monsters/Undying/CityStalkerMaleCasterArmour"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 37,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Academy (Map)",
 		"Fragmented Memory",
@@ -4016,6 +4130,7 @@ minions["Metadata/Monsters/Undying/UndyingOutcastPuncture"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 38,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Arsenal (Map)",
 		"Bazaar (Map)",
@@ -4050,6 +4165,7 @@ minions["Metadata/Monsters/Undying/UndyingOutcastWhirlingBlades"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 38,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Arsenal (Map)",
 		"Fragmented Memory",
@@ -4086,6 +4202,7 @@ minions["Metadata/Monsters/SpiderPlated/SpiderPlatedUnholyEmerge"] = {
 	attackRange = 18,
 	accuracy = 1,
 	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -4118,6 +4235,7 @@ minions["Metadata/Monsters/WickerMan/WickerMan"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
 	baseMovementSpeed = 28,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Alleyways (Map)",
 		"The Canals (Act 10)",
@@ -4152,6 +4270,7 @@ minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphArcherS
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 40,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -4186,6 +4305,7 @@ minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderMagegua
 	attackRange = 14,
 	accuracy = 1,
 	baseMovementSpeed = 40,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -4216,6 +4336,7 @@ minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderBlessed
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 28,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -4242,6 +4363,7 @@ minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderTemplar
 	attackRange = 9,
 	accuracy = 1,
 	baseMovementSpeed = 32,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -4270,6 +4392,7 @@ minions["Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_"] = {
 	attackRange = 7,
 	accuracy = 1,
 	baseMovementSpeed = 75,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Esh's Domain (Map)",
 	},
@@ -4305,6 +4428,7 @@ minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer3Spectre"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 40,
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"Cortex",
 		"Distant Memory",
@@ -4342,6 +4466,7 @@ minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighter
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Shield",
 	baseMovementSpeed = 40,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -4371,6 +4496,7 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre"] = {
 	attackRange = 14,
 	accuracy = 1,
 	baseMovementSpeed = 25,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -4405,6 +4531,7 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT3Spectre"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 40,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -4471,6 +4598,7 @@ minions["Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemColdSpectre"] = 
 	attackRange = 10,
 	accuracy = 1,
 	baseMovementSpeed = 23,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -4500,6 +4628,7 @@ minions["Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice2Spectre_"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 40,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Syndicate Hideout",
 	},
@@ -4532,6 +4661,7 @@ minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieKiwethSpectre
 	attackRange = 11,
 	accuracy = 1,
 	baseMovementSpeed = 22,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -4562,6 +4692,7 @@ minions["Metadata/Monsters/LeagueHeist/Thug/ThugRanged1EliteSpectre"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 43,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"The Hidden Underbelly (Act 8)",
 	},
@@ -4599,6 +4730,7 @@ minions["Metadata/Monsters/LeagueHeist/Robot/RobotPyreKnightEliteSpectre"] = {
 	attackRange = 10,
 	accuracy = 1,
 	baseMovementSpeed = 37,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -4631,6 +4763,7 @@ minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieArmouredBirdS
 	attackRange = 14,
 	accuracy = 1,
 	baseMovementSpeed = 44,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -4660,6 +4793,7 @@ minions["Metadata/Monsters/Maligaro/SecretDesecrateMonster"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 49,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -4691,6 +4825,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdWeakSpectre"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 30,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -4724,6 +4859,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdSpectre"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 30,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -4788,6 +4924,7 @@ minions["Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite1Spec
 	accuracy = 1,
 	weaponType1 = "None",
 	baseMovementSpeed = 45,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -4818,6 +4955,7 @@ minions["Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite1Spectr
 	accuracy = 1,
 	weaponType1 = "None",
 	baseMovementSpeed = 37,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Sanctuary (Map)",
 	},
@@ -4852,6 +4990,7 @@ minions["Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite2_Spe
 	weaponType1 = "None",
 	weaponType2 = "One Handed Mace",
 	baseMovementSpeed = 53,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -4881,6 +5020,7 @@ minions["Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite2Spectr
 	accuracy = 1,
 	weaponType1 = "None",
 	baseMovementSpeed = 37,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Sanctuary (Map)",
 	},
@@ -4916,6 +5056,7 @@ minions["Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spe
 	accuracy = 1,
 	weaponType1 = "None",
 	baseMovementSpeed = 32,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -4943,6 +5084,7 @@ minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 40,
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"Cortex",
 		"Distant Memory",
@@ -4984,6 +5126,7 @@ minions["Metadata/Monsters/Hellion/Hellion3Spectre"] = {
 	attackRange = 10,
 	accuracy = 1,
 	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"The Grain Gate (Act 8)",
 		"The Quay (Act 8)",
@@ -5014,6 +5157,7 @@ minions["Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorG
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Shield",
 	baseMovementSpeed = 40,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5045,6 +5189,7 @@ minions["Metadata/Monsters/MinerLarge/MinerLargeCommanderBreachSpectre"] = {
 	attackRange = 9,
 	accuracy = 1,
 	baseMovementSpeed = 16,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Tul's Domain (Map)",
 	},
@@ -5075,6 +5220,7 @@ minions["Metadata/Monsters/LeagueDelve/GhostEncounter/WraithPurple"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 30,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5103,6 +5249,7 @@ minions["Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 37,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5132,6 +5279,7 @@ minions["Metadata/Monsters/LeagueCrucible/Cold/Pyromaniac"] = {
 	attackRange = 7,
 	accuracy = 1,
 	baseMovementSpeed = 31,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5162,6 +5310,7 @@ minions["Metadata/Monsters/Revenant/RevenantMapBossStandalone_AtlasUber"] = {
 	attackRange = 10,
 	accuracy = 1,
 	baseMovementSpeed = 38,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Abomination (Map)",
 		"Citadel (Map)",
@@ -5261,6 +5410,7 @@ minions["Metadata/Monsters/Hellion/HellionBreachHowlSpectre"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
 	spawnLocation = {
 		"Xoph's Domain (Map)",
 	},
@@ -5292,6 +5442,7 @@ minions["Metadata/Monsters/Spiders/DelveSpiderPacksMediumSpectre"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5320,6 +5471,7 @@ minions["Metadata/Monsters/LeagueCrucible/Lightning/Vendigo_"] = {
 	accuracy = 1,
 	weaponType1 = "Claw",
 	baseMovementSpeed = 41,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5354,6 +5506,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeLow"] = 
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
 	baseMovementSpeed = 38,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5383,6 +5536,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeMid"] = 
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
 	baseMovementSpeed = 38,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5413,6 +5567,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeHigh"] =
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
 	baseMovementSpeed = 38,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5445,6 +5600,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryLow"] = 
 	accuracy = 1,
 	weaponType1 = "Staff",
 	baseMovementSpeed = 38,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5473,6 +5629,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryMid"] = 
 	accuracy = 1,
 	weaponType1 = "Staff",
 	baseMovementSpeed = 38,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5502,6 +5659,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryHigh_"] 
 	accuracy = 1,
 	weaponType1 = "Staff",
 	baseMovementSpeed = 38,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5534,6 +5692,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraLow"] = {
 	accuracy = 1.2,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 45,
+	monsterCategory = "Eldritch",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5561,6 +5720,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraMid"] = {
 	accuracy = 1.2,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 45,
+	monsterCategory = "Eldritch",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5589,6 +5749,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraHigh_"] = {
 	accuracy = 1.2,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 45,
+	monsterCategory = "Eldritch",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5617,6 +5778,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinLow"] 
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 36,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5642,6 +5804,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinMid"] 
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 36,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5668,6 +5831,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinHigh_"
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 36,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5696,6 +5860,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusLow"] = {
 	attackRange = 21,
 	accuracy = 1,
 	baseMovementSpeed = 58,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5725,6 +5890,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusMid"] = {
 	attackRange = 21,
 	accuracy = 1,
 	baseMovementSpeed = 58,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5757,6 +5923,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusHigh__"] = {
 	attackRange = 21,
 	accuracy = 1,
 	baseMovementSpeed = 58,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5790,6 +5957,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuLow"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 0,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5817,6 +5985,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuMid"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 0,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5845,6 +6014,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuHigh"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 0,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5877,6 +6047,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralLow"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 44,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5917,6 +6088,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralMid__"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 44,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5958,6 +6130,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralHigh_"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 44,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -5999,6 +6172,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordLow"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 32,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6026,6 +6200,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordMid"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 32,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6054,6 +6229,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordHigh_"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 32,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6086,6 +6262,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonLow"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 30,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6114,6 +6291,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonMid"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 30,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6143,6 +6321,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonHigh_"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 30,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6175,6 +6354,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskLow"] = {
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Dagger",
 	baseMovementSpeed = 40,
+	monsterCategory = "Eldritch",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6220,6 +6400,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskMid"] = {
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Dagger",
 	baseMovementSpeed = 40,
+	monsterCategory = "Eldritch",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6267,6 +6448,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskHigh"] = {
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Dagger",
 	baseMovementSpeed = 40,
+	monsterCategory = "Eldritch",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6313,6 +6495,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonLow"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 32,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6340,6 +6523,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonMid"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 32,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6369,6 +6553,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonHigh"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 32,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6402,6 +6587,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonLow"] = {
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
 	baseMovementSpeed = 24,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6430,6 +6616,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonMid"] = {
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
 	baseMovementSpeed = 24,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6459,6 +6646,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonHigh"] = {
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
 	baseMovementSpeed = 24,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6488,6 +6676,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightLow"] = {
 	accuracy = 1,
 	weaponType1 = "Two Handed Mace",
 	baseMovementSpeed = 17,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6517,6 +6706,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightMid"] = {
 	accuracy = 1,
 	weaponType1 = "Two Handed Mace",
 	baseMovementSpeed = 17,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6546,6 +6736,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightHigh"] = {
 	accuracy = 1,
 	weaponType1 = "Two Handed Mace",
 	baseMovementSpeed = 17,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6578,6 +6769,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonLow"] = {
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "One Handed Sword",
 	baseMovementSpeed = 36,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6607,6 +6799,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonMid"] = {
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "One Handed Sword",
 	baseMovementSpeed = 36,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6637,6 +6830,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonHigh"] = {
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "One Handed Sword",
 	baseMovementSpeed = 36,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6667,6 +6861,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverLow__"] = {
 	attackRange = 10,
 	accuracy = 1,
 	baseMovementSpeed = 32,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6697,6 +6892,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverMid"] = {
 	attackRange = 10,
 	accuracy = 1,
 	baseMovementSpeed = 32,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6728,6 +6924,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverHigh"] = {
 	attackRange = 10,
 	accuracy = 1,
 	baseMovementSpeed = 32,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6760,6 +6957,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundLow"] = {
 	attackRange = 10,
 	accuracy = 1,
 	baseMovementSpeed = 31,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6788,6 +6986,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundMid"] = {
 	attackRange = 10,
 	accuracy = 1,
 	baseMovementSpeed = 31,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6816,6 +7015,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundHigh_"] = {
 	attackRange = 10,
 	accuracy = 1,
 	baseMovementSpeed = 31,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6846,6 +7046,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriLow"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 16,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6879,6 +7080,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriMid_"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 16,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6913,6 +7115,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriHigh"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 16,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6947,6 +7150,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessLow"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 30,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -6975,6 +7179,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessMid"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 30,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7004,6 +7209,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessHigh"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 30,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7037,6 +7243,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdLow"] = {
 	accuracy = 1,
 	weaponType1 = "Dagger",
 	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7071,6 +7278,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdMid"] = {
 	accuracy = 1,
 	weaponType1 = "Dagger",
 	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7105,6 +7313,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdHigh"] = {
 	accuracy = 1,
 	weaponType1 = "Dagger",
 	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7140,6 +7349,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmLow__"] = {
 	attackRange = 9,
 	accuracy = 1,
 	baseMovementSpeed = 37,
+	monsterCategory = "Eldritch",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7166,6 +7376,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmMid"] = {
 	attackRange = 9,
 	accuracy = 1,
 	baseMovementSpeed = 37,
+	monsterCategory = "Eldritch",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7193,6 +7404,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmHigh"] = {
 	attackRange = 9,
 	accuracy = 1,
 	baseMovementSpeed = 37,
+	monsterCategory = "Eldritch",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7222,6 +7434,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonLow"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 37,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7250,6 +7463,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonMid"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 37,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7279,6 +7493,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonHigh"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 37,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7310,6 +7525,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakLow"] = {
 	attackRange = 13,
 	accuracy = 1,
 	baseMovementSpeed = 30,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7339,6 +7555,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakMid"] = {
 	attackRange = 13,
 	accuracy = 1,
 	baseMovementSpeed = 30,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7369,6 +7586,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakHigh"] = {
 	attackRange = 13,
 	accuracy = 1,
 	baseMovementSpeed = 30,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7402,6 +7620,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperLow"] = {
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "One Handed Sword",
 	baseMovementSpeed = 17,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7442,6 +7661,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperMid"] = {
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "One Handed Sword",
 	baseMovementSpeed = 17,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7483,6 +7703,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperHigh"] = {
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "One Handed Sword",
 	baseMovementSpeed = 17,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7526,6 +7747,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdLow"] = {
 	weaponType1 = "None",
 	weaponType2 = "One Handed Mace",
 	baseMovementSpeed = 53,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7555,6 +7777,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdMid_"] = {
 	weaponType1 = "None",
 	weaponType2 = "One Handed Mace",
 	baseMovementSpeed = 53,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7584,6 +7807,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdHigh"] = {
 	weaponType1 = "None",
 	weaponType2 = "One Handed Mace",
 	baseMovementSpeed = 53,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7614,6 +7838,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderLow"] = {
 	attackRange = 13,
 	accuracy = 1,
 	baseMovementSpeed = 45,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7641,6 +7866,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderMid"] = {
 	attackRange = 13,
 	accuracy = 1,
 	baseMovementSpeed = 45,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7669,6 +7895,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderHigh_"] = {
 	attackRange = 13,
 	accuracy = 1,
 	baseMovementSpeed = 45,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7698,6 +7925,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieLow"] = {
 	attackRange = 11,
 	accuracy = 1,
 	baseMovementSpeed = 48,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7722,6 +7950,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieMid"] = {
 	attackRange = 11,
 	accuracy = 1,
 	baseMovementSpeed = 48,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7747,6 +7976,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieHigh"] = {
 	attackRange = 11,
 	accuracy = 1,
 	baseMovementSpeed = 48,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7774,6 +8004,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionLow"] = {
 	attackRange = 9,
 	accuracy = 1,
 	baseMovementSpeed = 30,
+	monsterCategory = "Eldritch",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7802,6 +8033,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionMid"] = {
 	attackRange = 9,
 	accuracy = 1,
 	baseMovementSpeed = 30,
+	monsterCategory = "Eldritch",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7831,6 +8063,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionHigh"] = {
 	attackRange = 9,
 	accuracy = 1,
 	baseMovementSpeed = 30,
+	monsterCategory = "Eldritch",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7864,6 +8097,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerLow"] = {
 	accuracy = 1,
 	weaponType1 = "Claw",
 	baseMovementSpeed = 57,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7898,6 +8132,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerMid"] = {
 	accuracy = 1,
 	weaponType1 = "Claw",
 	baseMovementSpeed = 57,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7933,6 +8168,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerHigh"] = {
 	accuracy = 1,
 	weaponType1 = "Claw",
 	baseMovementSpeed = 57,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7968,6 +8204,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleLow"] = {
 	attackRange = 19,
 	accuracy = 1,
 	baseMovementSpeed = 5,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -7993,6 +8230,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleMid_"] = {
 	attackRange = 19,
 	accuracy = 1,
 	baseMovementSpeed = 5,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -8019,6 +8257,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleHigh"] = {
 	attackRange = 19,
 	accuracy = 1,
 	baseMovementSpeed = 5,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -8048,6 +8287,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulLow"] = {
 	attackRange = 7,
 	accuracy = 1,
 	baseMovementSpeed = 25,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -8077,6 +8317,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulMid"] = {
 	attackRange = 7,
 	accuracy = 1,
 	baseMovementSpeed = 25,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -8106,6 +8347,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulHigh"] = {
 	attackRange = 7,
 	accuracy = 1,
 	baseMovementSpeed = 25,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -8223,6 +8465,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonLow"] = {
 	attackRange = 14,
 	accuracy = 1,
 	baseMovementSpeed = 35,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -8252,6 +8495,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonMid"] = {
 	attackRange = 14,
 	accuracy = 1,
 	baseMovementSpeed = 35,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -8281,6 +8525,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonHigh"] = {
 	attackRange = 14,
 	accuracy = 1,
 	baseMovementSpeed = 35,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -8314,6 +8559,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterLow_"] = {
 	accuracy = 1,
 	weaponType1 = "Staff",
 	baseMovementSpeed = 39,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -8354,6 +8600,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterMid_"] = {
 	accuracy = 1,
 	weaponType1 = "Staff",
 	baseMovementSpeed = 39,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -8394,6 +8641,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterHigh_"] = {
 	accuracy = 1,
 	weaponType1 = "Staff",
 	baseMovementSpeed = 39,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -8434,6 +8682,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossLow"] = {
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
 	baseMovementSpeed = 55,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -8472,6 +8721,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossMid"] = {
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
 	baseMovementSpeed = 55,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -8511,6 +8761,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossHigh"] = {
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
 	baseMovementSpeed = 55,
+	monsterCategory = "Demon",
 	spawnLocation = {
 	},
 	skillList = {
@@ -8552,6 +8803,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemLow"] = {
 	attackRange = 20,
 	accuracy = 1,
 	baseMovementSpeed = 40,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -8598,6 +8850,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemMid"] = {
 	attackRange = 20,
 	accuracy = 1,
 	baseMovementSpeed = 40,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -8645,6 +8898,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemHigh"] = {
 	attackRange = 20,
 	accuracy = 1,
 	baseMovementSpeed = 40,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -8692,6 +8946,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockLow"] = {
 	attackRange = 60,
 	accuracy = 1,
 	baseMovementSpeed = 24,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -8722,6 +8977,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockMid_"] = {
 	attackRange = 60,
 	accuracy = 1,
 	baseMovementSpeed = 24,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -8753,6 +9009,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockHigh"] = {
 	attackRange = 60,
 	accuracy = 1,
 	baseMovementSpeed = 24,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {

@@ -1384,6 +1384,8 @@ end
 
 -- Open the spectre library popup
 function buildMode:OpenSpectreLibrary()
+	local recommendedSpectreList = {}
+	local beastList, humanoidList, eldritchList, constructList, demonList, undeadList = {}, {}, {}, {}, {}, {}
 	local destList = copyTable(self.spectreList)
 	local sourceList = { }
 	for id in pairs(self.data.spectres) do
@@ -1397,6 +1399,67 @@ function buildMode:OpenSpectreLibrary()
 		end
 	end)
 	local controls = { }
+	for id in pairs(self.data.spectres) do
+		if self.data.minions[id].monsterCategory == "Beast" then
+			t_insert(beastList, id)
+		elseif self.data.minions[id].monsterCategory == "Humanoid" then
+			t_insert(humanoidList, id)
+		elseif self.data.minions[id].monsterCategory == "Eldritch" then
+			t_insert(eldritchList, id)
+		elseif self.data.minions[id].monsterCategory == "Construct" then
+			t_insert(constructList, id)
+		elseif self.data.minions[id].monsterCategory == "Demon" then
+			t_insert(demonList, id)
+		elseif self.data.minions[id].monsterCategory == "Undead" then
+			t_insert(undeadList, id)
+		end
+		if self.data.minions[id].extraFlags and self.data.minions[id].extraFlags.recommendedSpectre then
+			t_insert(recommendedSpectreList, id)
+		end
+	end
+	local monsterTypeSort = {
+		Beast = true,
+		Humanoid = true,
+		Eldritch = true,
+		Construct = true,
+		Demon = true,
+		Undead = true,
+		recommendedSpectreList = false,
+	}
+
+	local function buildSourceList(sourceList)
+		wipeTable(sourceList)
+			local monsterCategories = {
+				{ key = "Beast", list = beastList },
+				{ key = "Humanoid", list = humanoidList },
+				{ key = "Eldritch", list = eldritchList },
+				{ key = "Construct", list = constructList },
+				{ key = "Demon", list = demonList },
+				{ key = "Undead", list = undeadList },
+			}
+			for _, category in ipairs(monsterCategories) do
+				if monsterTypeSort[category.key] then
+					for _, id in ipairs(category.list) do
+						table.insert(sourceList, id)
+					end
+				end
+			end
+		-- Apply 'recommended' filter if checkbox is off
+		if not monsterTypeSort.recommendedList then
+			local allowed = {}
+			for _, id in ipairs(recommendedSpectreList) do
+				allowed[id] = true
+			end
+			for i = #sourceList, 1, -1 do
+				if not allowed[sourceList[i]] then
+					table.remove(sourceList, i)
+				end
+			end
+		end
+	end
+
+	buildSourceList(sourceList)
+
 	local function UpdateMinionDisplay(selected)
 		self.lastSelectedMinion = selected
 		local minion = self.data.minions[selected]
@@ -1460,6 +1523,33 @@ function buildMode:OpenSpectreLibrary()
 	controls.source.OnSelect = function()
 			UpdateMinionDisplay(controls.source.selValue)
 	end
+	local function monsterTypeCheckboxChange(name)
+		return function(state)
+			monsterTypeSort[name] = state
+			buildSourceList(sourceList)
+			controls.source.unfilteredList = copyTable(sourceList)
+			controls.source:ListFilterChanged(controls.source.controls.searchText.buf, controls.source.controls.searchModeDropDown.selIndex)
+			controls.source:sortSourceList()
+		end
+	end
+	local monsterTypeCheckbox = {
+		{ name = "Beast", x = 0, icon = NewImageHandle(), path = "Assets/monstercategory/categorybeasts.png" },
+		{ name = "Humanoid", x = 37, icon = NewImageHandle(), path = "Assets/monstercategory/categoryhumanoid.png" },
+		{ name = "Eldritch", x = 74, icon = NewImageHandle(), path = "Assets/monstercategory/categoryeldritch.png" },
+		{ name = "Construct", x = 111, icon = NewImageHandle(), path = "Assets/monstercategory/categoryconstruct.png" },
+		{ name = "Demon", x = 148, icon = NewImageHandle(), path = "Assets/monstercategory/categorydemon.png" },
+		{ name = "Undead", x = 184, icon = NewImageHandle(), path = "Assets/monstercategory/categoryundead.png" },
+		}
+	for _, monsterType in ipairs(monsterTypeCheckbox) do
+		monsterType.icon:Load(monsterType.path)
+		local controlName = "sortMonsterCheckbox" .. monsterType.name
+		local checkbox = new("CheckBoxControl", {"TOPLEFT", controls.source, "BOTTOMLEFT"}, {monsterType.x, 30, 26, 26}, "", monsterTypeCheckboxChange(monsterType.name), monsterType.name, true)
+		checkbox:SetCheckImage({ handle = monsterType.icon, 1 }) -- this could be better if we had sprite sheets like PoB2.
+		checkbox.shown = true
+		controls[controlName] = checkbox
+	end
+	controls.sortMonsterCheckboxShowAll = new("CheckBoxControl", {"TOPLEFT", controls.source, "BOTTOMLEFT"}, {153, 2, 26, 26}, "", monsterTypeCheckboxChange("recommendedList"), "Show All Spectres", false)
+	controls.showAllLabel = new("LabelControl", {"RIGHT",controls.sortMonsterCheckboxShowAll,"LEFT"}, {-5, 0, 0, 16}, "Show All Spectres:")
 	controls.save = new("ButtonControl", nil, {-45, 420, 80, 20}, "Save", function()
 		self.spectreList = destList
 		self.modFlag = true

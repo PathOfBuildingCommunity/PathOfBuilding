@@ -21,6 +21,7 @@ minions["RaisedZombie"] = {
 	accuracy = 3.4,
 	limit = "ActiveZombieLimit",
 	baseMovementSpeed = 39,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -53,6 +54,7 @@ minions["SummonedChaosGolem"] = {
 	accuracy = 3.4,
 	limit = "ActiveGolemLimit",
 	baseMovementSpeed = 40,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -90,6 +92,7 @@ minions["SummonedFlameGolem"] = {
 	damageFixup = 0.22,
 	limit = "ActiveGolemLimit",
 	baseMovementSpeed = 42,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -127,6 +130,7 @@ minions["SummonedIceGolem"] = {
 	accuracy = 3.4,
 	limit = "ActiveGolemLimit",
 	baseMovementSpeed = 40,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -165,6 +169,7 @@ minions["SummonedLightningGolem"] = {
 	damageFixup = 0.22,
 	limit = "ActiveGolemLimit",
 	baseMovementSpeed = 40,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -203,6 +208,7 @@ minions["SummonedStoneGolem"] = {
 	weaponType1 = "One Handed Sword",
 	limit = "ActiveGolemLimit",
 	baseMovementSpeed = 42,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -230,6 +236,7 @@ minions["SummonedRagingSpirit"] = {
 	accuracy = 3.4,
 	limit = "ActiveRagingSpiritLimit",
 	baseMovementSpeed = 45,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -266,6 +273,7 @@ minions["SummonedEssenceSpirit"] = {
 	attackRange = 8,
 	accuracy = 3.4,
 	baseMovementSpeed = 45,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -300,6 +308,7 @@ minions["SummonedSpectralWolf"] = {
 	weaponType1 = "Dagger",
 	limit = "ActiveWolfLimit",
 	baseMovementSpeed = 40,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -326,6 +335,7 @@ minions["SummonedSpectralTiger"] = {
 	weaponType1 = "Dagger",
 	limit = "ActiveTigerLimit",
 	baseMovementSpeed = 40,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -354,6 +364,7 @@ minions["RaisedSkeleton"] = {
 	weaponType2 = "Shield",
 	limit = "ActiveSkeletonLimit",
 	baseMovementSpeed = 28,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -385,6 +396,7 @@ minions["RaisedSkeletonCaster"] = {
 	accuracy = 3.4,
 	limit = "ActiveSkeletonLimit",
 	baseMovementSpeed = 14,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -417,6 +429,7 @@ minions["RaisedSkeletonMeleeVaal"] = {
 	weaponType2 = "Shield",
 	limit = "ActiveSkeletonLimit",
 	baseMovementSpeed = 22,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -448,6 +461,7 @@ minions["RaisedSkeletonArcherVaal"] = {
 	weaponType1 = "Bow",
 	limit = "ActiveSkeletonLimit",
 	baseMovementSpeed = 18,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -476,6 +490,7 @@ minions["RaisedSkeletonArcher"] = {
 	weaponType1 = "Bow",
 	limit = "ActiveSkeletonLimit",
 	baseMovementSpeed = 9,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -501,6 +516,7 @@ minions["Clone"] = {
 	attackRange = 6,
 	accuracy = 3.4,
 	baseMovementSpeed = 40,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -530,6 +546,7 @@ minions["ArrowClone"] = {
 	attackRange = 6,
 	accuracy = 3.4,
 	baseMovementSpeed = 40,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -559,6 +576,7 @@ minions["ArrowCloneRoA"] = {
 	attackRange = 6,
 	accuracy = 3.4,
 	baseMovementSpeed = 40,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -588,6 +606,7 @@ minions["ArrowCloneEle"] = {
 	attackRange = 6,
 	accuracy = 3.4,
 	baseMovementSpeed = 40,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -619,6 +638,7 @@ minions["SpiderMinion"] = {
 	weaponType1 = "One Handed Sword",
 	limit = "ActiveSpiderLimit",
 	baseMovementSpeed = 52,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -651,6 +671,7 @@ minions["AnimatedWeapon"] = {
 	accuracy = 3.4,
 	limit = "ActiveAnimatedWeaponLimit",
 	baseMovementSpeed = 45,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -679,6 +700,7 @@ minions["AnimatedArmour"] = {
 	attackRange = 6,
 	accuracy = 3.4,
 	baseMovementSpeed = 32,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -710,6 +732,7 @@ minions["IcyRagingSpirit"] = {
 	attackRange = 8,
 	accuracy = 3.4,
 	baseMovementSpeed = 45,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -739,6 +762,7 @@ minions["UniqueAnimatedWeapon"] = {
 	accuracy = 3.4,
 	limit = "ActiveAnimatedWeaponLimit",
 	baseMovementSpeed = 44,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -773,6 +797,7 @@ minions["SummonedPhantasm"] = {
 	accuracy = 1,
 	limit = "ActivePhantasmLimit",
 	baseMovementSpeed = 37,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -801,6 +826,7 @@ minions["HeraldOfAgonySpiderPlated"] = {
 	accuracy = 3.4,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 50,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -839,6 +865,7 @@ minions["AxisEliteSoldierHeraldOfLight"] = {
 	weaponType1 = "Staff",
 	limit = "ActiveSentinelOfPurityLimit",
 	baseMovementSpeed = 38,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -868,6 +895,7 @@ minions["HolyLivingRelic"] = {
 	accuracy = 1,
 	limit = "ActiveHolyRelicLimit",
 	baseMovementSpeed = 37,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -902,6 +930,7 @@ minions["AxisEliteSoldierDominatingBlow"] = {
 	weaponType2 = "Shield",
 	limit = "ActiveSentinelOfDominanceLimit",
 	baseMovementSpeed = 38,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -933,6 +962,7 @@ minions["AxisEliteSoldierDominatingBlowVaal"] = {
 	accuracy = 3.4,
 	limit = "ActiveSentinelOfDominanceLimit",
 	baseMovementSpeed = 18,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -967,6 +997,7 @@ minions["AbsolutionTemplarJudge"] = {
 	weaponType1 = "One Handed Mace",
 	limit = "ActiveSentinelOfAbsolutionLimit",
 	baseMovementSpeed = 40,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -995,6 +1026,7 @@ minions["AbsolutionTemplarJudgeVaal"] = {
 	accuracy = 1,
 	limit = "ActiveSentinelOfAbsolutionLimit",
 	baseMovementSpeed = 40,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1027,6 +1059,7 @@ minions["RhoaUniqueSummoned"] = {
 	accuracy = 3.4,
 	limit = "ActiveBeastMinionLimit",
 	baseMovementSpeed = 40,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1060,6 +1093,7 @@ minions["SnakeSpitUniqueSummoned"] = {
 	accuracy = 3.4,
 	limit = "ActiveBeastMinionLimit",
 	baseMovementSpeed = 40,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1092,6 +1126,7 @@ minions["DropBearUniqueSummoned"] = {
 	weaponType1 = "One Handed Mace",
 	limit = "ActiveBeastMinionLimit",
 	baseMovementSpeed = 40,
+	monsterCategory = "Beast",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1123,6 +1158,7 @@ minions["SummonedCarrionGolem"] = {
 	accuracy = 3.4,
 	limit = "ActiveGolemLimit",
 	baseMovementSpeed = 42,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1158,6 +1194,7 @@ minions["SkitterbotCold"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 69,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1202,6 +1239,7 @@ minions["SkitterbotLightning"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 69,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1246,6 +1284,7 @@ minions["SkitterbotFire"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 69,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1295,6 +1334,7 @@ minions["SummonedReaper"] = {
 	weaponType2 = "One Handed Sword",
 	limit = "ActiveReaperLimit",
 	baseMovementSpeed = 42,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1341,6 +1381,7 @@ minions["SummonedArbalists"] = {
 	accuracy = 3.4,
 	limit = "ActiveArbalistLimit",
 	baseMovementSpeed = 41,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1372,6 +1413,7 @@ minions["GuardianSentinel"] = {
 	attackRange = 17,
 	accuracy = 3.4,
 	baseMovementSpeed = 15,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1423,6 +1465,7 @@ minions["GuardianRelicFire"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 37,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1454,6 +1497,7 @@ minions["GuardianRelicCold"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 37,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1485,6 +1529,7 @@ minions["GuardianRelicLightning"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 37,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1517,6 +1562,7 @@ minions["VoidSpawn"] = {
 	accuracy = 1,
 	limit = "ActiveVoidSpawnLimit",
 	baseMovementSpeed = 30,
+	monsterCategory = "Eldritch",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1550,6 +1596,7 @@ minions["AncestralAhuanaMinion"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 32,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1585,6 +1632,7 @@ minions["AncestralAkoyaMinion"] = {
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
 	baseMovementSpeed = 32,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1618,6 +1666,7 @@ minions["AncestralIkiahoMinion"] = {
 	attackRange = 10,
 	accuracy = 1,
 	baseMovementSpeed = 37,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1651,6 +1700,7 @@ minions["AncestralKahuturoaMinion"] = {
 	attackRange = 24,
 	accuracy = 1,
 	baseMovementSpeed = 46,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1688,6 +1738,7 @@ minions["AncestralKaomMinion"] = {
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
 	baseMovementSpeed = 28,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1724,6 +1775,7 @@ minions["AncestralKiloavaMinion"] = {
 	attackRange = 19,
 	accuracy = 1,
 	baseMovementSpeed = 46,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1759,6 +1811,7 @@ minions["AncestralMaataMinion"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Mace",
 	baseMovementSpeed = 32,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1796,6 +1849,7 @@ minions["AncestralRakiataMinion"] = {
 	accuracy = 1,
 	weaponType1 = "Two Handed Sword",
 	baseMovementSpeed = 46,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1831,6 +1885,7 @@ minions["AncestralTawhanukuMinion"] = {
 	attackRange = 10,
 	accuracy = 1,
 	baseMovementSpeed = 37,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1867,6 +1922,7 @@ minions["AncestralUtulaMinion"] = {
 	weaponType1 = "One Handed Axe",
 	weaponType2 = "One Handed Axe",
 	baseMovementSpeed = 46,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -1937,6 +1993,7 @@ minions["PenanceMarkPhantasm"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 37,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	hostile = true,
@@ -1975,6 +2032,7 @@ minions["HolyStrikeMinion"] = {
 	accuracy = 1,
 	limit = "ActiveHolyStrikeMinionLimit",
 	baseMovementSpeed = 39,
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -2010,6 +2068,7 @@ minions["Hiveborn"] = {
 	accuracy = 1,
 	limit = "ActiveHivebornLimit",
 	baseMovementSpeed = 41,
+	monsterCategory = "Demon",
 	spawnLocation = {
 		"Hive Colony",
 		"Hive Fortress",
@@ -2037,6 +2096,7 @@ minions["ShamblingUndead"] = {
 	accuracy = 3.4,
 	limit = "ShamblingUndeadLimit",
 	baseMovementSpeed = 7,
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
