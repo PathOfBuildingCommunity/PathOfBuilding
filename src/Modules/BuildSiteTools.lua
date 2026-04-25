@@ -85,6 +85,12 @@ function buildSites.DownloadBuild(link, websiteInfo, callback)
 	local siteCodeURL
 	-- Only called on program start via protocol handler
 	if not websiteInfo then
+		-- Inline build code: pob://code/<base64url-build-code> — no HTTP fetch.
+		local inlineCode = link:match("^pob:[/\\]*code[/\\]+(.+)")
+		if inlineCode then
+			callback(true, inlineCode, link)
+			return
+		end
 		for _, siteInfo in ipairs(buildSites.websiteList) do
 			if link:match("^pob:[/\\]*" .. siteInfo.id:lower() .. "[/\\]+(.+)") then
 				siteCodeURL = link:gsub("^pob:[/\\]*" .. siteInfo.id:lower() .. "[/\\]+(.+)", "https://" .. siteInfo.downloadURL)
