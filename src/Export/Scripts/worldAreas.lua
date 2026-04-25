@@ -2,6 +2,46 @@
 
 local importedSpectres = {}
 
+local function cleanAndSplit(str)
+	-- Normalize newlines
+	str = str:gsub("\r\n", "\n")
+
+	-- Replace <default> with a newline and ^8
+	str = str:gsub("<default>", "\n^8")
+
+	local lines = {}
+	for line in str:gmatch("[^\n]+") do
+		-- trim
+		line = line:match("^%s*(.-)%s*$")
+
+		if line ~= "" then
+			-- Remove braces but keep contents
+			line = line:gsub("%{(.-)%}", "%1")
+
+			-- Remove any <<...>> sequences (non-greedy)
+			line = line:gsub("<<(.-)>>", "")
+
+			-- trim again in case removal left surrounding spaces
+			line = line:match("^%s*(.-)%s*$")
+
+			-- Escape quotes
+			line = line:gsub('"', '\\"')
+
+			-- Insert a blank line before any ^8 line
+			if line:match("^%^8") and (#lines == 0 or lines[#lines] ~= "") then
+				table.insert(lines, "")
+			end
+
+			-- Only add non-empty lines
+			if line ~= "" then
+				table.insert(lines, line)
+			end
+		end
+	end
+
+	return lines
+end
+
 local file = io.open("../Data/Spectres.lua", "r")
 if file then
 	for line in file:lines() do
@@ -41,12 +81,6 @@ for pack in dat("MonsterPacks"):Rows() do
 			seen[mon.Name] = true
 		end
 	end
-
-	--if pack.AdditionalMonsters then
-	--	for _, mon in ipairs(pack.AdditionalMonsters) do
-	--		addIfSpectre(mon)
-	--	end
-	--end
 	if pack.BossMonster_MonsterVarietiesKeys then
 		for _, mon in ipairs(pack.BossMonster_MonsterVarietiesKeys) do
 			addIfSpectre(mon)
@@ -96,24 +130,6 @@ for map in dat("Maps"):Rows() do
 			end
 		end
 		areaIdToMonsters[areaId .. "_seen"] = seen
-
-		-- Attach FlavourText as description for this area if present
-		if map.FlavourText and map.FlavourText ~= "" then
-			if area.Id == "MapUniqueMegalith" then
-				--Temporary, need to clean text properly and convert map flavour text to a table just like items are.
-				areaIdToMonsters[areaId .. "_desc"] = "'Sons from foreign shores, Took refuge from the storm, Bringing knowledge of runes, Our fate was carved soon.' - Ezomyte Folklore"
-			-- Hideouts have 2 lines, remove second line
-			elseif areaId:sub(-10) == "_Claimable" then
-				local firstSentence = map.FlavourText:match("([^%.%!%?]+[%.%!%?])")
-				if firstSentence then
-					areaIdToMonsters[areaId .. "_desc"] = firstSentence:gsub("%s+$", "")
-				else
-					areaIdToMonsters[areaId .. "_desc"] = map.FlavourText
-				end
-			else
-				areaIdToMonsters[areaId .. "_desc"] = map.FlavourText
-			end
-		end
 	end
 end
 
@@ -153,13 +169,22 @@ for area in dat("WorldAreas"):Rows() do
 		end
 		out:write('\tname = "' .. area.Name .. suffix .. '",\n')
 		out:write('\tbaseName = "' .. area.Name .. '",\n')
-		--local desc = area.Description
-		--if (not desc or desc == "") and areaIdToMonsters[area.Id .. "_desc"] then
-		--	desc = areaIdToMonsters[area.Id .. "_desc"]
-		--end
-		--if desc and desc ~= "" then
-		--	out:write('\tdescription = "' .. desc .. '",\n')
-		--end
+		local desc
+		for atlasNode in dat("AtlasNode"):Rows() do
+			if area.Id == atlasNode.Id then
+				desc = cleanAndSplit(atlasNode.FlavourText.Text)
+			end
+		end
+		if (not desc or desc == "") and areaIdToMonsters[area.Id .. "_desc"] then
+			desc = areaIdToMonsters[area.Id .. "_desc"]
+		end
+		if desc then
+			out:write('\tdescription = {')
+			for _, line in ipairs(desc) do
+				out:write( '\n\t\t"' .. line .. '",')
+			end
+			out:write('\n\t},\n')
+		end
 		out:write('\ttags = { ' .. table.concat(tags, ", ") .. ' },\n')
 		out:write('\tact = ' .. tostring(area.Act or 0) .. ',\n')
 		out:write('\tlevel = ' .. tostring(area.AreaLevel or 1) .. ',\n')

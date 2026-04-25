@@ -141,8 +141,11 @@ function SpawnListClass:AddValueTooltip(tooltip, index, value)
 		end
 		if foundArea then
 			tooltip:AddLine(18, foundArea.name)
-			if foundArea.description and foundArea.description ~= "" then
-				tooltip:AddLine(14, colorCodes.CURRENCY .. '"' .. foundArea.description .. '"')
+			if foundArea.description then
+				ConPrintf("YES")
+				for _, line in ipairs(foundArea.description) do
+					tooltip:AddLine(14, colorCodes.CURRENCY .. '"' .. line .. '"')
+				end
 			end
 			if foundArea.bossVarieties and #foundArea.bossVarieties > 0 then
 				tooltip:AddLine(14, colorCodes.UNIQUE.. "Bosses: ^7" .. table.concat(foundArea.bossVarieties, ", "))
@@ -153,8 +156,6 @@ function SpawnListClass:AddValueTooltip(tooltip, index, value)
 			for _, monsterName in ipairs(foundArea.monsterVarieties) do
 				tooltip:AddLine(14, " - " .. monsterName)
 			end
-		elseif value == "Found in Maps" then
-			-- no tooltip
 		else
 			tooltip:AddLine(14, "^7World area not found: " .. tostring(value))
 		end
