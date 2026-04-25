@@ -47,8 +47,8 @@ for pack in dat("MonsterPacks"):Rows() do
 	--		addIfSpectre(mon)
 	--	end
 	--end
-	if pack.BossMonsters then
-		for _, mon in ipairs(pack.BossMonsters) do
+	if pack.BossMonster_MonsterVarietiesKeys then
+		for _, mon in ipairs(pack.BossMonster_MonsterVarietiesKeys) do
 			addIfSpectre(mon)
 		end
 	end

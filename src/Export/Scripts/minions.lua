@@ -155,7 +155,7 @@ directiveTable.emit = function(state, args, out)
 		print("Invalid Variety: "..state.varietyId)
 		return
 	end
-		local matchingEntries = {}
+	local matchingEntries = {}
 	local allMonsterPackIds = {}
 
 	-- Step 1: From MonsterPackEntries
@@ -170,18 +170,11 @@ directiveTable.emit = function(state, args, out)
 			end
 		end
 	end
-	-- Step 2: Check if monster is in AdditionalMonsters within MonsterPacks
+	-- Step 2: Check for boss monster
 	for packId in pairs(allMonsterPackIds) do
 		local pack = dat("MonsterPacks"):GetRow("Id", tostring(packId))
-		--if pack.AdditionalMonsters then
-		--	for _, addMon in ipairs(pack.AdditionalMonsters) do
-		--		if addMon.Name == monsterVariety.Name then
-		--			table.insert(matchingEntries, pack.Id)
-		--		end
-		--	end
-		--end
-		if pack.BossMonsters then
-			for _, bossMon in ipairs(pack.BossMonsters) do
+		if pack.BossMonster_MonsterVarietiesKeys then
+			for _, bossMon in ipairs(pack.BossMonster_MonsterVarietiesKeys) do
 				if bossMon.Name == monsterVariety.Name then
 					table.insert(matchingEntries, pack.Id)
 				end
@@ -209,7 +202,7 @@ directiveTable.emit = function(state, args, out)
 						displayName = displayName .. " (Map)"
 					elseif area.Act == 0 then
 						displayName = displayName
-					elseif area.Act ~= 0 then
+					elseif area.Act <= 10 then
 						displayName = displayName .. " (Act " .. tostring(area.Act) .. ")"
 					end
 					if not seenAreas[displayName] then
@@ -221,41 +214,41 @@ directiveTable.emit = function(state, args, out)
 		end
 		-- Check every Map for NativePacks containing this packId
 		for mapRow in dat("Maps"):Rows() do
-			--if mapRow.NativePacks then
-			--	for _, nativePack in ipairs(mapRow.NativePacks) do
-			--		if nativePack.Id == packId then
-			--			-- Check BossVersion and NonBossVersion of Map
-			--			local areaIds = {}
-			--			if mapRow.BossVersion and mapRow.BossVersion.Id then
-			--				table.insert(areaIds, mapRow.BossVersion.Id)
-			--			end
-			--			if mapRow.NonBossVersion and mapRow.NonBossVersion.Id then
-			--				table.insert(areaIds, mapRow.NonBossVersion.Id)
-			--			end
-			--			for _, areaId in ipairs(areaIds) do
-			--				local area = dat("WorldAreas"):GetRow("Id", areaId)
-			--				if area and area.Name ~= "NULL" then
-			--					local isMap = false
-			--					for _, tag in ipairs(area.Tags or {}) do
-			--						if tag.Id == "map" then
-			--							isMap = true
-			--						end
-			--					end
-			--					local displayName = area.Name
-			--					if isMap then
-			--						displayName = displayName .. " (Map)"
-			--					elseif area.Act and area.Act ~= 10 then
-			--						displayName = displayName .. " (Act " .. tostring(area.Act) .. ")"
-			--					end
-			--					if not seenAreas[displayName] then
-			--						table.insert(worldAreaNames, displayName)
-			--						seenAreas[displayName] = true
-			--					end
-			--				end
-			--			end
-			--		end
-			--	end
-			--end
+			if mapRow.MonsterPacksKey then
+				for _, nativePack in ipairs(mapRow.MonsterPacksKey) do
+					if nativePack.Id == packId then
+						-- Check BossVersion and NonBossVersion of Map
+						local areaIds = {}
+						if mapRow.Regular_WorldAreasKey and mapRow.Regular_WorldAreasKey.Id then
+							table.insert(areaIds, mapRow.Regular_WorldAreasKey.Id)
+						end
+						if mapRow.Unique_WorldAreasKey and mapRow.Unique_WorldAreasKey.Id then
+							table.insert(areaIds, mapRow.Unique_WorldAreasKey.Id)
+						end
+						for _, areaId in ipairs(areaIds) do
+							local area = dat("WorldAreas"):GetRow("Id", areaId)
+							if area and area.Name ~= "NULL" then
+								local isMap = false
+								for _, tag in ipairs(area.Tags or {}) do
+									if tag.Id == "map" then
+										isMap = true
+									end
+								end
+								local displayName = area.Name
+								if isMap then
+									displayName = displayName .. " (Map)"
+								elseif area.Act and area.Act <= 10 then
+									displayName = displayName .. " (Act " .. tostring(area.Act) .. ")"
+								end
+								if not seenAreas[displayName] then
+									table.insert(worldAreaNames, displayName)
+									seenAreas[displayName] = true
+								end
+							end
+						end
+					end
+				end
+			end
 		end
 	end
 	out:write('minions["', state.name, '"] = {\n')
