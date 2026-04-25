@@ -125,9 +125,9 @@ out:write('-- World Area Data (c) Grinding Gear Games\n\n')
 out:write('local worldAreas, _ = ...\n\n')
 
 for area in dat("WorldAreas"):Rows() do
-	if area.Name and area.Name ~= "NULL" and not area.Name:match("DNT") and area.Id and not area.IsTown and not area.IsLabyrinth then
+	if area.Name and area.Name ~= "NULL" and not area.Name:match("DNT") and area.Id and not area.IsTown then
 		-- Skip areas ending with _NoBoss
-		if area.Id:match("Design") or area.Id:match("Programming") or area.Id == "BlackTest" or area.Id:match("Hideout") then
+		if area.Id:match("Design") or area.Id:match("Programming") or area.Id == "BlackTest" or area.Id:match("Hideout") or area.Id:match("Labyrinth") then
 			goto continue
 		end
 		local monsters = areaIdToMonsters[area.Id] or {}

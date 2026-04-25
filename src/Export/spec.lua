@@ -14672,21 +14672,21 @@ return {
 		},
 		[39]={
 			list=false,
-			name="",
+			name="IsVaalArea",
 			refTo="",
 			type="Bool",
 			width=150
 		},
 		[40]={
 			list=false,
-			name="",
+			name="IsLabyrinthAirLock",
 			refTo="",
 			type="Bool",
 			width=150
 		},
 		[41]={
 			list=false,
-			name="",
+			name="IsLabyrinth",
 			refTo="",
 			type="Bool",
 			width=150
@@ -14735,7 +14735,7 @@ return {
 		},
 		[48]={
 			list=false,
-			name="IsLabyrinth",
+			name="IsLabyrinthBossArea",
 			refTo="",
 			type="Bool",
 			width=80
@@ -14869,9 +14869,16 @@ return {
 		},
 		[67]={
 			list=false,
+			name="QuestFlag",
+			refTo="QuestFlags",
+			type="Key",
+			width=150
+		},
+		[68]={
+			list=false,
 			name="",
 			refTo="",
-			type="Key",
+			type="Int",
 			width=150
 		}
 	},
