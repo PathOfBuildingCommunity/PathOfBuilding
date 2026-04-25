@@ -7452,6 +7452,76 @@ return {
 			refTo="AchievementItems",
 			type="Key",
 			width=370
+		},
+		[7]={
+			list=false,
+			name="Tier",
+			refTo="Maps",
+			type="Int",
+			width=60
+		},
+		[8]={
+			list=false,
+			name="Shaped_Base_MapsKey",
+			refTo="Maps",
+			type="ShortKey",
+			width=200
+		},
+		[9]={
+			list=false,
+			name="Shaped_AreaLevel",
+			refTo="",
+			type="Int",
+			width=140
+		},
+		[10]={
+			list=false,
+			name="UpgradedFrom_MapsKey",
+			refTo="Maps",
+			type="ShortKey",
+			width=320
+		},
+		[11]={
+			list=false,
+			name="MapsKey2",
+			refTo="Maps",
+			type="ShortKey",
+			width=300
+		},
+		[12]={
+			list=false,
+			name="MapsKey3",
+			refTo="Maps",
+			type="ShortKey",
+			width=150
+		},
+		[13]={
+			list=false,
+			name="MapGeneration",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[14]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[15]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[16]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=200
 		}
 	},
 	mapseries={
@@ -9474,7 +9544,7 @@ return {
 		},
 		[8]={
 			list=true,
-			name="BossMonsters",
+			name="BossMonster_MonsterVarietiesKeys",
 			refTo="MonsterVarieties",
 			type="Key",
 			width=400
