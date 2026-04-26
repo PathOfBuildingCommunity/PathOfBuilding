@@ -51,7 +51,7 @@ describe("TestImportReimport", function()
 	-- Build a minimal import payload so the tests stay focused on state, not fixture noise.
 	local function buildImportPayload(items)
 		return {
-			character = { level = DEFAULT_CHARACTER_LEVEL },
+			level = DEFAULT_CHARACTER_LEVEL,
 			equipment = items,
 		}
 	end
