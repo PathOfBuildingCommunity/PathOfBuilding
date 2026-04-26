@@ -1,7 +1,23 @@
 -- Start a server
 local url = ...
-local socket = require("socket")
-local server = assert(socket.bind("*", 49082) or socket.bind("*", 49083) or socket.bind("*", 49084))
+local luaSocket = require("socket")
+local server = luaSocket.tcp4()
+local function bindSocket()
+    local res, err
+    res, err = server:bind("localhost", 49082) or server:bind("localhost", 49083) or server:bind("localhost", 49084)
+    if not res then
+        server:close()
+    else
+        res, err = server:listen(1)
+        if not res then
+            server:close()
+        else
+            return server
+        end
+    end
+    return nil, err
+end
+assert(bindSocket())
 local host, port = server:getsockname()
 ConPrintf("Server started on %s:%s", host, port)
 
@@ -20,7 +36,7 @@ Content-Type: text/html
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>PoB 2 - Authentication Complete</title>
+	<title>PoB - Authentication Complete</title>
 	<style>
 		body {
 			font-family: Arial, sans-serif;
@@ -132,14 +148,14 @@ function handleConnection(client, attempt)
 
 		if queryParams["code"] ~= nil then
 			response = commonResponse .. [[
-			<h1>PoB 2 - Authentication Successful</h1>
+			<h1>PoB - Authentication Successful</h1>
 			<p>✅ Your authentication is complete! You can now return to the app.</p>
 			]] .. commonResponseEnd
 			code = queryParams["code"]
 			state = queryParams["state"]
 		else
 			response = commonResponse .. [[
-			<h1>PoB 2 - Authentication Failed</h1>
+			<h1>PoB - Authentication Failed</h1>
 			<p>❌ Authentication failed. Please try again.</p>
 			<code>]] .. queryParams["error"] .. ": " .. queryParams["error_description"] .. [[</code>
 			]] .. commonResponseEnd
