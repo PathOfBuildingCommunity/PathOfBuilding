@@ -50,10 +50,10 @@ describe("TestImportReimport", function()
 
 	-- Build a minimal import payload so the tests stay focused on state, not fixture noise.
 	local function buildImportPayload(items)
-		return dkjson.encode({
+		return {
 			character = { level = DEFAULT_CHARACTER_LEVEL },
-			items = items,
-		})
+			equipment = items,
+		}
 	end
 
 	local function reimportSocketedItemsWithOptions(itemTypeLine, inventoryId, socketedItems, clearItems)
