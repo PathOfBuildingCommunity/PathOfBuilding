@@ -1836,9 +1836,7 @@ c["-20% to Critical Strike Multiplier with Swords"]={{[1]={flags=4194308,keyword
 c["-20% to Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="FireResist",type="BASE",value=-20}},nil}
 c["-20% to Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningResist",type="BASE",value=-20}},nil}
 c["-20% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=-20}},nil}
-c["-25 Damage taken of each Damage Type from Spell Hits per Bark"]={{[1]={[1]={type="Multiplier",var="BarkskinStacks"},flags=2,keywordFlags=0,name="DamageTaken",type="BASE",value=-25}},"  of each Damage Type from  Hits  "}
-c["-25 Damage taken of each Damage Type from Spell Hits per Bark Prevent +3% of Suppressed Spell Damage per Bark below maximum"]={{[1]={[1]={type="Multiplier",var="BarkskinStacks"},[2]={type="Multiplier",var="MissingBarkskinStacks"},flags=2,keywordFlags=0,name="DamageTaken",type="BASE",value=-25}},"  of each Damage Type from  Hits  Prevent +3% of Suppressed Spell Damage  "}
-c["-25 Damage taken of each Damage Type from Spell Hits per Bark Prevent +3% of Suppressed Spell Damage per Bark below maximum Lose 1 Bark when Hit by Enemy Spell Damage"]={{[1]={[1]={type="Multiplier",var="BarkskinStacks"},[2]={type="Multiplier",var="MissingBarkskinStacks"},flags=2,keywordFlags=0,name="DamageTaken",type="BASE",value=-25}},"  of each Damage Type from  Hits  Prevent +3% of Suppressed Spell Damage  Lose 1 Bark when Hit by Enemy Spell Damage "}
+c["-25 Damage taken of each Damage Type from Spell Hits per Bark"]={{[1]={[1]={type="Multiplier",var="BarkskinStacks"},flags=0,keywordFlags=0,name="DamageTakenFromSpells",type="BASE",value=-25}},nil}
 c["-25 Physical Damage taken from Projectile Attacks"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromProjectileAttacks",type="BASE",value=-25}},nil}
 c["-25% to Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="FireResist",type="BASE",value=-25}},nil}
 c["-25% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=-25}},nil}
