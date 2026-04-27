@@ -1048,7 +1048,7 @@ function ImportTabClass:ImportPassiveTreeAndJewels(charData)
 	self.build.treeTab:SetActiveSpec(self.build.treeTab.activeSpec)
 	self.build.spec:BuildClusterJewelGraphs()
 	self.build.spec:AddUndoState()
-	self.build.characterLevel = charData.level
+	self.build.characterLevel = charData.level or 100
 	self.build.characterLevelAutoMode = false
 	self.build.configTab:UpdateLevel()
 	self.build.controls.characterLevel:SetText(charData.level)
