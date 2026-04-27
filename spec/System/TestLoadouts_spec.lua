@@ -213,6 +213,28 @@ describe("TestLoadouts", function()
 				assert.is_same(expectedName, activeConfigSet.title)
 			end
 
+			local function reorderLoadoutsList(oldIndex, newIndex)
+				local spec = build.loadoutsList[oldIndex]
+				t_remove(build.loadoutsList, oldIndex)
+				t_insert(build.loadoutsList, newIndex, spec)
+			end
+
+			local function assertLoadoutOrder(expectedOrder)
+				local actualOrder = {}
+				for i = 1, #build.loadoutsList do
+					t_insert(actualOrder, build.loadoutsList[i].title or "Default")
+				end
+				assert.is_same(expectedOrder, actualOrder)
+			end
+
+			local function assertSpecOrder(expectedOrder)
+				local actualOrder = {}
+				for i = 1, #build.treeTab.specList do
+					t_insert(actualOrder, build.treeTab.specList[i].title or "Default")
+				end
+				assert.is_same(expectedOrder, actualOrder)
+			end
+
 			it("does not reorder loadouts when oldIndex is the same as newIndex", function()
 				build:NewLoadout("Loadout A")
 				build:NewLoadout("Loadout B")
@@ -220,14 +242,13 @@ describe("TestLoadouts", function()
 				build.modFlag = false
 
 				build:SetActiveLoadout(build:GetLoadoutByName("Loadout A"))
+				assertLoadoutOrder({ "Default", "Loadout A", "Loadout B", "Loadout C" })
 
-				local spec = build.treeTab.specList[2]
-				t_remove(build.treeTab.specList, 2)
-				t_insert(build.treeTab.specList, 2, spec)
+				reorderLoadoutsList(2, 2)
 				build:ReorderLoadout(2, 2)
 
-				assert.is_same(4, #build.treeTab.specList)
-				assert.is_same("Loadout A", build.treeTab.specList[2].title)
+				assertLoadoutOrder({ "Default", "Loadout A", "Loadout B", "Loadout C" })
+				assertSpecOrder({ "Default", "Loadout A", "Loadout B", "Loadout C" })
 				assertActiveLoadoutByName("Loadout A")
 				assert.is_false(build.modFlag)
 			end)
@@ -236,17 +257,18 @@ describe("TestLoadouts", function()
 				build:NewLoadout("Loadout A")
 				build:NewLoadout("Loadout B")
 				build:NewLoadout("Loadout C")
+				build:SyncLoadouts()
 				build.modFlag = false
 
 				build:SetActiveLoadout(build:GetLoadoutByName("Loadout A"))
 
-				local spec = build.treeTab.specList[2]
-				t_remove(build.treeTab.specList, 2)
-				t_insert(build.treeTab.specList, 4, spec)
+				assertLoadoutOrder({ "Default", "Loadout A", "Loadout B", "Loadout C" })
+
+				reorderLoadoutsList(2, 4)
 				build:ReorderLoadout(2, 4)
 
-				assert.is_same(4, #build.treeTab.specList)
-				assert.is_same("Loadout A", build.treeTab.specList[4].title)
+				assertLoadoutOrder({ "Default", "Loadout B", "Loadout C", "Loadout A" })
+				assertSpecOrder({ "Default", "Loadout B", "Loadout C", "Loadout A" })
 				assertActiveLoadoutByName("Loadout A")
 				assert.is_true(build.modFlag)
 			end)
@@ -255,17 +277,17 @@ describe("TestLoadouts", function()
 				build:NewLoadout("Loadout A")
 				build:NewLoadout("Loadout B")
 				build:NewLoadout("Loadout C")
+				build:SyncLoadouts()
 				build.modFlag = false
 
 				build:SetActiveLoadout(build:GetLoadoutByName("Loadout C"))
+				assertLoadoutOrder({ "Default", "Loadout A", "Loadout B", "Loadout C" })
 
-				local spec = build.treeTab.specList[2]
-				t_remove(build.treeTab.specList, 2)
-				t_insert(build.treeTab.specList, 3, spec)
+				reorderLoadoutsList(2, 3)
 				build:ReorderLoadout(2, 3)
 
-				assert.is_same(4, #build.treeTab.specList)
-				assert.is_same("Loadout A", build.treeTab.specList[3].title)
+				assertLoadoutOrder({ "Default", "Loadout B", "Loadout A", "Loadout C" })
+				assertSpecOrder({ "Default", "Loadout B", "Loadout A", "Loadout C" })
 				assertActiveLoadoutByName("Loadout C")
 				assert.is_true(build.modFlag)
 			end)
@@ -274,17 +296,17 @@ describe("TestLoadouts", function()
 				build:NewLoadout("Loadout A")
 				build:NewLoadout("Loadout B")
 				build:NewLoadout("Loadout C")
+				build:SyncLoadouts()
 				build.modFlag = false
 
 				build:SetActiveLoadout(build:GetLoadoutByName("Loadout B"))
+				assertLoadoutOrder({ "Default", "Loadout A", "Loadout B", "Loadout C" })
 
-				local spec = build.treeTab.specList[2]
-				t_remove(build.treeTab.specList, 2)
-				t_insert(build.treeTab.specList, 4, spec)
+				reorderLoadoutsList(2, 4)
 				build:ReorderLoadout(2, 4)
 
-				assert.is_same(4, #build.treeTab.specList)
-				assert.is_same("Loadout A", build.treeTab.specList[4].title)
+				assertLoadoutOrder({ "Default", "Loadout B", "Loadout C", "Loadout A" })
+				assertSpecOrder({ "Default", "Loadout B", "Loadout C", "Loadout A" })
 				assertActiveLoadoutByName("Loadout B")
 				assert.is_true(build.modFlag)
 			end)
@@ -293,17 +315,17 @@ describe("TestLoadouts", function()
 				build:NewLoadout("Loadout A")
 				build:NewLoadout("Loadout B")
 				build:NewLoadout("Loadout C")
+				build:SyncLoadouts()
 				build.modFlag = false
 
 				build:SetActiveLoadout(build:GetLoadoutByName("Loadout C"))
+				assertLoadoutOrder({ "Default", "Loadout A", "Loadout B", "Loadout C" })
 
-				local spec = build.treeTab.specList[4]
-				t_remove(build.treeTab.specList, 4)
-				t_insert(build.treeTab.specList, 2, spec)
+				reorderLoadoutsList(4, 2)
 				build:ReorderLoadout(4, 2)
 
-				assert.is_same(4, #build.treeTab.specList)
-				assert.is_same("Loadout C", build.treeTab.specList[2].title)
+				assertLoadoutOrder({ "Default", "Loadout C", "Loadout A", "Loadout B" })
+				assertSpecOrder({ "Default", "Loadout C", "Loadout A", "Loadout B" })
 				assertActiveLoadoutByName("Loadout C")
 				assert.is_true(build.modFlag)
 			end)
@@ -312,17 +334,17 @@ describe("TestLoadouts", function()
 				build:NewLoadout("Loadout A")
 				build:NewLoadout("Loadout B")
 				build:NewLoadout("Loadout C")
+				build:SyncLoadouts()
 				build.modFlag = false
 
 				build:SetActiveLoadout(build:GetLoadoutByName("Loadout B"))
+				assertLoadoutOrder({ "Default", "Loadout A", "Loadout B", "Loadout C" })
 
-				local spec = build.treeTab.specList[4]
-				t_remove(build.treeTab.specList, 4)
-				t_insert(build.treeTab.specList, 2, spec)
+				reorderLoadoutsList(4, 2)
 				build:ReorderLoadout(4, 2)
 
-				assert.is_same(4, #build.treeTab.specList)
-				assert.is_same("Loadout C", build.treeTab.specList[2].title)
+				assertLoadoutOrder({ "Default", "Loadout C", "Loadout A", "Loadout B" })
+				assertSpecOrder({ "Default", "Loadout C", "Loadout A", "Loadout B" })
 				assertActiveLoadoutByName("Loadout B")
 				assert.is_true(build.modFlag)
 			end)
@@ -331,18 +353,190 @@ describe("TestLoadouts", function()
 				build:NewLoadout("Loadout A")
 				build:NewLoadout("Loadout B")
 				build:NewLoadout("Loadout C")
+				build:SyncLoadouts()
 				build.modFlag = false
 
 				build:SetActiveLoadout(build:GetLoadoutByName("Loadout A"))
+				assertLoadoutOrder({ "Default", "Loadout A", "Loadout B", "Loadout C" })
 
-				local spec = build.treeTab.specList[4]
-				t_remove(build.treeTab.specList, 4)
-				t_insert(build.treeTab.specList, 3, spec)
+				reorderLoadoutsList(4, 3)
 				build:ReorderLoadout(4, 3)
 
-				assert.is_same(4, #build.treeTab.specList)
-				assert.is_same("Loadout C", build.treeTab.specList[3].title)
+				assertLoadoutOrder({ "Default", "Loadout A", "Loadout C", "Loadout B" })
+				assertSpecOrder({ "Default", "Loadout A", "Loadout C", "Loadout B" })
 				assertActiveLoadoutByName("Loadout A")
+				assert.is_true(build.modFlag)
+			end)
+
+			it("correctly reorders loadouts when filtered list indices differ from specList indices", function()
+				build:NewLoadout("Loadout A")
+				build:NewLoadout("Filtered")
+				build:NewLoadout("Loadout C")
+				build:NewLoadout("Loadout D")
+				build.configTab:DeleteConfigSet(build.configTab.configSetOrderList[3], 3)
+				build:SyncLoadouts()
+				build.modFlag = false
+
+				assertLoadoutOrder({ "Default", "Loadout A", "Loadout C", "Loadout D" })
+
+				build:SetActiveLoadout(build:GetLoadoutByName("Loadout A"))
+
+				reorderLoadoutsList(2, 4)
+				build:ReorderLoadout(2, 4)
+
+				assertLoadoutOrder({ "Default", "Loadout C", "Loadout D", "Loadout A" })
+				assertSpecOrder({ "Default", "Filtered", "Loadout C", "Loadout D", "Loadout A" })
+				assertActiveLoadoutByName("Loadout A")
+				assert.is_true(build.modFlag)
+			end)
+
+			it(
+				"correctly reorders loadouts when filtered list indices differ from specList indices and newIndex is less than oldIndex",
+				function()
+					build:NewLoadout("Loadout A")
+					build:NewLoadout("Filtered")
+					build:NewLoadout("Loadout C")
+					build:NewLoadout("Loadout D")
+					build.configTab:DeleteConfigSet(build.configTab.configSetOrderList[3], 3)
+					build:SyncLoadouts()
+					build.modFlag = false
+
+					assertLoadoutOrder({ "Default", "Loadout A", "Loadout C", "Loadout D" })
+
+					build:SetActiveLoadout(build:GetLoadoutByName("Loadout A"))
+
+					reorderLoadoutsList(4, 2)
+					build:ReorderLoadout(4, 2)
+
+					assertSpecOrder({ "Default", "Loadout D", "Loadout A", "Filtered", "Loadout C" })
+					assertLoadoutOrder({ "Default", "Loadout D", "Loadout A", "Loadout C" })
+					assertActiveLoadoutByName("Loadout A")
+					assert.is_true(build.modFlag)
+				end)
+
+			it(
+				"correctly reorders loadouts when there are multiple filtered specs",
+				function()
+					build:NewLoadout("Loadout A")
+					build:NewLoadout("Filtered")
+					build:NewLoadout("Filtered 2")
+					build:NewLoadout("Loadout C")
+					build:NewLoadout("Loadout D")
+					build.configTab:DeleteConfigSet(build.configTab.configSetOrderList[3], 3)
+					build.configTab:DeleteConfigSet(build.configTab.configSetOrderList[3], 3)
+					build:SyncLoadouts()
+					build.modFlag = false
+
+					assertLoadoutOrder({ "Default", "Loadout A", "Loadout C", "Loadout D" })
+
+					build:SetActiveLoadout(build:GetLoadoutByName("Loadout A"))
+
+					reorderLoadoutsList(2, 4)
+					build:ReorderLoadout(2, 4)
+
+					assertSpecOrder({ "Default", "Filtered", "Filtered 2", "Loadout C", "Loadout D", "Loadout A" })
+					assertLoadoutOrder({ "Default", "Loadout C", "Loadout D", "Loadout A" })
+					assertActiveLoadoutByName("Loadout A")
+					assert.is_true(build.modFlag)
+				end)
+
+			it(
+				"correctly reorders loadouts when there are multiple filtered specs and newIndex is less than oldIndex",
+				function()
+					build:NewLoadout("Loadout A")
+					build:NewLoadout("Filtered")
+					build:NewLoadout("Filtered 2")
+					build:NewLoadout("Loadout C")
+					build:NewLoadout("Loadout D")
+					build.configTab:DeleteConfigSet(build.configTab.configSetOrderList[3], 3)
+					build.configTab:DeleteConfigSet(build.configTab.configSetOrderList[3], 3)
+					build:SyncLoadouts()
+					build.modFlag = false
+
+					assertLoadoutOrder({ "Default", "Loadout A", "Loadout C", "Loadout D" })
+
+					build:SetActiveLoadout(build:GetLoadoutByName("Loadout A"))
+					reorderLoadoutsList(4, 2)
+					build:ReorderLoadout(4, 2)
+
+					assertSpecOrder({ "Default", "Loadout D", "Loadout A", "Filtered", "Filtered 2", "Loadout C" })
+					assertLoadoutOrder({ "Default", "Loadout D", "Loadout A", "Loadout C" })
+					assertActiveLoadoutByName("Loadout A")
+					assert.is_true(build.modFlag)
+				end)
+
+			it("maintains active spec tracking when reordering with filtered list", function()
+				build:NewLoadout("Loadout A")
+				build:NewLoadout("Filtered")
+				build:NewLoadout("Active")
+				build:NewLoadout("Loadout D")
+				build.configTab:DeleteConfigSet(build.configTab.configSetOrderList[3], 3)
+				build:SyncLoadouts()
+				build.modFlag = false
+
+				build:SetActiveLoadout(build:GetLoadoutByName("Active"))
+
+				reorderLoadoutsList(2, 4)
+				build:ReorderLoadout(2, 4)
+
+				assertActiveLoadoutByName("Active")
+				assert.is_true(build.modFlag)
+			end)
+
+			it("does not reorder when indices are out of filtered list bounds", function()
+				build:NewLoadout("Valid Loadout")
+				build:SyncLoadouts()
+				build.modFlag = false
+
+				local specBefore = build.loadoutsList[1]
+
+				build:ReorderLoadout(10, 20)
+
+				assert.is_same(specBefore, build.loadoutsList[1])
+				assert.is_false(build.modFlag)
+			end)
+
+			it("reorders correctly when moving loadout backwards in filtered list", function()
+				build:NewLoadout("First")
+				build:NewLoadout("Second")
+				build:NewLoadout("Third")
+				build:SyncLoadouts()
+				build.modFlag = false
+
+				reorderLoadoutsList(4, 2)
+				build:ReorderLoadout(4, 2)
+
+				assert.is_same("Third", build.loadoutsList[2].title)
+				assert.is_same("Second", build.loadoutsList[4].title)
+				assert.is_true(build.modFlag)
+			end)
+
+			it("reorders default correctly", function()
+				build:NewLoadout("Loadout A")
+				build:NewLoadout("Filtered")
+				build:NewLoadout("Active")
+				build:NewLoadout("Loadout D")
+				build.configTab:DeleteConfigSet(build.configTab.configSetOrderList[3], 3)
+				build:SyncLoadouts()
+				build.modFlag = false
+
+				build:SetActiveLoadout(build:GetLoadoutByName("Active"))
+
+				assertLoadoutOrder({ "Default", "Loadout A", "Active", "Loadout D" })
+
+				reorderLoadoutsList(1, 4)
+				build:ReorderLoadout(1, 4)
+
+				assertLoadoutOrder({ "Loadout A", "Active", "Loadout D", "Default" })
+				assertSpecOrder({ "Loadout A", "Filtered", "Active", "Loadout D", "Default" })
+				assertActiveLoadoutByName("Active")
+
+				reorderLoadoutsList(4, 1)
+				build:ReorderLoadout(4, 1)
+
+				assertLoadoutOrder({ "Default", "Loadout A", "Active", "Loadout D" })
+				assertSpecOrder({ "Default", "Loadout A", "Filtered", "Active", "Loadout D" })
+				assertActiveLoadoutByName("Active")
 				assert.is_true(build.modFlag)
 			end)
 		end)
@@ -648,6 +842,7 @@ describe("TestLoadouts", function()
 					assert.are.equals(7, #build.controls.buildLoadouts.list)
 					build.configTab:DeleteConfigSet(build.configTab.configSetOrderList[1], 1)
 					assert.are.equals(1, #build.configTab.configSetOrderList)
+					assert.are.equals(2, #build.loadoutsList)
 					local loadout = build:GetLoadoutByName(loadoutName)
 					buildSetService:DeleteLoadout(2, build.treeTab.specList, build.treeTab.specList[loadout.specId])
 					assert.are.equals(1, #build.configTab.configSetOrderList)

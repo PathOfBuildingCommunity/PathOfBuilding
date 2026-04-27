@@ -82,6 +82,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	self.pantheonMajorGod = "None"
 	self.pantheonMinorGod = "None"
 	self.characterLevelAutoMode = main.defaultCharLevel == 1 or main.defaultCharLevel == nil
+	-- List of loadouts by spec name. Updated on each SyncLoadouts() call.
+	self.loadoutsList = { }
+	self.activeLoadout = nil
 	if buildXML then
 		if self:LoadDB(buildXML, "Unnamed build") then
 			self:CloseBuild()
@@ -642,18 +645,16 @@ end
 
 function buildMode:SyncLoadouts()
 	self.controls.buildLoadouts.list = {"No Loadouts"}
+	self.loadoutsList = { }
 
 	local filteredList = {"^7^7Loadouts:"}
+	local filteredSpecs = {}
 	local treeList = {}
 	local itemList = {}
 	local skillList = {}
 	local configList = {}
 	-- used when clicking on the dropdown to set the correct setId for each SetActiveSet()
 	self.treeListSpecialLinks, self.itemListSpecialLinks, self.skillListSpecialLinks, self.configListSpecialLinks = {}, {}, {}, {}
-
-	local oneSkill = self.skillsTab and #self.skillsTab.skillSetOrderList == 1
-	local oneItem = self.itemsTab and #self.itemsTab.itemSetOrderList == 1
-	local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
 
 	if self.treeTab ~= nil and self.itemsTab ~= nil and self.skillsTab ~= nil and self.configTab ~= nil then
 		local transferTable = {}
@@ -681,7 +682,7 @@ function buildMode:SyncLoadouts()
 					transferTable = {}
 				end
 			else
-				t_insert(treeList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(specTitle))
+				t_insert(filteredSpecs, spec)
 			end
 		end
 
@@ -714,17 +715,27 @@ function buildMode:SyncLoadouts()
 		identifyLinks(self.skillsTab.skillSetOrderList, self.skillsTab.skillSets, skillList, self.skillListSpecialLinks, self.treeListSpecialLinks)
 		identifyLinks(self.configTab.configSetOrderList, self.configTab.configSets, configList, self.configListSpecialLinks, self.treeListSpecialLinks)
 
+		local oneSkill = self.skillsTab and #self.skillsTab.skillSetOrderList == 1
+		local oneItem = self.itemsTab and #self.itemsTab.itemSetOrderList == 1
+		local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
+
+		for _, spec in ipairs(filteredSpecs) do
+			local specTitle = spec.title or "Default"
+			t_insert(treeList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..specTitle)
+		end
+
 		-- loop over all for exact match loadouts
 		for id, tree in ipairs(treeList) do
 			if (oneItem or itemList[tree]) and (oneSkill or skillList[tree]) and (oneConfig or configList[tree]) then
 				t_insert(filteredList, tree)
+				t_insert(self.loadoutsList, self.treeTab.specList[id])
 			end
 		end
 		-- loop over the identifiers found within braces and set the loadout name to the TreeSet
 		for _, tree in ipairs(sortedTreeListSpecialLinks) do
 			local treeLinkId = tree.linkId
 			if ((oneItem or self.itemListSpecialLinks[treeLinkId]) and (oneSkill or self.skillListSpecialLinks[treeLinkId]) and (oneConfig or self.configListSpecialLinks[treeLinkId])) then
-				t_insert(filteredList, tree.setName .." {"..treeLinkId.."}")
+				t_insert(filteredList, tree.setName .. " {" .. treeLinkId .. "}")
 			end
 		end
 	end
@@ -772,8 +783,8 @@ function buildMode:NewLoadout(loadoutName)
 	local newSkillSet = self.skillsTab:NewSkillSet(#self.skillsTab.skillSets + 1, loadoutName)
 	local newConfigSet = self.configTab:NewConfigSet(#self.configTab.configSets + 1, loadoutName)
 
-	t_insert(self.treeTab.specList, newSpec)
 	newSpec.title = loadoutName
+	t_insert(self.treeTab.specList, newSpec)
 
 	self.modFlag = true
 end
@@ -952,42 +963,46 @@ function buildMode:SetActiveLoadout(loadout)
 		return
 	end
 
-	if newSpecId ~= self.treeTab.activeSpec then
-		self.treeTab:SetActiveSpec(newSpecId, true)
-	end
+	self.treeTab:SetActiveSpec(newSpecId, true)
 	self.itemsTab:SetActiveItemSet(newItemId, true)
 	self.skillsTab:SetActiveSkillSet(newSkillId, true)
 	self.configTab:SetActiveConfigSet(newConfigId, false, true)
 	self:SyncLoadouts()
-
-	for i, loadoutName in ipairs(self.controls.buildLoadouts.list) do
-		if loadoutName == (self.treeTab.specList[newSpecId].title) then
-			self.controls.buildLoadouts:SetSel(i)
-			break
-		end
-	end
 end
 
 function buildMode:ReorderLoadout(oldIndex, newIndex)
-	if oldIndex == newIndex then
+	if not oldIndex or not newIndex then return end
+	if oldIndex == newIndex then return end
+
+	if oldIndex <= 0 or newIndex < 0 or oldIndex > #self.treeTab.specList or newIndex > #self.treeTab.specList or newIndex > #self.loadoutsList then
 		return
 	end
 
-	self.modFlag = true
-	
-	local activeLoadout = self.treeTab.activeSpec
-
-	local minVal = m_min(oldIndex, newIndex)
-	local maxVal = m_max(oldIndex, newIndex)
-	if activeLoadout < minVal or activeLoadout > maxVal then return end
-
-	if oldIndex == activeLoadout then
-		activeLoadout = newIndex
-	elseif minVal <= activeLoadout and activeLoadout < maxVal then
-		activeLoadout = activeLoadout + (oldIndex > newIndex and 1 or -1)
+	local function findSpecIndexBySpec(spec)
+		for i, s in ipairs(self.treeTab.specList) do
+			if s == spec then
+				return i
+			end
+		end
+		return nil
 	end
 
-	self:SetActiveLoadout(self:GetLoadoutByName(self.treeTab.specList[activeLoadout].title or "Default"))
+	local activeTitle = self.treeTab.specList[self.treeTab.activeSpec].title or "Default"
+
+	local filteredSpecCount = #self.treeTab.specList - #self.loadoutsList
+
+	local movedSpec = self.loadoutsList[newIndex]
+	local oldSpecIndex = findSpecIndexBySpec(movedSpec)
+
+	if not oldSpecIndex then return end
+
+	local direction = oldIndex < newIndex and 1 or 0
+
+	t_remove(self.treeTab.specList, oldSpecIndex)
+	t_insert(self.treeTab.specList, newIndex + (direction * filteredSpecCount), movedSpec)
+
+	self.modFlag = true
+	self:SetActiveLoadout(self:GetLoadoutByName(activeTitle))
 end
 
 function buildMode:EstimatePlayerProgress()

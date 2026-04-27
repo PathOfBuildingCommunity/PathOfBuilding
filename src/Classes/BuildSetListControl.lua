@@ -4,10 +4,9 @@
 -- Build set list control.
 --
 local t_insert = table.insert
-local t_remove = table.remove
 
 local BuildSetListClass = newClass("BuildSetListControl", "ListControl", function(self, anchor, rect, buildMode)
-	self.ListControl(anchor, rect, 16, "VERTICAL", true, buildMode.treeTab.specList)
+	self.ListControl(anchor, rect, 16, "VERTICAL", true, buildMode.loadoutsList)
 	self.buildMode = buildMode
 	self.buildSetService = new("BuildSetService", buildMode)
 	self.controls.new = new("ButtonControl", { "BOTTOMLEFT", self, "TOP" }, { -190, -4, 60, 18 }, "New",
@@ -64,6 +63,7 @@ function BuildSetListClass:RenameLoadout(spec)
 	controls.save = new("ButtonControl", nil, { -45, 70, 80, 20 }, "Save", function()
 		local newTitle = controls.edit.buf
 		self.buildSetService:RenameLoadout(specName, newTitle)
+		self:ResetList()
 		main:ClosePopup()
 	end)
 	controls.save.enabled = false
@@ -81,6 +81,7 @@ function BuildSetListClass:CopyLoadout(loadoutName)
 	end)
 	controls.save = new("ButtonControl", nil, { -45, 70, 80, 20 }, "Save", function()
 		self.buildSetService:CopyLoadout(loadoutName, controls.edit.buf)
+		self:ResetList()
 		main:ClosePopup()
 	end)
 	controls.save.enabled = false
@@ -159,12 +160,10 @@ function BuildSetListClass:CustomLoadout(build)
 			(skillIndex > 1 and self.buildMode.skillsTab.skillSetOrderList[skillIndex - 1] or 0)
 		local newConfigSetId = configIndex == 1 and -1 or
 			(configIndex > 1 and self.buildMode.configTab.configSetOrderList[configIndex - 1] or 0)
-		print("Before CustomLoadout: ", newSpecId, newItemSetId, newSkillSetId, newConfigSetId)
 		self.buildSetService:CustomLoadout(newSpecId, newItemSetId, newSkillSetId, newConfigSetId,
 			controls.edit.buf)
-		print("After CustomLoadout: ", newSpecId, newItemSetId, newSkillSetId, newConfigSetId)
+		self:ResetList()
 		main:ClosePopup()
-		print("After ClosePopup: ", newSpecId, newItemSetId, newSkillSetId, newConfigSetId)
 	end)
 	controls.save.enabled = false
 	controls.cancel = new("ButtonControl", nil, { 45, 270, 80, 20 }, "Cancel", function()
@@ -181,6 +180,7 @@ function BuildSetListClass:NewLoadout()
 	end)
 	controls.save = new("ButtonControl", nil, { -45, 70, 80, 20 }, "Save", function()
 		self.buildSetService:NewLoadout(controls.edit.buf)
+		self:ResetList()
 		main:ClosePopup()
 	end)
 	controls.save.enabled = false
@@ -199,12 +199,12 @@ function BuildSetListClass:GetRowValue(column, index, spec)
 			" (" ..
 			(spec.curAscendClassName ~= "None" and spec.curAscendClassName or spec.curClassName) ..
 			", " .. used .. " points)"
-			.. (index == self.buildMode.treeTab.activeSpec and "  ^9(Current)" or "")
+			.. (index == self.buildSetService:GetActiveLoadoutIndex() and "  ^9(Current)" or "")
 	end
 end
 
 function BuildSetListClass:OnSelClick(index, spec, doubleClick)
-	if doubleClick and index ~= self.buildMode.treeTab.activeSpec then
+	if doubleClick and index ~= self.buildSetService:GetActiveLoadoutIndex() then
 		self.buildMode.controls.buildLoadouts:SetSel(index + 1)
 	end
 end
@@ -216,6 +216,7 @@ function BuildSetListClass:DeleteLoadout(index, spec)
 				self.buildSetService:DeleteLoadout(index, self.list, spec)
 				self.selIndex = nil
 				self.selValue = nil
+				self:ResetList()
 			end)
 	end
 end
@@ -228,4 +229,9 @@ end
 
 function BuildSetListClass:OnOrderChange(oldIndex, newIndex)
 	self.buildSetService:ReorderLoadout(oldIndex, newIndex)
+	self:ResetList()
+end
+
+function BuildSetListClass:ResetList()
+	self.list = self.buildMode.loadoutsList
 end
