@@ -630,13 +630,6 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 	main.api:ValidateAuth(function() end)
 end)
 
-function ImportTabClass:SaveApiSettings()
-	main.lastToken = main.api.authToken
-	main.lastRefreshToken = main.api.refreshToken
-	main.tokenExpiry = main.api.tokenExpiry
-	main:SaveSettings()
-end
-
 function ImportTabClass:Load(xml, fileName)
 	self.lastRealm = xml.attrib.lastRealm
 	self.lastAccountHash = xml.attrib.lastAccountHash

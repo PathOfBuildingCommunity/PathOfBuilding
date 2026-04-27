@@ -72,8 +72,8 @@ end
 --- updates main so that API details are saved across restarts
 function PoEAPIClass:UpdateMain()
 	main.lastToken = self.authToken
-    main.lastRefreshToken = self.refreshToken
-    main.tokenExpiry = self.tokenExpiry
+	main.lastRefreshToken = self.refreshToken
+	main.tokenExpiry = self.tokenExpiry
 	main:SaveSettings()
 end
 
