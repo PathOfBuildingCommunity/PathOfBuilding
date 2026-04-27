@@ -800,7 +800,7 @@ function ImportTabClass:DownloadSiteCharacterList()
 	"character-window/get-characters?accountName=" .. accountName:gsub("#", "%%23") .. "&realm=" .. realm.realmCode,
 		function(response, errMsg)
 			if errMsg == "Response code: 401" or errMsg == "Response code: 403" then
-				self.charImportStatus = colorCodes.NEGATIVE .. "Account profile is private."
+				self.charImportStatus = colorCodes.NEGATIVE .. "Account profile is private or does not exist."
 				self.charImportMode = "GETACCOUNTNAME"
 				return
 			elseif errMsg == "Response code: 404" then
