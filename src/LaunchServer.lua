@@ -3,19 +3,19 @@ local url = ...
 local luaSocket = require("socket")
 local server = luaSocket.tcp4()
 local function bindSocket()
-    local res, err
-    res, err = server:bind("localhost", 49082) or server:bind("localhost", 49083) or server:bind("localhost", 49084)
-    if not res then
-        server:close()
-    else
-        res, err = server:listen(1)
-        if not res then
-            server:close()
-        else
-            return server
-        end
-    end
-    return nil, err
+	local res, err
+	res, err = server:bind("localhost", 49082) or server:bind("localhost", 49083) or server:bind("localhost", 49084)
+	if not res then
+		server:close()
+	else
+		res, err = server:listen(1)
+		if not res then
+			server:close()
+		else
+			return server
+		end
+	end
+	return nil, err
 end
 assert(bindSocket())
 local host, port = server:getsockname()
