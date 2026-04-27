@@ -1863,29 +1863,6 @@ Metadata/Monsters/Spawn/SpawnMervielSummon                                      
 Metadata/Monsters/Spawn/SpawnPhaseRun                                                     		----		Slimy Nemesis
 Metadata/Monsters/Spawn/SpawnViperStrike                                                  		----		Venomous Spawn
 Metadata/Monsters/Spawn/SpawnTiny                                                         		----		Broodling
-Metadata/Monsters/Spiders/SpiderClimbDownViperStrikeSpectre                               		----		Lurking Venom
-Metadata/Monsters/Spiders/SpiderThorn                                                     		----		Vaal Recluse
-Metadata/Monsters/Spiders/SpiderThornViperStrike                                          		----		Noxious Tarantula
-Metadata/Monsters/Spiders/SpiderThornFlickerStrikeNoExplode                               		----		Arakaali's Daughter
-Metadata/Monsters/Spiders/SpiderWebChampion                                               		----		Webbed Spider
-Metadata/Monsters/Spiders/SpiderPoisonChampion_                                           		----		Virulent Spider
-Metadata/Monsters/Spiders/SpiderScale2                                                    		----		Ink Spinner
-Metadata/Monsters/Spiders/SpiderScale5                                                    		----		Cave Arach
-Metadata/Monsters/Spiders/SpiderScaleViperStrike                                          		----		Corrupted Arach
-Metadata/Monsters/Spiders/SpiderScaleViperStrike2                                         		----		Crypt Spinner
-Metadata/Monsters/Spiders/SpiderScaleViperStrike3                                         		----		Crypt Weaver
-Metadata/Monsters/Spiders/SpiderScaleViperStrike4                                         		----		Mutant Arach
-Metadata/Monsters/Spiders/SpiderScaleViperStrike5                                         		----		Crypt Ambusher
-Metadata/Monsters/Spiders/SpiderScalePoisonProjectile                                     		----		Corrupted Spitter
-Metadata/Monsters/Spiders/SpiderSmall                                                     		----		Cave Skitterer
-Metadata/Monsters/Spiders/SpiderSmall2                                                    		----		Spindle Spider
-Metadata/Monsters/Spiders/SpiderSmall3                                                    		----		Hatchling
-Metadata/Monsters/Spiders/SpiderBarrelOfSpidersMedium                                     		----		Adolescent Arachnid
-Metadata/Monsters/Spiders/SpiderBarrelOfSpidersLarge                                      		----		Mature Arachnid
-Metadata/Monsters/Spiders/SpiderHair1                                                     		----		Brooding Tarantula
-Metadata/Monsters/Spiders/SpiderHair3                                                     		----		Buried Tarantula
-Metadata/Monsters/Spiders/SpiderHairMaligaro                                              		----		Maligaro's Inspiration
-Metadata/Monsters/Spiders/SpiderHairParasite                                              		----		Enraptured Arachnid
 Metadata/Monsters/Statue/StatueChurch                                                     		----		Soulmourn
 Metadata/Monsters/Statue/StatueChurchMapBossStandaloneAtlasUber                           		----		Burning Faith
 Metadata/Monsters/Zombies/ZombieBite                                                      		----		Hungry Corpse
@@ -1937,13 +1914,6 @@ Metadata/Monsters/DemonFemale/DemonFemale2Champion_                             
 Metadata/Monsters/DemonFemale/DemonFemaleUniqueMap1                                       		----		Student of Pain
 Metadata/Monsters/DemonModular/DemonFemaleRanged2AtlasUber                                		----		Shocking Mistress
 Metadata/Monsters/DemonModular/DemonFemaleRangedUniqueMap_1                               		----		Student of Torture
-Metadata/Monsters/Frog/Frog3                                                              		----		Filth Maw
-Metadata/Monsters/Frog/FrogUntainted                                                      		----		Bestial Maw
-Metadata/Monsters/Frog/FrogUntaintedColossal                                              		----		Great Maw
-Metadata/Monsters/Frog/FrogParasite                                                       		----		Infested Maw
-Metadata/Monsters/GemMonster/Iguana2                                                      		----		Vibrant Chimeral
-Metadata/Monsters/GemMonster/Iguana3                                                      		----		Feral Chimeral
-Metadata/Monsters/GemMonster/IguanaChrometouched                                          		----		Chrome-touched Chimeral
 Metadata/Monsters/GemMonster/IguanaUntainted                                              		----		Wild Chimeral
 Metadata/Monsters/GemMonster/IguanaUntaintedColossal                                      		----		Clutch Queen
 Metadata/Monsters/GemMonster/GemFrog                                                      		----		Chimeric Croaker
@@ -2144,7 +2114,6 @@ Metadata/Monsters/Rhoas/IntMissionRhoaSkeleton                                  
 Metadata/Monsters/Undying/IntMissionUndyingOutcastWhirlingBlades                          		----		Rotting Outcast
 Metadata/Monsters/Spiders/IntMissionSpiderThorn                                           		----		Rotting Weaver
 Metadata/Monsters/Skeletons/IntMissionSkeletonMeleeFire                                   		----		Charred Skeleton
-Metadata/Monsters/Skeletons/IntMissionSkeletonCasterLightning6                            		----		Reanimated Skeleton
 Metadata/Monsters/GhostPirates/IntMissionGhostPirateGreen                                 		----		Bound Reaver
 Metadata/Monsters/GhostPirates/IntMissionGhostPirateBlackBow                              		----		Bound Seeker
 Metadata/Monsters/Spirit/Wraith                                                           		----		Wraith
@@ -2238,9 +2207,6 @@ Metadata/Monsters/CrabParasite/CrabParasiteSmall                                
 Metadata/Monsters/CrabParasite/CrabParasiteMedium3                                        		----		Infested Crab
 Metadata/Monsters/CrabParasite/CrabParasiteBleachedSmall                                  		----		Bleached Crawler
 Metadata/Monsters/Flayed/FlayedMale                                                       		----		Primordial Creation
-Metadata/Monsters/Skeletons/WbSkeletonMinionMelee                                         		----		Risen Legionnaire
-Metadata/Monsters/Skeletons/WbSkeletonMinionRanged                                        		----		Risen Archer
-Metadata/Monsters/Skeletons/WbSkeletonMinionCasterFire                                    		----		Risen Battlemage
 Metadata/Monsters/Revenant/Revenant2                                                      		----		Escaped Revenant
 Metadata/Monsters/RockGolem/RockGolemSpectre                                              		----		Animated Stone
 Metadata/Monsters/RockGolem/RockGolemSmall                                                		----		Hill Shard
@@ -2359,17 +2325,6 @@ Metadata/Monsters/TemplarJudge/TemplarJudgeKitava1                              
 Metadata/Monsters/OriathBlackguard/OriathBlackguard                                       		----		Oriath Enforcer
 Metadata/Monsters/OriathBlackguard/OriathBlackguardKitava1                                		----		Enthralled Enforcer
 Metadata/Monsters/OriathBlackguard/OriathBlackguardKitava2                                		----		Depraved Enforcer
-Metadata/Monsters/SpiderPlague/SpiderPlague_                                              		----		Plagued Arachnid
-Metadata/Monsters/SpiderPlague/SpiderPlague2Spectre_                                      		----		Diseased Arachnid
-Metadata/Monsters/SpiderPlague/SpiderPlagueMaligaro                                       		----		Maligaro's Muse
-Metadata/Monsters/SpiderPlague/SpiderPlagueMaligaroAtlasUber                              		----		Noxious Crawler
-Metadata/Monsters/SpiderPlague/SpiderArakaaliClimb                                        		----		Arakaali's Acolyte
-Metadata/Monsters/SpiderPlague/SpiderArakaaliMapCrawler                                   		----		Arakaali's Horror
-Metadata/Monsters/SpiderPlague/SpiderArakaaliMapCrawlerBaby                               		----		Arakaali's Monstrosity
-Metadata/Monsters/SpiderPlated/SpiderPlated                                               		----		Hybrid Arachnid
-Metadata/Monsters/SpiderPlated/SpiderPlatedAtlasUber                                      		----		Plated Arachnid
-Metadata/Monsters/SpiderPlated/SpiderPlatedTailExplosion                                  		----		Scalding Arachnid
-Metadata/Monsters/SpiderPlated/SpiderPlatedTailExplosionAtlasUber                         		----		Scalding Scorpion
 Metadata/Monsters/BlacksmithGolem/BlacksmithGolemMapStandaloneAtlasUber                   		----		Molten Soul
 Metadata/Monsters/KaruiSlave/KaruiSlave1                                                  		----		Karui Rebel
 Metadata/Monsters/KaomWarrior/KaruiElder1StandaloneAtlasUber                              		----		Tribal Queen
@@ -2666,9 +2621,6 @@ Metadata/Monsters/LeagueUltimatum/Golem/SkitterbotColdSpectre                   
 Metadata/Monsters/LeagueUltimatum/Golem/SkitterbotLightningSpectre                        		----		Stormcharged Cogwork
 Metadata/Monsters/LeagueUltimatum/Golem/SkitterbotColdWeak                                		----		Brittle Cogwork
 Metadata/Monsters/LeagueUltimatum/Golem/SkitterbotLightningWeak                           		----		Powered Cogwork
-Metadata/Monsters/LeagueExpedition/Skeletons/ExpeditionSkeletonSwordSpectre               		----		Unearthed Skeletal Swordsman
-Metadata/Monsters/LeagueExpedition/Skeletons/ExpeditionSkeletonSwordShieldSpectre         		----		Unearthed Skeletal Warrior
-Metadata/Monsters/LeagueExpedition/Skeletons/ExpeditionSkeletonBowSpectre                 		----		Unearthed Skeletal Archer
 Metadata/Monsters/LeagueExpedition/Zombies/ExpeditionZombieMeleeSpectre_                  		----		Unearthed Zombie
 Metadata/Monsters/LeagueExpedition/Zombies/ExpeditionZombieLargeSpectre                   		----		Unearthed Rampager
 Metadata/Monsters/LeagueExpedition/Zombies/ExpeditionZombieTorsoSpectre                   		----		Unearthed Crawler

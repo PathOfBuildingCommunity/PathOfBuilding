@@ -298,6 +298,7 @@ worldAreas["1_2_2a"] = {
 	level = 15,
 	isMap = false,
 	monsterVarieties = {
+		"Cave Skitterer",
 	},
 	bossVarieties = {
 		"The Great White Beast",
@@ -328,6 +329,7 @@ worldAreas["1_2_5_1"] = {
 	level = 17,
 	isMap = false,
 	monsterVarieties = {
+		"Crypt Weaver",
 	},
 }
 
@@ -339,6 +341,7 @@ worldAreas["1_2_5_2"] = {
 	level = 18,
 	isMap = false,
 	monsterVarieties = {
+		"Crypt Weaver",
 		"Defiler",
 	},
 	bossVarieties = {
@@ -354,8 +357,10 @@ worldAreas["1_2_6_1"] = {
 	level = 15,
 	isMap = false,
 	monsterVarieties = {
+		"Mutant Arach",
 		"Necromancer",
 		"Sin Archer",
+		"Spindle Spider",
 	},
 	bossVarieties = {
 		"Black Death",
@@ -370,6 +375,7 @@ worldAreas["1_2_6_2"] = {
 	level = 16,
 	isMap = false,
 	monsterVarieties = {
+		"Corrupted Arach",
 		"Sin Archer",
 		"Sin Lord",
 		"Sparking Mage",
@@ -417,7 +423,9 @@ worldAreas["1_2_8"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Bramble Cobra",
+		"Corrupted Arach",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 	},
 }
 
@@ -430,6 +438,7 @@ worldAreas["1_2_9"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Blackguard Soldier",
+		"Ink Spinner",
 	},
 	bossVarieties = {
 		"Alira Darktongue",
@@ -445,6 +454,9 @@ worldAreas["1_2_10"] = {
 	level = 18,
 	isMap = false,
 	monsterVarieties = {
+		"Hatchling",
+		"Lurking Venom",
+		"Vaal Recluse",
 	},
 	bossVarieties = {
 		"The Weaver",
@@ -827,6 +839,7 @@ worldAreas["1_3_18_2"] = {
 	level = 33,
 	isMap = false,
 	monsterVarieties = {
+		"Brooding Tarantula",
 		"Plumed Chimeral",
 		"Praetorian Guard",
 		"Tentacle Miscreation",
@@ -1328,6 +1341,9 @@ worldAreas["2_6_9"] = {
 	level = 48,
 	isMap = false,
 	monsterVarieties = {
+		"Brooding Tarantula",
+		"Enraptured Arachnid",
+		"Vaal Recluse",
 	},
 	bossVarieties = {
 		"Defiled Proclamation",
@@ -1345,6 +1361,7 @@ worldAreas["2_6_10"] = {
 		"Bramble Cobra",
 		"Fetid Maw",
 		"Host Chieftain",
+		"Infested Maw",
 	},
 	bossVarieties = {
 		"The Animal Pack",
@@ -1360,6 +1377,7 @@ worldAreas["2_6_11"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Fetid Maw",
+		"Infested Maw",
 	},
 	bossVarieties = {
 		"Ryslatha, the Puppet Mistress",
@@ -1454,6 +1472,7 @@ worldAreas["2_7_3"] = {
 	level = 51,
 	isMap = false,
 	monsterVarieties = {
+		"Enraptured Arachnid",
 	},
 	bossVarieties = {
 		"Bundle of Woe",
@@ -1468,6 +1487,7 @@ worldAreas["2_7_4"] = {
 	level = 51,
 	isMap = false,
 	monsterVarieties = {
+		"Crypt Ambusher",
 	},
 }
 
@@ -1479,8 +1499,10 @@ worldAreas["2_7_5_1"] = {
 	level = 52,
 	isMap = false,
 	monsterVarieties = {
+		"Mutant Arach",
 		"Sin Archer",
 		"Sin Lord",
+		"Spindle Spider",
 	},
 }
 
@@ -1492,6 +1514,7 @@ worldAreas["2_7_5_2"] = {
 	level = 52,
 	isMap = false,
 	monsterVarieties = {
+		"Mutant Arach",
 	},
 	bossVarieties = {
 		"Plague Retch",
@@ -1506,6 +1529,8 @@ worldAreas["2_7_5_map"] = {
 	level = 52,
 	isMap = false,
 	monsterVarieties = {
+		"Hybrid Arachnid",
+		"Scalding Arachnid",
 	},
 	bossVarieties = {
 		"Maligaro, the Artist",
@@ -1522,6 +1547,7 @@ worldAreas["2_7_6"] = {
 	level = 53,
 	isMap = false,
 	monsterVarieties = {
+		"Cave Skitterer",
 	},
 	bossVarieties = {
 		"The Great White Bones",
@@ -1557,6 +1583,7 @@ worldAreas["2_7_8"] = {
 	level = 53,
 	isMap = false,
 	monsterVarieties = {
+		"Ink Spinner",
 	},
 	bossVarieties = {
 		"Tunnelworm",
@@ -1597,6 +1624,7 @@ worldAreas["2_7_11"] = {
 	level = 54,
 	isMap = false,
 	monsterVarieties = {
+		"Arakaali's Daughter",
 	},
 }
 
@@ -1608,7 +1636,10 @@ worldAreas["2_7_12_1"] = {
 	level = 54,
 	isMap = false,
 	monsterVarieties = {
+		"Corrupted Spitter",
 		"Leaping Spider",
+		"Lurking Venom",
+		"Plagued Arachnid",
 	},
 	bossVarieties = {
 		"Blightblade",
@@ -1624,6 +1655,8 @@ worldAreas["2_7_12_2"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Ancient Construct",
+		"Arakaali's Daughter",
+		"Plagued Arachnid",
 		"Vaal Slayer",
 	},
 	bossVarieties = {
@@ -1652,6 +1685,7 @@ worldAreas["2_8_2_1"] = {
 	level = 56,
 	isMap = false,
 	monsterVarieties = {
+		"Filth Maw",
 	},
 	bossVarieties = {
 		"Lingering Aberration",
@@ -1666,6 +1700,7 @@ worldAreas["2_8_2_2"] = {
 	level = 56,
 	isMap = false,
 	monsterVarieties = {
+		"Filth Maw",
 		"Undying Alchemist",
 		"Undying Grappler",
 	},
@@ -1698,6 +1733,7 @@ worldAreas["2_8_4"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Chrome-infused Chimeral",
+		"Chrome-touched Chimeral",
 		"Plumed Chimeral",
 	},
 	bossVarieties = {
@@ -1973,6 +2009,7 @@ worldAreas["2_9_4"] = {
 	level = 61,
 	isMap = false,
 	monsterVarieties = {
+		"Feral Chimeral",
 	},
 	bossVarieties = {
 		"Shakari, Queen of the Sands",
@@ -2017,6 +2054,8 @@ worldAreas["2_9_7"] = {
 	level = 62,
 	isMap = false,
 	monsterVarieties = {
+		"Buried Tarantula",
+		"Diseased Arachnid",
 	},
 }
 
@@ -2087,6 +2126,8 @@ worldAreas["2_9_10_2"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Gut Flayer",
+		"Maligaro's Inspiration",
+		"Maligaro's Muse",
 		"Noisome Ophidian",
 		"Stygian Revenant",
 	},
@@ -2309,6 +2350,7 @@ worldAreas["3_3_8_4"] = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Ancient Construct",
+		"Arakaali's Daughter",
 		"Armour Cruncher",
 		"Ash Prophet",
 		"Avian Retch",
@@ -2328,10 +2370,13 @@ worldAreas["3_3_8_4"] = {
 		"Cannibal Fire-eater",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Chrome-infused Chimeral",
+		"Chrome-touched Chimeral",
 		"Cinder Elemental",
 		"Colossal Bonestalker",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Crazed Driver",
 		"Cursed Mariner",
 		"Death Bishop",
@@ -2339,8 +2384,11 @@ worldAreas["3_3_8_4"] = {
 		"Desecrated Saint",
 		"Diabolist",
 		"Dune Hellion",
+		"Enraptured Arachnid",
+		"Feral Chimeral",
 		"Fetid Maw",
 		"Fighting Bull",
+		"Filth Maw",
 		"Flame Sentinel",
 		"Foreman",
 		"Freezing Wolf",
@@ -2353,7 +2401,10 @@ worldAreas["3_3_8_4"] = {
 		"Gut Flayer",
 		"Hairy Bonecruncher",
 		"Host Chieftain",
+		"Hybrid Arachnid",
 		"Incinerated Mage",
+		"Infested Maw",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -2374,14 +2425,17 @@ worldAreas["3_3_8_4"] = {
 		"Mortality Experimenter",
 		"Necromancer",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Devoted",
 		"Oak's Sniper",
+		"Plagued Arachnid",
 		"Plagued Bowman",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Restless Archer",
 		"Sandworn Slaves",
+		"Scalding Arachnid",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -2396,6 +2450,7 @@ worldAreas["3_3_8_4"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -2406,7 +2461,9 @@ worldAreas["3_3_8_4"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 		"Wicker Man",
 	},
@@ -5621,6 +5678,7 @@ worldAreas["Synthesis_Main"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -5637,7 +5695,9 @@ worldAreas["Synthesis_Main"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -5652,6 +5712,7 @@ worldAreas["Synthesis_Main"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -5662,6 +5723,7 @@ worldAreas["Synthesis_Main"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -5675,6 +5737,7 @@ worldAreas["Synthesis_Main"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -5685,7 +5748,9 @@ worldAreas["Synthesis_Main"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -5700,6 +5765,7 @@ worldAreas["Synthesis_Main2"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -5716,7 +5782,9 @@ worldAreas["Synthesis_Main2"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -5731,6 +5799,7 @@ worldAreas["Synthesis_Main2"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -5741,6 +5810,7 @@ worldAreas["Synthesis_Main2"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -5754,6 +5824,7 @@ worldAreas["Synthesis_Main2"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -5764,7 +5835,9 @@ worldAreas["Synthesis_Main2"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -5779,6 +5852,7 @@ worldAreas["Synthesis_Main3"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -5795,7 +5869,9 @@ worldAreas["Synthesis_Main3"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -5810,6 +5886,7 @@ worldAreas["Synthesis_Main3"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -5820,6 +5897,7 @@ worldAreas["Synthesis_Main3"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -5833,6 +5911,7 @@ worldAreas["Synthesis_Main3"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -5843,7 +5922,9 @@ worldAreas["Synthesis_Main3"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -5858,6 +5939,7 @@ worldAreas["Synthesis_Main4"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -5874,7 +5956,9 @@ worldAreas["Synthesis_Main4"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -5889,6 +5973,7 @@ worldAreas["Synthesis_Main4"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -5899,6 +5984,7 @@ worldAreas["Synthesis_Main4"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -5912,6 +5998,7 @@ worldAreas["Synthesis_Main4"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -5922,7 +6009,9 @@ worldAreas["Synthesis_Main4"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -5937,6 +6026,7 @@ worldAreas["Synthesis_Main5"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -5953,7 +6043,9 @@ worldAreas["Synthesis_Main5"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -5968,6 +6060,7 @@ worldAreas["Synthesis_Main5"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -5978,6 +6071,7 @@ worldAreas["Synthesis_Main5"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -5991,6 +6085,7 @@ worldAreas["Synthesis_Main5"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -6001,7 +6096,9 @@ worldAreas["Synthesis_Main5"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -6016,6 +6113,7 @@ worldAreas["Synthesis_Main6"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -6032,7 +6130,9 @@ worldAreas["Synthesis_Main6"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -6047,6 +6147,7 @@ worldAreas["Synthesis_Main6"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -6057,6 +6158,7 @@ worldAreas["Synthesis_Main6"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -6070,6 +6172,7 @@ worldAreas["Synthesis_Main6"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -6080,7 +6183,9 @@ worldAreas["Synthesis_Main6"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -6095,6 +6200,7 @@ worldAreas["Synthesis_Main7_"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -6111,7 +6217,9 @@ worldAreas["Synthesis_Main7_"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -6126,6 +6234,7 @@ worldAreas["Synthesis_Main7_"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -6136,6 +6245,7 @@ worldAreas["Synthesis_Main7_"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -6149,6 +6259,7 @@ worldAreas["Synthesis_Main7_"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -6159,7 +6270,9 @@ worldAreas["Synthesis_Main7_"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -6174,6 +6287,7 @@ worldAreas["Synthesis_Main8"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -6190,7 +6304,9 @@ worldAreas["Synthesis_Main8"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -6205,6 +6321,7 @@ worldAreas["Synthesis_Main8"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -6215,6 +6332,7 @@ worldAreas["Synthesis_Main8"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -6228,6 +6346,7 @@ worldAreas["Synthesis_Main8"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -6238,7 +6357,9 @@ worldAreas["Synthesis_Main8"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -6253,6 +6374,7 @@ worldAreas["Synthesis_Main9"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -6269,7 +6391,9 @@ worldAreas["Synthesis_Main9"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -6284,6 +6408,7 @@ worldAreas["Synthesis_Main9"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -6294,6 +6419,7 @@ worldAreas["Synthesis_Main9"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -6307,6 +6433,7 @@ worldAreas["Synthesis_Main9"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -6317,7 +6444,9 @@ worldAreas["Synthesis_Main9"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -6332,6 +6461,7 @@ worldAreas["Synthesis_Main10"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -6348,7 +6478,9 @@ worldAreas["Synthesis_Main10"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -6363,6 +6495,7 @@ worldAreas["Synthesis_Main10"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -6373,6 +6506,7 @@ worldAreas["Synthesis_Main10"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -6386,6 +6520,7 @@ worldAreas["Synthesis_Main10"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -6396,7 +6531,9 @@ worldAreas["Synthesis_Main10"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -6411,6 +6548,7 @@ worldAreas["Synthesis_Main11"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -6427,7 +6565,9 @@ worldAreas["Synthesis_Main11"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -6442,6 +6582,7 @@ worldAreas["Synthesis_Main11"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -6452,6 +6593,7 @@ worldAreas["Synthesis_Main11"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -6465,6 +6607,7 @@ worldAreas["Synthesis_Main11"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -6475,7 +6618,9 @@ worldAreas["Synthesis_Main11"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -6490,6 +6635,7 @@ worldAreas["Synthesis_Main12"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -6506,7 +6652,9 @@ worldAreas["Synthesis_Main12"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -6521,6 +6669,7 @@ worldAreas["Synthesis_Main12"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -6531,6 +6680,7 @@ worldAreas["Synthesis_Main12"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -6544,6 +6694,7 @@ worldAreas["Synthesis_Main12"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -6554,7 +6705,9 @@ worldAreas["Synthesis_Main12"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -6569,6 +6722,7 @@ worldAreas["Synthesis_Single"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -6585,7 +6739,9 @@ worldAreas["Synthesis_Single"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -6600,6 +6756,7 @@ worldAreas["Synthesis_Single"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -6610,6 +6767,7 @@ worldAreas["Synthesis_Single"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -6623,6 +6781,7 @@ worldAreas["Synthesis_Single"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -6633,7 +6792,9 @@ worldAreas["Synthesis_Single"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -6648,6 +6809,7 @@ worldAreas["Synthesis_Single2"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -6664,7 +6826,9 @@ worldAreas["Synthesis_Single2"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -6679,6 +6843,7 @@ worldAreas["Synthesis_Single2"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -6689,6 +6854,7 @@ worldAreas["Synthesis_Single2"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -6702,6 +6868,7 @@ worldAreas["Synthesis_Single2"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -6712,7 +6879,9 @@ worldAreas["Synthesis_Single2"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -6727,6 +6896,7 @@ worldAreas["Synthesis_Single3"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -6743,7 +6913,9 @@ worldAreas["Synthesis_Single3"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -6758,6 +6930,7 @@ worldAreas["Synthesis_Single3"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -6768,6 +6941,7 @@ worldAreas["Synthesis_Single3"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -6781,6 +6955,7 @@ worldAreas["Synthesis_Single3"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -6791,7 +6966,9 @@ worldAreas["Synthesis_Single3"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -6806,6 +6983,7 @@ worldAreas["Synthesis_Single4"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -6822,7 +7000,9 @@ worldAreas["Synthesis_Single4"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -6837,6 +7017,7 @@ worldAreas["Synthesis_Single4"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -6847,6 +7028,7 @@ worldAreas["Synthesis_Single4"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -6860,6 +7042,7 @@ worldAreas["Synthesis_Single4"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -6870,7 +7053,9 @@ worldAreas["Synthesis_Single4"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -6885,6 +7070,7 @@ worldAreas["Synthesis_Single5"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -6901,7 +7087,9 @@ worldAreas["Synthesis_Single5"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -6916,6 +7104,7 @@ worldAreas["Synthesis_Single5"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -6926,6 +7115,7 @@ worldAreas["Synthesis_Single5"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -6939,6 +7129,7 @@ worldAreas["Synthesis_Single5"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -6949,7 +7140,9 @@ worldAreas["Synthesis_Single5"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -6964,6 +7157,7 @@ worldAreas["Synthesis_Single6"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -6980,7 +7174,9 @@ worldAreas["Synthesis_Single6"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -6995,6 +7191,7 @@ worldAreas["Synthesis_Single6"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -7005,6 +7202,7 @@ worldAreas["Synthesis_Single6"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -7018,6 +7216,7 @@ worldAreas["Synthesis_Single6"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -7028,7 +7227,9 @@ worldAreas["Synthesis_Single6"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -7043,6 +7244,7 @@ worldAreas["Synthesis_Single7"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -7059,7 +7261,9 @@ worldAreas["Synthesis_Single7"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -7074,6 +7278,7 @@ worldAreas["Synthesis_Single7"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -7084,6 +7289,7 @@ worldAreas["Synthesis_Single7"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -7097,6 +7303,7 @@ worldAreas["Synthesis_Single7"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -7107,7 +7314,9 @@ worldAreas["Synthesis_Single7"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -7122,6 +7331,7 @@ worldAreas["Synthesis_Single8"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -7138,7 +7348,9 @@ worldAreas["Synthesis_Single8"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -7153,6 +7365,7 @@ worldAreas["Synthesis_Single8"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -7163,6 +7376,7 @@ worldAreas["Synthesis_Single8"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -7176,6 +7390,7 @@ worldAreas["Synthesis_Single8"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -7186,7 +7401,9 @@ worldAreas["Synthesis_Single8"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -7201,6 +7418,7 @@ worldAreas["Synthesis_Single9"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -7217,7 +7435,9 @@ worldAreas["Synthesis_Single9"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -7232,6 +7452,7 @@ worldAreas["Synthesis_Single9"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -7242,6 +7463,7 @@ worldAreas["Synthesis_Single9"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -7255,6 +7477,7 @@ worldAreas["Synthesis_Single9"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -7265,7 +7488,9 @@ worldAreas["Synthesis_Single9"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -7280,6 +7505,7 @@ worldAreas["Synthesis_Single10"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -7296,7 +7522,9 @@ worldAreas["Synthesis_Single10"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -7311,6 +7539,7 @@ worldAreas["Synthesis_Single10"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -7321,6 +7550,7 @@ worldAreas["Synthesis_Single10"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -7334,6 +7564,7 @@ worldAreas["Synthesis_Single10"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -7344,7 +7575,9 @@ worldAreas["Synthesis_Single10"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -7359,6 +7592,7 @@ worldAreas["Synthesis_Single11"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -7375,7 +7609,9 @@ worldAreas["Synthesis_Single11"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -7390,6 +7626,7 @@ worldAreas["Synthesis_Single11"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -7400,6 +7637,7 @@ worldAreas["Synthesis_Single11"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -7413,6 +7651,7 @@ worldAreas["Synthesis_Single11"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -7423,7 +7662,9 @@ worldAreas["Synthesis_Single11"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -7438,6 +7679,7 @@ worldAreas["Synthesis_Single12"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Alpine Shaman",
+		"Arakaali's Daughter",
 		"Ash Prophet",
 		"Aurid Synthete",
 		"Avian Retch",
@@ -7454,7 +7696,9 @@ worldAreas["Synthesis_Single12"] = {
 		"Burned Miscreation",
 		"Carnage Chieftain",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Colossus Crusher",
+		"Corrupted Arach",
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
@@ -7469,6 +7713,7 @@ worldAreas["Synthesis_Single12"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Ink Spinner",
 		"Kaom's Chosen",
 		"Kiln Mother",
 		"Kitava's Herald",
@@ -7479,6 +7724,7 @@ worldAreas["Synthesis_Single12"] = {
 		"Merveil's Chosen",
 		"Mortality Experimenter",
 		"Noisome Ophidian",
+		"Noxious Tarantula",
 		"Oak's Sniper",
 		"Plumed Chimeral",
 		"Pocked Lanternbearer",
@@ -7492,6 +7738,7 @@ worldAreas["Synthesis_Single12"] = {
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
+		"Spindle Spider",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -7502,7 +7749,9 @@ worldAreas["Synthesis_Single12"] = {
 		"Undying Incinerator",
 		"Undying Outcast",
 		"Vaal Slayer",
+		"Virulent Spider",
 		"Voidbearer",
+		"Webbed Spider",
 		"Whipping Miscreation",
 	},
 }
@@ -8061,7 +8310,9 @@ worldAreas["MapWorldsFloodedMine"] = {
 	level = 69,
 	isMap = true,
 	monsterVarieties = {
+		"Cave Skitterer",
 		"Spectral Bowman",
+		"Spindle Spider",
 	},
 	bossVarieties = {
 		"The Eroding One",
@@ -8080,6 +8331,8 @@ worldAreas["MapWorldsMarshes"] = {
 	level = 69,
 	isMap = true,
 	monsterVarieties = {
+		"Hybrid Arachnid",
+		"Scalding Arachnid",
 	},
 	bossVarieties = {
 		"Tore, Towering Ancient",
@@ -8424,8 +8677,10 @@ worldAreas["MapWorldsGrotto"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Armour Cruncher",
+		"Cave Skitterer",
 		"Hairy Bonecruncher",
 		"Shaggy Monstrosity",
+		"Spindle Spider",
 	},
 	bossVarieties = {
 		"Void Anomaly",
@@ -8665,6 +8920,7 @@ worldAreas["MapWorldsIvoryTemple"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Avian Retch",
+		"Noxious Tarantula",
 		"Plumed Chimeral",
 		"Solar Guard",
 	},
@@ -8686,7 +8942,16 @@ worldAreas["MapWorldsSpiderLair"] = {
 	level = 72,
 	isMap = true,
 	monsterVarieties = {
+		"Cave Skitterer",
+		"Corrupted Arach",
+		"Hatchling",
+		"Ink Spinner",
 		"Leaping Spider",
+		"Noxious Tarantula",
+		"Plagued Arachnid",
+		"Spindle Spider",
+		"Virulent Spider",
+		"Webbed Spider",
 	},
 	bossVarieties = {
 		"Thraxia",
@@ -8701,9 +8966,11 @@ worldAreas["MapWorldsBarrows"] = {
 	level = 72,
 	isMap = true,
 	monsterVarieties = {
+		"Cave Skitterer",
 		"Hairy Bonecruncher",
 		"Murk Fiend",
 		"Shaggy Monstrosity",
+		"Spindle Spider",
 	},
 	bossVarieties = {
 		"Beast of the Pits",
@@ -8761,7 +9028,15 @@ worldAreas["MapWorldsJungleValley"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Bramble Cobra",
+		"Cave Skitterer",
+		"Corrupted Arach",
+		"Ink Spinner",
 		"Leaping Spider",
+		"Noxious Tarantula",
+		"Plagued Arachnid",
+		"Spindle Spider",
+		"Virulent Spider",
+		"Webbed Spider",
 	},
 	bossVarieties = {
 		"Queen of the Great Tangle",
@@ -8968,11 +9243,13 @@ worldAreas["MapWorldsUndergroundSea"] = {
 	level = 73,
 	isMap = true,
 	monsterVarieties = {
+		"Crypt Weaver",
 		"Merveil's Attendant",
 		"Merveil's Blessed",
 		"Merveil's Chosen",
 		"Merveil's Retainer",
 		"Singing Siren",
+		"Spindle Spider",
 	},
 	bossVarieties = {
 		"Merveil, the Reflection",
@@ -9050,6 +9327,7 @@ worldAreas["MapWorldsResidence"] = {
 	level = 74,
 	isMap = true,
 	monsterVarieties = {
+		"Brooding Tarantula",
 		"Plumed Chimeral",
 		"Undying Evangelist",
 		"Undying Grappler",
@@ -9254,7 +9532,16 @@ worldAreas["MapWorldsArachnidNest"] = {
 	level = 74,
 	isMap = true,
 	monsterVarieties = {
+		"Cave Skitterer",
+		"Corrupted Arach",
+		"Crypt Weaver",
+		"Ink Spinner",
 		"Leaping Spider",
+		"Noxious Tarantula",
+		"Plagued Arachnid",
+		"Spindle Spider",
+		"Virulent Spider",
+		"Webbed Spider",
 	},
 	bossVarieties = {
 		"Spinner of False Hope",
@@ -9299,6 +9586,7 @@ worldAreas["MapWorldsInfestedValley"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Enraptured Arachnid",
 	},
 	bossVarieties = {
 		"Gorulis, Will-Thief",
@@ -9539,6 +9827,7 @@ worldAreas["MapWorldsTropicalIslandUnique"] = {
 	level = 75,
 	isMap = true,
 	monsterVarieties = {
+		"Bestial Maw",
 		"Bramble Cobra",
 		"Carnage Chieftain",
 		"Host Chieftain",
@@ -9958,7 +10247,16 @@ worldAreas["MapWorldsArachnidTomb"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Cave Skitterer",
+		"Corrupted Arach",
+		"Crypt Weaver",
+		"Ink Spinner",
 		"Leaping Spider",
+		"Noxious Tarantula",
+		"Plagued Arachnid",
+		"Spindle Spider",
+		"Virulent Spider",
+		"Webbed Spider",
 	},
 	bossVarieties = {
 		"Hybrid Widow",
@@ -10114,6 +10412,7 @@ worldAreas["MapWorldsOrchard"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Noxious Tarantula",
 		"Plumed Chimeral",
 	},
 	bossVarieties = {
@@ -10179,8 +10478,10 @@ worldAreas["MapWorldsLair"] = {
 	level = 78,
 	isMap = true,
 	monsterVarieties = {
+		"Cave Skitterer",
 		"Hairy Bonecruncher",
 		"Shaggy Monstrosity",
+		"Spindle Spider",
 	},
 	bossVarieties = {
 		"Lycius, Midnight's Howl",
@@ -10241,7 +10542,15 @@ worldAreas["MapWorldsSpiderForest"] = {
 	level = 78,
 	isMap = true,
 	monsterVarieties = {
+		"Cave Skitterer",
+		"Corrupted Arach",
+		"Ink Spinner",
 		"Leaping Spider",
+		"Noxious Tarantula",
+		"Plagued Arachnid",
+		"Spindle Spider",
+		"Virulent Spider",
+		"Webbed Spider",
 	},
 	bossVarieties = {
 		"Enticer of Rot",
@@ -10413,6 +10722,9 @@ worldAreas["MapWorldsOvergrownShrine"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Corrupted Arach",
+		"Mutant Arach",
+		"Spindle Spider",
 	},
 	bossVarieties = {
 		"Maligaro the Mutilator",
@@ -10433,6 +10745,9 @@ worldAreas["MapWorldsOvergrownShrineUnique"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Corrupted Arach",
+		"Mutant Arach",
+		"Spindle Spider",
 	},
 	bossVarieties = {
 		"Rose",
@@ -10707,6 +11022,7 @@ worldAreas["MapWorldsTerrace"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Chrome-infused Chimeral",
+		"Chrome-touched Chimeral",
 	},
 	bossVarieties = {
 		"Varhesh, Shimmering Aberration",
@@ -10767,6 +11083,7 @@ worldAreas["MapWorldsDesertSpring"] = {
 	level = 80,
 	isMap = true,
 	monsterVarieties = {
+		"Feral Chimeral",
 	},
 	bossVarieties = {
 		"Terror of the Infinite Drifts",
@@ -10822,6 +11139,8 @@ worldAreas["MapWorldsAcidLakes"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Fetid Maw",
+		"Filth Maw",
+		"Infested Maw",
 	},
 	bossVarieties = {
 		"Rama, The Kinslayer",
@@ -10849,6 +11168,7 @@ worldAreas["MapWorldsDarkForest"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Bramble Cobra",
+		"Noxious Tarantula",
 	},
 	bossVarieties = {
 		"The Cursed King",
@@ -10920,6 +11240,7 @@ worldAreas["MapWorldsPalace"] = {
 	level = 81,
 	isMap = true,
 	monsterVarieties = {
+		"Brooding Tarantula",
 		"Undying Evangelist",
 		"Voidbearer",
 	},
@@ -10970,7 +11291,15 @@ worldAreas["MapWorldsSunkenCity"] = {
 	level = 82,
 	isMap = true,
 	monsterVarieties = {
+		"Cave Skitterer",
+		"Corrupted Arach",
+		"Ink Spinner",
 		"Leaping Spider",
+		"Noxious Tarantula",
+		"Plagued Arachnid",
+		"Spindle Spider",
+		"Virulent Spider",
+		"Webbed Spider",
 	},
 	bossVarieties = {
 		"Armala, the Widow",
@@ -11426,8 +11755,12 @@ worldAreas["MapWorldsSanctuary"] = {
 	level = 84,
 	isMap = true,
 	monsterVarieties = {
+		"Noxious Crawler",
 		"Pale Angel",
 		"Pale Seraphim",
+		"Plagued Arachnid",
+		"Plated Arachnid",
+		"Scalding Scorpion",
 		"Wretched Defiler",
 	},
 	bossVarieties = {
@@ -11447,6 +11780,13 @@ worldAreas["MapWorldsCitadel"] = {
 	level = 84,
 	isMap = true,
 	monsterVarieties = {
+		"Noxious Crawler",
+		"Plagued Arachnid",
+		"Plated Arachnid",
+		"Scalding Scorpion",
+		"Unearthed Skeletal Archer",
+		"Unearthed Skeletal Swordsman",
+		"Unearthed Skeletal Warrior",
 		"Wretched Defiler",
 	},
 	bossVarieties = {
@@ -11466,6 +11806,10 @@ worldAreas["MapWorldsFortress"] = {
 	level = 84,
 	isMap = true,
 	monsterVarieties = {
+		"Noxious Crawler",
+		"Plagued Arachnid",
+		"Plated Arachnid",
+		"Scalding Scorpion",
 		"Wretched Defiler",
 	},
 	bossVarieties = {
@@ -11485,6 +11829,10 @@ worldAreas["MapWorldsAbomination"] = {
 	level = 84,
 	isMap = true,
 	monsterVarieties = {
+		"Noxious Crawler",
+		"Plagued Arachnid",
+		"Plated Arachnid",
+		"Scalding Scorpion",
 		"Wretched Defiler",
 	},
 	bossVarieties = {
@@ -11507,7 +11855,11 @@ worldAreas["MapWorldsZiggurat"] = {
 	level = 84,
 	isMap = true,
 	monsterVarieties = {
+		"Noxious Crawler",
+		"Plagued Arachnid",
+		"Plated Arachnid",
 		"Primeval Hunter",
+		"Scalding Scorpion",
 		"Wretched Defiler",
 	},
 	bossVarieties = {
@@ -12122,6 +12474,7 @@ worldAreas["pvp1"] = {
 	level = 28,
 	isMap = false,
 	monsterVarieties = {
+		"Cave Skitterer",
 		"Goatman",
 		"Goatman Shaman",
 		"Oak's Sniper",
@@ -12300,7 +12653,10 @@ worldAreas["Descent5"] = {
 	level = 10,
 	isMap = false,
 	monsterVarieties = {
+		"Cave Skitterer",
+		"Corrupted Arach",
 		"Leaping Spider",
+		"Vaal Recluse",
 	},
 	bossVarieties = {
 		"Spinner of False Hope",
@@ -12586,6 +12942,7 @@ worldAreas["Descent2_5_2"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Dune Hellion",
+		"Vaal Recluse",
 	},
 }
 
@@ -12686,6 +13043,7 @@ worldAreas["Descent2_8_2"] = {
 	level = 16,
 	isMap = false,
 	monsterVarieties = {
+		"Cave Skitterer",
 	},
 }
 
@@ -12937,6 +13295,7 @@ worldAreas["ExileRoyale"] = {
 	monsterVarieties = {
 		"Ancient Construct",
 		"Gut Flayer",
+		"Ink Spinner",
 	},
 }
 
@@ -12963,12 +13322,15 @@ worldAreas["EndlessLedge2"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Ancient Construct",
+		"Cave Skitterer",
 		"Dune Hellion",
 		"Goatman",
 		"Goatman Shaman",
+		"Ink Spinner",
 		"Leaping Spider",
 		"Singing Siren",
 		"Spectral Bowman",
+		"Vaal Recluse",
 	},
 	bossVarieties = {
 		"Fire Fury",
@@ -12987,15 +13349,18 @@ worldAreas["EndlessLedge3"] = {
 		"Blackguard Mage",
 		"Blackguard Scout",
 		"Carrion Queen",
+		"Cave Skitterer",
 		"Dune Hellion",
 		"Galvanic Ribbon",
 		"Goatman",
 		"Goatman Shaman",
+		"Ink Spinner",
 		"Leaping Spider",
 		"Singing Siren",
 		"Spectral Bowman",
 		"Tentacle Miscreation",
 		"Undying Outcast",
+		"Vaal Recluse",
 		"Voidbearer",
 		"Whipping Miscreation",
 	},
@@ -14829,10 +15194,12 @@ worldAreas["InvasionBoss"] = {
 		"Carrion Queen",
 		"Cinder Elemental",
 		"Colossal Bonestalker",
+		"Corrupted Arach",
 		"Flame Sentinel",
 		"Galvanic Ribbon",
 		"Goatman",
 		"Murk Fiend",
+		"Mutant Arach",
 		"Plumed Chimeral",
 		"Tentacle Miscreation",
 		"Undying Grappler",
@@ -16859,6 +17226,9 @@ worldAreas["LakeExpeditionBrokenCircle"] = {
 	level = 1,
 	isMap = false,
 	monsterVarieties = {
+		"Unearthed Skeletal Archer",
+		"Unearthed Skeletal Swordsman",
+		"Unearthed Skeletal Warrior",
 	},
 }
 
@@ -16870,6 +17240,9 @@ worldAreas["LakeExpeditionBlackScythe"] = {
 	level = 1,
 	isMap = false,
 	monsterVarieties = {
+		"Unearthed Skeletal Archer",
+		"Unearthed Skeletal Swordsman",
+		"Unearthed Skeletal Warrior",
 	},
 }
 
@@ -16881,6 +17254,9 @@ worldAreas["LakeExpeditionChalice"] = {
 	level = 1,
 	isMap = false,
 	monsterVarieties = {
+		"Unearthed Skeletal Archer",
+		"Unearthed Skeletal Swordsman",
+		"Unearthed Skeletal Warrior",
 	},
 }
 
@@ -16892,6 +17268,9 @@ worldAreas["LakeExpeditionKnightsOfSun"] = {
 	level = 1,
 	isMap = false,
 	monsterVarieties = {
+		"Unearthed Skeletal Archer",
+		"Unearthed Skeletal Swordsman",
+		"Unearthed Skeletal Warrior",
 	},
 }
 
@@ -16903,6 +17282,7 @@ worldAreas["LakeUntainted"] = {
 	level = 1,
 	isMap = false,
 	monsterVarieties = {
+		"Bestial Maw",
 	},
 }
 

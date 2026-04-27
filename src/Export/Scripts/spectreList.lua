@@ -85,7 +85,6 @@ for _, monster in ipairs(notImported) do
 	out:write(monster.id .. string.rep(" ", 90 - string.len(monster.id)) .. "\t\t----\t\t" .. monster.name, "\n")
 end
 
-
 out:write("\n-- Duplicate Spectre Names --\n")
 out:write("-- There are some spectres with the same name but different skills (Abhorred Elitist), we should probably import them too. --\n\n")
 for _, monster in ipairs(duplicateName) do
@@ -95,3 +94,4 @@ end
 out:close()
 
 print("Spectre List exported.")
+print(tostring(#notImported) .. " Spectres not yet imported.")

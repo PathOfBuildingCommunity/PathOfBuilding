@@ -1989,6 +1989,126 @@ minions["Metadata/Monsters/Frog/Frog2"] = {
 		-- MonsterLeapsOntoEnemiesText [monster_leaps_onto_enemies_text = 1]
 	},
 }
+minions["Metadata/Monsters/Frog/Frog3"] = {
+	name = "Filth Maw",
+	monsterTags = { "amphibian_beast", "beast", "has_one_hand_mace", "has_one_handed_melee", "large_model", "light_armour", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slow_movement", "small_height", },
+	life = 1,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.455,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 25,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Acid Caverns (Map)",
+		"Doedre's Cesspool (Act 8)",
+		"The Eternal Laboratory (Act 8)",
+		"The Toxic Conduits (Act 8)",
+	},
+	skillList = {
+		"MonsterLeapSlam",
+		"Melee",
+	},
+	modList = {
+		-- MonsterLeapsOntoEnemiesText [monster_leaps_onto_enemies_text = 1]
+	},
+}
+minions["Metadata/Monsters/Frog/FrogUntainted"] = {
+	name = "Bestial Maw",
+	monsterTags = { "amphibian_beast", "beast", "has_one_hand_mace", "has_one_handed_melee", "large_model", "light_armour", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slow_movement", "small_height", },
+	life = 1,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.455,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 25,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"The Lake of Kalandra",
+		"Untainted Paradise (Map)",
+	},
+	skillList = {
+		"MonsterLeapSlam",
+		"Melee",
+	},
+	modList = {
+		-- MonsterLeapsOntoEnemiesText [monster_leaps_onto_enemies_text = 1]
+		-- MonsterIncreasedLifeImplicit1 [maximum_life_+% = 25]
+		-- MonsterIncreasedLifeImplicit1 [base_actor_scale_+% = 25]
+	},
+}
+minions["Metadata/Monsters/Frog/FrogUntaintedColossal"] = {
+	name = "Great Maw",
+	monsterTags = { "amphibian_beast", "beast", "has_one_hand_mace", "has_one_handed_melee", "large_model", "light_armour", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slow_movement", "small_height", "unique_map_boss", },
+	life = 2,
+	evasion = 0.2,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 25,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.455,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 25,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MonsterLeapSlam",
+		"Melee",
+	},
+	modList = {
+		-- MonsterLeapsOntoEnemiesText [monster_leaps_onto_enemies_text = 1]
+		-- MonsterIncreasedLifeImplicit1 [maximum_life_+% = 25]
+		-- MonsterIncreasedLifeImplicit1 [base_actor_scale_+% = 25]
+		-- StunRepeatImmunityMapBoss_ [cannot_be_stunned_while_stunned = 1]
+		-- StunRepeatImmunityMapBoss_ [cannot_be_stunned_for_ms_after_stun_finished = 2000]
+	},
+}
+minions["Metadata/Monsters/Frog/FrogParasite"] = {
+	name = "Infested Maw",
+	monsterTags = { "amphibian_beast", "beast", "has_one_hand_mace", "has_one_handed_melee", "large_model", "light_armour", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slow_movement", "small_height", },
+	life = 1,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.455,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 25,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Acid Caverns (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Riverways (Act 6)",
+		"The Wetlands (Act 6)",
+	},
+	skillList = {
+		"FrogParasiteLeapSlamCausticCloud",
+		"Melee",
+	},
+	modList = {
+		-- MonsterLeapsOntoEnemiesText [monster_leaps_onto_enemies_text = 1]
+	},
+}
 -- Chimeral
 minions["Metadata/Monsters/GemMonster/Iguana"] = {
 	name = "Plumed Chimeral",
@@ -2057,6 +2177,98 @@ minions["Metadata/Monsters/GemMonster/IguanaChrome"] = {
 		"IguanaProjectileChrome",
 		"MeleeAtAnimationSpeed",
 		"IguanaDoomArrow",
+	},
+	modList = {
+		-- MonsterSuppressingFire [chance_to_apply_suppression_on_hit_% = 20]
+		mod("PhysicalDamageGainAsCold", "BASE", 100, 0, 0), -- MonsterPhysicalAddedAsColdSkeletonMaps [physical_damage_%_to_add_as_cold = 100]
+	},
+}
+minions["Metadata/Monsters/GemMonster/Iguana2"] = {
+	name = "Vibrant Chimeral",
+	monsterTags = { "beast", "has_one_hand_sword", "has_one_handed_melee", "large_model", "light_armour", "melee", "not_str", "physical_affinity", "ranged", "red_blood", "reptile_beast", "slow_movement", "small_height", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.25,
+	energyShield = 0.5,
+	evasion = 0.2,
+	fireResist = 52,
+	coldResist = 52,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.13,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 25,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"IguanaProjectile",
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- MonsterSuppressingFire [chance_to_apply_suppression_on_hit_% = 20]
+	},
+}
+minions["Metadata/Monsters/GemMonster/Iguana3"] = {
+	name = "Feral Chimeral",
+	monsterTags = { "beast", "has_one_hand_sword", "has_one_handed_melee", "large_model", "light_armour", "melee", "not_str", "physical_affinity", "ranged", "red_blood", "reptile_beast", "slow_movement", "small_height", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.25,
+	energyShield = 0.5,
+	evasion = 0.2,
+	fireResist = 30,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 30,
+	damage = 0.84,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 25,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Desert Spring (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Oasis (Act 9)",
+	},
+	skillList = {
+		"IguanaProjectileFire",
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- MonsterSuppressingFire [chance_to_apply_suppression_on_hit_% = 20]
+		mod("PhysicalDamageGainAsFire", "BASE", 100, 0, 0), -- MonsterPhysicalAddedAsFireSkeletonMaps [physical_damage_%_to_add_as_fire = 100]
+	},
+}
+minions["Metadata/Monsters/GemMonster/IguanaChrometouched"] = {
+	name = "Chrome-touched Chimeral",
+	monsterTags = { "beast", "cold_affinity", "has_one_hand_sword", "has_one_handed_melee", "large_model", "light_armour", "melee", "not_str", "physical_affinity", "ranged", "red_blood", "reptile_beast", "slow_movement", "small_height", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.25,
+	energyShield = 0.5,
+	evasion = 0.2,
+	fireResist = 52,
+	coldResist = 52,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.84,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 25,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Terrace (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The High Gardens (Act 8)",
+	},
+	skillList = {
+		"IguanaProjectileChrome",
+		"MeleeAtAnimationSpeed",
 	},
 	modList = {
 		-- MonsterSuppressingFire [chance_to_apply_suppression_on_hit_% = 20]
@@ -3148,6 +3360,34 @@ minions["Metadata/Monsters/Lion/LionDemonSpectre"] = {
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Hellion/Hellion3Spectre"] = {
+	name = "Ruins Hellion",
+	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_dagger", "has_one_handed_melee", "large_model", "light_armour", "mammal_beast", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	evasion = 0.1,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.85,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"The Grain Gate (Act 8)",
+		"The Quay (Act 8)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"HellionRallyingCry",
 	},
 	modList = {
 	},
@@ -4521,6 +4761,278 @@ minions["Metadata/Monsters/SkeletonCannon/SkeletonCannon1"] = {
 		-- MonsterNecromancerRaisable [undead_description = 1]
 	},
 }
+minions["Metadata/Monsters/LeagueExpedition/Skeletons/ExpeditionSkeletonSwordSpectre"] = {
+	name = "Unearthed Skeletal Swordsman",
+	monsterTags = { "bone_armour", "bones", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.82,
+	armour = 0.25,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.74,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 32,
+	monsterCategory = "Undead",
+	spawnLocation = {
+		"Citadel (Map)",
+		"The Lake of Kalandra",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- MonsterNecromancerRaisable [undead_description = 1]
+		-- ExpeditionReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -35]
+		-- ExpeditionReducedBeyondPortalChance [monster_hellscape_charge_+% = -35]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/LeagueExpedition/Skeletons/ExpeditionSkeletonSwordShieldSpectre"] = {
+	name = "Unearthed Skeletal Warrior",
+	monsterTags = { "bone_armour", "bones", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.98,
+	armour = 0.25,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.6,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 32,
+	monsterCategory = "Undead",
+	spawnLocation = {
+		"Citadel (Map)",
+		"The Lake of Kalandra",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- MonsterNecromancerRaisable [undead_description = 1]
+		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackBlock20Bypass10_ [monster_base_block_% = 20]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterAttackBlock20Bypass10_ [base_block_%_damage_taken = 10]
+		-- ExpeditionReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -35]
+		-- ExpeditionReducedBeyondPortalChance [monster_hellscape_charge_+% = -35]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/LeagueExpedition/Skeletons/ExpeditionSkeletonBowSpectre"] = {
+	name = "Unearthed Skeletal Archer",
+	monsterTags = { "bone_armour", "bones", "cold_affinity", "has_bow", "humanoid", "medium_movement", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "skeleton", "undead", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.54,
+	evasion = 0.1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.49,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 40,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	baseMovementSpeed = 32,
+	monsterCategory = "Undead",
+	spawnLocation = {
+		"Citadel (Map)",
+		"The Lake of Kalandra",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterIceShot",
+	},
+	modList = {
+		-- MonsterNecromancerRaisable [undead_description = 1]
+		-- ExpeditionReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -35]
+		-- ExpeditionReducedBeyondPortalChance [monster_hellscape_charge_+% = -35]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/Skeletons/IntMissionSkeletonMeleeFire "] = {
+	name = "Charred Skeleton",
+	monsterTags = { "bone_armour", "bones", "cleaving_weapon", "fast_movement", "has_one_hand_axe", "has_one_handed_melee", "medium_height", "melee", "not_dex", "physical_affinity", "skeleton", "undead", },
+	life = 1.4,
+	energyShield = 0.5,
+	armour = 0.25,
+	fireResist = 37,
+	coldResist = 37,
+	lightningResist = 37,
+	chaosResist = 0,
+	damage = 0.7,
+	damageSpread = 0.3,
+	attackTime = 1.605,
+	attackRange = 9,
+	accuracy = 1,
+	weaponType1 = "One Handed Axe",
+	baseMovementSpeed = 48,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+	},
+	modList = {
+		mod("PhysicalDamageConvertToFire", "BASE", 50, 0, 0), -- MonsterElementalSkeletonFire [base_physical_damage_%_to_convert_to_fire = 50]
+		mod("CritChance", "INC", 300, 0, 0), -- MonsterImplicitCriticals1 [critical_strike_chance_+% = 300]
+		mod("CritMultiplier", "BASE", 65, 0, 0), -- MonsterImplicitCriticals1 [base_critical_strike_multiplier_+ = 65]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+	},
+}
+minions["Metadata/Monsters/Skeletons/IntMissionSkeletonCasterLightning6"] = {
+	name = "Reanimated Skeleton",
+	monsterTags = { "bone_armour", "bones", "caster", "is_unarmed", "lightning_affinity", "medium_height", "not_dex", "not_str", "ranged", "skeleton", "slashing_weapon", "undead", "very_fast_movement", },
+	life = 1.3,
+	energyShield = 1,
+	fireResist = 37,
+	coldResist = 37,
+	lightningResist = 37,
+	chaosResist = 0,
+	damage = 0.65,
+	damageSpread = 0.2,
+	attackTime = 1.605,
+	attackRange = 46,
+	accuracy = 1,
+	baseMovementSpeed = 48,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"SkeletonProjectileLightning",
+		"MonsterSpark",
+	},
+	modList = {
+		-- MonsterCastsSparkText [monster_casts_spark_text = 1]
+		mod("Speed", "INC", 35, 16, 0), -- MonsterImplicitFastCast1 [base_cast_speed_+% = 35]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+	},
+}
+minions["Metadata/Monsters/Skeletons/WbSkeletonMinionMelee"] = {
+	name = "Risen Legionnaire",
+	monsterTags = { "bone_armour", "bones", "has_one_hand_sword", "has_one_handed_melee", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "slow_movement", "undead", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.9,
+	armour = 0.25,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.6,
+	damageSpread = 0.3,
+	attackTime = 0.975,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 22,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+		mod("BlockChance", "BASE", 30, 0, 0), -- MonsterAttackBlock30Bypass15 [monster_base_block_% = 30]
+		mod("BlockEffect", "BASE", 15, 0, 0), -- MonsterAttackBlock30Bypass15 [base_block_%_damage_taken = 15]
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/Skeletons/WbSkeletonMinionRanged"] = {
+	name = "Risen Archer",
+	monsterTags = { "bone_armour", "bones", "has_bow", "humanoid", "medium_height", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "skeleton", "undead", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.96,
+	evasion = 0.1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.29,
+	attackRange = 40,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	baseMovementSpeed = 14,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+	},
+}
+minions["Metadata/Monsters/Skeletons/WbSkeletonMinionCasterFire"] = {
+	name = "Risen Battlemage",
+	monsterTags = { "bone_armour", "bones", "caster", "fire_affinity", "is_unarmed", "medium_height", "not_dex", "ranged", "skeleton", "slashing_weapon", "undead", "very_slow_movement", },
+	life = 0.84,
+	energyShield = 1,
+	armour = 0.25,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.6,
+	damageSpread = 0.2,
+	attackTime = 1.605,
+	attackRange = 46,
+	accuracy = 1,
+	baseMovementSpeed = 14,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"SkeletonProjectileFire",
+	},
+	modList = {
+		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+	},
+}
 -- Snake
 minions["Metadata/Monsters/Snake/SnakeMeleeSpit"] = {
 	name = "Bramble Cobra",
@@ -4656,6 +5168,1025 @@ minions["Metadata/Monsters/Spiders/SpiderThornViperStrikeFlickerStrike"] = {
 	},
 	modList = {
 		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderClimbDownViperStrikeSpectre"] = {
+	name = "Lurking Venom",
+	monsterTags = { "animal_claw_weapon", "beast", "cannot_be_monolith", "chaos_affinity", "flesh_armour", "has_dagger", "has_one_handed_melee", "hidden_monster", "insect_blood", "melee", "physical_affinity", "slow_movement", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"The Temple of Decay Level 1 (Act 7)",
+		"The Weaver's Chambers (Act 2)",
+	},
+	skillList = {
+		"Melee",
+		"MonsterViperStrike",
+	},
+	modList = {
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderThorn"] = {
+	name = "Vaal Recluse",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "physical_affinity", "slow_movement", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"The Weaver's Chambers (Act 2)",
+		"The Western Forest (Act 6)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderThornViperStrike"] = {
+	name = "Noxious Tarantula",
+	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "physical_affinity", "slow_movement", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Arachnid Nest (Map)",
+		"Arachnid Tomb (Map)",
+		"Dark Forest (Map)",
+		"Fragmented Memory",
+		"Ivory Temple (Map)",
+		"Jungle Valley (Map)",
+		"Memory Void",
+		"Orchard (Map)",
+		"Spider Forest (Map)",
+		"Spider Lair (Map)",
+		"Sunken City (Map)",
+		"The Eternal Laboratory (Act 8)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterViperStrike",
+	},
+	modList = {
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderThornFlickerStrikeNoExplode"] = {
+	name = "Arakaali's Daughter",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "physical_affinity", "slow_movement", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.9,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.87,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Fragmented Memory",
+		"Memory Void",
+		"The Eternal Laboratory (Act 8)",
+		"The Temple of Decay Level 2 (Act 7)",
+		"The Vaal City (Act 7)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterFlickerStrike",
+	},
+	modList = {
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderWebChampion"] = {
+	name = "Webbed Spider",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "large_model", "melee", "physical_affinity", "slow_movement", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.72,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 13,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Arachnid Nest (Map)",
+		"Arachnid Tomb (Map)",
+		"Fragmented Memory",
+		"Jungle Valley (Map)",
+		"Memory Void",
+		"Spider Forest (Map)",
+		"Spider Lair (Map)",
+		"Sunken City (Map)",
+		"The Eternal Laboratory (Act 8)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterFlickerStrike",
+		"SpiderWebChampion",
+	},
+	modList = {
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderPoisonChampion_"] = {
+	name = "Virulent Spider",
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "chaos_affinity", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "large_model", "melee", "physical_affinity", "ranged", "slow_movement", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.72,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 13,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Arachnid Nest (Map)",
+		"Arachnid Tomb (Map)",
+		"Fragmented Memory",
+		"Jungle Valley (Map)",
+		"Memory Void",
+		"Spider Forest (Map)",
+		"Spider Lair (Map)",
+		"Sunken City (Map)",
+		"The Eternal Laboratory (Act 8)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterViperStrike",
+		"SpiderPoisonProjectileChampion",
+	},
+	modList = {
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderScale2"] = {
+	name = "Ink Spinner",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "physical_affinity", "slow_movement", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Arachnid Nest (Map)",
+		"Arachnid Tomb (Map)",
+		"Fragmented Memory",
+		"Jungle Valley (Map)",
+		"Memory Void",
+		"Path of Exile Royale (Act 1)",
+		"Spider Forest (Map)",
+		"Spider Lair (Map)",
+		"Sunken City (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Northern Forest (Act 2)",
+		"The Northern Forest (Act 7)",
+		"The Western Forest (Act 2)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- VariableEmergeSpeedSpiders_ [emerge_speed_+% = -10]
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderScale5"] = {
+	name = "Cave Arach",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "physical_affinity", "slow_movement", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderScaleViperStrike"] = {
+	name = "Corrupted Arach",
+	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "physical_affinity", "slow_movement", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Acton's Nightmare (Map)",
+		"Arachnid Nest (Map)",
+		"Arachnid Tomb (Map)",
+		"Fragmented Memory",
+		"Jungle Valley (Map)",
+		"Memory Void",
+		"Spider Forest (Map)",
+		"Spider Lair (Map)",
+		"Sunken City (Map)",
+		"The Chamber of Sins Level 2 (Act 2)",
+		"The Eternal Laboratory (Act 8)",
+		"The Northern Forest (Act 2)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterViperStrike",
+	},
+	modList = {
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderScaleViperStrike2"] = {
+	name = "Crypt Spinner",
+	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "physical_affinity", "slow_movement", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterViperStrike",
+	},
+	modList = {
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderScaleViperStrike3"] = {
+	name = "Crypt Weaver",
+	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "physical_affinity", "slow_movement", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Arachnid Nest (Map)",
+		"Arachnid Tomb (Map)",
+		"The Crypt Level 1 (Act 2)",
+		"The Crypt Level 2 (Act 2)",
+		"Underground Sea (Map)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterViperStrike",
+	},
+	modList = {
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderScaleViperStrike4"] = {
+	name = "Mutant Arach",
+	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "physical_affinity", "slow_movement", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Acton's Nightmare (Map)",
+		"The Chamber of Sins Level 1 (Act 2)",
+		"The Chamber of Sins Level 1 (Act 7)",
+		"The Chamber of Sins Level 2 (Act 7)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterViperStrike",
+	},
+	modList = {
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderScaleViperStrike5"] = {
+	name = "Crypt Ambusher",
+	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "physical_affinity", "slow_movement", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"The Crypt (Act 7)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterViperStrike",
+		"MonsterFlickerStrike",
+	},
+	modList = {
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderScalePoisonProjectile"] = {
+	name = "Corrupted Spitter",
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "chaos_affinity", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "physical_affinity", "ranged", "slow_movement", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"The Temple of Decay Level 1 (Act 7)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"SpiderPoisonProjectile",
+	},
+	modList = {
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderSmall"] = {
+	name = "Cave Skitterer",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "medium_movement", "melee", "physical_affinity", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.78,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 0.94,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 5,
+	accuracy = 1,
+	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Arachnid Nest (Map)",
+		"Arachnid Tomb (Map)",
+		"Barrows (Map)",
+		"Flooded Mine (Map)",
+		"Fragmented Memory",
+		"Grotto (Map)",
+		"Jungle Valley (Map)",
+		"Lair (Map)",
+		"Memory Void",
+		"Spider Forest (Map)",
+		"Spider Lair (Map)",
+		"Sunken City (Map)",
+		"The Den (Act 2)",
+		"The Den (Act 7)",
+		"The Eternal Laboratory (Act 8)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderSmall2"] = {
+	name = "Spindle Spider",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "medium_movement", "melee", "physical_affinity", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.78,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 0.94,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 5,
+	accuracy = 1,
+	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Acton's Nightmare (Map)",
+		"Arachnid Nest (Map)",
+		"Arachnid Tomb (Map)",
+		"Barrows (Map)",
+		"Flooded Mine (Map)",
+		"Fragmented Memory",
+		"Grotto (Map)",
+		"Jungle Valley (Map)",
+		"Lair (Map)",
+		"Memory Void",
+		"Spider Forest (Map)",
+		"Spider Lair (Map)",
+		"Sunken City (Map)",
+		"The Chamber of Sins Level 1 (Act 2)",
+		"The Chamber of Sins Level 1 (Act 7)",
+		"The Eternal Laboratory (Act 8)",
+		"Underground Sea (Map)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderSmall3"] = {
+	name = "Hatchling",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "medium_movement", "melee", "physical_affinity", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 0.72,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 5,
+	accuracy = 1,
+	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Spider Lair (Map)",
+		"The Weaver's Chambers (Act 2)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderBarrelOfSpidersMedium"] = {
+	name = "Adolescent Arachnid",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "physical_affinity", "slow_movement", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.88,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.15,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 5,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderBarrelOfSpidersLarge"] = {
+	name = "Mature Arachnid",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "physical_affinity", "slow_movement", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 11,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderHair1"] = {
+	name = "Brooding Tarantula",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "physical_affinity", "slow_movement", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Palace (Map)",
+		"Residence (Map)",
+		"The Upper Sceptre of God (Act 3)",
+		"The Western Forest (Act 6)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderHair3"] = {
+	name = "Buried Tarantula",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "physical_affinity", "slow_movement", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"The Tunnel (Act 9)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderHairMaligaro"] = {
+	name = "Maligaro's Inspiration",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "medium_movement", "melee", "physical_affinity", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.78,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 0.94,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"The Rotting Core (Act 9)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		mod("PoisonChance", "BASE", 100, 0, 0), -- MaligaroSpiderPoisonOnHit [global_poison_on_hit = 1]
+		mod("EnemyPoisonDuration", "INC", 0, 0, 0), -- MaligaroSpiderPoisonOnHit [base_poison_duration_+% = 0]
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderHairParasite"] = {
+	name = "Enraptured Arachnid",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "physical_affinity", "slow_movement", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Infested Valley (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Fellshrine Ruins (Act 7)",
+		"The Western Forest (Act 6)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/SpiderPlague/SpiderPlague_"] = {
+	name = "Plagued Arachnid",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_extra_small_height", "flesh_armour", "insect_blood", "is_unarmed", "melee", "physical_affinity", "slow_movement", "spider", },
+	life = 1.56,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 30,
+	chaosResist = 30,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.95,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 23,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Abomination (Map)",
+		"Arachnid Nest (Map)",
+		"Arachnid Tomb (Map)",
+		"Citadel (Map)",
+		"Fortress (Map)",
+		"Jungle Valley (Map)",
+		"Sanctuary (Map)",
+		"Spider Forest (Map)",
+		"Spider Lair (Map)",
+		"Sunken City (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Temple of Decay Level 1 (Act 7)",
+		"The Temple of Decay Level 2 (Act 7)",
+		"Ziggurat (Map)",
+	},
+	skillList = {
+		"Melee",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/SpiderPlague/SpiderPlague2Spectre_"] = {
+	name = "Diseased Arachnid",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_extra_small_height", "flesh_armour", "insect_blood", "is_unarmed", "melee", "physical_affinity", "slow_movement", "spider", },
+	life = 1.56,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 30,
+	chaosResist = 30,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.95,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 23,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"The Tunnel (Act 9)",
+	},
+	skillList = {
+		"Melee",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/SpiderPlague/SpiderPlagueMaligaro"] = {
+	name = "Maligaro's Muse",
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "extra_small_height", "flesh_armour", "insect_blood", "is_unarmed", "lightning_affinity", "melee", "physical_affinity", "ranged", "slow_movement", "spider", },
+	life = 2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 30,
+	chaosResist = 30,
+	damage = 1.06,
+	damageSpread = 0.2,
+	attackTime = 1.95,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"The Rotting Core (Act 9)",
+	},
+	skillList = {
+		"Melee",
+		"NovaProjectileSpellSpiderCausticGround",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/SpiderPlague/SpiderPlagueMaligaroAtlasUber"] = {
+	name = "Noxious Crawler",
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "extra_small_height", "flesh_armour", "insect_blood", "is_unarmed", "lightning_affinity", "melee", "physical_affinity", "ranged", "slow_movement", "spider", },
+	life = 1.94,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 30,
+	chaosResist = 30,
+	damage = 1.02,
+	damageSpread = 0.2,
+	attackTime = 1.95,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Abomination (Map)",
+		"Citadel (Map)",
+		"Fortress (Map)",
+		"Sanctuary (Map)",
+		"Ziggurat (Map)",
+	},
+	skillList = {
+		"Melee",
+		"NovaProjectileSpellSpiderCausticGroundAtlasUber",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/SpiderPlague/SpiderArakaaliClimb"] = {
+	name = "Arakaali's Acolyte",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_small_height", "flesh_armour", "insect_blood", "is_unarmed", "melee", "physical_affinity", "slow_movement", "spider", },
+	life = 1.56,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 30,
+	chaosResist = 30,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.95,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 23,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/SpiderPlague/SpiderArakaaliMapCrawler"] = {
+	name = "Arakaali's Horror",
+	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "extra_small_height", "flesh_armour", "insect_blood", "is_unarmed", "melee", "physical_affinity", "slow_movement", "spider", },
+	life = 1.65,
+	fireResist = 35,
+	coldResist = 35,
+	lightningResist = 35,
+	chaosResist = 20,
+	damage = 1.88,
+	damageSpread = 0.2,
+	attackTime = 1.95,
+	attackRange = 13,
+	accuracy = 1,
+	baseMovementSpeed = 23,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+		"WalkEmergeArakaaliCrawler",
+		"MonsterViperStrike",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/SpiderPlague/SpiderArakaaliMapCrawlerBaby"] = {
+	name = "Arakaali's Monstrosity",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_extra_small_height", "flesh_armour", "insect_blood", "is_unarmed", "medium_movement", "melee", "physical_affinity", "spider", },
+	life = 1,
+	fireResist = 35,
+	coldResist = 35,
+	lightningResist = 35,
+	chaosResist = 20,
+	damage = 1.25,
+	damageSpread = 0.2,
+	attackTime = 1.95,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+		"WalkEmergeArakaaliCrawler",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/SpiderPlated/SpiderPlated"] = {
+	name = "Hybrid Arachnid",
+	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "insect_blood", "is_unarmed", "melee", "physical_affinity", "slow_movement", "small_height", "spider", },
+	life = 1.82,
+	fireResist = 30,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 30,
+	damage = 1.3,
+	damageSpread = 0.2,
+	attackTime = 1.95,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Maligaro's Sanctum (Act 7)",
+		"Marshes (Map)",
+		"The Eternal Laboratory (Act 8)",
+	},
+	skillList = {
+		"Melee",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/SpiderPlated/SpiderPlatedAtlasUber"] = {
+	name = "Plated Arachnid",
+	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "insect_blood", "is_unarmed", "melee", "physical_affinity", "slow_movement", "small_height", "spider", },
+	life = 1.95,
+	fireResist = 30,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 30,
+	damage = 1.27,
+	damageSpread = 0.2,
+	attackTime = 1.95,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Abomination (Map)",
+		"Citadel (Map)",
+		"Fortress (Map)",
+		"Sanctuary (Map)",
+		"Ziggurat (Map)",
+	},
+	skillList = {
+		"Melee",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/SpiderPlated/SpiderPlatedTailExplosion"] = {
+	name = "Scalding Arachnid",
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "fire_affinity", "flesh_armour", "insect_blood", "is_unarmed", "medium_height", "melee", "physical_affinity", "slow_movement", "spider", },
+	life = 2.34,
+	fireResist = 30,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 30,
+	damage = 1.3,
+	damageSpread = 0.2,
+	attackTime = 1.95,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Maligaro's Sanctum (Act 7)",
+		"Marshes (Map)",
+		"The Eternal Laboratory (Act 8)",
+	},
+	skillList = {
+		"Melee",
+		"DelayedFireSpark",
+		"SummonedSparkDaemon",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/SpiderPlated/SpiderPlatedTailExplosionAtlasUber"] = {
+	name = "Scalding Scorpion",
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "fire_affinity", "flesh_armour", "insect_blood", "is_unarmed", "medium_height", "melee", "physical_affinity", "slow_movement", "spider", },
+	life = 2.34,
+	fireResist = 30,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 30,
+	damage = 1.27,
+	damageSpread = 0.2,
+	attackTime = 1.95,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Abomination (Map)",
+		"Citadel (Map)",
+		"Fortress (Map)",
+		"Sanctuary (Map)",
+		"Ziggurat (Map)",
+	},
+	skillList = {
+		"Melee",
+		"DelayedFireSparkAtlasUber",
+		"SummonedSparkDaemonAtlasUber",
+	},
+	modList = {
 	},
 }
 -- Statue
@@ -5865,35 +7396,6 @@ minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre"] = {
 		"SynthesisSoulstealerDronesOnSelf",
 		"SynthesisPhysicalVolatileSlam",
 		"SynthesisQuicksandStartEffect",
-	},
-	modList = {
-	},
-}
--- Ruins Hellion
-minions["Metadata/Monsters/Hellion/Hellion3Spectre"] = {
-	name = "Ruins Hellion",
-	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_dagger", "has_one_handed_melee", "large_model", "light_armour", "mammal_beast", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1,
-	evasion = 0.1,
-	fireResist = 40,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.85,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 10,
-	accuracy = 1,
-	baseMovementSpeed = 37,
-	monsterCategory = "Beast",
-	spawnLocation = {
-		"The Grain Gate (Act 8)",
-		"The Quay (Act 8)",
-	},
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"HellionRallyingCry",
 	},
 	modList = {
 	},

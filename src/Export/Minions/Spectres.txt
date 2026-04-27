@@ -128,10 +128,24 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/Frog/Frog2
 #emit
+#spectre Metadata/Monsters/Frog/Frog3
+#emit
+#spectre Metadata/Monsters/Frog/FrogUntainted
+#emit
+#spectre Metadata/Monsters/Frog/FrogUntaintedColossal
+#emit
+#spectre Metadata/Monsters/Frog/FrogParasite
+#emit
 -- Chimeral
 #spectre Metadata/Monsters/GemMonster/Iguana
 #emit
 #spectre Metadata/Monsters/GemMonster/IguanaChrome
+#emit
+#spectre Metadata/Monsters/GemMonster/Iguana2
+#emit
+#spectre Metadata/Monsters/GemMonster/Iguana3
+#emit
+#spectre Metadata/Monsters/GemMonster/IguanaChrometouched
 #emit
 -- Ghost Pirate
 #spectre Metadata/Monsters/GhostPirates/GhostPirateBlackBowMaps
@@ -207,6 +221,8 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Lion/LionFireSkinPhaseRunSpectre
 #emit
 #spectre Metadata/Monsters/Lion/LionDemonSpectre
+#emit
+#spectre Metadata/Monsters/Hellion/Hellion3Spectre
 #emit
 -- Knitted Horror
 #spectre Metadata/Monsters/MassSkeleton/MassSkeleton
@@ -292,6 +308,22 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/SkeletonCannon/SkeletonCannon1
 #emit
+#spectre Metadata/Monsters/LeagueExpedition/Skeletons/ExpeditionSkeletonSwordSpectre
+#emit
+#spectre Metadata/Monsters/LeagueExpedition/Skeletons/ExpeditionSkeletonSwordShieldSpectre
+#emit
+#spectre Metadata/Monsters/LeagueExpedition/Skeletons/ExpeditionSkeletonBowSpectre
+#emit
+#spectre Metadata/Monsters/Skeletons/IntMissionSkeletonMeleeFire 
+#emit
+#spectre Metadata/Monsters/Skeletons/IntMissionSkeletonCasterLightning6
+#emit
+#spectre Metadata/Monsters/Skeletons/WbSkeletonMinionMelee
+#emit
+#spectre Metadata/Monsters/Skeletons/WbSkeletonMinionRanged
+#emit
+#spectre Metadata/Monsters/Skeletons/WbSkeletonMinionCasterFire
+#emit
 -- Snake
 #spectre Metadata/Monsters/Snake/SnakeMeleeSpit
 #emit
@@ -301,6 +333,74 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Spiders/SpiderThornFlickerStrike
 #emit
 #spectre Metadata/Monsters/Spiders/SpiderThornViperStrikeFlickerStrike
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderClimbDownViperStrikeSpectre
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderThorn
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderThornViperStrike
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderThornFlickerStrikeNoExplode
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderWebChampion
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderPoisonChampion_
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderScale2
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderScale5
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderScaleViperStrike
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderScaleViperStrike2
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderScaleViperStrike3
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderScaleViperStrike4
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderScaleViperStrike5
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderScalePoisonProjectile
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderSmall
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderSmall2
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderSmall3
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderBarrelOfSpidersMedium
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderBarrelOfSpidersLarge
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderHair1
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderHair3
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderHairMaligaro
+#emit
+#spectre Metadata/Monsters/Spiders/SpiderHairParasite
+#emit
+#spectre Metadata/Monsters/SpiderPlague/SpiderPlague_
+#emit
+#spectre Metadata/Monsters/SpiderPlague/SpiderPlague2Spectre_
+#emit
+#spectre Metadata/Monsters/SpiderPlague/SpiderPlagueMaligaro
+#emit
+#spectre Metadata/Monsters/SpiderPlague/SpiderPlagueMaligaroAtlasUber
+#emit
+#spectre Metadata/Monsters/SpiderPlague/SpiderArakaaliClimb
+#emit
+#spectre Metadata/Monsters/SpiderPlague/SpiderArakaaliMapCrawler
+#emit
+#spectre Metadata/Monsters/SpiderPlague/SpiderArakaaliMapCrawlerBaby
+#emit
+#spectre Metadata/Monsters/SpiderPlated/SpiderPlated
+#emit
+#spectre Metadata/Monsters/SpiderPlated/SpiderPlatedAtlasUber
+#emit
+#spectre Metadata/Monsters/SpiderPlated/SpiderPlatedTailExplosion
+#emit
+#spectre Metadata/Monsters/SpiderPlated/SpiderPlatedTailExplosionAtlasUber
 #emit
 -- Statue
 #spectre Metadata/Monsters/Statue/DaressoStatueLargeMaleSpear
@@ -405,9 +505,6 @@ local minions, mod, flag = ...
 #emit
 -- Aurid Synthete
 #spectre Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre
-#emit
--- Ruins Hellion
-#spectre Metadata/Monsters/Hellion/Hellion3Spectre
 #emit
 -- Arena Master
 #spectre Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorGrandMasterSpectre
