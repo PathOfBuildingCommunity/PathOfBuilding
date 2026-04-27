@@ -39,6 +39,12 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dpsMultiplier", 4)
 #mods
 
+#skill BanditBlastRainAS Blast Rain
+#flags attack projectile area
+#baseMod skill("radius", 24)
+#baseMod skill("dpsMultiplier", 4)
+#mods
+
 #skill GABeastCleave Cleave
 #flags attack melee area
 #mods

@@ -283,6 +283,7 @@ worldAreas["1_2_2"] = {
 		"Carnage Chieftain",
 		"Goatman",
 		"Hairy Bonecruncher",
+		"Kraityn's Scout",
 	},
 	bossVarieties = {
 		"Gneiss",
@@ -312,6 +313,7 @@ worldAreas["1_2_3"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Hairy Bonecruncher",
+		"Kraityn's Scout",
 	},
 	bossVarieties = {
 		"Bravalo",
@@ -387,6 +389,7 @@ worldAreas["1_2_4"] = {
 	monsterVarieties = {
 		"Carnage Chieftain",
 		"Hairy Bonecruncher",
+		"Kraityn's Scout",
 	},
 	bossVarieties = {
 		"Kraityn, Scarbearer",
@@ -426,6 +429,7 @@ worldAreas["1_2_9"] = {
 	level = 17,
 	isMap = false,
 	monsterVarieties = {
+		"Blackguard Soldier",
 	},
 	bossVarieties = {
 		"Alira Darktongue",
@@ -622,7 +626,10 @@ worldAreas["1_3_7"] = {
 	level = 27,
 	isMap = false,
 	monsterVarieties = {
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Scout",
+		"Blackguard Soldier",
 		"Flame Sentinel",
 		"Galvanic Ribbon",
 	},
@@ -704,6 +711,8 @@ worldAreas["1_3_13"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Blackguard Arcmage",
+		"Blackguard Elite",
+		"Blackguard Soldier",
 		"Mortality Experimenter",
 	},
 	bossVarieties = {
@@ -720,6 +729,8 @@ worldAreas["1_3_14_1"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Blackguard Arcmage",
+		"Blackguard Elite",
+		"Blackguard Soldier",
 		"Burned Miscreation",
 		"Mortality Experimenter",
 		"Reanimator",
@@ -817,6 +828,7 @@ worldAreas["1_3_18_2"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Plumed Chimeral",
+		"Praetorian Guard",
 		"Tentacle Miscreation",
 		"Undying Evangelist",
 		"Voidbearer",
@@ -1716,7 +1728,10 @@ worldAreas["2_8_6"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Frost Sentinel",
+		"Lunar Scout",
 		"Lunaris Concubine",
+		"Lunaris Elite",
+		"Lunarsworn Archmage",
 		"Lunarsworn Wintermage",
 	},
 	bossVarieties = {
@@ -1733,6 +1748,10 @@ worldAreas["2_8_7_1_"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Frost Sentinel",
+		"Lunar Scout",
+		"Lunaris Champion",
+		"Lunaris Elite",
+		"Lunarsworn Archmage",
 		"Lunarsworn Wintermage",
 	},
 }
@@ -1746,7 +1765,11 @@ worldAreas["2_8_7_2"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Frost Sentinel",
+		"Lunar Scout",
+		"Lunaris Champion",
 		"Lunaris Concubine",
+		"Lunaris Elite",
+		"Lunarsworn Archmage",
 		"Lunarsworn Wintermage",
 	},
 	bossVarieties = {
@@ -1814,7 +1837,11 @@ worldAreas["2_8_11"] = {
 	monsterVarieties = {
 		"Flame Sentinel",
 		"Solar Guard",
+		"Solar Scout",
 		"Solaris Champion",
+		"Solaris Elite",
+		"Solarsworn Archmage",
+		"Solarsworn Infernomage",
 	},
 	bossVarieties = {
 		"Regulus, Sun's Herald",
@@ -1831,7 +1858,11 @@ worldAreas["2_8_12_1"] = {
 	monsterVarieties = {
 		"Flame Sentinel",
 		"Solar Guard",
+		"Solar Scout",
 		"Solaris Champion",
+		"Solaris Elite",
+		"Solarsworn Archmage",
+		"Solarsworn Infernomage",
 	},
 }
 
@@ -1845,7 +1876,11 @@ worldAreas["2_8_12_2"] = {
 	monsterVarieties = {
 		"Flame Sentinel",
 		"Solar Guard",
+		"Solar Scout",
 		"Solaris Champion",
+		"Solaris Elite",
+		"Solarsworn Archmage",
+		"Solarsworn Infernomage",
 	},
 	bossVarieties = {
 		"Dawn, Harbinger of Solaris",
@@ -1862,10 +1897,18 @@ worldAreas["2_8_13"] = {
 	monsterVarieties = {
 		"Flame Sentinel",
 		"Frost Sentinel",
+		"Lunar Scout",
+		"Lunaris Champion",
 		"Lunaris Concubine",
+		"Lunaris Elite",
+		"Lunarsworn Archmage",
 		"Lunarsworn Wintermage",
 		"Solar Guard",
+		"Solar Scout",
 		"Solaris Champion",
+		"Solaris Elite",
+		"Solarsworn Archmage",
+		"Solarsworn Infernomage",
 	},
 	bossVarieties = {
 		"Lunaris, Eternal Moon",
@@ -2272,12 +2315,16 @@ worldAreas["3_3_8_4"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
+		"Blackguard Firemage",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
 		"Brittle Poacher",
 		"Burned Miscreation",
+		"Callow Sniper",
 		"Cannibal Fire-eater",
 		"Carnage Chieftain",
 		"Carrion Queen",
@@ -2311,9 +2358,14 @@ worldAreas["3_3_8_4"] = {
 		"Kiln Mother",
 		"Kitava's Herald",
 		"Knitted Horror",
+		"Kraityn's Scout",
 		"Kraityn's Sentry",
 		"Leaping Spider",
+		"Lunar Scout",
+		"Lunaris Champion",
 		"Lunaris Concubine",
+		"Lunaris Elite",
+		"Lunarsworn Archmage",
 		"Lunarsworn Wintermage",
 		"Merveil's Attendant",
 		"Merveil's Blessed",
@@ -2336,7 +2388,11 @@ worldAreas["3_3_8_4"] = {
 		"Slashed Miscreation",
 		"Slave Driver",
 		"Solar Guard",
+		"Solar Scout",
 		"Solaris Champion",
+		"Solaris Elite",
+		"Solarsworn Archmage",
+		"Solarsworn Infernomage",
 		"Sparking Mage",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
@@ -5025,94 +5081,6 @@ worldAreas["Delve_Mantle8"] = {
 	},
 }
 
-worldAreas["Delve_SubmergedPassage"] = {
-	name = "Sulphur Vents",
-	baseName = "Sulphur Vents",
-	tags = { "indoors_area", "area_with_water" },
-	act = 0,
-	level = 4,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["Delve_SubmergedPassage2"] = {
-	name = "Sulphur Vents",
-	baseName = "Sulphur Vents",
-	tags = { "indoors_area", "area_with_water" },
-	act = 0,
-	level = 8,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["Delve_SubmergedPassage3"] = {
-	name = "Sulphur Vents",
-	baseName = "Sulphur Vents",
-	tags = { "indoors_area", "area_with_water" },
-	act = 0,
-	level = 12,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["Delve_SubmergedPassage4"] = {
-	name = "Sulphur Vents",
-	baseName = "Sulphur Vents",
-	tags = { "indoors_area", "area_with_water" },
-	act = 0,
-	level = 18,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["Delve_SubmergedPassage5"] = {
-	name = "Sulphur Vents",
-	baseName = "Sulphur Vents",
-	tags = { "indoors_area", "area_with_water" },
-	act = 0,
-	level = 25,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["Delve_SubmergedPassage6"] = {
-	name = "Sulphur Vents",
-	baseName = "Sulphur Vents",
-	tags = { "indoors_area", "area_with_water" },
-	act = 0,
-	level = 40,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["Delve_SubmergedPassage7"] = {
-	name = "Sulphur Vents",
-	baseName = "Sulphur Vents",
-	tags = { "indoors_area", "area_with_water" },
-	act = 0,
-	level = 55,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["Delve_SubmergedPassage8"] = {
-	name = "Sulphur Vents",
-	baseName = "Sulphur Vents",
-	tags = { "indoors_area", "area_with_water" },
-	act = 0,
-	level = 68,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
 worldAreas["Delve_VaalRuins"] = {
 	name = "Vaal Outpost",
 	baseName = "Vaal Outpost",
@@ -5659,7 +5627,9 @@ worldAreas["Synthesis_Main"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -5736,7 +5706,9 @@ worldAreas["Synthesis_Main2"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -5813,7 +5785,9 @@ worldAreas["Synthesis_Main3"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -5890,7 +5864,9 @@ worldAreas["Synthesis_Main4"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -5967,7 +5943,9 @@ worldAreas["Synthesis_Main5"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -6044,7 +6022,9 @@ worldAreas["Synthesis_Main6"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -6121,7 +6101,9 @@ worldAreas["Synthesis_Main7_"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -6198,7 +6180,9 @@ worldAreas["Synthesis_Main8"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -6275,7 +6259,9 @@ worldAreas["Synthesis_Main9"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -6352,7 +6338,9 @@ worldAreas["Synthesis_Main10"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -6429,7 +6417,9 @@ worldAreas["Synthesis_Main11"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -6506,7 +6496,9 @@ worldAreas["Synthesis_Main12"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -6583,7 +6575,9 @@ worldAreas["Synthesis_Single"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -6660,7 +6654,9 @@ worldAreas["Synthesis_Single2"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -6737,7 +6733,9 @@ worldAreas["Synthesis_Single3"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -6814,7 +6812,9 @@ worldAreas["Synthesis_Single4"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -6891,7 +6891,9 @@ worldAreas["Synthesis_Single5"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -6968,7 +6970,9 @@ worldAreas["Synthesis_Single6"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -7045,7 +7049,9 @@ worldAreas["Synthesis_Single7"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -7122,7 +7128,9 @@ worldAreas["Synthesis_Single8"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -7199,7 +7207,9 @@ worldAreas["Synthesis_Single9"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -7276,7 +7286,9 @@ worldAreas["Synthesis_Single10"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -7353,7 +7365,9 @@ worldAreas["Synthesis_Single11"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -7430,7 +7444,9 @@ worldAreas["Synthesis_Single12"] = {
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
@@ -7737,462 +7753,6 @@ worldAreas["MapAtziri2"] = {
 	},
 }
 
-worldAreas["MapTier1_1"] = {
-	name = "Cursed Crypt (Map)",
-	baseName = "Cursed Crypt",
-	tags = { "indoors_area", "map", "einharmaps", "crypt_area" },
-	act = 11,
-	level = 66,
-	isMap = true,
-	monsterVarieties = {
-		"Bone Husk",
-		"Brittle Poacher",
-		"Frost Harbinger",
-		"Plagued Bowman",
-		"Sparking Mage",
-		"Vexing Archer",
-	},
-	bossVarieties = {
-		"Pagan Bishop of Agony",
-	},
-}
-
-worldAreas["MapTier1_1Unique"] = {
-	name = "The Coward's Trial (Map)",
-	baseName = "The Coward's Trial",
-	tags = { "indoors_area", "unique_map", "map", "limited_tempests", "no_monster_packs", "no_strongboxes", "cowards_trial", "anarchy_leaguestone", "torment_leaguestone", "warbands_leaguestone", "ambush_leaguestone", "domination_leaguestone", "talisman_leaguestone", "perandus_leaguestone", "prophecy_leaguestone", "essence_leaguestone", "breach_leaguestone", "crypt_area", "necromancer_area" },
-	act = 11,
-	level = 66,
-	isMap = true,
-	monsterVarieties = {
-		"Bone Husk",
-		"Brittle Bleeder",
-		"Brittle Poacher",
-		"Frost Harbinger",
-		"Necromancer",
-		"Plagued Bowman",
-		"Sparking Mage",
-		"Vexing Archer",
-	},
-	bossVarieties = {
-		"Infector of Dreams",
-	},
-}
-
-worldAreas["MapTier1_2"] = {
-	name = "Dungeon (Map)",
-	baseName = "Dungeon",
-	tags = { "indoors_area", "map", "einharmaps", "prison_area" },
-	act = 11,
-	level = 66,
-	isMap = true,
-	monsterVarieties = {
-		"Ash Prophet",
-		"Death Bishop",
-		"Defiler",
-		"Diabolist",
-		"Frost Harbinger",
-		"Necromancer",
-		"Sin Lord",
-		"Sparking Mage",
-	},
-	bossVarieties = {
-		"Penitentiary Incarcerator",
-	},
-}
-
-worldAreas["MapTier1_3"] = {
-	name = "Grotto (Map)",
-	baseName = "Grotto",
-	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "den_area", "cave_area", "chaos_golem_boss_area", "golem_boss_area" },
-	act = 11,
-	level = 66,
-	isMap = true,
-	monsterVarieties = {
-		"Armour Cruncher",
-		"Hairy Bonecruncher",
-		"Shaggy Monstrosity",
-	},
-	bossVarieties = {
-		"Void Anomaly",
-	},
-}
-
-worldAreas["MapTier1_4"] = {
-	name = "Overgrown Ruin (Map)",
-	baseName = "Overgrown Ruin",
-	tags = { "indoors_area", "map", "cannot_be_twinned", "einharmaps", "chamber_of_sins_area" },
-	act = 11,
-	level = 66,
-	isMap = true,
-	monsterVarieties = {
-		"Burned Miscreation",
-		"Slashed Miscreation",
-		"Whipping Miscreation",
-	},
-	bossVarieties = {
-		"Visceris",
-	},
-}
-
-worldAreas["MapTier1_5"] = {
-	name = "Dunes (Map)",
-	baseName = "Dunes",
-	tags = { "map", "area_with_water", "einharmaps", "desert_area", "desert_map_area" },
-	act = 11,
-	level = 66,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"The Blacksmith",
-	},
-}
-
-worldAreas["MapTier1_6"] = {
-	name = "Arid Lake (Map)",
-	baseName = "Arid Lake",
-	tags = { "map", "area_with_water", "einharmaps" },
-	act = 11,
-	level = 66,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Drought-Maddened Rhoa",
-	},
-}
-
-worldAreas["MapTier1_7"] = {
-	name = "Tropical Island (Map)",
-	baseName = "Tropical Island",
-	tags = { "map", "area_with_water", "einharmaps", "forest_map_area", "tropical_island_area", "map_area_with_open_water", "ocean_area" },
-	act = 11,
-	level = 66,
-	isMap = true,
-	monsterVarieties = {
-		"Carnage Chieftain",
-	},
-	bossVarieties = {
-		"Blood Progenitor",
-	},
-}
-
-worldAreas["MapTier1_7Unique"] = {
-	name = "Untainted Paradise (Map)",
-	baseName = "Untainted Paradise",
-	tags = { "unique_map", "map", "limited_tempests", "area_with_water", "no_strongboxes", "anarchy_leaguestone", "torment_leaguestone", "invasion_leaguestone", "warbands_leaguestone", "ambush_leaguestone", "domination_leaguestone", "talisman_leaguestone", "perandus_leaguestone", "prophecy_leaguestone", "essence_leaguestone", "breach_leaguestone", "map_area_with_open_water" },
-	act = 11,
-	level = 66,
-	isMap = true,
-	monsterVarieties = {
-		"Carnage Chieftain",
-	},
-	bossVarieties = {
-		"Prime Ape",
-		"Colossal Spitter",
-		"The First Rhoa",
-		"Great Maw",
-		"Clutch Queen",
-		"Elder Devourer",
-	},
-}
-
-worldAreas["MapTier1_8"] = {
-	name = "Orchard (Map)",
-	baseName = "Orchard",
-	tags = { "map", "no_echo", "einharmaps", "has_road_area", "garden_area", "labyrinth_tileset_area" },
-	act = 11,
-	level = 66,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Vision of Justice",
-	},
-}
-
-worldAreas["MapTier2_1"] = {
-	name = "Wharf (Map)",
-	baseName = "Wharf",
-	tags = { "map", "area_with_water", "einharmaps", "dock_area", "rain_area", "map_area_with_open_water", "ocean_area", "golem_boss_area" },
-	act = 11,
-	level = 67,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Stone of the Currents",
-	},
-}
-
-worldAreas["MapTier2_2"] = {
-	name = "Arsenal (Map)",
-	baseName = "Arsenal",
-	tags = { "map", "einharmaps", "warehouse_area", "urban_sarn_area", "military_area" },
-	act = 11,
-	level = 67,
-	isMap = true,
-	monsterVarieties = {
-		"Undying Impaler",
-		"Undying Incinerator",
-	},
-	bossVarieties = {
-		"The Steel Soul",
-	},
-}
-
-worldAreas["MapTier2_3"] = {
-	name = "Thicket (Map)",
-	baseName = "Thicket",
-	tags = { "indoors_area", "map", "einharmaps", "thicket_area", "forest_map_area" },
-	act = 11,
-	level = 67,
-	isMap = true,
-	monsterVarieties = {
-		"Bramble Cobra",
-	},
-	bossVarieties = {
-		"The Primal One",
-	},
-}
-
-worldAreas["MapTier2_4"] = {
-	name = "Atoll (Map)",
-	baseName = "Atoll",
-	tags = { "map", "area_with_water", "einharmaps", "map_area_with_open_water", "ocean_area", "windy_area", "totem_lightning_boss_area" },
-	act = 11,
-	level = 67,
-	isMap = true,
-	monsterVarieties = {
-		"Bearded Devil",
-		"Bearded Shaman",
-		"Goatman",
-		"Goatman Shaman",
-	},
-	bossVarieties = {
-		"Puruna, the Challenger",
-	},
-}
-
-worldAreas["MapTier2_4Unique"] = {
-	name = "Maelström of Chaos (Map)",
-	baseName = "Maelström of Chaos",
-	tags = { "unique_map", "map", "limited_tempests", "area_with_water", "map_area_with_open_water", "ocean_area", "gold_pile_area", "merveil_area", "sea_witch_boss_area" },
-	act = 11,
-	level = 67,
-	isMap = true,
-	monsterVarieties = {
-		"Bearded Devil",
-		"Bearded Shaman",
-		"Goatman",
-		"Goatman Shaman",
-	},
-	bossVarieties = {
-		"Merveil, the Reflection",
-		"Merveil, the Returned",
-	},
-}
-
-worldAreas["MapTier2_5"] = {
-	name = "Cemetery (Map)",
-	baseName = "Cemetery",
-	tags = { "map", "cannot_be_twinned", "einharmaps", "graveyard_area", "rain_area", "cemetery_map_area", "god_boss_map_area" },
-	act = 11,
-	level = 67,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Erebix, Light's Bane",
-	},
-}
-
-worldAreas["MapTier2_6"] = {
-	name = "Toxic Sewer (Map)",
-	baseName = "Toxic Sewer",
-	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "sewer_area", "vile_areas", "spider_boss_area" },
-	act = 11,
-	level = 67,
-	isMap = true,
-	monsterVarieties = {
-		"Fetid Maw",
-	},
-	bossVarieties = {
-		"Arachnoxia",
-	},
-}
-
-worldAreas["MapTier2_7"] = {
-	name = "Arcade (Map)",
-	baseName = "Arcade",
-	tags = { "map", "einharmaps", "marketplace_area", "ruined_area", "city_home_map" },
-	act = 11,
-	level = 67,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Herald of Ashes",
-		"Herald of Thunder",
-	},
-}
-
-worldAreas["MapTier3_1"] = {
-	name = "Ghetto (Map)",
-	baseName = "Ghetto",
-	tags = { "map", "einharmaps", "urban_sarn_area", "slums_area", "ruined_area" },
-	act = 11,
-	level = 68,
-	isMap = true,
-	monsterVarieties = {
-		"Undying Impaler",
-		"Undying Outcast",
-	},
-	bossVarieties = {
-		"Hephaeus, The Hammer",
-	},
-}
-
-worldAreas["MapTier3_2"] = {
-	name = "Spider Lair (Map)",
-	baseName = "Spider Lair",
-	tags = { "indoors_area", "map", "einharmaps", "spider_boss_area" },
-	act = 11,
-	level = 68,
-	isMap = true,
-	monsterVarieties = {
-		"Leaping Spider",
-	},
-	bossVarieties = {
-		"Thraxia",
-	},
-}
-
-worldAreas["MapTier3_3"] = {
-	name = "Vaal Pyramid (Map)",
-	baseName = "Vaal Pyramid",
-	tags = { "indoors_area", "map", "einharmaps", "vaal_pyramid_area", "triple_boss_map" },
-	act = 11,
-	level = 68,
-	isMap = true,
-	monsterVarieties = {
-		"Ancient Construct",
-	},
-	bossVarieties = {
-		"The Broken Prince",
-		"The Fallen Queen",
-		"The Hollow Lady",
-	},
-}
-
-worldAreas["MapTier3_3Unique"] = {
-	name = "Vaults of Atziri (Map)",
-	baseName = "Vaults of Atziri",
-	tags = { "indoors_area", "unique_map", "map", "no_tempests", "no_boss", "no_monster_packs", "vaults_of_atziri", "no_leaguestone", "vaal_pyramid_area", "wealthy_area", "gold_pile_area" },
-	act = 11,
-	level = 68,
-	isMap = true,
-	monsterVarieties = {
-		"Ancient Construct",
-	},
-}
-
-worldAreas["MapTier3_4"] = {
-	name = "Reef (Map)",
-	baseName = "Reef",
-	tags = { "map", "area_with_water", "cannot_be_twinned", "einharmaps", "reef_area", "ship_graveyard_area", "map_area_with_open_water", "ocean_area", "king_boss_area", "god_boss_map_area" },
-	act = 11,
-	level = 68,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Nassar, Lion of the Seas",
-	},
-}
-
-worldAreas["MapTier3_4Unique"] = {
-	name = "Mao Kun (Map)",
-	baseName = "Mao Kun",
-	tags = { "unique_map", "map", "area_with_water", "coast_boat_area", "map_area_with_open_water", "ocean_area" },
-	act = 11,
-	level = 68,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Fairgraves, Never Dying",
-	},
-}
-
-worldAreas["MapTier3_5"] = {
-	name = "Fungal Hollow (Map)",
-	baseName = "Fungal Hollow",
-	tags = { "map", "einharmaps", "indoors_area", "cave_area", "bandit_area" },
-	act = 11,
-	level = 68,
-	isMap = true,
-	monsterVarieties = {
-		"Alira's Deadeye",
-		"Kraityn's Sentry",
-		"Oak's Devoted",
-		"Oak's Sniper",
-	},
-	bossVarieties = {
-		"Aulen Greychain",
-	},
-}
-
-worldAreas["MapTier3_6"] = {
-	name = "Mud Geyser (Map)",
-	baseName = "Mud Geyser",
-	tags = { "map", "area_with_water", "einharmaps", "fetid_area", "mud_geyser_area", "toxic_pool_area" },
-	act = 11,
-	level = 68,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Tunneltrap",
-	},
-}
-
-worldAreas["MapTier3_7"] = {
-	name = "Museum (Map)",
-	baseName = "Museum",
-	tags = { "indoors_area", "map", "delve_chest", "einharmaps", "library_area", "relic_area", "maligaro_area", "unholy_trio_area" },
-	act = 11,
-	level = 68,
-	isMap = true,
-	monsterVarieties = {
-		"Colossal Bonestalker",
-	},
-	bossVarieties = {
-		"He of Many Pieces",
-	},
-}
-
-worldAreas["MapTier4_1"] = {
-	name = "Bone Crypt (Map)",
-	baseName = "Bone Crypt",
-	tags = { "indoors_area", "map", "einharmaps", "catacomb_area", "crypt_area", "summoner_area", "necromancer_area" },
-	act = 11,
-	level = 69,
-	isMap = true,
-	monsterVarieties = {
-		"Bone Husk",
-		"Brittle Poacher",
-		"Frost Harbinger",
-		"Plagued Bowman",
-		"Sparking Mage",
-		"Vexing Archer",
-	},
-	bossVarieties = {
-		"Xixic, High Necromancer",
-	},
-}
-
 worldAreas["MapTier4_1Unique"] = {
 	name = "Convent of the Twins' Flame (Map)",
 	baseName = "Convent of the Twins' Flame",
@@ -8201,1591 +7761,6 @@ worldAreas["MapTier4_1Unique"] = {
 	level = 69,
 	isMap = true,
 	monsterVarieties = {
-	},
-}
-
-worldAreas["MapTier4_2"] = {
-	name = "Overgrown Shrine (Map)",
-	baseName = "Overgrown Shrine",
-	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "chamber_of_sins_area", "maligaro_area", "unholy_trio_area", "trio_soul_area" },
-	act = 11,
-	level = 69,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Maligaro the Mutilator",
-	},
-}
-
-worldAreas["MapTier4_2Unique"] = {
-	name = "Acton's Nightmare (Map)",
-	baseName = "Acton's Nightmare",
-	tags = { "indoors_area", "unique_map", "map", "limited_tempests", "area_with_water", "necromancer_area" },
-	act = 11,
-	level = 69,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Rose",
-		"Thorn",
-	},
-}
-
-worldAreas["MapTier4_3"] = {
-	name = "Crystal Ore (Map)",
-	baseName = "Crystal Ore",
-	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "mine_area", "cave_area", "triple_boss_map", "crystal_ore_area", "crystalline_area", "undying_boss_area" },
-	act = 11,
-	level = 69,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Lord of the Hollows",
-		"Messenger of the Hollows",
-		"Champion of the Hollows",
-	},
-}
-
-worldAreas["MapTier4_4"] = {
-	name = "Shore (Map)",
-	baseName = "Shore",
-	tags = { "map", "area_with_water", "einharmaps", "has_road_area", "coast_boat_area", "map_area_with_open_water", "ocean_area", "peaceful_map", "karui_map" },
-	act = 11,
-	level = 69,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Belcer, the Pirate Lord",
-	},
-}
-
-worldAreas["MapTier4_5"] = {
-	name = "Spider Forest (Map)",
-	baseName = "Spider Forest",
-	tags = { "map", "einharmaps", "forest_map_area", "bandit_area", "alira_area", "summoner_area", "bandit_area" },
-	act = 11,
-	level = 69,
-	isMap = true,
-	monsterVarieties = {
-		"Leaping Spider",
-	},
-	bossVarieties = {
-		"Enticer of Rot",
-	},
-}
-
-worldAreas["MapTier4_6"] = {
-	name = "Promenade (Map)",
-	baseName = "Promenade",
-	tags = { "map", "delve_chest", "einharmaps", "lunaris_outer_area", "urban_sarn_area", "parapet_area", "rain_area", "military_area" },
-	act = 11,
-	level = 69,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Blackguard Avenger",
-		"Blackguard Tempest",
-	},
-}
-
-worldAreas["MapTier4_6Unique"] = {
-	name = "The Hall of Grandmasters (Map)",
-	baseName = "The Hall of Grandmasters",
-	tags = { "unique_map", "map", "limited_tempests", "no_boss", "no_monster_packs", "hall_of_grandmasters", "no_leaguestone" },
-	act = 11,
-	level = 69,
-	isMap = true,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["MapTier5_1"] = {
-	name = "Underground River (Map)",
-	baseName = "Underground River",
-	tags = { "indoors_area", "map", "einharmaps", "cave_area" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-		"Merveil's Attendant",
-		"Merveil's Blessed",
-		"Merveil's Chosen",
-		"Merveil's Retainer",
-		"Singing Siren",
-	},
-	bossVarieties = {
-		"It That Fell",
-	},
-}
-
-worldAreas["MapTier5_2"] = {
-	name = "Pier (Map)",
-	baseName = "Pier",
-	tags = { "map", "area_with_water", "einharmaps", "dock_area", "map_area_with_open_water", "ocean_area", "undying_boss_area" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-		"Foreman",
-	},
-	bossVarieties = {
-		"Ancient Architect",
-	},
-}
-
-worldAreas["MapTier5_3"] = {
-	name = "Bog (Map)",
-	baseName = "Bog",
-	tags = { "map", "area_with_water", "einharmaps", "fetid_area", "toxic_pool_area" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Skullbeak",
-	},
-}
-
-worldAreas["MapTier5_4"] = {
-	name = "Graveyard (Map)",
-	baseName = "Graveyard",
-	tags = { "map", "area_with_water", "einharmaps", "graveyard_area", "rain_area", "triple_boss_map", "cannot_be_twinned", "cemetery_map_area", "archer_boss_area" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Thunderskull",
-		"Steelpoint the Avenger",
-		"Champion of Frost",
-	},
-}
-
-worldAreas["MapTier5_5"] = {
-	name = "Coves (Map)",
-	baseName = "Coves",
-	tags = { "map", "area_with_water", "einharmaps", "reef_area", "ship_graveyard_area", "map_area_with_open_water", "ocean_area", "golem_boss_area", "karui_map" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Telvar, the Inebriated",
-		"Pirate Treasure",
-	},
-}
-
-worldAreas["MapTier5_6"] = {
-	name = "Villa (Map)",
-	baseName = "Villa",
-	tags = { "indoors_area", "map", "delve_chest", "einharmaps", "sceptre_of_god_area", "rain_area", "wealthy_area", "dominus_area" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"The High Templar",
-	},
-}
-
-worldAreas["MapTier6_1"] = {
-	name = "Temple (Map)",
-	baseName = "Temple",
-	tags = { "indoors_area", "map", "area_with_water", "delve_chest", "einharmaps", "solaris_area", "wealthy_area", "church" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-		"Flame Sentinel",
-		"Galvanic Ribbon",
-	},
-	bossVarieties = {
-		"Jorus, Sky's Edge",
-	},
-}
-
-worldAreas["MapTier6_1Unique"] = {
-	name = "Poorjoy's Asylum (Map)",
-	baseName = "Poorjoy's Asylum",
-	tags = { "indoors_area", "unique_map", "map", "limited_tempests", "area_with_water", "thaumaturgy_area", "lunaris_blood_area" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-		"Burned Miscreation",
-		"Flame Sentinel",
-		"Flesh Sculptor",
-		"Galvanic Ribbon",
-		"Mortality Experimenter",
-		"Reanimator",
-		"Tentacle Miscreation",
-		"Whipping Miscreation",
-	},
-	bossVarieties = {
-		"Mistress Hyseria",
-	},
-}
-
-worldAreas["MapTier6_2"] = {
-	name = "Arachnid Nest (Map)",
-	baseName = "Arachnid Nest",
-	tags = { "indoors_area", "map", "einharmaps", "spider_boss_area" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-		"Leaping Spider",
-	},
-	bossVarieties = {
-		"Spinner of False Hope",
-	},
-}
-
-worldAreas["MapTier6_3"] = {
-	name = "Strand (Map)",
-	baseName = "Strand",
-	tags = { "map", "area_with_water", "einharmaps", "lightning_area", "coast_boat_area", "map_area_with_open_water", "ocean_area", "bandit_area", "kraityn_area", "karui_map" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Master of the Blade",
-		"Massier",
-	},
-}
-
-worldAreas["MapTier6_3Unique"] = {
-	name = "Whakawairua Tuahu (Map)",
-	baseName = "Whakawairua Tuahu",
-	tags = { "unique_map", "map", "limited_tempests", "area_with_water", "domination_leaguestone", "coast_boat_area", "map_area_with_open_water", "ocean_area", "sea_witch_boss_area", "rogue_exile_boss_area" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-		"Merveil's Attendant",
-		"Merveil's Chosen",
-		"Tentacle Miscreation",
-		"Whipping Miscreation",
-	},
-	bossVarieties = {
-		"Tormented Temptress",
-	},
-}
-
-worldAreas["MapTier6_4"] = {
-	name = "Ashen Wood (Map)",
-	baseName = "Ashen Wood",
-	tags = { "map", "einharmaps", "fields_area", "forest_map_area", "archer_boss_area" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Lord of the Ashen Arrow",
-	},
-}
-
-worldAreas["MapTier6_5"] = {
-	name = "Colonnade (Map)",
-	baseName = "Colonnade",
-	tags = { "map", "einharmaps", "lunaris_outer_area", "urban_sarn_area", "rain_area", "military_area" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-		"Blackguard Arcmage",
-		"Blackguard Mage",
-	},
-	bossVarieties = {
-		"Tyrant",
-	},
-}
-
-worldAreas["MapTier6_5Unique"] = {
-	name = "Blackguard Salute (Map)",
-	baseName = "Blackguard Salute",
-	tags = { "unique_map", "map", "warbands_leaguestone", "domination_leaguestone", "old_map_series" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-		"Blackguard Arcmage",
-		"Blackguard Mage",
-		"Mortality Experimenter",
-	},
-	bossVarieties = {
-		"Warmonger",
-		"Piety the Empyrean",
-		"Dominus, High Templar",
-	},
-}
-
-worldAreas["MapTier7_1"] = {
-	name = "Primordial Blocks (Map)",
-	baseName = "Primordial Blocks",
-	tags = { "map", "cannot_be_twinned", "einharmaps", "crystalline_area", "bridge_area" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-		"Whipping Miscreation",
-	},
-	bossVarieties = {
-		"High Lithomancer",
-	},
-}
-
-worldAreas["MapTier7_1Unique"] = {
-	name = "Oba's Cursed Trove (Map)",
-	baseName = "Oba's Cursed Trove",
-	tags = { "indoors_area", "unique_map", "map", "limited_tempests", "no_boss", "ambush_leaguestone", "domination_leaguestone", "perandus_leaguestone", "essence_leaguestone", "breach_leaguestone" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-		"Archer Statue",
-		"Burned Miscreation",
-		"Defiler",
-		"Tentacle Miscreation",
-		"Undying Incinerator",
-		"Whipping Miscreation",
-	},
-}
-
-worldAreas["MapTier7_2"] = {
-	name = "Waste Pool (Map)",
-	baseName = "Waste Pool",
-	tags = { "map", "indoors_area", "area_with_water", "cannot_be_twinned", "einharmaps", "sewer_area", "vile_areas", "doedre_area", "unholy_trio_area" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-		"Undying Alchemist",
-	},
-	bossVarieties = {
-		"Portentia, the Foul",
-	},
-}
-
-worldAreas["MapTier7_3"] = {
-	name = "Flooded Mine (Map)",
-	baseName = "Flooded Mine",
-	tags = { "indoors_area", "map", "einharmaps", "mine_area", "cave_area", "flooded_area", "golem_boss_area" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"The Eroding One",
-	},
-}
-
-worldAreas["MapTier7_4"] = {
-	name = "Jungle Valley (Map)",
-	baseName = "Jungle Valley",
-	tags = { "map", "einharmaps", "forest_map_area", "jungle_valley_area", "windy_area", "spider_boss_area" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-		"Bramble Cobra",
-	},
-	bossVarieties = {
-		"Queen of the Great Tangle",
-	},
-}
-
-worldAreas["MapTier7_5"] = {
-	name = "Gardens (Map)",
-	baseName = "Gardens",
-	tags = { "map", "area_with_water", "einharmaps", "garden_area" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Sallazzang",
-	},
-}
-
-worldAreas["MapTier8_1"] = {
-	name = "Cells (Map)",
-	baseName = "Cells",
-	tags = { "indoors_area", "map", "einharmaps", "shavronne_area", "unholy_trio_area", "prison_area", "trio_soul_area" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-		"Bone Husk",
-		"Brittle Poacher",
-		"Frost Harbinger",
-		"Plagued Bowman",
-		"Sparking Mage",
-		"Vexing Archer",
-	},
-	bossVarieties = {
-		"Shock and Horror",
-	},
-}
-
-worldAreas["MapTier8_2"] = {
-	name = "Canyon (Map)",
-	baseName = "Canyon",
-	tags = { "map", "area_with_water", "einharmaps", "archer_boss_area", "scavenger_boss_area" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-		"Carrion Queen",
-	},
-	bossVarieties = {
-		"Gnar, Eater of Carrion",
-		"Stonebeak, Battle Fowl",
-	},
-}
-
-worldAreas["MapTier8_3"] = {
-	name = "Dark Forest (Map)",
-	baseName = "Dark Forest",
-	tags = { "map", "no_echo", "einharmaps", "has_road_area", "forest_map_area", "dark_forest_area", "rigwald_area", "king_boss_area" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"The Cursed King",
-	},
-}
-
-worldAreas["MapTier8_4"] = {
-	name = "Peninsula (Map)",
-	baseName = "Peninsula",
-	tags = { "map", "area_with_water", "einharmaps", "fields_area", "map_area_with_open_water", "ocean_area", "golem_boss_area" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-		"Cannibal Fire-eater",
-	},
-	bossVarieties = {
-		"Titan of the Grove",
-	},
-}
-
-worldAreas["MapTier9_1"] = {
-	name = "Underground Sea (Map)",
-	baseName = "Underground Sea",
-	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "flooded_area", "cave_area", "gold_pile_area", "merveil_area", "sea_witch_boss_area" },
-	act = 11,
-	level = 74,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Merveil, the Reflection",
-	},
-}
-
-worldAreas["MapTier9_2"] = {
-	name = "Maze (Map)",
-	baseName = "Maze",
-	tags = { "indoors_area", "map", "einharmaps", "vaal_pyramid_area" },
-	act = 11,
-	level = 74,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Shadow of the Vaal",
-	},
-}
-
-worldAreas["MapTier9_2Unique"] = {
-	name = "Olmec's Sanctum (Map)",
-	baseName = "Olmec's Sanctum",
-	tags = { "indoors_area", "unique_map", "map", "limited_tempests" },
-	act = 11,
-	level = 74,
-	isMap = true,
-	monsterVarieties = {
-		"Alira's Deadeye",
-		"Bearded Devil",
-		"Bearded Shaman",
-		"Bramble Cobra",
-		"Cinder Elemental",
-		"Death Bishop",
-		"Defiler",
-		"Galvanic Ribbon",
-		"Goatman",
-		"Goatman Shaman",
-		"Incinerated Mage",
-		"Sparking Mage",
-		"Undying Alchemist",
-		"Undying Incinerator",
-	},
-	bossVarieties = {
-		"Olmec, the All Stone",
-	},
-}
-
-worldAreas["MapTier9_3"] = {
-	name = "Glacier (Map)",
-	baseName = "Glacier",
-	tags = { "map", "no_echo", "einharmaps", "snow_area", "goatman_bear_boss_area", "snow_mountain_area" },
-	act = 11,
-	level = 74,
-	isMap = true,
-	monsterVarieties = {
-		"Dune Hellion",
-	},
-	bossVarieties = {
-		"Rek'tar, the Breaker",
-	},
-}
-
-worldAreas["MapTier9_4"] = {
-	name = "Residence (Map)",
-	baseName = "Residence",
-	tags = { "indoors_area", "map", "no_echo", "delve_chest", "einharmaps", "tower_area", "wealthy_area", "sceptre_of_god_area", "undying_boss_area", "city_home_map" },
-	act = 11,
-	level = 74,
-	isMap = true,
-	monsterVarieties = {
-		"Plumed Chimeral",
-	},
-	bossVarieties = {
-		"Excellis Aurafix",
-	},
-}
-
-worldAreas["MapTier10_1"] = {
-	name = "Necropolis (Map)",
-	baseName = "Necropolis",
-	tags = { "indoors_area", "map", "einharmaps", "necropolis_area" },
-	act = 11,
-	level = 75,
-	isMap = true,
-	monsterVarieties = {
-		"Ash Prophet",
-		"Death Bishop",
-		"Defiler",
-		"Frost Harbinger",
-		"Sin Lord",
-		"Sparking Mage",
-	},
-	bossVarieties = {
-		"Burtok, Conjurer of Bones",
-	},
-}
-
-worldAreas["MapTier10_1Unique"] = {
-	name = "Death and Taxes (Map)",
-	baseName = "Death and Taxes",
-	tags = { "indoors_area", "unique_map", "map", "limited_tempests", "no_monster_packs", "no_strongboxes", "no_leaguestone" },
-	act = 11,
-	level = 75,
-	isMap = true,
-	monsterVarieties = {
-		"Ash Prophet",
-		"Death Bishop",
-		"Defiler",
-		"Frost Harbinger",
-		"Sin Lord",
-		"Sparking Mage",
-		"Vaal Slayer",
-	},
-	bossVarieties = {
-		"Avatar of Apocalypse",
-	},
-}
-
-worldAreas["MapTier10_2"] = {
-	name = "Plateau (Map)",
-	baseName = "Plateau",
-	tags = { "map", "area_with_water", "einharmaps", "map_area_with_open_water", "ocean_area", "windy_area", "totem_lightning_boss_area" },
-	act = 11,
-	level = 75,
-	isMap = true,
-	monsterVarieties = {
-		"Bone Husk",
-		"Brittle Poacher",
-		"Frost Harbinger",
-		"Plagued Bowman",
-		"Sparking Mage",
-		"Vexing Archer",
-	},
-	bossVarieties = {
-		"Puruna, the Challenger",
-		"Poporo, the Highest Spire",
-	},
-}
-
-worldAreas["MapTier10_3"] = {
-	name = "Bazaar (Map)",
-	baseName = "Bazaar",
-	tags = { "map", "einharmaps", "marketplace_area", "undying_boss_area", "ruined_area", "city_home_map" },
-	act = 11,
-	level = 75,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Ancient Sculptor",
-	},
-}
-
-worldAreas["MapTier11_1"] = {
-	name = "Lava Chamber (Map)",
-	baseName = "Lava Chamber",
-	tags = { "indoors_area", "map", "delve_chest", "einharmaps", "fire_area", "fire_prison_area", "sea_witch_boss_area" },
-	act = 11,
-	level = 76,
-	isMap = true,
-	monsterVarieties = {
-		"Cinder Elemental",
-	},
-	bossVarieties = {
-		"Fire and Fury",
-	},
-}
-
-worldAreas["MapTier11_2"] = {
-	name = "Precinct (Map)",
-	baseName = "Precinct",
-	tags = { "map", "einharmaps", "urban_sarn_area", "slums_area", "ruined_area", "rogue_exile_boss_area" },
-	act = 11,
-	level = 76,
-	isMap = true,
-	monsterVarieties = {
-		"Undying Impaler",
-		"Undying Outcast",
-	},
-	bossVarieties = {
-		"Orra Greengate",
-		"Torr Olgosso",
-		"Damoi Tui",
-		"Eoin Greyfur",
-		"Wilorin Demontamer",
-		"Augustina Solaria",
-		"Igna Phoenix",
-	},
-}
-
-worldAreas["MapTier11_3"] = {
-	name = "Academy (Map)",
-	baseName = "Academy",
-	tags = { "indoors_area", "map", "delve_chest", "einharmaps", "library_area", "undying_boss_area" },
-	act = 11,
-	level = 76,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"The Arbiter of Knowledge",
-	},
-}
-
-worldAreas["MapTier12_1"] = {
-	name = "Shipyard (Map)",
-	baseName = "Shipyard",
-	tags = { "map", "area_with_water", "einharmaps", "dock_area", "rain_area", "map_area_with_open_water", "ocean_area" },
-	act = 11,
-	level = 77,
-	isMap = true,
-	monsterVarieties = {
-		"Cursed Mariner",
-		"Spectral Bowman",
-		"Spectral Scoundrel",
-	},
-	bossVarieties = {
-		"Musky 'Two-Eyes' Grenn",
-		"Susara, Siren of Pondium",
-		"Lussi 'Rotmother' Roth",
-	},
-}
-
-worldAreas["MapTier12_2"] = {
-	name = "Shrine (Map)",
-	baseName = "Shrine",
-	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "lunaris_blood_area", "thaumaturgy_area", "piety_area" },
-	act = 11,
-	level = 77,
-	isMap = true,
-	monsterVarieties = {
-		"Mortality Experimenter",
-		"Reanimator",
-	},
-	bossVarieties = {
-		"Piety the Empyrean",
-	},
-}
-
-worldAreas["MapTier12_2Unique"] = {
-	name = "Wraeclast Pantheon (Map)",
-	baseName = "Wraeclast Pantheon",
-	tags = { "unique_map", "map", "warbands_leaguestone", "domination_leaguestone", "old_map_series" },
-	act = 11,
-	level = 77,
-	isMap = true,
-	monsterVarieties = {
-		"Ancient Construct",
-		"Blackguard Arcmage",
-		"Blackguard Mage",
-		"Merveil's Attendant",
-		"Oak's Devoted",
-		"Tentacle Miscreation",
-	},
-	bossVarieties = {
-		"Hillock",
-		"Penitentiary Incarcerator ",
-		"Merveil, the Reflection",
-		"Witch of the Cauldron",
-		"Oak the Mighty",
-		"Master of the Blade",
-		"Shadow of the Vaal",
-		"Piety the Empyrean",
-		"Warmonger",
-		"God's Chosen",
-	},
-}
-
-worldAreas["MapTier13_1"] = {
-	name = "Palace (Map)",
-	baseName = "Palace",
-	tags = { "indoors_area", "map", "no_echo", "delve_chest", "einharmaps", "sceptre_of_god_area", "wealthy_area", "dominus_area" },
-	act = 11,
-	level = 78,
-	isMap = true,
-	monsterVarieties = {
-		"Undying Evangelist",
-	},
-	bossVarieties = {
-		"God's Chosen",
-		"The Hallowed Husk",
-	},
-}
-
-worldAreas["MapTier13_2"] = {
-	name = "Courtyard (Map)",
-	baseName = "Courtyard",
-	tags = { "map", "einharmaps", "garden_area", "lightning_area", "triple_boss_map", "rain_area" },
-	act = 11,
-	level = 78,
-	isMap = true,
-	monsterVarieties = {
-		"Avian Retch",
-		"Gluttonous Gull",
-	},
-	bossVarieties = {
-		"Oriath's Virtue",
-		"Oriath's Vengeance",
-		"Oriath's Vigil",
-	},
-}
-
-worldAreas["MapTier14_1"] = {
-	name = "Vaal Temple (Map)",
-	baseName = "Vaal Temple",
-	tags = { "indoors_area", "map", "cannot_be_twinned", "einharmaps", "vaal_pyramid_area", "triple_boss_map" },
-	act = 11,
-	level = 79,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"K'aj Q'ura",
-		"K'aj Y'ara'az",
-		"K'aj A'alai",
-	},
-}
-
-worldAreas["Map2Tier1_1"] = {
-	name = "Cursed Crypt (Map)",
-	baseName = "Cursed Crypt",
-	tags = { "indoors_area", "map", "einharmaps", "crypt_area" },
-	act = 11,
-	level = 68,
-	isMap = true,
-	monsterVarieties = {
-		"Bone Husk",
-		"Brittle Poacher",
-		"Frost Harbinger",
-		"Plagued Bowman",
-		"Sparking Mage",
-		"Vexing Archer",
-	},
-	bossVarieties = {
-		"Pagan Bishop of Agony",
-	},
-}
-
-worldAreas["Map2Tier1_1Unique"] = {
-	name = "The Coward's Trial (Map)",
-	baseName = "The Coward's Trial",
-	tags = { "indoors_area", "unique_map", "map", "limited_tempests", "no_monster_packs", "no_strongboxes", "cowards_trial", "anarchy_leaguestone", "torment_leaguestone", "warbands_leaguestone", "ambush_leaguestone", "domination_leaguestone", "talisman_leaguestone", "perandus_leaguestone", "prophecy_leaguestone", "essence_leaguestone", "breach_leaguestone", "crypt_area", "necromancer_area" },
-	act = 11,
-	level = 68,
-	isMap = true,
-	monsterVarieties = {
-		"Bone Husk",
-		"Brittle Bleeder",
-		"Brittle Poacher",
-		"Frost Harbinger",
-		"Necromancer",
-		"Plagued Bowman",
-		"Sparking Mage",
-		"Vexing Archer",
-	},
-	bossVarieties = {
-		"Infector of Dreams",
-	},
-}
-
-worldAreas["Map2Tier1_2"] = {
-	name = "Dungeon (Map)",
-	baseName = "Dungeon",
-	tags = { "indoors_area", "map", "einharmaps", "prison_area" },
-	act = 11,
-	level = 68,
-	isMap = true,
-	monsterVarieties = {
-		"Ash Prophet",
-		"Death Bishop",
-		"Defiler",
-		"Diabolist",
-		"Frost Harbinger",
-		"Necromancer",
-		"Sin Lord",
-		"Sparking Mage",
-	},
-	bossVarieties = {
-		"Penitentiary Incarcerator",
-	},
-}
-
-worldAreas["Map2Tier1_3"] = {
-	name = "Grotto (Map)",
-	baseName = "Grotto",
-	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "den_area", "cave_area", "chaos_golem_boss_area", "golem_boss_area" },
-	act = 11,
-	level = 68,
-	isMap = true,
-	monsterVarieties = {
-		"Armour Cruncher",
-		"Hairy Bonecruncher",
-		"Shaggy Monstrosity",
-	},
-	bossVarieties = {
-		"Void Anomaly",
-	},
-}
-
-worldAreas["Map2Tier1_4"] = {
-	name = "Dunes (Map)",
-	baseName = "Dunes",
-	tags = { "map", "area_with_water", "einharmaps", "desert_area", "desert_map_area" },
-	act = 11,
-	level = 68,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"The Blacksmith",
-	},
-}
-
-worldAreas["Map2Tier1_5"] = {
-	name = "Pit (Map)",
-	baseName = "Pit",
-	tags = { "map", "einharmaps", "daresso_area", "pitfight_area" },
-	act = 11,
-	level = 68,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Olof, Son of the Headsman",
-	},
-}
-
-worldAreas["Map2Tier1_6"] = {
-	name = "Tropical Island (Map)",
-	baseName = "Tropical Island",
-	tags = { "map", "area_with_water", "einharmaps", "forest_map_area", "tropical_island_area", "map_area_with_open_water", "ocean_area" },
-	act = 11,
-	level = 68,
-	isMap = true,
-	monsterVarieties = {
-		"Carnage Chieftain",
-	},
-	bossVarieties = {
-		"Blood Progenitor",
-	},
-}
-
-worldAreas["Map2Tier1_6Unique"] = {
-	name = "Untainted Paradise (Map)",
-	baseName = "Untainted Paradise",
-	tags = { "unique_map", "map", "limited_tempests", "area_with_water", "no_strongboxes", "anarchy_leaguestone", "torment_leaguestone", "invasion_leaguestone", "warbands_leaguestone", "ambush_leaguestone", "domination_leaguestone", "talisman_leaguestone", "perandus_leaguestone", "prophecy_leaguestone", "essence_leaguestone", "breach_leaguestone", "map_area_with_open_water" },
-	act = 11,
-	level = 68,
-	isMap = true,
-	monsterVarieties = {
-		"Carnage Chieftain",
-	},
-	bossVarieties = {
-		"Prime Ape",
-		"Colossal Spitter",
-		"The First Rhoa",
-		"Great Maw",
-		"Clutch Queen",
-		"Elder Devourer",
-	},
-}
-
-worldAreas["Map2Tier1_7"] = {
-	name = "Desert (Map)",
-	baseName = "Desert",
-	tags = { "map", "einharmaps", "desert_area", "desert_map_area" },
-	act = 11,
-	level = 68,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Preethi, Eye-Pecker",
-	},
-}
-
-worldAreas["Map2Tier2_1"] = {
-	name = "Toxic Sewer (Map)",
-	baseName = "Toxic Sewer",
-	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "sewer_area", "vile_areas", "spider_boss_area" },
-	act = 11,
-	level = 69,
-	isMap = true,
-	monsterVarieties = {
-		"Fetid Maw",
-	},
-	bossVarieties = {
-		"Arachnoxia",
-	},
-}
-
-worldAreas["Map2Tier2_2"] = {
-	name = "Channel (Map)",
-	baseName = "Channel",
-	tags = { "map", "area_with_water", "delve_chest", "einharmaps", "aqueduct_area", "scavenger_boss_area" },
-	act = 11,
-	level = 69,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"The Winged Death",
-	},
-}
-
-worldAreas["Map2Tier2_3"] = {
-	name = "Thicket (Map)",
-	baseName = "Thicket",
-	tags = { "indoors_area", "map", "einharmaps", "thicket_area", "forest_map_area" },
-	act = 11,
-	level = 69,
-	isMap = true,
-	monsterVarieties = {
-		"Bramble Cobra",
-	},
-	bossVarieties = {
-		"The Primal One",
-	},
-}
-
-worldAreas["Map2Tier2_4"] = {
-	name = "Atoll (Map)",
-	baseName = "Atoll",
-	tags = { "map", "area_with_water", "einharmaps", "map_area_with_open_water", "ocean_area", "windy_area", "totem_lightning_boss_area" },
-	act = 11,
-	level = 69,
-	isMap = true,
-	monsterVarieties = {
-		"Bearded Devil",
-		"Bearded Shaman",
-		"Goatman",
-		"Goatman Shaman",
-	},
-	bossVarieties = {
-		"Puruna, the Challenger",
-	},
-}
-
-worldAreas["Map2Tier2_4Unique"] = {
-	name = "Maelström of Chaos (Map)",
-	baseName = "Maelström of Chaos",
-	tags = { "unique_map", "map", "limited_tempests", "area_with_water", "map_area_with_open_water", "ocean_area", "gold_pile_area", "merveil_area", "sea_witch_boss_area" },
-	act = 11,
-	level = 69,
-	isMap = true,
-	monsterVarieties = {
-		"Bearded Devil",
-		"Bearded Shaman",
-		"Goatman",
-		"Goatman Shaman",
-	},
-	bossVarieties = {
-		"Merveil, the Reflection",
-		"Merveil, the Returned",
-	},
-}
-
-worldAreas["Map2Tier2_5"] = {
-	name = "Cemetery (Map)",
-	baseName = "Cemetery",
-	tags = { "map", "cannot_be_twinned", "einharmaps", "graveyard_area", "rain_area", "cemetery_map_area", "god_boss_map_area" },
-	act = 11,
-	level = 69,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Erebix, Light's Bane",
-	},
-}
-
-worldAreas["Map2Tier2_6"] = {
-	name = "Arcade (Map)",
-	baseName = "Arcade",
-	tags = { "map", "einharmaps", "marketplace_area", "ruined_area", "city_home_map" },
-	act = 11,
-	level = 69,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Herald of Ashes",
-		"Herald of Thunder",
-	},
-}
-
-worldAreas["Map2Tier2_7"] = {
-	name = "Wharf (Map)",
-	baseName = "Wharf",
-	tags = { "map", "area_with_water", "einharmaps", "dock_area", "rain_area", "map_area_with_open_water", "ocean_area", "golem_boss_area" },
-	act = 11,
-	level = 69,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Stone of the Currents",
-	},
-}
-
-worldAreas["Map2Tier3_1"] = {
-	name = "Ghetto (Map)",
-	baseName = "Ghetto",
-	tags = { "map", "einharmaps", "urban_sarn_area", "slums_area", "ruined_area" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-		"Undying Impaler",
-		"Undying Outcast",
-	},
-	bossVarieties = {
-		"Hephaeus, The Hammer",
-	},
-}
-
-worldAreas["Map2Tier3_2"] = {
-	name = "Spider Lair (Map)",
-	baseName = "Spider Lair",
-	tags = { "indoors_area", "map", "einharmaps", "spider_boss_area" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-		"Leaping Spider",
-	},
-	bossVarieties = {
-		"Thraxia",
-	},
-}
-
-worldAreas["Map2Tier3_3"] = {
-	name = "Vaal Pyramid (Map)",
-	baseName = "Vaal Pyramid",
-	tags = { "indoors_area", "map", "einharmaps", "vaal_pyramid_area", "triple_boss_map" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-		"Ancient Construct",
-	},
-	bossVarieties = {
-		"The Broken Prince",
-		"The Fallen Queen",
-		"The Hollow Lady",
-	},
-}
-
-worldAreas["Map2Tier3_3Unique"] = {
-	name = "Vaults of Atziri (Map)",
-	baseName = "Vaults of Atziri",
-	tags = { "indoors_area", "unique_map", "map", "no_tempests", "no_boss", "no_monster_packs", "vaults_of_atziri", "no_leaguestone", "vaal_pyramid_area", "wealthy_area", "gold_pile_area" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-		"Ancient Construct",
-	},
-}
-
-worldAreas["Map2Tier3_4"] = {
-	name = "Reef (Map)",
-	baseName = "Reef",
-	tags = { "map", "area_with_water", "cannot_be_twinned", "einharmaps", "reef_area", "ship_graveyard_area", "map_area_with_open_water", "ocean_area", "king_boss_area", "god_boss_map_area" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Nassar, Lion of the Seas",
-	},
-}
-
-worldAreas["Map2Tier3_4Unique"] = {
-	name = "Mao Kun (Map)",
-	baseName = "Mao Kun",
-	tags = { "unique_map", "map", "area_with_water", "coast_boat_area", "map_area_with_open_water", "ocean_area" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Fairgraves, Never Dying",
-	},
-}
-
-worldAreas["Map2Tier3_5"] = {
-	name = "Geode (Map)",
-	baseName = "Geode",
-	tags = { "map", "einharmaps", "mine_area", "chaos_golem_boss_area", "golem_boss_area" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-		"Pocked Lanternbearer",
-	},
-	bossVarieties = {
-		"Avatar of Undoing",
-	},
-}
-
-worldAreas["Map2Tier3_6"] = {
-	name = "Mud Geyser (Map)",
-	baseName = "Mud Geyser",
-	tags = { "map", "area_with_water", "einharmaps", "fetid_area", "mud_geyser_area", "toxic_pool_area" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Tunneltrap",
-	},
-}
-
-worldAreas["Map2Tier3_7"] = {
-	name = "Museum (Map)",
-	baseName = "Museum",
-	tags = { "indoors_area", "map", "delve_chest", "einharmaps", "library_area", "relic_area", "maligaro_area", "unholy_trio_area" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-		"Colossal Bonestalker",
-	},
-	bossVarieties = {
-		"He of Many Pieces",
-	},
-}
-
-worldAreas["Map2Tier4_1"] = {
-	name = "Arena (Map)",
-	baseName = "Arena",
-	tags = { "map", "indoors_area", "einharmaps", "daresso_area", "arena_area", "triple_boss_map", "pitfight_area" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Avatar of the Huntress",
-		"Avatar of the Skies",
-		"Avatar of the Forge",
-	},
-}
-
-worldAreas["Map2Tier4_2"] = {
-	name = "Overgrown Shrine (Map)",
-	baseName = "Overgrown Shrine",
-	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "chamber_of_sins_area", "maligaro_area", "unholy_trio_area", "trio_soul_area" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Maligaro the Mutilator",
-	},
-}
-
-worldAreas["Map2Tier4_2Unique"] = {
-	name = "Acton's Nightmare (Map)",
-	baseName = "Acton's Nightmare",
-	tags = { "indoors_area", "unique_map", "map", "limited_tempests", "area_with_water", "necromancer_area" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Rose",
-		"Thorn",
-	},
-}
-
-worldAreas["Map2Tier4_3"] = {
-	name = "Crystal Ore (Map)",
-	baseName = "Crystal Ore",
-	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "mine_area", "cave_area", "triple_boss_map", "crystal_ore_area", "crystalline_area", "undying_boss_area" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Lord of the Hollows",
-		"Messenger of the Hollows",
-		"Champion of the Hollows",
-	},
-}
-
-worldAreas["Map2Tier4_4"] = {
-	name = "Shore (Map)",
-	baseName = "Shore",
-	tags = { "map", "area_with_water", "einharmaps", "has_road_area", "coast_boat_area", "map_area_with_open_water", "ocean_area", "peaceful_map", "karui_map" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Belcer, the Pirate Lord",
-	},
-}
-
-worldAreas["Map2Tier4_5"] = {
-	name = "Spider Forest (Map)",
-	baseName = "Spider Forest",
-	tags = { "map", "einharmaps", "forest_map_area", "bandit_area", "alira_area", "summoner_area", "bandit_area" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-		"Leaping Spider",
-	},
-	bossVarieties = {
-		"Enticer of Rot",
-	},
-}
-
-worldAreas["Map2Tier4_6"] = {
-	name = "Promenade (Map)",
-	baseName = "Promenade",
-	tags = { "map", "delve_chest", "einharmaps", "lunaris_outer_area", "urban_sarn_area", "parapet_area", "rain_area", "military_area" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Blackguard Avenger",
-		"Blackguard Tempest",
-	},
-}
-
-worldAreas["Map2Tier4_6Unique"] = {
-	name = "The Hall of Grandmasters (Map)",
-	baseName = "The Hall of Grandmasters",
-	tags = { "unique_map", "map", "limited_tempests", "no_boss", "no_monster_packs", "hall_of_grandmasters", "no_leaguestone" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["Map2Tier4_7"] = {
-	name = "Phantasmagoria (Map)",
-	baseName = "Phantasmagoria",
-	tags = { "indoors_area", "map", "einharmaps", "belly_area", "vile_areas", "doedre_area", "unholy_trio_area" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-		"Stygian Revenant",
-	},
-	bossVarieties = {
-		"Erythrophagia",
-	},
-}
-
-worldAreas["Map2Tier5_1"] = {
-	name = "Underground River (Map)",
-	baseName = "Underground River",
-	tags = { "indoors_area", "map", "einharmaps", "cave_area" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-		"Merveil's Attendant",
-		"Merveil's Blessed",
-		"Merveil's Chosen",
-		"Merveil's Retainer",
-		"Singing Siren",
-	},
-	bossVarieties = {
-		"It That Fell",
-	},
-}
-
-worldAreas["Map2Tier5_1Unique"] = {
-	name = "Caer Blaidd, Wolfpack's Den (Map)",
-	baseName = "Caer Blaidd, Wolfpack's Den",
-	tags = { "indoors_area", "map", "unique_map", "cave_area", "den_area" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-		"Merveil's Attendant",
-		"Merveil's Blessed",
-		"Merveil's Chosen",
-		"Merveil's Retainer",
-		"Singing Siren",
-	},
-	bossVarieties = {
-		"Winterfang",
-		"Storm Eye",
-		"Solus, Pack Alpha",
-	},
-}
-
-worldAreas["Map2Tier5_2"] = {
-	name = "Pier (Map)",
-	baseName = "Pier",
-	tags = { "map", "area_with_water", "einharmaps", "dock_area", "map_area_with_open_water", "ocean_area", "undying_boss_area" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-		"Foreman",
-	},
-	bossVarieties = {
-		"Ancient Architect",
-	},
-}
-
-worldAreas["Map2Tier5_3"] = {
-	name = "Bog (Map)",
-	baseName = "Bog",
-	tags = { "map", "area_with_water", "einharmaps", "fetid_area", "toxic_pool_area" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Skullbeak",
-	},
-}
-
-worldAreas["Map2Tier5_4"] = {
-	name = "Graveyard (Map)",
-	baseName = "Graveyard",
-	tags = { "map", "area_with_water", "einharmaps", "graveyard_area", "rain_area", "triple_boss_map", "cannot_be_twinned", "cemetery_map_area", "archer_boss_area" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Thunderskull",
-		"Steelpoint the Avenger",
-		"Champion of Frost",
-	},
-}
-
-worldAreas["Map2Tier5_5"] = {
-	name = "Coves (Map)",
-	baseName = "Coves",
-	tags = { "map", "area_with_water", "einharmaps", "reef_area", "ship_graveyard_area", "map_area_with_open_water", "ocean_area", "golem_boss_area", "karui_map" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Telvar, the Inebriated",
-		"Pirate Treasure",
-	},
-}
-
-worldAreas["Map2Tier5_6"] = {
-	name = "Villa (Map)",
-	baseName = "Villa",
-	tags = { "indoors_area", "map", "delve_chest", "einharmaps", "sceptre_of_god_area", "rain_area", "wealthy_area", "dominus_area" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"The High Templar",
-	},
-}
-
-worldAreas["Map2Tier6_1"] = {
-	name = "Temple (Map)",
-	baseName = "Temple",
-	tags = { "indoors_area", "map", "area_with_water", "delve_chest", "einharmaps", "solaris_area", "wealthy_area", "church" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-		"Flame Sentinel",
-		"Galvanic Ribbon",
-	},
-	bossVarieties = {
-		"Jorus, Sky's Edge",
-	},
-}
-
-worldAreas["Map2Tier6_1Unique"] = {
-	name = "Poorjoy's Asylum (Map)",
-	baseName = "Poorjoy's Asylum",
-	tags = { "indoors_area", "unique_map", "map", "limited_tempests", "area_with_water", "thaumaturgy_area", "lunaris_blood_area" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-		"Burned Miscreation",
-		"Flame Sentinel",
-		"Flesh Sculptor",
-		"Galvanic Ribbon",
-		"Mortality Experimenter",
-		"Reanimator",
-		"Tentacle Miscreation",
-		"Whipping Miscreation",
-	},
-	bossVarieties = {
-		"Mistress Hyseria",
-	},
-}
-
-worldAreas["Map2Tier6_2"] = {
-	name = "Arachnid Nest (Map)",
-	baseName = "Arachnid Nest",
-	tags = { "indoors_area", "map", "einharmaps", "spider_boss_area" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-		"Leaping Spider",
-	},
-	bossVarieties = {
-		"Spinner of False Hope",
-	},
-}
-
-worldAreas["Map2Tier6_3"] = {
-	name = "Strand (Map)",
-	baseName = "Strand",
-	tags = { "map", "area_with_water", "einharmaps", "lightning_area", "coast_boat_area", "map_area_with_open_water", "ocean_area", "bandit_area", "kraityn_area", "karui_map" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Master of the Blade",
-		"Massier",
-	},
-}
-
-worldAreas["Map2Tier6_3Unique"] = {
-	name = "Whakawairua Tuahu (Map)",
-	baseName = "Whakawairua Tuahu",
-	tags = { "unique_map", "map", "limited_tempests", "area_with_water", "domination_leaguestone", "coast_boat_area", "map_area_with_open_water", "ocean_area", "sea_witch_boss_area", "rogue_exile_boss_area" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-		"Merveil's Attendant",
-		"Merveil's Chosen",
-		"Tentacle Miscreation",
-		"Whipping Miscreation",
-	},
-	bossVarieties = {
-		"Tormented Temptress",
-	},
-}
-
-worldAreas["Map2Tier6_4_"] = {
-	name = "Ashen Wood (Map)",
-	baseName = "Ashen Wood",
-	tags = { "map", "einharmaps", "fields_area", "forest_map_area", "archer_boss_area" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Lord of the Ashen Arrow",
-	},
-}
-
-worldAreas["Map2Tier6_5"] = {
-	name = "Colonnade (Map)",
-	baseName = "Colonnade",
-	tags = { "map", "einharmaps", "lunaris_outer_area", "urban_sarn_area", "rain_area", "military_area" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-		"Blackguard Arcmage",
-		"Blackguard Mage",
-	},
-	bossVarieties = {
-		"Tyrant",
 	},
 }
 
@@ -9798,659 +7773,17 @@ worldAreas["Map2Tier6_5Unique"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Scout",
+		"Blackguard Scout Commander",
+		"Blackguard Soldier",
 		"Mortality Experimenter",
 	},
 	bossVarieties = {
 		"Warmonger",
 		"Piety the Empyrean",
 		"Dominus, High Templar",
-	},
-}
-
-worldAreas["Map2Tier6_6"] = {
-	name = "Bone Crypt (Map)",
-	baseName = "Bone Crypt",
-	tags = { "indoors_area", "map", "einharmaps", "catacomb_area", "crypt_area", "summoner_area", "necromancer_area" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Xixic, High Necromancer",
-	},
-}
-
-worldAreas["Map2Tier6_6Unique"] = {
-	name = "Olmec's Sanctum (Map)",
-	baseName = "Olmec's Sanctum",
-	tags = { "indoors_area", "unique_map", "map", "limited_tempests" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-		"Alira's Deadeye",
-		"Bearded Devil",
-		"Bearded Shaman",
-		"Bramble Cobra",
-		"Cinder Elemental",
-		"Death Bishop",
-		"Defiler",
-		"Galvanic Ribbon",
-		"Goatman",
-		"Goatman Shaman",
-		"Incinerated Mage",
-		"Sparking Mage",
-		"Undying Alchemist",
-		"Undying Incinerator",
-	},
-	bossVarieties = {
-		"Olmec, the All Stone",
-	},
-}
-
-worldAreas["Map2Tier7_1"] = {
-	name = "Primordial Blocks (Map)",
-	baseName = "Primordial Blocks",
-	tags = { "map", "cannot_be_twinned", "einharmaps", "crystalline_area", "bridge_area" },
-	act = 11,
-	level = 74,
-	isMap = true,
-	monsterVarieties = {
-		"Whipping Miscreation",
-	},
-	bossVarieties = {
-		"High Lithomancer",
-	},
-}
-
-worldAreas["Map2Tier7_1Unique"] = {
-	name = "Oba's Cursed Trove (Map)",
-	baseName = "Oba's Cursed Trove",
-	tags = { "indoors_area", "unique_map", "map", "limited_tempests", "no_boss", "ambush_leaguestone", "domination_leaguestone", "perandus_leaguestone", "essence_leaguestone", "breach_leaguestone" },
-	act = 11,
-	level = 74,
-	isMap = true,
-	monsterVarieties = {
-		"Archer Statue",
-		"Burned Miscreation",
-		"Defiler",
-		"Tentacle Miscreation",
-		"Undying Incinerator",
-		"Whipping Miscreation",
-	},
-}
-
-worldAreas["Map2Tier7_2"] = {
-	name = "Waste Pool (Map)",
-	baseName = "Waste Pool",
-	tags = { "map", "indoors_area", "area_with_water", "cannot_be_twinned", "einharmaps", "sewer_area", "vile_areas", "doedre_area", "unholy_trio_area" },
-	act = 11,
-	level = 74,
-	isMap = true,
-	monsterVarieties = {
-		"Undying Alchemist",
-	},
-	bossVarieties = {
-		"Portentia, the Foul",
-	},
-}
-
-worldAreas["Map2Tier7_3"] = {
-	name = "Flooded Mine (Map)",
-	baseName = "Flooded Mine",
-	tags = { "indoors_area", "map", "einharmaps", "mine_area", "cave_area", "flooded_area", "golem_boss_area" },
-	act = 11,
-	level = 74,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"The Eroding One",
-	},
-}
-
-worldAreas["Map2Tier7_4"] = {
-	name = "Jungle Valley (Map)",
-	baseName = "Jungle Valley",
-	tags = { "map", "einharmaps", "forest_map_area", "jungle_valley_area", "windy_area", "spider_boss_area" },
-	act = 11,
-	level = 74,
-	isMap = true,
-	monsterVarieties = {
-		"Bramble Cobra",
-	},
-	bossVarieties = {
-		"Queen of the Great Tangle",
-	},
-}
-
-worldAreas["Map2Tier7_5"] = {
-	name = "Gardens (Map)",
-	baseName = "Gardens",
-	tags = { "map", "area_with_water", "einharmaps", "garden_area" },
-	act = 11,
-	level = 74,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Sallazzang",
-	},
-}
-
-worldAreas["Map2Tier8_1"] = {
-	name = "Cells (Map)",
-	baseName = "Cells",
-	tags = { "indoors_area", "map", "einharmaps", "shavronne_area", "unholy_trio_area", "prison_area", "trio_soul_area" },
-	act = 11,
-	level = 75,
-	isMap = true,
-	monsterVarieties = {
-		"Bone Husk",
-		"Brittle Poacher",
-		"Frost Harbinger",
-		"Plagued Bowman",
-		"Sparking Mage",
-		"Vexing Archer",
-	},
-	bossVarieties = {
-		"Shock and Horror",
-	},
-}
-
-worldAreas["Map2Tier8_2"] = {
-	name = "Canyon (Map)",
-	baseName = "Canyon",
-	tags = { "map", "area_with_water", "einharmaps", "archer_boss_area", "scavenger_boss_area" },
-	act = 11,
-	level = 75,
-	isMap = true,
-	monsterVarieties = {
-		"Carrion Queen",
-	},
-	bossVarieties = {
-		"Gnar, Eater of Carrion",
-		"Stonebeak, Battle Fowl",
-	},
-}
-
-worldAreas["Map2Tier8_3"] = {
-	name = "Dark Forest (Map)",
-	baseName = "Dark Forest",
-	tags = { "map", "no_echo", "einharmaps", "has_road_area", "forest_map_area", "dark_forest_area", "rigwald_area", "king_boss_area" },
-	act = 11,
-	level = 75,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"The Cursed King",
-	},
-}
-
-worldAreas["Map2Tier8_4"] = {
-	name = "Peninsula (Map)",
-	baseName = "Peninsula",
-	tags = { "map", "area_with_water", "einharmaps", "fields_area", "map_area_with_open_water", "ocean_area", "golem_boss_area" },
-	act = 11,
-	level = 75,
-	isMap = true,
-	monsterVarieties = {
-		"Cannibal Fire-eater",
-	},
-	bossVarieties = {
-		"Titan of the Grove",
-	},
-}
-
-worldAreas["Map2Tier8_5"] = {
-	name = "Orchard (Map)",
-	baseName = "Orchard",
-	tags = { "map", "no_echo", "einharmaps", "has_road_area", "garden_area", "labyrinth_tileset_area" },
-	act = 11,
-	level = 75,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Vision of Justice",
-	},
-}
-
-worldAreas["Map2Tier9_1"] = {
-	name = "Underground Sea (Map)",
-	baseName = "Underground Sea",
-	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "flooded_area", "cave_area", "gold_pile_area", "merveil_area", "sea_witch_boss_area" },
-	act = 11,
-	level = 76,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Merveil, the Reflection",
-	},
-}
-
-worldAreas["Map2Tier9_2"] = {
-	name = "Arid Lake (Map)",
-	baseName = "Arid Lake",
-	tags = { "map", "area_with_water", "einharmaps" },
-	act = 11,
-	level = 76,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Drought-Maddened Rhoa",
-	},
-}
-
-worldAreas["Map2Tier9_3"] = {
-	name = "Glacier (Map)",
-	baseName = "Glacier",
-	tags = { "map", "no_echo", "einharmaps", "snow_area", "goatman_bear_boss_area", "snow_mountain_area" },
-	act = 11,
-	level = 76,
-	isMap = true,
-	monsterVarieties = {
-		"Dune Hellion",
-	},
-	bossVarieties = {
-		"Rek'tar, the Breaker",
-	},
-}
-
-worldAreas["Map2Tier9_4"] = {
-	name = "Residence (Map)",
-	baseName = "Residence",
-	tags = { "indoors_area", "map", "no_echo", "delve_chest", "einharmaps", "tower_area", "wealthy_area", "sceptre_of_god_area", "undying_boss_area", "city_home_map" },
-	act = 11,
-	level = 76,
-	isMap = true,
-	monsterVarieties = {
-		"Plumed Chimeral",
-	},
-	bossVarieties = {
-		"Excellis Aurafix",
-	},
-}
-
-worldAreas["Map2Tier9_5"] = {
-	name = "Malformation (Map)",
-	baseName = "Malformation",
-	tags = { "indoors_area", "map", "einharmaps", "belly_area", "vile_areas", "piety_area" },
-	act = 11,
-	level = 76,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Nightmare Manifest",
-	},
-}
-
-worldAreas["Map2Tier10_1"] = {
-	name = "Necropolis (Map)",
-	baseName = "Necropolis",
-	tags = { "indoors_area", "map", "einharmaps", "necropolis_area" },
-	act = 11,
-	level = 77,
-	isMap = true,
-	monsterVarieties = {
-		"Ash Prophet",
-		"Death Bishop",
-		"Defiler",
-		"Frost Harbinger",
-		"Sin Lord",
-		"Sparking Mage",
-	},
-	bossVarieties = {
-		"Burtok, Conjurer of Bones",
-	},
-}
-
-worldAreas["Map2Tier10_1Unique"] = {
-	name = "Death and Taxes (Map)",
-	baseName = "Death and Taxes",
-	tags = { "indoors_area", "unique_map", "map", "limited_tempests", "no_monster_packs", "no_strongboxes", "no_leaguestone" },
-	act = 11,
-	level = 77,
-	isMap = true,
-	monsterVarieties = {
-		"Ash Prophet",
-		"Death Bishop",
-		"Defiler",
-		"Frost Harbinger",
-		"Sin Lord",
-		"Sparking Mage",
-		"Vaal Slayer",
-	},
-	bossVarieties = {
-		"Avatar of Apocalypse",
-	},
-}
-
-worldAreas["Map2Tier10_2"] = {
-	name = "Plateau (Map)",
-	baseName = "Plateau",
-	tags = { "map", "area_with_water", "einharmaps", "map_area_with_open_water", "ocean_area", "windy_area", "totem_lightning_boss_area" },
-	act = 11,
-	level = 77,
-	isMap = true,
-	monsterVarieties = {
-		"Bone Husk",
-		"Brittle Poacher",
-		"Frost Harbinger",
-		"Plagued Bowman",
-		"Sparking Mage",
-		"Vexing Archer",
-	},
-	bossVarieties = {
-		"Puruna, the Challenger",
-		"Poporo, the Highest Spire",
-	},
-}
-
-worldAreas["Map2Tier10_3"] = {
-	name = "Bazaar (Map)",
-	baseName = "Bazaar",
-	tags = { "map", "einharmaps", "marketplace_area", "undying_boss_area", "ruined_area", "city_home_map" },
-	act = 11,
-	level = 77,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Ancient Sculptor",
-	},
-}
-
-worldAreas["Map2Tier10_4"] = {
-	name = "Volcano (Map)",
-	baseName = "Volcano",
-	tags = { "map", "area_with_water", "einharmaps", "kaom_area", "karui_map" },
-	act = 11,
-	level = 77,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Forest of Flames",
-	},
-}
-
-worldAreas["Map2Tier10_5"] = {
-	name = "Chateau (Map)",
-	baseName = "Chateau",
-	tags = { "map", "area_with_water", "indoors_area", "einharmaps", "wealthy_area", "scavenger_boss_area", "labyrinth_tileset_area", "city_home_map" },
-	act = 11,
-	level = 77,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"The Reaver",
-	},
-}
-
-worldAreas["Map2Tier10_5Unique"] = {
-	name = "Perandus Manor (Map)",
-	baseName = "Perandus Manor",
-	tags = { "indoors_area", "map", "no_strongboxes", "unique_map", "ambush_leaguestone", "domination_leaguestone", "perandus_leaguestone", "prophecy_leaguestone", "essence_leaguestone", "breach_leaguestone", "wealthy_area", "city_home_map" },
-	act = 11,
-	level = 77,
-	isMap = true,
-	monsterVarieties = {
-		"Undying Evangelist",
-		"Undying Grappler",
-	},
-}
-
-worldAreas["Map2Tier11_1"] = {
-	name = "Lava Chamber (Map)",
-	baseName = "Lava Chamber",
-	tags = { "indoors_area", "map", "delve_chest", "einharmaps", "fire_area", "fire_prison_area", "sea_witch_boss_area" },
-	act = 11,
-	level = 78,
-	isMap = true,
-	monsterVarieties = {
-		"Cinder Elemental",
-	},
-	bossVarieties = {
-		"Fire and Fury",
-	},
-}
-
-worldAreas["Map2Tier11_2"] = {
-	name = "Precinct (Map)",
-	baseName = "Precinct",
-	tags = { "map", "einharmaps", "urban_sarn_area", "slums_area", "ruined_area", "rogue_exile_boss_area" },
-	act = 11,
-	level = 78,
-	isMap = true,
-	monsterVarieties = {
-		"Undying Impaler",
-		"Undying Outcast",
-	},
-	bossVarieties = {
-		"Orra Greengate",
-		"Torr Olgosso",
-		"Damoi Tui",
-		"Eoin Greyfur",
-		"Wilorin Demontamer",
-		"Augustina Solaria",
-		"Igna Phoenix",
-	},
-}
-
-worldAreas["Map2Tier11_3"] = {
-	name = "Academy (Map)",
-	baseName = "Academy",
-	tags = { "indoors_area", "map", "delve_chest", "einharmaps", "library_area", "undying_boss_area" },
-	act = 11,
-	level = 78,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"The Arbiter of Knowledge",
-	},
-}
-
-worldAreas["Map2Tier11_4"] = {
-	name = "Fungal Hollow (Map)",
-	baseName = "Fungal Hollow",
-	tags = { "map", "einharmaps", "indoors_area", "cave_area", "bandit_area" },
-	act = 11,
-	level = 78,
-	isMap = true,
-	monsterVarieties = {
-		"Alira's Deadeye",
-		"Kraityn's Sentry",
-		"Oak's Devoted",
-		"Oak's Sniper",
-	},
-	bossVarieties = {
-		"Aulen Greychain",
-	},
-}
-
-worldAreas["Map2Tier12_1"] = {
-	name = "Shipyard (Map)",
-	baseName = "Shipyard",
-	tags = { "map", "area_with_water", "einharmaps", "dock_area", "rain_area", "map_area_with_open_water", "ocean_area" },
-	act = 11,
-	level = 79,
-	isMap = true,
-	monsterVarieties = {
-		"Cursed Mariner",
-		"Spectral Bowman",
-		"Spectral Scoundrel",
-	},
-	bossVarieties = {
-		"Musky 'Two-Eyes' Grenn",
-		"Susara, Siren of Pondium",
-		"Lussi 'Rotmother' Roth",
-	},
-}
-
-worldAreas["Map2Tier12_2"] = {
-	name = "Overgrown Ruin (Map)",
-	baseName = "Overgrown Ruin",
-	tags = { "indoors_area", "map", "cannot_be_twinned", "einharmaps", "chamber_of_sins_area" },
-	act = 11,
-	level = 79,
-	isMap = true,
-	monsterVarieties = {
-		"Burned Miscreation",
-		"Slashed Miscreation",
-		"Whipping Miscreation",
-	},
-	bossVarieties = {
-		"Visceris",
-	},
-}
-
-worldAreas["Map2Tier12_3"] = {
-	name = "Castle Ruins (Map)",
-	baseName = "Castle Ruins",
-	tags = { "map", "area_with_water", "einharmaps", "has_road_area", "crossroad_area", "has_foxes_area", "bandit_area", "kraityn_area", "ruined_area", "bridge_area" },
-	act = 11,
-	level = 79,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Leif, the Swift-Handed",
-	},
-}
-
-worldAreas["Map2Tier12_4"] = {
-	name = "Arsenal (Map)",
-	baseName = "Arsenal",
-	tags = { "map", "einharmaps", "warehouse_area", "urban_sarn_area", "military_area" },
-	act = 11,
-	level = 79,
-	isMap = true,
-	monsterVarieties = {
-		"Knitted Horror",
-		"Undying Impaler",
-		"Undying Incinerator",
-	},
-	bossVarieties = {
-		"The Steel Soul",
-	},
-}
-
-worldAreas["Map2Tier13_1"] = {
-	name = "Wasteland (Map)",
-	baseName = "Wasteland",
-	tags = { "map", "einharmaps", "wasteland_area", "voll_area" },
-	act = 11,
-	level = 80,
-	isMap = true,
-	monsterVarieties = {
-		"Knitted Horror",
-	},
-	bossVarieties = {
-		"The Brittle Emperor",
-	},
-}
-
-worldAreas["Map2Tier13_2"] = {
-	name = "Courtyard (Map)",
-	baseName = "Courtyard",
-	tags = { "map", "einharmaps", "garden_area", "lightning_area", "triple_boss_map", "rain_area" },
-	act = 11,
-	level = 80,
-	isMap = true,
-	monsterVarieties = {
-		"Avian Retch",
-		"Gluttonous Gull",
-	},
-	bossVarieties = {
-		"Oriath's Virtue",
-		"Oriath's Vengeance",
-		"Oriath's Vigil",
-	},
-}
-
-worldAreas["Map2Tier13_2Unique"] = {
-	name = "The Vinktar Square (Map)",
-	baseName = "The Vinktar Square",
-	tags = { "unique_map", "map", "limited_tempests", "area_with_water", "lightning_area", "rain_area" },
-	act = 11,
-	level = 80,
-	isMap = true,
-	monsterVarieties = {
-		"Avian Retch",
-		"Gluttonous Gull",
-	},
-	bossVarieties = {
-		"Avatar of Thunder",
-	},
-}
-
-worldAreas["Map2Tier13_3"] = {
-	name = "Excavation (Map)",
-	baseName = "Excavation",
-	tags = { "indoors_area", "map", "einharmaps", "mine_area", "cave_area" },
-	act = 11,
-	level = 80,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Shrieker Eihal",
-		"Breaker Toruul",
-	},
-}
-
-worldAreas["Map2Tier13_4"] = {
-	name = "Waterways (Map)",
-	baseName = "Waterways",
-	tags = { "map", "area_with_water", "delve_chest", "einharmaps", "aqueduct_area", "golem_boss_area" },
-	act = 11,
-	level = 80,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Fragment of Winter",
-	},
-}
-
-worldAreas["Map2Tier14_1"] = {
-	name = "Palace (Map)",
-	baseName = "Palace",
-	tags = { "indoors_area", "map", "no_echo", "delve_chest", "einharmaps", "sceptre_of_god_area", "wealthy_area", "dominus_area" },
-	act = 11,
-	level = 81,
-	isMap = true,
-	monsterVarieties = {
-		"Undying Evangelist",
-	},
-	bossVarieties = {
-		"God's Chosen",
-		"The Hallowed Husk",
-	},
-}
-
-worldAreas["Map2Tier14_2"] = {
-	name = "Shrine (Map)",
-	baseName = "Shrine",
-	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "lunaris_blood_area", "thaumaturgy_area", "piety_area" },
-	act = 11,
-	level = 81,
-	isMap = true,
-	monsterVarieties = {
-		"Mortality Experimenter",
-		"Reanimator",
-	},
-	bossVarieties = {
-		"Piety the Empyrean",
 	},
 }
 
@@ -10464,7 +7797,10 @@ worldAreas["Map2Tier14_2Unique"] = {
 	monsterVarieties = {
 		"Ancient Construct",
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Scout",
+		"Kraityn's Scout",
 		"Merveil's Attendant",
 		"Oak's Devoted",
 		"Tentacle Miscreation",
@@ -10480,2384 +7816,6 @@ worldAreas["Map2Tier14_2Unique"] = {
 		"Piety the Empyrean",
 		"Warmonger",
 		"God's Chosen",
-	},
-}
-
-worldAreas["Map2Tier14_3"] = {
-	name = "Maze (Map)",
-	baseName = "Maze",
-	tags = { "indoors_area", "map", "einharmaps", "vaal_pyramid_area" },
-	act = 11,
-	level = 81,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Shadow of the Vaal",
-	},
-}
-
-worldAreas["Map2Tier14_4"] = {
-	name = "Vaal Temple (Map)",
-	baseName = "Vaal Temple",
-	tags = { "indoors_area", "map", "cannot_be_twinned", "einharmaps", "vaal_pyramid_area", "triple_boss_map" },
-	act = 11,
-	level = 81,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"K'aj Q'ura",
-		"K'aj Y'ara'az",
-		"K'aj A'alai",
-	},
-}
-
-worldAreas["Map2Tier14_5"] = {
-	name = "Plaza (Map)",
-	baseName = "Plaza",
-	tags = { "map", "no_echo", "einharmaps", "labyrinth_tileset_area" },
-	act = 11,
-	level = 81,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"The Goddess",
-	},
-}
-
-worldAreas["Map2Tier15_1"] = {
-	name = "Core (Map)",
-	baseName = "Core",
-	tags = { "indoors_area", "map", "no_echo", "area_with_water", "einharmaps", "belly_area", "harvest_area", "core_map_area", "vile_areas", "doedre_area", "shavronne_area", "maligaro_area", "unholy_trio_area", "piety_area" },
-	act = 11,
-	level = 82,
-	isMap = true,
-	monsterVarieties = {
-		"Gut Flayer",
-	},
-	bossVarieties = {
-		"Eater of Souls",
-	},
-}
-
-worldAreas["Map2Tier15_2"] = {
-	name = "Caldera (Map)",
-	baseName = "Caldera",
-	tags = { "map", "no_echo", "area_with_water", "einharmaps", "kaom_area", "king_boss_area", "karui_map" },
-	act = 11,
-	level = 82,
-	isMap = true,
-	monsterVarieties = {
-		"Kaom's Chosen",
-	},
-	bossVarieties = {
-		"The Infernal King",
-	},
-}
-
-worldAreas["Map2Tier15_3"] = {
-	name = "Colosseum (Map)",
-	baseName = "Colosseum",
-	tags = { "map", "no_echo", "einharmaps", "daresso_area", "arena_area", "pitfight_area", "king_boss_area" },
-	act = 11,
-	level = 82,
-	isMap = true,
-	monsterVarieties = {
-		"Fighting Bull",
-	},
-	bossVarieties = {
-		"Ambrius, Legion Slayer",
-	},
-}
-
-worldAreas["MapAtlasGraveyardUnique"] = {
-	name = "Hallowed Ground (Map)",
-	baseName = "Hallowed Ground",
-	tags = { "indoors_area", "map", "no_monster_packs", "no_strongboxes", "unique_map", "no_leaguestone" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Maker of Mires",
-	},
-}
-
-worldAreas["MapAtlasArcade"] = {
-	name = "Arcade (Map)",
-	baseName = "Arcade",
-	tags = { "map", "einharmaps", "marketplace_area", "ruined_area", "city_home_map" },
-	act = 11,
-	level = 68,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Herald of Ashes",
-		"Herald of Thunder",
-	},
-}
-
-worldAreas["MapAtlasCrystalOre"] = {
-	name = "Crystal Ore (Map)",
-	baseName = "Crystal Ore",
-	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "mine_area", "cave_area", "triple_boss_map", "crystal_ore_area", "crystalline_area", "undying_boss_area" },
-	act = 11,
-	level = 68,
-	isMap = true,
-	monsterVarieties = {
-		"Pocked Illuminator",
-	},
-	bossVarieties = {
-		"Lord of the Hollows",
-		"Messenger of the Hollows",
-		"Champion of the Hollows",
-	},
-}
-
-worldAreas["MapAtlasDesert"] = {
-	name = "Desert (Map)",
-	baseName = "Desert",
-	tags = { "map", "einharmaps", "desert_area", "desert_map_area" },
-	act = 11,
-	level = 68,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Preethi, Eye-Pecker",
-	},
-}
-
-worldAreas["MapAtlasJungleValley"] = {
-	name = "Jungle Valley (Map)",
-	baseName = "Jungle Valley",
-	tags = { "map", "einharmaps", "forest_map_area", "jungle_valley_area", "windy_area", "spider_boss_area", "sun_nature_area" },
-	act = 11,
-	level = 68,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Queen of the Great Tangle",
-	},
-}
-
-worldAreas["MapAtlasBeach"] = {
-	name = "Beach (Map)",
-	baseName = "Beach",
-	tags = { "map", "einharmaps", "ocean_area", "peaceful_map" },
-	act = 11,
-	level = 69,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Glace",
-	},
-}
-
-worldAreas["MapAtlasFactory"] = {
-	name = "Factory (Map)",
-	baseName = "Factory",
-	tags = { "indoors_area", "map", "einharmaps", "warehouse_area", "Forge_Area" },
-	act = 11,
-	level = 69,
-	isMap = true,
-	monsterVarieties = {
-		"Cinder Elemental",
-		"Undying Incinerator",
-	},
-	bossVarieties = {
-		"Pesquin, the Mad Baron",
-	},
-}
-
-worldAreas["MapAtlasGhetto"] = {
-	name = "Ghetto (Map)",
-	baseName = "Ghetto",
-	tags = { "map", "einharmaps", "urban_sarn_area", "slums_area", "ruined_area" },
-	act = 11,
-	level = 69,
-	isMap = true,
-	monsterVarieties = {
-		"Carrion Queen",
-	},
-	bossVarieties = {
-		"Hephaeus, The Hammer",
-	},
-}
-
-worldAreas["MapAtlasOasis"] = {
-	name = "Desert Spring (Map)",
-	baseName = "Desert Spring",
-	tags = { "map", "cannot_be_twinned", "einharmaps", "desert_area", "god_boss_map_area", "desert_map_area" },
-	act = 11,
-	level = 69,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Terror of the Infinite Drifts",
-	},
-}
-
-worldAreas["MapAtlasAridLake"] = {
-	name = "Arid Lake (Map)",
-	baseName = "Arid Lake",
-	tags = { "map", "area_with_water", "einharmaps" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Drought-Maddened Rhoa",
-	},
-}
-
-worldAreas["MapAtlasCavern"] = {
-	name = "Flooded Mine (Map)",
-	baseName = "Flooded Mine",
-	tags = { "indoors_area", "map", "einharmaps", "mine_area", "cave_area", "flooded_area", "golem_boss_area" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-		"Spectral Bowman",
-	},
-	bossVarieties = {
-		"The Eroding One",
-	},
-}
-
-worldAreas["MapAtlasChannel"] = {
-	name = "Channel (Map)",
-	baseName = "Channel",
-	tags = { "map", "area_with_water", "delve_chest", "einharmaps", "aqueduct_area", "scavenger_boss_area", "peaceful_map" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"The Winged Death",
-	},
-}
-
-worldAreas["MapAtlasGrotto"] = {
-	name = "Grotto (Map)",
-	baseName = "Grotto",
-	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "den_area", "cave_area", "chaos_golem_boss_area", "golem_boss_area", "crystalline_area", "mine_area" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-		"Shaggy Monstrosity",
-	},
-	bossVarieties = {
-		"Void Anomaly",
-	},
-}
-
-worldAreas["MapAtlasMarshes"] = {
-	name = "Marshes (Map)",
-	baseName = "Marshes",
-	tags = { "map", "area_with_water", "einharmaps", "fetid_area", "toxic_pool_area" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Tore, Towering Ancient",
-	},
-}
-
-worldAreas["MapAtlasSewer"] = {
-	name = "Toxic Sewer (Map)",
-	baseName = "Toxic Sewer",
-	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "sewer_area", "vile_areas", "spider_boss_area" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-		"Undying Grappler",
-	},
-	bossVarieties = {
-		"Arachnoxia",
-	},
-}
-
-worldAreas["MapAtlasVaalPyramid"] = {
-	name = "Vaal Pyramid (Map)",
-	baseName = "Vaal Pyramid",
-	tags = { "indoors_area", "map", "einharmaps", "vaal_pyramid_area", "triple_boss_map" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-		"Ancient Construct",
-	},
-	bossVarieties = {
-		"The Broken Prince",
-		"The Fallen Queen",
-		"The Hollow Lady",
-	},
-}
-
-worldAreas["MapAtlasVaalPyramidUnique_"] = {
-	name = "Vaults of Atziri (Map)",
-	baseName = "Vaults of Atziri",
-	tags = { "indoors_area", "unique_map", "map", "no_tempests", "no_boss", "no_monster_packs", "vaults_of_atziri", "no_leaguestone", "vaal_pyramid_area", "wealthy_area", "gold_pile_area" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-		"Ancient Construct",
-	},
-}
-
-worldAreas["MapAtlasAcademy"] = {
-	name = "Academy (Map)",
-	baseName = "Academy",
-	tags = { "indoors_area", "map", "delve_chest", "einharmaps", "library_area", "undying_boss_area" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-		"Undying Evangelist",
-	},
-	bossVarieties = {
-		"The Arbiter of Knowledge",
-	},
-}
-
-worldAreas["MapAtlasMuseumUnique"] = {
-	name = "The Putrid Cloister (Map)",
-	baseName = "The Putrid Cloister",
-	tags = { "indoors_area", "map", "no_strongboxes", "unique_map", "no_leaguestone", "doedre_area", "unholy_trio_area", "doedre_map_area" },
-	act = 11,
-	level = 76,
-	isMap = true,
-	monsterVarieties = {
-		"Brittle Poacher",
-		"Colossal Bonestalker",
-		"Undying Evangelist",
-	},
-	bossVarieties = {
-		"Headmistress Braeta",
-	},
-}
-
-worldAreas["MapAtlasAcidLakes"] = {
-	name = "Acid Caverns (Map)",
-	baseName = "Acid Caverns",
-	tags = { "map", "indoors_area", "einharmaps", "vile_areas", "toxic_pool_area" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Rama, The Kinslayer",
-		"Kalria, The Fallen",
-		"Invari, The Bloodshaper",
-		"Lokan, The Deceiver",
-		"Marchak, The Betrayer",
-		"Berrots, The Breaker",
-		"Vessider, The Unrivaled",
-		"Morgrants, The Deafening",
-	},
-}
-
-worldAreas["MapAtlasDungeon"] = {
-	name = "Dungeon (Map)",
-	baseName = "Dungeon",
-	tags = { "indoors_area", "map", "einharmaps", "prison_area" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-		"Diabolist",
-	},
-	bossVarieties = {
-		"Penitentiary Incarcerator",
-	},
-}
-
-worldAreas["MapAtlasGraveyard"] = {
-	name = "Graveyard (Map)",
-	baseName = "Graveyard",
-	tags = { "map", "area_with_water", "einharmaps", "graveyard_area", "rain_area", "triple_boss_map", "cannot_be_twinned", "cemetery_map_area", "archer_boss_area" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Thunderskull",
-		"Steelpoint the Avenger",
-		"Champion of Frost",
-	},
-}
-
-worldAreas["MapAtlasPhantasmagoria"] = {
-	name = "Phantasmagoria (Map)",
-	baseName = "Phantasmagoria",
-	tags = { "indoors_area", "map", "einharmaps", "belly_area", "vile_areas", "doedre_area", "unholy_trio_area", "doedre_map_area" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-		"Gut Flayer",
-		"Noisome Ophidian",
-	},
-	bossVarieties = {
-		"Erythrophagia",
-	},
-}
-
-worldAreas["MapAtlasVilla"] = {
-	name = "Villa (Map)",
-	baseName = "Villa",
-	tags = { "indoors_area", "map", "delve_chest", "einharmaps", "sceptre_of_god_area", "rain_area", "wealthy_area", "dominus_area" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-		"Plumed Chimeral",
-	},
-	bossVarieties = {
-		"The High Templar",
-	},
-}
-
-worldAreas["MapAtlasWastePool"] = {
-	name = "Waste Pool (Map)",
-	baseName = "Waste Pool",
-	tags = { "map", "indoors_area", "area_with_water", "cannot_be_twinned", "einharmaps", "sewer_area", "vile_areas", "doedre_area", "unholy_trio_area", "doedre_map_area" },
-	act = 11,
-	level = 71,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Portentia, the Foul",
-	},
-}
-
-worldAreas["MapAtlasBurialChambers"] = {
-	name = "Burial Chambers (Map)",
-	baseName = "Burial Chambers",
-	tags = { "map", "indoors_area", "einharmaps", "bandit_area", "alira_area", "summoner_area", "cemetery_map_area" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Witch of the Cauldron",
-	},
-}
-
-worldAreas["MapAtlasDryPeninsula"] = {
-	name = "Peninsula (Map)",
-	baseName = "Peninsula",
-	tags = { "map", "area_with_water", "einharmaps", "fields_area", "map_area_with_open_water", "ocean_area", "golem_boss_area" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-		"Hairy Bonecruncher",
-	},
-	bossVarieties = {
-		"Titan of the Grove",
-	},
-}
-
-worldAreas["MapAtlasDunes"] = {
-	name = "Dunes (Map)",
-	baseName = "Dunes",
-	tags = { "map", "area_with_water", "einharmaps", "desert_area", "desert_map_area" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"The Blacksmith",
-	},
-}
-
-worldAreas["MapAtlasMesa"] = {
-	name = "Mesa (Map)",
-	baseName = "Mesa",
-	tags = { "map", "einharmaps", "windy_area", "bandit_area" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-		"Avian Retch",
-	},
-	bossVarieties = {
-		"Oak the Mighty",
-	},
-}
-
-worldAreas["MapAtlasPit"] = {
-	name = "Pit (Map)",
-	baseName = "Pit",
-	tags = { "map", "einharmaps", "daresso_area", "pitfight_area" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Olof, Son of the Headsman",
-	},
-}
-
-worldAreas["MapAtlasPitUnique"] = {
-	name = "Darbel's Promise (Map)",
-	baseName = "Darbel's Promise",
-	tags = { "map", "unique_map" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Darbel LePage",
-	},
-}
-
-worldAreas["MapAtlasPrimordialPool"] = {
-	name = "Primordial Pool (Map)",
-	baseName = "Primordial Pool",
-	tags = { "map", "area_with_water", "einharmaps", "toxic_pool_area" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-		"Noisome Ophidian",
-	},
-	bossVarieties = {
-		"Nightmare's Omen",
-	},
-}
-
-worldAreas["MapAtlasSpiderLair_"] = {
-	name = "Spider Lair (Map)",
-	baseName = "Spider Lair",
-	tags = { "indoors_area", "map", "einharmaps", "spider_boss_area" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-		"Leaping Spider",
-	},
-	bossVarieties = {
-		"Thraxia",
-	},
-}
-
-worldAreas["MapAtlasTower"] = {
-	name = "Tower (Map)",
-	baseName = "Tower",
-	tags = { "indoors_area", "map", "cannot_be_twinned", "delve_chest", "einharmaps", "tower_area", "lightning_area", "rain_area", "shavronne_area", "unholy_trio_area", "city_home_map" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-		"Ash Prophet",
-		"Incinerated Mage",
-	},
-	bossVarieties = {
-		"Liantra",
-		"Bazur",
-	},
-}
-
-worldAreas["MapAtlasCanyon"] = {
-	name = "Canyon (Map)",
-	baseName = "Canyon",
-	tags = { "map", "area_with_water", "einharmaps", "archer_boss_area", "scavenger_boss_area" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-		"Goatman Fire-raiser",
-		"Goatman Shaman",
-	},
-	bossVarieties = {
-		"Gnar, Eater of Carrion",
-		"Stonebeak, Battle Fowl",
-	},
-}
-
-worldAreas["MapAtlasQuarry"] = {
-	name = "Geode (Map)",
-	baseName = "Geode",
-	tags = { "map", "einharmaps", "mine_area", "chaos_golem_boss_area", "golem_boss_area" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-		"Pocked Lanternbearer",
-	},
-	bossVarieties = {
-		"Avatar of Undoing",
-	},
-}
-
-worldAreas["MapAtlasRacecourse"] = {
-	name = "Racecourse (Map)",
-	baseName = "Racecourse",
-	tags = { "map", "einharmaps", "arena_area", "triple_boss_map" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-		"Fighting Bull",
-	},
-	bossVarieties = {
-		"Shredder of Gladiators",
-		"Crusher of Gladiators",
-		"Bringer of Blood",
-	},
-}
-
-worldAreas["MapAtlasRamparts"] = {
-	name = "Ramparts (Map)",
-	baseName = "Ramparts",
-	tags = { "map", "area_with_water", "einharmaps", "river_area", "parapet_area", "forest_map_area", "undying_boss_area" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-		"Blackguard Mage",
-	},
-	bossVarieties = {
-		"Legius Garhall",
-	},
-}
-
-worldAreas["MapAtlasSpiderForest"] = {
-	name = "Spider Forest (Map)",
-	baseName = "Spider Forest",
-	tags = { "map", "einharmaps", "forest_map_area", "bandit_area", "alira_area", "summoner_area", "bandit_area" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Enticer of Rot",
-	},
-}
-
-worldAreas["MapAtlasStrand"] = {
-	name = "Strand (Map)",
-	baseName = "Strand",
-	tags = { "map", "area_with_water", "einharmaps", "lightning_area", "coast_boat_area", "map_area_with_open_water", "ocean_area", "bandit_area", "kraityn_area", "karui_map", "ship_graveyard_area" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Master of the Blade",
-		"Massier",
-	},
-}
-
-worldAreas["MapAtlasStrandUnique"] = {
-	name = "Whakawairua Tuahu (Map)",
-	baseName = "Whakawairua Tuahu",
-	tags = { "unique_map", "map", "limited_tempests", "area_with_water", "domination_leaguestone", "coast_boat_area", "map_area_with_open_water", "ocean_area", "sea_witch_boss_area", "rogue_exile_boss_area", "ship_graveyard_area" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-		"Merveil's Attendant",
-		"Merveil's Chosen",
-		"Tentacle Miscreation",
-		"Whipping Miscreation",
-	},
-	bossVarieties = {
-		"Tormented Temptress",
-	},
-}
-
-worldAreas["MapAtlasThicket"] = {
-	name = "Thicket (Map)",
-	baseName = "Thicket",
-	tags = { "indoors_area", "map", "einharmaps", "thicket_area", "forest_map_area" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"The Primal One",
-	},
-}
-
-worldAreas["MapAtlasVaalCity"] = {
-	name = "Ancient City (Map)",
-	baseName = "Ancient City",
-	tags = { "map", "area_with_water", "einharmaps", "vaal_ruin_area", "ruined_vaal_city_area", "ruined_area", "city_home_map" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Lady Stormflay",
-	},
-}
-
-worldAreas["MapAtlasWharf"] = {
-	name = "Wharf (Map)",
-	baseName = "Wharf",
-	tags = { "map", "area_with_water", "einharmaps", "dock_area", "rain_area", "map_area_with_open_water", "ocean_area", "golem_boss_area" },
-	act = 11,
-	level = 73,
-	isMap = true,
-	monsterVarieties = {
-		"Voidbearer",
-	},
-	bossVarieties = {
-		"Stone of the Currents",
-	},
-}
-
-worldAreas["MapAtlasArachnidTomb"] = {
-	name = "Arachnid Tomb (Map)",
-	baseName = "Arachnid Tomb",
-	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "arachnid_tomb_map_area", "spider_boss_area", "bridge_area" },
-	act = 11,
-	level = 74,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Hybrid Widow",
-	},
-}
-
-worldAreas["MapAtlasCastleRuins"] = {
-	name = "Castle Ruins (Map)",
-	baseName = "Castle Ruins",
-	tags = { "map", "area_with_water", "einharmaps", "has_road_area", "crossroad_area", "has_foxes_area", "bandit_area", "kraityn_area", "ruined_area", "bridge_area" },
-	act = 11,
-	level = 74,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Leif, the Swift-Handed",
-	},
-}
-
-worldAreas["MapAtlasCatacomb_"] = {
-	name = "Bone Crypt (Map)",
-	baseName = "Bone Crypt",
-	tags = { "indoors_area", "map", "einharmaps", "catacomb_area", "crypt_area", "summoner_area", "necromancer_area" },
-	act = 11,
-	level = 74,
-	isMap = true,
-	monsterVarieties = {
-		"Death Bishop",
-	},
-	bossVarieties = {
-		"Xixic, High Necromancer",
-	},
-}
-
-worldAreas["MapAtlasCatacombUnique"] = {
-	name = "Olmec's Sanctum (Map)",
-	baseName = "Olmec's Sanctum",
-	tags = { "indoors_area", "unique_map", "map", "limited_tempests" },
-	act = 11,
-	level = 74,
-	isMap = true,
-	monsterVarieties = {
-		"Alira's Deadeye",
-		"Bearded Devil",
-		"Bearded Shaman",
-		"Bramble Cobra",
-		"Cinder Elemental",
-		"Death Bishop",
-		"Defiler",
-		"Galvanic Ribbon",
-		"Goatman",
-		"Goatman Shaman",
-		"Incinerated Mage",
-		"Sparking Mage",
-		"Undying Alchemist",
-		"Undying Incinerator",
-	},
-	bossVarieties = {
-		"Olmec, the All Stone",
-	},
-}
-
-worldAreas["MapAtlasCells"] = {
-	name = "Cells (Map)",
-	baseName = "Cells",
-	tags = { "indoors_area", "map", "einharmaps", "shavronne_area", "unholy_trio_area", "prison_area", "trio_soul_area" },
-	act = 11,
-	level = 74,
-	isMap = true,
-	monsterVarieties = {
-		"Ash Prophet",
-		"Cinder Elemental",
-		"Undying Incinerator",
-	},
-	bossVarieties = {
-		"Shock and Horror",
-	},
-}
-
-worldAreas["MapAtlasArmory"] = {
-	name = "Armoury (Map)",
-	baseName = "Armoury",
-	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "military_area", "bridge_area" },
-	act = 11,
-	level = 74,
-	isMap = true,
-	monsterVarieties = {
-		"Mortality Experimenter",
-	},
-	bossVarieties = {
-		"Warmonger",
-	},
-}
-
-worldAreas["MapAtlasAshenWood"] = {
-	name = "Ashen Wood (Map)",
-	baseName = "Ashen Wood",
-	tags = { "map", "einharmaps", "fields_area", "forest_map_area", "archer_boss_area" },
-	act = 11,
-	level = 74,
-	isMap = true,
-	monsterVarieties = {
-		"Dune Hellion",
-		"Hairy Bonecruncher",
-	},
-	bossVarieties = {
-		"Lord of the Ashen Arrow",
-	},
-}
-
-worldAreas["MapAtlasMudGeyser"] = {
-	name = "Mud Geyser (Map)",
-	baseName = "Mud Geyser",
-	tags = { "map", "area_with_water", "einharmaps", "fetid_area", "mud_geyser_area", "toxic_pool_area" },
-	act = 11,
-	level = 74,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Tunneltrap",
-	},
-}
-
-worldAreas["MapAtlasArachnidNest"] = {
-	name = "Arachnid Nest (Map)",
-	baseName = "Arachnid Nest",
-	tags = { "indoors_area", "map", "einharmaps", "spider_boss_area" },
-	act = 11,
-	level = 75,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Spinner of False Hope",
-	},
-}
-
-worldAreas["MapAtlasArena"] = {
-	name = "Arena (Map)",
-	baseName = "Arena",
-	tags = { "map", "indoors_area", "einharmaps", "daresso_area", "arena_area", "triple_boss_map", "pitfight_area" },
-	act = 11,
-	level = 75,
-	isMap = true,
-	monsterVarieties = {
-		"Bearded Devil",
-		"Fighting Bull",
-	},
-	bossVarieties = {
-		"Avatar of the Huntress",
-		"Avatar of the Skies",
-		"Avatar of the Forge",
-	},
-}
-
-worldAreas["MapAtlasBog"] = {
-	name = "Bog (Map)",
-	baseName = "Bog",
-	tags = { "map", "area_with_water", "einharmaps", "fetid_area", "toxic_pool_area" },
-	act = 11,
-	level = 75,
-	isMap = true,
-	monsterVarieties = {
-		"Merveil's Attendant",
-	},
-	bossVarieties = {
-		"Skullbeak",
-	},
-}
-
-worldAreas["MapAtlasCemetery"] = {
-	name = "Cemetery (Map)",
-	baseName = "Cemetery",
-	tags = { "map", "cannot_be_twinned", "einharmaps", "graveyard_area", "rain_area", "cemetery_map_area", "god_boss_map_area", "bear_boss_map" },
-	act = 11,
-	level = 75,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Erebix, Light's Bane",
-	},
-}
-
-worldAreas["MapAtlasBarrows"] = {
-	name = "Barrows (Map)",
-	baseName = "Barrows",
-	tags = { "map", "area_with_water", "no_echo", "einharmaps", "has_foxes_area", "den_area", "cemetery_map_area", "bear_boss_map" },
-	act = 11,
-	level = 75,
-	isMap = true,
-	monsterVarieties = {
-		"Murk Fiend",
-	},
-	bossVarieties = {
-		"Beast of the Pits",
-	},
-}
-
-worldAreas["MapAtlasAtoll"] = {
-	name = "Atoll (Map)",
-	baseName = "Atoll",
-	tags = { "map", "area_with_water", "einharmaps", "map_area_with_open_water", "ocean_area", "windy_area", "totem_lightning_boss_area" },
-	act = 11,
-	level = 75,
-	isMap = true,
-	monsterVarieties = {
-		"Gluttonous Gull",
-		"Goatman",
-	},
-	bossVarieties = {
-		"Puruna, the Challenger",
-	},
-}
-
-worldAreas["MapAtlasAtollUnique"] = {
-	name = "Maelström of Chaos (Map)",
-	baseName = "Maelström of Chaos",
-	tags = { "unique_map", "map", "limited_tempests", "area_with_water", "map_area_with_open_water", "ocean_area", "gold_pile_area", "merveil_area", "sea_witch_boss_area" },
-	act = 11,
-	level = 75,
-	isMap = true,
-	monsterVarieties = {
-		"Gluttonous Gull",
-		"Goatman",
-	},
-	bossVarieties = {
-		"Merveil, the Reflection",
-		"Merveil, the Returned",
-	},
-}
-
-worldAreas["MapAtlasPier"] = {
-	name = "Pier (Map)",
-	baseName = "Pier",
-	tags = { "map", "area_with_water", "einharmaps", "dock_area", "map_area_with_open_water", "ocean_area", "undying_boss_area" },
-	act = 11,
-	level = 75,
-	isMap = true,
-	monsterVarieties = {
-		"Voidbearer",
-	},
-	bossVarieties = {
-		"Ancient Architect",
-	},
-}
-
-worldAreas["MapAtlasShore"] = {
-	name = "Shore (Map)",
-	baseName = "Shore",
-	tags = { "map", "area_with_water", "einharmaps", "has_road_area", "coast_boat_area", "map_area_with_open_water", "ocean_area", "peaceful_map", "karui_map" },
-	act = 11,
-	level = 75,
-	isMap = true,
-	monsterVarieties = {
-		"Cannibal Fire-eater",
-	},
-	bossVarieties = {
-		"Belcer, the Pirate Lord",
-	},
-}
-
-worldAreas["MapAtlasTropicalIsland"] = {
-	name = "Tropical Island (Map)",
-	baseName = "Tropical Island",
-	tags = { "map", "area_with_water", "einharmaps", "forest_map_area", "tropical_island_area", "map_area_with_open_water", "ocean_area", "peaceful_map" },
-	act = 11,
-	level = 75,
-	isMap = true,
-	monsterVarieties = {
-		"Bramble Cobra",
-	},
-	bossVarieties = {
-		"Blood Progenitor",
-	},
-}
-
-worldAreas["MapAtlasTropicalIslandUnique"] = {
-	name = "Untainted Paradise (Map)",
-	baseName = "Untainted Paradise",
-	tags = { "unique_map", "map", "limited_tempests", "area_with_water", "no_strongboxes", "anarchy_leaguestone", "torment_leaguestone", "invasion_leaguestone", "warbands_leaguestone", "ambush_leaguestone", "domination_leaguestone", "talisman_leaguestone", "perandus_leaguestone", "prophecy_leaguestone", "essence_leaguestone", "breach_leaguestone", "map_area_with_open_water" },
-	act = 11,
-	level = 75,
-	isMap = true,
-	monsterVarieties = {
-		"Bramble Cobra",
-	},
-	bossVarieties = {
-		"Prime Ape",
-		"Colossal Spitter",
-		"The First Rhoa",
-		"Great Maw",
-		"Clutch Queen",
-		"Elder Devourer",
-	},
-}
-
-worldAreas["MapAtlasCoves"] = {
-	name = "Coves (Map)",
-	baseName = "Coves",
-	tags = { "map", "area_with_water", "einharmaps", "reef_area", "ship_graveyard_area", "map_area_with_open_water", "ocean_area", "golem_boss_area", "karui_map" },
-	act = 11,
-	level = 76,
-	isMap = true,
-	monsterVarieties = {
-		"Cursed Mariner",
-		"Spectral Bowman",
-	},
-	bossVarieties = {
-		"Telvar, the Inebriated",
-		"Pirate Treasure",
-	},
-}
-
-worldAreas["MapAtlasCrypt"] = {
-	name = "Cursed Crypt (Map)",
-	baseName = "Cursed Crypt",
-	tags = { "indoors_area", "map", "einharmaps", "crypt_area" },
-	act = 11,
-	level = 76,
-	isMap = true,
-	monsterVarieties = {
-		"Necromancer",
-	},
-	bossVarieties = {
-		"Pagan Bishop of Agony",
-	},
-}
-
-worldAreas["MapAtlasCryptUnique"] = {
-	name = "The Coward's Trial (Map)",
-	baseName = "The Coward's Trial",
-	tags = { "indoors_area", "unique_map", "map", "limited_tempests", "no_monster_packs", "no_strongboxes", "cowards_trial", "anarchy_leaguestone", "torment_leaguestone", "warbands_leaguestone", "ambush_leaguestone", "domination_leaguestone", "talisman_leaguestone", "perandus_leaguestone", "prophecy_leaguestone", "essence_leaguestone", "breach_leaguestone", "crypt_area", "necromancer_area" },
-	act = 11,
-	level = 76,
-	isMap = true,
-	monsterVarieties = {
-		"Brittle Bleeder",
-		"Brittle Poacher",
-		"Frost Harbinger",
-		"Necromancer",
-		"Plagued Bowman",
-		"Sparking Mage",
-	},
-	bossVarieties = {
-		"Infector of Dreams",
-	},
-}
-
-worldAreas["MapAtlasMuseum"] = {
-	name = "Museum (Map)",
-	baseName = "Museum",
-	tags = { "indoors_area", "map", "delve_chest", "einharmaps", "library_area", "relic_area", "maligaro_area", "unholy_trio_area" },
-	act = 11,
-	level = 76,
-	isMap = true,
-	monsterVarieties = {
-		"Brittle Poacher",
-		"Colossal Bonestalker",
-		"Undying Evangelist",
-	},
-	bossVarieties = {
-		"He of Many Pieces",
-	},
-}
-
-worldAreas["MapAtlasOrchard"] = {
-	name = "Orchard (Map)",
-	baseName = "Orchard",
-	tags = { "map", "no_echo", "einharmaps", "has_road_area", "garden_area", "labyrinth_tileset_area" },
-	act = 11,
-	level = 76,
-	isMap = true,
-	monsterVarieties = {
-		"Plumed Chimeral",
-	},
-	bossVarieties = {
-		"Vision of Justice",
-	},
-}
-
-worldAreas["MapAtlasOvergrownShrine"] = {
-	name = "Overgrown Shrine (Map)",
-	baseName = "Overgrown Shrine",
-	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "chamber_of_sins_area", "maligaro_area", "unholy_trio_area", "trio_soul_area" },
-	act = 11,
-	level = 76,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Maligaro the Mutilator",
-	},
-}
-
-worldAreas["MapAtlasOvergrownShrineUnique"] = {
-	name = "Acton's Nightmare (Map)",
-	baseName = "Acton's Nightmare",
-	tags = { "indoors_area", "unique_map", "map", "limited_tempests", "area_with_water", "necromancer_area" },
-	act = 11,
-	level = 76,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Rose",
-		"Thorn",
-	},
-}
-
-worldAreas["MapAtlasPromenade"] = {
-	name = "Promenade (Map)",
-	baseName = "Promenade",
-	tags = { "map", "delve_chest", "einharmaps", "lunaris_outer_area", "urban_sarn_area", "parapet_area", "rain_area", "military_area" },
-	act = 11,
-	level = 76,
-	isMap = true,
-	monsterVarieties = {
-		"Blackguard Arcmage",
-		"Mortality Experimenter",
-	},
-	bossVarieties = {
-		"Blackguard Avenger",
-		"Blackguard Tempest",
-	},
-}
-
-worldAreas["MapAtlasPromenadeUnique"] = {
-	name = "The Hall of Grandmasters (Map)",
-	baseName = "The Hall of Grandmasters",
-	tags = { "unique_map", "map", "limited_tempests", "no_boss", "no_monster_packs", "hall_of_grandmasters", "no_leaguestone" },
-	act = 11,
-	level = 76,
-	isMap = true,
-	monsterVarieties = {
-		"Blackguard Arcmage",
-		"Mortality Experimenter",
-	},
-}
-
-worldAreas["MapAtlasReef"] = {
-	name = "Reef (Map)",
-	baseName = "Reef",
-	tags = { "map", "area_with_water", "cannot_be_twinned", "einharmaps", "reef_area", "ship_graveyard_area", "map_area_with_open_water", "ocean_area", "king_boss_area", "god_boss_map_area" },
-	act = 11,
-	level = 76,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Nassar, Lion of the Seas",
-	},
-}
-
-worldAreas["MapAtlasReefUnique"] = {
-	name = "Mao Kun (Map)",
-	baseName = "Mao Kun",
-	tags = { "unique_map", "map", "area_with_water", "coast_boat_area", "map_area_with_open_water", "ocean_area" },
-	act = 11,
-	level = 76,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Fairgraves, Never Dying",
-	},
-}
-
-worldAreas["MapAtlasTemple"] = {
-	name = "Temple (Map)",
-	baseName = "Temple",
-	tags = { "indoors_area", "map", "area_with_water", "delve_chest", "einharmaps", "solaris_area", "wealthy_area", "church" },
-	act = 11,
-	level = 76,
-	isMap = true,
-	monsterVarieties = {
-		"Flame Sentinel",
-		"Galvanic Ribbon",
-	},
-	bossVarieties = {
-		"Jorus, Sky's Edge",
-	},
-}
-
-worldAreas["MapAtlasTempleUnique"] = {
-	name = "Poorjoy's Asylum (Map)",
-	baseName = "Poorjoy's Asylum",
-	tags = { "indoors_area", "unique_map", "map", "limited_tempests", "area_with_water", "thaumaturgy_area", "lunaris_blood_area" },
-	act = 11,
-	level = 76,
-	isMap = true,
-	monsterVarieties = {
-		"Burned Miscreation",
-		"Flame Sentinel",
-		"Flesh Sculptor",
-		"Galvanic Ribbon",
-		"Mortality Experimenter",
-		"Reanimator",
-		"Tentacle Miscreation",
-		"Whipping Miscreation",
-	},
-	bossVarieties = {
-		"Mistress Hyseria",
-	},
-}
-
-worldAreas["MapAtlasColonnade"] = {
-	name = "Colonnade (Map)",
-	baseName = "Colonnade",
-	tags = { "map", "einharmaps", "lunaris_outer_area", "urban_sarn_area", "rain_area", "military_area" },
-	act = 11,
-	level = 77,
-	isMap = true,
-	monsterVarieties = {
-		"Flame Sentinel",
-		"Galvanic Ribbon",
-	},
-	bossVarieties = {
-		"Tyrant",
-	},
-}
-
-worldAreas["MapAtlasArsenal"] = {
-	name = "Arsenal (Map)",
-	baseName = "Arsenal",
-	tags = { "map", "einharmaps", "warehouse_area", "urban_sarn_area", "military_area" },
-	act = 11,
-	level = 77,
-	isMap = true,
-	monsterVarieties = {
-		"Undying Outcast",
-	},
-	bossVarieties = {
-		"The Steel Soul",
-	},
-}
-
-worldAreas["MapAtlasCourtyard"] = {
-	name = "Courtyard (Map)",
-	baseName = "Courtyard",
-	tags = { "map", "einharmaps", "garden_area", "lightning_area", "triple_boss_map", "rain_area" },
-	act = 11,
-	level = 77,
-	isMap = true,
-	monsterVarieties = {
-		"Avian Retch",
-	},
-	bossVarieties = {
-		"Oriath's Virtue",
-		"Oriath's Vengeance",
-		"Oriath's Vigil",
-	},
-}
-
-worldAreas["MapAtlasCourtyardUnique"] = {
-	name = "The Vinktar Square (Map)",
-	baseName = "The Vinktar Square",
-	tags = { "unique_map", "map", "limited_tempests", "area_with_water", "lightning_area", "rain_area" },
-	act = 11,
-	level = 77,
-	isMap = true,
-	monsterVarieties = {
-		"Avian Retch",
-	},
-	bossVarieties = {
-		"Avatar of Thunder",
-	},
-}
-
-worldAreas["MapAtlasMalformation"] = {
-	name = "Malformation (Map)",
-	baseName = "Malformation",
-	tags = { "indoors_area", "map", "einharmaps", "belly_area", "vile_areas", "piety_area" },
-	act = 11,
-	level = 77,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Nightmare Manifest",
-	},
-}
-
-worldAreas["MapAtlasQuay"] = {
-	name = "Port (Map)",
-	baseName = "Port",
-	tags = { "map", "einharmaps", "marketplace_area", "urban_sarn_area", "dock_area", "ocean_area", "ruined_area" },
-	act = 11,
-	level = 77,
-	isMap = true,
-	monsterVarieties = {
-		"Voidbearer",
-	},
-	bossVarieties = {
-		"Unravelling Horror",
-	},
-}
-
-worldAreas["MapAtlasTerrace"] = {
-	name = "Gardens (Map)",
-	baseName = "Gardens",
-	tags = { "map", "area_with_water", "einharmaps", "garden_area" },
-	act = 11,
-	level = 77,
-	isMap = true,
-	monsterVarieties = {
-		"Plumed Chimeral",
-	},
-	bossVarieties = {
-		"Sallazzang",
-	},
-}
-
-worldAreas["MapAtlasUndergroundRiver"] = {
-	name = "Underground River (Map)",
-	baseName = "Underground River",
-	tags = { "indoors_area", "map", "einharmaps", "cave_area" },
-	act = 11,
-	level = 77,
-	isMap = true,
-	monsterVarieties = {
-		"Armour Cruncher",
-		"Shaggy Monstrosity",
-	},
-	bossVarieties = {
-		"It That Fell",
-	},
-}
-
-worldAreas["MapAtlasUndergroundRiverUnique"] = {
-	name = "Caer Blaidd, Wolfpack's Den (Map)",
-	baseName = "Caer Blaidd, Wolfpack's Den",
-	tags = { "indoors_area", "map", "unique_map", "cave_area", "den_area" },
-	act = 11,
-	level = 77,
-	isMap = true,
-	monsterVarieties = {
-		"Armour Cruncher",
-		"Shaggy Monstrosity",
-	},
-	bossVarieties = {
-		"Winterfang",
-		"Storm Eye",
-		"Solus, Pack Alpha",
-	},
-}
-
-worldAreas["MapAtlasBazaar"] = {
-	name = "Bazaar (Map)",
-	baseName = "Bazaar",
-	tags = { "map", "einharmaps", "marketplace_area", "undying_boss_area", "ruined_area", "city_home_map" },
-	act = 11,
-	level = 78,
-	isMap = true,
-	monsterVarieties = {
-		"Undying Impaler",
-	},
-	bossVarieties = {
-		"Ancient Sculptor",
-	},
-}
-
-worldAreas["MapAtlasChateau"] = {
-	name = "Chateau (Map)",
-	baseName = "Chateau",
-	tags = { "map", "area_with_water", "indoors_area", "einharmaps", "wealthy_area", "scavenger_boss_area", "labyrinth_tileset_area", "city_home_map" },
-	act = 11,
-	level = 78,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"The Reaver",
-	},
-}
-
-worldAreas["MapAtlasChateauUnique"] = {
-	name = "Perandus Manor (Map)",
-	baseName = "Perandus Manor",
-	tags = { "indoors_area", "map", "no_strongboxes", "unique_map", "ambush_leaguestone", "domination_leaguestone", "perandus_leaguestone", "prophecy_leaguestone", "essence_leaguestone", "breach_leaguestone", "wealthy_area", "city_home_map" },
-	act = 11,
-	level = 78,
-	isMap = true,
-	monsterVarieties = {
-		"Undying Evangelist",
-		"Undying Grappler",
-	},
-}
-
-worldAreas["MapAtlasExcavation"] = {
-	name = "Excavation (Map)",
-	baseName = "Excavation",
-	tags = { "indoors_area", "map", "einharmaps", "mine_area", "cave_area" },
-	act = 11,
-	level = 78,
-	isMap = true,
-	monsterVarieties = {
-		"Ancient Construct",
-	},
-	bossVarieties = {
-		"Shrieker Eihal",
-		"Breaker Toruul",
-	},
-}
-
-worldAreas["MapAtlasPrecinct"] = {
-	name = "Precinct (Map)",
-	baseName = "Precinct",
-	tags = { "map", "einharmaps", "urban_sarn_area", "slums_area", "ruined_area", "rogue_exile_boss_area" },
-	act = 11,
-	level = 78,
-	isMap = true,
-	monsterVarieties = {
-		"Carrion Queen",
-	},
-	bossVarieties = {
-		"Orra Greengate",
-		"Torr Olgosso",
-		"Damoi Tui",
-		"Eoin Greyfur",
-		"Wilorin Demontamer",
-		"Augustina Solaria",
-		"Igna Phoenix",
-	},
-}
-
-worldAreas["MapAtlasTortureChamber"] = {
-	name = "Primordial Blocks (Map)",
-	baseName = "Primordial Blocks",
-	tags = { "map", "cannot_be_twinned", "einharmaps", "crystalline_area", "bridge_area" },
-	act = 11,
-	level = 78,
-	isMap = true,
-	monsterVarieties = {
-		"Brittle Bleeder",
-		"Diabolist",
-		"Necromancer",
-	},
-	bossVarieties = {
-		"High Lithomancer",
-	},
-}
-
-worldAreas["MapAtlasTortureChamberUnique"] = {
-	name = "Oba's Cursed Trove (Map)",
-	baseName = "Oba's Cursed Trove",
-	tags = { "indoors_area", "unique_map", "map", "limited_tempests", "no_boss", "ambush_leaguestone", "domination_leaguestone", "perandus_leaguestone", "essence_leaguestone", "breach_leaguestone" },
-	act = 11,
-	level = 78,
-	isMap = true,
-	monsterVarieties = {
-		"Archer Statue",
-		"Brittle Bleeder",
-		"Burned Miscreation",
-		"Defiler",
-		"Diabolist",
-		"Necromancer",
-		"Tentacle Miscreation",
-		"Undying Incinerator",
-	},
-}
-
-worldAreas["MapAtlasUndergroundSea"] = {
-	name = "Underground Sea (Map)",
-	baseName = "Underground Sea",
-	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "flooded_area", "cave_area", "gold_pile_area", "merveil_area", "sea_witch_boss_area" },
-	act = 11,
-	level = 78,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Merveil, the Reflection",
-	},
-}
-
-worldAreas["MapAtlasWasteland"] = {
-	name = "Wasteland (Map)",
-	baseName = "Wasteland",
-	tags = { "map", "einharmaps", "wasteland_area", "voll_area" },
-	act = 11,
-	level = 78,
-	isMap = true,
-	monsterVarieties = {
-		"Avian Retch",
-	},
-	bossVarieties = {
-		"The Brittle Emperor",
-	},
-}
-
-worldAreas["MapAtlasCrematorium"] = {
-	name = "Lava Chamber (Map)",
-	baseName = "Lava Chamber",
-	tags = { "indoors_area", "map", "delve_chest", "einharmaps", "fire_area", "fire_prison_area", "sea_witch_boss_area" },
-	act = 11,
-	level = 79,
-	isMap = true,
-	monsterVarieties = {
-		"Incinerated Mage",
-		"Undying Evangelist",
-	},
-	bossVarieties = {
-		"Fire and Fury",
-	},
-}
-
-worldAreas["MapAtlasEstuary"] = {
-	name = "Estuary (Map)",
-	baseName = "Estuary",
-	tags = { "area_with_water", "map", "no_echo", "einharmaps", "fire_area", "map_area_with_open_water", "ocean_area", "karui_map" },
-	act = 11,
-	level = 79,
-	isMap = true,
-	monsterVarieties = {
-		"Voidbearer",
-	},
-	bossVarieties = {
-		"Sumter the Twisted",
-	},
-}
-
-worldAreas["MapAtlasNecropolis"] = {
-	name = "Necropolis (Map)",
-	baseName = "Necropolis",
-	tags = { "indoors_area", "map", "einharmaps", "necropolis_area" },
-	act = 11,
-	level = 79,
-	isMap = true,
-	monsterVarieties = {
-		"Necromancer",
-	},
-	bossVarieties = {
-		"Burtok, Conjurer of Bones",
-	},
-}
-
-worldAreas["MapAtlasNecropolisUnique"] = {
-	name = "Death and Taxes (Map)",
-	baseName = "Death and Taxes",
-	tags = { "indoors_area", "unique_map", "map", "limited_tempests", "no_monster_packs", "no_strongboxes", "no_leaguestone" },
-	act = 11,
-	level = 79,
-	isMap = true,
-	monsterVarieties = {
-		"Necromancer",
-		"Vaal Slayer",
-	},
-	bossVarieties = {
-		"Avatar of Apocalypse",
-	},
-}
-
-worldAreas["MapAtlasPlateau"] = {
-	name = "Plateau (Map)",
-	baseName = "Plateau",
-	tags = { "map", "area_with_water", "einharmaps", "map_area_with_open_water", "ocean_area", "windy_area", "totem_lightning_boss_area" },
-	act = 11,
-	level = 79,
-	isMap = true,
-	monsterVarieties = {
-		"Bearded Devil",
-		"Bearded Shaman",
-	},
-	bossVarieties = {
-		"Puruna, the Challenger",
-		"Poporo, the Highest Spire",
-	},
-}
-
-worldAreas["MapAtlasIvoryTemple"] = {
-	name = "Ivory Temple (Map)",
-	baseName = "Ivory Temple",
-	tags = { "indoors_area", "map", "einharmaps", "wealthy_area", "church" },
-	act = 11,
-	level = 79,
-	isMap = true,
-	monsterVarieties = {
-		"Avian Retch",
-		"Plumed Chimeral",
-	},
-	bossVarieties = {
-		"Sanctum Enforcer",
-		"Sanctum Guardian",
-	},
-}
-
-worldAreas["MapAtlasResidence"] = {
-	name = "Residence (Map)",
-	baseName = "Residence",
-	tags = { "indoors_area", "map", "no_echo", "delve_chest", "einharmaps", "tower_area", "wealthy_area", "sceptre_of_god_area", "undying_boss_area", "city_home_map" },
-	act = 11,
-	level = 79,
-	isMap = true,
-	monsterVarieties = {
-		"Undying Grappler",
-	},
-	bossVarieties = {
-		"Excellis Aurafix",
-	},
-}
-
-worldAreas["MapAtlasShipyard"] = {
-	name = "Shipyard (Map)",
-	baseName = "Shipyard",
-	tags = { "map", "area_with_water", "einharmaps", "dock_area", "rain_area", "map_area_with_open_water", "ocean_area" },
-	act = 11,
-	level = 79,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Musky 'Two-Eyes' Grenn",
-		"Susara, Siren of Pondium",
-		"Lussi 'Rotmother' Roth",
-	},
-}
-
-worldAreas["MapAtlasVault"] = {
-	name = "Vault (Map)",
-	baseName = "Vault",
-	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "wealthy_area", "gold_pile_area", "golem_boss_area", "inventing_area" },
-	act = 11,
-	level = 79,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Guardian of the Vault",
-	},
-}
-
-worldAreas["MapAtlasLair"] = {
-	name = "Lair (Map)",
-	baseName = "Lair",
-	tags = { "map", "no_echo", "einharmaps", "forest_map_area", "den_area", "cave_area", "rigwald_area" },
-	act = 11,
-	level = 80,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Lycius, Midnight's Howl",
-	},
-}
-
-worldAreas["MapAtlasBeacon"] = {
-	name = "Lighthouse (Map)",
-	baseName = "Lighthouse",
-	tags = { "map", "area_with_water", "einharmaps", "lighthouse_area", "map_area_with_open_water", "ocean_area", "windy_area" },
-	act = 11,
-	level = 80,
-	isMap = true,
-	monsterVarieties = {
-		"Dune Hellion",
-		"Gluttonous Gull",
-		"Goatman",
-	},
-	bossVarieties = {
-		"Uruk Baleh",
-		"El'Abin, Bloodeater",
-		"Leli Goya, Daughter of Ash",
-		"Bin'aia, Crimson Rain",
-	},
-}
-
-worldAreas["MapAtlasGorge"] = {
-	name = "Glacier (Map)",
-	baseName = "Glacier",
-	tags = { "map", "no_echo", "einharmaps", "snow_area", "goatman_bear_boss_area", "snow_mountain_area" },
-	act = 11,
-	level = 80,
-	isMap = true,
-	monsterVarieties = {
-		"Goatman",
-	},
-	bossVarieties = {
-		"Rek'tar, the Breaker",
-	},
-}
-
-worldAreas["MapAtlasHighGardens"] = {
-	name = "Terrace (Map)",
-	baseName = "Terrace",
-	tags = { "map", "no_echo", "cannot_be_twinned", "einharmaps", "garden_area", "high_gardens_area", "god_boss_map_area" },
-	act = 11,
-	level = 80,
-	isMap = true,
-	monsterVarieties = {
-		"Chrome-infused Chimeral",
-	},
-	bossVarieties = {
-		"Varhesh, Shimmering Aberration",
-	},
-}
-
-worldAreas["MapAtlasPlaza"] = {
-	name = "Plaza (Map)",
-	baseName = "Plaza",
-	tags = { "map", "no_echo", "einharmaps", "labyrinth_tileset_area" },
-	act = 11,
-	level = 80,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"The Goddess",
-	},
-}
-
-worldAreas["MapAtlasScriptorium"] = {
-	name = "Scriptorium (Map)",
-	baseName = "Scriptorium",
-	tags = { "indoors_area", "map", "delve_chest", "einharmaps", "library_area", "shavronne_area", "unholy_trio_area" },
-	act = 11,
-	level = 80,
-	isMap = true,
-	monsterVarieties = {
-		"Colossal Bonestalker",
-		"Undying Grappler",
-	},
-	bossVarieties = {
-		"Gisale, Thought Thief",
-	},
-}
-
-worldAreas["MapAtlasSulphurWastes"] = {
-	name = "Leyline (Map)",
-	baseName = "Leyline",
-	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "rain_area", "archer_boss_area" },
-	act = 11,
-	level = 80,
-	isMap = true,
-	monsterVarieties = {
-		"Avian Retch",
-	},
-	bossVarieties = {
-		"Mirage of Bones",
-	},
-}
-
-worldAreas["MapAtlasWaterways"] = {
-	name = "Waterways (Map)",
-	baseName = "Waterways",
-	tags = { "map", "area_with_water", "delve_chest", "einharmaps", "aqueduct_area", "golem_boss_area", "peaceful_map" },
-	act = 11,
-	level = 80,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Fragment of Winter",
-	},
-}
-
-worldAreas["MapAtlasMaze"] = {
-	name = "Maze (Map)",
-	baseName = "Maze",
-	tags = { "indoors_area", "map", "einharmaps", "vaal_pyramid_area" },
-	act = 11,
-	level = 81,
-	isMap = true,
-	monsterVarieties = {
-		"Ancient Construct",
-	},
-	bossVarieties = {
-		"Shadow of the Vaal",
-	},
-}
-
-worldAreas["MapAtlasMineralPools"] = {
-	name = "Mineral Pools (Map)",
-	baseName = "Mineral Pools",
-	tags = { "map", "area_with_water", "einharmaps", "flooded_area", "gold_pile_area", "sea_witch_boss_area", "crystalline_area", "bridge_area" },
-	act = 11,
-	level = 81,
-	isMap = true,
-	monsterVarieties = {
-		"Merveil's Blessed",
-		"Singing Siren",
-	},
-	bossVarieties = {
-		"Shock and Horror",
-	},
-}
-
-worldAreas["MapAtlasPalace"] = {
-	name = "Palace (Map)",
-	baseName = "Palace",
-	tags = { "indoors_area", "map", "no_echo", "delve_chest", "einharmaps", "sceptre_of_god_area", "wealthy_area", "dominus_area" },
-	act = 11,
-	level = 81,
-	isMap = true,
-	monsterVarieties = {
-		"Voidbearer",
-	},
-	bossVarieties = {
-		"God's Chosen",
-		"The Hallowed Husk",
-	},
-}
-
-worldAreas["MapAtlasShrine"] = {
-	name = "Shrine (Map)",
-	baseName = "Shrine",
-	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "lunaris_blood_area", "thaumaturgy_area", "piety_area" },
-	act = 11,
-	level = 81,
-	isMap = true,
-	monsterVarieties = {
-		"Burned Miscreation",
-		"Tentacle Miscreation",
-	},
-	bossVarieties = {
-		"Piety the Empyrean",
-	},
-}
-
-worldAreas["MapAtlasSprings"] = {
-	name = "Fungal Hollow (Map)",
-	baseName = "Fungal Hollow",
-	tags = { "map", "einharmaps", "indoors_area", "cave_area", "bandit_area", "peaceful_map" },
-	act = 11,
-	level = 81,
-	isMap = true,
-	monsterVarieties = {
-		"Bramble Cobra",
-		"Oak's Devoted",
-	},
-	bossVarieties = {
-		"Aulen Greychain",
-	},
-}
-
-worldAreas["MapAtlasVolcano"] = {
-	name = "Volcano (Map)",
-	baseName = "Volcano",
-	tags = { "map", "area_with_water", "einharmaps", "kaom_area", "karui_map" },
-	act = 11,
-	level = 81,
-	isMap = true,
-	monsterVarieties = {
-		"Kaom's Chosen",
-	},
-	bossVarieties = {
-		"Forest of Flames",
-	},
-}
-
-worldAreas["MapAtlasAbyss"] = {
-	name = "Caldera (Map)",
-	baseName = "Caldera",
-	tags = { "map", "no_echo", "area_with_water", "einharmaps", "kaom_area", "king_boss_area", "karui_map" },
-	act = 11,
-	level = 82,
-	isMap = true,
-	monsterVarieties = {
-		"Kaom's Chosen",
-		"Voidbearer",
-	},
-	bossVarieties = {
-		"The Infernal King",
-	},
-}
-
-worldAreas["MapAtlasColosseum"] = {
-	name = "Colosseum (Map)",
-	baseName = "Colosseum",
-	tags = { "map", "no_echo", "einharmaps", "daresso_area", "arena_area", "pitfight_area", "king_boss_area" },
-	act = 11,
-	level = 82,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Ambrius, Legion Slayer",
-	},
-}
-
-worldAreas["MapAtlasCore"] = {
-	name = "Core (Map)",
-	baseName = "Core",
-	tags = { "indoors_area", "map", "no_echo", "area_with_water", "einharmaps", "belly_area", "harvest_area", "core_map_area", "vile_areas", "doedre_area", "shavronne_area", "maligaro_area", "unholy_trio_area", "piety_area" },
-	act = 11,
-	level = 82,
-	isMap = true,
-	monsterVarieties = {
-		"Noisome Ophidian",
-		"Stygian Revenant",
-	},
-	bossVarieties = {
-		"Eater of Souls",
-	},
-}
-
-worldAreas["MapAtlasDarkForest"] = {
-	name = "Dark Forest (Map)",
-	baseName = "Dark Forest",
-	tags = { "map", "no_echo", "einharmaps", "has_road_area", "forest_map_area", "dark_forest_area", "rigwald_area", "king_boss_area" },
-	act = 11,
-	level = 82,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"The Cursed King",
-	},
-}
-
-worldAreas["MapAtlasOvergrownRuin"] = {
-	name = "Overgrown Ruin (Map)",
-	baseName = "Overgrown Ruin",
-	tags = { "indoors_area", "map", "cannot_be_twinned", "einharmaps", "chamber_of_sins_area" },
-	act = 11,
-	level = 82,
-	isMap = true,
-	monsterVarieties = {
-		"Brittle Poacher",
-		"Sin Lord",
-		"Sparking Mage",
-	},
-	bossVarieties = {
-		"Visceris",
-	},
-}
-
-worldAreas["MapAtlasChimera"] = {
-	name = "Pit of the Chimera (Map)",
-	baseName = "Pit of the Chimera",
-	tags = { "map", "no_echo", "cannot_be_twinned", "einharmaps", "daresso_area", "pitfight_area" },
-	act = 11,
-	level = 83,
-	isMap = true,
-	monsterVarieties = {
-		"Bearded Devil",
-		"Goatman",
-	},
-	bossVarieties = {
-		"Guardian of the Chimera",
-	},
-}
-
-worldAreas["MapAtlasHydra"] = {
-	name = "Lair of the Hydra (Map)",
-	baseName = "Lair of the Hydra",
-	tags = { "map", "no_echo", "cannot_be_twinned", "indoors_area", "einharmaps", "sewer_area" },
-	act = 11,
-	level = 83,
-	isMap = true,
-	monsterVarieties = {
-		"Undying Grappler",
-	},
-	bossVarieties = {
-		"Guardian of the Hydra",
-	},
-}
-
-worldAreas["MapAtlasPhoenix"] = {
-	name = "Forge of the Phoenix (Map)",
-	baseName = "Forge of the Phoenix",
-	tags = { "map", "no_echo", "cannot_be_twinned", "indoors_area", "einharmaps", "fire_area", "fire_prison_area", "Forge_Area" },
-	act = 11,
-	level = 83,
-	isMap = true,
-	monsterVarieties = {
-		"Ash Prophet",
-		"Cinder Elemental",
-		"Undying Incinerator",
-	},
-	bossVarieties = {
-		"Guardian of the Phoenix",
-	},
-}
-
-worldAreas["MapAtlasMinotaur"] = {
-	name = "Maze of the Minotaur (Map)",
-	baseName = "Maze of the Minotaur",
-	tags = { "map", "no_echo", "cannot_be_twinned", "indoors_area", "einharmaps", "cave_area" },
-	act = 11,
-	level = 83,
-	isMap = true,
-	monsterVarieties = {
-		"Hairy Bonecruncher",
-	},
-	bossVarieties = {
-		"Guardian of the Minotaur",
-	},
-}
-
-worldAreas["MapAtlasShapersRealm"] = {
-	name = "The Shaper's Realm (Map)",
-	baseName = "The Shaper's Realm",
-	tags = { "map", "no_echo", "no_strongboxes", "no_leaguestone", "no_tempests" },
-	act = 11,
-	level = 84,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"The Shaper",
-	},
-}
-
-worldAreas["MapAtlasVaalTemple"] = {
-	name = "Vaal Temple (Map)",
-	baseName = "Vaal Temple",
-	tags = { "indoors_area", "map", "cannot_be_twinned", "einharmaps", "vaal_pyramid_area", "triple_boss_map" },
-	act = 11,
-	level = 83,
-	isMap = true,
-	monsterVarieties = {
-		"Ash Prophet",
-		"Death Bishop",
-		"Sin Lord",
-	},
-	bossVarieties = {
-		"K'aj Q'ura",
-		"K'aj Y'ara'az",
-		"K'aj A'alai",
-	},
-}
-
-worldAreas["BreachBossPhysical"] = {
-	name = "Uul-Netol's Domain (Map)",
-	baseName = "Uul-Netol's Domain",
-	tags = { "indoors_area", "map", "breach_map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 82,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Uul-Netol, Unburdened Flesh",
-	},
-}
-
-worldAreas["BreachBossChaos"] = {
-	name = "Chayula's Domain (Map)",
-	baseName = "Chayula's Domain",
-	tags = { "indoors_area", "map", "breach_map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 83,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Chayula, Who Dreamt",
-	},
-}
-
-worldAreas["BreachBossFire"] = {
-	name = "Xoph's Domain (Map)",
-	baseName = "Xoph's Domain",
-	tags = { "map", "breach_map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 81,
-	isMap = true,
-	monsterVarieties = {
-		"Xoph's Favoured",
-	},
-	bossVarieties = {
-		"Xoph, Dark Embers",
-	},
-}
-
-worldAreas["BreachBossCold"] = {
-	name = "Tul's Domain (Map)",
-	baseName = "Tul's Domain",
-	tags = { "map", "breach_map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 81,
-	isMap = true,
-	monsterVarieties = {
-		"They of Tul",
-	},
-	bossVarieties = {
-		"Tul, Creeping Avalanche",
-	},
-}
-
-worldAreas["BreachBossLightning"] = {
-	name = "Esh's Domain (Map)",
-	baseName = "Esh's Domain",
-	tags = { "indoors_area", "map", "breach_map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 81,
-	isMap = true,
-	monsterVarieties = {
-		"Scale of Esh",
-	},
-	bossVarieties = {
-		"Esh, Forked Thought",
-	},
-}
-
-worldAreas["BreachBossPhysical2"] = {
-	name = "Uul-Netol's Domain (Map)",
-	baseName = "Uul-Netol's Domain",
-	tags = { "indoors_area", "map", "breach_map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 78,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Uul-Netol, Unburdened Flesh",
-	},
-}
-
-worldAreas["BreachBossChaos2"] = {
-	name = "Chayula's Domain (Map)",
-	baseName = "Chayula's Domain",
-	tags = { "indoors_area", "map", "breach_map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 81,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Chayula, Who Dreamt",
-	},
-}
-
-worldAreas["BreachBossFire2"] = {
-	name = "Xoph's Domain (Map)",
-	baseName = "Xoph's Domain",
-	tags = { "map", "breach_map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 74,
-	isMap = true,
-	monsterVarieties = {
-		"Xoph's Favoured",
-	},
-	bossVarieties = {
-		"Xoph, Dark Embers",
-	},
-}
-
-worldAreas["BreachBossCold2_"] = {
-	name = "Tul's Domain (Map)",
-	baseName = "Tul's Domain",
-	tags = { "map", "breach_map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 74,
-	isMap = true,
-	monsterVarieties = {
-		"They of Tul",
-	},
-	bossVarieties = {
-		"Tul, Creeping Avalanche",
-	},
-}
-
-worldAreas["BreachBossLightning2"] = {
-	name = "Esh's Domain (Map)",
-	baseName = "Esh's Domain",
-	tags = { "indoors_area", "map", "breach_map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 74,
-	isMap = true,
-	monsterVarieties = {
-		"Scale of Esh",
-	},
-	bossVarieties = {
-		"Esh, Forked Thought",
-	},
-}
-
-worldAreas["BreachBossPhysical3"] = {
-	name = "Uul-Netol's Domain (Map)",
-	baseName = "Uul-Netol's Domain",
-	tags = { "indoors_area", "map", "breach_map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 81,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Uul-Netol, Unburdened Flesh",
-	},
-}
-
-worldAreas["BreachBossChaos3"] = {
-	name = "Chayula's Domain (Map)",
-	baseName = "Chayula's Domain",
-	tags = { "indoors_area", "map", "breach_map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 82,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Chayula, Who Dreamt",
-	},
-}
-
-worldAreas["BreachBossFire3"] = {
-	name = "Xoph's Domain (Map)",
-	baseName = "Xoph's Domain",
-	tags = { "map", "breach_map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 79,
-	isMap = true,
-	monsterVarieties = {
-		"Xoph's Favoured",
-	},
-	bossVarieties = {
-		"Xoph, Dark Embers",
-	},
-}
-
-worldAreas["BreachBossCold3"] = {
-	name = "Tul's Domain (Map)",
-	baseName = "Tul's Domain",
-	tags = { "map", "breach_map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 79,
-	isMap = true,
-	monsterVarieties = {
-		"They of Tul",
-	},
-	bossVarieties = {
-		"Tul, Creeping Avalanche",
-	},
-}
-
-worldAreas["BreachBossLightning3"] = {
-	name = "Esh's Domain (Map)",
-	baseName = "Esh's Domain",
-	tags = { "indoors_area", "map", "breach_map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 79,
-	isMap = true,
-	monsterVarieties = {
-		"Scale of Esh",
-	},
-	bossVarieties = {
-		"Esh, Forked Thought",
-	},
-}
-
-worldAreas["BreachBossPhysical4"] = {
-	name = "Uul-Netol's Domain (Map)",
-	baseName = "Uul-Netol's Domain",
-	tags = { "indoors_area", "map", "breach_map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 82,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Uul-Netol, Unburdened Flesh",
-	},
-}
-
-worldAreas["BreachBossChaos4"] = {
-	name = "Chayula's Domain (Map)",
-	baseName = "Chayula's Domain",
-	tags = { "indoors_area", "map", "breach_map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 83,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Chayula, Who Dreamt",
-	},
-}
-
-worldAreas["BreachBossFire4"] = {
-	name = "Xoph's Domain (Map)",
-	baseName = "Xoph's Domain",
-	tags = { "map", "breach_map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 81,
-	isMap = true,
-	monsterVarieties = {
-		"Xoph's Favoured",
-	},
-	bossVarieties = {
-		"Xoph, Dark Embers",
-	},
-}
-
-worldAreas["BreachBossCold4"] = {
-	name = "Tul's Domain (Map)",
-	baseName = "Tul's Domain",
-	tags = { "map", "breach_map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 81,
-	isMap = true,
-	monsterVarieties = {
-		"They of Tul",
-	},
-	bossVarieties = {
-		"Tul, Creeping Avalanche",
-	},
-}
-
-worldAreas["BreachBossLightning4"] = {
-	name = "Esh's Domain (Map)",
-	baseName = "Esh's Domain",
-	tags = { "indoors_area", "map", "breach_map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 81,
-	isMap = true,
-	monsterVarieties = {
-		"Scale of Esh",
-	},
-	bossVarieties = {
-		"Esh, Forked Thought",
 	},
 }
 
@@ -12931,62 +7889,6 @@ worldAreas["BreachBossLightning5"] = {
 	},
 	bossVarieties = {
 		"Esh, Forked Thought",
-	},
-}
-
-worldAreas["MapAtlasHarbinger"] = {
-	name = "Harbinger's Isle (Map)",
-	baseName = "Harbinger's Isle",
-	tags = { "map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 70,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"<<>>",
-	},
-}
-
-worldAreas["MapAtlasHarbingerLow"] = {
-	name = "The Beachhead (Map)",
-	baseName = "The Beachhead",
-	tags = { "map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"<<>>",
-	},
-}
-
-worldAreas["MapAtlasHarbingerMid"] = {
-	name = "The Beachhead (Map)",
-	baseName = "The Beachhead",
-	tags = { "map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 77,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"<<>>",
-	},
-}
-
-worldAreas["MapAtlasHarbingerHigh"] = {
-	name = "The Beachhead (Map)",
-	baseName = "The Beachhead",
-	tags = { "map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 82,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"<<>>",
 	},
 }
 
@@ -13236,6 +8138,8 @@ worldAreas["MapWorldsSprings"] = {
 	monsterVarieties = {
 		"Alira's Deadeye",
 		"Bramble Cobra",
+		"Callow Sniper",
+		"Kraityn's Scout",
 		"Kraityn's Sentry",
 		"Oak's Devoted",
 		"Oak's Sniper",
@@ -14163,7 +9067,9 @@ worldAreas["MapWorldsRamparts"] = {
 	level = 74,
 	isMap = true,
 	monsterVarieties = {
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Carrion Queen",
 	},
 	bossVarieties = {
@@ -14485,7 +9391,9 @@ worldAreas["MapWorldsArmoury"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Mortality Experimenter",
 		"Reanimator",
 	},
@@ -14702,10 +9610,18 @@ worldAreas["MapWorldsMoonTempleUnique"] = {
 	monsterVarieties = {
 		"Flame Sentinel",
 		"Frost Sentinel",
+		"Lunar Scout",
+		"Lunaris Champion",
 		"Lunaris Concubine",
+		"Lunaris Elite",
+		"Lunarsworn Archmage",
 		"Lunarsworn Wintermage",
 		"Solar Guard",
+		"Solar Scout",
 		"Solaris Champion",
+		"Solaris Elite",
+		"Solarsworn Archmage",
+		"Solarsworn Infernomage",
 	},
 	bossVarieties = {
 		"Helial, the Day Unending",
@@ -14781,6 +9697,7 @@ worldAreas["MapWorldsPlateau"] = {
 		"Brittle Poacher",
 		"Colossus Crusher",
 		"Frost Harbinger",
+		"Highland Hellion",
 		"Plagued Bowman",
 		"Sparking Mage",
 		"Vexing Archer",
@@ -14831,7 +9748,11 @@ worldAreas["MapWorldsTemple"] = {
 	monsterVarieties = {
 		"Flame Sentinel",
 		"Galvanic Ribbon",
+		"Solar Scout",
 		"Solaris Champion",
+		"Solaris Elite",
+		"Solarsworn Archmage",
+		"Solarsworn Infernomage",
 	},
 	bossVarieties = {
 		"Jorus, Sky's Edge",
@@ -14859,7 +9780,11 @@ worldAreas["MapWorldsTempleUnique"] = {
 		"Galvanic Ribbon",
 		"Mortality Experimenter",
 		"Reanimator",
+		"Solar Scout",
 		"Solaris Champion",
+		"Solaris Elite",
+		"Solarsworn Archmage",
+		"Solarsworn Infernomage",
 		"Tentacle Miscreation",
 		"Whipping Miscreation",
 	},
@@ -14989,6 +9914,7 @@ worldAreas["MapWorldsShipyard"] = {
 	level = 77,
 	isMap = true,
 	monsterVarieties = {
+		"Blackguard Firemage",
 		"Cursed Mariner",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
@@ -15208,6 +10134,8 @@ worldAreas["MapWorldsPromenade"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Blackguard Arcmage",
+		"Blackguard Elite",
+		"Blackguard Soldier",
 		"Mortality Experimenter",
 	},
 	bossVarieties = {
@@ -15233,6 +10161,8 @@ worldAreas["MapWorldsPromenadeUnique"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Blackguard Arcmage",
+		"Blackguard Elite",
+		"Blackguard Soldier",
 		"Mortality Experimenter",
 	},
 }
@@ -15266,10 +10196,16 @@ worldAreas["MapWorldsColonnade"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Soldier",
 		"Flame Sentinel",
 		"Galvanic Ribbon",
+		"Solar Scout",
 		"Solaris Champion",
+		"Solaris Elite",
+		"Solarsworn Archmage",
+		"Solarsworn Infernomage",
 	},
 	bossVarieties = {
 		"Tyrant",
@@ -15324,6 +10260,7 @@ worldAreas["MapWorldsCoves"] = {
 	level = 78,
 	isMap = true,
 	monsterVarieties = {
+		"Callow Sniper",
 		"Cursed Mariner",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
@@ -15386,6 +10323,7 @@ worldAreas["MapWorldsMesa"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Avian Retch",
+		"Callow Sniper",
 		"Kraityn's Sentry",
 		"Oak's Devoted",
 		"Oak's Sniper",
@@ -15514,6 +10452,7 @@ worldAreas["MapWorldsCastleRuins"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Kraityn's Scout",
 		"Kraityn's Sentry",
 	},
 	bossVarieties = {
@@ -15785,6 +10724,7 @@ worldAreas["MapWorldsShrine"] = {
 	level = 80,
 	isMap = true,
 	monsterVarieties = {
+		"Blackguard Soldier",
 		"Burned Miscreation",
 		"Mortality Experimenter",
 		"Reanimator",
@@ -16111,6 +11051,10 @@ worldAreas["MapWorldsHydra"] = {
 	level = 83,
 	isMap = true,
 	monsterVarieties = {
+		"Lunar Scout",
+		"Lunaris Champion",
+		"Lunaris Elite",
+		"Lunarsworn Archmage",
 		"Lunarsworn Wintermage",
 		"Undying Grappler",
 	},
@@ -16161,20 +11105,6 @@ worldAreas["MapWorldsMinotaur"] = {
 	},
 }
 
-worldAreas["MapWorldsShapersRealm"] = {
-	name = "The Shaper's Realm (Map)",
-	baseName = "The Shaper's Realm",
-	tags = { "map", "no_echo", "no_strongboxes", "no_leaguestone", "no_tempests", "map_drops_can_upgrade_to_nightmare_boss", "map_drops_can_upgrade_to_nightmare_boss", "map_drops_can_upgrade_to_nightmare_boss", "map_drops_can_upgrade_to_nightmare_boss", "map_drops_can_upgrade_to_nightmare_boss", "sceptre_of_god_area" },
-	act = 11,
-	level = 84,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"The Shaper",
-	},
-}
-
 worldAreas["MapWorldsVaalTemple"] = {
 	name = "Vaal Temple (Map)",
 	baseName = "Vaal Temple",
@@ -16205,34 +11135,6 @@ worldAreas["MapWorldsHarbinger"] = {
 	tags = { "map", "no_leaguestone", "map_not_on_atlas" },
 	act = 11,
 	level = 70,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"<<>>",
-	},
-}
-
-worldAreas["MapWorldsHarbingerLow"] = {
-	name = "The Beachhead (Map)",
-	baseName = "The Beachhead",
-	tags = { "map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 72,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"<<>>",
-	},
-}
-
-worldAreas["MapWorldsHarbingerMid"] = {
-	name = "The Beachhead (Map)",
-	baseName = "The Beachhead",
-	tags = { "map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 77,
 	isMap = true,
 	monsterVarieties = {
 	},
@@ -16918,20 +11820,6 @@ worldAreas["MapWorldsPrimordialBoss4"] = {
 	},
 }
 
-worldAreas["MapWorldsMemoryBoss1"] = {
-	name = "Moment of Trauma (Map)",
-	baseName = "Moment of Trauma",
-	tags = { "indoors_area", "map", "no_echo", "cannot_be_twinned", "map_not_on_atlas" },
-	act = 11,
-	level = 83,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Incarnation of Fear",
-	},
-}
-
 worldAreas["MapWorldsMemoryBoss1_Uber"] = {
 	name = "Moment of Trauma (Map)",
 	baseName = "Moment of Trauma",
@@ -16946,20 +11834,6 @@ worldAreas["MapWorldsMemoryBoss1_Uber"] = {
 	},
 }
 
-worldAreas["MapWorldsMemoryBoss2"] = {
-	name = "Moment of Loneliness (Map)",
-	baseName = "Moment of Loneliness",
-	tags = { "indoors_area", "map", "no_echo", "cannot_be_twinned", "map_not_on_atlas" },
-	act = 11,
-	level = 83,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Incarnation of Neglect",
-	},
-}
-
 worldAreas["MapWorldsMemoryBoss2_Uber"] = {
 	name = "Moment of Loneliness (Map)",
 	baseName = "Moment of Loneliness",
@@ -16971,20 +11845,6 @@ worldAreas["MapWorldsMemoryBoss2_Uber"] = {
 	},
 	bossVarieties = {
 		"Incarnation of Neglect",
-	},
-}
-
-worldAreas["MapWorldsMemoryBoss3"] = {
-	name = "Moment of Reverence (Map)",
-	baseName = "Moment of Reverence",
-	tags = { "indoors_area", "map", "no_echo", "cannot_be_twinned", "map_not_on_atlas" },
-	act = 11,
-	level = 83,
-	isMap = true,
-	monsterVarieties = {
-	},
-	bossVarieties = {
-		"Incarnation of Dread",
 	},
 }
 
@@ -17188,39 +12048,6 @@ worldAreas["BestiaryLeague_BirdBoss"] = {
 	},
 }
 
-worldAreas["LegionLeague"] = {
-	name = "Domain of Timeless Conflict (Map)",
-	baseName = "Domain of Timeless Conflict",
-	tags = { "map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 80,
-	isMap = true,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["LegionLeague2"] = {
-	name = "Domain of Timeless Conflict (Map)",
-	baseName = "Domain of Timeless Conflict",
-	tags = { "map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 80,
-	isMap = true,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["LegionLeague3"] = {
-	name = "Domain of Timeless Conflict (Map)",
-	baseName = "Domain of Timeless Conflict",
-	tags = { "map", "no_leaguestone", "map_not_on_atlas" },
-	act = 11,
-	level = 80,
-	isMap = true,
-	monsterVarieties = {
-	},
-}
-
 worldAreas["LegionLeague4"] = {
 	name = "Domain of Timeless Conflict (Map)",
 	baseName = "Domain of Timeless Conflict",
@@ -17239,28 +12066,6 @@ worldAreas["Affliction_BossArena"] = {
 	act = 1,
 	level = 70,
 	isMap = false,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["HarvestLeague"] = {
-	name = "The Sacred Grove (Map)",
-	baseName = "The Sacred Grove",
-	tags = { "map", "no_leaguestone", "map_not_on_atlas" },
-	act = 1,
-	level = 1,
-	isMap = true,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["HarvestLeagueMemoryLine"] = {
-	name = "The Sacred Grove (Map)",
-	baseName = "The Sacred Grove",
-	tags = { "map", "no_leaguestone", "map_not_on_atlas" },
-	act = 1,
-	level = 1,
-	isMap = true,
 	monsterVarieties = {
 	},
 }
@@ -17480,6 +12285,7 @@ worldAreas["Descent4"] = {
 	level = 8,
 	isMap = false,
 	monsterVarieties = {
+		"Callow Sniper",
 	},
 	bossVarieties = {
 		"Witch of the Cauldron",
@@ -17626,7 +12432,10 @@ worldAreas["Descent13"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Scout Commander",
+		"Blackguard Soldier",
 	},
 	bossVarieties = {
 		"Warmonger",
@@ -17986,7 +12795,10 @@ worldAreas["Descent2_12"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Blackguard Arcmage",
+		"Blackguard Elite",
 		"Blackguard Mage",
+		"Blackguard Scout",
+		"Blackguard Scout Commander",
 		"Mortality Experimenter",
 	},
 }
@@ -18173,6 +12985,7 @@ worldAreas["EndlessLedge3"] = {
 	monsterVarieties = {
 		"Ancient Construct",
 		"Blackguard Mage",
+		"Blackguard Scout",
 		"Carrion Queen",
 		"Dune Hellion",
 		"Galvanic Ribbon",
@@ -20009,8 +14822,10 @@ worldAreas["InvasionBoss"] = {
 	monsterVarieties = {
 		"Ancient Construct",
 		"Avian Retch",
+		"Blackguard Elite",
 		"Bramble Cobra",
 		"Burned Miscreation",
+		"Callow Sniper",
 		"Carrion Queen",
 		"Cinder Elemental",
 		"Colossal Bonestalker",
@@ -20545,105 +15360,6 @@ worldAreas["HeistMines8"] = {
 worldAreas["HeistMines9"] = {
 	name = "Smuggler's Den (Act 1)",
 	baseName = "Smuggler's Den",
-	tags = {  },
-	act = 1,
-	level = 68,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["HeistDungeon1"] = {
-	name = "Laboratory (Act 1)",
-	baseName = "Laboratory",
-	tags = {  },
-	act = 1,
-	level = 1,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["HeistDungeon2"] = {
-	name = "Laboratory (Act 1)",
-	baseName = "Laboratory",
-	tags = {  },
-	act = 1,
-	level = 4,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["HeistDungeon3"] = {
-	name = "Laboratory (Act 1)",
-	baseName = "Laboratory",
-	tags = {  },
-	act = 1,
-	level = 8,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["HeistDungeon4"] = {
-	name = "Laboratory (Act 1)",
-	baseName = "Laboratory",
-	tags = {  },
-	act = 1,
-	level = 12,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["HeistDungeon5"] = {
-	name = "Laboratory (Act 1)",
-	baseName = "Laboratory",
-	tags = {  },
-	act = 1,
-	level = 18,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["HeistDungeon6"] = {
-	name = "Laboratory (Act 1)",
-	baseName = "Laboratory",
-	tags = {  },
-	act = 1,
-	level = 25,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["HeistDungeon7"] = {
-	name = "Laboratory (Act 1)",
-	baseName = "Laboratory",
-	tags = {  },
-	act = 1,
-	level = 40,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["HeistDungeon8"] = {
-	name = "Laboratory (Act 1)",
-	baseName = "Laboratory",
-	tags = {  },
-	act = 1,
-	level = 55,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["HeistDungeon9"] = {
-	name = "Laboratory (Act 1)",
-	baseName = "Laboratory",
 	tags = {  },
 	act = 1,
 	level = 68,
@@ -21495,17 +16211,6 @@ worldAreas["UltimatumArenaEndgame"] = {
 	},
 }
 
-worldAreas["UltimatumBossArena"] = {
-	name = "The Tower of Ordeals (Act 1)",
-	baseName = "The Tower of Ordeals",
-	tags = {  },
-	act = 1,
-	level = 1,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
 worldAreas["MapWorldsUltimatumBossArena"] = {
 	name = "The Tower of Ordeals (Map)",
 	baseName = "The Tower of Ordeals",
@@ -21575,17 +16280,6 @@ worldAreas["ExpeditionShipwreckReef"] = {
 	},
 }
 
-worldAreas["ExpeditionCemetery"] = {
-	name = "Cemetery (Act 2)",
-	baseName = "Cemetery",
-	tags = {  },
-	act = 2,
-	level = 1,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
 worldAreas["ExpeditionSarnSlums"] = {
 	name = "Sarn Slums (Act 3)",
 	baseName = "Sarn Slums",
@@ -21624,17 +16318,6 @@ worldAreas["ExpeditionForestRuins"] = {
 	baseName = "Forest Ruins",
 	tags = {  },
 	act = 2,
-	level = 1,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["ExpeditionVaalTemple"] = {
-	name = "Vaal Temple (Act 3)",
-	baseName = "Vaal Temple",
-	tags = {  },
-	act = 3,
 	level = 1,
 	isMap = false,
 	monsterVarieties = {

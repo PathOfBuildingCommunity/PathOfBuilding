@@ -20,6 +20,40 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/Axis/AxisExperimenterRaiseZombie
 #emit
+#spectre Metadata/Monsters/Axis/AxisCasterSolaris
+#emit
+#spectre Metadata/Monsters/Axis/AxisCasterSolarisChampion
+#emit
+#spectre Metadata/Monsters/Axis/AxisCasterLunarisChampion
+#emit
+#spectre Metadata/Monsters/Axis/AxisCasterOrbOfStorms
+#emit
+#spectre Metadata/Monsters/Axis/AxisCasterGuardGravicius
+#emit
+#spectre Metadata/Monsters/Axis/AxisCasterSextant
+#emit
+#spectre Metadata/Monsters/Axis/AxisEliteSoldier
+#emit
+#spectre Metadata/Monsters/Axis/AxisEliteSoldier2
+#emit
+#spectre Metadata/Monsters/Axis/AxisEliteSoldier3
+#emit
+#spectre Metadata/Monsters/Axis/AxisEliteSoldier4
+#emit
+#spectre Metadata/Monsters/Axis/AxisEliteSoldier4Champion
+#emit
+#spectre Metadata/Monsters/Axis/AxisEliteSoldierGuardShield
+#emit
+#spectre Metadata/Monsters/Axis/AxisEliteSoldierGuardShield2
+#emit
+#spectre Metadata/Monsters/Axis/AxisFootSoldier
+#emit
+#spectre Metadata/Monsters/Axis/AxisFootSoldier2
+#emit
+#spectre Metadata/Monsters/Axis/AxisFootSoldierLunaris
+#emit
+#spectre Metadata/Monsters/Axis/AxisFootSoldierSolaris_
+#emit
 -- Bandit
 #spectre Metadata/Monsters/Bandits/BanditBowExplosiveArrow
 #emit
@@ -32,6 +66,12 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Bandits/BanditBowChampion
 #emit
 #spectre Metadata/Monsters/Bandits/BanditRangedTornadoShotPetrified
+#emit
+#spectre Metadata/Monsters/Bandits/BanditBow
+#emit
+#spectre Metadata/Monsters/Bandits/BanditBowKraitynSpecific
+#emit
+#spectre Metadata/Monsters/Bandits/BanditBowBlastRain
 #emit
 -- Beast
 #spectre Metadata/Monsters/Beasts/BeastCaveDegenAura
@@ -163,6 +203,10 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Lion/LionDesertSkinPuncture
 #emit
 #spectre Metadata/Monsters/Lion/LionWolf3Champion
+#emit
+#spectre Metadata/Monsters/Lion/LionFireSkinPhaseRunSpectre
+#emit
+#spectre Metadata/Monsters/Lion/LionDemonSpectre
 #emit
 -- Knitted Horror
 #spectre Metadata/Monsters/MassSkeleton/MassSkeleton

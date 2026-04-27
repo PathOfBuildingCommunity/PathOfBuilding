@@ -1560,7 +1560,7 @@ function buildMode:OpenSpectreLibrary()
 		main:ClosePopup()
 	end)
 	controls.noteLine1 = new("LabelControl", {"TOP",controls.save,"BOTTOM"}, {45, -60, 0, 16}, "^7Spectres in your Library must be assigned to an active") 
-	controls.noteLine2 = new("LabelControl", {"TOP",controls.save,"BOTTOM"}, {45, -42, 0, 16}, "Raise Spectre gem for their buffs and curses to activate")
+	controls.noteLine2 = new("LabelControl", {"TOP",controls.save,"BOTTOM"}, {45, -42, 0, 16}, "^7Raise Spectre gem for their buffs and curses to activate")
 	local spectrePopup = main:OpenPopup(720, 450, "Spectre Library", controls)
 	spectrePopup:SelectControl(spectrePopup.controls.source.controls.searchText)
 	controls.minionNameLabel = new("LabelControl", {"TOP",controls.source,"TOP"}, {230, -50, 0, 18}, "Minion Stats")
@@ -1698,7 +1698,7 @@ function buildMode:OpenSpectreLibrary()
 			DrawString(xPos + (labelWidth / 2), yPos + 24, "CENTER_X", 16, "VAR", self.movementSpeedValue)
 		end	
 	end
-	controls.spawnLocations = new("SpawnListControl", {"TOP", controls.movementSpeedLabel, "TOP"}, {2, 73, 244, 68}, self.data, nil, "Spawns:")
+	controls.spawnLocations = new("SpawnListControl", {"TOP", controls.movementSpeedLabel, "TOP"}, {2, 73, 244, 68}, self.data, nil, "^7Spawns:")
 end
 
 function buildMode:UpdateClassDropdowns(treeVersion)

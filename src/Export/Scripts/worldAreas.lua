@@ -1,4 +1,5 @@
 -- Export World Areas and possible Spectres found in each area.
+-- Run Minion exporter first, as this will search all the minions for spawn locations as well.
 
 local importedSpectres = {}
 
