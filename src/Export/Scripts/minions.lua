@@ -190,7 +190,7 @@ directiveTable.emit = function(state, args, out)
 		if pack and pack.WorldAreas then
 			for _, worldAreaRef in ipairs(pack.WorldAreas) do
 				local area = dat("WorldAreas"):GetRow("Id", worldAreaRef.Id)
-				if area and area.Name ~= "NULL" and area.Name ~= "" and not area.Id:find("Descent") then
+				if area and area.Name ~= "NULL" and area.Name ~= "" and not area.Id:find("Descent") and not area.Name:match("Memory Void") then
 					local isMap = false
 					for _, tag in ipairs(area.Tags or {}) do
 						if tag.Id == "map" then
@@ -271,7 +271,7 @@ directiveTable.emit = function(state, args, out)
 		hasTag["construct"]and "Construct" or
 		hasTag["undead"]   and "Undead" or
 		hasTag["human"]    and "Humanoid" -- Humanoid tag is on many more things
-		
+
 	if #state.extraFlags > 0 then
 		out:write('\textraFlags = {\n')
 		for _, flag in ipairs(state.extraFlags) do
