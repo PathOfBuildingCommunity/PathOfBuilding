@@ -1598,15 +1598,6 @@ Metadata/Monsters/Bandit/Pirate1Master                                          
 Metadata/Monsters/Bandit/Pirate2Master                                                    		----		Lost Mariner
 Metadata/Monsters/Bandit/Pirate3BowMaster                                                 		----		Lost Buccaneer
 Metadata/Monsters/Bandit/PirateChestTreasure                                              		----		Fairgraves' Purser
-Metadata/Monsters/Goatman/GoatmanLeapSlam2                                                		----		Goatman Stomper
-Metadata/Monsters/Goatman/GoatmanLightningLeapSlam                                        		----		Bearded Devil
-Metadata/Monsters/Goatman/MountainGoatmanLeapSlam_                                        		----		Alpine Devil
-Metadata/Monsters/Goatman/GoatmanLeapSlamMapBossStandaloneAtlasUber                       		----		World Shatterer
-Metadata/Monsters/Goatman/GoatmanShamanFireballAtlasUber                                  		----		Goatman Magus
-Metadata/Monsters/Goatman/GoatmanShamanLightningAtlasUber                                 		----		Bearded Bolter
-Metadata/Monsters/Goatman/GoatmanShamanLightningChampion                                  		----		Bearded Skycaller
-Metadata/Monsters/Goatman/MountainGoatmanLeapSlam2                                        		----		Hill Devil
-Metadata/Monsters/Goatman/MountainGoatmanChampionAtlasUber                                		----		Charged Colossus 
 Metadata/Monsters/incaminion/Fragment2                                                    		----		Ancient Sentry Apparatus
 Metadata/Monsters/incaminion/FragmentDoubleAttack                                         		----		Cairn Annihilator
 Metadata/Monsters/incaminion/FragmentPoisonCloud                                          		----		Vaal Construct
@@ -1615,18 +1606,6 @@ Metadata/Monsters/Lion/LionWolf                                                 
 Metadata/Monsters/Lion/LionWolf2                                                          		----		Arctic Wolf
 Metadata/Monsters/Lion/LionWolf3                                                          		----		Snow Wolf
 Metadata/Monsters/Lion/LionMapWolf                                                        		----		Dire Wolf
-Metadata/Monsters/Monkeys/MonkeyBlood                                                     		----		Blood Ape
-Metadata/Monsters/Monkeys/MonkeyBloodEnrage                                               		----		Dread Primate
-Metadata/Monsters/Monkeys/MonkeyBloodThrow                                                		----		Stygian Ape
-Metadata/Monsters/Monkeys/MonkeyBloodPhaserun                                             		----		Shadow Ape
-Metadata/Monsters/Monkeys/MonkeyBloodParasite                                             		----		Infested Ape
-Metadata/Monsters/BloodChieftain/MonkeyChiefBlood                                         		----		Blood Chieftain
-Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage2                                  		----		Stygian Silverback
-Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrageUntainted                          		----		Aboriginal Chieftain
-Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrageUntaintedColossal                  		----		Prime Ape
-Metadata/Monsters/Monkeys/MonkeyJuvenile                                                  		----		Carnage Ape
-Metadata/Monsters/Monkeys/MonkeyJuvenileThrow                                             		----		Barrow Ape
-Metadata/Monsters/Monkeys/MonkeyJuvenileThrowUntainted                                    		----		Primitive Ape
 Metadata/Monsters/MossMonster/MossMonsterStanding                                         		----		Ruined Titan
 Metadata/Monsters/MossMonster/MossMonsterCave                                             		----		Stalag Nightmare
 Metadata/Monsters/MossMonster/MossMonsterRoll                                             		----		Rumbling Mass
@@ -1654,15 +1633,6 @@ Metadata/Monsters/Seawitch/SeaWitch                                             
 Metadata/Monsters/Seawitch/SeaWitchSpawn                                                  		----		Merveil's Daughter
 Metadata/Monsters/Seawitch/ProphecySeaWitch                                               		----		Fated Siren
 Metadata/Monsters/GhostPirates/GhostPirateChampionPinata                                  		----		Fairgraves, Never Dying
-Metadata/Monsters/Snake/SnakeFlame                                                        		----		Night Adder
-Metadata/Monsters/Snake/SnakeFlameParasite                                                		----		Host Adder
-Metadata/Monsters/Snake/SnakeMeleeInca                                                    		----		Serpentine Construct
-Metadata/Monsters/Snake/SnakeScorpionInca                                                 		----		Spine Construct
-Metadata/Monsters/Snake/SnakeRoboMinionSideArea                                           		----		Wiraqucha, Ancient Guardian
-Metadata/Monsters/Snake/SnakeMeleeSpitParasite                                            		----		Host Cobra
-Metadata/Monsters/Snake/SnakeBloodSpitter                                                 		----		Acid Slitherer
-Metadata/Monsters/Snake/SnakePuncture                                                     		----		Crypt Stalker
-Metadata/Monsters/Snake/SnakeSpit                                                         		----		Glade Mamba
 Metadata/Monsters/Spawn/Spawn                                                             		----		Cursed Spawn
 Metadata/Monsters/Spawn/Spawn2                                                            		----		Fathom Screamer
 Metadata/Monsters/Spawn/Spawn3                                                            		----		Flesh Eater
@@ -1673,8 +1643,6 @@ Metadata/Monsters/Spawn/SpawnMervielSummon                                      
 Metadata/Monsters/Spawn/SpawnPhaseRun                                                     		----		Slimy Nemesis
 Metadata/Monsters/Spawn/SpawnViperStrike                                                  		----		Venomous Spawn
 Metadata/Monsters/Spawn/SpawnTiny                                                         		----		Broodling
-Metadata/Monsters/Statue/StatueChurch                                                     		----		Soulmourn
-Metadata/Monsters/Statue/StatueChurchMapBossStandaloneAtlasUber                           		----		Burning Faith
 Metadata/Monsters/Zombies/ZombieBite                                                      		----		Hungry Corpse
 Metadata/Monsters/Zombies/ZombieCauldron                                                  		----		Alira's Dearest
 Metadata/Monsters/Zombies/ProphecyZombieSummoned                                          		----		Volatile Awakened
@@ -1702,13 +1670,6 @@ Metadata/Monsters/Zombies/ZombieMummy2                                          
 Metadata/Monsters/ZombieDismember/ArenaZombieEmerge2                                      		----		Rotten Gladiator
 Metadata/Monsters/ZombieDismember/ArenaZombieEmerge4                                      		----		Rotten Veteran Gladiator
 Metadata/Monsters/Zombies/ZombieProjectFallenAtlasUber                                    		----		Flesh Puppet
-Metadata/Monsters/Axis/GuardClarissa                                                      		----		Guard
-Metadata/Monsters/Axis/GuardLieutenantClarissa                                            		----		Guard Captain
-Metadata/Monsters/Axis/Lieutenant/LieutenantLetter                                        		----		Captain Arteri
-Metadata/Monsters/Axis/ProphecyGuardLieutenantCold                                        		----		Blackguard of Hatred
-Metadata/Monsters/Axis/ProphecyGuardLieutenantLightning                                   		----		Blackguard of Wrath
-Metadata/Monsters/Axis/ProphecyAxisEliteSoldierShield                                     		----		Blackguard Spectre
-Metadata/Monsters/Axis/Cleric/BlackguardClericPure                                        		----		Temple Scholar
 Metadata/Monsters/DemonModular/DemonModularPietyEmerge                                    		----		Piety's Miscreation
 Metadata/Monsters/DemonModular/DemonModularTowerOnce                                      		----		Miscreation
 Metadata/Monsters/DemonModular/DemonModularLunaris                                        		----		Lunar Miscreation
@@ -1757,47 +1718,11 @@ Metadata/Monsters/MossMonster/FireMonsterKaom                                   
 Metadata/Monsters/Pyromaniac/SextantPyromaniacFire                                        		----		Traitorous Incinerator
 Metadata/Monsters/SandSpitters/SandSpitterSewers                                          		----		Sewage Crawler
 Metadata/Monsters/SandSpitters/SandSpitterPoison                                          		----		Toxic Crawler
-Metadata/Monsters/Skeletons/SkeletonMeleeSword                                            		----		Flayed Warrior
-Metadata/Monsters/Skeletons/SkeletonMeleeSword2                                           		----		Restless Labourer
-Metadata/Monsters/Skeletons/SkeletonMeleeFire2                                            		----		Scorched Guard
-Metadata/Monsters/Skeletons/SkeletonCasterFire5                                           		----		Scorched Mage
-Metadata/Monsters/Skeletons/SkeletonCasterColdMultipleProjectiles2                        		----		Enlightened Vicar
-Metadata/Monsters/Skeletons/SkeletonMeleeCold2                                            		----		Bleak Aspirant
-Metadata/Monsters/Skeletons/SkeletonMeleeLightning4                                       		----		Crackling Acolyte
-Metadata/Monsters/Skeletons/SkeletonCasterCold5                                           		----		Bleak Vicar
-Metadata/Monsters/Skeletons/SkeletonCasterLightning6                                      		----		Crackling Vicar
-Metadata/Monsters/Snake/SnakeScorpion                                                     		----		Spine Serpent
-Metadata/Monsters/Snake/SnakeScorpion2                                                    		----		Infested Serpent
-Metadata/Monsters/Snake/SnakeScorpionMultiShot2_                                          		----		Sand Serpent
-Metadata/Monsters/Snake/SnakeScorpionMultiShot2_AtlasUber                                 		----		Sanguine Serpent
-Metadata/Monsters/Spiders/SpiderThorn3ViperStrike                                         		----		Crypt Arachnid
 Metadata/Monsters/Spiker/SpikerSpectre_                                                   		----		Porcupine Goliath
 Metadata/Monsters/Spiker/SpikerHighGardensAtlasUber                                       		----		Spined Goliath
 Metadata/Monsters/Spiker/Spiker2Spectre                                                   		----		Thistleback Goliath
 Metadata/Monsters/Spiker/SpikerChrometouchedSpectre                                       		----		Chrome-touched Goliath
 Metadata/Monsters/Spiker/SpikerChromeSpectre                                              		----		Chrome-infused Goliath
-Metadata/Monsters/Statue/StoneStatueMaleSword                                             		----		Fencer Statue
-Metadata/Monsters/Statue/StoneStatueMaleMaul                                              		----		Maul Statue
-Metadata/Monsters/Statue/StoneStatueFemaleSwordBrittle                                    		----		Brittle Fencer
-Metadata/Monsters/Statue/StoneStatueMaleMaulBrittle                                       		----		Brittle Maul Statue
-Metadata/Monsters/Statue/DaressoStatueMaleSword                                           		----		Figment of Swords
-Metadata/Monsters/Statue/DaressoStatueMaleMaul                                            		----		Figment of Destruction
-Metadata/Monsters/Statue/DaressoStatueMaleBow                                             		----		Figment of Winds
-Metadata/Monsters/Statue/StatueMaleMaulBlack                                              		----		Idolised Saint
-Metadata/Monsters/Statue/GoldStatueMaleSwordSpectre                                       		----		Aurate Warrior
-Metadata/Monsters/Statue/GoldStatueMaleBowSpectre_                                        		----		Aurate Archer
-Metadata/Monsters/Statue/TormentStatueMaleSword                                           		----		Embezzler's Offer
-Metadata/Monsters/Statue/TormentStatueMaleBow                                             		----		Embezzler's Own
-Metadata/Monsters/Statue/StoneStatueLargeMaleSpearSpectre                                 		----		Giant Gladiator Statue
-Metadata/Monsters/Statue/DaressoStatueLargeMaleSpearSpectre                               		----		Towering Figment
-Metadata/Monsters/Statue/LabyrinthStatueLargeMaleSpearSpectre                             		----		Overgrown Colossus
-Metadata/Monsters/Statue/GoldStatueLargeMaleSpearSpectre                                  		----		Auric Champion
-Metadata/Monsters/Statue/GoldStatueLargeMaleSwordSpectre                                  		----		Auric Colossus
-Metadata/Monsters/Statue/StoneStatueFemaleUnarmed                                         		----		Martial Statue
-Metadata/Monsters/Statue/BeaconStoneStatueLargeMaleSpear                                  		----		Giant Statue
-Metadata/Monsters/Statue/Lion                                                             		----		Majestic Statue
-Metadata/Monsters/Statue/LionSolaris                                                      		----		Auric Lion
-Metadata/Monsters/Statue/LionSolarisFlame                                                 		----		Molten Lion
 Metadata/Monsters/Undying/CityStalkerMale                                                 		----		Undying Untouchable
 Metadata/Monsters/Undying/CityStalkerMale2                                                		----		Undying Subject
 Metadata/Monsters/Undying/CityStalkerMale3                                                		----		Undying Inductor
@@ -1845,30 +1770,12 @@ Metadata/Monsters/RootSpiders/RootSpiderBossMinion__                            
 Metadata/Monsters/RootSpiders/RootSpiderHidden2                                           		----		Captive Devourer
 Metadata/Monsters/RootSpiders/RootSpiderHiddenUntainted                                   		----		Ancient Devourer
 Metadata/Monsters/RootSpiders/RootSpiderHiddenUntaintedColossal                           		----		Elder Devourer
-Metadata/Monsters/Cannibal/CannibalFemale                                                 		----		Cannibal
-Metadata/Monsters/Cannibal/CannibalFemaleTorment                                          		----		Cannibal's Devoted
-Metadata/Monsters/Cannibal/CannibalFemaleBossWitchAtlasUber                               		----		Fire Frenzy
-Metadata/Monsters/Cannibal/CannibalFemaleThrowFireAtlasUber                               		----		Arsonist
-Metadata/Monsters/Cannibal/CannibalFemaleProphecy                                         		----		Bameth Cultist
-Metadata/Monsters/Cannibal/CannibalLunaris                                                		----		Lunaris Zealot
-Metadata/Monsters/Cannibal/CannibalLunaris2                                               		----		Moontouched Zealot
-Metadata/Monsters/Cannibal/CannibalHarbingerCold                                          		----		Harbinger Fanatic
-Metadata/Monsters/Cannibal/CannibalHarbingerCold2                                         		----		Harbinger Worshipper
-Metadata/Monsters/Cannibal/CannibalLunarisChampion                                        		----		Lunar Devotee
-Metadata/Monsters/Cannibal/CannibalHarbingerChampion                                      		----		Harbinger Puppet
-Metadata/Monsters/Cannibal/CannibalMaleChampionAtlasUber                                  		----		Cannibal Fire-breather
 Metadata/Monsters/Squid/Squid                                                             		----		Soulless Watcher
 Metadata/Monsters/Squid/Squid2                                                            		----		Drifting Eye
 Metadata/Monsters/Squid/Squid3                                                            		----		Cavern Drifter
 Metadata/Monsters/Squid/Squid3Sewer                                                       		----		Sewer Drifter
 Metadata/Monsters/Squid/DexMissionSquid                                                   		----		Infected Watcher
 Metadata/Monsters/Skeletons/DesecratedSkeletonMelee                                       		----		Desecrated Bonestalker
-Metadata/Monsters/DropBear/DropBearGround                                                 		----		Plummeting Ursa
-Metadata/Monsters/DropBear/DropBearGround2                                                		----		Tunnelfiend
-Metadata/Monsters/DropBear/DropBearGround2ParasiteSpectre                                 		----		Infested Tunnelfiend
-Metadata/Monsters/DropBear/DropBearGround2ParasiteSpectre                                 		----		Birthed Ursa
-Metadata/Monsters/DropBear/DropBearGround3                                                		----		Woods Ursa
-Metadata/Monsters/DropBear/DropBearGround3ParasiteSpectre                                 		----		Infested Ursa
 Metadata/Monsters/Skeletons/SkeletonCasterColdMultipleProjectilesIncaBossMinion           		----		Frozen Supplicant
 Metadata/Monsters/Skeletons/SkeletonCasterLightningSparkIncaBossMinion                    		----		Storming Supplicant
 Metadata/Monsters/Axis/DexIntMissionAxisEliteSoldier                                      		----		Elite Mercenary

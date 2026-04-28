@@ -115,6 +115,20 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/Axis/AxisFootSoldierSolaris_
 #emit
+#spectre Metadata/Monsters/Axis/GuardClarissa
+#emit
+#spectre Metadata/Monsters/Axis/GuardLieutenantClarissa
+#emit
+#spectre Metadata/Monsters/Axis/Lieutenant/LieutenantLetter
+#emit
+#spectre Metadata/Monsters/Axis/ProphecyGuardLieutenantCold
+#emit
+#spectre Metadata/Monsters/Axis/ProphecyGuardLieutenantLightning
+#emit
+#spectre Metadata/Monsters/Axis/ProphecyAxisEliteSoldierShield
+#emit
+#spectre Metadata/Monsters/Axis/Cleric/BlackguardClericPure
+#emit
 -- Bandit
 #spectre Metadata/Monsters/Bandits/BanditBowExplosiveArrow
 #emit
@@ -212,6 +226,30 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/BloodChieftain/MonkeyChiefBloodParasite
 #emit
+#spectre Metadata/Monsters/Monkeys/MonkeyBlood
+#emit
+#spectre Metadata/Monsters/Monkeys/MonkeyBloodEnrage
+#emit
+#spectre Metadata/Monsters/Monkeys/MonkeyBloodThrow
+#emit
+#spectre Metadata/Monsters/Monkeys/MonkeyBloodPhaserun
+#emit
+#spectre Metadata/Monsters/Monkeys/MonkeyBloodParasite
+#emit
+#spectre Metadata/Monsters/BloodChieftain/MonkeyChiefBlood
+#emit
+#spectre Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage2
+#emit
+#spectre Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrageUntainted
+#emit
+#spectre Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrageUntaintedColossal
+#emit
+#spectre Metadata/Monsters/Monkeys/MonkeyJuvenile
+#emit
+#spectre Metadata/Monsters/Monkeys/MonkeyJuvenileThrow
+#emit
+#spectre Metadata/Monsters/Monkeys/MonkeyJuvenileThrowUntainted
+#emit
 -- Bone Stalker
 #spectre Metadata/Monsters/BoneStalker/BoneStalker
 #emit
@@ -246,6 +284,30 @@ local minions, mod, flag = ...
 #emit
 -- Cannibals
 #spectre Metadata/Monsters/Cannibal/CannibalMaleChampion
+#emit
+#spectre Metadata/Monsters/Cannibal/CannibalFemale
+#emit
+#spectre Metadata/Monsters/Cannibal/CannibalFemaleTorment
+#emit
+#spectre Metadata/Monsters/Cannibal/CannibalFemaleBossWitchAtlasUber
+#emit
+#spectre Metadata/Monsters/Cannibal/CannibalFemaleThrowFireAtlasUber
+#emit
+#spectre Metadata/Monsters/Cannibal/CannibalFemaleProphecy
+#emit
+#spectre Metadata/Monsters/Cannibal/CannibalLunaris
+#emit
+#spectre Metadata/Monsters/Cannibal/CannibalLunaris2
+#emit
+#spectre Metadata/Monsters/Cannibal/CannibalHarbingerCold
+#emit
+#spectre Metadata/Monsters/Cannibal/CannibalHarbingerCold2
+#emit
+#spectre Metadata/Monsters/Cannibal/CannibalLunarisChampion
+#emit
+#spectre Metadata/Monsters/Cannibal/CannibalHarbingerChampion
+#emit
+#spectre Metadata/Monsters/Cannibal/CannibalMaleChampionAtlasUber
 #emit
 -- Crabs
 #spectre Metadata/Monsters/CrabMonsters/CrabCoconut
@@ -410,6 +472,24 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Goatman/MountainGoatmanChampion
 #emit
 #spectre Metadata/Monsters/Goatman/MountainGoatmanShamanIceSpear
+#emit
+#spectre Metadata/Monsters/Goatman/GoatmanLeapSlam2
+#emit
+#spectre Metadata/Monsters/Goatman/GoatmanLightningLeapSlam
+#emit
+#spectre Metadata/Monsters/Goatman/MountainGoatmanLeapSlam_
+#emit
+#spectre Metadata/Monsters/Goatman/GoatmanLeapSlamMapBossStandaloneAtlasUber
+#emit
+#spectre Metadata/Monsters/Goatman/GoatmanShamanFireballAtlasUber
+#emit
+#spectre Metadata/Monsters/Goatman/GoatmanShamanLightningAtlasUber
+#emit
+#spectre Metadata/Monsters/Goatman/GoatmanShamanLightningChampion
+#emit
+#spectre Metadata/Monsters/Goatman/MountainGoatmanLeapSlam2
+#emit
+#spectre Metadata/Monsters/Goatman/MountainGoatmanChampionAtlasUber
 #emit
 -- Rhoa
 #spectre Metadata/Monsters/Rhoas/Rhoa
@@ -1124,10 +1204,54 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/Skeletons/Scarecrow/ScarecrowFarmerSkeletonChampion
 #emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeSword
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeSword2
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeFire2
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterFire5
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterColdMultipleProjectiles2
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeCold2
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeLightning4
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterCold5
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterLightning6
+#emit
 -- Snake
 #spectre Metadata/Monsters/Snake/SnakeMeleeSpit
 #emit
 #spectre Metadata/Monsters/Snake/SnakeScorpionMultiShot
+#emit
+#spectre Metadata/Monsters/Snake/SnakeFlame
+#emit
+#spectre Metadata/Monsters/Snake/SnakeFlameParasite
+#emit
+#spectre Metadata/Monsters/Snake/SnakeMeleeInca
+#emit
+#spectre Metadata/Monsters/Snake/SnakeScorpionInca
+#emit
+#spectre Metadata/Monsters/Snake/SnakeRoboMinionSideArea
+#emit
+#spectre Metadata/Monsters/Snake/SnakeMeleeSpitParasite
+#emit
+#spectre Metadata/Monsters/Snake/SnakeBloodSpitter
+#emit
+#spectre Metadata/Monsters/Snake/SnakePuncture
+#emit
+#spectre Metadata/Monsters/Snake/SnakeSpit
+#emit
+#spectre Metadata/Monsters/Snake/SnakeScorpion
+#emit
+#spectre Metadata/Monsters/Snake/SnakeScorpion2
+#emit
+#spectre Metadata/Monsters/Snake/SnakeScorpionMultiShot2_
+#emit
+#spectre Metadata/Monsters/Snake/SnakeScorpionMultiShot2_AtlasUber
 #emit
 -- Spider
 #spectre Metadata/Monsters/Spiders/SpiderThornFlickerStrike
@@ -1204,10 +1328,60 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/Spiders/ExpeditionSpiderSmall
 #emit
+#spectre Metadata/Monsters/Spiders/SpiderThorn3ViperStrike
+#emit
 -- Statue
 #spectre Metadata/Monsters/Statue/DaressoStatueLargeMaleSpear
 #emit
 #spectre Metadata/Monsters/Statue/StoneStatueMaleBow
+#emit
+#spectre Metadata/Monsters/Statue/StoneStatueMaleSword
+#emit
+#spectre Metadata/Monsters/Statue/StoneStatueMaleMaul
+#emit
+#spectre Metadata/Monsters/Statue/StoneStatueFemaleSwordBrittle
+#emit
+#spectre Metadata/Monsters/Statue/StoneStatueMaleMaulBrittle
+#emit
+#spectre Metadata/Monsters/Statue/DaressoStatueMaleSword
+#emit
+#spectre Metadata/Monsters/Statue/DaressoStatueMaleMaul
+#emit
+#spectre Metadata/Monsters/Statue/DaressoStatueMaleBow
+#emit
+#spectre Metadata/Monsters/Statue/StatueMaleMaulBlack
+#emit
+#spectre Metadata/Monsters/Statue/GoldStatueMaleSwordSpectre
+#emit
+#spectre Metadata/Monsters/Statue/GoldStatueMaleBowSpectre_
+#emit
+#spectre Metadata/Monsters/Statue/TormentStatueMaleSword
+#emit
+#spectre Metadata/Monsters/Statue/TormentStatueMaleBow
+#emit
+#spectre Metadata/Monsters/Statue/StoneStatueLargeMaleSpearSpectre
+#emit
+#spectre Metadata/Monsters/Statue/DaressoStatueLargeMaleSpearSpectre
+#emit
+#spectre Metadata/Monsters/Statue/LabyrinthStatueLargeMaleSpearSpectre
+#emit
+#spectre Metadata/Monsters/Statue/GoldStatueLargeMaleSpearSpectre
+#emit
+#spectre Metadata/Monsters/Statue/GoldStatueLargeMaleSwordSpectre
+#emit
+#spectre Metadata/Monsters/Statue/StoneStatueFemaleUnarmed
+#emit
+#spectre Metadata/Monsters/Statue/BeaconStoneStatueLargeMaleSpear
+#emit
+#spectre Metadata/Monsters/Statue/Lion
+#emit
+#spectre Metadata/Monsters/Statue/LionSolaris
+#emit
+#spectre Metadata/Monsters/Statue/LionSolarisFlame
+#emit
+#spectre Metadata/Monsters/Statue/StatueChurch
+#emit
+#spectre Metadata/Monsters/Statue/StatueChurchMapBossStandaloneAtlasUber
 #emit
 -- Ophidian
 #spectre Metadata/Monsters/Taster/Taster
@@ -1661,6 +1835,19 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueUltimatum/Golem/SkitterbotLightningSpectre
 #emit
 #spectre Metadata/Monsters/LeagueUltimatum/Golem/SkitterbotColdWeak
+#emit
+-- Ursa
+#spectre Metadata/Monsters/DropBear/DropBearGround
+#emit
+#spectre Metadata/Monsters/DropBear/DropBearGround2
+#emit
+#spectre Metadata/Monsters/DropBear/DropBearGround2ParasiteSpectre
+#emit
+#spectre Metadata/Monsters/DropBear/DropBearGround2ParasiteSpectre
+#emit
+#spectre Metadata/Monsters/DropBear/DropBearGround3
+#emit
+#spectre Metadata/Monsters/DropBear/DropBearGround3ParasiteSpectre
 #emit
 -- Vaal Skeletons
 #spectre Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSword
