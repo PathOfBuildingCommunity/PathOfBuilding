@@ -1639,19 +1639,6 @@ Metadata/Monsters/Necromancer/Necromancer                                       
 Metadata/Monsters/Necromancer/NecromancerCriticalWeakness                                 		----		Sin Master
 Metadata/Monsters/Necromancer/NecromancerConductivity2                                    		----		Thunder Whisperer
 Metadata/Monsters/Necromancer/ProphecyNecromancer                                         		----		Fated Necromancer
-Metadata/Monsters/Rhoas/Rhoa                                                              		----		Rhoa Mare
-Metadata/Monsters/Rhoas/DexMissionRhoaMinion                                              		----		Adolescent Rhoa
-Metadata/Monsters/Rhoas/RhoaUntainted                                                     		----		Primordial Rhoa
-Metadata/Monsters/Rhoas/RhoaUntaintedColossal                                             		----		The First Rhoa
-Metadata/Monsters/Rhoas/RhoaBig                                                           		----		Tercel Rhoa
-Metadata/Monsters/Rhoas/RhoaBigPale                                                       		----		Murk Runner
-Metadata/Monsters/Rhoas/RhoaSkeleton                                                      		----		Bone Rhoa
-Metadata/Monsters/Rhoas/RhoaSkeletonSupporter                                             		----		Restless Bone Rhoa
-Metadata/Monsters/Rhoas/RhoaSkeletonBlack                                                 		----		Corrupted Rhoa
-Metadata/Monsters/Rhoas/RhoaSkeletonSmall                                                 		----		Bone Scavenger
-Metadata/Monsters/Rhoas/RhoaSkeletonSmallSupporter                                        		----		Restless Small Bone Rhoa
-Metadata/Monsters/Rhoas/RhoaUndead                                                        		----		Zombie Rhoa
-Metadata/Monsters/Rhoas/RhoaParasite                                                      		----		Infested Rhoa
 Metadata/Monsters/SandSpitters/SandSpitter1                                               		----		Gravel Eater
 Metadata/Monsters/SandSpitters/SandSpitterUntainted                                       		----		Fossil Eater
 Metadata/Monsters/SandSpitters/SandSpitterUntaintedColossal                               		----		Colossal Spitter
@@ -1667,112 +1654,6 @@ Metadata/Monsters/Seawitch/SeaWitch                                             
 Metadata/Monsters/Seawitch/SeaWitchSpawn                                                  		----		Merveil's Daughter
 Metadata/Monsters/Seawitch/ProphecySeaWitch                                               		----		Fated Siren
 Metadata/Monsters/GhostPirates/GhostPirateChampionPinata                                  		----		Fairgraves, Never Dying
-Metadata/Monsters/Skeletons/ProphecySkeletonBow                                           		----		Fated Archer
-Metadata/Monsters/Skeletons/SkeletonBow                                                   		----		Ancient Archer
-Metadata/Monsters/Skeletons/SkeletonBowSupporter__                                        		----		Restless Skeletal Archer
-Metadata/Monsters/Skeletons/SkeletonBow2                                                  		----		Timeless Hunter
-Metadata/Monsters/Skeletons/SkeletonBow3                                                  		----		Brittle Lookout
-Metadata/Monsters/Skeletons/SkeletonBow4                                                  		----		Brittle Born-again
-Metadata/Monsters/Skeletons/SkeletonBow5                                                  		----		Brittle Poacher
-Metadata/Monsters/Skeletons/SkeletonBow6                                                  		----		Sandy Lookout
-Metadata/Monsters/Skeletons/SkeletonBowBurningArrow                                       		----		Burning Bowman
-Metadata/Monsters/Skeletons/SkeletonBowBurningArrowSupporter                              		----		Restless Skeletal Burning Bowman
-Metadata/Monsters/Skeletons/SkeletonBowTornadoShot                                        		----		Weathered Watchman
-Metadata/Monsters/Skeletons/SkeletonBowFrenzy                                             		----		Vault Hunter
-Metadata/Monsters/Skeletons/SkeletonBowSplitArrow                                         		----		Brittle Archer
-Metadata/Monsters/Skeletons/SkeletonBowSplitArrowSupporter                                		----		Restless Skeletal Split Shooter
-Metadata/Monsters/Skeletons/SkeletonBowLightningAtlasUber                                 		----		Sandworn Poacher
-Metadata/Monsters/Skeletons/SkeletonBowLightning5                                         		----		Thunder Thrall
-Metadata/Monsters/Skeletons/SkeletonBowPunctureAtlasUber                                  		----		Unresting Bleeder
-Metadata/Monsters/Skeletons/SkeletonBowExplosiveArrowBandit                               		----		Disbanded Dead
-Metadata/Monsters/Skeletons/SkeletonBowBellyOfTheBeastRun1                                		----		Bonewarped Archer
-Metadata/Monsters/Skeletons/SkeletonBowBellyOfTheBeastRun2                                		----		Bloodstained Archer
-Metadata/Monsters/Skeletons/SkeletonBowBoneLance                                          		----		Bone Archer
-Metadata/Monsters/Skeletons/SkeletonCasterCold                                            		----		Axiom Frostguard
-Metadata/Monsters/Skeletons/SkeletonCasterColdSupporter                                   		----		Restless Skeletal Frost Mage
-Metadata/Monsters/Skeletons/SkeletonCasterCold2                                           		----		Frost Archmage
-Metadata/Monsters/Skeletons/SkeletonCasterCold3                                           		----		Frost Bishop
-Metadata/Monsters/Skeletons/SkeletonCasterCold4                                           		----		Frost Priest
-Metadata/Monsters/Skeletons/SkeletonCasterCold6                                           		----		Frost Keeper
-Metadata/Monsters/Skeletons/SkeletonCasterCold7                                           		----		Frost Preacher
-Metadata/Monsters/Skeletons/SkeletonCasterCold6StrMission_                                		----		Frost Rattler
-Metadata/Monsters/Skeletons/SkeletonCasterColdMalachaiProphecy                            		----		Malachai's Enlightened
-Metadata/Monsters/Skeletons/SkeletonCasterGold                                            		----		Gleaming Saint
-Metadata/Monsters/Skeletons/SkeletonCasterBlack                                           		----		Desecrated Saint
-Metadata/Monsters/Skeletons/SkeletonCasterBlackExpedition                                 		----		Desecrated Sage
-Metadata/Monsters/Skeletons/SkeletonCasterFire                                            		----		Brittle Arsonist
-Metadata/Monsters/Skeletons/SkeletonCasterFireSupporter                                   		----		Restless Skeletal Fire Mage
-Metadata/Monsters/Skeletons/SkeletonCasterFire2                                           		----		Flame Archmage
-Metadata/Monsters/Skeletons/SkeletonCasterFire3                                           		----		Flame Bishop
-Metadata/Monsters/Skeletons/SkeletonCasterFireProphecy                                    		----		Smouldering Embermage
-Metadata/Monsters/Skeletons/SkeletonCasterFire4                                           		----		Flame Priest
-Metadata/Monsters/Skeletons/SkeletonCasterFireMultipleProjectiles                         		----		Flame Harbinger
-Metadata/Monsters/Skeletons/SkeletonCasterFireMultipleProjectilesProphecy                 		----		Smouldering Infernomage
-Metadata/Monsters/Skeletons/SkeletonCasterFireMultipleProjectilesStrMission               		----		Flame Rattler
-Metadata/Monsters/Skeletons/SkeletonCasterFire6                                           		----		Flame Preacher
-Metadata/Monsters/Skeletons/SkeletonCasterLightning                                       		----		Axiom Thunderguard
-Metadata/Monsters/Skeletons/SkeletonCasterLightningSupporter                              		----		Restless Skeletal Lightning Mage
-Metadata/Monsters/Skeletons/SkeletonCasterLightningDescent2                               		----		Servant of Rukuku
-Metadata/Monsters/Skeletons/SkeletonCasterLightning2                                      		----		Thunder Archmage
-Metadata/Monsters/Skeletons/SkeletonCasterLightning3                                      		----		Thunder Bishop
-Metadata/Monsters/Skeletons/SkeletonCasterLightning4                                      		----		Thunder Harbinger
-Metadata/Monsters/Skeletons/SkeletonCasterLightning5                                      		----		Thunder Priest
-Metadata/Monsters/Skeletons/SkeletonCasterLightning7                                      		----		Thunder Keeper
-Metadata/Monsters/Skeletons/SkeletonCasterLightning8                                      		----		Thunder Preacher
-Metadata/Monsters/Skeletons/SkeletonCasterLightningMultipleProjectiles                    		----		Thunder Champion
-Metadata/Monsters/Skeletons/SkeletonCasterLightningMultipleProjectilesStrMission          		----		Thunder Rattler
-Metadata/Monsters/Skeletons/SkeletonMelee                                                 		----		Ancient Bonestalker
-Metadata/Monsters/Skeletons/SkeletonMeleeSupporter_                                       		----		Restless Skeleton
-Metadata/Monsters/Skeletons/SkeletonMelee2                                                		----		Brittle Cleric
-Metadata/Monsters/Skeletons/SkeletonMelee3                                                		----		Brittle Thief
-Metadata/Monsters/Skeletons/SkeletonMelee4                                                		----		Rattling Bones
-Metadata/Monsters/Skeletons/SkeletonMelee4AtlasUber                                       		----		Unresting Bones
-Metadata/Monsters/Skeletons/SkeletonMelee5                                                		----		Vault Guardian
-Metadata/Monsters/Skeletons/SkeletonMelee6                                                		----		Timeless Wanderer
-Metadata/Monsters/Skeletons/SkeletonMelee7                                                		----		Sandworn Watchman
-Metadata/Monsters/Skeletons/SkeletonMelee8                                                		----		Ash Harvester
-Metadata/Monsters/Skeletons/SkeletonMelee10                                               		----		Angered Remains
-Metadata/Monsters/Skeletons/SkeletonMelee11                                               		----		Risen Saint
-Metadata/Monsters/Skeletons/SkeletonMelee14                                               		----		Sandy Guardian
-Metadata/Monsters/Skeletons/SkeletonMelee15                                               		----		Ancient Worker
-Metadata/Monsters/Skeletons/SkeletonMeleeRoman                                            		----		Brittle Gladiator
-Metadata/Monsters/Skeletons/SkeletonMeleeRoman2                                           		----		Risen Gladiator
-Metadata/Monsters/Skeletons/SkeletonBanditMelee                                           		----		Brittle Bandit
-Metadata/Monsters/Skeletons/FarmerSkeletonMeleePitchfork                                  		----		Brittle Farmer
-Metadata/Monsters/Skeletons/ProphecySkeletonMeleePitchfork_                               		----		Smouldering Farmer
-Metadata/Monsters/Skeletons/ProphecySkeletonPitchforkWave                                 		----		Nightmarish Farmer
-Metadata/Monsters/Skeletons/SkeletonMeleeBellyOfTheBeastRun1                              		----		Bonewarped Warrior
-Metadata/Monsters/Skeletons/SkeletonMeleeBellyOfTheBeastRun2                              		----		Bloodstained Warrior
-Metadata/Monsters/Skeletons/SkeletonStormMeleeEmerge                                      		----		Ancient Convict
-Metadata/Monsters/Skeletons/SkeletonMeleeLargeSupporter                                   		----		Restless Skeletal Colossal
-Metadata/Monsters/Skeletons/SkeletonMeleeLarge2_                                          		----		Awoken Giant
-Metadata/Monsters/Skeletons/SkeletonMeleeCold                                             		----		Frost Guardian
-Metadata/Monsters/Skeletons/SkeletonMeleeColdShield                                       		----		Frost Champion
-Metadata/Monsters/Skeletons/SkeletonMeleeColdShieldStrMission                             		----		Frost Relicguard
-Metadata/Monsters/Skeletons/SkeletonMeleeColdShieldProphecy                               		----		Volkuur's Frostguard
-Metadata/Monsters/Skeletons/SkeletonMeleeFire                                             		----		Flame Guardian
-Metadata/Monsters/Skeletons/SkeletonMeleeFireShield                                       		----		Flame Champion
-Metadata/Monsters/Skeletons/SkeletonMeleeFireShieldStrMission                             		----		Flame Relicguard
-Metadata/Monsters/Skeletons/SkeletonMeleeFireShieldProphecy                               		----		Volkuur's Flameguard
-Metadata/Monsters/Skeletons/SkeletonMeleeFairgravesCrewStandard                           		----		Fairgraves' Crewman
-Metadata/Monsters/Skeletons/SkeletonMeleeFairgravesCrewTreasureHunter                     		----		Lost Crewman
-Metadata/Monsters/Skeletons/SkeletonMeleeFairgravesCrewStandardMap                        		----		Pirate Lord's Crewman
-Metadata/Monsters/Skeletons/SkeletonMeleeLightning                                        		----		Bone Warden
-Metadata/Monsters/Skeletons/SkeletonMeleeLightning2                                       		----		Sparking Bones
-Metadata/Monsters/Skeletons/SkeletonMeleeLightning3                                       		----		Thunder Guardian
-Metadata/Monsters/Skeletons/SkeletonMeleeLightningShieldStrMission                        		----		Thunder Relicguard
-Metadata/Monsters/Skeletons/SkeletonMeleeLightningShieldProphecy                          		----		Volkuur's Stormguard
-Metadata/Monsters/Skeletons/SkeletonMeleeLightningShavronne                               		----		Shavronne's Admirer
-Metadata/Monsters/Skeletons/SkeletonLabyrinthEngineer1H                                   		----		Skeleton Engineer
-Metadata/Monsters/Skeletons/SkeletonLabyrinthEngineer2H                                   		----		Undead Engineer
-Metadata/Monsters/Skeletons/ProphecySkeletonMeleeFire                                     		----		Cinder Bones
-Metadata/Monsters/Skeletons/ProphecySkeletonMeleeCold                                     		----		Icy Bones
-Metadata/Monsters/Skeletons/ProphecySkeletonMeleeLightning                                		----		Crackling Bones
-Metadata/Monsters/Skeletons/ProphecySkeletonCasterFire                                    		----		Brittle Flametosser
-Metadata/Monsters/Skeletons/ProphecySkeletonCasterCold                                    		----		Brittle Chillcaller
-Metadata/Monsters/Skeletons/ProphecySkeletonCasterLightning_                              		----		Brittle Stormtouched
-Metadata/Monsters/Skeletons/Scarecrow/ScarecrowMeleePitchfork__                           		----		Scarecrow
-Metadata/Monsters/Skeletons/Scarecrow/ScarecrowFarmerSkeletonChampion                     		----		Crow Keeper
 Metadata/Monsters/Snake/SnakeFlame                                                        		----		Night Adder
 Metadata/Monsters/Snake/SnakeFlameParasite                                                		----		Host Adder
 Metadata/Monsters/Snake/SnakeMeleeInca                                                    		----		Serpentine Construct
@@ -2129,11 +2010,6 @@ Metadata/Monsters/LightningGolem/LightningGolem                                 
 Metadata/Monsters/BloodWorm/BloodWorm                                                     		----		Blood Worm
 Metadata/Monsters/BloodWorm/FlaskWorm                                                     		----		Writhing Worm
 Metadata/Monsters/BloodWorm/FlaskWormToad                                                 		----		Wriggling Toad
-Metadata/Monsters/CrabParasite/CrabParasiteSmall                                          		----		Savage Crab
-Metadata/Monsters/CrabParasite/CrabParasiteSmallBlue                                      		----		Enraptured Crab
-Metadata/Monsters/CrabParasite/CrabParasiteSmall                                          		----		Infested Crawler
-Metadata/Monsters/CrabParasite/CrabParasiteMedium3                                        		----		Infested Crab
-Metadata/Monsters/CrabParasite/CrabParasiteBleachedSmall                                  		----		Bleached Crawler
 Metadata/Monsters/Flayed/FlayedMale                                                       		----		Primordial Creation
 Metadata/Monsters/Revenant/Revenant2                                                      		----		Escaped Revenant
 Metadata/Monsters/RockGolem/RockGolemSpectre                                              		----		Animated Stone
@@ -2155,19 +2031,8 @@ Metadata/Monsters/Talisman/TalismanKiweth                                       
 Metadata/Monsters/Talisman/TalismanDropbear                                               		----		Unbound Ursa
 Metadata/Monsters/Talisman/TalismanSquid                                                  		----		Unbound Gazer
 Metadata/Monsters/SandLeaper/ProphecySandLeaper                                           		----		Echo of the Verdant
-Metadata/Monsters/Skeletons/SkeletonMeleeFireLabyrinth                                    		----		Cinder Claimant
-Metadata/Monsters/Skeletons/SkeletonMeleeFireShieldLabyrinth                              		----		Burnt Claimant
-Metadata/Monsters/Skeletons/SkeletonMeleeColdLabyrinth                                    		----		Frost Claimant
-Metadata/Monsters/Skeletons/SkeletonMeleeColdShieldLabyrinth                              		----		Rime Claimant
-Metadata/Monsters/Skeletons/SkeletonMeleeLightningLabyrinth                               		----		Thundrous Claimant
-Metadata/Monsters/Skeletons/SkeletonMeleeLightningShieldLabyrinth                         		----		Storm Claimant
-Metadata/Monsters/Skeletons/SkeletonCasterColdLabyrinth                                   		----		Bitter Deceiver
-Metadata/Monsters/Skeletons/SkeletonCasterFireLabyrinth                                   		----		Seething Deceiver
-Metadata/Monsters/Skeletons/SkeletonCasterLightningLabyrinth                              		----		Fulminating Deceiver
-Metadata/Monsters/Necromancer/NecromancerFireLabyrinth                                    		----		Accursed Deceiver
 Metadata/Monsters/Spiders/SpiderScale2Labyrinth                                           		----		Maze Webspinner
 Metadata/Monsters/Spiders/SpiderScale5Labyrinth                                           		----		Maze Hatchling
-Metadata/Monsters/Skeletons/SkeletonMeleeLabyrinth                                        		----		Ancient Contender
 Metadata/Monsters/ZombieDismember/ZombieTarLabyrinth                                      		----		Putrescent Contender
 Metadata/Monsters/ZombieDismember/ZombieMoldyPoison1Labyrinth                             		----		Rotting Claimant
 Metadata/Monsters/Necromancer/NecromancerLabyrinth                                        		----		Eternal Reanimator
@@ -2176,9 +2041,6 @@ Metadata/Monsters/Undying/CityStalkerMaleLabyrinth                              
 Metadata/Monsters/Undying/CityStalkerMaleFreezingPulseLabyrinth                           		----		Rime Servant
 Metadata/Monsters/Undying/CityStalkerMaleFireLabyrinthLavaPit                             		----		Cinder Servant
 Metadata/Monsters/MossMonster/MossMonsterEmergeRollLabyrinthFire                          		----		Molten Shaker
-Metadata/Monsters/Skeletons/SkeletonMeleeLabyrinth2                                       		----		Ancient Combatant
-Metadata/Monsters/Skeletons/SkeletonMeleeLargeLabyrinth                                   		----		Maze Crusher
-Metadata/Monsters/Skeletons/ProphecySkeletonGuard                                         		----		Undead Guardian
 Metadata/Monsters/Mannequin/MannequinLabyrinth                                            		----		Marionette
 Metadata/Monsters/GhostPirates/GhostPirateBlackLabyrinth                                  		----		Spectral Artisan
 Metadata/Monsters/Undying/UndyingOutcastWhirlingBladesLabyrinth                           		----		Skulking Dweller
@@ -2186,13 +2048,6 @@ Metadata/Monsters/Spiker/SpikerLabyrinth                                        
 Metadata/Monsters/Snake/SnakeScorpionIncaLabyrinth_                                       		----		Maze Slitherer
 Metadata/Monsters/MossMonster/MossMonsterEmergeRollLabyrinth                              		----		Crushing Mass
 Metadata/Monsters/Statue/ChromeGargoyleAtlasUber                                          		----		Vibrant Gargoyle
-Metadata/Monsters/Parasite/Parasite                                                       		----		Parasite
-Metadata/Monsters/Parasite/Parasite2                                                      		----		Ravenous Parasite
-Metadata/Monsters/Parasite/ParasiteMinion                                                 		----		Broodspawn Parasite
-Metadata/Monsters/Parasite/ParasiteEmergeOnDeath                                          		----		Vicious Parasite
-Metadata/Monsters/Parasite/SextantParasite                                                		----		Poisonous Parasite
-Metadata/Monsters/Parasite/ParasitePlated                                                 		----		Plated Parasite
-Metadata/Monsters/Parasite/ParasiteSpitting                                               		----		Spitting Parasite
 Metadata/Monsters/ParasiticSquid/ParasiticSquid                                           		----		Brine Vassal
 Metadata/Monsters/ParasiticSquid/ParasiticSquidWarp                                       		----		Swarthy Mollusc
 Metadata/Monsters/Prophecy/Fragment                                                       		----		Remembered Construct
@@ -2280,10 +2135,6 @@ Metadata/Monsters/MarakethBird/Bird1                                            
 Metadata/Monsters/MarakethBird/Bird2                                                      		----		Maternal Rhex
 Metadata/Monsters/MarakethBird/Bird1Fast                                                  		----		Adolescent Rhex
 Metadata/Monsters/MarakethBird/ArmouredBird1                                              		----		Escaped Rhex
-Metadata/Monsters/Scorpion/BlackScorpion                                                  		----		Black Scorpion
-Metadata/Monsters/Scorpion/WhiteScorpion                                                  		----		Sulphuric Scorpion
-Metadata/Monsters/Scorpion/YellowScorpion                                                 		----		Sand Scorpion
-Metadata/Monsters/Scorpion/BlackScorpionLarge                                             		----		Predatory Scorpion
 Metadata/Monsters/GemMonster/IguanaBossPhoenixMapStandaloneAtlasUber                      		----		Molten Chimeral
 Metadata/Monsters/Bandits/BanditSwordShieldPetrified                                      		----		Imperial Legionaire
 Metadata/Monsters/Bandits/BanditRangedBarragePetrified                                    		----		Imperial Archer
@@ -2309,31 +2160,10 @@ Metadata/Monsters/MineBat/MineBatAbyssLargeSpectre                              
 Metadata/Monsters/FormosanBear/FormosanBear                                               		----		Grizzled Bear
 Metadata/Monsters/Rhoa/RhoaRoyale_                                                        		----		Rhoa Scavenger
 Metadata/Monsters/Rhoa/RhoaRoyaleBig                                                      		----		Great Rhoa
-Metadata/Monsters/KitavaCultist/VaalCultistDaggersPhysicsTest                             		----		Vaal Zealot
-Metadata/Monsters/KitavaCultist/VaalCultistSpearPhysicsTest                               		----		Vaal Fanatic
-Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampion_                        		----		Vaal Advocate
-Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosMapAtlasUber                         		----		Chaos Fanatic
-Metadata/Monsters/KitavaCultist/VaalCultistDaggersFireTemple                              		----		Risen Vaal Zealot
-Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningTemple                           		----		Risen Vaal Fanatic
-Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampionTempleSpectre            		----		Risen Vaal Advocate
 Metadata/Monsters/VaalWraith/VaalWraithAtlasUber                                          		----		Chaos Caller
 Metadata/Monsters/Spiders/DelveSpiderPacksMotherSpectre                                   		----		Azurite Widow
 Metadata/Monsters/Spiders/DelveSpiderMedium                                               		----		Nest Widow
 Metadata/Monsters/Mannequin/MannequinStoneDelve                                           		----		Protoguard
-Metadata/Monsters/LeagueDelve/ProtoVaalNecromancerSpectre                                 		----		Lithomancer
-Metadata/Monsters/LeagueDelve/WetaSpectre                                                 		----		Cave Weta
-Metadata/Monsters/LeagueDelve/WetaGiantSpectre                                            		----		Unstable Weta
-Metadata/Monsters/LeagueDelve/TaowuChampionSpectre                                        		----		Turong
-Metadata/Monsters/LeagueDelve/DelveAzuriteAnt                                             		----		Azurite Ant
-Metadata/Monsters/LeagueDelve/CaveDwellerChampionSpectre                                  		----		Cavestalker
-Metadata/Monsters/LeagueDelve/DelveMonkeySpectre                                          		----		Azure Ape
-Metadata/Monsters/LeagueDelve/ProtoVaalWarrior                                            		----		Stoneskin Warrior
-Metadata/Monsters/LeagueDelve/ProtoVaalWarriorEliteSpectre                                		----		Stoneskin Flayer
-Metadata/Monsters/LeagueDelve/ProtoVaalWarriorEliteAtlasUber                              		----		Stoneskin Dancer
-Metadata/Monsters/LeagueDelve/QiongqiChampionSpectre                                      		----		Gorgol
-Metadata/Monsters/LeagueDelve/QiongqiChampionSpikedSpectre_                               		----		Gorgol Alpha
-Metadata/Monsters/LeagueDelve/DelveMineBatSpectre_                                        		----		Azure Shrieker
-Metadata/Monsters/LeagueDelve/DelveMineBatRangedSpectre                                   		----		Charged Shrieker
 Metadata/Monsters/Lion/LionWolfDelveMediumEncounterSpectre                                		----		Adolescent Wolf
 Metadata/Monsters/Lion/LionWolfDelveSmallEncounterSpectre                                 		----		Snow Cub
 Metadata/Monsters/RockGolem/ArcticGolemDelve                                              		----		Arctic Golem
@@ -2342,26 +2172,6 @@ Metadata/Monsters/Snake/SnakeSpitDelveSpectre                                   
 Metadata/Monsters/Skeletons/SkeletonBowExplosiveArrowDelveSpectre_                        		----		Brittle Miner
 Metadata/Monsters/Skeletons/SkeletonBanditMeleeDelveSpectre                               		----		Rattling Slave
 Metadata/Monsters/MossMonster/MossMonsterEmergeDelveSpectre                               		----		Slumbering Titan
-Metadata/Monsters/LeagueBetrayal/BetrayalNecromancerSpectre                               		----		Flesh Manipulator
-Metadata/Monsters/LeagueBetrayal/BetrayalOssuaryWitchSpectre                              		----		Spirit Weaver
-Metadata/Monsters/LeagueBetrayal/BetrayalZombie                                           		----		Risen Lackey
-Metadata/Monsters/LeagueBetrayal/BetrayalSkeletonMeleeSpectre                             		----		Flayed Vanguard
-Metadata/Monsters/LeagueBetrayal/BetrayalSkeletonRangedSpectre                            		----		Flayed Lookout
-Metadata/Monsters/LeagueBetrayal/BetrayalTotemGroundEffect                                		----		Mangled Sculpture
-Metadata/Monsters/LeagueBetrayal/BetrayalMassSkeletonSpectre                              		----		Creeping Tangle
-Metadata/Monsters/LeagueBetrayal/BetrayalSkeletonCannonSpectre_                           		----		Ravager Maw
-Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice1Spectre                             		----		Syndicate Assassin
-Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice3Spectre                             		----		Syndicate Agent
-Metadata/Monsters/LeagueBetrayal/BetrayalSecretPoliceChampionSpectre_                     		----		Syndicate Silencer
-Metadata/Monsters/LeagueBetrayal/LaboratoryScientist1Spectre_                             		----		Syndicate Conduit
-Metadata/Monsters/LeagueBetrayal/LaboratoryScientist2Spectre                              		----		Syndicate Fabricator
-Metadata/Monsters/LeagueBetrayal/LaboratoryHandfingerSpectre                              		----		Depraved Monstrosity
-Metadata/Monsters/LeagueBetrayal/LaboratoryRegurgitatorSpectre                            		----		Bloated Monstrosity
-Metadata/Monsters/LeagueBetrayal/LaboratoryRat                                            		----		Starved Plague Rat
-Metadata/Monsters/LeagueBetrayal/BetrayalOriathBlackguardMelee1Spectre                    		----		Syndicate Muscle
-Metadata/Monsters/LeagueBetrayal/BetrayalOriathBlackguardMelee2Spectre                    		----		Syndicate Beheader
-Metadata/Monsters/LeagueBetrayal/BetrayalOriathBlackguardMeleeChampionSpectre             		----		Syndicate Enforcer
-Metadata/Monsters/LeagueBetrayal/BetrayalOriathBlackguardRangedSpectre                    		----		Syndicate Marksman
 Metadata/Monsters/LeagueSynthesis/SynthesisRibbonLargeColdSpectre                         		----		Mindweave Sentinel
 Metadata/Monsters/LeagueSynthesis/SynthesisRibbonSpectre                                  		----		Mindweave Guardian
 Metadata/Monsters/LeagueSynthesis/SynthesisRibbonDashSpectre                              		----		Mindweave Razor
@@ -2390,34 +2200,6 @@ Metadata/Monsters/BurnBoss/SkeletonMeleeSword                                   
 Metadata/Monsters/Spiker/SpikerBull/SpikerBullBossStandaloneAtlasUber__                   		----		Impaling Abomination
 Metadata/Monsters/Skeletons/Pirate/BrutalPirateLordBossStandaloneAtlasUber                		----		Cursed Captain
 Metadata/Monsters/Skeletons/Pirate/BrutalPirateLordBossStandaloneAllFlame                 		----		Ethereal Captain
-Metadata/Monsters/LeagueHeist/Military/MilitaryMelee1Spectre                              		----		Security Enforcer
-Metadata/Monsters/LeagueHeist/Military/MilitaryRanged1_Spectre                            		----		Security Ranger
-Metadata/Monsters/LeagueHeist/Military/MilitaryCaster1Spectre                             		----		Security Conjuror
-Metadata/Monsters/LeagueHeist/Military/MilitaryCaster1EliteSpectre_                       		----		Thaumaturgy Officer
-Metadata/Monsters/LeagueHeist/Science/ProjectUnarmedEliteGuardSpectre                     		----		Violator
-Metadata/Monsters/LeagueHeist/Science/ProjectUnarmedEliteAtlasUber_                       		----		Disruptor
-Metadata/Monsters/LeagueHeist/Science/ProjectZombieSpectre                                		----		Pusbag
-Metadata/Monsters/LeagueHeist/Science/ProjectSkeletonMeleeSwordSpectre                    		----		Rattling Experiment
-Metadata/Monsters/LeagueHeist/Science/ProjectSkeletonRangedSpectre                        		----		Clattering Experiment
-Metadata/Monsters/LeagueHeist/Science/ProjectSkeletonRangedRoyale                         		----		Clattering Bones
-Metadata/Monsters/LeagueHeist/Science/ScientistCasterWandSpectre_                         		----		Heretech
-Metadata/Monsters/LeagueHeist/Science/ProjectCasterWandSpectre                            		----		Necroscientist
-Metadata/Monsters/LeagueHeist/Science/ProjectCasterEliteSpectre                           		----		Senior Heretech
-Metadata/Monsters/LeagueHeist/Science/ProjectCasterEliteAtlasUber                         		----		Senior Scientist
-Metadata/Monsters/LeagueHeist/Science/ScientistCasterEliteSpectre                         		----		Senior Necroscientist
-Metadata/Monsters/LeagueHeist/Thug/ThugMelee1Spectre                                      		----		Foul Thug
-Metadata/Monsters/LeagueHeist/Thug/ThugRanged1_Spectre_                                   		----		Miserly Poacher
-Metadata/Monsters/LeagueHeist/Thug/ThugTorch1Spectre                                      		----		Cruel Arsonist
-Metadata/Monsters/LeagueHeist/Thug/ThugTrapper1Spectre                                    		----		Spiteful Smuggler
-Metadata/Monsters/LeagueHeist/Thug/ThugMelee2EliteSpectre_                                		----		Malicious Bruiser
-Metadata/Monsters/LeagueHeist/Thug/ThugTorch1EliteSpectre                                 		----		Twisted Firestarter
-Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemSpectre_                           		----		Ember Auto-Scout
-Metadata/Monsters/LeagueHeist/Robot/RobotDroneSpectre                                     		----		Firebuzz
-Metadata/Monsters/LeagueHeist/Robot/RobotSpiderSpectre                                    		----		Clockwork Crawler
-Metadata/Monsters/LeagueHeist/Robot/RobotMannequinAtlasUber                               		----		Tireless Sentry
-Metadata/Monsters/LeagueHeist/Robot/RobotAutomatonEliteSpectre                            		----		Auto-Enforcer
-Metadata/Monsters/LeagueHeist/Robot/RobotStormcallerGolemEliteSpectre                     		----		Rusty Crusher
-Metadata/Monsters/LeagueHeist/Robot/RobotForgeHoundEliteSpectre                           		----		GDB0-Y
 Metadata/Monsters/DjinnDemon/DjinnDemonMapBoss_StandaloneAtlasUber                        		----		Demon of the Drowned
 Metadata/Monsters/MavenBoss/TheMavenMapChillOrb                                           		----		Maven's Orb
 Metadata/Monsters/LeagueUltimatum/Golem/SkitterbotLightningWeak                           		----		Powered Cogwork

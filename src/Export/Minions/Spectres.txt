@@ -272,6 +272,16 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/CrabMonsters/CrabCoconutExpedition
 #emit
+#spectre Metadata/Monsters/CrabParasite/CrabParasiteSmall
+#emit
+#spectre Metadata/Monsters/CrabParasite/CrabParasiteSmallBlue
+#emit
+#spectre Metadata/Monsters/CrabParasite/CrabParasiteSmall
+#emit
+#spectre Metadata/Monsters/CrabParasite/CrabParasiteMedium3
+#emit
+#spectre Metadata/Monsters/CrabParasite/CrabParasiteBleachedSmall
+#emit
 -- Crucible
 #spectre Metadata/Monsters/LeagueCrucible/Fire/Eye
 #emit
@@ -400,6 +410,33 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Goatman/MountainGoatmanChampion
 #emit
 #spectre Metadata/Monsters/Goatman/MountainGoatmanShamanIceSpear
+#emit
+-- Rhoa
+#spectre Metadata/Monsters/Rhoas/Rhoa
+#emit
+#spectre Metadata/Monsters/Rhoas/DexMissionRhoaMinion
+#emit
+#spectre Metadata/Monsters/Rhoas/RhoaUntainted
+#emit
+#spectre Metadata/Monsters/Rhoas/RhoaUntaintedColossal
+#emit
+#spectre Metadata/Monsters/Rhoas/RhoaBig
+#emit
+#spectre Metadata/Monsters/Rhoas/RhoaBigPale
+#emit
+#spectre Metadata/Monsters/Rhoas/RhoaSkeleton
+#emit
+#spectre Metadata/Monsters/Rhoas/RhoaSkeletonSupporter
+#emit
+#spectre Metadata/Monsters/Rhoas/RhoaSkeletonBlack
+#emit
+#spectre Metadata/Monsters/Rhoas/RhoaSkeletonSmall
+#emit
+#spectre Metadata/Monsters/Rhoas/RhoaSkeletonSmallSupporter
+#emit
+#spectre Metadata/Monsters/Rhoas/RhoaUndead
+#emit
+#spectre Metadata/Monsters/Rhoas/RhoaParasite
 #emit
 -- Harvest
 #spectre Metadata/Monsters/LeagueHarvest/Red/HarvestDropBearT1Spectre
@@ -602,6 +639,20 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampionDelve_
 #emit
+#spectre Metadata/Monsters/KitavaCultist/VaalCultistDaggersPhysicsTest
+#emit
+#spectre Metadata/Monsters/KitavaCultist/VaalCultistSpearPhysicsTest
+#emit
+#spectre Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampion_
+#emit
+#spectre Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosMapAtlasUber
+#emit
+#spectre Metadata/Monsters/KitavaCultist/VaalCultistDaggersFireTemple
+#emit
+#spectre Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningTemple
+#emit
+#spectre Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampionTempleSpectre
+#emit
 -- Kitava's Herald
 #spectre Metadata/Monster/KitavaDemon/KitavaDemon
 #emit
@@ -612,6 +663,34 @@ local minions, mod, flag = ...
 #emit
 -- Delve League
 #spectre Metadata/Monsters/LeagueDelve/ProtoVaalWarriorElite
+#emit
+#spectre Metadata/Monsters/LeagueDelve/ProtoVaalNecromancerSpectre
+#emit
+#spectre Metadata/Monsters/LeagueDelve/WetaSpectre
+#emit
+#spectre Metadata/Monsters/LeagueDelve/WetaGiantSpectre
+#emit
+#spectre Metadata/Monsters/LeagueDelve/TaowuChampionSpectre
+#emit
+#spectre Metadata/Monsters/LeagueDelve/DelveAzuriteAnt
+#emit
+#spectre Metadata/Monsters/LeagueDelve/CaveDwellerChampionSpectre
+#emit
+#spectre Metadata/Monsters/LeagueDelve/DelveMonkeySpectre
+#emit
+#spectre Metadata/Monsters/LeagueDelve/ProtoVaalWarrior
+#emit
+#spectre Metadata/Monsters/LeagueDelve/ProtoVaalWarriorEliteSpectre
+#emit
+#spectre Metadata/Monsters/LeagueDelve/ProtoVaalWarriorEliteAtlasUber
+#emit
+#spectre Metadata/Monsters/LeagueDelve/QiongqiChampionSpectre
+#emit
+#spectre Metadata/Monsters/LeagueDelve/QiongqiChampionSpikedSpectre_
+#emit
+#spectre Metadata/Monsters/LeagueDelve/DelveMineBatSpectre_
+#emit
+#spectre Metadata/Monsters/LeagueDelve/DelveMineBatRangedSpectre
 #emit
 -- Adjudicator
 #spectre Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorCockerelSpectre
@@ -683,6 +762,21 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/Miner/MinerLanternCrystalVeins
 #emit
+-- Parasite
+#spectre Metadata/Monsters/Parasite/Parasite
+#emit
+#spectre Metadata/Monsters/Parasite/Parasite2
+#emit
+#spectre Metadata/Monsters/Parasite/ParasiteMinion
+#emit
+#spectre Metadata/Monsters/Parasite/ParasiteEmergeOnDeath
+#emit
+#spectre Metadata/Monsters/Parasite/SextantParasite
+#emit
+#spectre Metadata/Monsters/Parasite/ParasitePlated
+#emit
+#spectre Metadata/Monsters/Parasite/ParasiteSpitting
+#emit
 -- Voidbearer
 #spectre Metadata/Monsters/Monkeys/FlameBearer
 #emit
@@ -711,6 +805,15 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Pyromaniac/PyromaniacFire
 #emit
 #spectre Metadata/Monsters/Pyromaniac/PyromaniacPoison
+#emit
+-- Scorpion
+#spectre Metadata/Monsters/Scorpion/BlackScorpion
+#emit
+#spectre Metadata/Monsters/Scorpion/WhiteScorpion
+#emit
+#spectre Metadata/Monsters/Scorpion/YellowScorpion
+#emit
+#spectre Metadata/Monsters/Scorpion/BlackScorpionLarge
 #emit
 -- Stygian Revenant
 #spectre Metadata/Monsters/Revenant/Revenant
@@ -780,6 +883,246 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Skeletons/CowardsTrial/PhantasmCowardsTrial
 #emit
 #spectre Metadata/Monsters/Skeletons/CowardsTrial/GhostflameRagingSpiritCowardsTrial
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeFireLabyrinth
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeFireShieldLabyrinth
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeColdLabyrinth
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeColdShieldLabyrinth
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeLightningLabyrinth
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeLightningShieldLabyrinth
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterColdLabyrinth
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterFireLabyrinth
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterLightningLabyrinth
+#emit
+#spectre Metadata/Monsters/Necromancer/NecromancerFireLabyrinth
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeLabyrinth
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeLabyrinth2
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeLargeLabyrinth
+#emit
+#spectre Metadata/Monsters/Skeletons/ProphecySkeletonGuard
+#emit
+#spectre Metadata/Monsters/Skeletons/ProphecySkeletonBow
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonBow
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonBowSupporter__
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonBow2
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonBow3
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonBow4
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonBow5
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonBow6
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonBowBurningArrow
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonBowBurningArrowSupporter
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonBowTornadoShot
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonBowFrenzy
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonBowSplitArrow
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonBowSplitArrowSupporter
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonBowLightningAtlasUber
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonBowLightning5
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonBowPunctureAtlasUber
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonBowExplosiveArrowBandit
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonBowBellyOfTheBeastRun1
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonBowBellyOfTheBeastRun2
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonBowBoneLance
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterCold
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterColdSupporter
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterCold2
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterCold3
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterCold4
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterCold6
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterCold7
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterCold6StrMission_
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterColdMalachaiProphecy
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterGold
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterBlack
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterBlackExpedition
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterFire
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterFireSupporter
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterFire2
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterFire3
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterFireProphecy
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterFire4
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterFireMultipleProjectiles
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterFireMultipleProjectilesProphecy
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterFireMultipleProjectilesStrMission
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterFire6
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterLightning
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterLightningSupporter
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterLightningDescent2
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterLightning2
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterLightning3
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterLightning4
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterLightning5
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterLightning7
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterLightning8
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterLightningMultipleProjectiles
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonCasterLightningMultipleProjectilesStrMission
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMelee
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeSupporter_
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMelee2
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMelee3
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMelee4
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMelee4AtlasUber
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMelee5
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMelee6
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMelee7
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMelee8
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMelee10
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMelee11
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMelee14
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMelee15
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeRoman
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeRoman2
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonBanditMelee
+#emit
+#spectre Metadata/Monsters/Skeletons/FarmerSkeletonMeleePitchfork
+#emit
+#spectre Metadata/Monsters/Skeletons/ProphecySkeletonMeleePitchfork_
+#emit
+#spectre Metadata/Monsters/Skeletons/ProphecySkeletonPitchforkWave
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeBellyOfTheBeastRun1
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeBellyOfTheBeastRun2
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonStormMeleeEmerge
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeLargeSupporter
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeLarge2_
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeCold
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeColdShield
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeColdShieldStrMission
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeColdShieldProphecy
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeFire
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeFireShield
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeFireShieldStrMission
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeFireShieldProphecy
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeFairgravesCrewStandard
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeFairgravesCrewTreasureHunter
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeFairgravesCrewStandardMap
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeLightning
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeLightning2
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeLightning3
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeLightningShieldStrMission
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeLightningShieldProphecy
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeLightningShavronne
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonLabyrinthEngineer1H
+#emit
+#spectre Metadata/Monsters/Skeletons/SkeletonLabyrinthEngineer2H
+#emit
+#spectre Metadata/Monsters/Skeletons/ProphecySkeletonMeleeFire
+#emit
+#spectre Metadata/Monsters/Skeletons/ProphecySkeletonMeleeCold
+#emit
+#spectre Metadata/Monsters/Skeletons/ProphecySkeletonMeleeLightning
+#emit
+#spectre Metadata/Monsters/Skeletons/ProphecySkeletonCasterFire
+#emit
+#spectre Metadata/Monsters/Skeletons/ProphecySkeletonCasterCold
+#emit
+#spectre Metadata/Monsters/Skeletons/ProphecySkeletonCasterLightning_
+#emit
+#spectre Metadata/Monsters/Skeletons/Scarecrow/ScarecrowMeleePitchfork__
+#emit
+#spectre Metadata/Monsters/Skeletons/Scarecrow/ScarecrowFarmerSkeletonChampion
 #emit
 -- Snake
 #spectre Metadata/Monsters/Snake/SnakeMeleeSpit
@@ -1090,6 +1433,63 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleFodder3Spectre
 #emit
+-- Heist
+#spectre Metadata/Monsters/LeagueHeist/Military/MilitaryMelee1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Military/MilitaryRanged1_Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Military/MilitaryCaster1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Military/MilitaryCaster1EliteSpectre_
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Science/ProjectUnarmedEliteGuardSpectre
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Science/ProjectUnarmedEliteAtlasUber_
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Science/ProjectZombieSpectre
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Science/ProjectSkeletonMeleeSwordSpectre
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Science/ProjectSkeletonRangedSpectre
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Science/ProjectSkeletonRangedRoyale
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Science/ScientistCasterWandSpectre_
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Science/ProjectCasterWandSpectre
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Science/ProjectCasterEliteSpectre
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Science/ProjectCasterEliteAtlasUber
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Science/ScientistCasterEliteSpectre
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Thug/ThugMelee1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Thug/ThugRanged1_Spectre_
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Thug/ThugTorch1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Thug/ThugTrapper1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Thug/ThugMelee2EliteSpectre_
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Thug/ThugTorch1EliteSpectre
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemSpectre_
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Robot/RobotDroneSpectre
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Robot/RobotSpiderSpectre
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Robot/RobotMannequinAtlasUber
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Robot/RobotAutomatonEliteSpectre
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Robot/RobotStormcallerGolemEliteSpectre
+#emit
+#spectre Metadata/Monsters/LeagueHeist/Robot/RobotForgeHoundEliteSpectre
+#emit
 -- Legion
 #spectre Metadata/Monsters/LegionLeague/LegionKaruiMeleeSpectre_
 #emit
@@ -1159,6 +1559,47 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaWyvernSpectre
 #emit
 #spectre Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaSpikerSpectre
+#emit
+-- Syndicate
+#spectre Metadata/Monsters/LeagueBetrayal/BetrayalNecromancerSpectre
+#emit
+#spectre Metadata/Monsters/LeagueBetrayal/BetrayalOssuaryWitchSpectre
+#emit
+#spectre Metadata/Monsters/LeagueBetrayal/BetrayalZombie
+#emit
+#spectre Metadata/Monsters/LeagueBetrayal/BetrayalSkeletonMeleeSpectre
+#emit
+#spectre Metadata/Monsters/LeagueBetrayal/BetrayalSkeletonRangedSpectre
+#emit
+#spectre Metadata/Monsters/LeagueBetrayal/BetrayalTotemGroundEffect
+#emit
+#spectre Metadata/Monsters/LeagueBetrayal/BetrayalMassSkeletonSpectre
+#emit
+#spectre Metadata/Monsters/LeagueBetrayal/BetrayalSkeletonCannonSpectre_
+#emit
+#spectre Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice3Spectre
+#emit
+#spectre Metadata/Monsters/LeagueBetrayal/BetrayalSecretPoliceChampionSpectre_
+#emit
+#spectre Metadata/Monsters/LeagueBetrayal/LaboratoryScientist1Spectre_
+#emit
+#spectre Metadata/Monsters/LeagueBetrayal/LaboratoryScientist2Spectre
+#emit
+#spectre Metadata/Monsters/LeagueBetrayal/LaboratoryHandfingerSpectre
+#emit
+#spectre Metadata/Monsters/LeagueBetrayal/LaboratoryRegurgitatorSpectre
+#emit
+#spectre Metadata/Monsters/LeagueBetrayal/LaboratoryRat
+#emit
+#spectre Metadata/Monsters/LeagueBetrayal/BetrayalOriathBlackguardMelee1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueBetrayal/BetrayalOriathBlackguardMelee2Spectre
+#emit
+#spectre Metadata/Monsters/LeagueBetrayal/BetrayalOriathBlackguardMeleeChampionSpectre
+#emit
+#spectre Metadata/Monsters/LeagueBetrayal/BetrayalOriathBlackguardRangedSpectre
 #emit
 -- Ultimatum
 #spectre Metadata/Monsters/LeagueUltimatum/Guard/GuardSpearSpectre
