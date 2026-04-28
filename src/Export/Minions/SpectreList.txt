@@ -2375,58 +2375,11 @@ Metadata/Monsters/LeagueSynthesis/SynthesisWyvernSpectre                        
 Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealerCorpseWheelSpectre_                 		----		Razor Halo
 Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealerSpikerSpectre                       		----		Wrought Reaver
 Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealerSpikerChampionSpectre               		----		Wrought Decapitator
-Metadata/Monsters/LegionLeague/LegionKaruiMeleeSpectre_                                   		----		Karui Sentry
-Metadata/Monsters/LegionLeague/LegionKaruiSergeantMeleeFireSpectre                        		----		Karui Firespeaker
-Metadata/Monsters/LegionLeague/LegionKaruiSergeantCasterFireSpectre                       		----		Daughter of Valako
-Metadata/Monsters/LegionLeague/LegionEternalEmpireMeleeSpectre__                          		----		Imperial Legionnaire
-Metadata/Monsters/LegionLeague/LegionEternalEmpireArcherSpectre                           		----		Imperial Watchman
-Metadata/Monsters/LegionLeague/LegionEternalEmpireMeleeBannerSpectre                      		----		Imperial Bannerman
-Metadata/Monsters/LegionLeague/LegionEternalEmpireSergeantHeavySpectre                    		----		Heavy Guard
-Metadata/Monsters/LegionLeague/LegionEternalEmpireSergeantSpearSpectre                    		----		Lion Guard
-Metadata/Monsters/LegionLeague/LegionMarakethMeleeSpectre                                 		----		Wasteland Guardian
-Metadata/Monsters/LegionLeague/LegionMarakethMelee2                                       		----		Dune Warrior
-Metadata/Monsters/LegionLeague/LegionMarakethRiderSpectre                                 		----		Wasteland Scout
-Metadata/Monsters/LegionLeague/LegionMarakethRiderSpearSpectre                            		----		Wasteland Outrider
-Metadata/Monsters/LegionLeague/LegionMarakethSergeantMeleeSpectre                         		----		Scorpion Sentinel
-Metadata/Monsters/LegionLeague/LegionMarakethSergeantRangedSpectre                        		----		Roc Sentinel
-Metadata/Monsters/LegionLeague/LegionTemplarMelee1Spectre                                 		----		Templar Recruit
-Metadata/Monsters/LegionLeague/LegionTemplarMelee3Spectre                                 		----		Templar Suppressor
-Metadata/Monsters/LegionLeague/LegionTemplarCaster2Spectre                                		----		Templar War Maiden
-Metadata/Monsters/LegionLeague/LegionTemplarSergeantCasterSpectre                         		----		Sin Purger
-Metadata/Monsters/LegionLeague/LegionTemplarSergeantMeleeSpectre                          		----		Peacekeeper
-Metadata/Monsters/LegionLeague/LegionVaalCultistMeleeSpectre                              		----		Vaal Wardog
-Metadata/Monsters/LegionLeague/LegionVaalCultistKnifestickSpectre_                        		----		Vaal Skinner
-Metadata/Monsters/LegionLeague/LegionVaalCultistSpearSpectre                              		----		Vaal Bloodletter
-Metadata/Monsters/LegionLeague/LegionVaalFragmentSpectre                                  		----		Sentry Shard
-Metadata/Monsters/LegionLeague/LegionVaalConstructMeleeSpectre                            		----		Vaal Automaton
-Metadata/Monsters/LegionLeague/LegionVaalConstructSlashySpectre                           		----		Enhanced Vaal Automaton
-Metadata/Monsters/LegionLeague/LegionVaalCultistSergeantSpectre                           		----		Bloodblessed Conqueror
-Metadata/Monsters/LegionLeague/LegionVaalCultistSergeantMeleeSpectre                      		----		Ritemaster Decapitator
-Metadata/Monsters/Skeletons/CowardsTrial/VaalWraithCowardsTrial                           		----		Soulseeker
-Metadata/Monsters/Skeletons/CowardsTrial/PhantasmCowardsTrial                             		----		Primeval Phantasm
-Metadata/Monsters/Skeletons/CowardsTrial/GhostflameRagingSpiritCowardsTrial               		----		Raging Spirit
 Metadata/Monsters/LeagueBlight/Generic/CannibalFirebreatherBossTotem                      		----		Totem
 Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderReligiousTemplarSpectre_  		----		Baranite Templar
 Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderBlackguardInquisitorSpectre		----		Baranite Inquisitor
 Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderBlackguardClericSpectre   		----		Baranite Cleric
 Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderFallenAngelWarriorSpectre 		----		Baranite Purge Knight
-Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieElementalFighterSpectre         		----		Crystalline Brawler
-Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieArcticCrystalCasterSpectre_     		----		Snowcaller
-Metadata/Monsters/AtlasExiles/BasiliskInfluenceMonsters/BasiliskSnakeSpitSpectre          		----		Hunter Asp
-Metadata/Monsters/AtlasExiles/BasiliskInfluenceMonsters/BasiliskScorpionSpectre           		----		Hunter Scorpion
-Metadata/Monsters/AtlasExiles/BasiliskInfluenceMonsters/BasiliskTasterSpectre             		----		Man-Tracker
-Metadata/Monsters/AtlasExiles/BasiliskInfluenceMonsters/BasiliskSpiderPlagueSpectre       		----		Gilded Arach
-Metadata/Monsters/AtlasExiles/BasiliskInfluenceMonsters/BasiliskIguanaSpectre             		----		Exotic Chimeral
-Metadata/Monsters/AtlasExiles/BasiliskInfluenceMonsters/BasiliskFemaleViperSpectre        		----		Hunting Party
-Metadata/Monsters/AtlasExiles/BasiliskInfluenceMonsters/BasiliskFlyingViperSpectre        		----		Winged Viper
-Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorCockerelSpectre     		----		War Fowl
-Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorCockerelBowSpectre  		----		Guard Fowl
-Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorGladiatorSpectre    		----		Loyal Militant
-Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorLionStatueSpectre   		----		Aspect of Glory
-Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorPitbullSpectre      		----		Bone Chewer
-Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorFemaleStatueSpectre 		----		Aspect of Grace
-Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorMaleStatueSpectre   		----		Aspect of Might
-Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorMasterSpectre       		----		Arena Champion
 Metadata/Monsters/AtlasPreQuest/TemplarCourts/KitavaCultistDaggersTemplar                 		----		Orphaned Zealot
 Metadata/Monsters/AtlasPreQuest/TemplarCourts/TemplarJudgeKitava2                         		----		Orphaned Adjudicator
 Metadata/Monsters/AtlasPreQuest/TemplarCourts/ReligiousTemplarKitava                      		----		Orphaned Ward
@@ -2470,17 +2423,6 @@ Metadata/Monsters/MavenBoss/TheMavenMapChillOrb                                 
 Metadata/Monsters/LeagueUltimatum/Golem/SkitterbotLightningWeak                           		----		Powered Cogwork
 Metadata/Monsters/PrisonStalker/PrisonStalker                                             		----		Ghoul
 Metadata/Monsters/PrisonSpider/PrisonSpider                                               		----		Cell Crawler
-Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonFodder1Spectre               		----		Demon Imp
-Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonFodder2_Spectre              		----		Demon Beast
-Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonFodder3Spectre               		----		Demon Ghast
-Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder1Spectre               		----		Ravenous Homunculus
-Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder2Spectre__             		----		Ravenous Brute
-Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder3Spectre               		----		Ravenous Digester
-Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshElite1Spectre                		----		Ravenous Bloodshaper
-Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshElite2_Spectre_              		----		Ravenous Macerator
-Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleFodder1Spectre                 		----		Pale Cherubim
-Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleFodder2Spectre                 		----		Pale Servitor
-Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleFodder3Spectre                 		----		Pale Virtue
 Metadata/Monsters/AtlasInvaders/BlackStarMonsters/BlackStarFodder1Spectre_                		----		Void Construct
 Metadata/Monsters/AtlasInvaders/BlackStarMonsters/BlackStarFodder2Spectre                 		----		Void Jaguar
 Metadata/Monsters/AtlasInvaders/BlackStarMonsters/BlackStarFodder3Spectre                 		----		Void Skulker
@@ -2501,10 +2443,6 @@ Metadata/Monsters/SaplingMonster/TwigMonster                                    
 Metadata/Monsters/SaplingMonster/TwigMonsterArchnemesis                                   		----		Treant
 Metadata/Monsters/PlagueSwarm/PlagueInsect                                                		----		Carrion Wasp
 Metadata/Monsters/PlagueSwarm/PlagueWasp                                                  		----		Plague Wasp
-Metadata/Monsters/VaalMonsters/GuardBowLightning                                          		----		Undead Vaal Archer
-Metadata/Monsters/VaalMonsters/GuardDaggers                                               		----		Undead Vaal Bladedancer
-Metadata/Monsters/VaalMonsters/VaalOverseer                                               		----		Undead Vaal Commander
-Metadata/Monsters/VaalMonsters/GuardSpear                                                 		----		Undead Vaal Guard
 Metadata/Monsters/VaalMonsters/Golems/GolemFireVaalPyramid                                		----		Flame Scuttler
 Metadata/Monsters/VaalMonsters/Golems/GolemColdVaalPyramid                                		----		Frost Scuttler
 Metadata/Monsters/VaalMonsters/Golems/GolemLightningVaalPyramid                           		----		Storm Scuttler
@@ -2524,70 +2462,6 @@ Metadata/Monsters/LeagueSanctum/Fodder/GargoyleMediumSpectre                    
 Metadata/Monsters/LeagueSanctum/Fodder/PaleElite1                                         		----		Lurid Angel
 Metadata/Monsters/LeagueSanctum/Fodder/PaleElite2                                         		----		Unearthly Horror
 Metadata/Monsters/LeagueSanctum/Boss/PurifierBoss__AtlasUber                              		----		Cleansing Guardian
-Metadata/Monsters/LeagueAncestral/AncestralMoltenHulkStandalone                           		----		Caldera Ravager
-Metadata/Monsters/LeagueAncestral/AncestralTurtleStandaloneSpectre                        		----		Titanic Shell
-Metadata/Monsters/LeagueAncestral/AncestralKuniKuniStandalone                             		----		Consuming Kunekune
-Metadata/Monsters/LeagueAncestral/AncestralThunderbirdStandalone                          		----		Thunderbird
-Metadata/Monsters/LeagueAncestral/AncestralKaruiSpearStandaloneSpectre_                   		----		Bloodbound Warrior
-Metadata/Monsters/LeagueAncestral/AncestralJadeHulkStandalone                             		----		Jade Hulk
-Metadata/Monsters/LeagueAncestral/AncestralKaruiDrunkStandalone                           		----		Frenzymonger
-Metadata/Monsters/LeagueAncestral/AncestralSpiritCasterStandalone                         		----		Honoured Sage
-Metadata/Monsters/LeagueAncestral/AncestralKaruiHornStandalone                            		----		Hinekora's Horn
-Metadata/Monsters/LeagueAncestral/AncestralDeathcasterStandalone                          		----		Death's Guide
-Metadata/Monsters/LeagueAncestral/AncestralColdTurtleStandalone                           		----		Lunar Turtle
-Metadata/Monsters/LeagueAncestral/AncestralForestTuataraStandalone                        		----		Camouflaged Tuatara
-Metadata/Monsters/LeagueAncestral/AncestralIcecasterStandalone                            		----		Sunset Sage
-Metadata/Monsters/LeagueAncestral/AncestralBuffHornStandalone                             		----		Warcaller
-Metadata/Monsters/LeagueAncestral/AncestralFishingWhipMaceStandalone                      		----		Riptide
-Metadata/Monsters/LeagueAncestral/AncestralFishingTaiahaStandaloneSpectre                 		----		Trawler
-Metadata/Monsters/LeagueAncestral/AncestralColdPoiStandaloneSpectre                       		----		Moon Dancer
-Metadata/Monsters/LeagueAncestral/AncestralForestKuniKuniStandalone                       		----		Enraged Kunekune
-Metadata/Monsters/LeagueAncestral/AncestralKaruiMooncasterStandalone_                     		----		Tidecaller
-Metadata/Monsters/LeagueAncestral/AncestralNgamahuDrunkStandalone                         		----		Firebreather
-Metadata/Monsters/LeagueAncestral/AncestralKaruiShieldAxeStandalone                       		----		Storm Guard
-Metadata/Monsters/LeagueAncestral/AncestralDruidStandalone                                		----		Tawhoa Shaman
-Metadata/Monsters/LeagueAncestral/AncestralIceArcherStandaloneSpectre                     		----		Autumnal Archer
-Metadata/Monsters/LeagueAncestral/AncestralJadecasterStandalone                           		----		Jadecrafter
-Metadata/Monsters/LeagueAncestral/AncestralKaruiShieldMaceStandalone                      		----		Fieldmaster
-Metadata/Monsters/LeagueAncestral/AncestralMoltenDestroyerStandaloneSpectre               		----		Blackbark Demolisher
-Metadata/Monsters/LeagueAncestral/AncestralSpearRopeStandalone                            		----		Spearfisher
-Metadata/Monsters/LeagueAncestral/AncestralDeathProphetStandalone                         		----		Mystic Prophet
-Metadata/Monsters/LeagueAncestral/AncestralLightningCasterStandalone                      		----		Storm Conduit
-Metadata/Monsters/LeagueAncestral/AncestralStunnerStandalone                              		----		Goliath of Night
-Metadata/Monsters/LeagueAncestral/AncestralJadeCutter                                     		----		Jade Shaman
-Metadata/Monsters/LeagueAncestral/AncestralJadeCutterClone                                		----		Jade Spirit
-Metadata/Monsters/LeagueAncestral/AncestralSpearAgileStandalone                           		----		Spear Dancer
-Metadata/Monsters/LeagueAncestral/AncestralTasalioTuataraStandalone_                      		----		Hooked Tuatara
-Metadata/Monsters/LeagueAzmeri/PitifulFabrication01Spectre                                		----		Skullslinger
-Metadata/Monsters/LeagueAzmeri/PitifulFabrication02Spectre__                              		----		Ribrattle
-Metadata/Monsters/LeagueAzmeri/PitifulFabrication02StandaloneAtlasUber_                   		----		Tremorbones
-Metadata/Monsters/LeagueAzmeri/PitifulFabrication03Spectre                                		----		Spinesnatcher
-Metadata/Monsters/LeagueAzmeri/Werewolves/WerewolfSpectre                                 		----		Wildwood Werewolf
-Metadata/Monsters/LeagueAzmeri/Werewolves/WolfSpectre                                     		----		Wildwood Wolf
-Metadata/Monsters/LeagueAzmeri/Spiders/MeleeSpiderSpectre                                 		----		Bloodtainter Arachnid
-Metadata/Monsters/LeagueAzmeri/Spiders/BlackStriderSpectre                                		----		Whipleg Arachnid
-Metadata/Monsters/LeagueAzmeri/Gruthkul/GruthkulDropBearSpectre                           		----		Nameless Puca
-Metadata/Monsters/LeagueAzmeri/Gruthkul/GruthkulHulkSpectre                               		----		Nameless Beast
-Metadata/Monsters/LeagueAzmeri/Gruthkul/GruthkulMonkeySpectre_                            		----		Nameless Ape
-Metadata/Monsters/LeagueAzmeri/Gruthkul/GruthkulRootSpiderStandaloneAtlasUber             		----		Bloody Burrower
-Metadata/Monsters/LeagueAzmeri/PlagueSwarm/BloodDrone                                     		----		Blood Swarm
-Metadata/Monsters/LeagueAzmeri/FungusZombieSpectre                                        		----		Infested Corpse
-Metadata/Monsters/LeagueAzmeri/FungusZombieAtlasUber                                      		----		Putrid Corpse
-Metadata/Monsters/LeagueAzmeri/PrimordialMonster3Spectre                                  		----		Nameless Thing
-Metadata/Monsters/LeagueAzmeri/FallenGods/FallenStagSpectre                               		----		Treant Dryad
-Metadata/Monsters/LeagueAzmeri/FallenGods/FallenHooksSpectre                              		----		Treant Hookhorror
-Metadata/Monsters/LeagueAzmeri/FallenGods/FallenSplitSpectre                              		----		Treant Splitbeast
-Metadata/Monsters/LeagueAzmeri/RootedMonsters/RootedGuy04Spectre                          		----		Fungal Reaver
-Metadata/Monsters/LeagueAzmeri/Babies/ExplodingBaby                                       		----		Changeling
-Metadata/Monsters/LeagueAzmeri/CrazedCannibalPicts/PictFemaleBowSpectre                   		----		Cultist Archer
-Metadata/Monsters/LeagueAzmeri/CrazedCannibalPicts/PictFemaleDaggerDaggerSpectre          		----		Cultist Daggerdancer
-Metadata/Monsters/LeagueAzmeri/CrazedCannibalPicts/PictFemaleStaffSpectre                 		----		Cultist Witch
-Metadata/Monsters/LeagueAzmeri/CrazedCannibalPicts/PictMaleAxeSpectre__                   		----		Cultist Warrior
-Metadata/Monsters/LeagueAzmeri/PlagueSwarmSpectre_                                        		----		Wildwood Wasp
-Metadata/Monsters/LeagueAzmeri/TwigMonsterSpectre                                         		----		Treant Spriggan
-Metadata/Monsters/LeagueAzmeri/TendrilSentinelSpectre                                     		----		Treant Tendrilmaster
-Metadata/Monsters/LeagueAzmeri/CaveDwellerSpectre                                         		----		Nameless Stalker
-Metadata/Monsters/LeagueAzmeri/CrazedCannibalPicts/PictBigMaleSpectre                     		----		Cultist Brute
 Metadata/Monsters/LeagueNecropolis/TankyZombieTorment__                                   		----		Rotting Meatsack
 Metadata/Monsters/GoldenOnes/GoldenOnesFodderMace                                         		----		Gilded Soldier
 Metadata/Monsters/VaalForgeMan/VaalForgeMan                                               		----		Gilded Smith

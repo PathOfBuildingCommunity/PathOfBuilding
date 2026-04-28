@@ -5,6 +5,67 @@
 --
 local minions, mod, flag = ...
 
+-- Azmeri
+#spectre Metadata/Monsters/LeagueAzmeri/PitifulFabrication01Spectre
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/PitifulFabrication02Spectre__
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/PitifulFabrication02StandaloneAtlasUber_
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/PitifulFabrication03Spectre
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/Werewolves/WerewolfSpectre
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/Werewolves/WolfSpectre
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/Spiders/MeleeSpiderSpectre
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/Spiders/BlackStriderSpectre
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/Gruthkul/GruthkulDropBearSpectre
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/Gruthkul/GruthkulHulkSpectre
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/Gruthkul/GruthkulMonkeySpectre_
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/Gruthkul/GruthkulRootSpiderStandaloneAtlasUber
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/PlagueSwarm/BloodDrone
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/FungusZombieSpectre
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/FungusZombieAtlasUber
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/PrimordialMonster3Spectre
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/FallenGods/FallenStagSpectre
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/FallenGods/FallenHooksSpectre
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/FallenGods/FallenSplitSpectre
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/RootedMonsters/RootedGuy04Spectre
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/Babies/ExplodingBaby
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/CrazedCannibalPicts/PictFemaleBowSpectre
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/CrazedCannibalPicts/PictFemaleDaggerDaggerSpectre
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/CrazedCannibalPicts/PictFemaleStaffSpectre
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/CrazedCannibalPicts/PictMaleAxeSpectre__
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/PlagueSwarmSpectre_
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/TwigMonsterSpectre
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/TendrilSentinelSpectre
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/CaveDwellerSpectre
+#emit
+#spectre Metadata/Monsters/LeagueAzmeri/CrazedCannibalPicts/PictBigMaleSpectre
+#emit
 -- Blackguard
 #spectre Metadata/Monsters/Axis/AxisCaster
 #emit
@@ -552,6 +613,43 @@ local minions, mod, flag = ...
 -- Delve League
 #spectre Metadata/Monsters/LeagueDelve/ProtoVaalWarriorElite
 #emit
+-- Adjudicator
+#spectre Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorCockerelSpectre
+#emit
+#spectre Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorCockerelBowSpectre
+#emit
+#spectre Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorGladiatorSpectre
+#emit
+#spectre Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorLionStatueSpectre
+#emit
+#spectre Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorPitbullSpectre
+#emit
+#spectre Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorFemaleStatueSpectre
+#emit
+#spectre Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorMaleStatueSpectre
+#emit
+#spectre Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorMasterSpectre
+#emit
+-- Basilisk
+#spectre Metadata/Monsters/AtlasExiles/BasiliskInfluenceMonsters/BasiliskSnakeSpitSpectre
+#emit
+#spectre Metadata/Monsters/AtlasExiles/BasiliskInfluenceMonsters/BasiliskScorpionSpectre
+#emit
+#spectre Metadata/Monsters/AtlasExiles/BasiliskInfluenceMonsters/BasiliskTasterSpectre
+#emit
+#spectre Metadata/Monsters/AtlasExiles/BasiliskInfluenceMonsters/BasiliskSpiderPlagueSpectre
+#emit
+#spectre Metadata/Monsters/AtlasExiles/BasiliskInfluenceMonsters/BasiliskIguanaSpectre
+#emit
+#spectre Metadata/Monsters/AtlasExiles/BasiliskInfluenceMonsters/BasiliskFemaleViperSpectre
+#emit
+#spectre Metadata/Monsters/AtlasExiles/BasiliskInfluenceMonsters/BasiliskFlyingViperSpectre
+#emit
+-- Eyrie
+#spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieElementalFighterSpectre
+#emit
+#spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieArcticCrystalCasterSpectre_
+#emit
 -- Hellion
 #spectre Metadata/Monsters/Lion/LionDesertSkinPuncture
 #emit
@@ -676,6 +774,12 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Skeletons/WbSkeletonMinionRanged
 #emit
 #spectre Metadata/Monsters/Skeletons/WbSkeletonMinionCasterFire
+#emit
+#spectre Metadata/Monsters/Skeletons/CowardsTrial/VaalWraithCowardsTrial
+#emit
+#spectre Metadata/Monsters/Skeletons/CowardsTrial/PhantasmCowardsTrial
+#emit
+#spectre Metadata/Monsters/Skeletons/CowardsTrial/GhostflameRagingSpiritCowardsTrial
 #emit
 -- Snake
 #spectre Metadata/Monsters/Snake/SnakeMeleeSpit
@@ -894,6 +998,153 @@ local minions, mod, flag = ...
 -- Forged Vendigo
 #spectre Metadata/Monsters/LeagueCrucible/Lightning/Vendigo_
 #emit
+-- Ancestral
+#spectre Metadata/Monsters/LeagueAncestral/AncestralMoltenHulkStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralTurtleStandaloneSpectre
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralKuniKuniStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralThunderbirdStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralKaruiSpearStandaloneSpectre_
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralJadeHulkStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralKaruiDrunkStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralSpiritCasterStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralKaruiHornStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralDeathcasterStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralColdTurtleStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralForestTuataraStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralIcecasterStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralBuffHornStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralFishingWhipMaceStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralFishingTaiahaStandaloneSpectre
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralColdPoiStandaloneSpectre
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralForestKuniKuniStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralKaruiMooncasterStandalone_
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralNgamahuDrunkStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralKaruiShieldAxeStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralDruidStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralIceArcherStandaloneSpectre
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralJadecasterStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralKaruiShieldMaceStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralMoltenDestroyerStandaloneSpectre
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralSpearRopeStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralDeathProphetStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralLightningCasterStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralStunnerStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralJadeCutter
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralJadeCutterClone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralSpearAgileStandalone
+#emit
+#spectre Metadata/Monsters/LeagueAncestral/AncestralTasalioTuataraStandalone_
+#emit
+-- Beyond
+#spectre Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonFodder1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonFodder2_Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonFodder3Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder2Spectre__
+#emit
+#spectre Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder3Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshElite1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshElite2_Spectre_
+#emit
+#spectre Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleFodder1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleFodder2Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleFodder3Spectre
+#emit
+-- Legion
+#spectre Metadata/Monsters/LegionLeague/LegionKaruiMeleeSpectre_
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionKaruiSergeantMeleeFireSpectre
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionKaruiSergeantCasterFireSpectre
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionEternalEmpireMeleeSpectre__
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionEternalEmpireArcherSpectre
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionEternalEmpireMeleeBannerSpectre
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionEternalEmpireSergeantHeavySpectre
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionEternalEmpireSergeantSpearSpectre
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionMarakethMeleeSpectre
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionMarakethMelee2
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionMarakethRiderSpectre
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionMarakethRiderSpearSpectre
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionMarakethSergeantMeleeSpectre
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionMarakethSergeantRangedSpectre
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionTemplarMelee1Spectre
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionTemplarMelee3Spectre
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionTemplarCaster2Spectre
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionTemplarSergeantCasterSpectre
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionTemplarSergeantMeleeSpectre
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionVaalCultistMeleeSpectre
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionVaalCultistKnifestickSpectre_
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionVaalCultistSpearSpectre
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionVaalFragmentSpectre
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionVaalConstructMeleeSpectre
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionVaalConstructSlashySpectre
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionVaalCultistSergeantSpectre
+#emit
+#spectre Metadata/Monsters/LegionLeague/LegionVaalCultistSergeantMeleeSpectre
+#emit
 -- Memory Strands
 #spectre Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaRibbonLargeSpectre
 #emit
@@ -989,6 +1240,15 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/Skeletons/SkeletonCasterKnightLightning
 #emit
+#spectre Metadata/Monsters/VaalMonsters/GuardBowLightning
+#emit
+#spectre Metadata/Monsters/VaalMonsters/GuardDaggers
+#emit
+#spectre Metadata/Monsters/VaalMonsters/VaalOverseer
+#emit
+#spectre Metadata/Monsters/VaalMonsters/GuardSpear
+#emit
+
 
 -- Affliction Corpses
 
