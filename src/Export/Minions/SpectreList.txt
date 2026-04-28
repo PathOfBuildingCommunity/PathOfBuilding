@@ -2378,17 +2378,6 @@ Metadata/Monsters/Monkeys/FlameBearerAbyssSpectre                               
 Metadata/Monsters/BoneStalker/BoneStalkerAbyssSpectre                                     		----		Thresher
 Metadata/Monsters/Vendigo/VendigoAbyssLargeSpectre                                        		----		Lightless Nightmare
 Metadata/Monsters/MineBat/MineBatAbyssLargeSpectre                                        		----		Wellwing Matriarch
-Metadata/Monsters/CrabMonsters/CrabCoconut                                                		----		Coconut Crab
-Metadata/Monsters/CrabMonsters/CrabCoconutBleached                                        		----		Bleached Coconut Crab
-Metadata/Monsters/CrabMonsters/CrabKelp_                                                  		----		Graceful Kelp Crab
-Metadata/Monsters/CrabMonsters/CrabKelpBleached                                           		----		Bleached Kelp Crab
-Metadata/Monsters/CrabMonsters/CrabNimble_                                                		----		Nimble Spray Crab
-Metadata/Monsters/CrabMonsters/CrabNimbleBleached                                         		----		Bleached Spray Crab
-Metadata/Monsters/CrabMonsters/CrabSpider                                                 		----		Spider Crab
-Metadata/Monsters/CrabMonsters/CrabSpiderBleached                                         		----		Bleached Spider Crab
-Metadata/Monsters/CrabMonsters/CrabKelpCoast                                              		----		Kelp Crab
-Metadata/Monsters/CrabMonsters/CrabNimbleCoast                                            		----		Shore Crab
-Metadata/Monsters/CrabMonsters/CrabCoconutExpedition                                      		----		Cave Crab
 Metadata/Monsters/FormosanBear/FormosanBear                                               		----		Grizzled Bear
 Metadata/Monsters/Rhoa/RhoaRoyale_                                                        		----		Rhoa Scavenger
 Metadata/Monsters/Rhoa/RhoaRoyaleBig                                                      		----		Great Rhoa

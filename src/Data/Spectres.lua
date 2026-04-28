@@ -1501,6 +1501,312 @@ minions["Metadata/Monsters/Cannibal/CannibalMaleChampion"] = {
 	modList = {
 	},
 }
+-- Crabs
+minions["Metadata/Monsters/CrabMonsters/CrabCoconut"] = {
+	name = "Coconut Crab",
+	monsterTags = { "beast", "crustacean_beast", "extra_extra_small_height", "hard_armour", "is_unarmed", "melee", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", "slow_movement", },
+	life = 1,
+	armour = 0.5,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"The Cavern of Wrath (Act 1)",
+		"The Coast (Act 1)",
+		"The Flooded Depths (Act 1)",
+		"The Tidal Island (Act 1)",
+	},
+	skillList = {
+		"Melee",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/CrabMonsters/CrabCoconutBleached"] = {
+	name = "Bleached Coconut Crab",
+	monsterTags = { "beast", "crustacean_beast", "extra_extra_small_height", "hard_armour", "is_unarmed", "melee", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", "slow_movement", },
+	life = 1,
+	armour = 0.5,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/CrabMonsters/CrabKelp_"] = {
+	name = "Graceful Kelp Crab",
+	monsterTags = { "beast", "crustacean_beast", "extra_extra_small_height", "hard_armour", "is_unarmed", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", },
+	life = 1,
+	armour = 0.5,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 29,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/CrabMonsters/CrabKelpBleached"] = {
+	name = "Bleached Kelp Crab",
+	monsterTags = { "beast", "crustacean_beast", "extra_extra_small_height", "hard_armour", "is_unarmed", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", },
+	life = 1,
+	armour = 0.5,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 29,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/CrabMonsters/CrabNimble_"] = {
+	name = "Nimble Spray Crab",
+	monsterTags = { "beast", "crustacean_beast", "extra_extra_small_height", "hard_armour", "is_unarmed", "melee", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", "slow_movement", },
+	life = 1,
+	armour = 0.5,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/CrabMonsters/CrabNimbleBleached"] = {
+	name = "Bleached Spray Crab",
+	monsterTags = { "beast", "crustacean_beast", "extra_extra_small_height", "hard_armour", "is_unarmed", "melee", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", "slow_movement", },
+	life = 1,
+	armour = 0.5,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/CrabMonsters/CrabSpider"] = {
+	name = "Spider Crab",
+	monsterTags = { "beast", "crustacean_beast", "extra_small_height", "hard_armour", "is_unarmed", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", },
+	life = 1,
+	armour = 0.5,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 11,
+	accuracy = 1,
+	baseMovementSpeed = 29,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"The Cavern of Wrath (Act 1)",
+		"The Coast (Act 1)",
+		"The Flooded Depths (Act 1)",
+		"The Tidal Island (Act 1)",
+	},
+	skillList = {
+		"Melee",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/CrabMonsters/CrabSpiderBleached"] = {
+	name = "Bleached Spider Crab",
+	monsterTags = { "beast", "crustacean_beast", "extra_small_height", "hard_armour", "is_unarmed", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", },
+	life = 1,
+	armour = 0.5,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 11,
+	accuracy = 1,
+	baseMovementSpeed = 29,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/CrabMonsters/CrabNimble_"] = {
+	name = "Nimble Spray Crab",
+	monsterTags = { "beast", "crustacean_beast", "extra_extra_small_height", "hard_armour", "is_unarmed", "melee", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", "slow_movement", },
+	life = 1,
+	armour = 0.5,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/CrabMonsters/CrabKelpCoast"] = {
+	name = "Kelp Crab",
+	monsterTags = { "beast", "crustacean_beast", "extra_extra_small_height", "hard_armour", "is_unarmed", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", },
+	life = 0.85,
+	armour = 0.5,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.6,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 29,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"The Cavern of Wrath (Act 1)",
+		"The Coast (Act 1)",
+		"The Flooded Depths (Act 1)",
+		"The Tidal Island (Act 1)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/CrabMonsters/CrabNimbleCoast"] = {
+	name = "Shore Crab",
+	monsterTags = { "beast", "crustacean_beast", "extra_extra_small_height", "hard_armour", "is_unarmed", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", },
+	life = 0.78,
+	armour = 0.5,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.65,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 29,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"The Cavern of Wrath (Act 1)",
+		"The Coast (Act 1)",
+		"The Flooded Depths (Act 1)",
+		"The Tidal Island (Act 1)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/CrabMonsters/CrabCoconutExpedition"] = {
+	name = "Cave Crab",
+	monsterTags = { "beast", "crustacean_beast", "hard_armour", "is_unarmed", "melee", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", "slow_movement", },
+	life = 1,
+	armour = 0.5,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"WalkEmergeExpeditionCrab",
+	},
+	modList = {
+	},
+}
 -- Goatmen
 minions["Metadata/Monsters/Goatman/GoatmanLeapSlam"] = {
 	name = "Goatman",

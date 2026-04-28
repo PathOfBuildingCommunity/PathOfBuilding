@@ -38,6 +38,10 @@ worldAreas["1_1_2"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Cannibal Fire-eater",
+		"Coconut Crab",
+		"Kelp Crab",
+		"Shore Crab",
+		"Spider Crab",
 	},
 	bossVarieties = {
 		"Fire Fury",
@@ -52,6 +56,10 @@ worldAreas["1_1_2a"] = {
 	level = 3,
 	isMap = false,
 	monsterVarieties = {
+		"Coconut Crab",
+		"Kelp Crab",
+		"Shore Crab",
+		"Spider Crab",
 	},
 	bossVarieties = {
 		"Hailrake",
@@ -94,6 +102,10 @@ worldAreas["1_1_4_0"] = {
 	level = 6,
 	isMap = false,
 	monsterVarieties = {
+		"Coconut Crab",
+		"Kelp Crab",
+		"Shore Crab",
+		"Spider Crab",
 	},
 	bossVarieties = {
 		"The Dweller of the Deep",
@@ -232,8 +244,12 @@ worldAreas["1_1_11_1"] = {
 	level = 12,
 	isMap = false,
 	monsterVarieties = {
+		"Coconut Crab",
+		"Kelp Crab",
+		"Shore Crab",
 		"Singing Siren",
 		"Spectral Bowman",
+		"Spider Crab",
 	},
 	bossVarieties = {
 		"Amarissa, Daughter of Merveil",

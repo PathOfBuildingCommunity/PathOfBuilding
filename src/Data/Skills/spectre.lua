@@ -168,6 +168,42 @@ skills["BanditChampionBlastRainSpectre"] = {
 		[1] = { baseMultiplier = 0.3125, levelRequirement = 15, },
 	},
 }
+skills["BanditBlastRainAS"] = {
+	name = "Blast Rain",
+	hidden = true,
+	color = 2,
+	description = "Fires arrows up in the air, to rain down in an area. Each arrow deals area damage around where it lands, and they will all overlap on the targeted location.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Fire] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Area] = true, [SkillType.ProjectileSpeed] = true, [SkillType.ProjectileNumber] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Rain] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		area = true,
+	},
+	baseMods = {
+		skill("radius", 24),
+		skill("dpsMultiplier", 4),
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_fire", 50 },
+		{ "number_of_additional_arrows", 4 },
+		{ "blast_rain_arrow_delay_ms", 80 },
+		{ "active_skill_area_of_effect_radius_+%_final", -5 },
+	},
+	stats = {
+		"base_is_projectile",
+		"is_area_damage",
+		"skill_can_fire_arrows",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { baseMultiplier = 0.3125, cooldown = 3, levelRequirement = 1, storedUses = 1, },
+	},
+}
 skills["GABeastCleave"] = {
 	name = "Cleave",
 	hidden = true,

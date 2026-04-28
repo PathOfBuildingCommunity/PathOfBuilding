@@ -97,6 +97,31 @@ local minions, mod, flag = ...
 -- Cannibals
 #spectre Metadata/Monsters/Cannibal/CannibalMaleChampion
 #emit
+-- Crabs
+#spectre Metadata/Monsters/CrabMonsters/CrabCoconut
+#emit
+#spectre Metadata/Monsters/CrabMonsters/CrabCoconutBleached
+#emit
+#spectre Metadata/Monsters/CrabMonsters/CrabKelp_
+#emit
+#spectre Metadata/Monsters/CrabMonsters/CrabKelpBleached
+#emit
+#spectre Metadata/Monsters/CrabMonsters/CrabNimble_
+#emit
+#spectre Metadata/Monsters/CrabMonsters/CrabNimbleBleached
+#emit
+#spectre Metadata/Monsters/CrabMonsters/CrabSpider
+#emit
+#spectre Metadata/Monsters/CrabMonsters/CrabSpiderBleached
+#emit
+#spectre Metadata/Monsters/CrabMonsters/CrabNimble_
+#emit
+#spectre Metadata/Monsters/CrabMonsters/CrabKelpCoast
+#emit
+#spectre Metadata/Monsters/CrabMonsters/CrabNimbleCoast
+#emit
+#spectre Metadata/Monsters/CrabMonsters/CrabCoconutExpedition
+#emit
 -- Goatmen
 #spectre Metadata/Monsters/Goatman/GoatmanLeapSlam
 #emit
