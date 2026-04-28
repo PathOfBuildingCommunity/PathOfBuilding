@@ -125,13 +125,13 @@ function PowerReportListClass:GetRowValue(column, index, report)
 		or ""
 end
 
-function PowerReportListClass:AddValueTooltip(tooltip, index, entry)
+function PowerReportListClass:AddValueTooltip(tooltip, _, node)
 	if main.popups[1] then
 		tooltip:Clear()
 		return
 	end
-	if tooltip:CheckForUpdate(entry) and entry.sd then
-		for _, line in ipairs(entry.sd) do
+	if tooltip:CheckForUpdate(node) and node.sd then
+		for _, line in ipairs(node.sd) do
 			tooltip:AddLine(16, line)
 		end
 	end
