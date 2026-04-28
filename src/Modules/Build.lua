@@ -243,7 +243,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 				end
 				if mult > 0.01 then
 					local line = level
-					if level >= 68 then 
+					if level >= 68 then
 						line = line .. string.format(" (Tier %d)", level - 67)
 					end
 					line = line .. string.format(": %.1f%%", mult * 100)
@@ -264,7 +264,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 					self.spec:SelectClass(value.classId)
 					self.spec:AddUndoState()
 					self.spec:SetWindowTitleWithBuildClass()
-					self.buildFlag = true					
+					self.buildFlag = true
 				end, "Connect Path", function()
 					if self.spec:ConnectToClass(value.classId) then
 						self.spec:SelectClass(value.classId)
@@ -413,7 +413,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 
 		self.controls.buildLoadouts:SelByValue(value)
 	end)
-	
+
 	if buildName == "~~temp~~" then
 		-- Remove temporary build file
 		os.remove(self.dbFileName)
@@ -619,7 +619,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	self.legacyLoaders = { -- Special loaders for legacy sections
 		["Spec"] = self.treeTab,
 	}
-	
+
 	--special rebuild to properly initialise boss placeholders
 	self.configTab:BuildModList()
 	self:UpdateClassDropdowns()
@@ -881,7 +881,7 @@ function buildMode:EstimatePlayerProgress()
 		act = act + 1
 		level = m_min(m_max(PointsUsed + 1 - acts[act].questPoints - actExtra(act, extra), acts[act].level), 100)
 	until act == 11 or level <= acts[act + 1].level
-	
+
 	if self.characterLevelAutoMode and self.characterLevel ~= level then
 		self.characterLevel = level
 		self.controls.characterLevel:SetText(self.characterLevel)
@@ -896,12 +896,12 @@ function buildMode:EstimatePlayerProgress()
 		or level < 75 and "\nLabyrinth: Merciless Lab"
 		or level < 90 and "\nLabyrinth: Uber Lab"
 		or ""
-	
+
 	if PointsUsed > usedMax then InsertIfNew(self.controls.warnings.lines, "You have too many passive points allocated") end
 	if AscUsed > ascMax then InsertIfNew(self.controls.warnings.lines, "You have too many ascendancy points allocated") end
 	if SecondaryAscUsed > secondaryAscMax then InsertIfNew(self.controls.warnings.lines, "You have too many secondary ascendancy points allocated") end
 	self.Act = level < 90 and act <= 10 and act or "Endgame"
-	
+
 	return string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and colorCodes.NEGATIVE or "^7", PointsUsed, usedMax, AscUsed > ascMax and colorCodes.NEGATIVE or "^7", AscUsed, ascMax),
 		"Required Level: "..level.."\nEstimated Progress:\nAct: "..self.Act.."\nQuestpoints: "..acts[act].questPoints.."\nExtra Skillpoints: "..actExtra(act, extra)..labSuggest
 end
@@ -918,7 +918,7 @@ function buildMode:Shutdown()
 	if launch.devMode and (not main.disableDevAutoSave) and self.targetVersion and not self.abortSave then
 		if self.dbFileName then
 			self:SaveDBFile()
-		elseif self.unsaved then		
+		elseif self.unsaved then
 			self.dbFileName = main.buildPath.."~~temp~~.xml"
 			self.buildName = "~~temp~~"
 			self.dbFileSubPath = ""
@@ -1214,7 +1214,7 @@ function buildMode:OnFrame(inputEvents)
 		height = main.screenH - 32
 	}
 	if self.viewMode == "IMPORT" then
-		self.importTab:Draw(tabViewPort, inputEvents)  
+		self.importTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "NOTES" then
 		self.notesTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "PARTY" then
@@ -1391,7 +1391,7 @@ function buildMode:OpenSpectreLibrary()
 	for id in pairs(self.data.spectres) do
 		t_insert(sourceList, id)
 	end
-	table.sort(sourceList, function(a,b) 
+	table.sort(sourceList, function(a,b)
 		if self.data.minions[a].name == self.data.minions[b].name then
 			return a < b
 		else
@@ -1559,7 +1559,7 @@ function buildMode:OpenSpectreLibrary()
 	controls.cancel = new("ButtonControl", nil, {45, 420, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
-	controls.noteLine1 = new("LabelControl", {"TOP",controls.save,"BOTTOM"}, {45, -60, 0, 16}, "^7Spectres in your Library must be assigned to an active") 
+	controls.noteLine1 = new("LabelControl", {"TOP",controls.save,"BOTTOM"}, {45, -60, 0, 16}, "^7Spectres in your Library must be assigned to an active")
 	controls.noteLine2 = new("LabelControl", {"TOP",controls.save,"BOTTOM"}, {45, -42, 0, 16}, "^7Raise Spectre gem for their buffs and curses to activate")
 	local spectrePopup = main:OpenPopup(720, 450, "Spectre Library", controls)
 	spectrePopup:SelectControl(spectrePopup.controls.source.controls.searchText)
@@ -1696,7 +1696,7 @@ function buildMode:OpenSpectreLibrary()
 		DrawString(xPos + labelWidth / 2, yPos, "CENTER_X", 16, "VAR BOLD", "MOVEMENT SPEED")
 		if self.movementSpeedValue then
 			DrawString(xPos + (labelWidth / 2), yPos + 24, "CENTER_X", 16, "VAR", self.movementSpeedValue)
-		end	
+		end
 	end
 	controls.spawnLocations = new("SpawnListControl", {"TOP", controls.movementSpeedLabel, "TOP"}, {2, 73, 244, 68}, self.data, nil, "^7Spawns:")
 end
@@ -1873,7 +1873,7 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal, colorOverride)
 	if statData.label == "Unreserved Life" and statVal == 0 then
 		color = colorCodes.NEGATIVE
 	end
-	
+
 	local valStr = s_format("%"..statData.fmt, val)
 	local number, suffix = valStr:match("^([%+%-]?%d+%.%d+)(%D*)$")
 	if number then
@@ -1960,8 +1960,8 @@ function buildMode:AddDisplayStatList(statList, actor)
 					end
 				end
 			elseif statData.label and statData.condFunc and statData.condFunc(actor.output) then
-				t_insert(statBoxList, { 
-					height = 16, labelColor..statData.label..":", 
+				t_insert(statBoxList, {
+					height = 16, labelColor..statData.label..":",
 					"^7"..actor.output[statData.labelStat].."%^x808080" .. " (" .. statData.val  .. ")",})
 			elseif not statBoxList[#statBoxList] or statBoxList[#statBoxList][1] then
 				t_insert(statBoxList, { height = 6 })
@@ -2147,7 +2147,7 @@ do
 			if omni and (omni > 0 or omni > self.calcsTab.mainOutput.Omni) then
 				t_insert(req, s_format("%s%d ^x7F7F7FOmni", main:StatColor(omni, 0, self.calcsTab.mainOutput.Omni), omni))
 			end
-		else 
+		else
 			if str and (str > 14 or str > self.calcsTab.mainOutput.Str) then
 				t_insert(req, s_format("%s%d ^x7F7F7FStr", main:StatColor(str, strBase, self.calcsTab.mainOutput.Str), str))
 			end
