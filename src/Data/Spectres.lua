@@ -2031,6 +2031,144 @@ minions["Metadata/Monsters/Axis/Cleric/BlackguardClericPure"] = {
 	modList = {
 	},
 }
+minions["Metadata/Monsters/BlackguardInquisitor/BlackguardInquisitorPure"] = {
+	name = "Temple Justicar",
+	monsterTags = { "bludgeoning_weapon", "flesh_armour", "has_dual_wield_melee", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "medium_height", "medium_movement", "melee", "not_dex", "physical_affinity", "red_blood", "templar", },
+	life = 1.5,
+	energyShield = 0.2,
+	armour = 0.75,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.305,
+	attackRange = 13,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	weaponType2 = "One Handed Mace",
+	baseMovementSpeed = 35,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"Basilica (Map)",
+		"Cells (Map)",
+		"City Square (Map)",
+		"Rewritten Distant Memory",
+		"The Chamber of Innocence (Act 5)",
+		"The Eternal Laboratory (Act 8)",
+		"The Templar Courts (Act 5)",
+		"Theatre of Lies (Map)",
+	},
+	skillList = {
+		"Melee",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/BlackguardInquisitor/BlackguardInquisitorKitava"] = {
+	name = "Twisted Justicar",
+	monsterTags = { "bludgeoning_weapon", "flesh_armour", "has_dual_wield_melee", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "medium_height", "medium_movement", "melee", "not_dex", "physical_affinity", "red_blood", "templar", },
+	life = 1.5,
+	energyShield = 0.2,
+	armour = 0.75,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.305,
+	attackRange = 13,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	weaponType2 = "One Handed Mace",
+	baseMovementSpeed = 35,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"Chambers of Impurity (Map)",
+		"Crimson Township (Map)",
+		"Defiled Cathedral (Map)",
+		"The Desecrated Chambers (Act 10)",
+		"The Eternal Laboratory (Act 8)",
+		"The Torched Courts (Act 5)",
+	},
+	skillList = {
+		"Melee",
+		"KitavaStaticStrike",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/BlackguardInquisitor/BlackguardInquisitorKitava2"] = {
+	name = "Depraved Justicar",
+	monsterTags = { "bludgeoning_weapon", "flesh_armour", "has_dual_wield_melee", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "medium_height", "medium_movement", "melee", "not_dex", "physical_affinity", "red_blood", "templar", },
+	life = 1.5,
+	energyShield = 0.2,
+	armour = 0.75,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.305,
+	attackRange = 13,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	weaponType2 = "One Handed Mace",
+	baseMovementSpeed = 35,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"Chambers of Impurity (Map)",
+		"Crimson Township (Map)",
+		"Defiled Cathedral (Map)",
+		"The Desecrated Chambers (Act 10)",
+		"The Eternal Laboratory (Act 8)",
+		"The Torched Courts (Act 5)",
+	},
+	skillList = {
+		"Melee",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/BlackguardInquisitor/BloodwingMapBossStandaloneAtlasUber"] = {
+	name = "Bloodsoaked Executioner",
+	monsterTags = { "caster", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "large_height", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "ranged", "red_blood", "slashing_weapon", "standalone_map_boss", "summoner", "templar", },
+	life = 3.9,
+	armour = 1,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 25,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.98,
+	attackRange = 13,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 37,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"Abomination (Map)",
+		"Citadel (Map)",
+		"Fortress (Map)",
+		"Sanctuary (Map)",
+		"Ziggurat (Map)",
+	},
+	skillList = {
+		"Melee",
+		"MassSummonBloodRavens",
+		"BloodwingThrownShieldProjectileMap",
+		"DoubleSlashBloodwingMap",
+	},
+	modList = {
+		mod("BlockChance", "BASE", 30, 0, 0), -- MonsterAttackBlock30Bypass15 [monster_base_block_% = 30]
+		mod("BlockEffect", "BASE", 15, 0, 0), -- MonsterAttackBlock30Bypass15 [base_block_%_damage_taken = 15]
+	},
+}
 -- Bandit
 minions["Metadata/Monsters/Bandits/BanditBowExplosiveArrow"] = {
 	name = "Oak's Sniper",
@@ -3369,6 +3507,99 @@ minions["Metadata/Monsters/Bandits/BanditCorpse"] = {
 		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
 	},
 }
+minions["Metadata/Monsters/Bandits/DexIntMissionBanditBow"] = {
+	name = "Hired Ruffian",
+	monsterTags = { "bandit", "flesh_armour", "has_bow", "human", "humanoid", "medium_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.08,
+	armour = 0.25,
+	evasion = 0.1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	attackRange = 40,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EASBanditTauntBow",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+	},
+}
+minions["Metadata/Monsters/Bandits/DexIntMissionBanditMeleeSword"] = {
+	name = "Hired Thug",
+	monsterTags = { "bandit", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "light_armour", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slashing_weapon", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.15,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 17,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EASBanditTaunt",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackBlock20Bypass20 [monster_base_block_% = 20]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterAttackBlock20Bypass20 [base_block_%_damage_taken = 10]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/Bandits/DexIntMissionHostage"] = {
+	name = "Captive Agent",
+	monsterTags = { "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "medium_height", "medium_movement", "melee", "physical_affinity", "red_blood", "slashing_weapon", },
+	life = 2,
+	fireResist = 37,
+	coldResist = 37,
+	lightningResist = 37,
+	chaosResist = 0,
+	damage = 0.4,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 6,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 31,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
 -- Beast
 minions["Metadata/Monsters/Beasts/BeastCaveDegenAura"] = {
 	name = "Shaggy Monstrosity",
@@ -4287,6 +4518,335 @@ minions["Metadata/Monsters/Breach/WildBreachBoss/HandPortal"] = {
 		"GAWildBreachBossTitanHandSlamBelow",
 	},
 	modList = {
+	},
+}
+minions["Metadata/Monsters/Hellion/HellionBreachSpectre"] = {
+	name = "Xoph's Loyal",
+	monsterTags = { "animal_claw_weapon", "beast", "breach_commander", "canine_beast", "caster", "demon", "fire_affinity", "has_one_hand_sword", "has_one_handed_melee", "large_model", "light_armour", "medium_movement", "melee", "no_bloodlines", "no_pantheon_mod", "not_int", "not_str", "physical_affinity", "red_blood", },
+	life = 3,
+	evasion = 0.1,
+	fireResist = 30,
+	coldResist = 30,
+	lightningResist = 30,
+	chaosResist = 20,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 14,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Xoph's Domain (Map)",
+	},
+	skillList = {
+		"HotdogUpheaval",
+		"CoverInAsh",
+		"Flamebreath",
+		"BreachCleave",
+		"Melee",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+	},
+}
+minions["Metadata/Monsters/Revenant/RevenantCommanderBreachSpectre"] = {
+	name = "Chayula's Perfected",
+	monsterTags = { "breach_commander", "caster", "chaos_affinity", "demon", "fast_movement", "flesh_armour", "is_unarmed", "large_model", "melee", "no_bloodlines", "no_pantheon_mod", "not_int", "not_str", "physical_affinity", "red_blood", "slashing_weapon", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3,
+	evasion = 0.5,
+	fireResist = 30,
+	coldResist = 30,
+	lightningResist = 30,
+	chaosResist = 20,
+	damage = 1.8,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 38,
+	monsterCategory = "Demon",
+	spawnLocation = {
+		"Chayula's Domain (Map)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"BreachFlickerStrike",
+		"BreachMortarInLine",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+	},
+}
+minions["Metadata/Monsters/Kiweth/KiwethCommanderBreachSpectre"] = {
+	name = "Uul-Netol's Trophy",
+	monsterTags = { "animal_claw_weapon", "beast", "breach_commander", "caster", "demon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "hidden_monster", "melee", "no_bloodlines", "no_pantheon_mod", "not_str", "physical_affinity", "ranged", "red_blood", "slow_movement", },
+	life = 3.6,
+	energyShield = 0.5,
+	evasion = 0.2,
+	fireResist = 30,
+	coldResist = 30,
+	lightningResist = 30,
+	chaosResist = 20,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.11,
+	attackRange = 11,
+	accuracy = 1,
+	damageFixup = 0.11,
+	baseMovementSpeed = 22,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Uul-Netol's Domain (Map)",
+	},
+	skillList = {
+		"Melee",
+		"BreachBoneMortar",
+		"BreachConsumeBones",
+		"BreachBoneDelayedBlast",
+		"BreachBonespire",
+	},
+	modList = {
+		-- MonsterSpeedAndDamageFixupSmall [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 11]
+		-- MonsterLesserFarShot [monster_reverse_point_blank_damage_-%_at_minimum_range = 60]
+		mod("Damage", "INC", 20, 1024, 0), -- MonsterLesserFarShot [projectile_damage_+% = 20]
+		-- MonsterLesserFarShot [display_monster_uses_far_shot_text = 1]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- KiwethSpectreSizeFix [base_actor_scale_+% = 30]
+		-- set_maximum_consume_charges [set_maximum_consume_charges = 20]
+	},
+}
+minions["Metadata/Monsters/Kiweth/KiwethBreachSpectre"] = {
+	name = "Uul-Netol's Pet",
+	monsterTags = { "animal_claw_weapon", "beast", "demon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "melee", "no_bloodlines", "no_pantheon_mod", "not_str", "physical_affinity", "red_blood", "slow_movement", },
+	life = 3.6,
+	energyShield = 0.5,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.15,
+	damageSpread = 0.2,
+	attackTime = 1.11,
+	attackRange = 11,
+	accuracy = 1,
+	damageFixup = 0.11,
+	baseMovementSpeed = 22,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Uul-Netol's Domain (Map)",
+	},
+	skillList = {
+		"Melee",
+		"BreachBoneGroundSlam",
+	},
+	modList = {
+		-- MonsterSpeedAndDamageFixupSmall [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 11]
+		-- MonsterLesserFarShot [monster_reverse_point_blank_damage_-%_at_minimum_range = 60]
+		mod("Damage", "INC", 20, 1024, 0), -- MonsterLesserFarShot [projectile_damage_+% = 20]
+		-- MonsterLesserFarShot [display_monster_uses_far_shot_text = 1]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+	},
+}
+minions["Metadata/Monsters/Miner/MinerBreachSpectre"] = {
+	name = "It That Watches",
+	monsterTags = { "bludgeoning_weapon", "demon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "humanoid", "melee", "no_bloodlines", "no_pantheon_mod", "physical_affinity", "red_blood", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3.58,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 1.395,
+	attackRange = 9,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	baseMovementSpeed = 10,
+	monsterCategory = "Demon",
+	spawnLocation = {
+		"Chayula's Domain (Map)",
+		"Esh's Domain (Map)",
+		"Hive Colony",
+		"Hive Fortress",
+		"Tul's Domain (Map)",
+		"Uul-Netol's Domain (Map)",
+		"Xoph's Domain (Map)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+	},
+}
+minions["Metadata/Monsters/Miner/MinerBreachColdSpectre"] = {
+	name = "It of Tul",
+	monsterTags = { "bludgeoning_weapon", "cold_affinity", "demon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "humanoid", "melee", "no_bloodlines", "no_pantheon_mod", "physical_affinity", "red_blood", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3.6,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 1.395,
+	attackRange = 9,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	baseMovementSpeed = 10,
+	monsterCategory = "Demon",
+	spawnLocation = {
+		"Tul's Domain (Map)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"BreachFrostBlades",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+	},
+}
+minions["Metadata/Monsters/Miner/MinerBreach2Spectre"] = {
+	name = "It That Waits",
+	monsterTags = { "bludgeoning_weapon", "demon", "flesh_armour", "has_one_hand_axe", "has_one_handed_melee", "humanoid", "melee", "no_bloodlines", "no_pantheon_mod", "physical_affinity", "red_blood", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3.58,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 1.395,
+	attackRange = 9,
+	accuracy = 1,
+	weaponType1 = "One Handed Axe",
+	baseMovementSpeed = 10,
+	monsterCategory = "Demon",
+	spawnLocation = {
+		"Chayula's Domain (Map)",
+		"Esh's Domain (Map)",
+		"Tul's Domain (Map)",
+		"Uul-Netol's Domain (Map)",
+		"Xoph's Domain (Map)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+	},
+}
+minions["Metadata/Monsters/HalfSkeleton/HalfSkeletonBreachSpectre"] = {
+	name = "It That Whispers",
+	monsterTags = { "demon", "flesh_armour", "has_dagger", "has_one_handed_melee", "humanoid", "medium_movement", "melee", "no_bloodlines", "no_pantheon_mod", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", },
+	life = 3.6,
+	armour = 0.25,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	weaponType1 = "Dagger",
+	baseMovementSpeed = 32,
+	monsterCategory = "Demon",
+	spawnLocation = {
+		"Chayula's Domain (Map)",
+		"Esh's Domain (Map)",
+		"Tul's Domain (Map)",
+		"Uul-Netol's Domain (Map)",
+		"Xoph's Domain (Map)",
+	},
+	skillList = {
+		"Melee",
+		"HalfSkeletonPuncture",
+	},
+	modList = {
+		-- MonsterCastsPunctureText [monster_casts_puncture_text = 1]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+	},
+}
+minions["Metadata/Monsters/HalfSkeleton/HalfSkeletonBreachChaosSpectre"] = {
+	name = "Chayula's Ideal",
+	monsterTags = { "chaos_affinity", "demon", "flesh_armour", "has_two_hand_sword", "has_two_handed_melee", "humanoid", "medium_movement", "melee", "no_bloodlines", "no_pantheon_mod", "not_int", "not_str", "physical_affinity", "red_blood", "slashing_weapon", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3.6,
+	evasion = 0.5,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 13,
+	accuracy = 1,
+	weaponType1 = "Two Handed Sword",
+	baseMovementSpeed = 32,
+	monsterCategory = "Demon",
+	spawnLocation = {
+		"Chayula's Domain (Map)",
+	},
+	skillList = {
+		"Melee",
+		"HalfSkeletonPuncture",
+		"BreachSweep",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+	},
+}
+minions["Metadata/Monsters/HalfSkeleton/HalfSkeletonRangedBreachSpectre"] = {
+	name = "It That Reaches",
+	monsterTags = { "demon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "humanoid", "medium_movement", "melee", "no_bloodlines", "no_pantheon_mod", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3.6,
+	evasion = 0.5,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	baseMovementSpeed = 32,
+	monsterCategory = "Demon",
+	spawnLocation = {
+		"Chayula's Domain (Map)",
+		"Esh's Domain (Map)",
+		"Tul's Domain (Map)",
+		"Uul-Netol's Domain (Map)",
+		"Xoph's Domain (Map)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"HalfSkeletonProjectile",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
 	},
 }
 -- Bull
@@ -10753,6 +11313,718 @@ minions["Metadata/Monsters/incaminion/Fragment"] = {
 	modList = {
 	},
 }
+-- Corrupted
+minions["Metadata/Monsters/InsectMinion/StrIntMissionInsect1"] = {
+	name = "Corrupted Crawler",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_small_height", "flesh_armour", "insect", "insect_blood", "is_unarmed", "medium_movement", "melee", "physical_affinity", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.7,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.63,
+	damageSpread = 0.2,
+	attackTime = 0.9,
+	attackRange = 6,
+	accuracy = 1,
+	baseMovementSpeed = 30,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+	},
+}
+minions["Metadata/Monsters/InsectMinion/StrIntMissionInsect2"] = {
+	name = "Corrupted Swarmer",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_small_height", "flesh_armour", "insect", "insect_blood", "is_unarmed", "medium_movement", "melee", "physical_affinity", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.7,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.63,
+	damageSpread = 0.2,
+	attackTime = 0.9,
+	attackRange = 6,
+	accuracy = 1,
+	baseMovementSpeed = 30,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+	},
+}
+minions["Metadata/Monsters/Skeletons/StrIntMissionSkeletonCasterFire"] = {
+	name = "Corrupted Ashweaver",
+	monsterTags = { "bone_armour", "bones", "caster", "fire_affinity", "is_unarmed", "medium_height", "not_dex", "ranged", "skeleton", "slashing_weapon", "undead", "very_slow_movement", },
+	life = 0.84,
+	energyShield = 1,
+	armour = 0.25,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.6,
+	damageSpread = 0.2,
+	attackTime = 1.605,
+	attackRange = 46,
+	accuracy = 1,
+	baseMovementSpeed = 14,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"SkeletonProjectileFire",
+	},
+	modList = {
+		-- MonsterNecromancerRaisable [undead_description = 1]
+		mod("ChainCountMax", "BASE", 2, 0, 0), -- MonsterAdditionalChain2 [number_of_chains = 2]
+		mod("ProjectileSpeed", "INC", -20, 0, 0), -- MonsterSlowerProjectiles [base_projectile_speed_+% = -20]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+	},
+}
+minions["Metadata/Monsters/Skeletons/StrIntMissionSkeletonCasterCold"] = {
+	name = "Corrupted Iceweaver",
+	monsterTags = { "bone_armour", "bones", "caster", "cold_affinity", "is_unarmed", "medium_height", "not_str", "ranged", "skeleton", "slashing_weapon", "undead", "very_slow_movement", },
+	life = 0.84,
+	energyShield = 1,
+	evasion = 0.15,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.6,
+	damageSpread = 0.2,
+	attackTime = 1.605,
+	attackRange = 46,
+	accuracy = 1,
+	baseMovementSpeed = 10,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"SkeletonProjectileCold",
+	},
+	modList = {
+		-- MonsterNecromancerRaisable [undead_description = 1]
+		mod("ChainCountMax", "BASE", 2, 0, 0), -- MonsterAdditionalChain2 [number_of_chains = 2]
+		mod("ProjectileSpeed", "INC", -20, 0, 0), -- MonsterSlowerProjectiles [base_projectile_speed_+% = -20]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+	},
+}
+minions["Metadata/Monsters/Necromancer/StrIntMissionNecromancer"] = {
+	name = "Scion of Corruption",
+	monsterTags = { "animal_claw_weapon", "caster", "demon", "flesh_armour", "humanoid", "insect_blood", "is_unarmed", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "raises_dead", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.4,
+	energyShield = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.35,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 13,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"NecromancerReviveSkeleton",
+	},
+	modList = {
+		-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
+		-- hexes_not_tracked [hexes_not_tracked = 1]
+	},
+}
+minions["Metadata/Monsters/Undying/StrIntMissionCityStalkeFemaleFire"] = {
+	name = "Corrupted Wretch",
+	monsterTags = { "demon", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "medium_height", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "undying", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	evasion = 0.3,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.25,
+	damageSpread = 0.2,
+	attackTime = 1.245,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 37,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+	},
+}
+minions["Metadata/Monsters/Skeletons/StrIntMissionSkeletonMelee"] = {
+	name = "Corrupted Bonestalker",
+	monsterTags = { "bone_armour", "bones", "has_one_hand_sword", "has_one_handed_melee", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.9,
+	armour = 0.25,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.6,
+	damageSpread = 0.3,
+	attackTime = 0.975,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 11,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- MonsterNecromancerRaisable [undead_description = 1]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/ZombieDismember/StrIntMissionZombie1"] = {
+	name = "Rotting Corrupted",
+	monsterTags = { "flesh_armour", "is_unarmed", "medium_height", "melee", "physical_affinity", "red_blood", "undead", "very_slow_movement", "zombie", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.08,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.8,
+	damageSpread = 0.3,
+	attackTime = 2.4,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 8,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterWaitVeryShortWithLongerCooldown",
+		"MonsterWaitVeryShort",
+	},
+	modList = {
+		-- MonsterNecromancerRaisable [undead_description = 1]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+	},
+}
+minions["Metadata/Monsters/Monkeys/StrIntMissionFlamebearer"] = {
+	name = "Corrupted Hound",
+	monsterTags = { "animal_claw_weapon", "caster", "demon", "fire_affinity", "is_unarmed", "light_armour", "medium_height", "medium_movement", "melee", "physical_affinity", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.1,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.65,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 33,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"FlamebearerFlameBlue",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		-- set_base_number_of_totems_allowed [set_base_number_of_totems_allowed = 5]
+	},
+}
+minions["Metadata/Monsters/Necromancer/StrIntMissionNecromancer2"] = {
+	name = "Corrupted Skullbearer",
+	monsterTags = { "animal_claw_weapon", "caster", "demon", "flesh_armour", "humanoid", "insect_blood", "is_unarmed", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "summoner", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.4,
+	energyShield = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.35,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 14,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterRaiseSpectre",
+		"MonsterSummonRagingSpirit",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
+		-- hexes_not_tracked [hexes_not_tracked = 1]
+	},
+}
+minions["Metadata/Monsters/Bandits/StrIntMissionBanditBowPoisonArrow"] = {
+	name = "Corrupted Deadeye",
+	monsterTags = { "bandit", "chaos_affinity", "flesh_armour", "has_bow", "human", "humanoid", "medium_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.08,
+	armour = 0.25,
+	evasion = 0.1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	attackRange = 40,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterCausticArrowAtAnimationSpeed",
+		"EASBanditTauntBow",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+	},
+}
+minions["Metadata/Monsters/Bandits/StrIntMissionBanditMeleeShield"] = {
+	name = "Corrupted Thug",
+	monsterTags = { "bandit", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slashing_weapon", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.15,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EASBanditTaunt",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackBlock20Bypass20 [monster_base_block_% = 20]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterAttackBlock20Bypass20 [base_block_%_damage_taken = 10]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/Bandits/StrIntMissionBanditMeleeChaos"] = {
+	name = "Corrupted Guard",
+	monsterTags = { "bandit", "cleaving_weapon", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "light_armour", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.15,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EASBanditTaunt",
+	},
+	modList = {
+		mod("PhysicalDamageConvertToChaos", "BASE", 50, 0, 0), -- MonsterConvertToChaos1 [base_physical_damage_%_to_convert_to_chaos = 50]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterSpellBlock20Bypass20 [base_spell_block_% = 20]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterSpellBlock20Bypass20 [base_block_%_damage_taken = 10]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/DemonModular/StrIntMissionDemonModular"] = {
+	name = "Corrupted Miscreation",
+	monsterTags = { "cleaving_weapon", "demon", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "medium_height", "melee", "physical_affinity", "red_blood", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.35,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 20,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 0]
+	},
+}
+minions["Metadata/Monsters/Bandits/StrIntMissionSkeletonMeleeReave"] = {
+	name = "Corrupted Bonereaver",
+	monsterTags = { "bone_armour", "bones", "cleaving_weapon", "has_one_hand_sword", "has_one_handed_melee", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "skeleton", "undead", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.9,
+	armour = 0.25,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.6,
+	damageSpread = 0.3,
+	attackTime = 0.975,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 11,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterReave",
+	},
+	modList = {
+		-- MonsterNecromancerRaisable [undead_description = 1]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/Bandits/StrIntMissionSkeletonBowBurningArrow"] = {
+	name = "Corrupted Fireshot",
+	monsterTags = { "bone_armour", "bones", "fire_affinity", "has_bow", "humanoid", "medium_height", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "skeleton", "undead", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.96,
+	evasion = 0.1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.29,
+	attackRange = 40,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	baseMovementSpeed = 11,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterBurningArrow",
+	},
+	modList = {
+		-- MonsterNecromancerRaisable [undead_description = 1]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+	},
+}
+minions["Metadata/Monsters/Kiweth/StrIntMissionKiweth"] = {
+	name = "Corrupted Gull",
+	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "demon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "medium_height", "melee", "not_str", "physical_affinity", "ranged", "red_blood", "slow_movement", },
+	life = 1.3,
+	energyShield = 0.3,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.56,
+	damageSpread = 0.2,
+	attackTime = 1.11,
+	attackRange = 11,
+	accuracy = 1,
+	damageFixup = 0.11,
+	baseMovementSpeed = 27,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+		"BirdmanConsumeCorpse",
+		"BirdmanBloodProjectileMortar",
+	},
+	modList = {
+		-- MonsterSpeedAndDamageFixupSmall [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 11]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+	},
+}
+minions["Metadata/Monsters/Pyromaniac/StrIntMissionPyromaniac"] = {
+	name = "Corrupted Incinerator",
+	monsterTags = { "caster", "demon", "fire_affinity", "flesh_armour", "humanoid", "is_unarmed", "medium_height", "not_int", "not_str", "ranged", "red_blood", "slashing_weapon", "slow_movement", "undying", "uses_suicide_explode", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	evasion = 1,
+	fireResist = 75,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 27,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"PyroFireball",
+		"PyroSuicideExplosion",
+		"MonsterFireBomb",
+	},
+	modList = {
+		-- MonsterExplodesOnItsTargetOnLowLifeText [monster_explodes_on_its_target_text = 2]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+	},
+}
+minions["Metadata/Monsters/Undying/StrIntMissionCityStalkerMaleFire"] = {
+	name = "Corrupted Undying",
+	monsterTags = { "demon", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "medium_height", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "undying", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	evasion = 0.3,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.25,
+	damageSpread = 0.2,
+	attackTime = 1.245,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 37,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/StrIntMissionSpiderThornViperStrike"] = {
+	name = "Corrupted Tarantula",
+	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "physical_affinity", "slow_movement", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterViperStrike",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Spiders/StrIntMissionSpiderThornFlickerStrike"] = {
+	name = "Corrupted Spider",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "physical_affinity", "slow_movement", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterFlickerStrike",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/Seawitch/StrIntMissionSeaWitchSpawn"] = {
+	name = "Corrupted Daughter",
+	monsterTags = { "caster", "cold_affinity", "demon", "flesh_armour", "has_dagger", "has_one_handed_melee", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.02,
+	energyShield = 1,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.52,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 22,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"SummonExplodingSpawn",
+		"SeawitchWaveGeometrySpell",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+	},
+}
+minions["Metadata/Monsters/Spawn/StrIntMissionSpawn"] = {
+	name = "Corrupted Spawn",
+	monsterTags = { "animal_claw_weapon", "demon", "extra_small_height", "fast_movement", "flesh_armour", "has_dagger", "has_one_handed_melee", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.55,
+	evasion = 0.1,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.83,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 38,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+	},
+}
+minions["Metadata/Monsters/Axis/StrIntMissionAxisExperimenter"] = {
+	name = "Corrupted Experimenter",
+	monsterTags = { "caster", "cursing_monster", "fire_affinity", "has_wand", "human", "humanoid", "light_armour", "medium_height", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.96,
+	energyShield = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 75,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	attackRange = 40,
+	accuracy = 1,
+	weaponType1 = "Wand",
+	baseMovementSpeed = 17,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AxisTemporalChains",
+		"MonsterDetonateDeadExperimenter",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		-- muzzle_flash_swap_hands [muzzle_flash_swap_hands = 1]
+	},
+}
+minions["Metadata/Monsters/Axis/StrIntMissionAxisFootSoldier"] = {
+	name = "Corrupted Blackguard",
+	monsterTags = { "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "medium_height", "medium_movement", "melee", "military", "not_dex", "not_int", "physical_affinity", "plate_armour", "red_blood", "slashing_weapon", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.2,
+	armour = 0.75,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.31,
+	damageSpread = 0.2,
+	attackTime = 1.305,
+	attackRange = 12,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 30,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		mod("BlockChance", "BASE", 30, 0, 0), -- MonsterAttackBlock30Bypass15 [monster_base_block_% = 30]
+		mod("BlockEffect", "BASE", 15, 0, 0), -- MonsterAttackBlock30Bypass15 [base_block_%_damage_taken = 15]
+	},
+}
 -- Carrion Queen
 minions["Metadata/Monsters/InsectSpawner/InsectSpawner"] = {
 	name = "Carrion Queen",
@@ -12840,6 +14112,131 @@ minions["Metadata/Monsters/Miner/MinerLanternCrystalVeins"] = {
 	},
 	modList = {
 		-- IgniteArtVariation [ignite_art_variation = 1]
+	},
+}
+minions["Metadata/Monsters/MinerLarge/MinerLarge"] = {
+	name = "Pocked Goliath",
+	monsterTags = { "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "humanoid", "large_model", "medium_height", "melee", "mud_blood", "not_dex", "not_int", "physical_affinity", "ranged", "stone_armour", "undead", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.25,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 2.11,
+	damageSpread = 0.2,
+	attackTime = 1.755,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 16,
+	monsterCategory = "Undead",
+	spawnLocation = {
+		"Crystal Ore (Map)",
+		"Excavation (Map)",
+		"Fragmented Memory",
+		"The Eternal Laboratory (Act 8)",
+		"The Mines Level 1 (Act 4)",
+		"The Mines Level 2 (Act 4)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"GroundSlamMiner",
+		"MinerThrowSpawn",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/MinerLarge/MinerLarge2"] = {
+	name = "Pocked Giant",
+	monsterTags = { "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "humanoid", "large_model", "medium_height", "melee", "mud_blood", "not_dex", "not_int", "physical_affinity", "ranged", "stone_armour", "undead", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.25,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 2.11,
+	damageSpread = 0.2,
+	attackTime = 1.755,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 16,
+	monsterCategory = "Undead",
+	spawnLocation = {
+		"The Quarry (Act 9)",
+		"The Tunnel (Act 9)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"GroundSlamMiner",
+		"MinerThrowSpawn",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/MinerLarge/MinerLargeCrystalVeins"] = {
+	name = "Pocked Behemoth",
+	monsterTags = { "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "humanoid", "large_model", "medium_height", "melee", "mud_blood", "not_dex", "not_int", "physical_affinity", "ranged", "stone_armour", "undead", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.25,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 2.11,
+	damageSpread = 0.2,
+	attackTime = 1.755,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 16,
+	monsterCategory = "Undead",
+	spawnLocation = {
+		"The Crystal Veins (Act 4)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"GroundSlamMiner",
+		"MinerThrowSpawn",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/MinerLarge/MinerLargeSewerElementalAtlasUber"] = {
+	name = "Melted Goliath",
+	monsterTags = { "bludgeoning_weapon", "cannot_be_monolith", "caster", "cold_affinity", "construct", "has_one_hand_mace", "has_one_handed_melee", "large_model", "medium_height", "melee", "mud_blood", "not_dex", "not_int", "physical_affinity", "stone_armour", "very_slow_movement", "water_elemental", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.25,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 52,
+	lightningResist = 0,
+	chaosResist = 52,
+	damage = 1.58,
+	damageSpread = 0.2,
+	attackTime = 1.755,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 16,
+	monsterCategory = "Construct",
+	spawnLocation = {
+		"Abomination (Map)",
+		"Citadel (Map)",
+		"Fortress (Map)",
+		"Sanctuary (Map)",
+		"Ziggurat (Map)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"DoedreBubbleBurstPusTriggered",
+		"TriggerCascadeSewerGoliath",
+		"SpellNovaSewerGoliath",
+		"GroundSlamSewerMiner",
+	},
+	modList = {
+		mod("PhysicalDamageGainAsCold", "BASE", 50, 0, 0), -- MonsterPhysicalAddedAsColdElementalMaps [physical_damage_%_to_add_as_cold = 50]
 	},
 }
 -- Parasite
@@ -19352,6 +20749,33 @@ minions["Metadata/Monsters/Snake/SnakeScorpionMultiShot2_AtlasUber"] = {
 	modList = {
 		mod("PhysicalDamageConvertToChaos", "BASE", 30, 0, 0), -- MonsterSnakeChaos [base_physical_damage_%_to_convert_to_chaos = 30]
 		mod("ProjectileCount", "BASE", 2, 0, 0), -- MonsterMultipleProjectilesImplicit1 [number_of_additional_projectiles = 2]
+	},
+}
+minions["Metadata/Monsters/Snake/SnakeScorpionIncaLabyrinth_"] = {
+	name = "Maze Slitherer",
+	monsterTags = { "beast", "construct", "extra_extra_small_height", "has_dagger", "has_one_handed_melee", "light_armour", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "ranged", "red_blood", "reptile_beast", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.94,
+	evasion = 0.15,
+	fireResist = 30,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 30,
+	damage = 1.24,
+	damageSpread = 0.2,
+	attackTime = 1.095,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 30,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"SnakeSpineProjectile",
+	},
+	modList = {
+		mod("PhysicalDamageConvertToChaos", "BASE", 30, 0, 0), -- MonsterSnakeChaos [base_physical_damage_%_to_convert_to_chaos = 30]
 	},
 }
 -- Spider
@@ -26221,6 +27645,498 @@ minions["Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaSpikerSpectre
 		"GTZanaSpikerDeathSpikes",
 	},
 	modList = {
+	},
+}
+-- Mirage
+minions["Metadata/Monsters/RamGiant/RottingRamGiant_Spectre_"] = {
+	name = "Rotting Hulk",
+	monsterTags = { "humanoid", "not_dex", "not_int", "red_blood", "undead", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 4,
+	armour = 0.3,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 3,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 11,
+	accuracy = 1,
+	baseMovementSpeed = 17,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"RottingRamGiantBloodTrailDeath",
+		"MMSRottingRamGiantVomitMortar",
+		"GSRottingRamGiantVomitImpact",
+		"EAAVomitBarrage",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/FaridunLeague/FaridunSwarm/FaridunSwarmSpectre"] = {
+	name = "Ichorous Pest",
+	monsterTags = { "beast", "insect", "medium_movement", "not_int", "not_str", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.6,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.6,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 6,
+	accuracy = 1,
+	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockSpectre"] = {
+	name = "Conjuror of Rot",
+	monsterTags = { "caster", "human", "humanoid", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	energyShield = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 40,
+	damage = 1.2,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 60,
+	accuracy = 1,
+	baseMovementSpeed = 24,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"SSMFaridunWarlockBloodLocust",
+		"SOFaridunWarlockPustule",
+		"GSFaridunWarlockPustuleExplosion",
+		"GTFaridunWarlockPustules",
+		"GSFaridunWarlockMeteorImpact",
+		"GTFaridunWarlockMeteorSpawn",
+		"CGEFaridunWarlockSwarmGround",
+		"MPSFaridunWarlockBloodSpray",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockSpectre"] = {
+	name = "Conjuror of Rot",
+	monsterTags = { "caster", "human", "humanoid", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	energyShield = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 40,
+	damage = 1.2,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 60,
+	accuracy = 1,
+	baseMovementSpeed = 24,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"SSMFaridunWarlockBloodLocust",
+		"SOFaridunWarlockPustule",
+		"GSFaridunWarlockPustuleExplosion",
+		"GTFaridunWarlockPustules",
+		"GSFaridunWarlockMeteorImpact",
+		"GTFaridunWarlockMeteorSpawn",
+		"CGEFaridunWarlockSwarmGround",
+		"MPSFaridunWarlockBloodSpray",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/FaridunLeague/FaridunBeetle/FaridunBeetleSpectre"] = {
+	name = "Corpse-Knit Beetle",
+	monsterTags = { "beast", "insect", "not_dex", "not_int", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.2,
+	armour = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"GAFaridunBeetleSunderWave",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/FaridunLeague/FaridunFleshHulk/FaridunFleshHulkSpectre"] = {
+	name = "Stitched Brute",
+	monsterTags = { "humanoid", "not_dex", "not_int", "ranged", "red_blood", "undead", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3.2,
+	armour = 0.3,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 11,
+	accuracy = 1,
+	baseMovementSpeed = 14,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MPSFleshHulkFleshBoulder",
+		"GSFleshHulkFleshBoulderImpact",
+		"SSMFleshHulkBoulderThrowWorms",
+		"EAAFleshHulkBoulderSlam",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/FaridunLeague/FaridunZombie/FaridunZombieSpectre"] = {
+	name = "Reassembled Dead",
+	monsterTags = { "animal_claw_weapon", "flesh_armour", "humanoid", "is_unarmed", "melee", "physical_affinity", "red_blood", "undead", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.61,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.15,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 11,
+	accuracy = 1,
+	baseMovementSpeed = 7,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/FaridunLeague/FaridunZombie/FaridunZombieSpectre"] = {
+	name = "Reassembled Dead",
+	monsterTags = { "animal_claw_weapon", "flesh_armour", "humanoid", "is_unarmed", "melee", "physical_affinity", "red_blood", "undead", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.61,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.15,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 11,
+	accuracy = 1,
+	baseMovementSpeed = 7,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/FaridunLeague/FaridunWraith/FaridunMinorDjinn"] = {
+	name = "Temporal Bladesoul",
+	monsterTags = { "caster", "energy_armour", "ghost", "medium_movement", "not_dex", "not_str", "undead", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.3,
+	energyShield = 0.3,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.63,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 11,
+	accuracy = 1,
+	baseMovementSpeed = 37,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeedDjinnStab",
+		"MeleeAtAnimationSpeedDjinnSwipe",
+		"DTTFaridunDjinnDash",
+		"GAFaridunMeleeDjinnDashStab",
+	},
+	modList = {
+		-- MonsterModIsZarokhMonster [is_zarokh_monster = 1]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/FaridunLeague/FaridunWraith/FaridunMinorDjinnCaster"] = {
+	name = "Temporal Warlock",
+	monsterTags = { "caster", "energy_armour", "ghost", "medium_movement", "not_dex", "not_str", "undead", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.28,
+	energyShield = 0.75,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.92,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 60,
+	accuracy = 1,
+	baseMovementSpeed = 37,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"MPSFaridunDjinnChainOrb",
+		"GSFaridunDjinnChainOrbImpact",
+		"MPSFaridunDjinnBolt",
+		"MPSFaridunDjinnTripleBolt",
+		"MDFaridunDjinnDodgeBack",
+		"MPWFaridunDjinnChainOrb",
+		"GSFaridunDjinnBoltImpact",
+	},
+	modList = {
+		-- MonsterModIsZarokhMonster [is_zarokh_monster = 1]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/FaridunLeague/FaridunFleshWormSpectre"] = {
+	name = "Insatiable Gut Worm",
+	monsterTags = { "beast", "flesh_armour", "melee", "not_dex", "not_int", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.92,
+	armour = 0.3,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.15,
+	damageSpread = 0.2,
+	attackTime = 1.695,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/FaridunLeague/FaridunBeetle/FaridunPestHarvestGreen_"] = {
+	name = "Corpse-Grown Pest",
+	monsterTags = { "beast", "insect", "medium_movement", "not_int", "not_str", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.6,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.6,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 6,
+	accuracy = 1,
+	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/FaridunLeague/FaridunBeetle/FaridunBeetleHarvestBlue"] = {
+	name = "Corpse-Grown Beetle",
+	monsterTags = { "beast", "insect", "not_dex", "not_int", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.2,
+	armour = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/FaridunLeague/FaridunHumanDaggersSpectre"] = {
+	name = "Afarud Bladedancer",
+	monsterTags = { "fast_movement", "flesh_armour", "human", "humanoid", "melee", "not_int", "not_str", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.04,
+	evasion = 0.5,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.15,
+	damageSpread = 0.2,
+	attackTime = 0,
+	attackRange = 7,
+	accuracy = 1,
+	weaponType1 = "Dagger",
+	baseMovementSpeed = 41,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeedBleedChance",
+		"DTTFaridunDaggerChase",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/FaridunLeague/FaridunHumanShieldSpectre"] = {
+	name = "Afarud Shieldbearer",
+	monsterTags = { "fast_movement", "flesh_armour", "human", "humanoid", "melee", "not_int", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.69,
+	armour = 0.5,
+	evasion = 0.2,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.56,
+	damageSpread = 0.2,
+	attackTime = 0,
+	attackRange = 20,
+	accuracy = 1,
+	weaponType1 = "Two Handed Axe",
+	baseMovementSpeed = 41,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeedMaim",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/FaridunLeague/FaridunWisp"] = {
+	name = "Astral Instrument",
+	monsterTags = { "caster", "construct", "ghost", "ghost_armour", "medium_movement", "not_dex", "not_str", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.7,
+	energyShield = 0.5,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 0,
+	attackRange = 14,
+	accuracy = 1,
+	baseMovementSpeed = 32,
+	monsterCategory = "Construct",
+	spawnLocation = {
+	},
+	skillList = {
+		"GSFaridunWispExplosion",
+		"MMSFaridunWispMortarProjectile",
+	},
+	modList = {
+		-- MonsterModIsZarokhMonster [is_zarokh_monster = 1]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/FaridunLeague/FaridunFleshWormSpectre"] = {
+	name = "Insatiable Gut Worm",
+	monsterTags = { "beast", "flesh_armour", "melee", "not_dex", "not_int", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.92,
+	armour = 0.3,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.15,
+	damageSpread = 0.2,
+	attackTime = 1.695,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
 -- Syndicate

@@ -1780,34 +1780,6 @@ Metadata/Monsters/Skeletons/SkeletonCasterColdMultipleProjectilesIncaBossMinion 
 Metadata/Monsters/Skeletons/SkeletonCasterLightningSparkIncaBossMinion                    		----		Storming Supplicant
 Metadata/Monsters/Axis/DexIntMissionAxisEliteSoldier                                      		----		Elite Mercenary
 Metadata/Monsters/Axis/DexIntMissionAxisCaster                                            		----		Mage Mercenary
-Metadata/Monsters/Bandits/DexIntMissionBanditBow                                          		----		Hired Ruffian
-Metadata/Monsters/Bandits/DexIntMissionBanditMeleeSword                                   		----		Hired Thug
-Metadata/Monsters/Bandits/DexIntMissionHostage                                            		----		Captive Agent
-Metadata/Monsters/InsectMinion/StrIntMissionInsect1                                       		----		Corrupted Crawler
-Metadata/Monsters/InsectMinion/StrIntMissionInsect2                                       		----		Corrupted Swarmer
-Metadata/Monsters/Skeletons/StrIntMissionSkeletonCasterFire                               		----		Corrupted Ashweaver
-Metadata/Monsters/Skeletons/StrIntMissionSkeletonCasterCold                               		----		Corrupted Iceweaver
-Metadata/Monsters/Necromancer/StrIntMissionNecromancer                                    		----		Scion of Corruption
-Metadata/Monsters/Undying/StrIntMissionCityStalkeFemaleFire                               		----		Corrupted Wretch
-Metadata/Monsters/Skeletons/StrIntMissionSkeletonMelee                                    		----		Corrupted Bonestalker
-Metadata/Monsters/ZombieDismember/StrIntMissionZombie1                                    		----		Rotting Corrupted
-Metadata/Monsters/Monkeys/StrIntMissionFlamebearer                                        		----		Corrupted Hound
-Metadata/Monsters/Necromancer/StrIntMissionNecromancer2                                   		----		Corrupted Skullbearer
-Metadata/Monsters/Bandits/StrIntMissionBanditBowPoisonArrow                               		----		Corrupted Deadeye
-Metadata/Monsters/Bandits/StrIntMissionBanditMeleeShield                                  		----		Corrupted Thug
-Metadata/Monsters/Bandits/StrIntMissionBanditMeleeChaos                                   		----		Corrupted Guard
-Metadata/Monsters/DemonModular/StrIntMissionDemonModular                                  		----		Corrupted Miscreation
-Metadata/Monsters/Bandits/StrIntMissionSkeletonMeleeReave                                 		----		Corrupted Bonereaver
-Metadata/Monsters/Bandits/StrIntMissionSkeletonBowBurningArrow                            		----		Corrupted Fireshot
-Metadata/Monsters/Kiweth/StrIntMissionKiweth                                              		----		Corrupted Gull
-Metadata/Monsters/Pyromaniac/StrIntMissionPyromaniac                                      		----		Corrupted Incinerator
-Metadata/Monsters/Undying/StrIntMissionCityStalkerMaleFire                                		----		Corrupted Undying
-Metadata/Monsters/Spiders/StrIntMissionSpiderThornViperStrike                             		----		Corrupted Tarantula
-Metadata/Monsters/Spiders/StrIntMissionSpiderThornFlickerStrike                           		----		Corrupted Spider
-Metadata/Monsters/Seawitch/StrIntMissionSeaWitchSpawn                                     		----		Corrupted Daughter
-Metadata/Monsters/Spawn/StrIntMissionSpawn                                                		----		Corrupted Spawn
-Metadata/Monsters/Axis/StrIntMissionAxisExperimenter                                      		----		Corrupted Experimenter
-Metadata/Monsters/Axis/StrIntMissionAxisFootSoldier                                       		----		Corrupted Blackguard
 Metadata/Monsters/Spiders/DexMissionSpiderScale2                                          		----		Sickly Spinner
 Metadata/Monsters/Spiker/DexMissionSpiker                                                 		----		Infected Spiker
 Metadata/Monsters/Beasts/DexMissionBeastCleave                                            		----		Infected Beast
@@ -1882,10 +1854,6 @@ Metadata/Monsters/Miner/MinerLantern2                                           
 Metadata/Monsters/Handfinger/Handfinger                                                   		----		Tunneler
 Metadata/Monsters/Handfinger/Handfinger2                                                  		----		Crawler
 Metadata/Monsters/Handfinger/HandfingerCrystalVeins_                                      		----		Burrower
-Metadata/Monsters/MinerLarge/MinerLarge                                                   		----		Pocked Goliath
-Metadata/Monsters/MinerLarge/MinerLarge2                                                  		----		Pocked Giant
-Metadata/Monsters/MinerLarge/MinerLargeCrystalVeins                                       		----		Pocked Behemoth
-Metadata/Monsters/MinerLarge/MinerLargeSewerElementalAtlasUber                            		----		Melted Goliath
 Metadata/Monsters/KaomWarrior/KaomArcher                                                  		----		Hyrri's Sister
 Metadata/Monsters/KaomWarrior/KaomArcherEmerge                                            		----		Hyrri's Ambusher
 Metadata/Monsters/KaomWarrior/KaomWarrior2AtlasUber                                       		----		Chosen Loyal
@@ -1952,7 +1920,6 @@ Metadata/Monsters/Mannequin/MannequinLabyrinth                                  
 Metadata/Monsters/GhostPirates/GhostPirateBlackLabyrinth                                  		----		Spectral Artisan
 Metadata/Monsters/Undying/UndyingOutcastWhirlingBladesLabyrinth                           		----		Skulking Dweller
 Metadata/Monsters/Spiker/SpikerLabyrinth                                                  		----		Maze Needleback
-Metadata/Monsters/Snake/SnakeScorpionIncaLabyrinth_                                       		----		Maze Slitherer
 Metadata/Monsters/MossMonster/MossMonsterEmergeRollLabyrinth                              		----		Crushing Mass
 Metadata/Monsters/Statue/ChromeGargoyleAtlasUber                                          		----		Vibrant Gargoyle
 Metadata/Monsters/ParasiticSquid/ParasiticSquid                                           		----		Brine Vassal
@@ -1961,10 +1928,6 @@ Metadata/Monsters/Prophecy/Fragment                                             
 Metadata/Monsters/Prophecy/VaalFallenSword                                                		----		Vaal Memory
 Metadata/Monsters/PurgeHound/PurgeHound                                                   		----		Purge Hound
 Metadata/Monsters/StatueFingerMage/StatueFingerMageMonster                                		----		Twisted Effigy
-Metadata/Monsters/BlackguardInquisitor/BlackguardInquisitorPure                           		----		Temple Justicar
-Metadata/Monsters/BlackguardInquisitor/BlackguardInquisitorKitava                         		----		Twisted Justicar
-Metadata/Monsters/BlackguardInquisitor/BlackguardInquisitorKitava2                        		----		Depraved Justicar
-Metadata/Monsters/BlackguardInquisitor/BloodwingMapBossStandaloneAtlasUber                		----		Bloodsoaked Executioner
 Metadata/Monsters/SecretPolice/SecretPolice1                                              		----		Blackguard Stalker
 Metadata/Monsters/Regurgitator/Regurgitator1                                              		----		Warped Regurgitator
 Metadata/Monsters/SlaveCatcher/SlaveCatcher                                               		----		Slave Catcher
@@ -1979,16 +1942,6 @@ Metadata/Monsters/ReligiousTemplar/ReligiousTemplarPureAtlasUber                
 Metadata/Monsters/ReligiousTemplar/ReligiousTemplarTwoHandedPure                          		----		Temple Guardian
 Metadata/Monsters/ReligiousTemplar/ReligiousTemplarKitava                                 		----		Heretical Ward
 Metadata/Monsters/ReligiousTemplar/ReligiousTemplarTwoHandedKitava                        		----		Heretical Guardian
-Metadata/Monsters/Hellion/HellionBreachSpectre                                            		----		Xoph's Loyal
-Metadata/Monsters/Revenant/RevenantCommanderBreachSpectre                                 		----		Chayula's Perfected
-Metadata/Monsters/Kiweth/KiwethCommanderBreachSpectre                                     		----		Uul-Netol's Trophy
-Metadata/Monsters/Kiweth/KiwethBreachSpectre                                              		----		Uul-Netol's Pet
-Metadata/Monsters/Miner/MinerBreachSpectre                                                		----		It That Watches
-Metadata/Monsters/Miner/MinerBreachColdSpectre                                            		----		It of Tul
-Metadata/Monsters/Miner/MinerBreach2Spectre                                               		----		It That Waits
-Metadata/Monsters/HalfSkeleton/HalfSkeletonBreachSpectre                                  		----		It That Whispers
-Metadata/Monsters/HalfSkeleton/HalfSkeletonBreachChaosSpectre                             		----		Chayula's Ideal
-Metadata/Monsters/HalfSkeleton/HalfSkeletonRangedBreachSpectre                            		----		It That Reaches
 Metadata/Monsters/BrineKing/BrineKingMinionBleached                                       		----		Sulphurspawn
 Metadata/Monsters/Vendigo/Vendigo                                                         		----		Vendigo
 Metadata/Monster/Blackguard/BlackguardJaegerMelee                                         		----		Blackguard Jaeger
@@ -2155,26 +2108,9 @@ Metadata/Monsters/LeagueNecropolis/TankyZombieTorment__                         
 Metadata/Monsters/GoldenOnes/GoldenOnesFodderMace                                         		----		Gilded Soldier
 Metadata/Monsters/VaalForgeMan/VaalForgeMan                                               		----		Gilded Smith
 Metadata/Monsters/Mtx/BrambleBash/BrambleBurrower                                         		----		Bramble Burrower
-Metadata/Monsters/RamGiant/RottingRamGiant_Spectre_                                       		----		Rotting Hulk
-Metadata/Monsters/FaridunLeague/FaridunSwarm/FaridunSwarmSpectre                          		----		Ichorous Pest
-Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockSpectre                      		----		Conjuror of Rot
-Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockSpectre                      		----		Astral Warden
-Metadata/Monsters/FaridunLeague/FaridunBeetle/FaridunBeetleSpectre                        		----		Corpse-Knit Beetle
-Metadata/Monsters/FaridunLeague/FaridunFleshHulk/FaridunFleshHulkSpectre                  		----		Stitched Brute
-Metadata/Monsters/FaridunLeague/FaridunZombie/FaridunZombieSpectre                        		----		Reassembled Dead
-Metadata/Monsters/FaridunLeague/FaridunZombie/FaridunZombieSpectre                        		----		Desiccated Zombie
 Metadata/Monsters/FaridunLeague/FaridunGolemancer/FaridunGolemancerSpectre                		----		Astral Lich
 Metadata/Monsters/FaridunLeague/FaridunGolemancer/FaridunGolemancerLow                    		----		Imperfect Astral Lich
 Metadata/Monsters/FaridunLeague/FaridunGolemancer/FaridunGolemancerHigh                   		----		Perfect Astral Lich
-Metadata/Monsters/FaridunLeague/FaridunWraith/FaridunMinorDjinn                           		----		Temporal Bladesoul
-Metadata/Monsters/FaridunLeague/FaridunWraith/FaridunMinorDjinnCaster                     		----		Temporal Warlock
-Metadata/Monsters/FaridunLeague/FaridunFleshWormSpectre                                   		----		Corpse-Grown Worm
-Metadata/Monsters/FaridunLeague/FaridunBeetle/FaridunPestHarvestGreen_                    		----		Corpse-Grown Pest
-Metadata/Monsters/FaridunLeague/FaridunBeetle/FaridunBeetleHarvestBlue                    		----		Corpse-Grown Beetle
-Metadata/Monsters/FaridunLeague/FaridunHumanDaggersSpectre                                		----		Afarud Bladedancer
-Metadata/Monsters/FaridunLeague/FaridunHumanShieldSpectre                                 		----		Afarud Shieldbearer
-Metadata/Monsters/FaridunLeague/FaridunWisp                                               		----		Astral Instrument
-Metadata/Monsters/FaridunLeague/FaridunFleshWormSpectre                                   		----		Insatiable Gut Worm
 Metadata/Monsters/FaridunLeague/FaridunAstralAcolyteSpectre                               		----		Adherent of Zarokh
 Metadata/Monsters/FaridunLeague/FaridunAstralAcolyteLow                                   		----		Imperfect Adherent of Zarokh
 Metadata/Monsters/FaridunLeague/FaridunAstralAcolyteHigh                                  		----		Perfect Adherent of Zarokh

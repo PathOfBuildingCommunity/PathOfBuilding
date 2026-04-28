@@ -129,6 +129,14 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/Axis/Cleric/BlackguardClericPure
 #emit
+#spectre Metadata/Monsters/BlackguardInquisitor/BlackguardInquisitorPure
+#emit
+#spectre Metadata/Monsters/BlackguardInquisitor/BlackguardInquisitorKitava
+#emit
+#spectre Metadata/Monsters/BlackguardInquisitor/BlackguardInquisitorKitava2
+#emit
+#spectre Metadata/Monsters/BlackguardInquisitor/BloodwingMapBossStandaloneAtlasUber
+#emit
 -- Bandit
 #spectre Metadata/Monsters/Bandits/BanditBowExplosiveArrow
 #emit
@@ -214,6 +222,12 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/Bandits/BanditCorpse
 #emit
+#spectre Metadata/Monsters/Bandits/DexIntMissionBanditBow
+#emit
+#spectre Metadata/Monsters/Bandits/DexIntMissionBanditMeleeSword
+#emit
+#spectre Metadata/Monsters/Bandits/DexIntMissionHostage
+#emit
 -- Beast
 #spectre Metadata/Monsters/Beasts/BeastCaveDegenAura
 #emit
@@ -275,6 +289,26 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Breach/BreachElitePale2Spectre
 #emit
 #spectre Metadata/Monsters/Breach/WildBreachBoss/HandPortal
+#emit
+#spectre Metadata/Monsters/Hellion/HellionBreachSpectre
+#emit
+#spectre Metadata/Monsters/Revenant/RevenantCommanderBreachSpectre
+#emit
+#spectre Metadata/Monsters/Kiweth/KiwethCommanderBreachSpectre
+#emit
+#spectre Metadata/Monsters/Kiweth/KiwethBreachSpectre
+#emit
+#spectre Metadata/Monsters/Miner/MinerBreachSpectre
+#emit
+#spectre Metadata/Monsters/Miner/MinerBreachColdSpectre
+#emit
+#spectre Metadata/Monsters/Miner/MinerBreach2Spectre
+#emit
+#spectre Metadata/Monsters/HalfSkeleton/HalfSkeletonBreachSpectre
+#emit
+#spectre Metadata/Monsters/HalfSkeleton/HalfSkeletonBreachChaosSpectre
+#emit
+#spectre Metadata/Monsters/HalfSkeleton/HalfSkeletonRangedBreachSpectre
 #emit
 -- Bull
 #spectre Metadata/Monsters/Bull/Bull
@@ -692,6 +726,57 @@ local minions, mod, flag = ...
 -- Construct
 #spectre Metadata/Monsters/incaminion/Fragment
 #emit
+-- Corrupted
+#spectre Metadata/Monsters/InsectMinion/StrIntMissionInsect1
+#emit
+#spectre Metadata/Monsters/InsectMinion/StrIntMissionInsect2
+#emit
+#spectre Metadata/Monsters/Skeletons/StrIntMissionSkeletonCasterFire
+#emit
+#spectre Metadata/Monsters/Skeletons/StrIntMissionSkeletonCasterCold
+#emit
+#spectre Metadata/Monsters/Necromancer/StrIntMissionNecromancer
+#emit
+#spectre Metadata/Monsters/Undying/StrIntMissionCityStalkeFemaleFire
+#emit
+#spectre Metadata/Monsters/Skeletons/StrIntMissionSkeletonMelee
+#emit
+#spectre Metadata/Monsters/ZombieDismember/StrIntMissionZombie1
+#emit
+#spectre Metadata/Monsters/Monkeys/StrIntMissionFlamebearer
+#emit
+#spectre Metadata/Monsters/Necromancer/StrIntMissionNecromancer2
+#emit
+#spectre Metadata/Monsters/Bandits/StrIntMissionBanditBowPoisonArrow
+#emit
+#spectre Metadata/Monsters/Bandits/StrIntMissionBanditMeleeShield
+#emit
+#spectre Metadata/Monsters/Bandits/StrIntMissionBanditMeleeChaos
+#emit
+#spectre Metadata/Monsters/DemonModular/StrIntMissionDemonModular
+#emit
+#spectre Metadata/Monsters/Bandits/StrIntMissionSkeletonMeleeReave
+#emit
+#spectre Metadata/Monsters/Bandits/StrIntMissionSkeletonBowBurningArrow
+#emit
+#spectre Metadata/Monsters/Kiweth/StrIntMissionKiweth
+#emit
+#spectre Metadata/Monsters/Pyromaniac/StrIntMissionPyromaniac
+#emit
+#spectre Metadata/Monsters/Undying/StrIntMissionCityStalkerMaleFire
+#emit
+#spectre Metadata/Monsters/Spiders/StrIntMissionSpiderThornViperStrike
+#emit
+#spectre Metadata/Monsters/Spiders/StrIntMissionSpiderThornFlickerStrike
+#emit
+#spectre Metadata/Monsters/Seawitch/StrIntMissionSeaWitchSpawn
+#emit
+#spectre Metadata/Monsters/Spawn/StrIntMissionSpawn
+#emit
+#spectre Metadata/Monsters/Axis/StrIntMissionAxisExperimenter
+#emit
+#spectre Metadata/Monsters/Axis/StrIntMissionAxisFootSoldier
+#emit
 -- Carrion Queen
 #spectre Metadata/Monsters/InsectSpawner/InsectSpawner
 #emit
@@ -841,6 +926,14 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Miner/MinerLantern
 #emit
 #spectre Metadata/Monsters/Miner/MinerLanternCrystalVeins
+#emit
+#spectre Metadata/Monsters/MinerLarge/MinerLarge
+#emit
+#spectre Metadata/Monsters/MinerLarge/MinerLarge2
+#emit
+#spectre Metadata/Monsters/MinerLarge/MinerLargeCrystalVeins
+#emit
+#spectre Metadata/Monsters/MinerLarge/MinerLargeSewerElementalAtlasUber
 #emit
 -- Parasite
 #spectre Metadata/Monsters/Parasite/Parasite
@@ -1252,6 +1345,8 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Snake/SnakeScorpionMultiShot2_
 #emit
 #spectre Metadata/Monsters/Snake/SnakeScorpionMultiShot2_AtlasUber
+#emit
+#spectre Metadata/Monsters/Snake/SnakeScorpionIncaLabyrinth_
 #emit
 -- Spider
 #spectre Metadata/Monsters/Spiders/SpiderThornFlickerStrike
@@ -1733,6 +1828,41 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaWyvernSpectre
 #emit
 #spectre Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaSpikerSpectre
+#emit
+-- Mirage
+#spectre Metadata/Monsters/RamGiant/RottingRamGiant_Spectre_
+#emit
+#spectre Metadata/Monsters/FaridunLeague/FaridunSwarm/FaridunSwarmSpectre
+#emit
+#spectre Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockSpectre
+#emit
+#spectre Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockSpectre
+#emit
+#spectre Metadata/Monsters/FaridunLeague/FaridunBeetle/FaridunBeetleSpectre
+#emit
+#spectre Metadata/Monsters/FaridunLeague/FaridunFleshHulk/FaridunFleshHulkSpectre
+#emit
+#spectre Metadata/Monsters/FaridunLeague/FaridunZombie/FaridunZombieSpectre
+#emit
+#spectre Metadata/Monsters/FaridunLeague/FaridunZombie/FaridunZombieSpectre
+#emit
+#spectre Metadata/Monsters/FaridunLeague/FaridunWraith/FaridunMinorDjinn
+#emit
+#spectre Metadata/Monsters/FaridunLeague/FaridunWraith/FaridunMinorDjinnCaster
+#emit
+#spectre Metadata/Monsters/FaridunLeague/FaridunFleshWormSpectre
+#emit
+#spectre Metadata/Monsters/FaridunLeague/FaridunBeetle/FaridunPestHarvestGreen_
+#emit
+#spectre Metadata/Monsters/FaridunLeague/FaridunBeetle/FaridunBeetleHarvestBlue
+#emit
+#spectre Metadata/Monsters/FaridunLeague/FaridunHumanDaggersSpectre
+#emit
+#spectre Metadata/Monsters/FaridunLeague/FaridunHumanShieldSpectre
+#emit
+#spectre Metadata/Monsters/FaridunLeague/FaridunWisp
+#emit
+#spectre Metadata/Monsters/FaridunLeague/FaridunFleshWormSpectre
 #emit
 -- Syndicate
 #spectre Metadata/Monsters/LeagueBetrayal/BetrayalNecromancerSpectre

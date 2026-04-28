@@ -1015,6 +1015,7 @@ worldAreas["1_4_3_1"] = {
 	level = 34,
 	isMap = false,
 	monsterVarieties = {
+		"Pocked Goliath",
 		"Pocked Lanternbearer",
 	},
 	bossVarieties = {
@@ -1030,6 +1031,7 @@ worldAreas["1_4_3_2"] = {
 	level = 35,
 	isMap = false,
 	monsterVarieties = {
+		"Pocked Goliath",
 		"Pocked Lanternbearer",
 	},
 	bossVarieties = {
@@ -1046,6 +1048,7 @@ worldAreas["1_4_3_3"] = {
 	level = 36,
 	isMap = false,
 	monsterVarieties = {
+		"Pocked Behemoth",
 		"Pocked Illuminator",
 	},
 	bossVarieties = {
@@ -1263,6 +1266,7 @@ worldAreas["1_5_4"] = {
 	level = 42,
 	isMap = false,
 	monsterVarieties = {
+		"Temple Justicar",
 	},
 }
 
@@ -1274,6 +1278,8 @@ worldAreas["1_5_4b"] = {
 	level = 44,
 	isMap = false,
 	monsterVarieties = {
+		"Depraved Justicar",
+		"Twisted Justicar",
 	},
 	bossVarieties = {
 		"Cato, Scholar of Light",
@@ -1288,6 +1294,7 @@ worldAreas["1_5_5"] = {
 	level = 43,
 	isMap = false,
 	monsterVarieties = {
+		"Temple Justicar",
 		"Temple Scholar",
 	},
 	bossVarieties = {
@@ -2323,6 +2330,7 @@ worldAreas["2_9_7"] = {
 	monsterVarieties = {
 		"Buried Tarantula",
 		"Diseased Arachnid",
+		"Pocked Giant",
 	},
 }
 
@@ -2335,6 +2343,7 @@ worldAreas["2_9_8"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Bonewarped Warrior",
+		"Pocked Giant",
 	},
 	bossVarieties = {
 		"Garukhan, Queen of the Winds",
@@ -2457,6 +2466,8 @@ worldAreas["2_10_4"] = {
 	level = 65,
 	isMap = false,
 	monsterVarieties = {
+		"Depraved Justicar",
+		"Twisted Justicar",
 	},
 	bossVarieties = {
 		"Avarius, Reassembled",
@@ -2695,6 +2706,7 @@ worldAreas["3_3_8_4"] = {
 		"Cursed Mariner",
 		"Death Bishop",
 		"Defiler",
+		"Depraved Justicar",
 		"Desecrated Saint",
 		"Diabolist",
 		"Disbanded Dead",
@@ -2776,6 +2788,7 @@ worldAreas["3_3_8_4"] = {
 		"Plated Parasite",
 		"Plumed Chimeral",
 		"Plummeting Ursa",
+		"Pocked Goliath",
 		"Pocked Lanternbearer",
 		"Predatory Scorpion",
 		"Reanimator",
@@ -2815,12 +2828,14 @@ worldAreas["3_3_8_4"] = {
 		"Stygian Ape",
 		"Stygian Revenant",
 		"Sulphuric Scorpion",
+		"Temple Justicar",
 		"Temple Scholar",
 		"Tentacle Miscreation",
 		"Tercel Rhoa",
 		"Thunder Champion",
 		"Timeless Wanderer",
 		"Tukohama's Vanguard",
+		"Twisted Justicar",
 		"Undying Alchemist",
 		"Undying Evangelist",
 		"Undying Grappler",
@@ -6249,6 +6264,7 @@ worldAreas["Synthesis_Single"] = {
 		"Phantom Occultist",
 		"Plumed Chimeral",
 		"Plummeting Ursa",
+		"Pocked Goliath",
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Rhoa Mare",
@@ -6383,6 +6399,7 @@ worldAreas["Synthesis_Single2"] = {
 		"Phantom Occultist",
 		"Plumed Chimeral",
 		"Plummeting Ursa",
+		"Pocked Goliath",
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Rhoa Mare",
@@ -6517,6 +6534,7 @@ worldAreas["Synthesis_Single3"] = {
 		"Phantom Occultist",
 		"Plumed Chimeral",
 		"Plummeting Ursa",
+		"Pocked Goliath",
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Rhoa Mare",
@@ -6651,6 +6669,7 @@ worldAreas["Synthesis_Single4"] = {
 		"Phantom Occultist",
 		"Plumed Chimeral",
 		"Plummeting Ursa",
+		"Pocked Goliath",
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Rhoa Mare",
@@ -6785,6 +6804,7 @@ worldAreas["Synthesis_Single5"] = {
 		"Phantom Occultist",
 		"Plumed Chimeral",
 		"Plummeting Ursa",
+		"Pocked Goliath",
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Rhoa Mare",
@@ -6919,6 +6939,7 @@ worldAreas["Synthesis_Single6"] = {
 		"Phantom Occultist",
 		"Plumed Chimeral",
 		"Plummeting Ursa",
+		"Pocked Goliath",
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Rhoa Mare",
@@ -7053,6 +7074,7 @@ worldAreas["Synthesis_Single7"] = {
 		"Phantom Occultist",
 		"Plumed Chimeral",
 		"Plummeting Ursa",
+		"Pocked Goliath",
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Rhoa Mare",
@@ -7187,6 +7209,7 @@ worldAreas["Synthesis_Single8"] = {
 		"Phantom Occultist",
 		"Plumed Chimeral",
 		"Plummeting Ursa",
+		"Pocked Goliath",
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Rhoa Mare",
@@ -7321,6 +7344,7 @@ worldAreas["Synthesis_Single9"] = {
 		"Phantom Occultist",
 		"Plumed Chimeral",
 		"Plummeting Ursa",
+		"Pocked Goliath",
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Rhoa Mare",
@@ -7455,6 +7479,7 @@ worldAreas["Synthesis_Single10"] = {
 		"Phantom Occultist",
 		"Plumed Chimeral",
 		"Plummeting Ursa",
+		"Pocked Goliath",
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Rhoa Mare",
@@ -7589,6 +7614,7 @@ worldAreas["Synthesis_Single11"] = {
 		"Phantom Occultist",
 		"Plumed Chimeral",
 		"Plummeting Ursa",
+		"Pocked Goliath",
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Rhoa Mare",
@@ -7723,6 +7749,7 @@ worldAreas["Synthesis_Single12"] = {
 		"Phantom Occultist",
 		"Plumed Chimeral",
 		"Plummeting Ursa",
+		"Pocked Goliath",
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Rhoa Mare",
@@ -7954,6 +7981,7 @@ worldAreas["Synthesis_MapGuardian4"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Aurid Synthete",
+		"Temple Justicar",
 		"Temple Scholar",
 	},
 	bossVarieties = {
@@ -8096,6 +8124,12 @@ worldAreas["BreachBossPhysical5"] = {
 	level = 84,
 	isMap = true,
 	monsterVarieties = {
+		"It That Reaches",
+		"It That Waits",
+		"It That Watches",
+		"It That Whispers",
+		"Uul-Netol's Pet",
+		"Uul-Netol's Trophy",
 	},
 	bossVarieties = {
 		"Uul-Netol, Unburdened Flesh",
@@ -8110,6 +8144,12 @@ worldAreas["BreachBossChaos5"] = {
 	level = 84,
 	isMap = true,
 	monsterVarieties = {
+		"Chayula's Ideal",
+		"Chayula's Perfected",
+		"It That Reaches",
+		"It That Waits",
+		"It That Watches",
+		"It That Whispers",
 	},
 	bossVarieties = {
 		"Chayula, Who Dreamt",
@@ -8124,7 +8164,12 @@ worldAreas["BreachBossFire5"] = {
 	level = 84,
 	isMap = true,
 	monsterVarieties = {
+		"It That Reaches",
+		"It That Waits",
+		"It That Watches",
+		"It That Whispers",
 		"Xoph's Favoured",
+		"Xoph's Loyal",
 	},
 	bossVarieties = {
 		"Xoph, Dark Embers",
@@ -8139,6 +8184,11 @@ worldAreas["BreachBossCold5"] = {
 	level = 84,
 	isMap = true,
 	monsterVarieties = {
+		"It That Reaches",
+		"It That Waits",
+		"It That Watches",
+		"It That Whispers",
+		"It of Tul",
 		"They of Tul",
 	},
 	bossVarieties = {
@@ -8154,6 +8204,10 @@ worldAreas["BreachBossLightning5"] = {
 	level = 84,
 	isMap = true,
 	monsterVarieties = {
+		"It That Reaches",
+		"It That Waits",
+		"It That Watches",
+		"It That Whispers",
 		"Scale of Esh",
 	},
 	bossVarieties = {
@@ -8466,6 +8520,7 @@ worldAreas["MapWorldsExcavation"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Ancient Construct",
+		"Pocked Goliath",
 		"Serpentine Construct",
 	},
 	bossVarieties = {
@@ -8574,6 +8629,7 @@ worldAreas["MapWorldsCells"] = {
 		"Frost Preacher",
 		"Plagued Bowman",
 		"Sparking Mage",
+		"Temple Justicar",
 		"Thunder Champion",
 		"Undying Incinerator",
 		"Vault Guardian",
@@ -8619,6 +8675,7 @@ worldAreas["MapWorldsCitySquare"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Slave Driver",
+		"Temple Justicar",
 		"Temple Scholar",
 	},
 	bossVarieties = {
@@ -11078,6 +11135,8 @@ worldAreas["MapWorldsDefiledCathedral"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Depraved Justicar",
+		"Twisted Justicar",
 	},
 	bossVarieties = {
 		"Woad, Mockery of Man",
@@ -11179,6 +11238,7 @@ worldAreas["MapWorldsCrystalOre"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Pocked Goliath",
 		"Pocked Illuminator",
 		"Pocked Lanternbearer",
 	},
@@ -11764,6 +11824,7 @@ worldAreas["MapWorldsBasilica"] = {
 	level = 82,
 	isMap = true,
 	monsterVarieties = {
+		"Temple Justicar",
 		"Temple Scholar",
 	},
 	bossVarieties = {
@@ -12153,6 +12214,8 @@ worldAreas["MapWorldsCrimsonTownship"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Depraved Justicar",
+		"Twisted Justicar",
 	},
 	bossVarieties = {
 		"Kadaris, Crimson Mayor",
@@ -12279,6 +12342,7 @@ worldAreas["MapWorldsSanctuary"] = {
 		"Ancient Spearman",
 		"Arsonist",
 		"Bearded Bolter",
+		"Bloodsoaked Executioner",
 		"Bloody Burrower",
 		"Burning Faith",
 		"Cannibal Fire-breather",
@@ -12289,6 +12353,7 @@ worldAreas["MapWorldsSanctuary"] = {
 		"Disruptor",
 		"Fire Frenzy",
 		"Goatman Magus",
+		"Melted Goliath",
 		"Noxious Crawler",
 		"Pale Angel",
 		"Pale Cherubim",
@@ -12331,6 +12396,7 @@ worldAreas["MapWorldsCitadel"] = {
 		"Bearded Bolter",
 		"Black Scythe Arbalist",
 		"Black Scythe Mercenary",
+		"Bloodsoaked Executioner",
 		"Bloody Burrower",
 		"Burning Faith",
 		"Cannibal Fire-breather",
@@ -12343,6 +12409,7 @@ worldAreas["MapWorldsCitadel"] = {
 		"Druidic Dire Familiar",
 		"Fire Frenzy",
 		"Goatman Magus",
+		"Melted Goliath",
 		"Noxious Crawler",
 		"Order Ostiary",
 		"Plagued Arachnid",
@@ -12387,6 +12454,7 @@ worldAreas["MapWorldsFortress"] = {
 		"Ancient Spearman",
 		"Arsonist",
 		"Bearded Bolter",
+		"Bloodsoaked Executioner",
 		"Bloody Burrower",
 		"Burning Faith",
 		"Cannibal Fire-breather",
@@ -12397,6 +12465,7 @@ worldAreas["MapWorldsFortress"] = {
 		"Disruptor",
 		"Fire Frenzy",
 		"Goatman Magus",
+		"Melted Goliath",
 		"Noxious Crawler",
 		"Plagued Arachnid",
 		"Plated Arachnid",
@@ -12433,6 +12502,7 @@ worldAreas["MapWorldsAbomination"] = {
 		"Ancient Spearman",
 		"Arsonist",
 		"Bearded Bolter",
+		"Bloodsoaked Executioner",
 		"Bloody Burrower",
 		"Burning Faith",
 		"Cannibal Fire-breather",
@@ -12443,6 +12513,7 @@ worldAreas["MapWorldsAbomination"] = {
 		"Disruptor",
 		"Fire Frenzy",
 		"Goatman Magus",
+		"Melted Goliath",
 		"Noxious Crawler",
 		"Plagued Arachnid",
 		"Plated Arachnid",
@@ -12482,6 +12553,7 @@ worldAreas["MapWorldsZiggurat"] = {
 		"Ancient Spearman",
 		"Arsonist",
 		"Bearded Bolter",
+		"Bloodsoaked Executioner",
 		"Bloody Burrower",
 		"Burning Faith",
 		"Cannibal Fire-breather",
@@ -12492,6 +12564,7 @@ worldAreas["MapWorldsZiggurat"] = {
 		"Disruptor",
 		"Fire Frenzy",
 		"Goatman Magus",
+		"Melted Goliath",
 		"Noxious Crawler",
 		"Plagued Arachnid",
 		"Plated Arachnid",
@@ -12544,6 +12617,8 @@ worldAreas["MapWorldsChambersOfImpurity"] = {
 	level = 80,
 	isMap = true,
 	monsterVarieties = {
+		"Depraved Justicar",
+		"Twisted Justicar",
 	},
 	bossVarieties = {
 		"The Cardinal of Fear",
@@ -12561,6 +12636,7 @@ worldAreas["MapWorldsTheatreOfLies"] = {
 	level = 80,
 	isMap = true,
 	monsterVarieties = {
+		"Temple Justicar",
 	},
 	bossVarieties = {
 		"The Deceitful God",
@@ -18639,6 +18715,7 @@ worldAreas["ChayulaLeagueTower"] = {
 		"It That Lashes",
 		"It That Shreds",
 		"It That Stalks",
+		"It That Watches",
 	},
 }
 
@@ -18660,6 +18737,7 @@ worldAreas["ChayulaLeagueTowerBoss"] = {
 		"It That Lashes",
 		"It That Shreds",
 		"It That Stalks",
+		"It That Watches",
 	},
 	bossVarieties = {
 		"It That Was Tul",
