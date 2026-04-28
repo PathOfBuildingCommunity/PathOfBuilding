@@ -1118,6 +1118,7 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 				x = node.x,
 				y = node.y,
 				type = node.type,
+				sd = copyTable(node.sd, true),
 				pathDist = pathDist
 			})
 		end
@@ -1146,6 +1147,7 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 				pathPowerStr = "--",
 				id = node.id,
 				type = node.type,
+				sd = copyTable(node.sd, true),
 				pathDist = "Cluster"
 			})
 		end
