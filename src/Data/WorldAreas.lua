@@ -330,6 +330,7 @@ worldAreas["1_2_3"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Hairy Bonecruncher",
+		"Kraityn's Aspirant",
 		"Kraityn's Scout",
 	},
 	bossVarieties = {
@@ -412,6 +413,7 @@ worldAreas["1_2_4"] = {
 		"Carnage Chieftain",
 		"Hairy Bonecruncher",
 		"Kraityn's Scout",
+		"Kraityn's Thrall",
 	},
 	bossVarieties = {
 		"Kraityn, Scarbearer",
@@ -427,6 +429,9 @@ worldAreas["1_2_7"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Bramble Cobra",
+		"Callow Thug",
+		"Shadow Archer",
+		"Shadow Stalker",
 	},
 }
 
@@ -442,6 +447,8 @@ worldAreas["1_2_8"] = {
 		"Corrupted Arach",
 		"Hairy Bonecruncher",
 		"Ink Spinner",
+		"Shadow Archer",
+		"Shadow Stalker",
 	},
 }
 
@@ -453,8 +460,12 @@ worldAreas["1_2_9"] = {
 	level = 17,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
+		"Alira's Martyr",
 		"Blackguard Soldier",
 		"Ink Spinner",
+		"Shadow Archer",
+		"Shadow Stalker",
 	},
 	bossVarieties = {
 		"Alira Darktongue",
@@ -1075,6 +1086,8 @@ worldAreas["1_4_7"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Alpine Shaman",
+		"Mountain Hellion",
+		"Mountain Hellion Alpha",
 	},
 	bossVarieties = {
 		"The White Death",
@@ -1342,6 +1355,7 @@ worldAreas["2_6_8"] = {
 	level = 47,
 	isMap = false,
 	monsterVarieties = {
+		"Enslaved Hellion",
 		"Goatman Fire-raiser",
 	},
 	bossVarieties = {
@@ -1357,8 +1371,11 @@ worldAreas["2_6_9"] = {
 	level = 48,
 	isMap = false,
 	monsterVarieties = {
+		"Bear Acolyte",
+		"Boar Acolyte",
 		"Brooding Tarantula",
 		"Enraptured Arachnid",
+		"Stag Acolyte",
 		"Vaal Recluse",
 	},
 	bossVarieties = {
@@ -1374,10 +1391,13 @@ worldAreas["2_6_10"] = {
 	level = 48,
 	isMap = false,
 	monsterVarieties = {
+		"Bear Acolyte",
+		"Boar Acolyte",
 		"Bramble Cobra",
 		"Fetid Maw",
 		"Host Chieftain",
 		"Infested Maw",
+		"Stag Acolyte",
 	},
 	bossVarieties = {
 		"The Animal Pack",
@@ -1408,8 +1428,11 @@ worldAreas["2_6_12"] = {
 	level = 49,
 	isMap = false,
 	monsterVarieties = {
+		"Bear Acolyte",
+		"Boar Acolyte",
 		"Bramble Cobra",
 		"Host Chieftain",
+		"Stag Acolyte",
 	},
 	bossVarieties = {
 		"Hollowskull, the Willing Host",
@@ -1477,6 +1500,9 @@ worldAreas["2_7_2"] = {
 	level = 51,
 	isMap = false,
 	monsterVarieties = {
+		"Bear Acolyte",
+		"Boar Acolyte",
+		"Stag Acolyte",
 	},
 }
 
@@ -1579,9 +1605,15 @@ worldAreas["2_7_7"] = {
 	level = 53,
 	isMap = false,
 	monsterVarieties = {
+		"Bear Acolyte",
+		"Boar Acolyte",
 		"Carnage Chieftain",
 		"Hairy Bonecruncher",
 		"Host Chieftain",
+		"Ralakesh's Claw",
+		"Ralakesh's Horn",
+		"Ralakesh's Tusk",
+		"Stag Acolyte",
 	},
 	bossVarieties = {
 		"Greust, Lord of the Forest",
@@ -1599,7 +1631,9 @@ worldAreas["2_7_8"] = {
 	level = 53,
 	isMap = false,
 	monsterVarieties = {
+		"Heartless Deserter",
 		"Ink Spinner",
+		"Treacherous Deserter",
 	},
 	bossVarieties = {
 		"Tunnelworm",
@@ -2002,6 +2036,8 @@ worldAreas["2_9_2"] = {
 		"Alpine Shaman",
 		"Colossus Crusher",
 		"Freezing Wolf",
+		"Mountain Hellion",
+		"Mountain Hellion Alpha",
 	},
 }
 
@@ -2363,13 +2399,16 @@ worldAreas["3_3_8_4"] = {
 	level = 68,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
+		"Alira's Martyr",
 		"Alpine Shaman",
 		"Ancient Construct",
 		"Arakaali's Daughter",
 		"Armour Cruncher",
 		"Ash Prophet",
 		"Avian Retch",
+		"Bear Acolyte",
 		"Bearded Devil",
 		"Bearded Shaman",
 		"Blackguard Arcmage",
@@ -2377,12 +2416,14 @@ worldAreas["3_3_8_4"] = {
 		"Blackguard Firemage",
 		"Blackguard Mage",
 		"Blackguard Soldier",
+		"Boar Acolyte",
 		"Bone Husk",
 		"Bone Stalker",
 		"Bramble Cobra",
 		"Brittle Poacher",
 		"Burned Miscreation",
 		"Callow Sniper",
+		"Callow Thug",
 		"Cannibal Fire-eater",
 		"Carnage Chieftain",
 		"Carrion Queen",
@@ -2401,6 +2442,7 @@ worldAreas["3_3_8_4"] = {
 		"Diabolist",
 		"Dune Hellion",
 		"Enraptured Arachnid",
+		"Enslaved Hellion",
 		"Feral Chimeral",
 		"Fetid Maw",
 		"Fighting Bull",
@@ -2416,6 +2458,7 @@ worldAreas["3_3_8_4"] = {
 		"Goatman Shaman",
 		"Gut Flayer",
 		"Hairy Bonecruncher",
+		"Highwayman",
 		"Host Chieftain",
 		"Hybrid Arachnid",
 		"Incinerated Mage",
@@ -2439,9 +2482,12 @@ worldAreas["3_3_8_4"] = {
 		"Merveil's Chosen",
 		"Merveil's Retainer",
 		"Mortality Experimenter",
+		"Mountain Hellion",
+		"Mountain Hellion Alpha",
 		"Necromancer",
 		"Noisome Ophidian",
 		"Noxious Tarantula",
+		"Oak's Brute",
 		"Oak's Devoted",
 		"Oak's Sniper",
 		"Plagued Arachnid",
@@ -2452,6 +2498,8 @@ worldAreas["3_3_8_4"] = {
 		"Restless Archer",
 		"Sandworn Slaves",
 		"Scalding Arachnid",
+		"Shackled Hellion",
+		"Shadow Stalker",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -2467,6 +2515,7 @@ worldAreas["3_3_8_4"] = {
 		"Spectral Bowman",
 		"Spectral Scoundrel",
 		"Spindle Spider",
+		"Stag Acolyte",
 		"Stygian Revenant",
 		"Tentacle Miscreation",
 		"Tukohama's Vanguard",
@@ -5692,6 +5741,7 @@ worldAreas["Synthesis_Main"] = {
 	level = 1,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -5745,6 +5795,7 @@ worldAreas["Synthesis_Main"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -5779,6 +5830,7 @@ worldAreas["Synthesis_Main2"] = {
 	level = 4,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -5832,6 +5884,7 @@ worldAreas["Synthesis_Main2"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -5866,6 +5919,7 @@ worldAreas["Synthesis_Main3"] = {
 	level = 9,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -5919,6 +5973,7 @@ worldAreas["Synthesis_Main3"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -5953,6 +6008,7 @@ worldAreas["Synthesis_Main4"] = {
 	level = 13,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -6006,6 +6062,7 @@ worldAreas["Synthesis_Main4"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -6040,6 +6097,7 @@ worldAreas["Synthesis_Main5"] = {
 	level = 25,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -6093,6 +6151,7 @@ worldAreas["Synthesis_Main5"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -6127,6 +6186,7 @@ worldAreas["Synthesis_Main6"] = {
 	level = 40,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -6180,6 +6240,7 @@ worldAreas["Synthesis_Main6"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -6214,6 +6275,7 @@ worldAreas["Synthesis_Main7_"] = {
 	level = 55,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -6267,6 +6329,7 @@ worldAreas["Synthesis_Main7_"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -6301,6 +6364,7 @@ worldAreas["Synthesis_Main8"] = {
 	level = 68,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -6354,6 +6418,7 @@ worldAreas["Synthesis_Main8"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -6388,6 +6453,7 @@ worldAreas["Synthesis_Main9"] = {
 	level = 73,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -6441,6 +6507,7 @@ worldAreas["Synthesis_Main9"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -6475,6 +6542,7 @@ worldAreas["Synthesis_Main10"] = {
 	level = 78,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -6528,6 +6596,7 @@ worldAreas["Synthesis_Main10"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -6562,6 +6631,7 @@ worldAreas["Synthesis_Main11"] = {
 	level = 80,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -6615,6 +6685,7 @@ worldAreas["Synthesis_Main11"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -6649,6 +6720,7 @@ worldAreas["Synthesis_Main12"] = {
 	level = 83,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -6702,6 +6774,7 @@ worldAreas["Synthesis_Main12"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -6736,6 +6809,7 @@ worldAreas["Synthesis_Single"] = {
 	level = 1,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -6789,6 +6863,7 @@ worldAreas["Synthesis_Single"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -6823,6 +6898,7 @@ worldAreas["Synthesis_Single2"] = {
 	level = 4,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -6876,6 +6952,7 @@ worldAreas["Synthesis_Single2"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -6910,6 +6987,7 @@ worldAreas["Synthesis_Single3"] = {
 	level = 9,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -6963,6 +7041,7 @@ worldAreas["Synthesis_Single3"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -6997,6 +7076,7 @@ worldAreas["Synthesis_Single4"] = {
 	level = 13,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -7050,6 +7130,7 @@ worldAreas["Synthesis_Single4"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -7084,6 +7165,7 @@ worldAreas["Synthesis_Single5"] = {
 	level = 25,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -7137,6 +7219,7 @@ worldAreas["Synthesis_Single5"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -7171,6 +7254,7 @@ worldAreas["Synthesis_Single6"] = {
 	level = 40,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -7224,6 +7308,7 @@ worldAreas["Synthesis_Single6"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -7258,6 +7343,7 @@ worldAreas["Synthesis_Single7"] = {
 	level = 55,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -7311,6 +7397,7 @@ worldAreas["Synthesis_Single7"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -7345,6 +7432,7 @@ worldAreas["Synthesis_Single8"] = {
 	level = 68,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -7398,6 +7486,7 @@ worldAreas["Synthesis_Single8"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -7432,6 +7521,7 @@ worldAreas["Synthesis_Single9"] = {
 	level = 73,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -7485,6 +7575,7 @@ worldAreas["Synthesis_Single9"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -7519,6 +7610,7 @@ worldAreas["Synthesis_Single10"] = {
 	level = 78,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -7572,6 +7664,7 @@ worldAreas["Synthesis_Single10"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -7606,6 +7699,7 @@ worldAreas["Synthesis_Single11"] = {
 	level = 80,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -7659,6 +7753,7 @@ worldAreas["Synthesis_Single11"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -7693,6 +7788,7 @@ worldAreas["Synthesis_Single12"] = {
 	level = 83,
 	isMap = false,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Alpine Shaman",
 		"Arakaali's Daughter",
@@ -7746,6 +7842,7 @@ worldAreas["Synthesis_Single12"] = {
 		"Pocked Lanternbearer",
 		"Reanimator",
 		"Scinteel Synthete",
+		"Shackled Hellion",
 		"Shaggy Monstrosity",
 		"Sin Lord",
 		"Singing Siren",
@@ -8060,14 +8157,17 @@ worldAreas["Map2Tier14_2Unique"] = {
 	level = 81,
 	isMap = true,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Ancient Construct",
 		"Blackguard Arcmage",
 		"Blackguard Elite",
 		"Blackguard Mage",
 		"Blackguard Scout",
+		"Kraityn's Aspirant",
 		"Kraityn's Scout",
 		"Merveil's Attendant",
 		"Oak's Devoted",
+		"Shadow Archer",
 		"Tentacle Miscreation",
 	},
 	bossVarieties = {
@@ -8367,6 +8467,8 @@ worldAreas["MapWorldsIceberg"] = {
 	level = 70,
 	isMap = true,
 	monsterVarieties = {
+		"Mountain Hellion",
+		"Mountain Hellion Alpha",
 	},
 	bossVarieties = {
 		"Yorishi, Aurora-sage",
@@ -8405,13 +8507,19 @@ worldAreas["MapWorldsSprings"] = {
 	level = 70,
 	isMap = true,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
+		"Alira's Martyr",
 		"Bramble Cobra",
 		"Callow Sniper",
+		"Callow Thug",
+		"Highwayman",
 		"Kraityn's Scout",
 		"Kraityn's Sentry",
+		"Oak's Brute",
 		"Oak's Devoted",
 		"Oak's Sniper",
+		"Shadow Stalker",
 	},
 	bossVarieties = {
 		"Aulen Greychain",
@@ -9142,8 +9250,11 @@ worldAreas["MapWorldsAshenWood"] = {
 	level = 73,
 	isMap = true,
 	monsterVarieties = {
+		"Bear Acolyte",
+		"Boar Acolyte",
 		"Dune Hellion",
 		"Hairy Bonecruncher",
+		"Stag Acolyte",
 	},
 	bossVarieties = {
 		"Lord of the Ashen Arrow",
@@ -9448,6 +9559,7 @@ worldAreas["MapWorldsBoneCryptUnique"] = {
 	level = 74,
 	isMap = true,
 	monsterVarieties = {
+		"Alira's Blood Guard",
 		"Alira's Deadeye",
 		"Ash Prophet",
 		"Bearded Devil",
@@ -9513,6 +9625,8 @@ worldAreas["MapWorldsUndergroundRiverUnique"] = {
 		"Merveil's Retainer",
 		"Shaggy Monstrosity",
 		"Singing Siren",
+		"Wolfpack Guard",
+		"Wolfpack Ranger",
 	},
 	bossVarieties = {
 		"Winterfang",
@@ -10112,6 +10226,7 @@ worldAreas["MapWorldsArena"] = {
 	monsterVarieties = {
 		"Bearded Devil",
 		"Fighting Bull",
+		"Shackled Hellion",
 	},
 	bossVarieties = {
 		"Avatar of the Huntress",
@@ -10585,8 +10700,10 @@ worldAreas["MapWorldsCoves"] = {
 	level = 78,
 	isMap = true,
 	monsterVarieties = {
+		"Alira's Martyr",
 		"Callow Sniper",
 		"Cursed Mariner",
+		"Shadow Stalker",
 		"Spectral Bowman",
 		"Spectral Scoundrel",
 	},
@@ -10649,7 +10766,9 @@ worldAreas["MapWorldsMesa"] = {
 	monsterVarieties = {
 		"Avian Retch",
 		"Callow Sniper",
+		"Callow Thug",
 		"Kraityn's Sentry",
+		"Oak's Brute",
 		"Oak's Devoted",
 		"Oak's Sniper",
 	},
@@ -10670,6 +10789,7 @@ worldAreas["MapWorldsPit"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Fighting Bull",
+		"Shackled Hellion",
 	},
 	bossVarieties = {
 		"Olof, Son of the Headsman",
@@ -10783,6 +10903,8 @@ worldAreas["MapWorldsCastleRuins"] = {
 	level = 79,
 	isMap = true,
 	monsterVarieties = {
+		"Highwayman",
+		"Kraityn's Aspirant",
 		"Kraityn's Scout",
 		"Kraityn's Sentry",
 	},
@@ -10946,6 +11068,7 @@ worldAreas["MapWorldsRacecourse_"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Fighting Bull",
+		"Shackled Hellion",
 	},
 	bossVarieties = {
 		"Shredder of Gladiators",
@@ -11136,6 +11259,7 @@ worldAreas["MapWorldsColosseum"] = {
 	isMap = true,
 	monsterVarieties = {
 		"Fighting Bull",
+		"Shackled Hellion",
 	},
 	bossVarieties = {
 		"Ambrius, Legion Slayer",
@@ -11183,8 +11307,12 @@ worldAreas["MapWorldsDarkForest"] = {
 	level = 81,
 	isMap = true,
 	monsterVarieties = {
+		"Alira's Blood Guard",
+		"Alira's Martyr",
 		"Bramble Cobra",
 		"Noxious Tarantula",
+		"Shadow Archer",
+		"Shadow Stalker",
 	},
 	bossVarieties = {
 		"The Cursed King",
@@ -11376,6 +11504,7 @@ worldAreas["MapWorldsChimera"] = {
 	monsterVarieties = {
 		"Bearded Devil",
 		"Dune Hellion",
+		"Enslaved Hellion",
 		"Goatman",
 	},
 	bossVarieties = {
@@ -11771,6 +11900,7 @@ worldAreas["MapWorldsSanctuary"] = {
 	level = 84,
 	isMap = true,
 	monsterVarieties = {
+		"Chilling Hellion",
 		"Noxious Crawler",
 		"Pale Angel",
 		"Pale Seraphim",
@@ -11796,6 +11926,7 @@ worldAreas["MapWorldsCitadel"] = {
 	level = 84,
 	isMap = true,
 	monsterVarieties = {
+		"Chilling Hellion",
 		"Noxious Crawler",
 		"Plagued Arachnid",
 		"Plated Arachnid",
@@ -11822,6 +11953,7 @@ worldAreas["MapWorldsFortress"] = {
 	level = 84,
 	isMap = true,
 	monsterVarieties = {
+		"Chilling Hellion",
 		"Noxious Crawler",
 		"Plagued Arachnid",
 		"Plated Arachnid",
@@ -11845,6 +11977,7 @@ worldAreas["MapWorldsAbomination"] = {
 	level = 84,
 	isMap = true,
 	monsterVarieties = {
+		"Chilling Hellion",
 		"Noxious Crawler",
 		"Plagued Arachnid",
 		"Plated Arachnid",
@@ -11871,6 +12004,7 @@ worldAreas["MapWorldsZiggurat"] = {
 	level = 84,
 	isMap = true,
 	monsterVarieties = {
+		"Chilling Hellion",
 		"Noxious Crawler",
 		"Plagued Arachnid",
 		"Plated Arachnid",
@@ -12490,6 +12624,7 @@ worldAreas["pvp1"] = {
 	level = 28,
 	isMap = false,
 	monsterVarieties = {
+		"Callow Thug",
 		"Cave Skitterer",
 		"Goatman",
 		"Goatman Shaman",
@@ -12623,6 +12758,9 @@ worldAreas["Descent2"] = {
 	level = 4,
 	isMap = false,
 	monsterVarieties = {
+		"Callow Thug",
+		"Highwayman",
+		"Shadow Archer",
 		"Voidbearer",
 	},
 	bossVarieties = {
@@ -12655,6 +12793,8 @@ worldAreas["Descent4"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Callow Sniper",
+		"Callow Thug",
+		"Highwayman",
 	},
 	bossVarieties = {
 		"Witch of the Cauldron",
@@ -12996,7 +13136,10 @@ worldAreas["Descent2_6_2"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Alira's Deadeye",
+		"Callow Thug",
+		"Highwayman",
 		"Oak's Sniper",
+		"Shadow Stalker",
 		"Undying Grappler",
 		"Undying Incinerator",
 	},
@@ -13311,7 +13454,11 @@ worldAreas["ExileRoyale"] = {
 	monsterVarieties = {
 		"Ancient Construct",
 		"Gut Flayer",
+		"Highwayman",
 		"Ink Spinner",
+		"Mountain Hellion",
+		"Mountain Hellion Alpha",
+		"Shadow Archer",
 	},
 }
 
@@ -15207,6 +15354,7 @@ worldAreas["InvasionBoss"] = {
 		"Bramble Cobra",
 		"Burned Miscreation",
 		"Callow Sniper",
+		"Callow Thug",
 		"Carrion Queen",
 		"Cinder Elemental",
 		"Colossal Bonestalker",
@@ -15214,6 +15362,7 @@ worldAreas["InvasionBoss"] = {
 		"Flame Sentinel",
 		"Galvanic Ribbon",
 		"Goatman",
+		"Highwayman",
 		"Murk Fiend",
 		"Mutant Arach",
 		"Plumed Chimeral",

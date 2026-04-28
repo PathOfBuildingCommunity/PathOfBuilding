@@ -1187,6 +1187,1051 @@ minions["Metadata/Monsters/Bandits/BanditBowBlastRain"] = {
 	modList = {
 	},
 }
+minions["Metadata/Monsters/Bandits/BanditCaster"] = {
+	name = "Shadow Archer",
+	monsterTags = { "bandit", "chaos_affinity", "flesh_armour", "has_bow", "human", "humanoid", "medium_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.08,
+	armour = 0.25,
+	evasion = 0.1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	attackRange = 40,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"Dark Forest (Map)",
+		"Path of Exile Royale (Act 1)",
+		"The Northern Forest (Act 2)",
+		"The Riverways (Act 2)",
+		"The Western Forest (Act 2)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EASBanditTauntBow",
+		"MonsterCausticArrowAtAnimationSpeed",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditGuardMeleeChaos"] = {
+	name = "Alira's Blood Hand",
+	monsterTags = { "bandit", "cleaving_weapon", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "very_slow_movement", },
+	life = 1.15,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.9,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EASBanditTaunt",
+	},
+	modList = {
+		mod("PhysicalDamageConvertToChaos", "BASE", 50, 0, 0), -- MonsterConvertToChaos1 [base_physical_damage_%_to_convert_to_chaos = 50]
+		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackBlock20Bypass20 [monster_base_block_% = 20]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterAttackBlock20Bypass20 [base_block_%_damage_taken = 10]
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditGuardMeleePuncture"] = {
+	name = "Kraityn's Stalwart",
+	monsterTags = { "bandit", "cleaving_weapon", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "very_slow_movement", },
+	life = 1.15,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.9,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterPunctureAtAnimationSpeed",
+		"EASBanditTaunt",
+	},
+	modList = {
+		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackBlock20Bypass20 [monster_base_block_% = 20]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterAttackBlock20Bypass20 [base_block_%_damage_taken = 10]
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditGuardMeleePunctureSpawnerMap"] = {
+	name = "Guard Stalwart",
+	monsterTags = { "bandit", "cleaving_weapon", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "medium_height", "melee", "not_int", "physical_affinity", "red_blood", "very_slow_movement", },
+	life = 1,
+	armour = 0.5,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.8,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterPunctureAtAnimationSpeed",
+		"EASBanditTaunt",
+	},
+	modList = {
+		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackBlock20Bypass20 [monster_base_block_% = 20]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterAttackBlock20Bypass20 [base_block_%_damage_taken = 10]
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditGuardMeleeWarlordsMark"] = {
+	name = "Oak's Fist",
+	monsterTags = { "bandit", "cleaving_weapon", "cursing_monster", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "very_slow_movement", },
+	life = 1.15,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.9,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterWarlordsMark",
+		"EASBanditTaunt",
+	},
+	modList = {
+		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackBlock20Bypass20 [monster_base_block_% = 20]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterAttackBlock20Bypass20 [base_block_%_damage_taken = 10]
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditGuardBow"] = {
+	name = "Oak's Guardian",
+	monsterTags = { "bandit", "flesh_armour", "has_bow", "human", "humanoid", "medium_height", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "very_slow_movement", },
+	life = 1.08,
+	evasion = 0.1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.72,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	attackRange = 36,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EASBanditTauntBow",
+		"BanditBlastRainAS",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditGuardBow2"] = {
+	name = "Treacherous Deserter",
+	monsterTags = { "bandit", "flesh_armour", "has_bow", "human", "humanoid", "medium_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.08,
+	armour = 0.25,
+	evasion = 0.1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	attackRange = 40,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"The Northern Forest (Act 7)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EASBanditTauntBow",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditGuardBowSpawnerMap"] = {
+	name = "Guard Archer",
+	monsterTags = { "bandit", "flesh_armour", "has_bow", "human", "humanoid", "medium_height", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "very_slow_movement", },
+	life = 0.96,
+	evasion = 0.1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.6,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	attackRange = 36,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EASBanditTauntBow",
+		"BanditBlastRainAS",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditGuardBowBurningArrow"] = {
+	name = "Kraityn's High Guard",
+	monsterTags = { "bandit", "flesh_armour", "has_bow", "human", "humanoid", "medium_height", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "very_slow_movement", },
+	life = 1.08,
+	evasion = 0.1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.72,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	attackRange = 36,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EASBanditTauntBow",
+		"MonsterBurningArrowAtAnimationSpeed",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditGuardBowPoison"] = {
+	name = "Alira's Souleye",
+	monsterTags = { "bandit", "chaos_affinity", "flesh_armour", "has_bow", "human", "humanoid", "medium_height", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "very_slow_movement", },
+	life = 1.08,
+	evasion = 0.1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.72,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	attackRange = 36,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterCausticArrowAtAnimationSpeed",
+		"EASBanditTauntBow",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditProphecyDesecrate"] = {
+	name = "Doedre's Fanatic",
+	monsterTags = { "bandit", "fast_movement", "flesh_armour", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slashing_weapon", },
+	life = 1,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "One Handed Sword",
+	baseMovementSpeed = 43,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"ProphecyDesecrateOnDeath",
+	},
+	modList = {
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditMeleeAlira"] = {
+	name = "Alira's Martyr",
+	monsterTags = { "bandit", "cleaving_weapon", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "light_armour", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "very_slow_movement", },
+	life = 1,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"Coves (Map)",
+		"Dark Forest (Map)",
+		"Fungal Hollow (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Western Forest (Act 2)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EASBanditTaunt",
+	},
+	modList = {
+		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackBlock20Bypass20 [monster_base_block_% = 20]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterAttackBlock20Bypass20 [base_block_%_damage_taken = 10]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditMeleeChaos"] = {
+	name = "Alira's Blood Guard",
+	monsterTags = { "bandit", "cleaving_weapon", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "light_armour", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.15,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"Dark Forest (Map)",
+		"Fragmented Memory",
+		"Fungal Hollow (Map)",
+		"Memory Void",
+		"Olmec's Sanctum (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Western Forest (Act 2)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EASBanditTaunt",
+	},
+	modList = {
+		mod("PhysicalDamageConvertToChaos", "BASE", 50, 0, 0), -- MonsterConvertToChaos1 [base_physical_damage_%_to_convert_to_chaos = 50]
+		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackBlock20Bypass20 [monster_base_block_% = 20]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterAttackBlock20Bypass20 [base_block_%_damage_taken = 10]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditMeleeMaul"] = {
+	name = "Callow Thug",
+	monsterTags = { "bandit", "bludgeoning_weapon", "flesh_armour", "has_two_hand_mace", "has_two_handed_melee", "human", "humanoid", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "very_slow_movement", },
+	life = 1,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "Two Handed Mace",
+	baseMovementSpeed = 16,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"Fungal Hollow (Map)",
+		"Mesa (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Riverways (Act 2)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EASBanditTaunt",
+	},
+	modList = {
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditMeleePuncture"] = {
+	name = "Shadow Stalker",
+	monsterTags = { "bandit", "cleaving_weapon", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "light_armour", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.15,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"Coves (Map)",
+		"Dark Forest (Map)",
+		"Fungal Hollow (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Northern Forest (Act 2)",
+		"The Riverways (Act 2)",
+		"The Western Forest (Act 2)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterPunctureAtAnimationSpeed",
+		"EASBanditTaunt",
+	},
+	modList = {
+		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackBlock20Bypass20 [monster_base_block_% = 20]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterAttackBlock20Bypass20 [base_block_%_damage_taken = 10]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditMeleePuncture2"] = {
+	name = "Heartless Deserter",
+	monsterTags = { "bandit", "cleaving_weapon", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "light_armour", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.15,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"The Northern Forest (Act 7)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterPunctureAtAnimationSpeed",
+		"EASBanditTaunt",
+	},
+	modList = {
+		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackBlock20Bypass20 [monster_base_block_% = 20]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterAttackBlock20Bypass20 [base_block_%_damage_taken = 10]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditMeleePunctureKraitynSpecific"] = {
+	name = "Kraityn's Thrall",
+	monsterTags = { "bandit", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "light_armour", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slashing_weapon", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.15,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"The Broken Bridge (Act 2)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterPunctureAtAnimationSpeed",
+		"EASBanditTaunt",
+	},
+	modList = {
+		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackBlock20Bypass20 [monster_base_block_% = 20]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterAttackBlock20Bypass20 [base_block_%_damage_taken = 10]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditMeleeSword"] = {
+	name = "Highwayman",
+	monsterTags = { "bandit", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "light_armour", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slashing_weapon", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.15,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"Castle Ruins (Map)",
+		"Fungal Hollow (Map)",
+		"Path of Exile Royale (Act 1)",
+		"The Eternal Laboratory (Act 8)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EASBanditTaunt",
+	},
+	modList = {
+		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackBlock20Bypass20 [monster_base_block_% = 20]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterAttackBlock20Bypass20 [base_block_%_damage_taken = 10]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditMeleeSwordKraitynSpecific"] = {
+	name = "Kraityn's Aspirant",
+	monsterTags = { "bandit", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "light_armour", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slashing_weapon", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.15,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"Castle Ruins (Map)",
+		"The Crossroads (Act 2)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EASBanditTaunt",
+	},
+	modList = {
+		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackBlock20Bypass20 [monster_base_block_% = 20]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterAttackBlock20Bypass20 [base_block_%_damage_taken = 10]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditMeleeChampion"] = {
+	name = "Oak's Brute",
+	monsterTags = { "bandit", "bludgeoning_weapon", "flesh_armour", "has_two_hand_mace", "has_two_handed_melee", "human", "humanoid", "medium_height", "melee", "not_int", "physical_affinity", "red_blood", "slow_movement", },
+	life = 1.92,
+	armour = 0.5,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.01,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "Two Handed Mace",
+	baseMovementSpeed = 22,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"Fungal Hollow (Map)",
+		"Mesa (Map)",
+		"The Eternal Laboratory (Act 8)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"BanditEnrage",
+	},
+	modList = {
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditMeleeWarlordsMarkMaulParasite"] = {
+	name = "Ryslatha's Devoted",
+	monsterTags = { "bandit", "bludgeoning_weapon", "cursing_monster", "flesh_armour", "has_two_hand_mace", "has_two_handed_melee", "human", "humanoid", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.15,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "Two Handed Mace",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterWarlordsMark",
+		"EASBanditTaunt",
+	},
+	modList = {
+		-- MonsterCausticCloudOnDeath [monster_caustic_cloud_on_death_%_max_damage_to_deal_per_minute = 1100]
+		-- MonsterCausticCloudOnDeath [monster_caustic_cloud_on_death_base_area_of_effect_radius = 12]
+		-- MonsterCausticCloudOnDeath [monster_ground_effect_on_death_base_duration_ms = 3000]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditMeleeChampionParasite"] = {
+	name = "Ryslatha's Brute",
+	monsterTags = { "bandit", "bludgeoning_weapon", "flesh_armour", "has_two_hand_mace", "has_two_handed_melee", "human", "humanoid", "medium_height", "melee", "not_int", "physical_affinity", "red_blood", "slow_movement", },
+	life = 1.92,
+	armour = 0.5,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.01,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "Two Handed Mace",
+	baseMovementSpeed = 22,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"BanditEnrage",
+	},
+	modList = {
+		-- MonsterCausticCloudOnDeath [monster_caustic_cloud_on_death_%_max_damage_to_deal_per_minute = 1100]
+		-- MonsterCausticCloudOnDeath [monster_caustic_cloud_on_death_base_area_of_effect_radius = 12]
+		-- MonsterCausticCloudOnDeath [monster_ground_effect_on_death_base_duration_ms = 3000]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/Bandits/ProphecyBanditPoisonArrow"] = {
+	name = "Devoted Bandit",
+	monsterTags = { "bandit", "chaos_affinity", "flesh_armour", "has_bow", "human", "humanoid", "medium_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.08,
+	armour = 0.25,
+	evasion = 0.1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	attackRange = 40,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterCausticArrowAtAnimationSpeed",
+		"EASBanditTauntBow",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Bandits/ProphecyBanditMeleeRare"] = {
+	name = "Enterprising Bandit",
+	monsterTags = { "bandit", "bludgeoning_weapon", "flesh_armour", "has_two_hand_mace", "has_two_handed_melee", "human", "humanoid", "medium_height", "melee", "not_int", "physical_affinity", "red_blood", "slow_movement", },
+	life = 1.92,
+	armour = 0.5,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.01,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "Two Handed Mace",
+	baseMovementSpeed = 22,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"BanditEnrage",
+	},
+	modList = {
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/Bandits/DenOfTheWolfPack/WolfBanditRanged01"] = {
+	name = "Wolfpack Ranger",
+	monsterTags = { "bandit", "chaos_affinity", "flesh_armour", "has_bow", "human", "humanoid", "medium_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.08,
+	armour = 0.25,
+	evasion = 0.1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	attackRange = 40,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"Caer Blaidd, Wolfpack's Den (Map)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterCausticArrowAtAnimationSpeed",
+		"EASBanditTauntBow",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Bandits/DenOfTheWolfPack/WolfBanditMelee02"] = {
+	name = "Wolfpack Guard",
+	monsterTags = { "bandit", "chaos_affinity", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "light_armour", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slashing_weapon", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.15,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"Caer Blaidd, Wolfpack's Den (Map)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterViperStrike",
+		"EASBanditTaunt",
+	},
+	modList = {
+		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackBlock20Bypass20 [monster_base_block_% = 20]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterAttackBlock20Bypass20 [base_block_%_damage_taken = 10]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/Bandits/StagBandit"] = {
+	name = "Stag Acolyte",
+	monsterTags = { "bandit", "flesh_armour", "has_bow", "human", "humanoid", "medium_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "very_slow_movement", },
+	life = 1.46,
+	armour = 0.25,
+	evasion = 0.1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.65,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	attackRange = 40,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"Ashen Wood (Map)",
+		"The Ashen Fields (Act 7)",
+		"The Crossroads (Act 7)",
+		"The Eternal Laboratory (Act 8)",
+		"The Riverways (Act 6)",
+		"The Southern Forest (Act 6)",
+		"The Western Forest (Act 6)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"BanditStagSplitArrow",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Bandits/StagBandit2"] = {
+	name = "Ralakesh's Horn",
+	monsterTags = { "bandit", "flesh_armour", "has_bow", "human", "humanoid", "medium_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.08,
+	armour = 0.25,
+	evasion = 0.1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	attackRange = 40,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"The Ashen Fields (Act 7)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"StagBanditSnipe",
+		"BanditStagSplitArrow",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Bandits/BearBandit"] = {
+	name = "Bear Acolyte",
+	monsterTags = { "bandit", "flesh_armour", "has_two_hand_sword", "has_two_handed_melee", "human", "humanoid", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "slashing_weapon", "slow_movement", },
+	life = 1.32,
+	armour = 0.25,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.68,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 13,
+	accuracy = 1,
+	weaponType1 = "Two Handed Sword",
+	baseMovementSpeed = 21,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"Ashen Wood (Map)",
+		"The Ashen Fields (Act 7)",
+		"The Crossroads (Act 7)",
+		"The Eternal Laboratory (Act 8)",
+		"The Riverways (Act 6)",
+		"The Southern Forest (Act 6)",
+		"The Western Forest (Act 6)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"BanditBearHeavyStrike",
+		"BanditBearCleave",
+	},
+	modList = {
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/Bandits/BearBandit2"] = {
+	name = "Ralakesh's Claw",
+	monsterTags = { "bandit", "flesh_armour", "has_two_hand_sword", "has_two_handed_melee", "human", "humanoid", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "slashing_weapon", "very_slow_movement", },
+	life = 1,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 13,
+	accuracy = 1,
+	weaponType1 = "Two Handed Sword",
+	baseMovementSpeed = 16,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"The Ashen Fields (Act 7)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"BanditBearHeavyStrike",
+		"BanditBearCleave",
+	},
+	modList = {
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/Bandits/BoarBandit"] = {
+	name = "Boar Acolyte",
+	monsterTags = { "bandit", "fire_affinity", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "light_armour", "medium_height", "melee", "not_int", "physical_affinity", "red_blood", "slashing_weapon", "slow_movement", },
+	life = 1.44,
+	armour = 0.75,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.96,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 6,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 21,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"Ashen Wood (Map)",
+		"The Ashen Fields (Act 7)",
+		"The Crossroads (Act 7)",
+		"The Eternal Laboratory (Act 8)",
+		"The Riverways (Act 6)",
+		"The Southern Forest (Act 6)",
+		"The Western Forest (Act 6)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"BoarBanditReave",
+		"BoarBanditShieldCharge",
+		"EASBanditTaunt",
+	},
+	modList = {
+		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackBlock20Bypass20 [monster_base_block_% = 20]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterAttackBlock20Bypass20 [base_block_%_damage_taken = 10]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/Bandits/BoarBandit2"] = {
+	name = "Ralakesh's Tusk",
+	monsterTags = { "bandit", "fire_affinity", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "light_armour", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slashing_weapon", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.15,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+		"The Ashen Fields (Act 7)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"BoarBanditShieldCharge",
+		"EASBanditTaunt",
+	},
+	modList = {
+		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackBlock20Bypass20 [monster_base_block_% = 20]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterAttackBlock20Bypass20 [base_block_%_damage_taken = 10]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
+minions["Metadata/Monsters/Bandits/BanditCorpse"] = {
+	name = "Rotting Stalwart",
+	monsterTags = { "bandit", "cleaving_weapon", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.15,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 19,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterPunctureAtAnimationSpeed",
+		"EASBanditTaunt",
+	},
+	modList = {
+		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackBlock20Bypass20 [monster_base_block_% = 20]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterAttackBlock20Bypass20 [base_block_%_damage_taken = 10]
+		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+	},
+}
 -- Beast
 minions["Metadata/Monsters/Beasts/BeastCaveDegenAura"] = {
 	name = "Shaggy Monstrosity",
@@ -2058,6 +3103,1287 @@ minions["Metadata/Monsters/Goatman/MountainGoatmanShamanIceSpear"] = {
 		"MountainGoatmanIceSpear",
 	},
 	modList = {
+	},
+}
+-- Harvest
+minions["Metadata/Monsters/LeagueHarvest/Red/HarvestDropBearT1Spectre"] = {
+	name = "Wild Ursaling",
+	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "is_unarmed", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "ursine_beast", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3.24,
+	lifeScaling = "AltLife1",
+	evasion = 0.5,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.19,
+	damageSpread = 0.2,
+	attackTime = 1.095,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 30,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Red/HarvestHellionT1Spectre"] = {
+	name = "Wild Hellion",
+	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "flesh_armour", "has_dagger", "has_one_handed_melee", "large_model", "mammal_beast", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+	life = 3,
+	lifeScaling = "AltLife1",
+	evasion = 0.1,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 0.975,
+	attackRange = 13,
+	accuracy = 1,
+	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+		"EASHarvestEmerge",
+		"HarvestHellionOnDeathGroundFire",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Red/HarvestWolfT1Spectre"] = {
+	name = "Wild Thornwolf",
+	monsterTags = { "animal_claw_weapon", "beast", "canine_beast", "fast_movement", "flesh_armour", "has_dagger", "has_one_handed_melee", "mammal_beast", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+	life = 3,
+	lifeScaling = "AltLife1",
+	evasion = 0.1,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.15,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 42,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		mod("PhysicalDamage", "INC", 0, 0, 0), -- MonsterBleedImplicit [physical_damage_+% = 0]
+		mod("BleedChance", "BASE", 100, 0, 0), -- MonsterBleedImplicit [global_bleed_on_hit = 1]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Red/HarvestMonkeyT1Spectre"] = {
+	name = "Wild Ape",
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "cold_affinity", "fire_affinity", "flesh_armour", "is_unarmed", "mammal_beast", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "primate_beast", "red_blood", },
+	life = 1.76,
+	lifeScaling = "AltLife1",
+	evasion = 0.15,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.78,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 33,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+		"HarvestMonkeyBomb",
+		"GSHarvestMonkeyMine",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Red/HarvestInsectT1Spectre"] = {
+	name = "Wild Hatchling",
+	monsterTags = { "beast", "bludgeoning_weapon", "hard_armour", "insect", "insect_blood", "is_unarmed", "medium_movement", "melee", "physical_affinity", },
+	life = 1.89,
+	lifeScaling = "AltLife1",
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.98,
+	damageSpread = 0.2,
+	attackTime = 0.6,
+	attackRange = 6,
+	accuracy = 1,
+	baseMovementSpeed = 30,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+		"HarvestInsectBurrow",
+		"HarvestInsectEmerge",
+		"GAHarvestInsectEmergeExplosion",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Red/HarvestBeastT2Spectre"] = {
+	name = "Wild Bristlebeast",
+	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "large_model", "mammal_beast", "melee", "physical_affinity", "red_blood", "ursine_beast", "very_slow_movement", },
+	life = 3.6,
+	lifeScaling = "AltLife1",
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.095,
+	attackRange = 14,
+	accuracy = 1,
+	baseMovementSpeed = 19,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeWithDirectionalKnockback",
+		"EAAHarvestBeastDoubleSlam",
+		"GAHarvestBeastSlam1",
+		"GAHarvestBeastSlam2",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Red/HarvestHoundT2Spectre"] = {
+	name = "Wild Snap Hound",
+	monsterTags = { "animal_claw_weapon", "beast", "canine_beast", "caster", "demon", "fast_movement", "fire_affinity", "flesh_armour", "has_dagger", "has_one_handed_melee", "large_model", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3.3,
+	lifeScaling = "AltLife1",
+	evasion = 0.1,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.14,
+	damageSpread = 0.2,
+	attackTime = 0.99,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 40,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EASHarvestHoundFlamethrower",
+		"EDSHarvestHoundFlamethrowerLeft",
+		"EDSHarvestHoundFlamethrowerRight",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Red/HarvestMinerHammerT2Spectre"] = {
+	name = "Wild Homunculus",
+	monsterTags = { "animal_claw_weapon", "caster", "flesh_armour", "is_unarmed", "melee", "physical_affinity", "red_blood", "undead", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3.08,
+	lifeScaling = "AltLife1",
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.07,
+	damageSpread = 0.2,
+	attackTime = 0.93,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 12,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"HarvestMinerMelee",
+		"GAHarvestMinerHammerSlam",
+		"EDSHarvestMinerHammerSmoke",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Red/HarvestChieftainT2Spectre"] = {
+	name = "Wild Chieftain",
+	monsterTags = { "animal_claw_weapon", "beast", "fire_affinity", "flesh_armour", "is_unarmed", "large_model", "mammal_beast", "medium_movement", "melee", "physical_affinity", "primate_beast", "ranged", "red_blood", },
+	life = 3.6,
+	lifeScaling = "AltLife1",
+	fireResist = 75,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.275,
+	attackRange = 16,
+	accuracy = 1,
+	baseMovementSpeed = 36,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+		"EASHarvestChieftainVolatileSpawnToss",
+		"GTHarvestChieftainVolatileSpawn",
+		"SSMHarvestChieftainVolatile",
+		"HarvestChieftainVolatileMortar",
+		"GTHarvestChieftainMoltenStrike",
+		"GAHarvestChieftainMoltenStrike",
+		"MMAHarvestChieftainMoltenStrike",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Red/HarvestSpikerT2Spectre"] = {
+	name = "Wild Spikeback",
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "fire_affinity", "flesh_armour", "has_dagger", "has_one_handed_melee", "large_model", "mammal_beast", "medium_movement", "melee", "not_int", "physical_affinity", "ranged", "red_blood", "rodent_beast", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3,
+	lifeScaling = "AltLife1",
+	armour = 0.25,
+	evasion = 0.15,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 0.99,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 35,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EDSHarvestSpikerBreath",
+		"GTHarvestSpikerBarrage",
+		"HarvestSpikerSpike",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Red/HarvestBeastT3Spectre"] = {
+	name = "Wild Bristle Matron",
+	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "large_model", "mammal_beast", "melee", "physical_affinity", "red_blood", "ursine_beast", "very_slow_movement", },
+	life = 3.6,
+	lifeScaling = "AltLife2",
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.095,
+	attackRange = 14,
+	accuracy = 1,
+	baseMovementSpeed = 19,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeWithDirectionalKnockback",
+		"HarvestBeastCharge",
+		"HarvestBeastT3Slam",
+		"HarvestBeastT3Roar",
+		"EASHarvestBeastMegaSlam",
+		"GAHarvestBeastTrample",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Red/HarvestHellionT3Spectre"] = {
+	name = "Wild Hellion Alpha",
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "fast_movement", "feline_beast", "fire_affinity", "flesh_armour", "has_dagger", "has_one_handed_melee", "large_model", "mammal_beast", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+	life = 3,
+	lifeScaling = "AltLife2",
+	evasion = 0.1,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 0.975,
+	attackRange = 16,
+	accuracy = 1,
+	baseMovementSpeed = 44,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+		"EASHarvestEmerge",
+		"HarvestHellionT3GodzillaBreath",
+		"HarvestHellionT3GodzillaBreathForward",
+		"HarvestHellionT3Cleave",
+		"HarvestHellionTectSlam",
+		"HarvestHellionDeathSpark",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Red/HarvestBirddogT3Spectre"] = {
+	name = "Wild Thornmaw",
+	monsterTags = { "animal_claw_weapon", "beast", "demon", "fast_movement", "flesh_armour", "is_unarmed", "large_model", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+	life = 3.63,
+	lifeScaling = "AltLife2",
+	evasion = 0.1,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.6,
+	damageSpread = 0.2,
+	attackTime = 0.705,
+	attackRange = 20,
+	accuracy = 1,
+	baseMovementSpeed = 47,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeBleed",
+		"HarvestBirddogLeapSlam",
+		"GAHarvestBirddogLeapslam",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Red/HarvestBrambleHulkT3Spectre"] = {
+	name = "Wild Brambleback",
+	monsterTags = { "animal_claw_weapon", "beast", "demon", "hard_armour", "has_dagger", "has_one_handed_melee", "large_model", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "primate_beast", "red_blood", },
+	life = 3.63,
+	lifeScaling = "AltLife2",
+	evasion = 0.1,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.38,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 13,
+	accuracy = 1,
+	baseMovementSpeed = 31,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeWithDirectionalKnockback",
+		"GAHarvestHulkSlam",
+		"HarvestHulkLeapSlam",
+		"HarvestHulkLeapSlamEnraged",
+		"EASHarvestHulkEnrage",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Red/HarvestInsectSpawnerT3Spectre"] = {
+	name = "Wild Infestation Queen",
+	monsterTags = { "beast", "bludgeoning_weapon", "caster", "fire_affinity", "hard_armour", "insect", "insect_blood", "is_unarmed", "large_model", "ranged", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3.57,
+	lifeScaling = "AltLife2",
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.12,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 16,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"SSMHarvestInsectSpawnerInsectling",
+		"MMSHarvestInsectSpawnerSporeBarrageMortar",
+		"GSHarvestInsectSpawnerVomit",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Green/HarvestMeleeSpiderT1Spectre"] = {
+	name = "Vivid Arachnid",
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "chaos_affinity", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "large_model", "melee", "physical_affinity", "slow_movement", "spider", },
+	life = 2.7,
+	lifeScaling = "AltLife1",
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 0.85,
+	damageSpread = 0.2,
+	attackTime = 1.29,
+	attackRange = 15,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+		"HarvestMeleeSpiderSnipe",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 3]
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Green/HarvestWetaT1Spectre"] = {
+	name = "Vivid Weta",
+	monsterTags = { "animal_claw_weapon", "beast", "hard_armour", "insect", "insect_blood", "is_unarmed", "melee", "not_int", "not_str", "physical_affinity", "slow_movement", },
+	life = 2.43,
+	lifeScaling = "AltLife1",
+	evasion = 0.5,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.81,
+	damageSpread = 0.2,
+	attackTime = 0.99,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 27,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+		"HarvestWetaCausticGroundOnDeath",
+		"SSMHarvestWetaSpawnling",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 3]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Green/HarvestParasiteT1Spectre"] = {
+	name = "Vivid Leech",
+	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "hard_armour", "insect", "insect_blood", "is_unarmed", "ranged", "slow_movement", },
+	life = 1.89,
+	lifeScaling = "AltLife1",
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.7,
+	damageSpread = 0.2,
+	attackTime = 1.125,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"HarvestParasitePoisonProjectileSingle",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 3]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Green/HarvestScorpionT1Spectre"] = {
+	name = "Vivid Scorpion",
+	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "hard_armour", "insect", "insect_blood", "is_unarmed", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "spider", },
+	life = 2.7,
+	lifeScaling = "AltLife1",
+	armour = 0.5,
+	fireResist = 30,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 30,
+	damage = 1.25,
+	damageSpread = 0.2,
+	attackTime = 0.99,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 35,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"HarvestScorpionMelee",
+		"MeleeHalfDamageChaos",
+		"HarvestScorpionBurrow",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 3]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Green/HarvestThornSpiderT1Spectre_"] = {
+	name = "Vivid Thornweaver",
+	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "large_model", "melee", "physical_affinity", "spider", "very_slow_movement", },
+	life = 3,
+	lifeScaling = "AltLife1",
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 0.96,
+	attackRange = 14,
+	accuracy = 1,
+	baseMovementSpeed = 20,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+		"HarvestSpiderFlickerStrike",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 3]
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Green/HarvestSabreSpiderT2Spectre"] = {
+	name = "Vivid Razorleg",
+	monsterTags = { "beast", "chaos_affinity", "flesh_armour", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "insect_blood", "large_model", "medium_movement", "melee", "slashing_weapon", "spider", },
+	life = 3,
+	lifeScaling = "AltLife1",
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.15,
+	damageSpread = 0.2,
+	attackTime = 1.065,
+	attackRange = 12,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "One Handed Sword",
+	baseMovementSpeed = 35,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleePartialChaos",
+		"GAHarvestSabreSpiderDualStrike",
+		"EAAHarvestSpiderLacerate",
+		"GAHarvestSpiderLacerateRight",
+		"GAHarvestSpiderLacerateLeft",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 3]
+		-- set_is_spider [set_is_spider = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Green/HarvestHuhuGrubT2Spectre"] = {
+	name = "Vivid Sapsucker",
+	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "insect", "is_unarmed", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "ranged", "red_blood", },
+	life = 3,
+	lifeScaling = "AltLife1",
+	evasion = 0.5,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 0.99,
+	attackRange = 6,
+	accuracy = 1,
+	baseMovementSpeed = 32,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+		"HarvestGrubBurrow",
+		"HarvestGrubBurrowFlee",
+		"HarvestGrubEmerge",
+		"EASHarvestGrubProjectiles",
+		"HarvestGrubProjectile",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 3]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Green/HarvestParasiteT2Spectre__"] = {
+	name = "Vivid Parasite",
+	monsterTags = { "animal_claw_weapon", "beast", "hard_armour", "insect", "insect_blood", "is_unarmed", "medium_movement", "melee", "physical_affinity", "ranged", },
+	life = 1.89,
+	lifeScaling = "AltLife1",
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.7,
+	damageSpread = 0.2,
+	attackTime = 1.125,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 34,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+		"HarvestParasitePoisonProjectileTriple",
+		"DTTHarvestParasiteLeap",
+		"GAHarvestParasiteTailWhip",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 3]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Green/HarvestScorpionT2Spectre"] = {
+	name = "Vivid Striketail",
+	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "hard_armour", "insect", "insect_blood", "is_unarmed", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "spider", },
+	life = 2.7,
+	lifeScaling = "AltLife1",
+	armour = 0.5,
+	fireResist = 30,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 30,
+	damage = 1.25,
+	damageSpread = 0.2,
+	attackTime = 0.99,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 35,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"HarvestScorpionMelee",
+		"MeleeHalfDamageChaos",
+		"HarvestScorpionBurrow",
+		"GAHarvestScorpionBigStab",
+		"HarvestScorpionCausticGroundOnBurrow",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 3]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Green/HarvestPlagueSpiderT2Spectre"] = {
+	name = "Vivid Nestback",
+	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "flesh_armour", "insect_blood", "is_unarmed", "melee", "physical_affinity", "ranged", "slow_movement", "spider", },
+	life = 3.56,
+	lifeScaling = "AltLife1",
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 30,
+	chaosResist = 30,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 23,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"HarvestSpiderViperStrike",
+		"GTHarvestSpiderWeb",
+		"HarvestSpiderWebProjectile",
+		"GAHarvestWebMortarImpact",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 3]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Green/HarvestBlackstriderT3Spectre"] = {
+	name = "Vivid Whipleg",
+	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "flesh_armour", "insect_blood", "is_unarmed", "melee", "physical_affinity", "ranged", "slow_movement", "spider", },
+	life = 3.38,
+	lifeScaling = "AltLife2",
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 20,
+	accuracy = 1,
+	baseMovementSpeed = 27,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleePoisonMaim",
+		"HarvestBlackStriderMortar",
+		"GTHarvestBlackStriderMassMortar",
+		"HarvestBlackStriderMassMortar",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 3]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Green/HarvestSquidT3Spectre"] = {
+	name = "Vivid Watcher",
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "chaos_affinity", "flesh_armour", "is_unarmed", "medium_movement", "melee", "not_str", "physical_affinity", "ranged", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3,
+	lifeScaling = "AltLife2",
+	energyShield = 0.6,
+	evasion = 0.4,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 36,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"HarvestSquidBallLightning",
+		"EASHarvestSquidNoodleBeams",
+		"TBHarvestSquidNoodleBeam",
+		"GSHarvestSquidNoodleImpact",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 3]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Green/HarvestVultureParasiteT3Spectre"] = {
+	name = "Vivid Vulture",
+	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "flesh_armour", "flying", "has_one_hand_sword", "has_one_handed_melee", "medium_movement", "melee", "physical_affinity", "red_blood", },
+	life = 3.63,
+	lifeScaling = "AltLife2",
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.43,
+	damageSpread = 0.2,
+	attackTime = 0.96,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 36,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"GAHarvestVultureCleave",
+		"DTTHarvestVultureLeapSlam",
+		"GAHarvestVultureLeapSlam",
+		"SSMHarvestVultureParasite",
+		"GTHarvestVultureSummonParasiteSwarm",
+		"HarvestVultureCausticGroundOnSummon",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 3]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Green/HarvestPlatedScorpionT3Spectre"] = {
+	name = "Vivid Abberarach",
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "chaos_affinity", "hard_armour", "insect_blood", "is_unarmed", "melee", "physical_affinity", "slow_movement", "spider", },
+	life = 3.9,
+	lifeScaling = "AltLife2",
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.3,
+	damageSpread = 0.2,
+	attackTime = 1.155,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleePartialChaos",
+		"GTHarvestPlatedScorpionSpikeCascade",
+		"GSHarvestPlatedScorpionSpikeCascade",
+		"GAHarvestScorpionCleave",
+		"HarvestPlatedScorpionBurrow",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 3]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestRhoaT1Spectre"] = {
+	name = "Primal Rhoa",
+	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "cold_affinity", "flesh_armour", "has_claw", "has_one_handed_melee", "large_model", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "slow_movement", },
+	life = 3.57,
+	lifeScaling = "AltLife1",
+	armour = 0.25,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 0.93,
+	attackRange = 14,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"RhoaShieldChargeTauntHarvest",
+		"HarvestRhoaCastGroundEffectChilledFootstep",
+		"GAHarvestRhoaChargeImpact",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 2]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestSandspitterT1Spectre"] = {
+	name = "Primal Dustspitter",
+	monsterTags = { "animal_claw_weapon", "beast", "hard_armour", "insect", "is_unarmed", "physical_affinity", "ranged", "red_blood", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.7,
+	lifeScaling = "AltLife1",
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 0.9,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 30,
+	accuracy = 1,
+	baseMovementSpeed = 20,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MMAHarvestSandspitterMortar",
+		"GTHarvestSandspitterMultishot",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 2]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestRegurgitatorT1Spectre__"] = {
+	name = "Primal Feasting Horror",
+	monsterTags = { "cultist", "demon", "fast_movement", "flesh_armour", "is_unarmed", "large_model", "melee", "physical_affinity", "red_blood", "slashing_weapon", },
+	life = 3.6,
+	lifeScaling = "AltLife1",
+	fireResist = 0,
+	coldResist = 30,
+	lightningResist = 0,
+	chaosResist = 30,
+	damage = 1.14,
+	damageSpread = 0.2,
+	attackTime = 1.335,
+	attackRange = 14,
+	accuracy = 1,
+	baseMovementSpeed = 40,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 2]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestFrogT1Spectre"] = {
+	name = "Primal Maw",
+	monsterTags = { "amphibian_beast", "animal_claw_weapon", "beast", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "large_model", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slow_movement", },
+	life = 3,
+	lifeScaling = "AltLife1",
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 0.675,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 25,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+		"HarvestFrogBiteAttack",
+		"HarvestTacoLeapSlam",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 2]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestAntT1Spectre"] = {
+	name = "Primal Cleaveling",
+	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "large_model", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "reptile_beast", },
+	life = 2.7,
+	lifeScaling = "AltLife1",
+	evasion = 0.5,
+	fireResist = 0,
+	coldResist = 30,
+	lightningResist = 30,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 0.99,
+	attackRange = 13,
+	accuracy = 1,
+	baseMovementSpeed = 32,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 2]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT2Spectre"] = {
+	name = "Primal Rhex",
+	monsterTags = { "animal_claw_weapon", "beast", "fast_movement", "flesh_armour", "is_unarmed", "lightning_affinity", "melee", "not_int", "not_str", "physical_affinity", "ranged", "red_blood", "reptile_beast", },
+	life = 3.57,
+	lifeScaling = "AltLife1",
+	evasion = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.26,
+	damageSpread = 0.2,
+	attackTime = 0.99,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 40,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+		"HarvestRhexStomp",
+		"HarvestRhexTailBolt",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 2]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestIguanaT2Spectre"] = {
+	name = "Primal Chimeral",
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "cold_affinity", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "large_model", "melee", "not_str", "physical_affinity", "ranged", "red_blood", "reptile_beast", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3.56,
+	lifeScaling = "AltLife1",
+	energyShield = 0.5,
+	evasion = 0.2,
+	fireResist = 52,
+	coldResist = 52,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.13,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 25,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"HarvestIguanaFlamethrowerLeftToRight",
+		"HarvestIguanaFlamethrowerRightToLeft",
+		"HarvestIguanaIceSpikeProjectile",
+		"EASHarvestIguanaSpikeRain",
+		"GSHarvestIguanaSpikeRain",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 2]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestSandLeaperT2Spectre"] = {
+	name = "Primal Scrabbler",
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "hard_armour", "insect", "is_unarmed", "lightning_affinity", "medium_movement", "melee", "not_int", "not_str", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.76,
+	lifeScaling = "AltLife1",
+	evasion = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 0.85,
+	damageSpread = 0.2,
+	attackTime = 0.99,
+	attackRange = 20,
+	accuracy = 1,
+	baseMovementSpeed = 34,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeLightning",
+		"GSHarvestSandLeaperSnipe",
+		"HarvestSandLeaperDodgeLeft",
+		"HarvestSandLeaperDodgeLeftFar",
+		"HarvestSandLeaperDodgeRight",
+		"HarvestSandLeaperDodgeRightFar",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 2]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestKitavaDemonT3Spectre"] = {
+	name = "Primal Blisterlord",
+	monsterTags = { "caster", "cleaving_weapon", "cultist", "demon", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "lightning_affinity", "melee", "not_int", "physical_affinity", "red_blood", "slow_movement", },
+	life = 3.6,
+	lifeScaling = "AltLife2",
+	armour = 0.5,
+	evasion = 0.4,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 0.96,
+	attackRange = 10,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 28,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+		"EASHarvestKitavaDemonExplosion",
+		"EAAHarvestKitavaDemonEarthquake",
+		"GSHarvestKitavaDemonExplosion",
+		"GAHarvestKitavaDemonEarthquakeSmall",
+		"GAHarvestKitavaDemonEarthquakeBig",
+		"DTTHarvestKitavaDemonDash",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 2]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestGoatmanT3Spectre"] = {
+	name = "Primal Cystcaller",
+	monsterTags = { "beast", "bludgeoning_weapon", "caster", "flesh_armour", "goatman", "has_staff", "has_two_handed_melee", "humanoid", "lightning_affinity", "mammal_beast", "not_dex", "not_str", "ranged", "red_blood", "very_slow_movement", },
+	life = 3,
+	lifeScaling = "AltLife2",
+	energyShield = 0.5,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 8,
+	accuracy = 1,
+	weaponType1 = "Staff",
+	baseMovementSpeed = 20,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MPSHarvestGoatmanProjectile",
+		"HarvestGoatmanLeapSlam",
+		"GSHarvestGoatmanDelayedBlast",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 2]
+	},
+}
+minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestLanternMinerT3Spectre"] = {
+	name = "Primal Reborn",
+	monsterTags = { "caster", "cold_affinity", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "mud_blood", "not_int", "not_str", "ranged", "stone_armour", "undead", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3.63,
+	lifeScaling = "AltLife2",
+	evasion = 0.2,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.69,
+	damageSpread = 0.2,
+	attackTime = 1.395,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 16,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"HarvestLanternMinerProjectile",
+		"HarvestLanternMinerSporeBlastEAS",
+		"HarvestLanternMinerSporeBlastGS",
+		"HarvestLanternMinerMortar",
+		"EASHarvestEmerge",
+	},
+	modList = {
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		-- damage_hit_effect_index [damage_hit_effect_index = 2]
 	},
 }
 -- Miscreation
@@ -3670,6 +5996,123 @@ minions["Metadata/Monsters/Lion/LionDemonSpectre"] = {
 	modList = {
 	},
 }
+minions["Metadata/Monsters/Hellion/Hellion"] = {
+	name = "Hellion",
+	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_dagger", "has_one_handed_melee", "large_model", "light_armour", "mammal_beast", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "small_height", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	evasion = 0.1,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.85,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Hellion/HellionIceSpectre_"] = {
+	name = "Mountain Hellion",
+	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_dagger", "has_one_handed_melee", "large_model", "light_armour", "mammal_beast", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	evasion = 0.1,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.85,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Iceberg (Map)",
+		"Path of Exile Royale (Act 1)",
+		"The Ascent (Act 4)",
+		"The Descent (Act 9)",
+		"The Eternal Laboratory (Act 8)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Hellions/HellionIceAtlasUber"] = {
+	name = "Chilling Hellion",
+	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_dagger", "has_one_handed_melee", "large_model", "light_armour", "mammal_beast", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "small_height", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.98,
+	evasion = 0.1,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.8,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Abomination (Map)",
+		"Citadel (Map)",
+		"Fortress (Map)",
+		"Sanctuary (Map)",
+		"Ziggurat (Map)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"GSCrucibleSnakeArcticBreathAtlasUber",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Hellion/HellionIceExplodeOnDeathSpectre"] = {
+	name = "Mountain Hellion Alpha",
+	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_dagger", "has_one_handed_melee", "large_model", "light_armour", "mammal_beast", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.5,
+	evasion = 0.1,
+	fireResist = 75,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.8,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Iceberg (Map)",
+		"Path of Exile Royale (Act 1)",
+		"The Ascent (Act 4)",
+		"The Descent (Act 9)",
+		"The Eternal Laboratory (Act 8)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		mod("PhysicalDamageGainAsCold", "BASE", 100, 0, 0), -- MonsterPhysicalAddedAsColdSkeletonMaps [physical_damage_%_to_add_as_cold = 100]
+	},
+}
 minions["Metadata/Monsters/Hellion/Hellion3Spectre"] = {
 	name = "Ruins Hellion",
 	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_dagger", "has_one_handed_melee", "large_model", "light_armour", "mammal_beast", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
@@ -3694,6 +6137,66 @@ minions["Metadata/Monsters/Hellion/Hellion3Spectre"] = {
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"HellionRallyingCry",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Hellion/HellionParasiteSpectre"] = {
+	name = "Enslaved Hellion",
+	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_dagger", "has_one_handed_melee", "large_model", "light_armour", "mammal_beast", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	evasion = 0.1,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.85,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Pit of the Chimera (Map)",
+		"Prisoner's Gate (Act 6)",
+		"The Eternal Laboratory (Act 8)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Hellion/HellionColosseumSpectre"] = {
+	name = "Shackled Hellion",
+	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_dagger", "has_one_handed_melee", "large_model", "light_armour", "mammal_beast", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	evasion = 0.1,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.85,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Arena (Map)",
+		"Colosseum (Map)",
+		"Fragmented Memory",
+		"Memory Void",
+		"Pit (Map)",
+		"Racecourse (Map)",
+		"The Eternal Laboratory (Act 8)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
 	},
 	modList = {
 	},

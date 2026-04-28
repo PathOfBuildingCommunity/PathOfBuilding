@@ -73,6 +73,72 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/Bandits/BanditBowBlastRain
 #emit
+#spectre Metadata/Monsters/Bandits/BanditCaster
+#emit
+#spectre Metadata/Monsters/Bandits/BanditGuardMeleeChaos
+#emit
+#spectre Metadata/Monsters/Bandits/BanditGuardMeleePuncture
+#emit
+#spectre Metadata/Monsters/Bandits/BanditGuardMeleePunctureSpawnerMap
+#emit
+#spectre Metadata/Monsters/Bandits/BanditGuardMeleeWarlordsMark
+#emit
+#spectre Metadata/Monsters/Bandits/BanditGuardBow
+#emit
+#spectre Metadata/Monsters/Bandits/BanditGuardBow2
+#emit
+#spectre Metadata/Monsters/Bandits/BanditGuardBowSpawnerMap
+#emit
+#spectre Metadata/Monsters/Bandits/BanditGuardBowBurningArrow
+#emit
+#spectre Metadata/Monsters/Bandits/BanditGuardBowPoison
+#emit
+#spectre Metadata/Monsters/Bandits/BanditProphecyDesecrate
+#emit
+#spectre Metadata/Monsters/Bandits/BanditMeleeAlira
+#emit
+#spectre Metadata/Monsters/Bandits/BanditMeleeChaos
+#emit
+#spectre Metadata/Monsters/Bandits/BanditMeleeMaul
+#emit
+#spectre Metadata/Monsters/Bandits/BanditMeleePuncture
+#emit
+#spectre Metadata/Monsters/Bandits/BanditMeleePuncture2
+#emit
+#spectre Metadata/Monsters/Bandits/BanditMeleePunctureKraitynSpecific
+#emit
+#spectre Metadata/Monsters/Bandits/BanditMeleeSword
+#emit
+#spectre Metadata/Monsters/Bandits/BanditMeleeSwordKraitynSpecific
+#emit
+#spectre Metadata/Monsters/Bandits/BanditMeleeChampion
+#emit
+#spectre Metadata/Monsters/Bandits/BanditMeleeWarlordsMarkMaulParasite
+#emit
+#spectre Metadata/Monsters/Bandits/BanditMeleeChampionParasite
+#emit
+#spectre Metadata/Monsters/Bandits/ProphecyBanditPoisonArrow
+#emit
+#spectre Metadata/Monsters/Bandits/ProphecyBanditMeleeRare
+#emit
+#spectre Metadata/Monsters/Bandits/DenOfTheWolfPack/WolfBanditRanged01
+#emit
+#spectre Metadata/Monsters/Bandits/DenOfTheWolfPack/WolfBanditMelee02
+#emit
+#spectre Metadata/Monsters/Bandits/StagBandit
+#emit
+#spectre Metadata/Monsters/Bandits/StagBandit2
+#emit
+#spectre Metadata/Monsters/Bandits/BearBandit
+#emit
+#spectre Metadata/Monsters/Bandits/BearBandit2
+#emit
+#spectre Metadata/Monsters/Bandits/BoarBandit
+#emit
+#spectre Metadata/Monsters/Bandits/BoarBandit2
+#emit
+#spectre Metadata/Monsters/Bandits/BanditCorpse
+#emit
 -- Beast
 #spectre Metadata/Monsters/Beasts/BeastCaveDegenAura
 #emit
@@ -136,6 +202,87 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Goatman/MountainGoatmanChampion
 #emit
 #spectre Metadata/Monsters/Goatman/MountainGoatmanShamanIceSpear
+#emit
+-- Harvest
+#spectre Metadata/Monsters/LeagueHarvest/Red/HarvestDropBearT1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Red/HarvestHellionT1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Red/HarvestWolfT1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Red/HarvestMonkeyT1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Red/HarvestInsectT1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Red/HarvestBeastT2Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Red/HarvestHoundT2Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Red/HarvestMinerHammerT2Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Red/HarvestChieftainT2Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Red/HarvestSpikerT2Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Red/HarvestBeastT3Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Red/HarvestHellionT3Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Red/HarvestBirddogT3Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Red/HarvestBrambleHulkT3Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Red/HarvestInsectSpawnerT3Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Green/HarvestMeleeSpiderT1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Green/HarvestWetaT1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Green/HarvestParasiteT1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Green/HarvestScorpionT1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Green/HarvestThornSpiderT1Spectre_
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Green/HarvestSabreSpiderT2Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Green/HarvestHuhuGrubT2Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Green/HarvestParasiteT2Spectre__
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Green/HarvestScorpionT2Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Green/HarvestPlagueSpiderT2Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Green/HarvestBlackstriderT3Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Green/HarvestSquidT3Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Green/HarvestVultureParasiteT3Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Green/HarvestPlatedScorpionT3Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestRhoaT1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestSandspitterT1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestRegurgitatorT1Spectre__
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestFrogT1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestAntT1Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT2Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestIguanaT2Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestSandLeaperT2Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestKitavaDemonT3Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestGoatmanT3Spectre
+#emit
+#spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestLanternMinerT3Spectre
 #emit
 -- Miscreation
 #spectre Metadata/Monsters/DemonFemale/DemonFemale
@@ -247,7 +394,19 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/Lion/LionDemonSpectre
 #emit
+#spectre Metadata/Monsters/Hellion/Hellion
+#emit
+#spectre Metadata/Monsters/Hellion/HellionIceSpectre_
+#emit
+#spectre Metadata/Monsters/Hellions/HellionIceAtlasUber
+#emit
+#spectre Metadata/Monsters/Hellion/HellionIceExplodeOnDeathSpectre
+#emit
 #spectre Metadata/Monsters/Hellion/Hellion3Spectre
+#emit
+#spectre Metadata/Monsters/Hellion/HellionParasiteSpectre
+#emit
+#spectre Metadata/Monsters/Hellion/HellionColosseumSpectre
 #emit
 -- Knitted Horror
 #spectre Metadata/Monsters/MassSkeleton/MassSkeleton
