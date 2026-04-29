@@ -34,6 +34,7 @@ for monster in dat("MonsterVarieties"):Rows() do
 		and not monster.Id:match("NPC")
 		and not monster.Name:match("DNT")
 		and not monster.Id:find("TestSpawn")
+		and not monster.Id:find("InsectTest")
 		and not monster.AIScript:match("NoAI")
 		and #monster.GrantedEffects ~= 0 then
 		for _, name in ipairs(uniqueName) do
