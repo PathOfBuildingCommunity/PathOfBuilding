@@ -191,7 +191,7 @@ for area in dat("WorldAreas"):Rows() do
 	if mapId and mapId ~= area.Id then
 		goto continue
 	end
-	if area.Name and area.Name ~= "NULL" and not area.Name:match("DNT") and not area.Name:match("Memory Void") and area.Id and not area.IsTown then
+	if area.Name and area.Name ~= "NULL" and not area.Name:match("DNT") and not area.Name:match("UNUSED") and not area.Name:match("Memory Void") and area.Id and not area.IsTown then
 		-- Skip areas ending with _NoBoss
 		if area.Id:match("Design") or area.Id:match("Programming") or area.Id == "BlackTest" or area.Id:match("Hideout") or area.Id:match("Labyrinth") then
 			goto continue
