@@ -44,7 +44,7 @@ local GGPKClass = newClass("GGPKData", function(self, path, datPath, reExport)
 	self.dat = { }
 	self.txt = { }
 	self.ot = { }
-	
+
 	self:AddDat64Files()
 end)
 
@@ -284,7 +284,33 @@ function GGPKClass:GetNeededFiles()
 		"Data/MonsterPackEntries.dat",
 		"Data/MonsterPacks.dat",
 		"Data/Maps.dat",
-		"Data/AtlasNode.dat"
+		"Data/AtlasNode.dat",
+		"Data/AdditionalLifeScaling.dat",
+		"Data/AdditionalLifeScalingPerLevel.dat",
+		"Data/ArchitectLifeScalingPerLevel.dat",
+		"Data/BetrayalTargetLifeScalingPerLevel.dat",
+		"Data/BetrayalWallLifeScalingPerLevel.dat",
+		"Data/BreachBossLifeScalingPerLevel.dat",
+		"Data/BlightBossLifeScalingPerLevel.dat",
+		"Data/HellscapeLifeScalingPerLevel.dat",
+		"Data/PrimordialBossLifeScalingPerLevel.dat",
+		"Data/HarvestLifeScalingPerLevel.dat",
+		"Data/RogueExileLifeScalingPerLevel.dat",
+		"Data/LakeBossLifeScalingPerLevel.dat",
+		"Data/SanctumLifeScalingPerLevel.dat",
+		"Data/SanctumFodderLifeScalingPerLevel.dat",
+		"Data/CrucibleLifeScalingPerLevel.dat",
+		"Data/AbyssBossLifeScalingPerLevel.dat",
+		"Data/TormentedSpiritLifeScalingPerLevel.dat",
+		"Data/AncestralLifeScalingPerLevel.dat",
+		"Data/ChieftainLifeScalingPerLevel.dat",
+		"Data/UltimatumLifeScalingPerLevel.dat",
+		"Data/AzmeriLifeScalingPerLevel.dat",
+		"Data/AtlasUberMonsterLifeScalingPerLevel.dat",
+		"Data/ExpeditionStandaloneLifeScalingPerLevel.dat",
+		"Data/SettlersLifeScalingPerLevel.dat",
+		"Data/BreachLifeScalingPerLevel.dat",
+		"Data/FaridunLifeScalingPerLevel.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",

@@ -1,5 +1,19 @@
 return {
 	abyssbosslifescalingperlevel={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MoreLife",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	abyssobjects={
 	},
@@ -421,24 +435,31 @@ return {
 	additionallifescaling={
 		[1]={
 			list=false,
-			name="",
+			name="IntId",
 			refTo="",
 			type="Int",
 			width=150
 		},
 		[2]={
 			list=false,
-			name="DATFilename",
+			name="Id",
 			refTo="",
 			type="String",
 			width=240
 		},
 		[3]={
 			list=false,
-			name="DATFilepath",
+			name="DatFile",
 			refTo="",
 			type="String",
 			width=290
+		},
+		[4]={
+			list=false,
+			name="ScaleES",
+			refTo="",
+			type="Bool",
+			width=150
 		}
 	},
 	additionallifescalingperlevel={
@@ -925,6 +946,22 @@ return {
 			width=200
 		}
 	},
+	ancestrallifescalingperlevel={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MoreLife",
+			refTo="",
+			type="Int",
+			width=150
+		}
+	},
 	animatedobjectflags={
 	},
 	animateweaponuniques={
@@ -1057,6 +1094,20 @@ return {
 		}
 	},
 	architectlifescalingperlevel={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MoreLife",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	archnemesismetarewards={
 		[1]={
@@ -1887,6 +1938,22 @@ return {
 	},
 	atlasskillgraphs={
 	},
+	atlasubermonsterlifescalingperlevel={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MoreLife",
+			refTo="",
+			type="Int",
+			width=150
+		}
+	},
 	atlasupgradesinventorylayout={
 	},
 	attributes={
@@ -1940,14 +2007,14 @@ return {
 	azmerilifescalingperlevel={
 		[1]={
 			list=false,
-			name="",
+			name="Level",
 			refTo="",
 			type="Int",
 			width=150
 		},
 		[2]={
 			list=false,
-			name="",
+			name="MoreLife",
 			refTo="",
 			type="Int",
 			width=150
@@ -2318,6 +2385,20 @@ return {
 	betrayaltargetjobachievements={
 	},
 	betrayaltargetlifescalingperlevel={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MoreLife",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	betrayaltargets={
 	},
@@ -2328,6 +2409,20 @@ return {
 	betrayalupgradeslots={
 	},
 	betrayalwalllifescalingperlevel={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MoreLife",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	beyonddemons={
 	},
@@ -2338,6 +2433,20 @@ return {
 	blightbalanceperlevel={
 	},
 	blightbosslifescalingperlevel={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MoreLife",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	blightchesttypes={
 	},
@@ -2378,8 +2487,38 @@ return {
 	breachartvariations={
 	},
 	breachbosslifescalingperlevel={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MoreLife",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	breachelement={
+	},
+	breachlifescalingperlevel={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MoreLife",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	breachstones={
 	},
@@ -3912,6 +4051,22 @@ return {
 	},
 	chests={
 	},
+	chieftainlifescalingperlevel={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MoreLife",
+			refTo="",
+			type="Int",
+			width=150
+		}
+	},
 	clientlakedifficulty={
 	},
 	clientleagueaction={
@@ -4611,7 +4766,7 @@ return {
 		},
 		[2]={
 			list=false,
-			name="LifeMore",
+			name="MoreLife",
 			refTo="",
 			type="Int",
 			width=150
@@ -5488,6 +5643,22 @@ return {
 	},
 	expeditionrelics={
 	},
+	expeditionstandalonelifescalingperlevel={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MoreLife",
+			refTo="",
+			type="Int",
+			width=150
+		}
+	},
 	expeditionstoragelayout={
 	},
 	expeditionterrainfeatures={
@@ -5520,6 +5691,22 @@ return {
 	extraterrainfeaturefamily={
 	},
 	extraterrainfeatures={
+	},
+	faridunlifescalingperlevel={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MoreLife",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	fixedhideoutdoodads={
 	},
@@ -6418,6 +6605,20 @@ return {
 	harvestinfrastructurecategories={
 	},
 	harvestlifescalingperlevel={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MoreLife",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	harvestmetacraftingoptions={
 	},
@@ -6520,6 +6721,20 @@ return {
 	hellscapeitemmodificationtiers={
 	},
 	hellscapelifescalingperlevel={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MoreLife",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	hellscapemodificationinventorylayout={
 	},
@@ -7566,6 +7781,20 @@ return {
 	labyrinthtrinkets={
 	},
 	lakebosslifescalingperlevel={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MoreLife",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	lakemetaoptions={
 	},
@@ -12317,6 +12546,20 @@ return {
 	preloadpriorities={
 	},
 	primordialbosslifescalingperlevel={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MoreLife",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	projectilecollisiontypes={
 	},
@@ -12746,6 +12989,20 @@ return {
 	ritualspawnpatterns={
 	},
 	rogueexilelifescalingperlevel={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MoreLife",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	rogueexiles={
 	},
@@ -12772,10 +13029,38 @@ return {
 	sanctumfloors={
 	},
 	sanctumfodderlifescalingperlevel={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MoreLife",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	sanctumimmediateeffecttype={
 	},
 	sanctumlifescalingperlevel={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MoreLife",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	sanctumpersistenteffectcategories={
 	},
@@ -12812,6 +13097,22 @@ return {
 	sentineltaggedmonsterstats={
 	},
 	sessionquestflags={
+	},
+	settlerslifescalingperlevel={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MoreLife",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	shaperguardians={
 	},
@@ -14059,6 +14360,22 @@ return {
 	},
 	topologies={
 	},
+	tormentedspiritlifescalingperlevel={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MoreLife",
+			refTo="",
+			type="Int",
+			width=150
+		}
+	},
 	tormentspirits={
 	},
 	trademarketimplicitmoddisplay={
@@ -14114,6 +14431,22 @@ return {
 	ultimatumencountertypes={
 	},
 	ultimatumitemisedrewards={
+	},
+	ultimatumlifescalingperlevel={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MoreLife",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	ultimatummapmodifiers={
 	},
