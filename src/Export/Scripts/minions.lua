@@ -266,8 +266,8 @@ directiveTable.emit = function(state, args, out)
 
 	monsterCategory =
 		hasTag["eldritch"] and "Eldritch" or -- Perfect Hydra has Eldritch, Beast, and Human. But priority is Eldritch.
-		hasTag["beast"]    and "Beast" or
 		hasTag["demon"]    and "Demon" or
+		hasTag["beast"]    and "Beast" or
 		hasTag["construct"]and "Construct" or
 		hasTag["undead"]   and "Undead" or
 		hasTag["human"]    and "Humanoid" -- Humanoid tag is on many more things
