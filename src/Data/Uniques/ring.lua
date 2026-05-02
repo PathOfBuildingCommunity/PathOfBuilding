@@ -1280,12 +1280,13 @@ Immune to Chill
 ]],[[
 Tawhanuku's Timing
 Moonstone Ring
-{tags:caster}50% chance to Trigger Socketed Spells when you Spend at least 100 Mana on an
-{tags:caster}Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown
-{tags:caster}(30-40)% increased Spell Damage
+Implicits: 1
 {tags:defences}+(15-25) to maximum Energy Shield
+{tags:caster}(30-40)% increased Spell Damage
 {tags:resource}+(60-80) to maximum Mana
 (5-10)% chance to Freeze, Shock and Ignite
+{tags:defences,caster}Spells cause you to gain Energy Shield equal to their Upfront
+{tags:defences,caster}Cost every fifth time you Pay it
 ]],[[
 Thief's Torment
 Prismatic Ring
