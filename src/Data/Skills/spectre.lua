@@ -11477,36 +11477,6 @@ skills["DelveSpiderFlickerStrike"] = {
 		[1] = { attackSpeedMultiplier = 20, baseMultiplier = 0.35, cooldown = 4, levelRequirement = 1, storedUses = 1, },
 	},
 }
-skills["MeleeAtAnimationSpeedLightning"] = {
-	name = "Default Attack",
-	hidden = true,
-	color = 4,
-	baseEffectiveness = 0,
-	description = "Strike your foes down with a powerful blow.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 1,
-	baseFlags = {
-		attack = true,
-		melee = true,
-	},
-	constantStats = {
-		{ "skill_physical_damage_%_to_convert_to_lightning", 75 },
-	},
-	stats = {
-		"skill_can_fire_arrows",
-		"skill_can_fire_wand_projectiles",
-		"action_attack_or_cast_time_uses_animation_length",
-		"projectile_uses_contact_position",
-		"use_scaled_contact_offset",
-	},
-	levels = {
-		[1] = { baseMultiplier = 0.75, levelRequirement = 1, },
-		[2] = { baseMultiplier = 0.75, levelRequirement = 19, },
-		[3] = { baseMultiplier = 0.75, levelRequirement = 20, },
-		[4] = { baseMultiplier = 0.75, levelRequirement = 84, },
-	},
-}
 skills["CrucibleVendigoFlickerStrike"] = {
 	name = "Flicker Strike",
 	hidden = true,

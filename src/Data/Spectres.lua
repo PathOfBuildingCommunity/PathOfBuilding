@@ -9743,6 +9743,241 @@ minions["Metadata/Monsters/Goatman/MountainGoatmanChampionAtlasUber"] = {
 	modList = {
 	},
 }
+-- Insect
+minions["Metadata/Monsters/InsectSpawner/InsectSpawnerParasiteBossMapStandalone_AtlasUber"] = {
+	name = "Mother of Rot",
+	monsterTags = { "animal_claw_weapon", "beast", "caster", "chaos_affinity", "extra_large_height", "flesh_armour", "insect", "insect_blood", "is_unarmed", "large_model", "physical_affinity", "ranged", "standalone_map_boss", "very_slow_movement", },
+	life = 3.9,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 25,
+	damage = 1.29,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 6,
+	accuracy = 1,
+	baseMovementSpeed = 16,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Abomination (Map)",
+		"Citadel (Map)",
+		"Fortress (Map)",
+		"Sanctuary (Map)",
+		"Ziggurat (Map)",
+	},
+	skillList = {
+		"InsectSpawnerSpitParasiteBossMap",
+		"FlamebreathParasiteBossMap",
+		"RyslathaSummonEgg",
+		"RyslathaStandaloneBurrow",
+		"RyslathaSummonEggTriggeredStandalone",
+	},
+	modList = {
+		mod("PhysicalDamageConvertToChaos", "BASE", 50, 0, 0), -- MonsterConvertToChaos1 [base_physical_damage_%_to_convert_to_chaos = 50]
+		-- RyslathaSpawnEggsDaemon [display_monster_mod_nemesis_test = 0]
+		mod("KnockbackImmune", "FLAG", 1, 0, 0), -- MonsterCannotBeKnockedBack [cannot_be_knocked_back = 1]
+	},
+}
+minions["Metadata/Monsters/InsectMinion/InsectMinionSpawned"] = {
+	name = "Carrion Minion",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_small_height", "flesh_armour", "insect", "insect_blood", "is_unarmed", "medium_movement", "melee", "physical_affinity", "uses_suicide_explode", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.7,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.63,
+	damageSpread = 0.2,
+	attackTime = 0.9,
+	attackRange = 6,
+	accuracy = 1,
+	baseMovementSpeed = 30,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"The Slums (Act 3)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"InsectSuicideExplosion",
+	},
+	modList = {
+		-- MonsterExplodesOnItsTargetText [monster_explodes_on_its_target_text = 1]
+	},
+}
+minions["Metadata/Monsters/InsectMinion/InsectWild"] = {
+	name = "Carrion Swarmer",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_small_height", "flesh_armour", "insect", "insect_blood", "is_unarmed", "medium_movement", "melee", "physical_affinity", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.7,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.63,
+	damageSpread = 0.2,
+	attackTime = 0.9,
+	attackRange = 6,
+	accuracy = 1,
+	baseMovementSpeed = 30,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Bazaar (Map)",
+		"Canyon (Map)",
+		"Fragmented Memory",
+		"Ghetto (Map)",
+		"Precinct (Map)",
+		"Ramparts (Map)",
+		"The City of Sarn (Act 3)",
+		"The Eternal Laboratory (Act 8)",
+		"The Imperial Fields (Act 8)",
+		"The Marketplace (Act 3)",
+		"The Sarn Ramparts (Act 8)",
+		"The Southern Forest (Act 2)",
+		"The Southern Forest (Act 6)",
+	},
+	skillList = {
+		"Melee",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/InsectMinion/InsectWildBurrow"] = {
+	name = "Carrion Burrower",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_small_height", "flesh_armour", "insect", "insect_blood", "is_unarmed", "medium_movement", "melee", "not_harbinger_minion", "physical_affinity", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.9,
+	damageSpread = 0.2,
+	attackTime = 0.9,
+	attackRange = 6,
+	accuracy = 1,
+	baseMovementSpeed = 30,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Canyon (Map)",
+		"Fragmented Memory",
+		"Ramparts (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Imperial Fields (Act 8)",
+		"The Sarn Ramparts (Act 8)",
+	},
+	skillList = {
+		"Melee",
+		"InsectWildBurrow",
+		"InsectWildEmerge",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/InsectMinion/InsectWildChampion"] = {
+	name = "Carrion Raider",
+	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "insect", "insect_blood", "is_unarmed", "medium_movement", "melee", "physical_affinity", "small_height", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.9,
+	damageSpread = 0.2,
+	attackTime = 0.9,
+	attackRange = 6,
+	accuracy = 1,
+	baseMovementSpeed = 30,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/InsectMinion/InsectWildSewers"] = {
+	name = "Scum Crawler",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_small_height", "flesh_armour", "insect", "insect_blood", "is_unarmed", "medium_movement", "melee", "physical_affinity", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.7,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.63,
+	damageSpread = 0.2,
+	attackTime = 0.9,
+	attackRange = 6,
+	accuracy = 1,
+	baseMovementSpeed = 30,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Acid Caverns (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Toxic Conduits (Act 8)",
+		"Toxic Sewer (Map)",
+	},
+	skillList = {
+		"Melee",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/InsectMinion/EssenceInsectWildExplosive"] = {
+	name = "Explosive Crawler",
+	monsterTags = { "animal_claw_weapon", "beast", "extra_small_height", "flesh_armour", "insect", "insect_blood", "is_unarmed", "medium_movement", "uses_suicide_explode", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.7,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.63,
+	damageSpread = 0.2,
+	attackTime = 0.9,
+	attackRange = 6,
+	accuracy = 1,
+	baseMovementSpeed = 30,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"InsectSuicideExplosionLarge",
+	},
+	modList = {
+		-- MonsterExplodesOnItsTargetText [monster_explodes_on_its_target_text = 1]
+	},
+}
+minions["Metadata/Monsters/InsectMinion/EssenceInsectWildExplosiveColossal"] = {
+	name = "Explosive Horror",
+	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "insect", "insect_blood", "is_unarmed", "medium_height", "medium_movement", "uses_suicide_explode", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.7,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.63,
+	damageSpread = 0.2,
+	attackTime = 0.9,
+	attackRange = 6,
+	accuracy = 1,
+	baseMovementSpeed = 30,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"InsectSuicideExplosionHuge",
+	},
+	modList = {
+		-- MonsterExplodesOnItsTargetText [monster_explodes_on_its_target_text = 1]
+		-- EmergeSpeedLow [emerge_speed_+% = 100]
+	},
+}
 -- Rhoa
 minions["Metadata/Monsters/Rhoas/Rhoa"] = {
 	name = "Rhoa Mare",
@@ -12137,6 +12372,70 @@ minions["Metadata/Monsters/GemMonster/IguanaBossPhoenixMapStandaloneAtlasUber"] 
 	},
 	modList = {
 		mod("AreaOfEffect", "MORE", -25, 0, 0), -- MonsterReducedAoE [active_skill_area_of_effect_radius_+%_final = -25]
+	},
+}
+minions["Metadata/Monsters/GemMonster/IguanaUntainted"] = {
+	name = "Wild Chimeral",
+	monsterTags = { "beast", "has_one_hand_sword", "has_one_handed_melee", "large_model", "light_armour", "melee", "not_str", "physical_affinity", "ranged", "red_blood", "reptile_beast", "slow_movement", "small_height", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.25,
+	energyShield = 0.5,
+	evasion = 0.2,
+	fireResist = 52,
+	coldResist = 52,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.13,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 25,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"The Lake of Kalandra",
+		"Untainted Paradise (Map)",
+	},
+	skillList = {
+		"IguanaProjectile",
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- MonsterSuppressingFire [chance_to_apply_suppression_on_hit_% = 20]
+		-- MonsterIncreasedLifeImplicit1 [maximum_life_+% = 25]
+		-- MonsterIncreasedLifeImplicit1 [base_actor_scale_+% = 25]
+	},
+}
+minions["Metadata/Monsters/GemMonster/IguanaUntaintedColossal"] = {
+	name = "Clutch Queen",
+	monsterTags = { "beast", "has_one_hand_sword", "has_one_handed_melee", "large_model", "light_armour", "medium_height", "medium_movement", "melee", "not_str", "physical_affinity", "ranged", "red_blood", "reptile_beast", "unique_map_boss", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.5,
+	energyShield = 0.5,
+	evasion = 0.2,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 25,
+	damage = 1.13,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 30,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"IguanaProjectile",
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- MonsterSuppressingFire [chance_to_apply_suppression_on_hit_% = 20]
+		-- MonsterIncreasedLifeImplicit1 [maximum_life_+% = 25]
+		-- MonsterIncreasedLifeImplicit1 [base_actor_scale_+% = 25]
+		-- StunRepeatImmunityMapBoss_ [cannot_be_stunned_while_stunned = 1]
+		-- StunRepeatImmunityMapBoss_ [cannot_be_stunned_for_ms_after_stun_finished = 2000]
 	},
 }
 -- Pirate
@@ -16853,10 +17152,10 @@ minions["Metadata/Monsters/Lion/LionFireSkinGroundFireSpectre"] = {
 	modList = {
 	},
 }
--- Knitted Horror
-minions["Metadata/Monsters/MassSkeleton/MassSkeleton"] = {
+-- Mass Skeleton
+minions["Metadata/Monsters/MassSkeleton/MassSkeletonSpectre"] = {
 	name = "Knitted Horror",
-	monsterTags = { "bones", "extra_large_height", "humanoid", "is_unarmed", "large_model", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "ranged", "skeleton", "slashing_weapon", "stone_armour", "undead", },
+	monsterTags = { "bones", "humanoid", "is_unarmed", "large_model", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "ranged", "skeleton", "slashing_weapon", "stone_armour", "undead", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 2.25,
 	armour = 0.5,
@@ -16878,6 +17177,89 @@ minions["Metadata/Monsters/MassSkeleton/MassSkeleton"] = {
 		"The Eternal Laboratory (Act 8)",
 		"The Foothills (Act 9)",
 		"Wasteland (Map)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"SkeletonMassBowProjectile",
+	},
+	modList = {
+		-- MonsterCastsPunctureText [monster_casts_puncture_text = 1]
+	},
+}
+minions["Metadata/Monsters/MassSkeleton/MassSkeleton2Spectre"] = {
+	name = "Timeless Horror",
+	monsterTags = { "bones", "humanoid", "is_unarmed", "large_model", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "ranged", "skeleton", "slashing_weapon", "stone_armour", "undead", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.25,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.46,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 11,
+	accuracy = 1,
+	baseMovementSpeed = 30,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"SkeletonMassBowProjectile",
+	},
+	modList = {
+		-- MonsterCastsPunctureText [monster_casts_puncture_text = 1]
+	},
+}
+minions["Metadata/Monsters/MassSkeleton/MassSkeleton3Spectre"] = {
+	name = "Tangled Remains",
+	monsterTags = { "bones", "humanoid", "is_unarmed", "large_model", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "ranged", "skeleton", "slashing_weapon", "stone_armour", "undead", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.25,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.46,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 11,
+	accuracy = 1,
+	baseMovementSpeed = 30,
+	monsterCategory = "Undead",
+	spawnLocation = {
+		"The Eternal Laboratory (Act 8)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"SkeletonMassBowProjectile",
+	},
+	modList = {
+		-- MonsterCastsPunctureText [monster_casts_puncture_text = 1]
+	},
+}
+minions["Metadata/Monsters/MassSkeleton/MassSkeletonBleachedSpectre"] = {
+	name = "Bleached Horror",
+	monsterTags = { "bones", "humanoid", "is_unarmed", "large_model", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "ranged", "skeleton", "slashing_weapon", "stone_armour", "undead", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.25,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.46,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 11,
+	accuracy = 1,
+	baseMovementSpeed = 30,
+	monsterCategory = "Undead",
+	spawnLocation = {
+		"The Boiling Lake (Act 9)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -18286,6 +18668,40 @@ minions["Metadata/Monsters/VaalMonsters/Golems/VaalCrawler"] = {
 	modList = {
 	},
 }
+minions["Metadata/Monsters/MossMonster/MossMonsterStanding"] = {
+	name = "Ruined Titan",
+	monsterTags = { "cleaving_weapon", "construct", "earth_elemental", "has_one_hand_sword", "has_one_handed_melee", "large_height", "large_model", "melee", "mud_blood", "not_dex", "not_int", "physical_affinity", "stone_armour", "stone_construct", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.7,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.55,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 12,
+	monsterCategory = "Construct",
+	spawnLocation = {
+		"Ashen Wood (Map)",
+		"Fragmented Memory",
+		"Gardens (Map)",
+		"Ivory Temple (Map)",
+		"Maze of the Minotaur (Map)",
+		"Peninsula (Map)",
+		"The Ashen Fields (Act 7)",
+		"The Eternal Laboratory (Act 8)",
+		"The Old Fields (Act 2)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+	},
+}
 -- Wolf
 minions["Metadata/Monsters/Lion/LionWolf"] = {
 	name = "Wolf",
@@ -19082,6 +19498,194 @@ minions["Metadata/Monsters/Pyromaniac/PyromaniacPoison"] = {
 		"PyroChaosFireball",
 	},
 	modList = {
+	},
+}
+-- Sand Leaper
+minions["Metadata/Monsters/SandLeaper/SandLeaper"] = {
+	name = "Dust Scrabbler",
+	monsterTags = { "animal_claw_weapon", "beast", "bone_armour", "extra_extra_small_height", "insect", "is_unarmed", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.01,
+	evasion = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 0.68,
+	damageSpread = 0.2,
+	attackTime = 0.99,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 34,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Desert (Map)",
+		"Leyline (Map)",
+		"Precinct (Map)",
+		"The Dried Lake (Act 4)",
+		"The Eternal Laboratory (Act 8)",
+		"Wasteland (Map)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeedLightning",
+		"SandLeaperDodgeLeft",
+		"SandLeaperDodgeRight",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/SandLeaper/SandLeaper2"] = {
+	name = "Dirt Scrabbler",
+	monsterTags = { "animal_claw_weapon", "beast", "bone_armour", "extra_extra_small_height", "insect", "is_unarmed", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.01,
+	evasion = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 0.68,
+	damageSpread = 0.2,
+	attackTime = 0.99,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 34,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Precinct (Map)",
+		"The Crossroads (Act 2)",
+		"The Den (Act 2)",
+		"The Eternal Laboratory (Act 8)",
+		"The Old Fields (Act 2)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeedLightning",
+		"SandLeaperDodgeLeft",
+		"SandLeaperDodgeRight",
+		"SandLeaperLeapSlam",
+	},
+	modList = {
+		-- MonsterInflictsBleedingText [display_monster_may_inflict_bleeding = 1]
+	},
+}
+minions["Metadata/Monsters/SandLeaper/SandLeaper3"] = {
+	name = "Infested Skitterer",
+	monsterTags = { "animal_claw_weapon", "beast", "bone_armour", "extra_extra_small_height", "insect", "is_unarmed", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.01,
+	evasion = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 0.68,
+	damageSpread = 0.2,
+	attackTime = 0.99,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 34,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Precinct (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Ridge (Act 6)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeedLightning",
+		"SandLeaperDodgeLeft",
+		"SandLeaperDodgeRight",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/SandLeaper/SandLeaper4_"] = {
+	name = "Lowlands Hopper",
+	monsterTags = { "animal_claw_weapon", "beast", "bone_armour", "caster", "extra_extra_small_height", "insect", "is_unarmed", "lightning_affinity", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.01,
+	evasion = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 0.68,
+	damageSpread = 0.2,
+	attackTime = 0.99,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 34,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"The Imperial Fields (Act 8)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeedLightning",
+		"SandLeaperDodgeLeft",
+		"SandLeaperDodgeRight",
+		"DustScrabblerLightningWhip",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/SandLeaper/SandLeaper5"] = {
+	name = "Sand Skitterer",
+	monsterTags = { "animal_claw_weapon", "beast", "bone_armour", "extra_extra_small_height", "insect", "is_unarmed", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.01,
+	evasion = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 0.68,
+	damageSpread = 0.2,
+	attackTime = 0.99,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 34,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"The Vastiri Desert (Act 9)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeedLightning",
+		"SandLeaperDodgeLeft",
+		"SandLeaperDodgeRight",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/SandLeaper/SandLeaper6"] = {
+	name = "Sand Leaper",
+	monsterTags = { "animal_claw_weapon", "beast", "bone_armour", "extra_extra_small_height", "fast_movement", "has_one_hand_sword", "has_one_handed_melee", "insect", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.9,
+	evasion = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.62,
+	damageSpread = 0.2,
+	attackTime = 0.99,
+	attackRange = 8,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 41,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Precinct (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Sarn Ramparts (Act 8)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"SandLeaperDodgeLeft",
+		"SandLeaperDodgeRight",
+		"SandLeaperLeapSlam",
+	},
+	modList = {
+		-- MonsterInflictsBleedingText [display_monster_may_inflict_bleeding = 1]
 	},
 }
 -- Sand Spitter
@@ -28598,6 +29202,34 @@ minions["Metadata/Monsters/Statue/ChromeGargoyleAtlasUber"] = {
 		mod("PhysicalDamageConvertToCold", "BASE", 50, 0, 0), -- MonsterConvertToColdDamage2 [base_physical_damage_%_to_convert_to_cold = 50]
 	},
 }
+minions["Metadata/Monsters/StatueFingerMage/StatueFingerMageMonster"] = {
+	name = "Twisted Effigy",
+	monsterTags = { "caster", "construct", "demon", "is_unarmed", "medium_movement", "melee", "mud_blood", "not_int", "physical_affinity", "slashing_weapon", "small_height", "stone_armour", },
+	life = 2.11,
+	armour = 0.5,
+	evasion = 0.2,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.21,
+	damageSpread = 0.2,
+	attackTime = 1.455,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 37,
+	monsterCategory = "Demon",
+	spawnLocation = {
+		"Belfry (Map)",
+		"The Eternal Laboratory (Act 8)",
+	},
+	skillList = {
+		"Melee",
+		"MonsterStatueEarthquakeCascade",
+	},
+	modList = {
+	},
+}
 -- Ophidian
 minions["Metadata/Monsters/Taster/Taster"] = {
 	name = "Noisome Ophidian",
@@ -29818,6 +30450,96 @@ minions["Metadata/Monsters/Undying/CityStalkerMaleFireLabyrinthLavaPit"] = {
 		-- ImmuneToLavaDamage [immune_to_lava_damage = 1]
 	},
 }
+minions["Metadata/Monsters/Undying/UndyingOutcastChampion"] = {
+	name = "Undying Ravager",
+	monsterTags = { "cannot_be_monolith", "caster", "demon", "extra_small_height", "fast_movement", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "light_armour", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slashing_weapon", "undying", },
+	life = 1.8,
+	evasion = 0.25,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.65,
+	attackRange = 6,
+	accuracy = 1,
+	baseMovementSpeed = 38,
+	monsterCategory = "Demon",
+	spawnLocation = {
+		"Fragmented Memory",
+		"Ghetto (Map)",
+		"Precinct (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"The Sarn Ramparts (Act 8)",
+	},
+	skillList = {
+		"Melee",
+		"UndyingBladefall",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Undying/IntMissionUndyingOutcastWhirlingBlades"] = {
+	name = "Rotting Outcast",
+	monsterTags = { "demon", "extra_small_height", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "light_armour", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slashing_weapon", "undying", "very_fast_movement", },
+	life = 1.3,
+	evasion = 0.25,
+	fireResist = 37,
+	coldResist = 37,
+	lightningResist = 37,
+	chaosResist = 0,
+	damage = 0.65,
+	damageSpread = 0.2,
+	attackTime = 1.65,
+	attackRange = 6,
+	accuracy = 1,
+	baseMovementSpeed = 50,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+		"UndyingWhirlingBlades",
+	},
+	modList = {
+		-- MonsterImplicitEvading1 [evasion_rating_+% = 40]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+	},
+}
+minions["Metadata/Monsters/Undying/UndyingOutcastWhirlingBladesLabyrinth"] = {
+	name = "Skulking Dweller",
+	monsterTags = { "demon", "extra_small_height", "fast_movement", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "light_armour", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slashing_weapon", "undying", },
+	life = 1,
+	evasion = 0.25,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.65,
+	attackRange = 6,
+	accuracy = 1,
+	baseMovementSpeed = 38,
+	monsterCategory = "Demon",
+	spawnLocation = {
+		"Arcade (Map)",
+		"Lair of the Hydra (Map)",
+	},
+	skillList = {
+		"Melee",
+		"UndyingWhirlingBlades",
+	},
+	modList = {
+	},
+}
 -- Unholy Aberration
 minions["Metadata/Monsters/SpiderPlated/SpiderPlatedUnholyEmerge"] = {
 	name = "Unholy Aberration",
@@ -30155,6 +30877,41 @@ minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphArcherS
 	},
 	modList = {
 		-- LeagueDropPenaltyInfluenceMonster [map_related_item_drop_chance_+%_final_from_league = -70]
+	},
+}
+-- Repulsive Ophidian
+minions["Metadata/Monsters/Taster/TasterAtlasUber"] = {
+	name = "Repulsive Ophidian",
+	monsterTags = { "beast", "caster", "demon", "extra_extra_small_height", "has_dagger", "has_one_handed_melee", "medium_movement", "melee", "metal_armour", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "reptile_beast", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.02,
+	evasion = 0.1,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.22,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 6,
+	accuracy = 1,
+	weaponType1 = "Dagger",
+	baseMovementSpeed = 36,
+	monsterCategory = "Demon",
+	spawnLocation = {
+		"Abomination (Map)",
+		"Citadel (Map)",
+		"Fortress (Map)",
+		"Sanctuary (Map)",
+		"Ziggurat (Map)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MMSCrucibleBloodMortarAtlasUber",
+		"CGECrucibleBloodGroundAtlasUber",
+		"TarMortarTaster",
+	},
+	modList = {
 	},
 }
 -- Rhex
@@ -33656,6 +34413,36 @@ minions["Metadata/Monsters/RockGolem/ArcticGolemDelve"] = {
 		"EssenceArcticGolemBossIceCrash",
 	},
 	modList = {
+	},
+}
+minions["Metadata/Monsters/Spiker/DexMissionSpiker"] = {
+	name = "Infected Spiker",
+	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "has_dagger", "has_one_handed_melee", "large_model", "mammal_beast", "medium_height", "medium_movement", "melee", "not_int", "physical_affinity", "red_blood", "rodent_beast", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.1,
+	armour = 0.25,
+	evasion = 0.15,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.05,
+	attackRange = 14,
+	accuracy = 1,
+	baseMovementSpeed = 35,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"SpikerSpineDeathNova",
+		"EmptyActionSpellSpikerTaunt",
+	},
+	modList = {
+		-- MonsterDisplayCastsSpikeNovaOnDeath [display_monster_spike_nova_on_death_text = 1]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
 -- Heist
@@ -41509,6 +42296,93 @@ minions["Metadata/Monsters/ZombieDismember/BlackguardZombieLeaderPromenade_"] = 
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"EmptyActionSpellBlackguardZombie",
+	},
+	modList = {
+		-- MonsterNecromancerRaisable [undead_description = 1]
+	},
+}
+minions["Metadata/Monsters/ZombieDismember/ZombieTarLabyrinth"] = {
+	name = "Putrescent Contender",
+	monsterTags = { "flesh_armour", "is_unarmed", "medium_height", "melee", "physical_affinity", "red_blood", "undead", "very_slow_movement", "zombie", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.08,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.8,
+	damageSpread = 0.3,
+	attackTime = 2.4,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 8,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterWaitVeryShortWithLongerCooldown",
+		"MonsterWaitVeryShort",
+	},
+	modList = {
+		-- MonsterNecromancerRaisable [undead_description = 1]
+		-- MonsterGroundTarOnDeath1 [monster_ground_tar_on_death_base_area_of_effect_radius = 16]
+		-- MonsterGroundTarOnDeath1 [monster_ground_effect_on_death_base_duration_ms = 6000]
+		-- MonsterGroundTarOnDeath1 [monster_ground_tar_on_death_monvement_speed_pluspercent = -60]
+	},
+}
+minions["Metadata/Monsters/ZombieDismember/ZombieMoldyPoison1Labyrinth"] = {
+	name = "Rotting Claimant",
+	monsterTags = { "flesh_armour", "is_unarmed", "medium_height", "melee", "physical_affinity", "poison_zombie", "red_blood", "undead", "very_slow_movement", "zombie", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.08,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.8,
+	damageSpread = 0.3,
+	attackTime = 2.4,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 8,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterWaitVeryShortWithLongerCooldown",
+		"MonsterWaitVeryShort",
+	},
+	modList = {
+		-- MonsterNecromancerRaisable [undead_description = 1]
+		-- MonsterCausticCloudOnDeath [monster_caustic_cloud_on_death_%_max_damage_to_deal_per_minute = 1100]
+		-- MonsterCausticCloudOnDeath [monster_caustic_cloud_on_death_base_area_of_effect_radius = 12]
+		-- MonsterCausticCloudOnDeath [monster_ground_effect_on_death_base_duration_ms = 3000]
+	},
+}
+minions["Metadata/Monsters/ZombieDismember/ZombieMoldy1Labyrinth"] = {
+	name = "Rotting Contender",
+	monsterTags = { "flesh_armour", "is_unarmed", "medium_height", "melee", "physical_affinity", "red_blood", "undead", "very_slow_movement", "zombie", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.08,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.8,
+	damageSpread = 0.3,
+	attackTime = 2.4,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 8,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterWaitVeryShortWithLongerCooldown",
+		"MonsterWaitVeryShort",
 	},
 	modList = {
 		-- MonsterNecromancerRaisable [undead_description = 1]

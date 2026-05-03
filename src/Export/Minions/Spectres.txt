@@ -636,6 +636,23 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/Goatman/MountainGoatmanChampionAtlasUber
 #emit
+-- Insect
+#spectre Metadata/Monsters/InsectSpawner/InsectSpawnerParasiteBossMapStandalone_AtlasUber
+#emit
+#spectre Metadata/Monsters/InsectMinion/InsectMinionSpawned
+#emit
+#spectre Metadata/Monsters/InsectMinion/InsectWild
+#emit
+#spectre Metadata/Monsters/InsectMinion/InsectWildBurrow
+#emit
+#spectre Metadata/Monsters/InsectMinion/InsectWildChampion
+#emit
+#spectre Metadata/Monsters/InsectMinion/InsectWildSewers
+#emit
+#spectre Metadata/Monsters/InsectMinion/EssenceInsectWildExplosive
+#emit
+#spectre Metadata/Monsters/InsectMinion/EssenceInsectWildExplosiveColossal
+#emit
 -- Rhoa
 #spectre Metadata/Monsters/Rhoas/Rhoa
 #emit
@@ -790,6 +807,10 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/GemMonster/IguanaChrometouched
 #emit
 #spectre Metadata/Monsters/GemMonster/IguanaBossPhoenixMapStandaloneAtlasUber
+#emit
+#spectre Metadata/Monsters/GemMonster/IguanaUntainted
+#emit
+#spectre Metadata/Monsters/GemMonster/IguanaUntaintedColossal
 #emit
 -- Pirate
 #spectre Metadata/Monsters/Bandit/PirateTreasure
@@ -1109,8 +1130,14 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/Lion/LionFireSkinGroundFireSpectre
 #emit
--- Knitted Horror
-#spectre Metadata/Monsters/MassSkeleton/MassSkeleton
+-- Mass Skeleton
+#spectre Metadata/Monsters/MassSkeleton/MassSkeletonSpectre
+#emit
+#spectre Metadata/Monsters/MassSkeleton/MassSkeleton2Spectre
+#emit
+#spectre Metadata/Monsters/MassSkeleton/MassSkeleton3Spectre
+#emit
+#spectre Metadata/Monsters/MassSkeleton/MassSkeletonBleachedSpectre
 #emit
 -- Miners
 #spectre Metadata/Monsters/Miner/MinerLantern
@@ -1210,6 +1237,8 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/VaalMonsters/Golems/VaalCrawler
 #emit
+#spectre Metadata/Monsters/MossMonster/MossMonsterStanding
+#emit
 -- Wolf
 #spectre Metadata/Monsters/Lion/LionWolf
 #emit
@@ -1262,6 +1291,19 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Pyromaniac/PyromaniacFire
 #emit
 #spectre Metadata/Monsters/Pyromaniac/PyromaniacPoison
+#emit
+-- Sand Leaper
+#spectre Metadata/Monsters/SandLeaper/SandLeaper
+#emit
+#spectre Metadata/Monsters/SandLeaper/SandLeaper2
+#emit
+#spectre Metadata/Monsters/SandLeaper/SandLeaper3
+#emit
+#spectre Metadata/Monsters/SandLeaper/SandLeaper4_
+#emit
+#spectre Metadata/Monsters/SandLeaper/SandLeaper5
+#emit
+#spectre Metadata/Monsters/SandLeaper/SandLeaper6
 #emit
 -- Sand Spitter
 #spectre Metadata/Monsters/SandSpitters/SandSpitter1
@@ -1877,6 +1919,8 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/Statue/ChromeGargoyleAtlasUber
 #emit
+#spectre Metadata/Monsters/StatueFingerMage/StatueFingerMageMonster
+#emit
 -- Ophidian
 #spectre Metadata/Monsters/Taster/Taster
 #emit
@@ -1958,6 +2002,12 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/Undying/CityStalkerMaleFireLabyrinthLavaPit
 #emit
+#spectre Metadata/Monsters/Undying/UndyingOutcastChampion
+#emit
+#spectre Metadata/Monsters/Undying/IntMissionUndyingOutcastWhirlingBlades
+#emit
+#spectre Metadata/Monsters/Undying/UndyingOutcastWhirlingBladesLabyrinth
+#emit
 -- Unholy Aberration
 #spectre Metadata/Monsters/SpiderPlated/SpiderPlatedUnholyEmerge
 #emit
@@ -1982,6 +2032,9 @@ local minions, mod, flag = ...
 #emit
 -- Redemption Sentry
 #spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphArcherSpectre
+#emit
+-- Repulsive Ophidian
+#spectre Metadata/Monsters/Taster/TasterAtlasUber
 #emit
 -- Rhex
 #spectre Metadata/Monsters/MarakethBird/Bird1
@@ -2244,6 +2297,8 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Spiker/SpikerLabyrinth
 #emit
 #spectre Metadata/Monsters/RockGolem/ArcticGolemDelve
+#emit
+#spectre Metadata/Monsters/Spiker/DexMissionSpiker
 #emit
 -- Heist
 #spectre Metadata/Monsters/LeagueHeist/Military/MilitaryMelee1Spectre
@@ -2751,6 +2806,12 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/ZombieDismember/BlackguardZombie3_
 #emit
 #spectre Metadata/Monsters/ZombieDismember/BlackguardZombieLeaderPromenade_
+#emit
+#spectre Metadata/Monsters/ZombieDismember/ZombieTarLabyrinth
+#emit
+#spectre Metadata/Monsters/ZombieDismember/ZombieMoldyPoison1Labyrinth
+#emit
+#spectre Metadata/Monsters/ZombieDismember/ZombieMoldy1Labyrinth
 #emit
 
 

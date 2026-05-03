@@ -247,7 +247,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill KitavaDemonWhirlingBlades
-#flags attack melee 
+#flags attack melee
 #mods
 
 #skill KitavaDemonXMortar Mortar
@@ -524,7 +524,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill RevenantSpellProjectileSpectre Lightning Projectile
-#flags spell projectile 
+#flags spell projectile
 #mods
 
 #skill SeawitchFrostbolt Frostbolt
@@ -2238,10 +2238,6 @@ skills["LegionKaruiMeleeCombo2"] = {
 
 #skill DelveSpiderFlickerStrike Flicker Strike (Cold Hit)
 #flags attack melee movement
-#mods
-
-#skill MeleeAtAnimationSpeedLightning Default Attack
-#flags attack melee
 #mods
 
 #skill CrucibleVendigoFlickerStrike Flicker Strike

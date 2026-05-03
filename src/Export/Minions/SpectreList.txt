@@ -1577,24 +1577,13 @@ Metadata/Monsters/FaridunLeague/FaridunAstralAcolyteHigh                        
 -- Spectres Not Yet Imported --
 -- These are either false spectres, or are disabled in game currently. This is not including duplicate names, just singular copy of a Spectre name.--
 
-Metadata/Monsters/MossMonster/MossMonsterStanding                                         		----		Ruined Titan
 Metadata/Monsters/Seawitch/SeaWitch                                                       		----		Merveil's Favoured
 Metadata/Monsters/Seawitch/SeaWitchSpawn                                                  		----		Merveil's Daughter
 Metadata/Monsters/Seawitch/ProphecySeaWitch                                               		----		Fated Siren
-Metadata/Monsters/GemMonster/IguanaUntainted                                              		----		Wild Chimeral
-Metadata/Monsters/GemMonster/IguanaUntaintedColossal                                      		----		Clutch Queen
 Metadata/Monsters/Guardians/GuardianFire2_                                                		----		Infernal Sentinel
 Metadata/Monsters/Guardians/GuardianHead                                                  		----		Assault Ribbon
 Metadata/Monsters/Guardians/GuardianLightning_Blue                                        		----		Rime Sentinel
 Metadata/Monsters/Guardians/GuardianFire_Blue                                             		----		Frost Sentinel
-Metadata/Monsters/InsectSpawner/InsectSpawnerParasiteBossMapStandalone_AtlasUber          		----		Mother of Rot
-Metadata/Monsters/InsectMinion/InsectMinionSpawned                                        		----		Carrion Minion
-Metadata/Monsters/InsectMinion/InsectWild                                                 		----		Carrion Swarmer
-Metadata/Monsters/InsectMinion/InsectWildBurrow                                           		----		Carrion Burrower
-Metadata/Monsters/InsectMinion/InsectWildChampion                                         		----		Carrion Raider
-Metadata/Monsters/InsectMinion/InsectWildSewers                                           		----		Scum Crawler
-Metadata/Monsters/InsectMinion/EssenceInsectWildExplosive                                 		----		Explosive Crawler
-Metadata/Monsters/InsectMinion/EssenceInsectWildExplosiveColossal                         		----		Explosive Horror
 Metadata/Monsters/InsectSpawner/ProphecyInsectSpawner                                     		----		Nightmarish Carrion
 Metadata/Monsters/InsectMinion/ProphecyInsect                                             		----		Nightmarish Crawler
 Metadata/Monsters/Kiweth/KiwethAtlasUber                                                  		----		Avian Clot
@@ -1603,7 +1592,6 @@ Metadata/Monsters/MossMonster/FireMonsterKaom                                   
 Metadata/Monsters/Pyromaniac/SextantPyromaniacFire                                        		----		Traitorous Incinerator
 Metadata/Monsters/Grappler/Grappler2                                                      		----		Shavronne's Gemling
 Metadata/Monsters/Grappler/Grappler3Spectre                                               		----		Augmented Grappler
-Metadata/Monsters/Undying/UndyingOutcastChampion                                          		----		Undying Ravager
 Metadata/Monsters/Bandit/DockworkerHammer                                                 		----		Dockhand Wraith
 Metadata/Monsters/Bandit/DockworkerBow2                                                   		----		Labourer Wraith
 Metadata/Monsters/Brute/MapBossBruteStandaloneAtlasUber                                   		----		Brutal Incarcerator
@@ -1624,7 +1612,6 @@ Metadata/Monsters/Skeletons/SkeletonCasterColdMultipleProjectilesIncaBossMinion 
 Metadata/Monsters/Skeletons/SkeletonCasterLightningSparkIncaBossMinion                    		----		Storming Supplicant
 Metadata/Monsters/Axis/DexIntMissionAxisEliteSoldier                                      		----		Elite Mercenary
 Metadata/Monsters/Axis/DexIntMissionAxisCaster                                            		----		Mage Mercenary
-Metadata/Monsters/Spiker/DexMissionSpiker                                                 		----		Infected Spiker
 Metadata/Monsters/Beasts/DexMissionBeastCleave                                            		----		Infected Beast
 Metadata/Monsters/Beasts/DexMissionSpiderSpawnFromBeast                                   		----		Crawling Infestation
 Metadata/Monsters/InsectSpawner/DexMissionInsectSpawner                                   		----		Rabid Broodqueen
@@ -1634,17 +1621,6 @@ Metadata/Monsters/DropBear/DexMissionDropBear                                   
 Metadata/Monsters/Lion/DexMissionLionFireSkinGroundFire                                   		----		Crazed Flamebeast
 Metadata/Monsters/Frog/DexMissionFrog                                                     		----		Rabid Maw
 Metadata/Monsters/ShieldCrabs/DexMissionShieldCrab                                        		----		Fused Crawler
-Metadata/Monsters/Undying/IntMissionUndyingOutcastWhirlingBlades                          		----		Rotting Outcast
-Metadata/Monsters/SandLeaper/SandLeaper                                                   		----		Dust Scrabbler
-Metadata/Monsters/SandLeaper/SandLeaper2                                                  		----		Dirt Scrabbler
-Metadata/Monsters/SandLeaper/SandLeaper3                                                  		----		Infested Skitterer
-Metadata/Monsters/SandLeaper/SandLeaper4_                                                 		----		Lowlands Hopper
-Metadata/Monsters/SandLeaper/SandLeaper5                                                  		----		Sand Skitterer
-Metadata/Monsters/SandLeaper/SandLeaper6                                                  		----		Sand Leaper
-Metadata/Monsters/MassSkeleton/MassSkeletonSpectre                                        		----		Knitted Horror
-Metadata/Monsters/MassSkeleton/MassSkeleton2Spectre                                       		----		Timeless Horror
-Metadata/Monsters/MassSkeleton/MassSkeleton3Spectre                                       		----		Tangled Remains
-Metadata/Monsters/MassSkeleton/MassSkeletonBleachedSpectre                                		----		Bleached Horror
 Metadata/Monsters/Handfinger/Handfinger                                                   		----		Tunneler
 Metadata/Monsters/Handfinger/Handfinger2                                                  		----		Crawler
 Metadata/Monsters/Handfinger/HandfingerCrystalVeins_                                      		----		Burrower
@@ -1658,22 +1634,16 @@ Metadata/Monsters/Eyes/EyeDoedre                                                
 Metadata/Monsters/HalfSkeleton/HalfSkeleton2                                              		----		Arranged Anatomy
 Metadata/Monsters/HalfSkeleton/HalfSkeleton3                                              		----		Boiled Dead
 Metadata/Monsters/HalfSkeleton/HalfSkeletonRanged                                         		----		Gut Spiker
-Metadata/Monsters/Taster/TasterAtlasUber                                                  		----		Repulsive Ophidian
 Metadata/Monsters/Flayed/FlayedMale                                                       		----		Primordial Creation
 Metadata/Monsters/Revenant/Revenant2                                                      		----		Escaped Revenant
 Metadata/Monsters/MoveDaemon/HarvestBearBossWallDaemon                                    		----		Invisible
 Metadata/Monsters/SandLeaper/ProphecySandLeaper                                           		----		Echo of the Verdant
-Metadata/Monsters/ZombieDismember/ZombieTarLabyrinth                                      		----		Putrescent Contender
-Metadata/Monsters/ZombieDismember/ZombieMoldyPoison1Labyrinth                             		----		Rotting Claimant
 Metadata/Monsters/Necromancer/NecromancerLabyrinth                                        		----		Eternal Reanimator
-Metadata/Monsters/ZombieDismember/ZombieMoldy1Labyrinth                                   		----		Rotting Contender
 Metadata/Monsters/Mannequin/MannequinLabyrinth                                            		----		Marionette
-Metadata/Monsters/Undying/UndyingOutcastWhirlingBladesLabyrinth                           		----		Skulking Dweller
 Metadata/Monsters/ParasiticSquid/ParasiticSquid                                           		----		Brine Vassal
 Metadata/Monsters/ParasiticSquid/ParasiticSquidWarp                                       		----		Swarthy Mollusc
 Metadata/Monsters/Prophecy/Fragment                                                       		----		Remembered Construct
 Metadata/Monsters/Prophecy/VaalFallenSword                                                		----		Vaal Memory
-Metadata/Monsters/StatueFingerMage/StatueFingerMageMonster                                		----		Twisted Effigy
 Metadata/Monsters/SecretPolice/SecretPolice1                                              		----		Blackguard Stalker
 Metadata/Monsters/Regurgitator/Regurgitator1                                              		----		Warped Regurgitator
 Metadata/Monsters/SlaveCatcher/SlaveCatcher                                               		----		Slave Catcher
