@@ -1501,7 +1501,7 @@ function buildMode:OpenSpectreLibrary()
 		end
 		local movementSpeed = minion.baseMovementSpeed / 10 .. " m/s"
 		controls.minionNameLabel.labelText = "^7" .. minion.name
-		controls.lifeLabel.lifeValue = round(totalLife)
+		controls.lifeLabel.lifeValue = round(totalLife) -- Maybe Ceiling? Despair Remnant is 52028, but shows 52027 here.
 		controls.energyshieldLabel.energyShieldValue = round(totalES)
 		controls.armourLabel.armourValue = round(totalArmour)
 		controls.blockLabel.blockValue = blockChance .. "% / " .. spellBlockChance .. "%"

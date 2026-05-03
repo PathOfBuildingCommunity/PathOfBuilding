@@ -17,8 +17,8 @@ local MinionSearchListClass = newClass("MinionSearchListControl", "MinionListCon
 	self.controls.searchText = new("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, 148, 18}, "", "Search", "%c", 100, function(buf)
 		self:ListFilterChanged(buf, self.controls.searchModeDropDown.selIndex)
 		self:sortSourceList()
-	end, nil, nil, true)	
-	
+	end, nil, nil, true)
+
 	self.controls.searchModeDropDown = new("DropDownControl", {"LEFT",self.controls.searchText,"RIGHT"}, {2, 0, 60, 18}, { "Names", "Skills", "Both"}, function(index, value)
 		self:ListFilterChanged(self.controls.searchText.buf, index)
 		self:sortSourceList()
@@ -73,11 +73,11 @@ function MinionSearchListClass:sortSourceList()
 			local valueA = minionA[sortOption.field]
 			local valueB = minionB[sortOption.field]
 			if sortOption.field == "life" then
-				valueA = minionA.life * (1 - (minionA.energyShield or 0))
-				valueB = minionB.life * (1 - (minionB.energyShield or 0))
-			elseif sortOption.field == "totalHitPoints" then
 				valueA = minionA.life
 				valueB = minionB.life
+			elseif sortOption.field == "totalHitPoints" then
+				valueA = minionA.life + ((minionA.energyShield or 0) * minionA.life)
+				valueB = minionB.life + ((minionB.energyShield or 0) * minionB.life)
 			elseif sortOption.field == "energyShield" then
 				valueA = (minionA.energyShield or 0) * minionA.life
 				valueB = (minionB.energyShield or 0) * minionB.life
