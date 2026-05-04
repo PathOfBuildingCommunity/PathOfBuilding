@@ -314,6 +314,8 @@ function TradeQueryClass:PriceItem()
 					main.lastRefreshToken = main.api.refreshToken
 					main.tokenExpiry = main.api.tokenExpiry
 					main:SaveSettings()
+
+					TradeQueryClass:SetNotice(self.controls.pbNotice, "")
 				else
 					self.loginStatus = colorCodes.WARNING.."Not authenticated"
 				end
@@ -591,6 +593,16 @@ Highest Weight - Displays the order retrieved from trade]]
 	self.controls["name"..row_count].shown = function()
 		return hideRowFunc(self, row_count) and self:findValidSlotForWatchersEye()
 	end
+
+	-- fix case where the row count is reduced from the last time the popup was
+	-- opened, which would leave extra row controls in the menu
+	for k, v in pairs(self.controls) do
+		local number = k:match("(%d+)")
+		if number and tonumber(number) > row_count then
+			self.controls[k] = nil
+		end
+	end
+	
 	row_count = row_count + 1
 
 	local effective_row_count = row_count - ((scrollBarShown and #slotTables >= 19) and #slotTables-19 or 0) + 2 + 2 -- Two top menu rows, two bottom rows, slots after #19 overlap the other controls at the bottom of the pane
