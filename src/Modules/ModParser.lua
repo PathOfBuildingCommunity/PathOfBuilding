@@ -4973,6 +4973,9 @@ local specialModList = {
 	["utility flasks gain (%d+) charges? every (%d+) seconds"] = function(num, _, div) return {
 		mod("UtilityFlaskChargesGenerated", "BASE", num / div)
 	} end,
+	["iron flasks gain (%d+) charges? when your ward breaks"] = function(num) return {
+		mod("IronFlaskChargesGeneratedOnWardBreak", "BASE", num)
+	} end,
 	["life flasks gain (%d+) charges? every (%d+) seconds"] = function(num, _, div) return {
 		mod("LifeFlaskChargesGenerated", "BASE", num / div)
 	} end,

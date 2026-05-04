@@ -9480,7 +9480,7 @@ c["Intelligence provides no inherent bonus to Maximum Mana"]={{[1]={flags=0,keyw
 c["Intimidate Enemies for 4 seconds on Block while holding a Shield"]={{[1]={[1]={type="Condition",var="BlockedRecently"},[2]={type="Condition",var="UsingShield"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Intimidated",type="FLAG",value=true}}}},nil}
 c["Intimidate Enemies for 4 seconds on Hit with Attacks while at maximum Endurance Charges"]={{[1]={[1]={stat="EnduranceCharges",thresholdStat="EnduranceChargesMax",type="StatThreshold"},[2]={type="Condition",var="HitRecently"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Intimidated",type="FLAG",value=true}}}},nil}
 c["Intimidate Enemies on Hit if you've cast Punishment in the past 10 seconds"]={{[1]={[1]={type="Condition",var="SelfCastPunishment"},flags=4,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Intimidated",type="FLAG",value=true}}}},nil}
-c["Iron Flasks gain 2 charges when your Ward Breaks"]={nil,"Iron Flasks gain 2 charges when your Ward Breaks "}
+c["Iron Flasks gain 2 charges when your Ward Breaks"]={{[1]={flags=0,keywordFlags=0,name="IronFlaskChargesGeneratedOnWardBreak",type="BASE",value=2}},nil}
 c["Iron Grip"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Iron Grip"}},nil}
 c["Iron Reflexes"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Iron Reflexes"}},nil}
 c["Iron Reflexes while stationary"]={{[1]={[1]={type="Condition",var="Stationary"},flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Iron Reflexes"}},nil}

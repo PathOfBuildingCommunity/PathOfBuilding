@@ -3907,6 +3907,10 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 		if not item.base.flask.mana and not item.base.flask.life then
 			chargesGenerated = chargesGenerated + modDB:Sum("BASE", nil, "UtilityFlaskChargesGenerated")
 		end
+		local chargesGeneratedOnWardBreak = 0
+		if item.baseName == "Iron Flask" then
+			chargesGeneratedOnWardBreak = chargesGeneratedOnWardBreak + modDB:Sum("BASE", nil, "IronFlaskChargesGeneratedOnWardBreak")
+		end
 
 		local chargesGeneratedPerFlask = modDB:Sum("BASE", nil, "FlaskChargesGeneratedPerEmptyFlask")
 		local emptyFlaskSlots = 0
@@ -3917,11 +3921,15 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 		end
 		chargesGeneratedPerFlask = chargesGeneratedPerFlask * emptyFlaskSlots
 		chargesGenerated = chargesGenerated * gainMod
+		chargesGeneratedOnWardBreak = chargesGeneratedOnWardBreak * gainMod
 		chargesGeneratedPerFlask = chargesGeneratedPerFlask * gainMod
 
 		local totalChargesGenerated = chargesGenerated + chargesGeneratedPerFlask
 		if totalChargesGenerated > 0 then
 			t_insert(stats, s_format("^8Charges generated: ^7%.2f^8 per second", totalChargesGenerated))
+		end
+		if chargesGeneratedOnWardBreak > 0 then
+			t_insert(stats, s_format("^8Charges generated on Ward Break: ^7%.2f", chargesGeneratedOnWardBreak))
 		end
 
 		local chanceToNotConsumeCharges = m_min(modDB:Sum("BASE", nil, "FlaskChanceNotConsumeCharges"), 100)
