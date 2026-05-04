@@ -11,13 +11,7 @@ local band = bit.band
 local m_max = math.max
 local dkjson = require "dkjson"
 
-local realmList = {
-	{ label = "PC", id = "PC", realmCode = "pc", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
-	{ label = "Xbox", id = "XBOX", realmCode = "xbox", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
-	{ label = "PS4", id = "SONY", realmCode = "sony", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
-	{ label = "Hotcool", id = "PC", realmCode = "pc", hostName = "https://pathofexile.tw/", profileURL = "account/view-profile/" },
-	{ label = "Tencent", id = "PC", realmCode = "pc", hostName = "https://poe.game.qq.com/", profileURL = "account/view-profile/" },
-}
+
 
 local influenceInfo = itemLib.influenceInfo.all
 
@@ -138,9 +132,9 @@ function addOAuthControls(self)
 		table.sort(ret, function(a, b)
 			return a:lower() < b:lower()
 		end)
-        table.insert(ret, "Any")
-		
-        self.controls.charSelectLeague:SetList(ret)
+		table.insert(ret, "Any")
+
+		self.controls.charSelectLeague:SetList(ret)
 		self.controls.charSelectLeague.selIndex = nil
 		if main.lastLeague then
 			for i, v in ipairs(self.controls.charSelectLeague.list) do
@@ -172,12 +166,30 @@ function addOAuthControls(self)
 		main.api:DownloadCharacterList(realm.realmCode, onResponse)
 	end
 
+	local realmList = {
+		{ label = "PC",      id = "PC",   realmCode = "pc"},
+		{ label = "Xbox",    id = "XBOX", realmCode = "xbox"},
+		{ label = "Sony",     id = "SONY", realmCode = "sony" },
+	}
 	self.controls.accountRealm = new("DropDownControl", { "TOPLEFT", self.controls.charSelectHeader, "BOTTOMLEFT" },
 		{ 0, rowSpacing, 60, 20 }, realmList, function()
 			setLeaguesFromCharList()
 		end)
 	self.controls.accountRealm:SelByValue(main.lastRealm or "PC", "id")
-	self.controls.accountRealmFetchButton = new("ButtonControl", {"LEFT", self.controls.accountRealm, "RIGHT"}, {labelSpacing, 0, 130, 20}, "Fetch Characters", fetchCharacters)
+	function fetchTextFunc()
+		local realm = self.controls.accountRealm:GetSelValue()
+		if realm and self.characterList[realm.realmCode] then
+			return "Fetched"
+		end
+		return "Fetch Characters"
+	end
+	function fetchButtonEnabled()
+		local realm = self.controls.accountRealm:GetSelValue()
+		return not (realm and self.characterList[realm.realmCode])
+	end
+	self.controls.accountRealmFetchButton = new("ButtonControl", { "LEFT", self.controls.accountRealm, "RIGHT" },
+		{ labelSpacing, 0, 130, 20 }, fetchTextFunc, fetchCharacters)
+	self.controls.accountRealmFetchButton.enabled = fetchButtonEnabled
 
 	-- league select
 	--- @param newLeague string
@@ -203,22 +215,22 @@ function addOAuthControls(self)
 
 	-- import action controls
 	local function saveDetails(realmId, league, charName)
-        main.lastRealm = realmId
-        self.lastRealm = realmId
-        main.lastLeague = league
-        self.lastLeague = league
-        main.lastCharacterHash = common.sha1(charName)
-        self.lastCharacterHash = common.sha1(charName)
-    end
+		main.lastRealm = realmId
+		self.lastRealm = realmId
+		main.lastLeague = league
+		self.lastLeague = league
+		main.lastCharacterHash = common.sha1(charName)
+		self.lastCharacterHash = common.sha1(charName)
+	end
 	self.controls.charImportHeader = new("LabelControl", { "TOPLEFT", self.controls.charSelect, "BOTTOMLEFT" },
 		{ 0, rowSpacing, 200, 16 }, "^7Import:")
 	self.controls.charImportTree = new("ButtonControl", { "LEFT", self.controls.charImportHeader, "RIGHT" },
 		{ labelSpacing, 0, 170, 20 }, "Passive Tree and Jewels", function()
 			local realm = self.controls.accountRealm:GetSelValue()
-            local league = self.controls.charSelectLeague:GetSelValue()
-            local selectedName = self.controls.charSelect:GetSelValue().label
+			local league = self.controls.charSelectLeague:GetSelValue()
+			local selectedName = self.controls.charSelect:GetSelValue().label
 
-            saveDetails(realm.id, league, selectedName)
+			saveDetails(realm.id, league, selectedName)
 
 			if self.build.spec:CountAllocNodes() > 0 then
 				main:OpenConfirmPopup("Character Import", "Importing the passive tree will overwrite your current tree.",
@@ -228,8 +240,8 @@ function addOAuthControls(self)
 						end)
 					end)
 			else
-                main.api:DownloadCharacter(realm.realmCode, selectedName, function(char)
-                    self:ImportPassiveTreeAndJewels(char.character)
+				main.api:DownloadCharacter(realm.realmCode, selectedName, function(char)
+					self:ImportPassiveTreeAndJewels(char.character)
 				end)
 			end
 		end)
@@ -241,13 +253,13 @@ function addOAuthControls(self)
 	self.controls.charImportItems = new("ButtonControl", { "TOPLEFT", self.controls.charImportTree, "BOTTOMLEFT" },
 		{ 0, rowSpacing, 110, 20 }, "Items and Skills", function()
 			local realm = self.controls.accountRealm:GetSelValue()
-            local league = self.controls.charSelectLeague:GetSelValue()
-            local selectedName = self.controls.charSelect:GetSelValue().label
+			local league = self.controls.charSelectLeague:GetSelValue()
+			local selectedName = self.controls.charSelect:GetSelValue().label
 
-            saveDetails(realm.id, league, selectedName)
+			saveDetails(realm.id, league, selectedName)
 
-            main.api:DownloadCharacter(realm.realmCode, selectedName, function(char)
-                self:ImportItemsAndSkills(char.character)
+			main.api:DownloadCharacter(realm.realmCode, selectedName, function(char)
+				self:ImportItemsAndSkills(char.character)
 			end)
 		end)
 	self.controls.charImportItems.enabled = function()
@@ -274,7 +286,15 @@ function addAccountNameControls(self)
 	self.controls.siteAccountNameHeader.shown = function()
 		return self.charImportMode == "GETACCOUNTNAME"
 	end
-	self.controls.siteAccountRealm = new("DropDownControl", { "TOPLEFT", self.controls.siteAccountNameHeader, "BOTTOMLEFT" },
+	local realmList = {
+		{ label = "PC",      id = "PC",   realmCode = "pc",   hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
+		{ label = "Xbox",    id = "XBOX", realmCode = "xbox", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
+		{ label = "Sony",     id = "SONY", realmCode = "sony", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
+		{ label = "Hotcool", id = "PC",   realmCode = "pc",   hostName = "https://pathofexile.tw/",      profileURL = "account/view-profile/" },
+		{ label = "Tencent", id = "PC",   realmCode = "pc",   hostName = "https://poe.game.qq.com/",     profileURL = "account/view-profile/" },
+	}
+	self.controls.siteAccountRealm = new("DropDownControl",
+		{ "TOPLEFT", self.controls.siteAccountNameHeader, "BOTTOMLEFT" },
 		{ 0, 4, 60, 20 }, realmList)
 	self.controls.siteAccountRealm:SelByValue(main.lastRealm or "PC", "id")
 	self.controls.siteAccountName = new("EditControl", { "LEFT", self.controls.siteAccountRealm, "RIGHT" }, { 8, 0, 200, 20 },
