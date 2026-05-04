@@ -165,8 +165,10 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	local modDB = actor.modDB
 	local poolTbl = poolTable or { }
 
+	local damageTotal = 0
 	for damageType, damage in pairs(damageTable) do
 		damageTable[damageType] = damage > 0 and m_ceil(damage) or nil
+		damageTotal = damageTotal + (damageTable[damageType] or 0)
 	end
 	
 	local alliesTakenBeforeYou = poolTbl.AlliesTakenBeforeYou
@@ -217,6 +219,7 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	local ward = poolTbl.Ward or output.Ward or 0
 	local wardActiveChance = poolTbl.WardActiveChance or (ward > 0 and 1 or 0)
 	local wardAvoidBreakChance = modDB:Flag(nil, "Condition:WardNotBreak") and 1 or m_min(modDB:Sum("BASE", nil, "WardAvoidBreakChance") / 100, 1)
+	local wardBypassBelow = modDB:Sum("BASE", nil, "WardBypassBelowPercent") / 100
 	
 	local energyShield = poolTbl.EnergyShield or output.EnergyShieldRecoveryCap
 	local mana = poolTbl.Mana or output.ManaUnreserved or 0
@@ -227,6 +230,7 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	local overkillDamage = 0
 
 	ward = ward >= 0 and ward or 0
+	local wardBeforeHit = ward
 	energyShield = energyShield >= 0 and energyShield or 0
 	mana = mana >= 0 and mana or 0
 	life = life >= 0 and life or 0
@@ -297,9 +301,10 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 				damageRemainder = damageRemainder - tempDamage
 				resourcesLostToTypeDamage[damageType].sharedGuard = tempDamage >= 1 and tempDamage or nil
 			end
-			if ward > 0 then
+			if ward > 0 and (wardBypassBelow == 0 or damageTotal >= wardBeforeHit * wardBypassBelow) then
 				local tempDamage = m_min(damageRemainder * (1 - (modDB:Sum("BASE", nil, "WardBypass") or 0) / 100), ward)
 				ward = ward - tempDamage
+				tempDamage = tempDamage * wardActiveChance
 				damageRemainder = damageRemainder - tempDamage
 				resourcesLostToTypeDamage[damageType].ward = tempDamage >= 1 and tempDamage or nil
 			end
