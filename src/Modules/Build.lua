@@ -1573,7 +1573,7 @@ function buildMode:OpenSpectreLibrary()
 		SetDrawColor(1, 1, 1)
 		DrawString(xPos + 45, yPos, "CENTER_X", 18, "VAR BOLD", self.labelText or "Monster Stats")
 	end
-	controls.minionGemLevelLabel = new("LabelControl", {"BOTTOM", controls.minionNameLabel, "TOP"}, {24, 271, 0, 16}, "Gem Level:")
+	controls.minionGemLevelLabel = new("LabelControl", {"BOTTOM", controls.minionNameLabel, "TOP"}, {24, 271, 0, 16}, "^7Gem Level:")
 	controls.minionGemLevel = new("EditControl", {"LEFT", controls.minionGemLevelLabel, "RIGHT"}, {4, 0, 60, 20}, 20, nil, "%D", 3, function()
 		if self.lastSelectedMinion then
 			UpdateMinionDisplay(self.lastSelectedMinion)

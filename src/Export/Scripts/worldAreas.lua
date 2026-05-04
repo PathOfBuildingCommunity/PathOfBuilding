@@ -193,7 +193,7 @@ for area in dat("WorldAreas"):Rows() do
 	end
 	if area.Name and area.Name ~= "NULL" and not area.Name:match("DNT") and not area.Name:match("UNUSED") and not area.Name:match("Memory Void") and area.Id and not area.IsTown then
 		-- Skip areas ending with _NoBoss
-		if area.Id:match("Design") or area.Id:match("Programming") or area.Id == "BlackTest" or area.Id:match("Hideout") or area.Id:match("Labyrinth") then
+		if area.Id:match("Design") or area.Id:match("ctf") or area.Id:match("Royale") or area.Id:match("Programming") or area.Id == "BlackTest" or area.Id:match("Hideout") or area.Id:match("Labyrinth") then
 			goto continue
 		end
 		local monsters = areaIdToMonsters[area.Id] or {}

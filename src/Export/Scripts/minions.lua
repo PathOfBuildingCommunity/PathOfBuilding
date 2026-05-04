@@ -190,7 +190,7 @@ directiveTable.emit = function(state, args, out)
 		if pack and pack.WorldAreas then
 			for _, worldAreaRef in ipairs(pack.WorldAreas) do
 				local area = dat("WorldAreas"):GetRow("Id", worldAreaRef.Id)
-				if area and area.Name ~= "NULL" and area.Name ~= "" and not area.Id:find("Descent") and not area.Name:match("Memory Void") then
+				if area and area.Name ~= "NULL" and area.Name ~= "" and not area.Id:find("Descent") and not area.Name:match("Memory Void") and not area.Id:match("Royale") then
 					local isMap = false
 					for _, tag in ipairs(area.Tags or {}) do
 						if tag.Id == "map" then

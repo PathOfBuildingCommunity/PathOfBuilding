@@ -1580,65 +1580,35 @@ Metadata/Monsters/FaridunLeague/FaridunAstralAcolyteHigh                        
 Metadata/Monsters/Seawitch/SeaWitch                                                       		----		Merveil's Favoured
 Metadata/Monsters/Seawitch/SeaWitchSpawn                                                  		----		Merveil's Daughter
 Metadata/Monsters/Seawitch/ProphecySeaWitch                                               		----		Fated Siren
-Metadata/Monsters/Guardians/GuardianFire2_                                                		----		Infernal Sentinel
-Metadata/Monsters/Guardians/GuardianHead                                                  		----		Assault Ribbon
-Metadata/Monsters/Guardians/GuardianLightning_Blue                                        		----		Rime Sentinel
-Metadata/Monsters/Guardians/GuardianFire_Blue                                             		----		Frost Sentinel
 Metadata/Monsters/InsectSpawner/ProphecyInsectSpawner                                     		----		Nightmarish Carrion
 Metadata/Monsters/InsectMinion/ProphecyInsect                                             		----		Nightmarish Crawler
 Metadata/Monsters/Kiweth/KiwethAtlasUber                                                  		----		Avian Clot
 Metadata/Monsters/Kiweth/KiwethBossMinion                                                 		----		Vassal of Inti
-Metadata/Monsters/MossMonster/FireMonsterKaom                                             		----		Living Fury
-Metadata/Monsters/Pyromaniac/SextantPyromaniacFire                                        		----		Traitorous Incinerator
-Metadata/Monsters/Grappler/Grappler2                                                      		----		Shavronne's Gemling
-Metadata/Monsters/Grappler/Grappler3Spectre                                               		----		Augmented Grappler
 Metadata/Monsters/Bandit/DockworkerHammer                                                 		----		Dockhand Wraith
 Metadata/Monsters/Bandit/DockworkerBow2                                                   		----		Labourer Wraith
-Metadata/Monsters/Brute/MapBossBruteStandaloneAtlasUber                                   		----		Brutal Incarcerator
-Metadata/Monsters/Beasts/MapBeastBossWhiteStandalone_AtlasUber                            		----		Apex Monstrosity
-Metadata/Monsters/Necromancer/MapNecromancerBossPrisonStandaloneAtlasUber_                		----		Grand Necromancer
-Metadata/Monsters/RootSpiders/RootSpider                                                  		----		Devourer
-Metadata/Monsters/RootSpiders/RootSpiderBossMinion__                                      		----		Unstable Devourer
-Metadata/Monsters/RootSpiders/RootSpiderHidden2                                           		----		Captive Devourer
-Metadata/Monsters/RootSpiders/RootSpiderHiddenUntainted                                   		----		Ancient Devourer
-Metadata/Monsters/RootSpiders/RootSpiderHiddenUntaintedColossal                           		----		Elder Devourer
 Metadata/Monsters/Squid/Squid                                                             		----		Soulless Watcher
 Metadata/Monsters/Squid/Squid2                                                            		----		Drifting Eye
 Metadata/Monsters/Squid/Squid3                                                            		----		Cavern Drifter
 Metadata/Monsters/Squid/Squid3Sewer                                                       		----		Sewer Drifter
 Metadata/Monsters/Squid/DexMissionSquid                                                   		----		Infected Watcher
-Metadata/Monsters/Skeletons/DesecratedSkeletonMelee                                       		----		Desecrated Bonestalker
-Metadata/Monsters/Skeletons/SkeletonCasterColdMultipleProjectilesIncaBossMinion           		----		Frozen Supplicant
-Metadata/Monsters/Skeletons/SkeletonCasterLightningSparkIncaBossMinion                    		----		Storming Supplicant
 Metadata/Monsters/Axis/DexIntMissionAxisEliteSoldier                                      		----		Elite Mercenary
 Metadata/Monsters/Axis/DexIntMissionAxisCaster                                            		----		Mage Mercenary
-Metadata/Monsters/Beasts/DexMissionBeastCleave                                            		----		Infected Beast
-Metadata/Monsters/Beasts/DexMissionSpiderSpawnFromBeast                                   		----		Crawling Infestation
 Metadata/Monsters/InsectSpawner/DexMissionInsectSpawner                                   		----		Rabid Broodqueen
 Metadata/Monsters/InsectSpawner/DexMissionInsectWild                                      		----		Rabid Minion
-Metadata/Monsters/GemMonster/DexMissionIguana                                             		----		Putrid Chimeral
 Metadata/Monsters/DropBear/DexMissionDropBear                                             		----		Infected Ambusher
 Metadata/Monsters/Lion/DexMissionLionFireSkinGroundFire                                   		----		Crazed Flamebeast
-Metadata/Monsters/Frog/DexMissionFrog                                                     		----		Rabid Maw
 Metadata/Monsters/ShieldCrabs/DexMissionShieldCrab                                        		----		Fused Crawler
 Metadata/Monsters/Handfinger/Handfinger                                                   		----		Tunneler
 Metadata/Monsters/Handfinger/Handfinger2                                                  		----		Crawler
 Metadata/Monsters/Handfinger/HandfingerCrystalVeins_                                      		----		Burrower
-Metadata/Monsters/Gladiator/GladiatorSword                                                		----		Mad Gladiator
 Metadata/Monsters/Bull/BullNoArmour                                                       		----		Avalanche Rider
 Metadata/Monsters/Bull/BullPhysical                                                       		----		Grazing Taurus
 Metadata/Monsters/Eyes/Eye                                                                		----		Wandering Eye
 Metadata/Monsters/Eyes/Eye2                                                               		----		Wide-eyed Assemblage
 Metadata/Monsters/Eyes/Eye3                                                               		----		Pain Witness
 Metadata/Monsters/Eyes/EyeDoedre                                                          		----		Doedre's Sight
-Metadata/Monsters/HalfSkeleton/HalfSkeleton2                                              		----		Arranged Anatomy
-Metadata/Monsters/HalfSkeleton/HalfSkeleton3                                              		----		Boiled Dead
-Metadata/Monsters/HalfSkeleton/HalfSkeletonRanged                                         		----		Gut Spiker
 Metadata/Monsters/Flayed/FlayedMale                                                       		----		Primordial Creation
-Metadata/Monsters/Revenant/Revenant2                                                      		----		Escaped Revenant
 Metadata/Monsters/MoveDaemon/HarvestBearBossWallDaemon                                    		----		Invisible
-Metadata/Monsters/SandLeaper/ProphecySandLeaper                                           		----		Echo of the Verdant
-Metadata/Monsters/Necromancer/NecromancerLabyrinth                                        		----		Eternal Reanimator
 Metadata/Monsters/Mannequin/MannequinLabyrinth                                            		----		Marionette
 Metadata/Monsters/ParasiticSquid/ParasiticSquid                                           		----		Brine Vassal
 Metadata/Monsters/ParasiticSquid/ParasiticSquidWarp                                       		----		Swarthy Mollusc
@@ -1646,62 +1616,32 @@ Metadata/Monsters/Prophecy/Fragment                                             
 Metadata/Monsters/Prophecy/VaalFallenSword                                                		----		Vaal Memory
 Metadata/Monsters/SecretPolice/SecretPolice1                                              		----		Blackguard Stalker
 Metadata/Monsters/Regurgitator/Regurgitator1                                              		----		Warped Regurgitator
-Metadata/Monsters/SlaveCatcher/SlaveCatcher                                               		----		Slave Catcher
-Metadata/Monsters/SlaveCatcher/SlaveCatcherKitava                                         		----		Deranged Slaver
-Metadata/Monsters/SlaveCatcher/SlaveCatcherKitava2                                        		----		Depraved Slaver
 Metadata/Monsters/MotherOfFlames/MotherOfFlamesPure                                       		----		Flame Mother
 Metadata/Monsters/MotherOfFlames/MotherOfFlamesBossMapStandaloneAtlasUber                 		----		Flame Creator
 Metadata/Monsters/BlessedSister/BlessedSisterPure                                         		----		Blessed Sister
 Metadata/Monsters/BlessedSister/BlessedSisterKitava1                                      		----		Sanguine Sister
-Metadata/Monsters/ReligiousTemplar/ReligiousTemplarPure                                   		----		Temple Ward
-Metadata/Monsters/ReligiousTemplar/ReligiousTemplarPureAtlasUber                          		----		Temple Guard
-Metadata/Monsters/ReligiousTemplar/ReligiousTemplarTwoHandedPure                          		----		Temple Guardian
-Metadata/Monsters/ReligiousTemplar/ReligiousTemplarKitava                                 		----		Heretical Ward
-Metadata/Monsters/ReligiousTemplar/ReligiousTemplarTwoHandedKitava                        		----		Heretical Guardian
-Metadata/Monsters/BrineKing/BrineKingMinionBleached                                       		----		Sulphurspawn
-Metadata/Monsters/Vendigo/Vendigo                                                         		----		Vendigo
-Metadata/Monster/Blackguard/BlackguardJaegerMelee                                         		----		Blackguard Jaeger
-Metadata/Monster/Blackguard/BlackguardJaegerZombie                                        		----		Risen Jaeger
-Metadata/Monster/KitavaDemon/KitavaDemonPlaguewingMapStandaloneAtlasUber_                 		----		Caustic Demon
 Metadata/Monsters/OriathanCitizen/OriathanCitizenZombieMale1                              		----		Noble Dead
 Metadata/Monsters/OriathanCitizen/OriathanCitizenZombieMale1Fast                          		----		Experimented Dead
 Metadata/Monsters/IndoctrinatedConvert/IndoctrinatedConvert                               		----		Indoctrinated Slave
 Metadata/Monsters/IndoctrinatedConvert/IndoctrinatedConvertKitava                         		----		Deformed Slave
-Metadata/Monsters/CorpseWheel/CorpseWheel                                                 		----		Dreadwheel
 Metadata/Monsters/Mauler/Mauler                                                           		----		Handmaiden
 Metadata/Monsters/HolyFireElemental/HolyFireElemental                                     		----		Prayer Guard
 Metadata/Monsters/HolyFireElemental/HolyFireElementalAtlasUber                            		----		Resolute Guard
 Metadata/Monsters/HolyFireElemental/HolyFireElementalSolaris                              		----		Solar Elemental
-Metadata/Monsters/KaruiSlave/KaruiSlave1                                                  		----		Karui Rebel
 Metadata/Monsters/KaomWarrior/KaruiElder1StandaloneAtlasUber                              		----		Tribal Queen
 Metadata/Monsters/KaomWarrior/KaomArcherMinion1                                           		----		Forgotten Warrior
 Metadata/Monsters/OriathCivilian/OriathCivilianMaleSpectre                                		----		Frightened Citizen
-Metadata/Monsters/WarHero/WarHeroCasterAtlasUber                                          		----		Spectral Leader
 Metadata/Monsters/NessaCrab/NessaCrabAtlasUber                                            		----		Reefrend
 Metadata/Monsters/NessaCrab/NessaCrabBleached                                             		----		Waste Lurcher
-Metadata/Monsters/Banshee/Banshee                                                         		----		Wailing Widow
-Metadata/Monsters/Banshee/Banshee2                                                        		----		Shrieking Witch
 Metadata/Monsters/Frog/FrogGod/SilverOrbFromMonstersAtlasUber                             		----		Silver Orb
-Metadata/Monsters/MarakethBird/ArmouredBird1                                              		----		Escaped Rhex
-Metadata/Monsters/Bandits/BanditSwordShieldPetrified                                      		----		Imperial Legionaire
-Metadata/Monsters/Bandits/BanditRangedBarragePetrified                                    		----		Imperial Archer
-Metadata/Monsters/GeneralAdus/GeneralAdusMapStandaloneAtlasUber_                          		----		Electric Executor
 Metadata/Monsters/Lynx/Lynx                                                               		----		Mountain Lynx
-Metadata/Monsters/MarakethRider/MarakethRider_                                            		----		Rhexback Raider
-Metadata/Monsters/MarakethRider/MarakethRiderSpear                                        		----		Rhexback Spearman
 Metadata/Monsters/ReliquaryMonster/ReliquaryMonster                                       		----		Reliquarian
-Metadata/Monsters/FormosanBear/FormosanBear                                               		----		Grizzled Bear
 Metadata/Monsters/Mannequin/MannequinStoneDelve                                           		----		Protoguard
 Metadata/Monsters/Squid/Squid                                                             		----		Eyeless Watcher
 Metadata/Monsters/LeagueBlight/Generic/CannibalFirebreatherBossTotem                      		----		Totem
-Metadata/Monsters/AtlasPreQuest/TemplarCourts/KitavaCultistDaggersTemplar                 		----		Orphaned Zealot
-Metadata/Monsters/AtlasPreQuest/TemplarCourts/TemplarJudgeKitava2                         		----		Orphaned Adjudicator
-Metadata/Monsters/AtlasPreQuest/TemplarCourts/ReligiousTemplarKitava                      		----		Orphaned Ward
-Metadata/Monsters/AtlasPreQuest/TemplarCourts/ReligiousTemplarTwoHandedKitava_            		----		Orphaned Guardian
 Metadata/Monsters/BeehiveBehemoth/BeehiveBehemothBossStandaloneAtlasUber                  		----		Putrefied Shaman
 Metadata/Monsters/BeehiveBehemoth/BeehiveBehemothBossStandaloneAllFlame                   		----		Fungal Shaman
 Metadata/Monsters/Spiker/SpikerBull/SpikerBullBossStandaloneAtlasUber__                   		----		Impaling Abomination
-Metadata/Monsters/DjinnDemon/DjinnDemonMapBoss_StandaloneAtlasUber                        		----		Demon of the Drowned
 Metadata/Monsters/MavenBoss/TheMavenMapChillOrb                                           		----		Maven's Orb
 Metadata/Monsters/LeagueUltimatum/Golem/SkitterbotLightningWeak                           		----		Powered Cogwork
 Metadata/Monsters/PrisonStalker/PrisonStalker                                             		----		Ghoul
@@ -1709,7 +1649,6 @@ Metadata/Monsters/SaplingMonster/TwigMonster                                    
 Metadata/Monsters/SaplingMonster/TwigMonsterArchnemesis                                   		----		Treant
 Metadata/Monsters/PlagueSwarm/PlagueInsect                                                		----		Carrion Wasp
 Metadata/Monsters/PlagueSwarm/PlagueWasp                                                  		----		Plague Wasp
-Metadata/Monsters/LeagueNecropolis/TankyZombieTorment__                                   		----		Rotting Meatsack
 Metadata/Monsters/GoldenOnes/GoldenOnesFodderMace                                         		----		Gilded Soldier
 Metadata/Monsters/VaalForgeMan/VaalForgeMan                                               		----		Gilded Smith
 Metadata/Monsters/Mtx/BrambleBash/BrambleBurrower                                         		----		Bramble Burrower
