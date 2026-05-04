@@ -1082,6 +1082,21 @@ function ImportTabClass:ImportItem(itemData, slotName)
 		for _, property in pairs(itemData.properties) do
 			if property.name == "Quality" then
 				item.quality = tonumber(property.values[1][1]:match("%d+"))
+			elseif property.name:match("Quality %(") then
+				local catalystMap = {
+					["Attack"] = 1,
+					["Speed"] = 2,
+					["Life and Mana"] = 3,
+					["Caster"] = 4,
+					["Attribute"] = 5,
+					["Physical and Chaos Damage"] = 6,
+					["Resistance"] = 7,
+					["Defense"] = 8,
+					["Elemental Damage"] = 9,
+					["Critical"] = 10,
+				}
+				item.catalyst = catalystMap[property.name:match("Quality %((.*) Modifiers%)")]
+				item.catalystQuality = tonumber(property.values[1][1]:match("%d+"))
 			elseif property.name == "Radius" then
 				item.jewelRadiusLabel = property.values[1][1]
 			elseif property.name == "Limited to" then
