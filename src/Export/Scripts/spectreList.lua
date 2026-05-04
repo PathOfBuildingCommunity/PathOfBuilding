@@ -8,12 +8,14 @@ out:write('-- Gem data (c) Grinding Gear Games\n\n')
 out:write('-- Some monsters have not been imported into PoB, as they have Spectre flag but they are not actually spectres in game for some reason.\n')
 out:write('-- Eg. Delirium monsters like Rage/Malice/Disgust. Either we are missing a flag, or its done on their side somewhere.\n\n')
 
-local export = false
 local spectreList = {}
 local notImported = {}
 local duplicateName = {}
+
+-- use hash instead of array
 local uniqueName = {}
 
+-- load already imported spectres
 local importedSpectres = {}
 local file = io.open("../Data/Spectres.lua", "r")
 
@@ -37,12 +39,6 @@ for monster in dat("MonsterVarieties"):Rows() do
 		and not monster.Id:find("InsectTest")
 		and not monster.AIScript:match("NoAI")
 		and #monster.GrantedEffects ~= 0 then
-		for _, name in ipairs(uniqueName) do
-			if name == monster.Name then
-				table.insert(duplicateName, { id = monster.Id, name = monster.Name })
-				goto continue
-			end
-		end
 		for _, mod in ipairs(monster.Mods) do
 			if mod.Id == "CannotBeUsedAsMinion" then
 				goto continue
@@ -58,19 +54,41 @@ for monster in dat("MonsterVarieties"):Rows() do
 				goto continue
 			end
 		end
-        -- Loop SpectreOverrides for matching monster.Id
-		local outputId = monster.Id  -- default to monster.Id
-        for override in dat("SpectreOverrides"):Rows() do
-            if override.Monster.Id == monster.Id and override.Spectre then
-                outputId = override.Spectre.Id
-                break
-            end
-        end
+
+		-- resolve SpectreOverride
+		local outputId = monster.Id
+		for override in dat("SpectreOverrides"):Rows() do
+			if override.Monster.Id == monster.Id and override.Spectre then
+				outputId = override.Spectre.Id
+				break
+			end
+		end
+
+		-- build skill signature (name + sorted skills)
+		local skillIds = {}
+		for _, skill in ipairs(monster.GrantedEffects) do
+			if skill and skill.Id then
+				table.insert(skillIds, skill.Id)
+			end
+		end
+		table.sort(skillIds)
+
+		local signature = monster.Name .. "|" .. table.concat(skillIds, ",")
+
+		-- duplicate check (name + skills)
+		if uniqueName[signature] then
+			table.insert(duplicateName, { id = outputId, name = monster.Name })
+			goto continue
+		end
+
+		uniqueName[signature] = true
+
+		-- check import status
 		if not importedSpectres[outputId] then
 			table.insert(notImported, { id = outputId, name = monster.Name })
 		end
 		table.insert(spectreList, { id = outputId, name = monster.Name })
-        table.insert(uniqueName, monster.Name)
+
 	end
 	::continue::
 end

@@ -195,14 +195,14 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/BlackguardTorturer/BlackguardTorturerKitava2
 #emit
+#spectre Metadata/Monsters/SecretPolice/SecretPolice1
+#emit
 -- Bandit
 #spectre Metadata/Monsters/Bandits/BanditBowExplosiveArrow
 #emit
 #spectre Metadata/Monsters/Bandits/BanditBowPoisonArrow
 #emit
 #spectre Metadata/Monsters/Bandits/BanditMeleeWarlordsMarkMaul
-#emit
-#spectre Metadata/Monsters/Bandit/DockworkerChampion_
 #emit
 #spectre Metadata/Monsters/Bandits/BanditBowChampion
 #emit
@@ -401,6 +401,8 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/Cannibal/CannibalFemaleProphecy
 #emit
+#spectre Metadata/Monsters/Cannibal/CannibalFemaleProphecyChaos
+#emit
 #spectre Metadata/Monsters/Cannibal/CannibalLunaris
 #emit
 #spectre Metadata/Monsters/Cannibal/CannibalLunaris2
@@ -460,6 +462,9 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/CrabParasite/CrabParasiteMedium3
 #emit
 #spectre Metadata/Monsters/CrabParasite/CrabParasiteBleachedSmall
+#emit
+-- Crazed Flamebeast
+#spectre Metadata/Monsters/Lion/DexMissionLionFireSkinGroundFire
 #emit
 -- Croaker
 #spectre Metadata/Monsters/GemMonster/GemFrog
@@ -658,6 +663,12 @@ local minions, mod, flag = ...
 -- Grizzled Bear
 #spectre Metadata/Monsters/FormosanBear/FormosanBear
 #emit
+-- Impaling Abomination
+#spectre Metadata/Monsters/Spiker/SpikerBull/SpikerBullBossStandaloneAtlasUber__
+#emit
+-- Infected Ambusher
+#spectre Metadata/Monsters/DropBear/DexMissionDropBear
+#emit
 -- Insect
 #spectre Metadata/Monsters/InsectSpawner/InsectSpawnerParasiteBossMapStandalone_AtlasUber
 #emit
@@ -674,6 +685,14 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/InsectMinion/EssenceInsectWildExplosive
 #emit
 #spectre Metadata/Monsters/InsectMinion/EssenceInsectWildExplosiveColossal
+#emit
+#spectre Metadata/Monsters/InsectSpawner/ProphecyInsectSpawner
+#emit
+#spectre Metadata/Monsters/InsectMinion/ProphecyInsect
+#emit
+#spectre Metadata/Monsters/InsectSpawner/DexMissionInsectSpawner
+#emit
+#spectre Metadata/Monsters/InsectSpawner/DexMissionInsectWild
 #emit
 -- Rhoa
 #spectre Metadata/Monsters/Rhoas/Rhoa
@@ -718,6 +737,9 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/HalfSkeleton/HalfSkeleton3
 #emit
 #spectre Metadata/Monsters/HalfSkeleton/HalfSkeletonRanged
+#emit
+-- Handmaiden
+#spectre Metadata/Monsters/Mauler/Mauler
 #emit
 -- Harvest
 #spectre Metadata/Monsters/LeagueHarvest/Red/HarvestDropBearT1Spectre
@@ -799,6 +821,13 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestGoatmanT3Spectre
 #emit
 #spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestLanternMinerT3Spectre
+#emit
+-- Holy Fire Elementals
+#spectre Metadata/Monsters/HolyFireElemental/HolyFireElemental
+#emit
+#spectre Metadata/Monsters/HolyFireElemental/HolyFireElementalAtlasUber
+#emit
+#spectre Metadata/Monsters/HolyFireElemental/HolyFireElementalSolaris
 #emit
 -- Miscreation
 #spectre Metadata/Monsters/DemonFemale/DemonFemale
@@ -940,6 +969,9 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Guardians/GuardianFire_BlueMaps
 #emit
 #spectre Metadata/Monsters/Guardians/GuardianLightning
+#emit
+-- Regurgitator
+#spectre Metadata/Monsters/Regurgitator/Regurgitator1
 #emit
 -- Gut flayer
 #spectre Metadata/Monsters/HalfSkeleton/HalfSkeleton
@@ -1125,6 +1157,9 @@ local minions, mod, flag = ...
 -- Apex Monstrosity
 #spectre Metadata/Monsters/Beasts/MapBeastBossWhiteStandalone_AtlasUber
 #emit
+-- Avian Clot
+#spectre Metadata/Monsters/Kiweth/KiwethAtlasUber
+#emit
 -- Basilisk
 #spectre Metadata/Monsters/AtlasExiles/BasiliskInfluenceMonsters/BasiliskSnakeSpitSpectre
 #emit
@@ -1215,6 +1250,9 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/Parasite/ParasiteSpitting
 #emit
+-- Protoguard
+#spectre Metadata/Monsters/Mannequin/MannequinStoneDelve
+#emit
 -- Vendigo
 #spectre Metadata/Monsters/Vendigo/Vendigo
 #emit
@@ -1286,6 +1324,27 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/MossMonster/MossMonsterStanding
 #emit
 #spectre Metadata/Monsters/MossMonster/FireMonsterKaom
+#emit
+-- Watcher / Drifter
+#spectre Metadata/Monsters/Squid/Squid
+#emit
+#spectre Metadata/Monsters/Squid/Squid
+#emit
+#spectre Metadata/Monsters/Squid/Squid2
+#emit
+#spectre Metadata/Monsters/Squid/Squid3
+#emit
+#spectre Metadata/Monsters/Squid/Squid3Sewer
+#emit
+#spectre Metadata/Monsters/Squid/DexMissionSquid
+#emit
+#spectre Metadata/Monsters/Eyes/Eye
+#emit
+#spectre Metadata/Monsters/Eyes/Eye2
+#emit
+#spectre Metadata/Monsters/Eyes/Eye3
+#emit
+#spectre Metadata/Monsters/Eyes/EyeDoedre
 #emit
 -- Wolf
 #spectre Metadata/Monsters/Lion/LionWolf
@@ -1995,6 +2054,13 @@ local minions, mod, flag = ...
 -- Ophidian
 #spectre Metadata/Monsters/Taster/Taster
 #emit
+-- Oriath Citizen
+#spectre Metadata/Monsters/OriathanCitizen/OriathanCitizenZombieMale1
+#emit
+#spectre Metadata/Monsters/OriathanCitizen/OriathanCitizenZombieMale1Fast
+#emit
+#spectre Metadata/Monsters/OriathCivilian/OriathCivilianMaleSpectre
+#emit
 -- Orphaned
 #spectre Metadata/Monsters/AtlasPreQuest/TemplarCourts/KitavaCultistDaggersTemplar
 #emit
@@ -2217,10 +2283,17 @@ local minions, mod, flag = ...
 -- Hyrri's Watch
 #spectre Metadata/Monsters/LegionLeague/LegionKaruiArcherSpectre
 #emit
+-- Dock Worker
+#spectre Metadata/Monsters/Bandit/DockworkerHammer
+#emit
+#spectre Metadata/Monsters/Bandit/DockworkerBow2
+#emit
+#spectre Metadata/Monsters/Bandit/DockworkerChampion_
+#emit
 -- Demon Harpy
 #spectre Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite1Spectre
 #emit
--- Devourer
+-- Devourer / Burrower
 #spectre Metadata/Monsters/RootSpiders/RootSpider
 #emit
 #spectre Metadata/Monsters/RootSpiders/RootSpiderBossMinion__
@@ -2230,6 +2303,12 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/RootSpiders/RootSpiderHiddenUntainted
 #emit
 #spectre Metadata/Monsters/RootSpiders/RootSpiderHiddenUntaintedColossal
+#emit
+#spectre Metadata/Monsters/Handfinger/Handfinger
+#emit
+#spectre Metadata/Monsters/Handfinger/Handfinger2
+#emit
+#spectre Metadata/Monsters/Handfinger/HandfingerCrystalVeins_
 #emit
 -- Dreadwheel
 #spectre Metadata/Monsters/CorpseWheel/CorpseWheel
@@ -2509,6 +2588,10 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/KaomWarrior/KaomWarrior5
 #emit
+#spectre Metadata/Monsters/KaomWarrior/KaruiElder1StandaloneAtlasUber
+#emit
+#spectre Metadata/Monsters/KaomWarrior/KaomArcherMinion1
+#emit
 -- Legion
 #spectre Metadata/Monsters/LegionLeague/LegionKaruiMeleeSpectre_
 #emit
@@ -2564,6 +2647,12 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/LegionLeague/LegionVaalCultistSergeantMeleeSpectre
 #emit
+-- Lynx
+#spectre Metadata/Monsters/Lynx/Lynx
+#emit
+-- Marionette
+#spectre Metadata/Monsters/Mannequin/MannequinLabyrinth
+#emit
 -- Memory Strands
 #spectre Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaRibbonLargeSpectre
 #emit
@@ -2578,6 +2667,11 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaWyvernSpectre
 #emit
 #spectre Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaSpikerSpectre
+#emit
+-- Mercenary
+#spectre Metadata/Monsters/Axis/DexIntMissionAxisEliteSoldier
+#emit
+#spectre Metadata/Monsters/Axis/DexIntMissionAxisCaster
 #emit
 -- Mirage
 #spectre Metadata/Monsters/RamGiant/RottingRamGiant_Spectre_
@@ -2638,6 +2732,11 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueSanctum/Fodder/PaleElite2
 #emit
 #spectre Metadata/Monsters/LeagueSanctum/Boss/PurifierBoss__AtlasUber
+#emit
+-- Shaman
+#spectre Metadata/Monsters/BeehiveBehemoth/BeehiveBehemothBossStandaloneAtlasUber
+#emit
+#spectre Metadata/Monsters/BeehiveBehemoth/BeehiveBehemothBossStandaloneAllFlame
 #emit
 -- Spawn
 #spectre Metadata/Monsters/Spawn/Spawn
@@ -3053,6 +3152,9 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonMid
 #emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonHigh
+#emit
+-- Remembered Construct
+#spectre Metadata/Monsters/Prophecy/Fragment
 #emit
 -- Restless Knight
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightLow
