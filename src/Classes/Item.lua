@@ -11,21 +11,25 @@ local m_max = math.max
 local m_floor = math.floor
 
 local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
-local catalystList = {"Abrasive", "Accelerating", "Fertile", "Imbued", "Intrinsic", "Noxious", "Prismatic", "Tempering", "Turbulent", "Unstable"}
+local catalystList = {"Abrasive", "Accelerating", "Dextral", "Fertile", "Imbued", "Intrinsic", "Noxious", "Prismatic", "Sinistral", "Tempering", "Turbulent", "Unstable"}
 local catalystTags = {
 	{ "attack" },
 	{ "speed" },
+	{ "suffix" },
 	{ "life", "mana", "resource" },
 	{ "caster" },
 	{ "jewellery_attribute", "attribute" },
 	{ "physical_damage", "chaos_damage" },
 	{ "jewellery_resistance", "resistance" },
+	{ "prefix" },
 	{ "jewellery_defense", "defences" },
 	{ "jewellery_elemental" ,"elemental_damage" },
 	{ "critical" },
 }
 
-local function getCatalystScalar(catalystId, tags, quality)
+local function getCatalystScalar(catalystId, mod, quality)
+	local tags = mod.modTags
+	local affixType = mod.type
 	if not catalystId or type(catalystId) ~= "number" or not catalystTags[catalystId] or not tags or type(tags) ~= "table" or #tags == 0 then
 		return 1
 	end
@@ -37,6 +41,9 @@ local function getCatalystScalar(catalystId, tags, quality)
 	local tagLookup = {}
 	for _, curTag in ipairs(tags) do
 		tagLookup[curTag] = true;
+	end
+	if affixType == "Prefix" or affixType == "Suffix" then -- Sinistral/Dextral
+		tagLookup[affixType:lower()] = true
 	end
 
 	-- Find if any of the catalyst's tags match the provided tags
@@ -732,7 +739,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					foundImplicit = true
 					gameModeStage = "IMPLICIT"
 				end
-				local catalystScalar = getCatalystScalar(self.catalyst, modLine.modTags, self.catalystQuality)
+				local catalystScalar = getCatalystScalar(self.catalyst, modLine, self.catalystQuality)
 				local rangedLine = itemLib.applyRange(line, 1, catalystScalar)
 				local modList, extra = modLib.parseMod(rangedLine)
 				if (not modList or extra) and self.rawLines[l+1] then
@@ -1275,7 +1282,7 @@ function ItemClass:Craft()
 					self.nameSuffix = self.nameSuffix .. " " .. mod.affix
 				end
 				self.requirements.level = m_max(self.requirements.level or 0, m_floor(mod.level * 0.8))
-				local rangeScalar = getCatalystScalar(self.catalyst, mod.modTags, self.catalystQuality)
+				local rangeScalar = getCatalystScalar(self.catalyst, mod, self.catalystQuality)
 				for i, line in ipairs(mod) do
 					line = itemLib.applyRange(line, affix.range or 0.5, rangeScalar)
 					local order = mod.statOrder[i]
@@ -1703,7 +1710,7 @@ function ItemClass:BuildModList()
 					-- Check if line actually has a range
 					if modLine.line:find("%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)") then
 						local strippedModeLine = modLine.line:gsub("\n"," ")						
-						local catalystScalar = getCatalystScalar(self.catalyst, modLine.modTags, self.catalystQuality)
+						local catalystScalar = getCatalystScalar(self.catalyst, modLine, self.catalystQuality)
 						-- Put the modified value into the string
 						local line = itemLib.applyRange(strippedModeLine, modLine.range, catalystScalar)
 						-- Check if we can parse it before adding the mods
