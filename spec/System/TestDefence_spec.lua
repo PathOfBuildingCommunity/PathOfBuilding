@@ -378,6 +378,28 @@ describe("TestDefence", function()
 		assert.are.equals(15, build.calcsTab.calcsOutput.LightningResistOverCap)
 	end)
 
+	it("ward chance to not break increases effective hit pool", function()
+		build.configTab.input.enemyIsBoss = "None"
+		build.configTab.input.customMods = "\z
+		+940 to maximum life\n\z
+		+200 to Ward\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(987, build.calcsTab.calcsOutput.TotalEHP)
+		assert.are.equals(1200, build.calcsTab.calcsOutput.PhysicalMaximumHitTaken)
+
+		build.configTab.input.customMods = "\z
+		+940 to maximum life\n\z
+		+200 to Ward\n\z
+		Ward has a 50% chance to not Break\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(994, build.calcsTab.calcsOutput.TotalEHP)
+		assert.are.equals(1200, build.calcsTab.calcsOutput.PhysicalMaximumHitTaken)
+	end)
+
 	-- fun part
 	it("armoured max hits", function()
 		build.configTab.input.enemyIsBoss = "None"
