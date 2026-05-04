@@ -1086,14 +1086,16 @@ function ImportTabClass:ImportItem(itemData, slotName)
 				local catalystMap = {
 					["Attack"] = 1,
 					["Speed"] = 2,
-					["Life and Mana"] = 3,
-					["Caster"] = 4,
-					["Attribute"] = 5,
-					["Physical and Chaos Damage"] = 6,
-					["Resistance"] = 7,
-					["Defense"] = 8,
-					["Elemental Damage"] = 9,
-					["Critical"] = 10,
+					["Suffix"] = 3,
+					["Life and Mana"] = 4,
+					["Caster"] = 5,
+					["Attribute"] = 6,
+					["Physical and Chaos Damage"] = 7,
+					["Resistance"] = 8,
+					["Suffix"] = 9,
+					["Defense"] = 10,
+					["Elemental Damage"] = 11,
+					["Critical"] = 12,
 				}
 				item.catalyst = catalystMap[property.name:match("Quality %((.*) Modifiers%)")]
 				item.catalystQuality = tonumber(property.values[1][1]:match("%d+"))
