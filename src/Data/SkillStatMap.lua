@@ -264,6 +264,9 @@ return {
 ["cast_on_stunned_%"] = {
 	skill("chanceToTriggerOnStun", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
+["trigger_on_ward_break_%_chance"] = {
+	skill("chanceToTriggerOnWardBreak", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+},
 ["trigger_on_attack_hit_against_rare_or_unique"] = {
 	skill("triggerMarkOnRareOrUnique", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Mark }),
 },
