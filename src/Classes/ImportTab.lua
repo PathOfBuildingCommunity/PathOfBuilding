@@ -130,15 +130,27 @@ function addOAuthControls(self)
 				set[character.league] = true
 			end
 		end
-		local ret = {"Any"}
-		-- TODO sort these
+		local ret = {}
+
 		for key, _ in pairs(set) do
 			t_insert(ret, key)
 		end
-		self.controls.charSelectLeague:SetList(ret)
-		-- TODO prefer last
+		table.sort(ret, function(a, b)
+			return a:lower() < b:lower()
+		end)
+        table.insert(ret, "Any")
+		
+        self.controls.charSelectLeague:SetList(ret)
 		self.controls.charSelectLeague.selIndex = nil
-		self.controls.charSelectLeague:SetSel(1)
+		if main.lastLeague then
+			for i, v in ipairs(self.controls.charSelectLeague.list) do
+				if v == main.lastLeague then
+					self.controls.charSelectLeague:SetSel(i)
+				end
+			end
+		else
+			self.controls.charSelectLeague:SetSel(1)
+		end
 	end
 
 	function fetchCharacters()
@@ -190,22 +202,34 @@ function addOAuthControls(self)
 	end
 
 	-- import action controls
+	local function saveDetails(realmId, league, charName)
+        main.lastRealm = realmId
+        self.lastRealm = realmId
+        main.lastLeague = league
+        self.lastLeague = league
+        main.lastCharacterHash = common.sha1(charName)
+        self.lastCharacterHash = common.sha1(charName)
+    end
 	self.controls.charImportHeader = new("LabelControl", { "TOPLEFT", self.controls.charSelect, "BOTTOMLEFT" },
 		{ 0, rowSpacing, 200, 16 }, "^7Import:")
 	self.controls.charImportTree = new("ButtonControl", { "LEFT", self.controls.charImportHeader, "RIGHT" },
 		{ labelSpacing, 0, 170, 20 }, "Passive Tree and Jewels", function()
-			local realm = self.controls.accountRealm:GetSelValue().realmCode
-			local selectedName = self.controls.charSelect:GetSelValue().label
+			local realm = self.controls.accountRealm:GetSelValue()
+            local league = self.controls.charSelectLeague:GetSelValue()
+            local selectedName = self.controls.charSelect:GetSelValue().label
+
+            saveDetails(realm.id, league, selectedName)
+
 			if self.build.spec:CountAllocNodes() > 0 then
 				main:OpenConfirmPopup("Character Import", "Importing the passive tree will overwrite your current tree.",
 					"Import", function()
-						main.api:DownloadCharacter(realm, selectedName, function(char)
+						main.api:DownloadCharacter(realm.realmCode, selectedName, function(char)
 							self:ImportPassiveTreeAndJewels(char.character)
 						end)
 					end)
 			else
-				main.api:DownloadCharacter(realm, selectedName, function(char)
-					self:ImportPassiveTreeAndJewels(char.character)
+                main.api:DownloadCharacter(realm.realmCode, selectedName, function(char)
+                    self:ImportPassiveTreeAndJewels(char.character)
 				end)
 			end
 		end)
@@ -216,10 +240,14 @@ function addOAuthControls(self)
 		{ 90, 0, 18 }, "Delete jewels:", nil, "Delete all existing jewels when importing.", true)
 	self.controls.charImportItems = new("ButtonControl", { "TOPLEFT", self.controls.charImportTree, "BOTTOMLEFT" },
 		{ 0, rowSpacing, 110, 20 }, "Items and Skills", function()
-			local realm = self.controls.accountRealm:GetSelValue().realmCode
-			local selectedName = self.controls.charSelect:GetSelValue().label
-			main.api:DownloadCharacter(realm, selectedName, function(char)
-				self:ImportItemsAndSkills(char.character)
+			local realm = self.controls.accountRealm:GetSelValue()
+            local league = self.controls.charSelectLeague:GetSelValue()
+            local selectedName = self.controls.charSelect:GetSelValue().label
+
+            saveDetails(realm.id, league, selectedName)
+
+            main.api:DownloadCharacter(realm.realmCode, selectedName, function(char)
+                self:ImportItemsAndSkills(char.character)
 			end)
 		end)
 	self.controls.charImportItems.enabled = function()
@@ -632,25 +660,27 @@ end)
 
 function ImportTabClass:Load(xml, fileName)
 	self.lastRealm = xml.attrib.lastRealm
+	self.lastLeague = xml.attrib.lastLeague
 	self.lastAccountHash = xml.attrib.lastAccountHash
 	self.importLink = xml.attrib.importLink
 	self.controls.enablePartyExportBuffs.state = xml.attrib.exportParty == "true"
 	self.build.partyTab.enableExportBuffs = self.controls.enablePartyExportBuffs.state
-	-- if self.lastAccountHash and false then
-	-- 	for accountName in pairs(main.gameAccounts) do
-	-- 		if common.sha1(accountName) == self.lastAccountHash then
-	-- 			self.controls.accountName:SetText(accountName)
-	-- 		end
-	-- 	end
-	-- end
-	-- self.lastCharacterHash = xml.attrib.lastCharacterHash
+	if self.lastAccountHash and false then
+		for accountName in pairs(main.gameAccounts) do
+			if common.sha1(accountName) == self.lastAccountHash then
+				self.controls.siteAccountName:SetText(accountName)
+			end
+		end
+	end
+	self.lastCharacterHash = xml.attrib.lastCharacterHash
 end
 
 function ImportTabClass:Save(xml)
 	xml.attrib = {
-		-- lastRealm = self.lastRealm,
-		-- lastAccountHash = self.lastAccountHash,
-		-- lastCharacterHash = self.lastCharacterHash,
+		lastRealm = self.lastRealm,
+		lastLeague = self.lastLeague,
+		lastAccountHash = self.lastAccountHash,
+		lastCharacterHash = self.lastCharacterHash,
 		exportParty = tostring(self.controls.enablePartyExportBuffs.state),
 		importLink = self.importLink
 	}
