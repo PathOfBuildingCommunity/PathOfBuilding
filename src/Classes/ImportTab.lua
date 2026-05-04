@@ -1092,7 +1092,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 					["Attribute"] = 6,
 					["Physical and Chaos Damage"] = 7,
 					["Resistance"] = 8,
-					["Suffix"] = 9,
+					["Prefix"] = 9,
 					["Defense"] = 10,
 					["Elemental Damage"] = 11,
 					["Critical"] = 12,
