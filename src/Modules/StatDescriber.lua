@@ -28,22 +28,24 @@ local function getScope(scopeName)
 	end
 end
 
-local function matchLimit(lang, val) 
+local function matchLimit(lang, val, quality) 
 	for _, desc in ipairs(lang) do
-		local match = true
-		for i, limit in ipairs(desc.limit) do
-			if limit[1] == "!" then
-				if val[i].min == limit[2] then
+		if quality or not desc.gem_quality then -- Skip gem_quality lines for regular mods
+			local match = true
+			for i, limit in ipairs(desc.limit) do
+				if limit[1] == "!" then
+					if val[i].min == limit[2] then
+						match = false
+						break
+					end
+				elseif (limit[2] ~= "#" and val[i].min > limit[2]) or (limit[1] ~= "#" and val[i].min < limit[1]) then
 					match = false
 					break
 				end
-			elseif (limit[2] ~= "#" and val[i].min > limit[2]) or (limit[1] ~= "#" and val[i].min < limit[1]) then
-				match = false
-				break
 			end
-		end
-		if match then
-			return desc
+			if match then
+				return desc
+			end
 		end
 	end
 end
@@ -182,13 +184,16 @@ local function applySpecial(val, spec)
 	elseif spec.k == "double" then
 		val[spec.v].min = val[spec.v].min * 2
 		val[spec.v].max = val[spec.v].max * 2
+	elseif spec.k == "plus_two_hundred" then
+		val[spec.v].min = val[spec.v].min + 200
+		val[spec.v].max = val[spec.v].max + 200
 	elseif spec.k == "reminderstring" or spec.k == "canonical_line" or spec.k == "_stat" then
 	elseif spec.k then
 		ConPrintf("Unknown description function: %s", spec.k)
 	end
 end
 
-return function(stats, scopeName)
+return function(stats, scopeName, quality)
 	local rootScope = getScope(scopeName)
 
 	-- Figure out which descriptions we need, and identify them by the first stat that they describe
@@ -233,7 +238,7 @@ return function(stats, scopeName)
 			end
 			val[i].fmt = "d"
 		end
-		local desc = matchLimit(descriptor.description[1], val)
+		local desc = matchLimit(descriptor.description[1], val, quality)
 		if desc then
 			for _, spec in ipairs(desc) do
 				applySpecial(val, spec)

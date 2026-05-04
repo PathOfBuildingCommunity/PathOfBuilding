@@ -67,6 +67,7 @@ local remainingScripts = { }
 function main:Init()
 	self.inputEvents = { }
 	self.popups = { }
+	self.scriptOutput = { }
 
 	self.datSpecs = LoadModule("spec")
 
@@ -98,7 +99,6 @@ function main:Init()
 			break
 		end
 	end
-	self.scriptOutput = { }
 
 	function print(text)
 		for line in text:gmatch("[^\r\n]+") do

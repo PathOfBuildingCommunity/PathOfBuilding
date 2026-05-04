@@ -20,10 +20,10 @@ Variant: Pre 3.16.0
 Variant: Current
 Requires Level 75, 100 Str
 +(60-80) to Intelligence
-+(60-75) to maximum Life
-(200-220)% increased Armour
 {variant:2}(25-35)% increased Global Critical Strike Chance
 {variant:3}(40-60)% increased Global Critical Strike Chance
+(200-220)% increased Armour
++(60-75) to maximum Life
 {variant:1}Life and Mana Leech from Critical Strikes are instant
 {variant:2,3}You have Vaal Pact if you've dealt a Critical Strike Recently
 ]],[[
@@ -54,9 +54,9 @@ The Celestial Brace
 Goliath Gauntlets
 Source: Drops from unique{The Searing Exarch} (Uber)
 Requires Level: 53, 77 Str
-(80-120)% Increased Armour
-1% Increased Attack Speed per Fortification
-+(1-10) to Maximum Fortification
+(80-120)% increased Armour
+1% increased Attack Speed per Fortification
++(1-10) to maximum Fortification
 Melee Hits from Strike Skills Fortify
 ]],[[
 Craiceann's Pincers
@@ -76,14 +76,16 @@ Titan Gauntlets
 Variant: Pre 3.23.0
 Variant: Pre 3.26.0
 Variant: Current
-+(50-70) to Maximum Life
++(50-70) to maximum Life
 +(20-30)% to Fire Resistance
 (0.3-0.5)% of Physical Attack Damage Leeched as Life
 Life Recovery from Regeneration is not applied
 {variant:1}Regenerate 1 Rage per second for every 100 Life Recovery per second from Regeneration
+{variant:1}Does not delay Inherent Loss of Rage
 {variant:2}Regenerate 1 Rage per second for every 300 Life Recovery per second from Regeneration
+{variant:2}Does not delay Inherent Loss of Rage
 {variant:3}Regenerate 1 Rage per second for every 200 Life Recovery per second from Regeneration
-Does not delay Inherent Loss of Rage
+{variant:3}Does not delay Inherent Loss of Rage
 ]],[[
 Doryani's Fist
 Vaal Gauntlets
@@ -97,7 +99,7 @@ Requires Level 63, 100 Str
 {variant:4}+(80-100) to maximum Energy Shield
 {variant:1,2,3}10% chance to Shock
 {variant:4}30% chance to Shock
-{variant:1,2}Adds (225-335) to (785-900) Lightning Damage to Unarmed Attacks
+{variant:1,2}Adds (225-335) to (785-900) Lightning Damage to Unarmed Melee Hits
 {variant:3,4}Adds (150-225) to (525-600) Lightning Damage to Unarmed Melee Hits
 {variant:1,2}Adds (60-90) to (210-240) Lightning Damage to Spells while Unarmed
 {variant:3,4}Adds (90-135) to (315-360) Lightning Damage to Spells while Unarmed
@@ -113,15 +115,15 @@ Requires Level 47, 68 Str
 Socketed Gems are Supported by Level 30 Rage
 (120-150)% increased Armour
 (10-25)% reduced Rage Cost of Skills
-Vaal Attack Skills Cost Rage instead of requiring Souls to Use
+Vaal Attack Skills you Use yourself Cost Rage instead of requiring Souls
 You cannot gain Rage during Soul Gain Prevention
 ]],[[
 Empire's Grasp
 Goliath Gauntlets
 Requires Level 53, 76 Str
+Socketed Gems are Supported by Level 10 Knockback
 +(400-600) to Armour
 Knockback direction is reversed
-Socketed Gems are Supported by Level 10 Knockback
 ]],[[
 Giantsbane
 Bronze Gauntlets
@@ -142,9 +144,9 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 (10-15)% increased Attack Speed
+(10-15)% increased Cast Speed
 {variant:1}+(10-20) to Armour
 {variant:2}+(20-30) to maximum Life
-(10-15)% increased Cast Speed
 (10-15)% reduced maximum Mana
 {variant:2}10% chance to gain a Power, Frenzy or Endurance Charge on Kill
 {variant:3}(10-15)% chance to gain a Power, Frenzy or Endurance Charge on Kill
@@ -158,14 +160,14 @@ Variant: Pre 3.19.0
 Variant: Current
 Requires Level 35, 52 Str
 {variant:4}Melee Strike Skills deal Splash Damage to surrounding targets
-{variant:1,2,3}10% increased Global Physical Damage
 {variant:1,2,3}+100 to Strength
 {variant:4}+50 to Strength
+{variant:1,2,3}10% increased Global Physical Damage
 {variant:1}(5-15)% reduced Attack Speed
 {variant:1,2,3}(40-60)% increased Armour
 {variant:4}(150-200)% increased Armour
-{variant:3}Regenerate 2% of Life per second with at least 400 Strength
 {variant:4}100% increased Knockback Distance
+{variant:3}Regenerate 2% of Life per second with at least 400 Strength
 {variant:4}Melee Hits with Strike Skills always Knockback
 ]],[[
 Veruso's Battering Rams
@@ -186,7 +188,7 @@ Trigger Socketed Curse Spell when you Cast a Curse Spell, with a 0.25 second Coo
 +(50-90) to maximum Energy Shield
 0.2% of Spell Damage Leeched as Energy Shield for each Curse on Enemy
 You can apply an additional Curse
-(10-20)% increased Cast Speed with Curse Skills
+Curse Skills have (10-20)% increased Cast Speed
 ]],[[
 Winds of Change
 Ancient Gauntlets
@@ -200,8 +202,7 @@ Requires Level 47, 68 Str
 {variant:2}(5-10)% reduced Movement Speed
 10% chance to Knock Enemies Back on hit
 (30-50)% increased Projectile Damage
-]],
-[[
+]],[[
 The Caged Mammoth
 Antique Gauntlets
 Source: Drops from unique{Uber Incarnation of Fear} in normal{Moment of Trauma}
@@ -230,11 +231,11 @@ Variant: Pre 3.19.0
 Variant: Current
 Requires Level 9, 17 Dex
 +(20-30) to Strength
-{variant:1}50% increased Evasion Rating
+{variant:2}Adds (5-7) to (13-15) Cold Damage to Spells and Attacks
+{variant:1}+50 to Evasion Rating
 {variant:2,3}+(40-50) to Evasion Rating
 {variant:1}+(10-20)% to Cold Resistance
 {variant:2,3}+(20-30)% to Cold Resistance
-{variant:2}Adds (5-7) to (13-15) Cold Damage to Spells and Attacks
 {variant:1}25% of Physical Damage Converted to Cold Damage
 {variant:2}50% of Physical Damage Converted to Cold Damage
 {variant:3}100% of Physical Damage Converted to Cold Damage
@@ -248,11 +249,11 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 24, 17 Dex
 +(20-30) to Strength
-{variant:1}50% increased Evasion Rating
+{variant:2}Adds (5-7) to (13-15) Cold Damage to Spells and Attacks
+{variant:1}+50 to Evasion Rating
 {variant:2}+(40-50) to Evasion Rating
 {variant:1}+(10-20)% to Cold Resistance
 {variant:2}+(20-30)% to Cold Resistance
-{variant:2}Adds (5-7) to (13-15) Cold Damage to Spells and Attacks
 {variant:1}25% of Physical Damage Converted to Cold Damage
 {variant:2}50% of Physical Damage Converted to Cold Damage
 Reflects 10 Cold Damage to Melee Attackers
@@ -272,8 +273,8 @@ Requires Level 21, 33 Dex
 {variant:1}+(40-50)% to Global Critical Strike Multiplier
 {variant:2}+(28-36)% to Global Critical Strike Multiplier
 {variant:3}+(20-30)% to Global Critical Strike Multiplier
-{variant:4}Your Critical Strike Multiplier is 300%
 (60-80)% increased Evasion Rating
+{variant:4}Your Critical Strike Multiplier is 300%
 ]],[[
 Mercenary's Lot
 Slink Gloves
@@ -285,20 +286,20 @@ Requires Level 70, 95 Dex
 (5-8)% increased Attack and Cast Speed
 Mark Skills have (10-15)% increased Cast Speed
 (30-50)% increased Damage with Hits and Ailments against Marked Enemy
-Your Mark transfers to another Enemy when Marked Enemy dies
 {variant:2}8% of Damage from Hits is taken from Marked Target's Life before you
+Your Mark Transfers to another Enemy when Marked Enemy dies
 ]],[[
 Oskarm
 Nubuck Gloves
 Variant: Pre 3.16.0
 Variant: Current
 Requires Level 52, 50 Dex
-Trigger Level 10 Assassin's Mark when you Hit a Rare or Unique Enemy
-(30-40)% increased Accuracy Rating
+Trigger Level 10 Assassin's Mark when you Hit a Rare or Unique Enemy and have no Mark
+{variant:1}+(7-8)% chance to Suppress Spell Damage
+{variant:2}+(10-12)% chance to Suppress Spell Damage
+(30-40)% increased Global Accuracy Rating
 +(40-50) to maximum Life
 -(20-10)% to Chaos Resistance
-{variant:1}(7-8)% chance to Suppress Spell Damage
-{variant:2}(10-12)% chance to Suppress Spell Damage
 2% increased Attack Critical Strike Chance per 200 Accuracy Rating
 ]],[[
 Painseeker
@@ -308,10 +309,9 @@ Adds (16-19) to (25-29) Fire Damage
 Adds (16-19) to (25-29) Cold Damage
 Adds (6-10) to (33-38) Lightning Damage
 (60-120)% increased Evasion Rating
-Critical Strikes do not inherently apply non-Damaging Ailments
+Critical Strikes do not inherently inflict non-Damaging Ailments
 Inflict non-Damaging Ailments as though dealing (100-200)% more Damage
-]],
-[[
+]],[[
 Hand of the Lords
 Carnal Mitts
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
@@ -336,7 +336,7 @@ Variant: Current
 {variant:3}Grants Level 25 Blight Skill
 {variant:1}(20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
-10% increased Area of Effect of Area Skills
+10% increased Area of Effect
 Blight has (20-30)% increased Hinder Duration
 You cannot be Hindered
 ]],[[
@@ -348,8 +348,8 @@ Variant: Pre 3.26.0
 Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-{variant:1,2}Grants Level 22 Wintertide Brand
-{variant:3}Grants Level 25 Wintertide Brand
+{variant:1,2}Grants Level 22 Wintertide Brand Skill
+{variant:3}Grants Level 25 Wintertide Brand Skill
 {variant:1}(20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
 10% increased Area of Effect
@@ -370,8 +370,8 @@ Requires Level 25, 39 Int
 {variant:3}+(60-80) to maximum Mana
 {variant:1,2,3}Curse Enemies with Temporal Chains on Hit
 {variant:3}Non-Aura Curses you inflict are not removed from Dying Enemies
-{variant:3}Enemies near Corpses affected by your Curses are Blinded
-{variant:3}Enemies killed near Corpses affected by your Curses explode, dealing
+{variant:3}Enemies near corpses affected by your Curses are Blinded
+{variant:3}Enemies Killed near corpses affected by your Curses explode, dealing
 {variant:3}3% of their Life as Physical Damage
 ]],[[
 Black Zenith
@@ -425,8 +425,8 @@ Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 64, 21 Int
-(50-60)% increased Spell Damage
 +20 to Intelligence
+(50-60)% increased Spell Damage
 Adds (48-56) to (73-84) Chaos Damage to Spells
 15% reduced Cast Speed
 +(64-96) to maximum Energy Shield
@@ -498,13 +498,13 @@ Variant: Pre 3.11.0
 Variant: Current
 Requires Level 55, 79 Int
 +1 to Level of Socketed Elemental Gems
-(125-150)% increased Critical Strike Chance for Spells
+(125-150)% increased Spell Critical Strike Chance
 {variant:1,2}(280-350)% increased Energy Shield
 {variant:3,4}(180-250)% increased Energy Shield
 {variant:1}80% increased Mana Cost of Skills
 {variant:2,3}(40-80)% increased Mana Cost of Skills
-{variant:4}Lose (40-80) Mana when you use a Skill
 Gain (15-20) Energy Shield per Enemy Killed
+{variant:4}Lose (40-80) Mana when you use a Skill
 ]],
 -- Gloves: Armour/Evasion
 [[
@@ -512,8 +512,8 @@ Aurseize
 Steelscale Gauntlets
 Requires Level 36, 29 Str, 29 Dex
 (40-60)% increased Armour and Evasion
-+15% to all Elemental Resistances
 (40-50)% increased Rarity of Items found
++15% to all Elemental Resistances
 5% reduced Movement Speed
 ]],[[
 Breathstealer
@@ -533,9 +533,9 @@ Hydrascale Gauntlets
 League: Bestiary
 Source: Drops from unique{Farrul, First of the Plains}
 Requires Level 59, 45 Str, 45 Dex
++(400-500) to Accuracy Rating
 (100-140)% increased Armour and Evasion
 +(50-70) to maximum Life
-+(400-500) to Accuracy against Bleeding Enemies
 Attacks always inflict Bleeding while you have Cat's Stealth
 (40-50)% increased Damage with Hits and Ailments against Bleeding Enemies
 You have Crimson Dance while you have Cat's Stealth
@@ -569,7 +569,7 @@ Attacks have 25% chance to cause Bleeding
 (25-40)% increased Attack Damage against Bleeding Enemies
 Bleeding Enemies you Kill Explode, dealing 5% of
 their Maximum Life as Physical Damage
-25% reduced Bleed duration
+25% reduced Bleeding Duration
 ]],[[
 Slitherpinch
 Bronzescale Gauntlets
@@ -622,12 +622,12 @@ Variant: Searching: Onslaught
 {variant:1,2}(6-10)% increased Attack Speed
 {variant:3}(5-10)% increased Attack Speed
 {variant:1,2}(4-6)% increased maximum Life
+{variant:11}With a Searching Eye Jewel Socketed, Attacks have 25% chance to grant Onslaught On Kill
 {variant:6}With a Murderous Eye Jewel Socketed, Intimidate Enemies for 4 seconds on Hit with Attacks
-{variant:7}With a Murderous Eye Jewel Socketed, Melee Hits have 25% chance to Fortify
-{variant:8}With a Murderous Eye Jewel Socketed, Melee Attacks grant 1 Rage on Hit, no more than once every second
 {variant:9}With a Searching Eye Jewel Socketed, Maim Enemies for 4 seconds on Hit with Attacks
 {variant:10}With a Searching Eye Jewel Socketed, Blind Enemies for 4 seconds on Hit with Attacks
-{variant:11}With a Searching Eye Jewel Socketed, Attacks have 25% chance to grant Onslaught On Kill
+{variant:8}With a Murderous Eye Jewel Socketed, Melee Attacks grant 1 Rage on Hit
+{variant:7}With a Murderous Eye Jewel Socketed, Melee Hits have 25% chance to Fortify
 ]],[[
 Vaal Caress
 Bronzescale Gauntlets
@@ -672,8 +672,10 @@ Wyrmscale Gauntlets
 (8-12)% increased Attack Speed
 (100-150)% increased Armour and Evasion
 (2-3)% of Physical Attack Damage Leeched as Life
-10% chance to gain Adrenaline for 2 Seconds when Leech is removed by Filling Unreserved Life
-10% chance to gain Onslaught for 4 Seconds when Leech is removed by Filling Unreserved Life
+10% chance to gain Adrenaline for 2 Seconds when Leech is
+removed by Filling Unreserved Life
+10% chance to gain Onslaught for 4 Seconds when Leech is
+removed by Filling Unreserved Life
 ]],
 -- Gloves: Armour/Energy Shield
 [[
@@ -691,16 +693,16 @@ Requires Level 37, 29 Str, 29 Int
 (6-10)% increased Cast Speed
 (4-6)% increased maximum Life
 {variant:1,2}With a Ghastly Eye Jewel Socketed, Minions have +1000 to Accuracy Rating
-{variant:3,4}With a Ghastly Eye Jewel Socketed, Minions have 25% chance to gain Unholy Might on Hit with Spells
 With a Hypnotic Eye Jewel Socketed, gain Arcane Surge on Hit with Spells
+{variant:3,4}With a Ghastly Eye Jewel Socketed, Minions have 25% chance to gain Unholy Might on Hit with Spells
 ]],[[
 The Hand of Phrecia
 Mesh Gloves
 League: Necropolis
 Requires Level 32, 26 Str, 26 Int
-(50–70)% increased Armour and Energy Shield
-+(10–15)% to all Elemental Resistances
-(20–40)% increased Effect of Non-Curse Auras from your Skills while you have a Linked Target
+(50-70)% increased Armour and Energy Shield
++(10-15)% to all Elemental Resistances
+(20-40)% increased Effect of Non-Curse Auras from your Skills while you have a Linked Target
 Linked Targets always count as in range of Non-Curse Auras from your Skills
 Non-Curse Auras from your Skills only apply to you and Linked Targets
 ]],[[
@@ -714,8 +716,8 @@ Requires Level 43, 34 Str, 34 Int
 (70-130)% increased Armour and Energy Shield
 +(50-70) to maximum Life
 Gain Sacrificial Zeal when you use a Skill, dealing you 150% of the Skill's Mana Cost as Physical Damage per Second
-{variant:1}Hits Overwhelm (10-15)% of Physical Damage Reduction while you have Sacrificial Zeal
-{variant:2}(35-50)% chance for Hits to ignore Enemy Physical Damage Reduction while you have Sacrificial Zeal
+{variant:1}Hits have (10-15)% chance to ignore Enemy Physical Damage Reduction while you have Sacrificial Zeal
+{variant:2}Hits have (35-50)% chance to ignore Enemy Physical Damage Reduction while you have Sacrificial Zeal
 ]],[[
 Hands of the High Templar
 Crusader Gloves
@@ -734,7 +736,7 @@ Requires Level 57, 44 Str, 44 Int
 (150-180)% increased Armour and Energy Shield
 +(50-70) to maximum Life
 (20-40)% increased Mana Regeneration Rate
-Dispels Elemental Ailments on Rampage
+Removes Elemental Ailments on Rampage
 Gain Immunity to Physical Damage for 1.5 seconds on Rampage
 Rampage
 ]],[[
@@ -757,11 +759,11 @@ Variant: Current
 Requires Level 66, 306 Str, 306 Int
 500% increased Attribute Requirements
 {variant:2}(6-12)% increased Strength
-{variant:1}(0-30)% reduced Spell Damage
 {variant:1}(120-180)% increased Armour and Energy Shield
 {variant:2}(400-500)% increased Armour and Energy Shield
 {variant:1}+(8-16) to maximum Energy Shield
 Iron Will
+{variant:1}(0-30)% reduced Spell Damage
 ]],[[
 Saqawal's Winds
 Soldier Gloves
@@ -780,8 +782,8 @@ Chain Gloves
 Variant: Pre 1.2.0
 Variant: Current
 Requires Level 7, 17 Dex
-(40-60)% increased Stun and Block Recovery
 Hexes applied by Socketed Curse Skills are Reflected back to you
+(40-60)% increased Stun and Block Recovery
 You cannot be Chilled for 3 seconds after being Chilled
 You cannot be Frozen for 3 seconds after being Frozen
 You cannot be Ignited for 3 seconds after being Ignited
@@ -821,10 +823,10 @@ Requires Level 51, 40 Str, 40 Int
 {variant:3}Adds (60-72) to (88-100) Cold Damage to Attacks
 (12-16)% increased maximum Life
 +(40-50)% to Cold Resistance
-{variant:2}50% increased Herald of Ice Damage
 {variant:1,2}25% increased Freeze Duration on Enemies
 {variant:3}100% increased Freeze Duration on Enemies
-Your Hits can only Kill Frozen enemies
+Your Hits can only Kill Frozen Enemies
+{variant:2}50% increased Herald of Ice Damage
 ]],[[
 Triad Grip
 Mesh Gloves
@@ -849,12 +851,12 @@ Requires Level 43, 34 Str, 34 Int
 {variant:1}+(30-40)% to Fire Resistance
 {variant:2}+(30-40)% to Cold Resistance
 {variant:3}+(30-40)% to Lightning Resistance
-50% less Poison Duration
-{variant:1}Your Fire Damage can Poison
 {variant:2}Your Cold Damage can Poison
+{variant:1}Your Fire Damage can Poison
 {variant:3}Your Lightning Damage can Poison
-{variant:1}Fire Skills have 20% chance to Poison on Hit
+50% less Poison Duration
 {variant:2}Cold Skills have 20% chance to Poison on Hit
+{variant:1}Fire Skills have 20% chance to Poison on Hit
 {variant:3}Lightning Skills have 20% chance to Poison on Hit
 ]],[[
 Replica Volkuur's Guidance
@@ -879,7 +881,7 @@ Requires Level 77, 70 Str, 70 Int
 (15-25)% increased Life Regeneration rate
 15% increased Area of Effect of Aura Skills
 Excommunicate Enemies on Melee Hit for 3 seconds
-{variant:2}+(0.8-1.6)% to Critical Strike Chance against Excommunicated Enemies
+{variant:2}Melee Attacks have +(0.8-1.6)% to Critical Strike Chance against Excommunicated Enemies
 ]],
 -- Gloves: Evasion/Energy Shield
 [[
@@ -899,7 +901,7 @@ Stormseeker
 Ambush Mitts
 +(40-60) to maximum Energy Shield
 +(40-60) to maximum Mana
-(60-100)% increased Effect of Chill you inflict while Leeching Mana
+(60-100)% increased Effect of Chills you inflict while Leeching Mana
 (60-100)% increased Effect of Shocks you inflict while Leeching Energy Shield
 Unaffected by Chill while Leeching Mana
 Unaffected by Shock while Leeching Energy Shield
@@ -923,8 +925,8 @@ Requires Level 31, 25 Dex 25 Int
 (5-7)% increased Cast Speed
 (100-150)% increased Evasion and Energy Shield
 Raised Zombies have (80-100)% increased maximum Life
-Raise Zombie does not require a Corpse
-Your Raised Zombies count as Corpses
+Raise Zombie does not require a corpse
+Your Raised Zombies count as corpses
 ]],[[
 Architect's Hand
 {variant:1}Strapped Mitts
@@ -941,8 +943,8 @@ Upgrade: Upgrades to unique{Slavedriver's Hand} via currency{Vial of Dominance}
 {variant:2}(200-250)% increased Evasion and Energy Shield
 (20-30)% reduced Trap Throwing Speed
 {variant:1}Skills used by Traps have (10-20)% increased Area of Effect
-{variant:2}(4-6)% chance to throw up to 4 additional Traps
 Increases and Reductions to Cast Speed also Apply to Trap Throwing Speed
+{variant:2}(4-6)% chance to throw up to 4 additional Traps
 ]],[[
 Slavedriver's Hand
 Ambush Mitts
@@ -952,10 +954,11 @@ Requires Level 45, 35 Dex, 35 Int
 +(30-40) to Dexterity
 (200-250)% increased Evasion and Energy Shield
 (20-30)% reduced Trap Throwing Speed
-Skills which throw Traps Cost Life instead of Mana
 Skills used by Traps have (10-20)% increased Area of Effect
 Increases and Reductions to Cast Speed also Apply to Trap Throwing Speed
-10% chance to gain an Endurance, Frenzy or Power Charge when any of your Traps is Triggered by an Enemy
+10% chance to gain an Endurance, Frenzy or Power Charge when any
+of your Traps are Triggered by an Enemy
+Skills which throw Traps Cost Life instead of Mana
 ]],[[
 Blasphemer's Grasp
 Assassin's Mitts
@@ -967,7 +970,7 @@ Requires Level 58, 45 Dex, 45 Int
 +(50-60) to maximum Life
 +6 to Maximum Life per Elder Item Equipped
 +4% to Damage over Time Multiplier for Ailments per Elder Item Equipped
-8% increased Effect of non-Damaging Ailments per Elder Item Equipped
+8% increased Effect of Non-Damaging Ailments per Elder Item Equipped
 Remove an Ailment when you use a Flask if all Equipped Items are Elder Items
 ]],[[
 The Embalmer
@@ -993,7 +996,7 @@ Requires Level 16, 14 Dex, 14 Int
 {variant:4}+45% to Global Critical Strike Multiplier
 {variant:5,6}+30% to Global Critical Strike Multiplier
 10% reduced Enemy Stun Threshold
-{variant:1}(800-1000)% more Unarmed Physical Damage
+{variant:1}(800-1000)% more Physical Damage with Unarmed Melee Attacks
 {variant:2,3,4,5}(600-800)% more Physical Damage with Unarmed Melee Attacks
 {variant:6}(600-1000)% more Physical Damage with Unarmed Melee Attacks
 Extra gore
@@ -1018,7 +1021,7 @@ Elder Item
 Source: Drops from unique{The Elder} (Uber Uber)
 (120-150)% increased Evasion and Energy Shield
 +(17-29)% to Chaos Resistance
-{variant:1}Eat a Soul when you Hit a Unique Enemy, no more than once every second
+{variant:1}Eat a Soul when you Hit a Rare or Unique Enemy, no more than once every 0 seconds
 {variant:2}Eat a Soul when you Hit a Rare or Unique Enemy, no more than once every 0.5 seconds
 +(-10-10) to maximum number of Eaten Souls
 ]],[[
@@ -1084,7 +1087,7 @@ Requires Level 58, 45 Dex, 45 Int
 2% increased Attack Speed per Frenzy Charge
 6% increased Accuracy Rating per Frenzy Charge
 10% reduced Frenzy Charge Duration per Frenzy Charge
-{variant:1}While at Maximum Frenzy Charges, Attacks Poison Enemies
+{variant:1}While at maximum Frenzy Charges, Attacks Poison Enemies
 {variant:2,3}Attacks have 60% chance to Poison while at maximum Frenzy Charges
 {variant:3}+5% to Damage over Time Multiplier for Poison per Frenzy Charge
 ]],[[
@@ -1110,8 +1113,8 @@ Requires Level 67, 51 Dex, 51 Int
 {variant:1,3}Adds 1 to 100 Lightning Damage to Attacks
 {variant:2}Adds 1 to 40 Lightning Damage to Attacks
 10% increased Attack Speed
-{variant:1,2,3}+(25-30) to maximum Energy Shield
 {variant:4}(150-200)% increased Evasion and Energy Shield
+{variant:1,2,3}+(25-30) to maximum Energy Shield
 {variant:1,2,3}10% increased Stun Duration on Enemies
 {variant:1,2,3}100% increased Duration of Lightning Ailments
 {variant:4}100% increased Effect of Lightning Ailments

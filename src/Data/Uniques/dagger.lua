@@ -45,9 +45,9 @@ Implicits: 1
 (20-40)% increased Physical Damage
 Adds (3-6) to (9-13) Physical Damage
 10% increased Attack Speed
-Extra Gore
 {variant:1}10% chance to cause Bleeding on Hit
 {variant:2}30% chance to cause Bleeding on Hit
+Extra gore
 ]],[[
 Replica Bloodplay
 Stiletto
@@ -89,9 +89,9 @@ Variant: Current
 Requires Level 53, 58 Dex, 123 Int
 Implicits: 1
 40% increased Global Critical Strike Chance
-+1 to Level of all Fire Spell Skill Gems
-(40-60)% increased Fire Damage
 +(20-40) to Intelligence
+(40-60)% increased Fire Damage
++1 to Level of all Fire Spell Skill Gems
 {variant:1}45% of Fire Damage Converted to Chaos Damage
 {variant:2,3}30% of Fire Damage Converted to Chaos Damage
 {variant:1,2}Your Chaos Damage Poisons Enemies
@@ -130,8 +130,8 @@ Implicits: 1
 (50-70)% increased Physical Damage
 Adds (1-2) to (3-5) Physical Damage
 30% increased Critical Strike Chance
-50% chance to cause Bleeding on Critical Strike
 40% increased Attack Damage against Bleeding Enemies
+50% chance to cause Bleeding on Critical Strike
 ]],[[
 Sanguine Gambol
 Skinning Knife
@@ -139,12 +139,12 @@ Source: No longer obtainable
 Requires Level 59
 Implicits: 1
 30% increased Global Critical Strike Chance
++(10-15) to Dexterity
 (50-70)% increased Physical Damage
 Adds (70-85) to (110-118) Physical Damage
-+(10-15) to Dexterity
 30% increased Critical Strike Chance
-50% chance to cause Bleeding on Critical Strike
 40% increased Attack Damage against Bleeding Enemies
+50% chance to Cause Bleeding on Critical Strike
 You have Crimson Dance if you have dealt a Critical Strike Recently
 ]],[[
 Goblinedge
@@ -220,25 +220,25 @@ Implicits: 1
 {variant:1}(180-210)% increased Physical Damage
 {variant:2}(210-240)% increased Physical Damage
 {variant:3,4}(250-270)% increased Physical Damage
-{variant:1,2,3}10% reduced Attack Speed
+{variant:1,2,3}10% increased Attack Speed
 {variant:4}20% reduced Attack Speed
-{variant:1,2,3}+(6-10)% to all Elemental Resistances
-{variant:1,2}Melee Critical Strikes have 25% chance to cause Bleeding
-{variant:3,4}50% chance to Cause Bleeding on Critical Strike
-{variant:1,2}Melee Critical Strikes have 25% chance to Poison the Enemy
-{variant:3,4}50% chance to Cause Poison on Critical Strike
 {variant:4}(20-30)% increased Critical Strike Chance
 {variant:4}+(30-40)% to Global Critical Strike Multiplier
+{variant:1,2,3}+(6-10)% to all Elemental Resistances
+{variant:3,4}50% chance to Cause Bleeding on Critical Strike
+{variant:3,4}50% chance to Cause Poison on Critical Strike
+{variant:1,2}Melee Critical Strikes have 25% chance to cause Bleeding
+{variant:1,2}Melee Critical Strikes have 25% chance to Poison the Enemy
 ]],[[
 Mightflay
 Flaying Knife
 Requires Level 35, 73 Dex, 51 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
++25 to Strength
 (80-100)% increased Physical Damage
 Adds 12 to 24 Physical Damage
-+25 to Strength
-Gain 10 Life per Enemy Hit with Attacks
+Grants 10 Life per Enemy Hit
 ]],[[
 Taproot
 Ambusher
@@ -263,8 +263,8 @@ Implicits: 1
 30% increased Global Critical Strike Chance
 {variant:2}+20% Chance to Block Attack Damage while Dual Wielding
 {variant:1,3}+12% Chance to Block Attack Damage while Dual Wielding
-(80-100)% increased Physical Damage
 +(10-20) to Dexterity
+(80-100)% increased Physical Damage
 Adds 3 to 30 Lightning Damage
 10% increased Attack Speed
 50% increased Global Critical Strike Chance
@@ -290,14 +290,14 @@ Variant: Current
 Requires Level 68, 76 Dex, 149 Int
 Implicits: 1
 40% increased Global Critical Strike Chance
-Adds (85-110) to (130-150) Physical Damage
+Adds (85-110) to (135-150) Physical Damage
 Adds (130-160) to (220-240) Fire Damage
 {variant:2}50% chance to cause Bleeding on Hit
 {variant:1}Attacks with this Weapon deal (80-100) to (160-200) added Fire Damage to Bleeding Enemies
 {variant:1}Attacks with this Weapon deal (80-100) to (160-200) added Physical Damage to Ignited Enemies
 {variant:1}Attacks with this Weapon have 25% chance to inflict Bleeding against Ignited Enemies
-{variant:2}(75-100)% increased Fire Damage with Hits and Ailments against Bleeding Enemies
-{variant:2}(75-100)% increased Physical Damage with Hits and Ailments against Ignited Enemies
+{variant:2}(70-100)% increased Fire Damage with Hits and Ailments against Bleeding Enemies
+{variant:2}(70-100)% increased Physical Damage with Hits and Ailments against Ignited Enemies
 Every 8 seconds, gain Avatar of Fire for 4 seconds
 {variant:1}(80-120)% increased Critical Strike Chance while you have Avatar of Fire
 {variant:2}(160-200)% increased Critical Strike Chance while you have Avatar of Fire
@@ -317,10 +317,10 @@ Adds (160-190) to (280-320) Cold Damage
 (10-15)% increased Attack Speed
 {variant:1}+(300-400) to Evasion Rating
 {variant:2,3}+(1000-1500) to Evasion Rating
-{variant:1,2}(15-25)% chance to Suppress Spell Damage while your Off Hand is empty
-{variant:3}(30-40)% chance to Suppress Spell Damage while your Off Hand is empty
 {variant:1}100% increased Cold Damage while your Off Hand is empty
 {variant:2,3}(100-200)% increased Cold Damage while your Off Hand is empty
+{variant:1,2}+(15-25)% chance to Suppress Spell Damage while your Off Hand is empty
+{variant:3}+(30-40)% chance to Suppress Spell Damage while your Off Hand is empty
 ]],[[
 Widowmaker
 Boot Blade
@@ -333,7 +333,7 @@ Implicits: 1
 {variant:2}Adds (35-40) to (55-60) Physical Damage
 (22-30)% increased Critical Strike Chance
 +(30-40)% to Global Critical Strike Multiplier
-100% increased Critical Strike Chance against Enemies on Full Life
+100% increased Critical Strike Chance against Enemies that are on Full Life
 1% of Attack Damage Leeched as Life on Critical Strike
 ]],
 [[

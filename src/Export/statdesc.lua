@@ -37,8 +37,8 @@ local function parseStatFile(target, order, fileName)
 			if langName then
 				curLang = { }
 				--curDescriptor.lang[langName] = curLang
-			else
-				local statLimits, text, special = line:match('([%d%-#| ]+) "(.-)"%s*(.*)')
+			elseif not line:match('table_only') then
+				local statLimits, quality, text, special = line:match('([%d%-#| !]+)%s*([%w_]*)%s*"(.-)"%s*(.*)')
 				if statLimits then
 					local desc = { text = text, limit = { } }
 					for statLimit in statLimits:gmatch("[!%d%-#|]+") do
@@ -63,12 +63,37 @@ local function parseStatFile(target, order, fileName)
 						end
 						table.insert(desc.limit, limit)
 					end
-					for k, v in special:gmatch("([%w%%_]+) (%w+)") do
-						table.insert(desc, {
-							k = k,
-							v = tonumber(v) or v,
-						})
-						nk[k] = v
+					local specialTokens = { }
+					for token in special:gmatch("([%w%%_]+)") do
+						table.insert(specialTokens, token)
+					end
+					local tokenIndex = 1
+					while tokenIndex <= #specialTokens do
+						local token = specialTokens[tokenIndex]
+						if token == "canonical_line" then
+							table.insert(desc, {
+								k = "canonical_line",
+								v = true,
+							})
+							nk["canonical_line"] = true
+							tokenIndex = tokenIndex + 1
+						else
+							local value = specialTokens[tokenIndex + 1]
+							if value then
+								table.insert(desc, {
+									k = token,
+									v = tonumber(value) or value,
+								})
+								nk[token] = value
+								tokenIndex = tokenIndex + 2
+							else
+								tokenIndex = tokenIndex + 1
+							end
+						end
+					end
+					if quality:match("gem_quality") then
+						desc[quality] = true
+						nk["gem_quality"] = true
 					end
 					table.insert(curLang, desc)
 				end
@@ -151,7 +176,12 @@ local function matchLimit(lang, val)
 	for _, desc in ipairs(lang) do
 		local match = true
 		for i, limit in ipairs(desc.limit) do
-			if (limit[2] ~= "#" and val[i].min > limit[2]) or (limit[1] ~= "#" and val[i].min < limit[1]) then
+			if limit[1] == "!" then
+				if val[i].min == limit[2] then
+					match = false
+					break
+				end
+			elseif (limit[2] ~= "#" and val[i].min > limit[2]) or (limit[1] ~= "#" and val[i].min < limit[1]) then
 				match = false
 				break
 			end
@@ -200,6 +230,24 @@ function describeStats(stats)
 			val[i].fmt = "d"
 		end
 		local desc = matchLimit(descriptor[1], val)
+		-- Hack to handle ranges starting or ending at 0 where no descriptor is defined for 0
+		-- Attempt to adapt existing ranges
+		if not desc then
+			for _, s in ipairs(val) do
+				if s.min == 0 and s.max > 0 then
+					s.min = 1
+					s.minZ = true
+				elseif s.min < 0 and s.max == 0 then
+					s.max = -1
+					s.maxZ = true
+				end
+			end
+			desc = matchLimit(descriptor[1], val)
+			for _, s in ipairs(val) do
+				if s.minZ then s.min = 0 end
+				if s.maxZ then s.max = 0 end
+			end
+		end
 		if desc then
 			for _, spec in ipairs(desc) do
 				if spec.k == "negate" then
@@ -218,28 +266,28 @@ function describeStats(stats)
 					val[spec.v].min = val[spec.v].min / 2
 					val[spec.v].max = val[spec.v].max / 2
 				elseif spec.k == "divide_by_five" then
-					val[spec.v].min = round(val[spec.v].min / 5, 1)
-					val[spec.v].max = round(val[spec.v].max / 5, 1)
+					val[spec.v].min = val[spec.v].min / 5
+					val[spec.v].max = val[spec.v].max / 5
 					val[spec.v].fmt = "g"
 				elseif spec.k == "divide_by_six" then
-					val[spec.v].min = round(val[spec.v].min / 6, 1)
-					val[spec.v].max = round(val[spec.v].max / 6, 1)
+					val[spec.v].min = val[spec.v].min / 6
+					val[spec.v].max = val[spec.v].max / 6
 					val[spec.v].fmt = "g"
 				elseif spec.k == "divide_by_ten_1dp_if_required" or spec.k == "divide_by_ten_1dp" then
 					val[spec.v].min = round(val[spec.v].min / 10, 1)
 					val[spec.v].max = round(val[spec.v].max / 10, 1)
 					val[spec.v].fmt = "g"
 				elseif spec.k == "divide_by_twelve" then
-					val[spec.v].min = round(val[spec.v].min / 12, 1)
-					val[spec.v].max = round(val[spec.v].max / 12, 1)
+					val[spec.v].min = val[spec.v].min / 12
+					val[spec.v].max = val[spec.v].max / 12
 					val[spec.v].fmt = "g"
 				elseif spec.k == "divide_by_twenty" then
-					val[spec.v].min = round(val[spec.v].min / 20, 1)
-					val[spec.v].max = round(val[spec.v].max / 20, 1)
+					val[spec.v].min = val[spec.v].min / 20
+					val[spec.v].max = val[spec.v].max / 20
 					val[spec.v].fmt = "g"
 				elseif spec.k == "divide_by_one_hundred" then
-					val[spec.v].min = round(val[spec.v].min / 100, 1)
-					val[spec.v].max = round(val[spec.v].max / 100, 1)
+					val[spec.v].min = val[spec.v].min / 100
+					val[spec.v].max = val[spec.v].max / 100
 					val[spec.v].fmt = "g"
 				elseif spec.k == "divide_by_one_hundred_1dp" then
 					val[spec.v].min = round(val[spec.v].min / 100, 1)
@@ -272,6 +320,10 @@ function describeStats(stats)
 				elseif spec.k == "per_minute_to_per_second_0dp" then
 					val[spec.v].min = val[spec.v].min / 60
 					val[spec.v].max = val[spec.v].max / 60
+				elseif spec.k == "per_minute_to_per_second_1dp" then
+					val[spec.v].min = round(val[spec.v].min / 60, 1)
+					val[spec.v].max = round(val[spec.v].max / 60, 1)
+					val[spec.v].fmt = "g"
 				elseif spec.k == "milliseconds_to_seconds" then
 					val[spec.v].min = val[spec.v].min / 1000
 					val[spec.v].max = val[spec.v].max / 1000
@@ -316,6 +368,9 @@ function describeStats(stats)
 				elseif spec.k == "double" then
 					val[spec.v].min = val[spec.v].min * 2
 					val[spec.v].max = val[spec.v].max * 2
+				elseif spec.k == "plus_two_hundred" then
+					val[spec.v].min = val[spec.v].min + 200
+					val[spec.v].max = val[spec.v].max + 200
 				elseif spec.k == "reminderstring" or spec.k == "canonical_line" or spec.k == "_stat" then
 				elseif spec.k then
 					ConPrintf("Unknown description function: %s", spec.k)
@@ -365,8 +420,19 @@ end
 
 function describeMod(mod)
 	local stats = { }
+	local buffTemplateStats = { }
+	for _, buffTemplateKey in ipairs({ "BuffTemplate1", "BuffTemplate2" }) do
+		local buffTemplate = mod[buffTemplateKey]
+		if buffTemplate and buffTemplate.Stats then
+			for _, stat in ipairs(buffTemplate.Stats) do
+				if stat and stat.Id then
+					buffTemplateStats[stat.Id] = true
+				end
+			end
+		end
+	end
 	for i = 1, 6 do
-		if mod["Stat"..i] then
+		if mod["Stat"..i] and not buffTemplateStats[mod["Stat"..i].Id] then
 			stats[mod["Stat"..i].Id] = { min = mod["Stat"..i.."Value"][1], max = mod["Stat"..i.."Value"][2] }
 		end
 	end

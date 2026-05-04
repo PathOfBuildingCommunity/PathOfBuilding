@@ -295,6 +295,9 @@ return {
 ["skill_repeat_count"] = {
 	mod("RepeatCount", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Multicastable }),
 },
+["disable_skill_repeats"] = {
+	flag("CannotRepeat"),
+},
 ["display_skill_minions_level_is_corpse_level"] = {
 	skill("minionLevelIsEnemyLevel", true),
 },

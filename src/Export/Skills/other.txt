@@ -390,6 +390,7 @@ local skills, mod, flag, skill = ...
 
 #skill SupportDivineBlessing
 	fromItem = true,
+	hideFromGemList = true,
 	statMap = {
 		["support_aura_duration_base_buff_duration"] = {
 			skill("auraDuration", nil),
@@ -416,6 +417,7 @@ local skills, mod, flag, skill = ...
 
 #skill SupportEarthbreaker
 	fromItem = true,
+	hideFromGemList = true,
 	addFlags = {
 		totem = true,
 	},
@@ -436,7 +438,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportElementalPenetration Elemental Penetration
-	fromItem = true,
 #mods
 
 #skill ElementalWarding

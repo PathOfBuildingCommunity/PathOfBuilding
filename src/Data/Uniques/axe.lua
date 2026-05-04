@@ -93,9 +93,9 @@ Implicits: 0
 Adds (11-14) to (18-23) Physical Damage
 {variant:1}(10-15)% increased Attack Speed
 {variant:1}2% of Physical Attack Damage Leeched as Life
-{variant:1}50% reduced total Recovery per second from Life Leech
 25% chance to cause Bleeding on Hit
 {variant:2}+(25-35)% to Damage over Time Multiplier for Bleeding from Hits with this Weapon
+{variant:1}50% reduced total Recovery per second from Life Leech
 ]],[[
 Moonbender's Wing
 Tomahawk
@@ -157,8 +157,8 @@ Implicits: 0
 {variant:1,2,3}(20-25)% increased Attack Speed
 {variant:4,5}(25-35)% increased Attack Speed
 +(20-25)% to Cold Resistance
-Insufficient Mana doesn't prevent your Melee Attacks
 Your Physical Damage can Chill
+Insufficient Mana doesn't prevent your Melee Attacks
 {variant:5}Eat (2-4) Souls when you Kill a Rare or Unique Enemy with this Weapon
 ]],[[
 Replica Soul Taker
@@ -182,7 +182,7 @@ Trigger Level 20 Starfall on Melee Critical Strike
 (120-180)% increased Physical Damage
 (20-30)% increased Critical Strike Chance
 (10-20)% increased Area of Effect
-Gain (40-60)% of Weapon Physical Damage as Extra Damage of a Random Element
+Gain (40-60)% of Weapon Physical Damage as Extra Damage of a random Element
 ]],
 [[
 The Grey Wind
@@ -213,8 +213,8 @@ Implicits: 1
 {variant:3}Adds (310-330) to (370-390) Physical Damage
 (12-16)% increased Attack Speed
 25% chance to cause Bleeding on Hit
-{variant:1,2}+2 to Weapon Range
-{variant:3}+10 to Weapon Range
+{variant:1,2}+0.2 metres to Weapon Range
+{variant:3}+1 metres to Weapon Range
 ]],[[
 The Blood Reaper
 Headsman Axe
@@ -235,8 +235,8 @@ Debeon's Dirge
 Despot Axe
 Implicits: 0
 Adds (310-350) to (460-500) Cold Damage
-15% increased Movement Speed if you've used a Warcry Recently
-150% increased Elemental Damage if you've used a Warcry Recently
+15% increased Movement Speed if you've Warcried Recently
+150% increased Elemental Damage if you've Warcried Recently
 Warcries Knock Back and Interrupt Enemies in a smaller Area
 ]],[[
 The Harvest
@@ -287,8 +287,8 @@ Implicits: 0
 Gain 20 Life per Enemy Killed
 +(150-250) to Accuracy Rating
 Culling Strike
-{variant:3,4}Gain 1 Rage on Critical Hit with attacks, no more than once every 0.5 seconds
 {variant:5}Gain 5 Rage on Melee Hit
+{variant:3,4}Gain 1 Rage on Critical Strike with Attacks
 {variant:3,4,5}Every Rage also grants 1% of Physical Damage as Extra Fire Damage
 ]],[[
 Kingmaker
@@ -406,8 +406,7 @@ Implicits: 1
 {variant:1}(140-170)% increased Physical Damage
 {variant:2}(230-270)% increased Physical Damage
 15% reduced Attack Speed
-{variant:1}25% chance to Curse Enemies with Vulnerability on Hit
-{variant:2}Curse Enemies with Vulnerability on Hit
+Curse Enemies with Vulnerability on Hit
 {variant:1}Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
 {variant:2}Exerted Attacks deal 200% increased Damage
 {variant:2}Exerted Attacks Knock Enemies Back on Hit
@@ -423,9 +422,9 @@ Implicits: 1
 {variant:2,3}25% chance to Maim on Hit
 Trigger Level 20 Bone Nova when you Hit a Bleeding Enemy
 (280-320)% increased Physical Damage
-(30-25)% reduced Attack Speed
+(25-30)% reduced Attack Speed
+{variant:3}25% chance to cause Bleeding on Hit
 {variant:1,2}Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
-{variant:3}Attacks have 25% chance to inflict Bleeding
 ]],[[
 Wideswing
 Poleaxe
@@ -438,7 +437,7 @@ Socketed Gems are Supported by Level 20 Increased Area of Effect
 Gain 10 Mana per Enemy Killed
 {variant:1}+(50-80) to Accuracy Rating
 {variant:2}+(120-150) to Accuracy Rating
-+2 to Weapon Range
++0.2 metres to Weapon Range
 ]],[[
 Replica Wings of Entropy
 Ezomyte Axe

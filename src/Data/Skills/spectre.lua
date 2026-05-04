@@ -7953,7 +7953,7 @@ skills["AzmeriBasiliskShoulderMortar"] = {
 		{ "projectile_spread_radius", 8 },
 		{ "projectile_minimum_range", 15 },
 		{ "skill_physical_damage_%_to_convert_to_chaos", 60 },
-		{ "base_poison_duration_+%", 100 },
+		{ "active_skill_poison_duration_+%_final", 100 },
 		{ "base_chance_to_poison_on_hit_%", 60 },
 	},
 	stats = {
@@ -8034,7 +8034,7 @@ skills["AzmeriBasiliskDecapitateRightToLeft"] = {
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_chaos", 40 },
-		{ "base_poison_duration_+%", 50 },
+		{ "active_skill_poison_duration_+%_final", 50 },
 		{ "base_poison_damage_+%", 0 },
 		{ "base_chance_to_poison_on_hit_%", 40 },
 	},
@@ -8141,7 +8141,7 @@ skills["AzmeriBasiliskDualProjectileImpact"] = {
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_chaos", 40 },
-		{ "base_poison_duration_+%", 50 },
+		{ "active_skill_poison_duration_+%_final", 50 },
 		{ "base_chance_to_poison_on_hit_%", 60 },
 	},
 	stats = {
@@ -8197,7 +8197,7 @@ skills["AzmeriBasiliskShoulderMortar2"] = {
 		{ "projectile_spread_radius", 13 },
 		{ "projectile_minimum_range", 15 },
 		{ "skill_physical_damage_%_to_convert_to_chaos", 60 },
-		{ "base_poison_duration_+%", 100 },
+		{ "active_skill_poison_duration_+%_final", 100 },
 		{ "base_chance_to_poison_on_hit_%", 60 },
 	},
 	stats = {
@@ -11505,5 +11505,104 @@ skills["CrucibleVendigoFlickerStrike"] = {
 	},
 	levels = {
 		[1] = { cooldown = 3, levelRequirement = 1, storedUses = 1, },
+	},
+}
+skills["MPSFaridunWarlockBloodSpray"] = {
+	name = "Blood Spray",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.1000000238419,
+	incrementalEffectiveness = 0.03999999910593,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "monster_projectile_variation", 284 },
+		{ "projectile_maximum_range_override", 25 },
+		{ "base_number_of_projectiles", 3 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"base_is_projectile",
+		"action_attack_or_cast_time_uses_animation_length",
+		"check_for_targets_between_initiator_and_projectile_source",
+		"projectile_uses_contact_position",
+		"maintain_projectile_direction_when_using_contact_position",
+		"distribute_projectiles_over_contact_points",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["CGEFaridunWarlockSwarmGround"] = {
+	name = "Caustic Ground",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2,
+	incrementalEffectiveness = 0.027499999850988,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		area = true,
+		spell = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "active_skill_area_of_effect_radius_+%_final", -5 },
+		{ "base_skill_effect_duration", 5000 },
+		{ "ground_caustic_art_variation", 23 },
+		{ "spell_maximum_action_distance_+%", -40 },
+	},
+	stats = {
+		"base_chaos_damage_to_deal_per_minute",
+		"action_attack_or_cast_time_uses_animation_length",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 33.333334078391, cooldown = 15, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, }, },
+	},
+}
+skills["FaridunCasterUndeadDamageOverTimeAura"] = {
+	name = "Malevolence",
+	hidden = true,
+	color = 3,
+	description = "Casts an aura that multiplies damage over time and increases skill effect duration of you and your allies.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "aura_skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["delirium_aura_damage_over_time_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Dot, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["delirium_skill_effect_duration_+%"] = {
+			mod("Duration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		aura = true,
+	},
+	constantStats = {
+		{ "active_skill_area_of_effect_radius_+%_final", 50 },
+	},
+	stats = {
+		"delirium_aura_damage_over_time_+%_final",
+		"delirium_skill_effect_duration_+%",
+		"base_deal_no_damage",
+	},
+	levels = {
+		[1] = { 14, 10, cooldown = 0.5, levelRequirement = 0, storedUses = 1, statInterpolation = { 2, 2, }, },
+		[2] = { 17, 14, cooldown = 0.5, levelRequirement = 80, storedUses = 1, statInterpolation = { 2, 2, }, },
 	},
 }

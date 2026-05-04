@@ -10,6 +10,7 @@ local m_floor = math.floor
 local s_upper = string.upper
 
 local varList = LoadModule("Modules/ConfigOptions")
+local configVisibility = LoadModule("Modules/ConfigVisibility")
 
 local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
@@ -73,23 +74,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 		return true
 	end
 
-	-- blacklist for Show All Configurations
+	-- Override for Show All Configurations: when the toggle is on, show options that aren't on the shared exclusion list.
 	local function isShowAllConfig(varData)
-		local labelMatch = varData.label:lower()
-		local excludeKeywords = { "recently", "in the last", "in the past", "in last", "in past", "pvp" }
-
-		if not self.toggleConfigs then
-			return false
-		end
-		if varData.ifOption or varData.ifSkill or varData.ifSkillData or varData.ifSkillFlag or varData.legacy then
-			return false
-		end
-		for _, keyword in pairs(excludeKeywords) do
-			if labelMatch:find(keyword) then
-				return false
-			end
-		end
-		return true
+		return self.toggleConfigs and not configVisibility.isShowAllExcluded(varData)
 	end
 
 	local function implyCond(varData)
@@ -168,7 +155,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" or varData.type == "float" then
-				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 90, 18}, "", nil, (varData.type == "integer" and "^%-%d") or (varData.type == "float" and "^%d.") or "%D", 7, function(buf, placeholder)
+				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 90, 18}, "", nil, (varData.type == "integer" and "^%-%d") or (varData.type == "float" and "^%d.") or "%D", 10, function(buf, placeholder)
 					if placeholder then
 						self.configSets[self.activeConfigSetId].placeholder[varData.var] = tonumber(buf)
 					else

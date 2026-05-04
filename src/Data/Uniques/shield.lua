@@ -96,8 +96,9 @@ Variant: Current
 Implicits: 1
 {variant:3,4}+(20-30) to maximum Life
 {variant:1,2,3}(200-250)% increased Armour
+{variant:1,2,3}20% increased Stun and Block Recovery
 {variant:4}(180-220)% increased Armour
-20% increased Stun and Block Recovery
+{variant:4}20% increased Stun and Block Recovery
 {variant:1}+(80-100) to maximum Life
 {variant:2,3,4}+(160-180) to maximum Life
 5% reduced Movement Speed
@@ -107,16 +108,14 @@ Implicits: 1
 Lycosidae
 Rawhide Tower Shield
 Variant: Pre 3.0.0
-Variant: Pre 3.25.0
 Variant: Current
 Implicits: 1
-{variant:2,3}+(10-20) to maximum Life
+{variant:2}+(10-20) to maximum Life
 +(120-160) to Armour
 +(30-40) to maximum Life
 Your hits can't be Evaded
 +(3-5)% Chance to Block
-{variant:1,2}Adds 250 to 300 Cold Damage to Counterattacks
-{variant:3}Adds 250 to 300 Cold Damage to Retaliation Skills
+Adds 250 to 300 Cold Damage to Retaliation Skills
 ]],[[
 Magna Eclipsis
 Pinnacle Tower Shield
@@ -141,8 +140,8 @@ Variant: Pre 3.11.0
 Variant: Current
 Implicits: 1
 {variant:3,4}+(20-30) to maximum Life
-{variant:2,3,4}(80-100)% increased Armour
 {variant:1}+1 to Level of Socketed Warcry Gems
+{variant:2,3,4}(80-100)% increased Armour
 {variant:1}+(20-60) to maximum Life
 {variant:2,3,4}+(50-60) to maximum Life
 20% increased Taunt Duration
@@ -176,9 +175,9 @@ Implicits: 1
 (60-80)% increased Armour
 +(30-50) to maximum Life
 {variant:1}-10 Physical Damage taken from Projectile Attacks
-{variant:2,3}-(50-80) Physical Damage taken from Projectile Attacks
+{variant:2,3}-(80-50) Physical Damage taken from Projectile Attacks
 200% increased Armour against Projectiles
-+25% Chance to Block Projectile Attack Damage
++25% chance to Block Projectile Attack Damage
 ]],[[
 Trolltimber Spire
 Cedar Tower Shield
@@ -232,7 +231,7 @@ Implicits: 1
 +(40-60) to Intelligence
 {variant:1,2}(80-100)% increased Evasion Rating
 {variant:3}(180-200)% increased Evasion Rating
-+(20-30) to all Elemental Resistances
++(20-30)% to all Elemental Resistances
 {variant:2,3}50% reduced Duration of Curses on you
 Hex Reflection
 {variant:3}+10% Chance to Block Attack Damage while not Cursed
@@ -269,9 +268,9 @@ Implicits: 1
 {variant:1,2,3,4}+5% Chance to Block
 {variant:1,2,3,4}10% Chance to Cause Monster to Flee on Block
 {variant:5}100% Chance to Cause Monster to Flee on Block
+{variant:4}1% of Damage Leeched as Life against Cursed Enemies
 {variant:5}+20% Chance to Block Attack Damage from Cursed Enemies
 {variant:1,2,3}Curse Skills have 100% increased Skill Effect Duration
-{variant:4}1% of Damage Leeched as Life against Cursed Enemies
 {variant:5}Inflict Decay on Enemies you Curse with Hex Skills, dealing 700 Chaos Damage per Second for 8 Seconds
 ]],[[
 Thirst for Horrors
@@ -372,8 +371,6 @@ You have Phasing if you have Blocked Recently
 ]],[[
 Replica Mistwall
 Lacquered Buckler
-Variant: Pre 3.23.0
-Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
@@ -381,10 +378,9 @@ Implicits: 1
 (120-150)% increased Evasion Rating
 10% increased Movement Speed
 +(10-20)% to Fire and Cold Resistances
-{variant:1}+75% Chance to Block Spell Damage if you have not Blocked Recently
-{variant:2}You are at Maximum Chance to Block Spell Damage if you have not Blocked Recently
 +(8-15)% chance to Avoid Physical Damage from Hits while Phasing
 You have Phasing if you have Blocked Recently
+You are at Maximum Chance to Block Spell Damage if you have not Blocked Recently
 ]],[[
 Mutewind Pennant
 Enameled Buckler
@@ -392,20 +388,18 @@ League: Warbands
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
-Variant: Pre 3.24.0
 Variant: Current
 Implicits: 1
 {variant:3,4,5}6% increased Movement Speed
 {variant:1}+1 to Level of Socketed Warcry Gems
 {variant:1}(20-30)% increased Chaos Damage
-{variant:2,3,4,5}(80-100)% Increased Evasion Rating
+{variant:2,3,4}(80-100)% increased Evasion Rating
 +(20-40)% to Cold Resistance
 10% increased Area of Effect
 {variant:1}You gain Onslaught for 2 seconds on Killing Taunted Enemies
-{variant:2,3,4,5}Gain Onslaught for 4 seconds when you Warcry
-{variant:2,3,4,5}25% increased Warcry Buff Effect
-{variant:4}Warlord's Call
-{variant:5}Call to Arms
+{variant:2,3,4}Gain Onslaught for 4 seconds when you Warcry
+{variant:2,3,4}25% increased Warcry Buff Effect
+{variant:4}Call to Arms
 ]],[[
 Thousand Teeth Temu
 Vaal Buckler
@@ -422,9 +416,8 @@ Implicits: 1
 {variant:4}+10% Chance to Block
 {variant:1,2,3}Reflects 1 to 1000 Physical Damage to Attackers on Block
 {variant:4}Reflects 1000 to 10000 Physical Damage to Attackers on Block
-{variant:2,3}10% of Damage you Reflect to Enemies when Hit is gained as Life
-]],
-[[
+{variant:2,3}10% of Damage you Reflect to Enemies when Hit is leeched as Life
+]],[[
 Cowards' Wail
 Ezomyte Tower Shield
 Requires Level 64, 159 Str
@@ -501,11 +494,11 @@ Variant: Spectre Flat Crit (Current)
 Variant: Spectre Increased AoE (Current)
 {variant:1,2,3,4,5,6,7,8,9,10,11,12}(30-50)% increased Spell Damage
 (180-220)% increased Energy Shield
-Spectres have (50-100)% increased maximum Life
+Raised Spectres have (50-100)% increased maximum Life
 Gain Arcane Surge when you deal a Critical Strike
 Your Raised Spectres also gain Arcane Surge when you do
-{variant:1,2,3,4,5,6,7,8,9,10,11,12}(40-50)% increased Critical Strike Chance for Spells per Raised Spectre
-{variant:13,14,15,16,17,18,19,20,21,22,23}(50-100)% increased Critical Strike Chance for Spells per Raised Spectre
+{variant:1,2,3,4,5,6,7,8,9,10,11,12}(40-50)% increased Spell Critical Strike Chance per Raised Spectre
+{variant:13,14,15,16,17,18,19,20,21,22,23}(50-100)% increased Spell Critical Strike Chance per Raised Spectre
 {variant:1}{crafted}Adds (3-12) to (5-16) Fire Damage
 {variant:1}{crafted}Adds (3-12) to (5-16) Cold Damage
 {variant:2}{crafted}Adds (3-12) to (5-16) Cold Damage
@@ -550,8 +543,8 @@ Implicits: 2
 +(70-90) to maximum Energy Shield
 (20-40)% increased Mana Regeneration Rate
 {variant:1}Gain 3 Mana per Taunted Enemy Hit
-{variant:2,3}Gain 2 Power Charges on Using a Warcry
 {variant:4}Warcries grant Arcane Surge to you and Allies, with 10% increased effect per 5 power, up to 50%
+{variant:2,3}Gain 2 Power Charges when you Warcry
 ]],[[
 Esh's Mirror
 {variant:1}Thorium Spirit Shield
@@ -587,7 +580,7 @@ Implicits: 2
 {variant:3}+(70-100) to maximum Life
 +(30-40)% to Lightning Resistance
 +(17-29)% to Chaos Resistance
-Chaos Damage does not bypass Energy Shield while not on Low Life
+Chaos Damage taken does not bypass Energy Shield while not on Low Life
 Reflect Shocks applied to you to all Nearby Enemies
 ]],[[
 The Eternal Apple
@@ -632,7 +625,7 @@ Implicits: 2
 {variant:1}10% increased Spell Damage
 {variant:2,3}(10-15)% increased Spell Damage
 {variant:3}Adds (35-39) to (54-60) Cold Damage to Spells
-(60-80)% increased Critical Strike Chance for Spells
+(60-80)% increased Spell Critical Strike Chance
 {variant:1,2}(100-140)% increased Energy Shield
 {variant:3}(475-600)% increased Energy Shield
 {variant:1,2}+(3-5)% Chance to Block
@@ -669,13 +662,13 @@ Implicits: 2
 {variant:2,3}(5-10)% increased Spell Damage
 {variant:1,2}(80-120)% increased Energy Shield
 {variant:1,2}+(50-70) to maximum Mana
+{variant:3}+(1-100) to maximum Mana
 {variant:1,2}(30-50)% increased Mana Regeneration Rate
+{variant:3}(1-100)% increased Mana Regeneration Rate
+{variant:3}Gain (1-100) Mana per Enemy Killed
+{variant:3}(1-100)% increased Mana Recovery from Flasks
 {variant:1,2}When you Cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage
 {variant:1,2}equal to 25% of Sacrificed Mana for 4 seconds
-{variant:3}+(1-100) to maximum Mana
-{variant:3}(1-100)% Increased Mana Regeneration Rate
-{variant:3}Gain (1-100) Mana per Enemy Killed
-{variant:3}(1-100)% Increased Mana Recovery from Flasks
 {variant:3}When you Cast a Spell, Sacrifice all Mana to gain Added Maximum Lightning Damage
 {variant:3}equal to 50% of Sacrificed Mana for 4 seconds
 ]],[[
@@ -728,8 +721,8 @@ Implicits: 0
 {variant:1,2}+25% to Lightning Resistance
 {variant:3}Sacrifice 4% of your Life when you Use or Trigger a Spell Skill
 {variant:4}Sacrifice 10% of your Life when you Use or Trigger a Spell Skill
-{variant:3}2% increased Critical Strike Chance for Spells per 100 Player Maximum Life
-{variant:4}5% increased Critical Strike Chance for Spells per 100 Player Maximum Life
+{variant:3}2% increased Spell Critical Strike Chance per 100 Player Maximum Life
+{variant:4}5% increased Spell Critical Strike Chance per 100 Player Maximum Life
 {variant:3}2% increased Spell Damage per 100 Player Maximum Life
 {variant:4}5% increased Spell Damage per 100 Player Maximum Life
 ]],[[
@@ -766,7 +759,7 @@ League: Affliction
 Requires Level 39, 52 Str, 52 Dex
 Implicits: 1
 180% increased Block Recovery
-(100–150)% increased Armour and Evasion
+(100-150)% increased Armour and Evasion
 +15% Chance to Block
 You take 100% of Elemental Damage from Blocked Hits
 40% of Elemental Damage from Hits taken as Physical Damage
@@ -784,16 +777,16 @@ Implicits: 1
 {variant:1,2,3}20% increased Global Physical Damage
 {variant:1,2,3}(100-120)% increased Armour and Evasion
 {variant:4}(200-250)% increased Armour and Evasion
+{variant:2,3}+(10-20)% to all Elemental Resistances
+{variant:4}+(20-30)% to all Elemental Resistances
 {variant:1}+(10-20)% to Fire Resistance
 {variant:1}+(10-20)% to Cold Resistance
 {variant:1}+(10-20)% to Lightning Resistance
-{variant:2,3}+(10-20)% to all Elemental Resistances
-{variant:4}+(20-30)% to all Elemental Resistances
 {variant:1,2,3}+(3-6)% Chance to Block
 {variant:2,3}+20% Chance to Block Attack Damage if you have Blocked Spell Damage Recently
 {variant:4}+100% Chance to Block Attack Damage if you have Blocked Spell Damage Recently
-{variant:2,3}+20% Chance to Block Spell Damage if you have Blocked Attack Damage Recently
-{variant:4}+100% Chance to Block Spell Damage if you have Blocked Attack Damage Recently
+{variant:2,3}+20% chance to Block Spell Damage if you have Blocked Attack Damage Recently
+{variant:4}+100% chance to Block Spell Damage if you have Blocked Attack Damage Recently
 ]],[[
 The Deep One's Hide
 Studded Round Shield
@@ -818,8 +811,8 @@ Implicits: 1
 +2 to Level of Socketed Support Gems
 Triggers Level 20 Physical Aegis when Equipped
 (300-400)% increased Armour and Evasion
-{variant:1}(30-50)% chance to avoid Bleeding
 {variant:2}Bleeding cannot be inflicted on you
+{variant:1}(30-50)% chance to Avoid Bleeding
 (8-15)% increased Attack and Cast Speed while Physical Aegis is depleted
 (50-70)% increased Critical Strike Chance while Physical Aegis is depleted
 Nearby Enemies are Blinded while Physical Aegis is not depleted
@@ -880,8 +873,7 @@ Implicits: 1
 {variant:1,2}+5% Chance to Block
 {variant:1}Curse Skills have 25% increased Skill Effect Duration
 {variant:2}Curse Skills have 100% increased Skill Effect Duration
-]],
-[[
+]],[[
 Bitter Instinct
 Spiny Round Shield
 Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Loneliness}
@@ -922,12 +914,12 @@ Implicits: 1
 0.4% of Chaos Damage Leeched as Life
 {variant:1,2}Gain (5-10)% of Physical Damage as Extra Chaos Damage
 {variant:1,3}-10% Chance to Block
-{variant:2}5% Chance to Block
+{variant:2}+5% Chance to Block
 {variant:1}(20-30)% increased Damage while you have no Energy Shield
 {variant:2,3}100% increased Global Armour while you have no Energy Shield
-{variant:1}30% Chance to gain Unholy Might on Block for 3 seconds
-{variant:2}Gain Unholy Might on Block for 10 seconds
 {variant:3}You have Unholy Might while you have no Energy Shield
+{variant:1}30% chance to gain Unholy Might on Block for 3 seconds
+{variant:2}Gain Unholy Might on Block for 10 seconds
 Create Profane Ground instead of Consecrated Ground
 ]],[[
 Emperor's Vigilance
@@ -994,7 +986,7 @@ Implicits: 2
 {variant:2,3,4}+8% to all Elemental Resistances
 {variant:1,2,3}(80-100)% increased Armour and Energy Shield
 {variant:4}(240-300)% increased Armour and Energy Shield
-{variant:3}+(40-60) maximum Life
+{variant:3}+(40-60) to maximum Life
 {variant:1,2}Regenerate 6 Life per second
 {variant:3}Regenerate (15-20) Life per second
 {variant:4}Regenerate (100-200) Life per second
@@ -1003,7 +995,7 @@ Implicits: 2
 +(20-25)% to Fire Resistance
 +25% to Fire Resistance while on Low Life
 10% increased Movement Speed when on Low Life
-Cannot be Ignited while on Low Life
+100% chance to Avoid being Ignited while on Low Life
 ]],[[
 Saffell's Frame
 Branded Kite Shield
@@ -1035,14 +1027,14 @@ Implicits: 2
 {variant:1}+8% to all Elemental Resistances
 {variant:2,3,4,5}+4% to all Elemental Resistances
 (80-120)% increased Armour and Energy Shield
-{variant:5}Regenerate (30-50) Life per Second
+{variant:5}Regenerate (30-50) Life per second
 {variant:1,2,3,4}50% reduced Freeze Duration on you
 {variant:5}80% reduced Freeze Duration on you
-{variant:3}Regenerate 1% of Life per Second
-{variant:4}Regenerate 3% of Life per Second
-{variant:1,2}Regenerate 6% of Life per Second while on Low Life
-{variant:3}Regenerate 5% of Life per Second while on Low Life
-{variant:4}Regenerate 3% of Life per Second while on Low Life
+{variant:3}Regenerate 1% of Life per second
+{variant:4}Regenerate 3% of Life per second
+{variant:1,2}Regenerate 6% of Life per second while on Low Life
+{variant:3}Regenerate 5% of Life per second while on Low Life
+{variant:4}Regenerate 3% of Life per second while on Low Life
 {variant:5}Regenerate 100 Life per Second while on Low Life
 ]],[[
 The Oak
@@ -1061,16 +1053,17 @@ Implicits: 2
 +(100-150) to maximum Life
 {variant:1,2,3,4}50% reduced Freeze Duration on you
 {variant:5}80% reduced Freeze Duration on you
-{variant:3}Regenerate 1% of Life per Second
-{variant:4,5}Regenerate 3% of Life per Second
-{variant:1,2}Regenerate 6% of Life per Second while on Low Life
-{variant:3}Regenerate 5% of Life per Second while on Low Life
-{variant:4,5}Regenerate 3% of Life per Second while on Low Life
+{variant:3}Regenerate 1% of Life per second
+{variant:4,5}Regenerate 3% of Life per second
+{variant:1,2}Regenerate 6% of Life per second while on Low Life
+{variant:3}Regenerate 5% of Life per second while on Low Life
+{variant:4,5}Regenerate 3% of Life per second while on Low Life
 ]],[[
 The Unshattered Will
 Archon Kite Shield
 League: Harbinger
-Source: No longer obtainable
+Source: Created from item parts obtained from Boss in The Beachhead
+Upgrade: Upgrades to unique{The Immortal Will} via currency{Specularity Scroll}
 Implicits: 1
 +12% to all Elemental Resistances
 Grants Summon Harbinger of Focus Skill
@@ -1083,6 +1076,7 @@ Channelling Skills deal (50-70)% increased Damage
 The Immortal Will
 Archon Kite Shield
 League: Harvest
+Source: Upgraded from unique{The Unshattered Will} via currency{Specularity Scroll}
 Implicits: 1
 +12% to all Elemental Resistances
 Grants Summon Greater Harbinger of Focus Skill
@@ -1154,8 +1148,8 @@ Source: No longer obtainable
 Variant: Pre 3.0.0
 Variant: Current
 Implicits: 2
-{variant:1}Reflects (10-23) Physical Damage to Melee Attackers
 {variant:2}+5% chance to Suppress Spell Damage
+{variant:1}Reflects (10-23) Physical Damage to Melee Attackers
 (120-140)% increased Evasion and Energy Shield
 +(20-30) to maximum Energy Shield
 +(30-50) to maximum Life
@@ -1170,14 +1164,14 @@ Variant: Pre 3.0.0
 Variant: Pre 3.8.0
 Variant: Current
 Implicits: 2
-{variant:1,2}Reflects (221-260) Physical Damage to Melee Attackers
 {variant:3,4}+5% chance to Suppress Spell Damage
+{variant:1,2}Reflects (221-260) Physical Damage to Melee Attackers
 {variant:1,2,3}Grants Level 20 Bear Trap Skill
 {variant:4}Grants Level 25 Bear Trap Skill
 (18-28)% increased Trap Damage
 (15-25)% increased Global Physical Damage
 +(60-80) to maximum Life
--(14-18) Physical Damage taken from Attack Hits
+-(18-14) Physical Damage taken from Attack Hits
 {variant:1}15% chance to gain a Power Charge when you Throw a Trap
 {variant:2,3,4}25% chance to gain a Power Charge when you Throw a Trap
 ]],[[
@@ -1201,8 +1195,8 @@ Variant: Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Implicits: 2
-{variant:1}Reflects (51-70) Physical Damage to Melee Attackers
 {variant:2,3}+3% chance to Suppress Spell Damage
+{variant:1}Reflects (51-70) Physical Damage to Melee Attackers
 (10-15)% increased Attack Speed
 (10-20)% increased maximum Life
 -50% to all Elemental Resistances

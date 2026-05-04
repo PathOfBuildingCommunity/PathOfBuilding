@@ -1377,11 +1377,11 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "VaalFlameblastStage" }),
 		},
 		["vaal_flameblast_radius_+_per_stage"] = {
-			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "VaalFlameblastStageAfterFirst" }),
 		},
 	},
 #baseMod mod("Multiplier:VaalFlameblastMaxStages", "BASE", 15)
-#baseMod skill("radius", 35)
+#baseMod skill("radius", 45)
 #mods
 
 #skill Flammability
@@ -2441,7 +2441,7 @@ local skills, mod, flag, skill = ...
 				-- Average multiplier: sum of (0, X, 2X, 3X, ..., (n-1)X) / n
 				-- This equals: X * (0 + 1 + 2 + ... + (n-1)) / n = X * n(n-1)/2 / n = X * (n-1)/2
 				local avgMoreMult = moreDamagePerProj * (output.ProjectileCount - 1) / 2
-				activeSkill.skillModList:NewMod("Damage", "MORE", avgMoreMult, "Skill:KineticFusilladeofDetonation", ModFlag.Hit)
+				activeSkill.skillModList:NewMod("Damage", "MORE", avgMoreMult, "Skill:KineticFusilladeAltX", ModFlag.Hit)
 
 				-- Store the average multiplier for display
 				output.KineticFusilladeAvgMoreMult = avgMoreMult

@@ -225,6 +225,7 @@ Implicits: 1
 (20-30)% increased Critical Strike Chance
 Gain a Flask Charge when you deal a Critical Strike
 Gain (20-40)% of Physical Damage as Extra Cold Damage if you've used a Sapphire Flask Recently
+Gain (20-40)% of Physical Damage as Extra Fire Damage if you've used a Ruby Flask Recently
 Gain (20-40)% of Physical Damage as Extra Lightning Damage if you've used a Topaz Flask Recently
 ]],
 [[

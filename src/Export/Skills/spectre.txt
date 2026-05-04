@@ -2241,3 +2241,23 @@ skills["LegionKaruiMeleeCombo2"] = {
 #skill CrucibleVendigoFlickerStrike Flicker Strike
 #flags attack melee movement
 #mods
+
+#skill MPSFaridunWarlockBloodSpray Blood Spray
+#flags spell projectile
+#mods
+
+#skill CGEFaridunWarlockSwarmGround Caustic Ground
+#flags area spell duration
+#mods
+
+#skill FaridunCasterUndeadDamageOverTimeAura Malevolence
+#flags spell area aura
+	statMap = {
+		["delirium_aura_damage_over_time_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Dot, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["delirium_skill_effect_duration_+%"] = {
+			mod("Duration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#mods

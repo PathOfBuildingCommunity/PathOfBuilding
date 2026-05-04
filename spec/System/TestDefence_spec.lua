@@ -132,8 +132,8 @@ describe("TestDefence", function()
 		build.configTab.input.enemyIsBoss = "None"
 		-- Petrified blood
 		build.skillsTab:PasteSocketGroup("\z
-		Petrified Blood 20/0 Default  1\n\z
-		Arrogance 21/0 Default  1\n\z
+		Petrified Blood 20/0  1\n\z
+		Arrogance 21/0  1\n\z
 		")  -- 50% petrified effect, when exactly half of the life is reserved, should make the life pool be equivalent to no petrified effect and full life.
 		build.skillsTab:ProcessSocketGroup(build.skillsTab.socketGroupList[1])
 		build.configTab.input.customMods = "\z
@@ -155,8 +155,8 @@ describe("TestDefence", function()
 		build.skillsTab.socketGroupList = {}
 		
 		build.skillsTab:PasteSocketGroup("\z
-		Petrified Blood 20/0 Default  1\n\z
-		Arrogance 21/0 Default  1\n\z
+		Petrified Blood 20/0  1\n\z
+		Arrogance 21/0  1\n\z
 		")
 		build.skillsTab:ProcessSocketGroup(build.skillsTab.socketGroupList[1])
 		build.configTab.input.customMods = "\z
@@ -180,7 +180,7 @@ describe("TestDefence", function()
 		build.skillsTab.socketGroupList = {}
 		
 		build.skillsTab:PasteSocketGroup("\z
-		Petrified Blood 20/0 Default  1\n\z
+		Petrified Blood 20/0  1\n\z
 		")  -- 80% petrified effect, starting from full life, should make the life pool be equivalent to 0.5 * life (unprotected upper half) and then 5 * 0.5 * life (protected lower half), making it 3* bigger in total
 		build.skillsTab:ProcessSocketGroup(build.skillsTab.socketGroupList[1])
 		build.configTab.input.customMods = "\z
@@ -238,8 +238,8 @@ describe("TestDefence", function()
 	
 		-- Progenesis + petrified blood
 		build.skillsTab:PasteSocketGroup("\z
-		Petrified Blood 20/0 Default  1\n\z
-		Arrogance 21/0 Default  1\n\z
+		Petrified Blood 20/0  1\n\z
+		Arrogance 21/0  1\n\z
 		")
 		build.skillsTab:ProcessSocketGroup(build.skillsTab.socketGroupList[1])
 		build.configTab.input.customMods = "\z
@@ -263,7 +263,7 @@ describe("TestDefence", function()
 		build.skillsTab.socketGroupList = {}
 		
 		build.skillsTab:PasteSocketGroup("\z
-		Petrified Blood 20/0 Default  1\n\z
+		Petrified Blood 20/0  1\n\z
 		")
 		build.skillsTab:ProcessSocketGroup(build.skillsTab.socketGroupList[1])
 		build.configTab.input.customMods = "\z
@@ -286,7 +286,7 @@ describe("TestDefence", function()
 		build.skillsTab.socketGroupList = {}
 	
 		build.skillsTab:PasteSocketGroup("\z
-		Petrified Blood 20/0 Default  1\n\z
+		Petrified Blood 20/0  1\n\z
 		")
 		build.skillsTab:ProcessSocketGroup(build.skillsTab.socketGroupList[1])
 		build.configTab.input.customMods = "\z
@@ -315,7 +315,7 @@ describe("TestDefence", function()
 		assert.are.equals(20, poolsRemaining.LifeBelowHalfLossLostOverTime)
 		
 		build.skillsTab:PasteSocketGroup("\z
-		Petrified Blood 20/0 Default  1\n\z
+		Petrified Blood 20/0  1\n\z
 		")
 		build.skillsTab:ProcessSocketGroup(build.skillsTab.socketGroupList[1])
 		build.configTab.input.customMods = "\z
@@ -356,6 +356,26 @@ describe("TestDefence", function()
 		assert.are.equals(0, poolsRemaining.Mana)
 		
 		build.skillsTab.socketGroupList = {}
+	end)
+
+	it("foulborn resistance conversion remains stable across recalculation", function()
+		build.configTab.input.enemyIsBoss = "None"
+		build.configTab.input.customMods = "\z
+		+300 to fire resistance\n\z
+		modifiers to fire resistance also apply to cold and lightning resistances at 50% of their value\n\z
+		mana is increased by 100% of overcapped lightning resistance\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(90, build.calcsTab.calcsOutput.LightningResistTotal)
+		assert.are.equals(15, build.calcsTab.calcsOutput.LightningResistOverCap)
+
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(90, build.calcsTab.calcsOutput.LightningResistTotal)
+		assert.are.equals(15, build.calcsTab.calcsOutput.LightningResistOverCap)
 	end)
 
 	-- fun part

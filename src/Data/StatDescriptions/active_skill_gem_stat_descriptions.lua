@@ -763,6 +763,20 @@ return {
 					k="milliseconds_to_seconds_2dp",
 					v=1
 				},
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="{0:+d} seconds to Base duration"
+			},
+			[2]={
+				[1]={
+					k="milliseconds_to_seconds_2dp",
+					v=1
+				},
 				limit={
 					[1]={
 						[1]=1000,
@@ -771,7 +785,7 @@ return {
 				},
 				text="Base duration is {0} second"
 			},
-			[2]={
+			[3]={
 				[1]={
 					k="milliseconds_to_seconds_2dp",
 					v=1
@@ -1732,6 +1746,10 @@ return {
 				[1]={
 					k="negate",
 					v=1
+				},
+				[2]={
+					k="canonical_line",
+					v=true
 				},
 				limit={
 					[1]={
@@ -3283,6 +3301,26 @@ return {
 	[124]={
 		[1]={
 			[1]={
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
+				},
+				text="Fires {0:+d} Projectile"
+			},
+			[2]={
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Fires {0:+d} Projectiles"
+			},
+			[3]={
 				limit={
 					[1]={
 						[1]=1,
@@ -3291,7 +3329,7 @@ return {
 				},
 				text="Fires 1 Projectile"
 			},
-			[2]={
+			[4]={
 				limit={
 					[1]={
 						[1]=2,
@@ -6066,6 +6104,16 @@ return {
 	[230]={
 		[1]={
 			[1]={
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0:+d} to Maximum Hiveborn"
+			},
+			[2]={
 				limit={
 					[1]={
 						[1]=1,

@@ -2889,6 +2889,33 @@ minions["Metadata/Monsters/Undying/UndyingOutcastWhirlingBlades"] = {
 	modList = {
 	},
 }
+-- Unholy Aberration
+minions["Metadata/Monsters/SpiderPlated/SpiderPlatedUnholyEmerge"] = {
+	name = "Unholy Aberration",
+	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "insect_blood", "is_unarmed", "medium_height", "medium_movement", "melee", "physical_affinity", "spider", },
+	life = 14,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.6,
+	damageSpread = 0.2,
+	attackTime = 1.95,
+	attackRange = 18,
+	accuracy = 1,
+	skillList = {
+		"Melee",
+	},
+	modList = {
+		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+	},
+}
 -- Wicker Man
 minions["Metadata/Monsters/WickerMan/WickerMan"] = {
 	name = "Wicker Man",
@@ -6998,5 +7025,90 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemHigh"] = {
 	},
 	modList = {
 		mod("LinkEffectOnSelf", "INC", 100, 0, 0), -- AzmeriGolemLinkEffectOnSelf2 [link_buff_effect_on_self_+% = 100]
+	},
+}
+-- Conjuror of Rot
+minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockLow"] = {
+	name = "Imperfect Conjuror of Rot",
+	monsterTags = { "caster", "human", "humanoid", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.04,
+	energyShield = 0.16,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 40,
+	damage = 2.04,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 60,
+	accuracy = 1,
+	skillList = {
+		"SSMFaridunWarlockBloodLocust",
+		"SOFaridunWarlockPustule",
+		"GSFaridunWarlockPustuleExplosion",
+		"GTFaridunWarlockPustules",
+		"MPSFaridunWarlockBloodSpray",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockMid_"] = {
+	name = "Conjuror of Rot",
+	monsterTags = { "caster", "human", "humanoid", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.04,
+	energyShield = 0.16,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 40,
+	damage = 2.04,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 60,
+	accuracy = 1,
+	skillList = {
+		"SSMFaridunWarlockBloodLocust",
+		"SOFaridunWarlockPustule",
+		"GSFaridunWarlockPustuleExplosion",
+		"GTFaridunWarlockPustules",
+		"CGEFaridunWarlockSwarmGround",
+		"MPSFaridunWarlockBloodSpray",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockHigh"] = {
+	name = "Perfect Conjuror of Rot",
+	monsterTags = { "caster", "human", "humanoid", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.04,
+	energyShield = 0.16,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 40,
+	damage = 2.04,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 60,
+	accuracy = 1,
+	skillList = {
+		"SSMFaridunWarlockBloodLocust",
+		"SOFaridunWarlockPustule",
+		"GSFaridunWarlockPustuleExplosion",
+		"GTFaridunWarlockPustules",
+		"CGEFaridunWarlockSwarmGround",
+		"MPSFaridunWarlockBloodSpray",
+		"FaridunCasterUndeadDamageOverTimeAura",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }

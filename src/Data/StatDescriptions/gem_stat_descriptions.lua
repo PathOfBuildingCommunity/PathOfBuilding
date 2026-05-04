@@ -4941,6 +4941,34 @@ return {
 					k="milliseconds_to_seconds",
 					v=1
 				},
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]=1000,
+						[2]=1000
+					}
+				},
+				text="Innervation lasts {0:+d} second"
+			},
+			[2]={
+				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Innervation lasts {0:+d} seconds"
+			},
+			[3]={
+				[1]={
+					k="milliseconds_to_seconds",
+					v=1
+				},
 				limit={
 					[1]={
 						[1]=1000,
@@ -4949,7 +4977,7 @@ return {
 				},
 				text="Innervation lasts {0} second"
 			},
-			[2]={
+			[4]={
 				[1]={
 					k="milliseconds_to_seconds",
 					v=1
@@ -7181,6 +7209,30 @@ return {
 	[263]={
 		[1]={
 			[1]={
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0:+d}% increased Cooldown Recovery Rate"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Supported Skills have {0:+d}% reduced Cooldown Recovery Rate"
+			},
+			[3]={
 				limit={
 					[1]={
 						[1]=1,
@@ -7189,7 +7241,7 @@ return {
 				},
 				text="Supported Skills have {0}% increased Cooldown Recovery Rate"
 			},
-			[2]={
+			[4]={
 				[1]={
 					k="negate",
 					v=1
@@ -10110,6 +10162,10 @@ return {
 					k="negate",
 					v=1
 				},
+				[2]={
+					k="canonical_line",
+					v=true
+				},
 				limit={
 					[1]={
 						[1]="#",
@@ -10240,6 +10296,16 @@ return {
 	[374]={
 		[1]={
 			[1]={
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Killing Blows with Supported Skills cause Enemies to have {0:+d}% chance to Explode, dealing a tenth of their maximum Life as Damage of a Random Element"
+			},
+			[2]={
 				limit={
 					[1]={
 						[1]=1,
@@ -10248,7 +10314,7 @@ return {
 				},
 				text="Killing Blows with Supported Skills cause Enemies to have a {0}% chance to Explode, dealing a tenth of their maximum Life as Damage of a Random Element"
 			},
-			[2]={
+			[3]={
 				limit={
 					[1]={
 						[1]=100,
@@ -10785,6 +10851,20 @@ return {
 	[397]={
 		[1]={
 			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextFlee"
+				},
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Supported Skills have {0:+d}% chance to cause Monsters to Flee on Hit"
+			},
+			[2]={
 				[1]={
 					k="reminderstring",
 					v="ReminderTextFlee"
@@ -11500,6 +11580,16 @@ return {
 	[427]={
 		[1]={
 			[1]={
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Kill Normal and Magic Rarity Enemies that have {0:+d}% Life or\nlower when Hit by Supported Skills"
+			},
+			[2]={
 				limit={
 					[1]={
 						[1]=1,
@@ -13845,6 +13935,10 @@ return {
 				[2]={
 					k="reminderstring",
 					v="ReminderTextUpfrontCost"
+				},
+				[3]={
+					k="reminderstring",
+					v="ReminderTextTransfusionNearbyMinion"
 				},
 				limit={
 					[1]={
@@ -20815,6 +20909,28 @@ return {
 	[776]={
 		[1]={
 			[1]={
+				[1]={
+					k="divide_by_ten_1dp_if_required",
+					v=1
+				},
+				[2]={
+					k="reminderstring",
+					v="ReminderTextPower"
+				},
+				[3]={
+					k="reminderstring",
+					v="ReminderTextSoulEaterNonAura"
+				},
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Consuming a Corpse with Supported Skills has {0:+d}% chance to grant a Soul per Power"
+			},
+			[2]={
 				[1]={
 					k="divide_by_ten_1dp_if_required",
 					v=1
