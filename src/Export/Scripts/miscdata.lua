@@ -41,28 +41,6 @@ out:write('data.monsterArmourTable = { '..armour..'}\n')
 out:write('data.monsterAilmentThresholdTable = { '..ailmentThreshold..'}\n')
 out:write('data.monsterPhysConversionMultiTable = { '..monsterPhysConversionMulti..'}\n')
 
-out:write('-- Monster Additional Life Scaling\n')
-out:write('data.additionalLifeScalingTable = {\n')
-local lifeTables = { }
-for lifeScale in dat("AdditionalLifeScaling"):Rows() do
-	local dataName = lifeScale.Id:gsub("^.", string.lower)
-	out:write('\t{ id = "' .. dataName .. '", applyToES = ' .. tostring(lifeScale.ScaleES) .. ' },\n')
-	if lifeScale.IntId ~= 0 then
-		table.insert(lifeTables, dataName)
-	end
-end
-out:write('}\n')
-
-for _, datFile in ipairs(lifeTables) do
-	out:write('data.' .. datFile .. ' = { ')
-	for lifeStats in dat(datFile):Rows() do
-		ConPrintf(lifeStats.Level)
-		out:write(lifeStats.MoreLife .. ', ')
-	end
-	out:write('}\n')
-end
-
-
 out:write('-- From GameConstants.dat\n')
 out:write('data.gameConstants = {\n')
 for row in dat("GameConstants"):Rows() do

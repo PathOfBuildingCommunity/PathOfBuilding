@@ -263,7 +263,7 @@ minions["Metadata/Monsters/LeagueAzmeri/PitifulFabrication01Spectre"] = {
 		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
 		-- CannotBeAugmented [cannot_be_afflicted = 1]
 		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 		-- strafe_distance_+% [strafe_distance_+% = -21]
 	},
@@ -301,7 +301,7 @@ minions["Metadata/Monsters/LeagueAzmeri/PitifulFabrication02Spectre__"] = {
 		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
 		-- CannotBeAugmented [cannot_be_afflicted = 1]
 		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 		-- strafe_distance_+% [strafe_distance_+% = -21]
 	},
@@ -373,7 +373,7 @@ minions["Metadata/Monsters/LeagueAzmeri/PitifulFabrication03Spectre"] = {
 		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
 		-- CannotBeAugmented [cannot_be_afflicted = 1]
 		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 		-- strafe_distance_+% [strafe_distance_+% = -21]
 	},
@@ -404,7 +404,7 @@ minions["Metadata/Monsters/LeagueAzmeri/Werewolves/WerewolfSpectre"] = {
 		"EASAzmeriWerewolfHowlSummon",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 	},
 }
@@ -433,7 +433,7 @@ minions["Metadata/Monsters/LeagueAzmeri/Werewolves/WolfSpectre"] = {
 		"MeleeAtAnimationSpeed",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 	},
 }
@@ -464,7 +464,7 @@ minions["Metadata/Monsters/LeagueAzmeri/Spiders/MeleeSpiderSpectre"] = {
 		"MeleeAtAnimationSpeed",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 	},
 }
@@ -495,7 +495,7 @@ minions["Metadata/Monsters/LeagueAzmeri/Spiders/BlackStriderSpectre"] = {
 		"MMAAzmeriStriderMortarCB",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 	},
 }
@@ -525,7 +525,7 @@ minions["Metadata/Monsters/LeagueAzmeri/Gruthkul/GruthkulDropBearSpectre"] = {
 		"GAAzmeriDropBearImpact",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 	},
 }
@@ -558,7 +558,7 @@ minions["Metadata/Monsters/LeagueAzmeri/Gruthkul/GruthkulHulkSpectre"] = {
 		"GAAzmeriHulkLeapImpact",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 	},
 }
@@ -585,7 +585,7 @@ minions["Metadata/Monsters/LeagueAzmeri/Gruthkul/GruthkulMonkeySpectre_"] = {
 		"MeleeAtAnimationSpeed",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 		-- strafe_distance_+% [strafe_distance_+% = -20]
 	},
@@ -676,7 +676,7 @@ minions["Metadata/Monsters/LeagueAzmeri/FungusZombieSpectre"] = {
 		"CGEAzmeriFungusZombieDeathExplosion",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 	},
 }
@@ -739,7 +739,7 @@ minions["Metadata/Monsters/LeagueAzmeri/PrimordialMonster3Spectre"] = {
 		"GAAzmeriPrimordialLeapSlash",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 	},
 }
@@ -772,7 +772,7 @@ minions["Metadata/Monsters/LeagueAzmeri/FallenGods/FallenStagSpectre"] = {
 		"SSMAzmeriToxicVolatile",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 	},
 }
@@ -803,7 +803,7 @@ minions["Metadata/Monsters/LeagueAzmeri/FallenGods/FallenHooksSpectre"] = {
 		"GAAzmeriFallenHooksDashSlash",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 	},
 }
@@ -831,7 +831,7 @@ minions["Metadata/Monsters/LeagueAzmeri/FallenGods/FallenSplitSpectre"] = {
 		"MeleeAtAnimationSpeed",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 	},
 }
@@ -861,7 +861,7 @@ minions["Metadata/Monsters/LeagueAzmeri/RootedMonsters/RootedGuy04Spectre"] = {
 		"AzmeriOrbProjectile",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 	},
 }
@@ -889,7 +889,7 @@ minions["Metadata/Monsters/LeagueAzmeri/Babies/ExplodingBaby"] = {
 		"GSAzmeriBabyExplosionTriggered",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 	},
 }
@@ -921,7 +921,7 @@ minions["Metadata/Monsters/LeagueAzmeri/CrazedCannibalPicts/PictFemaleBowSpectre
 		"GSAzmeriVirulentPod",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 	},
 }
@@ -950,7 +950,7 @@ minions["Metadata/Monsters/LeagueAzmeri/CrazedCannibalPicts/PictFemaleDaggerDagg
 		"MeleeAtAnimationSpeed",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 	},
 }
@@ -982,7 +982,7 @@ minions["Metadata/Monsters/LeagueAzmeri/CrazedCannibalPicts/PictFemaleStaffSpect
 		"CGEAzmeriPictStaffSwampGround",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 	},
 }
@@ -1012,7 +1012,7 @@ minions["Metadata/Monsters/LeagueAzmeri/CrazedCannibalPicts/PictMaleAxeSpectre__
 		"EASAzmeriPictMaleEffigy",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 	},
 }
@@ -1040,7 +1040,7 @@ minions["Metadata/Monsters/LeagueAzmeri/PlagueSwarmSpectre_"] = {
 		"MeleeAtAnimationSpeed",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 	},
 }
@@ -1071,7 +1071,7 @@ minions["Metadata/Monsters/LeagueAzmeri/TwigMonsterSpectre"] = {
 		"GSTwigMonsterVinePod",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 	},
 }
@@ -1104,7 +1104,7 @@ minions["Metadata/Monsters/LeagueAzmeri/TendrilSentinelSpectre"] = {
 		"GTAzmeriTendrilSentinelVolatileTreesLow",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 	},
 }
@@ -1135,7 +1135,7 @@ minions["Metadata/Monsters/LeagueAzmeri/CaveDwellerSpectre"] = {
 		"GAAzmeriCaveDwellerDash",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 	},
 }
@@ -1166,7 +1166,7 @@ minions["Metadata/Monsters/LeagueAzmeri/CrazedCannibalPicts/PictBigMaleSpectre"]
 		"SSMAzmeriPict2HFabricationSummonSpectre",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 20, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 20]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -55]
 	},
 }
@@ -6974,7 +6974,7 @@ minions["Metadata/Monsters/LeagueCrucible/Fire/Eye"] = {
 		"MPSCrucibleEyeFireball",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7005,7 +7005,7 @@ minions["Metadata/Monsters/LeagueCrucible/Fire/CityStalker"] = {
 		"MeleeAtAnimationSpeedFire",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7037,7 +7037,7 @@ minions["Metadata/Monsters/LeagueCrucible/Fire/MineBat"] = {
 		"DTTCrucibleBatDash",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7070,7 +7070,7 @@ minions["Metadata/Monsters/LeagueCrucible/Fire/DriftingEye"] = {
 		"GSCrucibleSquidNoodleBeamImpact",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7103,7 +7103,7 @@ minions["Metadata/Monsters/LeagueCrucible/Fire/Grappler"] = {
 		"EASCrucibleGrapplerGrantSelfEnduranceCharges",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7136,7 +7136,7 @@ minions["Metadata/Monsters/LeagueCrucible/Fire/ClockworkGolem"] = {
 	},
 	modList = {
 		-- ClockworkGolemDaemon [display_monster_mod_nemesis_test = 0]
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7169,7 +7169,7 @@ minions["Metadata/Monsters/LeagueCrucible/Fire/FourLeggedDemon"] = {
 		"GACrucibleFourLeggedDemonMultiSlam",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7197,7 +7197,7 @@ minions["Metadata/Monsters/LeagueCrucible/Cold/Monkey"] = {
 		"MeleeAtAnimationSpeedCold",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7227,7 +7227,7 @@ minions["Metadata/Monsters/LeagueCrucible/Cold/FlameSnake"] = {
 		"GSCrucibleSnakeArcticBreath",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7256,7 +7256,7 @@ minions["Metadata/Monsters/LeagueCrucible/Cold/FlameBearer"] = {
 		"CrucibleMonkeyIceSpear",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7287,7 +7287,7 @@ minions["Metadata/Monsters/LeagueCrucible/Cold/MonkeyChieftain"] = {
 		"TriggeredMonkeyBomb",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7318,7 +7318,7 @@ minions["Metadata/Monsters/LeagueCrucible/Cold/WickerMan"] = {
 		"CrucibleWickerManMoltenStrike",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7346,7 +7346,7 @@ minions["Metadata/Monsters/LeagueCrucible/Cold/KaruiElder"] = {
 		"SSMCrucibleSummonWaterTornado",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7375,7 +7375,7 @@ minions["Metadata/Monsters/LeagueCrucible/Lightning/Spawn_"] = {
 		"MeleeAtAnimationSpeedLightning",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7404,7 +7404,7 @@ minions["Metadata/Monsters/LeagueCrucible/Lightning/CrabCoconut"] = {
 		"MeleeAtAnimationSpeedLightning",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7434,7 +7434,7 @@ minions["Metadata/Monsters/LeagueCrucible/Lightning/SeaWitch"] = {
 		"GSCrucibleSeaWitchLightningWave",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7466,7 +7466,7 @@ minions["Metadata/Monsters/LeagueCrucible/Lightning/IceElemental"] = {
 		"MPSCrucibleIceElementalBarrageProjectile",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7497,7 +7497,7 @@ minions["Metadata/Monsters/LeagueCrucible/Lightning/NessaCrab"] = {
 		"CrucibleCrabQuakeSlamSupercharged",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7525,7 +7525,7 @@ minions["Metadata/Monsters/LeagueCrucible/Physical/Spider"] = {
 		"MeleeAtAnimationSpeed",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7554,7 +7554,7 @@ minions["Metadata/Monsters/LeagueCrucible/Physical/Hatchling_"] = {
 		"MeleeAtAnimationSpeed",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7584,7 +7584,7 @@ minions["Metadata/Monsters/LeagueCrucible/Physical/SpittingSnake"] = {
 		"MPSCrucibleSnakeBloodProjectile",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7617,7 +7617,7 @@ minions["Metadata/Monsters/LeagueCrucible/Physical/Razorleg"] = {
 		"GACrucibleSpiderLacerateLeft",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7646,7 +7646,7 @@ minions["Metadata/Monsters/LeagueCrucible/Physical/Whipleg"] = {
 		"CGECrucibleBloodGround",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7677,7 +7677,7 @@ minions["Metadata/Monsters/LeagueCrucible/Physical/SnakeRiverways"] = {
 		"MPWCrucibleSnakeSpineProjectile",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7708,7 +7708,7 @@ minions["Metadata/Monsters/LeagueCrucible/Chaos/SkeletonMelee"] = {
 	},
 	modList = {
 		-- MonsterNecromancerRaisable [undead_description = 1]
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7770,7 +7770,7 @@ minions["Metadata/Monsters/LeagueCrucible/Chaos/CageSpider_"] = {
 		"MPSCrucibleCageSpiderChaosProjectile",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7802,7 +7802,7 @@ minions["Metadata/Monsters/LeagueCrucible/Chaos/SkeletonCannon"] = {
 	},
 	modList = {
 		-- MonsterNecromancerRaisable [undead_description = 1]
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7838,7 +7838,7 @@ minions["Metadata/Monsters/LeagueCrucible/Chaos/SkeletonBeast"] = {
 	},
 	modList = {
 		-- MonsterNecromancerRaisable [undead_description = 1]
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7870,7 +7870,7 @@ minions["Metadata/Monsters/LeagueCrucible/Chaos/Necromancer"] = {
 	},
 	modList = {
 		-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7900,7 +7900,7 @@ minions["Metadata/Monsters/LeagueCrucible/CriticalSpeed/Rage"] = {
 		"MeleeAtAnimationSpeed",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7928,7 +7928,7 @@ minions["Metadata/Monsters/LeagueCrucible/CriticalSpeed/DemonModular"] = {
 		"MeleeAtAnimationSpeed",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7958,7 +7958,7 @@ minions["Metadata/Monsters/LeagueCrucible/CriticalSpeed/DemonWhip"] = {
 	},
 	modList = {
 		-- MonsterChanceToVulnerabilityOnHit2 [curse_on_hit_%_vulnerability = 50]
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -7994,7 +7994,7 @@ minions["Metadata/Monsters/LeagueCrucible/CriticalSpeed/DemonRanged"] = {
 	modList = {
 		mod("PhysicalDamageConvertToFire", "BASE", 50, 0, 0), -- MonsterConvertToFireDamage2 [base_physical_damage_%_to_convert_to_fire = 50]
 		-- MonsterRangeVarianceMedium [main_hand_base_maximum_attack_distance = 0]
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -8027,7 +8027,7 @@ minions["Metadata/Monsters/LeagueCrucible/CriticalSpeed/DemonHerder"] = {
 		"GSCrucibleDemonBeamNuke",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -8059,7 +8059,7 @@ minions["Metadata/Monsters/LeagueCrucible/CriticalSpeed/Fury"] = {
 		"AfflictionMinionPhysSlamCircleRectangle",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -8090,7 +8090,7 @@ minions["Metadata/Monsters/LeagueCrucible/CriticalSpeed/Disgust"] = {
 		"AfflictionMinionKnockbackWave",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -8128,7 +8128,7 @@ minions["Metadata/Monsters/LeagueCrucible/CriticalSpeed/KitavaHerald"] = {
 	},
 	modList = {
 		-- MonsterSpeedAndDamageFixupComplete [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 33]
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -31681,7 +31681,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdWeakSpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -31717,7 +31717,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdSpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -32570,7 +32570,7 @@ minions["Metadata/Monsters/LeagueCrucible/Cold/Pyromaniac"] = {
 		"CrucibleIceStormTrap",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -32763,7 +32763,7 @@ minions["Metadata/Monsters/LeagueCrucible/Lightning/Vendigo_"] = {
 		"EASCrucibleVendigoEnrage",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 14, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
 		-- is_crucible_monster [is_crucible_monster = 1]
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
 		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
@@ -32797,7 +32797,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralMoltenHulkStandalone"] = {
 	},
 	modList = {
 		mod("StunThreshold", "INC", 200, 0, 0), -- AncestralTrailMonsterStunThresholdNgamahu [stun_threshold_+% = 200]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -32833,7 +32833,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralTurtleStandaloneSpectre"] = 
 		mod("KnockbackImmune", "FLAG", 1, 0, 0), -- MonsterCannotBeKnockedBack [cannot_be_knocked_back = 1]
 		-- AncestralTrialMonsterTurtleChannelSpeed [ancestral_monster_respawn_timer_+% = 50]
 		-- AncestralTrialMonsterTurtleChannelSpeed [ancestral_channelling_damage_+%_against_totems = 50]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -32863,7 +32863,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralKuniKuniStandalone"] = {
 	},
 	modList = {
 		-- AmcestralTrialMonsterLeechResistanceKitava [resist_life_leech_% = 50]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -32892,7 +32892,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralThunderbirdStandalone"] = {
 	},
 	modList = {
 		-- AncestralTrailMonsterCriticalResistanceValako [monster_map_boss_extra_damage_taken_from_crit_+%_final = -50]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -32924,7 +32924,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralKaruiSpearStandaloneSpectre_
 		-- AmcestralTrialMonsterLeechResistanceKitava [resist_life_leech_% = 50]
 		mod("BleedChance", "BASE", 25, 1, 0), -- MonsterBleedOnHitChance [bleed_on_hit_with_attacks_% = 25]
 		-- MonsterBleedOnHitChance [display_monster_may_inflict_bleeding = 1]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -32956,7 +32956,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralJadeHulkStandalone"] = {
 	},
 	modList = {
 		-- AncestralTrialMonsterBlockReductionTukohama [global_reduce_enemy_block_% = 30]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -32986,7 +32986,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralKaruiDrunkStandalone"] = {
 	},
 	modList = {
 		-- AmcestralTrialMonsterLeechResistanceKitava [resist_life_leech_% = 50]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33015,7 +33015,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralSpiritCasterStandalone"] = {
 		"MPSAncestralSoulCasterProjectile",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33046,7 +33046,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralKaruiHornStandalone"] = {
 	},
 	modList = {
 		-- AncestralTrialMonsterCurseEffectHinekora [curse_effect_on_self_+%_final = -50]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33080,7 +33080,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralDeathcasterStandalone"] = {
 		-- AncestralItemSlainEnemiesHaveExtraRespawnTimer [ancestral_slain_enemies_respawn_timer_+ = 10000]
 		-- AncestralTrialMonsterCurseEffectHinekora [curse_effect_on_self_+%_final = -50]
 		-- MonsterImplicitTemporalChainsOnHit [curse_on_hit_%_temporal_chains = 100]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33113,7 +33113,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralColdTurtleStandalone"] = {
 		"MPSIceTurtleFakeProjectile",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33147,7 +33147,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralForestTuataraStandalone"] = 
 		-- AncestralTrailMonsterAilmentResistanceTawhoa [self_bleed_duration_+%_final = -50]
 		-- AncestralTrialMonsterForestTuataraCamo [ancestral_monster_respawn_timer_+% = -50]
 		-- AncestralTrialMonsterForestTuataraCamo [ancestral_channelling_damage_+%_against_totems = -50]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33180,7 +33180,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralIcecasterStandalone"] = {
 	},
 	modList = {
 		-- AncestralTrialMonsterTotemDestructionRangeIcecaster [ancestral_trial_destroy_totem_skill_range_+% = 300]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33210,7 +33210,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralBuffHornStandalone"] = {
 	},
 	modList = {
 		-- AncestralTrialMonsterBlockReductionTukohama [global_reduce_enemy_block_% = 30]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33245,7 +33245,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralFishingWhipMaceStandalone"] 
 	},
 	modList = {
 		-- AncestralTrialMonsterStealsFlaskChargesTasalio [remove_enemy_flask_charge_on_hit_%_chance = 50]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33279,7 +33279,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralFishingTaiahaStandaloneSpect
 		mod("ActiveTrapLimit", "BASE", 12, 0, 0), -- MonsterIncreasedTrapsAllowed [number_of_additional_traps_allowed = 12]
 		mod("BleedChance", "BASE", 25, 1, 0), -- MonsterBleedOnHitChance [bleed_on_hit_with_attacks_% = 25]
 		-- MonsterBleedOnHitChance [display_monster_may_inflict_bleeding = 1]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33310,7 +33310,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralColdPoiStandaloneSpectre"] =
 		"AncestralMoonAuraEnemies",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33344,7 +33344,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralForestKuniKuniStandalone"] =
 		-- AncestralTrailMonsterAilmentResistanceTawhoa [self_ignite_duration_+%_final = -50]
 		-- AncestralTrailMonsterAilmentResistanceTawhoa [self_poison_duration_+%_final = -50]
 		-- AncestralTrailMonsterAilmentResistanceTawhoa [self_bleed_duration_+%_final = -50]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33375,7 +33375,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralKaruiMooncasterStandalone_"]
 		"GSAncestralMooncasterWave",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33406,7 +33406,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralNgamahuDrunkStandalone"] = {
 	},
 	modList = {
 		mod("StunThreshold", "INC", 200, 0, 0), -- AncestralTrailMonsterStunThresholdNgamahu [stun_threshold_+% = 200]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33440,7 +33440,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralKaruiShieldAxeStandalone"] =
 		mod("BlockChance", "BASE", 30, 0, 0), -- MonsterAttackBlock30Bypass15 [monster_base_block_% = 30]
 		mod("BlockEffect", "BASE", 15, 0, 0), -- MonsterAttackBlock30Bypass15 [base_block_%_damage_taken = 15]
 		-- AncestralTrailMonsterCriticalResistanceValako [monster_map_boss_extra_damage_taken_from_crit_+%_final = -50]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33477,7 +33477,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralDruidStandalone"] = {
 		-- AncestralTrailMonsterAilmentResistanceTawhoa [self_ignite_duration_+%_final = -50]
 		-- AncestralTrailMonsterAilmentResistanceTawhoa [self_poison_duration_+%_final = -50]
 		-- AncestralTrailMonsterAilmentResistanceTawhoa [self_bleed_duration_+%_final = -50]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33509,7 +33509,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralIceArcherStandaloneSpectre"]
 	},
 	modList = {
 		mod("Accuracy", "INC", 200, 0, 0), -- AncestralTrialMonsterAccuracyRamako [accuracy_rating_+% = 200]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33544,7 +33544,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralJadecasterStandalone"] = {
 	},
 	modList = {
 		-- AncestralTrialMonsterBlockReductionTukohama [global_reduce_enemy_block_% = 30]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33583,7 +33583,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralKaruiShieldMaceStandalone"] 
 		mod("BlockEffect", "BASE", 15, 0, 0), -- MonsterAttackBlock30Bypass15 [base_block_%_damage_taken = 15]
 		mod("EnemyPhysicalDamageReduction", "BASE", -15, 0, 0), -- AncestralTrialMonsterOverwhelmRongokurai [enemy_phys_reduction_%_penalty_vs_hit = 15]
 		-- CannotBeSlowedBelowValueBosses [hellscape_boots_action_speed_+%_minimum_value = -50]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33616,7 +33616,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralMoltenDestroyerStandaloneSpe
 	},
 	modList = {
 		mod("StunThreshold", "INC", 200, 0, 0), -- AncestralTrailMonsterStunThresholdNgamahu [stun_threshold_+% = 200]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33647,7 +33647,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralSpearRopeStandalone"] = {
 	},
 	modList = {
 		-- AncestralTrialMonsterStealsFlaskChargesTasalio [remove_enemy_flask_charge_on_hit_%_chance = 50]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33679,7 +33679,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralDeathProphetStandalone"] = {
 	},
 	modList = {
 		-- AncestralTrialMonsterCurseEffectHinekora [curse_effect_on_self_+%_final = -50]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33713,7 +33713,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralLightningCasterStandalone"] 
 	},
 	modList = {
 		-- AncestralTrailMonsterCriticalResistanceValako [monster_map_boss_extra_damage_taken_from_crit_+%_final = -50]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33746,7 +33746,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralStunnerStandalone"] = {
 		-- AncestralTrialMonsterInterruptDurationStunner [ancestral_trial_destroy_totem_interrupt_stun_duration_+% = 100]
 		mod("EnemyPhysicalDamageReduction", "BASE", -15, 0, 0), -- AncestralTrialMonsterOverwhelmRongokurai [enemy_phys_reduction_%_penalty_vs_hit = 15]
 		-- CannotBeSlowedBelowValueBosses [hellscape_boots_action_speed_+%_minimum_value = -50]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33845,7 +33845,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralSpearAgileStandalone"] = {
 	},
 	modList = {
 		mod("Accuracy", "INC", 200, 0, 0), -- AncestralTrialMonsterAccuracyRamako [accuracy_rating_+% = 200]
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -33874,7 +33874,7 @@ minions["Metadata/Monsters/LeagueAncestral/AncestralTasalioTuataraStandalone_"] 
 		"GATasalioTuataraRunAttack",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 17, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 17]
 		-- set_delve_monster_damage_+%_final [set_delve_monster_damage_+%_final = 75]
 	},
 }
@@ -36923,7 +36923,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunSwarm/FaridunSwarmSpectre"] = {
 		"MeleeAtAnimationSpeed",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
@@ -36957,7 +36957,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockSpectre"] 
 		"MPSFaridunWarlockBloodSpray",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
@@ -36991,7 +36991,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockSpectre"] 
 		"MPSFaridunWarlockBloodSpray",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
@@ -37019,7 +37019,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunBeetle/FaridunBeetleSpectre"] = 
 		"GAFaridunBeetleSunderWave",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
@@ -37050,7 +37050,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunFleshHulk/FaridunFleshHulkSpectr
 		"EAAFleshHulkBoulderSlam",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
@@ -37076,7 +37076,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunZombie/FaridunZombieSpectre"] = 
 		"MeleeAtAnimationSpeed",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
@@ -37102,7 +37102,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunZombie/FaridunZombieSpectre"] = 
 		"MeleeAtAnimationSpeed",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
@@ -37133,7 +37133,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunWraith/FaridunMinorDjinn"] = {
 	},
 	modList = {
 		-- MonsterModIsZarokhMonster [is_zarokh_monster = 1]
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
@@ -37167,7 +37167,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunWraith/FaridunMinorDjinnCaster"]
 	},
 	modList = {
 		-- MonsterModIsZarokhMonster [is_zarokh_monster = 1]
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
@@ -37194,7 +37194,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunFleshWormSpectre"] = {
 		"MeleeAtAnimationSpeed",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
@@ -37273,7 +37273,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunHumanDaggersSpectre"] = {
 		"DTTFaridunDaggerChase",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
@@ -37302,7 +37302,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunHumanShieldSpectre"] = {
 		"MeleeAtAnimationSpeedMaim",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
@@ -37331,7 +37331,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunWisp"] = {
 	},
 	modList = {
 		-- MonsterModIsZarokhMonster [is_zarokh_monster = 1]
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
@@ -37358,7 +37358,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunFleshWormSpectre"] = {
 		"MeleeAtAnimationSpeed",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
@@ -37424,7 +37424,7 @@ minions["Metadata/Monsters/LeagueSanctum/Fodder/JaguarSpectre"] = {
 		-- sanctum_damage_variance_% [sanctum_damage_variance_% = 20]
 		-- base_sanctum_gold_to_drop [base_sanctum_gold_to_drop = 6]
 		-- base_sanctum_gold_piles [base_sanctum_gold_piles = 2]
-		mod("AdditionalLifeScaling", "BASE", 13, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 13]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 13]
 		-- monster_slain_experience_+% [monster_slain_experience_+% = 800]
 		-- monster_dropped_item_quantity_+% [monster_dropped_item_quantity_+% = 1300]
 		-- monster_slain_flask_charges_granted_+% [monster_slain_flask_charges_granted_+% = 500]
@@ -37466,7 +37466,7 @@ minions["Metadata/Monsters/LeagueSanctum/Fodder/Titan"] = {
 		-- sanctum_damage_variance_% [sanctum_damage_variance_% = 20]
 		-- base_sanctum_gold_to_drop [base_sanctum_gold_to_drop = 6]
 		-- base_sanctum_gold_piles [base_sanctum_gold_piles = 2]
-		mod("AdditionalLifeScaling", "BASE", 13, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 13]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 13]
 		-- monster_slain_experience_+% [monster_slain_experience_+% = 800]
 		-- monster_dropped_item_quantity_+% [monster_dropped_item_quantity_+% = 1300]
 		-- monster_slain_flask_charges_granted_+% [monster_slain_flask_charges_granted_+% = 500]
@@ -37505,7 +37505,7 @@ minions["Metadata/Monsters/LeagueSanctum/Fodder/Grotesque"] = {
 		-- sanctum_damage_variance_% [sanctum_damage_variance_% = 20]
 		-- base_sanctum_gold_to_drop [base_sanctum_gold_to_drop = 6]
 		-- base_sanctum_gold_piles [base_sanctum_gold_piles = 2]
-		mod("AdditionalLifeScaling", "BASE", 13, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 13]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 13]
 		-- monster_slain_experience_+% [monster_slain_experience_+% = 800]
 		-- monster_dropped_item_quantity_+% [monster_dropped_item_quantity_+% = 1300]
 		-- monster_slain_flask_charges_granted_+% [monster_slain_flask_charges_granted_+% = 500]
@@ -37543,7 +37543,7 @@ minions["Metadata/Monsters/LeagueSanctum/Fodder/HarpySpectre"] = {
 		-- sanctum_damage_variance_% [sanctum_damage_variance_% = 20]
 		-- base_sanctum_gold_to_drop [base_sanctum_gold_to_drop = 6]
 		-- base_sanctum_gold_piles [base_sanctum_gold_piles = 2]
-		mod("AdditionalLifeScaling", "BASE", 13, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 13]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 13]
 		-- monster_slain_experience_+% [monster_slain_experience_+% = 800]
 		-- monster_dropped_item_quantity_+% [monster_dropped_item_quantity_+% = 1300]
 		-- monster_slain_flask_charges_granted_+% [monster_slain_flask_charges_granted_+% = 500]
@@ -37581,7 +37581,7 @@ minions["Metadata/Monsters/LeagueSanctum/Fodder/Reliquarian"] = {
 		-- sanctum_damage_variance_% [sanctum_damage_variance_% = 20]
 		-- base_sanctum_gold_to_drop [base_sanctum_gold_to_drop = 6]
 		-- base_sanctum_gold_piles [base_sanctum_gold_piles = 2]
-		mod("AdditionalLifeScaling", "BASE", 13, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 13]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 13]
 		-- monster_slain_experience_+% [monster_slain_experience_+% = 800]
 		-- monster_dropped_item_quantity_+% [monster_dropped_item_quantity_+% = 1300]
 		-- monster_slain_flask_charges_granted_+% [monster_slain_flask_charges_granted_+% = 500]
@@ -37618,7 +37618,7 @@ minions["Metadata/Monsters/LeagueSanctum/Fodder/Lithomancer"] = {
 		-- sanctum_damage_variance_% [sanctum_damage_variance_% = 20]
 		-- base_sanctum_gold_to_drop [base_sanctum_gold_to_drop = 6]
 		-- base_sanctum_gold_piles [base_sanctum_gold_piles = 2]
-		mod("AdditionalLifeScaling", "BASE", 13, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 13]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 13]
 		-- monster_slain_experience_+% [monster_slain_experience_+% = 800]
 		-- monster_dropped_item_quantity_+% [monster_dropped_item_quantity_+% = 1300]
 		-- monster_slain_flask_charges_granted_+% [monster_slain_flask_charges_granted_+% = 500]
@@ -37694,7 +37694,7 @@ minions["Metadata/Monsters/LeagueSanctum/Fodder/GargoyleMediumSpectre"] = {
 		-- sanctum_damage_variance_% [sanctum_damage_variance_% = 20]
 		-- base_sanctum_gold_to_drop [base_sanctum_gold_to_drop = 6]
 		-- base_sanctum_gold_piles [base_sanctum_gold_piles = 2]
-		mod("AdditionalLifeScaling", "BASE", 13, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 13]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 13]
 		-- monster_slain_experience_+% [monster_slain_experience_+% = 800]
 		-- monster_dropped_item_quantity_+% [monster_dropped_item_quantity_+% = 1300]
 		-- monster_slain_flask_charges_granted_+% [monster_slain_flask_charges_granted_+% = 500]
@@ -37736,7 +37736,7 @@ minions["Metadata/Monsters/LeagueSanctum/Fodder/PaleElite1"] = {
 		-- sanctum_damage_variance_% [sanctum_damage_variance_% = 20]
 		-- base_sanctum_gold_to_drop [base_sanctum_gold_to_drop = 6]
 		-- base_sanctum_gold_piles [base_sanctum_gold_piles = 2]
-		mod("AdditionalLifeScaling", "BASE", 13, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 13]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 13]
 		-- monster_slain_experience_+% [monster_slain_experience_+% = 800]
 		-- monster_dropped_item_quantity_+% [monster_dropped_item_quantity_+% = 1300]
 		-- monster_slain_flask_charges_granted_+% [monster_slain_flask_charges_granted_+% = 500]
@@ -37780,7 +37780,7 @@ minions["Metadata/Monsters/LeagueSanctum/Fodder/PaleElite2"] = {
 		-- sanctum_damage_variance_% [sanctum_damage_variance_% = 20]
 		-- base_sanctum_gold_to_drop [base_sanctum_gold_to_drop = 6]
 		-- base_sanctum_gold_piles [base_sanctum_gold_piles = 2]
-		mod("AdditionalLifeScaling", "BASE", 13, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 13]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 13]
 		-- monster_slain_experience_+% [monster_slain_experience_+% = 800]
 		-- monster_dropped_item_quantity_+% [monster_dropped_item_quantity_+% = 1300]
 		-- monster_slain_flask_charges_granted_+% [monster_slain_flask_charges_granted_+% = 500]
@@ -39615,7 +39615,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardSpearSpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -39647,7 +39647,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardSpearWeakSpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -39714,7 +39714,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBowLightningSpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -39747,7 +39747,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBowLightningWeakSpectre"] 
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -39781,7 +39781,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBowFireSpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -39814,7 +39814,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBowFireWeakSpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -39855,7 +39855,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardDaggersSpectre_"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -39891,7 +39891,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardDaggersWeakSpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -39925,7 +39925,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardTrapperSpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -39957,7 +39957,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBomberSpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -39996,7 +39996,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardGoliathSpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -40032,7 +40032,7 @@ minions["Metadata/Monsters/LeagueUltimatum/VaalOverseer/VaalOverseerSpectre_"] =
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -40067,7 +40067,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Wraith/WraithSpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -40101,7 +40101,7 @@ minions["Metadata/Monsters/LeagueUltimatum/JaguarDemon/JaguarDemonSpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -40132,7 +40132,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Ape/BloodMonkeySpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -40164,7 +40164,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Ape/PaleApeSpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -40197,7 +40197,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Ape/BloodChieftainSpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -40229,7 +40229,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Golem/GolemFireSpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -40261,7 +40261,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Golem/GolemColdSpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -40293,7 +40293,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Golem/GolemLightningSpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -40325,7 +40325,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Golem/GolemChaosSpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -40357,7 +40357,7 @@ minions["Metadata/Monsters/LeagueUltimatum/VaalCrawler/VaalCrawlerSpectre_"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -40390,7 +40390,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Spider/BulbSpiderSmallSpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -40425,7 +40425,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Spider/SabreSpiderLargeSpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -40458,7 +40458,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Spider/SabreSpiderLargeWeakSpectre"] 
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -40492,7 +40492,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Serpent/Drakeling"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -40524,7 +40524,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Golem/SkitterbotColdSpectre"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -40558,7 +40558,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Golem/SkitterbotLightningSpectre"] = 
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -40589,7 +40589,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Golem/SkitterbotColdWeak"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
 		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
 		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		mod("AdditionalLifeScaling", "BASE", 19, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
 	},
 }
@@ -45862,7 +45862,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockLow"] = {
 		"MPSFaridunWarlockBloodSpray",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
@@ -45894,7 +45894,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockMid_"] = {
 		"MPSFaridunWarlockBloodSpray",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
@@ -45927,7 +45927,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockHigh"] = {
 		"FaridunCasterUndeadDamageOverTimeAura",
 	},
 	modList = {
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
@@ -45960,7 +45960,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunGolemancer/FaridunGolemancerSpec
 	},
 	modList = {
 		-- MonsterModIsZarokhMonster [is_zarokh_monster = 1]
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
@@ -45989,7 +45989,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunGolemancer/FaridunGolemancerLow"
 	},
 	modList = {
 		-- MonsterModIsZarokhMonster [is_zarokh_monster = 1]
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
@@ -46023,7 +46023,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunGolemancer/FaridunGolemancerHigh
 	modList = {
 		-- MonsterModIsZarokhMonster [is_zarokh_monster = 1]
 		-- MonsterChanceToTemporalChainsOnHit1 [curse_on_hit_%_temporal_chains = 100]
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
@@ -46059,7 +46059,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunAstralAcolyteSpectre"] = {
 	},
 	modList = {
 		-- MonsterModIsZarokhMonster [is_zarokh_monster = 1]
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
@@ -46092,7 +46092,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunAstralAcolyteLow"] = {
 	modList = {
 		-- MonsterModIsZarokhMonster [is_zarokh_monster = 1]
 		mod("PhysicalDamageConvertToFire", "BASE", 50, 0, 0), -- MonsterConvertToFireDamage2 [base_physical_damage_%_to_convert_to_fire = 50]
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
@@ -46129,7 +46129,7 @@ minions["Metadata/Monsters/FaridunLeague/FaridunAstralAcolyteHigh"] = {
 	modList = {
 		-- MonsterModIsZarokhMonster [is_zarokh_monster = 1]
 		mod("PhysicalDamageConvertToFire", "BASE", 50, 0, 0), -- MonsterConvertToFireDamage2 [base_physical_damage_%_to_convert_to_fire = 50]
-		mod("AdditionalLifeScaling", "BASE", 25, 0, 0), -- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }

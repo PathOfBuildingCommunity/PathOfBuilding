@@ -1173,16 +1173,6 @@ function calcs.perform(env, skipEHP)
 		for _, mod in ipairs(env.player.mainSkill.extraSkillModList) do
 			env.minion.modDB:AddMod(mod)
 		end
-		-- Additional Monster Life Scaling
-		local spectreLifeScale = env.minion.modDB:Sum("BASE", nil, "AdditionalLifeScaling")
-		if spectreLifeScale > 0 then
-			local lifeTableKey = data.additionalLifeScalingTable[spectreLifeScale].id
-			local lifeScale = data[lifeTableKey][env.minion.level]
-			env.minion.modDB:NewMod("Life", "MORE", lifeScale, "Additional Life Scaling")
-			if data.additionalLifeScalingTable[spectreLifeScale].applyToES then
-				env.minion.modDB:NewMod("EnergyShield", "MORE", lifeScale, "Additional ES Scaling")
-			end
-		end
 		if env.aegisModList then
 			env.minion.itemList["Weapon 3"] = env.player.itemList["Weapon 2"]
 			env.minion.modDB:AddList(env.aegisModList)

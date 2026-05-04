@@ -2071,9 +2071,6 @@ return {
 	mod("MinionModifier", "LIST", { mod = mod("CritChance", "OVERRIDE", nil) }),
 	value = 100,
 },
-["set_additional_life_scaling_index"] = {
-	mod("AdditionalLifeScaling", "BASE", nil)
-},
 --Golem
 ["golem_buff_effect_+%"] = {
 	mod("BuffEffect", "INC", nil, 0, 0)
