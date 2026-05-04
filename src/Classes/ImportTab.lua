@@ -18,9 +18,12 @@ local influenceInfo = itemLib.influenceInfo.all
 function addOAuthControls(self)
 	self.usingOauth = true
 	self.isAuthorized = function() return main.api.authToken ~= nil end
-	-- either the 30 second timer for oauth, or a rate limit timer
+	-- the 30 second timer for oauth
 	--- @type integer?
 	self.oauthTimer = nil
+	-- timestamp for when we can request again after being rate limited
+	--- @type integer?
+	self.rateLimitEndTime = nil
 	--- @type string?
 	self.oauthErrCode = nil
 	--- @type bool
@@ -30,6 +33,7 @@ function addOAuthControls(self)
 	-- https://www.pathofexile.com/developer/docs/reference#type-Character
 	--- @type table<string, table[]>
 	self.characterList = {}
+
 	function charImportStatus()
 		if not self.isAuthorized() and not self.oauthTimer then
 			return colorCodes.WARNING .. "Not authenticated" .. (self.oauthErrCode or "")
@@ -41,10 +45,10 @@ function addOAuthControls(self)
 			end
 			return string.format("Logging in... (%d)", timeLeft) .. (self.oauthErrCode or "")
 			-- user is spam changing realms and is rate limited
-		elseif self.isAuthorized() and self.oauthTimer then
-			local timeLeft = m_max(0, (self.oauthTimer + 30) - os.time())
-			if timeLeft < 1 then
-				self.oauthTimer = nil
+		elseif self.isAuthorized() and self.rateLimitEndTime then
+			local timeLeft = m_max(0, self.rateLimitEndTime - os.time())
+			if timeLeft < 0.5 then
+				self.rateLimitEndTime = nil
 				return "Authenticated"
 			end
 			return colorCodes.WARNING .. string.format("You're doing that too fast. Please wait (%d)", timeLeft)
@@ -157,7 +161,7 @@ function addOAuthControls(self)
 				self.oauthLoading = false
 				return
 			elseif err == "Response code: 429" then
-				self.oauthTimer = timeNext
+				self.rateLimitEndTime = timeNext
 			else
 				self.oauthErrCode = err
 			end
