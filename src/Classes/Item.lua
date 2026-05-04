@@ -369,6 +369,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	local deferJewelRadiusIndexAssignment
 	local gameModeStage = "FINDIMPLICIT"
 	local foundExplicit, foundImplicit
+	local linePrefix = ""
 
 	while self.rawLines[l] do	
 		local line = self.rawLines[l]
@@ -398,7 +399,42 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			self[influenceItemMap[line]] = true
 		elseif line == "Requirements:" then
 			-- nothing to do
+		elseif line:match("^{ ") then
+			-- We're parsing advanced copy/paste format
+			linePrefix = ""
+			self.crafted = true
+			local fullModName, modTags, increasedAmt = line:match("^{ (.-) %- (.-)  %- (%d*).*}$")
+			if not fullModName then
+				fullModName, modTags = line:match("^{ (.-) %- (.-) }$")
+			end
+			if not fullModName then
+				fullModName = line:match("^{ (.-) }$")
+			end
+			local modName = fullModName:match("^.*Modifier \"(.*)\"")
+			if modName and modName ~= "" then 
+				for modId, modData in pairs(self.affixes) do
+					if modData.affix == modName then
+						if modData.type == "Prefix" then
+							pendingAffix = { modId = modId, table = self.prefixes }
+						elseif modData.type == "Suffix" then
+							pendingAffix = { modId = modId, table = self.suffixes }
+						end
+					end
+				end
+			end
+			local possibleLineFlags = fullModName:match("(.*)Modifier.*")
+			if possibleLineFlags then
+				for flag in possibleLineFlags:gmatch("%a+") do
+					if lineFlags[flag:lower()] then
+						linePrefix = linePrefix .. "{" .. flag:lower() .. "}"
+					end
+				end
+			end
+			if modTags and modTags ~= "" then
+				linePrefix = linePrefix .. "{tags:" .. modTags:lower():gsub("%s+", "") .. "}"
+			end
 		else
+			line = linePrefix .. line
 			if self.checkSection then
 				if gameModeStage == "IMPLICIT" then
 					if foundImplicit then
@@ -733,6 +769,24 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					gameModeStage = "IMPLICIT"
 				end
 				local catalystScalar = getCatalystScalar(self.catalyst, modLine.modTags, self.catalystQuality)
+				for value, range in line:gmatch("(%d+)%((%d+%-%d+)%)") do
+					-- Find advanced copy paste format: 45(40-50)
+					if pendingAffix then
+						local min, max = range:match("(%d+)%-(%d+)")
+						local numRange = round((value - min) / (tonumber(max) - min), 3)
+						line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", value)
+						t_insert(pendingAffix.table, {
+							modId = pendingAffix.modId,
+							range = tonumber(numRange),
+						})
+						pendingAffix = nil
+					else
+						local min, max = range:match("(%d+)%-(%d+)")
+						local numRange = round((value - min) / (tonumber(max) - min), 3)
+						modLine.range = tonumber(numRange)
+						line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", "(" .. range .. ")")
+					end
+				end
 				local rangedLine = itemLib.applyRange(line, 1, catalystScalar)
 				local modList, extra = modLib.parseMod(rangedLine)
 				if (not modList or extra) and self.rawLines[l+1] then
