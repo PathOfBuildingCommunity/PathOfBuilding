@@ -1411,7 +1411,7 @@ function calcs.perform(env, skipEHP)
 			for _, value in ipairs(modDB:Tabulate("INC", { }, element .. "Damage")) do
 				local mod = value.mod
 				local modifiers = calcLib.getConvertedModTags(mod, multiplier, true)
-				local converted = m_floor(mod.value * multiplier)
+				local converted = mod.value * multiplier
 				if limit and converted > 0 then
 					local remaining = limit - totalConverted
 					if remaining <= 0 then
