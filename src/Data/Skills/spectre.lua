@@ -2890,6 +2890,41 @@ skills["MonsterWarlordsMark"] = {
 		[1] = { cooldown = 8, levelRequirement = 1, storedUses = 1, },
 	},
 }
+skills["MotherOfFlamesMagmaOrb"] = {
+	name = "Rolling Magma",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 2.7778000831604,
+	incrementalEffectiveness = 0.035500001162291,
+	description = "Lob a fiery orb that deals area damage as it hits the ground. The skill chains, bouncing forward to deal damage multiple times.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Multicastable] = true, [SkillType.Chains] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.7,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		area = true,
+		chaining = true,
+	},
+	constantStats = {
+		{ "base_cast_speed_+%", -66 },
+		{ "number_of_chains", 2 },
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"is_area_damage",
+		"base_is_projectile",
+	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 3, critChance = 5, levelRequirement = 1, storedUses = 3, statInterpolation = { 3, 3, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, cooldown = 3, critChance = 5, levelRequirement = 68, storedUses = 3, statInterpolation = { 3, 3, }, },
+	},
+}
 skills["MotherOfFlamesMagmaOrb3"] = {
 	name = "Rolling Magma",
 	hidden = true,
@@ -3608,7 +3643,7 @@ skills["SkeletonMassBowProjectile"] = {
 	},
 }
 skills["SkeletonProjectileBlack"] = {
-	name = "",
+	name = "Default Spell (Physical)",
 	hidden = true,
 	color = 3,
 	baseEffectiveness = 1.2699999809265,
@@ -3635,6 +3670,105 @@ skills["SkeletonProjectileBlack"] = {
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["SkeletonProjectileCold"] = {
+	name = "Default Spell (Cold)",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.3499999046326,
+	incrementalEffectiveness = 0.032699998468161,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Multicastable] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.95,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "spell_maximum_action_distance_+%", -60 },
+		{ "base_chance_to_freeze_%", 15 },
+	},
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"base_is_projectile",
+	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 4, statInterpolation = { 3, 3, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 19, statInterpolation = { 3, 3, }, },
+		[3] = { 2.7000000476837, 4.210000038147, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["SkeletonProjectileFire"] = {
+	name = "Default Spell (Fire)",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.6500000953674,
+	incrementalEffectiveness = 0.032499998807907,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Multicastable] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.95,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "spell_maximum_action_distance_+%", -40 },
+		{ "base_chance_to_ignite_%", 50 },
+		{ "ignite_damage_+%", 33 },
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 4, statInterpolation = { 3, 3, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 19, statInterpolation = { 3, 3, }, },
+		[3] = { 2.7000000476837, 4.210000038147, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["SkeletonProjectileLightning"] = {
+	name = "Default Spell (Lightning)",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.8499999046326,
+	incrementalEffectiveness = 0.029999999329448,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Multicastable] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.95,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "spell_maximum_action_distance_+%", -60 },
+		{ "base_chance_to_shock_%", 33 },
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_is_projectile",
+	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 4, statInterpolation = { 3, 3, }, },
+		[2] = { 0.5, 1.5, critChance = 5, levelRequirement = 19, statInterpolation = { 3, 3, }, },
+		[3] = { 1.1699999570847, 3.4900000095367, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["SkeletonSoldierTornadoShot"] = {
@@ -4076,6 +4210,40 @@ skills["WickerManMoltenStrike"] = {
 	},
 	levels = {
 		[1] = { baseMultiplier = 0.55, levelRequirement = 10, },
+	},
+}
+skills["VaalGuardMeleeFire"] = {
+	name = "Default Attack (Fire)",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "base_chance_to_ignite_%", 33 },
+		{ "skill_physical_damage_%_to_convert_to_fire", 50 },
+		{ "arrow_projectile_variation", 33 },
+		{ "burn_damage_+%", 50 },
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"action_attack_or_cast_time_uses_animation_length",
+		"all_damage_can_ignite",
+		"use_scaled_contact_offset",
+	},
+	notMinionStat = {
+		"active_skill_damage_+%_final",
+	},
+	levels = {
+		[1] = { 0, baseMultiplier = 0.7812, levelRequirement = 1, statInterpolation = { 2, }, },
 	},
 }
 skills["VaalincursionMortar"] = {
@@ -11610,5 +11778,37 @@ skills["FaridunCasterUndeadDamageOverTimeAura"] = {
 	levels = {
 		[1] = { 14, 10, cooldown = 0.5, levelRequirement = 0, storedUses = 1, statInterpolation = { 2, 2, }, },
 		[2] = { 17, 14, cooldown = 0.5, levelRequirement = 80, storedUses = 1, statInterpolation = { 2, 2, }, },
+	},
+}
+skills["MPSUltimatumColdBasic"] = {
+	name = "Default Spell (Cold)",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.360200047493,
+	incrementalEffectiveness = 0.046500001102686,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "monster_projectile_variation", 184 },
+		{ "spell_maximum_action_distance_+%", -64 },
+	},
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }

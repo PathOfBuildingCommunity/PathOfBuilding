@@ -422,6 +422,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill MotherOfFlamesMagmaOrb
+#flags spell projectile area chaining
+#mods
+
 #skill MotherOfFlamesMagmaOrb3
 #flags spell projectile area chaining
 #mods
@@ -568,7 +572,19 @@ local skills, mod, flag, skill = ...
 #baseMod mod("BleedChance", "BASE", 100)
 #mods
 
-#skill SkeletonProjectileBlack
+#skill SkeletonProjectileBlack Default Spell (Physical)
+#flags spell projectile
+#mods
+
+#skill SkeletonProjectileCold Default Spell (Cold)
+#flags spell projectile
+#mods
+
+#skill SkeletonProjectileFire Default Spell (Fire)
+#flags spell projectile
+#mods
+
+#skill SkeletonProjectileLightning Default Spell (Lightning)
 #flags spell projectile
 #mods
 
@@ -642,6 +658,10 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill WickerManMoltenStrike
+#flags attack melee
+#mods
+
+#skill VaalGuardMeleeFire Default Attack (Fire)
 #flags attack melee
 #mods
 
@@ -2262,4 +2282,8 @@ skills["LegionKaruiMeleeCombo2"] = {
 			mod("Duration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
+#mods
+
+#skill MPSUltimatumColdBasic Default Spell (Cold)
+#flags spell projectile
 #mods
