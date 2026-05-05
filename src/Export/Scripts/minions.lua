@@ -150,7 +150,20 @@ end
 -- #emit
 directiveTable.emit = function(state, args, out)
 
-	local monsterVariety = dat("MonsterVarieties"):GetRow("Id", state.varietyId)
+	local baseMonsterVariety = dat("MonsterVarieties"):GetRow("Id", state.varietyId)
+
+	local monsterVariety = baseMonsterVariety
+	local outputId = baseMonsterVariety.Id
+
+	for override in dat("SpectreOverrides"):Rows() do
+		if override.Monster and override.Spectre then
+			if override.Monster.Id == baseMonsterVariety.Id then
+				monsterVariety = override.Spectre
+				outputId = override.Spectre.Id
+				break
+			end
+		end
+	end
 	if not monsterVariety then
 		print("Invalid Variety: "..state.varietyId)
 		return
@@ -389,6 +402,7 @@ end
 
 -- #spectre <MonsterId> [<Name>]
 directiveTable.spectre = function(state, args, out)
+	local spectreFile = true
 	directiveTable.monster(state, args, out)
 end
 

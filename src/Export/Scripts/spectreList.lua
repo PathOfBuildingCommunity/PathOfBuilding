@@ -12,7 +12,6 @@ local spectreList = {}
 local notImported = {}
 local duplicateName = {}
 
--- use hash instead of array
 local uniqueName = {}
 
 -- load already imported spectres
@@ -35,80 +34,137 @@ for monster in dat("MonsterVarieties"):Rows() do
 		and not monster.Type.IsPlayerMinion == true
 		and not monster.Id:match("NPC")
 		and not monster.Name:match("DNT")
+		and not monster.Name:match("Daemon")
+		and not monster.Name:match("Invisible")
 		and not monster.Id:find("TestSpawn")
+		and not monster.Id:find("Mtx")
 		and not monster.Id:find("InsectTest")
+		and not monster.Id:find("TEMP")
+		and not monster.Id:find("GenericTest")
+		and not monster.Id:find("PhysicsTest")
+		and not monster.Id:find("Royale")
 		and not monster.AIScript:match("NoAI")
 		and #monster.GrantedEffects ~= 0 then
+
 		for _, mod in ipairs(monster.Mods) do
 			if mod.Id == "CannotBeUsedAsMinion" then
 				goto continue
 			end
 		end
+
 		for _, mod in ipairs(monster.ModsKeys2) do
 			if mod.Id == "CannotBeUsedAsMinion" then
 				goto continue
 			end
 		end
+
 		for _, tag in ipairs(monster.Tags) do
 			if tag.Id == "unusable_corpse" then
 				goto continue
 			end
 		end
 
-		-- resolve SpectreOverride
+		------------------------------------------------------------
+		-- Resolve Spectre Override FIRST (ID + skill source)
+		------------------------------------------------------------
 		local outputId = monster.Id
+		local skillSource = monster
+
 		for override in dat("SpectreOverrides"):Rows() do
 			if override.Monster.Id == monster.Id and override.Spectre then
 				outputId = override.Spectre.Id
+				skillSource = override.Spectre
 				break
 			end
 		end
 
-		-- build skill signature (name + sorted skills)
+		------------------------------------------------------------
+		-- Build skill signature from resolved source
+		------------------------------------------------------------
 		local skillIds = {}
-		for _, skill in ipairs(monster.GrantedEffects) do
+
+		for _, skill in ipairs(skillSource.GrantedEffects or {}) do
 			if skill and skill.Id then
 				table.insert(skillIds, skill.Id)
 			end
 		end
+
 		table.sort(skillIds)
 
 		local signature = monster.Name .. "|" .. table.concat(skillIds, ",")
 
-		-- duplicate check (name + skills)
+		------------------------------------------------------------
+		-- Duplicate check (name + skills)
+		------------------------------------------------------------
 		if uniqueName[signature] then
-			table.insert(duplicateName, { id = outputId, name = monster.Name })
+			table.insert(duplicateName, {
+				id = outputId,
+				name = monster.Name
+			})
 			goto continue
 		end
 
 		uniqueName[signature] = true
 
-		-- check import status
+		------------------------------------------------------------
+		-- Import check
+		------------------------------------------------------------
 		if not importedSpectres[outputId] then
-			table.insert(notImported, { id = outputId, name = monster.Name })
+			table.insert(notImported, {
+				id = outputId,
+				name = monster.Name
+			})
 		end
-		table.insert(spectreList, { id = outputId, name = monster.Name })
 
+		table.insert(spectreList, {
+			id = outputId,
+			name = monster.Name
+		})
 	end
+
 	::continue::
 end
 
+------------------------------------------------------------
+-- Output
+------------------------------------------------------------
 out:write("-- All Spectre Names --\n")
 out:write("-- This is a full list of all Spectres with basic filtering.--\n\n")
+
 for _, monster in ipairs(spectreList) do
-	out:write(monster.id .. string.rep(" ", 90 - string.len(monster.id)) .. "\t\t----\t\t" .. monster.name, "\n")
+	out:write(
+		monster.id
+		.. string.rep(" ", 90 - string.len(monster.id))
+		.. "\t\t----\t\t"
+		.. monster.name,
+		"\n"
+	)
 end
 
 out:write("\n-- Spectres Not Yet Imported --\n")
-out:write("-- These are either false spectres, or are disabled in game currently. This is not including duplicate names, just singular copy of a Spectre name.--\n\n")
+out:write("-- These spectres are not in PoB yet. Could be false spectres or disabled server-side. --\n\n")
+
 for _, monster in ipairs(notImported) do
-	out:write(monster.id .. string.rep(" ", 90 - string.len(monster.id)) .. "\t\t----\t\t" .. monster.name, "\n")
+	out:write(
+		monster.id
+		.. string.rep(" ", 90 - string.len(monster.id))
+		.. "\t\t----\t\t"
+		.. monster.name,
+		"\n"
+	)
 end
 
 out:write("\n-- Duplicate Spectre Names --\n")
-out:write("-- There are some spectres with the same name but different skills (Abhorred Elitist), we should probably import them too. --\n\n")
+out:write("-- Same name but different skill sets (should likely be separate imports). --\n\n")
+
 for _, monster in ipairs(duplicateName) do
-	out:write(monster.id .. string.rep(" ", 90 - string.len(monster.id)) .. "\t\t----\t\t" .. monster.name, "\n")
+	out:write(
+		monster.id
+		.. string.rep(" ", 90 - string.len(monster.id))
+		.. "\t\t----\t\t"
+		.. monster.name,
+		"\n"
+	)
 end
 
 out:close()
