@@ -522,9 +522,9 @@ function main:LoadSettings(ignoreBuild)
 				self:SetMode(node.attrib.mode, unpack(args))
 			elseif node.elem == "Accounts" then
 				self.lastAccountName = node.attrib.lastAccountName
-                self.lastRealm = node.attrib.lastRealm
-                self.lastLeague = node.attrib.lastLeague
-                self.lastToken = node.attrib.lastToken
+				self.lastRealm = node.attrib.lastRealm
+				self.lastLeague = node.attrib.lastLeague
+				self.lastToken = node.attrib.lastToken
 				self.lastRefreshToken = node.attrib.lastRefreshToken
 				self.tokenExpiry = tonumber(node.attrib.tokenExpiry)
 				for _, child in ipairs(node) do
@@ -714,8 +714,8 @@ function main:SaveSettings()
 		return true
 	end
 	t_insert(setXML, mode)
-    local accounts = { elem = "Accounts", attrib = { lastAccountName = self.lastAccountName, lastRealm = self.lastRealm, lastLeague = self.lastLeague, lastToken = self.lastToken, lastRefreshToken = self.lastRefreshToken, tokenExpiry = tostring(self.tokenExpiry) } }
-    for accountName, account in pairs(self.gameAccounts) do
+	local accounts = { elem = "Accounts", attrib = { lastAccountName = self.lastAccountName, lastRealm = self.lastRealm, lastLeague = self.lastLeague, lastToken = self.lastToken, lastRefreshToken = self.lastRefreshToken, tokenExpiry = tostring(self.tokenExpiry) } }
+	for accountName, account in pairs(self.gameAccounts) do
 		t_insert(accounts, { elem = "Account", attrib = { accountName = accountName, sessionID = account.sessionID } })
 	end
 	t_insert(setXML, accounts)
