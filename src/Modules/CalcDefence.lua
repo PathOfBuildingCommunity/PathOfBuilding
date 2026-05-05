@@ -175,6 +175,9 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 		if output.FrostShieldLife then
 			alliesTakenBeforeYou["frostShield"] = { remaining = output.FrostShieldLife, percent = output.FrostShieldDamageMitigation / 100 }
 		end
+		if output.TotalMinionLife then
+			alliesTakenBeforeYou["minion"] = { remaining = output.TotalMinionLife, percent = output.MinionAllyDamageMitigation / 100 }
+		end
 		if output.TotalSpectreLife then
 			alliesTakenBeforeYou["spectres"] = { remaining = output.TotalSpectreLife, percent = output.SpectreAllyDamageMitigation / 100 }
 		end
@@ -417,6 +420,9 @@ local function incomingDamageBreakdown(breakdownTable, poolsRemaining, output)
 	--region Breakdown inserts
 	if output.FrostShieldLife and output.FrostShieldLife > 0 then
 		t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Frost Shield Life ^7(%d remaining)", output.FrostShieldLife - poolsRemaining.AlliesTakenBeforeYou["frostShield"].remaining, poolsRemaining.AlliesTakenBeforeYou["frostShield"].remaining))
+	end
+	if output.TotalMinionLife and output.TotalMinionLife > 0 then
+		t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Minion Life ^7(%d remaining)", output.TotalMinionLife - poolsRemaining.AlliesTakenBeforeYou["minion"].remaining, poolsRemaining.AlliesTakenBeforeYou["minion"].remaining))
 	end
 	if output.TotalSpectreLife and output.TotalSpectreLife > 0 then
 		t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Spectre Life ^7(%d remaining)", output.TotalSpectreLife - poolsRemaining.AlliesTakenBeforeYou["spectres"].remaining, poolsRemaining.AlliesTakenBeforeYou["spectres"].remaining))
@@ -2445,6 +2451,12 @@ function calcs.buildDefenceEstimations(env, actor)
 			}
 		end
 		
+		-- from Minion
+		output["MinionAllyDamageMitigation"] = modDB:Sum("BASE", nil, "takenFromMinionBeforeYou")
+		if output["MinionAllyDamageMitigation"] ~= 0 then
+			output["TotalMinionLife"] = modDB:Sum("BASE", nil, "Multiplier:MinionLife")
+		end
+		
 		-- from spectres
 		output["SpectreAllyDamageMitigation"] = modDB:Sum("BASE", nil, "takenFromSpectresBeforeYou")
 		if output["SpectreAllyDamageMitigation"] ~= 0 then
@@ -2561,6 +2573,9 @@ function calcs.buildDefenceEstimations(env, actor)
 		local alliesTakenBeforeYou = {}
 		if output.FrostShieldLife then
 			alliesTakenBeforeYou["frostShield"] = { remaining = output.FrostShieldLife, percent = output.FrostShieldDamageMitigation / 100 }
+		end
+		if output.TotalMinionLife then
+			alliesTakenBeforeYou["minion"] = { remaining = output.TotalMinionLife, percent = output.MinionAllyDamageMitigation / 100 }
 		end
 		if output.TotalSpectreLife then
 			alliesTakenBeforeYou["spectres"] = { remaining = output.TotalSpectreLife, percent = output.SpectreAllyDamageMitigation / 100 }
@@ -3122,6 +3137,11 @@ function calcs.buildDefenceEstimations(env, actor)
 			if output["FrostShieldLife"] > 0 then
 				local poolProtected = output["FrostShieldLife"] / (output["FrostShieldDamageMitigation"] / 100) * (1 - output["FrostShieldDamageMitigation"] / 100)
 				output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["FrostShieldDamageMitigation"] / 100)
+			end
+			-- minions
+			if output["TotalMinionLife"] and output["TotalMinionLife"] > 0 then
+				local poolProtected = output["TotalMinionLife"] / (output["MinionAllyDamageMitigation"] / 100) * (1 - output["MinionAllyDamageMitigation"] / 100)
+				output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["MinionAllyDamageMitigation"] / 100)
 			end
 			-- spectres
 			if output["TotalSpectreLife"] and output["TotalSpectreLife"] > 0 then
@@ -3763,6 +3783,10 @@ function calcs.buildDefenceEstimations(env, actor)
 			if resourcesLost.frostShield then
 				resourcesLostSum = resourcesLostSum + resourcesLost.frostShield
 				t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Frost Shield Life", resourcesLost.frostShield))
+			end
+			if resourcesLost.minion then
+				resourcesLostSum = resourcesLostSum + resourcesLost.minion
+				t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Minion Life", resourcesLost.minion))
 			end
 			if resourcesLost.spectres then
 				resourcesLostSum = resourcesLostSum + resourcesLost.spectres
