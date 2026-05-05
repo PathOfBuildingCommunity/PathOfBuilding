@@ -1823,20 +1823,11 @@ Metadata/Monsters/FaridunLeague/FaridunAstralAcolyteHigh                        
 -- These spectres are not in PoB yet. Could be false spectres or disabled server-side. --
 
 Metadata/Monsters/Beasts/BeastParasiteSpawnParasite                                       		----		Enraptured Beast
-Metadata/Monsters/Seawitch/SeaWitch                                                       		----		Merveil's Favoured
-Metadata/Monsters/Seawitch/SeaWitchSpawn                                                  		----		Merveil's Daughter
-Metadata/Monsters/Seawitch/ProphecySeaWitch                                               		----		Fated Siren
 Metadata/Monsters/InsectSpawner/InsectSpawnerParasite                                     		----		Carrion Queen
 Metadata/Monsters/InsectMinion/InsectWildDescent                                          		----		Carrion Swarmer
 Metadata/Monsters/Kiweth/KiwethBossMinion                                                 		----		Vassal of Inti
-Metadata/Monsters/Axis/DexIntMissionAxisEliteSoldierShield                                		----		Elite Mercenary
 Metadata/Monsters/Bull/BullNoArmour                                                       		----		Avalanche Rider
 Metadata/Monsters/Bull/BullPhysical                                                       		----		Grazing Taurus
-Metadata/Monsters/BloodWorm/TalismanBloodWorm                                             		----		Blood Worm
-Metadata/Monsters/CrabParasite/CrabParasiteLargeWithCorpse                                		----		Savage Crab
-Metadata/Monsters/Undying/UndyingOutcastPunctureLabyrinth                                 		----		Skulking Dweller
-Metadata/Monsters/ParasiticSquid/ParasiticSquid                                           		----		Brine Vassal
-Metadata/Monsters/ParasiticSquid/ParasiticSquidWarp                                       		----		Swarthy Mollusc
 Metadata/Monsters/Prophecy/VaalFallenSword                                                		----		Vaal Memory
 Metadata/Monsters/HolyFireElemental/HolyFireElementalSolaris2                             		----		Solar Elemental
 Metadata/Monsters/NessaCrab/NessaCrabAtlasUber                                            		----		Reefrend
@@ -1853,11 +1844,6 @@ Metadata/Monsters/MavenBoss/TheMavenMapBeamOrb                                  
 Metadata/Monsters/PrisonStalker/PrisonStalker                                             		----		Ghoul
 Metadata/Monsters/SaplingMonster/TwigMonster                                              		----		Skeleton Spriggan
 Metadata/Monsters/SaplingMonster/TwigMonsterArchnemesis                                   		----		Treant
-Metadata/Monsters/PlagueSwarm/PlagueInsect                                                		----		Carrion Wasp
-Metadata/Monsters/PlagueSwarm/PlagueWasp                                                  		----		Plague Wasp
-Metadata/Monsters/VaalMonsters/Golems/SkitterbotCold                                      		----		Frosted Cogwork
-Metadata/Monsters/VaalMonsters/Golems/SkitterbotLightning                                 		----		Stormcharged Cogwork
-Metadata/Monsters/LeagueNecropolis/TankyZombieSpectre                                     		----		Meatsack
 Metadata/Monsters/GoldenOnes/GoldenOnesFodderMace                                         		----		Gilded Soldier
 Metadata/Monsters/VaalForgeMan/VaalForgeMan                                               		----		Gilded Smith
 Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaWalkerRangedSpectre             		----		Twisted Recollection

@@ -7891,6 +7891,40 @@ minions["Metadata/Monsters/ShieldCrabs/DexMissionShieldCrab"] = {
 		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
+minions["Metadata/Monsters/CrabParasite/CrabParasiteLargeWithCorpse"] = {
+	name = "Savage Crab",
+	monsterTags = { "beast", "crustacean_beast", "extra_small_height", "fast_movement", "hard_armour", "is_unarmed", "large_model", "melee", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.2,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 15,
+	accuracy = 1,
+	baseMovementSpeed = 47,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Beach (Map)",
+		"Infested Valley (Map)",
+		"Infused Beachhead (Map)",
+		"The Beachhead (Map)",
+		"The Coast (Act 1)",
+		"The Eternal Laboratory (Act 8)",
+		"The Tidal Island (Act 1)",
+		"The Tidal Island (Act 6)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"DanceOnCorpseFaceTarget",
+	},
+	modList = {
+	},
+}
 -- Crazed Flamebeast
 minions["Metadata/Monsters/Lion/DexMissionLionFireSkinGroundFire"] = {
 	name = "Crazed Flamebeast",
@@ -21994,6 +22028,60 @@ minions["Metadata/Monsters/Parasite/ParasiteViscous"] = {
 		mod("EnemyPoisonDuration", "INC", 100, 0, 0), -- ParasitePoisonOnHit [base_poison_duration_+% = 100]
 	},
 }
+-- Plague Swarm
+minions["Metadata/Monsters/PlagueSwarm/PlagueInsect"] = {
+	name = "Carrion Wasp",
+	monsterTags = { "beast", "fast_movement", "flesh_armour", "insect", "insect_blood", "is_unarmed", "melee", "not_int", "not_str", "physical_affinity", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.95,
+	evasion = 0.25,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 40,
+	damage = 0.74,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 6,
+	accuracy = 1,
+	baseMovementSpeed = 46,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"The Fellshrine Ruins (Act 2)",
+		"The Wetlands (Act 2)",
+	},
+	skillList = {
+		"PlagueInsectMelee",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/PlagueSwarm/PlagueWasp"] = {
+	name = "Plague Wasp",
+	monsterTags = { "beast", "flesh_armour", "insect", "insect_blood", "is_unarmed", "melee", "not_int", "not_str", "physical_affinity", "very_fast_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.95,
+	evasion = 0.25,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 40,
+	damage = 0.74,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 6,
+	accuracy = 1,
+	baseMovementSpeed = 58,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"The Broken Bridge (Act 2)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+	},
+}
 -- Primordial Creation
 minions["Metadata/Monsters/Flayed/FlayedMale"] = {
 	name = "Primordial Creation",
@@ -23152,6 +23240,62 @@ minions["Metadata/Monsters/MossMonster/FireMonsterKaom"] = {
 	modList = {
 	},
 }
+minions["Metadata/Monsters/VaalMonsters/Golems/SkitterbotCold"] = {
+	name = "Frosted Cogwork",
+	monsterTags = { "caster", "cold_affinity", "construct", "fast_movement", "golem", "is_unarmed", "not_dex", "stone_armour", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.95,
+	energyShield = 0.6,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 0.77,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 46,
+	monsterCategory = "Construct",
+	spawnLocation = {
+	},
+	skillList = {
+		"VaalSkitterbotIceSpear",
+	},
+	modList = {
+		-- MonsterChilledAuraSkitterbot [dummy_stat_display_nothing = 1]
+	},
+}
+minions["Metadata/Monsters/VaalMonsters/Golems/SkitterbotLightning"] = {
+	name = "Stormcharged Cogwork",
+	monsterTags = { "caster", "construct", "fast_movement", "golem", "is_unarmed", "lightning_affinity", "not_dex", "stone_armour", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.95,
+	energyShield = 0.6,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 0.77,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 46,
+	monsterCategory = "Construct",
+	spawnLocation = {
+	},
+	skillList = {
+		"MPSVaalSkitterbotBasicLightning",
+		"VaalSkitterbotLeap",
+		"GSVaalSkitterbotLeapImpact",
+	},
+	modList = {
+		-- MonsterShockedAuraSkitterbot___ [dummy_stat_display_nothing = 1]
+	},
+}
 -- Watcher / Drifter
 minions["Metadata/Monsters/Squid/Squid"] = {
 	name = "Soulless Watcher",
@@ -23453,6 +23597,70 @@ minions["Metadata/Monsters/Eyes/EyeDoedre"] = {
 	modList = {
 		-- supress_muzzle_flash [supress_muzzle_flash = 1]
 		-- supress_weapon_surges [supress_weapon_surges = 1]
+	},
+}
+minions["Metadata/Monsters/ParasiticSquid/ParasiticSquid"] = {
+	name = "Brine Vassal",
+	monsterTags = { "beast", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "insect_blood", "large_height", "melee", "not_str", "physical_affinity", "reptile_beast", "slashing_weapon", "slow_movement", },
+	life = 1.15,
+	energyShield = 0.5,
+	evasion = 0.5,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.3,
+	damageSpread = 0.2,
+	attackTime = 1.755,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Dry Sea (Map)",
+		"Mao Kun (Map)",
+		"Reef (Map)",
+		"The Brine King's Reef (Act 6)",
+		"The Cavern of Anger (Act 1)",
+		"The Eternal Laboratory (Act 8)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"ParasiticSquidGroundEffectTar",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/ParasiticSquid/ParasiticSquidWarp"] = {
+	name = "Swarthy Mollusc",
+	monsterTags = { "beast", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "insect_blood", "large_height", "melee", "not_str", "physical_affinity", "reptile_beast", "slashing_weapon", "slow_movement", },
+	life = 1.15,
+	energyShield = 0.5,
+	evasion = 0.5,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.3,
+	damageSpread = 0.2,
+	attackTime = 1.755,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 26,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Dry Sea (Map)",
+		"Mao Kun (Map)",
+		"Reef (Map)",
+		"The Brine King's Reef (Act 6)",
+		"The Eternal Laboratory (Act 8)",
+	},
+	skillList = {
+		"Melee",
+		"ParasiticSquidGroundEffectTar",
+		"ParasiticSquidWarp",
+	},
+	modList = {
 	},
 }
 -- Wolf
@@ -25139,6 +25347,96 @@ minions["Metadata/Monsters/SandSpitters/SandSpitterCold"] = {
 		"MonsterWaitVeryShortWithCooldown",
 	},
 	modList = {
+	},
+}
+-- Seawitch
+minions["Metadata/Monsters/Seawitch/SeaWitch"] = {
+	name = "Merveil's Favoured",
+	monsterTags = { "caster", "cold_affinity", "demon", "flesh_armour", "has_dagger", "has_one_handed_melee", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.02,
+	energyShield = 1,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.52,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 22,
+	monsterCategory = "Demon",
+	spawnLocation = {
+		"Caer Blaidd, Wolfpack's Den (Map)",
+		"Mineral Pools (Map)",
+		"Shore (Map)",
+		"The Eternal Laboratory (Act 8)",
+		"Underground River (Map)",
+		"Underground Sea (Map)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"SeawitchWaveGeometrySpell",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Seawitch/SeaWitchSpawn"] = {
+	name = "Merveil's Daughter",
+	monsterTags = { "caster", "cold_affinity", "demon", "flesh_armour", "has_dagger", "has_one_handed_melee", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.02,
+	energyShield = 1,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.52,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 25,
+	monsterCategory = "Demon",
+	spawnLocation = {
+		"Fragmented Memory",
+		"The Cavern of Anger (Act 1)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"SSMSeawitchSpawn",
+		"SeawitchWaveGeometrySpell",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Seawitch/ProphecySeaWitch"] = {
+	name = "Fated Siren",
+	monsterTags = { "caster", "cold_affinity", "demon", "flesh_armour", "has_dagger", "has_one_handed_melee", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.28,
+	energyShield = 1,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.91,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 22,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"SeaWitchScreech",
+		"SeawitchWaveGeometrySpell",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
 -- Sentinel / Ribbon
@@ -38365,6 +38663,34 @@ minions["Metadata/Monsters/Undying/UndyingOutcastBladeVortex_"] = {
 	modList = {
 	},
 }
+minions["Metadata/Monsters/Undying/UndyingOutcastPunctureLabyrinth"] = {
+	name = "Skulking Dweller",
+	monsterTags = { "demon", "extra_small_height", "fast_movement", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "light_armour", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slashing_weapon", "undying", },
+	life = 1,
+	evasion = 0.25,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.65,
+	attackRange = 6,
+	accuracy = 1,
+	baseMovementSpeed = 38,
+	monsterCategory = "Demon",
+	spawnLocation = {
+		"Arcade (Map)",
+		"Lair of the Hydra (Map)",
+	},
+	skillList = {
+		"Melee",
+		"MonsterPuncture",
+	},
+	modList = {
+		-- MonsterCastsPunctureText [monster_casts_puncture_text = 1]
+	},
+}
 -- Unholy Aberration
 minions["Metadata/Monsters/SpiderPlated/SpiderPlatedUnholyEmerge"] = {
 	name = "Unholy Aberration",
@@ -38568,6 +38894,38 @@ minions["Metadata/Monsters/BloodWorm/BloodWormAtlasBarrel"] = {
 		"Melee",
 	},
 	modList = {
+	},
+}
+minions["Metadata/Monsters/BloodWorm/TalismanBloodWorm"] = {
+	name = "Blood Worm",
+	monsterTags = { "animal_claw_weapon", "caster", "chaos_affinity", "demon", "extra_extra_small_height", "flesh_armour", "insect", "is_unarmed", "melee", "physical_affinity", "red_blood", "very_slow_movement", },
+	life = 0.8,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.8,
+	damageSpread = 0.1,
+	attackTime = 1.5,
+	attackRange = 6,
+	accuracy = 1,
+	baseMovementSpeed = 15,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"Melee",
+		"TalismanDeathExplodeBloodWorm",
+	},
+	modList = {
+		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+		-- MonsterNoFlaskCharges [monster_grants_no_flask_charges = 1]
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
 	},
 }
 -- Wicker Man
@@ -46785,6 +47143,37 @@ minions["Metadata/Monsters/Axis/DexIntMissionAxisCaster"] = {
 		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_block_%_damage_taken = 10]
 	},
 }
+minions["Metadata/Monsters/Axis/DexIntMissionAxisEliteSoldierShield"] = {
+	name = "Elite Mercenary",
+	monsterTags = { "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "medium_height", "melee", "military", "not_dex", "not_int", "physical_affinity", "plate_armour", "red_blood", "slashing_weapon", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.2,
+	armour = 0.75,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.245,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "Shield",
+	baseMovementSpeed = 27,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AxisShieldCharge",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackBlock40Bypass10_ [monster_base_block_% = 20]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterAttackBlock40Bypass10_ [base_block_%_damage_taken = 10]
+	},
+}
 -- Mirage
 minions["Metadata/Monsters/RamGiant/RottingRamGiant_Spectre_"] = {
 	name = "Rotting Hulk",
@@ -53065,6 +53454,30 @@ minions["Metadata/Monsters/LeagueNecropolis/TankyZombieTorment__"] = {
 	lightningResist = 0,
 	chaosResist = 0,
 	damage = 0.4,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 11,
+	accuracy = 1,
+	baseMovementSpeed = 56,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueNecropolis/TankyZombieSpectre"] = {
+	name = "Meatsack",
+	monsterTags = { "cold_affinity", "flesh_armour", "humanoid", "is_unarmed", "melee", "physical_affinity", "red_blood", "undead", "very_fast_movement", "zombie", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 4,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	attackRange = 11,

@@ -516,6 +516,8 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/ShieldCrabs/DexMissionShieldCrab
 #emit
+#spectre Metadata/Monsters/CrabParasite/CrabParasiteLargeWithCorpse
+#emit
 -- Crazed Flamebeast
 #spectre Metadata/Monsters/Lion/DexMissionLionFireSkinGroundFire
 #emit
@@ -1451,6 +1453,11 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/Parasite/ParasiteViscous
 #emit
+-- Plague Swarm
+#spectre Metadata/Monsters/PlagueSwarm/PlagueInsect
+#emit
+#spectre Metadata/Monsters/PlagueSwarm/PlagueWasp
+#emit
 -- Primordial Creation
 #spectre Metadata/Monsters/Flayed/FlayedMale
 #emit
@@ -1533,6 +1540,10 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/MossMonster/FireMonsterKaom
 #emit
+#spectre Metadata/Monsters/VaalMonsters/Golems/SkitterbotCold
+#emit
+#spectre Metadata/Monsters/VaalMonsters/Golems/SkitterbotLightning
+#emit
 -- Watcher / Drifter
 #spectre Metadata/Monsters/Squid/Squid
 #emit
@@ -1553,6 +1564,10 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Eyes/Eye3
 #emit
 #spectre Metadata/Monsters/Eyes/EyeDoedre
+#emit
+#spectre Metadata/Monsters/ParasiticSquid/ParasiticSquid
+#emit
+#spectre Metadata/Monsters/ParasiticSquid/ParasiticSquidWarp
 #emit
 -- Wolf
 #spectre Metadata/Monsters/Lion/LionWolf
@@ -1666,6 +1681,13 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/SandSpitters/SandSpitter3SpawnWithCorpse_
 #emit
 #spectre Metadata/Monsters/SandSpitters/SandSpitterCold
+#emit
+-- Seawitch
+#spectre Metadata/Monsters/Seawitch/SeaWitch
+#emit
+#spectre Metadata/Monsters/Seawitch/SeaWitchSpawn
+#emit
+#spectre Metadata/Monsters/Seawitch/ProphecySeaWitch
 #emit
 -- Sentinel / Ribbon
 #spectre Metadata/Monsters/Guardians/GuardianFire2_
@@ -2516,6 +2538,8 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/Undying/UndyingOutcastBladeVortex_
 #emit
+#spectre Metadata/Monsters/Undying/UndyingOutcastPunctureLabyrinth
+#emit
 -- Unholy Aberration
 #spectre Metadata/Monsters/SpiderPlated/SpiderPlatedUnholyEmerge
 #emit
@@ -2529,6 +2553,8 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/BloodWorm/FlaskWormToad
 #emit
 #spectre Metadata/Monsters/BloodWorm/BloodWormAtlasBarrel
+#emit
+#spectre Metadata/Monsters/BloodWorm/TalismanBloodWorm
 #emit
 -- Wicker Man
 #spectre Metadata/Monsters/WickerMan/WickerMan
@@ -3098,6 +3124,8 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/Axis/DexIntMissionAxisCaster
 #emit
+#spectre Metadata/Monsters/Axis/DexIntMissionAxisEliteSoldierShield
+#emit
 -- Mirage
 #spectre Metadata/Monsters/RamGiant/RottingRamGiant_Spectre_
 #emit
@@ -3508,6 +3536,8 @@ local minions, mod, flag = ...
 #spectre Metadata/Monster/Blackguard/BlackguardJaegerZombie
 #emit
 #spectre Metadata/Monsters/LeagueNecropolis/TankyZombieTorment__
+#emit
+#spectre Metadata/Monsters/LeagueNecropolis/TankyZombieSpectre
 #emit
 #spectre Metadata/Monsters/Skeletons/CowardsTrial/BlackguardZombieCowardsTrial
 #emit
