@@ -303,7 +303,8 @@ directiveTable.emit = function(state, args, out)
 		out:write('\tlifeScaling = "AltLife2",\n')
 	end
 	if monsterVariety.Type.EnergyShield ~= 0 then
-		out:write('\tenergyShield = ', (monsterVariety.Type.EnergyShield / 100), ',\n')
+		-- 0.4 multiplier is hidden somewhere.
+		out:write('\tenergyShield = ', (0.4 * monsterVariety.Type.EnergyShield / 100), ',\n')
 	end
 	if monsterVariety.Type.Armour ~= 0 then
 		out:write('\tarmour = ', monsterVariety.Type.Armour / 100, ',\n')
