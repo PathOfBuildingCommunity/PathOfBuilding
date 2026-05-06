@@ -65,6 +65,7 @@ local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.searchStrCached = ""
 	self.searchStrResults = {}
 	self.showStatDifferences = true
+	self.toHRingMode = nil  -- nil | true (planning toggle: show all Variable rings)
 	self.hoverNode = nil
 end)
 
@@ -116,6 +117,15 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				end
 			elseif event.key == "p" then
 				self.showHeatMap = not self.showHeatMap
+			elseif event.key == "t" then
+				-- Toggle Thread of Hope all-rings planning view
+				self.toHRingMode = not self.toHRingMode or nil
+				if not main.toHHintDismissed then
+					main.toHHintDismissed = true
+					main:SaveSettings()
+				end
+				build.spec:BuildAllDependsAndPaths()
+				build.buildFlag = true
 			elseif event.key == "d" and IsKeyDown("CTRL") then
 				self.showStatDifferences = not self.showStatDifferences
 			elseif event.key == "c" and IsKeyDown("CTRL") and self.hoverNode and self.hoverNode.type ~= "Socket" then
@@ -635,6 +645,35 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		end
 	end
 
+	-- One pass over allocated jewel sockets: detects whether any Variable-radius jewel is
+	-- socketed (used to gate the first-time hint), and when the planning toggle is on, builds
+	-- a nodeId -> ring colour tint map. First-seen wins when sockets overlap; rings within one
+	-- socket are non-overlapping so per-socket order is deterministic.
+	local toHTintMap = self.toHRingMode and { } or nil
+	local hasVariableJewel = false
+	for socketNodeId, itemId in pairs(spec.jewels) do
+		if itemId ~= 0 and spec.allocNodes[socketNodeId] then
+			local item = build.itemsTab.items[itemId]
+			local socketNode = spec.nodes[socketNodeId]
+			if item and item.jewelRadiusLabel == "Variable" then
+				hasVariableJewel = true
+				if toHTintMap and socketNode and socketNode.nodesInRadius then
+					for ringIdx = 6, 10 do
+						local nodesInRing = socketNode.nodesInRadius[ringIdx]
+						local radData = build.data.jewelRadius[ringIdx]
+						if nodesInRing and radData then
+							for nId in pairs(nodesInRing) do
+								if not toHTintMap[nId] then
+									toHTintMap[nId] = radData.col
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+
 	-- Draw the nodes
 	for nodeId, node in pairs(spec.nodes) do
 		-- Determine the base and overlay images for this node based on type and state
@@ -850,11 +889,13 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		if overlay then
 			-- Draw overlay
 			if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
+				local hoverTinted = false
 				if hoverNode and hoverNode ~= node then
 					-- Mouse is hovering over a different node
 					if hoverDep and hoverDep[node] then
 						-- This node depends on the hover node, turn it red
 						SetDrawColor(1, 0, 0)
+						hoverTinted = true
 					elseif hoverNode.type == "Socket" and hoverNode.nodesInRadius then
 						-- Hover node is a socket, check if this node falls within its radius and color it accordingly
 						local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(hoverNode.id)
@@ -866,6 +907,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 									-- Draw Thread of Hope's annuli
 									if data.inner ~= 0 then
 										SetDrawColor(data.col)
+										hoverTinted = true
 										break
 									end
 								end
@@ -877,12 +919,17 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 									-- Draw normal jewel radii
 									if data.inner == 0 then
 										SetDrawColor(data.col)
+										hoverTinted = true
 										break
 									end
 								end
 							end
 						end
 					end
+				end
+				if not hoverTinted and toHTintMap and toHTintMap[nodeId] then
+					-- Planning toggle is on: tint nodes by the Thread of Hope ring they sit in
+					SetDrawColor(toHTintMap[nodeId])
 				end
 			end
 			self:DrawAsset(tree.assets[overlay], scrX, scrY, scale)
@@ -959,7 +1006,18 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					end
 				end
 			elseif node.alloc then
-				if jewel and jewel.jewelRadiusIndex then
+				if self.toHRingMode and jewel and jewel.jewelRadiusLabel == "Variable" then
+					-- Planning toggle: draw all five Variable-radius annuli around the socket
+					for _, radData in ipairs(build.data.jewelRadius) do
+						local outerSize = radData.outer * scale
+						local innerSize = radData.inner * scale
+						if innerSize ~= 0 then
+							SetDrawColor(radData.col)
+							DrawImage(self.ring, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
+							DrawImage(self.ring, scrX - innerSize, scrY - innerSize, innerSize * 2, innerSize * 2)
+						end
+					end
+				elseif jewel and jewel.jewelRadiusIndex then
 					-- Draw only the selected jewel radius
 					local radData = build.data.jewelRadius[jewel.jewelRadiusIndex]
 					local outerSize = radData.outer * scale
@@ -1005,6 +1063,14 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				end
 			end
 		end
+	end
+
+	-- First-time hint: shown only while the toggle is off, the user has never pressed T,
+	-- and the build has at least one allocated Variable-radius jewel.
+	if hasVariableJewel and not self.toHRingMode and not main.toHHintDismissed then
+		SetDrawLayer(nil, 100)
+		DrawString(viewPort.x + 12, viewPort.y + 12, "LEFT", 18, "FONTIN",
+			"^xFFCC00Tip: ^7Press ^xFFCC00T^7 to view all Thread of Hope ring sizes.")
 	end
 end
 function PassiveTreeViewClass:DrawImageRotated(handle, x, y, width, height, angle, ...)
