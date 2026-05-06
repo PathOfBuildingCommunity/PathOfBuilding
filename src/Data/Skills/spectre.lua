@@ -11812,3 +11812,303 @@ skills["MPSUltimatumColdBasic"] = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
+skills["AzmeriFabricationDespair"] = {
+	name = "Despair",
+	hidden = true,
+	color = 3,
+	description = "Curses all targets in an area, lowering their chaos resistance.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.Chaos] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
+	statDescriptionScope = "curse_skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["base_chaos_damage_resistance_%"] = {
+			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["minimum_added_chaos_damage_taken"] = {
+			mod("SelfChaosMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["maximum_added_chaos_damage_taken"] = {
+			mod("SelfChaosMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		curse = true,
+		area = true,
+		duration = true,
+		hex = true,
+	},
+	baseMods = {
+		skill("debuff", true),
+		skill("radius", 22),
+	},
+	constantStats = {
+		{ "base_chaos_damage_resistance_%", -30 },
+		{ "active_skill_area_of_effect_radius_+%_final", 100 },
+	},
+	stats = {
+		"base_deal_no_damage",
+		"curse_apply_as_aura",
+		"infinite_skill_effect_duration",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["AzmeriFabricationTemporalChains"] = {
+	name = "Temporal Chains",
+	hidden = true,
+	color = 4,
+	description = "Curses all enemies in an area, lowering their action speed and making other effects on them expire more slowly.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
+	statDescriptionScope = "curse_skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["temporal_chains_action_speed_+%_final"] = {
+			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
+		},
+		["buff_time_passed_+%_other_than_temporal_chains"] = {
+			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["temporal_chains_action_speed_+%_vs_rare_or_unique_final"] = {
+			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		curse = true,
+		area = true,
+		duration = true,
+		hex = true,
+	},
+	baseMods = {
+		skill("debuff", true),
+		skill("radius", 22),
+	},
+	constantStats = {
+		{ "temporal_chains_action_speed_+%_final", -30 },
+		{ "buff_time_passed_+%_other_than_temporal_chains", -38 },
+		{ "temporal_chains_action_speed_+%_vs_rare_or_unique_final", -30 },
+		{ "active_skill_area_of_effect_radius_+%_final", 100 },
+	},
+	stats = {
+		"base_deal_no_damage",
+		"curse_apply_as_aura",
+		"infinite_skill_effect_duration",
+	},
+	levels = {
+		[1] = { levelRequirement = 0, },
+	},
+}
+skills["AzmeriFabricationEnfeeble"] = {
+	name = "Enfeeble",
+	hidden = true,
+	color = 3,
+	description = "Curses all targets in an area, reducing their accuracy and making them deal less damage.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
+	statDescriptionScope = "curse_skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["enfeeble_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
+		},
+		["enfeeble_damage_+%_vs_rare_or_unique_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
+		},
+		["accuracy_rating_+%"] = {
+			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		curse = true,
+		area = true,
+		duration = true,
+		hex = true,
+	},
+	baseMods = {
+		skill("debuff", true),
+		skill("radius", 22),
+	},
+	constantStats = {
+		{ "accuracy_rating_+%", -60 },
+		{ "enfeeble_damage_+%_final", -60 },
+		{ "enfeeble_damage_+%_vs_rare_or_unique_final", -23 },
+		{ "active_skill_area_of_effect_radius_+%_final", 100 },
+	},
+	stats = {
+		"base_deal_no_damage",
+		"curse_apply_as_aura",
+		"infinite_skill_effect_duration",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["HeistThugMelee"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		projectile = true,
+	},
+	stats = {
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["GAHeistThugCleaveWaveWithShield"] = {
+	name = "Shield Cleave",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Triggerable] = true, [SkillType.Channel] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.47,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_fire", 50 },
+		{ "active_skill_area_of_effect_radius_+%_final", -25 },
+	},
+	stats = {
+		"is_area_damage",
+		"cast_time_overrides_attack_duration",
+	},
+	levels = {
+		[1] = { baseMultiplier = 1.3, levelRequirement = 1, },
+		[2] = { baseMultiplier = 1.3, levelRequirement = 19, },
+		[3] = { baseMultiplier = 1.3, levelRequirement = 20, },
+		[4] = { baseMultiplier = 1.3, levelRequirement = 84, },
+	},
+}
+skills["HarvestScorpionMelee"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_chaos", 25 },
+	},
+	stats = {
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"visual_hit_effect_chaos_is_green",
+	},
+	levels = {
+		[1] = { cooldown = 3, levelRequirement = 1, storedUses = 1, },
+	},
+}
+skills["MeleeHalfDamageChaos"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_chaos", 25 },
+	},
+	stats = {
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"visual_hit_effect_chaos_is_green",
+	},
+	levels = {
+		[1] = { baseMultiplier = 0.5, levelRequirement = 1, },
+	},
+}
+skills["MMASandSpitterProjectile"] = {
+	name = "Sand Spit",
+	hidden = true,
+	color = 4,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Attack] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		area = true,
+	},
+	constantStats = {
+		{ "projectile_spread_radius", 3 },
+		{ "projectile_minimum_range", 50 },
+		{ "melee_range_+", 15 },
+	},
+	stats = {
+		"is_area_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+		"action_should_face_away_from_target",
+		"maintain_projectile_direction_when_using_contact_position",
+		"mortar_projectile_scale_animation_speed_instead_of_projectile_speed",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["MMASandSpitterProjectileCold"] = {
+	name = "Sand Spit",
+	hidden = true,
+	color = 4,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Attack] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		area = true,
+	},
+	constantStats = {
+		{ "projectile_spread_radius", 3 },
+		{ "projectile_minimum_range", 50 },
+		{ "melee_range_+", 15 },
+		{ "skill_physical_damage_%_to_convert_to_cold", 50 },
+	},
+	stats = {
+		"is_area_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+		"action_should_face_away_from_target",
+		"maintain_projectile_direction_when_using_contact_position",
+		"mortar_projectile_scale_animation_speed_instead_of_projectile_speed",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+		[2] = { levelRequirement = 19, },
+		[3] = { levelRequirement = 20, },
+		[4] = { levelRequirement = 84, },
+	},
+}

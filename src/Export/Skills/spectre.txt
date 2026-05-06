@@ -2287,3 +2287,78 @@ skills["LegionKaruiMeleeCombo2"] = {
 #skill MPSUltimatumColdBasic Default Spell (Cold)
 #flags spell projectile
 #mods
+
+#skill AzmeriFabricationDespair
+#flags spell curse area duration hex
+	statMap = {
+		["base_chaos_damage_resistance_%"] = {
+			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["minimum_added_chaos_damage_taken"] = {
+			mod("SelfChaosMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["maximum_added_chaos_damage_taken"] = {
+			mod("SelfChaosMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+#baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
+#mods
+
+#skill AzmeriFabricationTemporalChains
+#flags spell curse area duration hex
+	statMap = {
+		["temporal_chains_action_speed_+%_final"] = {
+			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
+		},
+		["buff_time_passed_+%_other_than_temporal_chains"] = {
+			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["temporal_chains_action_speed_+%_vs_rare_or_unique_final"] = {
+			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
+		},
+	},
+#baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
+#mods
+
+#skill AzmeriFabricationEnfeeble
+#flags spell curse area duration hex
+	statMap = {
+		["enfeeble_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
+		},
+		["enfeeble_damage_+%_vs_rare_or_unique_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
+		},
+		["accuracy_rating_+%"] = {
+			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+#baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
+#mods
+
+#skill HeistThugMelee Default Attack
+#flags attack melee projectile
+#mods
+
+#skill GAHeistThugCleaveWaveWithShield Shield Cleave
+#flags attack melee area
+#mods
+
+#skill HarvestScorpionMelee
+#flags attack melee projectile
+#mods
+
+#skill MeleeHalfDamageChaos
+#flags attack melee projectile
+#mods
+
+#skill MMASandSpitterProjectile Sand Spit
+#flags attack projectile area
+#mods
+
+#skill MMASandSpitterProjectileCold Sand Spit
+#flags attack projectile area
+#mods
