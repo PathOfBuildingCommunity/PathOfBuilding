@@ -1135,7 +1135,7 @@ function calcs.perform(env, skipEHP)
 		end
 		env.minion.modDB:NewMod("Life", "BASE", m_floor(baseLife), "Base")
 		if env.minion.minionData.energyShield then
-			local esTable = env.minion.hostile and env.minion.lifeTable or env.data.monsterAllyLifeTable
+			local esTable = (env.minion.hostile and env.minion.lifeTable) or (env.player.mainSkill.skillFlags.spectre and env.minion.lifeTable) or env.data.monsterAllyLifeTable
 			local baseES = esTable[env.minion.level] * env.minion.minionData.life * env.minion.minionData.energyShield
 			if env.minion.hostile then
 				baseES = baseES * (env.data.mapLevelLifeMult[env.enemyLevel] or 1)
