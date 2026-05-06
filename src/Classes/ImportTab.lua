@@ -326,8 +326,9 @@ function addAccountNameControls(self)
 	end -- don't load the list many times
 	self.controls.siteAccountNameGo = new("ButtonControl", { "LEFT", self.controls.siteAccountName, "RIGHT" }, { 8, 0, 60, 20 },
 		"Start", function()
-		self:DownloadSiteCharacterList()
-	end)
+			local realm = self.controls.siteAccountRealm:GetSelValue()
+			self:DownloadSiteCharacterList(realm)
+		end)
 	self.controls.siteAccountNameGo.enabled = function()
 		return self.controls.siteAccountName.buf:match("%S[#%-]%d%d%d%d$")
 	end
@@ -391,16 +392,17 @@ function addAccountNameControls(self)
 		{ 0, 16, 200, 16 }, "^7Import:")
 	self.controls.siteCharImportTree = new("ButtonControl", { "LEFT", self.controls.siteCharImportHeader, "RIGHT" },
 		{ 8, 0, 170, 20 }, "Passive Tree and Jewels", function()
-		if self.build.spec:CountAllocNodes() > 0 then
-			main:OpenConfirmPopup("Character Import", "Importing the passive tree will overwrite your current tree.",
-				"Import", function()
-				self:DownloadPassiveTree()
-			end)
-		else
-			self:DownloadPassiveTree()
-		end
-		self:SetPredefinedBuildName()
-	end)
+			local realm = self.controls.siteAccountRealm:GetSelValue()
+			if self.build.spec:CountAllocNodes() > 0 then
+				main:OpenConfirmPopup("Character Import", "Importing the passive tree will overwrite your current tree.",
+					"Import", function()
+						self:DownloadPassiveTree(realm)
+					end)
+			else
+				self:DownloadPassiveTree(realm)
+			end
+			self:SetPredefinedBuildName()
+		end)
 	self.controls.siteCharImportTree.enabled = function()
 		return self.charImportMode == "SELECTCHAR"
 	end
@@ -408,9 +410,10 @@ function addAccountNameControls(self)
 		{ 90, 0, 18 }, "Delete jewels:", nil, "Delete all existing jewels when importing.", true)
 	self.controls.siteCharImportItems = new("ButtonControl", { "LEFT", self.controls.siteCharImportTree, "LEFT" },
 		{ 0, 36, 110, 20 }, "Items and Skills", function()
-		self:DownloadItems()
-		self:SetPredefinedBuildName()
-	end)
+			local realm = self.controls.siteAccountRealm:GetSelValue()
+			self:DownloadItems(realm)
+			self:SetPredefinedBuildName()
+		end)
 	self.controls.siteCharImportItems.enabled = function()
 		return self.charImportMode == "SELECTCHAR"
 	end
@@ -754,10 +757,9 @@ function ImportTabClass:SaveAccountHistory()
 	end
 end
 
-function ImportTabClass:DownloadPassiveTree()
+function ImportTabClass:DownloadPassiveTree(realm)
 	self.charImportMode = "IMPORTING"
 	self.charImportStatus = "Retrieving character passive tree..."
-	local realm = realmList[self.controls.siteAccountRealm.selIndex]
 	local accountName = self.controls.siteAccountName.buf
 	local charSelect = self.controls.siteCharSelect
 	local charListData = charSelect.list[charSelect.selIndex].char
@@ -788,10 +790,9 @@ function ImportTabClass:DownloadPassiveTree()
 		end)
 end
 
-function ImportTabClass:DownloadItems()
+function ImportTabClass:DownloadItems(realm)
 	self.charImportMode = "IMPORTING"
 	self.charImportStatus = "Retrieving character items..."
-	local realm = realmList[self.controls.siteAccountRealm.selIndex]
 	local accountName = self.controls.siteAccountName.buf
 	local charSelect = self.controls.siteCharSelect
 	local charListData = charSelect.list[charSelect.selIndex].char
@@ -820,7 +821,7 @@ function ImportTabClass:DownloadItems()
 			self:ImportItemsAndSkills(charData)
 		end)
 end
-function ImportTabClass:DownloadSiteCharacterList()
+function ImportTabClass:DownloadSiteCharacterList(realm)
 	function FindMatchingStandardLeague(league)
 		-- Find a Standard league name for a given league name
 		-- Reference https://api.pathofexile.com/league?realm=pc
@@ -840,7 +841,6 @@ function ImportTabClass:DownloadSiteCharacterList()
 
 	self.charImportMode = "DOWNLOADCHARLIST"
 	self.charImportStatus = "Retrieving character list..."
-	local realm = realmList[self.controls.siteAccountRealm.selIndex]
 	local accountName
 	-- Handle spaces in the account name
 	if realm.realmCode == "pc" then
