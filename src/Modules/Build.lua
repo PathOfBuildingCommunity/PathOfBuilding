@@ -1463,13 +1463,13 @@ function buildMode:OpenSpectreLibrary()
 	local function UpdateMinionDisplay(selected)
 		self.lastSelectedMinion = selected
 		local minion = self.data.minions[selected]
-		local gemLevel = m_max(controls.minionGemLevel.buf, 1)
+		local gemLevel = m_min(m_max(controls.minionGemLevel.buf, 1), 40)
 		local minionLevel = data.skills["RaiseSpectre"].levels[gemLevel][2]
 		local baseLife = self.data.monsterLifeTable[m_min(minionLevel, 100)]
 		local totalLife = baseLife * minion.life
 		local totalES
 		if minion.energyShield then
-			totalES = totalLife * minion.energyShield
+			totalES = totalLife * (minion.energyShield * (data.gameConstants["EnergyShieldRatioOfLife"] / 100))
 		else
 			totalES = 0
 		end
@@ -1501,8 +1501,8 @@ function buildMode:OpenSpectreLibrary()
 		end
 		local movementSpeed = minion.baseMovementSpeed / 10 .. " m/s"
 		controls.minionNameLabel.labelText = "^7" .. minion.name
-		controls.lifeLabel.lifeValue = round(totalLife) -- Maybe Ceiling? Despair Remnant is 52028, but shows 52027 here.
-		controls.energyshieldLabel.energyShieldValue = round(totalES)
+		controls.lifeLabel.lifeValue = m_floor(totalLife)
+		controls.energyshieldLabel.energyShieldValue = m_floor(totalES)
 		controls.armourLabel.armourValue = round(totalArmour)
 		controls.blockLabel.blockValue = blockChance .. "% / " .. spellBlockChance .. "%"
 		controls.evasionLabel.evasionValue = round(totalEvasion)
