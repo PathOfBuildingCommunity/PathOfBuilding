@@ -1039,26 +1039,25 @@ end
 --- @return string
 function ImportTabClass:ImportPassiveTreeAndJewels(charData)
 	local charPassives = charData.passives
-	-- 3.16+
-	local mastery, effect = 0, 0
+
+	-- fix table keys being strings
+	local masteries = {}
 	for key, value in pairs(charPassives.mastery_effects) do
-		if type(value) ~= "string" then
-			break
-		end
-		mastery = band(tonumber(value), 65535)
-		effect = b_rshift(tonumber(value), 16)
-		t_insert(charPassives.mastery_effects, mastery, effect)
+		masteries[tonumber(key)] = value
 	end
-
-	for nodeId, override in pairs(charData.passives.skill_overrides) do
+	self.build.spec.jewel_data = {}
+	for key, value in pairs(charPassives.jewel_data) do
+		self.build.spec.jewel_data[tonumber(key)] = value
+	end
+	local skillOverrides = {}
+	for nodeId, override in pairs(charPassives.skill_overrides) do
+		-- json keys are strings, not numbers
+		local nodeIdNum = tonumber(nodeId)
 		self.build.spec:ReplaceNode(override, self.build.spec.tree.tattoo.nodes[override.name])
-		override.id = nodeId
+		override.id = nodeIdNum
+		skillOverrides[nodeIdNum] = override
 	end
 
-	if errMsg then
-		return colorCodes.NEGATIVE.."Error processing character data, try again later."
-	end
-	self.build.spec.jewel_data = copyTable(charPassives.jewel_data)
 	self.build.spec.extended_hashes = copyTable(charPassives.hashes_ex)
 	if self.controls.charImportTreeClearJewels.state then
 		for _, slot in pairs(self.build.itemsTab.slots) do
@@ -1095,9 +1094,9 @@ function ImportTabClass:ImportPassiveTreeAndJewels(charData)
 		nil, 
 		alternateAscendancyId,
 		charPassives.hashes,
-		charPassives.skill_overrides, 
-		charPassives.mastery_effects or {},
-			latestTreeVersion .. (charData.league:match("Ruthless") and "_ruthless" or "")
+		skillOverrides,
+		masteries,
+		latestTreeVersion .. (charData.league:match("Ruthless") and "_ruthless" or "")
 		)
 	self.build.treeTab:SetActiveSpec(self.build.treeTab.activeSpec)
 	self.build.spec:BuildClusterJewelGraphs()
