@@ -1319,7 +1319,6 @@ minions["Metadata/Monsters/Beasts/BeastCave"] = {
 		"Lair (Map)",
 		"Maze of the Minotaur (Map)",
 		"The Den (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"Underground Sea (Map)",
 	},
 	skillList = {
@@ -1378,7 +1377,6 @@ minions["Metadata/Monsters/Beasts/BeastParasite"] = {
 		"The Ashen Fields (Act 7)",
 		"The Broken Bridge (Act 7)",
 		"The Den (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -1465,7 +1463,6 @@ minions["Metadata/Monsters/Beasts/BeastCleave"] = {
 		"The Crossroads (Act 2)",
 		"The Crossroads (Act 7)",
 		"The Den (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -1496,7 +1493,6 @@ minions["Metadata/Monsters/Beasts/BeastGroundSlam"] = {
 		"Lair (Map)",
 		"The Dread Thicket (Act 2)",
 		"The Dread Thicket (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -1531,7 +1527,6 @@ minions["Metadata/Monsters/Beasts/BeastSkeleton"] = {
 		"Mud Geyser (Map)",
 		"Museum (Map)",
 		"Oba's Cursed Trove (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Putrid Cloister (Map)",
 		"Whakawairua Tuahu (Map)",
 	},
@@ -1566,7 +1561,6 @@ minions["Metadata/Monsters/Beasts/BeastSkeletonBlack"] = {
 		"Malformation (Map)",
 		"Phantasmagoria (Map)",
 		"Primordial Pool (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -1653,7 +1647,6 @@ minions["Metadata/Monsters/Beasts/BeastSlam"] = {
 		"Fragmented Memory",
 		"Grotto (Map)",
 		"Lair (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Sarn Ramparts (Act 8)",
 	},
 	skillList = {
@@ -1779,7 +1772,6 @@ minions["Metadata/Monsters/Axis/AxisCaster"] = {
 		"Fragmented Memory",
 		"Ramparts (Map)",
 		"The Battlefront (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -1819,7 +1811,6 @@ minions["Metadata/Monsters/Axis/AxisCasterArc"] = {
 		"Fragmented Memory",
 		"Promenade (Map)",
 		"The Ebony Barracks (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"The Hall of Grandmasters (Map)",
 		"The Lunaris Temple Level 1 (Act 3)",
 	},
@@ -1856,7 +1847,6 @@ minions["Metadata/Monsters/Axis/AxisCasterLunaris"] = {
 	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Lair of the Hydra (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Lunaris Concourse (Act 8)",
 		"The Lunaris Temple Level 1 (Act 8)",
@@ -1895,7 +1885,6 @@ minions["Metadata/Monsters/Axis/AxisEliteSoldier3Champion"] = {
 		"Colonnade (Map)",
 		"Poorjoy's Asylum (Map)",
 		"Temple (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Solaris Concourse (Act 8)",
 		"The Solaris Temple Level 1 (Act 8)",
@@ -1941,7 +1930,6 @@ minions["Metadata/Monsters/Axis/AxisExperimenter"] = {
 		"Poorjoy's Asylum (Map)",
 		"Promenade (Map)",
 		"The Ebony Barracks (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"The Hall of Grandmasters (Map)",
 		"The Lunaris Temple Level 1 (Act 3)",
 	},
@@ -2010,7 +1998,6 @@ minions["Metadata/Monsters/Axis/AxisExperimenterRaiseZombie"] = {
 		"Armoury (Map)",
 		"Fragmented Memory",
 		"Poorjoy's Asylum (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lunaris Temple Level 1 (Act 3)",
 	},
 	skillList = {
@@ -2047,7 +2034,6 @@ minions["Metadata/Monsters/Axis/AxisCasterSolaris"] = {
 		"Colonnade (Map)",
 		"Poorjoy's Asylum (Map)",
 		"Temple (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Solaris Concourse (Act 8)",
 		"The Solaris Temple Level 1 (Act 8)",
@@ -2088,7 +2074,6 @@ minions["Metadata/Monsters/Axis/AxisCasterSolarisChampion"] = {
 		"Colonnade (Map)",
 		"Poorjoy's Asylum (Map)",
 		"Temple (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Solaris Concourse (Act 8)",
 		"The Solaris Temple Level 1 (Act 8)",
@@ -2128,7 +2113,6 @@ minions["Metadata/Monsters/Axis/AxisCasterLunarisChampion"] = {
 	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Lair of the Hydra (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Lunaris Concourse (Act 8)",
 		"The Lunaris Temple Level 1 (Act 8)",
@@ -2201,7 +2185,6 @@ minions["Metadata/Monsters/Axis/AxisCasterGuardGravicius"] = {
 	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Shipyard (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -2298,7 +2281,6 @@ minions["Metadata/Monsters/Axis/AxisEliteSoldier2"] = {
 		"Ramparts (Map)",
 		"The Battlefront (Act 3)",
 		"The Ebony Barracks (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"The Hall of Grandmasters (Map)",
 		"The Lunaris Temple Level 1 (Act 3)",
 	},
@@ -2330,7 +2312,6 @@ minions["Metadata/Monsters/Axis/AxisEliteSoldier3"] = {
 		"Colonnade (Map)",
 		"Poorjoy's Asylum (Map)",
 		"Temple (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Solaris Concourse (Act 8)",
 		"The Solaris Temple Level 1 (Act 8)",
@@ -2365,7 +2346,6 @@ minions["Metadata/Monsters/Axis/AxisEliteSoldier4"] = {
 	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Lair of the Hydra (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Lunaris Concourse (Act 8)",
 		"The Lunaris Temple Level 1 (Act 8)",
@@ -2401,7 +2381,6 @@ minions["Metadata/Monsters/Axis/AxisEliteSoldier4Champion"] = {
 	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Lair of the Hydra (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Lunaris Temple Level 1 (Act 8)",
 		"The Lunaris Temple Level 2 (Act 8)",
@@ -2538,7 +2517,6 @@ minions["Metadata/Monsters/Axis/AxisFootSoldier2"] = {
 		"Ramparts (Map)",
 		"The Battlefront (Act 3)",
 		"The Ebony Barracks (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"The Hall of Grandmasters (Map)",
 		"The Lunaris Temple Level 1 (Act 3)",
 		"The Western Forest (Act 2)",
@@ -2572,7 +2550,6 @@ minions["Metadata/Monsters/Axis/AxisFootSoldierLunaris"] = {
 	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Lair of the Hydra (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Lunaris Concourse (Act 8)",
 		"The Lunaris Temple Level 1 (Act 8)",
@@ -2612,7 +2589,6 @@ minions["Metadata/Monsters/Axis/AxisFootSoldierSolaris_"] = {
 		"Colonnade (Map)",
 		"Poorjoy's Asylum (Map)",
 		"Temple (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Solaris Concourse (Act 8)",
 		"The Solaris Temple Level 1 (Act 8)",
@@ -2830,7 +2806,6 @@ minions["Metadata/Monsters/Axis/Cleric/BlackguardClericPure"] = {
 		"Courtyard of Wasting (Map)",
 		"Rewritten Distant Memory",
 		"The Chamber of Innocence (Act 5)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"IncinerateBlackguardCleric",
@@ -2863,7 +2838,6 @@ minions["Metadata/Monsters/BlackguardInquisitor/BlackguardInquisitorPure"] = {
 		"City Square (Map)",
 		"Rewritten Distant Memory",
 		"The Chamber of Innocence (Act 5)",
-		"The Eternal Laboratory (Act 8)",
 		"The Templar Courts (Act 5)",
 		"Theatre of Lies (Map)",
 	},
@@ -2897,7 +2871,6 @@ minions["Metadata/Monsters/BlackguardInquisitor/BlackguardInquisitorKitava"] = {
 		"Crimson Township (Map)",
 		"Defiled Cathedral (Map)",
 		"The Desecrated Chambers (Act 10)",
-		"The Eternal Laboratory (Act 8)",
 		"The Torched Courts (Act 5)",
 	},
 	skillList = {
@@ -2931,7 +2904,6 @@ minions["Metadata/Monsters/BlackguardInquisitor/BlackguardInquisitorKitava2"] = 
 		"Crimson Township (Map)",
 		"Defiled Cathedral (Map)",
 		"The Desecrated Chambers (Act 10)",
-		"The Eternal Laboratory (Act 8)",
 		"The Torched Courts (Act 5)",
 	},
 	skillList = {
@@ -2997,7 +2969,6 @@ minions["Metadata/Monsters/BlackguardTorturer/BlackguardTorturer"] = {
 		"City Square (Map)",
 		"Fragmented Memory",
 		"The Control Blocks (Act 5)",
-		"The Eternal Laboratory (Act 8)",
 		"The Slave Pens (Act 5)",
 	},
 	skillList = {
@@ -3058,7 +3029,6 @@ minions["Metadata/Monsters/BlackguardTorturer/BlackguardTorturerKitava"] = {
 	spawnLocation = {
 		"Silo (Map)",
 		"The Control Blocks (Act 10)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -3088,7 +3058,6 @@ minions["Metadata/Monsters/BlackguardTorturer/BlackguardTorturerKitava2"] = {
 	spawnLocation = {
 		"Silo (Map)",
 		"The Control Blocks (Act 10)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -3119,7 +3088,6 @@ minions["Metadata/Monsters/SecretPolice/SecretPolice1"] = {
 		"Fragmented Memory",
 		"Oriath Square (Act 5)",
 		"Pen (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Templar Courts (Act 5)",
 	},
 	skillList = {
@@ -3156,7 +3124,6 @@ minions["Metadata/Monsters/SecretPolice/SecretPoliceNoCape1"] = {
 		"Fragmented Memory",
 		"Oriath Square (Act 5)",
 		"Pen (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Templar Courts (Act 5)",
 	},
 	skillList = {
@@ -3188,7 +3155,6 @@ minions["Metadata/Monster/Blackguard/BlackguardJaegerRanged"] = {
 		"City Square (Map)",
 		"Fragmented Memory",
 		"The Ascent (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"BlackguardJaegerCausticArrow",
@@ -3222,7 +3188,6 @@ minions["Metadata/Monsters/Axis/AxisCasterSolarisChampionSchism"] = {
 		"Colonnade (Map)",
 		"Poorjoy's Asylum (Map)",
 		"Temple (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Solaris Concourse (Act 8)",
 		"The Solaris Temple Level 1 (Act 8)",
@@ -3268,7 +3233,6 @@ minions["Metadata/Monsters/Axis/AxisEliteSoldierShield"] = {
 		"Ramparts (Map)",
 		"The Battlefront (Act 3)",
 		"The Ebony Barracks (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"The Hall of Grandmasters (Map)",
 		"The Lunaris Temple Level 1 (Act 3)",
 	},
@@ -3334,7 +3298,6 @@ minions["Metadata/Monsters/Bandits/BanditBowExplosiveArrow"] = {
 		"Fragmented Memory",
 		"Fungal Hollow (Map)",
 		"Mesa (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Wetlands (Act 2)",
 	},
 	skillList = {
@@ -3368,7 +3331,6 @@ minions["Metadata/Monsters/Bandits/BanditBowPoisonArrow"] = {
 		"Fragmented Memory",
 		"Fungal Hollow (Map)",
 		"Olmec's Sanctum (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -3399,7 +3361,6 @@ minions["Metadata/Monsters/Bandits/BanditMeleeWarlordsMarkMaul"] = {
 	spawnLocation = {
 		"Fungal Hollow (Map)",
 		"Mesa (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Wetlands (Act 2)",
 	},
 	skillList = {
@@ -3433,7 +3394,6 @@ minions["Metadata/Monsters/Bandits/BanditBowChampion"] = {
 		"Castle Ruins (Map)",
 		"Fungal Hollow (Map)",
 		"Mesa (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -3496,7 +3456,6 @@ minions["Metadata/Monsters/Bandits/BanditBow"] = {
 		"Coves (Map)",
 		"Fungal Hollow (Map)",
 		"Mesa (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -3529,7 +3488,6 @@ minions["Metadata/Monsters/Bandits/BanditBowKraitynSpecific"] = {
 		"Fungal Hollow (Map)",
 		"The Broken Bridge (Act 2)",
 		"The Crossroads (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"The Old Fields (Act 2)",
 	},
 	skillList = {
@@ -3562,7 +3520,6 @@ minions["Metadata/Monsters/Bandits/BanditBowBlastRain"] = {
 		"Fragmented Memory",
 		"Fungal Hollow (Map)",
 		"Mesa (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Wetlands (Act 2)",
 	},
 	skillList = {
@@ -3914,7 +3871,6 @@ minions["Metadata/Monsters/Bandits/BanditMeleeAlira"] = {
 		"Coves (Map)",
 		"Dark Forest (Map)",
 		"Fungal Hollow (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Western Forest (Act 2)",
 	},
 	skillList = {
@@ -3951,7 +3907,6 @@ minions["Metadata/Monsters/Bandits/BanditMeleeChaos"] = {
 		"Fragmented Memory",
 		"Fungal Hollow (Map)",
 		"Olmec's Sanctum (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Western Forest (Act 2)",
 	},
 	skillList = {
@@ -3985,7 +3940,6 @@ minions["Metadata/Monsters/Bandits/BanditMeleeMaul"] = {
 	spawnLocation = {
 		"Fungal Hollow (Map)",
 		"Mesa (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Riverways (Act 2)",
 	},
 	skillList = {
@@ -4019,7 +3973,6 @@ minions["Metadata/Monsters/Bandits/BanditMeleePuncture"] = {
 		"Coves (Map)",
 		"Dark Forest (Map)",
 		"Fungal Hollow (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Northern Forest (Act 2)",
 		"The Riverways (Act 2)",
 		"The Western Forest (Act 2)",
@@ -4123,7 +4076,6 @@ minions["Metadata/Monsters/Bandits/BanditMeleeSword"] = {
 	spawnLocation = {
 		"Castle Ruins (Map)",
 		"Fungal Hollow (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -4189,7 +4141,6 @@ minions["Metadata/Monsters/Bandits/BanditMeleeChampion"] = {
 	spawnLocation = {
 		"Fungal Hollow (Map)",
 		"Mesa (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -4404,7 +4355,6 @@ minions["Metadata/Monsters/Bandits/StagBandit"] = {
 		"Ashen Wood (Map)",
 		"The Ashen Fields (Act 7)",
 		"The Crossroads (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Riverways (Act 6)",
 		"The Southern Forest (Act 6)",
 		"The Western Forest (Act 6)",
@@ -4467,7 +4417,6 @@ minions["Metadata/Monsters/Bandits/BearBandit"] = {
 		"Ashen Wood (Map)",
 		"The Ashen Fields (Act 7)",
 		"The Crossroads (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Riverways (Act 6)",
 		"The Southern Forest (Act 6)",
 		"The Western Forest (Act 6)",
@@ -4533,7 +4482,6 @@ minions["Metadata/Monsters/Bandits/BoarBandit"] = {
 		"Ashen Wood (Map)",
 		"The Ashen Fields (Act 7)",
 		"The Crossroads (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Riverways (Act 6)",
 		"The Southern Forest (Act 6)",
 		"The Western Forest (Act 6)",
@@ -4792,7 +4740,6 @@ minions["Metadata/Monsters/Bandits/BanditBowBurningArrow"] = {
 		"Fungal Hollow (Map)",
 		"The Broken Bridge (Act 2)",
 		"The Crossroads (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"The Old Fields (Act 2)",
 	},
 	skillList = {
@@ -5001,7 +4948,6 @@ minions["Metadata/Monsters/Bandits/BearBanditNoHat"] = {
 		"Ashen Wood (Map)",
 		"The Ashen Fields (Act 7)",
 		"The Crossroads (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Riverways (Act 6)",
 		"The Southern Forest (Act 6)",
 		"The Western Forest (Act 6)",
@@ -5037,7 +4983,6 @@ minions["Metadata/Monsters/Bandits/BoarBanditNoHat"] = {
 		"Ashen Wood (Map)",
 		"The Ashen Fields (Act 7)",
 		"The Crossroads (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Riverways (Act 6)",
 		"The Southern Forest (Act 6)",
 		"The Western Forest (Act 6)",
@@ -5078,7 +5023,6 @@ minions["Metadata/Monsters/Banshee/Banshee"] = {
 		"Siege (Map)",
 		"Synthesised World (Map)",
 		"The Cathedral Rooftop (Act 5)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"BansheeScreech",
@@ -5139,7 +5083,6 @@ minions["Metadata/Monsters/Beasts/BeastCaveDegenAura"] = {
 		"Grotto (Map)",
 		"Lair (Map)",
 		"The Caverns (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"Underground River (Map)",
 	},
 	skillList = {
@@ -5169,7 +5112,6 @@ minions["Metadata/Monsters/Beasts/BeastVulnerabilityCurse"] = {
 		"Caer Blaidd, Wolfpack's Den (Map)",
 		"Grotto (Map)",
 		"The Caverns (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"Underground River (Map)",
 	},
 	skillList = {
@@ -5207,7 +5149,6 @@ minions["Metadata/Monsters/Beasts/BeastCleaveEnduringCry"] = {
 		"The Broken Bridge (Act 2)",
 		"The Broken Bridge (Act 7)",
 		"The Crossroads (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"The Northern Forest (Act 2)",
 		"The Old Fields (Act 2)",
 		"The Wetlands (Act 2)",
@@ -5244,7 +5185,6 @@ minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage"] = {
 		"Fragmented Memory",
 		"The Ashen Fields (Act 7)",
 		"The Broken Bridge (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"The Old Fields (Act 2)",
 		"Thicket (Map)",
 		"Tropical Island (Map)",
@@ -5278,7 +5218,6 @@ minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodParasite"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"The Ashen Fields (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Riverways (Act 6)",
 		"The Southern Forest (Act 6)",
 		"Thicket (Map)",
@@ -5315,7 +5254,6 @@ minions["Metadata/Monsters/Monkeys/MonkeyBlood"] = {
 		"Grotto (Map)",
 		"Jungle Valley (Map)",
 		"Lair (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Northern Forest (Act 2)",
 		"The Southern Forest (Act 2)",
 		"The Temple of Atzoatl",
@@ -5349,7 +5287,6 @@ minions["Metadata/Monsters/Monkeys/MonkeyBloodEnrage"] = {
 		"Fragmented Memory",
 		"The Dread Thicket (Act 2)",
 		"The Dread Thicket (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"Thicket (Map)",
 		"Tropical Island (Map)",
 		"Untainted Paradise (Map)",
@@ -5379,7 +5316,6 @@ minions["Metadata/Monsters/Monkeys/MonkeyBloodThrow"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Lair (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Riverways (Act 2)",
 		"The Riverways (Act 6)",
 		"Thicket (Map)",
@@ -5436,7 +5372,6 @@ minions["Metadata/Monsters/Monkeys/MonkeyBloodParasite"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"The Ashen Fields (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Riverways (Act 6)",
 		"The Southern Forest (Act 6)",
 		"Thicket (Map)",
@@ -5470,7 +5405,6 @@ minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBlood"] = {
 		"Barrows (Map)",
 		"Fragmented Memory",
 		"Jungle Valley (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Northern Forest (Act 2)",
 		"The Southern Forest (Act 2)",
 		"The Temple of Atzoatl",
@@ -5601,7 +5535,6 @@ minions["Metadata/Monsters/Monkeys/MonkeyJuvenile"] = {
 		"Barrows (Map)",
 		"The Ashen Fields (Act 7)",
 		"The Broken Bridge (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"The Old Fields (Act 2)",
 		"Thicket (Map)",
 		"Tropical Island (Map)",
@@ -5717,7 +5650,6 @@ minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodThrow"] = {
 		"Barrows (Map)",
 		"Fragmented Memory",
 		"Jungle Valley (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Northern Forest (Act 2)",
 		"The Southern Forest (Act 2)",
 		"The Temple of Atzoatl",
@@ -5756,7 +5688,6 @@ minions["Metadata/Monsters/BoneStalker/BoneStalker"] = {
 		"Fragmented Memory",
 		"Mausoleum (Map)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ossuary (Act 10)",
 		"The Ossuary (Act 5)",
 	},
@@ -6494,7 +6425,6 @@ minions["Metadata/Monsters/Bull/Bull"] = {
 		"Colosseum (Map)",
 		"Pit (Map)",
 		"Racecourse (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Grand Arena (Act 4)",
 	},
 	skillList = {
@@ -6523,7 +6453,6 @@ minions["Metadata/Monster/CageSpider/CageSpider2"] = {
 	monsterCategory = "Undead",
 	spawnLocation = {
 		"Desert (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Vastiri Desert (Act 9)",
 	},
 	skillList = {
@@ -6557,7 +6486,6 @@ minions["Metadata/Monsters/Cannibal/CannibalMaleChampion"] = {
 		"Peninsula (Map)",
 		"Shore (Map)",
 		"The Coast (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ledge (Act 1)",
 	},
 	skillList = {
@@ -6594,7 +6522,6 @@ minions["Metadata/Monsters/Cannibal/CannibalFemale"] = {
 		"Peninsula (Map)",
 		"Shore (Map)",
 		"The Coast (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ledge (Act 1)",
 		"The Tidal Island (Act 1)",
 	},
@@ -6788,7 +6715,6 @@ minions["Metadata/Monsters/Cannibal/CannibalLunaris"] = {
 	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Moon Temple (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Lunaris Temple Level 1 (Act 8)",
 		"The Lunaris Temple Level 2 (Act 8)",
@@ -6819,7 +6745,6 @@ minions["Metadata/Monsters/Cannibal/CannibalLunaris2"] = {
 	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Moon Temple (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Lunaris Temple Level 1 (Act 8)",
 		"The Lunaris Temple Level 2 (Act 8)",
@@ -6906,7 +6831,6 @@ minions["Metadata/Monsters/Cannibal/CannibalLunarisChampion"] = {
 	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Moon Temple (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Lunaris Temple Level 1 (Act 8)",
 		"The Lunaris Temple Level 2 (Act 8)",
@@ -7007,7 +6931,6 @@ minions["Metadata/Monsters/Necromancer/NecromancerTemporalChains"] = {
 		"Primordial Blocks (Map)",
 		"The Chamber of Sins Level 1 (Act 2)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Fellshrine Ruins (Act 2)",
 	},
 	skillList = {
@@ -7048,7 +6971,6 @@ minions["Metadata/Monsters/Cannibal/CannibalFemaleThrowFire"] = {
 		"Peninsula (Map)",
 		"Shore (Map)",
 		"The Coast (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ledge (Act 1)",
 		"The Tidal Island (Act 1)",
 	},
@@ -7146,7 +7068,6 @@ minions["Metadata/Monsters/Cannibal/CannibalLunarisChampionNewTeam"] = {
 	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Moon Temple (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Lunaris Temple Level 1 (Act 8)",
 		"The Lunaris Temple Level 2 (Act 8)",
@@ -7187,7 +7108,6 @@ minions["Metadata/Monsters/Cockerel/Cockerel"] = {
 		"Fragmented Memory",
 		"Pit (Map)",
 		"Pit of the Chimera (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -7250,7 +7170,6 @@ minions["Metadata/Monsters/Cockerel/CockerelBowMaps"] = {
 		"Fragmented Memory",
 		"Pit (Map)",
 		"Pit of the Chimera (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -7644,7 +7563,6 @@ minions["Metadata/Monsters/CrabParasite/CrabParasiteSmall"] = {
 		"Infused Beachhead (Map)",
 		"The Beachhead (Map)",
 		"The Coast (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 		"The Tidal Island (Act 1)",
 		"The Tidal Island (Act 6)",
 	},
@@ -7704,7 +7622,6 @@ minions["Metadata/Monsters/CrabParasite/CrabParasiteSmall"] = {
 		"Infused Beachhead (Map)",
 		"The Beachhead (Map)",
 		"The Coast (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 		"The Tidal Island (Act 1)",
 		"The Tidal Island (Act 6)",
 	},
@@ -7734,7 +7651,6 @@ minions["Metadata/Monsters/CrabParasite/CrabParasiteMedium3"] = {
 	spawnLocation = {
 		"Infested Valley (Map)",
 		"The Cavern of Anger (Act 6)",
-		"The Eternal Laboratory (Act 8)",
 		"The Southern Forest (Act 6)",
 	},
 	skillList = {
@@ -7764,7 +7680,6 @@ minions["Metadata/Monsters/CrabParasite/CrabParasiteBleachedSmall"] = {
 		"Leyline (Map)",
 		"Sulphur Vents (Map)",
 		"The Boiling Lake (Act 9)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -7914,7 +7829,6 @@ minions["Metadata/Monsters/CrabParasite/CrabParasiteLargeWithCorpse"] = {
 		"Infused Beachhead (Map)",
 		"The Beachhead (Map)",
 		"The Coast (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 		"The Tidal Island (Act 1)",
 		"The Tidal Island (Act 6)",
 	},
@@ -7982,7 +7896,6 @@ minions["Metadata/Monsters/GemMonster/GemFrog"] = {
 		"Perandus Manor (Map)",
 		"Poorjoy's Asylum (Map)",
 		"Temple (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The High Gardens (Act 8)",
 		"The Sceptre of God (Act 3)",
 		"The Temple of Atzoatl",
@@ -8045,7 +7958,6 @@ minions["Metadata/Monsters/GemMonster/GemFrog3"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Desert Spring (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Oasis (Act 9)",
 	},
 	skillList = {
@@ -8078,7 +7990,6 @@ minions["Metadata/Monsters/GemMonster/GemFrogChrometouched"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Terrace (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The High Gardens (Act 8)",
 	},
 	skillList = {
@@ -8110,7 +8021,6 @@ minions["Metadata/Monsters/GemMonster/GemFrogChrome"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Terrace (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The High Gardens (Act 8)",
 	},
 	skillList = {
@@ -10604,7 +10514,6 @@ minions["Metadata/Monsters/Goatman/GoatmanLeapSlam"] = {
 		"Olmec's Sanctum (Map)",
 		"Pit of the Chimera (Map)",
 		"The Climb (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ledge (Act 1)",
 		"The Old Fields (Act 2)",
 	},
@@ -10644,7 +10553,6 @@ minions["Metadata/Monsters/Goatman/GoatmanLightningLeapSlamMaps"] = {
 		"Pit of the Chimera (Map)",
 		"Plateau (Map)",
 		"Prisoner's Gate (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"GoatmanLeapSlam",
@@ -10683,7 +10591,6 @@ minions["Metadata/Monsters/Goatman/GoatmanShamanFireball"] = {
 		"Maelström of Chaos (Map)",
 		"Olmec's Sanctum (Map)",
 		"The Climb (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MonsterFireballContactPos",
@@ -10749,7 +10656,6 @@ minions["Metadata/Monsters/Goatman/GoatmanShamanLightning"] = {
 		"Olmec's Sanctum (Map)",
 		"Plateau (Map)",
 		"Prisoner's Gate (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -10782,7 +10688,6 @@ minions["Metadata/Monsters/Goatman/MountainGoatmanChampion"] = {
 		"Fragmented Memory",
 		"Plateau (Map)",
 		"The Descent (Act 9)",
-		"The Eternal Laboratory (Act 8)",
 		"The Foothills (Act 9)",
 	},
 	skillList = {
@@ -10816,7 +10721,6 @@ minions["Metadata/Monsters/Goatman/MountainGoatmanShamanIceSpear"] = {
 		"Plateau (Map)",
 		"The Ascent (Act 4)",
 		"The Descent (Act 9)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MountainGoatmanIceSpear",
@@ -10882,7 +10786,6 @@ minions["Metadata/Monsters/Goatman/GoatmanLightningLeapSlam"] = {
 		"Pit of the Chimera (Map)",
 		"Plateau (Map)",
 		"Prisoner's Gate (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"GoatmanLeapSlam",
@@ -10917,7 +10820,6 @@ minions["Metadata/Monsters/Goatman/MountainGoatmanLeapSlam_"] = {
 		"Plateau (Map)",
 		"The Ascent (Act 4)",
 		"The Descent (Act 9)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"GoatmanLeapSlam",
@@ -11052,7 +10954,6 @@ minions["Metadata/Monsters/Goatman/GoatmanShamanLightningChampion"] = {
 		"Fragmented Memory",
 		"Glacier (Map)",
 		"Maelström of Chaos (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -11084,7 +10985,6 @@ minions["Metadata/Monsters/Goatman/MountainGoatmanLeapSlam2"] = {
 	spawnLocation = {
 		"Fragmented Memory",
 		"Plateau (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Foothills (Act 9)",
 	},
 	skillList = {
@@ -11156,7 +11056,6 @@ minions["Metadata/Monsters/Goatman/GoatmanLightningLeapSlamExtra"] = {
 		"Pit of the Chimera (Map)",
 		"Plateau (Map)",
 		"Prisoner's Gate (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"GoatmanLeapSlam",
@@ -11192,7 +11091,6 @@ minions["Metadata/Monsters/Goatman/GoatmanShamanFireball2"] = {
 		"Maelström of Chaos (Map)",
 		"Olmec's Sanctum (Map)",
 		"The Climb (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MonsterFireballRepeat",
@@ -11379,7 +11277,6 @@ minions["Metadata/Monsters/InsectMinion/InsectWild"] = {
 		"Precinct (Map)",
 		"Ramparts (Map)",
 		"The City of Sarn (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"The Imperial Fields (Act 8)",
 		"The Marketplace (Act 3)",
 		"The Sarn Ramparts (Act 8)",
@@ -11412,7 +11309,6 @@ minions["Metadata/Monsters/InsectMinion/InsectWildBurrow"] = {
 		"Canyon (Map)",
 		"Fragmented Memory",
 		"Ramparts (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Imperial Fields (Act 8)",
 		"The Sarn Ramparts (Act 8)",
 	},
@@ -11466,7 +11362,6 @@ minions["Metadata/Monsters/InsectMinion/InsectWildSewers"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Acid Caverns (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Toxic Conduits (Act 8)",
 		"Toxic Sewer (Map)",
 	},
@@ -11652,7 +11547,6 @@ minions["Metadata/Monsters/Rhoas/Rhoa"] = {
 		"Fungal Hollow (Map)",
 		"Marshes (Map)",
 		"Mud Geyser (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Mud Flats (Act 1)",
 		"The Wetlands (Act 2)",
 		"The Wetlands (Act 6)",
@@ -11783,7 +11677,6 @@ minions["Metadata/Monsters/Rhoas/RhoaBig"] = {
 	spawnLocation = {
 		"Arid Lake (Map)",
 		"Mud Geyser (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Mud Flats (Act 1)",
 		"The Wetlands (Act 2)",
 	},
@@ -11815,7 +11708,6 @@ minions["Metadata/Monsters/Rhoas/RhoaBigPale"] = {
 	spawnLocation = {
 		"Fungal Hollow (Map)",
 		"Marshes (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ship Graveyard (Act 1)",
 		"Tropical Island (Map)",
 		"Untainted Paradise (Map)",
@@ -11851,7 +11743,6 @@ minions["Metadata/Monsters/Rhoas/RhoaSkeleton"] = {
 		"Fragmented Memory",
 		"Mud Geyser (Map)",
 		"Oba's Cursed Trove (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Fetid Pool (Act 1)",
 		"The Library (Act 3)",
 	},
@@ -11915,7 +11806,6 @@ minions["Metadata/Monsters/Rhoas/RhoaSkeletonBlack"] = {
 		"Malformation (Map)",
 		"Phantasmagoria (Map)",
 		"Primordial Pool (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -12027,7 +11917,6 @@ minions["Metadata/Monsters/Rhoas/RhoaParasite"] = {
 	baseMovementSpeed = 26,
 	monsterCategory = "Beast",
 	spawnLocation = {
-		"The Eternal Laboratory (Act 8)",
 		"The Wetlands (Act 6)",
 	},
 	skillList = {
@@ -12149,7 +12038,6 @@ minions["Metadata/Monsters/Rhoas/RhoaSkeletonSmallDelveSpectre"] = {
 		"Fragmented Memory",
 		"Mud Geyser (Map)",
 		"Oba's Cursed Trove (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Fetid Pool (Act 1)",
 		"The Library (Act 3)",
 	},
@@ -12183,7 +12071,6 @@ minions["Metadata/Monsters/Rhoas/RhoaSkeletonLargeDelveSpectre"] = {
 		"Fragmented Memory",
 		"Mud Geyser (Map)",
 		"Oba's Cursed Trove (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Fetid Pool (Act 1)",
 		"The Library (Act 3)",
 	},
@@ -12280,7 +12167,6 @@ minions["Metadata/Monsters/HalfSkeleton/HalfSkeletonRanged"] = {
 		"The Belly of the Beast (Act 9)",
 		"The Belly of the Beast Level 1 (Act 4)",
 		"The Belly of the Beast Level 2 (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harvest (Act 4)",
 		"The Rotting Core (Act 9)",
 	},
@@ -12343,7 +12229,6 @@ minions["Metadata/Monsters/Mauler/Mauler"] = {
 		"Altered Distant Memory",
 		"Siege (Map)",
 		"Synthesised World (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ravaged Square (Act 10)",
 	},
 	skillList = {
@@ -14303,7 +14188,6 @@ minions["Metadata/Monsters/HolyFireElemental/HolyFireElemental"] = {
 		"Basilica (Map)",
 		"Rewritten Distant Memory",
 		"The Chamber of Innocence (Act 5)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -14364,7 +14248,6 @@ minions["Metadata/Monsters/HolyFireElemental/HolyFireElementalSolaris"] = {
 	monsterCategory = "Construct",
 	spawnLocation = {
 		"Ivory Temple (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Solaris Concourse (Act 8)",
 		"The Solaris Temple Level 1 (Act 8)",
@@ -14400,7 +14283,6 @@ minions["Metadata/Monsters/DemonFemale/DemonFemale"] = {
 		"Overgrown Ruin (Map)",
 		"Poorjoy's Asylum (Map)",
 		"Primordial Blocks (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lunaris Temple Level 2 (Act 3)",
 		"The Upper Sceptre of God (Act 3)",
 		"Whakawairua Tuahu (Map)",
@@ -14434,7 +14316,6 @@ minions["Metadata/Monsters/DemonModular/DemonFemaleRanged"] = {
 		"Fragmented Memory",
 		"Oba's Cursed Trove (Map)",
 		"Poorjoy's Asylum (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lunaris Temple Level 2 (Act 3)",
 		"The Upper Sceptre of God (Act 3)",
 		"Whakawairua Tuahu (Map)",
@@ -14471,7 +14352,6 @@ minions["Metadata/Monsters/DemonModular/DemonFemaleRanged2"] = {
 	monsterCategory = "Demon",
 	spawnLocation = {
 		"Moon Temple (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Lunaris Concourse (Act 8)",
 		"The Lunaris Temple Level 2 (Act 8)",
@@ -14503,7 +14383,6 @@ minions["Metadata/Monsters/DemonModular/DemonModularBladeVortex"] = {
 	spawnLocation = {
 		"Fragmented Memory",
 		"Overgrown Ruin (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -14535,7 +14414,6 @@ minions["Metadata/Monsters/DemonModular/DemonModularFire"] = {
 		"Oba's Cursed Trove (Map)",
 		"Overgrown Ruin (Map)",
 		"Poorjoy's Asylum (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lunaris Temple Level 1 (Act 3)",
 		"The Lunaris Temple Level 2 (Act 3)",
 	},
@@ -14568,7 +14446,6 @@ minions["Metadata/Monsters/Frog/Frog"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Acid Caverns (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Riverways (Act 6)",
 		"The Sewers (Act 3)",
 		"The Wetlands (Act 6)",
@@ -14628,7 +14505,6 @@ minions["Metadata/Monsters/Frog/Frog3"] = {
 	spawnLocation = {
 		"Acid Caverns (Map)",
 		"Doedre's Cesspool (Act 8)",
-		"The Eternal Laboratory (Act 8)",
 		"The Toxic Conduits (Act 8)",
 	},
 	skillList = {
@@ -14717,7 +14593,6 @@ minions["Metadata/Monsters/Frog/FrogParasite"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Acid Caverns (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Riverways (Act 6)",
 		"The Wetlands (Act 6)",
 	},
@@ -14781,7 +14656,6 @@ minions["Metadata/Monsters/GemMonster/Iguana"] = {
 		"Ivory Temple (Map)",
 		"Orchard (Map)",
 		"Residence (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The High Gardens (Act 8)",
 		"The Sceptre of God (Act 3)",
 		"The Temple of Atzoatl",
@@ -14816,7 +14690,6 @@ minions["Metadata/Monsters/GemMonster/IguanaChrome"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Terrace (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The High Gardens (Act 8)",
 	},
 	skillList = {
@@ -14877,7 +14750,6 @@ minions["Metadata/Monsters/GemMonster/Iguana3"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Desert Spring (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Oasis (Act 9)",
 	},
 	skillList = {
@@ -14909,7 +14781,6 @@ minions["Metadata/Monsters/GemMonster/IguanaChrometouched"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Terrace (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The High Gardens (Act 8)",
 	},
 	skillList = {
@@ -15402,7 +15273,6 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateBlackBowMaps"] = {
 		"Frozen Cabins (Map)",
 		"Shipyard (Map)",
 		"The Cavern of Wrath (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ship Graveyard Cave (Act 1)",
 	},
 	skillList = {
@@ -15441,7 +15311,6 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateBlackFlickerStrikeMaps"] = {
 		"Fragmented Memory",
 		"Frozen Cabins (Map)",
 		"Shipyard (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ship Graveyard Cave (Act 1)",
 	},
 	skillList = {
@@ -15483,7 +15352,6 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateGreenBladeVortex"] = {
 		"Fragmented Memory",
 		"Frozen Cabins (Map)",
 		"Shipyard (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -15527,7 +15395,6 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateGreen"] = {
 		"Shipyard (Map)",
 		"The Brine King's Reef (Act 6)",
 		"The Cavern of Anger (Act 6)",
-		"The Eternal Laboratory (Act 8)",
 		"Waterways (Map)",
 	},
 	skillList = {
@@ -15673,7 +15540,6 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateChampion"] = {
 		"Frozen Cabins (Map)",
 		"Secluded Cove (Act 1)",
 		"Shipyard (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ship Graveyard (Act 1)",
 	},
 	skillList = {
@@ -15715,7 +15581,6 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateBlackFlickerStrike"] = {
 		"Fragmented Memory",
 		"Frozen Cabins (Map)",
 		"Shipyard (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ship Graveyard Cave (Act 1)",
 	},
 	skillList = {
@@ -15757,7 +15622,6 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateBlackBow"] = {
 		"Frozen Cabins (Map)",
 		"Shipyard (Map)",
 		"The Cavern of Wrath (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ship Graveyard Cave (Act 1)",
 	},
 	skillList = {
@@ -15795,7 +15659,6 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateGreenWand"] = {
 		"Frozen Cabins (Map)",
 		"Shipyard (Map)",
 		"The Caverns (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -15954,7 +15817,6 @@ minions["Metadata/Monsters/GhostPirates/GhostGreenCaster"] = {
 		"Coves (Map)",
 		"Fragmented Memory",
 		"The Crypt (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -16117,7 +15979,6 @@ minions["Metadata/Monsters/WarHero/WarHero1"] = {
 	monsterCategory = "Undead",
 	spawnLocation = {
 		"Promenade (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Grand Promenade (Act 8)",
 		"The Hall of Grandmasters (Map)",
 	},
@@ -16209,7 +16070,6 @@ minions["Metadata/Monsters/WarHero/WarHero2"] = {
 	monsterCategory = "Undead",
 	spawnLocation = {
 		"Promenade (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Grand Promenade (Act 8)",
 		"The Hall of Grandmasters (Map)",
 	},
@@ -16265,7 +16125,6 @@ minions["Metadata/Monsters/WarHero/WarHero3"] = {
 	monsterCategory = "Undead",
 	spawnLocation = {
 		"Promenade (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Grand Promenade (Act 8)",
 		"The Hall of Grandmasters (Map)",
 	},
@@ -16320,7 +16179,6 @@ minions["Metadata/Monsters/WarHero/WarHeroCaster"] = {
 	monsterCategory = "Undead",
 	spawnLocation = {
 		"Promenade (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Grand Promenade (Act 8)",
 		"The Hall of Grandmasters (Map)",
 	},
@@ -16437,7 +16295,6 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateGreenWandMapsExpedition"] = {
 		"Frozen Cabins (Map)",
 		"Shipyard (Map)",
 		"The Caverns (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -16477,7 +16334,6 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateGreen2"] = {
 		"Shipyard (Map)",
 		"The Brine King's Reef (Act 6)",
 		"The Cavern of Anger (Act 6)",
-		"The Eternal Laboratory (Act 8)",
 		"Waterways (Map)",
 	},
 	skillList = {
@@ -16518,7 +16374,6 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateGreenFlickerStrikeTreasureHun
 		"Fragmented Memory",
 		"Frozen Cabins (Map)",
 		"Shipyard (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ship Graveyard Cave (Act 1)",
 	},
 	skillList = {
@@ -16560,7 +16415,6 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateGreenBarrelTreasureHunter"] =
 		"Shipyard (Map)",
 		"The Brine King's Reef (Act 6)",
 		"The Cavern of Anger (Act 6)",
-		"The Eternal Laboratory (Act 8)",
 		"Waterways (Map)",
 	},
 	skillList = {
@@ -16696,7 +16550,6 @@ minions["Metadata/Monsters/Grappler/Grappler"] = {
 		"Perandus Manor (Map)",
 		"Residence (Map)",
 		"Scriptorium (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Refinery (Act 9)",
 		"The Sewers (Act 3)",
 		"Toxic Sewer (Map)",
@@ -16765,7 +16618,6 @@ minions["Metadata/Monsters/Grappler/Grappler2"] = {
 		"Palace (Map)",
 		"Residence (Map)",
 		"Shavronne's Tower (Act 6)",
-		"The Eternal Laboratory (Act 8)",
 		"Tower (Map)",
 	},
 	skillList = {
@@ -16837,7 +16689,6 @@ minions["Metadata/Monsters/Guardians/GuardianFire"] = {
 		"Poorjoy's Asylum (Map)",
 		"Temple (Map)",
 		"The Battlefront (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Imperial Fields (Act 8)",
 		"The Solaris Concourse (Act 8)",
@@ -16878,7 +16729,6 @@ minions["Metadata/Monsters/Guardians/GuardianFire_BlueMaps"] = {
 	monsterCategory = "Construct",
 	spawnLocation = {
 		"Bazaar (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Lunaris Concourse (Act 8)",
 		"The Lunaris Temple Level 1 (Act 8)",
@@ -16919,7 +16769,6 @@ minions["Metadata/Monsters/Guardians/GuardianLightning"] = {
 		"Poorjoy's Asylum (Map)",
 		"Temple (Map)",
 		"The Battlefront (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"The Solaris Temple Level 1 (Act 3)",
 		"The Solaris Temple Level 2 (Act 3)",
 	},
@@ -16950,7 +16799,6 @@ minions["Metadata/Monsters/Regurgitator/Regurgitator1"] = {
 		"Siege (Map)",
 		"Synthesised World (Map)",
 		"The Canals (Act 10)",
-		"The Eternal Laboratory (Act 8)",
 		"The Feeding Trough (Act 10)",
 		"The Ravaged Square (Act 10)",
 	},
@@ -16992,7 +16840,6 @@ minions["Metadata/Monsters/HalfSkeleton/HalfSkeleton"] = {
 		"The Belly of the Beast (Act 9)",
 		"The Belly of the Beast Level 1 (Act 4)",
 		"The Belly of the Beast Level 2 (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harvest (Act 4)",
 		"The Rotting Core (Act 9)",
 	},
@@ -17024,7 +16871,6 @@ minions["Metadata/Monsters/HolyFireElemental/HolyFireElementalSolarisBeam"] = {
 	monsterCategory = "Construct",
 	spawnLocation = {
 		"Ivory Temple (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Solaris Concourse (Act 8)",
 		"The Solaris Temple Level 1 (Act 8)",
@@ -17065,7 +16911,6 @@ minions["Metadata/Monsters/incaminion/Fragment"] = {
 		"The Ancient Pyramid (Act 2)",
 		"The Apex of Sacrifice (Map)",
 		"The Caverns (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"The Temple of Atzoatl",
 		"The Temple of Decay Level 2 (Act 7)",
 		"The Vaal Ruins (Act 2)",
@@ -17159,7 +17004,6 @@ minions["Metadata/Monsters/incaminion/FragmentPoisonCloud"] = {
 		"Fragmented Memory",
 		"Maze (Map)",
 		"Olmec's Sanctum (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Vaal Ruins (Act 2)",
 		"Underground River (Map)",
 		"Vaal Pyramid (Map)",
@@ -17222,7 +17066,6 @@ minions["Metadata/Monsters/incaminion/FragmentMultipleProjectile"] = {
 		"The Ancient Pyramid (Act 2)",
 		"The Apex of Sacrifice (Map)",
 		"The Caverns (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"The Temple of Atzoatl",
 		"The Temple of Decay Level 2 (Act 7)",
 		"The Vaal Ruins (Act 2)",
@@ -17262,7 +17105,6 @@ minions["Metadata/Monsters/incaminion/FragmentMachinariumNormal"] = {
 		"The Ancient Pyramid (Act 2)",
 		"The Apex of Sacrifice (Map)",
 		"The Caverns (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"The Temple of Atzoatl",
 		"The Temple of Decay Level 2 (Act 7)",
 		"The Vaal Ruins (Act 2)",
@@ -17302,7 +17144,6 @@ minions["Metadata/Monsters/incaminion/FragmentIncursion"] = {
 		"The Ancient Pyramid (Act 2)",
 		"The Apex of Sacrifice (Map)",
 		"The Caverns (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"The Temple of Atzoatl",
 		"The Temple of Decay Level 2 (Act 7)",
 		"The Vaal Ruins (Act 2)",
@@ -18136,7 +17977,6 @@ minions["Metadata/Monsters/InsectSpawner/InsectSpawner"] = {
 		"Ghetto (Map)",
 		"Precinct (Map)",
 		"Ramparts (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Imperial Fields (Act 8)",
 		"The Sarn Ramparts (Act 8)",
 		"The Slums (Act 3)",
@@ -18171,7 +18011,6 @@ minions["Metadata/Monsters/KaomWarrior/KaomWarrior2"] = {
 		"Caldera (Map)",
 		"Fragmented Memory",
 		"Kaom's Stronghold (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"Volcano (Map)",
 	},
 	skillList = {
@@ -18202,7 +18041,6 @@ minions["Metadata/Monsters/KaomWarrior/KaomWarrior3"] = {
 		"Caldera (Map)",
 		"Fragmented Memory",
 		"Kaom's Stronghold (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"Volcano (Map)",
 	},
 	skillList = {
@@ -18232,7 +18070,6 @@ minions["Metadata/Monsters/KaomWarrior/KaomWarrior7"] = {
 		"Fragmented Memory",
 		"Lava Lake (Map)",
 		"The Coast (Act 6)",
-		"The Eternal Laboratory (Act 8)",
 		"The Karui Fortress (Act 6)",
 		"The Mud Flats (Act 6)",
 	},
@@ -18727,7 +18564,6 @@ minions["Metadata/Monsters/KitavaCultist/KitavaCultistDaggers"] = {
 		"The Canals (Act 10)",
 		"The Cathedral Rooftop (Act 10)",
 		"The Cathedral Rooftop (Act 5)",
-		"The Eternal Laboratory (Act 8)",
 		"The Feeding Trough (Act 10)",
 		"The Ruined Square (Act 5)",
 		"The Torched Courts (Act 10)",
@@ -19596,7 +19432,6 @@ minions["Metadata/Monster/KitavaDemon/KitavaDemon"] = {
 		"The Canals (Act 10)",
 		"The Cathedral Rooftop (Act 10)",
 		"The Cathedral Rooftop (Act 5)",
-		"The Eternal Laboratory (Act 8)",
 		"The Feeding Trough (Act 10)",
 		"The Torched Courts (Act 10)",
 	},
@@ -19636,7 +19471,6 @@ minions["Metadata/Monsters/Kiweth/Kiweth"] = {
 		"Ivory Temple (Map)",
 		"Leyline (Map)",
 		"Mesa (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Imperial Gardens (Act 3)",
 		"The Vinktar Square (Map)",
 		"Wasteland (Map)",
@@ -19675,7 +19509,6 @@ minions["Metadata/Monsters/Kiweth/KiwethSeagull"] = {
 		"Fragmented Memory",
 		"Lighthouse (Map)",
 		"Maelström of Chaos (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ledge (Act 1)",
 		"The Vinktar Square (Map)",
 	},
@@ -20210,7 +20043,6 @@ minions["Metadata/Monsters/MineBat/MineBat"] = {
 		"Excavation (Map)",
 		"Fragmented Memory",
 		"The Crystal Veins (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"The Mines Level 1 (Act 4)",
 		"The Mines Level 2 (Act 4)",
 	},
@@ -20302,7 +20134,6 @@ minions["Metadata/Monsters/MineBat/MineBatRain"] = {
 		"Excavation (Map)",
 		"Fragmented Memory",
 		"The Crystal Veins (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"The Mines Level 1 (Act 4)",
 		"The Mines Level 2 (Act 4)",
 	},
@@ -20932,7 +20763,6 @@ minions["Metadata/Monsters/Lion/LionDesertSkinPuncture"] = {
 		"Glacier (Map)",
 		"Lighthouse (Map)",
 		"Pit of the Chimera (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -20962,7 +20792,6 @@ minions["Metadata/Monsters/Lion/LionWolf3Champion"] = {
 	spawnLocation = {
 		"Estuary (Map)",
 		"The Descent (Act 9)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -21070,7 +20899,6 @@ minions["Metadata/Monsters/Hellion/HellionIceSpectre_"] = {
 		"Iceberg (Map)",
 		"The Ascent (Act 4)",
 		"The Descent (Act 9)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -21130,7 +20958,6 @@ minions["Metadata/Monsters/Hellion/HellionIceExplodeOnDeathSpectre"] = {
 		"Iceberg (Map)",
 		"The Ascent (Act 4)",
 		"The Descent (Act 9)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -21187,7 +21014,6 @@ minions["Metadata/Monsters/Hellion/HellionParasiteSpectre"] = {
 	spawnLocation = {
 		"Pit of the Chimera (Map)",
 		"Prisoner's Gate (Act 6)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -21218,7 +21044,6 @@ minions["Metadata/Monsters/Hellion/HellionColosseumSpectre"] = {
 		"Fragmented Memory",
 		"Pit (Map)",
 		"Racecourse (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -21254,7 +21079,6 @@ minions["Metadata/Monsters/Lion/LionFireSkinGroundFireSpectre"] = {
 		"Prisoner's Gate (Act 1)",
 		"Prisoner's Gate (Act 6)",
 		"The Den (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"Underground Sea (Map)",
 	},
 	skillList = {
@@ -21311,7 +21135,6 @@ minions["Metadata/Monsters/Lion/LionColosseum"] = {
 		"Fragmented Memory",
 		"Pit (Map)",
 		"Racecourse (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -21344,7 +21167,6 @@ minions["Metadata/Monsters/MassSkeleton/MassSkeletonSpectre"] = {
 		"Arsenal (Map)",
 		"Fragmented Memory",
 		"The Dried Lake (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"The Foothills (Act 9)",
 		"Wasteland (Map)",
 	},
@@ -21401,7 +21223,6 @@ minions["Metadata/Monsters/MassSkeleton/MassSkeleton3Spectre"] = {
 	baseMovementSpeed = 30,
 	monsterCategory = "Undead",
 	spawnLocation = {
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -21461,7 +21282,6 @@ minions["Metadata/Monsters/Miner/MinerLantern"] = {
 		"Crystal Ore (Map)",
 		"Fragmented Memory",
 		"Geode (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Mines Level 1 (Act 4)",
 		"The Mines Level 2 (Act 4)",
 	},
@@ -21523,7 +21343,6 @@ minions["Metadata/Monsters/MinerLarge/MinerLarge"] = {
 		"Crystal Ore (Map)",
 		"Excavation (Map)",
 		"Fragmented Memory",
-		"The Eternal Laboratory (Act 8)",
 		"The Mines Level 1 (Act 4)",
 		"The Mines Level 2 (Act 4)",
 	},
@@ -21650,7 +21469,6 @@ minions["Metadata/Monsters/Miner/MinerHammer"] = {
 		"Fragmented Memory",
 		"Geode (Map)",
 		"The Crystal Veins (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"The Mines Level 1 (Act 4)",
 		"The Mines Level 2 (Act 4)",
 	},
@@ -21768,7 +21586,6 @@ minions["Metadata/Monsters/Miner/MinerPickaxeMinion"] = {
 		"Fragmented Memory",
 		"Geode (Map)",
 		"The Crystal Veins (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"The Mines Level 1 (Act 4)",
 		"The Mines Level 2 (Act 4)",
 	},
@@ -21873,7 +21690,6 @@ minions["Metadata/Monsters/Parasite/ParasiteEmergeOnDeath"] = {
 	spawnLocation = {
 		"Infested Valley (Map)",
 		"Stagnation (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -21926,7 +21742,6 @@ minions["Metadata/Monsters/Parasite/ParasitePlated"] = {
 	spawnLocation = {
 		"Infested Valley (Map)",
 		"Stagnation (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -21958,7 +21773,6 @@ minions["Metadata/Monsters/Parasite/ParasiteSpitting"] = {
 		"Infested Valley (Map)",
 		"Sanctuary (Map)",
 		"Stagnation (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"Ziggurat (Map)",
 	},
 	skillList = {
@@ -22017,7 +21831,6 @@ minions["Metadata/Monsters/Parasite/ParasiteViscous"] = {
 	spawnLocation = {
 		"Infested Valley (Map)",
 		"Stagnation (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -22164,7 +21977,6 @@ minions["Metadata/Monsters/Vendigo/Vendigo"] = {
 		"Summit (Map)",
 		"The Ascent (Act 4)",
 		"The Descent (Act 9)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -22198,7 +22010,6 @@ minions["Metadata/Monsters/Monkeys/FlameBearer"] = {
 		"Pier (Map)",
 		"Port (Map)",
 		"The Docks (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"The Upper Sceptre of God (Act 3)",
 		"Wharf (Map)",
 	},
@@ -22234,7 +22045,6 @@ minions["Metadata/Monsters/Monkeys/FlameBearer2"] = {
 		"Pier (Map)",
 		"Port (Map)",
 		"The Docks (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"The Upper Sceptre of God (Act 3)",
 		"Wharf (Map)",
 	},
@@ -22270,7 +22080,6 @@ minions["Metadata/Monsters/Gladiator/GladiatorSword"] = {
 		"Fragmented Memory",
 		"Pit (Map)",
 		"Racecourse (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Grand Arena (Act 4)",
 	},
 	skillList = {
@@ -22304,7 +22113,6 @@ minions["Metadata/Monsters/Gladiator/GladiatorSwordShield"] = {
 		"Fragmented Memory",
 		"Pit (Map)",
 		"Racecourse (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Grand Arena (Act 4)",
 	},
 	skillList = {
@@ -22340,7 +22148,6 @@ minions["Metadata/Monsters/MossMonster/FireMonster"] = {
 		"Lava Chamber (Map)",
 		"Olmec's Sanctum (Map)",
 		"The Crematorium (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -22399,7 +22206,6 @@ minions["Metadata/Monsters/RockGolem/RockGolemSmall"] = {
 	monsterCategory = "Construct",
 	spawnLocation = {
 		"Flooded Mine (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Foothills (Act 9)",
 	},
 	skillList = {
@@ -22428,7 +22234,6 @@ minions["Metadata/Monsters/RockGolem/RockGolemSmall2"] = {
 	monsterCategory = "Construct",
 	spawnLocation = {
 		"Flooded Mine (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Foothills (Act 9)",
 	},
 	skillList = {
@@ -22457,7 +22262,6 @@ minions["Metadata/Monsters/RockGolem/RockGolemSmall3"] = {
 	monsterCategory = "Construct",
 	spawnLocation = {
 		"Flooded Mine (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Foothills (Act 9)",
 	},
 	skillList = {
@@ -22578,7 +22382,6 @@ minions["Metadata/Monsters/ClockworkGolem/ClockworkGolem_"] = {
 	baseMovementSpeed = 23,
 	monsterCategory = "Construct",
 	spawnLocation = {
-		"The Eternal Laboratory (Act 8)",
 		"The Refinery (Act 9)",
 	},
 	skillList = {
@@ -22702,7 +22505,6 @@ minions["Metadata/Monsters/MossMonster/MossMonsterCave"] = {
 		"Maze of the Minotaur (Map)",
 		"The Den (Act 2)",
 		"The Den (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"Underground Sea (Map)",
 	},
 	skillList = {
@@ -22735,7 +22537,6 @@ minions["Metadata/Monsters/MossMonster/MossMonsterRoll"] = {
 		"Peninsula (Map)",
 		"The Broken Bridge (Act 2)",
 		"The Crossroads (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -22772,7 +22573,6 @@ minions["Metadata/Monsters/MossMonster/MossMonsterEmergeRoll"] = {
 		"Sanctuary (Map)",
 		"The Crossroads (Act 2)",
 		"The Crossroads (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Fellshrine Ruins (Act 2)",
 		"The Imperial Gardens (Act 3)",
 		"Ziggurat (Map)",
@@ -22805,7 +22605,6 @@ minions["Metadata/Monsters/MossMonster/MossMonsterEmergeEarthquake"] = {
 		"Ashen Wood (Map)",
 		"Fragmented Memory",
 		"Maze of the Minotaur (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -22836,7 +22635,6 @@ minions["Metadata/Monsters/MossMonster/MossMonsterEmergeIce"] = {
 		"Cold River (Map)",
 		"Summit (Map)",
 		"The Descent (Act 9)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -22863,7 +22661,6 @@ minions["Metadata/Monsters/MossMonster/MossMonsterStandingFoothills"] = {
 	monsterCategory = "Construct",
 	spawnLocation = {
 		"Flooded Mine (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Foothills (Act 9)",
 	},
 	skillList = {
@@ -23203,7 +23000,6 @@ minions["Metadata/Monsters/MossMonster/MossMonsterStanding"] = {
 		"Maze of the Minotaur (Map)",
 		"Peninsula (Map)",
 		"The Ashen Fields (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Old Fields (Act 2)",
 	},
 	skillList = {
@@ -23319,7 +23115,6 @@ minions["Metadata/Monsters/Squid/Squid"] = {
 		"Bog (Map)",
 		"Pier (Map)",
 		"Shipyard (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Sewers (Act 3)",
 		"Waste Pool (Map)",
 	},
@@ -23352,7 +23147,6 @@ minions["Metadata/Monsters/Squid/Squid"] = {
 		"Bog (Map)",
 		"Pier (Map)",
 		"Shipyard (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Sewers (Act 3)",
 		"Waste Pool (Map)",
 	},
@@ -23502,7 +23296,6 @@ minions["Metadata/Monsters/Eyes/Eye"] = {
 		"Primordial Pool (Map)",
 		"The Belly of the Beast Level 1 (Act 4)",
 		"The Belly of the Beast Level 2 (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harvest (Act 4)",
 	},
 	skillList = {
@@ -23622,7 +23415,6 @@ minions["Metadata/Monsters/ParasiticSquid/ParasiticSquid"] = {
 		"Reef (Map)",
 		"The Brine King's Reef (Act 6)",
 		"The Cavern of Anger (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -23653,7 +23445,6 @@ minions["Metadata/Monsters/ParasiticSquid/ParasiticSquidWarp"] = {
 		"Mao Kun (Map)",
 		"Reef (Map)",
 		"The Brine King's Reef (Act 6)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -23732,7 +23523,6 @@ minions["Metadata/Monsters/Lion/LionWolf3"] = {
 	spawnLocation = {
 		"Estuary (Map)",
 		"The Descent (Act 9)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -23834,7 +23624,6 @@ minions["Metadata/Monsters/MotherOfFlames/MotherOfFlamesZombie"] = {
 	spawnLocation = {
 		"Alleyways (Map)",
 		"Fragmented Memory",
-		"The Eternal Laboratory (Act 8)",
 		"The Ravaged Square (Act 10)",
 	},
 	skillList = {
@@ -23925,7 +23714,6 @@ minions["Metadata/Monsters/Monkeys/FlameBearerBlight"] = {
 	monsterCategory = "Demon",
 	spawnLocation = {
 		"Acton's Nightmare (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Rotting Core (Act 9)",
 	},
 	skillList = {
@@ -23954,7 +23742,6 @@ minions["Metadata/Monsters/Monkeys/FlameBearerMelee"] = {
 	monsterCategory = "Demon",
 	spawnLocation = {
 		"Acton's Nightmare (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Rotting Core (Act 9)",
 	},
 	skillList = {
@@ -24054,7 +23841,6 @@ minions["Metadata/Monsters/Necromancer/NecromancerConductivity"] = {
 		"The Caverns (Act 2)",
 		"The Chamber of Sins Level 1 (Act 7)",
 		"The Chamber of Sins Level 2 (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"Vaal Temple (Map)",
 	},
 	skillList = {
@@ -24122,7 +23908,6 @@ minions["Metadata/Monsters/Necromancer/NecromancerEnfeebleCurse"] = {
 		"Mud Geyser (Map)",
 		"Oba's Cursed Trove (Map)",
 		"Primordial Blocks (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lower Prison (Act 1)",
 		"The Upper Prison (Act 1)",
 	},
@@ -24168,7 +23953,6 @@ minions["Metadata/Monsters/Necromancer/NecromancerFlamability"] = {
 		"The Ancient Pyramid (Act 2)",
 		"The Caverns (Act 2)",
 		"The Crematorium (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lower Prison (Act 6)",
 		"Tower (Map)",
 		"Vaal Temple (Map)",
@@ -24215,7 +23999,6 @@ minions["Metadata/Monsters/Necromancer/NecromancerFlammability2"] = {
 		"The Ancient Pyramid (Act 2)",
 		"The Caverns (Act 2)",
 		"The Crematorium (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lower Prison (Act 6)",
 		"Tower (Map)",
 		"Vaal Temple (Map)",
@@ -24259,7 +24042,6 @@ minions["Metadata/Monsters/Necromancer/NecromancerFrostbite"] = {
 		"The Ancient Pyramid (Act 2)",
 		"The Catacombs (Act 3)",
 		"The Caverns (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"Vaal Temple (Map)",
 	},
 	skillList = {
@@ -24299,7 +24081,6 @@ minions["Metadata/Monsters/Necromancer/NecromancerElementalWeakness"] = {
 		"Oba's Cursed Trove (Map)",
 		"Olmec's Sanctum (Map)",
 		"The Crypt Level 2 (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -24338,7 +24119,6 @@ minions["Metadata/Monsters/Necromancer/NecromancerProjectileWeakness"] = {
 		"Primordial Blocks (Map)",
 		"The Chamber of Sins Level 1 (Act 2)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Fellshrine Ruins (Act 2)",
 	},
 	skillList = {
@@ -24378,7 +24158,6 @@ minions["Metadata/Monsters/Necromancer/NecromancerVulnerability"] = {
 		"Primordial Blocks (Map)",
 		"The Chamber of Sins Level 1 (Act 2)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Fellshrine Ruins (Act 2)",
 	},
 	skillList = {
@@ -24418,7 +24197,6 @@ minions["Metadata/Monsters/Necromancer/Necromancer"] = {
 		"Primordial Blocks (Map)",
 		"The Chamber of Sins Level 1 (Act 2)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Fellshrine Ruins (Act 2)",
 	},
 	skillList = {
@@ -24591,7 +24369,6 @@ minions["Metadata/Monsters/Pyromaniac/PyromaniacFire"] = {
 		"Oba's Cursed Trove (Map)",
 		"Olmec's Sanctum (Map)",
 		"The Crematorium (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"PyroFireball",
@@ -24624,7 +24401,6 @@ minions["Metadata/Monsters/Pyromaniac/PyromaniacPoison"] = {
 		"Doedre's Cesspool (Act 8)",
 		"Fragmented Memory",
 		"Olmec's Sanctum (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Sewers (Act 3)",
 		"Toxic Sewer (Map)",
 		"Waste Pool (Map)",
@@ -24659,7 +24435,6 @@ minions["Metadata/Monsters/SandLeaper/SandLeaper"] = {
 		"Leyline (Map)",
 		"Precinct (Map)",
 		"The Dried Lake (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"Wasteland (Map)",
 	},
 	skillList = {
@@ -24691,7 +24466,6 @@ minions["Metadata/Monsters/SandLeaper/SandLeaper2"] = {
 		"Precinct (Map)",
 		"The Crossroads (Act 2)",
 		"The Den (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"The Old Fields (Act 2)",
 	},
 	skillList = {
@@ -24723,7 +24497,6 @@ minions["Metadata/Monsters/SandLeaper/SandLeaper3"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Precinct (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ridge (Act 6)",
 	},
 	skillList = {
@@ -24811,7 +24584,6 @@ minions["Metadata/Monsters/SandLeaper/SandLeaper6"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Precinct (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Sarn Ramparts (Act 8)",
 	},
 	skillList = {
@@ -24874,7 +24646,6 @@ minions["Metadata/Monsters/SandLeaper/SandLeaperMaps"] = {
 		"Leyline (Map)",
 		"Precinct (Map)",
 		"The Dried Lake (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"Wasteland (Map)",
 	},
 	skillList = {
@@ -25045,7 +24816,6 @@ minions["Metadata/Monsters/SandSpitters/SandSpitterFire"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Shore (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MMASandSpitterProjectileFire",
@@ -25101,7 +24871,6 @@ minions["Metadata/Monsters/SandSpitters/SandSpitter3"] = {
 		"Dunes (Map)",
 		"Shore (Map)",
 		"The Coast (Act 6)",
-		"The Eternal Laboratory (Act 8)",
 		"The Tidal Island (Act 6)",
 	},
 	skillList = {
@@ -25184,7 +24953,6 @@ minions["Metadata/Monsters/SandSpitters/SandSpitterLightning"] = {
 	spawnLocation = {
 		"Shore (Map)",
 		"The Cavern of Anger (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MMASandSpitterProjectileLightning",
@@ -25212,7 +24980,6 @@ minions["Metadata/Monsters/SandSpitters/SandSpitterSewers"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Fragmented Memory",
-		"The Eternal Laboratory (Act 8)",
 		"Toxic Sewer (Map)",
 		"Waste Pool (Map)",
 	},
@@ -25306,7 +25073,6 @@ minions["Metadata/Monsters/SandSpitters/SandSpitter3SpawnWithCorpse_"] = {
 		"Dunes (Map)",
 		"Shore (Map)",
 		"The Coast (Act 6)",
-		"The Eternal Laboratory (Act 8)",
 		"The Tidal Island (Act 6)",
 	},
 	skillList = {
@@ -25338,7 +25104,6 @@ minions["Metadata/Monsters/SandSpitters/SandSpitterCold"] = {
 		"Dunes (Map)",
 		"Shore (Map)",
 		"The Coast (Act 6)",
-		"The Eternal Laboratory (Act 8)",
 		"The Tidal Island (Act 6)",
 	},
 	skillList = {
@@ -25371,7 +25136,6 @@ minions["Metadata/Monsters/Seawitch/SeaWitch"] = {
 		"Caer Blaidd, Wolfpack's Den (Map)",
 		"Mineral Pools (Map)",
 		"Shore (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"Underground River (Map)",
 		"Underground Sea (Map)",
 	},
@@ -25461,7 +25225,6 @@ minions["Metadata/Monsters/Guardians/GuardianFire2_"] = {
 	spawnLocation = {
 		"Poorjoy's Asylum (Map)",
 		"Temple (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Imperial Fields (Act 8)",
 		"The Solaris Concourse (Act 8)",
@@ -25503,7 +25266,6 @@ minions["Metadata/Monsters/Guardians/GuardianHead"] = {
 		"Poorjoy's Asylum (Map)",
 		"Temple (Map)",
 		"The Battlefront (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Imperial Fields (Act 8)",
 		"The Lunaris Concourse (Act 8)",
@@ -25543,7 +25305,6 @@ minions["Metadata/Monsters/Guardians/GuardianLightning_Blue"] = {
 	monsterCategory = "Construct",
 	spawnLocation = {
 		"Bazaar (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Lunaris Concourse (Act 8)",
 		"The Lunaris Temple Level 1 (Act 8)",
@@ -25579,7 +25340,6 @@ minions["Metadata/Monsters/Guardians/GuardianFire_Blue"] = {
 	monsterCategory = "Construct",
 	spawnLocation = {
 		"Bazaar (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Lunaris Concourse (Act 8)",
 		"The Lunaris Temple Level 1 (Act 8)",
@@ -25613,7 +25373,6 @@ minions["Metadata/Monsters/Scorpion/BlackScorpion"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Dig (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Oasis (Act 9)",
 		"The Vastiri Desert (Act 9)",
 	},
@@ -25644,7 +25403,6 @@ minions["Metadata/Monsters/Scorpion/WhiteScorpion"] = {
 	spawnLocation = {
 		"Dig (Map)",
 		"The Boiling Lake (Act 9)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -25700,7 +25458,6 @@ minions["Metadata/Monsters/Scorpion/BlackScorpionLarge"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Dig (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Oasis (Act 9)",
 		"The Vastiri Desert (Act 9)",
 	},
@@ -25741,7 +25498,6 @@ minions["Metadata/Monsters/Revenant/Revenant"] = {
 		"The Belly of the Beast (Act 9)",
 		"The Belly of the Beast Level 1 (Act 4)",
 		"The Belly of the Beast Level 2 (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harvest (Act 4)",
 		"The Rotting Core (Act 9)",
 	},
@@ -25806,7 +25562,6 @@ minions["Metadata/Monsters/Seawitch/SeaWitchFrostBolt"] = {
 		"Caer Blaidd, Wolfpack's Den (Map)",
 		"Fragmented Memory",
 		"Mineral Pools (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"Underground River (Map)",
 		"Underground Sea (Map)",
 	},
@@ -25842,7 +25597,6 @@ minions["Metadata/Monsters/Seawitch/SeaWitchScreech"] = {
 		"The Cavern of Anger (Act 1)",
 		"The Cavern of Anger (Act 6)",
 		"The Cavern of Wrath (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 		"Underground River (Map)",
 		"Underground Sea (Map)",
 	},
@@ -25877,7 +25631,6 @@ minions["Metadata/Monsters/Seawitch/SeaWitchSpawnExploding"] = {
 		"Fragmented Memory",
 		"Mineral Pools (Map)",
 		"The Cavern of Anger (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 		"Underground River (Map)",
 		"Underground Sea (Map)",
 		"Whakawairua Tuahu (Map)",
@@ -25912,7 +25665,6 @@ minions["Metadata/Monsters/Seawitch/SeaWitchSpawnTemporalChains"] = {
 		"Caer Blaidd, Wolfpack's Den (Map)",
 		"Fragmented Memory",
 		"Mineral Pools (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"Underground River (Map)",
 		"Underground Sea (Map)",
 		"Whakawairua Tuahu (Map)",
@@ -25946,7 +25698,6 @@ minions["Metadata/Monsters/Seawitch/SeaWitchVulnerabilityCurse"] = {
 	spawnLocation = {
 		"Caer Blaidd, Wolfpack's Den (Map)",
 		"Mineral Pools (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"Underground River (Map)",
 		"Underground Sea (Map)",
 	},
@@ -26083,7 +25834,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowLightning"] = {
 		"Primordial Blocks (Map)",
 		"The Beacon (Act 6)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lower Prison (Act 1)",
 		"The Lower Prison (Act 6)",
 		"The Putrid Cloister (Map)",
@@ -26122,7 +25872,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeLarge"] = {
 		"Necropolis (Map)",
 		"Scriptorium (Map)",
 		"The Archives (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"The Library (Act 3)",
 		"The Putrid Cloister (Map)",
 	},
@@ -26192,7 +25941,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterColdMultipleProjectiles"] = {
 		"Olmec's Sanctum (Map)",
 		"Plateau (Map)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"SkeletonProjectileCold",
@@ -26223,7 +25971,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterFireMultipleProjectiles2"] = 
 		"Lava Chamber (Map)",
 		"Olmec's Sanctum (Map)",
 		"The Crematorium (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"Tower (Map)",
 	},
 	skillList = {
@@ -26261,7 +26008,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowPoison"] = {
 		"Plateau (Map)",
 		"Primordial Blocks (Map)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -26292,7 +26038,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowLightning2"] = {
 	monsterCategory = "Undead",
 	spawnLocation = {
 		"The City of Sarn (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -26364,7 +26109,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterLightningSpark"] = {
 		"Plateau (Map)",
 		"The Chamber of Sins Level 2 (Act 2)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"SkeletonProjectileLightning",
@@ -26395,7 +26139,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonBlackCaster1_"] = {
 	spawnLocation = {
 		"Fragmented Memory",
 		"Mausoleum (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ossuary (Act 10)",
 		"The Ossuary (Act 5)",
 	},
@@ -26498,7 +26241,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowKnightElemental"] = {
 		"Doryani's Machinarium (Map)",
 		"Fragmented Memory",
 		"Maze (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Temple of Atzoatl",
 		"The Temple of Decay Level 2 (Act 7)",
 		"Vaal Pyramid (Map)",
@@ -26569,7 +26311,6 @@ minions["Metadata/Monsters/SkeletonCannon/SkeletonCannon1"] = {
 		"Plateau (Map)",
 		"Primordial Blocks (Map)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ossuary (Act 10)",
 		"The Ossuary (Act 5)",
 	},
@@ -27421,7 +27162,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonBow"] = {
 		"Plateau (Map)",
 		"Primordial Blocks (Map)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Fellshrine Ruins (Act 2)",
 		"The Fetid Pool (Act 1)",
 		"The Ledge (Act 1)",
@@ -27539,7 +27279,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonBow4"] = {
 	baseMovementSpeed = 11,
 	monsterCategory = "Undead",
 	spawnLocation = {
-		"The Eternal Laboratory (Act 8)",
 		"The Fellshrine Ruins (Act 7)",
 	},
 	skillList = {
@@ -27579,7 +27318,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonBow5"] = {
 		"Primordial Blocks (Map)",
 		"The Beacon (Act 6)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lower Prison (Act 1)",
 		"The Lower Prison (Act 6)",
 		"The Putrid Cloister (Map)",
@@ -27653,7 +27391,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowBurningArrow"] = {
 		"Prisoner's Gate (Act 6)",
 		"The Climb (Act 1)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -27748,7 +27485,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowFrenzy"] = {
 		"Plateau (Map)",
 		"Primordial Blocks (Map)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -27790,7 +27526,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowSplitArrow"] = {
 		"The Coward's Trial (Map)",
 		"The Crossroads (Act 2)",
 		"The Crossroads (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -27952,7 +27687,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowExplosiveArrowBandit"] = {
 	monsterCategory = "Undead",
 	spawnLocation = {
 		"The Broken Bridge (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -27990,7 +27724,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowBellyOfTheBeastRun1"] = {
 		"Primordial Pool (Map)",
 		"The Belly of the Beast Level 1 (Act 4)",
 		"The Belly of the Beast Level 2 (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harvest (Act 4)",
 	},
 	skillList = {
@@ -28027,7 +27760,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowBellyOfTheBeastRun2"] = {
 		"Phantasmagoria (Map)",
 		"Primordial Pool (Map)",
 		"The Blood Aqueduct (Act 9)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -28099,7 +27831,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterCold"] = {
 		"Plateau (Map)",
 		"Primordial Blocks (Map)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Upper Prison (Act 1)",
 	},
 	skillList = {
@@ -28286,7 +28017,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterCold7"] = {
 		"The Crypt (Act 7)",
 		"The Crypt Level 1 (Act 2)",
 		"The Crypt Level 2 (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"SkeletonProjectileCold",
@@ -28370,7 +28100,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterGold"] = {
 	spawnLocation = {
 		"Fragmented Memory",
 		"Laboratory (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Reliquary (Act 10)",
 		"The Reliquary (Act 5)",
 	},
@@ -28401,7 +28130,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterBlack"] = {
 	spawnLocation = {
 		"Fragmented Memory",
 		"Mausoleum (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ossuary (Act 10)",
 		"The Ossuary (Act 5)",
 	},
@@ -28470,7 +28198,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterFire"] = {
 		"Olmec's Sanctum (Map)",
 		"Plateau (Map)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lower Prison (Act 6)",
 	},
 	skillList = {
@@ -28650,7 +28377,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterFireMultipleProjectiles"] = {
 		"Necropolis (Map)",
 		"Plateau (Map)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"SkeletonProjectileFire",
@@ -28771,7 +28497,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterLightning"] = {
 		"Primordial Blocks (Map)",
 		"The Chamber of Sins Level 2 (Act 2)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Upper Prison (Act 1)",
 	},
 	skillList = {
@@ -29022,7 +28747,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterLightningMultipleProjectiles"
 		"Olmec's Sanctum (Map)",
 		"Plateau (Map)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"SkeletonProjectileLightning",
@@ -29092,7 +28816,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMelee"] = {
 		"Primordial Blocks (Map)",
 		"Scriptorium (Map)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Fellshrine Ruins (Act 2)",
 		"The Fetid Pool (Act 1)",
 		"The Flooded Depths (Act 1)",
@@ -29166,7 +28889,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMelee2"] = {
 		"Primordial Blocks (Map)",
 		"The Coward's Trial (Map)",
 		"The Crypt Level 1 (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ossuary (Act 10)",
 		"The Ossuary (Act 5)",
 	},
@@ -29208,7 +28930,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMelee3"] = {
 		"Plateau (Map)",
 		"Primordial Blocks (Map)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lower Prison (Act 1)",
 		"The Upper Prison (Act 1)",
 	},
@@ -29318,7 +29039,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMelee5"] = {
 		"The Coward's Trial (Map)",
 		"The Crypt (Act 7)",
 		"The Crypt Level 2 (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -29347,7 +29067,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMelee6"] = {
 	baseMovementSpeed = 11,
 	monsterCategory = "Undead",
 	spawnLocation = {
-		"The Eternal Laboratory (Act 8)",
 		"The Ridge (Act 6)",
 		"Tower (Map)",
 	},
@@ -29439,7 +29158,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMelee10"] = {
 	baseMovementSpeed = 11,
 	monsterCategory = "Undead",
 	spawnLocation = {
-		"The Eternal Laboratory (Act 8)",
 		"Tower (Map)",
 	},
 	skillList = {
@@ -29473,7 +29191,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMelee11"] = {
 		"Fragmented Memory",
 		"Laboratory (Map)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Reliquary (Act 10)",
 		"The Reliquary (Act 5)",
 	},
@@ -29564,7 +29281,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeRoman"] = {
 	spawnLocation = {
 		"Conservatory (Map)",
 		"The Bath House (Act 8)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -29596,7 +29312,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeRoman2"] = {
 	spawnLocation = {
 		"Conservatory (Map)",
 		"The Bath House (Act 8)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -29627,7 +29342,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonBanditMelee"] = {
 	monsterCategory = "Undead",
 	spawnLocation = {
 		"The Broken Bridge (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -29661,7 +29375,6 @@ minions["Metadata/Monsters/Skeletons/FarmerSkeletonMeleePitchfork"] = {
 	spawnLocation = {
 		"Fields (Map)",
 		"Fragmented Memory",
-		"The Eternal Laboratory (Act 8)",
 		"The Imperial Fields (Act 8)",
 	},
 	skillList = {
@@ -29756,7 +29469,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeBellyOfTheBeastRun1"] = {
 		"The Belly of the Beast (Act 9)",
 		"The Belly of the Beast Level 1 (Act 4)",
 		"The Belly of the Beast Level 2 (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harvest (Act 4)",
 		"The Quarry (Act 9)",
 	},
@@ -29794,7 +29506,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeBellyOfTheBeastRun2"] = {
 		"Phantasmagoria (Map)",
 		"Primordial Pool (Map)",
 		"The Blood Aqueduct (Act 9)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -29929,7 +29640,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeCold"] = {
 		"Primordial Blocks (Map)",
 		"The Caverns (Act 2)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -30076,7 +29786,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeFire"] = {
 		"The Caverns (Act 2)",
 		"The Coward's Trial (Map)",
 		"The Crematorium (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lower Prison (Act 6)",
 		"Tower (Map)",
 	},
@@ -30302,7 +30011,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeLightning"] = {
 		"Primordial Blocks (Map)",
 		"The Caverns (Act 2)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -30725,7 +30433,6 @@ minions["Metadata/Monsters/Skeletons/Scarecrow/ScarecrowMeleePitchfork__"] = {
 	spawnLocation = {
 		"Fields (Map)",
 		"The Crossroads (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"The Imperial Fields (Act 8)",
 		"The Old Fields (Act 2)",
 	},
@@ -30758,7 +30465,6 @@ minions["Metadata/Monsters/Skeletons/Scarecrow/ScarecrowFarmerSkeletonChampion"]
 	spawnLocation = {
 		"Fields (Map)",
 		"Fragmented Memory",
-		"The Eternal Laboratory (Act 8)",
 		"The Imperial Fields (Act 8)",
 	},
 	skillList = {
@@ -30850,7 +30556,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeFire2"] = {
 		"Dungeon (Map)",
 		"Lava Chamber (Map)",
 		"Necropolis (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -30940,7 +30645,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeCold2"] = {
 		"Bone Crypt (Map)",
 		"Olmec's Sanctum (Map)",
 		"The Catacombs (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -31053,7 +30757,6 @@ minions["Metadata/Monsters/SkeletonSoldier/SkeletonSoldierUnarmed"] = {
 		"Fragmented Memory",
 		"The Aqueduct (Act 4)",
 		"The Dried Lake (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"The Foothills (Act 9)",
 		"Wasteland (Map)",
 	},
@@ -31192,7 +30895,6 @@ minions["Metadata/Monsters/SkeletonSoldier/SkeletonSoldierUnarmedCrystal"] = {
 	monsterCategory = "Undead",
 	spawnLocation = {
 		"Geode (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Quarry (Act 9)",
 		"The Tunnel (Act 9)",
 	},
@@ -31225,7 +30927,6 @@ minions["Metadata/Monsters/SkeletonSoldier/SkeletonSoldierUnarmedBleached"] = {
 		"Leyline (Map)",
 		"Sulphur Vents (Map)",
 		"The Boiling Lake (Act 9)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -31255,7 +30956,6 @@ minions["Metadata/Monsters/SkeletonSoldier/SkeletonSoldierUnarmedBlood"] = {
 	spawnLocation = {
 		"Crimson Temple (Map)",
 		"Fragmented Memory",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -31320,7 +31020,6 @@ minions["Metadata/Monsters/SkeletonSoldier/SkeletonSoldierRangedBarrage"] = {
 		"Channel (Map)",
 		"Fragmented Memory",
 		"The Aqueduct (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"Waterways (Map)",
 	},
 	skillList = {
@@ -31355,7 +31054,6 @@ minions["Metadata/Monsters/SkeletonSoldier/SkeletonSoldierRangedTornadoShot"] = 
 		"Desert (Map)",
 		"Fragmented Memory",
 		"The Dried Lake (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"The Foothills (Act 9)",
 		"Wasteland (Map)",
 	},
@@ -31388,7 +31086,6 @@ minions["Metadata/Monsters/SkeletonSoldier/SkeletonSoldierRangedTornadoShotCryst
 	monsterCategory = "Undead",
 	spawnLocation = {
 		"Geode (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Quarry (Act 9)",
 		"The Tunnel (Act 9)",
 	},
@@ -31423,7 +31120,6 @@ minions["Metadata/Monsters/SkeletonSoldier/SkeletonSoldierRangedTornadoShotBleac
 		"Leyline (Map)",
 		"Sulphur Vents (Map)",
 		"The Boiling Lake (Act 9)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -31455,7 +31151,6 @@ minions["Metadata/Monsters/SkeletonSoldier/SkeletonSoldierRangedTornadoShotBlood
 	spawnLocation = {
 		"Crimson Temple (Map)",
 		"Fragmented Memory",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -31488,7 +31183,6 @@ minions["Metadata/Monsters/SkeletonSoldier/SkeletonSoldierRangedTornadoShotBlood
 		"Crimson Temple (Map)",
 		"Fragmented Memory",
 		"The Blood Aqueduct (Act 9)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -31688,7 +31382,6 @@ minions["Metadata/Monsters/Skeletons/DockSkeletonBow"] = {
 		"Pier (Map)",
 		"Shipyard (Map)",
 		"The Docks (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"Wharf (Map)",
 	},
 	skillList = {
@@ -31720,7 +31413,6 @@ minions["Metadata/Monsters/Skeletons/DockSkeletonMelee"] = {
 		"Pier (Map)",
 		"Shipyard (Map)",
 		"The Docks (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"Wharf (Map)",
 	},
 	skillList = {
@@ -31753,7 +31445,6 @@ minions["Metadata/Monsters/RaisedSkeletons/KitavaSkeleton"] = {
 		"Lookout (Map)",
 		"The Canals (Act 10)",
 		"The Cathedral Rooftop (Act 10)",
-		"The Eternal Laboratory (Act 8)",
 		"The Feeding Trough (Act 10)",
 	},
 	skillList = {
@@ -32008,7 +31699,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalMaulIncursion"]
 		"The Alluring Abyss (Map)",
 		"The Apex of Sacrifice (Map)",
 		"The Causeway (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Temple of Atzoatl",
 		"The Vaal Ruins (Act 2)",
 		"Vaal Pyramid (Map)",
@@ -32047,7 +31737,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonBowKnightElementalIncursion"] = {
 		"Doryani's Machinarium (Map)",
 		"Fragmented Memory",
 		"Maze (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Temple of Atzoatl",
 		"The Temple of Decay Level 2 (Act 7)",
 		"Vaal Pyramid (Map)",
@@ -32084,7 +31773,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalLargeSwordIncur
 		"Ancient City (Map)",
 		"Doryani's Machinarium (Map)",
 		"Maze (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Temple of Atzoatl",
 		"Vaal Pyramid (Map)",
 		"Vaal Temple (Map)",
@@ -32128,7 +31816,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterColdDelveSpectre"] = {
 		"Plateau (Map)",
 		"Primordial Blocks (Map)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Upper Prison (Act 1)",
 	},
 	skillList = {
@@ -32225,7 +31912,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeSawbones"] = {
 		"Plateau (Map)",
 		"Primordial Blocks (Map)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lower Prison (Act 1)",
 		"The Upper Prison (Act 1)",
 	},
@@ -32260,7 +31946,6 @@ minions["Metadata/Monsters/Skeletons/FarmerSkeletonMeleeScythe"] = {
 	spawnLocation = {
 		"Fields (Map)",
 		"Fragmented Memory",
-		"The Eternal Laboratory (Act 8)",
 		"The Imperial Fields (Act 8)",
 	},
 	skillList = {
@@ -32564,7 +32249,6 @@ minions["Metadata/Monsters/SkeletonSoldier/SkeletonSoldierRangedBarrageBlood"] =
 		"Phantasmagoria (Map)",
 		"Primordial Pool (Map)",
 		"The Blood Aqueduct (Act 9)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -32597,7 +32281,6 @@ minions["Metadata/Monsters/SkeletonSoldier/SkeletonSoldierRangedEmerge"] = {
 		"Channel (Map)",
 		"Fragmented Memory",
 		"The Aqueduct (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"Waterways (Map)",
 	},
 	skillList = {
@@ -32642,7 +32325,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordAtziri"] =
 		"The Alluring Abyss (Map)",
 		"The Apex of Sacrifice (Map)",
 		"The Causeway (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Temple of Atzoatl",
 		"The Vaal Ruins (Act 2)",
 		"Vaal Pyramid (Map)",
@@ -32677,7 +32359,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterLightningSparkAtziri"] = {
 		"Maze (Map)",
 		"The Alluring Abyss (Map)",
 		"The Apex of Sacrifice (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"Vaal Pyramid (Map)",
 		"Vaults of Atziri (Map)",
 	},
@@ -32713,7 +32394,6 @@ minions["Metadata/Monsters/Snake/SnakeMeleeSpit"] = {
 		"Fungal Hollow (Map)",
 		"Jungle Valley (Map)",
 		"Olmec's Sanctum (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Northern Forest (Act 2)",
 		"The Riverways (Act 2)",
 		"The Riverways (Act 6)",
@@ -32784,7 +32464,6 @@ minions["Metadata/Monsters/Snake/SnakeFlame"] = {
 		"Fragmented Memory",
 		"Jungle Valley (Map)",
 		"Kaom's Dream (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"The Northern Forest (Act 2)",
 		"The Northern Forest (Act 7)",
 		"Thicket (Map)",
@@ -32816,7 +32495,6 @@ minions["Metadata/Monsters/Snake/SnakeFlameParasite"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Dark Forest (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Northern Forest (Act 7)",
 	},
 	skillList = {
@@ -32855,7 +32533,6 @@ minions["Metadata/Monsters/Snake/SnakeMeleeInca"] = {
 		"The Ancient Pyramid (Act 2)",
 		"The Apex of Sacrifice (Map)",
 		"The Causeway (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Temple of Atzoatl",
 		"The Vaal City (Act 7)",
 		"The Vaal Ruins (Act 2)",
@@ -32949,7 +32626,6 @@ minions["Metadata/Monsters/Snake/SnakeMeleeSpitParasite"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Infested Valley (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Riverways (Act 6)",
 	},
 	skillList = {
@@ -32979,7 +32655,6 @@ minions["Metadata/Monsters/Snake/SnakeBloodSpitter"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Doedre's Cesspool (Act 8)",
-		"The Eternal Laboratory (Act 8)",
 		"The Toxic Conduits (Act 8)",
 	},
 	skillList = {
@@ -33010,7 +32685,6 @@ minions["Metadata/Monsters/Snake/SnakePuncture"] = {
 	spawnLocation = {
 		"Fragmented Memory",
 		"Jungle Valley (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"Thicket (Map)",
 	},
 	skillList = {
@@ -33043,7 +32717,6 @@ minions["Metadata/Monsters/Snake/SnakeSpit"] = {
 		"Gardens (Map)",
 		"The Dread Thicket (Act 2)",
 		"The Dread Thicket (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Imperial Gardens (Act 3)",
 		"The Vinktar Square (Map)",
 		"Thicket (Map)",
@@ -33081,7 +32754,6 @@ minions["Metadata/Monsters/Snake/SnakeScorpion"] = {
 		"Palace (Map)",
 		"Perandus Manor (Map)",
 		"Precinct (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Marketplace (Act 3)",
 		"The Sarn Ramparts (Act 8)",
 		"The Slums (Act 3)",
@@ -33352,7 +33024,6 @@ minions["Metadata/Monsters/Snake/SnakeMeleeSpitForest"] = {
 		"Fungal Hollow (Map)",
 		"Jungle Valley (Map)",
 		"Olmec's Sanctum (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Northern Forest (Act 2)",
 		"The Riverways (Act 2)",
 		"The Riverways (Act 6)",
@@ -33400,7 +33071,6 @@ minions["Metadata/Monsters/Snake/SnakeMeleeIncaAtziri"] = {
 		"The Ancient Pyramid (Act 2)",
 		"The Apex of Sacrifice (Map)",
 		"The Causeway (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Temple of Atzoatl",
 		"The Vaal City (Act 7)",
 		"The Vaal Ruins (Act 2)",
@@ -33463,7 +33133,6 @@ minions["Metadata/Monsters/PrisonSpider/PrisonSpider"] = {
 	baseMovementSpeed = 31,
 	monsterCategory = "Beast",
 	spawnLocation = {
-		"The Eternal Laboratory (Act 8)",
 		"The Lower Prison (Act 1)",
 		"The Upper Prison (Act 1)",
 	},
@@ -33498,7 +33167,6 @@ minions["Metadata/Monsters/Spiders/SpiderThornFlickerStrike"] = {
 		"Spider Forest (Map)",
 		"Spider Lair (Map)",
 		"Sunken City (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Temple of Decay Level 1 (Act 7)",
 	},
 	skillList = {
@@ -33618,7 +33286,6 @@ minions["Metadata/Monsters/Spiders/SpiderThornViperStrike"] = {
 		"Spider Forest (Map)",
 		"Spider Lair (Map)",
 		"Sunken City (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -33646,7 +33313,6 @@ minions["Metadata/Monsters/Spiders/SpiderThornFlickerStrikeNoExplode"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Fragmented Memory",
-		"The Eternal Laboratory (Act 8)",
 		"The Temple of Decay Level 2 (Act 7)",
 		"The Vaal City (Act 7)",
 	},
@@ -33682,7 +33348,6 @@ minions["Metadata/Monsters/Spiders/SpiderWebChampion"] = {
 		"Spider Forest (Map)",
 		"Spider Lair (Map)",
 		"Sunken City (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -33717,7 +33382,6 @@ minions["Metadata/Monsters/Spiders/SpiderPoisonChampion_"] = {
 		"Spider Forest (Map)",
 		"Spider Lair (Map)",
 		"Sunken City (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -33752,7 +33416,6 @@ minions["Metadata/Monsters/Spiders/SpiderScale2"] = {
 		"Spider Forest (Map)",
 		"Spider Lair (Map)",
 		"Sunken City (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Northern Forest (Act 2)",
 		"The Northern Forest (Act 7)",
 		"The Western Forest (Act 2)",
@@ -33816,7 +33479,6 @@ minions["Metadata/Monsters/Spiders/SpiderScaleViperStrike"] = {
 		"Spider Lair (Map)",
 		"Sunken City (Map)",
 		"The Chamber of Sins Level 2 (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"The Northern Forest (Act 2)",
 	},
 	skillList = {
@@ -33999,7 +33661,6 @@ minions["Metadata/Monsters/Spiders/SpiderSmall"] = {
 		"Sunken City (Map)",
 		"The Den (Act 2)",
 		"The Den (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -34039,7 +33700,6 @@ minions["Metadata/Monsters/Spiders/SpiderSmall2"] = {
 		"Sunken City (Map)",
 		"The Chamber of Sins Level 1 (Act 2)",
 		"The Chamber of Sins Level 1 (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"Underground Sea (Map)",
 	},
 	skillList = {
@@ -34236,7 +33896,6 @@ minions["Metadata/Monsters/Spiders/SpiderHairParasite"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Infested Valley (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Fellshrine Ruins (Act 7)",
 		"The Western Forest (Act 6)",
 	},
@@ -34273,7 +33932,6 @@ minions["Metadata/Monsters/SpiderPlague/SpiderPlague_"] = {
 		"Spider Forest (Map)",
 		"Spider Lair (Map)",
 		"Sunken City (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Temple of Decay Level 1 (Act 7)",
 		"The Temple of Decay Level 2 (Act 7)",
 		"Ziggurat (Map)",
@@ -34452,7 +34110,6 @@ minions["Metadata/Monsters/SpiderPlated/SpiderPlated"] = {
 	spawnLocation = {
 		"Maligaro's Sanctum (Act 7)",
 		"Marshes (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -34506,7 +34163,6 @@ minions["Metadata/Monsters/SpiderPlated/SpiderPlatedTailExplosion"] = {
 	spawnLocation = {
 		"Maligaro's Sanctum (Act 7)",
 		"Marshes (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -34649,7 +34305,6 @@ minions["Metadata/Monster/CageSpider/CageSpiderSpectre"] = {
 	monsterCategory = "Undead",
 	spawnLocation = {
 		"Shavronne's Tower (Act 6)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lower Prison (Act 6)",
 		"Tower (Map)",
 	},
@@ -34678,7 +34333,6 @@ minions["Metadata/Monster/CageSpider/CageSpider2Spectre"] = {
 	monsterCategory = "Undead",
 	spawnLocation = {
 		"Desert (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Vastiri Desert (Act 9)",
 	},
 	skillList = {
@@ -35306,7 +34960,6 @@ minions["Metadata/Monsters/Statue/StatueMaleMaulBlack"] = {
 	baseMovementSpeed = 18,
 	monsterCategory = "Construct",
 	spawnLocation = {
-		"The Eternal Laboratory (Act 8)",
 		"The Fellshrine Ruins (Act 7)",
 	},
 	skillList = {
@@ -35695,7 +35348,6 @@ minions["Metadata/Monsters/Statue/LionSolaris"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Ivory Temple (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Imperial Fields (Act 8)",
 		"The Solaris Temple Level 1 (Act 8)",
@@ -35729,7 +35381,6 @@ minions["Metadata/Monsters/Statue/LionSolarisFlame"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Ivory Temple (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Imperial Fields (Act 8)",
 		"The Solaris Temple Level 1 (Act 8)",
@@ -35862,7 +35513,6 @@ minions["Metadata/Monsters/StatueFingerMage/StatueFingerMageMonster"] = {
 	monsterCategory = "Demon",
 	spawnLocation = {
 		"Belfry (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -35903,7 +35553,6 @@ minions["Metadata/Monsters/Statue/StoneStatueMaleBowBrittle"] = {
 		"The Coward's Trial (Map)",
 		"The Crossroads (Act 2)",
 		"The Crossroads (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -35947,7 +35596,6 @@ minions["Metadata/Monsters/Statue/StoneStatueMaleBowBrittleDescent"] = {
 		"The Coward's Trial (Map)",
 		"The Crossroads (Act 2)",
 		"The Crossroads (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -35977,7 +35625,6 @@ minions["Metadata/Monsters/Statue/StatueFemaleBowBlack"] = {
 	baseMovementSpeed = 19,
 	monsterCategory = "Construct",
 	spawnLocation = {
-		"The Eternal Laboratory (Act 8)",
 		"The Fellshrine Ruins (Act 7)",
 	},
 	skillList = {
@@ -36009,7 +35656,6 @@ minions["Metadata/Monsters/Statue/StatueFemaleSwordBlack"] = {
 	baseMovementSpeed = 18,
 	monsterCategory = "Construct",
 	spawnLocation = {
-		"The Eternal Laboratory (Act 8)",
 		"The Fellshrine Ruins (Act 7)",
 	},
 	skillList = {
@@ -36349,7 +35995,6 @@ minions["Metadata/Monsters/Taster/Taster"] = {
 		"The Belly of the Beast (Act 9)",
 		"The Belly of the Beast Level 1 (Act 4)",
 		"The Belly of the Beast Level 2 (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harvest (Act 4)",
 		"The Rotting Core (Act 9)",
 	},
@@ -36388,7 +36033,6 @@ minions["Metadata/Monsters/Taster/TasterPart2Droolmaw"] = {
 		"The Belly of the Beast (Act 9)",
 		"The Belly of the Beast Level 1 (Act 4)",
 		"The Belly of the Beast Level 2 (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harvest (Act 4)",
 		"The Rotting Core (Act 9)",
 	},
@@ -36419,7 +36063,6 @@ minions["Metadata/Monsters/OriathanCitizen/OriathanCitizenZombieMale1"] = {
 	spawnLocation = {
 		"Park (Map)",
 		"Strand (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Twilight Strand (Act 6)",
 		"Twisted Distant Memory",
 		"Whakawairua Tuahu (Map)",
@@ -36515,7 +36158,6 @@ minions["Metadata/Monsters/OriathBlackguard/OriathBlackguard"] = {
 		"Oriath Square (Act 5)",
 		"Pen (Map)",
 		"The Control Blocks (Act 5)",
-		"The Eternal Laboratory (Act 8)",
 		"The Slave Pens (Act 5)",
 		"Theatre of Lies (Map)",
 	},
@@ -36552,7 +36194,6 @@ minions["Metadata/Monsters/OriathBlackguard/OriathBlackguard2"] = {
 		"Oriath Square (Act 5)",
 		"Pen (Map)",
 		"The Control Blocks (Act 5)",
-		"The Eternal Laboratory (Act 8)",
 		"The Slave Pens (Act 5)",
 		"Theatre of Lies (Map)",
 	},
@@ -36585,7 +36226,6 @@ minions["Metadata/Monsters/OriathBlackguard/OriathBlackguardKitava1"] = {
 	spawnLocation = {
 		"Chambers of Impurity (Map)",
 		"The Control Blocks (Act 10)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ravaged Square (Act 10)",
 	},
 	skillList = {
@@ -36617,7 +36257,6 @@ minions["Metadata/Monsters/OriathBlackguard/OriathBlackguardKitava2"] = {
 	spawnLocation = {
 		"Chambers of Impurity (Map)",
 		"The Control Blocks (Act 10)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ravaged Square (Act 10)",
 	},
 	skillList = {
@@ -36761,7 +36400,6 @@ minions["Metadata/Monsters/SlaveCatcher/SlaveCatcher"] = {
 		"Fragmented Memory",
 		"Oriath Square (Act 5)",
 		"The Control Blocks (Act 5)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -36797,7 +36435,6 @@ minions["Metadata/Monsters/SlaveCatcher/SlaveCatcherKitava"] = {
 		"Sanctuary (Map)",
 		"Silo (Map)",
 		"The Control Blocks (Act 10)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ravaged Square (Act 10)",
 		"The Ruined Square (Act 5)",
 		"Ziggurat (Map)",
@@ -36837,7 +36474,6 @@ minions["Metadata/Monsters/SlaveCatcher/SlaveCatcherKitava2"] = {
 		"Sanctuary (Map)",
 		"Silo (Map)",
 		"The Control Blocks (Act 10)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ravaged Square (Act 10)",
 		"The Ruined Square (Act 5)",
 		"Ziggurat (Map)",
@@ -36904,7 +36540,6 @@ minions["Metadata/Monsters/IndoctrinatedConvert/IndoctrinatedConvert"] = {
 		"City Square (Map)",
 		"Fragmented Memory",
 		"The Control Blocks (Act 5)",
-		"The Eternal Laboratory (Act 8)",
 		"The Slave Pens (Act 5)",
 	},
 	skillList = {
@@ -36933,7 +36568,6 @@ minions["Metadata/Monsters/IndoctrinatedConvert/IndoctrinatedConvertKitava"] = {
 	spawnLocation = {
 		"Silo (Map)",
 		"The Control Blocks (Act 10)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -36967,7 +36601,6 @@ minions["Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriver"] = {
 		"Fragmented Memory",
 		"Pen (Map)",
 		"The Control Blocks (Act 5)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"SlaverTaunt",
@@ -37000,7 +36633,6 @@ minions["Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriverKitava"] = {
 	spawnLocation = {
 		"Silo (Map)",
 		"The Control Blocks (Act 10)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"SlaverTaunt",
@@ -37033,7 +36665,6 @@ minions["Metadata/Monsters/TemplarJudge/TemplarJudgePure"] = {
 		"City Square (Map)",
 		"Rewritten Distant Memory",
 		"The Chamber of Innocence (Act 5)",
-		"The Eternal Laboratory (Act 8)",
 		"The Templar Courts (Act 5)",
 		"Theatre of Lies (Map)",
 	},
@@ -37064,7 +36695,6 @@ minions["Metadata/Monsters/TemplarJudge/TemplarJudgeKitava1"] = {
 	spawnLocation = {
 		"Fragmented Memory",
 		"The Control Blocks (Act 10)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ravaged Square (Act 10)",
 		"The Ruined Square (Act 5)",
 		"The Torched Courts (Act 5)",
@@ -37167,7 +36797,6 @@ minions["Metadata/Monsters/ReligiousTemplar/ReligiousTemplarTwoHandedPure"] = {
 		"Cells (Map)",
 		"City Square (Map)",
 		"Oriath Square (Act 5)",
-		"The Eternal Laboratory (Act 8)",
 		"The Templar Courts (Act 5)",
 	},
 	skillList = {
@@ -37200,7 +36829,6 @@ minions["Metadata/Monsters/ReligiousTemplar/ReligiousTemplarKitava"] = {
 	spawnLocation = {
 		"Fragmented Memory",
 		"The Desecrated Chambers (Act 10)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ravaged Square (Act 10)",
 		"The Ruined Square (Act 5)",
 		"The Torched Courts (Act 10)",
@@ -37237,7 +36865,6 @@ minions["Metadata/Monsters/ReligiousTemplar/ReligiousTemplarTwoHandedKitava"] = 
 	spawnLocation = {
 		"Fragmented Memory",
 		"The Desecrated Chambers (Act 10)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ravaged Square (Act 10)",
 		"The Ruined Square (Act 5)",
 		"The Torched Courts (Act 10)",
@@ -37273,7 +36900,6 @@ minions["Metadata/Monsters/ReligiousTemplar/ReligiousTemplarKitavaNoThrow"] = {
 	spawnLocation = {
 		"Fragmented Memory",
 		"The Desecrated Chambers (Act 10)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ravaged Square (Act 10)",
 		"The Ruined Square (Act 5)",
 		"The Torched Courts (Act 10)",
@@ -37315,7 +36941,6 @@ minions["Metadata/Monsters/Undying/CityStalkerMaleCasterArmour"] = {
 		"Palace (Map)",
 		"Perandus Manor (Map)",
 		"Residence (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Grand Promenade (Act 8)",
 		"The Putrid Cloister (Map)",
 		"The Sceptre of God (Act 3)",
@@ -37353,7 +36978,6 @@ minions["Metadata/Monsters/Undying/UndyingOutcastPuncture"] = {
 		"Fragmented Memory",
 		"Ghetto (Map)",
 		"Precinct (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Marketplace (Act 3)",
 	},
 	skillList = {
@@ -37386,7 +37010,6 @@ minions["Metadata/Monsters/Undying/UndyingOutcastWhirlingBlades"] = {
 		"Ghetto (Map)",
 		"Precinct (Map)",
 		"The City of Sarn (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"The Grain Gate (Act 8)",
 		"The Marketplace (Act 3)",
 		"The Quay (Act 8)",
@@ -37423,7 +37046,6 @@ minions["Metadata/Monsters/Undying/CityStalkerMale"] = {
 		"Bazaar (Map)",
 		"Fragmented Memory",
 		"Perandus Manor (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Grain Gate (Act 8)",
 		"The Marketplace (Act 3)",
 		"The Quay (Act 8)",
@@ -37561,7 +37183,6 @@ minions["Metadata/Monsters/Undying/CityStalkerMaleTotem"] = {
 	monsterCategory = "Demon",
 	spawnLocation = {
 		"Fragmented Memory",
-		"The Eternal Laboratory (Act 8)",
 		"The Quay (Act 8)",
 	},
 	skillList = {
@@ -37594,7 +37215,6 @@ minions["Metadata/Monsters/Undying/CityStalkerMaleWorkerCold"] = {
 		"Bazaar (Map)",
 		"Fragmented Memory",
 		"The Docks (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"The Grain Gate (Act 8)",
 		"The Marketplace (Act 3)",
 		"The Quay (Act 8)",
@@ -37626,7 +37246,6 @@ minions["Metadata/Monsters/Undying/CityStalkerMaleWorkerCold2"] = {
 	monsterCategory = "Demon",
 	spawnLocation = {
 		"Factory (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Refinery (Act 9)",
 	},
 	skillList = {
@@ -37657,7 +37276,6 @@ minions["Metadata/Monsters/Undying/CityStalkerMaleWorkerLightning"] = {
 	monsterCategory = "Demon",
 	spawnLocation = {
 		"Factory (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Refinery (Act 9)",
 	},
 	skillList = {
@@ -37695,7 +37313,6 @@ minions["Metadata/Monsters/Undying/CityStalkerMaleFreezingPulse2"] = {
 		"Scriptorium (Map)",
 		"The Archives (Act 3)",
 		"The Catacombs (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"The Library (Act 3)",
 		"The Putrid Cloister (Map)",
 		"The Sceptre of God (Act 3)",
@@ -37762,7 +37379,6 @@ minions["Metadata/Monsters/Undying/CityStalkerMaleFreezingPulse1"] = {
 		"Perandus Manor (Map)",
 		"Port (Map)",
 		"The Catacombs (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -37826,7 +37442,6 @@ minions["Metadata/Monsters/Undying/CityStalkerMaleFire"] = {
 		"Fragmented Memory",
 		"Lava Chamber (Map)",
 		"The Crematorium (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -37922,7 +37537,6 @@ minions["Metadata/Monsters/Undying/CityStalkerMaleArmour"] = {
 		"Palace (Map)",
 		"Perandus Manor (Map)",
 		"Residence (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Sceptre of God (Act 3)",
 		"The Upper Sceptre of God (Act 3)",
 	},
@@ -37956,7 +37570,6 @@ minions["Metadata/Monsters/Undying/CityStalkerMaleArmour2"] = {
 		"Fragmented Memory",
 		"Palace (Map)",
 		"Residence (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Grand Promenade (Act 8)",
 	},
 	skillList = {
@@ -37986,7 +37599,6 @@ minions["Metadata/Monsters/Undying/CityStalkerMaleArmourCold"] = {
 	spawnLocation = {
 		"Conservatory (Map)",
 		"The Bath House (Act 8)",
-		"The Eternal Laboratory (Act 8)",
 		"The High Gardens (Act 8)",
 	},
 	skillList = {
@@ -38016,7 +37628,6 @@ minions["Metadata/Monsters/Undying/CityStalkerMaleArmourColdSnap"] = {
 	spawnLocation = {
 		"Conservatory (Map)",
 		"The Bath House (Act 8)",
-		"The Eternal Laboratory (Act 8)",
 		"The High Gardens (Act 8)",
 	},
 	skillList = {
@@ -38074,7 +37685,6 @@ minions["Metadata/Monsters/Undying/CityStalkeFemaleShavronne"] = {
 	monsterCategory = "Demon",
 	spawnLocation = {
 		"Cells (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Rotting Core (Act 9)",
 	},
 	skillList = {
@@ -38103,7 +37713,6 @@ minions["Metadata/Monsters/Undying/CityStalkeFemaleShavronneCaster"] = {
 	monsterCategory = "Demon",
 	spawnLocation = {
 		"Cells (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -38354,7 +37963,6 @@ minions["Metadata/Monsters/Undying/UndyingOutcastChampion"] = {
 		"Fragmented Memory",
 		"Ghetto (Map)",
 		"Precinct (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Sarn Ramparts (Act 8)",
 	},
 	skillList = {
@@ -38444,7 +38052,6 @@ minions["Metadata/Monsters/Undying/CityStalkerMaleWorkerCold3"] = {
 	monsterCategory = "Demon",
 	spawnLocation = {
 		"Factory (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Refinery (Act 9)",
 	},
 	skillList = {
@@ -38475,7 +38082,6 @@ minions["Metadata/Monsters/Undying/CityStalkerMaleWorkerLightning2_"] = {
 	monsterCategory = "Demon",
 	spawnLocation = {
 		"Factory (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Refinery (Act 9)",
 	},
 	skillList = {
@@ -38507,7 +38113,6 @@ minions["Metadata/Monsters/Undying/CityStalkerFemaleArmourColdSnap"] = {
 	spawnLocation = {
 		"Conservatory (Map)",
 		"The Bath House (Act 8)",
-		"The Eternal Laboratory (Act 8)",
 		"The High Gardens (Act 8)",
 	},
 	skillList = {
@@ -38649,7 +38254,6 @@ minions["Metadata/Monsters/Undying/UndyingOutcastBladeVortex_"] = {
 		"Ghetto (Map)",
 		"Precinct (Map)",
 		"The City of Sarn (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"The Grain Gate (Act 8)",
 		"The Marketplace (Act 3)",
 		"The Quay (Act 8)",
@@ -38949,7 +38553,6 @@ minions["Metadata/Monsters/WickerMan/WickerMan"] = {
 	spawnLocation = {
 		"Alleyways (Map)",
 		"The Canals (Act 10)",
-		"The Eternal Laboratory (Act 8)",
 		"The Feeding Trough (Act 10)",
 		"The Ravaged Square (Act 10)",
 	},
@@ -38983,7 +38586,6 @@ minions["Metadata/Monsters/Spirit/Wraith"] = {
 		"Grave Trough (Map)",
 		"Scriptorium (Map)",
 		"The Crypt (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Tunnel (Act 9)",
 	},
 	skillList = {
@@ -39011,7 +38613,6 @@ minions["Metadata/Monsters/Spirit/WraithDoedre"] = {
 	monsterCategory = "Undead",
 	spawnLocation = {
 		"Sepulchre (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Rotting Core (Act 9)",
 	},
 	skillList = {
@@ -39038,7 +38639,6 @@ minions["Metadata/Monsters/Spirit/WraithDoedreScreamer"] = {
 	monsterCategory = "Undead",
 	spawnLocation = {
 		"Sepulchre (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Rotting Core (Act 9)",
 	},
 	skillList = {
@@ -39098,7 +38698,6 @@ minions["Metadata/Monsters/Spirit/WraithDoedreStoneCircle"] = {
 	monsterCategory = "Undead",
 	spawnLocation = {
 		"Sepulchre (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Rotting Core (Act 9)",
 	},
 	skillList = {
@@ -39199,7 +38798,6 @@ minions["Metadata/Monsters/MarakethBird/Bird1"] = {
 	spawnLocation = {
 		"Dunes (Map)",
 		"Pillars of Arun (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Oasis (Act 9)",
 		"The Vastiri Desert (Act 9)",
 	},
@@ -39228,7 +38826,6 @@ minions["Metadata/Monsters/MarakethBird/Bird2"] = {
 	spawnLocation = {
 		"Dunes (Map)",
 		"Pillars of Arun (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Oasis (Act 9)",
 		"The Vastiri Desert (Act 9)",
 	},
@@ -39258,7 +38855,6 @@ minions["Metadata/Monsters/MarakethBird/Bird1Fast"] = {
 	spawnLocation = {
 		"Dunes (Map)",
 		"Pillars of Arun (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Oasis (Act 9)",
 		"The Vastiri Desert (Act 9)",
 	},
@@ -39320,7 +38916,6 @@ minions["Metadata/Monsters/MarakethRider/MarakethRider_"] = {
 	spawnLocation = {
 		"Dunes (Map)",
 		"Pillars of Arun (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Oasis (Act 9)",
 		"The Vastiri Desert (Act 9)",
 	},
@@ -39351,7 +38946,6 @@ minions["Metadata/Monsters/MarakethRider/MarakethRiderSpear"] = {
 	spawnLocation = {
 		"Dunes (Map)",
 		"Pillars of Arun (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Oasis (Act 9)",
 		"The Vastiri Desert (Act 9)",
 	},
@@ -39996,7 +39590,6 @@ minions["Metadata/Monsters/MotherOfFlames/MotherOfFlamesPure"] = {
 		"Courtyard of Wasting (Map)",
 		"Oriath Square (Act 5)",
 		"Rewritten Distant Memory",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MotherOfFlamesMagmaOrb",
@@ -40090,7 +39683,6 @@ minions["Metadata/Monsters/BlessedSister/BlessedSisterKitava1"] = {
 		"Fragmented Memory",
 		"Siege (Map)",
 		"Synthesised World (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Torched Courts (Act 5)",
 	},
 	skillList = {
@@ -40284,7 +39876,6 @@ minions["Metadata/Monsters/Bandit/DockworkerHammer"] = {
 		"Shipyard (Map)",
 		"The Aqueduct (Act 4)",
 		"The Docks (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"The Quay (Act 8)",
 		"Wharf (Map)",
 	},
@@ -40343,7 +39934,6 @@ minions["Metadata/Monsters/Bandit/DockworkerChampion_"] = {
 	monsterCategory = "Undead",
 	spawnLocation = {
 		"Pier (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Quay (Act 8)",
 		"Wharf (Map)",
 	},
@@ -40380,7 +39970,6 @@ minions["Metadata/Monsters/Bandit/DockworkerBow"] = {
 		"Shipyard (Map)",
 		"The Aqueduct (Act 4)",
 		"The Docks (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"The Quay (Act 8)",
 		"Wharf (Map)",
 	},
@@ -40416,7 +40005,6 @@ minions["Metadata/Monsters/Bandit/DockworkerChampionBow"] = {
 		"Shipyard (Map)",
 		"The Aqueduct (Act 4)",
 		"The Docks (Act 3)",
-		"The Eternal Laboratory (Act 8)",
 		"The Quay (Act 8)",
 		"Wharf (Map)",
 	},
@@ -40484,7 +40072,6 @@ minions["Metadata/Monsters/RootSpiders/RootSpider"] = {
 		"Orchard (Map)",
 		"Spider Forest (Map)",
 		"The Caverns (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"The Imperial Fields (Act 8)",
 		"The Imperial Gardens (Act 3)",
 		"The Northern Forest (Act 2)",
@@ -40655,7 +40242,6 @@ minions["Metadata/Monsters/RootSpiders/RootSpiderPayload"] = {
 		"Orchard (Map)",
 		"Spider Forest (Map)",
 		"The Caverns (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"The Imperial Fields (Act 8)",
 		"The Imperial Gardens (Act 3)",
 		"The Northern Forest (Act 2)",
@@ -40695,7 +40281,6 @@ minions["Metadata/Monsters/RootSpiders/RootSpiderHidden"] = {
 		"Orchard (Map)",
 		"Spider Forest (Map)",
 		"The Caverns (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"The Imperial Fields (Act 8)",
 		"The Imperial Gardens (Act 3)",
 		"The Northern Forest (Act 2)",
@@ -40738,7 +40323,6 @@ minions["Metadata/Monsters/RootSpiders/RootSpiderHiddenMapsOnly"] = {
 		"Orchard (Map)",
 		"Spider Forest (Map)",
 		"The Caverns (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"The Imperial Fields (Act 8)",
 		"The Imperial Gardens (Act 3)",
 		"The Northern Forest (Act 2)",
@@ -40816,7 +40400,6 @@ minions["Metadata/Monsters/RootSpiders/RootSpiderHiddenMapBossMinion"] = {
 		"Orchard (Map)",
 		"Spider Forest (Map)",
 		"The Caverns (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"The Imperial Fields (Act 8)",
 		"The Imperial Gardens (Act 3)",
 		"The Northern Forest (Act 2)",
@@ -40864,7 +40447,6 @@ minions["Metadata/Monsters/Handfinger/Handfinger"] = {
 		"Excavation (Map)",
 		"Fragmented Memory",
 		"Geode (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Mines Level 1 (Act 4)",
 		"The Mines Level 2 (Act 4)",
 	},
@@ -40960,7 +40542,6 @@ minions["Metadata/Monsters/CorpseWheel/CorpseWheel"] = {
 		"Atoll (Map)",
 		"Maelström of Chaos (Map)",
 		"The Climb (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ridge (Act 6)",
 	},
 	skillList = {
@@ -40994,7 +40575,6 @@ minions["Metadata/Monsters/CorpseWheel/CorpseWheelNoCharge"] = {
 		"Atoll (Map)",
 		"Maelström of Chaos (Map)",
 		"The Climb (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ridge (Act 6)",
 	},
 	skillList = {
@@ -41026,7 +40606,6 @@ minions["Metadata/Monsters/CorpseWheel/CorpseWheelEmergeStandalone"] = {
 		"Atoll (Map)",
 		"Maelström of Chaos (Map)",
 		"The Climb (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ridge (Act 6)",
 	},
 	skillList = {
@@ -41126,7 +40705,6 @@ minions["Metadata/Monsters/DemonModular/DemonModularPietyEmerge"] = {
 		"Overgrown Ruin (Map)",
 		"Poorjoy's Asylum (Map)",
 		"The Belly of the Beast Level 2 (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lunaris Temple Level 1 (Act 3)",
 	},
 	skillList = {
@@ -41160,7 +40738,6 @@ minions["Metadata/Monsters/DemonModular/DemonModularTowerOnce"] = {
 	baseMovementSpeed = 20,
 	monsterCategory = "Demon",
 	spawnLocation = {
-		"The Eternal Laboratory (Act 8)",
 		"The Upper Sceptre of God (Act 3)",
 	},
 	skillList = {
@@ -41188,7 +40765,6 @@ minions["Metadata/Monsters/DemonModular/DemonModularLunaris"] = {
 	monsterCategory = "Demon",
 	spawnLocation = {
 		"Moon Temple (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lunaris Concourse (Act 8)",
 		"The Twilight Temple (Map)",
 	},
@@ -41247,7 +40823,6 @@ minions["Metadata/Monsters/DemonModular/DemonModularCold"] = {
 		"Overgrown Ruin (Map)",
 		"Poorjoy's Asylum (Map)",
 		"Primordial Blocks (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lunaris Temple Level 1 (Act 3)",
 		"The Lunaris Temple Level 2 (Act 3)",
 	},
@@ -41278,7 +40853,6 @@ minions["Metadata/Monsters/DemonModular/DemonModularColdLunaris"] = {
 	monsterCategory = "Demon",
 	spawnLocation = {
 		"Moon Temple (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lunaris Concourse (Act 8)",
 		"The Twilight Temple (Map)",
 	},
@@ -41317,7 +40891,6 @@ minions["Metadata/Monsters/DemonModular/DemonModularLightning"] = {
 		"Overgrown Ruin (Map)",
 		"Poorjoy's Asylum (Map)",
 		"Primordial Blocks (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lunaris Temple Level 1 (Act 3)",
 		"The Lunaris Temple Level 2 (Act 3)",
 	},
@@ -41434,7 +41007,6 @@ minions["Metadata/Monsters/DemonFemale/DemonFemale2"] = {
 	monsterCategory = "Demon",
 	spawnLocation = {
 		"Moon Temple (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Lunaris Concourse (Act 8)",
 		"The Lunaris Temple Level 2 (Act 8)",
@@ -41464,7 +41036,6 @@ minions["Metadata/Monsters/DemonFemale/DemonFemale2Champion_"] = {
 	monsterCategory = "Demon",
 	spawnLocation = {
 		"Moon Temple (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Harbour Bridge (Act 8)",
 		"The Lunaris Concourse (Act 8)",
 		"The Lunaris Temple Level 2 (Act 8)",
@@ -41664,7 +41235,6 @@ minions["Metadata/Monsters/DemonModular/DemonModularTowerLoop"] = {
 	baseMovementSpeed = 20,
 	monsterCategory = "Demon",
 	spawnLocation = {
-		"The Eternal Laboratory (Act 8)",
 		"The Upper Sceptre of God (Act 3)",
 	},
 	skillList = {
@@ -41707,7 +41277,6 @@ minions["Metadata/Monsters/DemonModular/DemonModular"] = {
 		"Overgrown Ruin (Map)",
 		"Poorjoy's Asylum (Map)",
 		"The Belly of the Beast Level 2 (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lunaris Temple Level 1 (Act 3)",
 	},
 	skillList = {
@@ -41739,7 +41308,6 @@ minions["Metadata/Monsters/DemonModular/AsylumDemonModularFire"] = {
 		"Oba's Cursed Trove (Map)",
 		"Overgrown Ruin (Map)",
 		"Poorjoy's Asylum (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lunaris Temple Level 1 (Act 3)",
 		"The Lunaris Temple Level 2 (Act 3)",
 	},
@@ -41799,7 +41367,6 @@ minions["Metadata/Monsters/DemonFemale/DemonFemalePortal"] = {
 		"Overgrown Ruin (Map)",
 		"Poorjoy's Asylum (Map)",
 		"Primordial Blocks (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lunaris Temple Level 2 (Act 3)",
 		"The Upper Sceptre of God (Act 3)",
 		"Whakawairua Tuahu (Map)",
@@ -43786,7 +43353,6 @@ minions["Metadata/Monsters/LeagueHellscape/Generic/Skeletons/HellscapeSkeletonCa
 		"Primordial Blocks (Map)",
 		"Scriptorium (Map)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Fellshrine Ruins (Act 2)",
 		"The Fetid Pool (Act 1)",
 		"The Flooded Depths (Act 1)",
@@ -43831,7 +43397,6 @@ minions["Metadata/Monsters/Spiker/SpikerSpectre_"] = {
 		"Gardens (Map)",
 		"Orchard (Map)",
 		"Precinct (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The High Gardens (Act 8)",
 		"The Imperial Gardens (Act 3)",
 	},
@@ -43924,7 +43489,6 @@ minions["Metadata/Monsters/Spiker/SpikerChrometouchedSpectre"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Terrace (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The High Gardens (Act 8)",
 	},
 	skillList = {
@@ -43956,7 +43520,6 @@ minions["Metadata/Monsters/Spiker/SpikerChromeSpectre"] = {
 	monsterCategory = "Beast",
 	spawnLocation = {
 		"Terrace (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The High Gardens (Act 8)",
 	},
 	skillList = {
@@ -45509,7 +45072,6 @@ minions["Metadata/Monsters/Hound/Hound"] = {
 		"Estuary (Map)",
 		"Fragmented Memory",
 		"Kaom's Dream (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"Volcano (Map)",
 	},
 	skillList = {
@@ -45574,7 +45136,6 @@ minions["Metadata/Monsters/Pitbull/Pitbull"] = {
 		"Daresso's Dream (Act 4)",
 		"Fragmented Memory",
 		"Pit (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -45670,7 +45231,6 @@ minions["Metadata/Monsters/PurgeHound/PurgeHound"] = {
 		"Oriath Square (Act 5)",
 		"Pen (Map)",
 		"The Control Blocks (Act 10)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ravaged Square (Act 10)",
 		"Theatre of Lies (Map)",
 	},
@@ -45704,7 +45264,6 @@ minions["Metadata/Monsters/KaomWarrior/KaomArcher"] = {
 		"Caldera (Map)",
 		"Fragmented Memory",
 		"Kaom's Stronghold (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"Volcano (Map)",
 	},
 	skillList = {
@@ -45800,7 +45359,6 @@ minions["Metadata/Monsters/KaomWarrior/KaomWarrior4"] = {
 		"Caldera (Map)",
 		"Fragmented Memory",
 		"Kaom's Stronghold (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"Volcano (Map)",
 	},
 	skillList = {
@@ -45865,7 +45423,6 @@ minions["Metadata/Monsters/KaomWarrior/KaomWarrior5"] = {
 		"Fragmented Memory",
 		"Lava Lake (Map)",
 		"The Coast (Act 6)",
-		"The Eternal Laboratory (Act 8)",
 		"The Karui Fortress (Act 6)",
 		"The Mud Flats (Act 6)",
 	},
@@ -46848,7 +46405,6 @@ minions["Metadata/Monsters/Lynx/Lynx"] = {
 	spawnLocation = {
 		"Estuary (Map)",
 		"The Descent (Act 9)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -48230,7 +47786,6 @@ minions["Metadata/Monsters/Spawn/Spawn"] = {
 		"Mud Geyser (Map)",
 		"The Cavern of Anger (Act 1)",
 		"The Cavern of Wrath (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 		"The Submerged Passage (Act 1)",
 		"Underground River (Map)",
 		"Underground Sea (Map)",
@@ -48431,7 +47986,6 @@ minions["Metadata/Monsters/Spawn/SpawnPhaseRun"] = {
 		"Port (Map)",
 		"Shipyard (Map)",
 		"The Caverns (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"Underground River (Map)",
 		"Underground Sea (Map)",
 	},
@@ -48461,7 +48015,6 @@ minions["Metadata/Monsters/Spawn/SpawnViperStrike"] = {
 	monsterCategory = "Demon",
 	spawnLocation = {
 		"Fragmented Memory",
-		"The Eternal Laboratory (Act 8)",
 		"Underground Sea (Map)",
 	},
 	skillList = {
@@ -48603,7 +48156,6 @@ minions["Metadata/Monsters/BrineKing/BrineKingMinionBleached"] = {
 		"Leyline (Map)",
 		"Sulphur Vents (Map)",
 		"The Boiling Lake (Act 9)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"Melee",
@@ -51124,7 +50676,6 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardGoliathAtlasUber"] = {
 		"Sanctuary (Map)",
 		"The Crossroads (Act 2)",
 		"The Crossroads (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Fellshrine Ruins (Act 2)",
 		"The Imperial Gardens (Act 3)",
 		"Ziggurat (Map)",
@@ -51230,7 +50781,6 @@ minions["Metadata/Monsters/DropBear/DropBearGround"] = {
 		"Fragmented Memory",
 		"Lair (Map)",
 		"The Dread Thicket (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"The Riverways (Act 2)",
 		"Thicket (Map)",
 		"Underground River (Map)",
@@ -51289,7 +50839,6 @@ minions["Metadata/Monsters/DropBear/DropBearGround2ParasiteSpectre"] = {
 	spawnLocation = {
 		"Caer Blaidd, Wolfpack's Den (Map)",
 		"The Den (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"Underground River (Map)",
 	},
 	skillList = {
@@ -51319,7 +50868,6 @@ minions["Metadata/Monsters/DropBear/DropBearGround2ParasiteSpectre"] = {
 	spawnLocation = {
 		"Caer Blaidd, Wolfpack's Den (Map)",
 		"The Den (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"Underground River (Map)",
 	},
 	skillList = {
@@ -51406,7 +50954,6 @@ minions["Metadata/Monsters/DropBear/DropBearStandalone"] = {
 		"Fragmented Memory",
 		"Lair (Map)",
 		"The Dread Thicket (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"The Riverways (Act 2)",
 		"Thicket (Map)",
 		"Underground River (Map)",
@@ -51469,7 +51016,6 @@ minions["Metadata/Monsters/DropBear/DropBear2ParasiteStandalone"] = {
 	spawnLocation = {
 		"Caer Blaidd, Wolfpack's Den (Map)",
 		"The Den (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"Underground River (Map)",
 	},
 	skillList = {
@@ -51566,7 +51112,6 @@ minions["Metadata/Monsters/DropBear/DropBearHiddenMaps"] = {
 		"Fragmented Memory",
 		"Lair (Map)",
 		"The Dread Thicket (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"The Riverways (Act 2)",
 		"Thicket (Map)",
 		"Underground River (Map)",
@@ -51602,7 +51147,6 @@ minions["Metadata/Monsters/DropBear/DropBearBossMinion"] = {
 		"Fragmented Memory",
 		"Lair (Map)",
 		"The Dread Thicket (Act 2)",
-		"The Eternal Laboratory (Act 8)",
 		"The Riverways (Act 2)",
 		"Thicket (Map)",
 		"Underground River (Map)",
@@ -51645,7 +51189,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSword"] = {
 		"The Alluring Abyss (Map)",
 		"The Apex of Sacrifice (Map)",
 		"The Causeway (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Temple of Atzoatl",
 		"The Vaal Ruins (Act 2)",
 		"Vaal Pyramid (Map)",
@@ -51681,7 +51224,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalLargeSword"] = 
 		"Ancient City (Map)",
 		"Doryani's Machinarium (Map)",
 		"Maze (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Temple of Atzoatl",
 		"Vaal Pyramid (Map)",
 		"Vaal Temple (Map)",
@@ -51746,7 +51288,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightColdSword"] = {
 		"Ancient City (Map)",
 		"Doryani's Machinarium (Map)",
 		"Maze (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Temple of Decay Level 1 (Act 7)",
 		"The Temple of Decay Level 2 (Act 7)",
 		"Vaal Pyramid (Map)",
@@ -51781,7 +51322,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightFireSword"] = {
 		"Ancient City (Map)",
 		"Doryani's Machinarium (Map)",
 		"Maze (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"Vaal Pyramid (Map)",
 		"Vaults of Atziri (Map)",
 	},
@@ -51814,7 +51354,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightLightningSword"] = {
 		"Ancient City (Map)",
 		"Doryani's Machinarium (Map)",
 		"Maze (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"Vaal Pyramid (Map)",
 		"Vaults of Atziri (Map)",
 	},
@@ -51847,7 +51386,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterKnightFire"] = {
 		"Doryani's Machinarium (Map)",
 		"Forge of the Phoenix (Map)",
 		"Maze (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Vaal City (Act 7)",
 		"Vaal Pyramid (Map)",
 		"Vaults of Atziri (Map)",
@@ -51880,7 +51418,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterKnightCold"] = {
 		"Ancient City (Map)",
 		"Doryani's Machinarium (Map)",
 		"Maze (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"Vaal Pyramid (Map)",
 		"Vaults of Atziri (Map)",
 	},
@@ -51913,7 +51450,6 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterKnightLightning"] = {
 		"Maze (Map)",
 		"The Alluring Abyss (Map)",
 		"The Apex of Sacrifice (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"Vaal Pyramid (Map)",
 		"Vaults of Atziri (Map)",
 	},
@@ -52119,7 +51655,6 @@ minions["Metadata/Monsters/VultureParasite/VultureParasite"] = {
 		"Fragmented Memory",
 		"Leyline (Map)",
 		"The Dried Lake (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"Wasteland (Map)",
 		"Waterways (Map)",
 	},
@@ -52311,7 +51846,6 @@ minions["Metadata/Monsters/VultureParasite/VultureParasiteMaps"] = {
 		"Fragmented Memory",
 		"Leyline (Map)",
 		"The Dried Lake (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 		"Wasteland (Map)",
 		"Waterways (Map)",
 	},
@@ -52474,7 +52008,6 @@ minions["Metadata/Monsters/ZombieDismember/ZombieDrowned1"] = {
 		"Graveyard (Map)",
 		"Strand (Map)",
 		"The Coast (Act 1)",
-		"The Eternal Laboratory (Act 8)",
 		"The Tidal Island (Act 1)",
 		"The Twilight Strand (Act 1)",
 	},
@@ -52592,7 +52125,6 @@ minions["Metadata/Monsters/ZombieDismember/ZombieMired1"] = {
 		"Cemetery (Map)",
 		"Fragmented Memory",
 		"Graveyard (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Fetid Pool (Act 1)",
 		"The Flooded Depths (Act 1)",
 		"The Mud Flats (Act 1)",
@@ -52850,7 +52382,6 @@ minions["Metadata/Monsters/ZombieDismember/ZombieMoldyEmerge1"] = {
 		"Cemetery (Map)",
 		"Fragmented Memory",
 		"Graveyard (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Fellshrine Ruins (Act 2)",
 	},
 	skillList = {
@@ -52914,7 +52445,6 @@ minions["Metadata/Monsters/ZombieDismember/ZombieMoldyPoison1"] = {
 		"The Chamber of Sins Level 1 (Act 2)",
 		"The Chamber of Sins Level 1 (Act 7)",
 		"The Chamber of Sins Level 2 (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Toxic Conduits (Act 8)",
 	},
 	skillList = {
@@ -52948,7 +52478,6 @@ minions["Metadata/Monsters/ZombieDismember/ZombiePrison1"] = {
 	spawnLocation = {
 		"Cemetery (Map)",
 		"Graveyard (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lower Prison (Act 1)",
 		"The Lower Prison (Act 6)",
 		"The Upper Prison (Act 1)",
@@ -52981,7 +52510,6 @@ minions["Metadata/Monsters/ZombieDismember/ZombieShore1"] = {
 	spawnLocation = {
 		"Cemetery (Map)",
 		"Graveyard (Map)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -53013,7 +52541,6 @@ minions["Metadata/Monsters/ZombieDismember/ZombieTar"] = {
 		"Dungeon (Map)",
 		"Graveyard (Map)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ship Graveyard (Act 1)",
 		"The Ship Graveyard Cave (Act 1)",
 	},
@@ -53105,7 +52632,6 @@ minions["Metadata/Monsters/Zombies/ZombieMummy2"] = {
 	monsterCategory = "Undead",
 	spawnLocation = {
 		"Desert (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Vastiri Desert (Act 9)",
 	},
 	skillList = {
@@ -53220,7 +52746,6 @@ minions["Metadata/Monsters/ZombieDismember/BlackguardZombie"] = {
 		"The Aqueduct (Act 4)",
 		"The Blood Aqueduct (Act 9)",
 		"The Chamber of Sins Level 2 (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Grand Promenade (Act 8)",
 		"The Imperial Gardens (Act 3)",
 		"The Vinktar Square (Map)",
@@ -53282,7 +52807,6 @@ minions["Metadata/Monsters/ZombieDismember/BlackguardZombieLeaderPromenade_"] = 
 	spawnLocation = {
 		"Channel (Map)",
 		"The Blood Aqueduct (Act 9)",
-		"The Eternal Laboratory (Act 8)",
 		"The Grand Promenade (Act 8)",
 		"Waterways (Map)",
 	},
@@ -53405,7 +52929,6 @@ minions["Metadata/Monster/Blackguard/BlackguardJaegerMelee"] = {
 		"City Square (Map)",
 		"Fragmented Memory",
 		"The Ascent (Act 4)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -53436,7 +52959,6 @@ minions["Metadata/Monster/Blackguard/BlackguardJaegerZombie"] = {
 		"Summit (Map)",
 		"The Ascent (Act 4)",
 		"The Descent (Act 9)",
-		"The Eternal Laboratory (Act 8)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -53515,7 +53037,6 @@ minions["Metadata/Monsters/Skeletons/CowardsTrial/BlackguardZombieCowardsTrial"]
 		"The Aqueduct (Act 4)",
 		"The Blood Aqueduct (Act 9)",
 		"The Chamber of Sins Level 2 (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Grand Promenade (Act 8)",
 		"The Imperial Gardens (Act 3)",
 		"The Vinktar Square (Map)",
@@ -53549,7 +53070,6 @@ minions["Metadata/Monsters/Skeletons/CowardsTrial/ZombieCowardsTrial"] = {
 	spawnLocation = {
 		"Cemetery (Map)",
 		"Graveyard (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Lower Prison (Act 1)",
 		"The Lower Prison (Act 6)",
 		"The Upper Prison (Act 1)",
@@ -53635,7 +53155,6 @@ minions["Metadata/Monsters/ZombieDismember/ZombieMoldyPoisonSewer1"] = {
 		"The Chamber of Sins Level 1 (Act 2)",
 		"The Chamber of Sins Level 1 (Act 7)",
 		"The Chamber of Sins Level 2 (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Toxic Conduits (Act 8)",
 	},
 	skillList = {
@@ -53669,7 +53188,6 @@ minions["Metadata/Monsters/ZombieDismember/ZombieTarCleansingFire_"] = {
 		"Dungeon (Map)",
 		"Graveyard (Map)",
 		"The Coward's Trial (Map)",
-		"The Eternal Laboratory (Act 8)",
 		"The Ship Graveyard (Act 1)",
 		"The Ship Graveyard Cave (Act 1)",
 	},
@@ -53706,7 +53224,6 @@ minions["Metadata/Monsters/ZombieDismember/BlackguardZombiePromenade"] = {
 		"The Aqueduct (Act 4)",
 		"The Blood Aqueduct (Act 9)",
 		"The Chamber of Sins Level 2 (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Grand Promenade (Act 8)",
 		"The Imperial Gardens (Act 3)",
 		"The Vinktar Square (Map)",
@@ -53772,7 +53289,6 @@ minions["Metadata/Monsters/Skeletons/CowardsTrial/ZombieMoldyPoisonCowardsTrial"
 		"The Chamber of Sins Level 1 (Act 2)",
 		"The Chamber of Sins Level 1 (Act 7)",
 		"The Chamber of Sins Level 2 (Act 7)",
-		"The Eternal Laboratory (Act 8)",
 		"The Toxic Conduits (Act 8)",
 	},
 	skillList = {

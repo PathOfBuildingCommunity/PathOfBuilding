@@ -63,9 +63,9 @@ function MinionListClass:AddValueTooltip(tooltip, index, minionId)
 			tooltip:AddLine(14, s_format("^7Evasion Multiplier: x%.2f", 1 + minion.evasion))
 		end
 		tooltip:AddLine(14, s_format("^7Resistances: %s%d ^7/ %s%d ^7/ %s%d ^7/ %s%d",
-			colorCodes.FIRE, minion.fireResist, 
-			colorCodes.COLD, minion.coldResist, 
-			colorCodes.LIGHTNING, minion.lightningResist, 
+			colorCodes.FIRE, minion.fireResist,
+			colorCodes.COLD, minion.coldResist,
+			colorCodes.LIGHTNING, minion.lightningResist,
 			colorCodes.CHAOS, minion.chaosResist
 		))
 		tooltip:AddLine(14, s_format("^7Base Damage: x%.2f", minion.damage))
@@ -79,7 +79,7 @@ function MinionListClass:AddValueTooltip(tooltip, index, minionId)
 		tooltip:AddSeparator(10)
 		if #minion.spawnLocation > 0 then
 			local coloredLocations = {}
-			for _, location in ipairs(minion.spawnLocation) do -- Print (Map) or (Act 7) in white, and map name in green. 
+			for _, location in ipairs(minion.spawnLocation) do -- Print (Map) or (Act 7) in white, and map name in green.
 				local mainText, bracket = location:match("^(.-)%s*(%b())%s*$")
 				table.insert(coloredLocations, bracket and (colorCodes.RELIC .. mainText .. " " .. "^7" .. bracket) or (colorCodes.RELIC .. location))
 			end

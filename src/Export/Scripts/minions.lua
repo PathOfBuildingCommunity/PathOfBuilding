@@ -345,7 +345,12 @@ directiveTable.emit = function(state, args, out)
 	out:write('\tspawnLocation = {\n')
 	table.sort(worldAreaNames)
 	for _, name in ipairs(worldAreaNames) do
-		if not name:find("Wraeclast Pantheon") and not name:find("PvP Arena") and not name:find("Inner Halls") and not name:find("Endless") and not name:find("Shrine") then
+		if not name:find("Wraeclast Pantheon")
+		and not name:find("PvP Arena")
+		and not name:find("Inner Halls")
+		and not name:find("Endless")
+		and not name:find("Eternal Laboratory")
+		and not name:find("Shrine") then
 			out:write('\t\t"', name, '",\n')
 		end
 	end
