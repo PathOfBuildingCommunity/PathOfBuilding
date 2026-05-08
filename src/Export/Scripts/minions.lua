@@ -340,7 +340,7 @@ directiveTable.emit = function(state, args, out)
 	end
 	out:write('\tbaseMovementSpeed = ', monsterVariety.MovementSpeed, ',\n')
 	if monsterCategory then
-		out:write('\tmonsterCategory = "', (monsterCategory), '",\n')
+		out:write('\tmonsterCategory = "', monsterCategory, '",\n')
 	end
 	out:write('\tspawnLocation = {\n')
 	table.sort(worldAreaNames)

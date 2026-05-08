@@ -76,11 +76,11 @@ function MinionSearchListClass:sortSourceList()
 				valueA = minionA.life
 				valueB = minionB.life
 			elseif sortOption.field == "totalHitPoints" then
-				valueA = minionA.life + ((minionA.energyShield or 0) * minionA.life)
-				valueB = minionB.life + ((minionB.energyShield or 0) * minionB.life)
+				valueA = minionA.life + (((minionA.energyShield or 0) * (data.gameConstants["EnergyShieldRatioOfLife"]) / 100) * minionA.life)
+				valueB = minionB.life + (((minionB.energyShield or 0) * (data.gameConstants["EnergyShieldRatioOfLife"]) / 100) * minionB.life)
 			elseif sortOption.field == "energyShield" then
-				valueA = (minionA.energyShield or 0) * minionA.life
-				valueB = (minionB.energyShield or 0) * minionB.life
+				valueA = ((minionA.energyShield or 0) * (data.gameConstants["EnergyShieldRatioOfLife"]) / 100) * minionA.life
+				valueB = ((minionB.energyShield or 0) * (data.gameConstants["EnergyShieldRatioOfLife"]) / 100) * minionB.life
 			elseif sortOption.field == "totalResist" then
 				valueA = (minionA.fireResist or 0) + (minionA.coldResist or 0) + (minionA.lightningResist or 0) + (minionA.chaosResist or 0)
 				valueB = (minionB.fireResist or 0) + (minionB.coldResist or 0) + (minionB.lightningResist or 0) + (minionB.chaosResist or 0)
