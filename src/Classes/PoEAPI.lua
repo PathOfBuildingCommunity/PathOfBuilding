@@ -25,10 +25,10 @@ end)
 
 --- @param callback fun(valid: bool, updateSettings: bool)
 function PoEAPIClass:ValidateAuth(callback)
-	ConPrintf("Validating auth token")
 	-- make a call for profile if not error we are good
 	-- if error 401 then try to recreate the token with
 	if self.authToken and self.refreshToken and self.tokenExpiry then
+		ConPrintf("Validating auth token")
 		if self.tokenExpiry < os.time() then
 			ConPrintf("Auth token expired")
 			-- here recreate the token with the refresh_token

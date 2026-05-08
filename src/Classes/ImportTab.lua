@@ -235,17 +235,17 @@ function addOAuthControls(self)
 			local selectedName = self.controls.charSelect:GetSelValue().label
 
 			saveDetails(realm.id, league, selectedName)
-
+			local deleteJewels = self.controls.charImportTreeClearJewels.state
 			if self.build.spec:CountAllocNodes() > 0 then
 				main:OpenConfirmPopup("Character Import", "Importing the passive tree will overwrite your current tree.",
 					"Import", function()
 						main.api:DownloadCharacter(realm.realmCode, selectedName, function(char)
-							self:ImportPassiveTreeAndJewels(char.character)
+							self:ImportPassiveTreeAndJewels(char.character, deleteJewels)
 						end)
 					end)
 			else
 				main.api:DownloadCharacter(realm.realmCode, selectedName, function(char)
-					self:ImportPassiveTreeAndJewels(char.character)
+					self:ImportPassiveTreeAndJewels(char.character, deleteJewels)
 				end)
 			end
 		end)
@@ -253,7 +253,7 @@ function addOAuthControls(self)
 		return self.usingOauth and self.isAuthorized() and self.controls.charSelect:GetSelValue()
 	end
 	self.controls.charImportTreeClearJewels = new("CheckBoxControl", { "LEFT", self.controls.charImportTree, "RIGHT" },
-		{ 90, 0, 18 }, "Delete jewels:", nil, "Delete all existing jewels when importing.", true)
+		{ 90, 0, 18 }, "Delete jewels:", nil, "Delete all equipped jewels when importing.", true)
 	self.controls.charImportItems = new("ButtonControl", { "TOPLEFT", self.controls.charImportTree, "BOTTOMLEFT" },
 		{ 0, rowSpacing, 110, 20 }, "Items and Skills", function()
 			local realm = self.controls.accountRealm:GetSelValue()
@@ -263,7 +263,10 @@ function addOAuthControls(self)
 			saveDetails(realm.id, league, selectedName)
 
 			main.api:DownloadCharacter(realm.realmCode, selectedName, function(char)
-				self:ImportItemsAndSkills(char.character)
+				local clearItems = self.controls.charImportItemsClearItems.state
+				local clearSkills = self.controls.charImportItemsClearSkills.state
+				local ignoreWeaponSwap = self.controls.charImportItemsIgnoreWeaponSwap.state
+				self:ImportItemsAndSkills(char.character, clearItems, clearSkills, ignoreWeaponSwap)
 			end)
 		end)
 	self.controls.charImportItems.enabled = function()
@@ -407,7 +410,7 @@ function addAccountNameControls(self)
 		return self.charImportMode == "SELECTCHAR"
 	end
 	self.controls.siteCharImportTreeClearJewels = new("CheckBoxControl", { "LEFT", self.controls.siteCharImportTree, "RIGHT" },
-		{ 90, 0, 18 }, "Delete jewels:", nil, "Delete all existing jewels when importing.", true)
+		{ 90, 0, 18 }, "Delete jewels:", nil, "Delete all equipped jewels when importing.", true)
 	self.controls.siteCharImportItems = new("ButtonControl", { "LEFT", self.controls.siteCharImportTree, "LEFT" },
 		{ 0, 36, 110, 20 }, "Items and Skills", function()
 			local realm = self.controls.siteAccountRealm:GetSelValue()
@@ -662,8 +665,8 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 		end
 
 		if self.importCodeJson then
-			self:ImportItemsAndSkills(self.importCodeJson)
-			self:ImportPassiveTreeAndJewels(self.importCodeJson)
+			self:ImportItemsAndSkills(self.importCodeJson, true, true, false)
+			self:ImportPassiveTreeAndJewels(self.importCodeJson, true)
 			return
 		end
 
@@ -786,7 +789,8 @@ function ImportTabClass:DownloadPassiveTree(realm)
 			local charData = copyTable(charListData)
 			charData.passives = responseLua
 			charData.jewels = responseLua.items
-			self:ImportPassiveTreeAndJewels(charData)
+			local deleteJewels = self.controls.siteCharImportTreeClearJewels.state
+			self:ImportPassiveTreeAndJewels(charData, deleteJewels)
 		end)
 end
 
@@ -818,7 +822,10 @@ function ImportTabClass:DownloadItems(realm)
 			-- modify response to be like the oauth API response
 			local charData = copyTable(charListData)
 			charData.equipment = responseLua.items
-			self:ImportItemsAndSkills(charData)
+			local clearItems = self.controls.siteCharImportItemsClearItems.state
+			local clearSkills = self.controls.siteCharImportItemsClearSkills.state
+			local ignoreWeaponSwap = self.controls.siteCharImportItemsIgnoreWeaponSwap.state
+			self:ImportItemsAndSkills(charData, clearItems, clearSkills, ignoreWeaponSwap)
 		end)
 end
 function ImportTabClass:DownloadSiteCharacterList(realm)
@@ -1036,9 +1043,10 @@ end
 --- @field jewels Item[]
 --- @field passives CharacterPassives
 --- @param charData CharacterPassivesData
+--- @param deleteJewels boolean
 --- @return string
-function ImportTabClass:ImportPassiveTreeAndJewels(charData)
-	local charPassives = charData.passives
+function ImportTabClass:ImportPassiveTreeAndJewels(charData, deleteJewels)
+	local charPassives = copyTable(charData.passives)
 
 	-- fix table keys being strings
 	local masteries = {}
@@ -1059,7 +1067,7 @@ function ImportTabClass:ImportPassiveTreeAndJewels(charData)
 	end
 
 	self.build.spec.extended_hashes = copyTable(charPassives.hashes_ex)
-	if self.controls.charImportTreeClearJewels.state then
+	if deleteJewels then
 		for _, slot in pairs(self.build.itemsTab.slots) do
 			if slot.selItemId ~= 0 and slot.nodeId then
 				self.build.itemsTab.build.spec.ignoreAllocatingSubgraph = true -- ignore allocated cluster nodes on Import when Delete Jewel is true, clean slate
@@ -1231,9 +1239,13 @@ end
 --- @class CharacterItemsData : CharacterBasicData
 --- @field equipment Item[]
 --- @param charData CharacterItemsData
+--- @param clearItems boolean
+--- @param clearSkills boolean
+--- @param ignoreWeaponSwap boolean
 --- @return CharacterItemsData, string
-function ImportTabClass:ImportItemsAndSkills(charData)
-	if self.controls.charImportItemsClearItems.state then
+function ImportTabClass:ImportItemsAndSkills(charData, clearItems, clearSkills, ignoreWeaponSwap)
+	charData = copyTable(charData)
+	if clearItems then
 		for _, slot in pairs(self.build.itemsTab.slots) do
 			if slot.selItemId ~= 0 and not slot.nodeId then
 				self.build.itemsTab:DeleteItem(self.build.itemsTab.items[slot.selItemId])
@@ -1244,7 +1256,7 @@ function ImportTabClass:ImportItemsAndSkills(charData)
 	local mainSkillEmpty = #self.build.skillsTab.socketGroupList == 0
 	local skillOrder
 	local preservedSocketGroupStateByKey
-	if self.controls.charImportItemsClearSkills.state then
+	if clearSkills then
 		skillOrder = { }
 		preservedSocketGroupStateByKey = { }
 		for _, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
@@ -1263,7 +1275,7 @@ function ImportTabClass:ImportItemsAndSkills(charData)
 		self.build.skillsTab:RebuildImbuedSupportBySlot()
 	end
 	for _, itemData in ipairs(charData.equipment) do
-		self:ImportItem(itemData)
+		self:ImportItem(itemData, nil, ignoreWeaponSwap)
 	end
 	if skillOrder then
 		local groupOrder = { }
@@ -1336,13 +1348,13 @@ local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE", [9] = "RELIC", [1
 local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Weapon2"] = "Weapon 1 Swap", ["Offhand2"] = "Weapon 2 Swap", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots", 
 				  ["Amulet"] = "Amulet", ["Ring"] = "Ring 1", ["Ring2"] = "Ring 2", ["Ring3"] = "Ring 3", ["Belt"] = "Belt",  ["BrequelGrafts"] = "Graft 1", ["BrequelGrafts2"] = "Graft 2", }
 
-function ImportTabClass:ImportItem(itemData, slotName)
+function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap)
 	if not slotName then
 		if itemData.inventoryId == "PassiveJewels" then
 			slotName = "Jewel "..self.build.latestTree.jewelSlots[itemData.x + 1]
 		elseif itemData.inventoryId == "Flask" then
 			slotName = "Flask "..(itemData.x + 1)
-		elseif not (self.controls.charImportItemsIgnoreWeaponSwap.state and (itemData.inventoryId == "Weapon2" or itemData.inventoryId == "Offhand2")) then
+		elseif not (ignoreWeaponSwap and (itemData.inventoryId == "Weapon2" or itemData.inventoryId == "Offhand2")) then
 			slotName = slotMap[itemData.inventoryId]
 		end
 	end
