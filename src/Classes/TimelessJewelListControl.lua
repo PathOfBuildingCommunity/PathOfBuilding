@@ -102,7 +102,7 @@ Limited to: 1 Historic
 Variant: Vorana (Black Scythe Training)
 Variant: Uhtred (Celestial Mathematics)
 Variant: Medved (The Unbreaking Circle)
-Selected Variant:  ]] .. variant .. "\n" .. [[
+Selected Variant: ]] .. variant .. "\n" .. [[
 Radius: Large
 Implicits: 0
 {variant:1}Remembrancing ]] .. data.seed .. [[ songworthy deeds by the line of Vorana
