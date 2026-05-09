@@ -134,6 +134,48 @@ describe("WeightedScore module", function()
 		-- Only FullDPS direct: 1500/1000 = 1.5
 		assert.are.equal(1.5, WeightedScore.computeRatioScore(base, new, weights))
 	end)
+
+	-- weightsNeedFullDPS: routing helper used by PowerBuilder ------------------
+
+	it("weightsNeedFullDPS returns false for nil weights", function()
+		assert.is_false(WeightedScore.weightsNeedFullDPS(nil))
+	end)
+
+	it("weightsNeedFullDPS returns false for empty weights", function()
+		assert.is_false(WeightedScore.weightsNeedFullDPS({}))
+	end)
+
+	it("weightsNeedFullDPS returns true when FullDPS is the only weight", function()
+		local weights = { { stat = "FullDPS", weightMult = 1.0 } }
+		assert.is_true(WeightedScore.weightsNeedFullDPS(weights))
+	end)
+
+	it("weightsNeedFullDPS returns false when only non-FullDPS weights are present", function()
+		local weights = {
+			{ stat = "TotalEHP", weightMult = 0.5 },
+			{ stat = "TotalDPS", weightMult = 1.0 },
+		}
+		assert.is_false(WeightedScore.weightsNeedFullDPS(weights))
+	end)
+
+	it("weightsNeedFullDPS returns true when FullDPS appears alongside other weights", function()
+		local weights = {
+			{ stat = "TotalEHP", weightMult = 0.5 },
+			{ stat = "FullDPS", weightMult = 1.0 },
+			{ stat = "Life", weightMult = 0.25 },
+		}
+		assert.is_true(WeightedScore.weightsNeedFullDPS(weights))
+	end)
+
+	it("weightsNeedFullDPS returns false when FullDPS weight is zero", function()
+		local weights = { { stat = "FullDPS", weightMult = 0 } }
+		assert.is_false(WeightedScore.weightsNeedFullDPS(weights))
+	end)
+
+	it("weightsNeedFullDPS returns false for custom-stat-only weights", function()
+		local weights = { { stat = "TotalAttr", weightMult = 1.0 } }
+		assert.is_false(WeightedScore.weightsNeedFullDPS(weights))
+	end)
 end)
 
 describe("WeightedScore — TradeQueryGenerator delegation", function()
@@ -221,6 +263,47 @@ describe("WeightedScore — tree integration", function()
 		assert.is_true(build.calcsTab.powerMax.singleStat >= 0)
 	end)
 
+	it("power report requests FullDPS for WeightedScore when active weights use FullDPS", function()
+		local stat = findStat("WeightedScore")
+		assert.is_not_nil(stat)
+
+		local originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
+		local originalNodePowerMaxDepth = build.calcsTab.nodePowerMaxDepth
+		local calledUseFullDPS = { }
+		build.calcsTab.nodePowerMaxDepth = 1
+		build.calcsTab.GetMiscCalculator = function()
+			local function calcFunc(_, useFullDPS)
+				calledUseFullDPS[#calledUseFullDPS + 1] = useFullDPS
+				return {
+					FullDPS = 110,
+					TotalEHP = 100,
+					CombinedDPS = 0,
+					TotalDPS = 0,
+					TotalDotDPS = 0,
+				}
+			end
+			return calcFunc, {
+				FullDPS = 100,
+				TotalEHP = 100,
+				CombinedDPS = 0,
+				TotalDPS = 0,
+				TotalDotDPS = 0,
+			}
+		end
+
+		local ok, errMsg = pcall(function()
+			drainPowerBuild(stat)
+		end)
+		build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
+		build.calcsTab.nodePowerMaxDepth = originalNodePowerMaxDepth
+
+		assert.is_true(ok, errMsg)
+		assert.is_true(#calledUseFullDPS > 0, "fixture should exercise candidate calculations")
+		for _, useFullDPS in ipairs(calledUseFullDPS) do
+			assert.is_true(useFullDPS)
+		end
+	end)
+
 	-- Pass: getValue returns a positive score when the new output is better than base
 	-- Fail: reading output["WeightedScore"] (non-existent field) would return 0, giving
 	--       weight1 = (0/1 - 1)*100 = -100 for every fallback node regardless of actual impact
@@ -236,6 +319,31 @@ describe("WeightedScore — tree integration", function()
 		local baseScore   = stat.getValue(baseOutput, build)
 		local betterScore = stat.getValue(betterOutput, build)
 		assert.is_true(betterScore > baseScore)
+	end)
+
+	it("getValue on WeightedScore entry reuses provided calcBase", function()
+		local stat = findStat("WeightedScore")
+		assert.is_not_nil(stat)
+		assert.is_function(stat.getValue)
+
+		local originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
+		local getMiscCalculatorCalls = 0
+		build.calcsTab.GetMiscCalculator = function()
+			getMiscCalculatorCalls = getMiscCalculatorCalls + 1
+			return function()
+				return { FullDPS = 1, TotalEHP = 1 }
+			end, { FullDPS = 1, TotalEHP = 1 }
+		end
+
+		local score = stat.getValue(
+			{ FullDPS = 120, TotalEHP = 100, TotalDPS = 0, TotalDotDPS = 0, CombinedDPS = 0 },
+			build,
+			{ FullDPS = 100, TotalEHP = 100, TotalDPS = 0, TotalDotDPS = 0, CombinedDPS = 0 }
+		)
+		build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
+
+		assert.are.equal(0, getMiscCalculatorCalls)
+		assert.is_true(score > 0)
 	end)
 
 	-- Pass: getValue returns a non-zero base score (build has some meaningful output)

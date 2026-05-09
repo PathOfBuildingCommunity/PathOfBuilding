@@ -102,6 +102,8 @@ function PowerReportListClass:ReList()
 		end
 		if self.allocated then
 			insert = item.allocated
+		elseif item.allocated then
+			insert = false
 		end
 
 		if insert then
