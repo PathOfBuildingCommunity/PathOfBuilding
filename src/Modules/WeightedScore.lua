@@ -25,6 +25,20 @@ function WeightedScore.getWeights(build)
 	return WeightedScore.defaultWeights()
 end
 
+-- Returns true when any active weight targets FullDPS, so callers can route
+-- through the FullDPS-aware calculation path.
+function WeightedScore.weightsNeedFullDPS(weights)
+	if not weights then
+		return false
+	end
+	for _, statTable in ipairs(weights) do
+		if statTable and statTable.stat == "FullDPS" and (statTable.weightMult == nil or statTable.weightMult ~= 0) then
+			return true
+		end
+	end
+	return false
+end
+
 -- Compute a weighted ratio score comparing newOutput to baseOutput.
 -- Each stat contributes: weight * (newOutput[stat] / baseOutput[stat]).
 -- A neutral candidate (same as base) scores approximately sum(weights).
