@@ -39,9 +39,8 @@ describe("TestLoadouts", function()
 				local loadoutName = "Loadout Name"
 				build:NewLoadout(loadoutName)
 				build:SyncLoadouts()
-				-- There are 5 static items in the list
-				assert.are.equals(7, #build.controls.buildLoadouts.list)
-				assert.are.equals(loadoutName, build.controls.buildLoadouts.list[3])
+				assert.are.equals(2, #build.loadoutsList)
+				assert.are.equals(loadoutName, build.loadoutsList[2].title)
 				assert.is_true(build.modFlag)
 			end)
 		end)
@@ -51,11 +50,9 @@ describe("TestLoadouts", function()
 				local loadoutName = "Loadout Name"
 				local newSpec, newItemSet, newSkillSet, newConfigSet = build:CopyLoadout("Default", loadoutName)
 				build:SyncLoadouts()
-				-- There are 5 static items in the list
-				assert.are.equals(7, #build.controls.buildLoadouts.list)
-				-- First index is the "Loadout: " header, second index is the start of the loadouts
-				assert.is_not.same(build.controls.buildLoadouts.list[2], build.controls.buildLoadouts.list[3])
-				assert.are.equals(loadoutName, build.controls.buildLoadouts.list[3])
+				assert.are.equals(2, #build.loadoutsList)
+				assert.is_not.same(build.loadoutsList[1].title, build.loadoutsList[2].title)
+				assert.are.equals(loadoutName, build.loadoutsList[2].title)
 				assert.is_not.same(newSpec, build.treeTab.specList[1])
 				assert.is_not.same(newItemSet, build.itemsTab.itemSets[1])
 				assert.is_not.same(newSkillSet, build.skillsTab.skillSets[1])
@@ -73,10 +70,9 @@ describe("TestLoadouts", function()
 				local loadoutNameToDelete = "Delete Me"
 				build:NewLoadout(loadoutNameToDelete)
 				build:SyncLoadouts()
-				-- There are 5 static items in the list
-				assert.are.equals(7, #build.controls.buildLoadouts.list)
+				assert.are.equals(2, #build.loadoutsList)
 				local loadoutToDelete = build:GetLoadoutByName(loadoutNameToDelete)
-				local nextLoadout = build.controls.buildLoadouts.list[2] -- Default loadout
+				local nextLoadout = build.loadoutsList[1].title or "Default" -- Default loadout
 
 				build:DeleteLoadout(loadoutNameToDelete, nextLoadout)
 				build:SyncLoadouts()
@@ -103,8 +99,7 @@ describe("TestLoadouts", function()
 					local nextLoadout = "Do not delete"
 					build:NewLoadout(nextLoadout)
 					build:SyncLoadouts()
-					-- There are 5 static items in the list
-					assert.are.equals(7, #build.controls.buildLoadouts.list)
+					assert.are.equals(2, #build.loadoutsList)
 
 					build:DeleteLoadout(loadoutNameToDelete, nextLoadout)
 					build:SyncLoadouts()
@@ -139,8 +134,7 @@ describe("TestLoadouts", function()
 					build:NewLoadout(nextLoadout1)
 					build:NewLoadout(nextLoadout2)
 					build:SyncLoadouts()
-					-- There are 5 static items in the list
-					assert.are.equals(8, #build.controls.buildLoadouts.list)
+					assert.are.equals(3, #build.loadoutsList)
 					local loadoutToDelete = build:GetLoadoutByName(loadoutNameToDelete)
 
 					build:DeleteLoadout(loadoutNameToDelete, nextLoadout1)
@@ -179,7 +173,7 @@ describe("TestLoadouts", function()
 				build:RenameLoadout(oldName, newName)
 				build:SyncLoadouts()
 				-- Verify the new name appears in the loadout list
-				assert.is_same(newName, build.controls.buildLoadouts.list[3])
+				assert.is_same(newName, build.loadoutsList[2].title)
 				-- Verify titles updated on spec, itemSet, skillSet, and configSet
 				local loadout = build:GetLoadoutByName(newName)
 				assert.is_same(newName, build.treeTab.specList[loadout.specId].title)
@@ -548,12 +542,21 @@ describe("TestLoadouts", function()
 			buildSetService = new("BuildSetService", build)
 		end)
 
+		local function getActiveLoadoutIndex()
+			for i, loadout in ipairs(build.loadoutsList) do
+				if loadout.title == build.treeTab.specList[build.treeTab.activeSpec].title then
+					return i
+				end
+			end
+			return nil
+		end
+
 		describe("NewLoadout", function()
 			it("creates a new loadout", function()
 				local loadoutName = "Loadout Name"
 				buildSetService:NewLoadout(loadoutName)
-				assert.are.equals(7, #build.controls.buildLoadouts.list)
-				assert.are.equals(loadoutName, build.controls.buildLoadouts.list[3])
+				assert.are.equals(2, #build.loadoutsList)
+				assert.are.equals(loadoutName, build.loadoutsList[2].title)
 				assert.is_true(build.modFlag)
 			end)
 		end)
@@ -562,9 +565,9 @@ describe("TestLoadouts", function()
 			it("copies an existing loadout and selects it", function()
 				local loadoutName = "Loadout Name"
 				buildSetService:CopyLoadout("Default", loadoutName)
-				assert.are.equals(7, #build.controls.buildLoadouts.list)
-				assert.are.equals(loadoutName, build.controls.buildLoadouts.list[3])
-				assert.are.equals(3, build.controls.buildLoadouts.selIndex)
+				assert.are.equals(2, #build.loadoutsList)
+				assert.are.equals(loadoutName, build.loadoutsList[2].title)
+				assert.are.equals(2, getActiveLoadoutIndex())
 				assert.is_true(build.modFlag)
 			end)
 		end)
@@ -575,9 +578,9 @@ describe("TestLoadouts", function()
 				local newName = "Renamed Loadout"
 				buildSetService:NewLoadout(oldname)
 				buildSetService:RenameLoadout(oldname, newName)
-				assert.are.equals(7, #build.controls.buildLoadouts.list)
-				assert.is_same({ "Default", newName },
-					{ build.controls.buildLoadouts.list[2], build.controls.buildLoadouts.list[3] })
+				assert.are.equals(2, #build.loadoutsList)
+				assert.are.equals("Default", build.loadoutsList[1].title or "Default")
+				assert.are.equals(newName, build.loadoutsList[2].title)
 				assert.is_true(build.modFlag)
 			end)
 		end)
@@ -588,12 +591,13 @@ describe("TestLoadouts", function()
 
 				buildSetService:NewLoadout(loadoutNameToDelete)
 				build:SetActiveLoadout(build:GetLoadoutByName(loadoutNameToDelete))
-				local specIdToDelete = build:GetLoadoutByName(loadoutNameToDelete).specId
-				buildSetService:DeleteLoadout(2, build.treeTab.specList, build.treeTab.specList[specIdToDelete])
-				assert.are.equals(6, #build.controls.buildLoadouts.list)
-				-- Default loadout return when only one loadout remains
-				assert.is_same({ itemSetId = 1, skillSetId = 1, configSetId = 1 },
-					build:GetLoadoutByName(loadoutNameToDelete))
+				local specToDelete = build.loadoutsList[2]
+				buildSetService:DeleteLoadout(2, build.loadoutsList, specToDelete)
+				assert.are.equals(1, #build.loadoutsList)
+				assert.are.equals(1, build.treeTab.activeSpec)
+				assert.are.equals(1, build.itemsTab.activeItemSetId)
+				assert.are.equals(1, build.skillsTab.activeSkillSetId)
+				assert.are.equals(1, build.configTab.activeConfigSetId)
 			end)
 
 			it("deletes the loadout before the current", function()
@@ -602,14 +606,11 @@ describe("TestLoadouts", function()
 
 				buildSetService:NewLoadout(currentLoadout)
 				build:SetActiveLoadout(build:GetLoadoutByName(currentLoadout))
-				local specIdToDelete = build:GetLoadoutByName(loadoutNameToDelete).specId
-				buildSetService:DeleteLoadout(1, build.treeTab.specList, build.treeTab.specList[specIdToDelete])
-				assert.are.equals(6, #build.controls.buildLoadouts.list)
-				-- Default loadout return when only one loadout remains
-				assert.is_same({ itemSetId = 2, skillSetId = 2, configSetId = 2 },
-					build:GetLoadoutByName(loadoutNameToDelete))
-				assert.are.equals(2, build.controls.buildLoadouts.selIndex)
-				assert.are.equals("Do not delete", build.controls.buildLoadouts:GetSelValue())
+				local specToDelete = build.loadoutsList[1]
+				buildSetService:DeleteLoadout(1, build.loadoutsList, specToDelete)
+				assert.are.equals(1, #build.loadoutsList)
+				assert.are.equals(1, getActiveLoadoutIndex())
+				assert.are.equals(currentLoadout, build.loadoutsList[getActiveLoadoutIndex()].title)
 			end)
 
 			it("deletes the loadout after the current", function()
@@ -619,12 +620,13 @@ describe("TestLoadouts", function()
 				buildSetService:NewLoadout(currentLoadout)
 				buildSetService:NewLoadout(loadoutNameToDelete)
 				build:SetActiveLoadout(build:GetLoadoutByName(currentLoadout))
-				local specIdToDelete = build:GetLoadoutByName(loadoutNameToDelete).specId
-				buildSetService:DeleteLoadout(3, build.treeTab.specList, build.treeTab.specList[specIdToDelete])
-				assert.are.equals(7, #build.controls.buildLoadouts.list)
-				assert.is_nil(build:GetLoadoutByName(loadoutNameToDelete))
-				assert.are.equals(3, build.controls.buildLoadouts.selIndex)
-				assert.are.equals(currentLoadout, build.controls.buildLoadouts:GetSelValue())
+				local specToDelete = build.loadoutsList[3]
+				buildSetService:DeleteLoadout(3, build.loadoutsList, specToDelete)
+				assert.are.equals(2, #build.loadoutsList)
+				assert.are.equals(2, build.treeTab.activeSpec)
+				assert.are.equals(2, build.itemsTab.activeItemSetId)
+				assert.are.equals(2, build.skillsTab.activeSkillSetId)
+				assert.are.equals(2, build.configTab.activeConfigSetId)
 			end)
 		end)
 
@@ -632,8 +634,8 @@ describe("TestLoadouts", function()
 			it("creates a new loadout with default values (all -1)", function()
 				local loadoutName = "Custom Loadout"
 				buildSetService:CustomLoadout(-1, -1, -1, -1, loadoutName)
-				assert.are.equals(7, #build.controls.buildLoadouts.list)
-				assert.are.equals(loadoutName, build.controls.buildLoadouts.list[3])
+				assert.are.equals(2, #build.loadoutsList)
+				assert.are.equals(loadoutName, build.loadoutsList[2].title)
 				assert.is_true(build.modFlag)
 			end)
 
@@ -642,8 +644,8 @@ describe("TestLoadouts", function()
 				local loadoutToCopy = build:GetLoadoutByName("Default")
 				buildSetService:CustomLoadout(loadoutToCopy.specId, loadoutToCopy.itemSetId, loadoutToCopy.skillSetId,
 					loadoutToCopy.configSetId, loadoutName)
-				assert.are.equals(7, #build.controls.buildLoadouts.list)
-				assert.are.equals(loadoutName, build.controls.buildLoadouts.list[3])
+				assert.are.equals(2, #build.loadoutsList)
+				assert.are.equals(loadoutName, build.loadoutsList[2].title)
 				assert.is_true(build.modFlag)
 			end)
 
@@ -688,8 +690,8 @@ describe("TestLoadouts", function()
 			it("sets the newly created loadout as selected", function()
 				local loadoutName = "Should Be Selected"
 				buildSetService:CustomLoadout(-1, -1, -1, -1, loadoutName)
-				assert.are.equals(3, build.controls.buildLoadouts.selIndex)
-				assert.are.equals(loadoutName, build.controls.buildLoadouts:GetSelValue())
+				assert.are.equals(2, getActiveLoadoutIndex())
+				assert.are.equals(loadoutName, build.loadoutsList[getActiveLoadoutIndex()].title)
 				local loadout = build:GetLoadoutByName(loadoutName)
 				assert.is_not_nil(build.treeTab.specList[loadout.specId])
 				assert.is_not_nil(build.itemsTab.itemSets[loadout.itemSetId])
@@ -701,14 +703,14 @@ describe("TestLoadouts", function()
 			it("handles copy with partial existing sets", function()
 				-- Create first custom loadout
 				buildSetService:CustomLoadout(-1, -1, -1, -1, "Custom 1")
-				assert.are.equals(7, #build.controls.buildLoadouts.list)
+				assert.are.equals(2, #build.loadoutsList)
 
 				-- Get the first loadout and copy only spec and item sets
 				local custom1 = build:GetLoadoutByName("Custom 1")
 				local existingItemSet = build.itemsTab.itemSets[1]
 
 				buildSetService:CustomLoadout(custom1.specId, existingItemSet.id, -1, -1, "Custom 1 Modified")
-				assert.are.equals(8, #build.controls.buildLoadouts.list)
+				assert.are.equals(3, #build.loadoutsList)
 
 				-- Verify the loadout was created with new sets
 				local modifiedCustom = build:GetLoadoutByName("Custom 1 Modified")
@@ -719,7 +721,7 @@ describe("TestLoadouts", function()
 			it("works with copy of existing loadout combined with new sets", function()
 				local copyLoadout = build:GetLoadoutByName("Default")
 				buildSetService:CustomLoadout(copyLoadout.specId, -1, -1, -1, "Custom from Default")
-				assert.are.equals(7, #build.controls.buildLoadouts.list)
+				assert.are.equals(2, #build.loadoutsList)
 
 				-- Verify new sets were created
 				local customFromDefault = build:GetLoadoutByName("Custom from Default")
@@ -742,48 +744,46 @@ describe("TestLoadouts", function()
 				local currentLoadout = newLoadout2
 
 				buildSetService:NewLoadout(newLoadout1)
-				assert.are.equals(7, #build.controls.buildLoadouts.list)
-				assert.are.equals(newLoadout1, build.controls.buildLoadouts.list[3])
+				assert.are.equals(2, #build.loadoutsList)
+				assert.are.equals(newLoadout1, build.loadoutsList[2].title)
 
 				buildSetService:NewLoadout(newLoadout2)
-				assert.are.equals(8, #build.controls.buildLoadouts.list)
-				assert.are.equals(newLoadout2, build.controls.buildLoadouts.list[4])
+				assert.are.equals(3, #build.loadoutsList)
+				assert.are.equals(newLoadout2, build.loadoutsList[3].title)
 
 				build:SetActiveLoadout(build:GetLoadoutByName(currentLoadout))
-				assert.are.equals(4, build.controls.buildLoadouts.selIndex)
+				assert.are.equals(3, getActiveLoadoutIndex())
 
 				buildSetService:CopyLoadout(newLoadout1, copyLoadout1)
 
-				assert.are.equals(9, #build.controls.buildLoadouts.list)
-				assert.are.equals(copyLoadout1, build.controls.buildLoadouts.list[5])
-				assert.are.equals(5, build.controls.buildLoadouts.selIndex)
+				assert.are.equals(4, #build.loadoutsList)
+				assert.are.equals(copyLoadout1, build.loadoutsList[4].title)
+				assert.are.equals(4, getActiveLoadoutIndex())
 				assert.is_true(build.modFlag)
 
 				buildSetService:CopyLoadout(newLoadout2, copyLoadout2)
 
-				assert.are.equals(10, #build.controls.buildLoadouts.list)
-				assert.are.equals(copyLoadout2, build.controls.buildLoadouts.list[6])
-				assert.are.equals(6, build.controls.buildLoadouts.selIndex)
+				assert.are.equals(5, #build.loadoutsList)
+				assert.are.equals(copyLoadout2, build.loadoutsList[5].title)
+				assert.are.equals(5, getActiveLoadoutIndex())
 				assert.is_true(build.modFlag)
 
 				build:SetActiveLoadout(build:GetLoadoutByName(currentLoadout))
-				assert.are.equals(4, build.controls.buildLoadouts.selIndex)
+				assert.are.equals(3, getActiveLoadoutIndex())
 
-				local specIdToDelete = build:GetLoadoutByName(deleteLoadout1).specId
-				buildSetService:DeleteLoadout(2, build.treeTab.specList, build.treeTab.specList[specIdToDelete])
+				local specToDelete1 = build.loadoutsList[1]
+				buildSetService:DeleteLoadout(1, build.loadoutsList, specToDelete1)
 
-				assert.are.equals(9, #build.controls.buildLoadouts.list)
-				assert.is_nil(build:GetLoadoutByName(deleteLoadout1))
-				assert.are.equals(3, build.controls.buildLoadouts.selIndex)
-				assert.are.equals(currentLoadout, build.controls.buildLoadouts:GetSelValue())
+				assert.are.equals(4, #build.loadoutsList)
+				assert.are.equals(2, getActiveLoadoutIndex())
+				assert.are.equals(currentLoadout, build.loadoutsList[getActiveLoadoutIndex()].title)
 
-				local specIdToDelete = build:GetLoadoutByName(deleteLoadout2).specId
-				buildSetService:DeleteLoadout(4, build.treeTab.specList, build.treeTab.specList[specIdToDelete])
+				local specToDelete2 = build.loadoutsList[4]
+				buildSetService:DeleteLoadout(4, build.loadoutsList, specToDelete2)
 
-				assert.are.equals(8, #build.controls.buildLoadouts.list)
-				assert.is_nil(build:GetLoadoutByName(deleteLoadout2))
-				assert.are.equals(3, build.controls.buildLoadouts.selIndex)
-				assert.are.equals(currentLoadout, build.controls.buildLoadouts:GetSelValue())
+				assert.are.equals(3, #build.loadoutsList)
+				assert.are.equals(2, getActiveLoadoutIndex())
+				assert.are.equals(currentLoadout, build.loadoutsList[getActiveLoadoutIndex()].title)
 			end)
 
 			it("deletes all but the last loadout then copies it", function()
@@ -791,42 +791,41 @@ describe("TestLoadouts", function()
 				for _, name in ipairs(loadoutNames) do
 					buildSetService:NewLoadout(name)
 				end
-				assert.are.equals(10, #build.controls.buildLoadouts.list)
+				assert.are.equals(5, #build.loadoutsList)
 
 				build:SetActiveLoadout(build:GetLoadoutByName(loadoutNames[3]))
 
 				for i = 1, 4 do
-					local loadoutToDelete = build:GetLoadoutByName(build.controls.buildLoadouts.list[2])
-					local specIdToDelete = loadoutToDelete.specId
-					buildSetService:DeleteLoadout(1, build.treeTab.specList, build.treeTab.specList[specIdToDelete])
-					assert.are.equals(10 - i, #build.controls.buildLoadouts.list)
+					local specToDelete = build.loadoutsList[1]
+					buildSetService:DeleteLoadout(1, build.loadoutsList, specToDelete)
+					assert.are.equals(5 - i, #build.loadoutsList)
 				end
 
-				assert.is_not_nil(build:GetLoadoutByName(loadoutNames[4]))
-				assert.are.equals(2, build.controls.buildLoadouts.selIndex)
-				assert.are.equals(loadoutNames[4], build.controls.buildLoadouts:GetSelValue())
+				assert.are.equals(1, #build.loadoutsList)
+				assert.are.equals(loadoutNames[4], build.loadoutsList[1].title)
 
 				for i = 1, 3 do
 					local copyLoadoutName = loadoutNames[i] .. " Copy"
 					buildSetService:CopyLoadout(loadoutNames[4], copyLoadoutName)
-					assert.are.equals(6 + i, #build.controls.buildLoadouts.list)
-					assert.are.equals(copyLoadoutName, build.controls.buildLoadouts.list[2 + i])
+					assert.are.equals(1 + i, #build.loadoutsList)
+					assert.are.equals(copyLoadoutName, build.loadoutsList[i + 1].title)
 				end
 			end)
 
 			it("New Loadout, delete config, rename default, create custom", function()
 				local newLoadoutName = "New Loadout"
 				buildSetService:NewLoadout(newLoadoutName)
-				assert.are.equals(7, #build.controls.buildLoadouts.list)
+				assert.are.equals(2, #build.loadoutsList)
 				local newLoadout = build:GetLoadoutByName(newLoadoutName)
 				build.configTab:DeleteConfigSet(newLoadout.configSetId, 2)
 				build.configTab.configSets[1].title = "Config 1"
 
 				local customLoadoutName = "Custom Loadout"
 				buildSetService:CustomLoadout(-1, -1, -1, 1, customLoadoutName)
-				assert.are.equals(6, #build.controls.buildLoadouts.list)
-				assert.are.equals(customLoadoutName, build.controls.buildLoadouts.list[2])
-				assert.are.equals(customLoadoutName, build.controls.buildLoadouts:GetSelValue())
+				assert.are.equals(1, #build.loadoutsList)
+				assert.are.equals(customLoadoutName, build.loadoutsList[1].title)
+				assert.are.equals(1, getActiveLoadoutIndex())
+				assert.are.equals(customLoadoutName, build.loadoutsList[getActiveLoadoutIndex()].title)
 				local customLoadout = build:GetLoadoutByName(customLoadoutName)
 				assert.are.equals(2, customLoadout.configSetId)
 				assert.are.equals(3, customLoadout.itemSetId)
@@ -839,14 +838,14 @@ describe("TestLoadouts", function()
 				function()
 					local loadoutName = "Loadout To Delete"
 					buildSetService:NewLoadout(loadoutName)
-					assert.are.equals(7, #build.controls.buildLoadouts.list)
+					assert.are.equals(2, #build.loadoutsList)
 					build.configTab:DeleteConfigSet(build.configTab.configSetOrderList[1], 1)
 					assert.are.equals(1, #build.configTab.configSetOrderList)
 					assert.are.equals(2, #build.loadoutsList)
-					local loadout = build:GetLoadoutByName(loadoutName)
-					buildSetService:DeleteLoadout(2, build.treeTab.specList, build.treeTab.specList[loadout.specId])
+					local specToDelete = build.loadoutsList[2]
+					buildSetService:DeleteLoadout(2, build.loadoutsList, specToDelete)
 					assert.are.equals(1, #build.configTab.configSetOrderList)
-					assert.are.equals(6, #build.controls.buildLoadouts.list)
+					assert.are.equals(1, #build.loadoutsList)
 					assert.are.equals("Default", build.controls.buildLoadouts.list[2])
 				end)
 
@@ -854,13 +853,14 @@ describe("TestLoadouts", function()
 				function()
 					local loadoutName = "Loadout To Delete"
 					buildSetService:NewLoadout(loadoutName)
-					assert.are.equals(7, #build.controls.buildLoadouts.list)
+					assert.are.equals(2, #build.loadoutsList)
 					build.itemsTab:DeleteItemSet(build.itemsTab.itemSetOrderList[1], 1)
 					assert.are.equals(1, #build.itemsTab.itemSetOrderList)
-					local loadout = build:GetLoadoutByName(loadoutName)
-					buildSetService:DeleteLoadout(2, build.treeTab.specList, build.treeTab.specList[loadout.specId])
+					assert.are.equals(2, #build.loadoutsList)
+					local specToDelete = build.loadoutsList[2]
+					buildSetService:DeleteLoadout(2, build.loadoutsList, specToDelete)
 					assert.are.equals(1, #build.itemsTab.itemSetOrderList)
-					assert.are.equals(6, #build.controls.buildLoadouts.list)
+					assert.are.equals(1, #build.loadoutsList)
 					assert.are.equals("Default", build.controls.buildLoadouts.list[2])
 				end)
 
@@ -868,13 +868,14 @@ describe("TestLoadouts", function()
 				function()
 					local loadoutName = "Loadout To Delete"
 					buildSetService:NewLoadout(loadoutName)
-					assert.are.equals(7, #build.controls.buildLoadouts.list)
+					assert.are.equals(2, #build.loadoutsList)
 					build.skillsTab:DeleteSkillSet(build.skillsTab.skillSetOrderList[1], 1)
 					assert.are.equals(1, #build.skillsTab.skillSetOrderList)
-					local loadout = build:GetLoadoutByName(loadoutName)
-					buildSetService:DeleteLoadout(2, build.treeTab.specList, build.treeTab.specList[loadout.specId])
+					assert.are.equals(2, #build.loadoutsList)
+					local specToDelete = build.loadoutsList[2]
+					buildSetService:DeleteLoadout(2, build.loadoutsList, specToDelete)
 					assert.are.equals(1, #build.skillsTab.skillSetOrderList)
-					assert.are.equals(6, #build.controls.buildLoadouts.list)
+					assert.are.equals(1, #build.loadoutsList)
 					assert.are.equals("Default", build.controls.buildLoadouts.list[2])
 				end)
 		end)
