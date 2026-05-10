@@ -39,19 +39,16 @@ function ItemDBClass:ItemDBControl(anchor, rect, itemsTab, db, dbType)
 	end)
 	if dbType == "UNIQUE" then
 		self.controls.sort = new("DropDownControl"):DropDownControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, baseY + 20, 179, 18}, self.sortDropList, function(index, value)
-			self:SetSortMode(value.sortMode)
+			if value.isAction then
+				value.action()
+				self.controls.sort:SelByValue(self.sortMode, "sortMode")
+			else
+				self:SetSortMode(value.sortMode)
+			end
 		end)
 		self.controls.league = new("DropDownControl"):DropDownControl({"LEFT",self.controls.sort,"RIGHT"}, {2, 0, 179, 18}, self.leagueList, function(index, value)
 			self.listBuildFlag = true
 		end)
-		self.controls.editWeights = new("ButtonControl"):ButtonControl({"LEFT",self.controls.sort,"RIGHT"}, {2, 0, 179, 18}, "Edit Weights...", function()
-			local tq = self.itemsTab.tradeQuery
-			if tq then
-				tq:SetStatWeights(nil, function() self.listBuildFlag = true end)
-			end
-		end)
-		self.controls.league.shown = function() return self.sortMode ~= "WeightedScore" end
-		self.controls.editWeights.shown = function() return self.sortMode == "WeightedScore" end
 		self.controls.requirement = new("DropDownControl"):DropDownControl({"LEFT",self.controls.sort,"BOTTOMLEFT"}, {0, 11, 179, 18}, { "Any requirements", "Current level", "Current attributes", "Current useable" }, function(index, value)
 			self.listBuildFlag = true
 		end)
@@ -228,6 +225,12 @@ function ItemDBClass:BuildSortOrder()
 			})
 		end
 	end
+	WeightedScore.appendEditWeightsAction(self.sortDropList, function()
+		local tq = self.itemsTab.tradeQuery
+		if tq then
+			tq:SetStatWeights(nil, function() self.listBuildFlag = true end)
+		end
+	end)
 	wipeTable(self.sortOrder)
 	if self.controls.sort then
 		self.controls.sort:CheckDroppedWidth(true)
