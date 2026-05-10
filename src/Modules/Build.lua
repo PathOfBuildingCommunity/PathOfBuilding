@@ -978,28 +978,36 @@ function buildMode:ReorderLoadout(oldIndex, newIndex)
 		return
 	end
 
-	local function findSpecIndexBySpec(spec)
-		for i, s in ipairs(self.treeTab.specList) do
-			if s == spec then
-				return i
-			end
-		end
-		return nil
-	end
-
 	local activeTitle = self.treeTab.specList[self.treeTab.activeSpec].title or "Default"
 
-	local filteredSpecCount = #self.treeTab.specList - #self.loadoutsList
+	-- if loadoutsList is the same size as specList, just reorder the specList
+	if #self.treeTab.specList - #self.loadoutsList == 0 then
+		local movedSpec = t_remove(self.treeTab.specList, oldIndex)
+		t_insert(self.treeTab.specList, newIndex, movedSpec)
 
-	local movedSpec = self.loadoutsList[newIndex]
-	local oldSpecIndex = findSpecIndexBySpec(movedSpec)
+		self.modFlag = true
+		self:SetActiveLoadout(self:GetLoadoutByName(activeTitle))
+		return
+	end
 
-	if not oldSpecIndex then return end
+	-- if loadoutsList contains filtered specs, we'll rebuild the specList to match the order of the loadoutsList
+	local oldSet = {}
+	for _, v in ipairs(self.loadoutsList) do
+		oldSet[v] = true
+	end
 
-	local direction = oldIndex < newIndex and 1 or 0
+	local newSpecList = {}
+	local idx = 1
+	for i = 1, #self.treeTab.specList do
+		if oldSet[self.treeTab.specList[i]] then
+			newSpecList[i] = self.loadoutsList[idx]
+			idx = idx + 1
+		else
+			newSpecList[i] = self.treeTab.specList[i]
+		end
+	end
 
-	t_remove(self.treeTab.specList, oldSpecIndex)
-	t_insert(self.treeTab.specList, newIndex + (direction * filteredSpecCount), movedSpec)
+	self.treeTab.specList = newSpecList
 
 	self.modFlag = true
 	self:SetActiveLoadout(self:GetLoadoutByName(activeTitle))

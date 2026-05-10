@@ -378,7 +378,7 @@ describe("TestLoadouts", function()
 				build:ReorderLoadout(2, 4)
 
 				assertLoadoutOrder({ "Default", "Loadout C", "Loadout D", "Loadout A" })
-				assertSpecOrder({ "Default", "Filtered", "Loadout C", "Loadout D", "Loadout A" })
+				assertSpecOrder({ "Default", "Loadout C", "Filtered", "Loadout D", "Loadout A" })
 				assertActiveLoadoutByName("Loadout A")
 				assert.is_true(build.modFlag)
 			end)
@@ -401,9 +401,34 @@ describe("TestLoadouts", function()
 					reorderLoadoutsList(4, 2)
 					build:ReorderLoadout(4, 2)
 
-					assertSpecOrder({ "Default", "Loadout D", "Loadout A", "Filtered", "Loadout C" })
+					assertSpecOrder({ "Default", "Loadout D", "Filtered", "Loadout A", "Loadout C" })
 					assertLoadoutOrder({ "Default", "Loadout D", "Loadout A", "Loadout C" })
 					assertActiveLoadoutByName("Loadout A")
+					assert.is_true(build.modFlag)
+				end)
+
+			it(
+				"correctly reorders loadouts when filtered list is first in speclist",
+				function()
+					build:NewLoadout("Filtered")
+					build:NewLoadout("Loadout B")
+					build:NewLoadout("Loadout C")
+					build:NewLoadout("Loadout D")
+					build:DeleteLoadout("Default", "Loadout D")
+					build.configTab:DeleteConfigSet(build.configTab.configSetOrderList[1], 1)
+					build:SyncLoadouts()
+					build.modFlag = false
+
+					assertLoadoutOrder({ "Loadout B", "Loadout C", "Loadout D" })
+
+					build:SetActiveLoadout(build:GetLoadoutByName("Loadout D"))
+
+					reorderLoadoutsList(3, 2)
+					build:ReorderLoadout(3, 2)
+
+					assertSpecOrder({"Filtered", "Loadout B", "Loadout D", "Loadout C" })
+					assertLoadoutOrder({ "Loadout B", "Loadout D", "Loadout C" })
+					assertActiveLoadoutByName("Loadout D")
 					assert.is_true(build.modFlag)
 				end)
 
@@ -427,7 +452,7 @@ describe("TestLoadouts", function()
 					reorderLoadoutsList(2, 4)
 					build:ReorderLoadout(2, 4)
 
-					assertSpecOrder({ "Default", "Filtered", "Filtered 2", "Loadout C", "Loadout D", "Loadout A" })
+					assertSpecOrder({ "Default", "Loadout C", "Filtered", "Filtered 2", "Loadout D", "Loadout A" })
 					assertLoadoutOrder({ "Default", "Loadout C", "Loadout D", "Loadout A" })
 					assertActiveLoadoutByName("Loadout A")
 					assert.is_true(build.modFlag)
@@ -452,7 +477,7 @@ describe("TestLoadouts", function()
 					reorderLoadoutsList(4, 2)
 					build:ReorderLoadout(4, 2)
 
-					assertSpecOrder({ "Default", "Loadout D", "Loadout A", "Filtered", "Filtered 2", "Loadout C" })
+					assertSpecOrder({ "Default", "Loadout D", "Filtered", "Filtered 2", "Loadout A", "Loadout C" })
 					assertLoadoutOrder({ "Default", "Loadout D", "Loadout A", "Loadout C" })
 					assertActiveLoadoutByName("Loadout A")
 					assert.is_true(build.modFlag)
@@ -521,7 +546,7 @@ describe("TestLoadouts", function()
 				build:ReorderLoadout(1, 4)
 
 				assertLoadoutOrder({ "Loadout A", "Active", "Loadout D", "Default" })
-				assertSpecOrder({ "Loadout A", "Filtered", "Active", "Loadout D", "Default" })
+				assertSpecOrder({ "Loadout A", "Active", "Filtered", "Loadout D", "Default" })
 				assertActiveLoadoutByName("Active")
 
 				reorderLoadoutsList(4, 1)
