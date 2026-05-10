@@ -34,7 +34,12 @@ local NotableDBClass = newClass("NotableDBControl", "ListControl", function(self
 	self.sortOrder = { }
 	self.sortMode = "NAME"
 	self.controls.sort = new("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, {0, -22, 360, 18}, self.sortDropList, function(index, value)
-		self:SetSortMode(value.sortMode)
+		if value.isAction then
+			value.action()
+			self.controls.sort:SelByValue(self.sortMode, "sortMode")
+		else
+			self:SetSortMode(value.sortMode)
+		end
 	end)
 	self.controls.search = new("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, 258, 18}, "", "Search", "%c", 100, function()
 		self.listBuildFlag = true
@@ -100,6 +105,12 @@ function NotableDBClass:BuildSortOrder()
 			})
 		end
 	end
+	WeightedScore.appendEditWeightsAction(self.sortDropList, function()
+		local tq = self.itemsTab.tradeQuery
+		if tq then
+			tq:SetStatWeights(nil, function() self.listBuildFlag = true end)
+		end
+	end)
 	wipeTable(self.sortOrder)
 	if self.controls.sort then
 		self.controls.sort.selIndex = 1

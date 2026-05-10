@@ -251,7 +251,14 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 
 	-- Control for selecting the power stat to sort by (Defense, DPS, etc)
 	self.controls.treeHeatMapStatSelect = new("DropDownControl", { "LEFT", self.controls.nodePowerMaxDepthSelect, "RIGHT" }, { 8, 0, 150, 20 }, nil, function(index, value)
-		self:SetPowerCalc(value)
+		if value.isAction then
+			value.action()
+			if self.build.calcsTab.powerStat then
+				self.controls.treeHeatMapStatSelect:SelByValue(self.build.calcsTab.powerStat.stat, "stat")
+			end
+		else
+			self:SetPowerCalc(value)
+		end
 	end)
 	self.controls.treeHeatMap.tooltipText = function()
 		local offCol, defCol = main.nodePowerTheme:match("(%a+)/(%a+)")
@@ -264,25 +271,18 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			t_insert(self.powerStatList, stat)
 		end
 	end
+	WeightedScore.appendEditWeightsAction(self.powerStatList, function()
+		local tq = self.build.itemsTab.tradeQuery
+		if tq then
+			tq:SetStatWeights(nil, function() self:SetPowerCalc(self.build.calcsTab.powerStat) end)
+		end
+	end)
 
 	-- Show/Hide Power Report Button
 	self.controls.powerReport = new("ButtonControl", { "LEFT", self.controls.treeHeatMapStatSelect, "RIGHT" }, { 8, 0, 150, 20 },
 		function() return self.controls.powerReportList.shown and "Hide Power Report" or "Show Power Report" end, function()
 		self.controls.powerReportList.shown = not self.controls.powerReportList.shown
 	end)
-
-	-- Edit Weights button (only shown when Weighted Score heatmap mode is active)
-	self.controls.editWeights = new("ButtonControl",
-		{ "LEFT", self.controls.powerReport, "RIGHT" }, { 8, 0, 130, 20 },
-		"Edit Weights...",
-		function()
-			local tq = self.build.itemsTab.tradeQuery
-			if tq then
-				tq:SetStatWeights(nil, function() self:SetPowerCalc(self.build.calcsTab.powerStat) end)
-			end
-		end
-	)
-	self.controls.editWeights.shown = false
 
 	-- Power Report List
 	local yPos = self.controls.treeHeatMap.y == 0 and self.controls.specSelect.height + 4 or self.controls.specSelect.height * 2 + 8
@@ -472,7 +472,6 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 
 	self.controls.treeHeatMap.state = self.viewer.showHeatMap
 	self.controls.treeHeatMapStatSelect.shown = self.viewer.showHeatMap
-	self.controls.editWeights.shown = self.viewer.showHeatMap and self.build.calcsTab.powerStat and self.build.calcsTab.powerStat.isWeightedScore or false
 	self.controls.treeHeatMapStatSelect.list = self.powerStatList
 	self.controls.treeHeatMapStatSelect.selIndex = 1
 	self.controls.treeHeatMapStatSelect:CheckDroppedWidth(true)
@@ -1055,7 +1054,6 @@ function TreeTabClass:SetPowerCalc(powerStat)
 	self.build.buildFlag = true
 	self.build.calcsTab.powerBuildFlag = true
 	self.build.calcsTab.powerStat = powerStat
-	self.controls.editWeights.shown = powerStat and powerStat.isWeightedScore or false
 	self.controls.powerReportList:SetReport(powerStat, nil)
 	-- Remove old toast and clear dismissed state so toast can show for new power report
 	if self.powerBuilderToastId then

@@ -379,4 +379,33 @@ describe("WeightedScore — tree integration", function()
 		assert.is_not_nil(found, "WeightedScore entry should appear in fallbackWeightsList candidates")
 		assert.is_function(found.getValue, "getValue must be propagated into the dropdown entry")
 	end)
+
+	-- appendEditWeightsAction -----------------------------------------------
+
+	it("appendEditWeightsAction is a no-op when the list has no WeightedScore entry", function()
+		local list = {
+			{ label = "Sort by Name", sortMode = "name" },
+			{ label = "Sort by Life", sortMode = "Life" },
+		}
+		local called = false
+		WeightedScore.appendEditWeightsAction(list, function() called = true end)
+		assert.are.equal(2, #list)
+		assert.is_false(called)
+	end)
+
+	it("appendEditWeightsAction appends an action entry when WeightedScore is present", function()
+		local list = {
+			{ label = "Sort by Name", sortMode = "name" },
+			{ label = "Sort by Weighted Score", sortMode = "WeightedScore", isWeightedScore = true },
+		}
+		local opened = false
+		WeightedScore.appendEditWeightsAction(list, function() opened = true end)
+		assert.are.equal(3, #list)
+		local entry = list[3]
+		assert.is_true(entry.isAction)
+		assert.is_function(entry.action)
+		assert.is_string(entry.label)
+		entry.action()
+		assert.is_true(opened, "calling entry.action must invoke the openEditor callback")
+	end)
 end)
