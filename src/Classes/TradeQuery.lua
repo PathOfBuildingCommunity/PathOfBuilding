@@ -57,31 +57,6 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.lastQueries = {}
 
 	self.tradeQueryRequests = new("TradeQueryRequests")
-	local function onRateLimit(backoff)
-		self.backoffFinish = get_time() + backoff
-		self.countDown = coroutine.create(function()
-			while self.backoffFinish do
-				local now = get_time()
-				if self.backoffFinish < (now + 0.5) then
-					self.backoffFinish = nil
-					self:SetNotice(self.controls.pbNotice, "")
-					return
-				end
-				local msg = s_format("Rate limited. Retrying after %s seconds...",  self.backoffFinish - now)
-				self:SetNotice(self.controls.pbNotice, colorCodes.WARNING..msg)
-				coroutine.yield()
-			end
-		end)
-	end
-	main.onFrameFuncs["TradeQueryRequests"] = function()
-		self.tradeQueryRequests:ProcessQueue(onRateLimit)
-		if self.countDown then
-			coroutine.resume(self.countDown)
-			if coroutine.status(self.countDown) == "dead" then
-				self.countDown = nil
-			end
-		end
-	end
 	if not main.api then
 		main.api = new("PoEAPI", main.lastToken, main.lastRefreshToken, main.tokenExpiry)
 	end
@@ -642,6 +617,32 @@ Highest Weight - Displays the order retrieved from trade]]
 		self.controls.scrollBar.height = self.pane_height-100
 		self.controls.scrollBar:SetContentDimension(self.pane_height-100, self.effective_rows_height)
 		self.controls.sectionAnchor.y = -self.controls.scrollBar.offset
+	end
+
+	local function onRateLimit(backoff)
+		self.backoffFinish = get_time() + backoff
+		self.countDown = coroutine.create(function()
+			while self.backoffFinish do
+				local now = get_time()
+				if self.backoffFinish < (now + 0.5) then
+					self.backoffFinish = nil
+					self:SetNotice(self.controls.pbNotice, "")
+					return
+				end
+				local msg = s_format("Rate limited. Retrying after %s seconds...", self.backoffFinish - now)
+				self:SetNotice(self.controls.pbNotice, colorCodes.WARNING .. msg)
+				coroutine.yield()
+			end
+		end)
+	end
+	main.onFrameFuncs["TradeQueryRequests"] = function()
+		self.tradeQueryRequests:ProcessQueue(onRateLimit)
+		if self.countDown then
+			coroutine.resume(self.countDown)
+			if coroutine.status(self.countDown) == "dead" then
+				self.countDown = nil
+			end
+		end
 	end
 	main:OpenPopup(pane_width, self.pane_height, "Trader", self.controls, nil, nil, "close", (scrollBarShown and scrollBarFunc or nil))
 end
