@@ -3119,6 +3119,8 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaSpikerSpectre
 #emit
+#spectre Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaWalkerRangedSpectre
+#emit
 -- Mercenary
 #spectre Metadata/Monsters/Axis/DexIntMissionAxisEliteSoldier
 #emit

@@ -1846,7 +1846,6 @@ Metadata/Monsters/SaplingMonster/TwigMonster                                    
 Metadata/Monsters/SaplingMonster/TwigMonsterArchnemesis                                   		----		Treant
 Metadata/Monsters/GoldenOnes/GoldenOnesFodderMace                                         		----		Gilded Soldier
 Metadata/Monsters/VaalForgeMan/VaalForgeMan                                               		----		Gilded Smith
-Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaWalkerRangedSpectre             		----		Twisted Recollection
 
 -- Duplicate Spectre Names --
 -- Same name but different skill sets (should likely be separate imports). --

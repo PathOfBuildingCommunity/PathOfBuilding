@@ -71,9 +71,12 @@ function MinionListClass:AddValueTooltip(tooltip, index, minionId)
 		tooltip:AddLine(14, s_format("^7Base Damage: x%.2f", minion.damage))
 		tooltip:AddLine(14, s_format("^7Base Attack Speed: %.2f", 1 / minion.attackTime))
 		tooltip:AddLine(14, s_format("^7Base Movement Speed: %.2f", minion.baseMovementSpeed / 10))
-		for _, skillId in ipairs(minion.skillList) do
-			if self.data.skills[skillId] then
-				tooltip:AddLine(14, "^7Skill: "..self.data.skills[skillId].name)
+		if #minion.skillList > 0 then
+			tooltip:AddSeparator(10)
+			for _, skillId in ipairs(minion.skillList) do
+				if self.data.skills[skillId] then
+					tooltip:AddLine(14, "^7Skill: "..self.data.skills[skillId].name)
+				end
 			end
 		end
 		tooltip:AddSeparator(10)

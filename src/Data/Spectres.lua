@@ -46638,6 +46638,34 @@ minions["Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaSpikerSpectre
 	modList = {
 	},
 }
+minions["Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaWalkerRangedSpectre"] = {
+	name = "Twisted Recollection",
+	monsterTags = { "construct", "humanoid", "mud_blood", "not_dex", "not_int", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 4.5,
+	armour = 0.66,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.88,
+	damageSpread = 0.2,
+	attackTime = 1.395,
+	attackRange = 9,
+	accuracy = 1,
+	weaponType1 = "None",
+	baseMovementSpeed = 13,
+	monsterCategory = "Construct",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MPSZanaWalkerLightningProj",
+		"GSZanaWalkerProjImpact",
+	},
+	modList = {
+	},
+}
 -- Mercenary
 minions["Metadata/Monsters/Axis/DexIntMissionAxisEliteSoldier"] = {
 	name = "Elite Mercenary",

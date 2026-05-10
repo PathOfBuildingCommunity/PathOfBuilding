@@ -2362,3 +2362,39 @@ skills["LegionKaruiMeleeCombo2"] = {
 #skill MMASandSpitterProjectileCold Sand Spit
 #flags attack projectile area
 #mods
+
+#skill MeleeAtAnimationSpeedBleedChance
+#flags attack melee projectile
+#mods
+
+#skill SanctumLithomancerProjectile Default Spell (Physical)
+#flags spell projectile
+#mods
+
+#skill PlagueInsectMelee
+#flags attack melee projectile
+#mods
+
+#skill MeleeAtlasCrusaderMonsters
+#flags attack melee projectile
+#mods
+
+#skill AtlasCrusaderWeaponThrow Spectral Throw
+#flags attack projectile
+#mods
+
+#skill MeleeWithDirectionalKnockback
+#flags attack melee projectile
+#mods
+
+#skill WarHeroCasterGhostOrb Ghost Orb
+#flags spell area
+#mods
+
+#skill WarCasterRagingSpirit Summon Raging Spirit
+#flags spell minion duration
+#mods
+
+#skill SnakeProjectile Snake Spit
+#flags attack projectile
+#mods
