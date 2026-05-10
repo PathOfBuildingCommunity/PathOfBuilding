@@ -3,11 +3,6 @@
 -- Module: BuildSetService
 -- Build set service for managing loadouts.
 
--- Utility functions
-local m_max = math.max
-local t_insert = table.insert
-
-
 local BuildSetServiceClass = newClass("BuildSetService", function(self, buildMode)
 	self.buildMode = buildMode
 end)

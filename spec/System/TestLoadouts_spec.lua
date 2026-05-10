@@ -135,7 +135,6 @@ describe("TestLoadouts", function()
 					build:NewLoadout(nextLoadout2)
 					build:SyncLoadouts()
 					assert.are.equals(3, #build.loadoutsList)
-					local loadoutToDelete = build:GetLoadoutByName(loadoutNameToDelete)
 
 					build:DeleteLoadout(loadoutNameToDelete, nextLoadout1)
 					build:SyncLoadouts()
@@ -208,9 +207,9 @@ describe("TestLoadouts", function()
 			end
 
 			local function reorderLoadoutsList(oldIndex, newIndex)
-				local spec = build.loadoutsList[oldIndex]
+				local item = build.loadoutsList[oldIndex]
 				t_remove(build.loadoutsList, oldIndex)
-				t_insert(build.loadoutsList, newIndex, spec)
+				t_insert(build.loadoutsList, newIndex, item)
 			end
 
 			local function assertLoadoutOrder(expectedOrder)

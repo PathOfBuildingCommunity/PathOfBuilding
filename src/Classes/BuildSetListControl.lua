@@ -3,8 +3,6 @@
 -- Class: Build Set List
 -- Build set list control.
 --
-local t_insert = table.insert
-
 local BuildSetListClass = newClass("BuildSetListControl", "ListControl", function(self, anchor, rect, buildMode)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, buildMode.loadoutsList)
 	self.buildMode = buildMode
