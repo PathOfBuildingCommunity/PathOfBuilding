@@ -60,6 +60,7 @@ if file then
 	file:close()
 end
 
+local notFoundSpectres = {}
 -- Validate
 for id, data in pairs(spectres) do
 	local found = false
@@ -73,6 +74,9 @@ for id, data in pairs(spectres) do
 	end
 
 	if not found then
+		table.insert(notFoundSpectres, id)
 		print("No spectre skill: " .. id)
 	end
 end
+
+print("Total Spectres without at least one skill: " .. tostring(#notFoundSpectres))
