@@ -3254,22 +3254,11 @@ function calcs.perform(env, skipEHP)
 		doActorLifeManaReservation(env.player, true)
 	end
 
-	if not env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "Condition:CanInflictHallowingFlame") then
-		local magnitude = modDB:Override(nil, "HallowingFlameMagnitude")
-
-		if env.mode == "MAIN" or not magnitude then
-			local magnitudeInc = modDB:Sum("INC", nil, "HallowingFlameMagnitude")
-			magnitude = magnitude or magnitudeInc
-			if env.mode == "MAIN" then
-				env.build.configTab.varControls['conditionHallowingFlameMagnitude']:SetPlaceholder(magnitudeInc, true)
-			end
-		end
-
-		local val = m_floor(25 * (1 + magnitude / 100)) -- Hallowing flame grants Attack Hits against you gain 25% of Physical Damage as Extra Fire Damage
-		modDB:NewMod("Multiplier:HallowingFlameMax", "BASE", 1, "Base")
-		modDB:NewMod("ExtraAura", "LIST", { onlyAllies = true, mod = modLib.createMod("PhysicalDamageGainAsLightning", "BASE", val, "Hallowing Flame", { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "ActorCondition", actor = "enemy", var = "HallowingFlame" }, { type = "Multiplier", var = "HallowingFlame", actor = "enemy", limitActor = "parent", limitVar = "HallowingFlameMax" }) })
+	if modDB:Flag(env.player.mainSkill.skillCfg, "Condition:CanInflictHallowingFlame") then
+		local magnitude = modDB:Override(nil, "HallowingFlameMagnitude") or modDB:Sum("INC", nil, "HallowingFlameMagnitude")
+		local val = m_floor(25 * (1 + magnitude / 100)) -- Hallowing flame grants Attack Hits against you gain 25% of Physical Damage as Extra Fire Damage
+		modDB:NewMod("ExtraAura", "LIST", { mod = modLib.createMod("PhysicalDamageGainAsFire", "BASE", val, "Hallowing Flame", { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "ActorCondition", actor = "enemy", var = "HallowingFlame" }, { type = "Multiplier", var = "HallowingFlame", actor = "enemy" }) })
 	end
-
 
 	-- Check for extra auras
 	buffExports["Aura"]["extraAura"] = { effectMult = 1, modList = new("ModList") }
