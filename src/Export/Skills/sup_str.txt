@@ -241,12 +241,12 @@ local skills, mod, flag, skill = ...
 		["summoned_sentinels_have_random_templar_aura"] = {
 		},
 	},
-#baseMod mod("PhysicalDamageGainAsFire", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }, { type = "Condition", var = "DivineSentinelPhysAsFire" })
-#baseMod mod("PhysicalDamageGainAsLightning", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }, { type = "Condition", var = "DivineSentinelPhysAsLightning" })
-#baseMod mod("LifeRegenPercent", "BASE", 1.5, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }, { type = "Condition", var = "DivineSentinelRegenLife" })
-#baseMod mod("ManaRegen", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }, { type = "Condition", var = "DivineSentinelRegenMana" })
-#baseMod mod("ChaosResist", "BASE", 23, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }, { type = "Condition", var = "DivineSentinelChaosResistance" })
-#baseMod mod("CurseEffectOnSelf", "INC", -50, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }, { type = "Condition", var = "DivineSentinelSelfCurseEffect" })
+#baseMod mod("PhysicalDamageGainAsFire", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true, effectName = "TemplarAuraPhysAsFire" }, { type = "Condition", var = "DivineSentinelPhysAsFire" })
+#baseMod mod("PhysicalDamageGainAsLightning", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true, effectName = "TemplarAuraPhysAsLightning" }, { type = "Condition", var = "DivineSentinelPhysAsLightning" })
+#baseMod mod("LifeRegenPercent", "BASE", 1.5, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true, effectName = "TemplarAuraLifeRegen" }, { type = "Condition", var = "DivineSentinelRegenLife" })
+#baseMod mod("ManaRegen", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true, effectName = "TemplarAuraManaRegen" }, { type = "Condition", var = "DivineSentinelRegenMana" })
+#baseMod mod("ChaosResist", "BASE", 23, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true, effectName = "TemplarAuraChaosResist" }, { type = "Condition", var = "DivineSentinelChaosResistance" })
+#baseMod mod("CurseEffectOnSelf", "INC", -50, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true, effectName = "TemplarAuraSelfCurseEffect" }, { type = "Condition", var = "DivineSentinelSelfCurseEffect" })
 #mods
 
 #skill SupportElementalDamageWithAttacks
