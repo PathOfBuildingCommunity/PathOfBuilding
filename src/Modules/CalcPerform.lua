@@ -1338,6 +1338,7 @@ function calcs.perform(env, skipEHP)
 					env.player.modDB:NewMod("Multiplier:NonVaalSummonedMinion", "BASE", output[activeSkill.minion.minionData.limit], "Config", { type = "Condition", var = "Combat" })
 				end
 				minionCount[activeSkill.minion.minionData.limit] = true
+				t_insert(minionCount, activeSkill.minion.minionData.limit)
 			end
 		end
 		if activeSkill.skillTypes[SkillType.CreatesMinion] and not activeSkill.skillTypes[SkillType.MinionsAreUndamagable] then
@@ -1368,6 +1369,10 @@ function calcs.perform(env, skipEHP)
 			activeSkill.infoMessage = "Triggered by a Crit from The Saviour"
 			activeSkill.infoTrigger = "Saviour"
 		end
+	end
+
+	if #minionCount == 1 then
+		modDB.conditions["OnlyMinion"] = true
 	end
 
 	-- Special Rarity / Quantity Calc for Bisco's
