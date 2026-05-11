@@ -2407,7 +2407,7 @@ function ItemsTabClass:anointItem(node)
 	return item
 end
 
----Appends tooltip information for anointing a new passive tree node onto the currently editing amulet
+---Appends tooltip information for anointing a new passive tree node onto the currently editing item
 ---@param tooltip table @The tooltip to append into
 ---@param node table @The passive tree node that will be anointed, or nil to remove the current anoint.
 function ItemsTabClass:AppendAnointTooltip(tooltip, node, actionText)
@@ -2441,8 +2441,9 @@ function ItemsTabClass:AppendAnointTooltip(tooltip, node, actionText)
 		header = "^7"..actionText.." nothing will give you: "
 	end
 	local calcFunc = self.build.calcsTab:GetMiscCalculator()
-	local outputBase = calcFunc({ repSlotName = "Amulet", repItem = self.displayItem })
-	local outputNew = calcFunc({ repSlotName = "Amulet", repItem = self:anointItem(node) })
+	local repSlotName = self.displayItem.base and self.displayItem.base.type or "Amulet"
+	local outputBase = calcFunc({ repSlotName = repSlotName, repItem = self.displayItem })
+	local outputNew = calcFunc({ repSlotName = repSlotName, repItem = self:anointItem(node) })
 	local numChanges = self.build:AddStatComparesToTooltip(tooltip, outputBase, outputNew, header)
 	if node and numChanges == 0 then
 		tooltip:AddLine(14, "^7"..actionText.." "..node.dn.." changes nothing.")
