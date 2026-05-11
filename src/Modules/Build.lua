@@ -765,6 +765,7 @@ function buildMode:SyncLoadouts()
 
 					if skillMatch and itemMatch and configMatch then
 						self.controls.buildLoadouts:SetSel(i)
+						self.activeLoadout = i - 1
 						return treeList, itemList, skillList, configList
 					end
 				end
@@ -773,7 +774,8 @@ function buildMode:SyncLoadouts()
 		end
 	end
 
-	self.controls.buildLoadouts:SetSel(1)
+	self.activeLoadout = 1
+	self.controls.buildLoadouts:SetSel(self.activeLoadout)
 	return treeList, itemList, skillList, configList
 end
 
@@ -2122,7 +2124,11 @@ function buildMode:OpenBuildSetManagePopup()
 		new("BuildSetListControl", nil, { 0, 50, 380, 200 }, self),
 		new("ButtonControl", nil, { 0, 260, 90, 20 }, "Done", function()
 			main:ClosePopup()
-			self.controls.buildLoadouts:SetSel(self.treeTab.activeSpec + 1)
+			if self.activeLoadout and self.activeLoadout > 0 then
+				self.controls.buildLoadouts:SetSel(self.activeLoadout + 1)
+			else
+				self.controls.buildLoadouts:SetSel(1)
+			end
 		end),
 	})
 end

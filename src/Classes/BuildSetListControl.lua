@@ -197,12 +197,12 @@ function BuildSetListClass:GetRowValue(column, index, spec)
 			" (" ..
 			(spec.curAscendClassName ~= "None" and spec.curAscendClassName or spec.curClassName) ..
 			", " .. used .. " points)"
-			.. (index == self.buildSetService:GetActiveLoadoutIndex() and "  ^9(Current)" or "")
+			.. (index == self.buildMode.activeLoadout and "  ^9(Current)" or "")
 	end
 end
 
 function BuildSetListClass:OnSelClick(index, spec, doubleClick)
-	if doubleClick and index ~= self.buildSetService:GetActiveLoadoutIndex() then
+	if doubleClick and index ~= self.buildMode.activeLoadout then
 		self.buildMode.controls.buildLoadouts:SetSel(index + 1)
 	end
 end

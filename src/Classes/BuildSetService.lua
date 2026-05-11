@@ -22,8 +22,8 @@ function BuildSetServiceClass:RenameLoadout(oldName, newName)
 end
 
 function BuildSetServiceClass:DeleteLoadout(index, list, spec)
-	local nextLoadoutIndex = index == self:GetActiveLoadoutIndex() and (index > 1 and index - 1 or index + 1) or
-		self:GetActiveLoadoutIndex() or 1
+	local nextLoadoutIndex = index == self.buildMode.activeLoadout and (index > 1 and index - 1 or index + 1) or
+		self.buildMode.activeLoadout or 1
 	local nextLoadout = list[nextLoadoutIndex]
 	self.buildMode:DeleteLoadout(spec.title or "Default", nextLoadout.title or "Default")
 end
@@ -34,9 +34,4 @@ end
 
 function BuildSetServiceClass:ReorderLoadout(oldIndex, newIndex)
 	self.buildMode:ReorderLoadout(oldIndex, newIndex)
-end
-
-function BuildSetServiceClass:GetActiveLoadoutIndex()
-	local activeLoadout = self.buildMode.controls.buildLoadouts.selIndex - 1
-	return activeLoadout > 0 and activeLoadout <= #self.buildMode.loadoutsList and activeLoadout or nil
 end
