@@ -378,6 +378,53 @@ describe("TestDefence", function()
 		assert.are.equals(15, build.calcsTab.calcsOutput.LightningResistOverCap)
 	end)
 
+	it("ward chance to not break increases effective hit pool", function()
+		build.configTab.input.enemyIsBoss = "None"
+		build.configTab.input.customMods = "\z
+		+940 to maximum life\n\z
+		+200 to Ward\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(987, build.calcsTab.calcsOutput.TotalEHP)
+		assert.are.equals(1200, build.calcsTab.calcsOutput.PhysicalMaximumHitTaken)
+
+		build.configTab.input.customMods = "\z
+		+940 to maximum life\n\z
+		+200 to Ward\n\z
+		Ward has a 50% chance to not Break\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(994, build.calcsTab.calcsOutput.TotalEHP)
+		assert.are.equals(1200, build.calcsTab.calcsOutput.PhysicalMaximumHitTaken)
+	end)
+
+	it("small hits bypass unbroken ward", function()
+		build.configTab.input.enemyIsBoss = "None"
+		build.configTab.input.customMods = "\z
+		+940 to maximum life\n\z
+		+200 to Ward\n\z
+		Damage taken bypasses Unbroken Ward if the Hit deals less Damage than 15% of Ward\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(350, build.calcsTab.calcsOutput.TotalEHP)
+		assert.are.equals(1200, build.calcsTab.calcsOutput.PhysicalMaximumHitTaken)
+
+		local poolsRemaining = poolsRemainingAfterTypeMaxHit("Physical")
+		assert.are.equals(0, poolsRemaining.Ward)
+		assert.are.equals(0, poolsRemaining.Life)
+
+		poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, { Physical = 29 }, build.calcsTab.calcsEnv.player)
+		assert.are.equals(200, poolsRemaining.Ward)
+		assert.are.equals(971, poolsRemaining.Life)
+
+		poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, { Physical = 30 }, build.calcsTab.calcsEnv.player)
+		assert.are.equals(0, poolsRemaining.Ward)
+		assert.are.equals(1000, poolsRemaining.Life)
+	end)
+
 	-- fun part
 	it("armoured max hits", function()
 		build.configTab.input.enemyIsBoss = "None"

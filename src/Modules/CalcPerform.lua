@@ -1652,6 +1652,16 @@ function calcs.perform(env, skipEHP)
 					flaskConditionsNonUtility["UsingManaFlask"] = true
 				end
 			end
+			if item.baseName == "Iron Flask" then
+				local chargesGeneratedOnWardBreak = modDB:Sum("BASE", nil, "IronFlaskChargesGeneratedOnWardBreak")
+				if chargesGeneratedOnWardBreak > 0 then
+					local gainMod = item.flaskData.gainMod * (1 + modDB:Sum("INC", nil, "FlaskChargesGained") / 100)
+					local chargesUsed = item.flaskData.chargesUsed * (1 + modDB:Sum("INC", nil, "FlaskChargesUsed") / 100)
+					if chargesGeneratedOnWardBreak * gainMod > chargesUsed then
+						flaskConditions["UnbrokenWard"] = true
+					end
+				end
+			end
 
 			if onlyRecovery then
 				if item.base.flask.life and not modDB:Flag(nil, "CannotRecoverLifeOutsideLeech") then

@@ -165,8 +165,10 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	local modDB = actor.modDB
 	local poolTbl = poolTable or { }
 
+	local damageTotal = 0
 	for damageType, damage in pairs(damageTable) do
 		damageTable[damageType] = damage > 0 and m_ceil(damage) or nil
+		damageTotal = damageTotal + (damageTable[damageType] or 0)
 	end
 	
 	local alliesTakenBeforeYou = poolTbl.AlliesTakenBeforeYou
@@ -218,7 +220,9 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	end
 	
 	local ward = poolTbl.Ward or output.Ward or 0
-	local restoreWard = modDB:Flag(nil, "WardNotBreak") and ward or 0
+	local wardActiveChance = poolTbl.WardActiveChance or (ward > 0 and 1 or 0)
+	local wardAvoidBreakChance = modDB:Flag(nil, "Condition:WardNotBreak") and 1 or m_min(modDB:Sum("BASE", nil, "WardAvoidBreakChance") / 100, 1)
+	local wardBypassBelow = modDB:Sum("BASE", nil, "WardBypassBelowPercent") / 100
 	
 	local energyShield = poolTbl.EnergyShield or output.EnergyShieldRecoveryCap
 	local mana = poolTbl.Mana or output.ManaUnreserved or 0
@@ -229,6 +233,7 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	local overkillDamage = 0
 
 	ward = ward >= 0 and ward or 0
+	local wardBeforeHit = ward
 	energyShield = energyShield >= 0 and energyShield or 0
 	mana = mana >= 0 and mana or 0
 	life = life >= 0 and life or 0
@@ -299,9 +304,10 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 				damageRemainder = damageRemainder - tempDamage
 				resourcesLostToTypeDamage[damageType].sharedGuard = tempDamage >= 1 and tempDamage or nil
 			end
-			if ward > 0 then
+			if ward > 0 and (wardBypassBelow == 0 or damageTotal >= wardBeforeHit * wardBypassBelow) then
 				local tempDamage = m_min(damageRemainder * (1 - (modDB:Sum("BASE", nil, "WardBypass") or 0) / 100), ward)
 				ward = ward - tempDamage
+				tempDamage = tempDamage * wardActiveChance
 				damageRemainder = damageRemainder - tempDamage
 				resourcesLostToTypeDamage[damageType].ward = tempDamage >= 1 and tempDamage or nil
 			end
@@ -398,7 +404,8 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 		AlliesTakenBeforeYou = alliesTakenBeforeYou,
 		Aegis = aegis,
 		Guard = guard,
-		Ward = m_floor(restoreWard),
+		Ward = m_floor(ward < wardBeforeHit and (wardAvoidBreakChance > 0 and wardBeforeHit or 0) or ward),
+		WardActiveChance = ward < wardBeforeHit and wardActiveChance * wardAvoidBreakChance or wardActiveChance,
 		EnergyShield = m_floor(energyShield),
 		Mana = m_floor(mana),
 		Life = m_floor(life),
@@ -2550,7 +2557,10 @@ function calcs.buildDefenceEstimations(env, actor)
 		end
 		if numHits == 0 then
 			return m_huge
-		elseif modDB:Flag(nil, "WardNotBreak") and output.Ward > 0 and numHits < output.Ward then
+		end
+
+		local wardAvoidBreakChance = modDB:Flag(nil, "Condition:WardNotBreak") and 1 or m_min(modDB:Sum("BASE", nil, "WardAvoidBreakChance") / 100, 1)
+		if wardAvoidBreakChance == 1 and output.Ward > 0 and numHits < output.Ward then
 			return m_huge
 		else
 			numHits = 0
@@ -2558,7 +2568,7 @@ function calcs.buildDefenceEstimations(env, actor)
 
 		local ward = output.Ward or 0
 		-- don't apply non-perma ward for speed up calcs as it won't zero it correctly per hit
-		if (not modDB:Flag(nil, "WardNotBreak")) and DamageIn["cycles"] > 1 then
+		if wardAvoidBreakChance < 1 and DamageIn["cycles"] > 1 then
 			ward = 0
 		end
 		local aegis = { }
@@ -2673,7 +2683,8 @@ function calcs.buildDefenceEstimations(env, actor)
 			-- to speed it up, run recursively but accelerated
 			local speedUp = data.misc.ehpCalcSpeedUp
 			DamageIn["cyclesRan"] = DamageIn["cyclesRan"] or false
-			if not DamageIn["cyclesRan"] and poolTable.Life > 0 and DamageIn["iterations"] < maxIterations then
+			local wardAvoidBreakActive = wardAvoidBreakChance < 1 and (poolTable.WardActiveChance or 0) > 0.01
+			if not DamageIn["cyclesRan"] and not wardAvoidBreakActive and poolTable.Life > 0 and DamageIn["iterations"] < maxIterations then
 				Damage = { }
 				for _, damageType in ipairs(dmgTypeList) do
 					Damage[damageType] = DamageIn[damageType] * speedUp

@@ -192,6 +192,9 @@ return {
 	{ var = "conditionHaveEnergyShield", type = "check", label = "Do you always have ^x88FFFFEnergy Shield?", ifCond = "HaveEnergyShield", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:HaveEnergyShield", "FLAG", true, "Config")
 	end },
+	{ var = "conditionUnbrokenWard", type = "check", label = "Do you have unbroken ^xFFFF77Ward?", ifCond = "UnbrokenWard", tooltip = "You will automatically be considered to have unbroken ^xFFFF77Ward ^7if you have ^xAF6025Olroth's Resolve ^7active or\nan Iron Flask with enough Flask Charges gained on ^xFFFF77Ward ^7Break.",apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:UnbrokenWard", "FLAG", true, "Config")
+	end },
 	{ var = "minionsConditionFullLife", type = "check", label = "Are your Minions always on Full ^xE05030Life?", ifMinionCond = "FullLife", apply = function(val, modList, enemyModList)
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:FullLife", "FLAG", true, "Config") }, "Config")
 	end },
