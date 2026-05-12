@@ -277,6 +277,42 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			local popup = makeFinder():Open()
 			assert.is_not_nil(popup)
 			assert.are.equal("Find Radius Jewel", popup.title)
+			local popupWidth, popupHeight = popup:GetSize()
+			assert.is_true(popupWidth <= 1020, "popup should fit within a 1024px-wide screen")
+			local popupX, popupY = popup:GetPos()
+			local function assertControlInsidePopup(controlName)
+				local control = popup.controls[controlName]
+				assert.is_not_nil(control, "expected control: " .. controlName)
+				local x, y = control:GetPos()
+				local width, height = control:GetSize()
+				assert.is_true(x >= popupX, controlName .. " should not extend past the popup left edge")
+				assert.is_true(y >= popupY, controlName .. " should not extend past the popup top edge")
+				assert.is_true(x + width <= popupX + popupWidth, controlName .. " should not extend past the popup right edge")
+				assert.is_true(y + height <= popupY + popupHeight, controlName .. " should not extend past the popup bottom edge")
+			end
+			for _, controlName in ipairs({
+				"computeButton",
+				"impactStatSelect",
+				"previewList",
+				"resultDetailList",
+				"findButton",
+				"applyButton",
+				"closeButton",
+			}) do
+				assertControlInsidePopup(controlName)
+			end
+			for _, controlName in ipairs({ "findButton", "applyButton", "closeButton" }) do
+				local control = popup.controls[controlName]
+				local _, y = control:GetPos()
+				local _, height = control:GetSize()
+				assert.are.equal(10, popupY + popupHeight - (y + height), controlName .. " should keep the bottom action margin")
+			end
+			local computeX = popup.controls.computeButton:GetPos()
+			local computeWidth = popup.controls.computeButton:GetSize()
+			assert.are.equal(20, popupX + popupWidth - (computeX + computeWidth), "computeButton should keep the header right margin")
+			local closeX = popup.controls.closeButton:GetPos()
+			local closeWidth = popup.controls.closeButton:GetSize()
+			assert.are.equal(10, popupX + popupWidth - (closeX + closeWidth), "closeButton should keep the bottom right margin")
 			assert.is_true(findIndex(popup.controls.impactStatSelect.list, "Full DPS") ~= nil)
 			assert.is_true(findIndex(popup.controls.impactStatSelect.list, "Hit DPS") ~= nil)
 			assert.is_true(findIndex(popup.controls.impactStatSelect.list, "Block Chance") ~= nil)

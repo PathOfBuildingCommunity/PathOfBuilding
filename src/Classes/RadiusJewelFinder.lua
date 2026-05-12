@@ -1003,6 +1003,18 @@ function RadiusJewelFinderClass:Open()
 	local selectedDreamFamily    = dreamFamilyOptions[1]
 
 	local TL       = { "TOPLEFT", nil, "TOPLEFT" }
+	local BL       = { "BOTTOMLEFT", nil, "BOTTOMLEFT" }
+	local BR       = { "BOTTOMRIGHT", nil, "BOTTOMRIGHT" }
+	local edgePadding = 10
+	local buttonHeight = 20
+	local leftPanelWidth = 580
+	local rightPanelWidth = 410
+	local popupWidth = edgePadding * 3 + leftPanelWidth + rightPanelWidth
+	local popupHeight = 474
+	local rightPanelX = edgePadding * 2 + leftPanelWidth
+	local bottomButtonY = -edgePadding
+	local bottomInputY = -(edgePadding + 2)
+	local bottomLabelY = -(edgePadding + 4)
 	local controls = { }
 	local applySelectedResult  -- forward declaration (used by OnSelClick + applyButton)
 
@@ -1355,13 +1367,13 @@ end
 			t_insert(resultDetailListData, { height = 16, [1] = COL_META .. "(no additional passive nodes)" })
 		end
 	end
-	controls.previewList = new("TextListControl", TL, { 600, 70, 440, 210 },
+	controls.previewList = new("TextListControl", TL, { rightPanelX, 70, rightPanelWidth, 210 },
 		{ { x = 0, align = "LEFT" }, { x = 210, align = "LEFT" } }, previewListData)
 	controls.previewList.shown = function()
 		return not (controls.jewelTypeSelect and controls.jewelTypeSelect.dropped)
 	end
-	controls.resultDetailLabel = new("LabelControl", TL, { 600, 286, 0, 16 }, "^7Selection:")
-	controls.resultDetailList = new("RadiusJewelDetailListControl", TL, { 600, 304, 440, 126 },
+	controls.resultDetailLabel = new("LabelControl", TL, { rightPanelX, 286, 0, 16 }, "^7Selection:")
+	controls.resultDetailList = new("RadiusJewelDetailListControl", TL, { rightPanelX, 304, rightPanelWidth, 126 },
 		{ { x = 0, align = "LEFT" } }, resultDetailListData, self.build, socketViewer)
 	updateResultDetails(nil)
 
@@ -1393,7 +1405,7 @@ end
 	end
 
 		-- ── Results list (left panel) ─────────────────────────────────────────────
-		controls.resultsList = new("RadiusJewelResultsListControl", TL, { 10, 70, 580, 360 }, self.build, socketViewer)
+		controls.resultsList = new("RadiusJewelResultsListControl", TL, { edgePadding, 70, leftPanelWidth, 360 }, self.build, socketViewer)
 		controls.resultsList.suppressTooltipFunc = isAnyFinderDropdownDropped
 		controls.resultsList.OnSelect = function(_, _, row)
 			updateResultDetails(row)
@@ -1459,10 +1471,10 @@ end
 	rebuildJewelTypeDropdown()  -- initial build (controls.jewelTypeSelect not yet created)
 
 	-- ── Header controls ───────────────────────────────────────────────────────
-	controls.jewelTypeLabel = new("LabelControl", TL, { 10, 10, 0, 16 }, "^7Type:")
+	controls.jewelTypeLabel = new("LabelControl", TL, { edgePadding, 10, 0, 16 }, "^7Type:")
 
-	controls.computeMethodLabel = new("LabelControl", TL, { 600, 10, 0, 16 }, "^7Method:")
-	controls.computeMethodSelect = new("DropDownControl", TL, { 600, 26, 160, 20 }, { }, function(idx)
+	controls.computeMethodLabel = new("LabelControl", TL, { rightPanelX, 10, 0, 16 }, "^7Method:")
+	controls.computeMethodSelect = new("DropDownControl", TL, { rightPanelX, 26, 160, buttonHeight }, { }, function(idx)
 		cancelComputeTask()
 		if selectedJewelType and selectedJewelType.computeMethods then
 			selectedComputeMethod = selectedJewelType.computeMethods[idx]
@@ -1473,8 +1485,8 @@ end
 	controls.computeMethodSelect.shown = false
 
 	-- Impact stat selector (shown when jewel has compute)
-	controls.impactStatLabel = new("LabelControl", TL, { 820, 10, 0, 16 }, "^7Stat:")
-	controls.impactStatSelect = new("DropDownControl", TL, { 820, 26, 140, 20 }, impactStatLabels, function(idx)
+	controls.impactStatLabel = new("LabelControl", TL, { rightPanelX + 180, 10, 0, 16 }, "^7Stat:")
+	controls.impactStatSelect = new("DropDownControl", TL, { rightPanelX + 180, 26, 140, buttonHeight }, impactStatLabels, function(idx)
 		cancelComputeTask()
 		selectedImpactStat = IMPACT_STATS[idx]
 		saveFinderState()
@@ -1482,8 +1494,8 @@ end
 	controls.impactStatLabel.shown = true
 	controls.impactStatSelect.shown = true
 
-	controls.maxPointsLabel = new("LabelControl", TL, { 120, 444, 0, 16 }, "^7Max pts:")
-	controls.maxPointsEdit = new("EditControl", TL, { 182, 442, 56, 20 }, tostring(selectedMaxPoints), nil, "%D", 3, function(buf)
+	controls.maxPointsLabel = new("LabelControl", BL, { edgePadding + 110, bottomLabelY, 0, 16 }, "^7Max pts:")
+	controls.maxPointsEdit = new("EditControl", BL, { edgePadding + 172, bottomInputY, 56, buttonHeight }, tostring(selectedMaxPoints), nil, "%D", 3, function(buf)
 		cancelComputeTask()
 		selectedMaxPoints = buf ~= "" and tonumber(buf) or nil
 		saveFinderState()
@@ -1491,8 +1503,8 @@ end
 	controls.maxPointsLabel.shown = true
 	controls.maxPointsEdit.shown = true
 
-	controls.occupiedModeLabel = new("LabelControl", TL, { 250, 444, 0, 16 }, "^7Sockets:")
-	controls.occupiedModeSelect = new("DropDownControl", TL, { 308, 442, 170, 20 }, occupiedModeLabels, function(idx)
+	controls.occupiedModeLabel = new("LabelControl", BL, { edgePadding + 240, bottomLabelY, 0, 16 }, "^7Sockets:")
+	controls.occupiedModeSelect = new("DropDownControl", BL, { edgePadding + 298, bottomInputY, 170, buttonHeight }, occupiedModeLabels, function(idx)
 		cancelComputeTask()
 		selectedOccupiedMode = OCCUPIED_SOCKET_OPTIONS[idx]
 		saveFinderState()
@@ -1844,7 +1856,7 @@ end
 		return rows
 	end
 
-	controls.computeButton = new("ButtonControl", TL, { 968, 26, 72, 20 }, "Compute", function()
+	controls.computeButton = new("ButtonControl", TL, { popupWidth - edgePadding * 2 - 72, 26, 72, buttonHeight }, "Compute", function()
 		if computeContext then
 			cancelComputeTask("^8Compute cancelled")
 			restoreCachedResults()
@@ -2477,7 +2489,7 @@ end
 				}, "^1Error")
 			end
 		end
-		controls.findButton = new("ButtonControl", TL, { 10, 444, 100, 20 }, "Find", function()
+		controls.findButton = new("ButtonControl", BL, { edgePadding, bottomButtonY, 100, buttonHeight }, "Find", function()
 			cancelComputeTask()
 			runFind(true)
 		end)
@@ -2498,7 +2510,7 @@ end
 			self.build.itemsTab:PopulateSlots()
 			self.build.buildFlag = true
 		end
-		controls.applyButton = new("ButtonControl", TL, { 490, 444, 80, 20 }, "Apply", applySelectedResult)
+		controls.applyButton = new("ButtonControl", BL, { edgePadding + 480, bottomButtonY, 80, buttonHeight }, "Apply", applySelectedResult)
 		controls.applyButton.enabled = function()
 			local idx = controls.resultsList.selIndex
 			return idx and controls.resultsList.list[idx] and controls.resultsList.list[idx].applyRawText ~= nil
@@ -2619,14 +2631,14 @@ end
 	end
 
 	-- Close button
-	controls.closeButton = new("ButtonControl", TL, { 950, 444, 100, 20 }, "Close", function()
+	controls.closeButton = new("ButtonControl", BR, { -edgePadding, bottomButtonY, 100, buttonHeight }, "Close", function()
 		cancelComputeTask()
 		main:ClosePopup()
 	end)
 
 	-- Initialise preview and open popup
 	restoreFinderState()
-	local popup = main:OpenPopup(1060, 474, "Find Radius Jewel", controls, nil, nil, "closeButton")
+	local popup = main:OpenPopup(popupWidth, popupHeight, "Find Radius Jewel", controls, nil, nil, "closeButton")
 	local baseProcessInput = popup.ProcessInput
 	popup.ProcessInput = function(self, inputEvents, viewPort)
 		for _, event in ipairs(inputEvents) do
