@@ -102,14 +102,25 @@ end
 function GetTime()
 	return 0
 end
+local function getCwd()
+	local handle = io.popen("pwd")
+	if not handle then
+		return "."
+	end
+	local cwd = handle:read("*l")
+	handle:close()
+	return cwd or "."
+end
+local HEADLESS_SCRIPT_PATH = getCwd()
+local HEADLESS_RUNTIME_PATH = HEADLESS_SCRIPT_PATH .. "/../runtime"
 function GetScriptPath()
-	return ""
+	return HEADLESS_SCRIPT_PATH
 end
 function GetRuntimePath()
-	return ""
+	return HEADLESS_RUNTIME_PATH
 end
 function GetUserPath()
-	return ""
+	return HEADLESS_SCRIPT_PATH
 end
 function MakeDir(path) end
 function RemoveDir(path) end
