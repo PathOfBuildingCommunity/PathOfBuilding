@@ -76,7 +76,7 @@ end
 local ACTION_COLORS = {
 	new         = "^2",
 	move        = "^x33AAFF",
-	movereplace = "^xBB88FF",
+	moveReplace = "^xBB88FF",
 	replace     = "^xFFAA33",
 	keep        = "^8",
 }
@@ -1332,7 +1332,7 @@ end
 		end
 		if row.action == "keep" then
 			t_insert(resultDetailListData, { height = 16, [1] = "^8Already equipped here" })
-		elseif row.action == "movereplace" then
+		elseif row.action == "moveReplace" then
 			t_insert(resultDetailListData, { height = 16, [1] = "^xBB88FFMove here ^7(replaces " .. (row.replacedItemLabel or "?") .. ")" })
 		elseif row.action == "move" then
 			t_insert(resultDetailListData, { height = 16, [1] = "^x33AAFFMove here" })
@@ -1815,7 +1815,7 @@ end
 				if isEquippedSocket then
 					action = "keep"
 				elseif existingSocketId and r.replacedItemLabel then
-					action = "movereplace"
+					action = "moveReplace"
 				elseif existingSocketId then
 					action = "move"
 				elseif r.replacedItemLabel then
@@ -2192,7 +2192,7 @@ end
 							if isEquippedSocket then
 								action = "keep"
 							elseif existingSocketId and r.replacedItemLabel then
-								action = "movereplace"
+								action = "moveReplace"
 							elseif existingSocketId then
 								action = "move"
 							elseif r.replacedItemLabel then
@@ -2360,7 +2360,7 @@ end
 						else
 							local nodes
 							if isMassiveRadiusVariant then
-								-- Construction manuelle du cercle complet "Massive" (2400)
+								-- Build the synthetic full Massive radius (2400).
 								nodes = { }
 								for idx, r in ipairs(data.jewelRadius) do
 									if r.outer <= 2400 and socketNode.nodesInRadius[idx] then
@@ -2442,7 +2442,7 @@ end
 						if isEquippedSocket then
 							action = "keep"
 						elseif existingSocketId and r.replacedItemLabel then
-							action = "movereplace"
+							action = "moveReplace"
 						elseif existingSocketId then
 							action = "move"
 						elseif r.replacedItemLabel then

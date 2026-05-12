@@ -329,13 +329,13 @@ local function enrichIntuitiveLeapFoulborn(variant)
 	end
 end
 
-local function appendFoulbornVariants(jewelType, foulborn)
-	if #foulborn == 0 then return end
+local function appendFoulbornVariants(jewelType, foulbornVariants)
+	if #foulbornVariants == 0 then return end
 	jewelType.variants = {
 		{ name = "Normal", rawText = jewelType.rawText, radiusIndex = jewelType.radiusIndex },
 	}
-	for _, fb in ipairs(foulborn) do
-		t_insert(jewelType.variants, fb)
+	for _, foulbornVariant in ipairs(foulbornVariants) do
+		t_insert(jewelType.variants, foulbornVariant)
 	end
 end
 
@@ -897,9 +897,9 @@ function M.buildJewelTypes(radiusIndexByLabel)
 		end,
 	}
 	do
-		local fb = discoverFoulbornVariants("Inspired Learning", radiusIndexByLabel)
-		for _, v in ipairs(fb) do enrichInspiredLearningFoulborn(v) end
-		appendFoulbornVariants(inspiredLearning, fb)
+		local foulbornVariants = discoverFoulbornVariants("Inspired Learning", radiusIndexByLabel)
+		for _, variant in ipairs(foulbornVariants) do enrichInspiredLearningFoulborn(variant) end
+		appendFoulbornVariants(inspiredLearning, foulbornVariants)
 	end
 
 	local unnaturalInstinct = {
@@ -920,9 +920,9 @@ function M.buildJewelTypes(radiusIndexByLabel)
 		end,
 	}
 	do
-		local fb = discoverFoulbornVariants("Unnatural Instinct", radiusIndexByLabel)
-		for _, v in ipairs(fb) do enrichUnnaturalInstinctFoulborn(v) end
-		appendFoulbornVariants(unnaturalInstinct, fb)
+		local foulbornVariants = discoverFoulbornVariants("Unnatural Instinct", radiusIndexByLabel)
+		for _, variant in ipairs(foulbornVariants) do enrichUnnaturalInstinctFoulborn(variant) end
+		appendFoulbornVariants(unnaturalInstinct, foulbornVariants)
 	end
 
 	local lioneyesFall = {
@@ -947,9 +947,9 @@ function M.buildJewelTypes(radiusIndexByLabel)
 		end,
 	}
 	do
-		local fb = discoverFoulbornVariants("Intuitive Leap", radiusIndexByLabel)
-		for _, v in ipairs(fb) do enrichIntuitiveLeapFoulborn(v) end
-		appendFoulbornVariants(intuitiveLeap, fb)
+		local foulbornVariants = discoverFoulbornVariants("Intuitive Leap", radiusIndexByLabel)
+		for _, variant in ipairs(foulbornVariants) do enrichIntuitiveLeapFoulborn(variant) end
+		appendFoulbornVariants(intuitiveLeap, foulbornVariants)
 	end
 
 	local dreamsNightmaresFamilies = {
@@ -961,17 +961,17 @@ function M.buildJewelTypes(radiusIndexByLabel)
 		{ name = "The Blue Nightmare",  baseName = "Cobalt Jewel" },
 	}
 	local dreamsVariants = { }
-	for _, fam in ipairs(dreamsNightmaresFamilies) do
+	for _, familyInfo in ipairs(dreamsNightmaresFamilies) do
 		t_insert(dreamsVariants, {
-			name = fam.name,
-			family = fam.name,
-			rawText = mustGetCurrentUniqueRawText(fam.name),
+			name = familyInfo.name,
+			family = familyInfo.name,
+			rawText = mustGetCurrentUniqueRawText(familyInfo.name),
 		})
-		local fb = discoverFoulbornVariants(fam.name, radiusIndexByLabel)
-		for _, v in ipairs(fb) do
-			v.family = fam.name
-			v.name = fam.name .. " (" .. v.name .. ")"
-			t_insert(dreamsVariants, v)
+		local foulbornVariants = discoverFoulbornVariants(familyInfo.name, radiusIndexByLabel)
+		for _, variant in ipairs(foulbornVariants) do
+			variant.family = familyInfo.name
+			variant.name = familyInfo.name .. " (" .. variant.name .. ")"
+			t_insert(dreamsVariants, variant)
 		end
 	end
 

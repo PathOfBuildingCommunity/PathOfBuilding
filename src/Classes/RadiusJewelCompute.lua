@@ -708,10 +708,26 @@ function Class:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVarian
 			if not topResultIndices[result] then
 				goto continuePending
 			end
-			local ctx = pending.replacementContext
+			local replacementContext = pending.replacementContext
 			local maxAdditionalNodes = maxTotalPoints and math.max(maxTotalPoints - pending.accessCost, 0) or nil
 			local cacheKey = s_format("TOH|%s", statField)
-			local fullResult = self:computeConnectionlessFastPlan(calcFunc, ctx.baselineOutput, pending.socketBaseline, ctx.socketNode, ctx.slotName, threadItems[pending.bestVariantIndex], impactStat, pending.bestCandidates, threadVariants[pending.bestVariantIndex].name .. " Ring", planCache[cacheKey], nil, nil, maxAdditionalNodes, false, nil)
+			local fullResult = self:computeConnectionlessFastPlan(
+				calcFunc,
+				replacementContext.baselineOutput,
+				pending.socketBaseline,
+				replacementContext.socketNode,
+				replacementContext.slotName,
+				threadItems[pending.bestVariantIndex],
+				impactStat,
+				pending.bestCandidates,
+				threadVariants[pending.bestVariantIndex].name .. " Ring",
+				planCache[cacheKey],
+				nil,
+				nil,
+				maxAdditionalNodes,
+				false,
+				nil
+			)
 			fullResult.variant = threadVariants[pending.bestVariantIndex]
 			fullResult.socket = result.socket
 			fullResult.replacedItemLabel = result.replacedItemLabel
@@ -985,14 +1001,26 @@ function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants
 			for _, groupEntry in ipairs(groupedOrder) do
 				local bestResult = bestResultByGroupKey[groupEntry.groupKey]
 				if bestResult and bestResult.variant.name == topResult.variant.name then
-					local ctx = self:buildSocketReplacementContext(calcFunc, groupEntry.representativeSocket.id)
-					local socketBaseline = self:getImpactValue(impactStat, ctx.baselineOutput)
+					local replacementContext = self:buildSocketReplacementContext(calcFunc, groupEntry.representativeSocket.id)
+					local socketBaseline = self:getImpactValue(impactStat, replacementContext.baselineOutput)
 					local maxAdditionalNodes = groupEntry.remainingBudget >= 0 and groupEntry.remainingBudget or nil
 					local cacheKey = s_format("IE|%s|%s", statField, topResult.variant.name)
 					local fullResult = self:computeConnectionlessFastPlan(
-						calcFunc, ctx.baselineOutput, socketBaseline, ctx.socketNode, ctx.slotName,
-						variantContext.item, impactStat, variantContext.candidates, topResult.variant.name,
-						planCache[cacheKey], nil, nil, maxAdditionalNodes, false, nil
+						calcFunc,
+						replacementContext.baselineOutput,
+						socketBaseline,
+						replacementContext.socketNode,
+						replacementContext.slotName,
+						variantContext.item,
+						impactStat,
+						variantContext.candidates,
+						topResult.variant.name,
+						planCache[cacheKey],
+						nil,
+						nil,
+						maxAdditionalNodes,
+						false,
+						nil
 					)
 					fullResult.variant = topResult.variant
 					-- Apply plan steps to all projected results for this variant
