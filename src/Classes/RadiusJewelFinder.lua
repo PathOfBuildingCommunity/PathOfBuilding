@@ -747,8 +747,8 @@ function RadiusJewelFinderClass:findConnectionlessDependentNodes(socketId, item)
 			for keystoneName, _ in pairs(item.jewelData.impossibleEscapeKeystones) do
 				local ksNode = treeData.keystoneMap[keystoneName]
 				if ksNode and ksNode.nodesInRadius and ksNode.nodesInRadius[smallRI] then
-					for nid, n in pairs(ksNode.nodesInRadius[smallRI]) do
-						radiusNodes[nid] = n
+					for nodeId, node in pairs(ksNode.nodesInRadius[smallRI]) do
+						radiusNodes[nodeId] = node
 					end
 				end
 			end
@@ -757,17 +757,17 @@ function RadiusJewelFinderClass:findConnectionlessDependentNodes(socketId, item)
 		-- IL / ToH: nodes in the jewel's radius around the socket
 		local nodes = socketNode.nodesInRadius[item.jewelRadiusIndex]
 		if nodes then
-			for nid, n in pairs(nodes) do
-				radiusNodes[nid] = n
+			for nodeId, node in pairs(nodes) do
+				radiusNodes[nodeId] = node
 			end
 		end
 	end
 
 	-- Find allocated nodes in the radius
 	local allocInRadius = { }
-	for nid, _ in pairs(radiusNodes) do
-		if spec.allocNodes[nid] then
-			allocInRadius[nid] = true
+	for nodeId, _ in pairs(radiusNodes) do
+		if spec.allocNodes[nodeId] then
+			allocInRadius[nodeId] = true
 		end
 	end
 	if not next(allocInRadius) then return { } end
@@ -777,13 +777,13 @@ function RadiusJewelFinderClass:findConnectionlessDependentNodes(socketId, item)
 	local specNodes = spec.nodes
 	local connected = { }
 	local queue = { }
-	for nid, _ in pairs(allocInRadius) do
-		local node = specNodes[nid]
+	for nodeId, _ in pairs(allocInRadius) do
+		local node = specNodes[nodeId]
 		if node and node.linked then
 			for _, other in ipairs(node.linked) do
 				if spec.allocNodes[other.id] and not radiusNodes[other.id] then
-					connected[nid] = true
-					t_insert(queue, nid)
+					connected[nodeId] = true
+					t_insert(queue, nodeId)
 					break
 				end
 			end
@@ -792,9 +792,9 @@ function RadiusJewelFinderClass:findConnectionlessDependentNodes(socketId, item)
 	-- Propagate connectivity within the radius
 	local qi = 1
 	while qi <= #queue do
-		local nid = queue[qi]
+		local nodeId = queue[qi]
 		qi = qi + 1
-		local node = specNodes[nid]
+		local node = specNodes[nodeId]
 		if node and node.linked then
 			for _, other in ipairs(node.linked) do
 				if allocInRadius[other.id] and not connected[other.id] then
@@ -807,9 +807,9 @@ function RadiusJewelFinderClass:findConnectionlessDependentNodes(socketId, item)
 
 	-- Nodes in radius that are allocated but NOT naturally connected
 	local dependent = { }
-	for nid, _ in pairs(allocInRadius) do
-		if not connected[nid] then
-			t_insert(dependent, nid)
+	for nodeId, _ in pairs(allocInRadius) do
+		if not connected[nodeId] then
+			t_insert(dependent, nodeId)
 		end
 	end
 	return dependent
@@ -821,9 +821,9 @@ function RadiusJewelFinderClass:removeEquippedJewels(equippedList)
 		-- Find connectionless dependent nodes before removing the item
 		entry.savedAllocNodes = { }
 		local dependentNodes = self:findConnectionlessDependentNodes(entry.socketId, entry.item)
-		for _, nid in ipairs(dependentNodes) do
-			entry.savedAllocNodes[nid] = spec.allocNodes[nid]
-			spec.allocNodes[nid] = nil
+		for _, nodeId in ipairs(dependentNodes) do
+			entry.savedAllocNodes[nodeId] = spec.allocNodes[nodeId]
+			spec.allocNodes[nodeId] = nil
 		end
 		-- Remove the jewel from the socket
 		entry.savedSelItemId = entry.slot.selItemId
@@ -844,8 +844,8 @@ function RadiusJewelFinderClass:restoreEquippedJewels(equippedList)
 			entry.savedSpecJewel = nil
 		end
 		if entry.savedAllocNodes then
-			for nid, node in pairs(entry.savedAllocNodes) do
-				spec.allocNodes[nid] = node
+			for nodeId, node in pairs(entry.savedAllocNodes) do
+				spec.allocNodes[nodeId] = node
 			end
 			entry.savedAllocNodes = nil
 		end
@@ -2364,8 +2364,8 @@ end
 								nodes = { }
 								for idx, r in ipairs(data.jewelRadius) do
 									if r.outer <= 2400 and socketNode.nodesInRadius[idx] then
-										for nid, n in pairs(socketNode.nodesInRadius[idx]) do
-											nodes[nid] = n
+										for nodeId, node in pairs(socketNode.nodesInRadius[idx]) do
+											nodes[nodeId] = node
 										end
 									end
 								end

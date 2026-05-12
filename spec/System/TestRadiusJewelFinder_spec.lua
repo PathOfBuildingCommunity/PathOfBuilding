@@ -1133,9 +1133,9 @@ describe("RadiusJewelFinder #radiusjewel", function()
 					local socketNode = treeData.nodes[socketId]
 					if socketNode and socketNode.nodesInRadius and socketNode.nodesInRadius[radiusIndex] then
 						local radiusNodes = socketNode.nodesInRadius[radiusIndex]
-						for nid, _ in pairs(radiusNodes) do
-							if not build.spec.allocNodes[nid] then
-								local specNode = build.spec.nodes[nid]
+						for nodeId, _ in pairs(radiusNodes) do
+							if not build.spec.allocNodes[nodeId] then
+								local specNode = build.spec.nodes[nodeId]
 								local isolated = true
 								if specNode and specNode.linked then
 									for _, other in ipairs(specNode.linked) do
@@ -1146,7 +1146,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 									end
 								end
 								if isolated then
-									return socketId, nid
+									return socketId, nodeId
 								end
 							end
 						end
@@ -1165,13 +1165,13 @@ describe("RadiusJewelFinder #radiusjewel", function()
 					local socketNode = treeData.nodes[socketId]
 					if socketNode and socketNode.nodesInRadius and socketNode.nodesInRadius[radiusIndex] then
 						local radiusNodes = socketNode.nodesInRadius[radiusIndex]
-						for nid, _ in pairs(radiusNodes) do
-							if not build.spec.allocNodes[nid] then
-								local specNode = build.spec.nodes[nid]
+						for nodeId, _ in pairs(radiusNodes) do
+							if not build.spec.allocNodes[nodeId] then
+								local specNode = build.spec.nodes[nodeId]
 								if specNode and specNode.linked then
 									for _, other in ipairs(specNode.linked) do
 										if not radiusNodes[other.id] then
-											return socketId, nid, other.id
+											return socketId, nodeId, other.id
 										end
 									end
 								end
@@ -1255,8 +1255,8 @@ describe("RadiusJewelFinder #radiusjewel", function()
 					if node and node.nodesInRadius and node.nodesInRadius[smallRI]
 							and next(node.nodesInRadius[smallRI]) then
 						local hasAllocated = false
-						for nid, _ in pairs(node.nodesInRadius[smallRI]) do
-							if build.spec.allocNodes[nid] then
+						for nodeId, _ in pairs(node.nodesInRadius[smallRI]) do
+							if build.spec.allocNodes[nodeId] then
 								hasAllocated = true
 								break
 							end
@@ -1285,8 +1285,8 @@ describe("RadiusJewelFinder #radiusjewel", function()
 
 				assert.is_true(#result > 0, "expected at least one dependent node")
 				local found = false
-				for _, nid in ipairs(result) do
-					if nid == testNodeId then found = true; break end
+				for _, nodeId in ipairs(result) do
+					if nodeId == testNodeId then found = true; break end
 				end
 				assert.is_true(found, "expected node " .. testNodeId .. " in dependent nodes")
 			end)
@@ -1305,8 +1305,8 @@ describe("RadiusJewelFinder #radiusjewel", function()
 				local result = makeFinder():findConnectionlessDependentNodes(testSocketId, item)
 
 				local found = false
-				for _, nid in ipairs(result) do
-					if nid == testNodeId then found = true; break end
+				for _, nodeId in ipairs(result) do
+					if nodeId == testNodeId then found = true; break end
 				end
 				assert.is_false(found, "node connected from outside radius should not be dependent")
 			end)
@@ -1340,8 +1340,8 @@ describe("RadiusJewelFinder #radiusjewel", function()
 				local beforeSlotId = build.itemsTab.sockets[ALLOC_SOCKET_IDS[1]].selItemId
 				local beforeSpecJewel = build.spec.jewels[ALLOC_SOCKET_IDS[1]]
 				local beforeAllocKeys = {}
-				for nid, _ in pairs(build.spec.allocNodes) do
-					beforeAllocKeys[nid] = true
+				for nodeId, _ in pairs(build.spec.allocNodes) do
+					beforeAllocKeys[nodeId] = true
 				end
 
 				finder:removeEquippedJewels(equippedList)
@@ -1349,9 +1349,9 @@ describe("RadiusJewelFinder #radiusjewel", function()
 
 				assert.are.equal(beforeSlotId, build.itemsTab.sockets[ALLOC_SOCKET_IDS[1]].selItemId)
 				assert.are.equal(beforeSpecJewel, build.spec.jewels[ALLOC_SOCKET_IDS[1]])
-				for nid, _ in pairs(beforeAllocKeys) do
-					assert.is_not_nil(build.spec.allocNodes[nid],
-						"allocNode " .. nid .. " should be restored")
+				for nodeId, _ in pairs(beforeAllocKeys) do
+					assert.is_not_nil(build.spec.allocNodes[nodeId],
+						"allocNode " .. nodeId .. " should be restored")
 				end
 			end)
 
