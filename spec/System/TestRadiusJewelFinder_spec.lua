@@ -247,6 +247,17 @@ describe("RadiusJewelFinder #radiusjewel", function()
 				end
 				return texts
 			end
+			local function buttonTooltipTexts(control, ...)
+				local tooltip = new("Tooltip")
+				control.tooltipFunc(tooltip, ...)
+				local texts = {}
+				for _, line in ipairs(tooltip.lines) do
+					if line.text and line.text ~= "" then
+						texts[#texts + 1] = line.text
+					end
+				end
+				return texts
+			end
 
 			local function findIndex(list, needle)
 				for i, label in ipairs(listLabels(list)) do
@@ -305,6 +316,40 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			local closeX = popup.controls.closeButton:GetPos()
 			local closeWidth = popup.controls.closeButton:GetSize()
 			assert.are.equal(10, popupX + popupWidth - (closeX + closeWidth), "closeButton should keep the bottom right margin")
+			local computeTooltipTexts = buttonTooltipTexts(popup.controls.computeButton)
+			assert.is_true(#computeTooltipTexts > 0, "expected Compute tooltip content")
+			assert.is_true(computeTooltipTexts[1]:find("selected stat", 1, true) ~= nil,
+				"expected Compute tooltip to explain stat ranking")
+			local findTooltipTexts = buttonTooltipTexts(popup.controls.findButton)
+			assert.is_true(#findTooltipTexts > 0, "expected Find tooltip content")
+			assert.is_true(findTooltipTexts[1]:find("passive%-match") ~= nil,
+				"expected Find tooltip to explain passive matching")
+			local applyTooltipTexts = buttonTooltipTexts(popup.controls.applyButton)
+			assert.is_true(#applyTooltipTexts > 0, "expected Apply tooltip content")
+			assert.is_true(applyTooltipTexts[1]:find("Select a result", 1, true) ~= nil,
+				"expected Apply tooltip to explain missing selection")
+			assert.is_nil(popup.controls.closeButton.tooltipFunc, "Close is self-explanatory and should not need a tooltip")
+			local maxPointsTooltipTexts = buttonTooltipTexts(popup.controls.maxPointsEdit)
+			assert.is_true(#maxPointsTooltipTexts > 0, "expected Max pts tooltip content")
+			assert.is_true(maxPointsTooltipTexts[1]:find("total passive points", 1, true) ~= nil,
+				"expected Max pts tooltip to explain total point limit")
+			local occupiedTooltipTexts = buttonTooltipTexts(popup.controls.occupiedModeSelect, "DROP", 2, popup.controls.occupiedModeSelect.list[2])
+			assert.is_true(#occupiedTooltipTexts > 0, "expected Sockets tooltip content")
+			assert.is_true(occupiedTooltipTexts[2]:find("socket%-specific") ~= nil,
+				"expected Safe occupied tooltip to explain socket-specific behavior")
+			assert.is_true(popup.controls.computeMethodSelect.shown, "expected Method selector for All jewels")
+			assert.are.same({ "Fast", "Simulated" }, listLabels(popup.controls.computeMethodSelect.list))
+			local fastMethodTooltipTexts = buttonTooltipTexts(popup.controls.computeMethodSelect, "DROP", 1, popup.controls.computeMethodSelect.list[1])
+			assert.is_true(fastMethodTooltipTexts[1]:find("Intuitive Leap", 1, true) ~= nil,
+				"expected All jewels Method tooltip to name affected jewel types")
+			assert.is_true(fastMethodTooltipTexts[2]:find("independently", 1, true) ~= nil,
+				"expected Fast method tooltip to explain independent scoring")
+			local simulatedMethodTooltipTexts = buttonTooltipTexts(popup.controls.computeMethodSelect, "DROP", 2, popup.controls.computeMethodSelect.list[2])
+			assert.is_true(simulatedMethodTooltipTexts[2]:find("recalculates", 1, true) ~= nil,
+				"expected Simulated method tooltip to explain recalculation")
+			popup.controls.computeMethodSelect.selFunc(2)
+			assert.are.equal("simulated_greedy", build.radiusJewelFinderState.computeMethodId)
+			popup.controls.computeMethodSelect.selFunc(1)
 			assert.is_true(findIndex(popup.controls.impactStatSelect.list, "Full DPS") ~= nil)
 			assert.is_true(findIndex(popup.controls.impactStatSelect.list, "Hit DPS") ~= nil)
 			assert.is_true(findIndex(popup.controls.impactStatSelect.list, "Block Chance") ~= nil)
@@ -342,6 +387,11 @@ describe("RadiusJewelFinder #radiusjewel", function()
 
 			local allJewelsIdx = findIndex(popup.controls.jewelTypeSelect.list, "All jewels")
 			assert.is_not_nil(allJewelsIdx, "expected All jewels in jewel type list")
+			local allJewelsTooltipTexts = tooltipTexts(popup.controls.jewelTypeSelect, allJewelsIdx)
+			assert.is_true(allJewelsTooltipTexts[2]:find("%/Pt.", 1, true) ~= nil,
+				"expected All jewels tooltip to show %/Pt")
+			local doubledPercent = allJewelsTooltipTexts[2]:find("%%/Pt.", 1, true)
+			assert.is_nil(doubledPercent, "All jewels tooltip should not show escaped %%/Pt")
 			popup.controls.jewelTypeSelect.selFunc(allJewelsIdx)
 			local selectedResultPreview = {
 				{ height = 16, [1] = "^7Selected Jewel" },

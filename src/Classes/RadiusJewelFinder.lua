@@ -1178,8 +1178,17 @@ function RadiusJewelFinderClass:Open()
 			controls.statusLabel.label = statusMessage
 		end
 	end
+	local function getSelectedComputeMethods()
+		if selectedJewelType and selectedJewelType.isAllJewels then
+			return DISCONNECTED_PASSIVE_COMPUTE_METHODS
+		end
+		if selectedJewelType and selectedJewelType.computeMethods and #selectedJewelType.computeMethods > 0 then
+			return selectedJewelType.computeMethods
+		end
+	end
 	local function selectedJewelSupportsComputeMethods()
-		return selectedJewelType and selectedJewelType.computeMethods and #selectedJewelType.computeMethods > 0
+		local methods = getSelectedComputeMethods()
+		return methods and #methods > 0
 	end
 	local function hasVariantFamilies()
 		if not selectedJewelType or not selectedJewelType.variants then return false end
@@ -1525,11 +1534,29 @@ end
 	controls.computeMethodLabel = new("LabelControl", TL, { rightPanelX, 10, 0, 16 }, "^7Method:")
 	controls.computeMethodSelect = new("DropDownControl", TL, { rightPanelX, 26, 160, buttonHeight }, { }, function(idx)
 		cancelCompute()
-		if selectedJewelType and selectedJewelType.computeMethods then
-			selectedComputeMethod = selectedJewelType.computeMethods[idx]
+		local methods = getSelectedComputeMethods()
+		if methods then
+			selectedComputeMethod = methods[idx]
 		end
 		saveFinderState()
 	end)
+	local function addComputeMethodTooltip(tooltip, mode, index)
+		local methods = getSelectedComputeMethods()
+		local method = (index and methods and methods[index]) or selectedComputeMethod
+		tooltip:Clear(true)
+		if selectedJewelType and selectedJewelType.isAllJewels then
+			tooltip:AddLine(16, "^7Used for Intuitive Leap, Thread of Hope, and Impossible Escape.")
+		else
+			tooltip:AddLine(16, "^7Controls how passives are selected for this jewel.")
+		end
+		if method and method.id == "simulated_greedy" then
+			tooltip:AddLine(16, "^8Simulated recalculates after each chosen passive.")
+		else
+			tooltip:AddLine(16, "^8Fast scores candidate passives independently.")
+		end
+	end
+	controls.computeMethodLabel.tooltipFunc = addComputeMethodTooltip
+	controls.computeMethodSelect.tooltipFunc = addComputeMethodTooltip
 	controls.computeMethodLabel.shown = false
 	controls.computeMethodSelect.shown = false
 
@@ -1549,6 +1576,13 @@ end
 		selectedMaxPoints = buf ~= "" and tonumber(buf) or nil
 		saveFinderState()
 	end)
+	local function addMaxPointsTooltip(tooltip)
+		tooltip:Clear(true)
+		tooltip:AddLine(16, "^7Maximum total passive points for a result.")
+		tooltip:AddLine(16, "^8Includes pathing to the socket and passives to allocate.")
+	end
+	controls.maxPointsLabel.tooltipFunc = addMaxPointsTooltip
+	controls.maxPointsEdit.tooltipFunc = addMaxPointsTooltip
 	controls.maxPointsLabel.shown = true
 	controls.maxPointsEdit.shown = true
 
@@ -1559,6 +1593,21 @@ end
 		saveFinderState()
 		runFind(false)
 	end)
+	local function addOccupiedModeTooltip(tooltip, mode, index)
+		local option = (index and OCCUPIED_SOCKET_OPTIONS[index]) or selectedOccupiedMode
+		tooltip:Clear(true)
+		if not option or option.id == "free" then
+			tooltip:AddLine(16, "^7Only try empty jewel sockets.")
+		elseif option.id == "safe" then
+			tooltip:AddLine(16, "^7Try empty sockets and safe occupied sockets.")
+			tooltip:AddLine(16, "^8Safe means the current jewel has no socket-specific behavior.")
+		else
+			tooltip:AddLine(16, "^7Try empty and occupied jewel sockets.")
+			tooltip:AddLine(16, "^8May suggest replacing socket-specific jewels.")
+		end
+	end
+	controls.occupiedModeLabel.tooltipFunc = addOccupiedModeTooltip
+	controls.occupiedModeSelect.tooltipFunc = addOccupiedModeTooltip
 	controls.occupiedModeLabel.shown = true
 	controls.occupiedModeSelect.shown = true
 
@@ -1631,6 +1680,29 @@ end
 		controls.jewelVariantLabel.shown = false
 		controls.jewelVariantSelect.shown = false
 
+		local function syncComputeMethodSelect(methods)
+			methods = methods or getSelectedComputeMethods()
+			if not methods or #methods == 0 then
+				controls.computeMethodSelect:SetList({ })
+				controls.computeMethodSelect.selIndex = nil
+				return
+			end
+			local methodLabels = { }
+			for _, method in ipairs(methods) do
+				t_insert(methodLabels, method.label)
+			end
+			local selectedIndex = 1
+			for i, method in ipairs(methods) do
+				if selectedComputeMethod and method.id == selectedComputeMethod.id then
+					selectedIndex = i
+					break
+				end
+			end
+			selectedComputeMethod = methods[selectedIndex]
+			controls.computeMethodSelect:SetList(methodLabels)
+			controls.computeMethodSelect.selIndex = selectedIndex
+		end
+
 		local function syncSelectedJewelTypeControls()
 			if selectedJewelType.isAllJewels then
 				controls.allJewelsViewLabel.shown  = true
@@ -1641,10 +1713,11 @@ end
 				controls.variantFamilySelect.shown = false
 				controls.jewelVariantLabel.shown   = false
 				controls.jewelVariantSelect.shown  = false
-				controls.computeMethodLabel.shown  = false
-				controls.computeMethodSelect.shown = false
+				controls.computeMethodLabel.shown  = true
+				controls.computeMethodSelect.shown = true
 				controls.impactStatLabel.shown     = true
 				controls.impactStatSelect.shown    = true
+				syncComputeMethodSelect(DISCONNECTED_PASSIVE_COMPUTE_METHODS)
 				if controls.computeButton then
 					controls.computeButton.shown = true
 				end
@@ -1688,20 +1761,7 @@ end
 				selectedJewelVariant = nil
 			end
 			if hasComputeMethods then
-				local methodLabels = { }
-				for _, method in ipairs(selectedJewelType.computeMethods) do
-					t_insert(methodLabels, method.label)
-				end
-				local selectedIndex = 1
-				for i, method in ipairs(selectedJewelType.computeMethods) do
-					if selectedComputeMethod and method.id == selectedComputeMethod.id then
-						selectedIndex = i
-						break
-					end
-				end
-				selectedComputeMethod = selectedJewelType.computeMethods[selectedIndex]
-				controls.computeMethodSelect:SetList(methodLabels)
-				controls.computeMethodSelect.selIndex = selectedIndex
+				syncComputeMethodSelect(selectedJewelType.computeMethods)
 			end
 	end
 
@@ -1720,7 +1780,7 @@ end
 		if jewelType and jewelType.isAllJewels then
 			tooltip:Clear(true)
 			tooltip:AddLine(16, "^7Evaluate every jewel type at once.")
-			tooltip:AddLine(16, "^7Results sorted globally by %%/Pt.")
+			tooltip:AddLine(16, "^7Results sorted globally by %/Pt.")
 			return
 		end
 		addPreviewLinesToTooltip(tooltip, buildGenericTypeTooltipLinesForJewelType(jewelType))
@@ -2078,6 +2138,20 @@ end
 			end
 		end
 	end)
+	controls.computeButton.tooltipFunc = function(tooltip)
+		tooltip:Clear(true)
+		if computeContext then
+			tooltip:AddLine(16, "^7Stop the current compute.")
+			tooltip:AddLine(16, "^8Restores the previous results.")
+			return
+		end
+		if selectedJewelType and selectedJewelType.isAllJewels then
+			tooltip:AddLine(16, "^7Rank every jewel type by the selected stat.")
+		else
+			tooltip:AddLine(16, "^7Rank compatible sockets by the selected stat.")
+		end
+		tooltip:AddLine(16, "^8Uses Stat, Max pts, and Sockets filters.")
+	end
 	controls.computeButton.shown = true
 
 	-- Status label
@@ -2544,6 +2618,15 @@ end
 			cancelCompute()
 			runFind(true)
 		end)
+		controls.findButton.tooltipFunc = function(tooltip)
+			tooltip:Clear(true)
+			if selectedJewelType and selectedJewelType.isAllJewels then
+				tooltip:AddLine(16, "^7Find passive-match results for every jewel type.")
+			else
+				tooltip:AddLine(16, "^7Find sockets with matching passives for this jewel.")
+			end
+			tooltip:AddLine(16, "^8Use Compute to rank by the selected stat.")
+		end
 
 		applySelectedResult = function()
 			local idx = controls.resultsList.selIndex
@@ -2576,6 +2659,8 @@ end
 			end
 			tooltip:Clear(true)
 			tooltip:AddLine(16, "^7Equip ^x33FF77" .. (row.jewelName or "jewel") .. " ^7in ^x33FF77" .. (row.socketLabel or "socket"))
+			tooltip:AddLine(16, "^8Adds the jewel to this build.")
+			tooltip:AddLine(16, "^8Double-click a result to apply it.")
 		end
 
 	local function restoreFinderState()
@@ -2646,8 +2731,9 @@ end
 				end
 			end
 		end
-		if finderState.computeMethodId and selectedJewelType and selectedJewelType.computeMethods then
-			for i, method in ipairs(selectedJewelType.computeMethods) do
+		if finderState.computeMethodId then
+			local methods = getSelectedComputeMethods() or { }
+			for i, method in ipairs(methods) do
 				if method.id == finderState.computeMethodId then
 					selectedComputeMethod = method
 					controls.computeMethodSelect.selIndex = i
