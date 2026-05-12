@@ -2701,6 +2701,92 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	local controls = { }
 	local sourceList = { }
 	local modList = { }
+	local sortList = { { label = "Default", stat = nil } }
+	local sortTransforms = { }
+	for _, entry in ipairs(data.powerStatList) do
+		if entry.stat and not entry.ignoreForNodes then
+			t_insert(sortList, { label = entry.label, stat = entry.stat })
+			sortTransforms[entry.stat] = entry.transform
+		end
+	end
+	local function setDefaultSortOrder()
+		for index, listMod in ipairs(modList) do
+			listMod.defaultSortOrder = index
+			listMod.sortValue = nil
+			listMod.sortValues = nil
+		end
+	end
+	local function getOutputStatValue(output, stat)
+		if stat == "FullDPS" then
+			if output[stat] ~= nil then
+				return output[stat]
+			end
+			if output.Minion and output.Minion.CombinedDPS ~= nil then
+				return output.Minion.CombinedDPS
+			end
+		end
+		if output.Minion and output.Minion[stat] ~= nil then
+			return output.Minion[stat]
+		end
+		if output[stat] ~= nil then
+			return output[stat]
+		end
+		return 0
+	end
+	local function getSortValue(listMod, stat, calcFunc, slotName, useFullDPS)
+		listMod.sortValues = listMod.sortValues or { }
+		if listMod.sortValues[stat] ~= nil then
+			return listMod.sortValues[stat]
+		end
+		local item = new("Item", self.displayItem:BuildRaw())
+		item.id = self.displayItem.id
+		for _, line in ipairs(listMod.mod) do
+			t_insert(item.explicitModLines, { line = checkLineForAllocates(line, self.build.spec.nodes), modTags = listMod.mod.modTags, [listMod.type] = true })
+		end
+		item:BuildAndParseRaw()
+		local output = calcFunc({ repSlotName = slotName, repItem = item }, useFullDPS)
+		local value = getOutputStatValue(output, stat)
+		if sortTransforms[stat] then
+			value = sortTransforms[stat](value)
+		end
+		listMod.sortValues[stat] = value
+		return value
+	end
+	local function applySort(stat, selectFirst)
+		if not controls.modSelect or not controls.modSelect:IsShown() then
+			return
+		end
+		local selected = not selectFirst and modList[controls.modSelect.selIndex] or nil
+		if stat then
+			local slotName = self.displayItem:GetPrimarySlot()
+			local calcFunc = self.build.calcsTab:GetMiscCalculator()
+			local useFullDPS = stat == "FullDPS"
+			for _, listMod in ipairs(modList) do
+				listMod.sortValue = getSortValue(listMod, stat, calcFunc, slotName, useFullDPS)
+			end
+			table.sort(modList, function(a, b)
+				if a.sortValue ~= b.sortValue then
+					return a.sortValue > b.sortValue
+				end
+				return (a.defaultSortOrder or 0) < (b.defaultSortOrder or 0)
+			end)
+		else
+			table.sort(modList, function(a, b)
+				return (a.defaultSortOrder or 0) < (b.defaultSortOrder or 0)
+			end)
+		end
+		controls.modSelect:UpdateSearch()
+		if selected then
+			for index, listMod in ipairs(modList) do
+				if listMod == selected then
+					controls.modSelect.selIndex = index
+					break
+				end
+			end
+		else
+			controls.modSelect:SetSel(1, true)
+		end
+	end
 	---Mutates modList to contain mods from the specified source
 	---@param sourceId string @The crafting source id to build the list of mods for
 	local function buildMods(sourceId)
@@ -2849,6 +2935,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 				end
 			end)
 		end
+		setDefaultSortOrder()
 	end
 	if self.displayItem.type ~= "Tincture" and self.displayItem.type ~= "Graft" then
 		if self.displayItem.type ~= "Jewel" then
@@ -2893,8 +2980,21 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	controls.source = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, 20, 150, 18}, sourceList, function(index, value)
 		buildMods(value.sourceId)
 		controls.modSelect:SetSel(1)
+		if controls.sort then
+			applySort(controls.sort.list[controls.sort.selIndex].stat)
+		end
 	end)
 	controls.source.enabled = #sourceList > 1
+	controls.sortLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {350, 20, 0, 16}, "^7Sort by:")
+	controls.sortLabel.shown = function()
+		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
+	end
+	controls.sort = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {355, 20, 240, 18}, sortList, function(index, value)
+		applySort(value.stat, true)
+	end)
+	controls.sort.shown = function()
+		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
+	end
 	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {95, 45, 0, 16}, "^7Modifier:")
 	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, 45, 600, 18}, modList)
 	controls.modSelect.shown = function()
