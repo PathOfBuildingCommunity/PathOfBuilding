@@ -224,6 +224,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 			return
 		end
 		local updateDisplayGroup = self.displayGroup and targetSlot == self.displayGroup.slot
+		self:AddUndoState()
 		if not gemMatch then
 			gemData = nil
 		end

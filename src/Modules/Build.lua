@@ -107,6 +107,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	self.abortSave = true
 
 	wipeTable(self.controls)
+	self.secondaryAscendDropAltAscendancies = nil
+	self.secondaryAscendDropLegacySelection = nil
+	self.secondaryAscendDropEntryCount = nil
 
 	local miscTooltip = new("Tooltip")
 
@@ -119,9 +122,29 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			self:CloseBuild()
 		end
 	end)
-	self.controls.buildName = new("Control", {"LEFT",self.controls.back,"RIGHT"}, {8, 0, 0, 20})
+	self.controls.save = new("ButtonControl", {"LEFT",self.controls.back,"RIGHT"}, {8, 0, 50, 20}, "Save", function()
+		self:SaveDBFile()
+	end)
+	self.controls.save.enabled = function()
+		return not self.dbFileName or self.unsaved
+	end
+	self.controls.saveAs = new("ButtonControl", {"LEFT",self.controls.save,"RIGHT"}, {8, 0, 70, 20}, "Save As", function()
+		self:OpenSaveAsPopup()
+	end)
+	self.controls.saveAs.enabled = function()
+		return self.dbFileName
+	end
+
+	-- conditional for smaller screens to move "Current build" to the side bar
+	local function buildNameConditional()
+		return self.anchorTopBarRight:GetPos() < 800
+	end
+	self.controls.buildName = new("Control", {"LEFT",self.controls.saveAs,"RIGHT"}, {4, 36, 0, 20})
 	self.controls.buildName.width = function(control)
-		local limit = self.anchorTopBarRight:GetPos() - 98 - 40 - self.controls.back:GetSize() - self.controls.save:GetSize() - self.controls.saveAs:GetSize()
+		local limit = buildNameConditional() and 203 or
+			(self.anchorTopBarRight:GetPos() - 98 - 62
+			- self.controls.pointDisplay:GetSize() - self.controls.levelScalingButton:GetSize() - self.controls.characterLevel:GetSize()
+			- self.controls.back:GetSize() - self.controls.save:GetSize() - self.controls.saveAs:GetSize())
 		local bnw = DrawStringWidth(16, "VAR", self.buildName)
 		self.strWidth = m_min(bnw, limit)
 		self.strLimited = bnw > limit
@@ -150,30 +173,20 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			SetDrawLayer(nil, 0)
 		end
 	end
-	self.controls.save = new("ButtonControl", {"LEFT",self.controls.buildName,"RIGHT"}, {8, 0, 50, 20}, "Save", function()
-		self:SaveDBFile()
-	end)
-	self.controls.save.enabled = function()
-		return not self.dbFileName or self.unsaved
+	self.controls.buildName.x = function()
+		return buildNameConditional() and -196 or 8
 	end
-	self.controls.saveAs = new("ButtonControl", {"LEFT",self.controls.save,"RIGHT"}, {8, 0, 70, 20}, "Save As", function()
-		self:OpenSaveAsPopup()
-	end)
-	self.controls.saveAs.enabled = function()
-		return self.dbFileName
+	self.controls.buildName.y = function()
+		return buildNameConditional() and 32 or 0
 	end
 
 	-- Controls: top bar, right side
 	self.anchorTopBarRight = new("Control", nil, {function() return main.screenW / 2 + 6 end, 4, 0, 20})
-	self.controls.pointDisplay = new("Control", {"LEFT",self.anchorTopBarRight,"RIGHT"}, {-12, 0, 0, 20})
-	self.controls.pointDisplay.x = function(control)
-		local width, height = control:GetSize()
-		if self.controls.saveAs:GetPos() + self.controls.saveAs:GetSize() < self.anchorTopBarRight:GetPos() - width - 16 then
-			return -12 - width
-		else
-			return 0
-		end
+
+	local function getPointDisplayX() -- I had it hardcoded to -323 before switching to the control sizing
+		return - (23 + self.controls.pointDisplay:GetSize() + self.controls.levelScalingButton:GetSize() + self.controls.characterLevel:GetSize())
 	end
+	self.controls.pointDisplay = new("Control", {"LEFT",self.anchorTopBarRight,"RIGHT"}, {function() return getPointDisplayX() end, 0, 0, 20})
 	self.controls.pointDisplay.width = function(control)
 		control.str, control.req = self:EstimatePlayerProgress()
 		return DrawStringWidth(16, "FIXED", control.str) + 8
@@ -195,7 +208,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			SetDrawLayer(nil, 0)
 		end
 	end
-	self.controls.levelScalingButton = new("ButtonControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, {10, 0, 50, 20}, self.characterLevelAutoMode and "Auto" or "Manual", function()
+	self.controls.levelScalingButton = new("ButtonControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, {7, 0, 50, 20}, self.characterLevelAutoMode and "Auto" or "Manual", function()
 		self.characterLevelAutoMode = not self.characterLevelAutoMode
 		self.controls.levelScalingButton.label = self.characterLevelAutoMode and "Auto" or "Manual"
 		self.configTab:BuildModList()
@@ -239,7 +252,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			end
 		end
 	end
-	self.controls.classDrop = new("DropDownControl", {"LEFT",self.controls.characterLevel,"RIGHT"}, {5, 0, 85, 20}, nil, function(index, value)
+	self.controls.classDrop = new("DropDownControl", {"LEFT",self.controls.characterLevel,"RIGHT"}, {10, 0, 85, 20}, nil, function(index, value)
 		if value.classId ~= self.spec.curClassId then
 			if self.spec:CountAllocNodes() == 0 or self.spec:IsClassConnected(value.classId) then
 				self.spec:SelectClass(value.classId)
@@ -263,7 +276,29 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			end
 		end
 	end)
-	self.controls.buildLoadouts = new("DropDownControl", {"LEFT",self.controls.classDrop,"RIGHT"}, {5, 0, 190, 20}, {}, function(index, value)
+	self.controls.ascendDrop = new("DropDownControl", {"LEFT",self.controls.classDrop,"RIGHT"}, {4, 0, 120, 20}, nil, function(index, value)
+		self.spec:SelectAscendClass(value.ascendClassId)
+		self.spec:AddUndoState()
+		self.spec:SetWindowTitleWithBuildClass()
+		self.buildFlag = true
+	end)
+	self.controls.secondaryAscendDrop = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, {4, 0, 160, 20}, {
+		{ label = "None", ascendClassId = 0 },
+	}, function(index, value)
+		if not value or not self.spec then
+			return
+		end
+		self.spec:SelectSecondaryAscendClass(value.ascendClassId)
+		self.spec:AddUndoState()
+		self.spec:SetWindowTitleWithBuildClass()
+		self.buildFlag = true
+	end)
+	self.controls.secondaryAscendDrop.enableDroppedWidth = true
+	self.controls.secondaryAscendDrop.maxDroppedWidth = 360
+	local initialSecondarySelection = (self.spec and self.spec.curSecondaryAscendClassId) or 0
+	self.controls.secondaryAscendDrop:SelByValue(initialSecondarySelection, "ascendClassId")
+
+	self.controls.buildLoadouts = new("DropDownControl", {"LEFT",self.controls.secondaryAscendDrop,"RIGHT"}, {4, 0, 190, 20}, {}, function(index, value)
 		if value == "^7^7Loadouts:" or value == "^7^7-----" then
 			self.controls.buildLoadouts:SetSel(1)
 			return
@@ -378,15 +413,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 
 		self.controls.buildLoadouts:SelByValue(value)
 	end)
-
-	--self.controls.similarBuilds = new("ButtonControl", {"LEFT",self.controls.buildLoadouts,"RIGHT"}, {8, 0, 100, 20}, "Similar Builds", function()
-	--	self:OpenSimilarPopup()
-	--end)
-	--self.controls.similarBuilds.tooltipFunc = function(tooltip)
-	--	tooltip:Clear()
-	--	tooltip:AddLine(16, "Search for builds similar to your current character.")
-	--	tooltip:AddLine(16, "For best results, make sure to select your main item set, tree, and skills before opening the popup.")
-	--end
 	
 	if buildName == "~~temp~~" then
 		-- Remove temporary build file
@@ -401,7 +427,11 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	self.displayStats, self.minionDisplayStats, self.extraSaveStats = LoadModule("Modules/BuildDisplayStats")
 
 	-- Controls: Side bar
-	self.anchorSideBar = new("Control", nil, {4, 36, 0, 0})
+	self.anchorSideBar = new("Control", nil, {4, 60, 0, 0})
+	self.anchorSideBar.y = function()
+		return buildNameConditional() and 60 or 36
+	end
+
 	self.controls.modeImport = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, {0, 0, 134, 20}, "Import/Export Build", function()
 		self.viewMode = "IMPORT"
 	end)
@@ -1044,6 +1074,53 @@ function buildMode:ResetModFlags()
 	self.calcsTab.modFlag = false
 end
 
+function buildMode:UpdateSecondaryAscendancyDropdown(forceListUpdate)
+	local secondaryDrop = self.controls.secondaryAscendDrop
+	if not secondaryDrop then
+		return
+	end
+	local legacyAlternateAscendancyIds = {
+		Warden = true,
+		Warlock = true,
+		Primalist = true,
+	}
+	local selection = (self.spec and self.spec.curSecondaryAscendClassId) or 0
+	local altAscendancies = self.spec and self.spec.tree and self.spec.tree.alternate_ascendancies
+	local selectedAscendancy = altAscendancies and altAscendancies[selection]
+	local selectedLegacyAscendancy = selectedAscendancy and legacyAlternateAscendancyIds[selectedAscendancy.id] and selectedAscendancy.id or nil
+	if forceListUpdate
+		or self.secondaryAscendDropAltAscendancies ~= altAscendancies
+		or self.secondaryAscendDropLegacySelection ~= selectedLegacyAscendancy
+	then
+		local entries = {
+			{ label = "None", ascendClassId = 0 },
+		}
+		if altAscendancies then
+			local sortable = { }
+			for ascendClassId, ascendClass in pairs(altAscendancies) do
+				if ascendClass and ascendClass.id then
+					if not legacyAlternateAscendancyIds[ascendClass.id] or ascendClassId == selection then
+						t_insert(sortable, { label = ascendClass.name, ascendClassId = ascendClassId })
+					end
+				end
+			end
+			t_sort(sortable, function(a, b)
+				return a.label < b.label
+			end)
+			for _, entry in ipairs(sortable) do
+				t_insert(entries, entry)
+			end
+		end
+		secondaryDrop:SetList(entries)
+		secondaryDrop:CheckDroppedWidth(true)
+		self.secondaryAscendDropEntryCount = #entries
+		self.secondaryAscendDropAltAscendancies = altAscendancies
+		self.secondaryAscendDropLegacySelection = selectedLegacyAscendancy
+	end
+	secondaryDrop:SelByValue(selection, "ascendClassId")
+	secondaryDrop.enabled = self.spec ~= nil and (self.secondaryAscendDropEntryCount or 1) > 1
+end
+
 function buildMode:OnFrame(inputEvents)
 	-- Stop at drawing the background if the loaded build needs to be converted
 	if not self.targetVersion then
@@ -1097,6 +1174,10 @@ function buildMode:OnFrame(inputEvents)
 	self:ProcessControlsInput(inputEvents, main.viewPort)
 
 	self.controls.classDrop:SelByValue(self.spec.curClassId, "classId")
+	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValueByKey("ascendancies")
+	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassId, "ascendClassId")
+	self.controls.ascendDrop:CheckDroppedWidth(true)
+	self:UpdateSecondaryAscendancyDropdown()
 
 	if self.buildFlag then
 		-- Wipe Global Cache

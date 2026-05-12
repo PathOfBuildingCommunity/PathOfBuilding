@@ -207,9 +207,6 @@ skills["AnimateWeapon"] = {
 		["attack_maximum_added_physical_damage_for_ethereal_blades"] = {
 			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "ActorCondition", actor = "parent", var = "AnimatingLingeringBlades" }) }),
 		},
-		["base_number_of_animated_weapons_allowed"] = {
-			mod("Multiplier:AnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
-		},
 	},
 	baseFlags = {
 		spell = true,
@@ -308,11 +305,6 @@ skills["AnimateWeaponAltX"] = {
 	castTime = 0.6,
 	minionList = {
 		"AnimatedWeapon",
-	},
-	statMap = {
-		["base_number_of_animated_weapons_allowed"] = {
-			mod("Multiplier:AnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
-		},
 	},
 	baseFlags = {
 		spell = true,
@@ -415,9 +407,6 @@ skills["AnimateWeaponAltY"] = {
 		["attack_maximum_added_physical_damage_for_ethereal_blades"] = {
 			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "ActorCondition", actor = "parent", var = "AnimatingLingeringBlades" }) }),
 		},
-		["base_number_of_animated_weapons_allowed"] = {
-			mod("Multiplier:AnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
-		},
 	},
 	baseFlags = {
 		spell = true,
@@ -512,9 +501,6 @@ skills["VaalAnimateWeapon"] = {
 	statMap = {
 		["base_movement_velocity_+%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", nil) }),
-		},
-		["base_number_of_animated_weapons_allowed"] = {
-			mod("Multiplier:VaalAnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
 		},
 	},
 	baseFlags = {
@@ -1396,7 +1382,7 @@ skills["BladeBlast"] = {
 		area = true,
 	},
 	baseMods = {
-		mod("Multiplier:BladeBlastMaxStages", "BASE", 900, 0, 0),
+		mod("Multiplier:BladeBlastMaxStages", "BASE", 50, 0, 0),
 		skill("dpsBaseMultiplier", 1, { type = "Multiplier", var = "BladeBlastStage" }),
 	},
 	qualityStats = {
@@ -7937,7 +7923,7 @@ skills["FlickerStrike"] = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["flicker_strike_buff_movement_speed_+%"] = {
-			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Flick Strike" }),
 		},
 	},
 	baseFlags = {
@@ -8028,7 +8014,7 @@ skills["FlickerStrikeAltX"] = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["flicker_strike_buff_movement_speed_+%"] = {
-			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Flick Strike" }),
 		},
 	},
 	baseFlags = {

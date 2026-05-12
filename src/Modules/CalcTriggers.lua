@@ -1182,6 +1182,11 @@ local configTable = {
 		return {triggerChance =  env.player.mainSkill.skillData.chanceToTriggerOnStun,
 				source = env.player.mainSkill}
 	end,
+	["cast on ward break"] = function(env)
+        env.player.mainSkill.skillFlags.globalTrigger = true
+		return {triggerChance =  env.player.mainSkill.skillData.chanceToTriggerOnWardBreak,
+				source = env.player.mainSkill}
+	end,
 	["spellslinger"] = function(env)
 		if env.player.mainSkill.activeEffect.grantedEffect.name == "Spellslinger" then
 			env.player.mainSkill.skillFlags.skipEffectiveRate = true

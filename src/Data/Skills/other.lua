@@ -1212,6 +1212,7 @@ skills["SupportDivineBlessing"] = {
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.InbuiltTrigger, },
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
+	hideFromGemList = true,
 	statMap = {
 		["support_aura_duration_base_buff_duration"] = {
 			skill("auraDuration", nil),
@@ -1385,6 +1386,7 @@ skills["SupportEarthbreaker"] = {
 	excludeSkillTypes = { SkillType.InbuiltTrigger, },
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
+	hideFromGemList = true,
 	addFlags = {
 		totem = true,
 	},
@@ -4013,11 +4015,6 @@ skills["TriggeredSummonGhostOnKill"] = {
 	fromItem = true,
 	minionList = {
 		"SummonedPhantasm",
-	},
-	statMap = {
-		["base_number_of_support_ghosts_allowed"] = {
-			mod("ActivePhantasmLimit", "BASE", nil),
-		},
 	},
 	baseFlags = {
 		spell = true,

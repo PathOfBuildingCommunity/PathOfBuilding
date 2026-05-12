@@ -16,8 +16,8 @@ local ComparePowerReportListClass = newClass("ComparePowerReportListControl", "L
 		{ width = width * 0.10, label = "Category", sortable = true },
 		{ width = width * 0.44, label = "Name" },
 		self.impactColumn,
-		{ width = width * 0.08, label = "Points", sortable = true },
-		{ width = width * 0.16, label = "Per Point", sortable = true },
+		{ width = width * 0.06, label = "Points", sortable = true },
+		{ width = width * 0.14, label = "Per Point", sortable = true },
 	}
 	self.colLabels = true
 	self.showRowSeparators = true

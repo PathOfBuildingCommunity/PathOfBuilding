@@ -898,30 +898,39 @@ function PassiveSpecClass:BuildPathFromNode(root)
 		o = o + 1
 		local curDist = node.pathDist
 		-- Iterate through all nodes that are connected to this one
-		for _, other in ipairs(node.linked) do
-			-- Paths must obey these rules:
-			-- 1. They must not pass through class or ascendancy class start nodes (but they can start from such nodes)
-			-- 2. They cannot pass between different ascendancy classes or between an ascendancy class and the main tree
-			--    The one exception to that rule is that a path may start from an ascendancy node and pass into the main tree
-			--    This permits pathing from the Ascendant 'Path of the X' nodes into the respective class start areas
-			-- 3. They must not pass away from mastery nodes
-			if not other.pathDist then
-				ConPrintTable(other, true)
+		for index, other in ipairs(node.linked) do
+			-- Cluster subgraph rebuilds can replace node objects while retaining IDs.
+			-- Normalize stale link references to the canonical node object.
+			local canonicalNode = other and other.id and self.nodes[other.id]
+			if not canonicalNode then
+				other = nil
+			elseif canonicalNode ~= other then
+				node.linked[index] = canonicalNode
+				other = canonicalNode
 			end
-			if node.type ~= "Mastery" and other.type ~= "ClassStart" and other.type ~= "AscendClassStart" and other.pathDist > curDist and (node.ascendancyName == other.ascendancyName or (curDist == 0 and not other.ascendancyName)) then
-				-- The shortest path to the other node is through the current node
-				other.pathDist = curDist
-				if not other.alloc then
-					other.pathDist = other.pathDist + 1
+			if other then
+				-- Paths must obey these rules:
+				-- 1. They must not pass through class or ascendancy class start nodes (but they can start from such nodes)
+				-- 2. They cannot pass between different ascendancy classes or between an ascendancy class and the main tree
+				--    The one exception to that rule is that a path may start from an ascendancy node and pass into the main tree
+				--    This permits pathing from the Ascendant 'Path of the X' nodes into the respective class start areas
+				-- 3. They must not pass away from mastery nodes
+				local otherPathDist = other.pathDist or 1000
+				if node.type ~= "Mastery" and other.type ~= "ClassStart" and other.type ~= "AscendClassStart" and otherPathDist > curDist and (node.ascendancyName == other.ascendancyName or (curDist == 0 and not other.ascendancyName)) then
+					-- The shortest path to the other node is through the current node
+					other.pathDist = curDist
+					if not other.alloc then
+						other.pathDist = other.pathDist + 1
+					end
+					other.path = wipeTable(other.path)
+					other.path[1] = other
+					for i, n in ipairs(node.path) do
+						other.path[i+1] = n
+					end
+					-- Add the other node to the end of the queue
+					queue[i] = other
+					i = i + 1
 				end
-				other.path = wipeTable(other.path)
-				other.path[1] = other
-				for i, n in ipairs(node.path) do
-					other.path[i+1] = n
-				end
-				-- Add the other node to the end of the queue
-				queue[i] = other
-				i = i + 1
 			end
 		end
 	end

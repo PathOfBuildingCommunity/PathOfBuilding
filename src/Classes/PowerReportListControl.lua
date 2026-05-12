@@ -124,3 +124,15 @@ function PowerReportListClass:GetRowValue(column, index, report)
 		or column == 5 and report.pathPowerStr
 		or ""
 end
+
+function PowerReportListClass:AddValueTooltip(tooltip, _, node)
+	if main.popups[1] then
+		tooltip:Clear()
+		return
+	end
+	if tooltip:CheckForUpdate(node) and node.sd then
+		for _, line in ipairs(node.sd) do
+			tooltip:AddLine(16, line)
+		end
+	end
+end

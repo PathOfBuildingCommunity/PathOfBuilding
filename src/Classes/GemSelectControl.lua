@@ -109,16 +109,17 @@ function GemSelectClass:PopulateGemList()
 	local characterLevel = self.skillsTab.build and self.skillsTab.build.characterLevel or 1
 
 	for gemId, gemData in pairs(self.skillsTab.build.data.gems) do
-		if not gemData.grantedEffect.fromItem and (self.sortGemsBy and gemData.tags[self.sortGemsBy] == true or not self.sortGemsBy) then
+		if not gemData.grantedEffect.hideFromGemList and (self.sortGemsBy and gemData.tags[self.sortGemsBy] == true or not self.sortGemsBy) then
 			local levelRequirement = gemData.grantedEffect.levels[1].levelRequirement or 1
 			if characterLevel >= levelRequirement or not matchLevel then
+				local isLegacyAwakened = gemData.grantedEffect.legacy and gemData.grantedEffect.plusVersionOf
 				if self.imbuedSelect then
-					-- Imbued dropdown only allows non-exceptional support gems.
-					if gemData.grantedEffect.support and not gemData.tagString:match("Exceptional") and not gemData.grantedEffect.plusVersionOf then
+					-- Imbued dropdown only allows non-exceptional support gems and supports that don't grant active skills
+					if gemData.grantedEffect.support and not gemData.tagString:match("Exceptional") and not isLegacyAwakened and (not gemData.secondaryGrantedEffect or gemData.secondaryGrantedEffect.support) then
 						self.gems["Default:" .. gemId] = gemData
 					end
 				else
-					if (showExceptional or showAll) and ((gemData.grantedEffect.legacy and gemData.grantedEffect.plusVersionOf) or gemData.tagString:match("Exceptional")) then
+					if (showExceptional or showAll) and (isLegacyAwakened or gemData.tagString:match("Exceptional")) then
 						if self.skillsTab.showLegacyGems or not gemData.grantedEffect.legacy then
 							self.gems["Default:" .. gemId] = gemData
 						end
@@ -139,7 +140,7 @@ function GemSelectClass:FilterSupport(gemId, gemData)
 	end
 
 	if self.imbuedSelect then
-		return gemData.grantedEffect.support and not gemData.tagString:match("Exceptional")	and self.sortCache.canSupport[gemId]
+		return self.sortCache.canSupport[gemId]
 	end
 
 	return (not gemData.grantedEffect.support

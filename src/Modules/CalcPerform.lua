@@ -1249,6 +1249,7 @@ function calcs.perform(env, skipEHP)
 		applyEnemyModifiers(env.minion, true)
 	end
 	applyEnemyModifiers(env.enemy, true)
+	local minionCount = {}
 
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		if activeSkill.skillTypes[SkillType.Brand] then
@@ -1331,6 +1332,14 @@ function calcs.perform(env, skipEHP)
 		if activeSkill.minion and activeSkill.minion.minionData and activeSkill.minion.minionData.limit then
 			local limit = m_floor(modDB:Override(nil, activeSkill.minion.minionData.limit) or (calcLib.val(activeSkill.skillModList, activeSkill.minion.minionData.limit) * activeSkill.skillModList:More(activeSkill.skillCfg, "ActiveMinionLimit")))
 			output[activeSkill.minion.minionData.limit] = m_max(limit, output[activeSkill.minion.minionData.limit] or 0)
+			if not minionCount[activeSkill.minion.minionData.limit] then
+				env.player.modDB:NewMod("Multiplier:SummonedMinion", "BASE", output[activeSkill.minion.minionData.limit], "Config", { type = "Condition", var = "Combat" })
+				if not activeSkill.skillTypes[SkillType.Vaal] then
+					env.player.modDB:NewMod("Multiplier:NonVaalSummonedMinion", "BASE", output[activeSkill.minion.minionData.limit], "Config", { type = "Condition", var = "Combat" })
+				end
+				minionCount[activeSkill.minion.minionData.limit] = true
+				t_insert(minionCount, activeSkill.minion.minionData.limit)
+			end
 		end
 		if activeSkill.skillTypes[SkillType.CreatesMinion] and not activeSkill.skillTypes[SkillType.MinionsAreUndamagable] then
 			modDB:NewMod("Condition:HaveDamageableMinion", "FLAG", true)
@@ -1360,6 +1369,10 @@ function calcs.perform(env, skipEHP)
 			activeSkill.infoMessage = "Triggered by a Crit from The Saviour"
 			activeSkill.infoTrigger = "Saviour"
 		end
+	end
+
+	if #minionCount == 1 then
+		modDB.conditions["OnlyMinion"] = true
 	end
 
 	-- Special Rarity / Quantity Calc for Bisco's
@@ -1637,6 +1650,16 @@ function calcs.perform(env, skipEHP)
 				if item.base.flask.mana then
 					flaskConditions["UsingManaFlask"] = true
 					flaskConditionsNonUtility["UsingManaFlask"] = true
+				end
+			end
+			if item.baseName == "Iron Flask" then
+				local chargesGeneratedOnWardBreak = modDB:Sum("BASE", nil, "IronFlaskChargesGeneratedOnWardBreak")
+				if chargesGeneratedOnWardBreak > 0 then
+					local gainMod = item.flaskData.gainMod * (1 + modDB:Sum("INC", nil, "FlaskChargesGained") / 100)
+					local chargesUsed = item.flaskData.chargesUsed * (1 + modDB:Sum("INC", nil, "FlaskChargesUsed") / 100)
+					if chargesGeneratedOnWardBreak * gainMod > chargesUsed then
+						flaskConditions["UnbrokenWard"] = true
+					end
 				end
 			end
 
@@ -2147,7 +2170,7 @@ function calcs.perform(env, skipEHP)
 				-- Nothing!
 			elseif buff.enemyCond and not enemyDB:GetCondition(buff.enemyCond) then
 				-- Also nothing :/
-			elseif buff.type == "Global" then
+			elseif buff.type == "GlobalDB" then
 				modDB:AddList(buff.modList) -- Allows a skill mod to affect other skills through modDB
 			elseif buff.type == "Buff" and not skillModList:Flag(skillCfg, "DisableBuff") then
 				if env.mode_buffs and (not activeSkill.skillFlags.totem or buff.allowTotemBuff) then
@@ -3231,28 +3254,17 @@ function calcs.perform(env, skipEHP)
 		doActorLifeManaReservation(env.player, true)
 	end
 
-	if not env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "Condition:CanInflictHallowingFlame") then
-		local magnitude = modDB:Override(nil, "HallowingFlameMagnitude")
-
-		if env.mode == "MAIN" or not magnitude then
-			local magnitudeInc = modDB:Sum("INC", nil, "HallowingFlameMagnitude")
-			magnitude = magnitude or magnitudeInc
-			if env.mode == "MAIN" then
-				env.build.configTab.varControls['conditionHallowingFlameMagnitude']:SetPlaceholder(magnitudeInc, true)
-			end
-		end
-
-		local val = m_floor(25 * (1 + magnitude / 100)) -- Hallowing flame grants Attack Hits against you gain 25% of Physical Damage as Extra Fire Damage
-		modDB:NewMod("Multiplier:HallowingFlameMax", "BASE", 1, "Base")
-		modDB:NewMod("ExtraAura", "LIST", { onlyAllies = true, mod = modLib.createMod("PhysicalDamageGainAsLightning", "BASE", val, "Hallowing Flame", { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "ActorCondition", actor = "enemy", var = "HallowingFlame" }, { type = "Multiplier", var = "HallowingFlame", actor = "enemy", limitActor = "parent", limitVar = "HallowingFlameMax" }) })
+	if modDB:Flag(env.player.mainSkill.skillCfg, "Condition:CanInflictHallowingFlame") then
+		local magnitude = modDB:Override(nil, "HallowingFlameMagnitude") or modDB:Sum("INC", nil, "HallowingFlameMagnitude")
+		local val = m_floor(25 * (1 + magnitude / 100)) -- Hallowing flame grants Attack Hits against you gain 25% of Physical Damage as Extra Fire Damage
+		modDB:NewMod("ExtraAura", "LIST", { mod = modLib.createMod("PhysicalDamageGainAsFire", "BASE", val, "Hallowing Flame", { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "ActorCondition", actor = "enemy", var = "HallowingFlame" }, { type = "Multiplier", var = "HallowingFlame", actor = "enemy" }) })
 	end
-
 
 	-- Check for extra auras
 	buffExports["Aura"]["extraAura"] = { effectMult = 1, modList = new("ModList") }
 	for _, value in ipairs(modDB:List(nil, "ExtraAura")) do
 		local modList = { value.mod }
-		if not value.onlyAllies then
+		if not value.onlyAllies and not (value.fromAllies and modDB:Flag(nil, "AlliesAurasCannotAffectSelf")) then
 			local inc = modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 			local more = modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 			modDB:ScaleAddList(modList, (1 + inc / 100) * more)
@@ -3260,7 +3272,7 @@ function calcs.perform(env, skipEHP)
 				modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
 			end
 		end
-		if not modDB:Flag(nil, "SelfAurasCannotAffectAllies") then
+		if value.fromAllies or not modDB:Flag(nil, "SelfAurasCannotAffectAllies") then
 			if env.minion then
 				local inc = env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 				local more = env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")

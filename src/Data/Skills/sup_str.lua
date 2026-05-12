@@ -1666,12 +1666,12 @@ skills["SupportDivineSentinel"] = {
 		},
 	},
 	baseMods = {
-		mod("PhysicalDamageGainAsFire", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }, { type = "Condition", var = "DivineSentinelPhysAsFire" }),
-		mod("PhysicalDamageGainAsLightning", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }, { type = "Condition", var = "DivineSentinelPhysAsLightning" }),
-		mod("LifeRegenPercent", "BASE", 1.5, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }, { type = "Condition", var = "DivineSentinelRegenLife" }),
-		mod("ManaRegen", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }, { type = "Condition", var = "DivineSentinelRegenMana" }),
-		mod("ChaosResist", "BASE", 23, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }, { type = "Condition", var = "DivineSentinelChaosResistance" }),
-		mod("CurseEffectOnSelf", "INC", -50, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }, { type = "Condition", var = "DivineSentinelSelfCurseEffect" }),
+		mod("PhysicalDamageGainAsFire", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true, effectName = "TemplarAuraPhysAsFire" }, { type = "Condition", var = "DivineSentinelPhysAsFire" }),
+		mod("PhysicalDamageGainAsLightning", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true, effectName = "TemplarAuraPhysAsLightning" }, { type = "Condition", var = "DivineSentinelPhysAsLightning" }),
+		mod("LifeRegenPercent", "BASE", 1.5, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true, effectName = "TemplarAuraLifeRegen" }, { type = "Condition", var = "DivineSentinelRegenLife" }),
+		mod("ManaRegen", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true, effectName = "TemplarAuraManaRegen" }, { type = "Condition", var = "DivineSentinelRegenMana" }),
+		mod("ChaosResist", "BASE", 23, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true, effectName = "TemplarAuraChaosResist" }, { type = "Condition", var = "DivineSentinelChaosResistance" }),
+		mod("CurseEffectOnSelf", "INC", -50, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true, effectName = "TemplarAuraSelfCurseEffect" }, { type = "Condition", var = "DivineSentinelSelfCurseEffect" }),
 	},
 	qualityStats = {
 		{ "minion_maximum_life_+%", 0.5 },
@@ -2838,7 +2838,7 @@ skills["SupportHallow"] = {
 			mod("HallowingFlameMagnitude", "INC", nil)
 		},
 		["support_hallow_inflict_hallowing_flame_on_melee_hit"] = {
-			flag("Condition:CanInflictHallowingFlame", { type = "GlobalEffect", effectType = "Global" })
+			flag("Condition:CanInflictHallowingFlame", { type = "GlobalEffect", effectType = "GlobalDB" })
 		}
 	},
 	qualityStats = {
