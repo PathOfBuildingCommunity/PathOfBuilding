@@ -499,7 +499,7 @@ return {
 		modList:NewMod("Multiplier:Intensity", "BASE", val, "Config")
 	end },
 	{ var = "OverloadedIntensity", type = "count", label = "# of Overloaded Intensity:", ifSkill = "Overloaded Intensity", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:OverloadedIntensity", "BASE", val, "Config")
+		modList:NewMod("Multiplier:OverloadedIntensity", "BASE", m_min(val, 3), "Config")
 	end },
 	{ label = "Link Skills:", ifSkill = { "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" } },
 	{ var = "multiplierLinkedTargets", type = "count", label = "# of linked Targets:", ifSkill = { "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" }, apply = function(val, modList, enemyModList)
