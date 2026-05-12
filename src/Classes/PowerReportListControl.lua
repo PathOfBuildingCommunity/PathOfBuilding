@@ -23,6 +23,7 @@ local PowerReportListClass = newClass("PowerReportListControl", "ListControl", f
 	self.colLabels = true
 	self.nodeSelectCallback = nodeSelectCallback
 	self.showClusters = false
+	self.showMasteries = true
 	self.allocated = false
 	self.label = "Building Tree..."
 	
@@ -34,6 +35,11 @@ local PowerReportListClass = newClass("PowerReportListControl", "ListControl", f
 			self:ReList()
 			self:ReSort(3) -- Sort by power
 		end)
+	self.controls.masteryCheck = new("CheckBoxControl", {"RIGHT", self.controls.filterSelect, "LEFT"}, {-120, 0, 18}, "Show Masteries:", function(state)
+		self.showMasteries = state
+		self:ReList()
+		self:ReSort(3) -- Sort by power
+	end, nil, true)
 end)
 
 function PowerReportListClass:SetReport(stat, report)
@@ -102,6 +108,9 @@ function PowerReportListClass:ReList()
 		end
 		if self.allocated then
 			insert = item.allocated
+		end
+		if not self.showMasteries and item.type == "Mastery" then
+			insert = false
 		end
 
 		if insert then
