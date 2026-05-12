@@ -589,8 +589,8 @@ function RadiusJewelFinderClass:calculateImpactDelta(impactStat, baselineOutput,
 end
 
 local function calculateImpactPercent(delta, baseline)
-	local denom = m_abs(baseline)
-	return denom > 0 and (delta / denom * 100) or 0
+	local denominator = m_abs(baseline)
+	return denominator > 0 and (delta / denominator * 100) or 0
 end
 
 -- Data module aliases

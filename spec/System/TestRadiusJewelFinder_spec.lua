@@ -937,16 +937,16 @@ describe("RadiusJewelFinder #radiusjewel", function()
 
 	describe("filterBestPerSocket", function()
 
-		local function makeRow(socketId, score, opts)
-			opts = opts or {}
+		local function makeRow(socketId, score, options)
+			options = options or {}
 			return {
 				socketId = socketId,
 				sortPctPerPoint = score,
-				isSocketIndependent = opts.isSocketIndependent,
-				jewelLimitKey = opts.jewelLimitKey,
-				jewelLimit = opts.jewelLimit,
-				points = opts.points,
-				name = opts.name or ("row-" .. socketId),
+				isSocketIndependent = options.isSocketIndependent,
+				jewelLimitKey = options.jewelLimitKey,
+				jewelLimit = options.jewelLimit,
+				points = options.points,
+				name = options.name or ("row-" .. socketId),
 			}
 		end
 
@@ -1105,13 +1105,13 @@ describe("RadiusJewelFinder #radiusjewel", function()
 
 		local ALLOC_SOCKET_IDS = { 36634, 61419, 41263 }
 
-		local function equipFakeJewel(socketId, title, limit, extras)
+		local function equipFakeJewel(socketId, title, limit, extraItemFields)
 			local slot = build.itemsTab.sockets[socketId]
 			assert.is_not_nil(slot, "socket " .. socketId .. " should exist")
 			local fakeItemId = 999000 + socketId
 			local item = { title = title, limit = limit }
-			if extras then
-				for k, v in pairs(extras) do item[k] = v end
+			if extraItemFields then
+				for k, v in pairs(extraItemFields) do item[k] = v end
 			end
 			build.itemsTab.items[fakeItemId] = item
 			slot.selItemId = fakeItemId
