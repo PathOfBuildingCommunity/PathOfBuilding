@@ -189,7 +189,7 @@ function TooltipClass:GetDynamicSize(viewPort)
 	local columns, ttH, _, extraColumnWidth = self:CalculateColumns(0, 0, staticttH, staticttW, viewPort)
 	
 	-- ensure extra column width has sensible value
-	extraColumnWidth = (columns > 1 and extraColumnWidth > 0) and extraColumnWidth or staticttW 
+	extraColumnWidth = (columns > 1 and extraColumnWidth > 0) and extraColumnWidth or staticttW
 	local ttW = staticttW + (m_max(columns - 1, 0) * extraColumnWidth)
 
 	return ttW + H_PAD, ttH + V_PAD
