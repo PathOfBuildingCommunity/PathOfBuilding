@@ -646,7 +646,8 @@ end
 
 function TreeTabClass:CopyTree(sourceSpecId, newSpecName)
 	local newSpec = new("PassiveSpec", self.build, self.specList[sourceSpecId].treeVersion)
-	newSpec.title = newSpecName or self.specList[sourceSpecId].title .. " (Copy)"
+	local defaultTitle = (self.specList[sourceSpecId].title or "Default") .. " (Copy)"
+	newSpec.title = newSpecName or defaultTitle
 	newSpec.jewels = copyTable(self.specList[sourceSpecId].jewels)
 	newSpec:RestoreUndoState(self.specList[sourceSpecId]:CreateUndoState())
 	newSpec:BuildClusterJewelGraphs()
