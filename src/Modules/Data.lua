@@ -474,6 +474,9 @@ data.highPrecisionMods = {
 	["SupportManaMultiplier"] = {
 		["MORE"] = 4,
 	},
+	["Damage"] = {
+		["MORE"] = 4,
+	},
 }
 
 data.weaponTypeInfo = {
