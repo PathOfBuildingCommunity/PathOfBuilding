@@ -1,6 +1,16 @@
 describe("TreeTab", function()
+	local originalClusterNodeMap
+	local originalMasteryEffects
+
 	before_each(function()
 		newBuild()
+		originalClusterNodeMap = build.spec.tree.clusterNodeMap
+		originalMasteryEffects = build.spec.tree.masteryEffects
+	end)
+
+	after_each(function()
+		build.spec.tree.clusterNodeMap = originalClusterNodeMap
+		build.spec.tree.masteryEffects = originalMasteryEffects
 	end)
 
 	it("adds separate power report entries for mastery effects", function()
