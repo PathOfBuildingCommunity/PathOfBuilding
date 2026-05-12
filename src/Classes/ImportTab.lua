@@ -755,8 +755,8 @@ function ImportTabClass:SaveAccountHistory()
 		table.sort(historyList, function(a, b)
 			return a:lower() < b:lower()
 		end)
-		self.controls.accountHistory:CheckDroppedWidth(true)
-		self.controls.accountHistory:SelByValue(self.controls.siteAccountName.buf)
+		self.controls.siteAccountHistory:CheckDroppedWidth(true)
+		self.controls.siteAccountHistory:SelByValue(self.controls.siteAccountName.buf)
 	end
 end
 
