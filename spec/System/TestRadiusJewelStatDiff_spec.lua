@@ -461,6 +461,8 @@ describe("TestRadiusJewelStatDiff", function()
 
 		assert.is_true(tooltipContains(tooltip, "Equipping this item in"),
 			"Replacing the radius jewel should show the stat loss from unsupported nodes")
+		assert.is_true(tooltipContainsNegativeStat(tooltip, "Total Life"),
+			"Replacing the radius jewel should remove the life node only supported by that jewel:\n" .. tooltipText(tooltip))
 	end)
 
 	it("intuitiveLeapLike removal comparison keeps nodes supported by another radius jewel", function()

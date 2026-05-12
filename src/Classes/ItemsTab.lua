@@ -3504,6 +3504,8 @@ end
 
 -- Radius jewels can change conquered nodes and orphaned allocations, so compare
 -- against a rebuilt spec instead of approximating the diff with removeNodes.
+-- Keep this list in sync with PassiveSpec's constructor, Init, and Select*
+-- methods; omitted fields fail safe as nil on the comparison spec.
 local sharedSpecKeysForJewelComparison = {
 	build = true,
 	treeVersion = true,
@@ -3594,9 +3596,9 @@ local function buildSpecForJewelComparison(itemsTab, compareSlot, replacementIte
 		spec.jewels[compareSlot.nodeId] = nil
 	end
 
-	local ok, err = pcall(function()
+	local ok, err = xpcall(function()
 		spec:BuildAllDependsAndPaths()
-	end)
+	end, debug.traceback)
 	if tempItemId then
 		itemsTab.items[tempItemId] = nil
 	end
