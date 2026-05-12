@@ -218,13 +218,16 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	-- the last var in the GemSelectControl init, the true, sets imbuedSelect to true which sets the level to 1 and support filtering
 	self.imbuedSupportBySlot = { }
 	self.controls.imbuedSupportLabel = new("LabelControl", { "LEFT", self.controls.groupSlotLabel, "LEFT" }, { 86, 28, 0, 16 }, colorCodes.CRAFTED.."Imbued Support:")
-	self.controls.imbuedSupport = new("GemSelectControl", { "LEFT", self.controls.imbuedSupportLabel, "RIGHT" }, { 8, 0, 250, 20 }, self, 1, function(gemData, _, _, slotName) -- slotName used on Import
+	self.controls.imbuedSupport = new("GemSelectControl", { "LEFT", self.controls.imbuedSupportLabel, "RIGHT" }, { 8, 0, 250, 20 }, self, 1, function(gemData, _, _, gemMatch, slotName)
 		local targetSlot = slotName or (self.displayGroup and self.displayGroup.slot)
 		if not targetSlot then
 			return
 		end
 		local updateDisplayGroup = self.displayGroup and targetSlot == self.displayGroup.slot
 		self:AddUndoState()
+		if not gemMatch then
+			gemData = nil
+		end
 		if gemData and (type(gemData) == "string" or gemData.id) then
 			local gem = data.gems[gemData.id or gemData]
 			self.imbuedSupportBySlot[targetSlot] = gem.grantedEffect
@@ -234,9 +237,13 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 			self.controls.imbuedSupport.inactiveCol = data.skillColorMap[gem.grantedEffect.color]
 			self.build.buildFlag = true
 		else
+			local cleanUp = self.imbuedSupportBySlot[targetSlot]
 			self.imbuedSupportBySlot[targetSlot] = nil
 			if updateDisplayGroup then
 				self.displayGroup.imbuedSupport = nil
+			end
+			if cleanUp then -- an imbued existed before clearing it, so reprocess
+				self.build.buildFlag = true
 			end
 		end
 	end, true, true)
@@ -252,10 +259,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.imbuedSupportClear = new("ButtonControl", { "LEFT", self.controls.imbuedSupportLabel, "RIGHT" }, { 260, 0, 20, 20}, "x", function()
 		self.controls.imbuedSupport.gemId = nil
 		self.controls.imbuedSupport:SetText("")
-		self.displayGroup.imbuedSupport = nil
-		self.imbuedSupportBySlot[self.displayGroup.slot] = nil
-		self:AddUndoState()
-		self.build.buildFlag = true
+		self.controls.imbuedSupport:gemChangeFunc(nil)
 	end)
 	self.controls.imbuedSupportClear.enabled = function()
 		return isImbuedEnabled()
@@ -637,8 +641,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	local slot = { }
 	self.gemSlots[index] = slot
 
-	-- Delete gem
-	slot.delete = new("ButtonControl", nil, {0, 0, 20, 20}, "x", function()
+	local function deleteGem()
 		t_remove(self.displayGroup.gemList, index)
 		for index2 = index, #self.displayGroup.gemList do
 			-- Update the other gem slot controls
@@ -653,6 +656,10 @@ function SkillsTabClass:CreateGemSlot(index)
 		end
 		self:AddUndoState()
 		self.build.buildFlag = true
+	end
+	-- Delete gem
+	slot.delete = new("ButtonControl", nil, {0, 0, 20, 20}, "x", function()
+		return deleteGem()
 	end)
 	if index == 1 then
 		slot.delete:SetAnchor("TOPLEFT", self.anchorGemSlots, "TOPLEFT", 0, 0)
@@ -672,7 +679,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."Delete"] = slot.delete
 
 	-- Gem name specification
-	slot.nameSpec = new("GemSelectControl", { "LEFT", slot.delete, "RIGHT" }, { 2, 0, 300, 20 }, self, index, function(gemId, addUndo)
+	slot.nameSpec = new("GemSelectControl", { "LEFT", slot.delete, "RIGHT" }, { 2, 0, 300, 20 }, self, index, function(gemId, addUndo, focusLost, bufMatchesGem)
 		if not self.displayGroup then
 			return
 		end
@@ -698,9 +705,14 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.enableGlobal1.state = true
 			slot.enableGlobal2.state = true
 			slot.count:SetText(gemInstance.count)
+		elseif focusLost and not bufMatchesGem then
+			return deleteGem()
 		elseif gemId == gemInstance.gemId then
 			if addUndo then
 				self:AddUndoState()
+			end
+			if bufMatchesGem then
+				self.build.buildFlag = true
 			end
 			return
 		end
@@ -715,7 +727,9 @@ function SkillsTabClass:CreateGemSlot(index)
 		if addUndo then
 			self:AddUndoState()
 		end
-		self.build.buildFlag = true
+		if bufMatchesGem then
+			self.build.buildFlag = true
+		end
 	end, true)
 	slot.nameSpec:AddToTabGroup(self.controls.groupLabel)
 	self.controls["gemSlot"..index.."Name"] = slot.nameSpec

@@ -377,18 +377,22 @@ function GemSelectClass:SortGemList(gemList)
 	end)
 end
 
-function GemSelectClass:UpdateGem(setText, addUndo)
+function GemSelectClass:UpdateGem(setText, addUndo, focusLost)
 	local gemId = self.list[m_max(self.selIndex, 1)]
+	-- don't process unless the buffer equals an actual gem, whether typed, clicked, or navigated with arrows
+	-- we don't nil the gemId here if it doesn't match because the imbuedGemSelect and slotGemSelect have different paths
+	local bufMatchesGem = (self.gems[gemId] and self.buf:lower() == self.gems[gemId].name:lower())
+
 	if self.buf:match("%S") and self.gems[gemId] then
 		self.gemId = gemId
 	else
 		self.gemId = nil
 	end
-	self.gemName = self.gemId and self.gems[self.gemId].name or ""
+	self.gemName = bufMatchesGem and (self.gemId and self.gems[self.gemId].name) or ""
 	if setText then
 		self:SetText(self.gemName)
 	end
-	self.gemChangeFunc(self.gemId and self.gemId:gsub("%w+:", ""), addUndo and self.gemName ~= self.initialBuf)
+	self.gemChangeFunc(self.gemId and self.gemId:gsub("%w+:", ""), addUndo and self.gemName ~= self.initialBuf, focusLost, bufMatchesGem)
 end
 
 function GemSelectClass:ScrollSelIntoView()
@@ -788,7 +792,7 @@ function GemSelectClass:OnFocusLost()
 		if self.noMatches then
 			self:SetText("")
 		end
-		self:UpdateGem(true,true)
+		self:UpdateGem(true,true, true)
 	end
 end
 
@@ -838,14 +842,14 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 				self:SetText("")
 			end
 			self.selIndex = m_max(self.selIndex, 1)
-			self:UpdateGem(true, true)
+			self:UpdateGem(true, true, true)
 			return
 		elseif key == "ESCAPE" then
 			self.dropped = false
 			self:BuildList("")
 			self.buf = self.initialBuf
 			self.selIndex = self.initialIndex
-			self:UpdateGem(false,true)
+			self:UpdateGem(false,true, true)
 			return
 		elseif self.controls.scrollBar:IsScrollUpKey(key) then
 			self.controls.scrollBar:Scroll(-1)
