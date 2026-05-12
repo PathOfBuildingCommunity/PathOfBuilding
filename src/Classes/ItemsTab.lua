@@ -2699,9 +2699,11 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	local sourceList = { }
 	local modList = { }
 	local sortList = { { label = "Default", stat = nil } }
+	local sortTransforms = { }
 	for _, entry in ipairs(data.powerStatList) do
 		if entry.stat and not entry.ignoreForNodes then
 			t_insert(sortList, { label = entry.label, stat = entry.stat })
+			sortTransforms[entry.stat] = entry.transform
 		end
 	end
 	local function setDefaultSortOrder()
@@ -2741,6 +2743,9 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		item:BuildAndParseRaw()
 		local output = calcFunc({ repSlotName = slotName, repItem = item }, useFullDPS)
 		local value = getOutputStatValue(output, stat)
+		if sortTransforms[stat] then
+			value = sortTransforms[stat](value)
+		end
 		listMod.sortValues[stat] = value
 		return value
 	end
