@@ -63,6 +63,55 @@ describe("TestLoadouts", function()
 				assert.is_same(loadoutName, newConfigSet.title)
 				assert.is_true(build.modFlag)
 			end)
+
+			it("copies the only item set when there's only one left", function()
+				local loadoutName = "Loadout Name"
+				build:NewLoadout(loadoutName)
+				build.itemsTab:DeleteItemSet(build.itemsTab.itemSetOrderList[2], 2)
+				build:SyncLoadouts()
+				assert.are.equals(1, #build.itemsTab.itemSetOrderList)
+
+				local newSpec, newItemSet, newSkillSet, newConfigSet = build:CopyLoadout(loadoutName, "Copied Loadout")
+				build:SyncLoadouts()
+				assert.are.equals(2, #build.loadoutsList)
+
+				assert.are.equals(build.itemsTab.itemSets[1]["Body Armour"].selItemId,
+					newItemSet["Body Armour"].selItemId)
+			end)
+
+			it("copies the only skill set when there's only one left", function()
+				local loadoutName = "Loadout Name"
+				build:NewLoadout(loadoutName)
+				build.skillsTab:DeleteSkillSet(build.skillsTab.skillSetOrderList[2], 2)
+				build:SyncLoadouts()
+				assert.are.equals(1, #build.skillsTab.skillSetOrderList)
+
+				local testGem = { nameSpec = "TestGem", level = 20, quality = 20 }
+				build.skillsTab.skillSets[1].socketGroupList = { { gemList = { testGem } } }
+
+				local newSpec, newItemSet, newSkillSet, newConfigSet = build:CopyLoadout(loadoutName, "Copied Loadout")
+				build:SyncLoadouts()
+				assert.are.equals(2, #build.loadoutsList)
+
+				assert.are.equals(testGem.nameSpec, newSkillSet.socketGroupList[1].gemList[1].nameSpec)
+			end)
+
+			it("copies the only config set when there's only one left", function()
+				local loadoutName = "Loadout Name"
+				build:NewLoadout(loadoutName)
+				build.configTab:DeleteConfigSet(build.configTab.configSetOrderList[2], 2)
+				build:SyncLoadouts()
+				assert.are.equals(1, #build.configTab.configSetOrderList)
+
+				build.configTab.configSets[1].input.testVar = 123
+
+				local newSpec, newItemSet, newSkillSet, newConfigSet = build:CopyLoadout(loadoutName, "Copied Loadout")
+				build:SyncLoadouts()
+				assert.are.equals(2, #build.loadoutsList)
+
+				assert.are.equals(build.configTab.configSets[1].input.testVar,
+					newConfigSet.input.testVar)
+			end)
 		end)
 
 		describe("DeleteLoadout", function()
@@ -426,7 +475,7 @@ describe("TestLoadouts", function()
 					reorderLoadoutsList(3, 2)
 					build:ReorderLoadout(3, 2)
 
-					assertSpecOrder({"Filtered", "Loadout B", "Loadout D", "Loadout C" })
+					assertSpecOrder({ "Filtered", "Loadout B", "Loadout D", "Loadout C" })
 					assertLoadoutOrder({ "Loadout B", "Loadout D", "Loadout C" })
 					assertActiveLoadoutByName("Loadout D")
 					assert.is_true(build.modFlag)

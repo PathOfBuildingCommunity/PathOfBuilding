@@ -83,7 +83,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	self.pantheonMinorGod = "None"
 	self.characterLevelAutoMode = main.defaultCharLevel == 1 or main.defaultCharLevel == nil
 	-- List of loadouts by spec name. Updated on each SyncLoadouts() call.
-	self.loadoutsList = { }
+	self.loadoutsList = {}
 	self.activeLoadout = nil
 	if buildXML then
 		if self:LoadDB(buildXML, "Unnamed build") then
@@ -796,9 +796,9 @@ function buildMode:CopyLoadout(copyLoadoutName, loadoutName)
 	if not loadout then return end
 
 	local newSpec = self.treeTab:CopyTree(loadout.specId, loadoutName)
-	local newItemSet = self.itemsTab:CopyItemSet(loadout.itemSetId, loadoutName)
-	local newSkillSet = self.skillsTab:CopySkillSet(loadout.skillSetId, loadoutName)
-	local newConfigSet = self.configTab:CopyConfigSet(loadout.configSetId, loadoutName)
+	local newItemSet = self.itemsTab:CopyItemSet(loadout.itemSetId or 1, loadoutName)
+	local newSkillSet = self.skillsTab:CopySkillSet(loadout.skillSetId or 1, loadoutName)
+	local newConfigSet = self.configTab:CopyConfigSet(loadout.configSetId or 1, loadoutName)
 
 	local copyLoadout = self:GetLoadoutByName(loadoutName)
 	self:SetActiveLoadout(copyLoadout)
@@ -930,17 +930,13 @@ function buildMode:GetLoadoutByName(loadoutName)
 		return nil
 	end
 
-	local oneSkill = self.skillsTab and #self.skillsTab.skillSetOrderList == 1
-	local oneItem = self.itemsTab and #self.itemsTab.itemSetOrderList == 1
-	local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
-
 	local specId = findNamedSetId(self.treeTab:GetSpecList(), loadoutName, self.treeListSpecialLinks)
-	local itemId = oneItem and self.itemsTab.itemSetOrderList[1] or
-		findSetId(self.itemsTab.itemSetOrderList, loadoutName, self.itemsTab.itemSets, self.itemListSpecialLinks)
-	local skillId = oneSkill and self.skillsTab.skillSetOrderList[1] or
-		findSetId(self.skillsTab.skillSetOrderList, loadoutName, self.skillsTab.skillSets, self.skillListSpecialLinks)
-	local configId = oneConfig and self.configTab.configSetOrderList[1] or
-		findSetId(self.configTab.configSetOrderList, loadoutName, self.configTab.configSets, self.configListSpecialLinks)
+	local itemId = findSetId(self.itemsTab.itemSetOrderList, loadoutName, self.itemsTab.itemSets,
+		self.itemListSpecialLinks)
+	local skillId = findSetId(self.skillsTab.skillSetOrderList, loadoutName, self.skillsTab.skillSets,
+		self.skillListSpecialLinks)
+	local configId = findSetId(self.configTab.configSetOrderList, loadoutName, self.configTab.configSets,
+		self.configListSpecialLinks)
 
 	if not specId and not itemId and not skillId and not configId then
 		return nil
