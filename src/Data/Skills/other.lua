@@ -704,6 +704,38 @@ skills["CeaselessFleshUnique"] = {
 		[25] = { 80, levelRequirement = 72, statInterpolation = { 1, }, },
 	},
 }
+skills["ResentmentUniqueSkill"] = {
+	name = "Cinders",
+	hidden = true,
+	color = 2,
+	description = "While active, your bow attacks inflict Cinderflame. Cinderflame deals fire damage over time, and can stack up to ten times. This skill cannot be cast by Totems.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, [SkillType.DamageOverTime] = true, [SkillType.Fire] = true, [SkillType.CausesBurning] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	fromItem = true,
+	statMap = {
+		["base_fire_damage_to_deal_per_minute"] = {
+			skill("FireDot", nil, { type = "Multiplier", var = "CinderflameStacks", limit = 10 }),
+			div = 60,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 3000 },
+		{ "base_fire_damage_to_deal_per_minute", 20000 },
+	},
+	stats = {
+		"cast_on_gain_skill",
+		"spell_uncastable_if_triggerable",
+		"no_cost",
+	},
+	levels = {
+		[20] = { cooldown = 1, levelRequirement = 0, storedUses = 1, },
+	},
+}
 skills["ColdAegis"] = {
 	name = "Cold Aegis",
 	hidden = true,
@@ -848,10 +880,8 @@ skills["Convocation"] = {
 		skill("buffNotPlayer", true),
 	},
 	qualityStats = {
-		Default = {
-			{ "skill_effect_duration_+%", 1 },
-			{ "base_cooldown_speed_+%", 1 },
-		},
+		{ "skill_effect_duration_+%", 1 },
+		{ "base_cooldown_speed_+%", 1 },
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 2000 },
@@ -1151,9 +1181,7 @@ skills["GemDetonateMines"] = {
 		spell = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "mine_detonation_speed_+%", 1 },
-		},
+		{ "mine_detonation_speed_+%", 1 },
 	},
 	constantStats = {
 		{ "display_mine_deontation_mechanics_detonation_speed_+%_final_per_sequence_mine", 10 },
@@ -1184,6 +1212,7 @@ skills["SupportDivineBlessing"] = {
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.InbuiltTrigger, },
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
+	hideFromGemList = true,
 	statMap = {
 		["support_aura_duration_base_buff_duration"] = {
 			skill("auraDuration", nil),
@@ -1191,9 +1220,7 @@ skills["SupportDivineBlessing"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "aura_effect_+%", 0.25 },
-		},
+		{ "aura_effect_+%", 0.25 },
 	},
 	constantStats = {
 		{ "base_spell_cast_time_ms_override", 500 },
@@ -1359,6 +1386,7 @@ skills["SupportEarthbreaker"] = {
 	excludeSkillTypes = { SkillType.InbuiltTrigger, },
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
+	hideFromGemList = true,
 	addFlags = {
 		totem = true,
 	},
@@ -1374,9 +1402,7 @@ skills["SupportEarthbreaker"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "totem_damage_+%", 0.5 },
-		},
+		{ "totem_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "base_totem_duration", 12000 },
@@ -1452,9 +1478,7 @@ skills["SupportEclipse"] = {
 	supportGemsOnly = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "local_gem_experience_gain_+%", 5 },
-		},
+		{ "local_gem_experience_gain_+%", 5 },
 	},
 	stats = {
 		"supported_active_skill_gem_level_+",
@@ -1487,11 +1511,8 @@ skills["SupportElementalPenetration"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	fromItem = true,
 	qualityStats = {
-		Default = {
-			{ "elemental_damage_+%", 0.5 },
-		},
+		{ "elemental_damage_+%", 0.5 },
 	},
 	stats = {
 		"reduce_enemy_elemental_resistance_%",
@@ -1817,6 +1838,7 @@ skills["AtziriUniqueStaffFlameblast"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 25),
 		skill("triggerSource", "Queen's Demand"),
 	},
 	constantStats = {
@@ -2475,6 +2497,7 @@ skills["MistyReflection"] = {
 		"skill_cannot_be_knocked_back",
 		"skill_cannot_be_stunned",
 		"spell_cast_time_cannot_be_modified",
+		"disable_skill_repeats",
 	},
 	notMinionStat = {
 		"base_cooldown_speed_+%",
@@ -2637,9 +2660,7 @@ skills["Portal"] = {
 		spell = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cast_speed_+%", 3 },
-		},
+		{ "base_cast_speed_+%", 3 },
 	},
 	stats = {
 		"base_deal_no_damage",
@@ -3355,6 +3376,7 @@ skills["AtziriUniqueStaffStormCall"] = {
 		area = true,
 	},
 	baseMods = {
+		skill("radius", 20),
 		skill("triggerSource", "Queen's Demand"),
 	},
 	constantStats = {
@@ -3994,11 +4016,6 @@ skills["TriggeredSummonGhostOnKill"] = {
 	minionList = {
 		"SummonedPhantasm",
 	},
-	statMap = {
-		["base_number_of_support_ghosts_allowed"] = {
-			mod("ActivePhantasmLimit", "BASE", nil),
-		},
-	},
 	baseFlags = {
 		spell = true,
 		minion = true,
@@ -4619,9 +4636,7 @@ skills["VaalBreach"] = {
 		spell = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "base_cast_speed_+%", 3 },
-		},
+		{ "base_cast_speed_+%", 3 },
 	},
 	stats = {
 		"base_deal_no_damage",

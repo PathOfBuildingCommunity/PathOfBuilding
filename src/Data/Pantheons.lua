@@ -108,7 +108,7 @@ return {
 					[1] = { line = "10% chance to avoid Projectiles", value = { 10 }, },
 				},
 			},
-			[3] = { name = "Otesha, the Giantslayer",
+			[3] = { name = "Glace",
 				mods = {
 					-- elemental_damage_taken_+%_if_been_hit_recently
 					[1] = { line = "6% reduced Elemental Damage taken if you have been Hit Recently", value = { -6 }, },

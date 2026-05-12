@@ -29,6 +29,7 @@ minions["RaisedZombie"] = {
 		mod("Armour", "INC", 40, 0, 0), -- MonsterImplicitDamageReduction1 [physical_damage_reduction_rating_+% = 40]
 		mod("StunThreshold", "INC", 30, 0, 0), -- RaiseZombieStunThreshold [stun_threshold_+% = 30]
 		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- set_monster_no_drops_or_experience [set_monster_no_drops_or_experience = 1]
 	},
 }
 
@@ -331,6 +332,7 @@ minions["RaisedSkeleton"] = {
 		mod("BlockEffect", "BASE", 15, 0, 0), -- MonsterAttackBlock30Bypass15 [base_block_%_damage_taken = 15]
 		-- SummonSkeletonsSkeletonIsWarrior [summoned_skeleton_is_warrior = 1]
 		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- set_monster_no_drops_or_experience [set_monster_no_drops_or_experience = 1]
 	},
 }
 
@@ -357,6 +359,7 @@ minions["RaisedSkeletonCaster"] = {
 	modList = {
 		-- SummonSkeletonsSkeletonIsMage [summoned_skeleton_is_mage = 1]
 		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- set_monster_no_drops_or_experience [set_monster_no_drops_or_experience = 1]
 	},
 }
 
@@ -385,6 +388,7 @@ minions["RaisedSkeletonMeleeVaal"] = {
 		mod("BlockEffect", "BASE", 15, 0, 0), -- MonsterAttackBlock30Bypass15 [base_block_%_damage_taken = 15]
 		-- SummonSkeletonsSkeletonIsWarrior [summoned_skeleton_is_warrior = 1]
 		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- set_monster_no_drops_or_experience [set_monster_no_drops_or_experience = 1]
 	},
 }
 
@@ -409,6 +413,7 @@ minions["RaisedSkeletonArcherVaal"] = {
 	},
 	modList = {
 		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- set_monster_no_drops_or_experience [set_monster_no_drops_or_experience = 1]
 	},
 }
 
@@ -433,6 +438,7 @@ minions["RaisedSkeletonArcher"] = {
 	},
 	modList = {
 		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- set_monster_no_drops_or_experience [set_monster_no_drops_or_experience = 1]
 	},
 }
 

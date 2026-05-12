@@ -387,7 +387,13 @@ data.highPrecisionMods = {
 	["LifeDegenPercent"] = {
 		["BASE"] = 2,
 	},
+	["LifeDegenPercentTincture"] = {
+		["BASE"] = 2,
+	},
 	["ManaDegenPercent"] = {
+		["BASE"] = 2,
+	},
+	["ManaDegenPercentTincture"] = {
 		["BASE"] = 2,
 	},
 	["EnergyShieldDegenPercent"] = {
@@ -669,6 +675,7 @@ data.itemTagSpecialExclusionPattern = {
 			"Gain Maximum Life instead of Maximum Energy Shield",
 			"^Socketed Gems are Supported by Level",
 			"^Allocates",
+			"Void Spawns' Life", -- Servant of Decay
 		},
 		["boots"] = {
 			"Enemy's Life", -- Legacy of Fury

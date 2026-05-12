@@ -17,9 +17,7 @@ skills["SupportAddedFireDamage"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "fire_damage_+%", 0.5 },
-		},
+		{ "fire_damage_+%", 0.5 },
 	},
 	stats = {
 		"physical_damage_%_to_add_as_fire",
@@ -77,10 +75,9 @@ skills["SupportAwakenedAddedFireDamage"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportAddedFireDamage",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	qualityStats = {
-		Default = {
-			{ "fire_damage_+%", 0.5 },
-		},
+		{ "fire_damage_+%", 0.5 },
 	},
 	stats = {
 		"physical_damage_%_to_add_as_fire",
@@ -125,9 +122,7 @@ skills["SupportAncestralCall"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "extra_target_targeting_distance_+%", 0.75 },
-		},
+		{ "extra_target_targeting_distance_+%", 0.75 },
 	},
 	constantStats = {
 		{ "melee_attack_number_of_spirit_strikes", 2 },
@@ -190,9 +185,7 @@ skills["SupportGreaterAncestralCall"] = {
 	plusVersionOf = "SupportAncestralCall",
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "melee_damage_+%", 0.5 },
-		},
+		{ "melee_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "melee_attack_number_of_spirit_strikes", 3 },
@@ -232,15 +225,14 @@ skills["SupportAwakenedAncestralCall"] = {
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportAncestralCall",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_spirit_strike_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "extra_target_targeting_distance_+%", 0.75 },
-		},
+		{ "extra_target_targeting_distance_+%", 0.75 },
 	},
 	constantStats = {
 		{ "melee_attack_number_of_spirit_strikes", 3 },
@@ -281,9 +273,7 @@ skills["SupportAnnhilation"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "explode_enemies_for_10%_life_as_random_element_on_killing_blow_chance_%", 0.25 },
-		},
+		{ "explode_enemies_for_10%_life_as_random_element_on_killing_blow_chance_%", 0.25 },
 	},
 	stats = {
 		"explode_enemies_for_10%_life_as_random_element_on_killing_blow_chance_%",
@@ -316,9 +306,7 @@ skills["SupportArrogance"] = {
 	excludeSkillTypes = { SkillType.Blessing, },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "aura_effect_+%", 0.25 },
-		},
+		{ "aura_effect_+%", 0.25 },
 	},
 	stats = {
 		"aura_effect_+%",
@@ -382,9 +370,7 @@ skills["SupportBehead"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "damage_vs_enemies_on_low_life_+%", 1 },
-		},
+		{ "damage_vs_enemies_on_low_life_+%", 1 },
 	},
 	constantStats = {
 		{ "support_executioner_gain_one_rare_monster_mod_on_kill_ms", 20000 },
@@ -452,9 +438,7 @@ skills["SupportBlessedCall"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "warcry_speed_+%", 0.5 },
-		},
+		{ "warcry_speed_+%", 0.5 },
 	},
 	constantStats = {
 		{ "warcry_cooldown_speed_+%", -20 },
@@ -521,9 +505,7 @@ skills["SupportBloodlust"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "melee_damage_vs_bleeding_enemies_+%", 0.5 },
-		},
+		{ "melee_damage_vs_bleeding_enemies_+%", 0.5 },
 	},
 	stats = {
 		"support_bloodlust_melee_physical_damage_+%_final_vs_bleeding_enemies",
@@ -601,9 +583,7 @@ skills["SupportBloodsoakedBanner"] = {
 		mod("Damage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "BloodsoakedBannerStageAfterFirst"}),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
+		{ "base_skill_area_of_effect_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_bloodstained_banner_apply_corrupted_blood_every_x_ms", 1000 },
@@ -656,9 +636,7 @@ skills["SupportBloodthirst"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "damage_+%_when_on_low_life", 1 },
-		},
+		{ "damage_+%_when_on_low_life", 1 },
 	},
 	constantStats = {
 		{ "blood_price_gain_%_maximum_life_as_added_physical_damage_with_weapons_while_on_low_life", 2 },
@@ -773,9 +751,7 @@ skills["TriggeredSupportBonespire"] = {
 		area = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "graft_skill_uulnetol_bone_spires_num_of_spires_to_create", 0.1 },
-		},
+		{ "graft_skill_uulnetol_bone_spires_num_of_spires_to_create", 0.1 },
 	},
 	constantStats = {
 		{ "graft_skill_uulnet_bone_spires_max_spires_allowed", 20 },
@@ -823,9 +799,7 @@ skills["SupportBrutality"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "physical_damage_+%", 0.5 },
-		},
+		{ "physical_damage_+%", 0.5 },
 	},
 	stats = {
 		"support_brutality_physical_damage_+%_final",
@@ -885,15 +859,14 @@ skills["SupportAwakenedBrutality"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportBrutality",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_brutality_physical_damage_+%_final"] = {
 			mod("PhysicalDamage", "MORE", nil),
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "physical_damage_+%", 0.5 },
-		},
+		{ "physical_damage_+%", 0.5 },
 	},
 	stats = {
 		"support_brutality_physical_damage_+%_final",
@@ -939,9 +912,7 @@ skills["SupportBurningDamage"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "burn_damage_+%", 0.5 },
-		},
+		{ "burn_damage_+%", 0.5 },
 	},
 	stats = {
 		"support_burning_damage_+%_final",
@@ -999,15 +970,14 @@ skills["SupportAwakenedBurningDamage"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportBurningDamage",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_burning_damage_+%_final"] = {
 			mod("FireDamage", "MORE", nil, 0, KeywordFlag.FireDot),
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "burn_damage_+%", 0.5 },
-		},
+		{ "burn_damage_+%", 0.5 },
 	},
 	stats = {
 		"support_burning_damage_+%_final",
@@ -1051,9 +1021,7 @@ skills["SupportCastOnMeleeKill"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "attack_damage_+%", 0.5 },
-		},
+		{ "attack_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "cast_linked_spells_on_melee_kill_%", 100 },
@@ -1120,9 +1088,7 @@ skills["SupportCastOnMeleeKillTriggered"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "spell_damage_+%", 0.5 },
-		},
+		{ "spell_damage_+%", 0.5 },
 	},
 	stats = {
 		"support_cast_on_melee_kill_spell_damage_+%_final",
@@ -1192,9 +1158,7 @@ skills["SupportCastWhenDamageTaken"] = {
 		}
 	},
 	qualityStats = {
-		Default = {
-			{ "cast_when_damage_taken_trigger_threshold_+%", -0.5 },
-		},
+		{ "cast_when_damage_taken_trigger_threshold_+%", -0.5 },
 	},
 	constantStats = {
 		{ "cast_on_damage_taken_%", 100 },
@@ -1267,9 +1231,7 @@ skills["SupportChanceToBleed"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "bleeding_damage_+%", 0.5 },
-		},
+		{ "bleeding_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "bleed_on_hit_with_attacks_%", 25 },
@@ -1331,9 +1293,7 @@ skills["SupportColdToFire"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "cold_damage_+%", 0.5 },
-		},
+		{ "cold_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "skill_cold_damage_%_to_convert_to_fire", 50 },
@@ -1408,9 +1368,7 @@ skills["SupportControlledBlaze"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "base_chance_to_ignite_%", 0.5 },
-		},
+		{ "base_chance_to_ignite_%", 0.5 },
 	},
 	stats = {
 		"support_recent_ignites_ignite_damage_per_recent_ignite_+%_final",
@@ -1500,9 +1458,7 @@ skills["SupportCorruptingCry"] = {
 		mod("Damage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "CorruptingCryStageAfterFirst"}),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
+		{ "base_skill_area_of_effect_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_corrupting_cry_warcry_and_first_exerted_attack_applies_corrupted_blood_for_X_ms", 2000 },
@@ -1579,9 +1535,7 @@ skills["SupportCruelty"] = {
 		flag("Cruelty"),
 	},
 	qualityStats = {
-		Default = {
-			{ "cruelty_effect_+%", 0.25 },
-		},
+		{ "cruelty_effect_+%", 0.25 },
 	},
 	constantStats = {
 		{ "support_base_cruelty_duration_ms", 4000 },
@@ -1650,9 +1604,7 @@ skills["SupportDamageOnFullLife"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "damage_+%", 0.5 },
-		},
+		{ "damage_+%", 0.5 },
 	},
 	stats = {
 		"support_damage_while_on_full_life_+%_final",
@@ -1714,17 +1666,15 @@ skills["SupportDivineSentinel"] = {
 		},
 	},
 	baseMods = {
-		mod("PhysicalDamageGainAsFire", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }, { type = "Condition", var = "DivineSentinelPhysAsFire" }),
-		mod("PhysicalDamageGainAsLightning", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }, { type = "Condition", var = "DivineSentinelPhysAsLightning" }),
-		mod("LifeRegenPercent", "BASE", 1.5, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }, { type = "Condition", var = "DivineSentinelRegenLife" }),
-		mod("ManaRegen", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }, { type = "Condition", var = "DivineSentinelRegenMana" }),
-		mod("ChaosResist", "BASE", 23, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }, { type = "Condition", var = "DivineSentinelChaosResistance" }),
-		mod("CurseEffectOnSelf", "INC", -50, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }, { type = "Condition", var = "DivineSentinelSelfCurseEffect" }),
+		mod("PhysicalDamageGainAsFire", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true, effectName = "TemplarAuraPhysAsFire" }, { type = "Condition", var = "DivineSentinelPhysAsFire" }),
+		mod("PhysicalDamageGainAsLightning", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true, effectName = "TemplarAuraPhysAsLightning" }, { type = "Condition", var = "DivineSentinelPhysAsLightning" }),
+		mod("LifeRegenPercent", "BASE", 1.5, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true, effectName = "TemplarAuraLifeRegen" }, { type = "Condition", var = "DivineSentinelRegenLife" }),
+		mod("ManaRegen", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true, effectName = "TemplarAuraManaRegen" }, { type = "Condition", var = "DivineSentinelRegenMana" }),
+		mod("ChaosResist", "BASE", 23, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true, effectName = "TemplarAuraChaosResist" }, { type = "Condition", var = "DivineSentinelChaosResistance" }),
+		mod("CurseEffectOnSelf", "INC", -50, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true, effectName = "TemplarAuraSelfCurseEffect" }, { type = "Condition", var = "DivineSentinelSelfCurseEffect" }),
 	},
 	qualityStats = {
-		Default = {
-			{ "minion_maximum_life_+%", 0.5 },
-		},
+		{ "minion_maximum_life_+%", 0.5 },
 	},
 	stats = {
 		"minion_area_of_effect_+%",
@@ -1764,9 +1714,7 @@ skills["SupportElementalDamageWithAttacks"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "elemental_damage_with_attack_skills_+%", 0.5 },
-		},
+		{ "elemental_damage_with_attack_skills_+%", 0.5 },
 	},
 	stats = {
 		"support_attack_skills_elemental_damage_+%_final",
@@ -1824,15 +1772,14 @@ skills["SupportAwakenedElementalDamageWithAttacks"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportElementalDamageWithAttacks",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_attack_skills_elemental_damage_+%_final"] = {
 			mod("ElementalDamage", "MORE", nil, 0, KeywordFlag.Attack),
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "elemental_damage_with_attack_skills_+%", 0.5 },
-		},
+		{ "elemental_damage_with_attack_skills_+%", 0.5 },
 	},
 	stats = {
 		"support_attack_skills_elemental_damage_+%_final",
@@ -1872,9 +1819,7 @@ skills["SupportEmpower"] = {
 	supportGemsOnly = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "local_gem_experience_gain_+%", 5 },
-		},
+		{ "local_gem_experience_gain_+%", 5 },
 	},
 	stats = {
 		"supported_active_skill_gem_level_+",
@@ -1904,9 +1849,7 @@ skills["SupportAwakenedEmpower"] = {
 	plusVersionOf = "SupportEmpower",
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "local_gem_experience_gain_+%", 5 },
-		},
+		{ "local_gem_experience_gain_+%", 5 },
 	},
 	stats = {
 		"supported_active_skill_gem_level_+",
@@ -1949,9 +1892,7 @@ skills["SupportEnduranceChargeOnMeleeStun"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "base_stun_duration_+%", 1 },
-		},
+		{ "base_stun_duration_+%", 1 },
 	},
 	constantStats = {
 		{ "endurance_charge_on_melee_stun_damage_+%_final_per_endurance_charge", 4 },
@@ -2023,9 +1964,7 @@ skills["SupportEternalBlessing"] = {
 		skill("lifeReservationPercent", 0),
 	},
 	qualityStats = {
-		Default = {
-			{ "aura_effect_+%", 0.25 },
-		},
+		{ "aura_effect_+%", 0.25 },
 	},
 	stats = {
 		"aura_effect_+%",
@@ -2092,9 +2031,7 @@ skills["SupportExcommunicate"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "physical_damage_+%", 0.5 },
-		},
+		{ "physical_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_excommunicate_on_melee_attack_hit_for_X_ms", 3000 },
@@ -2156,9 +2093,7 @@ skills["SupportFirePenetration"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "fire_damage_+%", 0.5 },
-		},
+		{ "fire_damage_+%", 0.5 },
 	},
 	stats = {
 		"base_reduce_enemy_fire_resistance_%",
@@ -2216,10 +2151,9 @@ skills["SupportAwakenedFirePenetration"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportFirePenetration",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	qualityStats = {
-		Default = {
-			{ "fire_damage_+%", 0.5 },
-		},
+		{ "fire_damage_+%", 0.5 },
 	},
 	stats = {
 		"base_reduce_enemy_fire_resistance_%",
@@ -2309,9 +2243,7 @@ skills["TriggeredSupportFissure"] = {
 		melee = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "volcanic_fissure_number_of_simultaneous_crack_count", 0.05 },
-		},
+		{ "volcanic_fissure_number_of_simultaneous_crack_count", 0.05 },
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_fire", 60 },
@@ -2362,9 +2294,7 @@ skills["SupportFistofWar"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
+		{ "base_skill_area_of_effect_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_ancestral_slam_big_hit_max_count", 1 },
@@ -2433,9 +2363,7 @@ skills["SupportFlamewood"] = {
 		}
 	},
 	qualityStats = {
-		Default = {
-			{ "totem_life_+%", 0.5 },
-		},
+		{ "totem_life_+%", 0.5 },
 	},
 	stats = {
 		"support_flamewood_totems_trigger_infernal_bolt_when_hit",
@@ -2517,11 +2445,6 @@ skills["AvengingFlame"] = {
 		spell = true,
 		projectile = true,
 	},
-	qualityStats = {
-		Default = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
-	},
 	constantStats = {
 		{ "active_skill_base_area_of_effect_radius", 13 },
 	},
@@ -2599,9 +2522,7 @@ skills["SupportFortify"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "fortify_duration_+%", 1 },
-		},
+		{ "fortify_duration_+%", 1 },
 	},
 	constantStats = {
 		{ "chance_to_fortify_on_melee_hit_+%", 100 },
@@ -2669,9 +2590,7 @@ skills["SupportGenerosity"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "base_aura_area_of_effect_+%", 2 },
-		},
+		{ "base_aura_area_of_effect_+%", 2 },
 	},
 	stats = {
 		"non_curse_aura_effect_+%",
@@ -2731,15 +2650,14 @@ skills["SupportAwakenedGenerosity"] = {
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportGenerosity",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["aura_cannot_affect_self"] = {
 			skill("auraCannotAffectSelf", true),
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "base_aura_area_of_effect_+%", 2 },
-		},
+		{ "base_aura_area_of_effect_+%", 2 },
 	},
 	stats = {
 		"non_curse_aura_effect_+%",
@@ -2791,9 +2709,7 @@ skills["SupportGuardiansBlessing"] = {
 		skill("lifeReservationPercent", 0, { type = "SkillType", skillType = SkillType.Aura }),
 	},
 	qualityStats = {
-		Default = {
-			{ "aura_effect_+%", 0.25 },
-		},
+		{ "aura_effect_+%", 0.25 },
 	},
 	stats = {
 		"aura_effect_+%",
@@ -2860,11 +2776,6 @@ skills["SupportGuardiansBlessingMinion"] = {
 			div = 60,
 		},
 	},
-	qualityStats = {
-		Default = {
-			{ "dummy_stat_display_nothing", 0.25 },
-		},
-	},
 	stats = {
 		"support_guardians_blessing_minion_physical_damage_%_of_maximum_life_and_ES_taken_per_minute",
 		"support_guardians_blessing_summoned_minions_are_guardians_blessing_minions",
@@ -2922,10 +2833,16 @@ skills["SupportHallow"] = {
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.RemoteMined, SkillType.OtherThingUsesSkill, SkillType.Trapped, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
-	qualityStats = {
-		Default = {
-			{ "hallowing_flame_magnitude_+%", 0.5 },
+	statMap = {
+		["hallowing_flame_magnitude_+%"] = {
+			mod("HallowingFlameMagnitude", "INC", nil)
 		},
+		["support_hallow_inflict_hallowing_flame_on_melee_hit"] = {
+			flag("Condition:CanInflictHallowingFlame", { type = "GlobalEffect", effectType = "GlobalDB" })
+		}
+	},
+	qualityStats = {
+		{ "hallowing_flame_magnitude_+%", 0.5 },
 	},
 	constantStats = {
 		{ "hallowing_flame_duration_ms", 6000 },
@@ -2993,9 +2910,7 @@ skills["SupportMoreDuration"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "support_more_duration_skill_effect_duration_+%_final", 0.5 },
-		},
+		{ "support_more_duration_skill_effect_duration_+%_final", 0.5 },
 	},
 	stats = {
 		"support_more_duration_skill_effect_duration_+%_final",
@@ -3053,9 +2968,7 @@ skills["SupportIronGrip"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "projectile_damage_+%", 0.5 },
-		},
+		{ "projectile_damage_+%", 0.5 },
 	},
 	stats = {
 		"projectile_damage_+%",
@@ -3114,9 +3027,7 @@ skills["SupportIronWill"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "spell_damage_+%", 0.5 },
-		},
+		{ "spell_damage_+%", 0.5 },
 	},
 	stats = {
 		"spell_damage_+%",
@@ -3175,10 +3086,9 @@ skills["SupportItemQuantity"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	qualityStats = {
-		Default = {
-			{ "base_killed_monster_dropped_item_quantity_+%", 0.35 },
-		},
+		{ "base_killed_monster_dropped_item_quantity_+%", 0.35 },
 	},
 	stats = {
 		"base_killed_monster_dropped_item_quantity_+%",
@@ -3237,9 +3147,7 @@ skills["SupportKnockback"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "base_global_chance_to_knockback_%", 0.5 },
-		},
+		{ "base_global_chance_to_knockback_%", 0.5 },
 	},
 	constantStats = {
 		{ "knockback_distance_+%", 50 },
@@ -3308,9 +3216,7 @@ skills["SupportLessDuration"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "support_reduced_duration_skill_effect_duration_+%_final", -0.5 },
-		},
+		{ "support_reduced_duration_skill_effect_duration_+%_final", -0.5 },
 	},
 	stats = {
 		"support_reduced_duration_skill_effect_duration_+%_final",
@@ -3370,9 +3276,7 @@ skills["SupportLifeGainOnHit"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "base_life_gain_per_target", 0.5 },
-		},
+		{ "base_life_gain_per_target", 0.5 },
 	},
 	stats = {
 		"base_life_gain_per_target",
@@ -3431,9 +3335,7 @@ skills["SupportLifeLeech"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "damage_+%_while_life_leeching", 0.5 },
-		},
+		{ "damage_+%_while_life_leeching", 0.5 },
 	},
 	stats = {
 		"life_leech_from_any_damage_permyriad",
@@ -3496,9 +3398,7 @@ skills["SupportLifetap"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "support_base_lifetap_buff_duration", 100 },
-		},
+		{ "support_base_lifetap_buff_duration", 100 },
 	},
 	constantStats = {
 		{ "support_base_lifetap_buff_duration", 4000 },
@@ -3574,9 +3474,7 @@ skills["SupportMaim"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "maim_effect_+%", 1 },
-		},
+		{ "maim_effect_+%", 1 },
 	},
 	constantStats = {
 		{ "maim_on_hit_%", 30 },
@@ -3650,9 +3548,7 @@ skills["SupportMeleePhysicalDamage"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "melee_physical_damage_+%", 0.5 },
-		},
+		{ "melee_physical_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_melee_physical_damage_attack_speed_+%_final", -10 },
@@ -3714,6 +3610,7 @@ skills["SupportAwakenedMeleePhysicalDamage"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportMeleePhysicalDamage",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["support_melee_physical_damage_+%_final"] = {
 			mod("PhysicalDamage", "MORE", nil, ModFlag.Melee),
@@ -3726,9 +3623,7 @@ skills["SupportAwakenedMeleePhysicalDamage"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "melee_physical_damage_+%", 0.5 },
-		},
+		{ "melee_physical_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_melee_physical_damage_attack_speed_+%_final", -10 },
@@ -3771,9 +3666,7 @@ skills["SupportMeleeSplash"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
+		{ "base_skill_area_of_effect_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_melee_splash_damage_+%_final_for_splash", -40 },
@@ -3836,10 +3729,9 @@ skills["SupportAwakenedMeleeSplash"] = {
 	excludeSkillTypes = { },
 	plusVersionOf = "SupportMeleeSplash",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	qualityStats = {
-		Default = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
+		{ "base_skill_area_of_effect_+%", 0.5 },
 	},
 	stats = {
 		"support_melee_splash_damage_+%_final_for_splash",
@@ -3886,9 +3778,7 @@ skills["SupportMultipleTotems"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "summon_totem_cast_speed_+%", 0.5 },
-		},
+		{ "summon_totem_cast_speed_+%", 0.5 },
 	},
 	constantStats = {
 		{ "base_number_of_totems_allowed", 2 },
@@ -3967,9 +3857,7 @@ skills["SupportMultistrike"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "melee_damage_+%", 0.5 },
-		},
+		{ "melee_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "base_melee_attack_repeat_count", 2 },
@@ -4034,6 +3922,7 @@ skills["SupportAwakenedMultistrike"] = {
 	excludeSkillTypes = { SkillType.Vaal, SkillType.NonRepeatable, SkillType.CreatesMinion, SkillType.NOT, SkillType.AND, },
 	plusVersionOf = "SupportMultistrike",
 	statDescriptionScope = "gem_stat_descriptions",
+	legacy = true,
 	statMap = {
 		["multistrike_damage_+%_final_on_first_repeat"] = {
 			mod("RepeatOneDamage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
@@ -4056,9 +3945,7 @@ skills["SupportAwakenedMultistrike"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "melee_damage_+%", 0.5 },
-		},
+		{ "melee_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "base_melee_attack_repeat_count", 3 },
@@ -4126,9 +4013,7 @@ skills["SupportGreaterMultistrike"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "melee_damage_+%", 0.5 },
-		},
+		{ "melee_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "base_melee_attack_repeat_count", 3 },
@@ -4181,9 +4066,7 @@ skills["SupportOverexertion"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "empowered_attack_damage_+%", 1 },
-		},
+		{ "empowered_attack_damage_+%", 1 },
 	},
 	stats = {
 		"support_overexertion_damage_+%_final_per_warcry_exerting_action",
@@ -4248,9 +4131,7 @@ skills["SupportOverheat"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "base_all_ailment_duration_+%", 0.5 },
-		},
+		{ "base_all_ailment_duration_+%", 0.5 },
 	},
 	stats = {
 		"support_overheat_ailment_damage_+%_final_per_3_fortification_consumed",
@@ -4294,9 +4175,7 @@ skills["SupportPulverise"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
+		{ "base_skill_area_of_effect_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_pulverise_attack_speed_+%_final", -15 },
@@ -4390,7 +4269,7 @@ skills["TriggeredSupportPyre"] = {
 	name = "Call the Pyre",
 	baseTypeName = "Call the Pyre",
 	color = 1,
-	description = "Calls forth pillars of ashen flame. These pillars deal Fire damage in an area, and cover Enemies they hit in Ash.",
+	description = "Calls forth pillars of ashen flame. These pillars deal Fire damage in an area, and cover Enemies they hit in Ash. Requires a Melee Weapon or Unarmed.",
 	skillTypes = { [SkillType.Fire] = true, [SkillType.Area] = true, [SkillType.Attack] = true, [SkillType.Cooldown] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.SkillGrantedBySupport] = true, },
 	weaponTypes = {
 		["Claw"] = true,
@@ -4413,9 +4292,7 @@ skills["TriggeredSupportPyre"] = {
 		area = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "graft_skill_xoph_flame_pillars_number_of_pillars", 0.05 },
-		},
+		{ "graft_skill_xoph_flame_pillars_number_of_pillars", 0.05 },
 	},
 	constantStats = {
 		{ "cover_in_ash_on_hit_%", 100 },
@@ -4461,9 +4338,7 @@ skills["SupportRage"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "attack_damage_+%", 0.5 },
-		},
+		{ "attack_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "gain_x_rage_on_attack_hit", 3 },
@@ -4541,9 +4416,7 @@ skills["SupportBallistaTotem"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "summon_totem_cast_speed_+%", 0.5 },
-		},
+		{ "summon_totem_cast_speed_+%", 0.5 },
 	},
 	constantStats = {
 		{ "base_totem_duration", 8000 },
@@ -4628,9 +4501,7 @@ skills["SupportInspiration"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "support_inspiration_mana_cost_+%_final", -0.25 },
-		},
+		{ "support_inspiration_mana_cost_+%_final", -0.25 },
 	},
 	constantStats = {
 		{ "gain_righteous_charge_on_mana_spent_%", 100 },
@@ -4715,9 +4586,7 @@ skills["SupportRuthless"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "attack_damage_+%", 0.5 },
-		},
+		{ "attack_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_ruthless_big_hit_max_count", 3 },
@@ -4793,9 +4662,7 @@ skills["SupportShockwave"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "melee_damage_+%", 0.5 },
-		},
+		{ "melee_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_blunt_chance_to_trigger_shockwave_on_hit_%", 100 },
@@ -4866,9 +4733,7 @@ skills["SupportBluntWeaponShockwave"] = {
 		area = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "melee_damage_+%", 0.5 },
-		},
+		{ "melee_damage_+%", 0.5 },
 	},
 	stats = {
 		"active_skill_base_area_of_effect_radius",
@@ -4948,9 +4813,7 @@ skills["SupportVoidShockwave"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "melee_damage_+%", 0.5 },
-		},
+		{ "melee_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "support_blunt_chance_to_trigger_shockwave_on_hit_%", 100 },
@@ -5011,9 +4874,7 @@ skills["TriggeredSupportVoidShockwave"] = {
 		area = true,
 	},
 	qualityStats = {
-		Default = {
-			{ "melee_damage_+%", 0.5 },
-		},
+		{ "melee_damage_+%", 0.5 },
 	},
 	constantStats = {
 		{ "shockwave_support_art_variation", 3 },
@@ -5069,9 +4930,7 @@ skills["SupportSpellTotem"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "summon_totem_cast_speed_+%", 0.5 },
-		},
+		{ "summon_totem_cast_speed_+%", 0.5 },
 	},
 	constantStats = {
 		{ "base_totem_duration", 8000 },
@@ -5141,9 +5000,7 @@ skills["SupportStun"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "chance_to_double_stun_duration_%", 0.5 },
-		},
+		{ "chance_to_double_stun_duration_%", 0.5 },
 	},
 	stats = {
 		"base_stun_threshold_reduction_+%",
@@ -5203,14 +5060,12 @@ skills["SupportTransfusion"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["random_nearby_minion_gain_a_soul_eater_soul_on_X_life_spent"] = {
-			flag("Condition:MinionCanHaveSoulEater", { type = "GlobalEffect", effectType = "Buff" }),
-			mod("MinionModifier", "LIST", { mod = mod("Condition:CanHaveSoulEater", "FLAG", true) }, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			flag("Condition:MinionCanHaveSoulEater", { type = "GlobalEffect", effectType = "Buff", effectName = "Transfusion" }),
+			mod("MinionModifier", "LIST", { mod = mod("Condition:CanHaveSoulEater", "FLAG", true) }, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Transfusion" }),
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "base_life_cost_+%", 0.5 },
-		},
+		{ "base_life_cost_+%", 0.5 },
 	},
 	stats = {
 		"random_nearby_minion_gain_a_soul_eater_soul_on_X_life_spent",
@@ -5278,9 +5133,7 @@ skills["SupportTrauma"] = {
 		flag("HasTrauma"),
 	},
 	qualityStats = {
-		Default = {
-			{ "base_stun_threshold_reduction_+%", 0.5 },
-		},
+		{ "base_stun_threshold_reduction_+%", 0.5 },
 	},
 	stats = {
 		"trauma_strike_self_damage_per_trauma",
@@ -5350,9 +5203,7 @@ skills["SupportUrgentOrders"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
-		Default = {
-			{ "warcry_speed_+%", 0.5 },
-		},
+		{ "warcry_speed_+%", 0.5 },
 	},
 	stats = {
 		"warcry_speed_+%",
@@ -5416,9 +5267,7 @@ skills["SupportVaalTemptation"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "damage_+%", 0.5 },
-		},
+		{ "damage_+%", 0.5 },
 	},
 	stats = {
 		"support_vaal_temptation_physical_damage_taken_per_minute_instead_of_soul_gain_prevention",
@@ -5459,9 +5308,7 @@ skills["SupportVolatility"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "damage_+%", 0.5 },
-		},
+		{ "damage_+%", 0.5 },
 	},
 	stats = {
 		"minimum_attack_damage_+%_final_from_volatility_support",
@@ -5525,9 +5372,7 @@ skills["SupportExpertRetaliation"] = {
 		},
 	},
 	qualityStats = {
-		Default = {
-			{ "support_expert_retaliation_cooldown_speed_+%_final", 0.5 },
-		},
+		{ "support_expert_retaliation_cooldown_speed_+%_final", 0.5 },
 	},
 	stats = {
 		"support_expert_retaliation_cooldown_speed_+%_final",

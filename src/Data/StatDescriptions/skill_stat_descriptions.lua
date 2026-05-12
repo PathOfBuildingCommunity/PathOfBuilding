@@ -14189,6 +14189,10 @@ return {
 					k="negate",
 					v=1
 				},
+				[2]={
+					k="canonical_line",
+					v=true
+				},
 				limit={
 					[1]={
 						[1]="#",
@@ -15581,6 +15585,30 @@ return {
 	[479]={
 		[1]={
 			[1]={
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="{0:+d}% more Damage with Bleeding"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="{0:+d}% less Damage with Bleeding"
+			},
+			[3]={
 				limit={
 					[1]={
 						[1]=1,
@@ -15589,7 +15617,7 @@ return {
 				},
 				text="{0}% more Damage with Bleeding"
 			},
-			[2]={
+			[4]={
 				[1]={
 					k="negate",
 					v=1
@@ -15937,6 +15965,10 @@ return {
 				[1]={
 					k="negate",
 					v=1
+				},
+				[2]={
+					k="canonical_line",
+					v=true
 				},
 				limit={
 					[1]={
@@ -18386,6 +18418,10 @@ return {
 				text="Buff grants {0} Flask Charge every 3 seconds"
 			},
 			[2]={
+				[1]={
+					k="canonical_line",
+					v=true
+				},
 				limit={
 					[1]={
 						[1]="#",
@@ -23138,6 +23174,16 @@ return {
 	[692]={
 		[1]={
 			[1]={
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Hits from Final wave deal {0:+d}% of Damage per stage"
+			},
+			[2]={
 				limit={
 					[1]={
 						[1]=1,
@@ -27272,6 +27318,10 @@ return {
 					k="negate",
 					v=1
 				},
+				[2]={
+					k="canonical_line",
+					v=true
+				},
 				limit={
 					[1]={
 						[1]="#",
@@ -28749,6 +28799,26 @@ return {
 	[900]={
 		[1]={
 			[1]={
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
+				},
+				text="Has {0:+d} Flame"
+			},
+			[2]={
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Has {0:+d} Flames"
+			},
+			[3]={
 				limit={
 					[1]={
 						[1]=1,
@@ -28757,7 +28827,7 @@ return {
 				},
 				text="Has {0} Flame"
 			},
-			[2]={
+			[4]={
 				limit={
 					[1]={
 						[1]="#",
@@ -28817,6 +28887,10 @@ return {
 				[1]={
 					k="negate",
 					v=1
+				},
+				[2]={
+					k="canonical_line",
+					v=true
 				},
 				limit={
 					[1]={
@@ -31097,6 +31171,26 @@ return {
 	[972]={
 		[1]={
 			[1]={
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
+				},
+				text="Creates {0:+d} Bone Spire"
+			},
+			[2]={
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Creates {0:+d} Bone Spires"
+			},
+			[3]={
 				limit={
 					[1]={
 						[1]=1,
@@ -31105,7 +31199,7 @@ return {
 				},
 				text="Creates {0} Bone Spire"
 			},
-			[2]={
+			[4]={
 				limit={
 					[1]={
 						[1]=2,
@@ -31123,6 +31217,26 @@ return {
 	[973]={
 		[1]={
 			[1]={
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
+				},
+				text="Creates {0:+d} Ashen Pillar"
+			},
+			[2]={
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]=2,
+						[2]="#"
+					}
+				},
+				text="Creates {0:+d} Ashen Pillars"
+			},
+			[3]={
 				limit={
 					[1]={
 						[1]=1,
@@ -31131,7 +31245,7 @@ return {
 				},
 				text="Creates {0} Ashen Pillar"
 			},
-			[2]={
+			[4]={
 				limit={
 					[1]={
 						[1]=2,
@@ -32315,6 +32429,10 @@ return {
 				[1]={
 					k="negate",
 					v=1
+				},
+				[2]={
+					k="canonical_line",
+					v=true
 				},
 				limit={
 					[1]={
@@ -39231,7 +39349,7 @@ return {
 						[2]="#"
 					}
 				},
-				text="Skills Triggered by Suspended Mirages deal {0}% more Damage"
+				text="Skills used by Suspended Mirages deal {0}% more Damage"
 			},
 			[2]={
 				[1]={
@@ -39244,7 +39362,7 @@ return {
 						[2]=-1
 					}
 				},
-				text="Skills Triggered by Suspended Mirages deal {0}% less Damage"
+				text="Skills used by Suspended Mirages deal {0}% less Damage"
 			}
 		},
 		name="sand_mirage_damage",
@@ -39363,6 +39481,30 @@ return {
 	[1275]={
 		[1]={
 			[1]={
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Burning Damage applied by Detonation deals {0:+d}% more Damage per Totem Detonated"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Burning Damage applied by Detonation deals {0:+d}% less Damage Totem Detonated"
+			},
+			[3]={
 				limit={
 					[1]={
 						[1]=1,
@@ -39371,7 +39513,7 @@ return {
 				},
 				text="Burning Damage applied by Detonation deals {0}% more Damage per Totem Detonated"
 			},
-			[2]={
+			[4]={
 				[1]={
 					k="negate",
 					v=1
@@ -48927,6 +49069,26 @@ return {
 	[1623]={
 		[1]={
 			[1]={
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
+				},
+				text="Creates {0:+d} Fissure"
+			},
+			[2]={
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Creates {0:+d} Fissures"
+			},
+			[3]={
 				limit={
 					[1]={
 						[1]=1,
@@ -48935,7 +49097,7 @@ return {
 				},
 				text="Creates {0} Fissure"
 			},
-			[2]={
+			[4]={
 				limit={
 					[1]={
 						[1]="#",

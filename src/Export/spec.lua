@@ -1422,7 +1422,7 @@ return {
 			width=50
 		},
 		[3]={
-			list=true,
+			list=false,
 			name="Class",
 			refTo="Characters",
 			type="Key",
@@ -1847,7 +1847,7 @@ return {
 		},
 		[10]={
 			list=false,
-			name="",
+			name="SizeOnGround",
 			refTo="",
 			type="Int",
 			width=30
@@ -2001,8 +2001,8 @@ return {
 		},
 		[32]={
 			list=false,
-			name="",
-			refTo="",
+			name="ShopTag",
+			refTo="ShopTag",
 			type="Key",
 			width=150
 		}
@@ -2462,9 +2462,9 @@ return {
 			width=50
 		},
 		[36]={
-			list=false,
-			name="",
-			refTo="",
+			list=true,
+			name="MultiPartAchievement",
+			refTo="MultiPartAchievements",
 			type="Key",
 			width=150
 		},
@@ -5766,31 +5766,45 @@ return {
 			list=false,
 			name="PlusVersionOf",
 			refTo="GrantedEffects",
-			type="Key",
-			width=150
+			type="ShortKey",
+			width=140
 		},
 		[23]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
-			width=50
+			width=150
 		},
 		[24]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=90
+		},
+		[25]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[26]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=50
 		},
-		[25]={
+		[27]={
 			list=false,
 			name="GrantedEffectStatSets",
 			refTo="GrantedEffectStatSets",
 			type="Key",
 			width=250
 		},
-		[26]={
+		[28]={
 			list=true,
 			name="GrantedEffectStatSets2",
 			refTo="GrantedEffectStatSets",
@@ -8957,7 +8971,7 @@ return {
 		},
 		[58]={
 			list=false,
-			name="BuffTemplate",
+			name="BuffTemplate1",
 			refTo="BuffTemplates",
 			type="Key",
 			width=150
@@ -8978,14 +8992,14 @@ return {
 		},
 		[61]={
 			list=true,
-			name="BuffTemplate",
+			name="BuffTemplate2",
 			refTo="BuffTemplates",
 			type="Key",
 			width=150
 		},
 		[62]={
 			list=false,
-			name="",
+			name="GameMode",
 			refTo="",
 			type="Int",
 			width=150
@@ -9119,16 +9133,16 @@ return {
 		},
 		[8]={
 			list=true,
-			name="",
-			refTo="",
+			name="Tags",
+			refTo="Tags",
 			type="Key",
 			width=400
 		},
 		[9]={
 			list=true,
-			name="",
-			refTo="",
-			type="String",
+			name="NotTags",
+			refTo="Tags",
+			type="Key",
 			width=150
 		},
 		[10]={
@@ -10187,10 +10201,10 @@ return {
 		},
 		[93]={
 			list=true,
-			name="",
+			name="AddonMonsterTypeIndex",
 			refTo="",
-			type="Int",
-			width=50
+			type="String",
+			width=300
 		},
 		[94]={
 			list=false,
@@ -10449,7 +10463,7 @@ return {
 		[12]={
 			list=false,
 			name="Portrait",
-			refTo="NPCPortrait",
+			refTo="NPCPortraits",
 			type="Key",
 			width=100
 		},
@@ -10695,22 +10709,22 @@ return {
 		},
 		[25]={
 			list=false,
-			name="QuestState1",
-			refTo="QuestStates",
+			name="DowngradeFlag1",
+			refTo="QuestFlags",
 			type="Key",
 			width=70
 		},
 		[26]={
 			list=false,
-			name="QuestState2",
-			refTo="QuestStates",
+			name="DowngradeFlag2",
+			refTo="QuestFlags",
 			type="Key",
 			width=70
 		},
 		[27]={
 			list=false,
-			name="QuestState3",
-			refTo="QuestStates",
+			name="DowngradeFlag3",
+			refTo="QuestFlags",
 			type="Key",
 			width=70
 		}
@@ -11931,7 +11945,7 @@ return {
 		[32]={
 			list=false,
 			name="",
-			refTo="Projectiles",
+			refTo="",
 			type="String",
 			width=150
 		}
@@ -12447,7 +12461,7 @@ return {
 		[5]={
 			list=true,
 			name="ObjectArt",
-			refTo="MiscObjectArtVariations",
+			refTo="MiscObjectsArtVariations",
 			type="Key",
 			width=150
 		},
@@ -12615,31 +12629,38 @@ return {
 			list=false,
 			name="Awakened",
 			refTo="SkillGems",
-			type="Key",
+			type="ShortKey",
 			width=200
 		},
 		[15]={
+			list=false,
+			name="Regular",
+			refTo="SkillGems",
+			type="ShortKey",
+			width=390
+		},
+		[16]={
 			list=false,
 			name="GemColour",
 			refTo="",
 			type="Int",
 			width=100
 		},
-		[16]={
+		[17]={
 			list=false,
 			name="GemLevelProgression",
 			refTo="ItemExperienceTypes",
 			type="Key",
 			width=400
 		},
-		[17]={
+		[18]={
 			list=true,
 			name="MtxSlotType",
-			refTo="MtxSlotTypes: [MicrotransactionSkillGemEffectSlotTypes]",
+			refTo="MicrotransactionSkillGemEffectSlotTypes",
 			type="Key",
 			width=150
 		},
-		[18]={
+		[19]={
 			list=true,
 			name="GemVariants",
 			refTo="GemEffects",

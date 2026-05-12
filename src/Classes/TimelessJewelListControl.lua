@@ -41,6 +41,12 @@ function TimelessJewelListControlClass:SetHighlightColor(index, value)
 	return false
 end
 
+function TimelessJewelListControlClass:ScrollToIndex(index)
+	if self.scroll then
+		self.controls.scrollBarV:SetOffset((index - 1) * self.rowHeight)
+	end
+end
+
 function TimelessJewelListControlClass:OverrideSelectIndex(index)
 	if IsKeyDown("SHIFT") and self.selIndex then
 		self.highlightIndex = index
@@ -68,7 +74,7 @@ function TimelessJewelListControlClass:AddValueTooltip(tooltip, index, data)
 		end
 		local treeData = self.build.spec.tree
 		local sortedNodeLists = { }
-		for legionId, desiredNode in pairs(self.sharedList.desiredNodes) do
+		for legionId, desiredNode in pairs(self.sharedList.desiredNodes or { }) do
 			if self.list[index][legionId] then
 				if self.list[index][legionId].targetNodeNames and #self.list[index][legionId].targetNodeNames > 0 then
 					sortedNodeLists[desiredNode.desiredIdx] = "^7        " .. desiredNode.displayName .. ":\n^8                " .. t_concat(self.list[index][legionId].targetNodeNames, "\n                ")
@@ -91,7 +97,8 @@ end
 
 function TimelessJewelListControlClass:OnSelClick(index, data, doubleClick)
 	if doubleClick and self.list[index].label:match("B2B2B2") == nil then
-		local label = "[" .. data.seed .. "; " .. data.total.. "; " .. self.sharedList.socket.keystone .. "]\n"
+		local socketInfo = data.socketLabel or (self.sharedList.socket and self.sharedList.socket.keystone) or "Unknown"
+		local label = "[" .. data.seed .. "; " .. data.total.. "; " .. socketInfo .. "]\n"
 		local variant = self.sharedList.conqueror.id == 1 and 1 or (self.sharedList.conqueror.id - 1) .. "\n"
 		local itemData = [[
 Heroic Tragedy ]] .. label .. [[
@@ -101,7 +108,7 @@ Limited to: 1 Historic
 Variant: Vorana (Black Scythe Training)
 Variant: Uhtred (Celestial Mathematics)
 Variant: Medved (The Unbreaking Circle)
-Selected Variant:  ]] .. variant .. "\n" .. [[
+Selected Variant: ]] .. variant .. "\n" .. [[
 Radius: Large
 Implicits: 0
 {variant:1}Remembrancing ]] .. data.seed .. [[ songworthy deeds by the line of Vorana
@@ -230,7 +237,7 @@ Limited to: 1 Historic
 Variant: Cadiro (Supreme Decadence)
 Variant: Victario (Supreme Grandstanding)
 Variant: Caspiro (Supreme Ostentation)
-Selected Variant:  ]] .. variant .. "\n" .. [[
+Selected Variant: ]] .. variant .. "\n" .. [[
 Radius: Large
 Implicits: 0
 {variant:1}Commissioned ]] .. data.seed .. [[ coins to commemorate Cadiro

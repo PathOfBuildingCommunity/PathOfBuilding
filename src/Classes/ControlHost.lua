@@ -33,11 +33,16 @@ function ControlHostClass:GetMouseOverControl()
 end
 
 function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
+	local processedImbuedControl
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
 			if self.selControl then
+				processedImbuedControl = self.selControl.imbuedSelect and self.selControl.dropped and event.key:match("BUTTON")
 				self:SelectControl(self.selControl:OnKeyDown(event.key, event.doubleClick))
 				inputEvents[id] = nil
+				if processedImbuedControl then -- stop click through of any control behind imbuedSupport dropdown
+					return
+				end
 			end
 			if not self.selControl and event.key:match("BUTTON") then
 				self:SelectControl()
