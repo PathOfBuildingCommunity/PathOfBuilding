@@ -62,6 +62,36 @@ local function isAnointable(item)
 	return (item.canBeAnointed or item.base.type == "Amulet")
 end
 
+local function buildModSortList()
+	local sortList = { { label = "Default", stat = nil } }
+	local sortTransforms = { }
+	for _, entry in ipairs(data.powerStatList) do
+		if entry.stat and not entry.ignoreForNodes then
+			t_insert(sortList, { label = entry.label, stat = entry.stat })
+			sortTransforms[entry.stat] = entry.transform
+		end
+	end
+	return sortList, sortTransforms
+end
+
+local function getOutputStatValue(output, stat)
+	if stat == "FullDPS" then
+		if output[stat] ~= nil then
+			return output[stat]
+		end
+		if output.Minion and output.Minion.CombinedDPS ~= nil then
+			return output.Minion.CombinedDPS
+		end
+	end
+	if output.Minion and output.Minion[stat] ~= nil then
+		return output.Minion[stat]
+	end
+	if output[stat] ~= nil then
+		return output[stat]
+	end
+	return 0
+end
+
 local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
 	self.ControlHost()
@@ -2278,12 +2308,21 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 		end
 	end
 	local enchantmentList = { }
+	local sortList, sortTransforms = buildModSortList()
+	local function setDefaultSortOrder()
+		for index, entry in ipairs(enchantmentList) do
+			entry.defaultSortOrder = index
+			entry.sortValue = nil
+			entry.sortValues = nil
+		end
+	end
 	local function buildEnchantmentList()
 		wipeTable(enchantmentList)
 		local list = haveSkills and enchantments[skillList[controls.skill and controls.skill.selIndex or 1]] or enchantments
 		for _, enchantment in ipairs(list[enchantmentSourceList[controls.enchantmentSource and controls.enchantmentSource.selIndex or 1].name]) do
-			t_insert(enchantmentList, enchantment)
+			t_insert(enchantmentList, { label = enchantment, line = enchantment })
 		end
+		setDefaultSortOrder()
 	end
 	if haveSkills then
 		buildSkillList(true)
@@ -2294,12 +2333,37 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 		local item = new("Item", self.displayItem:BuildRaw())
 		local index = idx or controls.enchantment.selIndex
 		item.id = self.displayItem.id
-		local list = haveSkills and enchantments[controls.skill.list[controls.skill.selIndex]] or enchantments
-		local line = list[controls.enchantmentSource.list[controls.enchantmentSource.selIndex].name][index]
-		local first, second = line:match("([^/]+)/([^/]+)")
+		local entry = enchantmentList[index]
 		if remove then
 			t_remove(item.enchantModLines, self.enchantSlot)
-		elseif first then
+		elseif entry then
+			local line = entry.line
+			local first, second = line:match("([^/]+)/([^/]+)")
+			if first then
+				item.enchantModLines = { { crafted = true, line = first }, { crafted = true, line = second } }
+			else
+				if not item.canHaveTwoEnchants and #item.enchantModLines > 1 then
+					item.enchantModLines = { item.enchantModLines[1] }
+				end
+				if #item.enchantModLines >= self.enchantSlot then
+					t_remove(item.enchantModLines, self.enchantSlot)
+				end
+				t_insert(item.enchantModLines, self.enchantSlot, { crafted = true, line = line })
+			end
+		end
+		item:BuildAndParseRaw()
+		return item
+	end
+	local function getSortValue(entry, stat, calcFunc, slotName, useFullDPS)
+		entry.sortValues = entry.sortValues or { }
+		if entry.sortValues[stat] ~= nil then
+			return entry.sortValues[stat]
+		end
+		local item = new("Item", self.displayItem:BuildRaw())
+		item.id = self.displayItem.id
+		local line = entry.line
+		local first, second = line:match("([^/]+)/([^/]+)")
+		if first then
 			item.enchantModLines = { { crafted = true, line = first }, { crafted = true, line = second } }
 		else
 			if not item.canHaveTwoEnchants and #item.enchantModLines > 1 then
@@ -2308,10 +2372,51 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 			if #item.enchantModLines >= self.enchantSlot then
 				t_remove(item.enchantModLines, self.enchantSlot)
 			end
-			t_insert(item.enchantModLines, self.enchantSlot, { crafted = true, line = line})
+			t_insert(item.enchantModLines, self.enchantSlot, { crafted = true, line = line })
 		end
 		item:BuildAndParseRaw()
-		return item
+		local output = calcFunc({ repSlotName = slotName, repItem = item }, useFullDPS)
+		local value = getOutputStatValue(output, stat)
+		if sortTransforms[stat] then
+			value = sortTransforms[stat](value)
+		end
+		entry.sortValues[stat] = value
+		return value
+	end
+	local function applySort(stat, selectFirst)
+		if not controls.enchantment or not controls.enchantment:IsShown() then
+			return
+		end
+		local selected = not selectFirst and enchantmentList[controls.enchantment.selIndex] or nil
+		if stat then
+			local slotName = self.displayItem:GetPrimarySlot()
+			local calcFunc = self.build.calcsTab:GetMiscCalculator()
+			local useFullDPS = stat == "FullDPS"
+			for _, entry in ipairs(enchantmentList) do
+				entry.sortValue = getSortValue(entry, stat, calcFunc, slotName, useFullDPS)
+			end
+			table.sort(enchantmentList, function(a, b)
+				if a.sortValue ~= b.sortValue then
+					return a.sortValue > b.sortValue
+				end
+				return (a.defaultSortOrder or 0) < (b.defaultSortOrder or 0)
+			end)
+		else
+			table.sort(enchantmentList, function(a, b)
+				return (a.defaultSortOrder or 0) < (b.defaultSortOrder or 0)
+			end)
+		end
+		controls.enchantment:UpdateSearch()
+		if selected then
+			for index, entry in ipairs(enchantmentList) do
+				if entry == selected then
+					controls.enchantment.selIndex = index
+					break
+				end
+			end
+		else
+			controls.enchantment:SetSel(1, true)
+		end
 	end
 	if haveSkills then
 		controls.skillLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {95, 20, 0, 16}, "^7Skill:")
@@ -2319,12 +2424,18 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 			buildEnchantmentSourceList()
 			buildEnchantmentList()
 			controls.enchantment:SetSel(1)
+			if controls.sort then
+				applySort(controls.sort.list[controls.sort.selIndex].stat, true)
+			end
 		end)
 		controls.allSkills = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, {350, 20, 18}, "All skills:", function(state)
 			buildSkillList(not state)
 			controls.skill:SetSel(1)
 			buildEnchantmentList()
 			controls.enchantment:SetSel(1)
+			if controls.sort then
+				applySort(controls.sort.list[controls.sort.selIndex].stat, true)
+			end
 		end)
 		controls.allSkills.tooltipText = "Show all skills, not just those used by this build."
 		if not next(skillsUsed) then
@@ -2336,9 +2447,16 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 	controls.enchantmentSource = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, 45, 180, 18}, enchantmentSourceList, function(index, value)
 		buildEnchantmentList()
 		controls.enchantment:SetSel(m_min(controls.enchantment.selIndex, #enchantmentList))
+		if controls.sort then
+			applySort(controls.sort.list[controls.sort.selIndex].stat, true)
+		end
+	end)
+	controls.sortLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {350, 45, 0, 16}, "^7Sort by:")
+	controls.sort = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {355, 45, 240, 18}, sortList, function(index, value)
+		applySort(value.stat, true)
 	end)
 	controls.enchantmentLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {95, 70, 0, 16}, "^7Enchantment:")
-	controls.enchantment = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, 70, 440, 18}, enchantmentList)
+	controls.enchantment = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, 70, 495, 18}, enchantmentList)
 	controls.enchantment.tooltipFunc = function(tooltip, mode, index)
 		tooltip:Clear()
 		self:AddItemTooltip(tooltip, enchantItem(index), nil, true)
@@ -2354,7 +2472,7 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 	controls.close = new("ButtonControl", nil, {88, 100, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(550, 130, "Enchant Item", controls)
+	main:OpenPopup(605, 130, "Enchant Item", controls)
 end
 
 ---Gets the name of the anointed node on an item
@@ -2505,9 +2623,10 @@ end
 -- Opens the item corrupting popup
 function ItemsTabClass:CorruptDisplayItem(modType)
 	local currentModType = modType or "Corrupted"
-	local controls = { } 
+	local controls = { }
 	local implicitList = { }
 	local sourceList = { "Corrupted", "Scourge" }
+	local sortList, sortTransforms = buildModSortList()
 	local function buildImplicitList(modType)
 		if implicitList[modType] then
 			return
@@ -2515,18 +2634,21 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 		implicitList[modType] = {}
 		for modId, mod in pairs(self.displayItem.affixes) do
 			if mod.type == modType and self.displayItem:GetModSpawnWeight(mod) > 0 then
-				t_insert(implicitList[modType], mod)
+				t_insert(implicitList[modType], { mod = mod })
 			end
 		end
 		table.sort(implicitList[modType], function(a, b)
-			local an = a[1]:lower():gsub("%(.-%)","$"):gsub("[%+%-%%]",""):gsub("%d+","$")
-			local bn = b[1]:lower():gsub("%(.-%)","$"):gsub("[%+%-%%]",""):gsub("%d+","$")
+			local an = a.mod[1]:lower():gsub("%(.-%)","$"):gsub("[%+%-%%]",""):gsub("%d+","$")
+			local bn = b.mod[1]:lower():gsub("%(.-%)","$"):gsub("[%+%-%%]",""):gsub("%d+","$")
 			if an ~= bn then
 				return an < bn
 			else
-				return a.level < b.level
+				return a.mod.level < b.mod.level
 			end
 		end)
+		for index, entry in ipairs(implicitList[modType]) do
+			entry.defaultSortOrder = index
+		end
 	end
 	buildImplicitList(currentModType)
 	local function buildList(control, other, modType)
@@ -2534,12 +2656,88 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 		local otherMod = other and other.selIndex and other.selIndex > 1 and other.list[other.selIndex].mod
 		wipeTable(control.list)
 		t_insert(control.list, { label = "None" })
-		for _, mod in ipairs(implicitList[modType]) do
+		for _, entry in ipairs(implicitList[modType]) do
+			local mod = entry.mod
 			if not otherMod or mod.group ~= otherMod.group then
 				t_insert(control.list, { label = table.concat(mod, "/"), mod = mod })
 			end
 		end
 		control:SelByValue(selfMod, "mod")
+	end
+	local function getSortValue(entry, modType, stat, calcFunc, slotName, useFullDPS)
+		entry.sortValues = entry.sortValues or { }
+		if entry.sortValues[stat] ~= nil then
+			return entry.sortValues[stat]
+		end
+		local item = new("Item", self.displayItem:BuildRaw())
+		item.id = self.displayItem.id
+		item.corrupted = true
+		local mod = entry.mod
+		local targetLines = modType == "Corrupted" and item.implicitModLines or item.scourgeModLines
+		wipeTable(targetLines)
+		for _, modLine in ipairs(mod) do
+			modLine = (currentModType == "ScourgeUpside" and "{scourge}" or "") .. modLine
+			if mod.modTags[1] then
+				t_insert(targetLines, { line = "{tags:" .. table.concat(mod.modTags, ",") .. "}" .. modLine })
+			else
+				t_insert(targetLines, { line = modLine })
+			end
+		end
+		item:BuildAndParseRaw()
+		local output = calcFunc({ repSlotName = slotName, repItem = item }, useFullDPS)
+		local value = getOutputStatValue(output, stat)
+		if sortTransforms[stat] then
+			value = sortTransforms[stat](value)
+		end
+		entry.sortValues[stat] = value
+		return value
+	end
+	local function sortModType(modType, stat, calcFunc, slotName, useFullDPS)
+		if not implicitList[modType] then
+			return
+		end
+		if stat then
+			for _, entry in ipairs(implicitList[modType]) do
+				entry.sortValue = getSortValue(entry, modType, stat, calcFunc, slotName, useFullDPS)
+			end
+			table.sort(implicitList[modType], function(a, b)
+				if a.sortValue ~= b.sortValue then
+					return a.sortValue > b.sortValue
+				end
+				return (a.defaultSortOrder or 0) < (b.defaultSortOrder or 0)
+			end)
+		else
+			table.sort(implicitList[modType], function(a, b)
+				return (a.defaultSortOrder or 0) < (b.defaultSortOrder or 0)
+			end)
+		end
+	end
+	local function applySort(stat)
+		if not controls.implicit then
+			return
+		end
+		local slotName = self.displayItem:GetPrimarySlot()
+		local calcFunc = stat and self.build.calcsTab:GetMiscCalculator() or nil
+		local useFullDPS = stat == "FullDPS"
+		if currentModType == "Corrupted" then
+			sortModType("Corrupted", stat, calcFunc, slotName, useFullDPS)
+		else
+			sortModType("ScourgeUpside", stat, calcFunc, slotName, useFullDPS)
+			sortModType("ScourgeDownside", stat, calcFunc, slotName, useFullDPS)
+		end
+		if currentModType == "Corrupted" then
+			buildList(controls.implicit, controls.implicit2, currentModType)
+			buildList(controls.implicit2, controls.implicit, currentModType)
+		else
+			buildList(controls.implicit, controls.implicit2, "ScourgeUpside")
+			buildList(controls.implicit2, controls.implicit, "ScourgeUpside")
+			buildList(controls.implicit3, controls.implicit4, "ScourgeDownside")
+			buildList(controls.implicit4, controls.implicit3, "ScourgeDownside")
+		end
+		controls.implicit:UpdateSearch()
+		controls.implicit2:UpdateSearch()
+		if controls.implicit3 then controls.implicit3:UpdateSearch() end
+		if controls.implicit4 then controls.implicit4:UpdateSearch() end
 	end
 	local function corruptItem()
 		local item = new("Item", self.displayItem:BuildRaw())
@@ -2610,14 +2808,22 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 			controls.close.y = 99
 			controls.save.y = 99
 		end
-		buildList(controls.implicit, controls.implicit2, currentModType)
-		buildList(controls.implicit2, controls.implicit, currentModType)
+		if controls.sort then
+			applySort(controls.sort.list[controls.sort.selIndex].stat)
+		else
+			buildList(controls.implicit, controls.implicit2, currentModType)
+			buildList(controls.implicit2, controls.implicit, currentModType)
+		end
 		controls.implicit:SetSel(1)
 		controls.implicit2:SetSel(1)
 		controls.implicit3:SetSel(1)
 		controls.implicit4:SetSel(1)
 	end)
 	controls.source.enabled = #sourceList > 1
+	controls.sortLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {350, 20, 0, 16}, "^7Sort by:")
+	controls.sort = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {355, 20, 240, 18}, sortList, function(index, value)
+		applySort(value.stat)
+	end)
 	controls.implicitLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {75, 45, 0, 16}, "^7Implicit #1:")
 	controls.implicit = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {80, 45, 440, 18}, nil, function()
 		buildList(controls.implicit2, controls.implicit, currentModType)
@@ -2693,7 +2899,7 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 	controls.close = new("ButtonControl", nil, {45, 99, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(540, 129, modType .. " Item", controls)
+	main:OpenPopup(605, 129, modType .. " Item", controls)
 end
 
 -- Opens the custom modifier popup
@@ -2701,37 +2907,13 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	local controls = { }
 	local sourceList = { }
 	local modList = { }
-	local sortList = { { label = "Default", stat = nil } }
-	local sortTransforms = { }
-	for _, entry in ipairs(data.powerStatList) do
-		if entry.stat and not entry.ignoreForNodes then
-			t_insert(sortList, { label = entry.label, stat = entry.stat })
-			sortTransforms[entry.stat] = entry.transform
-		end
-	end
+	local sortList, sortTransforms = buildModSortList()
 	local function setDefaultSortOrder()
 		for index, listMod in ipairs(modList) do
 			listMod.defaultSortOrder = index
 			listMod.sortValue = nil
 			listMod.sortValues = nil
 		end
-	end
-	local function getOutputStatValue(output, stat)
-		if stat == "FullDPS" then
-			if output[stat] ~= nil then
-				return output[stat]
-			end
-			if output.Minion and output.Minion.CombinedDPS ~= nil then
-				return output.Minion.CombinedDPS
-			end
-		end
-		if output.Minion and output.Minion[stat] ~= nil then
-			return output.Minion[stat]
-		end
-		if output[stat] ~= nil then
-			return output[stat]
-		end
-		return 0
 	end
 	local function getSortValue(listMod, stat, calcFunc, slotName, useFullDPS)
 		listMod.sortValues = listMod.sortValues or { }
@@ -3166,6 +3348,20 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 	local sourceList = { }
 	local modList = { }
 	local modGroups = {}
+	local sortList, sortTransforms = buildModSortList()
+	local function setDefaultSortOrder()
+		for groupIndex, group in ipairs(modGroups) do
+			group.defaultSortOrder = groupIndex
+			group.sortValue = nil
+		end
+		for _, listMods in ipairs(modList) do
+			for index, listMod in ipairs(listMods) do
+				listMod.defaultSortOrder = index
+				listMod.sortValue = nil
+				listMod.sortValues = nil
+			end
+		end
+	end
 	---Mutates modList to contain mods from the specified source
 	---@param sourceId string @The crafting source id to build the list of mods for
 	local function buildMods(sourceId)
@@ -3291,6 +3487,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 				end)
 			end
 		end
+		setDefaultSortOrder()
 	end
 	if (self.displayItem.rarity ~= "UNIQUE" and self.displayItem.rarity ~= "RELIC") and (self.displayItem.type == "Helmet" or self.displayItem.type == "Body Armour" or self.displayItem.type == "Gloves" or self.displayItem.type == "Boots") then
 		if self.displayItem.cleansing then
@@ -3306,21 +3503,11 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 	end
 	t_insert(sourceList, { label = "Custom", sourceId = "CUSTOM" })
 	buildMods(sourceList[1].sourceId)
-	local function addModifier()
-		local item = new("Item", self.displayItem:BuildRaw())
-		item.id = self.displayItem.id
-		local sourceId = sourceList[controls.source.selIndex].sourceId
-		if sourceId == "CUSTOM" then
-			if controls.custom.buf:match("%S") then
-				t_insert(item.implicitModLines, { line = controls.custom.buf, custom = true })
-			end
-		elseif sourceId == "SYNTHESIS" then
-			local listMod = modList[controls.modSelect.selIndex]
-			for _, line in ipairs(listMod.mod) do
-				t_insert(item.implicitModLines, { line = line, modTags = listMod.mod.modTags, [listMod.type] = true })
-			end
-		elseif sourceId == "EXARCH" or sourceId == "EATER" then
-			local listMod = modList[modGroups[controls.modGroupSelect.selIndex].modListIndex][controls.modSelect.selIndex]
+	---Applies a candidate listMod to the item, mirroring the mutation addModifier()
+	---performs at click-time. Eldritch (exarch/eater) sources replace an existing
+	---implicit of the same type when present; other sources append.
+	local function applyCandidateMod(item, listMod)
+		if listMod.type == "exarch" or listMod.type == "eater" then
 			local index
 			for i, implicitMod in ipairs(item.implicitModLines) do
 				if implicitMod[listMod.type] then
@@ -3332,16 +3519,112 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 				for i, line in ipairs(listMod.mod) do
 					item.implicitModLines[index + i - 1] = { line = line, modTags = listMod.mod.modTags, [listMod.type] = true }
 				end
-			else
-				for _, line in ipairs(listMod.mod) do
-					t_insert(item.implicitModLines, { line = line, modTags = listMod.mod.modTags, [listMod.type] = true })
+				return
+			end
+		end
+		for _, line in ipairs(listMod.mod) do
+			t_insert(item.implicitModLines, { line = line, modTags = listMod.mod.modTags, [listMod.type] = true })
+		end
+	end
+	local function getSortValue(listMod, stat, calcFunc, slotName, useFullDPS)
+		listMod.sortValues = listMod.sortValues or { }
+		if listMod.sortValues[stat] ~= nil then
+			return listMod.sortValues[stat]
+		end
+		local item = new("Item", self.displayItem:BuildRaw())
+		item.id = self.displayItem.id
+		applyCandidateMod(item, listMod)
+		item:BuildAndParseRaw()
+		local output = calcFunc({ repSlotName = slotName, repItem = item }, useFullDPS)
+		local value = getOutputStatValue(output, stat)
+		if sortTransforms[stat] then
+			value = sortTransforms[stat](value)
+		end
+		listMod.sortValues[stat] = value
+		return value
+	end
+	local function applySort(stat, selectFirst)
+		if not controls.modSelect or not controls.modGroupSelect or not controls.modSelect:IsShown() then
+			return
+		end
+		local selectedGroup = not selectFirst and modGroups[controls.modGroupSelect.selIndex] or nil
+		local selectedMod = not selectFirst and controls.modSelect.list and controls.modSelect.list[controls.modSelect.selIndex] or nil
+		if stat then
+			local slotName = self.displayItem:GetPrimarySlot()
+			local calcFunc = self.build.calcsTab:GetMiscCalculator()
+			local useFullDPS = stat == "FullDPS"
+			for _, listMods in ipairs(modList) do
+				for _, listMod in ipairs(listMods) do
+					listMod.sortValue = getSortValue(listMod, stat, calcFunc, slotName, useFullDPS)
+				end
+				table.sort(listMods, function(a, b)
+					if a.sortValue ~= b.sortValue then
+						return a.sortValue > b.sortValue
+					end
+					return (a.defaultSortOrder or 0) < (b.defaultSortOrder or 0)
+				end)
+			end
+			for _, group in ipairs(modGroups) do
+				local best
+				for _, listMod in ipairs(modList[group.modListIndex] or { }) do
+					if not best or listMod.sortValue > best then
+						best = listMod.sortValue
+					end
+				end
+				group.sortValue = best or 0
+			end
+			table.sort(modGroups, function(a, b)
+				if a.sortValue ~= b.sortValue then
+					return a.sortValue > b.sortValue
+				end
+				return (a.defaultSortOrder or 0) < (b.defaultSortOrder or 0)
+			end)
+		else
+			for _, listMods in ipairs(modList) do
+				table.sort(listMods, function(a, b)
+					return (a.defaultSortOrder or 0) < (b.defaultSortOrder or 0)
+				end)
+			end
+			table.sort(modGroups, function(a, b)
+				return (a.defaultSortOrder or 0) < (b.defaultSortOrder or 0)
+			end)
+		end
+		controls.modGroupSelect:UpdateSearch()
+		if selectedGroup then
+			for index, group in ipairs(modGroups) do
+				if group == selectedGroup then
+					controls.modGroupSelect.selIndex = index
+					break
 				end
 			end
 		else
-			local listMod = modList[modGroups[controls.modGroupSelect.selIndex].modListIndex][controls.modSelect.selIndex]
-			for _, line in ipairs(listMod.mod) do
-				t_insert(item.implicitModLines, { line = line, modTags = listMod.mod.modTags, [listMod.type] = true })
+			controls.modGroupSelect:SetSel(1, true)
+		end
+		controls.modSelect.list = modList[modGroups[controls.modGroupSelect.selIndex].modListIndex]
+		controls.modSelect:UpdateSearch()
+		if selectedMod then
+			for index, listMod in ipairs(controls.modSelect.list) do
+				if listMod == selectedMod then
+					controls.modSelect.selIndex = index
+					break
+				end
 			end
+		else
+			controls.modSelect:SetSel(1, true)
+		end
+	end
+	local function addModifier()
+		local item = new("Item", self.displayItem:BuildRaw())
+		item.id = self.displayItem.id
+		local sourceId = sourceList[controls.source.selIndex].sourceId
+		if sourceId == "CUSTOM" then
+			if controls.custom.buf:match("%S") then
+				t_insert(item.implicitModLines, { line = controls.custom.buf, custom = true })
+			end
+		elseif sourceId == "SYNTHESIS" then
+			applyCandidateMod(item, modList[controls.modSelect.selIndex])
+		else
+			applyCandidateMod(item, modList[modGroups[controls.modGroupSelect.selIndex].modListIndex][controls.modSelect.selIndex])
 		end
 		item:BuildAndParseRaw()
 		return item
@@ -3354,11 +3637,24 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			controls.modGroupSelect:SetSel(1)
 			controls.modSelect.list = modList[modGroups[1].modListIndex]
 			controls.modSelect:SetSel(1)
+			if controls.sort then
+				applySort(controls.sort.list[controls.sort.selIndex].stat, true)
+			end
 		else
 			controls.modSelectLabel.y = 45
 		end
 	end)
 	controls.source.enabled = #sourceList > 1
+	controls.sortLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {350, 20, 0, 16}, "^7Sort by:")
+	controls.sortLabel.shown = function()
+		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
+	end
+	controls.sort = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {355, 20, 240, 18}, sortList, function(index, value)
+		applySort(value.stat, true)
+	end)
+	controls.sort.shown = function()
+		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
+	end
 	controls.modGroupSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {95, 45, 0, 16}, "^7Type:")
 	controls.modGroupSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, 45, 600, 18}, modGroups, function(index, value)
 		controls.modSelect.list = modList[value.modListIndex]
