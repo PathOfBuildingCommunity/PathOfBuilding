@@ -1382,7 +1382,7 @@ skills["BladeBlast"] = {
 		area = true,
 	},
 	baseMods = {
-		mod("Multiplier:BladeBlastMaxStages", "BASE", 900, 0, 0),
+		mod("Multiplier:BladeBlastMaxStages", "BASE", 50, 0, 0),
 		skill("dpsBaseMultiplier", 1, { type = "Multiplier", var = "BladeBlastStage" }),
 	},
 	qualityStats = {

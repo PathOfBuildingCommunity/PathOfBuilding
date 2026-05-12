@@ -237,7 +237,7 @@ local skills, mod, flag, skill = ...
 			activeSkill.skillData.hitTimeOverride = 1
 		end
 	end,
-#baseMod mod("Multiplier:BladeBlastMaxStages", "BASE", 900, 0, 0)
+#baseMod mod("Multiplier:BladeBlastMaxStages", "BASE", 50, 0, 0)
 #baseMod skill("dpsBaseMultiplier", 1, { type = "Multiplier", var = "BladeBlastStage" })
 #mods
 
