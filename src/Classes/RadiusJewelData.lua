@@ -793,12 +793,12 @@ jewelPreviewFn = {
 			return previewFromRawText(variant.rawText, variant.name, extraPreviewMeta)
 		end
 		local lines = previewHeader("Dreams & Nightmares", "Unique Jewel", "Large")
-		t_insert(lines, { height = 14, [1] = COL_META .. "The Red Dream:       Fire Res -> Endurance on Kill" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "The Red Nightmare:   Fire Res -> Block" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "The Green Dream:     Cold Res -> Frenzy on Kill" })
+		t_insert(lines, { height = 14, [1] = COL_META .. "The Red Dream: Fire Res -> Endurance on Kill" })
+		t_insert(lines, { height = 14, [1] = COL_META .. "The Red Nightmare: Fire Res -> Block" })
+		t_insert(lines, { height = 14, [1] = COL_META .. "The Green Dream: Cold Res -> Frenzy on Kill" })
 		t_insert(lines, { height = 14, [1] = COL_META .. "The Green Nightmare: Cold Res -> Suppress" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "The Blue Dream:      Lightning Res -> Power on Kill" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "The Blue Nightmare:  Lightning Res -> Spell Block" })
+		t_insert(lines, { height = 14, [1] = COL_META .. "The Blue Dream: Lightning Res -> Power on Kill" })
+		t_insert(lines, { height = 14, [1] = COL_META .. "The Blue Nightmare: Lightning Res -> Spell Block" })
 		return lines
 	end,
 

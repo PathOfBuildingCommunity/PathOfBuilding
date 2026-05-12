@@ -259,6 +259,7 @@ function RadiusJewelResultsListClass:SetMode(mode, list, defaultText)
 	self.list = list or { }
 	self.defaultText = defaultText or ""
 	self.colList = self.columnsByMode[self.mode] or self.columnsByMode.message
+	self.colLabels = self.mode ~= "message" and #self.list > 0
 	local defaultSort = self.defaultSortByMode[self.mode]
 	if defaultSort and #self.list > 0 then
 		self:ReSort(defaultSort)
@@ -1323,10 +1324,28 @@ end
 	-- ── Preview list (right panel) ────────────────────────────────────────────
 	local previewListData = { }
 	local resultDetailListData = { }
+	local previewListY = 70
+	local previewListHeight = 180
+	local compactPreviewListHeight = 48
+	local resultDetailBottomY = 430
+	local resultDetailGap = 6
+	local resultDetailLabelGap = 18
+	local function isCompactPreview()
+		return selectedJewelType and selectedJewelType.isAllJewels
+	end
+	local function getPreviewListHeight()
+		return isCompactPreview() and compactPreviewListHeight or previewListHeight
+	end
+	local function getResultDetailLabelY()
+		return previewListY + getPreviewListHeight() + resultDetailGap
+	end
+	local function getResultDetailListY()
+		return getResultDetailLabelY() + resultDetailLabelGap
+	end
 	local function updateResultDetails(row)
 		wipeTable(resultDetailListData)
 		if not row then
-			t_insert(resultDetailListData, { height = 16, [1] = COL_META .. "Select a result to view its nodes." })
+			t_insert(resultDetailListData, { height = 16, [1] = COL_META .. "Select a result to view details." })
 			return
 		end
 		t_insert(resultDetailListData, { height = 16, [1] = "^7Socket: " .. (row.socketLabel or "(n/a)") })
@@ -1334,29 +1353,28 @@ end
 			t_insert(resultDetailListData, { height = 16, [1] = "^7Variant: " .. row.variantLabel })
 		end
 		if row.action == "keep" then
-			t_insert(resultDetailListData, { height = 16, [1] = "^8Already equipped here" })
+			t_insert(resultDetailListData, { height = 16, [1] = "^8Already equipped" })
 		elseif row.action == "moveReplace" then
-			t_insert(resultDetailListData, { height = 16, [1] = "^xBB88FFMove here ^7(replaces " .. (row.replacedItemLabel or "?") .. ")" })
+			t_insert(resultDetailListData, { height = 16, [1] = "^xBB88FFMove equipped jewel" })
+			t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33Will replace: ^7" .. (row.replacedItemLabel or "?") })
 		elseif row.action == "move" then
-			t_insert(resultDetailListData, { height = 16, [1] = "^x33AAFFMove here" })
+			t_insert(resultDetailListData, { height = 16, [1] = "^x33AAFFMove equipped jewel" })
 		elseif row.replacedItemLabel then
-			t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33Replaces: ^7" .. row.replacedItemLabel })
+			t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33Use occupied socket" })
+			t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33Will replace: ^7" .. row.replacedItemLabel })
 		else
-			t_insert(resultDetailListData, { height = 16, [1] = "^7Socket state: Free socket" })
-		end
-		if row.points ~= nil then
-			t_insert(resultDetailListData, { height = 16, [1] = "^7Total points: " .. tostring(row.points) })
+			t_insert(resultDetailListData, { height = 16, [1] = "^2Use free socket" })
 		end
 		if row.detailText and row.detailText ~= "" then
-			t_insert(resultDetailListData, { height = 16, [1] = "^7Summary: " .. row.detailText })
+			t_insert(resultDetailListData, { height = 16, [1] = "^7" .. row.detailText })
 		end
 		local nodeEntries = row.resultNodes or row.topNodes
 		if nodeEntries and #nodeEntries > 0 then
-			t_insert(resultDetailListData, { height = 16, [1] = "" })
+			t_insert(resultDetailListData, { height = 6, [1] = "" })
 			t_insert(resultDetailListData, {
 				height = 16,
-				[1] = row.resultNodes and s_format("^7Nodes to allocate (%d):", #nodeEntries)
-					or s_format("^7Nodes in range (%d):", #nodeEntries),
+				[1] = row.resultNodes and s_format("^7Passives to allocate (%d):", #nodeEntries)
+					or s_format("^7Passives in range (%d):", #nodeEntries),
 			})
 			for _, nodeEntry in ipairs(nodeEntries) do
 				t_insert(resultDetailListData, {
@@ -1366,18 +1384,24 @@ end
 				})
 			end
 		else
-			t_insert(resultDetailListData, { height = 16, [1] = "" })
-			t_insert(resultDetailListData, { height = 16, [1] = COL_META .. "(no additional passive nodes)" })
+			t_insert(resultDetailListData, { height = 6, [1] = "" })
+			t_insert(resultDetailListData, { height = 16, [1] = row.resultNodes and (COL_META .. "No passives to allocate") or (COL_META .. "No passives in range") })
 		end
 	end
-	controls.previewList = new("TextListControl", TL, { rightPanelX, 70, rightPanelWidth, 210 },
+	controls.previewList = new("TextListControl", TL, { rightPanelX, previewListY, rightPanelWidth, previewListHeight },
 		{ { x = 0, align = "LEFT" }, { x = 210, align = "LEFT" } }, previewListData)
+	controls.previewList.height = getPreviewListHeight
 	controls.previewList.shown = function()
 		return not (controls.jewelTypeSelect and controls.jewelTypeSelect.dropped)
 	end
-	controls.resultDetailLabel = new("LabelControl", TL, { rightPanelX, 286, 0, 16 }, "^7Selection:")
-	controls.resultDetailList = new("RadiusJewelDetailListControl", TL, { rightPanelX, 304, rightPanelWidth, 126 },
+	controls.resultDetailLabel = new("LabelControl", TL, { rightPanelX, 256, 0, 16 }, "^7Details:")
+	controls.resultDetailLabel.y = getResultDetailLabelY
+	controls.resultDetailList = new("RadiusJewelDetailListControl", TL, { rightPanelX, 274, rightPanelWidth, 156 },
 		{ { x = 0, align = "LEFT" } }, resultDetailListData, self.build, socketViewer)
+	controls.resultDetailList.y = getResultDetailListY
+	controls.resultDetailList.height = function()
+		return resultDetailBottomY - getResultDetailListY()
+	end
 	updateResultDetails(nil)
 
 	local function updatePreview()
@@ -1387,14 +1411,12 @@ end
 			return
 		end
 		if selectedJewelType.isAllJewels then
-			t_insert(previewListData, { height = 16, [1] = "^7Evaluate all jewel types at once." })
+			t_insert(previewListData, { height = 16, [1] = "^7Evaluate every jewel type." })
 			if selectedAllJewelsView.id == "bestPerSocket" then
-				t_insert(previewListData, { height = 16, [1] = "^7Shows the single best jewel for each socket." })
+				t_insert(previewListData, { height = 16, [1] = "^7Best jewel per socket." })
 			else
-				t_insert(previewListData, { height = 16, [1] = "^7Results sorted globally by %/Pt." })
+				t_insert(previewListData, { height = 16, [1] = "^7Sorted globally by %/Pt." })
 			end
-			t_insert(previewListData, { height = 6,  [1] = "" })
-			t_insert(previewListData, { height = 16, [1] = COL_META .. "Click Compute to start." })
 			return
 		end
 		local lines = buildPreviewLinesForJewelType(selectedJewelType)
