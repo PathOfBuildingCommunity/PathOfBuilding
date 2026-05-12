@@ -1,7 +1,7 @@
 -- Path of Building
 --
 -- Module: Radius Jewel Data
--- Jewel type definitions, variants, scoring functions, and preview builders
+-- Jewel type definitions, variants, scoring functions, and preview helpers
 -- for the Radius Jewel Finder.
 --
 local ipairs = ipairs
@@ -121,7 +121,7 @@ end
 M.mustGetUniqueRawText = mustGetUniqueRawText
 
 -- ─────────────────────────────────────────────────────────────────────────────
--- Variant builders
+-- Variant helpers
 -- ─────────────────────────────────────────────────────────────────────────────
 
 local function buildVariantsFromUniqueItem(uniqueName, baseName)
@@ -263,10 +263,12 @@ local function makeRadiusAttributeDetail(attributeLabel, includeAllocated, inclu
 end
 
 -- ─────────────────────────────────────────────────────────────────────────────
--- Foulborn enrichment
+-- Foulborn finder fields
 -- ─────────────────────────────────────────────────────────────────────────────
+-- Foulborn variants are discovered first, then the finder adds local fields
+-- such as scoreLabel, score, and keystoneOnly.
 
-local function enrichUnnaturalInstinctFoulborn(variant)
+local function addUnnaturalInstinctFoulbornFields(variant)
 	local typeMap = { Notable = "Notable", Small = "Normal" }
 	local rawText = variant.rawText
 	local gainLabel = rawText:match("Unallocated (%w+) Passive Skills")
@@ -283,7 +285,7 @@ local function enrichUnnaturalInstinctFoulborn(variant)
 	end
 end
 
-local function enrichInspiredLearningFoulborn(variant)
+local function addInspiredLearningFoulbornFields(variant)
 	local rawText = variant.rawText
 	if rawText:match("If no Notables Allocated") then
 		variant.scoreLabel = "no alloc notables"
@@ -309,7 +311,7 @@ local function enrichInspiredLearningFoulborn(variant)
 	end
 end
 
-local function enrichIntuitiveLeapFoulborn(variant)
+local function addIntuitiveLeapFoulbornFields(variant)
 	local rawText = variant.rawText
 	if rawText:match("Massive Radius") then
 		variant.isMassiveRadius = true
@@ -340,7 +342,7 @@ local function appendFoulbornVariants(jewelType, foulbornVariants)
 end
 
 -- ─────────────────────────────────────────────────────────────────────────────
--- Lazy variant getters
+-- Lazy variant lists
 -- ─────────────────────────────────────────────────────────────────────────────
 
 local LIGHT_OF_MEANING_VARIANTS
@@ -448,7 +450,7 @@ function M.buildImpactStats()
 	return stats
 end
 
-M.CONNECTIONLESS_COMPUTE_METHODS = {
+M.DISCONNECTED_PASSIVE_COMPUTE_METHODS = {
 	{ id = "fast", label = "Fast" },
 	{ id = "simulated_greedy", label = "Simulated" },
 }
@@ -459,13 +461,13 @@ M.OCCUPIED_SOCKET_OPTIONS = {
 	{ id = "all", label = "All occupied" },
 }
 
-function M.findConnectionlessComputeMethod(methodId)
-	for _, method in ipairs(M.CONNECTIONLESS_COMPUTE_METHODS) do
+function M.findDisconnectedPassiveComputeMethod(methodId)
+	for _, method in ipairs(M.DISCONNECTED_PASSIVE_COMPUTE_METHODS) do
 		if method.id == methodId then
 			return method
 		end
 	end
-	return M.CONNECTIONLESS_COMPUTE_METHODS[1]
+	return M.DISCONNECTED_PASSIVE_COMPUTE_METHODS[1]
 end
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -542,7 +544,7 @@ local function previewFromRawText(rawText, displayName, extraPreviewMeta)
 	return lines
 end
 
-local jewelPreviewFn  -- forward-declare so group functions can reference it by upvalue
+local jewelPreviewFn  -- set below; group preview functions read it from this outer local
 jewelPreviewFn = {
 	["The Light of Meaning"] = function(variant)
 		if variant and variant.rawText then
@@ -898,7 +900,7 @@ function M.buildJewelTypes(radiusIndexByLabel)
 	}
 	do
 		local foulbornVariants = discoverFoulbornVariants("Inspired Learning", radiusIndexByLabel)
-		for _, variant in ipairs(foulbornVariants) do enrichInspiredLearningFoulborn(variant) end
+		for _, variant in ipairs(foulbornVariants) do addInspiredLearningFoulbornFields(variant) end
 		appendFoulbornVariants(inspiredLearning, foulbornVariants)
 	end
 
@@ -921,7 +923,7 @@ function M.buildJewelTypes(radiusIndexByLabel)
 	}
 	do
 		local foulbornVariants = discoverFoulbornVariants("Unnatural Instinct", radiusIndexByLabel)
-		for _, variant in ipairs(foulbornVariants) do enrichUnnaturalInstinctFoulborn(variant) end
+		for _, variant in ipairs(foulbornVariants) do addUnnaturalInstinctFoulbornFields(variant) end
 		appendFoulbornVariants(unnaturalInstinct, foulbornVariants)
 	end
 
@@ -940,7 +942,7 @@ function M.buildJewelTypes(radiusIndexByLabel)
 		radiusIndex = radiusIndexByLabel["Small"],
 		scoreLabel = "unalloc passives",
 		hasCompute = true,
-		computeMethods = M.CONNECTIONLESS_COMPUTE_METHODS,
+		computeMethods = M.DISCONNECTED_PASSIVE_COMPUTE_METHODS,
 		rawText = mustGetUniqueRawText("Intuitive Leap"),
 		score = function(nodes, allocNodes)
 			return scoreUnallocPassives(nodes, allocNodes)
@@ -948,7 +950,7 @@ function M.buildJewelTypes(radiusIndexByLabel)
 	}
 	do
 		local foulbornVariants = discoverFoulbornVariants("Intuitive Leap", radiusIndexByLabel)
-		for _, variant in ipairs(foulbornVariants) do enrichIntuitiveLeapFoulborn(variant) end
+		for _, variant in ipairs(foulbornVariants) do addIntuitiveLeapFoulbornFields(variant) end
 		appendFoulbornVariants(intuitiveLeap, foulbornVariants)
 	end
 
@@ -1015,7 +1017,7 @@ function M.buildJewelTypes(radiusIndexByLabel)
 		isSocketIndependent = true,
 		scoreLabel = "unalloc notable/keystone near keystone",
 		hasCompute = true,
-		computeMethods = M.CONNECTIONLESS_COMPUTE_METHODS,
+		computeMethods = M.DISCONNECTED_PASSIVE_COMPUTE_METHODS,
 		score = scoreUnallocNotablesAndKeystones,
 		variants = M.getImpossibleEscapeVariants(),
 	})
@@ -1081,7 +1083,7 @@ function M.buildJewelTypes(radiusIndexByLabel)
 		isThread = true,
 		scoreLabel = "unalloc notable/keystone in ring",
 		hasCompute = true,
-		computeMethods = M.CONNECTIONLESS_COMPUTE_METHODS,
+		computeMethods = M.DISCONNECTED_PASSIVE_COMPUTE_METHODS,
 		rawText = nil,
 		score = scoreUnallocNotablesAndKeystones,
 	})

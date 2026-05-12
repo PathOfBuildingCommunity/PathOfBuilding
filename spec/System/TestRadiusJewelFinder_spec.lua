@@ -121,14 +121,6 @@ local function isSorted(results, key)
 	return true
 end
 
-local function copyShallow(tbl)
-	local out = {}
-	for k, v in pairs(tbl) do
-		out[k] = v
-	end
-	return out
-end
-
 local function snapshotFinderState()
 	local socketSelItemIds = {}
 	for socketId, slot in pairs(build.itemsTab.sockets) do
@@ -149,7 +141,7 @@ local function snapshotFinderState()
 		socketSelItemIds = socketSelItemIds,
 		itemOrderList = itemOrderList,
 		itemCount = itemCount,
-		jewels = copyShallow(build.spec.jewels),
+		jewels = copyTable(build.spec.jewels, true),
 	}
 end
 
@@ -194,7 +186,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			for _, s in ipairs(sockets) do
 				if allocIds[s.id] then
 					assert.is_true(s.label:sub(1, 2) == "# ",
-						"socket " .. s.id .. " should start with '# ', got: " .. s.label)
+						"socket " .. s.id .. " should start with '# ', was: " .. s.label)
 				end
 			end
 		end)
@@ -371,7 +363,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			assert.is_true(#redNightmareTooltipTexts > 0, "expected Red Nightmare tooltip content")
 			for _, text in ipairs(redNightmareTooltipTexts) do
 				assert.is_nil(text:find("{variant:", 1, true), "variant tooltip should not expose raw variant tags")
-				assert.is_nil(text:find("Selected Variant:", 1, true), "variant tooltip should not expose serialization metadata")
+				assert.is_nil(text:find("Selected Variant:", 1, true), "variant tooltip should not expose saved-state metadata")
 			end
 
 			-- Tempered & Transcendent: type tooltip generic, variant tooltip specific
@@ -439,7 +431,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 
 		it("builds Light of Meaning variants with valid name and rawText", function()
 			local variants = makeFinder():buildVariantsFromUniqueItem("The Light of Meaning")
-			assert.is_true(#variants > 0, "expected at least one LOM variant")
+			assert.is_true(#variants > 0, "expected at least one Light of Meaning variant")
 			for _, v in ipairs(variants) do
 				assert.is_string(v.name)
 				assert.is_string(v.rawText)
@@ -482,8 +474,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			end
 			local variants = makeFinder():discoverFoulbornVariants("Might of the Meek", radiusIndexByLabel)
 			assert.is_table(variants)
-			-- On this branch, data.uniques.generated has no Foulborn items
-			-- After merge into integration/current, this would return actual variants
+			-- Some data sets include Foulborn items and some do not.
 			local hasFoulborn = false
 			if data.uniques.generated then
 				for _, rawText in ipairs(data.uniques.generated) do
@@ -508,24 +499,24 @@ describe("RadiusJewelFinder #radiusjewel", function()
 
 	end)
 
-	-- ── computeBestVariantSocketImpact (LOM) ─────────────────────────────────
+	-- ── computeBestVariantSocketImpact (The Light of Meaning) ────────────────
 
-	describe("computeBestVariantSocketImpact (LOM)", function()
+	describe("computeBestVariantSocketImpact (The Light of Meaning)", function()
 
 		local function getSockets()
 			return makeFinder():buildJewelSockets(getLargeRadiusIndex())
 		end
 
-		local function getLOMVariants()
+		local function getLightOfMeaningVariants()
 			return makeFinder():buildVariantsFromUniqueItem("The Light of Meaning")
 		end
 
-		it("returns one result per socket, picks the best variant", function()
+		it("returns one result per socket and uses the best variant", function()
 			local sockets = getSockets()
-			local variants = getLOMVariants()
+			local variants = getLightOfMeaningVariants()
 			local results, baseline = makeFinder():computeBestVariantSocketImpact(sockets, variants, "Life")
 			assert.is_true(#results > 0, "expected at least one result")
-			assert.is_true(#results <= #sockets, "should not exceed socket count")
+			assert.is_true(#results <= #sockets, "should return no more than socket count")
 			assert.is_number(baseline)
 			assert.is_true(baseline > 0)
 			for _, r in ipairs(results) do
@@ -538,14 +529,14 @@ describe("RadiusJewelFinder #radiusjewel", function()
 
 		it("results are sorted by delta descending", function()
 			local sockets = getSockets()
-			local results, _ = makeFinder():computeBestVariantSocketImpact(sockets, getLOMVariants(), "Life")
+			local results, _ = makeFinder():computeBestVariantSocketImpact(sockets, getLightOfMeaningVariants(), "Life")
 			assert.is_true(isSorted(results, "delta"),
 				"results should be sorted by delta descending")
 		end)
 
-		it("Life variant selected on sockets where it beats others", function()
+		it("Life variant selected on sockets where it is better than others", function()
 			local sockets = getSockets()
-			local results, _ = makeFinder():computeBestVariantSocketImpact(sockets, getLOMVariants(), "Life")
+			local results, _ = makeFinder():computeBestVariantSocketImpact(sockets, getLightOfMeaningVariants(), "Life")
 			local hasLife = false
 			for _, r in ipairs(results) do
 				if r.variant.name == "Life" then hasLife = true; break end
@@ -556,7 +547,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 		it("restores TotalLife after compute", function()
 			local sockets = getSockets()
 			local before = build.calcsTab.mainOutput["Life"]
-			makeFinder():computeBestVariantSocketImpact(sockets, getLOMVariants(), "Life")
+			makeFinder():computeBestVariantSocketImpact(sockets, getLightOfMeaningVariants(), "Life")
 			local after = build.calcsTab.mainOutput["Life"]
 			assert.are.equal(before, after)
 		end)
@@ -564,13 +555,13 @@ describe("RadiusJewelFinder #radiusjewel", function()
 		it("restores socket and item state after compute", function()
 			local sockets = getSockets()
 			local before = snapshotFinderState()
-			makeFinder():computeBestVariantSocketImpact(sockets, getLOMVariants(), "Life")
+			makeFinder():computeBestVariantSocketImpact(sockets, getLightOfMeaningVariants(), "Life")
 			assertFinderStateUnchanged(before)
 		end)
 
 		it("respects occupiedMode filter", function()
 			local sockets = getSockets()
-			local results, _ = makeFinder():computeBestVariantSocketImpact(sockets, getLOMVariants(), "Life", nil, nil, { id = "all" })
+			local results, _ = makeFinder():computeBestVariantSocketImpact(sockets, getLightOfMeaningVariants(), "Life", nil, nil, { id = "all" })
 			assert.is_true(#results > 0, "expected results with occupied mode 'all'")
 		end)
 
@@ -591,7 +582,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			assert.is_number(baseline)
 		end)
 
-		it("returns the current main output as baseline for the requested stat", function()
+		it("returns the current main output as baseline for the selected stat", function()
 			local expectedBaseline = build.calcsTab.mainOutput["Life"]
 			local _, baseline = makeFinder():computeSocketImpact(
 				getSockets(), MIGHT_OF_MEEK_RAW_TEXT, "Life")
@@ -645,13 +636,13 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			assert.are.equal(before, build.calcsTab.mainOutput["Life"])
 		end)
 
-		it("respects a max total points budget for standard compute", function()
+		it("respects max total points for standard compute", function()
 			local maxPoints = 2
 			local results, _ = makeFinder():computeSocketImpact(
 				getSockets(), MIGHT_OF_MEEK_RAW_TEXT, "Life", false, maxPoints)
 			for _, r in ipairs(results) do
 				assert.is_true((r.socket.pathDist or 0) <= maxPoints,
-					"socket " .. r.socket.id .. " exceeded max points")
+					"socket " .. r.socket.id .. " used too many points")
 			end
 		end)
 
@@ -714,24 +705,24 @@ describe("RadiusJewelFinder #radiusjewel", function()
 
 	end)
 
-	describe("connectionless compute budgets", function()
+	describe("disconnected passive max total points", function()
 
 		local function getSockets()
 			return makeFinder():buildJewelSockets(getLargeRadiusIndex())
 		end
 
-		it("respects a max total points budget for Intuitive Leap", function()
+		it("respects max total points for Intuitive Leap", function()
 			local maxPoints = 4
 			local results, _ = makeFinder():computeIntuitiveLeapSocketImpact(
 				getSockets(), "Life", false, "simulated_greedy", { }, nil, maxPoints)
 			for _, r in ipairs(results) do
 				local totalPoints = (r.socket.pathDist or 0) + (r.addedNodeCount or 0)
 				assert.is_true(totalPoints <= maxPoints,
-					"socket " .. r.socket.id .. " plan exceeded max points")
+					"socket " .. r.socket.id .. " plan used too many points")
 			end
 		end)
 
-		it("stops at jewel-only when the socket already uses the whole budget", function()
+		it("stops at jewel-only when the socket already uses all max points", function()
 			local targetSocket
 			for _, socket in ipairs(getSockets()) do
 				if socket.pathDist and socket.pathDist > 0 then
@@ -739,7 +730,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 					break
 				end
 			end
-			assert.is_not_nil(targetSocket, "expected at least one socket with path cost")
+			assert.is_not_nil(targetSocket, "expected at least one socket with path points")
 			local maxPoints = targetSocket.pathDist
 			local sockets = { targetSocket }
 			local fastResults = makeFinder():computeIntuitiveLeapSocketImpact(
@@ -766,9 +757,9 @@ describe("RadiusJewelFinder #radiusjewel", function()
 		it("returns results and restores socket distance state", function()
 			local sockets = getSockets()
 			local before = snapshotFinderState()
-			local previousDistances = {}
+			local previousDistanceBySocketId = {}
 			for _, socket in ipairs(sockets) do
-				previousDistances[socket.id] = build.spec.nodes[socket.id] and build.spec.nodes[socket.id].distanceToClassStart
+				previousDistanceBySocketId[socket.id] = build.spec.nodes[socket.id] and build.spec.nodes[socket.id].distanceToClassStart
 			end
 
 			local results, baseline = makeFinder():computeSplitPersonalitySocketImpact(sockets, "Life", variants)
@@ -782,19 +773,19 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			end
 			for _, socket in ipairs(sockets) do
 				local node = build.spec.nodes[socket.id]
-				assert.are.equal(previousDistances[socket.id], node and node.distanceToClassStart)
+				assert.are.equal(previousDistanceBySocketId[socket.id], node and node.distanceToClassStart)
 			end
 			assertFinderStateUnchanged(before)
 		end)
 
-		it("respects a max total points budget", function()
+		it("respects max total points", function()
 			local maxPoints = 4
 			local results, _ = makeFinder():computeSplitPersonalitySocketImpact(
 				getSockets(), "Life", variants, nil, maxPoints)
 			for _, result in ipairs(results) do
 				local totalPoints = (result.socket.pathDist or 0)
 				assert.is_true(totalPoints <= maxPoints,
-					"socket " .. result.socket.id .. " plan exceeded max points")
+					"socket " .. result.socket.id .. " plan used too many points")
 			end
 		end)
 
@@ -806,7 +797,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			return makeFinder():buildJewelSockets(getLargeRadiusIndex())
 		end
 
-		it("returns results for both methods without mutating finder state", function()
+		it("returns results for both methods without changing finder state", function()
 			local variant = makeImpossibleEscapeTestVariant()
 			assert.is_not_nil(variant, "expected at least one keystone-based Impossible Escape variant")
 			local sockets = getSockets()
@@ -826,7 +817,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			assertFinderStateUnchanged(before)
 		end)
 
-		it("respects a max total points budget", function()
+		it("respects max total points", function()
 			local variant = makeImpossibleEscapeTestVariant()
 			assert.is_not_nil(variant, "expected at least one keystone-based Impossible Escape variant")
 			local maxPoints = 4
@@ -835,7 +826,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			for _, result in ipairs(results) do
 				local totalPoints = (result.socket.pathDist or 0) + (result.addedNodeCount or 0)
 				assert.is_true(totalPoints <= maxPoints,
-					"socket " .. result.socket.id .. " plan exceeded max points")
+					"socket " .. result.socket.id .. " plan used too many points")
 			end
 		end)
 
@@ -868,7 +859,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			return { getSockets()[1] }
 		end
 
-		it("returns results for both methods without mutating finder state", function()
+		it("returns results for both methods without changing finder state", function()
 			local threadVariants = getTestVariants()
 			assert.is_true(#threadVariants > 0, "expected Thread of Hope ring variants")
 			local sockets = getTestSockets(threadVariants)
@@ -892,7 +883,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			assertFinderStateUnchanged(before)
 		end)
 
-		it("respects a max total points budget", function()
+		it("respects max total points", function()
 			local threadVariants = getTestVariants()
 			assert.is_true(#threadVariants > 0, "expected Thread of Hope ring variants")
 			local maxPoints = 4
@@ -901,7 +892,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			for _, result in ipairs(results) do
 				local totalPoints = (result.socket.pathDist or 0) + (result.addedNodeCount or 0)
 				assert.is_true(totalPoints <= maxPoints,
-					"socket " .. result.socket.id .. " plan exceeded max points")
+					"socket " .. result.socket.id .. " plan used too many points")
 			end
 		end)
 
@@ -950,7 +941,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			}
 		end
 
-		it("keeps one result per socket, best score wins", function()
+		it("keeps one result per socket, highest score is kept", function()
 			local rows = {
 				makeRow(1, 10, { name = "A" }),
 				makeRow(1, 20, { name = "B" }),
@@ -977,7 +968,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			assert.are.equal(1, result[3].socketId)
 		end)
 
-		it("enforces jewelLimit per jewelLimitKey", function()
+		it("applies jewelLimit per jewelLimitKey", function()
 			local rows = {
 				makeRow(1, 30, { jewelLimitKey = "IE", jewelLimit = 1 }),
 				makeRow(2, 20, { jewelLimitKey = "IE", jewelLimit = 1 }),
@@ -1016,68 +1007,68 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			assert.are.equal(2, #result)
 			local bySocket = {}
 			for _, r in ipairs(result) do bySocket[r.socketId] = r.name end
-			-- The independent with score 20 cannot take socket 1 (dependent owns it)
+			-- The independent with score 20 cannot take socket 1 (dependent uses it)
 			-- It should go to socket 2 instead
 			assert.are.equal("dependent", bySocket[1])
 		end)
 
 		it("socket-independent jewels use remaining sockets after dependent allocation", function()
 			local rows = {
-				makeRow(1, 30, { name = "dep1" }),
-				makeRow(2, 25, { name = "dep2" }),
-				makeRow(1, 20, { name = "indep1", isSocketIndependent = true }),
-				makeRow(2, 15, { name = "indep2", isSocketIndependent = true }),
-				makeRow(3, 10, { name = "indep3", isSocketIndependent = true }),
+				makeRow(1, 30, { name = "dependent-1" }),
+				makeRow(2, 25, { name = "dependent-2" }),
+				makeRow(1, 20, { name = "independent-1", isSocketIndependent = true }),
+				makeRow(2, 15, { name = "independent-2", isSocketIndependent = true }),
+				makeRow(3, 10, { name = "independent-3", isSocketIndependent = true }),
 			}
 			local result = makeFinder():filterBestPerSocket(rows)
 			local bySocket = {}
 			for _, r in ipairs(result) do bySocket[r.socketId] = r.name end
-			assert.are.equal("dep1", bySocket[1])
-			assert.are.equal("dep2", bySocket[2])
-			assert.are.equal("indep3", bySocket[3])
+			assert.are.equal("dependent-1", bySocket[1])
+			assert.are.equal("dependent-2", bySocket[2])
+			assert.are.equal("independent-3", bySocket[3])
 		end)
 
-		it("socket-independent tiebreak prefers cheaper points", function()
+		it("socket-independent tie-break uses fewer points", function()
 			local rows = {
 				makeRow(1, 20, { isSocketIndependent = true, points = 5 }),
 				makeRow(2, 20, { isSocketIndependent = true, points = 2 }),
 			}
 			local result = makeFinder():filterBestPerSocket(rows)
 			assert.are.equal(2, #result)
-			-- Both are kept (different sockets), but cheaper should come first at equal score
+			-- Both are kept (different sockets), but fewer points should come first at equal score
 			-- Actually both have different sockets so both are included
-			-- The tiebreak matters when multiple rows compete for the same remaining sockets
+			-- The tie-break matters when multiple rows can use the same remaining sockets
 		end)
 
-		it("socket-independent tiebreak: at equal score, cheapest socket wins", function()
-			-- Two independent jewels competing for a single remaining socket
+		it("socket-independent tie-break: at equal score, fewer points is kept", function()
+			-- Two independent jewels can use a single remaining socket
 			local rows = {
-				makeRow(1, 50, { name = "dep" }),              -- takes socket 1
-				makeRow(1, 20, { name = "ie-expensive", isSocketIndependent = true, points = 8 }),
-				makeRow(2, 20, { name = "ie-cheap",     isSocketIndependent = true, points = 2 }),
+				makeRow(1, 50, { name = "dependent" }),        -- takes socket 1
+				makeRow(1, 20, { name = "ie-high-points", isSocketIndependent = true, points = 8 }),
+				makeRow(2, 20, { name = "ie-low-points",  isSocketIndependent = true, points = 2 }),
 			}
 			local result = makeFinder():filterBestPerSocket(rows)
 			local bySocket = {}
 			for _, r in ipairs(result) do bySocket[r.socketId] = r.name end
-			assert.are.equal("dep", bySocket[1])
-			assert.are.equal("ie-cheap", bySocket[2])
+			assert.are.equal("dependent", bySocket[1])
+			assert.are.equal("ie-low-points", bySocket[2])
 		end)
 
 		it("limits are shared between dependent and independent jewels", function()
 			-- IE limited to 1: if a dependent row with same limitKey is placed first,
 			-- independent rows with that key are blocked
 			local rows = {
-				makeRow(1, 30, { name = "dep-ie", jewelLimitKey = "IE", jewelLimit = 1 }),
-				makeRow(2, 20, { name = "indep-ie", isSocketIndependent = true, jewelLimitKey = "IE", jewelLimit = 1 }),
+				makeRow(1, 30, { name = "dependent-ie", jewelLimitKey = "IE", jewelLimit = 1 }),
+				makeRow(2, 20, { name = "independent-ie", isSocketIndependent = true, jewelLimitKey = "IE", jewelLimit = 1 }),
 				makeRow(3, 10, { name = "other" }),
 			}
 			local result = makeFinder():filterBestPerSocket(rows)
 			assert.are.equal(2, #result)
 			local names = {}
 			for _, r in ipairs(result) do names[r.name] = true end
-			assert.is_true(names["dep-ie"])
+			assert.is_true(names["dependent-ie"])
 			assert.is_true(names["other"])
-			assert.is_nil(names["indep-ie"], "second IE should be blocked by shared limit")
+			assert.is_nil(names["independent-ie"], "second IE should be blocked by shared limit")
 		end)
 
 		it("returns empty table for empty input", function()
@@ -1085,7 +1076,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			assert.are.equal(0, #result)
 		end)
 
-		it("does not mutate the input rows table", function()
+		it("does not change the input rows table", function()
 			local rows = {
 				makeRow(2, 10),
 				makeRow(1, 20),
@@ -1124,7 +1115,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 		end
 
 		-- Find a jewel socket whose radius contains at least one unallocated node
-		-- with NO allocated neighbors outside the radius ("isolated").
+		-- with NO allocated linked nodes outside the radius ("isolated").
 		-- Note: `linked` is on spec.nodes, not spec.tree.nodes.
 		local function findIsolatedRadiusNode(radiusIndex)
 			local treeData = build.spec.tree
@@ -1155,10 +1146,10 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			end
 		end
 
-		-- Find an unallocated radius node that has at least one linked neighbor
-		-- OUTSIDE the radius.  Returns socketId, nodeId, outsideNeighborId.
+		-- Find an unallocated radius node that has at least one linked node
+		-- OUTSIDE the radius.  Returns socketId, nodeId, outsideLinkedNodeId.
 		-- Note: `linked` is on spec.nodes, not spec.tree.nodes.
-		local function findRadiusNodeWithOutsideNeighbor(radiusIndex)
+		local function findRadiusNodeWithOutsideLinkedNode(radiusIndex)
 			local treeData = build.spec.tree
 			for socketId, socketData in pairs(build.spec.nodes) do
 				if socketData.isJewelSocket then
@@ -1231,18 +1222,18 @@ describe("RadiusJewelFinder #radiusjewel", function()
 
 		end)
 
-		-- ── findConnectionlessDependentNodes ─────────────────────────────
+		-- ── findDisconnectedPassiveDependentNodes ─────────────────────────────
 
-		describe("findConnectionlessDependentNodes", function()
+		describe("findDisconnectedPassiveDependentNodes", function()
 
-			it("returns empty for items without connectionless properties", function()
-				local result = makeFinder():findConnectionlessDependentNodes(ALLOC_SOCKET_IDS[1], { title = "Might of the Meek" })
+			it("returns empty for items without disconnected passive properties", function()
+				local result = makeFinder():findDisconnectedPassiveDependentNodes(ALLOC_SOCKET_IDS[1], { title = "Might of the Meek" })
 				assert.are.equal(0, #result)
 			end)
 
 			it("returns empty for invalid socketId", function()
 				local item = { jewelRadiusIndex = getTestRadiusIndex() }
-				local result = makeFinder():findConnectionlessDependentNodes(999999, item)
+				local result = makeFinder():findDisconnectedPassiveDependentNodes(999999, item)
 				assert.are.equal(0, #result)
 			end)
 
@@ -1267,21 +1258,21 @@ describe("RadiusJewelFinder #radiusjewel", function()
 						end
 					end
 				end
-				if not testSocketId then pending("no suitable socket found") end
+				if not testSocketId then pending("no empty radius socket found") end
 				local item = { jewelRadiusIndex = smallRI }
-				local result = makeFinder():findConnectionlessDependentNodes(testSocketId, item)
+				local result = makeFinder():findDisconnectedPassiveDependentNodes(testSocketId, item)
 				assert.are.equal(0, #result)
 			end)
 
 			it("returns isolated allocated nodes in radius as dependent", function()
 				local smallRI = getTestRadiusIndex()
 				local testSocketId, testNodeId = findIsolatedRadiusNode(smallRI)
-				if not testSocketId then pending("no suitable isolated radius node found") end
+				if not testSocketId then pending("no isolated radius node found") end
 
 				build.spec.allocNodes[testNodeId] = build.spec.tree.nodes[testNodeId]
 
 				local item = { jewelRadiusIndex = smallRI }
-				local result = makeFinder():findConnectionlessDependentNodes(testSocketId, item)
+				local result = makeFinder():findDisconnectedPassiveDependentNodes(testSocketId, item)
 
 				assert.is_true(#result > 0, "expected at least one dependent node")
 				local found = false
@@ -1291,18 +1282,18 @@ describe("RadiusJewelFinder #radiusjewel", function()
 				assert.is_true(found, "expected node " .. testNodeId .. " in dependent nodes")
 			end)
 
-			it("excludes nodes naturally connected from outside the radius", function()
+			it("excludes nodes connected from outside the radius", function()
 				local treeData = build.spec.tree
 				local ri = getTestRadiusIndex()
-				local testSocketId, testNodeId, outsideNeighborId = findRadiusNodeWithOutsideNeighbor(ri)
-				if not testSocketId then pending("no radius node with outside neighbor found") end
+				local testSocketId, testNodeId, outsideLinkedNodeId = findRadiusNodeWithOutsideLinkedNode(ri)
+				if not testSocketId then pending("no radius node with outside linked node found") end
 
-				-- Allocate both the radius node and its outside neighbor
+				-- Allocate both the radius node and its outside linked node
 				build.spec.allocNodes[testNodeId] = treeData.nodes[testNodeId]
-				build.spec.allocNodes[outsideNeighborId] = treeData.nodes[outsideNeighborId]
+				build.spec.allocNodes[outsideLinkedNodeId] = treeData.nodes[outsideLinkedNodeId]
 
 				local item = { jewelRadiusIndex = ri }
-				local result = makeFinder():findConnectionlessDependentNodes(testSocketId, item)
+				local result = makeFinder():findDisconnectedPassiveDependentNodes(testSocketId, item)
 
 				local found = false
 				for _, nodeId in ipairs(result) do
@@ -1313,13 +1304,13 @@ describe("RadiusJewelFinder #radiusjewel", function()
 
 			it("handles IE keystoneMap path", function()
 				local variant = makeImpossibleEscapeTestVariant()
-				if not variant then pending("no suitable IE keystone variant") end
+				if not variant then pending("no IE keystone variant found") end
 
 				local item = {
 					jewelData = { impossibleEscapeKeystones = { [variant.keystoneName] = true } },
 				}
 				-- Should return empty since no extra nodes are allocated in the keystone radius
-				local result = makeFinder():findConnectionlessDependentNodes(ALLOC_SOCKET_IDS[1], item)
+				local result = makeFinder():findDisconnectedPassiveDependentNodes(ALLOC_SOCKET_IDS[1], item)
 				assert.is_table(result)
 			end)
 
@@ -1329,7 +1320,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 
 		describe("removeEquippedJewels / restoreEquippedJewels", function()
 
-			it("round-trip: state identical after remove+restore", function()
+			it("remove+restore keeps state identical", function()
 				equipFakeJewel(ALLOC_SOCKET_IDS[1], "Thread of Hope", 1, {
 					jewelRadiusIndex = getTestRadiusIndex(),
 				})
@@ -1368,12 +1359,12 @@ describe("RadiusJewelFinder #radiusjewel", function()
 				finder:restoreEquippedJewels(equippedList)
 			end)
 
-			it("remove clears dependent connectionless nodes from allocNodes", function()
+			it("remove clears dependent disconnected passive nodes from allocNodes", function()
 				local smallRI = getTestRadiusIndex()
 				local testSocketId, testNodeId = findIsolatedRadiusNode(smallRI)
-				if not testSocketId then pending("no suitable isolated radius node") end
+				if not testSocketId then pending("no isolated radius node found") end
 
-				-- Allocate the isolated node (simulating connectionless allocation)
+				-- Allocate the isolated node as a disconnected passive jewel would.
 				build.spec.allocNodes[testNodeId] = build.spec.tree.nodes[testNodeId]
 
 				equipFakeJewel(testSocketId, "Intuitive Leap", 1, {
@@ -1393,14 +1384,14 @@ describe("RadiusJewelFinder #radiusjewel", function()
 					"dependent node " .. testNodeId .. " should be restored")
 			end)
 
-			it("remove preserves naturally connected nodes in radius", function()
+			it("remove preserves nodes connected from outside the radius", function()
 				local treeData = build.spec.tree
 				local ri = getTestRadiusIndex()
-				local testSocketId, testNodeId, outsideNeighborId = findRadiusNodeWithOutsideNeighbor(ri)
-				if not testSocketId then pending("no radius node with outside neighbor found") end
+				local testSocketId, testNodeId, outsideLinkedNodeId = findRadiusNodeWithOutsideLinkedNode(ri)
+				if not testSocketId then pending("no radius node with outside linked node found") end
 
 				build.spec.allocNodes[testNodeId] = treeData.nodes[testNodeId]
-				build.spec.allocNodes[outsideNeighborId] = treeData.nodes[outsideNeighborId]
+				build.spec.allocNodes[outsideLinkedNodeId] = treeData.nodes[outsideLinkedNodeId]
 
 				equipFakeJewel(testSocketId, "Intuitive Leap", 1, {
 					jewelRadiusIndex = ri,
