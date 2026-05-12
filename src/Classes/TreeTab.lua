@@ -1077,95 +1077,59 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 			fmt = ".1f"
 		}
 	end
+	local powerMultiplier = (displayStat.pc or displayStat.mod) and 100 or 1
+	local function formatPower(power)
+		local powerStr = formatNumSep(s_format("%"..displayStat.fmt, power))
+		if (power > 0 and not displayStat.lowerIsBetter) or (power < 0 and displayStat.lowerIsBetter) then
+			return colorCodes.POSITIVE .. powerStr
+		elseif (power < 0 and not displayStat.lowerIsBetter) or (power > 0 and displayStat.lowerIsBetter) then
+			return colorCodes.NEGATIVE .. powerStr
+		end
+		return powerStr
+	end
+	local function getNodePathDist(node, isAlloc)
+		if isAlloc then
+			return #(node.depends or { }) == 0 and 1 or #node.depends
+		end
+		return #(node.path or { }) == 0 and 1 or #node.path
+	end
+	local function addReportEntry(node, name, nodePower, pathPower, pathDist, isAlloc, pathPowerStr)
+		t_insert(report, {
+			name = name,
+			power = nodePower,
+			powerStr = formatPower(nodePower),
+			pathPower = pathPower,
+			pathPowerStr = pathPowerStr or formatPower(pathPower),
+			allocated = isAlloc,
+			id = node.id,
+			x = node.x,
+			y = node.y,
+			type = node.type,
+			sd = node.sd,
+			pathDist = pathDist
+		})
+	end
 
 	-- search all nodes, ignoring ascendancies, sockets, etc.
 	for nodeId, node in pairs(self.build.spec.nodes) do
 		local isAlloc = node.alloc or self.build.calcsTab.mainEnv.grantedPassives[nodeId]
 		if (node.type == "Normal" or node.type == "Keystone" or node.type == "Notable") and not node.ascendancyName then
-			local pathDist
-			if isAlloc then
-				pathDist = #(node.depends or { }) == 0 and 1 or #node.depends
-			else
-				pathDist = #(node.path or { }) == 0 and 1 or #node.path
-			end
-			local nodePower = (node.power.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
-			local pathPower = (node.power.pathPower or 0) / pathDist * ((displayStat.pc or displayStat.mod) and 100 or 1)
-			local nodePowerStr = s_format("%"..displayStat.fmt, nodePower)
-			local pathPowerStr = s_format("%"..displayStat.fmt, pathPower)
-
-			nodePowerStr = formatNumSep(nodePowerStr)
-			pathPowerStr = formatNumSep(pathPowerStr)
-
-			if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
-				nodePowerStr = colorCodes.POSITIVE .. nodePowerStr
-			elseif (nodePower < 0 and not displayStat.lowerIsBetter) or (nodePower > 0 and displayStat.lowerIsBetter) then
-				nodePowerStr = colorCodes.NEGATIVE .. nodePowerStr
-			end
-			if (pathPower > 0 and not displayStat.lowerIsBetter) or (pathPower < 0 and displayStat.lowerIsBetter) then
-				pathPowerStr = colorCodes.POSITIVE .. pathPowerStr
-			elseif (pathPower < 0 and not displayStat.lowerIsBetter) or (pathPower > 0 and displayStat.lowerIsBetter) then
-				pathPowerStr = colorCodes.NEGATIVE .. pathPowerStr
-			end
-
-			t_insert(report, {
-				name = node.dn,
-				power = nodePower,
-				powerStr = nodePowerStr,
-				pathPower = pathPower,
-				pathPowerStr = pathPowerStr,
-				allocated = isAlloc,
-				id = node.id,
-				x = node.x,
-				y = node.y,
-				type = node.type,
-				sd = node.sd,
-				pathDist = pathDist
-			})
+			local pathDist = getNodePathDist(node, isAlloc)
+			local nodePower = (node.power.singleStat or 0) * powerMultiplier
+			local pathPower = (node.power.pathPower or 0) / pathDist * powerMultiplier
+			addReportEntry(node, node.dn, nodePower, pathPower, pathDist, isAlloc)
 		elseif node.type == "Mastery" and node.power.masteryEffects and not node.ascendancyName then
-			local pathDist
-			if isAlloc then
-				pathDist = #(node.depends or { }) == 0 and 1 or #node.depends
-			else
-				pathDist = #(node.path or { }) == 0 and 1 or #node.path
-			end
+			local pathDist = getNodePathDist(node, isAlloc)
 
 			for _, masteryEffect in ipairs(node.masteryEffects or { }) do
 				local effect = self.build.spec.tree.masteryEffects[masteryEffect.effect]
 				local effectPower = node.power.masteryEffects[masteryEffect.effect]
 				if effect and effectPower then
-					local nodePower = (effectPower.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
-					local pathPower = ((effectPower.pathPower or effectPower.singleStat or 0) / pathDist) * ((displayStat.pc or displayStat.mod) and 100 or 1)
-					local nodePowerStr = s_format("%"..displayStat.fmt, nodePower)
-					local pathPowerStr = s_format("%"..displayStat.fmt, pathPower)
-
-					nodePowerStr = formatNumSep(nodePowerStr)
-					pathPowerStr = formatNumSep(pathPowerStr)
-
-					if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
-						nodePowerStr = colorCodes.POSITIVE .. nodePowerStr
-					elseif (nodePower < 0 and not displayStat.lowerIsBetter) or (nodePower > 0 and displayStat.lowerIsBetter) then
-						nodePowerStr = colorCodes.NEGATIVE .. nodePowerStr
-					end
-					if (pathPower > 0 and not displayStat.lowerIsBetter) or (pathPower < 0 and displayStat.lowerIsBetter) then
-						pathPowerStr = colorCodes.POSITIVE .. pathPowerStr
-					elseif (pathPower < 0 and not displayStat.lowerIsBetter) or (pathPower > 0 and displayStat.lowerIsBetter) then
-						pathPowerStr = colorCodes.NEGATIVE .. pathPowerStr
-					end
-
 					local effectLabelParts = isAlloc and not node.allMasteryOptions and node.sd or effect.stats or effect.sd
-					t_insert(report, {
-						name = effectLabelParts and node.dn..": "..t_concat(effectLabelParts, " / ") or node.dn,
-						power = nodePower,
-						powerStr = nodePowerStr,
-						pathPower = pathPower,
-						pathPowerStr = pathPowerStr,
-						allocated = isAlloc,
-						id = node.id,
-						x = node.x,
-						y = node.y,
-						type = node.type,
-						pathDist = pathDist
-					})
+					local name = effectLabelParts and node.dn..": "..t_concat(effectLabelParts, " / ") or node.dn
+					local nodePower = (effectPower.singleStat or 0) * powerMultiplier
+					local pathPower = ((effectPower.pathPower or effectPower.singleStat or 0) / pathDist) * powerMultiplier
+					addReportEntry(node, name, nodePower, pathPower, pathDist, isAlloc)
 				end
 			end
 		end
@@ -1175,28 +1139,8 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 	for nodeName, node in pairs(self.build.spec.tree.clusterNodeMap) do
 		local isAlloc = node.alloc
 		if not isAlloc then
-			local nodePower = (node.power and node.power.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
-			local nodePowerStr = s_format("%"..displayStat.fmt, nodePower)
-
-			nodePowerStr = formatNumSep(nodePowerStr)
-
-			if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
-				nodePowerStr = colorCodes.POSITIVE .. nodePowerStr
-			elseif (nodePower < 0 and not displayStat.lowerIsBetter) or (nodePower > 0 and displayStat.lowerIsBetter) then
-				nodePowerStr = colorCodes.NEGATIVE .. nodePowerStr
-			end
-
-			t_insert(report, {
-				name = node.dn,
-				power = nodePower,
-				powerStr = nodePowerStr,
-				pathPower = 0,
-				pathPowerStr = "--",
-				id = node.id,
-				type = node.type,
-				sd = node.sd,
-				pathDist = "Cluster"
-			})
+			local nodePower = (node.power and node.power.singleStat or 0) * powerMultiplier
+			addReportEntry(node, node.dn, nodePower, 0, "Cluster", isAlloc, "--")
 		end
 	end
 
