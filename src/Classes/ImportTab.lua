@@ -15,6 +15,12 @@ local dkjson = require "dkjson"
 
 local influenceInfo = itemLib.influenceInfo.all
 
+local realmList = {
+	{ label = "PC",      id = "PC",   realmCode = "pc",   hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
+	{ label = "Xbox",    id = "XBOX", realmCode = "xbox", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
+	{ label = "Sony",    id = "SONY", realmCode = "sony", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
+}
+
 function addOAuthControls(self)
 	self.usingOauth = true
 	self.isAuthorized = function() return main.api.authToken ~= nil end
@@ -170,11 +176,6 @@ function addOAuthControls(self)
 		main.api:DownloadCharacterList(realm.realmCode, onResponse)
 	end
 
-	local realmList = {
-		{ label = "PC",      id = "PC",   realmCode = "pc"},
-		{ label = "Xbox",    id = "XBOX", realmCode = "xbox"},
-		{ label = "Sony",     id = "SONY", realmCode = "sony" },
-	}
 	self.controls.accountRealm = new("DropDownControl", { "TOPLEFT", self.controls.charSelectHeader, "BOTTOMLEFT" },
 		{ 0, rowSpacing, 60, 20 }, realmList, function()
 			setLeaguesFromCharList()
@@ -293,13 +294,7 @@ function addAccountNameControls(self)
 	self.controls.siteAccountNameHeader.shown = function()
 		return self.charImportMode == "GETACCOUNTNAME"
 	end
-	local realmList = {
-		{ label = "PC",      id = "PC",   realmCode = "pc",   hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
-		{ label = "Xbox",    id = "XBOX", realmCode = "xbox", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
-		{ label = "Sony",     id = "SONY", realmCode = "sony", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
-		{ label = "Hotcool", id = "PC",   realmCode = "pc",   hostName = "https://pathofexile.tw/",      profileURL = "account/view-profile/" },
-		{ label = "Tencent", id = "PC",   realmCode = "pc",   hostName = "https://poe.game.qq.com/",     profileURL = "account/view-profile/" },
-	}
+
 	self.controls.siteAccountRealm = new("DropDownControl",
 		{ "TOPLEFT", self.controls.siteAccountNameHeader, "BOTTOMLEFT" },
 		{ 0, 4, 60, 20 }, realmList)
