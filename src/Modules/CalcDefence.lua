@@ -3332,18 +3332,13 @@ function calcs.buildDefenceEstimations(env, actor)
 			end
 		end
 
-		-- second minimum used for power calcs, as there are issues using average or minimum
-		local minimum = m_huge
-		local SecondMinimum = m_huge
+		-- harmonic mean used for power calcs (equivalent to the maximum hit when the hit is equally split between all damage types)
+		-- ideally there should be weights to account for the fact that damage types usually have different scales (phys hits are smaller than ele hits)
+		local reciprocalSum = 0
 		for _, damageType in ipairs(dmgTypeList) do
-			if output[damageType.."MaximumHitTaken"] < minimum then
-				SecondMinimum = minimum
-				minimum = output[damageType.."MaximumHitTaken"]
-			elseif output[damageType.."MaximumHitTaken"] < SecondMinimum then
-				SecondMinimum = output[damageType.."MaximumHitTaken"]
-			end
+			reciprocalSum = reciprocalSum + 1 / output[damageType .. "MaximumHitTaken"]
 		end
-		output.SecondMinimalMaximumHitTaken = SecondMinimum
+		output.EffectiveMaximumHitTaken = 5 / reciprocalSum
 	end
 
 	-- effective health pool vs dots
