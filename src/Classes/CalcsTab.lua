@@ -479,6 +479,7 @@ function CalcsTabClass:PowerBuilder()
 	local cache = { }
 	local distanceMap = { }
 	local distanceList = { }
+	local masteryNodeList = { }
 	local newPowerMax = {
 		singleStat = 0,
 		offence = 0,
@@ -506,6 +507,28 @@ function CalcsTabClass:PowerBuilder()
 		self.build.spec.tree:ProcessStats(effectNode)
 		return effectNode
 	end
+
+	local function calculateAddNodePower(power, node, output, buildPathNodes)
+		if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
+			power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
+			if node.path and not node.ascendancyName then
+				newPowerMax.singleStat = m_max(newPowerMax.singleStat, power.singleStat)
+				power.pathPower = power.singleStat
+				if node.pathDist > 1 then
+					power.pathPower = self:CalculatePowerStat(self.powerStat, calcFunc({ addNodes = buildPathNodes() }, useFullDPS), calcBase)
+				end
+			end
+		elseif not self.powerStat or not self.powerStat.ignoreForNodes then
+			power.offence, power.defence = self:CalculateCombinedOffDefStat(output, calcBase)
+			power.singleStat = power.offence
+			if node.path and not node.ascendancyName then
+				newPowerMax.offence = m_max(newPowerMax.offence, power.offence)
+				newPowerMax.defence = m_max(newPowerMax.defence, power.defence)
+				newPowerMax.offencePerPoint = m_max(newPowerMax.offencePerPoint, power.offence / node.pathDist)
+				newPowerMax.defencePerPoint = m_max(newPowerMax.defencePerPoint, power.defence / node.pathDist)
+			end
+		end
+	end
 	
 	local start = GetTime()
 	local nodeIndex = 0
@@ -519,6 +542,7 @@ function CalcsTabClass:PowerBuilder()
 		if node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
 			if node.type == "Mastery" and node.allMasteryOptions then
 				if not (self.nodePowerMaxDepth and self.nodePowerMaxDepth < node.pathDist) then
+					t_insert(masteryNodeList, node)
 					for _, masteryEffect in ipairs(node.masteryEffects or { }) do
 						local assignedNodeId = isValueInTable(self.build.spec.masterySelections, masteryEffect.effect)
 						if not assignedNodeId or assignedNodeId == node.id then
@@ -558,29 +582,13 @@ function CalcsTabClass:PowerBuilder()
 					cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, useFullDPS)
 				end
 				local output = cache[node.modKey]
-				if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
-					node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
-					if node.path and not node.ascendancyName then
-						newPowerMax.singleStat = m_max(newPowerMax.singleStat, node.power.singleStat)
-						node.power.pathPower = node.power.singleStat
-						local pathNodes = { }
-						for _, node in pairs(node.path) do
-							pathNodes[node] = true
-						end
-						if node.pathDist > 1 then
-							node.power.pathPower = self:CalculatePowerStat(self.powerStat, calcFunc({ addNodes = pathNodes }, useFullDPS), calcBase)
-						end
+				calculateAddNodePower(node.power, node, output, function()
+					local pathNodes = { }
+					for _, pathNode in pairs(node.path) do
+						pathNodes[pathNode] = true
 					end
-				elseif not self.powerStat or not self.powerStat.ignoreForNodes then
-					node.power.offence, node.power.defence = self:CalculateCombinedOffDefStat(output, calcBase)
-					node.power.singleStat = node.power.offence
-					if node.path and not node.ascendancyName then
-						newPowerMax.offence = m_max(newPowerMax.offence, node.power.offence)
-						newPowerMax.defence = m_max(newPowerMax.defence, node.power.defence)
-						newPowerMax.offencePerPoint = m_max(newPowerMax.offencePerPoint, node.power.offence / node.pathDist)
-						newPowerMax.defencePerPoint = m_max(newPowerMax.defencePerPoint, node.power.defence / node.pathDist)
-					end
-				end
+					return pathNodes
+				end)
 			elseif node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
 				if not cache[node.modKey.."_remove"] then
 					cache[node.modKey.."_remove"] = calcFunc({ removeNodes = { [node] = true } }, useFullDPS)
@@ -622,63 +630,48 @@ function CalcsTabClass:PowerBuilder()
 		end
 	end
 
-	for nodeId, node in pairs(self.build.spec.nodes) do
-		if node.type == "Mastery" and node.allMasteryOptions and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
-			if not (self.nodePowerMaxDepth and self.nodePowerMaxDepth < node.pathDist) then
-				for _, masteryEffect in ipairs(node.masteryEffects or { }) do
-					local assignedNodeId = isValueInTable(self.build.spec.masterySelections, masteryEffect.effect)
-					if not assignedNodeId or assignedNodeId == node.id then
-						local effect = self.build.spec.tree.masteryEffects[masteryEffect.effect]
-						if effect then
-							local effectNode = buildMasteryEffectNode(node, effect)
-							if effectNode.modKey ~= "" then
-								if not cache[effectNode.modKey] then
-									cache[effectNode.modKey] = calcFunc({ addNodes = { [effectNode] = true } }, useFullDPS)
-								end
-								local output = cache[effectNode.modKey]
-								node.power.masteryEffects[effect.id] = { }
-								if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
-									node.power.masteryEffects[effect.id].singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
-									node.power.masteryEffects[effect.id].pathPower = node.power.masteryEffects[effect.id].singleStat
-									if node.path and not node.ascendancyName then
-										newPowerMax.singleStat = m_max(newPowerMax.singleStat, node.power.masteryEffects[effect.id].singleStat)
-										local pathNodes = {
-											[effectNode] = true
-										}
-										for _, pathNode in pairs(node.path) do
-											if pathNode ~= node then
-												pathNodes[pathNode] = true
-											end
-										end
-										if node.pathDist > 1 then
-											node.power.masteryEffects[effect.id].pathPower = self:CalculatePowerStat(self.powerStat, calcFunc({ addNodes = pathNodes }, useFullDPS), calcBase)
-										end
-									end
-									node.power.singleStat = m_max(node.power.singleStat or 0, node.power.masteryEffects[effect.id].singleStat)
-									node.power.pathPower = m_max(node.power.pathPower or 0, node.power.masteryEffects[effect.id].pathPower)
-								elseif not self.powerStat or not self.powerStat.ignoreForNodes then
-									node.power.masteryEffects[effect.id].offence, node.power.masteryEffects[effect.id].defence = self:CalculateCombinedOffDefStat(output, calcBase)
-									node.power.masteryEffects[effect.id].singleStat = node.power.masteryEffects[effect.id].offence
-									if node.path and not node.ascendancyName then
-										newPowerMax.offence = m_max(newPowerMax.offence, node.power.masteryEffects[effect.id].offence)
-										newPowerMax.defence = m_max(newPowerMax.defence, node.power.masteryEffects[effect.id].defence)
-										newPowerMax.offencePerPoint = m_max(newPowerMax.offencePerPoint, node.power.masteryEffects[effect.id].offence / node.pathDist)
-										newPowerMax.defencePerPoint = m_max(newPowerMax.defencePerPoint, node.power.masteryEffects[effect.id].defence / node.pathDist)
-									end
-									node.power.offence = m_max(node.power.offence or 0, node.power.masteryEffects[effect.id].offence)
-									node.power.defence = m_max(node.power.defence or 0, node.power.masteryEffects[effect.id].defence)
-									node.power.singleStat = m_max(node.power.singleStat or 0, node.power.masteryEffects[effect.id].singleStat)
-								end
-							end
-							nodeIndex = nodeIndex + 1
-							if coroutine.running() and GetTime() - start > 100 then
-								if self.build.powerBuilderProgressCallback then
-									self.build.powerBuilderProgressCallback(m_floor(nodeIndex/total*100))
-								end
-								coroutine.yield()
-								start = GetTime()
-							end
+	for _, node in ipairs(masteryNodeList) do
+		for _, masteryEffect in ipairs(node.masteryEffects or { }) do
+			local assignedNodeId = isValueInTable(self.build.spec.masterySelections, masteryEffect.effect)
+			if not assignedNodeId or assignedNodeId == node.id then
+				local effect = self.build.spec.tree.masteryEffects[masteryEffect.effect]
+				if effect then
+					local effectNode = buildMasteryEffectNode(node, effect)
+					if effectNode.modKey ~= "" then
+						if not cache[effectNode.modKey] then
+							cache[effectNode.modKey] = calcFunc({ addNodes = { [effectNode] = true } }, useFullDPS)
 						end
+						local output = cache[effectNode.modKey]
+						node.power.masteryEffects[effect.id] = { }
+						local effectPower = node.power.masteryEffects[effect.id]
+						calculateAddNodePower(effectPower, node, output, function()
+							local pathNodes = {
+								[effectNode] = true
+							}
+							for _, pathNode in pairs(node.path) do
+								if pathNode ~= node then
+									pathNodes[pathNode] = true
+								end
+							end
+							return pathNodes
+						end)
+						if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
+							effectPower.pathPower = effectPower.pathPower or effectPower.singleStat
+							node.power.singleStat = m_max(node.power.singleStat or 0, effectPower.singleStat)
+							node.power.pathPower = m_max(node.power.pathPower or 0, effectPower.pathPower)
+						elseif not self.powerStat or not self.powerStat.ignoreForNodes then
+							node.power.offence = m_max(node.power.offence or 0, effectPower.offence)
+							node.power.defence = m_max(node.power.defence or 0, effectPower.defence)
+							node.power.singleStat = m_max(node.power.singleStat or 0, effectPower.singleStat)
+						end
+					end
+					nodeIndex = nodeIndex + 1
+					if coroutine.running() and GetTime() - start > 100 then
+						if self.build.powerBuilderProgressCallback then
+							self.build.powerBuilderProgressCallback(m_floor(nodeIndex/total*100))
+						end
+						coroutine.yield()
+						start = GetTime()
 					end
 				end
 			end
