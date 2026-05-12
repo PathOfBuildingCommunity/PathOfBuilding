@@ -1330,8 +1330,16 @@ end
 	local resultDetailBottomY = 430
 	local resultDetailGap = 6
 	local resultDetailLabelGap = 18
+	local function getSelectedAllJewelPreviewLines()
+		local mode = controls.resultsList and controls.resultsList.mode
+		if mode ~= "computeSocketAll" and mode ~= "findAll" then
+			return nil
+		end
+		local row = controls.resultsList.selValue
+		return row and row.itemTooltipLines or nil
+	end
 	local function isCompactPreview()
-		return selectedJewelType and selectedJewelType.isAllJewels
+		return selectedJewelType and selectedJewelType.isAllJewels and not getSelectedAllJewelPreviewLines()
 	end
 	local function getPreviewListHeight()
 		return isCompactPreview() and compactPreviewListHeight or previewListHeight
@@ -1404,13 +1412,30 @@ end
 	end
 	updateResultDetails(nil)
 
-	local function updatePreview()
+	local function addPreviewLines(lines)
+		if type(lines) ~= "table" then
+			return false
+		end
+		for _, line in ipairs(lines) do
+			t_insert(previewListData, line)
+		end
+		return #lines > 0
+	end
+
+	local function updatePreview(row)
 		wipeTable(previewListData)
 		if not selectedJewelType then
 			t_insert(previewListData, { height = 16, [1] = COL_META .. "(no preview)" })
 			return
 		end
 		if selectedJewelType.isAllJewels then
+			local mode = controls.resultsList and controls.resultsList.mode
+			if mode == "computeSocketAll" or mode == "findAll" then
+				local previewRow = row or controls.resultsList.selValue
+				if previewRow and addPreviewLines(previewRow.itemTooltipLines) then
+					return
+				end
+			end
 			t_insert(previewListData, { height = 16, [1] = "^7Evaluate every jewel type." })
 			if selectedAllJewelsView.id == "bestPerSocket" then
 				t_insert(previewListData, { height = 16, [1] = "^7Best jewel per socket." })
@@ -1424,9 +1449,7 @@ end
 			t_insert(previewListData, { height = 16, [1] = COL_META .. "(no preview)" })
 			return
 		end
-		for _, line in ipairs(lines) do
-			t_insert(previewListData, line)
-		end
+		addPreviewLines(lines)
 	end
 
 		-- ── Results list (left panel) ─────────────────────────────────────────────
@@ -1434,6 +1457,7 @@ end
 		controls.resultsList.suppressTooltipFunc = isAnyFinderDropdownDropped
 		controls.resultsList.OnSelect = function(_, _, row)
 			updateResultDetails(row)
+			updatePreview(row)
 		end
 		controls.resultsList.OnSelClick = function(_, index, value, doubleClick)
 			if doubleClick then
@@ -1794,7 +1818,7 @@ end
 			local points = isEquippedSocket and 0
 				or self:getSocketBasePoints(r.socket, { isOccupied = r.replacedItemLabel ~= nil })
 			local variantLabel = r.variant and (r.variant.dropdownLabel or r.variant.name) or ""
-			local itemTooltipLines = r.variant and buildPreviewLinesForJewelType(jewelType, r.variant) or nil
+			local itemTooltipLines = buildPreviewLinesForJewelType(jewelType, r.variant)
 			local applyRawText = r.variant and r.variant.rawText or jewelType.rawText
 			local jewelLimitKey = applyRawText and applyRawText:match("^([^\n]+)") or jewelType.name
 			local jewelLimit = jewelType.limit or (applyRawText and tonumber(applyRawText:match("Limited to: (%d+)"))) or nil
@@ -2226,6 +2250,7 @@ end
 								action = "new"
 							end
 							local findApplyRawText = (r.variant and r.variant.rawText) or jt.rawText
+							local itemTooltipLines = buildPreviewLinesForJewelType(jt, r.variant)
 							t_insert(allRows, {
 								jewelName = jt.name,
 								jewelLimitKey = findApplyRawText and findApplyRawText:match("^([^\n]+)") or jt.name,
@@ -2239,6 +2264,7 @@ end
 								scorePerPointSort = scorePerPointSort,
 								detailText = detailText,
 								replacedItemLabel = r.replacedItemLabel,
+								itemTooltipLines = itemTooltipLines,
 								applyRawText = findApplyRawText,
 								action = action,
 							})

@@ -340,6 +340,33 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			assert.is_true(hasDreamsAndNightmares, "expected Dreams & Nightmares in jewel type list")
 			assertAlphabetical(jewelTypeLabels, "expected jewel types to be sorted alphabetically")
 
+			local allJewelsIdx = findIndex(popup.controls.jewelTypeSelect.list, "All jewels")
+			assert.is_not_nil(allJewelsIdx, "expected All jewels in jewel type list")
+			popup.controls.jewelTypeSelect.selFunc(allJewelsIdx)
+			local selectedResultPreview = {
+				{ height = 16, [1] = "^7Selected Jewel" },
+				{ height = 16, [1] = "^8Selected result preview line" },
+			}
+			popup.controls.resultsList:SetMode("findAll", {
+				{
+					jewelName = "Selected Jewel",
+					socketLabel = "Socket #1",
+					socketId = 33631,
+					points = 1,
+					score = 10,
+					scorePerPoint = 10,
+					scorePerPointSort = 10,
+					detailText = "Test detail",
+					itemTooltipLines = selectedResultPreview,
+					action = "new",
+				},
+			}, "(no results)")
+			assert.are.equal("^7Selected Jewel", popup.controls.previewList.list[1][1])
+			assert.are.equal(180, popup.controls.previewList.height())
+			popup.controls.resultsList:SetMode("message", { }, "Click Find")
+			assert.are.equal("^7Evaluate every jewel type.", popup.controls.previewList.list[1][1])
+			assert.are.equal(48, popup.controls.previewList.height())
+
 			-- Intuitive Leap: tooltip, compute method, occupied mode
 			local intuitiveIdx = findIndex(popup.controls.jewelTypeSelect.list, "Intuitive Leap")
 			assert.is_not_nil(intuitiveIdx, "expected Intuitive Leap in jewel type list")
