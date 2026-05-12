@@ -3,10 +3,6 @@ describe("TreeTab", function()
 		newBuild()
 	end)
 
-	teardown(function()
-		-- newBuild() resets the shared build state for the next test.
-	end)
-
 	it("adds separate power report entries for mastery effects", function()
 		local treeTab = build.treeTab
 		local parentNode = { id = 2 }

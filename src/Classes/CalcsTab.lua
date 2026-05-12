@@ -508,6 +508,11 @@ function CalcsTabClass:PowerBuilder()
 		return effectNode
 	end
 
+	local function masteryEffectCanBeAssignedToNode(node, masteryEffect)
+		local assignedNodeId = isValueInTable(self.build.spec.masterySelections, masteryEffect.effect)
+		return not assignedNodeId or assignedNodeId == node.id
+	end
+
 	local function calculateAddNodePower(power, node, output, buildPathNodes)
 		if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
 			power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
@@ -544,8 +549,7 @@ function CalcsTabClass:PowerBuilder()
 				if not (self.nodePowerMaxDepth and self.nodePowerMaxDepth < node.pathDist) then
 					t_insert(masteryNodeList, node)
 					for _, masteryEffect in ipairs(node.masteryEffects or { }) do
-						local assignedNodeId = isValueInTable(self.build.spec.masterySelections, masteryEffect.effect)
-						if not assignedNodeId or assignedNodeId == node.id then
+						if masteryEffectCanBeAssignedToNode(node, masteryEffect) then
 							total = total + 1
 						end
 					end
@@ -632,8 +636,7 @@ function CalcsTabClass:PowerBuilder()
 
 	for _, node in ipairs(masteryNodeList) do
 		for _, masteryEffect in ipairs(node.masteryEffects or { }) do
-			local assignedNodeId = isValueInTable(self.build.spec.masterySelections, masteryEffect.effect)
-			if not assignedNodeId or assignedNodeId == node.id then
+			if masteryEffectCanBeAssignedToNode(node, masteryEffect) then
 				local effect = self.build.spec.tree.masteryEffects[masteryEffect.effect]
 				if effect then
 					local effectNode = buildMasteryEffectNode(node, effect)
