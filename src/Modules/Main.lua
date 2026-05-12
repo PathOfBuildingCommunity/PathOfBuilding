@@ -1213,36 +1213,42 @@ function main:OpenOptionsPopup(savedState)
 
 	local originalDrawControls = popup.DrawControls
 
+	local function controlIsInsideScrollClip(popupDialog, control)
+		if control == controls.scrollBar or control == controls.save or control == controls.cancel then
+			return true
+		end
+		local _, y = popupDialog:GetPos()
+		local _, height = popupDialog:GetSize()
+		local clipY_top = y + 20 -- just below title
+		local clipY_bottom = y + height - 40 -- just above buttons
+		local _, cy = control:GetPos()
+		local _, ch = control:GetSize()
+		return cy >= clipY_top and (cy + ch) <= clipY_bottom
+	end
+
 	-- Modify draw controls to "clip" elements in case the scrollbar is used
 	popup.DrawControls = function(self, viewPort)
 			if not useScrollBar then
 				return originalDrawControls(self, viewPort)
 			end
-			-- define clipping area
-			local x, y = self:GetPos()
-			local width, height = self:GetSize() 
-			local clipY_top = y + 20 -- just below title
-			local clipY_bottom = y + height - 40 -- just above buttons
 
 			for id, control in pairs(self.controls) do
 				-- always draw static UI elements
-				if control == controls.scrollBar or control == controls.save or control == controls.cancel then
-					if control:IsShown() and control.Draw then
-						control:Draw(viewPort, (self.selControl and self.selControl.hasFocus and self.selControl ~= control) or nil)
-					end
-				else
-					-- hide elements outside clipping area
-					if control:IsShown() and control.Draw then
-						local cx, cy = control:GetPos()
-						local cw, ch = control:GetSize()
-						
-						if cy >= clipY_top and (cy + ch) <= clipY_bottom then
-							control:Draw(viewPort, (self.selControl and self.selControl.hasFocus and self.selControl ~= control) or nil)
-						end
-					end
+				if control:IsShown() and control.Draw and controlIsInsideScrollClip(self, control) then
+					control:Draw(viewPort, (self.selControl and self.selControl.hasFocus and self.selControl ~= control) or nil)
 				end
 			end
 		end
+
+	if useScrollBar then
+		popup.GetMouseOverControl = function(self)
+			for _, control in pairs(self.controls) do
+				if control.IsMouseOver and controlIsInsideScrollClip(self, control) and control:IsMouseOver() then
+					return control
+				end
+			end
+		end
+	end
 end
 
 function main:SetManifestBranch(branchName)
