@@ -1627,6 +1627,18 @@ end
 		end
 		saveFinderState()
 	end)
+	local function addAllJewelsViewTooltip(tooltip, mode, index)
+		local option = (index and ALL_JEWELS_VIEW_OPTIONS[index]) or selectedAllJewelsView
+		tooltip:Clear(true)
+		if option and option.id == "bestPerSocket" then
+			tooltip:AddLine(16, "^7Keep one best result per socket.")
+			tooltip:AddLine(16, "^8Jewel limits still apply.")
+		else
+			tooltip:AddLine(16, "^7Show every compatible result.")
+		end
+	end
+	controls.allJewelsViewLabel.tooltipFunc = addAllJewelsViewTooltip
+	controls.allJewelsViewSelect.tooltipFunc = addAllJewelsViewTooltip
 	controls.allJewelsViewLabel.shown = false
 	controls.allJewelsViewSelect.shown = false
 

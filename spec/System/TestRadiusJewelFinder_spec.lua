@@ -350,6 +350,14 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			popup.controls.computeMethodSelect.selFunc(2)
 			assert.are.equal("simulated_greedy", build.radiusJewelFinderState.computeMethodId)
 			popup.controls.computeMethodSelect.selFunc(1)
+			local allResultsViewTooltipTexts = buttonTooltipTexts(popup.controls.allJewelsViewSelect, "DROP", 1, popup.controls.allJewelsViewSelect.list[1])
+			assert.is_true(allResultsViewTooltipTexts[1]:find("every compatible result", 1, true) ~= nil,
+				"expected All results view tooltip to explain unfiltered results")
+			local bestPerSocketTooltipTexts = buttonTooltipTexts(popup.controls.allJewelsViewSelect, "DROP", 2, popup.controls.allJewelsViewSelect.list[2])
+			assert.is_true(bestPerSocketTooltipTexts[1]:find("one best result per socket", 1, true) ~= nil,
+				"expected Best per socket tooltip to explain per-socket filtering")
+			assert.is_true(bestPerSocketTooltipTexts[2]:find("Jewel limits", 1, true) ~= nil,
+				"expected Best per socket tooltip to mention jewel limits")
 			assert.is_true(findIndex(popup.controls.impactStatSelect.list, "Full DPS") ~= nil)
 			assert.is_true(findIndex(popup.controls.impactStatSelect.list, "Hit DPS") ~= nil)
 			assert.is_true(findIndex(popup.controls.impactStatSelect.list, "Block Chance") ~= nil)
