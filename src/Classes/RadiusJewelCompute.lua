@@ -187,7 +187,7 @@ function Class:buildSocketReplacementContext(calcFunc, socketId)
 	end
 	local occupancy = self:getSocketOccupancyInfo(socketId)
 	local slotName = "Jewel " .. tostring(socketId)
-	local baselineItem = occupancy.item or buildReplacementItem(occupancy.slot)
+	local baselineItem = occupancy.isOccupied and occupancy.item or buildReplacementItem(occupancy.slot)
 	local baselineOutput = calcFunc({
 		addNodes = { [socketNode] = true },
 		repSlotName = slotName,
@@ -199,7 +199,8 @@ function Class:buildSocketReplacementContext(calcFunc, socketId)
 		occupancy = occupancy,
 		baselineItem = baselineItem,
 		baselineOutput = baselineOutput,
-		replacedItemLabel = occupancy.isOccupied and occupancy.itemLabel or nil,
+		replacedItemLabel = occupancy.replacedItemLabel,
+		storedUnallocatedItemLabel = occupancy.storedUnallocatedItemLabel,
 	}
 end
 
@@ -471,7 +472,8 @@ function Class:computeSocketImpact(sockets, rawText, impactStat, progress, maxTo
 				socket = socket,
 				value = value,
 				delta = delta,
-				replacedItemLabel = occupancy and occupancy.isOccupied and occupancy.itemLabel or nil,
+				replacedItemLabel = occupancy and occupancy.replacedItemLabel or nil,
+				storedUnallocatedItemLabel = occupancy and occupancy.storedUnallocatedItemLabel or nil,
 				baseOutput = extractTooltipStats(replacementContext.baselineOutput),
 				compareOutput = extractTooltipStats(output),
 			})
@@ -516,7 +518,8 @@ function Class:computeBestVariantSocketImpact(sockets, variants, impactStat, pro
 						variantIdx = variantIndex,
 						value = value,
 						delta = delta,
-						replacedItemLabel = occupancy and occupancy.isOccupied and occupancy.itemLabel or nil,
+						replacedItemLabel = occupancy and occupancy.replacedItemLabel or nil,
+						storedUnallocatedItemLabel = occupancy and occupancy.storedUnallocatedItemLabel or nil,
 						baseOutput = extractTooltipStats(replacementContext.baselineOutput),
 						compareOutput = extractTooltipStats(output),
 					}
@@ -598,7 +601,8 @@ function Class:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant, me
 					result = self:computeDisconnectedPassiveSimulatedPlan(calcFunc, replacementContext.baselineOutput, socketBaseline, socketNode, slotName, item, impactStat, candidates, nil, socket.label, socketProgress, maxAdditionalNodes)
 				end
 				result.socket = socket
-				result.replacedItemLabel = occupancy and occupancy.isOccupied and occupancy.itemLabel or nil
+				result.replacedItemLabel = occupancy and occupancy.replacedItemLabel or nil
+				result.storedUnallocatedItemLabel = occupancy and occupancy.storedUnallocatedItemLabel or nil
 				t_insert(results, result)
 			end
 			progressTick(socketProgress, 1, 1, socket.label)
@@ -673,7 +677,8 @@ function Class:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVarian
 			end
 			if bestResult then
 				bestResult.socket = socket
-				bestResult.replacedItemLabel = occupancy and occupancy.isOccupied and occupancy.itemLabel or nil
+				bestResult.replacedItemLabel = occupancy and occupancy.replacedItemLabel or nil
+				bestResult.storedUnallocatedItemLabel = occupancy and occupancy.storedUnallocatedItemLabel or nil
 				t_insert(results, bestResult)
 				if not skipPlanSteps and methodId == "fast" and bestVariantIndex then
 					t_insert(pendingPlanSteps, {
@@ -733,6 +738,7 @@ function Class:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVarian
 			fullResult.variant = threadVariants[pending.bestVariantIndex]
 			fullResult.socket = result.socket
 			fullResult.replacedItemLabel = result.replacedItemLabel
+			fullResult.storedUnallocatedItemLabel = result.storedUnallocatedItemLabel
 			-- Replace in-place in results
 			for i, r in ipairs(results) do
 				if r == result then
@@ -791,7 +797,8 @@ function Class:computeSplitPersonalitySocketImpact(sockets, impactStat, variants
 						variantIdx = variantIdx,
 						value = value,
 						delta = delta,
-						replacedItemLabel = occupancy and occupancy.isOccupied and occupancy.itemLabel or nil,
+						replacedItemLabel = occupancy and occupancy.replacedItemLabel or nil,
+						storedUnallocatedItemLabel = occupancy and occupancy.storedUnallocatedItemLabel or nil,
 						baseOutput = extractTooltipStats(baselineOutput),
 						compareOutput = extractTooltipStats(output),
 						detailText = s_format("Dist %d | %s", splitDistance, variant.name),
@@ -981,9 +988,11 @@ function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants
 		local bestResult = bestResultByGroupKey[groupEntry.groupKey]
 		if bestResult then
 			for _, socket in ipairs(groupEntry.sockets) do
+				local socketOccupancy = self:getSocketOccupancyInfo(socket.id)
 				local resultForSocket = copyTableSafe(bestResult, false, true)
 				resultForSocket.socket = socket
-				resultForSocket.replacedItemLabel = groupEntry.occupancy and groupEntry.occupancy.isOccupied and groupEntry.occupancy.itemLabel or nil
+				resultForSocket.replacedItemLabel = socketOccupancy and socketOccupancy.replacedItemLabel or nil
+				resultForSocket.storedUnallocatedItemLabel = socketOccupancy and socketOccupancy.storedUnallocatedItemLabel or nil
 				t_insert(results, resultForSocket)
 			end
 		end
@@ -1033,6 +1042,7 @@ function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants
 							local updated = copyTableSafe(fullResult, false, true)
 							updated.socket = r.socket
 							updated.replacedItemLabel = r.replacedItemLabel
+							updated.storedUnallocatedItemLabel = r.storedUnallocatedItemLabel
 							results[i] = updated
 						end
 					end

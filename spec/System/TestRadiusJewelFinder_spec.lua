@@ -1181,6 +1181,16 @@ describe("RadiusJewelFinder #radiusjewel", function()
 
 		local ALLOC_SOCKET_IDS = { 36634, 61419, 41263 }
 
+		local function findUnallocatedSocketId()
+			for socketId, socketData in pairs(build.spec.nodes) do
+				if socketData.isJewelSocket and socketData.name ~= "Charm Socket"
+						and build.itemsTab.sockets[socketId] and not build.spec.allocNodes[socketId] then
+					return socketId
+				end
+			end
+			error("expected at least one unallocated jewel socket")
+		end
+
 		local function equipFakeJewel(socketId, title, limit, extraItemFields)
 			local slot = build.itemsTab.sockets[socketId]
 			assert.is_not_nil(slot, "socket " .. socketId .. " should exist")
@@ -1267,6 +1277,23 @@ describe("RadiusJewelFinder #radiusjewel", function()
 				assert.are.equal(0, #result)
 			end)
 
+			it("ignores jewels stored in unallocated sockets", function()
+				local socketId = findUnallocatedSocketId()
+				equipFakeJewel(socketId, "Thread of Hope", 1)
+				local finder = makeFinder()
+				local occupancy = finder:getSocketOccupancyInfo(socketId)
+				local allowed = finder:socketMatchesOccupiedMode(socketId, { id = "free" })
+
+				assert.is_false(occupancy.isOccupied)
+				assert.are.equal("Thread of Hope", occupancy.storedUnallocatedItemLabel)
+				assert.is_true(allowed)
+				assert.are.equal(7, finder:getSocketBasePoints({ id = socketId, pathDist = 7 }, occupancy))
+
+				local result = finder:findEquippedJewelSockets({ name = "Thread of Hope" })
+				assert.are.equal(0, #result)
+				assert.is_false(result.atLimit)
+			end)
+
 			it("returns entry but atLimit=false when equipped jewel has no limit", function()
 				equipFakeJewel(ALLOC_SOCKET_IDS[1], "Might of the Meek", nil)
 				local result = makeFinder():findEquippedJewelSockets({ name = "Might of the Meek" })
@@ -1305,6 +1332,19 @@ describe("RadiusJewelFinder #radiusjewel", function()
 				assert.are.equal(0, #result)
 			end)
 
+		end)
+
+		it("computeSocketImpact treats jewels stored in unallocated sockets as free sockets", function()
+			local socketId = findUnallocatedSocketId()
+			equipFakeJewel(socketId, "Unnatural Instinct", 1)
+			local finder = makeFinder()
+			local results = finder:computeSocketImpact({
+				{ id = socketId, label = "Test socket", pathDist = 7 },
+			}, MIGHT_OF_MEEK_RAW_TEXT, "Life", nil, nil, { id = "free" })
+
+			assert.are.equal(1, #results)
+			assert.is_nil(results[1].replacedItemLabel)
+			assert.are.equal("Unnatural Instinct", results[1].storedUnallocatedItemLabel)
 		end)
 
 		-- ── findDisconnectedPassiveDependentNodes ─────────────────────────────
@@ -1450,6 +1490,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 				if not testSocketId then pending("no isolated radius node found") end
 
 				-- Allocate the isolated node as a disconnected passive jewel would.
+				build.spec.allocNodes[testSocketId] = build.spec.tree.nodes[testSocketId]
 				build.spec.allocNodes[testNodeId] = build.spec.tree.nodes[testNodeId]
 
 				equipFakeJewel(testSocketId, "Intuitive Leap", 1, {
@@ -1475,6 +1516,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 				local testSocketId, testNodeId, outsideLinkedNodeId = findRadiusNodeWithOutsideLinkedNode(ri)
 				if not testSocketId then pending("no radius node with outside linked node found") end
 
+				build.spec.allocNodes[testSocketId] = treeData.nodes[testSocketId]
 				build.spec.allocNodes[testNodeId] = treeData.nodes[testNodeId]
 				build.spec.allocNodes[outsideLinkedNodeId] = treeData.nodes[outsideLinkedNodeId]
 

@@ -655,15 +655,28 @@ end
 -- Occupancy is the socket's current item state plus whether a preview replace is safe.
 function RadiusJewelFinderClass:getSocketOccupancyInfo(socketId)
 	local slot = self.build.itemsTab.sockets[socketId]
+	local isSocketAllocated = self.build.spec.allocNodes[socketId] ~= nil
 	if not slot or slot.selItemId == 0 then
 		return {
 			slot = slot,
+			isSocketAllocated = isSocketAllocated,
 			isOccupied = false,
 			isSafeReplace = true,
 		}
 	end
 	local item = self.build.itemsTab.items[slot.selItemId]
 	local itemLabel = item and (item.title or item.name or item.baseName) or "Unknown item"
+	if not isSocketAllocated then
+		return {
+			slot = slot,
+			item = item,
+			itemLabel = itemLabel,
+			isSocketAllocated = false,
+			isOccupied = false,
+			isSafeReplace = true,
+			storedUnallocatedItemLabel = itemLabel,
+		}
+	end
 	local isPositionSensitive = false
 	if item then
 		isPositionSensitive = item.clusterJewel
@@ -675,8 +688,10 @@ function RadiusJewelFinderClass:getSocketOccupancyInfo(socketId)
 		slot = slot,
 		item = item,
 		itemLabel = itemLabel,
+		isSocketAllocated = true,
 		isOccupied = true,
 		isSafeReplace = not isPositionSensitive,
+		replacedItemLabel = itemLabel,
 	}
 end
 
@@ -709,8 +724,9 @@ end
 function RadiusJewelFinderClass:findEquippedJewelSockets(jewelType)
 	local equipped = { }
 	local limit
+	local allocNodes = self.build.spec.allocNodes
 	for socketId, slot in pairs(self.build.itemsTab.sockets) do
-		if slot.selItemId and slot.selItemId ~= 0 then
+		if allocNodes[socketId] and slot.selItemId and slot.selItemId ~= 0 then
 			local item = self.build.itemsTab.items[slot.selItemId]
 			if item and item.title == jewelType.name then
 				limit = limit or item.limit
@@ -1379,6 +1395,10 @@ end
 		elseif row.replacedItemLabel then
 			t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33Use occupied socket" })
 			t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33Will replace: ^7" .. row.replacedItemLabel })
+		elseif row.storedUnallocatedItemLabel then
+			t_insert(resultDetailListData, { height = 16, [1] = "^2Use unallocated socket" })
+			t_insert(resultDetailListData, { height = 16, [1] = "^8Stored jewel ignored until this socket is allocated." })
+			t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33Apply will replace the stored jewel: ^7" .. row.storedUnallocatedItemLabel })
 		else
 			t_insert(resultDetailListData, { height = 16, [1] = "^2Use free socket" })
 		end
@@ -1957,6 +1977,7 @@ end
 					resultNodes = plan.resultNodes,
 					resultNodeLabels = plan.resultNodeLabels,
 					replacedItemLabel = r.replacedItemLabel,
+					storedUnallocatedItemLabel = r.storedUnallocatedItemLabel,
 					itemTooltipLines = itemTooltipLines,
 					baseOutput = plan.baseOutput,
 					compareOutput = plan.compareOutput,
@@ -2205,7 +2226,8 @@ end
 											local score = jt.score(nodes, allocNodes) or 0
 											if not best or score > best.score then
 												best = { socket = socket, score = score, variant = tv,
-													replacedItemLabel = occupancy and occupancy.isOccupied and occupancy.itemLabel or nil }
+													replacedItemLabel = occupancy and occupancy.replacedItemLabel or nil,
+													storedUnallocatedItemLabel = occupancy and occupancy.storedUnallocatedItemLabel or nil }
 											end
 										end
 									end
@@ -2235,7 +2257,8 @@ end
 											socket = socket, score = bestIE.score,
 											variant = bestIE.variant,
 											detailText = bestIE.variant.name,
-											replacedItemLabel = occupancy and occupancy.isOccupied and occupancy.itemLabel or nil,
+											replacedItemLabel = occupancy and occupancy.replacedItemLabel or nil,
+											storedUnallocatedItemLabel = occupancy and occupancy.storedUnallocatedItemLabel or nil,
 										})
 									end
 								end
@@ -2249,7 +2272,8 @@ end
 									t_insert(typeResults, {
 										socket = socket, score = score,
 										detailText = s_format("dist %d", score),
-										replacedItemLabel = occupancy and occupancy.isOccupied and occupancy.itemLabel or nil,
+										replacedItemLabel = occupancy and occupancy.replacedItemLabel or nil,
+										storedUnallocatedItemLabel = occupancy and occupancy.storedUnallocatedItemLabel or nil,
 									})
 								end
 							end
@@ -2270,7 +2294,8 @@ end
 												local score = scoreFn(nodes, allocNodes) or 0
 												if not best or score > best.score then
 													best = { socket = socket, score = score, variant = variant,
-														replacedItemLabel = occupancy and occupancy.isOccupied and occupancy.itemLabel or nil }
+														replacedItemLabel = occupancy and occupancy.replacedItemLabel or nil,
+														storedUnallocatedItemLabel = occupancy and occupancy.storedUnallocatedItemLabel or nil }
 												end
 											end
 										end
@@ -2291,7 +2316,8 @@ end
 											local score = jt.score(nodes, allocNodes) or 0
 											t_insert(typeResults, {
 												socket = socket, score = score,
-												replacedItemLabel = occupancy and occupancy.isOccupied and occupancy.itemLabel or nil,
+												replacedItemLabel = occupancy and occupancy.replacedItemLabel or nil,
+												storedUnallocatedItemLabel = occupancy and occupancy.storedUnallocatedItemLabel or nil,
 											})
 										end
 									end
@@ -2350,6 +2376,7 @@ end
 								scorePerPointSort = scorePerPointSort,
 								detailText = detailText,
 								replacedItemLabel = r.replacedItemLabel,
+								storedUnallocatedItemLabel = r.storedUnallocatedItemLabel,
 								itemTooltipLines = itemTooltipLines,
 								applyRawText = findApplyRawText,
 								action = action,
@@ -2464,7 +2491,8 @@ end
 										score = score,
 										topNodes = topNodes,
 										variant = threadVariant,
-										replacedItemLabel = occupancy and occupancy.isOccupied and occupancy.itemLabel or nil,
+										replacedItemLabel = occupancy and occupancy.replacedItemLabel or nil,
+										storedUnallocatedItemLabel = occupancy and occupancy.storedUnallocatedItemLabel or nil,
 									}
 									if not bestThreadResult
 									or candidate.score > bestThreadResult.score
@@ -2483,7 +2511,8 @@ end
 								topNodes = impossibleEscapeBestResult.topNodes,
 								variant = impossibleEscapeBestResult.variant,
 								detailText = impossibleEscapeBestResult.detailText,
-								replacedItemLabel = occupancy and occupancy.isOccupied and occupancy.itemLabel or nil,
+								replacedItemLabel = occupancy and occupancy.replacedItemLabel or nil,
+								storedUnallocatedItemLabel = occupancy and occupancy.storedUnallocatedItemLabel or nil,
 							})
 						elseif isSplitPersonalitySearch then
 							local score = socket.classStartDist or self:getSocketDistanceToClassStart(socket.id)
@@ -2492,7 +2521,8 @@ end
 								score = score,
 								topNodes = { },
 								detailText = s_format("dist to start %d", score),
-								replacedItemLabel = occupancy and occupancy.isOccupied and occupancy.itemLabel or nil,
+								replacedItemLabel = occupancy and occupancy.replacedItemLabel or nil,
+								storedUnallocatedItemLabel = occupancy and occupancy.storedUnallocatedItemLabel or nil,
 							})
 						else
 							local nodes
@@ -2531,7 +2561,8 @@ end
 									score = score or 0,
 									topNodes = topNodes,
 									detailText = detailBuilder and detailBuilder(nodes, allocNodes) or nil,
-									replacedItemLabel = occupancy and occupancy.isOccupied and occupancy.itemLabel or nil,
+									replacedItemLabel = occupancy and occupancy.replacedItemLabel or nil,
+									storedUnallocatedItemLabel = occupancy and occupancy.storedUnallocatedItemLabel or nil,
 								})
 							end
 						end
@@ -2599,6 +2630,7 @@ end
 							detailNodeId = detailNodeId,
 							topNodes = copyTableSafe(r.topNodes, false, true),
 							replacedItemLabel = r.replacedItemLabel,
+							storedUnallocatedItemLabel = r.storedUnallocatedItemLabel,
 							action = action,
 							applyRawText = (r.variant and r.variant.rawText)
 								or (selectedJewelVariant and selectedJewelVariant.rawText)
@@ -2672,6 +2704,9 @@ end
 			tooltip:Clear(true)
 			tooltip:AddLine(16, "^7Equip ^x33FF77" .. (row.jewelName or "jewel") .. " ^7in ^x33FF77" .. (row.socketLabel or "socket"))
 			tooltip:AddLine(16, "^8Adds the jewel to this build.")
+			if row.storedUnallocatedItemLabel then
+				tooltip:AddLine(16, "^xFFAA33Replaces the stored jewel ignored by the current tree.")
+			end
 			tooltip:AddLine(16, "^8Double-click a result to apply it.")
 		end
 
