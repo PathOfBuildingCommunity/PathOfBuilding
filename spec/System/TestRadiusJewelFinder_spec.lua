@@ -320,10 +320,7 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			assert.is_true(#computeTooltipTexts > 0, "expected Compute tooltip content")
 			assert.is_true(computeTooltipTexts[1]:find("selected stat", 1, true) ~= nil,
 				"expected Compute tooltip to explain stat ranking")
-			local findTooltipTexts = buttonTooltipTexts(popup.controls.findButton)
-			assert.is_true(#findTooltipTexts > 0, "expected Find tooltip content")
-			assert.is_true(findTooltipTexts[1]:find("passive%-match") ~= nil,
-				"expected Find tooltip to explain passive matching")
+			assert.is_false(popup.controls.findButton:IsShown(), "Find should be hidden for All jewels")
 			local applyTooltipTexts = buttonTooltipTexts(popup.controls.applyButton)
 			assert.is_true(#applyTooltipTexts > 0, "expected Apply tooltip content")
 			assert.is_true(applyTooltipTexts[1]:find("Select a result", 1, true) ~= nil,
@@ -405,23 +402,31 @@ describe("RadiusJewelFinder #radiusjewel", function()
 				{ height = 16, [1] = "^7Selected Jewel" },
 				{ height = 16, [1] = "^8Selected result preview line" },
 			}
-			popup.controls.resultsList:SetMode("findAll", {
+			assert.is_false(popup.controls.findButton:IsShown(), "Find should stay hidden for All jewels")
+			popup.controls.resultsList:SetMode("computeSocketAll", {
 				{
 					jewelName = "Selected Jewel",
 					socketLabel = "Socket #1",
 					socketId = 33631,
 					points = 1,
-					score = 10,
-					scorePerPoint = 10,
-					scorePerPointSort = 10,
+					delta = 10,
+					pct = 10,
+					pctPerPoint = 10,
+					sortPctPerPoint = 10,
 					detailText = "Test detail",
 					itemTooltipLines = selectedResultPreview,
 					action = "new",
 				},
-			}, "(no results)")
+			}, "(no compatible sockets)")
 			assert.are.equal("^7Selected Jewel", popup.controls.previewList.list[1][1])
 			assert.are.equal(180, popup.controls.previewList.height())
-			popup.controls.resultsList:SetMode("message", { }, "Click Find")
+			local allJewelsDetailHover = popup.controls.resultsList:GetHoverInfo(7, popup.controls.resultsList.selValue)
+			assert.is_true(allJewelsDetailHover.showItemTooltip,
+				"All jewels Compute detail column should show jewel preview tooltip")
+			local allJewelsSocketHover = popup.controls.resultsList:GetHoverInfo(2, popup.controls.resultsList.selValue)
+			assert.is_true(allJewelsSocketHover.showViewer,
+				"All jewels Compute socket column should show socket preview")
+			popup.controls.resultsList:SetMode("message", { }, "Click Compute")
 			assert.are.equal("^7Evaluate every jewel type.", popup.controls.previewList.list[1][1])
 			assert.are.equal(48, popup.controls.previewList.height())
 
@@ -433,6 +438,11 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			assert.is_true(#typeTooltipTexts > 0, "expected jewel type tooltip content")
 			assert.is_true(typeTooltipTexts[1]:find("Intuitive Leap", 1, true) ~= nil,
 				"expected type tooltip to describe Intuitive Leap")
+			assert.is_true(popup.controls.findButton:IsShown(), "Find should be shown for a single jewel type")
+			local findTooltipTexts = buttonTooltipTexts(popup.controls.findButton)
+			assert.is_true(#findTooltipTexts > 0, "expected Find tooltip content")
+			assert.is_true(findTooltipTexts[1]:find("matching passives", 1, true) ~= nil,
+				"expected Find tooltip to explain passive matching")
 			assert.is_true(popup.controls.computeMethodSelect.shown, "expected method selector for Intuitive Leap")
 			assert.are.same({ "Fast", "Simulated" }, listLabels(popup.controls.computeMethodSelect.list))
 			assert.are.same({ "Free only", "Safe occupied", "All occupied" }, listLabels(popup.controls.occupiedModeSelect.list))
