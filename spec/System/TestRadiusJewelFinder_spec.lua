@@ -477,8 +477,18 @@ describe("RadiusJewelFinder #radiusjewel", function()
 			assert.is_not_nil(splitIdx, "expected Split Personality in jewel type list")
 			popup.controls.jewelTypeSelect.selFunc(splitIdx)
 			assert.is_true(popup.controls.computeButton.shown, "expected Compute for Split Personality")
+			local splitTypeTooltipTexts = tooltipTexts(popup.controls.jewelTypeSelect, splitIdx)
+			for _, text in ipairs(splitTypeTooltipTexts) do
+				assert.is_nil(text:find("Radius:", 1, true),
+					"Split Personality type tooltip should not show a radius line")
+			end
 			local splitLabels = listLabels(popup.controls.jewelVariantSelect.list)
 			assert.is_true(#splitLabels > 0, "expected Split Personality variants")
+			local splitVariantTooltipTexts = tooltipTexts(popup.controls.jewelVariantSelect, 1)
+			for _, text in ipairs(splitVariantTooltipTexts) do
+				assert.is_nil(text:find("Radius:", 1, true),
+					"Split Personality variant tooltip should not show a radius line")
+			end
 			local seenLabels = {}
 			for _, label in ipairs(splitLabels) do
 				assert.is_string(label)

@@ -475,13 +475,14 @@ end
 -- ─────────────────────────────────────────────────────────────────────────────
 
 local function previewHeader(name, itemType, radius, extra)
-	radius = radius or "?"
 	local lines = {
 		{ height = 20, [1] = COL_UNIQUE .. name },
 		{ height = 16, [1] = COL_META   .. itemType },
 		{ height = 6,  [1] = "" },
-		{ height = 16, [1] = COL_META .. "Radius: " .. radius },
 	}
+	if radius then
+		t_insert(lines, { height = 16, [1] = COL_META .. "Radius: " .. radius })
+	end
 	if extra then
 		for _, e in ipairs(extra) do
 			t_insert(lines, { height = 16, [1] = COL_META .. e })
@@ -497,7 +498,7 @@ local function previewFromRawText(rawText, displayName, extraPreviewMeta)
 
 	local itemName = displayName or item.title or "Unknown Jewel"
 	local itemType = item.baseName or "Jewel"
-	local radius = item.jewelRadiusLabel or "?"
+	local radius = item.jewelRadiusLabel
 	local extra = { }
 	local mods = { }
 
@@ -637,7 +638,7 @@ jewelPreviewFn = {
 		if variant and variant.rawText then
 			return previewFromRawText(variant.rawText, "Split Personality (" .. variant.name .. ")")
 		end
-		local lines = previewHeader("Split Personality", "Crimson Jewel", "Variable",
+		local lines = previewHeader("Split Personality", "Crimson Jewel", nil,
 			{ "Limited to: 2", "Source: Drops from the Simulacrum Encounter" })
 		t_insert(lines, { height = 16, [1] = COL_MOD .. "Socket effect scales with distance to class start" })
 		t_insert(lines, { height = 14, [1] = COL_META .. "Variants: Strength, Dexterity, Intelligence, Life" })
