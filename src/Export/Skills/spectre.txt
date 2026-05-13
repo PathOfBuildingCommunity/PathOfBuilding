@@ -761,6 +761,10 @@ local skills, mod, flag, skill = ...
 #flags attack melee projectile
 #mods
 
+#skill MeleeBasiliskArrow
+#flags attack melee projectile
+#mods
+
 #skill AtlasEyrieArcherMortar Mortar
 #flags spell hit projectile area triggerable
 #mods
@@ -2872,3 +2876,8 @@ skills["LegionKaruiMeleeCombo2"] = {
 		},
 	},
 #mods
+
+#skill MPSSanctumPurifierHolyProjectile Holy Projectile
+#flags spell projectile
+#mods
+

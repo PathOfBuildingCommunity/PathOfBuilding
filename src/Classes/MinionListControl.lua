@@ -74,8 +74,9 @@ function MinionListClass:AddValueTooltip(tooltip, index, minionId)
 		if #minion.skillList > 0 then
 			tooltip:AddSeparator(10)
 			for _, skillId in ipairs(minion.skillList) do
-				if self.data.skills[skillId] then
-					tooltip:AddLine(14, "^7Skill: "..self.data.skills[skillId].name)
+			if self.data.skills[skillId] then
+					local color = data.skillColorMap[self.data.skills[skillId].color]
+					tooltip:AddLine(14, "^7Skill: " .. color .. self.data.skills[skillId].name)
 				end
 			end
 		end

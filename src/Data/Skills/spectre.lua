@@ -5107,6 +5107,34 @@ skills["MeleeEyrieArrow"] = {
 		[4] = { baseMultiplier = 0.75, levelRequirement = 84, },
 	},
 }
+skills["MeleeBasiliskArrow"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "arrow_projectile_variation", 25 },
+		{ "skill_physical_damage_%_to_convert_to_chaos", 25 },
+	},
+	stats = {
+		"skill_can_fire_arrows",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+		"visual_hit_effect_chaos_is_green",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
 skills["AtlasEyrieArcherMortar"] = {
 	name = "Mortar",
 	hidden = true,
@@ -16003,5 +16031,40 @@ skills["FaridunAcolyteAnger"] = {
 	},
 	levels = {
 		[1] = { 0.34999999403954, 0.5, 0.34999999403954, 0.5, cooldown = 0.5, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, 3, 3, 3, }, },
+	},
+}
+skills["MPSSanctumPurifierHolyProjectile"] = {
+	name = "Holy Projectile",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0.40000000596046,
+	incrementalEffectiveness = 0.03999999910593,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "monster_projectile_variation", 221 },
+		{ "base_projectile_speed_+%", 50 },
+		{ "projectile_distance_override", 40 },
+		{ "monster_penalty_against_minions_damage_+%_final_vs_player_minions", -25 },
+		{ "base_sanctum_damage", 15 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"projectile_uses_contact_direction",
+	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 12, critChance = 5, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }

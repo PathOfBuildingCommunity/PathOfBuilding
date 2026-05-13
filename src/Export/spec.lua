@@ -9681,8 +9681,8 @@ return {
 	monstercategories={
 		[1]={
 			list=false,
-			name="",
-			refTo="",
+			name="TagKey",
+			refTo="Tags",
 			type="Key",
 			width=150
 		},
