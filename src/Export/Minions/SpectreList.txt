@@ -1822,12 +1822,10 @@ Metadata/Monsters/FaridunLeague/FaridunAstralAcolyteHigh                        
 -- Spectres Not Yet Imported --
 -- These spectres are not in PoB yet. Could be false spectres or disabled server-side. --
 
-Metadata/Monsters/Beasts/BeastParasiteSpawnParasite                                       		----		Enraptured Beast
+Metadata/Monsters/Goatman/GoatmanLightningLeapSlamExtra                                   		----		Bearded Devil
 Metadata/Monsters/InsectSpawner/InsectSpawnerParasite                                     		----		Carrion Queen
 Metadata/Monsters/InsectMinion/InsectWildDescent                                          		----		Carrion Swarmer
 Metadata/Monsters/Kiweth/KiwethBossMinion                                                 		----		Vassal of Inti
-Metadata/Monsters/Bull/BullNoArmour                                                       		----		Avalanche Rider
-Metadata/Monsters/Bull/BullPhysical                                                       		----		Grazing Taurus
 Metadata/Monsters/Prophecy/VaalFallenSword                                                		----		Vaal Memory
 Metadata/Monsters/HolyFireElemental/HolyFireElementalSolaris2                             		----		Solar Elemental
 Metadata/Monsters/NessaCrab/NessaCrabAtlasUber                                            		----		Reefrend

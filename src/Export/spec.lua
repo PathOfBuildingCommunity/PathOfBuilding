@@ -9678,6 +9678,29 @@ return {
 			width=230
 		}
 	},
+	monstercategories={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
+	},
 	monsterchancetodropitemtemplate={
 	},
 	monsterconditionaleffectpacks={
@@ -10427,21 +10450,21 @@ return {
 			name="Actor",
 			refTo="",
 			type="String",
-			width=360
+			width=430
 		},
 		[8]={
 			list=true,
 			name="AnimatedObject",
 			refTo="",
 			type="String",
-			width=390
+			width=540
 		},
 		[9]={
 			list=false,
 			name="ObjectType",
 			refTo="",
 			type="String",
-			width=370
+			width=520
 		},
 		[10]={
 			list=true,
@@ -10581,7 +10604,7 @@ return {
 			name="AIScript",
 			refTo="",
 			type="String",
-			width=150
+			width=500
 		},
 		[30]={
 			list=true,
@@ -11086,6 +11109,13 @@ return {
 			refTo="",
 			type="Bool",
 			width=50
+		},
+		[102]={
+			list=false,
+			name="MonsterCategory",
+			refTo="MonsterCategories",
+			type="Key",
+			width=150
 		}
 	},
 	monstervarietiesartvariations={

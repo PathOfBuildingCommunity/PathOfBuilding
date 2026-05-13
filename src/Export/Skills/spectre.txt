@@ -136,6 +136,10 @@ local skills, mod, flag, skill = ...
 #flags spell projectile area
 #mods
 
+#skill FireballIncursionChaosAtlasUber Chaos Ball
+#flags spell projectile area
+#mods
+
 #skill FireballIncusionFire Fireball
 #flags spell projectile area
 #mods
@@ -184,6 +188,10 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill GuardianArc Arc
+#flags spell chaining
+#mods
+
+#skill ClockworkGolemArc Arc
 #flags spell chaining
 #mods
 
@@ -254,6 +262,14 @@ local skills, mod, flag, skill = ...
 #flags spell projectile area
 #mods
 
+#skill ClockworkGolemLightningProjectile Mortar
+#flags spell projectile area
+#mods
+
+#skill LightningTendrilsClockworkGolemShavronne Lightning Tendrils
+#flags spell area
+#mods
+
 #skill MassFrenzy Mass Frenzy
 #flags spell area
 #mods
@@ -271,6 +287,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MonsterCausticArrow Caustic Arrow
+#flags attack projectile area duration
+#mods
+
+#skill HeistSkeletonCausticArrow Caustic Arrow
+#flags attack projectile area duration
+#mods
+
+#skill BlackguardJaegerCausticArrow Caustic Arrow
 #flags attack projectile area duration
 #mods
 
@@ -322,6 +346,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MonsterFlameRedCannibal Incinerate
+#flags spell projectile
+#mods
+
+#skill IncinerateBlackguardCleric Incinerate
+#flags spell projectile
+#mods
+
+#skill TalismanT2IncinerateBlue Incinerate
 #flags spell projectile
 #mods
 
@@ -588,6 +620,10 @@ local skills, mod, flag, skill = ...
 #flags spell projectile
 #mods
 
+#skill SkeletonProjectileColdProphecy Default Spell (Cold)
+#flags spell projectile
+#mods
+
 #skill SkeletonProjectileFire Default Spell (Fire)
 #flags spell projectile
 #mods
@@ -597,6 +633,10 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SkeletonProjectileLightning Default Spell (Lightning)
+#flags spell projectile
+#mods
+
+#skill SkeletonProjectileLightningProphecy Default Spell (Lightning)
 #flags spell projectile
 #mods
 
@@ -677,7 +717,19 @@ local skills, mod, flag, skill = ...
 #flags attack melee
 #mods
 
+#skill CrucibleWickerManMoltenStrike
+#flags attack melee
+#mods
+
+#skill VaalGuardMeleeCold Default Attack (Cold)
+#flags attack melee
+#mods
+
 #skill VaalGuardMeleeFire Default Attack (Fire)
+#flags attack melee
+#mods
+
+#skill VaalGuardMeleeLightning Default Attack (Lightning)
 #flags attack melee
 #mods
 
@@ -715,6 +767,18 @@ local skills, mod, flag, skill = ...
 
 #skill AtlasEyrieArcherSnipe Snipe
 #flags attack hit projectile triggerable
+#mods
+
+#skill MPWHeistTemplarRangedSnipe Snipe
+#flags attack hit projectile triggerable
+#mods
+
+#skill AtlasExileEyrieCasterProjectile Default Spell
+#flags spell projectile triggerable
+#mods
+
+#skill AtlasEyrieIceSpear
+#flags spell projectile
 #mods
 
 #skill AtlasEyrieArcherCrystalImpact Crystal Impact
@@ -763,7 +827,15 @@ local skills, mod, flag, skill = ...
 #skill SandLeaperDodgeRight Sand Leaper Dodge Right
 #mods
 
-#skill SynthesisSoulstealerProjectileLightning Lightning Projectile
+#skill SynthesisSoulstealerProjectileFire Default Spell (Fire)
+#flags spell triggerable projectile
+#mods
+
+#skill SynthesisSoulstealerProjectileLightning Default Spell (Lightning)
+#flags spell triggerable projectile
+#mods
+
+#skill SynthesisSoulstealerProjectileCold Default Spell (Cold)
 #flags spell triggerable projectile
 #mods
 
@@ -809,6 +881,10 @@ local skills, mod, flag, skill = ...
 
 #skill HarvestNessaCrabScreech Screech
 #flags spell hit area triggerable
+#mods
+
+#skill HarvestLanternMinerProjectile Default Spell
+#flags spell projectile
 #mods
 
 skills["HarvestNessaCrabScreechDebuff"] = {
@@ -886,7 +962,15 @@ skills["HarvestRhexScreechDebuff"] = {
 #flags spell area duration
 #mods
 
+#skill LegionTemplarCasterProjectile Default Spell
+#flags spell projectile
+#mods
+
 #skill MPWHeistThugRangedBurningArrow Burning Arrow
+#flags attack projectile hit triggerable
+#mods
+
+#skill MonsterBurningArrow Burning Arrow
 #flags attack projectile hit triggerable
 #mods
 
@@ -984,6 +1068,14 @@ skills["HarvestRhexScreechDebuff"] = {
 #flags attack projectile melee
 #mods
 
+#skill UltimatumGuardMeleeLightning Default Attack (Lightning)
+#flags attack projectile melee
+#mods
+
+#skill UltimatumGuardMeleeFire Default Attack (Fire)
+#flags attack projectile melee
+#mods
+
 #skill UltimatumGuardConeArrowCold Cone Arrow
 #flags attack hit area triggerable
 #mods
@@ -996,11 +1088,39 @@ skills["HarvestRhexScreechDebuff"] = {
 #flags attack projectile triggerable
 #mods
 
+#skill MeleeAtAnimationSpeedDjinnStab Stab
+#flags attack melee projectile
+#mods
+
+#skill MeleeAtAnimationSpeedDjinnStab Swipe
+#flags attack melee projectile
+#mods
+
 #skill MeleeAtAnimationSpeed Default Attack
 #flags attack melee projectile
 #mods
 
+#skill MeleeAtAnimationSpeedBow
+#flags attack melee projectile
+#mods
+
+#skill MeleeAtAnimationSpeedUnique
+#flags attack melee projectile
+#mods
+
+#skill MeleeAtAnimationSpeedUniqueSanctum
+#flags attack melee projectile
+#mods
+
 #skill MeleeKaruiArcher Cold Arrow
+#flags attack projectile melee
+#mods
+
+#skill MeleeKaruiSergeant
+#flags attack projectile melee
+#mods
+
+#skill MeleeEternalArcher
 #flags attack projectile melee
 #mods
 
@@ -1024,7 +1144,23 @@ skills["HarvestRhexScreechDebuff"] = {
 #flags spell hit triggerable
 #mods
 
+#skill TBSanctumPaleLightningBoltSpammableLeft Lightning Bolt
+#flags spell hit triggerable
+#mods
+
+#skill TBBreachElitePaleLightningBoltSpammableLeft Lightning Bolt
+#flags spell hit triggerable
+#mods
+
 #skill GSHellscapePaleEliteBoltImpact Bolt Impact
+#flags spell area hit triggerable
+#mods
+
+#skill GSBreachElitePaleEliteBoltImpact Bolt Impact
+#flags spell area hit triggerable
+#mods
+
+#skill GSSanctumPaleEliteBoltImpact Bolt Impact
 #flags spell area hit triggerable
 #mods
 
@@ -1032,11 +1168,7 @@ skills["HarvestRhexScreechDebuff"] = {
 #flags spell area hit triggerable
 #mods
 
-#skill TBSanctumPaleLightningBoltSpammableLeft Lightning Bolt
-#flags spell hit triggerable
-#mods
-
-#skill GSSanctumPaleEliteBoltImpact Bolt Impact
+#skill GTBreachElitePaleEliteOmegaBeam Omega Beam
 #flags spell area hit triggerable
 #mods
 
@@ -1095,6 +1227,10 @@ skills["HarvestRhexScreechDebuff"] = {
 #mods
 
 #skill SynthesisPhysicalTripleMortar Triple Mortar
+#flags area spell projectile
+#mods
+
+#skill SynthesisWalkerMortar Mortar
 #flags area spell projectile
 #mods
 
@@ -1157,6 +1293,10 @@ skills["HarvestRhexScreechDebuff"] = {
 #mods
 
 #skill DelveWraithScreechChaos Chaos Screech
+#flags spell area
+#mods
+
+#skill WraithScreechChaos Chaos Screech
 #flags spell area
 #mods
 
@@ -1321,6 +1461,10 @@ skills["MonsterVulnerabilityOnHit1"] = {
 #flags spell area
 #mods
 
+#skill ProphecyGlacialCascade
+#flags spell area
+#mods
+
 #skill AzmeriHailrakeArcticArmour
 #flags spell duration
 #mods
@@ -1330,6 +1474,10 @@ skills["MonsterVulnerabilityOnHit1"] = {
 #mods
 
 #skill GSAzmeriHailrakeIceNova Ice Nova
+#flags spell area
+#mods
+
+#skill GSCrucibleWickerManIceNova Ice Nova
 #flags spell area
 #mods
 
@@ -1486,6 +1634,10 @@ skills["DarkMarionetteExplodePerfect"] = {
 #mods
 
 #skill GAAzmeriRobotArgusSlam Slam
+#flags attack area
+#mods
+
+#skill GAAncestralLeagueKaruiDrunkVomit Vomit
 #flags attack area
 #mods
 
@@ -2152,6 +2304,10 @@ skills["DarkMarionetteExplodePerfect"] = {
 #flags spell area hit
 #mods
 
+#skill HeistScientistWandProjectile Wand Projectile
+#flags attack projectile hit
+#mods
+
 #skill GSHeistLightningWaterfallHit Waterfall
 #flags spell area hit
 #mods
@@ -2161,6 +2317,10 @@ skills["DarkMarionetteExplodePerfect"] = {
 #mods
 
 #skill MPSCrucibleSkeletonChaosProjectile Default Spell (Chaos)
+#flags spell projectile
+#mods
+
+#skill MPSMercurialCasterEnrage Default Spell (Fire)
 #flags spell projectile
 #mods
 
@@ -2255,6 +2415,10 @@ skills["DarkMarionetteExplodePerfect"] = {
 #mods
 
 #skill MeleeFire Basic Attack
+#flags attack melee
+#mods
+
+#skill BlackguardJaegerMelee
 #flags attack melee
 #mods
 
@@ -2459,6 +2623,14 @@ skills["LegionKaruiMeleeCombo2"] = {
 #flags attack melee projectile
 #mods
 
+#skill DelveLithomancerProjectile Default Spell (Physical)
+#flags spell projectile
+#mods
+
+#skill DelveLithomancerProjectileLarge Default Spell (Physical)
+#flags spell projectile
+#mods
+
 #skill SanctumLithomancerProjectile Default Spell (Physical)
 #flags spell projectile
 #mods
@@ -2480,6 +2652,10 @@ skills["LegionKaruiMeleeCombo2"] = {
 #mods
 
 #skill MeleeAtAnimationSpeedWithDirectionalKnockback
+#flags attack melee projectile
+#mods
+
+#skill MeleeAtAnimationSpeedWithDirectionalKnockbackSanctum
 #flags attack melee projectile
 #mods
 
@@ -2519,6 +2695,10 @@ skills["LegionKaruiMeleeCombo2"] = {
 #flags attack projectile melee
 #mods
 
+#skill MeleeHeistTemplarArrow
+#flags attack projectile melee
+#mods
+
 #skill MeleeAtAnimationSpeedSanctum
 #flags attack projectile melee
 #mods
@@ -2539,7 +2719,23 @@ skills["LegionKaruiMeleeCombo2"] = {
 #flags spell projectile
 #mods
 
+#skill MPSAzmeriPictStaffProj Default Spell (Chaos)
+#flags spell projectile
+#mods
+
+#skill MPSAzmeriPictStaffProj2 Multishot Spell (Chaos)
+#flags spell projectile
+#mods
+
 #skill MPSHarvestGoatmanProjectile Default Spell (Lightning)
+#flags spell projectile
+#mods
+
+#skill MPSBreachEliteBoneProjectile Bone Projectile
+#flags spell projectile
+#mods
+
+#skill MPSExpeditionBoneCultistProjectiles Default Spell
 #flags spell projectile
 #mods
 
@@ -2559,7 +2755,15 @@ skills["LegionKaruiMeleeCombo2"] = {
 #flags attack projectile
 #mods
 
+#skill BetrayalSkeletonMelee
+#flags melee attack projectile
+#mods
+
 #skill HeistSkeletonMelee
+#flags melee attack projectile
+#mods
+
+#skill HeistSkeletonBasicAttack
 #flags melee attack projectile
 #mods
 
@@ -2571,16 +2775,24 @@ skills["LegionKaruiMeleeCombo2"] = {
 #flags melee attack projectile
 #mods
 
+#skill MeleePoisonMaim
+#flags melee attack projectile
+#mods
+
+#skill MeleeBleed
+#flags melee attack projectile
+#mods
+
 #skill MeleeMarakethArcher
+#flags melee attack projectile
+#mods
+
+#skill AncestralMeleeKnockbackStun
 #flags melee attack projectile
 #mods
 
 #skill KaomArcherShot2 Default Attack
 #flags attack projectile
-#mods
-
-#skill SynthesisSoulstealerProjectileFire Default Spell (Fire)
-#flags spell projectile
 #mods
 
 #skill SynthesisEnergySlice Energy Slice
@@ -2589,6 +2801,14 @@ skills["LegionKaruiMeleeCombo2"] = {
 
 #skill SynthesisSelfFlameblast
 #flags spell area hit
+#mods
+
+#skill SynthesisDroneProjectile Default Spell
+#flags spell projectile
+#mods
+
+#skill SynthesisDroneDiveBomb Mortar
+#flags spell projectile area
 #mods
 
 #skill IncursionIncaMinionProjectile Default Spell
@@ -2603,10 +2823,52 @@ skills["LegionKaruiMeleeCombo2"] = {
 #flags melee attack projectile
 #mods
 
+#skill MeleeWarlordArrow
+#flags melee attack projectile
+#mods
+
 #skill AtlasWarlordPitbullSlash Slash
 #flags attack area
 #mods
 
 #skill AtlasWarlordPitbullSlam Slam
 #flags attack area
+#mods
+
+#skill MonsterCannibalLunarisProjectile Default Spell (Cold)
+#flags spell projectile
+#mods
+
+#skill BansheeProjectileBlack Default Spell (Physical)
+#flags spell projectile
+#mods
+
+#skill ElementalStrikeVaalColossus
+#flags attack melee projectile area chains
+#mods
+
+#skill HeistProjectUnarmedMelee1
+#flags attack melee projectile
+#mods
+
+#skill BetrayalTotemCastGroundEffect Chaos Ground
+#flags spell area duration
+#mods
+
+#skill FaridunAcolyteAnger
+#flags spell aura area
+	statMap = {
+		["attack_minimum_added_fire_damage"] = {
+			mod("FireMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["attack_maximum_added_fire_damage"] = {
+			mod("FireMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["spell_minimum_added_fire_damage"] = {
+			mod("FireMin", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["spell_maximum_added_fire_damage"] = {
+			mod("FireMax", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
 #mods

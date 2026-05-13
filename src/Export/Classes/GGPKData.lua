@@ -291,6 +291,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/WorldAreas.dat",
 		"Data/MonsterPackEntries.dat",
 		"Data/MonsterPacks.dat",
+		"Data/MonsterCategories.dat",
 		"Data/Maps.dat",
 		"Data/AtlasNode.dat",
 	}

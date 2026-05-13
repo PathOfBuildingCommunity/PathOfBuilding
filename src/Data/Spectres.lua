@@ -1716,6 +1716,37 @@ minions["Metadata/Monsters/Beasts/DexMissionSpiderSpawnFromBeast"] = {
 		-- set_is_spider [set_is_spider = 1]
 	},
 }
+minions["Metadata/Monsters/Beasts/BeastParasiteSpawnParasite"] = {
+	name = "Enraptured Beast",
+	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "large_model", "mammal_beast", "medium_height", "melee", "physical_affinity", "red_blood", "ursine_beast", "very_slow_movement", },
+	life = 2.1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.095,
+	attackRange = 14,
+	accuracy = 1,
+	baseMovementSpeed = 19,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Barrows (Map)",
+		"Grotto (Map)",
+		"Lair (Map)",
+		"The Ashen Fields (Act 7)",
+		"The Broken Bridge (Act 7)",
+		"The Den (Act 7)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- AdditionalDropSlotsAndExperienceWhenDeletedOnDeathMonsterEffectiveness150_ [additional_item_drop_slots_when_deleted_on_death = 1]
+		-- AdditionalDropSlotsAndExperienceWhenDeletedOnDeathMonsterEffectiveness150_ [monster_inherent_experience_granted_+%_final_if_deleted_on_death = 67]
+	},
+}
 -- Betrayal
 minions["Metadata/Monsters/LeagueBetrayal/LaboratoryRatEmerge_"] = {
 	name = "Starved Plague Rat",
@@ -6434,6 +6465,66 @@ minions["Metadata/Monsters/Bull/Bull"] = {
 	modList = {
 	},
 }
+minions["Metadata/Monsters/Bull/BullNoArmour"] = {
+	name = "Avalanche Rider",
+	monsterTags = { "beast", "bludgeoning_weapon", "flesh_armour", "gladiator", "has_one_hand_mace", "has_one_handed_melee", "large_model", "medium_height", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.38,
+	armour = 1,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.91,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 9,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	baseMovementSpeed = 30,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Fields (Map)",
+		"The Foothills (Act 9)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"BullCharge",
+	},
+	modList = {
+		-- MonsterMaimOnHitChance [maim_on_hit_% = 25]
+	},
+}
+minions["Metadata/Monsters/Bull/BullPhysical"] = {
+	name = "Grazing Taurus",
+	monsterTags = { "beast", "bludgeoning_weapon", "flesh_armour", "gladiator", "has_one_hand_mace", "has_one_handed_melee", "large_model", "medium_height", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.38,
+	armour = 1,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.91,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 9,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	baseMovementSpeed = 30,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Fields (Map)",
+		"The Imperial Fields (Act 8)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"BullCharge",
+		"BullUpheaval",
+	},
+	modList = {
+	},
+}
 -- Cage Spider
 minions["Metadata/Monster/CageSpider/CageSpider2"] = {
 	name = "Sandworn Slaves",
@@ -8421,6 +8512,7 @@ minions["Metadata/Monsters/LeagueCrucible/Cold/KaruiElder"] = {
 	attackRange = 10,
 	accuracy = 1,
 	baseMovementSpeed = 28,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -11029,42 +11121,6 @@ minions["Metadata/Monsters/Goatman/MountainGoatmanChampionAtlasUber"] = {
 	modList = {
 	},
 }
-minions["Metadata/Monsters/Goatman/GoatmanLightningLeapSlamExtra"] = {
-	name = "Bearded Devil",
-	monsterTags = { "beast", "goatman", "has_one_hand_mace", "has_one_handed_melee", "humanoid", "light_armour", "mammal_beast", "medium_height", "not_int", "not_str", "physical_affinity", "red_blood", "slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.1,
-	evasion = 0.05,
-	fireResist = 40,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.1,
-	damageSpread = 0.2,
-	attackTime = 1.2,
-	attackRange = 7,
-	accuracy = 1,
-	baseMovementSpeed = 25,
-	monsterCategory = "Beast",
-	spawnLocation = {
-		"Arena (Map)",
-		"Atoll (Map)",
-		"Fragmented Memory",
-		"Glacier (Map)",
-		"Maelström of Chaos (Map)",
-		"Olmec's Sanctum (Map)",
-		"Pit of the Chimera (Map)",
-		"Plateau (Map)",
-		"Prisoner's Gate (Act 1)",
-	},
-	skillList = {
-		"GoatmanLeapSlam",
-		"GAGoatmanLeapSlamDamage",
-	},
-	modList = {
-		mod("PhysicalDamageConvertToLightning", "BASE", 50, 0, 0), -- MonsterConvertToLightningDamage2 [base_physical_damage_%_to_convert_to_lightning = 50]
-	},
-}
 minions["Metadata/Monsters/Goatman/GoatmanShamanFireball2"] = {
 	name = "Goatman Shaman",
 	monsterTags = { "beast", "bludgeoning_weapon", "caster", "fire_affinity", "goatman", "has_staff", "has_two_handed_melee", "humanoid", "light_armour", "mammal_beast", "medium_height", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
@@ -11578,7 +11634,7 @@ minions["Metadata/Monsters/Rhoas/DexMissionRhoaMinion"] = {
 	attackRange = 7,
 	accuracy = 1,
 	baseMovementSpeed = 15,
-	monsterCategory = "Beast",
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -11735,7 +11791,7 @@ minions["Metadata/Monsters/Rhoas/RhoaSkeleton"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 28,
-	monsterCategory = "Beast",
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Acid Caverns (Map)",
 		"Bog (Map)",
@@ -11770,7 +11826,7 @@ minions["Metadata/Monsters/Rhoas/RhoaSkeletonSupporter"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 28,
-	monsterCategory = "Beast",
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -11798,7 +11854,7 @@ minions["Metadata/Monsters/Rhoas/RhoaSkeletonBlack"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 28,
-	monsterCategory = "Beast",
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Carcass (Map)",
 		"Core (Map)",
@@ -11831,7 +11887,7 @@ minions["Metadata/Monsters/Rhoas/RhoaSkeletonSmall"] = {
 	attackRange = 11,
 	accuracy = 1,
 	baseMovementSpeed = 25,
-	monsterCategory = "Beast",
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"The Coward's Trial (Map)",
 	},
@@ -11859,7 +11915,7 @@ minions["Metadata/Monsters/Rhoas/RhoaSkeletonSmallSupporter"] = {
 	attackRange = 11,
 	accuracy = 1,
 	baseMovementSpeed = 25,
-	monsterCategory = "Beast",
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -11887,7 +11943,7 @@ minions["Metadata/Monsters/Rhoas/RhoaUndead"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 23,
-	monsterCategory = "Beast",
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Whakawairua Tuahu (Map)",
 	},
@@ -11996,7 +12052,7 @@ minions["Metadata/Monsters/Rhoas/IntMissionRhoaSkeleton"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 28,
-	monsterCategory = "Beast",
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -12030,7 +12086,7 @@ minions["Metadata/Monsters/Rhoas/RhoaSkeletonSmallDelveSpectre"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 42,
-	monsterCategory = "Beast",
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Acid Caverns (Map)",
 		"Bog (Map)",
@@ -12063,7 +12119,7 @@ minions["Metadata/Monsters/Rhoas/RhoaSkeletonLargeDelveSpectre"] = {
 	attackRange = 16,
 	accuracy = 1,
 	baseMovementSpeed = 36,
-	monsterCategory = "Beast",
+	monsterCategory = "Undead",
 	spawnLocation = {
 		"Acid Caverns (Map)",
 		"Bog (Map)",
@@ -22074,6 +22130,7 @@ minions["Metadata/Monsters/Gladiator/GladiatorSword"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 28,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Arena (Map)",
 		"Colosseum (Map)",
@@ -22107,6 +22164,7 @@ minions["Metadata/Monsters/Gladiator/GladiatorSwordShield"] = {
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Shield",
 	baseMovementSpeed = 28,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Arena (Map)",
 		"Colosseum (Map)",
@@ -32429,7 +32487,7 @@ minions["Metadata/Monsters/Snake/SnakeScorpionMultiShot"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 30,
-	monsterCategory = "Beast",
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -32521,7 +32579,7 @@ minions["Metadata/Monsters/Snake/SnakeMeleeInca"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 30,
-	monsterCategory = "Beast",
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"Ancient City (Map)",
 		"Doryani's Machinarium (Map)",
@@ -32561,7 +32619,7 @@ minions["Metadata/Monsters/Snake/SnakeScorpionInca"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 30,
-	monsterCategory = "Beast",
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"The Causeway (Act 7)",
 	},
@@ -32589,7 +32647,7 @@ minions["Metadata/Monsters/Snake/SnakeRoboMinionSideArea"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 30,
-	monsterCategory = "Beast",
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -32681,7 +32739,7 @@ minions["Metadata/Monsters/Snake/SnakePuncture"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 30,
-	monsterCategory = "Beast",
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"Fragmented Memory",
 		"Jungle Valley (Map)",
@@ -32744,7 +32802,7 @@ minions["Metadata/Monsters/Snake/SnakeScorpion"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 30,
-	monsterCategory = "Beast",
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"Bazaar (Map)",
 		"Chateau (Map)",
@@ -32783,7 +32841,7 @@ minions["Metadata/Monsters/Snake/SnakeScorpion2"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 30,
-	monsterCategory = "Beast",
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"The Ridge (Act 6)",
 	},
@@ -32811,7 +32869,7 @@ minions["Metadata/Monsters/Snake/SnakeScorpionMultiShot2_"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 30,
-	monsterCategory = "Beast",
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"The Oasis (Act 9)",
 		"The Vastiri Desert (Act 9)",
@@ -32841,7 +32899,7 @@ minions["Metadata/Monsters/Snake/SnakeScorpionMultiShot2_AtlasUber"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 30,
-	monsterCategory = "Beast",
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"Abomination (Map)",
 		"Citadel (Map)",
@@ -32874,7 +32932,7 @@ minions["Metadata/Monsters/Snake/SnakeScorpionIncaLabyrinth_"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 30,
-	monsterCategory = "Beast",
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -32988,7 +33046,7 @@ minions["Metadata/Monsters/Snake/DexMissionSnakeScorpionMultiShot"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 30,
-	monsterCategory = "Beast",
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -33059,7 +33117,7 @@ minions["Metadata/Monsters/Snake/SnakeMeleeIncaAtziri"] = {
 	attackRange = 8,
 	accuracy = 1,
 	baseMovementSpeed = 30,
-	monsterCategory = "Beast",
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"Ancient City (Map)",
 		"Doryani's Machinarium (Map)",
@@ -35318,7 +35376,7 @@ minions["Metadata/Monsters/Statue/Lion"] = {
 	accuracy = 1,
 	damageFixup = 0.33,
 	baseMovementSpeed = 30,
-	monsterCategory = "Beast",
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -35345,7 +35403,7 @@ minions["Metadata/Monsters/Statue/LionSolaris"] = {
 	accuracy = 1,
 	damageFixup = 0.33,
 	baseMovementSpeed = 30,
-	monsterCategory = "Beast",
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"Ivory Temple (Map)",
 		"The Harbour Bridge (Act 8)",
@@ -35378,7 +35436,7 @@ minions["Metadata/Monsters/Statue/LionSolarisFlame"] = {
 	accuracy = 1,
 	damageFixup = 0.33,
 	baseMovementSpeed = 30,
-	monsterCategory = "Beast",
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"Ivory Temple (Map)",
 		"The Harbour Bridge (Act 8)",
@@ -35478,7 +35536,7 @@ minions["Metadata/Monsters/Statue/ChromeGargoyleAtlasUber"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 36,
-	monsterCategory = "Beast",
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"Abomination (Map)",
 		"Citadel (Map)",
@@ -39358,6 +39416,7 @@ minions["Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre"] = {
 	attackRange = 10,
 	accuracy = 1,
 	baseMovementSpeed = 32,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -39838,6 +39897,7 @@ minions["Metadata/Monsters/LegionLeague/LegionKaruiArcherSpectre"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 40,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -41752,6 +41812,7 @@ minions["Metadata/Monsters/LegionLeague/LegionKaruiMeleeFireSpectre"] = {
 	accuracy = 1,
 	weaponType1 = "None",
 	baseMovementSpeed = 40,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -41787,6 +41848,7 @@ minions["Metadata/Monsters/LegionLeague/LegionTemplarMelee2Spectre"] = {
 	accuracy = 1,
 	weaponType1 = "Two Handed Sword",
 	baseMovementSpeed = 34,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -45447,6 +45509,7 @@ minions["Metadata/Monsters/KaomWarrior/KaruiElder1StandaloneAtlasUber"] = {
 	attackRange = 40,
 	accuracy = 1,
 	baseMovementSpeed = 28,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 		"Abomination (Map)",
 		"Citadel (Map)",
@@ -45508,6 +45571,7 @@ minions["Metadata/Monsters/LegionLeague/LegionKaruiMeleeSpectre_"] = {
 	weaponType1 = "One Handed Axe",
 	weaponType2 = "One Handed Axe",
 	baseMovementSpeed = 40,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -45537,6 +45601,7 @@ minions["Metadata/Monsters/LegionLeague/LegionKaruiSergeantMeleeFireSpectre"] = 
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
 	baseMovementSpeed = 44,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -45573,6 +45638,7 @@ minions["Metadata/Monsters/LegionLeague/LegionKaruiSergeantCasterFireSpectre"] =
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 46,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -45607,6 +45673,7 @@ minions["Metadata/Monsters/LegionLeague/LegionEternalEmpireMeleeSpectre__"] = {
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Shield",
 	baseMovementSpeed = 37,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -45639,6 +45706,7 @@ minions["Metadata/Monsters/LegionLeague/LegionEternalEmpireArcherSpectre"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 37,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -45670,6 +45738,7 @@ minions["Metadata/Monsters/LegionLeague/LegionEternalEmpireMeleeBannerSpectre"] 
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Shield",
 	baseMovementSpeed = 37,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -45702,6 +45771,7 @@ minions["Metadata/Monsters/LegionLeague/LegionEternalEmpireSergeantHeavySpectre"
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Shield",
 	baseMovementSpeed = 40,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -45738,6 +45808,7 @@ minions["Metadata/Monsters/LegionLeague/LegionEternalEmpireSergeantSpearSpectre"
 	accuracy = 1,
 	weaponType1 = "Staff",
 	baseMovementSpeed = 40,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -45775,6 +45846,7 @@ minions["Metadata/Monsters/LegionLeague/LegionMarakethMeleeSpectre"] = {
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "One Handed Sword",
 	baseMovementSpeed = 40,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -45806,6 +45878,7 @@ minions["Metadata/Monsters/LegionLeague/LegionMarakethMelee2"] = {
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "One Handed Sword",
 	baseMovementSpeed = 31,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -45840,6 +45913,7 @@ minions["Metadata/Monsters/LegionLeague/LegionMarakethRiderSpectre"] = {
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 46,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -45872,6 +45946,7 @@ minions["Metadata/Monsters/LegionLeague/LegionMarakethRiderSpearSpectre"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 46,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -45902,6 +45977,7 @@ minions["Metadata/Monsters/LegionLeague/LegionMarakethSergeantMeleeSpectre"] = {
 	accuracy = 1,
 	weaponType1 = "Dagger",
 	baseMovementSpeed = 40,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -45935,6 +46011,7 @@ minions["Metadata/Monsters/LegionLeague/LegionMarakethSergeantRangedSpectre"] = 
 	accuracy = 1,
 	weaponType1 = "Bow",
 	baseMovementSpeed = 40,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -45973,6 +46050,7 @@ minions["Metadata/Monsters/LegionLeague/LegionTemplarMelee1Spectre"] = {
 	weaponType1 = "One Handed Sword",
 	weaponType2 = "Shield",
 	baseMovementSpeed = 34,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -46006,6 +46084,7 @@ minions["Metadata/Monsters/LegionLeague/LegionTemplarMelee3Spectre"] = {
 	weaponType1 = "One Handed Mace",
 	weaponType2 = "One Handed Mace",
 	baseMovementSpeed = 38,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -46035,6 +46114,7 @@ minions["Metadata/Monsters/LegionLeague/LegionTemplarCaster2Spectre"] = {
 	attackRange = 6,
 	accuracy = 1,
 	baseMovementSpeed = 28,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -46065,6 +46145,7 @@ minions["Metadata/Monsters/LegionLeague/LegionTemplarSergeantCasterSpectre"] = {
 	attackRange = 10,
 	accuracy = 1,
 	baseMovementSpeed = 40,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -46098,6 +46179,7 @@ minions["Metadata/Monsters/LegionLeague/LegionTemplarSergeantMeleeSpectre"] = {
 	weaponType1 = "One Handed Mace",
 	weaponType2 = "Shield",
 	baseMovementSpeed = 40,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -46132,6 +46214,7 @@ minions["Metadata/Monsters/LegionLeague/LegionVaalCultistMeleeSpectre"] = {
 	accuracy = 1,
 	weaponType1 = "Dagger",
 	baseMovementSpeed = 35,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -46161,6 +46244,7 @@ minions["Metadata/Monsters/LegionLeague/LegionVaalCultistKnifestickSpectre_"] = 
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 35,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -46191,6 +46275,7 @@ minions["Metadata/Monsters/LegionLeague/LegionVaalCultistSpearSpectre"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 35,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -46312,6 +46397,7 @@ minions["Metadata/Monsters/LegionLeague/LegionVaalCultistSergeantSpectre"] = {
 	accuracy = 1,
 	weaponType1 = "One Handed Sword",
 	baseMovementSpeed = 35,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -46343,6 +46429,7 @@ minions["Metadata/Monsters/LegionLeague/LegionVaalCultistSergeantMeleeSpectre"] 
 	weaponType1 = "One Handed Axe",
 	weaponType2 = "One Handed Axe",
 	baseMovementSpeed = 40,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -46373,6 +46460,7 @@ minions["Metadata/Monsters/LegionLeague/LegionKaruiMelee2HSpectre"] = {
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
 	baseMovementSpeed = 40,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -46566,7 +46654,7 @@ minions["Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaHoundSpectre"
 	attackRange = 16,
 	accuracy = 1,
 	baseMovementSpeed = 37,
-	monsterCategory = "Beast",
+	monsterCategory = "Construct",
 	spawnLocation = {
 	},
 	skillList = {
@@ -49057,7 +49145,7 @@ minions["Metadata/Monsters/LeagueSynthesis/SynthesisHoundSpectre"] = {
 	attackRange = 12,
 	accuracy = 1,
 	baseMovementSpeed = 32,
-	monsterCategory = "Beast",
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"Cortex",
 		"Distant Memory",
@@ -49089,7 +49177,7 @@ minions["Metadata/Monsters/LeagueSynthesis/SynthesisHoundChampionSpectre"] = {
 	attackRange = 14,
 	accuracy = 1,
 	baseMovementSpeed = 32,
-	monsterCategory = "Beast",
+	monsterCategory = "Construct",
 	spawnLocation = {
 		"Cortex",
 		"Distant Memory",
@@ -56280,6 +56368,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingLow"] = {
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
 	baseMovementSpeed = 30,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -56308,6 +56397,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingMid"] = {
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
 	baseMovementSpeed = 30,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {
@@ -56337,6 +56427,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingHigh"] = {
 	accuracy = 1,
 	weaponType1 = "Two Handed Axe",
 	baseMovementSpeed = 30,
+	monsterCategory = "Humanoid",
 	spawnLocation = {
 	},
 	skillList = {

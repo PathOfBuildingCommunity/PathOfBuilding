@@ -118,6 +118,8 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/Beasts/DexMissionSpiderSpawnFromBeast
 #emit
+#spectre Metadata/Monsters/Beasts/BeastParasiteSpawnParasite
+#emit
 -- Betrayal
 #spectre Metadata/Monsters/LeagueBetrayal/LaboratoryRatEmerge_
 #emit
@@ -419,6 +421,10 @@ local minions, mod, flag = ...
 #emit
 -- Bull
 #spectre Metadata/Monsters/Bull/Bull
+#emit
+#spectre Metadata/Monsters/Bull/BullNoArmour
+#emit
+#spectre Metadata/Monsters/Bull/BullPhysical
 #emit
 -- Cage Spider
 #spectre Metadata/Monster/CageSpider/CageSpider2
@@ -726,8 +732,6 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Goatman/MountainGoatmanLeapSlam2
 #emit
 #spectre Metadata/Monsters/Goatman/MountainGoatmanChampionAtlasUber
-#emit
-#spectre Metadata/Monsters/Goatman/GoatmanLightningLeapSlamExtra
 #emit
 #spectre Metadata/Monsters/Goatman/GoatmanShamanFireball2
 #emit

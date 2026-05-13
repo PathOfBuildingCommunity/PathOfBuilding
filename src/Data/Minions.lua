@@ -308,7 +308,7 @@ minions["SummonedSpectralWolf"] = {
 	weaponType1 = "Dagger",
 	limit = "ActiveWolfLimit",
 	baseMovementSpeed = 40,
-	monsterCategory = "Beast",
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {
@@ -335,7 +335,7 @@ minions["SummonedSpectralTiger"] = {
 	weaponType1 = "Dagger",
 	limit = "ActiveTigerLimit",
 	baseMovementSpeed = 40,
-	monsterCategory = "Beast",
+	monsterCategory = "Undead",
 	spawnLocation = {
 	},
 	skillList = {

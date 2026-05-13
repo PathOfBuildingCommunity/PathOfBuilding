@@ -2377,6 +2377,7 @@ worldAreas["2_8_10"] = {
 		"Devourer",
 		"Feral Fowl",
 		"Flame Sentinel",
+		"Grazing Taurus",
 		"Infernal Sentinel",
 		"Lowlands Hopper",
 		"Molten Lion",
@@ -2618,6 +2619,7 @@ worldAreas["2_9_5"] = {
 	isMap = false,
 	monsterVarieties = {
 		"Arctic Wolf",
+		"Avalanche Rider",
 		"Colossus Crusher",
 		"Hill Devil",
 		"Hill Fragment",
@@ -10577,8 +10579,10 @@ worldAreas["MapWorldsFields"] = {
 	level = 73,
 	isMap = true,
 	monsterVarieties = {
+		"Avalanche Rider",
 		"Brittle Farmer",
 		"Crow Keeper",
+		"Grazing Taurus",
 		"Scarecrow",
 	},
 	bossVarieties = {
