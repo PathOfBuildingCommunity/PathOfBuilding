@@ -7027,3 +7027,88 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemHigh"] = {
 		mod("LinkEffectOnSelf", "INC", 100, 0, 0), -- AzmeriGolemLinkEffectOnSelf2 [link_buff_effect_on_self_+% = 100]
 	},
 }
+-- Conjuror of Rot
+minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockLow"] = {
+	name = "Imperfect Conjuror of Rot",
+	monsterTags = { "caster", "human", "humanoid", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.04,
+	energyShield = 0.16,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 40,
+	damage = 2.04,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 60,
+	accuracy = 1,
+	skillList = {
+		"SSMFaridunWarlockBloodLocust",
+		"SOFaridunWarlockPustule",
+		"GSFaridunWarlockPustuleExplosion",
+		"GTFaridunWarlockPustules",
+		"MPSFaridunWarlockBloodSpray",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockMid_"] = {
+	name = "Conjuror of Rot",
+	monsterTags = { "caster", "human", "humanoid", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.04,
+	energyShield = 0.16,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 40,
+	damage = 2.04,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 60,
+	accuracy = 1,
+	skillList = {
+		"SSMFaridunWarlockBloodLocust",
+		"SOFaridunWarlockPustule",
+		"GSFaridunWarlockPustuleExplosion",
+		"GTFaridunWarlockPustules",
+		"CGEFaridunWarlockSwarmGround",
+		"MPSFaridunWarlockBloodSpray",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockHigh"] = {
+	name = "Perfect Conjuror of Rot",
+	monsterTags = { "caster", "human", "humanoid", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.04,
+	energyShield = 0.16,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 40,
+	damage = 2.04,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 60,
+	accuracy = 1,
+	skillList = {
+		"SSMFaridunWarlockBloodLocust",
+		"SOFaridunWarlockPustule",
+		"GSFaridunWarlockPustuleExplosion",
+		"GTFaridunWarlockPustules",
+		"CGEFaridunWarlockSwarmGround",
+		"MPSFaridunWarlockBloodSpray",
+		"FaridunCasterUndeadDamageOverTimeAura",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}

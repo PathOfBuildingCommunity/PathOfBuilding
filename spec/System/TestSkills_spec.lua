@@ -13,11 +13,11 @@ describe("TestAttacks", function()
 		runCallback("OnFrame")
 		assert.are.equals(205, build.calcsTab.mainEnv.minion.modDB:Sum("BASE", build.calcsTab.mainEnv.minion.mainSkill.skillCfg, "ChaosMin"))
 
-		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nAwakened Generosity 4/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nAwakened Generosity 4/0  1\n")
 		runCallback("OnFrame")
 		assert.are.equals(round(205 * 1.43), build.calcsTab.mainEnv.minion.modDB:Sum("BASE", build.calcsTab.mainEnv.minion.mainSkill.skillCfg, "ChaosMin"))
 
-		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nAwakened Generosity 5/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nAwakened Generosity 5/0  1\n")
 		runCallback("OnFrame")
 		-- No Envy level increase, so base should still be 205
 		assert.are.equals(round(205 * 1.44), build.calcsTab.mainEnv.minion.modDB:Sum("BASE", build.calcsTab.mainEnv.minion.mainSkill.skillCfg, "ChaosMin"))
@@ -43,10 +43,10 @@ describe("TestAttacks", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Mirage Archer 20/0 Default  1\nRain of Arrows 20/0 Default  1\nManaforged Arrows 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Mirage Archer 20/0  1\nRain of Arrows 20/0  1\nManaforged Arrows 20/0  1\n")
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Toxic Rain 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Toxic Rain 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.MirageDPS ~= nil)
@@ -71,14 +71,14 @@ describe("TestAttacks", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Power Siphon 20/0 Default  1\nSacred Wisps 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Power Siphon 20/0  1\nSacred Wisps 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.MirageDPS ~= nil)
 	end)
 	
 	it("Test Scorching ray applying exposure at max stages", function()
-		build.skillsTab:PasteSocketGroup("Scorching Ray 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Scorching Ray 20/0  1\n")
 		runCallback("OnFrame")
 		
 		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
@@ -100,8 +100,40 @@ describe("TestAttacks", function()
 		assert.True(build.calcsTab.mainEnv.enemyDB:Sum("BASE", nil, "FireResist") < 0)
 	end)
 
+	it("Defaults Blade Blast to the skill's blade cap", function()
+		build.skillsTab:PasteSocketGroup("Blade Blast 20/0  1\n")
+		runCallback("OnFrame")
+
+		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
+		local activeSkill = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill]
+		local calcsSkillSelectControls = build.calcsTab.sectionList[1].controls
+		build:RefreshSkillSelectControls(calcsSkillSelectControls, build.calcsTab.input.skill_number, "Calcs")
+
+		assert.are.equals("50", build.controls.mainSkillStageCount.buf)
+		assert.are.equals("50", calcsSkillSelectControls.mainSkillStageCount.buf)
+		assert.are.equals(50, activeSkill.skillData.stagesMax)
+		assert.are.equals(50, activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:BladeBlastStage"))
+		assert.are.equals(49, activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:BladeBlastStageAfterFirst"))
+
+		local cappedAverageDamage = build.calcsTab.mainOutput.AverageDamage
+		local cappedTotalDPS = build.calcsTab.mainOutput.TotalDPS
+		local cappedCombinedDPS = build.calcsTab.mainOutput.CombinedDPS
+		activeSkill.activeEffect.srcInstance.skillStageCount = 51
+		build.modFlag = true
+		build.buildFlag = true
+		runCallback("OnFrame")
+
+		activeSkill = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill]
+		assert.are.equals("51", build.controls.mainSkillStageCount.buf)
+		assert.are.equals(50, activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:BladeBlastStage"))
+		assert.are.equals(49, activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:BladeBlastStageAfterFirst"))
+		assert.are.equals(cappedAverageDamage, build.calcsTab.mainOutput.AverageDamage)
+		assert.are.equals(cappedTotalDPS, build.calcsTab.mainOutput.TotalDPS)
+		assert.are.equals(cappedCombinedDPS, build.calcsTab.mainOutput.CombinedDPS)
+	end)
+
 	it("Test Adrenaline affecting blight max stage count", function()
-		build.skillsTab:PasteSocketGroup("Blight 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Blight 20/0  1\n")
 		runCallback("OnFrame")
 		
 		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]

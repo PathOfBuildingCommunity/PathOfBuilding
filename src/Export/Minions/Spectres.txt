@@ -435,3 +435,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemMid
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemHigh
+-- Conjuror of Rot
+#spectre Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockLow
+#spectre Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockMid_
+#spectre Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockHigh

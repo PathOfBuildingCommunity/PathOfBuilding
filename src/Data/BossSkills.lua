@@ -143,7 +143,7 @@ return {
 	["Maven Memory Game"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
-			Physical = { 104.29090544842, 0.52145452724208 }
+			Physical = { 26.072726362104, 0.13036363181052 }
 		},
 		UberDamageMultiplier = 1.0086206896552,
 		speed = 7500,

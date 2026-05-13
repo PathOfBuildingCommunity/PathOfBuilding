@@ -192,6 +192,9 @@ return {
 	{ var = "conditionHaveEnergyShield", type = "check", label = "Do you always have ^x88FFFFEnergy Shield?", ifCond = "HaveEnergyShield", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:HaveEnergyShield", "FLAG", true, "Config")
 	end },
+	{ var = "conditionUnbrokenWard", type = "check", label = "Do you have unbroken ^xFFFF77Ward?", ifCond = "UnbrokenWard", tooltip = "You will automatically be considered to have unbroken ^xFFFF77Ward ^7if you have ^xAF6025Olroth's Resolve ^7active or\nan Iron Flask with enough Flask Charges gained on ^xFFFF77Ward ^7Break.",apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:UnbrokenWard", "FLAG", true, "Config")
+	end },
 	{ var = "minionsConditionFullLife", type = "check", label = "Are your Minions always on Full ^xE05030Life?", ifMinionCond = "FullLife", apply = function(val, modList, enemyModList)
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:FullLife", "FLAG", true, "Config") }, "Config")
 	end },
@@ -496,7 +499,7 @@ return {
 		modList:NewMod("Multiplier:Intensity", "BASE", val, "Config")
 	end },
 	{ var = "OverloadedIntensity", type = "count", label = "# of Overloaded Intensity:", ifSkill = "Overloaded Intensity", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:OverloadedIntensity", "BASE", val, "Config")
+		modList:NewMod("Multiplier:OverloadedIntensity", "BASE", m_min(val, 3), "Config")
 	end },
 	{ label = "Link Skills:", ifSkill = { "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" } },
 	{ var = "multiplierLinkedTargets", type = "count", label = "# of linked Targets:", ifSkill = { "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" }, apply = function(val, modList, enemyModList)
@@ -1073,6 +1076,9 @@ Huge sets the radius to 11.
 	{ var = "conditionUsedAmethystFlaskRecently", type = "check", label = "Used an Amethyst Flask recently?", ifCond = "UsedAmethystFlaskRecently", ifCondTrue = "HaveAmethystFlask", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:UsedAmethystFlaskRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "HaveAmethystFlask" })
 	end },
+	{ var = "conditionUsedRubyFlaskRecently", type = "check", label = "Used a Ruby Flask recently?", ifCond = "UsedRubyFlaskRecently", ifCondTrue = "HaveRubyFlask", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:UsedRubyFlaskRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "HaveRubyFlask" })
+	end },
 	{ var = "conditionUsedSapphireFlaskRecently", type = "check", label = "Used a Sapphire Flask recently?", ifCond = "UsedSapphireFlaskRecently", ifCondTrue = "HaveSapphireFlask", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:UsedSapphireFlaskRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "HaveSapphireFlask" })
 	end },
@@ -1105,11 +1111,11 @@ Huge sets the radius to 11.
 	{ var = "multiplierNearbyCorpse", type = "count", label = "# of Nearby Corpses:", ifMult = "NearbyCorpse", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NearbyCorpse", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierSummonedMinion", type = "count", label = "# of Summoned Minions:", ifMult = "SummonedMinion", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:SummonedMinion", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+	{ var = "multiplierSummonedMinion", type = "count", label = "# of Summoned Minions (if not maximum):", ifMult = "SummonedMinion", tooltip = "Use this to override the count if you do not have all your minions summoned", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:SummonedMinion", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierNonVaalSummonedMinion", type = "count", label = "# of non-vaal skill Summoned Minions:", ifMult = "NonVaalSummonedMinion", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:NonVaalSummonedMinion", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+	{ var = "multiplierNonVaalSummonedMinion", type = "count", label = "# of non-vaal skill Summoned Minions:", ifMult = "NonVaalSummonedMinion", tooltip = "Use this to override the count if you do not have all your minions summoned", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:NonVaalSummonedMinion", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionOnConsecratedGround", type = "check", label = "Are you on Consecrated Ground?", tooltip = "In addition to allowing any 'while on Consecrated Ground' modifiers to apply,\nConsecrated Ground grants 5% ^xE05030Life ^7Regeneration to players and allies.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:OnConsecratedGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1920,14 +1926,17 @@ Huge sets the radius to 11.
 	{ var = "conditionEnemyCrushed", type = "check", label = "Is the enemy Crushed?", tooltip = "Crushed enemies have 15% reduced Physical Damage Reduction.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Crushed", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyHallowingFlame", type = "check", label = "Is enemy affected by Hallowing Flame?", ifFlag = "Condition:CanInflictHallowingFlame", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyHallowingFlame", type = "check", label = "Is enemy affected by Hallowing Flame?", ifFlag = "Condition:CanInflictHallowingFlame", apply = function(val, modList, enemyModList, build)
 		enemyModList:NewMod("Condition:HallowingFlame", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "multiplierEnemyHallowingFlame", type = "count", label = "Hallowing Flame Stacks", ifOption = "conditionEnemyHallowingFlame", ifMod = "Multiplier:HallowingFlameMax", defaultPlaceholderState = 1, tooltip = "Amount of Hallowing Flame stacks applied to the enemy.", apply = function(val, modList, enemyModList)
+	{ var = "multiplierEnemyHallowingFlame", type = "count", label = "Hallowing Flame stacks", ifOption = "conditionEnemyHallowingFlame", defaultPlaceholderState = 1, tooltip = "Amount of Hallowing Flame stacks applied to the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:HallowingFlame", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "multiplierHallowingFlameStacksRemovedByAlly", type = "countAllowZero", label = "Hallowing Flames removed by an ally recently", ifOption = "conditionEnemyHallowingFlame", ifMult = "HallowingFlameStacksRemovedByAlly", defaultPlaceholderState = 1, tooltip = "Amount of Hallowing Flame stacks removed from enemies by allies recently.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:HallowingFlameStacksRemovedByAlly", "BASE", val, "Config")
+	end },
+	{ var = "conditionHallowingFlameMagnitude", type = "countAllowZero", label = "Inc. magnitude of Hallowing Flame stacks", ifOption = "conditionEnemyHallowingFlame", tooltip = "The magnitude of Hallowing Flame stacks applied to the enemy", apply = function(val, modList, enemyModList)
+		modList:NewMod("HallowingFlameMagnitude", "OVERRIDE", val, "Config")
 	end },
 	{ var = "conditionNearLinkedTarget", type = "check", label = "Is the enemy near you Linked target?", ifEnemyCond = "NearLinkedTarget", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:NearLinkedTarget", "FLAG", true, "Config", { type = "Condition", var = "Effective" })

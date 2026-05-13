@@ -182,7 +182,8 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	end, nil, nil, true)
 	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches.\nPrefix your search with \"oil:\" to search by anoint recipe.\nTo search for multiple terms: (increased.fire.damage|increased.area.of.effect|etc)"
 
-	self.tradeLeaguesList = { }
+	-- table holding all realm/league pairs. (allLeagues[realm] = [league.id,...])
+	self.tradeLeaguesList = {}
 	-- Find Timeless Jewel Button
 	self.controls.findTimelessJewel = new("ButtonControl", { "LEFT", self.controls.treeSearch, "RIGHT" }, { 8, 0, 150, 20 }, "Find Timeless Jewel", function()
 		self:FindTimelessJewel()
@@ -196,7 +197,10 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		self.viewer.showHeatMap = state
 		self.controls.treeHeatMapStatSelect.shown = state
 
-		if state == false then
+		if state == false and ToastNotification:Exists(self.powerBuilderToastId) then
+			self.controls.powerReportList.shown = false 
+			ToastNotification:Remove(self.powerBuilderToastId)
+		elseif state == false then
 			self.controls.powerReportList.shown = false 
 		end
 	end)
@@ -465,7 +469,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	SetDrawLayer(1)
 
 	SetDrawColor(0.05, 0.05, 0.05)
-	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (28 + bottomDrawerHeight + linesHeight), viewPort.width, 28 + bottomDrawerHeight + linesHeight)
+	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (30 + bottomDrawerHeight + linesHeight), viewPort.width, 30 + bottomDrawerHeight + linesHeight)
 	if self.showConvert then
 		local height = viewPort.width < convertMaxWidth and (bottomDrawerHeight + linesHeight) or 0
 		SetDrawColor(0.05, 0.05, 0.05)
@@ -475,7 +479,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	end
 	-- let white lines overwrite the black sections, regardless of showConvert
 	SetDrawColor(0.85, 0.85, 0.85)
-	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (32 + bottomDrawerHeight + linesHeight), viewPort.width, 4)
+	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (34 + bottomDrawerHeight + linesHeight), viewPort.width, 4)
 
 	self:DrawControls(viewPort)
 end
@@ -521,6 +525,7 @@ function TreeTabClass:PostLoad()
 	for _, spec in ipairs(self.specList) do
 		spec:PostLoad()
 	end
+	self.build.itemsTab:PopulateSlots()
 end
 
 function TreeTabClass:Save(xml)
@@ -922,8 +927,8 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	end
 
 	buildMods(selectedNode)
-	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {150, 25, 0, 16}, "^7Modifier:")
-	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {155, 25, 250, 18}, modGroups, function(idx) constructUI(modGroups[idx]) end)
+	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {170, 25, 0, 16}, "^7Modifier:")
+	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {175, 25, 250, 18}, modGroups, function(idx) constructUI(modGroups[idx]) end)
 	controls.modSelect.selIndex = self.defaultTattoo[nodeName] or 1
 	controls.modSelect.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
@@ -953,24 +958,46 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		main:ClosePopup()
 	end)
 
-	local function getTattooCount()
+	local function getTattooCount(tooltip)
+		if tooltip then
+			tooltip:Clear()
+		end
 		local count = 0
+		local tattooSdMap = { }
+
 		for _, node in pairs(self.build.spec.hashOverrides) do
 			if node.isTattoo and not node.dn:find("Runegraft") then
+				if tooltip then
+					local combined = ""
+					for _, line in ipairs(node.sd) do
+						if not (line:match("Limited") or line:match("Requires")) then -- clean up some legacy tattoo lines
+							combined = combined.." "..line
+						end
+					end
+					if tattooSdMap[combined] then
+						tattooSdMap[combined] = tattooSdMap[combined] + 1
+					else
+						tattooSdMap[combined] = 1
+					end
+				end
 				count = count + 1
 			end
+		end
+		for line, mult in pairs(tattooSdMap) do
+			tooltip:AddLine(16, colorCodes.COLD.."("..mult..") ^7"..line)
 		end
 		if count > 50 then
 			count = colorCodes.NEGATIVE..count
 		end
 		return count
 	end
-	controls.totalTattoos = new("LabelControl", nil, { 0, 95, 0, 16 }, "^7Tattoo Count: ".. getTattooCount() .."/50" )
+	controls.totalTattoos = new("ButtonControl", nil, { 0, 95, 145, 20 }, "^7Tattoo Count: ".. getTattooCount() .."/50", function() return end)
+	controls.totalTattoos.tooltipFunc = function(tooltip, mode, index, value) getTattooCount(tooltip) end
 	main:OpenPopup(600, 105, "Replace Modifier of Node", controls, "save")
 	constructUI(modGroups[self.defaultTattoo[nodeName] or 1])
 	
 	-- Show Legacy Tattoos
-	controls.showLegacyTattoo = new("CheckBoxControl", { "LEFT", controls.totalTattoos, "RIGHT" }, { 205, 0, 20 }, "Show Legacy Tattoos:", function(state)
+	controls.showLegacyTattoo = new("CheckBoxControl", { "LEFT", controls.totalTattoos, "RIGHT" }, { 195, 0, 20 }, "Show Legacy Tattoos:", function(state)
 		self.showLegacyTattoo = state
 		buildMods(selectedNode)
 	end)
@@ -1065,49 +1092,61 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 			fmt = ".1f"
 		}
 	end
+	local powerMultiplier = (displayStat.pc or displayStat.mod) and 100 or 1
+	local function formatPower(power)
+		local powerStr = formatNumSep(s_format("%"..displayStat.fmt, power))
+		if (power > 0 and not displayStat.lowerIsBetter) or (power < 0 and displayStat.lowerIsBetter) then
+			return colorCodes.POSITIVE .. powerStr
+		elseif (power < 0 and not displayStat.lowerIsBetter) or (power > 0 and displayStat.lowerIsBetter) then
+			return colorCodes.NEGATIVE .. powerStr
+		end
+		return powerStr
+	end
+	local function getNodePathDist(node, isAlloc)
+		if isAlloc then
+			return #(node.depends or { }) == 0 and 1 or #node.depends
+		end
+		return #(node.path or { }) == 0 and 1 or #node.path
+	end
+	local function addReportEntry(node, name, nodePower, pathPower, pathDist, isAlloc, pathPowerStr)
+		t_insert(report, {
+			name = name,
+			power = nodePower,
+			powerStr = formatPower(nodePower),
+			pathPower = pathPower,
+			pathPowerStr = pathPowerStr or formatPower(pathPower),
+			allocated = isAlloc,
+			id = node.id,
+			x = node.x,
+			y = node.y,
+			type = node.type,
+			sd = node.sd,
+			pathDist = pathDist
+		})
+	end
 
 	-- search all nodes, ignoring ascendancies, sockets, etc.
 	for nodeId, node in pairs(self.build.spec.nodes) do
 		local isAlloc = node.alloc or self.build.calcsTab.mainEnv.grantedPassives[nodeId]
 		if (node.type == "Normal" or node.type == "Keystone" or node.type == "Notable") and not node.ascendancyName then
-			local pathDist
-			if isAlloc then
-				pathDist = #(node.depends or { }) == 0 and 1 or #node.depends
-			else
-				pathDist = #(node.path or { }) == 0 and 1 or #node.path
-			end
-			local nodePower = (node.power.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
-			local pathPower = (node.power.pathPower or 0) / pathDist * ((displayStat.pc or displayStat.mod) and 100 or 1)
-			local nodePowerStr = s_format("%"..displayStat.fmt, nodePower)
-			local pathPowerStr = s_format("%"..displayStat.fmt, pathPower)
+			local pathDist = getNodePathDist(node, isAlloc)
+			local nodePower = (node.power.singleStat or 0) * powerMultiplier
+			local pathPower = (node.power.pathPower or 0) / pathDist * powerMultiplier
+			addReportEntry(node, node.dn, nodePower, pathPower, pathDist, isAlloc)
+		elseif node.type == "Mastery" and node.power.masteryEffects and not node.ascendancyName then
+			local pathDist = getNodePathDist(node, isAlloc)
 
-			nodePowerStr = formatNumSep(nodePowerStr)
-			pathPowerStr = formatNumSep(pathPowerStr)
-
-			if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
-				nodePowerStr = colorCodes.POSITIVE .. nodePowerStr
-			elseif (nodePower < 0 and not displayStat.lowerIsBetter) or (nodePower > 0 and displayStat.lowerIsBetter) then
-				nodePowerStr = colorCodes.NEGATIVE .. nodePowerStr
+			for _, masteryEffect in ipairs(node.masteryEffects or { }) do
+				local effect = self.build.spec.tree.masteryEffects[masteryEffect.effect]
+				local effectPower = node.power.masteryEffects[masteryEffect.effect]
+				if effect and effectPower then
+					local effectLabelParts = isAlloc and not node.allMasteryOptions and node.sd or effect.stats or effect.sd
+					local name = effectLabelParts and node.dn..": "..t_concat(effectLabelParts, " / ") or node.dn
+					local nodePower = (effectPower.singleStat or 0) * powerMultiplier
+					local pathPower = ((effectPower.pathPower or effectPower.singleStat or 0) / pathDist) * powerMultiplier
+					addReportEntry(node, name, nodePower, pathPower, pathDist, isAlloc)
+				end
 			end
-			if (pathPower > 0 and not displayStat.lowerIsBetter) or (pathPower < 0 and displayStat.lowerIsBetter) then
-				pathPowerStr = colorCodes.POSITIVE .. pathPowerStr
-			elseif (pathPower < 0 and not displayStat.lowerIsBetter) or (pathPower > 0 and displayStat.lowerIsBetter) then
-				pathPowerStr = colorCodes.NEGATIVE .. pathPowerStr
-			end
-
-			t_insert(report, {
-				name = node.dn,
-				power = nodePower,
-				powerStr = nodePowerStr,
-				pathPower = pathPower,
-				pathPowerStr = pathPowerStr,
-				allocated = isAlloc,
-				id = node.id,
-				x = node.x,
-				y = node.y,
-				type = node.type,
-				pathDist = pathDist
-			})
 		end
 	end
 
@@ -1115,27 +1154,8 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 	for nodeName, node in pairs(self.build.spec.tree.clusterNodeMap) do
 		local isAlloc = node.alloc
 		if not isAlloc then
-			local nodePower = (node.power and node.power.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
-			local nodePowerStr = s_format("%"..displayStat.fmt, nodePower)
-
-			nodePowerStr = formatNumSep(nodePowerStr)
-
-			if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
-				nodePowerStr = colorCodes.POSITIVE .. nodePowerStr
-			elseif (nodePower < 0 and not displayStat.lowerIsBetter) or (nodePower > 0 and displayStat.lowerIsBetter) then
-				nodePowerStr = colorCodes.NEGATIVE .. nodePowerStr
-			end
-
-			t_insert(report, {
-				name = node.dn,
-				power = nodePower,
-				powerStr = nodePowerStr,
-				pathPower = 0,
-				pathPowerStr = "--",
-				id = node.id,
-				type = node.type,
-				pathDist = "Cluster"
-			})
+			local nodePower = (node.power and node.power.singleStat or 0) * powerMultiplier
+			addReportEntry(node, node.dn, nodePower, 0, "Cluster", isAlloc, "--")
 		end
 	end
 
@@ -1486,8 +1506,12 @@ function TreeTabClass:FindTimelessJewel()
 	end)
 	controls.devotionSelect2.selIndex = timelessData.devotionVariant2
 
-	controls.jewelSelectLabel = new("LabelControl", {"TOPRIGHT", nil, "TOPLEFT"}, {405, 25, 0, 16}, "^7Jewel Type:")
-	controls.jewelSelect = new("DropDownControl", {"LEFT", controls.jewelSelectLabel, "RIGHT"}, {10, 0, 200, 18}, jewelTypes, function(index, value)
+	local rowSpacing = 6
+	local rowHeight = 17
+	local labelHeight = 16
+	local labelSpacing = 4
+
+	controls.jewelSelect = new("DropDownControl", {"TOPLEFT", nil, "TOPLEFT"}, {380, 25, 200, rowHeight}, jewelTypes, function(index, value)
 		timelessData.jewelType = value
 		controls.devotionSelectLabel.shown = value.id == 4 -- Militant Faith
 		controls.protectAllocatedLabel.shown = (value.id == 4 and controls.socketFilter.state)
@@ -1500,13 +1524,15 @@ function TreeTabClass:FindTimelessJewel()
 		updateSearchList("", true)
 	end)
 	controls.jewelSelect.selIndex = timelessData.jewelType.id
+	controls.jewelSelectLabel = new("LabelControl", {"RIGHT", controls.jewelSelect, "LEFT"}, {-labelSpacing, 0, 0, labelHeight}, "^7Jewel Type:")
+	
 
-	controls.conquerorSelectLabel = new("LabelControl", {"TOPRIGHT", nil, "TOPLEFT"}, {405, 50, 0, 16}, "^7Conqueror:")
-	controls.conquerorSelect = new("DropDownControl", {"LEFT", controls.conquerorSelectLabel, "RIGHT"}, {10, 0, 200, 18}, conquerorTypes[timelessData.jewelType.id], function(index, value)
+	controls.conquerorSelect = new("DropDownControl", {"TOPLEFT", controls.jewelSelect, "BOTTOMLEFT"}, {0, rowSpacing, 200, rowHeight}, conquerorTypes[timelessData.jewelType.id], function(index, value)
 		timelessData.conquerorType = value
 		self.build.modFlag = true
 	end)
 	controls.conquerorSelect.selIndex = timelessData.conquerorType.id
+	controls.conquerorSelectLabel = new("LabelControl", {"RIGHT", controls.conquerorSelect, "LEFT"}, {-labelSpacing, 0, 0, labelHeight}, "^7Conqueror:")
 
 	local allocatedNodes = { }
 	local protectedNodes = { }
@@ -1530,8 +1556,8 @@ function TreeTabClass:FindTimelessJewel()
 		self.allocatedNodesInRadiusCount = #nodeNames
 	end
 
-	controls.socketSelectLabel = new("LabelControl", {"TOPRIGHT", nil, "TOPLEFT"}, {405, 75, 0, 16}, "^7Jewel Socket:")
-	controls.socketSelect = new("TimelessJewelSocketControl", {"LEFT", controls.socketSelectLabel, "RIGHT"}, {10, 0, 200, 18}, jewelSockets, function(index, value)
+	
+	controls.socketSelect = new("TimelessJewelSocketControl", {"TOPLEFT", controls.conquerorSelect, "BOTTOMLEFT"}, {0, rowSpacing, 200, rowHeight}, jewelSockets, function(index, value)
 		timelessData.jewelSocket = value
 		setAllocatedNodes() -- reset list when changing sockets
 		self.build.modFlag = true
@@ -1543,6 +1569,7 @@ function TreeTabClass:FindTimelessJewel()
 			break
 		end
 	end
+	controls.socketSelectLabel = new("LabelControl", {"RIGHT", controls.socketSelect, "LEFT"}, {-labelSpacing, 0, 0, labelHeight}, "^7Jewel Socket:")
 	
 	local function clearProtected() -- clear all controls, nodes related to Militant Faith filtering
 		protectedNodesCount = 0
@@ -1553,8 +1580,8 @@ function TreeTabClass:FindTimelessJewel()
 			end
 		end
 	end
-	controls.socketFilterLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, { 405, 100, 0, 16 }, "^7Filter Nodes:")
-	controls.socketFilter = new("CheckBoxControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, { 10, 0, 18 }, nil, function(value)
+	
+	controls.socketFilter = new("CheckBoxControl", {"TOPLEFT", controls.socketSelect, "BOTTOMLEFT"}, {0, rowSpacing, rowHeight}, nil, function(value)
 		timelessData.socketFilter = value
 		self.build.modFlag = true
 		controls.socketFilterAdditionalDistanceLabel.shown = value
@@ -1568,6 +1595,7 @@ function TreeTabClass:FindTimelessJewel()
 			clearProtected()
 		end
 	end)
+	controls.socketFilterLabel = new("LabelControl", {"RIGHT", controls.socketFilter, "LEFT"}, {-labelSpacing, 0, 0, labelHeight}, "^7Filter Nodes:")
 	controls.socketFilter.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		tooltip:AddLine(16, "^7Enable this option to exclude nodes that you do not have allocated on your active passive skill tree.")
@@ -1632,11 +1660,11 @@ function TreeTabClass:FindTimelessJewel()
 	local scrollWheelSpeedTbl2 = { ["SHIFT"] = 0.2, ["CTRL"] = 0.002, ["DEFAULT"] = 0.02 }
 
 	local nodeSliderStatLabel = "None"
-	controls.nodeSliderLabel = new("LabelControl", {"TOPRIGHT", nil, "TOPLEFT"}, {405, 125, 0, 16}, "^7Primary Node Weight:")
-	controls.nodeSlider = new("SliderControl", {"LEFT", controls.nodeSliderLabel, "RIGHT"}, {10, 0, 200, 16}, function(value)
+	controls.nodeSlider = new("SliderControl", {"TOPLEFT", controls.socketFilter, "BOTTOMLEFT"}, {0, rowSpacing, 200, rowHeight}, function(value)
 		controls.nodeSliderValue.label = s_format("^7%.3f", value * 10)
 		parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
 	end, scrollWheelSpeedTbl)
+	controls.nodeSliderLabel = new("LabelControl", {"RIGHT", controls.nodeSlider, "LEFT"}, {-labelSpacing, 0, 0, labelHeight}, "^7Primary Node Weight:")
 	controls.nodeSlider.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		if not controls.nodeSlider.dragging then
@@ -1661,11 +1689,11 @@ function TreeTabClass:FindTimelessJewel()
 	controls.nodeSlider:SetVal(0.1)
 
 	local nodeSlider2StatLabel = "None"
-	controls.nodeSlider2Label = new("LabelControl", {"TOPRIGHT", nil, "TOPLEFT"}, {405, 150, 0, 16}, "^7Secondary Node Weight:")
-	controls.nodeSlider2 = new("SliderControl", {"LEFT", controls.nodeSlider2Label, "RIGHT"}, {10, 0, 200, 16}, function(value)
+	controls.nodeSlider2 = new("SliderControl", {"TOPLEFT", controls.nodeSlider, "BOTTOMLEFT"}, {0, rowSpacing, 200, rowHeight}, function(value)
 		controls.nodeSlider2Value.label = s_format("^7%.3f", value * 10)
 		parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
 	end, scrollWheelSpeedTbl)
+	controls.nodeSlider2Label = new("LabelControl", {"RIGHT", controls.nodeSlider2, "LEFT"}, {-labelSpacing, 0, 0, labelHeight}, "^7Secondary Node Weight:")
 	controls.nodeSlider2.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		if not controls.nodeSlider2.dragging then
@@ -1689,8 +1717,7 @@ function TreeTabClass:FindTimelessJewel()
 	end
 	controls.nodeSlider2:SetVal(0.1)
 
-	controls.nodeSlider3Label = new("LabelControl", {"TOPRIGHT", nil, "TOPLEFT"}, {405, 175, 0, 16}, "^7Minimum Node Weight:")
-	controls.nodeSlider3 = new("SliderControl", {"LEFT", controls.nodeSlider3Label, "RIGHT"}, {10, 0, 200, 16}, function(value)
+	controls.nodeSlider3 = new("SliderControl", {"TOPLEFT", controls.nodeSlider2, "BOTTOMLEFT"}, {0, rowSpacing, 200, rowHeight}, function(value)
 		if value == 1 then
 			controls.nodeSlider3Value.label = "^7Required"
 		else
@@ -1698,6 +1725,7 @@ function TreeTabClass:FindTimelessJewel()
 		end
 		parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
 	end, scrollWheelSpeedTbl2)
+	controls.nodeSlider3Label = new("LabelControl", {"RIGHT", controls.nodeSlider3, "LEFT"}, {-labelSpacing, 0, 0, labelHeight}, "^7Minimum Node Weight:")
 	controls.nodeSlider3.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		if not controls.nodeSlider3.dragging then
@@ -1743,8 +1771,7 @@ function TreeTabClass:FindTimelessJewel()
 	end
 
 	buildMods()
-	controls.nodeSelectLabel = new("LabelControl", {"TOPRIGHT", nil, "TOPLEFT"}, {405, 200, 0, 16}, "^7Search for Node:")
-	controls.nodeSelect = new("DropDownControl", {"LEFT", controls.nodeSelectLabel, "RIGHT"}, {10, 0, 200, 18}, modData, function(index, value)
+	controls.nodeSelect = new("DropDownControl", {"TOPLEFT", controls.nodeSlider3, "BOTTOMLEFT"}, {0, rowSpacing, 200, rowHeight}, modData, function(index, value)
 		nodeSliderStatLabel = "None"
 		nodeSlider2StatLabel = "None"
 		if value.id then
@@ -1803,6 +1830,7 @@ function TreeTabClass:FindTimelessJewel()
 			self.build.modFlag = true
 		end
 	end)
+	controls.nodeSelectLabel = new("LabelControl", {"RIGHT", controls.nodeSelect, "LEFT"}, {-labelSpacing, 0, 0, labelHeight}, "^7Search for Node:")
 	controls.nodeSelect.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		if mode ~= "OUT" and value.descriptions then
@@ -1977,7 +2005,6 @@ function TreeTabClass:FindTimelessJewel()
 		updateSearchList(newList, true)
 	end
 
-	controls.fallbackWeightsLabel = new("LabelControl", {"TOPRIGHT", nil, "TOPLEFT"}, {405, 225, 0, 16}, "^7Fallback Weight Mode:")
 	local fallbackWeightsList = { }
 	for id, stat in pairs(data.powerStatList) do
 		if not stat.ignoreForItems and stat.label ~= "Name" then
@@ -1988,9 +2015,10 @@ function TreeTabClass:FindTimelessJewel()
 			})
 		end
 	end
-	controls.fallbackWeightsList = new("DropDownControl", {"LEFT", controls.fallbackWeightsLabel, "RIGHT"}, {10, 0, 200, 18}, fallbackWeightsList, function(index)
+	controls.fallbackWeightsList = new("DropDownControl", {"TOPLEFT", controls.nodeSelect, "BOTTOMLEFT"}, {0, rowSpacing, 200, rowHeight}, fallbackWeightsList, function(index)
 		timelessData.fallbackWeightMode.idx = index
 	end)
+	controls.fallbackWeightsLabel = new("LabelControl", {"RIGHT", controls.fallbackWeightsList, "LEFT"}, {-labelSpacing, 0, 0, labelHeight}, "^7Fallback Weight Mode:")
 	controls.fallbackWeightsList.selIndex = timelessData.fallbackWeightMode.idx or 1
 	controls.fallbackWeightsButton = new("ButtonControl", {"LEFT", controls.fallbackWeightsList, "RIGHT"}, {5, 0, 66, 18}, "Generate", function()
 		setupFallbackWeights()
@@ -2000,20 +2028,48 @@ function TreeTabClass:FindTimelessJewel()
 		tooltip:Clear()
 		tooltip:AddLine(16, "^7Click this button to generate new fallback node weights, replacing your old ones.")
 	end
-	controls.totalMinimumWeightLabel = new("LabelControl", {"TOPRIGHT", nil, "TOPLEFT"}, {405, 250, 0, 16}, "^7Total Minimum Weight:")
-	controls.totalMinimumWeight = new("EditControl", {"LEFT", controls.totalMinimumWeightLabel, "RIGHT"}, {10, 0, 60, 18}, "", nil, "%D", nil, function(val)
+	controls.totalMinimumWeight = new("EditControl", {"TOPLEFT", controls.fallbackWeightsList, "BOTTOMLEFT"}, {0, rowSpacing, 200, rowHeight}, "", nil, "%D", nil, function(val)
 		local num = tonumber(val)
 		timelessData.totalMinimumWeight = num or nil
 		self.build.modFlag = true
 	end)
+	controls.totalMinimumWeightLabel = new("LabelControl", {"RIGHT", controls.totalMinimumWeight, "LEFT"}, {-labelSpacing, 0, 0, labelHeight}, "^7Total Minimum Weight:")
 	controls.totalMinimumWeight.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		tooltip:AddLine(16, "^7Optional: Only show results where total weight meets or exceeds this value.")
 	end
 	
+	local listWidth = 440
+	local listHeight = 200
+	local buttonHeight = 20
+	local edgePadding = 12
+	local listYOffset = -(buttonHeight + edgePadding * 2)
+	controls.searchList = new("EditControl", { "BOTTOMLEFT", nil, "BOTTOMLEFT" },
+		{ edgePadding, listYOffset, listWidth, listHeight }, timelessData.searchList, nil,
+		"^%C\t\n", nil, function(value)
+		timelessData.searchList = value
+		parseSearchList(0, false)
+		self.build.modFlag = true
+	end, 16, true)
+	controls.searchList.shown = true
+	controls.searchList.enabled = true
+	controls.searchList:SetText(timelessData.searchList and timelessData.searchList or "")
 
-	controls.searchListButton = new("ButtonControl", {"TOPLEFT", nil, "TOPLEFT"}, {12, 250, 106, 20}, "^7Desired Nodes", function()
-		if controls.searchListFallback.shown then
+	controls.searchListFallback = new("EditControl", { "BOTTOMLEFT", nil, "BOTTOMLEFT" },
+		{ edgePadding, listYOffset, listWidth, listHeight },
+		timelessData.searchListFallback, nil, "^%C\t\n", nil, function(value)
+		timelessData.searchListFallback = value
+		parseSearchList(0, true)
+		self.build.modFlag = true
+	end, 16, true)
+	controls.searchListFallback.shown = false
+	controls.searchListFallback.enabled = false
+	controls.searchListFallback:SetText(timelessData.searchListFallback and timelessData.searchListFallback or "")
+
+	controls.searchListButton = new("ButtonControl",
+		{ "BOTTOMLEFT", nil, "BOTTOMLEFT" },
+		{ edgePadding, listYOffset - listHeight - rowSpacing, 106, buttonHeight }, "^7Desired Nodes", function()
+			if controls.searchListFallback.shown then
 			controls.searchListFallback.shown = false
 			controls.searchListFallback.enabled = false
 			controls.searchList.shown = true
@@ -2022,11 +2078,14 @@ function TreeTabClass:FindTimelessJewel()
 	end)
 	controls.searchListButton.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
-		tooltip:AddLine(16, "^7This contains a list of your desired nodes along with their primary, secondary, and minimum weights.")
-		tooltip:AddLine(16, "^7This list can be updated manually or by selecting the node you want to update via the search dropdown list and then moving the node weight sliders.")
+		tooltip:AddLine(16,
+			"^7This contains a list of your desired nodes along with their primary, secondary, and minimum weights.")
+		tooltip:AddLine(16,
+			"^7This list can be updated manually or by selecting the node you want to update via the search dropdown list and then moving the node weight sliders.")
 	end
 	controls.searchListButton.locked = function() return controls.searchList.shown end
-	controls.searchListFallbackButton = new("ButtonControl", {"LEFT", controls.searchListButton, "RIGHT"}, {5, 0, 110, 20}, "^7Fallback Nodes", function()
+
+	controls.searchListFallbackButton = new("ButtonControl", {"LEFT", controls.searchListButton, "RIGHT"}, {5, 0, 110, buttonHeight}, "^7Fallback Nodes", function()
 		controls.searchList.shown = false
 		controls.searchList.enabled = false
 		controls.searchListFallback.shown = true
@@ -2042,75 +2101,23 @@ function TreeTabClass:FindTimelessJewel()
 		tooltip:AddLine(16, "^7Any manual changes made to your fallback nodes are lost when you click the generate button, as it completely replaces them.")
 	end
 	controls.searchListFallbackButton.locked = function() return controls.searchListFallback.shown end
-	controls.searchList = new("EditControl", {"TOPLEFT", nil, "TOPLEFT"}, {12, 275, 438, 200}, timelessData.searchList, nil, "^%C\t\n", nil, function(value)
-		timelessData.searchList = value
-		parseSearchList(0, false)
-		self.build.modFlag = true
-	end, 16, true)
-	controls.searchList.shown = true
-	controls.searchList.enabled = true
-	controls.searchList:SetText(timelessData.searchList and timelessData.searchList or "")
-	controls.searchListFallback = new("EditControl", {"TOPLEFT", nil, "TOPLEFT"}, {12, 275, 438, 200}, timelessData.searchListFallback, nil, "^%C\t\n", nil, function(value)
-		timelessData.searchListFallback = value
-		parseSearchList(0, true)
-		self.build.modFlag = true
-	end, 16, true)
-	controls.searchListFallback.shown = false
-	controls.searchListFallback.enabled = false
-	controls.searchListFallback:SetText(timelessData.searchListFallback and timelessData.searchListFallback or "")
 
-	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", nil, "TOPRIGHT" }, { -390, 250, 0, 16 }, "^7Results:")
-	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", nil, "TOPRIGHT" }, { -450, 275, 438, 200 }, self.build)
-	controls.searchTradeLeagueSelect = new("DropDownControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, { -175, -5, 140, 20 }, nil, function(_, value)
-		self.timelessJewelLeagueSelect = value
-	end)
+	controls.searchResults = new("TimelessJewelListControl", { "BOTTOMLEFT", nil, "BOTTOMLEFT" },
+		{ edgePadding*2 + listWidth, -(buttonHeight + edgePadding * 2), listWidth, listHeight }, self.build)
 	self.tradeQueryRequests = new("TradeQueryRequests")
-	controls.msg = new("LabelControl", nil, { -280, 5, 0, 16 }, "")
-	if #self.tradeLeaguesList > 0 then
-		controls.searchTradeLeagueSelect:SetList(self.tradeLeaguesList)
-		-- restore the last league selected
-		for i, league in ipairs(self.tradeLeaguesList) do
-			if league == self.timelessJewelLeagueSelect then
-				controls.searchTradeLeagueSelect:SetSel(i)
-				break
-			end
-		end
-	else
-		self.tradeQueryRequests:FetchLeagues("pc", function(leagues, errMsg)
-			if errMsg then
-				controls.msg.label = "^1Error fetching league list, default league will be used\n"..errMsg.."^7"
-				return
-			end
-			local tempLeagueTable = { }
-			for _, league in ipairs(leagues) do
-				if league ~= "Standard" and  league ~= "Ruthless" and league ~= "Hardcore" and league ~= "Hardcore Ruthless" then
-					if not (league:find("Hardcore") or league:find("Ruthless")) then
-						-- set the dynamic, base league name to index 1 to sync league shown in dropdown on load with default/old behavior of copy trade url
-						t_insert(tempLeagueTable, league)
-						for _, val in ipairs(self.tradeLeaguesList) do
-							t_insert(tempLeagueTable, val)
-						end
-						self.tradeLeaguesList = copyTable(tempLeagueTable)
-					else
-						t_insert(self.tradeLeaguesList, league)
-					end
-				end
-			end
-			t_insert(self.tradeLeaguesList, "Standard")
-			t_insert(self.tradeLeaguesList, "Hardcore")
-			t_insert(self.tradeLeaguesList, "Ruthless")
-			t_insert(self.tradeLeaguesList, "Hardcore Ruthless")
-			controls.searchTradeLeagueSelect:SetList(self.tradeLeaguesList)
-		end)
-	end
-	controls.searchTradeButton = new("ButtonControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, { 0, -5, 170, 20 }, "Copy Trade URL", function()
+	controls.msg = new("LabelControl", nil, { -280, 5, 0, 20 }, "")
+	controls.searchTradeButton = new("ButtonControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, { 0, -rowSpacing, 170, buttonHeight }, "Open Trade URL", function()
 		local seedTrades = {}
-		local startRow = controls.searchResults.selIndex or 1
-		local endRow = startRow + m_floor(10 / ((timelessData.sharedResults.conqueror.id == 1) and 3 or 1))
-		if controls.searchResults.highlightIndex then
+		local startRow, endRow
+		if controls.searchResults.highlightIndex and not controls.searchMore.state then
 			startRow = m_min(controls.searchResults.selIndex, controls.searchResults.highlightIndex)
 			endRow = m_max(controls.searchResults.selIndex, controls.searchResults.highlightIndex)
+		else
+			startRow = controls.searchResults.selIndex or 1
+			local maxFilters = controls.searchMore.state and 180 or 10
+			endRow = startRow + m_floor(maxFilters / ((timelessData.sharedResults.conqueror.id == 1) and 3 or 1))
 		end
+		
 
 		local seedCount = m_min(#timelessData.searchResults - startRow, endRow - startRow) + 1
 		-- update if not highlighted already
@@ -2125,6 +2132,8 @@ function TreeTabClass:FindTimelessJewel()
 			endRow = startRow + seedCount - 1
 		end
 		controls.searchResults.selIndex = startRow
+		-- scroll so that startRow is the first visible row
+		controls.searchResults:ScrollToIndex(startRow)
 		controls.searchResults.highlightIndex = endRow
 
 		controls.searchTradeButton.lastSearch = {startRow, seedCount}
@@ -2149,10 +2158,17 @@ function TreeTabClass:FindTimelessJewel()
 			end
 		end
 
+		local tradeTypes = {
+			"securable",
+			"available",
+			"onlineleague",
+			"online",
+			"any"
+		}
 		local search = {
 			query = {
 				status = {
-					option = "available"
+					option = tradeTypes[self.tradeTypeIndex]
 				},
 				stats = {
 					{
@@ -2186,29 +2202,125 @@ function TreeTabClass:FindTimelessJewel()
 		end
 
 		-- if the league was not selected via dropdown, then default to the first league in the dropdown or "" if the leagues could not be read
-		self.timelessJewelLeagueSelect = self.timelessJewelLeagueSelect or (self.tradeLeaguesList and #self.tradeLeaguesList > 0 and self.tradeLeaguesList[1]) or ""
+		local selectedRealm = controls.realmSelection:GetSelValue():lower()
 
-		Copy("https://www.pathofexile.com/trade/search/"..(self.timelessJewelLeagueSelect).."/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
-			return s_format("%%%02X", s_byte(a))
-		end)))
+		local realmPath = selectedRealm == "pc" and "" or (selectedRealm .. "/")
+		local url = "https://www.pathofexile.com/trade/search/" .. realmPath ..
+			(controls.searchTradeLeagueSelect:GetSelValue()) ..
+			"/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
+				return s_format("%%%02X", s_byte(a))
+			end))
+		OpenURL(url)
+		Copy(url)
 
-		controls.searchTradeButton.label = "Copy Next Trade URL"
+		controls.searchTradeButton.label = "Open Next Trade URL"
 	end)
 	controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0
 	controls.searchTradeButton.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
-		tooltip:AddLine(16, "^7Click to generate and copy a trade URL for searching for jewels in this list.")
+		tooltip:AddLine(16, "^7Click to generate and open a trade URL for searching for jewels in this list.")
 		tooltip:AddLine(16, "^7Paste the URL in a web browser to search.")
 		tooltip:AddLine(16, "")
 		tooltip:AddLine(16, "^7You can click to select a row so that search begins from there.")
 		tooltip:AddLine(16, "^7After selecting a row You can also shift+click on another row to select a range of rows to search.")
 	end
 
-	local width = 80
-	local divider = 10
-	local buttons = 3
-	local totalWidth = m_floor(width * buttons + divider * (buttons - 1))
-	local buttonX = -totalWidth / 2 + width / 2
+	controls.searchTradeLeagueSelect = new("DropDownControl", { "RIGHT", controls.searchTradeButton, "LEFT" },
+		{ -labelSpacing, 0, 140, buttonHeight }, nil, function(idx, val)
+		self.timelessJewelLeagueSelect = val
+	end)
+	controls.searchTradeLeagueLabel = new("LabelControl", { "TOPRIGHT", controls.searchTradeLeagueSelect, "TOPLEFT" },
+		{ -labelSpacing, 0, 0, labelHeight }, "^7League:")
+	-- Realm selection
+	self.realmList = {
+		"PC", "Sony", "Xbox"
+	}
+	controls.realmSelection = new("DropDownControl", { "BOTTOMLEFT", controls.searchTradeLeagueSelect, "TOPLEFT" },
+		{ 0, -rowSpacing, 50, buttonHeight }, self.realmList, nil)
+	local function updateLeagues()
+		local currentRealmId = controls.realmSelection:GetSelValue():lower()
+		if self.tradeLeaguesList[currentRealmId] == nil then self.tradeLeaguesList[currentRealmId] = {} end
+		local leagueList = self.tradeLeaguesList[currentRealmId]
+		if leagueList and #leagueList > 0 then
+			controls.searchTradeLeagueSelect:SetList(leagueList)
+			-- restore the last league selected
+			for i, league in ipairs(leagueList) do
+				if league == self.timelessJewelLeagueSelect then
+					controls.searchTradeLeagueSelect:SetSel(i)
+					break
+				end
+			end
+		else
+			self.tradeQueryRequests:FetchLeagues(currentRealmId, function(leagues, errMsg)
+				if errMsg then
+					controls.msg.label = "^1Error fetching league list, default league will be used\n" .. errMsg .. "^7"
+					return
+				end
+				local tempLeagueTable = {}
+				for _, league in ipairs(leagues) do
+					if league ~= "Standard" and league ~= "Ruthless" and league ~= "Hardcore" and league ~= "Hardcore Ruthless" then
+						if not (league:find("Hardcore") or league:find("Ruthless")) then
+							-- set the dynamic, base league name to index 1 to sync league shown in dropdown on load with default/old behavior of open trade url
+							t_insert(tempLeagueTable, league)
+							for _, val in ipairs(leagueList) do
+								t_insert(tempLeagueTable, val)
+							end
+							leagueList = copyTable(tempLeagueTable)
+							self.tradeLeaguesList[currentRealmId] = leagueList
+						else
+							t_insert(leagueList, league)
+						end
+					end
+				end
+				t_insert(leagueList, "Standard")
+				t_insert(leagueList, "Hardcore")
+				t_insert(leagueList, "Ruthless")
+				t_insert(leagueList, "Hardcore Ruthless")
+				controls.searchTradeLeagueSelect:SetList(leagueList)
+			end)
+		end
+	end
+	controls.realmSelection.selFunc = function(idx, _)
+		self.selectedRealmIndex = idx
+		updateLeagues()
+	end
+	-- remember previous choice
+	controls.realmSelection:SetSel(self.selectedRealmIndex or 1)
+	-- manually call the function because when initialising, because the
+	-- function does not get called when the selection index stays the same
+	controls.realmSelection.selFunc(controls.realmSelection.selIndex) 
+	controls.realmLabel = new("LabelControl", { "TOPRIGHT", controls.realmSelection, "TOPLEFT" },
+		{ -labelSpacing, 0, 0, labelHeight }, "^7Realm:")
+
+	-- Buyout selection
+	local tradeTypes = {
+		"Instant buyout",
+		"Instant buyout and in person",
+		"In person (online in league)",
+		"In person (online)",
+		"Any (includes offline)"
+	}
+	controls.tradeTypeSelection = new("DropDownControl", { "BOTTOMRIGHT", controls.searchTradeButton, "TOPRIGHT" },
+		{ 0, -rowSpacing, 205, buttonHeight }, tradeTypes, function(index, value)
+			self.tradeTypeIndex = index
+		end)
+	-- remember previous choice
+	self.tradeTypeIndex = self.tradeTypeIndex or 1
+	controls.tradeTypeSelection:SetSel(self.tradeTypeIndex)
+
+	-- Checkbox to search a lot at once, or just a few
+	controls.searchMore = new("CheckBoxControl", { "BOTTOMRIGHT", controls.tradeTypeSelection, "TOPRIGHT" },
+		{ 0, -rowSpacing, 19 }, nil, function(state)
+		self.lastSearchMore = state
+	end,
+		"By default, this tool only searches for 4 or 10 (depending on conqueror) seeds at once to preserve sorting.\nThis option searches up to 180 or 60 seeds at once if you don't care about the sorting.",
+		false)
+	-- remember previous choice
+	if self.lastSearchMore then
+		controls.searchMore.state = self.lastSearchMore
+	end
+	controls.searchMoreLabel = new("LabelControl", { "RIGHT", controls.searchMore, "LEFT" },
+		{ -labelSpacing, 0, 0, labelHeight }, "^7Search Maximum Amount:")
 
 	-- Helper function to search a single socket
 	local function searchSingleSocket(socketId, socketInfo)
@@ -2525,7 +2637,21 @@ function TreeTabClass:FindTimelessJewel()
 		return results
 	end
 
-	controls.searchButton = new("ButtonControl", nil, {buttonX, 485, width, 20}, "Search", function()
+	local panelWidth = edgePadding * 3 + listWidth * 2
+	local buttonDivider = 10
+	local buttonWidth = 80
+	-- reset button anchored to middle of panel and other buttons anchored to it
+	controls.resetButton = new("ButtonControl", {"BOTTOMLEFT", nil, "BOTTOMLEFT"}, {panelWidth / 2 - buttonWidth/2, -edgePadding, buttonWidth, buttonHeight}, "Reset", function()
+		updateSearchList("", true)
+		updateSearchList("", false)
+		wipeTable(timelessData.searchResults)
+		controls.searchTradeButton.enabled = false
+		clearProtected()
+	end)
+	controls.closeButton = new("ButtonControl", {"LEFT", controls.resetButton, "RIGHT"}, {buttonDivider, 0, buttonWidth, buttonHeight}, "Cancel", function()
+		main:ClosePopup()
+	end)
+	controls.searchButton = new("ButtonControl", {"RIGHT", controls.resetButton, "LEFT"}, {-buttonDivider, 0, buttonWidth, buttonHeight}, "Search", function()
 		if timelessData.jewelSocket.id == -1 then
 			wipeTable(timelessData.searchResults)
 			wipeTable(timelessData.sharedResults)
@@ -2560,7 +2686,7 @@ function TreeTabClass:FindTimelessJewel()
 			
 			controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0
 			controls.searchTradeButton.lastSearch = nil
-			controls.searchTradeButton.label = "Copy Trade URL"
+			controls.searchTradeButton.label = "Open Trade URL"
 			controls.searchResults.highlightIndex = nil
 			controls.searchResults.selIndex = 1
 		else
@@ -2585,22 +2711,13 @@ function TreeTabClass:FindTimelessJewel()
 				t_sort(timelessData.searchResults, function(a, b) return a.total > b.total end)
 				controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0
 				controls.searchTradeButton.lastSearch = nil
-				controls.searchTradeButton.label = "Copy Trade URL"
+				controls.searchTradeButton.label = "Open Trade URL"
 				controls.searchResults.highlightIndex = nil
 				controls.searchResults.selIndex = 1
 			end
 		end
 	end)
-	controls.resetButton = new("ButtonControl", nil, {buttonX + (width + divider), 485, width, 20}, "Reset", function()
-		updateSearchList("", true)
-		updateSearchList("", false)
-		wipeTable(timelessData.searchResults)
-		controls.searchTradeButton.enabled = false
-		clearProtected()
-	end)
-	controls.closeButton = new("ButtonControl", nil, {buttonX + (width + divider) * 2, 485, width, 20}, "Cancel", function()
-		main:ClosePopup()
-	end)
 
-	main:OpenPopup(910, 517, "Find a Timeless Jewel", controls)
+	local panelHeight = 565
+	main:OpenPopup(panelWidth, panelHeight, "Find a Timeless Jewel", controls)
 end

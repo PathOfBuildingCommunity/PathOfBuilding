@@ -37,11 +37,13 @@ local influenceInfo = itemLib.influenceInfo.all
 local catalystQualityFormat = {
 	"^x7F7F7FQuality (Attack Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Speed Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
+	"^x7F7F7FQuality (Suffix Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Life and Mana Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Caster Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Attribute Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Physical and Chaos Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Resistance Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
+	"^x7F7F7FQuality (Prefix Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Defense Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Elemental Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Critical Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
@@ -589,8 +591,8 @@ holding Shift will put it in the second.]])
 		return (self.controls.displayItemCatalyst:IsShown() or self.controls.displayItemCatalystQualityEdit:IsShown()) and 28 or 0
 	end})
 	self.controls.displayItemCatalyst = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionCatalyst,"TOPRIGHT"}, {0, 0, 250, 20},
-		{"Catalyst","Abrasive (Attack)","Accelerating (Speed)","Fertile (Life & Mana)","Imbued (Caster)","Intrinsic (Attribute)","Noxious (Physical & Chaos Damage)",
-		 "Prismatic (Resistance)","Tempering (Defense)","Turbulent (Elemental)","Unstable (Critical)"},
+		{"Catalyst","Abrasive (Attack)","Accelerating (Speed)","Dextral (Suffix)","Fertile (Life & Mana)","Imbued (Caster)","Intrinsic (Attribute)","Noxious (Physical & Chaos Damage)",
+		 "Prismatic (Resistance)","Sinistral (Prefix)","Tempering (Defense)","Turbulent (Elemental)","Unstable (Critical)"},
 		function(index, value)
 			self.displayItem.catalyst = index - 1
 			if not self.displayItem.catalystQuality then
@@ -1625,14 +1627,14 @@ function ItemsTabClass:DeleteItem(item, deferUndoState)
 	end
 end
 
-local function copyAnointsAndEldritchImplicits(newItem, activeItemSet, items)
-	local newItemType = newItem.base.type
-	if activeItemSet[newItemType] then
-		local currentItem = activeItemSet[newItemType].selItemId and items[activeItemSet[newItemType].selItemId]
+function ItemsTabClass:CopyAnointsAndEldritchImplicits(newItem, copyEldritchImplicits, overwrite, sourceSlotName)
+	local newItemType = sourceSlotName or (newItem.base.weapon and "Weapon 1" or newItem.base.type)
+	if self.activeItemSet[newItemType] then
+		local currentItem = self.activeItemSet[newItemType].selItemId and self.items[self.activeItemSet[newItemType].selItemId]
 		-- if you don't have an equipped item that matches the type of the newItem, no need to do anything
 		if currentItem then
 			-- if the new item is anointable and does not have an anoint and your current respective item does, apply that anoint to the new item
-			if isAnointable(newItem) and #newItem.enchantModLines == 0 and activeItemSet[newItemType].selItemId > 0 then
+			if isAnointable(newItem) and (#newItem.enchantModLines == 0 or overwrite) and self.activeItemSet[newItemType].selItemId > 0 then
 				local currentAnoint = currentItem.enchantModLines
 				if currentAnoint and #currentAnoint == 1 then -- skip if amulet has more than one anoint e.g. Stranglegasp
 					newItem.enchantModLines = currentAnoint
@@ -1647,12 +1649,20 @@ local function copyAnointsAndEldritchImplicits(newItem, activeItemSet, items)
 					return
 				end
 			end
-			if main.migrateEldritchImplicits and isValueInTable(eldritchBaseTypes, newItem.base.type) and isValueInTable(eldritchRarities, newItem.rarity)
-				and #newItem.implicitModLines == 0 and not newItem.corrupted and (currentItem.cleansing or currentItem.tangle) and currentItem.implicitModLines then
+			
+			local modifiableItem = not (newItem.corrupted or newItem.mirrored)
+			if copyEldritchImplicits and isValueInTable(eldritchBaseTypes, newItem.base.type) and isValueInTable(eldritchRarities, newItem.rarity)
+				and (#newItem.implicitModLines == 0 or overwrite) and modifiableItem and (currentItem.cleansing or currentItem.tangle) and currentItem.implicitModLines then
 					newItem.implicitModLines = currentItem.implicitModLines
 					newItem.tangle = currentItem.tangle
 					newItem.cleansing = currentItem.cleansing
 			end
+
+			-- harvest and heist enchantments on modifiable body armour or weapons
+			if (newItem.base.weapon or newItem.base.type == "Body Armour") and (#newItem.enchantModLines == 0 or overwrite)	and self.activeItemSet[newItemType].selItemId > 0 and modifiableItem and currentItem.enchantModLines then
+				newItem.enchantModLines = currentItem.enchantModLines
+			end
+
 			newItem:BuildAndParseRaw()
 		end
 	end
@@ -1662,7 +1672,7 @@ end
 function ItemsTabClass:CreateDisplayItemFromRaw(itemRaw, normalise)
 	local newItem = new("Item", itemRaw)
 	if newItem.base then
-		copyAnointsAndEldritchImplicits(newItem, self.activeItemSet, self.items)
+		self:CopyAnointsAndEldritchImplicits(newItem, main.migrateEldritchImplicits, false)
 		if normalise then
 			newItem:NormaliseQuality()
 			newItem:BuildModList()
@@ -1786,7 +1796,7 @@ function ItemsTabClass:UpdateClusterJewelControls()
 
 	-- Update added node count slider
 	local countControl = self.controls.displayItemClusterJewelNodeCount
-	item.clusterJewelNodeCount = m_min(m_max(item.clusterJewelNodeCount or item.clusterJewel.maxNodes, item.clusterJewel.minNodes), item.clusterJewel.maxNodes)
+	item.clusterJewelNodeCount = m_min(m_max(item.clusterJewelNodeCount or item.clusterJewel.minNodes, item.clusterJewel.minNodes), item.clusterJewel.maxNodes)
 	countControl.divCount = item.clusterJewel.maxNodes - item.clusterJewel.minNodes
 	countControl.val = (item.clusterJewelNodeCount - item.clusterJewel.minNodes) / (item.clusterJewel.maxNodes - item.clusterJewel.minNodes)
 
@@ -1796,7 +1806,7 @@ end
 function ItemsTabClass:CraftClusterJewel()
 	local item = self.displayItem
 	wipeTable(item.enchantModLines)
-	t_insert(item.enchantModLines, { line = "Adds "..(item.clusterJewelNodeCount or item.clusterJewel.maxNodes).." Passive Skills", crafted = true })
+	t_insert(item.enchantModLines, { line = "Adds "..(item.clusterJewelNodeCount or item.clusterJewel.minNodes).." Passive Skills", crafted = true })
 	if item.clusterJewel.size == "Large" then
 		t_insert(item.enchantModLines, { line = "2 Added Passive Skills are Jewel Sockets", crafted = true })
 	elseif item.clusterJewel.size == "Medium" then
@@ -2407,6 +2417,18 @@ function ItemsTabClass:getAnoint(item)
 	return result
 end
 
+---Gets how many anoint slots are still missing on an item.
+---@param item table @The item to inspect
+---@return number @How many additional anoints can still be applied
+function ItemsTabClass:getMissingAnointCount(item)
+	if not item or not item.base or not (item.canBeAnointed or item.base.type == "Amulet") then
+		return 0
+	end
+	local maxAnoints = item.canHaveFourEnchants and 4 or item.canHaveThreeEnchants and 3 or item.canHaveTwoEnchants and 2 or 1
+	local anointCount = #self:getAnoint(item)
+	return m_max(0, maxAnoints - m_min(anointCount, maxAnoints))
+end
+
 ---Returns a copy of the currently displayed item, but anointed with a new node.
 ---Removes any existing enchantments before anointing. (Anoints are considered enchantments)
 ---@param node table @The passive tree node to anoint, or nil to just remove existing anoints.
@@ -2425,7 +2447,7 @@ function ItemsTabClass:anointItem(node)
 	return item
 end
 
----Appends tooltip information for anointing a new passive tree node onto the currently editing amulet
+---Appends tooltip information for anointing a new passive tree node onto the currently editing item
 ---@param tooltip table @The tooltip to append into
 ---@param node table @The passive tree node that will be anointed, or nil to remove the current anoint.
 function ItemsTabClass:AppendAnointTooltip(tooltip, node, actionText)
@@ -2459,8 +2481,9 @@ function ItemsTabClass:AppendAnointTooltip(tooltip, node, actionText)
 		header = "^7"..actionText.." nothing will give you: "
 	end
 	local calcFunc = self.build.calcsTab:GetMiscCalculator()
-	local outputBase = calcFunc({ repSlotName = "Amulet", repItem = self.displayItem })
-	local outputNew = calcFunc({ repSlotName = "Amulet", repItem = self:anointItem(node) })
+	local repSlotName = self.displayItem.base and self.displayItem.base.type or "Amulet"
+	local outputBase = calcFunc({ repSlotName = repSlotName, repItem = self.displayItem })
+	local outputNew = calcFunc({ repSlotName = repSlotName, repItem = self:anointItem(node) })
 	local numChanges = self.build:AddStatComparesToTooltip(tooltip, outputBase, outputNew, header)
 	if node and numChanges == 0 then
 		tooltip:AddLine(14, "^7"..actionText.." "..node.dn.." changes nothing.")
@@ -2718,6 +2741,92 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	local controls = { }
 	local sourceList = { }
 	local modList = { }
+	local sortList = { { label = "Default", stat = nil } }
+	local sortTransforms = { }
+	for _, entry in ipairs(data.powerStatList) do
+		if entry.stat and not entry.ignoreForNodes then
+			t_insert(sortList, { label = entry.label, stat = entry.stat })
+			sortTransforms[entry.stat] = entry.transform
+		end
+	end
+	local function setDefaultSortOrder()
+		for index, listMod in ipairs(modList) do
+			listMod.defaultSortOrder = index
+			listMod.sortValue = nil
+			listMod.sortValues = nil
+		end
+	end
+	local function getOutputStatValue(output, stat)
+		if stat == "FullDPS" then
+			if output[stat] ~= nil then
+				return output[stat]
+			end
+			if output.Minion and output.Minion.CombinedDPS ~= nil then
+				return output.Minion.CombinedDPS
+			end
+		end
+		if output.Minion and output.Minion[stat] ~= nil then
+			return output.Minion[stat]
+		end
+		if output[stat] ~= nil then
+			return output[stat]
+		end
+		return 0
+	end
+	local function getSortValue(listMod, stat, calcFunc, slotName, useFullDPS)
+		listMod.sortValues = listMod.sortValues or { }
+		if listMod.sortValues[stat] ~= nil then
+			return listMod.sortValues[stat]
+		end
+		local item = new("Item", self.displayItem:BuildRaw())
+		item.id = self.displayItem.id
+		for _, line in ipairs(listMod.mod) do
+			t_insert(item.explicitModLines, { line = checkLineForAllocates(line, self.build.spec.nodes), modTags = listMod.mod.modTags, [listMod.type] = true })
+		end
+		item:BuildAndParseRaw()
+		local output = calcFunc({ repSlotName = slotName, repItem = item }, useFullDPS)
+		local value = getOutputStatValue(output, stat)
+		if sortTransforms[stat] then
+			value = sortTransforms[stat](value)
+		end
+		listMod.sortValues[stat] = value
+		return value
+	end
+	local function applySort(stat, selectFirst)
+		if not controls.modSelect or not controls.modSelect:IsShown() then
+			return
+		end
+		local selected = not selectFirst and modList[controls.modSelect.selIndex] or nil
+		if stat then
+			local slotName = self.displayItem:GetPrimarySlot()
+			local calcFunc = self.build.calcsTab:GetMiscCalculator()
+			local useFullDPS = stat == "FullDPS"
+			for _, listMod in ipairs(modList) do
+				listMod.sortValue = getSortValue(listMod, stat, calcFunc, slotName, useFullDPS)
+			end
+			table.sort(modList, function(a, b)
+				if a.sortValue ~= b.sortValue then
+					return a.sortValue > b.sortValue
+				end
+				return (a.defaultSortOrder or 0) < (b.defaultSortOrder or 0)
+			end)
+		else
+			table.sort(modList, function(a, b)
+				return (a.defaultSortOrder or 0) < (b.defaultSortOrder or 0)
+			end)
+		end
+		controls.modSelect:UpdateSearch()
+		if selected then
+			for index, listMod in ipairs(modList) do
+				if listMod == selected then
+					controls.modSelect.selIndex = index
+					break
+				end
+			end
+		else
+			controls.modSelect:SetSel(1, true)
+		end
+	end
 	---Mutates modList to contain mods from the specified source
 	---@param sourceId string @The crafting source id to build the list of mods for
 	local function buildMods(sourceId)
@@ -2866,6 +2975,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 				end
 			end)
 		end
+		setDefaultSortOrder()
 	end
 	if self.displayItem.type ~= "Tincture" and self.displayItem.type ~= "Graft" then
 		if self.displayItem.type ~= "Jewel" then
@@ -2910,8 +3020,21 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	controls.source = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, 20, 150, 18}, sourceList, function(index, value)
 		buildMods(value.sourceId)
 		controls.modSelect:SetSel(1)
+		if controls.sort then
+			applySort(controls.sort.list[controls.sort.selIndex].stat)
+		end
 	end)
 	controls.source.enabled = #sourceList > 1
+	controls.sortLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {350, 20, 0, 16}, "^7Sort by:")
+	controls.sortLabel.shown = function()
+		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
+	end
+	controls.sort = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {355, 20, 240, 18}, sortList, function(index, value)
+		applySort(value.stat, true)
+	end)
+	controls.sort.shown = function()
+		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
+	end
 	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {95, 45, 0, 16}, "^7Modifier:")
 	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, 45, 600, 18}, modList)
 	controls.modSelect.shown = function()
@@ -3414,12 +3537,12 @@ function ItemsTabClass:FormatItemSource(text)
 			   :gsub("prophecy{([^}]+)}",colorCodes.PROPHECY.."%1"..colorCodes.SOURCE)
 end
 
-function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
+function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 	local fontSizeSmall = main.showFlavourText and 16 or 14
 	local fontSizeBig = main.showFlavourText and 18 or 16
 	local fontSizeTitle = main.showFlavourText and 22 or 20
 	local rarityCode = colorCodes[item.rarity]
-	tooltip.maxWidth = 600 -- Should instead get the longest mod and set the width to that. Some flavour text is way too long so we need a cap of sorts.
+	tooltip.maxWidth = m_min(maxWidth or 600, 600) -- Cap very long lines. Can use a narrower width for small viewports
 	tooltip.tooltipHeader = item.rarity
 	tooltip.foilType = item.foilType
 	tooltip.center = true
@@ -3925,6 +4048,10 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		if not item.base.flask.mana and not item.base.flask.life then
 			chargesGenerated = chargesGenerated + modDB:Sum("BASE", nil, "UtilityFlaskChargesGenerated")
 		end
+		local chargesGeneratedOnWardBreak = 0
+		if item.baseName == "Iron Flask" then
+			chargesGeneratedOnWardBreak = chargesGeneratedOnWardBreak + modDB:Sum("BASE", nil, "IronFlaskChargesGeneratedOnWardBreak")
+		end
 
 		local chargesGeneratedPerFlask = modDB:Sum("BASE", nil, "FlaskChargesGeneratedPerEmptyFlask")
 		local emptyFlaskSlots = 0
@@ -3935,11 +4062,15 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		end
 		chargesGeneratedPerFlask = chargesGeneratedPerFlask * emptyFlaskSlots
 		chargesGenerated = chargesGenerated * gainMod
+		chargesGeneratedOnWardBreak = chargesGeneratedOnWardBreak * gainMod
 		chargesGeneratedPerFlask = chargesGeneratedPerFlask * gainMod
 
 		local totalChargesGenerated = chargesGenerated + chargesGeneratedPerFlask
 		if totalChargesGenerated > 0 then
 			t_insert(stats, s_format("^8Charges generated: ^7%.2f^8 per second", totalChargesGenerated))
+		end
+		if chargesGeneratedOnWardBreak > 0 then
+			t_insert(stats, s_format("^8Charges generated on Ward Break: ^7%.2f", chargesGeneratedOnWardBreak))
 		end
 
 		local chanceToNotConsumeCharges = m_min(modDB:Sum("BASE", nil, "FlaskChanceNotConsumeCharges"), 100)
@@ -4036,48 +4167,105 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				t_insert(compareSlots, slot)
 			end
 		end
-		table.sort(compareSlots, function(a, b)
-			if a ~= b then
-				if slot == a then
-					return true
-				end
-				if slot == b then
-					return false
-				end
-			end
-			if a.selItemId ~= b.selItemId then
-				if item == self.items[a.selItemId] then
-					return true
-				end
-				if item == self.items[b.selItemId] then
-					return false
-				end
-			end
-			local aNum = tonumber(a.slotName:match("%d+"))
-			local bNum = tonumber(b.slotName:match("%d+"))
-			if aNum and bNum then
-				return aNum < bNum
-			else
-				return a.slotName < b.slotName
-			end
-		end)
 
-		-- Add comparisons for each slot
-		for _, compareSlot in pairs(compareSlots) do
-			if not main.slotOnlyTooltips or (slot and (slot.nodeId == compareSlot.nodeId or slot.slotName == compareSlot.slotName)) or not slot or slot == compareSlot then
-				local selItem = self.items[compareSlot.selItemId]
-				local output = calcFunc({ repSlotName = compareSlot.slotName, repItem = item ~= selItem and item or nil})
-				local header
-				if item == selItem then
-					header = "^7Removing this item from "..compareSlot.label.." will give you:"
-				else
-					header = string.format("^7Equipping this item in %s will give you:%s", compareSlot.label, selItem and "\n(replacing "..colorCodes[selItem.rarity]..selItem.name.."^7)" or "")
+		tooltip:AddLine(14, colorCodes.TIP .. "Tip: Press Ctrl+D to disable the display of stat differences.")
+
+		local function getReplacedItemAndOutput(compareSlot)
+			local selItem = self.items[compareSlot.selItemId]
+			local output = calcFunc({ repSlotName = compareSlot.slotName, repItem = item ~= selItem and item or nil })
+			return selItem, output
+		end
+		local function addCompareForSlot(compareSlot, selItem, output)
+			if not selItem or not output then
+				selItem, output = getReplacedItemAndOutput(compareSlot)
+			end
+			local header
+			if item == selItem then
+				header = "^7Removing this item from "..compareSlot.label.." will give you:"
+			else
+				header = string.format("^7Equipping this item in %s will give you:%s", compareSlot.label or compareSlot.slotName, selItem and "\n(replacing "..colorCodes[selItem.rarity]..selItem.name.."^7)" or "")
+			end
+			self.build:AddStatComparesToTooltip(tooltip, calcBase, output, header)
+		end
+
+		-- if we have a specific slot to compare to, and the user has "Show
+		-- tooltips only for affected slots" checked, we can just compare that
+		-- one slot
+		if main.slotOnlyTooltips and slot then
+			slot = type(slot) ~= "string" and slot or self.slots[slot]
+			if slot then addCompareForSlot(slot) end
+			return
+		end
+
+		
+		local slots = {}
+		local isUnique = item.rarity == "UNIQUE" or item.rarity == "RELIC"
+		local currentSameUniqueCount = 0
+		for _, compareSlot in ipairs(compareSlots) do
+			local selItem, output = getReplacedItemAndOutput(compareSlot)
+			local isSameUnique = isUnique and selItem and item.name == selItem.name
+			if isUnique and isSameUnique and item.limit then
+				currentSameUniqueCount = currentSameUniqueCount + 1
+			end
+			table.insert(slots,
+				{ selItem = selItem, output = output, compareSlot = compareSlot, isSameUnique = isSameUnique })
+		end
+
+		-- limited uniques: only compare to slots with the same item if more don't fit
+		if currentSameUniqueCount == item.limit then
+			for _, slotEntry in ipairs(slots) do
+				if slotEntry.isSameUnique then
+					addCompareForSlot(slotEntry.compareSlot, slotEntry.selItem, slotEntry.output)
 				end
-				self.build:AddStatComparesToTooltip(tooltip, calcBase, output, header)
+			end
+			return
+		end
+
+		
+		-- either the same unique or same base type
+		local function similar(compareItem, sameUnique)
+			-- empty slot
+			if not compareItem then return 0 end
+
+			local sameBaseType = not isUnique
+				and compareItem.rarity ~= "UNIQUE" and compareItem.rarity ~= "RELIC"
+				and item.base.type == compareItem.base.type
+				and item.base.subType == compareItem.base.subType
+			if sameBaseType or sameUnique then
+				return 1
+			else
+				return 0
 			end
 		end
+		-- sort by:
+		-- 1. empty sockets
+		-- 2. same base group jewel or unique
+		-- 3. DPS
+		-- 4. EHP
+		local function sortFunc(a, b)
+			if a == b then return end
+
+			local aParams = { a.compareSlot.selItemId == 0 and 1 or 0, similar(a.selItem, a.isSameUnique), a.output.FullDPS, a.output.CombinedDPS, a.output.TotalEHP, a.compareSlot.label, a.compareSlot.slotName }
+			local bParams = { b.compareSlot.selItemId == 0 and 1 or 0, similar(b.selItem, b.isSameUnique), b.output.FullDPS, b
+				.output.CombinedDPS, b.output.TotalEHP, b.compareSlot.label, b.compareSlot.slotName }
+			for i = 1, #aParams do
+				if aParams[i] == nil or bParams[i] == nil then
+					-- continue
+				elseif aParams[i] > bParams[i] then
+					return true
+				elseif aParams[i] < bParams[i] then
+					return false
+				end
+			end
+			return false
+		end
+		table.sort(slots, sortFunc)
+		
+		for _, slotEntry in ipairs(slots) do
+			addCompareForSlot(slotEntry.compareSlot, slotEntry.selItem, slotEntry.output)
+		end
+		
 	end
-	tooltip:AddLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to disable the display of stat differences.")
 
 	if launch.devModeAlt then
 		-- Modifier debugging info
