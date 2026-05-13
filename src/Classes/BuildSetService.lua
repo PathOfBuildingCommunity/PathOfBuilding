@@ -35,3 +35,11 @@ end
 function BuildSetServiceClass:ReorderLoadout(oldIndex, newIndex)
 	self.buildMode:ReorderLoadout(oldIndex, newIndex)
 end
+
+function BuildSetServiceClass:SpecNameLookup()
+	local lookup = {}
+	for _, specTitle in ipairs(self.buildMode.treeTab:GetSpecList()) do
+		lookup[specTitle] = true
+	end
+	return lookup
+end

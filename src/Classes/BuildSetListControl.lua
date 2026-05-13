@@ -5,6 +5,7 @@
 --
 
 local t_insert = table.insert
+
 local BuildSetListClass = newClass("BuildSetListControl", "ListControl", function(self, anchor, rect, buildMode)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, buildMode.loadoutsList)
 	self.buildMode = buildMode
@@ -15,15 +16,14 @@ local BuildSetListClass = newClass("BuildSetListControl", "ListControl", functio
 		end)
 	self.controls.rename = new("ButtonControl", { "LEFT", self.controls.new, "RIGHT" }, { 5, 0, 60, 18 }, "Rename",
 		function()
-			self:RenameLoadout(self.selValue)
+			self:RenameLoadout(self.selValue.title)
 		end)
 	self.controls.rename.enabled = function()
 		return self.selValue ~= nil
 	end
 	self.controls.copy = new("ButtonControl", { "LEFT", self.controls.rename, "RIGHT" }, { 5, 0, 60, 18 }, "Copy",
 		function()
-			local loadoutNameToCopy = self.selValue.title or "Default"
-			self:CopyLoadout(loadoutNameToCopy)
+			self:CopyLoadout(self.selValue.title)
 		end)
 	self.controls.copy.enabled = function()
 		return self.selValue ~= nil
@@ -53,42 +53,24 @@ local BuildSetListClass = newClass("BuildSetListControl", "ListControl", functio
 		end)
 end)
 
-function BuildSetListClass:RenameLoadout(spec)
-	local controls = {}
-	local specName = spec.title or "Default"
-	controls.label = new("LabelControl", nil, { 0, 20, 0, 16 }, "^7Enter name for this loadout:")
-	controls.edit = new("EditControl", nil, { 0, 40, 350, 20 }, specName, nil, nil, 100, function(buf)
-		controls.save.enabled = buf:match("%S")
-	end)
-	controls.save = new("ButtonControl", nil, { -45, 70, 80, 20 }, "Save", function()
-		local newTitle = controls.edit.buf
-		self.buildSetService:RenameLoadout(specName, newTitle)
-		self:ResetList()
-		main:ClosePopup()
-	end)
-	controls.save.enabled = false
-	controls.cancel = new("ButtonControl", nil, { 45, 70, 80, 20 }, "Cancel", function()
-		main:ClosePopup()
-	end)
-	main:OpenPopup(370, 100, specName and "Rename Loadout" or "Set Name", controls, "save", "edit", "cancel")
+function BuildSetListClass:RenameLoadout(loadoutName)
+	self:BasicLoadoutPopup({
+		popupTitle = "Rename Loadout",
+		defaultName = loadoutName,
+		saveCallback = function(newName)
+			self.buildSetService:RenameLoadout(loadoutName, newName)
+		end,
+	})
 end
 
 function BuildSetListClass:CopyLoadout(loadoutName)
-	local controls = {}
-	controls.label = new("LabelControl", nil, { 0, 20, 0, 16 }, "^7Enter name for this loadout:")
-	controls.edit = new("EditControl", nil, { 0, 40, 350, 20 }, loadoutName, nil, nil, 100, function(buf)
-		controls.save.enabled = buf:match("%S")
-	end)
-	controls.save = new("ButtonControl", nil, { -45, 70, 80, 20 }, "Save", function()
-		self.buildSetService:CopyLoadout(loadoutName, controls.edit.buf)
-		self:ResetList()
-		main:ClosePopup()
-	end)
-	controls.save.enabled = false
-	controls.cancel = new("ButtonControl", nil, { 45, 70, 80, 20 }, "Cancel", function()
-		main:ClosePopup()
-	end)
-	main:OpenPopup(370, 100, loadoutName and "Rename" or "Set Name", controls, "save", "edit", "cancel")
+	self:BasicLoadoutPopup({
+		popupTitle = "Copy Loadout",
+		defaultName = loadoutName,
+		saveCallback = function(newName)
+			self.buildSetService:CopyLoadout(loadoutName, newName)
+		end,
+	})
 end
 
 function BuildSetListClass:CustomLoadout(build)
@@ -105,10 +87,11 @@ function BuildSetListClass:CustomLoadout(build)
 		return newSetList, activeIndex
 	end
 	local controls = {}
+	local specNameLookup = self.buildSetService:SpecNameLookup()
 	local buildName = build.specId > 0 and self.buildMode.treeTab.specList[build.specId].title or "New Loadout"
 	controls.label = new("LabelControl", nil, { 0, 20, 0, 16 }, "^7Enter name for this loadout:")
 	controls.edit = new("EditControl", nil, { 0, 40, 350, 20 }, buildName, nil, nil, 100, function(buf)
-		controls.save.enabled = buf:match("%S")
+		controls.save.enabled = specNameLookup[buf] == nil and buf:match("%S")
 	end)
 
 	local treeList = self.buildMode.treeTab:GetSpecList()
@@ -173,21 +156,13 @@ function BuildSetListClass:CustomLoadout(build)
 end
 
 function BuildSetListClass:NewLoadout()
-	local controls = {}
-	controls.label = new("LabelControl", nil, { 0, 20, 0, 16 }, "^7Enter name for this loadout:")
-	controls.edit = new("EditControl", nil, { 0, 40, 350, 20 }, "New Loadout", nil, nil, 100, function(buf)
-		controls.save.enabled = buf:match("%S")
-	end)
-	controls.save = new("ButtonControl", nil, { -45, 70, 80, 20 }, "Save", function()
-		self.buildSetService:NewLoadout(controls.edit.buf)
-		self:ResetList()
-		main:ClosePopup()
-	end)
-	controls.save.enabled = false
-	controls.cancel = new("ButtonControl", nil, { 45, 70, 80, 20 }, "Cancel", function()
-		main:ClosePopup()
-	end)
-	main:OpenPopup(370, 100, "Set Name", controls, "save", "edit", "cancel")
+	self:BasicLoadoutPopup({
+		popupTitle = "New Loadout",
+		defaultName = "New Loadout",
+		saveCallback = function(newName)
+			self.buildSetService:NewLoadout(newName)
+		end,
+	})
 end
 
 function BuildSetListClass:GetRowValue(column, index, spec)
@@ -234,4 +209,31 @@ end
 
 function BuildSetListClass:ResetList()
 	self.list = self.buildMode.loadoutsList
+end
+
+function BuildSetListClass:BasicLoadoutPopup(options)
+	local controls = {}
+
+	controls.label = new("LabelControl", nil, { 0, 20, 0, 16 },
+		"^7Enter name for this loadout:")
+
+	local specNameLookup = self.buildSetService:SpecNameLookup()
+	controls.edit = new("EditControl", nil, { 0, 40, 350, 20 },
+		options.defaultName or "Default", nil, nil, 100, function(buf)
+			print("Buf changed:", buf, specNameLookup[buf])
+			controls.save.enabled = specNameLookup[buf] == nil and buf:match("%S")
+		end)
+
+	controls.save = new("ButtonControl", nil, { -45, 70, 80, 20 }, "Save", function()
+		options.saveCallback(controls.edit.buf)
+		self:ResetList()
+		main:ClosePopup()
+	end)
+	controls.save.enabled = false
+
+	controls.cancel = new("ButtonControl", nil, { 45, 70, 80, 20 }, "Cancel", function()
+		main:ClosePopup()
+	end)
+
+	main:OpenPopup(370, 110, options.popupTitle, controls, "save", "edit", "cancel")
 end

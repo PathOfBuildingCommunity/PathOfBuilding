@@ -805,6 +805,41 @@ describe("TestLoadouts", function()
 			end)
 		end)
 
+		describe("SpecNameLookup", function()
+			it("returns a lookup table with all spec titles from treeTab", function()
+				local lookup = buildSetService:SpecNameLookup()
+				assert.is_table(lookup)
+				for _, spec in ipairs(build.treeTab:GetSpecList()) do
+					assert.is_true(lookup[spec.title or "Default"])
+				end
+			end)
+
+			it("includes Default when no specs are renamed", function()
+				local lookup = buildSetService:SpecNameLookup()
+				assert.is_true(lookup["Default"])
+			end)
+
+			it("includes renamed spec titles", function()
+				build:NewLoadout("Custom Tree")
+				build:SyncLoadouts()
+				local lookup = buildSetService:SpecNameLookup()
+				assert.is_true(lookup["Default"])
+				assert.is_true(lookup["Custom Tree"])
+			end)
+
+			it("returns unique keys only (no duplicates)", function()
+				build:NewLoadout("Default")
+				build:SyncLoadouts()
+				local lookup = buildSetService:SpecNameLookup()
+				local count = 0
+				for _ in pairs(lookup) do
+					count = count + 1
+				end
+				assert.are.equals(2, #build.treeTab:GetSpecList())
+				assert.are.equals(1, count)
+			end)
+		end)
+
 		describe("Integration", function()
 			it("completes a loadout lifecycle", function()
 				-- 2 New Loadouts, Copy 2, Delete one of each
