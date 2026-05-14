@@ -12,6 +12,7 @@ local m_floor = math.floor
 
 local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
 local catalystList = {"Abrasive", "Accelerating", "Fertile", "Imbued", "Intrinsic", "Noxious", "Prismatic", "Tempering", "Turbulent", "Unstable"}
+local catalystDescriptorList = {"Attack", "Speed", "Life and Mana", "Caster", "Attribute", "Physical and Chaos", "Resistance", "Defense", "Elemental", "Critical"}
 local catalystTags = {
 	{ "attack" },
 	{ "speed" },
@@ -399,6 +400,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			self[influenceItemMap[line]] = true
 		elseif line == "Requirements:" then
 			-- nothing to do
+		elseif line:match("^%(") then
+			-- Reminder text, nothing to parse
 		elseif line:match("^{ ") then
 			-- We're parsing advanced copy/paste format
 			linePrefix = ""
@@ -453,7 +456,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				end
 				self.checkSection = false
 			end
-			local specName, specVal = line:match("^([%a ]+:?): (.+)$")
+			local specName, specVal = line:match("^([%a %(%)]+:?): (.+)$")
 			if specName then
 				if specName == "Class:" then
 					specName = "Requires Class"
@@ -468,6 +471,13 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.itemLevel = specToNumber(specVal)
 				elseif specName == "Requires Class" then
 					self.classRestriction = specVal
+				elseif specName:match("Quality %(%a+ Modifiers%)") then
+					self.catalystQuality = specToNumber(specVal:match("(%d+)%%"))
+					for i=1, #catalystDescriptorList do
+						if specName:match("Quality %(([%a%s]+) Modifiers%)") == catalystDescriptorList[i] then
+							self.catalyst = i
+						end
+					end
 				elseif specName == "Quality" then
 					self.quality = specToNumber(specVal)
 				elseif specName == "Sockets" then
@@ -784,6 +794,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						local min, max = range:match("(%d+)%-(%d+)")
 						local numRange = round((value - min) / (tonumber(max) - min), 3)
 						modLine.range = tonumber(numRange)
+						--ConPrintf(modLine.range)
 						line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", "(" .. range .. ")")
 					end
 				end

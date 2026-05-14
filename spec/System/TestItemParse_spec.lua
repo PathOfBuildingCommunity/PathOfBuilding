@@ -466,7 +466,7 @@ describe("TestItemParse", function()
 	end)
 end)
 
-describe("TestAdvancedItemParse", function()
+describe("TestAdvancedItemParse #item", function()
 	it("parses item", function()
 		local advancedItem = new("Item", [[
 			Item Class: Belts
@@ -502,21 +502,23 @@ describe("TestAdvancedItemParse", function()
 			Beast Snare
 			Cord Belt
 			Crafted: true
-			Prefix: {range:0.599}AttackerTakesDamage1
-			Prefix: {range:0.859}IncreasedLife9
-			Prefix: {range:0.845}IncreasedEnergyShield4
-			Suffix: {range:0.732}LightningResist5
+			Prefix: {range:0.667}AttackerTakesDamage1
+			Prefix: {range:0.857}IncreasedLife9
+			Prefix: {range:1}IncreasedEnergyShield4
+			Suffix: {range:0.8}LightningResist5
 			Suffix: None
 			Suffix: None
+			Item Level: 83
 			LevelReq: 51
-			Implicits: 1
+			Implicits: 2
 			{crafted}Allocates Surveillance
 			Can be Anointed
-			+15 to maximum Energy Shield
-			+142 to maximum Life
-			+34% to Lightning Resistance
-			Reflects 3 Physical Damage to Melee Attackers
+			{tags:damage,physical}{fractured}Reflects 3 Physical Damage to Melee Attackers
+			{tags:life}+142 to maximum Life
+			{tags:defences,energyshield}+15 to maximum Energy Shield
+			{tags:elemental,lightning,resistance}+34% to Lightning Resistance
 			{tags:elemental,cold,resistance}{crafted}{range:1}+(29-35)% to Cold Resistance
+			Fractured Item
 			]])
 
 		assert.are.equals(advancedItem:BuildRaw(), equivalentCraftItem:BuildRaw())
@@ -553,6 +555,22 @@ describe("TestAdvancedItemParse", function()
 			--------
 			Note: ~b/o 50 chaos
 			]])
+
+		local equivalentCatalystItem = new("Item", [[
+			Astramentis
+			Onyx Amulet
+			Catalyst: Intrinsic
+			CatalystQuality: 20
+			Item Level: 80
+			LevelReq: 20
+			Implicits: 2
+			{crafted}Allocates Weathered Hunter
+			{tags:attribute}{range:1}+(10-16) to all Attributes
+			{tags:attribute}{range:0.3}+(80-100) to all Attributes
+			{tags:physical,attack}-4 Physical Damage taken from Attack Hits
+		]])
+
+		assert.are.equals(catalyst:BuildRaw(), equivalentCatalystItem:BuildRaw())
 		local godTestItem = new("Item", [[
 			Item Class: Sceptres
 			Rarity: Unique
