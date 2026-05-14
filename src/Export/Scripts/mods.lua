@@ -115,6 +115,52 @@ local function writeMods(outName, condFunc)
 					end
 				end
 				out:write('modTags = { ', stats.modTags, ' }, ')
+
+				-- Note that some of the resulting hashes might not be correct.
+				-- Some of the tradehashes are also associated with another
+				-- value. For example, some mods have a variant value appended
+				-- to it like: explicit.stat_3642528642|7. Timeless jewels have
+				-- special trade ids, such as
+				-- "explicit.pseudo_timeless_jewel_doryani". See the below API
+				-- for more info.
+
+				-- This API contains all of the current trade site IDs:
+				-- https://www.pathofexile.com/api/trade/data/stats
+				local modIdx = 1
+				local tradeHashes = {}
+				while mod["Stat" .. modIdx] do
+					local currentStats = {}
+					local stat = mod["Stat" .. modIdx]
+					currentStats[stat.Id] = {
+						min = mod["Stat" .. modIdx .. "Value"][1], max = mod["Stat" .. modIdx .. "Value"][2]
+					}
+					if modIdx == 6 then
+						break
+					end
+					local bytes = intToBytes(stat.Hash)
+					-- # to # stats consist of two different stats as the min and max have different ranges
+					if stat.Id:match("minimum") then
+						local nextStat = mod["Stat" .. (modIdx + 1)]
+						if nextStat and nextStat.Id:match("maximum") then
+							modIdx = modIdx + 1
+							bytes = bytes .. intToBytes(nextStat.Hash)
+							currentStats[nextStat.Id] = {
+								min = mod["Stat" .. modIdx .. "Value"][1], max = mod["Stat" .. modIdx .. "Value"][2]
+							}
+						end
+					end
+
+					local description, _, _ = describeStats(currentStats)
+
+					tradeHashes[murmurHash2(bytes, 0x02312233)] = description
+					modIdx = modIdx + 1
+				end
+				out:write("tradeHashes = { ")
+				for hash, desc in pairs(tradeHashes) do
+					local descriptionLines = '"' .. table.concat(desc, '", "') .. '"'
+					out:write(string.format('[%d] = { %s }, ', hash, descriptionLines))
+				end
+				out:write('} ')
 				out:write('},\n')
 			else
 				print("Mod '"..mod.Id.."' has no stats")
