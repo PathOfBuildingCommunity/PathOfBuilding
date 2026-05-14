@@ -1510,7 +1510,7 @@ end
 			end
 			controls.jewelTypeSelect.selIndex = selIdx
 			selectedJewelType = activeJewelTypes[selIdx]
-			
+
 				local hasVariants = selectedJewelType.variants ~= nil
 				controls.jewelVariantLabel.shown = hasVariants
 				controls.jewelVariantSelect.shown = hasVariants
