@@ -670,6 +670,11 @@ function buildMode:SyncLoadouts()
 	-- used when clicking on the dropdown to set the correct setId for each SetActiveSet()
 	self.treeListSpecialLinks, self.itemListSpecialLinks, self.skillListSpecialLinks, self.configListSpecialLinks = {}, {}, {}, {}
 
+
+	local oneSkill = self.skillsTab and #self.skillsTab.skillSetOrderList == 1
+	local oneItem = self.itemsTab and #self.itemsTab.itemSetOrderList == 1
+	local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
+
 	if self.treeTab ~= nil and self.itemsTab ~= nil and self.skillsTab ~= nil and self.configTab ~= nil then
 		local transferTable = {}
 		local sortedTreeListSpecialLinks = {}
@@ -729,22 +734,17 @@ function buildMode:SyncLoadouts()
 		identifyLinks(self.skillsTab.skillSetOrderList, self.skillsTab.skillSets, skillList, self.skillListSpecialLinks, self.treeListSpecialLinks)
 		identifyLinks(self.configTab.configSetOrderList, self.configTab.configSets, configList, self.configListSpecialLinks, self.treeListSpecialLinks)
 
-		local oneSkill = self.skillsTab and #self.skillsTab.skillSetOrderList == 1
-		local oneItem = self.itemsTab and #self.itemsTab.itemSetOrderList == 1
-		local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
-
-		for _, spec in ipairs(filteredSpecs) do
+		for id, spec in ipairs(filteredSpecs) do
 			local specTitle = spec.title or "Default"
 			t_insert(treeList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..specTitle)
-		end
-
-		-- loop over all for exact match loadouts
-		for id, tree in ipairs(treeList) do
+			local tree = treeList[#treeList]
+			-- only exact match loadouts
 			if (oneItem or itemList[tree]) and (oneSkill or skillList[tree]) and (oneConfig or configList[tree]) then
 				t_insert(filteredList, tree)
-				t_insert(self.loadoutsList, self.treeTab.specList[id])
+				t_insert(self.loadoutsList, filteredSpecs[id])
 			end
 		end
+
 		-- loop over the identifiers found within braces and set the loadout name to the TreeSet
 		for _, tree in ipairs(sortedTreeListSpecialLinks) do
 			local treeLinkId = tree.linkId
@@ -944,12 +944,16 @@ function buildMode:GetLoadoutByName(loadoutName)
 		return nil
 	end
 
+	local oneSkill = self.skillsTab and #self.skillsTab.skillSetOrderList == 1
+	local oneItem = self.itemsTab and #self.itemsTab.itemSetOrderList == 1
+	local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
+
 	local specId = findNamedSetId(self.treeTab:GetSpecList(), loadoutName, self.treeListSpecialLinks)
-	local itemId = findSetId(self.itemsTab.itemSetOrderList, loadoutName, self.itemsTab.itemSets,
+	local itemId = oneItem and self.itemsTab.itemSetOrderList[1] or findSetId(self.itemsTab.itemSetOrderList, loadoutName, self.itemsTab.itemSets,
 		self.itemListSpecialLinks)
-	local skillId = findSetId(self.skillsTab.skillSetOrderList, loadoutName, self.skillsTab.skillSets,
+	local skillId = oneSkill and self.skillsTab.skillSetOrderList[1] or findSetId(self.skillsTab.skillSetOrderList, loadoutName, self.skillsTab.skillSets,
 		self.skillListSpecialLinks)
-	local configId = findSetId(self.configTab.configSetOrderList, loadoutName, self.configTab.configSets,
+	local configId = oneConfig and self.configTab.configSetOrderList[1] or findSetId(self.configTab.configSetOrderList, loadoutName, self.configTab.configSets,
 		self.configListSpecialLinks)
 
 	if not specId and not itemId and not skillId and not configId then
