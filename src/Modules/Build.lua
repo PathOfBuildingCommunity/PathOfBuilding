@@ -1385,7 +1385,7 @@ end
 -- Open the spectre library popup
 function buildMode:OpenSpectreLibrary()
 	local recommendedSpectreList = {}
-	local beastList, humanoidList, eldritchList, constructList, demonList, undeadList = {}, {}, {}, {}, {}, {}
+	local beastList, humanoidList, eldritchList, constructList, demonList, undeadList, corpseList = {}, {}, {}, {}, {}, {}, {}
 	local destList = copyTable(self.spectreList)
 	local sourceList = { }
 	for id in pairs(self.data.spectres) do
@@ -1413,6 +1413,9 @@ function buildMode:OpenSpectreLibrary()
 		elseif self.data.minions[id].monsterCategory == "Undead" then
 			t_insert(undeadList, id)
 		end
+		if self.data.minions[id].itemisedCorpse then
+			t_insert(corpseList, id)
+		end
 		if self.data.minions[id].extraFlags and self.data.minions[id].extraFlags.recommendedSpectre then
 			t_insert(recommendedSpectreList, id)
 		end
@@ -1425,6 +1428,7 @@ function buildMode:OpenSpectreLibrary()
 		Demon = true,
 		Undead = true,
 		recommendedSpectreList = false,
+		Corpse = true,
 	}
 
 	local function buildSourceList(sourceList)
@@ -1448,6 +1452,17 @@ function buildMode:OpenSpectreLibrary()
 		if not monsterTypeSort.recommendedList then
 			local allowed = {}
 			for _, id in ipairs(recommendedSpectreList) do
+				allowed[id] = true
+			end
+			for i = #sourceList, 1, -1 do
+				if not allowed[sourceList[i]] then
+					table.remove(sourceList, i)
+				end
+			end
+		end
+		if monsterTypeSort.corpseList then
+			local allowed = {}
+			for _, id in ipairs(corpseList) do
 				allowed[id] = true
 			end
 			for i = #sourceList, 1, -1 do
@@ -1548,7 +1563,8 @@ function buildMode:OpenSpectreLibrary()
 		checkbox.shown = true
 		controls[controlName] = checkbox
 	end
-	controls.sortMonsterCheckboxShowAll = new("CheckBoxControl", {"TOPLEFT", controls.source, "BOTTOMLEFT"}, {153, 2, 26, 26}, "", monsterTypeCheckboxChange("recommendedList"), "Show All Spectres", false)
+	controls.sortMonsterCheckboxShowAll = new("CheckBoxControl", {"TOPLEFT", controls.source, "BOTTOMLEFT"}, {173, 2, 26, 26}, "", monsterTypeCheckboxChange("recommendedList"), "Show All Spectres", false)
+	controls.sortMonsterCheckboxFilterCorpse = new("CheckBoxControl", {"TOPLEFT", controls.source, "BOTTOMLEFT"}, {12, 2, 26, 26}, "", monsterTypeCheckboxChange("corpseList"), "Only show Corpses", false)
 	controls.showAllLabel = new("LabelControl", {"RIGHT",controls.sortMonsterCheckboxShowAll,"LEFT"}, {-5, 0, 0, 16}, "Show All Spectres:")
 	controls.save = new("ButtonControl", nil, {-45, 420, 80, 20}, "Save", function()
 		self.spectreList = destList

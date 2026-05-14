@@ -16068,3 +16068,29 @@ skills["MPSSanctumPurifierHolyProjectile"] = {
 		[1] = { 0.80000001192093, 1.2000000476837, cooldown = 12, critChance = 5, levelRequirement = 1, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
+skills["LegionMarakethSergeantMelee"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "arrow_projectile_variation", 24 },
+	},
+	stats = {
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"use_scaled_contact_offset",
+	},
+	levels = {
+		[1] = { baseMultiplier = 0.9, levelRequirement = 1, },
+	},
+}

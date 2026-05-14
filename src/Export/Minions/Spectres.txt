@@ -1083,6 +1083,14 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/Skeletons/CowardsTrial/GhostPirateBowCowardsTrial
 #emit
+-- Ghoul
+#spectre Metadata/Monsters/PrisonStalker/PrisonStalker
+#emit
+-- Spriggan
+#spectre Metadata/Monsters/SaplingMonster/TwigMonster
+#emit
+#spectre Metadata/Monsters/SaplingMonster/TwigMonsterArchnemesis
+#emit
 -- Undying Grappler
 #spectre Metadata/Monsters/Grappler/Grappler
 #emit
@@ -1104,6 +1112,11 @@ local minions, mod, flag = ...
 #emit
 -- Gut Flayer
 #spectre Metadata/Monsters/HalfSkeleton/HalfSkeleton
+#emit
+-- Gilded
+#spectre Metadata/Monsters/GoldenOnes/GoldenOnesFodderMace
+#emit
+#spectre Metadata/Monsters/VaalForgeMan/VaalForgeMan
 #emit
 -- Solar Guard
 #spectre Metadata/Monsters/HolyFireElemental/HolyFireElementalSolarisBeam
@@ -2671,6 +2684,9 @@ local minions, mod, flag = ...
 -- Trial Windchaser
 #spectre Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdSpectre
 #emit
+-- Hunting Party
+#spectre Metadata/Monsters/AtlasExiles/BasiliskInfluenceMonsters/BasiliskFemaleGorgonSpectre
+#emit
 -- Hyrri's Watch
 #spectre Metadata/Monsters/LegionLeague/LegionKaruiArcherSpectre
 #emit
@@ -3865,4 +3881,5 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/FaridunLeague/FaridunAstralAcolyteLow
 #emit
 #spectre Metadata/Monsters/FaridunLeague/FaridunAstralAcolyteHigh
+#flags recommendedSpectre
 #emit

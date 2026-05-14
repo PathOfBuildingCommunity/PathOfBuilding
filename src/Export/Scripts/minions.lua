@@ -323,6 +323,12 @@ directiveTable.emit = function(state, args, out)
 	if monsterVariety.OffHandItemClass and itemClassMap[monsterVariety.OffHandItemClass.Id] then
 		out:write('\tweaponType2 = "', itemClassMap[monsterVariety.OffHandItemClass.Id], '",\n')
 	end
+	for corpse in dat("ItemisedCorpse"):Rows() do
+		if corpse.Monster == monsterVariety then
+			out:write('\titemisedCorpse = true,\n')
+			break
+		end
+	end
 	if state.limit then
 		out:write('\tlimit = "', state.limit, '",\n')
 	end
@@ -362,7 +368,7 @@ directiveTable.emit = function(state, args, out)
 	for _, mod in ipairs(monsterVariety.SpecialMods) do
 		table.insert(modList, mod)
 	end
-	if monsterVariety.ObjectType and monsterVariety.ObjectType ~= "Metadata/Monsters/Monster"then
+	if monsterVariety.ObjectType and monsterVariety.ObjectType ~= "Metadata/Monsters/Monster" then
 		modList = getOTStats(monsterVariety.ObjectType, modList)
 	end
 	out:write('\tmodList = {\n')

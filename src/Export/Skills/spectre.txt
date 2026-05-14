@@ -2881,3 +2881,7 @@ skills["LegionKaruiMeleeCombo2"] = {
 #flags spell projectile
 #mods
 
+#skill LegionMarakethSergeantMelee
+#flags attack melee projectile
+#mods
+
