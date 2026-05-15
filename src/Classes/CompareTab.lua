@@ -2477,6 +2477,28 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 		if self:ShouldShowRing3(compareEntry) then
 			t_insert(baseSlots, 10, "Ring 3")
 		end
+
+		-- abyssal sockets
+		local socketSet = {}
+		local function saveActiveAbyssSocket(k, v)
+			if type(k) == "string" and k:match("Abyssal Socket")
+				and v.shown() then
+				socketSet[k] = (socketSet[k] or 0) + 1
+			end
+		end
+		for k, v in pairs(compareEntry.itemsTab.slots) do
+			saveActiveAbyssSocket(k, v)
+		end
+		for k, v in pairs(self.primaryBuild.itemsTab.slots) do
+			saveActiveAbyssSocket(k, v)
+		end
+		-- consider only if both have the socket allocated
+		for k, count in pairs(socketSet) do
+			if count == 2 then
+				t_insert(baseSlots, k)
+			end
+		end
+		
 		for _, slotName in ipairs(baseSlots) do
 			local cSlot = compareEntry.itemsTab and compareEntry.itemsTab.slots[slotName]
 			local cItem = cSlot and compareEntry.itemsTab.items[cSlot.selItemId]
@@ -2641,6 +2663,28 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 		if self:ShouldShowRing3(compareEntry) then
 			t_insert(baseSlots, 10, "Ring 3")
 		end
+
+		-- abyssal sockets
+		local socketSet = {}
+		local function saveActiveAbyssSocket(k, v)
+			if type(k) == "string" and k:match("Abyssal Socket")
+				and v.shown() then
+				socketSet[k] = (socketSet[k] or 0) + 1
+			end
+		end
+		for k, v in pairs(compareEntry.itemsTab.slots) do
+			saveActiveAbyssSocket(k, v)
+		end
+		for k, v in pairs(self.primaryBuild.itemsTab.slots) do
+			saveActiveAbyssSocket(k, v)
+		end
+		-- consider only if both have the socket allocated
+		for k, count in pairs(socketSet) do
+			if count == 2 then
+				t_insert(baseSlots, k)
+			end
+		end
+
 		for _, slotName in ipairs(baseSlots) do
 			local cSlot = compareEntry.itemsTab and compareEntry.itemsTab.slots[slotName]
 			local cItem = cSlot and compareEntry.itemsTab.items[cSlot.selItemId]
@@ -3555,16 +3599,17 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	local socketSet = {}
 	local function saveActiveAbyssSocket(k, v)
 		if type(k) == "string" and k:match("Abyssal Socket")
-			and v.selItemId and v.selItemId ~= 0 then
+			and v.shown() then
 			socketSet[k] = true
 		end
 	end
-	for k, v in pairs(compareEntry.itemsTab.activeItemSet) do
+	for k, v in pairs(compareEntry.itemsTab.slots) do
 		saveActiveAbyssSocket(k, v)
 	end
-	for k, v in pairs(self.primaryBuild.itemsTab.activeItemSet) do
+	for k, v in pairs(self.primaryBuild.itemsTab.slots) do
 		saveActiveAbyssSocket(k, v)
 	end
+	-- show if either has a socket allocated
 	for k, _ in pairs(socketSet) do
 		t_insert(baseSlots, k)
 	end
