@@ -574,6 +574,7 @@ data.describeStats = LoadModule("Modules/StatDescriber")
 -- Load item modifiers
 data.itemMods = {
 	UncategorisedItem = LoadModule("Data/ModItem"),
+	Implicit = LoadModule("Data/ModImplicit"),
 	Synthesis = LoadModule("Data/ModSynthesis"),
 	Necropolis = LoadModule("Data/ModNecropolis"),
 	Scourge = LoadModule("Data/ModScourge"),
@@ -598,11 +599,11 @@ data.enchantments = {
 }
 
 -- combined field of many mod categories
-data.Item = {}
-for _, key in ipairs({"UncategorisedItem", "Synthesis", "Necropolis", "Scourge", "Eldritch"}) do
+data.itemMods.Item = {}
+for _, key in ipairs({ "Implicit", "UncategorisedItem", "Synthesis", "Necropolis", "Scourge", "Eldritch", }) do
 	local itemData = data.itemMods[key]
 	for k, v in pairs(itemData) do
-		data.Item[k] = v
+		data.itemMods.Item[k] = v
 	end
 end
 

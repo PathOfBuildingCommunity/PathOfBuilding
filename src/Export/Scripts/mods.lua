@@ -179,13 +179,18 @@ writeMods("../Data/ModItem.lua", function(mod)
 		and (mod.GenerationType == 1 or mod.GenerationType == 2
 			-- delve unique
 			or (mod.GenerationType == 3 and mod.Domain == 16)
-			-- -- generic implicit
-			-- or (mod.GenerationType == 3 and mod.Domain == 1)
 			-- corrupted
 			or mod.GenerationType == 5)
 		-- excl. separately exported
 		and not mod.Id:match("Royale")
 		and not mod.Id:match("Necropolis") 
+		and not mod.Id:match("^Synthesis")
+		and not (mod.GenerationType == 28 or mod.GenerationType == 29)
+		and #mod.AuraFlags == 0
+end)
+writeMods("../Data/ModImplicit.lua", function(mod)
+	return (mod.GenerationType == 3 and mod.Domain == 1) and not mod.Id:match("Royale")
+		and not mod.Id:match("Necropolis")
 		and not mod.Id:match("^Synthesis")
 		and not (mod.GenerationType == 28 or mod.GenerationType == 29)
 		and #mod.AuraFlags == 0
