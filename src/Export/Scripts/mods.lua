@@ -173,14 +173,32 @@ local function writeMods(outName, condFunc)
 end
 
 writeMods("../Data/ModItem.lua", function(mod)
+	-- item or delve fossil
 	return (mod.Domain == 1 or mod.Domain == 16)
-			and (mod.GenerationType == 1 or mod.GenerationType == 2
-			or (mod.GenerationType == 3 and mod.Domain == 1 and mod.Id:match("^Synthesis"))
+			-- prefix or suffix
+		and (mod.GenerationType == 1 or mod.GenerationType == 2
+			-- delve unique
 			or (mod.GenerationType == 3 and mod.Domain == 16)
-			or mod.GenerationType == 5 or mod.GenerationType == 25 or mod.GenerationType == 24 or mod.GenerationType == 28 or mod.GenerationType == 29)
-			and not mod.Id:match("^Hellscape[UpDown]+sideMap") -- Exclude Scourge map mods
-			and not mod.Id:match("Royale")
-			and #mod.AuraFlags == 0
+			-- -- generic implicit
+			-- or (mod.GenerationType == 3 and mod.Domain == 1)
+			-- corrupted
+			or mod.GenerationType == 5)
+		-- excl. separately exported
+		and not mod.Id:match("Royale")
+		and not mod.Id:match("Necropolis") 
+		and not mod.Id:match("^Synthesis")
+		and not (mod.GenerationType == 28 or mod.GenerationType == 29)
+		and #mod.AuraFlags == 0
+end)
+writeMods("../Data/ModSynthesis.lua", function(mod)
+	return mod.GenerationType == 3 and mod.Domain == 1 and mod.Id:match("^Synthesis")
+end)
+writeMods("../Data/ModScourge.lua", function(mod)
+	return mod.Domain == 1 and (mod.GenerationType == 24 or mod.GenerationType == 25) and
+		not mod.Id:match("^Hellscape[UpDown]+sideMap") -- Exclude Scourge map mods
+end)
+writeMods("../Data/ModEldritch.lua", function(mod)
+	return mod.Domain == 1 and (mod.GenerationType == 28 or mod.GenerationType == 29)
 end)
 writeMods("../Data/ModFlask.lua", function(mod)
 	return mod.Domain == 2 and (mod.GenerationType == 1 or mod.GenerationType == 2)
