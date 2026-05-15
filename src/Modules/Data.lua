@@ -601,7 +601,7 @@ data.enchantments = {
 
 -- combined table of many mod categories
 data.itemMods.Item = {}
-for _, key in ipairs({ "Explicit", "Implicit", "Corrupted", "Synthesis", "Scourge", "Eldritch", }) do
+for _, key in ipairs({ "Explicit", "Implicit", "Corrupted", "Delve", "Synthesis", "Scourge", "Eldritch" }) do
 	local itemData = data.itemMods[key]
 	for k, v in pairs(itemData) do
 		data.itemMods.Item[k] = v
