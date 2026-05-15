@@ -3550,6 +3550,25 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	if self:ShouldShowRing3(compareEntry) then
 		t_insert(baseSlots, 10, "Ring 3")
 	end
+
+	-- abyssal sockets
+	local socketSet = {}
+	local function saveActiveAbyssSocket(k, v)
+		if type(k) == "string" and k:match("Abyssal Socket")
+			and v.selItemId and v.selItemId ~= 0 then
+			socketSet[k] = true
+		end
+	end
+	for k, v in pairs(compareEntry.itemsTab.activeItemSet) do
+		saveActiveAbyssSocket(k, v)
+	end
+	for k, v in pairs(self.primaryBuild.itemsTab.activeItemSet) do
+		saveActiveAbyssSocket(k, v)
+	end
+	for k, _ in pairs(socketSet) do
+		t_insert(baseSlots, k)
+	end
+
 	local primaryEnv = self.primaryBuild.calcsTab and self.primaryBuild.calcsTab.mainEnv
 	local primaryHasRing3 = primaryEnv and primaryEnv.modDB:Flag(nil, "AdditionalRingSlot")
 	local lineHeight = 20
