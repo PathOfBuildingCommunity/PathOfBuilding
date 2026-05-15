@@ -573,10 +573,11 @@ data.describeStats = LoadModule("Modules/StatDescriber")
 
 -- Load item modifiers
 data.itemMods = {
-	UncategorisedItem = LoadModule("Data/ModItem"),
+	Explicit = LoadModule("Data/ModExplicit"),
 	Implicit = LoadModule("Data/ModImplicit"),
+	Corrupted = LoadModule("Data/ModCorrupted"),
+	Delve = LoadModule("Data/ModDelve"),
 	Synthesis = LoadModule("Data/ModSynthesis"),
-	Necropolis = LoadModule("Data/ModNecropolis"),
 	Scourge = LoadModule("Data/ModScourge"),
 	Eldritch = LoadModule("Data/ModEldritch"),
 	Flask = LoadModule("Data/ModFlask"),
@@ -598,15 +599,14 @@ data.enchantments = {
 	["UtilityFlask"] = LoadModule("Data/EnchantmentFlask"),
 }
 
--- combined field of many mod categories
+-- combined table of many mod categories
 data.itemMods.Item = {}
-for _, key in ipairs({ "Implicit", "UncategorisedItem", "Synthesis", "Necropolis", "Scourge", "Eldritch", }) do
+for _, key in ipairs({ "Explicit", "Implicit", "Corrupted", "Synthesis", "Scourge", "Eldritch", }) do
 	local itemData = data.itemMods[key]
 	for k, v in pairs(itemData) do
 		data.itemMods.Item[k] = v
 	end
 end
-
 
 do
 	data.enchantments["Flask"] = data.enchantments["UtilityFlask"]--["HARVEST"]
