@@ -1563,9 +1563,10 @@ function buildMode:OpenSpectreLibrary()
 		checkbox.shown = true
 		controls[controlName] = checkbox
 	end
-	controls.sortMonsterCheckboxShowAll = new("CheckBoxControl", {"TOPLEFT", controls.source, "BOTTOMLEFT"}, {173, 2, 26, 26}, "", monsterTypeCheckboxChange("recommendedList"), "Show All Spectres", false)
-	controls.sortMonsterCheckboxFilterCorpse = new("CheckBoxControl", {"TOPLEFT", controls.source, "BOTTOMLEFT"}, {12, 2, 26, 26}, "", monsterTypeCheckboxChange("corpseList"), "Only show Corpses", false)
-	controls.showAllLabel = new("LabelControl", {"RIGHT",controls.sortMonsterCheckboxShowAll,"LEFT"}, {-5, 0, 0, 16}, "Show All Spectres:")
+	controls.sortMonsterCheckboxShowAll = new("CheckBoxControl", {"TOPLEFT", controls.source, "BOTTOMLEFT"}, {184, 2, 26, 26}, "", monsterTypeCheckboxChange("recommendedList"), "By default only recommended Spectres are shown.\nEnable this box to show all Spectres.", false)
+	controls.sortMonsterCheckboxFilterCorpse = new("CheckBoxControl", {"TOPLEFT", controls.source, "BOTTOMLEFT"}, {89, 2, 26, 26}, "", monsterTypeCheckboxChange("corpseList"), "Hide Spectres found in Acts or Maps and only show\nItemised Corpses obtainable through trade or Rituals.", false)
+	controls.showOnlyCorpseLabel = new("LabelControl", {"RIGHT",controls.sortMonsterCheckboxFilterCorpse,"LEFT"}, {-5, 0, 0, 16}, "Corpse Only:")
+	controls.showAllLabel = new("LabelControl", {"RIGHT",controls.sortMonsterCheckboxShowAll,"LEFT"}, {-5, 0, 0, 16}, "Show All:")
 	controls.save = new("ButtonControl", nil, {-45, 420, 80, 20}, "Save", function()
 		self.spectreList = destList
 		self.modFlag = true
