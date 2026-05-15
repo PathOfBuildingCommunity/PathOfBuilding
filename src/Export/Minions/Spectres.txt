@@ -942,6 +942,8 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/HolyFireElemental/HolyFireElementalSolaris
 #emit
+#spectre Metadata/Monsters/HolyFireElemental/HolyFireElementalSolaris2
+#emit
 -- Miscreation
 #spectre Metadata/Monsters/DemonFemale/DemonFemale
 #emit
@@ -1408,6 +1410,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Hellion/HellionIceExplodeOnDeathSpectre
 #emit
 #spectre Metadata/Monsters/Hellion/Hellion3Spectre
+#flags recommendedSpectre
 #emit
 #spectre Metadata/Monsters/Hellion/HellionParasiteSpectre
 #emit
@@ -2703,6 +2706,7 @@ local minions, mod, flag = ...
 #emit
 -- Demon Harpy
 #spectre Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite1Spectre
+#flags recommendedSpectre
 #emit
 -- Devourer / Burrower
 #spectre Metadata/Monsters/RootSpiders/RootSpider
@@ -2795,6 +2799,7 @@ local minions, mod, flag = ...
 #emit
 -- Pale Seraphim
 #spectre Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite2Spectre
+#flags recommendedSpectre
 #emit
 -- Ravenous Mishapen
 #spectre Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spectre
@@ -2804,15 +2809,18 @@ local minions, mod, flag = ...
 #emit
 -- Arena Master
 #spectre Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorGrandMasterSpectre
+#flags recommendedSpectre
 #emit
 -- They of Tul
 #spectre Metadata/Monsters/MinerLarge/MinerLargeCommanderBreachSpectre
 #emit
 -- Ancient Suffering
 #spectre Metadata/Monsters/LeagueDelve/GhostEncounter/WraithPurple # MonsterChanceToTemporalChainsOnHit1
+#flags recommendedSpectre
 #emit
 -- Ancient Wraith
 #spectre Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith # DelveMonsterEnfeebleOnHit
+#flags recommendedSpectre
 #emit
 -- Forged Frostbearer
 #spectre Metadata/Monsters/LeagueCrucible/Cold/Pyromaniac
@@ -3240,6 +3248,7 @@ local minions, mod, flag = ...
 #emit
 -- Spectral Leader
 #spectre Metadata/Monsters/WarHero/WarHeroCasterAtlasUber
+#flags recommendedSpectre
 #emit
 -- Sulphurspawn
 #spectre Metadata/Monsters/BrineKing/BrineKingMinionBleached
@@ -3592,6 +3601,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeMid
 #emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeHigh
+#flags recommendedSpectre
 #emit
 -- Fiery Cannibal
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryLow
@@ -3599,6 +3609,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryMid
 #emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryHigh_
+#flags recommendedSpectre
 #emit
 -- Hydra
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraLow
@@ -3606,6 +3617,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraMid
 #emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraHigh_
+#flags recommendedSpectre
 #emit
 -- Dark Marionette
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinLow
@@ -3613,6 +3625,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinMid # DarkMarionetteExplode
 #emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinHigh_ # DarkMarionetteExplodePerfect
+#flags recommendedSpectre
 #emit
 -- Hulking Miscreation
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusLow
@@ -3622,6 +3635,7 @@ local minions, mod, flag = ...
 #mod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscalable = true }, { type = "MonsterTag", monsterTag = "Construct" })})
 #emit
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusHigh__
+#flags recommendedSpectre
 #mod mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscalable = true }, { type = "MonsterTag", monsterTag = "Construct" })})
 #mod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscalable = true }, { type = "MonsterTag", monsterTag = "Construct" })})
 #emit
@@ -3631,6 +3645,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuMid
 #emit
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuHigh
+#flags recommendedSpectre
 #mod mod("AllyModifier", "LIST", { mod = flag("LightningLuckHits") })
 #emit
 -- Naval Officer
@@ -3639,6 +3654,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralMid__
 #emit
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralHigh_
+#flags recommendedSpectre
 #mod mod("AllyModifier", "LIST", { mod = mod("ColdDamageTaken", "INC", -5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PerfectNavalOfficer", unscalable = true })})
 #emit
 -- Dancing Sword
@@ -3648,6 +3664,7 @@ local minions, mod, flag = ...
 #mod mod("AllyModifier", "LIST", { mod = mod("ImpaleChance", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscalable = true })})
 #emit
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordHigh_
+#flags recommendedSpectre
 #mod mod("AllyModifier", "LIST", { mod = mod("ImpaleChance", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscalable = true })})
 #mod mod("AllyModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscalable = true })})
 #emit
@@ -3657,6 +3674,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonMid
 #emit
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonHigh_
+#flags recommendedSpectre
 #mod mod("PlayerModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "NeedleHorror", unscalable = true })})
 #emit
 -- Serpent Warrior
@@ -3666,6 +3684,7 @@ local minions, mod, flag = ...
 #mod mod("AllyModifier", "LIST", { mod = flag("Condition:CanWither") })
 #emit
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskHigh
+#flags recommendedSpectre
 #mod mod("AllyModifier", "LIST", { mod = flag("Condition:CanWither") })
 #emit
 -- Pain Artist
@@ -3675,6 +3694,7 @@ local minions, mod, flag = ...
 #mod mod("AllyModifier", "LIST", { mod = mod("CritMultiplier", "BASE", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PainArtist", unscalable = true })})
 #emit
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonHigh
+#flags recommendedSpectre
 #mod mod("AllyModifier", "LIST", { mod = mod("CritMultiplier", "BASE", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PainArtist", unscalable = true })})
 #emit
 -- Sawblade Horror
@@ -3683,6 +3703,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonMid
 #emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonHigh
+#flags recommendedSpectre
 #emit
 -- Remembered Construct
 #spectre Metadata/Monsters/Prophecy/Fragment
@@ -3693,6 +3714,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightMid
 #emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightHigh
+#flags recommendedSpectre
 #emit
 -- Slashing Horror
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonLow
@@ -3701,6 +3723,7 @@ local minions, mod, flag = ...
 #mod mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "RageEffect" }) })
 #emit
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonHigh
+#flags recommendedSpectre
 #mod mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageGainAsFire", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SlashingHorror", unscalable = true })})
 #mod mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "RageEffect" }) })
 #emit
@@ -3711,6 +3734,7 @@ local minions, mod, flag = ...
 #emit
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverHigh
 #mod mod("PlayerModifier", "LIST", { mod = mod("LifeFlaskChargesGenerated", "BASE", 1/3, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "RestlessKnight", unscalable = true })})
+#flags recommendedSpectre
 #emit
 -- Escaped Prototype
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundLow
@@ -3718,6 +3742,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundMid
 #emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundHigh_
+#flags recommendedSpectre
 #emit
 -- Blasphemer
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriLow # TalismanT1TemporalChains TalismanT2EnfeebleAura TalismanT1Vulnerability
@@ -3727,6 +3752,7 @@ local minions, mod, flag = ...
 #mod mod("EnemyCurseLimit", "BASE", 3)
 #emit
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriHigh # TalismanT1TemporalChains TalismanT2EnfeebleAura TalismanT1Vulnerability
+#flags recommendedSpectre
 #mod mod("EnemyCurseLimit", "BASE", 3)
 #emit
 -- Judgemental Spirit
@@ -3735,6 +3761,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessMid
 #emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessHigh
+#flags recommendedSpectre
 #emit
 -- Primal Thunderbird
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdLow
@@ -3742,6 +3769,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdMid
 #emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdHigh
+#flags recommendedSpectre
 #emit
 -- Primal Demiurge
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmLow__
@@ -3749,6 +3777,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmMid
 #emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmHigh
+#flags recommendedSpectre
 #emit
 -- Runic Skeleton
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonLow
@@ -3756,6 +3785,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonMid
 #emit
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonHigh
+#flags recommendedSpectre
 #mod mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamage", "MORE", 5, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PrimalDemiurge", unscalable = true })})
 #emit
 -- Warlord
@@ -3764,6 +3794,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakMid
 #emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakHigh
+#flags recommendedSpectre
 #emit
 -- Dark Reaper
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperLow
@@ -3771,6 +3802,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperMid
 #emit
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperHigh
+#flags recommendedSpectre
 #mod flag("Condition:NoExtraBleedDamageToMovingEnemy"), --This mod is not currently working correctly
 #emit
 -- Sanguimancer Demon
@@ -3779,6 +3811,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdMid_
 #emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdHigh
+#flags recommendedSpectre
 #emit
 -- Spider Matriarch
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderLow
@@ -3786,6 +3819,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderMid
 #emit
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderHigh_
+#flags recommendedSpectre
 #mod mod("PlayerModifier", "LIST", { mod = mod("WitherEffect", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SpiderMatriarch", unscalable = true })}) --Does not work
 #emit
 -- Meatsack
@@ -3794,6 +3828,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieMid
 #emit
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieHigh
+#flags recommendedSpectre
 #emit
 -- Eldritch Eye
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionLow
@@ -3801,6 +3836,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionMid
 #emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionHigh
+#flags recommendedSpectre
 #emit
 -- Forest Tiger
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerLow
@@ -3808,6 +3844,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerMid
 #emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerHigh
+#flags recommendedSpectre
 #emit
 -- Guardian Turtle
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleLow
@@ -3816,6 +3853,7 @@ local minions, mod, flag = ...
 #mod mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 3, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscalable = true })})
 #emit
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleHigh
+#flags recommendedSpectre
 #mod mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscalable = true })})
 #emit
 -- Shadow Construct
@@ -3824,6 +3862,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulMid
 #emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulHigh
+#flags recommendedSpectre
 #emit
 -- Forest Warrior
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingLow
@@ -3831,6 +3870,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingMid
 #emit
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingHigh
+#flags recommendedSpectre
 #mod mod("AllyModifier", "LIST", { mod = flag("Condition:Onslaught", { type = "GlobalEffect", effectType = "Buff", effectName = "ForestWarrior", unscalable = true })})
 #emit
 -- Shadow Berserker
@@ -3839,6 +3879,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonMid
 #emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonHigh
+#flags recommendedSpectre
 #emit
 -- Riftcaster
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterLow_
@@ -3846,6 +3887,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterMid_
 #emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterHigh_
+#flags recommendedSpectre
 #emit
 -- Blood Demon
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossLow
@@ -3853,6 +3895,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossMid
 #emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossHigh
+#flags recommendedSpectre
 #emit
 -- Half-remembered Goliath
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemLow
@@ -3860,6 +3903,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemMid
 #emit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemHigh
+#flags recommendedSpectre
 #emit
 -- Conjuror of Rot
 #spectre Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockLow
@@ -3867,6 +3911,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockMid_
 #emit
 #spectre Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockHigh
+#flags recommendedSpectre
 #emit
 -- Astral Lich
 #spectre Metadata/Monsters/FaridunLeague/FaridunGolemancer/FaridunGolemancerSpectre
@@ -3874,6 +3919,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/FaridunLeague/FaridunGolemancer/FaridunGolemancerLow
 #emit
 #spectre Metadata/Monsters/FaridunLeague/FaridunGolemancer/FaridunGolemancerHigh
+#flags recommendedSpectre
 #emit
 -- Adherent of Zarokh
 #spectre Metadata/Monsters/FaridunLeague/FaridunAstralAcolyteSpectre

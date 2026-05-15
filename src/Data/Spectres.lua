@@ -14317,6 +14317,39 @@ minions["Metadata/Monsters/HolyFireElemental/HolyFireElementalSolaris"] = {
 		mod("PhysicalDamageGainAsFire", "BASE", 60, 0, 0), -- MonsterPhysicalAddedAsFireHolyFireElemental [physical_damage_%_to_add_as_fire = 60]
 	},
 }
+minions["Metadata/Monsters/HolyFireElemental/HolyFireElementalSolaris2"] = {
+	name = "Solar Elemental",
+	monsterTags = { "animal_claw_weapon", "caster", "construct", "fire_affinity", "humanoid", "is_unarmed", "medium_height", "medium_movement", "melee", "mud_blood", "not_dex", "physical_affinity", "stone_armour", "stone_construct", "templar", },
+	life = 1.65,
+	energyShield = 0.25,
+	armour = 0.25,
+	fireResist = 75,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.93,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 35,
+	monsterCategory = "Construct",
+	spawnLocation = {
+		"Ivory Temple (Map)",
+		"The Harbour Bridge (Act 8)",
+		"The Solaris Concourse (Act 8)",
+		"The Solaris Temple Level 1 (Act 8)",
+		"The Solaris Temple Level 2 (Act 8)",
+		"The Twilight Temple (Map)",
+	},
+	skillList = {
+		"Melee",
+		"FireballSuperNovaCitystalker",
+	},
+	modList = {
+		mod("PhysicalDamageGainAsFire", "BASE", 60, 0, 0), -- MonsterPhysicalAddedAsFireHolyFireElemental [physical_damage_%_to_add_as_fire = 60]
+	},
+}
 -- Miscreation
 minions["Metadata/Monsters/DemonFemale/DemonFemale"] = {
 	name = "Whipping Miscreation",
@@ -21174,6 +21207,9 @@ minions["Metadata/Monsters/Hellion/HellionIceExplodeOnDeathSpectre"] = {
 minions["Metadata/Monsters/Hellion/Hellion3Spectre"] = {
 	name = "Ruins Hellion",
 	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_dagger", "has_one_handed_melee", "large_model", "light_armour", "mammal_beast", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1,
 	evasion = 0.1,
@@ -40262,6 +40298,9 @@ minions["Metadata/Monsters/Bandit/DockworkerChampionBow"] = {
 minions["Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite1Spectre"] = {
 	name = "Demon Harpy",
 	monsterTags = { "animal_claw_weapon", "beyond_demon", "caster", "demon", "fast_movement", "fire_affinity", "flesh_armour", "is_unarmed", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 2.38,
 	evasion = 0.5,
@@ -41687,6 +41726,9 @@ minions["Metadata/Monsters/DemonModular/DemonFemaleRangedProphecy"] = {
 minions["Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite2Spectre"] = {
 	name = "Pale Seraphim",
 	monsterTags = { "beyond_demon", "bone_armour", "demon", "is_unarmed", "medium_movement", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "red_blood", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 3.04,
 	evasion = 0.33,
@@ -41793,6 +41835,9 @@ minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre"] = {
 minions["Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorGrandMasterSpectre"] = {
 	name = "Arena Master",
 	monsterTags = { "adjudicator_monster", "fast_movement", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "influence_monster", "melee", "not_int", "physical_affinity", "plate_armour", "red_blood", "slashing_weapon", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	life = 3.6,
 	armour = 1,
 	evasion = 0.8,
@@ -41859,6 +41904,9 @@ minions["Metadata/Monsters/MinerLarge/MinerLargeCommanderBreachSpectre"] = {
 minions["Metadata/Monsters/LeagueDelve/GhostEncounter/WraithPurple"] = {
 	name = "Ancient Suffering",
 	monsterTags = { "caster", "chaos_affinity", "delve_monster", "ghost_armour", "ghost_blood", "is_unarmed", "medium_height", "medium_movement", "no_pantheon_mod", "not_dex", "not_str", "undead", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	life = 1.68,
 	energyShield = 0.5,
 	fireResist = 0,
@@ -41888,6 +41936,9 @@ minions["Metadata/Monsters/LeagueDelve/GhostEncounter/WraithPurple"] = {
 minions["Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith"] = {
 	name = "Ancient Wraith",
 	monsterTags = { "caster", "delve_monster", "ghost_armour", "ghost_blood", "is_unarmed", "medium_height", "medium_movement", "melee", "no_pantheon_mod", "not_dex", "not_str", "physical_affinity", "ranged", "undead", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	life = 1.68,
 	energyShield = 0.5,
 	fireResist = 0,
@@ -48406,6 +48457,9 @@ minions["Metadata/Monsters/Spawn/SummonedExplodingSpawn"] = {
 minions["Metadata/Monsters/WarHero/WarHeroCasterAtlasUber"] = {
 	name = "Spectral Leader",
 	monsterTags = { "bludgeoning_weapon", "caster", "fire_affinity", "ghost", "ghost_armour", "ghost_blood", "humanoid", "is_unarmed", "medium_height", "medium_movement", "not_int", "not_str", "raises_dead", "summoner", "undead", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	life = 0.99,
 	evasion = 0.2,
 	fireResist = 0,
@@ -53701,6 +53755,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeMid"] = 
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeHigh"] = {
 	name = "Perfect Frozen Cannibal",
 	monsterTags = { "caster", "fast_movement", "human", "humanoid", "not_int", "not_str", "red_blood", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 2,
 	evasion = 0.25,
@@ -53796,6 +53853,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryMid"] = 
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryHigh_"] = {
 	name = "Perfect Fiery Cannibal",
 	monsterTags = { "caster", "fast_movement", "human", "humanoid", "not_dex", "not_str", "red_blood", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 2,
 	energyShield = 0.25,
@@ -53888,6 +53948,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraHigh_"] = {
 	name = "Perfect Hydra",
 	monsterTags = { "beast", "cold_affinity", "eldritch", "fast_movement", "flesh_armour", "has_bow", "human", "humanoid", "large_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 0.86,
 	armour = 0.3,
@@ -53975,6 +54038,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinMid"] 
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinHigh_"] = {
 	name = "Perfect Dark Marionette",
 	monsterTags = { "construct", "humanoid", "medium_movement", "not_dex", "not_int", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 2.88,
 	armour = 0.5,
@@ -54069,6 +54135,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusHigh__"] = {
 	name = "Perfect Hulking Miscreation",
 	monsterTags = { "animal_claw_weapon", "construct", "is_unarmed", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "very_fast_movement", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 3.75,
 	lifeScaling = "AltLife2",
@@ -54164,6 +54233,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuHigh"] = {
 	name = "Perfect Spirit of Fortune",
 	monsterTags = { "caster", "construct", "immobile", "is_unarmed", "large_model", "lightning_affinity", "medium_height", "mud_blood", "not_dex", "not_int", "ranged", "stone_armour", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 3.75,
 	armour = 2,
@@ -54281,6 +54353,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralMid__"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralHigh_"] = {
 	name = "Perfect Naval Officer",
 	monsterTags = { "caster", "cold_affinity", "fast_movement", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "light_armour", "melee", "not_int", "puncturing_weapon", "red_blood", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.69,
 	armour = 0.5,
@@ -54385,6 +54460,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordHigh_"] = {
 	name = "Perfect Dancing Sword",
 	monsterTags = { "construct", "medium_movement", "not_int", "not_str", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.5,
 	evasion = 0.8,
@@ -54478,6 +54556,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonHigh_"] = {
 	name = "Perfect Needle Horror",
 	monsterTags = { "caster", "demon", "flesh_armour", "has_bow", "medium_height", "medium_movement", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "unique_map_boss", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 3,
 	armour = 0.4,
@@ -54607,6 +54688,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskHigh"] = {
 	name = "Perfect Serpent Warrior",
 	monsterTags = { "caster", "chaos_affinity", "eldritch", "energy_armour", "exile", "fast_movement", "human", "humanoid", "is_unarmed", "large_model", "melee", "not_dex", "ranged", "red_blood", "slashing_weapon", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.5,
 	energyShield = 1,
@@ -54718,6 +54802,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonHigh"] = {
 	name = "Perfect Pain Artist",
 	monsterTags = { "animal_claw_weapon", "caster", "demon", "flesh_armour", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.44,
 	energyShield = 0.5,
@@ -54812,6 +54899,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonHigh"] = {
 	name = "Perfect Sawblade Horror",
 	monsterTags = { "cleaving_weapon", "demon", "flesh_armour", "has_two_hand_axe", "has_two_handed_melee", "medium_height", "melee", "not_int", "physical_affinity", "red_blood", "slow_movement", "unique_map_boss", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 3.3,
 	armour = 0.4,
@@ -54932,6 +55022,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightHigh"] = {
 	name = "Perfect Restless Knight",
 	monsterTags = { "bludgeoning_weapon", "caster", "cold_affinity", "has_two_hand_mace", "has_two_handed_melee", "humanoid", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "undead", "very_slow_movement", "ward_armour", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 3.43,
 	armour = 0.5,
@@ -55027,6 +55120,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonHigh"] = {
 	name = "Perfect Slashing Horror",
 	monsterTags = { "demon", "fire_affinity", "flesh_armour", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "large_height", "medium_movement", "melee", "not_int", "physical_affinity", "red_blood", "slashing_weapon", "unique_map_boss", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 3.3,
 	armour = 0.4,
@@ -55126,6 +55222,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverHigh"] = {
 	name = "Perfect Druidic Alchemist",
 	monsterTags = { "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "karui", "light_armour", "medium_height", "medium_movement", "melee", "not_str", "physical_affinity", "red_blood", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.75,
 	energyShield = 2,
@@ -55221,6 +55320,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundHigh_"] = {
 	name = "Perfect Escaped Prototype",
 	monsterTags = { "animal_claw_weapon", "caster", "construct", "fire_affinity", "is_unarmed", "large_model", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	life = 16,
 	lifeScaling = "AltLife2",
 	armour = 1,
@@ -55323,6 +55425,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriMid_"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriHigh"] = {
 	name = "Perfect Blasphemer",
 	monsterTags = { "bones", "caster", "humanoid", "not_dex", "undead", "very_slow_movement", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 2.25,
 	energyShield = 0.2,
@@ -55421,6 +55526,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessHigh"] = {
 	name = "Perfect Judgemental Spirit",
 	monsterTags = { "caster", "fire_affinity", "ghost", "ghost_armour", "ghost_blood", "is_unarmed", "large_height", "medium_movement", "non_unique_map_boss", "not_dex", "not_str", "ranged", "undead", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 2.03,
 	energyShield = 1,
@@ -55526,6 +55634,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdHigh"] = {
 	name = "Perfect Primal Thunderbird",
 	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "caster", "flesh_armour", "has_dagger", "has_one_handed_melee", "large_model", "lightning_affinity", "medium_movement", "melee", "not_str", "red_blood", "small_height", "standalone_map_boss", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.88,
 	energyShield = 0.6,
@@ -55622,6 +55733,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmHigh"] = {
 	name = "Perfect Primal Demiurge",
 	monsterTags = { "caster", "crusader_monster", "eldritch", "ghost", "ghost_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_height", "medium_movement", "melee", "not_dex", "not_str", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.5,
 	energyShield = 1,
@@ -55713,6 +55827,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonHigh"] = {
 	name = "Perfect Runic Skeleton",
 	monsterTags = { "bones", "is_unarmed", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "ward_armour", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 3.75,
 	armour = 0.8,
@@ -55809,6 +55926,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakHigh"] = {
 	name = "Perfect Warlord",
 	monsterTags = { "human", "humanoid", "medium_movement", "not_int", "red_blood", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 3,
 	armour = 0.8,
@@ -55927,6 +56047,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperHigh"] = {
 	name = "Perfect Dark Reaper",
 	monsterTags = { "bones", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "melee", "metal_armour", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "very_slow_movement", "ward_armour", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.88,
 	armour = 0.7,
@@ -56035,6 +56158,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdMid_"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdHigh"] = {
 	name = "Perfect Sanguimancer Demon",
 	monsterTags = { "beyond_demon", "bludgeoning_weapon", "caster", "demon", "fire_affinity", "flesh_armour", "is_unarmed", "not_dex", "not_str", "ranged", "red_blood", "very_fast_movement", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 2.03,
 	energyShield = 1,
@@ -56127,6 +56253,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderHigh_"] = {
 	name = "Perfect Spider Matriarch",
 	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "fast_movement", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "large_model", "melee", "not_int", "physical_affinity", "small_height", "spider", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.73,
 	armour = 0.5,
@@ -56212,6 +56341,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieHigh"] = {
 	name = "Perfect Meatsack",
 	monsterTags = { "cold_affinity", "flesh_armour", "humanoid", "is_unarmed", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "undead", "very_fast_movement", "zombie", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 7,
 	armour = 0.5,
@@ -56302,6 +56434,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionHigh"] = {
 	name = "Perfect Eldritch Eye",
 	monsterTags = { "caster", "construct", "elder_monster", "eldritch", "extra_large_height", "flesh_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", "red_blood", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.5,
 	energyShield = 0.5,
@@ -56408,6 +56543,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerHigh"] = {
 	name = "Perfect Forest Tiger",
 	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_claw", "has_one_handed_melee", "light_armour", "mammal_beast", "melee", "not_int", "physical_affinity", "red_blood", "small_height", "very_fast_movement", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.8,
 	armour = 0.6,
@@ -56502,6 +56640,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleMid_"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleHigh"] = {
 	name = "Perfect Guardian Turtle",
 	monsterTags = { "beast", "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "large_model", "light_armour", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "reptile_beast", "very_slow_movement", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 4.5,
 	armour = 3,
@@ -56595,6 +56736,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulHigh"] = {
 	name = "Perfect Shadow Construct",
 	monsterTags = { "caster", "cold_affinity", "construct", "extra_extra_large_height", "fire_affinity", "hard_armour", "is_unarmed", "large_model", "lightning_affinity", "not_dex", "not_int", "physical_affinity", "ranged", "red_blood", "slashing_weapon", "slow_movement", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 3.75,
 	armour = 2,
@@ -56688,6 +56832,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingHigh"] = {
 	name = "Perfect Forest Warrior",
 	monsterTags = { "cleaving_weapon", "fire_affinity", "flesh_armour", "gladiator", "has_two_hand_axe", "has_two_handed_melee", "humanoid", "large_model", "medium_height", "medium_movement", "melee", "non_unique_map_boss", "not_int", "physical_affinity", "red_blood", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 3,
 	armour = 0.8,
@@ -56783,6 +56930,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonHigh"] = {
 	name = "Perfect Shadow Berserker",
 	monsterTags = { "demon", "flesh_armour", "is_unarmed", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	life = 2.02,
 	armour = 0.5,
 	fireResist = 35,
@@ -56899,6 +57049,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterMid_"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterHigh_"] = {
 	name = "Perfect Riftcaster",
 	monsterTags = { "bludgeoning_weapon", "caster", "fast_movement", "has_staff", "has_two_handed_melee", "human", "humanoid", "light_armour", "lightning_affinity", "melee", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 5.6,
 	lifeScaling = "AltLife2",
@@ -57023,6 +57176,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossHigh"] = {
 	name = "Perfect Blood Demon",
 	monsterTags = { "beyond_demon", "caster", "cleaving_weapon", "demon", "fire_affinity", "flesh_armour", "has_two_hand_axe", "has_two_handed_melee", "hellscape_demon_boss", "large_model", "melee", "not_dex", "not_int", "ranged", "red_blood", "very_fast_movement", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 3.75,
 	armour = 1,
@@ -57163,6 +57319,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemMid"] = {
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemHigh"] = {
 	name = "Perfect Half-remembered Goliath",
 	monsterTags = { "bludgeoning_weapon", "caster", "construct", "fast_movement", "golem", "is_unarmed", "large_height", "large_model", "lightning_affinity", "mud_blood", "not_dex", "physical_affinity", "stone_armour", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 3.75,
 	energyShield = 1,
@@ -57278,6 +57437,9 @@ minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockMid_"] = {
 minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockHigh"] = {
 	name = "Perfect Conjuror of Rot",
 	monsterTags = { "caster", "human", "humanoid", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 2.04,
 	energyShield = 0.4,
@@ -57375,6 +57537,9 @@ minions["Metadata/Monsters/FaridunLeague/FaridunGolemancer/FaridunGolemancerLow"
 minions["Metadata/Monsters/FaridunLeague/FaridunGolemancer/FaridunGolemancerHigh"] = {
 	name = "Perfect Astral Lich",
 	monsterTags = { "bone_armour", "bones", "caster", "is_unarmed", "not_dex", "not_str", "skeleton", "slashing_weapon", "slow_movement", "undead", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 1.45,
 	energyShield = 0.7,

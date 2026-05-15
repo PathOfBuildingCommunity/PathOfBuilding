@@ -1827,23 +1827,16 @@ Metadata/Monsters/InsectSpawner/InsectSpawnerParasite                           
 Metadata/Monsters/InsectMinion/InsectWildDescent                                          		----		Carrion Swarmer
 Metadata/Monsters/Kiweth/KiwethBossMinion                                                 		----		Vassal of Inti
 Metadata/Monsters/Prophecy/VaalFallenSword                                                		----		Vaal Memory
-Metadata/Monsters/HolyFireElemental/HolyFireElementalSolaris2                             		----		Solar Elemental
 Metadata/Monsters/NessaCrab/NessaCrabAtlasUber                                            		----		Reefrend
 Metadata/Monsters/NessaCrab/NessaCrabBleached                                             		----		Waste Lurcher
 Metadata/Monsters/Frog/FrogGod/SilverOrbFromMonstersAtlasUber                             		----		Silver Orb
 Metadata/Monsters/ReliquaryMonster/ReliquaryMonster                                       		----		Reliquarian
 Metadata/Monsters/LeagueBlight/Generic/CannibalFirebreatherBossTotem                      		----		Totem
-Metadata/Monsters/AtlasExiles/BasiliskInfluenceMonsters/BasiliskFemaleGorgonSpectre       		----		Hunting Party
 Metadata/Monsters/AtlasPreQuest/TemplarCourts/ReligiousTemplarKitavaNoThrow_              		----		Orphaned Ward
 Metadata/Monsters/MavenBoss/TheMavenMapChillOrb                                           		----		Maven's Orb
 Metadata/Monsters/MavenBoss/TheMavenMapDegenOrb                                           		----		Maven's Orb
 Metadata/Monsters/MavenBoss/TheMavenMapVolatileOrb                                        		----		Maven's Orb
 Metadata/Monsters/MavenBoss/TheMavenMapBeamOrb                                            		----		Maven's Orb
-Metadata/Monsters/PrisonStalker/PrisonStalker                                             		----		Ghoul
-Metadata/Monsters/SaplingMonster/TwigMonster                                              		----		Skeleton Spriggan
-Metadata/Monsters/SaplingMonster/TwigMonsterArchnemesis                                   		----		Treant
-Metadata/Monsters/GoldenOnes/GoldenOnesFodderMace                                         		----		Gilded Soldier
-Metadata/Monsters/VaalForgeMan/VaalForgeMan                                               		----		Gilded Smith
 
 -- Duplicate Spectre Names --
 -- Same name but different skill sets (should likely be separate imports). --

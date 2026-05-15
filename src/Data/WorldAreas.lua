@@ -202,6 +202,7 @@ worldAreas["1_1_7_1"] = {
 		"Brittle Thief",
 		"Cell Crawler",
 		"Diabolist",
+		"Ghoul",
 		"Rotting Damned",
 	},
 	bossVarieties = {
@@ -223,6 +224,7 @@ worldAreas["1_1_7_2"] = {
 		"Brittle Thief",
 		"Cell Crawler",
 		"Diabolist",
+		"Ghoul",
 		"Rotting Damned",
 	},
 	bossVarieties = {
@@ -524,6 +526,7 @@ worldAreas["1_2_7"] = {
 		"Plummeting Ursa",
 		"Shadow Archer",
 		"Shadow Stalker",
+		"Skeleton Spriggan",
 		"Stygian Ape",
 		"Stygian Silverback",
 	},
@@ -564,6 +567,7 @@ worldAreas["1_2_9"] = {
 		"Ink Spinner",
 		"Shadow Archer",
 		"Shadow Stalker",
+		"Skeleton Spriggan",
 	},
 	bossVarieties = {
 		"Alira Darktongue",
@@ -623,6 +627,7 @@ worldAreas["1_2_12"] = {
 		"Oak's Devoted",
 		"Oak's Sniper",
 		"Rhoa Mare",
+		"Skeleton Spriggan",
 		"Tercel Rhoa",
 	},
 	bossVarieties = {
@@ -641,6 +646,7 @@ worldAreas["1_2_13"] = {
 		"Dread Primate",
 		"Glade Mamba",
 		"Plummeting Ursa",
+		"Skeleton Spriggan",
 		"Thicket Hulk",
 	},
 }
