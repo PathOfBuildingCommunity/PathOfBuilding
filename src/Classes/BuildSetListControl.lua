@@ -58,7 +58,7 @@ function BuildSetListClass:RenameLoadout(loadoutName)
 		popupTitle = "Rename Loadout",
 		defaultName = loadoutName,
 		saveCallback = function(newName)
-			self.buildSetService:RenameLoadout(loadoutName, newName)
+			self.buildSetService:RenameLoadout(loadoutName or "Default", newName)
 		end,
 	})
 end
@@ -68,7 +68,7 @@ function BuildSetListClass:CopyLoadout(loadoutName)
 		popupTitle = "Copy Loadout",
 		defaultName = loadoutName,
 		saveCallback = function(newName)
-			self.buildSetService:CopyLoadout(loadoutName, newName)
+			self.buildSetService:CopyLoadout(loadoutName or "Default", newName)
 		end,
 	})
 end
