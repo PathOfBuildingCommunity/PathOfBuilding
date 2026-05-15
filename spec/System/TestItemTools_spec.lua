@@ -45,4 +45,42 @@ describe("TestItemTools", function()
 			assert.are.equals(expected, result)
 		end)
 	end
+
+	it("uses the displayed item slot for anoint comparison tooltips", function()
+		if not common.classes.ItemsTab then
+			LoadModule("Classes/ItemsTab")
+		end
+		local item = new("Item", [[
+Rarity: Rare
+Dire Thread
+Cord Belt
+Can be Anointed
+]])
+		local overrides = { }
+		local fakeItemsTab = setmetatable({
+			displayItem = item,
+			build = {
+				spec = { allocNodes = { } },
+				calcsTab = {
+					GetMiscCalculator = function()
+						return function(override)
+							table.insert(overrides, override)
+							return { }
+						end
+					end,
+				},
+				AddStatComparesToTooltip = function()
+					return 1
+				end,
+			},
+		}, common.classes.ItemsTab)
+		local tooltip = {
+			AddLine = function() end,
+		}
+
+		fakeItemsTab:AppendAnointTooltip(tooltip, { id = 1, dn = "Acrimony" })
+
+		assert.are.equals("Belt", overrides[1].repSlotName)
+		assert.are.equals("Belt", overrides[2].repSlotName)
+	end)
 end)

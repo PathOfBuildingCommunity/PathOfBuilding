@@ -1077,49 +1077,61 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 			fmt = ".1f"
 		}
 	end
+	local powerMultiplier = (displayStat.pc or displayStat.mod) and 100 or 1
+	local function formatPower(power)
+		local powerStr = formatNumSep(s_format("%"..displayStat.fmt, power))
+		if (power > 0 and not displayStat.lowerIsBetter) or (power < 0 and displayStat.lowerIsBetter) then
+			return colorCodes.POSITIVE .. powerStr
+		elseif (power < 0 and not displayStat.lowerIsBetter) or (power > 0 and displayStat.lowerIsBetter) then
+			return colorCodes.NEGATIVE .. powerStr
+		end
+		return powerStr
+	end
+	local function getNodePathDist(node, isAlloc)
+		if isAlloc then
+			return #(node.depends or { }) == 0 and 1 or #node.depends
+		end
+		return #(node.path or { }) == 0 and 1 or #node.path
+	end
+	local function addReportEntry(node, name, nodePower, pathPower, pathDist, isAlloc, pathPowerStr)
+		t_insert(report, {
+			name = name,
+			power = nodePower,
+			powerStr = formatPower(nodePower),
+			pathPower = pathPower,
+			pathPowerStr = pathPowerStr or formatPower(pathPower),
+			allocated = isAlloc,
+			id = node.id,
+			x = node.x,
+			y = node.y,
+			type = node.type,
+			sd = node.sd,
+			pathDist = pathDist
+		})
+	end
 
 	-- search all nodes, ignoring ascendancies, sockets, etc.
 	for nodeId, node in pairs(self.build.spec.nodes) do
 		local isAlloc = node.alloc or self.build.calcsTab.mainEnv.grantedPassives[nodeId]
 		if (node.type == "Normal" or node.type == "Keystone" or node.type == "Notable") and not node.ascendancyName then
-			local pathDist
-			if isAlloc then
-				pathDist = #(node.depends or { }) == 0 and 1 or #node.depends
-			else
-				pathDist = #(node.path or { }) == 0 and 1 or #node.path
-			end
-			local nodePower = (node.power.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
-			local pathPower = (node.power.pathPower or 0) / pathDist * ((displayStat.pc or displayStat.mod) and 100 or 1)
-			local nodePowerStr = s_format("%"..displayStat.fmt, nodePower)
-			local pathPowerStr = s_format("%"..displayStat.fmt, pathPower)
+			local pathDist = getNodePathDist(node, isAlloc)
+			local nodePower = (node.power.singleStat or 0) * powerMultiplier
+			local pathPower = (node.power.pathPower or 0) / pathDist * powerMultiplier
+			addReportEntry(node, node.dn, nodePower, pathPower, pathDist, isAlloc)
+		elseif node.type == "Mastery" and node.power.masteryEffects and not node.ascendancyName then
+			local pathDist = getNodePathDist(node, isAlloc)
 
-			nodePowerStr = formatNumSep(nodePowerStr)
-			pathPowerStr = formatNumSep(pathPowerStr)
-
-			if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
-				nodePowerStr = colorCodes.POSITIVE .. nodePowerStr
-			elseif (nodePower < 0 and not displayStat.lowerIsBetter) or (nodePower > 0 and displayStat.lowerIsBetter) then
-				nodePowerStr = colorCodes.NEGATIVE .. nodePowerStr
+			for _, masteryEffect in ipairs(node.masteryEffects or { }) do
+				local effect = self.build.spec.tree.masteryEffects[masteryEffect.effect]
+				local effectPower = node.power.masteryEffects[masteryEffect.effect]
+				if effect and effectPower then
+					local effectLabelParts = isAlloc and not node.allMasteryOptions and node.sd or effect.stats or effect.sd
+					local name = effectLabelParts and node.dn..": "..t_concat(effectLabelParts, " / ") or node.dn
+					local nodePower = (effectPower.singleStat or 0) * powerMultiplier
+					local pathPower = ((effectPower.pathPower or effectPower.singleStat or 0) / pathDist) * powerMultiplier
+					addReportEntry(node, name, nodePower, pathPower, pathDist, isAlloc)
+				end
 			end
-			if (pathPower > 0 and not displayStat.lowerIsBetter) or (pathPower < 0 and displayStat.lowerIsBetter) then
-				pathPowerStr = colorCodes.POSITIVE .. pathPowerStr
-			elseif (pathPower < 0 and not displayStat.lowerIsBetter) or (pathPower > 0 and displayStat.lowerIsBetter) then
-				pathPowerStr = colorCodes.NEGATIVE .. pathPowerStr
-			end
-
-			t_insert(report, {
-				name = node.dn,
-				power = nodePower,
-				powerStr = nodePowerStr,
-				pathPower = pathPower,
-				pathPowerStr = pathPowerStr,
-				allocated = isAlloc,
-				id = node.id,
-				x = node.x,
-				y = node.y,
-				type = node.type,
-				pathDist = pathDist
-			})
 		end
 	end
 
@@ -1127,27 +1139,8 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 	for nodeName, node in pairs(self.build.spec.tree.clusterNodeMap) do
 		local isAlloc = node.alloc
 		if not isAlloc then
-			local nodePower = (node.power and node.power.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
-			local nodePowerStr = s_format("%"..displayStat.fmt, nodePower)
-
-			nodePowerStr = formatNumSep(nodePowerStr)
-
-			if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
-				nodePowerStr = colorCodes.POSITIVE .. nodePowerStr
-			elseif (nodePower < 0 and not displayStat.lowerIsBetter) or (nodePower > 0 and displayStat.lowerIsBetter) then
-				nodePowerStr = colorCodes.NEGATIVE .. nodePowerStr
-			end
-
-			t_insert(report, {
-				name = node.dn,
-				power = nodePower,
-				powerStr = nodePowerStr,
-				pathPower = 0,
-				pathPowerStr = "--",
-				id = node.id,
-				type = node.type,
-				pathDist = "Cluster"
-			})
+			local nodePower = (node.power and node.power.singleStat or 0) * powerMultiplier
+			addReportEntry(node, node.dn, nodePower, 0, "Cluster", isAlloc, "--")
 		end
 	end
 
@@ -2098,14 +2091,18 @@ function TreeTabClass:FindTimelessJewel()
 		{ edgePadding*2 + listWidth, -(buttonHeight + edgePadding * 2), listWidth, listHeight }, self.build)
 	self.tradeQueryRequests = new("TradeQueryRequests")
 	controls.msg = new("LabelControl", nil, { -280, 5, 0, 20 }, "")
-	controls.searchTradeButton = new("ButtonControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, { 0, -rowSpacing, 170, buttonHeight }, "Copy Trade URL", function()
+	controls.searchTradeButton = new("ButtonControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, { 0, -rowSpacing, 170, buttonHeight }, "Open Trade URL", function()
 		local seedTrades = {}
-		local startRow = controls.searchResults.selIndex or 1
-		local endRow = startRow + m_floor(10 / ((timelessData.sharedResults.conqueror.id == 1) and 3 or 1))
-		if controls.searchResults.highlightIndex then
+		local startRow, endRow
+		if controls.searchResults.highlightIndex and not controls.searchMore.state then
 			startRow = m_min(controls.searchResults.selIndex, controls.searchResults.highlightIndex)
 			endRow = m_max(controls.searchResults.selIndex, controls.searchResults.highlightIndex)
+		else
+			startRow = controls.searchResults.selIndex or 1
+			local maxFilters = controls.searchMore.state and 180 or 10
+			endRow = startRow + m_floor(maxFilters / ((timelessData.sharedResults.conqueror.id == 1) and 3 or 1))
 		end
+		
 
 		local seedCount = m_min(#timelessData.searchResults - startRow, endRow - startRow) + 1
 		-- update if not highlighted already
@@ -2120,6 +2117,8 @@ function TreeTabClass:FindTimelessJewel()
 			endRow = startRow + seedCount - 1
 		end
 		controls.searchResults.selIndex = startRow
+		-- scroll so that startRow is the first visible row
+		controls.searchResults:ScrollToIndex(startRow)
 		controls.searchResults.highlightIndex = endRow
 
 		controls.searchTradeButton.lastSearch = {startRow, seedCount}
@@ -2191,17 +2190,20 @@ function TreeTabClass:FindTimelessJewel()
 		local selectedRealm = controls.realmSelection:GetSelValue():lower()
 
 		local realmPath = selectedRealm == "pc" and "" or (selectedRealm .. "/")
-		Copy("https://www.pathofexile.com/trade/search/" .. realmPath ..
-			(controls.searchTradeLeagueSelect:GetSelValue()) .. "/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
+		local url = "https://www.pathofexile.com/trade/search/" .. realmPath ..
+			(controls.searchTradeLeagueSelect:GetSelValue()) ..
+			"/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
 				return s_format("%%%02X", s_byte(a))
-		end)))
+			end))
+		OpenURL(url)
+		Copy(url)
 
-		controls.searchTradeButton.label = "Copy Next Trade URL"
+		controls.searchTradeButton.label = "Open Next Trade URL"
 	end)
 	controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0
 	controls.searchTradeButton.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
-		tooltip:AddLine(16, "^7Click to generate and copy a trade URL for searching for jewels in this list.")
+		tooltip:AddLine(16, "^7Click to generate and open a trade URL for searching for jewels in this list.")
 		tooltip:AddLine(16, "^7Paste the URL in a web browser to search.")
 		tooltip:AddLine(16, "")
 		tooltip:AddLine(16, "^7You can click to select a row so that search begins from there.")
@@ -2219,7 +2221,7 @@ function TreeTabClass:FindTimelessJewel()
 		"PC", "Sony", "Xbox"
 	}
 	controls.realmSelection = new("DropDownControl", { "BOTTOMLEFT", controls.searchTradeLeagueSelect, "TOPLEFT" },
-		{ 0, -rowSpacing, 80, buttonHeight }, self.realmList, nil)
+		{ 0, -rowSpacing, 50, buttonHeight }, self.realmList, nil)
 	local function updateLeagues()
 		local currentRealmId = controls.realmSelection:GetSelValue():lower()
 		if self.tradeLeaguesList[currentRealmId] == nil then self.tradeLeaguesList[currentRealmId] = {} end
@@ -2243,7 +2245,7 @@ function TreeTabClass:FindTimelessJewel()
 				for _, league in ipairs(leagues) do
 					if league ~= "Standard" and league ~= "Ruthless" and league ~= "Hardcore" and league ~= "Hardcore Ruthless" then
 						if not (league:find("Hardcore") or league:find("Ruthless")) then
-							-- set the dynamic, base league name to index 1 to sync league shown in dropdown on load with default/old behavior of copy trade url
+							-- set the dynamic, base league name to index 1 to sync league shown in dropdown on load with default/old behavior of open trade url
 							t_insert(tempLeagueTable, league)
 							for _, val in ipairs(leagueList) do
 								t_insert(tempLeagueTable, val)
@@ -2283,13 +2285,28 @@ function TreeTabClass:FindTimelessJewel()
 		"In person (online)",
 		"Any (includes offline)"
 	}
-	controls.tradeTypeSelection = new("DropDownControl", { "LEFT", controls.realmSelection, "RIGHT" },
-		{ labelSpacing, 0, 205, buttonHeight }, tradeTypes, function(index, value)
+	controls.tradeTypeSelection = new("DropDownControl", { "BOTTOMRIGHT", controls.searchTradeButton, "TOPRIGHT" },
+		{ 0, -rowSpacing, 205, buttonHeight }, tradeTypes, function(index, value)
 			self.tradeTypeIndex = index
 		end)
 	-- remember previous choice
 	self.tradeTypeIndex = self.tradeTypeIndex or 1
 	controls.tradeTypeSelection:SetSel(self.tradeTypeIndex)
+
+	-- Checkbox to search a lot at once, or just a few
+	controls.searchMore = new("CheckBoxControl", { "BOTTOMRIGHT", controls.tradeTypeSelection, "TOPRIGHT" },
+		{ 0, -rowSpacing, 19 }, nil, function(state)
+		self.lastSearchMore = state
+	end,
+		"By default, this tool only searches for 4 or 10 (depending on conqueror) seeds at once to preserve sorting.\nThis option searches up to 180 or 60 seeds at once if you don't care about the sorting.",
+		false)
+	-- remember previous choice
+	if self.lastSearchMore then
+		controls.searchMore.state = self.lastSearchMore
+	end
+	controls.searchMoreLabel = new("LabelControl", { "RIGHT", controls.searchMore, "LEFT" },
+		{ -labelSpacing, 0, 0, labelHeight }, "^7Search Maximum Amount:")
+
 	-- Helper function to search a single socket
 	local function searchSingleSocket(socketId, socketInfo)
 		if not treeData.nodes[socketId] or not treeData.nodes[socketId].isJewelSocket then
@@ -2654,7 +2671,7 @@ function TreeTabClass:FindTimelessJewel()
 			
 			controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0
 			controls.searchTradeButton.lastSearch = nil
-			controls.searchTradeButton.label = "Copy Trade URL"
+			controls.searchTradeButton.label = "Open Trade URL"
 			controls.searchResults.highlightIndex = nil
 			controls.searchResults.selIndex = 1
 		else
@@ -2679,7 +2696,7 @@ function TreeTabClass:FindTimelessJewel()
 				t_sort(timelessData.searchResults, function(a, b) return a.total > b.total end)
 				controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0
 				controls.searchTradeButton.lastSearch = nil
-				controls.searchTradeButton.label = "Copy Trade URL"
+				controls.searchTradeButton.label = "Open Trade URL"
 				controls.searchResults.highlightIndex = nil
 				controls.searchResults.selIndex = 1
 			end

@@ -37,11 +37,13 @@ local influenceInfo = itemLib.influenceInfo.all
 local catalystQualityFormat = {
 	"^x7F7F7FQuality (Attack Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Speed Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
+	"^x7F7F7FQuality (Suffix Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Life and Mana Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Caster Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Attribute Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Physical and Chaos Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Resistance Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
+	"^x7F7F7FQuality (Prefix Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Defense Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Elemental Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
 	"^x7F7F7FQuality (Critical Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
@@ -589,8 +591,8 @@ holding Shift will put it in the second.]])
 		return (self.controls.displayItemCatalyst:IsShown() or self.controls.displayItemCatalystQualityEdit:IsShown()) and 28 or 0
 	end})
 	self.controls.displayItemCatalyst = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionCatalyst,"TOPRIGHT"}, {0, 0, 250, 20},
-		{"Catalyst","Abrasive (Attack)","Accelerating (Speed)","Fertile (Life & Mana)","Imbued (Caster)","Intrinsic (Attribute)","Noxious (Physical & Chaos Damage)",
-		 "Prismatic (Resistance)","Tempering (Defense)","Turbulent (Elemental)","Unstable (Critical)"},
+		{"Catalyst","Abrasive (Attack)","Accelerating (Speed)","Dextral (Suffix)","Fertile (Life & Mana)","Imbued (Caster)","Intrinsic (Attribute)","Noxious (Physical & Chaos Damage)",
+		 "Prismatic (Resistance)","Sinistral (Prefix)","Tempering (Defense)","Turbulent (Elemental)","Unstable (Critical)"},
 		function(index, value)
 			self.displayItem.catalyst = index - 1
 			if not self.displayItem.catalystQuality then
@@ -2405,7 +2407,7 @@ function ItemsTabClass:anointItem(node)
 	return item
 end
 
----Appends tooltip information for anointing a new passive tree node onto the currently editing amulet
+---Appends tooltip information for anointing a new passive tree node onto the currently editing item
 ---@param tooltip table @The tooltip to append into
 ---@param node table @The passive tree node that will be anointed, or nil to remove the current anoint.
 function ItemsTabClass:AppendAnointTooltip(tooltip, node, actionText)
@@ -2439,8 +2441,9 @@ function ItemsTabClass:AppendAnointTooltip(tooltip, node, actionText)
 		header = "^7"..actionText.." nothing will give you: "
 	end
 	local calcFunc = self.build.calcsTab:GetMiscCalculator()
-	local outputBase = calcFunc({ repSlotName = "Amulet", repItem = self.displayItem })
-	local outputNew = calcFunc({ repSlotName = "Amulet", repItem = self:anointItem(node) })
+	local repSlotName = self.displayItem.base and self.displayItem.base.type or "Amulet"
+	local outputBase = calcFunc({ repSlotName = repSlotName, repItem = self.displayItem })
+	local outputNew = calcFunc({ repSlotName = repSlotName, repItem = self:anointItem(node) })
 	local numChanges = self.build:AddStatComparesToTooltip(tooltip, outputBase, outputNew, header)
 	if node and numChanges == 0 then
 		tooltip:AddLine(14, "^7"..actionText.." "..node.dn.." changes nothing.")
@@ -2698,6 +2701,92 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	local controls = { }
 	local sourceList = { }
 	local modList = { }
+	local sortList = { { label = "Default", stat = nil } }
+	local sortTransforms = { }
+	for _, entry in ipairs(data.powerStatList) do
+		if entry.stat and not entry.ignoreForNodes then
+			t_insert(sortList, { label = entry.label, stat = entry.stat })
+			sortTransforms[entry.stat] = entry.transform
+		end
+	end
+	local function setDefaultSortOrder()
+		for index, listMod in ipairs(modList) do
+			listMod.defaultSortOrder = index
+			listMod.sortValue = nil
+			listMod.sortValues = nil
+		end
+	end
+	local function getOutputStatValue(output, stat)
+		if stat == "FullDPS" then
+			if output[stat] ~= nil then
+				return output[stat]
+			end
+			if output.Minion and output.Minion.CombinedDPS ~= nil then
+				return output.Minion.CombinedDPS
+			end
+		end
+		if output.Minion and output.Minion[stat] ~= nil then
+			return output.Minion[stat]
+		end
+		if output[stat] ~= nil then
+			return output[stat]
+		end
+		return 0
+	end
+	local function getSortValue(listMod, stat, calcFunc, slotName, useFullDPS)
+		listMod.sortValues = listMod.sortValues or { }
+		if listMod.sortValues[stat] ~= nil then
+			return listMod.sortValues[stat]
+		end
+		local item = new("Item", self.displayItem:BuildRaw())
+		item.id = self.displayItem.id
+		for _, line in ipairs(listMod.mod) do
+			t_insert(item.explicitModLines, { line = checkLineForAllocates(line, self.build.spec.nodes), modTags = listMod.mod.modTags, [listMod.type] = true })
+		end
+		item:BuildAndParseRaw()
+		local output = calcFunc({ repSlotName = slotName, repItem = item }, useFullDPS)
+		local value = getOutputStatValue(output, stat)
+		if sortTransforms[stat] then
+			value = sortTransforms[stat](value)
+		end
+		listMod.sortValues[stat] = value
+		return value
+	end
+	local function applySort(stat, selectFirst)
+		if not controls.modSelect or not controls.modSelect:IsShown() then
+			return
+		end
+		local selected = not selectFirst and modList[controls.modSelect.selIndex] or nil
+		if stat then
+			local slotName = self.displayItem:GetPrimarySlot()
+			local calcFunc = self.build.calcsTab:GetMiscCalculator()
+			local useFullDPS = stat == "FullDPS"
+			for _, listMod in ipairs(modList) do
+				listMod.sortValue = getSortValue(listMod, stat, calcFunc, slotName, useFullDPS)
+			end
+			table.sort(modList, function(a, b)
+				if a.sortValue ~= b.sortValue then
+					return a.sortValue > b.sortValue
+				end
+				return (a.defaultSortOrder or 0) < (b.defaultSortOrder or 0)
+			end)
+		else
+			table.sort(modList, function(a, b)
+				return (a.defaultSortOrder or 0) < (b.defaultSortOrder or 0)
+			end)
+		end
+		controls.modSelect:UpdateSearch()
+		if selected then
+			for index, listMod in ipairs(modList) do
+				if listMod == selected then
+					controls.modSelect.selIndex = index
+					break
+				end
+			end
+		else
+			controls.modSelect:SetSel(1, true)
+		end
+	end
 	---Mutates modList to contain mods from the specified source
 	---@param sourceId string @The crafting source id to build the list of mods for
 	local function buildMods(sourceId)
@@ -2846,6 +2935,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 				end
 			end)
 		end
+		setDefaultSortOrder()
 	end
 	if self.displayItem.type ~= "Tincture" and self.displayItem.type ~= "Graft" then
 		if self.displayItem.type ~= "Jewel" then
@@ -2890,8 +2980,21 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	controls.source = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, 20, 150, 18}, sourceList, function(index, value)
 		buildMods(value.sourceId)
 		controls.modSelect:SetSel(1)
+		if controls.sort then
+			applySort(controls.sort.list[controls.sort.selIndex].stat)
+		end
 	end)
 	controls.source.enabled = #sourceList > 1
+	controls.sortLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {350, 20, 0, 16}, "^7Sort by:")
+	controls.sortLabel.shown = function()
+		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
+	end
+	controls.sort = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {355, 20, 240, 18}, sortList, function(index, value)
+		applySort(value.stat, true)
+	end)
+	controls.sort.shown = function()
+		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
+	end
 	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, {95, 45, 0, 16}, "^7Modifier:")
 	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, {100, 45, 600, 18}, modList)
 	controls.modSelect.shown = function()
@@ -3905,6 +4008,10 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 		if not item.base.flask.mana and not item.base.flask.life then
 			chargesGenerated = chargesGenerated + modDB:Sum("BASE", nil, "UtilityFlaskChargesGenerated")
 		end
+		local chargesGeneratedOnWardBreak = 0
+		if item.baseName == "Iron Flask" then
+			chargesGeneratedOnWardBreak = chargesGeneratedOnWardBreak + modDB:Sum("BASE", nil, "IronFlaskChargesGeneratedOnWardBreak")
+		end
 
 		local chargesGeneratedPerFlask = modDB:Sum("BASE", nil, "FlaskChargesGeneratedPerEmptyFlask")
 		local emptyFlaskSlots = 0
@@ -3915,11 +4022,15 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 		end
 		chargesGeneratedPerFlask = chargesGeneratedPerFlask * emptyFlaskSlots
 		chargesGenerated = chargesGenerated * gainMod
+		chargesGeneratedOnWardBreak = chargesGeneratedOnWardBreak * gainMod
 		chargesGeneratedPerFlask = chargesGeneratedPerFlask * gainMod
 
 		local totalChargesGenerated = chargesGenerated + chargesGeneratedPerFlask
 		if totalChargesGenerated > 0 then
 			t_insert(stats, s_format("^8Charges generated: ^7%.2f^8 per second", totalChargesGenerated))
+		end
+		if chargesGeneratedOnWardBreak > 0 then
+			t_insert(stats, s_format("^8Charges generated on Ward Break: ^7%.2f", chargesGeneratedOnWardBreak))
 		end
 
 		local chanceToNotConsumeCharges = m_min(modDB:Sum("BASE", nil, "FlaskChanceNotConsumeCharges"), 100)

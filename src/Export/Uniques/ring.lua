@@ -1262,11 +1262,12 @@ AddedColdDamageAgainstFrozenEnemiesUnique__2
 ]],[[
 Tawhanuku's Timing
 Moonstone Ring
+Implicits: 1
 IncreasedEnergyShieldImplicitRing1
 SpellDamageUnique__16
 IncreasedManaUnique__27
 ChanceToFreezeShockIgniteUnique__3
-ChanceToCastOnManaSpentUnique__1
+GainSpellCostAsESUnique__1
 ]],[[
 Thief's Torment
 Prismatic Ring
