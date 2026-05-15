@@ -1,5 +1,41 @@
 # Changelog
 
+## [beta](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/beta) (2026/05/15)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.65.0...beta)
+
+
+## What's Changed
+### New to Path of Building
+- Add support for Lesson of the Seasons spell barkskin mod [\#9820](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9820) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for Sinistral and Dextral Catalysts [\#9811](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9811) ([Peechey](https://github.com/Peechey))
+- Add support to auto calculate minion count for mods on Bonemeld and Farrul Bloodline [\#9832](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9832) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for Companionship Support [\#9833](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9833) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for Cast on Ward Break + Celestial Mathmatics + Ward bypass / chance to not break Bloodline nodes [\#9831](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9831) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add stat descriptions tooltip to Power Report [\#9823](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9823) ([Peechey](https://github.com/Peechey))
+- Timeless Jewel QoL: copy more and open link [\#9805](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9805) ([vaisest](https://github.com/vaisest))
+- Add sorting to add-modifier list [\#9785](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9785) ([mcagnion](https://github.com/mcagnion))
+- Add masteries to power report [\#9604](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9604) ([ksnyder9801](https://github.com/ksnyder9801))
+### User Interface
+- Fix damage types mods in Mind over Matter Breakdown [\#9839](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9839) ([Squamto](https://github.com/Squamto))
+- Fix options menu overflowing screen boundaries [\#9807](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9807) ([majochem](https://github.com/majochem))
+- Fix tooltip positioning and size for multi-column tooltips [\#9806](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9806) ([majochem](https://github.com/majochem))
+### Fixed Calculations
+- Fix Prospero's Protection interaction with Iron Reflexes [\#9808](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9808) ([Peechey](https://github.com/Peechey))
+- Fix Divine Sentinel Templar Aura's duplicating effect [\#9801](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9801) ([LocalIdentity](https://github.com/LocalIdentity))
+### Fixed Behaviours
+- Fix missing "Greater" gems from Imbued Support [\#9819](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9819) ([Peechey](https://github.com/Peechey))
+- Gem Selection Improvements [\#9786](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9786) ([Peechey](https://github.com/Peechey))
+- Fix Overloaded Intensity not capping to 3 stacks [\#9846](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9846) ([LocalIdentity](https://github.com/LocalIdentity))
+### Accuracy Improvements
+- Fix incorrect mod on Tawhanuku's Timing [\#9828](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9828) ([Wires77](https://github.com/Wires77))
+- Fix Heroic Tragedy variants not being correct in Timeless list [\#9843](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9843) ([vaisest](https://github.com/vaisest))
+### Other changes
+- Fix Cord Belt anoint comparison tooltip [\#9826](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9826) ([mcagnion](https://github.com/mcagnion))
+- Fix Hallowing flame buff not applying to minions and using wrong element for damage gain as [\#9794](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9794) ([Paliak](https://github.com/Paliak))
+- Fix Blade Blast default stage cap [\#9837](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9837) ([OursCodeur](https://github.com/OursCodeur))
+
+
 ## [v2.65.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.65.0) (2026/04/20)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.64.0...v2.65.0)

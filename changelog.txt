@@ -1,3 +1,39 @@
+VERSION[beta][2026/05/15]
+
+--- New to Path of Building ---
+* Add support for Lesson of the Seasons spell barkskin mod (LocalIdentity)
+* Add support for Sinistral and Dextral Catalysts (Peechey)
+* Add support to auto calculate minion count for mods on Bonemeld and Farrul Bloodline (LocalIdentity)
+* Add support for Companionship Support (LocalIdentity)
+* Add support for Cast on Ward Break + Celestial Mathmatics + Ward bypass / chance to not break Bloodline nodes (LocalIdentity)
+* Add stat descriptions tooltip to Power Report (Peechey)
+* Timeless Jewel QoL: copy more and open link (vaisest)
+* Add sorting to add-modifier list (mcagnion)
+* Add masteries to power report (ksnyder9801)
+
+--- User Interface ---
+* Fix damage types mods in Mind over Matter Breakdown (Squamto)
+* Fix options menu overflowing screen boundaries (majochem)
+* Fix tooltip positioning and size for multi-column tooltips (majochem)
+
+--- Fixed Calculations ---
+* Fix Prospero's Protection interaction with Iron Reflexes (Peechey)
+* Fix Divine Sentinel Templar Aura's duplicating effect (LocalIdentity)
+
+--- Fixed Behaviours ---
+* Fix missing "Greater" gems from Imbued Support (Peechey)
+* Gem Selection Improvements (Peechey)
+* Fix Overloaded Intensity not capping to 3 stacks (LocalIdentity)
+
+--- Accuracy Improvements ---
+* Fix incorrect mod on Tawhanuku's Timing (Wires77)
+* Fix Heroic Tragedy variants not being correct in Timeless list (vaisest)
+
+--- Other changes ---
+* Fix Cord Belt anoint comparison tooltip (mcagnion)
+* Fix Hallowing flame buff not applying to minions and using wrong element for damage gain as (Paliak)
+* Fix Blade Blast default stage cap (OursCodeur)
+
 VERSION[2.65.0][2026/04/20]
 
 --- Fixed Crashes ---
