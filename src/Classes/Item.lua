@@ -11,22 +11,26 @@ local m_max = math.max
 local m_floor = math.floor
 
 local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
-local catalystList = {"Abrasive", "Accelerating", "Fertile", "Imbued", "Intrinsic", "Noxious", "Prismatic", "Tempering", "Turbulent", "Unstable"}
-local catalystDescriptorList = {"Attack", "Speed", "Life and Mana", "Caster", "Attribute", "Physical and Chaos", "Resistance", "Defense", "Elemental", "Critical"}
+local catalystList = {"Abrasive", "Accelerating", "Dextral", "Fertile", "Imbued", "Intrinsic", "Noxious", "Prismatic", "Sinistral", "Tempering", "Turbulent", "Unstable"}
+local catalystDescriptorList = {"Attack", "Speed", "Suffix", "Life and Mana", "Caster", "Attribute", "Physical and Chaos", "Resistance", "Prefix", "Defense", "Elemental", "Critical"}
 local catalystTags = {
 	{ "attack" },
 	{ "speed" },
+	{ "suffix" },
 	{ "life", "mana", "resource" },
 	{ "caster" },
 	{ "jewellery_attribute", "attribute" },
 	{ "physical_damage", "chaos_damage" },
 	{ "jewellery_resistance", "resistance" },
+	{ "prefix" },
 	{ "jewellery_defense", "defences" },
 	{ "jewellery_elemental" ,"elemental_damage" },
 	{ "critical" },
 }
 
-local function getCatalystScalar(catalystId, tags, quality)
+local function getCatalystScalar(catalystId, mod, quality)
+	local tags = mod.modTags
+	local affixType = mod.type
 	if not catalystId or type(catalystId) ~= "number" or not catalystTags[catalystId] or not tags or type(tags) ~= "table" or #tags == 0 then
 		return 1
 	end
@@ -38,6 +42,9 @@ local function getCatalystScalar(catalystId, tags, quality)
 	local tagLookup = {}
 	for _, curTag in ipairs(tags) do
 		tagLookup[curTag] = true;
+	end
+	if affixType == "Prefix" or affixType == "Suffix" then -- Sinistral/Dextral
+		tagLookup[affixType:lower()] = true
 	end
 
 	-- Find if any of the catalyst's tags match the provided tags
@@ -105,12 +112,12 @@ local function getTagBasedModifiers(tagName, itemSlotName)
 									if data.itemTagSpecial[tagName] and data.itemTagSpecial[tagName][itemSlotName] then
 										for _, specialMod in ipairs(data.itemTagSpecial[tagName][itemSlotName]) do
 											if dv:lower():find(specialMod:lower()) then
-												exclude = true
+												excluded = true
 												break
 											end
 										end
 									end
-									if exclude then
+									if excluded then
 										found = true
 										break
 									end
@@ -132,12 +139,12 @@ local function getTagBasedModifiers(tagName, itemSlotName)
 							if data.itemTagSpecial[tagName] and data.itemTagSpecial[tagName][itemSlotName] then
 								for _, specialMod in ipairs(data.itemTagSpecial[tagName][itemSlotName]) do
 									if dv:lower():find(specialMod:lower()) then
-										exclude = true
+										excluded = true
 										break
 									end
 								end
 							end
-							if exclude then
+							if excluded then
 								found = true
 								break
 							end
@@ -490,16 +497,16 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						end
 					end
 				elseif specName == "Radius" and self.type == "Jewel" then
-					self.jewelRadiusLabel = specVal:match("^%a+")
-					if specVal:match("^%a+") == "Variable" then
-                        -- Jewel radius is variable and must be read from it's mods instead after they are parsed
-                        deferJewelRadiusIndexAssignment = true
-                    else
-                        for index, data in pairs(data.jewelRadius) do
-                            if specVal:match("^%a+") == data.label then
-                                self.jewelRadiusIndex = index
-                                break
-                            end
+					self.jewelRadiusLabel = specVal:match("^[%a ]+")
+					if specVal:match("^[%a ]+") == "Variable" then
+						-- Jewel radius is variable and must be read from it's mods instead after they are parsed
+						deferJewelRadiusIndexAssignment = true
+					else
+						for index, data in pairs(data.jewelRadius) do
+							if specVal:match("^[%a ]+") == data.label then
+								self.jewelRadiusIndex = index
+								break
+							end
 						end
 					end
 				elseif specName == "Limited to" and self.type == "Jewel" then
@@ -778,7 +785,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					foundImplicit = true
 					gameModeStage = "IMPLICIT"
 				end
-				local catalystScalar = getCatalystScalar(self.catalyst, modLine.modTags, self.catalystQuality)
+				local catalystScalar = getCatalystScalar(self.catalyst, modLine, self.catalystQuality)
 				for value, range in line:gmatch("(%d+)%((%d+%-%d+)%)") do
 					-- Find advanced copy paste format: 45(40-50)
 					if pendingAffix then
@@ -1340,7 +1347,7 @@ function ItemClass:Craft()
 					self.nameSuffix = self.nameSuffix .. " " .. mod.affix
 				end
 				self.requirements.level = m_max(self.requirements.level or 0, m_floor(mod.level * 0.8))
-				local rangeScalar = getCatalystScalar(self.catalyst, mod.modTags, self.catalystQuality)
+				local rangeScalar = getCatalystScalar(self.catalyst, mod, self.catalystQuality)
 				for i, line in ipairs(mod) do
 					line = itemLib.applyRange(line, affix.range or 0.5, rangeScalar)
 					local order = mod.statOrder[i]
@@ -1436,11 +1443,11 @@ local function calcLocal(modList, name, type, flags)
 	return result
 end
 
--- Build list of modifiers in a given slot number (1 or 2) while applying local modifiers and adding quality
+-- Build list of modifiers in a given slot number while applying local modifiers and adding quality
 function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 	local slotName = self:GetPrimarySlot()
-	if slotNum == 2 then
-		slotName = slotName:gsub("1", "2")
+	if slotNum ~= 1 then
+		slotName = slotName:gsub("1", tostring(slotNum))
 	end
 	local modList = new("ModList")
 	for _, baseMod in ipairs(baseList) do
@@ -1768,7 +1775,7 @@ function ItemClass:BuildModList()
 					-- Check if line actually has a range
 					if modLine.line:find("%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)") then
 						local strippedModeLine = modLine.line:gsub("\n"," ")						
-						local catalystScalar = getCatalystScalar(self.catalyst, modLine.modTags, self.catalystQuality)
+						local catalystScalar = getCatalystScalar(self.catalyst, modLine, self.catalystQuality)
 						-- Put the modified value into the string
 						local line = itemLib.applyRange(strippedModeLine, modLine.range, catalystScalar)
 						-- Check if we can parse it before adding the mods

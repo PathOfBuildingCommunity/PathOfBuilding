@@ -115,6 +115,9 @@ function itemLib.applyRange(line, range, valueScalar)
 	if numbers == 0 and line:match("(%d+%.?%d*)%%? ") then --If a mod contains x or x% and is not already a ranged value, then only the first number will be scalable as any following numbers will always be conditions or unscalable values.
 		numbers = 1
 	end
+	if numbers == 1 and line:match("Adds (%d+) to (%d+) (%w+) Damage") then -- any flat added damage that does not have a range on the first value (e.g. low level flat to attacks, hybrid lightning dmg, Prismweave lightning) needs to scale the second value if present
+		numbers = 2
+	end
 
 	return itemLib.applyValueScalar(line, valueScalar, numbers, precision)
 end

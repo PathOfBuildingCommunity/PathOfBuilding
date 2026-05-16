@@ -285,8 +285,14 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 				table.insert(items, {
 					amount = trade_entry.listing.price.amount,
 					currency = trade_entry.listing.price.currency,
+					-- note: using these to travel to the hideout or for a
+					-- direct whisper is not allowed, even if they are provided
+					-- right here
+					-- hideout_token = trade_entry.listing.hideout_token,
+					-- whisper_token = trade_entry.listing.whisper_token,
 					item_string = common.base64.decode(trade_entry.item.extended.text),
 					whisper = trade_entry.listing.whisper,
+					trader = trade_entry.listing.account.name,
 					weight = trade_entry.item.pseudoMods and trade_entry.item.pseudoMods[1]:match("Sum: (.+)") or "0",
 					id = trade_entry.id
 				})
@@ -296,7 +302,7 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 	})
 end
 
----@param callback fun(items:table, errMsg:string)
+---@param callback fun(items:table, errMsg:string, query:string)
 function TradeQueryRequestsClass:SearchWithURL(url, callback)
 	local subpath = url:match(self.hostName .. "trade/search/(.+)$")
 	local paths = {}
@@ -304,7 +310,7 @@ function TradeQueryRequestsClass:SearchWithURL(url, callback)
 		table.insert(paths, path)
 	end
 	if #paths < 2 or #paths > 3 then
-		return callback(nil, "Invalid URL")
+		return callback(nil, "Invalid URL", nil)
 	end
 	local realm, league, queryId
 	if #paths == 3 then
@@ -314,9 +320,11 @@ function TradeQueryRequestsClass:SearchWithURL(url, callback)
 	queryId = paths[#paths]
 	self:FetchSearchQueryHTML(realm, league, queryId, function(query, errMsg)
 		if errMsg then
-			return callback(nil, errMsg)
+			return callback(nil, errMsg, nil)
 		end
-		self:SearchWithQuery(realm, league, query, callback)
+		self:SearchWithQuery(realm, league, query, function(items, searchErrMsg)
+			callback(items, searchErrMsg, query)
+		end)
 	end)
 end
 
