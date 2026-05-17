@@ -72,6 +72,10 @@ function ItemSlotClass:SetSelItemId(selItemId)
 end
 
 function ItemSlotClass:Populate()
+	if self.nodeId and self.itemsTab.build.spec then
+		self.selItemId = self.itemsTab.build.spec.jewels[self.nodeId] or 0
+	end
+
 	wipeTable(self.items)
 	wipeTable(self.list)
 	self.items[1] = 0

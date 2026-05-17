@@ -162,6 +162,8 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Undying/CityStalkerMaleCasterArmour
 #spectre Metadata/Monsters/Undying/UndyingOutcastPuncture
 #spectre Metadata/Monsters/Undying/UndyingOutcastWhirlingBlades
+-- Unholy Aberration
+#spectre Metadata/Monsters/SpiderPlated/SpiderPlatedUnholyEmerge
 -- Wicker Man
 #spectre Metadata/Monsters/WickerMan/WickerMan
 -- Redemption Sentry
@@ -433,3 +435,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemMid
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemHigh
+-- Conjuror of Rot
+#spectre Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockLow
+#spectre Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockMid_
+#spectre Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockHigh

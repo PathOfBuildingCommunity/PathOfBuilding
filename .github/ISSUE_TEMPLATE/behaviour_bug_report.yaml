@@ -1,6 +1,6 @@
 name: Behaviour bug report
 description: Create a bug report to help us fix incorrect behaviour or logic in Path of Building for PoE1.
-labels: ["bug:behaviour"]
+labels: ["bug: behaviour"]
 body:
   - type: markdown
     attributes:

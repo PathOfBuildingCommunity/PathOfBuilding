@@ -177,11 +177,14 @@ Files in `/Data` `/Export` and `/TreeData` can be massive and cause the EmmyLua 
 ```json
 {
     "$schema": "https://raw.githubusercontent.com/EmmyLuaLs/emmylua-analyzer-rust/refs/heads/main/crates/emmylua_code_analysis/resources/schema.json",
+    "runtime": {
+        "version": "LuaJIT"
+    },
     "workspace": {
         "ignoreGlobs": [
-            "src/Data/**.lua",
-            "src/TreeData/**.lua",
-            "src/Modules/ModParser.lua"
+            "**/src/Data/**/*.lua",
+            "**/src/TreeData/**/*.lua",
+            "**/src/Modules/ModParser.lua"
         ]
     }
 }

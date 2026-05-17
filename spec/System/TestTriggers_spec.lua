@@ -28,7 +28,7 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 		
-		build.skillsTab:PasteSocketGroup("Reave 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Reave 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -56,7 +56,7 @@ describe("TestTriggers", function()
 		build.mainSocketGroup = 2
 		build.modFlag = true
 		build.buildFlag = true
-		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -84,7 +84,7 @@ describe("TestTriggers", function()
 		build.mainSocketGroup = 2
 		build.modFlag = true
 		build.buildFlag = true
-		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -197,7 +197,7 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 		
-		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -248,7 +248,7 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Frenzy 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -294,7 +294,7 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Frenzy 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -322,7 +322,7 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 		
-		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -348,7 +348,7 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 		
-		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -371,7 +371,7 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 		
-		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -398,7 +398,7 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 		
-		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -421,7 +421,7 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 		
-		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -449,7 +449,7 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 		
-		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -485,7 +485,7 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 		
-		build.skillsTab:PasteSocketGroup("Kinetic Blast 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Kinetic Blast 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -507,7 +507,7 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 		
-		build.skillsTab:PasteSocketGroup("Reave 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Reave 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -535,7 +535,7 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 		
-		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -557,7 +557,7 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 		
-		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -579,7 +579,7 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 		
-		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -600,10 +600,10 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 		
-		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nArc 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nArc 20/0  1\n")
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Kinetic Blast 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Kinetic Blast 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -643,10 +643,10 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 		
-		build.skillsTab:PasteSocketGroup("Slot: Weapon 2\nRain of Arrows 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 2\nRain of Arrows 20/0  1\n")
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Frenzy 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -687,10 +687,10 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 		
-		build.skillsTab:PasteSocketGroup("Slot: Weapon 2\nRain of Arrows 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 2\nRain of Arrows 20/0  1\n")
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Arc 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Arc 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -740,10 +740,10 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 		
-		build.skillsTab:PasteSocketGroup("Slot: Helmet\nArc 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Helmet\nArc 20/0  1\n")
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Frenzy 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -766,10 +766,10 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 		
-		build.skillsTab:PasteSocketGroup("Slot: Gloves\nEnfeeble 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Gloves\nEnfeeble 20/0  1\n")
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Despair 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Despair 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -820,10 +820,10 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 		
-		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nArc 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nArc 20/0  1\n")
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Reave 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Reave 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -872,10 +872,10 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Slot: Helmet\nArc 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Helmet\nArc 20/0  1\n")
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Ice Nova 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Ice Nova 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -909,10 +909,10 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nArc 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nArc 20/0  1\n")
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -940,10 +940,10 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nIce Nova 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nIce Nova 20/0  1\n")
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Reave 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Reave 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -971,7 +971,7 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Cast On Critical Strike 20/0 Default  1\nArc 20/0 Default  1\nCyclone 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Cast On Critical Strike 20/0  1\nArc 20/0  1\nCyclone 20/0  1\n")
 		runCallback("OnFrame")
 		
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -999,7 +999,7 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Cast on Melee Kill 20/0 Default  1\nArc 20/0 Default  1\nCyclone 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Cast on Melee Kill 20/0  1\nArc 20/0  1\nCyclone 20/0  1\n")
 		runCallback("OnFrame")
 		
 		build.configTab.input["conditionKilledRecently"] = true
@@ -1010,24 +1010,24 @@ describe("TestTriggers", function()
 	end)
 
 	it("Trigger Holy Relic", function()
-		build.skillsTab:PasteSocketGroup("Summon Holy Relic 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Summon Holy Relic 20/0  1\n")
 		runCallback("OnFrame")
 		
-		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.Minion.SkillTriggerRate ~= nil)
 	end)
 
 	it("Trigger Cast when Damage Taken", function()
-		build.skillsTab:PasteSocketGroup("Cast when Damage Taken 20/0 Default  1\nArc 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Cast when Damage Taken 20/0  1\nArc 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
 	it("Trigger Cast when Stunned", function()
-		build.skillsTab:PasteSocketGroup("Cast when Stunned 20/0 Default  1\nArc 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Cast when Stunned 20/0  1\nArc 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -1055,27 +1055,27 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Arc 20/0 Default  1\nSpellslinger 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Arc 20/0  1\nSpellslinger 20/0  1\n")
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Kinetic Blast 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Kinetic Blast 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
 	it("Trigger Mark On Hit", function()
-		build.skillsTab:PasteSocketGroup("Mark On Hit 20/0 Default  1\nAlchemist's Mark 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Mark On Hit 20/0  1\nAlchemist's Mark 20/0  1\n")
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
 	it("Trigger Hextouch", function()
-		build.skillsTab:PasteSocketGroup("Despair 20/0 Default  1\nHextouch 20/0 Default  1\nSmite 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Despair 20/0  1\nHextouch 20/0  1\nSmite 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -1103,7 +1103,7 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -1132,7 +1132,7 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Tempest Shield 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Tempest Shield 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -1161,7 +1161,7 @@ describe("TestTriggers", function()
 	end)
 
 	it("Trigger Combust", function()
-		build.skillsTab:PasteSocketGroup("Infernal Cry 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Infernal Cry 20/0  1\n")
 		runCallback("OnFrame")
 
 		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
@@ -1170,14 +1170,14 @@ describe("TestTriggers", function()
 		build.buildFlag = true
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
 	it("Trigger Prismatic Burst", function()
-		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\nPrismatic Burst 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\nPrismatic Burst 20/0  1\n")
 		runCallback("OnFrame")
 
 		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
@@ -1211,7 +1211,7 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\nShockwave 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\nShockwave 20/0  1\n")
 		runCallback("OnFrame")
 
 		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
@@ -1243,24 +1243,24 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\nManaforged Arrows 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Frenzy 20/0  1\nManaforged Arrows 20/0  1\n")
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Rain of Arrows 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Rain of Arrows 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
 	it("Trigger Doom Blast", function()
-		build.skillsTab:PasteSocketGroup("Impending Doom 20/0 Default  1\nDespair 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Impending Doom 20/0  1\nDespair 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
 	it("Trigger Cast while Channelling", function()
-		build.skillsTab:PasteSocketGroup("Arc 20/0 Default  1\nCast while Channelling 20/0 Default  1\nBlight 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Arc 20/0  1\nCast while Channelling 20/0  1\nBlight 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -1285,14 +1285,14 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Slot: Helmet\nArc 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Helmet\nArc 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
 	it("Trigger Flamewood", function()
-		build.skillsTab:PasteSocketGroup("Decoy Totem 20/0 Default  1\nFlamewood 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Decoy Totem 20/0  1\nFlamewood 20/0  1\n")
 		runCallback("OnFrame")
 
 		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
@@ -1305,7 +1305,7 @@ describe("TestTriggers", function()
 	end)
 	
 	it("Trigger Automation", function()
-		build.skillsTab:PasteSocketGroup("Steelskin 20/0 Default  1\nAutomation 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Steelskin 20/0  1\nAutomation 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -1334,7 +1334,7 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Slot: Weapon 2\nArc 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 2\nArc 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -1351,17 +1351,17 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nFireball 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nFireball 20/0  1\n")
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
 	it("Triggerbots CWCHandler", function()
-		build.skillsTab:PasteSocketGroup("Arc 20/0 Default  1\nCast while Channelling 20/0 Default  1\nBlight 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Arc 20/0  1\nCast while Channelling 20/0  1\nBlight 20/0  1\n")
 		runCallback("OnFrame")
 		local baseRate = build.calcsTab.mainOutput.SkillTriggerRate
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
@@ -1396,7 +1396,7 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
-		build.skillsTab:PasteSocketGroup("Cast On Critical Strike 20/0 Default  1\nArc 20/0 Default  1\nCyclone 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Cast On Critical Strike 20/0  1\nArc 20/0  1\nCyclone 20/0  1\n")
 		runCallback("OnFrame")
 
 		local baseRate = build.calcsTab.mainOutput.SkillTriggerRate

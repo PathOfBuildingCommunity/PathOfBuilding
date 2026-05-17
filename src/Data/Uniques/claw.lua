@@ -12,12 +12,12 @@ Implicits: 2
 {variant:1}Grants 21 Life per Enemy Hit
 {variant:2}Grants 44 Life per Enemy Hit
 Socketed Gems are Supported by Level 12 Fortify
+15% Chance to Block Attack Damage
 (100-120)% increased Physical Damage
 +110 to Evasion Rating
-+(30-50) to maximum Life
 +35 to maximum Energy Shield
++(30-50) to maximum Life
 Reflects (71-90) Physical Damage to Melee Attackers
-15% Chance to Block Attack Damage
 ]],[[
 Replica Advancing Fortress
 Gut Ripper
@@ -73,8 +73,8 @@ Variant: Pre 3.11.0
 Variant: Current
 Requires Level 26, 39 Dex, 56 Int
 Implicits: 3
-{variant:1}Grants 8 Life per Enemy Hit
 {variant:2}2% of Physical Attack Damage Leeched as Life
+{variant:1}Grants 8 Life per Enemy Hit
 {variant:3,4,5,6}Grants 19 Life per Enemy Hit
 {variant:1,2,3,4}Socketed Gems have 10% chance to cause Enemies to Flee on Hit
 {variant:4,5}Trigger Level 1 Intimidating Cry on Hit
@@ -102,12 +102,12 @@ Implicits: 1
 {variant:4}(200-250)% increased Physical Damage
 {variant:1,2}Adds 10 to 12 Physical Damage
 {variant:3,4}Adds 25 to 30 Physical Damage
-{variant:4}(15-25)% increased Life Reservation Efficiency of Skills
 {variant:1,2,3}5% increased Attack Speed
 1.2% of Physical Attack Damage Leeched as Life
 {variant:1,2,3}5% increased Movement Speed
-{variant:4}(5-10)% increased maximum Recovery per Life Leech for each 5% of Life Reserved
+{variant:4}(15-25)% increased Life Reservation Efficiency of Skills
 Life Leech from Hits with this Weapon is instant
+{variant:4}(5-10)% increased Maximum Recovery per Life Leech for each 5% of Life Reserved
 ]],[[
 Cybil's Paw
 Thresher Claw
@@ -140,8 +140,8 @@ Variant: Pre 3.28.0
 Variant: Current
 Implicits: 4
 {variant:1,2}0.6% of Physical Attack Damage Leeched as Life
-{variant:3}Grants 31 Life per Enemy Hit
 {variant:4,5,6}2% of Physical Attack Damage Leeched as Life
+{variant:3}Grants 31 Life per Enemy Hit
 {variant:7}2% of Attack Damage Leeched as Life
 {variant:1}+10% Chance to Block Attack Damage while Dual Wielding Claws
 {variant:2,3,4,5,6}+8% Chance to Block Attack Damage while Dual Wielding Claws
@@ -155,9 +155,9 @@ Implicits: 4
 (20-30)% increased Attack Speed
 {variant:1,2,3,4,5,6}+(30-40) to maximum Energy Shield
 {variant:7}+(200-300) to maximum Energy Shield
-{variant:1,2,3,4}Leech Energy Shield instead of Life
 {variant:5}50% reduced Maximum Recovery per Energy Shield Leech
 {variant:5,6,7}Energy Shield Leech Effects from Attacks are not removed at Full Energy Shield
+{variant:1,2,3,4}Leech Energy Shield instead of Life
 {variant:7}Maximum Recovery per Energy Shield Leech is Doubled
 {variant:5,6,7}Ghost Reaver
 ]],[[
@@ -176,17 +176,17 @@ Implicits: 3
 {variant:1}Grants 10 Life per Enemy Hit
 {variant:2,3}Grants 12 Life per Enemy Hit
 {variant:4,5}Grants 46 Life per Enemy Hit
-{variant:1,2,3}(20-25)% increased Elemental Damage with Attack Skills
-{variant:1,2,3}Adds 1 to (50-60) Lightning Damage
-{variant:1,2,3}(10-15)% increased Attack Speed
 {variant:4,5}(8-12)% increased Dexterity
 {variant:4,5}(8-12)% increased Intelligence
+{variant:1,2,3}Adds 1 to (50-60) Lightning Damage
+{variant:1,2,3}(10-15)% increased Attack Speed
 {variant:4,5}Recover 1% of Life on Kill
-{variant:1,2}Adds 1 to 3 Lightning Damage to Attacks with this Weapon per 10 Intelligence
-{variant:3}Adds 1 to 5 Lightning Damage to Attacks with this Weapon per 10 Intelligence
 {variant:4}Adds 1 to 10 Lightning Damage to Attacks with this Weapon per 10 Dexterity
 {variant:5}Adds 1 to 12 Lightning Damage to Attacks with this Weapon per 10 Dexterity
+{variant:1,2}Adds 1 to 3 Lightning Damage to Attacks with this Weapon per 10 Intelligence
+{variant:3}Adds 1 to 5 Lightning Damage to Attacks with this Weapon per 10 Intelligence
 {variant:4,5}5% increased Critical Strike Chance per 25 Intelligence
+{variant:1,2,3}(20-25)% increased Elemental Damage with Attack Skills
 ]],[[
 Hand of Wisdom and Action
 Imperial Claw
@@ -225,12 +225,12 @@ Adds 20 to 50 Physical Damage
 (10-15)% increased Attack Speed
 {variant:1,2}+(250-350) to Accuracy Rating
 {variant:3}+(300-400) to Accuracy Rating
-100% increased Physical Damage while Frozen
+100% increased Global Physical Damage while Frozen
 ]],[[
 Last Resort
 Nailed Fist
 Implicits: 1
-Gain 3 Life per Enemy Hit with Attacks
+Grants 3 Life per Enemy Hit
 25% increased Attack Speed when on Low Life
 (80-100)% increased Physical Damage
 Adds 2 to 10 Physical Damage
@@ -284,8 +284,8 @@ Implicits: 2
 {variant:2,3,4}+40% to Global Critical Strike Multiplier
 (10-20)% of Physical Damage Converted to Chaos Damage
 {variant:1,2,3}Poisonous Hit
-{variant:4}60% chance to Poison on Hit
 25% reduced Enemy Stun Threshold with this Weapon
+{variant:4}60% chance to Poison on Hit
 ]],[[
 Ornament of the East
 Gut Ripper
@@ -314,8 +314,8 @@ Implicits: 1
 (60-80)% increased Physical Damage
 Adds (25-35) to (50-65) Physical Damage
 25% chance to cause Bleeding on Hit
-2% increased Physical Damage over time per 10 Dexterity
-1% increased Bleed Duration per 12 Intelligence
+2% increased Physical Damage Over Time per 10 Dexterity
+1% increased Bleeding Duration per 12 Intelligence
 30% Chance to cause Bleeding Enemies to Flee on hit
 ]],[[
 The Scourge
@@ -346,7 +346,7 @@ Adds (40-50) to (130-150) Physical Damage
 20% chance to gain a Frenzy Charge on Killing a Frozen Enemy
 Skills Chain an additional time while at maximum Frenzy Charges
 10% chance to Freeze
-Critical Strikes do not always Freeze
+Critical Strikes do not inherently Freeze
 ]],[[
 The Wasp Nest
 Throat Stabber
@@ -361,7 +361,7 @@ Grants 40 Life per Enemy Hit
 {variant:1}+(180-200) to Accuracy Rating
 {variant:2}+(330-350) to Accuracy Rating
 20% chance to Poison on Hit
-Attacks with this Weapon deal 80-120 added Chaos Damage against
+Attacks with this Weapon deal 80 to 120 added Chaos Damage against
 Enemies affected by at least 5 Poisons
 ]],[[
 Wildslash
@@ -374,10 +374,10 @@ Implicits: 2
 {variant:2}Grants 7 Life per Enemy Hit
 +(10-15) to Strength
 +(10-15) to Dexterity
-15% reduced Accuracy Rating
 Adds (2-6) to (16-22) Physical Damage
 (10-15)% increased Attack Speed
 20% increased Damage with Movement Skills
 15% increased Attack Speed with Movement Skills
+15% reduced Global Accuracy Rating
 ]],
 }

@@ -41,8 +41,8 @@ local function processStatFile(name)
 			if langName then
 				curLang = nil--{ }
 				--curDescriptor.lang[langName] = curLang
-			elseif curLang then
-				local statLimits, text, special = line:match('([%d%-#!| ]+) "(.-)"%s*(.*)')
+			elseif curLang and not line:match('table_only') then
+				local statLimits, quality, text, special = line:match('([%d%-#| !]+)%s*([%w_]*)%s*"(.-)"%s*(.*)')
 				if statLimits then
 					local desc = { text = text, limit = { } }
 					for statLimit in statLimits:gmatch("[!%d%-#|]+") do
@@ -67,12 +67,37 @@ local function processStatFile(name)
 						end
 						table.insert(desc.limit, limit)
 					end
-					for k, v in special:gmatch("([%w%%_]+) (%w+)") do
-						table.insert(desc, {
-							k = k,
-							v = tonumber(v) or v,
-						})
-						nk[k] = v
+					local specialTokens = { }
+					for token in special:gmatch("([%w%%_]+)") do
+						table.insert(specialTokens, token)
+					end
+					local tokenIndex = 1
+					while tokenIndex <= #specialTokens do
+						local token = specialTokens[tokenIndex]
+						if token == "canonical_line" then
+							table.insert(desc, {
+								k = "canonical_line",
+								v = true,
+							})
+							nk["canonical_line"] = true
+							tokenIndex = tokenIndex + 1
+						else
+							local value = specialTokens[tokenIndex + 1]
+							if value then
+								table.insert(desc, {
+									k = token,
+									v = tonumber(value) or value,
+								})
+								nk[token] = value
+								tokenIndex = tokenIndex + 2
+							else
+								tokenIndex = tokenIndex + 1
+							end
+						end
+					end
+					if quality:match("gem_quality") then
+						desc[quality] = true
+						nk["gem_quality"] = true
 					end
 					table.insert(curLang, desc)
 				end
@@ -104,6 +129,7 @@ local statFileList = {
 	"minion_skill_stat_descriptions",
 	"minion_spell_skill_stat_descriptions",
 	"minion_spell_damage_skill_stat_descriptions",
+	"single_minion_spell_skill_stat_descriptions",
 	"monster_stat_descriptions",
 	"offering_skill_stat_descriptions",
 	"skill_stat_descriptions",
