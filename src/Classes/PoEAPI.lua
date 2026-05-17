@@ -18,6 +18,7 @@ local PoEAPIClass = newClass("PoEAPI", function(self, authToken, refreshToken, t
 	self.tokenExpiry = tokenExpiry or 0
 	self.baseUrl = "https://api.pathofexile.com"
 	self.rateLimiter = new("TradeQueryRateLimiter")
+	self.tokenHasBeenValidated = false
 
 	self.ERROR_NO_AUTH = "No auth token"
 end)
@@ -25,8 +26,6 @@ end)
 
 --- @param callback fun(valid: bool, updateSettings: bool)
 function PoEAPIClass:ValidateAuth(callback)
-	-- make a call for profile if not error we are good
-	-- if error 401 then try to recreate the token with
 	if self.authToken and self.refreshToken and self.tokenExpiry then
 		ConPrintf("Validating auth token")
 		if self.tokenExpiry < os.time() then
@@ -183,6 +182,10 @@ function PoEAPIClass:DownloadWithRateLimit(policy, url, callback)
 	if now >= timeNext then
 		local requestId = self.rateLimiter:InsertRequest(policy)
 		local onComplete = function(response, errMsg)
+			if errMsg then
+				callback(response, errMsg, nil)
+				return
+			end
 			self.rateLimiter:FinishRequest(policy, requestId)
 			self.rateLimiter:UpdateFromHeader(response.header, policy)
 			if response.header:match("HTTP/[%d%.]+ (%d+)") == "429" then

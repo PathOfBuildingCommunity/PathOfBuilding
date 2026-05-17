@@ -42,12 +42,14 @@ function addOAuthControls(self)
 
 	function charImportStatus()
 		if not self.isAuthorized() and not self.oauthTimer then
-			return colorCodes.WARNING .. "Not authenticated" .. (self.oauthErrCode or "")
+			local suffix = self.oauthErrCode and string.format(": %s", self.oauthErrCode) or ""
+			return colorCodes.WARNING .. "Not authenticated" .. suffix
 		elseif not self.isAuthorized() and self.oauthTimer then
 			local timeLeft = m_max(0, (self.oauthTimer + 30) - os.time())
 			if timeLeft < 1 then
 				self.oauthTimer = nil
-				return colorCodes.WARNING .. "Not authenticated" .. (self.oauthErrCode or "")
+				local suffix = self.oauthErrCode and string.format(": %s", self.oauthErrCode) or ""
+				return colorCodes.WARNING .. "Not authenticated" .. suffix
 			end
 			return string.format("Logging in... (%d)", timeLeft) .. (self.oauthErrCode or "")
 			-- user is spam changing realms and is rate limited
@@ -91,6 +93,30 @@ function addOAuthControls(self)
 		return self.isAuthorized() and 200 or 60
 	end
 
+	function fetchCharacters()
+		if not main.api.authToken then return end
+		local realm = self.controls.accountRealm:GetSelValue()
+		self.oauthLoading = true
+		function onResponse(body, err, timeNext)
+			if not err then
+				self.characterList[realm.realmCode] = body.characters
+				setLeaguesFromCharList()
+				self.oauthLoading = false
+				return
+			elseif err == "Response code: 429" then
+				self.rateLimitEndTime = timeNext
+			-- token has been invalidated for some reason
+			elseif err and err:match("401") then
+				main.api:ResetDetails()
+			else
+				self.oauthErrCode = err
+			end
+			self.oauthLoading = false
+		end
+
+		main.api:DownloadCharacterList(realm.realmCode, onResponse)
+	end
+
 	-- OAuth Stage: Authenticate
 	self.controls.authenticateButton = new("ButtonControl", { "TOPLEFT", self.controls.characterImportAnchor, "TOPLEFT" },
 		{ 0, 0, 200, 16 }, "^7Authorize with Path of Exile", function()
@@ -100,8 +126,11 @@ function addOAuthControls(self)
 					self.oauthTimer = nil
 				else
 					self.oauthErrCode = nil
-					ConPrintf("%s", main.api.authToken)
 					self.oauthTimer = nil
+					-- successful login -> fetch. this will default to PC, but
+					-- if the user has ever imported before, it should default
+					-- to that last realm
+					fetchCharacters()
 				end
 			end)
 			self.oauthTimer = os.time()
@@ -157,33 +186,11 @@ function addOAuthControls(self)
 		end
 	end
 
-	function fetchCharacters()
-		local realm = self.controls.accountRealm:GetSelValue()
-		self.oauthLoading = true
-		function onResponse(body, err, timeNext)
-			if not err then
-				self.characterList[realm.realmCode] = body.characters
-				setLeaguesFromCharList()
-				self.oauthLoading = false
-				return
-			elseif err == "Response code: 429" then
-				self.rateLimitEndTime = timeNext
-			else
-				self.oauthErrCode = err
-			end
-			self.oauthLoading = false
-		end
-		main.api:DownloadCharacterList(realm.realmCode, onResponse)
-	end
-
 	self.controls.accountRealm = new("DropDownControl", { "TOPLEFT", self.controls.charSelectHeader, "BOTTOMLEFT" },
 		{ 0, rowSpacing, 60, 20 }, realmList, function()
 			setLeaguesFromCharList()
 		end)
 	self.controls.accountRealm:SelByValue(main.lastRealm or "PC", "id")
-
-	-- fetch list from last imported realm on startup
-	fetchCharacters()
 
 	function fetchTextFunc()
 		local realm = self.controls.accountRealm:GetSelValue()
@@ -683,9 +690,25 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 		end
 	end
 
-	-- -- validate the status of the api the first time
-	main.api:ValidateAuth(function() end)
+	-- validate the status of the api the first time
+	if main.api.authToken then
+		main.api:ValidateAuth(function(valid, _)
+			if not valid then
+				main.api:ResetDetails()
+			end
+		end)
+	end
+	
 end)
+
+-- attempt to fetch the last realm's character list once per instance, if there
+-- is a last realm saved
+function ImportTabClass:TryFetchCharacterList()
+	if main.lastRealm and not self.autoFetchAttempted then
+		self.controls.accountRealmFetchButton:Click()
+		self.autoFetchAttempted = true
+	end
+end
 
 function ImportTabClass:Load(xml, fileName)
 	self.lastRealm = xml.attrib.lastRealm
