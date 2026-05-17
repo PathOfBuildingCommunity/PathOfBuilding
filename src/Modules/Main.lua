@@ -581,6 +581,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.edgeSearchHighlight then
 					self.edgeSearchHighlight = node.attrib.edgeSearchHighlight == "true"
 				end
+				if node.attrib.toHHintDismissed then
+					self.toHHintDismissed = node.attrib.toHHintDismissed == "true"
+				end
 				if node.attrib.defaultGemQuality then
 					self.defaultGemQuality = m_min(tonumber(node.attrib.defaultGemQuality) or 0, 23)
 				end
@@ -746,6 +749,7 @@ function main:SaveSettings()
 		showTitlebarName = tostring(self.showTitlebarName),
 		betaTest = tostring(self.betaTest),
 		edgeSearchHighlight = tostring(self.edgeSearchHighlight),
+		toHHintDismissed = tostring(self.toHHintDismissed or false),
 		defaultGemQuality = tostring(self.defaultGemQuality or 0),
 		defaultCharLevel = tostring(self.defaultCharLevel or 1),
 		defaultItemAffixQuality = tostring(self.defaultItemAffixQuality or 0.5),

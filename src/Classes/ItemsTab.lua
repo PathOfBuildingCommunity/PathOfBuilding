@@ -4094,6 +4094,11 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 		end
 		if item.jewelRadiusLabel then
 			tooltip:AddLine(fontSizeBig, "^x7F7F7FRadius: ^7"..item.jewelRadiusLabel, "FONTIN SC")
+			if item.jewelRadiusLabel == "Variable" then
+				-- Display-only hint, not added to rawLines, so item import/export is unaffected.
+				tooltip:AddSeparator(4)
+				tooltip:AddLine(fontSizeBig, colorCodes.MAGIC.."Tip: Press ^x7F7F7FT"..colorCodes.MAGIC.." in the tree view to toggle all five ring sizes.", "FONTIN")
+			end
 		end
 		if item.jewelRadiusData and slot and item.jewelRadiusData[slot.nodeId] then
 			local radiusData = item.jewelRadiusData[slot.nodeId]
