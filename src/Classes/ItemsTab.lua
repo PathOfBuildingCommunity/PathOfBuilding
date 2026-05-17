@@ -3793,6 +3793,117 @@ function ItemsTabClass:FormatItemSource(text)
 			   :gsub("prophecy{([^}]+)}",colorCodes.PROPHECY.."%1"..colorCodes.SOURCE)
 end
 
+local function itemChangesPassiveTreeRadius(item)
+	return not not (item and item.type == "Jewel" and item.jewelData and item.jewelRadiusIndex
+		and (item.jewelData.conqueredBy or item.jewelData.intuitiveLeapLike or item.jewelData.impossibleEscapeKeystone))
+end
+
+-- Radius jewels can change conquered nodes and orphaned allocations, so compare
+-- against a rebuilt spec instead of approximating the diff with removeNodes.
+-- Keep this list in sync with PassiveSpec's constructor, Init, and Select*
+-- methods; omitted fields fail safe as nil on the comparison spec.
+local sharedSpecKeysForJewelComparison = {
+	build = true,
+	treeVersion = true,
+	tree = true,
+	title = true,
+	ignoreAllocatingSubgraph = true,
+	clusterHashFormatVersion = true,
+	curClassId = true,
+	curClass = true,
+	curClassName = true,
+	curAscendClassId = true,
+	curAscendClass = true,
+	curAscendClassName = true,
+	curAscendClassBaseName = true,
+	curSecondaryAscendClassId = true,
+	curSecondaryAscendClass = true,
+	curSecondaryAscendClassName = true,
+}
+
+local function cloneSpecForJewelComparison(spec)
+	local specCopy = setmetatable({ }, getmetatable(spec))
+	-- Share only immutable/scalar spec state. Tables that BuildAllDependsAndPaths
+	-- may mutate must be owned by the comparison spec.
+	for key in pairs(sharedSpecKeysForJewelComparison) do
+		specCopy[key] = spec[key]
+	end
+
+	specCopy.nodes = { }
+	for id, node in pairs(spec.nodes) do
+		local nodeCopy = setmetatable({ }, getmetatable(node))
+		for key, value in pairs(node) do
+			if key ~= "linked" and key ~= "depends" and key ~= "intuitiveLeapLikesAffecting"
+			and key ~= "path" and key ~= "power" then
+				nodeCopy[key] = value
+			end
+		end
+		nodeCopy.alloc = false
+		nodeCopy.linked = { }
+		nodeCopy.depends = { }
+		nodeCopy.intuitiveLeapLikesAffecting = { }
+		nodeCopy.power = { }
+		specCopy.nodes[id] = nodeCopy
+	end
+	for id, nodeCopy in pairs(specCopy.nodes) do
+		for _, linkedNode in ipairs(spec.nodes[id].linked or { }) do
+			local linkedCopy = specCopy.nodes[linkedNode.id]
+			if linkedCopy then
+				t_insert(nodeCopy.linked, linkedCopy)
+			end
+		end
+	end
+
+	specCopy.allocNodes = { }
+	for id in pairs(spec.allocNodes) do
+		local nodeCopy = specCopy.nodes[id]
+		if nodeCopy then
+			nodeCopy.alloc = true
+			specCopy.allocNodes[id] = nodeCopy
+		end
+	end
+	specCopy.jewels = copyTable(spec.jewels, true)
+	specCopy.masterySelections = copyTable(spec.masterySelections, true)
+	specCopy.hashOverrides = copyTable(spec.hashOverrides, true)
+	specCopy.ignoredNodes = copyTable(spec.ignoredNodes, true)
+	specCopy.splitPersonalityPath = { }
+	specCopy.allocSubgraphNodes = { }
+	specCopy.allocExtendedNodes = { }
+	specCopy.subGraphs = { }
+
+	return specCopy
+end
+
+local function buildSpecForJewelComparison(itemsTab, compareSlot, replacementItem)
+	local tempItemId
+	local spec = cloneSpecForJewelComparison(itemsTab.build.spec)
+	if replacementItem then
+		if replacementItem.id and itemsTab.items[replacementItem.id] == replacementItem then
+			spec.jewels[compareSlot.nodeId] = replacementItem.id
+		else
+			tempItemId = -1
+			while itemsTab.items[tempItemId] do
+				tempItemId = tempItemId - 1
+			end
+			itemsTab.items[tempItemId] = replacementItem
+			spec.jewels[compareSlot.nodeId] = tempItemId
+		end
+	else
+		spec.jewels[compareSlot.nodeId] = nil
+	end
+
+	local ok, err = xpcall(function()
+		spec:BuildAllDependsAndPaths()
+	end, debug.traceback)
+	if tempItemId then
+		itemsTab.items[tempItemId] = nil
+	end
+	if not ok then
+		error(err, 0)
+	end
+	return spec
+end
+
 function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 	local fontSizeSmall = main.showFlavourText and 16 or 14
 	local fontSizeBig = main.showFlavourText and 18 or 16
@@ -4428,7 +4539,11 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 
 		local function getReplacedItemAndOutput(compareSlot)
 			local selItem = self.items[compareSlot.selItemId]
-			local output = calcFunc({ repSlotName = compareSlot.slotName, repItem = item ~= selItem and item or nil })
+			local override = { repSlotName = compareSlot.slotName, repItem = item ~= selItem and item or nil }
+			if compareSlot.nodeId and (itemChangesPassiveTreeRadius(selItem) or itemChangesPassiveTreeRadius(item)) then
+				override.spec = buildSpecForJewelComparison(self, compareSlot, override.repItem)
+			end
+			local output = calcFunc(override)
 			return selItem, output
 		end
 		local function addCompareForSlot(compareSlot, selItem, output)
