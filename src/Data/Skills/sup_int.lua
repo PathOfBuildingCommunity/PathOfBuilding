@@ -3225,7 +3225,7 @@ skills["TriggeredSupportHiveborn"] = {
 	description = "Summons a horde of Hiveborn Breach monsters to do your bidding. These summoned monsters have all their physical damage converted to cold.",
 	skillTypes = { [SkillType.Cooldown] = true, [SkillType.Minion] = true, [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.SkillGrantedBySupport] = true, [SkillType.CreatesMinion] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Cold] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
 		"Hiveborn",

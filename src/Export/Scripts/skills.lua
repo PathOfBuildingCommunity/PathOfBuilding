@@ -120,7 +120,7 @@ directiveTable.skill = function(state, args, out)
 	local secondaryEffect
 	if not gemEffect then
 		gemEffect = dat("GemEffects"):GetRow("GrantedEffect2", granted)
-		if gemEffect then 
+		if gemEffect then
 			secondaryEffect = true
 		end
 	end
@@ -602,13 +602,15 @@ for skillGem in dat("SkillGems"):Rows() do
 			local naturalMaxLevel = #dat("ItemExperiencePerLevel"):GetRowList("ItemExperienceType", skillGem.GemLevelProgression)
 			out:write('\t\tnaturalMaxLevel = ', naturalMaxLevel > 0 and naturalMaxLevel or 1, ',\n')
 			if skillGem.BaseItemType.FlavourTextKey and skillGem.BaseItemType.FlavourTextKey.Text then
-				local cleanedLines = cleanAndSplit(skillGem.BaseItemType.FlavourTextKey.Text)
-				if #cleanedLines > 0 then
-					out:write('\t\tflavourText = {\n')
-					for _, line in ipairs(cleanedLines) do
-						out:write('\t\t\t"', line, '",\n')
+				if skillGem.BaseItemType.FlavourTextKey ~= "Work in progress" then
+					local cleanedLines = cleanAndSplit(skillGem.BaseItemType.FlavourTextKey.Text)
+					if #cleanedLines > 0 then
+						out:write('\t\tflavourText = {\n')
+						for _, line in ipairs(cleanedLines) do
+							out:write('\t\t\t"', line, '",\n')
+						end
+						out:write('\t\t},\n')
 					end
-					out:write('\t\t},\n')
 				end
 			end
 			out:write('\t},\n')
