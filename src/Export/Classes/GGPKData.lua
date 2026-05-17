@@ -44,7 +44,7 @@ local GGPKClass = newClass("GGPKData", function(self, path, datPath, reExport)
 	self.dat = { }
 	self.txt = { }
 	self.ot = { }
-	
+
 	self:AddDat64Files()
 end)
 
@@ -287,6 +287,13 @@ function GGPKClass:GetNeededFiles()
 		"Data/BrequelGraftSkillStats.dat",
 		"Data/BrequelGraftGrantedSkillLevels.dat",
 		"Data/VillageBalancePerLevelShared.dat",
+		"Data/SpectreOverrides.dat",
+		"Data/WorldAreas.dat",
+		"Data/MonsterPackEntries.dat",
+		"Data/MonsterPacks.dat",
+		"Data/MonsterCategories.dat",
+		"Data/Maps.dat",
+		"Data/AtlasNode.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",
