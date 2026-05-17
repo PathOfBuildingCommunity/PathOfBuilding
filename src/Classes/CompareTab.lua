@@ -2668,8 +2668,9 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 						local abyssSlotName = string.format("%s Abyssal Socket %d", slotName, idx)
 						local cmpJewelSlot = compareEntry.itemsTab.slots[abyssSlotName]
 						-- save old id and unequip existing
-						oldEquipped[abyssSlotName] = self.primaryBuild.itemsTab.slots[abyssSlotName]
-						self.primaryBuild.itemsTab.slots[abyssSlotName]:SetSelItemId(0)
+						local primaryJewelSlot = self.primaryBuild.itemsTab.slots[abyssSlotName]
+						oldEquipped[abyssSlotName] = primaryJewelSlot.selItemId
+						primaryJewelSlot:SetSelItemId(0)
 						if cmpJewelSlot.selItemId > 0 then
 							local cmpJewel = compareEntry.itemsTab.items[cmpJewelSlot.selItemId]
 							-- due to a previous bug where jewel slots didn't
