@@ -514,6 +514,17 @@ describe("TestAdvancedItemParse #item", function()
 		assert.are.equals(0.8, item.explicitModLines[2].range)
 	end)
 
+	it("resets linePrefix", function() 
+		local item = new("Item", raw([[
+			{ Prefix Modifier "Warlock's" (Tier: 4) — Mana, Damage, Caster }
+			32(30-37)% increased Spell Damage
+			+46(42-47) to maximum Mana
+			--------
+			+15 to maximum life
+		]], "Royal Staff"))
+		assert.are_not.equals("mana", item.explicitModLines[3].modTags[1])
+	end)
+
 	it("parses vaaled catalyst", function() 
 		local item = new("Item", raw([[
 			Quality (Attribute Modifiers): +19% (augmented)
@@ -535,7 +546,7 @@ describe("TestAdvancedItemParse #item", function()
 			(Attributes are Strength, Dexterity, and Intelligence)
 		]], "Onyx Amulet"))
 		assert.are.equals(113, item.baseModList[1].value)
-		assert.are.equals(0.75, item.explicitModLines[1].range) -- Not sure why this is returning 0.5
+		assert.are.equals(0.75, item.explicitModLines[1].range)
 		assert.are.equals(6, item.catalyst)
 		assert.are.equals(19, item.catalystQuality)
 	end)

@@ -392,6 +392,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		elseif tinctureBuffLines and tinctureBuffLines[line] then
 			tinctureBuffLines[line] = nil
 		elseif line == "--------" then
+			linePrefix = ""
 			self.checkSection = true
 		elseif line == "Split" then
 			self.split = true
