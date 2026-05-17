@@ -7,43 +7,43 @@ local s_format = string.format
 
 -- Add cleanAndSplit function
 local function cleanAndSplit(str)
-    -- Normalize newlines
-    str = str:gsub("\r\n", "\n")
+	-- Normalize newlines
+	str = str:gsub("\r\n", "\n")
 
-    -- Replace <default> with a newline and ^8
-    str = str:gsub("<default>", "\n^8")
+	-- Replace <default> with a newline and ^8
+	str = str:gsub("<default>", "\n^8")
 
-    local lines = {}
-    for line in str:gmatch("[^\n]+") do
-        -- trim
-        line = line:match("^%s*(.-)%s*$")
+	local lines = {}
+	for line in str:gmatch("[^\n]+") do
+		-- trim
+		line = line:match("^%s*(.-)%s*$")
 
-        if line ~= "" then
-            -- Remove braces but keep contents
-            line = line:gsub("%{(.-)%}", "%1")
+		if line ~= "" then
+			-- Remove braces but keep contents
+			line = line:gsub("%{(.-)%}", "%1")
 
-            -- Remove any <<...>> sequences (non-greedy)
-            line = line:gsub("<<(.-)>>", "")
+			-- Remove any <<...>> sequences (non-greedy)
+			line = line:gsub("<<(.-)>>", "")
 
-            -- trim again in case removal left surrounding spaces
-            line = line:match("^%s*(.-)%s*$")
+			-- trim again in case removal left surrounding spaces
+			line = line:match("^%s*(.-)%s*$")
 
-            -- Escape quotes
-            line = line:gsub('"', '\\"')
+			-- Escape quotes
+			line = line:gsub('"', '\\"')
 
-            -- Insert a blank line before any ^8 line
-            if line:match("^%^8") and (#lines == 0 or lines[#lines] ~= "") then
-                table.insert(lines, "")
-            end
+			-- Insert a blank line before any ^8 line
+			if line:match("^%^8") and (#lines == 0 or lines[#lines] ~= "") then
+				table.insert(lines, "")
+			end
 
-            -- Only add non-empty lines
-            if line ~= "" then
-                table.insert(lines, line)
-            end
-        end
-    end
+			-- Only add non-empty lines
+			if line ~= "" then
+				table.insert(lines, line)
+			end
+		end
+	end
 
-    return lines
+	return lines
 end
 
 local directiveTable = { }
@@ -267,7 +267,7 @@ directiveTable.base = function(state, args, out)
 		end
 	end
 	out:write('},\n')
-		if baseItemType.FlavourTextKey and baseItemType.FlavourTextKey.Text then
+	if baseItemType.FlavourTextKey and baseItemType.FlavourTextKey.Text then
 		local cleanedLines = cleanAndSplit(baseItemType.FlavourTextKey.Text)
 		if #cleanedLines > 0 then
 			out:write('\tflavourText = {\n')

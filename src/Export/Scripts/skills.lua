@@ -8,6 +8,46 @@ local fullNameGems = {
 	["Metadata/Items/Gems/SupportGemBarrage"] = true,
 }
 
+local function cleanAndSplit(str)
+	-- Normalize newlines
+	str = str:gsub("\r\n", "\n")
+
+	-- Replace <default> with a newline and ^8
+	str = str:gsub("<default>", "\n^8")
+
+	local lines = {}
+	for line in str:gmatch("[^\n]+") do
+		-- trim
+		line = line:match("^%s*(.-)%s*$")
+
+		if line ~= "" then
+			-- Remove braces but keep contents
+			line = line:gsub("%{(.-)%}", "%1")
+
+			-- Remove any <<...>> sequences (non-greedy)
+			line = line:gsub("<<(.-)>>", "")
+
+			-- trim again in case removal left surrounding spaces
+			line = line:match("^%s*(.-)%s*$")
+
+			-- Escape quotes
+			line = line:gsub('"', '\\"')
+
+			-- Insert a blank line before any ^8 line
+			if line:match("^%^8") and (#lines == 0 or lines[#lines] ~= "") then
+				table.insert(lines, "")
+			end
+
+			-- Only add non-empty lines
+			if line ~= "" then
+				table.insert(lines, line)
+			end
+		end
+	end
+
+	return lines
+end
+
 local function mapAST(ast)
 	return "SkillType."..(skillTypeMap[ast._rowIndex] or ("Unknown"..ast._rowIndex))
 end
@@ -79,7 +119,7 @@ directiveTable.skill = function(state, args, out)
 	local secondaryEffect
 	if not gemEffect then
 		gemEffect = dat("GemEffects"):GetRow("GrantedEffect2", granted)
-		if gemEffect then 
+		if gemEffect then
 			secondaryEffect = true
 		end
 	end
@@ -560,6 +600,18 @@ for skillGem in dat("SkillGems"):Rows() do
 			out:write('\t\treqInt = ', skillGem.Int, ',\n')
 			local naturalMaxLevel = #dat("ItemExperiencePerLevel"):GetRowList("ItemExperienceType", skillGem.GemLevelProgression)
 			out:write('\t\tnaturalMaxLevel = ', naturalMaxLevel > 0 and naturalMaxLevel or 1, ',\n')
+			if skillGem.BaseItemType.FlavourTextKey and skillGem.BaseItemType.FlavourTextKey.Text then
+				if skillGem.BaseItemType.FlavourTextKey ~= "Work in progress" then
+					local cleanedLines = cleanAndSplit(skillGem.BaseItemType.FlavourTextKey.Text)
+					if #cleanedLines > 0 then
+						out:write('\t\tflavourText = {\n')
+						for _, line in ipairs(cleanedLines) do
+							out:write('\t\t\t"', line, '",\n')
+						end
+						out:write('\t\t},\n')
+					end
+				end
+			end
 			out:write('\t},\n')
 		end
 	end

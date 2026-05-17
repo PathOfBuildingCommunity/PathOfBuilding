@@ -14978,6 +14978,10 @@ return {
 		reqDex = 0,
 		reqInt = 100,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"The echoes of lost loved ones surrounded her,",
+			"maddeningly close, but forever out of reach.",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportEclipse"] = {
 		name = "Eclipse",
@@ -14994,6 +14998,11 @@ return {
 		reqDex = 250,
 		reqInt = 250,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"Although we are two bodies, we are of one mind, one heart, drifting",
+			"through the cosmos, in search of purpose. The moment we cross paths,",
+			"both fleeting and eternal, our eyes are opened to our potential.\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportInvertTheRules"] = {
 		name = "Invert the Rules",
@@ -15011,6 +15020,12 @@ return {
 		reqDex = 0,
 		reqInt = 100,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"She fled from the prison of her birth, drawn by the breaking",
+			"of that great Silence. At that moment, the universe was changed,",
+			"and walls that were once impenetrable became brittle.",
+			"A fortress became a shell, and she alone escaped.\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportCastOnWardBreak"] = {
 		name = "Cast on Ward Break",
@@ -15030,6 +15045,10 @@ return {
 		reqDex = 60,
 		reqInt = 40,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"Prove yourself! Are you a knave, or a knight?",
+			"I shall know by the strength of your blows!\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportVaalSacrifice"] = {
 		name = "Vaal Sacrifice",
@@ -15049,6 +15068,10 @@ return {
 		reqDex = 0,
 		reqInt = 60,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"Under Atziri, sacrifice was a ruthless and efficient science.",
+			"Her people were willing to give everything... and they did.",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportGreaterSpellEcho"] = {
 		name = "Greater Spell Echo",
@@ -15068,6 +15091,10 @@ return {
 		reqDex = 0,
 		reqInt = 100,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"She gazed into the mirror...",
+			"and the mirror gazed back.",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportVaalTemptation"] = {
 		name = "Vaal Temptation",
@@ -15086,6 +15113,10 @@ return {
 		reqDex = 0,
 		reqInt = 40,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"If Chaos offers you a deal, challenger,",
+			"think deeply before you accept.\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportMachinations"] = {
 		name = "Machinations",
@@ -15105,6 +15136,10 @@ return {
 		reqDex = 60,
 		reqInt = 40,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"My master enjoys the strange, and the unexpected.",
+			"I'm sure you can think of a few ways to entertain them.\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportPyre"] = {
 		name = "Pyre",
@@ -15129,6 +15164,10 @@ return {
 		reqDex = 0,
 		reqInt = 0,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"A vast pillar of hands embraces a charred sky.",
+			"Within burns a beam of purest heat.",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportBonespire"] = {
 		name = "Bonespire",
@@ -15154,6 +15193,9 @@ return {
 		reqDex = 0,
 		reqInt = 0,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"In its madness, Xesht desperately seeks communion.",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportFoulgrasp"] = {
 		name = "Foulgrasp",
@@ -15178,6 +15220,11 @@ return {
 		reqDex = 40,
 		reqInt = 60,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"Words without thought drive us",
+			"to claw and scrabble in the dirt,",
+			"seeking respite found only in pain.\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportHiveborn"] = {
 		name = "Hiveborn",
@@ -15201,6 +15248,10 @@ return {
 		reqDex = 0,
 		reqInt = 100,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"We spill forth, cleaving our flesh",
+			"to theirs, until we become one.\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportScornfulHerald"] = {
 		name = "Scornful Herald",
@@ -15220,6 +15271,11 @@ return {
 		reqDex = 0,
 		reqInt = 60,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"Her bitterness blinded her to the true price of immortality.",
+			"Let Wraeclast burn and be devoured, she told herself...",
+			"and only herself, for centuries without end.",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportCullTheWeak"] = {
 		name = "Cull the Weak",
@@ -15237,6 +15293,11 @@ return {
 		reqDex = 100,
 		reqInt = 0,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"Beidat is the lesser of three evils. The other two desire only",
+			"to consume us, but under him, there is a chance to survive...",
+			"a chance to serve... if you can prove yourself useful.\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportGreaterAncestralCall"] = {
 		name = "Greater Ancestral Call",
@@ -15257,6 +15318,11 @@ return {
 		reqDex = 0,
 		reqInt = 0,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"I believe the Halls of the Dead are secretly a",
+			"training ground. One day, we will be called",
+			"forth to stand and fight against a great tide.\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportFissure"] = {
 		name = "Fissure",
@@ -15282,6 +15348,11 @@ return {
 		reqDex = 0,
 		reqInt = 0,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"Oh yes, K'Tash understands you. It has a keen swarm-mind",
+			"somewhere within its multitudes. It hears your pleas, but",
+			"ignores them... because it hates you with a burning fury.\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportHextoad"] = {
 		name = "Hextoad",
@@ -15306,6 +15377,11 @@ return {
 		reqDex = 0,
 		reqInt = 100,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"A warlock like myself knows that even the most abominable",
+			"plagues are part of the cycle of life and death. From that ruination,",
+			"new life will emerge, and that life will kill, and so on...\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportHexpass"] = {
 		name = "Hexpass",
@@ -15324,6 +15400,10 @@ return {
 		reqDex = 0,
 		reqInt = 100,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"Your wards and your charms are meaningless",
+			"to one who knows your true name.\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportGreaterFork"] = {
 		name = "Greater Fork",
@@ -15342,6 +15422,10 @@ return {
 		reqDex = 100,
 		reqInt = 0,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"Lioneye earned his moniker by killing",
+			"three men with a single arrow.",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportGreaterChain"] = {
 		name = "Greater Chain",
@@ -15361,6 +15445,11 @@ return {
 		reqDex = 100,
 		reqInt = 0,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"We are all connected. Each of us burns with the same fire.",
+			"Queen Hyrri knew that... she chooses to battle still, somewhere",
+			"beyond Hinekora's sight. There must be a very good reason.\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportLethalDose"] = {
 		name = "Lethal Dose",
@@ -15379,6 +15468,10 @@ return {
 		reqDex = 100,
 		reqInt = 0,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"They cast me into a pit of vipers, and",
+			"that is where I found my true self.\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportCompanionship"] = {
 		name = "Companionship",
@@ -15397,6 +15490,11 @@ return {
 		reqDex = 60,
 		reqInt = 40,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"The Black Sekhema was a formidable fighter",
+			"alongside her dekhara, but she was unstoppable",
+			"when she fought atop her trusted mount, Shiyo.",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportDivineSentinel"] = {
 		name = "Divine Sentinel",
@@ -15416,6 +15514,10 @@ return {
 		reqDex = 0,
 		reqInt = 40,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"The world will never know our sacrifice, but",
+			"we will stand and fight for as long as it takes!\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportAnnhilation"] = {
 		name = "Annihilation",
@@ -15434,6 +15536,10 @@ return {
 		reqDex = 0,
 		reqInt = 40,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"Those citizens of Oriath touched by the",
+			"roving storms died most horrible deaths.",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportInvention"] = {
 		name = "Invention",
@@ -15453,6 +15559,10 @@ return {
 		reqDex = 60,
 		reqInt = 40,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"The direct approach failed. So be it. In my crusade",
+			"to protect Wraeclast, I must take... a longer view.\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportGreaterKineticInstability"] = {
 		name = "Greater Kinetic Instability",
@@ -15477,6 +15587,11 @@ return {
 		reqDex = 0,
 		reqInt = 100,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"Accusations fly. Sinner! Heretic! I am but an initiate, and my patron urges",
+			"silence. We will keep our heads down while one High Templar supplants",
+			"another. It's all about power, my patron whispers, and we have none...\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportCooldownRecovery"] = {
 		name = "Cooldown Recovery",
@@ -15494,6 +15609,11 @@ return {
 		reqDex = 40,
 		reqInt = 60,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"The science is... incomprehensible at best. Nearest I can tell, the Arcana exhibits",
+			"a blast of wrath once it has been fully charged, and when directed at the Elder",
+			"will force it to take on the form it held before it entered our dimension.\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportVoidstorm"] = {
 		name = "Voidstorm",
@@ -15517,6 +15637,11 @@ return {
 		reqDex = 100,
 		reqInt = 0,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"Not even stopping to look behind, I dove through the shimmering window...",
+			"With not a minute to waste, I took a nearby tool and jammed it into the infernal",
+			"device, where it hummed, ominously entrenched in my laboratory floor.\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportVoidShockwave"] = {
 		name = "Void Shockwave",
@@ -15539,6 +15664,10 @@ return {
 		reqDex = 0,
 		reqInt = 0,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"The Elder's influence yet lingers",
+			"in the darkest corners of Wraeclast.",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportEldritchBlasphemy"] = {
 		name = "Eldritch Blasphemy",
@@ -15558,6 +15687,10 @@ return {
 		reqDex = 0,
 		reqInt = 100,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"Even trapped in stone, the Elder's shadow lingered",
+			"in their hearts and coiled around their dreams.",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportGluttony"] = {
 		name = "Gluttony",
@@ -15578,6 +15711,11 @@ return {
 		reqDex = 40,
 		reqInt = 60,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"Champions of the Tangle are driven to seek",
+			"sustenance for their master; should they fall",
+			"behind, they would soon be consumed as well.",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportOverheat"] = {
 		name = "Overheat",
@@ -15597,6 +15735,10 @@ return {
 		reqDex = 0,
 		reqInt = 0,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"No walls can stand against its gaze. No fortress,",
+			"no cave, no mountain. Better to die fighting.",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportGreaterMultistrike"] = {
 		name = "Greater Multistrike",
@@ -15616,6 +15758,11 @@ return {
 		reqDex = 40,
 		reqInt = 0,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"Zana watched in awe as her father spoke. With each word,",
+			"he seemed to grow larger and more frightening, drawing",
+			"increasingly fervorous responses from his rapt audience.",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportCongregation"] = {
 		name = "Congregation",
@@ -15634,6 +15781,10 @@ return {
 		reqDex = 0,
 		reqInt = 100,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"I have a recurring nightmare... I run...",
+			"I scream... but only the dead hear me...\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportFrostmage"] = {
 		name = "Frostmage",
@@ -15654,6 +15805,11 @@ return {
 		reqDex = 0,
 		reqInt = 100,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"Her understanding of the Atlas was not innate. The",
+			"more committed she became to understanding it,",
+			"the more the knowledge weighed on her.",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportGreaterDevour"] = {
 		name = "Greater Devour",
@@ -15671,6 +15827,10 @@ return {
 		reqDex = 40,
 		reqInt = 60,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"A High Templar's fear consumed her entire life,",
+			"so she cast aside her own, to do what must be done.",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportGreaterUnleash"] = {
 		name = "Greater Unleash",
@@ -15689,6 +15849,11 @@ return {
 		reqDex = 0,
 		reqInt = 100,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"True power grows with patience. You must nurture it.",
+			"You learn what it needs. You provide. You wait. Only",
+			"then, when it is ripe, does it yield its fruits.\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportPacifism"] = {
 		name = "Pacifism",
@@ -15706,6 +15871,11 @@ return {
 		reqDex = 100,
 		reqInt = 0,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"My people refused to take part in the ills of Wraeclast.",
+			"They were called primitives by some, and cowards by",
+			"others... but they are gone, and we still remain.\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportBloodsoakedBanner"] = {
 		name = "Bloodsoaked Banner",
@@ -15726,6 +15896,11 @@ return {
 		reqDex = 40,
 		reqInt = 0,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"The history of Wraeclast is marked by bloody conflicts. The rise",
+			"and fall of empires. Man slaughtered man, never suspecting the",
+			"madness lurking under the surface might not have been innate.\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportMinionPact"] = {
 		name = "Minion Pact",
@@ -15746,6 +15921,11 @@ return {
 		reqDex = 0,
 		reqInt = 100,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"Immortality could grant Catarina the time necessary to shape",
+			"a better world... but building requires sacrifice, and the useless",
+			"would be crushed into the foundation of her new utopia.",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportUnholyTrinity"] = {
 		name = "Unholy Trinity",
@@ -15766,6 +15946,10 @@ return {
 		reqDex = 60,
 		reqInt = 40,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"It was a delicate balancing act for Malachai to ensure the loyalty",
+			"of his three students - each as ambitious as they were depraved.",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportOverloadedIntensity"] = {
 		name = "Overloaded Intensity",
@@ -15785,6 +15969,9 @@ return {
 		reqDex = 0,
 		reqInt = 100,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"\"I didn't design it to overload... let's call it a happy little accident!\"",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportTransfusion"] = {
 		name = "Transfusion",
@@ -15804,6 +15991,10 @@ return {
 		reqDex = 0,
 		reqInt = 40,
 		naturalMaxLevel = 3,
+		flavourText = {
+			"Let the eternal scream within",
+			"flow from your weeping blood.",
+		},
 	},
 	["Metadata/Items/Gems/SkillGemSupportFocusedChannelling"] = {
 		name = "Focused Channelling",
