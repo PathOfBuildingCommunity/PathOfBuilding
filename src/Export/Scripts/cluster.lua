@@ -30,6 +30,17 @@ for jewel in dat("PassiveTreeExpansionJewels"):Rows() do
 		if skill.Mastery then
 			out:write('\t\t\t\t\tmasteryIcon = "', skill.Mastery.Icon:gsub("dds$","png"), '",\n')
 		end
+		-- find and write id
+		local idx = 1
+		while dat("PassiveTreeExpansionSkills"):GetRowByIndex(idx) do
+			local v = dat("PassiveTreeExpansionSkills"):GetRowByIndex(idx)
+			if v.Node.Id == skill.Node.Id then
+				out:write("\t\t\t\t\tid = ", idx, ",\n")
+				break
+			end
+			idx = idx + 1
+		end
+		
 		out:write('\t\t\t\t\ttag = "', skill.Tag.Id, '",\n')
 		local stats = { }
 		for index, stat in ipairs(skill.Node.Stats) do
