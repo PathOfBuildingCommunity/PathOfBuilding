@@ -65,6 +65,42 @@ describe("TradeQueryRequests", function()
 			launch = orig_launch
 		end)
 
+		-- Pass: Does not crash on 401, and passes error message
+		-- Fail: Crash, or returned error is wrong
+		it("does not crash on 401", function()
+			local json = '"{"error":"invalid_token","error_description":"The access token provided is invalid or has expired"}"'
+			local header = [[HTTP/1.1 401 Unauthorized
+Date: Fri, 24 Apr 2026 07:30:38 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: cloudflare
+WWW-Authenticate: Bearer realm="pathofexile:production", error="invalid_token", error_description="The access token provided is invalid or has expired"
+Cache-Control: no-store
+Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
+		local orig_launch = launch
+			launch = {
+				DownloadPage = function(url, onComplete, opts)
+					onComplete({ body = json, header = header }, nil)
+				end
+			}
+			table.insert(requests.requestQueue.search, {
+				url = "test",
+				callback = function(body, msg)
+					assert.are.equal(body, json)
+					assert.are.equal(msg, "Response code: 401\nAuthorization is invalid. Please Re-Log and reset")
+				end,
+				retryTime = nil
+			})
+			local function mock_next_time(self, policy, time)
+				return time - 1
+			end
+			mock_limiter.NextRequestTime = mock_next_time
+			requests:ProcessQueue()
+			assert.are.equal(#requests.requestQueue.search, 0)
+			launch = orig_launch
+		end)
+
 		-- Pass: Retries with increasing backoff up to cap, preventing infinite loops
 		-- Fail: No backoff or uncapped, indicating retry bug, risking API bans
 		it("retries on 429 with exponential backoff", function()

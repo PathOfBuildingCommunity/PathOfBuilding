@@ -434,6 +434,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 
 	self.controls.modeImport = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, {0, 0, 134, 20}, "Import/Export Build", function()
 		self.viewMode = "IMPORT"
+		self.importTab:TryFetchCharacterList()
 	end)
 	self.controls.modeImport.locked = function() return self.viewMode == "IMPORT" end
 	self.controls.modeNotes = new("ButtonControl", {"LEFT",self.controls.modeImport,"RIGHT"}, {4, 0, 58, 20}, "Notes", function()

@@ -265,7 +265,9 @@ function CompareTabClass:InitControls()
 	end
 	self.controls.reimportBtn.enabled = function()
 		local importTab = self.primaryBuild.importTab
-		return importTab and importTab.charImportMode == "SELECTCHAR"
+		-- check if either oauth or account name import have a character selected
+		local siteActive = importTab.charImportMode == "SELECTCHAR" and importTab.controls.siteCharSelect:GetSelValue()
+		return importTab and (importTab.controls.charSelect:GetSelValue() or siteActive)
 	end
 
 	-- Remove comparison build button
@@ -1265,13 +1267,24 @@ end
 -- Re-import primary build using character import (same as Import/Export tab)
 function CompareTabClass:ReimportPrimary()
 	local importTab = self.primaryBuild.importTab
-	-- Set clear checkboxes to true (delete existing jewels, skills, equipment)
-	importTab.controls.charImportTreeClearJewels.state = true
-	importTab.controls.charImportItemsClearSkills.state = true
-	importTab.controls.charImportItemsClearItems.state = true
-	-- Trigger both async imports (passive tree + items/skills)
-	importTab:DownloadPassiveTree()
-	importTab:DownloadItems()
+
+	-- oauth import, if previously selected
+	if importTab.controls.charSelect:GetSelValue() then
+		-- Set clear checkboxes to true (delete existing jewels, skills, equipment)
+		importTab.controls.charImportTreeClearJewels.state = true
+		importTab.controls.charImportItemsClearSkills.state = true
+		importTab.controls.charImportItemsClearItems.state = true
+		-- Trigger both async imports (passive tree + items/skills)
+		importTab.controls.charImportTree:Click()
+		importTab.controls.charImportItems:Click()
+	-- account name import
+	elseif importTab.controls.siteCharSelect:GetSelValue()  then
+		importTab.controls.siteCharImportTreeClearJewels.state = true
+		importTab.controls.siteCharImportItemsClearSkills.state = true
+		importTab.controls.siteCharImportItemsClearItems.state = true
+		importTab.controls.siteCharImportTree:Click()
+		importTab.controls.siteCharImportItems:Click()
+	end
 end
 
 -- Update the build selector dropdown

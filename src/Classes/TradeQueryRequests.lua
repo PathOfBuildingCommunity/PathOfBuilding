@@ -19,41 +19,50 @@ local TradeQueryRequestsClass = newClass("TradeQueryRequests", function(self, ra
 end)
 
 ---Main routine for processing request queue
-function TradeQueryRequestsClass:ProcessQueue()
+--- @param onRateLimit fun(integer)?
+function TradeQueryRequestsClass:ProcessQueue(onRateLimit)
 	for key, queue in pairs(self.requestQueue) do
 		if #queue > 0 then
 			local policy = self.rateLimiter:GetPolicyName(key)
 			local now = os.time()
 			local timeNext = self.rateLimiter:NextRequestTime(policy, now)
+			local timeLeft = timeNext - now
+			-- relay wait info to caller when actually waiting, and not just
+			-- getting a magic poe2 release date number
+			if onRateLimit and timeLeft > 1 and timeNext ~= 1956528000 then
+				onRateLimit(timeLeft)
+			end
 			if not (queue[1].retryTime and now < queue[1].retryTime) then
 				if now >= timeNext then
 					local request = table.remove(queue, 1)
 					local requestId = self.rateLimiter:InsertRequest(policy)
 					local onComplete = function(response, errMsg)
 						self.rateLimiter:FinishRequest(policy, requestId)
-						self.rateLimiter:UpdateFromHeader(response.header)
+						self.rateLimiter:UpdateFromHeader(response.header, policy)
 						if response.header:match("HTTP/[%d%.]+ (%d+)") == "429" then
+							local retryAfter = response.header:match("Retry%-After:%s+(%d+)")
+							retryAfter = retryAfter and tonumber(retryAfter) or 0
 							request.attempts = (request.attempts or 0) + 1
-							local backoff = m_min(2 ^ request.attempts, 60)
+							
+							local backoff = math.max(math.min(2 ^ request.attempts, 60), retryAfter)
 							request.retryTime = os.time() + backoff
 							table.insert(queue, 1, request)
+							-- optional callback with the backoff time when rate
+							-- limited to inform user
+							if onRateLimit then
+								onRateLimit(backoff)
+							end
 							return
 						end
-						-- if limit rules don't return account then the POESESSID is invalid.
-						if response.header:match("[xX]%-[rR]ate%-[lL]imit%-[rR]ules: (.-)\n"):match("Account") == nil and main.POESESSID ~= "" then
-							main.POESESSID = ""
-							if errMsg then
-								errMsg = errMsg .. "\nPOESESSID is invalid. Please Re-Log and reset"
-							else
-								errMsg = "POESESSID is invalid. Please Re-Log and reset"
-							end
+						if errMsg == "Response code: 401" and response.body:find("invalid_token") then
+							errMsg = errMsg .. "\nAuthorization is invalid. Please Re-Log and reset"
+							main.api:ResetDetails()
 						end
 						request.callback(response.body, errMsg, unpack(request.callbackParams or {}))
 					end
-					-- self:SendRequest(request.url , onComplete, {body = request.body, poesessid = main.POESESSID})
 					local header = "Content-Type: application/json"
-					if main.POESESSID ~= "" then
-						header = header .. "\nCookie: POESESSID=" .. main.POESESSID
+					if main.api.authToken then
+						header = header .."\nAuthorization: Bearer "..main.api.authToken
 					end
 					launch:DownloadPage(request.url, onComplete, {
 						header = header,
@@ -190,6 +199,7 @@ end
 
 ---Perform search and run callback function on returned item hashes.
 ---Item info has to be fetched separately 
+---@param realm string
 ---@param league string
 ---@param query string
 ---@param callback fun(response:table, errMsg:string)
@@ -214,17 +224,13 @@ function TradeQueryRequestsClass:PerformSearch(realm, league, query, callback)
 						callback(response, errMsg)
 					end
 					if response.error.message:find("Logging in will increase this limit") then
-						if main.POESESSID ~= "" then
-							errMsg = "POESESSID is invalid. Please Re-Log and reset"
-						else
-							errMsg = "Session is invalid. Please add your POESESSID"
-						end
+						errMsg = "Authorization is invalid. Please Re-Log and reset"
 					else
 						-- Report unhandled error
 						errMsg = "[ " .. response.error.code .. ": " .. response.error.message .. " ]"
 					end
 				else
-					ConPrintf("Found 0 results for " .. self.hostName .. "api/trade/search/" .. league .. "/" .. response.id)
+					ConPrintf("Found 0 results for %sapi/trade/search/%s/%s", self.hostName, league, response.id)
 					errMsg = "No Matching Results Found"
 				end
 				return callback(response, errMsg)
@@ -285,11 +291,7 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 				table.insert(items, {
 					amount = trade_entry.listing.price.amount,
 					currency = trade_entry.listing.price.currency,
-					-- note: using these to travel to the hideout or for a
-					-- direct whisper is not allowed, even if they are provided
-					-- right here
-					-- hideout_token = trade_entry.listing.hideout_token,
-					-- whisper_token = trade_entry.listing.whisper_token,
+					priceType = trade_entry.listing.price.type,
 					item_string = common.base64.decode(trade_entry.item.extended.text),
 					whisper = trade_entry.listing.whisper,
 					trader = trade_entry.listing.account.name,
@@ -302,7 +304,7 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 	})
 end
 
----@param callback fun(items:table, errMsg:string, query:string)
+---@param callback fun(items:table, errMsg:string, query: string?)
 function TradeQueryRequestsClass:SearchWithURL(url, callback)
 	local subpath = url:match(self.hostName .. "trade/search/(.+)$")
 	local paths = {}
@@ -318,10 +320,24 @@ function TradeQueryRequestsClass:SearchWithURL(url, callback)
 	end
 	league = paths[#paths-1]
 	queryId = paths[#paths]
-	self:FetchSearchQueryHTML(realm, league, queryId, function(query, errMsg)
+	self:FetchSearchQuery(realm, league, queryId, function(query, errMsg)
 		if errMsg then
 			return callback(nil, errMsg, nil)
 		end
+
+		-- update sorting on provided url to sort by weights.
+		local json_data = dkjson.decode(query)
+		if not json_data or json_data.error then
+			errMsg = json_data and json_data.error or "Failed to parse search query JSON"
+		end
+		if json_data.query.stats and json_data.query.stats[1] and json_data.query.stats[1].type == "weight" then
+			json_data.sort = {}
+			json_data.sort["statgroup.0"] = "desc"
+		else
+			json_data.sort = { price = "asc"}
+		end
+		query = dkjson.encode(json_data)
+
 		self:SearchWithQuery(realm, league, query, function(items, searchErrMsg)
 			callback(items, searchErrMsg, query)
 		end)
@@ -349,117 +365,30 @@ function TradeQueryRequestsClass:FetchSearchQuery(realm, league, queryId, callba
 	})
 end
 
---- HTML parsing to circumvent extra API call for query fetching
---- queryId -> query fetching via Poe API call costs precious search requests
---- But the search page HTML also contains the query object and this request is not throttled
----@param queryId string
----@param callback fun(query:string, errMsg:string)
----@see TradeQueryRequests#FetchSearchQuery
-function TradeQueryRequestsClass:FetchSearchQueryHTML(realm, league, queryId, callback)
-	if main.POESESSID == "" then
-		return callback(nil, "Please provide your POESESSID")
-	end
-	local header = "Cookie: POESESSID=" .. main.POESESSID
-	launch:DownloadPage(self:buildUrl(self.hostName .. "trade/search", realm, league, queryId),
-		function(response, errMsg)
-			if errMsg then
-				return callback(nil, errMsg)
-			end
-			-- check if response.header includes "Cache-Control: must-revalidate" which indicates an invalid session
-			if response.header:lower():match("cache%-control:.+must%-revalidate") then
-				return callback(nil, "Failed to get search query, check POESESSID")
-			end
-			-- full json state obj from HTML
-			local dataStr = response.body:match('require%(%["main"%].+ t%((.+)%);}%);}%);')
-			if not dataStr then
-				return callback(nil, "JSON object not found on the page.")
-			end
-			local data, _, err = dkjson.decode(dataStr)
-			if err then
-				return callback(nil, "Failed to parse JSON object. ".. err)
-			end
-			local query = { query = data.state }
-			if data.state.stats and data.state.stats[1] and data.state.stats[1].type == "weight" then
-				query.sort = {}
-				query.sort["statgroup.0"] = "desc"
-			else
-				query.sort = { price = "asc"}
-			end
-			query.query.status = { option = query.query.status} -- works either way?
-			local queryStr = dkjson.encode(query)
-			callback(queryStr, errMsg)
-		end,
-		{header = header})
-end
-
---- Fetches the list of all available leagues using HTML parsing
---- This should get all leagues, including the ones that are not available through API
----
---- example output:
---- result = {
---- 	leagues = [
---- 		{
---- 			"id": "Sanctum",
---- 			"realm": "pc",
---- 			"text": "Sanctum"
---- 		},
----		],
---- 	realms = [
----			{
----			    "id": "sony",
----			    "text": "PS4"
----			},
---- 	]
---- }
----@param callback fun(result:table, errMsg:string)
-function TradeQueryRequestsClass:FetchRealmsAndLeaguesHTML(callback)
-	if main.POESESSID == "" then
-		return callback(nil, "Please provide your POESESSID")
-	end
-	local header = "Cookie: POESESSID=" .. main.POESESSID
-	launch:DownloadPage(
-		self.hostName .. "trade",
-		function(response, errMsg)
-			if errMsg then
-				return callback(nil, errMsg)
-			end
-			-- full json state obj from HTML
-			local dataStr = response.body:match('require%(%["main"%].+ t%((.+)%);}%);}%);')
-			if not dataStr then
-				return callback(nil, "JSON object not found on the page.")
-			end
-			local data, _, err = dkjson.decode(dataStr)
-			if err then
-				return callback(nil, "Failed to parse JSON object. ".. err)
-			end
-			callback({leagues = data.leagues, realms = data.realms}, errMsg)
-		end,
-		{header = header}
-	)
-end
-
---- Fetches the list of all available leagues using poe API
+--- Fetches the list of all available leagues using trade2 league API
 ---@param realm string
 ---@param callback fun(query:table, errMsg:string)
 function TradeQueryRequestsClass:FetchLeagues(realm, callback)
+	local header = "Authorization: Bearer ".. (main.api.authToken or "")
 	launch:DownloadPage(
-		self.hostName .. "api/leagues?compact=1&realm=" .. realm,
-		function(response, errMsg)
-			if errMsg then
-				return callback(nil, errMsg)
-			end
-			local json_data = dkjson.decode(response.body)
-			if not json_data or json_data.error then
-				errMsg = json_data and json_data.error or "Failed to get leagues"
-			end
-			local leagues = {}
-				for _, value in pairs(json_data) do
-					if (not value.id:find("SSF") and not value.id:find("Solo")) then
+			self.hostName .. "api/trade/data/leagues",
+			function(response, errMsg)
+				if errMsg then
+					return callback({"Standard", "Hardcore"}, errMsg)
+				end
+				local json_data = dkjson.decode(response.body)
+				if not json_data or json_data.error then
+					errMsg = json_data and json_data.error or "Failed to parse trade leagues JSON"
+				end
+				local leagues = {}
+				for _, value in pairs(json_data.result) do
+					if value.realm == realm then
 						table.insert(leagues, value.id)
 					end
 				end
-			callback(leagues, errMsg)
-		end
+				callback(leagues, errMsg)
+			end,
+			{header = header}
 	)
 end
 

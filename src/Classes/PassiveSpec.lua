@@ -176,7 +176,7 @@ function PassiveSpecClass:Load(xml, dbFileName)
 				end
 			end
 		end
-		self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), tonumber(xml.attrib.secondaryAscendClassId or 0), hashList, self.hashOverrides, masteryEffects)
+		self:ImportFromNodeList(nil, tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), tonumber(xml.attrib.secondaryAscendClassId or 0), hashList, self.hashOverrides, masteryEffects)
 	elseif url then
 		self:DecodeURL(url)
 	end
@@ -242,13 +242,20 @@ function PassiveSpecClass:PostLoad()
 end
 
 -- Import passive spec from the provided class IDs and node hash list
-function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, secondaryAscendClassId, hashList, hashOverrides, masteryEffects, treeVersion)
+function PassiveSpecClass:ImportFromNodeList(className, classId, ascendClassId, secondaryAscendClassId, hashList, hashOverrides, masteryEffects, treeVersion)
   if hashOverrides == nil then hashOverrides = {} end
 	if treeVersion and treeVersion ~= self.treeVersion then
 		self:Init(treeVersion)
 		self.build.treeTab.showConvert = self.treeVersion ~= latestTreeVersion
 	end
 	self:ResetNodes()
+	if className then
+		classId = self.tree.classNameMap[className] or
+		(self.tree.ascendNameMap[className] and self.tree.ascendNameMap[className].classId) or
+		(self.tree.internalAscendNameMap[className] and self.tree.internalAscendNameMap[className].classId)
+		ascendClassId = (self.tree.ascendNameMap[className] and self.tree.ascendNameMap[className].ascendClassId) or
+		(self.tree.internalAscendNameMap[className] and self.tree.internalAscendNameMap[className].ascendClassId) or 0
+	end
 	self:SelectClass(classId)
 	self:SelectAscendClass(ascendClassId)
 	self:SelectSecondaryAscendClass(secondaryAscendClassId)
@@ -1922,7 +1929,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 				if proxyGroup == data.group then
 					if node.oidx == data.orbitIndex and not data.isMastery then
 						for _, extendedId in ipairs(importedGroups[proxyGroup].nodes) do
-							if id == tonumber(extendedId) and inExtendedHashes(id) then
+							if id == extendedId and inExtendedHashes(tonumber(id)) then
 								return true
 							end
 						end
@@ -2248,7 +2255,7 @@ function PassiveSpecClass:CreateUndoState()
 end
 
 function PassiveSpecClass:RestoreUndoState(state, treeVersion)
-	self:ImportFromNodeList(state.classId, state.ascendClassId, state.secondaryAscendClassId, state.hashList, state.hashOverrides, state.masteryEffects, treeVersion or state.treeVersion)
+	self:ImportFromNodeList(nil, state.classId, state.ascendClassId, state.secondaryAscendClassId, state.hashList, state.hashOverrides, state.masteryEffects, treeVersion or state.treeVersion)
 	self:SetWindowTitleWithBuildClass()
 end
 

@@ -114,13 +114,12 @@ function main:Init()
 	self.migrateEldritchImplicits = true
 	self.notSupportedModTooltips = true
 	self.notSupportedTooltipText = " ^8(Not supported in PoB yet)"
-	self.POESESSID = ""
 	self.showPublicBuilds = true
 	self.showFlavourText = true
 	self.showAnimations = true
 	self.showAllItemAffixes = true
 	self.errorReadingSettings = false
-
+	
 	if not SetDPIScaleOverridePercent then SetDPIScaleOverridePercent = function(scale) end end
 
 	if launch.devMode and IsKeyDown("CTRL") or os.getenv("REGENERATE_MOD_CACHE") == "1" then
@@ -524,6 +523,10 @@ function main:LoadSettings(ignoreBuild)
 			elseif node.elem == "Accounts" then
 				self.lastAccountName = node.attrib.lastAccountName
 				self.lastRealm = node.attrib.lastRealm
+				self.lastLeague = node.attrib.lastLeague
+				self.lastToken = node.attrib.lastToken
+				self.lastRefreshToken = node.attrib.lastRefreshToken
+				self.tokenExpiry = tonumber(node.attrib.tokenExpiry)
 				for _, child in ipairs(node) do
 					if child.elem == "Account" then
 						self.gameAccounts[child.attrib.accountName] = {
@@ -604,9 +607,6 @@ function main:LoadSettings(ignoreBuild)
 				end
 				if node.attrib.notSupportedModTooltips then
 					self.notSupportedModTooltips = node.attrib.notSupportedModTooltips == "true"
-				end
-				if node.attrib.POESESSID then
-					self.POESESSID = node.attrib.POESESSID or ""
 				end
 				if node.attrib.invertSliderScrollDirection then
 					self.invertSliderScrollDirection = node.attrib.invertSliderScrollDirection == "true"
@@ -714,7 +714,7 @@ function main:SaveSettings()
 		return true
 	end
 	t_insert(setXML, mode)
-	local accounts = { elem = "Accounts", attrib = { lastAccountName = self.lastAccountName, lastRealm = self.lastRealm } }
+	local accounts = { elem = "Accounts", attrib = { lastAccountName = self.lastAccountName, lastRealm = self.lastRealm, lastLeague = self.lastLeague, lastToken = self.lastToken, lastRefreshToken = self.lastRefreshToken, tokenExpiry = tostring(self.tokenExpiry) } }
 	for accountName, account in pairs(self.gameAccounts) do
 		t_insert(accounts, { elem = "Account", attrib = { accountName = accountName, sessionID = account.sessionID } })
 	end
@@ -754,7 +754,6 @@ function main:SaveSettings()
 		slotOnlyTooltips = tostring(self.slotOnlyTooltips),
 		migrateEldritchImplicits = tostring(self.migrateEldritchImplicits),
 		notSupportedModTooltips = tostring(self.notSupportedModTooltips),
-		POESESSID = self.POESESSID,
 		invertSliderScrollDirection = tostring(self.invertSliderScrollDirection),
 		disableDevAutoSave = tostring(self.disableDevAutoSave),
 		showPublicBuilds = tostring(self.showPublicBuilds),
@@ -1016,7 +1015,7 @@ function main:OpenOptionsPopup(savedState)
 	controls.showAnimations = new("CheckBoxControl", { "TOPLEFT", controls.sectionAnchor, "TOPLEFT" }, { currentX + defaultLabelPlacementX, currentY, 20 }, "^7Show Animations:", function(state)
 		self.showAnimations = state
 	end)
-
+	
 	nextRow()
 	controls.showAllItemAffixes = new("CheckBoxControl", { "TOPLEFT", controls.sectionAnchor, "TOPLEFT" }, { currentX + defaultLabelPlacementX, currentY, 20 }, "^7Show all item affixes sliders:", function(state)
 		self.showAllItemAffixes = state
