@@ -3602,8 +3602,8 @@ end
 --- @param destTable string[]
 --- @param requireBothSides boolean
 function CompareTabClass:AddAbyssSockets(comparison, destTable, requireBothSides)
-	local equipmentSlots = {"Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Belt"}
-
+	local equipmentSlots = { "Weapon 1", "Weapon 2", "Weapon 1 Swap", "Weapon 2 Swap", "Helmet", "Body Armour", "Gloves",
+		"Boots", "Belt" }
 	for _, slot in ipairs(equipmentSlots) do
 		for number = 1, 6 do
 			local abyssalSocketName = string.format("%s Abyssal Socket %d", slot, number)
@@ -3618,7 +3618,8 @@ function CompareTabClass:AddAbyssSockets(comparison, destTable, requireBothSides
 end
 
 function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
-	local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
+	local baseSlots = { "Weapon 1", "Weapon 2", "Weapon 1 Swap", "Weapon 2 Swap", "Helmet", "Body Armour", "Gloves",
+		"Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 	if self:ShouldShowRing3(compareEntry) then
 		t_insert(baseSlots, 10, "Ring 3")
 	end
