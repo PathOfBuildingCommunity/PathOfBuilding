@@ -181,6 +181,10 @@ function addOAuthControls(self)
 			setLeaguesFromCharList()
 		end)
 	self.controls.accountRealm:SelByValue(main.lastRealm or "PC", "id")
+
+	-- fetch list from last imported realm on startup
+	fetchCharacters()
+
 	function fetchTextFunc()
 		local realm = self.controls.accountRealm:GetSelValue()
 		if realm and self.characterList[realm.realmCode] then
