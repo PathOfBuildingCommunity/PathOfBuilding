@@ -149,7 +149,9 @@ function main:Init()
 	end
 
 	self.uniqueDB = { list = { }, loading = true }
+	self.foulbornUniquesDB = {list = { }, loading = true }
 	self.rareDB = { list = { }, loading = true }
+
 
 	local function loadItemDBs()
 		for type, typeList in pairsYield(data.uniques) do
@@ -165,6 +167,21 @@ function main:Init()
 
 		self.uniqueDB.loading = nil
 		ConPrintf("Uniques loaded")
+
+-- Foulborn Uniques
+		for type, typeList in pairsYield(data.foulbornUniques) do
+			for _, raw in pairs(typeList) do
+				newItem = new("Item", raw, "UNIQUE", true)
+				if newItem.base then
+				self.foulbornUniquesDB.list[newItem.name] = newItem
+			elseif launch.devMode then
+				ConPrintf("Foulborn Unique DB unrecognised item of type '%s':\n%s", type, raw)
+			end
+		end
+	end
+
+	self.foulbornUniquesDB.loading = nil
+	ConPrintf("Foulborn Uniques loaded (seed list)")
 
 		for _, raw in pairsYield(data.rares) do
 			newItem = new("Item", raw, "RARE", true)

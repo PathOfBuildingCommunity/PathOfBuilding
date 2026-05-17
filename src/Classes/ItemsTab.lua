@@ -51,6 +51,15 @@ local catalystQualityFormat = {
 
 local flavourLookup = {}
 
+setmetatable(flavourLookup, {
+	__index = function(t, key)
+		if type(key) == "string" then
+			local normalized = key:gsub("%s%d+$", "")
+			return rawget(t, normalized)
+		end
+	end
+})
+
 for _, entry in pairs(data.flavourText) do
 	if entry.name and entry.id and entry.text then
 		flavourLookup[entry.name] = flavourLookup[entry.name] or {}
@@ -289,7 +298,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	self.controls.selectDBLabel.shown = function()
 		return self.height < 980
 	end
-	self.controls.selectDB = new("DropDownControl", {"LEFT",self.controls.selectDBLabel,"RIGHT"}, {4, 0, 150, 18}, { "Uniques", "Rare Templates" })
+	self.controls.selectDB = new("DropDownControl", {"LEFT",self.controls.selectDBLabel,"RIGHT"}, {4, 0, 150, 18}, { "Uniques", "Foulborn Uniques", "Rare Templates" })
 
 	-- Unique database
 	self.controls.uniqueDB = new("ItemDBControl", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, {0, 76, 360, function(c) return m_min(244, self.maxY - select(2, c:GetPos())) end}, self, main.uniqueDB, "UNIQUE")
@@ -300,14 +309,24 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 1
 	end
 
+	-- Foulborn uniques database
+	self.controls.foulbornUniquesDB = new("ItemDBControl", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"},	{0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end}, self, main.foulbornUniquesDB, "UNIQUE")
+	self.controls.foulbornUniquesDB.y = function()
+		return self.controls.selectDBLabel:IsShown() and 118 or 96
+	end
+	self.controls.foulbornUniquesDB.shown = function()
+		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 2
+	end
+
 	-- Rare template database
 	self.controls.rareDB = new("ItemDBControl", {"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, {0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end}, self, main.rareDB, "RARE")
 	self.controls.rareDB.y = function()
 		return self.controls.selectDBLabel:IsShown() and 78 or 396
 	end
 	self.controls.rareDB.shown = function()
-		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 2
+		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 3
 	end
+
 	-- Create/import item
 	self.controls.craftDisplayItem = new("ButtonControl", {"TOPLEFT",main.portraitMode and self.controls.setManage or self.controls.itemList,"TOPRIGHT"}, {20, main.portraitMode and 0 or -20, 120, 20}, "Craft item...", function()
 		self:CraftItem()
