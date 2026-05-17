@@ -148,7 +148,7 @@ local function writeMods(outName, condFunc)
 				out:write('modTags = { ', stats.modTags, ' }, ')
 
 				-- Note that some of the resulting hashes might not be correct.
-				-- Some of the tradehashes are also associated with another
+				-- Some of the trade hashes are also associated with another
 				-- value. For example, some mods have a variant value appended
 				-- to it like: explicit.stat_3642528642|7. Timeless jewels have
 				-- special trade ids, such as
