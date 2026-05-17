@@ -610,49 +610,109 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, {0, 0, 18, 0}, 50, "VERTICAL", true)
 end)
 
+function ConfigTabClass:BuildConfigSetXML(configSet, configSetId)
+	local xmlNode = { elem = "ConfigSet", attrib = { title = configSet.title } }
+	if configSetId then
+		xmlNode.attrib.id = tostring(configSetId)
+	end
+	for k, v in pairs(configSet.input) do
+		if v ~= self:GetDefaultState(k, type(v)) then
+			local node = { elem = "Input", attrib = { name = k } }
+			if type(v) == "number" then
+				node.attrib.number = tostring(v)
+			elseif type(v) == "boolean" then
+				node.attrib.boolean = tostring(v)
+			else
+				node.attrib.string = tostring(v)
+			end
+			t_insert(xmlNode, node)
+		end
+	end
+	for k, v in pairs(configSet.placeholder) do
+		local node = { elem = "Placeholder", attrib = { name = k } }
+		if type(v) == "number" then
+			node.attrib.number = tostring(v)
+		else
+			node.attrib.string = tostring(v)
+		end
+		t_insert(xmlNode, node)
+	end
+	return xmlNode
+end
+
+function ConfigTabClass:EncodeConfigSet(configSet)
+	local xmlText = common.xml.ComposeXML(self:BuildConfigSetXML(configSet))
+	return common.base64.encode(Deflate(xmlText)):gsub("+", "-"):gsub("/", "_")
+end
+
+function ConfigTabClass:LoadConfigSetNode(node, configSet)
+	local attrib = node.attrib or { }
+	if node.elem == "Input" then
+		if not attrib.name then
+			return "'Input' element missing name attribute"
+		end
+		if attrib.number then
+			configSet.input[attrib.name] = tonumber(attrib.number)
+		elseif attrib.string then
+			if attrib.name == "enemyIsBoss" then
+				configSet.input[attrib.name] = attrib.string:lower():gsub("(%l)(%w*)", function(a,b) return s_upper(a)..b end)
+				:gsub("Uber Atziri", "Boss"):gsub("Shaper", "Pinnacle"):gsub("Sirus", "Pinnacle")
+			-- backwards compat <=3.20, Uber Atziri Flameblast -> Atziri Flameblast
+			elseif attrib.name == "presetBossSkills" then
+				configSet.input[attrib.name] = attrib.string:gsub("^Uber ", "")
+			else
+				configSet.input[attrib.name] = attrib.string
+			end
+		elseif attrib.boolean then
+			configSet.input[attrib.name] = attrib.boolean == "true"
+		else
+			return "'Input' element missing number, string or boolean attribute"
+		end
+	elseif node.elem == "Placeholder" then
+		if not attrib.name then
+			return "'Placeholder' element missing name attribute"
+		end
+		if attrib.number then
+			configSet.placeholder[attrib.name] = tonumber(attrib.number)
+		elseif attrib.string then
+			configSet.placeholder[attrib.name] = attrib.string
+		else
+			return "'Placeholder' element missing number or string attribute"
+		end
+	end
+end
+
+function ConfigTabClass:LoadConfigSet(xmlConfigSet, configSetId, title)
+	local attrib = xmlConfigSet.attrib or { }
+	local configSet = self:NewConfigSet(configSetId, title or attrib.title or "Default")
+	for _, child in ipairs(xmlConfigSet) do
+		local errMsg = self:LoadConfigSetNode(child, configSet)
+		if errMsg then
+			return nil, errMsg
+		end
+	end
+	return configSet
+end
+
+function ConfigTabClass:DecodeConfigSet(code, title)
+	local xmlText = Inflate(common.base64.decode(code:gsub("-", "+"):gsub("_", "/")))
+	if not xmlText or #xmlText == 0 then
+		return nil, "Invalid code"
+	end
+	local parsedXML, errMsg = common.xml.ParseXML(xmlText)
+	if errMsg or not parsedXML or not parsedXML[1] or parsedXML[1].elem ~= "ConfigSet" then
+		return nil, "Invalid config set code"
+	end
+	return self:LoadConfigSet(parsedXML[1], nil, title or ((parsedXML[1].attrib or { }).title) or "Imported")
+end
+
 function ConfigTabClass:Load(xml, fileName)
 	self.activeConfigSetId = 1
 	self.configSets = { }
 	self.configSetOrderList = { 1 }
 
-	local function setInputAndPlaceholder(node, configSetId)
-		if node.elem == "Input" then
-			if not node.attrib.name then
-				launch:ShowErrMsg("^1Error parsing '%s': 'Input' element missing name attribute", fileName)
-				return true
-			end
-			if node.attrib.number then
-				self.configSets[configSetId].input[node.attrib.name] = tonumber(node.attrib.number)
-			elseif node.attrib.string then
-				if node.attrib.name == "enemyIsBoss" then
-					self.configSets[configSetId].input[node.attrib.name] = node.attrib.string:lower():gsub("(%l)(%w*)", function(a,b) return s_upper(a)..b end)
-					:gsub("Uber Atziri", "Boss"):gsub("Shaper", "Pinnacle"):gsub("Sirus", "Pinnacle")
-				-- backwards compat <=3.20, Uber Atziri Flameblast -> Atziri Flameblast
-				elseif node.attrib.name == "presetBossSkills" then
-					self.configSets[configSetId].input[node.attrib.name] = node.attrib.string:gsub("^Uber ", "")
-				else
-					self.configSets[configSetId].input[node.attrib.name] = node.attrib.string
-				end
-			elseif node.attrib.boolean then
-				self.configSets[configSetId].input[node.attrib.name] = node.attrib.boolean == "true"
-			else
-				launch:ShowErrMsg("^1Error parsing '%s': 'Input' element missing number, string or boolean attribute", fileName)
-				return true
-			end
-		elseif node.elem == "Placeholder" then
-			if not node.attrib.name then
-				launch:ShowErrMsg("^1Error parsing '%s': 'Placeholder' element missing name attribute", fileName)
-				return true
-			end
-			if node.attrib.number then
-				self.configSets[configSetId].placeholder[node.attrib.name] = tonumber(node.attrib.number)
-			elseif node.attrib.string then
-				self.configSets[configSetId].input[node.attrib.name] = node.attrib.string
-			else
-				launch:ShowErrMsg("^1Error parsing '%s': 'Placeholder' element missing number", fileName)
-				return true
-			end
-		end
+	local function showConfigSetParseError(errMsg)
+		launch:ShowErrMsg("^1Error parsing '%s': %s", fileName, errMsg)
 	end
 
 	-- Catch special case of empty Config
@@ -664,14 +724,18 @@ function ConfigTabClass:Load(xml, fileName)
 			if not self.configSets[1] then
 				self:NewConfigSet(1, "Default")
 			end
-			setInputAndPlaceholder(node, 1)
-		else
-			local configSetId = tonumber(node.attrib.id)
-			self:NewConfigSet(configSetId, node.attrib.title or "Default")
-			self.configSetOrderList[index] = configSetId
-			for _, child in ipairs(node) do
-				setInputAndPlaceholder(child, configSetId)
+			local errMsg = self:LoadConfigSetNode(node, self.configSets[1])
+			if errMsg then
+				showConfigSetParseError(errMsg)
+				return
 			end
+		else
+			local configSet, errMsg = self:LoadConfigSet(node, tonumber((node.attrib or { }).id))
+			if errMsg then
+				showConfigSetParseError(errMsg)
+				return
+			end
+			self.configSetOrderList[index] = configSet.id
 		end
 	end
 
@@ -704,32 +768,7 @@ function ConfigTabClass:Save(xml)
 		activeConfigSet = tostring(self.activeConfigSetId)
 	}
 	for _, configSetId in ipairs(self.configSetOrderList) do
-		local configSet = self.configSets[configSetId]
-		local child = { elem = "ConfigSet", attrib = { id = tostring(configSetId), title = configSet.title } }
-		t_insert(xml, child)
-
-		for k, v in pairs(configSet.input) do
-			if v ~= self:GetDefaultState(k, type(v)) then
-				local node = { elem = "Input", attrib = { name = k } }
-				if type(v) == "number" then
-					node.attrib.number = tostring(v)
-				elseif type(v) == "boolean" then
-					node.attrib.boolean = tostring(v)
-				else
-					node.attrib.string = tostring(v)
-				end
-				t_insert(child, node)
-			end
-		end
-		for k, v in pairs(configSet.placeholder) do
-			local node = { elem = "Placeholder", attrib = { name = k } }
-			if type(v) == "number" then
-				node.attrib.number = tostring(v)
-			else
-				node.attrib.string = tostring(v)
-			end
-			t_insert(child, node)
-		end
+		t_insert(xml, self:BuildConfigSetXML(self.configSets[configSetId], configSetId))
 	end
 end
 
@@ -933,12 +972,74 @@ function ConfigTabClass:RestoreUndoState(state)
 end
 
 function ConfigTabClass:OpenConfigSetManagePopup()
+	local listControl = new("ConfigSetListControl", nil, {0, 50, 350, 200}, self)
+	local importConfig = new("ButtonControl", nil, {-99, 259, 90, 20}, "Import Config", function()
+		self:OpenImportConfigSetPopup()
+	end)
+	local exportConfig = new("ButtonControl", {"LEFT", importConfig, "RIGHT"}, {8, 0, 90, 20}, "Export Config", function()
+		if listControl.selValue then
+			self:OpenExportConfigSetPopup(self.configSets[listControl.selValue])
+		end
+	end)
+	exportConfig.enabled = function()
+		return listControl.selValue ~= nil
+	end
 	main:OpenPopup(370, 290, "Manage Config Sets", {
-		new("ConfigSetListControl", nil, {0, 50, 350, 200}, self),
-		new("ButtonControl", nil, {0, 260, 90, 20}, "Done", function()
+		listControl,
+		importConfig,
+		exportConfig,
+		new("ButtonControl", {"LEFT", exportConfig, "RIGHT"}, {8, 0, 90, 20}, "Done", function()
 			main:ClosePopup()
 		end),
 	})
+end
+
+function ConfigTabClass:OpenExportConfigSetPopup(configSet)
+	local code = self:EncodeConfigSet(configSet)
+	local controls = { }
+	controls.label = new("LabelControl", nil, {0, 20, 0, 16}, "Config set code:")
+	controls.edit = new("EditControl", nil, {0, 40, 350, 18}, code, nil, "%Z")
+	controls.copy = new("ButtonControl", nil, {-45, 70, 80, 20}, "Copy", function()
+		Copy(code)
+	end)
+	controls.done = new("ButtonControl", nil, {45, 70, 80, 20}, "Done", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(380, 100, "Export Config Set", controls, "done", "edit")
+end
+
+function ConfigTabClass:OpenImportConfigSetPopup()
+	local controls = { }
+	controls.nameLabel = new("LabelControl", nil, {-175, 20, 0, 16}, "Enter name for this config set:")
+	controls.name = new("EditControl", nil, {100, 20, 350, 18}, "", nil, nil, nil, function(buf)
+		controls.msg.label = ""
+		controls.import.enabled = buf:match("%S") and controls.edit.buf:match("%S")
+	end)
+	controls.editLabel = new("LabelControl", nil, {-150, 45, 0, 16}, "Enter config set code:")
+	controls.edit = new("EditControl", nil, {100, 45, 350, 18}, "", nil, nil, nil, function(buf)
+		controls.msg.label = ""
+		controls.import.enabled = buf:match("%S") and controls.name.buf:match("%S")
+	end)
+	controls.msg = new("LabelControl", nil, {0, 65, 0, 16}, "")
+	controls.import = new("ButtonControl", nil, {-45, 85, 80, 20}, "Import", function()
+		local buf = controls.edit.buf
+		if #buf == 0 then return end
+		local newConfigSet, errMsg = self:DecodeConfigSet(buf, controls.name.buf)
+		if errMsg then
+			controls.msg.label = "^1" .. errMsg
+			return
+		end
+		t_insert(self.configSetOrderList, newConfigSet.id)
+		self.modFlag = true
+		self:AddUndoState()
+		self.build:SyncLoadouts()
+		main:ClosePopup()
+	end)
+	controls.import.enabled = false
+	controls.cancel = new("ButtonControl", nil, {45, 85, 80, 20}, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(580, 115, "Import Config Set", controls, "import", "name")
 end
 
 -- Creates a new config set
