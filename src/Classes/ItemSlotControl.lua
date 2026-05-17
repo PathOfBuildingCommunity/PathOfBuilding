@@ -102,6 +102,11 @@ function ItemSlotClass:Populate()
 	end
 	for i, abyssalSocket in ipairs(self.abyssalSocketList) do
 		abyssalSocket.inactive = i > abyssalSocketCount
+		if abyssalSocket.inactive then
+			-- this can be inconvenient, but otherwise it is possible to double
+			-- equip jewels by moving the jewel while the socket is inactive
+			abyssalSocket:SetSelItemId(0)
+		end
 	end
 end
 
