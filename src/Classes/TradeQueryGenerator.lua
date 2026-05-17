@@ -799,6 +799,16 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 	-- Calculate base output with a blank item
 	local calcFunc, baseOutput = self.itemsTab.build.calcsTab:GetMiscCalculator()
 	local baseItemOutput = slot and calcFunc({ repSlotName = slot.slotName, repItem = testItem }) or baseOutput
+	-- Determine attribute shortfall when replacing the current item with a blank base
+	local attrReqShortfall = { Str = 0, Dex = 0, Int = 0 }
+	if slot and (not slot.slotName:find("Flask")) then
+		local needStr = math.max(0, (baseItemOutput.ReqStr or 0) - (baseItemOutput.Str or 0))
+		local needDex = math.max(0, (baseItemOutput.ReqDex or 0) - (baseItemOutput.Dex or 0))
+		local needInt = math.max(0, (baseItemOutput.ReqInt or 0) - (baseItemOutput.Int or 0))
+		attrReqShortfall.Str = needStr
+		attrReqShortfall.Dex = needDex
+		attrReqShortfall.Int = needInt
+	end
 	-- make weights more human readable
 	local compStatValue = TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, baseItemOutput, options.statWeights) * 1000
 
@@ -816,6 +826,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 		calcFunc = calcFunc,
 		options = options,
 		slot = slot,
+		attrReqShortfall = attrReqShortfall,
 	}
 
 	-- OnFrame will pick this up and begin the work
@@ -1026,6 +1037,23 @@ function TradeQueryGeneratorClass:FinishQuery()
 	if options.influence2 > 1 then
 		t_insert(andFilters.filters, { id = hasInfluenceModIds[options.influence2 - 1] })
 		filters = filters + 1
+	end
+
+	-- If enabled, require the new item to provide enough attributes to meet build requirements
+	if options.includeAttrReqs and self.calcContext and self.calcContext.attrReqShortfall then
+		local need = self.calcContext.attrReqShortfall
+		if need.Str and need.Str > 0 then
+			t_insert(andFilters.filters, { id = "pseudo.pseudo_total_strength", value = { min = need.Str } })
+			filters = filters + 1
+		end
+		if need.Dex and need.Dex > 0 then
+			t_insert(andFilters.filters, { id = "pseudo.pseudo_total_dexterity", value = { min = need.Dex } })
+			filters = filters + 1
+		end
+		if need.Int and need.Int > 0 then
+			t_insert(andFilters.filters, { id = "pseudo.pseudo_total_intelligence", value = { min = need.Int } })
+			filters = filters + 1
+		end
 	end
 
 	if #andFilters.filters > 0 then
@@ -1261,6 +1289,12 @@ Remove: %s will be removed from the search results.]], term, term, term)
 	controls.maxLevelLabel = new("LabelControl", {"RIGHT",controls.maxLevel,"LEFT"}, {-5, 0, 0, 16}, "Max Level:")
 	updateLastAnchor(controls.maxLevel)
 
+	-- When enabled, the generated query asks for enough attributes on the new item
+	controls.includeAttrReqs = new("CheckBoxControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 18}, "Attribute requirements:", function(state) end)
+	controls.includeAttrReqs.state = (self.lastIncludeAttrReqs == nil or self.lastIncludeAttrReqs == true)
+	controls.includeAttrReqs.tooltipText = "Add Str/Dex/Int pseudo filters when the current build is short on attributes.\nThis narrows the generated trade query before fetching results."
+	updateLastAnchor(controls.includeAttrReqs)
+
 	-- basic filtering by slot for sockets and links, Megalomaniac does not have slot and Sockets use "Jewel nodeId"
 	if slot and not isJewelSlot and not isAbyssalJewelSlot and not slot.slotName:find("Flask") then
 		controls.sockets = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 70, 18}, nil, nil, "%D")
@@ -1355,6 +1389,9 @@ Remove: %s will be removed from the search results.]], term, term, term)
 		if controls.maxLevel.buf then
 			options.maxLevel = tonumber(controls.maxLevel.buf)
 			self.lastMaxLevel = options.maxLevel
+		end
+		if controls.includeAttrReqs then
+			self.lastIncludeAttrReqs, options.includeAttrReqs = controls.includeAttrReqs.state, controls.includeAttrReqs.state
 		end
 		if controls.sockets and controls.sockets.buf then
 			options.sockets = tonumber(controls.sockets.buf)

@@ -53,5 +53,90 @@ describe("TradeQuery", function()
 			end)
 			assert.are.equal(0, #tooltip.lines)
 		end)
+
+		it("returns early from action button tooltips when filtering clears the selected result", function()
+			local tq = newTradeQuery({
+				resultTbl       = { [1] = { [1] = { item_string = "Rarity: RARE\nBehemoth Hold\nGold Ring", amount = 1, currency = "chaos" } } },
+				sortedResultTbl = { [1] = {} },
+			})
+			buildRow1Dropdown(tq)
+			local tooltip = new("Tooltip")
+
+			assert.has_no.errors(function()
+				tq.controls.importButton1.tooltipFunc(tooltip)
+				tq.controls.whisperButton1.tooltipFunc(tooltip)
+			end)
+			assert.are.equal(0, #tooltip.lines)
+		end)
+	end)
+
+	describe("attribute requirement result filtering", function()
+		local function newTradeQueryWithOutput(output, slotTbl)
+			local calcCalls = 0
+			local tq = new("TradeQuery", { itemsTab = {} })
+			tq.slotTables[1] = slotTbl or { slotName = "Ring 1" }
+			tq.resultTbl = {
+				[1] = {
+					[1] = { item_string = "Rarity: RARE\nBehemoth Hold\nGold Ring", amount = 1, currency = "chaos" },
+				},
+			}
+			tq.sortModes = {
+				Weight = "(Highest) Weighted Sum",
+			}
+			tq.itemsTab.build = {
+				calcsTab = {
+					GetMiscCalculator = function()
+						return function()
+							calcCalls = calcCalls + 1
+							return output
+						end, {}
+					end,
+				},
+			}
+			tq.itemsTab.slots = {
+				["Ring 1"] = {},
+			}
+			return tq, function()
+				return calcCalls
+			end
+		end
+
+		it("filters fetched results that do not meet attribute requirements", function()
+			local tq = newTradeQueryWithOutput({ ReqStr = 50, Str = 40, ReqDex = 0, Dex = 0, ReqInt = 0, Int = 0 })
+			tq.hideResultsFailingAttributeRequirements = true
+			local sortedItems = tq:SortFetchResults(1, tq.sortModes.Weight)
+			assert.are.equal(0, #sortedItems)
+		end)
+
+		it("keeps fetched results that meet attribute requirements", function()
+			local tq = newTradeQueryWithOutput({ ReqStr = 50, Str = 60, ReqDex = 30, Dex = 30, ReqInt = 20, Int = 25 })
+			tq.hideResultsFailingAttributeRequirements = true
+			local sortedItems = tq:SortFetchResults(1, tq.sortModes.Weight)
+			assert.are.equal(1, #sortedItems)
+			assert.are.equal(1, sortedItems[1].index)
+		end)
+
+		it("filters fetched results that do not meet Omniscience requirements", function()
+			local tq = newTradeQueryWithOutput({ ReqOmni = 100, Omni = 80 })
+			tq.hideResultsFailingAttributeRequirements = true
+			local sortedItems = tq:SortFetchResults(1, tq.sortModes.Weight)
+			assert.are.equal(0, #sortedItems)
+		end)
+
+		it("keeps fetched results without recalculating by default", function()
+			local tq, calcCalls = newTradeQueryWithOutput({ ReqStr = 50, Str = 40, ReqDex = 0, Dex = 0, ReqInt = 0, Int = 0 })
+			local sortedItems = tq:SortFetchResults(1, tq.sortModes.Weight)
+			assert.are.equal(1, #sortedItems)
+			assert.are.equal(1, sortedItems[1].index)
+			assert.are.equal(0, calcCalls())
+		end)
+
+		it("does not apply equipment attribute filtering to rows without a replacement slot", function()
+			local tq, calcCalls = newTradeQueryWithOutput({ ReqStr = 50, Str = 40, ReqDex = 0, Dex = 0, ReqInt = 0, Int = 0 }, { slotName = "Megalomaniac", unique = true })
+			local sortedItems = tq:SortFetchResults(1, tq.sortModes.Weight)
+			assert.are.equal(1, #sortedItems)
+			assert.are.equal(1, sortedItems[1].index)
+			assert.are.equal(0, calcCalls())
+		end)
 	end)
 end)

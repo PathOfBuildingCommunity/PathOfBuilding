@@ -1,5 +1,57 @@
+local dkjson = require "dkjson"
+
 describe("TradeQueryGenerator", function()
 	local mock_queryGen = new("TradeQueryGenerator", { itemsTab = {} })
+
+	local function findStatFilter(queryTable, id)
+		for _, group in ipairs(queryTable.query.stats) do
+			for _, filter in ipairs(group.filters or {}) do
+				if filter.id == id then
+					return filter
+				end
+			end
+		end
+	end
+
+	local function finishQueryWithAttributeShortfall(shortfall, includeAttrReqs)
+		local queryGen = new("TradeQueryGenerator", { itemsTab = {} })
+		local queryTable
+		local errMsg
+		queryGen.modWeights = {
+			{ tradeModId = "explicit.stat_3299347043", weight = 1, meanStatDiff = 1 },
+		}
+		queryGen.tradeTypeIndex = 1
+		queryGen.requesterContext = {}
+		queryGen.requesterCallback = function(_, queryJson, queryErrMsg)
+			queryTable = dkjson.decode(queryJson)
+			errMsg = queryErrMsg
+		end
+		queryGen.calcContext = {
+			itemCategoryQueryStr = "ring",
+			special = {},
+			testItem = {
+				BuildAndParseRaw = function() end,
+			},
+			baseOutput = { TotalDPS = 100 },
+			baseStatValue = 0,
+			options = {
+				statWeights = { { stat = "TotalDPS", weightMult = 1 } },
+				includeAllWEMods = false,
+				includeAttrReqs = includeAttrReqs,
+				includeMirrored = true,
+				influence1 = 1,
+				influence2 = 1,
+			},
+			attrReqShortfall = shortfall,
+		}
+
+		local previousClosePopup = main.ClosePopup
+		main.ClosePopup = function() end
+		queryGen:FinishQuery()
+		main.ClosePopup = previousClosePopup
+
+		return queryTable, errMsg
+	end
 
 	describe("ProcessMod", function()
 		-- Pass: Mod line maps correctly to trade stat entry without error
@@ -55,6 +107,27 @@ describe("TradeQueryGenerator", function()
 			end
 			assert.are.equal(#prioritized, 2)
 			_G.MAX_FILTERS = orig_max
+		end)
+	end)
+
+	describe("attribute requirement filters", function()
+		it("adds needed attribute pseudo filters to the generated query", function()
+			local queryTable, errMsg = finishQueryWithAttributeShortfall({ Str = 12, Dex = 34, Int = 56 }, true)
+			assert.is_nil(errMsg)
+			assert.are.equal(12, findStatFilter(queryTable, "pseudo.pseudo_total_strength").value.min)
+			assert.are.equal(34, findStatFilter(queryTable, "pseudo.pseudo_total_dexterity").value.min)
+			assert.are.equal(56, findStatFilter(queryTable, "pseudo.pseudo_total_intelligence").value.min)
+		end)
+
+		it("omits attribute pseudo filters when disabled or no shortfall exists", function()
+			local disabledQuery = finishQueryWithAttributeShortfall({ Str = 12, Dex = 34, Int = 56 }, false)
+			local zeroQuery = finishQueryWithAttributeShortfall({ Str = 0, Dex = 0, Int = 0 }, true)
+			assert.is_nil(findStatFilter(disabledQuery, "pseudo.pseudo_total_strength"))
+			assert.is_nil(findStatFilter(disabledQuery, "pseudo.pseudo_total_dexterity"))
+			assert.is_nil(findStatFilter(disabledQuery, "pseudo.pseudo_total_intelligence"))
+			assert.is_nil(findStatFilter(zeroQuery, "pseudo.pseudo_total_strength"))
+			assert.is_nil(findStatFilter(zeroQuery, "pseudo.pseudo_total_dexterity"))
+			assert.is_nil(findStatFilter(zeroQuery, "pseudo.pseudo_total_intelligence"))
 		end)
 	end)
 end)
