@@ -8,6 +8,7 @@ local ipairs = ipairs
 local t_insert = table.insert
 local m_max = math.max
 local m_floor = math.floor
+local WeightedScore = LoadModule("Modules/WeightedScore")
 
 local buffModeDropList = {
 	{ label = "Unbuffed", buffMode = "UNBUFFED" },
@@ -474,7 +475,11 @@ end
 -- Estimate the offensive and defensive power of all unallocated nodes
 function CalcsTabClass:PowerBuilder()
 	-- local timer_start = GetTime()
-	local useFullDPS = self.powerStat and self.powerStat.stat == "FullDPS"
+	local useFullDPS = self.powerStat and (
+		self.powerStat.stat == "FullDPS"
+		or (self.powerStat.isWeightedScore
+			and WeightedScore.weightsNeedFullDPS(WeightedScore.getWeights(self.build)))
+	)
 	local calcFunc, calcBase = self:GetMiscCalculator()
 	local cache = { }
 	local distanceMap = { }
@@ -712,6 +717,12 @@ function CalcsTabClass:PowerBuilder()
 end
 
 function CalcsTabClass:CalculatePowerStat(selection, original, modified)
+	if selection.isWeightedScore then
+		local weights = WeightedScore.getWeights(self.build)
+		local nodeScore = WeightedScore.computeRatioScore(modified, original, weights)
+		local baseScore = WeightedScore.computeRatioScore(modified, modified, weights)
+		return (nodeScore - baseScore) * 1000
+	end
 	if modified.Minion and selection.stat ~= "FullDPS" then
 		original = original.Minion
 		modified = modified.Minion

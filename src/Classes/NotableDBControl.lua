@@ -11,6 +11,7 @@ local m_max = math.max
 local m_floor = math.floor
 local m_huge = math.huge
 local s_format = string.format
+local WeightedScore = LoadModule("Modules/WeightedScore")
 
 ---@param node table
 ---@return boolean
@@ -33,7 +34,12 @@ local NotableDBClass = newClass("NotableDBControl", "ListControl", function(self
 	self.sortOrder = { }
 	self.sortMode = "NAME"
 	self.controls.sort = new("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, {0, -22, 360, 18}, self.sortDropList, function(index, value)
-		self:SetSortMode(value.sortMode)
+		if value.isAction then
+			value.action()
+			self.controls.sort:SelByValue(self.sortMode, "sortMode")
+		else
+			self:SetSortMode(value.sortMode)
+		end
 	end)
 	self.controls.search = new("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, 258, 18}, "", "Search", "%c", 100, function()
 		self.listBuildFlag = true
@@ -95,9 +101,16 @@ function NotableDBClass:BuildSortOrder()
 				itemField=stat.itemField,
 				stat=stat.stat,
 				transform=stat.transform,
+				isWeightedScore=stat.isWeightedScore,
 			})
 		end
 	end
+	WeightedScore.appendEditWeightsAction(self.sortDropList, function()
+		local tq = self.itemsTab.tradeQuery
+		if tq then
+			tq:SetStatWeights(nil, function() self.listBuildFlag = true end)
+		end
+	end)
 	wipeTable(self.sortOrder)
 	if self.controls.sort then
 		self.controls.sort.selIndex = 1
@@ -139,12 +152,17 @@ function NotableDBClass:ListBuilder()
 		local calcFunc = self.itemsTab.build.calcsTab:GetMiscCalculator()
 		local itemType = self.itemsTab.displayItem.base.type
 		local calcBase = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(nil) })
+		local weights = self.sortDetail.isWeightedScore and WeightedScore.getWeights(self.itemsTab.build)
 		self.sortMaxPower = 0
 		for nodeIndex, node in ipairs(list) do
 			node.measuredPower = 0
 			if node.modKey ~= "" then
 				local output = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(node) })
-				node.measuredPower = self:CalculatePowerStat(self.sortDetail, output, calcBase)
+				if self.sortDetail.isWeightedScore then
+					node.measuredPower = WeightedScore.computeRatioScore(calcBase, output, weights)
+				else
+					node.measuredPower = self:CalculatePowerStat(self.sortDetail, output, calcBase)
+				end
 				if node.measuredPower == m_huge then
 					t_insert(infinites, node)
 				else

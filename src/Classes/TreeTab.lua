@@ -15,6 +15,7 @@ local m_min = math.min
 local m_floor = math.floor
 local m_abs = math.abs
 local s_format = string.format
+local WeightedScore = LoadModule("Modules/WeightedScore")
 local s_gsub = string.gsub
 local s_byte = string.byte
 local dkjson = require "dkjson"
@@ -250,7 +251,14 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 
 	-- Control for selecting the power stat to sort by (Defense, DPS, etc)
 	self.controls.treeHeatMapStatSelect = new("DropDownControl", { "LEFT", self.controls.nodePowerMaxDepthSelect, "RIGHT" }, { 8, 0, 150, 20 }, nil, function(index, value)
-		self:SetPowerCalc(value)
+		if value.isAction then
+			value.action()
+			if self.build.calcsTab.powerStat then
+				self.controls.treeHeatMapStatSelect:SelByValue(self.build.calcsTab.powerStat.stat, "stat")
+			end
+		else
+			self:SetPowerCalc(value)
+		end
 	end)
 	self.controls.treeHeatMap.tooltipText = function()
 		local offCol, defCol = main.nodePowerTheme:match("(%a+)/(%a+)")
@@ -263,6 +271,12 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			t_insert(self.powerStatList, stat)
 		end
 	end
+	WeightedScore.appendEditWeightsAction(self.powerStatList, function()
+		local tq = self.build.itemsTab.tradeQuery
+		if tq then
+			tq:SetStatWeights(nil, function() self:SetPowerCalc(self.build.calcsTab.powerStat) end)
+		end
+	end)
 
 	-- Show/Hide Power Report Button
 	self.controls.powerReport = new("ButtonControl", { "LEFT", self.controls.treeHeatMapStatSelect, "RIGHT" }, { 8, 0, 150, 20 },
@@ -1828,29 +1842,37 @@ function TreeTabClass:FindTimelessJewel()
 	local function generateFallbackWeights(nodes, selection)
 		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
 		local newList = { }
-		local baseOutput = calcFunc()
+		local baseRawOutput = calcFunc()
+		local baseOutput = baseRawOutput
 		if baseOutput.Minion then
 			baseOutput = baseOutput.Minion
 		end
-		local baseValue = baseOutput[selection.stat] or 1
-		if selection.transform then
-			baseValue = selection.transform(baseValue)
+		local function getStatValue(scopedOutput, rawOutput)
+			if selection.getValue then
+				return selection.getValue(rawOutput, self.build)
+			end
+			local value = scopedOutput[selection.stat] or 0
+			if selection.transform then
+				value = selection.transform(value)
+			end
+			return value
+		end
+		local baseValue = getStatValue(baseOutput, baseRawOutput)
+		if baseValue == 0 then
+			baseValue = 1
 		end
 		for _, newNode in ipairs(nodes) do
-			local output = nil
+			local rawOutput = nil
 			if newNode.calcMultiple then
-				output = calcFunc({ addNodes = { [newNode.node[1]] = true } })
+				rawOutput = calcFunc({ addNodes = { [newNode.node[1]] = true } })
 			else
-				output = calcFunc({ addNodes = { [newNode] = true } })
+				rawOutput = calcFunc({ addNodes = { [newNode] = true } })
 			end
-			if output.Minion then
-				output = output.Minion
+			local scopedOutput = rawOutput
+			if scopedOutput.Minion then
+				scopedOutput = scopedOutput.Minion
 			end
-			local outputValue = output[selection.stat] or 0
-			if selection.transform then
-				outputValue = selection.transform(outputValue)
-			end
-			outputValue = outputValue / baseValue
+			local outputValue = getStatValue(scopedOutput, rawOutput) / baseValue
 			if outputValue ~= outputValue then
 				outputValue = 1
 			end
@@ -1859,15 +1881,12 @@ function TreeTabClass:FindTimelessJewel()
 				weight1 = (outputValue - 1) / (newNode.divisor or 1)
 			})
 			if newNode.calcMultiple then
-				output = calcFunc({ addNodes = { [newNode.node[2]] = true } })
-				if output.Minion then
-					output = output.Minion
+				rawOutput = calcFunc({ addNodes = { [newNode.node[2]] = true } })
+				scopedOutput = rawOutput
+				if scopedOutput.Minion then
+					scopedOutput = scopedOutput.Minion
 				end
-				outputValue = output[selection.stat] or 0
-				if selection.transform then
-					outputValue = selection.transform(outputValue)
-				end
-				outputValue = outputValue / baseValue
+				outputValue = getStatValue(scopedOutput, rawOutput) / baseValue
 				if outputValue ~= outputValue then
 					outputValue = 1
 				end
@@ -1997,6 +2016,7 @@ function TreeTabClass:FindTimelessJewel()
 				label = "Sort by " .. stat.label,
 				stat = stat.stat,
 				transform = stat.transform,
+				getValue = stat.getValue,
 			})
 		end
 	end

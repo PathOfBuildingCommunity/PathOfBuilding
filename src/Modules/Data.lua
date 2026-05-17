@@ -6,6 +6,7 @@
 
 LoadModule("Data/Global")
 
+local WeightedScore = LoadModule("Modules/WeightedScore")
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
@@ -158,6 +159,15 @@ data.powerStatList = {
 	{ stat="BlockChance", label="Block Chance" },
 	{ stat="SpellBlockChance", label="Spell Block Chance" },
 	{ stat="SpellSuppressionChance", label="Spell Suppression Chance" },
+	{ stat="WeightedScore", label="Weighted Score", isWeightedScore=true, getValue=function(output, build, calcBase)
+		local weights = WeightedScore.getWeights(build)
+		local buildBase = calcBase
+		if not buildBase then
+			local _, cachedBuildBase = build.calcsTab:GetMiscCalculator()
+			buildBase = cachedBuildBase
+		end
+		return WeightedScore.computeRatioScore(buildBase, output, weights) * 1000
+	end },
 }
 
 data.misc = { -- magic numbers
