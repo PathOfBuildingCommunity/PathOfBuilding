@@ -36,6 +36,46 @@ local function newlineCount(str)
 	end
 end
 
+local function getColorCodeLength(str, index)
+	if str:sub(index, index) ~= "^" then
+		return 0
+	end
+	local nextChar = str:sub(index + 1, index + 1)
+	if nextChar == "x" and str:sub(index + 2, index + 7):match("^%x%x%x%x%x%x$") then
+		return 8
+	elseif nextChar:match("^%d$") then
+		return 2
+	end
+	return 0
+end
+
+local function buildVisibleLineMap(rawLine)
+	local visible = ""
+	local rawStarts = {}
+	local rawEnds = {}
+	local rawIndex = 1
+	while rawIndex <= #rawLine do
+		local colorCodeLength = getColorCodeLength(rawLine, rawIndex)
+		if colorCodeLength > 0 then
+			rawIndex = rawIndex + colorCodeLength
+		else
+			local rawEnd = utf8.next(rawLine, rawIndex, 1)
+			if not rawEnd or rawEnd <= rawIndex then
+				rawEnd = rawIndex + 1
+			end
+			local char = rawLine:sub(rawIndex, rawEnd - 1)
+			local visibleStart = #visible + 1
+			visible = visible .. char
+			for offset = 0, #char - 1 do
+				rawStarts[visibleStart + offset] = rawIndex
+				rawEnds[visibleStart + offset] = rawEnd
+			end
+			rawIndex = rawEnd
+		end
+	end
+	return visible, rawStarts, rawEnds
+end
+
 local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler", "TooltipHost", function(self, anchor, rect, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom, clearable)
 	self.ControlHost()
 	self.Control(anchor, rect)
@@ -55,6 +95,14 @@ local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler
 	self.disableCol = "^9"
 	self.selCol = "^0"
 	self.selBGCol = "^xBBBBBB"
+	self.searchBGFillCol = { 0.03, 0.03, 0.04, 0.78 }
+	self.searchFocusFillCol = { 0.03, 0.03, 0.04, 0.88 }
+	self.searchBGCol = { 0.58, 0.60, 0.64, 0.98 }
+	self.searchFocusBGCol = { 0.96, 0.97, 0.99, 1.00 }
+	self.searchQuery = ""
+	self.searchMatches = {}
+	self.searchMatchesByLine = {}
+	self.searchFocusIndex = nil
 	self.blinkStart = GetTime()
 	self.allowZoom = allowZoom
 	local function buttonSize()
@@ -238,6 +286,137 @@ function EditClass:MoveCaretVertically(offset)
 	self.blinkStart = GetTime()
 end
 
+function EditClass:SetSearchQuery(query, centerFocused)
+	query = tostring(query or "")
+	local resetFocus = query ~= self.searchQuery
+	self.searchQuery = query
+	self:RefreshSearch(centerFocused, resetFocus)
+end
+
+function EditClass:AdvanceSearchMatch(direction)
+	local matchCount = #self.searchMatches
+	if matchCount == 0 then
+		return false
+	end
+	if direction and direction < 0 then
+		if not self.searchFocusIndex or self.searchFocusIndex <= 1 then
+			self.searchFocusIndex = matchCount
+		else
+			self.searchFocusIndex = self.searchFocusIndex - 1
+		end
+	else
+		if not self.searchFocusIndex or self.searchFocusIndex >= matchCount then
+			self.searchFocusIndex = 1
+		else
+			self.searchFocusIndex = self.searchFocusIndex + 1
+		end
+	end
+	self:CenterOnSearchMatch(self.searchFocusIndex)
+	return true
+end
+
+function EditClass:RefreshSearch(centerFocused, resetFocus)
+	local query = self.searchQuery or ""
+	local lowerQuery = query:lower()
+	local previousFocus = self.searchFocusIndex
+	self.searchMatches = {}
+	self.searchMatchesByLine = {}
+	self.searchFocusIndex = nil
+	if query == "" then
+		return
+	end
+
+	local lineIndex = 0
+	for s, line in (self.buf.."\n"):gmatch("()([^\n]*)\n") do
+		lineIndex = lineIndex + 1
+		local visibleLine, rawStarts, rawEnds = buildVisibleLineMap(line)
+		local searchLine = visibleLine:lower()
+		local searchStart = 1
+		while true do
+			local visibleStart, visibleEnd = searchLine:find(lowerQuery, searchStart, true)
+			if not visibleStart then
+				break
+			end
+			local rawStart = rawStarts[visibleStart]
+			local rawEnd = rawEnds[visibleEnd]
+			if rawStart and rawEnd then
+				local matchIndex = #self.searchMatches + 1
+				local match = {
+					index = matchIndex,
+					lineIndex = lineIndex,
+					line = line,
+					rawStart = rawStart,
+					rawEnd = rawEnd,
+				}
+				self.searchMatches[matchIndex] = match
+				self.searchMatchesByLine[lineIndex] = self.searchMatchesByLine[lineIndex] or {}
+				table.insert(self.searchMatchesByLine[lineIndex], match)
+			end
+			searchStart = visibleStart + 1
+		end
+	end
+
+	if #self.searchMatches > 0 then
+		if not resetFocus and previousFocus then
+			self.searchFocusIndex = m_min(previousFocus, #self.searchMatches)
+		else
+			self.searchFocusIndex = 1
+		end
+		if centerFocused then
+			self:CenterOnSearchMatch(self.searchFocusIndex)
+		end
+	end
+end
+
+function EditClass:CenterOnSearchMatch(matchIndex)
+	if not self.lineHeight then
+		return
+	end
+	local match = self.searchMatches[matchIndex]
+	if not match then
+		return
+	end
+	self:UpdateScrollBars()
+	if self.controls.scrollBarV.enabled then
+		local targetY = (match.lineIndex - 1) * self.lineHeight
+		self.controls.scrollBarV:SetOffset(targetY - (self.controls.scrollBarV.viewDim - self.lineHeight) / 2)
+	end
+	if self.controls.scrollBarH.enabled then
+		local matchStartX = DrawStringWidth(self.lineHeight, self.font, match.line:sub(1, match.rawStart - 1))
+		local matchWidth = DrawStringWidth(self.lineHeight, self.font, match.line:sub(match.rawStart, match.rawEnd - 1))
+		self.controls.scrollBarH:SetOffset(matchStartX + matchWidth / 2 - self.controls.scrollBarH.viewDim / 2)
+	end
+end
+
+function EditClass:DrawSearchHighlightsForLine(lineIndex, line, textX, textY, textHeight)
+	local matches = self.searchMatchesByLine[lineIndex]
+	if not matches then
+		return
+	end
+	for _, match in ipairs(matches) do
+		local matchStartX = DrawStringWidth(textHeight, self.font, line:sub(1, match.rawStart - 1))
+		local matchWidth = DrawStringWidth(textHeight, self.font, line:sub(match.rawStart, match.rawEnd - 1))
+		if matchWidth > 0 then
+			local isFocused = match.index == self.searchFocusIndex
+			local fillColor = isFocused and self.searchFocusFillCol or self.searchBGFillCol
+			local borderColor = isFocused and self.searchFocusBGCol or self.searchBGCol
+			local drawX = textX + matchStartX - 2
+			local drawWidth = matchWidth + 4
+			local borderX = drawX - 1
+			local borderY = textY - 1
+			local borderWidth = drawWidth + 2
+			local borderHeight = textHeight + 2
+			SetDrawColor(fillColor[1], fillColor[2], fillColor[3], fillColor[4])
+			DrawImage(nil, drawX, textY, drawWidth, textHeight)
+			SetDrawColor(borderColor[1], borderColor[2], borderColor[3], borderColor[4])
+			DrawImage(nil, borderX, borderY, borderWidth, 2)
+			DrawImage(nil, borderX, borderY + borderHeight - 2, borderWidth, 2)
+			DrawImage(nil, borderX, borderY, 2, borderHeight)
+			DrawImage(nil, borderX + borderWidth - 2, borderY, 2, borderHeight)
+		end
+	end
+end
+
 function EditClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
@@ -299,6 +478,16 @@ function EditClass:Draw(viewPort, noTooltip)
 			if self.inactiveText then
 				local inactiveText = type(inactiveText) == "string" and self.inactiveText or self.inactiveText(self.buf)
 				DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, inactiveText)
+			elseif self.lineHeight and #self.searchMatches > 0 then
+				local lineIndex = 0
+				local drawY = -self.controls.scrollBarV.offset
+				for line in (self.buf.."\n"):gmatch("([^\n]*)\n") do
+					lineIndex = lineIndex + 1
+					self:DrawSearchHighlightsForLine(lineIndex, line, -self.controls.scrollBarH.offset, drawY, textHeight)
+					SetDrawColor(self.inactiveCol)
+					DrawString(-self.controls.scrollBarH.offset, drawY, "LEFT", textHeight, self.font, line)
+					drawY = drawY + textHeight
+				end
 			elseif self.protected then
 				DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, string.rep(protected_replace, #self.buf))
 			else
@@ -324,9 +513,13 @@ function EditClass:Draw(viewPort, noTooltip)
 		local left = m_min(self.caret, self.sel or self.caret)
 		local right = m_max(self.caret, self.sel or self.caret)
 		local caretX
+		local lineIndex = 0
 		SetDrawColor(self.textCol)
 		for s, line, e in (self.buf.."\n"):gmatch("()([^\n]*)\n()") do
+			lineIndex = lineIndex + 1
 			textX = -self.controls.scrollBarH.offset
+			self:DrawSearchHighlightsForLine(lineIndex, line, textX, textY, textHeight)
+			SetDrawColor(self.textCol)
 			if left >= e or right <= s then
 				DrawString(textX, textY, "LEFT", textHeight, self.font, line)
 			end
@@ -507,7 +700,7 @@ function EditClass:OnKeyDown(key, doubleClick)
 			if self.enterFunc then
 				self.enterFunc(self.buf)
 			end
-			return
+			return self
 		end
 	elseif key == "a" and ctrl then
 		self:SelectAll()
