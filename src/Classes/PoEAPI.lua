@@ -157,7 +157,7 @@ function PoEAPIClass:DownloadWithRefresh(endpoint, callback)
 				self.retries = 0
 				if errMsg then
 					ConPrintf("Failed to download %s: %s", endpoint, errMsg)
-				elseif response and response.body then
+				elseif response and response.body and launch.devMode then
 					-- create the file and log the name file
 					local file = io.open(filename, "w")
 					if file then
