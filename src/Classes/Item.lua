@@ -26,6 +26,19 @@ local catalystTags = {
 	{ "jewellery_elemental" ,"elemental_damage" },
 	{ "critical" },
 }
+-- Maps game clipboard "Quality (X Modifiers)" label to catalyst index (same order as catalystList/catalystTags).
+local catalystQualityModifier = {
+	["Attack Modifiers"]            = 1,
+	["Speed Modifiers"]             = 2,
+	["Life and Mana Modifiers"]     = 3,
+	["Caster Modifiers"]            = 4,
+	["Attribute Modifiers"]         = 5,
+	["Physical and Chaos Modifiers"]= 6,
+	["Resistance Modifiers"]        = 7,
+	["Defense Modifiers"]           = 8,
+	["Elemental Modifiers"]         = 9,
+	["Critical Modifiers"]          = 10,
+}
 
 local function getCatalystScalar(catalystId, mod, quality)
 	local tags = mod.modTags
@@ -432,6 +445,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			else
 				specName, specVal = line:match("^(Requires %a+) (.+)$")
 			end
+			if not specName then
+				-- Game clipboard catalyst format: "Quality (Life and Mana Modifiers): +20% (augmented)"
+				specName, specVal = line:match("^(Quality %([^%%)]+%)): (.+)$")
+			end
 			if specName then
 				if specName == "Unique ID" then
 					self.uniqueID = specVal
@@ -583,6 +600,14 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					end
 				elseif specName == "CatalystQuality" then
 					self.catalystQuality = specToNumber(specVal)
+				elseif specName:match("^Quality %((.-)%)$") and not self.catalyst then
+					-- Game clipboard format: "Quality (Life and Mana Modifiers): +20% (augmented)"
+					local qualityModType = specName:match("^Quality %((.-)%)$")
+					local catalystId = catalystQualityModifier[qualityModType]
+					if catalystId then
+						self.catalyst = catalystId
+						self.catalystQuality = tonumber(specVal:match("(%d+)"))
+					end
 				elseif specName == "Note" then
 					self.note = specVal
 				elseif specName == "Str" or specName == "Strength" or specName == "Dex" or specName == "Dexterity" or
@@ -618,6 +643,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						end
 					elseif k == "range" then
 						modLine.range = tonumber(val)
+					elseif k == "valueScalar" then
+						modLine.valueScalar = tonumber(val)
 					elseif lineFlags[k] then
 						modLine[k] = true
 					end
@@ -830,7 +857,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				if modList then
 					modLine.modList = modList
 					modLine.extra = extra
-					modLine.valueScalar = catalystScalar
+					modLine.valueScalar = modLine.valueScalar or (catalystScalar ~= 1 and catalystScalar or nil)
 					modLine.range = modLine.range or main.defaultItemAffixQuality
 					t_insert(modLines, modLine)
 					if mode == "GAME" then
@@ -1114,6 +1141,9 @@ function ItemClass:BuildRaw()
 		if modLine.range and line:match("%(%-?[%d%.]+%-%-?[%d%.]+%)") then
 			line = "{range:" .. round(modLine.range, 3) .. "}" .. line
 		end
+		if modLine.valueScalar and modLine.valueScalar ~= 1 then
+			line = "{valueScalar:" .. round(modLine.valueScalar, 6) .. "}" .. line
+		end
 		if modLine.crafted then
 			line = "{crafted}" .. line
 		end
@@ -1295,7 +1325,7 @@ function ItemClass:Craft()
 							return tonumber(num) + tonumber(other)
 						end)
 					else
-						local modLine = { line = line, order = order }
+						local modLine = { line = line, order = order, valueScalar = rangeScalar ~= 1 and rangeScalar or nil }
 						for l = 1, #self.explicitModLines + 1 do
 							if not self.explicitModLines[l] or self.explicitModLines[l].order > order then
 								t_insert(self.explicitModLines, l, modLine)
