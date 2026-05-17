@@ -5199,6 +5199,9 @@ minions["Metadata/Monsters/Beasts/BeastCleaveEnduringCry"] = {
 minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage"] = {
 	name = "Carnage Chieftain",
 	monsterTags = { "beast", "bludgeoning_weapon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "large_model", "mammal_beast", "medium_height", "medium_movement", "melee", "physical_affinity", "primate_beast", "red_blood", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	life = 2.4,
 	fireResist = 75,
 	coldResist = 0,
@@ -5455,6 +5458,9 @@ minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBlood"] = {
 minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage2"] = {
 	name = "Stygian Silverback",
 	monsterTags = { "beast", "bludgeoning_weapon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "large_model", "mammal_beast", "medium_height", "medium_movement", "melee", "physical_affinity", "primate_beast", "red_blood", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	life = 2.4,
 	fireResist = 75,
 	coldResist = 0,
@@ -25956,6 +25962,9 @@ minions["Metadata/Monsters/Seawitch/SeaWitchVulnerabilityCurse"] = {
 minions["Metadata/Monsters/SkeletonCannon/SkeletonCannon1AtlasUber"] = {
 	name = "Necrotic Bones ",
 	monsterTags = { "bludgeoning_weapon", "bone_armour", "caster", "extra_small_height", "is_unarmed", "large_model", "medium_movement", "not_int", "physical_affinity", "ranged", "skeleton", "undead", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	life = 2.16,
 	armour = 0.25,
 	evasion = 0.25,
@@ -36823,6 +36832,9 @@ minions["Metadata/Monsters/IndoctrinatedConvert/IndoctrinatedConvertKitava"] = {
 minions["Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriver"] = {
 	name = "Slave Driver",
 	monsterTags = { "bludgeoning_weapon", "caster", "flesh_armour", "has_dual_wield_melee", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "lightning_affinity", "medium_height", "medium_movement", "melee", "not_int", "physical_affinity", "red_blood", "templar", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	life = 1,
 	armour = 0.25,
 	evasion = 0.25,
@@ -39517,6 +39529,9 @@ minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighter
 minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre"] = {
 	name = "Primal Crushclaw",
 	monsterTags = { "animal_claw_weapon", "beast", "cold_affinity", "crustacean_beast", "hard_armour", "is_unarmed", "large_model", "melee", "not_dex", "not_int", "red_blood", "slow_movement", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	life = 3.6,
 	lifeScaling = "AltLife2",
 	armour = 1,
@@ -41999,6 +42014,9 @@ minions["Metadata/Monsters/LeagueCrucible/Cold/Pyromaniac"] = {
 minions["Metadata/Monsters/Revenant/RevenantMapBossStandalone_AtlasUber"] = {
 	name = "Wretched Defiler",
 	monsterTags = { "caster", "demon", "fast_movement", "flesh_armour", "is_unarmed", "large_model", "lightning_affinity", "melee", "not_int", "not_str", "physical_affinity", "raises_dead", "ranged", "red_blood", "slashing_weapon", "small_height", "standalone_map_boss", },
+	extraFlags = {
+		recommendedSpectre = true,
+	},
 	baseDamageIgnoresAttackSpeed = true,
 	life = 3.9,
 	evasion = 0.5,

@@ -339,6 +339,7 @@ local minions, mod, flag = ...
 #emit
 -- Blood Apes
 #spectre Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage
+#flags recommendedSpectre
 #emit
 #spectre Metadata/Monsters/BloodChieftain/MonkeyChiefBloodParasite
 #emit
@@ -355,6 +356,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/BloodChieftain/MonkeyChiefBlood
 #emit
 #spectre Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage2
+#flags recommendedSpectre
 #emit
 #spectre Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrageUntainted
 #emit
@@ -1745,6 +1747,7 @@ local minions, mod, flag = ...
 #emit
 -- Skeleton
 #spectre Metadata/Monsters/SkeletonCannon/SkeletonCannon1AtlasUber
+#flags recommendedSpectre
 #emit
 #spectre Metadata/Monsters/BurnBoss/SkeletonMeleeSword
 #emit
@@ -2448,6 +2451,7 @@ local minions, mod, flag = ...
 #emit
 -- Templar
 #spectre Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriver
+#flags recommendedSpectre
 #emit
 #spectre Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriverKitava
 #emit
@@ -2638,6 +2642,7 @@ local minions, mod, flag = ...
 #emit
 -- Primal Crushclaw
 #spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre # HarvestNessaCrabScreechDebuff
+#flags recommendedSpectre
 #emit
 -- Primal Rhex Matriarch
 #spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT3Spectre # HarvestRhexScreechDebuff
@@ -2827,6 +2832,7 @@ local minions, mod, flag = ...
 #emit
 -- Wretched Defiler
 #spectre Metadata/Monsters/Revenant/RevenantMapBossStandalone_AtlasUber
+#flags recommendedSpectre
 #emit
 -- Karui Backburner
 #spectre Metadata/Monsters/LegionLeague/LegionKaruiMeleeFireSpectre
