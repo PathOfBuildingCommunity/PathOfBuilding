@@ -19,8 +19,8 @@ local REALM_API_IDS = {
 
 -- Listed status display names and their API option values
 local LISTED_STATUS_OPTIONS = {
-	{ label = "Instant Buyout & In Person", apiValue = "available" },
 	{ label = "Instant Buyout", apiValue = "securable" },
+	{ label = "Instant Buyout & In Person", apiValue = "available" },
 	{ label = "In Person (Online)", apiValue = "online" },
 	{ label = "Any", apiValue = "any" },
 }
@@ -84,7 +84,7 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
 		end
 	else
 		-- Category filter
-		local categoryStr = tradeHelpers.getTradeCategory(slotName, item)
+		local categoryStr, _ = tradeHelpers.getTradeCategory(slotName, item)
 		if categoryStr then
 			queryFilters.type_filters = {
 				filters = {
@@ -142,8 +142,17 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
 			local maxVal = tonumber(controls[prefix .. "Max"].buf)
 			local filter = { id = entry.tradeId }
 			local value = {}
-			if minVal then value.min = minVal end
-			if maxVal then value.max = maxVal end
+			if minVal then
+				value.min = minVal
+			end
+			if maxVal then
+				value.max = maxVal
+			end
+			if entry.invert then
+				value.min, value.max = value.max, value.min
+				value.min = value.min and -value.min
+				value.max = value.max and -value.max
+			end
 			if next(value) then
 				filter.value = value
 			end
@@ -191,26 +200,29 @@ function M.openPopup(item, slotName, primaryBuild)
 	local modTypeSources = {
 		{ list = item.implicitModLines, type = "implicit" },
 		{ list = item.enchantModLines, type = "enchant" },
-		{ list = item.scourgeModLines, type = "explicit" },
 		{ list = item.explicitModLines, type = "explicit" },
-		{ list = item.crucibleModLines, type = "explicit" },
+		{ list = item.scourgeModLines,  type = "scourge" },
+		{ list = item.crucibleModLines, type = "crucible" },
 	}
 	for _, source in ipairs(modTypeSources) do
 		if source.list then
 			for _, modLine in ipairs(source.list) do
 				if item:CheckModLineVariant(modLine) then
 					local formatted = itemLib.formatModLine(modLine)
+					formatted = formatted and formatted:gsub(" %^8%(Not supported in PoB yet%)", "")
 					if formatted then
 						-- Use range-resolved text for matching
 						local resolvedLine = (modLine.range and itemLib.applyRange(modLine.line, modLine.range, modLine.valueScalar)) or modLine.line
-						local tradeId = tradeHelpers.findTradeModId(resolvedLine, source.type)
+						local tradeHash = tradeHelpers.findTradeHash(item, resolvedLine, source.type, modLine.desecrated)
+						local identifier = tradeHash and string.format("%s.stat_%s", source.type, tradeHash)
 						local value = tradeHelpers.modLineValue(resolvedLine)
 						t_insert(modEntries, {
 							line = modLine.line,
 							formatted = formatted:gsub("%^x%x%x%x%x%x%x", ""):gsub("%^%x", ""), -- strip color codes
-							tradeId = tradeId,
+							tradeId = identifier,
 							value = value,
 							modType = source.type,
+							invert = tradeHelpers.shouldBeInverted(identifier, resolvedLine, source.type)
 						})
 					end
 				end
@@ -273,6 +285,13 @@ function M.openPopup(item, slotName, primaryBuild)
 			t_insert(leagueList, "Ruthless")
 			t_insert(leagueList, "Hardcore Ruthless")
 			controls.leagueDrop:SetList(leagueList)
+			-- default to sc
+			for i,v in ipairs(controls.leagueDrop.list) do
+				if not v:match("^HC") then
+					controls.leagueDrop:SetSel(i)
+					break
+				end
+			end
 		end)
 	end
 

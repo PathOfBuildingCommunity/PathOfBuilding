@@ -5,14 +5,6 @@
 --
 local m_floor = math.floor
 local dkjson = require "dkjson"
-local queryModsData
-do
-	local queryModFile = io.open("Data/QueryMods.lua", "r")
-	if queryModFile then
-		queryModFile:close()
-		queryModsData = LoadModule("Data/QueryMods")
-	end
-end
 
 local M = {}
 
@@ -36,48 +28,11 @@ function M.modLineValue(line)
 	return tonumber(line:match("[%d]+%.?[%d]*")) or 0
 end
 
--- Helper: lazily build a reverse lookup from QueryMods tradeMod.text → tradeMod.id
-local _tradeModLookup = nil
-local function getTradeModLookup()
-	if _tradeModLookup then return _tradeModLookup end
-	_tradeModLookup = {}
-	if not queryModsData then return _tradeModLookup end
-	for _groupName, mods in pairs(queryModsData) do
-		for _modKey, modData in pairs(mods) do
-			if type(modData) == "table" and modData.tradeMod then
-				local text = modData.tradeMod.text
-				local modType = modData.tradeMod.type or "explicit"
-				local id = modData.tradeMod.id
-				local key = text .. "|" .. modType
-				_tradeModLookup[key] = id
-				if not _tradeModLookup[text] then
-					_tradeModLookup[text] = id
-				end
-				-- Also store with template-converted text for mods with literal numbers
-				-- (e.g. "1 Added Passive Skill is X" → "# Added Passive Skill is X")
-				local template = M.modLineTemplate(text)
-				if template ~= text then
-					local templateKey = template .. "|" .. modType
-					if not _tradeModLookup[templateKey] then
-						_tradeModLookup[templateKey] = id
-					end
-					if not _tradeModLookup[template] then
-						_tradeModLookup[template] = id
-					end
-				end
-			end
-		end
-	end
-	return _tradeModLookup
-end
-
--- Helper: lazily fetch and cache the trade API stats for comprehensive mod matching
--- Covers mods not in QueryMods.lua (cluster enchants, unique-specific mods, etc.)
-local _tradeStatsLookup = nil
+-- Helper: fetch and cache the trade API stats
+local _tradeStats = nil
 local _tradeStatsFetched = false
 local function getTradeStatsLookup()
-	if _tradeStatsFetched then return _tradeStatsLookup end
-	_tradeStatsFetched = true
+	if _tradeStats then return _tradeStats end
 	local tradeStats = ""
 	local easy = common.curl.easy()
 	if not easy then return nil end
@@ -89,24 +44,10 @@ local function getTradeStatsLookup()
 	end)
 	local ok = easy:perform()
 	easy:close()
-	if not ok or tradeStats == "" then return nil end
+	if not ok or tradeStats == "" then return {} end
 	local parsed = dkjson.decode(tradeStats)
-	if not parsed or not parsed.result then return nil end
-	_tradeStatsLookup = {}
-	for _, category in ipairs(parsed.result) do
-		local catLabel = category.label
-		for _, entry in ipairs(category.entries) do
-			local stripped = entry.text:gsub("[#()0-9%-%+%.]", "")
-			local key = stripped .. "|" .. catLabel
-			if not _tradeStatsLookup[key] then
-				_tradeStatsLookup[key] = entry
-			end
-			if not _tradeStatsLookup[stripped] then
-				_tradeStatsLookup[stripped] = entry
-			end
-		end
-	end
-	return _tradeStatsLookup
+	_tradeStats = parsed.result
+	return _tradeStats
 end
 
 -- Map source types used in OpenBuySimilarPopup to trade API category labels
@@ -116,50 +57,133 @@ M.sourceTypeToCategory = {
 	["enchant"] = "Enchant",
 }
 
--- Helper: find the trade stat ID for a mod line
-function M.findTradeModId(modLine, modType)
-	-- Try QueryMods-based lookup
-	local lookup = getTradeModLookup()
-	local template = M.modLineTemplate(modLine)
-	-- Try exact match with type first
-	local key = template .. "|" .. modType
-	if lookup[key] then
-		return lookup[key]
-	end
-	-- Try without leading +/- sign
-	local stripped = template:gsub("^[%+%-]", "")
-	key = stripped .. "|" .. modType
-	if lookup[key] then
-		return lookup[key]
-	end
-	-- Fallback: match by template text only (any type)
-	if lookup[template] then
-		return lookup[template]
-	end
-	if lookup[stripped] then
-		return lookup[stripped]
-	end
-
-	-- Try trade API stats (covers mods not in QueryMods)
-	local tradeStats = getTradeStatsLookup()
-	if tradeStats then
-		local strippedLine = modLine:gsub("[#()0-9%-%+%.]", "")
-		local category = M.sourceTypeToCategory[modType]
-		if category then
-			local catKey = strippedLine .. "|" .. category
-			if tradeStats[catKey] then
-				return tradeStats[catKey].id
+function M.shouldBeInverted(tradeId, modLine, modType)
+	local formattedLine = M.formatDatabaseText(M.formatDatabaseText(modLine))
+	for _, category in ipairs(getTradeStatsLookup()) do
+		if category.id == modType then
+			for _, stat in ipairs(category.entries) do
+				if tradeId == stat.id then
+					-- remove radius jewel extra text
+					local formattedTradeSiteText = M.formatDatabaseText(stat.text)
+					-- local modifiers don't seem to be inverted. same goes for
+					-- the single stat that has (charm) in it
+					if formattedTradeSiteText:match("(Local)") or formattedTradeSiteText:match(" %(Charm%)$") then
+						return false
+					end
+					-- trade site sometimes has a + sign, sometimes not
+					return not (formattedLine == formattedTradeSiteText or formattedLine:gsub("^%+", "") == formattedTradeSiteText)
+				end
 			end
 		end
-		-- Fallback: any category
-		if tradeStats[strippedLine] then
-			return tradeStats[strippedLine].id
+	end
+end
+
+-- Helper: normalise data texts to # format
+function M.formatDatabaseText(text)
+	-- decimal -> integer
+	text = text:gsub("%d+%.%d+", "1")
+	-- (123-124) -> #
+	text = text:gsub("%(%d+%-%d+%)", "#")
+	text = text:gsub("%d+", "#")
+	-- remove radius jewel text. the same description is used for regular and
+	-- radius jewels in the exports
+	text = text:gsub("^Notable Passive Skills in Radius also grant ", "")
+	text = text:gsub("^Small Passive Skills in Radius also grant ", "")
+	return text
+end
+
+-- Helper: find the trade stat ID for a mod line
+function M.findTradeHash(item, modLine, modType, isVeiled)
+	local formattedLine = M.formatDatabaseText(modLine)
+	-- the data export splits some mods into different parts, even though they
+	-- are technically just one stat. we handle that here
+	function findStat(dbMod, allowDefault)
+		local excludeTags = (not allowDefault) and { default = true } or nil
+		if #dbMod.weightKey > 0 and not (item:GetModSpawnWeight(dbMod, nil, excludeTags) > 0) then
+			return nil
+		end
+		for tradeHash, description in pairs(dbMod.tradeHashes) do
+			for _, line in ipairs(description) do
+				local dbFormatted = M.formatDatabaseText(line)
+				if formattedLine == dbFormatted then
+					return tradeHash
+				end
+			end
 		end
 	end
 
-	return nil
-end
+	-- implicit mods
+	if modType == "implicit" then
+		for _, dbName in ipairs({"Implicit", "Synthesis", "Eldritch"}) do
+			for _, dbMod in pairs(data.itemMods[dbName]) do
+				local tradeHashMaybe = findStat(dbMod)
+				if tradeHashMaybe then
+					return tradeHashMaybe
+				end
+			end
+		end
+	end
 
+	--enchantments TODO
+
+	-- scourge mods
+	if modType == "scourge" then
+		for _, dbMod in pairs(data.itemMods.Scourge) do
+			local tradeHashMaybe = findStat(dbMod)
+			if tradeHashMaybe then
+				return tradeHashMaybe
+			end
+		end
+	end
+
+	-- crucible mods
+	-- TODO: add trade hash to these
+	if modType == "crucible" then
+		for _, dbMod in pairs(data.crucible) do
+			local tradeHashMaybe = findStat(dbMod)
+			if tradeHashMaybe then
+				return tradeHashMaybe
+			end
+		end
+	end
+
+	-- veiled mods
+
+	for _, dbMod in pairs(data.veiledMods) do
+		local tradeHashMaybe = findStat(dbMod)
+		if tradeHashMaybe then
+			return tradeHashMaybe
+		end
+	end
+	-- rest of the explicit mods
+	for _, dbName in ipairs({ "Delve", "Explicit" }) do
+		for _, dbMod in pairs(data.itemMods[dbName]) do
+			local tradeHashMaybe = findStat(dbMod)
+			if tradeHashMaybe then
+				return tradeHashMaybe
+			end
+		end
+	end
+
+	for _, dbMod in pairs(data.itemMods.Scourge) do
+		local tradeHashMaybe = findStat(dbMod)
+		if tradeHashMaybe then
+			return tradeHashMaybe
+		end
+	end
+
+	-- implicit mods
+	if modType == "explicit" then
+		for _, dbMod in pairs(data.itemMods.Implicit) do
+			local tradeHashMaybe = findStat(dbMod)
+			if tradeHashMaybe then
+				return tradeHashMaybe
+			end
+		end
+	end
+
+	-- TODO flask, graft, jewels
+end
 -- Map slot name + item type to (trade API category string, itemCategoryTags key).
 -- queryStr:      e.g. "armour.shield", "weapon.onemace"
 -- categoryLabel: e.g. "Shield", "1HMace", "1HWeapon" (nil for flask / generic jewel / unsupported)
