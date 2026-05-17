@@ -94,9 +94,9 @@ function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, useFullDPS)
 	else
 		gemList[self.index] = nil
 	end
-	
+
 	self.skillsTab.displayGroup.displayGemList = displayGemList
-	
+
 	return output, gemInstance
 end
 
@@ -625,7 +625,7 @@ function GemSelectClass:AddGemTooltip(gemInstance)
 		self.tooltip:AddLine(fontSizeBig, "^x7F7F7F" .. gemInstance.gemData.tagString, "FONTIN SC")
 		self:AddCommonGemInfo(gemInstance, grantedEffect, true, secondary and secondary.support and secondary)
 	end
-	if gemInstance.gemData.flavourText then
+	if gemInstance.gemData.flavourText and main.showFlavourText then
 		self.tooltip:AddSeparator(10)
 		for _, line in ipairs(gemInstance.gemData.flavourText) do
 			self.tooltip:AddLine(fontSizeBig, colorCodes.UNIQUE .. line, "FONTIN SC ITALIC")
