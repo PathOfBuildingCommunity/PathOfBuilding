@@ -320,7 +320,7 @@ will automatically apply to the skill.]]
 	-- Initialise skill sets
 	self.skillSets = { }
 	self.skillSetOrderList = { 1 }
-	self:NewSkillSet(1)
+	self:CreateSkillSet(1)
 	self:SetActiveSkillSet(1)
 
 	-- Skill gem slots
@@ -449,13 +449,13 @@ function SkillsTabClass:Load(xml, fileName)
 			-- Old format, initialize skill sets if needed
 			if not self.skillSetOrderList[1] then
 				self.skillSetOrderList[1] = 1
-				self:NewSkillSet(1)
+				self:CreateSkillSet(1)
 			end
 			self:LoadSkill(node, 1)
 		end
 
 		if node.elem == "SkillSet" then
-			local skillSet = self:NewSkillSet(tonumber(node.attrib.id))
+			local skillSet = self:CreateSkillSet(tonumber(node.attrib.id))
 			skillSet.title = node.attrib.title
 			t_insert(self.skillSetOrderList, skillSet.id)
 			for _, subNode in ipairs(node) do
@@ -1296,17 +1296,59 @@ function SkillsTabClass:OpenSkillSetManagePopup()
 	})
 end
 
--- Creates a new skill set
-function SkillsTabClass:NewSkillSet(skillSetId)
-	local skillSet = { id = skillSetId, socketGroupList = {} }
+-- Creates a new skill set without adding to order list
+function SkillsTabClass:CreateSkillSet(skillSetId, title)
+	local skillSet = { id = skillSetId, title = title, socketGroupList = {} }
 	if not skillSetId then
-		skillSet.id = 1
-		while self.skillSets[skillSet.id] do
-			skillSet.id = skillSet.id + 1
-		end
+		skillSet.id = #self.skillSets + 1
 	end
 	self.skillSets[skillSet.id] = skillSet
 	return skillSet
+end
+
+-- Creates a new skill set with title, adds to order list and sets modFlag
+function SkillsTabClass:NewSkillSet(skillSetId, title)
+	local skillSet = self:CreateSkillSet(skillSetId, title)
+	t_insert(self.skillSetOrderList, skillSet.id)
+	self.modFlag = true
+	return skillSet
+end
+
+function SkillsTabClass:CopySkillSet(sourceSkillSetId, newSkillSetName)
+	local skillSet = self.skillSets[sourceSkillSetId]
+	local newSkillSet = copyTable(skillSet, true)
+	newSkillSet.title = newSkillSetName or skillSet.title .. " (Copy)"
+	newSkillSet.socketGroupList = {}
+	for socketGroupIndex, socketGroup in pairs(skillSet.socketGroupList) do
+		local newGroup = copyTable(socketGroup, true)
+		newGroup.gemList = {}
+		for gemIndex, gem in pairs(socketGroup.gemList) do
+			newGroup.gemList[gemIndex] = copyTable(gem, true)
+		end
+		t_insert(newSkillSet.socketGroupList, newGroup)
+	end
+	newSkillSet.id = #self.skillSets + 1
+	self.skillSets[newSkillSet.id] = newSkillSet
+	t_insert(self.skillSetOrderList, newSkillSet.id)
+	self.modFlag = true
+	return newSkillSet
+end
+
+function SkillsTabClass:RenameSkillSet(skillSetId, newTitle)
+	local skillSet = self.skillSets[skillSetId]
+	
+	if not skillSet then
+		return
+	end
+
+	skillSet.title = newTitle
+	self.modFlag = true
+end
+
+function SkillsTabClass:DeleteSkillSet(skillSetId, orderListIndex)
+	t_remove(self.skillSetOrderList, orderListIndex)
+	self.skillSets[skillSetId] = nil
+	self.modFlag = true
 end
 
 function SkillsTabClass:RebuildImbuedSupportBySlot()
@@ -1323,11 +1365,11 @@ function SkillsTabClass:RebuildImbuedSupportBySlot()
 end
 
 -- Changes the active skill set
-function SkillsTabClass:SetActiveSkillSet(skillSetId)
+function SkillsTabClass:SetActiveSkillSet(skillSetId, deferSync)
 	-- Initialize skill sets if needed
 	if not self.skillSetOrderList[1] then
 		self.skillSetOrderList[1] = 1
-		self:NewSkillSet(1)
+		self:CreateSkillSet(1)
 	end
 
 	if not skillSetId then
@@ -1346,5 +1388,7 @@ function SkillsTabClass:SetActiveSkillSet(skillSetId)
 
 	-- set the loadout option to the dummy option since it is now dirty
 	self:SetDisplayGroup(self.socketGroupList[1])
-	self.build:SyncLoadouts()
+	if not deferSync then
+		self.build:SyncLoadouts()
+	end
 end

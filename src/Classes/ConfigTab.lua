@@ -4,6 +4,8 @@
 -- Configuration tab for the current build.
 --
 local t_insert = table.insert
+local t_remove = table.remove
+local t_maxn = table.maxn
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
@@ -26,7 +28,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	-- Initialise config sets
 	self.configSets = { }
 	self.configSetOrderList = { 1 }
-	self:NewConfigSet(1)
+	self:CreateConfigSet(1)
 	self:SetActiveConfigSet(1, true)
 	
 	self.enemyLevel = 1
@@ -657,17 +659,17 @@ function ConfigTabClass:Load(xml, fileName)
 
 	-- Catch special case of empty Config
 	if xml.empty then
-		self:NewConfigSet(1, "Default")
+		self:CreateConfigSet(1, "Default")
 	end
 	for index, node in ipairs(xml) do
 		if node.elem ~= "ConfigSet" then
 			if not self.configSets[1] then
-				self:NewConfigSet(1, "Default")
+				self:CreateConfigSet(1, "Default")
 			end
 			setInputAndPlaceholder(node, 1)
 		else
 			local configSetId = tonumber(node.attrib.id)
-			self:NewConfigSet(configSetId, node.attrib.title or "Default")
+			self:CreateConfigSet(configSetId, node.attrib.title or "Default")
 			self.configSetOrderList[index] = configSetId
 			for _, child in ipairs(node) do
 				setInputAndPlaceholder(child, configSetId)
@@ -942,13 +944,10 @@ function ConfigTabClass:OpenConfigSetManagePopup()
 end
 
 -- Creates a new config set
-function ConfigTabClass:NewConfigSet(configSetId, title)
-	local configSet = { id = configSetId, title = title, input = { }, placeholder = { } }
+function ConfigTabClass:CreateConfigSet(configSetId, title)
+	local configSet = { id = configSetId, title = title, input = {}, placeholder = {} }
 	if not configSetId then
-		configSet.id = 1
-		while self.configSets[configSet.id] do
-			configSet.id = configSet.id + 1
-		end
+		configSet.id = #self.configSets + 1
 	end
 	-- there are default values for input and placeholder that every new config set needs to have
 	for _, varData in ipairs(varList) do
@@ -964,12 +963,49 @@ function ConfigTabClass:NewConfigSet(configSetId, title)
 	return configSet
 end
 
+-- Creates a new config set, adds it to the order list and sets the modFlag
+function ConfigTabClass:NewConfigSet(configSetId, title)
+	local configSet = self:CreateConfigSet(configSetId, title)
+	t_insert(self.configSetOrderList, configSet.id)
+	self.modFlag = true
+	return configSet
+end
+
+function ConfigTabClass:CopyConfigSet(configSetId, newConfigSetName)
+	local configSet = self.configSets[configSetId]
+	local newConfigSet = copyTable(configSet)
+	newConfigSet.id = #self.configSets + 1
+	newConfigSet.title = newConfigSetName or configSet.title .. " (Copy)"
+	t_insert(self.configSets, newConfigSet)
+	t_insert(self.configSetOrderList, newConfigSet.id)
+	self.modFlag = true
+	return newConfigSet
+end
+
+function ConfigTabClass:RenameConfigSet(configSetId, newTitle)
+	local configSet = self.configSets[configSetId]
+	
+	if not configSet then
+		return
+	end
+
+	configSet.title = newTitle
+	self.modFlag = true
+end
+
+-- Deletes a config set
+function ConfigTabClass:DeleteConfigSet(configSetId, orderListIndex)
+	t_remove(self.configSetOrderList, orderListIndex)
+	self.configSets[configSetId] = nil
+	self.modFlag = true
+end
+
 -- Changes the active config set
-function ConfigTabClass:SetActiveConfigSet(configSetId, init)
+function ConfigTabClass:SetActiveConfigSet(configSetId, init, deferSync)
 	-- Initialize config sets if needed
 	if not self.configSetOrderList[1] then
 		self.configSetOrderList[1] = 1
-		self:NewConfigSet(1)
+		self:CreateConfigSet(1)
 	end
 
 	if not configSetId then
@@ -989,5 +1025,7 @@ function ConfigTabClass:SetActiveConfigSet(configSetId, init)
 		self:BuildModList()
 	end
 	self.build.buildFlag = true
-	self.build:SyncLoadouts()
+	if not deferSync then
+		self.build:SyncLoadouts()
+	end
 end
