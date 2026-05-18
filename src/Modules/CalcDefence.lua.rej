@@ -1,0 +1,20 @@
+diff a/src/Modules/CalcDefence.lua b/src/Modules/CalcDefence.lua	(rejected hunks)
+@@ -1750,7 +1750,7 @@ function calcs.defence(env, actor)
+ 
+ 	-- recoup
+ 	local function calcRecoup(recoup, recoupType, damageType)
+-		output[damageType..recoupType.."Recoup"] = (output[damageType..recoupType.."Recoup"] or 0) + recoup * output[recoupType.."RecoveryRateMod"]
++		output[damageType..recoupType.."Recoup"] = recoup * output[recoupType.."RecoveryRateMod"]
+ 		output["anyRecoup"] = output["anyRecoup"] + output[damageType..recoupType.."Recoup"]
+ 		if breakdown then
+ 			if output[recoupType.."RecoveryRateMod"] ~= 1 then
+@@ -1777,9 +1777,6 @@ function calcs.defence(env, actor)
+ 				modDB:ReplaceMod("EnergyShieldRecoup", "BASE", recoup, mod.source)
+ 			end
+ 		end
+-		-- Kurgal mod
+-		calcRecoup(modDB:Sum("BASE", nil, "ElementalEnergyShieldRecoup"), "EnergyShield", "")
+-
+ 		-- iterate over each damageType and add to base Life/Mana/Energy Shield Recoup
+ 		for _, recoupType in ipairs(recoupTypeList) do
+ 			for _, damageType in ipairs(dmgTypeList) do

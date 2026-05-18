@@ -1,0 +1,15 @@
+diff a/src/Modules/ModParser.lua b/src/Modules/ModParser.lua	(rejected hunks)
+@@ -4889,8 +4889,11 @@ local specialModList = {
+ 	["(%d+)%% of damage taken while affected by clarity recouped as mana"] = function(num) return { mod("ManaRecoup", "BASE", num, { type = "Condition", var = "AffectedByClarity" }) } end,
+ 	["recoup effects instead occur over 4 seconds"] = { flag("4SecondRecoup") },
+ 	["life recoup effects instead occur over 4 seconds"] = { flag("4SecondLifeRecoup") },
+-	["([%d%.]+)%% of physical damage prevented from hits in the past (%d+) seconds is regenerated as life per second"] = function(num, _, duration) return { 
+-		mod("PhysicalDamageMitigatedLifePseudoRecoup", "BASE", num * duration), 
++	["damage taken recouped as (%a+) is also recouped as energy shield"] = function(_, type) return {
++		flag("Add"..firstToUpper(type).."RecoupToEnergyShieldRecoup"),
++	} end,
++	["([%d%).]+)%% of physical damage prevented from hits in the past (%d+) seconds is regenerated as life per second"] = function(num, _, duration) return {
++		mod("PhysicalDamageMitigatedLifePseudoRecoup", "BASE", num * duration),
+ 		mod("PhysicalDamageMitigatedLifePseudoRecoupDuration", "BASE", duration),
+ 	} end,
+ 	["([%d%.]+)%% of physical damage prevented from hits recently is regenerated as energy shield per second"] = function(num) return { mod("PhysicalDamageMitigatedEnergyShieldPseudoRecoup", "BASE", num * 4) } end,
