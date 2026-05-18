@@ -1,0 +1,19 @@
+diff a/src/Modules/CalcSections.lua b/src/Modules/CalcSections.lua	(rejected hunks)
+@@ -2365,7 +2365,7 @@ return {
+ 		},
+ 		{ format = "{0:output:EnergyShieldRecoupRecoveryMax}",
+ 			{ breakdown = "EnergyShieldRecoupRecoveryMax" },
+-		  	{ label = "Sources", modName = { "EnergyShieldRecoup", "ElementalEnergyShieldRecoup", "PhysicalEnergyShieldRecoup", "LightningEnergyShieldRecoup", "ColdEnergyShieldRecoup", "FireEnergyShieldRecoup", "ChaosEnergyShieldRecoup", "PhysicalDamageMitigatedEnergyShieldPseudoRecoup" } },
++			{ label = "Sources", modName = { "EnergyShieldRecoup", "ElementalEnergyShieldRecoup", "PhysicalEnergyShieldRecoup", "LightningEnergyShieldRecoup", "ColdEnergyShieldRecoup", "FireEnergyShieldRecoup", "ChaosEnergyShieldRecoup", "PhysicalDamageMitigatedEnergyShieldPseudoRecoup" } },
+ 			{ label = "Recovery modifiers", modName = "EnergyShieldRecoveryRate" },
+ 			{ label = "Faster Recoup", modName = "3SecondRecoup" },
+ 		},
+@@ -2384,7 +2384,7 @@ return {
+ 			{ label = "Faster Recoup", modName = "3SecondRecoup" },
+ 		},
+ 		{ format = "{0:output:EnergyShieldRecoupRecoveryAvg}",
+-			{ breakdown = "EnergyShieldRecoupRecoveryAvg" }, 
++			{ breakdown = "EnergyShieldRecoupRecoveryAvg" },
+ 			{ label = "Sources", modName = { "EnergyShieldRecoup", "ElementalEnergyShieldRecoup", "PhysicalEnergyShieldRecoup", "LightningEnergyShieldRecoup", "ColdEnergyShieldRecoup", "FireEnergyShieldRecoup", "ChaosEnergyShieldRecoup", "PhysicalDamageMitigatedEnergyShieldPseudoRecoup" } },
+ 			{ label = "Recovery modifiers", modName = "EnergyShieldRecoveryRate" },
+ 			{ label = "Faster Recoup", modName = "3SecondRecoup" },

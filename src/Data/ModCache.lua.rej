@@ -1,0 +1,10 @@
+diff a/src/Data/ModCache.lua b/src/Data/ModCache.lua	(rejected hunks)
+@@ -4677,7 +4677,7 @@ c["Damage of Enemies Hitting you is Unlucky while you are on Low Life 50% chance
+ c["Damage over Time bypasses your Energy Shield"]={nil,"Damage over Time bypasses your Energy Shield "}
+ c["Damage over Time bypasses your Energy Shield While not on Full Life, Sacrifice 1% of maximum Mana per Second to Recover that much Life"]={nil,"Damage over Time bypasses your Energy Shield While not on Full Life, Sacrifice 1% of maximum Mana per Second to Recover that much Life "}
+ c["Damage over Time bypasses your Energy Shield While not on Full Life, Sacrifice 10% of maximum Mana per Second to Recover that much Life"]={nil,"Damage over Time bypasses your Energy Shield While not on Full Life, Sacrifice 10% of maximum Mana per Second to Recover that much Life "}
+-c["Damage taken Recouped as Life is also Recouped as Energy Shield"]={nil,"Damage taken Recouped as Life is also Recouped as Energy Shield "}
++c["Damage taken Recouped as Life is also Recouped as Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="AddLifeRecoupToEnergyShieldRecoup",type="FLAG",value=true}},nil}
+ c["Damage taken is Reserved from Darkness before being taken from Life or Energy Shield"]={nil,"Damage taken is Reserved from Darkness before being taken from Life or Energy Shield "}
+ c["Damage taken is Reserved from Darkness before being taken from Life or Energy Shield Darkness Reservation lasts for 5 seconds"]={nil,"Damage taken is Reserved from Darkness before being taken from Life or Energy Shield Darkness Reservation lasts for 5 seconds "}
+ c["Damage taken is Reserved from Darkness before being taken from Life or Energy Shield Darkness Reservation lasts for 5 seconds +10 to Maximum Darkness per Level"]={nil,"Damage taken is Reserved from Darkness before being taken from Life or Energy Shield Darkness Reservation lasts for 5 seconds +10 to Maximum Darkness per Level "}

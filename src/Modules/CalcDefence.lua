@@ -1451,7 +1451,6 @@ function calcs.defence(env, actor)
 				end
 			end
 		end
-		
 		-- pseudo recoup (eg %physical damage prevented from hits regenerated)
 		for _, resource in ipairs(recoupTypeList) do
 			if not modDB:Flag(nil, "No"..resource.."Regen") and not modDB:Flag(nil, "CannotGain"..resource) then
