@@ -6,7 +6,7 @@
 local t_insert = table.insert
 local m_floor = math.floor
 local dkjson = require "dkjson"
-local tradeHelpers = LoadModule("Classes/CompareTradeHelpers")
+local tradeHelpers = LoadModule("Classes/TradeHelpers")
 
 local M = {}
 
@@ -19,8 +19,8 @@ local REALM_API_IDS = {
 
 -- Listed status display names and their API option values
 local LISTED_STATUS_OPTIONS = {
-	{ label = "Instant Buyout & In Person", apiValue = "available" },
 	{ label = "Instant Buyout", apiValue = "securable" },
+	{ label = "Instant Buyout & In Person", apiValue = "available" },
 	{ label = "In Person (Online)", apiValue = "online" },
 	{ label = "Any", apiValue = "any" },
 }
@@ -84,7 +84,7 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
 		end
 	else
 		-- Category filter
-		local categoryStr = tradeHelpers.getTradeCategory(slotName, item)
+		local categoryStr, _ = tradeHelpers.getTradeCategory(slotName, item)
 		if categoryStr then
 			queryFilters.type_filters = {
 				filters = {
@@ -138,15 +138,30 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
 	for i, entry in ipairs(modEntries) do
 		local prefix = "mod" .. i
 		if entry.tradeId and controls[prefix .. "Check"] and controls[prefix .. "Check"].state then
-			local minVal = tonumber(controls[prefix .. "Min"].buf)
-			local maxVal = tonumber(controls[prefix .. "Max"].buf)
+			
 			local filter = { id = entry.tradeId }
-			local value = {}
-			if minVal then value.min = minVal end
-			if maxVal then value.max = maxVal end
-			if next(value) then
-				filter.value = value
+			if entry.valueIsOption then
+				filter.value = { option = entry.value }
+			elseif entry.value then
+				local minVal = tonumber(controls[prefix .. "Min"].buf)
+				local maxVal = tonumber(controls[prefix .. "Max"].buf)
+				local value = {}
+				if minVal then
+					value.min = minVal
+				end
+				if maxVal then
+					value.max = maxVal
+				end
+				if entry.invert then
+					value.min, value.max = value.max, value.min
+					value.min = value.min and -value.min
+					value.max = value.max and -value.max
+				end
+				if next(value) then
+					filter.value = value
+				end
 			end
+			
 			t_insert(queryTable.query.stats[1].filters, filter)
 		end
 	end
@@ -189,28 +204,60 @@ function M.openPopup(item, slotName, primaryBuild)
 	-- Collect mod entries with trade IDs
 	local modEntries = {}
 	local modTypeSources = {
+		{ list = item.enchantModLines,  type = "enchant" },
 		{ list = item.implicitModLines, type = "implicit" },
-		{ list = item.enchantModLines, type = "enchant" },
-		{ list = item.scourgeModLines, type = "explicit" },
 		{ list = item.explicitModLines, type = "explicit" },
-		{ list = item.crucibleModLines, type = "explicit" },
+		{ list = item.scourgeModLines,  type = "scourge" },
+		-- disabled due to matching difficulty. the trade site searches for
+		-- crucible mods, while for other things, it matches by stats 
+		-- { list =item.crucibleModLines, type = "crucible" },
 	}
 	for _, source in ipairs(modTypeSources) do
 		if source.list then
 			for _, modLine in ipairs(source.list) do
 				if item:CheckModLineVariant(modLine) then
+					local modLine = copyTable(modLine)
+					-- remove unsupported data. the formatting of unsupported
+					-- mods is confusing here
+					modLine.extra = nil
 					local formatted = itemLib.formatModLine(modLine)
 					if formatted then
 						-- Use range-resolved text for matching
 						local resolvedLine = (modLine.range and itemLib.applyRange(modLine.line, modLine.range, modLine.valueScalar)) or modLine.line
-						local tradeId = tradeHelpers.findTradeModId(resolvedLine, source.type)
-						local value = tradeHelpers.modLineValue(resolvedLine)
+
+						-- special case: cluster enchantment
+						local identifier, value
+						-- whether to add a min and max, or an option field
+						local valueIsOption = false
+						local clusterMatch = resolvedLine:match("Added Small Passive Skills grant: (.+)") 
+						if clusterMatch then
+							identifier = "enchant.stat_3948993189"
+							for _, v in pairs(item.clusterJewel.skills) do
+								for _, stat in ipairs(v.stats) do
+									if stat == clusterMatch then
+										value = v.id
+										valueIsOption = true
+										goto outer
+									end
+								end
+							end
+							::outer::
+						else
+							local tradeHash = tradeHelpers.findTradeHash(item, resolvedLine, source.type)
+							identifier = tradeHash and string.format("%s.stat_%s", source.type, tradeHash)
+							value = tradeHelpers.modLineValue(resolvedLine)
+						end
+
+						
 						t_insert(modEntries, {
 							line = modLine.line,
-							formatted = formatted:gsub("%^x%x%x%x%x%x%x", ""):gsub("%^%x", ""), -- strip color codes
-							tradeId = tradeId,
+							formatted = formatted,
+							tradeId = identifier,
 							value = value,
+							valueIsOption = valueIsOption,
 							modType = source.type,
+							type = source.type,
+							invert = tradeHelpers.shouldBeInverted(identifier, resolvedLine, source.type)
 						})
 					end
 				end
@@ -273,6 +320,13 @@ function M.openPopup(item, slotName, primaryBuild)
 			t_insert(leagueList, "Ruthless")
 			t_insert(leagueList, "Hardcore Ruthless")
 			controls.leagueDrop:SetList(leagueList)
+			-- default to sc
+			for i,v in ipairs(controls.leagueDrop.list) do
+				if not v:match("^HC") then
+					controls.leagueDrop:SetSel(i)
+					break
+				end
+			end
 		end)
 	end
 
@@ -339,22 +393,40 @@ function M.openPopup(item, slotName, primaryBuild)
 	end
 
 	-- Mod rows
+	local prevType
 	for i, entry in ipairs(modEntries) do
+		-- add extra row to separate e.g. implicits
+		if prevType and prevType ~= entry.type then
+			ctrlY = ctrlY + rowHeight
+		end
+		prevType = entry.type
 		local prefix = "mod" .. i
 		local canSearch = entry.tradeId ~= nil
 		controls[prefix .. "Check"] = new("CheckBoxControl", nil, {-popupWidth/2 + leftMargin + checkboxSize/2, ctrlY, checkboxSize}, "", nil, nil)
 		controls[prefix .. "Check"].enabled = function() return canSearch end
 		-- Truncate long mod text to fit
+		--- @type string
 		local displayText = entry.formatted
-		if #displayText > 45 then
-			displayText = displayText:sub(1, 42) .. "..."
-		end
-		controls[prefix .. "Label"] = new("LabelControl", {"LEFT", controls[prefix .. "Check"], "RIGHT"}, {4, 0, 0, 16}, (canSearch and "^7" or "^8") .. displayText)
-		controls[prefix .. "Min"] = newPlainNumericEdit(nil, {minFieldX - popupWidth/2, ctrlY, fieldW, fieldH}, entry.value ~= 0 and tostring(m_floor(entry.value)) or "", "Min", 8)
-		controls[prefix .. "Max"] = newPlainNumericEdit(nil, {maxFieldX - popupWidth/2, ctrlY, fieldW, fieldH}, "", "Max", 8)
+		local colorCodeLength = displayText:match("(%^x%x%x%x%x%x%x)") or displayText:gsub("(%^%x)") or ""
 		if not canSearch then
-			controls[prefix .. "Min"].enabled = function() return false end
-			controls[prefix .. "Max"].enabled = function() return false end
+			-- strip color codes and replace with gray
+			displayText = "^8" .. displayText:gsub("%^x%x%x%x%x%x%x", ""):gsub("%^%x", "")
+		end
+		if #displayText > (#colorCodeLength + 65) then
+			displayText = displayText:sub(1, #colorCodeLength + 55) .. "..."
+		end
+		
+		controls[prefix .. "Label"] = new("LabelControl", { "LEFT", controls[prefix .. "Check"], "RIGHT" }, { 4, 0, 0, 16 },
+			displayText)
+		-- when the trade site has a dropdown for the value, we opt to disable
+		-- the inputs as they are numeric
+		if not entry.valueIsOption and entry.value then
+			controls[prefix .. "Min"] = newPlainNumericEdit(nil, {minFieldX - popupWidth/2, ctrlY, fieldW, fieldH}, entry.value ~= 0 and tostring(m_floor(entry.value)) or "", "Min", 8)
+			controls[prefix .. "Max"] = newPlainNumericEdit(nil, {maxFieldX - popupWidth/2, ctrlY, fieldW, fieldH}, "", "Max", 8)
+			if not canSearch then
+				controls[prefix .. "Min"].enabled = function() return false end
+				controls[prefix .. "Max"].enabled = function() return false end
+			end
 		end
 		ctrlY = ctrlY + rowHeight
 	end

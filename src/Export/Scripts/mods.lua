@@ -64,6 +64,11 @@ local function writeMods(outName, condFunc)
 					goto continue
 				end
 			end
+			-- game date has 0 and 0, which means no description is generated
+			if mod.Id == "JewelExpansionPassiveNodes" then
+				mod.Stat2Value[1] = 2
+				mod.Stat2Value[2] = 12
+			end
 			local stats, orders = describeMod(mod)
 			if #orders > 0 then
 				out:write('\t["', mod.Id, '"] = { ')
@@ -216,16 +221,6 @@ writeMods("../Data/ModExplicit.lua", function(mod)
 		and not (mod.GenerationType == GenTypes.SearingExarch or mod.GenerationType == GenTypes.EaterOfWorlds)
 		and #mod.AuraFlags == 0
 end)
--- generic implicit mods
-writeMods("../Data/ModImplicit.lua", function(mod)
-	return (mod.GenerationType == GenTypes.Intrinsic and mod.Domain == Domains.Item
-		)
-		and not mod.Id:match("Royale")
-		and not mod.Id:match("Necropolis")
-		and not mod.Id:match("^Synthesis")
-		and not (mod.GenerationType == GenTypes.SearingExarch or mod.GenerationType == GenTypes.EaterOfWorlds)
-		and #mod.AuraFlags == 0
-end)
 writeMods("../Data/ModCorrupted.lua", function(mod)
 	return mod.GenerationType == GenTypes.Corrupted and mod.Domain == Domains.Item
 end)
@@ -302,7 +297,11 @@ writeMods("../Data/BeastCraft.lua", function(mod)
 	return (mod.Id:match("Aspect") and mod.GenerationType == GenTypes.Suffix) -- Aspect Crafts
 end)
 writeMods("../Data/ModFoulborn.lua", function(mod)
-	return mod.Domain == Domains.Item and mod.GenerationType == GenTypes.Intrinsic and mod.Id:match("^MutatedUnique")
+	return (mod.Domain == Domains.Item or mod.Domain == Domains.Jewel) and mod.GenerationType == GenTypes.Intrinsic and mod.Id:match("^MutatedUnique")
+end)
+-- enchants
+writeMods("../Data/ModEnchantment.lua", function(mod)
+	return mod.Domain == Domains.Item and mod.GenerationType == GenTypes.Enchantment
 end)
 
 -- Generate unique mod mappings from text to mod

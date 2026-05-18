@@ -9,7 +9,7 @@ local curl = require("lcurl.safe")
 local m_max = math.max
 local s_format = string.format
 local t_insert = table.insert
-local tradeHelpers = LoadModule("Classes/CompareTradeHelpers")
+local tradeHelpers = LoadModule("Classes/TradeHelpers")
 
 -- TODO generate these from data files
 local itemCategoryTags = {
@@ -242,30 +242,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 			goto continue
 		end
 
-		local function swapInverse(modLine)
-			local priorStr = modLine
-			local inverseKey
-			if modLine:match("increased") then
-				modLine = modLine:gsub("([^ ]+) increased", "-%1 reduced")
-				if modLine ~= priorStr then inverseKey = "increased" end
-			elseif modLine:match("reduced") then
-				modLine = modLine:gsub("([^ ]+) reduced", "-%1 increased")
-				if modLine ~= priorStr then inverseKey = "reduced" end
-			elseif modLine:match("more") then
-				modLine = modLine:gsub("([^ ]+) more", "-%1 less")
-				if modLine ~= priorStr then inverseKey = "more" end
-			elseif modLine:match("less") then
-				modLine = modLine:gsub("([^ ]+) less", "-%1 more")
-				if modLine ~= priorStr then inverseKey = "less" end
-			elseif modLine:match("expires ([^ ]+) slower") then
-				modLine = modLine:gsub("([^ ]+) slower", "-%1 faster")
-				if modLine ~= priorStr then inverseKey = "slower" end
-			elseif modLine:match("expires ([^ ]+) faster") then
-				modLine = modLine:gsub("([^ ]+) faster", "-%1 slower")
-				if modLine ~= priorStr then inverseKey = "faster" end
-			end
-			return modLine, inverseKey
-		end
+		
 
 		local uniqueIndex = tostring(statOrder).."_"..mod.group
 		local inverse = false
@@ -298,7 +275,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 					logToFile("Unable to match %s mod: %s", modType, modLine)
 					goto nextModLine
 				else -- try swapping increased / decreased and signed and other similar mods.
-					modLine, inverseKey = swapInverse(modLine)
+					modLine, inverseKey = tradeHelpers.swapInverse(modLine)
 					inverse = true
 					if inverseKey then
 						goto reparseMod
@@ -312,7 +289,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 			self.modData[modType][uniqueIndex] = { tradeMod = tradeMod, specialCaseData = specialCaseData, inverseKey = inverseKey }
 		elseif self.modData[modType][uniqueIndex].inverseKey and modLine:match(self.modData[modType][uniqueIndex].inverseKey) then
 			inverse = true
-			modLine = swapInverse(modLine)
+			modLine = tradeHelpers.swapInverse(modLine)
 		end
 
 		-- tokenize the numerical variables for this mod and store the sign if there is one

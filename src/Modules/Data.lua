@@ -574,7 +574,8 @@ data.describeStats = LoadModule("Modules/StatDescriber")
 -- Load item modifiers
 data.itemMods = {
 	Explicit = LoadModule("Data/ModExplicit"),
-	Implicit = LoadModule("Data/ModImplicit"),
+	-- implicit mods and unique explicit mods
+	ItemExclusive = LoadModule("Data/ModItemExclusive"),
 	Corrupted = LoadModule("Data/ModCorrupted"),
 	Delve = LoadModule("Data/ModDelve"),
 	Synthesis = LoadModule("Data/ModSynthesis"),
@@ -587,6 +588,8 @@ data.itemMods = {
 	JewelAbyss = LoadModule("Data/ModJewelAbyss"),
 	JewelCluster = LoadModule("Data/ModJewelCluster"),
 	JewelCharm = LoadModule("Data/ModJewelCharm"),
+	Enchantment = LoadModule("Data/ModEnchantment"),
+	Foulborn = LoadModule("Data/ModFoulborn"),
 }
 data.masterMods = LoadModule("Data/ModMaster")
 data.enchantments = {
@@ -601,7 +604,7 @@ data.enchantments = {
 
 -- combined table of many mod categories
 data.itemMods.Item = {}
-for _, key in ipairs({ "Explicit", "Implicit", "Corrupted", "Delve", "Synthesis", "Scourge", "Eldritch" }) do
+for _, key in ipairs({ "Explicit", "ItemExclusive", "Corrupted", "Delve", "Synthesis", "Scourge", "Eldritch" }) do
 	local itemData = data.itemMods[key]
 	for k, v in pairs(itemData) do
 		data.itemMods.Item[k] = v
@@ -1164,6 +1167,7 @@ for _, modId in ipairs(sortedMods) do
 		mod = unsortedMods[modId],
 	})
 end
+data.itemMods.WatchersEye = unsortedMods
 LoadModule("Data/Uniques/Special/Generated")
 LoadModule("Data/Uniques/Special/New")
 
