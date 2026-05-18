@@ -1,0 +1,10 @@
+diff a/src/Export/Skills/act_dex.txt b/src/Export/Skills/act_dex.txt	(rejected hunks)
+@@ -90,7 +90,7 @@ statMap = {
+ #minionList
+ #skill SummonBeastPlayer
+ #set SummonBeastPlayer
+-#flags spell minion summonBeast duration permanentMinion
++#flags spell minion summonBeast duration
+ #baseMod mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 25) }), --Server side damage mod added in 0.3
+ #mods
+ #skillEnd

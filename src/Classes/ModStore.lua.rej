@@ -1,0 +1,16 @@
+diff a/src/Classes/ModStore.lua b/src/Classes/ModStore.lua	(rejected hunks)
+@@ -34,6 +34,14 @@ local ModStoreClass = newClass("ModStore", function(self, parent)
+ 	self.conditions = { }
+ end)
+ 
++local function getActor(self, actorType)
++	if actorType == "player" then
++		return self.actor.player or (self.actor.parent and self.actor.parent.player) or (self.actor.enemy and self.actor.enemy.player)
++	else
++		return self.actor[actorType]
++	end
++end
++
+ function ModStoreClass:ScaleAddMod(mod, scale)
+ 	local unscalable = false
+ 	for _, effects in ipairs(mod) do

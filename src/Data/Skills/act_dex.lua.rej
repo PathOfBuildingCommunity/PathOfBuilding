@@ -1,0 +1,9 @@
+diff a/src/Data/Skills/act_dex.lua b/src/Data/Skills/act_dex.lua	(rejected hunks)
+@@ -897,7 +897,6 @@ skills["SummonBeastPlayer"] = {
+ 				minion = true,
+ 				summonBeast = true,
+ 				duration = true,
+-				permanentMinion = true,
+ 			},
+ 			baseMods = {
+ 				mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 25) }), --Server side damage mod added in 0.3,

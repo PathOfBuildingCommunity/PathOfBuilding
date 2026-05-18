@@ -1,0 +1,109 @@
+diff a/src/Data/Skills/act_int.lua b/src/Data/Skills/act_int.lua	(rejected hunks)
+@@ -16168,7 +16168,6 @@ skills["RagingSpiritsPlayer"] = {
+ 			baseFlags = {
+ 				spell = true,
+ 				minion = true,
+-				permanentMinion = true,
+ 			},
+ 			constantStats = {
+ 				{ "base_number_of_raging_spirits_allowed", 10 },
+@@ -16292,9 +16291,6 @@ skills["RaiseZombiePlayer"] = {
+ 				spell = true,
+ 				minion = true,
+ 			},
+-			baseMods = {
+-				flag("Condition:TemporaryMinion"),
+-			},
+ 			constantStats = {
+ 				{ "display_minion_monster_type", 1 },
+ 				{ "zombie_decay_rate_increase_+%_final", 25 },
+@@ -17692,7 +17688,7 @@ skills["SummonSkeletalArsonistsPlayer"] = {
+ 			baseFlags = {
+ 				spell = true,
+ 				minion = true,
+-				permanentMinion = true,
++				duration = true,
+ 			},
+ 			constantStats = {
+ 				{ "display_minion_monster_type", 2 },
+@@ -17812,7 +17808,7 @@ skills["SummonSkeletalBrutesPlayer"] = {
+ 			baseFlags = {
+ 				spell = true,
+ 				minion = true,
+-				permanentMinion = true,
++				duration = true,
+ 			},
+ 			constantStats = {
+ 				{ "display_minion_monster_type", 2 },
+@@ -17932,7 +17928,7 @@ skills["SummonSkeletalClericsPlayer"] = {
+ 			baseFlags = {
+ 				spell = true,
+ 				minion = true,
+-				permanentMinion = true,
++				duration = true,
+ 			},
+ 			constantStats = {
+ 				{ "display_minion_monster_type", 2 },
+@@ -18052,7 +18048,7 @@ skills["SummonSkeletalFrostMagesPlayer"] = {
+ 			baseFlags = {
+ 				spell = true,
+ 				minion = true,
+-				permanentMinion = true,
++				duration = true,
+ 			},
+ 			constantStats = {
+ 				{ "display_minion_monster_type", 2 },
+@@ -18173,7 +18169,7 @@ skills["SummonSkeletalReaversPlayer"] = {
+ 			baseFlags = {
+ 				spell = true,
+ 				minion = true,
+-				permanentMinion = true,
++				duration = true,
+ 			},
+ 			constantStats = {
+ 				{ "display_minion_monster_type", 2 },
+@@ -18294,7 +18290,7 @@ skills["SummonSkeletalSnipersPlayer"] = {
+ 			baseFlags = {
+ 				spell = true,
+ 				minion = true,
+-				permanentMinion = true,
++				duration = true,
+ 			},
+ 			constantStats = {
+ 				{ "display_minion_monster_type", 2 },
+@@ -18414,7 +18410,7 @@ skills["SummonSkeletalStormMagesPlayer"] = {
+ 			baseFlags = {
+ 				spell = true,
+ 				minion = true,
+-				permanentMinion = true,
++				duration = true,
+ 			},
+ 			constantStats = {
+ 				{ "display_minion_monster_type", 2 },
+@@ -18536,7 +18532,7 @@ skills["SummonSkeletalWarriorsPlayer"] = {
+ 			baseFlags = {
+ 				spell = true,
+ 				minion = true,
+-				permanentMinion = true,
++				duration = true,
+ 			},
+ 			constantStats = {
+ 				{ "display_minion_monster_type", 2 },
+@@ -19715,7 +19711,6 @@ skills["SummonSpectrePlayer"] = {
+ 				minion = true,
+ 				spectre = true,
+ 				duration = true,
+-				permanentMinion = true,
+ 			},
+ 			baseMods = {
+ 				mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 25) }), --Server side damage mod added in 0.3,
+@@ -21219,9 +21214,6 @@ skills["UnearthPlayer"] = {
+ 				area = true,
+ 				minion = true,
+ 			},
+-			baseMods = {
+-				flag("Condition:TemporaryMinion"),
+-			},
+ 			constantStats = {
+ 				{ "unearth_base_cone_speed_multiplier", 50 },
+ 				{ "active_skill_base_area_of_effect_radius", 60 },
