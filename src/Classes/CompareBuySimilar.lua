@@ -204,8 +204,8 @@ function M.openPopup(item, slotName, primaryBuild)
 	-- Collect mod entries with trade IDs
 	local modEntries = {}
 	local modTypeSources = {
+		{ list = item.enchantModLines,  type = "enchant" },
 		{ list = item.implicitModLines, type = "implicit" },
-		{ list = item.enchantModLines, type = "enchant" },
 		{ list = item.explicitModLines, type = "explicit" },
 		{ list = item.scourgeModLines,  type = "scourge" },
 		-- disabled due to matching difficulty. the trade site searches for
@@ -216,8 +216,11 @@ function M.openPopup(item, slotName, primaryBuild)
 		if source.list then
 			for _, modLine in ipairs(source.list) do
 				if item:CheckModLineVariant(modLine) then
+					local modLine = copyTable(modLine)
+					-- remove unsupported data. the formatting of unsupported
+					-- mods is confusing here
+					modLine.extra = nil
 					local formatted = itemLib.formatModLine(modLine)
-					formatted = formatted and formatted:gsub(" %^8%(Not supported in PoB yet%)", "")
 					if formatted then
 						-- Use range-resolved text for matching
 						local resolvedLine = (modLine.range and itemLib.applyRange(modLine.line, modLine.range, modLine.valueScalar)) or modLine.line
@@ -248,11 +251,12 @@ function M.openPopup(item, slotName, primaryBuild)
 						
 						t_insert(modEntries, {
 							line = modLine.line,
-							formatted = formatted:gsub("%^x%x%x%x%x%x%x", ""):gsub("%^%x", ""), -- strip color codes
+							formatted = formatted,
 							tradeId = identifier,
 							value = value,
 							valueIsOption = valueIsOption,
 							modType = source.type,
+							type = source.type,
 							invert = tradeHelpers.shouldBeInverted(identifier, resolvedLine, source.type)
 						})
 					end
@@ -389,17 +393,31 @@ function M.openPopup(item, slotName, primaryBuild)
 	end
 
 	-- Mod rows
+	local prevType
 	for i, entry in ipairs(modEntries) do
+		-- add extra row to separate e.g. implicits
+		if prevType and prevType ~= entry.type then
+			ctrlY = ctrlY + rowHeight
+		end
+		prevType = entry.type
 		local prefix = "mod" .. i
 		local canSearch = entry.tradeId ~= nil
 		controls[prefix .. "Check"] = new("CheckBoxControl", nil, {-popupWidth/2 + leftMargin + checkboxSize/2, ctrlY, checkboxSize}, "", nil, nil)
 		controls[prefix .. "Check"].enabled = function() return canSearch end
 		-- Truncate long mod text to fit
+		--- @type string
 		local displayText = entry.formatted
-		if #displayText > 65 then
-			displayText = displayText:sub(1, 55) .. "..."
+		local colorCodeLength = displayText:match("(%^x%x%x%x%x%x%x)") or displayText:gsub("(%^%x)") or ""
+		if not canSearch then
+			-- strip color codes and replace with gray
+			displayText = "^8" .. displayText:gsub("%^x%x%x%x%x%x%x", ""):gsub("%^%x", "")
 		end
-		controls[prefix .. "Label"] = new("LabelControl", {"LEFT", controls[prefix .. "Check"], "RIGHT"}, {4, 0, 0, 16}, (canSearch and "^7" or "^8") .. displayText)
+		if #displayText > (#colorCodeLength + 65) then
+			displayText = displayText:sub(1, #colorCodeLength + 55) .. "..."
+		end
+		
+		controls[prefix .. "Label"] = new("LabelControl", { "LEFT", controls[prefix .. "Check"], "RIGHT" }, { 4, 0, 0, 16 },
+			displayText)
 		-- when the trade site has a dropdown for the value, we opt to disable
 		-- the inputs as they are numeric
 		if not entry.valueIsOption and entry.value then
