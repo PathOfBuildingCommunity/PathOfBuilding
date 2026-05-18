@@ -27,7 +27,17 @@ end
 function ControlHostClass:GetMouseOverControl()
 	for _, control in pairs(self.controls) do
 		if control.IsMouseOver and control:IsMouseOver() then
-			return control
+			local clip = control.mouseClipRect
+			if type(clip) == "function" then
+				clip = clip(control)
+			end
+			if not clip then
+				return control
+			end
+			local cursorX, cursorY = GetCursorPos()
+			if cursorX >= clip[1] and cursorY >= clip[2] and cursorX < clip[1] + clip[3] and cursorY < clip[2] + clip[4] then
+				return control
+			end
 		end
 	end
 end

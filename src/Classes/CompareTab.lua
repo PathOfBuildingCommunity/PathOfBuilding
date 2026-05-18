@@ -1798,6 +1798,16 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 	end
 
 	self:DrawControls(viewPort)
+	if self.compareViewMode == "CONFIG" and compareEntry then
+		self:DrawConfig(contentVP, compareEntry, true)
+		self:DrawControlList(viewPort, {
+			self.controls.copyConfigBtn,
+			self.controls.configToggleBtn,
+			self.controls.configSearchEdit,
+			self.controls.configPrimarySetLabel,
+			self.controls.configPrimarySetSelect,
+		})
+	end
 	if drawingTree then
 		SetDrawLayer(0)
 	end
@@ -1809,6 +1819,17 @@ end
 -- ============================================================
 -- DRAW HELPERS
 -- ============================================================
+
+function CompareTabClass:DrawControlList(viewPort, controls)
+	local noTooltip = function(control)
+		return self.selControl and self.selControl.hasFocus and self.selControl ~= control
+	end
+	for _, control in ipairs(controls) do
+		if control:IsShown() and control.Draw then
+			control:Draw(viewPort, noTooltip(control))
+		end
+	end
+end
 
 -- Pre-draw tree header/footer backgrounds and position tree controls.
 -- Must run before ProcessControlsInput so controls render on top of backgrounds.
@@ -2123,6 +2144,7 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 	local scrollTopAbs = contentVP.y + fixedHeaderHeight
 	local scrollBottomAbs = contentVP.y + contentVP.height
 	local ctrlH = rowHeight
+	local mouseClipRect = { contentVP.x, scrollTopAbs, contentVP.width, scrollBottomAbs - scrollTopAbs }
 	for _, sec in ipairs(sectionLayout) do
 		local sectionAbsX = contentVP.x + sec.x
 		local rowY = sec.y + sectionInnerPad
@@ -2134,11 +2156,13 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 			ci.compareControl.y = contentVP.y + fixedHeaderHeight + rowY - self.scrollY
 			local shownFn = function()
 				local ay = ci.primaryControl.y
-				return ay >= scrollTopAbs and ay + ctrlH <= scrollBottomAbs
+				return ay + ctrlH > scrollTopAbs and ay < scrollBottomAbs
 					and self.compareViewMode == "CONFIG" and self:GetActiveCompare() ~= nil
 			end
 			ci.primaryControl.shown = shownFn
 			ci.compareControl.shown = shownFn
+			ci.primaryControl.mouseClipRect = mouseClipRect
+			ci.compareControl.mouseClipRect = mouseClipRect
 			rowY = rowY + rowHeight
 		end
 	end
@@ -4839,7 +4863,7 @@ end
 -- ============================================================
 -- CONFIG VIEW
 -- ============================================================
-function CompareTabClass:DrawConfig(vp, compareEntry)
+function CompareTabClass:DrawConfig(vp, compareEntry, headerOnly)
 	local rowHeight = LAYOUT.configRowHeight
 	local columnHeaderHeight = LAYOUT.configColumnHeaderHeight
 	local fixedHeaderHeight = LAYOUT.configFixedHeaderHeight
@@ -4849,6 +4873,8 @@ function CompareTabClass:DrawConfig(vp, compareEntry)
 
 	-- Fixed header area: row 1 = buttons, row 2 = search/dropdowns, then column headers + separator
 	SetViewport(vp.x, vp.y, vp.width, fixedHeaderHeight)
+	SetDrawColor(0.05, 0.05, 0.05)
+	DrawImage(nil, 0, 0, vp.width, fixedHeaderHeight)
 	-- Controls are drawn by ControlHost (positioned in LayoutConfigView)
 	local colHeaderY = 54
 	SetDrawColor(1, 1, 1)
@@ -4860,6 +4886,10 @@ function CompareTabClass:DrawConfig(vp, compareEntry)
 		colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
 	SetDrawColor(0.5, 0.5, 0.5)
 	DrawImage(nil, 4, colHeaderY + columnHeaderHeight + 4, vp.width - 8, 2)
+	if headerOnly then
+		SetViewport()
+		return
+	end
 
 	-- Scrollable content area (clipped below fixed header)
 	local scrollH = vp.height - fixedHeaderHeight
