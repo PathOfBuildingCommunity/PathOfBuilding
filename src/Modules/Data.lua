@@ -574,7 +574,8 @@ data.describeStats = LoadModule("Modules/StatDescriber")
 -- Load item modifiers
 data.itemMods = {
 	Explicit = LoadModule("Data/ModExplicit"),
-	Implicit = LoadModule("Data/ModImplicit"),
+	-- implicit mods and unique explicit mods
+	Intrinsic = LoadModule("Data/ModIntrinsic"),
 	Corrupted = LoadModule("Data/ModCorrupted"),
 	Delve = LoadModule("Data/ModDelve"),
 	Synthesis = LoadModule("Data/ModSynthesis"),
@@ -587,6 +588,7 @@ data.itemMods = {
 	JewelAbyss = LoadModule("Data/ModJewelAbyss"),
 	JewelCluster = LoadModule("Data/ModJewelCluster"),
 	JewelCharm = LoadModule("Data/ModJewelCharm"),
+	Enchantment = LoadModule("Data/ModEnchantment")
 }
 data.masterMods = LoadModule("Data/ModMaster")
 data.enchantments = {
