@@ -3913,7 +3913,7 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	-- Draw item tooltip on hover (compact mode only, on top of everything)
 	SetViewport()
 	local maxTooltipWidth = m_min(600, m_max(260, vp.width - 24))
-	if hoverItem and hoverItemsTab then
+	if not main.popups[1] and hoverItem and hoverItemsTab then
 		self.itemTooltip:Clear()
 		hoverItemsTab:AddItemTooltip(self.itemTooltip, hoverItem, nil, nil, maxTooltipWidth)
 		SetDrawLayer(nil, 100)
@@ -3922,7 +3922,7 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	end
 
 	-- Draw stat comparison tooltip when hovering Equip button
-	if hoverEquipItem and hoverEquipSlotName and not hoverItem then
+	if not main.popups[1] and hoverEquipItem and hoverEquipSlotName and not hoverItem then
 		self.itemTooltip:Clear()
 		self.itemTooltip.maxWidth = maxTooltipWidth
 		local calcFunc, calcBase = self.calcs.getMiscCalculator(self.primaryBuild)
