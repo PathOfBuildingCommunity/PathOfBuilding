@@ -11,13 +11,21 @@ local NotesTabClass = newClass("NotesTab", "ControlHost", "Control", function(se
 
 	self.build = build
 
-	self.lastContent = ""
+	self.notes = { }
+	self.notesOrderList = { }
+
 	self.showColorCodes = false
+
+	local listSize = 250
 
 	local notesDesc = [[^7You can use Ctrl +/- (or Ctrl+Scroll) to zoom in and out and Ctrl+0 to reset.
 This field also supports different colors.  Using the caret symbol (^) followed by a Hex code or a number (0-9) will set the color.
 Below are some common color codes PoB uses:	]]
-	self.controls.notesDesc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, {8, 8, 150, 16}, notesDesc)
+
+	-- Notes group list
+	self.controls.noteList = new("NotesListControl", { "TOPLEFT", self, "TOPLEFT" }, { 8, 30, listSize - 16, 80 }, self)
+
+	self.controls.notesDesc = new("LabelControl", {"TOPLEFT",self.controls.noteList,"TOPRIGHT"}, {8, -22, 150, 16}, notesDesc)
 	self.controls.normal = new("ButtonControl", {"TOPLEFT",self.controls.notesDesc,"TOPLEFT"}, {0, 48, 100, 18}, colorCodes.NORMAL.."NORMAL", function() self:SetColor(colorCodes.NORMAL) end)
 	self.controls.magic = new("ButtonControl", {"TOPLEFT",self.controls.normal,"TOPLEFT"}, {120, 0, 100, 18}, colorCodes.MAGIC.."MAGIC", function() self:SetColor(colorCodes.MAGIC) end)
 	self.controls.rare = new("ButtonControl", {"TOPLEFT",self.controls.magic,"TOPLEFT"}, {120, 0, 100, 18}, colorCodes.RARE.."RARE", function() self:SetColor(colorCodes.RARE) end)
@@ -31,7 +39,7 @@ Below are some common color codes PoB uses:	]]
 	self.controls.intelligence = new("ButtonControl", {"TOPLEFT",self.controls.dexterity,"TOPLEFT"}, {120, 0, 100, 18}, colorCodes.INTELLIGENCE.."INTELLIGENCE", function() self:SetColor(colorCodes.INTELLIGENCE) end)
 	self.controls.default = new("ButtonControl", {"TOPLEFT",self.controls.intelligence,"TOPLEFT"}, {120, 0, 100, 18}, "^7DEFAULT", function() self:SetColor("^7") end)
 
-	self.controls.edit = new("EditControl", {"TOPLEFT",self.controls.fire,"TOPLEFT"}, {0, 48, 0, 0}, "", nil, "^%C\t\n", nil, nil, 16, true)
+	self.controls.edit = new("EditControl", {"TOPLEFT",self.controls.noteList,"BOTTOMLEFT"}, {0, 8, 0, 0}, "", nil, "^%C\t\n", nil, nil, 16, true)
 	self.controls.edit.width = function()
 		return self.width - 16
 	end
@@ -42,6 +50,9 @@ Below are some common color codes PoB uses:	]]
 		self.showColorCodes = not self.showColorCodes
 		self:SetShowColorCodes(self.showColorCodes)
 	end)
+
+	self:SetActiveNote(1)
+
 	self:SelectControl(self.controls.edit)
 end)
 
@@ -68,18 +79,62 @@ function NotesTabClass:SetColor(color)
 end
 
 function NotesTabClass:Load(xml, fileName)
-	for _, node in ipairs(xml) do
+	self.activeNoteId = 0
+	self.notes = { }
+	self.noteOrderList = { }
+
+	for index, node in ipairs(xml) do
+		-- backwards compatibility
 		if type(node) == "string" then
-			self.controls.edit:SetText(node)
+			self.notesOrderList[1] = 1
+			self.notes[1] = { 
+				id = 1, 
+				content = node 
+			}
+	
+			self:SetActiveNote(1)
+		else 
+			local savedNoteId = tonumber(node.attrib.id)
+			self.notesOrderList[index] = savedNoteId
+
+			self.notes[savedNoteId] = { 
+				id = savedNoteId, 
+				title = node.attrib.title, 
+				content = node[1] or ""
+			}
+
+			if node.attrib.active ~= nil then
+				self:SetActiveNote(savedNoteId)
+			end
 		end
 	end
-	self.lastContent = self.controls.edit.buf
+
+	self.modFlag = false
 end
 
 function NotesTabClass:Save(xml)
 	self:SetShowColorCodes(false)
-	t_insert(xml, self.controls.edit.buf)
-	self.lastContent = self.controls.edit.buf
+
+	self.notes[self.activeNoteId].content = self.controls.edit.buf
+
+	for _, noteId in ipairs(self.notesOrderList) do
+		local attrib = {
+			id = tostring(noteId),
+			title = self.notes[noteId].title,
+		}
+
+		if self.activeNoteId == noteId then
+			attrib.active = "1"
+		end
+
+		local note = {
+			elem = "Note",
+			attrib = attrib,
+			[1] = self.notes[noteId].content
+		}
+
+		t_insert(xml, note)
+	end
 end
 
 function NotesTabClass:Draw(viewPort, inputEvents)
@@ -91,17 +146,63 @@ function NotesTabClass:Draw(viewPort, inputEvents)
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
 			if event.key == "z" and IsKeyDown("CTRL") then
-				self.controls.edit:Undo()
+				if self.controls.edit.hasFocus then
+					self.controls.edit:Undo()
+				end
 			elseif event.key == "y" and IsKeyDown("CTRL") then
-				self.controls.edit:Redo()
+				if self.controls.edit.hasFocus then
+					self.controls.edit:Redo()
+				end
 			end
 		end
 	end
+	
 	self:ProcessControlsInput(inputEvents, viewPort)
 
 	main:DrawBackground(viewPort)
 
 	self:DrawControls(viewPort)
 
-	self.modFlag = (self.lastContent ~= self.controls.edit.buf)
+	self.modFlag = (self.notes[self.activeNoteId].content ~= self.controls.edit.buf) or self.modFlag
+end
+
+-- Creates a new note
+function NotesTabClass:NewNote(noteId)
+	local note = { id = noteId, content = "" }
+
+	if not noteId then
+		note.id = 1
+		while self.notes[note.id] do
+			note.id = note.id + 1
+		end
+	end
+
+	self.notes[note.id] = note
+
+	return note
+end
+
+-- Changes the active note
+function NotesTabClass:SetActiveNote(noteId)
+	-- Initialize note if needed
+	if not self.notesOrderList[1] then
+		self.notesOrderList[1] = 1
+		self:NewNote(1)
+	end
+
+	if not noteId then
+		noteId = self.activeNoteId
+	end
+
+	if not self.notes[noteId] then
+		noteId = self.notesOrderList[1]
+	end
+
+	self.activeNoteId = noteId
+	self.notes[self.activeNoteId].lastContent = self.controls.edit.buf
+	self.controls.edit:SetText(self.notes[noteId].content)
+end
+
+function NotesTabClass:SaveContentToNote(noteId) 
+	self.notes[noteId].content = self.controls.edit.buf
 end
