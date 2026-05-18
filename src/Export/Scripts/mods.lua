@@ -304,6 +304,10 @@ end)
 writeMods("../Data/ModFoulborn.lua", function(mod)
 	return mod.Domain == Domains.Item and mod.GenerationType == GenTypes.Intrinsic and mod.Id:match("^MutatedUnique")
 end)
+-- enchants
+writeMods("../Data/ModEnchantment.lua", function(mod)
+	return mod.Domain == Domains.Item and mod.GenerationType == GenTypes.Enchantment
+end)
 
 -- Generate unique mod mappings from text to mod
 local out = io.open("Uniques/ModTextMap.lua", "w")
