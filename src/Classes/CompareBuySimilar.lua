@@ -208,7 +208,9 @@ function M.openPopup(item, slotName, primaryBuild)
 		{ list = item.enchantModLines, type = "enchant" },
 		{ list = item.explicitModLines, type = "explicit" },
 		{ list = item.scourgeModLines,  type = "scourge" },
-		{ list = item.crucibleModLines, type = "crucible" },
+		-- disabled due to matching difficulty. the trade site searches for
+		-- crucible mods, while for other things, it matches by stats 
+		-- { list =item.crucibleModLines, type = "crucible" },
 	}
 	for _, source in ipairs(modTypeSources) do
 		if source.list then

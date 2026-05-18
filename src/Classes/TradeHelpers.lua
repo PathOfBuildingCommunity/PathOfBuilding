@@ -269,14 +269,14 @@ function M.findTradeHash(item, modLine, modType)
 				return tradeHashMaybe
 			end
 		end
-		-- crucible mods
-	elseif modType == "crucible" then
-		for _, dbMod in pairs(data.crucible) do
-			local tradeHashMaybe = findStat(dbMod)
-			if tradeHashMaybe then
-				return tradeHashMaybe
-			end
-		end
+	-- 	-- crucible mods
+	-- elseif modType == "crucible" then
+	-- 	for _, dbMod in pairs(data.crucible) do
+	-- 		local tradeHashMaybe = findStat(dbMod)
+	-- 		if tradeHashMaybe then
+	-- 			return tradeHashMaybe
+	-- 		end
+	-- 	end
 	end
 
 	-- if we still don't have a match, there's probably an issue with weight
