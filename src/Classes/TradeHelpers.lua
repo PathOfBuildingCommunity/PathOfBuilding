@@ -9,28 +9,33 @@ local dkjson = require "dkjson"
 local M = {}
 
 -- Helper: get rarity color code for an item
+--- @param item table
 function M.getRarityColor(item)
 	if not item then return "^7" end
-	if item.rarity == "UNIQUE" then return colorCodes.UNIQUE
-	elseif item.rarity == "RARE" then return colorCodes.RARE
-	elseif item.rarity == "MAGIC" then return colorCodes.MAGIC
-	else return colorCodes.NORMAL end
+	if item.rarity and colorCodes[item.rarity] then
+		return colorCodes[item.rarity]
+	else
+		return "^7"
+	end
 end
 
 -- Helper: normalize a mod line by replacing numbers with "#" for template matching
+--- @param line string
 function M.modLineTemplate(line)
 	-- Replace decimal numbers first (e.g. "1.5"), then integers
-	return line:gsub("[%d]+%.?[%d]*", "#")
+	return line:gsub("%-?[%d]+%.?[%d]*", "#")
 end
 
 -- Helper: extract the first number from a mod line for value comparison
+--- @param line string
 function M.modLineValue(line)
-	return tonumber(line:match("[%d]+%.?[%d]*")) or 0
+	return tonumber(line:match("%-?[%d]+%.?[%d]*"))
 end
 
 -- Helper: fetch and cache the trade API stats
 local _tradeStats = nil
 local _tradeStatsFetched = false
+--- @return table
 local function getTradeStatsLookup()
 	if _tradeStats then return _tradeStats end
 	local tradeStats = ""
@@ -57,28 +62,67 @@ M.sourceTypeToCategory = {
 	["enchant"] = "Enchant",
 }
 
+-- inverses a mod. e.g. more x -> less x
+--- @param modLine string
+function M.swapInverse(modLine)
+	local priorStr = modLine
+	local inverseKey
+	if modLine:match("increased") then
+		modLine = modLine:gsub("([^ ]+) increased", "-%1 reduced")
+		if modLine ~= priorStr then inverseKey = "increased" end
+	elseif modLine:match("reduced") then
+		modLine = modLine:gsub("([^ ]+) reduced", "-%1 increased")
+		if modLine ~= priorStr then inverseKey = "reduced" end
+	elseif modLine:match("more") then
+		modLine = modLine:gsub("([^ ]+) more", "-%1 less")
+		if modLine ~= priorStr then inverseKey = "more" end
+	elseif modLine:match("less") then
+		modLine = modLine:gsub("([^ ]+) less", "-%1 more")
+		if modLine ~= priorStr then inverseKey = "less" end
+	elseif modLine:match("expires ([^ ]+) slower") then
+		modLine = modLine:gsub("([^ ]+) slower", "-%1 faster")
+		if modLine ~= priorStr then inverseKey = "slower" end
+	elseif modLine:match("expires ([^ ]+) faster") then
+		modLine = modLine:gsub("([^ ]+) faster", "-%1 slower")
+		if modLine ~= priorStr then inverseKey = "faster" end
+	end
+	return modLine, inverseKey
+end
+
+-- checks if the mod should be inverted before query
+--- @param tradeId string
+--- @param modLine string
+--- @param modType string
 function M.shouldBeInverted(tradeId, modLine, modType)
 	local formattedLine = M.formatDatabaseText(M.formatDatabaseText(modLine))
+	local invertedLine, inverseKey = M.swapInverse(formattedLine)
 	for _, category in ipairs(getTradeStatsLookup()) do
 		if category.id == modType then
 			for _, stat in ipairs(category.entries) do
 				if tradeId == stat.id then
 					-- remove radius jewel extra text
 					local formattedTradeSiteText = M.formatDatabaseText(stat.text)
-					-- local modifiers don't seem to be inverted. same goes for
-					-- the single stat that has (charm) in it
-					if formattedTradeSiteText:match("(Local)") or formattedTradeSiteText:match(" %(Charm%)$") then
+					-- there are multiple stat variants on the trade site which are marked with e.g. (Local). None of these seem to be inverted, so we can check for those and return early
+					if formattedTradeSiteText:match(" %(%w+%)$") then
 						return false
 					end
-					-- trade site sometimes has a + sign, sometimes not
-					return not (formattedLine == formattedTradeSiteText or formattedLine:gsub("^%+", "") == formattedTradeSiteText)
+
+					-- test for inverted mod
+					if inverseKey and ((invertedLine == formattedTradeSiteText) or (invertedLine:gsub("^%+", "") == formattedTradeSiteText)) then
+						return true
+					end
+
+					-- otherwise it's probably not inverted
+					return false
 				end
 			end
 		end
 	end
+	return false
 end
 
 -- Helper: normalise data texts to # format
+--- @param text string
 function M.formatDatabaseText(text)
 	-- decimal -> integer
 	text = text:gsub("%d+%.%d+", "1")
@@ -93,29 +137,67 @@ function M.formatDatabaseText(text)
 end
 
 -- Helper: find the trade stat ID for a mod line
-function M.findTradeHash(item, modLine, modType, isVeiled)
+--- @param item table
+--- @param modLine string
+--- @param modType string
+--- @return number?
+function M.findTradeHash(item, modLine, modType)
 	local formattedLine = M.formatDatabaseText(modLine)
 	-- the data export splits some mods into different parts, even though they
 	-- are technically just one stat. we handle that here
-	function findStat(dbMod, allowDefault)
-		local excludeTags = (not allowDefault) and { default = true } or nil
-		if #dbMod.weightKey > 0 and not (item:GetModSpawnWeight(dbMod, nil, excludeTags) > 0) then
+
+	local isUnique = item.rarity == "UNIQUE" or item.rarity == "RELIC"
+	function findStat(dbMod, ignoreWeights)
+		local excludeTags = (not isUnique) and { default = true } or nil
+		-- cluster jewel mod weights are weird
+		local isMatchingClusterMod = dbMod.group and dbMod.group:match("^Affliction") and
+			item.base.subType == "Cluster"
+		if not (isMatchingClusterMod or ignoreWeights) and #(dbMod.weightKey or {}) > 0 and not (item:GetModSpawnWeight(dbMod, nil, excludeTags) > 0) then
 			return nil
 		end
 		for tradeHash, description in pairs(dbMod.tradeHashes) do
-			for _, line in ipairs(description) do
-				local dbFormatted = M.formatDatabaseText(line)
-				if formattedLine == dbFormatted then
+			local tradeLine = table.concat(description, "\n")
+			if tradeLine:match("increased Critical Strike Chance against Shocked Enemies") then
+				ConPrintf("help")
+			end
+			if formattedLine == M.formatDatabaseText(tradeLine) then
+				return tradeHash
+			end
+
+			-- the mod line splitting between the stat export and item parsing
+			-- can be different. hence we test both a combined line and separate
+			-- lines
+			for _, descLine in ipairs(description) do
+				if formattedLine == M.formatDatabaseText(descLine) then
 					return tradeHash
 				end
+			end
+			
+		
+		end
+	end
+
+	if item.foulborn then
+		for _, dbMod in pairs(data.itemMods.Foulborn) do
+			local tradeHashMaybe = findStat(dbMod)
+			if tradeHashMaybe then
+				return tradeHashMaybe
 			end
 		end
 	end
 
-	-- implicit mods
+	if item.name:match("Watcher's Eye") or item.name:match("Sublime Vision") then
+		for _, dbMod in pairs(data.itemMods.WatchersEye) do
+			local tradeHashMaybe = findStat(dbMod, true)
+			if tradeHashMaybe then
+				return tradeHashMaybe
+			end
+		end
+	end
+
 	if modType == "implicit" then
-		for _, dbName in ipairs({"Implicit", "Synthesis", "Eldritch"}) do
-			for _, dbMod in pairs(data.itemMods[dbName]) do
+		for _, db in ipairs({"Synthesis", "Eldritch", "ItemExclusive", "Delve", "Corrupted", }) do
+			for _, dbMod in pairs(data.itemMods[db]) do
 				local tradeHashMaybe = findStat(dbMod)
 				if tradeHashMaybe then
 					return tradeHashMaybe
@@ -124,21 +206,71 @@ function M.findTradeHash(item, modLine, modType, isVeiled)
 		end
 	end
 
-	--enchantments TODO
-
-	-- scourge mods
-	if modType == "scourge" then
+	if modType == "explicit" then
+		-- this should include most things the base type can contain
+		if item.base.type == "Jewel" or item.base.type == "Flask" then
+			for modName, dbMod in pairs(item.affixes) do
+				if (item.searing or item.tangled) or not modName:match("EldritchImplicit") then
+					local tradeHashMaybe = findStat(dbMod)
+					if tradeHashMaybe then
+						return tradeHashMaybe
+					end
+				end
+			end
+			for _, dbMod in pairs(data.itemMods.ItemExclusive) do
+				local tradeHashMaybe = findStat(dbMod)
+				if tradeHashMaybe then
+					return tradeHashMaybe
+				end
+			end
+		else
+			for _, db in ipairs({ "Explicit", "Delve", "Scourge", "ItemExclusive" }) do
+				for _, dbMod in pairs(data.itemMods[db]) do
+					local tradeHashMaybe = findStat(dbMod)
+					if tradeHashMaybe then
+						return tradeHashMaybe
+					end
+				end
+			end
+			-- unveiled mods
+			for _, dbMod in pairs(data.veiledMods) do
+				local tradeHashMaybe = findStat(dbMod)
+				if tradeHashMaybe then
+					return tradeHashMaybe
+				end
+			end
+		end
+	elseif modType == "scourge" then
 		for _, dbMod in pairs(data.itemMods.Scourge) do
 			local tradeHashMaybe = findStat(dbMod)
 			if tradeHashMaybe then
 				return tradeHashMaybe
 			end
 		end
-	end
-
-	-- crucible mods
-	-- TODO: add trade hash to these
-	if modType == "crucible" then
+		--enchantments
+	elseif modType == "enchant" then
+		for _, dbMod in pairs(data.itemMods.Enchantment) do
+			local tradeHashMaybe = findStat(dbMod)
+			if tradeHashMaybe then
+				return tradeHashMaybe
+			end
+		end
+		-- some enchant mods aren't actually marked as enchants in the data
+		-- files
+		for _, dbMod in pairs(item.affixes) do
+			local tradeHashMaybe = findStat(dbMod)
+			if tradeHashMaybe then
+				return tradeHashMaybe
+			end
+		end
+		for _, dbMod in pairs(data.itemMods.ItemExclusive) do
+			local tradeHashMaybe = findStat(dbMod)
+			if tradeHashMaybe then
+				return tradeHashMaybe
+			end
+		end
+		-- crucible mods
+	elseif modType == "crucible" then
 		for _, dbMod in pairs(data.crucible) do
 			local tradeHashMaybe = findStat(dbMod)
 			if tradeHashMaybe then
@@ -147,46 +279,27 @@ function M.findTradeHash(item, modLine, modType, isVeiled)
 		end
 	end
 
-	-- veiled mods
-
-	for _, dbMod in pairs(data.veiledMods) do
-		local tradeHashMaybe = findStat(dbMod)
+	-- if we still don't have a match, there's probably an issue with weight
+	-- keys. some mods, such as incursion mods, have a weight value of zero for
+	-- "default". this might produce false positives
+	for _, dbMod in pairs(data.itemMods.ItemExclusive) do
+		local tradeHashMaybe = findStat(dbMod, true)
 		if tradeHashMaybe then
 			return tradeHashMaybe
 		end
 	end
-	-- rest of the explicit mods
-	for _, dbName in ipairs({ "Delve", "Explicit" }) do
-		for _, dbMod in pairs(data.itemMods[dbName]) do
-			local tradeHashMaybe = findStat(dbMod)
-			if tradeHashMaybe then
-				return tradeHashMaybe
-			end
-		end
-	end
-
-	for _, dbMod in pairs(data.itemMods.Scourge) do
-		local tradeHashMaybe = findStat(dbMod)
+	for _, dbMod in pairs(item.affixes) do
+		local tradeHashMaybe = findStat(dbMod, true)
 		if tradeHashMaybe then
 			return tradeHashMaybe
 		end
 	end
-
-	-- implicit mods
-	if modType == "explicit" then
-		for _, dbMod in pairs(data.itemMods.Implicit) do
-			local tradeHashMaybe = findStat(dbMod)
-			if tradeHashMaybe then
-				return tradeHashMaybe
-			end
-		end
-	end
-
-	-- TODO flask, graft, jewels
 end
 -- Map slot name + item type to (trade API category string, itemCategoryTags key).
 -- queryStr:      e.g. "armour.shield", "weapon.onemace"
 -- categoryLabel: e.g. "Shield", "1HMace", "1HWeapon" (nil for flask / generic jewel / unsupported)
+--- @param slotName string
+--- @param item table
 function M.getTradeCategoryInfo(slotName, item)
 	if not slotName then return nil, nil end
 	local itemType = item and (item.type or (item.base and item.base.type))
@@ -225,6 +338,7 @@ function M.getTradeCategoryInfo(slotName, item)
 end
 
 -- Helper: map slot name + item type to trade API category string
+--- @param item table
 function M.getTradeCategory(slotName, item)
 	if not item or not item.base then return nil end
 	local queryStr = M.getTradeCategoryInfo(slotName, item)
@@ -232,6 +346,7 @@ function M.getTradeCategory(slotName, item)
 end
 
 -- Helper: get a display-friendly category name from slot name
+--- @param item table
 function M.getTradeCategoryLabel(slotName, item)
 	if not item or not item.base then return "Item" end
 	local baseType = item.base.type or item.type
@@ -240,6 +355,7 @@ end
 
 -- Helper: build a mod comparison map from an item.
 -- Returns a table keyed by template string → { line = original text, value = first number }
+--- @param item table
 function M.buildModMap(item)
 	local modMap = {}
 	if not item then return modMap end
@@ -258,6 +374,8 @@ function M.buildModMap(item)
 end
 
 -- Helper: get diff label string for an item slot comparison
+--- @param pIem table
+--- @param cItem table
 function M.getSlotDiffLabel(pItem, cItem)
 	if not pItem and not cItem then
 		return "^8(both empty)"

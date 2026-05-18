@@ -6,7 +6,7 @@
 local t_insert = table.insert
 local m_floor = math.floor
 local dkjson = require "dkjson"
-local tradeHelpers = LoadModule("Classes/CompareTradeHelpers")
+local tradeHelpers = LoadModule("Classes/TradeHelpers")
 
 local M = {}
 
@@ -138,24 +138,30 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
 	for i, entry in ipairs(modEntries) do
 		local prefix = "mod" .. i
 		if entry.tradeId and controls[prefix .. "Check"] and controls[prefix .. "Check"].state then
-			local minVal = tonumber(controls[prefix .. "Min"].buf)
-			local maxVal = tonumber(controls[prefix .. "Max"].buf)
+			
 			local filter = { id = entry.tradeId }
-			local value = {}
-			if minVal then
-				value.min = minVal
+			if entry.valueIsOption then
+				filter.value = { option = entry.value }
+			elseif entry.value then
+				local minVal = tonumber(controls[prefix .. "Min"].buf)
+				local maxVal = tonumber(controls[prefix .. "Max"].buf)
+				local value = {}
+				if minVal then
+					value.min = minVal
+				end
+				if maxVal then
+					value.max = maxVal
+				end
+				if entry.invert then
+					value.min, value.max = value.max, value.min
+					value.min = value.min and -value.min
+					value.max = value.max and -value.max
+				end
+				if next(value) then
+					filter.value = value
+				end
 			end
-			if maxVal then
-				value.max = maxVal
-			end
-			if entry.invert then
-				value.min, value.max = value.max, value.min
-				value.min = value.min and -value.min
-				value.max = value.max and -value.max
-			end
-			if next(value) then
-				filter.value = value
-			end
+			
 			t_insert(queryTable.query.stats[1].filters, filter)
 		end
 	end
@@ -213,14 +219,37 @@ function M.openPopup(item, slotName, primaryBuild)
 					if formatted then
 						-- Use range-resolved text for matching
 						local resolvedLine = (modLine.range and itemLib.applyRange(modLine.line, modLine.range, modLine.valueScalar)) or modLine.line
-						local tradeHash = tradeHelpers.findTradeHash(item, resolvedLine, source.type, modLine.desecrated)
-						local identifier = tradeHash and string.format("%s.stat_%s", source.type, tradeHash)
-						local value = tradeHelpers.modLineValue(resolvedLine)
+
+						-- special case: cluster enchantment
+						local identifier, value
+						-- whether to add a min and max, or an option field
+						local valueIsOption = false
+						local clusterMatch = resolvedLine:match("Added Small Passive Skills grant: (.+)") 
+						if clusterMatch then
+							identifier = "enchant.stat_3948993189"
+							for _, v in pairs(item.clusterJewel.skills) do
+								for _, stat in ipairs(v.stats) do
+									if stat == clusterMatch then
+										value = v.id
+										valueIsOption = true
+										goto outer
+									end
+								end
+							end
+							::outer::
+						else
+							local tradeHash = tradeHelpers.findTradeHash(item, resolvedLine, source.type)
+							identifier = tradeHash and string.format("%s.stat_%s", source.type, tradeHash)
+							value = tradeHelpers.modLineValue(resolvedLine)
+						end
+
+						
 						t_insert(modEntries, {
 							line = modLine.line,
 							formatted = formatted:gsub("%^x%x%x%x%x%x%x", ""):gsub("%^%x", ""), -- strip color codes
 							tradeId = identifier,
 							value = value,
+							valueIsOption = valueIsOption,
 							modType = source.type,
 							invert = tradeHelpers.shouldBeInverted(identifier, resolvedLine, source.type)
 						})
@@ -365,15 +394,19 @@ function M.openPopup(item, slotName, primaryBuild)
 		controls[prefix .. "Check"].enabled = function() return canSearch end
 		-- Truncate long mod text to fit
 		local displayText = entry.formatted
-		if #displayText > 45 then
-			displayText = displayText:sub(1, 42) .. "..."
+		if #displayText > 65 then
+			displayText = displayText:sub(1, 55) .. "..."
 		end
 		controls[prefix .. "Label"] = new("LabelControl", {"LEFT", controls[prefix .. "Check"], "RIGHT"}, {4, 0, 0, 16}, (canSearch and "^7" or "^8") .. displayText)
-		controls[prefix .. "Min"] = newPlainNumericEdit(nil, {minFieldX - popupWidth/2, ctrlY, fieldW, fieldH}, entry.value ~= 0 and tostring(m_floor(entry.value)) or "", "Min", 8)
-		controls[prefix .. "Max"] = newPlainNumericEdit(nil, {maxFieldX - popupWidth/2, ctrlY, fieldW, fieldH}, "", "Max", 8)
-		if not canSearch then
-			controls[prefix .. "Min"].enabled = function() return false end
-			controls[prefix .. "Max"].enabled = function() return false end
+		-- when the trade site has a dropdown for the value, we opt to disable
+		-- the inputs as they are numeric
+		if not entry.valueIsOption and entry.value then
+			controls[prefix .. "Min"] = newPlainNumericEdit(nil, {minFieldX - popupWidth/2, ctrlY, fieldW, fieldH}, entry.value ~= 0 and tostring(m_floor(entry.value)) or "", "Min", 8)
+			controls[prefix .. "Max"] = newPlainNumericEdit(nil, {maxFieldX - popupWidth/2, ctrlY, fieldW, fieldH}, "", "Max", 8)
+			if not canSearch then
+				controls[prefix .. "Min"].enabled = function() return false end
+				controls[prefix .. "Max"].enabled = function() return false end
+			end
 		end
 		ctrlY = ctrlY + rowHeight
 	end
