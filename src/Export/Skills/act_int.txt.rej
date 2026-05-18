@@ -1,0 +1,101 @@
+diff a/src/Export/Skills/act_int.txt b/src/Export/Skills/act_int.txt	(rejected hunks)
+@@ -1095,7 +1095,7 @@ statMap = {
+ #minionList SummonedRagingSpirit
+ #skill RagingSpiritsPlayer
+ #set RagingSpiritsPlayer
+-#flags spell minion permanentMinion
++#flags spell minion
+ #mods
+ #skillEnd
+ 
+@@ -1103,7 +1103,6 @@ statMap = {
+ #skill RaiseZombiePlayer
+ #set RaiseZombiePlayer
+ #flags spell minion
+-#baseMod flag("Condition:TemporaryMinion")
+ #mods
+ #skillEnd
+ 
+@@ -1189,49 +1188,49 @@ statMap = {
+ #minionList RaisedSkeletonArsonist
+ #skill SummonSkeletalArsonistsPlayer
+ #set SummonSkeletalArsonistsPlayer
+-#flags spell minion permanentMinion
++#flags spell minion duration
+ #mods
+ #skillEnd
+ 
+ #minionList RaisedSkeletonBrute
+ #skill SummonSkeletalBrutesPlayer
+ #set SummonSkeletalBrutesPlayer
+-#flags spell minion permanentMinion
++#flags spell minion duration
+ #mods
+ #skillEnd
+ 
+ #minionList RaisedSkeletonCleric
+ #skill SummonSkeletalClericsPlayer
+ #set SummonSkeletalClericsPlayer
+-#flags spell minion permanentMinion
++#flags spell minion duration
+ #mods
+ #skillEnd
+ 
+ #minionList RaisedSkeletonFrostMage
+ #skill SummonSkeletalFrostMagesPlayer
+ #set SummonSkeletalFrostMagesPlayer
+-#flags spell minion permanentMinion
++#flags spell minion duration
+ #mods
+ #skillEnd
+ 
+ #minionList RaisedSkeletonReaver
+ #skill SummonSkeletalReaversPlayer
+ #set SummonSkeletalReaversPlayer
+-#flags spell minion permanentMinion
++#flags spell minion duration
+ #mods
+ #skillEnd
+ 
+ #minionList RaisedSkeletonSniper
+ #skill SummonSkeletalSnipersPlayer
+ #set SummonSkeletalSnipersPlayer
+-#flags spell minion permanentMinion
++#flags spell minion duration
+ #mods
+ #skillEnd
+ 
+ #minionList RaisedSkeletonStormMage
+ #skill SummonSkeletalStormMagesPlayer
+ #set SummonSkeletalStormMagesPlayer
+-#flags spell minion permanentMinion
++#flags spell minion duration
+ #mods
+ #skillEnd
+ 
+@@ -1239,7 +1238,7 @@ statMap = {
+ #minionList RaisedSkeletonWarriors
+ #skill SummonSkeletalWarriorsPlayer
+ #set SummonSkeletalWarriorsPlayer
+-#flags spell minion permanentMinion
++#flags spell minion duration
+ #mods
+ #skillEnd
+ 
+@@ -1309,7 +1308,7 @@ statMap = {
+ #minionList
+ #skill SummonSpectrePlayer
+ #set SummonSpectrePlayer
+-#flags spell minion spectre duration permanentMinion
++#flags spell minion spectre duration
+ #baseMod mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 25) }), --Server side damage mod added in 0.3
+ #mods
+ #skillEnd
+@@ -1401,7 +1400,6 @@ statMap = {
+ #skill UnearthPlayer
+ #set UnearthPlayer
+ #flags spell area minion
+-#baseMod flag("Condition:TemporaryMinion")
+ #mods
+ #skillEnd
+ 

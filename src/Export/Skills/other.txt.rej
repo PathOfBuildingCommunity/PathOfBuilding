@@ -1,0 +1,28 @@
+diff a/src/Export/Skills/other.txt b/src/Export/Skills/other.txt	(rejected hunks)
+@@ -368,7 +368,7 @@ minionUses = {
+ 	["Weapon 1"] = true,
+ },
+ #set ManifestWeaponPlayer
+-#flags spell minion duration
++#flags spell minion
+ statMap = {
+ 	["minion_1%_damage_+%_per_X_player_strength"] = {
+ 		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, 0, { type = "PerStat", stat = "Str", actor = "parent" }) }),
+@@ -556,7 +556,7 @@ statMap = {
+ #minionList SummonedHellhound
+ #skill SummonInfernalHoundPlayer
+ #set SummonInfernalHoundPlayer
+-#flags spell minion permanentMinion
++#flags spell minion duration
+ #mods
+ #skillEnd
+ 
+@@ -564,7 +564,7 @@ statMap = {
+ #minionList TacticianMinion
+ #skill SupportingFirePlayer
+ #set SupportingFirePlayer
+-#flags minion permanentMinion
++#flags minion duration
+ statMap = {
+ 	["minion_1%_damage_+%_per_X_player_strength"] = {
+ 		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, 0, { type = "PerStat", stat = "Str", actor = "parent" }) }),

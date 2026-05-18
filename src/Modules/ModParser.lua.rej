@@ -1,0 +1,19 @@
+diff a/src/Modules/ModParser.lua b/src/Modules/ModParser.lua	(rejected hunks)
+@@ -4656,13 +4656,11 @@ local specialModList = {
+ 	["summoned skeleton warriors are permanent and follow you"] = { flag("RaisedSkeletonPermanentDuration", { type = "SkillName", skillName = "Summon Skeletons" }) },
+ 	["minions recoup (%d+)%% of damage taken as life"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("LifeRecoup", "BASE", num) }) } end,
+ 	["temporary minion skills have %+(%d+) to limit of minions summoned"] = function(num) return { mod("ActiveMinionLimit", "BASE", num, { type = "BaseFlag", baseFlag = "duration", neg = true }) } end,
+-	["every rage also grants you (%d+)%% increased minion attack speed"] = function(num) return {
+-			mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", num, { type = "Multiplier", var = "RageEffect", actor = "player" }) }),
+-			mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", num, { type = "Multiplier", var = "RageEffect", actor = "parent" }) }),
+-	} end,
+ 	["every rage also grants you (%d+)%% increased minion damage"] = function(num) return {
+-			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num, { type = "Multiplier", var = "RageEffect", actor = "player" }) }),
+-			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num, { type = "Multiplier", var = "RageEffect", actor = "parent" }) }),
++		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num, { type = "Multiplier", var = "RageEffect", actor = "player" }) }),
++	} end,
++	["every rage also grants you (%d+)%% increased minion attack speed"] = function(num) return {
++		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", num, nil, ModFlag.Attack, { type = "Multiplier", var = "RageEffect", actor = "player" }) }),
+ 	} end,
+ 	-- Projectiles
+ 	["skills chain %+(%d) times"] = function(num) return { mod("ChainCountMax", "BASE", num) } end,

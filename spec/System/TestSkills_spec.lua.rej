@@ -1,0 +1,54 @@
+diff a/spec/System/TestSkills_spec.lua b/spec/System/TestSkills_spec.lua	(rejected hunks)
+@@ -85,7 +85,7 @@ describe("TestSkills", function()
+ 		assert.are.equals(16, round(finalCost))
+ 	end)
+ 
+-	it("Test 'every rage also grants you' for minion mods", function()
++	it("Test 'every rage also grants you' for minion mods and minion apply to you mods #run", function()
+ 		build.itemsTab:CreateDisplayItemFromRaw([[
+ 			New Item
+ 			Fanatic Greathammer
+@@ -106,5 +106,42 @@ describe("TestSkills", function()
+ 		runCallback("OnFrame")
+ 
+ 		assert.True(baseUnearthAttackSpeed < build.calcsTab.mainOutput.Minion.Speed)
++
++		newBuild()
++		build.itemsTab:CreateDisplayItemFromRaw([[
++			Rarity: UNIQUE
++			Chober Chaber
++			Leaden Greathammer
++			Variant: Pre 0.1.1
++			Variant: Current
++			Selected Variant: 2
++			Quality: 20
++			LevelReq: 33
++			Implicits: 0
++			+100 Intelligence Requirement
++			{variant:1}{range:0.5}(80-120)% increased Physical Damage
++			{variant:2}{range:0.5}Adds (58-65) to (102-110) Physical Damage
++			{range:0.5}+(80-100) to maximum Mana
++			{variant:2}+50 to Spirit
++			{variant:1}+5% to Critical Hit Chance
++			Increases and Reductions to Minion Damage also affect you
++		]])
++		build.itemsTab:AddDisplayItem()
++		runCallback("OnFrame")
++
++		build.skillsTab:PasteSocketGroup("Leap Slam 20/0  1\nRage I 1/0  1")
++		runCallback("OnFrame")
++
++		build.configTab.input.multiplierRage = 30
++		build.configTab:BuildModList()
++		runCallback("OnFrame")
++
++		local baseLeapSlamHit = build.calcsTab.mainOutput.AverageDamage
++
++		build.configTab.input.customMods = "Every Rage also grants you 1% increased Minion Damage"
++		build.configTab:BuildModList()
++		runCallback("OnFrame")
++
++		assert.True(baseLeapSlamHit < build.calcsTab.mainOutput.AverageDamage)
+ 	end)
+ end)
+\ No newline at end of file

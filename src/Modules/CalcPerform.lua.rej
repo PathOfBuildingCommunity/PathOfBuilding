@@ -1,0 +1,10 @@
+diff a/src/Modules/CalcPerform.lua b/src/Modules/CalcPerform.lua	(rejected hunks)
+@@ -255,7 +255,7 @@ local function doActorAttribsConditions(env, actor)
+ 			if actor.mainSkill.skillTypes[SkillType.Movement] then
+ 				condList["UsedMovementSkillRecently"] = true
+ 			end
+-			if skillFlags.minion and not skillFlags.permanentMinion then
++			if skillFlags.minion and not skillFlags.duration then
+ 				condList["UsedMinionSkillRecently"] = true
+ 			end
+ 			if actor.mainSkill.skillTypes[SkillType.Vaal] then

@@ -1,0 +1,27 @@
+diff a/src/Data/Skills/other.lua b/src/Data/Skills/other.lua	(rejected hunks)
+@@ -5307,7 +5307,6 @@ skills["ManifestWeaponPlayer"] = {
+ 			baseFlags = {
+ 				spell = true,
+ 				minion = true,
+-				duration = true,
+ 			},
+ 			constantStats = {
+ 				{ "minion_1%_damage_+%_per_X_player_strength", 1 },
+@@ -8022,7 +8021,7 @@ skills["SummonInfernalHoundPlayer"] = {
+ 			baseFlags = {
+ 				spell = true,
+ 				minion = true,
+-				permanentMinion = true,
++				duration = true,
+ 			},
+ 			constantStats = {
+ 				{ "display_minion_monster_type", 8 },
+@@ -8151,7 +8150,7 @@ skills["SupportingFirePlayer"] = {
+ 			},
+ 			baseFlags = {
+ 				minion = true,
+-				permanentMinion = true,
++				duration = true,
+ 			},
+ 			constantStats = {
+ 				{ "minion_1%_damage_+%_per_X_player_strength", 1 },
