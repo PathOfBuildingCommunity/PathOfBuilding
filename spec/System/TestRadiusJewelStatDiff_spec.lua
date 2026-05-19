@@ -122,6 +122,35 @@ local function setupAllocatedSocket()
 	return spec, socketNode
 end
 
+local function setupAllocatedSockets(count)
+	local spec = build.spec
+	local sockets = { }
+	local sortedSockets = { }
+	for _, node in pairs(spec.nodes) do
+		if node.isJewelSocket then
+			sortedSockets[#sortedSockets + 1] = node
+		end
+	end
+	table.sort(sortedSockets, function(a, b)
+		return a.id < b.id
+	end)
+	for _, socketNode in ipairs(sortedSockets) do
+		if allocatePathToNode(spec, socketNode) then
+			sockets[#sockets + 1] = socketNode
+			if #sockets >= count then
+				break
+			end
+		end
+	end
+	if #sockets < count then
+		pending("Could not allocate the requested number of jewel sockets for this tree layout")
+		return spec, sockets
+	end
+	spec:BuildAllDependsAndPaths()
+	runCallback("OnFrame")
+	return spec, sockets
+end
+
 local function rebuildBuild()
 	build.buildFlag = true
 	runCallback("OnFrame")
@@ -598,6 +627,75 @@ describe("TestRadiusJewelStatDiff", function()
 
 		assert.is_true(tooltipContains(tooltip, "Removing this item"),
 			"tooltip should contain a 'Removing this item' comparison header")
+	end)
+
+	it("AddItemTooltip avoids rebuilding unused limited-unique socket comparisons without a target slot", function()
+		local spec, sockets = setupAllocatedSockets(2)
+
+		local item = newThreadOfHope()
+		item.limit = 1
+		equipJewelInSocket(item, sockets[1])
+		spec:BuildAllDependsAndPaths()
+		runCallback("OnFrame")
+
+		local specClass = getmetatable(spec)
+		local originalBuildAllDependsAndPaths = specClass.BuildAllDependsAndPaths
+		local rebuilds = 0
+		specClass.BuildAllDependsAndPaths = function(self, ...)
+			rebuilds = rebuilds + 1
+			return originalBuildAllDependsAndPaths(self, ...)
+		end
+
+		local ok, err = pcall(function()
+			local tooltip = new("Tooltip")
+			build.itemsTab:AddItemTooltip(tooltip, item)
+		end)
+		specClass.BuildAllDependsAndPaths = originalBuildAllDependsAndPaths
+		if not ok then
+			error(err)
+		end
+
+		assert.are.equals(1, rebuilds,
+			"limited unique radius jewels should rebuild only the same-unique slot that will be displayed")
+	end)
+
+	it("AddItemTooltip reuses targeted radius jewel comparison specs until output changes", function()
+		local spec, sockets = setupAllocatedSockets(2)
+
+		local item = newCustomLeapJewel("Cached Leap")
+		local slot = equipJewelInSocket(item, sockets[1])
+		spec:BuildAllDependsAndPaths()
+		runCallback("OnFrame")
+
+		local originalSlotOnlyTooltips = main.slotOnlyTooltips
+		main.slotOnlyTooltips = true
+		local specClass = getmetatable(spec)
+		local originalBuildAllDependsAndPaths = specClass.BuildAllDependsAndPaths
+		local rebuilds = 0
+		specClass.BuildAllDependsAndPaths = function(self, ...)
+			rebuilds = rebuilds + 1
+			return originalBuildAllDependsAndPaths(self, ...)
+		end
+
+		local ok, err = pcall(function()
+			local tooltip = new("Tooltip")
+			build.itemsTab:AddItemTooltip(tooltip, item, slot)
+			tooltip = new("Tooltip")
+			build.itemsTab:AddItemTooltip(tooltip, item, slot)
+			assert.are.equals(1, rebuilds,
+				"targeted radius jewel hover should reuse its cached comparison spec")
+
+			build.outputRevision = build.outputRevision + 1
+			tooltip = new("Tooltip")
+			build.itemsTab:AddItemTooltip(tooltip, item, slot)
+			assert.are.equals(2, rebuilds,
+				"targeted radius jewel comparison spec cache should reset when output changes")
+		end)
+		specClass.BuildAllDependsAndPaths = originalBuildAllDependsAndPaths
+		main.slotOnlyTooltips = originalSlotOnlyTooltips
+		if not ok then
+			error(err)
+		end
 	end)
 
 end)

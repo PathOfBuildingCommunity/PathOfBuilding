@@ -4153,12 +4153,34 @@ end
 ---@param itemsTab ItemsTab
 ---@param compareSlot ItemSlotControl
 ---@param replacementItem Item
-local function buildSpecForJewelComparison(itemsTab, compareSlot, replacementItem)
+---@param useCache boolean?
+local function buildSpecForJewelComparison(itemsTab, compareSlot, replacementItem, useCache)
 	local tempItemId
+	local replacementItemId = replacementItem and replacementItem.id
+	local replacementItemIsStored = replacementItemId and itemsTab.items[replacementItemId] == replacementItem
+	local canCache = useCache and (not replacementItem or replacementItemIsStored)
+	local cacheKey
+	local cache
+	if canCache then
+		local outputRevision = itemsTab.build and itemsTab.build.outputRevision or 0
+		cache = itemsTab.targetedJewelComparisonSpecCache
+		if not cache or cache.outputRevision ~= outputRevision then
+			cache = {
+				outputRevision = outputRevision,
+				specs = { },
+			}
+			itemsTab.targetedJewelComparisonSpecCache = cache
+		end
+		cacheKey = tostring(compareSlot.nodeId) .. ":" .. tostring(replacementItemId or "")
+		if cache.specs[cacheKey] then
+			return cache.specs[cacheKey]
+		end
+	end
+
 	local spec = cloneSpecForJewelComparison(itemsTab.build.spec)
 	if replacementItem then
-		if replacementItem.id and itemsTab.items[replacementItem.id] == replacementItem then
-			spec.jewels[compareSlot.nodeId] = replacementItem.id
+		if replacementItemIsStored then
+			spec.jewels[compareSlot.nodeId] = replacementItemId
 		else
 			tempItemId = -1
 			while itemsTab.items[tempItemId] do
@@ -4178,6 +4200,9 @@ local function buildSpecForJewelComparison(itemsTab, compareSlot, replacementIte
 	end
 	if not ok then
 		error(err, 0)
+	end
+	if cacheKey then
+		cache.specs[cacheKey] = spec
 	end
 	return spec
 end
@@ -4917,18 +4942,18 @@ function ItemsTabClass:AddItemStatDifferences(tooltip, item, base, slot)
 			end
 		end
 
-		local function getReplacedItemAndOutput(compareSlot)
-			local selItem = self.items[compareSlot.selItemId]
+		local function getReplacedItemAndOutput(compareSlot, selItem, useJewelComparisonSpecCache)
+			selItem = selItem or self.items[compareSlot.selItemId]
 			local override = { repSlotName = compareSlot.slotName, repItem = item ~= selItem and item or nil }
 			if compareSlot.nodeId and (itemChangesPassiveTree(selItem) or itemChangesPassiveTree(item)) then
-				override.spec = buildSpecForJewelComparison(self, compareSlot, override.repItem)
+				override.spec = buildSpecForJewelComparison(self, compareSlot, override.repItem, useJewelComparisonSpecCache)
 			end
 			local output = calcFunc(override)
 			return selItem, output
 		end
-		local function addCompareForSlot(compareSlot, selItem, output)
+		local function addCompareForSlot(compareSlot, selItem, output, useJewelComparisonSpecCache)
 			if not selItem or not output then
-				selItem, output = getReplacedItemAndOutput(compareSlot)
+				selItem, output = getReplacedItemAndOutput(compareSlot, nil, useJewelComparisonSpecCache)
 			end
 			local header
 			if item == selItem then
@@ -4941,29 +4966,38 @@ function ItemsTabClass:AddItemStatDifferences(tooltip, item, base, slot)
 
 		-- if we have a specific slot to compare to, and the user has "Show
 		-- tooltips only for affected slots" checked, we can just compare that
-		-- one slot
+		-- one slot.
+		local compareOnlySlot = type(slot) ~= "string" and slot or self.slots[slot]
 		if main.slotOnlyTooltips and slot then
-			slot = type(slot) ~= "string" and slot or self.slots[slot]
-			if slot then addCompareForSlot(slot) end
+			if compareOnlySlot then addCompareForSlot(compareOnlySlot, nil, nil, true) end
 			return
 		end
 
-
-		local slots = {}
 		local isUnique = item.rarity == "UNIQUE" or item.rarity == "RELIC"
 		local currentSameUniqueCount = 0
+		local slotCandidates = {}
 		for _, compareSlot in ipairs(compareSlots) do
-			local selItem, output = getReplacedItemAndOutput(compareSlot)
+			local selItem = self.items[compareSlot.selItemId]
 			local isSameUnique = isUnique and selItem and item.name == selItem.name
 			if isUnique and isSameUnique and item.limit then
 				currentSameUniqueCount = currentSameUniqueCount + 1
 			end
-			table.insert(slots,
-				{ selItem = selItem, output = output, compareSlot = compareSlot, isSameUnique = isSameUnique })
+			table.insert(slotCandidates,
+				{ selItem = selItem, compareSlot = compareSlot, isSameUnique = isSameUnique })
+		end
+		local isLimitedUniqueAtLimit = (isUnique and item.limit and currentSameUniqueCount == item.limit) or false
+
+		local slots = {}
+		for _, slotEntry in ipairs(slotCandidates) do
+			if not isLimitedUniqueAtLimit or slotEntry.isSameUnique then
+				local _, output = getReplacedItemAndOutput(slotEntry.compareSlot, slotEntry.selItem)
+				slotEntry.output = output
+				table.insert(slots, slotEntry)
+			end
 		end
 
 		-- limited uniques: only compare to slots with the same item if more don't fit
-		if currentSameUniqueCount == item.limit then
+		if isLimitedUniqueAtLimit then
 			for _, slotEntry in ipairs(slots) do
 				if slotEntry.isSameUnique then
 					addCompareForSlot(slotEntry.compareSlot, slotEntry.selItem, slotEntry.output)
