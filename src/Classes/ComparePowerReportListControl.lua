@@ -7,6 +7,7 @@
 local t_insert = table.insert
 local t_sort = table.sort
 
+---@class ComparePowerReportListControl: ListControl
 local ComparePowerReportListClass = newClass("ComparePowerReportListControl", "ListControl", function(self, anchor, rect)
 	self.ListControl(anchor, rect, 18, "VERTICAL", false)
 

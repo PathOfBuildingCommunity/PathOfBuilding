@@ -1,3 +1,4 @@
+---@diagnostic disable: lowercase-global
 -- Path of Building
 --
 -- Module: Common
@@ -68,13 +69,16 @@ end
 local function getClass(className)
 	local class = common.classes[className]
 	if not class then
-		LoadModule("Classes/"..className)
+		LoadModule("Classes/" .. className)
 		class = common.classes[className]
-		assert(class, "Class '"..className.."' not defined in class file")
+		assert(class, "Class '" .. className .. "' not defined in class file")
 	end
 	return class
 end
--- newClass("<className>"[, "<parentClassName>"[, "<parentClassName>" ...]], constructorFunc)
+
+---@generic T
+---@param className `T`
+---@return T
 function newClass(className, ...)
 	local class = { }
 	common.classes[className] = class
@@ -112,6 +116,10 @@ function newClass(className, ...)
 	end
 	return class
 end
+
+---@generic T
+---@param className `T`
+---@return T
 function new(className, ...)
 	local class = getClass(className)
 	local object = setmetatable({ }, class)

@@ -7,6 +7,7 @@ local t_insert = table.insert
 local t_remove = table.remove
 local m_max = math.max
 
+---@class ConfigSetListControl: ListControl
 local ConfigSetListClass = newClass("ConfigSetListControl", "ListControl", function(self, anchor, rect, configTab)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, configTab.configSetOrderList)
 	self.configTab = configTab

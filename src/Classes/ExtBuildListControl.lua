@@ -10,6 +10,7 @@ local m_max = math.max
 local m_min = math.min
 local dkjson = require "dkjson"
 
+---@class ExtBuildListControl: ControlHost, Control
 local ExtBuildListControlClass = newClass("ExtBuildListControl", "ControlHost", "Control",
 	function(self, anchor, rect, providers)
 		self.Control(anchor, rect)

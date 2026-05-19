@@ -122,6 +122,7 @@ local function matchFlags(reqFlags, notFlags, flags)
 	return true
 end
 
+---@class CompareTab: ControlHost, Control
 local CompareTabClass = newClass("CompareTab", "ControlHost", "Control", function(self, primaryBuild)
 	self.ControlHost()
 	self.Control()

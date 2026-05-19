@@ -8,6 +8,7 @@ local t_remove = table.remove
 local m_max = math.max
 local s_format = string.format
 
+---@class SkillSetListControl: ListControl
 local SkillSetListClass = newClass("SkillSetListControl", "ListControl", function(self, anchor, rect, skillsTab)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, skillsTab.skillSetOrderList)
 	self.skillsTab = skillsTab

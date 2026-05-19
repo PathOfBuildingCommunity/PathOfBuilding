@@ -92,6 +92,7 @@ local function getOutputStatValue(output, stat)
 	return 0
 end
 
+---@class ItemsTab: UndoHandler, ControlHost, Control
 local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
 	self.ControlHost()

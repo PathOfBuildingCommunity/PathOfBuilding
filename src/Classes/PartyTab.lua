@@ -9,6 +9,7 @@ local s_format = string.format
 local t_insert = table.insert
 local m_max = math.max
 
+---@class PartyTab: ControlHost, Control
 local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(self, build)
 	self.ControlHost()
 	self.Control()

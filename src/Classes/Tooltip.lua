@@ -40,6 +40,7 @@ for _, recipeName in pairs(recipeNames) do
 	recipeImages[recipeName]:Load("TreeData/" .. recipeName .. ".png", "CLAMP")
 end
 
+---@class Tooltip
 local TooltipClass = newClass("Tooltip", function(self)
 	self.lines = { }
 	self.blocks = { }

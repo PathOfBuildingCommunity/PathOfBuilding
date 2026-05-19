@@ -12,6 +12,7 @@ local s_upper = string.upper
 local varList = LoadModule("Modules/ConfigOptions")
 local configVisibility = LoadModule("Modules/ConfigVisibility")
 
+---@class ConfigTab: UndoHandler, ControlHost, Control
 local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
 	self.ControlHost()

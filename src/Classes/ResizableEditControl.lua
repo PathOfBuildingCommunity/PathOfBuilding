@@ -6,6 +6,7 @@
 local m_max = math.max
 local m_min = math.min
 
+---@class ResizableEditControl: EditControl
 local ResizableEditClass = newClass("ResizableEditControl", "EditControl", function(self, anchor, rect, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom, clearable)
     self.EditControl(anchor, rect, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom, clearable)
 	local x, y, width, height, minWidth, minHeight, maxWidth, maxHeight = unpack(rect)

@@ -6,6 +6,7 @@
 local ipairs = ipairs
 local t_insert = table.insert
 
+---@class PathControl
 local PathClass = newClass("PathControl", "Control", "ControlHost", "UndoHandler", function(self, anchor, rect, basePath, subPath, onChange)
 	self.Control(anchor, rect)
 	self.ControlHost()

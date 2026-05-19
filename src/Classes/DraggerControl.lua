@@ -3,6 +3,7 @@
 -- Class: Dragger Button Control
 -- Dragger button control.
 --
+---@type DraggerControl: Control, TooltipHost
 local DraggerClass = newClass("DraggerControl", "Control", "TooltipHost", function(self, anchor, rect, label, onKeyDown, onKeyUp, onRightClick, onHover, forceTooltip)
 	self.Control(anchor, rect)
 	self.TooltipHost()

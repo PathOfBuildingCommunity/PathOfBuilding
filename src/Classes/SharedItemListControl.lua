@@ -7,6 +7,7 @@ local pairs = pairs
 local t_insert = table.insert
 local t_remove = table.remove
 
+---@class SharedItemListControl: ListControl
 local SharedItemListClass = newClass("SharedItemListControl", "ListControl", function(self, anchor, rect, itemsTab, forceTooltip)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, main.sharedItemList, forceTooltip)
 	self.itemsTab = itemsTab

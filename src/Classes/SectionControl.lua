@@ -4,6 +4,7 @@
 -- Section box with label
 --
 
+---@class SectionControl: Control
 local SectionClass = newClass("SectionControl", "Control", function(self, anchor, rect, label)
 	self.Control(anchor, rect)
 	self.label = label

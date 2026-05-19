@@ -3,6 +3,7 @@
 -- Class: Button Control
 -- Basic button control.
 --
+---@class ButtonControl: Control, TooltipHost
 local ButtonClass = newClass("ButtonControl", "Control", "TooltipHost", function(self, anchor, rect, label, onClick, onHover, forceTooltip)
 	self.Control(anchor, rect)
 	self.TooltipHost()

@@ -9,6 +9,7 @@
 local t_insert = table.insert
 local t_remove = table.remove
 
+---@class UndoHandler
 local UndoHandlerClass = newClass("UndoHandler", function(self)
 	self.undo = { }
 	self.redo = { }

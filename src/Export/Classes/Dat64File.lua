@@ -84,6 +84,7 @@ local dataTypes = {
 	},
 }
 
+---@class Dat64File
 local Dat64FileClass = newClass("Dat64File", function(self, name, raw)
 	self.name = name:lower()
 	self.raw = raw

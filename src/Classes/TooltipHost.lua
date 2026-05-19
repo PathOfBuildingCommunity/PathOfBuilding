@@ -3,6 +3,7 @@
 -- Class: Tooltip Host
 -- Tooltip host
 --
+---@class TooltipHost
 local TooltipHostClass = newClass("TooltipHost", function(self, tooltipText)
 	self.tooltip = new("Tooltip")
 	self.tooltipText = tooltipText

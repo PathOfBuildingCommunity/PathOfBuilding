@@ -5,6 +5,7 @@
 --
 local m_floor = math.floor
 
+---@class PopupDialog: ControlHost, Control
 local PopupDialogClass = newClass("PopupDialog", "ControlHost", "Control", function(self, width, height, title, controls, enterControl, defaultControl,
 									escapeControl, scrollBarFunc, resizeFunc)
 	self.ControlHost()

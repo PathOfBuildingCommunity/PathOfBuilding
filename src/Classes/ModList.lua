@@ -16,6 +16,7 @@ local bor = bit.bor
 
 local mod_createMod = modLib.createMod
 
+---@class ModList: ModStore
 local ModListClass = newClass("ModList", "ModStore", function(self, parent)
 	self.ModStore(parent)
 end)

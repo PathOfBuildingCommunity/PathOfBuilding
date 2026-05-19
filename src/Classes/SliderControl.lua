@@ -7,6 +7,7 @@ local m_min = math.min
 local m_max = math.max
 local m_ceil = math.ceil
 
+---@class SliderControl: Control, TooltipHost
 local SliderClass = newClass("SliderControl", "Control", "TooltipHost", function(self, anchor, rect, changeFunc, scrollWheelSpeedTbl)
 	self.Control(anchor, rect)
 	self.TooltipHost()

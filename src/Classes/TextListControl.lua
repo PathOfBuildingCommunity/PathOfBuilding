@@ -3,6 +3,7 @@
 -- Class: Text List
 -- Simple list control for displaying a block of text
 --
+---@class TextListControl: Control, ControlHost
 local TextListClass = newClass("TextListControl", "Control", "ControlHost", function(self, anchor, rect, columns, list, sectionHeights)
 	self.Control(anchor, rect)
 	self.ControlHost()

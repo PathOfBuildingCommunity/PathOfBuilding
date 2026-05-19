@@ -9,7 +9,7 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
---constructor
+---@class PassiveMasteryControl: ListControl
 local PassiveMasteryControlClass = newClass("PassiveMasteryControl", "ListControl", function(self, anchor, rect, list, treeTab, node, saveButton)
 	self.list = list or { }
 	-- automagical width

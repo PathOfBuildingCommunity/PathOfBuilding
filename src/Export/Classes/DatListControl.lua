@@ -3,6 +3,7 @@
 -- Class: Dat List
 -- Dat list control.
 --
+---@class DatListControl: ListControl
 local DatListClass = newClass("DatListControl", "ListControl", function(self, anchor, rect)
 	self.originalList = main.datFileList
 	self.searchBuf = ""

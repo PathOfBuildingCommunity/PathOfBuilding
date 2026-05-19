@@ -9,6 +9,7 @@ local s_format = string.format
 local m_min = math.min
 local m_max = math.max
 
+---@class CompareEntry: ControlHost
 local CompareEntryClass = newClass("CompareEntry", "ControlHost", function(self, xmlText, label)
 	self.ControlHost()
 

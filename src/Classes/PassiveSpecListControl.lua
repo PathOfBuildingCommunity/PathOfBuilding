@@ -7,6 +7,7 @@ local t_insert = table.insert
 local t_remove = table.remove
 local m_max = math.max
 
+---@class PassiveSpecListControl: ListControl
 local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", function(self, anchor, rect, treeTab)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, treeTab.specList)
 	self.treeTab = treeTab

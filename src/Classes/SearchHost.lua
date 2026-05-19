@@ -4,6 +4,7 @@
 -- Search host
 --
 
+---@class SearchHost
 local SearchHostClass = newClass("SearchHost", function(self, listAccessor, valueAccessor)
 	self.searchListAccessor = listAccessor
 	self.valueAccessor = valueAccessor

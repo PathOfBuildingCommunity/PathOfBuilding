@@ -19,6 +19,7 @@ local s_gsub = string.gsub
 local s_byte = string.byte
 local dkjson = require "dkjson"
 
+---@class TreeTab: ControlHost
 local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.ControlHost()
 

@@ -8,6 +8,7 @@ local t_insert = table.insert
 local t_remove = table.remove
 local s_format = string.format
 
+---@class MinionListControl: ListControl
 local MinionListClass = newClass("MinionListControl", "ListControl", function(self, anchor, rect, data, list, dest)
 	self.ListControl(anchor, rect, 16, "VERTICAL", not dest, list)
 	self.data = data

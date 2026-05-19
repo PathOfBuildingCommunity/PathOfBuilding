@@ -26,6 +26,7 @@ local slot_map = {
 	["Belt"] 			= { icon = NewImageHandle(), path = "Assets/icon_belt.png" },
 }
 
+---@class SkillListControl: ListControl
 local SkillListClass = newClass("SkillListControl", "ListControl", function(self, anchor, rect, skillsTab)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, skillsTab.socketGroupList)
 	self.skillsTab = skillsTab

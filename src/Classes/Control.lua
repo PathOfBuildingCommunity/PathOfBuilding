@@ -32,6 +32,7 @@ local rect = {
 	for containers
 --]]
 
+---@class Control
 local ControlClass = newClass("Control", function(self, anchor, rect)
 	self.rectStart = rect or {0, 0, 0, 0}
 	self.x, self.y, self.width, self.height = unpack(self.rectStart)

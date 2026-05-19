@@ -76,6 +76,7 @@ local dataTypes = {
 	},
 }
 
+---@class DatFile
 local DatFileClass = newClass("DatFile", function(self, name, raw)
 	self.name = name
 	self.raw = raw

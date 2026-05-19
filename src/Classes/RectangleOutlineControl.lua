@@ -3,6 +3,7 @@
 -- Class: RectangleOutline Control
 -- Simple Outline Only Rectangle control
 --
+---@class RectangleOutlineControl: Control
 local RectangleOutlineClass = newClass("RectangleOutlineControl", "Control", function(self, anchor, rect, colors, stroke)
     self.Control(anchor, rect)
     self.stroke = stroke or 1

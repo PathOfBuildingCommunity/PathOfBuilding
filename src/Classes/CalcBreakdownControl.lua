@@ -13,6 +13,7 @@ local m_cos = math.cos
 local m_pi = math.pi
 local band = bit.band
 
+---@class CalcBreakdownControl: Control, ControlHost
 local CalcBreakdownClass = newClass("CalcBreakdownControl", "Control", "ControlHost", function(self, calcsTab)
 	self.Control()
 	self.ControlHost()

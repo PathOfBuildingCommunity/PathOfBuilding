@@ -3,6 +3,7 @@
 -- Class: Label Control
 -- Simple text label.
 --
+---@class LabelControl: Control
 local LabelClass = newClass("LabelControl", "Control", function(self, anchor, rect, label)
 	self.Control(anchor, rect)
 	self.label = label

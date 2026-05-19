@@ -106,6 +106,7 @@ local function logToFile(...)
 	ConPrintf(...)
 end
 
+---@class TradeQueryGenerator
 local TradeQueryGeneratorClass = newClass("TradeQueryGenerator", function(self, queryTab)
 	self:InitMods()
 	self.queryTab = queryTab

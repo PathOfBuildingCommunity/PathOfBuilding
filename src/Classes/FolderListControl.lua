@@ -6,6 +6,7 @@
 local ipairs = ipairs
 local t_insert = table.insert
 
+---@class FolderListControl: ListControl
 local FolderListClass = newClass("FolderListControl", "ListControl", function(self, anchor, rect, subPath, onChange)
 	self.ListControl(anchor, rect, 16, "VERTICAL", false, { })
 	self.subPath = subPath or ""

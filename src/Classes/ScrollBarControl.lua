@@ -8,6 +8,7 @@ local m_max = math.max
 local m_ceil = math.ceil
 local m_floor = math.floor
 
+---@class ScrollBarControl: Control
 local ScrollBarClass = newClass("ScrollBarControl", "Control", function(self, anchor, rect, step, dir, autoHide)
 	self.Control(anchor, rect)
 	self.step = step or self.width * 2

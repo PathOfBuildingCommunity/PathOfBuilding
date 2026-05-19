@@ -4,6 +4,7 @@
 -- Specialized UI element for listing and modifying Trade Stat Weight Multipliers.
 --
 
+---@class TradeStatWeightMultiplierListControl: ListControl
 local TradeStatWeightMultiplierListControlClass = newClass("TradeStatWeightMultiplierListControl", "ListControl", function(self, anchor, rect, list, indexController)
 	self.list = list
 	self.indexController = indexController

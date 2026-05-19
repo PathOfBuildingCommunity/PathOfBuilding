@@ -8,6 +8,7 @@ local t_insert = table.insert
 local t_remove = table.remove
 local t_sort = table.sort
 
+---@class PowerReportListControl: ListControl
 local PowerReportListClass = newClass("PowerReportListControl", "ListControl", function(self, anchor, rect, nodeSelectCallback)
 	self.ListControl(anchor, rect, 16, "VERTICAL", false)
 

@@ -3,6 +3,7 @@
 -- Class: Check Box Control
 -- Basic check box control.
 --
+---@class CheckBoxControl: Control, TooltipHost
 local CheckBoxClass = newClass("CheckBoxControl", "Control", "TooltipHost", function(self, anchor, rect, label, changeFunc, tooltipText, initialState)
 	rect[4] = rect[3] or 0
 	self.Control(anchor, rect)

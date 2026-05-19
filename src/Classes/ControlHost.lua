@@ -4,6 +4,7 @@
 -- Host for UI controls
 --
 
+---@class ControlHost
 local ControlHostClass = newClass("ControlHost", function(self)
 	self.controls = { }
 end)

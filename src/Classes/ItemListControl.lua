@@ -6,6 +6,7 @@
 local pairs = pairs
 local t_insert = table.insert
 
+---@class ItemListControl: ListControl
 local ItemListClass = newClass("ItemListControl", "ListControl", function(self, anchor, rect, itemsTab, forceTooltip)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, itemsTab.itemOrderList, forceTooltip)
 	self.itemsTab = itemsTab

@@ -3,6 +3,7 @@
 -- Class: GGPK Source List
 -- GGPK source list control.
 --
+---@class GGPKSourceListControl: ListControl
 local GGPKSourceListClass = newClass("GGPKSourceListControl", "ListControl", function(self, anchor, rect)
 	self.ListControl(anchor, rect, 16, false, false, main.datSources)
 	self.colList = {

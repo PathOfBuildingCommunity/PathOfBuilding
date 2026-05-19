@@ -8,6 +8,7 @@ local t_remove = table.remove
 local m_max = math.max
 local s_format = string.format
 
+---@class ItemSetListControl: ListControl
 local ItemSetListClass = newClass("ItemSetListControl", "ListControl", function(self, anchor, rect, itemsTab)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, itemsTab.itemSetOrderList)
 	self.itemsTab = itemsTab

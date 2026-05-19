@@ -8,6 +8,7 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
+---@class DropDownControl: Control, ControlHost, TooltipHost, SearchHost
 local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "TooltipHost", "SearchHost", function(self, anchor, rect, list, selFunc, tooltipText)
 	self.Control(anchor, rect)
 	self.ControlHost()

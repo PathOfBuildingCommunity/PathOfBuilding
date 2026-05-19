@@ -18,6 +18,7 @@ local s_format = string.format
 
 local baseSlots = { "Weapon 1", "Weapon 2", "Weapon 1 Swap", "Weapon 2 Swap", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Ring 3", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 
+---@class TradeQuery
 local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.itemsTab = itemsTab
 	self.itemsTab.leagueDropList = { }

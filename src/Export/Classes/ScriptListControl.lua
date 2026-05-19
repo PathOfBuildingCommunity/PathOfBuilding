@@ -3,6 +3,7 @@
 -- Class: Script List
 -- Script list control.
 --
+---@class ScriptListControl: ListControl
 local ScriptListClass = newClass("ScriptListControl", "ListControl", function(self, anchor, rect)
 	self.ListControl(anchor, rect, 16, "VERTICAL", false, main.scriptList)
 end)

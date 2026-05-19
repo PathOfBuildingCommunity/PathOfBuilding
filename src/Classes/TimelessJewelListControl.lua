@@ -9,6 +9,7 @@ local m_min = math.min
 local m_max = math.max
 local t_concat = table.concat
 
+---@class TimelessJewelListControl: ListControl
 local TimelessJewelListControlClass = newClass("TimelessJewelListControl", "ListControl", function(self, anchor, rect, build)
 	self.build = build
 	self.sharedList = self.build.timelessData.sharedResults or { }

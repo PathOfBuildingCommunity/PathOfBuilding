@@ -49,6 +49,7 @@ local function getFile(URL)
 	return #page > 0 and page
 end
 
+---@class PassiveTree
 local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	self.treeVersion = treeVersion
 	local versionNum = treeVersions[treeVersion].num

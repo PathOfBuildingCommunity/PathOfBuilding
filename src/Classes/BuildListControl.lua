@@ -6,6 +6,7 @@
 local ipairs = ipairs
 local s_format = string.format
 
+---@class BuildListControl: ListControl
 local BuildListClass = newClass("BuildListControl", "ListControl", function(self, anchor, rect, listMode)
 	self.ListControl(anchor, rect, 20, "VERTICAL", false, listMode.list)
 	self.listMode = listMode

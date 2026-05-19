@@ -9,6 +9,7 @@ local dkjson = require "dkjson"
 
 local archivesUrl = 'https://pobarchives.com'
 
+---@class PoBArchivesProvider: ExtBuildListProvider
 local PoBArchivesProviderClass = newClass("PoBArchivesProvider", "ExtBuildListProvider",
 	function(self, mode)
 		if mode == "builds" then
