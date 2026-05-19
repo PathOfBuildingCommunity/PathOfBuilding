@@ -242,7 +242,7 @@ function GetUserPath() end
 function MakeDir(path) end
 
 ---@param path string
----@param recurse? booolean
+---@param recurse? boolean
 function RemoveDir(path, recurse) end
 
 ---@param path string
