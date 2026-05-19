@@ -148,13 +148,13 @@ function DrawImageQuad(imgHandle, x1, y1, x2, y2, x3, y3, x4, y4, stackIdx, mask
 ---@param height number
 ---@param font   Font
 ---@param text   string
-function DrawString() end
+function DrawString(left, top, align, height, font, text) end
 
 ---@param height number
 ---@param font   Font
 ---@param text   string
 ---@return integer physicalWidth
-function DrawStringWidth() end
+function DrawStringWidth(height, font, text) end
 
 ---@param height  number
 ---@param font    Font
@@ -162,7 +162,7 @@ function DrawStringWidth() end
 ---@param cursorX number
 ---@param cursorY number
 ---@return integer
-function DrawStringCursorIndex() end
+function DrawStringCursorIndex(height, font, text, cursorX, cursorY) end
 
 ---@param text string
 ---@return string

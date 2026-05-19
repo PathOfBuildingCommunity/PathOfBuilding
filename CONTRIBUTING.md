@@ -183,6 +183,7 @@ Files in `/Data` `/Export` and `/TreeData` can be massive and cause the EmmyLua 
     "workspace": {
         "ignoreGlobs": [
             "**/*_spec.lua",
+            "spec/**/*.lua",
             "runtime/lua/sha1/lua53_ops.lua",
             "**/src/Data/**/*.lua",
             "**/src/TreeData/**/*.lua",
@@ -192,7 +193,7 @@ Files in `/Data` `/Export` and `/TreeData` can be massive and cause the EmmyLua 
 }
 ```
 
-This file can be customised according to what you want. It is a good idea to ignore `_spec.lua` files as these tend to add things to the global namespace, which will look confusing. `lua53_ops.lua` produces errors and doesn't actually get imported when using LuaJIT. It can be useful to keep the data and mod parser files, but generally this will increase the time the LSP takes to index the project on startup.
+This file can be customised according to what you want. It is a good idea to ignore test files as these tend to add things to the global namespace, which will look confusing, and they are designed to be run by Busted. `lua53_ops.lua` produces errors and doesn't actually get imported when using LuaJIT. It can be useful to keep the data and mod parser files, but generally this will increase the time the LSP takes to index the project on startup.
 
 ### PyCharm Community / IntelliJ Idea Community
 
