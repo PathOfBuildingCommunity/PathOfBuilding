@@ -6,7 +6,7 @@
 
 ---@param name string
 ---@param func? fun()
-function SetCallback(name) end
+function SetCallback(name, func) end
 
 ---@param name string
 ---@return table
@@ -37,7 +37,7 @@ function SetClearColor(red, green, blue, alpha) end
 
 ---@param layer?    number
 ---@param subLayer? number
-function SetDrawLayer(layer, sublayer) end
+function SetDrawLayer(layer, subLayer) end
 
 ---@return integer
 function GetDrawLayer() end
@@ -61,10 +61,10 @@ function SetDrawColor(r, g, b, a) end
 ---@param escapeStr string
 function SetDrawColor(escapeStr) end
 
----@return r number
----@return g number
----@return b number
----@return a number
+---@return number r
+---@return number g
+---@return number b
+---@return number a
 function GetDrawColor() end
 
 ---@param percent integer
@@ -98,7 +98,7 @@ function DrawImage(imgHandle, left, top, width, height, tcLeft, tcTop, tcRight, 
 ---@param height     number
 ---@param stackIdx integer must be positive
 ---@param mask? integer must be positive
-function DrawImage(imgHandle, left, top, width, height, tcLeft, tcTop, tcRight, tcBottom) end
+function DrawImage(imgHandle, left, top, width, height, tcLeft, tcTop, tcRight, tcBottom, stackIdx, mask) end
 
 ---@param imgHandle? userdata
 ---@param x1         number
@@ -251,19 +251,20 @@ function SetWorkDir(path) end
 ---@return string
 function GetWorkDir() end
 
+---@alias SubScriptID userdata
+
 ---@param scriptText string
 ---@param funcList   string
 ---@param subList    string
 ---@param ...        nil|boolean|number|string
----@type SubScriptID
 ---@return SubScriptID
 function LaunchSubScript(scriptText, funcList, subList, ...) end
 
----@param SubScriptID ssID
+---@param ssID SubScriptID
 function AbortSubScript(ssID) end
 
----@param SubScriptID ssID
----@return bool isRunning
+---@param ssID SubScriptID
+---@return boolean isRunning
 function IsSubScriptRunning(ssID) end
 
 ---@param name string
@@ -280,8 +281,8 @@ function PLoadModule(modName, ...) end
 ---@generic R
 ---@param func fun(...: T): R
 ---@param ...  any
----@return err? any
----@return retVal? R
+---@return any? err
+---@return R? retVal
 function PCall(func, ...) end
 
 ---@param fmt string
@@ -293,7 +294,7 @@ function ConPrintf(fmt, ...) end
 function ConPrintTable(tbl, noRecurse) end
 
 ---@param cmd string
-function ConExecute(cmd)
+function ConExecute(cmd) end
 
 function ConClear() end
 
@@ -302,13 +303,13 @@ function print(...) end
 
 ---@param cmdName string
 ---@param args string?
-function SpawnProcess() end
+function SpawnProcess(cmdName, args) end
 
 ---@param url string
----@return error string?
+---@return string? error
 function OpenURL(url) end
 
----@param isEnabled bool
+---@param isEnabled boolean
 function SetProfiling(isEnabled) end
 
 function TakeScreenshot() end
