@@ -24,7 +24,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost")
 
 ---@param build Build
 function TreeTabClass:TreeTab(build)
-	self.ControlHost()
+	self:ControlHost()
 
 	self.build = build
 	self.isComparing = false;

@@ -17,9 +17,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 
 ---@param build Build
 function ConfigTabClass:ConfigTab(build)
-	self.UndoHandler()
-	self.ControlHost()
-	self.Control()
+	self:UndoHandler()
+	self:ControlHost()
+	self:Control()
 
 	self.build = build
 

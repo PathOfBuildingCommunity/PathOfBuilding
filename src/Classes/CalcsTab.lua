@@ -21,9 +21,9 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 
 ---@param build Build
 function CalcsTabClass:CalcsTab(build)
-	self.UndoHandler()
-	self.ControlHost()
-	self.Control()
+	self:UndoHandler()
+	self:ControlHost()
+	self:Control()
 
 	self.build = build
 

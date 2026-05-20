@@ -10,7 +10,7 @@ local LabelClass = newClass("LabelControl", "Control")
 ---@param rect? ControlRect
 ---@param label string
 function LabelClass:LabelControl(anchor, rect, label)
-	self.Control(anchor, rect)
+	self:Control(anchor, rect)
 	self.label = label
 	self.width = function()
 		return DrawStringWidth(self:GetProperty("height"), "VAR", self:GetProperty("label"))

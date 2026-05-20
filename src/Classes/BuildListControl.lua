@@ -10,7 +10,7 @@ local s_format = string.format
 local BuildListClass = newClass("BuildListControl", "ListControl")
 
 function BuildListClass:BuildListControl(anchor, rect, listMode)
-	self.ListControl(anchor, rect, 20, "VERTICAL", false, listMode.list)
+	self:ListControl(anchor, rect, 20, "VERTICAL", false, listMode.list)
 	self.listMode = listMode
 	self.colList = {
 		{ width = function() return self:GetProperty("width") - 172 end },

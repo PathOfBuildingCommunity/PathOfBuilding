@@ -30,7 +30,7 @@ local slot_map = {
 local SkillListClass = newClass("SkillListControl", "ListControl")
 
 function SkillListClass:SkillListControl(anchor, rect, skillsTab)
-	self.ListControl(anchor, rect, 16, "VERTICAL", true, skillsTab.socketGroupList)
+	self:ListControl(anchor, rect, 16, "VERTICAL", true, skillsTab.socketGroupList)
 	self.skillsTab = skillsTab
 	self.label = "^7Socket Groups:"
 	self.controls.delete = new("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, {0, -2, 60, 18}, "Delete", function()

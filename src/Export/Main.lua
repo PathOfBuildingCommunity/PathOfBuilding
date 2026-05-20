@@ -161,7 +161,7 @@ function main:Init()
 	self.controls.shownLeagueLabel = new("LabelControl", nil, {10, 10, 100, 16}, "^7Data from:")
 	self.controls.leagueLabel = new("LabelControl", {"LEFT", self.controls.shownLeagueLabel, "RIGHT"}, {10, 0, 100, 16}, function() return "^7" .. (self.leagueLabel or "Unknown") end)
 	self.controls.addSource = new("ButtonControl", nil, {10, 30, 100, 18}, "Edit Sources...", function()
-		self.OpenPathPopup()
+		self:OpenPathPopup()
 	end)
 
 	self.datSources = self.datSources or { }

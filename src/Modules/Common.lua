@@ -145,7 +145,7 @@ function new(className, ...)
 					if object._parentInit[parent] then
 						error("Parent class '"..parent._className.."' of class '"..class._className.."' has already been initialised")
 					end
-					parent[parent._className](...)
+					parent[parent._className](select(2, ...))
 					object._parentInit[parent] = true
 				end,
 			}

@@ -40,10 +40,10 @@ end
 local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler", "TooltipHost")
 
 function EditClass:EditControl(anchor, rect, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom, clearable)
-	self.ControlHost()
-	self.Control(anchor, rect)
-	self.UndoHandler()
-	self.TooltipHost()
+	self:ControlHost()
+	self:Control(anchor, rect)
+	self:UndoHandler()
+	self:TooltipHost()
 	self:SetText(init or "")
 	self.prompt = prompt
 	self.filter = filter or (main.unicode and "%c" or "^%w%p ")

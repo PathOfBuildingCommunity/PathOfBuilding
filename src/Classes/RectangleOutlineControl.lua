@@ -7,7 +7,7 @@
 local RectangleOutlineClass = newClass("RectangleOutlineControl", "Control")
 
 function RectangleOutlineClass:RectangleOutlineControl(anchor, rect, colors, stroke)
-    self.Control(anchor, rect)
+    self:Control(anchor, rect)
     self.stroke = stroke or 1
     self.colors = colors or { 1, 1, 1 }
 end

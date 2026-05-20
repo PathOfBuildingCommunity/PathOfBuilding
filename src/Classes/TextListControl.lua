@@ -7,8 +7,8 @@
 local TextListClass = newClass("TextListControl", "Control", "ControlHost")
 
 function TextListClass:TextListControl(anchor, rect, columns, list, sectionHeights)
-	self.Control(anchor, rect)
-	self.ControlHost()
+	self:Control(anchor, rect)
+	self:ControlHost()
 	self.controls.scrollBar = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, {-1, 0, 18, 0}, 40)
 	self.controls.scrollBar.height = function()
 		local width, height = self:GetSize()

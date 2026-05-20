@@ -5,7 +5,7 @@
 --
 ---@class GGPKSourceListControl: ListControl
 local GGPKSourceListClass = newClass("GGPKSourceListControl", "ListControl", function(self, anchor, rect)
-	self.ListControl(anchor, rect, 16, false, false, main.datSources)
+	self:ListControl(anchor, rect, 16, false, false, main.datSources)
 	self.colList = {
 		{ width = self.width * 0.25, label = "Name", sortable = true },
 		{ width = self.width * 0.75, label = "Spec File Path" },

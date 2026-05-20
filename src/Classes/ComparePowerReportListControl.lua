@@ -11,7 +11,7 @@ local t_sort = table.sort
 local ComparePowerReportListClass = newClass("ComparePowerReportListControl", "ListControl")
 
 function ComparePowerReportListClass:ComparePowerReportListControl(anchor, rect)
-	self.ListControl(anchor, rect, 18, "VERTICAL", false)
+	self:ListControl(anchor, rect, 18, "VERTICAL", false)
 
 	local width = rect[3]
 	self.impactColumn = { width = width * 0.22, label = "", sortable = true }

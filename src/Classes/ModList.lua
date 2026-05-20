@@ -20,7 +20,7 @@ local mod_createMod = modLib.createMod
 local ModListClass = newClass("ModList", "ModStore")
 
 function ModListClass:ModList(parent)
-	self.ModStore(parent)
+	self:ModStore(parent)
 end
 
 function ModListClass:AddMod(mod)

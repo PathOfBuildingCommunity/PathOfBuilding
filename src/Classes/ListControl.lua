@@ -34,8 +34,8 @@ local m_floor = math.floor
 local ListClass = newClass("ListControl", "Control", "ControlHost")
 
 function ListClass:ListControl(anchor, rect, rowHeight, scroll, isMutable, list, forceTooltip)
-	self.Control(anchor, rect)
-	self.ControlHost()
+	self:Control(anchor, rect)
+	self:ControlHost()
 	self.rowHeight = rowHeight
 	self.scroll = scroll
 	self.isMutable = isMutable

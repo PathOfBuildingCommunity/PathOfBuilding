@@ -7,7 +7,7 @@ local t_remove = table.remove
 
 ---@class SpecColListControl: ListControl
 local SpecColListClass = newClass("SpecColListControl", "ListControl", function(self, anchor, rect)
-	self.ListControl(anchor, rect, 14, "VERTICAL", true)
+	self:ListControl(anchor, rect, 14, "VERTICAL", true)
 end)
 
 function SpecColListClass:GetRowValue(column, index, specCol)

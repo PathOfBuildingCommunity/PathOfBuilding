@@ -10,8 +10,8 @@ local NotesTabClass = newClass("NotesTab", "ControlHost", "Control")
 
 ---@param build Build
 function NotesTabClass:NotesTab(build)
-	self.ControlHost()
-	self.Control()
+	self:ControlHost()
+	self:Control()
 
 	self.build = build
 

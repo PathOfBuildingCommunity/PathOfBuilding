@@ -12,7 +12,7 @@ local t_sort = table.sort
 local PowerReportListClass = newClass("PowerReportListControl", "ListControl")
 
 function PowerReportListClass:PowerReportListControl(anchor, rect, nodeSelectCallback)
-	self.ListControl(anchor, rect, 16, "VERTICAL", false)
+	self:ListControl(anchor, rect, 16, "VERTICAL", false)
 
 	local width = rect[3]
 	self.powerColumn = { width = width * 0.16, label = "", sortable = true }

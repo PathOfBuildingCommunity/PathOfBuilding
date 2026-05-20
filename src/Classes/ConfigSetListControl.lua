@@ -11,7 +11,7 @@ local m_max = math.max
 local ConfigSetListClass = newClass("ConfigSetListControl", "ListControl")
 
 function ConfigSetListClass:ConfigSetListControl(anchor, rect, configTab)
-	self.ListControl(anchor, rect, 16, "VERTICAL", true, configTab.configSetOrderList)
+	self:ListControl(anchor, rect, 16, "VERTICAL", true, configTab.configSetOrderList)
 	self.configTab = configTab
 	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
 		local configSet = configTab.configSets[self.selValue]

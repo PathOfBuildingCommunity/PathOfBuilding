@@ -12,7 +12,7 @@ local s_format = string.format
 local MinionSearchListClass = newClass("MinionSearchListControl", "MinionListControl")
 
 function MinionSearchListClass:MinionSearchListControl(anchor, rect, data, list, dest)
-	self.MinionListControl(anchor, rect, data, list, dest)
+	self:MinionListControl(anchor, rect, data, list, dest)
 	self.unfilteredList = copyTable(list)
 	self.isMutable = false
 

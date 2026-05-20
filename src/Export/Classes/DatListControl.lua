@@ -8,7 +8,7 @@ local DatListClass = newClass("DatListControl", "ListControl", function(self, an
 	self.originalList = main.datFileList
 	self.searchBuf = ""
 	self.filteredList = self.originalList
-	self.ListControl(anchor, rect, 14, "VERTICAL", false, self.filteredList)
+	self:ListControl(anchor, rect, 14, "VERTICAL", false, self.filteredList)
 end)
 
 function DatListClass:BuildFilteredList()

@@ -12,7 +12,7 @@ local s_format = string.format
 local SkillSetListClass = newClass("SkillSetListControl", "ListControl")
 
 function SkillSetListClass:SkillSetListControl(anchor, rect, skillsTab)
-	self.ListControl(anchor, rect, 16, "VERTICAL", true, skillsTab.skillSetOrderList)
+	self:ListControl(anchor, rect, 16, "VERTICAL", true, skillsTab.skillSetOrderList)
 	self.skillsTab = skillsTab
 	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
 		local skillSet = skillsTab.skillSets[self.selValue]

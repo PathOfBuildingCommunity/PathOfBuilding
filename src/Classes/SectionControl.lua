@@ -8,7 +8,7 @@
 local SectionClass = newClass("SectionControl", "Control")
 
 function SectionClass:SectionControl(anchor, rect, label)
-	self.Control(anchor, rect)
+	self:Control(anchor, rect)
 	self.label = label
 end
 

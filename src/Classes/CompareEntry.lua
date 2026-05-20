@@ -13,7 +13,7 @@ local m_max = math.max
 local CompareEntryClass = newClass("CompareEntry", "ControlHost")
 
 function CompareEntryClass:CompareEntry(xmlText, label)
-	self.ControlHost()
+	self:ControlHost()
 
 	self.label = label or "Comparison Build"
 	self.buildName = label or "Comparison Build"

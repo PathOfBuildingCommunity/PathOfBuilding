@@ -80,9 +80,9 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 
 ---@param build Build
 function SkillsTabClass:SkillsTab(build)
-	self.UndoHandler()
-	self.ControlHost()
-	self.Control()
+	self:UndoHandler()
+	self:ControlHost()
+	self:Control()
 
 	self.build = build
 

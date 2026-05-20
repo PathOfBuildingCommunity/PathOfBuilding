@@ -20,7 +20,7 @@ local bor = bit.bor
 local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler")
 
 function PassiveSpecClass:PassiveSpec(build, treeVersion, convert)
-	self.UndoHandler()
+	self:UndoHandler()
 
 	self.build = build
 

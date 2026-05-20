@@ -9,8 +9,8 @@ local t_insert = table.insert
 local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost")
 
 function CalcSectionClass:CalcSectionControl(calcsTab, width, id, group, colour, subSection, updateFunc)
-	self.Control(calcsTab, {0, 0, width, 0})
-	self.ControlHost()
+	self:Control(calcsTab, {0, 0, width, 0})
+	self:ControlHost()
 	self.calcsTab = calcsTab
 	self.id = id
 	self.group = group

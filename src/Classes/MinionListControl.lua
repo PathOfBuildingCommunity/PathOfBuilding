@@ -12,7 +12,7 @@ local s_format = string.format
 local MinionListClass = newClass("MinionListControl", "ListControl")
 
 function MinionListClass:MinionListControl(anchor, rect, data, list, dest)
-	self.ListControl(anchor, rect, 16, "VERTICAL", not dest, list)
+	self:ListControl(anchor, rect, 16, "VERTICAL", not dest, list)
 	self.data = data
 	self.dest = dest
 	if dest then

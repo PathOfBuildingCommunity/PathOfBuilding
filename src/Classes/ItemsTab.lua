@@ -97,9 +97,9 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 
 ---@param build Build
 function ItemsTabClass:ItemsTab(build)
-	self.UndoHandler()
-	self.ControlHost()
-	self.Control()
+	self:UndoHandler()
+	self:ControlHost()
+	self:Control()
 
 	self.build = build
 	

@@ -10,7 +10,7 @@ local TradeStatWeightMultiplierListControlClass = newClass("TradeStatWeightMulti
 function TradeStatWeightMultiplierListControlClass:TradeStatWeightMultiplierListControl(anchor, rect, list, indexController)
 	self.list = list
 	self.indexController = indexController
-	self.ListControl(anchor, rect, 16, true, false, self.list)
+	self:ListControl(anchor, rect, 16, true, false, self.list)
 	self.selIndex = nil
 end
 

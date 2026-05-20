@@ -127,8 +127,8 @@ local CompareTabClass = newClass("CompareTab", "ControlHost", "Control")
 
 ---@param build Build
 function CompareTabClass:CompareTab(primaryBuild)
-	self.ControlHost()
-	self.Control()
+	self:ControlHost()
+	self:Control()
 
 	self.primaryBuild = primaryBuild
 

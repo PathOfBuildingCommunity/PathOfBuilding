@@ -11,7 +11,7 @@ local m_max = math.max
 local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl")
 
 function PassiveSpecListClass:PassiveSpecListControl(anchor, rect, treeTab)
-	self.ListControl(anchor, rect, 16, "VERTICAL", true, treeTab.specList)
+	self:ListControl(anchor, rect, 16, "VERTICAL", true, treeTab.specList)
 	self.treeTab = treeTab
 	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
 		local newSpec = new("PassiveSpec", treeTab.build, self.selValue.treeVersion)

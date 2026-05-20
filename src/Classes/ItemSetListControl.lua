@@ -12,7 +12,7 @@ local s_format = string.format
 local ItemSetListClass = newClass("ItemSetListControl", "ListControl")
 
 function ItemSetListClass:ItemSetListControl(anchor, rect, itemsTab)
-	self.ListControl(anchor, rect, 16, "VERTICAL", true, itemsTab.itemSetOrderList)
+	self:ListControl(anchor, rect, 16, "VERTICAL", true, itemsTab.itemSetOrderList)
 	self.itemsTab = itemsTab
 	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
 		local newSet = copyTable(itemsTab.itemSets[self.selValue])

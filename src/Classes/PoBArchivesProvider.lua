@@ -14,9 +14,9 @@ local PoBArchivesProviderClass = newClass("PoBArchivesProvider", "ExtBuildListPr
 
 function PoBArchivesProviderClass:PoBArchivesProvider(mode)
 	if mode == "builds" then
-		self.ExtBuildListProvider({"Trending", "Latest"})
+		self:ExtBuildListProvider({"Trending", "Latest"})
 	else
-		self.ExtBuildListProvider({"Similar Builds"})
+		self:ExtBuildListProvider({"Similar Builds"})
 	end
 	self.buildList = {}
 	self.mode = mode

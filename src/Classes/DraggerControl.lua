@@ -7,8 +7,8 @@
 local DraggerClass = newClass("DraggerControl", "Control", "TooltipHost")
 
 function DraggerClass:DraggerControl(anchor, rect, label, onKeyDown, onKeyUp, onRightClick, onHover, forceTooltip)
-	self.Control(anchor, rect)
-	self.TooltipHost()
+	self:Control(anchor, rect)
+	self:TooltipHost()
 	self.label = label
 	self.onKeyDown = onKeyDown
 	self.onKeyUp = onKeyUp

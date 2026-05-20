@@ -16,7 +16,7 @@ function TimelessJewelListControlClass:TimelessJewelListControl(anchor, rect, bu
 	self.build = build
 	self.sharedList = self.build.timelessData.sharedResults or { }
 	self.list = self.build.timelessData.searchResults or { }
-	self.ListControl(anchor, rect, 16, true, false, self.list)
+	self:ListControl(anchor, rect, 16, true, false, self.list)
 	self.selIndex = nil
 end
 

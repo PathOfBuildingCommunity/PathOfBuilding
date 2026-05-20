@@ -8,7 +8,7 @@ local t_insert = table.insert
 
 ---@class RowListControl: ListControl
 local RowListClass = newClass("RowListControl", "ListControl", function(self, anchor, rect)
-	self.ListControl(anchor, rect, 14, "HORIZONTAL", false, { })
+	self:ListControl(anchor, rect, 14, "HORIZONTAL", false, { })
 	self.colLabels = true
 	self._autoSizeToggleState = {} -- internal toggle memory, not saved to spec
 end)

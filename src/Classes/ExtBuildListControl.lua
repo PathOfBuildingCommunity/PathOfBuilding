@@ -14,8 +14,8 @@ local dkjson = require "dkjson"
 local ExtBuildListControlClass = newClass("ExtBuildListControl", "ControlHost", "Control")
 
 function ExtBuildListControlClass:ExtBuildListControl(anchor, rect, providers)
-	self.Control(anchor, rect)
-	self.ControlHost()
+	self:Control(anchor, rect)
+	self:ControlHost()
 	self:SelectControl()
 
 	self.rowHeight = 200

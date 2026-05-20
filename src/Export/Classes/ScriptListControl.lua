@@ -5,7 +5,7 @@
 --
 ---@class ScriptListControl: ListControl
 local ScriptListClass = newClass("ScriptListControl", "ListControl", function(self, anchor, rect)
-	self.ListControl(anchor, rect, 16, "VERTICAL", false, main.scriptList)
+	self:ListControl(anchor, rect, 16, "VERTICAL", false, main.scriptList)
 end)
 
 function ScriptListClass:GetRowValue(column, index, script)

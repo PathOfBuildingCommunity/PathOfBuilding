@@ -10,7 +10,7 @@ local t_insert = table.insert
 local FolderListClass = newClass("FolderListControl", "ListControl")
 
 function FolderListClass:FolderListControl(anchor, rect, subPath, onChange)
-	self.ListControl(anchor, rect, 16, "VERTICAL", false, { })
+	self:ListControl(anchor, rect, 16, "VERTICAL", false, { })
 	self.subPath = subPath or ""
 	self.sortMode = "NAME"
 	self.onChangeCallback = onChange

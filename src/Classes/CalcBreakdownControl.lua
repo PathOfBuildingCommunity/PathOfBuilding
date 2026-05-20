@@ -17,8 +17,8 @@ local band = bit.band
 local CalcBreakdownClass = newClass("CalcBreakdownControl", "Control", "ControlHost")
 
 function CalcBreakdownClass:CalcBreakdownControl(calcsTab)
-	self.Control()
-	self.ControlHost()
+	self:Control()
+	self:ControlHost()
 	self.calcsTab = calcsTab
 	self.shown = false
 	self.tooltip = new("Tooltip")

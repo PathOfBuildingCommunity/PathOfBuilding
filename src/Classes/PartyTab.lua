@@ -14,8 +14,8 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control")
 
 ---@param build Build
 function PartyTabClass:PartyTab(build)
-	self.ControlHost()
-	self.Control()
+	self:ControlHost()
+	self:Control()
 
 	self.build = build
 

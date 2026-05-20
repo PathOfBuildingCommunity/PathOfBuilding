@@ -7,8 +7,8 @@
 local ButtonClass = newClass("ButtonControl", "Control", "TooltipHost")
 
 function ButtonClass:ButtonControl(anchor, rect, label, onClick, onHover, forceTooltip)
-	self.Control(anchor, rect)
-	self.TooltipHost()
+	self:Control(anchor, rect)
+	self:TooltipHost()
 	self.label = label
 	self.onClick = onClick
 	self.onHover = onHover

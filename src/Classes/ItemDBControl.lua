@@ -14,7 +14,7 @@ local m_floor = math.floor
 local ItemDBClass = newClass("ItemDBControl", "ListControl")
 
 function ItemDBClass:ItemDBControl(anchor, rect, itemsTab, db, dbType)
-	self.ListControl(anchor, rect, 16, "VERTICAL", false)
+	self:ListControl(anchor, rect, 16, "VERTICAL", false)
 	self.itemsTab = itemsTab
 	self.db = db
 	self.dbType = dbType

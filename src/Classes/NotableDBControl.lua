@@ -22,7 +22,7 @@ end
 local NotableDBClass = newClass("NotableDBControl", "ListControl")
 
 function NotableDBClass:NotableDBControl(anchor, rect, itemsTab, db, dbType)
-	self.ListControl(anchor, rect, 16, "VERTICAL", false)
+	self:ListControl(anchor, rect, 16, "VERTICAL", false)
 	self.itemsTab = itemsTab
 	self.db = db
 	self.dbType = dbType

@@ -8,8 +8,8 @@ local CheckBoxClass = newClass("CheckBoxControl", "Control", "TooltipHost")
 
 function CheckBoxClass:CheckBoxControl(anchor, rect, label, changeFunc, tooltipText, initialState)
 	rect[4] = rect[3] or 0
-	self.Control(anchor, rect)
-	self.TooltipHost(tooltipText)
+	self:Control(anchor, rect)
+	self:TooltipHost(tooltipText)
 	self.label = label
 	self.labelWidth = DrawStringWidth(self.width - 4, "VAR", label or "") + 5
 	self.changeFunc = changeFunc

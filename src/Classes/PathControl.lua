@@ -10,9 +10,9 @@ local t_insert = table.insert
 local PathClass = newClass("PathControl", "Control", "ControlHost", "UndoHandler")
 
 function PathClass:PathControl(anchor, rect, basePath, subPath, onChange)
-	self.Control(anchor, rect)
-	self.ControlHost()
-	self.UndoHandler()
+	self:Control(anchor, rect)
+	self:ControlHost()
+	self:UndoHandler()
 	self.basePath = basePath
 	self.baseName = basePath:match("([^/]+)/$") or "Base"
 	self:SetSubPath(subPath or "")

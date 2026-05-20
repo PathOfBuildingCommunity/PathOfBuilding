@@ -12,7 +12,7 @@ local m_floor = math.floor
 local ScrollBarClass = newClass("ScrollBarControl", "Control")
 
 function ScrollBarClass:ScrollBarControl(anchor, rect, step, dir, autoHide)
-	self.Control(anchor, rect)
+	self:Control(anchor, rect)
 	self.step = step or self.width * 2
 	self.dir = dir or "VERTICAL"
 	self.offset = 0

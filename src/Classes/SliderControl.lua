@@ -11,8 +11,8 @@ local m_ceil = math.ceil
 local SliderClass = newClass("SliderControl", "Control", "TooltipHost")
 
 function SliderClass:SliderControl(anchor, rect, changeFunc, scrollWheelSpeedTbl)
-	self.Control(anchor, rect)
-	self.TooltipHost()
+	self:Control(anchor, rect)
+	self:TooltipHost()
 	self.knobSize = self.height - 2
 	self.val = 0
 	self.changeFunc = changeFunc

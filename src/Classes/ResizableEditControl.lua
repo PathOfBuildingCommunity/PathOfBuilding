@@ -10,7 +10,7 @@ local m_min = math.min
 local ResizableEditClass = newClass("ResizableEditControl", "EditControl")
 
 function ResizableEditClass:ResizableEditControl(anchor, rect, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom, clearable)
-    self.EditControl(anchor, rect, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom, clearable)
+    self:EditControl(anchor, rect, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom, clearable)
 	local x, y, width, height, minWidth, minHeight, maxWidth, maxHeight = unpack(rect)
     self.minHeight = minHeight or height
     self.maxHeight = maxHeight or height
