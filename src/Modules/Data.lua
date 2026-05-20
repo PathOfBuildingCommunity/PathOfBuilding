@@ -103,6 +103,7 @@ end
 -- Remaining Item Data and uniques
 ----------------------------------------
 
+---@diagnostic disable-next-line: lowercase-global
 data = { }
 
 -- Misc data tables

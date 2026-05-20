@@ -35,6 +35,9 @@ local rect = {
 --]]
 
 ---@class Control
+---@field enabled        boolean | fun(...: any): boolean
+---@field onFocusGained? fun()
+---@field onFocusLost?   fun()
 local ControlClass = newClass("Control")
 
 ---@alias ControlAnchor [AnchorPoint, Control|ControlHost, AnchorPoint, number|nil]

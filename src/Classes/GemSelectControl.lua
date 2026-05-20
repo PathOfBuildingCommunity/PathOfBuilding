@@ -17,6 +17,13 @@ local imbuedTooltipText = "\"Socketed in\" item must be set in order to add an i
 ---@class GemSelectControl: EditControl
 local GemSelectClass = newClass("GemSelectControl", "EditControl")
 
+---@param anchor ControlAnchor
+---@param rect ControlRect
+---@param skillsTab SkillsTab
+---@param index integer
+---@param changeFunc fun(...)
+---@param forceTooltip boolean
+---@param imbued boolean
 function GemSelectClass:GemSelectControl(anchor, rect, skillsTab, index, changeFunc, forceTooltip, imbued)
 	self.EditControl(anchor, rect, nil, nil, "^ %a':-")
 	self.controls.scrollBar = new("ScrollBarControl", { "TOPRIGHT", self, "TOPRIGHT" }, {-1, 0, 18, 0}, (self.height - 4) * 4)
@@ -489,7 +496,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 		SetViewport()
 		self:DrawControls(viewPort, (noTooltip and not self.forceTooltip) and self)
 		if self.hoverSel then
-			local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
+			local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator()
 			if calcFunc then
 				self.tooltip:Clear()
 				local gemData = self.gems[self.list[self.hoverSel]]
