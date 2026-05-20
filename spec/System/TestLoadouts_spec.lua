@@ -68,6 +68,7 @@ describe("TestLoadouts", function()
 				local loadoutName = "Loadout Name"
 				build:NewLoadout(loadoutName)
 				build.itemsTab:DeleteItemSet(build.itemsTab.itemSetOrderList[2], 2)
+				build.itemsTab:SetActiveItemSet(build.itemsTab.itemSetOrderList[1], true)
 				build:SyncLoadouts()
 				assert.are.equals(1, #build.itemsTab.itemSetOrderList)
 
@@ -83,6 +84,7 @@ describe("TestLoadouts", function()
 				local loadoutName = "Loadout Name"
 				build:NewLoadout(loadoutName)
 				build.skillsTab:DeleteSkillSet(build.skillsTab.skillSetOrderList[2], 2)
+				build.skillsTab:SetActiveSkillSet(build.skillsTab.skillSetOrderList[1], true)
 				build:SyncLoadouts()
 				assert.are.equals(1, #build.skillsTab.skillSetOrderList)
 
@@ -100,6 +102,7 @@ describe("TestLoadouts", function()
 				local loadoutName = "Loadout Name"
 				build:NewLoadout(loadoutName)
 				build.configTab:DeleteConfigSet(build.configTab.configSetOrderList[2], 2)
+				build.configTab:SetActiveConfigSet(build.configTab.configSetOrderList[1], true)
 				build:SyncLoadouts()
 				assert.are.equals(1, #build.configTab.configSetOrderList)
 

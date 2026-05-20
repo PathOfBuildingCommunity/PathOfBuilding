@@ -801,6 +801,7 @@ function buildMode:NewLoadout(loadoutName)
 
 	newSpec.title = loadoutName
 	t_insert(self.treeTab.specList, newSpec)
+	self:SetActiveLoadout(self:GetLoadoutByName(loadoutName))
 
 	self.modFlag = true
 end

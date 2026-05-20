@@ -53,7 +53,7 @@ function ItemSetListClass:CopyItemSet(selValue)
 	local itemSet = self.itemsTab.itemSets[selValue]
 	local controls = {}
 	controls.label = new("LabelControl", nil, { 0, 20, 0, 16 }, "^7Enter name for this item set:")
-	controls.edit = new("EditControl", nil, { 0, 40, 350, 20 }, itemSet.title, nil, nil, 100, function(buf)
+	controls.edit = new("EditControl", nil, { 0, 40, 350, 20 }, itemSet.title or "Default", nil, nil, 100, function(buf)
 		controls.save.enabled = buf:match("%S")
 	end)
 	controls.save = new("ButtonControl", nil, { -45, 70, 80, 20 }, "Save", function()
