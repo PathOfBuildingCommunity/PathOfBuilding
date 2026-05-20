@@ -19,6 +19,7 @@ local buffModeDropList = {
 ---@class CalcsTab: UndoHandler, ControlHost, Control
 local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Control")
 
+---@param build Build
 function CalcsTabClass:CalcsTab(build)
 	self.UndoHandler()
 	self.ControlHost()

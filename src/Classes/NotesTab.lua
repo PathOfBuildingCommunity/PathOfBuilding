@@ -8,6 +8,7 @@ local t_insert = table.insert
 ---@class NotesTab: ControlHost, Control
 local NotesTabClass = newClass("NotesTab", "ControlHost", "Control")
 
+---@param build Build
 function NotesTabClass:NotesTab(build)
 	self.ControlHost()
 	self.Control()

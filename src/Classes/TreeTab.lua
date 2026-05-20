@@ -22,6 +22,7 @@ local dkjson = require "dkjson"
 ---@class TreeTab: ControlHost
 local TreeTabClass = newClass("TreeTab", "ControlHost")
 
+---@param build Build
 function TreeTabClass:TreeTab(build)
 	self.ControlHost()
 

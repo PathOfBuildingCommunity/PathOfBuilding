@@ -12,6 +12,7 @@ local m_max = math.max
 ---@class PartyTab: ControlHost, Control
 local PartyTabClass = newClass("PartyTab", "ControlHost", "Control")
 
+---@param build Build
 function PartyTabClass:PartyTab(build)
 	self.ControlHost()
 	self.Control()

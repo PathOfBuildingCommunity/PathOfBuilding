@@ -37,8 +37,11 @@ local rect = {
 ---@class Control
 local ControlClass = newClass("Control")
 
----@param anchor? [AnchorPoint, Control|ControlHost, AnchorPoint, number|nil]
----@param rect? [number|nil, number|nil, number|nil, number]
+---@alias ControlAnchor [AnchorPoint, Control|ControlHost, AnchorPoint, number|nil]
+---@alias ControlRect [number|nil, number|nil, number|nil, number]
+
+---@param anchor? ControlAnchor
+---@param rect? ControlRect
 function ControlClass:Control(anchor, rect)
 	self.rectStart = rect or {0, 0, 0, 0}
 	self.x, self.y, self.width, self.height = unpack(self.rectStart)

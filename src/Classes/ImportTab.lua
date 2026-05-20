@@ -22,6 +22,7 @@ local influenceInfo = itemLib.influenceInfo.all
 ---@class ImportTab: ControlHost, Control
 local ImportTabClass = newClass("ImportTab", "ControlHost", "Control")
 
+---@param build Build
 function ImportTabClass:ImportTab(build)
 	self.ControlHost()
 	self.Control()

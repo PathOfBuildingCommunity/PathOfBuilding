@@ -15,6 +15,7 @@ local configVisibility = LoadModule("Modules/ConfigVisibility")
 ---@class ConfigTab: UndoHandler, ControlHost, Control
 local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Control")
 
+---@param build Build
 function ConfigTabClass:ConfigTab(build)
 	self.UndoHandler()
 	self.ControlHost()

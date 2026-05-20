@@ -78,6 +78,7 @@ local sortGemTypeList = {
 ---@class SkillsTab: UndoHandler, ControlHost, Control
 local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Control")
 
+---@param build Build
 function SkillsTabClass:SkillsTab(build)
 	self.UndoHandler()
 	self.ControlHost()

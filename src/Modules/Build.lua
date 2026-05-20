@@ -14,6 +14,7 @@ local m_floor = math.floor
 local m_abs = math.abs
 local s_format = string.format
 
+---@class Build: ControlHost
 local buildMode = new("ControlHost")
 
 local function InsertIfNew(t, val)
