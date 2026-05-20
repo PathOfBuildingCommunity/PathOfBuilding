@@ -1,22 +1,78 @@
 --- this file defines function signatures for the runtime API, and is not meant
---  to be used directly
+--  to be used directly. the function bodies here ARE NOT correct for regular
+--  PoB use. they are implemented by SimpleGraphic, and are only correct for
+--  headless mode, in which case this file IS executed.
 --- @meta
 
 ---@alias Font "FIXED"|"VAR"|"VAR BOLD"|"FONTIN SC"|"FONTIN SC ITALIC"|"FONTIN"|"FONTIN ITALIC"
 
 ---@param name string
 ---@param func? fun()
-function SetCallback(name, func) end
+function SetCallback(name, func)
+	callbackTable[name] = func
+end
 
 ---@param name string
 ---@return table
-function GetCallback(name) end
+function GetCallback(name)
+	return callbackTable[name]
+end
 
 ---@param object? table
-function SetMainObject(object) end
+function SetMainObject(object)
+	__mainObject__ = object
+end
 
----@return userdata
-function NewImageHandle() end
+---@class ImageHandle
+local imageHandleClass = { }
+imageHandleClass.__index = imageHandleClass
+
+---@return ImageHandle
+function NewImageHandle()
+    return setmetatable({}, imageHandleClass)
+end
+
+---@param fileName string
+---@param ... "ASYNC"|"CLAMP"|"MIPMAP"
+function imageHandleClass:Load(fileName, ...)
+    self.valid = true
+end
+
+---@alias ArtFlag "CLAMP"|"MIPMAP"|"NEAREST"
+
+---@param art userdata ArtHandle
+---@param x1 integer
+---@param y1 integer
+---@param x2 integer
+---@param y2 integer
+---@param ... ArtFlag
+function imageHandleClass:LoadArtRectangle(art, x1, y1, x2, y2, ...) end
+
+---@param art userdata ArtHandle
+---@param xC integer
+---@param yC integer
+---@param rMin integer
+---@param rMax integer
+---@param ... ArtFlag
+function imageHandleClass:LoadArtArcBand(art, xC, yC, rMin, rMax, ...) end
+
+function imageHandleClass:Unload()
+    self.valid = false
+end
+
+---@return boolean
+function imageHandleClass:IsValid()
+    return self.valid
+end
+
+---@param priority number
+function imageHandleClass:SetLoadingPriority(priority) end
+
+---@return integer width
+---@return integer height
+function imageHandleClass:ImageSize()
+    return 1, 1
+end
 
 ---@param fileName string
 ---@return userdata
@@ -24,10 +80,14 @@ function NewArtHandle(fileName) end
 
 ---@return integer width
 ---@return integer height
-function GetScreenSize() end
+function GetScreenSize()
+	return 1920, 1080
+end
 
 ---@return number
-function GetScreenScale() end
+function GetScreenScale()
+	return 1
+end
 
 ---@param red    number
 ---@param green  number
@@ -71,7 +131,9 @@ function GetDrawColor() end
 function SetDPIScaleOverridePercent(percent) end
 
 ---@return integer
-function GetDPIScaleOverridePercent() end
+function GetDPIScaleOverridePercent()
+	return 1
+end
 
 ---@param imgHandle? userdata
 ---@param left       number
@@ -154,7 +216,9 @@ function DrawString(left, top, align, height, font, text) end
 ---@param font   Font
 ---@param text   string
 ---@return integer physicalWidth
-function DrawStringWidth(height, font, text) end
+function DrawStringWidth(height, font, text)
+	return 1
+end
 
 ---@param height  number
 ---@param font    Font
@@ -162,14 +226,21 @@ function DrawStringWidth(height, font, text) end
 ---@param cursorX number
 ---@param cursorY number
 ---@return integer
-function DrawStringCursorIndex(height, font, text, cursorX, cursorY) end
+function DrawStringCursorIndex(height, font, text, cursorX, cursorY)
+	return 0
+end
 
 ---@param text string
 ---@return string
-function StripEscapes(text) end
+function StripEscapes(text)
+	local s, _ = text:gsub("%^%d",""):gsub("%^x%x%x%x%x%x%x","")
+	return s
+end
 
 ---@return integer asyncCount
-function GetAsyncCount() end
+function GetAsyncCount()
+	return 0
+end
 
 ---@param flag1  string
 ---@param ...    string
@@ -184,14 +255,18 @@ function NewFileSearch(spec, findDirectories) end
 ---@return string?  name
 ---@return string?  version
 ---@return integer? status
-function GetCloudProvider(path) end
+function GetCloudProvider(path)
+	return nil, nil, nil
+end
 
 ---@param title string
 function SetWindowTitle(title) end
 
 ---@return number x
 ---@return number y
-function GetCursorPos() end
+function GetCursorPos()
+	return 0, 0
+end
 
 ---@param x number
 ---@param y number
@@ -212,30 +287,42 @@ function Paste() end
 ---@param data string
 ---@return string? compressedData
 ---@return string? errMsg
-function Deflate(data) end
+function Deflate(data)
+	return ""
+end
 
 ---@param data string
 ---@return string? data
 ---@return string? errMsg
-function Inflate(data) end
+function Inflate(data)
+	return ""
+end
 
 ---@return integer timeMillis
-function GetTime() end
+function GetTime()
+	return 0
+end
 
 ---@return string  scriptPath
 ---@return string? scriptFallback
 ---@return string? errMsg
-function GetScriptPath() end
+function GetScriptPath()
+	return ""
+end
 
 ---@return string  runtimePath
 ---@return string? fallbackPath
 ---@return string? errMsg
-function GetRuntimePath() end
+function GetRuntimePath()
+	return ""
+end
 
 ---@return string? userPath
 ---@return string? invalidPath
 ---@return string? errMsg
-function GetUserPath() end
+function GetUserPath()
+	return ""
+end
 
 ---@param path string
 ---@return true|([nil, string]) true on success, or nil and error message
@@ -249,7 +336,9 @@ function RemoveDir(path, recurse) end
 function SetWorkDir(path) end
 
 ---@return string
-function GetWorkDir() end
+function GetWorkDir()
+	return ""
+end
 
 ---@alias SubScriptID userdata
 
@@ -270,12 +359,32 @@ function IsSubScriptRunning(ssID) end
 ---@param name string
 ---@param ... any
 ---@return unknown retVal use ---@module "name" instead
-function LoadModule(name, ...) end
+function LoadModule(name, ...)
+	if not name:match("%.lua") then
+		name = name .. ".lua"
+	end
+	local func, err = loadfile(name)
+	if func then
+		return func(...)
+	else
+		error("LoadModule() error loading '"..name.."': "..err)
+	end
+end
 
 ---@param modName string
 ---@param ... any
 ---@return unknown retVal use ---@module "name" instead
-function PLoadModule(modName, ...) end
+function PLoadModule(modName, ...)
+	if not modName:match("%.lua") then
+		modName = modName .. ".lua"
+	end
+	local func, err = loadfile(modName)
+	if func then
+		return PCall(func, ...)
+	else
+		error("PLoadModule() error loading '"..modName.."': "..err)
+	end
+end
 
 ---@generic T
 ---@generic R
@@ -283,11 +392,23 @@ function PLoadModule(modName, ...) end
 ---@param ...  any
 ---@return any? err
 ---@return R? retVal
-function PCall(func, ...) end
+function PCall(func, ...)
+	local ret = { pcall(func, ...) }
+	if ret[1] then
+		table.remove(ret, 1)
+		---@diagnostic disable-next-line: redundant-return-value
+		return nil, unpack(ret)
+	else
+		return ret[2]
+	end
+end
 
 ---@param fmt string
 ---@param ... any
-function ConPrintf(fmt, ...) end
+function ConPrintf(fmt, ...)
+	-- Optional
+	print(string.format(fmt, ...))
+end
 
 ---@param tbl table
 ---@param noRecurse any converted to boolean
