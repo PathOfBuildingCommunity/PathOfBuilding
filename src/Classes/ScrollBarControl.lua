@@ -9,7 +9,9 @@ local m_ceil = math.ceil
 local m_floor = math.floor
 
 ---@class ScrollBarControl: Control
-local ScrollBarClass = newClass("ScrollBarControl", "Control", function(self, anchor, rect, step, dir, autoHide)
+local ScrollBarClass = newClass("ScrollBarControl", "Control")
+
+function ScrollBarClass:ScrollBarControl(anchor, rect, step, dir, autoHide)
 	self.Control(anchor, rect)
 	self.step = step or self.width * 2
 	self.dir = dir or "VERTICAL"
@@ -20,7 +22,7 @@ local ScrollBarClass = newClass("ScrollBarControl", "Control", function(self, an
 			return self.enabled
 		end
 	end
-end)
+end
 
 function ScrollBarClass:SetContentDimension(conDim, viewDim)
 	self.conDim = conDim

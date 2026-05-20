@@ -5,9 +5,11 @@
 --
 
 ---@class ControlHost
-local ControlHostClass = newClass("ControlHost", function(self)
+local ControlHostClass = newClass("ControlHost")
+
+function ControlHostClass:ControlHost()
 	self.controls = { }
-end)
+end
 
 function ControlHostClass:SelectControl(newSelControl)
 	if self.selControl == newSelControl then

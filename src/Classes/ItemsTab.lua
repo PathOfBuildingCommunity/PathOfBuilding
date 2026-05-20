@@ -93,7 +93,10 @@ local function getOutputStatValue(output, stat)
 end
 
 ---@class ItemsTab: UndoHandler, ControlHost, Control
-local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
+local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Control")
+
+---@param build Build
+function ItemsTabClass:ItemsTab(build)
 	self.UndoHandler()
 	self.ControlHost()
 	self.Control()
@@ -1032,7 +1035,7 @@ holding Shift will put it in the second.]])
 
 	self:PopulateSlots()
 	self.lastSlot = self.slots[baseSlots[#baseSlots]]
-end)
+end
 
 function ItemsTabClass:Load(xml, dbFileName)
 	self.activeItemSetId = 0

@@ -41,11 +41,13 @@ for _, recipeName in pairs(recipeNames) do
 end
 
 ---@class Tooltip
-local TooltipClass = newClass("Tooltip", function(self)
+local TooltipClass = newClass("Tooltip")
+
+function TooltipClass:Tooltip()
 	self.lines = { }
 	self.blocks = { }
 	self:Clear()
-end)
+end
 
 function TooltipClass:Clear(clearUpdateParams)
 	wipeTable(self.lines)

@@ -7,7 +7,9 @@ local pairs = pairs
 local t_insert = table.insert
 
 ---@class ItemListControl: ListControl
-local ItemListClass = newClass("ItemListControl", "ListControl", function(self, anchor, rect, itemsTab, forceTooltip)
+local ItemListClass = newClass("ItemListControl", "ListControl")
+
+function ItemListClass:ItemListControl(anchor, rect, itemsTab, forceTooltip)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, itemsTab.itemOrderList, forceTooltip)
 	self.itemsTab = itemsTab
 	self.label = "^7All items:"
@@ -66,7 +68,7 @@ local ItemListClass = newClass("ItemListControl", "ListControl", function(self, 
 	self.controls.sort = new("ButtonControl", {"RIGHT",self.controls.deleteUnused,"LEFT"}, {-4, 0, 60, 18}, "Sort", function()
 		itemsTab:SortItemList()
 	end)
-end)
+end
 
 function ItemListClass:FindSocketedJewel(jewelId, excludeActiveSpec)
 	if not self.itemsTab.items[jewelId] or self.itemsTab.items[jewelId].type ~= "Jewel" then

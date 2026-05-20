@@ -76,7 +76,9 @@ local sortGemTypeList = {
 }
 
 ---@class SkillsTab: UndoHandler, ControlHost, Control
-local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
+local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Control")
+
+function SkillsTabClass:SkillsTab(build)
 	self.UndoHandler()
 	self.ControlHost()
 	self.Control()
@@ -333,7 +335,7 @@ will automatically apply to the skill.]]
 	self.controls.gemQualityHeader = new("LabelControl", {"BOTTOMLEFT", self.gemSlots[1].quality, "TOPLEFT"}, {0, -2, 0, 16}, "^7Quality:")
 	self.controls.gemEnableHeader = new("LabelControl", {"BOTTOMLEFT", self.gemSlots[1].enabled, "TOPLEFT"}, {-16, -2, 0, 16}, "^7Enabled:")
 	self.controls.gemCountHeader = new("LabelControl", {"BOTTOMLEFT", self.gemSlots[1].count, "TOPLEFT"}, {8, -2, 0, 16}, "^7Count:")
-end)
+end
 
 
 function SkillsTabClass:LoadSkill(node, skillSetId)

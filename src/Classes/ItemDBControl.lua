@@ -10,8 +10,10 @@ local m_max = math.max
 local m_floor = math.floor
 
 
----@class ImportTab: ListControl
-local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anchor, rect, itemsTab, db, dbType)
+---@class ItemDBControl: ListControl
+local ItemDBClass = newClass("ItemDBControl", "ListControl")
+
+function ItemDBClass:ItemDBControl(anchor, rect, itemsTab, db, dbType)
 	self.ListControl(anchor, rect, 16, "VERTICAL", false)
 	self.itemsTab = itemsTab
 	self.db = db
@@ -57,7 +59,7 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anch
 	end)
 	self:BuildSortOrder()
 	self.listBuildFlag = true
-end)
+end
 
 function ItemDBClass:LoadLeaguesAndTypes()
 	local leagueFlag = { }

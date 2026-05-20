@@ -8,7 +8,9 @@ local t_remove = table.remove
 local m_max = math.max
 
 ---@class PassiveSpecListControl: ListControl
-local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", function(self, anchor, rect, treeTab)
+local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl")
+
+function PassiveSpecListClass:PassiveSpecListControl(anchor, rect, treeTab)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, treeTab.specList)
 	self.treeTab = treeTab
 	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
@@ -42,7 +44,7 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 		self:RenameSpec(newSpec, "New Tree", true)
 	end)
 	self:UpdateItemsTabPassiveTreeDropdown()
-end)
+end
 
 function PassiveSpecListClass:RenameSpec(spec, title, addOnName)
 	local controls = { }

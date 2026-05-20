@@ -4,7 +4,9 @@
 -- Simple list control for displaying a block of text
 --
 ---@class TextListControl: Control, ControlHost
-local TextListClass = newClass("TextListControl", "Control", "ControlHost", function(self, anchor, rect, columns, list, sectionHeights)
+local TextListClass = newClass("TextListControl", "Control", "ControlHost")
+
+function TextListClass:TextListControl(anchor, rect, columns, list, sectionHeights)
 	self.Control(anchor, rect)
 	self.ControlHost()
 	self.controls.scrollBar = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, {-1, 0, 18, 0}, 40)
@@ -15,7 +17,7 @@ local TextListClass = newClass("TextListControl", "Control", "ControlHost", func
 	self.columns = columns or { { x = 0, align = "LEFT" } }
 	self.list = list or { }
 	self.sectionHeights = sectionHeights
-end)
+end
 
 function TextListClass:IsMouseOver()
 	if not self:IsShown() then

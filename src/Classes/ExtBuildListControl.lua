@@ -11,30 +11,31 @@ local m_min = math.min
 local dkjson = require "dkjson"
 
 ---@class ExtBuildListControl: ControlHost, Control
-local ExtBuildListControlClass = newClass("ExtBuildListControl", "ControlHost", "Control",
-	function(self, anchor, rect, providers)
-		self.Control(anchor, rect)
-		self.ControlHost()
-		self:SelectControl()
+local ExtBuildListControlClass = newClass("ExtBuildListControl", "ControlHost", "Control")
 
-		self.rowHeight = 200
-		self.scroll = "VERTICAL"
-		self.forceTooltip = false
-		self.font = "VAR"
-		self.importButtons = {}
-		self.previewButtons = {}
-		self.inTransition = false
-		self.contentHeight = 0
-		self.tabs = {}
-		self.activeListProvider = nil
-		self.buildProviders = providers
-		self.buildProvidersList = {}
-		self.providerMaxLength = 150
-		for _, provider in ipairs(self.buildProviders) do
-			self.providerMaxLength = m_max(self.providerMaxLength, DrawStringWidth(16, self.font, provider.name) + 30)
-			t_insert(self.buildProvidersList, provider.name)
-		end
-	end)
+function ExtBuildListControlClass:ExtBuildListControl(anchor, rect, providers)
+	self.Control(anchor, rect)
+	self.ControlHost()
+	self:SelectControl()
+
+	self.rowHeight = 200
+	self.scroll = "VERTICAL"
+	self.forceTooltip = false
+	self.font = "VAR"
+	self.importButtons = {}
+	self.previewButtons = {}
+	self.inTransition = false
+	self.contentHeight = 0
+	self.tabs = {}
+	self.activeListProvider = nil
+	self.buildProviders = providers
+	self.buildProvidersList = {}
+	self.providerMaxLength = 150
+	for _, provider in ipairs(self.buildProviders) do
+		self.providerMaxLength = m_max(self.providerMaxLength, DrawStringWidth(16, self.font, provider.name) + 30)
+		t_insert(self.buildProvidersList, provider.name)
+	end
+end
 
 function ExtBuildListControlClass:Init(providerName)
 	wipeTable(self.controls)

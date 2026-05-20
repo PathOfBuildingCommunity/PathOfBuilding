@@ -31,7 +31,9 @@ local m_max = math.max
 local m_floor = math.floor
 
 ---@class ListControl: Control, ControlHost
-local ListClass = newClass("ListControl", "Control", "ControlHost", function(self, anchor, rect, rowHeight, scroll, isMutable, list, forceTooltip)
+local ListClass = newClass("ListControl", "Control", "ControlHost")
+
+function ListClass:ListControl(anchor, rect, rowHeight, scroll, isMutable, list, forceTooltip)
 	self.Control(anchor, rect)
 	self.ControlHost()
 	self.rowHeight = rowHeight
@@ -72,7 +74,7 @@ local ListClass = newClass("ListControl", "Control", "ControlHost", function(sel
 		self.controls.scrollBarV.shown = false
 	end
 	self.labelPositionOffset = {0, 0}
-end)
+end
 
 
 function ListClass:SelectIndex(index)

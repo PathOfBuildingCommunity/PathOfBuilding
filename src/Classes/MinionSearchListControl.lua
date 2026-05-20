@@ -9,8 +9,10 @@ local t_remove = table.remove
 local s_format = string.format
 
 ---@class MinionSearchListControl: MinionListControl
-local MinionSearchListClass = newClass("MinionSearchListControl", "MinionListControl", function(self, anchor, rect, data, list, dest)
-	self.MinionListControl(anchor, rect, data, list, dest)	
+local MinionSearchListClass = newClass("MinionSearchListControl", "MinionListControl")
+
+function MinionSearchListClass:MinionSearchListControl(anchor, rect, data, list, dest)
+	self.MinionListControl(anchor, rect, data, list, dest)
 	self.unfilteredList = copyTable(list)
 	self.isMutable = false
 
@@ -29,7 +31,7 @@ local MinionSearchListClass = newClass("MinionSearchListControl", "MinionListCon
 		self.controls.delete.y = self.controls.add.y - 20
 	end
 
-end)
+end
 
 function MinionSearchListClass:DoesEntryMatchFilters(searchStr, minionId, filterMode)
 	if filterMode == 1 or filterMode == 3 then

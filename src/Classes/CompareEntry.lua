@@ -10,7 +10,9 @@ local m_min = math.min
 local m_max = math.max
 
 ---@class CompareEntry: ControlHost
-local CompareEntryClass = newClass("CompareEntry", "ControlHost", function(self, xmlText, label)
+local CompareEntryClass = newClass("CompareEntry", "ControlHost")
+
+function CompareEntryClass:CompareEntry(xmlText, label)
 	self.ControlHost()
 
 	self.label = label or "Comparison Build"
@@ -52,7 +54,7 @@ local CompareEntryClass = newClass("CompareEntry", "ControlHost", function(self,
 	if xmlText then
 		self:LoadFromXML(xmlText)
 	end
-end)
+end
 
 function CompareEntryClass:LoadFromXML(xmlText)
 	-- Parse the XML

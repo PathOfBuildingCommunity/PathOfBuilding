@@ -28,12 +28,14 @@ local conditionName = setmetatable({ }, { __index = function(t, var)
 end })
 
 ---@class ModStore
-local ModStoreClass = newClass("ModStore", function(self, parent)
+local ModStoreClass = newClass("ModStore")
+
+function ModStoreClass:ModStore(parent)
 	self.parent = parent or false
 	self.actor = parent and parent.actor or { }
 	self.multipliers = { }
 	self.conditions = { }
-end)
+end
 
 function ModStoreClass:ScaleAddMod(mod, scale, replace)
 	local unscalable = false

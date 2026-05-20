@@ -6,7 +6,9 @@
 local t_insert = table.insert
 
 ---@class CalcSectionControl: Control, ControlHost
-local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost", function(self, calcsTab, width, id, group, colour, subSection, updateFunc)
+local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost")
+
+function CalcSectionClass:CalcSectionControl(calcsTab, width, id, group, colour, subSection, updateFunc)
 	self.Control(calcsTab, {0, 0, width, 0})
 	self.ControlHost()
 	self.calcsTab = calcsTab
@@ -53,7 +55,7 @@ local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost"
 	self.shown = function()
 		return self.enabled
 	end
-end)
+end
 
 function CalcSectionClass:IsMouseOver()
 	if not self:IsShown() then

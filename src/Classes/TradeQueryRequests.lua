@@ -7,16 +7,17 @@
 local dkjson = require "dkjson"
 
 ---@class TradeQueryRequests
-local TradeQueryRequestsClass = newClass("TradeQueryRequests", function(self, rateLimiter)
+local TradeQueryRequestsClass = newClass("TradeQueryRequests")
+
+function TradeQueryRequestsClass:TradeQueryRequests(rateLimiter)
 	self.maxFetchPerSearch = 10
-	self.tradeQuery = tradeQuery
 	self.rateLimiter = rateLimiter or new("TradeQueryRateLimiter")
 	self.requestQueue = {
 		["search"] = {},
 		["fetch"] = {},
 	}
 	self.hostName = "https://www.pathofexile.com/"
-end)
+end
 
 ---Main routine for processing request queue
 function TradeQueryRequestsClass:ProcessQueue()

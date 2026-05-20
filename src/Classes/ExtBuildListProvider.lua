@@ -11,14 +11,14 @@
 -- .statusMsg [This can be used to print status message on the screen. Builds will not be listed if it has a value other than nil.]
 
 ---@class ExtBuildListProvider
-local ExtBuildListProviderClass = newClass("ExtBuildListProvider",
-	function(self, listTitles)
-		self.listTitles = listTitles
-		self.buildList = {}
-		self.activeList = nil
-		self.statusMsg = nil
-	end
-)
+local ExtBuildListProviderClass = newClass("ExtBuildListProvider")
+
+function ExtBuildListProviderClass:ExtBuildListProvider(listTitles)
+	self.listTitles = listTitles
+	self.buildList = {}
+	self.activeList = nil
+	self.statusMsg = nil
+end
 
 function ExtBuildListProviderClass:GetPageUrl()
 	return nil

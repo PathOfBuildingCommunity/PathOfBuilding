@@ -8,7 +8,9 @@ local t_insert = table.insert
 local t_remove = table.remove
 
 ---@class SharedItemListControl: ListControl
-local SharedItemListClass = newClass("SharedItemListControl", "ListControl", function(self, anchor, rect, itemsTab, forceTooltip)
+local SharedItemListClass = newClass("SharedItemListControl", "ListControl")
+
+function SharedItemListClass:SharedItemListControl(anchor, rect, itemsTab, forceTooltip)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, main.sharedItemList, forceTooltip)
 	self.itemsTab = itemsTab
 	self.label = "^7Shared items:"
@@ -20,7 +22,7 @@ local SharedItemListClass = newClass("SharedItemListControl", "ListControl", fun
 	self.controls.delete.enabled = function()
 		return self.selValue ~= nil
 	end
-end)
+end
 
 function SharedItemListClass:GetRowValue(column, index, item)
 	if column == 1 then

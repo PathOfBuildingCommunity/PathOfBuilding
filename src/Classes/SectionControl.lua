@@ -5,10 +5,12 @@
 --
 
 ---@class SectionControl: Control
-local SectionClass = newClass("SectionControl", "Control", function(self, anchor, rect, label)
+local SectionClass = newClass("SectionControl", "Control")
+
+function SectionClass:SectionControl(anchor, rect, label)
 	self.Control(anchor, rect)
 	self.label = label
-end)
+end
 
 function SectionClass:Draw()
 	local x, y = self:GetPos()

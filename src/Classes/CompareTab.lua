@@ -123,7 +123,9 @@ local function matchFlags(reqFlags, notFlags, flags)
 end
 
 ---@class CompareTab: ControlHost, Control
-local CompareTabClass = newClass("CompareTab", "ControlHost", "Control", function(self, primaryBuild)
+local CompareTabClass = newClass("CompareTab", "ControlHost", "Control")
+
+function CompareTabClass:CompareTab(primaryBuild)
 	self.ControlHost()
 	self.Control()
 
@@ -191,7 +193,7 @@ local CompareTabClass = newClass("CompareTab", "ControlHost", "Control", functio
 
 	-- Controls for the comparison screen
 	self:InitControls()
-end)
+end
 
 function CompareTabClass:InitControls()
 	-- Sub-tab buttons

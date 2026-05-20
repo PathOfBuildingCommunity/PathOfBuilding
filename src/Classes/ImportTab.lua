@@ -20,7 +20,9 @@ local realmList = {
 local influenceInfo = itemLib.influenceInfo.all
 
 ---@class ImportTab: ControlHost, Control
-local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(self, build)
+local ImportTabClass = newClass("ImportTab", "ControlHost", "Control")
+
+function ImportTabClass:ImportTab(build)
 	self.ControlHost()
 	self.Control()
 
@@ -375,7 +377,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 			self.controls.importCodeGo.onClick()
 		end
 	end
-end)
+end
 
 function ImportTabClass:Load(xml, fileName)
 	self.lastRealm = xml.attrib.lastRealm

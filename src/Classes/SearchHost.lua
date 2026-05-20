@@ -5,12 +5,14 @@
 --
 
 ---@class SearchHost
-local SearchHostClass = newClass("SearchHost", function(self, listAccessor, valueAccessor)
+local SearchHostClass = newClass("SearchHost")
+
+function SearchHostClass:SearchHost(listAccessor, valueAccessor)
 	self.searchListAccessor = listAccessor
 	self.valueAccessor = valueAccessor
 	self.searchTerm = ""
 	self.searchInfos = {}
-end)
+end
 
 local function splitWords(s)
 	local words = {}

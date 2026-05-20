@@ -20,7 +20,9 @@ local s_byte = string.byte
 local dkjson = require "dkjson"
 
 ---@class TreeTab: ControlHost
-local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
+local TreeTabClass = newClass("TreeTab", "ControlHost")
+
+function TreeTabClass:TreeTab(build)
 	self.ControlHost()
 
 	self.build = build
@@ -342,7 +344,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.jumpToNode = false
 	self.jumpToX = 0
 	self.jumpToY = 0
-end)
+end
 
 function TreeTabClass:RemoveTattooFromNode(node)
 	self.build.spec.tree.nodes[node.id].isTattoo = false

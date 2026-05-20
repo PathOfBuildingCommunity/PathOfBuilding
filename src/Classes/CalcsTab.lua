@@ -17,7 +17,9 @@ local buffModeDropList = {
 }
 
 ---@class CalcsTab: UndoHandler, ControlHost, Control
-local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
+local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Control")
+
+function CalcsTabClass:CalcsTab(build)
 	self.UndoHandler()
 	self.ControlHost()
 	self.Control()
@@ -152,7 +154,7 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, {0, 0, 18, 0}, 50, "VERTICAL", true)
 	self.powerBuilderInitialized = nil
-end)
+end
 
 function CalcsTabClass:Load(xml, dbFileName)
 	for _, node in ipairs(xml) do

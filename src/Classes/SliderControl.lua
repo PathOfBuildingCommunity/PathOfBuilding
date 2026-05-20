@@ -8,14 +8,16 @@ local m_max = math.max
 local m_ceil = math.ceil
 
 ---@class SliderControl: Control, TooltipHost
-local SliderClass = newClass("SliderControl", "Control", "TooltipHost", function(self, anchor, rect, changeFunc, scrollWheelSpeedTbl)
+local SliderClass = newClass("SliderControl", "Control", "TooltipHost")
+
+function SliderClass:SliderControl(anchor, rect, changeFunc, scrollWheelSpeedTbl)
 	self.Control(anchor, rect)
 	self.TooltipHost()
 	self.knobSize = self.height - 2
 	self.val = 0
 	self.changeFunc = changeFunc
 	self.scrollWheelSpeedTbl = scrollWheelSpeedTbl or { ["SHIFT"] = 0.25, ["CTRL"] = 0.01, ["DEFAULT"] = 0.05 }
-end)
+end
 
 function SliderClass:IsMouseOver()
 	if not self:IsShown() then

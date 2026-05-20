@@ -9,7 +9,9 @@ local m_max = math.max
 local m_floor = math.floor
 
 ---@class DropDownControl: Control, ControlHost, TooltipHost, SearchHost
-local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "TooltipHost", "SearchHost", function(self, anchor, rect, list, selFunc, tooltipText)
+local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "TooltipHost", "SearchHost")
+
+function DropDownClass:DropDownControl(anchor, rect, list, selFunc, tooltipText)
 	self.Control(anchor, rect)
 	self.ControlHost()
 	self.TooltipHost(tooltipText)
@@ -50,8 +52,10 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 	self.enableDroppedWidth = false
 	-- Set by the parent control. Activates the auto width of the box component.
 	self.enableChangeBoxWidth = false
-	-- self.tag = "-"
-end)
+        -- self.tag = "-"
+	---@class DropDownClass: Control, ControlHost, TooltipHost, SearchHost
+	self = self
+end
 
 -- maps the actual dropdown row index (after eventual filtering) to the original (unfiltered) list index
 function DropDownClass:DropIndexToListIndex(dropIndex)

@@ -14,8 +14,10 @@ local m_floor = math.floor
 local band = bit.band
 local b_rshift = bit.rshift
 
----@class PassveTreeView
-local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
+---@class PassiveTreeView
+local PassiveTreeViewClass = newClass("PassiveTreeView")
+
+function PassiveTreeViewClass:PassiveTreeView()
 	self.ring = NewImageHandle()
 	self.ring:Load("Assets/ring.png", "CLAMP")
 	self.highlightRing = NewImageHandle()
@@ -67,7 +69,7 @@ local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.searchStrResults = {}
 	self.showStatDifferences = true
 	self.hoverNode = nil
-end)
+end
 
 function PassiveTreeViewClass:Load(xml, fileName)
 	if xml.attrib.zoomLevel then

@@ -50,7 +50,9 @@ local function getFile(URL)
 end
 
 ---@class PassiveTree
-local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
+local PassiveTreeClass = newClass("PassiveTree")
+
+function PassiveTreeClass:PassiveTree(treeVersion)
 	self.treeVersion = treeVersion
 	local versionNum = treeVersions[treeVersion].num
 
@@ -721,7 +723,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	if treeVersion == latestTreeVersion then
 		buildTreeDependentUniques(self)
 	end
-end)
+end
 
 function PassiveTreeClass:ProcessStats(node, startIndex)
 	startIndex = startIndex or 1

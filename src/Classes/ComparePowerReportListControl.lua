@@ -8,7 +8,9 @@ local t_insert = table.insert
 local t_sort = table.sort
 
 ---@class ComparePowerReportListControl: ListControl
-local ComparePowerReportListClass = newClass("ComparePowerReportListControl", "ListControl", function(self, anchor, rect)
+local ComparePowerReportListClass = newClass("ComparePowerReportListControl", "ListControl")
+
+function ComparePowerReportListClass:ComparePowerReportListControl(anchor, rect)
 	self.ListControl(anchor, rect, 18, "VERTICAL", false)
 
 	local width = rect[3]
@@ -23,7 +25,7 @@ local ComparePowerReportListClass = newClass("ComparePowerReportListControl", "L
 	self.colLabels = true
 	self.showRowSeparators = true
 	self.statusText = "Select a metric above to generate the power report."
-end)
+end
 
 function ComparePowerReportListClass:SetReport(stat, report)
 	self.impactColumn.label = stat and stat.label or ""

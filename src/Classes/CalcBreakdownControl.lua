@@ -14,7 +14,9 @@ local m_pi = math.pi
 local band = bit.band
 
 ---@class CalcBreakdownControl: Control, ControlHost
-local CalcBreakdownClass = newClass("CalcBreakdownControl", "Control", "ControlHost", function(self, calcsTab)
+local CalcBreakdownClass = newClass("CalcBreakdownControl", "Control", "ControlHost")
+
+function CalcBreakdownClass:CalcBreakdownControl(calcsTab)
 	self.Control()
 	self.ControlHost()
 	self.calcsTab = calcsTab
@@ -26,7 +28,7 @@ local CalcBreakdownClass = newClass("CalcBreakdownControl", "Control", "ControlH
 	self.uiOverlay = NewImageHandle()
 	self.uiOverlay:Load("Assets/game_ui_small.png")
 	self.controls.scrollBar = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, {-2, 0, 18, 0}, 80, "VERTICAL", true)
-end)
+end
 
 function CalcBreakdownClass:IsMouseOver()
 	if not self:IsShown() then

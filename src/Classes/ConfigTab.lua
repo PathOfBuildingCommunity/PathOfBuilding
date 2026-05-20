@@ -13,7 +13,9 @@ local varList = LoadModule("Modules/ConfigOptions")
 local configVisibility = LoadModule("Modules/ConfigVisibility")
 
 ---@class ConfigTab: UndoHandler, ControlHost, Control
-local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Control", function(self, build)
+local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Control")
+
+function ConfigTabClass:ConfigTab(build)
 	self.UndoHandler()
 	self.ControlHost()
 	self.Control()
@@ -609,7 +611,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 		end
 	end
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, {0, 0, 18, 0}, 50, "VERTICAL", true)
-end)
+end
 
 function ConfigTabClass:Load(xml, fileName)
 	self.activeConfigSetId = 1

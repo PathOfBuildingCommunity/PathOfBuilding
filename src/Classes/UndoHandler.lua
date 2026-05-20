@@ -10,10 +10,12 @@ local t_insert = table.insert
 local t_remove = table.remove
 
 ---@class UndoHandler
-local UndoHandlerClass = newClass("UndoHandler", function(self)
+local UndoHandlerClass = newClass("UndoHandler")
+
+function UndoHandlerClass:UndoHandler()
 	self.undo = { }
 	self.redo = { }
-end)
+end
 
 -- Initialises the undo/redo buffers
 -- Should be called after the current state is first loaded/initialised

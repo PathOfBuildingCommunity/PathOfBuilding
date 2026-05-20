@@ -7,7 +7,9 @@ local ipairs = ipairs
 local t_insert = table.insert
 
 ---@class PathControl
-local PathClass = newClass("PathControl", "Control", "ControlHost", "UndoHandler", function(self, anchor, rect, basePath, subPath, onChange)
+local PathClass = newClass("PathControl", "Control", "ControlHost", "UndoHandler")
+
+function PathClass:PathControl(anchor, rect, basePath, subPath, onChange)
 	self.Control(anchor, rect)
 	self.ControlHost()
 	self.UndoHandler()
@@ -16,7 +18,7 @@ local PathClass = newClass("PathControl", "Control", "ControlHost", "UndoHandler
 	self:SetSubPath(subPath or "")
 	self:ResetUndo()
 	self.onChange = onChange
-end)
+end
 
 function PathClass:SetSubPath(subPath, noUndo)
 	if subPath == self.subPath then

@@ -58,11 +58,13 @@ end
 local influenceInfo = itemLib.influenceInfo.all
 
 ---@class Item
-local ItemClass = newClass("Item", function(self, raw, rarity, highQuality)
+local ItemClass = newClass("Item")
+
+function ItemClass:Item(raw, rarity, highQuality)
 	if raw then
 		self:ParseRaw(sanitiseText(raw), rarity, highQuality)
-	end	
-end)
+	end
+end
 
 -- Reset all influence keys to false
 function ItemClass:ResetInfluence()

@@ -7,7 +7,9 @@ local ipairs = ipairs
 local t_insert = table.insert
 
 ---@class FolderListControl: ListControl
-local FolderListClass = newClass("FolderListControl", "ListControl", function(self, anchor, rect, subPath, onChange)
+local FolderListClass = newClass("FolderListControl", "ListControl")
+
+function FolderListClass:FolderListControl(anchor, rect, subPath, onChange)
 	self.ListControl(anchor, rect, 16, "VERTICAL", false, { })
 	self.subPath = subPath or ""
 	self.sortMode = "NAME"
@@ -23,7 +25,7 @@ local FolderListClass = newClass("FolderListControl", "ListControl", function(se
 		end
 	end)
 	self:BuildList()
-end)
+end
 
 function FolderListClass:SortList()
 	if not self.list then return end

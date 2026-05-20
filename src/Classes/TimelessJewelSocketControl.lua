@@ -7,11 +7,13 @@
 local m_min = math.min
 
 ---@class TimelessJewelSocketControl: DropDownControl
-local TimelessJewelSocketClass = newClass("TimelessJewelSocketControl", "DropDownControl", function(self, anchor, rect, list, selFunc, build, socketViewer)
+local TimelessJewelSocketClass = newClass("TimelessJewelSocketControl", "DropDownControl")
+
+function TimelessJewelSocketClass:TimelessJewelSocketControl(anchor, rect, list, selFunc, build, socketViewer)
 	self.DropDownControl(anchor, rect, list, selFunc)
 	self.build = build
 	self.socketViewer = socketViewer
-end)
+end
 
 function TimelessJewelSocketClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()

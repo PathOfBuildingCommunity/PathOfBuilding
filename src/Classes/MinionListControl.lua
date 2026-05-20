@@ -9,7 +9,9 @@ local t_remove = table.remove
 local s_format = string.format
 
 ---@class MinionListControl: ListControl
-local MinionListClass = newClass("MinionListControl", "ListControl", function(self, anchor, rect, data, list, dest)
+local MinionListClass = newClass("MinionListControl", "ListControl")
+
+function MinionListClass:MinionListControl(anchor, rect, data, list, dest)
 	self.ListControl(anchor, rect, 16, "VERTICAL", not dest, list)
 	self.data = data
 	self.dest = dest
@@ -31,7 +33,7 @@ local MinionListClass = newClass("MinionListControl", "ListControl", function(se
 			return self.selValue ~= nil
 		end
 	end
-end)
+end
 
 function MinionListClass:AddSel()
 	if self.dest and not isValueInArray(self.dest.list, self.selValue) then

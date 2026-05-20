@@ -27,7 +27,9 @@ local slot_map = {
 }
 
 ---@class SkillListControl: ListControl
-local SkillListClass = newClass("SkillListControl", "ListControl", function(self, anchor, rect, skillsTab)
+local SkillListClass = newClass("SkillListControl", "ListControl")
+
+function SkillListClass:SkillListControl(anchor, rect, skillsTab)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, skillsTab.socketGroupList)
 	self.skillsTab = skillsTab
 	self.label = "^7Socket Groups:"
@@ -52,10 +54,10 @@ local SkillListClass = newClass("SkillListControl", "ListControl", function(self
 		return #self.list > 0 
 	end
 	self.controls.new = new("ButtonControl", {"RIGHT",self.controls.deleteAll,"LEFT"}, {-4, 0, 60, 18}, "New", function()
-		local newGroup = { 
-			label = "", 
-			enabled = true, 
-			gemList = { } 
+		local newGroup = {
+			label = "",
+			enabled = true,
+			gemList = { }
 		}
 		t_insert(self.list, newGroup)
 		self.selIndex = #self.list
@@ -68,7 +70,7 @@ local SkillListClass = newClass("SkillListControl", "ListControl", function(self
 	for k, x in pairs(slot_map) do
 		x.icon:Load(x.path)
 	end
-end)
+end
 
 function SkillListClass:GetRowValue(column, index, socketGroup)
 	if column == 1 then

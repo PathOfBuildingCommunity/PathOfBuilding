@@ -10,7 +10,9 @@ local m_max = math.max
 local m_floor = math.floor
 
 ---@class PassiveMasteryControl: ListControl
-local PassiveMasteryControlClass = newClass("PassiveMasteryControl", "ListControl", function(self, anchor, rect, list, treeTab, node, saveButton)
+local PassiveMasteryControlClass = newClass("PassiveMasteryControl", "ListControl")
+
+function PassiveMasteryControlClass:PassiveMasteryControl(anchor, rect, list, treeTab, node, saveButton)
 	self.list = list or { }
 	-- automagical width
 	for j=1,#list do
@@ -22,7 +24,7 @@ local PassiveMasteryControlClass = newClass("PassiveMasteryControl", "ListContro
 	self.node = node
 	self.selIndex = nil
 	self.saveButton = saveButton
-end)
+end
 
 function PassiveMasteryControlClass:Draw(viewPort)
 	self.ListControl.Draw(self, viewPort)

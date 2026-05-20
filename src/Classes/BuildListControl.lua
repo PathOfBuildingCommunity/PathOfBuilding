@@ -7,11 +7,13 @@ local ipairs = ipairs
 local s_format = string.format
 
 ---@class BuildListControl: ListControl
-local BuildListClass = newClass("BuildListControl", "ListControl", function(self, anchor, rect, listMode)
+local BuildListClass = newClass("BuildListControl", "ListControl")
+
+function BuildListClass:BuildListControl(anchor, rect, listMode)
 	self.ListControl(anchor, rect, 20, "VERTICAL", false, listMode.list)
 	self.listMode = listMode
-	self.colList = { 
-		{ width = function() return self:GetProperty("width") - 172 end }, 
+	self.colList = {
+		{ width = function() return self:GetProperty("width") - 172 end },
 		{ },
 	}
 	self.showRowSeparators = true
@@ -45,7 +47,7 @@ local BuildListClass = newClass("BuildListControl", "ListControl", function(self
 	self.controls.path.width = function ()
 		return self.width()
 	end
-end)
+end
 
 function BuildListClass:SelByFileName(selFileName)
 	for index, build in ipairs(self.list) do

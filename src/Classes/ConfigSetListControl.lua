@@ -8,7 +8,9 @@ local t_remove = table.remove
 local m_max = math.max
 
 ---@class ConfigSetListControl: ListControl
-local ConfigSetListClass = newClass("ConfigSetListControl", "ListControl", function(self, anchor, rect, configTab)
+local ConfigSetListClass = newClass("ConfigSetListControl", "ListControl")
+
+function ConfigSetListClass:ConfigSetListControl(anchor, rect, configTab)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, configTab.configSetOrderList)
 	self.configTab = configTab
 	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
@@ -39,7 +41,7 @@ local ConfigSetListClass = newClass("ConfigSetListControl", "ListControl", funct
 	self.controls.new = new("ButtonControl", {"RIGHT",self.controls.rename,"LEFT"}, {-4, 0, 60, 18}, "New", function()
 		self:RenameSet(configTab:NewConfigSet(), true)
 	end)
-end)
+end
 
 function ConfigSetListClass:RenameSet(configSet, addOnName)
 	local controls = { }

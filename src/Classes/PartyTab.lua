@@ -10,7 +10,9 @@ local t_insert = table.insert
 local m_max = math.max
 
 ---@class PartyTab: ControlHost, Control
-local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(self, build)
+local PartyTabClass = newClass("PartyTab", "ControlHost", "Control")
+
+function PartyTabClass:PartyTab(build)
 	self.ControlHost()
 	self.Control()
 
@@ -507,7 +509,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return not self.controls.ShowAdvanceTools.state
 	end
 	self:SelectControl(self.controls.editAuras)
-end)
+end
 
 function PartyTabClass:Load(xml, fileName)
 	for _, node in ipairs(xml) do

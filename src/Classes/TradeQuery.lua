@@ -19,7 +19,9 @@ local s_format = string.format
 local baseSlots = { "Weapon 1", "Weapon 2", "Weapon 1 Swap", "Weapon 2 Swap", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Ring 3", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 
 ---@class TradeQuery
-local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
+local TradeQueryClass = newClass("TradeQuery")
+
+function TradeQueryClass:TradeQuery(itemsTab)
 	self.itemsTab = itemsTab
 	self.itemsTab.leagueDropList = { }
 	self.totalPrice = { }
@@ -57,7 +59,7 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 
 	-- set
 	self.hostName = "https://www.pathofexile.com/"
-end)
+end
 
 ---Fetch currency short-names from Poe API (used for PoeNinja price pairing)
 ---@param callback fun()

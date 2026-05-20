@@ -37,7 +37,9 @@ local function newlineCount(str)
 end
 
 ---@class EditControl: ControlHost, Control, UndoHandler, TooltipHost
-local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler", "TooltipHost", function(self, anchor, rect, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom, clearable)
+local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler", "TooltipHost")
+
+function EditClass:EditControl(anchor, rect, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom, clearable)
 	self.ControlHost()
 	self.Control(anchor, rect)
 	self.UndoHandler()
@@ -92,7 +94,7 @@ local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler
 		self.controls.scrollBarV.shown = false
 	end
 	self.protected = false
-end)
+end
 
 function EditClass:SetText(text, notify)
 	self.buf = tostring(text)

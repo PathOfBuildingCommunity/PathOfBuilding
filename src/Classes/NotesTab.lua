@@ -6,7 +6,9 @@
 local t_insert = table.insert
 
 ---@class NotesTab: ControlHost, Control
-local NotesTabClass = newClass("NotesTab", "ControlHost", "Control", function(self, build)
+local NotesTabClass = newClass("NotesTab", "ControlHost", "Control")
+
+function NotesTabClass:NotesTab(build)
 	self.ControlHost()
 	self.Control()
 
@@ -44,7 +46,7 @@ Below are some common color codes PoB uses:	]]
 		self:SetShowColorCodes(self.showColorCodes)
 	end)
 	self:SelectControl(self.controls.edit)
-end)
+end
 
 function NotesTabClass:SetShowColorCodes(setting)
 	self.showColorCodes = setting

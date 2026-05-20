@@ -10,13 +10,15 @@ local m_max = math.max
 local t_concat = table.concat
 
 ---@class TimelessJewelListControl: ListControl
-local TimelessJewelListControlClass = newClass("TimelessJewelListControl", "ListControl", function(self, anchor, rect, build)
+local TimelessJewelListControlClass = newClass("TimelessJewelListControl", "ListControl")
+
+function TimelessJewelListControlClass:TimelessJewelListControl(anchor, rect, build)
 	self.build = build
 	self.sharedList = self.build.timelessData.sharedResults or { }
 	self.list = self.build.timelessData.searchResults or { }
 	self.ListControl(anchor, rect, 16, true, false, self.list)
 	self.selIndex = nil
-end)
+end
 
 function TimelessJewelListControlClass:Draw(viewPort, noTooltip)
 	self.noTooltip = noTooltip

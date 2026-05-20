@@ -19,7 +19,9 @@ local function IsAnointableNode(node)
 end
 
 ---@class NotableDBControl : ListControl
-local NotableDBClass = newClass("NotableDBControl", "ListControl", function(self, anchor, rect, itemsTab, db, dbType)
+local NotableDBClass = newClass("NotableDBControl", "ListControl")
+
+function NotableDBClass:NotableDBControl(anchor, rect, itemsTab, db, dbType)
 	self.ListControl(anchor, rect, 16, "VERTICAL", false)
 	self.itemsTab = itemsTab
 	self.db = db
@@ -43,7 +45,7 @@ local NotableDBClass = newClass("NotableDBControl", "ListControl", function(self
 	end)
 	self:BuildSortOrder()
 	self.listBuildFlag = true
-end)
+end
 
 ---@param node table @The notable node to check
 ---@return boolean @Whether the notable matches the type and search filters.

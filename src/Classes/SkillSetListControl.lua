@@ -9,7 +9,9 @@ local m_max = math.max
 local s_format = string.format
 
 ---@class SkillSetListControl: ListControl
-local SkillSetListClass = newClass("SkillSetListControl", "ListControl", function(self, anchor, rect, skillsTab)
+local SkillSetListClass = newClass("SkillSetListControl", "ListControl")
+
+function SkillSetListClass:SkillSetListControl(anchor, rect, skillsTab)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, skillsTab.skillSetOrderList)
 	self.skillsTab = skillsTab
 	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
@@ -49,7 +51,7 @@ local SkillSetListClass = newClass("SkillSetListControl", "ListControl", functio
 	self.controls.new = new("ButtonControl", {"RIGHT",self.controls.rename,"LEFT"}, {-4, 0, 60, 18}, "New", function()
 		self:RenameSet(skillsTab:NewSkillSet(), true)
 	end)
-end)
+end
 
 function SkillSetListClass:RenameSet(skillSet, addOnName)
 	local controls = { }

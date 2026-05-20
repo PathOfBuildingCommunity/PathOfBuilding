@@ -9,7 +9,9 @@ local t_remove = table.remove
 local t_sort = table.sort
 
 ---@class PowerReportListControl: ListControl
-local PowerReportListClass = newClass("PowerReportListControl", "ListControl", function(self, anchor, rect, nodeSelectCallback)
+local PowerReportListClass = newClass("PowerReportListControl", "ListControl")
+
+function PowerReportListClass:PowerReportListControl(anchor, rect, nodeSelectCallback)
 	self.ListControl(anchor, rect, 16, "VERTICAL", false)
 
 	local width = rect[3]
@@ -41,7 +43,7 @@ local PowerReportListClass = newClass("PowerReportListControl", "ListControl", f
 		self:ReList()
 		self:ReSort(3) -- Sort by power
 	end, nil, true)
-end)
+end
 
 function PowerReportListClass:SetReport(stat, report)
 	self.powerColumn.label = stat and stat.label or ""

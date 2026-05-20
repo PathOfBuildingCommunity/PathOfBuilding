@@ -9,7 +9,9 @@ local m_max = math.max
 local s_format = string.format
 
 ---@class ItemSetListControl: ListControl
-local ItemSetListClass = newClass("ItemSetListControl", "ListControl", function(self, anchor, rect, itemsTab)
+local ItemSetListClass = newClass("ItemSetListControl", "ListControl")
+
+function ItemSetListClass:ItemSetListControl(anchor, rect, itemsTab)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, itemsTab.itemSetOrderList)
 	self.itemsTab = itemsTab
 	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
@@ -40,7 +42,7 @@ local ItemSetListClass = newClass("ItemSetListControl", "ListControl", function(
 		local newSet = itemsTab:NewItemSet()
 		self:RenameSet(newSet, true)
 	end)
-end)
+end
 
 function ItemSetListClass:RenameSet(itemSet, addOnName)
 	local controls = { }

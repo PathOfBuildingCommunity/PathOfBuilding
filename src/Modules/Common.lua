@@ -78,6 +78,7 @@ end
 
 ---@generic T
 ---@param className `T`
+---@param ... string parent class names
 ---@return T
 function newClass(className, ...)
 	local class = { }
@@ -91,11 +92,10 @@ function newClass(className, ...)
 	end
 	class._className = className
 	local numVarArg = select("#", ...)
-	class._constructor = select(numVarArg, ...)
-	if numVarArg > 1 then
+	if numVarArg > 0 then
 		-- Build list of parent classes
 		class._parents = { }
-		for i = 1, numVarArg - 1 do
+		for i = 1, numVarArg do
 			class._parents[i] = getClass(select(i, ...))
 		end
 		-- Build list of all classes directly or indirectly inherited by this class
@@ -139,26 +139,26 @@ function new(className, ...)
 				end,
 				__newindex = object,
 				__call = function(...)
-					if not parent._constructor then
+					if not parent[parent._className] then
 						error("Parent class '"..parent._className.."' of class '"..class._className.."' has no constructor")
 					end
 					if object._parentInit[parent] then
 						error("Parent class '"..parent._className.."' of class '"..class._className.."' has already been initialised")
 					end
-					parent._constructor(...)
+					parent[parent._className](...)
 					object._parentInit[parent] = true
 				end,
 			}
 			object[parent._className] = setmetatable(proxyMeta, proxyMeta)
 		end
 	end
-	if class._constructor then
-		class._constructor(object, ...)
+	if class[className] then
+		class[className](object, ...)
 	end
 	if class._parents then
 		-- Check that the constructors for all parent and superparent classes have been called
 		for parent in pairs(class._superParents) do
-			if parent._constructor and not object._parentInit[parent] then
+			if parent[parent._className] and not object._parentInit[parent] then
 				error("Parent class '"..parent._className.."' of class '"..className.."' must be initialised")
 			end
 		end

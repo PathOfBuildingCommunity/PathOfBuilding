@@ -17,7 +17,9 @@ local band = bit.band
 local bor = bit.bor
 
 ---@class PassiveSpec: UndoHandler
-local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, build, treeVersion, convert)
+local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler")
+
+function PassiveSpecClass:PassiveSpec(build, treeVersion, convert)
 	self.UndoHandler()
 
 	self.build = build
@@ -26,7 +28,7 @@ local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, b
 	self:Init(treeVersion, convert)
 
 	self:SelectClass(0)
-end)
+end
 
 function PassiveSpecClass:Init(treeVersion, convert)
 	self.treeVersion = treeVersion
