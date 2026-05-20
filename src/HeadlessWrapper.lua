@@ -3,7 +3,7 @@
 -- This wrapper allows the program to run headless on any OS (in theory)
 -- It can be run using a standard lua interpreter, although LuaJIT is preferable
 
--- define global simplegraphic API functions. some of these have dummy function
+-- define global SimpleGraphic API functions. some of these have dummy function
 -- bodies intended for headless use.
 dofile("_SimpleGraphic.def.lua")
 

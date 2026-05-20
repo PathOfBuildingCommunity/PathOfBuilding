@@ -9,12 +9,14 @@
 ---@param name string
 ---@param func? fun()
 function SetCallback(name, func)
+	---@diagnostic disable-next-line: undefined-global headless wrapper
 	callbackTable[name] = func
 end
 
 ---@param name string
 ---@return table
 function GetCallback(name)
+	---@diagnostic disable-next-line: undefined-global headless wrapper
 	return callbackTable[name]
 end
 
@@ -24,19 +26,26 @@ function SetMainObject(object)
 end
 
 ---@class ImageHandle
-local imageHandleClass = { }
+local imageHandleClass = {}
 imageHandleClass.__index = imageHandleClass
 
 ---@return ImageHandle
 function NewImageHandle()
-    return setmetatable({}, imageHandleClass)
+	return setmetatable({}, imageHandleClass)
 end
 
 ---@param fileName string
 ---@param ... "ASYNC"|"CLAMP"|"MIPMAP"
 function imageHandleClass:Load(fileName, ...)
-    self.valid = true
+	self.valid = true
 end
+
+---@class ArtHandle
+local artHandleClass = {}
+
+---@return integer width
+---@return integer height
+function artHandleClass:Size() end
 
 ---@alias ArtFlag "CLAMP"|"MIPMAP"|"NEAREST"
 
@@ -57,12 +66,12 @@ function imageHandleClass:LoadArtRectangle(art, x1, y1, x2, y2, ...) end
 function imageHandleClass:LoadArtArcBand(art, xC, yC, rMin, rMax, ...) end
 
 function imageHandleClass:Unload()
-    self.valid = false
+	self.valid = false
 end
 
 ---@return boolean
 function imageHandleClass:IsValid()
-    return self.valid
+	return self.valid
 end
 
 ---@param priority number
@@ -71,7 +80,7 @@ function imageHandleClass:SetLoadingPriority(priority) end
 ---@return integer width
 ---@return integer height
 function imageHandleClass:ImageSize()
-    return 1, 1
+	return 1, 1
 end
 
 ---@param fileName string
@@ -233,7 +242,7 @@ end
 ---@param text string
 ---@return string
 function StripEscapes(text)
-	local s, _ = text:gsub("%^%d",""):gsub("%^x%x%x%x%x%x%x","")
+	local s, _ = text:gsub("%^%d", ""):gsub("%^x%x%x%x%x%x%x", "")
 	return s
 end
 
@@ -246,9 +255,24 @@ end
 ---@param ...    string
 function RenderInit(flag1, ...) end
 
----@param spec            string
----@param findDirectories boolean
----@return userdata
+---@class FileSearchHandle
+local fileSearchHandleClass = {}
+
+---@return boolean
+function fileSearchHandleClass:NextFile() end
+
+---@return string
+function fileSearchHandleClass:GetFileName() end
+
+---@return integer
+function fileSearchHandleClass:GetFileSize() end
+
+---@return number
+function fileSearchHandleClass:GetFileModifiedTime() end
+
+---@param spec             string
+---@param findDirectories? boolean
+---@return FileSearchHandle
 function NewFileSearch(spec, findDirectories) end
 
 ---@param path string
@@ -367,7 +391,7 @@ function LoadModule(name, ...)
 	if func then
 		return func(...)
 	else
-		error("LoadModule() error loading '"..name.."': "..err)
+		error("LoadModule() error loading '" .. name .. "': " .. err)
 	end
 end
 
@@ -382,7 +406,7 @@ function PLoadModule(modName, ...)
 	if func then
 		return PCall(func, ...)
 	else
-		error("PLoadModule() error loading '"..modName.."': "..err)
+		error("PLoadModule() error loading '" .. modName .. "': " .. err)
 	end
 end
 
@@ -396,7 +420,7 @@ function PCall(func, ...)
 	local ret = { pcall(func, ...) }
 	if ret[1] then
 		table.remove(ret, 1)
-		---@diagnostic disable-next-line: redundant-return-value
+		---@diagnostic disable-next-line: redundant-return-value headless wrapper
 		return nil, unpack(ret)
 	else
 		return ret[2]
