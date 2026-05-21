@@ -136,6 +136,8 @@ It is recommended to use it over the built-in Lua plugins.
 Please note that EmmyLua is not available for other editors based on Visual Studio Code,
 such as [VSCodium](https://vscodium.com) or [Eclipse Theia](https://theia-ide.org) but can be built from source if needed.
 
+Another alternative on VSCode is to use [sumneko's Lua language server](https://marketplace.visualstudio.com/items?itemName=sumneko.lua) along with [actboy168's debugger](https://marketplace.visualstudio.com/items?itemName=actboy168.lua-debug). These can potentially offer more features than EmmyLua, such as conditional breakpoints.
+
 ### Visual Studio Code
 
 1. Create a new <kbd>Debug Configuration</kbd> of type <kbd>EmmyLua New Debug</kbd>
@@ -168,6 +170,34 @@ such as [VSCodium](https://vscodium.com) or [Eclipse Theia](https://theia-ide.or
 1. In VSCode click <kbd>Start Debugging</kbd> (the green icon) or press <kbd>F5</kbd>
 1. The debugger should connect
 
+You might also want to use actboy168 debugger. This is possible by using for example the following launch.json configuration:
+
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "🍄attach",
+            "type": "lua",
+            "request": "attach",
+            "stopOnEntry": false,
+            "address": "127.0.0.1:12306",
+            "luaVersion": "luajit",
+        },
+        
+    ]
+}
+```
+
+Then, similarly to the EmmyLua example:
+
+1. Find the sub-folder that looks like `actboy168.lua-debug-x.y.z-win32-x64` in `%USERPROFILE%/.vscode/extensions`. Navigate to it and find the `debugger.lua` script under the script folder. Copy this to `runtime/lua`.
+2. Copy-paste the following code snippet into `launch:OnInit()`:
+  ```lua
+  local debugger = require("debugger"):start("127.0.0.1:12306")
+  -- debugger:event("wait")  -- Uncomment this line if you want PoB to wait until the debugger is attached.
+  ```
+
 
 #### Excluding directories from EmmyLua
 
@@ -194,6 +224,25 @@ Files in `/Data` `/Export` and `/TreeData` can be massive and cause the EmmyLua 
 ```
 
 This file can be customised according to what you want. It is a good idea to ignore test files as these tend to add things to the global namespace, which will look confusing, and they are designed to be run by Busted. `lua53_ops.lua` produces errors and doesn't actually get imported when using LuaJIT. It can be useful to keep the data and mod parser files, but generally this will increase the time the LSP takes to index the project on startup.
+
+### Excluding directories from Sumneko's language server
+
+If you prefer to not use EmmyLua, the following configuration works well for Sumneko's VS Code extension:
+
+```json
+{
+  "Lua.workspace.ignoreDir": [
+        ".vscode",
+        "spec/*",
+        "src/runtime/lua/sha1/*",
+        "src/Export/*"
+    ],
+    "Lua.diagnostics.disable": ["inject-field"],
+    "Lua.runtime.version": "LuaJIT"
+}
+```
+
+The extension will automatically skip large files from being preloaded (controlled by `Lua.workspace.preloadFileSize`), so they don't have to be excluded. The configuration file can be found by pressing Ctrl-Shift-P and selecting `Preferences: Open Workspace Settings (JSON)`.
 
 ### PyCharm Community / IntelliJ Idea Community
 
