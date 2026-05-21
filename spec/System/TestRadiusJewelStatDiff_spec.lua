@@ -201,6 +201,15 @@ local function newPlainJewel()
 		"Implicits: 0\n")
 end
 
+local function newSplitPersonality()
+	return new("Item", "Rarity: UNIQUE\n" ..
+		"Split Personality\n" ..
+		"Crimson Jewel\n" ..
+		"Implicits: 0\n" ..
+		"+5 to Strength\n" ..
+		"This Jewel's Socket has 25% increased effect per Allocated Passive Skill between it and your Class' starting location\n")
+end
+
 -- Helper: minimal Impossible Escape item. Uses "Radius: Small" and targets
 -- a specific keystone. The parser populates both impossibleEscapeKeystone
 -- and impossibleEscapeKeystones from the "in Radius of X" mod.
@@ -696,6 +705,59 @@ describe("TestRadiusJewelStatDiff", function()
 		if not ok then
 			error(err)
 		end
+	end)
+
+	it("AddItemTooltip skips UI path rebuilds for temporary radius jewel specs", function()
+		local spec, sockets = setupAllocatedSockets(2)
+
+		local radiusItem = newThreadOfHope()
+		local radiusSlot = equipJewelInSocket(radiusItem, sockets[1])
+		local splitItem = newSplitPersonality()
+		equipJewelInSocket(splitItem, sockets[2])
+		spec:BuildAllDependsAndPaths()
+		runCallback("OnFrame")
+
+		assert.is_true((spec.nodes[sockets[2].id].distanceToClassStart or 0) > 0,
+			"Split Personality socket should have a class-start distance in the base spec")
+
+		local originalSlotOnlyTooltips = main.slotOnlyTooltips
+		main.slotOnlyTooltips = true
+		local specClass = getmetatable(spec)
+		local originalBuildAllDependsAndPaths = specClass.BuildAllDependsAndPaths
+		local originalSetNodeDistanceToClassStart = specClass.SetNodeDistanceToClassStart
+		local calculationOnlySpec
+		local distanceCalls = 0
+		specClass.BuildAllDependsAndPaths = function(self, skipNodePathRebuild, ...)
+			local result = originalBuildAllDependsAndPaths(self, skipNodePathRebuild, ...)
+			if skipNodePathRebuild then
+				calculationOnlySpec = self
+			end
+			return result
+		end
+		specClass.SetNodeDistanceToClassStart = function(self, ...)
+			distanceCalls = distanceCalls + 1
+			return originalSetNodeDistanceToClassStart(self, ...)
+		end
+
+		local ok, err = pcall(function()
+			local tooltip = new("Tooltip")
+			build.itemsTab:AddItemTooltip(tooltip, radiusItem, radiusSlot)
+		end)
+		specClass.BuildAllDependsAndPaths = originalBuildAllDependsAndPaths
+		specClass.SetNodeDistanceToClassStart = originalSetNodeDistanceToClassStart
+		main.slotOnlyTooltips = originalSlotOnlyTooltips
+		if not ok then
+			error(err)
+		end
+
+		assert.is_truthy(calculationOnlySpec,
+			"temporary tooltip specs should use the calculation-only path")
+		for _, node in pairs(calculationOnlySpec.nodes) do
+			assert.is_nil(node.path, "calculation-only tooltip specs should not retain UI node paths")
+			assert.is_nil(node.pathDist, "calculation-only tooltip specs should not retain UI path distances")
+		end
+		assert.is_true(distanceCalls > 0,
+			"temporary tooltip specs should still refresh jewel socket distances used by calc")
 	end)
 
 end)

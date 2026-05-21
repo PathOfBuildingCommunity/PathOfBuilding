@@ -4110,7 +4110,7 @@ local function cloneSpecForJewelComparison(spec)
 		local nodeCopy = setmetatable({ }, getmetatable(node))
 		for key, value in pairs(node) do
 			if key ~= "linked" and key ~= "depends" and key ~= "intuitiveLeapLikesAffecting"
-			and key ~= "path" and key ~= "power" then
+			and key ~= "path" and key ~= "pathDist" and key ~= "distanceToClassStart" and key ~= "power" then
 				nodeCopy[key] = value
 			end
 		end
@@ -4193,7 +4193,8 @@ local function buildSpecForJewelComparison(itemsTab, compareSlot, replacementIte
 		spec.jewels[compareSlot.nodeId] = nil
 	end
 	local ok, err = xpcall(function()
-		spec:BuildAllDependsAndPaths()
+		-- Tooltip comparison specs only need calc state; node paths are UI data.
+		spec:BuildAllDependsAndPaths(true)
 	end, debug.traceback)
 	if tempItemId then
 		itemsTab.items[tempItemId] = nil
