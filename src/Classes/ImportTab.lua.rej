@@ -1,0 +1,19 @@
+diff a/src/Classes/ImportTab.lua b/src/Classes/ImportTab.lua	(rejected hunks)
+@@ -49,7 +49,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
+ 
+ 	-- Stage: Authenticate
+ 	self.controls.authenticateButton = new("ButtonControl", {"TOPLEFT",self.controls.characterImportAnchor,"TOPLEFT"}, {0, 0, 200, 16}, "^7Authorize with Path of Exile", function()
+-		self.api:FetchAuthToken(function()
++		self.api:FetchAuthToken(function(_, errMsg)
+ 			if self.api.authToken then
+ 				self.charImportMode = "GETACCOUNTNAME"
+ 				self.charImportStatus = "Authenticated"
+@@ -59,6 +59,8 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
+ 				main.tokenExpiry = self.api.tokenExpiry
+ 				main:SaveSettings()
+ 				self:DownloadCharacterList()
++			elseif errMsg and errMsg ~= self.api.ERROR_NO_AUTH then
++				self.charImportStatus = colorCodes.NEGATIVE.."Authentication failed: "..errMsg
+ 			else
+ 				self.charImportStatus = colorCodes.WARNING.."Not authenticated"
+ 			end
