@@ -20,6 +20,7 @@ function PoBArchivesProviderClass:PoBArchivesProvider(mode)
 	end
 	self.buildList = {}
 	self.mode = mode
+	return self
 end
 
 function PoBArchivesProviderClass:GetApiUrl()

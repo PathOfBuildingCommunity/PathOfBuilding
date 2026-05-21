@@ -723,6 +723,7 @@ function PassiveTreeClass:PassiveTree(treeVersion)
 	if treeVersion == latestTreeVersion then
 		buildTreeDependentUniques(self)
 	end
+	return self
 end
 
 function PassiveTreeClass:ProcessStats(node, startIndex)

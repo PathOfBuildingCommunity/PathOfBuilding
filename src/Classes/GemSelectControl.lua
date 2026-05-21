@@ -62,6 +62,7 @@ function GemSelectClass:GemSelectControl(anchor, rect, skillsTab, index, changeF
 		lifeReservationPercent = "LifePercent",
 	}
 	self.imbuedSelect = imbued
+	return self
 end
 
 function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, useFullDPS)

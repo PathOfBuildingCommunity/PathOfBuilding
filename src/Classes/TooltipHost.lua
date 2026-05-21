@@ -9,6 +9,7 @@ local TooltipHostClass = newClass("TooltipHost")
 function TooltipHostClass:TooltipHost(tooltipText)
 	self.tooltip = new("Tooltip"):Tooltip()
 	self.tooltipText = tooltipText
+	return self
 end
 
 function TooltipHostClass:DrawTooltip(x, y, width, height, viewPort, ...)

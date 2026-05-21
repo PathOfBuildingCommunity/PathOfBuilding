@@ -27,6 +27,7 @@ function SharedItemSetListClass:SharedItemSetListControl(anchor, rect, itemsTab)
 	self.controls.rename.enabled = function()
 		return self.selValue ~= nil
 	end
+	return self
 end
 
 function SharedItemSetListClass:RenameSet(sharedItemSet)

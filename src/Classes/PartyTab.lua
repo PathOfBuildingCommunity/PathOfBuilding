@@ -510,6 +510,7 @@ function PartyTabClass:PartyTab(build)
 		return not self.controls.ShowAdvanceTools.state
 	end
 	self:SelectControl(self.controls.editAuras)
+	return self
 end
 
 function PartyTabClass:Load(xml, fileName)

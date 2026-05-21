@@ -127,6 +127,7 @@ function Dat64FileClass:Dat64File(name, raw)
 	--ConPrintf("Loaded '%s': %d Rows at %d Bytes", self.name, self.rowCount, self.rowSize)
 
 	self:OnSpecChanged()
+	return self
 end
 
 function Dat64FileClass:OnSpecChanged()

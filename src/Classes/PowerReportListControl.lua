@@ -43,6 +43,7 @@ function PowerReportListClass:PowerReportListControl(anchor, rect, nodeSelectCal
 		self:ReList()
 		self:ReSort(3) -- Sort by power
 	end, nil, true)
+	return self
 end
 
 function PowerReportListClass:SetReport(stat, report)

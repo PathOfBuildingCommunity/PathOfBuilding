@@ -64,6 +64,7 @@ function ItemClass:Item(raw, rarity, highQuality)
 	if raw then
 		self:ParseRaw(sanitiseText(raw), rarity, highQuality)
 	end
+	return self
 end
 
 -- Reset all influence keys to false

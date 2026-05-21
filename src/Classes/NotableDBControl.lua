@@ -45,6 +45,7 @@ function NotableDBClass:NotableDBControl(anchor, rect, itemsTab, db, dbType)
 	end)
 	self:BuildSortOrder()
 	self.listBuildFlag = true
+	return self
 end
 
 ---@param node table @The notable node to check

@@ -345,6 +345,7 @@ function TreeTabClass:TreeTab(build)
 	self.jumpToNode = false
 	self.jumpToX = 0
 	self.jumpToY = 0
+	return self
 end
 
 function TreeTabClass:RemoveTattooFromNode(node)

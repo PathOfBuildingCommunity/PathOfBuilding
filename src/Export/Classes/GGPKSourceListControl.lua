@@ -23,6 +23,7 @@ function GGPKSourceListClass:GGPKSourceListControl(anchor, rect)
 	self.controls.delete.enabled = function()
 		return self.selValue ~= nil and #self.list > 1
 	end
+	return self
 end
 
 function GGPKSourceListClass:EditDATSource(datSource, newSource)

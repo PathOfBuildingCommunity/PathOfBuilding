@@ -54,6 +54,7 @@ function CompareEntryClass:CompareEntry(xmlText, label)
 	if xmlText then
 		self:LoadFromXML(xmlText)
 	end
+	return self
 end
 
 function CompareEntryClass:LoadFromXML(xmlText)

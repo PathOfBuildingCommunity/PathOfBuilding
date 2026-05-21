@@ -23,6 +23,7 @@ local ModDBClass = newClass("ModDB", "ModStore")
 function ModDBClass:ModDB(parent)
 	self:ModStore(parent)
 	self.mods = { }
+	return self
 end
 
 function ModDBClass:AddMod(mod)

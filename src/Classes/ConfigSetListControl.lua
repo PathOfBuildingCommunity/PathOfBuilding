@@ -41,6 +41,7 @@ function ConfigSetListClass:ConfigSetListControl(anchor, rect, configTab)
 	self.controls.new = new("ButtonControl"):ButtonControl({"RIGHT",self.controls.rename,"LEFT"}, {-4, 0, 60, 18}, "New", function()
 		self:RenameSet(configTab:NewConfigSet(), true)
 	end)
+	return self
 end
 
 function ConfigSetListClass:RenameSet(configSet, addOnName)

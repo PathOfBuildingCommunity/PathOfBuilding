@@ -44,6 +44,7 @@ function PassiveSpecListClass:PassiveSpecListControl(anchor, rect, treeTab)
 		self:RenameSpec(newSpec, "New Tree", true)
 	end)
 	self:UpdateItemsTabPassiveTreeDropdown()
+	return self
 end
 
 function PassiveSpecListClass:RenameSpec(spec, title, addOnName)

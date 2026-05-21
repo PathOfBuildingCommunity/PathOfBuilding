@@ -378,6 +378,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 			self.controls.importCodeGo.onClick()
 		end
 	end
+	return self
 end
 
 function ImportTabClass:Load(xml, fileName)

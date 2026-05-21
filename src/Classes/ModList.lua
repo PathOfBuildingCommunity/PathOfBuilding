@@ -21,6 +21,7 @@ local ModListClass = newClass("ModList", "ModStore")
 
 function ModListClass:ModList(parent)
 	self:ModStore(parent)
+	return self
 end
 
 function ModListClass:AddMod(mod)

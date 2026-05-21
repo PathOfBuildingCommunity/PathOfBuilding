@@ -156,8 +156,9 @@ function new(className, ...)
 	if class[className] and not rawget(class, "_constructorInitialised") then
 		local originalFunc = class[className]
 		class[className] = function(self, ...)
-			originalFunc(self, ...)
+			local ret = originalFunc(self, ...)
 			if class._parents then
+				-- Check that the constructors for all parent and superparent classes have been called
 				for parent in pairs(class._superParents) do
 					if parent[parent._className] and not self._parentInit[parent] then
 						error("Parent class '" ..
@@ -165,7 +166,7 @@ function new(className, ...)
 					end
 				end
 			end
-			return self
+			return ret
 		end
 		class._constructorInitialised = true
 	end

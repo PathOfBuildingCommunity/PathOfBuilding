@@ -17,6 +17,7 @@ function SliderClass:SliderControl(anchor, rect, changeFunc, scrollWheelSpeedTbl
 	self.val = 0
 	self.changeFunc = changeFunc
 	self.scrollWheelSpeedTbl = scrollWheelSpeedTbl or { ["SHIFT"] = 0.25, ["CTRL"] = 0.01, ["DEFAULT"] = 0.05 }
+	return self
 end
 
 function SliderClass:IsMouseOver()

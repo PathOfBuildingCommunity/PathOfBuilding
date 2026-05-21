@@ -12,6 +12,7 @@ function SearchHostClass:SearchHost(listAccessor, valueAccessor)
 	self.valueAccessor = valueAccessor
 	self.searchTerm = ""
 	self.searchInfos = {}
+	return self
 end
 
 local function splitWords(s)

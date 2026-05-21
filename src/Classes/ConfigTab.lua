@@ -612,6 +612,7 @@ function ConfigTabClass:ConfigTab(build)
 		end
 	end
 	self.controls.scrollBar = new("ScrollBarControl"):ScrollBarControl({"TOPRIGHT",self,"TOPRIGHT"}, {0, 0, 18, 0}, 50, "VERTICAL", true)
+	return self
 end
 
 function ConfigTabClass:Load(xml, fileName)

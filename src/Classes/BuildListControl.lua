@@ -47,6 +47,7 @@ function BuildListClass:BuildListControl(anchor, rect, listMode)
 	self.controls.path.width = function()
 		return self.width()
 	end
+	return self
 end
 
 function BuildListClass:SelByFileName(selFileName)

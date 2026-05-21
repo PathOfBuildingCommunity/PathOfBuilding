@@ -14,6 +14,7 @@ function CheckBoxClass:CheckBoxControl(anchor, rect, label, changeFunc, tooltipT
 	self.labelWidth = DrawStringWidth(self.width - 4, "VAR", label or "") + 5
 	self.changeFunc = changeFunc
 	self.state = initialState
+	return self
 end
 
 function CheckBoxClass:IsMouseOver()

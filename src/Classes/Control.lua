@@ -54,6 +54,7 @@ function ControlClass:Control(anchor, rect)
 	if anchor then
 		self:SetAnchor(anchor[1], anchor[2], anchor[3], nil, nil, anchor[4])
 	end
+	return self
 end
 
 function ControlClass:GetProperty(name)

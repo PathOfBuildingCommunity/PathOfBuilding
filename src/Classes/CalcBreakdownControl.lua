@@ -27,7 +27,9 @@ function CalcBreakdownClass:CalcBreakdownControl(calcsTab)
 	self.rangeGuide:Load("Assets/range_guide.png")
 	self.uiOverlay = NewImageHandle()
 	self.uiOverlay:Load("Assets/game_ui_small.png")
-	self.controls.scrollBar = new("ScrollBarControl"):ScrollBarControl({"RIGHT",self,"RIGHT"}, {-2, 0, 18, 0}, 80, "VERTICAL", true)
+	self.controls.scrollBar = new("ScrollBarControl"):ScrollBarControl({ "RIGHT", self, "RIGHT" }, { -2, 0, 18, 0 }, 80,
+	"VERTICAL", true)
+	return self
 end
 
 function CalcBreakdownClass:IsMouseOver()

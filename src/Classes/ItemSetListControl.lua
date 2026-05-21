@@ -42,6 +42,7 @@ function ItemSetListClass:ItemSetListControl(anchor, rect, itemsTab)
 		local newSet = itemsTab:NewItemSet()
 		self:RenameSet(newSet, true)
 	end)
+	return self
 end
 
 function ItemSetListClass:RenameSet(itemSet, addOnName)

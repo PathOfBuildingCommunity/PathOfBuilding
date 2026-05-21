@@ -51,6 +51,7 @@ function SkillSetListClass:SkillSetListControl(anchor, rect, skillsTab)
 	self.controls.new = new("ButtonControl"):ButtonControl({"RIGHT",self.controls.rename,"LEFT"}, {-4, 0, 60, 18}, "New", function()
 		self:RenameSet(skillsTab:NewSkillSet(), true)
 	end)
+	return self
 end
 
 function SkillSetListClass:RenameSet(skillSet, addOnName)

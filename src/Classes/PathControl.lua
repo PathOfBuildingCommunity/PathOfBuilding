@@ -18,6 +18,7 @@ function PathClass:PathControl(anchor, rect, basePath, subPath, onChange)
 	self:SetSubPath(subPath or "")
 	self:ResetUndo()
 	self.onChange = onChange
+	return self
 end
 
 function PathClass:SetSubPath(subPath, noUndo)

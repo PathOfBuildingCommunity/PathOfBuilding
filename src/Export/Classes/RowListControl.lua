@@ -13,6 +13,7 @@ function RowListClass:RowListControl(anchor, rect)
 	self:ListControl(anchor, rect, 14, "HORIZONTAL", false, { })
 	self.colLabels = true
 	self._autoSizeToggleState = {} -- internal toggle memory, not saved to spec
+	return self
 end
 
 function RowListClass:BuildRows(filter)

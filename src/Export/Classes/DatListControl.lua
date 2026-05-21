@@ -11,6 +11,7 @@ function DatListClass:DatListControl(anchor, rect)
 	self.searchBuf = ""
 	self.filteredList = self.originalList
 	self:ListControl(anchor, rect, 14, "VERTICAL", false, self.filteredList)
+	return self
 end
 
 function DatListClass:BuildFilteredList()

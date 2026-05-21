@@ -53,6 +53,7 @@ function DropDownClass:DropDownControl(anchor, rect, list, selFunc, tooltipText)
 	-- Set by the parent control. Activates the auto width of the box component.
 	self.enableChangeBoxWidth = false
         -- self.tag = "-"
+	return self
 end
 
 -- maps the actual dropdown row index (after eventual filtering) to the original (unfiltered) list index

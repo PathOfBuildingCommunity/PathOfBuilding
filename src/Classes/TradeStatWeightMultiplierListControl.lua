@@ -12,6 +12,7 @@ function TradeStatWeightMultiplierListControlClass:TradeStatWeightMultiplierList
 	self.indexController = indexController
 	self:ListControl(anchor, rect, 16, true, false, self.list)
 	self.selIndex = nil
+	return self
 end
 
 function TradeStatWeightMultiplierListControlClass:Draw(viewPort, noTooltip)

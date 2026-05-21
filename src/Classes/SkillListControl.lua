@@ -70,6 +70,7 @@ function SkillListClass:SkillListControl(anchor, rect, skillsTab)
 	for k, x in pairs(slot_map) do
 		x.icon:Load(x.path)
 	end
+	return self
 end
 
 function SkillListClass:GetRowValue(column, index, socketGroup)

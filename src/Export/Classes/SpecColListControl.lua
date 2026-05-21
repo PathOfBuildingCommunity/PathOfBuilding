@@ -10,6 +10,7 @@ local SpecColListClass = newClass("SpecColListControl", "ListControl")
 
 function SpecColListClass:SpecColListControl(anchor, rect)
 	self:ListControl(anchor, rect, 14, "VERTICAL", true)
+	return self
 end
 
 function SpecColListClass:GetRowValue(column, index, specCol)

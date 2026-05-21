@@ -35,6 +35,7 @@ function ModStoreClass:ModStore(parent)
 	self.actor = parent and parent.actor or { }
 	self.multipliers = { }
 	self.conditions = { }
+	return self
 end
 
 function ModStoreClass:ScaleAddMod(mod, scale, replace)

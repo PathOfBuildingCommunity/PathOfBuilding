@@ -24,6 +24,7 @@ function PassiveMasteryControlClass:PassiveMasteryControl(anchor, rect, list, tr
 	self.node = node
 	self.selIndex = nil
 	self.saveButton = saveButton
+	return self
 end
 
 function PassiveMasteryControlClass:Draw(viewPort)

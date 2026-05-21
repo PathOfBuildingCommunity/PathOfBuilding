@@ -28,6 +28,7 @@ function PassiveSpecClass:PassiveSpec(build, treeVersion, convert)
 	self:Init(treeVersion, convert)
 
 	self:SelectClass(0)
+	return self
 end
 
 function PassiveSpecClass:Init(treeVersion, convert)

@@ -17,6 +17,7 @@ function DraggerClass:DraggerControl(anchor, rect, label, onKeyDown, onKeyUp, on
 	self.forceTooltip = forceTooltip
 	self.cursorX = 0
 	self.cursorY = 0
+	return self
 end
 
 function DraggerClass:SetImage(path)

@@ -13,6 +13,7 @@ function ButtonClass:ButtonControl(anchor, rect, label, onClick, onHover, forceT
 	self.onClick = onClick
 	self.onHover = onHover
 	self.forceTooltip = forceTooltip
+	return self
 end
 
 function ButtonClass:Click()

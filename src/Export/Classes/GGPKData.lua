@@ -49,6 +49,7 @@ function GGPKClass:GGPKData(path, datPath, reExport)
 	self.ot = { }
 	
 	self:AddDat64Files()
+	return self
 end
 
 function GGPKClass:CleanDir(reExport)

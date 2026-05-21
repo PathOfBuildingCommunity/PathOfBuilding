@@ -25,6 +25,7 @@ function FolderListClass:FolderListControl(anchor, rect, subPath, onChange)
 		end
 	end)
 	self:BuildList()
+	return self
 end
 
 function FolderListClass:SortList()

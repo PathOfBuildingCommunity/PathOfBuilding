@@ -13,6 +13,7 @@ function TimelessJewelSocketClass:TimelessJewelSocketControl(anchor, rect, list,
 	self:DropDownControl(anchor, rect, list, selFunc)
 	self.build = build
 	self.socketViewer = socketViewer
+	return self
 end
 
 function TimelessJewelSocketClass:Draw(viewPort, noTooltip)

@@ -17,6 +17,7 @@ function TradeQueryRequestsClass:TradeQueryRequests(rateLimiter)
 		["fetch"] = {},
 	}
 	self.hostName = "https://www.pathofexile.com/"
+	return self
 end
 
 ---Main routine for processing request queue

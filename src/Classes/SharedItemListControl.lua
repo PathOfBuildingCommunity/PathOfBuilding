@@ -22,6 +22,7 @@ function SharedItemListClass:SharedItemListControl(anchor, rect, itemsTab, force
 	self.controls.delete.enabled = function()
 		return self.selValue ~= nil
 	end
+	return self
 end
 
 function SharedItemListClass:GetRowValue(column, index, item)

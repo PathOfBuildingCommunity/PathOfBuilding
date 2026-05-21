@@ -9,6 +9,7 @@ local ControlHostClass = newClass("ControlHost")
 
 function ControlHostClass:ControlHost()
     self.controls = {}
+	return self
 end
 
 function ControlHostClass:SelectControl(newSelControl)

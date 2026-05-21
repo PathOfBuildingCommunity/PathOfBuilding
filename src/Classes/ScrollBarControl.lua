@@ -22,6 +22,7 @@ function ScrollBarClass:ScrollBarControl(anchor, rect, step, dir, autoHide)
 			return self.enabled
 		end
 	end
+	return self
 end
 
 function ScrollBarClass:SetContentDimension(conDim, viewDim)

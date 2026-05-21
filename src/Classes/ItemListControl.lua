@@ -68,6 +68,7 @@ function ItemListClass:ItemListControl(anchor, rect, itemsTab, forceTooltip)
 	self.controls.sort = new("ButtonControl"):ButtonControl({"RIGHT",self.controls.deleteUnused,"LEFT"}, {-4, 0, 60, 18}, "Sort", function()
 		itemsTab:SortItemList()
 	end)
+	return self
 end
 
 function ItemListClass:FindSocketedJewel(jewelId, excludeActiveSpec)

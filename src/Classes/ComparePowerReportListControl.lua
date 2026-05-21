@@ -25,6 +25,7 @@ function ComparePowerReportListClass:ComparePowerReportListControl(anchor, rect)
 	self.colLabels = true
 	self.showRowSeparators = true
 	self.statusText = "Select a metric above to generate the power report."
+	return self
 end
 
 function ComparePowerReportListClass:SetReport(stat, report)

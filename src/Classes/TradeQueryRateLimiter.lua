@@ -56,6 +56,7 @@ function TradeQueryRateLimiterClass:TradeQueryRateLimiter()
 		["trade-search-request-limit"] = {},
 		["trade-fetch-request-limit"] = {}
 	}
+	return self
 end
 
 function TradeQueryRateLimiterClass:GetPolicyName(key)

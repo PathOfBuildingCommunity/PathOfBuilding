@@ -10,6 +10,7 @@ function RectangleOutlineClass:RectangleOutlineControl(anchor, rect, colors, str
     self:Control(anchor, rect)
     self.stroke = stroke or 1
     self.colors = colors or { 1, 1, 1 }
+	return self
 end
 
 function RectangleOutlineClass:Draw()

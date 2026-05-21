@@ -31,6 +31,7 @@ function MinionSearchListClass:MinionSearchListControl(anchor, rect, data, list,
 		self.controls.delete.y = self.controls.add.y - 20
 	end
 
+	return self
 end
 
 function MinionSearchListClass:DoesEntryMatchFilters(searchStr, minionId, filterMode)

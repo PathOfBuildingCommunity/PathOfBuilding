@@ -117,6 +117,7 @@ function TradeQueryGeneratorClass:TradeQueryGenerator(queryTab)
 	self.lastMaxPrice = nil
 	self.lastMaxPriceTypeIndex = nil
 	self.lastMaxLevel = nil
+	return self
 end
 
 local function fetchStats()

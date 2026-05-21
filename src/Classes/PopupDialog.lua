@@ -38,6 +38,7 @@ function PopupDialogClass:PopupDialog(width, height, title, controls, enterContr
 	self.scrollBarFunc = scrollBarFunc
 	-- allow resizing of popup
 	self.resizeFunc = resizeFunc
+	return self
 end
 
 function PopupDialogClass:Draw(viewPort)

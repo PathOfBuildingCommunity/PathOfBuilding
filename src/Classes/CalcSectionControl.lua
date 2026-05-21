@@ -55,6 +55,7 @@ function CalcSectionClass:CalcSectionControl(calcsTab, width, id, group, colour,
 	self.shown = function()
 		return self.enabled
 	end
+	return self
 end
 
 function CalcSectionClass:IsMouseOver()

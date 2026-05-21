@@ -59,6 +59,7 @@ function ItemDBClass:ItemDBControl(anchor, rect, itemsTab, db, dbType)
 	end)
 	self:BuildSortOrder()
 	self.listBuildFlag = true
+	return self
 end
 
 function ItemDBClass:LoadLeaguesAndTypes()

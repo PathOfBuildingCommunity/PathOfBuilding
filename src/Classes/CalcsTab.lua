@@ -155,6 +155,7 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 
 	self.controls.scrollBar = new("ScrollBarControl"):ScrollBarControl({"TOPRIGHT",self,"TOPRIGHT"}, {0, 0, 18, 0}, 50, "VERTICAL", true)
 	self.powerBuilderInitialized = nil
+	return self
 end
 
 function CalcsTabClass:Load(xml, dbFileName)

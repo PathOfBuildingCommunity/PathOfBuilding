@@ -59,6 +59,7 @@ function TradeQueryClass:TradeQuery(itemsTab)
 
 	-- set
 	self.hostName = "https://www.pathofexile.com/"
+	return self
 end
 
 ---Fetch currency short-names from Poe API (used for PoeNinja price pairing)

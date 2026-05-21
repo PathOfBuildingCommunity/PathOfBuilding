@@ -58,6 +58,7 @@ function ItemSlotClass:ItemSlotControl(anchor, x, y, itemsTab, slotName, slotLab
 	end
 	self.label = slotLabel or slotName
 	self.nodeId = nodeId
+	return self
 end
 
 function ItemSlotClass:SetSelItemId(selItemId)

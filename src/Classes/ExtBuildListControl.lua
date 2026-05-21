@@ -35,6 +35,7 @@ function ExtBuildListControlClass:ExtBuildListControl(anchor, rect, providers)
 		self.providerMaxLength = m_max(self.providerMaxLength, DrawStringWidth(16, self.font, provider.name) + 30)
 		t_insert(self.buildProvidersList, provider.name)
 	end
+	return self
 end
 
 function ExtBuildListControlClass:Init(providerName)

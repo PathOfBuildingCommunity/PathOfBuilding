@@ -74,6 +74,7 @@ function ListClass:ListControl(anchor, rect, rowHeight, scroll, isMutable, list,
 		self.controls.scrollBarV.shown = false
 	end
 	self.labelPositionOffset = {0, 0}
+	return self
 end
 
 

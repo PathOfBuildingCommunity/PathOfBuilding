@@ -1035,6 +1035,7 @@ holding Shift will put it in the second.]])
 
 	self:PopulateSlots()
 	self.lastSlot = self.slots[baseSlots[#baseSlots]]
+	return self
 end
 
 function ItemsTabClass:Load(xml, dbFileName)

@@ -47,6 +47,7 @@ Below are some common color codes PoB uses:	]]
 		self:SetShowColorCodes(self.showColorCodes)
 	end)
 	self:SelectControl(self.controls.edit)
+	return self
 end
 
 function NotesTabClass:SetShowColorCodes(setting)

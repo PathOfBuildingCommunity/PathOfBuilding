@@ -27,6 +27,7 @@ function ResizableEditClass:ResizableEditControl(anchor, rect, init, prompt, fil
         end
     end)
 	self.protected = false
+	return self
 end
 
 function ResizableEditClass:Draw(viewPort, noTooltip)

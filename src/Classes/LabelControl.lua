@@ -15,6 +15,7 @@ function LabelClass:LabelControl(anchor, rect, label)
 	self.width = function()
 		return DrawStringWidth(self:GetProperty("height"), "VAR", self:GetProperty("label"))
 	end
+	return self
 end
 
 function LabelClass:Draw()

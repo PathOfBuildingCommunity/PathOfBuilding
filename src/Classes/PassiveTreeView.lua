@@ -69,6 +69,7 @@ function PassiveTreeViewClass:PassiveTreeView()
 	self.searchStrResults = {}
 	self.showStatDifferences = true
 	self.hoverNode = nil
+	return self
 end
 
 function PassiveTreeViewClass:Load(xml, fileName)

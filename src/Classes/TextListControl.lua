@@ -17,6 +17,7 @@ function TextListClass:TextListControl(anchor, rect, columns, list, sectionHeigh
 	self.columns = columns or { { x = 0, align = "LEFT" } }
 	self.list = list or { }
 	self.sectionHeights = sectionHeights
+	return self
 end
 
 function TextListClass:IsMouseOver()

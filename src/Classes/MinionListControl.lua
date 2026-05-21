@@ -33,6 +33,7 @@ function MinionListClass:MinionListControl(anchor, rect, data, list, dest)
 			return self.selValue ~= nil
 		end
 	end
+	return self
 end
 
 function MinionListClass:AddSel()

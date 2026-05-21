@@ -47,6 +47,7 @@ function TooltipClass:Tooltip()
 	self.lines = { }
 	self.blocks = { }
 	self:Clear()
+	return self
 end
 
 function TooltipClass:Clear(clearUpdateParams)

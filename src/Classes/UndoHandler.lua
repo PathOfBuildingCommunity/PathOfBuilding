@@ -15,6 +15,7 @@ local UndoHandlerClass = newClass("UndoHandler")
 function UndoHandlerClass:UndoHandler()
 	self.undo = { }
 	self.redo = { }
+	return self
 end
 
 -- Initialises the undo/redo buffers

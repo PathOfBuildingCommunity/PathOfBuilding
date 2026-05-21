@@ -18,6 +18,7 @@ function TimelessJewelListControlClass:TimelessJewelListControl(anchor, rect, bu
 	self.list = self.build.timelessData.searchResults or { }
 	self:ListControl(anchor, rect, 16, true, false, self.list)
 	self.selIndex = nil
+	return self
 end
 
 function TimelessJewelListControlClass:Draw(viewPort, noTooltip)

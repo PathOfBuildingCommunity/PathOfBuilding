@@ -94,6 +94,7 @@ function EditClass:EditControl(anchor, rect, init, prompt, filter, limit, change
 		self.controls.scrollBarV.shown = false
 	end
 	self.protected = false
+	return self
 end
 
 function EditClass:SetText(text, notify)
