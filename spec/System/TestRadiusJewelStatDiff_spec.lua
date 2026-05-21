@@ -760,4 +760,54 @@ describe("TestRadiusJewelStatDiff", function()
 			"temporary tooltip specs should still refresh jewel socket distances used by calc")
 	end)
 
+	it("AddItemTooltip reuses full radius jewel comparison outputs until output changes", function()
+		local spec, sockets = setupAllocatedSockets(2)
+
+		local item = newCustomLeapJewel("Cached Full Leap")
+		local slot = equipJewelInSocket(item, sockets[1])
+		spec:BuildAllDependsAndPaths()
+		runCallback("OnFrame")
+
+		local originalSlotOnlyTooltips = main.slotOnlyTooltips
+		main.slotOnlyTooltips = false
+		build.itemsTab.jewelComparisonOutputCache = nil
+		build.itemsTab.targetedJewelComparisonSpecCache = nil
+
+		local originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
+		local calcCalls = 0
+		build.calcsTab.GetMiscCalculator = function(self, ...)
+			local calcFunc, calcBase = originalGetMiscCalculator(self, ...)
+			return function(...)
+				calcCalls = calcCalls + 1
+				return calcFunc(...)
+			end, calcBase
+		end
+
+		local ok, err = pcall(function()
+			local tooltip = new("Tooltip")
+			build.itemsTab:AddItemTooltip(tooltip, item, slot)
+			local firstPassCalcCalls = calcCalls
+			assert.is_true(firstPassCalcCalls > 0,
+				"full radius jewel tooltip should calculate outputs on first pass")
+
+			tooltip = new("Tooltip")
+			build.itemsTab:AddItemTooltip(tooltip, item, slot)
+			local secondPassCalcCalls = calcCalls - firstPassCalcCalls
+			assert.is_true(secondPassCalcCalls < firstPassCalcCalls,
+				"full radius jewel tooltip should reuse cached radius outputs on second pass")
+
+			build.outputRevision = build.outputRevision + 1
+			local beforeInvalidationCalcCalls = calcCalls
+			tooltip = new("Tooltip")
+			build.itemsTab:AddItemTooltip(tooltip, item, slot)
+			assert.is_true(calcCalls - beforeInvalidationCalcCalls > secondPassCalcCalls,
+				"full radius jewel output cache should reset when output changes")
+		end)
+		build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
+		main.slotOnlyTooltips = originalSlotOnlyTooltips
+		if not ok then
+			error(err)
+		end
+	end)
+
 end)

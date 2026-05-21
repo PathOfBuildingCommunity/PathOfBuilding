@@ -4074,6 +4074,37 @@ local function itemChangesPassiveTree(item)
 			and (item.jewelData.intuitiveLeapLike or item.jewelData.impossibleEscapeKeystone)))
 end
 
+local function getStoredItemId(itemsTab, item)
+	if not item then
+		return ""
+	end
+	local itemId = item.id
+	if itemId and itemsTab.items[itemId] == item then
+		return tostring(itemId)
+	end
+end
+
+local function getJewelComparisonOutputCache(itemsTab)
+	local outputRevision = itemsTab.build and itemsTab.build.outputRevision or 0
+	local cache = itemsTab.jewelComparisonOutputCache
+	if not cache or cache.outputRevision ~= outputRevision then
+		cache = {
+			outputRevision = outputRevision,
+			outputs = { },
+		}
+		itemsTab.jewelComparisonOutputCache = cache
+	end
+	return cache
+end
+
+local function getJewelComparisonOutputCacheKey(itemsTab, compareSlot, replacementItem)
+	local replacementItemId = getStoredItemId(itemsTab, replacementItem)
+	if not replacementItemId then
+		return
+	end
+	return tostring(compareSlot.slotName) .. ":" .. tostring(compareSlot.nodeId or "") .. ":" .. tostring(compareSlot.selItemId or "") .. ":" .. replacementItemId
+end
+
 -- These jewels can replace passive nodes or disconnect allocated passives, so
 -- rebuild the passive tree before comparing their stats.
 -- Keep this list in sync with PassiveSpec's constructor, Init, and Select*
@@ -4943,13 +4974,27 @@ function ItemsTabClass:AddItemStatDifferences(tooltip, item, base, slot)
 			end
 		end
 
-		local function getReplacedItemAndOutput(compareSlot, selItem, useJewelComparisonSpecCache)
+		local function getReplacedItemAndOutput(compareSlot, selItem, useJewelComparisonSpecCache, useJewelComparisonOutputCache)
 			selItem = selItem or self.items[compareSlot.selItemId]
 			local override = { repSlotName = compareSlot.slotName, repItem = item ~= selItem and item or nil }
+			local outputCache
+			local outputCacheKey
 			if compareSlot.nodeId and (itemChangesPassiveTree(selItem) or itemChangesPassiveTree(item)) then
+				if useJewelComparisonOutputCache then
+					outputCacheKey = getJewelComparisonOutputCacheKey(self, compareSlot, override.repItem)
+					if outputCacheKey then
+						outputCache = getJewelComparisonOutputCache(self)
+						if outputCache.outputs[outputCacheKey] then
+							return selItem, outputCache.outputs[outputCacheKey]
+						end
+					end
+				end
 				override.spec = buildSpecForJewelComparison(self, compareSlot, override.repItem, useJewelComparisonSpecCache)
 			end
 			local output = calcFunc(override)
+			if outputCacheKey then
+				outputCache.outputs[outputCacheKey] = output
+			end
 			return selItem, output
 		end
 		local function addCompareForSlot(compareSlot, selItem, output, useJewelComparisonSpecCache)
@@ -4991,7 +5036,7 @@ function ItemsTabClass:AddItemStatDifferences(tooltip, item, base, slot)
 		local slots = {}
 		for _, slotEntry in ipairs(slotCandidates) do
 			if not isLimitedUniqueAtLimit or slotEntry.isSameUnique then
-				local _, output = getReplacedItemAndOutput(slotEntry.compareSlot, slotEntry.selItem)
+				local _, output = getReplacedItemAndOutput(slotEntry.compareSlot, slotEntry.selItem, nil, true)
 				slotEntry.output = output
 				table.insert(slots, slotEntry)
 			end
