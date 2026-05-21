@@ -231,14 +231,22 @@ If you prefer to not use EmmyLua, the following configuration works well for Sum
 
 ```json
 {
-  "Lua.workspace.ignoreDir": [
+    "Lua.workspace.ignoreDir": [
         ".vscode",
+        // these files add things to global that aren't there in normal
+        // operation
         "spec/*",
+        "src/Export/*",
+        "src/HeadlessWrapper.lua",
+
+        // this has lua 5.3 code which produces errors, but doesn't actually run
         "src/runtime/lua/sha1/*",
-        "src/Export/*"
     ],
     "Lua.diagnostics.disable": ["inject-field"],
-    "Lua.runtime.version": "LuaJIT"
+    // disables diagnostics even when you open one of the above
+    "Lua.diagnostics.ignoredFiles": "Disable",
+    "Lua.runtime.version": "LuaJIT",
+    "Lua.workspace.preloadFileSize": 1000
 }
 ```
 
