@@ -10,14 +10,14 @@
 ---@param func? fun()
 function SetCallback(name, func)
 	---@diagnostic disable-next-line: undefined-global headless wrapper
-	callbackTable[name] = func
+	__callbackTable__[name] = func
 end
 
 ---@param name string
 ---@return table
 function GetCallback(name)
 	---@diagnostic disable-next-line: undefined-global headless wrapper
-	return callbackTable[name]
+	return __callbackTable__[name]
 end
 
 ---@param object? table
