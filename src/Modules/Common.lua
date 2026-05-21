@@ -973,8 +973,3 @@ function ImportBuild(importLink, callback)
 		callback(Inflate(common.base64.decode(importLink:gsub("-", "+"):gsub("_", "/"))), nil)
 	end
 end
-
--- Returns virtual screen size
-function GetVirtualScreenSize()
-	return GetScreenSize()
-end

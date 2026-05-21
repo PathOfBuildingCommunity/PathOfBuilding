@@ -339,7 +339,7 @@ function main:Shutdown()
 end
 
 function main:OnFrame()
-	self.screenW, self.screenH = GetVirtualScreenSize()
+	self.screenW, self.screenH = GetScreenSize()
 
 	if self.screenH > self.screenW then
 		self.portraitMode = true
@@ -926,7 +926,7 @@ function main:OpenOptionsPopup(savedState)
 	}, function(index, value)
 		self.dpiScaleOverridePercent = value.percent
 		SetDPIScaleOverridePercent(value.percent)
-		self.screenW, self.screenH = GetVirtualScreenSize() -- refresh screen size immediately
+		self.screenW, self.screenH = GetScreenSize() -- refresh screen size immediately
 		self:ClosePopup()
 		self:OpenOptionsPopup(savedState)
 	end)
