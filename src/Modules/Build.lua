@@ -338,6 +338,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 				t_insert(self.configTab.configSetOrderList, configSet.id)
 				configSet.title = loadout
 
+				local note = self.notesTab:NewNote(#self.notesTab.notes + 1)
+				t_insert(self.notesTab.notesOrderList, note.id)
+				note.title = loadout
+
 				self:SyncLoadouts()
 				self.modFlag = true
 				main:ClosePopup()
@@ -387,14 +391,16 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		local oneSkill = self.skillsTab and #self.skillsTab.skillSetOrderList == 1
 		local oneItem = self.itemsTab and #self.itemsTab.itemSetOrderList == 1
 		local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
+		local oneNote = self.notesTab and #self.notesTab.notesOrderList == 1
 
 		local newSpecId = findNamedSetId(self.treeTab:GetSpecList(), value, self.treeListSpecialLinks)
 		local newItemId = oneItem and 1 or findSetId(self.itemsTab.itemSetOrderList, value, self.itemsTab.itemSets, self.itemListSpecialLinks)
 		local newSkillId = oneSkill and 1 or findSetId(self.skillsTab.skillSetOrderList, value, self.skillsTab.skillSets, self.skillListSpecialLinks)
 		local newConfigId = oneConfig and 1 or findSetId(self.configTab.configSetOrderList, value, self.configTab.configSets, self.configListSpecialLinks)
+		local newNoteId = oneNote and 1 or findSetId(self.notesTab.notesOrderList, value, self.notesTab.notes, self.noteListSpecialLinks)
 
 		-- if exact match nor special grouping cannot find setIds, bail
-		if newSpecId == nil or newItemId == nil or newSkillId == nil or newConfigId == nil then
+		if newSpecId == nil or newItemId == nil or newSkillId == nil or newConfigId == nil or newNoteId == nil then
 			return
 		end
 
@@ -409,6 +415,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		end
 		if newConfigId ~= self.configTab.activeConfigSetId then
 			self.configTab:SetActiveConfigSet(newConfigId)
+		end
+		if newNoteId ~= self.notesTab.activeNoteId then
+			self.notesTab:SetActiveNote(newNoteId)
 		end
 
 		self.controls.buildLoadouts:SelByValue(value)
