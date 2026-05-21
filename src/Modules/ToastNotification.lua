@@ -171,17 +171,14 @@ function ToastNotification:Render()
 		if not toast.mode then
 			toast.mode = "SHOWING"
 			toast.start = GetTime()
-			toast.dismissButton = new(
-				"ButtonControl",
-				{ "BOTTOMLEFT", anchorMain, "BOTTOMLEFT" },
+			toast.dismissButton = new("ButtonControl"):ButtonControl({ "BOTTOMLEFT", anchorMain, "BOTTOMLEFT" },
 				{ 4, 0, 80, 20 },
 				"Dismiss",
 				function()
 					dismissedIds[toast.id] = true
 					toast.mode = "HIDING"
 					toast.start = GetTime()
-				end
-			)
+				end)
 		end
 
 		local now = GetTime()

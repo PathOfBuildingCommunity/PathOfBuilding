@@ -40,7 +40,7 @@ local rect = {
 ---@field onFocusLost?   fun()
 local ControlClass = newClass("Control")
 
----@alias ControlAnchor [AnchorPoint, Control|ControlHost, AnchorPoint, number|nil]
+---@alias ControlAnchor [AnchorPoint, Control|ControlHost, AnchorPoint, boolean|nil]
 ---@alias ControlRect [number|nil, number|nil, number|nil, number]
 
 ---@param anchor? ControlAnchor
