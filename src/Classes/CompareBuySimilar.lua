@@ -31,7 +31,7 @@ end
 
 -- Helper: create a numeric EditControl without +/- spinner buttons
 local function newPlainNumericEdit(anchor, rect, init, prompt, limit)
-	local ctrl = new("EditControl", anchor, rect, init, prompt, "%D", limit)
+	local ctrl = new("EditControl"):EditControl(anchor, rect, init, prompt, "%D", limit)
 	-- Remove the +/- spinner buttons that "%D" filter triggers
 	ctrl.isNumeric = false
 	if ctrl.controls then
@@ -246,7 +246,7 @@ function M.openPopup(item, slotName, primaryBuild)
 	local tradeQuery = primaryBuild.itemsTab and primaryBuild.itemsTab.tradeQuery
 	local tradeQueryRequests = tradeQuery and tradeQuery.tradeQueryRequests
 	if not tradeQueryRequests then
-		tradeQueryRequests = new("TradeQueryRequests")
+		tradeQueryRequests = new("TradeQueryRequests"):TradeQueryRequests()
 	end
 
 	-- Helper to fetch and populate leagues for a given realm API id
@@ -277,24 +277,24 @@ function M.openPopup(item, slotName, primaryBuild)
 	end
 
 	-- Realm dropdown
-	controls.realmLabel = new("LabelControl", {"TOPLEFT", nil, "TOPLEFT"}, {leftMargin, ctrlY, 0, 16}, "^7Realm:")
-	controls.realmDrop = new("DropDownControl", {"LEFT", controls.realmLabel, "RIGHT"}, {4, 0, 80, 20}, {"PC", "PS4", "Xbox"}, function(index, value)
+	controls.realmLabel = new("LabelControl"):LabelControl({"TOPLEFT", nil, "TOPLEFT"}, {leftMargin, ctrlY, 0, 16}, "^7Realm:")
+	controls.realmDrop = new("DropDownControl"):DropDownControl({"LEFT", controls.realmLabel, "RIGHT"}, {4, 0, 80, 20}, {"PC", "PS4", "Xbox"}, function(index, value)
 		local realmApiId = REALM_API_IDS[value] or "pc"
 		fetchLeaguesForRealm(realmApiId)
 	end)
 
 	-- League dropdown
-	controls.leagueLabel = new("LabelControl", {"LEFT", controls.realmDrop, "RIGHT"}, {12, 0, 0, 16}, "^7League:")
-	controls.leagueDrop = new("DropDownControl", {"LEFT", controls.leagueLabel, "RIGHT"}, {4, 0, 160, 20}, {"Loading..."}, function(index, value)
+	controls.leagueLabel = new("LabelControl"):LabelControl({"LEFT", controls.realmDrop, "RIGHT"}, {12, 0, 0, 16}, "^7League:")
+	controls.leagueDrop = new("DropDownControl"):DropDownControl({"LEFT", controls.leagueLabel, "RIGHT"}, {4, 0, 160, 20}, {"Loading..."}, function(index, value)
 		-- League selection stored in the dropdown itself
 	end)
 	controls.leagueDrop.enabled = function() return #controls.leagueDrop.list > 0 and controls.leagueDrop.list[1] ~= "Loading..." end
 
 	-- Listed status dropdown
-	controls.listedDrop = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, {-leftMargin, ctrlY, 242, 20}, LISTED_STATUS_LABELS, function(index, value)
+	controls.listedDrop = new("DropDownControl"):DropDownControl({"TOPRIGHT", nil, "TOPRIGHT"}, {-leftMargin, ctrlY, 242, 20}, LISTED_STATUS_LABELS, function(index, value)
 		-- Listed status selection stored in the dropdown itself
 	end)
-	controls.listedLabel = new("LabelControl", {"RIGHT", controls.listedDrop, "LEFT"}, {-4, 0, 0, 16}, "^7Listed:")
+	controls.listedLabel = new("LabelControl"):LabelControl({"RIGHT", controls.listedDrop, "LEFT"}, {-4, 0, 0, 16}, "^7Listed:")
 
 	-- Fetch initial leagues for default realm
 	fetchLeaguesForRealm("pc")
@@ -302,22 +302,22 @@ function M.openPopup(item, slotName, primaryBuild)
 
 	if isUnique then
 		-- Unique item name label
-		controls.nameLabel = new("LabelControl", nil, {0, ctrlY, 0, 16}, "^x" .. (colorCodes[item.rarity] or "FFFFFF"):gsub("%^x","") .. item.name)
+		controls.nameLabel = new("LabelControl"):LabelControl(nil, {0, ctrlY, 0, 16}, "^x" .. (colorCodes[item.rarity] or "FFFFFF"):gsub("%^x","") .. item.name)
 		ctrlY = ctrlY + rowHeight
 	else
 		-- Category label
 		local categoryLabel = tradeHelpers.getTradeCategoryLabel(slotName, item)
-		controls.categoryLabel = new("LabelControl", {"TOPLEFT", nil, "TOPLEFT"}, {leftMargin, ctrlY, 0, 16}, "^7Category: " .. categoryLabel)
+		controls.categoryLabel = new("LabelControl"):LabelControl({"TOPLEFT", nil, "TOPLEFT"}, {leftMargin, ctrlY, 0, 16}, "^7Category: " .. categoryLabel)
 		ctrlY = ctrlY + rowHeight
 
 		-- Base type checkbox
-		controls.baseTypeCheck = new("CheckBoxControl", nil, {-popupWidth/2 + leftMargin + checkboxSize/2, ctrlY, checkboxSize}, "", nil, nil)
-		controls.baseTypeLabel = new("LabelControl", {"LEFT", controls.baseTypeCheck, "RIGHT"}, {4, 0, 0, 16}, "^7Use specific base: " .. (item.baseName or "Unknown"))
+		controls.baseTypeCheck = new("CheckBoxControl"):CheckBoxControl(nil, {-popupWidth/2 + leftMargin + checkboxSize/2, ctrlY, checkboxSize}, "", nil, nil)
+		controls.baseTypeLabel = new("LabelControl"):LabelControl({"LEFT", controls.baseTypeCheck, "RIGHT"}, {4, 0, 0, 16}, "^7Use specific base: " .. (item.baseName or "Unknown"))
 		ctrlY = ctrlY + rowHeight
 
 		-- Item level
 		ctrlY = ctrlY + 4
-		controls.ilvlLabel = new("LabelControl", {"TOPLEFT", nil, "TOPLEFT"}, {leftMargin, ctrlY, 0, 16}, "^7Item Level:")
+		controls.ilvlLabel = new("LabelControl"):LabelControl({"TOPLEFT", nil, "TOPLEFT"}, {leftMargin, ctrlY, 0, 16}, "^7Item Level:")
 		controls.ilvlMin = newPlainNumericEdit(nil, {minFieldX - popupWidth/2, ctrlY, fieldW, fieldH}, "", "Min", 4)
 		controls.ilvlMax = newPlainNumericEdit(nil, {maxFieldX - popupWidth/2, ctrlY, fieldW, fieldH}, "", "Max", 4)
 		ctrlY = ctrlY + rowHeight
@@ -325,8 +325,8 @@ function M.openPopup(item, slotName, primaryBuild)
 		-- Defence stat rows
 		for i, def in ipairs(defenceEntries) do
 			local prefix = "def" .. i
-			controls[prefix .. "Check"] = new("CheckBoxControl", nil, {-popupWidth/2 + leftMargin + checkboxSize/2, ctrlY, checkboxSize}, "", nil, nil)
-			controls[prefix .. "Label"] = new("LabelControl", {"LEFT", controls[prefix .. "Check"], "RIGHT"}, {4, 0, 0, 16}, "^7" .. def.label)
+			controls[prefix .. "Check"] = new("CheckBoxControl"):CheckBoxControl(nil, {-popupWidth/2 + leftMargin + checkboxSize/2, ctrlY, checkboxSize}, "", nil, nil)
+			controls[prefix .. "Label"] = new("LabelControl"):LabelControl({"LEFT", controls[prefix .. "Check"], "RIGHT"}, {4, 0, 0, 16}, "^7" .. def.label)
 			controls[prefix .. "Min"] = newPlainNumericEdit(nil, {minFieldX - popupWidth/2, ctrlY, fieldW, fieldH}, tostring(m_floor(def.value)), "Min", 6)
 			controls[prefix .. "Max"] = newPlainNumericEdit(nil, {maxFieldX - popupWidth/2, ctrlY, fieldW, fieldH}, "", "Max", 6)
 			ctrlY = ctrlY + rowHeight
@@ -342,14 +342,14 @@ function M.openPopup(item, slotName, primaryBuild)
 	for i, entry in ipairs(modEntries) do
 		local prefix = "mod" .. i
 		local canSearch = entry.tradeId ~= nil
-		controls[prefix .. "Check"] = new("CheckBoxControl", nil, {-popupWidth/2 + leftMargin + checkboxSize/2, ctrlY, checkboxSize}, "", nil, nil)
+		controls[prefix .. "Check"] = new("CheckBoxControl"):CheckBoxControl(nil, {-popupWidth/2 + leftMargin + checkboxSize/2, ctrlY, checkboxSize}, "", nil, nil)
 		controls[prefix .. "Check"].enabled = function() return canSearch end
 		-- Truncate long mod text to fit
 		local displayText = entry.formatted
 		if #displayText > 45 then
 			displayText = displayText:sub(1, 42) .. "..."
 		end
-		controls[prefix .. "Label"] = new("LabelControl", {"LEFT", controls[prefix .. "Check"], "RIGHT"}, {4, 0, 0, 16}, (canSearch and "^7" or "^8") .. displayText)
+		controls[prefix .. "Label"] = new("LabelControl"):LabelControl({"LEFT", controls[prefix .. "Check"], "RIGHT"}, {4, 0, 0, 16}, (canSearch and "^7" or "^8") .. displayText)
 		controls[prefix .. "Min"] = newPlainNumericEdit(nil, {minFieldX - popupWidth/2, ctrlY, fieldW, fieldH}, entry.value ~= 0 and tostring(m_floor(entry.value)) or "", "Min", 8)
 		controls[prefix .. "Max"] = newPlainNumericEdit(nil, {maxFieldX - popupWidth/2, ctrlY, fieldW, fieldH}, "", "Max", 8)
 		if not canSearch then
@@ -361,7 +361,7 @@ function M.openPopup(item, slotName, primaryBuild)
 
 	-- Search button
 	ctrlY = ctrlY + 8
-	controls.search = new("ButtonControl", nil, {0, ctrlY, 110, 20}, "Generate URL", function()
+	controls.search = new("ButtonControl"):ButtonControl(nil, {0, ctrlY, 110, 20}, "Generate URL", function()
 		local success, result = pcall(function()
 			return buildURL(item, slotName, controls, modEntries, defenceEntries, isUnique)
 		end)
@@ -376,7 +376,7 @@ function M.openPopup(item, slotName, primaryBuild)
 	ctrlY = ctrlY + rowHeight + 4
 
 	-- URL field
-	controls.uri = new("EditControl", nil, {-30, ctrlY, popupWidth - 100, fieldH}, "", nil, "^%C\t\n")
+	controls.uri = new("EditControl"):EditControl(nil, {-30, ctrlY, popupWidth - 100, fieldH}, "", nil, "^%C\t\n")
 	controls.uri:SetPlaceholder("Press 'Generate URL' then Ctrl+Click to open")
 	controls.uri.tooltipFunc = function(tooltip)
 		tooltip:Clear()
@@ -384,7 +384,7 @@ function M.openPopup(item, slotName, primaryBuild)
 			tooltip:AddLine(16, "^7Ctrl + Click to open in web browser")
 		end
 	end
-	controls.close = new("ButtonControl", nil, {popupWidth/2 - 50, ctrlY, 60, 20}, "Close", function()
+	controls.close = new("ButtonControl"):ButtonControl(nil, {popupWidth/2 - 50, ctrlY, 60, 20}, "Close", function()
 		main:ClosePopup()
 	end)
 

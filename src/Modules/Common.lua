@@ -152,16 +152,22 @@ function new(className, ...)
 			object[parent._className] = setmetatable(proxyMeta, proxyMeta)
 		end
 	end
-	if class[className] then
-		class[className](object, ...)
-	end
-	if class._parents then
-		-- Check that the constructors for all parent and superparent classes have been called
-		for parent in pairs(class._superParents) do
-			if parent[parent._className] and not object._parentInit[parent] then
-				error("Parent class '"..parent._className.."' of class '"..className.."' must be initialised")
+
+	if class[className] and not rawget(class, "_constructorInitialised") then
+		local originalFunc = class[className]
+		class[className] = function(self, ...)
+			originalFunc(self, ...)
+			if class._parents then
+				for parent in pairs(class._superParents) do
+					if parent[parent._className] and not self._parentInit[parent] then
+						error("Parent class '" ..
+							parent._className .. "' of class '" .. className .. "' must be initialised")
+					end
+				end
 			end
+			return self
 		end
+		class._constructorInitialised = true
 	end
 	return object
 end
@@ -471,11 +477,11 @@ function mergeDB(srcDB, modDB)
 end
 
 function specCopy(env)
-	local modDB = new("ModDB")
+	local modDB = new("ModDB"):ModDB()
 	modDB:AddDB(env.modDB)
 	modDB.conditions = copyTable(env.modDB.conditions)
 	modDB.multipliers = copyTable(env.modDB.multipliers)
-	local enemyDB = new("ModDB")
+	local enemyDB = new("ModDB"):ModDB()
 	if env.enemyDB then
 		enemyDB:AddDB(env.enemyDB)
 		enemyDB.conditions = copyTable(env.enemyDB.conditions)
@@ -483,7 +489,7 @@ function specCopy(env)
 	end
 	local minionDB = nil
 	if env.minion then
-		minionDB = new("ModDB")
+		minionDB = new("ModDB"):ModDB()
 		minionDB:AddDB(env.minion.modDB)
 		minionDB.conditions = copyTable(env.minion.modDB.conditions)
 		minionDB.multipliers = copyTable(env.minion.modDB.multipliers)

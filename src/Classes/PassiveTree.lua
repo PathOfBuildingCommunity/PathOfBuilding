@@ -730,7 +730,7 @@ function PassiveTreeClass:ProcessStats(node, startIndex)
 	if startIndex == 1 then
 		node.modKey = ""
 		node.mods = { }
-		node.modList = new("ModList")
+		node.modList = new("ModList"):ModList()
 	end
 
 	if not node.sd then

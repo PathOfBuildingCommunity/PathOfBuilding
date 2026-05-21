@@ -56,7 +56,7 @@ function PassiveTreeViewClass:PassiveTreeView()
 	self.kalguur2 = NewImageHandle()
 	self.kalguur2:Load("TreeData/PassiveSkillScreenKalguuranJewelCircle2.png", "CLAMP")
 
-	self.tooltip = new("Tooltip")
+	self.tooltip = new("Tooltip"):Tooltip()
 
 	self.zoomLevel = 3
 	self.zoom = 1.2 ^ self.zoomLevel

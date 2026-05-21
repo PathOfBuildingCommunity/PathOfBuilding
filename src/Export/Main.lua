@@ -20,7 +20,7 @@ LoadModule("../Modules/Common.lua")
 
 LoadModule("../Classes/ControlHost.lua")
 
-main = new("ControlHost")
+main = new("ControlHost"):ControlHost()
 
 local classList = {
 	"UndoHandler",
@@ -158,14 +158,14 @@ function main:Init()
 
 	self.colList = { }
 
-	self.controls.shownLeagueLabel = new("LabelControl", nil, {10, 10, 100, 16}, "^7Data from:")
-	self.controls.leagueLabel = new("LabelControl", {"LEFT", self.controls.shownLeagueLabel, "RIGHT"}, {10, 0, 100, 16}, function() return "^7" .. (self.leagueLabel or "Unknown") end)
-	self.controls.addSource = new("ButtonControl", nil, {10, 30, 100, 18}, "Edit Sources...", function()
+	self.controls.shownLeagueLabel = new("LabelControl"):LabelControl(nil, {10, 10, 100, 16}, "^7Data from:")
+	self.controls.leagueLabel = new("LabelControl"):LabelControl({"LEFT", self.controls.shownLeagueLabel, "RIGHT"}, {10, 0, 100, 16}, function() return "^7" .. (self.leagueLabel or "Unknown") end)
+	self.controls.addSource = new("ButtonControl"):ButtonControl(nil, {10, 30, 100, 18}, "Edit Sources...", function()
 		self:OpenPathPopup()
 	end)
 
 	self.datSources = self.datSources or { }
-	self.controls.datSource = new("DropDownControl", nil, {10, 50, 250, 18}, self.datSources, function(_, value)
+	self.controls.datSource = new("DropDownControl"):DropDownControl(nil, {10, 50, 250, 18}, self.datSources, function(_, value)
 		self:LoadDatSource(value)
 	end, nil)
 
@@ -173,11 +173,11 @@ function main:Init()
 		self.controls.datSource:SelByValue(self.datSource.label, "label")
 	end
 
-	self.controls.scripts = new("ButtonControl", nil, {160, 30, 100, 18}, "Scripts >>", function()
+	self.controls.scripts = new("ButtonControl"):ButtonControl(nil, {160, 30, 100, 18}, "Scripts >>", function()
 		self:SetCurrentDat()
 	end)
 	
-	self.controls.scriptAll = new("ButtonControl", nil, {270, 10, 140, 18}, "Run All", function()
+	self.controls.scriptAll = new("ButtonControl"):ButtonControl(nil, {270, 10, 140, 18}, "Run All", function()
 		do -- run stat desc first
 			local errMsg = PLoadModule("Scripts/".."statdesc"..".lua")
 			if errMsg then
@@ -195,7 +195,7 @@ function main:Init()
 		end
 	}
 
-	self.controls.clearOutput = new("ButtonControl", nil, {1230, 10, 100, 18}, "Clear", function()
+	self.controls.clearOutput = new("ButtonControl"):ButtonControl(nil, {1230, 10, 100, 18}, "Clear", function()
 		wipeTable(self.scriptOutput)
 	end) {
 		shown = function()
@@ -205,23 +205,23 @@ function main:Init()
 			return #self.scriptOutput > 0
 		end
 	}
-	self.controls.clearAutoClearOutput = new("CheckBoxControl", { "TOPLEFT", self.controls.clearOutput, "BOTTOMLEFT" }, { 120, 10, 20, 20 }, "Auto Clear Output:", function(state)
+	self.controls.clearAutoClearOutput = new("CheckBoxControl"):CheckBoxControl({ "TOPLEFT", self.controls.clearOutput, "BOTTOMLEFT" }, { 120, 10, 20, 20 }, "Auto Clear Output:", function(state)
 		self.clearAutoClearOutput = state
 	end, nil, false)
-	self.controls.helpText = new("LabelControl", {"TOPLEFT",self.controls.clearOutput,"BOTTOMLEFT"}, {0, 42, 100, 16}, "Press Ctrl+F5 to re-export\ndata from the game")
+	self.controls.helpText = new("LabelControl"):LabelControl({"TOPLEFT",self.controls.clearOutput,"BOTTOMLEFT"}, {0, 42, 100, 16}, "Press Ctrl+F5 to re-export\ndata from the game")
 
-	self.controls.scriptList = new("ScriptListControl", nil, {270, 35, 140, 400}) {
+	self.controls.scriptList = new("ScriptListControl"):ScriptListControl(nil, {270, 35, 140, 400}) {
 		shown = function()
 			return not self.curDatFile
 		end
 	}
-	self.controls.scriptOutput = new("TextListControl", nil, {420, 10, 800, 600}, nil, self.scriptOutput) {
+	self.controls.scriptOutput = new("TextListControl"):TextListControl(nil, {420, 10, 800, 600}, nil, self.scriptOutput) {
 		shown = function()
 			return not self.curDatFile
 		end
 	}
 
-	self.controls.copyScriptOutput = new("ButtonControl",{"TOPRIGHT", self.controls.scriptOutput, "BOTTOMRIGHT"},{0, 4, 80, 20},"Copy",function()
+	self.controls.copyScriptOutput = new("ButtonControl"):ButtonControl({"TOPRIGHT", self.controls.scriptOutput, "BOTTOMRIGHT"},{0, 4, 80, 20},"Copy",function()
 		local lines = {}
 		local textList = self.controls.scriptOutput.list or {}  -- grab the actual list
 		for _, entry in ipairs(textList) do
@@ -235,14 +235,14 @@ function main:Init()
 	end
 	)
 
-	self.controls.datSearch = new("EditControl", {"TOPLEFT", self.controls.datSource, "BOTTOMLEFT"}, {0, 2, 250, 18}, nil, "^7Search", nil, nil, function(buf)
+	self.controls.datSearch = new("EditControl"):EditControl({"TOPLEFT", self.controls.datSource, "BOTTOMLEFT"}, {0, 2, 250, 18}, nil, "^7Search", nil, nil, function(buf)
 		self.controls.datList.searchBuf = buf
 		self.controls.datList:BuildFilteredList()
 	end, nil, nil, true)
 
-	self.controls.datList = new("DatListControl", {"TOPLEFT",self.controls.datSearch,"BOTTOMLEFT"}, {0, 2, 250, function() return self.screenH - 100 end})
+	self.controls.datList = new("DatListControl"):DatListControl({"TOPLEFT",self.controls.datSearch,"BOTTOMLEFT"}, {0, 2, 250, function() return self.screenH - 100 end})
 
-	self.controls.specEditToggle = new("ButtonControl", nil, {270, 10, 100, 18}, function() return self.editSpec and "Done <<" or "Edit >>" end, function()
+	self.controls.specEditToggle = new("ButtonControl"):ButtonControl(nil, {270, 10, 100, 18}, function() return self.editSpec and "Done <<" or "Edit >>" end, function()
 		self.editSpec = not self.editSpec
 		if self.editSpec then
 			self:SetCurrentCol(1)
@@ -252,13 +252,13 @@ function main:Init()
 			return self.curDatFile
 		end
 	}
-	self.controls.specColList = new("SpecColListControl", {"TOPLEFT",self.controls.specEditToggle,"BOTTOMLEFT"}, {0, 2, 200, 200}) {
+	self.controls.specColList = new("SpecColListControl"):SpecColListControl({"TOPLEFT",self.controls.specEditToggle,"BOTTOMLEFT"}, {0, 2, 200, 200}) {
 		shown = function()
 			return self.editSpec
 		end
 	}
 
-	self.controls.colName = new("EditControl", {"TOPLEFT",self.controls.specColList,"TOPRIGHT"}, {10, 0, 150, 18}, nil, nil, nil, nil, function(buf)
+	self.controls.colName = new("EditControl"):EditControl({"TOPLEFT",self.controls.specColList,"TOPRIGHT"}, {10, 0, 150, 18}, nil, nil, nil, nil, function(buf)
 		self.curSpecCol.name = buf
 		self.curDatFile:OnSpecChanged()
 		self.controls.rowList:BuildColumns()
@@ -272,19 +272,19 @@ function main:Init()
 		end
 	}
 
-	self.controls.colType = new("DropDownControl", {"TOPLEFT",self.controls.colName,"BOTTOMLEFT"}, {0, 4, 90, 18}, self.typeDrop, function(_, value)
+	self.controls.colType = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.colName,"BOTTOMLEFT"}, {0, 4, 90, 18}, self.typeDrop, function(_, value)
 		self.curSpecCol.type = value
 		self.curDatFile:OnSpecChanged()
 		self:UpdateCol()
 	end, "^7Field type in the dat file")
 
-	self.controls.colIsList = new("CheckBoxControl", {"TOPLEFT",self.controls.colType,"BOTTOMLEFT"}, {30, 4, 18}, "List:", function(state)
+	self.controls.colIsList = new("CheckBoxControl"):CheckBoxControl({"TOPLEFT",self.controls.colType,"BOTTOMLEFT"}, {30, 4, 18}, "List:", function(state)
 		self.curSpecCol.list = state
 		self.curDatFile:OnSpecChanged()
 		self.controls.rowList:BuildColumns()
 	end)
 
-	self.controls.colRefTo = new("EditControl", {"TOPLEFT",self.controls.colType,"BOTTOMLEFT"}, {0, 26, 150, 18}, nil, nil, nil, nil, function(buf)
+	self.controls.colRefTo = new("EditControl"):EditControl({"TOPLEFT",self.controls.colType,"BOTTOMLEFT"}, {0, 26, 150, 18}, nil, nil, nil, nil, function(buf)
 		self.curSpecCol.refTo = buf
 		self.curDatFile:OnSpecChanged()
 	end) {
@@ -294,7 +294,7 @@ function main:Init()
 		end
 	}
 
-	self.controls.colWidth = new("EditControl", {"TOPLEFT",self.controls.colRefTo,"BOTTOMLEFT"}, {0, 4, 100, 18}, nil, nil, "%D", nil, function(buf)
+	self.controls.colWidth = new("EditControl"):EditControl({"TOPLEFT",self.controls.colRefTo,"BOTTOMLEFT"}, {0, 4, 100, 18}, nil, nil, "%D", nil, function(buf)
 		self.curSpecCol.width = m_max(tonumber(buf) or 150, 20)
 		self.controls.rowList:BuildColumns()
 	end) { 
@@ -305,7 +305,7 @@ function main:Init()
 		end
 	}
 
-	self.controls.enumBase = new("EditControl", {"TOPLEFT",self.controls.colWidth,"BOTTOMLEFT"}, {0, 4, 100, 18}, nil, nil, "%D", nil, function(buf)
+	self.controls.enumBase = new("EditControl"):EditControl({"TOPLEFT",self.controls.colWidth,"BOTTOMLEFT"}, {0, 4, 100, 18}, nil, nil, "%D", nil, function(buf)
 		self.curSpecCol.enumBase = tonumber(buf) or 0
 		self.curDatFile:OnSpecChanged()
 	end) { 
@@ -316,14 +316,14 @@ function main:Init()
 		end
 	}
 
-	self.controls.colDelete = new("ButtonControl", {"BOTTOMRIGHT",self.controls.colName,"TOPRIGHT"}, {0, -4, 18, 18}, "x", function()
+	self.controls.colDelete = new("ButtonControl"):ButtonControl({"BOTTOMRIGHT",self.controls.colName,"TOPRIGHT"}, {0, -4, 18, 18}, "x", function()
 		t_remove(self.curDatFile.spec, self.curSpecColIndex)
 		self.curDatFile:OnSpecChanged()
 		self.controls.rowList:BuildColumns()
 		self:SetCurrentCol()
 	end)
 	
-	self.controls.filter = new("EditControl", nil, {270, 0, 800, 18}, nil, "^8Filter") {
+	self.controls.filter = new("EditControl"):EditControl(nil, {270, 0, 800, 18}, nil, "^8Filter") {
 		y = function()
 			return self.editSpec and 240 or 30
 		end,
@@ -336,10 +336,10 @@ function main:Init()
 		end,
 	}
 	self.controls.filter.tooltipText = "Takes a Lua expression that returns true or false for a row.\nE.g. `Id:match(\"test\")` or for a key column, `Col and Col.Id:match(\"test\")`"
-	self.controls.filterError = new("LabelControl", {"LEFT",self.controls.filter,"RIGHT"}, {4, 2, 0, 14}, "")
-	self.controls.showRaw = new("LabelControl", {"LEFT",self.controls.filter,"RIGHT"}, {600, 2, 0, 14}, "^7Hold ALT to show raw data.")
+	self.controls.filterError = new("LabelControl"):LabelControl({"LEFT",self.controls.filter,"RIGHT"}, {4, 2, 0, 14}, "")
+	self.controls.showRaw = new("LabelControl"):LabelControl({"LEFT",self.controls.filter,"RIGHT"}, {600, 2, 0, 14}, "^7Hold ALT to show raw data.")
 
-	self.controls.rowList = new("RowListControl", nil, {270, 0, 0, 0}) {
+	self.controls.rowList = new("RowListControl"):RowListControl(nil, {270, 0, 0, 0}) {
 		y = function()
 			return self.editSpec and 260 or 50
 		end,
@@ -354,7 +354,7 @@ function main:Init()
 		end
 	}
 
-	self.controls.addCol = new("ButtonControl", {"LEFT",self.controls.specEditToggle,"RIGHT"}, {10, 0, 80, 18}, "Add", function()
+	self.controls.addCol = new("ButtonControl"):ButtonControl({"LEFT",self.controls.specEditToggle,"RIGHT"}, {10, 0, 80, 18}, "Add", function()
 		self:AddSpecCol()
 	end) {
 		shown = function()
@@ -396,8 +396,8 @@ end
 
 function main:OpenPathPopup()
 	main:OpenPopup(370, 290, "Manage GGPK versions", {
-		new("GGPKSourceListControl", nil, {0, 50, 350, 200}, self),
-		new("ButtonControl", nil, {0, 260, 90, 20}, "Done", function()
+		new("GGPKSourceListControl"):GGPKSourceListControl(nil, {0, 50, 350, 200}, self),
+		new("ButtonControl"):ButtonControl(nil, {0, 260, 90, 20}, "Done", function()
 			main:ClosePopup()
 		end),
 	})
@@ -486,10 +486,10 @@ function main:InitGGPK()
 		local now = GetTime()
 		local ggpkPath = self.datSource.ggpkPath
 		if ggpkPath and ggpkPath ~= "" then
-			self.ggpk = new("GGPKData", ggpkPath, nil, self.reExportGGPKData)
+			self.ggpk = new("GGPKData"):GGPKData(ggpkPath, nil, self.reExportGGPKData)
 			ConPrintf("GGPK: %d ms", GetTime() - now)
 		elseif self.datSource.datFilePath then
-			self.ggpk = new("GGPKData", nil, self.datSource.datFilePath, self.reExportGGPKData)
+			self.ggpk = new("GGPKData"):GGPKData(nil, self.datSource.datFilePath, self.reExportGGPKData)
 			ConPrintf("GGPK: %d ms", GetTime() - now)
 		end
 	end
@@ -502,7 +502,7 @@ function main:LoadDatFiles()
 			ConPrintf("DAT find: %d ms", GetTime() - now)
 			now = GetTime()
 		end
-		local datFile = new("DatFile", record.name:gsub("%.dat$",""), record.data)
+		local datFile = new("DatFile"):DatFile(record.name:gsub("%.dat$",""), record.data)
 		t_insert(self.datFileList, datFile)
 		self.datFileByName[datFile.name] = datFile
 	end
@@ -516,7 +516,7 @@ function main:LoadDat64Files()
 			ConPrintf("DAT64 find: %d ms", GetTime() - now)
 			now = GetTime()
 		end
-		local datFile = new("Dat64File", record.name:gsub("%.datc64$",""), record.data)
+		local datFile = new("Dat64File"):Dat64File(record.name:gsub("%.datc64$",""), record.data)
 		t_insert(self.datFileList, datFile)
 		self.datFileByName[datFile.name] = datFile
 	end
@@ -774,7 +774,7 @@ function main:CopyFolder(srcName, dstName)
 end
 
 function main:OpenPopup(width, height, title, controls, enterControl, defaultControl, escapeControl, scrollBarFunc, resizeFunc)
-	local popup = new("PopupDialog", width, height, title, controls, enterControl, defaultControl, escapeControl, scrollBarFunc, resizeFunc)
+	local popup = new("PopupDialog"):PopupDialog(width, height, title, controls, enterControl, defaultControl, escapeControl, scrollBarFunc, resizeFunc)
 	t_insert(self.popups, 1, popup)
 	return popup
 end
@@ -787,10 +787,10 @@ function main:OpenMessagePopup(title, msg)
 	local controls = { }
 	local numMsgLines = 0
 	for line in string.gmatch(msg .. "\n", "([^\n]*)\n") do
-		t_insert(controls, new("LabelControl", nil, {0, 20 + numMsgLines * 16, 0, 16}, line))
+		t_insert(controls, new("LabelControl"):LabelControl(nil, {0, 20 + numMsgLines * 16, 0, 16}, line))
 		numMsgLines = numMsgLines + 1
 	end
-	controls.close = new("ButtonControl", nil, {0, 40 + numMsgLines * 16, 80, 20}, "Ok", function()
+	controls.close = new("ButtonControl"):ButtonControl(nil, {0, 40 + numMsgLines * 16, 80, 20}, "Ok", function()
 		main:ClosePopup()
 	end)
 	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls, "close")
@@ -800,15 +800,15 @@ function main:OpenConfirmPopup(title, msg, confirmLabel, onConfirm)
 	local controls = { }
 	local numMsgLines = 0
 	for line in string.gmatch(msg .. "\n", "([^\n]*)\n") do
-		t_insert(controls, new("LabelControl", nil, {0, 20 + numMsgLines * 16, 0, 16}, line))
+		t_insert(controls, new("LabelControl"):LabelControl(nil, {0, 20 + numMsgLines * 16, 0, 16}, line))
 		numMsgLines = numMsgLines + 1
 	end
 	local confirmWidth = m_max(80, DrawStringWidth(16, "VAR", confirmLabel) + 10)
-	controls.confirm = new("ButtonControl", nil, {-5 - m_ceil(confirmWidth/2), 40 + numMsgLines * 16, confirmWidth, 20}, confirmLabel, function()
+	controls.confirm = new("ButtonControl"):ButtonControl(nil, {-5 - m_ceil(confirmWidth/2), 40 + numMsgLines * 16, confirmWidth, 20}, confirmLabel, function()
 		main:ClosePopup()
 		onConfirm()
 	end)
-	t_insert(controls, new("ButtonControl", nil, {5 + m_ceil(confirmWidth/2), 40 + numMsgLines * 16, confirmWidth, 20}, "Cancel", function()
+	t_insert(controls, new("ButtonControl"):ButtonControl(nil, {5 + m_ceil(confirmWidth/2), 40 + numMsgLines * 16, confirmWidth, 20}, "Cancel", function()
 		main:ClosePopup()
 	end))
 	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls, "confirm")
@@ -816,11 +816,11 @@ end
 
 function main:OpenNewFolderPopup(path, onClose)
 	local controls = { }
-	controls.label = new("LabelControl", nil, {0, 20, 0, 16}, "^7Enter folder name:")
-	controls.edit = new("EditControl", nil, {0, 40, 350, 20}, nil, nil, "\\/:%*%?\"<>|%c", 100, function(buf)
+	controls.label = new("LabelControl"):LabelControl(nil, {0, 20, 0, 16}, "^7Enter folder name:")
+	controls.edit = new("EditControl"):EditControl(nil, {0, 40, 350, 20}, nil, nil, "\\/:%*%?\"<>|%c", 100, function(buf)
 		controls.create.enabled = buf:match("%S")
 	end)
-	controls.create = new("ButtonControl", nil, {-45, 70, 80, 20}, "Create", function()
+	controls.create = new("ButtonControl"):ButtonControl(nil, {-45, 70, 80, 20}, "Create", function()
 		local newFolderName = controls.edit.buf
 		local res, msg = MakeDir(path..newFolderName)
 		if not res then
@@ -833,7 +833,7 @@ function main:OpenNewFolderPopup(path, onClose)
 		main:ClosePopup()
 	end)
 	controls.create.enabled = false
-	controls.cancel = new("ButtonControl", nil, {45, 70, 80, 20}, "Cancel", function()
+	controls.cancel = new("ButtonControl"):ButtonControl(nil, {45, 70, 80, 20}, "Cancel", function()
 		if onClose then
 			onClose()
 		end

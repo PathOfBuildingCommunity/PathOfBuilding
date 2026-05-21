@@ -15,7 +15,7 @@ function FolderListClass:FolderListControl(anchor, rect, subPath, onChange)
 	self.sortMode = "NAME"
 	self.onChangeCallback = onChange
 
-	self.controls.path = new("PathControl", {"BOTTOM",self,"TOP"}, {0, -2, self.width, 24}, main.buildPath, self.subPath, function(newSubPath)
+	self.controls.path = new("PathControl"):PathControl({"BOTTOM",self,"TOP"}, {0, -2, self.width, 24}, main.buildPath, self.subPath, function(newSubPath)
 		self.subPath = newSubPath
 		self:BuildList()
 		self.selIndex = nil

@@ -6214,7 +6214,7 @@ local jewelSelfUnallocFuncs = {
 	["Grants all bonuses of Unallocated Small Passive Skills in Radius"] = function(node, out, data)
 		if node then
 			if node.type == "Normal" then
-				data.modList = data.modList or new("ModList")
+				data.modList = data.modList or new("ModList"):ModList()
 
 				-- Filter out "Condition:ConnectedTo" mods as these nodes are not technically allocated by this jewel func
 				for _, mod in ipairs(out) do
@@ -6230,7 +6230,7 @@ local jewelSelfUnallocFuncs = {
 	["Grants all bonuses of Unallocated Notable Passive Skills in Radius"] = function(node, out, data)
 		if node then
 			if node.type == "Notable" then
-				data.modList = data.modList or new("ModList")
+				data.modList = data.modList or new("ModList"):ModList()
 
 				-- Filter out "Condition:ConnectedTo" mods as these nodes are not technically allocated by this jewel func
 				for _, mod in ipairs(out) do

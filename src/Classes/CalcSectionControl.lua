@@ -36,7 +36,7 @@ function CalcSectionClass:CalcSectionControl(calcsTab, width, id, group, colour,
 			end
 		end
 		subSec.collapsed = subSec.defaultCollapsed
-		self.controls["toggle"..i] = new("ButtonControl", {"TOPRIGHT",self,"TOPRIGHT"}, {-3, -13 + (16 * i), 16, 16}, function()
+		self.controls["toggle"..i] = new("ButtonControl"):ButtonControl({"TOPRIGHT",self,"TOPRIGHT"}, {-3, -13 + (16 * i), 16, 16}, function()
 			return subSec.collapsed and "+" or "-"
 		end, function()
 			subSec.collapsed = not subSec.collapsed

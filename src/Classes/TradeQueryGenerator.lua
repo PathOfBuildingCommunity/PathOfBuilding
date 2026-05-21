@@ -789,7 +789,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 
 	-- Create a temp item for the slot with no mods
 	local itemRawStr = "Rarity: RARE\nStat Tester\n" .. testItemType
-	local testItem = new("Item", itemRawStr)
+	local testItem = new("Item"):Item(itemRawStr)
 
 	-- Apply any requests influences
 	if options.influence1 > 1 then
@@ -826,7 +826,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 
 	-- Open progress tracking blocker popup
 	local controls = { }
-	controls.progressText = new("LabelControl", {"TOP",nil,"TOP"}, {0, 30, 0, 16}, string.format("Calculating Mod Weights..."))
+	controls.progressText = new("LabelControl"):LabelControl({"TOP",nil,"TOP"}, {0, 30, 0, 16}, string.format("Calculating Mod Weights..."))
 	self.calcContext.popup = main:OpenPopup(280, 65, "Please Wait", controls)
 end
 
@@ -1136,12 +1136,12 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	local isWeaponSlot = slot and (slot.slotName == "Weapon 1" or slot.slotName == "Weapon 2")
 	local isEldritchModSlot = slot and eldritchModSlots[slot.slotName] == true
 
-	controls.includeCorrupted = new("CheckBoxControl", {"TOP",nil,"TOP"}, {-40, 30, 18}, "Corrupted Mods:", function(state) end, "Includes corruption implicit modifiers in the weighted sum.\nNote that there is a maximum search filter count which means this might cause other weights to not be included.")
+	controls.includeCorrupted = new("CheckBoxControl"):CheckBoxControl({"TOP",nil,"TOP"}, {-40, 30, 18}, "Corrupted Mods:", function(state) end, "Includes corruption implicit modifiers in the weighted sum.\nNote that there is a maximum search filter count which means this might cause other weights to not be included.")
 	controls.includeCorrupted.state = not context.slotTbl.alreadyCorrupted and (self.lastIncludeCorrupted == nil or self.lastIncludeCorrupted == true)
 	controls.includeCorrupted.enabled = not context.slotTbl.alreadyCorrupted
 
 	-- removing checkbox until synthesis mods are supported
-	--controls.includeSynthesis = new("CheckBoxControl", {"TOPRIGHT",controls.includeEldritch,"BOTTOMRIGHT"}, {0, 5, 18}, "Synthesis Mods:", function(state) end)
+	--controls.includeSynthesis = new("CheckBoxControl"):CheckBoxControl({"TOPRIGHT",controls.includeEldritch,"BOTTOMRIGHT"}, {0, 5, 18}, "Synthesis Mods:", function(state) end)
 	--controls.includeSynthesis.state = (self.lastIncludeSynthesis == nil or self.lastIncludeSynthesis == true)
 
 	local lastItemAnchor = controls.includeCorrupted
@@ -1158,19 +1158,19 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 
 	-- these unique items cannot be mirrored
 	if not context.slotTbl.unique then
-		controls.includeMirrored = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Mirrored Items:", function(state) end)
+		controls.includeMirrored = new("CheckBoxControl"):CheckBoxControl({"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Mirrored Items:", function(state) end)
 		controls.includeMirrored.state = (self.lastIncludeMirrored == nil or self.lastIncludeMirrored == true)
 		updateLastAnchor(controls.includeMirrored)
 	end
 
 	if not isJewelSlot and not isAbyssalJewelSlot and includeScourge then
-		controls.includeScourge = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Scourge Mods:", function(state) end)
+		controls.includeScourge = new("CheckBoxControl"):CheckBoxControl({"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Scourge Mods:", function(state) end)
 		controls.includeScourge.state = (self.lastIncludeScourge == nil or self.lastIncludeScourge == true)
 		updateLastAnchor(controls.includeScourge)
 	end
 
 	if isAmuletSlot then
-		controls.includeTalisman = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Talisman Mods:", function(state) end)
+		controls.includeTalisman = new("CheckBoxControl"):CheckBoxControl({"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Talisman Mods:", function(state) end)
 		controls.includeTalisman.state = (self.lastIncludeTalisman == nil or self.lastIncludeTalisman == true)
 		updateLastAnchor(controls.includeTalisman)
 	end
@@ -1183,16 +1183,16 @@ All: weights are generated for all eldritch implicit modifiers.
 Omit while: weights are generated, but conditional "While unique/atlas boss" modifiers are skipped.
 It is often not recommended to use "All" as this includes a lot of high power modifiers,
 which will cause other useful modifiers to be left out in the weighted sum.]]
-		controls.includeEldritch = new("DropDownControl", { "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 92, 18 },
+		controls.includeEldritch = new("DropDownControl"):DropDownControl({ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 92, 18 },
 			{ "None", "All", "Omit While" }, function(_state) end, eldritchTooltip)
-		controls.includeEldritchLabel = new("LabelControl", { "RIGHT", controls.includeEldritch, "LEFT" },
+		controls.includeEldritchLabel = new("LabelControl"):LabelControl({ "RIGHT", controls.includeEldritch, "LEFT" },
 			{ -4, 0, 80, 16 }, "Eldritch Mods:")
 		controls.includeEldritch:SetSel(self.lastIncludeEldritch or 1)
 		updateLastAnchor(controls.includeEldritch)
 
 		local eldritchTooltip = "Replaces the eldritch modifiers on search results with the eldritch modifiers from your currently equipped item."
 		local labelText = "Copy Current Implicits:"
-		controls.copyEldritch = new("CheckBoxControl",
+		controls.copyEldritch = new("CheckBoxControl"):CheckBoxControl(
 			{ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" },
 			{ 0, 5, 18, 18 },
 			labelText, function(state) end, eldritchTooltip, false)
@@ -1205,20 +1205,20 @@ which will cause other useful modifiers to be left out in the weighted sum.]]
 Copy Current: current %s will be applied to the search result items.
 Remove: %s will be removed from the search results.]], term, term, term)
 		local copyEnchantList = { "Keep", "Copy Current", "Remove" }
-		controls.copyEnchantMode = new("DropDownControl",
+		controls.copyEnchantMode = new("DropDownControl"):DropDownControl(
 			{ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" },
 			{ 0, 5, 120, 18 },
 			copyEnchantList, function(state) end, enchantTooltip)
 		controls.copyEnchantMode.state = self.lastCopyEnchantMode or false
 		local labelText = isWeaponSlot and "^7Enchant Behaviour:" or "^7Anoint Behaviour:"
-		controls.copyEnchantModeLabel = new("LabelControl", { "RIGHT", controls.copyEnchantMode, "LEFT" },
+		controls.copyEnchantModeLabel = new("LabelControl"):LabelControl({ "RIGHT", controls.copyEnchantMode, "LEFT" },
 			{ -4, 0, 80, 16 }, labelText)
 		updateLastAnchor(controls.copyEnchantMode)
 	end
 	if isJewelSlot and context.slotTbl.slotName ~= "Watcher's Eye" then
-		controls.jewelType = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 100, 18}, { "Any", "Base", "Abyss" }, function(index, value) end)
+		controls.jewelType = new("DropDownControl"):DropDownControl({"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 100, 18}, { "Any", "Base", "Abyss" }, function(index, value) end)
 		controls.jewelType.selIndex = self.lastJewelType or 1
-		controls.jewelTypeLabel = new("LabelControl", {"RIGHT",controls.jewelType,"LEFT"}, {-5, 0, 0, 16}, "Jewel Type:")
+		controls.jewelTypeLabel = new("LabelControl"):LabelControl({"RIGHT",controls.jewelType,"LEFT"}, {-5, 0, 0, 16}, "Jewel Type:")
 		updateLastAnchor(controls.jewelType)
 	elseif slot and not isAbyssalJewelSlot and context.slotTbl.slotName ~= "Watcher's Eye" then
 		local selFunc = function()
@@ -1229,22 +1229,22 @@ Remove: %s will be removed from the search results.]], term, term, term)
 				controls.copyEldritch.enabled = not hasInfluence1 and not hasInfluence2
 			end
 		end
-		controls.influence1 = new("DropDownControl", { "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 100, 18 },
+		controls.influence1 = new("DropDownControl"):DropDownControl({ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 100, 18 },
 			influenceDropdownNames, selFunc)
 		controls.influence1:SetSel(self.lastInfluence1 or 1)
-		controls.influence1Label = new("LabelControl", {"RIGHT",controls.influence1,"LEFT"}, {-5, 0, 0, 16}, "^7Influence 1:")
+		controls.influence1Label = new("LabelControl"):LabelControl({"RIGHT",controls.influence1,"LEFT"}, {-5, 0, 0, 16}, "^7Influence 1:")
 
-		controls.influence2 = new("DropDownControl", { "TOPLEFT", controls.influence1, "BOTTOMLEFT" }, { 0, 5, 100, 18 },
+		controls.influence2 = new("DropDownControl"):DropDownControl({ "TOPLEFT", controls.influence1, "BOTTOMLEFT" }, { 0, 5, 100, 18 },
 			influenceDropdownNames, selFunc)
 		controls.influence2:SetSel(self.lastInfluence2 or 1)
 		selFunc()
-		controls.influence2Label = new("LabelControl", { "RIGHT", controls.influence2, "LEFT" }, { -5, 0, 0, 16 },
+		controls.influence2Label = new("LabelControl"):LabelControl({ "RIGHT", controls.influence2, "LEFT" }, { -5, 0, 0, 16 },
 			"^7Influence 2:")
 		updateLastAnchor(controls.influence2, 46)
 	elseif isAbyssalJewelSlot then
-		controls.jewelType = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 100, 18}, { "Abyss" }, nil)
+		controls.jewelType = new("DropDownControl"):DropDownControl({"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 100, 18}, { "Abyss" }, nil)
 		controls.jewelType.selIndex = 1
-		controls.jewelTypeLabel = new("LabelControl", {"RIGHT",controls.jewelType,"LEFT"}, {-5, 0, 0, 16}, "Jewel Type:")
+		controls.jewelTypeLabel = new("LabelControl"):LabelControl({"RIGHT",controls.jewelType,"LEFT"}, {-5, 0, 0, 16}, "Jewel Type:")
 		updateLastAnchor(controls.jewelType)
 	end
 	-- Add max price limit selection dropbox
@@ -1252,38 +1252,38 @@ Remove: %s will be removed from the search results.]], term, term, term)
 	for _, currency in ipairs(currencyTable) do
 		t_insert(currencyDropdownNames, currency.name)
 	end
-	controls.maxPrice = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 70, 18}, nil, nil, "%D")
+	controls.maxPrice = new("EditControl"):EditControl({"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 70, 18}, nil, nil, "%D")
 	controls.maxPrice.buf = self.lastMaxPrice and tostring(self.lastMaxPrice) or ""
-	controls.maxPriceType = new("DropDownControl", {"LEFT",controls.maxPrice,"RIGHT"}, {5, 0, 150, 18}, currencyDropdownNames, nil)
+	controls.maxPriceType = new("DropDownControl"):DropDownControl({"LEFT",controls.maxPrice,"RIGHT"}, {5, 0, 150, 18}, currencyDropdownNames, nil)
 	controls.maxPriceType.selIndex = self.lastMaxPriceTypeIndex or 1
-	controls.maxPriceLabel = new("LabelControl", {"RIGHT",controls.maxPrice,"LEFT"}, {-5, 0, 0, 16}, "^7Max Price:")
+	controls.maxPriceLabel = new("LabelControl"):LabelControl({"RIGHT",controls.maxPrice,"LEFT"}, {-5, 0, 0, 16}, "^7Max Price:")
 	updateLastAnchor(controls.maxPrice)
 
-	controls.maxLevel = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 100, 18}, nil, nil, "%D")
+	controls.maxLevel = new("EditControl"):EditControl({"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 100, 18}, nil, nil, "%D")
 	controls.maxLevel.buf = self.lastMaxLevel and tostring(self.lastMaxLevel) or ""
-	controls.maxLevelLabel = new("LabelControl", {"RIGHT",controls.maxLevel,"LEFT"}, {-5, 0, 0, 16}, "Max Level:")
+	controls.maxLevelLabel = new("LabelControl"):LabelControl({"RIGHT",controls.maxLevel,"LEFT"}, {-5, 0, 0, 16}, "Max Level:")
 	updateLastAnchor(controls.maxLevel)
 
 	-- basic filtering by slot for sockets and links, Megalomaniac does not have slot and Sockets use "Jewel nodeId"
 	if slot and not isJewelSlot and not isAbyssalJewelSlot and not slot.slotName:find("Flask") then
-		controls.sockets = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 70, 18}, nil, nil, "%D")
+		controls.sockets = new("EditControl"):EditControl({"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 70, 18}, nil, nil, "%D")
 		controls.sockets.buf = self.lastSockets and tostring(self.lastSockets) or ""
-		controls.socketsLabel = new("LabelControl", {"RIGHT",controls.sockets,"LEFT"}, {-5, 0, 0, 16}, "^7# of Empty Sockets:")
+		controls.socketsLabel = new("LabelControl"):LabelControl({"RIGHT",controls.sockets,"LEFT"}, {-5, 0, 0, 16}, "^7# of Empty Sockets:")
 		updateLastAnchor(controls.sockets)
 
 		if not slot.slotName:find("Belt") and not slot.slotName:find("Ring") and not slot.slotName:find("Amulet") then
-			controls.links = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 70, 18}, nil, nil, "%D")
-			controls.linksLabel = new("LabelControl", {"RIGHT",controls.links,"LEFT"}, {-5, 0, 0, 16}, "^7# of Links:")
+			controls.links = new("EditControl"):EditControl({"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 70, 18}, nil, nil, "%D")
+			controls.linksLabel = new("LabelControl"):LabelControl({"RIGHT",controls.links,"LEFT"}, {-5, 0, 0, 16}, "^7# of Links:")
 			updateLastAnchor(controls.links)
 		end
 	end
 
 	for i, stat in ipairs(statWeights) do
-		controls["sortStatType"..tostring(i)] = new("LabelControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, i == 1 and 5 or 3, 70, 16}, i < (#statWeights < 6 and 10 or 5) and s_format("^7%.2f: %s", stat.weightMult, stat.label) or ("+ "..tostring(#statWeights - 4).." Additional Stats"))
+		controls["sortStatType"..tostring(i)] = new("LabelControl"):LabelControl({"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, i == 1 and 5 or 3, 70, 16}, i < (#statWeights < 6 and 10 or 5) and s_format("^7%.2f: %s", stat.weightMult, stat.label) or ("+ "..tostring(#statWeights - 4).." Additional Stats"))
 		lastItemAnchor = controls["sortStatType"..tostring(i)]
 		popupHeight = popupHeight + 19
 		if i == 1 then
-			controls.sortStatLabel = new("LabelControl", {"RIGHT",lastItemAnchor,"LEFT"}, {-5, 0, 0, 16}, "^7Stat to Sort By:")
+			controls.sortStatLabel = new("LabelControl"):LabelControl({"RIGHT",lastItemAnchor,"LEFT"}, {-5, 0, 0, 16}, "^7Stat to Sort By:")
 		elseif i == 5 then
 			-- tooltips do not actually work for labels
 			lastItemAnchor.tooltipFunc = function(tooltip)
@@ -1302,13 +1302,13 @@ Remove: %s will be removed from the search results.]], term, term, term)
 	popupHeight = popupHeight + 4
 
 	if context.slotTbl.slotName == "Watcher's Eye" then
-		controls.includeAllWEMods = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Include all Watcher's Eye mods:", function(state) end)
+		controls.includeAllWEMods = new("CheckBoxControl"):CheckBoxControl({"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Include all Watcher's Eye mods:", function(state) end)
 		controls.includeAllWEMods.tooltipText = "Include mods that could not have a weight calculated for them at weight 0."
 		lastItemAnchor = controls.includeAllWEMods
 		popupHeight = popupHeight + 23
 	end
 
-	controls.generateQuery = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, {-45, -10, 80, 20}, "Execute", function()
+	controls.generateQuery = new("ButtonControl"):ButtonControl({ "BOTTOM", nil, "BOTTOM" }, {-45, -10, 80, 20}, "Execute", function()
 		main:ClosePopup()
 
 		self.tradeTypeIndex = context.controls.tradeTypeSelection.selIndex
@@ -1373,7 +1373,7 @@ Remove: %s will be removed from the search results.]], term, term, term)
 
 		self:StartQuery(slot, options)
 	end)
-	controls.cancel = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, {45, -10, 80, 20}, "Cancel", function()
+	controls.cancel = new("ButtonControl"):ButtonControl({ "BOTTOM", nil, "BOTTOM" }, {45, -10, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(400, popupHeight, "Query Options", controls)

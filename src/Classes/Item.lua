@@ -1387,7 +1387,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 	if slotNum ~= 1 then
 		slotName = slotName:gsub("1", tostring(slotNum))
 	end
-	local modList = new("ModList")
+	local modList = new("ModList"):ModList()
 	for _, baseMod in ipairs(baseList) do
 		local mod = copyTable(baseMod)
 		local add = true
@@ -1676,7 +1676,7 @@ function ItemClass:BuildModList()
 	if not self.base then
 		return
 	end
-	local baseList = new("ModList")
+	local baseList = new("ModList"):ModList()
 	if self.base.weapon then
 		self.weaponData = { }
 	elseif self.base.armour then

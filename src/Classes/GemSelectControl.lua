@@ -26,7 +26,7 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl")
 ---@param imbued boolean
 function GemSelectClass:GemSelectControl(anchor, rect, skillsTab, index, changeFunc, forceTooltip, imbued)
 	self:EditControl(anchor, rect, nil, nil, "^ %a':-")
-	self.controls.scrollBar = new("ScrollBarControl", { "TOPRIGHT", self, "TOPRIGHT" }, {-1, 0, 18, 0}, (self.height - 4) * 4)
+	self.controls.scrollBar = new("ScrollBarControl"):ScrollBarControl({ "TOPRIGHT", self, "TOPRIGHT" }, {-1, 0, 18, 0}, (self.height - 4) * 4)
 	self.controls.scrollBar.y = function()
 		local width, height = self:GetSize()
 		return height + 1

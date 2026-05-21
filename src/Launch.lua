@@ -12,6 +12,7 @@ SetWindowTitle(APP_NAME)
 ConExecute("set vid_mode 8")
 ConExecute("set vid_resizable 3")
 
+---@diagnostic disable-next-line: lowercase-global
 launch = { }
 SetMainObject(launch)
 jit.opt.start('maxtrace=4000','maxmcode=8192')
@@ -321,7 +322,6 @@ function launch:DownloadPage(url, callback, params)
 		}
 	end
 end
-
 function launch:ApplyUpdate(mode)
 	if mode == "basic" then
 		-- Need to revert to the basic environment to fully apply the update

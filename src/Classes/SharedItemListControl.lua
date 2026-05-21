@@ -16,7 +16,7 @@ function SharedItemListClass:SharedItemListControl(anchor, rect, itemsTab, force
 	self.label = "^7Shared items:"
 	self.defaultText = "^x7F7F7FThis is a list of items that will be shared between all of\nyour builds.\nYou can add items to this list by dragging them from\none of the other lists."
 	self.dragTargetList = { }
-	self.controls.delete = new("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, {0, -2, 60, 18}, "Delete", function()
+	self.controls.delete = new("ButtonControl"):ButtonControl({"BOTTOMRIGHT",self,"TOPRIGHT"}, {0, -2, 60, 18}, "Delete", function()
 		self:OnSelDelete(self.selIndex, self.selValue)
 	end)
 	self.controls.delete.enabled = function()
@@ -47,7 +47,7 @@ end
 function SharedItemListClass:ReceiveDrag(type, value, source)
 	if type == "Item" then
 		local rawItem = { raw = value:BuildRaw() }
-		local newItem = new("Item", rawItem.raw)
+		local newItem = new("Item"):Item(rawItem.raw)
 		if not value.id then
 			newItem:NormaliseQuality()
 		end

@@ -17,7 +17,7 @@ function BuildListClass:BuildListControl(anchor, rect, listMode)
 		{ },
 	}
 	self.showRowSeparators = true
-	self.controls.path = new("PathControl", {"BOTTOM",self,"TOP"}, {0, -2, self.width, 24}, main.buildPath, listMode.subPath, function(subPath)
+	self.controls.path = new("PathControl"):PathControl({"BOTTOM",self,"TOP"}, {0, -2, self.width, 24}, main.buildPath, listMode.subPath, function(subPath)
 		listMode.subPath = subPath
 		listMode:BuildList()
 		self.selIndex = nil
@@ -44,7 +44,7 @@ function BuildListClass:BuildListControl(anchor, rect, listMode)
 		end
 	end
 	self.dragTargetList = { self.controls.path, self }
-	self.controls.path.width = function ()
+	self.controls.path.width = function()
 		return self.width()
 	end
 end
@@ -77,8 +77,8 @@ end
 
 function BuildListClass:RenameBuild(build, copyOnName)
 	local controls = { }
-	controls.label = new("LabelControl", nil, {0, 20, 0, 16}, "^7Enter the new name for this "..(build.folderName and "folder:" or "build:"))
-	controls.edit = new("EditControl", nil, {0, 40, 350, 20}, build.folderName or build.buildName, nil, "\\/:%*%?\"<>|%c", 100, function(buf)
+	controls.label = new("LabelControl"):LabelControl(nil, {0, 20, 0, 16}, "^7Enter the new name for this "..(build.folderName and "folder:" or "build:"))
+	controls.edit = new("EditControl"):EditControl(nil, {0, 40, 350, 20}, build.folderName or build.buildName, nil, "\\/:%*%?\"<>|%c", 100, function(buf)
 		controls.save.enabled = false
 		if build.folderName then
 			if buf:match("%S") then
@@ -100,7 +100,7 @@ function BuildListClass:RenameBuild(build, copyOnName)
 			end
 		end
 	end)
-	controls.save = new("ButtonControl", nil, {-45, 70, 80, 20}, "Save", function()
+	controls.save = new("ButtonControl"):ButtonControl(nil, {-45, 70, 80, 20}, "Save", function()
 		local newBuildName = controls.edit.buf
 		if build.folderName then
 			if copyOnName then
@@ -135,7 +135,7 @@ function BuildListClass:RenameBuild(build, copyOnName)
 		self.listMode:SelectControl(self)
 	end)
 	controls.save.enabled = false
-	controls.cancel = new("ButtonControl", nil, {45, 70, 80, 20}, "Cancel", function()
+	controls.cancel = new("ButtonControl"):ButtonControl(nil, {45, 70, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 		self.listMode:SelectControl(self)
 	end)

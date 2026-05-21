@@ -250,7 +250,7 @@ Passives in radius are Conquered by the Eternal Empire
 Historic
 ]]
 		end
-		local item = new("Item", itemData)
+		local item = new("Item"):Item(itemData)
 		self.build.itemsTab:AddItem(item, true)
 		self.build.itemsTab:PopulateSlots()
 		self.list[index].label = "^xB2B2B2" .. self.list[index].label

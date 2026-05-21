@@ -12,7 +12,7 @@ describe("TradeQueryRequests", function()
 			return key
 		end
 	}
-	local requests = new("TradeQueryRequests", mock_limiter)
+	local requests = new("TradeQueryRequests"):TradeQueryRequests(mock_limiter)
 
 	local function simulateRetry(requests, mock_limiter, policy, current_time)
 		local now = current_time

@@ -42,7 +42,7 @@ function ListClass:ListControl(anchor, rect, rowHeight, scroll, isMutable, list,
 	self.list = list or { }
 	self.forceTooltip = forceTooltip
 	self.colList = { { } }
-	self.tooltip = new("Tooltip")
+	self.tooltip = new("Tooltip"):Tooltip()
 	self.font = "VAR"
 	if self.scroll then
 		if self.scroll == "HORIZONTAL" then
@@ -51,7 +51,7 @@ function ListClass:ListControl(anchor, rect, rowHeight, scroll, isMutable, list,
 			self.scrollH = false
 		end
 	end
-	self.controls.scrollBarH = new("ScrollBarControl", {"BOTTOM",self,"BOTTOM"}, {-8, -1, 0, self.scroll and 16 or 0}, rowHeight * 2, "HORIZONTAL") {
+	self.controls.scrollBarH = new("ScrollBarControl"):ScrollBarControl({"BOTTOM",self,"BOTTOM"}, {-8, -1, 0, self.scroll and 16 or 0}, rowHeight * 2, "HORIZONTAL") {
 		shown = function()
 			return self.scrollH
 		end,
@@ -60,7 +60,7 @@ function ListClass:ListControl(anchor, rect, rowHeight, scroll, isMutable, list,
 			return width - 18
 		end
 	}
-	self.controls.scrollBarV = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, {-1, 0, self.scroll and 16 or 0, 0}, rowHeight * 2, "VERTICAL") {
+	self.controls.scrollBarV = new("ScrollBarControl"):ScrollBarControl({"RIGHT",self,"RIGHT"}, {-1, 0, self.scroll and 16 or 0, 0}, rowHeight * 2, "VERTICAL") {
 		y = function()
 			return (self.scrollH and -8 or 0)
 		end,

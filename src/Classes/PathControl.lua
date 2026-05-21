@@ -36,7 +36,7 @@ function PathClass:SetSubPath(subPath, noUndo)
 	for index, folder in ipairs(self.folderList) do
 		local button = self.controls["folder"..i]
 		if not button then
-			button = new("ButtonControl", {"LEFT",self,"LEFT"}, {0, 0, 0, self.height - 4})
+			button = new("ButtonControl"):ButtonControl({"LEFT",self,"LEFT"}, {0, 0, 0, self.height - 4})
 			self.controls["folder"..i] = button
 		end
 		button.shown = true

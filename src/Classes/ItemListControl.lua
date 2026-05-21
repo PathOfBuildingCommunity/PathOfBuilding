@@ -15,13 +15,13 @@ function ItemListClass:ItemListControl(anchor, rect, itemsTab, forceTooltip)
 	self.label = "^7All items:"
 	self.defaultText = "^x7F7F7FThis is the list of items that have been added to this build.\nYou can add items to this list by dragging them from\none of the other lists, or by clicking 'Add to build' when\nviewing an item."
 	self.dragTargetList = { }
-	self.controls.delete = new("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, {0, -2, 60, 18}, "Delete", function()
+	self.controls.delete = new("ButtonControl"):ButtonControl({"BOTTOMRIGHT",self,"TOPRIGHT"}, {0, -2, 60, 18}, "Delete", function()
 		self:OnSelDelete(self.selIndex, self.selValue)
 	end)
 	self.controls.delete.enabled = function()
 		return self.selValue ~= nil
 	end
-	self.controls.deleteAll = new("ButtonControl", {"RIGHT",self.controls.delete,"LEFT"}, {-4, 0, 70, 18}, "Delete All", function()
+	self.controls.deleteAll = new("ButtonControl"):ButtonControl({"RIGHT",self.controls.delete,"LEFT"}, {-4, 0, 70, 18}, "Delete All", function()
 		main:OpenConfirmPopup("Delete All", "Are you sure you want to delete all items in this build?", "Delete", function()
 			for _, slot in pairs(itemsTab.slots) do
 				slot:SetSelItemId(0)
@@ -43,7 +43,7 @@ function ItemListClass:ItemListControl(anchor, rect, itemsTab, forceTooltip)
 	self.controls.deleteAll.enabled = function()
 		return #self.list > 0
 	end
-	self.controls.deleteUnused = new("ButtonControl", {"RIGHT",self.controls.deleteAll,"LEFT"}, {-4, 0, 100, 18}, "Delete Unused", function()
+	self.controls.deleteUnused = new("ButtonControl"):ButtonControl({"RIGHT",self.controls.deleteAll,"LEFT"}, {-4, 0, 100, 18}, "Delete Unused", function()
 		local delList = {}
 		for _, itemId in pairs(self.list) do
 			if not itemsTab:GetEquippedSlotForItem(itemsTab.items[itemId]) and not self:FindEquippedAbyssJewel(itemId, false) and not self:FindSocketedJewel(itemId, false) then
@@ -65,7 +65,7 @@ function ItemListClass:ItemListControl(anchor, rect, itemsTab, forceTooltip)
 	self.controls.deleteUnused.enabled = function()
 		return #self.list > 0
 	end
-	self.controls.sort = new("ButtonControl", {"RIGHT",self.controls.deleteUnused,"LEFT"}, {-4, 0, 60, 18}, "Sort", function()
+	self.controls.sort = new("ButtonControl"):ButtonControl({"RIGHT",self.controls.deleteUnused,"LEFT"}, {-4, 0, 60, 18}, "Sort", function()
 		itemsTab:SortItemList()
 	end)
 end
@@ -149,7 +149,7 @@ end
 
 function ItemListClass:ReceiveDrag(type, value, source)
 	if type == "Item" then
-		local newItem = new("Item", value.raw)
+		local newItem = new("Item"):Item(value.raw)
 		newItem:NormaliseQuality()
 		self.itemsTab:AddItem(newItem, true, self.selDragIndex)
 		self.itemsTab:PopulateSlots()
@@ -187,7 +187,7 @@ function ItemListClass:OnSelClick(index, itemId, doubleClick)
 			self.itemsTab.build.buildFlag = true
 		end
 	elseif doubleClick then
-		local newItem = new("Item", item:BuildRaw())
+		local newItem = new("Item"):Item(item:BuildRaw())
 		newItem.id = item.id
 		self.itemsTab:SetDisplayItem(newItem)
 	end

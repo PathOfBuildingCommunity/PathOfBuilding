@@ -21,13 +21,13 @@ function CalcBreakdownClass:CalcBreakdownControl(calcsTab)
 	self:ControlHost()
 	self.calcsTab = calcsTab
 	self.shown = false
-	self.tooltip = new("Tooltip")
-	self.nodeViewer = new("PassiveTreeView")
+	self.tooltip = new("Tooltip"):Tooltip()
+	self.nodeViewer = new("PassiveTreeView"):PassiveTreeView()
 	self.rangeGuide = NewImageHandle()
 	self.rangeGuide:Load("Assets/range_guide.png")
 	self.uiOverlay = NewImageHandle()
 	self.uiOverlay:Load("Assets/game_ui_small.png")
-	self.controls.scrollBar = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, {-2, 0, 18, 0}, 80, "VERTICAL", true)
+	self.controls.scrollBar = new("ScrollBarControl"):ScrollBarControl({"RIGHT",self,"RIGHT"}, {-2, 0, 18, 0}, 80, "VERTICAL", true)
 end
 
 function CalcBreakdownClass:IsMouseOver()

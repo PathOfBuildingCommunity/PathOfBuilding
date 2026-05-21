@@ -11,7 +11,7 @@ local TradeQueryRequestsClass = newClass("TradeQueryRequests")
 
 function TradeQueryRequestsClass:TradeQueryRequests(rateLimiter)
 	self.maxFetchPerSearch = 10
-	self.rateLimiter = rateLimiter or new("TradeQueryRateLimiter")
+	self.rateLimiter = rateLimiter or new("TradeQueryRateLimiter"):TradeQueryRateLimiter()
 	self.requestQueue = {
 		["search"] = {},
 		["fetch"] = {},

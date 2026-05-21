@@ -1577,7 +1577,7 @@ function PassiveSpecClass:ReplaceNode(old, newNode)
 	old.name = newNode.name
 	old.mods = newNode.mods
 	old.modKey = newNode.modKey
-	old.modList = new("ModList")
+	old.modList = new("ModList"):ModList()
 	old.modList:AddList(newNode.modList)
 	old.sprites = newNode.sprites
 	old.effectSprites = newNode.effectSprites
@@ -2271,7 +2271,7 @@ function PassiveSpecClass:NodeAdditionOrReplacementFromString(node,sd,replacemen
 	local addition = {}
 	addition.sd = {sd}
 	addition.mods = { }
-	addition.modList = new("ModList")
+	addition.modList = new("ModList"):ModList()
 	addition.modKey = ""
 	local i = 1
 	while addition.sd[i] do
@@ -2342,7 +2342,7 @@ function PassiveSpecClass:NodeAdditionOrReplacementFromString(node,sd,replacemen
 		node.mods = tableConcat(node.mods, addition.mods)
 		node.modKey = node.modKey .. addition.modKey
 	end
-	local modList = new("ModList")
+	local modList = new("ModList"):ModList()
 	modList:AddList(addition.modList)
 	if not replacement then
 		modList:AddList(node.modList)

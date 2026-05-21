@@ -2,7 +2,7 @@ describe("TradeQuery Currency Conversion", function()
 	local mock_tradeQuery
 
 	before_each(function()
-		mock_tradeQuery = new("TradeQuery", { itemsTab = {} })
+		mock_tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
 	end)
 
 	-- test case for commit: "Skip callback on errors to prevent incomplete conversions"

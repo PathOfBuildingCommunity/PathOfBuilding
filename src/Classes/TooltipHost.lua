@@ -7,7 +7,7 @@
 local TooltipHostClass = newClass("TooltipHost")
 
 function TooltipHostClass:TooltipHost(tooltipText)
-	self.tooltip = new("Tooltip")
+	self.tooltip = new("Tooltip"):Tooltip()
 	self.tooltipText = tooltipText
 end
 

@@ -33,7 +33,7 @@ function DropDownClass:DropDownControl(anchor, rect, list, selFunc, tooltipText)
 				return StripEscapes(listVal)
 			end
 	)
-	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, {-1, 0, 18, 0}, (self.height - 4) * 4)
+	self.controls.scrollBar = new("ScrollBarControl"):ScrollBarControl({"TOPRIGHT",self,"TOPRIGHT"}, {-1, 0, 18, 0}, (self.height - 4) * 4)
 	self.controls.scrollBar.height = function()
 		return self.dropHeight + 2
 	end
@@ -53,8 +53,6 @@ function DropDownClass:DropDownControl(anchor, rect, list, selFunc, tooltipText)
 	-- Set by the parent control. Activates the auto width of the box component.
 	self.enableChangeBoxWidth = false
         -- self.tag = "-"
-	---@class DropDownClass: Control, ControlHost, TooltipHost, SearchHost
-	self = self
 end
 
 -- maps the actual dropdown row index (after eventual filtering) to the original (unfiltered) list index

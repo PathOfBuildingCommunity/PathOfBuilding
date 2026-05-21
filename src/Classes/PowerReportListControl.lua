@@ -30,7 +30,7 @@ function PowerReportListClass:PowerReportListControl(anchor, rect, nodeSelectCal
 	self.allocated = false
 	self.label = "Building Tree..."
 	
-	self.controls.filterSelect = new("DropDownControl", {"BOTTOMRIGHT", self, "TOPRIGHT"}, {0, -2, 200, 20},
+	self.controls.filterSelect = new("DropDownControl"):DropDownControl({"BOTTOMRIGHT", self, "TOPRIGHT"}, {0, -2, 200, 20},
 		{ "Show Unallocated", "Show Unallocated & Clusters", "Show Allocated" },
 		function(index, value)
 			self.showClusters = index == 2
@@ -38,7 +38,7 @@ function PowerReportListClass:PowerReportListControl(anchor, rect, nodeSelectCal
 			self:ReList()
 			self:ReSort(3) -- Sort by power
 		end)
-	self.controls.masteryCheck = new("CheckBoxControl", {"RIGHT", self.controls.filterSelect, "LEFT"}, {-120, 0, 18}, "Show Masteries:", function(state)
+	self.controls.masteryCheck = new("CheckBoxControl"):CheckBoxControl({"RIGHT", self.controls.filterSelect, "LEFT"}, {-120, 0, 18}, "Show Masteries:", function(state)
 		self.showMasteries = state
 		self:ReList()
 		self:ReSort(3) -- Sort by power

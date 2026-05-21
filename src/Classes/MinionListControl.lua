@@ -18,7 +18,7 @@ function MinionListClass:MinionListControl(anchor, rect, data, list, dest)
 	if dest then
 		self.dragTargetList = { dest }
 		self.label = "^7Available Spectres:"
-		self.controls.add = new("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, {0, -2, 60, 18}, "Add", function()
+		self.controls.add = new("ButtonControl"):ButtonControl({"BOTTOMRIGHT",self,"TOPRIGHT"}, {0, -2, 60, 18}, "Add", function()
 			self:AddSel()
 		end)
 		self.controls.add.enabled = function()
@@ -26,7 +26,7 @@ function MinionListClass:MinionListControl(anchor, rect, data, list, dest)
 		end
 	else
 		self.label = "^7Spectres in Build:"
-		self.controls.delete = new("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, {0, -2, 60, 18}, "Remove", function()
+		self.controls.delete = new("ButtonControl"):ButtonControl({"BOTTOMRIGHT",self,"TOPRIGHT"}, {0, -2, 60, 18}, "Remove", function()
 			self:OnSelDelete(self.selIndex, self.selValue)
 		end)
 		self.controls.delete.enabled = function()
