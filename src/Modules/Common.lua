@@ -976,11 +976,5 @@ end
 
 -- Returns virtual screen size
 function GetVirtualScreenSize()
-	local width, height = GetScreenSize()
-	local scale = GetScreenScale and GetScreenScale() or 1.0
-	if scale ~= 1.0 then
-		width = math.floor(width / scale)
-		height = math.floor(height / scale)
-	end
-	return width, height
+	return GetScreenSize()
 end

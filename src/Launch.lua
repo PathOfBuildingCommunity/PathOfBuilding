@@ -65,7 +65,7 @@ function launch:OnInit()
 		self.installedMode = true
 		installedFile:close()
 	end
-	RenderInit("DPI_AWARE")
+	RenderInit()
 	ConPrintf("Loading main script...")
 	local errMsg
 	errMsg, self.main = PLoadModule("Modules/Main")
