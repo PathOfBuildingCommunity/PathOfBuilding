@@ -85,7 +85,9 @@ local dataTypes = {
 }
 
 ---@class Dat64File
-local Dat64FileClass = newClass("Dat64File", function(self, name, raw)
+local Dat64FileClass = newClass("Dat64File")
+
+function Dat64FileClass:Dat64File(name, raw)
 	self.name = name:lower()
 	self.raw = raw
 
@@ -125,7 +127,7 @@ local Dat64FileClass = newClass("Dat64File", function(self, name, raw)
 	--ConPrintf("Loaded '%s': %d Rows at %d Bytes", self.name, self.rowCount, self.rowSize)
 
 	self:OnSpecChanged()
-end)
+end
 
 function Dat64FileClass:OnSpecChanged()
 	wipeTable(self.cols)

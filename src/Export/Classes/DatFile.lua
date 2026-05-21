@@ -77,7 +77,9 @@ local dataTypes = {
 }
 
 ---@class DatFile
-local DatFileClass = newClass("DatFile", function(self, name, raw)
+local DatFileClass = newClass("DatFile")
+
+function DatFileClass:DatFile(name, raw)
 	self.name = name
 	self.raw = raw
 
@@ -117,7 +119,7 @@ local DatFileClass = newClass("DatFile", function(self, name, raw)
 	--ConPrintf("Loaded '%s': %d Rows at %d Bytes", self.name, self.rowCount, self.rowSize)
 
 	self:OnSpecChanged()
-end)
+end
 
 function DatFileClass:OnSpecChanged()
 	wipeTable(self.cols)

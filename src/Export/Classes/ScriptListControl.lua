@@ -4,9 +4,11 @@
 -- Script list control.
 --
 ---@class ScriptListControl: ListControl
-local ScriptListClass = newClass("ScriptListControl", "ListControl", function(self, anchor, rect)
+local ScriptListClass = newClass("ScriptListControl", "ListControl")
+
+function ScriptListClass:ScriptListControl(anchor, rect)
 	self:ListControl(anchor, rect, 16, "VERTICAL", false, main.scriptList)
-end)
+end
 
 function ScriptListClass:GetRowValue(column, index, script)
 	if column == 1 then

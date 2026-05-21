@@ -4,7 +4,9 @@
 -- GGPK source list control.
 --
 ---@class GGPKSourceListControl: ListControl
-local GGPKSourceListClass = newClass("GGPKSourceListControl", "ListControl", function(self, anchor, rect)
+local GGPKSourceListClass = newClass("GGPKSourceListControl", "ListControl")
+
+function GGPKSourceListClass:GGPKSourceListControl(anchor, rect)
 	self:ListControl(anchor, rect, 16, false, false, main.datSources)
 	self.colList = {
 		{ width = self.width * 0.25, label = "Name", sortable = true },
@@ -21,7 +23,7 @@ local GGPKSourceListClass = newClass("GGPKSourceListControl", "ListControl", fun
 	self.controls.delete.enabled = function()
 		return self.selValue ~= nil and #self.list > 1
 	end
-end)
+end
 
 function GGPKSourceListClass:EditDATSource(datSource, newSource)
 	local controls = { }
