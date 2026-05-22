@@ -1,0 +1,24 @@
+diff a/spec/System/TestItemParse_spec.lua b/spec/System/TestItemParse_spec.lua	(rejected hunks)
+@@ -142,22 +142,6 @@ describe("TestItemParse", function()
+ 		assert.are.equals("Adds 39 to 62 Fire Damage", item.explicitModLines[1].line)
+ 	end)
+ 
+-	it("Pasted variable-level base granted skills parse at exact exported levels", function()
+-		local cases = {
+-			{ base = "Bone Wand", line = "Grants Skill: Level 11 Bone Blast", skillId = "BoneBlastPlayer", level = 11 },
+-			{ base = "Withered Wand", line = "Grants Skill: Level 20 Chaos Bolt", skillId = "WeaponGrantedChaosboltPlayer", level = 20 },
+-			{ base = "Stoic Sceptre", line = "Grants Skill: Level 20 Discipline", skillId = "DisciplinePlayer", level = 20 },
+-		}
+-
+-		for _, case in ipairs(cases) do
+-			local item = new("Item", "Rarity: Normal\n" .. case.base .. "\nImplicits: 1\n" .. case.line)
+-
+-			assert.are.equals(1, #item.grantedSkills)
+-			assert.are.equals(case.skillId, item.grantedSkills[1].skillId)
+-			assert.are.equals(case.level, item.grantedSkills[1].level)
+-		end
+-	end)
+-
+ 	--TODO: POB2 Leagues?
+ 	--it("League", function()
+ 	--end)
