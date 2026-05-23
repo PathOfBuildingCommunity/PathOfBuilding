@@ -157,7 +157,7 @@ end
 -- Tests
 -- ─────────────────────────────────────────────────────────────────────────────
 
-describe("RadiusJewelFinder #radiusjewel", function()
+describe("RadiusJewelFinder #radius-jewel", function()
 
 	before_each(function()
 		loadBuildFromXML(occVortex.xml, "OccVortex")
