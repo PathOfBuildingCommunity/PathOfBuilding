@@ -5,6 +5,7 @@
 -- All other sockets are unallocated and empty.
 
 local occVortex = LoadModule("../spec/TestBuilds/3.13/OccVortex.lua")
+local RadiusJewelData = LoadModule("Classes/RadiusJewelData")
 
 local MIGHT_OF_MEEK_RAW_TEXT = [[Might of the Meek
 Crimson Jewel
@@ -70,6 +71,11 @@ local function getSmallRadiusIndex()
 		if r.inner == 0 and not map[r.label] then map[r.label] = i end
 	end
 	return map["Small"]
+end
+
+local function getRadiusIndexFromRawText(rawText)
+	local item = new("Item", "Rarity: Unique\n" .. rawText)
+	return item.jewelRadiusIndex
 end
 
 local function makeImpossibleEscapeTestVariant()
@@ -588,6 +594,8 @@ describe("RadiusJewelFinder #radius-jewel", function()
 				assert.is_string(v.rawText)
 				assert.is_true(#v.name > 0, "variant name should not be empty")
 				assert.is_true(#v.rawText > 0, "variant rawText should not be empty")
+				assert.are.equal(getRadiusIndexFromRawText(v.rawText), v.radiusIndex,
+					"variant radiusIndex should come from raw unique text: " .. v.name)
 			end
 		end)
 
@@ -612,18 +620,49 @@ describe("RadiusJewelFinder #radius-jewel", function()
 
 	end)
 
+	-- ── buildJewelTypes ──────────────────────────────────────────────────────
+
+	describe("buildJewelTypes", function()
+
+		it("keeps raw-backed radius indexes aligned with item data", function()
+			local jewelTypes = RadiusJewelData.buildJewelTypes()
+			local checkedTypes = 0
+			local checkedVariants = 0
+
+			for _, jewelType in ipairs(jewelTypes) do
+				if jewelType.rawText then
+					local radiusIndex = getRadiusIndexFromRawText(jewelType.rawText)
+					if radiusIndex then
+						assert.are.equal(radiusIndex, jewelType.radiusIndex,
+							"jewel type radiusIndex should match raw unique text: " .. jewelType.name)
+						checkedTypes = checkedTypes + 1
+					end
+				end
+				for _, variant in ipairs(jewelType.variants or { }) do
+					if variant.rawText then
+						local radiusIndex = getRadiusIndexFromRawText(variant.rawText)
+						if radiusIndex then
+							assert.are.equal(radiusIndex, variant.radiusIndex,
+								"variant radiusIndex should match raw unique text: "
+								.. (variant.dropdownLabel or variant.name))
+							checkedVariants = checkedVariants + 1
+						end
+					end
+				end
+			end
+
+			assert.is_true(checkedTypes > 0, "expected at least one raw-backed jewel type")
+			assert.is_true(checkedVariants > 0, "expected at least one raw-backed jewel variant")
+		end)
+
+	end)
+
 	-- ── discoverFoulbornVariants ─────────────────────────────────────────────
 
 	describe("discoverFoulbornVariants", function()
 
 		it("returns empty table when no Foulborn data exists", function()
-			local radiusIndexByLabel = {}
-			for i, r in ipairs(data.jewelRadius) do
-				if r.inner == 0 and not radiusIndexByLabel[r.label] then
-					radiusIndexByLabel[r.label] = i
-				end
-			end
-			local variants = makeFinder():discoverFoulbornVariants("Might of the Meek", radiusIndexByLabel)
+			local variants = makeFinder():discoverFoulbornVariants("Might of the Meek")
 			assert.is_table(variants)
 			-- Some data sets include Foulborn items and some do not.
 			local hasFoulborn = false
