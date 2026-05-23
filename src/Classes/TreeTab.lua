@@ -192,11 +192,16 @@ function TreeTabClass:TreeTab(build)
 		self:FindTimelessJewel()
 	end)
 
+	-- Find Radius Jewel Button
+	self.controls.findRadiusJewel = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.findTimelessJewel, "RIGHT" }, { 8, 0, 160, 20 }, "Find Radius Jewel", function()
+		self:FindRadiusJewel()
+	end)
+
 	--Default index for Tattoos
 	self.defaultTattoo = { }
 
 	-- Show Node Power Checkbox
-	self.controls.treeHeatMap = new("CheckBoxControl"):CheckBoxControl({ "LEFT", self.controls.findTimelessJewel, "RIGHT" }, { 130, 0, 20 }, "Show Node Power:", function(state)
+	self.controls.treeHeatMap = new("CheckBoxControl"):CheckBoxControl({ "LEFT", self.controls.findRadiusJewel, "RIGHT" }, { 130, 0, 20 }, "Show Node Power:", function(state)
 		self.viewer.showHeatMap = state
 		self.controls.treeHeatMapStatSelect.shown = state
 
@@ -403,6 +408,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	
 	local widthSecondLineControls = self.controls.treeSearch.width + 8
 									+ self.controls.findTimelessJewel.width + self.controls.findTimelessJewel.x
+									+ self.controls.findRadiusJewel.width + self.controls.findRadiusJewel.x
 									+ self.controls.treeHeatMap.width + 130
 									+ self.controls.nodePowerMaxDepthSelect.width + self.controls.nodePowerMaxDepthSelect.x
 									+ (self.isCustomMaxDepth and (self.controls.nodePowerMaxDepthCustom.width + self.controls.nodePowerMaxDepthCustom.x) or 0)
@@ -421,7 +427,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 
 	-- Check second line
 	if viewPort.width >= widthSecondLineControls + rightMargin then
-		self.controls.treeHeatMap:SetAnchor("LEFT", self.controls.findTimelessJewel, "RIGHT", 130, 0)
+		self.controls.treeHeatMap:SetAnchor("LEFT", self.controls.findRadiusJewel, "RIGHT", 130, 0)
 	else
 		linesHeight = linesHeight * 2
 		self.controls.treeHeatMap:SetAnchor("TOPLEFT", self.controls.treeSearch, "BOTTOMLEFT", 124, 4)
@@ -2885,4 +2891,8 @@ function TreeTabClass:FindTimelessJewel()
 	-- so the panel grows by a row for every row the settings column gains
 	local panelHeight = 565 + rowSpacing + rowHeight
 	main:OpenPopup(panelWidth, panelHeight, "Find a Timeless Jewel", controls)
+end
+
+function TreeTabClass:FindRadiusJewel()
+	new("RadiusJewelFinder"):RadiusJewelFinder(self):Open()
 end
