@@ -190,7 +190,7 @@
 	<File name="Classes/TradeQueryRateLimiter.lua" part="program" sha1="af1556ed95b05875227c33a2720bbc34f6a563b8" />
 	<File name="Classes/TradeQueryRequests.lua" part="program" sha1="e47222b6e04e795704d38f287bd9240a4d9560e5" />
 	<File name="Classes/TradeStatWeightMultiplierListControl.lua" part="program" sha1="2d3c11bb563279bffc4f93763a652a6f430ffd59" />
-	<File name="Classes/TreeTab.lua" part="program" sha1="f281ae7bdf4e9ddcb0e4c1566fb2befb7358462e" />
+	<File name="Classes/TreeTab.lua" part="program" sha1="f92c0f0b1dc5cb9d535e304d317c66c232e87fc2" />
 	<File name="Classes/UndoHandler.lua" part="program" sha1="ce4835c384c834da0de47b0302b1e774c8300c6b" />
 	<File name="Data/Bases/amulet.lua" part="program" sha1="4a6ef2a8f5be4247ab3b084f670eb710be103ea4" />
 	<File name="Data/Bases/axe.lua" part="program" sha1="1973471c72bf6e138e8465c7bf0b7039dc86f6b6" />
