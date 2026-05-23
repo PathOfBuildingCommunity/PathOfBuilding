@@ -1056,6 +1056,7 @@ function RadiusJewelFinderClass:Open()
 		{ id = "all",           label = "All results" },
 		{ id = "bestPerSocket", label = "Best per socket" },
 	}
+	local ALL_VARIANTS_LABEL = "All variants"
 	local allJewelsViewLabels = { }
 	for _, v in ipairs(ALL_JEWELS_VIEW_OPTIONS) do t_insert(allJewelsViewLabels, v.label) end
 	local selectedAllJewelsView = ALL_JEWELS_VIEW_OPTIONS[1]
@@ -1218,39 +1219,56 @@ function RadiusJewelFinderClass:Open()
 			end
 			return variants
 		end
-	return selectedJewelType.variants
-end
+		return selectedJewelType.variants
+	end
 
-local function buildPreviewLinesForJewelType(jewelType, previewVariantOverride)
-	if not jewelType then
+	local function getSelectedVariants()
+		local variants = getDisplayedVariants()
+		if not variants then
+			return nil
+		end
+		if selectedJewelVariant then
+			return { selectedJewelVariant }
+		end
+		return variants
+	end
+
+	local function buildPreviewLinesForJewelType(jewelType, previewVariantOverride)
+		if not jewelType then
 			return nil
 		end
 		local fn = jewelPreviewFn[jewelType.name]
 		if not fn then
 			return nil
+		end
+		local selectedTypeMatches = selectedJewelType and selectedJewelType.name == jewelType.name
+		if jewelType.isThread then
+			local threadVariant = previewVariantOverride or selectedThreadVariant
+			return fn(threadVariant and threadVariant.name)
+		elseif jewelType.variants then
+			local previewVariant = previewVariantOverride
+			if not previewVariant then
+				previewVariant = selectedTypeMatches and selectedJewelVariant or nil
+			end
+			if not previewVariant and not selectedTypeMatches then
+				previewVariant = jewelType.variants[1]
+			end
+			return fn(previewVariant)
+		end
+		return fn()
 	end
-	local selectedTypeMatches = selectedJewelType and selectedJewelType.name == jewelType.name
-	if jewelType.isThread then
-		local threadVariant = previewVariantOverride or selectedThreadVariant
-		return fn(threadVariant and threadVariant.name)
-	elseif jewelType.variants then
-		local previewVariant = previewVariantOverride or ((selectedTypeMatches and selectedJewelVariant) or jewelType.variants[1])
-		return fn(previewVariant)
-	end
-	return fn()
-end
 
-local function addPreviewLinesToTooltip(tooltip, lines)
-	if type(lines) ~= "table" then
-		return
+	local function addPreviewLinesToTooltip(tooltip, lines)
+		if type(lines) ~= "table" then
+			return
+		end
+		tooltip:Clear(true)
+		for _, line in ipairs(lines) do
+			tooltip:AddLine(line.height or 16, line[1], line.font)
+		end
 	end
-	tooltip:Clear(true)
-	for _, line in ipairs(lines) do
-		tooltip:AddLine(line.height or 16, line[1], line.font)
-	end
-end
 
-local function buildGenericTypeTooltipLinesForJewelType(jewelType)
+	local function buildGenericTypeTooltipLinesForJewelType(jewelType)
 	if not jewelType then
 		return nil
 	end
@@ -1314,26 +1332,32 @@ end
 			return
 		end
 		local variantNames = { }
+		t_insert(variantNames, ALL_VARIANTS_LABEL)
 		for _, v in ipairs(variants) do
 			t_insert(variantNames, makeVariantDropdownEntry(v))
 		end
 		controls.jewelVariantSelect:SetList(variantNames)
 		local varIdx = 1
+		local matchedVariant
 		if selectedJewelVariant then
 			for i, variant in ipairs(variants) do
 				if variant == selectedJewelVariant then
-					varIdx = i
+					varIdx = i + 1
+					matchedVariant = variant
 					break
 				end
 			end
 		else
-			varIdx = controls.jewelVariantSelect.selIndex or 1
-		end
-		if varIdx > #variants then
 			varIdx = 1
 		end
+		if not matchedVariant then
+			selectedJewelVariant = nil
+		end
+		if varIdx > #variantNames then
+			varIdx = 1
+			selectedJewelVariant = nil
+		end
 		controls.jewelVariantSelect.selIndex = varIdx
-		selectedJewelVariant = variants[varIdx]
 		saveFinderState()
 	end
 
@@ -1688,9 +1712,13 @@ end
 			cancelCompute()
 			local variants = getDisplayedVariants()
 			if variants then
-				selectedJewelVariant = variants[idx]
+				selectedJewelVariant = idx == 1 and nil or variants[idx - 1]
 				saveFinderState()
 				updatePreview()
+				if controls.findButton then
+					controls.findButton.shown = not (selectedJewelType and selectedJewelType.variants
+						and not selectedJewelVariant and not selectedJewelType.isImpossibleEscape)
+				end
 			end
 		end)
 		controls.jewelVariantSelect.enableDroppedWidth = true
@@ -1778,6 +1806,9 @@ end
 			else
 				selectedJewelVariant = nil
 			end
+			if controls.findButton and hasVariants and not selectedJewelVariant and not selectedJewelType.isImpossibleEscape then
+				controls.findButton.shown = false
+			end
 			if hasComputeMethods then
 				syncComputeMethodSelect(selectedJewelType.computeMethods)
 			end
@@ -1805,11 +1836,22 @@ end
 	end
 	controls.jewelVariantSelect.tooltipFunc = function(tooltip, mode, index)
 		local variants = getDisplayedVariants()
-		local variant = variants and variants[index]
-		if not selectedJewelType or not variant then
+		if not selectedJewelType or not variants then
 			return
 		end
-		addPreviewLinesToTooltip(tooltip, buildPreviewLinesForJewelType(selectedJewelType, variant))
+		if not index then
+			addPreviewLinesToTooltip(tooltip, buildPreviewLinesForJewelType(selectedJewelType))
+			return
+		end
+		if index == 1 then
+			addPreviewLinesToTooltip(tooltip, buildGenericTypeTooltipLinesForJewelType(selectedJewelType))
+			tooltip:AddLine(16, "^8Compute compares every displayed variant.")
+			return
+		end
+		local variant = variants[index - 1]
+		if variant then
+			addPreviewLinesToTooltip(tooltip, buildPreviewLinesForJewelType(selectedJewelType, variant))
+		end
 	end
 	controls.threadVariantSelect.tooltipFunc = function(tooltip, mode, index)
 		local variant = threadVariants[index]
@@ -2096,7 +2138,7 @@ end
 				controls.statusLabel.label = formatComputeStatus("All jewels", statLabel, globalBaseline, computeMethodLabel) .. formatElapsed(searchStartTime)
 				saveResultCache("compute", "computeSocketAll", allRows, COL_META .. "(no compatible sockets)", controls.statusLabel.label, true)
 			else
-					local displayedVariants = getDisplayedVariants()
+					local displayedVariants = getSelectedVariants()
 					local itemLabel = selectedJewelType.name
 					local equippedList = self:findEquippedJewelSockets(selectedJewelType)
 					local removedJewels = equippedList.atLimit and self:removeEquippedJewels(equippedList) or { }
@@ -2229,7 +2271,7 @@ end
 				local results = { }
 				local impossibleEscapeBestResult
 				if isImpossibleEscapeBestVariantSearch then
-					local variants = getDisplayedVariants() or selectedJewelType.variants or { }
+					local variants = getSelectedVariants() or selectedJewelType.variants or { }
 					for _, variant in ipairs(variants) do
 						local keystoneNode = treeData.keystoneMap[variant.keystoneName]
 						local nodes = keystoneNode and keystoneNode.nodesInRadius and smallRadiusIndex and keystoneNode.nodesInRadius[smallRadiusIndex]
@@ -2595,10 +2637,14 @@ end
 				local variantName = variant.dropdownLabel or variant.name
 				if variantName == finderState.jewelVariantName then
 					selectedJewelVariant = variant
-					controls.jewelVariantSelect.selIndex = i
+					controls.jewelVariantSelect.selIndex = i + 1
 					break
 				end
 			end
+		end
+
+		if controls.findButton and selectedJewelType and selectedJewelType.variants then
+			controls.findButton.shown = not (not selectedJewelVariant and not selectedJewelType.isImpossibleEscape)
 		end
 
 		suppressFinderStateSave = false
