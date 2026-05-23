@@ -117,6 +117,27 @@ local function mustGetCurrentUniqueRawText(name, baseName)
 	return mustGetUniqueVariantRawText(name, "Current", baseName)
 end
 
+local function getRadiusIndexFromRawText(rawText)
+	if not rawText then
+		return nil
+	end
+	local item = new("Item", "Rarity: Unique\n" .. rawText)
+	return item.jewelRadiusIndex
+end
+
+local function getUniqueRadiusIndex(name, baseName)
+	return getRadiusIndexFromRawText(mustGetCurrentUniqueRawText(name, baseName))
+end
+
+local function makeUniqueVariant(name, uniqueName, baseName)
+	local rawText = mustGetCurrentUniqueRawText(uniqueName or name, baseName)
+	return {
+		name = name,
+		rawText = rawText,
+		radiusIndex = getRadiusIndexFromRawText(rawText),
+	}
+end
+
 -- Expose for compute module and tests
 M.mustGetUniqueRawText = mustGetUniqueRawText
 
@@ -135,6 +156,7 @@ local function buildVariantsFromUniqueItem(uniqueName, baseName)
 				t_insert(variants, {
 					name = variantName,
 					rawText = rawText,
+					radiusIndex = getRadiusIndexFromRawText(rawText),
 				})
 			end
 		end
@@ -144,7 +166,7 @@ end
 
 M.buildVariantsFromUniqueItem = buildVariantsFromUniqueItem
 
-local function discoverFoulbornVariants(uniqueName, radiusIndexByLabel)
+local function discoverFoulbornVariants(uniqueName)
 	local variants = { }
 	local generated = data.uniques.generated
 	if not generated then return variants end
@@ -152,12 +174,10 @@ local function discoverFoulbornVariants(uniqueName, radiusIndexByLabel)
 	for _, rawText in ipairs(generated) do
 		local comboIndex = rawText:match("^Foulborn " .. escapedName .. " (%d+)\n")
 		if comboIndex then
-			local radiusLabel = rawText:match("\nRadius: (%a+)")
-			local radiusIndex = radiusLabel and radiusIndexByLabel[radiusLabel]
 			t_insert(variants, {
 				name = "Foulborn " .. comboIndex,
 				rawText = rawText,
-				radiusIndex = radiusIndex,
+				radiusIndex = getRadiusIndexFromRawText(rawText),
 				isFoulborn = true,
 				comboIndex = tonumber(comboIndex),
 			})
@@ -360,11 +380,13 @@ local function buildImpossibleEscapeVariants()
 			for line in rawText:gmatch("[^\n]+") do
 				local name = line:match("^Variant: (.+)$")
 				if name and name ~= "Everything (QoL Test Variant)" then
+					local variantRawText = mustGetUniqueVariantRawText("Impossible Escape", name)
 					t_insert(variants, {
 						name = name,
 						dropdownLabel = name,
 						keystoneName = name,
-						rawText = mustGetUniqueVariantRawText("Impossible Escape", name),
+						rawText = variantRawText,
+						radiusIndex = getRadiusIndexFromRawText(variantRawText),
 						scoreLabel = "unalloc notable/keystone near keystone",
 					})
 				end
@@ -380,6 +402,7 @@ local function makeTemperedVariant(name, rawText, attribute, includeAllocated, i
 	return {
 		name = name,
 		rawText = rawText,
+		radiusIndex = getRadiusIndexFromRawText(rawText),
 		scoreLabel = includeAllocated and includeUnallocated and (attribute:lower() .. " alloc+unalloc")
 			or includeAllocated and (attribute:lower() .. " alloc")
 			or (attribute:lower() .. " unalloc"),
@@ -545,316 +568,115 @@ local function previewFromRawText(rawText, displayName, extraPreviewMeta)
 	return lines
 end
 
-local jewelPreviewFn  -- set below; group preview functions read it from this outer local
-jewelPreviewFn = {
+local function previewUnique(uniqueName, displayName, baseName)
+	return previewFromRawText(mustGetCurrentUniqueRawText(uniqueName, baseName), displayName)
+end
+
+local function previewVariant(variant, displayName)
+	if variant and variant.rawText then
+		return previewFromRawText(variant.rawText, displayName or variant.name)
+	end
+	return nil
+end
+
+local function previewFinderGroup(name, note)
+	local lines = previewHeader(name, "Finder group", nil)
+	t_insert(lines, { height = 16, [1] = COL_META .. (note or "Select a variant to preview item data.") })
+	return lines
+end
+
+local function previewVariantOrGroup(groupName, variant)
+	return previewVariant(variant) or previewFinderGroup(groupName)
+end
+
+local function previewThreadOfHope(ringName)
+	local rawText = mustGetUniqueRawText("Thread of Hope")
+	local displayName
+	if ringName then
+		local item = new("Item", "Rarity: Unique\n" .. rawText)
+		local variantName
+		for _, candidate in ipairs(item.variantList or { }) do
+			if candidate == ringName or candidate:gsub(" Ring$", "") == ringName then
+				variantName = candidate
+				break
+			end
+		end
+		if variantName then
+			rawText = mustGetUniqueVariantRawText("Thread of Hope", variantName)
+			displayName = "Thread of Hope (" .. variantName .. ")"
+		end
+	end
+	return previewFromRawText(rawText, displayName)
+end
+
+local jewelPreviewFn = {
 	["The Light of Meaning"] = function(variant)
 		if variant and variant.rawText then
 			return previewFromRawText(variant.rawText, "The Light of Meaning (" .. variant.name .. ")")
 		end
-		local lines = previewHeader("The Light of Meaning", "Prismatic Jewel", "Large",
-			{ "Limited to: 1", "Source: King of The Mists" })
-		for _, v in ipairs(getLightOfMeaningVariants()) do
-			t_insert(lines, { height = 14, [1] = COL_META .. "  " .. v.name })
-		end
-		return lines
+		return previewFinderGroup("The Light of Meaning")
 	end,
 
 	["Might of the Meek"] = function(variant)
-		if variant and variant.rawText then
-			return previewFromRawText(variant.rawText)
-		end
-		local lines = previewHeader("Might of the Meek", "Crimson Jewel", "Large")
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "50% increased Effect of non-Keystone" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Passive Skills in Radius" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Notable Passive Skills in Radius grant nothing" })
-		return lines
+		return previewVariant(variant) or previewUnique("Might of the Meek")
 	end,
 
 	["Unnatural Instinct"] = function(variant)
-		if variant and variant.rawText then
-			return previewFromRawText(variant.rawText)
-		end
-		local lines = previewHeader("Unnatural Instinct", "Viridian Jewel", "Small",
-			{ "Limited to: 1" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Allocated Small Passive Skills in" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Radius grant nothing" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Grants all bonuses of Unallocated" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Small Passive Skills in Radius" })
-		return lines
+		return previewVariant(variant) or previewUnique("Unnatural Instinct")
 	end,
 
 	["Inspired Learning"] = function(variant)
-		if variant and variant.rawText then
-			return previewFromRawText(variant.rawText)
-		end
-		local lines = previewHeader("Inspired Learning", "Crimson Jewel", "Small")
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "With 4 Notables Allocated in Radius," })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "When you Kill a Rare monster, you gain" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "1 of its Modifiers for 20 seconds" })
-		return lines
+		return previewVariant(variant) or previewUnique("Inspired Learning")
 	end,
 
 	["Anatomical Knowledge"] = function()
-		local lines = previewHeader("Anatomical Knowledge", "Cobalt Jewel", "Large",
-			{ "Source: No longer obtainable" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "(6-8)% increased maximum Life" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Adds 1 to Maximum Life per 3" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Intelligence Allocated in Radius" })
-		return lines
+		return previewUnique("Anatomical Knowledge")
 	end,
 
 	["Lioneye's Fall"] = function(variant)
-		if variant and variant.rawText then
-			return previewFromRawText(variant.rawText)
-		end
-		local lines = previewHeader("Lioneye's Fall", "Viridian Jewel", "Medium")
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Melee and Melee Weapon Type modifiers" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "in Radius are Transformed to Bow Modifiers" })
-		return lines
+		return previewVariant(variant) or previewUnique("Lioneye's Fall")
 	end,
 
 	["Intuitive Leap"] = function(variant)
-		if variant and variant.rawText then
-			return previewFromRawText(variant.rawText)
-		end
-		local lines = previewHeader("Intuitive Leap", "Viridian Jewel", "Small")
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives in Radius can be Allocated" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "without being connected to your tree" })
-		return lines
+		return previewVariant(variant) or previewUnique("Intuitive Leap")
 	end,
 
 	["Tempered & Transcendent"] = function(variant)
-		if variant and variant.rawText then
-			return previewFromRawText(variant.rawText, variant.name)
-		end
-		local lines = previewHeader("Tempered & Transcendent", "Unique Jewel", "Medium")
-		t_insert(lines, { height = 14, [1] = COL_META .. "Tempered Flesh / Transcendent Flesh" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "Tempered Mind / Transcendent Mind" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "Tempered Spirit / Transcendent Spirit" })
-		return lines
+		return previewVariantOrGroup("Tempered & Transcendent", variant)
 	end,
 
 	["Split Personality"] = function(variant)
 		if variant and variant.rawText then
 			return previewFromRawText(variant.rawText, "Split Personality (" .. variant.name .. ")")
 		end
-		local lines = previewHeader("Split Personality", "Crimson Jewel", nil,
-			{ "Limited to: 2", "Source: Drops from the Simulacrum Encounter" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Socket effect scales with distance to class start" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "Variants: Strength, Dexterity, Intelligence, Life" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "Mana, Energy Shield, Armour, Evasion, Accuracy" })
-		return lines
+		return previewFinderGroup("Split Personality")
 	end,
 
 	["Impossible Escape"] = function(variant)
 		if variant and variant.rawText then
 			return previewFromRawText(variant.rawText, "Impossible Escape (" .. variant.name .. ")")
 		end
-		local lines = previewHeader("Impossible Escape", "Viridian Jewel", "Small",
-			{ "Limited to: 1", "Source: Drops from The Maven (Uber)" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Passive Skills in radius of the chosen" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Keystone can be allocated without connection" })
-		return lines
-	end,
-
-	["Energy From Within"] = function()
-		local lines = previewHeader("Energy From Within", "Cobalt Jewel", "Large")
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "3% increased maximum Energy Shield" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Life mods in Radius apply to Energy Shield" })
-		return lines
-	end,
-
-	["Healthy Mind"] = function()
-		local lines = previewHeader("Healthy Mind", "Cobalt Jewel", "Large",
-			{ "Limited to: 1" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "15% increased maximum Mana" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Life mods in Radius apply to Mana at 200%" })
-		return lines
-	end,
-
-	["Energised Armour"] = function()
-		local lines = previewHeader("Energised Armour", "Crimson Jewel", "Large")
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "15% increased Armour" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "ES mods in Radius apply to Armour at 200%" })
-		return lines
-	end,
-
-	["Brute Force Solution"] = function()
-		local lines = previewHeader("Brute Force Solution", "Cobalt Jewel", "Large")
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "+16 to Intelligence" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Strength from Passives -> Intelligence" })
-		return lines
-	end,
-
-	["Careful Planning"] = function()
-		local lines = previewHeader("Careful Planning", "Viridian Jewel", "Large")
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "+16 to Dexterity" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Intelligence from Passives -> Dexterity" })
-		return lines
-	end,
-
-	["Efficient Training"] = function()
-		local lines = previewHeader("Efficient Training", "Crimson Jewel", "Large")
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "+16 to Strength" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Intelligence from Passives -> Strength" })
-		return lines
-	end,
-
-	["Fertile Mind"] = function()
-		local lines = previewHeader("Fertile Mind", "Cobalt Jewel", "Large")
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "+16 to Intelligence" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Dexterity from Passives -> Intelligence" })
-		return lines
-	end,
-
-	["Fluid Motion"] = function()
-		local lines = previewHeader("Fluid Motion", "Viridian Jewel", "Large")
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "+16 to Dexterity" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Strength from Passives -> Dexterity" })
-		return lines
-	end,
-
-	["Inertia"] = function()
-		local lines = previewHeader("Inertia", "Crimson Jewel", "Large")
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "+16 to Strength" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Dexterity from Passives -> Strength" })
-		return lines
-	end,
-
-	["Combat Focus (Crimson)"] = function()
-		local lines = previewHeader("Combat Focus", "Crimson Jewel", "Medium",
-			{ "Limited to: 2", "Source: Vendor Recipe" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "10% increased Elemental Damage" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Prismatic Skills lose Cold" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "with 40 total Str+Int in Radius" })
-		return lines
-	end,
-
-	["Combat Focus (Cobalt)"] = function()
-		local lines = previewHeader("Combat Focus", "Cobalt Jewel", "Medium",
-			{ "Limited to: 2", "Source: Vendor Recipe" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "10% increased Elemental Damage" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Prismatic Skills lose Fire" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "with 40 total Int+Dex in Radius" })
-		return lines
-	end,
-
-	["Combat Focus (Viridian)"] = function()
-		local lines = previewHeader("Combat Focus", "Viridian Jewel", "Medium",
-			{ "Limited to: 2", "Source: Vendor Recipe" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "10% increased Elemental Damage" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Prismatic Skills lose Lightning" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "with 40 total Dex+Str in Radius" })
-		return lines
+		return previewFinderGroup("Impossible Escape")
 	end,
 
 	["Attribute Conversion"] = function(variant)
-		if variant and jewelPreviewFn[variant.name] then
-			return jewelPreviewFn[variant.name]()
-		end
-		local lines = previewHeader("Attribute Conversion", "Corrupted Jewel", "Large")
-		t_insert(lines, { height = 14, [1] = COL_META .. "Brute Force Solution: Str -> Int" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "Careful Planning:     Int -> Dex" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "Efficient Training:   Int -> Str" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "Fertile Mind:         Dex -> Int" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "Fluid Motion:         Str -> Dex" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "Inertia:              Dex -> Str" })
-		return lines
+		return previewVariantOrGroup("Attribute Conversion", variant)
 	end,
 
 	["Stat Conversion"] = function(variant)
-		if variant and jewelPreviewFn[variant.name] then
-			return jewelPreviewFn[variant.name]()
-		end
-		local lines = previewHeader("Stat Conversion", "Corrupted Jewel", "Large")
-		t_insert(lines, { height = 14, [1] = COL_META .. "Energy From Within: Life -> Energy Shield" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "Healthy Mind:       Life -> Mana (200%)" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "Energised Armour:   ES   -> Armour (200%)" })
-		return lines
+		return previewVariantOrGroup("Stat Conversion", variant)
 	end,
 
 	["Combat Focus"] = function(variant)
-		if variant and jewelPreviewFn[variant.name] then
-			return jewelPreviewFn[variant.name]()
-		end
-		local lines = previewHeader("Combat Focus", "Jewel", "Medium",
-			{ "Limited to: 2", "Source: Vendor Recipe" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "Crimson:  lose Cold    (Str+Int >= 40)" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "Cobalt:   lose Fire    (Int+Dex >= 40)" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "Viridian: lose Lightning (Dex+Str >= 40)" })
-		return lines
+		return previewVariantOrGroup("Combat Focus", variant)
 	end,
 
 	["Dreams & Nightmares"] = function(variant)
-		if variant and variant.rawText then
-			local extraPreviewMeta = nil
-			if variant.family then
-				extraPreviewMeta = { "Family: " .. variant.family:gsub("^The ", "") }
-			end
-			return previewFromRawText(variant.rawText, variant.name, extraPreviewMeta)
-		end
-		local lines = previewHeader("Dreams & Nightmares", "Unique Jewel", "Large")
-		t_insert(lines, { height = 14, [1] = COL_META .. "The Red Dream: Fire Res -> Endurance on Kill" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "The Red Nightmare: Fire Res -> Block" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "The Green Dream: Cold Res -> Frenzy on Kill" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "The Green Nightmare: Cold Res -> Suppress" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "The Blue Dream: Lightning Res -> Power on Kill" })
-		t_insert(lines, { height = 14, [1] = COL_META .. "The Blue Nightmare: Lightning Res -> Spell Block" })
-		return lines
-	end,
-
-	["The Red Dream"] = function()
-		local lines = previewHeader("The Red Dream", "Crimson Jewel", "Large")
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Fire/All Res in Radius" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant Endurance Charge on Kill" })
-		return lines
-	end,
-
-	["The Red Nightmare"] = function()
-		local lines = previewHeader("The Red Nightmare", "Crimson Jewel", "Large")
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Fire/All Res in Radius" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant Chance to Block at 50%" })
-		return lines
-	end,
-
-	["The Green Dream"] = function()
-		local lines = previewHeader("The Green Dream", "Viridian Jewel", "Large")
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Cold/All Res in Radius" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant Frenzy Charge on Kill" })
-		return lines
-	end,
-
-	["The Green Nightmare"] = function()
-		local lines = previewHeader("The Green Nightmare", "Viridian Jewel", "Large")
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Cold/All Res in Radius" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant Chance to Suppress at 70%" })
-		return lines
-	end,
-
-	["The Blue Dream"] = function()
-		local lines = previewHeader("The Blue Dream", "Cobalt Jewel", "Large")
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Lightning/All Res in Radius" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant Power Charge on Kill" })
-		return lines
-	end,
-
-	["The Blue Nightmare"] = function()
-		local lines = previewHeader("The Blue Nightmare", "Cobalt Jewel", "Large")
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Passives granting Lightning/All Res in Radius" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "also grant Spell Block at 50%" })
-		return lines
+		return previewVariantOrGroup("Dreams & Nightmares", variant)
 	end,
 
 	["Thread of Hope"] = function(ringName)
-		local ring = ringName or "?"
-		local lines = previewHeader("Thread of Hope", "Crimson Jewel", "Variable",
-			{ "Source: Drops from Sirus, Awakener of Worlds" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Only affects Passives in " .. ring .. " Ring" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "Passive Skills in Radius can be Allocated" })
-		t_insert(lines, { height = 16, [1] = COL_MOD .. "without being connected to your tree" })
-		t_insert(lines, { height = 6,  [1] = "" })
-		t_insert(lines, { height = 16, [1] = COL_NEG  .. "-(20-10)% to all Elemental Resistances" })
-		return lines
+		return previewThreadOfHope(ringName)
 	end,
 }
 
@@ -864,10 +686,10 @@ M.jewelPreviewFn = jewelPreviewFn
 -- Jewel type definitions
 -- ─────────────────────────────────────────────────────────────────────────────
 
-function M.buildJewelTypes(radiusIndexByLabel)
+function M.buildJewelTypes()
 	local mightOfTheMeek = {
 		name = "Might of the Meek",
-		radiusIndex = radiusIndexByLabel["Large"],
+		radiusIndex = getUniqueRadiusIndex("Might of the Meek"),
 		scoreLabel = "alloc small passives",
 		hasCompute = true,
 		rawText = mustGetUniqueRawText("Might of the Meek"),
@@ -881,12 +703,12 @@ function M.buildJewelTypes(radiusIndexByLabel)
 			return s
 		end,
 	}
-	appendFoulbornVariants(mightOfTheMeek, discoverFoulbornVariants("Might of the Meek", radiusIndexByLabel))
+	appendFoulbornVariants(mightOfTheMeek, discoverFoulbornVariants("Might of the Meek"))
 
 	local inspiredLearning = {
 		name = "Inspired Learning",
 		hasCompute = true,
-		radiusIndex = radiusIndexByLabel["Small"],
+		radiusIndex = getUniqueRadiusIndex("Inspired Learning"),
 		scoreLabel = "alloc notables",
 		rawText = mustGetUniqueRawText("Inspired Learning"),
 		score = function(nodes, allocNodes)
@@ -900,14 +722,14 @@ function M.buildJewelTypes(radiusIndexByLabel)
 		end,
 	}
 	do
-		local foulbornVariants = discoverFoulbornVariants("Inspired Learning", radiusIndexByLabel)
+		local foulbornVariants = discoverFoulbornVariants("Inspired Learning")
 		for _, variant in ipairs(foulbornVariants) do addInspiredLearningFoulbornFields(variant) end
 		appendFoulbornVariants(inspiredLearning, foulbornVariants)
 	end
 
 	local unnaturalInstinct = {
 		name = "Unnatural Instinct",
-		radiusIndex = radiusIndexByLabel["Small"],
+		radiusIndex = getUniqueRadiusIndex("Unnatural Instinct"),
 		scoreLabel = "unalloc small - alloc small",
 		hasCompute = true,
 		rawText = mustGetUniqueRawText("Unnatural Instinct"),
@@ -923,24 +745,24 @@ function M.buildJewelTypes(radiusIndexByLabel)
 		end,
 	}
 	do
-		local foulbornVariants = discoverFoulbornVariants("Unnatural Instinct", radiusIndexByLabel)
+		local foulbornVariants = discoverFoulbornVariants("Unnatural Instinct")
 		for _, variant in ipairs(foulbornVariants) do addUnnaturalInstinctFoulbornFields(variant) end
 		appendFoulbornVariants(unnaturalInstinct, foulbornVariants)
 	end
 
 	local lioneyesFall = {
 		name = "Lioneye's Fall",
-		radiusIndex = radiusIndexByLabel["Medium"],
+		radiusIndex = getUniqueRadiusIndex("Lioneye's Fall"),
 		scoreLabel = "alloc passives",
 		hasCompute = true,
 		rawText = mustGetUniqueRawText("Lioneye's Fall"),
 		score = scoreAllocPassives,
 	}
-	appendFoulbornVariants(lioneyesFall, discoverFoulbornVariants("Lioneye's Fall", radiusIndexByLabel))
+	appendFoulbornVariants(lioneyesFall, discoverFoulbornVariants("Lioneye's Fall"))
 
 	local intuitiveLeap = {
 		name = "Intuitive Leap",
-		radiusIndex = radiusIndexByLabel["Small"],
+		radiusIndex = getUniqueRadiusIndex("Intuitive Leap"),
 		scoreLabel = "unalloc passives",
 		hasCompute = true,
 		computeMethods = M.DISCONNECTED_PASSIVE_COMPUTE_METHODS,
@@ -950,27 +772,29 @@ function M.buildJewelTypes(radiusIndexByLabel)
 		end,
 	}
 	do
-		local foulbornVariants = discoverFoulbornVariants("Intuitive Leap", radiusIndexByLabel)
+		local foulbornVariants = discoverFoulbornVariants("Intuitive Leap")
 		for _, variant in ipairs(foulbornVariants) do addIntuitiveLeapFoulbornFields(variant) end
 		appendFoulbornVariants(intuitiveLeap, foulbornVariants)
 	end
 
 	local dreamsNightmaresFamilies = {
-		{ name = "The Red Dream",       baseName = "Crimson Jewel" },
-		{ name = "The Red Nightmare",   baseName = "Crimson Jewel" },
-		{ name = "The Green Dream",     baseName = "Viridian Jewel" },
-		{ name = "The Green Nightmare", baseName = "Viridian Jewel" },
-		{ name = "The Blue Dream",      baseName = "Cobalt Jewel" },
-		{ name = "The Blue Nightmare",  baseName = "Cobalt Jewel" },
+		{ name = "The Red Dream" },
+		{ name = "The Red Nightmare" },
+		{ name = "The Green Dream" },
+		{ name = "The Green Nightmare" },
+		{ name = "The Blue Dream" },
+		{ name = "The Blue Nightmare" },
 	}
 	local dreamsVariants = { }
 	for _, familyInfo in ipairs(dreamsNightmaresFamilies) do
+		local rawText = mustGetCurrentUniqueRawText(familyInfo.name)
 		t_insert(dreamsVariants, {
 			name = familyInfo.name,
 			family = familyInfo.name,
-			rawText = mustGetCurrentUniqueRawText(familyInfo.name),
+			rawText = rawText,
+			radiusIndex = getRadiusIndexFromRawText(rawText),
 		})
-		local foulbornVariants = discoverFoulbornVariants(familyInfo.name, radiusIndexByLabel)
+		local foulbornVariants = discoverFoulbornVariants(familyInfo.name)
 		for _, variant in ipairs(foulbornVariants) do
 			variant.family = familyInfo.name
 			variant.name = familyInfo.name .. " (" .. variant.name .. ")"
@@ -978,22 +802,42 @@ function M.buildJewelTypes(radiusIndexByLabel)
 		end
 	end
 
+	local lightOfMeaningVariants = getLightOfMeaningVariants()
+	local temperedTranscendentVariants = M.getTemperedTranscendentVariants()
+	local statConversionVariants = {
+		makeUniqueVariant("Energy From Within"),
+		makeUniqueVariant("Healthy Mind"),
+		makeUniqueVariant("Energised Armour"),
+	}
+	local attributeConversionVariants = {
+		makeUniqueVariant("Brute Force Solution"),
+		makeUniqueVariant("Careful Planning"),
+		makeUniqueVariant("Efficient Training"),
+		makeUniqueVariant("Fertile Mind"),
+		makeUniqueVariant("Fluid Motion"),
+		makeUniqueVariant("Inertia"),
+	}
+	local combatFocusVariants = {
+		makeUniqueVariant("Combat Focus (Crimson)", "Combat Focus", "Crimson Jewel"),
+		makeUniqueVariant("Combat Focus (Cobalt)", "Combat Focus", "Cobalt Jewel"),
+		makeUniqueVariant("Combat Focus (Viridian)", "Combat Focus", "Viridian Jewel"),
+	}
+
 	local jewelTypes = { }
 	t_insert(jewelTypes, {
 		name = "The Light of Meaning",
-		limit = 1,
-		radiusIndex = radiusIndexByLabel["Large"],
+		radiusIndex = lightOfMeaningVariants[1] and lightOfMeaningVariants[1].radiusIndex,
 		scoreLabel = "alloc passives",
 		hasCompute = true,
 		score = scoreAllocPassives,
-		variants = getLightOfMeaningVariants(),
+		variants = lightOfMeaningVariants,
 	})
 	t_insert(jewelTypes, mightOfTheMeek)
 	t_insert(jewelTypes, unnaturalInstinct)
 	t_insert(jewelTypes, inspiredLearning)
 	t_insert(jewelTypes, {
 		name = "Anatomical Knowledge",
-		radiusIndex = radiusIndexByLabel["Large"],
+		radiusIndex = getUniqueRadiusIndex("Anatomical Knowledge"),
 		scoreLabel = "alloc passives",
 		hasCompute = true,
 		isLegacy = true,
@@ -1002,13 +846,13 @@ function M.buildJewelTypes(radiusIndexByLabel)
 	})
 	t_insert(jewelTypes, {
 		name = "Tempered & Transcendent",
-		radiusIndex = radiusIndexByLabel["Medium"],
+		radiusIndex = temperedTranscendentVariants[1] and temperedTranscendentVariants[1].radiusIndex,
 		scoreLabel = "attr in radius",
 		hasCompute = true,
 		score = function(nodes, allocNodes)
 			return scoreRadiusAttributes(nodes, allocNodes, "Str", true, false)
 		end,
-		variants = M.getTemperedTranscendentVariants(),
+		variants = temperedTranscendentVariants,
 	})
 	t_insert(jewelTypes, lioneyesFall)
 	t_insert(jewelTypes, intuitiveLeap)
@@ -1034,46 +878,31 @@ function M.buildJewelTypes(radiusIndexByLabel)
 	})
 	t_insert(jewelTypes, {
 		name = "Stat Conversion",
-		radiusIndex = radiusIndexByLabel["Large"],
+		radiusIndex = statConversionVariants[1] and statConversionVariants[1].radiusIndex,
 		scoreLabel = "alloc passives",
 		hasCompute = true,
 		score = scoreAllocPassives,
-		variants = {
-			{ name = "Energy From Within", rawText = mustGetUniqueRawText("Energy From Within") },
-			{ name = "Healthy Mind",       rawText = mustGetUniqueRawText("Healthy Mind") },
-			{ name = "Energised Armour",   rawText = mustGetUniqueRawText("Energised Armour") },
-		},
+		variants = statConversionVariants,
 	})
 	t_insert(jewelTypes, {
 		name = "Attribute Conversion",
-		radiusIndex = radiusIndexByLabel["Large"],
+		radiusIndex = attributeConversionVariants[1] and attributeConversionVariants[1].radiusIndex,
 		scoreLabel = "alloc passives",
 		hasCompute = true,
 		score = scoreAllocPassives,
-		variants = {
-			{ name = "Brute Force Solution", rawText = mustGetUniqueRawText("Brute Force Solution") },
-			{ name = "Careful Planning",     rawText = mustGetUniqueRawText("Careful Planning") },
-			{ name = "Efficient Training",   rawText = mustGetUniqueRawText("Efficient Training") },
-			{ name = "Fertile Mind",         rawText = mustGetUniqueRawText("Fertile Mind") },
-			{ name = "Fluid Motion",         rawText = mustGetUniqueRawText("Fluid Motion") },
-			{ name = "Inertia",              rawText = mustGetUniqueRawText("Inertia") },
-		},
+		variants = attributeConversionVariants,
 	})
 	t_insert(jewelTypes, {
 		name = "Combat Focus",
-		radiusIndex = radiusIndexByLabel["Medium"],
+		radiusIndex = combatFocusVariants[1] and combatFocusVariants[1].radiusIndex,
 		scoreLabel = "alloc passives",
 		hasCompute = true,
 		score = scoreAllocPassives,
-		variants = {
-			{ name = "Combat Focus (Crimson)",  rawText = mustGetUniqueRawText("Combat Focus", "Crimson Jewel") },
-			{ name = "Combat Focus (Cobalt)",   rawText = mustGetUniqueRawText("Combat Focus", "Cobalt Jewel") },
-			{ name = "Combat Focus (Viridian)", rawText = mustGetUniqueRawText("Combat Focus", "Viridian Jewel") },
-		},
+		variants = combatFocusVariants,
 	})
 	t_insert(jewelTypes, {
 		name = "Dreams & Nightmares",
-		radiusIndex = radiusIndexByLabel["Large"],
+		radiusIndex = dreamsVariants[1] and dreamsVariants[1].radiusIndex,
 		scoreLabel = "alloc passives",
 		hasCompute = true,
 		score = scoreAllocPassives,

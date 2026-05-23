@@ -607,8 +607,8 @@ function RadiusJewelFinderClass:buildVariantsFromUniqueItem(uniqueName, baseName
 	return RadiusJewelData.buildVariantsFromUniqueItem(uniqueName, baseName)
 end
 
-function RadiusJewelFinderClass:discoverFoulbornVariants(uniqueName, radiusIndexByLabel)
-	return RadiusJewelData.discoverFoulbornVariants(uniqueName, radiusIndexByLabel)
+function RadiusJewelFinderClass:discoverFoulbornVariants(uniqueName)
+	return RadiusJewelData.discoverFoulbornVariants(uniqueName)
 end
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -1512,7 +1512,7 @@ end
 
 	-- ── Helper: rebuild jewel type dropdown after filter change ──────────────
 	local function rebuildJewelTypeDropdown()
-		jewelTypes = buildJewelTypes(radiusIndexByLabel)
+		jewelTypes = buildJewelTypes()
 		activeJewelTypes = { }
 		jtLabels = { }
 		for _, jt in ipairs(jewelTypes) do
