@@ -277,7 +277,8 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			end
 
 			build.radiusJewelFinderState = nil
-			local popup = makeFinder():Open()
+			local finder = makeFinder()
+			local popup = finder:Open()
 			assert.is_not_nil(popup)
 			assert.are.equal("Find Radius Jewel", popup.title)
 			local popupWidth, popupHeight = popup:GetSize()
@@ -452,6 +453,10 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			local normalDreamsIdx = findIndex(popup.controls.jewelTypeSelect.list, "Dreams & Nightmares")
 			assert.is_not_nil(normalDreamsIdx, "expected Dreams & Nightmares in jewel type list")
 			popup.controls.jewelTypeSelect.selFunc(normalDreamsIdx)
+			assert.are.equal("All variants", popup.controls.jewelVariantSelect.list[1])
+			assert.are.equal(1, popup.controls.jewelVariantSelect.selIndex)
+			assert.is_false(popup.controls.findButton:IsShown(),
+				"Find should be hidden while all variants are selected")
 			local redNightmareIdx = findIndex(popup.controls.jewelVariantSelect.list, "The Red Nightmare")
 			assert.is_not_nil(redNightmareIdx, "expected The Red Nightmare in variant list")
 			local redNightmareTooltipTexts = tooltipTexts(popup.controls.jewelVariantSelect, redNightmareIdx)
@@ -460,6 +465,9 @@ describe("RadiusJewelFinder #radius-jewel", function()
 				assert.is_nil(text:find("{variant:", 1, true), "variant tooltip should not expose raw variant tags")
 				assert.is_nil(text:find("Selected Variant:", 1, true), "variant tooltip should not expose saved-state metadata")
 			end
+			popup.controls.jewelVariantSelect.selFunc(redNightmareIdx)
+			assert.is_true(popup.controls.findButton:IsShown(),
+				"Find should be shown after selecting a specific variant")
 
 			-- Tempered & Transcendent: type tooltip generic, variant tooltip specific
 			local temperedIdx = findIndex(popup.controls.jewelTypeSelect.list, "Tempered & Transcendent")
@@ -471,15 +479,22 @@ describe("RadiusJewelFinder #radius-jewel", function()
 					"type tooltip should not include a specific variant")
 			end
 			popup.controls.jewelTypeSelect.selFunc(temperedIdx)
-			local variantTooltipTexts = tooltipTexts(popup.controls.jewelVariantSelect, 1)
+			assert.are.equal("All variants", popup.controls.jewelVariantSelect.list[1])
+			local temperedFleshIdx = findIndex(popup.controls.jewelVariantSelect.list, "Tempered Flesh")
+			assert.is_not_nil(temperedFleshIdx, "expected Tempered Flesh in variant list")
+			local variantTooltipTexts = tooltipTexts(popup.controls.jewelVariantSelect, temperedFleshIdx)
 			assert.is_true(#variantTooltipTexts > 0, "expected jewel variant tooltip content")
 			assert.is_true(variantTooltipTexts[1]:find("Tempered Flesh", 1, true) ~= nil,
 				"expected variant tooltip to describe the hovered variant")
 			local temperedLabels = listLabels(popup.controls.jewelVariantSelect.list)
 			assert.is_true(#temperedLabels > 0, "expected Tempered & Transcendent variants")
-			for _, label in ipairs(temperedLabels) do
-				assert.is_truthy(label:find("Tempered") or label:find("Transcendent"),
-					"variant should be Tempered or Transcendent: " .. label)
+			for i, label in ipairs(temperedLabels) do
+				if i == 1 then
+					assert.are.equal("All variants", label)
+				else
+					assert.is_truthy(label:find("Tempered") or label:find("Transcendent"),
+						"variant should be Tempered or Transcendent: " .. label)
+				end
 			end
 
 			-- Split Personality: unique variant labels
@@ -494,17 +509,20 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			end
 			local splitLabels = listLabels(popup.controls.jewelVariantSelect.list)
 			assert.is_true(#splitLabels > 0, "expected Split Personality variants")
-			local splitVariantTooltipTexts = tooltipTexts(popup.controls.jewelVariantSelect, 1)
+			assert.are.equal("All variants", splitLabels[1])
+			local splitVariantTooltipTexts = tooltipTexts(popup.controls.jewelVariantSelect, 2)
 			for _, text in ipairs(splitVariantTooltipTexts) do
 				assert.is_nil(text:find("Radius:", 1, true),
 					"Split Personality variant tooltip should not show a radius line")
 			end
 			local seenLabels = {}
-			for _, label in ipairs(splitLabels) do
+			for i, label in ipairs(splitLabels) do
 				assert.is_string(label)
 				assert.is_true(#label > 0, "variant label should not be empty")
-				assert.is_nil(seenLabels[label], "duplicate Split Personality variant: " .. label)
-				seenLabels[label] = true
+				if i > 1 then
+					assert.is_nil(seenLabels[label], "duplicate Split Personality variant: " .. label)
+					seenLabels[label] = true
+				end
 			end
 
 			-- Impossible Escape: compute method + keystone variants
@@ -514,6 +532,34 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			assert.is_true(popup.controls.computeMethodSelect.shown, "expected method selector for Impossible Escape")
 			assert.are.same({ "Fast", "Simulated" }, listLabels(popup.controls.computeMethodSelect.list))
 			assert.is_true(#popup.controls.jewelVariantSelect.list > 0, "expected Impossible Escape keystone variants")
+			assert.are.equal("All variants", popup.controls.jewelVariantSelect.list[1])
+			assert.are.equal(1, popup.controls.jewelVariantSelect.selIndex)
+			assert.is_true(popup.controls.findButton:IsShown(),
+				"Find should stay shown for Impossible Escape all-variant searches")
+			assert.is_true(#popup.controls.jewelVariantSelect.list > 1, "expected at least one selectable keystone variant")
+
+			local capturedVariants
+			finder.computeImpossibleEscapeSocketImpact = function(_, _, _, variants)
+				capturedVariants = variants
+				return { }, 0
+			end
+			popup.controls.computeButton:Click()
+			while main.onFrameFuncs["RadiusJewelFinderCompute"] do
+				runCallback("OnFrame")
+			end
+			assert.is_table(capturedVariants)
+			assert.is_true(#capturedVariants > 1, "All variants should compute every Impossible Escape variant")
+
+			local selectedImpossibleEscapeLabel = listLabels(popup.controls.jewelVariantSelect.list)[2]
+			popup.controls.jewelVariantSelect.selFunc(2)
+			capturedVariants = nil
+			popup.controls.computeButton:Click()
+			while main.onFrameFuncs["RadiusJewelFinderCompute"] do
+				runCallback("OnFrame")
+			end
+			assert.is_table(capturedVariants)
+			assert.are.equal(1, #capturedVariants, "selected Impossible Escape variant should constrain compute")
+			assert.are.equal(selectedImpossibleEscapeLabel, capturedVariants[1].dropdownLabel or capturedVariants[1].name)
 
 			-- Thread of Hope: compute method
 			local threadIdx = findIndex(popup.controls.jewelTypeSelect.list, "Thread of Hope")
