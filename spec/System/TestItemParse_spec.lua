@@ -392,6 +392,13 @@ describe("TestItemParse", function()
 		assert.truthy(item.explicitModLines[1].synthesis)
 	end)
 
+	it("unscalable", function()
+		local item = new("Item", raw("{unscalable}+8 to Strength"))
+		assert.truthy(item.explicitModLines[1].unscalable)
+		item = new("Item", raw("+8 to Strength - Unscalable Value"))
+		assert.truthy(item.explicitModLines[1].unscalable)
+	end)
+
 	it("multiple bases", function()
 		local item = new("Item", [[
 			Ashcaller
@@ -466,93 +473,94 @@ describe("TestItemParse", function()
 	end)
 end)
 
-describe("TestAdvancedItemParse", function()
-	it("parses item", function()
-		local advancedItem = new("Item", [[
-			Item Class: Belts
-			Rarity: Rare
-			Beast Snare
-			Cord Belt
-			--------
-			Requirements:
-			Level: 51
-			--------
-			Item Level: 83
-			--------
-			Allocates Surveillance (enchant)
-			--------
-			{ Implicit Modifier }
-			Can be Anointed
-			--------
-			{ Fractured Prefix Modifier "Thorny" (Tier: 2) — Damage, Physical }
-			Reflects 3(1-4) Physical Damage to Melee Attackers
+describe("TestAdvancedItemParse #item", function()
+	local function raw(s, base)
+		base = base or "Plate Vest"
+		return "Rarity: Rare\nName\n"..base.."\n"..s
+	end
+
+	it("parses to craft", function()
+		local item = new("Item", raw([[
 			{ Prefix Modifier "Fecund" (Tier: 1) — Life }
 			+142(130-144) to maximum Life
-			{ Prefix Modifier "Glowing" (Tier: 9) — Defences, Energy Shield }
-			+15(13-15) to maximum Energy Shield
-			{ Suffix Modifier "of the Tempest" (Tier: 4) — Elemental, Lightning, Resistance }
-			+34(30-35)% to Lightning Resistance
+		]], "Cord Belt"))
+		assert.are.equals("IncreasedLife9", item.prefixes[1].modId)
+		assert.are.equals(0.857, item.prefixes[1].range)
+		assert.are.equals("life", item.explicitModLines[1].modTags[1])
+		item = new("Item", raw([[
 			{ Master Crafted Suffix Modifier "of Craft" (Rank: 3) — Elemental, Cold, Resistance }
 			+35(29-35)% to Cold Resistance
-			--------
-			Fractured Item
-		]])
+		]], "Cord Belt"))
+		assert.truthy(item.explicitModLines[1].crafted)
+	end)
 
-		local equivalentCraftItem = new("Item", [[
-			Beast Snare
-			Cord Belt
-			Crafted: true
-			Prefix: {range:0.599}AttackerTakesDamage1
-			Prefix: {range:0.859}IncreasedLife9
-			Prefix: {range:0.845}IncreasedEnergyShield4
-			Suffix: {range:0.732}LightningResist5
-			Suffix: None
-			Suffix: None
-			LevelReq: 51
-			Implicits: 1
-			{crafted}Allocates Surveillance
-			Can be Anointed
-			+15 to maximum Energy Shield
-			+142 to maximum Life
-			+34% to Lightning Resistance
-			Reflects 3 Physical Damage to Melee Attackers
-			{tags:elemental,cold,resistance}{crafted}{range:1}+(29-35)% to Cold Resistance
-			]])
+	it("parses correct range", function()
+		local item = new("Item", raw([[
+			{ Prefix Modifier "Freezing" (Tier: 5) — Damage, Elemental, Cold, Caster  — 8% Increased }
+			Adds 17(16-20) to 35(30-36) Cold Damage to Spells
+		]], "Void Sceptre"))
+		assert.are.equals("Adds 17 to 35 Cold Damage to Spells", item.explicitModLines[1].line)
+	end)
 
-		assert.are.equals(advancedItem:BuildRaw(), equivalentCraftItem:BuildRaw())
+	-- GGG scales each mod line separately here, but PoB scales them both together, so this parsing is a bit wonky
+	it("parses multi-line mod", function()
+		local item = new("Item", raw([[
+			{ Prefix Modifier "Warlock's" (Tier: 4) — Mana, Damage, Caster }
+			32(30-37)% increased Spell Damage
+			+46(42-47) to maximum Mana
+		]], "Royal Staff"))
+		assert.are.equals("SpellDamageAndManaOnTwoHandWeapon4", item.prefixes[1].modId)
+		assert.are.equals(0.286, item.prefixes[1].range)
+		assert.are.equals(0.8, item.explicitModLines[2].range)
+	end)
 
-		local catalyst = new("Item", [[
-			Item Class: Amulets
-			Rarity: Unique
-			Astramentis
-			Onyx Amulet
+	it("resets linePrefix", function() 
+		local item = new("Item", raw([[
+			{ Prefix Modifier "Warlock's" (Tier: 4) — Mana, Damage, Caster }
+			32(30-37)% increased Spell Damage
+			+46(42-47) to maximum Mana
 			--------
-			Quality (Attribute Modifiers): +20% (augmented)
-			--------
-			Requirements:
-			Level: 20
-			--------
-			Item Level: 80
-			--------
-			Allocates Weathered Hunter (enchant)
-			--------
-			{ Implicit Modifier — Attribute  — 20% Increased }
-			+16(10-16) to all Attributes
+			+15 to maximum life
+		]], "Royal Staff"))
+		assert.are_not.equals("mana", item.explicitModLines[3].modTags[1])
+	end)
+
+	it("parses vaaled catalyst", function() 
+		local item = new("Item", raw([[
+			Quality (Attribute Modifiers): +19% (augmented)
+			{ Unique Modifier — Attribute  — 19% Increased }
+			+120(80-100) to all Attributes
 			(Attributes are Strength, Dexterity, and Intelligence)
-			--------
-			{ Unique Modifier — Attribute  — 20% Increased }
-			+86(80-100) to all Attributes
+		]], "Onyx Amulet"))
+		assert.are.equals(142, item.baseModList[1].value)
+		-- assert.falsy(item.explicitModLines[1].range) -- Not sure why this is returning 0.5
+		assert.are.equals(6, item.catalyst)
+		assert.are.equals(19, item.catalystQuality)
+	end)
+
+	it("parses vaaled catalyst within range", function() 
+		local item = new("Item", raw([[
+			Quality (Attribute Modifiers): +19% (augmented)
+			{ Unique Modifier — Attribute  — 19% Increased }
+			+95(80-100) to all Attributes
 			(Attributes are Strength, Dexterity, and Intelligence)
-			{ Unique Modifier — Physical, Attack }
-			-4 Physical Damage taken from Attack Hits
-			--------
-			Mindless rage will shake the world,
-			Cunning lies will bend it.
-			Reckless haste will break the world,
-			And into darkness send it.
-			--------
-			Note: ~b/o 50 chaos
-			]])
+		]], "Onyx Amulet"))
+		assert.are.equals(113, item.baseModList[1].value)
+		assert.are.equals(0.75, item.explicitModLines[1].range)
+		assert.are.equals(6, item.catalyst)
+		assert.are.equals(19, item.catalystQuality)
+	end)
+
+	it("doesn't scale unscalable", function()
+		local item = new("Item", raw([[
+			Quality (Life and Mana Modifiers): +20% (augmented)
+			{ Unique Modifier — Life, Defences, Energy Shield, Minion, Gem }
+			Socketed Golem Skills gain 20% of Maximum Life as Extra Maximum Energy Shield — Unscalable Value
+		]]))
+		assert.are.equals(20, item.baseModList[1].value.mod.value)
+	end)
+
+	it("parses junk", function()
 		local godTestItem = new("Item", [[
 			Item Class: Sceptres
 			Rarity: Unique

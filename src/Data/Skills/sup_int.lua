@@ -6380,9 +6380,6 @@ skills["SupportSummonPhantasm"] = {
 		"SummonedPhantasm"
 	},
 	statMap = {
-		["base_number_of_support_ghosts_allowed"] = {
-			mod("ActivePhantasmLimit", "BASE", nil),
-		},
 		["phantasm_minimum_added_physical_damage_to_grant"] = {
 			mod("PhysicalMin", "BASE", nil, ModFlag.Spell, 0, { type = "PerStat", stat = "ActivePhantasmLimit" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Phantasmal Might", effectCond = "PhantasmalMight", allowTotemBuff = true })
 		},

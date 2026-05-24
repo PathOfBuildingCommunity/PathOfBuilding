@@ -4016,11 +4016,6 @@ skills["TriggeredSummonGhostOnKill"] = {
 	minionList = {
 		"SummonedPhantasm",
 	},
-	statMap = {
-		["base_number_of_support_ghosts_allowed"] = {
-			mod("ActivePhantasmLimit", "BASE", nil),
-		},
-	},
 	baseFlags = {
 		spell = true,
 		minion = true,

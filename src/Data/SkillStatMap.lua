@@ -264,6 +264,9 @@ return {
 ["cast_on_stunned_%"] = {
 	skill("chanceToTriggerOnStun", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
+["trigger_on_ward_break_%_chance"] = {
+	skill("chanceToTriggerOnWardBreak", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+},
 ["trigger_on_attack_hit_against_rare_or_unique"] = {
 	skill("triggerMarkOnRareOrUnique", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Mark }),
 },
@@ -1973,6 +1976,12 @@ return {
 },
 ["base_number_of_skeletons_allowed"] = {
 	mod("ActiveSkeletonLimit", "BASE", nil),
+},
+["base_number_of_animated_weapons_allowed"] = {
+	mod("ActiveAnimatedWeaponLimit", "BASE", nil),
+},
+["base_number_of_support_ghosts_allowed"] = {
+	mod("ActivePhantasmLimit", "BASE", nil),
 },
 ["base_number_of_raging_spirits_allowed"] = {
 	mod("ActiveRagingSpiritLimit", "BASE", nil),

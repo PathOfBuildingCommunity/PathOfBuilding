@@ -1417,6 +1417,14 @@ skills["SupportCompanionship"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.MinionsAreUndamagable, SkillType.Triggered, },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_companionship_minion_maximum_life_+%_final_if_at_most_one_minion"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "Condition", var = "OnlyMinion" }),
+		},
+		["damage_removed_from_minions_before_life_or_es_%_if_only_one_minion"] = {
+			mod("takenFromMinionBeforeYou", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
 	qualityStats = {
 		{ "minion_maximum_life_+%", 1 },
 	},

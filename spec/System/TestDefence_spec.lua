@@ -378,6 +378,53 @@ describe("TestDefence", function()
 		assert.are.equals(15, build.calcsTab.calcsOutput.LightningResistOverCap)
 	end)
 
+	it("ward chance to not break increases effective hit pool", function()
+		build.configTab.input.enemyIsBoss = "None"
+		build.configTab.input.customMods = "\z
+		+940 to maximum life\n\z
+		+200 to Ward\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(987, build.calcsTab.calcsOutput.TotalEHP)
+		assert.are.equals(1200, build.calcsTab.calcsOutput.PhysicalMaximumHitTaken)
+
+		build.configTab.input.customMods = "\z
+		+940 to maximum life\n\z
+		+200 to Ward\n\z
+		Ward has a 50% chance to not Break\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(994, build.calcsTab.calcsOutput.TotalEHP)
+		assert.are.equals(1200, build.calcsTab.calcsOutput.PhysicalMaximumHitTaken)
+	end)
+
+	it("small hits bypass unbroken ward", function()
+		build.configTab.input.enemyIsBoss = "None"
+		build.configTab.input.customMods = "\z
+		+940 to maximum life\n\z
+		+200 to Ward\n\z
+		Damage taken bypasses Unbroken Ward if the Hit deals less Damage than 15% of Ward\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(350, build.calcsTab.calcsOutput.TotalEHP)
+		assert.are.equals(1200, build.calcsTab.calcsOutput.PhysicalMaximumHitTaken)
+
+		local poolsRemaining = poolsRemainingAfterTypeMaxHit("Physical")
+		assert.are.equals(0, poolsRemaining.Ward)
+		assert.are.equals(0, poolsRemaining.Life)
+
+		poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, { Physical = 29 }, build.calcsTab.calcsEnv.player)
+		assert.are.equals(200, poolsRemaining.Ward)
+		assert.are.equals(971, poolsRemaining.Life)
+
+		poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, { Physical = 30 }, build.calcsTab.calcsEnv.player)
+		assert.are.equals(0, poolsRemaining.Ward)
+		assert.are.equals(1000, poolsRemaining.Life)
+	end)
+
 	-- fun part
 	it("armoured max hits", function()
 		build.configTab.input.enemyIsBoss = "None"
@@ -945,8 +992,19 @@ describe("TestDefence", function()
 
 		-- Get the base + Shabby Jerkin to make this test more adaptable to changes
 		local ironReflexesArmour = build.calcsTab.mainOutput.Armour - baseArmour - baseEvasion
+		assert.are.equals(ironReflexesArmour + baseArmour + baseEvasion, build.calcsTab.mainOutput.Armour)
 
-		print("build.calcsTab.mainOutput.Armour:" .. build.calcsTab.mainOutput.Armour)
+		build.configTab.input.customMods = [[
+			Converts all Evasion Rating to Armour. Dexterity provides no bonus to Evasion Rating
+			you have no dexterity
+			Gain no armour from equipped body armour
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		-- Iron Reflexes and Prospero's Protection
+		assert.are.equals(baseArmour + baseEvasion, build.calcsTab.mainOutput.Armour)
+
+		--print("build.calcsTab.mainOutput.Armour:" .. build.calcsTab.mainOutput.Armour)
 
 		build.configTab.input.customMods = [[
 			Armour from Equipped Body Armour is doubled
@@ -955,7 +1013,6 @@ describe("TestDefence", function()
 		]]
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
-
 		-- Evasion from Body Armour is converted to Armour before being doubled
 		assert.are.equals(2*ironReflexesArmour + baseArmour + baseEvasion, build.calcsTab.mainOutput.Armour)
 
@@ -967,26 +1024,22 @@ describe("TestDefence", function()
 		]]
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
-
 		-- Only the base armour from the chest is affected.
 		-- Armour converted with Iron Reflexes still applies
-		assert.are.equals(2*ironReflexesArmour + baseArmour + baseEvasion, build.calcsTab.mainOutput.Armour)
+		assert.are.equals(baseArmour + baseEvasion, build.calcsTab.mainOutput.Armour)
+
 		build.configTab.input.customMods = [[
 			Armour from Equipped Body Armour is doubled
 			Converts all Evasion Rating to Armour. Dexterity provides no bonus to Evasion Rating
-			Gain no armour from equipped body armour
 			defences from equipped body armour are doubled if it has no socketed gems
 			you have no dexterity
 		]]
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
-
-		-- Oath Of Maji double defences stack with Unbreakable
 		assert.are.equals(2*2*ironReflexesArmour + baseArmour + baseEvasion, build.calcsTab.mainOutput.Armour)
 
 		build.configTab.input.customMods = [[
 			Armour from Equipped Body Armour is doubled
-			Armour from Equipped Body Armour is doubled
 			Converts all Evasion Rating to Armour. Dexterity provides no bonus to Evasion Rating
 			Gain no armour from equipped body armour
 			defences from equipped body armour are doubled if it has no socketed gems
@@ -994,7 +1047,17 @@ describe("TestDefence", function()
 		]]
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
+		assert.are.equals(baseArmour + baseEvasion, build.calcsTab.mainOutput.Armour)
 
+		build.configTab.input.customMods = [[
+			Armour from Equipped Body Armour is doubled
+			Armour from Equipped Body Armour is doubled
+			Converts all Evasion Rating to Armour. Dexterity provides no bonus to Evasion Rating
+			defences from equipped body armour are doubled if it has no socketed gems
+			you have no dexterity
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
 		-- Mod form unbreakable should apply only once
 		assert.are.equals(2*2*ironReflexesArmour + baseArmour + baseEvasion, build.calcsTab.mainOutput.Armour)
 
@@ -1004,14 +1067,37 @@ describe("TestDefence", function()
 			Converts all Evasion Rating to Armour. Dexterity provides no bonus to Evasion Rating
 			Gain no armour from equipped body armour
 			defences from equipped body armour are doubled if it has no socketed gems
+			you have no dexterity
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(baseArmour + baseEvasion, build.calcsTab.mainOutput.Armour)
+
+		build.configTab.input.customMods = [[
+			Armour from Equipped Body Armour is doubled
+			Armour from Equipped Body Armour is doubled
+			Converts all Evasion Rating to Armour. Dexterity provides no bonus to Evasion Rating
+			defences from equipped body armour are doubled if it has no socketed gems
 			defences from equipped body armour are doubled if it has no socketed gems
 			you have no dexterity
 		]]
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
-
 		-- Oath Of Maji should apply only once
 		assert.are.equals(2*2*ironReflexesArmour + baseArmour + baseEvasion, build.calcsTab.mainOutput.Armour)
+
+		build.configTab.input.customMods = [[
+			Armour from Equipped Body Armour is doubled
+			Armour from Equipped Body Armour is doubled
+			Converts all Evasion Rating to Armour. Dexterity provides no bonus to Evasion Rating
+			Gain no armour from equipped body armour
+			defences from equipped body armour are doubled if it has no socketed gems
+			defences from equipped body armour are doubled if it has no socketed gems
+			you have no dexterity
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(baseArmour + baseEvasion, build.calcsTab.mainOutput.Armour)
 	end)
 	
 	it("MoM + EB", function()

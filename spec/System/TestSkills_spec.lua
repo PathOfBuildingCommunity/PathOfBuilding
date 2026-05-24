@@ -100,6 +100,38 @@ describe("TestAttacks", function()
 		assert.True(build.calcsTab.mainEnv.enemyDB:Sum("BASE", nil, "FireResist") < 0)
 	end)
 
+	it("Defaults Blade Blast to the skill's blade cap", function()
+		build.skillsTab:PasteSocketGroup("Blade Blast 20/0  1\n")
+		runCallback("OnFrame")
+
+		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
+		local activeSkill = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill]
+		local calcsSkillSelectControls = build.calcsTab.sectionList[1].controls
+		build:RefreshSkillSelectControls(calcsSkillSelectControls, build.calcsTab.input.skill_number, "Calcs")
+
+		assert.are.equals("50", build.controls.mainSkillStageCount.buf)
+		assert.are.equals("50", calcsSkillSelectControls.mainSkillStageCount.buf)
+		assert.are.equals(50, activeSkill.skillData.stagesMax)
+		assert.are.equals(50, activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:BladeBlastStage"))
+		assert.are.equals(49, activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:BladeBlastStageAfterFirst"))
+
+		local cappedAverageDamage = build.calcsTab.mainOutput.AverageDamage
+		local cappedTotalDPS = build.calcsTab.mainOutput.TotalDPS
+		local cappedCombinedDPS = build.calcsTab.mainOutput.CombinedDPS
+		activeSkill.activeEffect.srcInstance.skillStageCount = 51
+		build.modFlag = true
+		build.buildFlag = true
+		runCallback("OnFrame")
+
+		activeSkill = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill]
+		assert.are.equals("51", build.controls.mainSkillStageCount.buf)
+		assert.are.equals(50, activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:BladeBlastStage"))
+		assert.are.equals(49, activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:BladeBlastStageAfterFirst"))
+		assert.are.equals(cappedAverageDamage, build.calcsTab.mainOutput.AverageDamage)
+		assert.are.equals(cappedTotalDPS, build.calcsTab.mainOutput.TotalDPS)
+		assert.are.equals(cappedCombinedDPS, build.calcsTab.mainOutput.CombinedDPS)
+	end)
+
 	it("Test Adrenaline affecting blight max stage count", function()
 		build.skillsTab:PasteSocketGroup("Blight 20/0  1\n")
 		runCallback("OnFrame")
