@@ -54,7 +54,7 @@ end
 -- ─────────────────────────────────────────────────────────────────────────────
 
 local function makeFinder()
-	return new("RadiusJewelFinder", { build = build })
+	return new("RadiusJewelFinder"):RadiusJewelFinder({ build = build })
 end
 
 local function getLargeRadiusIndex()
@@ -74,7 +74,7 @@ local function getSmallRadiusIndex()
 end
 
 local function getRadiusIndexFromRawText(rawText)
-	local item = new("Item", "Rarity: Unique\n" .. rawText)
+	local item = new("Item"):Item("Rarity: Unique\n" .. rawText)
 	return item.jewelRadiusIndex
 end
 
@@ -243,7 +243,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			end
 
 			local function tooltipTexts(control, index)
-				local tooltip = new("Tooltip")
+				local tooltip = new("Tooltip"):Tooltip()
 				control.tooltipFunc(tooltip, "DROP", index, control.list[index])
 				local texts = {}
 				for _, line in ipairs(tooltip.lines) do
@@ -254,7 +254,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 				return texts
 			end
 			local function buttonTooltipTexts(control, ...)
-				local tooltip = new("Tooltip")
+				local tooltip = new("Tooltip"):Tooltip()
 				control.tooltipFunc(tooltip, ...)
 				local texts = {}
 				for _, line in ipairs(tooltip.lines) do
@@ -463,6 +463,29 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			assert.are.equal(1, popup.controls.jewelVariantSelect.selIndex)
 			assert.is_false(popup.controls.findButton:IsShown(),
 				"Find should be hidden while all variants are selected")
+			assert.is_true(popup.controls.variantFamilySelect.shown,
+				"expected Dreams & Nightmares to show the family filter")
+			assert.is_true(popup.controls.variantFamilySelect.x < popup.controls.jewelVariantSelect.x,
+				"expected Family to filter Variant from left to right")
+			assert.are.same({
+				"All",
+				"Red Dream",
+				"Red Nightmare",
+				"Green Dream",
+				"Green Nightmare",
+				"Blue Dream",
+				"Blue Nightmare",
+			}, listLabels(popup.controls.variantFamilySelect.list))
+			local redNightmareFamilyIdx = findIndex(popup.controls.variantFamilySelect.list, "Red Nightmare")
+			assert.is_not_nil(redNightmareFamilyIdx, "expected Red Nightmare in family filter")
+			popup.controls.variantFamilySelect.selFunc(redNightmareFamilyIdx)
+			local redNightmareFamilyLabels = listLabels(popup.controls.jewelVariantSelect.list)
+			assert.are.equal("All variants", redNightmareFamilyLabels[1])
+			for i = 2, #redNightmareFamilyLabels do
+				assert.is_true(redNightmareFamilyLabels[i]:find("Red Nightmare", 1, true) ~= nil,
+					"family filter should only show Red Nightmare variants: " .. redNightmareFamilyLabels[i])
+			end
+			popup.controls.variantFamilySelect.selFunc(1)
 			local redNightmareIdx = findIndex(popup.controls.jewelVariantSelect.list, "The Red Nightmare")
 			assert.is_not_nil(redNightmareIdx, "expected The Red Nightmare in variant list")
 			local redNightmareTooltipTexts = tooltipTexts(popup.controls.jewelVariantSelect, redNightmareIdx)
