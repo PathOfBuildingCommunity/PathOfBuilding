@@ -776,10 +776,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					gameModeStage = "IMPLICIT"
 				end
 				local catalystScalar = getCatalystScalar(self.catalyst, modLine, self.catalystQuality)
-				for value, range in line:gmatch("(%d+)%((%d+%-%d+)%)") do
+				for value, range in line:gmatch("(%-?%d+%.?%d*)%((%-?%d+%.?%d*%-%-?%d+%.?%d*)%)") do
 					-- Find advanced copy paste format: 45(40-50)
 					if pendingAffix then
-						local min, max = range:match("(%d+)%-(%d+)")
+						local min, max = range:match("(%-?%d+%.?%d*)%-(%-?%d+%.?%d*)")
 						local numRange = round((value - min) / (tonumber(max) - min), 3)
 						line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", value)
 						t_insert(pendingAffix.table, {
@@ -788,7 +788,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						})
 						pendingAffix = nil
 					else
-						local min, max = range:match("(%d+)%-(%d+)")
+						local min, max = range:match("(%-?%d+%.?%d*)%-(%-?%d+%.?%d*)")
 						local numRange = round((value - min) / (tonumber(max) - min), 3)
 						modLine.range = tonumber(numRange)
 						line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", "(" .. range .. ")")
