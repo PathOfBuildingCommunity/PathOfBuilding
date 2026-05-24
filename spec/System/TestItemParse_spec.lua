@@ -560,6 +560,17 @@ describe("TestAdvancedItemParse #item", function()
 		assert.are.equals(20, item.baseModList[1].value.mod.value)
 	end)
 
+	it("correctly matches conqueror mod", function()
+		local item = new("Item", raw([[
+			{ Suffix Modifier "of the Conquest" (Tier: 1) — Elemental, Cold }
+			10(8-10)% chance to Avoid Cold Damage from Hits
+			(No chance to avoid damage can be higher than 75%)
+			Warlord Item
+		]]))
+		assert.are.equals(10, item.baseModList[1].value)
+		assert.are.equals(1, item.explicitModLines[1].range)
+	end)
+
 	it("parses junk", function()
 		local godTestItem = new("Item", [[
 			Item Class: Sceptres

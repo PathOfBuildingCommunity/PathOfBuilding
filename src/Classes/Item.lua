@@ -425,15 +425,29 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				fullModName = line:match("^{ (.-) }$")
 			end
 			local modName = fullModName:match("^.*Modifier \"(.*)\"")
-			if modName and modName ~= "" then 
+			if modName and modName ~= "" then
+				self.pendingAffixList = { }
+				local backupAffixList = { }
 				for modId, modData in pairs(self.affixes) do
-					if modData.affix == modName and self:CanHaveMod(modData) then
-						if modData.type == "Prefix" then
-							self.pendingAffix = { modId = modId, table = self.prefixes }
-						elseif modData.type == "Suffix" then
-							self.pendingAffix = { modId = modId, table = self.suffixes }
+					if modData.affix == modName then
+						if self:CanHaveMod(modData) then
+							if modData.type == "Prefix" then
+								t_insert(self.pendingAffixList, { modId = modId, table = self.prefixes })
+							elseif modData.type == "Suffix" then
+								t_insert(self.pendingAffixList, { modId = modId, table = self.suffixes })
+							end
+						else
+							-- Conqueror mods can't natively spawn on items, so we'll use those if we don't find a match otherwise
+							if modData.type == "Prefix" then
+								t_insert(backupAffixList, { modId = modId, table = self.prefixes })
+							elseif modData.type == "Suffix" then
+								t_insert(backupAffixList, { modId = modId, table = self.suffixes })
+							end
 						end
 					end
+				end
+				if #self.pendingAffixList == 0 and #backupAffixList > 0 then
+					self.pendingAffixList = backupAffixList
 				end
 			end
 			local possibleLineFlags = fullModName:match("(.*)Modifier.*")
@@ -796,7 +810,21 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				else
 					catalystScalar = getCatalystScalar(self.catalyst, modLine, self.catalystQuality)
 				end
-				if self.pendingAffix then
+				if self.pendingAffixList and #self.pendingAffixList > 0 then
+					if #self.pendingAffixList > 1 then
+						-- Probably a conqueror mod since the mod name is the same for all of them
+						-- Try to match the line against one of the mods there
+						local valueStrippedLine = line:gsub("%-?%d+%.?%d*%(", "("):gsub("%-?%d+%.?%d*", "#")
+						for _, pendingAffix in ipairs(self.pendingAffixList) do
+							local modData = self.affixes[pendingAffix.modId]
+							for _, modDataLine in ipairs(modData) do
+								if valueStrippedLine == modDataLine:gsub("%-?%d+%.?%d*", "#") then
+									self.pendingAffixList = { pendingAffix }
+									break
+								end
+							end	
+						end
+					end
 					local bestPrecisionDelta = 0
 					local bestPrecisionRange = 0
 					for value, range in line:gmatch("(%-?%d+%.?%d*)%((%-?%d+%.?%d*%-%-?%d+%.?%d*)%)") do
@@ -809,11 +837,11 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 							bestPrecisionDelta = delta
 						end
 					end
-					t_insert(self.pendingAffix.table, {
-						modId = self.pendingAffix.modId,
+					t_insert(self.pendingAffixList[1].table, {
+						modId = self.pendingAffixList[1].modId,
 						range = tonumber(bestPrecisionRange),
 					})
-					self.pendingAffix = nil
+					self.pendingAffixList = {}
 				else
 					local bestPrecisionDelta = 0
 					local bestPrecisionRange = 0
