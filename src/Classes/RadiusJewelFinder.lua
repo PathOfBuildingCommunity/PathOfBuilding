@@ -995,7 +995,7 @@ function RadiusJewelFinderClass:Open()
 	local LARGE_IDX    = radiusIndexByLabel["Large"]
 	local jewelTypes
 	local jewelSockets = self:buildJewelSockets(LARGE_IDX)
-	local ALL_VARIANT_FAMILIES_VALUE = "ALL"
+	local ALL_VARIANT_GROUPS_VALUE = "ALL"
 
 	-- Mutable state
 	local showLegacy             = false
@@ -1006,8 +1006,8 @@ function RadiusJewelFinderClass:Open()
 	local selectedComputeMethod  = DISCONNECTED_PASSIVE_COMPUTE_METHODS[1]
 	local selectedMaxPoints      = 20
 	local selectedOccupiedMode   = OCCUPIED_SOCKET_OPTIONS[1]
-	local variantFamilyOptions   = { { name = "All", value = ALL_VARIANT_FAMILIES_VALUE } }
-	local selectedDreamFamily    = variantFamilyOptions[1]
+	local variantGroupOptions    = { { name = "All", value = ALL_VARIANT_GROUPS_VALUE } }
+	local selectedVariantGroup   = variantGroupOptions[1]
 
 	local TL       = { "TOPLEFT", nil, "TOPLEFT" }
 	local BL       = { "BOTTOMLEFT", nil, "BOTTOMLEFT" }
@@ -1019,11 +1019,16 @@ function RadiusJewelFinderClass:Open()
 	local popupWidth = edgePadding * 3 + leftPanelWidth + rightPanelWidth
 	local popupHeight = 474
 	local rightPanelX = edgePadding * 2 + leftPanelWidth
+	local headerLabelY = 18
+	local headerInputY = 34
+	local statusLabelY = 62
+	local contentTopY = 78
+	local resultListBottomY = 430
 	local variantDefaultX = 278
 	local variantDefaultWidth = 260
-	local variantFamilyX = variantDefaultX
-	local variantFamilyWidth = 150
-	local variantFilteredX = variantFamilyX + variantFamilyWidth + 8
+	local variantGroupX = variantDefaultX
+	local variantGroupWidth = 150
+	local variantFilteredX = variantGroupX + variantGroupWidth + 8
 	local variantFilteredWidth = edgePadding + leftPanelWidth - variantFilteredX
 	local bottomButtonY = -edgePadding
 	local bottomInputY = -(edgePadding + 2)
@@ -1088,7 +1093,8 @@ function RadiusJewelFinderClass:Open()
 		finderState.jewelTypeName = selectedJewelType and selectedJewelType.name or nil
 		finderState.jewelVariantName = selectedJewelVariant and (selectedJewelVariant.dropdownLabel or selectedJewelVariant.name) or nil
 		finderState.threadVariantName = selectedThreadVariant and selectedThreadVariant.name or nil
-		finderState.dreamFamilyValue = selectedDreamFamily and selectedDreamFamily.value or nil
+		finderState.variantGroupValue = selectedVariantGroup and selectedVariantGroup.value or nil
+		finderState.dreamFamilyValue = nil
 		finderState.impactStatLabel = selectedImpactStat and selectedImpactStat.label or nil
 		finderState.computeMethodId = selectedComputeMethod and selectedComputeMethod.id or nil
 		finderState.maxPoints = selectedMaxPoints
@@ -1104,7 +1110,7 @@ function RadiusJewelFinderClass:Open()
 			selectedJewelType and selectedJewelType.name or "",
 			selectedJewelVariant and (selectedJewelVariant.dropdownLabel or selectedJewelVariant.name) or "",
 			selectedThreadVariant and selectedThreadVariant.name or "",
-			selectedDreamFamily and selectedDreamFamily.value or "",
+			selectedVariantGroup and selectedVariantGroup.value or "",
 			selectedImpactStat and selectedImpactStat.field or "",
 			computeMethodKey,
 			selectedMaxPoints and tostring(selectedMaxPoints) or "",
@@ -1198,53 +1204,58 @@ function RadiusJewelFinderClass:Open()
 		return methods and #methods > 0
 	end
 
-	local function makeVariantFamilyLabel(family)
-		return family:gsub("^The%s+", "")
+	local function makeVariantGroupLabel(group)
+		return group:gsub("^The%s+", "")
 	end
 
-	local function buildVariantFamilyOptions(variants)
-		local options = { { name = "All", value = ALL_VARIANT_FAMILIES_VALUE } }
-		local seen = { }
+	local function buildVariantGroupOptions(variants)
+		local options = { { name = "All", value = ALL_VARIANT_GROUPS_VALUE } }
+		local counts = { }
 		for _, variant in ipairs(variants or { }) do
-			local family = variant.family
-			if family and not seen[family] then
-				seen[family] = true
-				t_insert(options, { name = makeVariantFamilyLabel(family), value = family })
+			if variant.variantGroup then
+				counts[variant.variantGroup] = (counts[variant.variantGroup] or 0) + 1
+			end
+		end
+		for _, variant in ipairs(variants or { }) do
+			local group = variant.variantGroup
+			if group and counts[group] and counts[group] > 1 then
+				counts[group] = nil
+				t_insert(options, { name = makeVariantGroupLabel(group), value = group })
 			end
 		end
 		return options
 	end
 
-	local function syncVariantFamilySelect()
-		variantFamilyOptions = buildVariantFamilyOptions(selectedJewelType and selectedJewelType.variants)
+	local function syncVariantGroupSelect()
+		variantGroupOptions = buildVariantGroupOptions(selectedJewelType and selectedJewelType.variants)
 		local labels = { }
 		local selectedIndex = 1
-		for i, option in ipairs(variantFamilyOptions) do
+		for i, option in ipairs(variantGroupOptions) do
 			t_insert(labels, option.name)
-			if selectedDreamFamily and option.value == selectedDreamFamily.value then
+			if selectedVariantGroup and option.value == selectedVariantGroup.value then
 				selectedIndex = i
 			end
 		end
-		selectedDreamFamily = variantFamilyOptions[selectedIndex]
-		if controls.variantFamilySelect then
-			controls.variantFamilySelect:SetList(labels)
-			controls.variantFamilySelect.selIndex = selectedIndex
+		selectedVariantGroup = variantGroupOptions[selectedIndex]
+		if controls.variantGroupSelect then
+			controls.variantGroupSelect:SetList(labels)
+			controls.variantGroupSelect.selIndex = selectedIndex
 		end
-		return #variantFamilyOptions > 1
+		return #variantGroupOptions > 1
 	end
 
-	local function hasVariantFamilies()
-		return #variantFamilyOptions > 1
+	local function hasVariantGroups()
+		return #variantGroupOptions > 1
 	end
 
 	local function getDisplayedVariants()
 		if not selectedJewelType or not selectedJewelType.variants then
 			return nil
 		end
-		if hasVariantFamilies() and selectedDreamFamily and selectedDreamFamily.value ~= ALL_VARIANT_FAMILIES_VALUE then
+		if hasVariantGroups() and selectedVariantGroup and selectedVariantGroup.value ~= ALL_VARIANT_GROUPS_VALUE then
 			local variants = { }
 			for _, variant in ipairs(selectedJewelType.variants) do
-				if variant.family == selectedDreamFamily.value then
+				if variant.variantGroup == selectedVariantGroup.value then
 					t_insert(variants, variant)
 				end
 			end
@@ -1340,7 +1351,7 @@ end
 		return (controls.jewelTypeSelect and controls.jewelTypeSelect.dropped)
 			or (controls.jewelVariantSelect and controls.jewelVariantSelect.dropped)
 			or (controls.threadVariantSelect and controls.threadVariantSelect.dropped)
-			or (controls.variantFamilySelect and controls.variantFamilySelect.dropped)
+			or (controls.variantGroupSelect and controls.variantGroupSelect.dropped)
 			or (controls.allJewelsViewSelect and controls.allJewelsViewSelect.dropped)
 			or (controls.impactStatSelect and controls.impactStatSelect.dropped)
 			or (controls.occupiedModeSelect and controls.occupiedModeSelect.dropped)
@@ -1395,10 +1406,10 @@ end
 	-- ── Preview list (right panel) ────────────────────────────────────────────
 	local previewListData = { }
 	local resultDetailListData = { }
-	local previewListY = 70
+	local previewListY = contentTopY
 	local previewListHeight = 180
 	local compactPreviewListHeight = 48
-	local resultDetailBottomY = 430
+	local resultDetailBottomY = resultListBottomY
 	local resultDetailGap = 6
 	local resultDetailLabelGap = 18
 	local function getSelectedAllJewelPreviewLines()
@@ -1528,7 +1539,7 @@ end
 	end
 
 		-- ── Results list (left panel) ─────────────────────────────────────────────
-		controls.resultsList = new("RadiusJewelResultsListControl"):RadiusJewelResultsListControl(TL, { edgePadding, 70, leftPanelWidth, 360 }, self.build, socketViewer)
+		controls.resultsList = new("RadiusJewelResultsListControl"):RadiusJewelResultsListControl(TL, { edgePadding, contentTopY, leftPanelWidth, resultListBottomY - contentTopY }, self.build, socketViewer)
 		controls.resultsList.suppressTooltipFunc = isAnyFinderDropdownDropped
 		controls.resultsList.OnSelect = function(_, _, row)
 			updateResultDetails(row)
@@ -1595,10 +1606,10 @@ end
 	rebuildJewelTypeDropdown()  -- initial build (controls.jewelTypeSelect not yet created)
 
 	-- ── Header controls ───────────────────────────────────────────────────────
-	controls.jewelTypeLabel = new("LabelControl"):LabelControl(TL, { edgePadding, 10, 0, 16 }, "^7Type:")
+	controls.jewelTypeLabel = new("LabelControl"):LabelControl(TL, { edgePadding, headerLabelY, 0, 16 }, "^7Type:")
 
-	controls.computeMethodLabel = new("LabelControl"):LabelControl(TL, { rightPanelX, 10, 0, 16 }, "^7Method:")
-	controls.computeMethodSelect = new("DropDownControl"):DropDownControl(TL, { rightPanelX, 26, 160, buttonHeight }, { }, function(idx)
+	controls.computeMethodLabel = new("LabelControl"):LabelControl(TL, { rightPanelX, headerLabelY, 0, 16 }, "^7Method:")
+	controls.computeMethodSelect = new("DropDownControl"):DropDownControl(TL, { rightPanelX, headerInputY, 160, buttonHeight }, { }, function(idx)
 		cancelCompute()
 		local methods = getSelectedComputeMethods()
 		if methods then
@@ -1627,8 +1638,8 @@ end
 	controls.computeMethodSelect.shown = false
 
 	-- Impact stat selector (shown when jewel has compute)
-	controls.impactStatLabel = new("LabelControl"):LabelControl(TL, { rightPanelX + 180, 10, 0, 16 }, "^7Stat:")
-	controls.impactStatSelect = new("DropDownControl"):DropDownControl(TL, { rightPanelX + 180, 26, 140, buttonHeight }, impactStatLabels, function(idx)
+	controls.impactStatLabel = new("LabelControl"):LabelControl(TL, { rightPanelX + 180, headerLabelY, 0, 16 }, "^7Stat:")
+	controls.impactStatSelect = new("DropDownControl"):DropDownControl(TL, { rightPanelX + 180, headerInputY, 140, buttonHeight }, impactStatLabels, function(idx)
 		cancelCompute()
 		selectedImpactStat = IMPACT_STATS[idx]
 		saveFinderState()
@@ -1678,8 +1689,8 @@ end
 	controls.occupiedModeSelect.shown = true
 
 	-- All-jewels view mode selector
-	controls.allJewelsViewLabel = new("LabelControl"):LabelControl(TL, { 278, 10, 0, 16 }, "^7View:")
-	controls.allJewelsViewSelect = new("DropDownControl"):DropDownControl(TL, { 278, 26, 160, 20 }, allJewelsViewLabels, function(idx)
+	controls.allJewelsViewLabel = new("LabelControl"):LabelControl(TL, { variantDefaultX, headerLabelY, 0, 16 }, "^7View:")
+	controls.allJewelsViewSelect = new("DropDownControl"):DropDownControl(TL, { variantDefaultX, headerInputY, 160, 20 }, allJewelsViewLabels, function(idx)
 		selectedAllJewelsView = ALL_JEWELS_VIEW_OPTIONS[idx]
 		if lastComputeAllRows then
 			local displayRows = selectedAllJewelsView.id == "bestPerSocket"
@@ -1704,8 +1715,8 @@ end
 	controls.allJewelsViewSelect.shown = false
 
 		-- Thread ring selector (shown when Thread of Hope selected)
-		controls.threadVariantLabel = new("LabelControl"):LabelControl(TL, { variantDefaultX, 10, 0, 16 }, "^7Preview ring:")
-		controls.threadVariantSelect = new("DropDownControl"):DropDownControl(TL, { variantDefaultX, 26, 200, 20 }, tvLabels, function(idx)
+		controls.threadVariantLabel = new("LabelControl"):LabelControl(TL, { variantDefaultX, headerLabelY, 0, 16 }, "^7Preview ring:")
+		controls.threadVariantSelect = new("DropDownControl"):DropDownControl(TL, { variantDefaultX, headerInputY, 200, 20 }, tvLabels, function(idx)
 		cancelCompute()
 		selectedThreadVariant = threadVariants[idx]
 		saveFinderState()
@@ -1715,10 +1726,10 @@ end
 		controls.threadVariantLabel.shown = false
 		controls.threadVariantSelect.shown = false
 
-		controls.variantFamilyLabel = new("LabelControl"):LabelControl(TL, { variantFamilyX, 10, 0, 16 }, "^7Family:")
-		controls.variantFamilySelect = new("DropDownControl"):DropDownControl(TL, { variantFamilyX, 26, variantFamilyWidth, 20 }, { "All" }, function(idx)
+		controls.variantGroupLabel = new("LabelControl"):LabelControl(TL, { variantGroupX, headerLabelY, 0, 16 }, "^7Jewel:")
+		controls.variantGroupSelect = new("DropDownControl"):DropDownControl(TL, { variantGroupX, headerInputY, variantGroupWidth, 20 }, { "All" }, function(idx)
 			cancelCompute()
-			selectedDreamFamily = variantFamilyOptions[idx] or variantFamilyOptions[1]
+			selectedVariantGroup = variantGroupOptions[idx] or variantGroupOptions[1]
 			controls.jewelVariantSelect.selIndex = 1
 			selectedJewelVariant = nil
 			syncDisplayedVariants()
@@ -1726,12 +1737,12 @@ end
 			updatePreview()
 			runFind(false)
 		end)
-		controls.variantFamilyLabel.shown = false
-		controls.variantFamilySelect.shown = false
+		controls.variantGroupLabel.shown = false
+		controls.variantGroupSelect.shown = false
 
 		-- Jewel variant selector (shown when jewel type has built-in variants)
-		controls.jewelVariantLabel = new("LabelControl"):LabelControl(TL, { variantDefaultX, 10, 0, 16 }, "^7Variant:")
-		controls.jewelVariantSelect = new("DropDownControl"):DropDownControl(TL, { variantDefaultX, 26, variantDefaultWidth, 20 }, {}, function(idx)
+		controls.jewelVariantLabel = new("LabelControl"):LabelControl(TL, { variantDefaultX, headerLabelY, 0, 16 }, "^7Variant:")
+		controls.jewelVariantSelect = new("DropDownControl"):DropDownControl(TL, { variantDefaultX, headerInputY, variantDefaultWidth, 20 }, {}, function(idx)
 			cancelCompute()
 			local variants = getDisplayedVariants()
 			if variants then
@@ -1749,8 +1760,8 @@ end
 		controls.jewelVariantLabel.shown = false
 		controls.jewelVariantSelect.shown = false
 
-		local function syncVariantControlLayout(hasVariantFamilyFilter)
-			if hasVariantFamilyFilter then
+		local function syncVariantControlLayout(hasVariantGroupFilter)
+			if hasVariantGroupFilter then
 				controls.jewelVariantLabel.x = variantFilteredX
 				controls.jewelVariantSelect.x = variantFilteredX
 				controls.jewelVariantSelect.width = variantFilteredWidth
@@ -1790,8 +1801,8 @@ end
 				controls.allJewelsViewSelect.shown = true
 				controls.threadVariantLabel.shown  = false
 				controls.threadVariantSelect.shown = false
-				controls.variantFamilyLabel.shown  = false
-				controls.variantFamilySelect.shown = false
+				controls.variantGroupLabel.shown   = false
+				controls.variantGroupSelect.shown  = false
 				controls.jewelVariantLabel.shown   = false
 				controls.jewelVariantSelect.shown  = false
 				controls.computeMethodLabel.shown  = true
@@ -1812,14 +1823,14 @@ end
 			controls.allJewelsViewSelect.shown = false
 			local isThread = selectedJewelType.isThread == true
 			local hasVariants = selectedJewelType.variants ~= nil
-			local hasVariantFamilyFilter = syncVariantFamilySelect()
+			local hasVariantGroupFilter = syncVariantGroupSelect()
 			local hasComputeMethods = selectedJewelSupportsComputeMethods()
-			syncVariantControlLayout(hasVariantFamilyFilter)
+			syncVariantControlLayout(hasVariantGroupFilter)
 
 			controls.threadVariantLabel.shown  = isThread
 			controls.threadVariantSelect.shown = isThread
-			controls.variantFamilyLabel.shown  = hasVariantFamilyFilter
-			controls.variantFamilySelect.shown = hasVariantFamilyFilter
+			controls.variantGroupLabel.shown   = hasVariantGroupFilter
+			controls.variantGroupSelect.shown  = hasVariantGroupFilter
 			controls.jewelVariantLabel.shown   = hasVariants
 			controls.jewelVariantSelect.shown  = hasVariants
 			controls.computeMethodLabel.shown  = hasComputeMethods
@@ -1834,9 +1845,9 @@ end
 			end
 
 			if hasVariants then
-				if not hasVariantFamilyFilter then
-					selectedDreamFamily = variantFamilyOptions[1]
-					controls.variantFamilySelect.selIndex = 1
+				if not hasVariantGroupFilter then
+					selectedVariantGroup = variantGroupOptions[1]
+					controls.variantGroupSelect.selIndex = 1
 				end
 				syncDisplayedVariants()
 			else
@@ -1851,7 +1862,7 @@ end
 	end
 
 	-- Jewel type dropdown (defined after variant controls so :Click() is safe)
-	controls.jewelTypeSelect = new("DropDownControl"):DropDownControl(TL, { 10, 26, 260, 20 }, jtLabels, function(idx)
+	controls.jewelTypeSelect = new("DropDownControl"):DropDownControl(TL, { 10, headerInputY, 260, 20 }, jtLabels, function(idx)
 		cancelCompute()
 		selectedJewelType = activeJewelTypes[idx]
 		controls.jewelVariantSelect.selIndex = 1
@@ -2062,7 +2073,7 @@ end
 		return rows
 	end
 
-	controls.computeButton = new("ButtonControl"):ButtonControl(TL, { popupWidth - edgePadding * 2 - 72, 26, 72, buttonHeight }, "Compute", function()
+	controls.computeButton = new("ButtonControl"):ButtonControl(TL, { popupWidth - edgePadding * 2 - 72, headerInputY, 72, buttonHeight }, "Compute", function()
 		if computeContext then
 			cancelCompute("^8Compute stopped")
 			restoreCachedResults()
@@ -2193,8 +2204,8 @@ end
 						socketResults, baseline =
 							self:computeSplitPersonalitySocketImpact(jewelSockets, selectedImpactStat, displayedVariants or getSplitPersonalityVariants(), progress, selectedMaxPoints, selectedOccupiedMode)
 					elseif displayedVariants and #displayedVariants > 0 then
-						if hasVariantFamilies() and selectedDreamFamily and selectedDreamFamily.value ~= ALL_VARIANT_FAMILIES_VALUE then
-							itemLabel = selectedDreamFamily.name
+						if hasVariantGroups() and selectedVariantGroup and selectedVariantGroup.value ~= ALL_VARIANT_GROUPS_VALUE then
+							itemLabel = selectedVariantGroup.name
 						end
 						socketResults, baseline =
 							self:computeBestVariantSocketImpact(jewelSockets, displayedVariants, selectedImpactStat, progress, selectedMaxPoints, selectedOccupiedMode)
@@ -2252,12 +2263,12 @@ end
 	controls.computeButton.shown = true
 
 	-- Status label
-	controls.statusLabel = new("LabelControl"):LabelControl(TL, { 10, 54, 400, 16 }, COL_META .. "Click Find to search")
+	controls.statusLabel = new("LabelControl"):LabelControl(TL, { 10, statusLabelY, 400, 16 }, COL_META .. "Click Find to search")
 	local function showAllJewelsComputePrompt()
 		controls.statusLabel.label = COL_META .. "Click Compute to rank all jewels"
 		controls.resultsList:SetMode("message", { }, COL_META .. "Click Compute to rank all jewels")
 	end
-	controls.showLegacyCheck = new("CheckBoxControl"):CheckBoxControl(TL, { 700, 54, 18 }, "Show legacy", function(state)
+	controls.showLegacyCheck = new("CheckBoxControl"):CheckBoxControl(TL, { 700, statusLabelY, 18 }, "Show legacy", function(state)
 		cancelCompute()
 		showLegacy = state
 		saveFinderState()
@@ -2606,8 +2617,8 @@ end
 			selectedJewelType = activeJewelTypes[jewelTypeIndex]
 		end
 
-		if finderState.dreamFamilyValue then
-			selectedDreamFamily = { value = finderState.dreamFamilyValue }
+		if finderState.variantGroupValue or finderState.dreamFamilyValue then
+			selectedVariantGroup = { value = finderState.variantGroupValue or finderState.dreamFamilyValue }
 		end
 
 		syncSelectedJewelTypeControls()

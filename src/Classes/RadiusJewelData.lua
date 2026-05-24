@@ -121,7 +121,7 @@ local function getRadiusIndexFromRawText(rawText)
 	if not rawText then
 		return nil
 	end
-	local item = new("Item", "Rarity: Unique\n" .. rawText)
+	local item = new("Item"):Item("Rarity: Unique\n" .. rawText)
 	return item.jewelRadiusIndex
 end
 
@@ -593,7 +593,7 @@ local function previewThreadOfHope(ringName)
 	local rawText = mustGetUniqueRawText("Thread of Hope")
 	local displayName
 	if ringName then
-		local item = new("Item", "Rarity: Unique\n" .. rawText)
+		local item = new("Item"):Item("Rarity: Unique\n" .. rawText)
 		local variantName
 		for _, candidate in ipairs(item.variantList or { }) do
 			if candidate == ringName or candidate:gsub(" Ring$", "") == ringName then
@@ -777,7 +777,7 @@ function M.buildJewelTypes()
 		appendFoulbornVariants(intuitiveLeap, foulbornVariants)
 	end
 
-	local dreamsNightmaresFamilies = {
+	local dreamsNightmaresJewels = {
 		{ name = "The Red Dream" },
 		{ name = "The Red Nightmare" },
 		{ name = "The Green Dream" },
@@ -786,18 +786,18 @@ function M.buildJewelTypes()
 		{ name = "The Blue Nightmare" },
 	}
 	local dreamsVariants = { }
-	for _, familyInfo in ipairs(dreamsNightmaresFamilies) do
-		local rawText = mustGetCurrentUniqueRawText(familyInfo.name)
+	for _, jewelInfo in ipairs(dreamsNightmaresJewels) do
+		local rawText = mustGetCurrentUniqueRawText(jewelInfo.name)
 		t_insert(dreamsVariants, {
-			name = familyInfo.name,
-			family = familyInfo.name,
+			name = jewelInfo.name,
+			variantGroup = jewelInfo.name,
 			rawText = rawText,
 			radiusIndex = getRadiusIndexFromRawText(rawText),
 		})
-		local foulbornVariants = discoverFoulbornVariants(familyInfo.name)
+		local foulbornVariants = discoverFoulbornVariants(jewelInfo.name)
 		for _, variant in ipairs(foulbornVariants) do
-			variant.family = familyInfo.name
-			variant.name = familyInfo.name .. " (" .. variant.name .. ")"
+			variant.variantGroup = jewelInfo.name
+			variant.name = jewelInfo.name .. " (" .. variant.name .. ")"
 			t_insert(dreamsVariants, variant)
 		end
 	end
