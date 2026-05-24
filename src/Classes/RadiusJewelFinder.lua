@@ -995,6 +995,7 @@ function RadiusJewelFinderClass:Open()
 	local LARGE_IDX    = radiusIndexByLabel["Large"]
 	local jewelTypes
 	local jewelSockets = self:buildJewelSockets(LARGE_IDX)
+	local ALL_VARIANT_FAMILIES_VALUE = "ALL"
 
 	-- Mutable state
 	local showLegacy             = false
@@ -1005,16 +1006,8 @@ function RadiusJewelFinderClass:Open()
 	local selectedComputeMethod  = DISCONNECTED_PASSIVE_COMPUTE_METHODS[1]
 	local selectedMaxPoints      = 20
 	local selectedOccupiedMode   = OCCUPIED_SOCKET_OPTIONS[1]
-	local dreamFamilyOptions     = {
-		{ name = "All", value = "ALL" },
-		{ name = "Red Dream", value = "The Red Dream" },
-		{ name = "Red Nightmare", value = "The Red Nightmare" },
-		{ name = "Green Dream", value = "The Green Dream" },
-		{ name = "Green Nightmare", value = "The Green Nightmare" },
-		{ name = "Blue Dream", value = "The Blue Dream" },
-		{ name = "Blue Nightmare", value = "The Blue Nightmare" },
-	}
-	local selectedDreamFamily    = dreamFamilyOptions[1]
+	local variantFamilyOptions   = { { name = "All", value = ALL_VARIANT_FAMILIES_VALUE } }
+	local selectedDreamFamily    = variantFamilyOptions[1]
 
 	local TL       = { "TOPLEFT", nil, "TOPLEFT" }
 	local BL       = { "BOTTOMLEFT", nil, "BOTTOMLEFT" }
@@ -1026,6 +1019,12 @@ function RadiusJewelFinderClass:Open()
 	local popupWidth = edgePadding * 3 + leftPanelWidth + rightPanelWidth
 	local popupHeight = 474
 	local rightPanelX = edgePadding * 2 + leftPanelWidth
+	local variantDefaultX = 278
+	local variantDefaultWidth = 260
+	local variantFamilyX = variantDefaultX
+	local variantFamilyWidth = 150
+	local variantFilteredX = variantFamilyX + variantFamilyWidth + 8
+	local variantFilteredWidth = edgePadding + leftPanelWidth - variantFilteredX
 	local bottomButtonY = -edgePadding
 	local bottomInputY = -(edgePadding + 2)
 	local bottomLabelY = -(edgePadding + 4)
@@ -1198,19 +1197,51 @@ function RadiusJewelFinderClass:Open()
 		local methods = getSelectedComputeMethods()
 		return methods and #methods > 0
 	end
-	local function hasVariantFamilies()
-		if not selectedJewelType or not selectedJewelType.variants then return false end
-		for _, v in ipairs(selectedJewelType.variants) do
-			if v.family then return true end
+
+	local function makeVariantFamilyLabel(family)
+		return family:gsub("^The%s+", "")
+	end
+
+	local function buildVariantFamilyOptions(variants)
+		local options = { { name = "All", value = ALL_VARIANT_FAMILIES_VALUE } }
+		local seen = { }
+		for _, variant in ipairs(variants or { }) do
+			local family = variant.family
+			if family and not seen[family] then
+				seen[family] = true
+				t_insert(options, { name = makeVariantFamilyLabel(family), value = family })
+			end
 		end
-		return false
+		return options
+	end
+
+	local function syncVariantFamilySelect()
+		variantFamilyOptions = buildVariantFamilyOptions(selectedJewelType and selectedJewelType.variants)
+		local labels = { }
+		local selectedIndex = 1
+		for i, option in ipairs(variantFamilyOptions) do
+			t_insert(labels, option.name)
+			if selectedDreamFamily and option.value == selectedDreamFamily.value then
+				selectedIndex = i
+			end
+		end
+		selectedDreamFamily = variantFamilyOptions[selectedIndex]
+		if controls.variantFamilySelect then
+			controls.variantFamilySelect:SetList(labels)
+			controls.variantFamilySelect.selIndex = selectedIndex
+		end
+		return #variantFamilyOptions > 1
+	end
+
+	local function hasVariantFamilies()
+		return #variantFamilyOptions > 1
 	end
 
 	local function getDisplayedVariants()
 		if not selectedJewelType or not selectedJewelType.variants then
 			return nil
 		end
-		if hasVariantFamilies() and selectedDreamFamily and selectedDreamFamily.value ~= "ALL" then
+		if hasVariantFamilies() and selectedDreamFamily and selectedDreamFamily.value ~= ALL_VARIANT_FAMILIES_VALUE then
 			local variants = { }
 			for _, variant in ipairs(selectedJewelType.variants) do
 				if variant.family == selectedDreamFamily.value then
@@ -1673,8 +1704,8 @@ end
 	controls.allJewelsViewSelect.shown = false
 
 		-- Thread ring selector (shown when Thread of Hope selected)
-		controls.threadVariantLabel = new("LabelControl"):LabelControl(TL, { 278, 10, 0, 16 }, "^7Preview ring:")
-		controls.threadVariantSelect = new("DropDownControl"):DropDownControl(TL, { 278, 26, 200, 20 }, tvLabels, function(idx)
+		controls.threadVariantLabel = new("LabelControl"):LabelControl(TL, { variantDefaultX, 10, 0, 16 }, "^7Preview ring:")
+		controls.threadVariantSelect = new("DropDownControl"):DropDownControl(TL, { variantDefaultX, 26, 200, 20 }, tvLabels, function(idx)
 		cancelCompute()
 		selectedThreadVariant = threadVariants[idx]
 		saveFinderState()
@@ -1684,18 +1715,10 @@ end
 		controls.threadVariantLabel.shown = false
 		controls.threadVariantSelect.shown = false
 
-		controls.variantFamilyLabel = new("LabelControl"):LabelControl(TL, { 550, 10, 0, 16 }, "^7Family:")
-		controls.variantFamilySelect = new("DropDownControl"):DropDownControl(TL, { 550, 26, 220, 20 }, {
-			"All",
-			"Red Dream",
-			"Red Nightmare",
-			"Green Dream",
-			"Green Nightmare",
-			"Blue Dream",
-			"Blue Nightmare",
-		}, function(idx)
+		controls.variantFamilyLabel = new("LabelControl"):LabelControl(TL, { variantFamilyX, 10, 0, 16 }, "^7Family:")
+		controls.variantFamilySelect = new("DropDownControl"):DropDownControl(TL, { variantFamilyX, 26, variantFamilyWidth, 20 }, { "All" }, function(idx)
 			cancelCompute()
-			selectedDreamFamily = dreamFamilyOptions[idx]
+			selectedDreamFamily = variantFamilyOptions[idx] or variantFamilyOptions[1]
 			controls.jewelVariantSelect.selIndex = 1
 			selectedJewelVariant = nil
 			syncDisplayedVariants()
@@ -1707,8 +1730,8 @@ end
 		controls.variantFamilySelect.shown = false
 
 		-- Jewel variant selector (shown when jewel type has built-in variants)
-		controls.jewelVariantLabel = new("LabelControl"):LabelControl(TL, { 278, 10, 0, 16 }, "^7Variant:")
-		controls.jewelVariantSelect = new("DropDownControl"):DropDownControl(TL, { 278, 26, 260, 20 }, {}, function(idx)
+		controls.jewelVariantLabel = new("LabelControl"):LabelControl(TL, { variantDefaultX, 10, 0, 16 }, "^7Variant:")
+		controls.jewelVariantSelect = new("DropDownControl"):DropDownControl(TL, { variantDefaultX, 26, variantDefaultWidth, 20 }, {}, function(idx)
 			cancelCompute()
 			local variants = getDisplayedVariants()
 			if variants then
@@ -1725,6 +1748,18 @@ end
 		controls.jewelVariantSelect.maxDroppedWidth = 520
 		controls.jewelVariantLabel.shown = false
 		controls.jewelVariantSelect.shown = false
+
+		local function syncVariantControlLayout(hasVariantFamilyFilter)
+			if hasVariantFamilyFilter then
+				controls.jewelVariantLabel.x = variantFilteredX
+				controls.jewelVariantSelect.x = variantFilteredX
+				controls.jewelVariantSelect.width = variantFilteredWidth
+			else
+				controls.jewelVariantLabel.x = variantDefaultX
+				controls.jewelVariantSelect.x = variantDefaultX
+				controls.jewelVariantSelect.width = variantDefaultWidth
+			end
+		end
 
 		local function syncComputeMethodSelect(methods)
 			methods = methods or getSelectedComputeMethods()
@@ -1777,8 +1812,9 @@ end
 			controls.allJewelsViewSelect.shown = false
 			local isThread = selectedJewelType.isThread == true
 			local hasVariants = selectedJewelType.variants ~= nil
-			local hasVariantFamilyFilter = hasVariantFamilies()
+			local hasVariantFamilyFilter = syncVariantFamilySelect()
 			local hasComputeMethods = selectedJewelSupportsComputeMethods()
+			syncVariantControlLayout(hasVariantFamilyFilter)
 
 			controls.threadVariantLabel.shown  = isThread
 			controls.threadVariantSelect.shown = isThread
@@ -1799,7 +1835,7 @@ end
 
 			if hasVariants then
 				if not hasVariantFamilyFilter then
-					selectedDreamFamily = dreamFamilyOptions[1]
+					selectedDreamFamily = variantFamilyOptions[1]
 					controls.variantFamilySelect.selIndex = 1
 				end
 				syncDisplayedVariants()
@@ -2157,7 +2193,7 @@ end
 						socketResults, baseline =
 							self:computeSplitPersonalitySocketImpact(jewelSockets, selectedImpactStat, displayedVariants or getSplitPersonalityVariants(), progress, selectedMaxPoints, selectedOccupiedMode)
 					elseif displayedVariants and #displayedVariants > 0 then
-						if hasVariantFamilies() and selectedDreamFamily and selectedDreamFamily.value ~= "ALL" then
+						if hasVariantFamilies() and selectedDreamFamily and selectedDreamFamily.value ~= ALL_VARIANT_FAMILIES_VALUE then
 							itemLabel = selectedDreamFamily.name
 						end
 						socketResults, baseline =
@@ -2571,13 +2607,7 @@ end
 		end
 
 		if finderState.dreamFamilyValue then
-			for i, option in ipairs(dreamFamilyOptions) do
-				if option.value == finderState.dreamFamilyValue then
-					selectedDreamFamily = option
-					controls.variantFamilySelect.selIndex = i
-					break
-				end
-			end
+			selectedDreamFamily = { value = finderState.dreamFamilyValue }
 		end
 
 		syncSelectedJewelTypeControls()
