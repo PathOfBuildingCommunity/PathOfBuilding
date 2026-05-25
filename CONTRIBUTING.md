@@ -258,7 +258,7 @@ If you prefer to not use EmmyLua, the following configuration works well for Sum
 }
 ```
 
-The extension will automatically skip large files from being preloaded (controlled by `Lua.workspace.preloadFileSize`), so they don't have to be excluded. The configuration file can be found by pressing Ctrl-Shift-P and selecting `Preferences: Open Workspace Settings (JSON)`.
+The extension will automatically skip large files from being preloaded (controlled by `Lua.workspace.preloadFileSize`), so they don't have to be excluded. The configuration file can be found by pressing Ctrl-Shift-P and selecting `Preferences: Open Workspace Settings (JSON)`. If you wish to check test files, you can remove the "ignoredFiles" option and install the busted, luafilesystem, and luassert LuaLS addons through `Lua: Open Addon Manager`.
 
 ### PyCharm Community / IntelliJ Idea Community
 
