@@ -23,7 +23,7 @@ local catalystTags = {
 	{ "physical_damage", "chaos_damage" },
 	{ "jewellery_resistance", "resistance" },
 	{ "prefix" },
-	{ "jewellery_defense", "defences" },
+	{ "jewellery_defense", "defences", "armour", "evasion", "energyshield" },
 	{ "jewellery_elemental" ,"elemental_damage" },
 	{ "critical" },
 }
@@ -341,6 +341,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		end
 	end
 	if self.rawLines[l] then
+		if self.rawLines[l] == "--------" then
+			l = l + 1
+		end
 		self.name = self.rawLines[l]
 		-- Determine if "Unidentified" item
 		local unidentified = false
@@ -381,6 +384,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	local gameModeStage = "FINDIMPLICIT"
 	local foundExplicit, foundImplicit
 	local linePrefix = ""
+	local linePostfix = ""
 
 	while self.rawLines[l] do	
 		local line = self.rawLines[l]
@@ -393,6 +397,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			tinctureBuffLines[line] = nil
 		elseif line == "--------" then
 			linePrefix = ""
+			linePostfix = ""
 			self.checkSection = true
 		elseif line == "Split" then
 			self.split = true
@@ -416,6 +421,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		elseif line:match("^{ ") then
 			-- We're parsing advanced copy/paste format
 			linePrefix = ""
+			linePostfix = ""
 			self.crafted = true
 			local fullModName, modTags, increasedAmt = line:match("^{ (.-) %- (.-)  %- (%d*).*}$")
 			if not fullModName then
@@ -425,7 +431,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				fullModName = line:match("^{ (.-) }$")
 			end
 			local modName = fullModName:match("^.*Modifier \"(.*)\"")
-			if modName and modName ~= "" then
+			if modName and modName ~= "" and self.affixes then
 				self.pendingAffixList = { }
 				local backupAffixList = { }
 				for modId, modData in pairs(self.affixes) do
@@ -449,6 +455,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				if #self.pendingAffixList == 0 and #backupAffixList > 0 then
 					self.pendingAffixList = backupAffixList
 				end
+			elseif fullModName:match("(.*)Enhancement.*") then
+				linePostfix = " (enchant)"
 			end
 			local possibleLineFlags = fullModName:match("(.*)Modifier.*")
 			if possibleLineFlags then
@@ -462,7 +470,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				linePrefix = linePrefix .. "{tags:" .. modTags:lower():gsub("%s+", "") .. "}"
 			end
 		else
-			line = linePrefix .. line
+			line = linePrefix .. line .. linePostfix
 			if self.checkSection then
 				if gameModeStage == "IMPLICIT" then
 					if foundImplicit then

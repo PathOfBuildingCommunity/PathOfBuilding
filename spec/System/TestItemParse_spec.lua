@@ -525,6 +525,16 @@ describe("TestAdvancedItemParse #item", function()
 		assert.are_not.equals("mana", item.explicitModLines[3].modTags[1])
 	end)
 
+	it("resets linePostfix", function() 
+		local item = new("Item", raw([[
+			{ Corruption Enhancement — Mana }
+			24(20-30)% increased Mana Regeneration Rate
+			--------
+			+15 to maximum life
+		]]))
+		assert.falsy(item.explicitModLines[1].enchant)
+	end)
+
 	it("parses vaaled catalyst", function() 
 		local item = new("Item", raw([[
 			Quality (Attribute Modifiers): +19% (augmented)
@@ -569,6 +579,23 @@ describe("TestAdvancedItemParse #item", function()
 		]]))
 		assert.are.equals(10, item.baseModList[1].value)
 		-- assert.are.equals(1, item.explicitModLines[1].range) -- Not sure why this is returning 0.5
+	end)
+
+	it("parses enchant correctly #enchant", function()
+		local item = new("Item", raw([[
+			{ Corrupted Enhancement }
+			+8(6-10)% to Fire Resistance
+		]]))
+		assert.are.equals(8, item.enchantModLines[1].modList[1].value)
+	end)
+
+	it("parses enchant with tags correctly #enchant", function()
+		local item = new("Item", raw([[
+			{ Corrupted Enhancement - Energy Shield }
+			+8(6-10)% to Fire Resistance
+		]]))
+		assert.are.equals(8, item.enchantModLines[1].modList[1].value)
+		assert.are.equals("energyshield", item.enchantModLines[1].modTags[1])
 	end)
 
 	it("parses junk", function()
