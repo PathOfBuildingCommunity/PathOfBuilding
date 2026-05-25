@@ -208,7 +208,10 @@ Files in `/Data` `/Export` and `/TreeData` can be massive and cause the EmmyLua 
 {
     "$schema": "https://raw.githubusercontent.com/EmmyLuaLs/emmylua-analyzer-rust/refs/heads/main/crates/emmylua_code_analysis/resources/schema.json",
     "runtime": {
-        "version": "LuaJIT"
+        "version": "LuaJIT",
+        // this is not technically correct as LoadModule behaviour can
+        // differ from require, but it is useful for now
+        "requireLikeFunction": ["LoadModule"],
     },
     "workspace": {
         "ignoreGlobs": [
@@ -246,7 +249,12 @@ If you prefer to not use EmmyLua, the following configuration works well for Sum
     // disables diagnostics even when you open one of the above
     "Lua.diagnostics.ignoredFiles": "Disable",
     "Lua.runtime.version": "LuaJIT",
-    "Lua.workspace.preloadFileSize": 1000
+    "Lua.workspace.preloadFileSize": 1000,
+    // this is not technically correct as LoadModule behaviour can
+    // differ from require, but it is useful for now
+    "Lua.runtime.special": {
+        "LoadModule": "require"
+    },
 }
 ```
 

@@ -120,7 +120,7 @@ end
 ---@generic T
 ---@param className `T`
 ---@return T
-function new(className, ...)
+function new(className)
 	local class = getClass(className)
 	local object = setmetatable({ }, class)
 	object.Object = object
