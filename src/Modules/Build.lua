@@ -188,7 +188,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	end
 	self.controls.pointDisplay = new("Control", {"LEFT",self.anchorTopBarRight,"RIGHT"}, {function() return getPointDisplayX() end, 0, 0, 20})
 	self.controls.pointDisplay.width = function(control)
-		control.str, control.req = self:EstimatePlayerProgress()
 		return DrawStringWidth(16, "FIXED", control.str) + 8
 	end
 	self.controls.pointDisplay.Draw = function(control)
@@ -1777,6 +1776,7 @@ function buildMode:RefreshStatList()
 	end
 	self:AddDisplayStatList(self.displayStats, self.calcsTab.mainEnv.player)
 	self:InsertItemWarnings()
+	self:EstimatePlayerProgress()
 end
 
 function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compareOutput, header, nodeCount)
