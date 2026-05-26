@@ -142,6 +142,13 @@ function PassiveTreeViewClass:GetJewelSocketOverlay(jewel, isExpansion)
 	end
 end
 
+local function compareJewelsEqual(a, b)
+	if not a or not b then
+		return a == b
+	end
+	return a:BuildRaw() == b:BuildRaw()
+end
+
 -- Returns the draw color for a node when compare overlay is active.
 -- Handles diff coloring for allocated/unallocated, mastery changes, and jewel socket differences.
 function PassiveTreeViewClass:GetCompareNodeColor(node, compareNode, spec, build, nodeDefaultColor)
@@ -158,9 +165,7 @@ function PassiveTreeViewClass:GetCompareNodeColor(node, compareNode, spec, build
 		local pJewelId = spec.jewels[node.id]
 		local pJewel = pJewelId and build.itemsTab.items[pJewelId]
 		local cJewel = self:GetCompareJewel(node.id)
-		local pName = pJewel and pJewel.name or ""
-		local cName = cJewel and cJewel.name or ""
-		if pName ~= cName then
+		if not compareJewelsEqual(pJewel, cJewel) then
 			return 0, 0, 1
 		end
 	end
@@ -1373,16 +1378,9 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	end
 
 	-- For unallocated sockets, show compare build's jewel if it has one
-	if node.type == "Socket" and not node.alloc and self.compareSpec then
-		local cJewel = self:GetCompareJewel(node.id)
-		local cItemsTab = self.compareSpec.build and self.compareSpec.build.itemsTab
-		local cAllocated = self.compareSpec.allocNodes and self.compareSpec.allocNodes[node.id]
-		if cJewel and cAllocated then
-			-- Show the compare build's jewel tooltip instead of generic socket info
-			local socket = build.itemsTab:GetSocketAndJewelForNodeID(node.id)
-			cItemsTab:AddItemTooltip(tooltip, cJewel, socket)
-			tooltip:AddSeparator(14)
-			tooltip:AddLine(14, colorCodes.DEXTERITY .. "Jewel from compared build")
+	if node.type == "Socket" and not node.alloc then
+		local socket = build.itemsTab:GetSocketAndJewelForNodeID(node.id)
+		if addCompareJewelSection(socket, false) then
 			tooltip:AddLine(14, colorCodes.TIP.."Tip: Hold Shift or Ctrl to hide this tooltip.")
 			return
 		end

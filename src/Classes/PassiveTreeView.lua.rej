@@ -1,0 +1,30 @@
+diff a/src/Classes/PassiveTreeView.lua b/src/Classes/PassiveTreeView.lua	(rejected hunks)
+@@ -1128,8 +1133,8 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
+ 				self:AddNodeTooltip(self.tooltip, node, build, incSmallPassiveSkillEffect)
+ 			end
+ 			self.tooltip.center = true
+-			local ttWidth, ttHeight = self.tooltip:GetDynamicSize()
+-			local skillWidth, skillHeight = self.skillTooltip:GetDynamicSize()
++			local ttWidth, ttHeight = self.tooltip:GetDynamicSize(viewPort)
++			local skillWidth, skillHeight = self.skillTooltip:GetDynamicSize(viewPort)
+ 
+ 			local fatSkill = skillWidth > skillHeight*1.5 
+ 
+@@ -1257,7 +1262,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
+ 			if node.alloc or (compareNode and compareNode.alloc) then
+ 				local pHasRadius = jewel and jewel.jewelRadiusIndex
+ 				local cHasRadius = cJewel and cJewel.jewelRadiusIndex
+-				local sameJewel = jewel and cJewel and jewel.name == cJewel.name
++				local sameJewel = compareJewelsEqual(jewel, cJewel)
+ 				if pHasRadius then
+ 					local tint = (not self.compareSpec or sameJewel) and JEWEL_RADIUS_TINT_NEUTRAL or JEWEL_RADIUS_TINT_PRIMARY_ONLY
+ 					drawJewelRadius(jewel, scrX, scrY, tint)
+@@ -1564,7 +1569,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build, incSmallPassi
+ 		local cJewel = self.compareSpec and self:GetCompareJewel(node.id) or nil
+ 		if jewel then
+ 			build.itemsTab:AddItemTooltip(tooltip, jewel, socket)
+-			if cJewel and cJewel.name ~= jewel.name then
++			if not compareJewelsEqual(jewel, cJewel) then
+ 				addCompareJewelSection(socket, true)
+ 			end
+ 			if node.distanceToClassStart and node.distanceToClassStart > 0 then
