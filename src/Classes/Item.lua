@@ -866,7 +866,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 							line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", "(" .. range .. ")")
 						end
 					end
-					if bestPrecisionRange < 1 and bestPrecisionRange > 0 then
+					if bestPrecisionRange <= 1 and bestPrecisionRange >= 0 then
 						modLine.range = tonumber(bestPrecisionRange)
 					end
 				end
