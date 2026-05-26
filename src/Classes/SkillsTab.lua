@@ -111,7 +111,7 @@ function SkillsTabClass:SkillsTab(build)
 
 	-- Socket group list
 	self.controls.groupList = new("SkillListControl"):SkillListControl({ "TOPLEFT", self, "TOPLEFT" }, { 20, 54, 360, 300 }, self)
-	self.controls.groupTip = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { 0, 8, 0, 14 }, 
+	self.controls.groupTip = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { 0, 8, 0, 14 },
 [[
 ^7Usage Tips:
 - You can copy/paste socket groups using Ctrl+C and Ctrl+V.

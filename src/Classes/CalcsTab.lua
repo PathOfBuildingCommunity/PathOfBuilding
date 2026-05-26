@@ -42,7 +42,7 @@ function CalcsTabClass:CalcsTab(build)
 	-- Special section for skill/mode selection
 	self:NewSection(3, "SkillSelect", 1, colorCodes.NORMAL, {{ defaultCollapsed = false, label = "View Skill Details", data = {
 		{ label = "Socket Group", { controlName = "mainSocketGroup", 
-			control = new("DropDownControl"):DropDownControl(nil, {0, 0, 300, 16}, nil, function(index, value) 
+			control = new("DropDownControl"):DropDownControl(nil, {0, 0, 300, 16}, nil, function(index, value)
 				self.input.skill_number = index
 				self:AddUndoState()
 				self.build.buildFlag = true
@@ -123,8 +123,8 @@ function CalcsTabClass:CalcsTab(build)
 		} },
 		{ label = "Calculation Mode", { 
 			controlName = "mode", 
-			control = new("DropDownControl"):DropDownControl(nil, {0, 0, 100, 16}, buffModeDropList, function(index, value) 
-				self.input.misc_buffMode = value.buffMode 
+			control = new("DropDownControl"):DropDownControl(nil, {0, 0, 100, 16}, buffModeDropList, function(index, value)
+				self.input.misc_buffMode = value.buffMode
 				self:AddUndoState()
 				self.build.buildFlag = true
 			end, [[

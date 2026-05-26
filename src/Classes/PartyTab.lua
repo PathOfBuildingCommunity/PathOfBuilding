@@ -336,7 +336,7 @@ function PartyTabClass:PartyTab(build)
 		return (self.width > theme.widthThreshold1) and 0 or 24
 	end
 	
-	self.controls.clear = new("ButtonControl"):ButtonControl({"LEFT",self.controls.appendNotReplace,"RIGHT"}, {8, 0, 160, theme.buttonHeight}, "Clear", function() 
+	self.controls.clear = new("ButtonControl"):ButtonControl({"LEFT",self.controls.appendNotReplace,"RIGHT"}, {8, 0, 160, theme.buttonHeight}, "Clear", function()
 		clearInputText()
 		wipeTable(self.enemyModList)
 		self.enemyModList = new("ModList"):ModList()
@@ -350,7 +350,7 @@ function PartyTabClass:PartyTab(build)
 		return (self.width > theme.widthThreshold1) and 4 or 28
 	end
 	
-	self.controls.removeEffects = new("ButtonControl"):ButtonControl({"LEFT",self.controls.ShowAdvanceTools,"RIGHT"}, {8, 0, 160, theme.buttonHeight}, "Disable Party Effects", function() 
+	self.controls.removeEffects = new("ButtonControl"):ButtonControl({"LEFT",self.controls.ShowAdvanceTools,"RIGHT"}, {8, 0, 160, theme.buttonHeight}, "Disable Party Effects", function()
 		wipeTable(self.actor)
 		wipeTable(self.enemyModList)
 		self.actor = { Aura = {}, Curse = {}, Warcry = { }, Link = {}, modDB = new("ModDB"):ModDB(), output = { } }
@@ -360,7 +360,7 @@ function PartyTabClass:PartyTab(build)
 	end)
 	self.controls.removeEffects.tooltipText = "^7Removes the effects of the supports, without removing the data\nUse \"rebuild all\" to apply the effects again"
 	
-	self.controls.rebuild = new("ButtonControl"):ButtonControl({"LEFT",self.controls.removeEffects,"RIGHT"}, {8, 0, 160, theme.buttonHeight}, "^7Rebuild All", function() 
+	self.controls.rebuild = new("ButtonControl"):ButtonControl({"LEFT",self.controls.removeEffects,"RIGHT"}, {8, 0, 160, theme.buttonHeight}, "^7Rebuild All", function()
 		wipeTable(self.actor)
 		wipeTable(self.enemyModList)
 		self.actor = { Aura = {}, Curse = {}, Warcry = { }, Link = {}, modDB = new("ModDB"):ModDB(), output = { } }

@@ -184,7 +184,7 @@ You might also want to use actboy168 debugger. This is possible by using for exa
             "address": "127.0.0.1:12306",
             "luaVersion": "luajit",
         },
-        
+
     ]
 }
 ```
