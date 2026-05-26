@@ -2043,6 +2043,7 @@ local explodeFunc = function(chance, amount, type, ...)
 end
 
 -- List of special modifiers
+---@type table<string, Mod[]|fun(num: number, ...: string): Mod|Mod[]>
 local specialModList = {
 	-- Explode mods
 	["enemies you kill have a (%d+)%% chance to explode, dealing a (.+) of their maximum life as (.+) damage"] = function(chance, _, amount, type)	-- Obliteration, Unspeakable Gifts (chaos cluster), synth implicit mod, current crusader body mod, Ngamahu Warmonger tattoo
@@ -6402,6 +6403,11 @@ end
 
 -- Scan a line for the earliest and longest match from the pattern list
 -- If a match is found, returns the corresponding value from the pattern list, plus the remainder of the line and a table of captures
+---@generic T
+---@param line string
+---@param patternList table<string, T>
+---@param plain? boolean
+---@return T?, string, string[]?
 local function scan(line, patternList, plain)
 	local bestIndex, bestEndIndex
 	local bestPattern = ""
@@ -6545,6 +6551,7 @@ local function parseMod(line, order)
 	modFlag, line = scan(line, modFlagList, true)
 
 	-- Find modifier value and type according to form
+	---@type string|number|table
 	local modValue = tonumber(formCap[1]) or formCap[1]
 	local modType = "BASE"
 	local modSuffix

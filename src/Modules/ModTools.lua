@@ -17,6 +17,14 @@ local bor = bit.bor
 
 modLib = { }
 
+--- "Flag" is only used with CanNotUseItem
+---@alias Doubled ["MORE", "OVERRIDE"]
+---@alias NumericModTypes "INC"|"MORE"|"BASE"|"OVERRIDE"|"MAX"|"CHANCE"|"DUMMY"|"Flag"|"MIN"|Doubled
+
+---@overload fun(modName: string, modType: NumericModTypes, modVal?: number)
+---@overload fun(modName: string, modType: "FLAG", modVal: boolean)
+---@overload fun(modName: string, modType: "LIST", modVal: any[]|any)
+---@return Mod
 function modLib.createMod(modName, modType, modVal, ...)
 	local flags = 0
 	local keywordFlags = 0
@@ -34,6 +42,7 @@ function modLib.createMod(modName, modType, modVal, ...)
 		keywordFlags = select(3, ...)
 		tagStart = 4
 	end
+	---@class Mod
 	return {
 		name = modName,
 		type = modType,
