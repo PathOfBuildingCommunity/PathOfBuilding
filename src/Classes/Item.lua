@@ -455,6 +455,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				if #self.pendingAffixList == 0 and #backupAffixList > 0 then
 					self.pendingAffixList = backupAffixList
 				end
+				if #self.pendingAffixList == 0 and #backupAffixList == 0 then
+					-- Could be a veiled, temple, or other custom mod, so just keep it around
+					linePrefix = "{custom}"
+				end
 			elseif fullModName:match("(.*)Enhancement.*") then
 				linePostfix = " (enchant)"
 			end
