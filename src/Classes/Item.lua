@@ -837,6 +837,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 							end	
 						end
 					end
+					-- Use rolling Delta/Range in case one range is 1-3 and another is 1-100 so we get the finest precision possible
 					local bestPrecisionDelta = 0
 					local bestPrecisionRange = 0
 					for value, range in line:gmatch("(%-?%d+%.?%d*)%((%-?%d+%.?%d*%-%-?%d+%.?%d*)%)") do
@@ -855,6 +856,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					})
 					self.pendingAffixList = {}
 				else
+					-- Use rolling Delta/Range in case one range is 1-3 and another is 1-100 so we get the finest precision possible
 					local bestPrecisionDelta = 0
 					local bestPrecisionRange = 0
 					for value, range in line:gmatch("(%-?%d+%.?%d*)%((%-?%d+%.?%d*%-%-?%d+%.?%d*)%)") do

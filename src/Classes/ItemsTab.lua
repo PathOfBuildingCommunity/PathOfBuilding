@@ -1904,7 +1904,14 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 	end
 	if control.list[control.selIndex].haveRange then
 		control.slider.divCount = #control.list[control.selIndex].modList
-		control.slider.val = (isValueInArray(control.list[control.selIndex].modList, selAffix) - 1 + (item[outputTable][outputIndex].range or 0.5)) / control.slider.divCount
+		local index = isValueInArray(control.list[control.selIndex].modList, selAffix)
+		local range = item[outputTable][outputIndex].range or 0.5
+		-- Avoid exact integer boundary that slider:GetDivVal's ceil would assign to the previous segment
+		if range == 0 and index > 1 then
+			range = 1e-4
+		end
+		control.slider.val = (index - 1 + range) / control.slider.divCount
+		ConPrintf("Setting slider div count to "..control.slider.divCount.." with val "..control.slider.val .. " for mod ID ".. selAffix)
 		if control.slider.divCount == 1 then
 			control.slider.divCount = nil
 		end
