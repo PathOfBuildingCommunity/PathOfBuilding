@@ -416,7 +416,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			self[influenceItemMap[line]] = true
 		elseif line == "Requirements:" then
 			-- nothing to do
-		elseif line:match("^%(") then
+		elseif line:match("^%(%a+") then
 			-- Reminder text, nothing to parse
 		elseif line:match("^{ ") then
 			-- We're parsing advanced copy/paste format
