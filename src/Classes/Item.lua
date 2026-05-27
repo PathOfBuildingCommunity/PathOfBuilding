@@ -838,8 +838,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						end
 					end
 					-- Use rolling Delta/Range in case one range is 1-3 and another is 1-100 so we get the finest precision possible
-					local bestPrecisionDelta = 0
-					local bestPrecisionRange = 0
+					local bestPrecisionDelta = -1
+					local bestPrecisionRange = -1
 					for value, range in line:gmatch("(%-?%d+%.?%d*)%((%-?%d+%.?%d*%-%-?%d+%.?%d*)%)") do
 						-- Find advanced copy paste format: 45(40-50)
 						local min, max = range:match("(%-?%d+%.?%d*)%-(%-?%d+%.?%d*)")
@@ -857,8 +857,12 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.pendingAffixList = {}
 				else
 					-- Use rolling Delta/Range in case one range is 1-3 and another is 1-100 so we get the finest precision possible
-					local bestPrecisionDelta = 0
-					local bestPrecisionRange = 0
+					local bestPrecisionDelta = -1
+					local bestPrecisionRange = -1
+					
+					-- Replace non-number ranges as unsupported
+					line = line:gsub("(%a+)%([%a%s]+%-[%a%s]+%)", "%1")
+
 					for value, range in line:gmatch("(%-?%d+%.?%d*)%((%-?%d+%.?%d*%-%-?%d+%.?%d*)%)") do
 						local min, max = range:match("(%-?%d+%.?%d*)%-(%-?%d+%.?%d*)")
 						local delta = tonumber(max) - min
@@ -869,7 +873,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						if bestPrecisionRange > 1 or bestPrecisionRange < 0 then
 							line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", value)
 						else
-							line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", "(" .. range .. ")")
+							line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", (tonumber(value) < 0 and "+" or "") .. "(" .. range .. ")")
 						end
 					end
 					if bestPrecisionRange <= 1 and bestPrecisionRange >= 0 then

@@ -1911,7 +1911,6 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 			range = 1e-4
 		end
 		control.slider.val = (index - 1 + range) / control.slider.divCount
-		ConPrintf("Setting slider div count to "..control.slider.divCount.." with val "..control.slider.val .. " for mod ID ".. selAffix)
 		if control.slider.divCount == 1 then
 			control.slider.divCount = nil
 		end
