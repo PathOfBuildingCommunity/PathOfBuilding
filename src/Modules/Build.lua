@@ -980,10 +980,18 @@ function buildMode:SetActiveLoadout(loadout)
 		return
 	end
 
-	self.treeTab:SetActiveSpec(newSpecId, true)
-	self.itemsTab:SetActiveItemSet(newItemId, true)
-	self.skillsTab:SetActiveSkillSet(newSkillId, true)
-	self.configTab:SetActiveConfigSet(newConfigId, false, true)
+	if newSpecId ~= self.treeTab.activeSpec then
+		self.treeTab:SetActiveSpec(newSpecId, true)
+	end
+	if newItemId ~= self.itemsTab.activeItemSetId then
+		self.itemsTab:SetActiveItemSet(newItemId, true)
+	end
+	if newSkillId ~= self.skillsTab.activeSkillSetId then
+		self.skillsTab:SetActiveSkillSet(newSkillId, true)
+	end
+	if newConfigId ~= self.configTab.activeConfigSetId then
+		self.configTab:SetActiveConfigSet(newConfigId, false, true)
+	end
 	self:SyncLoadouts()
 end
 
