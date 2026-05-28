@@ -273,6 +273,16 @@ function sanitiseText(text)
 		or text
 end
 
+-- Convert int to 4 bytes string
+function intToBytes(int)
+	return string.char(
+		bit.band(int, 0xFF),
+		bit.band(bit.rshift(int, 8), 0xFF),
+		bit.band(bit.rshift(int, 16), 0xFF),
+		bit.band(bit.rshift(int, 24), 0xFF)
+	)
+end
+
 do
 	local function toUnsigned(val)
 		return val < 0 and val + 0x100000000 or val

@@ -842,6 +842,9 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 				self:SetText("")
 			end
 			self.selIndex = m_max(self.selIndex, 1)
+			if self.gems[self.list[self.selIndex]] then
+				self:SetText(self.gems[self.list[self.selIndex]].name)
+			end
 			self:UpdateGem(true, true, true)
 			return
 		elseif key == "ESCAPE" then
