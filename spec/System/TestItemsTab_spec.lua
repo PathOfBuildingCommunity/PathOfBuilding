@@ -196,6 +196,17 @@ describe("TestItemsTab", function()
 		end)
 	end)
 
+	describe("ItemSetListControl", function()
+		it("adds an imported shared item set to the build once", function()
+			local itemSetList = new("ItemSetListControl", nil, { 0, 0, 300, 200 }, build.itemsTab)
+
+			itemSetList:ReceiveDrag("SharedItemList", { title = "Shared Set", slots = {} })
+
+			assert.are.equals(2, #build.itemsTab.itemSetOrderList)
+			assert.are.equals("Shared Set", build.itemsTab.itemSets[build.itemsTab.itemSetOrderList[2]].title)
+		end)
+	end)
+
 	describe("ItemSetService", function()
 		local itemSetService
 		before_each(function()

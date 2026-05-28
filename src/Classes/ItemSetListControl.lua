@@ -109,7 +109,7 @@ end
 
 function ItemSetListClass:ReceiveDrag(type, value, source)
 	if type == "SharedItemList" then
-		local itemSet = self.itemsTab:NewItemSet()
+		local itemSet = self.itemsTab:CreateItemSet()
 		itemSet.title = value.title
 		for slotName, item in pairs(value.slots) do
 			local newItem = new("Item", item.raw)
