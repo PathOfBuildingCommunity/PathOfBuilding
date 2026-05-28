@@ -212,6 +212,26 @@ describe("TestLoadouts", function()
 					assert.is_same(2, build.configTab.activeConfigSetId)
 					assert.is_true(build.modFlag)
 				end)
+
+			it("preserves singleton sets shared by the remaining loadout", function()
+				build:NewLoadout("Second")
+				build.itemsTab:DeleteItemSet(2, 2)
+				build.skillsTab:DeleteSkillSet(2, 2)
+				build.configTab:DeleteConfigSet(2, 2)
+				build.itemsTab:SetActiveItemSet(1, true)
+				build.skillsTab:SetActiveSkillSet(1, true)
+				build.configTab:SetActiveConfigSet(1, false, true)
+				build.itemsTab.itemSets[1]["Body Armour"].selItemId = 1
+				build.skillsTab.skillSets[1].socketGroupList = { { gemList = { { nameSpec = "TestGem" } } } }
+				build.configTab.configSets[1].input.testVar = 123
+				build:SyncLoadouts()
+
+				build:DeleteLoadout("Second", "Default")
+
+				assert.are.equals(1, build.itemsTab.itemSets[1]["Body Armour"].selItemId)
+				assert.are.equals("TestGem", build.skillsTab.skillSets[1].socketGroupList[1].gemList[1].nameSpec)
+				assert.are.equals(123, build.configTab.configSets[1].input.testVar)
+			end)
 		end)
 
 		describe("RenameLoadout", function()

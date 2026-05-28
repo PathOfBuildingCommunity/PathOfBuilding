@@ -876,15 +876,15 @@ function buildMode:DeleteLoadout(loadoutName, nextLoadoutName)
 	if loadout.specId then
 		t_remove(self.treeTab.specList, loadout.specId)
 	end
-	if loadout.itemSetId then
+	if loadout.itemSetId and #self.itemsTab.itemSetOrderList > 1 then
 		local index = reverseLookup(self.itemsTab.itemSetOrderList, loadout.itemSetId)
 		self.itemsTab:DeleteItemSet(loadout.itemSetId, index)
 	end
-	if loadout.skillSetId then
+	if loadout.skillSetId and #self.skillsTab.skillSetOrderList > 1 then
 		local index = reverseLookup(self.skillsTab.skillSetOrderList, loadout.skillSetId)
 		self.skillsTab:DeleteSkillSet(loadout.skillSetId, index)
 	end
-	if loadout.configSetId then
+	if loadout.configSetId and #self.configTab.configSetOrderList > 1 then
 		local index = reverseLookup(self.configTab.configSetOrderList, loadout.configSetId)
 		self.configTab:DeleteConfigSet(loadout.configSetId, index)
 	end
