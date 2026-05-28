@@ -632,6 +632,21 @@ describe("TestLoadouts", function()
 		end)
 	end)
 
+	describe("BuildSetListControl", function()
+		it("passes the loadout title through the F2 rename shortcut", function()
+			build:NewLoadout("Second")
+			local loadoutList = new("BuildSetListControl", nil, { 0, 0, 380, 200 }, build)
+			local renameName
+			loadoutList.RenameLoadout = function(_, name)
+				renameName = name
+			end
+
+			loadoutList:OnSelKeyDown(2, build.loadoutsList[2], "F2")
+
+			assert.are.equals("Second", renameName)
+		end)
+	end)
+
 	describe("BuildSetService", function()
 		local buildSetService
 		before_each(function()

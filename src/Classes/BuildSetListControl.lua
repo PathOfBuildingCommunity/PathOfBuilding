@@ -198,7 +198,7 @@ end
 
 function BuildSetListClass:OnSelKeyDown(index, spec, key)
 	if key == "F2" then
-		self:RenameLoadout(spec)
+		self:RenameLoadout(spec.title)
 	end
 end
 
@@ -220,7 +220,6 @@ function BuildSetListClass:BasicLoadoutPopup(options)
 	local specNameLookup = self.buildSetService:SpecNameLookup()
 	controls.edit = new("EditControl", nil, { 0, 40, 350, 20 },
 		options.defaultName or "Default", nil, nil, 100, function(buf)
-			print("Buf changed:", buf, specNameLookup[buf])
 			controls.save.enabled = specNameLookup[buf] == nil and buf:match("%S")
 		end)
 
