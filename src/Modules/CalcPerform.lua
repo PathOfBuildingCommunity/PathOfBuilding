@@ -800,7 +800,7 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("ChaosDamage", "MORE", -100, "Excommunicated")
 		end
 		if modDB:Flag(nil, "Blind") and not modDB:Flag(nil, "CannotBeBlinded") then
-			if not modDB:Flag(nil, "IgnoreBlindHitChance") then
+			if not modDB:Flag(nil, "UnaffectedByBlind") then
 				local effect = 1 + modDB:Sum("INC", nil, "BlindEffect", "BuffEffectOnSelf") / 100
 				-- Override Blind effect if set.
 				if modDB:Override(nil, "BlindEffect") then
