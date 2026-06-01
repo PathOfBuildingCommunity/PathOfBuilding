@@ -801,6 +801,7 @@ function buildMode:NewLoadout(loadoutName)
 
 	newSpec.title = loadoutName
 	t_insert(self.treeTab.specList, newSpec)
+	self:SyncLoadouts() -- Sync loadouts to update the dropdown with the new loadout and select it
 	self:SetActiveLoadout(self:GetLoadoutByName(loadoutName))
 
 	self.modFlag = true

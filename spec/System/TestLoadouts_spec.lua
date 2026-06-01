@@ -43,6 +43,22 @@ describe("TestLoadouts", function()
 				assert.are.equals(loadoutName, build.loadoutsList[2].title)
 				assert.is_true(build.modFlag)
 			end)
+
+			it("Creates a new loadout with the correct name and sets it as active when the name has a link identifier",
+				function()
+					local loadoutName = "Loadout Name {1}"
+					build:NewLoadout(loadoutName)
+					build:SyncLoadouts()
+					assert.are.equals(1, #build.loadoutsList) -- Link identifiers are not yet supported in the loadoutsList
+					-- assert.are.equals(loadoutName, build.loadoutsList[2].title)
+					assert.are.equals(7, #build.controls.buildLoadouts.list)
+					assert.are.equals(loadoutName, build.controls.buildLoadouts.list[3])
+					assert.are.equals(2, build.treeTab.activeSpec)
+					assert.are.equals(2, build.itemsTab.activeItemSetId)
+					assert.are.equals(2, build.skillsTab.activeSkillSetId)
+					assert.are.equals(2, build.configTab.activeConfigSetId)
+					assert.is_true(build.modFlag)
+				end)
 		end)
 
 		describe("CopyLoadout", function()
@@ -668,6 +684,16 @@ describe("TestLoadouts", function()
 				buildSetService:NewLoadout(loadoutName)
 				assert.are.equals(2, #build.loadoutsList)
 				assert.are.equals(loadoutName, build.loadoutsList[2].title)
+				assert.is_true(build.modFlag)
+			end)
+
+			it("creates a new loadout with a linkIdentifier", function()
+				local loadoutName = "Loadout Name {1}"
+				buildSetService:NewLoadout(loadoutName)
+				assert.are.equals(1, #build.loadoutsList) -- link identifiers are not yet supported in the loadoutsList
+				-- assert.are.equals(loadoutName, build.loadoutsList[2].title)
+				assert.are.equals(7, #build.controls.buildLoadouts.list)
+				assert.are.equals(loadoutName, build.controls.buildLoadouts.list[3])
 				assert.is_true(build.modFlag)
 			end)
 		end)

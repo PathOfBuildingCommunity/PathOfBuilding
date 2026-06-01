@@ -9,7 +9,6 @@ end)
 
 function BuildSetServiceClass:NewLoadout(name)
 	self.buildMode:NewLoadout(name)
-	self.buildMode:SyncLoadouts()
 end
 
 function BuildSetServiceClass:CopyLoadout(copyLoadoutName, newName)
