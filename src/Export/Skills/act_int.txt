@@ -2345,11 +2345,21 @@ local skills, mod, flag, skill = ...
 		local maxEffectiveAPS = 1 / effectiveDelayRounded
 		local maxEffectivePredictiveAPS = 1 / effectiveDelay
 		local currentAPS = output.Speed
+		-- Network mode is selected in the Configuration tab (defaults to Lockstep)
+		local isPredictive = activeSkill.skillModList:Flag(activeSkill.skillCfg, "Condition:KineticFusilladePredictive")
+		local selectedEffectiveAPS = isPredictive and maxEffectivePredictiveAPS or maxEffectiveAPS
 
-		output.KineticFusilladeMaxEffectiveAPS = maxEffectiveAPS
+		output.KineticFusilladeMaxEffectiveAPS = selectedEffectiveAPS
+
+		-- Cap the attack rate so the sidebar Attack Rate and DPS reflect the effective rate
+		if currentAPS > selectedEffectiveAPS then
+			output.Speed = selectedEffectiveAPS
+			output.Time = 1 / selectedEffectiveAPS
+		end
 
 		if breakdown then
 			local breakdownAPS = {}
+			t_insert(breakdownAPS, s_format("^8Selected network mode (Configuration tab):^7 %s", isPredictive and "Predictive" or "Lockstep"))
 			t_insert(breakdownAPS, s_format("^8Base hover delay:^7 %.1fs", hoverDelay))
 			t_insert(breakdownAPS, s_format("^8Base delay between projectiles:^7 %.2fs", baseDelayBetweenProjectiles))
 			t_insert(breakdownAPS, s_format("^8Base time for^7 %d added ^8projectiles:^7 %.2fs x %d = %.1fs", (projectileCount - 1), baseDelayBetweenProjectiles, (projectileCount - 1), baseTimeForAllProjectiles))
@@ -2389,14 +2399,9 @@ local skills, mod, flag, skill = ...
 			breakdown.KineticFusilladeMaxEffectiveAPS = breakdownAPS
 		end
 
-		-- Adjust dpsMultiplier if attacking too fast (only for "All Projectiles" mode)
-		if activeSkill.skillPart == 1 then
-			if currentAPS and currentAPS > maxEffectiveAPS then
-				local efficiencyRatio = maxEffectiveAPS / currentAPS
-				local originalMultiplier = skillData.dpsMultiplier or output.ProjectileCount
-				skillData.dpsMultiplier = originalMultiplier * efficiencyRatio
-			end
-		end
+		-- The stock dpsMultiplier efficiency scaling is disabled: the rate reduction is
+		-- handled by capping output.Speed above (network-mode aware), so scaling
+		-- dpsMultiplier here as well would double-count the penalty.
 	end,
 	statMap = {
 		["kinetic_fusillade_damage_+%_final_per_projectile_fired"] = {
@@ -2487,11 +2492,21 @@ local skills, mod, flag, skill = ...
 		local maxEffectiveAPS = 1 / effectiveDelayRounded
 		local maxEffectivePredictiveAPS = 1 / effectiveDelay
 		local currentAPS = output.Speed
+		-- Network mode is selected in the Configuration tab (defaults to Lockstep)
+		local isPredictive = activeSkill.skillModList:Flag(activeSkill.skillCfg, "Condition:KineticFusilladePredictive")
+		local selectedEffectiveAPS = isPredictive and maxEffectivePredictiveAPS or maxEffectiveAPS
 
-		output.KineticFusilladeMaxEffectiveAPS = maxEffectiveAPS
+		output.KineticFusilladeMaxEffectiveAPS = selectedEffectiveAPS
+
+		-- Cap the attack rate so the sidebar Attack Rate and DPS reflect the effective rate
+		if currentAPS > selectedEffectiveAPS then
+			output.Speed = selectedEffectiveAPS
+			output.Time = 1 / selectedEffectiveAPS
+		end
 
 		if breakdown then
 			local breakdownAPS = {}
+			t_insert(breakdownAPS, s_format("^8Selected network mode (Configuration tab):^7 %s", isPredictive and "Predictive" or "Lockstep"))
 			t_insert(breakdownAPS, s_format("^8Base hover delay:^7 %.1fs", hoverDelay))
 			t_insert(breakdownAPS, s_format("^8Base delay between projectiles:^7 %.2fs", baseDelayBetweenProjectiles))
 			t_insert(breakdownAPS, s_format("^8Base time for^7 %d added ^8projectiles:^7 %.2fs x %d = %.1fs", (projectileCount - 1), baseDelayBetweenProjectiles, (projectileCount - 1), baseTimeForAllProjectiles))
@@ -2531,14 +2546,9 @@ local skills, mod, flag, skill = ...
 			breakdown.KineticFusilladeMaxEffectiveAPS = breakdownAPS
 		end
 
-		-- Adjust dpsMultiplier if attacking too fast (only for "All Projectiles" mode)
-		if activeSkill.skillPart == 1 then
-			if currentAPS and currentAPS > maxEffectiveAPS then
-				local efficiencyRatio = maxEffectiveAPS / currentAPS
-				local originalMultiplier = skillData.dpsMultiplier or output.ProjectileCount
-				skillData.dpsMultiplier = originalMultiplier * efficiencyRatio
-			end
-		end
+		-- The stock dpsMultiplier efficiency scaling is disabled: the rate reduction is
+		-- handled by capping output.Speed above (network-mode aware), so scaling
+		-- dpsMultiplier here as well would double-count the penalty.
 	end,
 	statMap = {
 		["kinetic_fusillade_damage_+%_final_per_projectile_fired"] = {
