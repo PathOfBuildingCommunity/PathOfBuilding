@@ -501,6 +501,12 @@ return {
 	{ var = "OverloadedIntensity", type = "count", label = "# of Overloaded Intensity:", ifSkill = "Overloaded Intensity", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:OverloadedIntensity", "BASE", m_min(val, 3), "Config")
 	end },
+	{ label = "Kinetic Fusillade:", ifSkill = { "Kinetic Fusillade", "Kinetic Fusillade of Detonation" } },
+	{ var = "kineticFusilladeNetworkMode", type = "list", label = "Network mode:", ifSkill = { "Kinetic Fusillade", "Kinetic Fusillade of Detonation" }, tooltip = "Selects the network mode used to calculate the maximum effective attack rate:\n\tLockstep: projectile fire delay is rounded up to server ticks\n\tPredictive: no server tick rounding\nThe summary Attack Rate and DPS are capped at the effective rate.", list = {{val="LOCKSTEP",label="Lockstep"},{val="PREDICTIVE",label="Predictive"}}, apply = function(val, modList, enemyModList)
+		if val == "PREDICTIVE" then
+			modList:NewMod("Condition:KineticFusilladePredictive", "FLAG", true, "Config")
+		end
+	end },
 	{ label = "Link Skills:", ifSkill = { "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" } },
 	{ var = "multiplierLinkedTargets", type = "count", label = "# of linked Targets:", ifSkill = { "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:LinkedTargets", "BASE", val, "Config")
