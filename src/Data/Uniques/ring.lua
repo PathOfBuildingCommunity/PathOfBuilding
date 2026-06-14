@@ -531,7 +531,7 @@ Implicits: 1
 {tags:resource}+(20-30) to maximum Mana
 {tags:attribute}+(20-40) to Intelligence
 {tags:caster,speed}Curse Skills have (8-12)% increased Cast Speed
-Non-Aura Hexes expire upon reaching (180-220)% of base Effect
+Non-Aura Hexes expire upon reaching 200% of base Effect
 Non-Aura Hexes gain 20% increased Effect per second
 ]],[[
 Gifts from Above

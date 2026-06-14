@@ -50,7 +50,7 @@ local function writeMods(out, statOrder)
 	end
 end
 
-local uniqueMods = LoadModule("../Data/ModItemExclusive.lua")
+local uniqueMods = require("Data.ModItemExclusive")
 for _, name in ipairs(itemTypes) do
 	local out = io.open("../Data/Uniques/"..name..".lua", "w")
 	local statOrder = {}

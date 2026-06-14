@@ -7,7 +7,7 @@ local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
 
-local buildListHelpers = LoadModule("Modules/BuildListHelpers")
+local buildListHelpers = require("Modules.BuildListHelpers")
 local buildSortDropList = buildListHelpers.buildSortDropList
 
 local listMode = new("ControlHost"):ControlHost()

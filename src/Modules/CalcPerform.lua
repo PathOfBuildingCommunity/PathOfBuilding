@@ -3,7 +3,8 @@
 -- Module: Calc Perform
 -- Manages the offence/defence calculations.
 --
-local calcs = ...
+---@class Calcs
+local calcs = require("Modules.CalcBase")
 
 local pairs = pairs
 local ipairs = ipairs
@@ -1384,10 +1385,10 @@ function calcs.perform(env, skipEHP)
 	local breakdown = nil
 	if env.mode == "CALCS" then
 		-- Initialise breakdown module
-		breakdown = LoadModule(calcs.breakdownModule, modDB, output, env.player)
+		breakdown = require(calcs.breakdownModule)(modDB, output, env.player)
 		env.player.breakdown = breakdown
 		if env.minion then
-			env.minion.breakdown = LoadModule(calcs.breakdownModule, env.minion.modDB, env.minion.output, env.minion)
+			env.minion.breakdown = require(calcs.breakdownModule)(env.minion.modDB, env.minion.outpu, env.minion)
 		end
 	end
 

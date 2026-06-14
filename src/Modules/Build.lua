@@ -426,7 +426,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	end
 
 	-- List of display stats
-	self.displayStats, self.minionDisplayStats, self.extraSaveStats = LoadModule("Modules/BuildDisplayStats")
+	local displayStatsModule = require("Modules.BuildDisplayStats")
+	self.displayStats = displayStatsModule.displayStats
+	self.minionDisplayStats = displayStatsModule.minionDisplayStats
+	self.extraSaveStats = displayStatsModule.extraSaveStats
 
 	-- Controls: Side bar
 	self.anchorSideBar = new("Control"):Control(nil, {4, 60, 0, 0})

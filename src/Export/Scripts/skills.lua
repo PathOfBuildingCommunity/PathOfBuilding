@@ -69,7 +69,7 @@ directiveTable.skill = function(state, args, out)
 		grantedId = args
 		displayName = args
 	end
-	out:write('skills["', grantedId, '"] = {\n')
+	out:write('\t\tskills["', grantedId, '"] = {\n')
 	local granted = dat("GrantedEffects"):GetRow("Id", grantedId)
 	if not granted then
 		ConPrintf('Unknown GE: "'..grantedId..'"')
@@ -104,21 +104,21 @@ directiveTable.skill = function(state, args, out)
 	if skillGem and not state.noGem then
 		gems[gemEffect.Id] = true
 		if granted.IsSupport then
-			out:write('\tname = "', fullNameGems[skillGem.BaseItemType.Id] and skillGem.BaseItemType.Name or skillGem.BaseItemType.Name:gsub(" Support",""), '",\n')
+			out:write('\t\tname = "', fullNameGems[skillGem.BaseItemType.Id] and skillGem.BaseItemType.Name or skillGem.BaseItemType.Name:gsub(" Support", ""), '",\n')
 			if #gemEffect.Description > 0 then
-				out:write('\tdescription = "', gemEffect.Description:gsub('"','\\"'):gsub('\r',''):gsub('\n','\\n'), '",\n')
+				out:write('\t\tdescription = "', gemEffect.Description:gsub('"', '\\"'):gsub('\r', ''):gsub('\n', '\\n'), '",\n')
 			end
 		else
-			out:write('\tname = "', secondaryEffect and granted.ActiveSkill.DisplayName or trueGemNames[gemEffect.Id] or granted.ActiveSkill.DisplayName, '",\n')
+			out:write('\t\tname = "', secondaryEffect and granted.ActiveSkill.DisplayName or trueGemNames[gemEffect.Id] or granted.ActiveSkill.DisplayName, '",\n')
 			-- Hybrid gems (e.g. Vaal gems) use the display name of the active skill e.g. Vaal Summon Skeletons of Sorcery
-			out:write('\tbaseTypeName = "', granted.ActiveSkill.DisplayName, '",\n')
+			out:write('\t\tbaseTypeName = "', granted.ActiveSkill.DisplayName, '",\n')
 		end
 	else
 		if displayName == args and not granted.IsSupport then
 			displayName = gemEffect and trueGemNames[gemEffect.Id] or granted.ActiveSkill.DisplayName
 		end
-		out:write('\tname = "', displayName, '",\n')
-		out:write('\thidden = true,\n')
+		out:write('\t\tname = "', displayName, '",\n')
+		out:write('\t\thidden = true,\n')
 	end
 	state.noGem = false
 	skill.baseFlags = { }
@@ -131,22 +131,22 @@ directiveTable.skill = function(state, args, out)
 	skill.constantStats = { }
 	skill.addSkillTypes = state.addSkillTypes
 	state.addSkillTypes = nil
-	out:write('\tcolor = ', granted.Attribute, ',\n')
+	out:write('\t\tcolor = ', granted.Attribute, ',\n')
 	if granted.GrantedEffectStatSets.BaseEffectiveness ~= 1 then
-		out:write('\tbaseEffectiveness = ', granted.GrantedEffectStatSets.BaseEffectiveness, ',\n')
+		out:write('\t\tbaseEffectiveness = ', granted.GrantedEffectStatSets.BaseEffectiveness, ',\n')
 	end
 	if granted.GrantedEffectStatSets.IncrementalEffectiveness ~= 0 then
-		out:write('\tincrementalEffectiveness = ', granted.GrantedEffectStatSets.IncrementalEffectiveness, ',\n')
+		out:write('\t\tincrementalEffectiveness = ', granted.GrantedEffectStatSets.IncrementalEffectiveness, ',\n')
 	end
 	if granted.IsSupport then
 		skill.isSupport = true
-		out:write('\tsupport = true,\n')
-		out:write('\trequireSkillTypes = { ')
+		out:write('\t\tsupport = true,\n')
+		out:write('\t\trequireSkillTypes = { ')
 		for _, type in ipairs(granted.SupportTypes) do
 			out:write(mapAST(type), ', ')
 		end
-		out:write('},\n')
-		out:write('\taddSkillTypes = { ')
+		out:write('\t},\n')
+		out:write('\t\taddSkillTypes = { ')
 		skill.isTrigger = false
 		for _, type in ipairs(granted.AddTypes) do
 			local typeString = mapAST(type)
@@ -155,23 +155,23 @@ directiveTable.skill = function(state, args, out)
 			end
 			out:write(typeString, ', ')
 		end
-		out:write('},\n')
-		out:write('\texcludeSkillTypes = { ')
+		out:write('\t},\n')
+		out:write('\t\texcludeSkillTypes = { ')
 		for _, type in ipairs(granted.ExcludeTypes) do
 			out:write(mapAST(type), ', ')
 		end
-		out:write('},\n')
+		out:write('\t},\n')
 		if skill.isTrigger then
-			out:write('\tisTrigger = true,\n')
+			out:write('\t\tisTrigger = true,\n')
 		end
 		if granted.SupportGemsOnly then
-			out:write('\tsupportGemsOnly = true,\n')
+			out:write('\t\tsupportGemsOnly = true,\n')
 		end
 		if granted.IgnoreMinionTypes then
-			out:write('\tignoreMinionTypes = true,\n')
+			out:write('\t\tignoreMinionTypes = true,\n')
 		end
 		if granted.PlusVersionOf then
-			out:write('\tplusVersionOf = "', granted.PlusVersionOf.Id, '",\n')
+			out:write('\t\tplusVersionOf = "', granted.PlusVersionOf.Id, '",\n')
 		end
 		local weaponTypes = { }
 		for _, class in ipairs(granted.WeaponRestrictions) do
@@ -180,18 +180,18 @@ directiveTable.skill = function(state, args, out)
 			end
 		end
 		if next(weaponTypes) then
-			out:write('\tweaponTypes = {\n')
+			out:write('\t\tweaponTypes = {\n')
 			for type in pairsSortByKey(weaponTypes) do
-				out:write('\t\t["', type, '"] = true,\n')
+				out:write('\t\t\t["', type, '"] = true,\n')
 			end
-			out:write('\t},\n')
+			out:write('\t\t},\n')
 		end
-		out:write('\tstatDescriptionScope = "gem_stat_descriptions",\n')
+		out:write('\t\tstatDescriptionScope = "gem_stat_descriptions",\n')
 	else
 		if #granted.ActiveSkill.Description > 0 then
-			out:write('\tdescription = "', granted.ActiveSkill.Description:gsub('"','\\"'):gsub('\r',''):gsub('\n','\\n'), '",\n')
+			out:write('\t\tdescription = "', granted.ActiveSkill.Description:gsub('"', '\\"'):gsub('\r', ''):gsub('\n', '\\n'), '",\n')
 		end
-		out:write('\tskillTypes = { ')
+		out:write('\t\tskillTypes = { ')
 		for _, type in ipairs(granted.ActiveSkill.SkillTypes) do
 			out:write('[', mapAST(type), '] = true, ')
 		end
@@ -200,13 +200,13 @@ directiveTable.skill = function(state, args, out)
 				out:write('[SkillType.', type , '] = true, ')
 			end
 		end
-		out:write('},\n')
+		out:write('\t},\n')
 		if granted.ActiveSkill.MinionSkillTypes[1] then
-			out:write('\tminionSkillTypes = { ')
+			out:write('\t\tminionSkillTypes = { ')
 			for _, type in ipairs(granted.ActiveSkill.MinionSkillTypes) do
 				out:write('[', mapAST(type), '] = true, ')
 			end
-			out:write('},\n')
+			out:write('\t},\n')
 		end
 		local weaponTypes = { }
 		for _, class in ipairs(granted.ActiveSkill.WeaponRestrictions) do
@@ -215,19 +215,19 @@ directiveTable.skill = function(state, args, out)
 			end
 		end
 		if next(weaponTypes) then
-			out:write('\tweaponTypes = {\n')
+			out:write('\t\tweaponTypes = {\n')
 			for type in pairsSortByKey(weaponTypes) do
-				out:write('\t\t["', type, '"] = true,\n')
+				out:write('\t\t\t["', type, '"] = true,\n')
 			end
-			out:write('\t},\n')
+			out:write('\t\t},\n')
 		end
-		out:write('\tstatDescriptionScope = "', skillStatScope[granted.ActiveSkill.Id] or "skill_stat_descriptions", '",\n')
+		out:write('\t\tstatDescriptionScope = "', skillStatScope[granted.ActiveSkill.Id] or "skill_stat_descriptions", '",\n')
 		if granted.ActiveSkill.SkillTotem <= 21 then
-			out:write('\tskillTotemId = ', granted.ActiveSkill.SkillTotem, ',\n')
+			out:write('\t\tskillTotemId = ', granted.ActiveSkill.SkillTotem, ',\n')
 		end
-		out:write('\tcastTime = ', granted.CastTime / 1000, ',\n')
+		out:write('\t\tcastTime = ', granted.CastTime / 1000, ',\n')
 		if granted.CannotBeSupported then
-			out:write('\tcannotBeSupported = true,\n')
+			out:write('\t\tcannotBeSupported = true,\n')
 		end
 	end
 	local statsPerLevel = dat("GrantedEffectStatSetsPerLevel"):GetRowList("GrantedEffectStatSets", granted.GrantedEffectStatSets)
@@ -436,58 +436,58 @@ directiveTable.mods = function(state, args, out)
 	local skill = state.skill
 	if not args:match("noBaseFlags") then
 		if not skill.isSupport then
-			out:write('\tbaseFlags = {\n')
+			out:write('\t\tbaseFlags = {\n')
 			for _, flag in ipairs(skill.baseFlags) do
-				out:write('\t\t', flag, ' = true,\n')
+				out:write('\t\t\t', flag, ' = true,\n')
 			end
-			out:write('\t},\n')
+			out:write('\t\t},\n')
 		end
 	end
 	if not args:match("noBaseMods") then
 		if next(skill.mods) ~= nil then
-			out:write('\tbaseMods = {\n')
+			out:write('\t\tbaseMods = {\n')
 			for _, mod in ipairs(skill.mods) do
-				out:write('\t\t', mod, ',\n')
+				out:write('\t\t\t', mod, ',\n')
 			end
-			out:write('\t},\n')
+			out:write('\t\t},\n')
 		end
 	end
 	if not args:match("noQualityStats") then
 		if next(skill.qualityStats) ~= nil then
-			out:write('\tqualityStats = {\n')
+			out:write('\t\tqualityStats = {\n')
 			for _, stat in ipairs(skill.qualityStats) do
-				out:write('\t\t{ "', stat[1], '", ', stat[2], ' },\n')
+				out:write('\t\t\t{ "', stat[1], '", ', stat[2], ' },\n')
 			end
-			out:write('\t},\n')
+			out:write('\t\t},\n')
 		end
 	end
 	if not args:match("noStats") then
 		if next(skill.constantStats) ~= nil then
 			-- write out constant stats that don't change per level
-			out:write('\tconstantStats = {\n')
+			out:write('\t\tconstantStats = {\n')
 			for i, stat in ipairs(skill.constantStats) do
-				out:write('\t\t{ "', stat[1], '", ', stat[2], ' },\n')
+				out:write('\t\t\t{ "', stat[1], '", ', stat[2], ' },\n')
 			end
-			out:write('\t},\n')
+			out:write('\t\t},\n')
 		end
 		-- write out per level stats
-		out:write('\tstats = {\n')
+		out:write('\t\tstats = {\n')
 		for _, stat in ipairs(skill.stats) do
-			out:write('\t\t"', stat.id, '",\n')
+			out:write('\t\t\t"', stat.id, '",\n')
 		end
-		out:write('\t},\n')
+		out:write('\t\t},\n')
 		if next(skill.CannotGrantToMinion) then
-			out:write('\tnotMinionStat = {\n')
+			out:write('\t\tnotMinionStat = {\n')
 			for _, stat in ipairs(skill.CannotGrantToMinion) do
-				out:write('\t\t"', stat, '",\n')
+				out:write('\t\t\t"', stat, '",\n')
 			end
-			out:write('\t},\n')
+			out:write('\t\t},\n')
 		end
 	end
 	if not args:match("noLevels") then
-		out:write('\tlevels = {\n')
+		out:write('\t\tlevels = {\n')
 		for index, level in ipairs(skill.levels) do
-			out:write('\t\t[', level.level, '] = { ')
+			out:write('\t\t\t[', level.level, '] = { ')
 			for _, statVal in ipairs(level) do
 				out:write(tostring(statVal), ', ')
 			end
@@ -508,11 +508,11 @@ directiveTable.mods = function(state, args, out)
 				end
 				out:write('}, ')
 			end
-			out:write('},\n')
+			out:write('\t},\n')
 		end
-		out:write('\t},\n')
+		out:write('\t\t},\n')
 	end
-	out:write('}')
+	out:write('\t}')
 	state.skill = nil
 end
 

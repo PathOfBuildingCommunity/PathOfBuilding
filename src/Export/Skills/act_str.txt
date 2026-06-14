@@ -3,8 +3,7 @@
 -- Active Strength skill gems
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 #skill Absolution
 #flags spell minion duration area
 	minionList = {
@@ -2434,3 +2433,4 @@ local skills, mod, flag, skill = ...
 #baseMod mod("AuraEffect", "MORE", -100, 0, 0, { type = "Condition", var = "BannerPlanted", neg = true })
 #baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 #mods
+end

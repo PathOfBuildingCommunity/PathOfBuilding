@@ -7,7 +7,7 @@ local m_max = math.max
 local m_min = math.min
 local m_floor = math.floor
 local protected_replace = "*"
-local utf8 = require('lua-utf8')
+local utf8 = require("lua-utf8")
 
 local function lastLine(str)
 	local lastLineIndex = 1

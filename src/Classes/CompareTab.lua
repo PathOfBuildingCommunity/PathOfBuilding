@@ -10,11 +10,11 @@ local m_max = math.max
 local m_floor = math.floor
 local s_format = string.format
 local dkjson = require "dkjson"
-local tradeHelpers = LoadModule("Classes/CompareTradeHelpers")
-local buySimilar = LoadModule("Classes/CompareBuySimilar")
-local calcsHelpers = LoadModule("Classes/CompareCalcsHelpers")
-local buildListHelpers = LoadModule("Modules/BuildListHelpers")
-local configVisibility = LoadModule("Modules/ConfigVisibility")
+local tradeHelpers = require("Classes.CompareTradeHelpers")
+local buySimilar = require("Classes.CompareBuySimilar")
+local calcsHelpers = require("Classes.CompareCalcsHelpers")
+local buildListHelpers = require("Modules.BuildListHelpers")
+local configVisibility = require("Modules.ConfigVisibility")
 
 -- Node IDs below this value are normal passive tree nodes; IDs at or above are cluster jewel nodes
 local CLUSTER_NODE_OFFSET = 65536
@@ -188,9 +188,9 @@ function CompareTabClass:CompareTab(primaryBuild)
 	self.comparePowerCompareId = nil      -- track which compare entry was calculated
 
 	-- Pre-load static module data
-	self.configOptions = LoadModule("Modules/ConfigOptions")
-	self.calcSections = LoadModule("Modules/CalcSections")
-	self.calcs = LoadModule("Modules/Calcs")
+	self.configOptions = require("Modules.ConfigOptions")
+	self.calcSections = require("Modules.CalcSections")
+	self.calcs = require("Modules.Calcs")
 
 	-- Controls for the comparison screen
 	self:InitControls()

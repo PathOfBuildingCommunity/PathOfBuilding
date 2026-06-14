@@ -8988,7 +8988,7 @@ return {
 						[2]=-1
 					}
 				},
-				text="{0}% decreased Cooldown Recovery Rate if used while no Enemies are in your Presence"
+				text="{0}% reduced Cooldown Recovery Rate if used while no Enemies are in your Presence"
 			}
 		},
 		stats={
@@ -9013,7 +9013,7 @@ return {
 						[2]=-1
 					}
 				},
-				text="Supported Spells have {0}% decreased Cooldown Recovery Rate per 100 Ward"
+				text="Supported Spells have {0}% reduced Cooldown Recovery Rate per 100 Ward"
 			}
 		},
 		stats={
@@ -9038,7 +9038,7 @@ return {
 						[2]=-1
 					}
 				},
-				text="{0}% decreased Cooldown Recovery Rate if used while a Unique Enemy is in your Presence"
+				text="{0}% reduced Cooldown Recovery Rate if used while a Unique Enemy is in your Presence"
 			}
 		},
 		stats={

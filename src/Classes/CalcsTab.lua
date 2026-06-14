@@ -27,7 +27,7 @@ function CalcsTabClass:CalcsTab(build)
 
 	self.build = build
 
-	self.calcs = LoadModule("Modules/Calcs")
+	self.calcs = require("Modules.Calcs")
 
 	self.input = { }
 	self.input.skill_number = 1
@@ -146,7 +146,7 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 	end)
 
 	-- Add sections from the CalcSections module
-	local sectionData = LoadModule("Modules/CalcSections")
+	local sectionData = require("Modules.CalcSections")
 	for _, section in ipairs(sectionData) do
 		self:NewSection(unpack(section))
 	end

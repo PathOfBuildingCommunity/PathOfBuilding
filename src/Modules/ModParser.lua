@@ -6791,23 +6791,26 @@ local unsupported = { }
 local count = 0
 --local foo = io.open("../unsupported.txt", "w")
 --foo:close()
-return function(line, isComb)
-	if not cache[line] then
-		local modList, extra = parseMod(line, 1)
-		if modList and extra then
-			modList, extra = parseMod(line, 2)
-		end
-		cache[line] = { modList, extra }
-		if foo and not isComb and not cache[line][1] then
-			local form = line:gsub("[%+%-]?%d+%.?%d*","{num}")
-			if not unsupported[form] then
-				unsupported[form] = true
-				count = count + 1
-				foo = io.open("../unsupported.txt", "a+")
-				foo:write(count, ': ', form, (cache[line][2] and #cache[line][2] < #line and ('    {' .. cache[line][2]).. '}') or "", '\n')
-				foo:close()
+return {
+	parseMod = function(line, isComb)
+		if not cache[line] then
+			local modList, extra = parseMod(line, 1)
+			if modList and extra then
+				modList, extra = parseMod(line, 2)
+			end
+			cache[line] = { modList, extra }
+			if foo and not isComb and not cache[line][1] then
+				local form = line:gsub("[%+%-]?%d+%.?%d*", "{num}")
+				if not unsupported[form] then
+					unsupported[form] = true
+					count = count + 1
+					foo = io.open("../unsupported.txt", "a+")
+					foo:write(count, ': ', form, (cache[line][2] and #cache[line][2] < #line and ('    {' .. cache[line][2]) .. '}') or "", '\n')
+					foo:close()
+				end
 			end
 		end
-	end
-	return unpack(copyTable(cache[line]))
-end, cache
+		return unpack(copyTable(cache[line]))
+	end,
+	parseModCache = cache
+}

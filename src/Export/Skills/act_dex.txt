@@ -3,8 +3,7 @@
 -- Active Dexterity skill gems
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 #skill AlchemistsMark
 #flags spell curse mark area duration
 	statMap = {
@@ -3669,3 +3668,4 @@ local skills, mod, flag, skill = ...
 #skill QuickstepHardMode
 #flags movement travel
 #mods
+end

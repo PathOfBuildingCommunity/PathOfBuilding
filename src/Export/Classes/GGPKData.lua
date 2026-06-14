@@ -108,7 +108,7 @@ function GGPKClass:ExtractFiles(reExport)
 	end
 
 	-- Overwrite Enums
-	local errMsg = PLoadModule("Scripts/enums.lua")
+	local _, errMsg = prerequire("Scripts.enums")
 	if errMsg then
 		print(errMsg)
 	end

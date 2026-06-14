@@ -1,4 +1,6 @@
-local c=...c["(10-15)% increased Energy Shield Recharge Rate"]={nil,"(10-15)% increased Energy Shield Recharge Rate "}
+---@class ModCache
+local c = {}
+c["(10-15)% increased Energy Shield Recharge Rate"]={nil,"(10-15)% increased Energy Shield Recharge Rate "}
 c["(12-17)% increased Mana Regeneration Rate"]={nil,"(12-17)% increased Mana Regeneration Rate "}
 c["(15-25)% increased Mana Regeneration Rate"]={nil,"(15-25)% increased Mana Regeneration Rate "}
 c["(17-23)% increased maximum Mana"]={nil,"(17-23)% increased maximum Mana "}
@@ -12869,3 +12871,4 @@ c["your Minions cannot be Reflected Right ring slot: 40% of Physical Hit Damage 
 c["your Minions cannot be Reflected Right ring slot: 80% of Physical Hit Damage from you and"]={nil,"your Minions cannot be Reflected Right ring slot: 80% of Physical Hit Damage from you and "}
 c["your maximum number of Crab Barriers"]={nil,"your maximum number of Crab Barriers "}
 c["your maximum number of Power Charges"]={nil,"your maximum number of Power Charges "}
+return c

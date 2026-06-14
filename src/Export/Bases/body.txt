@@ -1,6 +1,5 @@
 -- Item data (c) Grinding Gear Games
-local itemBases = ...
-
+return function(itemBases)
 #type Body Armour
 #influenceBaseTag body_armour
 #socketLimit 6
@@ -27,3 +26,4 @@ local itemBases = ...
 #baseMatch Metadata/Items/Armours/BodyArmours/BodyStrDexInt%d+
 #forceHide true
 #base Metadata/Items/Armours/BodyArmours/BodyDemigods1
+end

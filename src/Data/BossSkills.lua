@@ -5,6 +5,7 @@
 -- Boss Skill data (c) Grinding Gear Games
 --
 return {
+	bossSkills = {
 	["Atziri Flameblast"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
@@ -20,7 +21,7 @@ return {
 		speed = 25000,
 		critChance = 0,
 		earlierUber = true,
-		tooltip = "The Uber variant has 10 ^xB97123Fire^7 penetration (Applied on Pinnacle And Uber)"
+		tooltip = "The Uber variant has 10 ^xB97123Fire^7 penetration (Applied on Pinnacle And Uber)",
 	},
 	["Shaper Ball"] = {
 		DamageType = "SpellProjectile",
@@ -34,7 +35,7 @@ return {
 			ColdPen = 40
 		},
 		speed = 1400,
-		tooltip = "Allocating Cosmic Wounds increases the penetration to 40% (Applied on Uber) and adds 2 projectiles"
+		tooltip = "Allocating Cosmic Wounds increases the penetration to 40% (Applied on Uber) and adds 2 projectiles",
 	},
 	["Shaper Slam"] = {
 		DamageType = "Melee",
@@ -53,7 +54,7 @@ return {
 				CannotBeSuppressed = "flag"
 			}
 		},
-		tooltip = "Cannot be Evaded.  Allocating Cosmic Wounds increases Damage by a further 100% (Applied on Uber) and cannot be blocked or dodged"
+		tooltip = "Cannot be Evaded.  Allocating Cosmic Wounds increases Damage by a further 100% (Applied on Uber) and cannot be blocked or dodged",
 	},
 	["Shaper Beam"] = {
 		DamageType = "DamageOverTime",
@@ -64,7 +65,7 @@ return {
 		},
 		speed = 1000,
 		critChance = 0,
-		tooltip = "Damage Over Time skill"
+		tooltip = "Damage Over Time skill",
 	},
 	["Sirus Meteor"] = {
 		DamageType = "Spell",
@@ -85,7 +86,7 @@ return {
 				PhysicalDamageSkillConvertToLightning = 25
 			}
 		},
-		tooltip = "Earlier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50% (Applied on Uber)"
+		tooltip = "Earlier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50% (Applied on Uber)",
 	},
 	["Cortex Ground Degen"] = {
 		DamageType = "DamageOverTime",
@@ -94,7 +95,7 @@ return {
 		},
 		speed = 1630,
 		critChance = 0,
-		tooltip = "Damage Over Time skill"
+		tooltip = "Damage Over Time skill",
 	},
 	["Exarch Ball"] = {
 		DamageType = "Spell",
@@ -115,7 +116,7 @@ return {
 				CannotBeSuppressed = "flag"
 			}
 		},
-		tooltip = "Spawns 8-18 waves of balls depending on which fight and which ball phase, Cannot be Blocked, Dodged, or Suppressed"
+		tooltip = "Spawns 8-18 waves of balls depending on which fight and which ball phase, Cannot be Blocked, Dodged, or Suppressed",
 	},
 	["Eater Beam"] = {
 		DamageType = "Spell",
@@ -123,7 +124,7 @@ return {
 			Lightning = { 12.164923902598, 0.24329847805197 }
 		},
 		speed = 2500,
-		tooltip = "Allocating Insatiable Appetite causes the beam to always shock for at least 30%"
+		tooltip = "Allocating Insatiable Appetite causes the beam to always shock for at least 30%",
 	},
 	["Maven Fireball"] = {
 		DamageType = "SpellProjectile",
@@ -138,7 +139,7 @@ return {
 			FirePen = 30
 		},
 		speed = 3000,
-		tooltip = "Allocating Throw the Gauntlet increases Damage by a further 100% (Applied on Uber) and causes the fireball to have 30 ^xB97123Fire^7 penetration (Applied on Uber)"
+		tooltip = "Allocating Throw the Gauntlet increases Damage by a further 100% (Applied on Uber) and causes the fireball to have 30 ^xB97123Fire^7 penetration (Applied on Uber)",
 	},
 	["Maven Memory Game"] = {
 		DamageType = "Spell",
@@ -165,9 +166,11 @@ return {
 				PhysicalDamageSkillConvertToLightning = 100
 			}
 		},
-		tooltip = "Cannot be Blocked, Dodged, or Suppressed. \n	It is three separate hits, and has a large DoT effect.  Neither is taken into account here.  \n		i.e. Hits before death should be more than 3 to survive"
+		tooltip = "Cannot be Blocked, Dodged, or Suppressed. \n	It is three separate hits, and has a large DoT effect.  Neither is taken into account here.  \n		i.e. Hits before death should be more than 3 to survive",
 	},
-},{
+	},
+
+	bossSkillsList = {
     { val = "None", label = "None" },
     { val = "Atziri Flameblast", label = "Atziri Flameblast" },
     { val = "Shaper Ball", label = "Shaper Ball" },
@@ -178,5 +181,5 @@ return {
     { val = "Exarch Ball", label = "Exarch Ball" },
     { val = "Eater Beam", label = "Eater Beam" },
     { val = "Maven Fireball", label = "Maven Fireball" },
-    { val = "Maven Memory Game", label = "Maven Memory Game" }
+    { val = "Maven Memory Game", label = "Maven Memory Game" }	},
 }

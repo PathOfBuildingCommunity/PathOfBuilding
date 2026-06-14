@@ -3,8 +3,7 @@
 -- Intelligence support gems
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 #skill SupportAddedChaosDamage
 #mods
 
@@ -1023,3 +1022,4 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #mods
+end

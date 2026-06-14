@@ -4,7111 +4,7115 @@
 -- Spectre Data
 -- Monster data (c) Grinding Gear Games
 --
-local minions, mod, flag = ...
 
--- Blackguard
-minions["Metadata/Monsters/Axis/AxisCaster"] = {
-	name = "Blackguard Mage",
-	monsterTags = { "caster", "hard_armour", "has_wand", "human", "humanoid", "lightning_affinity", "medium_height", "medium_movement", "military", "not_dex", "physical_affinity", "ranged", "red_blood", "summoner", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 0.9,
-	energyShield = 0.2,
-	armour = 0.25,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 0.79,
-	damageSpread = 0.2,
-	attackTime = 1.305,
-	attackRange = 40,
-	accuracy = 1,
-	weaponType1 = "Wand",
-	weaponType2 = "Shield",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AxisCasterSpark",
-		"MonsterLightningThorns",
-		"AxisClaimSoldierMinions",
-	},
-	modList = {
-		mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_spell_block_% = 20]
-		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_block_%_damage_taken = 10]
-	},
-}
-minions["Metadata/Monsters/Axis/AxisCasterArc"] = {
-	name = "Blackguard Arcmage",
-	monsterTags = { "caster", "hard_armour", "has_wand", "human", "humanoid", "lightning_affinity", "medium_height", "medium_movement", "military", "not_dex", "physical_affinity", "ranged", "red_blood", "summoner", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 0.9,
-	energyShield = 0.2,
-	armour = 0.25,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 0.79,
-	damageSpread = 0.2,
-	attackTime = 1.305,
-	attackRange = 40,
-	accuracy = 1,
-	weaponType1 = "Wand",
-	weaponType2 = "Shield",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterLightningThorns",
-		"AxisCasterArc",
-		"AxisClaimSoldierMinions",
-	},
-	modList = {
-		mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_spell_block_% = 20]
-		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_block_%_damage_taken = 10]
-	},
-}
-minions["Metadata/Monsters/Axis/AxisCasterLunaris"] = {
-	name = "Lunarsworn Wintermage",
-	monsterTags = { "caster", "cold_affinity", "hard_armour", "has_wand", "human", "humanoid", "medium_height", "medium_movement", "military", "not_dex", "physical_affinity", "ranged", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 0.9,
-	energyShield = 0.2,
-	armour = 0.25,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 0.79,
-	damageSpread = 0.2,
-	attackTime = 1.305,
-	attackRange = 40,
-	accuracy = 1,
-	weaponType1 = "Wand",
-	weaponType2 = "Shield",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AxisCasterGlacialCascade",
-		"MonsterColdThorns",
-	},
-	modList = {
-		mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_spell_block_% = 20]
-		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_block_%_damage_taken = 10]
-	},
-}
-minions["Metadata/Monsters/Axis/AxisEliteSoldier3Champion"] = {
-	name = "Solaris Champion",
-	monsterTags = { "caster", "fire_affinity", "has_two_hand_sword", "has_two_handed_melee", "human", "humanoid", "medium_height", "medium_movement", "melee", "military", "not_dex", "not_int", "physical_affinity", "plate_armour", "red_blood", "slashing_weapon", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.5,
-	armour = 0.75,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.41,
-	damageSpread = 0.2,
-	attackTime = 1.245,
-	attackRange = 14,
-	accuracy = 1,
-	weaponType1 = "Two Handed Sword",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"BreachCleave",
-		"AxisDoubleStrikeTrigger",
-		"SummonFlamingAnimatedWeapons",
-		"SolarisChampionFlameVortex",
-		"DoubleStrikeMeleeAtAnimationSpeed",
-	},
-	modList = {
-		mod("PhysicalDamageGainAsFire", "BASE", 100, 0, 0), -- MonsterPhysicalAddedAsFireSkeletonMaps [physical_damage_%_to_add_as_fire = 100]
-	},
-}
-minions["Metadata/Monsters/Axis/AxisExperimenter"] = {
-	name = "Mortality Experimenter",
-	monsterTags = { "caster", "cursing_monster", "fire_affinity", "has_wand", "human", "humanoid", "light_armour", "medium_height", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 0.96,
-	energyShield = 0.2,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 75,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.995,
-	attackRange = 40,
-	accuracy = 1,
-	weaponType1 = "Wand",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AxisTemporalChains",
-		"MonsterDetonateDeadExperimenter",
-		"ExperimenterEnrageDemon",
-	},
-	modList = {
-		-- muzzle_flash_swap_hands [muzzle_flash_swap_hands = 1]
-	},
-}
-minions["Metadata/Monsters/Axis/AxisExperimenter2"] = {
-	name = "Flesh Sculptor",
-	monsterTags = { "caster", "cursing_monster", "fire_affinity", "has_wand", "human", "humanoid", "light_armour", "medium_height", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 0.96,
-	energyShield = 0.2,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 75,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.995,
-	attackRange = 40,
-	accuracy = 1,
-	weaponType1 = "Wand",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AxisEnfeeble",
-		"MonsterProjectileWeakness",
-		"MonsterDetonateDeadExperimenter",
-	},
-	modList = {
-		-- muzzle_flash_swap_hands [muzzle_flash_swap_hands = 1]
-	},
-}
-minions["Metadata/Monsters/Axis/AxisExperimenterRaiseZombie"] = {
-	name = "Reanimator",
-	monsterTags = { "caster", "cursing_monster", "has_wand", "human", "humanoid", "light_armour", "medium_height", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", "summoner", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 0.96,
-	energyShield = 0.2,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 75,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.995,
-	attackRange = 40,
-	accuracy = 1,
-	weaponType1 = "Wand",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AxisEnfeeble",
-		"NecromancerRaiseZombie",
-		"ExperimenterEnrageDemon",
-	},
-	modList = {
-		-- muzzle_flash_swap_hands [muzzle_flash_swap_hands = 1]
-	},
-}
--- Bandit
-minions["Metadata/Monsters/Bandits/BanditBowExplosiveArrow"] = {
-	name = "Oak's Sniper",
-	monsterTags = { "bandit", "flesh_armour", "has_bow", "human", "humanoid", "medium_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.08,
-	armour = 0.25,
-	evasion = 0.1,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.44,
-	damageSpread = 0.2,
-	attackTime = 1.995,
-	attackRange = 40,
-	accuracy = 1,
-	weaponType1 = "Bow",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"BanditExplosiveArrowAtAnimationSpeed",
-		"EASBanditTauntBow",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/Bandits/BanditBowPoisonArrow"] = {
-	name = "Alira's Deadeye",
-	monsterTags = { "bandit", "chaos_affinity", "flesh_armour", "has_bow", "human", "humanoid", "medium_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.08,
-	armour = 0.25,
-	evasion = 0.1,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.44,
-	damageSpread = 0.2,
-	attackTime = 1.995,
-	attackRange = 40,
-	accuracy = 1,
-	weaponType1 = "Bow",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterCausticArrowAtAnimationSpeed",
-		"EASBanditTauntBow",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/Bandits/BanditMeleeWarlordsMarkMaul"] = {
-	name = "Oak's Devoted",
-	monsterTags = { "bandit", "bludgeoning_weapon", "cursing_monster", "flesh_armour", "has_two_hand_mace", "has_two_handed_melee", "human", "humanoid", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.15,
-	evasion = 0.2,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.4,
-	damageSpread = 0.2,
-	attackTime = 1.35,
-	attackRange = 11,
-	accuracy = 1,
-	weaponType1 = "Two Handed Mace",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterWarlordsMark",
-		"EASBanditTaunt",
-	},
-	modList = {
-		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
-	},
-}
-minions["Metadata/Monsters/Bandit/DockworkerChampion_"] = {
-	name = "Foreman",
-	monsterTags = { "bandit_area", "bludgeoning_weapon", "ghost_blood", "has_two_hand_mace", "has_two_handed_melee", "human", "light_armour", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "slow_movement", "undead", },
-	life = 2.1,
-	armour = 0.25,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.35,
-	attackRange = 14,
-	accuracy = 1,
-	weaponType1 = "Two Handed Mace",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"GroundEffectsSlamDockworkerChampion",
-	},
-	modList = {
-		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
-	},
-}
-minions["Metadata/Monsters/Bandits/BanditBowChampion"] = {
-	name = "Kraityn's Sentry",
-	monsterTags = { "bandit", "fire_affinity", "flesh_armour", "has_bow", "human", "humanoid", "medium_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "slow_movement", },
-	life = 1.57,
-	armour = 0.25,
-	evasion = 0.1,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 0.73,
-	damageSpread = 0.2,
-	attackTime = 1.995,
-	attackRange = 40,
-	accuracy = 1,
-	weaponType1 = "Bow",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"BanditExplosiveArrowChampion",
-		"BanditChampionBlastRain",
-		"BanditChampionBlastRainSpectre",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/Bandits/BanditRangedTornadoShotPetrified"] = {
-	name = "Imperial Vanguard",
-	monsterTags = { "bandit", "bone_armour", "bones", "has_bow", "human", "humanoid", "medium_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.08,
-	armour = 0.25,
-	evasion = 0.1,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.44,
-	damageSpread = 0.2,
-	attackTime = 1.995,
-	attackRange = 40,
-	accuracy = 1,
-	weaponType1 = "Bow",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"SkeletonSoldierTornadoShot",
-	},
-	modList = {
-		-- set_immune_to_cheats [set_immune_to_cheats = 1]
-	},
-}
--- Beast
-minions["Metadata/Monsters/Beasts/BeastCaveDegenAura"] = {
-	name = "Shaggy Monstrosity",
-	monsterTags = { "animal_claw_weapon", "aura_bearer", "beast", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "large_model", "mammal_beast", "medium_height", "melee", "physical_affinity", "red_blood", "ursine_beast", "very_slow_movement", },
-	life = 2.1,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.095,
-	attackRange = 14,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"ChaosDegenAura",
-		"GroundSlamBeast",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/Beasts/BeastVulnerabilityCurse"] = {
-	name = "Armour Cruncher",
-	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "large_model", "mammal_beast", "medium_height", "melee", "physical_affinity", "red_blood", "ursine_beast", "very_slow_movement", },
-	life = 2.1,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.095,
-	attackRange = 14,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterVulnerabilityOnHit1",
-	},
-	modList = {
-		-- MonsterCurseOnHitVulnerability [curse_on_hit_level_vulnerability = 1]
-	},
-}
-minions["Metadata/Monsters/Beasts/BeastCleaveEnduringCry"] = {
-	name = "Hairy Bonecruncher",
-	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "large_model", "mammal_beast", "medium_height", "melee", "physical_affinity", "red_blood", "ursine_beast", "very_slow_movement", },
-	life = 2.1,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.095,
-	attackRange = 14,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"BeastEnduringCry",
-		"GABeastCleave",
-		"GroundSlamBeast",
-	},
-	modList = {
-		-- MonsterUsesEnduringCryText [monster_uses_enduring_cry_text = 1]
-		-- MonsterCleavesText [monster_cleaves_text = 1]
-	},
-}
--- Blood Apes
-minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage"] = {
-	name = "Carnage Chieftain",
-	monsterTags = { "beast", "bludgeoning_weapon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "large_model", "mammal_beast", "medium_height", "medium_movement", "melee", "physical_affinity", "primate_beast", "red_blood", },
-	life = 2.4,
-	fireResist = 75,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.905,
-	attackRange = 13,
-	accuracy = 1,
-	weaponType1 = "One Handed Mace",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"BloodChieftainSummonMonkeys",
-		"MassFrenzy",
-		"MonkeyThrow",
-		"TriggeredMonkeyBomb",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodParasite"] = {
-	name = "Host Chieftain",
-	monsterTags = { "beast", "bludgeoning_weapon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "large_model", "mammal_beast", "medium_height", "medium_movement", "melee", "physical_affinity", "primate_beast", "red_blood", },
-	life = 2.4,
-	fireResist = 75,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.905,
-	attackRange = 13,
-	accuracy = 1,
-	weaponType1 = "One Handed Mace",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"BloodChieftainSummonParasiteMonkeys",
-		"MassPower",
-	},
-	modList = {
-	},
-}
--- Bone Stalker
-minions["Metadata/Monsters/BoneStalker/BoneStalker"] = {
-	name = "Bone Stalker",
-	monsterTags = { "bone_armour", "bones", "has_one_hand_axe", "has_one_handed_melee", "humanoid", "large_height", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "skeleton", "slashing_weapon", "undead", },
-	life = 2.1,
-	evasion = 0.25,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.13,
-	damageSpread = 0.2,
-	attackTime = 1.8,
-	attackRange = 12,
-	accuracy = 1,
-	weaponType1 = "One Handed Axe",
-	skillList = {
-		"Melee",
-		"BoneStalkerEarthquake",
-		"WalkingDoubleSlash",
-	},
-	modList = {
-	},
-}
--- Bull
-minions["Metadata/Monsters/Bull/Bull"] = {
-	name = "Fighting Bull",
-	monsterTags = { "beast", "bludgeoning_weapon", "flesh_armour", "gladiator", "has_one_hand_mace", "has_one_handed_melee", "large_model", "medium_height", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.38,
-	armour = 1,
-	fireResist = 0,
-	coldResist = 40,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.91,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 9,
-	accuracy = 1,
-	weaponType1 = "One Handed Mace",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"BullCharge",
-	},
-	modList = {
-	},
-}
--- Cage Spider
-minions["Metadata/Monster/CageSpider/CageSpider2"] = {
-	name = "Sandworn Slaves",
-	monsterTags = { "caster", "flesh_armour", "is_unarmed", "large_height", "melee", "not_dex", "not_int", "physical_affinity", "ranged", "skeleton", "slashing_weapon", "slow_movement", "undead", },
-	life = 4.4,
-	armour = 0.75,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1.28,
-	damageSpread = 0.2,
-	attackTime = 1.755,
-	attackRange = 12,
-	accuracy = 1,
-	skillList = {
-		"Melee",
-		"CageSpiderCycloneTriggerSandstorms",
-		"CageSpiderSandSpark",
-	},
-	modList = {
-	},
-}
--- Cannibals
-minions["Metadata/Monsters/Cannibal/CannibalMaleChampion"] = {
-	name = "Cannibal Fire-eater",
-	monsterTags = { "bludgeoning_weapon", "caster", "fast_movement", "fire_affinity", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "light_armour", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
-	life = 1.44,
-	evasion = 0.15,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.995,
-	attackRange = 12,
-	accuracy = 1,
-	weaponType1 = "One Handed Mace",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterFlameRedCannibal",
-		"GTCannibalFlameBreathe",
-	},
-	modList = {
-	},
-}
--- Goatmen
-minions["Metadata/Monsters/Goatman/GoatmanLeapSlam"] = {
-	name = "Goatman",
-	monsterTags = { "beast", "goatman", "has_one_hand_mace", "has_one_handed_melee", "humanoid", "light_armour", "mammal_beast", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.1,
-	evasion = 0.05,
-	fireResist = 40,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.65,
-	damageSpread = 0.2,
-	attackTime = 1.2,
-	attackRange = 7,
-	accuracy = 1,
-	skillList = {
-		"GoatmanLeapSlam",
-		"MeleeAtAnimationSpeed",
-		"GoatmanWait",
-		"GoatmanWait2",
-		"GAGoatmanLeapSlamDamage",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/Goatman/GoatmanLightningLeapSlamMaps"] = {
-	name = "Bearded Devil",
-	monsterTags = { "beast", "goatman", "has_one_hand_mace", "has_one_handed_melee", "humanoid", "light_armour", "mammal_beast", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slow_movement", },
-	life = 1,
-	evasion = 0.05,
-	fireResist = 40,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 0.8,
-	damageSpread = 0.2,
-	attackTime = 1.455,
-	attackRange = 7,
-	accuracy = 1,
-	skillList = {
-		"GoatmanLeapSlam",
-		"GAGoatmanLeapSlamDamage",
-		"MeleeAtAnimationSpeed",
-		"GoatmanWait",
-		"GoatmanWait2",
-	},
-	modList = {
-		mod("PhysicalDamageGainAsLightning", "BASE", 100, 0, 0), -- MonsterPhysicalAddedAsLightningSkeletonMaps [physical_damage_%_to_add_as_lightning = 100]
-	},
-}
-minions["Metadata/Monsters/Goatman/GoatmanShamanFireball"] = {
-	name = "Goatman Shaman",
-	monsterTags = { "beast", "bludgeoning_weapon", "caster", "fire_affinity", "goatman", "has_staff", "has_two_handed_melee", "humanoid", "light_armour", "mammal_beast", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", "slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1,
-	energyShield = 0.2,
-	fireResist = 75,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.125,
-	attackRange = 12,
-	accuracy = 1,
-	weaponType1 = "Staff",
-	skillList = {
-		"MonsterFireballContactPos",
-		"GoatmanMoltenShell",
-		"MeleeAtAnimationSpeed",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/Goatman/GoatmanShamanFireChampion"] = {
-	name = "Goatman Fire-raiser",
-	monsterTags = { "beast", "bludgeoning_weapon", "caster", "fire_affinity", "goatman", "has_staff", "has_two_handed_melee", "humanoid", "light_armour", "mammal_beast", "medium_height", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
-	life = 1.4,
-	energyShield = 0.2,
-	fireResist = 75,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 12,
-	accuracy = 1,
-	weaponType1 = "Staff",
-	skillList = {
-		"MonsterFireballContactPos",
-		"GoatmanMoltenShell",
-		"GoatmanFireMagmaOrb",
-		"EASGoatmanShamanTaunt",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/Goatman/GoatmanShamanLightning"] = {
-	name = "Bearded Shaman",
-	monsterTags = { "beast", "bludgeoning_weapon", "caster", "goatman", "has_staff", "has_two_handed_melee", "humanoid", "light_armour", "lightning_affinity", "mammal_beast", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", "slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1,
-	energyShield = 0.2,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.125,
-	attackRange = 12,
-	accuracy = 1,
-	weaponType1 = "Staff",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterShockNova",
-		"MonsterSpark",
-	},
-	modList = {
-		mod("Speed", "INC", -50, 16, 0), -- MonsterGoatmanShamanCastSpeed [base_cast_speed_+% = -50]
-	},
-}
-minions["Metadata/Monsters/Goatman/MountainGoatmanChampion"] = {
-	name = "Colossus Crusher",
-	monsterTags = { "beast", "bludgeoning_weapon", "goatman", "has_two_hand_mace", "has_two_handed_melee", "humanoid", "light_armour", "mammal_beast", "medium_height", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.1,
-	evasion = 0.05,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.91,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 12,
-	accuracy = 1,
-	weaponType1 = "Two Handed Mace",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"GoatmanEarthquake",
-		"GoatmanMonsterSlam",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/Goatman/MountainGoatmanShamanIceSpear"] = {
-	name = "Alpine Shaman",
-	monsterTags = { "beast", "bludgeoning_weapon", "caster", "cold_affinity", "goatman", "has_staff", "has_two_handed_melee", "humanoid", "light_armour", "mammal_beast", "medium_height", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1,
-	energyShield = 0.2,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 12,
-	accuracy = 1,
-	weaponType1 = "Staff",
-	skillList = {
-		"MountainGoatmanIceSpear",
-	},
-	modList = {
-	},
-}
--- Miscreation
-minions["Metadata/Monsters/DemonFemale/DemonFemale"] = {
-	name = "Whipping Miscreation",
-	monsterTags = { "animal_claw_weapon", "demon", "fast_movement", "flesh_armour", "has_dagger", "has_one_handed_melee", "medium_height", "melee", "physical_affinity", "red_blood", },
-	life = 0.99,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 0.88,
-	damageSpread = 0.2,
-	attackTime = 2.445,
-	attackRange = 18,
-	accuracy = 1,
-	skillList = {
-		"Melee",
-		"MeleeDemonFemale",
-	},
-	modList = {
-		-- MonsterChanceToVulnerabilityOnHit2 [curse_on_hit_%_vulnerability = 50]
-	},
-}
-minions["Metadata/Monsters/DemonModular/DemonFemaleRanged"] = {
-	name = "Tentacle Miscreation",
-	monsterTags = { "demon", "flesh_armour", "is_unarmed", "medium_height", "medium_movement", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 0.96,
-	evasion = 0.1,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.68,
-	damageSpread = 0.2,
-	attackTime = 3,
-	attackRange = 6,
-	accuracy = 1,
-	skillList = {
-		"DemonFemaleRangedGeometryProjectileLeft",
-		"DemonFemaleRangedGeometryProjectileRight",
-		"EmptyActionFemaleDemonProjectiles",
-		"DemonFemaleRangedGeometryProjectileLeftAhead",
-		"DemonFemaleRangedGeometryProjectileRightAhead",
-		"EmptyActionFemaleDemonProjectilesAhead",
-	},
-	modList = {
-		mod("PhysicalDamageConvertToFire", "BASE", 50, 0, 0), -- MonsterConvertToFireDamage2 [base_physical_damage_%_to_convert_to_fire = 50]
-		-- MonsterRangeVarianceMedium [main_hand_base_maximum_attack_distance = 0]
-	},
-}
-minions["Metadata/Monsters/DemonModular/DemonFemaleRanged2"] = {
-	name = "Lunaris Concubine",
-	monsterTags = { "demon", "flesh_armour", "is_unarmed", "medium_height", "medium_movement", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 0.96,
-	evasion = 0.1,
-	fireResist = 0,
-	coldResist = 40,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.68,
-	damageSpread = 0.2,
-	attackTime = 3,
-	attackRange = 6,
-	accuracy = 1,
-	skillList = {
-		"DemonFemaleRangedProjectile2",
-	},
-	modList = {
-		mod("PhysicalDamageConvertToCold", "BASE", 50, 0, 0), -- MonsterConvertToColdDamage2 [base_physical_damage_%_to_convert_to_cold = 50]
-	},
-}
-minions["Metadata/Monsters/DemonModular/DemonModularBladeVortex"] = {
-	name = "Slashed Miscreation",
-	monsterTags = { "caster", "cleaving_weapon", "demon", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "medium_height", "melee", "physical_affinity", "red_blood", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.5,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.35,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 6,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"DemonModularBladeVortex",
-		"DemonModularBladeVortexSpectre",
-	},
-	modList = {
-		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 0]
-	},
-}
-minions["Metadata/Monsters/DemonModular/DemonModularFire"] = {
-	name = "Burned Miscreation",
-	monsterTags = { "cleaving_weapon", "demon", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "medium_height", "melee", "physical_affinity", "red_blood", "uses_suicide_explode", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1,
-	fireResist = 40,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.35,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 9,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterRighteousFire",
-		"MonsterRighteousFireWhileSpectred",
-		"ModularDemonFireSuicideExplosion",
-	},
-	modList = {
-		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 0]
-	},
-}
--- Maw
-minions["Metadata/Monsters/Frog/Frog"] = {
-	name = "Fetid Maw",
-	monsterTags = { "amphibian_beast", "beast", "has_one_hand_mace", "has_one_handed_melee", "large_model", "light_armour", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slow_movement", "small_height", },
-	life = 1,
-	evasion = 0.2,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1,
-	damageSpread = 0.2,
-	attackTime = 1.455,
-	attackRange = 7,
-	accuracy = 1,
-	skillList = {
-		"MonsterLeapSlam",
-		"Melee",
-	},
-	modList = {
-		-- MonsterLeapsOntoEnemiesText [monster_leaps_onto_enemies_text = 1]
-	},
-}
-minions["Metadata/Monsters/Frog/Frog2"] = {
-	name = "Murk Fiend",
-	monsterTags = { "amphibian_beast", "beast", "has_one_hand_mace", "has_one_handed_melee", "large_model", "light_armour", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slow_movement", "small_height", },
-	life = 1,
-	evasion = 0.2,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1,
-	damageSpread = 0.2,
-	attackTime = 1.455,
-	attackRange = 7,
-	accuracy = 1,
-	skillList = {
-		"MonsterLeapSlam",
-		"Melee",
-	},
-	modList = {
-		-- MonsterLeapsOntoEnemiesText [monster_leaps_onto_enemies_text = 1]
-	},
-}
--- Chimeral
-minions["Metadata/Monsters/GemMonster/Iguana"] = {
-	name = "Plumed Chimeral",
-	monsterTags = { "beast", "has_one_hand_sword", "has_one_handed_melee", "large_model", "light_armour", "melee", "not_str", "physical_affinity", "ranged", "red_blood", "reptile_beast", "slow_movement", "small_height", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.25,
-	energyShield = 0.2,
-	evasion = 0.2,
-	fireResist = 52,
-	coldResist = 52,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.13,
-	damageSpread = 0.2,
-	attackTime = 1.005,
-	attackRange = 9,
-	accuracy = 1,
-	skillList = {
-		"IguanaProjectile",
-		"MeleeAtAnimationSpeed",
-	},
-	modList = {
-		-- MonsterSuppressingFire [chance_to_apply_suppression_on_hit_% = 20]
-	},
-}
-minions["Metadata/Monsters/GemMonster/IguanaChrome"] = {
-	name = "Chrome-infused Chimeral",
-	monsterTags = { "beast", "cold_affinity", "has_one_hand_sword", "has_one_handed_melee", "large_model", "light_armour", "melee", "not_str", "physical_affinity", "ranged", "red_blood", "reptile_beast", "slow_movement", "small_height", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.54,
-	energyShield = 0.2,
-	evasion = 0.2,
-	fireResist = 52,
-	coldResist = 52,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.12,
-	damageSpread = 0.2,
-	attackTime = 1.005,
-	attackRange = 9,
-	accuracy = 1,
-	skillList = {
-		"IguanaProjectileChrome",
-		"MeleeAtAnimationSpeed",
-		"IguanaDoomArrow",
-	},
-	modList = {
-		-- MonsterSuppressingFire [chance_to_apply_suppression_on_hit_% = 20]
-		mod("PhysicalDamageGainAsCold", "BASE", 100, 0, 0), -- MonsterPhysicalAddedAsColdSkeletonMaps [physical_damage_%_to_add_as_cold = 100]
-	},
-}
--- Ghost Pirate
-minions["Metadata/Monsters/GhostPirates/GhostPirateBlackBowMaps"] = {
-	name = "Spectral Bowman",
-	monsterTags = { "fast_movement", "ghost", "ghost_armour", "ghost_blood", "has_bow", "lightning_affinity", "medium_height", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "undead", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 0.96,
-	energyShield = 0.2,
-	evasion = 0.5,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 0.96,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 40,
-	accuracy = 1,
-	weaponType1 = "Bow",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterPuncture",
-		"MonsterLightningArrow",
-	},
-	modList = {
-		mod("PhysicalDamageGainAsLightning", "BASE", 100, 0, 0), -- MonsterPhysicalAddedAsLightningSkeletonMaps [physical_damage_%_to_add_as_lightning = 100]
-		-- supress_muzzle_flash [supress_muzzle_flash = 1]
-	},
-}
-minions["Metadata/Monsters/GhostPirates/GhostPirateBlackFlickerStrikeMaps"] = {
-	name = "Cursed Mariner",
-	monsterTags = { "cleaving_weapon", "fast_movement", "ghost", "ghost_armour", "ghost_blood", "has_one_hand_sword", "has_one_handed_melee", "medium_height", "melee", "not_str", "physical_affinity", "undead", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1,
-	energyShield = 0.2,
-	evasion = 0.5,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1.32,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 8,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	weaponType2 = "Shield",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterFlickerStrikeExtraRange",
-	},
-	modList = {
-		mod("PhysicalDamageGainAsLightning", "BASE", 100, 0, 0), -- MonsterPhysicalAddedAsLightningSkeletonMaps [physical_damage_%_to_add_as_lightning = 100]
-		-- MonsterUsesFlickerStrikeText [monster_uses_flicker_strike_text = 1]
-		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [monster_base_block_% = 20]
-		mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [base_spell_block_% = 20]
-		mod("BlockEffect", "BASE", 40, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [base_block_%_damage_taken = 40]
-		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
-	},
-}
-minions["Metadata/Monsters/GhostPirates/GhostPirateGreenBladeVortex"] = {
-	name = "Spectral Scoundrel",
-	monsterTags = { "caster", "cleaving_weapon", "fast_movement", "ghost", "ghost_armour", "ghost_blood", "has_one_hand_sword", "has_one_handed_melee", "medium_height", "melee", "not_str", "physical_affinity", "undead", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.5,
-	energyShield = 0.2,
-	evasion = 0.5,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1.65,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 8,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	weaponType2 = "Shield",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"GhostPirateBladeVortex",
-		"GhostPirateBladeVortexSpectre",
-	},
-	modList = {
-		mod("PhysicalDamageConvertToLightning", "BASE", 50, 0, 0), -- MonsterElementalSkeletonLightning [base_physical_damage_%_to_convert_to_lightning = 50]
-		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [monster_base_block_% = 20]
-		mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [base_spell_block_% = 20]
-		mod("BlockEffect", "BASE", 40, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [base_block_%_damage_taken = 40]
-		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
-	},
-}
--- Undying Grappler
-minions["Metadata/Monsters/Grappler/Grappler"] = {
-	name = "Undying Grappler",
-	monsterTags = { "demon", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "medium_height", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "undying", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1,
-	evasion = 0.3,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.25,
-	damageSpread = 0.2,
-	attackTime = 1.245,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterFlickerStrike",
-		"MonsterDischarge",
-	},
-	modList = {
-		-- MonsterGainsPowerChargeOnKinDeath [monster_gain_power_charge_on_kin_death = 1]
-		-- MonsterUsesFlickerStrikeText [monster_uses_flicker_strike_text = 1]
-		-- MonsterCastsDischargeText [monster_casts_discharge_text = 1]
-	},
-}
-minions["Metadata/Monsters/Grappler/GrapplerLabyrinth"] = {
-	name = "Shadow Lurker",
-	monsterTags = { "demon", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "medium_height", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "undying", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1,
-	evasion = 0.3,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.25,
-	damageSpread = 0.2,
-	attackTime = 1.245,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterFlickerStrike",
-		"MonsterDischarge",
-	},
-	modList = {
-		-- MonsterGainsPowerChargeOnKinDeath [monster_gain_power_charge_on_kin_death = 1]
-		-- MonsterUsesFlickerStrikeText [monster_uses_flicker_strike_text = 1]
-		-- MonsterCastsDischargeText [monster_casts_discharge_text = 1]
-	},
-}
--- Ribbon
-minions["Metadata/Monsters/Guardians/GuardianFire"] = {
-	name = "Flame Sentinel",
-	monsterTags = { "caster", "construct", "fire_affinity", "ghost_armour", "has_claw", "has_one_handed_melee", "large_height", "large_model", "mud_blood", "not_str", "ranged", "slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.8,
-	energyShield = 0.4,
-	evasion = 0.1,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.8,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"MonsterMultiFireball",
-		"MonsterSplitFireball",
-		"MonsterLesserMultiFireball",
-		"MonsterMultiFireballSpectre",
-		"MonsterSplitFireballSpectre",
-		"MonsterLesserMultiFireballSpectre",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/Guardians/GuardianFire_BlueMaps"] = {
-	name = "Frost Sentinel",
-	monsterTags = { "caster", "cold_affinity", "construct", "ghost_armour", "has_claw", "has_one_handed_melee", "large_height", "large_model", "mud_blood", "not_str", "ranged", "slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.8,
-	energyShield = 0.4,
-	evasion = 0.1,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.8,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"MonsterMultiIceSpear",
-		"MonsterSplitIceSpear",
-		"MonsterLesserMultiIceSpear",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/Guardians/GuardianLightning"] = {
-	name = "Galvanic Ribbon",
-	monsterTags = { "caster", "construct", "ghost_armour", "has_claw", "has_one_handed_melee", "large_height", "large_model", "lightning_affinity", "mud_blood", "not_str", "slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.8,
-	energyShield = 0.4,
-	evasion = 0.1,
-	fireResist = 0,
-	coldResist = 85,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.8,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 6,
-	accuracy = 1,
-	skillList = {
-		"GuardianArc",
-	},
-	modList = {
-	},
-}
--- Gut flayer
-minions["Metadata/Monsters/HalfSkeleton/HalfSkeleton"] = {
-	name = "Gut Flayer",
-	monsterTags = { "demon", "flesh_armour", "has_dagger", "has_one_handed_melee", "humanoid", "medium_height", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.32,
-	armour = 0.25,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.65,
-	damageSpread = 0.3,
-	attackTime = 1.5,
-	attackRange = 10,
-	accuracy = 1,
-	weaponType1 = "Dagger",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"HalfSkeletonPuncture",
-	},
-	modList = {
-		-- MonsterCastsPunctureText [monster_casts_puncture_text = 1]
-	},
-}
--- Solar Guard
-minions["Metadata/Monsters/HolyFireElemental/HolyFireElementalSolarisBeam"] = {
-	name = "Solar Guard",
-	monsterTags = { "animal_claw_weapon", "caster", "construct", "fire_affinity", "humanoid", "is_unarmed", "medium_height", "medium_movement", "mud_blood", "not_dex", "ranged", "stone_armour", "stone_construct", "templar", },
-	life = 1.98,
-	energyShield = 0.1,
-	armour = 0.25,
-	fireResist = 75,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.12,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 9,
-	accuracy = 1,
-	skillList = {
-		"SpecialBeamCannon",
-		"HolyFireElementalFireball",
-	},
-	modList = {
-		mod("PhysicalDamageGainAsFire", "BASE", 60, 0, 0), -- MonsterPhysicalAddedAsFireHolyFireElemental [physical_damage_%_to_add_as_fire = 60]
-	},
-}
--- Construct
-minions["Metadata/Monsters/incaminion/Fragment"] = {
-	name = "Ancient Construct",
-	monsterTags = { "caster", "chaos_affinity", "construct", "ghost_armour", "ghost_blood", "is_unarmed", "medium_height", "medium_movement", "not_dex", "not_str", "puncturing_weapon", "ranged", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.19,
-	energyShield = 0.2,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 40,
-	damage = 1.68,
-	damageSpread = 0.2,
-	attackTime = 1.32,
-	attackRange = 25,
-	accuracy = 1,
-	skillList = {
-		"IncaMinionProjectile",
-		"MonsterWaitVeryShort",
-	},
-	modList = {
-	},
-}
--- Carrion Queen
-minions["Metadata/Monsters/InsectSpawner/InsectSpawner"] = {
-	name = "Carrion Queen",
-	monsterTags = { "animal_claw_weapon", "beast", "extra_large_height", "flesh_armour", "insect", "insect_blood", "is_unarmed", "large_model", "physical_affinity", "ranged", "summoner", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.45,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 0.84,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 6,
-	accuracy = 1,
-	skillList = {
-		"InsectSpawnerSpit",
-		"InsectSpawnerSpawn",
-	},
-	modList = {
-		mod("PhysicalDamageConvertToFire", "BASE", 50, 0, 0), -- MonsterConvertToFireDamage2 [base_physical_damage_%_to_convert_to_fire = 50]
-	},
-}
--- Kaom's Warriors
-minions["Metadata/Monsters/KaomWarrior/KaomWarrior2"] = {
-	name = "Kaom's Chosen",
-	monsterTags = { "demon", "fire_affinity", "has_dual_wield_melee", "has_one_hand_mace", "has_one_handed_melee", "humanoid", "karui", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "slashing_weapon", "slow_movement", "stone_armour", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.43,
-	armour = 0.25,
-	fireResist = 40,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.87,
-	damageSpread = 0.2,
-	attackTime = 1.755,
-	attackRange = 9,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"KaomWarriorMoltenStrike",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/KaomWarrior/KaomWarrior3"] = {
-	name = "Kaom's Chosen",
-	monsterTags = { "demon", "has_dual_wield_melee", "has_one_hand_mace", "has_one_handed_melee", "humanoid", "karui", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "slashing_weapon", "slow_movement", "stone_armour", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.43,
-	armour = 0.25,
-	fireResist = 40,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.65,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"KaomWarriorGroundSlam",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/KaomWarrior/KaomWarrior7"] = {
-	name = "Tukohama's Vanguard",
-	monsterTags = { "cannot_be_monolith", "demon", "has_dual_wield_melee", "has_one_hand_mace", "has_one_handed_melee", "humanoid", "karui", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "slashing_weapon", "slow_movement", "stone_armour", },
-	life = 1.43,
-	armour = 0.25,
-	fireResist = 40,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.16,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"Melee",
-		"KaomFireBeamTotem",
-		"KaomFireBeamTotemSpectre",
-	},
-	modList = {
-		-- KaomWarriorSlowFireBeam [fire_beam_max_rotation_speed_+% = -75]
-		-- KaomWarriorSlowFireBeam [fire_beam_start_angle_offset_variance = 60]
-		-- KaomWarriorSlowFireBeam [base_totem_range = 80]
-		-- KaomWarriorSlowFireBeam [fire_beam_length_+% = -25]
-		mod("TotemLife", "INC", 250, 0, 0), -- KaomWarriorSlowFireBeam2 [totem_life_+% = 250]
-		-- MonsterKillTrapsMinesTotemsOnDeath [kill_traps_mines_and_totems_on_death = 1]
-	},
-}
--- Kitava's Cultist
-minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodDelve"] = {
-	name = "Risen Vaal Fanatic",
-	monsterTags = { "caster", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
-	life = 2.88,
-	lifeScaling = "AltLife2",
-	armour = 0.25,
-	evasion = 0.4,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 14,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	skillList = {
-		"VaalincursionMortar",
-	},
-	modList = {
-		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
-	},
-}
-minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodChampionDelve"] = {
-	name = "Risen Vaal Advocate",
-	monsterTags = { "caster", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
-	life = 4.05,
-	lifeScaling = "AltLife2",
-	armour = 0.25,
-	evasion = 0.4,
-	fireResist = 35,
-	coldResist = 35,
-	lightningResist = 35,
-	chaosResist = 20,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 14,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	skillList = {
-		"VaalincursionMortar",
-		"VaalIncursionSpecialBeamCannonBlood",
-	},
-	modList = {
-		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
-	},
-}
-minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosDelve"] = {
-	name = "Risen Vaal Fanatic",
-	monsterTags = { "caster", "chaos_affinity", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "puncturing_weapon", "ranged", "red_blood", },
-	life = 2.88,
-	lifeScaling = "AltLife2",
-	armour = 0.25,
-	evasion = 0.4,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 14,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	skillList = {
-		"FireballIncursionChaos",
-	},
-	modList = {
-		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
-	},
-}
-minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosChampionDelve"] = {
-	name = "Risen Vaal Advocate",
-	monsterTags = { "caster", "chaos_affinity", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "puncturing_weapon", "ranged", "red_blood", },
-	life = 4.05,
-	lifeScaling = "AltLife2",
-	armour = 0.25,
-	evasion = 0.4,
-	fireResist = 35,
-	coldResist = 35,
-	lightningResist = 35,
-	chaosResist = 20,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 14,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	skillList = {
-		"FireballIncursionChaos",
-		"IncursionSummonPhantasms",
-		"IncursionMeteorUpheaval",
-	},
-	modList = {
-		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
-	},
-}
-minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireDelve"] = {
-	name = "Risen Vaal Fanatic",
-	monsterTags = { "caster", "cultist", "delve_monster", "fire_affinity", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "puncturing_weapon", "ranged", "red_blood", },
-	life = 2.88,
-	lifeScaling = "AltLife2",
-	armour = 0.25,
-	evasion = 0.4,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 14,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	skillList = {
-		"FireballIncusionFire",
-	},
-	modList = {
-		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
-	},
-}
-minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireChampionDelve_"] = {
-	name = "Risen Vaal Advocate",
-	monsterTags = { "caster", "cultist", "delve_monster", "fire_affinity", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "puncturing_weapon", "ranged", "red_blood", },
-	life = 4.05,
-	lifeScaling = "AltLife2",
-	armour = 0.25,
-	evasion = 0.4,
-	fireResist = 35,
-	coldResist = 35,
-	lightningResist = 35,
-	chaosResist = 20,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 14,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	skillList = {
-		"FireballIncusionFire",
-		"VaalIncursionFirestorm",
-	},
-	modList = {
-		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
-	},
-}
-minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningDelve"] = {
-	name = "Risen Vaal Fanatic",
-	monsterTags = { "caster", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "lightning_affinity", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "puncturing_weapon", "ranged", "red_blood", },
-	life = 2.88,
-	lifeScaling = "AltLife2",
-	armour = 0.25,
-	evasion = 0.4,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 14,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	skillList = {
-		"FireballIncusionLightning",
-	},
-	modList = {
-		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
-	},
-}
-minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampionDelve_"] = {
-	name = "Risen Vaal Advocate",
-	monsterTags = { "caster", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "lightning_affinity", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "puncturing_weapon", "ranged", "red_blood", },
-	life = 4.05,
-	lifeScaling = "AltLife2",
-	armour = 0.25,
-	evasion = 0.4,
-	fireResist = 35,
-	coldResist = 35,
-	lightningResist = 35,
-	chaosResist = 20,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 14,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	skillList = {
-		"FireballIncusionLightning",
-		"DelayedLightningSpark",
-		"SummonedSparkDaemonLightning",
-	},
-	modList = {
-		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
-	},
-}
--- Kitava's Herald
-minions["Metadata/Monster/KitavaDemon/KitavaDemon"] = {
-	name = "Kitava's Herald",
-	monsterTags = { "cannot_be_monolith", "caster", "cleaving_weapon", "cultist", "demon", "fire_affinity", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "medium_height", "melee", "not_int", "physical_affinity", "red_blood", "slow_movement", },
-	life = 3.6,
-	armour = 0.5,
-	evasion = 0.4,
-	fireResist = 37,
-	coldResist = 37,
-	lightningResist = 37,
-	chaosResist = 0,
-	damage = 1.4,
-	damageSpread = 0.2,
-	attackTime = 1.455,
-	attackRange = 10,
-	accuracy = 1,
-	damageFixup = 0.33,
-	weaponType1 = "One Handed Sword",
-	skillList = {
-		"KitavaDemonLeapSlam",
-		"KitavaDemonCleave",
-		"KitavaDemonWhirlingBlades",
-		"KitavaDemonXMortar",
-		"Melee",
-	},
-	modList = {
-		-- MonsterInflictsBleedingText [display_monster_may_inflict_bleeding = 1]
-		-- MonsterSpeedAndDamageFixupComplete [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 33]
-	},
-}
--- Birdman
-minions["Metadata/Monsters/Kiweth/Kiweth"] = {
-	name = "Avian Retch",
-	monsterTags = { "animal_claw_weapon", "beast", "demon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "medium_height", "melee", "not_str", "physical_affinity", "ranged", "red_blood", "slow_movement", },
-	life = 1.54,
-	energyShield = 0.2,
-	evasion = 0.2,
-	fireResist = 0,
-	coldResist = 40,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.68,
-	damageSpread = 0.2,
-	attackTime = 1.11,
-	attackRange = 11,
-	accuracy = 1,
-	skillList = {
-		"BirdmanConsumeCorpse",
-		"BirdmanBloodProjectileMortar",
-		"MeleeAtAnimationSpeed",
-	},
-	modList = {
-		-- MonsterLesserFarShot [monster_reverse_point_blank_damage_-%_at_minimum_range = 60]
-		mod("Damage", "INC", 20, 1024, 0), -- MonsterLesserFarShot [projectile_damage_+% = 20]
-		-- MonsterLesserFarShot [display_monster_uses_far_shot_text = 1]
-	},
-}
-minions["Metadata/Monsters/Kiweth/KiwethSeagull"] = {
-	name = "Gluttonous Gull",
-	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "demon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "medium_height", "melee", "not_str", "physical_affinity", "ranged", "red_blood", "slow_movement", },
-	life = 1.3,
-	energyShield = 0.12,
-	evasion = 0.2,
-	fireResist = 0,
-	coldResist = 40,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.56,
-	damageSpread = 0.2,
-	attackTime = 1.11,
-	attackRange = 11,
-	accuracy = 1,
-	skillList = {
-		"BirdmanConsumeCorpse",
-		"MeleeAtAnimationSpeed",
-		"BirdmanBloodProjectileMortar",
-	},
-	modList = {
-		-- MonsterLesserFarShot [monster_reverse_point_blank_damage_-%_at_minimum_range = 60]
-		mod("Damage", "INC", 20, 1024, 0), -- MonsterLesserFarShot [projectile_damage_+% = 20]
-		-- MonsterLesserFarShot [display_monster_uses_far_shot_text = 1]
-	},
-}
--- Delve League
-minions["Metadata/Monsters/LeagueDelve/ProtoVaalWarriorElite"] = {
-	name = "Stoneskin Flayer",
-	monsterTags = { "delve_monster", "fast_movement", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "large_height", "melee", "mud_blood", "no_pantheon_mod", "not_int", "physical_affinity", "slashing_weapon", "stone_armour", },
-	life = 8,
-	lifeScaling = "AltLife2",
-	armour = 1,
-	evasion = 1,
-	fireResist = 35,
-	coldResist = 35,
-	lightningResist = 35,
-	chaosResist = 20,
-	damage = 1.34,
-	damageSpread = 0.2,
-	attackTime = 1.305,
-	attackRange = 12,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	weaponType2 = "One Handed Sword",
-	skillList = {
-		"Melee",
-		"DelveProtovaalWhirlingCharge",
-	},
-	modList = {
-	},
-}
--- Hellion
-minions["Metadata/Monsters/Lion/LionDesertSkinPuncture"] = {
-	name = "Dune Hellion",
-	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_dagger", "has_one_handed_melee", "large_model", "light_armour", "mammal_beast", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "small_height", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1,
-	evasion = 0.1,
-	fireResist = 40,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.85,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 10,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterPuncture",
-	},
-	modList = {
-		-- MonsterCastsPunctureText [monster_casts_puncture_text = 1]
-	},
-}
-minions["Metadata/Monsters/Lion/LionWolf3Champion"] = {
-	name = "Freezing Wolf",
-	monsterTags = { "animal_claw_weapon", "beast", "canine_beast", "has_one_hand_mace", "has_one_handed_melee", "light_armour", "mammal_beast", "medium_height", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
-	life = 1.8,
-	evasion = 0.1,
-	fireResist = 0,
-	coldResist = 40,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.01,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 10,
-	accuracy = 1,
-	weaponType1 = "One Handed Mace",
-	skillList = {
-		"Melee",
-		"MonsterLeapSlamFoothills",
-	},
-	modList = {
-		mod("PhysicalDamageGainAsCold", "BASE", 100, 0, 0), -- MonsterPhysicalAddedAsColdSkeletonMaps [physical_damage_%_to_add_as_cold = 100]
-	},
-}
--- Knitted Horror
-minions["Metadata/Monsters/MassSkeleton/MassSkeleton"] = {
-	name = "Knitted Horror",
-	monsterTags = { "bones", "extra_large_height", "humanoid", "is_unarmed", "large_model", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "ranged", "skeleton", "slashing_weapon", "stone_armour", "undead", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.25,
-	armour = 0.5,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.46,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 11,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"SkeletonMassBowProjectile",
-	},
-	modList = {
-		-- MonsterCastsPunctureText [monster_casts_puncture_text = 1]
-	},
-}
--- Miners
-minions["Metadata/Monsters/Miner/MinerLantern"] = {
-	name = "Pocked Lanternbearer",
-	monsterTags = { "cannot_be_monolith", "caster", "fire_affinity", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "medium_height", "mud_blood", "not_int", "not_str", "ranged", "stone_armour", "undead", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.21,
-	evasion = 0.2,
-	fireResist = 40,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.69,
-	damageSpread = 0.2,
-	attackTime = 1.395,
-	attackRange = 9,
-	accuracy = 1,
-	skillList = {
-		"MinerThrowFire",
-		"MinerThrowFireSpectre",
-	},
-	modList = {
-		-- IgniteArtVariation [ignite_art_variation = 1]
-	},
-}
-minions["Metadata/Monsters/Miner/MinerLanternCrystalVeins"] = {
-	name = "Pocked Illuminator",
-	monsterTags = { "cannot_be_monolith", "caster", "fire_affinity", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "medium_height", "mud_blood", "not_int", "not_str", "ranged", "stone_armour", "undead", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.21,
-	evasion = 0.2,
-	fireResist = 40,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.69,
-	damageSpread = 0.2,
-	attackTime = 1.395,
-	attackRange = 9,
-	accuracy = 1,
-	skillList = {
-		"MinerThrowFire",
-		"MinerThrowFireSpectre",
-	},
-	modList = {
-		-- IgniteArtVariation [ignite_art_variation = 1]
-	},
-}
--- Voidbearer
-minions["Metadata/Monsters/Monkeys/FlameBearer"] = {
-	name = "Voidbearer",
-	monsterTags = { "animal_claw_weapon", "caster", "demon", "fire_affinity", "is_unarmed", "light_armour", "medium_height", "medium_movement", "melee", "physical_affinity", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.1,
-	fireResist = 40,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.65,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 7,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"FlamebearerFlameBlue",
-	},
-	modList = {
-		-- set_base_number_of_totems_allowed [set_base_number_of_totems_allowed = 5]
-	},
-}
--- Stone golem
-minions["Metadata/Monsters/MossMonster/FireMonster"] = {
-	name = "Cinder Elemental",
-	monsterTags = { "cleaving_weapon", "construct", "earth_elemental", "has_one_hand_sword", "has_one_handed_melee", "large_height", "large_model", "melee", "mud_blood", "not_dex", "not_int", "physical_affinity", "stone_armour", "stone_construct", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.7,
-	armour = 0.5,
-	fireResist = 40,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 2.55,
-	damageSpread = 0.2,
-	attackTime = 1.17,
-	attackRange = 12,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"FireMonsterWhirlingBlades",
-	},
-	modList = {
-		-- ImmuneToLavaDamage [immune_to_lava_damage = 1]
-	},
-}
--- Mother of Flames
-minions["Metadata/Monsters/MotherOfFlames/MotherOfFlamesZombie"] = {
-	name = "Kiln Mother",
-	monsterTags = { "caster", "female", "fire_affinity", "human", "humanoid", "is_unarmed", "light_armour", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", "slashing_weapon", "slow_movement", "templar", },
-	life = 0.9,
-	energyShield = 0.28,
-	fireResist = 40,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.25,
-	damageSpread = 0.2,
-	attackTime = 1.8,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"MotherOfFlamesMagmaOrb3",
-		"Melee",
-	},
-	modList = {
-	},
-}
--- Necromancer
-minions["Metadata/Monsters/Necromancer/NecromancerConductivity"] = {
-	name = "Sin Lord",
-	monsterTags = { "animal_claw_weapon", "cursing_monster", "demon", "flesh_armour", "humanoid", "insect_blood", "is_unarmed", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "raises_dead", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.4,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.35,
-	damageSpread = 0.2,
-	attackTime = 1.17,
-	attackRange = 12,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"NecromancerReviveSkeleton",
-		"NecromancerConductivity",
-	},
-	modList = {
-		-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
-		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
-		-- hexes_not_tracked [hexes_not_tracked = 1]
-	},
-}
-minions["Metadata/Monsters/Necromancer/NecromancerEnfeebleCurse"] = {
-	name = "Diabolist",
-	monsterTags = { "animal_claw_weapon", "cursing_monster", "demon", "flesh_armour", "humanoid", "insect_blood", "is_unarmed", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "raises_dead", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.4,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.35,
-	damageSpread = 0.2,
-	attackTime = 1.17,
-	attackRange = 12,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"NecromancerReviveSkeleton",
-		"NecromancerEnfeeble",
-		"AddBuffToTargetNecromancer",
-	},
-	modList = {
-		-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
-		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
-		-- hexes_not_tracked [hexes_not_tracked = 1]
-	},
-}
-minions["Metadata/Monsters/Necromancer/NecromancerFlamability"] = {
-	name = "Ash Prophet",
-	monsterTags = { "animal_claw_weapon", "caster", "cursing_monster", "demon", "flesh_armour", "humanoid", "insect_blood", "is_unarmed", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "raises_dead", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.4,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.35,
-	damageSpread = 0.2,
-	attackTime = 1.17,
-	attackRange = 12,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"NecromancerReviveSkeleton",
-		"NecromancerFlammability",
-	},
-	modList = {
-		-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
-		-- ImmuneToLavaDamage [immune_to_lava_damage = 1]
-		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
-		-- hexes_not_tracked [hexes_not_tracked = 1]
-	},
-}
-minions["Metadata/Monsters/Necromancer/NecromancerFrostbite"] = {
-	name = "Death Bishop",
-	monsterTags = { "animal_claw_weapon", "caster", "cursing_monster", "demon", "flesh_armour", "humanoid", "insect_blood", "is_unarmed", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "raises_dead", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.4,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.35,
-	damageSpread = 0.2,
-	attackTime = 1.17,
-	attackRange = 12,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"NecromancerReviveSkeleton",
-		"NecromancerFrostbite",
-	},
-	modList = {
-		-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
-		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
-		-- hexes_not_tracked [hexes_not_tracked = 1]
-	},
-}
-minions["Metadata/Monsters/Necromancer/NecromancerElementalWeakness"] = {
-	name = "Defiler",
-	monsterTags = { "animal_claw_weapon", "cursing_monster", "demon", "flesh_armour", "humanoid", "insect_blood", "is_unarmed", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "raises_dead", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.4,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.35,
-	damageSpread = 0.2,
-	attackTime = 1.17,
-	attackRange = 12,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"NecromancerReviveSkeleton",
-		"NecromancerElementalWeakness",
-	},
-	modList = {
-		-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
-		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
-		-- hexes_not_tracked [hexes_not_tracked = 1]
-	},
-}
-minions["Metadata/Monsters/Necromancer/NecromancerProjectileWeakness"] = {
-	name = "Necromancer",
-	monsterTags = { "animal_claw_weapon", "caster", "cursing_monster", "demon", "flesh_armour", "humanoid", "insect_blood", "is_unarmed", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "raises_dead", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.4,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.35,
-	damageSpread = 0.2,
-	attackTime = 1.17,
-	attackRange = 12,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"NecromancerReviveSkeleton",
-		"NecromancerEnfeeble",
-	},
-	modList = {
-		-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
-		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
-		-- hexes_not_tracked [hexes_not_tracked = 1]
-	},
-}
-minions["Metadata/Monsters/Necromancer/NecromancerVulnerability"] = {
-	name = "Necromancer",
-	monsterTags = { "animal_claw_weapon", "caster", "cursing_monster", "demon", "flesh_armour", "humanoid", "insect_blood", "is_unarmed", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "raises_dead", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.4,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.35,
-	damageSpread = 0.2,
-	attackTime = 1.17,
-	attackRange = 12,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"NecromancerReviveSkeleton",
-		"NecromancerVulnerability",
-	},
-	modList = {
-		-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
-		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
-		-- hexes_not_tracked [hexes_not_tracked = 1]
-	},
-}
--- Undying Bomber
-minions["Metadata/Monsters/Pyromaniac/PyromaniacFire"] = {
-	name = "Undying Incinerator",
-	monsterTags = { "caster", "demon", "fire_affinity", "flesh_armour", "humanoid", "is_unarmed", "medium_height", "not_int", "not_str", "ranged", "red_blood", "slashing_weapon", "slow_movement", "undying", "uses_suicide_explode", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1,
-	evasion = 1,
-	fireResist = 75,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 7,
-	accuracy = 1,
-	skillList = {
-		"PyroFireball",
-		"PyroSuicideExplosion",
-		"MonsterFireBomb",
-	},
-	modList = {
-		-- MonsterExplodesOnItsTargetOnLowLifeText [monster_explodes_on_its_target_text = 2]
-		-- ImmuneToLavaDamage [immune_to_lava_damage = 1]
-	},
-}
-minions["Metadata/Monsters/Pyromaniac/PyromaniacPoison"] = {
-	name = "Undying Alchemist",
-	monsterTags = { "caster", "chaos_affinity", "demon", "flesh_armour", "humanoid", "is_unarmed", "medium_height", "not_int", "not_str", "ranged", "red_blood", "slashing_weapon", "slow_movement", "undying", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1,
-	evasion = 1,
-	fireResist = 75,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 7,
-	accuracy = 1,
-	skillList = {
-		"MonsterCausticBomb",
-		"PyroChaosFireball",
-	},
-	modList = {
-	},
-}
--- Stygian Revenant
-minions["Metadata/Monsters/Revenant/Revenant"] = {
-	name = "Stygian Revenant",
-	monsterTags = { "caster", "demon", "fast_movement", "flesh_armour", "is_unarmed", "large_model", "lightning_affinity", "melee", "not_int", "not_str", "physical_affinity", "raises_dead", "ranged", "red_blood", "slashing_weapon", "small_height", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.82,
-	evasion = 0.5,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 2.1,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 10,
-	accuracy = 1,
-	skillList = {
-		"RevenantReviveUndead",
-		"RevenantSpellProjectile",
-		"MeleeAtAnimationSpeed",
-		"RevenantSpellProjectileSpectre",
-	},
-	modList = {
-	},
-}
--- Sea Witch
-minions["Metadata/Monsters/Seawitch/SeaWitchFrostBolt"] = {
-	name = "Merveil's Blessed",
-	monsterTags = { "caster", "cold_affinity", "demon", "flesh_armour", "has_dagger", "has_one_handed_melee", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", "slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.44,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.52,
-	damageSpread = 0.2,
-	attackTime = 1.005,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"SeawitchFrostbolt",
-		"SeawitchWaveGeometrySpell",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/Seawitch/SeaWitchScreech"] = {
-	name = "Singing Siren",
-	monsterTags = { "caster", "cold_affinity", "demon", "flesh_armour", "has_dagger", "has_one_handed_melee", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "red_blood", "slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.02,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.52,
-	damageSpread = 0.2,
-	attackTime = 1.005,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"SeaWitchScreech",
-		"SeawitchWaveGeometrySpell",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/Seawitch/SeaWitchSpawnExploding"] = {
-	name = "Merveil's Attendant",
-	monsterTags = { "caster", "cold_affinity", "demon", "flesh_armour", "has_dagger", "has_one_handed_melee", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "red_blood", "slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.02,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.52,
-	damageSpread = 0.2,
-	attackTime = 1.005,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"SeaWitchScreech",
-		"SeawitchWaveGeometrySpell",
-		"SSMSeawitchSpawnKamikaze",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/Seawitch/SeaWitchSpawnTemporalChains"] = {
-	name = "Merveil's Chosen",
-	monsterTags = { "caster", "cold_affinity", "cursing_monster", "demon", "flesh_armour", "has_dagger", "has_one_handed_melee", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "red_blood", "slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.02,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.52,
-	damageSpread = 0.2,
-	attackTime = 1.005,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"SeawitchTemporalChains",
-		"SummonSpawn",
-		"SeawitchWaveGeometrySpell",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/Seawitch/SeaWitchVulnerabilityCurse"] = {
-	name = "Merveil's Retainer",
-	monsterTags = { "caster", "cold_affinity", "cursing_monster", "demon", "flesh_armour", "has_dagger", "has_one_handed_melee", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "red_blood", "slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.02,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.52,
-	damageSpread = 0.2,
-	attackTime = 1.005,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"SeawitchVulnerability",
-		"SeawitchWaveGeometrySpell",
-	},
-	modList = {
-	},
-}
--- Skeleton
-minions["Metadata/Monsters/Skeletons/SkeletonBowPuncture"] = {
-	name = "Brittle Bleeder",
-	monsterTags = { "bone_armour", "bones", "has_bow", "humanoid", "medium_height", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "skeleton", "undead", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 0.96,
-	evasion = 0.1,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.29,
-	attackRange = 40,
-	accuracy = 1,
-	weaponType1 = "Bow",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterPuncture",
-		"ChangeToStance1",
-		"ChangeToStance2",
-	},
-	modList = {
-		-- MonsterNecromancerRaisable [undead_description = 1]
-		-- MonsterCastsPunctureText [monster_casts_puncture_text = 1]
-	},
-}
-minions["Metadata/Monsters/Skeletons/SkeletonBowLightning"] = {
-	name = "Brittle Poacher",
-	monsterTags = { "bone_armour", "bones", "has_bow", "humanoid", "lightning_affinity", "medium_height", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "skeleton", "undead", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 0.96,
-	evasion = 0.1,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.29,
-	attackRange = 40,
-	accuracy = 1,
-	weaponType1 = "Bow",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"SkeletonArcherLightningArrow",
-		"ChangeToStance1",
-		"ChangeToStance2",
-	},
-	modList = {
-		-- MonsterNecromancerRaisable [undead_description = 1]
-	},
-}
-minions["Metadata/Monsters/Skeletons/SkeletonMeleeLarge"] = {
-	name = "Colossal Bonestalker",
-	monsterTags = { "bone_armour", "bones", "cleaving_weapon", "has_one_hand_mace", "has_one_handed_melee", "large_height", "melee", "not_dex", "not_int", "physical_affinity", "skeleton", "undead", "very_slow_movement", },
-	life = 1.98,
-	armour = 0.25,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1.8,
-	damageSpread = 0.2,
-	attackTime = 2.25,
-	attackRange = 9,
-	accuracy = 1,
-	weaponType1 = "One Handed Mace",
-	skillList = {
-		"Melee",
-	},
-	modList = {
-		-- MonsterNecromancerRaisable [undead_description = 1]
-		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
-	},
-}
-minions["Metadata/Monsters/Skeletons/SkeletonBowLightning3"] = {
-	name = "Flayed Archer",
-	monsterTags = { "bone_armour", "bones", "has_bow", "humanoid", "lightning_affinity", "medium_height", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "skeleton", "undead", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 0.96,
-	evasion = 0.1,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.29,
-	attackRange = 40,
-	accuracy = 1,
-	weaponType1 = "Bow",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterLightningArrow",
-	},
-	modList = {
-		-- MonsterNecromancerRaisable [undead_description = 1]
-	},
-}
-minions["Metadata/Monsters/Skeletons/SkeletonCasterColdMultipleProjectiles"] = {
-	name = "Frost Harbinger",
-	monsterTags = { "bone_armour", "bones", "caster", "cold_affinity", "is_unarmed", "medium_height", "not_str", "ranged", "skeleton", "slashing_weapon", "undead", "very_slow_movement", },
-	life = 0.84,
-	energyShield = 0.4,
-	evasion = 0.15,
-	fireResist = 0,
-	coldResist = 40,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 0.6,
-	damageSpread = 0.2,
-	attackTime = 1.605,
-	attackRange = 46,
-	accuracy = 1,
-	skillList = {
-		"SkeletonProjectileCold",
-	},
-	modList = {
-		mod("ProjectileCount", "BASE", 2, 0, 0), -- MonsterMultipleProjectilesImplicit1 [number_of_additional_projectiles = 2]
-		-- MonsterNecromancerRaisable [undead_description = 1]
-	},
-}
-minions["Metadata/Monsters/Skeletons/SkeletonCasterFireMultipleProjectiles2"] = {
-	name = "Incinerated Mage",
-	monsterTags = { "bone_armour", "bones", "caster", "fire_affinity", "is_unarmed", "medium_height", "not_dex", "ranged", "skeleton", "slashing_weapon", "undead", "very_slow_movement", },
-	life = 0.84,
-	energyShield = 0.4,
-	armour = 0.25,
-	fireResist = 40,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 0.6,
-	damageSpread = 0.2,
-	attackTime = 1.605,
-	attackRange = 46,
-	accuracy = 1,
-	skillList = {
-		"SkeletonProjectileFire",
-	},
-	modList = {
-		-- MonsterNecromancerRaisable [undead_description = 1]
-		mod("ProjectileCount", "BASE", 2, 0, 0), -- MonsterMultipleProjectilesImplicit1 [number_of_additional_projectiles = 2]
-		-- ImmuneToLavaDamage [immune_to_lava_damage = 1]
-	},
-}
-minions["Metadata/Monsters/Skeletons/SkeletonBowPoison"] = {
-	name = "Plagued Bowman",
-	monsterTags = { "bone_armour", "bones", "chaos_affinity", "has_bow", "humanoid", "medium_height", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "skeleton", "undead", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 0.96,
-	evasion = 0.1,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.29,
-	attackRange = 40,
-	accuracy = 1,
-	weaponType1 = "Bow",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterCausticArrow",
-	},
-	modList = {
-		-- MonsterNecromancerRaisable [undead_description = 1]
-		-- MonsterFiresCausticArrowsText [monster_fires_caustic_arrows_text = 1]
-	},
-}
-minions["Metadata/Monsters/Skeletons/SkeletonBowLightning2"] = {
-	name = "Restless Archer",
-	monsterTags = { "bone_armour", "bones", "has_bow", "humanoid", "lightning_affinity", "medium_height", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "skeleton", "undead", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 0.96,
-	evasion = 0.1,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.29,
-	attackRange = 40,
-	accuracy = 1,
-	weaponType1 = "Bow",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterLightningArrow",
-	},
-	modList = {
-		-- MonsterNecromancerRaisable [undead_description = 1]
-	},
-}
-minions["Metadata/Monsters/Skeletons/SkeletonBowLightning4"] = {
-	name = "Sin Archer",
-	monsterTags = { "bone_armour", "bones", "has_bow", "humanoid", "lightning_affinity", "medium_height", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "skeleton", "undead", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 0.96,
-	evasion = 0.1,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.29,
-	attackRange = 40,
-	accuracy = 1,
-	weaponType1 = "Bow",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterLightningArrow",
-	},
-	modList = {
-		-- MonsterNecromancerRaisable [undead_description = 1]
-	},
-}
-minions["Metadata/Monsters/Skeletons/SkeletonCasterLightningSpark"] = {
-	name = "Sparking Mage",
-	monsterTags = { "bone_armour", "bones", "caster", "is_unarmed", "lightning_affinity", "medium_height", "not_dex", "not_str", "ranged", "skeleton", "slashing_weapon", "undead", "very_slow_movement", },
-	life = 0.84,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 0.6,
-	damageSpread = 0.2,
-	attackTime = 1.605,
-	attackRange = 46,
-	accuracy = 1,
-	skillList = {
-		"SkeletonProjectileLightning",
-		"SkeletonSpark",
-	},
-	modList = {
-		-- MonsterNecromancerRaisable [undead_description = 1]
-		-- MonsterCastsSparkText [monster_casts_spark_text = 1]
-	},
-}
-minions["Metadata/Monsters/Skeletons/SkeletonBlackCaster1_"] = {
-	name = "Desecrated Saint",
-	monsterTags = { "bone_armour", "bones", "caster", "has_one_hand_mace", "has_one_handed_melee", "medium_height", "not_str", "physical_affinity", "skeleton", "slashing_weapon", "undead", "very_slow_movement", },
-	life = 0.84,
-	energyShield = 0.4,
-	evasion = 0.15,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 0.6,
-	damageSpread = 0.2,
-	attackTime = 1.605,
-	attackRange = 46,
-	accuracy = 1,
-	skillList = {
-		"SkeletonProjectileBlack",
-	},
-	modList = {
-		-- MonsterNecromancerRaisable [undead_description = 1]
-		-- MonsterNoMapDrops [monster_no_map_drops = 1]
-		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
-		-- set_immune_to_cheats [set_immune_to_cheats = 1]
-	},
-}
-minions["Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse"] = {
-	name = "Vexing Archer",
-	monsterTags = { "bone_armour", "bones", "cursing_monster", "has_bow", "humanoid", "medium_height", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "skeleton", "undead", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 0.96,
-	evasion = 0.1,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.29,
-	attackRange = 40,
-	accuracy = 1,
-	weaponType1 = "Bow",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterProjectileWeakness",
-	},
-	modList = {
-		-- MonsterNecromancerRaisable [undead_description = 1]
-		-- MonsterCastsProjectileWeaknessCurseText [monster_casts_projectile_vulnerability_curse_text = 1]
-	},
-}
-minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionChampion"] = {
-	name = "Enhanced Vaal Fallen",
-	monsterTags = { "bone_armour", "bones", "construct", "has_two_hand_sword", "has_two_handed_melee", "medium_height", "melee", "no_pantheon_mod", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.25,
-	lifeScaling = "AltLife2",
-	armour = 1,
-	fireResist = 35,
-	coldResist = 35,
-	lightningResist = 35,
-	chaosResist = 20,
-	damage = 2.42,
-	damageSpread = 0.3,
-	attackTime = 1.32,
-	attackRange = 11,
-	accuracy = 1,
-	weaponType1 = "Two Handed Sword",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"ElementalHitSkeletonKnightIncursion",
-		"IncursionLeapSlamChampion",
-	},
-	modList = {
-		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
-	},
-}
-minions["Metadata/Monsters/Skeletons/SkeletonBowKnightElemental"] = {
-	name = "Vaal Slayer",
-	monsterTags = { "bone_armour", "bones", "construct", "has_bow", "medium_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "very_slow_movement", },
-	life = 0.96,
-	armour = 0.5,
-	evasion = 0.1,
-	fireResist = 37,
-	coldResist = 37,
-	lightningResist = 37,
-	chaosResist = 0,
-	damage = 0.6,
-	damageSpread = 0.2,
-	attackTime = 1.995,
-	attackRange = 40,
-	accuracy = 1,
-	weaponType1 = "Bow",
-	skillList = {
-		"Melee",
-		"ElementalHitSkeletonKnight",
-	},
-	modList = {
-		-- MonsterCastsElementalHitText [monster_casts_elemental_hit_text = 1]
-	},
-}
-minions["Metadata/Monsters/Skeletons/SkeletonMeleeBlackAbyssBoneLance"] = {
-	name = "Primeval Hunter",
-	monsterTags = { "abyssal", "caster", "flesh_armour", "has_two_hand_mace", "has_two_handed_melee", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "slow_movement", "undead", },
-	life = 1.7,
-	lifeScaling = "AltLife2",
-	armour = 0.25,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1,
-	damageSpread = 0.3,
-	attackTime = 1.605,
-	attackRange = 14,
-	accuracy = 1,
-	weaponType1 = "Two Handed Mace",
-	skillList = {
-		"Melee",
-		"SkeletonBlackAbyssBoneLance",
-	},
-	modList = {
-		-- VariableEmergeSpeedAbyss [emerge_speed_+% = 0]
-		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
-		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
-		-- VariableEmergeSpeedAbyss [emerge_speed_+% = 0]
-		-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
-		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -80]
-	},
-}
-minions["Metadata/Monsters/SkeletonCannon/SkeletonCannon1"] = {
-	name = "Bone Husk",
-	monsterTags = { "bludgeoning_weapon", "bone_armour", "caster", "extra_small_height", "is_unarmed", "large_model", "medium_movement", "not_int", "physical_affinity", "ranged", "skeleton", "undead", },
-	life = 2.07,
-	armour = 0.25,
-	evasion = 0.25,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 0.9,
-	damageSpread = 0.2,
-	attackTime = 1.8,
-	attackRange = 6,
-	accuracy = 1,
-	skillList = {
-		"SkeletonCannonMortar",
-		"SkeletonCannonBoneMortar",
-		"SkeletonCannonBoneNova",
-	},
-	modList = {
-		-- MonsterNecromancerRaisable [undead_description = 1]
-	},
-}
--- Snake
-minions["Metadata/Monsters/Snake/SnakeMeleeSpit"] = {
-	name = "Bramble Cobra",
-	monsterTags = { "beast", "extra_extra_small_height", "has_dagger", "has_one_handed_melee", "light_armour", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "ranged", "red_blood", "reptile_beast", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 0.94,
-	evasion = 0.15,
-	fireResist = 30,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 30,
-	damage = 1,
-	damageSpread = 0.2,
-	attackTime = 1.095,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"SnakeProjectile",
-	},
-	modList = {
-		mod("PhysicalDamageConvertToChaos", "BASE", 30, 0, 0), -- MonsterSnakeChaos [base_physical_damage_%_to_convert_to_chaos = 30]
-	},
-}
-minions["Metadata/Monsters/Snake/SnakeScorpionMultiShot"] = {
-	name = "Barb Serpent",
-	monsterTags = { "beast", "construct", "extra_extra_small_height", "has_dagger", "has_one_handed_melee", "light_armour", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "ranged", "red_blood", "reptile_beast", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 0.94,
-	evasion = 0.15,
-	fireResist = 30,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 30,
-	damage = 1.24,
-	damageSpread = 0.2,
-	attackTime = 1.095,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"SnakeSpineProjectile",
-	},
-	modList = {
-		mod("PhysicalDamageConvertToChaos", "BASE", 30, 0, 0), -- MonsterSnakeChaos [base_physical_damage_%_to_convert_to_chaos = 30]
-		mod("ProjectileCount", "BASE", 2, 0, 0), -- MonsterMultipleProjectilesImplicit1 [number_of_additional_projectiles = 2]
-	},
-}
--- Spider
-minions["Metadata/Monsters/Spiders/SpiderThornFlickerStrike"] = {
-	name = "Leaping Spider",
-	monsterTags = { "animal_claw_weapon", "beast", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "physical_affinity", "slow_movement", "spider", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1.44,
-	damageSpread = 0.2,
-	attackTime = 0.945,
-	attackRange = 12,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterFlickerStrike",
-	},
-	modList = {
-		-- set_is_spider [set_is_spider = 1]
-	},
-}
-minions["Metadata/Monsters/Spiders/SpiderThornViperStrikeFlickerStrike"] = {
-	name = "Deadly Tarantula",
-	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "physical_affinity", "slow_movement", "spider", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.21,
-	fireResist = 40,
-	coldResist = 40,
-	lightningResist = 40,
-	chaosResist = 25,
-	damage = 2.45,
-	damageSpread = 0.2,
-	attackTime = 0.945,
-	attackRange = 12,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterViperStrike",
-		"MonsterFlickerStrike",
-	},
-	modList = {
-		-- set_is_spider [set_is_spider = 1]
-	},
-}
--- Statue
-minions["Metadata/Monsters/Statue/DaressoStatueLargeMaleSpear"] = {
-	name = "Towering Figment",
-	monsterTags = { "construct", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "large_height", "melee", "mud_blood", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "slow_movement", "stone_armour", "stone_construct", },
-	life = 5.76,
-	armour = 1,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.3,
-	damageSpread = 0.2,
-	attackTime = 1.875,
-	attackRange = 16,
-	accuracy = 1,
-	damageFixup = 0.33,
-	weaponType1 = "One Handed Sword",
-	skillList = {
-		"Melee",
-		"MonsterPuncture",
-	},
-	modList = {
-		-- MonsterSpeedAndDamageFixupComplete [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 33]
-		-- MonsterCastsPunctureText [monster_casts_puncture_text = 1]
-		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 400]
-	},
-}
-minions["Metadata/Monsters/Statue/StoneStatueMaleBow"] = {
-	name = "Archer Statue",
-	monsterTags = { "cold_affinity", "construct", "has_bow", "humanoid", "medium_height", "mud_blood", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "stone_armour", "stone_construct", "very_slow_movement", },
-	life = 2.46,
-	armour = 0.5,
-	evasion = 0.1,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 0.72,
-	damageSpread = 0.2,
-	attackTime = 1.995,
-	attackRange = 40,
-	accuracy = 1,
-	damageFixup = 0.11,
-	weaponType1 = "Bow",
-	skillList = {
-		"Melee",
-		"MonsterIceShot",
-	},
-	modList = {
-		-- MonsterSpeedAndDamageFixupSmall [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 11]
-		-- MonsterFiresIceShotArrowsText [monster_fires_ice_shot_arrows_text = 1]
-		-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 400]
-	},
-}
--- Ophidian
-minions["Metadata/Monsters/Taster/Taster"] = {
-	name = "Noisome Ophidian",
-	monsterTags = { "beast", "caster", "demon", "extra_extra_small_height", "has_dagger", "has_one_handed_melee", "medium_movement", "melee", "metal_armour", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "reptile_beast", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1,
-	evasion = 0.1,
-	fireResist = 40,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 2.25,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 6,
-	accuracy = 1,
-	weaponType1 = "Dagger",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"TarMortarTaster",
-	},
-	modList = {
-	},
-}
--- Templar
-minions["Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriver"] = {
-	name = "Slave Driver",
-	monsterTags = { "bludgeoning_weapon", "caster", "flesh_armour", "has_dual_wield_melee", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "lightning_affinity", "medium_height", "medium_movement", "melee", "not_int", "physical_affinity", "red_blood", "templar", },
-	life = 1,
-	armour = 0.25,
-	evasion = 0.25,
-	fireResist = 0,
-	coldResist = 40,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1,
-	damageSpread = 0.2,
-	attackTime = 1.845,
-	attackRange = 8,
-	accuracy = 1,
-	weaponType1 = "One Handed Mace",
-	weaponType2 = "One Handed Mace",
-	skillList = {
-		"SlaverTaunt",
-		"Melee",
-		"SlavedriverFlameWhip",
-	},
-	modList = {
-		mod("MovementSpeed", "INC", 20, 0, 0), -- MonsterImplicitFastRun4 [base_movement_velocity_+% = 20]
-	},
-}
-minions["Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriverKitava"] = {
-	name = "Crazed Driver",
-	monsterTags = { "bludgeoning_weapon", "caster", "flesh_armour", "has_dual_wield_melee", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "medium_height", "medium_movement", "melee", "not_int", "physical_affinity", "red_blood", "templar", },
-	life = 1,
-	armour = 0.25,
-	evasion = 0.25,
-	fireResist = 0,
-	coldResist = 40,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1,
-	damageSpread = 0.2,
-	attackTime = 1.845,
-	attackRange = 8,
-	accuracy = 1,
-	weaponType1 = "One Handed Mace",
-	weaponType2 = "One Handed Mace",
-	skillList = {
-		"SlaverTaunt",
-		"Melee",
-		"KitavaSlavedriverFlameWhip",
-	},
-	modList = {
-		mod("MovementSpeed", "INC", 20, 0, 0), -- MonsterImplicitFastRun4 [base_movement_velocity_+% = 20]
-	},
-}
--- Undying
-minions["Metadata/Monsters/Undying/CityStalkerMaleCasterArmour"] = {
-	name = "Undying Evangelist",
-	monsterTags = { "caster", "demon", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "medium_height", "medium_movement", "melee", "not_int", "physical_affinity", "red_blood", "undying", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.2,
-	armour = 0.5,
-	evasion = 0.1,
-	fireResist = 37,
-	coldResist = 37,
-	lightningResist = 37,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.245,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"DelayedBlast",
-		"MonsterProximityShield",
-		"DelayedBlastSpectre",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/Undying/UndyingOutcastPuncture"] = {
-	name = "Undying Impaler",
-	monsterTags = { "demon", "extra_small_height", "fast_movement", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "light_armour", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slashing_weapon", "undying", },
-	life = 1,
-	evasion = 0.25,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1,
-	damageSpread = 0.2,
-	attackTime = 1.65,
-	attackRange = 6,
-	accuracy = 1,
-	skillList = {
-		"Melee",
-		"MonsterPuncture",
-	},
-	modList = {
-		-- MonsterCastsPunctureText [monster_casts_puncture_text = 1]
-	},
-}
-minions["Metadata/Monsters/Undying/UndyingOutcastWhirlingBlades"] = {
-	name = "Undying Outcast",
-	monsterTags = { "demon", "extra_small_height", "fast_movement", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "light_armour", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slashing_weapon", "undying", },
-	life = 1,
-	evasion = 0.25,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1,
-	damageSpread = 0.2,
-	attackTime = 1.65,
-	attackRange = 6,
-	accuracy = 1,
-	skillList = {
-		"Melee",
-		"UndyingWhirlingBlades",
-	},
-	modList = {
-	},
-}
--- Unholy Aberration
-minions["Metadata/Monsters/SpiderPlated/SpiderPlatedUnholyEmerge"] = {
-	name = "Unholy Aberration",
-	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "insect_blood", "is_unarmed", "medium_height", "medium_movement", "melee", "physical_affinity", "spider", },
-	life = 14,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.6,
-	damageSpread = 0.2,
-	attackTime = 1.95,
-	attackRange = 18,
-	accuracy = 1,
-	skillList = {
-		"Melee",
-	},
-	modList = {
-		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
-		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
-		-- CannotBeAugmented [cant_possess_this = 1]
-		-- CannotBeAugmented [cant_touch_this = 1]
-		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
-		-- CannotBeAugmented [cannot_be_afflicted = 1]
-		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
-	},
-}
--- Wicker Man
-minions["Metadata/Monsters/WickerMan/WickerMan"] = {
-	name = "Wicker Man",
-	monsterTags = { "bludgeoning_weapon", "bone_armour", "construct", "demon", "fire_affinity", "has_one_hand_mace", "has_one_handed_melee", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "ranged", "slow_movement", },
-	life = 2.25,
-	armour = 1,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.755,
-	attackRange = 10,
-	accuracy = 1,
-	weaponType1 = "One Handed Mace",
-	skillList = {
-		"Melee",
-		"WickerManRighteousFire",
-		"WickerManMoltenStrike",
-		"MonsterRighteousFireWhileSpectred",
-	},
-	modList = {
-	},
-}
--- Redemption Sentry
-minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphArcherSpectre"] = {
-	name = "Redemption Sentry",
-	monsterTags = { "caster", "cold_affinity", "fast_movement", "female", "has_bow", "human", "humanoid", "not_int", "plate_armour", "puncturing_weapon", "ranged", "red_blood", },
-	life = 2.7,
-	armour = 1,
-	evasion = 0.8,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 70,
-	accuracy = 1,
-	weaponType1 = "Bow",
-	skillList = {
-		"WalkEmergeAtlasInfluenceMonster",
-		"MeleeEyrieArrow",
-		"AtlasEyrieArcherMortar",
-		"AtlasEyrieArcherSnipe",
-		"AtlasEyrieArcherSnipeTrickshot",
-		"EmptyActionAttackEyrieArcherTrickshot",
-		"AtlasEyrieArcherGeometryProjectiles",
-		"AtlasExileEyrieArcherSpawnCrystal",
-		"AtlasEyrieArcherCrystalImpact",
-	},
-	modList = {
-		-- LeagueDropPenaltyInfluenceMonster [map_related_item_drop_chance_+%_final_from_league = -70]
-	},
-}
--- Baranite Thaumaturge
-minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderMageguardCasterSpectre"] = {
-	name = "Baranite Thaumaturge",
-	monsterTags = { "caster", "crusader_monster", "fast_movement", "human", "humanoid", "influence_monster", "is_unarmed", "light_armour", "lightning_affinity", "not_dex", "ranged", "water", },
-	life = 3.6,
-	energyShield = 0.8,
-	armour = 0.5,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 14,
-	accuracy = 1,
-	skillList = {
-		"AtlasExilesCrusaderMageguardProjectile",
-		"EmptyActionSpellCrusaderMageguard",
-		"AtlasCrusaderMageguardSpawnBombSpectre",
-		"AtlasExileCrusaderMageguardBombExplodeSpectre",
-		"AtlasCrusaderMageguardBeam",
-		"WalkEmergeAtlasInfluenceMonster",
-	},
-	modList = {
-		-- LeagueDropPenaltyInfluenceMonster [map_related_item_drop_chance_+%_final_from_league = -70]
-	},
-}
--- Baranite Sister
-minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderBlessedSisterSpectre"] = {
-	name = "Baranite Sister",
-	monsterTags = { "caster", "crusader_monster", "female", "human", "humanoid", "influence_monster", "is_unarmed", "light_armour", "lightning_affinity", "not_dex", "not_str", "ranged", "red_blood", "slashing_weapon", "slow_movement", "templar", },
-	life = 1.2,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.8,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"AtlasCrusaderSisterMortarSpectre",
-		"WalkEmergeAtlasInfluenceMonster",
-	},
-	modList = {
-		-- LeagueDropPenaltyInfluenceMonster [map_related_item_drop_chance_+%_final_from_league = -70]
-	},
-}
--- Baranite Preacher
-minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderTemplarJudgeSpectre"] = {
-	name = "Baranite Preacher",
-	monsterTags = { "bludgeoning_weapon", "caster", "crusader_monster", "flesh_armour", "human", "humanoid", "influence_monster", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", "red_blood", "templar", },
-	life = 1.68,
-	energyShield = 0.2,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.755,
-	attackRange = 9,
-	accuracy = 1,
-	skillList = {
-		"AtlasCrusaderJudgeBallLightning",
-		"AtlasCruasderJudgeFadingNova",
-		"WalkEmergeAtlasInfluenceMonster",
-	},
-	modList = {
-		-- LeagueDropPenaltyInfluenceMonster [map_related_item_drop_chance_+%_final_from_league = -70]
-	},
-}
--- Scale of Esh
-minions["Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_"] = {
-	name = "Scale of Esh",
-	monsterTags = { "animal_claw_weapon", "beast", "breach_commander", "caster", "demon", "flesh_armour", "insect", "is_unarmed", "lightning_affinity", "melee", "no_bloodlines", "no_pantheon_mod", "not_int", "not_str", "physical_affinity", "red_blood", "very_fast_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3,
-	evasion = 0.5,
-	fireResist = 30,
-	coldResist = 30,
-	lightningResist = 30,
-	chaosResist = 20,
-	damage = 1.8,
-	damageSpread = 0.2,
-	attackTime = 0.99,
-	attackRange = 7,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"SandLeaperDodgeLeft",
-		"SandLeaperDodgeRight",
-		"BreachLightningWhip",
-		"BreachArc",
-		"BreachTeamWarp",
-		"BreachLightningOrbsCommander",
-	},
-	modList = {
-		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
-		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
-	},
-}
--- Scinteel Synthete
-minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer3Spectre"] = {
-	name = "Scinteel Synthete",
-	monsterTags = { "caster", "construct", "fast_movement", "humanoid", "is_unarmed", "lightning_affinity", "mud_blood", "not_dex", "ranged", "stone_armour", "synthesised_monster", },
-	life = 3.6,
-	lifeScaling = "AltLife2",
-	energyShield = 0.8,
-	armour = 0.5,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 85,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.305,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"SynthesisSoulstealerProjectileLightning",
-		"EmptyActionSynthesisSoulstealerArc",
-		"SynthesisSoulstealerLaser",
-		"SynthesisSoulstealerBolt",
-		"GeometryTriggerSynthesisSoulstealer3",
-	},
-	modList = {
-	},
-}
--- Redemption Knight
-minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighterSpectre_"] = {
-	name = "Redemption Knight",
-	monsterTags = { "cold_affinity", "fast_movement", "female", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "melee", "not_int", "plate_armour", "red_blood", "slashing_weapon", },
-	life = 2.7,
-	armour = 1,
-	evasion = 0.8,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1,
-	damageSpread = 0.2,
-	attackTime = 1.17,
-	attackRange = 14,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	weaponType2 = "Shield",
-	skillList = {
-		"MeleeCold",
-		"WalkEmergeAtlasInfluenceMonster",
-		"AtlasEyrieFighterSlash",
-		"EmptyActionAttackEyrieFighter",
-	},
-	modList = {
-		-- LeagueDropPenaltyInfluenceMonster [map_related_item_drop_chance_+%_final_from_league = -70]
-	},
-}
--- Primal Crushclaw
-minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre"] = {
-	name = "Primal Crushclaw",
-	monsterTags = { "animal_claw_weapon", "beast", "cold_affinity", "crustacean_beast", "hard_armour", "is_unarmed", "large_model", "melee", "not_dex", "not_int", "red_blood", "slow_movement", },
-	life = 3.6,
-	lifeScaling = "AltLife2",
-	armour = 1,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.17,
-	attackRange = 14,
-	accuracy = 1,
-	skillList = {
-		"MeleeCold",
-		"HarvestCrabDashSlam",
-		"GAHarvestCrabDashSlam",
-		"HarvestNessaCrabScreech",
-		"HarvestCrabAbyssSlam",
-		"EASHarvestEmerge",
-		"HarvestNessaCrabScreechDebuff",
-	},
-	modList = {
-		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
-		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
-		-- damage_hit_effect_index [damage_hit_effect_index = 2]
-	},
-}
--- Primal Rhex Matriarch
-minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT3Spectre"] = {
-	name = "Primal Rhex Matriarch",
-	monsterTags = { "animal_claw_weapon", "beast", "caster", "fast_movement", "flesh_armour", "is_unarmed", "lightning_affinity", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "reptile_beast", },
-	life = 3.57,
-	lifeScaling = "AltLife2",
-	evasion = 0.5,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.26,
-	damageSpread = 0.2,
-	attackTime = 0.99,
-	attackRange = 12,
-	accuracy = 1,
-	skillList = {
-		"Melee",
-		"HarvestRhexLeapSlam",
-		"EAAHarvestRhexDashSlash",
-		"EASHarvestRhexScreech",
-		"GAHarvestRhexDashSlash",
-		"GSHarvestRhexScreech",
-		"EASHarvestEmerge",
-		"HarvestRhexScreechDebuff",
-	},
-	modList = {
-		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
-		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
-		-- damage_hit_effect_index [damage_hit_effect_index = 2]
-	},
-}
--- Templar Tactician
-minions["Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre"] = {
-	name = "Templar Tactician",
-	monsterTags = { "bludgeoning_weapon", "caster", "flesh_armour", "humanoid", "is_unarmed", "legion_monster", "lightning_affinity", "medium_movement", "melee", "no_pantheon_mod", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", },
-	life = 3.45,
-	lifeScaling = "AltLife1",
-	energyShield = 0.4,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.25,
-	damageSpread = 0.2,
-	attackTime = 1.17,
-	attackRange = 10,
-	accuracy = 1,
-	skillList = {
-		"Melee",
-		"LegionTemplarJudgeStormCall",
-		"LegionTemplarJudgeBallLightning",
-		"GeometryTriggerLegionTemplarCasterStormCall",
-	},
-	modList = {
-		-- MonsterIgnoresDelveDarkness [monster_ignores_delve_darkness_mechanic = 1]
-		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
-		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
-	},
-}
--- Frost Auto-Scout
-minions["Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemColdSpectre"] = {
-	name = "Frost Auto-Scout",
-	monsterTags = { "caster", "cold_affinity", "construct", "golem", "is_unarmed", "metal_armour", "no_pantheon_mod", "not_dex", "not_int", "ranged", "slow_movement", },
-	life = 3.6,
-	lifeScaling = "AltLife1",
-	armour = 1,
-	fireResist = 40,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.17,
-	attackRange = 10,
-	accuracy = 1,
-	skillList = {
-		"DoLiterallyNothing",
-		"MPSHeistRobotClockworkGolemBasicProjectile",
-		"MMSHeistRobotClockworkGolemMortarSpectre",
-		"ChangeToStance1Heist",
-	},
-	modList = {
-	},
-}
--- Syndicate Operative
-minions["Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice2Spectre_"] = {
-	name = "Syndicate Operative",
-	monsterTags = { "fast_movement", "flesh_armour", "human", "humanoid", "is_unarmed", "melee", "no_cannot_die_aura", "no_pantheon_mod", "not_str", "physical_affinity", "red_blood", "slashing_weapon", "templar", },
-	life = 2.1,
-	lifeScaling = "AltLife2",
-	energyShield = 0.08,
-	evasion = 0.4,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.13,
-	damageSpread = 0.2,
-	attackTime = 0.6,
-	attackRange = 6,
-	accuracy = 1,
-	skillList = {
-		"Melee",
-		"WalkEmergeBetrayal",
-		"BetrayalSecretPoliceCurveDagger1",
-		"BetrayalSecretPoliceCurveDagger2",
-		"BetrayalSecretPoliceCurveDagger3",
-		"EmptyActionAttackSecretPoliceDaggers",
-	},
-	modList = {
-		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -30]
-	},
-}
--- Cloud Retch
-minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieKiwethSpectre"] = {
-	name = "Cloud Retch",
-	monsterTags = { "animal_claw_weapon", "caster", "cold_affinity", "demon", "eyrie_monster", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "influence_monster", "melee", "not_str", "ranged", "red_blood", "slow_movement", },
-	life = 2.52,
-	energyShield = 0.2,
-	evasion = 0.2,
-	fireResist = 0,
-	coldResist = 40,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.68,
-	damageSpread = 0.2,
-	attackTime = 1.005,
-	attackRange = 11,
-	accuracy = 1,
-	skillList = {
-		"MeleeCold",
-		"WalkEmergeAtlasInfluenceMonster",
-		"AtlasEyrieKiwethMortarSpectre",
-		"AtlasEyrieKiwethMortarShards",
-	},
-	modList = {
-		-- LeagueDropPenaltyInfluenceMonster [map_related_item_drop_chance_+%_final_from_league = -70]
-	},
-}
--- Artless Assassin
-minions["Metadata/Monsters/LeagueHeist/Thug/ThugRanged1EliteSpectre"] = {
-	name = "Artless Assassin",
-	monsterTags = { "fast_movement", "fire_affinity", "has_bow", "human", "humanoid", "light_armour", "no_pantheon_mod", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
-	life = 3.58,
-	lifeScaling = "AltLife2",
-	evasion = 1,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.56,
-	damageSpread = 0.2,
-	attackTime = 1.005,
-	attackRange = 60,
-	accuracy = 1,
-	weaponType1 = "Bow",
-	skillList = {
-		"MPWHeistThugRangedBurningArrow",
-		"DoLiterallyNothing",
-		"GAHeistThugRangedArrowShotgun",
-		"EAAHeistThugRangedExplosiveArrowBarrage",
-		"HeistThugRangedExplosiveArrow",
-		"GAHeistThugRangedShotgun",
-		"WalkEmergeHeistThug",
-		"EAAHeistThugRangedExplosiveArrowBarrageChokepoint",
-		"ChangeToStance1Heist",
-		"EASHeistMindControlSuicide",
-	},
-	modList = {
-	},
-}
--- Ashblessed Warden
-minions["Metadata/Monsters/LeagueHeist/Robot/RobotPyreKnightEliteSpectre"] = {
-	name = "Ashblessed Warden",
-	monsterTags = { "caster", "construct", "fire_affinity", "humanoid", "is_unarmed", "medium_movement", "metal_armour", "no_pantheon_mod", },
-	life = 3.6,
-	lifeScaling = "AltLife2",
-	energyShield = 0.2,
-	armour = 1,
-	evasion = 0.5,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.58,
-	damageSpread = 0.2,
-	attackTime = 1.17,
-	attackRange = 10,
-	accuracy = 1,
-	skillList = {
-		"DoLiterallyNothing",
-		"WalkEmergeHeistRobotElevator",
-		"GSHeistRobotPyreBeamBlast",
-		"GSHeistRobotPyreNukeBeam",
-		"GSHeistRobotPyreNukeBeamChannelled",
-		"EASHeistRobotPyreBeamSweep",
-		"GSHeistRobotPyreBeamSweepBeam",
-		"ChangeToStance1Heist",
-	},
-	modList = {
-	},
-}
--- Snow Rhex
-minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieArmouredBirdSpectre__"] = {
-	name = "Snow Rhex",
-	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "caster", "cold_affinity", "eyrie_monster", "fast_movement", "hard_armour", "influence_monster", "is_unarmed", "melee", "not_int", "red_blood", "reptile_beast", },
-	life = 3.6,
-	armour = 0.5,
-	evasion = 0.25,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.005,
-	attackRange = 14,
-	accuracy = 1,
-	skillList = {
-		"MeleeCold",
-		"WalkEmergeAtlasInfluenceMonster",
-		"MeleeEyrieBird",
-		"AtlasEyrieBirdBreath",
-		"AtlasEyrieBirdBreathNoEffects",
-	},
-	modList = {
-	},
-}
--- Flickershade
-minions["Metadata/Monsters/Maligaro/SecretDesecrateMonster"] = {
-	name = "Flickershade",
-	monsterTags = { "demon", "ghost_blood", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "not_dex", "not_str", "physical_affinity", "slashing_weapon", "stone_armour", "very_fast_movement", },
-	life = 3,
-	energyShield = 0.2,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.05,
-	damageSpread = 0.2,
-	attackTime = 1.005,
-	attackRange = 25,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	skillList = {
-		"SecretDesecrateMonsterTeleport",
-		"SecretDesecrateMonsterEarthquakeTriggered",
-		"SecretDesecrateMonsterMultiSlash",
-	},
-	modList = {
-		-- MonsterOneThirdDamageTaken [base_damage_taken_+% = -67]
-		mod("PhysicalDamageConvertToChaos", "BASE", 50, 0, 0), -- MonsterConvertToChaos1 [base_physical_damage_%_to_convert_to_chaos = 50]
-	},
-}
--- Trial Galecaller
-minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdWeakSpectre"] = {
-	name = "Trial Galecaller",
-	monsterTags = { "cold_affinity", "has_bow", "human", "humanoid", "medium_movement", "not_int", "plate_armour", "puncturing_weapon", "ranged", "red_blood", "spawner_cannot_spawn_as_rare", },
-	life = 2.47,
-	lifeScaling = "AltLife1",
-	armour = 0.75,
-	evasion = 0.3,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.37,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 58,
-	accuracy = 1,
-	weaponType1 = "Bow",
-	skillList = {
-		"UltimatumGuardMeleeCold",
-		"UltimatumGuardConeArrowCold",
-	},
-	modList = {
-		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
-		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
-		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
-		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
-	},
-}
--- Trial Windchaser
-minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdSpectre"] = {
-	name = "Trial Windchaser",
-	monsterTags = { "cold_affinity", "has_bow", "human", "humanoid", "medium_movement", "not_int", "plate_armour", "puncturing_weapon", "ranged", "red_blood", "spawner_cannot_spawn_as_rare", },
-	life = 2.47,
-	lifeScaling = "AltLife1",
-	armour = 0.75,
-	evasion = 0.3,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.37,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 58,
-	accuracy = 1,
-	weaponType1 = "Bow",
-	skillList = {
-		"UltimatumGuardMeleeCold",
-		"EAAVaalGuardBarrage",
-		"MPWVaalGuardBarrage",
-		"UltimatumGuardConeArrowCold",
-	},
-	modList = {
-		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
-		-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
-		-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
-		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
-		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
-	},
-}
--- Hyrri's Watch
-minions["Metadata/Monsters/LegionLeague/LegionKaruiArcherSpectre"] = {
-	name = "Hyrri's Watch",
-	monsterTags = { "cold_affinity", "fast_movement", "flesh_armour", "has_bow", "humanoid", "legion_monster", "no_pantheon_mod", "not_int", "not_str", "puncturing_weapon", "ranged", "red_blood", },
-	life = 2.25,
-	lifeScaling = "AltLife1",
-	evasion = 0.5,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.1,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 50,
-	accuracy = 1,
-	weaponType1 = "Bow",
-	skillList = {
-		"MeleeKaruiArcher",
-		"LegionKaruiArcherSnipe",
-	},
-	modList = {
-		-- MonsterIgnoresDelveDarkness [monster_ignores_delve_darkness_mechanic = 1]
-		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
-		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
-	},
-}
--- Demon Harpy
-minions["Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite1Spectre"] = {
-	name = "Demon Harpy",
-	monsterTags = { "animal_claw_weapon", "beyond_demon", "caster", "demon", "fast_movement", "fire_affinity", "flesh_armour", "is_unarmed", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.38,
-	evasion = 0.5,
-	fireResist = 75,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 2.73,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 12,
-	accuracy = 1,
-	weaponType1 = "None",
-	skillList = {
-		"MeleeAtAnimationSpeedFire",
-		"DTTHellscapeDemonElite1",
-		"EASHellscapeDemonElite1Screech",
-		"GAHellscapeDemonElite1DashSlash",
-		"GSHellscapeDemonElite1Screech",
-	},
-	modList = {
-	},
-}
--- Pale Angel
-minions["Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite1Spectre"] = {
-	name = "Pale Angel",
-	monsterTags = { "animal_claw_weapon", "beyond_demon", "bone_armour", "caster", "demon", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.55,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.95,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 9,
-	accuracy = 1,
-	weaponType1 = "None",
-	skillList = {
-		"TBHellscapePaleLightningBoltSpammableLeft",
-		"TBHellscapePaleLightningBoltSpammableRight",
-		"GSHellscapePaleEliteBoltImpact",
-		"GSHellscapePaleEliteOmegaBeam",
-		"TeleportHellscapePaleElite",
-		"TeleportHellscapePaleEliteForwards",
-		"TeleportHellscapePaleEliteToAlly",
-	},
-	modList = {
-	},
-}
--- Demon Herder
-minions["Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite2_Spectre"] = {
-	name = "Demon Herder",
-	monsterTags = { "beyond_demon", "bludgeoning_weapon", "caster", "demon", "fire_affinity", "flesh_armour", "is_unarmed", "not_dex", "not_str", "ranged", "red_blood", "very_fast_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.85,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 2.54,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 12,
-	accuracy = 1,
-	weaponType1 = "None",
-	weaponType2 = "One Handed Mace",
-	skillList = {
-		"GTHellscapeDemonEliteVomit",
-		"MMSHellscapeDemonEliteTripleMortar",
-		"MMSHellscapeDemonEliteVomitMortar",
-		"GSHellscapeDemonEliteBeamNuke",
-	},
-	modList = {
-	},
-}
--- Pale Seraphim
-minions["Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite2Spectre"] = {
-	name = "Pale Seraphim",
-	monsterTags = { "beyond_demon", "bone_armour", "demon", "is_unarmed", "medium_movement", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.04,
-	evasion = 0.33,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 2.91,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 13,
-	accuracy = 1,
-	weaponType1 = "None",
-	skillList = {
-		"EAAHellscapeStabbyStab",
-		"DTTHellscapeStabbySkyStab",
-		"DTTHellscapeStabWeb",
-		"GAHellscapeStabbyCleave1",
-		"GAHellscapeStabbyCleave2",
-		"GAHellscapeStabbyCleave3",
-		"GAHellscapeStabbyCleaveStab",
-		"GAHellscapeStabWeb",
-		"GAHellscapePaleEliteSkyStab",
-	},
-	modList = {
-	},
-}
--- Ravenous Mishapen
-minions["Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spectre"] = {
-	name = "Ravenous Misshapen",
-	monsterTags = { "animal_claw_weapon", "beyond_demon", "caster", "demon", "flesh_armour", "is_unarmed", "lightning_affinity", "medium_movement", "melee", "not_dex", "not_str", "physical_affinity", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.16,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1.43,
-	damageSpread = 0.2,
-	attackTime = 1.17,
-	attackRange = 8,
-	accuracy = 1,
-	weaponType1 = "None",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"HellscapeFleshFodderArc",
-	},
-	modList = {
-	},
-}
--- Aurid Synthete
-minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre"] = {
-	name = "Aurid Synthete",
-	monsterTags = { "caster", "construct", "fast_movement", "humanoid", "is_unarmed", "mud_blood", "not_dex", "physical_affinity", "ranged", "stone_armour", "synthesised_monster", },
-	life = 3.6,
-	lifeScaling = "AltLife2",
-	energyShield = 0.8,
-	armour = 0.5,
-	fireResist = 42,
-	coldResist = 42,
-	lightningResist = 42,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.305,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"SynthesisSoulstealerProjectilePhysical",
-		"SynthesisSoulstealerQuicksand",
-		"SynthesisSoulstealerDrones",
-		"EmptyActionSynthesisEnrageDrones",
-		"SynthesisSoulstealerDroneEnrage",
-		"GeometrySpellSynthesisPhysical",
-		"SynthesisPhysicalTripleMortar",
-		"SynthesisSoulstealerBombDetonate",
-		"SynthesisSoulstealerDronesOnSelf",
-		"SynthesisPhysicalVolatileSlam",
-		"SynthesisQuicksandStartEffect",
-	},
-	modList = {
-	},
-}
--- Ruins Hellion
-minions["Metadata/Monsters/Hellion/Hellion3Spectre"] = {
-	name = "Ruins Hellion",
-	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_dagger", "has_one_handed_melee", "large_model", "light_armour", "mammal_beast", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1,
-	evasion = 0.1,
-	fireResist = 40,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.85,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 10,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"HellionRallyingCry",
-	},
-	modList = {
-	},
-}
--- Arena Master
-minions["Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorGrandMasterSpectre"] = {
-	name = "Arena Master",
-	monsterTags = { "adjudicator_monster", "fast_movement", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "influence_monster", "melee", "not_int", "physical_affinity", "plate_armour", "red_blood", "slashing_weapon", },
-	life = 3.6,
-	armour = 1,
-	evasion = 0.8,
-	fireResist = 35,
-	coldResist = 35,
-	lightningResist = 35,
-	chaosResist = 20,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.17,
-	attackRange = 14,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	weaponType2 = "Shield",
-	skillList = {
-		"Melee",
-		"WalkEmergeAtlasInfluenceMonster",
-		"AtlasWarlordCascadeSlam",
-		"EmptyActionAttackWarlordGrandmaster",
-		"EmptyActionSpellWarlordGrandmaster",
-		"AtlasExilesWarlordEnrageSpectre",
-	},
-	modList = {
-		-- LeagueDropPenaltyInfluenceMonster [map_related_item_drop_chance_+%_final_from_league = -70]
-	},
-}
--- They of Tul
-minions["Metadata/Monsters/MinerLarge/MinerLargeCommanderBreachSpectre"] = {
-	name = "They of Tul",
-	monsterTags = { "bludgeoning_weapon", "breach_commander", "caster", "demon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "large_model", "melee", "no_bloodlines", "no_pantheon_mod", "not_dex", "not_int", "physical_affinity", "red_blood", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3,
-	armour = 0.5,
-	fireResist = 30,
-	coldResist = 30,
-	lightningResist = 30,
-	chaosResist = 20,
-	damage = 2.11,
-	damageSpread = 0.2,
-	attackTime = 1.755,
-	attackRange = 9,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"BreachBlizzardSpectre",
-		"SummonBreachIceTotem",
-	},
-	modList = {
-		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
-		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
-		-- MonsterKillTrapsMinesTotemsOnDeath [kill_traps_mines_and_totems_on_death = 1]
-	},
-}
--- Ancient Suffering
-minions["Metadata/Monsters/LeagueDelve/GhostEncounter/WraithPurple"] = {
-	name = "Ancient Suffering",
-	monsterTags = { "caster", "chaos_affinity", "delve_monster", "ghost_armour", "ghost_blood", "is_unarmed", "medium_height", "medium_movement", "no_pantheon_mod", "not_dex", "not_str", "undead", },
-	life = 1.68,
-	energyShield = 0.2,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.755,
-	attackRange = 6,
-	accuracy = 1,
-	skillList = {
-		"DelveWraithScreechChaos",
-		"DelveWraithScreechChaosGeometrySpell",
-		"MonsterChanceToTemporalChainsOnHit1",
-	},
-	modList = {
-		-- MonsterChanceToTemporalChainsOnHit1 [curse_on_hit_%_temporal_chains = 100]
-		mod("EnemyCurseLimit", "BASE", 1, 0, 0), -- AdditionalCurseOnEnemies_ [number_of_additional_curses_allowed = 1]
-	},
-}
--- Ancient Wraith
-minions["Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith"] = {
-	name = "Ancient Wraith",
-	monsterTags = { "caster", "delve_monster", "ghost_armour", "ghost_blood", "is_unarmed", "medium_height", "medium_movement", "melee", "no_pantheon_mod", "not_dex", "not_str", "physical_affinity", "ranged", "undead", },
-	life = 1.68,
-	energyShield = 0.2,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.755,
-	attackRange = 6,
-	accuracy = 1,
-	skillList = {
-		"WraithEtherealKnives",
-		"Melee",
-		"DelveMonsterEnfeebleOnHit",
-	},
-	modList = {
-		-- DelveMonsterEnfeebleOnHit [curse_on_hit_level_enfeeble = 8]
-		mod("EnemyCurseLimit", "BASE", 1, 0, 0), -- AdditionalCurseOnEnemies_ [number_of_additional_curses_allowed = 1]
-	},
-}
--- Forged Frostbearer
-minions["Metadata/Monsters/LeagueCrucible/Cold/Pyromaniac"] = {
-	name = "Forged Frostbearer",
-	monsterTags = { "caster", "demon", "fire_affinity", "flesh_armour", "humanoid", "is_unarmed", "medium_height", "medium_movement", "not_int", "not_str", "ranged", "slashing_weapon", "undying", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.68,
-	evasion = 1,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.4,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 7,
-	accuracy = 1,
-	skillList = {
-		"MMSPyromaniacIceMortar",
-		"CrucibleIceStormTrap",
-	},
-	modList = {
-		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
-		-- is_crucible_monster [is_crucible_monster = 1]
-		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
-		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
-	},
-}
--- Wretched Defiler
-minions["Metadata/Monsters/Revenant/RevenantMapBossStandalone_AtlasUber"] = {
-	name = "Wretched Defiler",
-	monsterTags = { "caster", "demon", "fast_movement", "flesh_armour", "is_unarmed", "large_model", "lightning_affinity", "melee", "not_int", "not_str", "physical_affinity", "raises_dead", "ranged", "red_blood", "slashing_weapon", "small_height", "standalone_map_boss", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.9,
-	evasion = 0.5,
-	fireResist = 40,
-	coldResist = 40,
-	lightningResist = 40,
-	chaosResist = 25,
-	damage = 3,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 10,
-	accuracy = 1,
-	skillList = {
-		"RevenantReviveUndead",
-		"RevenantBossSpellProjectile",
-		"MeleeAtAnimationSpeed",
-		"RevenantMapBossSummon1",
-		"RevenantMapBossSummon2",
-	},
-	modList = {
-	},
-}
--- Karui Backburner
-minions["Metadata/Monsters/LegionLeague/LegionKaruiMeleeFireSpectre"] = {
-	name = "Karui Backburner",
-	monsterTags = { "bludgeoning_weapon", "fast_movement", "fire_affinity", "flesh_armour", "humanoid", "is_unarmed", "legion_monster", "melee", "no_pantheon_mod", "red_blood", },
-	life = 3.3,
-	lifeScaling = "AltLife1",
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.1,
-	damageSpread = 0.2,
-	attackTime = 1.005,
-	attackRange = 9,
-	accuracy = 1,
-	weaponType1 = "None",
-	skillList = {
-		"MeleeFire",
-		"LegionKaruiMeleeLeapSlam",
-		"EmptyActionLegionKaruiMelee",
-		"LegionKaruiMeleeCombo1",
-		"LegionKaruiMeleeCombo2",
-		"LegionKaruiMeleeCombo3",
-	},
-	modList = {
-		-- MonsterIgnoresDelveDarkness [monster_ignores_delve_darkness_mechanic = 1]
-		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
-		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
-	},
-}
--- Templar Conscript
-minions["Metadata/Monsters/LegionLeague/LegionTemplarMelee2Spectre"] = {
-	name = "Templar Conscript",
-	monsterTags = { "has_two_hand_sword", "has_two_handed_melee", "humanoid", "legion_monster", "medium_movement", "melee", "metal_armour", "no_pantheon_mod", "not_dex", "physical_affinity", "ranged", "red_blood", "slashing_weapon", },
-	life = 2.76,
-	lifeScaling = "AltLife1",
-	energyShield = 0.2,
-	armour = 1,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.2,
-	damageSpread = 0.2,
-	attackTime = 1.005,
-	attackRange = 9,
-	accuracy = 1,
-	weaponType1 = "Two Handed Sword",
-	skillList = {
-		"Melee",
-		"LegionTemplarWeaponThrow",
-		"LegionMonsterProximityShield",
-	},
-	modList = {
-		-- MonsterIgnoresDelveDarkness [monster_ignores_delve_darkness_mechanic = 1]
-		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
-		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
-	},
-}
--- Xoph's Favoured
-minions["Metadata/Monsters/Hellion/HellionBreachHowlSpectre"] = {
-	name = "Xoph's Favoured",
-	monsterTags = { "animal_claw_weapon", "beast", "canine_beast", "demon", "fire_affinity", "has_one_hand_sword", "has_one_handed_melee", "large_model", "light_armour", "medium_movement", "melee", "no_bloodlines", "no_pantheon_mod", "not_int", "not_str", "physical_affinity", "red_blood", },
-	life = 3.6,
-	evasion = 0.1,
-	fireResist = 40,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 7,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	skillList = {
-		"Melee",
-		"EmpoweringHowlSpectre",
-		"BreachCleave",
-	},
-	modList = {
-		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
-		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
-	},
-}
--- Skitterling
-minions["Metadata/Monsters/Spiders/DelveSpiderPacksMediumSpectre"] = {
-	name = "Skitterling",
-	monsterTags = { "animal_claw_weapon", "beast", "cold_affinity", "delve_monster", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "insect_blood", "medium_movement", "melee", "no_pantheon_mod", "not_int", "not_str", "physical_affinity", "spider", },
-	life = 1.27,
-	lifeScaling = "AltLife2",
-	evasion = 0.75,
-	fireResist = 0,
-	coldResist = 40,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 0.94,
-	damageSpread = 0.2,
-	attackTime = 1.755,
-	attackRange = 13,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	skillList = {
-		"DelveMelee",
-		"DelveMeleeCold",
-		"DelveSpiderFlickerStrike",
-	},
-	modList = {
-	},
-}
--- Forged Vendigo
-minions["Metadata/Monsters/LeagueCrucible/Lightning/Vendigo_"] = {
-	name = "Forged Vendigo",
-	monsterTags = { "animal_claw_weapon", "beast", "demon", "fast_movement", "flesh_armour", "has_claw", "has_one_handed_melee", "medium_height", "melee", "not_int", "not_str", "physical_affinity", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.24,
-	evasion = 0.5,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 2.48,
-	damageSpread = 0.2,
-	attackTime = 1.695,
-	attackRange = 12,
-	accuracy = 1,
-	weaponType1 = "Claw",
-	skillList = {
-		"MeleeAtAnimationSpeedLightning",
-		"CrucibleVendigoFlickerStrike",
-		"EASCrucibleVendigoEnrage",
-	},
-	modList = {
-		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
-		-- is_crucible_monster [is_crucible_monster = 1]
-		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
-		-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
-	},
-}
+return function(mod, flag)
+    ---@class SpectreData
+    local minions = {}
+    -- Blackguard
+	minions["Metadata/Monsters/Axis/AxisCaster"] = {
+		name = "Blackguard Mage",
+		monsterTags = { "caster", "hard_armour", "has_wand", "human", "humanoid", "lightning_affinity", "medium_height", "medium_movement", "military", "not_dex", "physical_affinity", "ranged", "red_blood", "summoner", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 0.9,
+		energyShield = 0.2,
+		armour = 0.25,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 0.79,
+		damageSpread = 0.2,
+		attackTime = 1.305,
+		attackRange = 40,
+		accuracy = 1,
+		weaponType1 = "Wand",
+		weaponType2 = "Shield",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AxisCasterSpark",
+			"MonsterLightningThorns",
+			"AxisClaimSoldierMinions",
+		},
+		modList = {
+			mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_spell_block_% = 20]
+			mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_block_%_damage_taken = 10]
+		},
+	}
+	minions["Metadata/Monsters/Axis/AxisCasterArc"] = {
+		name = "Blackguard Arcmage",
+		monsterTags = { "caster", "hard_armour", "has_wand", "human", "humanoid", "lightning_affinity", "medium_height", "medium_movement", "military", "not_dex", "physical_affinity", "ranged", "red_blood", "summoner", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 0.9,
+		energyShield = 0.2,
+		armour = 0.25,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 0.79,
+		damageSpread = 0.2,
+		attackTime = 1.305,
+		attackRange = 40,
+		accuracy = 1,
+		weaponType1 = "Wand",
+		weaponType2 = "Shield",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterLightningThorns",
+			"AxisCasterArc",
+			"AxisClaimSoldierMinions",
+		},
+		modList = {
+			mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_spell_block_% = 20]
+			mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_block_%_damage_taken = 10]
+		},
+	}
+	minions["Metadata/Monsters/Axis/AxisCasterLunaris"] = {
+		name = "Lunarsworn Wintermage",
+		monsterTags = { "caster", "cold_affinity", "hard_armour", "has_wand", "human", "humanoid", "medium_height", "medium_movement", "military", "not_dex", "physical_affinity", "ranged", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 0.9,
+		energyShield = 0.2,
+		armour = 0.25,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 0.79,
+		damageSpread = 0.2,
+		attackTime = 1.305,
+		attackRange = 40,
+		accuracy = 1,
+		weaponType1 = "Wand",
+		weaponType2 = "Shield",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AxisCasterGlacialCascade",
+			"MonsterColdThorns",
+		},
+		modList = {
+			mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_spell_block_% = 20]
+			mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_block_%_damage_taken = 10]
+		},
+	}
+	minions["Metadata/Monsters/Axis/AxisEliteSoldier3Champion"] = {
+		name = "Solaris Champion",
+		monsterTags = { "caster", "fire_affinity", "has_two_hand_sword", "has_two_handed_melee", "human", "humanoid", "medium_height", "medium_movement", "melee", "military", "not_dex", "not_int", "physical_affinity", "plate_armour", "red_blood", "slashing_weapon", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.5,
+		armour = 0.75,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.41,
+		damageSpread = 0.2,
+		attackTime = 1.245,
+		attackRange = 14,
+		accuracy = 1,
+		weaponType1 = "Two Handed Sword",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"BreachCleave",
+			"AxisDoubleStrikeTrigger",
+			"SummonFlamingAnimatedWeapons",
+			"SolarisChampionFlameVortex",
+			"DoubleStrikeMeleeAtAnimationSpeed",
+		},
+		modList = {
+			mod("PhysicalDamageGainAsFire", "BASE", 100, 0, 0), -- MonsterPhysicalAddedAsFireSkeletonMaps [physical_damage_%_to_add_as_fire = 100]
+		},
+	}
+	minions["Metadata/Monsters/Axis/AxisExperimenter"] = {
+		name = "Mortality Experimenter",
+		monsterTags = { "caster", "cursing_monster", "fire_affinity", "has_wand", "human", "humanoid", "light_armour", "medium_height", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 0.96,
+		energyShield = 0.2,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 75,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.995,
+		attackRange = 40,
+		accuracy = 1,
+		weaponType1 = "Wand",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AxisTemporalChains",
+			"MonsterDetonateDeadExperimenter",
+			"ExperimenterEnrageDemon",
+		},
+		modList = {
+			-- muzzle_flash_swap_hands [muzzle_flash_swap_hands = 1]
+		},
+	}
+	minions["Metadata/Monsters/Axis/AxisExperimenter2"] = {
+		name = "Flesh Sculptor",
+		monsterTags = { "caster", "cursing_monster", "fire_affinity", "has_wand", "human", "humanoid", "light_armour", "medium_height", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 0.96,
+		energyShield = 0.2,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 75,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.995,
+		attackRange = 40,
+		accuracy = 1,
+		weaponType1 = "Wand",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AxisEnfeeble",
+			"MonsterProjectileWeakness",
+			"MonsterDetonateDeadExperimenter",
+		},
+		modList = {
+			-- muzzle_flash_swap_hands [muzzle_flash_swap_hands = 1]
+		},
+	}
+	minions["Metadata/Monsters/Axis/AxisExperimenterRaiseZombie"] = {
+		name = "Reanimator",
+		monsterTags = { "caster", "cursing_monster", "has_wand", "human", "humanoid", "light_armour", "medium_height", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", "summoner", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 0.96,
+		energyShield = 0.2,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 75,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.995,
+		attackRange = 40,
+		accuracy = 1,
+		weaponType1 = "Wand",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AxisEnfeeble",
+			"NecromancerRaiseZombie",
+			"ExperimenterEnrageDemon",
+		},
+		modList = {
+			-- muzzle_flash_swap_hands [muzzle_flash_swap_hands = 1]
+		},
+	}
+    -- Bandit
+	minions["Metadata/Monsters/Bandits/BanditBowExplosiveArrow"] = {
+		name = "Oak's Sniper",
+		monsterTags = { "bandit", "flesh_armour", "has_bow", "human", "humanoid", "medium_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.08,
+		armour = 0.25,
+		evasion = 0.1,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.44,
+		damageSpread = 0.2,
+		attackTime = 1.995,
+		attackRange = 40,
+		accuracy = 1,
+		weaponType1 = "Bow",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"BanditExplosiveArrowAtAnimationSpeed",
+			"EASBanditTauntBow",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/Bandits/BanditBowPoisonArrow"] = {
+		name = "Alira's Deadeye",
+		monsterTags = { "bandit", "chaos_affinity", "flesh_armour", "has_bow", "human", "humanoid", "medium_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.08,
+		armour = 0.25,
+		evasion = 0.1,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.44,
+		damageSpread = 0.2,
+		attackTime = 1.995,
+		attackRange = 40,
+		accuracy = 1,
+		weaponType1 = "Bow",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterCausticArrowAtAnimationSpeed",
+			"EASBanditTauntBow",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/Bandits/BanditMeleeWarlordsMarkMaul"] = {
+		name = "Oak's Devoted",
+		monsterTags = { "bandit", "bludgeoning_weapon", "cursing_monster", "flesh_armour", "has_two_hand_mace", "has_two_handed_melee", "human", "humanoid", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.15,
+		evasion = 0.2,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.4,
+		damageSpread = 0.2,
+		attackTime = 1.35,
+		attackRange = 11,
+		accuracy = 1,
+		weaponType1 = "Two Handed Mace",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterWarlordsMark",
+			"EASBanditTaunt",
+		},
+		modList = {
+			-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+		},
+	}
+	minions["Metadata/Monsters/Bandit/DockworkerChampion_"] = {
+		name = "Foreman",
+		monsterTags = { "bandit_area", "bludgeoning_weapon", "ghost_blood", "has_two_hand_mace", "has_two_handed_melee", "human", "light_armour", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "slow_movement", "undead", },
+		life = 2.1,
+		armour = 0.25,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.35,
+		attackRange = 14,
+		accuracy = 1,
+		weaponType1 = "Two Handed Mace",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"GroundEffectsSlamDockworkerChampion",
+		},
+		modList = {
+			-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+		},
+	}
+	minions["Metadata/Monsters/Bandits/BanditBowChampion"] = {
+		name = "Kraityn's Sentry",
+		monsterTags = { "bandit", "fire_affinity", "flesh_armour", "has_bow", "human", "humanoid", "medium_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "slow_movement", },
+		life = 1.57,
+		armour = 0.25,
+		evasion = 0.1,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 0.73,
+		damageSpread = 0.2,
+		attackTime = 1.995,
+		attackRange = 40,
+		accuracy = 1,
+		weaponType1 = "Bow",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"BanditExplosiveArrowChampion",
+			"BanditChampionBlastRain",
+			"BanditChampionBlastRainSpectre",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/Bandits/BanditRangedTornadoShotPetrified"] = {
+		name = "Imperial Vanguard",
+		monsterTags = { "bandit", "bone_armour", "bones", "has_bow", "human", "humanoid", "medium_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.08,
+		armour = 0.25,
+		evasion = 0.1,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.44,
+		damageSpread = 0.2,
+		attackTime = 1.995,
+		attackRange = 40,
+		accuracy = 1,
+		weaponType1 = "Bow",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"SkeletonSoldierTornadoShot",
+		},
+		modList = {
+			-- set_immune_to_cheats [set_immune_to_cheats = 1]
+		},
+	}
+    -- Beast
+	minions["Metadata/Monsters/Beasts/BeastCaveDegenAura"] = {
+		name = "Shaggy Monstrosity",
+		monsterTags = { "animal_claw_weapon", "aura_bearer", "beast", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "large_model", "mammal_beast", "medium_height", "melee", "physical_affinity", "red_blood", "ursine_beast", "very_slow_movement", },
+		life = 2.1,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.095,
+		attackRange = 14,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"ChaosDegenAura",
+			"GroundSlamBeast",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/Beasts/BeastVulnerabilityCurse"] = {
+		name = "Armour Cruncher",
+		monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "large_model", "mammal_beast", "medium_height", "melee", "physical_affinity", "red_blood", "ursine_beast", "very_slow_movement", },
+		life = 2.1,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.095,
+		attackRange = 14,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterVulnerabilityOnHit1",
+		},
+		modList = {
+			-- MonsterCurseOnHitVulnerability [curse_on_hit_level_vulnerability = 1]
+		},
+	}
+	minions["Metadata/Monsters/Beasts/BeastCleaveEnduringCry"] = {
+		name = "Hairy Bonecruncher",
+		monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "large_model", "mammal_beast", "medium_height", "melee", "physical_affinity", "red_blood", "ursine_beast", "very_slow_movement", },
+		life = 2.1,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.095,
+		attackRange = 14,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"BeastEnduringCry",
+			"GABeastCleave",
+			"GroundSlamBeast",
+		},
+		modList = {
+			-- MonsterUsesEnduringCryText [monster_uses_enduring_cry_text = 1]
+			-- MonsterCleavesText [monster_cleaves_text = 1]
+		},
+	}
+    -- Blood Apes
+	minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage"] = {
+		name = "Carnage Chieftain",
+		monsterTags = { "beast", "bludgeoning_weapon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "large_model", "mammal_beast", "medium_height", "medium_movement", "melee", "physical_affinity", "primate_beast", "red_blood", },
+		life = 2.4,
+		fireResist = 75,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.905,
+		attackRange = 13,
+		accuracy = 1,
+		weaponType1 = "One Handed Mace",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"BloodChieftainSummonMonkeys",
+			"MassFrenzy",
+			"MonkeyThrow",
+			"TriggeredMonkeyBomb",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/BloodChieftain/MonkeyChiefBloodParasite"] = {
+		name = "Host Chieftain",
+		monsterTags = { "beast", "bludgeoning_weapon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "large_model", "mammal_beast", "medium_height", "medium_movement", "melee", "physical_affinity", "primate_beast", "red_blood", },
+		life = 2.4,
+		fireResist = 75,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.905,
+		attackRange = 13,
+		accuracy = 1,
+		weaponType1 = "One Handed Mace",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"BloodChieftainSummonParasiteMonkeys",
+			"MassPower",
+		},
+		modList = {
+		},
+	}
+    -- Bone Stalker
+	minions["Metadata/Monsters/BoneStalker/BoneStalker"] = {
+		name = "Bone Stalker",
+		monsterTags = { "bone_armour", "bones", "has_one_hand_axe", "has_one_handed_melee", "humanoid", "large_height", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "skeleton", "slashing_weapon", "undead", },
+		life = 2.1,
+		evasion = 0.25,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.13,
+		damageSpread = 0.2,
+		attackTime = 1.8,
+		attackRange = 12,
+		accuracy = 1,
+		weaponType1 = "One Handed Axe",
+		skillList = {
+			"Melee",
+			"BoneStalkerEarthquake",
+			"WalkingDoubleSlash",
+		},
+		modList = {
+		},
+	}
+    -- Bull
+	minions["Metadata/Monsters/Bull/Bull"] = {
+		name = "Fighting Bull",
+		monsterTags = { "beast", "bludgeoning_weapon", "flesh_armour", "gladiator", "has_one_hand_mace", "has_one_handed_melee", "large_model", "medium_height", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.38,
+		armour = 1,
+		fireResist = 0,
+		coldResist = 40,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.91,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 9,
+		accuracy = 1,
+		weaponType1 = "One Handed Mace",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"BullCharge",
+		},
+		modList = {
+		},
+	}
+    -- Cage Spider
+	minions["Metadata/Monster/CageSpider/CageSpider2"] = {
+		name = "Sandworn Slaves",
+		monsterTags = { "caster", "flesh_armour", "is_unarmed", "large_height", "melee", "not_dex", "not_int", "physical_affinity", "ranged", "skeleton", "slashing_weapon", "slow_movement", "undead", },
+		life = 4.4,
+		armour = 0.75,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1.28,
+		damageSpread = 0.2,
+		attackTime = 1.755,
+		attackRange = 12,
+		accuracy = 1,
+		skillList = {
+			"Melee",
+			"CageSpiderCycloneTriggerSandstorms",
+			"CageSpiderSandSpark",
+		},
+		modList = {
+		},
+	}
+    -- Cannibals
+	minions["Metadata/Monsters/Cannibal/CannibalMaleChampion"] = {
+		name = "Cannibal Fire-eater",
+		monsterTags = { "bludgeoning_weapon", "caster", "fast_movement", "fire_affinity", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "light_armour", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+		life = 1.44,
+		evasion = 0.15,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.995,
+		attackRange = 12,
+		accuracy = 1,
+		weaponType1 = "One Handed Mace",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterFlameRedCannibal",
+			"GTCannibalFlameBreathe",
+		},
+		modList = {
+		},
+	}
+    -- Goatmen
+	minions["Metadata/Monsters/Goatman/GoatmanLeapSlam"] = {
+		name = "Goatman",
+		monsterTags = { "beast", "goatman", "has_one_hand_mace", "has_one_handed_melee", "humanoid", "light_armour", "mammal_beast", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.1,
+		evasion = 0.05,
+		fireResist = 40,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.65,
+		damageSpread = 0.2,
+		attackTime = 1.2,
+		attackRange = 7,
+		accuracy = 1,
+		skillList = {
+			"GoatmanLeapSlam",
+			"MeleeAtAnimationSpeed",
+			"GoatmanWait",
+			"GoatmanWait2",
+			"GAGoatmanLeapSlamDamage",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/Goatman/GoatmanLightningLeapSlamMaps"] = {
+		name = "Bearded Devil",
+		monsterTags = { "beast", "goatman", "has_one_hand_mace", "has_one_handed_melee", "humanoid", "light_armour", "mammal_beast", "medium_height", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slow_movement", },
+		life = 1,
+		evasion = 0.05,
+		fireResist = 40,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 0.8,
+		damageSpread = 0.2,
+		attackTime = 1.455,
+		attackRange = 7,
+		accuracy = 1,
+		skillList = {
+			"GoatmanLeapSlam",
+			"GAGoatmanLeapSlamDamage",
+			"MeleeAtAnimationSpeed",
+			"GoatmanWait",
+			"GoatmanWait2",
+		},
+		modList = {
+			mod("PhysicalDamageGainAsLightning", "BASE", 100, 0, 0), -- MonsterPhysicalAddedAsLightningSkeletonMaps [physical_damage_%_to_add_as_lightning = 100]
+		},
+	}
+	minions["Metadata/Monsters/Goatman/GoatmanShamanFireball"] = {
+		name = "Goatman Shaman",
+		monsterTags = { "beast", "bludgeoning_weapon", "caster", "fire_affinity", "goatman", "has_staff", "has_two_handed_melee", "humanoid", "light_armour", "mammal_beast", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", "slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1,
+		energyShield = 0.2,
+		fireResist = 75,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.125,
+		attackRange = 12,
+		accuracy = 1,
+		weaponType1 = "Staff",
+		skillList = {
+			"MonsterFireballContactPos",
+			"GoatmanMoltenShell",
+			"MeleeAtAnimationSpeed",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/Goatman/GoatmanShamanFireChampion"] = {
+		name = "Goatman Fire-raiser",
+		monsterTags = { "beast", "bludgeoning_weapon", "caster", "fire_affinity", "goatman", "has_staff", "has_two_handed_melee", "humanoid", "light_armour", "mammal_beast", "medium_height", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
+		life = 1.4,
+		energyShield = 0.2,
+		fireResist = 75,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 12,
+		accuracy = 1,
+		weaponType1 = "Staff",
+		skillList = {
+			"MonsterFireballContactPos",
+			"GoatmanMoltenShell",
+			"GoatmanFireMagmaOrb",
+			"EASGoatmanShamanTaunt",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/Goatman/GoatmanShamanLightning"] = {
+		name = "Bearded Shaman",
+		monsterTags = { "beast", "bludgeoning_weapon", "caster", "goatman", "has_staff", "has_two_handed_melee", "humanoid", "light_armour", "lightning_affinity", "mammal_beast", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", "slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1,
+		energyShield = 0.2,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.125,
+		attackRange = 12,
+		accuracy = 1,
+		weaponType1 = "Staff",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterShockNova",
+			"MonsterSpark",
+		},
+		modList = {
+			mod("Speed", "INC", -50, 16, 0), -- MonsterGoatmanShamanCastSpeed [base_cast_speed_+% = -50]
+		},
+	}
+	minions["Metadata/Monsters/Goatman/MountainGoatmanChampion"] = {
+		name = "Colossus Crusher",
+		monsterTags = { "beast", "bludgeoning_weapon", "goatman", "has_two_hand_mace", "has_two_handed_melee", "humanoid", "light_armour", "mammal_beast", "medium_height", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.1,
+		evasion = 0.05,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.91,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 12,
+		accuracy = 1,
+		weaponType1 = "Two Handed Mace",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"GoatmanEarthquake",
+			"GoatmanMonsterSlam",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/Goatman/MountainGoatmanShamanIceSpear"] = {
+		name = "Alpine Shaman",
+		monsterTags = { "beast", "bludgeoning_weapon", "caster", "cold_affinity", "goatman", "has_staff", "has_two_handed_melee", "humanoid", "light_armour", "mammal_beast", "medium_height", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1,
+		energyShield = 0.2,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 12,
+		accuracy = 1,
+		weaponType1 = "Staff",
+		skillList = {
+			"MountainGoatmanIceSpear",
+		},
+		modList = {
+		},
+	}
+    -- Miscreation
+	minions["Metadata/Monsters/DemonFemale/DemonFemale"] = {
+		name = "Whipping Miscreation",
+		monsterTags = { "animal_claw_weapon", "demon", "fast_movement", "flesh_armour", "has_dagger", "has_one_handed_melee", "medium_height", "melee", "physical_affinity", "red_blood", },
+		life = 0.99,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 0.88,
+		damageSpread = 0.2,
+		attackTime = 2.445,
+		attackRange = 18,
+		accuracy = 1,
+		skillList = {
+			"Melee",
+			"MeleeDemonFemale",
+		},
+		modList = {
+			-- MonsterChanceToVulnerabilityOnHit2 [curse_on_hit_%_vulnerability = 50]
+		},
+	}
+	minions["Metadata/Monsters/DemonModular/DemonFemaleRanged"] = {
+		name = "Tentacle Miscreation",
+		monsterTags = { "demon", "flesh_armour", "is_unarmed", "medium_height", "medium_movement", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 0.96,
+		evasion = 0.1,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.68,
+		damageSpread = 0.2,
+		attackTime = 3,
+		attackRange = 6,
+		accuracy = 1,
+		skillList = {
+			"DemonFemaleRangedGeometryProjectileLeft",
+			"DemonFemaleRangedGeometryProjectileRight",
+			"EmptyActionFemaleDemonProjectiles",
+			"DemonFemaleRangedGeometryProjectileLeftAhead",
+			"DemonFemaleRangedGeometryProjectileRightAhead",
+			"EmptyActionFemaleDemonProjectilesAhead",
+		},
+		modList = {
+			mod("PhysicalDamageConvertToFire", "BASE", 50, 0, 0), -- MonsterConvertToFireDamage2 [base_physical_damage_%_to_convert_to_fire = 50]
+			-- MonsterRangeVarianceMedium [main_hand_base_maximum_attack_distance = 0]
+		},
+	}
+	minions["Metadata/Monsters/DemonModular/DemonFemaleRanged2"] = {
+		name = "Lunaris Concubine",
+		monsterTags = { "demon", "flesh_armour", "is_unarmed", "medium_height", "medium_movement", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 0.96,
+		evasion = 0.1,
+		fireResist = 0,
+		coldResist = 40,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.68,
+		damageSpread = 0.2,
+		attackTime = 3,
+		attackRange = 6,
+		accuracy = 1,
+		skillList = {
+			"DemonFemaleRangedProjectile2",
+		},
+		modList = {
+			mod("PhysicalDamageConvertToCold", "BASE", 50, 0, 0), -- MonsterConvertToColdDamage2 [base_physical_damage_%_to_convert_to_cold = 50]
+		},
+	}
+	minions["Metadata/Monsters/DemonModular/DemonModularBladeVortex"] = {
+		name = "Slashed Miscreation",
+		monsterTags = { "caster", "cleaving_weapon", "demon", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "medium_height", "melee", "physical_affinity", "red_blood", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.5,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.35,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 6,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"DemonModularBladeVortex",
+			"DemonModularBladeVortexSpectre",
+		},
+		modList = {
+			-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 0]
+		},
+	}
+	minions["Metadata/Monsters/DemonModular/DemonModularFire"] = {
+		name = "Burned Miscreation",
+		monsterTags = { "cleaving_weapon", "demon", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "medium_height", "melee", "physical_affinity", "red_blood", "uses_suicide_explode", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1,
+		fireResist = 40,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.35,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 9,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterRighteousFire",
+			"MonsterRighteousFireWhileSpectred",
+			"ModularDemonFireSuicideExplosion",
+		},
+		modList = {
+			-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 0]
+		},
+	}
+    -- Maw
+	minions["Metadata/Monsters/Frog/Frog"] = {
+		name = "Fetid Maw",
+		monsterTags = { "amphibian_beast", "beast", "has_one_hand_mace", "has_one_handed_melee", "large_model", "light_armour", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slow_movement", "small_height", },
+		life = 1,
+		evasion = 0.2,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1,
+		damageSpread = 0.2,
+		attackTime = 1.455,
+		attackRange = 7,
+		accuracy = 1,
+		skillList = {
+			"MonsterLeapSlam",
+			"Melee",
+		},
+		modList = {
+			-- MonsterLeapsOntoEnemiesText [monster_leaps_onto_enemies_text = 1]
+		},
+	}
+	minions["Metadata/Monsters/Frog/Frog2"] = {
+		name = "Murk Fiend",
+		monsterTags = { "amphibian_beast", "beast", "has_one_hand_mace", "has_one_handed_melee", "large_model", "light_armour", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slow_movement", "small_height", },
+		life = 1,
+		evasion = 0.2,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1,
+		damageSpread = 0.2,
+		attackTime = 1.455,
+		attackRange = 7,
+		accuracy = 1,
+		skillList = {
+			"MonsterLeapSlam",
+			"Melee",
+		},
+		modList = {
+			-- MonsterLeapsOntoEnemiesText [monster_leaps_onto_enemies_text = 1]
+		},
+	}
+    -- Chimeral
+	minions["Metadata/Monsters/GemMonster/Iguana"] = {
+		name = "Plumed Chimeral",
+		monsterTags = { "beast", "has_one_hand_sword", "has_one_handed_melee", "large_model", "light_armour", "melee", "not_str", "physical_affinity", "ranged", "red_blood", "reptile_beast", "slow_movement", "small_height", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.25,
+		energyShield = 0.2,
+		evasion = 0.2,
+		fireResist = 52,
+		coldResist = 52,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.13,
+		damageSpread = 0.2,
+		attackTime = 1.005,
+		attackRange = 9,
+		accuracy = 1,
+		skillList = {
+			"IguanaProjectile",
+			"MeleeAtAnimationSpeed",
+		},
+		modList = {
+			-- MonsterSuppressingFire [chance_to_apply_suppression_on_hit_% = 20]
+		},
+	}
+	minions["Metadata/Monsters/GemMonster/IguanaChrome"] = {
+		name = "Chrome-infused Chimeral",
+		monsterTags = { "beast", "cold_affinity", "has_one_hand_sword", "has_one_handed_melee", "large_model", "light_armour", "melee", "not_str", "physical_affinity", "ranged", "red_blood", "reptile_beast", "slow_movement", "small_height", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.54,
+		energyShield = 0.2,
+		evasion = 0.2,
+		fireResist = 52,
+		coldResist = 52,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.12,
+		damageSpread = 0.2,
+		attackTime = 1.005,
+		attackRange = 9,
+		accuracy = 1,
+		skillList = {
+			"IguanaProjectileChrome",
+			"MeleeAtAnimationSpeed",
+			"IguanaDoomArrow",
+		},
+		modList = {
+			-- MonsterSuppressingFire [chance_to_apply_suppression_on_hit_% = 20]
+			mod("PhysicalDamageGainAsCold", "BASE", 100, 0, 0), -- MonsterPhysicalAddedAsColdSkeletonMaps [physical_damage_%_to_add_as_cold = 100]
+		},
+	}
+    -- Ghost Pirate
+	minions["Metadata/Monsters/GhostPirates/GhostPirateBlackBowMaps"] = {
+		name = "Spectral Bowman",
+		monsterTags = { "fast_movement", "ghost", "ghost_armour", "ghost_blood", "has_bow", "lightning_affinity", "medium_height", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "undead", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 0.96,
+		energyShield = 0.2,
+		evasion = 0.5,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 0.96,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 40,
+		accuracy = 1,
+		weaponType1 = "Bow",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterPuncture",
+			"MonsterLightningArrow",
+		},
+		modList = {
+			mod("PhysicalDamageGainAsLightning", "BASE", 100, 0, 0), -- MonsterPhysicalAddedAsLightningSkeletonMaps [physical_damage_%_to_add_as_lightning = 100]
+			-- supress_muzzle_flash [supress_muzzle_flash = 1]
+		},
+	}
+	minions["Metadata/Monsters/GhostPirates/GhostPirateBlackFlickerStrikeMaps"] = {
+		name = "Cursed Mariner",
+		monsterTags = { "cleaving_weapon", "fast_movement", "ghost", "ghost_armour", "ghost_blood", "has_one_hand_sword", "has_one_handed_melee", "medium_height", "melee", "not_str", "physical_affinity", "undead", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1,
+		energyShield = 0.2,
+		evasion = 0.5,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1.32,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 8,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		weaponType2 = "Shield",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterFlickerStrikeExtraRange",
+		},
+		modList = {
+			mod("PhysicalDamageGainAsLightning", "BASE", 100, 0, 0), -- MonsterPhysicalAddedAsLightningSkeletonMaps [physical_damage_%_to_add_as_lightning = 100]
+			-- MonsterUsesFlickerStrikeText [monster_uses_flicker_strike_text = 1]
+			mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [monster_base_block_% = 20]
+			mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [base_spell_block_% = 20]
+			mod("BlockEffect", "BASE", 40, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [base_block_%_damage_taken = 40]
+			-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+		},
+	}
+	minions["Metadata/Monsters/GhostPirates/GhostPirateGreenBladeVortex"] = {
+		name = "Spectral Scoundrel",
+		monsterTags = { "caster", "cleaving_weapon", "fast_movement", "ghost", "ghost_armour", "ghost_blood", "has_one_hand_sword", "has_one_handed_melee", "medium_height", "melee", "not_str", "physical_affinity", "undead", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.5,
+		energyShield = 0.2,
+		evasion = 0.5,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1.65,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 8,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		weaponType2 = "Shield",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"GhostPirateBladeVortex",
+			"GhostPirateBladeVortexSpectre",
+		},
+		modList = {
+			mod("PhysicalDamageConvertToLightning", "BASE", 50, 0, 0), -- MonsterElementalSkeletonLightning [base_physical_damage_%_to_convert_to_lightning = 50]
+			mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [monster_base_block_% = 20]
+			mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [base_spell_block_% = 20]
+			mod("BlockEffect", "BASE", 40, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [base_block_%_damage_taken = 40]
+			-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+		},
+	}
+    -- Undying Grappler
+	minions["Metadata/Monsters/Grappler/Grappler"] = {
+		name = "Undying Grappler",
+		monsterTags = { "demon", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "medium_height", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "undying", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1,
+		evasion = 0.3,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.25,
+		damageSpread = 0.2,
+		attackTime = 1.245,
+		attackRange = 8,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterFlickerStrike",
+			"MonsterDischarge",
+		},
+		modList = {
+			-- MonsterGainsPowerChargeOnKinDeath [monster_gain_power_charge_on_kin_death = 1]
+			-- MonsterUsesFlickerStrikeText [monster_uses_flicker_strike_text = 1]
+			-- MonsterCastsDischargeText [monster_casts_discharge_text = 1]
+		},
+	}
+	minions["Metadata/Monsters/Grappler/GrapplerLabyrinth"] = {
+		name = "Shadow Lurker",
+		monsterTags = { "demon", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "medium_height", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "undying", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1,
+		evasion = 0.3,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.25,
+		damageSpread = 0.2,
+		attackTime = 1.245,
+		attackRange = 8,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterFlickerStrike",
+			"MonsterDischarge",
+		},
+		modList = {
+			-- MonsterGainsPowerChargeOnKinDeath [monster_gain_power_charge_on_kin_death = 1]
+			-- MonsterUsesFlickerStrikeText [monster_uses_flicker_strike_text = 1]
+			-- MonsterCastsDischargeText [monster_casts_discharge_text = 1]
+		},
+	}
+    -- Ribbon
+	minions["Metadata/Monsters/Guardians/GuardianFire"] = {
+		name = "Flame Sentinel",
+		monsterTags = { "caster", "construct", "fire_affinity", "ghost_armour", "has_claw", "has_one_handed_melee", "large_height", "large_model", "mud_blood", "not_str", "ranged", "slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.8,
+		energyShield = 0.4,
+		evasion = 0.1,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.8,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 8,
+		accuracy = 1,
+		skillList = {
+			"MonsterMultiFireball",
+			"MonsterSplitFireball",
+			"MonsterLesserMultiFireball",
+			"MonsterMultiFireballSpectre",
+			"MonsterSplitFireballSpectre",
+			"MonsterLesserMultiFireballSpectre",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/Guardians/GuardianFire_BlueMaps"] = {
+		name = "Frost Sentinel",
+		monsterTags = { "caster", "cold_affinity", "construct", "ghost_armour", "has_claw", "has_one_handed_melee", "large_height", "large_model", "mud_blood", "not_str", "ranged", "slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.8,
+		energyShield = 0.4,
+		evasion = 0.1,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.8,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 8,
+		accuracy = 1,
+		skillList = {
+			"MonsterMultiIceSpear",
+			"MonsterSplitIceSpear",
+			"MonsterLesserMultiIceSpear",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/Guardians/GuardianLightning"] = {
+		name = "Galvanic Ribbon",
+		monsterTags = { "caster", "construct", "ghost_armour", "has_claw", "has_one_handed_melee", "large_height", "large_model", "lightning_affinity", "mud_blood", "not_str", "slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.8,
+		energyShield = 0.4,
+		evasion = 0.1,
+		fireResist = 0,
+		coldResist = 85,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.8,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 6,
+		accuracy = 1,
+		skillList = {
+			"GuardianArc",
+		},
+		modList = {
+		},
+	}
+    -- Gut flayer
+	minions["Metadata/Monsters/HalfSkeleton/HalfSkeleton"] = {
+		name = "Gut Flayer",
+		monsterTags = { "demon", "flesh_armour", "has_dagger", "has_one_handed_melee", "humanoid", "medium_height", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.32,
+		armour = 0.25,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.65,
+		damageSpread = 0.3,
+		attackTime = 1.5,
+		attackRange = 10,
+		accuracy = 1,
+		weaponType1 = "Dagger",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"HalfSkeletonPuncture",
+		},
+		modList = {
+			-- MonsterCastsPunctureText [monster_casts_puncture_text = 1]
+		},
+	}
+    -- Solar Guard
+	minions["Metadata/Monsters/HolyFireElemental/HolyFireElementalSolarisBeam"] = {
+		name = "Solar Guard",
+		monsterTags = { "animal_claw_weapon", "caster", "construct", "fire_affinity", "humanoid", "is_unarmed", "medium_height", "medium_movement", "mud_blood", "not_dex", "ranged", "stone_armour", "stone_construct", "templar", },
+		life = 1.98,
+		energyShield = 0.1,
+		armour = 0.25,
+		fireResist = 75,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.12,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 9,
+		accuracy = 1,
+		skillList = {
+			"SpecialBeamCannon",
+			"HolyFireElementalFireball",
+		},
+		modList = {
+			mod("PhysicalDamageGainAsFire", "BASE", 60, 0, 0), -- MonsterPhysicalAddedAsFireHolyFireElemental [physical_damage_%_to_add_as_fire = 60]
+		},
+	}
+    -- Construct
+	minions["Metadata/Monsters/incaminion/Fragment"] = {
+		name = "Ancient Construct",
+		monsterTags = { "caster", "chaos_affinity", "construct", "ghost_armour", "ghost_blood", "is_unarmed", "medium_height", "medium_movement", "not_dex", "not_str", "puncturing_weapon", "ranged", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.19,
+		energyShield = 0.2,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 40,
+		damage = 1.68,
+		damageSpread = 0.2,
+		attackTime = 1.32,
+		attackRange = 25,
+		accuracy = 1,
+		skillList = {
+			"IncaMinionProjectile",
+			"MonsterWaitVeryShort",
+		},
+		modList = {
+		},
+	}
+    -- Carrion Queen
+	minions["Metadata/Monsters/InsectSpawner/InsectSpawner"] = {
+		name = "Carrion Queen",
+		monsterTags = { "animal_claw_weapon", "beast", "extra_large_height", "flesh_armour", "insect", "insect_blood", "is_unarmed", "large_model", "physical_affinity", "ranged", "summoner", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.45,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 0.84,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 6,
+		accuracy = 1,
+		skillList = {
+			"InsectSpawnerSpit",
+			"InsectSpawnerSpawn",
+		},
+		modList = {
+			mod("PhysicalDamageConvertToFire", "BASE", 50, 0, 0), -- MonsterConvertToFireDamage2 [base_physical_damage_%_to_convert_to_fire = 50]
+		},
+	}
+    -- Kaom's Warriors
+	minions["Metadata/Monsters/KaomWarrior/KaomWarrior2"] = {
+		name = "Kaom's Chosen",
+		monsterTags = { "demon", "fire_affinity", "has_dual_wield_melee", "has_one_hand_mace", "has_one_handed_melee", "humanoid", "karui", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "slashing_weapon", "slow_movement", "stone_armour", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.43,
+		armour = 0.25,
+		fireResist = 40,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.87,
+		damageSpread = 0.2,
+		attackTime = 1.755,
+		attackRange = 9,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"KaomWarriorMoltenStrike",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/KaomWarrior/KaomWarrior3"] = {
+		name = "Kaom's Chosen",
+		monsterTags = { "demon", "has_dual_wield_melee", "has_one_hand_mace", "has_one_handed_melee", "humanoid", "karui", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "slashing_weapon", "slow_movement", "stone_armour", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.43,
+		armour = 0.25,
+		fireResist = 40,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.65,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 8,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"KaomWarriorGroundSlam",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/KaomWarrior/KaomWarrior7"] = {
+		name = "Tukohama's Vanguard",
+		monsterTags = { "cannot_be_monolith", "demon", "has_dual_wield_melee", "has_one_hand_mace", "has_one_handed_melee", "humanoid", "karui", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "slashing_weapon", "slow_movement", "stone_armour", },
+		life = 1.43,
+		armour = 0.25,
+		fireResist = 40,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.16,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 8,
+		accuracy = 1,
+		skillList = {
+			"Melee",
+			"KaomFireBeamTotem",
+			"KaomFireBeamTotemSpectre",
+		},
+		modList = {
+			-- KaomWarriorSlowFireBeam [fire_beam_max_rotation_speed_+% = -75]
+			-- KaomWarriorSlowFireBeam [fire_beam_start_angle_offset_variance = 60]
+			-- KaomWarriorSlowFireBeam [base_totem_range = 80]
+			-- KaomWarriorSlowFireBeam [fire_beam_length_+% = -25]
+			mod("TotemLife", "INC", 250, 0, 0), -- KaomWarriorSlowFireBeam2 [totem_life_+% = 250]
+			-- MonsterKillTrapsMinesTotemsOnDeath [kill_traps_mines_and_totems_on_death = 1]
+		},
+	}
+    -- Kitava's Cultist
+	minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodDelve"] = {
+		name = "Risen Vaal Fanatic",
+		monsterTags = { "caster", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
+		life = 2.88,
+		lifeScaling = "AltLife2",
+		armour = 0.25,
+		evasion = 0.4,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 14,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		skillList = {
+			"VaalincursionMortar",
+		},
+		modList = {
+			-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
+		},
+	}
+	minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodChampionDelve"] = {
+		name = "Risen Vaal Advocate",
+		monsterTags = { "caster", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
+		life = 4.05,
+		lifeScaling = "AltLife2",
+		armour = 0.25,
+		evasion = 0.4,
+		fireResist = 35,
+		coldResist = 35,
+		lightningResist = 35,
+		chaosResist = 20,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 14,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		skillList = {
+			"VaalincursionMortar",
+			"VaalIncursionSpecialBeamCannonBlood",
+		},
+		modList = {
+			-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
+		},
+	}
+	minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosDelve"] = {
+		name = "Risen Vaal Fanatic",
+		monsterTags = { "caster", "chaos_affinity", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "puncturing_weapon", "ranged", "red_blood", },
+		life = 2.88,
+		lifeScaling = "AltLife2",
+		armour = 0.25,
+		evasion = 0.4,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 14,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		skillList = {
+			"FireballIncursionChaos",
+		},
+		modList = {
+			-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
+		},
+	}
+	minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosChampionDelve"] = {
+		name = "Risen Vaal Advocate",
+		monsterTags = { "caster", "chaos_affinity", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "puncturing_weapon", "ranged", "red_blood", },
+		life = 4.05,
+		lifeScaling = "AltLife2",
+		armour = 0.25,
+		evasion = 0.4,
+		fireResist = 35,
+		coldResist = 35,
+		lightningResist = 35,
+		chaosResist = 20,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 14,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		skillList = {
+			"FireballIncursionChaos",
+			"IncursionSummonPhantasms",
+			"IncursionMeteorUpheaval",
+		},
+		modList = {
+			-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
+		},
+	}
+	minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireDelve"] = {
+		name = "Risen Vaal Fanatic",
+		monsterTags = { "caster", "cultist", "delve_monster", "fire_affinity", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "puncturing_weapon", "ranged", "red_blood", },
+		life = 2.88,
+		lifeScaling = "AltLife2",
+		armour = 0.25,
+		evasion = 0.4,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 14,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		skillList = {
+			"FireballIncusionFire",
+		},
+		modList = {
+			-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
+		},
+	}
+	minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireChampionDelve_"] = {
+		name = "Risen Vaal Advocate",
+		monsterTags = { "caster", "cultist", "delve_monster", "fire_affinity", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "puncturing_weapon", "ranged", "red_blood", },
+		life = 4.05,
+		lifeScaling = "AltLife2",
+		armour = 0.25,
+		evasion = 0.4,
+		fireResist = 35,
+		coldResist = 35,
+		lightningResist = 35,
+		chaosResist = 20,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 14,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		skillList = {
+			"FireballIncusionFire",
+			"VaalIncursionFirestorm",
+		},
+		modList = {
+			-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
+		},
+	}
+	minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningDelve"] = {
+		name = "Risen Vaal Fanatic",
+		monsterTags = { "caster", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "lightning_affinity", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "puncturing_weapon", "ranged", "red_blood", },
+		life = 2.88,
+		lifeScaling = "AltLife2",
+		armour = 0.25,
+		evasion = 0.4,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 14,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		skillList = {
+			"FireballIncusionLightning",
+		},
+		modList = {
+			-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
+		},
+	}
+	minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampionDelve_"] = {
+		name = "Risen Vaal Advocate",
+		monsterTags = { "caster", "cultist", "delve_monster", "flesh_armour", "has_one_handed_melee", "has_thrusting_one_hand_sword", "human", "humanoid", "lightning_affinity", "medium_height", "medium_movement", "no_pantheon_mod", "not_int", "puncturing_weapon", "ranged", "red_blood", },
+		life = 4.05,
+		lifeScaling = "AltLife2",
+		armour = 0.25,
+		evasion = 0.4,
+		fireResist = 35,
+		coldResist = 35,
+		lightningResist = 35,
+		chaosResist = 20,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 14,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		skillList = {
+			"FireballIncusionLightning",
+			"DelayedLightningSpark",
+			"SummonedSparkDaemonLightning",
+		},
+		modList = {
+			-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -25]
+		},
+	}
+    -- Kitava's Herald
+	minions["Metadata/Monster/KitavaDemon/KitavaDemon"] = {
+		name = "Kitava's Herald",
+		monsterTags = { "cannot_be_monolith", "caster", "cleaving_weapon", "cultist", "demon", "fire_affinity", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "medium_height", "melee", "not_int", "physical_affinity", "red_blood", "slow_movement", },
+		life = 3.6,
+		armour = 0.5,
+		evasion = 0.4,
+		fireResist = 37,
+		coldResist = 37,
+		lightningResist = 37,
+		chaosResist = 0,
+		damage = 1.4,
+		damageSpread = 0.2,
+		attackTime = 1.455,
+		attackRange = 10,
+		accuracy = 1,
+		damageFixup = 0.33,
+		weaponType1 = "One Handed Sword",
+		skillList = {
+			"KitavaDemonLeapSlam",
+			"KitavaDemonCleave",
+			"KitavaDemonWhirlingBlades",
+			"KitavaDemonXMortar",
+			"Melee",
+		},
+		modList = {
+			-- MonsterInflictsBleedingText [display_monster_may_inflict_bleeding = 1]
+			-- MonsterSpeedAndDamageFixupComplete [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 33]
+		},
+	}
+    -- Birdman
+	minions["Metadata/Monsters/Kiweth/Kiweth"] = {
+		name = "Avian Retch",
+		monsterTags = { "animal_claw_weapon", "beast", "demon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "medium_height", "melee", "not_str", "physical_affinity", "ranged", "red_blood", "slow_movement", },
+		life = 1.54,
+		energyShield = 0.2,
+		evasion = 0.2,
+		fireResist = 0,
+		coldResist = 40,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.68,
+		damageSpread = 0.2,
+		attackTime = 1.11,
+		attackRange = 11,
+		accuracy = 1,
+		skillList = {
+			"BirdmanConsumeCorpse",
+			"BirdmanBloodProjectileMortar",
+			"MeleeAtAnimationSpeed",
+		},
+		modList = {
+			-- MonsterLesserFarShot [monster_reverse_point_blank_damage_-%_at_minimum_range = 60]
+			mod("Damage", "INC", 20, 1024, 0), -- MonsterLesserFarShot [projectile_damage_+% = 20]
+			-- MonsterLesserFarShot [display_monster_uses_far_shot_text = 1]
+		},
+	}
+	minions["Metadata/Monsters/Kiweth/KiwethSeagull"] = {
+		name = "Gluttonous Gull",
+		monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "demon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "medium_height", "melee", "not_str", "physical_affinity", "ranged", "red_blood", "slow_movement", },
+		life = 1.3,
+		energyShield = 0.12,
+		evasion = 0.2,
+		fireResist = 0,
+		coldResist = 40,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.56,
+		damageSpread = 0.2,
+		attackTime = 1.11,
+		attackRange = 11,
+		accuracy = 1,
+		skillList = {
+			"BirdmanConsumeCorpse",
+			"MeleeAtAnimationSpeed",
+			"BirdmanBloodProjectileMortar",
+		},
+		modList = {
+			-- MonsterLesserFarShot [monster_reverse_point_blank_damage_-%_at_minimum_range = 60]
+			mod("Damage", "INC", 20, 1024, 0), -- MonsterLesserFarShot [projectile_damage_+% = 20]
+			-- MonsterLesserFarShot [display_monster_uses_far_shot_text = 1]
+		},
+	}
+    -- Delve League
+	minions["Metadata/Monsters/LeagueDelve/ProtoVaalWarriorElite"] = {
+		name = "Stoneskin Flayer",
+		monsterTags = { "delve_monster", "fast_movement", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "large_height", "melee", "mud_blood", "no_pantheon_mod", "not_int", "physical_affinity", "slashing_weapon", "stone_armour", },
+		life = 8,
+		lifeScaling = "AltLife2",
+		armour = 1,
+		evasion = 1,
+		fireResist = 35,
+		coldResist = 35,
+		lightningResist = 35,
+		chaosResist = 20,
+		damage = 1.34,
+		damageSpread = 0.2,
+		attackTime = 1.305,
+		attackRange = 12,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		weaponType2 = "One Handed Sword",
+		skillList = {
+			"Melee",
+			"DelveProtovaalWhirlingCharge",
+		},
+		modList = {
+		},
+	}
+    -- Hellion
+	minions["Metadata/Monsters/Lion/LionDesertSkinPuncture"] = {
+		name = "Dune Hellion",
+		monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_dagger", "has_one_handed_melee", "large_model", "light_armour", "mammal_beast", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "small_height", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1,
+		evasion = 0.1,
+		fireResist = 40,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.85,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 10,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterPuncture",
+		},
+		modList = {
+			-- MonsterCastsPunctureText [monster_casts_puncture_text = 1]
+		},
+	}
+	minions["Metadata/Monsters/Lion/LionWolf3Champion"] = {
+		name = "Freezing Wolf",
+		monsterTags = { "animal_claw_weapon", "beast", "canine_beast", "has_one_hand_mace", "has_one_handed_melee", "light_armour", "mammal_beast", "medium_height", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+		life = 1.8,
+		evasion = 0.1,
+		fireResist = 0,
+		coldResist = 40,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.01,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 10,
+		accuracy = 1,
+		weaponType1 = "One Handed Mace",
+		skillList = {
+			"Melee",
+			"MonsterLeapSlamFoothills",
+		},
+		modList = {
+			mod("PhysicalDamageGainAsCold", "BASE", 100, 0, 0), -- MonsterPhysicalAddedAsColdSkeletonMaps [physical_damage_%_to_add_as_cold = 100]
+		},
+	}
+    -- Knitted Horror
+	minions["Metadata/Monsters/MassSkeleton/MassSkeleton"] = {
+		name = "Knitted Horror",
+		monsterTags = { "bones", "extra_large_height", "humanoid", "is_unarmed", "large_model", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "ranged", "skeleton", "slashing_weapon", "stone_armour", "undead", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.25,
+		armour = 0.5,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.46,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 11,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"SkeletonMassBowProjectile",
+		},
+		modList = {
+			-- MonsterCastsPunctureText [monster_casts_puncture_text = 1]
+		},
+	}
+    -- Miners
+	minions["Metadata/Monsters/Miner/MinerLantern"] = {
+		name = "Pocked Lanternbearer",
+		monsterTags = { "cannot_be_monolith", "caster", "fire_affinity", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "medium_height", "mud_blood", "not_int", "not_str", "ranged", "stone_armour", "undead", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.21,
+		evasion = 0.2,
+		fireResist = 40,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.69,
+		damageSpread = 0.2,
+		attackTime = 1.395,
+		attackRange = 9,
+		accuracy = 1,
+		skillList = {
+			"MinerThrowFire",
+			"MinerThrowFireSpectre",
+		},
+		modList = {
+			-- IgniteArtVariation [ignite_art_variation = 1]
+		},
+	}
+	minions["Metadata/Monsters/Miner/MinerLanternCrystalVeins"] = {
+		name = "Pocked Illuminator",
+		monsterTags = { "cannot_be_monolith", "caster", "fire_affinity", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "medium_height", "mud_blood", "not_int", "not_str", "ranged", "stone_armour", "undead", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.21,
+		evasion = 0.2,
+		fireResist = 40,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.69,
+		damageSpread = 0.2,
+		attackTime = 1.395,
+		attackRange = 9,
+		accuracy = 1,
+		skillList = {
+			"MinerThrowFire",
+			"MinerThrowFireSpectre",
+		},
+		modList = {
+			-- IgniteArtVariation [ignite_art_variation = 1]
+		},
+	}
+    -- Voidbearer
+	minions["Metadata/Monsters/Monkeys/FlameBearer"] = {
+		name = "Voidbearer",
+		monsterTags = { "animal_claw_weapon", "caster", "demon", "fire_affinity", "is_unarmed", "light_armour", "medium_height", "medium_movement", "melee", "physical_affinity", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.1,
+		fireResist = 40,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.65,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 7,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"FlamebearerFlameBlue",
+		},
+		modList = {
+			-- set_base_number_of_totems_allowed [set_base_number_of_totems_allowed = 5]
+		},
+	}
+    -- Stone golem
+	minions["Metadata/Monsters/MossMonster/FireMonster"] = {
+		name = "Cinder Elemental",
+		monsterTags = { "cleaving_weapon", "construct", "earth_elemental", "has_one_hand_sword", "has_one_handed_melee", "large_height", "large_model", "melee", "mud_blood", "not_dex", "not_int", "physical_affinity", "stone_armour", "stone_construct", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.7,
+		armour = 0.5,
+		fireResist = 40,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 2.55,
+		damageSpread = 0.2,
+		attackTime = 1.17,
+		attackRange = 12,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"FireMonsterWhirlingBlades",
+		},
+		modList = {
+			-- ImmuneToLavaDamage [immune_to_lava_damage = 1]
+		},
+	}
+    -- Mother of Flames
+	minions["Metadata/Monsters/MotherOfFlames/MotherOfFlamesZombie"] = {
+		name = "Kiln Mother",
+		monsterTags = { "caster", "female", "fire_affinity", "human", "humanoid", "is_unarmed", "light_armour", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", "slashing_weapon", "slow_movement", "templar", },
+		life = 0.9,
+		energyShield = 0.28,
+		fireResist = 40,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.25,
+		damageSpread = 0.2,
+		attackTime = 1.8,
+		attackRange = 8,
+		accuracy = 1,
+		skillList = {
+			"MotherOfFlamesMagmaOrb3",
+			"Melee",
+		},
+		modList = {
+		},
+	}
+    -- Necromancer
+	minions["Metadata/Monsters/Necromancer/NecromancerConductivity"] = {
+		name = "Sin Lord",
+		monsterTags = { "animal_claw_weapon", "cursing_monster", "demon", "flesh_armour", "humanoid", "insect_blood", "is_unarmed", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "raises_dead", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.4,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.35,
+		damageSpread = 0.2,
+		attackTime = 1.17,
+		attackRange = 12,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"NecromancerReviveSkeleton",
+			"NecromancerConductivity",
+		},
+		modList = {
+			-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
+			-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
+			-- hexes_not_tracked [hexes_not_tracked = 1]
+		},
+	}
+	minions["Metadata/Monsters/Necromancer/NecromancerEnfeebleCurse"] = {
+		name = "Diabolist",
+		monsterTags = { "animal_claw_weapon", "cursing_monster", "demon", "flesh_armour", "humanoid", "insect_blood", "is_unarmed", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "raises_dead", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.4,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.35,
+		damageSpread = 0.2,
+		attackTime = 1.17,
+		attackRange = 12,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"NecromancerReviveSkeleton",
+			"NecromancerEnfeeble",
+			"AddBuffToTargetNecromancer",
+		},
+		modList = {
+			-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
+			-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
+			-- hexes_not_tracked [hexes_not_tracked = 1]
+		},
+	}
+	minions["Metadata/Monsters/Necromancer/NecromancerFlamability"] = {
+		name = "Ash Prophet",
+		monsterTags = { "animal_claw_weapon", "caster", "cursing_monster", "demon", "flesh_armour", "humanoid", "insect_blood", "is_unarmed", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "raises_dead", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.4,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.35,
+		damageSpread = 0.2,
+		attackTime = 1.17,
+		attackRange = 12,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"NecromancerReviveSkeleton",
+			"NecromancerFlammability",
+		},
+		modList = {
+			-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
+			-- ImmuneToLavaDamage [immune_to_lava_damage = 1]
+			-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
+			-- hexes_not_tracked [hexes_not_tracked = 1]
+		},
+	}
+	minions["Metadata/Monsters/Necromancer/NecromancerFrostbite"] = {
+		name = "Death Bishop",
+		monsterTags = { "animal_claw_weapon", "caster", "cursing_monster", "demon", "flesh_armour", "humanoid", "insect_blood", "is_unarmed", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "raises_dead", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.4,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.35,
+		damageSpread = 0.2,
+		attackTime = 1.17,
+		attackRange = 12,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"NecromancerReviveSkeleton",
+			"NecromancerFrostbite",
+		},
+		modList = {
+			-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
+			-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
+			-- hexes_not_tracked [hexes_not_tracked = 1]
+		},
+	}
+	minions["Metadata/Monsters/Necromancer/NecromancerElementalWeakness"] = {
+		name = "Defiler",
+		monsterTags = { "animal_claw_weapon", "cursing_monster", "demon", "flesh_armour", "humanoid", "insect_blood", "is_unarmed", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "raises_dead", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.4,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.35,
+		damageSpread = 0.2,
+		attackTime = 1.17,
+		attackRange = 12,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"NecromancerReviveSkeleton",
+			"NecromancerElementalWeakness",
+		},
+		modList = {
+			-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
+			-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
+			-- hexes_not_tracked [hexes_not_tracked = 1]
+		},
+	}
+	minions["Metadata/Monsters/Necromancer/NecromancerProjectileWeakness"] = {
+		name = "Necromancer",
+		monsterTags = { "animal_claw_weapon", "caster", "cursing_monster", "demon", "flesh_armour", "humanoid", "insect_blood", "is_unarmed", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "raises_dead", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.4,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.35,
+		damageSpread = 0.2,
+		attackTime = 1.17,
+		attackRange = 12,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"NecromancerReviveSkeleton",
+			"NecromancerEnfeeble",
+		},
+		modList = {
+			-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
+			-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
+			-- hexes_not_tracked [hexes_not_tracked = 1]
+		},
+	}
+	minions["Metadata/Monsters/Necromancer/NecromancerVulnerability"] = {
+		name = "Necromancer",
+		monsterTags = { "animal_claw_weapon", "caster", "cursing_monster", "demon", "flesh_armour", "humanoid", "insect_blood", "is_unarmed", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "raises_dead", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.4,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.35,
+		damageSpread = 0.2,
+		attackTime = 1.17,
+		attackRange = 12,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"NecromancerReviveSkeleton",
+			"NecromancerVulnerability",
+		},
+		modList = {
+			-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
+			-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 180]
+			-- hexes_not_tracked [hexes_not_tracked = 1]
+		},
+	}
+    -- Undying Bomber
+	minions["Metadata/Monsters/Pyromaniac/PyromaniacFire"] = {
+		name = "Undying Incinerator",
+		monsterTags = { "caster", "demon", "fire_affinity", "flesh_armour", "humanoid", "is_unarmed", "medium_height", "not_int", "not_str", "ranged", "red_blood", "slashing_weapon", "slow_movement", "undying", "uses_suicide_explode", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1,
+		evasion = 1,
+		fireResist = 75,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 7,
+		accuracy = 1,
+		skillList = {
+			"PyroFireball",
+			"PyroSuicideExplosion",
+			"MonsterFireBomb",
+		},
+		modList = {
+			-- MonsterExplodesOnItsTargetOnLowLifeText [monster_explodes_on_its_target_text = 2]
+			-- ImmuneToLavaDamage [immune_to_lava_damage = 1]
+		},
+	}
+	minions["Metadata/Monsters/Pyromaniac/PyromaniacPoison"] = {
+		name = "Undying Alchemist",
+		monsterTags = { "caster", "chaos_affinity", "demon", "flesh_armour", "humanoid", "is_unarmed", "medium_height", "not_int", "not_str", "ranged", "red_blood", "slashing_weapon", "slow_movement", "undying", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1,
+		evasion = 1,
+		fireResist = 75,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 7,
+		accuracy = 1,
+		skillList = {
+			"MonsterCausticBomb",
+			"PyroChaosFireball",
+		},
+		modList = {
+		},
+	}
+    -- Stygian Revenant
+	minions["Metadata/Monsters/Revenant/Revenant"] = {
+		name = "Stygian Revenant",
+		monsterTags = { "caster", "demon", "fast_movement", "flesh_armour", "is_unarmed", "large_model", "lightning_affinity", "melee", "not_int", "not_str", "physical_affinity", "raises_dead", "ranged", "red_blood", "slashing_weapon", "small_height", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.82,
+		evasion = 0.5,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 2.1,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 10,
+		accuracy = 1,
+		skillList = {
+			"RevenantReviveUndead",
+			"RevenantSpellProjectile",
+			"MeleeAtAnimationSpeed",
+			"RevenantSpellProjectileSpectre",
+		},
+		modList = {
+		},
+	}
+    -- Sea Witch
+	minions["Metadata/Monsters/Seawitch/SeaWitchFrostBolt"] = {
+		name = "Merveil's Blessed",
+		monsterTags = { "caster", "cold_affinity", "demon", "flesh_armour", "has_dagger", "has_one_handed_melee", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", "slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.44,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.52,
+		damageSpread = 0.2,
+		attackTime = 1.005,
+		attackRange = 8,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"SeawitchFrostbolt",
+			"SeawitchWaveGeometrySpell",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/Seawitch/SeaWitchScreech"] = {
+		name = "Singing Siren",
+		monsterTags = { "caster", "cold_affinity", "demon", "flesh_armour", "has_dagger", "has_one_handed_melee", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "red_blood", "slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.02,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.52,
+		damageSpread = 0.2,
+		attackTime = 1.005,
+		attackRange = 8,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"SeaWitchScreech",
+			"SeawitchWaveGeometrySpell",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/Seawitch/SeaWitchSpawnExploding"] = {
+		name = "Merveil's Attendant",
+		monsterTags = { "caster", "cold_affinity", "demon", "flesh_armour", "has_dagger", "has_one_handed_melee", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "red_blood", "slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.02,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.52,
+		damageSpread = 0.2,
+		attackTime = 1.005,
+		attackRange = 8,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"SeaWitchScreech",
+			"SeawitchWaveGeometrySpell",
+			"SSMSeawitchSpawnKamikaze",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/Seawitch/SeaWitchSpawnTemporalChains"] = {
+		name = "Merveil's Chosen",
+		monsterTags = { "caster", "cold_affinity", "cursing_monster", "demon", "flesh_armour", "has_dagger", "has_one_handed_melee", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "red_blood", "slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.02,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.52,
+		damageSpread = 0.2,
+		attackTime = 1.005,
+		attackRange = 8,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"SeawitchTemporalChains",
+			"SummonSpawn",
+			"SeawitchWaveGeometrySpell",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/Seawitch/SeaWitchVulnerabilityCurse"] = {
+		name = "Merveil's Retainer",
+		monsterTags = { "caster", "cold_affinity", "cursing_monster", "demon", "flesh_armour", "has_dagger", "has_one_handed_melee", "medium_height", "melee", "not_dex", "not_str", "physical_affinity", "red_blood", "slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.02,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.52,
+		damageSpread = 0.2,
+		attackTime = 1.005,
+		attackRange = 8,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"SeawitchVulnerability",
+			"SeawitchWaveGeometrySpell",
+		},
+		modList = {
+		},
+	}
+    -- Skeleton
+	minions["Metadata/Monsters/Skeletons/SkeletonBowPuncture"] = {
+		name = "Brittle Bleeder",
+		monsterTags = { "bone_armour", "bones", "has_bow", "humanoid", "medium_height", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "skeleton", "undead", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 0.96,
+		evasion = 0.1,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.29,
+		attackRange = 40,
+		accuracy = 1,
+		weaponType1 = "Bow",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterPuncture",
+			"ChangeToStance1",
+			"ChangeToStance2",
+		},
+		modList = {
+			-- MonsterNecromancerRaisable [undead_description = 1]
+			-- MonsterCastsPunctureText [monster_casts_puncture_text = 1]
+		},
+	}
+	minions["Metadata/Monsters/Skeletons/SkeletonBowLightning"] = {
+		name = "Brittle Poacher",
+		monsterTags = { "bone_armour", "bones", "has_bow", "humanoid", "lightning_affinity", "medium_height", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "skeleton", "undead", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 0.96,
+		evasion = 0.1,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.29,
+		attackRange = 40,
+		accuracy = 1,
+		weaponType1 = "Bow",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"SkeletonArcherLightningArrow",
+			"ChangeToStance1",
+			"ChangeToStance2",
+		},
+		modList = {
+			-- MonsterNecromancerRaisable [undead_description = 1]
+		},
+	}
+	minions["Metadata/Monsters/Skeletons/SkeletonMeleeLarge"] = {
+		name = "Colossal Bonestalker",
+		monsterTags = { "bone_armour", "bones", "cleaving_weapon", "has_one_hand_mace", "has_one_handed_melee", "large_height", "melee", "not_dex", "not_int", "physical_affinity", "skeleton", "undead", "very_slow_movement", },
+		life = 1.98,
+		armour = 0.25,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1.8,
+		damageSpread = 0.2,
+		attackTime = 2.25,
+		attackRange = 9,
+		accuracy = 1,
+		weaponType1 = "One Handed Mace",
+		skillList = {
+			"Melee",
+		},
+		modList = {
+			-- MonsterNecromancerRaisable [undead_description = 1]
+			-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+		},
+	}
+	minions["Metadata/Monsters/Skeletons/SkeletonBowLightning3"] = {
+		name = "Flayed Archer",
+		monsterTags = { "bone_armour", "bones", "has_bow", "humanoid", "lightning_affinity", "medium_height", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "skeleton", "undead", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 0.96,
+		evasion = 0.1,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.29,
+		attackRange = 40,
+		accuracy = 1,
+		weaponType1 = "Bow",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterLightningArrow",
+		},
+		modList = {
+			-- MonsterNecromancerRaisable [undead_description = 1]
+		},
+	}
+	minions["Metadata/Monsters/Skeletons/SkeletonCasterColdMultipleProjectiles"] = {
+		name = "Frost Harbinger",
+		monsterTags = { "bone_armour", "bones", "caster", "cold_affinity", "is_unarmed", "medium_height", "not_str", "ranged", "skeleton", "slashing_weapon", "undead", "very_slow_movement", },
+		life = 0.84,
+		energyShield = 0.4,
+		evasion = 0.15,
+		fireResist = 0,
+		coldResist = 40,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 0.6,
+		damageSpread = 0.2,
+		attackTime = 1.605,
+		attackRange = 46,
+		accuracy = 1,
+		skillList = {
+			"SkeletonProjectileCold",
+		},
+		modList = {
+			mod("ProjectileCount", "BASE", 2, 0, 0), -- MonsterMultipleProjectilesImplicit1 [number_of_additional_projectiles = 2]
+			-- MonsterNecromancerRaisable [undead_description = 1]
+		},
+	}
+	minions["Metadata/Monsters/Skeletons/SkeletonCasterFireMultipleProjectiles2"] = {
+		name = "Incinerated Mage",
+		monsterTags = { "bone_armour", "bones", "caster", "fire_affinity", "is_unarmed", "medium_height", "not_dex", "ranged", "skeleton", "slashing_weapon", "undead", "very_slow_movement", },
+		life = 0.84,
+		energyShield = 0.4,
+		armour = 0.25,
+		fireResist = 40,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 0.6,
+		damageSpread = 0.2,
+		attackTime = 1.605,
+		attackRange = 46,
+		accuracy = 1,
+		skillList = {
+			"SkeletonProjectileFire",
+		},
+		modList = {
+			-- MonsterNecromancerRaisable [undead_description = 1]
+			mod("ProjectileCount", "BASE", 2, 0, 0), -- MonsterMultipleProjectilesImplicit1 [number_of_additional_projectiles = 2]
+			-- ImmuneToLavaDamage [immune_to_lava_damage = 1]
+		},
+	}
+	minions["Metadata/Monsters/Skeletons/SkeletonBowPoison"] = {
+		name = "Plagued Bowman",
+		monsterTags = { "bone_armour", "bones", "chaos_affinity", "has_bow", "humanoid", "medium_height", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "skeleton", "undead", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 0.96,
+		evasion = 0.1,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.29,
+		attackRange = 40,
+		accuracy = 1,
+		weaponType1 = "Bow",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterCausticArrow",
+		},
+		modList = {
+			-- MonsterNecromancerRaisable [undead_description = 1]
+			-- MonsterFiresCausticArrowsText [monster_fires_caustic_arrows_text = 1]
+		},
+	}
+	minions["Metadata/Monsters/Skeletons/SkeletonBowLightning2"] = {
+		name = "Restless Archer",
+		monsterTags = { "bone_armour", "bones", "has_bow", "humanoid", "lightning_affinity", "medium_height", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "skeleton", "undead", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 0.96,
+		evasion = 0.1,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.29,
+		attackRange = 40,
+		accuracy = 1,
+		weaponType1 = "Bow",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterLightningArrow",
+		},
+		modList = {
+			-- MonsterNecromancerRaisable [undead_description = 1]
+		},
+	}
+	minions["Metadata/Monsters/Skeletons/SkeletonBowLightning4"] = {
+		name = "Sin Archer",
+		monsterTags = { "bone_armour", "bones", "has_bow", "humanoid", "lightning_affinity", "medium_height", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "skeleton", "undead", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 0.96,
+		evasion = 0.1,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.29,
+		attackRange = 40,
+		accuracy = 1,
+		weaponType1 = "Bow",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterLightningArrow",
+		},
+		modList = {
+			-- MonsterNecromancerRaisable [undead_description = 1]
+		},
+	}
+	minions["Metadata/Monsters/Skeletons/SkeletonCasterLightningSpark"] = {
+		name = "Sparking Mage",
+		monsterTags = { "bone_armour", "bones", "caster", "is_unarmed", "lightning_affinity", "medium_height", "not_dex", "not_str", "ranged", "skeleton", "slashing_weapon", "undead", "very_slow_movement", },
+		life = 0.84,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 0.6,
+		damageSpread = 0.2,
+		attackTime = 1.605,
+		attackRange = 46,
+		accuracy = 1,
+		skillList = {
+			"SkeletonProjectileLightning",
+			"SkeletonSpark",
+		},
+		modList = {
+			-- MonsterNecromancerRaisable [undead_description = 1]
+			-- MonsterCastsSparkText [monster_casts_spark_text = 1]
+		},
+	}
+	minions["Metadata/Monsters/Skeletons/SkeletonBlackCaster1_"] = {
+		name = "Desecrated Saint",
+		monsterTags = { "bone_armour", "bones", "caster", "has_one_hand_mace", "has_one_handed_melee", "medium_height", "not_str", "physical_affinity", "skeleton", "slashing_weapon", "undead", "very_slow_movement", },
+		life = 0.84,
+		energyShield = 0.4,
+		evasion = 0.15,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 0.6,
+		damageSpread = 0.2,
+		attackTime = 1.605,
+		attackRange = 46,
+		accuracy = 1,
+		skillList = {
+			"SkeletonProjectileBlack",
+		},
+		modList = {
+			-- MonsterNecromancerRaisable [undead_description = 1]
+			-- MonsterNoMapDrops [monster_no_map_drops = 1]
+			-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+			-- set_immune_to_cheats [set_immune_to_cheats = 1]
+		},
+	}
+	minions["Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse"] = {
+		name = "Vexing Archer",
+		monsterTags = { "bone_armour", "bones", "cursing_monster", "has_bow", "humanoid", "medium_height", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "skeleton", "undead", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 0.96,
+		evasion = 0.1,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.29,
+		attackRange = 40,
+		accuracy = 1,
+		weaponType1 = "Bow",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterProjectileWeakness",
+		},
+		modList = {
+			-- MonsterNecromancerRaisable [undead_description = 1]
+			-- MonsterCastsProjectileWeaknessCurseText [monster_casts_projectile_vulnerability_curse_text = 1]
+		},
+	}
+	minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionChampion"] = {
+		name = "Enhanced Vaal Fallen",
+		monsterTags = { "bone_armour", "bones", "construct", "has_two_hand_sword", "has_two_handed_melee", "medium_height", "melee", "no_pantheon_mod", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.25,
+		lifeScaling = "AltLife2",
+		armour = 1,
+		fireResist = 35,
+		coldResist = 35,
+		lightningResist = 35,
+		chaosResist = 20,
+		damage = 2.42,
+		damageSpread = 0.3,
+		attackTime = 1.32,
+		attackRange = 11,
+		accuracy = 1,
+		weaponType1 = "Two Handed Sword",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"ElementalHitSkeletonKnightIncursion",
+			"IncursionLeapSlamChampion",
+		},
+		modList = {
+			-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+		},
+	}
+	minions["Metadata/Monsters/Skeletons/SkeletonBowKnightElemental"] = {
+		name = "Vaal Slayer",
+		monsterTags = { "bone_armour", "bones", "construct", "has_bow", "medium_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "very_slow_movement", },
+		life = 0.96,
+		armour = 0.5,
+		evasion = 0.1,
+		fireResist = 37,
+		coldResist = 37,
+		lightningResist = 37,
+		chaosResist = 0,
+		damage = 0.6,
+		damageSpread = 0.2,
+		attackTime = 1.995,
+		attackRange = 40,
+		accuracy = 1,
+		weaponType1 = "Bow",
+		skillList = {
+			"Melee",
+			"ElementalHitSkeletonKnight",
+		},
+		modList = {
+			-- MonsterCastsElementalHitText [monster_casts_elemental_hit_text = 1]
+		},
+	}
+	minions["Metadata/Monsters/Skeletons/SkeletonMeleeBlackAbyssBoneLance"] = {
+		name = "Primeval Hunter",
+		monsterTags = { "abyssal", "caster", "flesh_armour", "has_two_hand_mace", "has_two_handed_melee", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "slow_movement", "undead", },
+		life = 1.7,
+		lifeScaling = "AltLife2",
+		armour = 0.25,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1,
+		damageSpread = 0.3,
+		attackTime = 1.605,
+		attackRange = 14,
+		accuracy = 1,
+		weaponType1 = "Two Handed Mace",
+		skillList = {
+			"Melee",
+			"SkeletonBlackAbyssBoneLance",
+		},
+		modList = {
+			-- VariableEmergeSpeedAbyss [emerge_speed_+% = 0]
+			-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+			-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+			-- VariableEmergeSpeedAbyss [emerge_speed_+% = 0]
+			-- set_use_melee_pattern_range [set_use_melee_pattern_range = 0]
+			-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -80]
+		},
+	}
+	minions["Metadata/Monsters/SkeletonCannon/SkeletonCannon1"] = {
+		name = "Bone Husk",
+		monsterTags = { "bludgeoning_weapon", "bone_armour", "caster", "extra_small_height", "is_unarmed", "large_model", "medium_movement", "not_int", "physical_affinity", "ranged", "skeleton", "undead", },
+		life = 2.07,
+		armour = 0.25,
+		evasion = 0.25,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 0.9,
+		damageSpread = 0.2,
+		attackTime = 1.8,
+		attackRange = 6,
+		accuracy = 1,
+		skillList = {
+			"SkeletonCannonMortar",
+			"SkeletonCannonBoneMortar",
+			"SkeletonCannonBoneNova",
+		},
+		modList = {
+			-- MonsterNecromancerRaisable [undead_description = 1]
+		},
+	}
+    -- Snake
+	minions["Metadata/Monsters/Snake/SnakeMeleeSpit"] = {
+		name = "Bramble Cobra",
+		monsterTags = { "beast", "extra_extra_small_height", "has_dagger", "has_one_handed_melee", "light_armour", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "ranged", "red_blood", "reptile_beast", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 0.94,
+		evasion = 0.15,
+		fireResist = 30,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 30,
+		damage = 1,
+		damageSpread = 0.2,
+		attackTime = 1.095,
+		attackRange = 8,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"SnakeProjectile",
+		},
+		modList = {
+			mod("PhysicalDamageConvertToChaos", "BASE", 30, 0, 0), -- MonsterSnakeChaos [base_physical_damage_%_to_convert_to_chaos = 30]
+		},
+	}
+	minions["Metadata/Monsters/Snake/SnakeScorpionMultiShot"] = {
+		name = "Barb Serpent",
+		monsterTags = { "beast", "construct", "extra_extra_small_height", "has_dagger", "has_one_handed_melee", "light_armour", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "ranged", "red_blood", "reptile_beast", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 0.94,
+		evasion = 0.15,
+		fireResist = 30,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 30,
+		damage = 1.24,
+		damageSpread = 0.2,
+		attackTime = 1.095,
+		attackRange = 8,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"SnakeSpineProjectile",
+		},
+		modList = {
+			mod("PhysicalDamageConvertToChaos", "BASE", 30, 0, 0), -- MonsterSnakeChaos [base_physical_damage_%_to_convert_to_chaos = 30]
+			mod("ProjectileCount", "BASE", 2, 0, 0), -- MonsterMultipleProjectilesImplicit1 [number_of_additional_projectiles = 2]
+		},
+	}
+    -- Spider
+	minions["Metadata/Monsters/Spiders/SpiderThornFlickerStrike"] = {
+		name = "Leaping Spider",
+		monsterTags = { "animal_claw_weapon", "beast", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "physical_affinity", "slow_movement", "spider", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1.44,
+		damageSpread = 0.2,
+		attackTime = 0.945,
+		attackRange = 12,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterFlickerStrike",
+		},
+		modList = {
+			-- set_is_spider [set_is_spider = 1]
+		},
+	}
+	minions["Metadata/Monsters/Spiders/SpiderThornViperStrikeFlickerStrike"] = {
+		name = "Deadly Tarantula",
+		monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "extra_small_height", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "physical_affinity", "slow_movement", "spider", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.21,
+		fireResist = 40,
+		coldResist = 40,
+		lightningResist = 40,
+		chaosResist = 25,
+		damage = 2.45,
+		damageSpread = 0.2,
+		attackTime = 0.945,
+		attackRange = 12,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterViperStrike",
+			"MonsterFlickerStrike",
+		},
+		modList = {
+			-- set_is_spider [set_is_spider = 1]
+		},
+	}
+    -- Statue
+	minions["Metadata/Monsters/Statue/DaressoStatueLargeMaleSpear"] = {
+		name = "Towering Figment",
+		monsterTags = { "construct", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "large_height", "melee", "mud_blood", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "slow_movement", "stone_armour", "stone_construct", },
+		life = 5.76,
+		armour = 1,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.3,
+		damageSpread = 0.2,
+		attackTime = 1.875,
+		attackRange = 16,
+		accuracy = 1,
+		damageFixup = 0.33,
+		weaponType1 = "One Handed Sword",
+		skillList = {
+			"Melee",
+			"MonsterPuncture",
+		},
+		modList = {
+			-- MonsterSpeedAndDamageFixupComplete [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 33]
+			-- MonsterCastsPunctureText [monster_casts_puncture_text = 1]
+			-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 400]
+		},
+	}
+	minions["Metadata/Monsters/Statue/StoneStatueMaleBow"] = {
+		name = "Archer Statue",
+		monsterTags = { "cold_affinity", "construct", "has_bow", "humanoid", "medium_height", "mud_blood", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "stone_armour", "stone_construct", "very_slow_movement", },
+		life = 2.46,
+		armour = 0.5,
+		evasion = 0.1,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 0.72,
+		damageSpread = 0.2,
+		attackTime = 1.995,
+		attackRange = 40,
+		accuracy = 1,
+		damageFixup = 0.11,
+		weaponType1 = "Bow",
+		skillList = {
+			"Melee",
+			"MonsterIceShot",
+		},
+		modList = {
+			-- MonsterSpeedAndDamageFixupSmall [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 11]
+			-- MonsterFiresIceShotArrowsText [monster_fires_ice_shot_arrows_text = 1]
+			-- mana_regeneration_rate_per_minute_% [mana_regeneration_rate_per_minute_% = 400]
+		},
+	}
+    -- Ophidian
+	minions["Metadata/Monsters/Taster/Taster"] = {
+		name = "Noisome Ophidian",
+		monsterTags = { "beast", "caster", "demon", "extra_extra_small_height", "has_dagger", "has_one_handed_melee", "medium_movement", "melee", "metal_armour", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "reptile_beast", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1,
+		evasion = 0.1,
+		fireResist = 40,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 2.25,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 6,
+		accuracy = 1,
+		weaponType1 = "Dagger",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"TarMortarTaster",
+		},
+		modList = {
+		},
+	}
+    -- Templar
+	minions["Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriver"] = {
+		name = "Slave Driver",
+		monsterTags = { "bludgeoning_weapon", "caster", "flesh_armour", "has_dual_wield_melee", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "lightning_affinity", "medium_height", "medium_movement", "melee", "not_int", "physical_affinity", "red_blood", "templar", },
+		life = 1,
+		armour = 0.25,
+		evasion = 0.25,
+		fireResist = 0,
+		coldResist = 40,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1,
+		damageSpread = 0.2,
+		attackTime = 1.845,
+		attackRange = 8,
+		accuracy = 1,
+		weaponType1 = "One Handed Mace",
+		weaponType2 = "One Handed Mace",
+		skillList = {
+			"SlaverTaunt",
+			"Melee",
+			"SlavedriverFlameWhip",
+		},
+		modList = {
+			mod("MovementSpeed", "INC", 20, 0, 0), -- MonsterImplicitFastRun4 [base_movement_velocity_+% = 20]
+		},
+	}
+	minions["Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriverKitava"] = {
+		name = "Crazed Driver",
+		monsterTags = { "bludgeoning_weapon", "caster", "flesh_armour", "has_dual_wield_melee", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "medium_height", "medium_movement", "melee", "not_int", "physical_affinity", "red_blood", "templar", },
+		life = 1,
+		armour = 0.25,
+		evasion = 0.25,
+		fireResist = 0,
+		coldResist = 40,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1,
+		damageSpread = 0.2,
+		attackTime = 1.845,
+		attackRange = 8,
+		accuracy = 1,
+		weaponType1 = "One Handed Mace",
+		weaponType2 = "One Handed Mace",
+		skillList = {
+			"SlaverTaunt",
+			"Melee",
+			"KitavaSlavedriverFlameWhip",
+		},
+		modList = {
+			mod("MovementSpeed", "INC", 20, 0, 0), -- MonsterImplicitFastRun4 [base_movement_velocity_+% = 20]
+		},
+	}
+    -- Undying
+	minions["Metadata/Monsters/Undying/CityStalkerMaleCasterArmour"] = {
+		name = "Undying Evangelist",
+		monsterTags = { "caster", "demon", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "medium_height", "medium_movement", "melee", "not_int", "physical_affinity", "red_blood", "undying", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.2,
+		armour = 0.5,
+		evasion = 0.1,
+		fireResist = 37,
+		coldResist = 37,
+		lightningResist = 37,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.245,
+		attackRange = 8,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"DelayedBlast",
+			"MonsterProximityShield",
+			"DelayedBlastSpectre",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/Undying/UndyingOutcastPuncture"] = {
+		name = "Undying Impaler",
+		monsterTags = { "demon", "extra_small_height", "fast_movement", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "light_armour", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slashing_weapon", "undying", },
+		life = 1,
+		evasion = 0.25,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1,
+		damageSpread = 0.2,
+		attackTime = 1.65,
+		attackRange = 6,
+		accuracy = 1,
+		skillList = {
+			"Melee",
+			"MonsterPuncture",
+		},
+		modList = {
+			-- MonsterCastsPunctureText [monster_casts_puncture_text = 1]
+		},
+	}
+	minions["Metadata/Monsters/Undying/UndyingOutcastWhirlingBlades"] = {
+		name = "Undying Outcast",
+		monsterTags = { "demon", "extra_small_height", "fast_movement", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "light_armour", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "slashing_weapon", "undying", },
+		life = 1,
+		evasion = 0.25,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1,
+		damageSpread = 0.2,
+		attackTime = 1.65,
+		attackRange = 6,
+		accuracy = 1,
+		skillList = {
+			"Melee",
+			"UndyingWhirlingBlades",
+		},
+		modList = {
+		},
+	}
+    -- Unholy Aberration
+	minions["Metadata/Monsters/SpiderPlated/SpiderPlatedUnholyEmerge"] = {
+		name = "Unholy Aberration",
+		monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "insect_blood", "is_unarmed", "medium_height", "medium_movement", "melee", "physical_affinity", "spider", },
+		life = 14,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.6,
+		damageSpread = 0.2,
+		attackTime = 1.95,
+		attackRange = 18,
+		accuracy = 1,
+		skillList = {
+			"Melee",
+		},
+		modList = {
+			-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+			-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+			-- CannotBeAugmented [cant_possess_this = 1]
+			-- CannotBeAugmented [cant_touch_this = 1]
+			-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+			-- CannotBeAugmented [cannot_be_afflicted = 1]
+			-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+		},
+	}
+    -- Wicker Man
+	minions["Metadata/Monsters/WickerMan/WickerMan"] = {
+		name = "Wicker Man",
+		monsterTags = { "bludgeoning_weapon", "bone_armour", "construct", "demon", "fire_affinity", "has_one_hand_mace", "has_one_handed_melee", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "ranged", "slow_movement", },
+		life = 2.25,
+		armour = 1,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.755,
+		attackRange = 10,
+		accuracy = 1,
+		weaponType1 = "One Handed Mace",
+		skillList = {
+			"Melee",
+			"WickerManRighteousFire",
+			"WickerManMoltenStrike",
+			"MonsterRighteousFireWhileSpectred",
+		},
+		modList = {
+		},
+	}
+    -- Redemption Sentry
+	minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphArcherSpectre"] = {
+		name = "Redemption Sentry",
+		monsterTags = { "caster", "cold_affinity", "fast_movement", "female", "has_bow", "human", "humanoid", "not_int", "plate_armour", "puncturing_weapon", "ranged", "red_blood", },
+		life = 2.7,
+		armour = 1,
+		evasion = 0.8,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 70,
+		accuracy = 1,
+		weaponType1 = "Bow",
+		skillList = {
+			"WalkEmergeAtlasInfluenceMonster",
+			"MeleeEyrieArrow",
+			"AtlasEyrieArcherMortar",
+			"AtlasEyrieArcherSnipe",
+			"AtlasEyrieArcherSnipeTrickshot",
+			"EmptyActionAttackEyrieArcherTrickshot",
+			"AtlasEyrieArcherGeometryProjectiles",
+			"AtlasExileEyrieArcherSpawnCrystal",
+			"AtlasEyrieArcherCrystalImpact",
+		},
+		modList = {
+			-- LeagueDropPenaltyInfluenceMonster [map_related_item_drop_chance_+%_final_from_league = -70]
+		},
+	}
+    -- Baranite Thaumaturge
+	minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderMageguardCasterSpectre"] = {
+		name = "Baranite Thaumaturge",
+		monsterTags = { "caster", "crusader_monster", "fast_movement", "human", "humanoid", "influence_monster", "is_unarmed", "light_armour", "lightning_affinity", "not_dex", "ranged", "water", },
+		life = 3.6,
+		energyShield = 0.8,
+		armour = 0.5,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 14,
+		accuracy = 1,
+		skillList = {
+			"AtlasExilesCrusaderMageguardProjectile",
+			"EmptyActionSpellCrusaderMageguard",
+			"AtlasCrusaderMageguardSpawnBombSpectre",
+			"AtlasExileCrusaderMageguardBombExplodeSpectre",
+			"AtlasCrusaderMageguardBeam",
+			"WalkEmergeAtlasInfluenceMonster",
+		},
+		modList = {
+			-- LeagueDropPenaltyInfluenceMonster [map_related_item_drop_chance_+%_final_from_league = -70]
+		},
+	}
+    -- Baranite Sister
+	minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderBlessedSisterSpectre"] = {
+		name = "Baranite Sister",
+		monsterTags = { "caster", "crusader_monster", "female", "human", "humanoid", "influence_monster", "is_unarmed", "light_armour", "lightning_affinity", "not_dex", "not_str", "ranged", "red_blood", "slashing_weapon", "slow_movement", "templar", },
+		life = 1.2,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.8,
+		attackRange = 8,
+		accuracy = 1,
+		skillList = {
+			"AtlasCrusaderSisterMortarSpectre",
+			"WalkEmergeAtlasInfluenceMonster",
+		},
+		modList = {
+			-- LeagueDropPenaltyInfluenceMonster [map_related_item_drop_chance_+%_final_from_league = -70]
+		},
+	}
+    -- Baranite Preacher
+	minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderTemplarJudgeSpectre"] = {
+		name = "Baranite Preacher",
+		monsterTags = { "bludgeoning_weapon", "caster", "crusader_monster", "flesh_armour", "human", "humanoid", "influence_monster", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", "red_blood", "templar", },
+		life = 1.68,
+		energyShield = 0.2,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.755,
+		attackRange = 9,
+		accuracy = 1,
+		skillList = {
+			"AtlasCrusaderJudgeBallLightning",
+			"AtlasCruasderJudgeFadingNova",
+			"WalkEmergeAtlasInfluenceMonster",
+		},
+		modList = {
+			-- LeagueDropPenaltyInfluenceMonster [map_related_item_drop_chance_+%_final_from_league = -70]
+		},
+	}
+    -- Scale of Esh
+	minions["Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_"] = {
+		name = "Scale of Esh",
+		monsterTags = { "animal_claw_weapon", "beast", "breach_commander", "caster", "demon", "flesh_armour", "insect", "is_unarmed", "lightning_affinity", "melee", "no_bloodlines", "no_pantheon_mod", "not_int", "not_str", "physical_affinity", "red_blood", "very_fast_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3,
+		evasion = 0.5,
+		fireResist = 30,
+		coldResist = 30,
+		lightningResist = 30,
+		chaosResist = 20,
+		damage = 1.8,
+		damageSpread = 0.2,
+		attackTime = 0.99,
+		attackRange = 7,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"SandLeaperDodgeLeft",
+			"SandLeaperDodgeRight",
+			"BreachLightningWhip",
+			"BreachArc",
+			"BreachTeamWarp",
+			"BreachLightningOrbsCommander",
+		},
+		modList = {
+			-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+			-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		},
+	}
+    -- Scinteel Synthete
+	minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer3Spectre"] = {
+		name = "Scinteel Synthete",
+		monsterTags = { "caster", "construct", "fast_movement", "humanoid", "is_unarmed", "lightning_affinity", "mud_blood", "not_dex", "ranged", "stone_armour", "synthesised_monster", },
+		life = 3.6,
+		lifeScaling = "AltLife2",
+		energyShield = 0.8,
+		armour = 0.5,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 85,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.305,
+		attackRange = 8,
+		accuracy = 1,
+		skillList = {
+			"SynthesisSoulstealerProjectileLightning",
+			"EmptyActionSynthesisSoulstealerArc",
+			"SynthesisSoulstealerLaser",
+			"SynthesisSoulstealerBolt",
+			"GeometryTriggerSynthesisSoulstealer3",
+		},
+		modList = {
+		},
+	}
+    -- Redemption Knight
+	minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighterSpectre_"] = {
+		name = "Redemption Knight",
+		monsterTags = { "cold_affinity", "fast_movement", "female", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "melee", "not_int", "plate_armour", "red_blood", "slashing_weapon", },
+		life = 2.7,
+		armour = 1,
+		evasion = 0.8,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1,
+		damageSpread = 0.2,
+		attackTime = 1.17,
+		attackRange = 14,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		weaponType2 = "Shield",
+		skillList = {
+			"MeleeCold",
+			"WalkEmergeAtlasInfluenceMonster",
+			"AtlasEyrieFighterSlash",
+			"EmptyActionAttackEyrieFighter",
+		},
+		modList = {
+			-- LeagueDropPenaltyInfluenceMonster [map_related_item_drop_chance_+%_final_from_league = -70]
+		},
+	}
+    -- Primal Crushclaw
+	minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre"] = {
+		name = "Primal Crushclaw",
+		monsterTags = { "animal_claw_weapon", "beast", "cold_affinity", "crustacean_beast", "hard_armour", "is_unarmed", "large_model", "melee", "not_dex", "not_int", "red_blood", "slow_movement", },
+		life = 3.6,
+		lifeScaling = "AltLife2",
+		armour = 1,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.17,
+		attackRange = 14,
+		accuracy = 1,
+		skillList = {
+			"MeleeCold",
+			"HarvestCrabDashSlam",
+			"GAHarvestCrabDashSlam",
+			"HarvestNessaCrabScreech",
+			"HarvestCrabAbyssSlam",
+			"EASHarvestEmerge",
+			"HarvestNessaCrabScreechDebuff",
+		},
+		modList = {
+			-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+			-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+			-- damage_hit_effect_index [damage_hit_effect_index = 2]
+		},
+	}
+    -- Primal Rhex Matriarch
+	minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT3Spectre"] = {
+		name = "Primal Rhex Matriarch",
+		monsterTags = { "animal_claw_weapon", "beast", "caster", "fast_movement", "flesh_armour", "is_unarmed", "lightning_affinity", "melee", "not_int", "not_str", "physical_affinity", "red_blood", "reptile_beast", },
+		life = 3.57,
+		lifeScaling = "AltLife2",
+		evasion = 0.5,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.26,
+		damageSpread = 0.2,
+		attackTime = 0.99,
+		attackRange = 12,
+		accuracy = 1,
+		skillList = {
+			"Melee",
+			"HarvestRhexLeapSlam",
+			"EAAHarvestRhexDashSlash",
+			"EASHarvestRhexScreech",
+			"GAHarvestRhexDashSlash",
+			"GSHarvestRhexScreech",
+			"EASHarvestEmerge",
+			"HarvestRhexScreechDebuff",
+		},
+		modList = {
+			-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+			-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+			-- damage_hit_effect_index [damage_hit_effect_index = 2]
+		},
+	}
+    -- Templar Tactician
+	minions["Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre"] = {
+		name = "Templar Tactician",
+		monsterTags = { "bludgeoning_weapon", "caster", "flesh_armour", "humanoid", "is_unarmed", "legion_monster", "lightning_affinity", "medium_movement", "melee", "no_pantheon_mod", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", },
+		life = 3.45,
+		lifeScaling = "AltLife1",
+		energyShield = 0.4,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.25,
+		damageSpread = 0.2,
+		attackTime = 1.17,
+		attackRange = 10,
+		accuracy = 1,
+		skillList = {
+			"Melee",
+			"LegionTemplarJudgeStormCall",
+			"LegionTemplarJudgeBallLightning",
+			"GeometryTriggerLegionTemplarCasterStormCall",
+		},
+		modList = {
+			-- MonsterIgnoresDelveDarkness [monster_ignores_delve_darkness_mechanic = 1]
+			-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+			-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		},
+	}
+    -- Frost Auto-Scout
+	minions["Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemColdSpectre"] = {
+		name = "Frost Auto-Scout",
+		monsterTags = { "caster", "cold_affinity", "construct", "golem", "is_unarmed", "metal_armour", "no_pantheon_mod", "not_dex", "not_int", "ranged", "slow_movement", },
+		life = 3.6,
+		lifeScaling = "AltLife1",
+		armour = 1,
+		fireResist = 40,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.17,
+		attackRange = 10,
+		accuracy = 1,
+		skillList = {
+			"DoLiterallyNothing",
+			"MPSHeistRobotClockworkGolemBasicProjectile",
+			"MMSHeistRobotClockworkGolemMortarSpectre",
+			"ChangeToStance1Heist",
+		},
+		modList = {
+		},
+	}
+    -- Syndicate Operative
+	minions["Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice2Spectre_"] = {
+		name = "Syndicate Operative",
+		monsterTags = { "fast_movement", "flesh_armour", "human", "humanoid", "is_unarmed", "melee", "no_cannot_die_aura", "no_pantheon_mod", "not_str", "physical_affinity", "red_blood", "slashing_weapon", "templar", },
+		life = 2.1,
+		lifeScaling = "AltLife2",
+		energyShield = 0.08,
+		evasion = 0.4,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.13,
+		damageSpread = 0.2,
+		attackTime = 0.6,
+		attackRange = 6,
+		accuracy = 1,
+		skillList = {
+			"Melee",
+			"WalkEmergeBetrayal",
+			"BetrayalSecretPoliceCurveDagger1",
+			"BetrayalSecretPoliceCurveDagger2",
+			"BetrayalSecretPoliceCurveDagger3",
+			"EmptyActionAttackSecretPoliceDaggers",
+		},
+		modList = {
+			-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -30]
+		},
+	}
+    -- Cloud Retch
+	minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieKiwethSpectre"] = {
+		name = "Cloud Retch",
+		monsterTags = { "animal_claw_weapon", "caster", "cold_affinity", "demon", "eyrie_monster", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "influence_monster", "melee", "not_str", "ranged", "red_blood", "slow_movement", },
+		life = 2.52,
+		energyShield = 0.2,
+		evasion = 0.2,
+		fireResist = 0,
+		coldResist = 40,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.68,
+		damageSpread = 0.2,
+		attackTime = 1.005,
+		attackRange = 11,
+		accuracy = 1,
+		skillList = {
+			"MeleeCold",
+			"WalkEmergeAtlasInfluenceMonster",
+			"AtlasEyrieKiwethMortarSpectre",
+			"AtlasEyrieKiwethMortarShards",
+		},
+		modList = {
+			-- LeagueDropPenaltyInfluenceMonster [map_related_item_drop_chance_+%_final_from_league = -70]
+		},
+	}
+    -- Artless Assassin
+	minions["Metadata/Monsters/LeagueHeist/Thug/ThugRanged1EliteSpectre"] = {
+		name = "Artless Assassin",
+		monsterTags = { "fast_movement", "fire_affinity", "has_bow", "human", "humanoid", "light_armour", "no_pantheon_mod", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
+		life = 3.58,
+		lifeScaling = "AltLife2",
+		evasion = 1,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.56,
+		damageSpread = 0.2,
+		attackTime = 1.005,
+		attackRange = 60,
+		accuracy = 1,
+		weaponType1 = "Bow",
+		skillList = {
+			"MPWHeistThugRangedBurningArrow",
+			"DoLiterallyNothing",
+			"GAHeistThugRangedArrowShotgun",
+			"EAAHeistThugRangedExplosiveArrowBarrage",
+			"HeistThugRangedExplosiveArrow",
+			"GAHeistThugRangedShotgun",
+			"WalkEmergeHeistThug",
+			"EAAHeistThugRangedExplosiveArrowBarrageChokepoint",
+			"ChangeToStance1Heist",
+			"EASHeistMindControlSuicide",
+		},
+		modList = {
+		},
+	}
+    -- Ashblessed Warden
+	minions["Metadata/Monsters/LeagueHeist/Robot/RobotPyreKnightEliteSpectre"] = {
+		name = "Ashblessed Warden",
+		monsterTags = { "caster", "construct", "fire_affinity", "humanoid", "is_unarmed", "medium_movement", "metal_armour", "no_pantheon_mod", },
+		life = 3.6,
+		lifeScaling = "AltLife2",
+		energyShield = 0.2,
+		armour = 1,
+		evasion = 0.5,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.58,
+		damageSpread = 0.2,
+		attackTime = 1.17,
+		attackRange = 10,
+		accuracy = 1,
+		skillList = {
+			"DoLiterallyNothing",
+			"WalkEmergeHeistRobotElevator",
+			"GSHeistRobotPyreBeamBlast",
+			"GSHeistRobotPyreNukeBeam",
+			"GSHeistRobotPyreNukeBeamChannelled",
+			"EASHeistRobotPyreBeamSweep",
+			"GSHeistRobotPyreBeamSweepBeam",
+			"ChangeToStance1Heist",
+		},
+		modList = {
+		},
+	}
+    -- Snow Rhex
+	minions["Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieArmouredBirdSpectre__"] = {
+		name = "Snow Rhex",
+		monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "caster", "cold_affinity", "eyrie_monster", "fast_movement", "hard_armour", "influence_monster", "is_unarmed", "melee", "not_int", "red_blood", "reptile_beast", },
+		life = 3.6,
+		armour = 0.5,
+		evasion = 0.25,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.005,
+		attackRange = 14,
+		accuracy = 1,
+		skillList = {
+			"MeleeCold",
+			"WalkEmergeAtlasInfluenceMonster",
+			"MeleeEyrieBird",
+			"AtlasEyrieBirdBreath",
+			"AtlasEyrieBirdBreathNoEffects",
+		},
+		modList = {
+		},
+	}
+    -- Flickershade
+	minions["Metadata/Monsters/Maligaro/SecretDesecrateMonster"] = {
+		name = "Flickershade",
+		monsterTags = { "demon", "ghost_blood", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "not_dex", "not_str", "physical_affinity", "slashing_weapon", "stone_armour", "very_fast_movement", },
+		life = 3,
+		energyShield = 0.2,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.05,
+		damageSpread = 0.2,
+		attackTime = 1.005,
+		attackRange = 25,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		skillList = {
+			"SecretDesecrateMonsterTeleport",
+			"SecretDesecrateMonsterEarthquakeTriggered",
+			"SecretDesecrateMonsterMultiSlash",
+		},
+		modList = {
+			-- MonsterOneThirdDamageTaken [base_damage_taken_+% = -67]
+			mod("PhysicalDamageConvertToChaos", "BASE", 50, 0, 0), -- MonsterConvertToChaos1 [base_physical_damage_%_to_convert_to_chaos = 50]
+		},
+	}
+    -- Trial Galecaller
+	minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdWeakSpectre"] = {
+		name = "Trial Galecaller",
+		monsterTags = { "cold_affinity", "has_bow", "human", "humanoid", "medium_movement", "not_int", "plate_armour", "puncturing_weapon", "ranged", "red_blood", "spawner_cannot_spawn_as_rare", },
+		life = 2.47,
+		lifeScaling = "AltLife1",
+		armour = 0.75,
+		evasion = 0.3,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.37,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 58,
+		accuracy = 1,
+		weaponType1 = "Bow",
+		skillList = {
+			"UltimatumGuardMeleeCold",
+			"UltimatumGuardConeArrowCold",
+		},
+		modList = {
+			-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
+			-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
+			-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
+			-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+			-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
+		},
+	}
+    -- Trial Windchaser
+	minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdSpectre"] = {
+		name = "Trial Windchaser",
+		monsterTags = { "cold_affinity", "has_bow", "human", "humanoid", "medium_movement", "not_int", "plate_armour", "puncturing_weapon", "ranged", "red_blood", "spawner_cannot_spawn_as_rare", },
+		life = 2.47,
+		lifeScaling = "AltLife1",
+		armour = 0.75,
+		evasion = 0.3,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.37,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 58,
+		accuracy = 1,
+		weaponType1 = "Bow",
+		skillList = {
+			"UltimatumGuardMeleeCold",
+			"EAAVaalGuardBarrage",
+			"MPWVaalGuardBarrage",
+			"UltimatumGuardConeArrowCold",
+		},
+		modList = {
+			-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -75]
+			-- monster_hellscape_charge_+% [monster_hellscape_charge_+% = -75]
+			-- monster_affliction_reward_kills_+% [monster_affliction_reward_kills_+% = -75]
+			-- set_additional_life_scaling_index [set_additional_life_scaling_index = 19]
+			-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -20]
+		},
+	}
+    -- Hyrri's Watch
+	minions["Metadata/Monsters/LegionLeague/LegionKaruiArcherSpectre"] = {
+		name = "Hyrri's Watch",
+		monsterTags = { "cold_affinity", "fast_movement", "flesh_armour", "has_bow", "humanoid", "legion_monster", "no_pantheon_mod", "not_int", "not_str", "puncturing_weapon", "ranged", "red_blood", },
+		life = 2.25,
+		lifeScaling = "AltLife1",
+		evasion = 0.5,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.1,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 50,
+		accuracy = 1,
+		weaponType1 = "Bow",
+		skillList = {
+			"MeleeKaruiArcher",
+			"LegionKaruiArcherSnipe",
+		},
+		modList = {
+			-- MonsterIgnoresDelveDarkness [monster_ignores_delve_darkness_mechanic = 1]
+			-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+			-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		},
+	}
+    -- Demon Harpy
+	minions["Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite1Spectre"] = {
+		name = "Demon Harpy",
+		monsterTags = { "animal_claw_weapon", "beyond_demon", "caster", "demon", "fast_movement", "fire_affinity", "flesh_armour", "is_unarmed", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.38,
+		evasion = 0.5,
+		fireResist = 75,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 2.73,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 12,
+		accuracy = 1,
+		weaponType1 = "None",
+		skillList = {
+			"MeleeAtAnimationSpeedFire",
+			"DTTHellscapeDemonElite1",
+			"EASHellscapeDemonElite1Screech",
+			"GAHellscapeDemonElite1DashSlash",
+			"GSHellscapeDemonElite1Screech",
+		},
+		modList = {
+		},
+	}
+    -- Pale Angel
+	minions["Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite1Spectre"] = {
+		name = "Pale Angel",
+		monsterTags = { "animal_claw_weapon", "beyond_demon", "bone_armour", "caster", "demon", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.55,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.95,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 9,
+		accuracy = 1,
+		weaponType1 = "None",
+		skillList = {
+			"TBHellscapePaleLightningBoltSpammableLeft",
+			"TBHellscapePaleLightningBoltSpammableRight",
+			"GSHellscapePaleEliteBoltImpact",
+			"GSHellscapePaleEliteOmegaBeam",
+			"TeleportHellscapePaleElite",
+			"TeleportHellscapePaleEliteForwards",
+			"TeleportHellscapePaleEliteToAlly",
+		},
+		modList = {
+		},
+	}
+    -- Demon Herder
+	minions["Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite2_Spectre"] = {
+		name = "Demon Herder",
+		monsterTags = { "beyond_demon", "bludgeoning_weapon", "caster", "demon", "fire_affinity", "flesh_armour", "is_unarmed", "not_dex", "not_str", "ranged", "red_blood", "very_fast_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.85,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 2.54,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 12,
+		accuracy = 1,
+		weaponType1 = "None",
+		weaponType2 = "One Handed Mace",
+		skillList = {
+			"GTHellscapeDemonEliteVomit",
+			"MMSHellscapeDemonEliteTripleMortar",
+			"MMSHellscapeDemonEliteVomitMortar",
+			"GSHellscapeDemonEliteBeamNuke",
+		},
+		modList = {
+		},
+	}
+    -- Pale Seraphim
+	minions["Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite2Spectre"] = {
+		name = "Pale Seraphim",
+		monsterTags = { "beyond_demon", "bone_armour", "demon", "is_unarmed", "medium_movement", "not_int", "not_str", "physical_affinity", "puncturing_weapon", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.04,
+		evasion = 0.33,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 2.91,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 13,
+		accuracy = 1,
+		weaponType1 = "None",
+		skillList = {
+			"EAAHellscapeStabbyStab",
+			"DTTHellscapeStabbySkyStab",
+			"DTTHellscapeStabWeb",
+			"GAHellscapeStabbyCleave1",
+			"GAHellscapeStabbyCleave2",
+			"GAHellscapeStabbyCleave3",
+			"GAHellscapeStabbyCleaveStab",
+			"GAHellscapeStabWeb",
+			"GAHellscapePaleEliteSkyStab",
+		},
+		modList = {
+		},
+	}
+    -- Ravenous Mishapen
+	minions["Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spectre"] = {
+		name = "Ravenous Misshapen",
+		monsterTags = { "animal_claw_weapon", "beyond_demon", "caster", "demon", "flesh_armour", "is_unarmed", "lightning_affinity", "medium_movement", "melee", "not_dex", "not_str", "physical_affinity", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.16,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1.43,
+		damageSpread = 0.2,
+		attackTime = 1.17,
+		attackRange = 8,
+		accuracy = 1,
+		weaponType1 = "None",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"HellscapeFleshFodderArc",
+		},
+		modList = {
+		},
+	}
+    -- Aurid Synthete
+	minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre"] = {
+		name = "Aurid Synthete",
+		monsterTags = { "caster", "construct", "fast_movement", "humanoid", "is_unarmed", "mud_blood", "not_dex", "physical_affinity", "ranged", "stone_armour", "synthesised_monster", },
+		life = 3.6,
+		lifeScaling = "AltLife2",
+		energyShield = 0.8,
+		armour = 0.5,
+		fireResist = 42,
+		coldResist = 42,
+		lightningResist = 42,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.305,
+		attackRange = 8,
+		accuracy = 1,
+		skillList = {
+			"SynthesisSoulstealerProjectilePhysical",
+			"SynthesisSoulstealerQuicksand",
+			"SynthesisSoulstealerDrones",
+			"EmptyActionSynthesisEnrageDrones",
+			"SynthesisSoulstealerDroneEnrage",
+			"GeometrySpellSynthesisPhysical",
+			"SynthesisPhysicalTripleMortar",
+			"SynthesisSoulstealerBombDetonate",
+			"SynthesisSoulstealerDronesOnSelf",
+			"SynthesisPhysicalVolatileSlam",
+			"SynthesisQuicksandStartEffect",
+		},
+		modList = {
+		},
+	}
+    -- Ruins Hellion
+	minions["Metadata/Monsters/Hellion/Hellion3Spectre"] = {
+		name = "Ruins Hellion",
+		monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_dagger", "has_one_handed_melee", "large_model", "light_armour", "mammal_beast", "medium_movement", "melee", "not_int", "not_str", "physical_affinity", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1,
+		evasion = 0.1,
+		fireResist = 40,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.85,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 10,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"HellionRallyingCry",
+		},
+		modList = {
+		},
+	}
+    -- Arena Master
+	minions["Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorGrandMasterSpectre"] = {
+		name = "Arena Master",
+		monsterTags = { "adjudicator_monster", "fast_movement", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "influence_monster", "melee", "not_int", "physical_affinity", "plate_armour", "red_blood", "slashing_weapon", },
+		life = 3.6,
+		armour = 1,
+		evasion = 0.8,
+		fireResist = 35,
+		coldResist = 35,
+		lightningResist = 35,
+		chaosResist = 20,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.17,
+		attackRange = 14,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		weaponType2 = "Shield",
+		skillList = {
+			"Melee",
+			"WalkEmergeAtlasInfluenceMonster",
+			"AtlasWarlordCascadeSlam",
+			"EmptyActionAttackWarlordGrandmaster",
+			"EmptyActionSpellWarlordGrandmaster",
+			"AtlasExilesWarlordEnrageSpectre",
+		},
+		modList = {
+			-- LeagueDropPenaltyInfluenceMonster [map_related_item_drop_chance_+%_final_from_league = -70]
+		},
+	}
+    -- They of Tul
+	minions["Metadata/Monsters/MinerLarge/MinerLargeCommanderBreachSpectre"] = {
+		name = "They of Tul",
+		monsterTags = { "bludgeoning_weapon", "breach_commander", "caster", "demon", "flesh_armour", "has_one_hand_mace", "has_one_handed_melee", "large_model", "melee", "no_bloodlines", "no_pantheon_mod", "not_dex", "not_int", "physical_affinity", "red_blood", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3,
+		armour = 0.5,
+		fireResist = 30,
+		coldResist = 30,
+		lightningResist = 30,
+		chaosResist = 20,
+		damage = 2.11,
+		damageSpread = 0.2,
+		attackTime = 1.755,
+		attackRange = 9,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"BreachBlizzardSpectre",
+			"SummonBreachIceTotem",
+		},
+		modList = {
+			-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+			-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+			-- MonsterKillTrapsMinesTotemsOnDeath [kill_traps_mines_and_totems_on_death = 1]
+		},
+	}
+    -- Ancient Suffering
+	minions["Metadata/Monsters/LeagueDelve/GhostEncounter/WraithPurple"] = {
+		name = "Ancient Suffering",
+		monsterTags = { "caster", "chaos_affinity", "delve_monster", "ghost_armour", "ghost_blood", "is_unarmed", "medium_height", "medium_movement", "no_pantheon_mod", "not_dex", "not_str", "undead", },
+		life = 1.68,
+		energyShield = 0.2,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.755,
+		attackRange = 6,
+		accuracy = 1,
+		skillList = {
+			"DelveWraithScreechChaos",
+			"DelveWraithScreechChaosGeometrySpell",
+			"MonsterChanceToTemporalChainsOnHit1",
+		},
+		modList = {
+			-- MonsterChanceToTemporalChainsOnHit1 [curse_on_hit_%_temporal_chains = 100]
+			mod("EnemyCurseLimit", "BASE", 1, 0, 0), -- AdditionalCurseOnEnemies_ [number_of_additional_curses_allowed = 1]
+		},
+	}
+    -- Ancient Wraith
+	minions["Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith"] = {
+		name = "Ancient Wraith",
+		monsterTags = { "caster", "delve_monster", "ghost_armour", "ghost_blood", "is_unarmed", "medium_height", "medium_movement", "melee", "no_pantheon_mod", "not_dex", "not_str", "physical_affinity", "ranged", "undead", },
+		life = 1.68,
+		energyShield = 0.2,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.755,
+		attackRange = 6,
+		accuracy = 1,
+		skillList = {
+			"WraithEtherealKnives",
+			"Melee",
+			"DelveMonsterEnfeebleOnHit",
+		},
+		modList = {
+			-- DelveMonsterEnfeebleOnHit [curse_on_hit_level_enfeeble = 8]
+			mod("EnemyCurseLimit", "BASE", 1, 0, 0), -- AdditionalCurseOnEnemies_ [number_of_additional_curses_allowed = 1]
+		},
+	}
+    -- Forged Frostbearer
+	minions["Metadata/Monsters/LeagueCrucible/Cold/Pyromaniac"] = {
+		name = "Forged Frostbearer",
+		monsterTags = { "caster", "demon", "fire_affinity", "flesh_armour", "humanoid", "is_unarmed", "medium_height", "medium_movement", "not_int", "not_str", "ranged", "slashing_weapon", "undying", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.68,
+		evasion = 1,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.4,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 7,
+		accuracy = 1,
+		skillList = {
+			"MMSPyromaniacIceMortar",
+			"CrucibleIceStormTrap",
+		},
+		modList = {
+			-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+			-- is_crucible_monster [is_crucible_monster = 1]
+			-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
+			-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
+		},
+	}
+    -- Wretched Defiler
+	minions["Metadata/Monsters/Revenant/RevenantMapBossStandalone_AtlasUber"] = {
+		name = "Wretched Defiler",
+		monsterTags = { "caster", "demon", "fast_movement", "flesh_armour", "is_unarmed", "large_model", "lightning_affinity", "melee", "not_int", "not_str", "physical_affinity", "raises_dead", "ranged", "red_blood", "slashing_weapon", "small_height", "standalone_map_boss", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.9,
+		evasion = 0.5,
+		fireResist = 40,
+		coldResist = 40,
+		lightningResist = 40,
+		chaosResist = 25,
+		damage = 3,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 10,
+		accuracy = 1,
+		skillList = {
+			"RevenantReviveUndead",
+			"RevenantBossSpellProjectile",
+			"MeleeAtAnimationSpeed",
+			"RevenantMapBossSummon1",
+			"RevenantMapBossSummon2",
+		},
+		modList = {
+		},
+	}
+    -- Karui Backburner
+	minions["Metadata/Monsters/LegionLeague/LegionKaruiMeleeFireSpectre"] = {
+		name = "Karui Backburner",
+		monsterTags = { "bludgeoning_weapon", "fast_movement", "fire_affinity", "flesh_armour", "humanoid", "is_unarmed", "legion_monster", "melee", "no_pantheon_mod", "red_blood", },
+		life = 3.3,
+		lifeScaling = "AltLife1",
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.1,
+		damageSpread = 0.2,
+		attackTime = 1.005,
+		attackRange = 9,
+		accuracy = 1,
+		weaponType1 = "None",
+		skillList = {
+			"MeleeFire",
+			"LegionKaruiMeleeLeapSlam",
+			"EmptyActionLegionKaruiMelee",
+			"LegionKaruiMeleeCombo1",
+			"LegionKaruiMeleeCombo2",
+			"LegionKaruiMeleeCombo3",
+		},
+		modList = {
+			-- MonsterIgnoresDelveDarkness [monster_ignores_delve_darkness_mechanic = 1]
+			-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+			-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		},
+	}
+    -- Templar Conscript
+	minions["Metadata/Monsters/LegionLeague/LegionTemplarMelee2Spectre"] = {
+		name = "Templar Conscript",
+		monsterTags = { "has_two_hand_sword", "has_two_handed_melee", "humanoid", "legion_monster", "medium_movement", "melee", "metal_armour", "no_pantheon_mod", "not_dex", "physical_affinity", "ranged", "red_blood", "slashing_weapon", },
+		life = 2.76,
+		lifeScaling = "AltLife1",
+		energyShield = 0.2,
+		armour = 1,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.2,
+		damageSpread = 0.2,
+		attackTime = 1.005,
+		attackRange = 9,
+		accuracy = 1,
+		weaponType1 = "Two Handed Sword",
+		skillList = {
+			"Melee",
+			"LegionTemplarWeaponThrow",
+			"LegionMonsterProximityShield",
+		},
+		modList = {
+			-- MonsterIgnoresDelveDarkness [monster_ignores_delve_darkness_mechanic = 1]
+			-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+			-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		},
+	}
+    -- Xoph's Favoured
+	minions["Metadata/Monsters/Hellion/HellionBreachHowlSpectre"] = {
+		name = "Xoph's Favoured",
+		monsterTags = { "animal_claw_weapon", "beast", "canine_beast", "demon", "fire_affinity", "has_one_hand_sword", "has_one_handed_melee", "large_model", "light_armour", "medium_movement", "melee", "no_bloodlines", "no_pantheon_mod", "not_int", "not_str", "physical_affinity", "red_blood", },
+		life = 3.6,
+		evasion = 0.1,
+		fireResist = 40,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 7,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		skillList = {
+			"Melee",
+			"EmpoweringHowlSpectre",
+			"BreachCleave",
+		},
+		modList = {
+			-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+			-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
+		},
+	}
+    -- Skitterling
+	minions["Metadata/Monsters/Spiders/DelveSpiderPacksMediumSpectre"] = {
+		name = "Skitterling",
+		monsterTags = { "animal_claw_weapon", "beast", "cold_affinity", "delve_monster", "flesh_armour", "has_one_hand_sword", "has_one_handed_melee", "insect_blood", "medium_movement", "melee", "no_pantheon_mod", "not_int", "not_str", "physical_affinity", "spider", },
+		life = 1.27,
+		lifeScaling = "AltLife2",
+		evasion = 0.75,
+		fireResist = 0,
+		coldResist = 40,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 0.94,
+		damageSpread = 0.2,
+		attackTime = 1.755,
+		attackRange = 13,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		skillList = {
+			"DelveMelee",
+			"DelveMeleeCold",
+			"DelveSpiderFlickerStrike",
+		},
+		modList = {
+		},
+	}
+    -- Forged Vendigo
+	minions["Metadata/Monsters/LeagueCrucible/Lightning/Vendigo_"] = {
+		name = "Forged Vendigo",
+		monsterTags = { "animal_claw_weapon", "beast", "demon", "fast_movement", "flesh_armour", "has_claw", "has_one_handed_melee", "medium_height", "melee", "not_int", "not_str", "physical_affinity", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.24,
+		evasion = 0.5,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 2.48,
+		damageSpread = 0.2,
+		attackTime = 1.695,
+		attackRange = 12,
+		accuracy = 1,
+		weaponType1 = "Claw",
+		skillList = {
+			"MeleeAtAnimationSpeedLightning",
+			"CrucibleVendigoFlickerStrike",
+			"EASCrucibleVendigoEnrage",
+		},
+		modList = {
+			-- set_additional_life_scaling_index [set_additional_life_scaling_index = 14]
+			-- is_crucible_monster [is_crucible_monster = 1]
+			-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -33]
+			-- is_settlers_ore_monster [is_settlers_ore_monster = 1]
+		},
+	}
 
--- Affliction Corpses
--- Frozen Cannibal
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeLow"] = {
-	name = "Imperfect Frozen Cannibal",
-	monsterTags = { "caster", "fast_movement", "human", "humanoid", "not_int", "not_str", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2,
-	evasion = 0.25,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.25,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 12,
-	accuracy = 1,
-	weaponType1 = "One Handed Mace",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriHailrakeGlacialCascade",
-		"AzmeriHailrakeArcticArmour",
-		"AzmeriHailrakeGlacialHammer",
-		"GSAzmeriHailrakeIceNova",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeMid"] = {
-	name = "Frozen Cannibal",
-	monsterTags = { "caster", "fast_movement", "human", "humanoid", "not_int", "not_str", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2,
-	evasion = 0.25,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.25,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 12,
-	accuracy = 1,
-	weaponType1 = "One Handed Mace",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriHailrakeGlacialCascade",
-		"AzmeriHailrakeArcticArmour",
-		"AzmeriHailrakeGlacialHammer",
-		"GSAzmeriHailrakeIceNova",
-		"IceCrashAzmeriHailrake",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeHigh"] = {
-	name = "Perfect Frozen Cannibal",
-	monsterTags = { "caster", "fast_movement", "human", "humanoid", "not_int", "not_str", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2,
-	evasion = 0.25,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.25,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 12,
-	accuracy = 1,
-	weaponType1 = "One Handed Mace",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriHailrakeGlacialCascade",
-		"AzmeriHailrakeArcticArmour",
-		"AzmeriHailrakeGlacialHammer",
-		"GSAzmeriHailrakeIceNova",
-		"IceCrashAzmeriHailrake",
-		"AzmeriHailrakeColdResistAura",
-	},
-	modList = {
-	},
-}
--- Fiery Cannibal
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryLow"] = {
-	name = "Imperfect Fiery Cannibal",
-	monsterTags = { "caster", "fast_movement", "human", "humanoid", "not_dex", "not_str", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2,
-	energyShield = 0.1,
-	fireResist = 75,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.25,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 13,
-	accuracy = 1,
-	weaponType1 = "Staff",
-	skillList = {
-		"MeleeAtAnimationSpeedFire",
-		"FemaleCannibalBossFireStorm",
-		"FemaleCannibalBossFlameDash",
-		"AzmeriFirefuryCremation",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryMid"] = {
-	name = "Fiery Cannibal",
-	monsterTags = { "caster", "fast_movement", "human", "humanoid", "not_dex", "not_str", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2,
-	energyShield = 0.1,
-	fireResist = 75,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.25,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 13,
-	accuracy = 1,
-	weaponType1 = "Staff",
-	skillList = {
-		"MeleeAtAnimationSpeedFire",
-		"AzmeriFireFuryMoltenStrike",
-		"FemaleCannibalBossFireStorm",
-		"FemaleCannibalBossFlameDash",
-		"AzmeriFirefuryCremation",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryHigh_"] = {
-	name = "Perfect Fiery Cannibal",
-	monsterTags = { "caster", "fast_movement", "human", "humanoid", "not_dex", "not_str", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2,
-	energyShield = 0.1,
-	fireResist = 75,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.25,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 13,
-	accuracy = 1,
-	weaponType1 = "Staff",
-	skillList = {
-		"MeleeAtAnimationSpeedFire",
-		"AzmeriFireFuryMoltenStrike",
-		"FemaleCannibalBossFireStorm",
-		"FemaleCannibalBossFlameDash",
-		"AzmeriFirefuryCremation",
-		"AzmeriFirefuryFireResistAura",
-	},
-	modList = {
-	},
-}
--- Hydra
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraLow"] = {
-	name = "Imperfect Hydra",
-	monsterTags = { "beast", "cold_affinity", "eldritch", "fast_movement", "flesh_armour", "has_bow", "human", "humanoid", "large_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 0.86,
-	armour = 0.3,
-	evasion = 0.8,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 4.5,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 80,
-	accuracy = 1.2,
-	weaponType1 = "Bow",
-	skillList = {
-		"AzmeriHydraDoomArrow",
-		"AzmeriHydraBarrage",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraMid"] = {
-	name = "Hydra",
-	monsterTags = { "beast", "cold_affinity", "eldritch", "fast_movement", "flesh_armour", "has_bow", "human", "humanoid", "large_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 0.86,
-	armour = 0.3,
-	evasion = 0.8,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 4.5,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 80,
-	accuracy = 1.2,
-	weaponType1 = "Bow",
-	skillList = {
-		"AzmeriHydraDoomArrow",
-		"AzmeriHydraBarrage",
-		"AzmeriHydraForkArrow",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraHigh_"] = {
-	name = "Perfect Hydra",
-	monsterTags = { "beast", "cold_affinity", "eldritch", "fast_movement", "flesh_armour", "has_bow", "human", "humanoid", "large_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 0.86,
-	armour = 0.3,
-	evasion = 0.8,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 4.5,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 80,
-	accuracy = 1.2,
-	weaponType1 = "Bow",
-	skillList = {
-		"AzmeriHydraDoomArrow",
-		"AzmeriHydraBarrage",
-		"AzmeriHydraForkArrow",
-		"AzmeriHydraHatred",
-	},
-	modList = {
-	},
-}
--- Dark Marionette
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinLow"] = {
-	name = "Imperfect Dark Marionette",
-	monsterTags = { "construct", "humanoid", "medium_movement", "not_dex", "not_int", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.88,
-	armour = 0.5,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.25,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-	},
-	modList = {
-		-- AzmeriMannequinReviveAfterTime [revive_spectre_if_killed_by_enemies_ms = 4000]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinMid"] = {
-	name = "Dark Marionette",
-	monsterTags = { "construct", "humanoid", "medium_movement", "not_dex", "not_int", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.88,
-	armour = 0.5,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.25,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"DarkMarionetteExplode",
-	},
-	modList = {
-		-- AzmeriMannequinReviveAfterTime [revive_spectre_if_killed_by_enemies_ms = 4000]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinHigh_"] = {
-	name = "Perfect Dark Marionette",
-	monsterTags = { "construct", "humanoid", "medium_movement", "not_dex", "not_int", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.88,
-	armour = 0.5,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.25,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"DarkMarionetteExplodePerfect",
-	},
-	modList = {
-		-- AzmeriMannequinReviveAfterTime [revive_spectre_if_killed_by_enemies_ms = 4000]
-	},
-}
--- Hulking Miscreation
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusLow"] = {
-	name = "Imperfect Hulking Miscreation",
-	monsterTags = { "animal_claw_weapon", "construct", "is_unarmed", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "very_fast_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.75,
-	lifeScaling = "AltLife2",
-	armour = 1,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.785,
-	attackRange = 21,
-	accuracy = 1,
-	skillList = {
-		"AzmeriArgusMeleeAtAnimationSpeed",
-		"GAAzmeriRobotArgusSlam",
-		"EGAzmeriRobotArgusActivationWave",
-		"SSMAzmeriRobotArgusItsRainingMannequins",
-	},
-	modList = {
-		mod("Damage", "INC", 5, 1, 0, { div = 450, stat = "Armour", type = "PerStat" }), -- AzmeriRobotArgusAttackDamagePerArmour1 [attack_damage_+%_per_450_physical_damage_reduction_rating = 5]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusMid"] = {
-	name = "Hulking Miscreation",
-	monsterTags = { "animal_claw_weapon", "construct", "is_unarmed", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "very_fast_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.75,
-	lifeScaling = "AltLife2",
-	armour = 1,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.785,
-	attackRange = 21,
-	accuracy = 1,
-	skillList = {
-		"AzmeriArgusMeleeAtAnimationSpeed",
-		"GAAzmeriRobotArgusSlam",
-		"EGAzmeriRobotArgusOverchargeBuff",
-		"EGAzmeriRobotArgusActivationWave",
-		"SSMAzmeriRobotArgusItsRainingMannequins",
-	},
-	modList = {
-		mod("Damage", "INC", 5, 1, 0, { div = 450, stat = "Armour", type = "PerStat" }), -- AzmeriRobotArgusAttackDamagePerArmour1 [attack_damage_+%_per_450_physical_damage_reduction_rating = 5]
-		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscalable = true }, { type = "MonsterTag", monsterTag = "Construct" })}),
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscalable = true }, { type = "MonsterTag", monsterTag = "Construct" })}),
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusHigh__"] = {
-	name = "Perfect Hulking Miscreation",
-	monsterTags = { "animal_claw_weapon", "construct", "is_unarmed", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "very_fast_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.75,
-	lifeScaling = "AltLife2",
-	armour = 1,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.785,
-	attackRange = 21,
-	accuracy = 1,
-	skillList = {
-		"AzmeriArgusMeleeAtAnimationSpeed",
-		"GAAzmeriRobotArgusSlam",
-		"EGAzmeriRobotArgusOverchargeBuff",
-		"EGAzmeriRobotArgusActivationWave",
-		"SSMAzmeriRobotArgusItsRainingMannequins",
-		"ABTTAzmeriRobotArgusPhysAsExtraLightning",
-	},
-	modList = {
-		mod("Damage", "INC", 8, 1, 0, { div = 450, stat = "Armour", type = "PerStat" }), -- AzmeriRobotArgusAttackDamagePerArmour2 [attack_damage_+%_per_450_physical_damage_reduction_rating = 8]
-		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscalable = true }, { type = "MonsterTag", monsterTag = "Construct" })}),
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscalable = true }, { type = "MonsterTag", monsterTag = "Construct" })}),
-	},
-}
--- Spirit of Fortune
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuLow"] = {
-	name = "Imperfect Spirit of Fortune",
-	monsterTags = { "caster", "construct", "immobile", "is_unarmed", "large_model", "lightning_affinity", "medium_height", "mud_blood", "not_dex", "not_int", "ranged", "stone_armour", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.75,
-	armour = 2,
-	fireResist = 0,
-	coldResist = 52,
-	lightningResist = 52,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.4,
-	attackTime = 1.5,
-	attackRange = 6,
-	accuracy = 1,
-	skillList = {
-		"AzmeriKudukuShockNova",
-		"AzmeriKudukuSparkExtraProj",
-		"AzmeriKudukuWarp",
-	},
-	modList = {
-		mod("CurseImmune", "FLAG", 0, 0, 0), -- set_immune_to_curses [set_immune_to_curses = 0]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuMid"] = {
-	name = "Spirit of Fortune",
-	monsterTags = { "caster", "construct", "immobile", "is_unarmed", "large_model", "lightning_affinity", "medium_height", "mud_blood", "not_dex", "not_int", "ranged", "stone_armour", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.75,
-	armour = 2,
-	fireResist = 0,
-	coldResist = 52,
-	lightningResist = 52,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.4,
-	attackTime = 1.5,
-	attackRange = 6,
-	accuracy = 1,
-	skillList = {
-		"AzmeriKudukuShockNova",
-		"AzmeriKudukuSparkExtraProj",
-		"AzmeriKudukuWarp",
-		"AzmeriKudukuWrath",
-	},
-	modList = {
-		mod("CurseImmune", "FLAG", 0, 0, 0), -- set_immune_to_curses [set_immune_to_curses = 0]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuHigh"] = {
-	name = "Perfect Spirit of Fortune",
-	monsterTags = { "caster", "construct", "immobile", "is_unarmed", "large_model", "lightning_affinity", "medium_height", "mud_blood", "not_dex", "not_int", "ranged", "stone_armour", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.75,
-	armour = 2,
-	fireResist = 0,
-	coldResist = 52,
-	lightningResist = 52,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.4,
-	attackTime = 1.5,
-	attackRange = 6,
-	accuracy = 1,
-	skillList = {
-		"AzmeriKudukuShockNova",
-		"AzmeriKudukuSparkExtraProj",
-		"AzmeriKudukuWarp",
-		"AzmeriKudukuWrath",
-	},
-	modList = {
-		mod("CurseImmune", "FLAG", 0, 0, 0), -- set_immune_to_curses [set_immune_to_curses = 0]
-		mod("AllyModifier", "LIST", { mod = flag("LightningLuckHits") }),
-	},
-}
--- Naval Officer
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralLow"] = {
-	name = "Imperfect Naval Officer",
-	monsterTags = { "caster", "cold_affinity", "fast_movement", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "light_armour", "melee", "not_int", "puncturing_weapon", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.69,
-	armour = 0.5,
-	evasion = 0.5,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 2.03,
-	damageSpread = 0.2,
-	attackTime = 1.56,
-	attackRange = 14,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	skillList = {
-		"MeleeAtAnimationSpeedCold",
-		"AzmeriAdmiralDoubleStrike",
-		"AzmeriAdmiralDoubleStrikeTriggered",
-		"AzmeriAdmiralDashThrust",
-		"AzmeriAdmiralDashThrustTriggered",
-		"AzmeriAdmiralDodgeBack",
-		"AzmeriAdmiralDodgeLeft",
-		"AzmeriAdmiralDodgeRight",
-		"AzmeriAdmiralSummonGeysers",
-		"AzmeriAdmiralTidalWave",
-		"AzmeriAdmiralDashMortars",
-		"AzmeriAdmiralGeyserDamage",
-		"AzmeriAdmiralSpawnGeyser",
-		"GTAzmeriAdmiralCannonFire",
-		"GSAzmeriAdmiralCannonball",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralMid__"] = {
-	name = "Naval Officer",
-	monsterTags = { "caster", "cold_affinity", "fast_movement", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "light_armour", "melee", "not_int", "puncturing_weapon", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.69,
-	armour = 0.5,
-	evasion = 0.5,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 2.03,
-	damageSpread = 0.2,
-	attackTime = 1.56,
-	attackRange = 14,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	skillList = {
-		"MeleeAtAnimationSpeedCold",
-		"AzmeriAdmiralDoubleStrike",
-		"AzmeriAdmiralDoubleStrikeTriggered",
-		"AzmeriAdmiralDashThrust",
-		"AzmeriAdmiralDashThrustTriggered",
-		"AzmeriAdmiralDodgeBack",
-		"AzmeriAdmiralDodgeLeft",
-		"AzmeriAdmiralDodgeRight",
-		"AzmeriAdmiralSummonGeysers",
-		"AzmeriAdmiralTidalWave",
-		"AzmeriAdmiralDashMortars",
-		"AzmeriAdmiralGeyserDamage",
-		"AzmeriAdmiralSpawnGeyser",
-		"GTAzmeriAdmiralCannonFire",
-		"AzmeriAdmiralPrecision",
-		"GSAzmeriAdmiralCannonball",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralHigh_"] = {
-	name = "Perfect Naval Officer",
-	monsterTags = { "caster", "cold_affinity", "fast_movement", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "light_armour", "melee", "not_int", "puncturing_weapon", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.69,
-	armour = 0.5,
-	evasion = 0.5,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 2.03,
-	damageSpread = 0.2,
-	attackTime = 1.56,
-	attackRange = 14,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	skillList = {
-		"MeleeAtAnimationSpeedCold",
-		"AzmeriAdmiralDoubleStrike",
-		"AzmeriAdmiralDoubleStrikeTriggered",
-		"AzmeriAdmiralDashThrust",
-		"AzmeriAdmiralDashThrustTriggered",
-		"AzmeriAdmiralDodgeBack",
-		"AzmeriAdmiralDodgeLeft",
-		"AzmeriAdmiralDodgeRight",
-		"AzmeriAdmiralSummonGeysers",
-		"AzmeriAdmiralTidalWave",
-		"AzmeriAdmiralDashMortars",
-		"AzmeriAdmiralGeyserDamage",
-		"AzmeriAdmiralSpawnGeyser",
-		"GTAzmeriAdmiralCannonFire",
-		"AzmeriAdmiralPrecision",
-		"GSAzmeriAdmiralCannonball",
-	},
-	modList = {
-		mod("AllyModifier", "LIST", { mod = mod("ColdDamageTaken", "INC", -5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PerfectNavalOfficer", unscalable = true })}),
-	},
-}
--- Dancing Sword
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordLow"] = {
-	name = "Imperfect Dancing Sword",
-	monsterTags = { "construct", "medium_movement", "not_int", "not_str", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.5,
-	evasion = 0.8,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 2.25,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 6,
-	accuracy = 1,
-	skillList = {
-		"AzmeriSawbladeAnimatedWeaponCyclone",
-		"MeleeAtAnimationSpeed",
-		"AzmeriDoubleSlashAnimatedWeapon",
-		"AzmeriSwordStormCascade",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordMid"] = {
-	name = "Dancing Sword",
-	monsterTags = { "construct", "medium_movement", "not_int", "not_str", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.5,
-	evasion = 0.8,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 2.25,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 6,
-	accuracy = 1,
-	skillList = {
-		"AzmeriSawbladeAnimatedWeaponCyclone",
-		"MeleeAtAnimationSpeed",
-		"AzmeriDoubleSlashAnimatedWeapon",
-		"AzmeriSwordStormCascade",
-	},
-	modList = {
-		mod("AllyModifier", "LIST", { mod = mod("ImpaleChance", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscalable = true })}),
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordHigh_"] = {
-	name = "Perfect Dancing Sword",
-	monsterTags = { "construct", "medium_movement", "not_int", "not_str", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.5,
-	evasion = 0.8,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 2.25,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 6,
-	accuracy = 1,
-	skillList = {
-		"AzmeriSawbladeAnimatedWeaponCyclone",
-		"MeleeAtAnimationSpeed",
-		"AzmeriDoubleSlashAnimatedWeapon",
-		"AzmeriSwordStormCascade",
-	},
-	modList = {
-		mod("AllyModifier", "LIST", { mod = mod("ImpaleChance", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscalable = true })}),
-		mod("AllyModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscalable = true })}),
-	},
-}
--- Needle Horror
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonLow"] = {
-	name = "Imperfect Needle Horror",
-	monsterTags = { "caster", "demon", "flesh_armour", "has_bow", "medium_height", "medium_movement", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "unique_map_boss", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3,
-	armour = 0.4,
-	evasion = 0.6,
-	fireResist = 0,
-	coldResist = 52,
-	lightningResist = 52,
-	chaosResist = 0,
-	damage = 1.8,
-	damageSpread = 0.2,
-	attackTime = 1.65,
-	attackRange = 50,
-	accuracy = 1,
-	weaponType1 = "Bow",
-	skillList = {
-		"AzmeriBarrageDemonSpineProjectile",
-		"AzmeriBarrageDemonRainOfSpines",
-		"AzmeriBarrageDemonSpinestorm",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonMid"] = {
-	name = "Needle Horror",
-	monsterTags = { "caster", "demon", "flesh_armour", "has_bow", "medium_height", "medium_movement", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "unique_map_boss", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3,
-	armour = 0.4,
-	evasion = 0.6,
-	fireResist = 0,
-	coldResist = 52,
-	lightningResist = 52,
-	chaosResist = 0,
-	damage = 1.8,
-	damageSpread = 0.2,
-	attackTime = 1.65,
-	attackRange = 50,
-	accuracy = 1,
-	weaponType1 = "Bow",
-	skillList = {
-		"AzmeriBarrageDemonSpineProjectile",
-		"AzmeriBarrageDemonRainOfSpines",
-		"AzmeriBarrageDemonSpinestorm",
-	},
-	modList = {
-		mod("ImpaleEffect", "INC", 100, 0, 0), -- AzmeriBarrageDemonImpaleEffect [impale_debuff_effect_+% = 100]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonHigh_"] = {
-	name = "Perfect Needle Horror",
-	monsterTags = { "caster", "demon", "flesh_armour", "has_bow", "medium_height", "medium_movement", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "unique_map_boss", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3,
-	armour = 0.4,
-	evasion = 0.6,
-	fireResist = 0,
-	coldResist = 52,
-	lightningResist = 52,
-	chaosResist = 0,
-	damage = 1.8,
-	damageSpread = 0.2,
-	attackTime = 1.65,
-	attackRange = 50,
-	accuracy = 1,
-	weaponType1 = "Bow",
-	skillList = {
-		"AzmeriBarrageDemonSpineProjectile",
-		"AzmeriBarrageDemonRainOfSpines",
-		"AzmeriBarrageDemonSpinestorm",
-	},
-	modList = {
-		mod("ImpaleEffect", "INC", 100, 0, 0), -- AzmeriBarrageDemonImpaleEffect [impale_debuff_effect_+% = 100]
-		mod("PlayerModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "NeedleHorror", unscalable = true })}),
-	},
-}
--- Serpent Warrior
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskLow"] = {
-	name = "Imperfect Serpent Warrior",
-	monsterTags = { "caster", "chaos_affinity", "eldritch", "energy_armour", "exile", "fast_movement", "human", "humanoid", "is_unarmed", "large_model", "melee", "not_dex", "ranged", "red_blood", "slashing_weapon", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.5,
-	energyShield = 0.4,
-	armour = 1,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 75,
-	damage = 1.35,
-	damageSpread = 0.2,
-	attackTime = 1.995,
-	attackRange = 20,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	weaponType2 = "Dagger",
-	skillList = {
-		"MeleeAtAnimationSpeedChaos",
-		"AzmeriBasiliskShoulderMortar",
-		"AzmeriBasiliskComboThrust",
-		"AzmeriBasiliskComboSlam",
-		"AzmeriBasiliskDecapitateRightToLeft",
-		"AzmeriBasiliskDecapitateLeftToRight",
-		"AzmeriBasiliskDecapThrust",
-		"AzmeriBasiliskWyvernFlight",
-		"AzmeriBasiliskDualProjectile",
-		"AzmeriBasiliskDualProjectileImpact",
-		"AzmeriBasiliskDualProjectile2",
-		"AzmeriBasiliskWyvernGroundCollide",
-		"AzmeriBasiliskShoulderMortar2",
-		"EmptyActionAttackBasiliskProjectileBarrageAzmeri",
-		"EmptyActionAttackBasiliskProjectileBarrageLargeAzmeri",
-		"EmptyActionAttackBasiliskProjectileLargeAzmeri",
-		"EmptyActionAttackBasiliskWyvernAzmeri",
-		"EmptyActionAttackBasiliskDecapitateAzmeri",
-		"EmptyActionAttackBasiliskSpinAttackAzmeri",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskMid"] = {
-	name = "Serpent Warrior",
-	monsterTags = { "caster", "chaos_affinity", "eldritch", "energy_armour", "exile", "fast_movement", "human", "humanoid", "is_unarmed", "large_model", "melee", "not_dex", "ranged", "red_blood", "slashing_weapon", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.5,
-	energyShield = 0.4,
-	armour = 1,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 75,
-	damage = 1.35,
-	damageSpread = 0.2,
-	attackTime = 1.995,
-	attackRange = 20,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	weaponType2 = "Dagger",
-	skillList = {
-		"MeleeAtAnimationSpeedChaos",
-		"AzmeriBasiliskShoulderMortar",
-		"AzmeriBasiliskComboThrust",
-		"AzmeriBasiliskComboSlam",
-		"AzmeriBasiliskDecapitateRightToLeft",
-		"AzmeriBasiliskDecapitateLeftToRight",
-		"AzmeriBasiliskDecapThrust",
-		"AzmeriBasiliskWyvernFlight",
-		"AzmeriBasiliskDualProjectile",
-		"AzmeriBasiliskDualProjectileImpact",
-		"AzmeriBasiliskDualProjectile2",
-		"AzmeriBasiliskWyvernGroundCollide",
-		"AzmeriBasiliskShoulderMortar2",
-		"EmptyActionAttackBasiliskProjectileBarrageAzmeri",
-		"EmptyActionAttackBasiliskProjectileBarrageLargeAzmeri",
-		"EmptyActionAttackBasiliskProjectileLargeAzmeri",
-		"EmptyActionAttackBasiliskWyvernAzmeri",
-		"EmptyActionAttackBasiliskDecapitateAzmeri",
-		"EmptyActionAttackBasiliskSpinAttackAzmeri",
-	},
-	modList = {
-		mod("Condition:CanWither", "FLAG", 100, 0, 0), -- MonsterWitherOnHit [withered_on_hit_for_2_seconds_%_chance = 100]
-		mod("AllyModifier", "LIST", { mod = flag("Condition:CanWither") }),
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskHigh"] = {
-	name = "Perfect Serpent Warrior",
-	monsterTags = { "caster", "chaos_affinity", "eldritch", "energy_armour", "exile", "fast_movement", "human", "humanoid", "is_unarmed", "large_model", "melee", "not_dex", "ranged", "red_blood", "slashing_weapon", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.5,
-	energyShield = 0.4,
-	armour = 1,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 75,
-	damage = 1.35,
-	damageSpread = 0.2,
-	attackTime = 1.995,
-	attackRange = 20,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	weaponType2 = "Dagger",
-	skillList = {
-		"MeleeAtAnimationSpeedChaos",
-		"AzmeriBasiliskShoulderMortar",
-		"AzmeriBasiliskComboThrust",
-		"AzmeriBasiliskComboSlam",
-		"AzmeriBasiliskDecapitateRightToLeft",
-		"AzmeriBasiliskDecapitateLeftToRight",
-		"AzmeriBasiliskDecapThrust",
-		"AzmeriBasiliskWyvernFlight",
-		"AzmeriBasiliskDualProjectile",
-		"AzmeriBasiliskDualProjectileImpact",
-		"AzmeriBasiliskDualProjectile2",
-		"AzmeriBasiliskWyvernGroundCollide",
-		"AzmeriBasiliskShoulderMortar2",
-		"EmptyActionAttackBasiliskProjectileBarrageAzmeri",
-		"EmptyActionAttackBasiliskProjectileBarrageLargeAzmeri",
-		"EmptyActionAttackBasiliskProjectileLargeAzmeri",
-		"EmptyActionAttackBasiliskWyvernAzmeri",
-		"EmptyActionAttackBasiliskDecapitateAzmeri",
-		"EmptyActionAttackBasiliskSpinAttackAzmeri",
-		"ABTTAzmeriBasaliskShroud",
-	},
-	modList = {
-		mod("Condition:CanWither", "FLAG", 100, 0, 0), -- MonsterWitherOnHit [withered_on_hit_for_2_seconds_%_chance = 100]
-		mod("AllyModifier", "LIST", { mod = flag("Condition:CanWither") }),
-	},
-}
--- Pain Artist
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonLow"] = {
-	name = "Imperfect Pain Artist",
-	monsterTags = { "animal_claw_weapon", "caster", "demon", "flesh_armour", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.44,
-	energyShield = 0.2,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.25,
-	damageSpread = 0.2,
-	attackTime = 1.32,
-	attackRange = 12,
-	accuracy = 1,
-	skillList = {
-		"AzmeriCasterDemonProjectile",
-		"DeceleratingProjectileAzmeriCasterDemon",
-		"DeceleratingProjectileAzmeriCasterDemonExplode",
-	},
-	modList = {
-		mod("CritMultiplier", "BASE", 250, 0, 0), -- AzmeriCasterDemonCriticalStrikeMultiplier [base_critical_strike_multiplier_+ = 250]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonMid"] = {
-	name = "Pain Artist",
-	monsterTags = { "animal_claw_weapon", "caster", "demon", "flesh_armour", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.44,
-	energyShield = 0.2,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.25,
-	damageSpread = 0.2,
-	attackTime = 1.32,
-	attackRange = 12,
-	accuracy = 1,
-	skillList = {
-		"AzmeriCasterDemonProjectile",
-		"DeceleratingProjectileAzmeriCasterDemon",
-		"DeceleratingProjectileAzmeriCasterDemonExplode",
-		"ABTTAzmeriCasterDemonCritMultiAura",
-	},
-	modList = {
-		mod("CritMultiplier", "BASE", 250, 0, 0), -- AzmeriCasterDemonCriticalStrikeMultiplier [base_critical_strike_multiplier_+ = 250]
-		mod("AllyModifier", "LIST", { mod = mod("CritMultiplier", "BASE", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PainArtist", unscalable = true })}),
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonHigh"] = {
-	name = "Perfect Pain Artist",
-	monsterTags = { "animal_claw_weapon", "caster", "demon", "flesh_armour", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.44,
-	energyShield = 0.2,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.25,
-	damageSpread = 0.2,
-	attackTime = 1.32,
-	attackRange = 12,
-	accuracy = 1,
-	skillList = {
-		"AzmeriCasterDemonProjectile",
-		"DeceleratingProjectileAzmeriCasterDemon",
-		"DeceleratingProjectileAzmeriCasterDemonExplode",
-		"ABTTAzmeriCasterDemonCritMultiAura",
-		"AzmeriCasterDemonSpellDamageAura",
-	},
-	modList = {
-		mod("CritMultiplier", "BASE", 250, 0, 0), -- AzmeriCasterDemonCriticalStrikeMultiplier [base_critical_strike_multiplier_+ = 250]
-		mod("AllyModifier", "LIST", { mod = mod("CritMultiplier", "BASE", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PainArtist", unscalable = true })}),
-	},
-}
--- Sawblade Horror
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonLow"] = {
-	name = "Imperfect Sawblade Horror",
-	monsterTags = { "cleaving_weapon", "demon", "flesh_armour", "has_two_hand_axe", "has_two_handed_melee", "medium_height", "melee", "not_int", "physical_affinity", "red_blood", "slow_movement", "unique_map_boss", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.3,
-	armour = 0.4,
-	evasion = 0.6,
-	fireResist = 0,
-	coldResist = 52,
-	lightningResist = 52,
-	chaosResist = 0,
-	damage = 1.73,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 13,
-	accuracy = 1,
-	weaponType1 = "Two Handed Axe",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriCycloneDemonCleave",
-		"AzmeriCycloneDemonDesecratedGroundCyclone",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonMid"] = {
-	name = "Sawblade Horror",
-	monsterTags = { "cleaving_weapon", "demon", "flesh_armour", "has_two_hand_axe", "has_two_handed_melee", "medium_height", "melee", "not_int", "physical_affinity", "red_blood", "slow_movement", "unique_map_boss", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.3,
-	armour = 0.4,
-	evasion = 0.6,
-	fireResist = 0,
-	coldResist = 52,
-	lightningResist = 52,
-	chaosResist = 0,
-	damage = 1.73,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 13,
-	accuracy = 1,
-	weaponType1 = "Two Handed Axe",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriCycloneDemonCleave",
-		"AzmeriCycloneDemonDesecratedGroundCyclone",
-	},
-	modList = {
-		-- MonsterMaimOnHit [global_maim_on_hit = 1]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonHigh"] = {
-	name = "Perfect Sawblade Horror",
-	monsterTags = { "cleaving_weapon", "demon", "flesh_armour", "has_two_hand_axe", "has_two_handed_melee", "medium_height", "melee", "not_int", "physical_affinity", "red_blood", "slow_movement", "unique_map_boss", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.3,
-	armour = 0.4,
-	evasion = 0.6,
-	fireResist = 0,
-	coldResist = 52,
-	lightningResist = 52,
-	chaosResist = 0,
-	damage = 1.73,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 13,
-	accuracy = 1,
-	weaponType1 = "Two Handed Axe",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriCycloneDemonCleave",
-		"AzmeriCycloneDemonDesecratedGroundCyclone",
-	},
-	modList = {
-		-- MonsterMaimOnHit [global_maim_on_hit = 1]
-	},
-}
--- Restless Knight
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightLow"] = {
-	name = "Imperfect Restless Knight",
-	monsterTags = { "bludgeoning_weapon", "caster", "cold_affinity", "has_two_hand_mace", "has_two_handed_melee", "humanoid", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "undead", "very_slow_movement", "ward_armour", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.43,
-	armour = 0.5,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 2.17,
-	damageSpread = 0.2,
-	attackTime = 2.25,
-	attackRange = 22,
-	accuracy = 1,
-	weaponType1 = "Two Handed Mace",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"GAExpeditionDeathKnightSlam",
-		"GSExpeditionDeathKnightNova",
-		"WalkEmergeExpeditionDeathKnight",
-	},
-	modList = {
-		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightMid"] = {
-	name = "Restless Knight",
-	monsterTags = { "bludgeoning_weapon", "caster", "cold_affinity", "has_two_hand_mace", "has_two_handed_melee", "humanoid", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "undead", "very_slow_movement", "ward_armour", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.43,
-	armour = 0.5,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 2.17,
-	damageSpread = 0.2,
-	attackTime = 2.25,
-	attackRange = 22,
-	accuracy = 1,
-	weaponType1 = "Two Handed Mace",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"GAExpeditionDeathKnightSlam",
-		"GSExpeditionDeathKnightNova",
-		"WalkEmergeExpeditionDeathKnight",
-	},
-	modList = {
-		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightHigh"] = {
-	name = "Perfect Restless Knight",
-	monsterTags = { "bludgeoning_weapon", "caster", "cold_affinity", "has_two_hand_mace", "has_two_handed_melee", "humanoid", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "undead", "very_slow_movement", "ward_armour", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.43,
-	armour = 0.5,
-	fireResist = 0,
-	coldResist = 75,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 2.17,
-	damageSpread = 0.2,
-	attackTime = 2.25,
-	attackRange = 22,
-	accuracy = 1,
-	weaponType1 = "Two Handed Mace",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"GAExpeditionDeathKnightSlam",
-		"GSExpeditionDeathKnightNova",
-		"WalkEmergeExpeditionDeathKnight",
-	},
-	modList = {
-		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
-	},
-}
--- Slashing Horror
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonLow"] = {
-	name = "Imperfect Slashing Horror",
-	monsterTags = { "demon", "fire_affinity", "flesh_armour", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "large_height", "medium_movement", "melee", "not_int", "physical_affinity", "red_blood", "slashing_weapon", "unique_map_boss", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.3,
-	armour = 0.4,
-	evasion = 0.6,
-	fireResist = 0,
-	coldResist = 52,
-	lightningResist = 52,
-	chaosResist = 0,
-	damage = 1.88,
-	damageSpread = 0.2,
-	attackTime = 1.35,
-	attackRange = 11,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	weaponType2 = "One Handed Sword",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriDualStrikeDemonFireEnrage",
-		"AzmeriDualStrikeDemonDualStrike",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonMid"] = {
-	name = "Slashing Horror",
-	monsterTags = { "demon", "fire_affinity", "flesh_armour", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "large_height", "medium_movement", "melee", "not_int", "physical_affinity", "red_blood", "slashing_weapon", "unique_map_boss", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.3,
-	armour = 0.4,
-	evasion = 0.6,
-	fireResist = 0,
-	coldResist = 52,
-	lightningResist = 52,
-	chaosResist = 0,
-	damage = 1.88,
-	damageSpread = 0.2,
-	attackTime = 1.35,
-	attackRange = 11,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	weaponType2 = "One Handed Sword",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriDualStrikeDemonFireEnrage",
-		"AzmeriDualStrikeDemonDualStrike",
-	},
-	modList = {
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "RageEffect" }) }),
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonHigh"] = {
-	name = "Perfect Slashing Horror",
-	monsterTags = { "demon", "fire_affinity", "flesh_armour", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "large_height", "medium_movement", "melee", "not_int", "physical_affinity", "red_blood", "slashing_weapon", "unique_map_boss", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.3,
-	armour = 0.4,
-	evasion = 0.6,
-	fireResist = 0,
-	coldResist = 52,
-	lightningResist = 52,
-	chaosResist = 0,
-	damage = 1.88,
-	damageSpread = 0.2,
-	attackTime = 1.35,
-	attackRange = 11,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	weaponType2 = "One Handed Sword",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriDualStrikeDemonFireEnrage",
-		"AzmeriDualStrikeDemonDualStrike",
-	},
-	modList = {
-		mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageGainAsFire", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SlashingHorror", unscalable = true })}),
-		mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "RageEffect" }) }),
-	},
-}
--- Druidic Alchemist
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverLow__"] = {
-	name = "Imperfect Druidic Alchemist",
-	monsterTags = { "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "karui", "light_armour", "medium_height", "medium_movement", "melee", "not_str", "physical_affinity", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.75,
-	energyShield = 0.8,
-	evasion = 0.25,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 75,
-	damage = 1.25,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 10,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MPSAncestralDruidFlask",
-		"GSAncestralDruidFlaskExplode",
-		"EASAncestralHealTotem",
-		"EASAncestralHealAlly",
-		"GSAncestralDruidTotemChannelHeal",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverMid"] = {
-	name = "Druidic Alchemist",
-	monsterTags = { "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "karui", "light_armour", "medium_height", "medium_movement", "melee", "not_str", "physical_affinity", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.75,
-	energyShield = 0.8,
-	evasion = 0.25,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 75,
-	damage = 1.25,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 10,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MPSAncestralDruidFlask",
-		"GSAncestralDruidFlaskExplode",
-		"EASAncestralHealTotem",
-		"EASAncestralHealAlly",
-		"GSAncestralDruidTotemChannelHeal",
-	},
-	modList = {
-		mod("FlaskEffect", "INC", 200, 0, 0), -- AzmeriDruidFlaskEffect [flask_effect_+% = 200]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverHigh"] = {
-	name = "Perfect Druidic Alchemist",
-	monsterTags = { "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "karui", "light_armour", "medium_height", "medium_movement", "melee", "not_str", "physical_affinity", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.75,
-	energyShield = 0.8,
-	evasion = 0.25,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 75,
-	damage = 1.25,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 10,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MPSAncestralDruidFlask",
-		"GSAncestralDruidFlaskExplode",
-		"EASAncestralHealTotem",
-		"EASAncestralHealAlly",
-		"GSAncestralDruidTotemChannelHeal",
-	},
-	modList = {
-		mod("FlaskEffect", "INC", 200, 0, 0), -- AzmeriDruidFlaskEffect [flask_effect_+% = 200]
-		mod("PlayerModifier", "LIST", { mod = mod("LifeFlaskChargesGenerated", "BASE", 1/3, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "RestlessKnight", unscalable = true })}),
-	},
-}
--- Escaped Prototype
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundLow"] = {
-	name = "Imperfect Escaped Prototype",
-	monsterTags = { "animal_claw_weapon", "caster", "construct", "fire_affinity", "is_unarmed", "large_model", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", },
-	life = 16,
-	lifeScaling = "AltLife2",
-	armour = 1,
-	fireResist = 30,
-	coldResist = 30,
-	lightningResist = 30,
-	chaosResist = 20,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.56,
-	attackRange = 10,
-	accuracy = 1,
-	skillList = {
-		"Melee",
-		"DoLiterallyNothing",
-		"GAHeistRobotHoundStomp",
-		"MDHeistRobotHoundLaserTarget",
-		"GSRoboHoundBellyDamage",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundMid"] = {
-	name = "Escaped Prototype",
-	monsterTags = { "animal_claw_weapon", "caster", "construct", "fire_affinity", "is_unarmed", "large_model", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", },
-	life = 16,
-	lifeScaling = "AltLife2",
-	armour = 1,
-	fireResist = 30,
-	coldResist = 30,
-	lightningResist = 30,
-	chaosResist = 20,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.56,
-	attackRange = 10,
-	accuracy = 1,
-	skillList = {
-		"Melee",
-		"DoLiterallyNothing",
-		"GAHeistRobotHoundStomp",
-		"MDHeistRobotHoundLaserTarget",
-		"GSRoboHoundBellyDamage",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundHigh_"] = {
-	name = "Perfect Escaped Prototype",
-	monsterTags = { "animal_claw_weapon", "caster", "construct", "fire_affinity", "is_unarmed", "large_model", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", },
-	life = 16,
-	lifeScaling = "AltLife2",
-	armour = 1,
-	fireResist = 30,
-	coldResist = 30,
-	lightningResist = 30,
-	chaosResist = 20,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.56,
-	attackRange = 10,
-	accuracy = 1,
-	skillList = {
-		"Melee",
-		"DoLiterallyNothing",
-		"GAHeistRobotHoundStomp",
-		"MDHeistRobotHoundLaserTarget",
-		"GSRoboHoundBellyDamage",
-	},
-	modList = {
-	},
-}
--- Blasphemer
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriLow"] = {
-	name = "Imperfect Blasphemer",
-	monsterTags = { "bones", "caster", "humanoid", "not_dex", "undead", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.25,
-	energyShield = 0.08,
-	armour = 0.8,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 75,
-	damage = 2.25,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 12,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriGeofriSlam",
-		"AzmeriWanderingEnfeebleGeofri",
-		"AzmeriWanderingVulnerabilityGeofri",
-		"AzmeriWanderingTemporalChainsGeofri",
-		"TalismanT1TemporalChains",
-		"TalismanT2EnfeebleAura",
-		"TalismanT1Vulnerability",
-	},
-	modList = {
-		mod("EnemyCurseLimit", "BASE", 3),
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriMid_"] = {
-	name = "Blasphemer",
-	monsterTags = { "bones", "caster", "humanoid", "not_dex", "undead", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.25,
-	energyShield = 0.08,
-	armour = 0.8,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 75,
-	damage = 2.25,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 12,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriGeofriSlam",
-		"AzmeriWanderingEnfeebleGeofri",
-		"AzmeriWanderingVulnerabilityGeofri",
-		"AzmeriWanderingTemporalChainsGeofri",
-		"AzmeriGeofriSmite",
-		"TalismanT1TemporalChains",
-		"TalismanT2EnfeebleAura",
-		"TalismanT1Vulnerability",
-	},
-	modList = {
-		mod("EnemyCurseLimit", "BASE", 3),
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriHigh"] = {
-	name = "Perfect Blasphemer",
-	monsterTags = { "bones", "caster", "humanoid", "not_dex", "undead", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.25,
-	energyShield = 0.08,
-	armour = 0.8,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 75,
-	damage = 2.25,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 12,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriGeofriSlam",
-		"AzmeriWanderingEnfeebleGeofriHexproof",
-		"AzmeriWanderingVulnerabilityGeofriHexproof",
-		"AzmeriWanderingTemporalChainsGeofriHexproof",
-		"AzmeriGeofriSmite",
-		"TalismanT1TemporalChains",
-		"TalismanT2EnfeebleAura",
-		"TalismanT1Vulnerability",
-	},
-	modList = {
-		mod("EnemyCurseLimit", "BASE", 3),
-	},
-}
--- Judgemental Spirit
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessLow"] = {
-	name = "Imperfect Judgemental Spirit",
-	monsterTags = { "caster", "fire_affinity", "ghost", "ghost_armour", "ghost_blood", "is_unarmed", "large_height", "medium_movement", "non_unique_map_boss", "not_dex", "not_str", "ranged", "undead", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.03,
-	energyShield = 0.4,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 12,
-	accuracy = 1,
-	skillList = {
-		"AzmeriGoddessSpiritMortar",
-		"AzmeriGoddessSummonSkeletonGhostflame",
-		"AzmeriGoddessOfferingOfJudgement",
-		"AzmeriGoddessOfferingOfJudgementChaos",
-		"AzmeriGoddessBeam",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessMid"] = {
-	name = "Judgemental Spirit",
-	monsterTags = { "caster", "fire_affinity", "ghost", "ghost_armour", "ghost_blood", "is_unarmed", "large_height", "medium_movement", "non_unique_map_boss", "not_dex", "not_str", "ranged", "undead", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.03,
-	energyShield = 0.4,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 12,
-	accuracy = 1,
-	skillList = {
-		"AzmeriGoddessSpiritMortar",
-		"AzmeriGoddessSummonSkeletonGhostflame",
-		"AzmeriGoddessOfferingOfJudgement",
-		"AzmeriGoddessOfferingOfJudgementChaos",
-		"AzmeriGoddessBeam",
-		"ABTTAzmeriGoddessAura",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessHigh"] = {
-	name = "Perfect Judgemental Spirit",
-	monsterTags = { "caster", "fire_affinity", "ghost", "ghost_armour", "ghost_blood", "is_unarmed", "large_height", "medium_movement", "non_unique_map_boss", "not_dex", "not_str", "ranged", "undead", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.03,
-	energyShield = 0.4,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 12,
-	accuracy = 1,
-	skillList = {
-		"AzmeriGoddessSpiritMortar",
-		"AzmeriGoddessSummonSkeletonGhostflame",
-		"AzmeriGoddessOfferingOfJudgement",
-		"AzmeriGoddessOfferingOfJudgementChaos",
-		"AzmeriGoddessBeam",
-		"ABTTAzmeriGoddessAura",
-		"AzmeriGoddessDiscipline",
-	},
-	modList = {
-	},
-}
--- Primal Thunderbird
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdLow"] = {
-	name = "Imperfect Primal Thunderbird",
-	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "caster", "flesh_armour", "has_dagger", "has_one_handed_melee", "large_model", "lightning_affinity", "medium_movement", "melee", "not_str", "red_blood", "small_height", "standalone_map_boss", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.88,
-	energyShield = 0.24,
-	evasion = 0.6,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.995,
-	attackRange = 14,
-	accuracy = 1,
-	weaponType1 = "Dagger",
-	skillList = {
-		"MeleeAtAnimationSpeedLightning",
-		"AzmeriRavenScreechOfSplendour",
-		"AzmeriRavenDashOfDestruction",
-		"AzmeriBirdBeam",
-		"AzmeriBirdDashGT1",
-		"AzmeriBirdDashGT2",
-		"AzmeriBirdScreech",
-		"GSAzmeriBirdDashZap",
-	},
-	modList = {
-		-- damage_hit_effect_index [damage_hit_effect_index = 2]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdMid"] = {
-	name = "Primal Thunderbird",
-	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "caster", "flesh_armour", "has_dagger", "has_one_handed_melee", "large_model", "lightning_affinity", "medium_movement", "melee", "not_str", "red_blood", "small_height", "standalone_map_boss", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.88,
-	energyShield = 0.24,
-	evasion = 0.6,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.995,
-	attackRange = 14,
-	accuracy = 1,
-	weaponType1 = "Dagger",
-	skillList = {
-		"MeleeAtAnimationSpeedLightning",
-		"AzmeriRavenScreechOfSplendour",
-		"AzmeriRavenDashOfDestruction",
-		"AzmeriBirdBeam",
-		"AzmeriBirdDashGT1",
-		"AzmeriBirdDashGT2",
-		"AzmeriBirdScreechExposure",
-		"GSAzmeriBirdDashZap",
-	},
-	modList = {
-		-- damage_hit_effect_index [damage_hit_effect_index = 2]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdHigh"] = {
-	name = "Perfect Primal Thunderbird",
-	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "caster", "flesh_armour", "has_dagger", "has_one_handed_melee", "large_model", "lightning_affinity", "medium_movement", "melee", "not_str", "red_blood", "small_height", "standalone_map_boss", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.88,
-	energyShield = 0.24,
-	evasion = 0.6,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.995,
-	attackRange = 14,
-	accuracy = 1,
-	weaponType1 = "Dagger",
-	skillList = {
-		"MeleeAtAnimationSpeedLightning",
-		"AzmeriRavenScreechOfSplendour",
-		"AzmeriRavenDashOfDestruction",
-		"AzmeriBirdBeam",
-		"AzmeriBirdDashGT1",
-		"AzmeriBirdDashGT2",
-		"AzmeriBirdScreechExposure",
-		"GSAzmeriBirdDashZap",
-		"AzmeriBirdGrace",
-		"AzmeriBirdGraceHardMode",
-	},
-	modList = {
-		-- damage_hit_effect_index [damage_hit_effect_index = 2]
-	},
-}
--- Primal Demiurge
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmLow__"] = {
-	name = "Imperfect Primal Demiurge",
-	monsterTags = { "caster", "crusader_monster", "eldritch", "ghost", "ghost_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_height", "medium_movement", "melee", "not_dex", "not_str", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.5,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.44,
-	damageSpread = 0.2,
-	attackTime = 1.755,
-	attackRange = 9,
-	accuracy = 1,
-	skillList = {
-		"AzmeriPhantasmExplode",
-		"AzmeriLightningMelee",
-		"AzmeriTeleportPhantasm",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmMid"] = {
-	name = "Primal Demiurge",
-	monsterTags = { "caster", "crusader_monster", "eldritch", "ghost", "ghost_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_height", "medium_movement", "melee", "not_dex", "not_str", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.5,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.44,
-	damageSpread = 0.2,
-	attackTime = 1.755,
-	attackRange = 9,
-	accuracy = 1,
-	skillList = {
-		"AzmeriPhantasmExplode",
-		"AzmeriLightningMelee",
-		"AzmeriTeleportPhantasm",
-		"AzmeriPhantasmClarity",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmHigh"] = {
-	name = "Perfect Primal Demiurge",
-	monsterTags = { "caster", "crusader_monster", "eldritch", "ghost", "ghost_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_height", "medium_movement", "melee", "not_dex", "not_str", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.5,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.44,
-	damageSpread = 0.2,
-	attackTime = 1.755,
-	attackRange = 9,
-	accuracy = 1,
-	skillList = {
-		"AzmeriPhantasmExplodeSap",
-		"AzmeriLightningMelee",
-		"AzmeriTeleportPhantasm",
-		"AzmeriPhantasmClarity",
-	},
-	modList = {
-	},
-}
--- Runic Skeleton
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonLow"] = {
-	name = "Imperfect Runic Skeleton",
-	monsterTags = { "bones", "is_unarmed", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "ward_armour", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.75,
-	armour = 0.8,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.8,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 15,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriMegaSkeletonHeavyMelee",
-		"AzmeriMegaSkeletonCleave",
-	},
-	modList = {
-		mod("PhysicalDamage", "INC", 20, 8192, 0, { div = 10, stat = "Str", type = "PerStat" }), -- AzmeriMegaSkeletonWeaponPhysicalDamagePerStrength [physical_weapon_damage_+%_per_10_str = 20]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonMid"] = {
-	name = "Runic Skeleton",
-	monsterTags = { "bones", "is_unarmed", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "ward_armour", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.75,
-	armour = 0.8,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.8,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 15,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriMegaSkeletonHeavyMelee",
-		"AzmeriMegaSkeletonCleave",
-	},
-	modList = {
-		mod("PhysicalDamage", "INC", 20, 8192, 0, { div = 10, stat = "Str", type = "PerStat" }), -- AzmeriMegaSkeletonWeaponPhysicalDamagePerStrength [physical_weapon_damage_+%_per_10_str = 20]
-		-- MonsterCrushOnHit [chance_to_crush_on_hit_% = 100]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonHigh"] = {
-	name = "Perfect Runic Skeleton",
-	monsterTags = { "bones", "is_unarmed", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "ward_armour", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.75,
-	armour = 0.8,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.8,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 15,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriMegaSkeletonHeavyMelee",
-		"AzmeriMegaSkeletonCleave",
-	},
-	modList = {
-		mod("PhysicalDamage", "INC", 20, 8192, 0, { div = 10, stat = "Str", type = "PerStat" }), -- AzmeriMegaSkeletonWeaponPhysicalDamagePerStrength [physical_weapon_damage_+%_per_10_str = 20]
-		-- MonsterCrushOnHit [chance_to_crush_on_hit_% = 100]
-		mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamage", "MORE", 5, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PrimalDemiurge", unscalable = true })}),
-	},
-}
--- Warlord
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakLow"] = {
-	name = "Imperfect Warlord",
-	monsterTags = { "human", "humanoid", "medium_movement", "not_int", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3,
-	armour = 0.8,
-	evasion = 0.4,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.73,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 13,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriOakSweep",
-		"AzmeriOakImmortalCall",
-		"AzmeriOakEnduringCry",
-		"AzmeriOakLeapSlam",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakMid"] = {
-	name = "Warlord",
-	monsterTags = { "human", "humanoid", "medium_movement", "not_int", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3,
-	armour = 0.8,
-	evasion = 0.4,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.73,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 13,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriOakSweep",
-		"AzmeriOakImmortalCall",
-		"AzmeriOakEnduringCry",
-		"AzmeriOakLeapSlam",
-		"AzmeriOakVitality",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakHigh"] = {
-	name = "Perfect Warlord",
-	monsterTags = { "human", "humanoid", "medium_movement", "not_int", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3,
-	armour = 0.8,
-	evasion = 0.4,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.73,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 13,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriOakSweep",
-		"AzmeriOakImmortalCall",
-		"AzmeriOakEnduringCry",
-		"AzmeriOakLeapSlam",
-		"AzmeriOakVitality",
-	},
-	modList = {
-	},
-}
--- Dark Reaper
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperLow"] = {
-	name = "Imperfect Dark Reaper",
-	monsterTags = { "bones", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "melee", "metal_armour", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "very_slow_movement", "ward_armour", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.88,
-	armour = 0.7,
-	evasion = 0.7,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.73,
-	damageSpread = 0.2,
-	attackTime = 1.455,
-	attackRange = 18,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	weaponType2 = "One Handed Sword",
-	skillList = {
-		"AzmeriReaperMelee",
-		"GAAzmeriReaperLacerate",
-		"GAAzmeriReaperComboLeftSlash",
-		"GAAzmeriReaperComboRightSlash",
-		"GAAzmeriReaperDash",
-		"GAAzmeriReaperDashImpactSlash",
-		"GAAzmeriReaperCycloneImpact",
-		"GAAzmeriReaperComboWhirl",
-		"EAAAzmeriReaperCyclone",
-		"EAAAzmeriReaperDualStrike",
-		"EAAAzmeriReaperComboAttack",
-		"DTTAzmeriReaper",
-	},
-	modList = {
-		mod("PhysicalDamage", "INC", 0, 0, 0), -- MonsterBleedImplicit [physical_damage_+% = 0]
-		mod("BleedChance", "BASE", 100, 0, 0), -- MonsterBleedImplicit [global_bleed_on_hit = 1]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperMid"] = {
-	name = "Dark Reaper",
-	monsterTags = { "bones", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "melee", "metal_armour", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "very_slow_movement", "ward_armour", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.88,
-	armour = 0.7,
-	evasion = 0.7,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.73,
-	damageSpread = 0.2,
-	attackTime = 1.455,
-	attackRange = 18,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	weaponType2 = "One Handed Sword",
-	skillList = {
-		"AzmeriReaperMelee",
-		"GAAzmeriReaperLacerate",
-		"GAAzmeriReaperComboLeftSlash",
-		"GAAzmeriReaperComboRightSlash",
-		"GAAzmeriReaperDash",
-		"GAAzmeriReaperDashImpactSlash",
-		"GAAzmeriReaperCycloneImpact",
-		"GAAzmeriReaperComboWhirl",
-		"EAAAzmeriReaperCyclone",
-		"EAAAzmeriReaperDualStrike",
-		"EAAAzmeriReaperComboAttack",
-		"DTTAzmeriReaper",
-	},
-	modList = {
-		mod("PhysicalDamage", "INC", 0, 0, 0), -- MonsterBleedImplicit [physical_damage_+% = 0]
-		mod("BleedChance", "BASE", 100, 0, 0), -- MonsterBleedImplicit [global_bleed_on_hit = 1]
-		-- MonsterNearbyEnemyLifeRegenReduced50 [life_mastery_nearby_enemy_life_regeneration_rate_+% = -50]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperHigh"] = {
-	name = "Perfect Dark Reaper",
-	monsterTags = { "bones", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "melee", "metal_armour", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "very_slow_movement", "ward_armour", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.88,
-	armour = 0.7,
-	evasion = 0.7,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.73,
-	damageSpread = 0.2,
-	attackTime = 1.455,
-	attackRange = 18,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	weaponType2 = "One Handed Sword",
-	skillList = {
-		"AzmeriReaperMelee",
-		"GAAzmeriReaperLacerate",
-		"GAAzmeriReaperComboLeftSlash",
-		"GAAzmeriReaperComboRightSlash",
-		"GAAzmeriReaperDash",
-		"GAAzmeriReaperDashImpactSlash",
-		"GAAzmeriReaperCycloneImpact",
-		"GAAzmeriReaperComboWhirl",
-		"EAAAzmeriReaperCyclone",
-		"EAAAzmeriReaperDualStrike",
-		"EAAAzmeriReaperComboAttack",
-		"DTTAzmeriReaper",
-	},
-	modList = {
-		mod("PhysicalDamage", "INC", 0, 0, 0), -- MonsterBleedImplicit [physical_damage_+% = 0]
-		mod("BleedChance", "BASE", 100, 0, 0), -- MonsterBleedImplicit [global_bleed_on_hit = 1]
-		-- MonsterNearbyEnemyLifeRegenReduced50 [life_mastery_nearby_enemy_life_regeneration_rate_+% = -50]
-		mod("BleedStacksMax", "OVERRIDE", 16, 0, 0), -- MonsterBleedingStacksAzmeriReaper [bleeding_stacks_up_to_x_times = 16]
-		flag("Condition:NoExtraBleedDamageToMovingEnemy"), --This mod is not currently working correctly,
-	},
-}
--- Sanguimancer Demon
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdLow"] = {
-	name = "Imperfect Sanguimancer Demon",
-	monsterTags = { "beyond_demon", "bludgeoning_weapon", "caster", "demon", "fire_affinity", "flesh_armour", "is_unarmed", "not_dex", "not_str", "ranged", "red_blood", "very_fast_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.03,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 12,
-	accuracy = 1,
-	weaponType1 = "None",
-	weaponType2 = "One Handed Mace",
-	skillList = {
-		"GTAzmeriShepherdVomit",
-		"MMSAzmeriShepherdTripleMortar",
-		"MMSAzmeriShepherdVomitMortar",
-		"GSAzmeriShepherdBeamNuke",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdMid_"] = {
-	name = "Sanguimancer Demon",
-	monsterTags = { "beyond_demon", "bludgeoning_weapon", "caster", "demon", "fire_affinity", "flesh_armour", "is_unarmed", "not_dex", "not_str", "ranged", "red_blood", "very_fast_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.03,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 12,
-	accuracy = 1,
-	weaponType1 = "None",
-	weaponType2 = "One Handed Mace",
-	skillList = {
-		"GTAzmeriShepherdVomit",
-		"MMSAzmeriShepherdTripleMortar",
-		"MMSAzmeriShepherdVomitMortar",
-		"GSAzmeriShepherdBeamNuke",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdHigh"] = {
-	name = "Perfect Sanguimancer Demon",
-	monsterTags = { "beyond_demon", "bludgeoning_weapon", "caster", "demon", "fire_affinity", "flesh_armour", "is_unarmed", "not_dex", "not_str", "ranged", "red_blood", "very_fast_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.03,
-	energyShield = 0.4,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 75,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 12,
-	accuracy = 1,
-	weaponType1 = "None",
-	weaponType2 = "One Handed Mace",
-	skillList = {
-		"GTAzmeriShepherdVomit",
-		"MMSAzmeriShepherdTripleMortar",
-		"MMSAzmeriShepherdVomitMortar",
-		"GSAzmeriShepherdBeamNuke",
-		"ABTTAzmeriShepherdSpellDamage",
-	},
-	modList = {
-	},
-}
--- Spider Matriarch
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderLow"] = {
-	name = "Imperfect Spider Matriarch",
-	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "fast_movement", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "large_model", "melee", "not_int", "physical_affinity", "small_height", "spider", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.73,
-	armour = 0.5,
-	evasion = 0.5,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 75,
-	damage = 1.73,
-	damageSpread = 0.2,
-	attackTime = 0.945,
-	attackRange = 13,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterViperStrikeAtAnimationSpeed",
-		"AzmeriSpiderLeaderMortar",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderMid"] = {
-	name = "Spider Matriarch",
-	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "fast_movement", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "large_model", "melee", "not_int", "physical_affinity", "small_height", "spider", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.73,
-	armour = 0.5,
-	evasion = 0.5,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 75,
-	damage = 1.73,
-	damageSpread = 0.2,
-	attackTime = 0.945,
-	attackRange = 13,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterViperStrikeAtAnimationSpeed",
-		"AzmeriSpiderLeaderMortar",
-		"ABTTAzmeriSpiderLeaderAura",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderHigh_"] = {
-	name = "Perfect Spider Matriarch",
-	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "fast_movement", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "large_model", "melee", "not_int", "physical_affinity", "small_height", "spider", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.73,
-	armour = 0.5,
-	evasion = 0.5,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 75,
-	damage = 1.73,
-	damageSpread = 0.2,
-	attackTime = 0.945,
-	attackRange = 13,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"MonsterViperStrikeAtAnimationSpeed",
-		"AzmeriSpiderLeaderMortar",
-		"ABTTAzmeriSpiderLeaderAura",
-	},
-	modList = {
-		mod("PlayerModifier", "LIST", { mod = mod("WitherEffect", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SpiderMatriarch", unscalable = true })}) --Does not work,
-	},
-}
--- Meatsack
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieLow"] = {
-	name = "Imperfect Meatsack",
-	monsterTags = { "cold_affinity", "flesh_armour", "humanoid", "is_unarmed", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "undead", "very_fast_movement", "zombie", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 5,
-	armour = 0.5,
-	fireResist = 0,
-	coldResist = 40,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.65,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 11,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieMid"] = {
-	name = "Meatsack",
-	monsterTags = { "cold_affinity", "flesh_armour", "humanoid", "is_unarmed", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "undead", "very_fast_movement", "zombie", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 6,
-	armour = 0.5,
-	fireResist = 0,
-	coldResist = 40,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.65,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 11,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriZombieCausticGroundWhenHit",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieHigh"] = {
-	name = "Perfect Meatsack",
-	monsterTags = { "cold_affinity", "flesh_armour", "humanoid", "is_unarmed", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "undead", "very_fast_movement", "zombie", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 7,
-	armour = 0.5,
-	fireResist = 0,
-	coldResist = 40,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.65,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 11,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriZombieCausticGroundWhenHit",
-	},
-	modList = {
-		-- AzmeriTankyZombieTauntOnHit [chance_to_taunt_on_hit_% = 100]
-	},
-}
--- Eldritch Eye
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionLow"] = {
-	name = "Imperfect Eldritch Eye",
-	monsterTags = { "caster", "construct", "elder_monster", "eldritch", "extra_large_height", "flesh_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.5,
-	energyShield = 0.2,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1.25,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 9,
-	accuracy = 1,
-	skillList = {
-		"ElderTentacleMinionProjectile",
-		"ElderTentacleMinionProjectileEpic",
-		"GSAzmeriTentacleMonsterChannel",
-		"GSAzmeriTentacleMonsterBeam",
-	},
-	modList = {
-		mod("LightningCannotShock", "FLAG", 1, 0, 0), -- MonsterCannotShock [lightning_damage_cannot_shock = 1]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionMid"] = {
-	name = "Eldritch Eye",
-	monsterTags = { "caster", "construct", "elder_monster", "eldritch", "extra_large_height", "flesh_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.5,
-	energyShield = 0.2,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1.25,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 9,
-	accuracy = 1,
-	skillList = {
-		"ElderTentacleMinionProjectile",
-		"ElderTentacleMinionProjectileEpic",
-		"GSAzmeriTentacleMonsterChannel",
-		"GSAzmeriTentacleMonsterBeam",
-		"GSAzmeriTentacleMonsterShockExplode",
-	},
-	modList = {
-		mod("LightningCannotShock", "FLAG", 1, 0, 0), -- MonsterCannotShock [lightning_damage_cannot_shock = 1]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionHigh"] = {
-	name = "Perfect Eldritch Eye",
-	monsterTags = { "caster", "construct", "elder_monster", "eldritch", "extra_large_height", "flesh_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.5,
-	energyShield = 0.2,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 40,
-	chaosResist = 0,
-	damage = 1.25,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 9,
-	accuracy = 1,
-	skillList = {
-		"ElderTentacleMinionProjectile",
-		"ElderTentacleMinionProjectileEpic",
-		"GSAzmeriTentacleMonsterChannel",
-		"GSAzmeriTentacleMonsterBeam",
-		"GSAzmeriTentacleMonsterShockExplode",
-		"AzmeriTentacleMinionLightningResistAura",
-	},
-	modList = {
-		mod("LightningCannotShock", "FLAG", 1, 0, 0), -- MonsterCannotShock [lightning_damage_cannot_shock = 1]
-	},
-}
--- Forest Tiger
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerLow"] = {
-	name = "Imperfect Forest Tiger",
-	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_claw", "has_one_handed_melee", "light_armour", "mammal_beast", "melee", "not_int", "physical_affinity", "red_blood", "small_height", "very_fast_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.8,
-	armour = 0.6,
-	evasion = 1,
-	fireResist = 0,
-	coldResist = 40,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.8,
-	damageSpread = 0.2,
-	attackTime = 1.2,
-	attackRange = 14,
-	accuracy = 1,
-	weaponType1 = "Claw",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriTigerSpiritFangs",
-		"AzmeriTigerSpiritLacerate",
-		"AzmeriTigerSpiritTeleportSlam",
-		"AzmeriStampedeTiger",
-		"EmptyActionSpellAzmeriTigerComboAttack",
-		"AzermiTigerGeometryAttackFront",
-		"AzmeriTigerGeometryAttackStrafe",
-	},
-	modList = {
-		mod("Damage", "INC", 5, 1, 0, { div = 450, stat = "Evasion", type = "PerStat" }), -- AzmeriTigerAttackDamagePerEvasion [attack_damage_+%_per_450_evasion = 5]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerMid"] = {
-	name = "Forest Tiger",
-	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_claw", "has_one_handed_melee", "light_armour", "mammal_beast", "melee", "not_int", "physical_affinity", "red_blood", "small_height", "very_fast_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.8,
-	armour = 0.6,
-	evasion = 1,
-	fireResist = 0,
-	coldResist = 40,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.8,
-	damageSpread = 0.2,
-	attackTime = 1.2,
-	attackRange = 14,
-	accuracy = 1,
-	weaponType1 = "Claw",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriTigerSpiritFangs",
-		"AzmeriTigerSpiritLacerate",
-		"AzmeriTigerSpiritTeleportSlam",
-		"AzmeriStampedeTiger",
-		"EmptyActionSpellAzmeriTigerComboAttack",
-		"AzermiTigerGeometryAttackFront",
-		"AzmeriTigerGeometryAttackStrafe",
-	},
-	modList = {
-		mod("Damage", "INC", 5, 1, 0, { div = 450, stat = "Evasion", type = "PerStat" }), -- AzmeriTigerAttackDamagePerEvasion [attack_damage_+%_per_450_evasion = 5]
-		-- AzmeriTigerAllyFrenzyOnHit [chance_to_grant_frenzy_charge_to_nearby_allies_on_hit_% = 5]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerHigh"] = {
-	name = "Perfect Forest Tiger",
-	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_claw", "has_one_handed_melee", "light_armour", "mammal_beast", "melee", "not_int", "physical_affinity", "red_blood", "small_height", "very_fast_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 1.8,
-	armour = 0.6,
-	evasion = 1,
-	fireResist = 0,
-	coldResist = 40,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.8,
-	damageSpread = 0.2,
-	attackTime = 1.2,
-	attackRange = 14,
-	accuracy = 1,
-	weaponType1 = "Claw",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"AzmeriTigerSpiritFangs",
-		"AzmeriTigerSpiritLacerate",
-		"AzmeriTigerSpiritTeleportSlam",
-		"AzmeriStampedeTiger",
-		"EmptyActionSpellAzmeriTigerComboAttack",
-		"AzermiTigerGeometryAttackFront",
-		"AzmeriTigerGeometryAttackStrafe",
-		"AzmeriTigerHaste",
-	},
-	modList = {
-		mod("Damage", "INC", 5, 1, 0, { div = 450, stat = "Evasion", type = "PerStat" }), -- AzmeriTigerAttackDamagePerEvasion [attack_damage_+%_per_450_evasion = 5]
-		-- AzmeriTigerAllyFrenzyOnHit [chance_to_grant_frenzy_charge_to_nearby_allies_on_hit_% = 5]
-	},
-}
--- Guardian Turtle
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleLow"] = {
-	name = "Imperfect Guardian Turtle",
-	monsterTags = { "beast", "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "large_model", "light_armour", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "reptile_beast", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 4.5,
-	armour = 3,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.73,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 19,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"ABTTAzmeriTurtleInvulnerability",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleMid_"] = {
-	name = "Guardian Turtle",
-	monsterTags = { "beast", "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "large_model", "light_armour", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "reptile_beast", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 4.5,
-	armour = 3,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.73,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 19,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"ABTTAzmeriTurtleInvulnerability",
-	},
-	modList = {
-		mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 3, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscalable = true })}),
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleHigh"] = {
-	name = "Perfect Guardian Turtle",
-	monsterTags = { "beast", "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "large_model", "light_armour", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "reptile_beast", "very_slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 4.5,
-	armour = 3,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.73,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 19,
-	accuracy = 1,
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"ABTTAzmeriTurtleInvulnerability",
-		"AzmeriTurtleDetermination",
-		"AzmeriTurtleDeterminationHardMode",
-	},
-	modList = {
-		mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscalable = true })}),
-	},
-}
--- Shadow Construct
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulLow"] = {
-	name = "Imperfect Shadow Construct",
-	monsterTags = { "caster", "cold_affinity", "construct", "extra_extra_large_height", "fire_affinity", "hard_armour", "is_unarmed", "large_model", "lightning_affinity", "not_dex", "not_int", "physical_affinity", "ranged", "red_blood", "slashing_weapon", "slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.75,
-	armour = 2,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 2.25,
-	damageSpread = 0.2,
-	attackTime = 4.005,
-	attackRange = 7,
-	accuracy = 1,
-	skillList = {
-		"AzmeriOversoulRocks",
-		"AzmeriOversoulSpray",
-		"AzmeriOversoulExplosion",
-		"AzmeriOversoulLaser",
-		"AzmeriOversoulRocksTriggered",
-		"AzmeriOversoulColdSnapTriggered",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulMid"] = {
-	name = "Shadow Construct",
-	monsterTags = { "caster", "cold_affinity", "construct", "extra_extra_large_height", "fire_affinity", "hard_armour", "is_unarmed", "large_model", "lightning_affinity", "not_dex", "not_int", "physical_affinity", "ranged", "red_blood", "slashing_weapon", "slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.75,
-	armour = 2,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 2.25,
-	damageSpread = 0.2,
-	attackTime = 4.005,
-	attackRange = 7,
-	accuracy = 1,
-	skillList = {
-		"AzmeriOversoulRocks",
-		"AzmeriOversoulSpray",
-		"AzmeriOversoulExplosionIgnite",
-		"AzmeriOversoulLaser",
-		"AzmeriOversoulRocksTriggered",
-		"AzmeriOversoulColdSnapTriggered",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulHigh"] = {
-	name = "Perfect Shadow Construct",
-	monsterTags = { "caster", "cold_affinity", "construct", "extra_extra_large_height", "fire_affinity", "hard_armour", "is_unarmed", "large_model", "lightning_affinity", "not_dex", "not_int", "physical_affinity", "ranged", "red_blood", "slashing_weapon", "slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.75,
-	armour = 2,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 2.25,
-	damageSpread = 0.2,
-	attackTime = 4.005,
-	attackRange = 7,
-	accuracy = 1,
-	skillList = {
-		"AzmeriOversoulRocks",
-		"AzmeriOversoulSpray",
-		"AzmeriOversoulExplosionIgnite",
-		"AzmeriOversoulLaserMaxShock",
-		"AzmeriOversoulRocksTriggered",
-		"AzmeriOversoulColdSnapTriggered",
-	},
-	modList = {
-	},
-}
--- Forest Warrior
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingLow"] = {
-	name = "Imperfect Forest Warrior",
-	monsterTags = { "cleaving_weapon", "fire_affinity", "flesh_armour", "gladiator", "has_two_hand_axe", "has_two_handed_melee", "humanoid", "large_model", "medium_height", "medium_movement", "melee", "non_unique_map_boss", "not_int", "physical_affinity", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3,
-	armour = 0.8,
-	evasion = 0.4,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.95,
-	damageSpread = 0.2,
-	attackTime = 1.65,
-	attackRange = 8,
-	accuracy = 1,
-	weaponType1 = "Two Handed Axe",
-	skillList = {
-		"MeleeAtAnimationSpeedFire",
-		"AzmeriVikingCyclone",
-		"AzmeriVikingUpheaval",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingMid"] = {
-	name = "Forest Warrior",
-	monsterTags = { "cleaving_weapon", "fire_affinity", "flesh_armour", "gladiator", "has_two_hand_axe", "has_two_handed_melee", "humanoid", "large_model", "medium_height", "medium_movement", "melee", "non_unique_map_boss", "not_int", "physical_affinity", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3,
-	armour = 0.8,
-	evasion = 0.4,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.95,
-	damageSpread = 0.2,
-	attackTime = 1.65,
-	attackRange = 8,
-	accuracy = 1,
-	weaponType1 = "Two Handed Axe",
-	skillList = {
-		"MeleeAtAnimationSpeedFire",
-		"AzmeriVikingCyclone",
-		"AzmeriVikingUpheaval",
-	},
-	modList = {
-		mod("CullPercent", "MAX", 10, 0, 0), -- MonsterCullingStrike [kill_enemy_on_hit_if_under_10%_life = 1]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingHigh"] = {
-	name = "Perfect Forest Warrior",
-	monsterTags = { "cleaving_weapon", "fire_affinity", "flesh_armour", "gladiator", "has_two_hand_axe", "has_two_handed_melee", "humanoid", "large_model", "medium_height", "medium_movement", "melee", "non_unique_map_boss", "not_int", "physical_affinity", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3,
-	armour = 0.8,
-	evasion = 0.4,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.95,
-	damageSpread = 0.2,
-	attackTime = 1.65,
-	attackRange = 8,
-	accuracy = 1,
-	weaponType1 = "Two Handed Axe",
-	skillList = {
-		"MeleeAtAnimationSpeedFire",
-		"AzmeriVikingCyclone",
-		"AzmeriVikingUpheaval",
-	},
-	modList = {
-		mod("CullPercent", "MAX", 10, 0, 0), -- MonsterCullingStrike [kill_enemy_on_hit_if_under_10%_life = 1]
-		mod("AllyModifier", "LIST", { mod = flag("Condition:Onslaught", { type = "GlobalEffect", effectType = "Buff", effectName = "ForestWarrior", unscalable = true })}),
-	},
-}
--- Shadow Berserker
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonLow"] = {
-	name = "Imperfect Shadow Berserker",
-	monsterTags = { "demon", "flesh_armour", "is_unarmed", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", },
-	life = 2.02,
-	armour = 0.5,
-	fireResist = 35,
-	coldResist = 35,
-	lightningResist = 35,
-	chaosResist = 20,
-	damage = 1.44,
-	damageSpread = 0.2,
-	attackTime = 1.17,
-	attackRange = 14,
-	accuracy = 1,
-	skillList = {
-		"Melee",
-		"EmptyActionAttackAfflictionMinionTripleSlam",
-		"AfflictionMinionPhysSlamCircleSmall",
-		"AfflictionMinionPhysSlamCircleBig",
-		"AfflictionMinionPhysSlamCircleRectangle",
-	},
-	modList = {
-		-- set_is_affliction_monster [set_is_affliction_monster = 1]
-		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -60]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonMid"] = {
-	name = "Shadow Berserker",
-	monsterTags = { "demon", "flesh_armour", "is_unarmed", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", },
-	life = 2.02,
-	armour = 0.5,
-	fireResist = 35,
-	coldResist = 35,
-	lightningResist = 35,
-	chaosResist = 20,
-	damage = 1.44,
-	damageSpread = 0.2,
-	attackTime = 1.17,
-	attackRange = 14,
-	accuracy = 1,
-	skillList = {
-		"Melee",
-		"EmptyActionAttackAfflictionMinionTripleSlam",
-		"AfflictionMinionPhysSlamCircleSmall",
-		"AfflictionMinionPhysSlamCircleBig",
-		"AfflictionMinionPhysSlamCircleRectangle",
-	},
-	modList = {
-		-- set_is_affliction_monster [set_is_affliction_monster = 1]
-		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -60]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonHigh"] = {
-	name = "Perfect Shadow Berserker",
-	monsterTags = { "demon", "flesh_armour", "is_unarmed", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", },
-	life = 2.02,
-	armour = 0.5,
-	fireResist = 35,
-	coldResist = 35,
-	lightningResist = 35,
-	chaosResist = 20,
-	damage = 1.44,
-	damageSpread = 0.2,
-	attackTime = 1.17,
-	attackRange = 14,
-	accuracy = 1,
-	skillList = {
-		"Melee",
-		"EmptyActionAttackAfflictionMinionTripleSlam",
-		"AfflictionMinionPhysSlamCircleSmall",
-		"AfflictionMinionPhysSlamCircleBig",
-		"AfflictionMinionPhysSlamCircleRectangle",
-	},
-	modList = {
-		-- set_is_affliction_monster [set_is_affliction_monster = 1]
-		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -60]
-	},
-}
--- Riftcaster
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterLow_"] = {
-	name = "Imperfect Riftcaster",
-	monsterTags = { "bludgeoning_weapon", "caster", "fast_movement", "has_staff", "has_two_handed_melee", "human", "humanoid", "light_armour", "lightning_affinity", "melee", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 5.6,
-	lifeScaling = "AltLife2",
-	energyShield = 0.4,
-	fireResist = 30,
-	coldResist = 30,
-	lightningResist = 30,
-	chaosResist = 20,
-	damage = 1.47,
-	damageSpread = 0.2,
-	attackTime = 1.17,
-	attackRange = 13,
-	accuracy = 1,
-	weaponType1 = "Staff",
-	skillList = {
-		"Melee",
-		"DoLiterallyNothing",
-		"WalkEmergeHeistScience",
-		"HeistScienceSpawnLightningVolatile",
-		"GSHeistLightningVolatileExplode",
-		"GTHeistCultistLightningBoltCone",
-		"HeistCultistLightningBolt",
-		"GSHeistLightningWaterfallHit",
-		"HeistScienceSpawnLightningWaterfall",
-		"GTHeistCultistWaterfallCascade",
-		"MPSHeistCultistStaffProjectileGreen",
-		"ChangeToStance1Heist",
-		"EASHeistMindControlSuicide",
-		"TeleportHeistCultistProject",
-		"GSHeistScienceLightningDashImpact",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterMid_"] = {
-	name = "Riftcaster",
-	monsterTags = { "bludgeoning_weapon", "caster", "fast_movement", "has_staff", "has_two_handed_melee", "human", "humanoid", "light_armour", "lightning_affinity", "melee", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 5.6,
-	lifeScaling = "AltLife2",
-	energyShield = 0.4,
-	fireResist = 30,
-	coldResist = 30,
-	lightningResist = 30,
-	chaosResist = 20,
-	damage = 1.47,
-	damageSpread = 0.2,
-	attackTime = 1.17,
-	attackRange = 13,
-	accuracy = 1,
-	weaponType1 = "Staff",
-	skillList = {
-		"Melee",
-		"DoLiterallyNothing",
-		"WalkEmergeHeistScience",
-		"HeistScienceSpawnLightningVolatile",
-		"GSHeistLightningVolatileExplode",
-		"GTHeistCultistLightningBoltCone",
-		"HeistCultistLightningBolt",
-		"GSHeistLightningWaterfallHit",
-		"HeistScienceSpawnLightningWaterfall",
-		"GTHeistCultistWaterfallCascade",
-		"MPSHeistCultistStaffProjectileGreen",
-		"ChangeToStance1Heist",
-		"EASHeistMindControlSuicide",
-		"TeleportHeistCultistProject",
-		"GSHeistScienceLightningDashImpact",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterHigh_"] = {
-	name = "Perfect Riftcaster",
-	monsterTags = { "bludgeoning_weapon", "caster", "fast_movement", "has_staff", "has_two_handed_melee", "human", "humanoid", "light_armour", "lightning_affinity", "melee", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 5.6,
-	lifeScaling = "AltLife2",
-	energyShield = 0.4,
-	fireResist = 30,
-	coldResist = 30,
-	lightningResist = 30,
-	chaosResist = 20,
-	damage = 1.47,
-	damageSpread = 0.2,
-	attackTime = 1.17,
-	attackRange = 13,
-	accuracy = 1,
-	weaponType1 = "Staff",
-	skillList = {
-		"Melee",
-		"DoLiterallyNothing",
-		"WalkEmergeHeistScience",
-		"HeistScienceSpawnLightningVolatile",
-		"GSHeistLightningVolatileExplode",
-		"GTHeistCultistLightningBoltCone",
-		"HeistCultistLightningBolt",
-		"GSHeistLightningWaterfallHit",
-		"HeistScienceSpawnLightningWaterfall",
-		"GTHeistCultistWaterfallCascade",
-		"MPSHeistCultistStaffProjectileGreen",
-		"ChangeToStance1Heist",
-		"EASHeistMindControlSuicide",
-		"TeleportHeistCultistProject",
-		"GSHeistScienceLightningDashImpact",
-	},
-	modList = {
-	},
-}
--- Blood Demon
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossLow"] = {
-	name = "Imperfect Blood Demon",
-	monsterTags = { "beyond_demon", "caster", "cleaving_weapon", "demon", "fire_affinity", "flesh_armour", "has_two_hand_axe", "has_two_handed_melee", "hellscape_demon_boss", "large_model", "melee", "not_dex", "not_int", "ranged", "red_blood", "very_fast_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.75,
-	armour = 1,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 24,
-	accuracy = 1,
-	weaponType1 = "Two Handed Axe",
-	skillList = {
-		"MeleeAtAnimationSpeedFire",
-		"AzmeriDemonTeethShot",
-		"DTTAzmeriDemonLeap",
-		"GAAzmeriDemonLeapSlamDamage",
-		"GTAzmeriDemonTeethShot",
-		"MMSAzmeriDemonBloodVomitSmall",
-		"MMSAzmeriDemonBloodVomitMedium",
-		"MMSAzmeriDemonBloodVomitLarge",
-		"GAAzmeriDemonMeleeMiniSlam1",
-		"GAAzmeriDemonMeleeMiniSlam2",
-		"GSAzmeriDemonKnockback",
-		"AzmeriDemonVomitSpraySmall",
-		"AzmeriDemonVomitSprayMedium",
-		"AzmeriDemonVomitSprayLarge",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossMid"] = {
-	name = "Blood Demon",
-	monsterTags = { "beyond_demon", "caster", "cleaving_weapon", "demon", "fire_affinity", "flesh_armour", "has_two_hand_axe", "has_two_handed_melee", "hellscape_demon_boss", "large_model", "melee", "not_dex", "not_int", "ranged", "red_blood", "very_fast_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.75,
-	armour = 1,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 24,
-	accuracy = 1,
-	weaponType1 = "Two Handed Axe",
-	skillList = {
-		"MeleeAtAnimationSpeedFire",
-		"AzmeriDemonTeethShot",
-		"DTTAzmeriDemonLeap",
-		"GAAzmeriDemonLeapSlamDamage",
-		"GTAzmeriDemonTeethShot",
-		"MMSAzmeriDemonBloodVomitSmall",
-		"MMSAzmeriDemonBloodVomitMedium",
-		"MMSAzmeriDemonBloodVomitLarge",
-		"GAAzmeriDemonMeleeMiniSlam1",
-		"GAAzmeriDemonMeleeMiniSlam2",
-		"GSAzmeriDemonKnockback",
-		"AzmeriDemonVomitSpraySmall",
-		"AzmeriDemonVomitSprayMedium",
-		"AzmeriDemonVomitSprayLarge",
-		"GSAzmeriDemonBossCorruptExplode",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossHigh"] = {
-	name = "Perfect Blood Demon",
-	monsterTags = { "beyond_demon", "caster", "cleaving_weapon", "demon", "fire_affinity", "flesh_armour", "has_two_hand_axe", "has_two_handed_melee", "hellscape_demon_boss", "large_model", "melee", "not_dex", "not_int", "ranged", "red_blood", "very_fast_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.75,
-	armour = 1,
-	fireResist = 20,
-	coldResist = 20,
-	lightningResist = 20,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 24,
-	accuracy = 1,
-	weaponType1 = "Two Handed Axe",
-	skillList = {
-		"MeleeAtAnimationSpeedFire",
-		"AzmeriDemonTeethShot",
-		"DTTAzmeriDemonLeap",
-		"GAAzmeriDemonLeapSlamDamage",
-		"GTAzmeriDemonTeethShot",
-		"MMSAzmeriDemonBloodVomitSmall",
-		"MMSAzmeriDemonBloodVomitMedium",
-		"MMSAzmeriDemonBloodVomitLarge",
-		"GAAzmeriDemonMeleeMiniSlam1",
-		"GAAzmeriDemonMeleeMiniSlam2",
-		"GSAzmeriDemonKnockback",
-		"AzmeriDemonVomitSpraySmall",
-		"AzmeriDemonVomitSprayMedium",
-		"AzmeriDemonVomitSprayLarge",
-		"GSAzmeriDemonBossCorruptExplode",
-		"AzmeriDemonPhysicalDamageAura",
-	},
-	modList = {
-	},
-}
--- Half-remembered Goliath
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemLow"] = {
-	name = "Imperfect Half-remembered Goliath",
-	monsterTags = { "bludgeoning_weapon", "caster", "construct", "fast_movement", "golem", "is_unarmed", "large_height", "large_model", "lightning_affinity", "mud_blood", "not_dex", "physical_affinity", "stone_armour", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.75,
-	energyShield = 0.4,
-	armour = 2,
-	fireResist = 0,
-	coldResist = 52,
-	lightningResist = 52,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.995,
-	attackRange = 20,
-	accuracy = 1,
-	skillList = {
-		"EmptyActionAttackAzmeriGolemVSlam",
-		"GeometryAttackAzmeriGolemCircle",
-		"GeometryAttackAzmeriGolemRectangleLeft",
-		"GeometryAttackAzmeriGolemRectangleRight",
-		"GeometryTriggerSkillAzmeriGolemRectangleLeft",
-		"GeometryTriggerSkillAzmeriGolemRectangleRight",
-		"SpawnObjectAzmeriGolemVTurretLeft",
-		"SpawnObjectAzmeriGolemVTurretRight",
-		"AzmeriGolemVTurretProjectile",
-		"AzmeriGuardian4Slam",
-		"AzmeriGuardian4BeamGun",
-		"EmptyActionAzmeriGuardian4Gun",
-		"AzmeriGolemLeapSlam",
-		"AzmeriGuardian4LeapUp",
-		"EmptyActionAzmeriGolemMinionPhase",
-		"AzmeriGolemBossWhipLeft",
-		"AzmeriGolemBossWhipRight",
-		"EmptyActionAzmeriGolemWhip",
-		"AzmeriBossShockRifleSingle",
-		"AzmeriBossShockRifleMulti",
-		"AzmeriBossShockRifleRotating",
-		"AzmeriGolemRotateZap",
-	},
-	modList = {
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemMid"] = {
-	name = "Half-remembered Goliath",
-	monsterTags = { "bludgeoning_weapon", "caster", "construct", "fast_movement", "golem", "is_unarmed", "large_height", "large_model", "lightning_affinity", "mud_blood", "not_dex", "physical_affinity", "stone_armour", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.75,
-	energyShield = 0.4,
-	armour = 2,
-	fireResist = 0,
-	coldResist = 52,
-	lightningResist = 52,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.995,
-	attackRange = 20,
-	accuracy = 1,
-	skillList = {
-		"EmptyActionAttackAzmeriGolemVSlam",
-		"GeometryAttackAzmeriGolemCircle",
-		"GeometryAttackAzmeriGolemRectangleLeft",
-		"GeometryAttackAzmeriGolemRectangleRight",
-		"GeometryTriggerSkillAzmeriGolemRectangleLeft",
-		"GeometryTriggerSkillAzmeriGolemRectangleRight",
-		"SpawnObjectAzmeriGolemVTurretLeft",
-		"SpawnObjectAzmeriGolemVTurretRight",
-		"AzmeriGolemVTurretProjectile",
-		"AzmeriGuardian4Slam",
-		"AzmeriGuardian4BeamGun",
-		"EmptyActionAzmeriGuardian4Gun",
-		"AzmeriGolemLeapSlam",
-		"AzmeriGuardian4LeapUp",
-		"EmptyActionAzmeriGolemMinionPhase",
-		"AzmeriGolemBossWhipLeft",
-		"AzmeriGolemBossWhipRight",
-		"EmptyActionAzmeriGolemWhip",
-		"AzmeriBossShockRifleSingle",
-		"AzmeriBossShockRifleMulti",
-		"AzmeriBossShockRifleRotating",
-		"AzmeriGolemRotateZap",
-	},
-	modList = {
-		mod("LinkEffectOnSelf", "INC", 50, 0, 0), -- AzmeriGolemLinkEffectOnSelf1 [link_buff_effect_on_self_+% = 50]
-	},
-}
-minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemHigh"] = {
-	name = "Perfect Half-remembered Goliath",
-	monsterTags = { "bludgeoning_weapon", "caster", "construct", "fast_movement", "golem", "is_unarmed", "large_height", "large_model", "lightning_affinity", "mud_blood", "not_dex", "physical_affinity", "stone_armour", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 3.75,
-	energyShield = 0.4,
-	armour = 2,
-	fireResist = 0,
-	coldResist = 52,
-	lightningResist = 52,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.995,
-	attackRange = 20,
-	accuracy = 1,
-	skillList = {
-		"EmptyActionAttackAzmeriGolemVSlam",
-		"GeometryAttackAzmeriGolemCircle",
-		"GeometryAttackAzmeriGolemRectangleLeft",
-		"GeometryAttackAzmeriGolemRectangleRight",
-		"GeometryTriggerSkillAzmeriGolemRectangleLeft",
-		"GeometryTriggerSkillAzmeriGolemRectangleRight",
-		"SpawnObjectAzmeriGolemVTurretLeft",
-		"SpawnObjectAzmeriGolemVTurretRight",
-		"AzmeriGolemVTurretProjectile",
-		"AzmeriGuardian4Slam",
-		"AzmeriGuardian4BeamGun",
-		"EmptyActionAzmeriGuardian4Gun",
-		"AzmeriGolemLeapSlam",
-		"AzmeriGuardian4LeapUp",
-		"EmptyActionAzmeriGolemMinionPhase",
-		"AzmeriGolemBossWhipLeft",
-		"AzmeriGolemBossWhipRight",
-		"EmptyActionAzmeriGolemWhip",
-		"AzmeriBossShockRifleSingle",
-		"AzmeriBossShockRifleMulti",
-		"AzmeriBossShockRifleRotating",
-		"AzmeriGolemRotateZap",
-	},
-	modList = {
-		mod("LinkEffectOnSelf", "INC", 100, 0, 0), -- AzmeriGolemLinkEffectOnSelf2 [link_buff_effect_on_self_+% = 100]
-	},
-}
--- Conjuror of Rot
-minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockLow"] = {
-	name = "Imperfect Conjuror of Rot",
-	monsterTags = { "caster", "human", "humanoid", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.04,
-	energyShield = 0.16,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 40,
-	damage = 2.04,
-	damageSpread = 0,
-	attackTime = 1.5,
-	attackRange = 60,
-	accuracy = 1,
-	skillList = {
-		"SSMFaridunWarlockBloodLocust",
-		"SOFaridunWarlockPustule",
-		"GSFaridunWarlockPustuleExplosion",
-		"GTFaridunWarlockPustules",
-		"MPSFaridunWarlockBloodSpray",
-	},
-	modList = {
-		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
-		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
-	},
-}
-minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockMid_"] = {
-	name = "Conjuror of Rot",
-	monsterTags = { "caster", "human", "humanoid", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.04,
-	energyShield = 0.16,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 40,
-	damage = 2.04,
-	damageSpread = 0,
-	attackTime = 1.5,
-	attackRange = 60,
-	accuracy = 1,
-	skillList = {
-		"SSMFaridunWarlockBloodLocust",
-		"SOFaridunWarlockPustule",
-		"GSFaridunWarlockPustuleExplosion",
-		"GTFaridunWarlockPustules",
-		"CGEFaridunWarlockSwarmGround",
-		"MPSFaridunWarlockBloodSpray",
-	},
-	modList = {
-		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
-		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
-	},
-}
-minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockHigh"] = {
-	name = "Perfect Conjuror of Rot",
-	monsterTags = { "caster", "human", "humanoid", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.04,
-	energyShield = 0.16,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 40,
-	damage = 2.04,
-	damageSpread = 0,
-	attackTime = 1.5,
-	attackRange = 60,
-	accuracy = 1,
-	skillList = {
-		"SSMFaridunWarlockBloodLocust",
-		"SOFaridunWarlockPustule",
-		"GSFaridunWarlockPustuleExplosion",
-		"GTFaridunWarlockPustules",
-		"CGEFaridunWarlockSwarmGround",
-		"MPSFaridunWarlockBloodSpray",
-		"FaridunCasterUndeadDamageOverTimeAura",
-	},
-	modList = {
-		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
-		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
-	},
-}
+    -- Affliction Corpses
+    -- Frozen Cannibal
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeLow"] = {
+		name = "Imperfect Frozen Cannibal",
+		monsterTags = { "caster", "fast_movement", "human", "humanoid", "not_int", "not_str", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2,
+		evasion = 0.25,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.25,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 12,
+		accuracy = 1,
+		weaponType1 = "One Handed Mace",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriHailrakeGlacialCascade",
+			"AzmeriHailrakeArcticArmour",
+			"AzmeriHailrakeGlacialHammer",
+			"GSAzmeriHailrakeIceNova",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeMid"] = {
+		name = "Frozen Cannibal",
+		monsterTags = { "caster", "fast_movement", "human", "humanoid", "not_int", "not_str", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2,
+		evasion = 0.25,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.25,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 12,
+		accuracy = 1,
+		weaponType1 = "One Handed Mace",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriHailrakeGlacialCascade",
+			"AzmeriHailrakeArcticArmour",
+			"AzmeriHailrakeGlacialHammer",
+			"GSAzmeriHailrakeIceNova",
+			"IceCrashAzmeriHailrake",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeHigh"] = {
+		name = "Perfect Frozen Cannibal",
+		monsterTags = { "caster", "fast_movement", "human", "humanoid", "not_int", "not_str", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2,
+		evasion = 0.25,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.25,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 12,
+		accuracy = 1,
+		weaponType1 = "One Handed Mace",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriHailrakeGlacialCascade",
+			"AzmeriHailrakeArcticArmour",
+			"AzmeriHailrakeGlacialHammer",
+			"GSAzmeriHailrakeIceNova",
+			"IceCrashAzmeriHailrake",
+			"AzmeriHailrakeColdResistAura",
+		},
+		modList = {
+		},
+	}
+    -- Fiery Cannibal
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryLow"] = {
+		name = "Imperfect Fiery Cannibal",
+		monsterTags = { "caster", "fast_movement", "human", "humanoid", "not_dex", "not_str", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2,
+		energyShield = 0.1,
+		fireResist = 75,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.25,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 13,
+		accuracy = 1,
+		weaponType1 = "Staff",
+		skillList = {
+			"MeleeAtAnimationSpeedFire",
+			"FemaleCannibalBossFireStorm",
+			"FemaleCannibalBossFlameDash",
+			"AzmeriFirefuryCremation",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryMid"] = {
+		name = "Fiery Cannibal",
+		monsterTags = { "caster", "fast_movement", "human", "humanoid", "not_dex", "not_str", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2,
+		energyShield = 0.1,
+		fireResist = 75,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.25,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 13,
+		accuracy = 1,
+		weaponType1 = "Staff",
+		skillList = {
+			"MeleeAtAnimationSpeedFire",
+			"AzmeriFireFuryMoltenStrike",
+			"FemaleCannibalBossFireStorm",
+			"FemaleCannibalBossFlameDash",
+			"AzmeriFirefuryCremation",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryHigh_"] = {
+		name = "Perfect Fiery Cannibal",
+		monsterTags = { "caster", "fast_movement", "human", "humanoid", "not_dex", "not_str", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2,
+		energyShield = 0.1,
+		fireResist = 75,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.25,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 13,
+		accuracy = 1,
+		weaponType1 = "Staff",
+		skillList = {
+			"MeleeAtAnimationSpeedFire",
+			"AzmeriFireFuryMoltenStrike",
+			"FemaleCannibalBossFireStorm",
+			"FemaleCannibalBossFlameDash",
+			"AzmeriFirefuryCremation",
+			"AzmeriFirefuryFireResistAura",
+		},
+		modList = {
+		},
+	}
+    -- Hydra
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraLow"] = {
+		name = "Imperfect Hydra",
+		monsterTags = { "beast", "cold_affinity", "eldritch", "fast_movement", "flesh_armour", "has_bow", "human", "humanoid", "large_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 0.86,
+		armour = 0.3,
+		evasion = 0.8,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 4.5,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 80,
+		accuracy = 1.2,
+		weaponType1 = "Bow",
+		skillList = {
+			"AzmeriHydraDoomArrow",
+			"AzmeriHydraBarrage",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraMid"] = {
+		name = "Hydra",
+		monsterTags = { "beast", "cold_affinity", "eldritch", "fast_movement", "flesh_armour", "has_bow", "human", "humanoid", "large_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 0.86,
+		armour = 0.3,
+		evasion = 0.8,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 4.5,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 80,
+		accuracy = 1.2,
+		weaponType1 = "Bow",
+		skillList = {
+			"AzmeriHydraDoomArrow",
+			"AzmeriHydraBarrage",
+			"AzmeriHydraForkArrow",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraHigh_"] = {
+		name = "Perfect Hydra",
+		monsterTags = { "beast", "cold_affinity", "eldritch", "fast_movement", "flesh_armour", "has_bow", "human", "humanoid", "large_height", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 0.86,
+		armour = 0.3,
+		evasion = 0.8,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 4.5,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 80,
+		accuracy = 1.2,
+		weaponType1 = "Bow",
+		skillList = {
+			"AzmeriHydraDoomArrow",
+			"AzmeriHydraBarrage",
+			"AzmeriHydraForkArrow",
+			"AzmeriHydraHatred",
+		},
+		modList = {
+		},
+	}
+    -- Dark Marionette
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinLow"] = {
+		name = "Imperfect Dark Marionette",
+		monsterTags = { "construct", "humanoid", "medium_movement", "not_dex", "not_int", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.88,
+		armour = 0.5,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.25,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 8,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+		},
+		modList = {
+			-- AzmeriMannequinReviveAfterTime [revive_spectre_if_killed_by_enemies_ms = 4000]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinMid"] = {
+		name = "Dark Marionette",
+		monsterTags = { "construct", "humanoid", "medium_movement", "not_dex", "not_int", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.88,
+		armour = 0.5,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.25,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 8,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"DarkMarionetteExplode",
+		},
+		modList = {
+			-- AzmeriMannequinReviveAfterTime [revive_spectre_if_killed_by_enemies_ms = 4000]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinHigh_"] = {
+		name = "Perfect Dark Marionette",
+		monsterTags = { "construct", "humanoid", "medium_movement", "not_dex", "not_int", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.88,
+		armour = 0.5,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.25,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 8,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"DarkMarionetteExplodePerfect",
+		},
+		modList = {
+			-- AzmeriMannequinReviveAfterTime [revive_spectre_if_killed_by_enemies_ms = 4000]
+		},
+	}
+    -- Hulking Miscreation
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusLow"] = {
+		name = "Imperfect Hulking Miscreation",
+		monsterTags = { "animal_claw_weapon", "construct", "is_unarmed", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "very_fast_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.75,
+		lifeScaling = "AltLife2",
+		armour = 1,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.785,
+		attackRange = 21,
+		accuracy = 1,
+		skillList = {
+			"AzmeriArgusMeleeAtAnimationSpeed",
+			"GAAzmeriRobotArgusSlam",
+			"EGAzmeriRobotArgusActivationWave",
+			"SSMAzmeriRobotArgusItsRainingMannequins",
+		},
+		modList = {
+			mod("Damage", "INC", 5, 1, 0, { div = 450, stat = "Armour", type = "PerStat" }), -- AzmeriRobotArgusAttackDamagePerArmour1 [attack_damage_+%_per_450_physical_damage_reduction_rating = 5]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusMid"] = {
+		name = "Hulking Miscreation",
+		monsterTags = { "animal_claw_weapon", "construct", "is_unarmed", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "very_fast_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.75,
+		lifeScaling = "AltLife2",
+		armour = 1,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.785,
+		attackRange = 21,
+		accuracy = 1,
+		skillList = {
+			"AzmeriArgusMeleeAtAnimationSpeed",
+			"GAAzmeriRobotArgusSlam",
+			"EGAzmeriRobotArgusOverchargeBuff",
+			"EGAzmeriRobotArgusActivationWave",
+			"SSMAzmeriRobotArgusItsRainingMannequins",
+		},
+		modList = {
+			mod("Damage", "INC", 5, 1, 0, { div = 450, stat = "Armour", type = "PerStat" }), -- AzmeriRobotArgusAttackDamagePerArmour1 [attack_damage_+%_per_450_physical_damage_reduction_rating = 5]
+			mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscalable = true }, { type = "MonsterTag", monsterTag = "Construct" })}),
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscalable = true }, { type = "MonsterTag", monsterTag = "Construct" })}),
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusHigh__"] = {
+		name = "Perfect Hulking Miscreation",
+		monsterTags = { "animal_claw_weapon", "construct", "is_unarmed", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "very_fast_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.75,
+		lifeScaling = "AltLife2",
+		armour = 1,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.785,
+		attackRange = 21,
+		accuracy = 1,
+		skillList = {
+			"AzmeriArgusMeleeAtAnimationSpeed",
+			"GAAzmeriRobotArgusSlam",
+			"EGAzmeriRobotArgusOverchargeBuff",
+			"EGAzmeriRobotArgusActivationWave",
+			"SSMAzmeriRobotArgusItsRainingMannequins",
+			"ABTTAzmeriRobotArgusPhysAsExtraLightning",
+		},
+		modList = {
+			mod("Damage", "INC", 8, 1, 0, { div = 450, stat = "Armour", type = "PerStat" }), -- AzmeriRobotArgusAttackDamagePerArmour2 [attack_damage_+%_per_450_physical_damage_reduction_rating = 8]
+			mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscalable = true }, { type = "MonsterTag", monsterTag = "Construct" })}),
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscalable = true }, { type = "MonsterTag", monsterTag = "Construct" })}),
+		},
+	}
+    -- Spirit of Fortune
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuLow"] = {
+		name = "Imperfect Spirit of Fortune",
+		monsterTags = { "caster", "construct", "immobile", "is_unarmed", "large_model", "lightning_affinity", "medium_height", "mud_blood", "not_dex", "not_int", "ranged", "stone_armour", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.75,
+		armour = 2,
+		fireResist = 0,
+		coldResist = 52,
+		lightningResist = 52,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.4,
+		attackTime = 1.5,
+		attackRange = 6,
+		accuracy = 1,
+		skillList = {
+			"AzmeriKudukuShockNova",
+			"AzmeriKudukuSparkExtraProj",
+			"AzmeriKudukuWarp",
+		},
+		modList = {
+			mod("CurseImmune", "FLAG", 0, 0, 0), -- set_immune_to_curses [set_immune_to_curses = 0]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuMid"] = {
+		name = "Spirit of Fortune",
+		monsterTags = { "caster", "construct", "immobile", "is_unarmed", "large_model", "lightning_affinity", "medium_height", "mud_blood", "not_dex", "not_int", "ranged", "stone_armour", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.75,
+		armour = 2,
+		fireResist = 0,
+		coldResist = 52,
+		lightningResist = 52,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.4,
+		attackTime = 1.5,
+		attackRange = 6,
+		accuracy = 1,
+		skillList = {
+			"AzmeriKudukuShockNova",
+			"AzmeriKudukuSparkExtraProj",
+			"AzmeriKudukuWarp",
+			"AzmeriKudukuWrath",
+		},
+		modList = {
+			mod("CurseImmune", "FLAG", 0, 0, 0), -- set_immune_to_curses [set_immune_to_curses = 0]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuHigh"] = {
+		name = "Perfect Spirit of Fortune",
+		monsterTags = { "caster", "construct", "immobile", "is_unarmed", "large_model", "lightning_affinity", "medium_height", "mud_blood", "not_dex", "not_int", "ranged", "stone_armour", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.75,
+		armour = 2,
+		fireResist = 0,
+		coldResist = 52,
+		lightningResist = 52,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.4,
+		attackTime = 1.5,
+		attackRange = 6,
+		accuracy = 1,
+		skillList = {
+			"AzmeriKudukuShockNova",
+			"AzmeriKudukuSparkExtraProj",
+			"AzmeriKudukuWarp",
+			"AzmeriKudukuWrath",
+		},
+		modList = {
+			mod("CurseImmune", "FLAG", 0, 0, 0), -- set_immune_to_curses [set_immune_to_curses = 0]
+			mod("AllyModifier", "LIST", { mod = flag("LightningLuckHits") }),
+		},
+	}
+    -- Naval Officer
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralLow"] = {
+		name = "Imperfect Naval Officer",
+		monsterTags = { "caster", "cold_affinity", "fast_movement", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "light_armour", "melee", "not_int", "puncturing_weapon", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.69,
+		armour = 0.5,
+		evasion = 0.5,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 2.03,
+		damageSpread = 0.2,
+		attackTime = 1.56,
+		attackRange = 14,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		skillList = {
+			"MeleeAtAnimationSpeedCold",
+			"AzmeriAdmiralDoubleStrike",
+			"AzmeriAdmiralDoubleStrikeTriggered",
+			"AzmeriAdmiralDashThrust",
+			"AzmeriAdmiralDashThrustTriggered",
+			"AzmeriAdmiralDodgeBack",
+			"AzmeriAdmiralDodgeLeft",
+			"AzmeriAdmiralDodgeRight",
+			"AzmeriAdmiralSummonGeysers",
+			"AzmeriAdmiralTidalWave",
+			"AzmeriAdmiralDashMortars",
+			"AzmeriAdmiralGeyserDamage",
+			"AzmeriAdmiralSpawnGeyser",
+			"GTAzmeriAdmiralCannonFire",
+			"GSAzmeriAdmiralCannonball",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralMid__"] = {
+		name = "Naval Officer",
+		monsterTags = { "caster", "cold_affinity", "fast_movement", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "light_armour", "melee", "not_int", "puncturing_weapon", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.69,
+		armour = 0.5,
+		evasion = 0.5,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 2.03,
+		damageSpread = 0.2,
+		attackTime = 1.56,
+		attackRange = 14,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		skillList = {
+			"MeleeAtAnimationSpeedCold",
+			"AzmeriAdmiralDoubleStrike",
+			"AzmeriAdmiralDoubleStrikeTriggered",
+			"AzmeriAdmiralDashThrust",
+			"AzmeriAdmiralDashThrustTriggered",
+			"AzmeriAdmiralDodgeBack",
+			"AzmeriAdmiralDodgeLeft",
+			"AzmeriAdmiralDodgeRight",
+			"AzmeriAdmiralSummonGeysers",
+			"AzmeriAdmiralTidalWave",
+			"AzmeriAdmiralDashMortars",
+			"AzmeriAdmiralGeyserDamage",
+			"AzmeriAdmiralSpawnGeyser",
+			"GTAzmeriAdmiralCannonFire",
+			"AzmeriAdmiralPrecision",
+			"GSAzmeriAdmiralCannonball",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralHigh_"] = {
+		name = "Perfect Naval Officer",
+		monsterTags = { "caster", "cold_affinity", "fast_movement", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "light_armour", "melee", "not_int", "puncturing_weapon", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.69,
+		armour = 0.5,
+		evasion = 0.5,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 2.03,
+		damageSpread = 0.2,
+		attackTime = 1.56,
+		attackRange = 14,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		skillList = {
+			"MeleeAtAnimationSpeedCold",
+			"AzmeriAdmiralDoubleStrike",
+			"AzmeriAdmiralDoubleStrikeTriggered",
+			"AzmeriAdmiralDashThrust",
+			"AzmeriAdmiralDashThrustTriggered",
+			"AzmeriAdmiralDodgeBack",
+			"AzmeriAdmiralDodgeLeft",
+			"AzmeriAdmiralDodgeRight",
+			"AzmeriAdmiralSummonGeysers",
+			"AzmeriAdmiralTidalWave",
+			"AzmeriAdmiralDashMortars",
+			"AzmeriAdmiralGeyserDamage",
+			"AzmeriAdmiralSpawnGeyser",
+			"GTAzmeriAdmiralCannonFire",
+			"AzmeriAdmiralPrecision",
+			"GSAzmeriAdmiralCannonball",
+		},
+		modList = {
+			mod("AllyModifier", "LIST", { mod = mod("ColdDamageTaken", "INC", -5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PerfectNavalOfficer", unscalable = true })}),
+		},
+	}
+    -- Dancing Sword
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordLow"] = {
+		name = "Imperfect Dancing Sword",
+		monsterTags = { "construct", "medium_movement", "not_int", "not_str", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.5,
+		evasion = 0.8,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 2.25,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 6,
+		accuracy = 1,
+		skillList = {
+			"AzmeriSawbladeAnimatedWeaponCyclone",
+			"MeleeAtAnimationSpeed",
+			"AzmeriDoubleSlashAnimatedWeapon",
+			"AzmeriSwordStormCascade",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordMid"] = {
+		name = "Dancing Sword",
+		monsterTags = { "construct", "medium_movement", "not_int", "not_str", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.5,
+		evasion = 0.8,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 2.25,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 6,
+		accuracy = 1,
+		skillList = {
+			"AzmeriSawbladeAnimatedWeaponCyclone",
+			"MeleeAtAnimationSpeed",
+			"AzmeriDoubleSlashAnimatedWeapon",
+			"AzmeriSwordStormCascade",
+		},
+		modList = {
+			mod("AllyModifier", "LIST", { mod = mod("ImpaleChance", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscalable = true })}),
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordHigh_"] = {
+		name = "Perfect Dancing Sword",
+		monsterTags = { "construct", "medium_movement", "not_int", "not_str", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.5,
+		evasion = 0.8,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 2.25,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 6,
+		accuracy = 1,
+		skillList = {
+			"AzmeriSawbladeAnimatedWeaponCyclone",
+			"MeleeAtAnimationSpeed",
+			"AzmeriDoubleSlashAnimatedWeapon",
+			"AzmeriSwordStormCascade",
+		},
+		modList = {
+			mod("AllyModifier", "LIST", { mod = mod("ImpaleChance", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscalable = true })}),
+			mod("AllyModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscalable = true })}),
+		},
+	}
+    -- Needle Horror
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonLow"] = {
+		name = "Imperfect Needle Horror",
+		monsterTags = { "caster", "demon", "flesh_armour", "has_bow", "medium_height", "medium_movement", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "unique_map_boss", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3,
+		armour = 0.4,
+		evasion = 0.6,
+		fireResist = 0,
+		coldResist = 52,
+		lightningResist = 52,
+		chaosResist = 0,
+		damage = 1.8,
+		damageSpread = 0.2,
+		attackTime = 1.65,
+		attackRange = 50,
+		accuracy = 1,
+		weaponType1 = "Bow",
+		skillList = {
+			"AzmeriBarrageDemonSpineProjectile",
+			"AzmeriBarrageDemonRainOfSpines",
+			"AzmeriBarrageDemonSpinestorm",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonMid"] = {
+		name = "Needle Horror",
+		monsterTags = { "caster", "demon", "flesh_armour", "has_bow", "medium_height", "medium_movement", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "unique_map_boss", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3,
+		armour = 0.4,
+		evasion = 0.6,
+		fireResist = 0,
+		coldResist = 52,
+		lightningResist = 52,
+		chaosResist = 0,
+		damage = 1.8,
+		damageSpread = 0.2,
+		attackTime = 1.65,
+		attackRange = 50,
+		accuracy = 1,
+		weaponType1 = "Bow",
+		skillList = {
+			"AzmeriBarrageDemonSpineProjectile",
+			"AzmeriBarrageDemonRainOfSpines",
+			"AzmeriBarrageDemonSpinestorm",
+		},
+		modList = {
+			mod("ImpaleEffect", "INC", 100, 0, 0), -- AzmeriBarrageDemonImpaleEffect [impale_debuff_effect_+% = 100]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonHigh_"] = {
+		name = "Perfect Needle Horror",
+		monsterTags = { "caster", "demon", "flesh_armour", "has_bow", "medium_height", "medium_movement", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "unique_map_boss", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3,
+		armour = 0.4,
+		evasion = 0.6,
+		fireResist = 0,
+		coldResist = 52,
+		lightningResist = 52,
+		chaosResist = 0,
+		damage = 1.8,
+		damageSpread = 0.2,
+		attackTime = 1.65,
+		attackRange = 50,
+		accuracy = 1,
+		weaponType1 = "Bow",
+		skillList = {
+			"AzmeriBarrageDemonSpineProjectile",
+			"AzmeriBarrageDemonRainOfSpines",
+			"AzmeriBarrageDemonSpinestorm",
+		},
+		modList = {
+			mod("ImpaleEffect", "INC", 100, 0, 0), -- AzmeriBarrageDemonImpaleEffect [impale_debuff_effect_+% = 100]
+			mod("PlayerModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "NeedleHorror", unscalable = true })}),
+		},
+	}
+    -- Serpent Warrior
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskLow"] = {
+		name = "Imperfect Serpent Warrior",
+		monsterTags = { "caster", "chaos_affinity", "eldritch", "energy_armour", "exile", "fast_movement", "human", "humanoid", "is_unarmed", "large_model", "melee", "not_dex", "ranged", "red_blood", "slashing_weapon", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.5,
+		energyShield = 0.4,
+		armour = 1,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 75,
+		damage = 1.35,
+		damageSpread = 0.2,
+		attackTime = 1.995,
+		attackRange = 20,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		weaponType2 = "Dagger",
+		skillList = {
+			"MeleeAtAnimationSpeedChaos",
+			"AzmeriBasiliskShoulderMortar",
+			"AzmeriBasiliskComboThrust",
+			"AzmeriBasiliskComboSlam",
+			"AzmeriBasiliskDecapitateRightToLeft",
+			"AzmeriBasiliskDecapitateLeftToRight",
+			"AzmeriBasiliskDecapThrust",
+			"AzmeriBasiliskWyvernFlight",
+			"AzmeriBasiliskDualProjectile",
+			"AzmeriBasiliskDualProjectileImpact",
+			"AzmeriBasiliskDualProjectile2",
+			"AzmeriBasiliskWyvernGroundCollide",
+			"AzmeriBasiliskShoulderMortar2",
+			"EmptyActionAttackBasiliskProjectileBarrageAzmeri",
+			"EmptyActionAttackBasiliskProjectileBarrageLargeAzmeri",
+			"EmptyActionAttackBasiliskProjectileLargeAzmeri",
+			"EmptyActionAttackBasiliskWyvernAzmeri",
+			"EmptyActionAttackBasiliskDecapitateAzmeri",
+			"EmptyActionAttackBasiliskSpinAttackAzmeri",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskMid"] = {
+		name = "Serpent Warrior",
+		monsterTags = { "caster", "chaos_affinity", "eldritch", "energy_armour", "exile", "fast_movement", "human", "humanoid", "is_unarmed", "large_model", "melee", "not_dex", "ranged", "red_blood", "slashing_weapon", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.5,
+		energyShield = 0.4,
+		armour = 1,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 75,
+		damage = 1.35,
+		damageSpread = 0.2,
+		attackTime = 1.995,
+		attackRange = 20,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		weaponType2 = "Dagger",
+		skillList = {
+			"MeleeAtAnimationSpeedChaos",
+			"AzmeriBasiliskShoulderMortar",
+			"AzmeriBasiliskComboThrust",
+			"AzmeriBasiliskComboSlam",
+			"AzmeriBasiliskDecapitateRightToLeft",
+			"AzmeriBasiliskDecapitateLeftToRight",
+			"AzmeriBasiliskDecapThrust",
+			"AzmeriBasiliskWyvernFlight",
+			"AzmeriBasiliskDualProjectile",
+			"AzmeriBasiliskDualProjectileImpact",
+			"AzmeriBasiliskDualProjectile2",
+			"AzmeriBasiliskWyvernGroundCollide",
+			"AzmeriBasiliskShoulderMortar2",
+			"EmptyActionAttackBasiliskProjectileBarrageAzmeri",
+			"EmptyActionAttackBasiliskProjectileBarrageLargeAzmeri",
+			"EmptyActionAttackBasiliskProjectileLargeAzmeri",
+			"EmptyActionAttackBasiliskWyvernAzmeri",
+			"EmptyActionAttackBasiliskDecapitateAzmeri",
+			"EmptyActionAttackBasiliskSpinAttackAzmeri",
+		},
+		modList = {
+			mod("Condition:CanWither", "FLAG", 100, 0, 0), -- MonsterWitherOnHit [withered_on_hit_for_2_seconds_%_chance = 100]
+			mod("AllyModifier", "LIST", { mod = flag("Condition:CanWither") }),
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskHigh"] = {
+		name = "Perfect Serpent Warrior",
+		monsterTags = { "caster", "chaos_affinity", "eldritch", "energy_armour", "exile", "fast_movement", "human", "humanoid", "is_unarmed", "large_model", "melee", "not_dex", "ranged", "red_blood", "slashing_weapon", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.5,
+		energyShield = 0.4,
+		armour = 1,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 75,
+		damage = 1.35,
+		damageSpread = 0.2,
+		attackTime = 1.995,
+		attackRange = 20,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		weaponType2 = "Dagger",
+		skillList = {
+			"MeleeAtAnimationSpeedChaos",
+			"AzmeriBasiliskShoulderMortar",
+			"AzmeriBasiliskComboThrust",
+			"AzmeriBasiliskComboSlam",
+			"AzmeriBasiliskDecapitateRightToLeft",
+			"AzmeriBasiliskDecapitateLeftToRight",
+			"AzmeriBasiliskDecapThrust",
+			"AzmeriBasiliskWyvernFlight",
+			"AzmeriBasiliskDualProjectile",
+			"AzmeriBasiliskDualProjectileImpact",
+			"AzmeriBasiliskDualProjectile2",
+			"AzmeriBasiliskWyvernGroundCollide",
+			"AzmeriBasiliskShoulderMortar2",
+			"EmptyActionAttackBasiliskProjectileBarrageAzmeri",
+			"EmptyActionAttackBasiliskProjectileBarrageLargeAzmeri",
+			"EmptyActionAttackBasiliskProjectileLargeAzmeri",
+			"EmptyActionAttackBasiliskWyvernAzmeri",
+			"EmptyActionAttackBasiliskDecapitateAzmeri",
+			"EmptyActionAttackBasiliskSpinAttackAzmeri",
+			"ABTTAzmeriBasaliskShroud",
+		},
+		modList = {
+			mod("Condition:CanWither", "FLAG", 100, 0, 0), -- MonsterWitherOnHit [withered_on_hit_for_2_seconds_%_chance = 100]
+			mod("AllyModifier", "LIST", { mod = flag("Condition:CanWither") }),
+		},
+	}
+    -- Pain Artist
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonLow"] = {
+		name = "Imperfect Pain Artist",
+		monsterTags = { "animal_claw_weapon", "caster", "demon", "flesh_armour", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.44,
+		energyShield = 0.2,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.25,
+		damageSpread = 0.2,
+		attackTime = 1.32,
+		attackRange = 12,
+		accuracy = 1,
+		skillList = {
+			"AzmeriCasterDemonProjectile",
+			"DeceleratingProjectileAzmeriCasterDemon",
+			"DeceleratingProjectileAzmeriCasterDemonExplode",
+		},
+		modList = {
+			mod("CritMultiplier", "BASE", 250, 0, 0), -- AzmeriCasterDemonCriticalStrikeMultiplier [base_critical_strike_multiplier_+ = 250]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonMid"] = {
+		name = "Pain Artist",
+		monsterTags = { "animal_claw_weapon", "caster", "demon", "flesh_armour", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.44,
+		energyShield = 0.2,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.25,
+		damageSpread = 0.2,
+		attackTime = 1.32,
+		attackRange = 12,
+		accuracy = 1,
+		skillList = {
+			"AzmeriCasterDemonProjectile",
+			"DeceleratingProjectileAzmeriCasterDemon",
+			"DeceleratingProjectileAzmeriCasterDemonExplode",
+			"ABTTAzmeriCasterDemonCritMultiAura",
+		},
+		modList = {
+			mod("CritMultiplier", "BASE", 250, 0, 0), -- AzmeriCasterDemonCriticalStrikeMultiplier [base_critical_strike_multiplier_+ = 250]
+			mod("AllyModifier", "LIST", { mod = mod("CritMultiplier", "BASE", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PainArtist", unscalable = true })}),
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonHigh"] = {
+		name = "Perfect Pain Artist",
+		monsterTags = { "animal_claw_weapon", "caster", "demon", "flesh_armour", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.44,
+		energyShield = 0.2,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.25,
+		damageSpread = 0.2,
+		attackTime = 1.32,
+		attackRange = 12,
+		accuracy = 1,
+		skillList = {
+			"AzmeriCasterDemonProjectile",
+			"DeceleratingProjectileAzmeriCasterDemon",
+			"DeceleratingProjectileAzmeriCasterDemonExplode",
+			"ABTTAzmeriCasterDemonCritMultiAura",
+			"AzmeriCasterDemonSpellDamageAura",
+		},
+		modList = {
+			mod("CritMultiplier", "BASE", 250, 0, 0), -- AzmeriCasterDemonCriticalStrikeMultiplier [base_critical_strike_multiplier_+ = 250]
+			mod("AllyModifier", "LIST", { mod = mod("CritMultiplier", "BASE", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PainArtist", unscalable = true })}),
+		},
+	}
+    -- Sawblade Horror
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonLow"] = {
+		name = "Imperfect Sawblade Horror",
+		monsterTags = { "cleaving_weapon", "demon", "flesh_armour", "has_two_hand_axe", "has_two_handed_melee", "medium_height", "melee", "not_int", "physical_affinity", "red_blood", "slow_movement", "unique_map_boss", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.3,
+		armour = 0.4,
+		evasion = 0.6,
+		fireResist = 0,
+		coldResist = 52,
+		lightningResist = 52,
+		chaosResist = 0,
+		damage = 1.73,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 13,
+		accuracy = 1,
+		weaponType1 = "Two Handed Axe",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriCycloneDemonCleave",
+			"AzmeriCycloneDemonDesecratedGroundCyclone",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonMid"] = {
+		name = "Sawblade Horror",
+		monsterTags = { "cleaving_weapon", "demon", "flesh_armour", "has_two_hand_axe", "has_two_handed_melee", "medium_height", "melee", "not_int", "physical_affinity", "red_blood", "slow_movement", "unique_map_boss", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.3,
+		armour = 0.4,
+		evasion = 0.6,
+		fireResist = 0,
+		coldResist = 52,
+		lightningResist = 52,
+		chaosResist = 0,
+		damage = 1.73,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 13,
+		accuracy = 1,
+		weaponType1 = "Two Handed Axe",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriCycloneDemonCleave",
+			"AzmeriCycloneDemonDesecratedGroundCyclone",
+		},
+		modList = {
+			-- MonsterMaimOnHit [global_maim_on_hit = 1]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonHigh"] = {
+		name = "Perfect Sawblade Horror",
+		monsterTags = { "cleaving_weapon", "demon", "flesh_armour", "has_two_hand_axe", "has_two_handed_melee", "medium_height", "melee", "not_int", "physical_affinity", "red_blood", "slow_movement", "unique_map_boss", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.3,
+		armour = 0.4,
+		evasion = 0.6,
+		fireResist = 0,
+		coldResist = 52,
+		lightningResist = 52,
+		chaosResist = 0,
+		damage = 1.73,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 13,
+		accuracy = 1,
+		weaponType1 = "Two Handed Axe",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriCycloneDemonCleave",
+			"AzmeriCycloneDemonDesecratedGroundCyclone",
+		},
+		modList = {
+			-- MonsterMaimOnHit [global_maim_on_hit = 1]
+		},
+	}
+    -- Restless Knight
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightLow"] = {
+		name = "Imperfect Restless Knight",
+		monsterTags = { "bludgeoning_weapon", "caster", "cold_affinity", "has_two_hand_mace", "has_two_handed_melee", "humanoid", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "undead", "very_slow_movement", "ward_armour", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.43,
+		armour = 0.5,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 2.17,
+		damageSpread = 0.2,
+		attackTime = 2.25,
+		attackRange = 22,
+		accuracy = 1,
+		weaponType1 = "Two Handed Mace",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"GAExpeditionDeathKnightSlam",
+			"GSExpeditionDeathKnightNova",
+			"WalkEmergeExpeditionDeathKnight",
+		},
+		modList = {
+			-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightMid"] = {
+		name = "Restless Knight",
+		monsterTags = { "bludgeoning_weapon", "caster", "cold_affinity", "has_two_hand_mace", "has_two_handed_melee", "humanoid", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "undead", "very_slow_movement", "ward_armour", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.43,
+		armour = 0.5,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 2.17,
+		damageSpread = 0.2,
+		attackTime = 2.25,
+		attackRange = 22,
+		accuracy = 1,
+		weaponType1 = "Two Handed Mace",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"GAExpeditionDeathKnightSlam",
+			"GSExpeditionDeathKnightNova",
+			"WalkEmergeExpeditionDeathKnight",
+		},
+		modList = {
+			-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightHigh"] = {
+		name = "Perfect Restless Knight",
+		monsterTags = { "bludgeoning_weapon", "caster", "cold_affinity", "has_two_hand_mace", "has_two_handed_melee", "humanoid", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "undead", "very_slow_movement", "ward_armour", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.43,
+		armour = 0.5,
+		fireResist = 0,
+		coldResist = 75,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 2.17,
+		damageSpread = 0.2,
+		attackTime = 2.25,
+		attackRange = 22,
+		accuracy = 1,
+		weaponType1 = "Two Handed Mace",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"GAExpeditionDeathKnightSlam",
+			"GSExpeditionDeathKnightNova",
+			"WalkEmergeExpeditionDeathKnight",
+		},
+		modList = {
+			-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+		},
+	}
+    -- Slashing Horror
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonLow"] = {
+		name = "Imperfect Slashing Horror",
+		monsterTags = { "demon", "fire_affinity", "flesh_armour", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "large_height", "medium_movement", "melee", "not_int", "physical_affinity", "red_blood", "slashing_weapon", "unique_map_boss", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.3,
+		armour = 0.4,
+		evasion = 0.6,
+		fireResist = 0,
+		coldResist = 52,
+		lightningResist = 52,
+		chaosResist = 0,
+		damage = 1.88,
+		damageSpread = 0.2,
+		attackTime = 1.35,
+		attackRange = 11,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		weaponType2 = "One Handed Sword",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriDualStrikeDemonFireEnrage",
+			"AzmeriDualStrikeDemonDualStrike",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonMid"] = {
+		name = "Slashing Horror",
+		monsterTags = { "demon", "fire_affinity", "flesh_armour", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "large_height", "medium_movement", "melee", "not_int", "physical_affinity", "red_blood", "slashing_weapon", "unique_map_boss", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.3,
+		armour = 0.4,
+		evasion = 0.6,
+		fireResist = 0,
+		coldResist = 52,
+		lightningResist = 52,
+		chaosResist = 0,
+		damage = 1.88,
+		damageSpread = 0.2,
+		attackTime = 1.35,
+		attackRange = 11,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		weaponType2 = "One Handed Sword",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriDualStrikeDemonFireEnrage",
+			"AzmeriDualStrikeDemonDualStrike",
+		},
+		modList = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "RageEffect" }) }),
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonHigh"] = {
+		name = "Perfect Slashing Horror",
+		monsterTags = { "demon", "fire_affinity", "flesh_armour", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "large_height", "medium_movement", "melee", "not_int", "physical_affinity", "red_blood", "slashing_weapon", "unique_map_boss", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.3,
+		armour = 0.4,
+		evasion = 0.6,
+		fireResist = 0,
+		coldResist = 52,
+		lightningResist = 52,
+		chaosResist = 0,
+		damage = 1.88,
+		damageSpread = 0.2,
+		attackTime = 1.35,
+		attackRange = 11,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		weaponType2 = "One Handed Sword",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriDualStrikeDemonFireEnrage",
+			"AzmeriDualStrikeDemonDualStrike",
+		},
+		modList = {
+			mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageGainAsFire", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SlashingHorror", unscalable = true })}),
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "RageEffect" }) }),
+		},
+	}
+    -- Druidic Alchemist
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverLow__"] = {
+		name = "Imperfect Druidic Alchemist",
+		monsterTags = { "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "karui", "light_armour", "medium_height", "medium_movement", "melee", "not_str", "physical_affinity", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.75,
+		energyShield = 0.8,
+		evasion = 0.25,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 75,
+		damage = 1.25,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 10,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MPSAncestralDruidFlask",
+			"GSAncestralDruidFlaskExplode",
+			"EASAncestralHealTotem",
+			"EASAncestralHealAlly",
+			"GSAncestralDruidTotemChannelHeal",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverMid"] = {
+		name = "Druidic Alchemist",
+		monsterTags = { "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "karui", "light_armour", "medium_height", "medium_movement", "melee", "not_str", "physical_affinity", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.75,
+		energyShield = 0.8,
+		evasion = 0.25,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 75,
+		damage = 1.25,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 10,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MPSAncestralDruidFlask",
+			"GSAncestralDruidFlaskExplode",
+			"EASAncestralHealTotem",
+			"EASAncestralHealAlly",
+			"GSAncestralDruidTotemChannelHeal",
+		},
+		modList = {
+			mod("FlaskEffect", "INC", 200, 0, 0), -- AzmeriDruidFlaskEffect [flask_effect_+% = 200]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverHigh"] = {
+		name = "Perfect Druidic Alchemist",
+		monsterTags = { "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "karui", "light_armour", "medium_height", "medium_movement", "melee", "not_str", "physical_affinity", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.75,
+		energyShield = 0.8,
+		evasion = 0.25,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 75,
+		damage = 1.25,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 10,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MPSAncestralDruidFlask",
+			"GSAncestralDruidFlaskExplode",
+			"EASAncestralHealTotem",
+			"EASAncestralHealAlly",
+			"GSAncestralDruidTotemChannelHeal",
+		},
+		modList = {
+			mod("FlaskEffect", "INC", 200, 0, 0), -- AzmeriDruidFlaskEffect [flask_effect_+% = 200]
+			mod("PlayerModifier", "LIST", { mod = mod("LifeFlaskChargesGenerated", "BASE", 1/3, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "RestlessKnight", unscalable = true })}),
+		},
+	}
+    -- Escaped Prototype
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundLow"] = {
+		name = "Imperfect Escaped Prototype",
+		monsterTags = { "animal_claw_weapon", "caster", "construct", "fire_affinity", "is_unarmed", "large_model", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", },
+		life = 16,
+		lifeScaling = "AltLife2",
+		armour = 1,
+		fireResist = 30,
+		coldResist = 30,
+		lightningResist = 30,
+		chaosResist = 20,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.56,
+		attackRange = 10,
+		accuracy = 1,
+		skillList = {
+			"Melee",
+			"DoLiterallyNothing",
+			"GAHeistRobotHoundStomp",
+			"MDHeistRobotHoundLaserTarget",
+			"GSRoboHoundBellyDamage",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundMid"] = {
+		name = "Escaped Prototype",
+		monsterTags = { "animal_claw_weapon", "caster", "construct", "fire_affinity", "is_unarmed", "large_model", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", },
+		life = 16,
+		lifeScaling = "AltLife2",
+		armour = 1,
+		fireResist = 30,
+		coldResist = 30,
+		lightningResist = 30,
+		chaosResist = 20,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.56,
+		attackRange = 10,
+		accuracy = 1,
+		skillList = {
+			"Melee",
+			"DoLiterallyNothing",
+			"GAHeistRobotHoundStomp",
+			"MDHeistRobotHoundLaserTarget",
+			"GSRoboHoundBellyDamage",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundHigh_"] = {
+		name = "Perfect Escaped Prototype",
+		monsterTags = { "animal_claw_weapon", "caster", "construct", "fire_affinity", "is_unarmed", "large_model", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", },
+		life = 16,
+		lifeScaling = "AltLife2",
+		armour = 1,
+		fireResist = 30,
+		coldResist = 30,
+		lightningResist = 30,
+		chaosResist = 20,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.56,
+		attackRange = 10,
+		accuracy = 1,
+		skillList = {
+			"Melee",
+			"DoLiterallyNothing",
+			"GAHeistRobotHoundStomp",
+			"MDHeistRobotHoundLaserTarget",
+			"GSRoboHoundBellyDamage",
+		},
+		modList = {
+		},
+	}
+    -- Blasphemer
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriLow"] = {
+		name = "Imperfect Blasphemer",
+		monsterTags = { "bones", "caster", "humanoid", "not_dex", "undead", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.25,
+		energyShield = 0.08,
+		armour = 0.8,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 75,
+		damage = 2.25,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 12,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriGeofriSlam",
+			"AzmeriWanderingEnfeebleGeofri",
+			"AzmeriWanderingVulnerabilityGeofri",
+			"AzmeriWanderingTemporalChainsGeofri",
+			"TalismanT1TemporalChains",
+			"TalismanT2EnfeebleAura",
+			"TalismanT1Vulnerability",
+		},
+		modList = {
+			mod("EnemyCurseLimit", "BASE", 3),
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriMid_"] = {
+		name = "Blasphemer",
+		monsterTags = { "bones", "caster", "humanoid", "not_dex", "undead", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.25,
+		energyShield = 0.08,
+		armour = 0.8,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 75,
+		damage = 2.25,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 12,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriGeofriSlam",
+			"AzmeriWanderingEnfeebleGeofri",
+			"AzmeriWanderingVulnerabilityGeofri",
+			"AzmeriWanderingTemporalChainsGeofri",
+			"AzmeriGeofriSmite",
+			"TalismanT1TemporalChains",
+			"TalismanT2EnfeebleAura",
+			"TalismanT1Vulnerability",
+		},
+		modList = {
+			mod("EnemyCurseLimit", "BASE", 3),
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriHigh"] = {
+		name = "Perfect Blasphemer",
+		monsterTags = { "bones", "caster", "humanoid", "not_dex", "undead", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.25,
+		energyShield = 0.08,
+		armour = 0.8,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 75,
+		damage = 2.25,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 12,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriGeofriSlam",
+			"AzmeriWanderingEnfeebleGeofriHexproof",
+			"AzmeriWanderingVulnerabilityGeofriHexproof",
+			"AzmeriWanderingTemporalChainsGeofriHexproof",
+			"AzmeriGeofriSmite",
+			"TalismanT1TemporalChains",
+			"TalismanT2EnfeebleAura",
+			"TalismanT1Vulnerability",
+		},
+		modList = {
+			mod("EnemyCurseLimit", "BASE", 3),
+		},
+	}
+    -- Judgemental Spirit
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessLow"] = {
+		name = "Imperfect Judgemental Spirit",
+		monsterTags = { "caster", "fire_affinity", "ghost", "ghost_armour", "ghost_blood", "is_unarmed", "large_height", "medium_movement", "non_unique_map_boss", "not_dex", "not_str", "ranged", "undead", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.03,
+		energyShield = 0.4,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 12,
+		accuracy = 1,
+		skillList = {
+			"AzmeriGoddessSpiritMortar",
+			"AzmeriGoddessSummonSkeletonGhostflame",
+			"AzmeriGoddessOfferingOfJudgement",
+			"AzmeriGoddessOfferingOfJudgementChaos",
+			"AzmeriGoddessBeam",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessMid"] = {
+		name = "Judgemental Spirit",
+		monsterTags = { "caster", "fire_affinity", "ghost", "ghost_armour", "ghost_blood", "is_unarmed", "large_height", "medium_movement", "non_unique_map_boss", "not_dex", "not_str", "ranged", "undead", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.03,
+		energyShield = 0.4,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 12,
+		accuracy = 1,
+		skillList = {
+			"AzmeriGoddessSpiritMortar",
+			"AzmeriGoddessSummonSkeletonGhostflame",
+			"AzmeriGoddessOfferingOfJudgement",
+			"AzmeriGoddessOfferingOfJudgementChaos",
+			"AzmeriGoddessBeam",
+			"ABTTAzmeriGoddessAura",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessHigh"] = {
+		name = "Perfect Judgemental Spirit",
+		monsterTags = { "caster", "fire_affinity", "ghost", "ghost_armour", "ghost_blood", "is_unarmed", "large_height", "medium_movement", "non_unique_map_boss", "not_dex", "not_str", "ranged", "undead", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.03,
+		energyShield = 0.4,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 12,
+		accuracy = 1,
+		skillList = {
+			"AzmeriGoddessSpiritMortar",
+			"AzmeriGoddessSummonSkeletonGhostflame",
+			"AzmeriGoddessOfferingOfJudgement",
+			"AzmeriGoddessOfferingOfJudgementChaos",
+			"AzmeriGoddessBeam",
+			"ABTTAzmeriGoddessAura",
+			"AzmeriGoddessDiscipline",
+		},
+		modList = {
+		},
+	}
+    -- Primal Thunderbird
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdLow"] = {
+		name = "Imperfect Primal Thunderbird",
+		monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "caster", "flesh_armour", "has_dagger", "has_one_handed_melee", "large_model", "lightning_affinity", "medium_movement", "melee", "not_str", "red_blood", "small_height", "standalone_map_boss", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.88,
+		energyShield = 0.24,
+		evasion = 0.6,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.995,
+		attackRange = 14,
+		accuracy = 1,
+		weaponType1 = "Dagger",
+		skillList = {
+			"MeleeAtAnimationSpeedLightning",
+			"AzmeriRavenScreechOfSplendour",
+			"AzmeriRavenDashOfDestruction",
+			"AzmeriBirdBeam",
+			"AzmeriBirdDashGT1",
+			"AzmeriBirdDashGT2",
+			"AzmeriBirdScreech",
+			"GSAzmeriBirdDashZap",
+		},
+		modList = {
+			-- damage_hit_effect_index [damage_hit_effect_index = 2]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdMid"] = {
+		name = "Primal Thunderbird",
+		monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "caster", "flesh_armour", "has_dagger", "has_one_handed_melee", "large_model", "lightning_affinity", "medium_movement", "melee", "not_str", "red_blood", "small_height", "standalone_map_boss", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.88,
+		energyShield = 0.24,
+		evasion = 0.6,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.995,
+		attackRange = 14,
+		accuracy = 1,
+		weaponType1 = "Dagger",
+		skillList = {
+			"MeleeAtAnimationSpeedLightning",
+			"AzmeriRavenScreechOfSplendour",
+			"AzmeriRavenDashOfDestruction",
+			"AzmeriBirdBeam",
+			"AzmeriBirdDashGT1",
+			"AzmeriBirdDashGT2",
+			"AzmeriBirdScreechExposure",
+			"GSAzmeriBirdDashZap",
+		},
+		modList = {
+			-- damage_hit_effect_index [damage_hit_effect_index = 2]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdHigh"] = {
+		name = "Perfect Primal Thunderbird",
+		monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "caster", "flesh_armour", "has_dagger", "has_one_handed_melee", "large_model", "lightning_affinity", "medium_movement", "melee", "not_str", "red_blood", "small_height", "standalone_map_boss", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.88,
+		energyShield = 0.24,
+		evasion = 0.6,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.995,
+		attackRange = 14,
+		accuracy = 1,
+		weaponType1 = "Dagger",
+		skillList = {
+			"MeleeAtAnimationSpeedLightning",
+			"AzmeriRavenScreechOfSplendour",
+			"AzmeriRavenDashOfDestruction",
+			"AzmeriBirdBeam",
+			"AzmeriBirdDashGT1",
+			"AzmeriBirdDashGT2",
+			"AzmeriBirdScreechExposure",
+			"GSAzmeriBirdDashZap",
+			"AzmeriBirdGrace",
+			"AzmeriBirdGraceHardMode",
+		},
+		modList = {
+			-- damage_hit_effect_index [damage_hit_effect_index = 2]
+		},
+	}
+    -- Primal Demiurge
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmLow__"] = {
+		name = "Imperfect Primal Demiurge",
+		monsterTags = { "caster", "crusader_monster", "eldritch", "ghost", "ghost_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_height", "medium_movement", "melee", "not_dex", "not_str", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.5,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.44,
+		damageSpread = 0.2,
+		attackTime = 1.755,
+		attackRange = 9,
+		accuracy = 1,
+		skillList = {
+			"AzmeriPhantasmExplode",
+			"AzmeriLightningMelee",
+			"AzmeriTeleportPhantasm",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmMid"] = {
+		name = "Primal Demiurge",
+		monsterTags = { "caster", "crusader_monster", "eldritch", "ghost", "ghost_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_height", "medium_movement", "melee", "not_dex", "not_str", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.5,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.44,
+		damageSpread = 0.2,
+		attackTime = 1.755,
+		attackRange = 9,
+		accuracy = 1,
+		skillList = {
+			"AzmeriPhantasmExplode",
+			"AzmeriLightningMelee",
+			"AzmeriTeleportPhantasm",
+			"AzmeriPhantasmClarity",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmHigh"] = {
+		name = "Perfect Primal Demiurge",
+		monsterTags = { "caster", "crusader_monster", "eldritch", "ghost", "ghost_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_height", "medium_movement", "melee", "not_dex", "not_str", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.5,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.44,
+		damageSpread = 0.2,
+		attackTime = 1.755,
+		attackRange = 9,
+		accuracy = 1,
+		skillList = {
+			"AzmeriPhantasmExplodeSap",
+			"AzmeriLightningMelee",
+			"AzmeriTeleportPhantasm",
+			"AzmeriPhantasmClarity",
+		},
+		modList = {
+		},
+	}
+    -- Runic Skeleton
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonLow"] = {
+		name = "Imperfect Runic Skeleton",
+		monsterTags = { "bones", "is_unarmed", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "ward_armour", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.75,
+		armour = 0.8,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.8,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 15,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriMegaSkeletonHeavyMelee",
+			"AzmeriMegaSkeletonCleave",
+		},
+		modList = {
+			mod("PhysicalDamage", "INC", 20, 8192, 0, { div = 10, stat = "Str", type = "PerStat" }), -- AzmeriMegaSkeletonWeaponPhysicalDamagePerStrength [physical_weapon_damage_+%_per_10_str = 20]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonMid"] = {
+		name = "Runic Skeleton",
+		monsterTags = { "bones", "is_unarmed", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "ward_armour", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.75,
+		armour = 0.8,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.8,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 15,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriMegaSkeletonHeavyMelee",
+			"AzmeriMegaSkeletonCleave",
+		},
+		modList = {
+			mod("PhysicalDamage", "INC", 20, 8192, 0, { div = 10, stat = "Str", type = "PerStat" }), -- AzmeriMegaSkeletonWeaponPhysicalDamagePerStrength [physical_weapon_damage_+%_per_10_str = 20]
+			-- MonsterCrushOnHit [chance_to_crush_on_hit_% = 100]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonHigh"] = {
+		name = "Perfect Runic Skeleton",
+		monsterTags = { "bones", "is_unarmed", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "ward_armour", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.75,
+		armour = 0.8,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.8,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 15,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriMegaSkeletonHeavyMelee",
+			"AzmeriMegaSkeletonCleave",
+		},
+		modList = {
+			mod("PhysicalDamage", "INC", 20, 8192, 0, { div = 10, stat = "Str", type = "PerStat" }), -- AzmeriMegaSkeletonWeaponPhysicalDamagePerStrength [physical_weapon_damage_+%_per_10_str = 20]
+			-- MonsterCrushOnHit [chance_to_crush_on_hit_% = 100]
+			mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamage", "MORE", 5, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PrimalDemiurge", unscalable = true })}),
+		},
+	}
+    -- Warlord
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakLow"] = {
+		name = "Imperfect Warlord",
+		monsterTags = { "human", "humanoid", "medium_movement", "not_int", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3,
+		armour = 0.8,
+		evasion = 0.4,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.73,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 13,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriOakSweep",
+			"AzmeriOakImmortalCall",
+			"AzmeriOakEnduringCry",
+			"AzmeriOakLeapSlam",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakMid"] = {
+		name = "Warlord",
+		monsterTags = { "human", "humanoid", "medium_movement", "not_int", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3,
+		armour = 0.8,
+		evasion = 0.4,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.73,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 13,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriOakSweep",
+			"AzmeriOakImmortalCall",
+			"AzmeriOakEnduringCry",
+			"AzmeriOakLeapSlam",
+			"AzmeriOakVitality",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakHigh"] = {
+		name = "Perfect Warlord",
+		monsterTags = { "human", "humanoid", "medium_movement", "not_int", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3,
+		armour = 0.8,
+		evasion = 0.4,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.73,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 13,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriOakSweep",
+			"AzmeriOakImmortalCall",
+			"AzmeriOakEnduringCry",
+			"AzmeriOakLeapSlam",
+			"AzmeriOakVitality",
+		},
+		modList = {
+		},
+	}
+    -- Dark Reaper
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperLow"] = {
+		name = "Imperfect Dark Reaper",
+		monsterTags = { "bones", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "melee", "metal_armour", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "very_slow_movement", "ward_armour", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.88,
+		armour = 0.7,
+		evasion = 0.7,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.73,
+		damageSpread = 0.2,
+		attackTime = 1.455,
+		attackRange = 18,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		weaponType2 = "One Handed Sword",
+		skillList = {
+			"AzmeriReaperMelee",
+			"GAAzmeriReaperLacerate",
+			"GAAzmeriReaperComboLeftSlash",
+			"GAAzmeriReaperComboRightSlash",
+			"GAAzmeriReaperDash",
+			"GAAzmeriReaperDashImpactSlash",
+			"GAAzmeriReaperCycloneImpact",
+			"GAAzmeriReaperComboWhirl",
+			"EAAAzmeriReaperCyclone",
+			"EAAAzmeriReaperDualStrike",
+			"EAAAzmeriReaperComboAttack",
+			"DTTAzmeriReaper",
+		},
+		modList = {
+			mod("PhysicalDamage", "INC", 0, 0, 0), -- MonsterBleedImplicit [physical_damage_+% = 0]
+			mod("BleedChance", "BASE", 100, 0, 0), -- MonsterBleedImplicit [global_bleed_on_hit = 1]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperMid"] = {
+		name = "Dark Reaper",
+		monsterTags = { "bones", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "melee", "metal_armour", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "very_slow_movement", "ward_armour", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.88,
+		armour = 0.7,
+		evasion = 0.7,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.73,
+		damageSpread = 0.2,
+		attackTime = 1.455,
+		attackRange = 18,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		weaponType2 = "One Handed Sword",
+		skillList = {
+			"AzmeriReaperMelee",
+			"GAAzmeriReaperLacerate",
+			"GAAzmeriReaperComboLeftSlash",
+			"GAAzmeriReaperComboRightSlash",
+			"GAAzmeriReaperDash",
+			"GAAzmeriReaperDashImpactSlash",
+			"GAAzmeriReaperCycloneImpact",
+			"GAAzmeriReaperComboWhirl",
+			"EAAAzmeriReaperCyclone",
+			"EAAAzmeriReaperDualStrike",
+			"EAAAzmeriReaperComboAttack",
+			"DTTAzmeriReaper",
+		},
+		modList = {
+			mod("PhysicalDamage", "INC", 0, 0, 0), -- MonsterBleedImplicit [physical_damage_+% = 0]
+			mod("BleedChance", "BASE", 100, 0, 0), -- MonsterBleedImplicit [global_bleed_on_hit = 1]
+			-- MonsterNearbyEnemyLifeRegenReduced50 [life_mastery_nearby_enemy_life_regeneration_rate_+% = -50]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperHigh"] = {
+		name = "Perfect Dark Reaper",
+		monsterTags = { "bones", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "melee", "metal_armour", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "very_slow_movement", "ward_armour", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.88,
+		armour = 0.7,
+		evasion = 0.7,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.73,
+		damageSpread = 0.2,
+		attackTime = 1.455,
+		attackRange = 18,
+		accuracy = 1,
+		weaponType1 = "One Handed Sword",
+		weaponType2 = "One Handed Sword",
+		skillList = {
+			"AzmeriReaperMelee",
+			"GAAzmeriReaperLacerate",
+			"GAAzmeriReaperComboLeftSlash",
+			"GAAzmeriReaperComboRightSlash",
+			"GAAzmeriReaperDash",
+			"GAAzmeriReaperDashImpactSlash",
+			"GAAzmeriReaperCycloneImpact",
+			"GAAzmeriReaperComboWhirl",
+			"EAAAzmeriReaperCyclone",
+			"EAAAzmeriReaperDualStrike",
+			"EAAAzmeriReaperComboAttack",
+			"DTTAzmeriReaper",
+		},
+		modList = {
+			mod("PhysicalDamage", "INC", 0, 0, 0), -- MonsterBleedImplicit [physical_damage_+% = 0]
+			mod("BleedChance", "BASE", 100, 0, 0), -- MonsterBleedImplicit [global_bleed_on_hit = 1]
+			-- MonsterNearbyEnemyLifeRegenReduced50 [life_mastery_nearby_enemy_life_regeneration_rate_+% = -50]
+			mod("BleedStacksMax", "OVERRIDE", 16, 0, 0), -- MonsterBleedingStacksAzmeriReaper [bleeding_stacks_up_to_x_times = 16]
+			flag("Condition:NoExtraBleedDamageToMovingEnemy"), --This mod is not currently working correctly,
+		},
+	}
+    -- Sanguimancer Demon
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdLow"] = {
+		name = "Imperfect Sanguimancer Demon",
+		monsterTags = { "beyond_demon", "bludgeoning_weapon", "caster", "demon", "fire_affinity", "flesh_armour", "is_unarmed", "not_dex", "not_str", "ranged", "red_blood", "very_fast_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.03,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 12,
+		accuracy = 1,
+		weaponType1 = "None",
+		weaponType2 = "One Handed Mace",
+		skillList = {
+			"GTAzmeriShepherdVomit",
+			"MMSAzmeriShepherdTripleMortar",
+			"MMSAzmeriShepherdVomitMortar",
+			"GSAzmeriShepherdBeamNuke",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdMid_"] = {
+		name = "Sanguimancer Demon",
+		monsterTags = { "beyond_demon", "bludgeoning_weapon", "caster", "demon", "fire_affinity", "flesh_armour", "is_unarmed", "not_dex", "not_str", "ranged", "red_blood", "very_fast_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.03,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 12,
+		accuracy = 1,
+		weaponType1 = "None",
+		weaponType2 = "One Handed Mace",
+		skillList = {
+			"GTAzmeriShepherdVomit",
+			"MMSAzmeriShepherdTripleMortar",
+			"MMSAzmeriShepherdVomitMortar",
+			"GSAzmeriShepherdBeamNuke",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdHigh"] = {
+		name = "Perfect Sanguimancer Demon",
+		monsterTags = { "beyond_demon", "bludgeoning_weapon", "caster", "demon", "fire_affinity", "flesh_armour", "is_unarmed", "not_dex", "not_str", "ranged", "red_blood", "very_fast_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.03,
+		energyShield = 0.4,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 75,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 12,
+		accuracy = 1,
+		weaponType1 = "None",
+		weaponType2 = "One Handed Mace",
+		skillList = {
+			"GTAzmeriShepherdVomit",
+			"MMSAzmeriShepherdTripleMortar",
+			"MMSAzmeriShepherdVomitMortar",
+			"GSAzmeriShepherdBeamNuke",
+			"ABTTAzmeriShepherdSpellDamage",
+		},
+		modList = {
+		},
+	}
+    -- Spider Matriarch
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderLow"] = {
+		name = "Imperfect Spider Matriarch",
+		monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "fast_movement", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "large_model", "melee", "not_int", "physical_affinity", "small_height", "spider", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.73,
+		armour = 0.5,
+		evasion = 0.5,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 75,
+		damage = 1.73,
+		damageSpread = 0.2,
+		attackTime = 0.945,
+		attackRange = 13,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterViperStrikeAtAnimationSpeed",
+			"AzmeriSpiderLeaderMortar",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderMid"] = {
+		name = "Spider Matriarch",
+		monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "fast_movement", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "large_model", "melee", "not_int", "physical_affinity", "small_height", "spider", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.73,
+		armour = 0.5,
+		evasion = 0.5,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 75,
+		damage = 1.73,
+		damageSpread = 0.2,
+		attackTime = 0.945,
+		attackRange = 13,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterViperStrikeAtAnimationSpeed",
+			"AzmeriSpiderLeaderMortar",
+			"ABTTAzmeriSpiderLeaderAura",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderHigh_"] = {
+		name = "Perfect Spider Matriarch",
+		monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "fast_movement", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "large_model", "melee", "not_int", "physical_affinity", "small_height", "spider", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.73,
+		armour = 0.5,
+		evasion = 0.5,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 75,
+		damage = 1.73,
+		damageSpread = 0.2,
+		attackTime = 0.945,
+		attackRange = 13,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"MonsterViperStrikeAtAnimationSpeed",
+			"AzmeriSpiderLeaderMortar",
+			"ABTTAzmeriSpiderLeaderAura",
+		},
+		modList = {
+			mod("PlayerModifier", "LIST", { mod = mod("WitherEffect", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SpiderMatriarch", unscalable = true })}) --Does not work,
+		},
+	}
+    -- Meatsack
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieLow"] = {
+		name = "Imperfect Meatsack",
+		monsterTags = { "cold_affinity", "flesh_armour", "humanoid", "is_unarmed", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "undead", "very_fast_movement", "zombie", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 5,
+		armour = 0.5,
+		fireResist = 0,
+		coldResist = 40,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.65,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 11,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieMid"] = {
+		name = "Meatsack",
+		monsterTags = { "cold_affinity", "flesh_armour", "humanoid", "is_unarmed", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "undead", "very_fast_movement", "zombie", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 6,
+		armour = 0.5,
+		fireResist = 0,
+		coldResist = 40,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.65,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 11,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriZombieCausticGroundWhenHit",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieHigh"] = {
+		name = "Perfect Meatsack",
+		monsterTags = { "cold_affinity", "flesh_armour", "humanoid", "is_unarmed", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "undead", "very_fast_movement", "zombie", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 7,
+		armour = 0.5,
+		fireResist = 0,
+		coldResist = 40,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.65,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 11,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriZombieCausticGroundWhenHit",
+		},
+		modList = {
+			-- AzmeriTankyZombieTauntOnHit [chance_to_taunt_on_hit_% = 100]
+		},
+	}
+    -- Eldritch Eye
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionLow"] = {
+		name = "Imperfect Eldritch Eye",
+		monsterTags = { "caster", "construct", "elder_monster", "eldritch", "extra_large_height", "flesh_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.5,
+		energyShield = 0.2,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1.25,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 9,
+		accuracy = 1,
+		skillList = {
+			"ElderTentacleMinionProjectile",
+			"ElderTentacleMinionProjectileEpic",
+			"GSAzmeriTentacleMonsterChannel",
+			"GSAzmeriTentacleMonsterBeam",
+		},
+		modList = {
+			mod("LightningCannotShock", "FLAG", 1, 0, 0), -- MonsterCannotShock [lightning_damage_cannot_shock = 1]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionMid"] = {
+		name = "Eldritch Eye",
+		monsterTags = { "caster", "construct", "elder_monster", "eldritch", "extra_large_height", "flesh_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.5,
+		energyShield = 0.2,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1.25,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 9,
+		accuracy = 1,
+		skillList = {
+			"ElderTentacleMinionProjectile",
+			"ElderTentacleMinionProjectileEpic",
+			"GSAzmeriTentacleMonsterChannel",
+			"GSAzmeriTentacleMonsterBeam",
+			"GSAzmeriTentacleMonsterShockExplode",
+		},
+		modList = {
+			mod("LightningCannotShock", "FLAG", 1, 0, 0), -- MonsterCannotShock [lightning_damage_cannot_shock = 1]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionHigh"] = {
+		name = "Perfect Eldritch Eye",
+		monsterTags = { "caster", "construct", "elder_monster", "eldritch", "extra_large_height", "flesh_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.5,
+		energyShield = 0.2,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 40,
+		chaosResist = 0,
+		damage = 1.25,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 9,
+		accuracy = 1,
+		skillList = {
+			"ElderTentacleMinionProjectile",
+			"ElderTentacleMinionProjectileEpic",
+			"GSAzmeriTentacleMonsterChannel",
+			"GSAzmeriTentacleMonsterBeam",
+			"GSAzmeriTentacleMonsterShockExplode",
+			"AzmeriTentacleMinionLightningResistAura",
+		},
+		modList = {
+			mod("LightningCannotShock", "FLAG", 1, 0, 0), -- MonsterCannotShock [lightning_damage_cannot_shock = 1]
+		},
+	}
+    -- Forest Tiger
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerLow"] = {
+		name = "Imperfect Forest Tiger",
+		monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_claw", "has_one_handed_melee", "light_armour", "mammal_beast", "melee", "not_int", "physical_affinity", "red_blood", "small_height", "very_fast_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.8,
+		armour = 0.6,
+		evasion = 1,
+		fireResist = 0,
+		coldResist = 40,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.8,
+		damageSpread = 0.2,
+		attackTime = 1.2,
+		attackRange = 14,
+		accuracy = 1,
+		weaponType1 = "Claw",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriTigerSpiritFangs",
+			"AzmeriTigerSpiritLacerate",
+			"AzmeriTigerSpiritTeleportSlam",
+			"AzmeriStampedeTiger",
+			"EmptyActionSpellAzmeriTigerComboAttack",
+			"AzermiTigerGeometryAttackFront",
+			"AzmeriTigerGeometryAttackStrafe",
+		},
+		modList = {
+			mod("Damage", "INC", 5, 1, 0, { div = 450, stat = "Evasion", type = "PerStat" }), -- AzmeriTigerAttackDamagePerEvasion [attack_damage_+%_per_450_evasion = 5]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerMid"] = {
+		name = "Forest Tiger",
+		monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_claw", "has_one_handed_melee", "light_armour", "mammal_beast", "melee", "not_int", "physical_affinity", "red_blood", "small_height", "very_fast_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.8,
+		armour = 0.6,
+		evasion = 1,
+		fireResist = 0,
+		coldResist = 40,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.8,
+		damageSpread = 0.2,
+		attackTime = 1.2,
+		attackRange = 14,
+		accuracy = 1,
+		weaponType1 = "Claw",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriTigerSpiritFangs",
+			"AzmeriTigerSpiritLacerate",
+			"AzmeriTigerSpiritTeleportSlam",
+			"AzmeriStampedeTiger",
+			"EmptyActionSpellAzmeriTigerComboAttack",
+			"AzermiTigerGeometryAttackFront",
+			"AzmeriTigerGeometryAttackStrafe",
+		},
+		modList = {
+			mod("Damage", "INC", 5, 1, 0, { div = 450, stat = "Evasion", type = "PerStat" }), -- AzmeriTigerAttackDamagePerEvasion [attack_damage_+%_per_450_evasion = 5]
+			-- AzmeriTigerAllyFrenzyOnHit [chance_to_grant_frenzy_charge_to_nearby_allies_on_hit_% = 5]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerHigh"] = {
+		name = "Perfect Forest Tiger",
+		monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_claw", "has_one_handed_melee", "light_armour", "mammal_beast", "melee", "not_int", "physical_affinity", "red_blood", "small_height", "very_fast_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 1.8,
+		armour = 0.6,
+		evasion = 1,
+		fireResist = 0,
+		coldResist = 40,
+		lightningResist = 0,
+		chaosResist = 0,
+		damage = 1.8,
+		damageSpread = 0.2,
+		attackTime = 1.2,
+		attackRange = 14,
+		accuracy = 1,
+		weaponType1 = "Claw",
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"AzmeriTigerSpiritFangs",
+			"AzmeriTigerSpiritLacerate",
+			"AzmeriTigerSpiritTeleportSlam",
+			"AzmeriStampedeTiger",
+			"EmptyActionSpellAzmeriTigerComboAttack",
+			"AzermiTigerGeometryAttackFront",
+			"AzmeriTigerGeometryAttackStrafe",
+			"AzmeriTigerHaste",
+		},
+		modList = {
+			mod("Damage", "INC", 5, 1, 0, { div = 450, stat = "Evasion", type = "PerStat" }), -- AzmeriTigerAttackDamagePerEvasion [attack_damage_+%_per_450_evasion = 5]
+			-- AzmeriTigerAllyFrenzyOnHit [chance_to_grant_frenzy_charge_to_nearby_allies_on_hit_% = 5]
+		},
+	}
+    -- Guardian Turtle
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleLow"] = {
+		name = "Imperfect Guardian Turtle",
+		monsterTags = { "beast", "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "large_model", "light_armour", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "reptile_beast", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 4.5,
+		armour = 3,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.73,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 19,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"ABTTAzmeriTurtleInvulnerability",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleMid_"] = {
+		name = "Guardian Turtle",
+		monsterTags = { "beast", "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "large_model", "light_armour", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "reptile_beast", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 4.5,
+		armour = 3,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.73,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 19,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"ABTTAzmeriTurtleInvulnerability",
+		},
+		modList = {
+			mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 3, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscalable = true })}),
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleHigh"] = {
+		name = "Perfect Guardian Turtle",
+		monsterTags = { "beast", "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "large_model", "light_armour", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "reptile_beast", "very_slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 4.5,
+		armour = 3,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.73,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 19,
+		accuracy = 1,
+		skillList = {
+			"MeleeAtAnimationSpeed",
+			"ABTTAzmeriTurtleInvulnerability",
+			"AzmeriTurtleDetermination",
+			"AzmeriTurtleDeterminationHardMode",
+		},
+		modList = {
+			mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscalable = true })}),
+		},
+	}
+    -- Shadow Construct
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulLow"] = {
+		name = "Imperfect Shadow Construct",
+		monsterTags = { "caster", "cold_affinity", "construct", "extra_extra_large_height", "fire_affinity", "hard_armour", "is_unarmed", "large_model", "lightning_affinity", "not_dex", "not_int", "physical_affinity", "ranged", "red_blood", "slashing_weapon", "slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.75,
+		armour = 2,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 2.25,
+		damageSpread = 0.2,
+		attackTime = 4.005,
+		attackRange = 7,
+		accuracy = 1,
+		skillList = {
+			"AzmeriOversoulRocks",
+			"AzmeriOversoulSpray",
+			"AzmeriOversoulExplosion",
+			"AzmeriOversoulLaser",
+			"AzmeriOversoulRocksTriggered",
+			"AzmeriOversoulColdSnapTriggered",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulMid"] = {
+		name = "Shadow Construct",
+		monsterTags = { "caster", "cold_affinity", "construct", "extra_extra_large_height", "fire_affinity", "hard_armour", "is_unarmed", "large_model", "lightning_affinity", "not_dex", "not_int", "physical_affinity", "ranged", "red_blood", "slashing_weapon", "slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.75,
+		armour = 2,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 2.25,
+		damageSpread = 0.2,
+		attackTime = 4.005,
+		attackRange = 7,
+		accuracy = 1,
+		skillList = {
+			"AzmeriOversoulRocks",
+			"AzmeriOversoulSpray",
+			"AzmeriOversoulExplosionIgnite",
+			"AzmeriOversoulLaser",
+			"AzmeriOversoulRocksTriggered",
+			"AzmeriOversoulColdSnapTriggered",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulHigh"] = {
+		name = "Perfect Shadow Construct",
+		monsterTags = { "caster", "cold_affinity", "construct", "extra_extra_large_height", "fire_affinity", "hard_armour", "is_unarmed", "large_model", "lightning_affinity", "not_dex", "not_int", "physical_affinity", "ranged", "red_blood", "slashing_weapon", "slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.75,
+		armour = 2,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 2.25,
+		damageSpread = 0.2,
+		attackTime = 4.005,
+		attackRange = 7,
+		accuracy = 1,
+		skillList = {
+			"AzmeriOversoulRocks",
+			"AzmeriOversoulSpray",
+			"AzmeriOversoulExplosionIgnite",
+			"AzmeriOversoulLaserMaxShock",
+			"AzmeriOversoulRocksTriggered",
+			"AzmeriOversoulColdSnapTriggered",
+		},
+		modList = {
+		},
+	}
+    -- Forest Warrior
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingLow"] = {
+		name = "Imperfect Forest Warrior",
+		monsterTags = { "cleaving_weapon", "fire_affinity", "flesh_armour", "gladiator", "has_two_hand_axe", "has_two_handed_melee", "humanoid", "large_model", "medium_height", "medium_movement", "melee", "non_unique_map_boss", "not_int", "physical_affinity", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3,
+		armour = 0.8,
+		evasion = 0.4,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.95,
+		damageSpread = 0.2,
+		attackTime = 1.65,
+		attackRange = 8,
+		accuracy = 1,
+		weaponType1 = "Two Handed Axe",
+		skillList = {
+			"MeleeAtAnimationSpeedFire",
+			"AzmeriVikingCyclone",
+			"AzmeriVikingUpheaval",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingMid"] = {
+		name = "Forest Warrior",
+		monsterTags = { "cleaving_weapon", "fire_affinity", "flesh_armour", "gladiator", "has_two_hand_axe", "has_two_handed_melee", "humanoid", "large_model", "medium_height", "medium_movement", "melee", "non_unique_map_boss", "not_int", "physical_affinity", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3,
+		armour = 0.8,
+		evasion = 0.4,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.95,
+		damageSpread = 0.2,
+		attackTime = 1.65,
+		attackRange = 8,
+		accuracy = 1,
+		weaponType1 = "Two Handed Axe",
+		skillList = {
+			"MeleeAtAnimationSpeedFire",
+			"AzmeriVikingCyclone",
+			"AzmeriVikingUpheaval",
+		},
+		modList = {
+			mod("CullPercent", "MAX", 10, 0, 0), -- MonsterCullingStrike [kill_enemy_on_hit_if_under_10%_life = 1]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingHigh"] = {
+		name = "Perfect Forest Warrior",
+		monsterTags = { "cleaving_weapon", "fire_affinity", "flesh_armour", "gladiator", "has_two_hand_axe", "has_two_handed_melee", "humanoid", "large_model", "medium_height", "medium_movement", "melee", "non_unique_map_boss", "not_int", "physical_affinity", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3,
+		armour = 0.8,
+		evasion = 0.4,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.95,
+		damageSpread = 0.2,
+		attackTime = 1.65,
+		attackRange = 8,
+		accuracy = 1,
+		weaponType1 = "Two Handed Axe",
+		skillList = {
+			"MeleeAtAnimationSpeedFire",
+			"AzmeriVikingCyclone",
+			"AzmeriVikingUpheaval",
+		},
+		modList = {
+			mod("CullPercent", "MAX", 10, 0, 0), -- MonsterCullingStrike [kill_enemy_on_hit_if_under_10%_life = 1]
+			mod("AllyModifier", "LIST", { mod = flag("Condition:Onslaught", { type = "GlobalEffect", effectType = "Buff", effectName = "ForestWarrior", unscalable = true })}),
+		},
+	}
+    -- Shadow Berserker
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonLow"] = {
+		name = "Imperfect Shadow Berserker",
+		monsterTags = { "demon", "flesh_armour", "is_unarmed", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", },
+		life = 2.02,
+		armour = 0.5,
+		fireResist = 35,
+		coldResist = 35,
+		lightningResist = 35,
+		chaosResist = 20,
+		damage = 1.44,
+		damageSpread = 0.2,
+		attackTime = 1.17,
+		attackRange = 14,
+		accuracy = 1,
+		skillList = {
+			"Melee",
+			"EmptyActionAttackAfflictionMinionTripleSlam",
+			"AfflictionMinionPhysSlamCircleSmall",
+			"AfflictionMinionPhysSlamCircleBig",
+			"AfflictionMinionPhysSlamCircleRectangle",
+		},
+		modList = {
+			-- set_is_affliction_monster [set_is_affliction_monster = 1]
+			-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -60]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonMid"] = {
+		name = "Shadow Berserker",
+		monsterTags = { "demon", "flesh_armour", "is_unarmed", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", },
+		life = 2.02,
+		armour = 0.5,
+		fireResist = 35,
+		coldResist = 35,
+		lightningResist = 35,
+		chaosResist = 20,
+		damage = 1.44,
+		damageSpread = 0.2,
+		attackTime = 1.17,
+		attackRange = 14,
+		accuracy = 1,
+		skillList = {
+			"Melee",
+			"EmptyActionAttackAfflictionMinionTripleSlam",
+			"AfflictionMinionPhysSlamCircleSmall",
+			"AfflictionMinionPhysSlamCircleBig",
+			"AfflictionMinionPhysSlamCircleRectangle",
+		},
+		modList = {
+			-- set_is_affliction_monster [set_is_affliction_monster = 1]
+			-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -60]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonHigh"] = {
+		name = "Perfect Shadow Berserker",
+		monsterTags = { "demon", "flesh_armour", "is_unarmed", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", },
+		life = 2.02,
+		armour = 0.5,
+		fireResist = 35,
+		coldResist = 35,
+		lightningResist = 35,
+		chaosResist = 20,
+		damage = 1.44,
+		damageSpread = 0.2,
+		attackTime = 1.17,
+		attackRange = 14,
+		accuracy = 1,
+		skillList = {
+			"Melee",
+			"EmptyActionAttackAfflictionMinionTripleSlam",
+			"AfflictionMinionPhysSlamCircleSmall",
+			"AfflictionMinionPhysSlamCircleBig",
+			"AfflictionMinionPhysSlamCircleRectangle",
+		},
+		modList = {
+			-- set_is_affliction_monster [set_is_affliction_monster = 1]
+			-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -60]
+		},
+	}
+    -- Riftcaster
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterLow_"] = {
+		name = "Imperfect Riftcaster",
+		monsterTags = { "bludgeoning_weapon", "caster", "fast_movement", "has_staff", "has_two_handed_melee", "human", "humanoid", "light_armour", "lightning_affinity", "melee", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 5.6,
+		lifeScaling = "AltLife2",
+		energyShield = 0.4,
+		fireResist = 30,
+		coldResist = 30,
+		lightningResist = 30,
+		chaosResist = 20,
+		damage = 1.47,
+		damageSpread = 0.2,
+		attackTime = 1.17,
+		attackRange = 13,
+		accuracy = 1,
+		weaponType1 = "Staff",
+		skillList = {
+			"Melee",
+			"DoLiterallyNothing",
+			"WalkEmergeHeistScience",
+			"HeistScienceSpawnLightningVolatile",
+			"GSHeistLightningVolatileExplode",
+			"GTHeistCultistLightningBoltCone",
+			"HeistCultistLightningBolt",
+			"GSHeistLightningWaterfallHit",
+			"HeistScienceSpawnLightningWaterfall",
+			"GTHeistCultistWaterfallCascade",
+			"MPSHeistCultistStaffProjectileGreen",
+			"ChangeToStance1Heist",
+			"EASHeistMindControlSuicide",
+			"TeleportHeistCultistProject",
+			"GSHeistScienceLightningDashImpact",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterMid_"] = {
+		name = "Riftcaster",
+		monsterTags = { "bludgeoning_weapon", "caster", "fast_movement", "has_staff", "has_two_handed_melee", "human", "humanoid", "light_armour", "lightning_affinity", "melee", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 5.6,
+		lifeScaling = "AltLife2",
+		energyShield = 0.4,
+		fireResist = 30,
+		coldResist = 30,
+		lightningResist = 30,
+		chaosResist = 20,
+		damage = 1.47,
+		damageSpread = 0.2,
+		attackTime = 1.17,
+		attackRange = 13,
+		accuracy = 1,
+		weaponType1 = "Staff",
+		skillList = {
+			"Melee",
+			"DoLiterallyNothing",
+			"WalkEmergeHeistScience",
+			"HeistScienceSpawnLightningVolatile",
+			"GSHeistLightningVolatileExplode",
+			"GTHeistCultistLightningBoltCone",
+			"HeistCultistLightningBolt",
+			"GSHeistLightningWaterfallHit",
+			"HeistScienceSpawnLightningWaterfall",
+			"GTHeistCultistWaterfallCascade",
+			"MPSHeistCultistStaffProjectileGreen",
+			"ChangeToStance1Heist",
+			"EASHeistMindControlSuicide",
+			"TeleportHeistCultistProject",
+			"GSHeistScienceLightningDashImpact",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterHigh_"] = {
+		name = "Perfect Riftcaster",
+		monsterTags = { "bludgeoning_weapon", "caster", "fast_movement", "has_staff", "has_two_handed_melee", "human", "humanoid", "light_armour", "lightning_affinity", "melee", "not_dex", "not_str", "physical_affinity", "ranged", "red_blood", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 5.6,
+		lifeScaling = "AltLife2",
+		energyShield = 0.4,
+		fireResist = 30,
+		coldResist = 30,
+		lightningResist = 30,
+		chaosResist = 20,
+		damage = 1.47,
+		damageSpread = 0.2,
+		attackTime = 1.17,
+		attackRange = 13,
+		accuracy = 1,
+		weaponType1 = "Staff",
+		skillList = {
+			"Melee",
+			"DoLiterallyNothing",
+			"WalkEmergeHeistScience",
+			"HeistScienceSpawnLightningVolatile",
+			"GSHeistLightningVolatileExplode",
+			"GTHeistCultistLightningBoltCone",
+			"HeistCultistLightningBolt",
+			"GSHeistLightningWaterfallHit",
+			"HeistScienceSpawnLightningWaterfall",
+			"GTHeistCultistWaterfallCascade",
+			"MPSHeistCultistStaffProjectileGreen",
+			"ChangeToStance1Heist",
+			"EASHeistMindControlSuicide",
+			"TeleportHeistCultistProject",
+			"GSHeistScienceLightningDashImpact",
+		},
+		modList = {
+		},
+	}
+    -- Blood Demon
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossLow"] = {
+		name = "Imperfect Blood Demon",
+		monsterTags = { "beyond_demon", "caster", "cleaving_weapon", "demon", "fire_affinity", "flesh_armour", "has_two_hand_axe", "has_two_handed_melee", "hellscape_demon_boss", "large_model", "melee", "not_dex", "not_int", "ranged", "red_blood", "very_fast_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.75,
+		armour = 1,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 24,
+		accuracy = 1,
+		weaponType1 = "Two Handed Axe",
+		skillList = {
+			"MeleeAtAnimationSpeedFire",
+			"AzmeriDemonTeethShot",
+			"DTTAzmeriDemonLeap",
+			"GAAzmeriDemonLeapSlamDamage",
+			"GTAzmeriDemonTeethShot",
+			"MMSAzmeriDemonBloodVomitSmall",
+			"MMSAzmeriDemonBloodVomitMedium",
+			"MMSAzmeriDemonBloodVomitLarge",
+			"GAAzmeriDemonMeleeMiniSlam1",
+			"GAAzmeriDemonMeleeMiniSlam2",
+			"GSAzmeriDemonKnockback",
+			"AzmeriDemonVomitSpraySmall",
+			"AzmeriDemonVomitSprayMedium",
+			"AzmeriDemonVomitSprayLarge",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossMid"] = {
+		name = "Blood Demon",
+		monsterTags = { "beyond_demon", "caster", "cleaving_weapon", "demon", "fire_affinity", "flesh_armour", "has_two_hand_axe", "has_two_handed_melee", "hellscape_demon_boss", "large_model", "melee", "not_dex", "not_int", "ranged", "red_blood", "very_fast_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.75,
+		armour = 1,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 24,
+		accuracy = 1,
+		weaponType1 = "Two Handed Axe",
+		skillList = {
+			"MeleeAtAnimationSpeedFire",
+			"AzmeriDemonTeethShot",
+			"DTTAzmeriDemonLeap",
+			"GAAzmeriDemonLeapSlamDamage",
+			"GTAzmeriDemonTeethShot",
+			"MMSAzmeriDemonBloodVomitSmall",
+			"MMSAzmeriDemonBloodVomitMedium",
+			"MMSAzmeriDemonBloodVomitLarge",
+			"GAAzmeriDemonMeleeMiniSlam1",
+			"GAAzmeriDemonMeleeMiniSlam2",
+			"GSAzmeriDemonKnockback",
+			"AzmeriDemonVomitSpraySmall",
+			"AzmeriDemonVomitSprayMedium",
+			"AzmeriDemonVomitSprayLarge",
+			"GSAzmeriDemonBossCorruptExplode",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossHigh"] = {
+		name = "Perfect Blood Demon",
+		monsterTags = { "beyond_demon", "caster", "cleaving_weapon", "demon", "fire_affinity", "flesh_armour", "has_two_hand_axe", "has_two_handed_melee", "hellscape_demon_boss", "large_model", "melee", "not_dex", "not_int", "ranged", "red_blood", "very_fast_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.75,
+		armour = 1,
+		fireResist = 20,
+		coldResist = 20,
+		lightningResist = 20,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.5,
+		attackRange = 24,
+		accuracy = 1,
+		weaponType1 = "Two Handed Axe",
+		skillList = {
+			"MeleeAtAnimationSpeedFire",
+			"AzmeriDemonTeethShot",
+			"DTTAzmeriDemonLeap",
+			"GAAzmeriDemonLeapSlamDamage",
+			"GTAzmeriDemonTeethShot",
+			"MMSAzmeriDemonBloodVomitSmall",
+			"MMSAzmeriDemonBloodVomitMedium",
+			"MMSAzmeriDemonBloodVomitLarge",
+			"GAAzmeriDemonMeleeMiniSlam1",
+			"GAAzmeriDemonMeleeMiniSlam2",
+			"GSAzmeriDemonKnockback",
+			"AzmeriDemonVomitSpraySmall",
+			"AzmeriDemonVomitSprayMedium",
+			"AzmeriDemonVomitSprayLarge",
+			"GSAzmeriDemonBossCorruptExplode",
+			"AzmeriDemonPhysicalDamageAura",
+		},
+		modList = {
+		},
+	}
+    -- Half-remembered Goliath
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemLow"] = {
+		name = "Imperfect Half-remembered Goliath",
+		monsterTags = { "bludgeoning_weapon", "caster", "construct", "fast_movement", "golem", "is_unarmed", "large_height", "large_model", "lightning_affinity", "mud_blood", "not_dex", "physical_affinity", "stone_armour", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.75,
+		energyShield = 0.4,
+		armour = 2,
+		fireResist = 0,
+		coldResist = 52,
+		lightningResist = 52,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.995,
+		attackRange = 20,
+		accuracy = 1,
+		skillList = {
+			"EmptyActionAttackAzmeriGolemVSlam",
+			"GeometryAttackAzmeriGolemCircle",
+			"GeometryAttackAzmeriGolemRectangleLeft",
+			"GeometryAttackAzmeriGolemRectangleRight",
+			"GeometryTriggerSkillAzmeriGolemRectangleLeft",
+			"GeometryTriggerSkillAzmeriGolemRectangleRight",
+			"SpawnObjectAzmeriGolemVTurretLeft",
+			"SpawnObjectAzmeriGolemVTurretRight",
+			"AzmeriGolemVTurretProjectile",
+			"AzmeriGuardian4Slam",
+			"AzmeriGuardian4BeamGun",
+			"EmptyActionAzmeriGuardian4Gun",
+			"AzmeriGolemLeapSlam",
+			"AzmeriGuardian4LeapUp",
+			"EmptyActionAzmeriGolemMinionPhase",
+			"AzmeriGolemBossWhipLeft",
+			"AzmeriGolemBossWhipRight",
+			"EmptyActionAzmeriGolemWhip",
+			"AzmeriBossShockRifleSingle",
+			"AzmeriBossShockRifleMulti",
+			"AzmeriBossShockRifleRotating",
+			"AzmeriGolemRotateZap",
+		},
+		modList = {
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemMid"] = {
+		name = "Half-remembered Goliath",
+		monsterTags = { "bludgeoning_weapon", "caster", "construct", "fast_movement", "golem", "is_unarmed", "large_height", "large_model", "lightning_affinity", "mud_blood", "not_dex", "physical_affinity", "stone_armour", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.75,
+		energyShield = 0.4,
+		armour = 2,
+		fireResist = 0,
+		coldResist = 52,
+		lightningResist = 52,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.995,
+		attackRange = 20,
+		accuracy = 1,
+		skillList = {
+			"EmptyActionAttackAzmeriGolemVSlam",
+			"GeometryAttackAzmeriGolemCircle",
+			"GeometryAttackAzmeriGolemRectangleLeft",
+			"GeometryAttackAzmeriGolemRectangleRight",
+			"GeometryTriggerSkillAzmeriGolemRectangleLeft",
+			"GeometryTriggerSkillAzmeriGolemRectangleRight",
+			"SpawnObjectAzmeriGolemVTurretLeft",
+			"SpawnObjectAzmeriGolemVTurretRight",
+			"AzmeriGolemVTurretProjectile",
+			"AzmeriGuardian4Slam",
+			"AzmeriGuardian4BeamGun",
+			"EmptyActionAzmeriGuardian4Gun",
+			"AzmeriGolemLeapSlam",
+			"AzmeriGuardian4LeapUp",
+			"EmptyActionAzmeriGolemMinionPhase",
+			"AzmeriGolemBossWhipLeft",
+			"AzmeriGolemBossWhipRight",
+			"EmptyActionAzmeriGolemWhip",
+			"AzmeriBossShockRifleSingle",
+			"AzmeriBossShockRifleMulti",
+			"AzmeriBossShockRifleRotating",
+			"AzmeriGolemRotateZap",
+		},
+		modList = {
+			mod("LinkEffectOnSelf", "INC", 50, 0, 0), -- AzmeriGolemLinkEffectOnSelf1 [link_buff_effect_on_self_+% = 50]
+		},
+	}
+	minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemHigh"] = {
+		name = "Perfect Half-remembered Goliath",
+		monsterTags = { "bludgeoning_weapon", "caster", "construct", "fast_movement", "golem", "is_unarmed", "large_height", "large_model", "lightning_affinity", "mud_blood", "not_dex", "physical_affinity", "stone_armour", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 3.75,
+		energyShield = 0.4,
+		armour = 2,
+		fireResist = 0,
+		coldResist = 52,
+		lightningResist = 52,
+		chaosResist = 0,
+		damage = 1.5,
+		damageSpread = 0.2,
+		attackTime = 1.995,
+		attackRange = 20,
+		accuracy = 1,
+		skillList = {
+			"EmptyActionAttackAzmeriGolemVSlam",
+			"GeometryAttackAzmeriGolemCircle",
+			"GeometryAttackAzmeriGolemRectangleLeft",
+			"GeometryAttackAzmeriGolemRectangleRight",
+			"GeometryTriggerSkillAzmeriGolemRectangleLeft",
+			"GeometryTriggerSkillAzmeriGolemRectangleRight",
+			"SpawnObjectAzmeriGolemVTurretLeft",
+			"SpawnObjectAzmeriGolemVTurretRight",
+			"AzmeriGolemVTurretProjectile",
+			"AzmeriGuardian4Slam",
+			"AzmeriGuardian4BeamGun",
+			"EmptyActionAzmeriGuardian4Gun",
+			"AzmeriGolemLeapSlam",
+			"AzmeriGuardian4LeapUp",
+			"EmptyActionAzmeriGolemMinionPhase",
+			"AzmeriGolemBossWhipLeft",
+			"AzmeriGolemBossWhipRight",
+			"EmptyActionAzmeriGolemWhip",
+			"AzmeriBossShockRifleSingle",
+			"AzmeriBossShockRifleMulti",
+			"AzmeriBossShockRifleRotating",
+			"AzmeriGolemRotateZap",
+		},
+		modList = {
+			mod("LinkEffectOnSelf", "INC", 100, 0, 0), -- AzmeriGolemLinkEffectOnSelf2 [link_buff_effect_on_self_+% = 100]
+		},
+	}
+    -- Conjuror of Rot
+	minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockLow"] = {
+		name = "Imperfect Conjuror of Rot",
+		monsterTags = { "caster", "human", "humanoid", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.04,
+		energyShield = 0.16,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 40,
+		damage = 2.04,
+		damageSpread = 0,
+		attackTime = 1.5,
+		attackRange = 60,
+		accuracy = 1,
+		skillList = {
+			"SSMFaridunWarlockBloodLocust",
+			"SOFaridunWarlockPustule",
+			"GSFaridunWarlockPustuleExplosion",
+			"GTFaridunWarlockPustules",
+			"MPSFaridunWarlockBloodSpray",
+		},
+		modList = {
+			-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+			-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+		},
+	}
+	minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockMid_"] = {
+		name = "Conjuror of Rot",
+		monsterTags = { "caster", "human", "humanoid", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.04,
+		energyShield = 0.16,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 40,
+		damage = 2.04,
+		damageSpread = 0,
+		attackTime = 1.5,
+		attackRange = 60,
+		accuracy = 1,
+		skillList = {
+			"SSMFaridunWarlockBloodLocust",
+			"SOFaridunWarlockPustule",
+			"GSFaridunWarlockPustuleExplosion",
+			"GTFaridunWarlockPustules",
+			"CGEFaridunWarlockSwarmGround",
+			"MPSFaridunWarlockBloodSpray",
+		},
+		modList = {
+			-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+			-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+		},
+	}
+	minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockHigh"] = {
+		name = "Perfect Conjuror of Rot",
+		monsterTags = { "caster", "human", "humanoid", "not_dex", "not_str", "ranged", "red_blood", "slow_movement", },
+		baseDamageIgnoresAttackSpeed = true,
+		life = 2.04,
+		energyShield = 0.16,
+		fireResist = 0,
+		coldResist = 0,
+		lightningResist = 0,
+		chaosResist = 40,
+		damage = 2.04,
+		damageSpread = 0,
+		attackTime = 1.5,
+		attackRange = 60,
+		accuracy = 1,
+		skillList = {
+			"SSMFaridunWarlockBloodLocust",
+			"SOFaridunWarlockPustule",
+			"GSFaridunWarlockPustuleExplosion",
+			"GTFaridunWarlockPustules",
+			"CGEFaridunWarlockSwarmGround",
+			"MPSFaridunWarlockBloodSpray",
+			"FaridunCasterUndeadDamageOverTimeAura",
+		},
+		modList = {
+			-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
+			-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+		},
+	}
+    return minions
+end

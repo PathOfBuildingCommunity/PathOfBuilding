@@ -6,7 +6,7 @@
 local t_insert = table.insert
 local m_floor = math.floor
 local dkjson = require "dkjson"
-local tradeHelpers = LoadModule("Classes/CompareTradeHelpers")
+local tradeHelpers = require("Classes.CompareTradeHelpers")
 
 local M = {}
 

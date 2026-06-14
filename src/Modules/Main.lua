@@ -14,18 +14,18 @@ local m_sin = math.sin
 local m_cos = math.cos
 local m_pi = math.pi
 
-LoadModule("GameVersions")
-LoadModule("Modules/Common")
-LoadModule("Modules/CalcFormat")
-LoadModule("Modules/Data")
-LoadModule("Modules/ModTools")
-LoadModule("Modules/ItemTools")
-LoadModule("Modules/CalcTools")
-LoadModule("Modules/PantheonTools")
-LoadModule("Modules/BuildSiteTools")
+require("GameVersions")
+require("Modules.Common")
+require("Modules.CalcFormat")
+require("Modules.Data")
+require("Modules.ModTools")
+require("Modules.ItemTools")
+require("Modules.CalcTools")
+require("Modules.PantheonTools")
+require("Modules.BuildSiteTools")
 
 -- Load as global so other modules can access the same instance
-ToastNotification = LoadModule("Modules/ToastNotification")
+ToastNotification = require("Modules.ToastNotification")
 
 --[[if launch.devMode then
 	for skillName, skill in pairs(data.enchantments.Helmet) do
@@ -57,8 +57,8 @@ main = new("ControlHost"):ControlHost()
 function main:Init()
 	self:DetectUnicodeSupport()
 	self.modes = { }
-	self.modes["LIST"] = LoadModule("Modules/BuildList")
-	self.modes["BUILD"] = LoadModule("Modules/Build")
+	self.modes["LIST"] = require("Modules.BuildList")
+	self.modes["BUILD"] = require("Modules.Build")
 
 	self.popups = { }
 	self.sharedItemList = { }
@@ -130,7 +130,7 @@ function main:Init()
 		self.saveNewModCache = true
 	else
 		-- Load mod cache
-		LoadModule("Data/ModCache", modLib.parseModCache)
+		modLib.parseModCache = require("Data.ModCache")
 	end
 
 	--[[ this does not work properly anymore see PR #7675
@@ -293,7 +293,8 @@ end
 function main:SaveModCache()
 	-- Update mod cache
 	local out = io.open("Data/ModCache.lua", "w")
-	out:write('local c=...')
+	out:write('---@class ModCache\n')
+	out:write('local c = {}\n')
 	for line, dat in pairsSortByKey(modLib.parseModCache) do
 		if not dat[1] or not dat[1][1] or (dat[1][1].name ~= "JewelFunc" and dat[1][1].name ~= "ExtraJewelFunc") then
 			out:write('c["', line:gsub("\n","\\n"), '"]={')
@@ -309,6 +310,7 @@ function main:SaveModCache()
 			end
 		end
 	end
+	out:write('return c\n')
 	out:close()
 end
 

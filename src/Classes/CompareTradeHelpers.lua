@@ -10,7 +10,7 @@ do
 	local queryModFile = io.open("Data/QueryMods.lua", "r")
 	if queryModFile then
 		queryModFile:close()
-		queryModsData = LoadModule("Data/QueryMods")
+		queryModsData = require("Data.QueryMods")
 	end
 end
 

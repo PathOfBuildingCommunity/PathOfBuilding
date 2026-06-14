@@ -4,120 +4,120 @@
 -- Boss Data
 -- Boss data (c) Grinding Gear Games
 --
-local bosses = ...
+return {
+	["Venarius"] = {
+		armourMult = 50,
+		evasionMult = 0,
+		isUber = true,
+	},
+	["EaterOfWorlds"] = {
+		armourMult = 0,
+		evasionMult = 0,
+		isUber = true,
+	},
+	["SearingExarch"] = {
+		armourMult = 0,
+		evasionMult = 50,
+		isUber = true,
+	},
+	["Maven"] = {
+		armourMult = 25,
+		evasionMult = 0,
+		isUber = true,
+	},
+	["Sirus"] = {
+		armourMult = 100,
+		evasionMult = 0,
+		isUber = true,
+	},
+	["Shaper"] = {
+		armourMult = 0,
+		evasionMult = 33,
+		isUber = true,
+	},
+	["Elder"] = {
+		armourMult = 0,
+		evasionMult = 33,
+		isUber = true,
+	},
 
-bosses["Venarius"] = {
-	armourMult = 50,
-	evasionMult = 0,
-	isUber = true,
-}
-bosses["EaterOfWorlds"] = {
-	armourMult = 0,
-	evasionMult = 0,
-	isUber = true,
-}
-bosses["SearingExarch"] = {
-	armourMult = 0,
-	evasionMult = 50,
-	isUber = true,
-}
-bosses["Maven"] = {
-	armourMult = 25,
-	evasionMult = 0,
-	isUber = true,
-}
-bosses["Sirus"] = {
-	armourMult = 100,
-	evasionMult = 0,
-	isUber = true,
-}
-bosses["Shaper"] = {
-	armourMult = 0,
-	evasionMult = 33,
-	isUber = true,
-}
-bosses["Elder"] = {
-	armourMult = 0,
-	evasionMult = 33,
-	isUber = true,
-}
+	["BlackStar"] = {
+		armourMult = 0,
+		evasionMult = 50,
+		isUber = false,
+	},
+	["InfiniteHunger"] = {
+		armourMult = 0,
+		evasionMult = 0,
+		isUber = false,
+	},
 
-bosses["BlackStar"] = {
-	armourMult = 0,
-	evasionMult = 50,
-	isUber = false,
-}
-bosses["InfiniteHunger"] = {
-	armourMult = 0,
-	evasionMult = 0,
-	isUber = false,
-}
+	["Atziri"] = {
+		armourMult = 25,
+		evasionMult = 50,
+		isUber = false,
+	},
 
-bosses["Atziri"] = {
-	armourMult = 25,
-	evasionMult = 50,
-	isUber = false,
-}
+	["Phoenix"] = {
+		armourMult = 50,
+		evasionMult = 50,
+		isUber = false,
+	},
+	["Hydra"] = {
+		armourMult = 50,
+		evasionMult = 100,
+		isUber = false,
+	},
+	["Minotaur"] = {
+		armourMult = 100,
+		evasionMult = 0,
+		isUber = false,
+	},
+	["Chimera"] = {
+		armourMult = 50,
+		evasionMult = 50,
+		isUber = false,
+	},
 
-bosses["Phoenix"] = {
-	armourMult = 50,
-	evasionMult = 50,
-	isUber = false,
-}
-bosses["Hydra"] = {
-	armourMult = 50,
-	evasionMult = 100,
-	isUber = false,
-}
-bosses["Minotaur"] = {
-	armourMult = 100,
-	evasionMult = 0,
-	isUber = false,
-}
-bosses["Chimera"] = {
-	armourMult = 50,
-	evasionMult = 50,
-	isUber = false,
-}
+	["Enslaver"] = {
+		armourMult = 75,
+		evasionMult = 33,
+		isUber = false,
+	},
+	["Eradicator"] = {
+		armourMult = 0,
+		evasionMult = 33,
+		isUber = false,
+	},
+	["Constrictor"] = {
+		armourMult = 100,
+		evasionMult = 33,
+		isUber = false,
+	},
+	["Purifier"] = {
+		armourMult = 75,
+		evasionMult = 33,
+		isUber = false,
+	},
 
-bosses["Enslaver"] = {
-	armourMult = 75,
-	evasionMult = 33,
-	isUber = false,
-}
-bosses["Eradicator"] = {
-	armourMult = 0,
-	evasionMult = 33,
-	isUber = false,
-}
-bosses["Constrictor"] = {
-	armourMult = 100,
-	evasionMult = 33,
-	isUber = false,
-}
-bosses["Purifier"] = {
-	armourMult = 75,
-	evasionMult = 33,
-	isUber = false,
-}
-
-bosses["Baran"] = {
-	armourMult = 100,
-	evasionMult = 0,
-	isUber = false,
-}
-bosses["Veritania"] = {
-	armourMult = 100,
-	evasionMult = 0,
-	isUber = false,
-}
-bosses["AlHezmin"] = {
-	armourMult = 100,
-	evasionMult = 0,
-	isUber = false,
-}
-bosses["Drox"] = {
-	armourMult = 100,
-	evasionMult = 0,
-	isUber = false,
+	["Baran"] = {
+		armourMult = 100,
+		evasionMult = 0,
+		isUber = false,
+	},
+	["Veritania"] = {
+		armourMult = 100,
+		evasionMult = 0,
+		isUber = false,
+	},
+	["AlHezmin"] = {
+		armourMult = 100,
+		evasionMult = 0,
+		isUber = false,
+	},
+	["Drox"] = {
+		armourMult = 100,
+		evasionMult = 0,
+		isUber = false,
+	},
 }

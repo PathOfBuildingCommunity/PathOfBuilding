@@ -1,6 +1,5 @@
 -- Item data (c) Grinding Gear Games
-local itemBases = ...
-
+return function(itemBases)
 #type One Handed Mace
 #influenceBaseTag mace
 #socketLimit 3
@@ -14,3 +13,4 @@ local itemBases = ...
 #influenceBaseTag 2h_mace
 #socketLimit 6
 #baseMatch BaseType Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/AbstractTwoHandMace
+end

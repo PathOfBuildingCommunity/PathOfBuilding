@@ -3,8 +3,7 @@
 -- Dexterity support gems
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 #skill SupportAddedColdDamage
 #mods
 
@@ -690,3 +689,4 @@ local skills, mod, flag, skill = ...
 
 #skill SupportWitheringTouch
 #mods
+end

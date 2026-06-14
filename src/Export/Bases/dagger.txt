@@ -1,6 +1,5 @@
 -- Item data (c) Grinding Gear Games
-local itemBases = ...
-
+return function(itemBases)
 #type Dagger
 #influenceBaseTag dagger
 #socketLimit 3
@@ -11,3 +10,4 @@ local itemBases = ...
 #influenceBaseTag rune_dagger
 #socketLimit 3
 #baseMatch BaseType Metadata/Items/Weapons/OneHandWeapons/Daggers/AbstractRuneDagger
+end

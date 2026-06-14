@@ -16,9 +16,9 @@ local m_sin = math.sin
 local m_cos = math.cos
 local m_pi = math.pi
 
-LoadModule("../Modules/Common.lua")
+require("Modules.Common")
 
-LoadModule("../Classes/ControlHost.lua")
+require("Classes.ControlHost")
 
 main = new("ControlHost"):ControlHost()
 
@@ -53,10 +53,10 @@ local ourClassList = {
 	"GGPKData",
 }
 for _, className in ipairs(classList) do
-	LoadModule("../Classes/"..className..".lua", launch, main)
+	require("Classes." .. className)
 end
 for _, className in ipairs(ourClassList) do
-	LoadModule("Classes/"..className, launch, main)
+	require("Export.Classes." .. className)
 end
 
 local tempTable1 = { }
@@ -69,7 +69,7 @@ function main:Init()
 	self.popups = { }
 	self.scriptOutput = { }
 
-	self.datSpecs = LoadModule("spec")
+	self.datSpecs = require("spec")
 
 	self.datFileList = { }
 	self.datFileByName = { }
@@ -179,7 +179,7 @@ function main:Init()
 	
 	self.controls.scriptAll = new("ButtonControl"):ButtonControl(nil, {270, 10, 140, 18}, "Run All", function()
 		do -- run stat desc first
-			local errMsg = PLoadModule("Scripts/".."statdesc"..".lua")
+			local _, errMsg = prerequire("Scripts." .. "statdesc")
 			if errMsg then
 				print(errMsg)
 			end
@@ -381,7 +381,7 @@ function main:LoadDatSource(value)
 		out:close()
 	end
 	self.datSource = value
-	self.datSpecs = LoadModule(self.datSource.spec)
+	self.datSpecs = require(self.datSource.spec)
 	self:InitGGPK()
 	if USE_DAT64 then
 		self:LoadDat64Files()
@@ -441,7 +441,7 @@ function main:OnFrame()
 		local startTime = GetTime()
 		repeat
 			local script = t_remove(remainingScripts)
-			local errMsg = PLoadModule("Scripts/"..script..".lua")
+			local _, errMsg = prerequire("Scripts." .. script)
 			if errMsg then
 				print(errMsg)
 			end

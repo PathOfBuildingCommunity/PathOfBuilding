@@ -15,6 +15,7 @@ local s_format = string.format
 local band = bit.band
 local bor = bit.bor
 
+---@diagnostic disable-next-line: lowercase-global
 modLib = { }
 
 --- "Flag" is only used with CanNotUseItem
@@ -53,8 +54,9 @@ function modLib.createMod(modName, modType, modVal, ...)
 		select(tagStart, ...)
 	}
 end
-
-modLib.parseMod, modLib.parseModCache = LoadModule("Modules/ModParser", launch)
+local modParserModule = require("Modules.ModParser")
+modLib.parseMod = modParserModule.parseMod
+modLib.parseModCache = modParserModule.parseModCache
 
 function modLib.parseTags(line)
 	if not line or line == "-" then

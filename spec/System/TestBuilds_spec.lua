@@ -8,7 +8,7 @@ local function fetchBuilds(path, buildList)
 			if attr.mode == "directory" then
 				fetchBuilds(f, buildList)
 			elseif file:match("^.+(%..+)$") == ".lua" then
-				buildList[file] = LoadModule(f)
+				buildList[file] = require(f)
 			end
 		end
 	end

@@ -112679,7 +112679,7 @@ return {
 						[2]=-1
 					}
 				},
-				text="{0}% decreased Attack Speed per Enemy in Close Range"
+				text="{0}% reduced Attack Speed per Enemy in Close Range"
 			}
 		},
 		stats={

@@ -9,7 +9,7 @@ local curl = require("lcurl.safe")
 local m_max = math.max
 local s_format = string.format
 local t_insert = table.insert
-local tradeHelpers = LoadModule("Classes/CompareTradeHelpers")
+local tradeHelpers = require("Classes.CompareTradeHelpers")
 
 -- TODO generate these from data files
 local itemCategoryTags = {
@@ -394,12 +394,11 @@ function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed, i
 end
 
 function TradeQueryGeneratorClass:InitMods()
-	local queryModFilePath = "Data/QueryMods.lua"
 
-	local file = io.open(queryModFilePath,"r")
+	local file = io.open("Data/QueryMods.lua", "r")
 	if file then
 		file:close()
-		self.modData = LoadModule(queryModFilePath)
+		self.modData = require("Data.QueryMods")
 		return
 	end
 

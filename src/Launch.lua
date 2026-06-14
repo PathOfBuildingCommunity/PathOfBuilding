@@ -12,6 +12,18 @@ SetWindowTitle(APP_NAME)
 ConExecute("set vid_mode 8")
 ConExecute("set vid_resizable 3")
 
+-- Try to load a library return nil and the error message if failed. https://stackoverflow.com/questions/34965863/lua-require-fallback-error-handling
+---@param modName string
+---@return any module -- overridden by language server
+---@return unknown? err
+---@diagnostic disable-next-line: lowercase-global
+function prerequire(modName)
+	local success, moduleOrError = pcall(require, modName)
+	if (success) then
+		return moduleOrError
+	end
+	return nil, moduleOrError
+end
 ---@diagnostic disable-next-line: lowercase-global
 launch = { }
 SetMainObject(launch)
@@ -35,7 +47,7 @@ function launch:OnInit()
 		-- Perform an immediate update to download the latest version
 		ConClear()
 		ConPrintf("Please wait while we complete installation...\n")
-		local updateMode, errMsg = LoadModule("UpdateCheck")
+		local updateMode, errMsg = prerequire("UpdateCheck")
 		if not updateMode then
 			self.updateErrMsg = errMsg
 		elseif updateMode ~= "none" then
@@ -69,7 +81,8 @@ function launch:OnInit()
 	RenderInit("DPI_AWARE")
 	ConPrintf("Loading main script...")
 	local errMsg
-	errMsg, self.main = PLoadModule("Modules/Main")
+	self.main, errMsg = prerequire("Modules.Main")
+	ConPrintf("%s", errMsg)
 	if errMsg then
 		self:ShowErrMsg("Error loading main script: %s", errMsg)
 	elseif not self.main then
@@ -325,12 +338,12 @@ end
 function launch:ApplyUpdate(mode)
 	if mode == "basic" then
 		-- Need to revert to the basic environment to fully apply the update
-		LoadModule("UpdateApply", "Update/opFile.txt")
+		require("UpdateApply")("Update/opFile.txt")
 		SpawnProcess(GetRuntimePath()..'/Update', 'UpdateApply.lua Update/opFileRuntime.txt')
 		Exit()
 	elseif mode == "normal" then
 		-- Update can be applied while normal environment is running
-		LoadModule("UpdateApply", "Update/opFile.txt")
+		require("UpdateApply")("Update/opFile.txt")
 		Restart()
 		self.doRestart = "Updating..."
 	end

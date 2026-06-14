@@ -3,8 +3,7 @@
 -- Minion active skills
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 #skill ChaosElementalCascadeSummoned Cascade
 #flags spell area
 #mods
@@ -444,3 +443,4 @@ skills["GuardianSentinelFireAura"] = {
 #skill MeleeAtAnimationSpeedComboCold
 #flags attack melee
 #mods
+end

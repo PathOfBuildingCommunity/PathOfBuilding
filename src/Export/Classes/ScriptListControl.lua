@@ -22,7 +22,7 @@ function ScriptListClass:OnSelClick(index, script, doubleClick)
 		if main.controls.clearAutoClearOutput.state then
 			wipeTable(main.scriptOutput)
 		end
-		local errMsg = PLoadModule("Scripts/"..script..".lua")
+		local _, errMsg = prerequire("Scripts." .. script)
 		if errMsg then
 			print(errMsg)
 		end

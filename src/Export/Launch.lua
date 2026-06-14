@@ -12,13 +12,26 @@ ConExecute("set vid_resizable 3")
 launch = { }
 SetMainObject(launch)
 
+-- Try to load a library return nil and the error message if failed. https://stackoverflow.com/questions/34965863/lua-require-fallback-error-handling
+---@param modName string
+---@return any module -- overridden by language server
+---@return unknown? err
+---@diagnostic disable-next-line: lowercase-global
+function prerequire(modName)
+	local success, moduleOrError = pcall(require, modName)
+	if (success) then
+		return moduleOrError
+	end
+	return nil, moduleOrError
+end
 function launch:OnInit()
+	package.path = "../?.lua;" .. package.path
 	self.devMode = true
 	self.subScripts = { }
 	RenderInit()
 	ConPrintf("Loading main script...")
 	local errMsg
-	errMsg, self.main = PLoadModule("Main", self)
+	self.main, errMsg = prerequire("Main")
 	if errMsg then
 		self:ShowErrMsg("Error loading main script: %s", errMsg)
 	elseif not self.main then

@@ -689,7 +689,7 @@ for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
 	end
 end
 
-local unsortedMods = LoadModule("Data/Uniques/Special/BoundByDestiny")
+local unsortedMods = require("Data.Uniques.Special.BoundByDestiny")
 local sortedMods = { }
 local boundByDestinyMods = { }
 
@@ -911,7 +911,7 @@ Variant: None
 ]]
 }
 
-local unsortedCharmsMods = LoadModule("Data/ModJewelCharm")
+local unsortedCharmsMods = require("Data.ModJewelCharm")
 local sortedCharmsMods = { }
 
 for modId, mod in pairs(unsortedCharmsMods) do
@@ -947,7 +947,7 @@ table.insert(data.uniques.generated, table.concat(thatWhichWasTaken, "\n"))
 
 local replicaDragonfangsFlightMods = {}
 
-LoadModule("Modules/CalcTools")
+require("Modules.CalcTools")
 for _, gem in pairs(data.gems) do
 	if not string.match(gem.grantedEffectId, "Alt[XY]$") and calcLib.gemIsType(gem, "active skill", false) and calcLib.gemIsType(gem, "non-vaal", false) then
 		replicaDragonfangsFlightMods[gem.name] = "+3 to Level of all "..gem.name.." Gems"

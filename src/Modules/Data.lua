@@ -4,7 +4,7 @@
 -- Contains static data used by other modules.
 --
 
-LoadModule("Data/Global")
+require("Data.Global")
 
 local m_min = math.min
 local m_max = math.max
@@ -104,10 +104,15 @@ end
 ----------------------------------------
 
 ---@diagnostic disable-next-line: lowercase-global
+---@class Data : MiscDataExport
+---@field bosses BossData
 data = { }
 
 -- Misc data tables
-LoadModule("Data/Misc", data)
+local miscData = require("Data.Misc")
+for k, v in pairs(miscData) do
+	data[k] = v
+end
 
 data.powerStatList = {
 	{ stat=nil, label="Offence/Defence", combinedOffDef=true, ignoreForItems=true },
@@ -566,38 +571,35 @@ data.enchantmentSource = {
 	{ name = "NORMAL", label = "Normal Labyrinth" },
 }
 
--- Misc data tables
-LoadModule("Data/Misc", data)
-
 -- Stat descriptions
-data.describeStats = LoadModule("Modules/StatDescriber")
+data.describeStats = require("Modules.StatDescriber")
 
 -- Load item modifiers
 data.itemMods = {
-	Explicit = LoadModule("Data/ModExplicit"),
-	Implicit = LoadModule("Data/ModImplicit"),
-	Corrupted = LoadModule("Data/ModCorrupted"),
-	Delve = LoadModule("Data/ModDelve"),
-	Synthesis = LoadModule("Data/ModSynthesis"),
-	Scourge = LoadModule("Data/ModScourge"),
-	Eldritch = LoadModule("Data/ModEldritch"),
-	Flask = LoadModule("Data/ModFlask"),
-	Tincture = LoadModule("Data/ModTincture"),
-	Graft = LoadModule("Data/ModGraft"),
-	Jewel = LoadModule("Data/ModJewel"),
-	JewelAbyss = LoadModule("Data/ModJewelAbyss"),
-	JewelCluster = LoadModule("Data/ModJewelCluster"),
-	JewelCharm = LoadModule("Data/ModJewelCharm"),
+	Explicit = require("Data.ModExplicit"),
+	Implicit = require("Data.ModImplicit"),
+	Corrupted = require("Data.ModCorrupted"),
+	Delve = require("Data.ModDelve"),
+	Synthesis = require("Data.ModSynthesis"),
+	Scourge = require("Data.ModScourge"),
+	Eldritch = require("Data.ModEldritch"),
+	Flask = require("Data.ModFlask"),
+	Tincture = require("Data.ModTincture"),
+	Graft = require("Data.ModGraft"),
+	Jewel = require("Data.ModJewel"),
+	JewelAbyss = require("Data.ModJewelAbyss"),
+	JewelCluster = require("Data.ModJewelCluster"),
+	JewelCharm = require("Data.ModJewelCharm"),
 }
-data.masterMods = LoadModule("Data/ModMaster")
+data.masterMods = require("Data.ModMaster")
 data.enchantments = {
-	["Helmet"] = LoadModule("Data/EnchantmentHelmet"),
-	["Boots"] = LoadModule("Data/EnchantmentBoots"),
-	["Gloves"] = LoadModule("Data/EnchantmentGloves"),
-	["Belt"] = LoadModule("Data/EnchantmentBelt"),
-	["Body Armour"] = LoadModule("Data/EnchantmentBody"),
-	["Weapon"] = LoadModule("Data/EnchantmentWeapon"),
-	["UtilityFlask"] = LoadModule("Data/EnchantmentFlask"),
+	["Helmet"] = require("Data.EnchantmentHelmet"),
+	["Boots"] = require("Data.EnchantmentBoots"),
+	["Gloves"] = require("Data.EnchantmentGloves"),
+	["Belt"] = require("Data.EnchantmentBelt"),
+	["Body Armour"] = require("Data.EnchantmentBody"),
+	["Weapon"] = require("Data.EnchantmentWeapon"),
+	["UtilityFlask"] = require("Data.EnchantmentFlask"),
 }
 
 -- combined table of many mod categories
@@ -627,13 +629,13 @@ do
 		end
 	end					
 end
-data.essences = LoadModule("Data/Essence")
-data.veiledMods = LoadModule("Data/ModVeiled")
-data.beastCraft = LoadModule("Data/BeastCraft")
-data.necropolisMods = LoadModule("Data/ModNecropolis")
-data.crucible = LoadModule("Data/Crucible")
-data.pantheons = LoadModule("Data/Pantheons")
-data.costs = LoadModule("Data/Costs")
+data.essences = require("Data.Essence")
+data.veiledMods = require("Data.ModVeiled")
+data.beastCraft = require("Data.BeastCraft")
+data.necropolisMods = require("Data.ModNecropolis")
+data.crucible = require("Data.Crucible")
+data.pantheons = require("Data.Pantheons")
+data.costs = require("Data.Costs")
 
 do
 	local map = { }
@@ -642,7 +644,7 @@ do
 	end
 	setmetatable(data.costs, { __index = function(t, k) return t[map[k]] end })
 end
-data.mapMods = LoadModule("Data/ModMap")
+data.mapMods = require("Data.ModMap")
 
 -- Manually seeded modifier tag against item slot table for Mastery Item Condition based modifiers
 -- Data is informed by getTagBasedModifiers() located in Item.lua
@@ -772,7 +774,7 @@ data.itemTagSpecialExclusionPattern = {
 }
 
 -- Cluster jewel data
-data.clusterJewels = LoadModule("Data/ClusterJewels")
+data.clusterJewels = require("Data.ClusterJewels")
 
 -- Create a quick lookup cache from cluster jewel skill to the notables which use that skill
 ---@type table<string, table<string>>
@@ -836,11 +838,13 @@ data.timelessJewelSeedMax = {
 	[5] = 160000 / 20,
 	[6] = 8000,
 }
-data.timelessJewelTradeIDs = LoadModule("Data/TimelessJewelData/LegionTradeIds")
+data.timelessJewelTradeIDs = require("Data.TimelessJewelData.LegionTradeIds")
 data.timelessJewelAdditions = 96 -- #legionAdditions
-data.nodeIDList = LoadModule("Data/TimelessJewelData/NodeIndexMapping")
+data.nodeIDList = require("Data.TimelessJewelData.NodeIndexMapping")
 data.timelessJewelLUTs = { }
-data.readLUT, data.repairLUTs = LoadModule("Modules/DataLegionLookUpTableHelper")
+local helperMod = require("Modules.DataLegionLookUpTableHelper")
+data.readLUT = helperMod.readLUT
+data.repairLUTs = helperMod.repairLUTs
 
 -- this runs if the "size" key is missing from nodeIDList and attempts to rebuild all jewel LUTs and the nodeIDList
 -- note this should only run in dev mode
@@ -849,10 +853,8 @@ if not data.nodeIDList.size and launch.devMode then
 end
 
 -- Load bosses
-do 
-	data.bosses = { }
-	LoadModule("Data/Bosses", data.bosses)
-	
+do
+	data.bosses = require("Data.Bosses")
 	local count, uberCount = 0, 0
 	local armourTotal, evasionTotal = 0, 0
 	local uberArmourTotal, uberEvasionTotal = 0, 0
@@ -875,8 +877,9 @@ do
 		UberEvasionMean = 100 + uberEvasionTotal / uberCount
 	}
 
-	data.bossSkills, data.bossSkillsList = LoadModule("Data/BossSkills")
-
+	local bossSkillData     = require("Data.BossSkills")
+	data.bossSkills         = bossSkillData.bossSkills
+	data.bossSkillsList     = bossSkillData.bossSkillsList
 	data.enemyIsBossTooltip = [[Bosses' damage is monster damage scaled to an average damage of their attacks
 This is divided by 4.40 to represent 4 damage types + some (40% as much) ^xD02090chaos
 ^7Fill in the exact damage numbers if more precision is needed
@@ -911,7 +914,7 @@ end
 
 -- Load skills
 data.skills = { }
-data.skillStatMap = LoadModule("Data/SkillStatMap", makeSkillMod, makeFlagMod, makeSkillDataMod)
+data.skillStatMap = require("Data.SkillStatMap")(makeSkillMod, makeFlagMod, makeSkillDataMod)
 data.skillStatMapMeta = {
 	__index = function(t, key)
 		local map = data.skillStatMap[key]
@@ -926,7 +929,7 @@ data.skillStatMapMeta = {
 	end
 }
 for _, type in pairs(skillTypes) do
-	LoadModule("Data/Skills/"..type, data.skills, makeSkillMod, makeFlagMod, makeSkillDataMod)
+	require("Data.Skills." .. type)(data.skills, makeSkillMod, makeFlagMod, makeSkillDataMod)
 end
 for skillId, grantedEffect in pairs(data.skills) do
 	grantedEffect.name = sanitiseText(grantedEffect.name)
@@ -963,7 +966,7 @@ for skillId, grantedEffect in pairs(data.skills) do
 end
 
 -- Load gems
-data.gems = LoadModule("Data/Gems")
+data.gems = require("Data.Gems")
 data.gemForSkill = { }
 data.gemForBaseName = { }
 data.gemsByGameId = { }
@@ -1034,10 +1037,8 @@ for id, gem in pairs(toAddGems) do
 end
 
 -- Load minions
-data.minions = { }
-LoadModule("Data/Minions", data.minions, makeSkillMod, makeFlagMod)
-data.spectres = { }
-LoadModule("Data/Spectres", data.spectres, makeSkillMod, makeFlagMod)
+data.minions = require("Data.Minions")(makeSkillMod, makeFlagMod)
+data.spectres = require("Data.Spectres")(makeSkillMod, makeFlagMod)
 for name, spectre in pairs(data.spectres) do
 	spectre.limit = "ActiveSpectreLimit"
 	data.minions[name] = spectre
@@ -1062,7 +1063,7 @@ end
 -- Item bases
 data.itemBases = { }
 for _, type in pairs(itemTypes) do
-	LoadModule("Data/Bases/"..type, data.itemBases)
+	require("Data.Bases." .. type)(data.itemBases)
 end
 
 -- Build lists of item bases, separated by type
@@ -1099,7 +1100,7 @@ end
 table.sort(data.itemBaseTypeList)
 
 -- Rare templates
-data.rares = LoadModule("Data/Rares")
+data.rares = require("Data.Rares")
 
 data.casterTagCrucibleUniques = {
 	["Atziri's Rule"] = true,
@@ -1148,12 +1149,12 @@ data.minionTagCrucibleUniques = {
 -- Uniques (loaded after version-specific data because reasons)
 data.uniques = { }
 for _, type in pairs(itemTypes) do
-	data.uniques[type] = LoadModule("Data/Uniques/"..type)
+	data.uniques[type] = require("Data.Uniques." .. type)
 end
-data.uniques['race'] = LoadModule("Data/Uniques/Special/race")
+data.uniques['race'] = require("Data.Uniques.Special.race")
 data.uniqueMods = { }
 data.uniqueMods["Watcher's Eye"] = { }
-local unsortedMods = LoadModule("Data/Uniques/Special/WatchersEye")
+local unsortedMods = require("Data.Uniques.Special.WatchersEye")
 local sortedMods = { }
 for modId in pairs(unsortedMods) do
 	table.insert(sortedMods, modId)
@@ -1165,7 +1166,7 @@ for _, modId in ipairs(sortedMods) do
 		mod = unsortedMods[modId],
 	})
 end
-LoadModule("Data/Uniques/Special/Generated")
-LoadModule("Data/Uniques/Special/New")
+require("Data.Uniques.Special.Generated")
+require("Data.Uniques.Special.New")
 
-data.flavourText = LoadModule("Data/FlavourText")
+data.flavourText = require("Data.FlavourText")

@@ -48,7 +48,7 @@ describe("TestItemTools", function()
 
 	it("uses the displayed item slot for anoint comparison tooltips", function()
 		if not common.classes.ItemsTab then
-			LoadModule("Classes/ItemsTab")
+			require("Classes.ItemsTab")
 		end
 		local item = new("Item"):Item([[
 Rarity: Rare

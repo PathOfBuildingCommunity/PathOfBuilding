@@ -15,7 +15,7 @@ local function makeSkillDataMod(dataKey, dataValue, ...)
 	return makeSkillMod("SkillData", "LIST", { key = dataKey, value = dataValue }, 0, 0, ...)
 end
 dofile("../Data/Global.lua")
-local skillStatMap = LoadModule("../Data/SkillStatMap.lua", makeSkillMod, makeFlagMod, makeSkillDataMod)
+local skillStatMap = require("Data.SkillStatMap")(makeSkillMod, makeFlagMod, makeSkillDataMod)
 
 local function tableToString(tbl, pre)
 	pre = pre or ""
@@ -147,70 +147,70 @@ directiveTable.emit = function(state, args, out)
 		print("Invalid Variety: "..state.varietyId)
 		return
 	end
-	out:write('minions["', state.name, '"] = {\n')
-	out:write('\tname = "', monsterVariety.Name, '",\n')
-	out:write('\tmonsterTags = { ')
+	out:write('\tminions["', state.name, '"] = {\n')
+	out:write('\t\tname = "', monsterVariety.Name, '",\n')
+	out:write('\t\tmonsterTags = { ')
 		for _, tag in ipairs(monsterVariety.Tags) do
 			out:write('"',tag.Id, '", ')
 		end
 	out:write('},\n')
 	if monsterVariety.Type.BaseDamageIgnoresAttackSpeed then
-		out:write('\tbaseDamageIgnoresAttackSpeed = true,\n')
+		out:write('\t\tbaseDamageIgnoresAttackSpeed = true,\n')
 	end
-	out:write('\tlife = ', (monsterVariety.LifeMultiplier/100), ',\n')
+	out:write('\t\tlife = ', (monsterVariety.LifeMultiplier / 100), ',\n')
 	if monsterVariety.Type.AltLife1 then
-		out:write('\tlifeScaling = "AltLife1",\n')
+		out:write('\t\tlifeScaling = "AltLife1",\n')
 	end
 	if monsterVariety.Type.AltLife2 then
-		out:write('\tlifeScaling = "AltLife2",\n')
+		out:write('\t\tlifeScaling = "AltLife2",\n')
 	end
 	if monsterVariety.Type.EnergyShield ~= 0 then
-		out:write('\tenergyShield = ', (0.4 * monsterVariety.Type.EnergyShield / 100), ',\n')
+		out:write('\t\tenergyShield = ', (0.4 * monsterVariety.Type.EnergyShield / 100), ',\n')
 	end
 	if monsterVariety.Type.Armour ~= 0 then
-		out:write('\tarmour = ', monsterVariety.Type.Armour / 100, ',\n')
+		out:write('\t\tarmour = ', monsterVariety.Type.Armour / 100, ',\n')
 	end
 	if monsterVariety.Type.Evasion ~= 0 then
-		out:write('\tevasion = ', monsterVariety.Type.Evasion / 100, ',\n')
+		out:write('\t\tevasion = ', monsterVariety.Type.Evasion / 100, ',\n')
 	end
-	out:write('\tfireResist = ', monsterVariety.Type.Resistances.FireMerciless, ',\n')
-	out:write('\tcoldResist = ', monsterVariety.Type.Resistances.ColdMerciless, ',\n')
-	out:write('\tlightningResist = ', monsterVariety.Type.Resistances.LightningMerciless, ',\n')
-	out:write('\tchaosResist = ', monsterVariety.Type.Resistances.ChaosMerciless, ',\n')
-	out:write('\tdamage = ', (monsterVariety.DamageMultiplier/100), ',\n')
-	out:write('\tdamageSpread = ', (monsterVariety.Type.DamageSpread / 100), ',\n')
-	out:write('\tattackTime = ', (monsterVariety.AttackDuration/1000), ',\n')
-	out:write('\tattackRange = ', monsterVariety.MaximumAttackRange, ',\n')
-	out:write('\taccuracy = ', monsterVariety.Type.Accuracy / 100, ',\n')
+	out:write('\t\tfireResist = ', monsterVariety.Type.Resistances.FireMerciless, ',\n')
+	out:write('\t\tcoldResist = ', monsterVariety.Type.Resistances.ColdMerciless, ',\n')
+	out:write('\t\tlightningResist = ', monsterVariety.Type.Resistances.LightningMerciless, ',\n')
+	out:write('\t\tchaosResist = ', monsterVariety.Type.Resistances.ChaosMerciless, ',\n')
+	out:write('\t\tdamage = ', (monsterVariety.DamageMultiplier / 100), ',\n')
+	out:write('\t\tdamageSpread = ', (monsterVariety.Type.DamageSpread / 100), ',\n')
+	out:write('\t\tattackTime = ', (monsterVariety.AttackDuration / 1000), ',\n')
+	out:write('\t\tattackRange = ', monsterVariety.MaximumAttackRange, ',\n')
+	out:write('\t\taccuracy = ', monsterVariety.Type.Accuracy / 100, ',\n')
 	for _, mod in ipairs(monsterVariety.Mods) do
 		if mod.Id == "MonsterSpeedAndDamageFixupSmall" then
-			out:write('\tdamageFixup = 0.11,\n')
+			out:write('\t\tdamageFixup = 0.11,\n')
 		elseif mod.Id == "MonsterSpeedAndDamageFixupLarge" then
-			out:write('\tdamageFixup = 0.22,\n')
+			out:write('\t\tdamageFixup = 0.22,\n')
 		elseif mod.Id == "MonsterSpeedAndDamageFixupComplete" then
-			out:write('\tdamageFixup = 0.33,\n')
+			out:write('\t\tdamageFixup = 0.33,\n')
 		end
 	end
 	if monsterVariety.MainHandItemClass and itemClassMap[monsterVariety.MainHandItemClass.Id] then
-		out:write('\tweaponType1 = "', itemClassMap[monsterVariety.MainHandItemClass.Id], '",\n')
+		out:write('\t\tweaponType1 = "', itemClassMap[monsterVariety.MainHandItemClass.Id], '",\n')
 	end
 	if monsterVariety.OffHandItemClass and itemClassMap[monsterVariety.OffHandItemClass.Id] then
-		out:write('\tweaponType2 = "', itemClassMap[monsterVariety.OffHandItemClass.Id], '",\n')
+		out:write('\t\tweaponType2 = "', itemClassMap[monsterVariety.OffHandItemClass.Id], '",\n')
 	end
 	if state.limit then
-		out:write('\tlimit = "', state.limit, '",\n')
+		out:write('\t\tlimit = "', state.limit, '",\n')
 	end
 	if state.hostile then
-		out:write('\thostile = ', state.hostile, ',\n')
+		out:write('\t\thostile = ', state.hostile, ',\n')
 	end
-	out:write('\tskillList = {\n')
+	out:write('\t\tskillList = {\n')
 	for _, grantedEffect in ipairs(monsterVariety.GrantedEffects) do
-		out:write('\t\t"', grantedEffect.Id, '",\n')
+		out:write('\t\t\t"', grantedEffect.Id, '",\n')
 	end
 	for _, skill in ipairs(state.extraSkillList) do
-		out:write('\t\t"', skill, '",\n')
+		out:write('\t\t\t"', skill, '",\n')
 	end
-	out:write('\t},\n')
+	out:write('\t\t},\n')
 
 	local modList = { }
 	for _, mod in ipairs(monsterVariety.Mods) do
@@ -222,7 +222,7 @@ directiveTable.emit = function(state, args, out)
 	if monsterVariety.ObjectType and monsterVariety.ObjectType ~= "Metadata/Monsters/Monster"then
 		modList = getOTStats(monsterVariety.ObjectType, modList)
 	end
-	out:write('\tmodList = {\n')
+	out:write('\t\tmodList = {\n')
 	for _, mod in ipairs(modList) do
 		local modStats = ""
 		for i = 1, 6 do
@@ -231,22 +231,24 @@ directiveTable.emit = function(state, args, out)
 				if skillStatMap[mod["Stat"..i].Id] then
 					local newMod = skillStatMap[mod["Stat"..i].Id][1]
 					--mod("Speed", "INC", -80, ModFlag.Cast, KeywordFlag.Curse)
-					out:write('\t\tmod("', newMod.name, '", "', newMod.type, '", ', newMod.value and type(newMod.value) ~= "boolean" and tableToString(newMod.value) or (skillStatMap[mod["Stat"..i].Id].value or mod["Stat"..i.."Value"][1] * (skillStatMap[mod["Stat"..i].Id].mult or 1) / (skillStatMap[mod["Stat"..i].Id].div or 1)), ', ', newMod.flags or 0, ', ', newMod.keywordFlags or 0)
+					out:write('\t\t\tmod("', newMod.name, '", "', newMod.type, '", ',
+						newMod.value and type(newMod.value) ~= "boolean" and tableToString(newMod.value) or (skillStatMap[mod["Stat" .. i].Id].value or mod["Stat" .. i .. "Value"][1] * (skillStatMap[mod["Stat" .. i].Id].mult or 1) / (skillStatMap[mod["Stat" .. i].Id].div or 1)), ', ', newMod.flags or 0, ', ',
+						newMod.keywordFlags or 0)
 					for _, extra in ipairs(newMod) do
 						out:write(', ', tableToString(extra))
 					end
 					out:write('), -- ', mod.Id, modStats, '\n')
 				else
-					out:write('\t\t-- ', mod.Id, modStats, '\n')
+					out:write('\t\t\t-- ', mod.Id, modStats, '\n')
 				end
 			end
 		end
 	end
 	for _, mod in ipairs(state.extraModList) do
-		out:write('\t\t', mod, ',\n')
+		out:write('\t\t\t', mod, ',\n')
 	end
-	out:write('\t},\n')
-	out:write('}\n')
+	out:write('\t\t},\n')
+	out:write('\t}\n')
 end
 
 -- #spectre <MonsterId> [<Name>]

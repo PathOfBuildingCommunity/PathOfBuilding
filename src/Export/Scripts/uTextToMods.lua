@@ -77,8 +77,8 @@ end
 
 local usedMods = {}
 local itemUsedMods = {}
-local modTextMap = LoadModule("Uniques/ModTextMap.lua")
-local uniqueMods = LoadModule("../Data/ModItemExclusive.lua")
+local modTextMap = require("Uniques.ModTextMap")
+local uniqueMods = require("Data.ModItemExclusive")
 
 for _, name in pairs(itemTypes) do
 	-- Reading the file backward lets us see the most current variant lines first

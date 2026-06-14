@@ -27,14 +27,7 @@ common.curl = require("lcurl.safe")
 common.xml = require("xml")
 common.base64 = require("base64")
 common.sha1 = require("sha1")
-local utf8 = require('lua-utf8')
-
--- Try to load a library return nil if failed. https://stackoverflow.com/questions/34965863/lua-require-fallback-error-handling
-function prerequire(...)
-	local status, lib = pcall(require, ...)
-	if(status) then return lib end
-	return nil
-end
+local utf8 = require("lua-utf8")
 
 profiler = prerequire("lua-profiler")
 profiling = false
@@ -69,7 +62,7 @@ end
 local function getClass(className)
 	local class = common.classes[className]
 	if not class then
-		LoadModule("Classes/" .. className)
+		require("Classes." .. className)
 		class = common.classes[className]
 		assert(class, "Class '" .. className .. "' not defined in class file")
 	end
