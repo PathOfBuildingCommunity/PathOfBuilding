@@ -49,7 +49,7 @@ function artHandleClass:Size() end
 
 ---@alias ArtFlag "CLAMP"|"MIPMAP"|"NEAREST"
 
----@param art userdata ArtHandle
+---@param art ArtHandle
 ---@param x1 integer
 ---@param y1 integer
 ---@param x2 integer
@@ -57,7 +57,7 @@ function artHandleClass:Size() end
 ---@param ... ArtFlag
 function imageHandleClass:LoadArtRectangle(art, x1, y1, x2, y2, ...) end
 
----@param art userdata ArtHandle
+---@param art ArtHandle
 ---@param xC integer
 ---@param yC integer
 ---@param rMin integer
@@ -74,6 +74,11 @@ function imageHandleClass:IsValid()
 	return self.valid
 end
 
+---@return boolean
+function imageHandleClass:IsLoading()
+	return false
+end
+
 ---@param priority number
 function imageHandleClass:SetLoadingPriority(priority) end
 
@@ -86,6 +91,52 @@ end
 ---@param fileName string
 ---@return userdata
 function NewArtHandle(fileName) end
+
+---@class TexHandle
+local texHandleClass = {}
+
+---@class TextureInfo
+---@field formatStr "<unknown>"|"RGB"|"RGBA"|"BC1"|"BC7"
+---@field width integer
+---@field height integer
+---@field layerCount integer
+---@field mipCount integer
+local textureInfoClass = {}
+
+---@class Texture
+local Texture = {}
+
+---@return TexHandle
+function Texture.new() end
+
+-- `gli::format` id, or a matching format string. see `core_tex_manipulation.cpp`
+---@alias TextureFormat integer|"RGB"|"RGBA"|"BC1"|"BC7"
+
+---@param format TextureFormat
+---@param width integer
+---@param height integer
+---@param layerCount integer
+---@param mipCount integer
+---@return boolean success
+function texHandleClass:Allocate(format, width, height, layerCount, mipCount) end
+
+---@param fileName string
+---@return boolean success
+function texHandleClass:Load(fileName) end
+
+---@param fileName string
+---@return boolean success
+function texHandleClass:Save(fileName) end
+
+---@return TextureInfo
+function texHandleClass:Info() end
+
+---@return boolean
+function texHandleClass:IsValid() end
+
+---@param textures TexHandle[]
+---@return boolean success
+function texHandleClass:StackTextures(textures) end
 
 ---@return integer width
 ---@return integer height
@@ -144,14 +195,14 @@ function GetDPIScaleOverridePercent()
 	return 1
 end
 
----@param imgHandle? userdata
+---@param imgHandle? ImageHandle
 ---@param left       number
 ---@param top        number
 ---@param width      number
 ---@param height     number
 function DrawImage(imgHandle, left, top, width, height) end
 
----@param imgHandle? userdata
+---@param imgHandle? ImageHandle
 ---@param left       number
 ---@param top        number
 ---@param width      number
@@ -162,7 +213,7 @@ function DrawImage(imgHandle, left, top, width, height) end
 ---@param tcBottom   number
 function DrawImage(imgHandle, left, top, width, height, tcLeft, tcTop, tcRight, tcBottom) end
 
----@param imgHandle? userdata
+---@param imgHandle? ImageHandle
 ---@param left       number
 ---@param top        number
 ---@param width      number
@@ -171,7 +222,7 @@ function DrawImage(imgHandle, left, top, width, height, tcLeft, tcTop, tcRight, 
 ---@param mask? integer must be positive
 function DrawImage(imgHandle, left, top, width, height, tcLeft, tcTop, tcRight, tcBottom, stackIdx, mask) end
 
----@param imgHandle? userdata
+---@param imgHandle? ImageHandle
 ---@param x1         number
 ---@param y1         number
 ---@param x2         number
@@ -182,7 +233,7 @@ function DrawImage(imgHandle, left, top, width, height, tcLeft, tcTop, tcRight, 
 ---@param y4         number
 function DrawImageQuad(imgHandle, x1, y1, x2, y2, x3, y3, x4, y4) end
 
----@param imgHandle? userdata
+---@param imgHandle? ImageHandle
 ---@param x1         number
 ---@param y1         number
 ---@param x2         number
@@ -200,7 +251,7 @@ function DrawImageQuad(imgHandle, x1, y1, x2, y2, x3, y3, x4, y4) end
 ---@param t4         number
 function DrawImageQuad(imgHandle, x1, y1, x2, y2, x3, y3, x4, y4, s1, t1, s2, t2, s3, t3, s4, t4) end
 
----@param imgHandle? userdata
+---@param imgHandle? ImageHandle
 ---@param x1         number
 ---@param y1         number
 ---@param x2         number
@@ -427,6 +478,7 @@ function PCall(func, ...)
 	end
 end
 
+--- A function similar to C `printf` which prints to the console (`^~` on US layout) of the program.
 ---@param fmt string
 ---@param ... any
 function ConPrintf(fmt, ...)

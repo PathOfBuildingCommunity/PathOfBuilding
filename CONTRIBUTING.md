@@ -255,6 +255,9 @@ If you prefer to not use EmmyLua, the following configuration works well for Sum
     "Lua.runtime.special": {
         "LoadModule": "require"
     },
+    "Lua.workspace.library": [
+        "src/_SimpleGraphic.def.lua"
+    ],
 }
 ```
 
