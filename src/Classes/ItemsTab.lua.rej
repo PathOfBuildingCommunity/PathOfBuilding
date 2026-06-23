@@ -1,0 +1,16 @@
+diff a/src/Classes/ItemsTab.lua b/src/Classes/ItemsTab.lua	(rejected hunks)
+@@ -702,12 +702,13 @@ holding Shift will put it in the second.]])
+ 	end
+ 
+ 	-- Section: Affix Selection
++	local maxModCount = 9
+ 	self.controls.displayItemSectionAffix = new("Control", {"TOPLEFT",self.controls.displayItemSectionRune,"BOTTOMLEFT"}, {0, 0, 0, function()
+ 		if not self.displayItem or not self.displayItem.crafted then
+ 			return 0
+ 		end
+ 		local h = 6
+-		for i = 1, 6 do
++		for i = 1, maxModCount do
+ 			if self.controls["displayItemAffix"..i]:IsShown() then
+ 				h = h + 24
+ 				if self.controls["displayItemAffixRange"..i]:IsShown() then
