@@ -1,0 +1,22 @@
+diff a/spec/System/TestSkills_spec.lua b/spec/System/TestSkills_spec.lua	(rejected hunks)
+@@ -798,6 +798,20 @@ describe("TestSkills", function()
+ 		assert.True(build.calcsTab.mainEnv.enemyDB:Sum("BASE", nil, "FireResist") < fireResistWithoutPotentExposure)
+ 	end)
+ 
++	it("averages inverted elemental resistance after penetration", function()
++		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
++		build.configTab.input.enemyIsBoss = "None"
++		build.configTab.input.enemyFireResist = 50
++		build.configTab.input.customMods = "Hits have 50% chance to treat Enemy Monster Elemental Resistance values as inverted\nDamage Penetrates 50% of Enemy Fire Resistance"
++		build.configTab:BuildModList()
++		runCallback("OnFrame")
++
++		assert.are.equals(1.25, build.calcsTab.calcsOutput.FireEffMult)
++		local breakdownText = table.concat(build.calcsTab.calcsEnv.player.breakdown.FireEffMult, "\n")
++		assert.truthy(breakdownText:match("inverted hit"))
++		assert.truthy(breakdownText:match("weighted average"))
++	end)
++
+ 	it("Test granted skills with exposure stats make exposure configurable", function()
+ 		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+ 		local spec = build.spec

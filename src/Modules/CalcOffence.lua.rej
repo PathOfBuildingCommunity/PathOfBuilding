@@ -1,0 +1,54 @@
+diff a/src/Modules/CalcOffence.lua b/src/Modules/CalcOffence.lua	(rejected hunks)
+@@ -4157,11 +4157,7 @@ function calcs.offence(env, actor, activeSkill)
+ 							end
+ 						end
+ 
+-						local invertChance = m_max(m_min(skillModList:Sum("CHANCE", cfg, "HitsInvertEleResChance"), 1), 0)
+-						if isElemental[damageType] and invertChance > 0 then
+-							-- resist = (1 - invertChance) * resist + invertChance * (-1 * resist)
+-							resist = resist - 2 * invertChance * resist
+-						end
++						local invertChance = isElemental[damageType] and m_max(m_min(skillModList:Sum("CHANCE", cfg, "HitsInvertEleResChance"), 1), 0) or 0
+ 						sourceRes = env.modDB:Flag(nil, "Enemy"..sourceRes.."ResistEqualToYours") and "Your "..sourceRes.." Resistance" or (env.partyMembers.modDB:Flag(nil, "Enemy"..sourceRes.."ResistEqualToYours") and "Party Member "..sourceRes.." Resistance" or sourceRes)
+ 						if skillFlags.projectile then
+ 							takenInc = takenInc + enemyDB:Sum("INC", nil, "ProjectileDamageTaken")
+@@ -4174,10 +4170,20 @@ function calcs.offence(env, actor, activeSkill)
+ 						end
+ 						local effMult = (1 + takenInc / 100) * takenMore
+ 						local useRes = useThisResist(damageType)
++						local effectiveResist = resist
++						local calcPenResist = function(resist)
++							return resist > minPen and m_max(resist - pen, minPen) or resist
++						end
+ 						if skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
+-							effMult = effMult * (1 - resist / 100)
++							effectiveResist = (isElemental[damageType] and invertChance > 0) and (resist - 2 * invertChance * resist) or resist
++							effMult = effMult * (1 - effectiveResist / 100)
+ 						elseif useRes then
+-							effMult = effMult * (1 - (resist > minPen and m_max(resist - pen, minPen) or resist) / 100)
++							if isElemental[damageType] and invertChance > 0 then
++								effectiveResist = calcPenResist(resist) * (1 - invertChance) + calcPenResist(-resist) * invertChance
++							else
++								effectiveResist = calcPenResist(resist)
++							end
++							effMult = effMult * (1 - effectiveResist / 100)
+ 						end
+ 						damageTypeHitMin = damageTypeHitMin * effMult
+ 						damageTypeHitMax = damageTypeHitMax * effMult
+@@ -4185,12 +4191,12 @@ function calcs.offence(env, actor, activeSkill)
+ 						if env.mode == "CALCS" then
+ 							output[damageType.."EffMult"] = effMult
+ 						end
+-						if pass == 2 and breakdown and (effMult ~= 1 or sourceRes ~= damageType) and skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
++						if pass == 2 and breakdown and (effMult ~= 1 or sourceRes ~= damageType or invertChance > 0) and skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
+ 							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
+-							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore, sourceRes, useRes, invertChance, minPen)
+-						elseif pass == 2 and breakdown and (effMult ~= 1 or (resist - pen) < minPen or sourceRes ~= damageType) then
++							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore, sourceRes, useRes, invertChance, minPen, effectiveResist)
++						elseif pass == 2 and breakdown and (effMult ~= 1 or (resist - pen) < minPen or sourceRes ~= damageType or invertChance > 0) then
+ 							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
+-							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, pen, takenInc, effMult, takenMore, sourceRes, useRes, invertChance, minPen)
++							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, pen, takenInc, effMult, takenMore, sourceRes, useRes, invertChance, minPen, effectiveResist)
+ 						end
+ 					end
+ 					if pass == 2 and breakdown then
