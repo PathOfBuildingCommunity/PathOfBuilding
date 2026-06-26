@@ -675,7 +675,7 @@ function EditClass:OnKeyUp(key)
 		end
 	elseif self.isNumeric then
 		local cur = tonumber(self.buf)
-		if key == "WHEELUP" or key == "UP" then
+		if (not main.disableScrollControlInteraction and (key == "WHEELUP")) or key == "UP" then
 			if cur then
 				self:SetText(tostring(cur + (self.numberInc or 1)), true)
 			else

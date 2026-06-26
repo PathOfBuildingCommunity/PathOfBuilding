@@ -626,6 +626,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.showAllItemAffixes then
 					self.showAllItemAffixes = node.attrib.showAllItemAffixes == "true"
 				end
+				if node.attrib.disableScrollControlInteraction then
+					self.disableScrollControlInteraction = node.attrib.disableScrollControlInteraction == "true"
+				end
 				if node.attrib.dpiScaleOverridePercent then
 					self.dpiScaleOverridePercent = tonumber(node.attrib.dpiScaleOverridePercent) or 0
 					SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
@@ -845,6 +848,7 @@ function main:OpenOptionsPopup(savedState)
 		showFlavourText = self.showFlavourText,
 		showAnimations = self.showAnimations,
 		showAllItemAffixes = self.showAllItemAffixes,
+		disableScrollControlInteraction = self.disableScrollControlInteraction,
 		dpiScaleOverridePercent = self.dpiScaleOverridePercent
 	}
 
@@ -1131,6 +1135,7 @@ function main:OpenOptionsPopup(savedState)
 	controls.showFlavourText.state = self.showFlavourText
 	controls.showAnimations.state = self.showAnimations
 	controls.showAllItemAffixes.state = self.showAllItemAffixes
+	controls.disableScrollControlInteraction.state = self.disableScrollControlInteraction
 
 	-- Adjust height in case of two-column layout
 	currentY = m_max(leftColumnMaxY, currentY)
@@ -1191,6 +1196,7 @@ function main:OpenOptionsPopup(savedState)
 		self.showFlavourText = savedState.showFlavourText
 		self.showAnimations = savedState.showAnimations
 		self.showAllItemAffixes = savedState.showAllItemAffixes
+		self.disableScrollControlInteraction = savedState.disableScrollControlInteraction
 		self.dpiScaleOverridePercent = savedState.dpiScaleOverridePercent
 		SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
 		main:ClosePopup()

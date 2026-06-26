@@ -1,0 +1,10 @@
+diff a/src/Classes/EditControl.lua b/src/Classes/EditControl.lua	(rejected hunks)
+@@ -685,7 +685,7 @@ function EditClass:OnKeyUp(key)
+ 					self:SetText("1", true)
+ 				end
+ 			end
+-		elseif not main.disableScrollControlInteraction and (key == "WHEELDOWN" or key == "DOWN") then
++		elseif (not main.disableScrollControlInteraction and (key == "WHEELDOWN")) or key == "DOWN" then
+ 			if cur then
+ 				local value = cur - (self.numberInc or 1)
+ 				if self.filter == "%D" or self.filter == "^%d." then

@@ -1,0 +1,10 @@
+diff a/src/Modules/Main.lua b/src/Modules/Main.lua	(rejected hunks)
+@@ -1064,7 +1064,7 @@ function main:OpenOptionsPopup(savedState)
+ 	controls.disableScrollControlInteraction = new("CheckBoxControl", { "TOPLEFT", controls.sectionAnchor, "TOPLEFT" }, { currentX + defaultLabelPlacementX, currentY, 20 }, "^7Disable control scroll interaction:", function(state)
+ 		self.disableScrollControlInteraction = state
+ 	end)
+-	controls.disableScrollControlInteraction.tooltipText = "Disable changing the values in controls such as dropdowns, numeric inputs, or sliders when using the scroll wheel."
++	controls.disableScrollControlInteraction.tooltipText = "Disable changing the values in controls such as dropdowns or numeric inputs when using the scroll wheel."
+ 
+ 	nextRow()
+ 	
