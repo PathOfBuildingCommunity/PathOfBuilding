@@ -689,10 +689,11 @@ function CalcBreakdownClass:Draw(viewPort)
 	else
 		SetDrawColor(0.33, 0.66, 0.33)
 	end
-	DrawImage(nil, x, y, width, 2)
-	DrawImage(nil, x, y + height - 2, width, 2)
-	DrawImage(nil, x, y, 2, height)
-	DrawImage(nil, x + width - 2, y, 2, height)
+	local borderThickness = 2
+	DrawImage(nil, x, y, width, borderThickness)
+	DrawImage(nil, x, y + height - borderThickness, width, borderThickness)
+	DrawImage(nil, x, y, borderThickness, height)
+	DrawImage(nil, x + width - borderThickness, y, borderThickness, height)
 	SetDrawLayer(nil, 10)
 	self:DrawControls(viewPort)
 	-- Draw the sections
