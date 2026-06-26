@@ -190,7 +190,7 @@ end
 
 function ItemDBClass:BuildSortOrder()
 	wipeTable(self.sortDropList)
-	for id,stat in pairs(data.powerStatList) do
+	for id, stat in ipairs(data.powerStatList) do
 		if not stat.ignoreForItems then
 			t_insert(self.sortDropList, {
 				label="Sort by "..stat.label,

@@ -1,0 +1,26 @@
+diff a/spec/System/TestTradeQueryCurrency_spec.lua b/spec/System/TestTradeQueryCurrency_spec.lua	(rejected hunks)
+@@ -23,24 +23,6 @@ describe("TradeQuery Currency Conversion", function()
+ 		end)
+ 	end)
+ 
+-	describe("ReduceOutput", function()
+-		it("uses selected minion stats for weighted result comparison", function()
+-			mock_tradeQuery.statSortSelectionList = { { stat = "AverageDamage" } }
+-
+-			local result = mock_tradeQuery:ReduceOutput({
+-				AverageDamage = 10,
+-				Life = 100,
+-				Minion = {
+-					AverageDamage = 250,
+-					Life = 200,
+-				},
+-			})
+-
+-			assert.are.equals(250, result.AverageDamage)
+-			assert.is_nil(result.Life)
+-		end)
+-	end)
+-
+ 	describe("PriceBuilderProcessPoENinjaResponse", function()
+ 		-- Pass: Processes without error, restoring map while adding a notice
+ 		-- Fail: Corrupts map or crashes, indicating fragile API response handling, breaking future conversions

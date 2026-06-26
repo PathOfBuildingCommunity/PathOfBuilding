@@ -1,0 +1,10 @@
+diff a/src/Classes/TreeTab.lua b/src/Classes/TreeTab.lua	(rejected hunks)
+@@ -1850,7 +1850,7 @@ function TreeTabClass:FindTimelessJewel()
+ 
+ 	controls.fallbackWeightsLabel = new("LabelControl", {"TOPRIGHT", nil, "TOPLEFT"}, {405, 225, 0, 16}, "^7Fallback Weight Mode:")
+ 	local fallbackWeightsList = { }
+-	for id, stat in pairs(data.powerStatList) do
++	for _, stat in ipairs(data.powerStatList) do
+ 		if not stat.ignoreForItems and stat.label ~= "Name" then
+ 			t_insert(fallbackWeightsList, {
+ 				label = "Sort by " .. stat.label,

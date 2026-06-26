@@ -553,11 +553,16 @@ function TradeQueryClass:SetStatWeights(previousSelectionList)
 	local controls = { }
 	local statList = { }
 	local sliderController = { index = 1 }
-	local popupHeight = 285
+	local popupHeight = 500
 
-	controls.ListControl = new("TradeStatWeightMultiplierListControl", {"TOPLEFT", nil, "TOPRIGHT"}, {-410, 45, 400, 200}, statList, sliderController)
+	local listYOffset = 45
+	-- account for top gap, bottom button size and gap, and a gap before buttons
+	local listHeight = popupHeight - 45 - 30 - 10
 
-	for id, stat in pairs(data.powerStatList) do
+	controls.ListControl = new("TradeStatWeightMultiplierListControl", { "TOPLEFT", nil, "TOPRIGHT" },
+		{ -410, 45, 400, listHeight }, statList, sliderController)
+
+	for _, stat in ipairs(data.powerStatList) do
 		if not stat.ignoreForItems and stat.label ~= "Name" then
 			t_insert(statList, {
 				label = "0      :  "..stat.label,

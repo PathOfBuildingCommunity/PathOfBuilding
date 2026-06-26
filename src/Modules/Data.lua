@@ -108,6 +108,16 @@ data = { }
 -- Misc data tables
 LoadModule("Data/Misc", data)
 
+---@class StatTable
+---@field stat? string stat ID
+---@field label string A short description of the stat
+---@field transform fun(in: number|string): number|string A function to e.g. invert the value, if the stat represents something where lower is better
+---@field combinedOffDef? boolean
+---@field ignoreForNodes? boolean
+---@field ignoreForItems? boolean
+---@field reverseSort? boolean
+
+---@type StatTable[]
 data.powerStatList = {
 	{ stat=nil, label="Offence/Defence", combinedOffDef=true, ignoreForItems=true },
 	{ stat=nil, label="Name", itemField="Name", ignoreForNodes=true, reverseSort=true, transform=function(value) return value:gsub("^The ","") end},

@@ -1122,7 +1122,15 @@ function ItemsTabClass:Load(xml, dbFileName)
 					stat = child.attrib.stat,
 					weightMult = tonumber(child.attrib.weightMult)
 				}
-				t_insert(self.tradeQuery.statSortSelectionList, statSort)
+				for _, statEntry in ipairs(data.powerStatList) do
+					if statSort.stat == statEntry.stat then
+						-- update information which can be out of data or missing in the xml
+						statSort.label = statEntry.label
+						statSort.transform = statEntry.transform
+						t_insert(self.tradeQuery.statSortSelectionList, statSort)
+						break
+					end
+				end
 			end
 		end
 	end
