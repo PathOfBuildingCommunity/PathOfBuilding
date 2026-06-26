@@ -1,0 +1,22 @@
+diff a/spec/System/TestItemMods_spec.lua b/spec/System/TestItemMods_spec.lua	(rejected hunks)
+@@ -33,6 +33,20 @@ describe("TetsItemMods", function()
+ 		assert.are.equals(2, legacyLines)
+ 	end)
+ 
++	it("shows a fallback tooltip when an item's base is no longer supported", function()
++		local item = new("Item", [[
++			Rarity: Unique
++			Legacy Item
++			Removed Base
++		]])
++		local tooltip = new("Tooltip")
++
++		assert.has_no.errors(function()
++			build.itemsTab:AddItemTooltip(tooltip, item)
++		end)
++		assert.is_truthy(tooltip.lines[#tooltip.lines].text:find("Item base is not supported", 1, true))
++	end)
++
+ 	it("aggregates matching ring item rarity lines before applying ring bonus effect", function()
+ 		build.configTab.input.customMods = "30% increased bonuses gained from left Equipped Ring"
+ 		build.configTab:BuildModList()

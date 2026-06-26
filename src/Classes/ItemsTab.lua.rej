@@ -1,0 +1,15 @@
+diff a/src/Classes/ItemsTab.lua b/src/Classes/ItemsTab.lua	(rejected hunks)
+@@ -3232,6 +3232,13 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
+ 	tooltip.tooltipHeader = item.rarity
+ 	tooltip.center = true
+ 	tooltip.color = rarityCode
++	-- Shared items can use old base names that no longer exist. Add a tooltip so they can be copied or removed without causing a crash.
++	if not item.base or not item.baseName then
++		tooltip:AddLine(fontSizeTitle, rarityCode..(item.title or item.name or "Unknown Item"), "FONTIN SC")
++		tooltip:AddSeparator(30)
++		tooltip:AddLine(fontSizeTitle, colorCodes.NEGATIVE.."Item base is not supported by the current version.", "FONTIN SC")
++		return
++	end
+ 	-- Item name
+ 	if item.title then
+ 		tooltip:AddLine(fontSizeTitle, rarityCode..item.title, "FONTIN SC")
