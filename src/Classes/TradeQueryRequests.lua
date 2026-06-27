@@ -451,13 +451,14 @@ function TradeQueryRequestsClass:FetchLeagues(realm, callback)
 			local json_data = dkjson.decode(response.body)
 			if not json_data or json_data.error then
 				errMsg = json_data and json_data.error or "Failed to get leagues"
+				return callback(nil, errMsg)
 			end
 			local leagues = {}
-				for _, value in pairs(json_data) do
-					if (not value.id:find("SSF") and not value.id:find("Solo")) then
-						table.insert(leagues, value.id)
-					end
+			for _, value in pairs(json_data) do
+				if (not value.id:find("SSF") and not value.id:find("Solo")) then
+					table.insert(leagues, value.id)
 				end
+			end
 			callback(leagues, errMsg)
 		end
 	)

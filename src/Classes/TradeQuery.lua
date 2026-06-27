@@ -141,6 +141,10 @@ end
 -- Method to pull down and interpret the PoE.Ninja JSON endpoint data
 function TradeQueryClass:PullPoENinjaCurrencyConversion(league)
 	local now = get_time()
+	if not league or league == "" then
+		self:SetNotice(self.controls.pbNotice, "Error: No trade league selected")
+		return
+	end
 	-- Limit PoE Ninja Currency Conversion request to 1 per hour
 	if (now - self.lastCurrencyConversionRequest) < 3600 then
 		self:SetNotice(self.controls.pbNotice, "PoE Ninja Rate Limit Exceeded: " .. tostring(3600 - (now - self.lastCurrencyConversionRequest)))
@@ -684,10 +688,17 @@ function TradeQueryClass:SetCurrencyConversionButton()
 	end
 	self.controls.updateCurrencyConversion.label = currencyLabel
 	self.controls.updateCurrencyConversion.enabled = function()
+		if not self.pbLeague or self.pbLeague == "" or not self.controls.league.selIndex then
+			return false
+		end
 		return self.pbFileTimestampDiff[self.controls.league.selIndex] == nil or self.pbFileTimestampDiff[self.controls.league.selIndex] >= 3600
 	end
 	self.controls.updateCurrencyConversion.tooltipFunc = function(tooltip)
 		tooltip:Clear()
+		if not self.pbLeague or self.pbLeague == "" or not self.controls.league.selIndex then
+			tooltip:AddLine(16, "Trade leagues are still loading or unavailable")
+			return
+		end
 		if self.lastCurrencyFileTime[self.controls.league.selIndex] ~= nil then
 			self.pbFileTimestampDiff[self.controls.league.selIndex] = get_time() - self.lastCurrencyFileTime[self.controls.league.selIndex]
 		end
@@ -1227,7 +1238,19 @@ end
 
 -- Method to update realms and leagues
 function TradeQueryClass:UpdateRealms()
-	local function setRealmDropList()
+	local setRealmDropList
+	local function useStaticRealms()
+		ConPrintf("Using static realms list")
+		self.allLeagues = {}
+		self.realmIds = {
+			["PC"]   = "pc",
+			["PS4"]  = "sony",
+			["Xbox"] = "xbox",
+		}
+		setRealmDropList()
+	end
+
+	setRealmDropList = function()
 		self.realmDropList = {}
 		for realm, _ in pairs(self.realmIds) do
 			-- place PC as the first entry
@@ -1249,7 +1272,8 @@ function TradeQueryClass:UpdateRealms()
 		ConPrintf("Fetching realms and leagues using POESESSID")
 		self.tradeQueryRequests:FetchRealmsAndLeaguesHTML(function(data, errMsg)
 			if errMsg then
-				self:SetNotice(self.controls.pbNotice, "Error while fetching league list: "..errMsg)
+				self:SetNotice(self.controls.pbNotice, "Error while fetching private league list, using public leagues: "..errMsg)
+				useStaticRealms()
 				return
 			end
 			local leagues = data.leagues
@@ -1270,12 +1294,6 @@ function TradeQueryClass:UpdateRealms()
 		end)
 	else
 		-- Fallback to static list
-		ConPrintf("Using static realms list")
-		self.realmIds = {
-			["PC"]   = "pc",
-			["PS4"]  = "sony",
-			["Xbox"] = "xbox",
-		}
-		setRealmDropList()
+		useStaticRealms()
 	end
 end
