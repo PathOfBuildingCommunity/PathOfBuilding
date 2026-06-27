@@ -1272,7 +1272,7 @@ function TradeQueryClass:UpdateRealms()
 		ConPrintf("Fetching realms and leagues using POESESSID")
 		self.tradeQueryRequests:FetchRealmsAndLeaguesHTML(function(data, errMsg)
 			if errMsg then
-				self:SetNotice(self.controls.pbNotice, "Error while fetching private league list, using public leagues: "..errMsg)
+				self:SetNotice(self.controls.pbNotice, "Error while fetching private leagues; falling back to public leagues")
 				useStaticRealms()
 				return
 			end
