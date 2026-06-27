@@ -310,20 +310,43 @@ function TradeQueryRequestsClass:SearchWithURL(url, callback)
 		table.insert(paths, path)
 	end
 	if #paths < 2 or #paths > 3 then
-		return callback(nil, "Invalid URL", nil)
+		callback(nil, "Invalid URL", nil)
+		return
 	end
-	local realm, league, queryId
+
+	local realm
+	local league
+	local queryId
 	if #paths == 3 then
 		realm = paths[1]
+		league = paths[2]
+		queryId = paths[3]
+	else
+		league = paths[1]
+		queryId = paths[2]
 	end
-	league = paths[#paths-1]
-	queryId = paths[#paths]
+
+	local function runSearch(query)
+		self:SearchWithQuery(realm, league, query, function(items, errMsg)
+			callback(items, errMsg, query)
+		end)
+	end
+
 	self:FetchSearchQueryHTML(realm, league, queryId, function(query, errMsg)
-		if errMsg then
-			return callback(nil, errMsg, nil)
+		if query then
+			runSearch(query)
+			return
 		end
-		self:SearchWithQuery(realm, league, query, function(items, searchErrMsg)
-			callback(items, searchErrMsg, query)
+
+		ConPrintf("Trade URL HTML query fetch failed, trying API fallback: %s", tostring(errMsg))
+
+		self:FetchSearchQuery(realm, league, queryId, function(apiQuery, apiErrMsg)
+			if not apiQuery then
+				callback(nil, apiErrMsg or errMsg or "Could not fetch trade query", nil)
+				return
+			end
+
+			runSearch(apiQuery)
 		end)
 	end)
 end
