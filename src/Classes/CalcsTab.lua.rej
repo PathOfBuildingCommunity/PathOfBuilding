@@ -1,0 +1,35 @@
+diff a/src/Classes/CalcsTab.lua b/src/Classes/CalcsTab.lua	(rejected hunks)
+@@ -560,11 +560,12 @@ function CalcsTabClass:PowerBuilder()
+ 				local dist = node.pathDist or 1000
+ 				for _, leap in ipairs(node.intuitiveLeapLikesAffecting or {}) do
+ 					if leap.alloc then
+-						dist = math.min(leap.pathDist or 1000, dist)
++						dist = math.max(math.min(leap.pathDist or 1000, dist), 1)
+ 					end
+ 				end
+ 				distanceMap[dist] = distanceMap[dist] or {}
+ 				distanceMap[dist][nodeId] = node
++				node.power.distance = dist
+ 				if (not self.nodePowerMaxDepth) or dist <= self.nodePowerMaxDepth then
+ 					total = total + 1
+ 				end
+@@ -603,7 +604,7 @@ function CalcsTabClass:PowerBuilder()
+ 						for _, node in pairs(node.path) do
+ 							pathNodes[node] = true
+ 						end
+-						if node.pathDist > 1 then
++						if distance > 1 then
+ 							node.power.pathPower = self:CalculatePowerStat(self.powerStat, calcFunc({ addNodes = pathNodes }, useFullDPS), calcBase)
+ 						end
+ 					end
+@@ -613,8 +614,8 @@ function CalcsTabClass:PowerBuilder()
+ 					if node.path and not node.ascendancyName then
+ 						newPowerMax.offence = m_max(newPowerMax.offence, node.power.offence)
+ 						newPowerMax.defence = m_max(newPowerMax.defence, node.power.defence)
+-						newPowerMax.offencePerPoint = m_max(newPowerMax.offencePerPoint, node.power.offence / node.pathDist)
+-						newPowerMax.defencePerPoint = m_max(newPowerMax.defencePerPoint, node.power.defence / node.pathDist)
++						newPowerMax.offencePerPoint = m_max(newPowerMax.offencePerPoint, node.power.offence / distance)
++						newPowerMax.defencePerPoint = m_max(newPowerMax.defencePerPoint, node.power.defence / distance)
+ 					end
+ 				end
+ 			elseif node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
