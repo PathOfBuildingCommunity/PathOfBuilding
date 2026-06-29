@@ -7,6 +7,7 @@ local pairs = pairs
 local t_insert = table.insert
 local m_min = math.min
 
+local itemSlotHelper = LoadModule("Modules/ItemSlotHelper")
 local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl", function(self, anchor, x, y, itemsTab, slotName, slotLabel, nodeId)
 	self.DropDownControl(anchor, {x, y, 310, 20}, { }, function(index, value)
 		if self.items[index] ~= self.selItemId then

@@ -1,0 +1,9 @@
+diff a/src/Classes/CompareTab.lua b/src/Classes/CompareTab.lua	(rejected hunks)
+@@ -14,6 +14,7 @@ local tradeHelpers = LoadModule("Classes/TradeHelpers")
+ local buySimilar = LoadModule("Classes/CompareBuySimilar")
+ local calcsHelpers = LoadModule("Classes/CompareCalcsHelpers")
+ local buildListHelpers = LoadModule("Modules/BuildListHelpers")
++local itemSlotHelper = LoadModule("Modules/ItemSlotHelper")
+ 
+ -- Node IDs below this value are normal passive tree nodes; IDs at or above are cluster jewel nodes
+ local CLUSTER_NODE_OFFSET = 65536
