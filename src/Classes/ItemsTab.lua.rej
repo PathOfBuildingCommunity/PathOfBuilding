@@ -1,0 +1,9 @@
+diff a/src/Classes/ItemsTab.lua b/src/Classes/ItemsTab.lua	(rejected hunks)
+@@ -14,6 +14,7 @@ local m_min = math.min
+ local m_ceil = math.ceil
+ local m_floor = math.floor
+ local m_modf = math.modf
++local buySimilar = LoadModule("Classes/CompareBuySimilar")
+ 
+ local gemTooltip = LoadModule("Classes/GemTooltip")
+ local rarityDropList = {
