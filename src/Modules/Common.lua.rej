@@ -1,0 +1,10 @@
+diff a/src/Modules/Common.lua b/src/Modules/Common.lua	(rejected hunks)
+@@ -893,7 +893,7 @@ end
+ ---@return string
+ function stringify(thing)
+ 	if type(thing) == 'string' then
+-		local s = thing:gsub("\n", "")
++		local s = thing:gsub("\n", " ")
+ 		return s
+ 	elseif type(thing) == 'number' then
+ 		return ""..thing;

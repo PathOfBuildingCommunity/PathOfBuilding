@@ -1,0 +1,50 @@
+diff a/src/Export/Scripts/mods.lua b/src/Export/Scripts/mods.lua	(rejected hunks)
+@@ -32,21 +32,6 @@ function table.containsId(table, element)
+ 	return false
+ end
+ 
+--- used for calculating the hash field of a stat
+-local GGG_STAT_HASH32_SEED = 0xC58F1A7B
+--- used for calculating the trade hash from stat hash fields
+-local GGG_TRADE_SEED = 0x02312233
+----@param stats string[]
+----@return integer
+-local function hashStats(stats)
+-	local statHashes = ""
+-	for _, statName in ipairs(stats) do
+-		local newHash = intToBytes(murmurHash2(statName, GGG_STAT_HASH32_SEED))
+-		statHashes = statHashes..newHash
+-	end
+-	return murmurHash2(statHashes, GGG_TRADE_SEED)
+-end
+-
+ local whiteListStat = {
+ 	["dummy_stat_display_nothing"] = true,
+ }
+@@ -197,14 +182,15 @@ local function writeMods(outName, condFunc)
+ 					local stats = copyTable(statEntry.stats)
+ 					-- radius jewels lack a proper stat descriptor and so we add it manually
+ 					local prefix
++					local extraStat
+ 					-- radius jewel mods:
+ 					-- notable
+ 					if mod.NodeType == 2 then
+-						table.insert(stats, "local_jewel_mod_stats_added_to_notable_passives")
++						extraStat = "local_jewel_mod_stats_added_to_notable_passives"
+ 						prefix = "Notable Passive Skills in Radius also grant "
+ 					-- small
+ 					elseif mod.NodeType and mod.NodeType == 1 then
+-						table.insert(stats, "local_jewel_mod_stats_added_to_small_passives")
++						extraStat = "local_jewel_mod_stats_added_to_small_passives"
+ 						prefix = "Small Passive Skills in Radius also grant "
+ 					end
+ 
+@@ -217,7 +203,7 @@ local function writeMods(outName, condFunc)
+ 						end
+ 					end
+ 
+-					local tradeHash = hashStats(stats)
++					local tradeHash = HashStats(stats, extraStat)
+ 					tradeHashes[tradeHash] = description
+ 					::innerContinue::
+ 				end
