@@ -483,8 +483,8 @@ function M.openPopup(item, slotName, primaryBuild)
 		-- when the trade site has a dropdown for the value, we opt to disable
 		-- the inputs as they are numeric
 		if not (entry.isOption or entry.needsExactValue) and entry.value then
-			controls[prefix .. "Min"] = tradeHelpers.newPlainNumericEdit(nil, { minFieldX - popupWidth / 2, controlYPos, fieldW, fieldH }, entry.value ~= 0 and tostring(entry.value) or "", "Min", 8, rebuildUrl)
-			controls[prefix .. "Max"] = tradeHelpers.newPlainNumericEdit(nil, { maxFieldX - popupWidth / 2, controlYPos, fieldW, fieldH }, "", "Max", 8, rebuildUrl)
+			controls[prefix .. "Min"] = tradeHelpers.newPlainNumericEdit(nil, { minFieldX - popupWidth / 2, controlYPos, fieldW, fieldH }, entry.value ~= 0 and tostring(entry.value) or "", "Min", 8, nil, rebuildUrl)
+			controls[prefix .. "Max"] = tradeHelpers.newPlainNumericEdit(nil, { maxFieldX - popupWidth / 2, controlYPos, fieldW, fieldH }, "", "Max", 8, nil, rebuildUrl)
 			if not canSearch then
 				controls[prefix .. "Min"].enabled = function() return false end
 				controls[prefix .. "Max"].enabled = function() return false end
