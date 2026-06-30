@@ -124,7 +124,10 @@ function calcs.getMiscCalculator(build)
 	-- Run base calculation pass
 	local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR")
 	calcs.perform(env)
-	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil})
+	-- Capture per-skill Full DPS results and their input references during the base pass,
+	-- so accelerated calls can reuse results for skills whose inputs are unchanged
+	local fullDPSStore = { }
+	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil, fullDPSCache = { store = fullDPSStore, capture = true }})
 	local usedFullDPS = #fullDPS.skills > 0
 	if usedFullDPS then
 		env.player.output.SkillDPS = fullDPS.skills

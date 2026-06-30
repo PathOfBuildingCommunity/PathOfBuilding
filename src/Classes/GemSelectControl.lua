@@ -85,7 +85,7 @@ function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, useFullDPS)
 	gemInstance.gemData = gemData
 	gemInstance.displayEffect = nil
 	-- Calculate the impact of using this gem
-	local output = calcFunc(nil, useFullDPS)
+	local output = calcFunc(nil, useFullDPS, fastCalcOptions)
 	-- Put the original gem back into the list
 	if oldGem then
 		gemInstance.gemData = oldGem.gemData
@@ -335,6 +335,10 @@ function GemSelectClass:UpdateSortCache()
 
 	local dpsField = self.skillsTab.sortGemsByDPSField
 	local useFullDPS = dpsField == "FullDPS"
+	-- Between iterations of the sort loop only the gem in this slot changes, so tree
+	-- allocations and item/gem requirements can be carried over between calcs; EHP
+	-- estimation is only needed when sorting by it
+	local fastCalcOptions = { nodeAlloc = true, requirementsItems = true, requirementsGems = true, skipEHP = dpsField ~= "TotalEHP", fullDPSOnly = useFullDPS }
 	local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
 	-- Check for nil because some fields may not be populated, default to 0
 	local baseDPS = (dpsField == "FullDPS" and calcBase[dpsField] ~= nil and calcBase[dpsField]) or (calcBase.Minion and calcBase.Minion.CombinedDPS) or (calcBase[dpsField] ~= nil and calcBase[dpsField]) or 0

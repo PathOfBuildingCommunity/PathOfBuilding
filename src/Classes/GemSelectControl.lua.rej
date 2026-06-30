@@ -1,0 +1,10 @@
+diff a/src/Classes/GemSelectControl.lua b/src/Classes/GemSelectControl.lua	(rejected hunks)
+@@ -516,6 +516,8 @@ function GemSelectClass:Draw(viewPort, noTooltip)
+ 		if mOver and (not self.skillsTab.selControl or self.skillsTab.selControl._className ~= "GemSelectControl" or not self.skillsTab.selControl.dropped) and (not noTooltip or self.forceTooltip) then
+ 			local gemInstance = self.skillsTab.displayGroup.gemList[self.index]
+ 			local cursorX, cursorY = GetCursorPos()
++			-- Clear the update params too, so the dropdown hover tooltip above knows to rebuild
++			self.tooltip:Clear(true)
+ 			self.tooltip.maxWidth = 600
+ 			if gemInstance and gemInstance.gemData then
+ 				self:AddGemTooltip(gemInstance)
