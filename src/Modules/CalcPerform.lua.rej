@@ -1,0 +1,56 @@
+diff a/src/Modules/CalcPerform.lua b/src/Modules/CalcPerform.lua	(rejected hunks)
+@@ -3298,17 +3298,14 @@ function calcs.perform(env, skipEHP)
+ 		enemyDB:NewMod("DamageTaken", "INC", enemyDB:Sum("INC", nil, "DamageTakenConsecratedGround") * effect, "Consecrated Ground")
+ 	end
+ 
+-	-- Total life of damageable companions, for "% of Damage from Hits is taken from your Companion's Life before you"
+-	if modDB:HasMod("BASE", nil, "takenFromCompanionBeforeYou", "takenFromCompanionBeforeYouFromDeflected") and not modDB:Override(nil, "TotalCompanionLife") then
+-		local totalCompanionLife = 0
+-		local companionLifeList = { }
++	local function calcMinionLifePool(env, buffs, includeSkill)
++		local totalLife = 0
++		local lifeList = { }
+ 		local seenMinions = { }
+ 		for _, activeSkill in ipairs(env.player.activeSkillList) do
+ 			local skillFlags = env.mode == "CALCS" and activeSkill.activeEffect.statSetCalcs.skillFlags or activeSkill.activeEffect.statSet.skillFlags
+ 			local minion = activeSkill.minion
+-			if minion and not seenMinions[minion] and not skillFlags.disable
+-					and activeSkill.skillTypes[SkillType.Companion]
+-					and not activeSkill.skillTypes[SkillType.MinionsAreUndamagable] then
++			if minion and not seenMinions[minion] and not skillFlags.disable and includeSkill(activeSkill, skillFlags) then
+ 				seenMinions[minion] = true
+ 				if minion ~= env.minion then
+ 					minion.output = minion.output or { }
+@@ -3325,13 +3322,27 @@ function calcs.perform(env, skipEHP)
+ 					doActorAttribsConditions(env, minion)
+ 				end
+ 				calcs.doActorLifeManaSpirit(minion, true)
+-				totalCompanionLife = totalCompanionLife + minion.output.Life
+-				-- Companion gems share a single granted effect ("Companion: {0}") whose name is mutated
+-				-- globally for display, so derive the entry name from this skill's own minion
+-				local companionName = minion.minionData and minion.minionData.name or activeSkill.activeEffect.grantedEffect.name
+-				t_insert(companionLifeList, { name = companionName, life = minion.output.Life })
++				totalLife = totalLife + minion.output.Life
++				t_insert(lifeList, { name = minion.minionData and minion.minionData.name or activeSkill.activeEffect.grantedEffect.name, life = minion.output.Life })
+ 			end
+ 		end
++		return totalLife, lifeList
++	end
++
++	-- Total life of spectres, for "% of Damage from Hits is taken from your Spectres' Life before you"
++	if modDB:HasMod("BASE", nil, "TakenFromSpectresBeforeYou") and not modDB:Override(nil, "TotalSpectreLife") then
++		local totalSpectreLife, spectreLifeList = calcMinionLifePool(env, buffs, function(activeSkill, skillFlags)
++			return skillFlags.spectre and not activeSkill.skillTypes[SkillType.MinionsAreUndamagable]
++		end)
++		modDB:NewMod("TotalSpectreLife", "BASE", totalSpectreLife, "Spectres")
++		env.player.spectreLifeList = spectreLifeList
++	end
++
++	-- Total life of damageable companions, for "% of Damage from Hits is taken from your Companion's Life before you"
++	if modDB:HasMod("BASE", nil, "TakenFromCompanionBeforeYou", "TakenFromCompanionBeforeYouFromDeflected") and not modDB:Override(nil, "TotalCompanionLife") then
++		local totalCompanionLife, companionLifeList = calcMinionLifePool(env, buffs, function(activeSkill)
++			return activeSkill.skillTypes[SkillType.Companion] and not activeSkill.skillTypes[SkillType.MinionsAreUndamagable]
++		end)
+ 		modDB:NewMod("TotalCompanionLife", "BASE", totalCompanionLife, "Companions")
+ 		env.player.companionLifeList = companionLifeList
+ 	end

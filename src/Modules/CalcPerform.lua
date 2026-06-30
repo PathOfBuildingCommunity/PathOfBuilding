@@ -1083,6 +1083,112 @@ function calcs.actionSpeedMod(actor)
 	return actionSpeedMod
 end
 
+-- Initialises a minion's modifier database with its base stats (life, defences, resists),
+-- monster type mods, tamed beast mods and player-granted mods, for the given owning skill
+local function initMinionModDB(env, activeSkill)
+	local modDB = env.modDB
+	local minion = activeSkill.minion
+	minion.modDB.multipliers["Level"] = minion.level
+	calcs.initModDB(env, minion.modDB)
+	local baseLife = minion.lifeTable[minion.level] * minion.minionData.life
+	if minion.hostile then
+		baseLife = baseLife * (env.data.mapLevelLifeMult[env.enemyLevel] or 1)
+	end
+	minion.modDB:NewMod("Life", "BASE", m_floor(baseLife), "Base")
+	if minion.minionData.energyShield then
+		minion.modDB:NewMod("LifeConvertToEnergyShield", "BASE", minion.minionData.energyShield * 100, "Base")
+	end
+	--Armour formula is math.floor((10 + 2 * level) * 1.067 ^ level)
+	minion.modDB:NewMod("Armour", "BASE", round(env.data.monsterArmourTable[minion.level] * (minion.minionData.armour or 1)), "Base")
+	--Evasion formula is math.floor((50 + 16 * level + 16 * level * (MonsterType.Evasion / 100)) * (1.0212 ^ level)
+	minion.modDB:NewMod("Evasion", "BASE", round(env.data.monsterEvasionTable[minion.level] * (minion.minionData.evasion or 1)), "Base")
+	if modDB:Flag(nil, "MinionAccuracyEqualsAccuracy") then
+		minion.modDB:NewMod("Accuracy", "BASE", calcLib.val(modDB, "Accuracy") + calcLib.val(modDB, "Dex") * (modDB:Override(nil, "DexAccBonusOverride") or data.misc.AccuracyPerDexBase), "Player")
+	else
+		-- Minions no longer need Accuracy as of patch 0.3.0
+		minion.modDB:NewMod("CannotBeEvaded", "FLAG", 1, "Minion Attacks always hit")
+	end
+	minion.modDB:NewMod("CritMultiplier", "BASE", env.data.monsterConstants["base_critical_hit_damage_bonus"] + env.data.playerMinionIntrinsicStats["base_critical_hit_damage_bonus"], "Base")
+	minion.modDB:NewMod("FireResist", "BASE", minion.minionData.fireResist, "Base")
+	minion.modDB:NewMod("ColdResist", "BASE", minion.minionData.coldResist, "Base")
+	minion.modDB:NewMod("LightningResist", "BASE", minion.minionData.lightningResist, "Base")
+	minion.modDB:NewMod("ChaosResist", "BASE", minion.minionData.chaosResist, "Base")
+	minion.modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
+	minion.modDB:NewMod("PhysicalHeavyStunBuildup", "MORE", data.monsterConstants["physical_hit_damage_stun_multiplier_+%_final_from_ot"], "Physical Damage")
+	minion.modDB:NewMod("EnemyHeavyStunBuildup", "MORE", data.monsterConstants["melee_hit_damage_stun_multiplier_+%_final_from_ot"], "Melee Damage", ModFlag.Melee)
+	minion.modDB:NewMod("Damage", "MORE", minion.hiddenDamageFixup * 100, "Hidden Level Scaling")
+	for _, mod in ipairs(minion.minionData.modList) do
+		minion.modDB:AddMod(mod)
+	end
+	for _, mod in ipairs(activeSkill.extraSkillModList) do
+		minion.modDB:AddMod(mod)
+	end
+	if env.talismanModList then
+		-- Adding mods provided by "Necromantic Talisman"
+		minion.modDB:AddList(env.talismanModList)
+	end
+	if env.theIronMass and minion.type == "RaisedSkeleton" then
+		minion.modDB:AddList(env.theIronMass)
+	end
+	if activeSkill.skillData.minionUseBowAndQuiver then
+		if env.player.weaponData1.type == "Bow" then
+			minion.modDB:AddList(env.player.itemList["Weapon 1"].slotModList[1])
+		end
+		if env.player.itemList["Weapon 2"] and env.player.itemList["Weapon 2"].type == "Quiver" then
+			local quiverEffectMod = env.player.modDB:Sum("INC", nil, "EffectOfBonusesFromQuiver") / 100
+			if quiverEffectMod > 0 then
+				for _, mod in ipairs(env.player.itemList["Weapon 2"].modList) do
+					local modCopy = copyTable(mod)
+					modCopy.source = "Many Sources:" .. tostring(quiverEffectMod * 100) .. "% Quiver Bonus Effect"
+					minion.modDB:ScaleAddMod(modCopy, quiverEffectMod)
+				end
+			end
+		end
+	end
+	if minion.itemSet or minion.uses then
+		for slotName, slot in pairs(env.build.itemsTab.slots) do
+			if minion.uses[slotName] then
+				local item
+				if minion.itemSet then
+					if slot.weaponSet == 1 and minion.itemSet.useSecondWeaponSet then
+						slotName = slotName .. " Swap"
+					end
+					item = env.build.itemsTab.items[minion.itemSet[slotName].selItemId]
+				else
+					item = env.player.itemList[slotName]
+				end
+				if item then
+					minion.itemList[slotName] = item
+					minion.modDB:AddList(item.modList or item.slotModList[slot.slotNum])
+				end
+			end
+		end
+	end
+	if modDB:Flag(nil, "StrengthAddedToMinions") then
+		minion.modDB:NewMod("Str", "BASE", round(calcLib.val(modDB, "Str")), "Player")
+	end
+	if modDB:Flag(nil, "StrengthAddedToCompanions") and activeSkill.skillTypes[SkillType.Companion] then
+		minion.modDB:NewMod("Str", "BASE", round(calcLib.val(modDB, "Str")), "Sturdy Ally")
+	end
+	if modDB:Flag(nil, "HalfStrengthAddedToMinions") then
+		minion.modDB:NewMod("Str", "BASE", round(calcLib.val(modDB, "Str") * 0.5), "Player")
+	end
+	if modDB:Flag(nil, "DexterityAddedToMinions") then
+		minion.modDB:NewMod("Dex", "BASE", round(calcLib.val(modDB, "Dex")), "Dead can Dance")
+	end
+	if modDB:Flag(nil, "DexterityAddedToCompanions") and activeSkill.skillTypes[SkillType.Companion] then
+		minion.modDB:NewMod("Dex", "BASE", round(calcLib.val(modDB, "Dex")), "Tandem Assault")
+	end
+end
+
+local function addMinionModifiers(modList, skillCfg, minion)
+	for _, value in ipairs(modList:List(skillCfg, "MinionModifier")) do
+		if not value.type or minion.type == value.type then
+			minion.modDB:AddMod(value.mod)
+		end
+	end
+end
+
 -- Finalises the environment and performs the stat calculations:
 -- 1. Merges keystone modifiers
 -- 2. Initialises minion skills
@@ -3195,11 +3301,7 @@ function calcs.perform(env, skipEHP)
 			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
 		end
 		if env.minion then
-			for _, value in ipairs(modList:List(env.player.mainSkill.skillCfg, "MinionModifier")) do
-				if not value.type or env.minion.type == value.type then
-					env.minion.modDB:AddMod(value.mod)
-				end
-			end
+			addMinionModifiers(modList, env.player.mainSkill.skillCfg, env.minion)
 		end
 	end
 	if env.minion then
