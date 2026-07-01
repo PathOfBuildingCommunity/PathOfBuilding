@@ -11,10 +11,6 @@ return {
                 {
                     ["id"]= "Ascendant",
                     ["name"]= "Scavenger"
-                },
-                {
-                    ["id"]= "Reliquarian",
-                    ["name"]= "Scavenger"
                 }
             }
         },
@@ -1419,6 +1415,7 @@ return {
                 "988",
                 "1525",
                 "307",
+                "36659",
                 "7629"
             }
         },
@@ -15098,7 +15095,7 @@ return {
         },
         [35069]= {
             ["skill"]= 35069,
-            ["name"]= " Lightning Damage",
+            ["name"]= "Lightning Damage",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/BreachBossClaspedHands.png",
             ["ascendancyName"]= "Breachlord",
             ["isBloodline"]= true,
@@ -17399,7 +17396,8 @@ return {
             ["orbit"]= 4,
             ["orbitIndex"]= 15,
             ["out"]= {
-                "307"
+                "307",
+                "36659"
             },
             ["in"]= {
                 "988"
@@ -17495,7 +17493,8 @@ return {
             ["orbitIndex"]= 5,
             ["out"]= {
                 "307",
-                "42689"
+                "42689",
+                "36659"
             },
             ["in"]= {}
         },
@@ -17609,6 +17608,22 @@ return {
                 "19024",
                 "38079"
             },
+            ["in"]= {
+                "4888",
+                "39463"
+            }
+        },
+        [36659]= {
+            ["skill"]= 36659,
+            ["name"]= "Tabula Rasa",
+            ["icon"]= "Art/2DArt/SkillIcons/passives/KeystoneArmourMaster.png",
+            ["isNotable"]= true,
+            ["ascendancyName"]= "Ascendant",
+            ["stats"]= {},
+            ["group"]= 60,
+            ["orbit"]= 2,
+            ["orbitIndex"]= 4,
+            ["out"]= {},
             ["in"]= {
                 "4888",
                 "39463"

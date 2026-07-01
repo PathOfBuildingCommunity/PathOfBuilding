@@ -850,8 +850,10 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		for id, node in pairs(self.build.spec.tree.tattoo.nodes) do
 			if (nodeName:match(node.targetType:gsub("^Small ", "")) or (node.targetValue ~= "" and nodeValue:match(node.targetValue)) or
 					(node.targetType == "Small Attribute" and (nodeName == "Intelligence" or nodeName == "Strength" or nodeName == "Dexterity"))
-					or (node.targetType == "Keystone" and treeNodes[selectedNode.id].type == node.targetType))
-					and node.MinimumConnected <= numLinkedNodes and ((node.legacy == nil or node.legacy == false) or node.legacy == self.showLegacyTattoo) then
+					or (node.targetType == "Keystone" and treeNodes[selectedNode.id].type == node.targetType)
+					or (node.targetType == "Ascendancy Notable" and treeNodes[selectedNode.id].type == "Notable" and selectedNode.ascendancyName))
+					and node.MinimumConnected <= numLinkedNodes and ((node.legacy == nil or node.legacy == false) or node.legacy == self.showLegacyTattoo)
+					and not self.build.spec:IsTattooBlocked(node) then
 				local combine = false
 				for id, desc in pairs(node.stats) do
 					combine = (id:match("^local_display.*") and #node.stats == (#node.sd - 1)) or combine
@@ -875,7 +877,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			end
 		end
 		table.sort(modGroups, function(a, b) return a.label < b.label end)
-		end
+	end
 	local function addModifier(selectedNode)
 		local newTattooNode = self.build.spec.tree.tattoo.nodes[modGroups[controls.modSelect.selIndex].id]
 		newTattooNode.id = selectedNode.id
@@ -951,7 +953,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		local tattooSdMap = { }
 
 		for _, node in pairs(self.build.spec.hashOverrides) do
-			if node.isTattoo and not node.dn:find("Runegraft") then
+			if node.isTattoo and not self.build.spec:IsTattooBlocked(node) and not node.dn:find("Runegraft") then
 				if tooltip then
 					local combined = ""
 					for _, line in ipairs(node.sd) do

@@ -14886,7 +14886,7 @@ return {
         },
         [35069]= {
             ["skill"]= 35069,
-            ["name"]= " Lightning Damage",
+            ["name"]= "Lightning Damage",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/BreachBossClaspedHands.png",
             ["ascendancyName"]= "Breachlord",
             ["isBloodline"]= true,

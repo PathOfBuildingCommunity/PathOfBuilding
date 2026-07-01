@@ -120,26 +120,35 @@ for i=1, passiveSkillOverridesDat.rowCount do
 		datFileRow[key] = passiveSkillOverridesDat:ReadCell(i, j)
 	end
 
-	local tattooDatRow = tattooDatRows[datFileRow.Id] or tattooDatRows["DisplayRandomKeystone"]
+	local overrideId = datFileRow.Id
+	local overrideType = datFileRow.OverrideType.Id
+	local isAscendancyTattoo = overrideType:match("^AscendancyTattoo")
+	local tattooDatRow = tattooDatRows[overrideId] or tattooDatRows["DisplayRandomKeystone"]
 	---@type table<string, boolean|string|number|table>
 	local tattooPassiveNode = {}
 	-- id
-	tattooPassiveNode.id = datFileRow.Id
+	tattooPassiveNode.id = overrideId
 
 	-- display text
 	tattooPassiveNode.sd = {}
 	tattooPassiveNode.stats = {}
 	tattooPassiveNode.isTattoo = true
-	tattooPassiveNode.overrideType = datFileRow.OverrideType.Id
+	tattooPassiveNode.overrideType = overrideType
 	-- is keystone
 	tattooPassiveNode.ks = false
 	-- is notable
-	tattooPassiveNode['not'] = tattooDatRow.NodeTarget.Type == "Notable" and true or false
+	tattooPassiveNode['not'] = isAscendancyTattoo and true or tattooDatRow.NodeTarget.Type == "Notable"
 	-- is mastery wheel
-	tattooPassiveNode.m = datFileRow.OverrideType.Id == "AlternateMastery"
+	tattooPassiveNode.m = overrideType == "AlternateMastery"
 
-	tattooPassiveNode.targetType = tattooDatRow.NodeTarget.Type
-	tattooPassiveNode.targetValue = tattooDatRow.NodeTarget.Value
+	tattooPassiveNode.targetType = isAscendancyTattoo and "Ascendancy Notable" or tattooDatRow.NodeTarget.Type
+	tattooPassiveNode.targetValue = isAscendancyTattoo and "" or tattooDatRow.NodeTarget.Value
+	if datFileRow.BlockingPassive[1] then
+		tattooPassiveNode.blockingPassive = { }
+		for _, blockingPassive in ipairs(datFileRow.BlockingPassive) do
+			tattooPassiveNode.blockingPassive[blockingPassive.PassiveSkillNodeId] = true
+		end
+	end
 
 	-- These have 0 if they don't apply, which doesn't make sense for MaximumConnected
 	if datFileRow.MinimumConnected > 0 then
@@ -159,12 +168,11 @@ for i=1, passiveSkillOverridesDat.rowCount do
 	end
 
 	tattooPassiveNode.activeEffectImage = datFileRow.Background .. ".png"
-	if datFileRow.OverrideType.Id == "KeystoneTattoo" then
-		-- is keystone
-		tattooPassiveNode.ks = true
+	if overrideType == "KeystoneTattoo" or isAscendancyTattoo then
+		tattooPassiveNode.ks = overrideType == "KeystoneTattoo"
 		datFileRow = datFileRow.PassiveSkill
 		parsePassiveStats(datFileRow, tattooPassiveNode)
-	elseif datFileRow.OverrideType.Id == "AlternateMastery" then
+	elseif overrideType == "AlternateMastery" then
 		-- is runegraft mastery
 		tattooPassiveNode.name = "Runegraft Mastery"
 		parseStats(datFileRow, tattooPassiveNode)
@@ -183,7 +191,7 @@ for i=1, passiveSkillOverridesDat.rowCount do
 	tattooPassiveNode.icon = datFileRow.Icon:gsub("%.dds$", ".png")
 	tattooPassiveNode.sd[#tattooPassiveNode.sd + 1] = limitText
 
-	if datFileRow.Id ~= "DisplayRandomKeystone" and not datFileRow.Name:match("DNT") and not datFileRow.Name:match("of the Test") then
+	if not overrideId:match("^DisplayRandom") and not datFileRow.Name:match("DNT") and not datFileRow.Name:match("of the Test") then
 		data.nodes[datFileRow.Name] = tattooPassiveNode
 	end
 end

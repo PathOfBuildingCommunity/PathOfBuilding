@@ -293,6 +293,18 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, secondaryAs
 	self:BuildAllDependsAndPaths()
 end
 
+function PassiveSpecClass:IsTattooBlocked(tattooNode)
+	local blockingPassive = tattooNode and tattooNode.blockingPassive
+	if blockingPassive then
+		for passiveId in pairs(blockingPassive) do
+			if self.allocNodes[passiveId] then
+				return true
+			end
+		end
+	end
+	return false
+end
+
 function PassiveSpecClass:AllocateDecodedNodes(nodes, isCluster, endian)
 	for i = 1, #nodes - 1, 2 do
 		local id
@@ -1142,7 +1154,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 
 	for id, node in pairs(self.nodes) do
 		-- If node is tattooed, replace it
-		if self.hashOverrides[node.id] then
+		if self.hashOverrides[node.id] and not self:IsTattooBlocked(self.hashOverrides[node.id]) then
 			self:ReplaceNode(node, self.hashOverrides[node.id])
 		end
 
