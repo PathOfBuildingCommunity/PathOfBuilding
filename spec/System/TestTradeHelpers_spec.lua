@@ -30,6 +30,31 @@ describe("TradeHelpers trade hash matching", function()
 		end)
 	end)
 
+	describe("findTradeIdOption", function()
+		it("matches a '#'-valued option and returns its value", function()
+			local tradeId, value = tradeHelpers.findTradeIdOption("Grants Level 20 Summon Bestial Snake Skill",
+				"explicit")
+			assert.equal("explicit.stat_2878779644", tradeId)
+			assert.equal(3, value)
+		end)
+
+		it("matches an exact-text option and returns no value", function()
+			local tradeId, value = tradeHelpers.findTradeIdOption("Allocates Tranquility", "enchant")
+			assert.equal("enchant.stat_2954116742", tradeId)
+			assert.equal(16246, value)
+		end)
+
+		it("matches a timeless jewel", function()
+			local tradeId, value = tradeHelpers.findTradeIdOption(
+				"Bathed in the blood of 666 sacrificed in the name of Doryani", "explicit")
+			assert.equal("explicit.pseudo_timeless_jewel_doryani", tradeId)
+			assert.equal(666, value)
+		end)
+
+		it("returns nil for an unmatchable line", function()
+			assert.is_nil(tradeHelpers.findTradeIdOption("+100 to IQ", "explicit"))
+		end)
+	end)
 	describe("findTradeHash", function()
 		it("matches a simple mod", function()
 			local ids, value = tradeHelpers.findTradeHash("+50 to maximum Life")
