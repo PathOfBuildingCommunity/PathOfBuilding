@@ -334,6 +334,7 @@ function M.openPopup(item, slotName, primaryBuild)
 
 	-- Helper to fetch and populate leagues for a given realm API id
 	local function fetchLeaguesForRealm(realmApiId)
+		local lastIdx = M.lastLeagueIdx
 		controls.leagueDrop:SetList({"Loading..."})
 		controls.leagueDrop.selIndex = 1
 		tradeQueryRequests:FetchLeagues(realmApiId, function(leagues, errMsg)
@@ -363,6 +364,9 @@ function M.openPopup(item, slotName, primaryBuild)
 					break
 				end
 			end
+			if lastIdx then
+				controls.leagueDrop:SetSel(lastIdx)
+			end
 		end)
 	end
 
@@ -376,13 +380,18 @@ function M.openPopup(item, slotName, primaryBuild)
 		local realmApiId = REALM_API_IDS[value] or "pc"
 		fetchLeaguesForRealm(realmApiId)
 		rebuildUrl()
+		M.lastRealmIdx = index
 	end)
+	if M.lastRealmIdx then
+		controls.realmDrop:SetSel(M.lastRealmIdx, true)
+	end
 
 	-- League dropdown
 	controls.leagueLabel = new("LabelControl", {"LEFT", controls.realmDrop, "RIGHT"}, {12, 0, 0, 16}, "^7League:")
 	controls.leagueDrop = new("DropDownControl", {"LEFT", controls.leagueLabel, "RIGHT"}, {4, 0, 160, 20}, {"Loading..."}, function(index, value)
 		-- League selection stored in the dropdown itself
 		rebuildUrl()
+		M.lastLeagueIdx = index
 	end)
 	controls.leagueDrop.enabled = function() return #controls.leagueDrop.list > 0 and controls.leagueDrop.list[1] ~= "Loading..." end
 
@@ -390,7 +399,11 @@ function M.openPopup(item, slotName, primaryBuild)
 	controls.listedDrop = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, {-leftMargin, ctrlY, 242, 20}, LISTED_STATUS_LABELS, function(index, value)
 		-- Listed status selection stored in the dropdown itself
 		rebuildUrl()
+		M.lastListedIndex = index
 	end)
+	if M.lastListedIndex then
+		controls.listedDrop:SetSel(M.lastListedIndex, true)
+	end
 	controls.listedLabel = new("LabelControl", {"RIGHT", controls.listedDrop, "LEFT"}, {-4, 0, 0, 16}, "^7Listed:")
 
 	-- Fetch initial leagues for default realm
