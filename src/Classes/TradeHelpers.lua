@@ -144,6 +144,20 @@ end
 function M.findTradeIdOption(modLine, modType)
 	-- match stringify() behaviour and ignore casing
 	modLine = modLine:gsub("\n", " "):lower()
+	-- exception: timeless jewels
+	-- these have special pseudo trade ids and are not options in poe1
+	local timelessPatterns = { "bathed in the blood of (%d+) sacrificed in the name of (.+)",
+		"carved to glorify (%d+) new faithful converted by high templar (.+)",
+		"commanded leadership over (%d+) warriors under (.+)",
+		"commissioned (%d+) coins to commemorate (.+)",
+		"denoted service of (%d+) dekhara in the akhara of (.+)",
+		"remembrancing (%d+) songworthy deeds by the line of (.+)" }
+	for _, pat in ipairs(timelessPatterns) do
+		local value, conqueror = modLine:match(pat)
+		if conqueror then
+			return "explicit.pseudo_timeless_jewel_" .. conqueror, tonumber(value)
+		end
+	end
 	local tradeStats = M.getTradeStats()
 	local optionTradeStatMap = getOptionTradeStatMap(tradeStats)
 	if not tradeStats or not optionTradeStatMap then return end
