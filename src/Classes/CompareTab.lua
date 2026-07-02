@@ -1231,6 +1231,10 @@ function CompareTabClass:ImportBuild(xmlText, label)
 		t_insert(self.compareEntries, entry)
 		self.activeCompareIndex = #self.compareEntries
 		self:UpdateBuildSelector()
+		-- Restore primary build's window title
+		if self.primaryBuild.spec then
+			self.primaryBuild.spec:SetWindowTitleWithBuildClass()
+		end
 		return true
 	end
 	return false
