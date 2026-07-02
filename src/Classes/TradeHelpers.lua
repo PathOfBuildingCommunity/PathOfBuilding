@@ -443,7 +443,7 @@ local ITEM_BOX_H = 20
 
 function M.drawCompactSlotRow(drawY, slotLabel, pItem, cItem,
 	colWidth, cursorX, cursorY, maxLabelW, primaryItemsTab, compareItemsTab, pWarn, cWarn, slotMissing,
-	copyBtnW, copyBtnH, buyBtnW, equipBtnW, xOffset)
+	copyBtnW, copyBtnH, buyBtnW, equipBtnW, xOffset, shouldUnderlineLabel)
 
 	xOffset = xOffset or 0
 	local pName = pItem and pItem.name or "(empty)"
@@ -473,7 +473,13 @@ function M.drawCompactSlotRow(drawY, slotLabel, pItem, cItem,
 
 	-- Draw slot label
 	SetDrawColor(1, 1, 1)
-	DrawString(labelX, drawY + 2, "LEFT", 16, "VAR", "^7" .. slotLabel .. ":")
+	local labelText = "^7" .. slotLabel .. ":"
+	DrawString(labelX, drawY + 2, "LEFT", 16, "VAR", labelText)
+
+	if shouldUnderlineLabel then
+		local labelW = DrawStringWidth(16, "VAR", labelText)
+		DrawImage(nil, labelX, drawY + 2 + 16, labelW, 1)
+	end
 
 	-- Draw primary item box
 	local pBorderGray = pHover and 0.5 or 0.33
