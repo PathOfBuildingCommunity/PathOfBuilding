@@ -1991,7 +1991,7 @@ function TreeTabClass:FindTimelessJewel()
 	end
 
 	local fallbackWeightsList = { }
-	for id, stat in pairs(data.powerStatList) do
+	for _, stat in ipairs(data.powerStatList) do
 		if not stat.ignoreForItems and stat.label ~= "Name" then
 			t_insert(fallbackWeightsList, {
 				label = "Sort by " .. stat.label,
