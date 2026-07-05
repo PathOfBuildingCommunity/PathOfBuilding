@@ -163,7 +163,7 @@ function M.findTradeIdOption(modLine, modType)
 	if not tradeStats or not optionTradeStatMap then return end
 
 	-- reformat double-line cluster enchants
-	modLine = modLine:gsub("\nAdded Small Passive Skills grant: ", "\n")
+	modLine = modLine:gsub(".added small passive skills grant: ", " ")
 	for pat, entry in pairs(optionTradeStatMap) do
 		local match = modLine:match(pat)
 		if entry.type == modType and match then

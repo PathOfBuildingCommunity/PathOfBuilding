@@ -139,7 +139,9 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
 		local function getFilter(tradeId)
 			local filter = { id = tradeId }
 			if entry.isOption then
-				filter.value = { min = entry.value, max = entry.value }
+				-- timeless jewels use a min max range despite matching as an option
+				filter.value = tradeId:match("timeless") and { min = entry.value, max = entry.value } or
+					{ option = entry.value }
 			elseif entry.value then
 				local minVal = tonumber(controls[prefix .. "Min"].buf)
 				local maxVal = tonumber(controls[prefix .. "Max"].buf)
