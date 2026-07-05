@@ -555,7 +555,6 @@ function TradeQueryClass:SetStatWeights(previousSelectionList)
 	local sliderController = { index = 1 }
 	local popupHeight = 500
 
-	local listYOffset = 45
 	-- account for top gap, bottom button size and gap, and a gap before buttons
 	local listHeight = popupHeight - 45 - 30 - 10
 
