@@ -915,6 +915,14 @@ function buildMode:CanExit(mode)
 end
 
 function buildMode:Shutdown()
+	-- All parallel jobs compute against this build; their results are useless now
+	ParallelRunner:CancelAll()
+	if self.calcsTab then
+		self.calcsTab.powerJob = nil
+	end
+	if self.compareTab then
+		self.compareTab.comparePowerJob = nil
+	end
 	if launch.devMode and (not main.disableDevAutoSave) and self.targetVersion and not self.abortSave then
 		if self.dbFileName then
 			self:SaveDBFile()

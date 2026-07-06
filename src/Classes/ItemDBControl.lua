@@ -214,39 +214,18 @@ function ItemDBClass:BuildSortOrder()
 	t_insert(self.sortOrder, self.sortControl.NAME)
 end
 
-function ItemDBClass:ListBuilder()
+function ItemDBClass:BuildFilteredList()
 	local list = { }
 	for id, item in pairs(self.db.list) do
 		if self:DoesItemMatchFilters(item) then
 			t_insert(list, item)
 		end
 	end
+	return list
+end
 
-	if self.sortDetail and self.sortDetail.stat then -- stat-based
-		local useFullDPS = self.sortDetail.stat == "FullDPS"
-		local start = GetTime()
-		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator(self.build)
-		for itemIndex, item in ipairs(list) do
-			item.measuredPower = 0
-			for slotName, slot in pairs(self.itemsTab.slots) do
-				if self.itemsTab:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)) then
-					local output = calcFunc(item.base.flask and { toggleFlask = item } or item.base.tincture and { toggleTincture = item } or { repSlotName = slotName, repItem = item }, useFullDPS)
-					local measuredPower = output.Minion and output.Minion[self.sortMode] or output[self.sortMode] or 0
-					if self.sortDetail.transform then
-						measuredPower = self.sortDetail.transform(measuredPower)
-					end
-					item.measuredPower = m_max(item.measuredPower, measuredPower)
-				end
-			end
-			local now = GetTime()
-			if now - start > 50 then
-				self.defaultText = "^7Sorting... ("..m_floor(itemIndex/#list*100).."%)"
-				coroutine.yield()
-				start = now
-			end
-		end
-	end
-
+-- Sort the list and publish it
+function ItemDBClass:FinishList(list)
 	table.sort(list, function(a, b)
 		for _, data in ipairs(self.sortOrder) do
 			local aVal = a[data.key]
@@ -273,6 +252,100 @@ function ItemDBClass:ListBuilder()
 	self.defaultText = "^7No items found that match those filters."
 end
 
+function ItemDBClass:ListBuilder()
+	local list = self:BuildFilteredList()
+
+	if self.sortDetail and self.sortDetail.stat then -- stat-based
+		local useFullDPS = self.sortDetail.stat == "FullDPS"
+		local start = GetTime()
+		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator(self.build)
+		for itemIndex, item in ipairs(list) do
+			item.measuredPower = PowerCalcTasks.itemdb.measureOne(self.itemsTab, calcFunc, self.sortDetail, self.sortMode, useFullDPS, item)
+			local now = GetTime()
+			if now - start > 50 then
+				self.defaultText = "^7Sorting... ("..m_floor(itemIndex/#list*100).."%)"
+				coroutine.yield()
+				start = now
+			end
+		end
+	end
+
+	self:FinishList(list)
+end
+
+-- Try to run the stat sort on background workers; returns true if a job was
+-- launched, false if the caller should use the single-core coroutine instead
+function ItemDBClass:LaunchParallelListBuild()
+	if not (self.sortDetail and self.sortDetail.stat) or self.db.loading or not ParallelRunner:IsAvailable() then
+		return false
+	end
+	local list = self:BuildFilteredList()
+	-- Items are checked against every slot they fit, so weight them higher
+	-- than single-calculation candidates
+	if not ParallelRunner:ShouldParallelize(#list, 2) then
+		return false
+	end
+	local build = self.itemsTab.build
+	local buildXML = build:SaveDB("parallelSort")
+	if not buildXML then
+		return false
+	end
+	local useFullDPS = self.sortDetail.stat == "FullDPS"
+	local calcFunc, calcBase = build.calcsTab:GetMiscCalculator()
+	local names = { }
+	for _, item in ipairs(list) do
+		t_insert(names, item.name)
+	end
+	local batches = { }
+	for i, nameSlice in ipairs(ParallelRunner:PartitionList(names, ParallelRunner:GetWorkerCount())) do
+		batches[i] = { names = nameSlice }
+	end
+	local job
+	job = ParallelRunner:LaunchJob({
+		mode = "itemdb",
+		buildXML = buildXML,
+		common = {
+			sortMode = self.sortDetail.sortMode,
+			dbType = self.dbType,
+		},
+		batches = batches,
+		total = #list,
+		expectedBaseline = PowerCalcTasks.extractBaseline(calcBase, self.sortDetail, useFullDPS),
+		onProgress = function(percent)
+			self.defaultText = "^7Sorting... ("..percent.."%)"
+		end,
+		onComplete = function(payloads)
+			if self.parallelJob ~= job then
+				return
+			end
+			self.parallelJob = nil
+			local powerByName = { }
+			for _, payload in pairs(payloads) do
+				for name, power in pairs(payload.results or { }) do
+					powerByName[name] = PowerCalcTasks.decodeNumber(power)
+				end
+			end
+			for _, item in ipairs(list) do
+				item.measuredPower = powerByName[item.name] or 0
+			end
+			self:FinishList(list)
+		end,
+		onError = function()
+			if self.parallelJob ~= job then
+				return
+			end
+			self.parallelJob = nil
+			self.listBuilder = coroutine.create(self.ListBuilder)
+		end,
+	})
+	if not job then
+		return false
+	end
+	self.parallelJob = job
+	self.defaultText = "^7Sorting..."
+	return true
+end
+
 function ItemDBClass:Draw(viewPort)
 	if self.itemsTab.build.outputRevision ~= self.listOutputRevision then
 		self.listBuildFlag = true
@@ -280,8 +353,17 @@ function ItemDBClass:Draw(viewPort)
 	if self.listBuildFlag then
 		self.listBuildFlag = false
 		wipeTable(self.list)
-		self.listBuilder = coroutine.create(self.ListBuilder)
+		self.listBuilder = nil
+		if self.parallelJob then
+			-- A rebuild was requested while workers were still running; their
+			-- results are stale, so cancel and start over
+			self.parallelJob:Cancel()
+			self.parallelJob = nil
+		end
 		self.listOutputRevision = self.itemsTab.build.outputRevision
+		if not self:LaunchParallelListBuild() then
+			self.listBuilder = coroutine.create(self.ListBuilder)
+		end
 	end
 	if self.listBuilder and not self.db.loading then
 		local res, errMsg = coroutine.resume(self.listBuilder, self)

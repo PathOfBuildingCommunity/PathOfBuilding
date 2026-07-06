@@ -1,0 +1,103 @@
+20:26:05 job 1 launched: mode=nodePower workers=8 total=4348 buildXML=56056B
+20:26:17 job 1 worker 8 done: 29479B result, 7 pending
+20:26:17 job 1 worker 2 done: 30721B result, 6 pending
+20:26:18 job 1 worker 4 done: 28443B result, 5 pending
+20:26:18 job 1 worker 5 done: 29249B result, 4 pending
+20:26:19 job 1 worker 6 done: 29317B result, 3 pending
+20:26:19 job 1 worker 7 done: 31172B result, 2 pending
+20:26:20 job 1 worker 1 done: 29046B result, 1 pending
+20:26:21 job 1 worker 3 done: 31851B result, 0 pending
+20:26:21 job 1 complete, merging
+20:26:21 merge applied: 2671 node results (2552 with singleStat), powerMax.singleStat=0
+20:28:31 job 2 launched: mode=nodePower workers=8 total=4348 buildXML=56056B
+20:28:45 job 2 worker 2 done: 21231B result, 7 pending
+20:28:46 job 2 worker 7 done: 20830B result, 6 pending
+20:28:47 job 2 worker 8 done: 20891B result, 5 pending
+20:28:47 job 2 worker 1 done: 20824B result, 4 pending
+20:28:48 job 2 worker 3 done: 21252B result, 3 pending
+20:28:48 job 2 worker 4 done: 21363B result, 2 pending
+20:28:48 job 2 worker 5 done: 20719B result, 1 pending
+20:28:49 job 2 worker 6 done: 21110B result, 0 pending
+20:28:49 job 2 complete, merging
+20:28:49 merge applied: 2671 node results (2671 with singleStat), powerMax.singleStat=0
+20:28:51 job 3 launched: mode=nodePower workers=8 total=4348 buildXML=56462B
+20:29:11 job 3 worker 5 done: 26456B result, 7 pending
+20:29:12 job 3 worker 7 done: 26833B result, 6 pending
+20:29:13 job 3 worker 8 done: 26669B result, 5 pending
+20:29:14 job 3 worker 1 done: 26444B result, 4 pending
+20:29:14 job 3 worker 2 done: 28394B result, 3 pending
+20:29:15 job 3 worker 3 done: 28048B result, 2 pending
+20:29:16 job 3 worker 4 done: 27750B result, 1 pending
+20:29:16 job 3 worker 6 done: 26920B result, 0 pending
+20:29:16 job 3 complete, merging
+20:29:16 merge applied: 2671 node results (2671 with singleStat), powerMax.singleStat=1811177.1023715
+20:30:35 job 4 launched: mode=nodePower workers=8 total=4348 buildXML=56473B
+20:30:36 job 5 launched: mode=nodePower workers=8 total=4348 buildXML=56462B
+20:30:55 job 5 worker 3 done: 27915B result, 7 pending
+20:30:56 job 5 worker 2 done: 28277B result, 6 pending
+20:30:57 job 5 worker 4 done: 27617B result, 5 pending
+20:30:57 job 5 worker 5 done: 26405B result, 4 pending
+20:30:58 job 5 worker 6 done: 26920B result, 3 pending
+20:30:59 job 5 worker 7 done: 26719B result, 2 pending
+20:30:59 job 5 worker 8 done: 26641B result, 1 pending
+20:31:00 job 5 worker 1 done: 26335B result, 0 pending
+20:31:00 job 5 complete, merging
+20:31:00 merge applied: 2671 node results (2671 with singleStat), powerMax.singleStat=1811177.1023715
+20:33:05 job 6 launched: mode=nodePower workers=8 total=4348 buildXML=56473B
+20:33:12 job 7 launched: mode=nodePower workers=8 total=4348 buildXML=56462B
+20:33:15 job 8 launched: mode=nodePower workers=8 total=4348 buildXML=56473B
+20:33:18 job 9 launched: mode=nodePower workers=8 total=4348 buildXML=56462B
+20:33:37 job 9 worker 3 done: 27926B result, 7 pending
+20:33:38 job 9 worker 8 done: 26664B result, 6 pending
+20:33:39 job 9 worker 1 done: 26335B result, 5 pending
+20:33:40 job 9 worker 2 done: 28266B result, 4 pending
+20:33:41 job 9 worker 4 done: 27617B result, 3 pending
+20:33:41 job 9 worker 5 done: 26405B result, 2 pending
+20:33:42 job 9 worker 6 done: 26920B result, 1 pending
+20:33:43 job 9 worker 7 done: 26719B result, 0 pending
+20:33:43 job 9 complete, merging
+20:33:43 merge applied: 2671 node results (2671 with singleStat), powerMax.singleStat=1811177.1023715
+23:41:17 job 1 launched: mode=nodePower workers=12 total=4348 buildXML=56462B
+23:41:20 job 2 launched: mode=nodePower workers=12 total=4348 buildXML=56462B
+23:41:40 job 2 worker 10 done: 18596B result, 11 pending
+23:41:41 job 2 worker 7 done: 17987B result, 10 pending
+23:41:41 job 2 worker 8 done: 17968B result, 9 pending
+23:41:42 job 2 worker 11 done: 16783B result, 8 pending
+23:41:42 job 2 worker 12 done: 18085B result, 7 pending
+23:41:43 job 2 worker 1 done: 18078B result, 6 pending
+23:41:43 job 2 worker 2 done: 19757B result, 5 pending
+23:41:44 job 2 worker 3 done: 18742B result, 4 pending
+23:41:44 job 2 worker 4 done: 18747B result, 3 pending
+23:41:44 job 2 worker 5 done: 17663B result, 2 pending
+23:41:45 job 2 worker 6 done: 18979B result, 1 pending
+23:41:45 job 2 worker 9 done: 17406B result, 0 pending
+23:41:45 job 2 complete, merging
+23:41:45 merge applied: 2671 node results (2671 with singleStat), powerMax.singleStat=1811177.1023715
+23:41:46 job 3 launched: mode=nodePower workers=12 total=4348 buildXML=56473B
+23:41:53 job 4 launched: mode=nodePower workers=12 total=4348 buildXML=56462B
+23:42:17 job 5 launched: mode=nodePower workers=12 total=4348 buildXML=56473B
+23:42:36 job 5 worker 6 done: 18147B result, 11 pending
+23:42:36 job 5 worker 8 done: 18167B result, 10 pending
+23:42:37 job 5 worker 9 done: 17909B result, 9 pending
+23:42:37 job 5 worker 10 done: 18073B result, 8 pending
+23:42:38 job 5 worker 11 done: 18015B result, 7 pending
+23:42:38 job 5 worker 12 done: 18556B result, 6 pending
+23:42:39 job 5 worker 1 done: 18184B result, 5 pending
+23:42:39 job 5 worker 2 done: 19436B result, 4 pending
+23:42:40 job 5 worker 3 done: 18359B result, 3 pending
+23:42:41 job 5 worker 4 done: 17919B result, 2 pending
+23:42:41 job 5 worker 5 done: 17225B result, 1 pending
+23:42:41 job 5 worker 7 done: 18901B result, 0 pending
+23:42:41 job 5 complete, merging
+23:42:41 merge applied: 2671 node results (2671 with singleStat), powerMax.singleStat=1825249.3469207
+23:42:52 job 6 launched: mode=nodePower workers=8 total=4348 buildXML=56461B
+23:43:09 job 6 worker 5 done: 26643B result, 7 pending
+23:43:11 job 6 worker 6 done: 26614B result, 6 pending
+23:43:12 job 6 worker 7 done: 25371B result, 5 pending
+23:43:13 job 6 worker 1 done: 26736B result, 4 pending
+23:43:13 job 6 worker 2 done: 28473B result, 3 pending
+23:43:14 job 6 worker 3 done: 28836B result, 2 pending
+23:43:14 job 6 worker 4 done: 26997B result, 1 pending
+23:43:15 job 6 worker 8 done: 27151B result, 0 pending
+23:43:15 job 6 complete, merging
+23:43:15 merge applied: 2671 node results (2671 with singleStat), powerMax.singleStat=1811177.1023715

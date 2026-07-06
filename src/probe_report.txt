@@ -1,0 +1,37 @@
+Probe: launching worker (build XML: 56056 bytes)...
+Probe: completed in 7611 ms (wall)
+Probe:   buildLoaded = true
+Probe:   scriptPathArg = C:/Users/Albi/Desktop/PoBMC/src
+Probe:   singleCalcMs = 13
+Probe:   specJSONBytes = 24
+Probe:   buildXMLBytes = 56056
+Probe:   treeOpenAbsolute = true
+Probe:   treeOpenRelative = true
+Probe:   hasIo = true
+Probe:   hasLoadfile = true
+Probe:   injectedConPrintf = true
+Probe:   injectedGetRuntimePath = true
+Probe:   injectedGetScriptPath = true
+Probe:   injectedGetUserPath = true
+Probe:   injectedGetWorkDir = true
+Probe:   buildName = CalcWorker
+Probe:   injectedNewFileSearch = false
+Probe:   jitVersion = LuaJIT 2.1.1753364724
+Probe:   luaVersion = Lua 5.1
+Probe:   packagePath = .\?.lua;C:\Users\Albi\Desktop\PoBMC\runtime\lua\?.lua;C:\Users\Albi\Desktop\PoBMC\runtime\lua\?\init.lua;
+Probe:   workDir = C:/Users/Albi/Desktop/PoBMC/src
+Probe:   injectedInflate = false
+Probe:   timing.calcMs = 13
+Probe:   timing.bootstrapMs = 7592
+Probe:   timing.totalMs = 7605
+Probe:   timing.initMs = 660.00000000006
+Probe: baseline EnergyShieldRecoveryCap: main 0, worker 0 OK
+Probe: baseline LifeUnreserved: main 4590, worker 4590 OK
+Probe: baseline Life: main 4634, worker 4634 OK
+Probe: baseline CombinedDPS: main 1.78378e+07, worker 1.78378e+07 OK
+Probe: baseline Armour: main 31853, worker 31853 OK
+Probe: baseline LifeRegenRecovery: main 352.2, worker 352.2 OK
+Probe: baseline EnergyShieldRegenRecovery: main 10, worker 10 OK
+Probe: baseline Evasion: main 16811, worker 16811 OK
+Probe: baseline EnergyShield: main 0, worker 0 OK
+Probe: baseline validated OK against main thread

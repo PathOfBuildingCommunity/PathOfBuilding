@@ -135,6 +135,8 @@
     Patch notes written in plain text.
 * **CONTRIBUTING.md**
     Contribution guides.
+* **CalcWorker.lua**
+    Background calculation worker script, executed in isolated Lua VMs on worker threads via `LaunchSubScript` (see `Modules/ParallelRunner.lua`). Bootstraps a headless copy of the program (like `HeadlessWrapper.lua`), reconstructs the build from an XML snapshot, computes a batch of candidates via `Modules/PowerCalcTasks.lua`, and returns the results as JSON.
 * **GameVersions.lua**
     Contains global variables to identify and convert outdated builds. Also contains global table of passive skill tree versions used to upgrade to newer skill tree versions.
 * **HeadlessWrapper.lua**
