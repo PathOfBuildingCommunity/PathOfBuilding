@@ -1,8 +1,6 @@
 if not loadStatFile then
 	dofile("statdesc.lua")
 end
-local tinctureStatDescriptions = getStatDescriptors("tincture_stat_descriptions.txt")
-local statDescriptions = getStatDescriptors("stat_descriptions.txt")
 loadStatFile("tincture_stat_descriptions.txt", "graft_stat_descriptions.txt")
 
 -- https://www.poewiki.net/wiki/Modifier#Domain
@@ -43,7 +41,6 @@ function table.containsId(table, element)
 	end
 	return false
 end
-
 
 local function writeMods(outName, condFunc)
 	local out = io.open(outName, "w")
@@ -159,59 +156,34 @@ local function writeMods(outName, condFunc)
 				-- "explicit.pseudo_timeless_jewel_doryani". See the below API
 				-- for more info:
 				-- https://www.pathofexile.com/api/trade/data/stats
+				local modIdx = 1
 				local tradeHashes = {}
-				local statsHashed = {}
-				local isTinctureMod = (mod.Domain == Domains.Tincture) and
-					(mod.GenerationType == GenTypes.Prefix
-						or mod.GenerationType == GenTypes.Suffix)
-				for statIdx = 1, 6 do
+				while mod["Stat" .. modIdx] do
 					local currentStats = {}
-					local stat = mod["Stat" .. statIdx]
-					if not stat then
+					local stat = mod["Stat" .. modIdx]
+					currentStats[stat.Id] = {
+						min = mod["Stat" .. modIdx .. "Value"][1], max = mod["Stat" .. modIdx .. "Value"][2]
+					}
+					if modIdx == 6 then
 						break
 					end
-					-- some stats are related to other stats, and should be
-					-- hashed with them. we don't want to hash e.g. the lower
-					-- and upper range of # to # damage modifiers separately.
-					if statsHashed[stat.Id] then
-						goto innerContinue
-					end
-
-					-- tincture stat descriptions are in a separate file
-					local statEntry
-					if isTinctureMod then
-						statEntry = tinctureStatDescriptions[stat.Id] and tinctureStatDescriptions[stat.Id]
-					else
-						statEntry = statDescriptions[stat.Id] and statDescriptions[stat.Id]
-					end
-
-					-- skip stats that are missing fields. these are most likely
-					-- hidden stats or e.g. map stats
-					if not statEntry or not statEntry.stats or not statEntry[1] then
-						goto innerContinue
-					end
-
-
-					-- match stats to the stat values on the mod and save them
-					-- as they're used to describe the stat
-					local currentStats = {}
-					for _, statId in ipairs(statEntry.stats) do
-						for statIdx = 1, 6 do
-							if mod["Stat" .. statIdx] and mod["Stat" .. statIdx].Id == statId then
-								currentStats[statId] = {
-									min = mod["Stat" .. statIdx .. "Value"][1],
-									max = mod["Stat" .. statIdx .. "Value"][2]
-								}
-							end
+					local bytes = intToBytes(stat.Hash)
+					-- # to # stats consist of two different stats as the min and max have different ranges
+					if stat.Id:match("minimum") then
+						local nextStat = mod["Stat" .. (modIdx + 1)]
+						if nextStat and nextStat.Id:match("maximum") then
+							modIdx = modIdx + 1
+							bytes = bytes .. intToBytes(nextStat.Hash)
+							currentStats[nextStat.Id] = {
+								min = mod["Stat" .. modIdx .. "Value"][1], max = mod["Stat" .. modIdx .. "Value"][2]
+							}
 						end
 					end
 
-
 					local description, _, _ = describeStats(currentStats)
 
-					local tradeHash = HashStats(statEntry.stats)
-					tradeHashes[tradeHash] = description
-					::innerContinue::
+					tradeHashes[murmurHash2(bytes, 0x02312233)] = description
+					modIdx = modIdx + 1
 				end
 				out:write("tradeHashes = { ")
 				for hash, desc in pairs(tradeHashes) do
@@ -320,10 +292,6 @@ writeMods("../Data/BeastCraft.lua", function(mod)
 end)
 writeMods("../Data/ModFoulborn.lua", function(mod)
 	return (mod.Domain == Domains.Item or mod.Domain == Domains.Jewel) and mod.GenerationType == GenTypes.Intrinsic and mod.Id:match("^MutatedUnique")
-end)
--- enchants
-writeMods("../Data/ModEnchantment.lua", function(mod)
-	return mod.Domain == Domains.Item and mod.GenerationType == GenTypes.Enchantment
 end)
 
 -- Generate unique mod mappings from text to mod
