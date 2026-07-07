@@ -45,9 +45,9 @@ for crucible in dat("WeaponPassiveSkills"):Rows() do
 			end
 			out:write('modTags = { ', stats.modTags, ' }, ')
 
-			-- trade hashes for crucible passives simply use the mod hash,
-			-- unlike other things which use stat hashes
-			out:write("tradeHash = ", crucible.Mod.Hash, ", ")
+			-- -- trade hashes for crucible passives simply use the mod hash,
+			-- -- unlike other things which use stat hashes
+			-- out:write("tradeHash = ", crucible.Mod.Hash, ", ")
 
 			out:write('},\n')
 		else
