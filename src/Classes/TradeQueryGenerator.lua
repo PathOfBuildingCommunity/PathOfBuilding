@@ -11,67 +11,69 @@ local s_format = string.format
 local t_insert = table.insert
 local tradeHelpers = LoadModule("Classes/TradeHelpers")
 
--- TODO generate these from data files
-local itemCategoryTags = {
-	["Ring"] = { ["ring"] = true, ["ring_can_roll_minion_modifiers"] = true },
-	["Amulet"] = { ["amulet"] = true },
-	["Belt"] = { ["belt"] = true },
-	["Chest"] = { ["body_armour"] = true, ["str_armour"] = true, ["dex_armour"] = true, ["int_armour"] = true, ["str_int_armour"] = true, ["str_dex_armour"] = true, ["str_dex_int_armour"] = true },
-	["Helmet"] = { ["helmet"] = true, ["str_armour"] = true, ["dex_armour"] = true, ["int_armour"] = true, ["str_int_armour"] = true, ["str_dex_armour"] = true, ["str_dex_int_armour"] = true },
-	["Gloves"] = { ["gloves"] = true, ["str_armour"] = true, ["dex_armour"] = true, ["int_armour"] = true, ["str_int_armour"] = true, ["str_dex_armour"] = true, ["str_dex_int_armour"] = true },
-	["Boots"] = { ["boots"] = true, ["str_armour"] = true, ["dex_armour"] = true, ["int_armour"] = true, ["str_int_armour"] = true, ["str_dex_armour"] = true, ["str_dex_int_armour"] = true },
-	["Quiver"] = { ["quiver"] = true },
-	["Shield"] = { ["shield"] = true, ["focus"] = true, ["energy_shield"] = true, ["dex_shield"] = true, ["str_shield"] = true, ["str_int_shield"] = true, ["dex_int_shield"] = true, ["str_dex_shield"] = true, ["focus_can_roll_minion_modifiers"] = true },
-	["1HWeapon"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["axe"] = true, ["sword"] = true, ["rapier"] = true, ["mace"] = true, ["sceptre"] = true, ["attack_dagger"] = true, ["dagger"] = true, ["rune_dagger"] = true, ["wand"] = true, ["claw"] = true, ["weapon_can_roll_minion_modifiers"] = true },
-	["2HWeapon"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["staff"] = true, ["attack_staff"] = true, ["warstaff"] = true, ["bow"] = true,  ["axe"] = true, ["sword"] = true, ["mace"] = true, ["2h_sword"] = true, ["2h_axe"] = true, ["2h_mace"] = true },
-	["1HAxe"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["axe"] = true},
-	["1HSword"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["sword"] = true, ["rapier"] = true },
-	["1HMace"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["mace"] = true, ["sceptre"] = true },
-	["Dagger"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["attack_dagger"] = true, ["dagger"] = true, ["rune_dagger"] = true },
-	["Wand"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["wand"] = true, ["weapon_can_roll_minion_modifiers"] = true },
-	["Claw"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["claw"] = true },
-	["Staff"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["staff"] = true, ["attack_staff"] = true, ["warstaff"] = true },
-	["Bow"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["bow"] = true },
-	["2HAxe"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["axe"] = true, ["2h_axe"] = true },
-	["2HSword"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["sword"] = true, ["2h_sword"] = true },
-	["2HMace"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["mace"] = true, ["2h_mace"] = true },
-	["FishingRod"] = { ["fishing_rod"] = true },
-	["AbyssJewel"] = { ["default"] = true, ["abyss_jewel"] = true, ["abyss_jewel_melee"] = true, ["abyss_jewel_ranged"] = true, ["abyss_jewel_summoner"] = true, ["abyss_jewel_caster"] = true },
-	["BaseJewel"] = { ["default"] = true, ["jewel"] = true, ["not_int"] = true, ["not_str"] = true, ["not_dex"] = true },
-	["AnyJewel"] = { ["default"] = true, ["jewel"] = true, ["not_int"] = true, ["not_str"] = true, ["not_dex"] = true, ["abyss_jewel"] = true, ["abyss_jewel_melee"] = true, ["abyss_jewel_ranged"] = true, ["abyss_jewel_summoner"] = true, ["abyss_jewel_caster"] = true },
-	["Flask"] = { ["default"] = true, ["flask"] = true, ["hybrid_flask"] = true, ["utility_flask"] = true, ["mana_flask"] = true, ["life_flask"] = true, ["expedition_flask"] = true, ["critical_utility_flask"] = true }
-}
-
-local craftedCategoryTags = {
+-- a table which tells us what subtypes each category we can search for contains
+local tradeCategoryNames = {
 	["Ring"] = { "Ring" },
 	["Amulet"] = { "Amulet" },
 	["Belt"] = { "Belt" },
-	["Chest"] = { "Body Armour" },
-	["Helmet"] = { "Helmet" },
-	["Gloves"] = { "Gloves" },
-	["Boots"] = { "Boots" },
+	["Chest"] = { "Body Armour", "Body Armour: Armour", "Body Armour: Armour/Energy Shield", "Body Armour: Armour/Evasion", "Body Armour: Armour/Evasion/Energy Shield", "Body Armour: Energy Shield", "Body Armour: Evasion", "Body Armour: Evasion/Energy Shield", "Body Armour: Ward" },
+	["Helmet"] = { "Helmet", "Helmet: Armour", "Helmet: Armour/Energy Shield", "Helmet: Armour/Evasion", "Helmet: Armour/Evasion/Energy Shield", "Helmet: Energy Shield", "Helmet: Evasion", "Helmet: Evasion/Energy Shield", "Helmet: Ward" },
+	["Gloves"] = { "Gloves: Armour", "Gloves: Armour/Energy Shield", "Gloves: Armour/Evasion", "Gloves: Armour/Evasion/Energy Shield", "Gloves: Energy Shield", "Gloves: Evasion", "Gloves: Evasion/Energy Shield", "Gloves: Ward" },
+	["Boots"] = { "Boots", "Boots: Armour", "Boots: Armour/Energy Shield", "Boots: Armour/Evasion", "Boots: Armour/Evasion/Energy Shield", "Boots: Energy Shield", "Boots: Evasion", "Boots: Evasion/Energy Shield", "Boots: Ward" },
 	["Quiver"] = { "Quiver" },
-	["Shield"] = { "Shield" },
-	["1HWeapon"] = { "One Handed Sword", "Thrusting One Handed Sword", "One Handed Axe", "One Handed Mace", "Dagger", "Wand", "Claw", "Sceptre" },
-	["2HWeapon"] = { "Fishing Rod", "Two Handed Sword", "Staff", "Two Handed Mace", "Two Handed Axe" },
+	["Shield"] = { "Shield", "Shield: Armour", "Shield: Armour/Energy Shield", "Shield: Armour/Evasion", "Shield: Energy Shield", "Shield: Evasion", "Shield: Evasion/Energy Shield" },
+	["1HWeapon"] = { "Claw", "Dagger", "One Handed Axe", "One Handed Mace", "Wand", "Sceptre", "One Handed Sword", "One Handed Sword: Thrusting" },
+	["2HWeapon"] = { "Staff", "Staff: Warstaff", "Two Handed Axe", "Two Handed Mace", "Two Handed Sword", "Bow" },
 	["1HAxe"] = { "One Handed Axe" },
-	["1HSword"] = { "One Handed Sword", "Thrusting One Handed Sword" },
-	["1HMace"] = { "One Handed Mace", "Sceptre" },
+	["1HSword"] = { "One Handed Sword", "One Handed Sword: Thrusting" },
+	["1HMace"] = { "One Handed Mace" },
+	["Sceptre"] = { "Sceptre" },
 	["Dagger"] = { "Dagger" },
 	["Wand"] = { "Wand" },
 	["Claw"] = { "Claw" },
-	["Staff"] = { "Staff" },
+	["Staff"] = { "Staff", "Staff: Warstaff" },
 	["Bow"] = { "Bow" },
 	["2HAxe"] = { "Two Handed Axe" },
 	["2HSword"] = { "Two Handed Sword" },
 	["2HMace"] = { "Two Handed Mace" },
 	["FishingRod"] = { "Fishing Rod" },
-	["AbyssJewel"] = { "Jewel" },
 	["BaseJewel"] = { "Jewel" },
-	["AnyJewel"] = { "Jewel" },
-	["Flask"] = { "Flask" }
+	["AbyssJewel"] = { "Jewel: Abyss" },
+	["AnyJewel"] = { "Jewel", "Jewel: Abyss" },
+	["LifeFlask"] = { "Flask: Life" },
+	["ManaFlask"] = { "Flask: Mana" },
+	["Flask"] = { "Flask: Utility" },
 }
 
+-- Build lists of tags present on a given item category
+local tradeCategoryTags = {}
+for type, bases in pairs(data.itemBaseLists) do
+	for _, base in ipairs(bases) do
+		if not base.hidden then
+			if not tradeCategoryTags[type] then
+				tradeCategoryTags[type] = {}
+			end
+			local baseTags = {}
+			for tag, _ in pairs(base.base.tags) do
+				if tag ~= "default" and tag ~= "demigods" and not tag:match("_basetype") and tag ~= "not_for_sale" then -- filter fluff tags not used on mods.
+					baseTags[tag] = true
+				end
+			end
+			for _, tag in pairs(base.base.influenceTags or {}) do
+				baseTags[tag] = true
+			end
+			local present = false
+			for i, tags in ipairs(tradeCategoryTags[type]) do
+				if tableDeepEquals(baseTags, tags) then
+					present = true
+				end
+			end
+			if not present then
+				t_insert(tradeCategoryTags[type], baseTags)
+			end
+		end
+	end
+end
 local tradeStatCategoryIndices = {
 	["Explicit"] = 2,
 	["Implicit"] = 3,
@@ -84,7 +86,6 @@ local tradeStatCategoryIndices = {
 	["WatchersEye"] = 2,
 }
 
-local influenceSuffixes = { "_shaper", "_elder", "_adjudicator", "_basilisk", "_crusader", "_eyrie"}
 local influenceDropdownNames = { "None" }
 local hasInfluenceModIds = { }
 for i, curInfluenceInfo in ipairs(itemLib.influenceInfo.default) do
@@ -116,47 +117,27 @@ local TradeQueryGeneratorClass = newClass("TradeQueryGenerator", function(self, 
 	self.lastMaxLevel = nil
 end)
 
-local function stripInfluenceSuffix(key)
-	local influenceSuffixPos = nil
-	for _, suffix in ipairs(influenceSuffixes) do
-		influenceSuffixPos = key:find(suffix)
-		if influenceSuffixPos ~= nil then
-			return key:sub(1, influenceSuffixPos - 1)
-		end
-	end
-	return key
-end
-
-local function canModSpawnForItemCategory(mod, category)
-	-- Synthesis modifiers have an empty weightKey (i.e., = {}). This was stripped from
-	-- client side back in league 3.10. Web-based Synthesis approximate use "stale" info.
-	-- To consider Synthesis mods we have to assume each mod can exist on any item base
-	-- Will be enabled when we have a mapping of mods to base types
-	--if mod.type == "Synthesis" then
-		-- return true
-	--end
-	if mod.types then -- crafted mods
-		for _, key in ipairs(craftedCategoryTags[category]) do
-			if mod.types[key] then
-				return true
-			end
-		end
-	else
-		local tags = itemCategoryTags[category]
-		for i, key in ipairs(mod.weightKey) do
-			local influenceStrippedKey = stripInfluenceSuffix(key)
-			if key ~= "default" and mod.affix:find("Elevated") ~= nil and tags[influenceStrippedKey] == true then
-				return true
-			elseif key ~= "default" and mod.type == "Corrupted" and tags[influenceStrippedKey] == true then
-				return true
-			elseif mod.weightVal[i] > 0 and tags[influenceStrippedKey] == true then
-				return true
+local function canModSpawnForItemCategory(mod, names)
+	for _, name in pairs(tradeCategoryNames[names]) do
+		-- crafted mod
+		if not mod.weightKey then
+			return mod.types[name]
+		else
+			for _, tags in ipairs(tradeCategoryTags[name] or {}) do
+				for i, key in ipairs(mod.weightKey) do
+					if tags[key] then
+						if mod.affix:find("Elevated") or mod.weightVal[i] > 0 then
+							return true
+						else
+							break
+						end
+					end
+				end
 			end
 		end
 	end
 	return false
 end
-
 function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, statWeights)
 	local meanStatDiff = 0
 
@@ -210,7 +191,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 
 		-- Special cases
 		local specialCaseData = { }
-		if mod.group and (mod.group:find("Local") or mod.group:find("Shield")) and modLine:find("Chance to Block$") then
+		if mod.group and (mod.group:find("Local") or mod.group:find("Shield")) and modLine:find("%% Chance to Block$") then
 			specialCaseData.overrideModLine = "+#% Chance to Block"
 			modLine = modLine .. " (Shields)"
 		elseif modLine == "You can apply an additional Curse" then
@@ -232,7 +213,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 
 		-- If this is the first tier for this mod, find matching trade mod and init the entry
 		if not self.modData[modType] then
-			logToFile("Unhandled Mod Type: %s", modType)
+			logToFile("Unhandled Mod Type: %s %s", modType, modLine)
 			goto continue
 		end
 
@@ -328,7 +309,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 		end
 
 		-- Update the min and max values available for each item category
-		for category, _ in pairs(itemCategoriesOverride or itemCategoriesMask or itemCategoryTags) do
+		for category, _ in pairs(itemCategoriesOverride or itemCategoriesMask or tradeCategoryNames) do
 			if itemCategoriesOverride or canModSpawnForItemCategory(mod, category) then
 				if self.modData[modType][uniqueIndex][category] == nil then
 					self.modData[modType][uniqueIndex][category] = { min = 999999, max = -999999 }
@@ -437,28 +418,25 @@ return %s
 
 	-- explicit, corrupted, scourge, and jewel mods
 	local regularItemMask = { }
-	for category, _ in pairs(itemCategoryTags) do
+	for category, _ in pairs(tradeCategoryNames) do
 		if category ~= "Flask" and category ~= "AbyssJewel" and category ~= "BaseJewel" and category ~= "AnyJewel" then
 			regularItemMask[category] = true
 		end
 	end
-	self:GenerateModData(data.itemMods.Item, tradeQueryStatsParsed, regularItemMask)
+	for _, key in ipairs({ "Explicit", "Corrupted", "Delve", "Eldritch" }) do
+		self:GenerateModData(data.itemMods[key], tradeQueryStatsParsed, regularItemMask)
+	end
 	self:GenerateModData(data.itemMods.Jewel, tradeQueryStatsParsed, { ["BaseJewel"] = true, ["AnyJewel"] = true })
-	self:GenerateModData(data.itemMods.JewelAbyss, tradeQueryStatsParsed, { ["AbyssJewel"] = true, ["AnyJewel"] = true })
+	self:GenerateModData(data.itemMods.JewelAbyss, tradeQueryStatsParsed, { ["AbyssJewel"] = true, ["AnyJewel"] = true },
+		{ ["AbyssJewel"] = true })
 	self:GenerateModData(data.itemMods.Flask, tradeQueryStatsParsed, { ["Flask"] = true })
 
 	-- Special handling for essences
 	for _, essenceItem in pairs(data.essences) do
-		for tag, modId in pairs(essenceItem.mods) do
-			local itemCategoriesOverride = {} -- build a list of relevant categories.
-			for category, tags in pairs(craftedCategoryTags) do
-				for _, matchTag in pairs(tags) do
-					if tag == matchTag  then
-						itemCategoriesOverride[category] = tags
-					end
-				end
-			end
-			self:ProcessMod(modId, data.itemMods.Item[modId], tradeQueryStatsParsed, regularItemMask, itemCategoriesOverride)
+		for itemType, modId in pairs(essenceItem.mods) do
+			local mask = {}
+			mask[itemType] = true
+			self:ProcessMod(modId, data.itemMods.Item[modId], tradeQueryStatsParsed, regularItemMask, mask)
 		end
 	end
 
@@ -485,118 +463,57 @@ return %s
 		watchersEyeMods[v.Id].type = "WatchersEye"
 		::continue::
 	end
-	self:GenerateModData(watchersEyeMods,tradeQueryStatsParsed,{ ["BaseJewel"] = true, ["AnyJewel"] = true },{["AnyJewel"]="AnyJewel"})
-		-- Base item implicit mods. A lot of this code is duplicated from generateModData(), but with important small logical flow changes to handle the format differences
-		local subTypeState = { }
-		local function updateRangeSubType(range, entry)
-			if subTypeState[range] == "mixed" then
-				return
-			end
-			if not entry.subType then
-				subTypeState[range] = "mixed"
-				range.subType = nil
-				return
-			end
-			if not range.subType then
-				range.subType = entry.subType
-			elseif range.subType ~= entry.subType then
-				subTypeState[range] = "mixed"
-				range.subType = nil
-			end
-		end
+	self:GenerateModData(watchersEyeMods, tradeQueryStatsParsed, { ["BaseJewel"] = true, ["AnyJewel"] = true },
+		{ ["AnyJewel"] = "AnyJewel" })
 
-	for baseName, entry in pairsSortByKey(data.itemBases) do
+	-- implicit mods
+	for _, entry in pairsSortByKey(data.itemBases) do
 		if entry.implicit ~= nil then
-			local stats = { }
-			for modLine in string.gmatch(entry.implicit, "([^".."\n".."]+)") do
-				if modLine:find("Grants Level") then -- skip mods that grant skills, as they will often be overwhelmingly powerful but don't actually fit into the build
+			local mod = { type = "Implicit" }
+			for modLine in string.gmatch(entry.implicit, "([^" .. "\n" .. "]+)") do
+				t_insert(mod, modLine)
+			end
+
+			local found = false
+			for _, modLine in ipairs(mod) do
+				if modLine:find("Grants Level") then
 					goto continue
 				end
-
-				local modType = "Implicit"
-
-				local tradeMod = nil
-				local matchStr = modLine:gsub("[#()0-9%-%+%.]","")
-				for _, entry in ipairs(tradeQueryStatsParsed.result[tradeStatCategoryIndices[modType]].entries) do
-					if entry.text:gsub("[#()0-9%-%+%.]","") == matchStr then
-						tradeMod = entry
+				for _, v in pairs(data.itemMods.ItemExclusive) do
+					if v[1] == modLine then
+						found = true
+						mod = v
+						mod.type = "Implicit"
 						break
 					end
 				end
+			end
+			if not found then
+				ConPrintf("unknown implicit mod: %s", mod[1])
+				goto continue
+			end
 
-				if tradeMod == nil then
-					goto continue
-					logToFile("Unable to match %s mod: %s", modType, modLine)
-				end
-				-- base item implicits don't have stat orders, so use the trade mod id instead
-				local statOrder = tradeMod.id
-
-				-- If this is the first tier for this mod, init the entry
-				local uniqueIndex = tostring(statOrder)
-				if self.modData[modType][uniqueIndex] == nil then
-					self.modData[modType][uniqueIndex] = { tradeMod = tradeMod, specialCaseData = { } }
-				end
-
-				-- tokenize the numerical variables for this mod and store the sign if there is one
-				local tokens = { }
-				local poundPos, tokenizeOffset = 0, 0
-				while true do
-					poundPos = self.modData[modType][uniqueIndex].tradeMod.text:find("#", poundPos + 1)
-					if poundPos == nil then
+			-- create trade type mask for base type
+			local maskOverride = {}
+			for tradeName, typeNames in pairs(tradeCategoryNames) do
+				for _, typeName in ipairs(typeNames) do
+					local entryName = entry.type
+					if entry.subType then
+						entryName = entryName .. ": " .. entry.subType
+					end
+					if typeName == entryName then
+						maskOverride[tradeName] = true;
 						break
 					end
-					startPos, endPos, sign, min, max = modLine:find("([%+%-]?)%(?(%d+%.?%d*)%-?(%d*%.?%d*)%)?", poundPos + tokenizeOffset)
-
-					if endPos == nil then
-						logToFile("[Init] Error extracting tokens from '%s' for tradeMod '%s'", modLine, self.modData[modType][uniqueIndex].tradeMod.text)
-						goto continue
-					end
-
-					tokenizeOffset = tokenizeOffset + (endPos - startPos)
-					t_insert(tokens, min)
-					t_insert(tokens, #max > 0 and tonumber(max) or tonumber(min))
-					if sign ~= nil then
-						self.modData[modType][uniqueIndex].sign = sign
-					end
 				end
+			end
 
-				if #tokens ~= 0 and #tokens ~= 2 and #tokens ~= 4 then
-					logToFile("Unexpected # of tokens found for mod: %s", modLine)
-					goto continue
-				end
-
-				-- Update the min and max values available for each item category
-				for category, categoryTags in pairs(itemCategoryTags) do
-					local tagMatch = false
-					for tag, value in pairs(entry.tags) do
-						if tag ~= "default" and categoryTags[tag] == true then
-							tagMatch = true
-							break
-						end
-					end
-
-					if tagMatch then
-						if self.modData[modType][uniqueIndex][category] == nil then
-							self.modData[modType][uniqueIndex][category] = { min = 999999, max = -999999 }
-						end
-
-						local modRange = self.modData[modType][uniqueIndex][category]
-						updateRangeSubType(modRange, entry)
-						if #tokens == 0 then
-							modRange.min = 1
-							modRange.max = 1
-						elseif #tokens == 2 then
-							modRange.min = math.min(modRange.min, tokens[1])
-							modRange.max = math.max(modRange.max, tokens[2])
-						elseif #tokens == 4 then
-							modRange.min = math.min(modRange.min, (tokens[1] + tokens[3]) / 2)
-							modRange.max = math.max(modRange.max, (tokens[2] + tokens[4]) / 2)
-						end
-					end
-				end
-				::continue::
+			-- mask found process implicit mod this avoids processing unimplemented bases
+			if next(maskOverride) ~= nil then
+				self:ProcessMod("", mod, tradeQueryStatsParsed, regularItemMask, maskOverride)
 			end
 		end
+		::continue::
 	end
 
 	local queryModsFile = io.open(queryModFilePath, 'w')
