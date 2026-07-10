@@ -642,6 +642,8 @@ function naturalSortCompare(a, b)
 end
 
 -- Rounds a number to the nearest <dec> decimal places
+---@param val number
+---@param dec? number
 function round(val, dec)
 	if dec then
 		return m_floor(val * 10 ^ dec + 0.5) / 10 ^ dec
@@ -652,7 +654,7 @@ end
 
 --- Rounds down a number to the nearest <dec> decimal places
 ---@param val number
----@param dec number
+---@param dec? number
 ---@return number
 function floor(val, dec)
 	if dec then
@@ -663,6 +665,70 @@ function floor(val, dec)
 	end
 end
 
+---@param val number
+---@param dec? integer decimal places
+-- Symmetric round with precision: Rounds towards zero to <dec> decimal places.
+function roundSymmetric(val, dec)
+	if dec then
+		local factor = 10 ^ dec
+		if val >= 0 then
+			return m_floor(val * factor + 0.5) / factor
+		else
+			return m_ceil(val * factor - 0.5) / factor
+		end
+	else
+		if val >= 0 then
+			return m_floor(val + 0.5)
+		else
+			return m_ceil(val - 0.5)
+		end
+	end
+end
+
+---@param val number
+---@param dec? integer decimal places
+-- Use rounding formula for positive numbers always used in corrupted unique roll ranges this is an incorrect way to round numbers.
+function alwaysPositiveRound(val, dec)
+	if dec then
+		local factor = 10 ^ dec
+		return floorSymmetric(val * factor + 0.5) / factor
+	else
+		return floorSymmetric(val + 0.5)
+	end
+end
+
+---@param val number
+---@param dec? integer decimal places
+---@return number
+-- Symmetric floor with precision: Rounds down towards zero to <dec> decimal places.
+function floorSymmetric(val, dec)
+	if dec then
+		local factor = 10 ^ dec
+		return select(1, math.modf(val * factor)) / factor
+	else
+		return select(1, math.modf(val))
+	end
+end
+
+---@param val number
+---@param dec? integer decimal places
+-- Symmetric ceil with precision: Rounds up away from zero to <dec> decimal places.
+function ceilSymmetric(val, dec)
+	if dec then
+		local factor = 10 ^ dec
+		if val >= 0 then
+			return m_ceil(val * factor) / factor
+		else
+			return m_floor(val * factor) / factor
+		end
+	else
+		if val >= 0 then
+			return m_ceil(val)
+		else
+			return m_floor(val)
+		end
+	end
+end
 ---@param n number
 ---@return number
 function triangular(n)
