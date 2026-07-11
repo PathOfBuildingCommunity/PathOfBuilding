@@ -371,7 +371,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		self:ParseBuffs(self.enemyModList, self.controls.enemyMods.buf, "EnemyMods", self.controls.simpleEnemyMods)
 		self.build.buildFlag = true 
 	end)
-	self.controls.rebuild.tooltipText = "^7Reparse all the inputs incase they have been disabled or they have changed since loading the build or importing"
+	self.controls.rebuild.tooltipText = "^7Reparse all the inputs in case they have been disabled or they have changed since loading the build or importing"
 	self.controls.rebuild.x = function()
 		return (self.width > theme.widthThreshold1) and 8 or (-328)
 	end

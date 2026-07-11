@@ -2660,7 +2660,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 				
 				-- if our comparison has abyssal jewels, but the primary build
 				-- doesn't, add those temporarily to the build to work around
-				-- calcfunc not being able to take in multiple items
+				-- calcFunc not being able to take in multiple items
 				local cmpJewels = {}
 				local oldEquipped = {}
 				if newItem.abyssalSocketCount > 0 then
@@ -3423,12 +3423,12 @@ function CompareTabClass:DrawItemExpanded(item, x, startY, colWidth, otherModMap
 	local fontSize = 14
 	local drawY = startY
 	local maxLineW = 0
-	local function emit(lx, ly, align, fs, fstyle, str)
+	local function emit(lx, ly, align, fs, fStyle, str)
 		if measureMode then
-			local w = DrawStringWidth(fs, fstyle, str)
+			local w = DrawStringWidth(fs, fStyle, str)
 			if w > maxLineW then maxLineW = w end
 		else
-			DrawString(lx, ly, align, fs, fstyle, str)
+			DrawString(lx, ly, align, fs, fStyle, str)
 		end
 	end
 
