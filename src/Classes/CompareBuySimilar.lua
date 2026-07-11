@@ -334,6 +334,10 @@ function M.openPopup(item, slotName, primaryBuild)
 		tradeQueryRequests = new("TradeQueryRequests")
 	end
 
+	local function rebuildUrl()
+		local result = buildURL(item, slotName, controls, modEntries, defenceEntries, isUnique)
+		uri = result
+	end
 	-- Helper to fetch and populate leagues for a given realm API id
 	local function fetchLeaguesForRealm(realmApiId)
 		local lastIdx = M.lastLeagueIdx
@@ -342,6 +346,7 @@ function M.openPopup(item, slotName, primaryBuild)
 		tradeQueryRequests:FetchLeagues(realmApiId, function(leagues, errMsg)
 			if errMsg then
 				controls.leagueDrop:SetList({"Standard"})
+				rebuildUrl()
 				return
 			end
 			local leagueList = {}
@@ -369,13 +374,10 @@ function M.openPopup(item, slotName, primaryBuild)
 			if lastIdx then
 				controls.leagueDrop:SetSel(lastIdx)
 			end
+			rebuildUrl()
 		end)
 	end
 
-	local function rebuildUrl()
-		local result = buildURL(item, slotName, controls, modEntries, defenceEntries, isUnique)
-		uri = result
-	end
 	-- Realm dropdown
 	controls.realmLabel = new("LabelControl", {"TOPLEFT", nil, "TOPLEFT"}, {leftMargin, ctrlY, 0, 16}, "^7Realm:")
 	controls.realmDrop = new("DropDownControl", {"LEFT", controls.realmLabel, "RIGHT"}, {4, 0, 80, 20}, {"PC", "PS4", "Xbox"}, function(index, value)
@@ -390,26 +392,25 @@ function M.openPopup(item, slotName, primaryBuild)
 
 	-- League dropdown
 	controls.leagueLabel = new("LabelControl", {"LEFT", controls.realmDrop, "RIGHT"}, {12, 0, 0, 16}, "^7League:")
-	controls.leagueDrop = new("DropDownControl", {"LEFT", controls.leagueLabel, "RIGHT"}, {4, 0, 160, 20}, {"Loading..."}, function(index, value)
-		-- League selection stored in the dropdown itself
-		rebuildUrl()
-		M.lastLeagueIdx = index
+	controls.leagueDrop = new("DropDownControl", { "LEFT", controls.leagueLabel, "RIGHT" }, { 4, 0, 160, 20 },
+		{ "Loading..." }, function(index, value)
+			M.lastLeagueIdx = index
+			rebuildUrl()
 	end)
 	controls.leagueDrop.enabled = function() return #controls.leagueDrop.list > 0 and controls.leagueDrop.list[1] ~= "Loading..." end
 
 	-- Listed status dropdown
-	controls.listedDrop = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, {-leftMargin, ctrlY, 242, 20}, LISTED_STATUS_LABELS, function(index, value)
-		-- Listed status selection stored in the dropdown itself
-		rebuildUrl()
+	controls.listedDrop = new("DropDownControl", { "TOPRIGHT", nil, "TOPRIGHT" }, { -leftMargin, ctrlY, 242, 20 }, LISTED_STATUS_LABELS, function(index, value)
 		M.lastListedIndex = index
+		rebuildUrl()
 	end)
 	if M.lastListedIndex then
 		controls.listedDrop:SetSel(M.lastListedIndex, true)
 	end
 	controls.listedLabel = new("LabelControl", {"RIGHT", controls.listedDrop, "LEFT"}, {-4, 0, 0, 16}, "^7Listed:")
 
-	-- Fetch initial leagues for default realm
-	fetchLeaguesForRealm("pc")
+	-- Fetch initial leagues for the selected realm
+	fetchLeaguesForRealm(REALM_API_IDS[controls.realmDrop:GetSelValue()] or "pc")
 	ctrlY = ctrlY + rowHeight + 4
 
 
