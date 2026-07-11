@@ -104,4 +104,72 @@ Implicits: 1
 			assert.equal(50, entries[2].value)
 		end)
 	end)
+	describe("popup URL controls", function()
+		local originalCopy
+		local originalOpenURL
+		local originalFetchLeagues
+		local copiedUrl
+		local searchEnv
+
+		before_each(function()
+			newBuild()
+			local requests = build.itemsTab.tradeQuery.tradeQueryRequests
+			originalFetchLeagues = requests.FetchLeagues
+			requests.FetchLeagues = function(_, realm, callback)
+				callback({ "Test League", "Standard" })
+			end
+		end)
+
+		after_each(function()
+			build.itemsTab.tradeQuery.tradeQueryRequests.FetchLeagues = originalFetchLeagues
+			searchEnv.Copy = originalCopy
+			searchEnv.OpenURL = originalOpenURL
+			bs.lastRealmIdx = nil
+			bs.lastLeagueIdx = nil
+			bs.lastListedIndex = nil
+			main:ClosePopup()
+		end)
+
+		local function openPopup()
+			local item = new("Item", "Rarity: Rare\nTest Ring\nRuby Ring\nImplicits: 0\n+50 to maximum Life")
+			bs.openPopup(item, "Ring", build)
+			local controls = main.popups[1].controls
+			searchEnv = getfenv(controls.search.onClick)
+			originalCopy = originalCopy or searchEnv.Copy
+			originalOpenURL = originalOpenURL or searchEnv.OpenURL
+			searchEnv.Copy = function(url) copiedUrl = url end
+			searchEnv.OpenURL = function() end
+			return controls
+		end
+
+		it("rebuilds the URL when league and listed status change", function()
+			local controls = openPopup()
+			controls.search.onClick()
+			local initialUrl = copiedUrl
+
+			controls.leagueDrop:SetSel(2)
+			controls.search.onClick()
+			assert.not_equal(initialUrl, copiedUrl)
+			assert.is_truthy(copiedUrl:find("/Standard?", 1, true))
+			local standardUrl = copiedUrl
+
+			controls.listedDrop:SetSel(4)
+			controls.search.onClick()
+			assert.not_equal(standardUrl, copiedUrl)
+			assert.is_truthy(copiedUrl:find("any", 1, true))
+		end)
+
+		it("persists popup selector choices", function()
+			local controls = openPopup()
+			controls.realmDrop.selFunc(1, "PoE2")
+			controls.leagueDrop:SetSel(2)
+			controls.listedDrop:SetSel(4)
+			main:ClosePopup()
+
+			controls = openPopup()
+			assert.equal(1, bs.lastRealmIdx)
+			assert.equal("Standard", controls.leagueDrop:GetSelValue())
+			assert.equal("Any", controls.listedDrop:GetSelValue())
+		end)
+	end)
 end)
