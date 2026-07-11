@@ -6,6 +6,7 @@
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
+local t_remove = table.remove
 local m_max = math.max
 local m_floor = math.floor
 
@@ -450,12 +451,27 @@ function CalcsTabClass:BuildOutput()
 	self.miscCalculator = { self.calcs.getMiscCalculator(self.build) }
 end
 
--- Controls the coroutine that calculates node power
+-- Controls the coroutine (or worker job) that calculates node power
 function CalcsTabClass:BuildPower()
+	if self.powerBuildFlag and self.build.buildFlag then
+		-- A main output rebuild is pending and will set powerBuildFlag again
+		-- when it completes; starting now would immediately be cancelled and
+		-- restarted (which is expensive with background workers)
+		return
+	end
 	if self.powerBuildFlag then
 		self.powerBuildFlag = false
 		self.powerMax = nil
-		self.powerBuilder = coroutine.create(self.PowerBuilder)
+		self.powerBuilder = nil
+		if self.powerJob then
+			-- A rebuild was requested while workers were still running; their
+			-- results are stale, so cancel and start over
+			self.powerJob:Cancel()
+			self.powerJob = nil
+		end
+		if not (ParallelRunner:IsAvailable() and self:LaunchParallelPowerBuild()) then
+			self.powerBuilder = coroutine.create(self.PowerBuilder)
+		end
 	end
 	if self.powerBuilder then
 		local res, errMsg = coroutine.resume(self.powerBuilder, self)
@@ -472,7 +488,10 @@ function CalcsTabClass:BuildPower()
 end
 
 -- Estimate the offensive and defensive power of all unallocated nodes
-function CalcsTabClass:PowerBuilder()
+-- filter is optional (used by parallel workers): { nodes = <set of nodeId>,
+-- cluster = <set of cluster node map keys> } restricts which candidates are
+-- calculated; behaviour with no filter is unchanged
+function CalcsTabClass:PowerBuilder(filter)
 	-- local timer_start = GetTime()
 	local useFullDPS = self.powerStat and self.powerStat.stat == "FullDPS"
 	local calcFunc, calcBase = self:GetMiscCalculator()
@@ -544,7 +563,7 @@ function CalcsTabClass:PowerBuilder()
 		if node.type == "Mastery" then
 			node.power.masteryEffects = { }
 		end
-		if node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
+		if node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] and (not filter or filter.nodes[nodeId]) then
 			if node.type == "Mastery" and node.allMasteryOptions then
 				if not (self.nodePowerMaxDepth and self.nodePowerMaxDepth < node.pathDist) then
 					t_insert(masteryNodeList, node)
@@ -569,8 +588,8 @@ function CalcsTabClass:PowerBuilder()
 	distanceMap = nil
 	table.sort(distanceList, function(a, b) return a[1] < b[1] end)
 	-- Count eligible cluster nodes
-	for _, node in pairs(self.build.spec.tree.clusterNodeMap) do
-		if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[node.id] then
+	for nodeName, node in pairs(self.build.spec.tree.clusterNodeMap) do
+		if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[node.id] and (not filter or filter.cluster[nodeName]) then
 			total = total + 1
 		end
 	end
@@ -624,6 +643,9 @@ function CalcsTabClass:PowerBuilder()
 				end
 			end
 			nodeIndex = nodeIndex + 1
+			if self.workerProgressFunc and nodeIndex % 10 == 0 then
+				self.workerProgressFunc(nodeIndex, total)
+			end
 			if coroutine.running() and GetTime() - start > 100 then
 				if self.build.powerBuilderProgressCallback then
 					self.build.powerBuilderProgressCallback(m_floor(nodeIndex/total*100))
@@ -669,6 +691,9 @@ function CalcsTabClass:PowerBuilder()
 						end
 					end
 					nodeIndex = nodeIndex + 1
+					if self.workerProgressFunc and nodeIndex % 10 == 0 then
+						self.workerProgressFunc(nodeIndex, total)
+					end
 					if coroutine.running() and GetTime() - start > 100 then
 						if self.build.powerBuilderProgressCallback then
 							self.build.powerBuilderProgressCallback(m_floor(nodeIndex/total*100))
@@ -697,6 +722,9 @@ function CalcsTabClass:PowerBuilder()
 				node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
 			end
 			nodeIndex = nodeIndex + 1
+			if self.workerProgressFunc and nodeIndex % 10 == 0 then
+				self.workerProgressFunc(nodeIndex, total)
+			end
 			if coroutine.running() and GetTime() - start > 100 then
 				if self.build.powerBuilderProgressCallback then
 					self.build.powerBuilderProgressCallback(m_floor(nodeIndex/total*100))
@@ -709,6 +737,269 @@ function CalcsTabClass:PowerBuilder()
 	self.powerMax = newPowerMax
 	self.powerBuilderInitialized = true
 	-- ConPrintf("Power Build time: %d ms", GetTime() - timer_start)
+	return newPowerMax
+end
+
+-- Enumerate the candidates PowerBuilder would calculate, grouped so that nodes
+-- sharing a modKey stay together (they share one cache entry in PowerBuilder).
+-- Returns { groups = { { weight, nodeIds } ... }, clusterNames = { ... }, total }
+function CalcsTabClass:EnumeratePowerCandidates()
+	local groupByKey = { }
+	local groups = { }
+	local clusterNames = { }
+	local total = 0
+	local function nodeGroup(key)
+		if not groupByKey[key] then
+			groupByKey[key] = { weight = 0, nodeIds = { } }
+			t_insert(groups, groupByKey[key])
+		end
+		return groupByKey[key]
+	end
+	for nodeId, node in pairs(self.build.spec.nodes) do
+		if node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId]
+				and not (self.nodePowerMaxDepth and self.nodePowerMaxDepth < (node.pathDist or 1000)) then
+			if node.type == "Mastery" and node.allMasteryOptions then
+				-- Mastery effect pseudo-nodes each cost one calculation
+				local count = 0
+				for _, masteryEffect in ipairs(node.masteryEffects or { }) do
+					local assignedNodeId = isValueInTable(self.build.spec.masterySelections, masteryEffect.effect)
+					if not assignedNodeId or assignedNodeId == node.id then
+						count = count + 1
+					end
+				end
+				if count > 0 then
+					local group = nodeGroup("mastery:"..nodeId)
+					group.weight = group.weight + count
+					t_insert(group.nodeIds, nodeId)
+					total = total + count
+				end
+			else
+				local group = nodeGroup(node.alloc and (node.modKey.."_remove") or node.modKey)
+				group.weight = group.weight + 1
+				t_insert(group.nodeIds, nodeId)
+				total = total + 1
+			end
+		end
+	end
+	for nodeName, node in pairs(self.build.spec.tree.clusterNodeMap) do
+		if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[node.id] then
+			t_insert(clusterNames, nodeName)
+			total = total + 1
+		end
+	end
+	return { groups = groups, clusterNames = clusterNames, total = total }
+end
+
+-- Distribute enumerated candidates across up to workerCount batches (heaviest
+-- modKey groups first, so batches stay balanced), attaching each candidate's
+-- live path data
+function CalcsTabClass:BuildPowerBatches(cand, workerCount)
+	local batches = { }
+	for i = 1, workerCount do
+		batches[i] = { weight = 0, nodeIds = { }, clusterNames = { } }
+	end
+	table.sort(cand.groups, function(a, b) return a.weight > b.weight end)
+	for _, group in ipairs(cand.groups) do
+		local lightest = batches[1]
+		for i = 2, workerCount do
+			if batches[i].weight < lightest.weight then
+				lightest = batches[i]
+			end
+		end
+		lightest.weight = lightest.weight + group.weight
+		for _, nodeId in ipairs(group.nodeIds) do
+			t_insert(lightest.nodeIds, nodeId)
+		end
+	end
+	for i, name in ipairs(cand.clusterNames) do
+		t_insert(batches[((i - 1) % workerCount) + 1].clusterNames, name)
+	end
+	-- Drop empty batches, strip local weights
+	for i = #batches, 1, -1 do
+		if #batches[i].nodeIds == 0 and #batches[i].clusterNames == 0 then
+			t_remove(batches, i)
+		else
+			batches[i].weight = nil
+		end
+	end
+	-- Send each candidate's live path/depends node ids along with the batch.
+	-- A spec rebuilt from XML resolves equal-length shortest-path ties in a
+	-- different pairs() order, so without this workers could compute pathPower
+	-- along a different (equally short) path than the one the UI displays.
+	for _, batch in ipairs(batches) do
+		batch.paths = { }
+		batch.depends = { }
+		for _, nodeId in ipairs(batch.nodeIds) do
+			local node = self.build.spec.nodes[nodeId]
+			if node then
+				if node.alloc and node.depends then
+					local ids = { }
+					for _, depNode in ipairs(node.depends) do
+						t_insert(ids, depNode.id)
+					end
+					batch.depends[tostring(nodeId)] = ids
+				elseif node.path then
+					local ids = { }
+					for _, pathNode in ipairs(node.path) do
+						t_insert(ids, pathNode.id)
+					end
+					batch.paths[tostring(nodeId)] = ids
+				end
+			end
+		end
+	end
+	return batches
+end
+
+-- Try to run the power build on background workers; returns true if a job was
+-- launched, false if the caller should use the single-core coroutine instead
+function CalcsTabClass:LaunchParallelPowerBuild()
+	local cand = self:EnumeratePowerCandidates()
+	if not ParallelRunner:ShouldParallelize(cand.total) then
+		return false
+	end
+	local buildXML = self.build:SaveDB("parallelPower")
+	if not buildXML then
+		return false
+	end
+	local revision = self.build.outputRevision
+	local calcFunc, calcBase = self:GetMiscCalculator()
+	local powerStat = self.powerStat
+	local useFullDPS = powerStat and powerStat.stat == "FullDPS"
+	local powerStatIndex
+	if powerStat then
+		for i, stat in ipairs(data.powerStatList) do
+			if stat == powerStat then
+				powerStatIndex = i
+				break
+			end
+		end
+	end
+	local batches = self:BuildPowerBatches(cand, ParallelRunner:GetWorkerCount())
+	-- The tree view reads powerMax while the heat map is enabled; the coroutine
+	-- path initializes it on its first resume, so the worker path must provide
+	-- the same neutral values until the merge overwrites them
+	local neutralPowerMax = {
+		singleStat = 0,
+		offence = 0,
+		offencePerPoint = 0,
+		defence = 0,
+		defencePerPoint = 0
+	}
+	local job = ParallelRunner:LaunchJob({
+		mode = "nodePower",
+		buildXML = buildXML,
+		common = {
+			powerStatIndex = powerStatIndex,
+			nodePowerMaxDepth = self.nodePowerMaxDepth,
+		},
+		batches = batches,
+		total = cand.total,
+		expectedBaseline = PowerCalcTasks.extractBaseline(calcBase, powerStat, useFullDPS),
+		onProgress = function(percent)
+			if self.build.powerBuilderProgressCallback then
+				self.build.powerBuilderProgressCallback(percent)
+			end
+		end,
+		onComplete = function(payloads)
+			self.powerJob = nil
+			self:MergeParallelPower(payloads, revision)
+		end,
+		onError = function(errMsg)
+			-- Fall back to the single-core coroutine path
+			self.powerJob = nil
+			self.powerBuilder = coroutine.create(self.PowerBuilder)
+		end,
+	})
+	if not job then
+		return false
+	end
+	self.powerMax = neutralPowerMax
+	self.powerJob = job
+	return true
+end
+
+-- Apply worker results onto the live build; mirrors the state PowerBuilder
+-- leaves behind (node.power tables, powerMax, completion callback)
+function CalcsTabClass:MergeParallelPower(payloads, revision)
+	if self.build.outputRevision ~= revision then
+		-- The build changed while workers were running; discard and rebuild
+		ParallelRunner:Log("merge discarded: revision %s vs %s", tostring(revision), tostring(self.build.outputRevision))
+		self.powerBuildFlag = true
+		return
+	end
+	local spec = self.build.spec
+	local decodeNumber = PowerCalcTasks.decodeNumber
+	for nodeId, node in pairs(spec.nodes) do
+		wipeTable(node.power)
+		if node.type == "Mastery" then
+			node.power.masteryEffects = { }
+		end
+	end
+	for _, node in pairs(spec.tree.clusterNodeMap) do
+		if node.power then
+			wipeTable(node.power)
+		else
+			node.power = { }
+		end
+	end
+	local newPowerMax = {
+		singleStat = 0,
+		offence = 0,
+		offencePerPoint = 0,
+		defence = 0,
+		defencePerPoint = 0
+	}
+	for _, payload in pairs(payloads) do
+		local results = payload.results or { }
+		for idStr, power in pairs(results.nodes or { }) do
+			local node = spec.nodes[tonumber(idStr)]
+			if node then
+				node.power.singleStat = decodeNumber(power.singleStat)
+				node.power.pathPower = decodeNumber(power.pathPower)
+				node.power.offence = decodeNumber(power.offence)
+				node.power.defence = decodeNumber(power.defence)
+				if power.masteryEffects then
+					node.power.masteryEffects = node.power.masteryEffects or { }
+					for effIdStr, effect in pairs(power.masteryEffects) do
+						node.power.masteryEffects[tonumber(effIdStr)] = {
+							singleStat = decodeNumber(effect.singleStat),
+							pathPower = decodeNumber(effect.pathPower),
+							offence = decodeNumber(effect.offence),
+							defence = decodeNumber(effect.defence),
+						}
+					end
+				end
+			end
+		end
+		for name, power in pairs(results.cluster or { }) do
+			local node = spec.tree.clusterNodeMap[name]
+			if node then
+				node.power = node.power or { }
+				node.power.singleStat = decodeNumber(power.singleStat)
+			end
+		end
+		if results.powerMax then
+			for key in pairs(newPowerMax) do
+				newPowerMax[key] = m_max(newPowerMax[key], decodeNumber(results.powerMax[key]) or 0)
+			end
+		end
+	end
+	local mergedNodes, poweredNodes = 0, 0
+	for _, payload in pairs(payloads) do
+		for _, power in pairs((payload.results or { }).nodes or { }) do
+			mergedNodes = mergedNodes + 1
+			if power.singleStat then
+				poweredNodes = poweredNodes + 1
+			end
+		end
+	end
+	ParallelRunner:Log("merge applied: %d node results (%d with singleStat), powerMax.singleStat=%s", mergedNodes, poweredNodes, tostring(newPowerMax.singleStat))
+	self.powerMax = newPowerMax
+	self.powerBuilderInitialized = true
+	if self.build.powerBuilderCallback then
+		self.build.powerBuilderCallback()
+	end
 end
 
 function CalcsTabClass:CalculatePowerStat(selection, original, modified)

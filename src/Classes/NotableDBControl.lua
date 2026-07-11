@@ -124,41 +124,28 @@ function NotableDBClass:CalculatePowerStat(selection, original, modified)
 	return originalValue - modifiedValue
 end
 
-function NotableDBClass:ListBuilder()
+function NotableDBClass:BuildFilteredList()
 	local list = { }
 	for id, node in pairs(self.db) do
 		if self:DoesNotableMatchFilters(node) then
 			t_insert(list, node)
 		end
 	end
+	return list
+end
 
-	if self.sortDetail and self.sortDetail.stat then -- stat-based
-		local cache = { }
+-- Rescale infinite results, sort the list and publish it
+function NotableDBClass:FinishList(list)
+	if self.sortDetail and self.sortDetail.stat then
 		local infinites = { }
-		local start = GetTime()
-		local calcFunc = self.itemsTab.build.calcsTab:GetMiscCalculator()
-		local itemType = self.itemsTab.displayItem.base.type
-		local calcBase = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(nil) })
 		self.sortMaxPower = 0
-		for nodeIndex, node in ipairs(list) do
-			node.measuredPower = 0
-			if node.modKey ~= "" then
-				local output = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(node) })
-				node.measuredPower = self:CalculatePowerStat(self.sortDetail, output, calcBase)
-				if node.measuredPower == m_huge then
-					t_insert(infinites, node)
-				else
-					self.sortMaxPower = m_max(self.sortMaxPower, node.measuredPower)
-				end
-			end
-			local now = GetTime()
-			if now - start > 50 then
-				self.defaultText = "^7Sorting... ("..m_floor(nodeIndex/#list*100).."%)"
-				coroutine.yield()
-				start = now
+		for _, node in ipairs(list) do
+			if node.measuredPower == m_huge then
+				t_insert(infinites, node)
+			else
+				self.sortMaxPower = m_max(self.sortMaxPower, node.measuredPower or 0)
 			end
 		end
-		
 		if #infinites > 0 then
 			self.sortMaxPower = self.sortMaxPower * 2
 			for _, node in ipairs(infinites) do
@@ -193,6 +180,103 @@ function NotableDBClass:ListBuilder()
 	self.defaultText = "^7No notables found that match those filters."
 end
 
+function NotableDBClass:ListBuilder()
+	local list = self:BuildFilteredList()
+
+	if self.sortDetail and self.sortDetail.stat then -- stat-based
+		local start = GetTime()
+		local calcFunc = self.itemsTab.build.calcsTab:GetMiscCalculator()
+		local itemType = self.itemsTab.displayItem.base.type
+		local calcBase = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(nil) })
+		self.sortMaxPower = 0
+		for nodeIndex, node in ipairs(list) do
+			node.measuredPower = PowerCalcTasks.notable.measureOne(self.itemsTab, calcFunc, calcBase, self.sortDetail, itemType, node)
+			if node.measuredPower ~= m_huge then
+				self.sortMaxPower = m_max(self.sortMaxPower, node.measuredPower)
+			end
+			local now = GetTime()
+			if now - start > 50 then
+				self.defaultText = "^7Sorting... ("..m_floor(nodeIndex/#list*100).."%)"
+				coroutine.yield()
+				start = now
+			end
+		end
+	end
+
+	self:FinishList(list)
+end
+
+-- Try to run the stat sort on background workers; returns true if a job was
+-- launched, false if the caller should use the single-core coroutine instead
+function NotableDBClass:LaunchParallelListBuild()
+	if not (self.sortDetail and self.sortDetail.stat) or not ParallelRunner:IsAvailable() then
+		return false
+	end
+	local list = self:BuildFilteredList()
+	if not ParallelRunner:ShouldParallelize(#list) then
+		return false
+	end
+	local build = self.itemsTab.build
+	local buildXML = build:SaveDB("parallelSort")
+	if not buildXML then
+		return false
+	end
+	local calcFunc, calcBase = build.calcsTab:GetMiscCalculator()
+	local nodeIds = { }
+	for _, node in ipairs(list) do
+		t_insert(nodeIds, node.id)
+	end
+	local batches = { }
+	for i, ids in ipairs(ParallelRunner:PartitionList(nodeIds, ParallelRunner:GetWorkerCount())) do
+		batches[i] = { nodeIds = ids }
+	end
+	local job
+	job = ParallelRunner:LaunchJob({
+		mode = "notable",
+		buildXML = buildXML,
+		auxText = self.itemsTab.displayItem:BuildRaw(),
+		common = {
+			sortMode = self.sortDetail.sortMode,
+			anointEnchantSlot = self.itemsTab.anointEnchantSlot or 1,
+		},
+		batches = batches,
+		total = #list,
+		expectedBaseline = PowerCalcTasks.extractBaseline(calcBase, self.sortDetail, false),
+		onProgress = function(percent)
+			self.defaultText = "^7Sorting... ("..percent.."%)"
+		end,
+		onComplete = function(payloads)
+			if self.parallelJob ~= job then
+				return
+			end
+			self.parallelJob = nil
+			local powerById = { }
+			for _, payload in pairs(payloads) do
+				for idStr, power in pairs(payload.results or { }) do
+					powerById[tonumber(idStr)] = PowerCalcTasks.decodeNumber(power)
+				end
+			end
+			for _, node in ipairs(list) do
+				node.measuredPower = powerById[node.id] or 0
+			end
+			self:FinishList(list)
+		end,
+		onError = function()
+			if self.parallelJob ~= job then
+				return
+			end
+			self.parallelJob = nil
+			self.listBuilder = coroutine.create(self.ListBuilder)
+		end,
+	})
+	if not job then
+		return false
+	end
+	self.parallelJob = job
+	self.defaultText = "^7Sorting..."
+	return true
+end
+
 ---@param viewPort table<string, number>
 function NotableDBClass:Draw(viewPort)
 	if self.itemsTab.build.outputRevision ~= self.listOutputRevision then
@@ -201,8 +285,17 @@ function NotableDBClass:Draw(viewPort)
 	if self.listBuildFlag then
 		self.listBuildFlag = false
 		wipeTable(self.list)
-		self.listBuilder = coroutine.create(self.ListBuilder)
+		self.listBuilder = nil
+		if self.parallelJob then
+			-- A rebuild was requested while workers were still running; their
+			-- results are stale, so cancel and start over
+			self.parallelJob:Cancel()
+			self.parallelJob = nil
+		end
 		self.listOutputRevision = self.itemsTab.build.outputRevision
+		if not self:LaunchParallelListBuild() then
+			self.listBuilder = coroutine.create(self.ListBuilder)
+		end
 	end
 	if self.listBuilder then
 		local res, errMsg = coroutine.resume(self.listBuilder, self)

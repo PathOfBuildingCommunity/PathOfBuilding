@@ -50,8 +50,24 @@ local function loadJewelFile(jewelTypeName)
 			jewelData = uncompressedFile:read("*a")
 			uncompressedFile:close()
 		end
-		if jewelData then
+		if jewelData and #jewelData > 0 then
 			return jewelData
+		end
+		jewelData = nil
+	end
+
+	-- Headless contexts (busted tests, calculation workers) have no working
+	-- NewFileSearch, so file freshness can't be compared above; trust an
+	-- existing non-empty .bin cache, which the full application keeps fresh
+	if not uncompressedFileAttr.fileName and not compressedFileAttr.fileName then
+		local uncompressedFile = io.open(scriptPath .. jewelTypeName .. ".bin", "rb")
+		if uncompressedFile then
+			jewelData = uncompressedFile:read("*a")
+			uncompressedFile:close()
+			if jewelData and #jewelData > 0 then
+				return jewelData
+			end
+			jewelData = nil
 		end
 	end
 
@@ -63,10 +79,18 @@ local function loadJewelFile(jewelTypeName)
 	elseif splitFile ~= "" then
 		jewelData = Inflate(splitFile)
 	end
+	if jewelData == "" then
+		-- Inflate is stubbed out in headless environments; treat as missing
+		-- rather than caching empty data
+		jewelData = nil
+	end
 
 	if jewelData == nil then
 		ConPrintf("Failed to load either file: " .. jewelTypeName .. ".zip, " .. jewelTypeName .. ".bin")
-	else
+	elseif compressedFileAttr.fileName or splitFile ~= "" then
+		-- Cache the uncompressed data for future loads. Only done when a real
+		-- NewFileSearch located the compressed file: headless workers and tests
+		-- must never write the cache shared with the full application
 		local uncompressedFile = io.open(scriptPath .. jewelTypeName .. ".bin", "wb+")
 		if uncompressedFile then
 			uncompressedFile:write(jewelData)

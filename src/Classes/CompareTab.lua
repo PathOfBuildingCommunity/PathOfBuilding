@@ -2435,39 +2435,21 @@ function CompareTabClass:GetSocketGroupLabel(group)
 	return table.concat(names, " + ")
 end
 
--- Coroutine: calculate power of compared build elements against primary build
-function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories)
-	local results = {}
-	local useFullDPS = powerStat.stat == "FullDPS"
-
-	-- Get calculator for primary build
-	local calcFunc, calcBase = self.calcs.getMiscCalculator(self.primaryBuild)
-
-	-- Find display stat for formatting
-	local displayStat = nil
-	for _, ds in ipairs(self.primaryBuild.displayStats) do
-		if ds.stat == powerStat.stat then
-			displayStat = ds
-			break
-		end
-	end
-	if not displayStat then
-		displayStat = { fmt = ".1f" }
-	end
-
-	local total = 0
-	local processed = 0
-	local start = GetTime()
-
-	-- Count total work items for progress
+-- Enumerate the candidates the compare power report would calculate, as an
+-- ordered list of descriptors. Descriptors carry only stable identifiers
+-- (node ids, slot names, list indices, config var names) so they can be sent
+-- to worker VMs which resolve them against their own reconstructed builds.
+function CompareTabClass:EnumerateComparePowerCandidates(compareEntry, categories)
+	local descriptors = {}
 	if categories.treeNodes then
 		local compareNodes = compareEntry.spec and compareEntry.spec.allocNodes or {}
 		local primaryNodes = self.primaryBuild.spec and self.primaryBuild.spec.allocNodes or {}
-		for nodeId, node in pairs(compareNodes) do
+		for nodeId, _ in pairs(compareNodes) do
 			if type(nodeId) == "number" and nodeId < CLUSTER_NODE_OFFSET and not primaryNodes[nodeId] then
 				local pNode = self.primaryBuild.spec.nodes[nodeId]
-				if pNode and (pNode.type == "Normal" or pNode.type == "Notable" or pNode.type == "Keystone") and not pNode.ascendancyName then
-					total = total + 1
+				if pNode and (pNode.type == "Normal" or pNode.type == "Notable" or pNode.type == "Keystone")
+						and not pNode.ascendancyName and pNode.modKey ~= "" then
+					t_insert(descriptors, { kind = "treeNode", nodeId = nodeId })
 				end
 			end
 		end
@@ -2477,34 +2459,43 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 		if self:ShouldShowRing3(compareEntry) then
 			t_insert(baseSlots, 10, "Ring 3")
 		end
-
 		-- we only use jewel slots if both sides have them available
 		self:AddAbyssSockets(compareEntry, baseSlots, true)
-		
 		for _, slotName in ipairs(baseSlots) do
 			local cSlot = compareEntry.itemsTab and compareEntry.itemsTab.slots[slotName]
 			local cItem = cSlot and compareEntry.itemsTab.items[cSlot.selItemId]
-			if cItem then
-				total = total + 1
+			local pSlot = self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.slots[slotName]
+			local pItem = pSlot and self.primaryBuild.itemsTab.items[pSlot.selItemId]
+			if cItem and cItem.raw and not (pItem and pItem.name == cItem.name) then
+				t_insert(descriptors, { kind = "item", slotName = slotName })
 			end
 		end
-		-- Count jewels for progress tracking
-		local jewelSlots = self:GetJewelComparisonSlots(compareEntry)
-		for _, jEntry in ipairs(jewelSlots) do
-			if jEntry.cItem then
-				total = total + 1
+		-- Jewels; identified by their socket node id (GetJewelComparisonSlots
+		-- returns a nodeId-sorted list in any VM)
+		for _, jEntry in ipairs(self:GetJewelComparisonSlots(compareEntry)) do
+			if jEntry.cItem and jEntry.cItem.raw and not (jEntry.pItem and jEntry.pItem.name == jEntry.cItem.name) then
+				t_insert(descriptors, { kind = "jewel", nodeId = jEntry.nodeId })
 			end
 		end
 	end
 	if categories.skillGems then
 		local cGroups = compareEntry.skillsTab and compareEntry.skillsTab.socketGroupList or {}
-		total = total + #cGroups
+		local pGroups = self.primaryBuild.skillsTab and self.primaryBuild.skillsTab.socketGroupList or {}
+		local pSignatures = {}
+		for _, group in ipairs(pGroups) do
+			pSignatures[self:GetSocketGroupSignature(group)] = true
+		end
+		for groupIndex, cGroup in ipairs(cGroups) do
+			local sig = self:GetSocketGroupSignature(cGroup)
+			if sig ~= "" and not pSignatures[sig] then
+				t_insert(descriptors, { kind = "skillGem", groupIndex = groupIndex })
+			end
+		end
 	end
 	if categories.supportGems then
 		local cMainGroup = compareEntry.skillsTab and compareEntry.skillsTab.socketGroupList[compareEntry.mainSocketGroup]
 		local pMainGroup = self.primaryBuild.skillsTab and self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.mainSocketGroup]
 		if cMainGroup and pMainGroup then
-			-- Count support gems in compared build's main group not in primary's main group
 			local pSupportNames = {}
 			for _, gem in ipairs(pMainGroup.gemList or {}) do
 				local ge = self:GetGemGrantedEffect(gem)
@@ -2513,12 +2504,12 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 					if name then pSupportNames[name] = true end
 				end
 			end
-			for _, gem in ipairs(cMainGroup.gemList or {}) do
-				local ge = self:GetGemGrantedEffect(gem)
+			for gemIndex, cGem in ipairs(cMainGroup.gemList or {}) do
+				local ge = self:GetGemGrantedEffect(cGem)
 				if ge and ge.support then
-					local name = ge.name or gem.nameSpec
+					local name = ge.name or cGem.nameSpec
 					if name and not pSupportNames[name] then
-						total = total + 1
+						t_insert(descriptors, { kind = "supportGem", gemIndex = gemIndex })
 					end
 				end
 			end
@@ -2531,11 +2522,478 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 			if varData.var and varData.apply and varData.type ~= "text" then
 				local pVal, cVal = self:NormalizeConfigVals(varData, pInput[varData.var], cInput[varData.var])
 				if pVal ~= cVal then
-					total = total + 1
+					t_insert(descriptors, { kind = "config", var = varData.var })
 				end
 			end
 		end
 	end
+	return descriptors
+end
+
+-- Create the shared calculation context for computing compare power candidates
+function CompareTabClass:MakeComparePowerContext(compareEntry, powerStat)
+	local ctx = {
+		compareEntry = compareEntry,
+		powerStat = powerStat,
+		useFullDPS = powerStat.stat == "FullDPS",
+		cache = {},
+	}
+	ctx.calcFunc, ctx.calcBase = self.calcs.getMiscCalculator(self.primaryBuild)
+	return ctx
+end
+
+-- Create the formatting context used to turn raw impact numbers into result
+-- rows; main thread only (formatting depends on UI settings)
+function CompareTabClass:MakeComparePowerFormatContext(compareEntry, powerStat, calcBase)
+	local displayStat = nil
+	for _, ds in ipairs(self.primaryBuild.displayStats) do
+		if ds.stat == powerStat.stat then
+			displayStat = ds
+			break
+		end
+	end
+	if not displayStat then
+		displayStat = { fmt = ".1f" }
+	end
+	local baseStatValue = calcBase[powerStat.stat] or 0
+	if powerStat.transform then
+		baseStatValue = powerStat.transform(baseStatValue)
+	end
+	return {
+		compareEntry = compareEntry,
+		powerStat = powerStat,
+		displayStat = displayStat,
+		baseStatValue = baseStatValue,
+	}
+end
+
+-- Format an impact value and compute percentage
+function CompareTabClass:FormatComparePowerImpact(fmtCtx, impact)
+	local displayStat = fmtCtx.displayStat
+	local displayVal = impact * ((displayStat.pc or displayStat.mod) and 100 or 1)
+	local rawNumStr = s_format("%" .. displayStat.fmt, displayVal)
+	local isZero = (tonumber(rawNumStr) == 0)
+	local numStr = formatNumSep(rawNumStr)
+
+	-- Determine color
+	local isPositive = (displayVal > 0 and not displayStat.lowerIsBetter) or (displayVal < 0 and displayStat.lowerIsBetter)
+	local isNegative = (displayVal < 0 and not displayStat.lowerIsBetter) or (displayVal > 0 and displayStat.lowerIsBetter)
+	local color = isPositive and colorCodes.POSITIVE or isNegative and colorCodes.NEGATIVE or "^7"
+	local sign = displayVal > 0 and "+" or ""
+	local str = color .. sign .. numStr
+
+	-- Compute percentage change
+	local percent = 0
+	if fmtCtx.baseStatValue ~= 0 then
+		percent = (impact / math.abs(fmtCtx.baseStatValue)) * 100
+	end
+
+	-- Build combined string: "+1,234.5 (+4.3%)"
+	local combinedStr = str
+	if percent ~= 0 then
+		local pctStr = s_format("%+.1f%%", percent)
+		combinedStr = str .. " ^7(" .. color .. pctStr .. "^7)"
+	end
+
+	return str, displayVal, combinedStr, percent, isZero
+end
+
+-- Compute the raw impact of one candidate descriptor against the primary
+-- build. Runs identically on the main thread and inside worker VMs.
+-- Returns ok, impact, extra: ok=false means the calculation errored (impact
+-- holds the message); impact=nil means the candidate resolved to nothing.
+function CompareTabClass:ComputeComparePowerCandidate(ctx, desc)
+	local compareEntry = ctx.compareEntry
+	if desc.kind == "treeNode" then
+		local pNode = self.primaryBuild.spec.nodes[desc.nodeId]
+		if not (pNode and pNode.modKey ~= "") then
+			return true, nil
+		end
+		local output = ctx.cache[pNode.modKey]
+		if not output then
+			output = ctx.calcFunc({ addNodes = { [pNode] = true } }, ctx.useFullDPS)
+			ctx.cache[pNode.modKey] = output
+		end
+		local impact = self.primaryBuild.calcsTab:CalculatePowerStat(ctx.powerStat, output, ctx.calcBase)
+		local pathDist = pNode.pathDist or 0
+		if pathDist == 0 then
+			pathDist = #(pNode.path or {})
+			if pathDist == 0 then pathDist = 1 end
+		end
+		return true, impact, { pathDist = pathDist }
+	elseif desc.kind == "item" then
+		local slotName = desc.slotName
+		local cSlot = compareEntry.itemsTab and compareEntry.itemsTab.slots[slotName]
+		local cItem = cSlot and compareEntry.itemsTab.items[cSlot.selItemId]
+		if not (cItem and cItem.raw) then
+			return true, nil
+		end
+		local newItem = new("Item", cItem.raw)
+		newItem:NormaliseQuality()
+
+		-- if our comparison has abyssal jewels, but the primary build
+		-- doesn't, add those temporarily to the build to work around
+		-- calcfunc not being able to take in multiple items
+		local cmpJewels = {}
+		local oldEquipped = {}
+		if newItem.abyssalSocketCount > 0 then
+			for idx = 1, newItem.abyssalSocketCount do
+				local abyssSlotName = string.format("%s Abyssal Socket %d", slotName, idx)
+				local cmpJewelSlot = compareEntry.itemsTab.slots[abyssSlotName]
+				-- save old id and unequip existing
+				local primaryJewelSlot = self.primaryBuild.itemsTab.slots[abyssSlotName]
+				oldEquipped[abyssSlotName] = primaryJewelSlot.selItemId
+				primaryJewelSlot:SetSelItemId(0)
+				if cmpJewelSlot.selItemId > 0 then
+					local cmpJewel = compareEntry.itemsTab.items[cmpJewelSlot.selItemId]
+					-- due to a previous bug where jewel slots didn't
+					-- get cleared when becoming inactive, so the item
+					-- might not exist
+					if cmpJewel then
+						-- copy item
+						local itemCopy = new("Item", cmpJewel:BuildRaw())
+						table.insert(cmpJewels, itemCopy)
+						self.primaryBuild.itemsTab:AddItem(itemCopy, false)
+
+						-- equip copied
+						self.primaryBuild.itemsTab.slots[abyssSlotName]:SetSelItemId(itemCopy.id)
+					end
+				end
+			end
+		end
+
+		local output = ctx.calcFunc({ repSlotName = slotName, repItem = newItem }, ctx.useFullDPS)
+		local impact = self.primaryBuild.calcsTab:CalculatePowerStat(ctx.powerStat, output, ctx.calcBase)
+
+		-- restore abyss jewel state
+		if newItem.abyssalSocketCount > 0 then
+			for k, v in pairs(oldEquipped) do
+				self.primaryBuild.itemsTab.slots[k]:SetSelItemId(v)
+			end
+			for _, item in ipairs(cmpJewels) do
+				self.primaryBuild.itemsTab:DeleteItem(item)
+			end
+		end
+		return true, impact, { cmpJewelCount = #cmpJewels }
+	elseif desc.kind == "jewel" then
+		local nodeId = desc.nodeId
+		local cSpec = compareEntry.spec
+		local cItemId = cSpec and cSpec.jewels and cSpec.jewels[nodeId]
+		local cItem = cItemId and compareEntry.itemsTab.items[cItemId]
+		if not (cItem and cItem.raw) then
+			return true, nil
+		end
+		local newItem = new("Item", cItem.raw)
+		newItem:NormaliseQuality()
+		local pSpec = self.primaryBuild.spec
+		local pNodeAllocated = pSpec.allocNodes and pSpec.allocNodes[nodeId] and true or false
+		local bestImpactVal = nil
+		if pNodeAllocated then
+			-- Socket is allocated in primary build, test directly in that socket
+			local output = ctx.calcFunc({ repSlotName = "Jewel "..nodeId, repItem = newItem }, ctx.useFullDPS)
+			bestImpactVal = self.primaryBuild.calcsTab:CalculatePowerStat(ctx.powerStat, output, ctx.calcBase)
+		else
+			-- Socket is NOT allocated in primary build; try the jewel in every
+			-- jewel socket on the primary build's tree, temporarily allocating
+			-- unallocated sockets via addNodes so CalcSetup doesn't skip them
+			if not ctx.primaryJewelSockets then
+				ctx.primaryJewelSockets = {}
+				for _, slot in ipairs(self.primaryBuild.itemsTab.orderedSlots) do
+					if slot.nodeId then
+						local node = pSpec.nodes[slot.nodeId]
+						if node then
+							t_insert(ctx.primaryJewelSockets, {
+								slotName = slot.slotName,
+								nodeId = slot.nodeId,
+								node = node,
+								allocated = pSpec.allocNodes and pSpec.allocNodes[slot.nodeId] and true or false,
+							})
+						end
+					end
+				end
+			end
+			for _, socketInfo in ipairs(ctx.primaryJewelSockets) do
+				local override = { repSlotName = socketInfo.slotName, repItem = newItem }
+				if not socketInfo.allocated then
+					override.addNodes = { [socketInfo.node] = true }
+				end
+				local output = ctx.calcFunc(override, ctx.useFullDPS)
+				local impact = self.primaryBuild.calcsTab:CalculatePowerStat(ctx.powerStat, output, ctx.calcBase)
+				if bestImpactVal == nil or impact > bestImpactVal then
+					bestImpactVal = impact
+				end
+			end
+		end
+		return true, bestImpactVal, { bestSocket = not pNodeAllocated }
+	elseif desc.kind == "skillGem" then
+		local cGroup = compareEntry.skillsTab and compareEntry.skillsTab.socketGroupList[desc.groupIndex]
+		if not cGroup then
+			return true, nil
+		end
+		local pGroups = self.primaryBuild.skillsTab and self.primaryBuild.skillsTab.socketGroupList or {}
+		-- Temporarily add this socket group to primary build and recalculate
+		t_insert(pGroups, cGroup)
+		self.primaryBuild.buildFlag = true
+
+		-- Get a fresh calculator with the added group (pcall to guarantee cleanup)
+		local ok, gemCalcFunc, gemCalcBase = pcall(function()
+			return self.calcs.getMiscCalculator(self.primaryBuild)
+		end)
+
+		-- Always remove the temporarily added group
+		t_remove(pGroups)
+		self.primaryBuild.buildFlag = true
+
+		if not ok then
+			-- gemCalcFunc contains the error message on failure
+			return false, tostring(gemCalcFunc)
+		end
+		return true, self.primaryBuild.calcsTab:CalculatePowerStat(ctx.powerStat, gemCalcBase, ctx.calcBase)
+	elseif desc.kind == "supportGem" then
+		local cMainGroup = compareEntry.skillsTab and compareEntry.skillsTab.socketGroupList[compareEntry.mainSocketGroup]
+		local pMainGroup = self.primaryBuild.skillsTab and self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.mainSocketGroup]
+		local cGem = cMainGroup and cMainGroup.gemList and cMainGroup.gemList[desc.gemIndex]
+		if not (cGem and pMainGroup) then
+			return true, nil
+		end
+		-- Create a temporary copy of this support gem
+		local tempGem = {
+			nameSpec = cGem.nameSpec,
+			level = cGem.level,
+			quality = cGem.quality,
+			qualityId = cGem.qualityId,
+			enabled = cGem.enabled,
+			grantedEffect = cGem.grantedEffect,
+			gemData = cGem.gemData,
+			count = cGem.count,
+			enableGlobal1 = cGem.enableGlobal1,
+			enableGlobal2 = cGem.enableGlobal2,
+		}
+
+		-- Temporarily add to primary build's main socket group
+		t_insert(pMainGroup.gemList, tempGem)
+		self.primaryBuild.buildFlag = true
+
+		local ok, sgCalcFunc, sgCalcBase = pcall(function()
+			return self.calcs.getMiscCalculator(self.primaryBuild)
+		end)
+
+		-- Always remove the temporarily added gem
+		t_remove(pMainGroup.gemList)
+		self.primaryBuild.buildFlag = true
+
+		if not ok then
+			return false, tostring(sgCalcFunc)
+		end
+		return true, self.primaryBuild.calcsTab:CalculatePowerStat(ctx.powerStat, sgCalcBase, ctx.calcBase)
+	elseif desc.kind == "config" then
+		local varData
+		for _, vd in ipairs(self.configOptions) do
+			if vd.var == desc.var then
+				varData = vd
+				break
+			end
+		end
+		if not varData then
+			return true, nil
+		end
+		local pInput = self.primaryBuild.configTab.input
+		local cInput = compareEntry.configTab.input or {}
+		local cVal = cInput[varData.var]
+
+		-- Save original value
+		local savedVal = pInput[varData.var]
+
+		-- Apply compare build's config value
+		pInput[varData.var] = cVal
+
+		-- Rebuild and calculate (pcall to guarantee restore on error)
+		local ok, cfgCalcFunc, cfgCalcBase = pcall(function()
+			self.primaryBuild.configTab:BuildModList()
+			self.primaryBuild.buildFlag = true
+			return self.calcs.getMiscCalculator(self.primaryBuild)
+		end)
+
+		-- Always restore original value
+		pInput[varData.var] = savedVal
+		self.primaryBuild.configTab:BuildModList()
+		self.primaryBuild.buildFlag = true
+
+		if not ok then
+			return false, tostring(cfgCalcFunc)
+		end
+		return true, self.primaryBuild.calcsTab:CalculatePowerStat(ctx.powerStat, cfgCalcBase, ctx.calcBase)
+	end
+	return true, nil
+end
+
+-- Turn a computed impact into a result row for the report list; returns nil
+-- when the (formatted) impact is zero. Main thread only.
+function CompareTabClass:BuildComparePowerRow(desc, impact, extra, fmtCtx)
+	local compareEntry = fmtCtx.compareEntry
+	local impactStr, impactVal, combinedImpactStr, impactPercent, impactIsZero = self:FormatComparePowerImpact(fmtCtx, impact)
+	if impactIsZero then
+		return nil
+	end
+	if desc.kind == "treeNode" then
+		local pNode = self.primaryBuild.spec.nodes[desc.nodeId]
+		if not pNode then
+			return nil
+		end
+		local pathDist = extra.pathDist or 1
+		local perPoint = impact / pathDist
+		local perPointStr = self:FormatComparePowerImpact(fmtCtx, perPoint)
+		return {
+			category = "Tree",
+			categoryColor = "^7",
+			nameColor = "^7",
+			name = pNode.dn,
+			nodeId = desc.nodeId,
+			impact = impactVal,
+			impactStr = impactStr,
+			impactPercent = impactPercent,
+			combinedImpactStr = combinedImpactStr,
+			pathDist = pathDist,
+			perPoint = perPoint * ((fmtCtx.displayStat.pc or fmtCtx.displayStat.mod) and 100 or 1),
+			perPointStr = perPointStr,
+		}
+	elseif desc.kind == "item" then
+		local cSlot = compareEntry.itemsTab and compareEntry.itemsTab.slots[desc.slotName]
+		local cItem = cSlot and compareEntry.itemsTab.items[cSlot.selItemId]
+		if not (cItem and cItem.raw) then
+			return nil
+		end
+		local newItem = new("Item", cItem.raw)
+		newItem:NormaliseQuality()
+		local rarityColor = colorCodes[cItem.rarity] or colorCodes.NORMAL
+		local cmpJewelCount = extra.cmpJewelCount or 0
+		local abyssJewelText = cmpJewelCount > 0 and
+			s_format(", %d Jewel%s", cmpJewelCount, cmpJewelCount > 1 and "s" or "") or ""
+		return {
+			category = "Item",
+			categoryColor = rarityColor,
+			nameColor = rarityColor,
+			name = (cItem.name or "Unknown") .. ", " .. desc.slotName .. abyssJewelText,
+			itemObj = newItem,
+			slotName = desc.slotName,
+			impact = impactVal,
+			impactStr = impactStr,
+			impactPercent = impactPercent,
+			combinedImpactStr = combinedImpactStr,
+			pathDist = nil,
+			perPoint = nil,
+			perPointStr = nil,
+		}
+	elseif desc.kind == "jewel" then
+		if not fmtCtx.jewelEntryByNode then
+			fmtCtx.jewelEntryByNode = {}
+			for _, jEntry in ipairs(self:GetJewelComparisonSlots(compareEntry)) do
+				fmtCtx.jewelEntryByNode[jEntry.nodeId] = jEntry
+			end
+		end
+		local jEntry = fmtCtx.jewelEntryByNode[desc.nodeId]
+		if not (jEntry and jEntry.cItem and jEntry.cItem.raw) then
+			return nil
+		end
+		local newItem = new("Item", jEntry.cItem.raw)
+		newItem:NormaliseQuality()
+		local rarityColor = colorCodes[jEntry.cItem.rarity] or colorCodes.NORMAL
+		local bestSlotLabel = jEntry.label .. (extra.bestSocket and " (best socket)" or "")
+		return {
+			category = "Item",
+			categoryColor = rarityColor,
+			nameColor = rarityColor,
+			name = (jEntry.cItem.name or "Unknown") .. ", " .. bestSlotLabel,
+			itemObj = newItem,
+			impact = impactVal,
+			impactStr = impactStr,
+			impactPercent = impactPercent,
+			combinedImpactStr = combinedImpactStr,
+			pathDist = nil,
+			perPoint = nil,
+			perPointStr = nil,
+		}
+	elseif desc.kind == "skillGem" then
+		local cGroup = compareEntry.skillsTab and compareEntry.skillsTab.socketGroupList[desc.groupIndex]
+		if not cGroup then
+			return nil
+		end
+		return {
+			category = "Skill gem",
+			categoryColor = colorCodes.GEM,
+			nameColor = colorCodes.GEM,
+			name = self:GetSocketGroupLabel(cGroup),
+			impact = impactVal,
+			impactStr = impactStr,
+			impactPercent = impactPercent,
+			combinedImpactStr = combinedImpactStr,
+			pathDist = nil,
+			perPoint = nil,
+			perPointStr = nil,
+		}
+	elseif desc.kind == "supportGem" then
+		local cMainGroup = compareEntry.skillsTab and compareEntry.skillsTab.socketGroupList[compareEntry.mainSocketGroup]
+		local cGem = cMainGroup and cMainGroup.gemList and cMainGroup.gemList[desc.gemIndex]
+		if not cGem then
+			return nil
+		end
+		local cGrantedEffect = self:GetGemGrantedEffect(cGem)
+		local name = (cGrantedEffect and cGrantedEffect.name) or cGem.nameSpec
+		return {
+			category = "Support gem",
+			categoryColor = colorCodes.GEM,
+			nameColor = colorCodes.GEM,
+			name = name,
+			impact = impactVal,
+			impactStr = impactStr,
+			impactPercent = impactPercent,
+			combinedImpactStr = combinedImpactStr,
+			pathDist = nil,
+			perPoint = nil,
+			perPointStr = nil,
+		}
+	elseif desc.kind == "config" then
+		local varData
+		for _, vd in ipairs(self.configOptions) do
+			if vd.var == desc.var then
+				varData = vd
+				break
+			end
+		end
+		if not varData then
+			return nil
+		end
+		local function stripColors(s)
+			return s:gsub("%^%x", ""):gsub("%^x%x%x%x%x%x%x", "")
+		end
+		local pVal = (self.primaryBuild.configTab.input or {})[varData.var]
+		local cVal = (compareEntry.configTab.input or {})[varData.var]
+		local displayName = varData.label or varData.var
+		displayName = displayName:gsub(":$", "")
+		local pDisplay = stripColors(self:FormatConfigValue(varData, pVal))
+		local cDisplay = stripColors(self:FormatConfigValue(varData, cVal))
+		return {
+			category = "Config",
+			categoryColor = colorCodes.FRACTURED,
+			nameColor = "^7",
+			name = displayName .. "  (" .. pDisplay .. " -> " .. cDisplay .. ")",
+			impact = impactVal,
+			impactStr = impactStr,
+			impactPercent = impactPercent,
+			combinedImpactStr = combinedImpactStr,
+			pathDist = nil,
+			perPoint = nil,
+			perPointStr = nil,
+		}
+	end
+	return nil
+end
+
+-- Coroutine: calculate power of compared build elements against primary build
+function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories)
+	local results = {}
+	local descriptors = self:EnumerateComparePowerCandidates(compareEntry, categories)
+	local total = #descriptors
 
 	if total == 0 then
 		self.comparePowerResults = results
@@ -2543,512 +3001,130 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 		return
 	end
 
-	-- Get baseline stat value for percentage calculation
-	local baseStatValue = calcBase[powerStat.stat] or 0
-	if powerStat.transform then
-		baseStatValue = powerStat.transform(baseStatValue)
-	end
+	local ctx = self:MakeComparePowerContext(compareEntry, powerStat)
+	local fmtCtx = self:MakeComparePowerFormatContext(compareEntry, powerStat, ctx.calcBase)
+	local start = GetTime()
 
-	-- Helper to format an impact value and compute percentage
-	local function formatImpact(impact)
-		local displayVal = impact * ((displayStat.pc or displayStat.mod) and 100 or 1)
-		local rawNumStr = s_format("%" .. displayStat.fmt, displayVal)
-		local isZero = (tonumber(rawNumStr) == 0)
-		local numStr = formatNumSep(rawNumStr)
-
-		-- Determine color
-		local isPositive = (displayVal > 0 and not displayStat.lowerIsBetter) or (displayVal < 0 and displayStat.lowerIsBetter)
-		local isNegative = (displayVal < 0 and not displayStat.lowerIsBetter) or (displayVal > 0 and displayStat.lowerIsBetter)
-		local color = isPositive and colorCodes.POSITIVE or isNegative and colorCodes.NEGATIVE or "^7"
-		local sign = displayVal > 0 and "+" or ""
-		local str = color .. sign .. numStr
-
-		-- Compute percentage change
-		local percent = 0
-		if baseStatValue ~= 0 then
-			percent = (impact / math.abs(baseStatValue)) * 100
-		end
-
-		-- Build combined string: "+1,234.5 (+4.3%)"
-		local combinedStr = str
-		if percent ~= 0 then
-			local pctStr = s_format("%+.1f%%", percent)
-			combinedStr = str .. " ^7(" .. color .. pctStr .. "^7)"
-		end
-
-		return str, displayVal, combinedStr, percent, isZero
-	end
-
-	-- ==========================================
-	-- Tree Nodes
-	-- ==========================================
-	if categories.treeNodes then
-		local compareNodes = compareEntry.spec and compareEntry.spec.allocNodes or {}
-		local primaryNodes = self.primaryBuild.spec and self.primaryBuild.spec.allocNodes or {}
-		local cache = {}
-
-		for nodeId, _ in pairs(compareNodes) do
-			if type(nodeId) == "number" and nodeId < CLUSTER_NODE_OFFSET and not primaryNodes[nodeId] then
-				local pNode = self.primaryBuild.spec.nodes[nodeId]
-				if pNode and (pNode.type == "Normal" or pNode.type == "Notable" or pNode.type == "Keystone")
-						and not pNode.ascendancyName and pNode.modKey ~= "" then
-					local output
-					if cache[pNode.modKey] then
-						output = cache[pNode.modKey]
-					else
-						output = calcFunc({ addNodes = { [pNode] = true } }, useFullDPS)
-						cache[pNode.modKey] = output
-					end
-					local impact = self.primaryBuild.calcsTab:CalculatePowerStat(powerStat, output, calcBase)
-					local pathDist = pNode.pathDist or 0
-					if pathDist == 0 then
-						pathDist = #(pNode.path or {})
-						if pathDist == 0 then pathDist = 1 end
-					end
-					local perPoint = impact / pathDist
-					local impactStr, impactVal, combinedImpactStr, impactPercent, impactIsZero = formatImpact(impact)
-					local perPointStr = formatImpact(perPoint)
-
-					if not impactIsZero then
-						t_insert(results, {
-							category = "Tree",
-							categoryColor = "^7",
-							nameColor = "^7",
-							name = pNode.dn,
-							nodeId = nodeId,
-							impact = impactVal,
-							impactStr = impactStr,
-							impactPercent = impactPercent,
-							combinedImpactStr = combinedImpactStr,
-							pathDist = pathDist,
-							perPoint = perPoint * ((displayStat.pc or displayStat.mod) and 100 or 1),
-							perPointStr = perPointStr,
-						})
-					end
-
-					processed = processed + 1
-					if coroutine.running() and GetTime() - start > 100 then
-						self.comparePowerProgress = m_floor(processed / total * 100)
-						coroutine.yield()
-						start = GetTime()
-					end
-				end
+	for processed, desc in ipairs(descriptors) do
+		local ok, impact, extra = self:ComputeComparePowerCandidate(ctx, desc)
+		if not ok then
+			ConPrintf("Compare power (%s): %s", desc.kind, tostring(impact))
+		elseif impact then
+			local row = self:BuildComparePowerRow(desc, impact, extra or {}, fmtCtx)
+			if row then
+				t_insert(results, row)
 			end
 		end
-	end
-
-	-- ==========================================
-	-- Items
-	-- ==========================================
-	if categories.items then
-		local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
-		if self:ShouldShowRing3(compareEntry) then
-			t_insert(baseSlots, 10, "Ring 3")
-		end
-
-		-- we only use jewel slots if both sides have them available
-		self:AddAbyssSockets(compareEntry, baseSlots, true)
-		
-		for _, slotName in ipairs(baseSlots) do
-			local cSlot = compareEntry.itemsTab and compareEntry.itemsTab.slots[slotName]
-			local cItem = cSlot and compareEntry.itemsTab.items[cSlot.selItemId]
-			local pSlot = self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.slots[slotName]
-			local pItem = pSlot and self.primaryBuild.itemsTab.items[pSlot.selItemId]
-			if cItem and cItem.raw and not (pItem and pItem.name == cItem.name) then
-				local newItem = new("Item", cItem.raw)
-				newItem:NormaliseQuality()
-				
-				-- if our comparison has abyssal jewels, but the primary build
-				-- doesn't, add those temporarily to the build to work around
-				-- calcfunc not being able to take in multiple items
-				local cmpJewels = {}
-				local oldEquipped = {}
-				if newItem.abyssalSocketCount > 0 then
-					for idx = 1, newItem.abyssalSocketCount do
-						local abyssSlotName = string.format("%s Abyssal Socket %d", slotName, idx)
-						local cmpJewelSlot = compareEntry.itemsTab.slots[abyssSlotName]
-						-- save old id and unequip existing
-						local primaryJewelSlot = self.primaryBuild.itemsTab.slots[abyssSlotName]
-						oldEquipped[abyssSlotName] = primaryJewelSlot.selItemId
-						primaryJewelSlot:SetSelItemId(0)
-						if cmpJewelSlot.selItemId > 0 then
-							local cmpJewel = compareEntry.itemsTab.items[cmpJewelSlot.selItemId]
-							-- due to a previous bug where jewel slots didn't
-							-- get cleared when becoming inactive, so the item
-							-- might not exist
-							if cmpJewel then
-								-- copy item
-								local itemCopy = new("Item", cmpJewel:BuildRaw())
-								table.insert(cmpJewels, itemCopy)
-								self.primaryBuild.itemsTab:AddItem(itemCopy, false)
-
-								-- equip copied
-								self.primaryBuild.itemsTab.slots[abyssSlotName]:SetSelItemId(itemCopy.id)
-							end
-						end
-					end
-				end
-
-
-				local output = calcFunc({ repSlotName = slotName, repItem = newItem }, useFullDPS)
-				local impact = self.primaryBuild.calcsTab:CalculatePowerStat(powerStat, output, calcBase)
-				local impactStr, impactVal, combinedImpactStr, impactPercent, impactIsZero = formatImpact(impact)
-
-				-- restore abyss jewel state
-				if newItem.abyssalSocketCount > 0 then
-					for k, v in pairs(oldEquipped) do
-						self.primaryBuild.itemsTab.slots[k]:SetSelItemId(v)
-					end
-					for _, item in ipairs(cmpJewels) do
-						self.primaryBuild.itemsTab:DeleteItem(item)
-					end
-				end
-
-				if not impactIsZero then
-					-- Get rarity color for item name
-					local rarityColor = colorCodes[cItem.rarity] or colorCodes.NORMAL
-
-
-					local abyssJewelText = #cmpJewels > 0 and
-						s_format(", %d Jewel%s", #cmpJewels, #cmpJewels > 1 and "s" or "") or ""
-					t_insert(results, {
-						category = "Item",
-						categoryColor = rarityColor,
-						nameColor = rarityColor,
-						name = (cItem.name or "Unknown") .. ", " .. slotName .. abyssJewelText,
-						itemObj = newItem,
-						slotName = slotName,
-						impact = impactVal,
-						impactStr = impactStr,
-						impactPercent = impactPercent,
-						combinedImpactStr = combinedImpactStr,
-						pathDist = nil,
-						perPoint = nil,
-						perPointStr = nil,
-					})
-				end
-			end
-			processed = processed + 1
-			if coroutine.running() and GetTime() - start > 100 then
-				self.comparePowerProgress = m_floor(processed / total * 100)
-				coroutine.yield()
-				start = GetTime()
-			end
-		end
-	end
-
-	-- ==========================================
-	-- Jewels (included as items)
-	-- ==========================================
-	if categories.items then
-		-- Build list of jewel socket info in the primary build for fallback testing
-		-- Each entry has { slotName, nodeId, node, allocated }
-		local pSpec = self.primaryBuild.spec
-		local primaryJewelSockets = {}
-		for _, slot in ipairs(self.primaryBuild.itemsTab.orderedSlots) do
-			if slot.nodeId then
-				local node = pSpec.nodes[slot.nodeId]
-				local allocated = pSpec.allocNodes and pSpec.allocNodes[slot.nodeId] and true or false
-				if node then
-					t_insert(primaryJewelSockets, {
-						slotName = slot.slotName,
-						nodeId = slot.nodeId,
-						node = node,
-						allocated = allocated,
-					})
-				end
-			end
-		end
-
-		local jewelSlots = self:GetJewelComparisonSlots(compareEntry)
-		for _, jEntry in ipairs(jewelSlots) do
-			if jEntry.cItem and jEntry.cItem.raw and not (jEntry.pItem and jEntry.pItem.name == jEntry.cItem.name) then
-				local newItem = new("Item", jEntry.cItem.raw)
-				newItem:NormaliseQuality()
-
-				local bestImpactVal = nil
-				local bestSlotLabel = jEntry.label
-
-				if jEntry.pNodeAllocated then
-					-- Socket is allocated in primary build, test directly in that socket
-					local output = calcFunc({ repSlotName = jEntry.cSlotName, repItem = newItem }, useFullDPS)
-					bestImpactVal = self.primaryBuild.calcsTab:CalculatePowerStat(powerStat, output, calcBase)
-				else
-					-- Socket is NOT allocated in primary build; try the jewel in every
-					-- jewel socket on the primary build's tree, temporarily allocating
-					-- unallocated sockets via addNodes so CalcSetup doesn't skip them
-					for _, socketInfo in ipairs(primaryJewelSockets) do
-						local override = { repSlotName = socketInfo.slotName, repItem = newItem }
-						if not socketInfo.allocated then
-							override.addNodes = { [socketInfo.node] = true }
-						end
-						local output = calcFunc(override, useFullDPS)
-						local impact = self.primaryBuild.calcsTab:CalculatePowerStat(powerStat, output, calcBase)
-						if bestImpactVal == nil or impact > bestImpactVal then
-							bestImpactVal = impact
-							bestSlotLabel = jEntry.label .. " (best socket)"
-						end
-					end
-				end
-
-				if bestImpactVal ~= nil then
-					local impactStr, impactVal, combinedImpactStr, impactPercent, impactIsZero = formatImpact(bestImpactVal)
-					if not impactIsZero then
-					local rarityColor = colorCodes[jEntry.cItem.rarity] or colorCodes.NORMAL
-
-					t_insert(results, {
-						category = "Item",
-						categoryColor = rarityColor,
-						nameColor = rarityColor,
-						name = (jEntry.cItem.name or "Unknown") .. ", " .. bestSlotLabel,
-						itemObj = newItem,
-						impact = impactVal,
-						impactStr = impactStr,
-						impactPercent = impactPercent,
-						combinedImpactStr = combinedImpactStr,
-						pathDist = nil,
-						perPoint = nil,
-						perPointStr = nil,
-					})
-					end
-				end
-			end
-			processed = processed + 1
-			if coroutine.running() and GetTime() - start > 100 then
-				self.comparePowerProgress = m_floor(processed / total * 100)
-				coroutine.yield()
-				start = GetTime()
-			end
-		end
-	end
-
-	-- ==========================================
-	-- Skill Gems (socket groups)
-	-- ==========================================
-	if categories.skillGems then
-		local cGroups = compareEntry.skillsTab and compareEntry.skillsTab.socketGroupList or {}
-		local pGroups = self.primaryBuild.skillsTab and self.primaryBuild.skillsTab.socketGroupList or {}
-
-		-- Build signature set for primary groups
-		local pSignatures = {}
-		for _, group in ipairs(pGroups) do
-			pSignatures[self:GetSocketGroupSignature(group)] = true
-		end
-
-		for _, cGroup in ipairs(cGroups) do
-			local sig = self:GetSocketGroupSignature(cGroup)
-			if sig ~= "" and not pSignatures[sig] then
-				-- Temporarily add this socket group to primary build and recalculate
-				t_insert(pGroups, cGroup)
-				self.primaryBuild.buildFlag = true
-
-				-- Get a fresh calculator with the added group (pcall to guarantee cleanup)
-				local ok, gemCalcFunc, gemCalcBase = pcall(function()
-					return self.calcs.getMiscCalculator(self.primaryBuild)
-				end)
-
-				-- Always remove the temporarily added group
-				t_remove(pGroups)
-				self.primaryBuild.buildFlag = true
-
-				if not ok then
-					-- gemCalcFunc contains the error message on failure; skip this group
-					ConPrintf("Compare power (gem): %s", tostring(gemCalcFunc))
-				else
-					local impact = self.primaryBuild.calcsTab:CalculatePowerStat(powerStat, gemCalcBase, calcBase)
-					local impactStr, impactVal, combinedImpactStr, impactPercent, impactIsZero = formatImpact(impact)
-					if not impactIsZero then
-						local label = self:GetSocketGroupLabel(cGroup)
-
-						t_insert(results, {
-							category = "Skill gem",
-							categoryColor = colorCodes.GEM,
-							nameColor = colorCodes.GEM,
-							name = label,
-							impact = impactVal,
-							impactStr = impactStr,
-							impactPercent = impactPercent,
-							combinedImpactStr = combinedImpactStr,
-							pathDist = nil,
-							perPoint = nil,
-							perPointStr = nil,
-						})
-					end
-				end
-			end
-			processed = processed + 1
-			if coroutine.running() and GetTime() - start > 100 then
-				self.comparePowerProgress = m_floor(processed / total * 100)
-				coroutine.yield()
-				start = GetTime()
-			end
-		end
-	end
-
-	-- ==========================================
-	-- Support Gems (from compared build's active skill)
-	-- ==========================================
-	if categories.supportGems then
-		local cMainGroup = compareEntry.skillsTab and compareEntry.skillsTab.socketGroupList[compareEntry.mainSocketGroup]
-		local pMainGroup = self.primaryBuild.skillsTab and self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.mainSocketGroup]
-
-		if cMainGroup and pMainGroup then
-			-- Collect support gem names already in primary build's main group
-			local pSupportNames = {}
-			for _, gem in ipairs(pMainGroup.gemList or {}) do
-				local ge = self:GetGemGrantedEffect(gem)
-				if ge and ge.support then
-					local name = ge.name or gem.nameSpec
-					if name then pSupportNames[name] = true end
-				end
-			end
-
-			for _, cGem in ipairs(cMainGroup.gemList or {}) do
-				local cGrantedEffect = self:GetGemGrantedEffect(cGem)
-				if cGrantedEffect and cGrantedEffect.support then
-					local name = cGrantedEffect.name or cGem.nameSpec
-					if name and not pSupportNames[name] then
-						-- Create a temporary copy of this support gem
-						local tempGem = {
-							nameSpec = cGem.nameSpec,
-							level = cGem.level,
-							quality = cGem.quality,
-							qualityId = cGem.qualityId,
-							enabled = cGem.enabled,
-							grantedEffect = cGem.grantedEffect,
-							gemData = cGem.gemData,
-							count = cGem.count,
-							enableGlobal1 = cGem.enableGlobal1,
-							enableGlobal2 = cGem.enableGlobal2,
-						}
-
-						-- Temporarily add to primary build's main socket group
-						t_insert(pMainGroup.gemList, tempGem)
-						self.primaryBuild.buildFlag = true
-
-						local ok, sgCalcFunc, sgCalcBase = pcall(function()
-							return self.calcs.getMiscCalculator(self.primaryBuild)
-						end)
-
-						-- Always remove the temporarily added gem
-						t_remove(pMainGroup.gemList)
-						self.primaryBuild.buildFlag = true
-
-						if not ok then
-							ConPrintf("Compare power (support gem): %s", tostring(sgCalcFunc))
-						else
-							local impact = self.primaryBuild.calcsTab:CalculatePowerStat(powerStat, sgCalcBase, calcBase)
-							local impactStr, impactVal, combinedImpactStr, impactPercent, impactIsZero = formatImpact(impact)
-
-							if not impactIsZero then
-								t_insert(results, {
-									category = "Support gem",
-									categoryColor = colorCodes.GEM,
-									nameColor = colorCodes.GEM,
-									name = name,
-									impact = impactVal,
-									impactStr = impactStr,
-									impactPercent = impactPercent,
-									combinedImpactStr = combinedImpactStr,
-									pathDist = nil,
-									perPoint = nil,
-									perPointStr = nil,
-								})
-							end
-						end
-						processed = processed + 1
-						if coroutine.running() and GetTime() - start > 100 then
-							self.comparePowerProgress = m_floor(processed / total * 100)
-							coroutine.yield()
-							start = GetTime()
-						end
-					end
-				end
-			end
-		end
-	end
-
-	-- ==========================================
-	-- Config Options
-	-- ==========================================
-	if categories.config then
-		local pInput = self.primaryBuild.configTab.input
-		local cInput = compareEntry.configTab.input or {}
-
-		local function stripColors(s)
-			return s:gsub("%^%x", ""):gsub("%^x%x%x%x%x%x%x", "")
-		end
-
-		for _, varData in ipairs(self.configOptions) do
-			if varData.var and varData.apply and varData.type ~= "text" then
-				local pVal = pInput[varData.var]
-				local cVal = cInput[varData.var]
-				local pNorm, cNorm = self:NormalizeConfigVals(varData, pVal, cVal)
-
-				if pNorm ~= cNorm then
-					-- Save original value
-					local savedVal = pInput[varData.var]
-
-					-- Apply compare build's config value
-					pInput[varData.var] = cVal
-
-					-- Rebuild and calculate (pcall to guarantee restore on error)
-					local ok, cfgCalcFunc, cfgCalcBase = pcall(function()
-						self.primaryBuild.configTab:BuildModList()
-						self.primaryBuild.buildFlag = true
-						return self.calcs.getMiscCalculator(self.primaryBuild)
-					end)
-
-					-- Always restore original value
-					pInput[varData.var] = savedVal
-					self.primaryBuild.configTab:BuildModList()
-					self.primaryBuild.buildFlag = true
-
-					if not ok then
-						-- cfgCalcFunc contains the error message on failure; skip this config
-						ConPrintf("Compare power (config): %s", tostring(cfgCalcFunc))
-					else
-						local impact = self.primaryBuild.calcsTab:CalculatePowerStat(powerStat, cfgCalcBase, calcBase)
-						local impactStr, impactVal, combinedImpactStr, impactPercent, impactIsZero = formatImpact(impact)
-
-						-- Only include configs with non-zero impact
-						if not impactIsZero then
-							-- Build display name with value change description
-							local displayName = varData.label or varData.var
-							displayName = displayName:gsub(":$", "")
-
-							local pDisplay = stripColors(self:FormatConfigValue(varData, pVal))
-							local cDisplay = stripColors(self:FormatConfigValue(varData, cVal))
-
-							t_insert(results, {
-								category = "Config",
-								categoryColor = colorCodes.FRACTURED,
-								nameColor = "^7",
-								name = displayName .. "  (" .. pDisplay .. " -> " .. cDisplay .. ")",
-								impact = impactVal,
-								impactStr = impactStr,
-								impactPercent = impactPercent,
-								combinedImpactStr = combinedImpactStr,
-								pathDist = nil,
-								perPoint = nil,
-								perPointStr = nil,
-							})
-						end
-					end
-
-					processed = processed + 1
-					if coroutine.running() and GetTime() - start > 100 then
-						self.comparePowerProgress = m_floor(processed / total * 100)
-						coroutine.yield()
-						start = GetTime()
-					end
-				end
-			end
+		if coroutine.running() and GetTime() - start > 100 then
+			self.comparePowerProgress = m_floor(processed / total * 100)
+			coroutine.yield()
+			start = GetTime()
 		end
 	end
 
 	self.comparePowerResults = results
 	self.comparePowerProgress = 100
+end
+
+-- Try to run the compare power report on background workers; returns true if a
+-- job was launched, false if the caller should use the single-core coroutine
+function CompareTabClass:LaunchParallelComparePower(compareEntry)
+	if not ParallelRunner:IsAvailable() or not compareEntry.xmlText then
+		return false
+	end
+	local powerStat = self.comparePowerStat
+	local powerStatIndex
+	for i, stat in ipairs(data.powerStatList) do
+		if stat == powerStat then
+			powerStatIndex = i
+			break
+		end
+	end
+	if not powerStatIndex then
+		return false
+	end
+	local descriptors = self:EnumerateComparePowerCandidates(compareEntry, self.comparePowerCategories)
+	-- Skill gem and config candidates each cost a full recalculation, so weight
+	-- compare candidates higher than plain calcFunc calls
+	if not ParallelRunner:ShouldParallelize(#descriptors, 3) then
+		return false
+	end
+	local buildXML = self.primaryBuild:SaveDB("parallelCompare")
+	if not buildXML then
+		return false
+	end
+	local revision = self.primaryBuild.outputRevision
+	local calcFunc, calcBase = self.calcs.getMiscCalculator(self.primaryBuild)
+	local fmtCtx = self:MakeComparePowerFormatContext(compareEntry, powerStat, calcBase)
+	for i, desc in ipairs(descriptors) do
+		desc.i = i
+	end
+	local batches = { }
+	for i, slice in ipairs(ParallelRunner:PartitionList(descriptors, ParallelRunner:GetWorkerCount())) do
+		batches[i] = { descriptors = slice }
+	end
+	local job
+	job = ParallelRunner:LaunchJob({
+		mode = "compare",
+		buildXML = buildXML,
+		auxText = compareEntry.xmlText,
+		common = { powerStatIndex = powerStatIndex },
+		batches = batches,
+		total = #descriptors,
+		expectedBaseline = PowerCalcTasks.extractBaseline(calcBase, powerStat, powerStat.stat == "FullDPS"),
+		onProgress = function(percent)
+			self.comparePowerProgress = percent
+		end,
+		onComplete = function(payloads)
+			if self.comparePowerJob ~= job then
+				return
+			end
+			self.comparePowerJob = nil
+			if self.primaryBuild.outputRevision ~= revision or self.comparePowerCompareId ~= compareEntry then
+				-- The build or comparison changed while workers were running
+				self.comparePowerDirty = true
+				return
+			end
+			local resultByIndex = { }
+			for _, payload in pairs(payloads) do
+				for _, res in ipairs(payload.results or { }) do
+					resultByIndex[res.i] = res
+				end
+			end
+			local results = { }
+			for i, desc in ipairs(descriptors) do
+				local res = resultByIndex[i]
+				if res then
+					if not res.ok then
+						ConPrintf("Compare power (%s): %s", desc.kind, tostring(res.err))
+					elseif res.impact then
+						local row = self:BuildComparePowerRow(desc, PowerCalcTasks.decodeNumber(res.impact), res.extra or { }, fmtCtx)
+						if row then
+							t_insert(results, row)
+						end
+					end
+				end
+			end
+			self.comparePowerResults = results
+			self.comparePowerProgress = 100
+			self.comparePowerListSynced = false
+		end,
+		onError = function()
+			if self.comparePowerJob ~= job then
+				return
+			end
+			self.comparePowerJob = nil
+			-- Fall back to the single-core coroutine path
+			self.comparePowerCoroutine = coroutine.create(function()
+				self:ComparePowerBuilder(compareEntry, self.comparePowerStat, self.comparePowerCategories)
+			end)
+		end,
+	})
+	if not job then
+		return false
+	end
+	self.comparePowerJob = job
+	return true
 end
 
 -- Drive the compare power report coroutine
@@ -3065,9 +3141,18 @@ function CompareTabClass:RunComparePowerReport(compareEntry)
 		self.comparePowerResults = nil
 		self.comparePowerProgress = 0
 		self.comparePowerListSynced = false
-		self.comparePowerCoroutine = coroutine.create(function()
-			self:ComparePowerBuilder(compareEntry, self.comparePowerStat, self.comparePowerCategories)
-		end)
+		self.comparePowerCoroutine = nil
+		if self.comparePowerJob then
+			-- A rebuild was requested while workers were still running; their
+			-- results are stale, so cancel and start over
+			self.comparePowerJob:Cancel()
+			self.comparePowerJob = nil
+		end
+		if not self:LaunchParallelComparePower(compareEntry) then
+			self.comparePowerCoroutine = coroutine.create(function()
+				self:ComparePowerBuilder(compareEntry, self.comparePowerStat, self.comparePowerCategories)
+			end)
+		end
 	end
 
 	-- Resume coroutine

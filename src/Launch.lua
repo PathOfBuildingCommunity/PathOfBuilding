@@ -146,6 +146,14 @@ function launch:OnKeyDown(key, doubleClick)
 		local before = collectgarbage("count")
 		collectgarbage("collect")
 		ConPrintf("%dkB => %dkB", before, collectgarbage("count"))
+	elseif key == "F7" and self.devMode then
+		-- Probe the parallel worker environment using the currently loaded build
+		local buildMode = self.main and self.main.modes and self.main.modes["BUILD"]
+		if ParallelRunner and buildMode and buildMode.spec then
+			ParallelRunner:RunProbe(buildMode)
+		else
+			ConPrintf("Probe: no build loaded")
+		end
 	elseif key == "PAUSE" and self.devMode and profiler then
 		if profiling then
 			profiler.stop()
@@ -207,6 +215,10 @@ function launch:OnSubCall(func, ...)
 end
 
 function launch:OnSubError(id, errMsg)
+	if not self.subScripts[id] then
+		-- Subscript was aborted (e.g. cancelled worker job); ignore the late event
+		return
+	end
 	if self.subScripts[id].type == "UPDATE" then
 		self:ShowErrMsg("In update thread: %s", errMsg)
 		self.updateCheckRunning = false
@@ -215,11 +227,22 @@ function launch:OnSubError(id, errMsg)
 		if errMsg then
 			self:ShowErrMsg("In download callback: %s", errMsg)
 		end
+	elseif self.subScripts[id].type == "CUSTOM" then
+		if self.subScripts[id].callback then
+			local cbErrMsg = PCall(self.subScripts[id].callback, nil, errMsg)
+			if cbErrMsg then
+				self:ShowErrMsg("In subscript callback: %s", cbErrMsg)
+			end
+		end
 	end
 	self.subScripts[id] = nil
 end
 
 function launch:OnSubFinished(id, ...)
+	if not self.subScripts[id] then
+		-- Subscript was aborted (e.g. cancelled worker job); ignore the late event
+		return
+	end
 	if self.subScripts[id].type == "UPDATE" then
 		self.updateAvailable, self.updateErrMsg = ...
 		self.updateCheckRunning = false

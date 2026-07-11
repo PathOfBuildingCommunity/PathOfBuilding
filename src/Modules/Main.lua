@@ -26,6 +26,8 @@ LoadModule("Modules/BuildSiteTools")
 
 -- Load as global so other modules can access the same instance
 ToastNotification = LoadModule("Modules/ToastNotification")
+ParallelRunner = LoadModule("Modules/ParallelRunner")
+PowerCalcTasks = LoadModule("Modules/PowerCalcTasks")
 
 --[[if launch.devMode then
 	for skillName, skill in pairs(data.enchantments.Helmet) do
@@ -119,6 +121,8 @@ function main:Init()
 	self.showFlavourText = true
 	self.showAnimations = true
 	self.showAllItemAffixes = true
+	self.computationMode = "MULTI"
+	self.workerCount = 0
 	self.errorReadingSettings = false
 
 	if not SetDPIScaleOverridePercent then SetDPIScaleOverridePercent = function(scale) end end
@@ -630,6 +634,12 @@ function main:LoadSettings(ignoreBuild)
 					self.dpiScaleOverridePercent = tonumber(node.attrib.dpiScaleOverridePercent) or 0
 					SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
 				end
+				if node.attrib.computationMode == "MULTI" or node.attrib.computationMode == "SINGLE" then
+					self.computationMode = node.attrib.computationMode
+				end
+				if node.attrib.workerCount then
+					self.workerCount = m_min(m_max(tonumber(node.attrib.workerCount) or 0, 0), 16)
+				end
 			end
 		end
 	end
@@ -762,6 +772,8 @@ function main:SaveSettings()
 		showAnimations = tostring(self.showAnimations),
 		showAllItemAffixes = tostring(self.showAllItemAffixes),
 		dpiScaleOverridePercent = tostring(self.dpiScaleOverridePercent),
+		computationMode = self.computationMode,
+		workerCount = tostring(self.workerCount or 0),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -845,11 +857,13 @@ function main:OpenOptionsPopup(savedState)
 		showFlavourText = self.showFlavourText,
 		showAnimations = self.showAnimations,
 		showAllItemAffixes = self.showAllItemAffixes,
-		dpiScaleOverridePercent = self.dpiScaleOverridePercent
+		dpiScaleOverridePercent = self.dpiScaleOverridePercent,
+		computationMode = self.computationMode,
+		workerCount = self.workerCount
 	}
 
 	-- NOTE: Height needs to be adjusted if more menu options are added
-	local oneColumnHeightReq = 850 -- Min height required to not split menu into two columns
+	local oneColumnHeightReq = 880 -- Min height required to not split menu into two columns
 	local columnWidth = 600
 	
 	local startingY = 20
@@ -953,6 +967,29 @@ function main:OpenOptionsPopup(savedState)
 	controls.nodePowerThemeLabel = new("LabelControl", { "RIGHT", controls.nodePowerTheme, "LEFT" }, { defaultLabelSpacingPx, 0, 0, 16 }, "^7Node Power colours:")
 	controls.nodePowerTheme.tooltipText = "Changes the colour scheme used for the node power display on the passive tree."
 	controls.nodePowerTheme:SelByValue(self.nodePowerTheme, "theme")
+
+	nextRow()
+	controls.computationMode = new("DropDownControl", { "TOPLEFT", controls.sectionAnchor, "TOPLEFT" }, { currentX + defaultLabelPlacementX, currentY, 170, 18 }, {
+		{ label = "Multi-core (recommended)", mode = "MULTI" },
+		{ label = "Single-core", mode = "SINGLE" },
+	}, function(index, value)
+		self.computationMode = value.mode
+		if ParallelRunner then
+			-- Give parallel mode another chance if a previous failure disabled it
+			ParallelRunner.disabledThisSession = false
+		end
+	end)
+	controls.computationModeLabel = new("LabelControl", { "RIGHT", controls.computationMode, "LEFT" }, { defaultLabelSpacingPx, 0, 0, 16 }, "^7Computation mode:")
+	controls.computationMode.tooltipText = "Multi-core runs heavy calculations (tree heat map / power report, compare tab power report,\nitem and anoint list sorting) on background worker threads, using multiple CPU cores.\nEach worker uses extra memory while it runs. If results ever look wrong, switch to single-core.\nSingle-core uses the original in-process calculation."
+	controls.computationMode:SelByValue(self.computationMode, "mode")
+	controls.workerCount = new("EditControl", { "LEFT", controls.computationMode, "RIGHT" }, { 4, 0, 60, 18 }, tostring(self.workerCount or 0), nil, "%D", 2, function(buf)
+		self.workerCount = m_min(m_max(tonumber(buf) or 0, 0), 16)
+	end)
+	controls.workerCountLabel = new("LabelControl", { "LEFT", controls.workerCount, "RIGHT" }, { 4, 0, 0, 16 }, "^7worker threads (0 = auto)")
+	controls.workerCount.tooltipText = function()
+		local detected = tonumber(os.getenv("NUMBER_OF_PROCESSORS") or "") or 2
+		return "Number of background worker threads used in multi-core mode.\n0 = automatic: one less than the number of CPU cores, up to 8.\nOn this system, automatic uses "..m_max(1, m_min(detected - 1, 8)).." workers."
+	end
 
 	nextRow()
 	controls.colorPositive = new("EditControl", { "TOPLEFT", controls.sectionAnchor, "TOPLEFT" }, { currentX + defaultLabelPlacementX, currentY, 100, 18 }, tostring(self.colorPositive:gsub('^(^)', '0')), nil, nil, 8, function(buf)
@@ -1193,6 +1230,8 @@ function main:OpenOptionsPopup(savedState)
 		self.showAllItemAffixes = savedState.showAllItemAffixes
 		self.dpiScaleOverridePercent = savedState.dpiScaleOverridePercent
 		SetDPIScaleOverridePercent(self.dpiScaleOverridePercent)
+		self.computationMode = savedState.computationMode
+		self.workerCount = savedState.workerCount
 		main:ClosePopup()
 	end)
 	
