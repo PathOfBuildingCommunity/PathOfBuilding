@@ -1,0 +1,15 @@
+diff a/spec/System/TestItemMods_spec.lua b/spec/System/TestItemMods_spec.lua	(rejected hunks)
+@@ -7,6 +7,13 @@ describe("TetsItemMods", function()
+ 		-- newBuild() takes care of resetting everything in setup()
+ 	end)
+ 
++	it("retains mod tags without generation weight multipliers", function()
++		local mod = data.itemMods.Item.IgniteChanceIncrease1
++
++		assert.same({ "no_cold_spell_mods", "no_lightning_spell_mods", "no_chaos_spell_mods" }, mod.tags)
++		assert.is_nil(mod.weightMultiplierKey)
++	end)
++
+ 	it("shows duplicate selected variants in item tooltips when enabled", function()
+ 		local item = new("Item", [[
+ 			Rarity: Unique

@@ -5,6 +5,7 @@
 --
 
 local dkjson = require "dkjson"
+local utils = LoadModule("Modules/Utils")
 
 ---@class TradeQueryRequests
 local TradeQueryRequestsClass = newClass("TradeQueryRequests", function(self, rateLimiter)
@@ -210,7 +211,7 @@ function TradeQueryRequestsClass:PerformSearch(realm, league, query, callback)
 				if response.error then
 					if not (response.error.code and response.error.message) then
 						errMsg = "Encountered unknown error, check console for details."
-						ConPrintf("Unknown error: %s", stringify(response.error))
+						ConPrintf("Unknown error: %s", utils.stringify(response.error))
 						callback(response, errMsg)
 					end
 					if response.error.message:find("Logging in will increase this limit") then
