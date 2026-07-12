@@ -1057,16 +1057,32 @@ function PassiveSpecClass:AddMasteryEffectOptionsToNode(node)
 	node.allMasteryOptions = true
 end
 
+-- Returns jewelRadius indices to consider for this item. When the tree-view planning
+-- toggle is on for a Variable-radius jewel, all 5 Variable rings are treated as candidate
+-- radii so dependency/path calculations cover every possible socketed roll.
+function PassiveSpecClass:GetEffectiveRadiusIndices(item)
+	local toHMode = self.build.treeTab and self.build.treeTab.viewer
+		and self.build.treeTab.viewer.toHRingMode
+	if toHMode and item.jewelRadiusLabel == "Variable" then
+		return { 6, 7, 8, 9, 10 }
+	end
+	return { item.jewelRadiusIndex }
+end
+
 function PassiveSpecClass:NodesInIntuitiveLeapLikeRadius(node)
 	local result = { }
 	if self.jewels[node.id] and self.jewels[node.id] > 0 then
 		local item = self.build.itemsTab.items[self.jewels[node.id]]
 		local radiusIndex = item.jewelRadiusIndex
 		if item and item.jewelData and item.jewelData.intuitiveLeapLike then
-			local inRadius = self.nodes[node.id].nodesInRadius and self.nodes[node.id].nodesInRadius[radiusIndex]
-			for affectedNodeId, affectedNode in pairs(inRadius or {}) do
-				if self.nodes[affectedNodeId].alloc then
-					t_insert(result, self.nodes[affectedNodeId])
+			local seen = { }
+			for _, idx in ipairs(self:GetEffectiveRadiusIndices(item)) do
+				local inRadius = self.nodes[node.id].nodesInRadius and self.nodes[node.id].nodesInRadius[idx]
+				for affectedNodeId, affectedNode in pairs(inRadius or {}) do
+					if self.nodes[affectedNodeId].alloc and not seen[affectedNodeId] then
+						seen[affectedNodeId] = true
+						t_insert(result, self.nodes[affectedNodeId])
+					end
 				end
 			end
 		end
@@ -1108,18 +1124,21 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				local item = self.build.itemsTab.items[itemId]
 				if item and item.jewelRadiusIndex and self.allocNodes[nodeId] and item.jewelData and not item.jewelData.limitDisabled then
 					local radiusIndex = item.jewelRadiusIndex
-					if self.nodes[nodeId].nodesInRadius and self.nodes[nodeId].nodesInRadius[radiusIndex][node.id] then
-						if itemId ~= 0 then
-							if item.jewelData.intuitiveLeapLike and not (item.jewelData.intuitiveLeapKeystoneOnly and node.type ~= "Keystone") then
-								-- This node depends on Intuitive Leap-like behaviour
-								-- This flag:
-								-- 1. Prevents generation of paths from this node unless it's also connected to the start
-								-- 2. Prevents allocation of path nodes when this node is being allocated
-								t_insert(node.intuitiveLeapLikesAffecting, self.nodes[nodeId])
+					for _, idx in ipairs(self:GetEffectiveRadiusIndices(item)) do
+						if self.nodes[nodeId].nodesInRadius and self.nodes[nodeId].nodesInRadius[idx][node.id] then
+							if itemId ~= 0 then
+								if item.jewelData.intuitiveLeapLike and not (item.jewelData.intuitiveLeapKeystoneOnly and node.type ~= "Keystone") then
+									-- This node depends on Intuitive Leap-like behaviour
+									-- This flag:
+									-- 1. Prevents generation of paths from this node unless it's also connected to the start
+									-- 2. Prevents allocation of path nodes when this node is being allocated
+									t_insert(node.intuitiveLeapLikesAffecting, self.nodes[nodeId])
+								end
+								if item.jewelData.conqueredBy then
+									node.conqueredBy = item.jewelData.conqueredBy
+								end
 							end
-							if item.jewelData.conqueredBy then
-								node.conqueredBy = item.jewelData.conqueredBy
-							end
+							break
 						end
 					end
 
@@ -1473,19 +1492,22 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				local prune = true
 				for nodeId, itemId in pairs(self.jewels) do
 					if self.allocNodes[nodeId] then
-						if itemId ~= 0 and (
-							 self.build.itemsTab.items[itemId] and (
-								self.build.itemsTab.items[itemId].jewelData
-									and self.build.itemsTab.items[itemId].jewelData.intuitiveLeapLike
-									and self.build.itemsTab.items[itemId].jewelRadiusIndex
-									and self.nodes[nodeId].nodesInRadius
-									and self.nodes[nodeId].nodesInRadius[self.build.itemsTab.items[itemId].jewelRadiusIndex][depNode.id]
-							) or (
-								self.build.itemsTab.items[itemId].jewelData
-									and self.build.itemsTab.items[itemId].jewelData.impossibleEscapeKeystones
-									and self:NodeInKeystoneRadius(self.build.itemsTab.items[itemId].jewelData.impossibleEscapeKeystones, depNode.id, self.build.itemsTab.items[itemId].jewelRadiusIndex)
-							)
-						) then
+						local item = self.build.itemsTab.items[itemId]
+						local socketNode = self.nodes[nodeId]
+						local leapHit = false
+						if itemId ~= 0 and item and item.jewelData and item.jewelData.intuitiveLeapLike
+							and item.jewelRadiusIndex and socketNode.nodesInRadius then
+							for _, idx in ipairs(self:GetEffectiveRadiusIndices(item)) do
+								if socketNode.nodesInRadius[idx] and socketNode.nodesInRadius[idx][depNode.id] then
+									leapHit = true
+									break
+								end
+							end
+						end
+						local keyHit = itemId ~= 0 and item and item.jewelData
+							and item.jewelData.impossibleEscapeKeystones
+							and self:NodeInKeystoneRadius(item.jewelData.impossibleEscapeKeystones, depNode.id, item.jewelRadiusIndex)
+						if leapHit or keyHit then
 							-- Hold off on the pruning; this node could be supported by Intuitive Leap-like jewel
 							prune = false
 							if not intuitiveLeaps[nodeId] then
