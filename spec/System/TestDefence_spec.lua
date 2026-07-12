@@ -1283,4 +1283,52 @@ describe("TestDefence", function()
 		assert.are.equals(0, floor(poolsRemaining.Life))
 		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
 	end)
+
+	-- Reproduction for issue #3062 (Vulconus + Xoph's Blood).
+	-- Vulconus grants Avatar of Fire only temporarily, so PoB gates its
+	-- "while you (do not) have Avatar of Fire" lines on a config checkbox.
+	-- When a PERMANENT source of the Avatar of Fire keystone is equipped
+	-- (Xoph's Blood grants the keystone), the character always has Avatar of
+	-- Fire and the "+2000 Armour while you do not have Avatar of Fire" line
+	-- must drop off regardless of the checkbox. It currently does not, because
+	-- Condition:HaveAvatarOfFire is only ever set by the checkbox and never by
+	-- keystone presence. These assertions therefore FAIL on the current code,
+	-- demonstrating the bug.
+	it("forces Avatar of Fire on with a permanent keystone source (issue #3062)", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+		Vulconus
+		Demon Dagger
+		Variant: Pre 3.5.0
+		Variant: Current
+		Selected Variant: 2
+		Implicits: 1
+		40% increased Global Critical Strike Chance
+		50% chance to cause Bleeding on Hit
+		Every 8 seconds, gain Avatar of Fire for 4 seconds
+		160% increased Critical Strike Chance while you have Avatar of Fire
+		50% of Physical Damage Converted to Fire while you have Avatar of Fire
+		+2000 Armour while you do not have Avatar of Fire]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		-- Baseline: no permanent Avatar of Fire, checkbox unchecked, so the
+		-- "+2000 Armour while you do not have Avatar of Fire" line is active.
+		local armourWithoutAvatarOfFire = build.calcsTab.mainOutput.Armour
+		assert.is_true(armourWithoutAvatarOfFire >= 2000)
+		assert.is_falsy(build.calcsTab.mainEnv.player.modDB:Flag(nil, "Condition:HaveAvatarOfFire"))
+
+		-- Equip a permanent source of the Avatar of Fire keystone, exactly as
+		-- Xoph's Blood does via its "Avatar of Fire" line.
+		build.itemsTab:CreateDisplayItemFromRaw([[
+		New Item
+		Amber Amulet
+		Avatar of Fire]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		-- The character now permanently has Avatar of Fire, so the condition
+		-- must be set and the +2000 conditional armour must be gone.
+		assert.is_truthy(build.calcsTab.mainEnv.player.modDB:Flag(nil, "Condition:HaveAvatarOfFire"))
+		assert.are.equals(armourWithoutAvatarOfFire - 2000, build.calcsTab.mainOutput.Armour)
+	end)
 end)
