@@ -513,13 +513,13 @@ function CalcsTabClass:PowerBuilder()
 		return not assignedNodeId or assignedNodeId == node.id
 	end
 
-	local function calculateAddNodePower(power, node, output, buildPathNodes)
+	local function calculateAddNodePower(power, distance, node, output, buildPathNodes)
 		if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
 			power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
 			if node.path and not node.ascendancyName then
 				newPowerMax.singleStat = m_max(newPowerMax.singleStat, power.singleStat)
 				power.pathPower = power.singleStat
-				if node.pathDist > 1 then
+				if distance > 1 then
 					power.pathPower = self:CalculatePowerStat(self.powerStat, calcFunc({ addNodes = buildPathNodes() }, useFullDPS), calcBase)
 				end
 			end
@@ -529,8 +529,8 @@ function CalcsTabClass:PowerBuilder()
 			if node.path and not node.ascendancyName then
 				newPowerMax.offence = m_max(newPowerMax.offence, power.offence)
 				newPowerMax.defence = m_max(newPowerMax.defence, power.defence)
-				newPowerMax.offencePerPoint = m_max(newPowerMax.offencePerPoint, power.offence / node.pathDist)
-				newPowerMax.defencePerPoint = m_max(newPowerMax.defencePerPoint, power.defence / node.pathDist)
+				newPowerMax.offencePerPoint = m_max(newPowerMax.offencePerPoint, power.offence / distance)
+				newPowerMax.defencePerPoint = m_max(newPowerMax.defencePerPoint, power.defence / distance)
 			end
 		end
 	end
@@ -555,9 +555,16 @@ function CalcsTabClass:PowerBuilder()
 					end
 				end
 			else
-				distanceMap[node.pathDist or 1000] = distanceMap[node.pathDist or 1000] or { }
-				distanceMap[node.pathDist or 1000][nodeId] = node
-				if not (self.nodePowerMaxDepth and self.nodePowerMaxDepth < node.pathDist) then
+				local dist = node.pathDist or 1000
+				for _, leap in ipairs(node.intuitiveLeapLikesAffecting or {}) do
+					if leap.alloc then
+						dist = math.max(math.min(leap.pathDist or 1000, dist), 1)
+					end
+				end
+				distanceMap[dist] = distanceMap[dist] or {}
+				distanceMap[dist][nodeId] = node
+				node.power.distance = dist
+				if (not self.nodePowerMaxDepth) or dist <= self.nodePowerMaxDepth then
 					total = total + 1
 				end
 			end
@@ -586,7 +593,7 @@ function CalcsTabClass:PowerBuilder()
 					cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, useFullDPS)
 				end
 				local output = cache[node.modKey]
-				calculateAddNodePower(node.power, node, output, function()
+				calculateAddNodePower(node.power, distance, node, output, function()
 					local pathNodes = { }
 					for _, pathNode in pairs(node.path) do
 						pathNodes[pathNode] = true
@@ -635,6 +642,12 @@ function CalcsTabClass:PowerBuilder()
 	end
 
 	for _, node in ipairs(masteryNodeList) do
+		local distance = 0
+		for _, pathNode in pairs(node.path) do
+			if pathNode ~= node then
+				distance = distance + 1
+			end
+		end
 		for _, masteryEffect in ipairs(node.masteryEffects or { }) do
 			if masteryEffectCanBeAssignedToNode(node, masteryEffect) then
 				local effect = self.build.spec.tree.masteryEffects[masteryEffect.effect]
@@ -647,7 +660,7 @@ function CalcsTabClass:PowerBuilder()
 						local output = cache[effectNode.modKey]
 						node.power.masteryEffects[effect.id] = { }
 						local effectPower = node.power.masteryEffects[effect.id]
-						calculateAddNodePower(effectPower, node, output, function()
+						calculateAddNodePower(effectPower, distance, node, output, function()
 							local pathNodes = {
 								[effectNode] = true
 							}

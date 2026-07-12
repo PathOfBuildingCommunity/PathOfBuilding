@@ -1091,7 +1091,7 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 		if isAlloc then
 			return #(node.depends or { }) == 0 and 1 or #node.depends
 		end
-		return #(node.path or { }) == 0 and 1 or #node.path
+		return node.power.distance or #(node.path or {}) == 0 and 1 or #node.path
 	end
 	local function addReportEntry(node, name, nodePower, pathPower, pathDist, isAlloc, pathPowerStr)
 		t_insert(report, {
