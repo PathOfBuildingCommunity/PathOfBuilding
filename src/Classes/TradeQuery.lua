@@ -1266,9 +1266,9 @@ function TradeQueryClass:UpdateRealms()
 				end
 			end
 			setRealmDropList()
-
 		end)
-	else
+	end
+	if not main.POESESSID or main.POESESSID == "" then
 		-- Fallback to static list
 		ConPrintf("Using static realms list")
 		self.realmIds = {
