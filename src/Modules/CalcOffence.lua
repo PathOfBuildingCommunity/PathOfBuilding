@@ -2893,6 +2893,7 @@ function calcs.offence(env, actor, activeSkill)
 
 			if critOverride == 100 then
 				output.PreEffectiveCritChance = 100
+				output.PreBifurcateCritChance = 100
 				output.CritChance = 100
 			else
 				local base = 0
@@ -2927,8 +2928,13 @@ function calcs.offence(env, actor, activeSkill)
 						output.CritChance = (1 - (1 - output.CritChance / 100) ^ (critRolls + 1)) * 100
 					end
 				end
+				output.PreBifurcateCritChance = output.CritChance
+				local preBifurcateCritChance = output.CritChance
+				if env.mode_effective and skillModList:Flag(cfg, "BifurcateCrit") then
+					output.CritChance = (1 - (1 - output.CritChance / 100) ^ 2) * 100
+				end
 				local preHitCheckCritChance = output.CritChance
-				local preSkillUseCritChance= output.CritChance
+				local preSkillUseCritChance = output.CritChance
 				if env.mode_effective then
 					if skillModList:Flag(skillCfg, "Every3UseCrit") then
 						output.CritChance = (2 * output.CritChance + 100) / 3
@@ -2968,6 +2974,11 @@ function calcs.offence(env, actor, activeSkill)
 								t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f)^ %d", preLuckyCritChance / 100, critRolls + 1))
 							end
 						end
+						if skillModList:Flag(cfg, "BifurcateCrit") then
+							t_insert(breakdown.CritChance, "Critical Strike Bifurcates:")
+							t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f) x (1 - %.4f)", preBifurcateCritChance / 100, preBifurcateCritChance / 100))
+							t_insert(breakdown.CritChance, s_format("= %.2f%%", preSkillUseCritChance))
+						end
 						if skillModList:Flag(skillCfg, "Every3UseCrit") then
 							t_insert(breakdown.CritChance, s_format("+ %.2f%% ^8(crit every 3rd use)", (2 * preSkillUseCritChance + 100) / 3 - preSkillUseCritChance))
 						end
@@ -3005,6 +3016,37 @@ function calcs.offence(env, actor, activeSkill)
 							s_format("= %d%% ^8(extra crit damage)", extraDamage * 100),
 						}
 					end
+				end
+				-- if crit bifurcates are enabled, roll for crit twice and add multiplier for each
+				local critOverride = skillModList:Override(cfg, "CritChance")
+				if env.mode_effective and skillModList:Flag(cfg, "BifurcateCrit") and output.PreBifurcateCritChance and not (critOverride == 100) then
+					-- get crit chance and calculate odds of critting twice
+					local critChancePercentage = output.PreBifurcateCritChance
+					local bifurcateMultiChance = (critChancePercentage ^ 2) / 100
+					local effectiveCritChance = output.CritChance
+					local conditionalBifurcateChance = effectiveCritChance > 0 and bifurcateMultiChance / effectiveCritChance or 0
+					-- scale damage bonus chance to account for guaranteed crit
+					-- not being able to benefit from it
+					if skillModList:Flag(skillCfg, "Every3UseCrit") then
+						conditionalBifurcateChance = conditionalBifurcateChance * 2 / 3
+					end
+					if skillModList:Flag(skillCfg, "Every5UseCrit") then
+						conditionalBifurcateChance = conditionalBifurcateChance * 4 / 5
+					end
+					output.CritBifurcates = 1 + conditionalBifurcateChance
+					local damageBonus = extraDamage
+					local bifurcatedBonus = conditionalBifurcateChance * extraDamage
+					if breakdown then
+						breakdown.CritBifurcates = {
+							s_format("%.2f%% ^8(pre-bifurcate crit chance)", critChancePercentage),
+							s_format("x %.2f%%", critChancePercentage),
+							s_format("= %.2f%% ^8(chance both crit rolls succeed)", bifurcateMultiChance),
+							s_format("/ %.2f%% ^8(chance at least one crit roll succeeds)", effectiveCritChance),
+							s_format("= %.2f ^8(crit Bifurcates effect)", 1 + conditionalBifurcateChance),
+						}
+					end
+					extraDamage = damageBonus + bifurcatedBonus
+					skillModList:NewMod("CritMultiplier", "MORE", floor(conditionalBifurcateChance * 100, 2), "Bifurcated Crit Damage Bonus", ModFlag.Hit)
 				end
 				output.CritMultiplier = 1 + m_max(0, extraDamage)
 			end
@@ -3708,6 +3750,7 @@ function calcs.offence(env, actor, activeSkill)
 		combineStat("PreEffectiveCritChance", "AVERAGE")
 		combineStat("CritChance", "AVERAGE")
 		combineStat("CritMultiplier", "AVERAGE")
+		combineStat("CritBifurcates", "AVERAGE")
 		combineStat("AverageDamage", "DPS")
 		combineStat("PvpAverageDamage", "DPS")
 		combineStat("TotalDPS", "DPS")

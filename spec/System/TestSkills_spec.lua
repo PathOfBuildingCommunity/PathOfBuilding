@@ -150,4 +150,90 @@ describe("TestAttacks", function()
 
 		assert.True(preAdrenalineMaxStages < build.calcsTab.mainEnv.player.activeSkillList[1].skillModList:Sum("BASE", nil, "Multiplier:BlightMaxStages"))
 	end)
+	local function setupBifurcate(socketGroup, bifurcate, lucky, turboLucky, noCritMulti)
+		newBuild()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+				New Item
+				Imbued Wand
+				Quality: 0
+				100% reduced lightning damage
+				adds 1 to 1 physical damage to spells
+				nearby enemies have 100% less armour
+			]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+		build.skillsTab:PasteSocketGroup(socketGroup)
+		runCallback("OnFrame")
+
+		local customCrit = 50 - 6 -- spark 6% base crit
+		build.configTab.input.customMods = string.format("+%d%% to critical hit chance\n", customCrit)
+			.. (bifurcate and "spell critical strike chance bifurcates\n" or "")
+			.. (lucky and "your critical strike chance is lucky\n" or "")
+			.. (turboLucky and "your lucky or unlucky effects use the best or worst from three rolls instead of two\n" or "")
+			.. (noCritMulti and "" or "your critical strike multiplier is 1000000%\n")
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		build.calcsTab:BuildOutput()
+		runCallback("OnFrame")
+
+		return build.calcsTab.mainOutput
+	end
+	local function closeEnough(a, b, epsilon)
+		if not epsilon then epsilon = 10 ^ -9 end
+		return math.abs(a - b) < epsilon
+	end
+	it("correctly calculates bifurcated critical hit damage", function()
+		local normalOutput = setupBifurcate("Spark 1/0  1")
+		assert.are.equals(50, normalOutput.CritChance)
+		assert.are.equals(10000, normalOutput.CritMultiplier)
+		assert.are.equals(10001, normalOutput.AverageHit)
+
+		local garukhanOutput = setupBifurcate("Spark 1/0  1", true)
+		assert.are.equals(50, garukhanOutput.PreBifurcateCritChance)
+		assert.are.equals(75, garukhanOutput.CritChance)
+		assert.is_true(closeEnough(1 + 1 / 3, garukhanOutput.CritBifurcates))
+		assert.are.equals(20000, garukhanOutput.AverageHit)
+	end)
+	it("correctly calculates bifurcated for every nth crits spells", function()
+		local normalOutput = setupBifurcate("Spark 1/0  1", nil, nil, nil, true)
+		assert.are.equals(1.5, normalOutput.CritMultiplier)
+
+		local garukhanOutput = setupBifurcate("Spark 1/0  1\nAssassin's Mark 1/0  1", nil, nil, nil, true)
+		assert.are.equals(1.8, garukhanOutput.CritMultiplier)
+
+		local garukhanOutput = setupBifurcate("Spark 1/0  1\nAssassin's Mark 1/0  1", true, nil, nil, true)
+		assert.are.equals(2.07, floor(garukhanOutput.CritMultiplier, 2))
+	end)
+	it("multiplies assassin's mark ", function()
+		local normalOutput = setupBifurcate("Lightning Tendrils 1/0  1")
+		assert.are.equals(200 / 3, normalOutput.CritChance)
+		assert.are.equals(10000, normalOutput.CritMultiplier)
+
+		local garukhanOutput = setupBifurcate("Lightning Tendrils 1/0  1", true)
+		assert.are.equals(50, garukhanOutput.PreBifurcateCritChance)
+		assert.is_true(closeEnough(100 / 3 + (200 / 3) * 0.75, garukhanOutput.CritChance, 10 ^ -6))
+		assert.are.equals(1.2, garukhanOutput.CritBifurcates)
+		local garukhanOutput = setupBifurcate("Lightning Tendrils of Eccentricity 1/0  1", true)
+		assert.are.equals(50, garukhanOutput.PreBifurcateCritChance)
+		assert.are.equals(80, garukhanOutput.CritChance)
+		assert.are.equals(1.25, garukhanOutput.CritBifurcates)
+	end)
+	it("correctly calculates lucky bifurcated critical hit damage", function()
+		local normalOutput = setupBifurcate("Spark 1/0  1", false, true)
+		assert.are.equals(75, normalOutput.CritChance)
+		assert.are.equals(10000, normalOutput.CritMultiplier)
+		assert.are.equals(15000.5, normalOutput.AverageHit)
+
+		local garukhanOutput = setupBifurcate("Spark 1/0  1", true, true)
+		assert.are.equals(75, garukhanOutput.PreBifurcateCritChance)
+		assert.are.equals(93.75, garukhanOutput.CritChance)
+		assert.are.equals(garukhanOutput.CritBifurcates, 16 / 10)
+		assert.are.equals(29999, garukhanOutput.AverageHit)
+
+		local garukhanOutput = setupBifurcate("Spark 1/0  1", true, true, true)
+		assert.are.equals(87.5, garukhanOutput.PreBifurcateCritChance)
+		assert.are.equals(98.4375, garukhanOutput.CritChance)
+		assert.are.equals(1 + 0.875 * 0.875 / (0.984375), garukhanOutput.CritBifurcates)
+		assert.is_true(math.abs(34998.5 - garukhanOutput.AverageHit) < 0.01)
+	end)
 end)
