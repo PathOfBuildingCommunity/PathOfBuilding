@@ -552,8 +552,9 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		local scrX, scrY = treeToScreen(group.x, group.y)
 		if group.ascendancyName then
 			if group.isAscendancyStart then
-				if group.ascendancyName ~= spec.curAscendClassBaseName and (not spec.curSecondaryAscendClass or group.ascendancyName ~= spec.curSecondaryAscendClass.id) then
-					SetDrawColor(1, 1, 1, 0.25)
+				local isSelectedAscendancy = group.ascendancyName == spec.curAscendClassBaseName or (spec.curSecondaryAscendClass and group.ascendancyName == spec.curSecondaryAscendClass.id)
+				if not isSelectedAscendancy then
+					SetDrawColor(1, 1, 1, 0.50)
 				end
 				self:DrawAsset(tree.assets["Classes"..group.ascendancyName], scrX, scrY, scale)
 
@@ -583,7 +584,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					end
 					if ascendancyData and ascendancyData.flavourTextRect then
 						local rect = ascendancyData.flavourTextRect
-						local textColor = "^x" .. ascendancyData.flavourTextColour
 
 						-- Normal ascendancy images are 1300x1300, bloodline appears to be 1488x1412
 						local offsetX = rect.x - (isAlternateAscendancy and 744 or 650)
@@ -591,7 +591,19 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 						local textX, textY = treeToScreen(group.x + offsetX, group.y + offsetY)
 
-						DrawString(textX, textY, "LEFT", 52 * scale, "FONTIN ITALIC", textColor .. ascendancyData.flavourText)
+						local flavourTextBaseFontSize = 52
+						local flavourTextMinZoom = 2.5
+						if self.zoom >= flavourTextMinZoom then
+							local textColor = "^x" .. ascendancyData.flavourTextColour
+							if not isSelectedAscendancy then
+								local colour = ascendancyData.flavourTextColour
+								textColor = string.format("^x%02X%02X%02X",
+									m_floor(tonumber(colour:sub(1, 2), 16) * 0.5),
+									m_floor(tonumber(colour:sub(3, 4), 16) * 0.5),
+									m_floor(tonumber(colour:sub(5, 6), 16) * 0.5))
+							end
+							DrawString(textX, textY, "LEFT", flavourTextBaseFontSize * scale, "FONTIN ITALIC", textColor .. ascendancyData.flavourText)
+						end
 					end
 				else
 					ConPrintTable(tree.classes)
