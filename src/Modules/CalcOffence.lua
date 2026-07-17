@@ -2964,6 +2964,11 @@ function calcs.offence(env, actor, activeSkill)
 						local overCap = preCapCritChance - 100
 						t_insert(breakdown.CritChance, s_format("Crit is overcapped by %.2f%% (%d%% increased Critical Strike Chance)", overCap, overCap / more / (baseCrit + base) * 100))
 					end
+					if skillModList:Flag(cfg, "BifurcateCrit") then
+						t_insert(breakdown.CritChance, "Critical Strike Bifurcates:")
+						t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f) x (1 - %.4f)", preBifurcateCritChance / 100, preBifurcateCritChance / 100))
+						t_insert(breakdown.CritChance, s_format("= %.2f%%", preSkillUseCritChance))
+					end
 					if env.mode_effective and (critRolls ~= 0 or skillModList:Flag(skillCfg, "Every3UseCrit") or skillModList:Flag(skillCfg, "Every5UseCrit")) then
 						if critRolls ~= 0 then
 							if skillModList:Flag(skillCfg, "Unexciting") then
@@ -2973,11 +2978,6 @@ function calcs.offence(env, actor, activeSkill)
 								t_insert(breakdown.CritChance, "Crit Chance is Lucky:")
 								t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f)^ %d", preLuckyCritChance / 100, critRolls + 1))
 							end
-						end
-						if skillModList:Flag(cfg, "BifurcateCrit") then
-							t_insert(breakdown.CritChance, "Critical Strike Bifurcates:")
-							t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f) x (1 - %.4f)", preBifurcateCritChance / 100, preBifurcateCritChance / 100))
-							t_insert(breakdown.CritChance, s_format("= %.2f%%", preSkillUseCritChance))
 						end
 						if skillModList:Flag(skillCfg, "Every3UseCrit") then
 							t_insert(breakdown.CritChance, s_format("+ %.2f%% ^8(crit every 3rd use)", (2 * preSkillUseCritChance + 100) / 3 - preSkillUseCritChance))
@@ -3046,6 +3046,7 @@ function calcs.offence(env, actor, activeSkill)
 						}
 					end
 					extraDamage = damageBonus + bifurcatedBonus
+					-- mod doesn't affect output and is purely descriptive
 					skillModList:NewMod("CritMultiplier", "MORE", floor(conditionalBifurcateChance * 100, 2), "Bifurcated Crit Damage Bonus", ModFlag.Hit)
 				end
 				output.CritMultiplier = 1 + m_max(0, extraDamage)
@@ -3750,7 +3751,6 @@ function calcs.offence(env, actor, activeSkill)
 		combineStat("PreEffectiveCritChance", "AVERAGE")
 		combineStat("CritChance", "AVERAGE")
 		combineStat("CritMultiplier", "AVERAGE")
-		combineStat("CritBifurcates", "AVERAGE")
 		combineStat("AverageDamage", "DPS")
 		combineStat("PvpAverageDamage", "DPS")
 		combineStat("TotalDPS", "DPS")
