@@ -608,6 +608,7 @@ function GemSelectClass:AddGemTooltip(gemInstance)
 		self.tooltip:AddLine(fontSizeTitle, colorCodes.GEM..grantedEffect.name, "FONTIN SC")
 		self.tooltip:AddSeparator(10)
 		self.tooltip:AddLine(fontSizeBig, "^x7F7F7F" .. gemInstance.gemData.tagString, "FONTIN SC")
+		self:AddGemAcquisitionInfo(gemInstance)
 		self:AddCommonGemInfo(gemInstance, grantedEffect, true)
 		self.tooltip:AddSeparator(10)
 		self.tooltip:AddLine(fontSizeTitle, colorCodes.GEM .. (gemInstance.gemData.secondaryEffectName or grantedEffectSecondary.name), "FONTIN SC")
@@ -623,8 +624,41 @@ function GemSelectClass:AddGemTooltip(gemInstance)
 			self.tooltip:AddSeparator(10)
 		end
 		self.tooltip:AddLine(fontSizeBig, "^x7F7F7F" .. gemInstance.gemData.tagString, "FONTIN SC")
+		self:AddGemAcquisitionInfo(gemInstance)
 		self:AddCommonGemInfo(gemInstance, grantedEffect, true, secondary and secondary.support and secondary)
 	end
+end
+
+function GemSelectClass:AddGemAcquisitionInfo(gemInstance)
+	if not self.skillsTab.showAcquisitionSource then
+		return
+	end
+	local info = data.gemAcquisitionSources and (
+		data.gemAcquisitionSources[gemInstance.gemData.name] or
+		data.gemAcquisitionSources[gemInstance.gemId]
+	)
+	if not info then
+		return
+	end
+	local className = self.skillsTab.build.spec and self.skillsTab.build.spec.curClassName
+	local location = string.format("%s (Act %s)", info.npc or "?", tostring(info.act or "?"))
+	local color, text
+	if info.reward == "all" or (type(info.reward) == "table" and info.reward[className]) then
+		color = colorCodes.POSITIVE
+		text = string.format("Quest reward from %s after %s", location, info.quest or "the quest")
+	elseif info.vendor == nil or info.vendor == "all" or (type(info.vendor) == "table" and info.vendor[className]) then
+		color = colorCodes.CRAFTED
+		text = string.format("Buy from %s after %s", location, info.quest or "the quest")
+	elseif (tonumber(info.act) or 0) <= 3 then
+		color = colorCodes.CRAFTED
+		text = "Buy from Siosa (Act 3) after A Fixture of Fate"
+	else
+		color = colorCodes.CRAFTED
+		text = "Buy from Lilly Roth (Act 6) after Fallen from Grace"
+	end
+	local fontSizeBig = main.showFlavourText and 18 or 16
+	self.tooltip:AddSeparator(6)
+	self.tooltip:AddLine(fontSizeBig, color .. text, "FONTIN SC")
 end
 
 function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mergeStatsFrom)

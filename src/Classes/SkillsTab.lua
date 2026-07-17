@@ -87,6 +87,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.sortGemsByDPS = true
 	self.sortGemsByDPSField = "CombinedDPS"
 	self.showSupportGemTypes = "ALL"
+	self.showAcquisitionSource = false
 	self.showLegacyGems = false
 	self.defaultGemLevel = "normalMaximum"
 	self.defaultGemQuality = main.defaultGemQuality
@@ -120,7 +121,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	-- Gem options
 	local optionInputsX = 170
 	local optionInputsY = 45
-	self.controls.optionSection = new("SectionControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { 0, optionInputsY + 50, 360, 156 }, "Gem Options")
+	self.controls.optionSection = new("SectionControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { 0, optionInputsY + 50, 360, 180 }, "Gem Options")
 	self.controls.sortGemsByDPS = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 70, 20 }, "Sort gems by DPS:", function(state)
 		self.sortGemsByDPS = state
 	end, nil, true)
@@ -147,6 +148,9 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.showSupportGemTypesLabel = new("LabelControl", { "RIGHT", self.controls.showSupportGemTypes, "LEFT" }, { -4, 0, 0, 16 }, "^7Show support gems:")
 	self.controls.showLegacyGems = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 166, 20 }, "^7Show legacy gems:", function(state)
 		self.showLegacyGems = state
+	end)
+	self.controls.showAcquisitionSource = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 190, 20 }, "^7Show acquisition source:", function(state)
+		self.showAcquisitionSource = state
 	end)
 
 	-- Socket group details
@@ -444,6 +448,10 @@ function SkillsTabClass:Load(xml, fileName)
 	self.controls.sortGemsByDPSFieldControl:SelByValue(xml.attrib.sortGemsByDPSField or "CombinedDPS", "type") 
 	self.showSupportGemTypes = self.controls.showSupportGemTypes:GetSelValueByKey("show")
 	self.sortGemsByDPSField = self.controls.sortGemsByDPSFieldControl:GetSelValueByKey("type")
+	if xml.attrib.showAcquisitionSource then
+		self.showAcquisitionSource = xml.attrib.showAcquisitionSource == "true"
+	end
+	self.controls.showAcquisitionSource.state = self.showAcquisitionSource
 	for _, node in ipairs(xml) do
 		if node.elem == "Skill" then
 			-- Old format, initialize skill sets if needed
@@ -474,6 +482,7 @@ function SkillsTabClass:Save(xml)
 		defaultGemQuality = tostring(self.defaultGemQuality),
 		sortGemsByDPS = tostring(self.sortGemsByDPS),
 		showSupportGemTypes = self.showSupportGemTypes,
+		showAcquisitionSource = tostring(self.showAcquisitionSource),
 		sortGemsByDPSField = self.sortGemsByDPSField,
 		showLegacyGems = tostring(self.showLegacyGems),
 	}
