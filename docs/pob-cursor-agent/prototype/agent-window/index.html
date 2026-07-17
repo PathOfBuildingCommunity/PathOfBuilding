@@ -393,8 +393,8 @@
   -->
   <div class="banner">
     <strong>PROTOTYPE — throwaway.</strong>
-    Sidecar-owned Agent Window mock (not PoB Lua). Flip variants with the bar below or
-    <code>?variant=A|B|C</code>. Fake PoB desktop behind the window.
+    Sidecar-owned Agent Window mock (not PoB Lua).     Flip variants with the bar below or
+    <code>?variant=D|A|B|C</code> — <strong>D</strong> is the chosen mix (A stack + C pill).
   </div>
 
   <div class="stage">
@@ -403,6 +403,65 @@
       <div class="desk-fake-pob">Tree / Items / Skills — agent window floats above</div>
 
       <!-- VARIANT A -->
+      <!-- VARIANT D (winner sketch): A stack + C pill when closed -->
+      <div class="win vC-strip hidden" id="variantDStrip" data-name="A+C pill">
+        <span class="dot" title="Sidecar connected"></span>
+        <strong style="font-size:12px">Agent</strong>
+        <span class="pill">Build · Spark</span>
+        <span class="pill accent">62%</span>
+        <button class="btn" type="button" id="dOpen">Open</button>
+      </div>
+      <div class="win vA hidden" id="variantD" data-name="A stack + C pill">
+        <div class="titlebar">
+          <h1>PoB Agent</h1>
+          <span class="pill accent">Composer 2.5</span>
+          <button class="btn ghost" type="button" id="dMinimize" title="Collapse to pill">_</button>
+          <button class="btn ghost" type="button" id="dClose" title="Collapse to pill">✕</button>
+        </div>
+        <div class="threads">
+          <button class="active" type="button">Build · Spark Hierophant</button>
+          <button type="button">Research</button>
+          <button type="button">+ Build thread</button>
+        </div>
+        <div class="chat">
+          <div class="msg user">
+            <div class="meta">You · build thread</div>
+            Can we squeeze more DPS without losing spell suppression?
+          </div>
+          <div class="msg agent">
+            <div class="meta">Agent</div>
+            Trade life for cluster jewels on the right; keep Watcher’s Eye for suppression.
+            <a class="cite" href="#">poewiki · Spell Suppression</a>
+            <a class="cite" href="#">poe.ninja/poe1 · similar trees</a>
+          </div>
+        </div>
+        <div class="drawer">
+          <header>
+            Proposal · multi-surface · all-or-nothing
+            <span class="pill">ops JSON</span>
+          </header>
+          <div class="body">
+            <div class="diff"><span class="add">+ tree: allocate Midpoint (12 nodes)</span>
+<span class="del">− tree: refund Heart of Oak path</span>
+<span class="add">+ item: Large Cluster — Spell Blast</span>
+<span class="add">+ config: bossing = true</span></div>
+          </div>
+          <div class="actions">
+            <button class="btn primary" type="button">Apply</button>
+            <button class="btn danger" type="button">Reject</button>
+            <button class="btn" type="button">Undo last</button>
+          </div>
+        </div>
+        <div class="composer">
+          <textarea placeholder="Ask about this build…"></textarea>
+          <button class="btn primary" type="button">Send</button>
+        </div>
+        <div class="usage">
+          <span>Usage 62% of daily cap</span>
+          <div class="bar"><span></span></div>
+        </div>
+      </div>
+
       <div class="win vA" id="variantA" data-name="Chat stack + proposal drawer">
         <div class="titlebar">
           <h1>PoB Agent</h1>
@@ -575,15 +634,16 @@
 
   <script>
     const VARIANTS = [
+      { key: "D", name: "WINNER: A stack + C pill", show: ["variantD"] },
       { key: "A", name: "Chat stack + proposal drawer", show: ["variantA"] },
       { key: "B", name: "Split chat | proposal", show: ["variantB"] },
       { key: "C", name: "Compact strip + tabs", show: ["variantCStrip", "variantC"] },
     ];
-    const allIds = ["variantA", "variantB", "variantCStrip", "variantC"];
+    const allIds = ["variantA", "variantB", "variantCStrip", "variantC", "variantD", "variantDStrip"];
 
     function getVariant() {
-      const v = new URLSearchParams(location.search).get("variant") || "A";
-      return VARIANTS.find((x) => x.key === v) ? v : "A";
+      const v = new URLSearchParams(location.search).get("variant") || "D";
+      return VARIANTS.find((x) => x.key === v) ? v : "D";
     }
 
     function setVariant(key) {
@@ -601,6 +661,11 @@
       // C: panel starts open for evaluation; strip always visible when C
       if (key === "C") {
         document.getElementById("variantC").classList.remove("hidden");
+      }
+      // D: start expanded; pill shown when minimized
+      if (key === "D") {
+        document.getElementById("variantDStrip").classList.add("hidden");
+        document.getElementById("variantD").classList.remove("hidden");
       }
       document.getElementById("variantLabel").textContent = key + " — " + meta.name;
       console.log("[prototype state]", { variant: key, name: meta.name, visible: meta.show });
@@ -620,6 +685,20 @@
       if (e.key === "ArrowLeft") cycle(-1);
       if (e.key === "ArrowRight") cycle(1);
     });
+
+    function dCollapse() {
+      document.getElementById("variantD").classList.add("hidden");
+      document.getElementById("variantDStrip").classList.remove("hidden");
+      console.log("[prototype state]", { d: "pill" });
+    }
+    function dExpand() {
+      document.getElementById("variantDStrip").classList.add("hidden");
+      document.getElementById("variantD").classList.remove("hidden");
+      console.log("[prototype state]", { d: "stack" });
+    }
+    document.getElementById("dOpen").onclick = dExpand;
+    document.getElementById("dMinimize").onclick = dCollapse;
+    document.getElementById("dClose").onclick = dCollapse;
 
     document.getElementById("cOpen").onclick = () => {
       document.getElementById("variantC").classList.remove("hidden");
