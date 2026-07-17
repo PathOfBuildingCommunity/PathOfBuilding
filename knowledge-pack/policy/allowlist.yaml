@@ -1,0 +1,22 @@
+# PoE1 sources the agent may fetch or cite. See docs/research/poe1-knowledge-sources-patch-notes.md.
+version: 1
+hosts:
+  - pathofexile.com
+  - poewiki.net
+  - poe.ninja
+  - reddit.com
+  - poedb.tw
+  - maxroll.gg
+  - pobb.in
+path_prefixes:
+  - pathofexile.com/forum/view-forum/patch-notes
+  - pathofexile.com/news/rss
+  - pathofexile.com/developer/docs
+  - pathofexile.com/api/trade
+  - github.com/grindinggear/skilltree-export
+  - github.com/grindinggear/atlastree-export
+  - poe.ninja/poe1/
+  - reddit.com/r/pathofexile
+  - reddit.com/r/PathOfExileBuilds
+  - reddit.com/r/pathofexiledev
+  - maxroll.gg/poe/

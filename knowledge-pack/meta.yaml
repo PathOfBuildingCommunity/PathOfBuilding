@@ -1,0 +1,5 @@
+# Pack-level staleness signals for the agent (see docs/pob-cursor-agent/KNOWLEDGE-PACK.md).
+pack_version: "0.1.0"
+current_patch: "3.29.0"
+generation: 1
+last_sync: null

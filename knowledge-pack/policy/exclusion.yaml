@@ -1,0 +1,6 @@
+# Non-URL exclusion rules for gates (forum ids, version schemes).
+version: 1
+denied_forum_ids:
+  - "2212"
+deny_version_patterns:
+  - "^0\\."

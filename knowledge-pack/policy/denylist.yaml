@@ -1,0 +1,12 @@
+# PoE2 and lookalike traps — host/namespace beats name equality.
+version: 1
+hosts:
+  - pathofexile2.com
+  - poe2wiki.net
+  - poe2db.tw
+path_prefixes:
+  - pathofexile.com/forum/view-forum/2212
+  - poe.ninja/poe2/
+  - maxroll.gg/poe2/
+  - github.com/grindinggear/poe2-skilltree-export
+  - reddit.com/r/PathOfExile2
