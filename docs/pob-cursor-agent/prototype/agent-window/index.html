@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PROTOTYPE — PoB Agent Window UX</title>
+  <style>
+    :root {
+      --bg: #1a1d21;
+      --panel: #23282e;
+      --panel-2: #2b3138;
+      --border: #3a424c;
+      --text: #e8ecef;
+      --muted: #9aa3ad;
+      --accent: #c4a35a;
+      --ok: #5a9e6f;
+      --danger: #c45a5a;
+      --warn: #c49a5a;
+      --font: "Segoe UI", system-ui, sans-serif;
+      --mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font);
+      background: #0f1113;
+      color: var(--text);
+    }
+    .banner {
+      background: #3d2e12;
+      color: #f0d9a0;
+      padding: 8px 14px;
+      font-size: 13px;
+      border-bottom: 1px solid #6a5220;
+    }
+    .banner code { font-family: var(--mono); font-size: 12px; }
+    .stage {
+      display: grid;
+      place-items: center;
+      padding: 24px 16px 96px;
+      min-height: calc(100vh - 40px);
+    }
+    .desk {
+      width: min(1100px, 100%);
+      height: 640px;
+      background:
+        linear-gradient(180deg, #2a3038 0%, #1e2328 100%);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,.45);
+    }
+    .desk-label {
+      position: absolute;
+      top: 10px;
+      left: 12px;
+      font-size: 11px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      z-index: 1;
+    }
+    .desk-fake-pob {
+      position: absolute;
+      inset: 36px 12px 12px;
+      border: 1px dashed #3f4750;
+      border-radius: 4px;
+      color: #5c6670;
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      pointer-events: none;
+    }
+
+    /* Shared chrome bits */
+    .win {
+      position: absolute;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.5);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 2;
+    }
+    .titlebar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      cursor: default;
+      user-select: none;
+    }
+    .titlebar h1 {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 600;
+      flex: 1;
+    }
+    .pill {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--panel-2);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .pill.accent { color: var(--accent); border-color: #6a5a30; }
+    .btn {
+      border: 1px solid var(--border);
+      background: var(--panel-2);
+      color: var(--text);
+      border-radius: 5px;
+      padding: 6px 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .btn:hover { border-color: #5a6570; }
+    .btn.primary { background: #3a4a32; border-color: #5a7a4a; color: #d8efd0; }
+    .btn.danger { background: #4a3030; border-color: #7a4a4a; color: #efd0d0; }
+    .btn.ghost { background: transparent; }
+    .msg { padding: 10px 12px; font-size: 13px; line-height: 1.45; }
+    .msg.user { background: #1f262c; }
+    .msg.agent { background: transparent; border-top: 1px solid #2a3138; }
+    .msg .meta { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+    .cite {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .composer {
+      display: flex;
+      gap: 8px;
+      padding: 10px;
+      border-top: 1px solid var(--border);
+      background: var(--panel);
+    }
+    .composer textarea {
+      flex: 1;
+      resize: none;
+      height: 56px;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px;
+      font: inherit;
+      font-size: 13px;
+    }
+    .usage {
+      font-size: 11px;
+      color: var(--muted);
+      padding: 4px 10px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .usage .bar {
+      flex: 1;
+      height: 6px;
+      align-self: center;
+      background: #2a3138;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .usage .bar > span {
+      display: block;
+      height: 100%;
+      width: 62%;
+      background: var(--warn);
+    }
+    .diff {
+      font-family: var(--mono);
+      font-size: 11px;
+      background: #14181c;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px;
+      white-space: pre-wrap;
+    }
+    .diff .add { color: #8fdf9f; }
+    .diff .del { color: #efa0a0; }
+    .hidden { display: none !important; }
+
+    /* ===== Variant A: Chat-first stack + proposal drawer ===== */
+    .vA {
+      right: 18px;
+      bottom: 18px;
+      width: 380px;
+      height: 560px;
+    }
+    .vA .threads {
+      display: flex;
+      gap: 4px;
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border);
+      background: var(--panel);
+      overflow-x: auto;
+    }
+    .vA .threads button {
+      white-space:nowrap;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .vA .threads button.active {
+      background: var(--panel-2);
+      border-color: var(--border);
+      color: var(--text);
+    }
+    .vA .chat { flex: 1; overflow: auto; }
+    .vA .drawer {
+      border-top: 1px solid var(--border);
+      background: var(--panel);
+      max-height: 42%;
+      display: flex;
+      flex-direction: column;
+    }
+    .vA .drawer header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .vA .drawer .body { padding: 0 10px 10px; overflow: auto; }
+    .vA .drawer .actions {
+      display: flex;
+      gap: 8px;
+      padding: 0 10px 10px;
+    }
+
+    /* ===== Variant B: Split — chat | always-on proposal ===== */
+    .vB {
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -48%);
+      width: 860px;
+      height: 520px;
+    }
+    .vB .body-row {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 0;
+    }
+    .vB .left, .vB .right {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      overflow: hidden;
+    }
+    .vB .right { border-left: 1px solid var(--border); background: #171b1f; }
+    .vB .rail {
+      display: flex;
+      gap: 6px;
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+    }
+    .vB .chat { flex: 1; overflow: auto; }
+    .vB .prop-head {
+      padding: 10px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .vB .prop-body { flex: 1; overflow: auto; padding: 10px 12px; }
+    .vB .prop-actions {
+      display: flex;
+      gap: 8px;
+      padding: 10px 12px;
+      border-top: 1px solid var(--border);
+    }
+    .vB select {
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 4px 6px;
+      font-size: 12px;
+    }
+
+    /* ===== Variant C: Compact strip → expands to panels ===== */
+    .vC-strip {
+      right: 20px;
+      bottom: 20px;
+      width: auto;
+      height: auto;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+    }
+    .vC-strip .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--ok);
+    }
+    .vC-panel {
+      right: 20px;
+      bottom: 64px;
+      width: 420px;
+      height: 480px;
+    }
+    .vC-panel .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+    .vC-panel .tabs button {
+      background: var(--panel);
+      border: 0;
+      border-right: 1px solid var(--border);
+      color: var(--muted);
+      padding: 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .vC-panel .tabs button:last-child { border-right: 0; }
+    .vC-panel .tabs button.active {
+      color: var(--text);
+      background: var(--bg);
+      box-shadow: inset 0 -2px 0 var(--accent);
+    }
+    .vC-panel .pane { flex: 1; overflow: auto; display: none; flex-direction: column; }
+    .vC-panel .pane.active { display: flex; }
+    .vC-panel .history-item {
+      padding: 10px 12px;
+      border-bottom: 1px solid #2a3138;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .vC-panel .history-item:hover { background: #1f262c; }
+    .vC-panel .history-item small { display: block; color: var(--muted); margin-top: 2px; }
+
+    /* Switcher */
+    .switcher {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      background: #f4f1ea;
+      color: #1a1a1a;
+      border-radius: 999px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.35);
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .switcher button {
+      border: 0;
+      background: #1a1a1a;
+      color: #f4f1ea;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+    }
+    .switcher .label { min-width: 220px; text-align: center; }
+    .switcher .hint { font-weight: 400; font-size: 11px; color: #555; display: block; }
+  </style>
+</head>
+<body>
+  <!--
+    PROTOTYPE (throwaway): Three variants of the PoB Cursor Agent floating window,
+    switchable via ?variant=A|B|C. Answers: open/close, build vs research threads,
+    history, streaming+citations, proposal diff, confirm/reject.
+    One command: open this file in a browser (or npx --yes serve docs/pob-cursor-agent/prototype/agent-window).
+  -->
+  <div class="banner">
+    <strong>PROTOTYPE — throwaway.</strong>
+    Sidecar-owned Agent Window mock (not PoB Lua). Flip variants with the bar below or
+    <code>?variant=A|B|C</code>. Fake PoB desktop behind the window.
+  </div>
+
+  <div class="stage">
+    <div class="desk" id="desk">
+      <div class="desk-label">Fake Path of Building (backdrop only)</div>
+      <div class="desk-fake-pob">Tree / Items / Skills — agent window floats above</div>
+
+      <!-- VARIANT A -->
+      <div class="win vA" id="variantA" data-name="Chat stack + proposal drawer">
+        <div class="titlebar">
+          <h1>PoB Agent</h1>
+          <span class="pill accent">Composer 2.5</span>
+          <button class="btn ghost" type="button" title="Close">✕</button>
+        </div>
+        <div class="threads">
+          <button class="active" type="button">Build · Spark Hierophant</button>
+          <button type="button">Research</button>
+          <button type="button">+ Build thread</button>
+        </div>
+        <div class="chat">
+          <div class="msg user">
+            <div class="meta">You · build thread</div>
+            Can we squeeze more DPS without losing spell suppression?
+          </div>
+          <div class="msg agent">
+            <div class="meta">Agent · streaming…</div>
+            I’d trade a bit of life for cluster jewels on the right side — suppression stays ≥100% if we keep the Watcher’s Eye.
+            <a class="cite" href="#">poewiki · Spell Suppression</a>
+            <a class="cite" href="#">poe.ninja/poe1 · similar trees</a>
+          </div>
+        </div>
+        <div class="drawer">
+          <header>
+            Proposal · multi-surface · all-or-nothing
+            <span class="pill">ops JSON</span>
+          </header>
+          <div class="body">
+            <div class="diff"><span class="add">+ tree: allocate Midpoint (12 nodes)</span>
+<span class="del">− tree: refund Heart of Oak path</span>
+<span class="add">+ item: Large Cluster — Spell Blast</span>
+<span class="add">+ config: bossing = true</span></div>
+          </div>
+          <div class="actions">
+            <button class="btn primary" type="button">Apply</button>
+            <button class="btn danger" type="button">Reject</button>
+            <button class="btn" type="button">Undo last</button>
+          </div>
+        </div>
+        <div class="composer">
+          <textarea placeholder="Ask about this build…"></textarea>
+          <button class="btn primary" type="button">Send</button>
+        </div>
+        <div class="usage">
+          <span>Usage 62% of daily cap</span>
+          <div class="bar"><span></span></div>
+        </div>
+      </div>
+
+      <!-- VARIANT B -->
+      <div class="win vB hidden" id="variantB" data-name="Split chat | proposal">
+        <div class="titlebar">
+          <h1>PoB Agent — floating</h1>
+          <span class="pill accent">Composer 2.5</span>
+          <button class="btn ghost" type="button">_</button>
+          <button class="btn ghost" type="button">✕</button>
+        </div>
+        <div class="body-row">
+          <div class="left">
+            <div class="rail">
+              <label class="pill">Thread</label>
+              <select>
+                <option>Build · Spark Hierophant</option>
+                <option>Research (no Apply)</option>
+              </select>
+              <button class="btn" type="button">History</button>
+            </div>
+            <div class="chat">
+              <div class="msg user">
+                <div class="meta">You</div>
+                Why doesn’t Unleash work the way I expect with this setup?
+              </div>
+              <div class="msg agent">
+                <div class="meta">Agent</div>
+                Checking PoE1 sources only…
+                <a class="cite" href="#">pathofexile.com · 3.25 notes</a>
+                <a class="cite" href="#">r/PathOfExileBuilds</a>
+              </div>
+            </div>
+            <div class="composer">
+              <textarea placeholder="Message…"></textarea>
+              <button class="btn primary" type="button">Send</button>
+            </div>
+          </div>
+          <div class="right">
+            <div class="prop-head">
+              <span>Proposal diff (always visible)</span>
+              <span class="pill">awaiting confirm</span>
+            </div>
+            <div class="prop-body">
+              <p style="font-size:12px;color:var(--muted);margin:0 0 8px">
+                Human summary from ops · Compare in PoB is optional
+              </p>
+              <div class="diff"><span class="add">+ gem: Unleash → Controlled Destruction</span>
+<span class="add">+ config: condition:EnemyIsRare = false</span></div>
+            </div>
+            <div class="prop-actions">
+              <button class="btn primary" type="button">Apply all</button>
+              <button class="btn danger" type="button">Reject</button>
+            </div>
+            <div class="usage">
+              <span>62% cap · hard-stop at 100%</span>
+              <div class="bar"><span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VARIANT C strip + panel -->
+      <div class="win vC-strip" id="variantCStrip" data-name="Compact strip">
+        <span class="dot" title="Sidecar connected"></span>
+        <strong style="font-size:12px">Agent</strong>
+        <span class="pill">Build</span>
+        <button class="btn" type="button" id="cOpen">Open</button>
+        <button class="btn ghost" type="button">✕</button>
+      </div>
+      <div class="win vC-panel hidden" id="variantC" data-name="Compact strip + tabs">
+        <div class="titlebar">
+          <h1>Agent</h1>
+          <span class="pill accent">Composer 2.5</span>
+          <button class="btn ghost" type="button" id="cClose">✕</button>
+        </div>
+        <div class="tabs">
+          <button class="active" type="button" data-pane="chat">Chat</button>
+          <button type="button" data-pane="proposal">Proposal</button>
+          <button type="button" data-pane="history">History</button>
+        </div>
+        <div class="pane active" data-pane="chat">
+          <div class="msg user"><div class="meta">You · Research</div>Link the wiki page for Mageblood?</div>
+          <div class="msg agent">
+            <div class="meta">Agent</div>
+            PoE1 only:
+            <a class="cite" href="#">poewiki.net · Mageblood</a>
+          </div>
+          <div class="composer">
+            <textarea placeholder="Ask…"></textarea>
+            <button class="btn primary" type="button">Send</button>
+          </div>
+          <div class="usage"><span>Research thread · 62%</span><div class="bar"><span></span></div></div>
+        </div>
+        <div class="pane" data-pane="proposal">
+          <div class="prop-body" style="padding:12px">
+            <div class="diff"><span class="add">+ item: Mageblood</span>
+<span class="del">− item: Headhunter</span></div>
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <button class="btn primary" type="button">Apply</button>
+              <button class="btn danger" type="button">Reject</button>
+              <button class="btn" type="button">Undo</button>
+            </div>
+          </div>
+        </div>
+        <div class="pane" data-pane="history">
+          <div class="history-item">Build · Spark Hierophant<small>Cursor agentId · 12 messages</small></div>
+          <div class="history-item">Research<small>Cursor agentId · 4 messages</small></div>
+          <div class="history-item">Build · RF Chieftain<small>Cursor agentId · 7 messages</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="switcher" id="switcher" role="toolbar" aria-label="Prototype variant switcher">
+    <button type="button" id="prev" aria-label="Previous variant">←</button>
+    <div class="label">
+      <span id="variantLabel">A — Chat stack + proposal drawer</span>
+      <span class="hint">← → keys · not part of the design</span>
+    </div>
+    <button type="button" id="next" aria-label="Next variant">→</button>
+  </div>
+
+  <script>
+    const VARIANTS = [
+      { key: "A", name: "Chat stack + proposal drawer", show: ["variantA"] },
+      { key: "B", name: "Split chat | proposal", show: ["variantB"] },
+      { key: "C", name: "Compact strip + tabs", show: ["variantCStrip", "variantC"] },
+    ];
+    const allIds = ["variantA", "variantB", "variantCStrip", "variantC"];
+
+    function getVariant() {
+      const v = new URLSearchParams(location.search).get("variant") || "A";
+      return VARIANTS.find((x) => x.key === v) ? v : "A";
+    }
+
+    function setVariant(key) {
+      const params = new URLSearchParams(location.search);
+      params.set("variant", key);
+      history.replaceState(null, "", "?" + params.toString());
+      render();
+    }
+
+    function render() {
+      const key = getVariant();
+      const meta = VARIANTS.find((x) => x.key === key);
+      allIds.forEach((id) => document.getElementById(id).classList.add("hidden"));
+      meta.show.forEach((id) => document.getElementById(id).classList.remove("hidden"));
+      // C: panel starts open for evaluation; strip always visible when C
+      if (key === "C") {
+        document.getElementById("variantC").classList.remove("hidden");
+      }
+      document.getElementById("variantLabel").textContent = key + " — " + meta.name;
+      console.log("[prototype state]", { variant: key, name: meta.name, visible: meta.show });
+    }
+
+    function cycle(delta) {
+      const i = VARIANTS.findIndex((x) => x.key === getVariant());
+      const next = VARIANTS[(i + delta + VARIANTS.length) % VARIANTS.length];
+      setVariant(next.key);
+    }
+
+    document.getElementById("prev").onclick = () => cycle(-1);
+    document.getElementById("next").onclick = () => cycle(1);
+    document.addEventListener("keydown", (e) => {
+      const t = e.target;
+      if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
+      if (e.key === "ArrowLeft") cycle(-1);
+      if (e.key === "ArrowRight") cycle(1);
+    });
+
+    document.getElementById("cOpen").onclick = () => {
+      document.getElementById("variantC").classList.remove("hidden");
+      console.log("[prototype state]", { cPanel: "open" });
+    };
+    document.getElementById("cClose").onclick = () => {
+      document.getElementById("variantC").classList.add("hidden");
+      console.log("[prototype state]", { cPanel: "closed" });
+    };
+    document.querySelectorAll("#variantC .tabs button").forEach((btn) => {
+      btn.onclick = () => {
+        document.querySelectorAll("#variantC .tabs button").forEach((b) => b.classList.remove("active"));
+        document.querySelectorAll("#variantC .pane").forEach((p) => p.classList.remove("active"));
+        btn.classList.add("active");
+        document.querySelector('#variantC .pane[data-pane="' + btn.dataset.pane + '"]').classList.add("active");
+        console.log("[prototype state]", { cTab: btn.dataset.pane });
+      };
+    });
+
+    render();
+  </script>
+</body>
+</html>
