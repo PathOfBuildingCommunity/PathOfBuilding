@@ -154,7 +154,7 @@ function main:Init()
 	local function loadItemDBs()
 		for type, typeList in pairsYield(data.uniques) do
 			for _, raw in pairs(typeList) do
-				newItem = new("Item", raw, "UNIQUE", true)
+				local newItem = new("Item", raw, "UNIQUE", true)
 				if newItem.base then
 					self.uniqueDB.list[newItem.name] = newItem
 				elseif launch.devMode then
@@ -167,7 +167,7 @@ function main:Init()
 		ConPrintf("Uniques loaded")
 
 		for _, raw in pairsYield(data.rares) do
-			newItem = new("Item", raw, "RARE", true)
+			local newItem = new("Item", raw, "RARE", true)
 			if newItem.base then
 				if newItem.crafted then
 					if newItem.base.implicit and #newItem.implicitModLines == 0 then

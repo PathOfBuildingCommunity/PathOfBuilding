@@ -80,9 +80,19 @@ for _, curInfluenceInfo in ipairs(influenceInfo) do
 end
 
 local lineFlags = {
-	["crafted"] = true, ["crucible"] = true, ["custom"] = true, ["eater"] = true, ["enchant"] = true,
-	["exarch"] = true, ["fractured"] = true, ["implicit"] = true, ["scourge"] = true, ["synthesis"] = true,
-	["mutated"] = true, ["unscalable"] = true
+	["crafted"] = true,
+	["crucible"] = true,
+	["custom"] = true,
+	["eater"] = true,
+	["enchant"] = true,
+	["exarch"] = true,
+	["fractured"] = true,
+	["implicit"] = true,
+	["scourge"] = true,
+	["synthesis"] = true,
+	["mutated"] = true,
+	["unscalable"] = true,
+	["mutateActive"] = true
 }
 
 -- Special function to store unique instances of modifier on specific item slots
@@ -377,6 +387,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.requirements.dex = 0
 	self.requirements.int = 0
 	self.baseLines = { }
+	-- assume the item is not foulborn. if it is, this will be set to true when
+	-- a mod has the mutated tag
+	self.foulborn = false
 	local importedLevelReq
 	local flaskBuffLines
 	local tinctureBuffLines
@@ -468,7 +481,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			local possibleLineFlags = fullModName:gsub("Foulborn", "Mutated"):match("(.*)Modifier.*")
 			if possibleLineFlags then
 				for flag in possibleLineFlags:gmatch("%a+") do
-					if lineFlags[flag:lower()] then
+					local flagLower = flag:lower()
+					if lineFlags[flagLower] then
 						linePrefix = linePrefix .. "{" .. flag:lower() .. "}"
 					end
 				end
@@ -695,6 +709,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						for tag in val:gmatch("[%a_]+") do
 							t_insert(modLine.modTags, tag)
 						end
+					elseif k == "originalLine" then
+						modLine.originalLine = val
 					elseif k == "range" then
 						modLine.range = tonumber(val)
 					elseif k == "corruptedRange" then
@@ -771,8 +787,14 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						if not (self.rarity == "NORMAL" or self.rarity == "MAGIC") then
 							self.title = self.name
 						end
-						if self.title and self.title:find("Foulborn") then
-							self.foulborn = true
+						if self.rarity == "UNIQUE" and self.title
+							-- the foulborn transformation on this item
+							-- increases the radius, which isn't a mod line
+							-- in PoB, which makes it incompatible with this
+							-- approach
+							and not self.title:lower():find("might of the meek") then
+							self.mutatedLines = data.foulbornMap[self.title:gsub("^[Ff]oulborn ", "")]
+
 						end
 						self.type = base.type
 						self.base = base
@@ -892,20 +914,19 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				end
 				local rangedLine = itemLib.applyRange(line, 1, catalystScalar, modLine.corruptedRange)
 				local modList, extra = modLib.parseMod(rangedLine)
-				if (not modList or extra) and self.rawLines[l+1] then
+				if (not modList or extra) and self.rawLines[l + 1] then
 					-- Try to combine it with the next line
 					local nextLine = self.rawLines[l+1]:gsub("%b{}", ""):gsub(" ?%(%l+%)","")
 					local combLine = line.." "..nextLine
 					rangedLine = itemLib.applyRange(combLine, 1, catalystScalar, modLine.corruptedRange)
 					modList, extra = modLib.parseMod(rangedLine, true)
 					if modList and not extra then
-						line = line.."\n"..nextLine
+						line = line .. "\n" .. nextLine
 						l = l + 1
 					else
 						modList, extra = modLib.parseMod(rangedLine)
 					end
 				end
-
 				local lineLower = line:lower()
 				if lineLower == "implicit modifiers cannot be changed" then
 					self.implicitsCannotBeChanged = true
@@ -1095,6 +1116,65 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			self.variantAlt5 = m_min(#self.variantList, self.variantAlt5 or #self.variantList)
 		end
 	end
+	local function normalise(line)
+		return line:gsub("%d+%.?%d*", "#")
+			:gsub("%(%-?#%-#%)", "#"):lower()
+			:gsub("\n", " ")
+	end
+	-- iterate through mutated mod transformations for this item. both sides of
+	-- the transformation are used to mark mod lines which match lines on the
+	-- modifier
+	if self.mutatedLines then
+		for origModId, foulModId in pairs(self.mutatedLines) do
+			local function checkMod(modId, newModId, mutated)
+				local originalMod = mutated and data.itemMods.Foulborn[modId] or data.itemMods.Item[modId]
+				if not originalMod then
+					ConPrintf("mod not found while testing mutated mods %s, %s", modId, mutated)
+					return
+				end
+				local matchingLines = {}
+				local lineCount = 0
+				for _, statDesc in pairs(originalMod.tradeHashes) do
+					local statLine = normalise(table.concat(statDesc, " "))
+					if statLine ~= "" then
+						lineCount = lineCount + 1
+						for _, modLine in ipairs(self.explicitModLines) do
+							if normalise(modLine.line:gsub("\n", " ")) == statLine and
+								self:CheckModLineVariant(modLine) then
+								table.insert(matchingLines, modLine)
+							end
+						end
+					end
+				end
+				if lineCount == #matchingLines then
+					for _, modLine in ipairs(matchingLines) do
+						modLine.modId = modId
+						modLine.newModId = newModId
+						if mutated then
+							modLine.mutated = true
+						end
+					end
+				end
+			end
+			-- check if there are foulborn source mods
+			checkMod(origModId, foulModId)
+			-- check if there are foulborn mods which can be reverted, and mark
+			-- them as mutated as in case they are missing the flag
+			checkMod(foulModId, origModId, true)
+		end
+	end
+	for _, v in ipairs(self.explicitModLines) do
+		if v.mutated then
+			self.foulborn = true
+		end
+	end
+	-- ensure that foulborn items have the name prefix
+	local hasFoulbornPrefix = self.title and self.title:lower():find("^foulborn ")
+	if self.foulborn and not hasFoulbornPrefix then
+		self.title = "Foulborn " .. self.title
+	elseif not self.foulborn and hasFoulbornPrefix then
+		self.title = self.title:gsub("[Ff]oulborn ", "")
+	end
 	if not self.quality then
 		self:NormaliseQuality()
 		if highQuality then
@@ -1109,6 +1189,44 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	end
 end
 
+---@param modId string The id which will be present on the removed mod lines
+---@param newModId string Id of the new mod which is used to get the new mod lines
+---@param mutatedValue boolean? Whether the new mod is a mutated line. Also determines what table the new mod is taken from.
+function ItemClass:MutateMod(modId, newModId, mutatedValue)
+	local newMod = mutatedValue and data.itemMods.Foulborn[newModId] or data.itemMods.ItemExclusive[newModId]
+	if not newMod then
+		ConPrintf("Invalid mod id given to MutateMod: %s, %s, %s", modId, newModId, mutatedValue)
+		return
+	end
+	local i = 1
+	-- where we will reinsert the mod lines
+	local insertIdx
+	local variantList
+	while self.explicitModLines[i] do
+		local modLine = self.explicitModLines[i]
+		if modLine.modId == modId and self:CheckModLineVariant(modLine) then
+			if not insertIdx then
+				insertIdx = i
+				variantList = modLine.variantList
+			end
+			table.remove(self.explicitModLines, i)
+		else
+			i = i + 1
+		end
+	end
+	for _, line in pairs(newMod.tradeHashes) do
+		local lineString = table.concat(line, " ")
+		if lineString ~= "" then
+			local modLine        = { line = lineString, modTags = newMod.modTags, variantList = variantList, mutated = mutatedValue }
+			local rangedLine     = itemLib.applyRange(lineString, main.defaultItemAffixQuality, 1)
+			local modList, extra = modLib.parseMod(rangedLine)
+			modLine.modList      = modList
+			modLine.extra        = extra
+			table.insert(self.explicitModLines, insertIdx, modLine)
+		end
+	end
+	self:BuildAndParseRaw()
+end
 function ItemClass:NormaliseQuality()
 	if self.base and (self.base.armour or self.base.weapon or self.base.flask or self.base.tincture) then
 		if not self.quality then
@@ -1279,8 +1397,16 @@ function ItemClass:BuildRaw()
 		if modLine.crucible then
 			line = "{crucible}" .. line
 		end
+		-- ggg tag for cultivated/foulborn mod
 		if modLine.mutated then
 			line = "{mutated}" .. line
+		end
+		-- pob markers for application and removal of mutated mod
+		if modLine.mutateActive then
+			line = "{mutateActive}" .. line
+		end
+		if modLine.originalLine then
+			line = string.format("{originalLine:%s}", modLine.originalLine) .. line
 		end
 		if modLine.fractured then
 			line = "{fractured}" .. line
@@ -1474,7 +1600,7 @@ function ItemClass:Craft()
 end
 
 function ItemClass:CheckModLineVariant(modLine)
-	return not modLine.variantList 
+	return not modLine.variantList
 		or modLine.variantList[self.variant]
 		or (self.hasAltVariant and modLine.variantList[self.variantAlt])
 		or (self.hasAltVariant2 and modLine.variantList[self.variantAlt2])
@@ -1861,22 +1987,25 @@ function ItemClass:BuildModList()
 				self.classRestriction = modLine.line:gsub("{variant:([%d,]+)}", ""):match("Requires Class (.+)")
 			end
 			-- handle understood modifier variable properties
-			if not modLine.extra then
-				if modLine.range then
-					-- Check if line actually has a range
-					if modLine.line:find("%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)") then
-						local strippedModeLine = modLine.line:gsub("\n"," ")						
-						local catalystScalar = getCatalystScalar(self.catalyst, modLine, self.catalystQuality)
-						-- Put the modified value into the string
-						local line = itemLib.applyRange(strippedModeLine, modLine.range, catalystScalar, modLine.corruptedRange)
-						-- Check if we can parse it before adding the mods
-						local list, extra = modLib.parseMod(line)
-						if list and not extra then
-							modLine.modList = list
-							t_insert(self.rangeLineList, modLine)
-						end
-					end
+			if not modLine.extra and modLine.range and
+				-- Check if line actually has a range
+				modLine.line:find("%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)") then
+				local strippedModeLine = modLine.line:gsub("\n", " ")
+				local catalystScalar = getCatalystScalar(self.catalyst, modLine, self.catalystQuality)
+				-- Put the modified value into the string
+				local line = itemLib.applyRange(strippedModeLine, modLine.range, catalystScalar, modLine.corruptedRange)
+				-- Check if we can parse it before adding the mods
+				local list, extra = modLib.parseMod(line)
+				if list and not extra then
+					modLine.modList = list
+					modLine.showSlider = true
+					t_insert(self.rangeLineList, modLine)
 				end
+				-- mutated mod transformation available
+			elseif modLine.modId and modLine.newModId then
+				t_insert(self.rangeLineList, modLine)
+			end
+			if not modLine.extra then
 				for _, mod in ipairs(modLine.modList) do
 					mod = modLib.setSource(mod, self.modSource)
 					baseList:AddMod(mod)

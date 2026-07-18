@@ -3,7 +3,7 @@
 -- Module: Data
 -- Contains static data used by other modules.
 --
-
+local dkjson = require("dkjson")
 LoadModule("Data/Global")
 
 local m_min = math.min
@@ -1235,4 +1235,11 @@ data.itemMods.WatchersEye = unsortedMods
 LoadModule("Data/Uniques/Special/Generated")
 LoadModule("Data/Uniques/Special/New")
 
+data.foulbornMap = dkjson.decode(io.open("Data/ModFoulbornMap.jsonc", "r"):read("*a"))
+for _, mappings in ipairs(data.foulbornMap) do
+	for orig, foul in pairs(mappings) do
+		assert(data.itemMods.Item[orig], "original " .. orig)
+		assert(data.itemMods.Foulborn[foul], "foulborn " .. foul)
+	end
+end
 data.flavourText = LoadModule("Data/FlavourText")
