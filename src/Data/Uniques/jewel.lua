@@ -1835,6 +1835,7 @@ Implicits: 0
 {variant:1}Denoted service of (500-8000) dekhara in the akhara of Asenath
 {variant:2}Denoted service of (500-8000) dekhara in the akhara of Deshret
 {variant:3}Denoted service of (500-8000) dekhara in the akhara of Nasima
+{variant:4}Denoted service of (500-8000) dekhara in the akhara of Balbala
 Passives in radius are Conquered by the Maraketh
 Historic
 ]],[[

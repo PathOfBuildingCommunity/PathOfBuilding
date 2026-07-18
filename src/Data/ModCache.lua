@@ -8235,6 +8235,7 @@ c["Damaging Ailments you inflict deal Damage 15% faster while affected by Malevo
 c["Damaging Retaliation Skills become Usable every 4 seconds"]={nil,"Damaging Retaliation Skills become Usable every 4 seconds "}
 c["Damaging Retaliation Skills become Usable every 4 seconds Retaliation Skills become Usable for 100% longer"]={nil,"Damaging Retaliation Skills become Usable every 4 seconds Retaliation Skills become Usable for 100% longer "}
 c["Damaging Retaliation Skills become Usable every sixth Hit from Enemies instead"]={nil,"Damaging Retaliation Skills become Usable every sixth Hit from Enemies instead "}
+c["Damaging Retaliation Skills become Usable every sixth Hit from Enemies instead Limited to 1 Keystone Tattoo"]={nil,"Damaging Retaliation Skills become Usable every sixth Hit from Enemies instead Limited to 1 Keystone Tattoo "}
 c["Deal 1% more Damage with Hits and Ailments to Rare and Unique Enemies for each second they've ever been in your Presence, up to a maximum of 100%"]={{[1]={[1]={actor="enemy",limit=100,type="Multiplier",var="EnemyPresenceSeconds"},[2]={actor="enemy",type="ActorCondition",var="RareOrUnique"},flags=0,keywordFlags=786432,name="Damage",type="MORE",value=1}},nil}
 c["Deal 1% more Damage with Hits and Ailments to Rare and Unique Enemies for every 2 seconds they've ever been in your Presence, up to a maximum of 50%"]={{[1]={[1]={actor="enemy",div="2",limit=50,type="Multiplier",var="EnemyPresenceSeconds"},[2]={actor="enemy",type="ActorCondition",var="RareOrUnique"},flags=0,keywordFlags=786432,name="Damage",type="MORE",value=1}},nil}
 c["Deal 10% less Damage"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="MORE",value=-10}},nil}
@@ -8267,7 +8268,9 @@ c["Debuffs on you expire 90% faster"]={{[1]={flags=0,keywordFlags=0,name="SelfDe
 c["Defences are Zero"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="MORE",value=-100},[2]={flags=0,keywordFlags=0,name="EnergyShield",type="MORE",value=-100},[3]={flags=0,keywordFlags=0,name="Evasion",type="MORE",value=-100},[4]={flags=0,keywordFlags=0,name="Ward",type="MORE",value=-100}},nil}
 c["Defend with 120% of Armour against Projectile Attacks"]={nil,"Defend with 120% of Armour against Projectile Attacks "}
 c["Defend with 120% of Armour against Projectile Attacks 5% more chance to Evade Melee Attacks"]={nil,"Defend with 120% of Armour against Projectile Attacks 5% more chance to Evade Melee Attacks "}
+c["Denoted service of 4250 dekhara in the akhara of Balbala"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id="1_v2",type="maraketh"},id=4250}}}},nil}
 c["Denoted service of 8000 dekhara in the akhara of Asenath"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id=2,type="maraketh"},id=8000}}}},nil}
+c["Denoted service of 8000 dekhara in the akhara of Balbala"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id="1_v2",type="maraketh"},id=8000}}}},nil}
 c["Denoted service of 8000 dekhara in the akhara of Deshret"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id=1,type="maraketh"},id=8000}}}},nil}
 c["Denoted service of 8000 dekhara in the akhara of Nasima"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id=3,type="maraketh"},id=8000}}}},nil}
 c["Desecrate and Unearth have +2 to Maximum number of corpses allowed"]={nil,"and Unearth have +2 to Maximum number of corpses allowed "}
@@ -8326,6 +8329,7 @@ c["Effects of Consecrated Ground you create while affected by Zealotry Linger fo
 c["Effects of Consecrated Ground you create while affected by Zealotry Linger for 2 seconds Consecrated Ground you create while affected by Zealotry causes enemies to take 10% increased Damage"]={nil,"Effects of Consecrated Ground you create while affected by Zealotry Linger for 2 seconds Consecrated Ground you create while affected by Zealotry causes enemies to take 10% increased Damage "}
 c["Effects of Profane Ground you create Linger for 4 seconds"]={nil,"Effects of Profane Ground you create Linger for 4 seconds "}
 c["Effects that interact with Mana Burn interact with Weeping Wounds instead"]={nil,"Effects that interact with Mana Burn interact with Weeping Wounds instead "}
+c["Effects that interact with Mana Burn interact with Weeping Wounds instead Limited to 1 Keystone Tattoo"]={nil,"Effects that interact with Mana Burn interact with Weeping Wounds instead Limited to 1 Keystone Tattoo "}
 c["Eldritch Battery"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Eldritch Battery"}},nil}
 c["Eldritch Battery during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Eldritch Battery"}},nil}
 c["Elemental Ailments cannot be inflicted on you if you have an Equipped Body Armour with no Socketed Gems"]={{[1]={[1]={threshold=0,type="MultiplierThreshold",upper=true,var="SocketedGemsInBody Armour"},[2]={type="Condition",var="UsingBody Armour"},flags=0,keywordFlags=0,name="ElementalAilmentImmune",type="FLAG",value=true}},nil}
@@ -9569,6 +9573,7 @@ c["Lightning Skills have 10% reduced Enemy Stun Threshold"]={{[1]={flags=0,keywo
 c["Lightning Skills have 20% chance to Poison on Hit"]={{[1]={flags=0,keywordFlags=128,name="PoisonChance",type="BASE",value=20}},nil}
 c["Lightning Skills have a 25% chance to apply Lightning Exposure on Hit"]={{[1]={flags=0,keywordFlags=0,name="LightningExposureChance",type="BASE",value=25}},nil}
 c["Limited to 1 Ancestral Tattoo"]={nil,"Limited to 1 Ancestral Tattoo "}
+c["Limited to 1 Ascendancy Tattoo"]={nil,"Limited to 1 Ascendancy Tattoo "}
 c["Limited to 1 Attribute Notable Tattoo"]={nil,"Limited to 1 Attribute Notable Tattoo "}
 c["Limited to 1 Keystone Tattoo"]={nil,"Limited to 1 Keystone Tattoo "}
 c["Limited to 1 Loyalty Tattoo"]={nil,"Limited to 1 Loyalty Tattoo "}

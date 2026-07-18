@@ -465,7 +465,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			elseif fullModName:match("(.*)Enhancement.*") then
 				linePostfix = " (enchant)"
 			end
-			local possibleLineFlags = fullModName:match("(.*)Modifier.*")
+			local possibleLineFlags = fullModName:gsub("Foulborn", "Mutated"):match("(.*)Modifier.*")
 			if possibleLineFlags then
 				for flag in possibleLineFlags:gmatch("%a+") do
 					if lineFlags[flag:lower()] then
@@ -827,12 +827,17 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				end
 				if self.pendingAffixList and #self.pendingAffixList > 0 then
 					if #self.pendingAffixList > 1 then
-						-- Probably a conqueror mod since the mod name is the same for all of them
+						-- Probably a conqueror or essence mod since the mod name is the same for all of them
 						-- Try to match the line against one of the mods there
 						local valueStrippedLine = line:gsub("%-?%d+%.?%d*%(", "("):gsub("%-?%d+%.?%d*", "#")
 						for _, pendingAffix in ipairs(self.pendingAffixList) do
 							local modData = self.affixes[pendingAffix.modId]
 							for _, modDataLine in ipairs(modData) do
+								-- Prefer the exact match
+								if line == modDataLine then
+									self.pendingAffixList = { pendingAffix }
+									break
+								end
 								if valueStrippedLine == modDataLine:gsub("%-?%d+%.?%d*", "#") then
 									self.pendingAffixList = { pendingAffix }
 									break
@@ -855,7 +860,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					end
 					t_insert(self.pendingAffixList[1].table, {
 						modId = self.pendingAffixList[1].modId,
-						range = tonumber(bestPrecisionRange),
+						range = bestPrecisionRange >= 0 and bestPrecisionRange <= 1 and bestPrecisionRange or 0.5,
 					})
 					self.pendingAffixList = {}
 				else
@@ -880,7 +885,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						end
 					end
 					if bestPrecisionRange <= 1 and bestPrecisionRange >= 0 then
-						modLine.range = tonumber(bestPrecisionRange)
+						modLine.range = bestPrecisionRange
 					end
 				end
 				local rangedLine = itemLib.applyRange(line, 1, catalystScalar)
