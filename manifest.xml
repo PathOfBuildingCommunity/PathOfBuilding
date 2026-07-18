@@ -149,6 +149,7 @@
 	<File name="Classes/ItemsTab.lua" part="program" sha1="9fef230581257b4a8c3a4fcb24bb3bd932585bca" />
 	<File name="Classes/LabelControl.lua" part="program" sha1="b6c56903b054e14c302a5e4e60ed8e91764bc6a0" />
 	<File name="Classes/ListControl.lua" part="program" sha1="ba5079fe6a1a38bc8c1cf758d42a62a4a7209e84" />
+	<File name="Classes/ManageLoadoutsListControl.lua" part="program" sha1="f3d8d378a64ecfc1f2e6c63f688fbadacf2ffdd9" />
 	<File name="Classes/MinionListControl.lua" part="program" sha1="b9324d7c16d20ac4d7508ecd151c2e9838fdb98c" />
 	<File name="Classes/MinionSearchListControl.lua" part="program" sha1="374e51bfb5c15eabbf1e28b7493aaff67cb1efc6" />
 	<File name="Classes/ModDB.lua" part="program" sha1="14d704ed402c24b65e96ba098e6996fc1e3601da" />

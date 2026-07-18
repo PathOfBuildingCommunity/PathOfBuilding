@@ -7,6 +7,7 @@ local pairs = pairs
 local ipairs = ipairs
 local next = next
 local t_insert = table.insert
+local t_remove = table.remove
 local t_sort = table.sort
 local m_min = math.min
 local m_max = math.max
@@ -313,41 +314,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			self.controls.buildLoadouts:SetSel(1)
 			return
 		end
-		if value == "^7^7New Loadout" then
-			local controls = { }
-			controls.label = new("LabelControl", nil, {0, 20, 0, 16}, "^7Enter name for this loadout:")
-			controls.edit = new("EditControl", nil, {0, 40, 350, 20}, "New Loadout", nil, nil, 100, function(buf)
-				controls.save.enabled = buf:match("%S")
-			end)
-			controls.save = new("ButtonControl", nil, {-45, 70, 80, 20}, "Save", function()
-				local loadout = controls.edit.buf
-
-				local newSpec = new("PassiveSpec", self, latestTreeVersion)
-				newSpec.title = loadout
-				t_insert(self.treeTab.specList, newSpec)
-
-				local itemSet = self.itemsTab:NewItemSet(#self.itemsTab.itemSets + 1)
-				t_insert(self.itemsTab.itemSetOrderList, itemSet.id)
-				itemSet.title = loadout
-
-				local skillSet = self.skillsTab:NewSkillSet(#self.skillsTab.skillSets + 1)
-				t_insert(self.skillsTab.skillSetOrderList, skillSet.id)
-				skillSet.title = loadout
-
-				local configSet = self.configTab:NewConfigSet(#self.configTab.configSets + 1)
-				t_insert(self.configTab.configSetOrderList, configSet.id)
-				configSet.title = loadout
-
-				self:SyncLoadouts()
-				self.modFlag = true
-				main:ClosePopup()
-			end)
-			controls.save.enabled = false
-			controls.cancel = new("ButtonControl", nil, {45, 70, 80, 20}, "Cancel", function()
-				main:ClosePopup()
-			end)
-			main:OpenPopup(370, 100, "Set Name", controls, "save", "edit", "cancel")
-
+		if value == "^7^7Manage Loadouts... (ctrl-l)" then
+			self:OpenManageLoadoutsPopup()
 			self.controls.buildLoadouts:SetSel(1)
 			return
 		end
@@ -388,10 +356,13 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		local oneItem = self.itemsTab and #self.itemsTab.itemSetOrderList == 1
 		local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
 
+		-- strip any tree-version prefix (e.g. "[3.28 (alternate)] ") so item/skill/config titles match by plain name
+		local bareValue = self:StripTreeVersionPrefix(value)
+
 		local newSpecId = findNamedSetId(self.treeTab:GetSpecList(), value, self.treeListSpecialLinks)
-		local newItemId = oneItem and 1 or findSetId(self.itemsTab.itemSetOrderList, value, self.itemsTab.itemSets, self.itemListSpecialLinks)
-		local newSkillId = oneSkill and 1 or findSetId(self.skillsTab.skillSetOrderList, value, self.skillsTab.skillSets, self.skillListSpecialLinks)
-		local newConfigId = oneConfig and 1 or findSetId(self.configTab.configSetOrderList, value, self.configTab.configSets, self.configListSpecialLinks)
+		local newItemId = oneItem and 1 or findSetId(self.itemsTab.itemSetOrderList, bareValue, self.itemsTab.itemSets, self.itemListSpecialLinks)
+		local newSkillId = oneSkill and 1 or findSetId(self.skillsTab.skillSetOrderList, bareValue, self.skillsTab.skillSets, self.skillListSpecialLinks)
+		local newConfigId = oneConfig and 1 or findSetId(self.configTab.configSetOrderList, bareValue, self.configTab.configSets, self.configListSpecialLinks)
 
 		-- if exact match nor special grouping cannot find setIds, bail
 		if newSpecId == nil or newItemId == nil or newSkillId == nil or newConfigId == nil then
@@ -785,7 +756,13 @@ function buildMode:SyncLoadouts()
 					transferTable = {}
 				end
 			else
-				t_insert(treeList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(specTitle))
+				-- store the plain name (for matching against item/skill/config sets) and the
+				-- version-prefixed display name (shown in the dropdown) separately, so a loadout
+				-- whose tree is on a non-latest version still groups with its plainly-named sets
+				t_insert(treeList, {
+					name = specTitle,
+					display = (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(specTitle),
+				})
 			end
 		end
 
@@ -819,9 +796,10 @@ function buildMode:SyncLoadouts()
 		identifyLinks(self.configTab.configSetOrderList, self.configTab.configSets, configList, self.configListSpecialLinks, self.treeListSpecialLinks)
 
 		-- loop over all for exact match loadouts
+		-- match on the plain tree name (version prefix stripped) but insert the prefixed display name
 		for id, tree in ipairs(treeList) do
-			if (oneItem or itemList[tree]) and (oneSkill or skillList[tree]) and (oneConfig or configList[tree]) then
-				t_insert(filteredList, tree)
+			if (oneItem or itemList[tree.name]) and (oneSkill or skillList[tree.name]) and (oneConfig or configList[tree.name]) then
+				t_insert(filteredList, tree.display)
 			end
 		end
 		-- loop over the identifiers found within braces and set the loadout name to the TreeSet
@@ -835,7 +813,7 @@ function buildMode:SyncLoadouts()
 
 	-- giving the options unique formatting so it can not match with user-created sets
 	t_insert(filteredList, "^7^7-----")
-	t_insert(filteredList, "^7^7New Loadout")
+	t_insert(filteredList, "^7^7Manage Loadouts... (ctrl-l)")
 	t_insert(filteredList, "^7^7Sync")
 	t_insert(filteredList, "^7^7Help >>")
 
@@ -845,10 +823,13 @@ function buildMode:SyncLoadouts()
 
 	-- Try to select loadout in dropdown based on currently selected tree
 	if self.treeTab then
-		local treeName = self.treeTab.specList[self.treeTab.activeSpec].title or "Default"
+		local activeTreeSpec = self.treeTab.specList[self.treeTab.activeSpec]
+		local bareTreeName = activeTreeSpec.title or "Default"
+		-- the dropdown entry uses the version-prefixed display name for non-latest trees
+		local treeName = (activeTreeSpec.treeVersion ~= latestTreeVersion and ("["..treeVersions[activeTreeSpec.treeVersion].display.."] ") or "")..bareTreeName
 		for i, loadout in ipairs(filteredList) do
 			if loadout == treeName then
-				local linkMatch = string.match(treeName, "%{(%w+)%}") or treeName
+				local linkMatch = string.match(bareTreeName, "%{(%w+)%}") or bareTreeName
 				if linkMatch then
 					local skillName = self.skillsTab.skillSets[self.skillsTab.activeSkillSetId].title or "Default"
 					local skillMatch = oneSkill or skillName:find(linkMatch, 1, true)
@@ -869,6 +850,350 @@ function buildMode:SyncLoadouts()
 
 	self.controls.buildLoadouts:SetSel(1)
 	return treeList, itemList, skillList, configList
+end
+
+function buildMode:StripTreeVersionPrefix(name)
+	local prefix = name:match("^%[(.-)%] ")
+	if prefix then
+		-- only strip when the brackets hold a known version display, so user brackets aren't eaten
+		for _, ver in pairs(treeVersions) do
+			if ver.display == prefix then
+				return (name:gsub("^%[.-%] ", "", 1))
+			end
+		end
+	end
+	return name
+end
+
+function buildMode:UpdateItemsTabPassiveTreeDropdown()
+	local specSelect = self.itemsTab and self.itemsTab.controls.specSelect
+	if not specSelect then
+		return
+	end
+	local newSpecList = { }
+	for i = 1, #self.treeTab.specList do
+		newSpecList[i] = self.treeTab.specList[i].title or "Default"
+	end
+	specSelect:SetList(newSpecList)
+	specSelect.selIndex = self.treeTab.activeSpec
+end
+
+-- A loadout is a tree spec whose plain title also matches an item, skill and config set (or, for a
+-- set type with only one set, that set applies to every loadout). Matches on the plain spec.title,
+-- so it ignores the version prefix that only appears in display strings. Ordered by the spec list.
+function buildMode:GetLoadouts()
+	local loadouts = { }
+	if not (self.treeTab and self.itemsTab and self.skillsTab and self.configTab) then
+		return loadouts
+	end
+
+	local oneItem = #self.itemsTab.itemSetOrderList == 1
+	local oneSkill = #self.skillsTab.skillSetOrderList == 1
+	local oneConfig = #self.configTab.configSetOrderList == 1
+
+	-- map plain title -> first set id of that name, in order
+	local function firstIdByTitle(orderList, sets)
+		local map = { }
+		for _, id in ipairs(orderList) do
+			local title = sets[id].title or "Default"
+			if map[title] == nil then
+				map[title] = id
+			end
+		end
+		return map
+	end
+	local itemByTitle = firstIdByTitle(self.itemsTab.itemSetOrderList, self.itemsTab.itemSets)
+	local skillByTitle = firstIdByTitle(self.skillsTab.skillSetOrderList, self.skillsTab.skillSets)
+	local configByTitle = firstIdByTitle(self.configTab.configSetOrderList, self.configTab.configSets)
+
+	for specIndex, spec in ipairs(self.treeTab.specList) do
+		local title = spec.title or "Default"
+		local itemSetId = oneItem and self.itemsTab.itemSetOrderList[1] or itemByTitle[title]
+		local skillSetId = oneSkill and self.skillsTab.skillSetOrderList[1] or skillByTitle[title]
+		local configSetId = oneConfig and self.configTab.configSetOrderList[1] or configByTitle[title]
+		if itemSetId and skillSetId and configSetId then
+			t_insert(loadouts, {
+				name = title,
+				spec = spec,
+				specIndex = specIndex,
+				itemSetId = itemSetId,
+				skillSetId = skillSetId,
+				configSetId = configSetId,
+			})
+		end
+	end
+	return loadouts
+end
+
+function buildMode:SetActiveLoadout(loadout)
+	local specIndex = isValueInArray(self.treeTab.specList, loadout.spec)
+	if specIndex and specIndex ~= self.treeTab.activeSpec then
+		self.treeTab:SetActiveSpec(specIndex)
+	end
+	if loadout.itemSetId ~= self.itemsTab.activeItemSetId then
+		self.itemsTab:SetActiveItemSet(loadout.itemSetId)
+	end
+	if loadout.skillSetId ~= self.skillsTab.activeSkillSetId then
+		self.skillsTab:SetActiveSkillSet(loadout.skillSetId)
+	end
+	if loadout.configSetId ~= self.configTab.activeConfigSetId then
+		self.configTab:SetActiveConfigSet(loadout.configSetId)
+	end
+	self:SyncLoadouts()
+end
+
+function buildMode:CreateLoadout(name)
+	local newSpec = new("PassiveSpec", self, latestTreeVersion)
+	newSpec.title = name
+	t_insert(self.treeTab.specList, newSpec)
+
+	local itemSet = self.itemsTab:NewItemSet(#self.itemsTab.itemSets + 1)
+	t_insert(self.itemsTab.itemSetOrderList, itemSet.id)
+	itemSet.title = name
+
+	local skillSet = self.skillsTab:NewSkillSet(#self.skillsTab.skillSets + 1)
+	t_insert(self.skillsTab.skillSetOrderList, skillSet.id)
+	skillSet.title = name
+
+	local configSet = self.configTab:NewConfigSet(#self.configTab.configSets + 1)
+	t_insert(self.configTab.configSetOrderList, configSet.id)
+	configSet.title = name
+
+	self.modFlag = true
+	self:SyncLoadouts()
+	self:UpdateItemsTabPassiveTreeDropdown()
+	return { spec = newSpec, itemSetId = itemSet.id, skillSetId = skillSet.id, configSetId = configSet.id }
+end
+
+function buildMode:OpenNewLoadoutPopup(onCreated)
+	local controls = { }
+	controls.label = new("LabelControl", nil, {0, 20, 0, 16}, "^7Enter name for this loadout:")
+	controls.edit = new("EditControl", nil, {0, 40, 350, 20}, "New Loadout", nil, nil, 100, function(buf)
+		controls.save.enabled = buf:match("%S")
+	end)
+	controls.save = new("ButtonControl", nil, {-45, 70, 80, 20}, "Save", function()
+		self:CreateLoadout(controls.edit.buf)
+		main:ClosePopup()
+		if onCreated then
+			onCreated()
+		end
+	end)
+	controls.save.enabled = false
+	controls.cancel = new("ButtonControl", nil, {45, 70, 80, 20}, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(370, 100, "Set Name", controls, "save", "edit", "cancel")
+end
+
+function buildMode:CountLoadoutSetRefs(field, id)
+	local count = 0
+	for _, loadout in ipairs(self:GetLoadouts()) do
+		if loadout[field] == id then
+			count = count + 1
+		end
+	end
+	return count
+end
+
+function buildMode:DeleteLoadout(loadout)
+	-- only delete a set that isn't the sole set of its type and isn't shared by another loadout
+	if #self.itemsTab.itemSetOrderList > 1 and self:CountLoadoutSetRefs("itemSetId", loadout.itemSetId) <= 1 then
+		local pos = isValueInArray(self.itemsTab.itemSetOrderList, loadout.itemSetId)
+		if pos then
+			t_remove(self.itemsTab.itemSetOrderList, pos)
+			self.itemsTab.itemSets[loadout.itemSetId] = nil
+			if self.itemsTab.activeItemSetId == loadout.itemSetId then
+				self.itemsTab:SetActiveItemSet(self.itemsTab.itemSetOrderList[m_max(1, pos - 1)])
+			end
+		end
+	end
+	-- skill set
+	if #self.skillsTab.skillSetOrderList > 1 and self:CountLoadoutSetRefs("skillSetId", loadout.skillSetId) <= 1 then
+		local pos = isValueInArray(self.skillsTab.skillSetOrderList, loadout.skillSetId)
+		if pos then
+			t_remove(self.skillsTab.skillSetOrderList, pos)
+			self.skillsTab.skillSets[loadout.skillSetId] = nil
+			if self.skillsTab.activeSkillSetId == loadout.skillSetId then
+				self.skillsTab:SetActiveSkillSet(self.skillsTab.skillSetOrderList[m_max(1, pos - 1)])
+			end
+		end
+	end
+	-- config set
+	if #self.configTab.configSetOrderList > 1 and self:CountLoadoutSetRefs("configSetId", loadout.configSetId) <= 1 then
+		local pos = isValueInArray(self.configTab.configSetOrderList, loadout.configSetId)
+		if pos then
+			t_remove(self.configTab.configSetOrderList, pos)
+			self.configTab.configSets[loadout.configSetId] = nil
+			if self.configTab.activeConfigSetId == loadout.configSetId then
+				self.configTab:SetActiveConfigSet(self.configTab.configSetOrderList[m_max(1, pos - 1)])
+			end
+		end
+	end
+	-- tree spec (each loadout maps to a distinct spec)
+	if #self.treeTab.specList > 1 then
+		local specPos = isValueInArray(self.treeTab.specList, loadout.spec)
+		if specPos then
+			t_remove(self.treeTab.specList, specPos)
+			if self.treeTab.activeSpec == specPos then
+				self.treeTab:SetActiveSpec(m_max(1, specPos - 1))
+			else
+				self.treeTab.activeSpec = isValueInArray(self.treeTab.specList, self.spec)
+			end
+		end
+	end
+
+	self.modFlag = true
+	self:SyncLoadouts()
+	self:UpdateItemsTabPassiveTreeDropdown()
+end
+
+function buildMode:RenameLoadout(loadout, newName)
+	local function applyName(oldTitle)
+		-- keep any {group} identifier suffix intact
+		local brace = (oldTitle or "Default"):match("(%{[%w,]+%})")
+		return brace and (newName .. " " .. brace) or newName
+	end
+
+	loadout.spec.title = applyName(loadout.spec.title)
+
+	if #self.itemsTab.itemSetOrderList > 1 and self:CountLoadoutSetRefs("itemSetId", loadout.itemSetId) <= 1 then
+		self.itemsTab.itemSets[loadout.itemSetId].title = applyName(self.itemsTab.itemSets[loadout.itemSetId].title)
+	end
+	if #self.skillsTab.skillSetOrderList > 1 and self:CountLoadoutSetRefs("skillSetId", loadout.skillSetId) <= 1 then
+		self.skillsTab.skillSets[loadout.skillSetId].title = applyName(self.skillsTab.skillSets[loadout.skillSetId].title)
+	end
+	if #self.configTab.configSetOrderList > 1 and self:CountLoadoutSetRefs("configSetId", loadout.configSetId) <= 1 then
+		self.configTab.configSets[loadout.configSetId].title = applyName(self.configTab.configSets[loadout.configSetId].title)
+	end
+
+	self.modFlag = true
+	self:SyncLoadouts()
+	self:UpdateItemsTabPassiveTreeDropdown()
+end
+
+-- Duplicate an entire loadout into four new sets sharing newName (mirrors each tab's own Copy).
+function buildMode:CopyLoadout(loadout, newName)
+	-- tree (same pattern as PassiveSpecListControl Copy)
+	local srcSpec = loadout.spec
+	local newSpec = new("PassiveSpec", self, srcSpec.treeVersion)
+	newSpec.title = newName
+	newSpec.jewels = copyTable(srcSpec.jewels)
+	newSpec:RestoreUndoState(srcSpec:CreateUndoState())
+	newSpec:BuildClusterJewelGraphs()
+	t_insert(self.treeTab.specList, newSpec)
+
+	-- item set (same pattern as ItemSetListControl Copy)
+	local newItemSet = copyTable(self.itemsTab.itemSets[loadout.itemSetId])
+	newItemSet.id = 1
+	while self.itemsTab.itemSets[newItemSet.id] do
+		newItemSet.id = newItemSet.id + 1
+	end
+	newItemSet.title = newName
+	self.itemsTab.itemSets[newItemSet.id] = newItemSet
+	t_insert(self.itemsTab.itemSetOrderList, newItemSet.id)
+
+	-- skill set (deep copy, same pattern as SkillSetListControl Copy)
+	local srcSkillSet = self.skillsTab.skillSets[loadout.skillSetId]
+	local newSkillSet = copyTable(srcSkillSet, true)
+	newSkillSet.socketGroupList = { }
+	for _, socketGroup in ipairs(srcSkillSet.socketGroupList) do
+		local newGroup = copyTable(socketGroup, true)
+		newGroup.gemList = { }
+		for gemIndex, gem in pairs(socketGroup.gemList) do
+			newGroup.gemList[gemIndex] = copyTable(gem, true)
+		end
+		t_insert(newSkillSet.socketGroupList, newGroup)
+	end
+	newSkillSet.id = 1
+	while self.skillsTab.skillSets[newSkillSet.id] do
+		newSkillSet.id = newSkillSet.id + 1
+	end
+	newSkillSet.title = newName
+	self.skillsTab.skillSets[newSkillSet.id] = newSkillSet
+	t_insert(self.skillsTab.skillSetOrderList, newSkillSet.id)
+
+	-- config set (same pattern as ConfigSetListControl Copy)
+	local newConfigSet = copyTable(self.configTab.configSets[loadout.configSetId])
+	newConfigSet.id = 1
+	while self.configTab.configSets[newConfigSet.id] do
+		newConfigSet.id = newConfigSet.id + 1
+	end
+	newConfigSet.title = newName
+	self.configTab.configSets[newConfigSet.id] = newConfigSet
+	t_insert(self.configTab.configSetOrderList, newConfigSet.id)
+
+	self.modFlag = true
+	self:SyncLoadouts()
+	self:UpdateItemsTabPassiveTreeDropdown()
+end
+
+function buildMode:ApplyLoadoutOrder(orderedLoadouts)
+	-- reorder only the loadout members within fullList, leaving any non-loadout sets in place
+	local function reorderMembers(fullList, orderedMembers)
+		local memberSet = { }
+		for _, member in ipairs(orderedMembers) do
+			memberSet[member] = true
+		end
+		local slots = { }
+		for i, value in ipairs(fullList) do
+			if memberSet[value] then
+				t_insert(slots, i)
+			end
+		end
+		if #slots ~= #orderedMembers then
+			return
+		end
+		for k, slot in ipairs(slots) do
+			fullList[slot] = orderedMembers[k]
+		end
+	end
+
+	-- returns the ordered set ids for a field only if they are all distinct
+	local function distinctIds(field)
+		local ids, seen = { }, { }
+		for _, loadout in ipairs(orderedLoadouts) do
+			local id = loadout[field]
+			if not id or seen[id] then
+				return nil
+			end
+			seen[id] = true
+			t_insert(ids, id)
+		end
+		return ids
+	end
+
+	local specOrder = { }
+	for _, loadout in ipairs(orderedLoadouts) do
+		t_insert(specOrder, loadout.spec)
+	end
+	reorderMembers(self.treeTab.specList, specOrder)
+	self.treeTab.activeSpec = isValueInArray(self.treeTab.specList, self.spec)
+
+	local itemIds = distinctIds("itemSetId")
+	if itemIds then
+		reorderMembers(self.itemsTab.itemSetOrderList, itemIds)
+	end
+	local skillIds = distinctIds("skillSetId")
+	if skillIds then
+		reorderMembers(self.skillsTab.skillSetOrderList, skillIds)
+	end
+	local configIds = distinctIds("configSetId")
+	if configIds then
+		reorderMembers(self.configTab.configSetOrderList, configIds)
+	end
+
+	self.modFlag = true
+	self:SyncLoadouts()
+	self:UpdateItemsTabPassiveTreeDropdown()
+end
+
+function buildMode:OpenManageLoadoutsPopup()
+	main:OpenPopup(370, 290, "Manage Loadouts", {
+		new("ManageLoadoutsListControl", nil, {0, 50, 350, 200}, self),
+		new("ButtonControl", nil, {0, 259, 90, 20}, "Done", function()
+			main:ClosePopup()
+		end),
+	})
 end
 
 function buildMode:EstimatePlayerProgress()
@@ -1167,6 +1492,9 @@ function buildMode:OnFrame(inputEvents)
 					self.viewMode = "NOTES"
 				elseif event.key == "7" then
 					self.viewMode = "PARTY"
+				elseif event.key == "l" then
+					self:OpenManageLoadoutsPopup()
+					inputEvents[id] = nil
 				end
 			end
 		end
