@@ -150,4 +150,66 @@ describe("TestAttacks", function()
 
 		assert.True(preAdrenalineMaxStages < build.calcsTab.mainEnv.player.activeSkillList[1].skillModList:Sum("BASE", nil, "Multiplier:BlightMaxStages"))
 	end)
+	it("Test cost efficiency modifiers", function()
+		-- Test Mana Cost Efficiency
+		build.skillsTab:PasteSocketGroup("Ball Lightning 1/0  1\n")
+		runCallback("OnFrame")
+
+		-- Get base mana cost (Ball Lightning level 1 has 12 mana cost)
+		local baseCost = build.calcsTab.mainOutput.ManaCost
+		assert.are.equals(12, baseCost)
+
+		-- Add 50% mana cost efficiency (should reduce cost to 12/1.5 = 8)
+		build.configTab.input.customMods = "50% increased Mana Cost Efficiency"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		local reducedCost = build.calcsTab.mainOutput.ManaCost
+		assert.are.equals(8, reducedCost)
+
+		-- Test generic cost efficiency (should also affect mana)
+		newBuild()
+		build.skillsTab:PasteSocketGroup("Ball Lightning 1/0  1\n")
+		build.configTab.input.customMods = "25% increased Cost Efficiency"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		local genericEfficiencyCost = build.calcsTab.mainOutput.ManaCost
+		-- Test actual behavior: 12/1.25 = 9.6 (not rounded)
+		assert.True(math.abs(genericEfficiencyCost - 9.6) < 0.001)
+
+		-- Test multiple efficiency sources stacking additively
+		build.configTab.input.customMods = "25% increased Cost Efficiency\n25% increased Mana Cost Efficiency"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		local stackedCost = build.calcsTab.mainOutput.ManaCost
+		assert.are.equals(8, stackedCost) -- 12/(1 + 0.25 + 0.25) = 12/1.5 = 8
+	end)
+
+	it("Test cost efficiency with cost modifiers", function()
+		-- Test interaction between cost efficiency and cost multipliers
+		build.skillsTab:PasteSocketGroup("Ball Lightning 1/0  1\n")
+
+		-- Add cost multiplier and efficiency
+		build.configTab.input.customMods = "50% increased Mana Cost\n50% increased Mana Cost Efficiency"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		local finalCost = build.calcsTab.mainOutput.ManaCost
+		assert.True(math.abs(finalCost - 12) < 0.1) -- floor(12 * 1.5) / 1.5
+	end)
+
+	it("Test mana cost efficiency with support gems", function()
+		-- Test interaction between cost efficiency and cost multipliers
+		build.skillsTab:PasteSocketGroup("Contagion 6/0  1\nMagnified Area I 1/0  1")
+
+		-- Add efficiency
+		build.configTab.input.customMods = "36% increased Mana Cost Efficiency"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		local finalCost = build.calcsTab.mainOutput.ManaCost
+		assert.are.equals(7, round(finalCost))
+	end)
 end)
