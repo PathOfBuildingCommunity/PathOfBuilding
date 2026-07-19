@@ -2968,7 +2968,8 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 	for i = 1, 4 do
 		controls["implicit" .. i].selFunc = function()
 			local otherIdx = (i % 2 == 0) and (i - 1) or (i + 1)
-			buildList(controls["implicit" .. i], controls["implicit" .. i + otherIdx], i < 3 and currentModType or "ScourgeDownside")
+			-- remove selected entry from other dropdown of the same type
+			buildList(controls["implicit" .. otherIdx], controls["implicit" .. i], i < 3 and currentModType or "ScourgeDownside")
 		end
 		if i < 3 then
 			controls["implicit" .. i].selFunc()
