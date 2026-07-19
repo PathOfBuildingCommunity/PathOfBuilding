@@ -2964,12 +2964,7 @@ function calcs.offence(env, actor, activeSkill)
 						local overCap = preCapCritChance - 100
 						t_insert(breakdown.CritChance, s_format("Crit is overcapped by %.2f%% (%d%% increased Critical Strike Chance)", overCap, overCap / more / (baseCrit + base) * 100))
 					end
-					if skillModList:Flag(cfg, "BifurcateCrit") then
-						t_insert(breakdown.CritChance, "Critical Strike Bifurcates:")
-						t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f) x (1 - %.4f)", preBifurcateCritChance / 100, preBifurcateCritChance / 100))
-						t_insert(breakdown.CritChance, s_format("= %.2f%%", preSkillUseCritChance))
-					end
-					if env.mode_effective and (critRolls ~= 0 or skillModList:Flag(skillCfg, "Every3UseCrit") or skillModList:Flag(skillCfg, "Every5UseCrit")) then
+					if env.mode_effective then
 						if critRolls ~= 0 then
 							if skillModList:Flag(skillCfg, "Unexciting") then
 								t_insert(breakdown.CritChance, "Crit Chance is Unexciting:")
@@ -2978,6 +2973,12 @@ function calcs.offence(env, actor, activeSkill)
 								t_insert(breakdown.CritChance, "Crit Chance is Lucky:")
 								t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f)^ %d", preLuckyCritChance / 100, critRolls + 1))
 							end
+							t_insert(breakdown.CritChance, s_format("= %.2f%%", preBifurcateCritChance))
+						end
+						if skillModList:Flag(cfg, "BifurcateCrit") then
+							t_insert(breakdown.CritChance, "Critical Strike Bifurcates:")
+							t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f) x (1 - %.4f)", preBifurcateCritChance / 100, preBifurcateCritChance / 100))
+							t_insert(breakdown.CritChance, s_format("= %.2f%%", preSkillUseCritChance))
 						end
 						if skillModList:Flag(skillCfg, "Every3UseCrit") then
 							t_insert(breakdown.CritChance, s_format("+ %.2f%% ^8(crit every 3rd use)", (2 * preSkillUseCritChance + 100) / 3 - preSkillUseCritChance))
@@ -2985,7 +2986,9 @@ function calcs.offence(env, actor, activeSkill)
 						if skillModList:Flag(skillCfg, "Every5UseCrit") then
 							t_insert(breakdown.CritChance, s_format("+ %.2f%% ^8(crit every 5th use)", (4 * preSkillUseCritChance + 100) / 5 - preSkillUseCritChance))
 						end
-						t_insert(breakdown.CritChance, s_format("= %.2f%%", preHitCheckCritChance))
+						if skillModList:Flag(skillCfg, "Every3UseCrit") or skillModList:Flag(skillCfg, "Every5UseCrit") then
+							t_insert(breakdown.CritChance, s_format("= %.2f%%", preHitCheckCritChance))
+						end
 					end
 					if env.mode_effective and output.AccuracyHitChance < 100 then
 						t_insert(breakdown.CritChance, "Crit confirmation roll:")
