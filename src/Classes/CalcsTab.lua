@@ -642,12 +642,6 @@ function CalcsTabClass:PowerBuilder()
 	end
 
 	for _, node in ipairs(masteryNodeList) do
-		local distance = 0
-		for _, pathNode in pairs(node.path) do
-			if pathNode ~= node then
-				distance = distance + 1
-			end
-		end
 		for _, masteryEffect in ipairs(node.masteryEffects or { }) do
 			if masteryEffectCanBeAssignedToNode(node, masteryEffect) then
 				local effect = self.build.spec.tree.masteryEffects[masteryEffect.effect]
@@ -660,7 +654,7 @@ function CalcsTabClass:PowerBuilder()
 						local output = cache[effectNode.modKey]
 						node.power.masteryEffects[effect.id] = { }
 						local effectPower = node.power.masteryEffects[effect.id]
-						calculateAddNodePower(effectPower, distance, node, output, function()
+						calculateAddNodePower(effectPower, node.pathDist, node, output, function()
 							local pathNodes = {
 								[effectNode] = true
 							}
