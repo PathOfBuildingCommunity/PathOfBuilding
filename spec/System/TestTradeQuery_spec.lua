@@ -62,6 +62,22 @@ describe("TradeQuery", function()
 		end)
 	end)
 	describe("ReduceOutput", function()
+		it("preserves lower-is-better values for weighted result comparison", function()
+			local weights = {
+				{ stat = "PhysicalTakenHit", weightMult = 1, transform = function(value) return -value end },
+			}
+			mock_tradeQuery.statSortSelectionList = weights
+
+			local baseOutput = { PhysicalTakenHit = 100 }
+			local betterOutput = mock_tradeQuery:ReduceOutput({ PhysicalTakenHit = 80 })
+			local worseOutput = mock_tradeQuery:ReduceOutput({ PhysicalTakenHit = 120 })
+			local betterWeight = mock_queryGen.WeightedRatioOutputs(baseOutput, betterOutput, weights)
+			local worseWeight = mock_queryGen.WeightedRatioOutputs(baseOutput, worseOutput, weights)
+
+			assert.are.equal(80, betterOutput.PhysicalTakenHit)
+			assert.is_true(betterWeight > worseWeight)
+		end)
+
 		it("uses selected minion stats for weighted result comparison", function()
 			mock_tradeQuery.statSortSelectionList = { { stat = "AverageDamage" } }
 

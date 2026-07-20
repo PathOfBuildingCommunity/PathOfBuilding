@@ -718,7 +718,7 @@ end
 function TradeQueryClass:ReduceOutput(output)
 	local smallOutput = {}
 	for _, statTable in ipairs(self.statSortSelectionList) do
-		smallOutput[statTable.stat] = data.powerStatList.GetFromOutput(output, statTable)
+		smallOutput[statTable.stat] = data.powerStatList.GetFromOutput(output, statTable, true)
 		if statTable.stat == "FullDPS" and not output.FullDPS then
 			smallOutput.TotalDPS = data.powerStatList.GetFromOutput(output, { stat = "TotalDPS" })
 			smallOutput.TotalDotDPS = data.powerStatList.GetFromOutput(output, { stat = "TotalDotDPS" })
