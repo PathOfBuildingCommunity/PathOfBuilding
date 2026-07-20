@@ -65,32 +65,14 @@ end
 
 local function buildModSortList()
 	local sortList = { { label = "Default", stat = nil } }
-	local sortTransforms = { }
+	local sortStats = { }
 	for _, entry in ipairs(data.powerStatList) do
 		if entry.stat and not entry.ignoreForNodes then
 			t_insert(sortList, { label = entry.label, stat = entry.stat })
-			sortTransforms[entry.stat] = entry.transform
+			sortStats[entry.stat] = entry
 		end
 	end
-	return sortList, sortTransforms
-end
-
-local function getOutputStatValue(output, stat)
-	if stat == "FullDPS" then
-		if output[stat] ~= nil then
-			return output[stat]
-		end
-		if output.Minion and output.Minion.CombinedDPS ~= nil then
-			return output.Minion.CombinedDPS
-		end
-	end
-	if output.Minion and output.Minion[stat] ~= nil then
-		return output.Minion[stat]
-	end
-	if output[stat] ~= nil then
-		return output[stat]
-	end
-	return 0
+	return sortList, sortStats
 end
 
 local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
@@ -1132,7 +1114,15 @@ function ItemsTabClass:Load(xml, dbFileName)
 					stat = child.attrib.stat,
 					weightMult = tonumber(child.attrib.weightMult)
 				}
-				t_insert(self.tradeQuery.statSortSelectionList, statSort)
+				for _, statEntry in ipairs(data.powerStatList) do
+					if statSort.stat == statEntry.stat then
+						-- update information which can be out of data or missing in the xml
+						statSort.label = statEntry.label
+						statSort.transform = statEntry.transform
+						t_insert(self.tradeQuery.statSortSelectionList, statSort)
+						break
+					end
+				end
 			end
 		end
 	end
@@ -2333,7 +2323,7 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 		end
 	end
 	local enchantmentList = { }
-	local sortList, sortTransforms = buildModSortList()
+	local sortList, sortStats = buildModSortList()
 	local function setDefaultSortOrder()
 		for index, entry in ipairs(enchantmentList) do
 			entry.defaultSortOrder = index
@@ -2401,10 +2391,7 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 		end
 		item:BuildAndParseRaw()
 		local output = calcFunc({ repSlotName = slotName, repItem = item }, useFullDPS)
-		local value = getOutputStatValue(output, stat)
-		if sortTransforms[stat] then
-			value = sortTransforms[stat](value)
-		end
+		local value = data.powerStatList.GetFromOutput(output, sortStats[stat])
 		entry.sortValues[stat] = value
 		return value
 	end
@@ -2651,7 +2638,7 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 	local controls = { }
 	local implicitList = { }
 	local sourceList = { "Corrupted", "Scourge" }
-	local sortList, sortTransforms = buildModSortList()
+	local sortList, sortStats = buildModSortList()
 	local function buildImplicitList(modType)
 		if implicitList[modType] then
 			return
@@ -2710,10 +2697,7 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 		end
 		item:BuildAndParseRaw()
 		local output = calcFunc({ repSlotName = slotName, repItem = item }, useFullDPS)
-		local value = getOutputStatValue(output, stat)
-		if sortTransforms[stat] then
-			value = sortTransforms[stat](value)
-		end
+		local value = data.powerStatList.GetFromOutput(output, sortStats[stat])
 		entry.sortValues[stat] = value
 		return value
 	end
@@ -2932,7 +2916,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	local controls = { }
 	local sourceList = { }
 	local modList = { }
-	local sortList, sortTransforms = buildModSortList()
+	local sortList, sortStats = buildModSortList()
 	local function setDefaultSortOrder()
 		for index, listMod in ipairs(modList) do
 			listMod.defaultSortOrder = index
@@ -2952,10 +2936,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		end
 		item:BuildAndParseRaw()
 		local output = calcFunc({ repSlotName = slotName, repItem = item }, useFullDPS)
-		local value = getOutputStatValue(output, stat)
-		if sortTransforms[stat] then
-			value = sortTransforms[stat](value)
-		end
+		local value = data.powerStatList.GetFromOutput(output, sortStats[stat])
 		listMod.sortValues[stat] = value
 		return value
 	end
@@ -3352,7 +3333,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 	local sourceList = { }
 	local modList = { }
 	local modGroups = {}
-	local sortList, sortTransforms = buildModSortList()
+	local sortList, sortStats = buildModSortList()
 	local function setDefaultSortOrder()
 		for groupIndex, group in ipairs(modGroups) do
 			group.defaultSortOrder = groupIndex
@@ -3540,10 +3521,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		applyCandidateMod(item, listMod)
 		item:BuildAndParseRaw()
 		local output = calcFunc({ repSlotName = slotName, repItem = item }, useFullDPS)
-		local value = getOutputStatValue(output, stat)
-		if sortTransforms[stat] then
-			value = sortTransforms[stat](value)
-		end
+		local value = data.powerStatList.GetFromOutput(output, sortStats[stat])
 		listMod.sortValues[stat] = value
 		return value
 	end

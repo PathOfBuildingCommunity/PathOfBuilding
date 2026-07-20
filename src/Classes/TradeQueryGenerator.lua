@@ -159,12 +159,13 @@ end
 
 function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, statWeights)
 	local meanStatDiff = 0
+
 	local function ratioModSums(...)
 		local baseModSum = 0
 		local newModSum = 0
 		for _, mod in ipairs({ ... }) do
-			baseModSum = baseModSum + (baseOutput[mod] or 0)
-			newModSum = newModSum + (newOutput[mod] or 0)
+			baseModSum = baseModSum + data.powerStatList.GetFromOutput(baseOutput, mod, true)
+			newModSum = newModSum + data.powerStatList.GetFromOutput(newOutput, mod, true)
 		end
 
 		if baseModSum == math.huge then
@@ -178,10 +179,17 @@ function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, st
 		end
 	end
 	for _, statTable in ipairs(statWeights) do
+		local modSumRatio
 		if statTable.stat == "FullDPS" and not (baseOutput["FullDPS"] and newOutput["FullDPS"]) then
-			meanStatDiff = meanStatDiff + ratioModSums("TotalDPS", "TotalDotDPS", "CombinedDPS") * statTable.weightMult
+			modSumRatio = ratioModSums({ stat = "TotalDPS" }, { stat = "TotalDotDPS" }, { stat = "CombinedDPS" })
+		else
+			modSumRatio = ratioModSums(statTable)
 		end
-		meanStatDiff = meanStatDiff + ratioModSums(statTable.stat) * statTable.weightMult
+		-- some weights, such as damage taken from hit need to be negated as lower is better for them
+		if statTable.transform then
+			modSumRatio = statTable.transform(modSumRatio)
+		end
+		meanStatDiff = meanStatDiff + modSumRatio * statTable.weightMult
 	end
 	return meanStatDiff
 end
