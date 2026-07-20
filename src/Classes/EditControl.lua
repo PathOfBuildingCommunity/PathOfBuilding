@@ -685,7 +685,7 @@ function EditClass:OnKeyUp(key)
 					self:SetText("1", true)
 				end
 			end
-		elseif key == "WHEELDOWN" or key == "DOWN" then
+		elseif (not main.disableScrollControlInteraction and (key == "WHEELDOWN")) or key == "DOWN" then
 			if cur and (self.filter ~= "%D" or cur > 0)then
 				self:SetText(tostring(cur - (self.numberInc or 1)), true)
 			else

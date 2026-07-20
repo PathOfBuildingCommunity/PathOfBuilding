@@ -1025,7 +1025,13 @@ function main:OpenOptionsPopup(savedState)
 	controls.showAllItemAffixes = new("CheckBoxControl", { "TOPLEFT", controls.sectionAnchor, "TOPLEFT" }, { currentX + defaultLabelPlacementX, currentY, 20 }, "^7Show all item affixes sliders:", function(state)
 		self.showAllItemAffixes = state
 	end)
-	controls.showAllItemAffixes.tooltipText = "Display all item affix slots as a stacked list instead of hiding them in dropdowns"
+	controls.showAllItemAffixes.tooltipText = "Display all item affix slots as a stacked list instead of hiding them in dropdowns."
+
+	nextRow()
+	controls.disableScrollControlInteraction = new("CheckBoxControl", { "TOPLEFT", controls.sectionAnchor, "TOPLEFT" }, { currentX + defaultLabelPlacementX, currentY, 20 }, "^7Disable control scroll interaction:", function(state)
+		self.disableScrollControlInteraction = state
+	end)
+	controls.disableScrollControlInteraction.tooltipText = "Disable changing the values in controls such as dropdowns or numeric inputs when using the scroll wheel."
 
 	nextRow()
 
