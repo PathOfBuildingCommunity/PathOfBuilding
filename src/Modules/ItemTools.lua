@@ -33,23 +33,27 @@ itemLib.influenceInfo = {
 	}
 }
 
--- Apply a value scalar to the first n of any numbers present
-function itemLib.applyValueScalar(line, valueScalar, numbers, precision)
-	if valueScalar and type(valueScalar) == "number" and valueScalar ~= 1 then
-		if precision then
-			return line:gsub("(%d+%.?%d*)", function(num)
-				local power = 10 ^ precision
-				local numVal = m_floor(tonumber(num) * valueScalar * power) / power
-				return tostring(numVal)
-			end, numbers)
-		else
-			return line:gsub("(%d+)([^%.])", function(num, suffix)
-				local numVal = m_floor(num * valueScalar + 0.001)
-				return tostring(numVal)..suffix
-			end, numbers)
-		end
+-- Apply value scalars to the first n numbers present
+function itemLib.applyValueScalar(line, valueScalar, baseValueScalar, numbers, precision)
+	valueScalar = type(valueScalar) == "number" and valueScalar or 1
+	if valueScalar == 1 and (not baseValueScalar or baseValueScalar == 1) then
+		return line
 	end
-	return line
+
+	local power = 10 ^ (precision or 0)
+	local function scaleValue(num)
+		local value = tonumber(num)
+		if baseValueScalar and baseValueScalar ~= 1 then
+			value = round(value * baseValueScalar * power) / power
+		end
+		return tostring(m_floor(value * valueScalar * power + (precision and 0 or 0.001)) / power)
+	end
+	if precision then
+		return line:gsub("(%d+%.?%d*)", scaleValue, numbers)
+	end
+	return line:gsub("(%d+)([^%.])", function(num, suffix)
+		return scaleValue(num) .. suffix
+	end, numbers)
 end
 
 -- precision is express a multiplier/divide and displayPrecision is expressed as decimal precision on rounding.
@@ -336,8 +340,14 @@ function itemLib.applyRange(line, range, valueScalar, baseValueScalar)
 	end
 end
 
+function itemLib.isModLineScalable(line, range, valueScalar)
+	return itemLib.applyRange(line, range, valueScalar, 1) ~= itemLib.applyRange(line, range, valueScalar, 2)
+end
+
 function itemLib.formatModLine(modLine, dbMode)
-	local line = (not dbMode and modLine.range and itemLib.applyRange(modLine.line, modLine.range, modLine.valueScalar, modLine.corruptedRange)) or modLine.line
+	local shouldApplyRange = not dbMode and (modLine.range or modLine.corruptedRange)
+	local line = shouldApplyRange and itemLib.applyRange(modLine.line, modLine.range or main.defaultItemAffixQuality,
+		modLine.valueScalar, modLine.corruptedRange) or modLine.line
 	if line:match("^%+?0%%? ") or (line:match(" %+?0%%? ") and not line:match("0 to [1-9]")) or line:match(" 0%-0 ") or line:match(" 0 to 0 ") then -- Hack to hide 0-value modifiers
 		return
 	end

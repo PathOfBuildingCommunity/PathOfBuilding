@@ -2780,8 +2780,13 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 				end
 			end
 		end
-		for i, modLine in ipairs(item.explicitModLines) do
-			modLine.corruptedRange = (not addingImplicits and corruptedRanges[i] ~= 1) and corruptedRanges[i] or 1
+		if not addingImplicits then
+			for i, modLine in ipairs(item.explicitModLines) do
+				local corruptedRange = corruptedRanges[i]
+				if corruptedRange then
+					modLine.corruptedRange = corruptedRange ~= 1 and corruptedRange or nil
+				end
+			end
 		end
 		item:BuildAndParseRaw()
 		return item
@@ -2800,37 +2805,26 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 					selectedVariant = true
 				end
 			end
-			-- test if a mod is scalable at all. this will let through mods that scale, but don't actually change within the corrupt range
-			local testScaledLine = itemLib.applyRange(mod.line, mod.range or main.defaultItemAffixQuality, mod.valueScalar or 1, 2)
-			if not (testScaledLine == mod.line) and (#variantIds > 0 and selectedVariant or #variantIds == 0) then
-				local label = ""
+			local modRange = mod.range or main.defaultItemAffixQuality
+			if itemLib.isModLineScalable(mod.line, modRange, mod.valueScalar) and (#variantIds == 0 or selectedVariant) then
+				local function formatLabel(corruptedRange)
+					local line = itemLib.applyRange(mod.line, modRange, mod.valueScalar or 1, corruptedRange)
+					local lines = main:WrapString("^7" .. line, 16, 430)
+					return table.concat(lines, "\n"), #lines
+				end
 				controls["rollRangeValue" .. i] = new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" },
 					{ 10, 10 + offset, 200, 16 }, "^71.00")
 				controls["rollRangeSlider" .. i] = new("SliderControl",
 					{ "LEFT", controls["rollRangeValue" .. i], "RIGHT" }, { 5, 0, 80, 18 }, function(val)
 						corruptedRanges[i] = 0.78 + round(0.44 * val, 2) -- 0.78-1.22
 						controls["rollRangeValue" .. i].label = "^7" .. string.format("%.2f", corruptedRanges[i])
-						local label = ""
-						for i, line in ipairs(main:WrapString("^7" .. itemLib.applyRange(mod.line, mod.range or main.defaultItemAffixQuality, mod.valueScalar or 1, corruptedRanges[i]), 16, 430)) do
-							if i == 1 then
-								label = line
-							else
-								label = label .. "\n" .. line
-							end
-						end
-						controls["rollRangeLabel" .. i].label = label
+						controls["rollRangeLabel" .. i].label = formatLabel(corruptedRanges[i])
 					end)
 				corruptedRanges[i] = mod.corruptedRange or 1
 				controls["rollRangeSlider" .. i].val = ((corruptedRanges[i]) - 0.78) / 0.44
 				controls["rollRangeValue" .. i].label = "^7" .. string.format("%.2f", corruptedRanges[i])
-				for i, line in ipairs(main:WrapString("^7" .. itemLib.applyRange(mod.line, mod.range or main.defaultItemAffixQuality, mod.valueScalar or 1, corruptedRanges[i]), 16, 430)) do
-					if i == 1 then
-						label = line
-					else
-						offset = offset + 16
-						label = label .. "\n" .. line
-					end
-				end
+				local label, lineCount = formatLabel(corruptedRanges[i])
+				offset = offset + 16 * (lineCount - 1)
 				controls["rollRangeLabel" .. i] = new("LabelControl",
 					{ "LEFT", controls["rollRangeSlider" .. i], "RIGHT" },
 					{ 5, 0, 200, 16 }, label)
@@ -2844,13 +2838,19 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 		end
 		explicitOffset = offset
 	end
+	local function setImplicitControlsShown(implicitNum, canChangeImplicits)
+		for i = 1, 4 do
+			local shown = canChangeImplicits and i <= implicitNum
+			controls["implicit" .. i].shown = shown
+			controls["implicit" .. i .. "Label"].shown = shown
+		end
+		controls.implicitCannotBeChangedLabel.shown = implicitNum > 0 and not canChangeImplicits
+	end
 	controls.implicits = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, { 5, 5, 80, 20 }, "Implicits",
 		function()
 			local implicitNum = currentModType == "Corrupted" and 2 or 4
-			for i = 1, implicitNum do
-				controls["implicit" .. i].shown = true
-				controls["implicit" .. i .. "Label"].shown = true
-			end
+			local canChangeImplicits = currentModType ~= "Corrupted" or not self.displayItem.implicitsCannotBeChanged
+			setImplicitControlsShown(implicitNum, canChangeImplicits)
 			for _, i in ipairs(shownExplicits) do
 				controls["rollRangeLabel" .. i].shown = false
 				controls["rollRangeSlider" .. i].shown = false
@@ -2868,10 +2868,7 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 	controls.rolls = new("ButtonControl", { "LEFT", controls.implicits, "RIGHT" }, { 5, 0, 80, 20 },
 		"Roll Ranges",
 		function()
-			for i = 1, 4 do
-				controls["implicit" .. i].shown = false
-				controls["implicit" .. i .. "Label"].shown = false
-			end
+			setImplicitControlsShown(0, false)
 			for _, i in ipairs(shownExplicits) do
 				controls["rollRangeLabel" .. i].shown = true
 				controls["rollRangeSlider" .. i].shown = true
@@ -2894,32 +2891,14 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 				currentModType = "ScourgeUpside"
 				buildImplicitList("ScourgeUpside")
 				buildImplicitList("ScourgeDownside")
-				controls.implicit1.shown = true
-				controls.implicit1Label.shown = true
-				controls.implicit2.shown = true
-				controls.implicit2Label.shown = true
-				controls.implicit3.shown = true
-				controls.implicit3Label.shown = true
-				controls.implicitCannotBeChangedLabel.shown = false
-				main.popups[1].height = 103 + 20 * 3
-				if self.displayItem.rarity == "UNIQUE" or self.displayItem.rarity == "RELIC" then
-					controls.implicit4Label.shown = true
-					controls.implicit4.shown = true
-					main.popups[1].height = 103 + 20 * 4
-				end
+				local implicitNum = (self.displayItem.rarity == "UNIQUE" or self.displayItem.rarity == "RELIC") and 4 or 3
+				setImplicitControlsShown(implicitNum, true)
+				main.popups[1].height = 103 + 20 * implicitNum
 				buildList(controls.implicit3, controls.implicit4, "ScourgeDownside")
 				buildList(controls.implicit4, controls.implicit3, "ScourgeDownside")
 			else
 				currentModType = value
-				controls.implicit1.shown = not self.displayItem.implicitsCannotBeChanged
-				controls.implicit1Label.shown = not self.displayItem.implicitsCannotBeChanged
-				controls.implicit2.shown = not self.displayItem.implicitsCannotBeChanged
-				controls.implicit2Label.shown = not self.displayItem.implicitsCannotBeChanged
-				controls.implicit3Label.shown = false
-				controls.implicit3.shown = false
-				controls.implicit4Label.shown = false
-				controls.implicit4.shown = false
-				controls.implicitCannotBeChangedLabel.shown = self.displayItem.implicitsCannotBeChanged
+				setImplicitControlsShown(2, not self.displayItem.implicitsCannotBeChanged)
 				main.popups[1].height = 103 + 20 * 2
 			end
 			if controls.sort then
