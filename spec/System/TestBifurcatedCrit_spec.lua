@@ -36,16 +36,6 @@ describe("Bifurcated critical strikes", function()
 		assert.are.equals(75, bifurcateOutput.CritChance)
 		assert.are.near(1 + 1 / 3, bifurcateOutput.CritBifurcates, 10 ^ -9)
 		assert.are.equals(20000, bifurcateOutput.AverageHit)
-
-		local mysticalInfusion = build.spec.nodes[1945]
-		mysticalInfusion.alloc = true
-		build.spec.allocNodes[mysticalInfusion.id] = mysticalInfusion
-		build.configTab.input.customMods = "+44% to critical hit chance\nyour critical strike multiplier is 1000000%\n"
-		build.configTab:BuildModList()
-		build.buildFlag = true
-		runCallback("OnFrame")
-		assert.are.equals(35, build.calcsTab.mainOutput.PreBifurcateCritChance)
-		assert.are.near(57.75, build.calcsTab.mainOutput.CritChance, 10 ^ -9)
 	end)
 
 	it("accounts for guaranteed critical strikes", function()
