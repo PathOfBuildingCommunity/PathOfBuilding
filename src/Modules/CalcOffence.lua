@@ -80,11 +80,6 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 		end
 		local convMult = conversionTable[otherType][damageType]
 		if convMult > 0 then
-			local convPortion = conversionTable[otherType].conversion[damageType]
-			if convPortion > 0 and cfg.summonSkillName and cfg.summonSkillName == "Raise Spectre" and otherType == "Physical" and damageType ~= "Chaos" then
-				local physBonus = 1 + data.monsterPhysConversionMultiTable[activeSkill.actor.level] / 100
-				convMult = (convMult - convPortion) + convPortion * physBonus
-			end
 			-- Damage is being converted/gained from the other damage type
 			local min, max = calcDamage(activeSkill, output, cfg, breakdown, otherType, typeFlags, damageType)
 			addMin = addMin + min * convMult
