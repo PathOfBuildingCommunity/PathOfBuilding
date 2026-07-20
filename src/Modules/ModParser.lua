@@ -3408,6 +3408,7 @@ local specialModList = {
 	["minion critical strikes do not deal extra damage"] = { mod("MinionModifier", "LIST", { mod = flag("NoCritMultiplier") }) },
 	["lightning damage with non%-critical strikes is lucky"] = { flag("LightningNoCritLucky") },
 	["your damage with critical strikes is lucky"] = { flag("CritLucky") },
+	["spell critical strike chance bifurcates"] = { flag("BifurcateCrit", nil, ModFlag.Spell) },
 	["critical strikes deal no damage"] = { mod("Damage", "MORE", -100, { type = "Condition", var = "CriticalStrike" }) },
 	["critical strike chance is increased by uncapped lightning resistance"] = { flag("CritChanceIncreasedByUncappedLightningRes") },
 	["critical strike chance is increased by lightning resistance"] = { flag("CritChanceIncreasedByLightningRes") },
