@@ -653,6 +653,9 @@ function calcs.buildOutput(build, mode)
 		if output.BrutalCharges > 0 then
 			t_insert(combatList, s_format("%d Brutal Charges", output.BrutalCharges))
 		end
+		if output.BrineCharges > 0 then
+			t_insert(combatList, s_format("%d Brine Charges", output.BrineCharges))
+		end
 		if output.SiphoningCharges > 0 then
 			t_insert(combatList, s_format("%d Siphoning Charges", output.SiphoningCharges))
 		end

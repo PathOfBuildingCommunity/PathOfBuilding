@@ -111,10 +111,13 @@ Hateforge
 Ancient Gauntlets
 League: Ultimatum
 Source: Drops from unique{The Trialmaster}
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 47, 68 Str
 Socketed Gems are Supported by Level 30 Rage
 (120-150)% increased Armour
-(10-25)% reduced Rage Cost of Skills
+{variant:1}(10-25)% reduced Rage Cost of Skills
+{variant:2}(20-40)% increased Rage Cost Efficiency
 Vaal Attack Skills you Use yourself Cost Rage instead of requiring Souls
 You cannot gain Rage during Soul Gain Prevention
 ]],[[
@@ -659,11 +662,14 @@ Trigger Level 20 Arcane Wake after Spending a total of 200 Mana
 ]],[[
 Wyrmsign
 Wyrmscale Gauntlets
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 49, 38 Str, 38 Dex
 Socketed Gems are Supported by Level 5 Concentrated Effect
 (120-160)% increased Armour and Evasion
 +(50-70) to maximum Life
-4% reduced Mana Cost per Endurance Charge
+{variant:1}4% reduced Mana Cost per Endurance Charge
+{variant:2}10% increased Mana Cost Efficiency per Endurance Charge
 Gain Rampage while at Maximum Endurance Charges
 Lose all Endurance Charges when Rampage ends
 ]],[[

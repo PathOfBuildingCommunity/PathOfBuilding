@@ -951,6 +951,7 @@ local function doActorCharges(env, actor)
 	output.CrabBarriersMax = m_max(modDB:Sum("BASE", nil, "CrabBarriersMax"), 0)
 	output.BrutalChargesMin = m_max(modDB:Flag(nil, "MinimumEnduranceChargesEqualsMinimumBrutalCharges") and (modDB:Flag(nil, "MinimumEnduranceChargesIsMaximumEnduranceCharges") and output.EnduranceChargesMax or output.EnduranceChargesMin) or 0 , 0)
 	output.BrutalChargesMax = m_max(modDB:Flag(nil, "MaximumEnduranceChargesEqualsMaximumBrutalCharges") and output.EnduranceChargesMax or 0, 0)
+	output.BrineChargesMax = m_max(modDB:Flag(nil, "MaximumEnduranceChargesEqualsMaximumBrineCharges") and output.EnduranceChargesMax or 0, 0)
 	output.AbsorptionChargesMin = m_max(modDB:Flag(nil, "MinimumPowerChargesEqualsMinimumAbsorptionCharges") and (modDB:Flag(nil, "MinimumPowerChargesIsMaximumPowerCharges") and output.PowerChargesMax or output.PowerChargesMin) or 0, 0)
 	output.AbsorptionChargesMax = m_max(modDB:Flag(nil, "MaximumPowerChargesEqualsMaximumAbsorptionCharges") and output.PowerChargesMax or 0, 0)
 	output.AfflictionChargesMin = m_max(modDB:Flag(nil, "MinimumFrenzyChargesEqualsMinimumAfflictionCharges") and (modDB:Flag(nil, "MinimumFrenzyChargesIsMaximumFrenzyCharges") and output.FrenzyChargesMax or output.FrenzyChargesMin) or 0, 0)
@@ -968,6 +969,7 @@ local function doActorCharges(env, actor)
 	output.InspirationCharges = 0
 	output.GhostShrouds = 0
 	output.BrutalCharges = 0
+	output.BrineCharges = 0
 	output.AbsorptionCharges = 0
 	output.AfflictionCharges = 0
 	output.BloodCharges = 0
@@ -1009,6 +1011,9 @@ local function doActorCharges(env, actor)
 	output.RemovableFrenzyCharges = m_max(output.FrenzyCharges - output.FrenzyChargesMin, 0)
 	if modDB:Flag(nil, "UseEnduranceCharges") then
 		output.EnduranceCharges = modDB:Override(nil, "EnduranceCharges") or output.EnduranceChargesMax
+		if modDB:Flag(nil, "CanGainBrineCharges") then
+			output.BrineCharges = output.BrineChargesMax
+		end
 	end
 	if modDB:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
 		-- we max with possible Endurance Charge Override from Config since Brutal Charges won't have their own config entry
@@ -1065,6 +1070,7 @@ local function doActorCharges(env, actor)
 	modDB.multipliers["GhostShroud"] = output.GhostShrouds
 	modDB.multipliers["CrabBarrier"] = output.CrabBarriers
 	modDB.multipliers["BrutalCharge"] = output.BrutalCharges
+	modDB.multipliers["BrineCharge"] = output.BrineCharges
 	modDB.multipliers["AbsorptionCharge"] = output.AbsorptionCharges
 	modDB.multipliers["AfflictionCharge"] = output.AfflictionCharges
 	modDB.multipliers["BloodCharge"] = output.BloodCharges
