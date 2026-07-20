@@ -1392,6 +1392,7 @@ end
 
 function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	local fontSizeBig = main.showFlavourText and 18 or 16
+	self.skillTooltip:Clear()
 	tooltip.center = true
 	tooltip.maxWidth = 800
 	-- Special case for sockets
@@ -1534,37 +1535,23 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			addModInfoToTooltip(mNode, i, masteryColor..line)
 		end
 		-- add child tooltip for skills
-		self.skillTooltip:Clear()
 		for _, mod in ipairs(mNode.finalModList or mNode.modList or {}) do
 			if mod.name == "ExtraSkill" or mod.name == "ExtraSupport" then
-				local found = false
-				for grantedEffect, gemId in pairs(data.gemForSkill) do
-					if grantedEffect.id == mod.value.skillId then
-						local gem = data.gems[gemId]
-						found = true
-						local gemInst = {
-							gemData = gem,
-							level = mod.value.level or 1,
-							quality = 0,
-							grantedEffect =
-								grantedEffect
-						}
-						gemTooltip.AddGemTooltip(self.skillTooltip, build, gemInst)
-						break
+				local skill = data.skills[mod.value.skillId]
+				if skill then
+					local gem = data.gems[data.gemForSkill[skill]]
+					local options = { }
+					if not gem then
+						gem = { grantedEffect = skill, tags = { } }
+						options.skipRequirements = true
 					end
-				end
-				-- if we didn't find a matching gem, look up based on the skill id
-				if not found then
-					local skill = data.skills[mod.value.skillId]
-					-- poe1 item skills don't seem to have matching gems, so make up one
-					local gem = { grantedEffect = skill, tags = {} }
 					local gemInst = {
 						gemData = gem,
 						level = mod.value.level or 1,
 						quality = 0,
 						grantedEffect = skill
 					}
-					gemTooltip.AddGemTooltip(self.skillTooltip, build, gemInst, { skipRequirements = true })
+					gemTooltip.AddGemTooltip(self.skillTooltip, build, gemInst, options)
 				end
 			end
 		end

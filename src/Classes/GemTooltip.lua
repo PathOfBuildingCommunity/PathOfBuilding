@@ -221,7 +221,7 @@ function GemTooltip.AddGemTooltip(tooltip, build, gemInstance, options)
 		tooltip:AddLine(fontSizeTitle,
 			colorCodes.GEM .. (gemInstance.gemData.secondaryEffectName or grantedEffectSecondary.name), "FONTIN SC")
 		tooltip:AddSeparator(10)
-		addCommonGemInfo(tooltip, build, gemInstance, grantedEffectSecondary, true, not skipRequirements)
+		addCommonGemInfo(tooltip, build, gemInstance, grantedEffectSecondary)
 	else
 		local grantedEffect = gemInstance.gemData.grantedEffect
 		tooltip:AddLine(fontSizeTitle, colorCodes.GEM .. grantedEffect.name, "FONTIN SC")
