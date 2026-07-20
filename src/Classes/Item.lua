@@ -80,9 +80,20 @@ for _, curInfluenceInfo in ipairs(influenceInfo) do
 end
 
 local lineFlags = {
-	["crafted"] = true, ["crucible"] = true, ["custom"] = true, ["eater"] = true, ["enchant"] = true,
-	["exarch"] = true, ["fractured"] = true, ["implicit"] = true, ["scourge"] = true, ["synthesis"] = true,
-	["mutated"] = true, ["unscalable"] = true
+	["crafted"] = true,
+	["crucible"] = true,
+	["custom"] = true,
+	["eater"] = true,
+	["enchant"] = true,
+	["exarch"] = true,
+	["fractured"] = true,
+	["implicit"] = true,
+	["scourge"] = true,
+	["synthesis"] = true,
+	["mutated"] = true,
+	["unscalable"] = true,
+	["prefix"] = true,
+	["suffix"] = true
 }
 
 -- Special function to store unique instances of modifier on specific item slots
@@ -368,6 +379,12 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.implicitModLines = { }
 	self.explicitModLines = { }
 	self.crucibleModLines = { }
+	-- old items or trade-sourced items have increases to modifiers baked in to the item text, which
+	-- means that we can't add e.g. quality or mod magnitude effect to them during parsing. we will
+	-- assume an item to be an advanced copy format if either has mod roll information, a modifier
+	-- line with a range, or advanced copy lines
+	self.advancedCopy = false
+	self.modMagnitudeMods = {}
 	local implicitLines = 0
 	self.variantList = nil
 	self.prefixes = { }
@@ -423,6 +440,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			end
 		elseif line:match("^{ ") then
 			-- We're parsing advanced copy/paste format
+			self.advancedCopy = true
 			linePrefix = ""
 			linePostfix = ""
 			self.crafted = true
@@ -511,7 +529,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.itemLevel = specToNumber(specVal)
 				elseif specName == "Requires Class" then
 					self.classRestriction = specVal
-				elseif specName:match("Quality %(%a+ Modifiers%)") then
+				elseif specName:match("Quality %([%a%s]+ Modifiers%)") then
 					self.catalystQuality = specToNumber(specVal:match("(%d+)%%"))
 					for i=1, #catalystDescriptorList do
 						if specName:match("Quality %(([%a%s]+) Modifiers%)") == catalystDescriptorList[i] then
@@ -696,6 +714,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 							t_insert(modLine.modTags, tag)
 						end
 					elseif k == "range" then
+						self.advancedCopy = true
 						modLine.range = tonumber(val)
 					elseif k == "corruptedRange" then
 						modLine.corruptedRange = tonumber(val)
@@ -719,6 +738,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				end
 
 				local baseName
+				-- items containing (#-#) lines are marked since the values won't have catalyst or mod magnitudes applied
+				if line:find("%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)") then
+					self.advancedCopy = true
+				end
 				if not self.base and (self.rarity == "NORMAL" or self.rarity == "MAGIC") then
 					-- Exact match (affix-less magic and normal items)
 					if self.name:match("Energy Blade") and itemClass then -- Special handling for energy blade base.
@@ -907,6 +930,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				end
 
 				local lineLower = line:lower()
+				-- \d+% increased/decreased explicit/implicit/ *tags* modifier magnitudes
+				local modMagnitudePattern = { "(%d+)%% ([id][ne]creased) ?([%a%s]*) modifier magnitudes",
+					-- \d+% increased/decreased effect of suffixes/prefixes
+					"(%d+)%% ([id][ne]creased) effect of ([sp][ur][fe]fix)es" }
 				if lineLower == "implicit modifiers cannot be changed" then
 					self.implicitsCannotBeChanged = true
 				elseif lineLower:match(" prefix modifiers? allowed") then
@@ -962,6 +989,28 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.onlyPhysicalDamage = true
 				end
 
+				for _, pattern in ipairs(modMagnitudePattern) do
+					if rangedLine:lower():find(pattern) then
+						local rangedLine = itemLib.applyRange(line, modLine.range or main.defaultItemAffixQuality or 1, catalystScalar, modLine.corruptedRange)
+						local amount, increaseOrDecrease, modTagsString = rangedLine:lower():match(pattern)
+						if amount and modTagsString and (increaseOrDecrease == "increased" or increaseOrDecrease == "decreased") then
+							local modTags = {}
+							local modType
+							-- explicit elemental damage -> tags = {elemental, damage}, modType = explicit
+							for word in (modTagsString .. " "):gmatch("%S+") do
+								word = word:lower()
+								if word == "implicit" or word == "explicit" or word == "enchant" then
+									modType = word
+								else
+									table.insert(modTags, word)
+								end
+							end
+							local quality = increaseOrDecrease == "increased" and tonumber(amount) or -tonumber(amount)
+							table.insert(self.modMagnitudeMods, { tags = modTags, quality = quality, modType = modType })
+							break
+						end
+					end
+				end
 				local modLines
 				if modLine.enchant or (modLine.crafted and #self.enchantModLines + #self.implicitModLines < implicitLines) then
 					modLines = self.enchantModLines
@@ -1022,6 +1071,50 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			self.requirements.level = importedLevelReq
 		else
 			self.requirements.level = self.base.req.level
+		end
+	end
+	if self.advancedCopy then
+		-- apply mod magnitude boost to matching mods
+		if #self.modMagnitudeMods > 0 then
+			for _, modMagnitudeMod in ipairs(self.modMagnitudeMods) do
+				local modLists
+				if modMagnitudeMod.modType then
+					modLists = { self[modMagnitudeMod.modType .. "ModLines"] }
+				else
+					modLists = { self.implicitModLines, self.explicitModLines, self.enchantModLines }
+				end
+				for _, mods in ipairs(modLists) do
+					for _, mod in ipairs(mods or {}) do
+						-- Create a fast lookup table for all provided tags
+						local tagLookup = {}
+						for _, curTag in ipairs(mod.modTags) do
+							tagLookup[curTag] = true;
+						end
+						-- these aren't actual mod tags but do appear in mod magnitude mods
+						for _, lineFlag in ipairs({ "desecrated", "prefix", "suffix" }) do
+							if mod[lineFlag] then
+								tagLookup[lineFlag] = true
+							end
+						end
+						local match = true
+						for _, magnitudeTag in ipairs(modMagnitudeMod.tags) do
+							if not tagLookup[magnitudeTag] then
+								match = false
+							end
+						end
+						if match then
+							mod.valueScalar = (mod.valueScalar or 1) + (modMagnitudeMod.quality / 100)
+						end
+						if mod.valueScalar and mod.valueScalar ~= 1 then
+							local rangedLine = itemLib.applyRange(mod.line, mod.range, mod.valueScalar, 1)
+							local modList, extra = modLib.parseMod(rangedLine)
+							mod.displayValueScalar = 1
+							mod.modList = modList
+							mod.extra = extra
+						end
+					end
+				end
+			end
 		end
 	end
 	self.affixLimit = 0
@@ -1285,6 +1378,12 @@ function ItemClass:BuildRaw()
 		if modLine.fractured then
 			line = "{fractured}" .. line
 		end
+		if modLine.prefix then
+			line = "{prefix}" .. line
+		end
+		if modLine.suffix then
+			line = "{suffix}" .. line
+		end
 		if modLine.exarch then
 			line = "{exarch}" .. line
 		end
@@ -1451,7 +1550,12 @@ function ItemClass:Craft()
 							return tonumber(num) + tonumber(other)
 						end)
 					else
-						local modLine = { line = line, order = order }
+						local modLine = { line = line, order = order, type = mod.type }
+						if mod.type == "Prefix" then
+							modLine.prefix = true
+						elseif mod.type == "Suffix" then
+							modLine.suffix = true
+						end
 						for l = 1, #self.explicitModLines + 1 do
 							if not self.explicitModLines[l] or self.explicitModLines[l].order > order then
 								t_insert(self.explicitModLines, l, modLine)
@@ -1824,6 +1928,17 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 	return { unpack(modList) }
 end
 
+local function getRangedModList(item, modLine)
+	if not modLine.range or not modLine.line:find("%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)") then
+		return
+	end
+	local line = itemLib.applyRange(modLine.line:gsub("\n", " "), modLine.range, modLine.valueScalar, modLine.corruptedRange)
+	local list, extra = modLib.parseMod(line)
+	if itemLib.isZeroValueLine(line) then
+		return {}
+	end
+	return not extra and list
+end
 -- Build lists of modifiers for each slot the item can occupy
 function ItemClass:BuildModList()
 	if not self.base then
@@ -1862,20 +1977,10 @@ function ItemClass:BuildModList()
 			end
 			-- handle understood modifier variable properties
 			if not modLine.extra then
-				if modLine.range then
-					-- Check if line actually has a range
-					if modLine.line:find("%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)") then
-						local strippedModeLine = modLine.line:gsub("\n"," ")						
-						local catalystScalar = getCatalystScalar(self.catalyst, modLine, self.catalystQuality)
-						-- Put the modified value into the string
-						local line = itemLib.applyRange(strippedModeLine, modLine.range, catalystScalar, modLine.corruptedRange)
-						-- Check if we can parse it before adding the mods
-						local list, extra = modLib.parseMod(line)
-						if list and not extra then
-							modLine.modList = list
-							t_insert(self.rangeLineList, modLine)
-						end
-					end
+				local rangedModList = getRangedModList(self, modLine)
+				if rangedModList then
+					modLine.modList = rangedModList
+					t_insert(self.rangeLineList, modLine)
 				end
 				for _, mod in ipairs(modLine.modList) do
 					mod = modLib.setSource(mod, self.modSource)
