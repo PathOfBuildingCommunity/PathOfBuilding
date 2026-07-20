@@ -33,7 +33,6 @@ local function getCatalystScalar(catalystId, mod, quality)
 		return 1
 	end
 	local tags = mod.modTags
-	local affixType = mod.type
 	if not catalystId or type(catalystId) ~= "number" or not catalystTags[catalystId] or not tags or type(tags) ~= "table" or #tags == 0 then
 		return 1
 	end
@@ -46,8 +45,11 @@ local function getCatalystScalar(catalystId, mod, quality)
 	for _, curTag in ipairs(tags) do
 		tagLookup[curTag] = true;
 	end
-	if affixType == "Prefix" or affixType == "Suffix" then -- Sinistral/Dextral
-		tagLookup[affixType:lower()] = true
+	-- these aren't actual mod tags but do sinistral/dextral catalyst
+	for _, lineFlag in ipairs({ "prefix", "suffix" }) do
+		if mod[lineFlag] then
+			tagLookup[lineFlag] = true
+		end
 	end
 
 	-- Find if any of the catalyst's tags match the provided tags
