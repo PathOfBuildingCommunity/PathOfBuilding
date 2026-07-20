@@ -3027,15 +3027,16 @@ function calcs.offence(env, actor, activeSkill)
 					local critChancePercentage = output.PreBifurcateCritChance
 					local bifurcateMultiChance = (critChancePercentage ^ 2) / 100
 					local effectiveCritChance = output.CritChance
-					local conditionalBifurcateChance = effectiveCritChance > 0 and bifurcateMultiChance / effectiveCritChance or 0
-					-- scale damage bonus chance to account for guaranteed crit
-					-- not being able to benefit from it
+					local bifurcateUseChance = 1
+					-- Guaranteed crit uses do not roll crit chance and therefore cannot bifurcate
 					if skillModList:Flag(skillCfg, "Every3UseCrit") then
-						conditionalBifurcateChance = conditionalBifurcateChance * 2 / 3
+						bifurcateUseChance = bifurcateUseChance * 2 / 3
 					end
 					if skillModList:Flag(skillCfg, "Every5UseCrit") then
-						conditionalBifurcateChance = conditionalBifurcateChance * 4 / 5
+						bifurcateUseChance = bifurcateUseChance * 4 / 5
 					end
+					bifurcateMultiChance = bifurcateMultiChance * bifurcateUseChance
+					local conditionalBifurcateChance = effectiveCritChance > 0 and bifurcateMultiChance / effectiveCritChance or 0
 					output.CritBifurcates = 1 + conditionalBifurcateChance
 					local damageBonus = extraDamage
 					local bifurcatedBonus = conditionalBifurcateChance * extraDamage
@@ -3043,10 +3044,13 @@ function calcs.offence(env, actor, activeSkill)
 						breakdown.CritBifurcates = {
 							s_format("%.2f%% ^8(pre-bifurcate crit chance)", critChancePercentage),
 							s_format("x %.2f%%", critChancePercentage),
-							s_format("= %.2f%% ^8(chance both crit rolls succeed)", bifurcateMultiChance),
-							s_format("/ %.2f%% ^8(chance at least one crit roll succeeds)", effectiveCritChance),
-							s_format("= %.2f ^8(crit Bifurcates effect)", 1 + conditionalBifurcateChance),
 						}
+						if bifurcateUseChance < 1 then
+							t_insert(breakdown.CritBifurcates, s_format("x %.2f%% ^8(uses that can bifurcate)", bifurcateUseChance * 100))
+						end
+						t_insert(breakdown.CritBifurcates, s_format("= %.2f%% ^8(chance both crit rolls succeed)", bifurcateMultiChance))
+						t_insert(breakdown.CritBifurcates, s_format("/ %.2f%% ^8(effective crit chance)", effectiveCritChance))
+						t_insert(breakdown.CritBifurcates, s_format("= %.2f ^8(crit Bifurcates effect)", 1 + conditionalBifurcateChance))
 					end
 					extraDamage = damageBonus + bifurcatedBonus
 					-- mod doesn't affect output and is purely descriptive
