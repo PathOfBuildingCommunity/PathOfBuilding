@@ -346,6 +346,7 @@ function CompareTabClass:InitControls()
 	-- ============================================================
 	self.controls.cmpSkillLabel = new("LabelControl", {"TOPLEFT", self.controls.subTabAnchor, "TOPLEFT"}, {0, -32, 0, 16}, "^7Skill:")
 	self.controls.cmpSkillLabel.shown = setsEnabled
+	self.controls.cmpSkillLabel.anchor.collapse = true
 
 	-- Socket group dropdown
 	self.controls.cmpSocketGroup = new("DropDownControl", {"LEFT", self.controls.cmpSkillLabel, "RIGHT"}, {4, 0, 200, 20}, {}, function(index, value)
@@ -357,6 +358,7 @@ function CompareTabClass:InitControls()
 	self.controls.cmpSocketGroup.shown = setsEnabled
 	self.controls.cmpSocketGroup.maxDroppedWidth = 500
 	self.controls.cmpSocketGroup.enableDroppedWidth = true
+	self.controls.cmpSocketGroup.anchor.collapse = true
 
 	-- Active skill within group
 	self.controls.cmpMainSkill = new("DropDownControl", {"LEFT", self.controls.cmpSocketGroup, "RIGHT"}, {4, 0, 225, 20}, {}, function(index, value)
@@ -370,6 +372,7 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.cmpMainSkill.shown = false
+	self.controls.cmpMainSkill.anchor.collapse = true
 
 	-- Skill part (multi-part skills)
 	self.controls.cmpSkillPart = new("DropDownControl", {"LEFT", self.controls.cmpMainSkill, "RIGHT"}, {4, 0, 200, 20}, {}, function(index, value)
@@ -387,10 +390,12 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.cmpSkillPart.shown = false
+	self.controls.cmpSkillPart.anchor.collapse = true
 
 	-- Stage count
 	self.controls.cmpStageCountLabel = new("LabelControl", {"LEFT", self.controls.cmpSkillPart, "RIGHT"}, {6, 0, 0, 16}, "^7Stages:")
 	self.controls.cmpStageCountLabel.shown = function() return self.controls.cmpStageCount.shown end
+	self.controls.cmpStageCountLabel.anchor.collapse = true
 	self.controls.cmpStageCount = new("EditControl", {"LEFT", self.controls.cmpStageCountLabel, "RIGHT"}, {4, 0, 52, 20}, "", nil, "%D", 5, function(buf)
 		local entry = self:GetActiveCompare()
 		if entry then
@@ -406,10 +411,12 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.cmpStageCount.shown = false
+	self.controls.cmpStageCount.anchor.collapse = true
 
 	-- Mine count
 	self.controls.cmpMineCountLabel = new("LabelControl", {"LEFT", self.controls.cmpStageCount, "RIGHT"}, {6, 0, 0, 16}, "^7Mines:")
 	self.controls.cmpMineCountLabel.shown = function() return self.controls.cmpMineCount.shown end
+	self.controls.cmpMineCountLabel.anchor.collapse = true
 	self.controls.cmpMineCount = new("EditControl", {"LEFT", self.controls.cmpMineCountLabel, "RIGHT"}, {4, 0, 52, 20}, "", nil, "%D", 5, function(buf)
 		local entry = self:GetActiveCompare()
 		if entry then
@@ -425,6 +432,7 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.cmpMineCount.shown = false
+	self.controls.cmpMineCount.anchor.collapse = true
 
 	-- Minion selector
 	self.controls.cmpMinion = new("DropDownControl", {"LEFT", self.controls.cmpMineCount, "RIGHT"}, {6, 0, 140, 20}, {}, function(index, value)
@@ -449,6 +457,7 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.cmpMinion.shown = false
+	self.controls.cmpMinion.anchor.collapse = true
 
 	-- Minion skill selector
 	self.controls.cmpMinionSkill = new("DropDownControl", {"LEFT", self.controls.cmpMinion, "RIGHT"}, {4, 0, 140, 20}, {}, function(index, value)
@@ -466,6 +475,7 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.cmpMinionSkill.shown = false
+	self.controls.cmpMinionSkill.anchor.collapse = true
 
 	-- ============================================================
 	-- Calcs view skill detail controls (per-build, independent of sidebar & regular Calcs tab)
@@ -1263,6 +1273,12 @@ function CompareTabClass:RemoveBuild(index)
 		end
 		if self.activeCompareIndex == 0 and #self.compareEntries > 0 then
 			self.activeCompareIndex = 1
+		end
+		if #self.compareEntries == 0 then
+			for _, control in ipairs({ self.controls.cmpMainSkill, self.controls.cmpSkillPart, self.controls.cmpStageCount,
+				self.controls.cmpMineCount, self.controls.cmpMinion, self.controls.cmpMinionSkill }) do
+				control.shown = false
+			end
 		end
 		self:UpdateBuildSelector()
 	end
