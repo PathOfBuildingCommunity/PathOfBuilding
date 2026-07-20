@@ -1268,6 +1268,12 @@ function CompareTabClass:RemoveBuild(index)
 		if self.activeCompareIndex == 0 and #self.compareEntries > 0 then
 			self.activeCompareIndex = 1
 		end
+		if #self.compareEntries == 0 then
+			for _, control in ipairs({ self.controls.cmpMainSkill, self.controls.cmpSkillPart, self.controls.cmpStageCount,
+				self.controls.cmpMineCount, self.controls.cmpMinion, self.controls.cmpMinionSkill }) do
+				control.shown = false
+			end
+		end
 		self:UpdateBuildSelector()
 	end
 end
