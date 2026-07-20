@@ -1315,7 +1315,7 @@ describe("TestDefence", function()
 		-- "+2000 Armour while you do not have Avatar of Fire" line is active.
 		local armourWithoutAvatarOfFire = build.calcsTab.mainOutput.Armour
 		assert.is_true(armourWithoutAvatarOfFire >= 2000)
-		assert.is_falsy(build.calcsTab.mainEnv.player.modDB:Flag(nil, "Condition:HaveAvatarOfFire"))
+		assert.is_nil(build.calcsTab.mainEnv.player.modDB:Flag(nil, "Condition:HaveAvatarOfFire"))
 
 		-- Equip a permanent source of the Avatar of Fire keystone, exactly as
 		-- Xoph's Blood does via its "Avatar of Fire" line.

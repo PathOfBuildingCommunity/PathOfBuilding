@@ -1103,6 +1103,15 @@ function calcs.perform(env, skipEHP)
 	env.keystonesAdded = { }
 	modLib.mergeKeystones(env, env.modDB)
 
+	-- A permanent source of the Avatar of Fire keystone (the passive tree or an
+	-- item such as Xoph's Blood) means the character always has Avatar of Fire.
+	-- Force the condition on so "while you (do not) have Avatar of Fire" mods
+	-- (e.g. on Vulconus) resolve correctly. The Vulconus config option only
+	-- covers its temporary buff, which is why the condition isn't set otherwise.
+	if env.keystonesAdded["Avatar of Fire"] then
+		modDB:NewMod("Condition:HaveAvatarOfFire", "FLAG", true, "Keystone:Avatar of Fire")
+	end
+
 	-- Build minion skills
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		activeSkill.skillModList = new("ModList", activeSkill.baseSkillModList)
