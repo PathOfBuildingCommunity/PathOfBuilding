@@ -119,6 +119,7 @@ function main:Init()
 	self.showFlavourText = true
 	self.showAnimations = true
 	self.showAllItemAffixes = true
+	self.disableScrollControlInteraction = false
 	self.errorReadingSettings = false
 
 	if not SetDPIScaleOverridePercent then SetDPIScaleOverridePercent = function(scale) end end
@@ -764,6 +765,7 @@ function main:SaveSettings()
 		showFlavourText = tostring(self.showFlavourText),
 		showAnimations = tostring(self.showAnimations),
 		showAllItemAffixes = tostring(self.showAllItemAffixes),
+		disableScrollControlInteraction = tostring(self.disableScrollControlInteraction),
 		dpiScaleOverridePercent = tostring(self.dpiScaleOverridePercent),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
