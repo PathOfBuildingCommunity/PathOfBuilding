@@ -1782,9 +1782,9 @@ function calcs.offence(env, actor, activeSkill)
 				output[costName] = m_floor(val.baseCost + val.baseCostNoMult)
 				output[costName] = m_max(0, (1 + inc / 100) * output[costName])
 				output[costName] = m_max(0, moreType * output[costName])
-				output[costName] = m_max(0, output[costName] + val.totalCost)
 				-- Apply cost efficiency for unaffected costs too
 				output[costName] = m_max(0, output[costName] / costEfficiency)
+				output[costName] = m_max(0, output[costName] + val.totalCost)
 				output[costNameRaw] = val.baseCostRaw and m_max(0, m_max(0, (1 + inc / 100) * (val.baseCostRaw + val.baseCostNoMult) * moreType / costEfficiency) + val.totalCost)
 			end
 			if breakdown and hasCost then
