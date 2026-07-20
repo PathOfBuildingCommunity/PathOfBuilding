@@ -1,4 +1,4 @@
-describe("TetsItemMods", function()
+describe("TestItemMods", function()
 	before_each(function()
 		newBuild()
 	end)
@@ -611,5 +611,59 @@ describe("TetsItemMods", function()
 
 		assert.are.equals(baseFrenzyChargesMax + 1, build.calcsTab.calcsOutput.FrenzyChargesMax)
 		assert.are.equals(baseEnduranceChargesMax + 1, build.calcsTab.calcsOutput.EnduranceChargesMax)
+	end)
+
+	it("Test Wings of Entropy skill disabled", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Wings of Entropy
+			{variant:1,2,3,4}Sundering Axe
+			{variant:5}Ezomyte Axe
+			Variant: Pre 1.3.0
+			Variant: Pre 2.0.0
+			Variant: Pre 3.4.0
+			Variant: Pre 3.11.0
+			Variant: Pre 3.26.0
+			Variant: Current
+			Implicits: 0
+			{variant:1,2,3}7% Chance to Block Spell Damage
+			{variant:4}(6-7)% Chance to Block Spell Damage
+			{variant:5,6}(7-10)% Chance to Block Spell Damage
+			{variant:1}+10% Chance to Block Attack Damage while Dual Wielding
+			{variant:2,3,4}+8% Chance to Block Attack Damage while Dual Wielding
+			{variant:5,6}+(8-12)% Chance to Block Attack Damage while Dual Wielding
+			{variant:1,2}(80-120)% increased Physical Damage
+			{variant:3,4}(100-120)% increased Physical Damage
+			{variant:5,6}(60-80)% increased Physical Damage
+			{variant:1,2,3,4}Adds (55-65) to (100-120) Fire Damage in Main Hand
+			{variant:5}Adds (75-100) to (165-200) Fire Damage in Main Hand
+			{variant:6}Adds (150-200) to (330-400) Fire Damage in Main Hand
+			{variant:1,2,3,4}Adds (55-65) to (100-120) Chaos Damage in Off Hand
+			{variant:5}Adds (75-100) to (165-200) Chaos Damage in Off Hand
+			{variant:6}Adds (151-199) to (331-401) Chaos Damage in Off Hand
+			Counts as Dual Wielding
+			]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		local function testSkill(skill, index, expected)
+			build.skillsTab:PasteSocketGroup(skill.." 20/0  1")
+			runCallback("OnFrame")
+
+			build.mainSocketGroup = index
+			build.modFlag = true
+			build.buildFlag = true
+			runCallback("OnFrame")
+
+			assert.True(build.calcsTab.mainEnv.player.mainSkill.skillFlags.disable == expected)
+		end
+
+		testSkill("Lacerate of Haemorrhage", 1, nil)
+		testSkill("Lacerate of Butchering", 2, true)
+		testSkill("Ice Crash of Cadence", 3, nil)
+		testSkill("Swordstorm", 4, nil)
+		testSkill("Ground Slam of Earthshaking", 5, true)
+		testSkill("Sunder", 6, nil)
+		testSkill("Chain Hook", 7, nil)
+		testSkill("Dual Strike of Ambidexterity", 8, true)
 	end)
 end)
