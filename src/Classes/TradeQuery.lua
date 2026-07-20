@@ -278,7 +278,7 @@ function TradeQueryClass:PriceItem()
 			end
 		end)
 	end
-	self.controls.poesessidButton = new("ButtonControl", {"TOPLEFT", self.controls.setSelect, "TOPLEFT"}, {0, row_height + row_vertical_padding, 188, row_height}, self.loginStatus, function()
+	self.controls.tradeAuthButton = new("ButtonControl", {"TOPLEFT", self.controls.setSelect, "TOPLEFT"}, {0, row_height + row_vertical_padding, 188, row_height}, self.loginStatus, function()
 		-- LOGIN
 		if not main.api.authToken then
 			main.api:FetchAuthToken(function()
@@ -307,7 +307,7 @@ function TradeQueryClass:PriceItem()
 			main:SaveSettings()
 		end
 	end)
-	self.controls.poesessidButton.tooltipText = [[
+	self.controls.tradeAuthButton.tooltipText = [[
 The Trader feature supports two modes of operation depending on the authorization availability.
 You can click this button to authorize PoB by logging in.
 
@@ -333,7 +333,7 @@ on trade site to work on other leagues and realms)]]
 		"Any (includes offline)"
 	}
 
-	self.controls.tradeTypeSelection = new("DropDownControl", { "TOPLEFT", self.controls.poesessidButton, "BOTTOMLEFT" },
+	self.controls.tradeTypeSelection = new("DropDownControl", { "TOPLEFT", self.controls.tradeAuthButton, "BOTTOMLEFT" },
 		{ 0, row_vertical_padding, 188, row_height }, self.tradeTypes, function(index, value)
 			self.tradeTypeIndex = index
 		end)
