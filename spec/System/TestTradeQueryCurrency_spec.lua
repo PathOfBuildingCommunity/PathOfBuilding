@@ -23,6 +23,31 @@ describe("TradeQuery Currency Conversion", function()
 		end)
 	end)
 
+	it("applies the Stat Value fallback when currency rates are missing", function()
+		mock_tradeQuery.sortModes = { Price = "price", StatValue = "stat" }
+		mock_tradeQuery.itemSortSelectionList = { "price" }
+		mock_tradeQuery.pbItemSortSelectionIndex = 1
+		mock_tradeQuery.resultTbl = { [1] = { { currency = "chaos", amount = 1 } } }
+		mock_tradeQuery.sortedResultTbl = {}
+		mock_tradeQuery.itemIndexTbl = {}
+		mock_tradeQuery.totalPrice = {}
+		mock_tradeQuery.controls.pbNotice = {}
+		mock_tradeQuery.controls.priceButton1 = {}
+		mock_tradeQuery.controls.fullPrice = {}
+		mock_tradeQuery.SortFetchResults = function(_, _, mode)
+			if mode == "price" then
+				return nil, "MissingConversionRates"
+			end
+			return { { index = 1 } }
+		end
+		mock_tradeQuery.UpdateDropdownList = function() end
+
+		mock_tradeQuery:UpdateControlsWithItems(1)
+
+		assert.are.equals(1, mock_tradeQuery.sortedResultTbl[1][1].index)
+		assert.are.equals(1, mock_tradeQuery.itemIndexTbl[1])
+	end)
+
 	describe("PriceBuilderProcessPoENinjaResponse", function()
 		-- Pass: Processes without error, restoring map while adding a notice
 		-- Fail: Corrupts map or crashes, indicating fragile API response handling, breaking future conversions

@@ -873,7 +873,6 @@ function TradeQueryClass:UpdateControlsWithItems(row_idx)
 	if errMsg == "MissingConversionRates" then
 		self:SetNotice(self.controls.pbNotice, "^4Please update currency rates to sort by price. Falling back to Stat Value sort.")
 		sortedItems, errMsg = self:SortFetchResults(row_idx, self.sortModes.StatValue)
-		return
 	elseif errMsg then
 		self:SetNotice(self.controls.pbNotice, "Error: " .. errMsg)
 		return
@@ -1022,7 +1021,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 				self:SetNotice(context.controls.pbNotice, "")
 			end
 			if main.api.authToken == nil then
-				local url = self.tradeQueryRequests:buildUrl(self.hostName .. "trade2/search", self.pbRealm, self.pbLeague)
+				local url = self.tradeQueryRequests:buildUrl(self.hostName .. "trade/search", self.pbRealm, self.pbLeague)
 				url = url .. "?q=" .. urlEncode(query)
 				controls["uri"..context.row_idx]:SetText(url, true)
 				return

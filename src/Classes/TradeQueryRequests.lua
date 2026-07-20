@@ -366,7 +366,7 @@ function TradeQueryRequestsClass:FetchSearchQuery(realm, league, queryId, callba
 	})
 end
 
---- Fetches the list of all available leagues using trade2 league API
+--- Fetches the list of all available leagues using trade league API
 ---@param realm string
 ---@param callback fun(query:table, errMsg:string)
 function TradeQueryRequestsClass:FetchLeagues(realm, callback)
