@@ -697,6 +697,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						end
 					elseif k == "range" then
 						modLine.range = tonumber(val)
+					elseif k == "corruptedRange" then
+						modLine.corruptedRange = tonumber(val)
 					elseif lineFlags[k] then
 						modLine[k] = true
 					end
@@ -888,13 +890,13 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						modLine.range = bestPrecisionRange
 					end
 				end
-				local rangedLine = itemLib.applyRange(line, 1, catalystScalar)
+				local rangedLine = itemLib.applyRange(line, 1, catalystScalar, modLine.corruptedRange)
 				local modList, extra = modLib.parseMod(rangedLine)
 				if (not modList or extra) and self.rawLines[l+1] then
 					-- Try to combine it with the next line
 					local nextLine = self.rawLines[l+1]:gsub("%b{}", ""):gsub(" ?%(%l+%)","")
 					local combLine = line.." "..nextLine
-					rangedLine = itemLib.applyRange(combLine, 1, catalystScalar)
+					rangedLine = itemLib.applyRange(combLine, 1, catalystScalar, modLine.corruptedRange)
 					modList, extra = modLib.parseMod(rangedLine, true)
 					if modList and not extra then
 						line = line.."\n"..nextLine
@@ -1261,6 +1263,9 @@ function ItemClass:BuildRaw()
 		local line = modLine.line
 		if modLine.range and line:match("%(%-?[%d%.]+%-%-?[%d%.]+%)") then
 			line = "{range:" .. round(modLine.range, 3) .. "}" .. line
+		end
+		if modLine.corruptedRange then
+			line = "{corruptedRange:" .. round(modLine.corruptedRange, 2) .. "}" .. line
 		end
 		if modLine.crafted then
 			line = "{crafted}" .. line
@@ -1863,7 +1868,7 @@ function ItemClass:BuildModList()
 						local strippedModeLine = modLine.line:gsub("\n"," ")						
 						local catalystScalar = getCatalystScalar(self.catalyst, modLine, self.catalystQuality)
 						-- Put the modified value into the string
-						local line = itemLib.applyRange(strippedModeLine, modLine.range, catalystScalar)
+						local line = itemLib.applyRange(strippedModeLine, modLine.range, catalystScalar, modLine.corruptedRange)
 						-- Check if we can parse it before adding the mods
 						local list, extra = modLib.parseMod(line)
 						if list and not extra then
