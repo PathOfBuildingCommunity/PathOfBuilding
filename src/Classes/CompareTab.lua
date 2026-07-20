@@ -9,11 +9,11 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 local s_format = string.format
-local dkjson = require "dkjson"
-local tradeHelpers = LoadModule("Classes/CompareTradeHelpers")
+local tradeHelpers = LoadModule("Classes/TradeHelpers")
 local buySimilar = LoadModule("Classes/CompareBuySimilar")
 local calcsHelpers = LoadModule("Classes/CompareCalcsHelpers")
 local buildListHelpers = LoadModule("Modules/BuildListHelpers")
+local itemSlotHelper = LoadModule("Modules/ItemSlotHelper")
 local configVisibility = LoadModule("Modules/ConfigVisibility")
 
 -- Node IDs below this value are normal passive tree nodes; IDs at or above are cluster jewel nodes
@@ -1233,6 +1233,10 @@ function CompareTabClass:ImportBuild(xmlText, label)
 		t_insert(self.compareEntries, entry)
 		self.activeCompareIndex = #self.compareEntries
 		self:UpdateBuildSelector()
+		-- Restore primary build's window title
+		if self.primaryBuild.spec then
+			self.primaryBuild.spec:SetWindowTitleWithBuildClass()
+		end
 		return true
 	end
 	return false
@@ -3811,13 +3815,33 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 			drawY = drawY + maxH + 6
 		else
 			-- === COMPACT MODE ===
+			local slot = self.primaryBuild.itemsTab.slots[equipSlotName]
+			local nodeId = slot and slot.nodeId
+			local shouldUnderline = not not nodeId
 			local pHover, cHover, b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H,
 				rowHoverItem, rowHoverItemsTab, rowHoverX, rowHoverY, rowHoverW, rowHoverH =
 				tradeHelpers.drawCompactSlotRow(drawY, label, pItem, cItem,
 					colWidth, cursorX, cursorY, labelW,
 					self.primaryBuild.itemsTab, compareEntry.itemsTab, pWarn, cWarn, slotMissing,
-					LAYOUT.itemsCopyBtnW, LAYOUT.itemsCopyBtnH, LAYOUT.itemsBuyBtnW, LAYOUT.itemsEquipBtnW, scrollOffsetX)
+					LAYOUT.itemsCopyBtnW, LAYOUT.itemsCopyBtnH, LAYOUT.itemsBuyBtnW, LAYOUT.itemsEquipBtnW, scrollOffsetX,
+					shouldUnderline)
 
+			local labelX = (scrollOffsetX or 0) + 10
+			-- draw passive tree view when hovering over the label, if the slot is a jewel socket
+			if labelX <= cursorX and cursorX <= (labelX + labelW)
+				and drawY < cursorY and cursorY <= (drawY + 20) then
+				if nodeId then
+					local boxSize = 250
+					-- anchor bottom left to label top left, keeping in mind what our viewport was
+					SetViewport()
+					local boxX = vp.x + labelX
+					local boxY = (vp.y + checkboxOffset) + drawY - boxSize
+					itemSlotHelper.DrawViewer(self.primaryBuild.itemsTab, nodeId, boxX, boxY, boxSize,
+						boxSize)
+					-- restore viewport
+					SetViewport(vp.x, vp.y + checkboxOffset, vp.width, scrollViewH)
+				end
+			end
 			if rowHoverItem then
 				hoverItem = rowHoverItem
 				hoverItemsTab = rowHoverItemsTab

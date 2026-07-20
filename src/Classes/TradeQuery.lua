@@ -6,6 +6,7 @@
 
 
 local dkjson = require "dkjson"
+local itemSlotHelper = LoadModule("Modules/ItemSlotHelper")
 
 local get_time = os.time
 local t_insert = table.insert
@@ -1075,6 +1076,18 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 Note that even if you are authenticated, you can click this button again to show the search link.
 If you have additional requirements that the trade tool doesn't cover (e.g. Adorned Magic jewels),
 you can add them, copy the link here, and press "Price Item" to evaluate the items.]]
+	controls["bestButton" .. row_idx].onHover = function()
+		local button = controls["bestButton" .. row_idx]
+		local x, y = button:GetPos()
+		local buttonWidth, _ = button:GetSize()
+		local nodeId = slotTbl.nodeId
+		if not nodeId then return end
+		local boxSize = 250
+		-- anchor bottom to top of button
+		local viewerY = y - boxSize - 4
+		local viewerX = x - boxSize / 2 + buttonWidth / 2
+		itemSlotHelper.DrawViewer(self.itemsTab, nodeId, viewerX, viewerY, boxSize, boxSize)
+	end
 	local pbURL
 	controls["uri"..row_idx] = new("EditControl", { "TOPLEFT", controls["bestButton"..row_idx], "TOPRIGHT"}, {8, 0, 514, row_height}, nil, nil, "^%C\t\n", nil, function(buf)
 		local subpath = buf:match(self.hostName .. "trade/search/(.+)$") or ""

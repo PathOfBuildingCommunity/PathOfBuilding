@@ -829,38 +829,40 @@ function supportEnabled(skillName, activeSkill)
 	return true
 end
 
+-- will remove newlines from strings so that they are valid lua
+---@param thing string | table | number
+---@return string
 function stringify(thing)
 	if type(thing) == 'string' then
-		return thing
+		local s = thing:gsub("\n", " ")
+		return s
 	elseif type(thing) == 'number' then
-		return ""..thing;
+		return "" .. thing;
 	elseif type(thing) == 'table' then
 		local s = "{";
-		local keys = { }
-		for key in pairs(thing) do table.insert(keys, key) end
+		local keys = {}
+		for key in pairs(thing) do t_insert(keys, key) end
 		table.sort(keys)
 		for _, k in ipairs(keys) do
 			local v = thing[k]
-			s = s.."\n\t"
-			if type(k) == 'number' then
-				s = s.."["..k.."] = "
-			else
-				s = s.."[\""..k.."\"] = "
+			s = s .. "\n\t"
+			if type(k) ~= 'number' then
+				s = s .. "[\"" .. k .. "\"] = "
 			end
 			if type(v) == 'string' then
-				s = s.."\""..stringify(v).."\", "
+				s = s .. "\"" .. stringify(v) .. "\","
 			else
 				if type(v) == "boolean" then
 					v = v and "true" or "false"
 				end
-				val = stringify(v)..", "
+				val = stringify(v) .. ","
 				if type(v) == "table" then
 					val = string.gsub(val, "\n", "\n\t")
 				end
-				s = s..val;
+				s = s .. val;
 			end
 		end
-		return s.."\n}"
+		return s .. "\n}"
 	end
 end
 
@@ -983,4 +985,24 @@ function GetVirtualScreenSize()
 		height = math.floor(height / scale)
 	end
 	return width, height
+end
+
+-- used for calculating the hash field of a stat
+local GGG_STAT_HASH32_SEED = 0xC58F1A7B
+-- used for calculating the trade hash from stat hash fields
+local GGG_TRADE_SEED = 0x02312233
+---@param stats string[]
+---@param extraStat string extra stat for time-lost jewels
+---@return integer
+function HashStats(stats, extraStat)
+	if extraStat then
+		stats = copyTable(stats)
+		table.insert(stats, extraStat)
+	end
+	local statHashes = ""
+	for _, statName in ipairs(stats) do
+		local newHash = intToBytes(murmurHash2(statName, GGG_STAT_HASH32_SEED))
+		statHashes = statHashes .. newHash
+	end
+	return murmurHash2(statHashes, GGG_TRADE_SEED)
 end
