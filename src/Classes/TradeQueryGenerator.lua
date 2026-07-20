@@ -228,8 +228,6 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 			goto continue
 		end
 
-		
-
 		local uniqueIndex = tostring(statOrder).."_"..mod.group
 		local inverse = false
 		local inverseKey

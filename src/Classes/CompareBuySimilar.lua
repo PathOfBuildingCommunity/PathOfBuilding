@@ -340,7 +340,7 @@ function M.openPopup(item, slotName, primaryBuild)
 	end
 	-- Helper to fetch and populate leagues for a given realm API id
 	local function fetchLeaguesForRealm(realmApiId)
-		local lastIdx = M.lastLeagueIdx
+		local lastLeague = M.lastLeagueByRealm and M.lastLeagueByRealm[realmApiId]
 		controls.leagueDrop:SetList({"Loading..."})
 		controls.leagueDrop.selIndex = 1
 		tradeQueryRequests:FetchLeagues(realmApiId, function(leagues, errMsg)
@@ -364,16 +364,7 @@ function M.openPopup(item, slotName, primaryBuild)
 			t_insert(leagueList, "Ruthless")
 			t_insert(leagueList, "Hardcore Ruthless")
 			controls.leagueDrop:SetList(leagueList)
-			-- default to sc
-			for i,v in ipairs(controls.leagueDrop.list) do
-				if not v:match("^HC") then
-					controls.leagueDrop:SetSel(i)
-					break
-				end
-			end
-			if lastIdx then
-				controls.leagueDrop:SetSel(lastIdx)
-			end
+			controls.leagueDrop:SetSel(isValueInArray(leagueList, lastLeague) or 1, true)
 			rebuildUrl()
 		end)
 	end
@@ -394,7 +385,9 @@ function M.openPopup(item, slotName, primaryBuild)
 	controls.leagueLabel = new("LabelControl", {"LEFT", controls.realmDrop, "RIGHT"}, {12, 0, 0, 16}, "^7League:")
 	controls.leagueDrop = new("DropDownControl", { "LEFT", controls.leagueLabel, "RIGHT" }, { 4, 0, 160, 20 },
 		{ "Loading..." }, function(index, value)
-			M.lastLeagueIdx = index
+			local realmApiId = REALM_API_IDS[controls.realmDrop:GetSelValue()] or "pc"
+			M.lastLeagueByRealm = M.lastLeagueByRealm or {}
+			M.lastLeagueByRealm[realmApiId] = value
 			rebuildUrl()
 	end)
 	controls.leagueDrop.enabled = function() return #controls.leagueDrop.list > 0 and controls.leagueDrop.list[1] ~= "Loading..." end

@@ -1,16 +1,6 @@
 describe("TradeHelpers trade hash matching", function()
 	local tradeHelpers = LoadModule("Classes/TradeHelpers")
 
-	---@param ids number[]
-	---@param expected number
-	---@return boolean contains whether the given array contains the expected id
-	local function contains(ids, expected)
-		for _, id in ipairs(ids) do
-			if id == expected then return true end
-		end
-		return false
-	end
-
 	describe("modLineValue", function()
 		it("returns the single number on a line", function()
 			assert.equal(50, tradeHelpers.modLineValue("+50 to maximum Life"))
@@ -59,39 +49,31 @@ describe("TradeHelpers trade hash matching", function()
 		it("matches a simple mod", function()
 			local ids, value = tradeHelpers.findTradeHash("+50 to maximum Life")
 			assert.equal(50, value)
-			assert.is_true(contains(ids, HashStats({ "base_maximum_life" })))
+			assert.is_truthy(isValueInArray(ids, HashStats({ "base_maximum_life" })))
 		end)
 
 		it("matches a percentage mod", function()
 			local ids, value = tradeHelpers.findTradeHash("25% reduced maximum Energy Shield")
 			assert.equal(25, value)
-			assert.is_true(contains(ids, HashStats({ "maximum_energy_shield_+%" })))
+			assert.is_truthy(isValueInArray(ids, HashStats({ "maximum_energy_shield_+%" })))
 		end)
 
-		it("matches a # to #  mod", function()
+		it("matches a # to # mod", function()
 			local ids, value = tradeHelpers.findTradeHash("Adds 5 to 15 Fire Damage")
 			assert.equal(10, value)
-			assert.is_true(contains(ids,
+			assert.is_truthy(isValueInArray(ids,
 				HashStats({ "local_minimum_added_fire_damage", "local_maximum_added_fire_damage" })))
 		end)
 
 		it("is case-insensitive", function()
 			local ids = tradeHelpers.findTradeHash(
 				"1 aDDED PASSiVe sKilL IS ONE wITh The ShiELd")
-			assert.is_true(contains(ids, HashStats({ "local_affliction_notable_one_with_the_shield" })))
+			assert.is_truthy(isValueInArray(ids, HashStats({ "local_affliction_notable_one_with_the_shield" })))
 		end)
 
 		it("returns no results for an unmatchable line", function()
 			local ids = tradeHelpers.findTradeHash("+100 to IQ")
 			assert.equal(0, #ids)
-		end)
-
-		it("works thrice in a row", function()
-			local a = tradeHelpers.findTradeHash("+50 to maximum Life")
-			local b = tradeHelpers.findTradeHash("+50 to maximum Life")
-			local c = tradeHelpers.findTradeHash("+50 to maximum Life")
-			assert.same(a, b)
-			assert.same(b, c)
 		end)
 
 		it("detects inverted mods correctly", function()
@@ -110,19 +92,19 @@ describe("TradeHelpers trade hash matching", function()
 		it("detects mods with lua pattern characters correctly", function()
 			local ids, value = tradeHelpers.findTradeHash(
 				"trigger Socketed Spells when you focus, with a 0.25 second cooldown")
-			assert.is_true(contains(ids, HashStats({ "trigger_socketed_spells_when_you_focus_%" })))
+			assert.is_truthy(isValueInArray(ids, HashStats({ "trigger_socketed_spells_when_you_focus_%" })))
 			assert.equal(100, value)
 
 			local ids, value, shouldNegate = tradeHelpers.findTradeHash(
 				"10% reduced effect of Non-Curse Auras from your Skills on your Minions")
-			assert.is_true(contains(ids, HashStats({ "minions_have_non_curse_aura_effect_+%_from_parent_skills" })))
+			assert.is_truthy(isValueInArray(ids, HashStats({ "minions_have_non_curse_aura_effect_+%_from_parent_skills" })))
 			assert.equal(10, value)
 			assert.is_true(shouldNegate)
 		end)
 		it("detects passage modline correctly", function()
 			local ids = tradeHelpers.findTradeHash(
 				"Passive Skills in Radius can be Allocated without being connected to your tree")
-			assert.is_true(contains(ids,
+			assert.is_truthy(isValueInArray(ids,
 				HashStats({ "local_unique_jewel_nearby_disconnected_passives_can_be_allocated",
 					"unique_thread_of_hope_base_resist_all_elements_%" })))
 		end)

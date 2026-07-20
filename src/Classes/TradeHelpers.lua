@@ -101,7 +101,8 @@ local function getOptionTradeStatMap(tradeStats)
 		end
 	end
 
-	return optionTradeStatMap
+	_optionTradeStatMap = optionTradeStatMap
+	return _optionTradeStatMap
 end
 
 -- Map source types used in OpenBuySimilarPopup to trade API category labels
