@@ -1996,7 +1996,11 @@ local function syncControlValue(ctrl, varData, val)
 		ctrl.state = val or false
 	elseif varData.type == "count" or varData.type == "integer"
 			or varData.type == "countAllowZero" or varData.type == "float" then
-		ctrl:SetText(tostring(val or ""))
+		local text = tostring(val or "")
+		-- avoid setting text every time as otherwise this clears user selections on every frame
+		if not ctrl.hasFocus and text ~= ctrl.buf then
+			ctrl:SetText(text)
+		end
 	elseif varData.type == "list" then
 		ctrl:SelByValue(val or (varData.list[1] and varData.list[1].val), "val")
 	end
