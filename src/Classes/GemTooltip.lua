@@ -235,7 +235,7 @@ function GemTooltip.AddGemTooltip(tooltip, build, gemInstance, options)
 			tooltip:AddLine(fontSizeBig, "^x7F7F7F" .. gemInstance.gemData.tagString, "FONTIN SC")
 		end
 		addCommonGemInfo(tooltip, build, gemInstance, grantedEffect, true, not skipRequirements,
-			secondary and secondary.suport and secondary)
+			secondary and secondary.support and secondary)
 	end
 	if primary.flavourText and main.showFlavourText then
 		tooltip:AddSeparator(10)
