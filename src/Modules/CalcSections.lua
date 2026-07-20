@@ -527,6 +527,10 @@ return {
 		{ label = "Player modifiers", modName = "CritMultiplier", cfg = "skill" }, 
 		{ label = "Enemy modifiers", modName = "SelfCritMultiplier", enemy = true }, 
 	}, },
+	{ label = "Crit Bifurcates", notFlag = "attack", haveOutput = "CritBifurcates", { format = "x {2:output:CritBifurcates}",
+		{ breakdown = "CritBifurcates" },
+		{ label = "Player modifiers", modName = "BifurcateCrit", cfg = "skill" },
+	}, },
 	{ label = "Crit Effect Mod", notFlag = "attack", { format = "x {3:output:CritEffect}", { breakdown = "CritEffect" }, }, },
 	-- Main Hand
 	{ label = "MH Inc. Crit Chance", bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", { format = "{0:mod:1,2}%", 
