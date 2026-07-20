@@ -16,6 +16,7 @@ local m_floor = math.floor
 local m_modf = math.modf
 local buySimilar = LoadModule("Classes/CompareBuySimilar")
 
+local gemTooltip = LoadModule("Classes/GemTooltip")
 local rarityDropList = { 
 	{ label = colorCodes.NORMAL.."Normal", rarity = "NORMAL" },
 	{ label = colorCodes.MAGIC.."Magic", rarity = "MAGIC" },
@@ -4256,6 +4257,53 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 		end
 	end
 
+	-- Skill tooltip. We add child tooltips, which will be rendered to the right of the main
+	-- tooltip, growing downwards
+	if not tooltip.childTooltips then
+		tooltip.childTooltips = {}
+	end
+	for _, tt in ipairs(tooltip.childTooltips) do
+		tt:Clear()
+	end
+	local itemSkills = copyTable(item.grantedSkills or {})
+	-- append "Supported by #" to active skills
+	for _, mod in ipairs(modList) do
+		if mod.name == "ExtraSupport" then
+			t_insert(itemSkills, mod.value)
+		end
+	end
+	if #itemSkills > 0 then
+		tooltip:AddSeparator(14)
+		tooltip:AddLine(14,
+			colorCodes.TIP ..
+			"Tip: Hold Shift to display a tooltip for the granted skill" ..
+			(#itemSkills > 1 and "s" or "") .. ".")
+		for i, itemSkill in ipairs(itemSkills) do
+			if not tooltip.childTooltips[i] then
+				tooltip.childTooltips[i] = new("Tooltip")
+			end
+			-- find gem since the item data only contains the skill id
+			local skill = data.skills[itemSkill.skillId]
+			if skill and skill.id and IsKeyDown("SHIFT") then
+				local gemId = data.gemForSkill[skill] or ""
+				local gem = data.gems[gemId]
+				-- if the skill has no matching gem, make up one. it will lack some information, but should still display somewhat correctly
+				---@type GemToolTipOptions
+				local options = {}
+				if not gem then
+					gem = { grantedEffect = skill, tags = {} }
+					options.skipRequirements = true
+				end
+				local gemInst = {
+					gemData = gem,
+					level = itemSkill.level or 1,
+					quality = 0,
+					grantedEffect = skill
+				}
+				gemTooltip.AddGemTooltip(tooltip.childTooltips[i], self.build, gemInst, options)
+			end
+		end
+	end
 	-- Stat differences
 	if not self.showStatDifferences then
 		tooltip:AddSeparator(14)

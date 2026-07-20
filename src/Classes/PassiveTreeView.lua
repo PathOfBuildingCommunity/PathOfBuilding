@@ -14,6 +14,7 @@ local m_floor = math.floor
 local band = bit.band
 local b_rshift = bit.rshift
 
+local gemTooltip = LoadModule("Classes/GemTooltip")
 local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.ring = NewImageHandle()
 	self.ring:Load("Assets/ring.png", "CLAMP")
@@ -54,6 +55,7 @@ local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.kalguur2:Load("TreeData/PassiveSkillScreenKalguuranJewelCircle2.png", "CLAMP")
 
 	self.tooltip = new("Tooltip")
+	self.skillTooltip = new("Tooltip")
 
 	self.zoomLevel = 3
 	self.zoom = 1.2 ^ self.zoomLevel
@@ -984,11 +986,64 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			-- Draw tooltip
 			SetDrawLayer(nil, 100)
 			local size = m_floor(node.size * scale)
-			if self.tooltip:CheckForUpdate(node, self.showStatDifferences, self.tracePath, launch.devModeAlt, build.outputRevision, self.compareSpec) then
+			if self.tooltip:CheckForUpdate(node, self.showStatDifferences, self.tracePath, launch.devModeAlt, build.outputRevision, build.spec.allocMode) then
 				self:AddNodeTooltip(self.tooltip, node, build)
 			end
 			self.tooltip.center = true
-			self.tooltip:Draw(m_floor(scrX - size), m_floor(scrY - size), size * 2, size * 2, viewPort)
+			local ttWidth, ttHeight = self.tooltip:GetDynamicSize(viewPort)
+			local skillWidth, skillHeight = self.skillTooltip:GetDynamicSize(viewPort)
+
+			local fatSkill = skillWidth > skillHeight * 1.5
+
+			local totalWidth, totalHeight
+			if fatSkill then
+				totalWidth = m_max(ttWidth, (#self.skillTooltip.lines > 0 and skillWidth or 0))
+				totalHeight = ttHeight + (#self.skillTooltip.lines > 0 and skillHeight or 0)
+			else
+				totalWidth = ttWidth + (#self.skillTooltip.lines > 0 and skillWidth or 0)
+				totalHeight = m_max(ttHeight, (#self.skillTooltip.lines > 0 and skillHeight or 0))
+			end
+
+			-- main tooltip is anchored from top left to the node
+			local nodeX = m_floor(scrX + size)
+			local ttX = m_floor(scrX + size)
+			local nodeY = m_floor(scrY - size)
+			local ttY = m_floor(scrY - size)
+
+
+			-- if the right side goes outside the viewport, we adjust by moving to the left
+			local rEdgeX = ttX + totalWidth - viewPort.x
+			local rOverBy = rEdgeX - viewPort.width
+			if rOverBy > 0 then
+				ttX = ttX - rOverBy
+			end
+
+			-- same for bottom edge
+			local btmEdgeY = ttY + totalHeight - viewPort.y
+			local btmOverBy = btmEdgeY - viewPort.height
+			if btmOverBy > 0 then
+				ttY = ttY - btmOverBy
+			end
+
+			SetDrawLayer(nil, 100)
+			-- main tooltip is attached to node, unless it is pushed
+			if fatSkill then
+				self.tooltip:Draw(m_min(nodeX, viewPort.width - ttWidth + viewPort.x), m_max(ttY, viewPort.y), nil, nil,
+					viewPort)
+			else
+				self.tooltip:Draw(m_max(ttX, viewPort.x), m_min(nodeY, viewPort.height - ttHeight + viewPort.y), nil, nil,
+					viewPort)
+			end
+			SetDrawLayer(nil, 99)
+			-- draw below main tooltip
+			if fatSkill then
+				self.skillTooltip:Draw(ttX, ttY + ttHeight, nil, nil,
+					viewPort)
+				-- draw to the right of main tooltip
+			else
+				self.skillTooltip:Draw(ttX + ttWidth + 5, ttY, nil, nil,
+					viewPort)
+			end
 		end
 	end
 
@@ -1337,6 +1392,7 @@ end
 
 function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	local fontSizeBig = main.showFlavourText and 18 or 16
+	self.skillTooltip:Clear()
 	tooltip.center = true
 	tooltip.maxWidth = 800
 	-- Special case for sockets
@@ -1477,6 +1533,27 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		tooltip:AddLine(16, "")
 		for i, line in ipairs(mNode.sd) do
 			addModInfoToTooltip(mNode, i, masteryColor..line)
+		end
+		-- add child tooltip for skills
+		for _, mod in ipairs(mNode.finalModList or mNode.modList or {}) do
+			if mod.name == "ExtraSkill" or mod.name == "ExtraSupport" then
+				local skill = data.skills[mod.value.skillId]
+				if skill then
+					local gem = data.gems[data.gemForSkill[skill]]
+					local options = { }
+					if not gem then
+						gem = { grantedEffect = skill, tags = { } }
+						options.skipRequirements = true
+					end
+					local gemInst = {
+						gemData = gem,
+						level = mod.value.level or 1,
+						quality = 0,
+						grantedEffect = skill
+					}
+					gemTooltip.AddGemTooltip(self.skillTooltip, build, gemInst, options)
+				end
+			end
 		end
 	end
 

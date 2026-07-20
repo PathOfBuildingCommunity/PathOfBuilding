@@ -50,7 +50,7 @@ local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl", function(se
 		-- not selControl.ListControl allows hover when All Items or Unique/Rare DB Sections are in focus
 		if main.popups[1] or mode == "OUT" or not item or (not self.dropped and itemsTab.selControl and itemsTab.selControl ~= self.controls.activate and not itemsTab.selControl.ListControl) then
 			tooltip:Clear(true)
-		elseif tooltip:CheckForUpdate(item, launch.devModeAlt, itemsTab.build.outputRevision) then
+		elseif tooltip:CheckForUpdate(item, launch.devModeAlt, itemsTab.build.outputRevision, IsKeyDown("SHIFT")) then
 			itemsTab:AddItemTooltip(tooltip, item, self)
 		end
 	end
