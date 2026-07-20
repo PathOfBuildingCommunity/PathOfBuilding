@@ -1410,7 +1410,7 @@ describe("TestTriggers", function()
 		assert.are.not_equals(math.floor(build.calcsTab.mainOutput.SkillTriggerRate * 100), math.floor(baseRate * 100))
 	end)
 
-	it("skillid config search", function()
+	it("skillId config search", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[Rarity: RARE
 		Physical 1H Mace
 		Boom Mace
