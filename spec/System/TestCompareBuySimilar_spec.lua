@@ -109,7 +109,6 @@ Implicits: 1
 		local originalOpenURL
 		local originalFetchLeagues
 		local copiedUrl
-		local searchEnv
 
 		before_each(function()
 			newBuild()
@@ -122,8 +121,8 @@ Implicits: 1
 
 		after_each(function()
 			build.itemsTab.tradeQuery.tradeQueryRequests.FetchLeagues = originalFetchLeagues
-			searchEnv.Copy = originalCopy
-			searchEnv.OpenURL = originalOpenURL
+			_G.Copy = originalCopy
+			_G.OpenURL = originalOpenURL
 			bs.lastRealmIdx = nil
 			bs.lastLeagueIdx = nil
 			bs.lastListedIndex = nil
@@ -134,11 +133,10 @@ Implicits: 1
 			local item = new("Item", "Rarity: Rare\nTest Ring\nRuby Ring\nImplicits: 0\n+50 to maximum Life")
 			bs.openPopup(item, "Ring", build)
 			local controls = main.popups[1].controls
-			searchEnv = getfenv(controls.search.onClick)
-			originalCopy = originalCopy or searchEnv.Copy
-			originalOpenURL = originalOpenURL or searchEnv.OpenURL
-			searchEnv.Copy = function(url) copiedUrl = url end
-			searchEnv.OpenURL = function() end
+			originalCopy = originalCopy or _G.Copy
+			originalOpenURL = originalOpenURL or _G.OpenURL
+			_G.Copy = function(url) copiedUrl = url end
+			_G.OpenURL = function() end
 			return controls
 		end
 
