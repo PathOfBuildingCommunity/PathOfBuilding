@@ -5754,6 +5754,7 @@ local specialModList = {
 	-- handled in item parsing
 	["%d+%% [ir][ne][cd][ru][ec][ae][sd]e?d? ?[%a%s]* modifier magnitudes"] = {},
 	["%d+%% [ir][ne][cd][ru][ec][ae][sd]e?d? effect of [sp][ur][fe]fixes"] = {},
+	["[%a%s]* modifier magnitudes are doubled"] = {},
 }
 for _, name in ipairs(data.keystones) do
 	specialModList[name:lower()] = { mod("Keystone", "LIST", name) }
