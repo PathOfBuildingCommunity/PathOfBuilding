@@ -355,7 +355,7 @@ function GemSelectClass:UpdateSortCache()
 			sortCache.pendingGems[#sortCache.pendingGems + 1] = gemId
 		end
 		-- Neutral color until DPS is computed
-		-- TODO: perhaps we can insert a symbol to incidate sorting is pending?
+		-- TODO: perhaps we can insert a symbol to indicate sorting is pending?
 		sortCache.dpsColor[gemId] = ""
 	end
 
