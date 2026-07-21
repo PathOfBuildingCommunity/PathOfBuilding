@@ -380,6 +380,7 @@ function TradeQueryRequestsClass:FetchLeagues(realm, callback)
 				local json_data = dkjson.decode(response.body)
 				if not json_data or json_data.error then
 					errMsg = json_data and json_data.error or "Failed to parse trade leagues JSON"
+					return callback({"Standard", "Hardcore"}, errMsg)
 				end
 				local leagues = {}
 				for _, value in pairs(json_data.result) do
