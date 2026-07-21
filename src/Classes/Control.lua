@@ -38,6 +38,9 @@ local rect = {
 ---@field enabled        boolean | fun(...: any): boolean
 ---@field onFocusGained? fun()
 ---@field onFocusLost?   fun()
+---@field shown          Prop<boolean>
+---@field x              Prop<number>?
+---@field y              Prop<number>?
 local ControlClass = newClass("Control")
 
 ---@alias ControlAnchor [AnchorPoint, Control|ControlHost, AnchorPoint, boolean|nil]
@@ -58,6 +61,11 @@ function ControlClass:Control(anchor, rect)
 	return self
 end
 
+---@generic T
+---@alias Prop<T> (fun(self: self): T) | T
+
+---@param name string
+---@return any value
 function ControlClass:GetProperty(name)
 	if type(self[name]) == "function" then
 		return self[name](self)
