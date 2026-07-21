@@ -11,7 +11,7 @@ local s_gmatch = string.gmatch
 
 -- Constants
 
-local BORDER_WIDTH = 3
+local BORDER_WIDTH = 1
 local H_PAD	= 12
 local V_PAD = 10
 
