@@ -705,6 +705,41 @@ describe("TestAdvancedItemParse #item", function()
 			assert.are.equals(221, chaosDamageInc())
 		end)
 
+		it("scales properly using old Eyes of the Greatwolf line", function()
+			-- 130% * 1.7 = 221
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			Test Subject
+			Void Sceptre
+			LevelReq: 60
+			Implicits: 1
+			{range:0.5}(100-160)% increased Chaos Damage
+			{range:0.5}Implicit Modifier magnitudes are doubled
+		]])
+			local item = build.itemsTab.displayItem
+			assert.is_true(item.advancedCopy)
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+			assert.are.equals(260, chaosDamageInc())
+		end)
+
+		it("scales properly using new Eyes of the Greatwolf line", function()
+			-- 130% * 1.7 = 221
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			Test Subject
+			Void Sceptre
+			LevelReq: 60
+			Implicits: 1
+			{range:0.5}{crafted}(100-160)% increased Chaos Damage
+			{range:0.5}(50-100)% increased Enchantment Modifier magnitudes
+		]])
+			local item = build.itemsTab.displayItem
+			assert.is_true(item.advancedCopy)
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+			assert.are.equals(227, chaosDamageInc())
+		end)
 		it("does not rescale old format (baked) copies", function()
 			-- magnitude already baked in, so no rescale
 			build.itemsTab:CreateDisplayItemFromRaw([[

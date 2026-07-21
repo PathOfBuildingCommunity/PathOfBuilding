@@ -935,7 +935,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				-- \d+% increased/reduced explicit/implicit/ *tags* modifier magnitudes
 				local modMagnitudePattern = { "(%d+)%% ([ir][ne][cd][ru][ec][ae][sd]e?d?) ?([%a%s]*) modifier magnitudes",
 					-- \d+% increased/reduced effect of suffixes/prefixes
-					"(%d+)%% ([ir][ne][cd][ru][ec][ae][sd]e?d?) effect of ([sp][ur][fe]fix)es" }
+					"(%d+)%% ([ir][ne][cd][ru][ec][ae][sd]e?d?) effect of ([sp][ur][fe]fix)es",
+					-- eyes of the greatwolf
+					"([%a%s]*) modifier magnitudes are doubled" }
 				if lineLower == "implicit modifiers cannot be changed" then
 					self.implicitsCannotBeChanged = true
 				elseif lineLower:match(" prefix modifiers? allowed") then
@@ -991,14 +993,22 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.onlyPhysicalDamage = true
 				end
 
-				-- some tags might not match up exactly to tag strings
+				-- some tags might not match up exactly to tag strings. this has a list of exceptions
 				local modMagnitudeTagMap = {
-					defence = "defences"
+					defence = "defences",
+					-- 3.29 eyes of the greatwolf
+					enchantment = "enchant",
 				}
 				for _, pattern in ipairs(modMagnitudePattern) do
 					if rangedLine:lower():find(pattern) then
 						local rangedLine = itemLib.applyRange(line, modLine.range or main.defaultItemAffixQuality or 1, catalystScalar, modLine.corruptedRange)
 						local amount, increaseOrDecrease, modTagsString = rangedLine:lower():match(pattern)
+						-- "are doubled" format -> swap variables
+						if amount and not (increaseOrDecrease or modTagsString) then
+							modTagsString = amount
+							amount = 100
+							increaseOrDecrease = "increased"
+						end
 						if amount and modTagsString and (increaseOrDecrease == "increased" or increaseOrDecrease == "reduced") then
 							local modTags = {}
 							local modType
