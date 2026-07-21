@@ -505,6 +505,11 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 	end
 	if self.dropped then
 		SetDrawLayer(nil, 5)
+		if self.dpsBuilder then
+			local dots = ("."):rep((math.floor(GetTime() / 500) % 3) + 1)
+			SetDrawColor(0.75, 0.75, 0.75)
+			DrawString(x + width - 80, y, "LEFT", height - 2, "VAR", "Sorting" .. dots)
+		end
 		local cursorX, cursorY = GetCursorPos()
 		self.hoverSel = mOverComp == "DROP" and math.floor((cursorY - y - height + scrollBar.offset) / (height - 4)) + 1
 		if self.hoverSel and not self.gems[self.list[self.hoverSel]] then
