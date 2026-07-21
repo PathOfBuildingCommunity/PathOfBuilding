@@ -53,6 +53,7 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 		lifeReservationPercent = "LifePercent",
 	}
 	self.imbuedSelect = imbued
+	self.dpsBuildFlag = false
 end)
 
 function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, useFullDPS)
@@ -346,7 +347,6 @@ function GemSelectClass:UpdateSortCache()
 	sortCache.baseDPS = baseDPS
 	sortCache.dpsField = dpsField
 	sortCache.pendingGems = { }
-	sortCache.dpsBatchIndex = 1
 
 	for gemId, gemData in pairs(self.gems) do
 		sortCache.dps[gemId] = baseDPS
@@ -355,11 +355,10 @@ function GemSelectClass:UpdateSortCache()
 			sortCache.pendingGems[#sortCache.pendingGems + 1] = gemId
 		end
 		-- Neutral color until DPS is computed
-		-- TODO: perhaps we can insert a symbol to indicate sorting is pending?
 		sortCache.dpsColor[gemId] = ""
 	end
 
-	--ConPrintf("Gem Selector time: %d ms", GetTime() - start)
+	self.dpsBuildFlag = true
 end
 
 function GemSelectClass:SortGemList(gemList)
@@ -384,27 +383,22 @@ function GemSelectClass:SortGemList(gemList)
 	end)
 end
 
-function GemSelectClass:UpdatePendingDPS(batchSize)
+function GemSelectClass:DPSBuilder()
 	local sortCache = self.sortCache
 	if not sortCache or not sortCache.pendingGems then return end
 
-	batchSize = batchSize or 8
-	local index = sortCache.dpsBatchIndex
 	local pending = sortCache.pendingGems
 	local calcFunc = sortCache.calcFunc
 	local useFullDPS = sortCache.useFullDPS
 	local baseDPS = sortCache.baseDPS
 	local dpsField = sortCache.dpsField
-	local needsResort = false
+	local start = GetTime()
 
-	for i = 1, batchSize do
-		if index > #pending then break end
-		local gemId = pending[index]
+	for index, gemId in ipairs(pending) do
 		local gemData = self.gems[gemId]
 		if gemData then
 			local output = self:CalcOutputWithThisGem(calcFunc, gemData, useFullDPS)
 			sortCache.dps[gemId] = (dpsField == "FullDPS" and output[dpsField] ~= nil and output[dpsField]) or (output.Minion and output.Minion.CombinedDPS) or (output[dpsField] ~= nil and output[dpsField]) or 0
-			-- Color based on the DPS
 			if sortCache.dps[gemId] > baseDPS then
 				sortCache.dpsColor[gemId] = "^x228866"
 			elseif sortCache.dps[gemId] < baseDPS then
@@ -412,24 +406,21 @@ function GemSelectClass:UpdatePendingDPS(batchSize)
 			else
 				sortCache.dpsColor[gemId] = "^xFFFF66"
 			end
-			needsResort = true
 		end
-		index = index + 1
+		local now = GetTime()
+		if now - start > 50 then
+			if #self.searchStr == 0 then
+				self:SortGemList(self.list)
+			end
+			coroutine.yield()
+			start = now
+		end
 	end
 
-	sortCache.dpsBatchIndex = index
-
-	-- Only re-sort when there's no active search (empty buffer = search order doesn't apply)
 	if #self.searchStr == 0 then
-		if needsResort and index <= #pending then
-			self:SortGemList(self.list)
-		elseif index > #pending then
-			self:SortGemList(self.list)
-			sortCache.pendingGems = nil
-		end
-	elseif index > #pending then
-		sortCache.pendingGems = nil
+		self:SortGemList(self.list)
 	end
+	sortCache.pendingGems = nil
 end
 
 function GemSelectClass:UpdateGem(setText, addUndo, focusLost)
@@ -482,9 +473,19 @@ function GemSelectClass:IsMouseOver()
 end
 
 function GemSelectClass:Draw(viewPort, noTooltip)
-	-- Process pending DPS computations (8 per frame should be good)
-	-- TODO: Ideally this should run in the background
-	self:UpdatePendingDPS(8)
+	if self.dpsBuildFlag then
+		self.dpsBuildFlag = false
+		self.dpsBuilder = coroutine.create(self.DPSBuilder)
+	end
+	if self.dpsBuilder then
+		local res, errMsg = coroutine.resume(self.dpsBuilder, self)
+		if launch.devMode and not res then
+			error(errMsg)
+		end
+		if coroutine.status(self.dpsBuilder) == "dead" then
+			self.dpsBuilder = nil
+		end
+	end
 
 	self.EditControl:Draw(viewPort, noTooltip and not self.forceTooltip)
 	local x, y = self:GetPos()
