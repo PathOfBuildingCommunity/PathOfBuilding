@@ -153,7 +153,7 @@ function new(className, extraArg)
 						error("Parent class '"..parent._className.."' of class '"..class._className.."' has already been initialised")
 					end
 					if self ~= object then
-						error(string.format("Parent class %s contructor of class %s was not provided self. Are you perhaps calling it with self.%s instead of self:%s?", parent._className, className, parent._className, parent._className))
+						error(string.format("Parent class %s constructor of class %s was not provided self. Are you perhaps calling it with self.%s instead of self:%s?", parent._className, className, parent._className, parent._className))
 					end
 					parent[parent._className](self, ...)
 					object._parentInit[parent] = true

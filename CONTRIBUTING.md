@@ -305,7 +305,7 @@ More tests can be added to this folder to test specific functionality, or new te
 
 Please try to include tests for your new features in your pull request. Additionally, if your pr breaks a test that should be passing please update it accordingly.
 
-It can also be a good idea to install `busted` locally as it tends to be faster to execute:
+It is a good idea to prefer Docker due to it having a very reliable Lua setup. But if you have performance problems with it, installing `busted` locally might help as it tends to be faster to execute:
 
 1. Install Luajit (due to PoB accessing the jit library, it non-Luajit versions might not work)
 2. Install [Luarocks](https://luarocks.org/) (for example, through Scoop or your Linux package manager)
