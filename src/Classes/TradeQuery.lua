@@ -1353,12 +1353,12 @@ function TradeQueryClass:UpdateRealms()
 	end
 
 	-- use trade leagues api to get trade leagues including private leagues is valid.
+	self.allLeagues = {}
 	for _, realmId in pairs (self.realmIds) do
 		self.tradeQueryRequests:FetchLeagues(realmId, function(leagues, errMsg)
 			if errMsg then
 				self:SetNotice(self.controls.pbNotice, "Using Fallback Error while fetching league list: "..errMsg)
 			end
-			self.allLeagues = {}
 			for _, league in ipairs(leagues) do
 				if not self.allLeagues[realmId] then self.allLeagues[realmId] = {} end
 				t_insert(self.allLeagues[realmId], league)
