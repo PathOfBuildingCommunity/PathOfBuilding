@@ -791,6 +791,22 @@ describe("TestAdvancedItemParse #item", function()
 			assert.are.equals(130, chaosDamageInc())
 		end)
 
+		it("reduces the modifier magnitude correctly", function()
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			Test Subject
+			Sapphire Ring
+			LevelReq: 20
+			Implicits: 0
+			{range:0.5}(100-160)% increased Chaos Damage
+			{range:0.5}+(20-40)% to Chaos Resistance
+			{range:0.5}50% reduced explicit modifier magnitudes
+		]])
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+			assert.are.equals(-45, chaosResist())
+			assert.are.equals(65, chaosDamageInc())
+		end)
 		it("scales only prefixes for increased effect of prefixes", function()
 			build.itemsTab:CreateDisplayItemFromRaw([[
 			Rarity: RARE
