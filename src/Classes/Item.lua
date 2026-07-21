@@ -932,10 +932,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				end
 
 				local lineLower = line:lower()
-				-- \d+% increased/decreased explicit/implicit/ *tags* modifier magnitudes
-				local modMagnitudePattern = { "(%d+)%% ([id][ne]creased) ?([%a%s]*) modifier magnitudes",
-					-- \d+% increased/decreased effect of suffixes/prefixes
-					"(%d+)%% ([id][ne]creased) effect of ([sp][ur][fe]fix)es" }
+				-- \d+% increased/reduced explicit/implicit/ *tags* modifier magnitudes
+				local modMagnitudePattern = { "(%d+)%% ([ir][ne][cd][ru][ec][ae][sd]e?d?) ?([%a%s]*) modifier magnitudes",
+					-- \d+% increased/reduced effect of suffixes/prefixes
+					"(%d+)%% ([ir][ne][cd][ru][ec][ae][sd]e?d?) effect of ([sp][ur][fe]fix)es" }
 				if lineLower == "implicit modifiers cannot be changed" then
 					self.implicitsCannotBeChanged = true
 				elseif lineLower:match(" prefix modifiers? allowed") then
@@ -991,24 +991,34 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.onlyPhysicalDamage = true
 				end
 
+				-- some tags might not match up exactly to tag strings
+				local modMagnitudeTagMap = {
+					defence = "defences"
+				}
 				for _, pattern in ipairs(modMagnitudePattern) do
 					if rangedLine:lower():find(pattern) then
 						local rangedLine = itemLib.applyRange(line, modLine.range or main.defaultItemAffixQuality or 1, catalystScalar, modLine.corruptedRange)
 						local amount, increaseOrDecrease, modTagsString = rangedLine:lower():match(pattern)
-						if amount and modTagsString and (increaseOrDecrease == "increased" or increaseOrDecrease == "decreased") then
+						if amount and modTagsString and (increaseOrDecrease == "increased" or increaseOrDecrease == "reduced") then
 							local modTags = {}
 							local modType
-							-- explicit elemental damage -> tags = {elemental, damage}, modType = explicit
-							for word in (modTagsString .. " "):gmatch("%S+") do
-								word = word:lower()
-								if word == "implicit" or word == "explicit" or word == "enchant" then
-									modType = word
-								else
-									table.insert(modTags, word)
-								end
-							end
 							local quality = increaseOrDecrease == "increased" and tonumber(amount) or -tonumber(amount)
-							table.insert(self.modMagnitudeMods, { tags = modTags, quality = quality, modType = modType })
+							if modTagsString == "physical and chaos damage" then
+								table.insert(self.modMagnitudeMods, { tags = { "physical", "damage" }, quality = quality, modType = modType })
+								table.insert(self.modMagnitudeMods, { tags = { "chaos", "damage" }, quality = quality, modType = modType })
+							else
+								-- explicit elemental damage -> tags = {elemental, damage}, modType = explicit
+								for word in (modTagsString .. " "):gmatch("%S+") do
+									word = word:lower()
+									word = modMagnitudeTagMap[word] or word
+									if word == "implicit" or word == "explicit" or word == "enchant" then
+										modType = word
+									else
+										table.insert(modTags, word)
+									end
+								end
+								table.insert(self.modMagnitudeMods, { tags = modTags, quality = quality, modType = modType })
+							end
 							break
 						end
 					end

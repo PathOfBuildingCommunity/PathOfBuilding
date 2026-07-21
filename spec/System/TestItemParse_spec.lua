@@ -738,6 +738,40 @@ describe("TestAdvancedItemParse #item", function()
 			runCallback("OnFrame")
 			assert.are.equals(0, chaosResist())
 			assert.are.equals(130, chaosDamageInc())
+			newBuild()
+
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			Test Subject
+			Sapphire Ring
+			LevelReq: 20
+			Implicits: 0
+			{tags:chaos,damage}{range:0.5}(100-160)% increased Chaos Damage
+			{tags:defences}{range:0.5}+(20-40)% to Chaos Resistance
+			{range:0.5}100% increased defence modifier magnitudes
+		]])
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+			assert.are.equals(0, chaosResist())
+			assert.are.equals(130, chaosDamageInc())
+			newBuild()
+
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			Test Subject
+			Sapphire Ring
+			LevelReq: 20
+			Implicits: 0
+			{tags:chaos,damage}{range:0.5}(100-160)% increased Chaos Damage
+			{tags:physical,damage}{range:0.5}+(20-40)% to Chaos Resistance
+			{tags:caster,damage}{range:0.5}(10-30)% increased spell damage
+			{range:0.5}100% increased physical and chaos damage modifier magnitudes
+		]])
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+			assert.are.equals(0, chaosResist())
+			assert.are.equals(260, chaosDamageInc())
+			assert.are.equals(20, spellDamage())
 		end)
 
 		it("only scales the modifier type named by the magnitude mod", function()

@@ -5752,8 +5752,8 @@ local specialModList = {
 	["immun[ei]t?y? to elemental ailments while bleeding"] = { flag("ElementalAilmentImmune", { type = "Condition", var = "Bleeding" }) },
 	["mana is increased by (%d+)%% of overcapped lightning resistance"] = function(num) return { flag("ManaIncreasedByOvercappedLightningRes"), mod("Mana", "INC", num / 100, { type = "PerStat", stat = "LightningResistOverCap" }) } end,
 	-- handled in item parsing
-	["%d+%% [id][ne]creased ?[%a%s]* modifier magnitudes"] = {},
-	["%d+%% [id][ne]creased effect of [sp][ur][fe]fixes"] = {},
+	["%d+%% [ir][ne][cd][ru][ec][ae][sd]e?d? ?[%a%s]* modifier magnitudes"] = {},
+	["%d+%% [ir][ne][cd][ru][ec][ae][sd]e?d? effect of [sp][ur][fe]fixes"] = {},
 }
 for _, name in ipairs(data.keystones) do
 	specialModList[name:lower()] = { mod("Keystone", "LIST", name) }
