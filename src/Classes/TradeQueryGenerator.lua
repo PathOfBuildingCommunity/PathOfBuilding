@@ -1176,7 +1176,7 @@ Remove: %s will be removed from the search results.]], term, term, term)
 	local setModSelectors
 	-- jewel type selector
 	if isJewelSlot and not context.slotTbl.unique then
-		controls.jewelType = new("DropDownControl", { "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 100, 18 }, { "Base", "Radius" }, function(index, value)
+		controls.jewelType = new("DropDownControl", { "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 100, 18 }, { "Base", "Abyss" }, function(index, value)
 			-- update mod list for selectors
 			local mods = getModList()
 			setModSelectors(controls, mods)
@@ -1218,14 +1218,14 @@ Remove: %s will be removed from the search results.]], term, term, term)
 	end
 	controls.maxPrice = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 70, 18}, nil, nil, "%D")
 	controls.maxPrice.buf = self.lastMaxPrice and tostring(self.lastMaxPrice) or ""
-	controls.maxPriceType = new("DropDownControl", { "LEFT", controls.maxPrice, "RIGHT" }, { 5, 0, 150, 18 }, currencyDropdownNames, nil, "The trade site will filter out listings with other currencies,\nif anything other than \"Chaos Orb Equivalent\" is chosen and a maximum is specified.")
+	controls.maxPriceType = new("DropDownControl", { "LEFT", controls.maxPrice, "RIGHT" }, { 5, 0, 150, 18 }, currencyDropdownNames, nil, "^7The trade site will filter out listings with other currencies,\nif anything other than \"Chaos Orb Equivalent\" is chosen and a maximum is specified.")
 	controls.maxPriceType.selIndex = self.lastMaxPriceTypeIndex or 1
 	controls.maxPriceLabel = new("LabelControl", {"RIGHT",controls.maxPrice,"LEFT"}, {-5, 0, 0, 16}, "^7Max Price:")
 	updateLastAnchor(controls.maxPrice)
 
 	controls.maxLevel = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 100, 18}, nil, nil, "%D")
 	controls.maxLevel.buf = self.lastMaxLevel and tostring(self.lastMaxLevel) or ""
-	controls.maxLevelLabel = new("LabelControl", {"RIGHT",controls.maxLevel,"LEFT"}, {-5, 0, 0, 16}, "Max Level:")
+	controls.maxLevelLabel = new("LabelControl", { "RIGHT", controls.maxLevel, "LEFT" }, { -5, 0, 0, 16 }, "^7Max Level:")
 	updateLastAnchor(controls.maxLevel)
 
 	-- basic filtering by slot for sockets and links, Megalomaniac does not have slot and Sockets use "Jewel nodeId"
@@ -1369,7 +1369,7 @@ Remove: %s will be removed from the search results.]], term, term, term)
 	updateLastAnchor(controls.modSelectorHeaderAnchor)
 	-- get mod selector list
 	getModList = function()
-		_, itemCategory = tradeHelpers.getTradeCategory(slot.slotName, slot and self.itemsTab.items[slot.selItemId])
+		local _, itemCategory = tradeHelpers.getTradeCategory(slot.slotName, slot and self.itemsTab.items[slot.selItemId])
 		-- add radius/base as they have different mods
 		if controls.jewelType then
 			itemCategory = controls.jewelType:GetSelValue() .. itemCategory
