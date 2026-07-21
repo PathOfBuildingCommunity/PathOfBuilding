@@ -3,8 +3,10 @@
 -- Minion Data
 -- Monster data (c) Grinding Gear Games
 --
-local minions, mod = ...
 
+return function(mod, flag)
+	---@class MinionData
+	local minions = {}
 #monster Metadata/Monsters/RaisedZombies/RaisedZombieStandard RaisedZombie
 #limit ActiveZombieLimit
 #emit
@@ -266,3 +268,5 @@ minions["GuardianRelicAll"] = {
 #monster Metadata/Monsters/RaisedZombies/RestlessDeadPlayerSummoned ShamblingUndead
 #limit ShamblingUndeadLimit
 #emit
+	return minions
+end

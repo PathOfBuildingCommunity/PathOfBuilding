@@ -4,8 +4,7 @@
 -- Spectre active skills
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 skills["AxisCasterGlacialCascade"] = {
 	name = "Glacial Cascade",
 	hidden = true,
@@ -11885,3 +11884,4 @@ skills["VaalOverseerHeavyStrike"] = {
 		[2] = { baseMultiplier = 1.26, cooldown = 2, levelRequirement = 68, storedUses = 1, },
 	},
 }
+end

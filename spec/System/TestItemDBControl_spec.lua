@@ -43,7 +43,7 @@ describe("ItemDBControl", function()
 				return item ~= invalidItem
 			end,
 		}
-		local control = new("ItemDBControl", nil, { 0, 0, 100, 100 }, itemsTab, {
+		local control = new("ItemDBControl"):ItemDBControl(nil, { 0, 0, 100, 100 }, itemsTab, {
 			list = { invalidItem, betterItem, worseItem },
 		}, "RARE")
 		control.sortDetail = {

@@ -1,7 +1,7 @@
 -- Item data (c) Grinding Gear Games
-local itemBases = ...
-
+return function(itemBases)
 #type Claw
 #influenceBaseTag claw
 #socketLimit 3
 #baseMatch BaseType Metadata/Items/Weapons/OneHandWeapons/Claws/AbstractClaw
+end

@@ -16,8 +16,11 @@ local b_rshift = bit.rshift
 local band = bit.band
 local bor = bit.bor
 
-local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, build, treeVersion, convert)
-	self.UndoHandler()
+---@class PassiveSpec: UndoHandler
+local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler")
+
+function PassiveSpecClass:PassiveSpec(build, treeVersion, convert)
+	self:UndoHandler()
 
 	self.build = build
 
@@ -25,7 +28,8 @@ local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, b
 	self:Init(treeVersion, convert)
 
 	self:SelectClass(0)
-end)
+	return self
+end
 
 function PassiveSpecClass:Init(treeVersion, convert)
 	self.treeVersion = treeVersion
@@ -1621,7 +1625,7 @@ function PassiveSpecClass:ReplaceNode(old, newNode)
 	old.name = newNode.name
 	old.mods = newNode.mods
 	old.modKey = newNode.modKey
-	old.modList = new("ModList")
+	old.modList = new("ModList"):ModList()
 	old.modList:AddList(newNode.modList)
 	old.sprites = newNode.sprites
 	old.effectSprites = newNode.effectSprites
@@ -2310,12 +2314,12 @@ end
 --- Adds a line to or replaces a node given a line to add/replace with
 --- @param node table The node to replace/add to
 --- @param sd string The line being parsed and added
---- @param replacement boolean true to replace the node with the new mod, false to simply add it
+--- @param replacement? boolean true to replace the node with the new mod, false to simply add it
 function PassiveSpecClass:NodeAdditionOrReplacementFromString(node,sd,replacement)
 	local addition = {}
 	addition.sd = {sd}
 	addition.mods = { }
-	addition.modList = new("ModList")
+	addition.modList = new("ModList"):ModList()
 	addition.modKey = ""
 	local i = 1
 	while addition.sd[i] do
@@ -2386,7 +2390,7 @@ function PassiveSpecClass:NodeAdditionOrReplacementFromString(node,sd,replacemen
 		node.mods = tableConcat(node.mods, addition.mods)
 		node.modKey = node.modKey .. addition.modKey
 	end
-	local modList = new("ModList")
+	local modList = new("ModList"):ModList()
 	modList:AddList(addition.modList)
 	if not replacement then
 		modList:AddList(node.modList)

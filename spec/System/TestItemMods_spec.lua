@@ -917,12 +917,12 @@ describe("TetsItemMods", function()
 	end)
 	
 	it("shows a fallback tooltip when an item's base is no longer supported", function()
-		local item = new("Item", [[
+		local item = new("Item"):Item([[
 			Rarity: Unique
 			Legacy Item
 			Removed Base
 		]])
-		local tooltip = new("Tooltip")
+		local tooltip = new("Tooltip"):Tooltip()
 
 		assert.has_no.errors(function()
 			build.itemsTab:AddItemTooltip(tooltip, item)

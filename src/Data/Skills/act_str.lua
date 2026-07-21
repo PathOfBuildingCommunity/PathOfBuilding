@@ -4,8 +4,7 @@
 -- Active Strength skill gems
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 skills["Absolution"] = {
 	name = "Absolution",
 	baseTypeName = "Absolution",
@@ -13106,3 +13105,4 @@ skills["WarBanner"] = {
 		[40] = { 4, 8, 13, 14, cooldown = 1, levelRequirement = 100, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 23, }, },
 	},
 }
+end

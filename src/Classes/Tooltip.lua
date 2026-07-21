@@ -40,12 +40,16 @@ for _, recipeName in pairs(recipeNames) do
 	recipeImages[recipeName]:Load("TreeData/" .. recipeName .. ".png", "CLAMP")
 end
 
-local TooltipClass = newClass("Tooltip", function(self)
+---@class Tooltip
+local TooltipClass = newClass("Tooltip")
+
+function TooltipClass:Tooltip()
 	self.lines = { }
 	self.blocks = { }
 	self.childTooltips = nil
 	self:Clear()
-end)
+	return self
+end
 
 function TooltipClass:Clear(clearUpdateParams)
 	wipeTable(self.lines)

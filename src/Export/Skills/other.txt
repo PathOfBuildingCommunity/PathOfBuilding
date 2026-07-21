@@ -3,8 +3,7 @@
 -- Other active skills
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 #skill RepeatingShockwave
 #flags spell area
 	fromItem = true,
@@ -1670,3 +1669,5 @@ skills["EnemyExplode"] = {
 		[1] = { damageEffectiveness = 1, baseMultiplier = 1, levelRequirement = 1, }
 	}
 }
+
+end

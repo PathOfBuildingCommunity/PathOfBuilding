@@ -4,8 +4,9 @@
 -- Performs trigger rate calculations
 --
 
-local calcs = ...
-local pairs = pairs
+---@class Calcs
+local calcs = require("Modules.CalcBase")
+
 local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove

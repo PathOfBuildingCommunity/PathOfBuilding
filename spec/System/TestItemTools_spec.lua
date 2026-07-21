@@ -66,7 +66,7 @@ describe("TestItemTools", function()
 		if not common.classes.ItemsTab then
 			LoadModule("Classes/ItemsTab")
 		end
-		local item = new("Item", [[
+		local item = new("Item"):Item([[
 Rarity: Rare
 Dire Thread
 Cord Belt

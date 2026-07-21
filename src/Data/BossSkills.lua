@@ -5,6 +5,7 @@
 -- Boss Skill data (c) Grinding Gear Games
 --
 return {
+	bossSkills = {
 	["Atziri Flameblast"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
@@ -167,7 +168,9 @@ return {
 		},
 		tooltip = "Cannot be Blocked, Dodged, or Suppressed. \n	It is three separate hits, and has a large DoT effect.  Neither is taken into account here.  \n		i.e. Hits before death should be more than 3 to survive"
 	},
-},{
+	},
+
+	bossSkillsList = {
     { val = "None", label = "None" },
     { val = "Atziri Flameblast", label = "Atziri Flameblast" },
     { val = "Shaper Ball", label = "Shaper Ball" },
@@ -178,5 +181,5 @@ return {
     { val = "Exarch Ball", label = "Exarch Ball" },
     { val = "Eater Beam", label = "Eater Beam" },
     { val = "Maven Fireball", label = "Maven Fireball" },
-    { val = "Maven Memory Game", label = "Maven Memory Game" }
+    { val = "Maven Memory Game", label = "Maven Memory Game" }	},
 }

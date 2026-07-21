@@ -3,8 +3,8 @@ describe("TradeQuery", function()
 	local mock_queryGen
 
 	before_each(function()
-		mock_tradeQuery = new("TradeQuery", { itemsTab = {} })
-		mock_queryGen = new("TradeQueryGenerator", { itemsTab = {} })
+		mock_tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+		mock_queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
 	end)
 	describe("result dropdown tooltipFunc", function()
 		-- Builds a TradeQuery with the strict minimum needed for
@@ -14,7 +14,7 @@ describe("TradeQuery", function()
 		-- lives behind a callback we never trigger, or is already initialized
 		-- by the TradeQuery constructor.
 		local function newTradeQuery(state)
-			local tq = new("TradeQuery", { itemsTab = {} })
+			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
 			tq.itemsTab.activeItemSet = {}
 			tq.itemsTab.slots         = {}
 			tq.slotTables[1] = { slotName = "Ring 1" }
@@ -34,7 +34,7 @@ describe("TradeQuery", function()
 			-- No sorted results at all -> first guard must short-circuit.
 			local tq = newTradeQuery({})
 			local dropdown = buildRow1Dropdown(tq)
-			local tooltip = new("Tooltip")
+			local tooltip = new("Tooltip"):Tooltip()
 
 			assert.has_no.errors(function()
 				dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
@@ -53,7 +53,7 @@ describe("TradeQuery", function()
 			})
 			local dropdown = buildRow1Dropdown(tq)
 			tq.resultTbl[1] = {}
-			local tooltip = new("Tooltip")
+			local tooltip = new("Tooltip"):Tooltip()
 
 			assert.has_no.errors(function()
 				dropdown.tooltipFunc(tooltip, "DROP", 1, nil)

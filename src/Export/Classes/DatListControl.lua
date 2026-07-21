@@ -3,12 +3,16 @@
 -- Class: Dat List
 -- Dat list control.
 --
-local DatListClass = newClass("DatListControl", "ListControl", function(self, anchor, rect)
+---@class DatListControl: ListControl
+local DatListClass = newClass("DatListControl", "ListControl")
+
+function DatListClass:DatListControl(anchor, rect)
 	self.originalList = main.datFileList
 	self.searchBuf = ""
 	self.filteredList = self.originalList
-	self.ListControl(anchor, rect, 14, "VERTICAL", false, self.filteredList)
-end)
+	self:ListControl(anchor, rect, 14, "VERTICAL", false, self.filteredList)
+	return self
+end
 
 function DatListClass:BuildFilteredList()
 	local search = self.searchBuf:lower()

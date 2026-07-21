@@ -9,8 +9,11 @@ local s_format = string.format
 local m_min = math.min
 local m_max = math.max
 
-local CompareEntryClass = newClass("CompareEntry", "ControlHost", function(self, xmlText, label)
-	self.ControlHost()
+---@class CompareEntry: ControlHost
+local CompareEntryClass = newClass("CompareEntry", "ControlHost")
+
+function CompareEntryClass:CompareEntry(xmlText, label)
+	self:ControlHost()
 
 	self.label = label or "Comparison Build"
 	self.buildName = label or "Comparison Build"
@@ -45,13 +48,17 @@ local CompareEntryClass = newClass("CompareEntry", "ControlHost", function(self,
 	self.outputRevision = 1
 
 	-- Display stats (same as primary build uses)
-	self.displayStats, self.minionDisplayStats, self.extraSaveStats = LoadModule("Modules/BuildDisplayStats")
+	local displayStatsModule = LoadModule("Modules/BuildDisplayStats")
+	self.displayStats = displayStatsModule.displayStats
+	self.minionDisplayStats = displayStatsModule.minionDisplayStats
+	self.extraSaveStats = displayStatsModule.extraSaveStats
 
 	-- Load from XML
 	if xmlText then
 		self:LoadFromXML(xmlText)
 	end
-end)
+	return self
+end
 
 function CompareEntryClass:LoadFromXML(xmlText)
 	-- Parse the XML
@@ -99,14 +106,14 @@ function CompareEntryClass:LoadFromXML(xmlText)
 	-- Create tabs
 	-- PartyTab is replaced with a stub providing an empty enemyModList and actor
 	-- (CalcPerform.lua:1088 accesses build.partyTab.actor for party member buffs)
-	local partyActor = { Aura = {}, Curse = {}, Warcry = {}, Link = {}, modDB = new("ModDB"), output = {} }
+	local partyActor = { Aura = {}, Curse = {}, Warcry = {}, Link = {}, modDB = new("ModDB"):ModDB(), output = {} }
 	partyActor.modDB.actor = partyActor
-	self.partyTab = { enemyModList = new("ModList"), actor = partyActor }
-	self.configTab = new("ConfigTab", self)
-	self.itemsTab = new("ItemsTab", self)
-	self.treeTab = new("TreeTab", self)
-	self.skillsTab = new("SkillsTab", self)
-	self.calcsTab = new("CalcsTab", self)
+	self.partyTab = { enemyModList = new("ModList"):ModList(), actor = partyActor }
+	self.configTab = new("ConfigTab"):ConfigTab(self)
+	self.itemsTab = new("ItemsTab"):ItemsTab(self)
+	self.treeTab = new("TreeTab"):TreeTab(self)
+	self.skillsTab = new("SkillsTab"):SkillsTab(self)
+	self.calcsTab = new("CalcsTab"):CalcsTab(self)
 
 	-- Set up savers table
 	self.savers = {

@@ -4,8 +4,10 @@
 -- Spectre Data
 -- Monster data (c) Grinding Gear Games
 --
-local minions, mod, flag = ...
 
+return function(mod, flag)
+	---@class SpectreData
+	local minions = {}
 -- Blackguard
 minions["Metadata/Monsters/Axis/AxisCaster"] = {
 	name = "Blackguard Mage",
@@ -7225,3 +7227,5 @@ minions["Metadata/Monsters/VaalMonsters/VaalOverseer"] = {
 	modList = {
 	},
 }
+	return minions
+end

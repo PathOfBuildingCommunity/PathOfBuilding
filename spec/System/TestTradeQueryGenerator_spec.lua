@@ -1,5 +1,5 @@
 describe("TradeQueryGenerator", function()
-	local mock_queryGen = new("TradeQueryGenerator", { itemsTab = {} })
+	local mock_queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
 
 	describe("ProcessMod", function()
 		-- Pass: Mod line maps correctly to trade stat entry without error

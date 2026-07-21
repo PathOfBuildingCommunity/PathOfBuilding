@@ -8,8 +8,11 @@ local t_insert = table.insert
 local m_min = math.min
 
 local itemSlotHelper = LoadModule("Modules/ItemSlotHelper")
-local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl", function(self, anchor, x, y, itemsTab, slotName, slotLabel, nodeId)
-	self.DropDownControl(anchor, {x, y, 310, 20}, { }, function(index, value)
+---@class ItemSlotControl
+local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl")
+
+function ItemSlotClass:ItemSlotControl(anchor, x, y, itemsTab, slotName, slotLabel, nodeId)
+	self:DropDownControl(anchor, { x, y, 310, 20 }, {}, function(index, value)
 		if self.items[index] ~= self.selItemId then
 			self:SetSelItemId(self.items[index])
 			itemsTab:PopulateSlots()
@@ -30,7 +33,7 @@ local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl", function(se
 	self.slotName = slotName
 	self.slotNum = tonumber(slotName:match("%d+$") or slotName:match("%d+"))
 	if slotName:match("Flask") then
-		self.controls.activate = new("CheckBoxControl", {"RIGHT",self,"LEFT"}, {-2, 0, 20}, nil, function(state)
+		self.controls.activate = new("CheckBoxControl"):CheckBoxControl({"RIGHT",self,"LEFT"}, {-2, 0, 20}, nil, function(state)
 			self.active = state
 			itemsTab.activeItemSet[self.slotName].active = state
 			itemsTab:AddUndoState()
@@ -56,7 +59,8 @@ local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl", function(se
 	end
 	self.label = slotLabel or slotName
 	self.nodeId = nodeId
-end)
+	return self
+end
 
 function ItemSlotClass:SetSelItemId(selItemId)
 	if self.nodeId then
@@ -119,7 +123,7 @@ function ItemSlotClass:ReceiveDrag(type, value, source)
 	if value.id and self.itemsTab.items[value.id] then
 		self:SetSelItemId(value.id)
 	else
-		local newItem = new("Item", value.raw)
+		local newItem = new("Item"):Item(value.raw)
 		newItem:NormaliseQuality()
 		self.itemsTab:AddItem(newItem, true)
 		self:SetSelItemId(newItem.id)

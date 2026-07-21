@@ -15,9 +15,19 @@ local gemTooltip = LoadModule("Classes/GemTooltip")
 local toolTipText = "Prefix tag searches with a colon and exclude tags with a dash. e.g. :fire:lightning:-cold:area"
 local imbuedTooltipText = "\"Socketed in\" item must be set in order to add an imbued support.\nOnly one imbued support is allowed per item."
 
-local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self, anchor, rect, skillsTab, index, changeFunc, forceTooltip, imbued)
-	self.EditControl(anchor, rect, nil, nil, "^ %a':-")
-	self.controls.scrollBar = new("ScrollBarControl", { "TOPRIGHT", self, "TOPRIGHT" }, {-1, 0, 18, 0}, (self.height - 4) * 4)
+---@class GemSelectControl: EditControl
+local GemSelectClass = newClass("GemSelectControl", "EditControl")
+
+---@param anchor ControlAnchor
+---@param rect ControlRect
+---@param skillsTab SkillsTab
+---@param index integer
+---@param changeFunc fun(...)
+---@param forceTooltip boolean
+---@param imbued boolean
+function GemSelectClass:GemSelectControl(anchor, rect, skillsTab, index, changeFunc, forceTooltip, imbued)
+	self:EditControl(anchor, rect, nil, nil, "^ %a':-")
+	self.controls.scrollBar = new("ScrollBarControl"):ScrollBarControl({ "TOPRIGHT", self, "TOPRIGHT" }, {-1, 0, 18, 0}, (self.height - 4) * 4)
 	self.controls.scrollBar.y = function()
 		local width, height = self:GetSize()
 		return height + 1
@@ -54,7 +64,8 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 	}
 	self.imbuedSelect = imbued
 	self.dpsBuildFlag = false
-end)
+	return self
+end
 
 function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, useFullDPS)
 	local gemList = self.skillsTab.displayGroup.gemList

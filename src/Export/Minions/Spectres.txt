@@ -3,8 +3,10 @@
 -- Spectre Data
 -- Monster data (c) Grinding Gear Games
 --
-local minions, mod, flag = ...
 
+return function(mod, flag)
+	---@class SpectreData
+	local minions = {}
 -- Blackguard
 #spectre Metadata/Monsters/Axis/AxisCaster
 #spectre Metadata/Monsters/Axis/AxisCasterArc
@@ -447,3 +449,5 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockHigh
 -- Undead Vaal Commander
 #spectre Metadata/Monsters/VaalMonsters/VaalOverseer
+	return minions
+end

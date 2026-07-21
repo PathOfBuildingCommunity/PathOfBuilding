@@ -244,7 +244,7 @@ end
 --- Correct the tags on conversion with multipliers so they carry over correctly
 --- @param mod table
 --- @param multiplier number
---- @param minionMods bool @convert ActorConditions pointing at parent to normal Conditions
+--- @param minionMods boolean @convert ActorConditions pointing at parent to normal Conditions
 --- @return table @converted multipliers
 function calcLib.getConvertedModTags(mod, multiplier, minionMods)
 	local modifiers = { }
@@ -284,7 +284,7 @@ end
 
 --- Use getGameIdFromGemName to get gameId from the gemName and passed in type. Return true if they're the same and not nil
 --- @param gemName string
---- @param type string
+--- @param typeName string
 --- @param dropVaal boolean 
 --- @return boolean
 function calcLib.isGemIdSame(gemName, typeName, dropVaal)

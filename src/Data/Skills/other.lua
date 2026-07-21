@@ -4,8 +4,7 @@
 -- Other active skills
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 skills["RepeatingShockwave"] = {
 	name = "Abberath's Fury",
 	hidden = true,
@@ -6144,3 +6143,5 @@ skills["EnemyExplode"] = {
 		[1] = { damageEffectiveness = 1, baseMultiplier = 1, levelRequirement = 1, }
 	}
 }
+
+end
