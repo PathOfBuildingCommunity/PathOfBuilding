@@ -402,7 +402,6 @@ Implicits: 2
 {variant:6,7,8,9,10,11}10% Global chance to Blind Enemies on hit
 {variant:1,2}Gain 1 Mana on Kill per Level
 {variant:1,2}Gain 1 Energy Shield on Kill per Level
-Cannot be Blinded
 Enemies Blinded by you have Malediction
 {variant:4,5,7,8}+1 Maximum Energy Shield per Level
 {variant:10,11}+(1-2) Maximum Energy Shield per Level
@@ -410,6 +409,7 @@ Enemies Blinded by you have Malediction
 {variant:9,10}+(1-2) Maximum Life per Level
 {variant:3,5,6,8}+1 Maximum Mana per Level
 {variant:9,11}+(1-2) Maximum Mana per Level
+Unaffected by Blind
 ]],[[
 Death's Hand
 Karui Sceptre
