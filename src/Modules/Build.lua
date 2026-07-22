@@ -188,7 +188,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	end
 	self.controls.pointDisplay = new("Control", {"LEFT",self.anchorTopBarRight,"RIGHT"}, {function() return getPointDisplayX() end, 0, 0, 20})
 	self.controls.pointDisplay.width = function(control)
-		control.str, control.req = self:EstimatePlayerProgress()
 		return DrawStringWidth(16, "FIXED", control.str) + 8
 	end
 	self.controls.pointDisplay.Draw = function(control)
@@ -874,38 +873,48 @@ function buildMode:SyncLoadouts()
 end
 
 function buildMode:EstimatePlayerProgress()
-	local PointsUsed, AscUsed, SecondaryAscUsed = self.spec:CountAllocNodes()
-	local extra = self.calcsTab.mainOutput and self.calcsTab.mainOutput.ExtraPoints or 0
-	local usedMax, ascMax, secondaryAscMax, level, act = 99 + 23 + extra, 8, 8, 1, 0
+	if self.spec then
+		local PointsUsed, AscUsed, SecondaryAscUsed = self.spec:CountAllocNodes()
+		local extra = self.calcsTab.mainOutput and self.calcsTab.mainOutput.ExtraPoints or 0
+		local usedMax, ascMax, secondaryAscMax, level, act = 99 + 23 + extra, 8, 8, 1, 0
 
-	-- Find estimated act and level based on points used
-	repeat
-		act = act + 1
-		level = m_min(m_max(PointsUsed + 1 - acts[act].questPoints - actExtra(act, extra), acts[act].level), 100)
-	until act == 11 or level <= acts[act + 1].level
-	
-	if self.characterLevelAutoMode and self.characterLevel ~= level then
-		self.characterLevel = level
-		self.controls.characterLevel:SetText(self.characterLevel)
-		self.configTab:BuildModList()
+		-- Find estimated act and level based on points used
+		repeat
+			act = act + 1
+			level = m_min(m_max(PointsUsed + 1 - acts[act].questPoints - actExtra(act, extra), acts[act].level), 100)
+		until act == 11 or level <= acts[act + 1].level
+
+		if self.characterLevelAutoMode and self.characterLevel ~= level then
+			self.characterLevel = level
+			self.controls.characterLevel:SetText(self.characterLevel)
+			self.configTab:BuildModList()
+		end
+
+		-- Ascendancy points for lab
+		-- this is a recommendation for beginners who are using Path of Building for the first time and trying to map out progress in PoB
+		local labSuggest = level < 33 and ""
+			or level < 55 and "\nLabyrinth: Normal Lab"
+			or level < 68 and "\nLabyrinth: Cruel Lab"
+			or level < 75 and "\nLabyrinth: Merciless Lab"
+			or level < 90 and "\nLabyrinth: Uber Lab"
+			or ""
+
+		if PointsUsed > usedMax then InsertIfNew(self.controls.warnings.lines, "You have too many passive points allocated") end
+		if AscUsed > ascMax then InsertIfNew(self.controls.warnings.lines, "You have too many ascendancy points allocated") end
+		if SecondaryAscUsed > secondaryAscMax then InsertIfNew(self.controls.warnings.lines, "You have too many secondary ascendancy points allocated") end
+		self.Act = level < 90 and act <= 10 and act or "Endgame"
+		
+		self.controls.pointDisplay.str = string.format("%s%3d / %3d   %s%d / %d",
+			PointsUsed > usedMax and colorCodes.NEGATIVE or "^7",
+			PointsUsed, usedMax,
+			AscUsed > ascMax and colorCodes.NEGATIVE or "^7",
+			AscUsed, ascMax
+		)
+		self.controls.pointDisplay.req = string.format(
+			"Required Level: %d\nEstimated Progress:\nAct: %s\nQuestpoints: %d\nExtra Skillpoints: %d%s",
+			level, self.Act, acts[act].questPoints, actExtra(act, extra), labSuggest
+		)		
 	end
-
-	-- Ascendancy points for lab
-	-- this is a recommendation for beginners who are using Path of Building for the first time and trying to map out progress in PoB
-	local labSuggest = level < 33 and ""
-		or level < 55 and "\nLabyrinth: Normal Lab"
-		or level < 68 and "\nLabyrinth: Cruel Lab"
-		or level < 75 and "\nLabyrinth: Merciless Lab"
-		or level < 90 and "\nLabyrinth: Uber Lab"
-		or ""
-	
-	if PointsUsed > usedMax then InsertIfNew(self.controls.warnings.lines, "You have too many passive points allocated") end
-	if AscUsed > ascMax then InsertIfNew(self.controls.warnings.lines, "You have too many ascendancy points allocated") end
-	if SecondaryAscUsed > secondaryAscMax then InsertIfNew(self.controls.warnings.lines, "You have too many secondary ascendancy points allocated") end
-	self.Act = level < 90 and act <= 10 and act or "Endgame"
-	
-	return string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and colorCodes.NEGATIVE or "^7", PointsUsed, usedMax, AscUsed > ascMax and colorCodes.NEGATIVE or "^7", AscUsed, ascMax),
-		"Required Level: "..level.."\nEstimated Progress:\nAct: "..self.Act.."\nQuestpoints: "..acts[act].questPoints.."\nExtra Skillpoints: "..actExtra(act, extra)..labSuggest
 end
 
 function buildMode:CanExit(mode)
@@ -1779,6 +1788,7 @@ function buildMode:RefreshStatList()
 	end
 	self:AddDisplayStatList(self.displayStats, self.calcsTab.mainEnv.player)
 	self:InsertItemWarnings()
+	self:EstimatePlayerProgress()
 end
 
 function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compareOutput, header, nodeCount)
