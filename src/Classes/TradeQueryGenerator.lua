@@ -772,12 +772,13 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 	if self.calcContext.options.includeScourge then
 		self:GenerateModWeights(self.modData["Scourge"])
 	end
-	if self.calcContext.options.includeEldritch:find("^Keep") and
+	local eldritchOption = self.calcContext.options.includeEldritch
+	if eldritchOption and eldritchOption:find("^Keep") and
 		-- skip weights if we need an influenced item as they can produce really
 		-- bad results due to the filter limit
 		self.calcContext.options.influence1 == 1 and
 		self.calcContext.options.influence2 == 1 then
-		local omitConditional = self.calcContext.options.includeEldritch == "Keep regular"
+		local omitConditional = eldritchOption == "Keep regular"
 		local eaterMods = self.modData["Eater"]
 		local exarchMods = self.modData["Exarch"]
 		if omitConditional then
