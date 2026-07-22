@@ -3349,10 +3349,12 @@ function calcs.perform(env, skipEHP)
 				local mods = { modLib.createMod("ActionSpeed", "INC", -num, "Chill", { type = "Condition", var = "Chilled" }) }
 				if modDB:Flag(nil, "ChillEffectIncDamageTaken") then
 					t_insert(mods, modLib.createMod("DamageTaken", "INC", num, "Ahuana's Bite", { type = "Condition", var = "Chilled" }))
+				elseif modDB:Flag(nil, "ChillEffectIncColdDamageTaken") then
+					t_insert(mods, modLib.createMod("ColdDamageTaken", "INC", num, "Chilled by Hits", { type = "Condition", var = "Chilled" }))
 				-- Scales off the current chill effect on the enemy; the flag itself is gated on the
 				-- enemy being in a chilling area (config option)
-				elseif modDB:Flag(nil, "ChillingAreaIncDamageTaken") then
-					t_insert(mods, modLib.createMod("DamageTaken", "INC", num, "Chilling Area", { type = "Condition", var = "Chilled" }))
+				elseif modDB:Flag(nil, "ChillingAreaIncColdDamageTaken") then
+					t_insert(mods, modLib.createMod("ColdDamageTaken", "INC", num, "Chilling Area", { type = "Condition", var = "Chilled" }))
 				elseif output.HasBonechill and (hasGuaranteedBonechill or enemyDB:Sum("BASE", nil, "ChillVal") > 0) then
 					t_insert(mods, modLib.createMod("ColdDamageTaken", "INC", num, "Bonechill", { type = "Condition", var = "Chilled" }))
 				end

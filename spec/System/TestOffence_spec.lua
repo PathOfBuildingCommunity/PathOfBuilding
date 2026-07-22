@@ -154,7 +154,7 @@ describe("TestOffence", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[
 		New Item
 		Coral Amulet
-		Enemies in your Chilling Areas have Damage taken increased by Chill Effect
+		Enemies in your Chilling Areas have Cold Damage taken increased by Chill Effect
 		]])
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
@@ -166,8 +166,22 @@ describe("TestOffence", function()
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
 
-		assertNearRelative(baseAvg * (1 + currentChill / 100), build.calcsTab.mainOutput.AverageDamage, 0.005,
+		-- Vortex deals pure cold damage, so the ColdDamageTaken increase scales all of it
+		local scaledAvg = baseAvg * (1 + currentChill / 100)
+		assertNearRelative(scaledAvg, build.calcsTab.mainOutput.AverageDamage, 0.005,
 			string.format("base %.2f scaled by %d%% current chill", baseAvg, currentChill))
+
+		-- the paired "Chilled by your Hits" wording must not stack with the chilling area one
+		build.itemsTab:CreateDisplayItemFromRaw([[
+		New Item
+		Coral Ring
+		Enemies Chilled by your Hits have Cold Damage taken increased by Chill Effect
+		]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		assertNearRelative(scaledAvg, build.calcsTab.mainOutput.AverageDamage, 0.005,
+			string.format("both wordings must apply only once (base %.2f, %d%% chill)", baseAvg, currentChill))
 	end)
 
 	-- "Base <ailment> Duration is X seconds" overrides the fixed base duration of the damaging ailments
