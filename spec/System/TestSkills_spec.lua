@@ -150,4 +150,20 @@ describe("TestAttacks", function()
 
 		assert.True(preAdrenalineMaxStages < build.calcsTab.mainEnv.player.activeSkillList[1].skillModList:Sum("BASE", nil, "Multiplier:BlightMaxStages"))
 	end)
+
+	it("averages inverted elemental resistance after penetration", function()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+		build.configTab.input.enemyIsBoss = "None"
+		build.configTab.input.enemyFireResist = 50
+		build.configTab.input.customMods = "Hits have 50% chance to treat Enemy Monster Elemental Resistance values as inverted\nDamage Penetrates 50% of Enemy Fire Resistance"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		-- Unlike PoE 2, PoE 1 penetration can lower resistance below zero:
+		-- 50% of hits use 0% resistance and 50% use -100% resistance.
+		assert.are.equals(1.5, build.calcsTab.calcsOutput.FireEffMult)
+		local breakdownText = table.concat(build.calcsTab.calcsEnv.player.breakdown.FireEffMult, "\n")
+		assert.is_truthy(breakdownText:match("inverted hit"))
+		assert.is_truthy(breakdownText:match("weighted average"))
+	end)
 end)
