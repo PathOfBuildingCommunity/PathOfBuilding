@@ -135,6 +135,38 @@ describe("TetsItemMods", function()
 		assert.are_not.equals(nonElusiveCritMult, build.calcsTab.mainOutput.CritMultiplier)
 	end)
 
+	it("Runegraft of the Agile affects average Elusive effect", function()
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
+		build.configTab.input.customMods = "Gain Elusive on Critical Strike"
+		build.configTab.input.buffElusive = true
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(50, build.calcsTab.mainOutput.ElusiveEffectMod)
+
+		build.configTab.input.customMods = [[Gain Elusive on Critical Strike
+		Elusive's Effect on you is increased instead for the first 2 seconds]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.near(730 / 9, build.calcsTab.mainOutput.ElusiveEffectMod, 10 ^ -9)
+
+		build.configTab.input.customMods = [[Gain Elusive on Critical Strike
+		Elusive's Effect on you is increased instead for the first 2 seconds
+		100% increased Elusive Effect
+		Elusive is removed from you at 100% Effect]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.near(1630 / 9, build.calcsTab.mainOutput.ElusiveEffectMod, 10 ^ -9)
+
+		build.configTab.input.overrideBuffElusive = 80
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(80, build.calcsTab.mainOutput.ElusiveEffectMod)
+	end)
+
 	it("Varunastra works with close combat support", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[Varunastra
 		Vaal Blade

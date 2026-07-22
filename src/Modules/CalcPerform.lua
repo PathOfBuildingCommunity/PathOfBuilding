@@ -775,7 +775,19 @@ local function doActorMisc(env, actor)
 			end
 			inc = inc + maxSkillInc
 			local elusiveEffectMod = (1 + inc / 100) * modDB:More(nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
-			output.ElusiveEffectMod = (elusiveEffectMod + (modDB:Override(nil, "ElusiveEffectMinThreshold") or 0)) / 2
+			local elusiveEffectMinThreshold = modDB:Override(nil, "ElusiveEffectMinThreshold") or 0
+			local elusiveEffectIncreaseDuration = modDB:Sum("BASE", nil, "ElusiveEffectIncreaseDuration")
+			if elusiveEffectIncreaseDuration > 0 then
+				local elusiveEffectChangeRate = 20
+				local peakElusiveEffect = elusiveEffectMod + elusiveEffectChangeRate * elusiveEffectIncreaseDuration
+				local elusiveEffectDecreaseDuration = (peakElusiveEffect - elusiveEffectMinThreshold) / elusiveEffectChangeRate
+				local totalElusiveEffectDuration = elusiveEffectIncreaseDuration + elusiveEffectDecreaseDuration
+				local averageIncreaseEffect = (elusiveEffectMod + peakElusiveEffect) / 2
+				local averageDecreaseEffect = (peakElusiveEffect + elusiveEffectMinThreshold) / 2
+				output.ElusiveEffectMod = (averageIncreaseEffect * elusiveEffectIncreaseDuration + averageDecreaseEffect * elusiveEffectDecreaseDuration) / totalElusiveEffectDuration
+			else
+				output.ElusiveEffectMod = (elusiveEffectMod + elusiveEffectMinThreshold) / 2
+			end
 			-- if we want the max skill to not be noted as its own breakdown table entry, comment out below
 			modDB:NewMod("ElusiveEffect", "INC", maxSkillInc, "Max Skill Effect")
 			-- Override elusive effect if set.
