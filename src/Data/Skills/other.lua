@@ -1470,6 +1470,7 @@ skills["SupportEarthbreaker"] = {
 skills["SupportEclipse"] = {
 	name = "Eclipse",
 	description = "Supports any skill gem.\nCannot support skills that don't come from gems.",
+	flavourText = {"\"Although we are two bodies, we are of one mind, one heart, drifting", "through the cosmos, in search of purpose. The moment we cross paths,", "both fleeting and eternal, our eyes are opened to our potential.\"", },
 	color = 4,
 	support = true,
 	requireSkillTypes = { },

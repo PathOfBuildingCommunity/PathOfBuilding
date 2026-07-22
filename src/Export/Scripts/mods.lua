@@ -64,6 +64,11 @@ local function writeMods(outName, condFunc)
 					goto continue
 				end
 			end
+			-- game data has 0 and 0, which means no description is generated
+			if mod.Id == "JewelExpansionPassiveNodes" then
+				mod.Stat2Value[1] = 2
+				mod.Stat2Value[2] = 12
+			end
 			local stats, orders = describeMod(mod)
 			if #orders > 0 then
 				out:write('\t["', mod.Id, '"] = { ')
@@ -147,15 +152,9 @@ local function writeMods(outName, condFunc)
 				end
 				out:write('modTags = { ', stats.modTags, ' }, ')
 
-				-- Note that some of the resulting hashes might not be correct.
-				-- Some of the trade hashes are also associated with another
-				-- value. For example, some mods have a variant value appended
-				-- to it like: explicit.stat_3642528642|7. Timeless jewels have
-				-- special trade ids, such as
+				-- Timeless jewels have special trade ids, such as
 				-- "explicit.pseudo_timeless_jewel_doryani". See the below API
-				-- for more info.
-
-				-- This API contains all of the current trade site IDs:
+				-- for more info:
 				-- https://www.pathofexile.com/api/trade/data/stats
 				local modIdx = 1
 				local tradeHashes = {}
@@ -210,16 +209,6 @@ writeMods("../Data/ModExplicit.lua", function(mod)
 	return mod.Domain == Domains.Item
 		and (mod.GenerationType == GenTypes.Prefix or mod.GenerationType == GenTypes.Suffix)
 		-- excl. separately exported mods
-		and not mod.Id:match("Royale")
-		and not mod.Id:match("Necropolis")
-		and not mod.Id:match("^Synthesis")
-		and not (mod.GenerationType == GenTypes.SearingExarch or mod.GenerationType == GenTypes.EaterOfWorlds)
-		and #mod.AuraFlags == 0
-end)
--- generic implicit mods
-writeMods("../Data/ModImplicit.lua", function(mod)
-	return (mod.GenerationType == GenTypes.Intrinsic and mod.Domain == Domains.Item
-		)
 		and not mod.Id:match("Royale")
 		and not mod.Id:match("Necropolis")
 		and not mod.Id:match("^Synthesis")
@@ -302,7 +291,7 @@ writeMods("../Data/BeastCraft.lua", function(mod)
 	return (mod.Id:match("Aspect") and mod.GenerationType == GenTypes.Suffix) -- Aspect Crafts
 end)
 writeMods("../Data/ModFoulborn.lua", function(mod)
-	return mod.Domain == Domains.Item and mod.GenerationType == GenTypes.Intrinsic and mod.Id:match("^MutatedUnique")
+	return (mod.Domain == Domains.Item or mod.Domain == Domains.Jewel) and mod.GenerationType == GenTypes.Intrinsic and mod.Id:match("^MutatedUnique")
 end)
 
 -- Generate unique mod mappings from text to mod

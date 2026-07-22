@@ -80,11 +80,6 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 		end
 		local convMult = conversionTable[otherType][damageType]
 		if convMult > 0 then
-			local convPortion = conversionTable[otherType].conversion[damageType]
-			if convPortion > 0 and cfg.summonSkillName and cfg.summonSkillName == "Raise Spectre" and otherType == "Physical" and damageType ~= "Chaos" then
-				local physBonus = 1 + data.monsterPhysConversionMultiTable[activeSkill.actor.level] / 100
-				convMult = (convMult - convPortion) + convPortion * physBonus
-			end
 			-- Damage is being converted/gained from the other damage type
 			local min, max = calcDamage(activeSkill, output, cfg, breakdown, otherType, typeFlags, damageType)
 			addMin = addMin + min * convMult
@@ -1747,12 +1742,13 @@ function calcs.offence(env, actor, activeSkill)
 			local moreType = 1
 			local moreCost = 1
 			local inc = 0
+			local costEfficiency = calcLib.mod(skillModList, skillCfg, val.type .. "CostEfficiency", "CostEfficiency")
 			if not val.unaffectedByGenericCostMults then
 				output[costName] = val.finalBaseCost
 				moreType = skillModList:More(skillCfg, val.type.."Cost")
 				moreCost = skillModList:More(skillCfg, "Cost")
 				inc = skillModList:Sum("INC", skillCfg, val.type.."Cost", "Cost")
-				output[costNameRaw] = val.baseCostRaw and m_max(0, m_max(0, (1 + inc / 100) * val.baseCostRaw * moreType * moreCost) + val.totalCost)
+				output[costNameRaw] = val.baseCostRaw and m_max(0, m_max(0, (1 + inc / 100) * val.baseCostRaw * moreType * moreCost / costEfficiency) + val.totalCost)
 				if inc < 0 then
 					output[costName] = m_max(0, m_ceil((1 + inc / 100) * output[costName]))
 				else
@@ -1768,6 +1764,8 @@ function calcs.offence(env, actor, activeSkill)
 				else
 					output[costName] = m_max(0, m_floor(moreCost * output[costName]))
 				end
+				-- Apply cost efficiency (similar to reservation efficiency)
+				output[costName] = m_max(0, output[costName] / costEfficiency)
 				output[costName] = m_max(0, output[costName] + val.totalCost)
 				if val.type == "Mana" and hybridLifeCost > 0 then -- Life/Mana Mastery
 					output[costName] = m_max(0, m_floor((1 - hybridLifeCost) * output[costName]))
@@ -1779,8 +1777,10 @@ function calcs.offence(env, actor, activeSkill)
 				output[costName] = m_floor(val.baseCost + val.baseCostNoMult)
 				output[costName] = m_max(0, (1 + inc / 100) * output[costName])
 				output[costName] = m_max(0, moreType * output[costName])
+				-- Apply cost efficiency for unaffected costs too
+				output[costName] = m_max(0, output[costName] / costEfficiency)
 				output[costName] = m_max(0, output[costName] + val.totalCost)
-				output[costNameRaw] = val.baseCostRaw and m_max(0, m_max(0, (1 + inc / 100) * (val.baseCostRaw + val.baseCostNoMult) * moreType) + val.totalCost)
+				output[costNameRaw] = val.baseCostRaw and m_max(0, m_max(0, (1 + inc / 100) * (val.baseCostRaw + val.baseCostNoMult) * moreType / costEfficiency) + val.totalCost)
 			end
 			if breakdown and hasCost then
 				breakdown[costName] = {
@@ -1806,6 +1806,9 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				if moreType ~= 1 then
 					t_insert(breakdown[costName], s_format("x %.2f ^8(more/less "..val.text.." cost)", moreType))
+				end
+				if costEfficiency ~= 1 then
+					t_insert(breakdown[costName], s_format("/ %.2f ^8(" .. val.text .. " cost efficiency)", costEfficiency))
 				end
 				if val.totalCost ~= 0 then
 					t_insert(breakdown[costName], s_format("%+d ^8(total "..val.text.." cost)", val.totalCost))
@@ -2893,6 +2896,7 @@ function calcs.offence(env, actor, activeSkill)
 
 			if critOverride == 100 then
 				output.PreEffectiveCritChance = 100
+				output.PreBifurcateCritChance = 100
 				output.CritChance = 100
 			else
 				local base = 0
@@ -2927,8 +2931,13 @@ function calcs.offence(env, actor, activeSkill)
 						output.CritChance = (1 - (1 - output.CritChance / 100) ^ (critRolls + 1)) * 100
 					end
 				end
+				output.PreBifurcateCritChance = output.CritChance
+				local preBifurcateCritChance = output.CritChance
+				if env.mode_effective and skillModList:Flag(cfg, "BifurcateCrit") then
+					output.CritChance = (1 - (1 - output.CritChance / 100) ^ 2) * 100
+				end
 				local preHitCheckCritChance = output.CritChance
-				local preSkillUseCritChance= output.CritChance
+				local preSkillUseCritChance = output.CritChance
 				if env.mode_effective then
 					if skillModList:Flag(skillCfg, "Every3UseCrit") then
 						output.CritChance = (2 * output.CritChance + 100) / 3
@@ -2958,7 +2967,7 @@ function calcs.offence(env, actor, activeSkill)
 						local overCap = preCapCritChance - 100
 						t_insert(breakdown.CritChance, s_format("Crit is overcapped by %.2f%% (%d%% increased Critical Strike Chance)", overCap, overCap / more / (baseCrit + base) * 100))
 					end
-					if env.mode_effective and (critRolls ~= 0 or skillModList:Flag(skillCfg, "Every3UseCrit") or skillModList:Flag(skillCfg, "Every5UseCrit")) then
+					if env.mode_effective then
 						if critRolls ~= 0 then
 							if skillModList:Flag(skillCfg, "Unexciting") then
 								t_insert(breakdown.CritChance, "Crit Chance is Unexciting:")
@@ -2967,6 +2976,12 @@ function calcs.offence(env, actor, activeSkill)
 								t_insert(breakdown.CritChance, "Crit Chance is Lucky:")
 								t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f)^ %d", preLuckyCritChance / 100, critRolls + 1))
 							end
+							t_insert(breakdown.CritChance, s_format("= %.2f%%", preBifurcateCritChance))
+						end
+						if skillModList:Flag(cfg, "BifurcateCrit") then
+							t_insert(breakdown.CritChance, "Critical Strike Bifurcates:")
+							t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f) x (1 - %.4f)", preBifurcateCritChance / 100, preBifurcateCritChance / 100))
+							t_insert(breakdown.CritChance, s_format("= %.2f%%", preSkillUseCritChance))
 						end
 						if skillModList:Flag(skillCfg, "Every3UseCrit") then
 							t_insert(breakdown.CritChance, s_format("+ %.2f%% ^8(crit every 3rd use)", (2 * preSkillUseCritChance + 100) / 3 - preSkillUseCritChance))
@@ -2974,7 +2989,9 @@ function calcs.offence(env, actor, activeSkill)
 						if skillModList:Flag(skillCfg, "Every5UseCrit") then
 							t_insert(breakdown.CritChance, s_format("+ %.2f%% ^8(crit every 5th use)", (4 * preSkillUseCritChance + 100) / 5 - preSkillUseCritChance))
 						end
-						t_insert(breakdown.CritChance, s_format("= %.2f%%", preHitCheckCritChance))
+						if skillModList:Flag(skillCfg, "Every3UseCrit") or skillModList:Flag(skillCfg, "Every5UseCrit") then
+							t_insert(breakdown.CritChance, s_format("= %.2f%%", preHitCheckCritChance))
+						end
 					end
 					if env.mode_effective and output.AccuracyHitChance < 100 then
 						t_insert(breakdown.CritChance, "Crit confirmation roll:")
@@ -3005,6 +3022,42 @@ function calcs.offence(env, actor, activeSkill)
 							s_format("= %d%% ^8(extra crit damage)", extraDamage * 100),
 						}
 					end
+				end
+				-- if crit bifurcates are enabled, roll for crit twice and add multiplier for each
+				local critOverride = skillModList:Override(cfg, "CritChance")
+				if env.mode_effective and skillModList:Flag(cfg, "BifurcateCrit") and output.PreBifurcateCritChance and not (critOverride == 100) then
+					-- get crit chance and calculate odds of critting twice
+					local critChancePercentage = output.PreBifurcateCritChance
+					local bifurcateMultiChance = (critChancePercentage ^ 2) / 100
+					local effectiveCritChance = output.CritChance
+					local bifurcateUseChance = 1
+					-- Guaranteed crit uses do not roll crit chance and therefore cannot bifurcate
+					if skillModList:Flag(skillCfg, "Every3UseCrit") then
+						bifurcateUseChance = bifurcateUseChance * 2 / 3
+					end
+					if skillModList:Flag(skillCfg, "Every5UseCrit") then
+						bifurcateUseChance = bifurcateUseChance * 4 / 5
+					end
+					bifurcateMultiChance = bifurcateMultiChance * bifurcateUseChance
+					local conditionalBifurcateChance = effectiveCritChance > 0 and bifurcateMultiChance / effectiveCritChance or 0
+					output.CritBifurcates = 1 + conditionalBifurcateChance
+					local damageBonus = extraDamage
+					local bifurcatedBonus = conditionalBifurcateChance * extraDamage
+					if breakdown then
+						breakdown.CritBifurcates = {
+							s_format("%.2f%% ^8(pre-bifurcate crit chance)", critChancePercentage),
+							s_format("x %.2f%%", critChancePercentage),
+						}
+						if bifurcateUseChance < 1 then
+							t_insert(breakdown.CritBifurcates, s_format("x %.2f%% ^8(uses that can bifurcate)", bifurcateUseChance * 100))
+						end
+						t_insert(breakdown.CritBifurcates, s_format("= %.2f%% ^8(chance both crit rolls succeed)", bifurcateMultiChance))
+						t_insert(breakdown.CritBifurcates, s_format("/ %.2f%% ^8(effective crit chance)", effectiveCritChance))
+						t_insert(breakdown.CritBifurcates, s_format("= %.2f ^8(crit Bifurcates effect)", 1 + conditionalBifurcateChance))
+					end
+					extraDamage = damageBonus + bifurcatedBonus
+					-- mod doesn't affect output and is purely descriptive
+					skillModList:NewMod("CritMultiplier", "MORE", floor(conditionalBifurcateChance * 100, 2), "Bifurcated Crit Damage Bonus", ModFlag.Hit)
 				end
 				output.CritMultiplier = 1 + m_max(0, extraDamage)
 			end

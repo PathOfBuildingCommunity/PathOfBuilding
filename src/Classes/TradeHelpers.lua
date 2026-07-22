@@ -4,109 +4,105 @@
 -- Stateless trade mod lookup/matching and item display helper functions
 --
 local m_floor = math.floor
-local dkjson = require "dkjson"
-local queryModsData
-do
-	local queryModFile = io.open("Data/QueryMods.lua", "r")
-	if queryModFile then
-		queryModFile:close()
-		queryModsData = LoadModule("Data/QueryMods")
+local statDescData = require("Data.StatDescriptions.stat_descriptions")
+
+-- precalculate patterns used for matching stat lines
+local numberPattern = "%%d%+%%.%?%%d*"
+for _, statDescEntry in ipairs(statDescData) do
+	for _, desc in ipairs(statDescEntry[1] or {}) do
+		-- pob doesn't parse this as a part of other mods
+		desc.text = desc.text:gsub("\nPassage", "")
+		desc.pat = desc.text
+			-- ignore uppercase letters to help custom items match
+			:lower()
+			-- remove minus and plus signs
+			:gsub("%-{", "{")
+			:gsub("%+{", "{")
+			-- escape existing characters
+			:gsub("([%(%)%.%%%+%-%*%?%[%]%^%$])", "%%%1")
+			-- match # to # as one block since the trade site uses the midpoint. these don't seem to
+			-- ever have plus or minus signs, and can't be negative as even flat damage turns into
+			-- flat damage against you instead of being negative
+			:gsub("{.-} to {.-}", string.format("(%s to %s)", numberPattern, numberPattern))
+
+			-- match number variables like {}, {0}, {0:-d}, {0:+d}, or {:d}
+			:gsub("{.-}",
+				-- and add optional plus and number signs. this is not necessarily correct as some
+				-- stats do require the plus sign to parse, but this simplifies handling reflected
+				-- mods
+				"%%%+%?(%%%-%?" .. numberPattern .. ")")
 	end
 end
 
 local M = {}
 
 -- Helper: get rarity color code for an item
+--- @param item table
 function M.getRarityColor(item)
 	if not item then return "^7" end
-	if item.rarity == "UNIQUE" then return colorCodes.UNIQUE
-	elseif item.rarity == "RARE" then return colorCodes.RARE
-	elseif item.rarity == "MAGIC" then return colorCodes.MAGIC
-	else return colorCodes.NORMAL end
+	if item.rarity and colorCodes[item.rarity] then
+		return colorCodes[item.rarity]
+	else
+		return "^7"
+	end
 end
 
 -- Helper: normalize a mod line by replacing numbers with "#" for template matching
+--- @param line string
 function M.modLineTemplate(line)
 	-- Replace decimal numbers first (e.g. "1.5"), then integers
-	return line:gsub("[%d]+%.?[%d]*", "#")
+	return line:gsub("%-?[%d]+%.?[%d]*", "#")
 end
 
--- Helper: extract the first number from a mod line for value comparison
-function M.modLineValue(line)
-	return tonumber(line:match("[%d]+%.?[%d]*")) or 0
+-- Helper: extract the first number from a mod line for value comparison, or in the case of # to #
+-- mods, the midpoint of that range
+--- @param line string
+--- @param onlyFromTo? boolean whether we should only check for # to # matches
+function M.modLineValue(line, onlyFromTo)
+	local low, high = line:match("(%-?%d+%.?%d*) to (%-?%d+%.?%d*)")
+	if low and high then
+		return (tonumber(low) + tonumber(high)) / 2
+	elseif onlyFromTo then
+		return nil
+	end
+	return tonumber(line:match("%-?[%d]+%.?[%d]*"))
 end
 
--- Helper: lazily build a reverse lookup from QueryMods tradeMod.text → tradeMod.id
-local _tradeModLookup = nil
-local function getTradeModLookup()
-	if _tradeModLookup then return _tradeModLookup end
-	_tradeModLookup = {}
-	if not queryModsData then return _tradeModLookup end
-	for _groupName, mods in pairs(queryModsData) do
-		for _modKey, modData in pairs(mods) do
-			if type(modData) == "table" and modData.tradeMod then
-				local text = modData.tradeMod.text
-				local modType = modData.tradeMod.type or "explicit"
-				local id = modData.tradeMod.id
-				local key = text .. "|" .. modType
-				_tradeModLookup[key] = id
-				if not _tradeModLookup[text] then
-					_tradeModLookup[text] = id
-				end
-				-- Also store with template-converted text for mods with literal numbers
-				-- (e.g. "1 Added Passive Skill is X" → "# Added Passive Skill is X")
-				local template = M.modLineTemplate(text)
-				if template ~= text then
-					local templateKey = template .. "|" .. modType
-					if not _tradeModLookup[templateKey] then
-						_tradeModLookup[templateKey] = id
+local _tradeStats
+
+---@return table? tradeStats
+function M.getTradeStats()
+	if _tradeStats then return _tradeStats end
+	_tradeStats = LoadModule("Data/TradeSiteStats")
+	return _tradeStats
+end
+
+local _optionTradeStatMap
+
+---@param tradeStats table table of data from https://www.pathofexile.com/api/trade2/data/stats
+---@return table optionTradeStatMap table containing helper data for matching trade option filters
+local function getOptionTradeStatMap(tradeStats)
+	if _optionTradeStatMap then return _optionTradeStatMap end
+	local optionTradeStatMap = {}
+	for _, cat in ipairs(tradeStats) do
+		if cat.id == "enchant" or cat.id == "explicit" or cat.id == "implicit" then
+			for _, entry in ipairs(cat.entries) do
+				if entry.option and entry.text:match("#") then
+					-- pob parses the passage part as a separate mod line, which
+					-- causes trouble
+					local matchKey = entry.text:gsub("#", "(.*)"):gsub(" Passage", ""):lower()
+					-- make options lowercase
+					for _, option in ipairs(entry.option.options) do
+						option.text = option.text and option.text:lower()
 					end
-					if not _tradeModLookup[template] then
-						_tradeModLookup[template] = id
-					end
+					optionTradeStatMap[matchKey] = { type = cat.id, options = entry.option.options, tradeId = entry.id }
 				end
 			end
 		end
 	end
-	return _tradeModLookup
-end
 
--- Helper: lazily fetch and cache the trade API stats for comprehensive mod matching
--- Covers mods not in QueryMods.lua (cluster enchants, unique-specific mods, etc.)
-local _tradeStatsLookup = nil
-local _tradeStatsFetched = false
-local function getTradeStatsLookup()
-	if _tradeStatsFetched then return _tradeStatsLookup end
-	_tradeStatsFetched = true
-	local tradeStats = ""
-	local easy = common.curl.easy()
-	if not easy then return nil end
-	easy:setopt_url("https://www.pathofexile.com/api/trade/data/stats")
-	easy:setopt_useragent("Path of Building/" .. (launch.versionNumber or ""))
-	easy:setopt_writefunction(function(d)
-		tradeStats = tradeStats .. d
-		return true
-	end)
-	local ok = easy:perform()
-	easy:close()
-	if not ok or tradeStats == "" then return nil end
-	local parsed = dkjson.decode(tradeStats)
-	if not parsed or not parsed.result then return nil end
-	_tradeStatsLookup = {}
-	for _, category in ipairs(parsed.result) do
-		local catLabel = category.label
-		for _, entry in ipairs(category.entries) do
-			local stripped = entry.text:gsub("[#()0-9%-%+%.]", "")
-			local key = stripped .. "|" .. catLabel
-			if not _tradeStatsLookup[key] then
-				_tradeStatsLookup[key] = entry
-			end
-			if not _tradeStatsLookup[stripped] then
-				_tradeStatsLookup[stripped] = entry
-			end
-		end
-	end
-	return _tradeStatsLookup
+	_optionTradeStatMap = optionTradeStatMap
+	return _optionTradeStatMap
 end
 
 -- Map source types used in OpenBuySimilarPopup to trade API category labels
@@ -116,54 +112,166 @@ M.sourceTypeToCategory = {
 	["enchant"] = "Enchant",
 }
 
--- Helper: find the trade stat ID for a mod line
-function M.findTradeModId(modLine, modType)
-	-- Try QueryMods-based lookup
-	local lookup = getTradeModLookup()
-	local template = M.modLineTemplate(modLine)
-	-- Try exact match with type first
-	local key = template .. "|" .. modType
-	if lookup[key] then
-		return lookup[key]
+-- inverses a mod. e.g. more x -> less x
+--- @param modLine string
+function M.swapInverse(modLine)
+	local priorStr = modLine
+	local inverseKey
+	if modLine:match("increased") then
+		modLine = modLine:gsub("([^ ]+) increased", "-%1 reduced")
+		if modLine ~= priorStr then inverseKey = "increased" end
+	elseif modLine:match("reduced") then
+		modLine = modLine:gsub("([^ ]+) reduced", "-%1 increased")
+		if modLine ~= priorStr then inverseKey = "reduced" end
+	elseif modLine:match("more") then
+		modLine = modLine:gsub("([^ ]+) more", "-%1 less")
+		if modLine ~= priorStr then inverseKey = "more" end
+	elseif modLine:match("less") then
+		modLine = modLine:gsub("([^ ]+) less", "-%1 more")
+		if modLine ~= priorStr then inverseKey = "less" end
+	elseif modLine:match("expires ([^ ]+) slower") then
+		modLine = modLine:gsub("([^ ]+) slower", "-%1 faster")
+		if modLine ~= priorStr then inverseKey = "slower" end
+	elseif modLine:match("expires ([^ ]+) faster") then
+		modLine = modLine:gsub("([^ ]+) faster", "-%1 slower")
+		if modLine ~= priorStr then inverseKey = "faster" end
 	end
-	-- Try without leading +/- sign
-	local stripped = template:gsub("^[%+%-]", "")
-	key = stripped .. "|" .. modType
-	if lookup[key] then
-		return lookup[key]
-	end
-	-- Fallback: match by template text only (any type)
-	if lookup[template] then
-		return lookup[template]
-	end
-	if lookup[stripped] then
-		return lookup[stripped]
-	end
+	return modLine, inverseKey
+end
 
-	-- Try trade API stats (covers mods not in QueryMods)
-	local tradeStats = getTradeStatsLookup()
-	if tradeStats then
-		local strippedLine = modLine:gsub("[#()0-9%-%+%.]", "")
-		local category = M.sourceTypeToCategory[modType]
-		if category then
-			local catKey = strippedLine .. "|" .. category
-			if tradeStats[catKey] then
-				return tradeStats[catKey].id
+
+---@return string? tradeId
+---@return number? value Only returned when applicable (primarily timeless jewels)
+function M.findTradeIdOption(modLine, modType)
+	-- match stringify() behaviour and ignore casing
+	modLine = modLine:gsub("\n", " "):lower()
+	-- exception: timeless jewels
+	-- these have special pseudo trade ids and are not options in poe1
+	local timelessPatterns = { "bathed in the blood of (%d+) sacrificed in the name of (.+)",
+		"carved to glorify (%d+) new faithful converted by high templar (.+)",
+		"commanded leadership over (%d+) warriors under (.+)",
+		"commissioned (%d+) coins to commemorate (.+)",
+		"denoted service of (%d+) dekhara in the akhara of (.+)",
+		"remembrancing (%d+) songworthy deeds by the line of (.+)" }
+	for _, pat in ipairs(timelessPatterns) do
+		local value, conqueror = modLine:match(pat)
+		if conqueror then
+			return "explicit.pseudo_timeless_jewel_" .. conqueror, tonumber(value)
+		end
+	end
+	local tradeStats = M.getTradeStats()
+	local optionTradeStatMap = getOptionTradeStatMap(tradeStats)
+	if not tradeStats or not optionTradeStatMap then return end
+
+	-- reformat double-line cluster enchants
+	modLine = modLine:gsub(".added small passive skills grant: ", " ")
+	for pat, entry in pairs(optionTradeStatMap) do
+		local match = modLine:match(pat)
+		if entry.type == modType and match then
+			for _, option in ipairs(entry.options) do
+				if option.text == match then
+					return entry.tradeId, option.id
+				end
 			end
 		end
-		-- Fallback: any category
-		if tradeStats[strippedLine] then
-			return tradeStats[strippedLine].id
+	end
+end
+
+-- Helper: find the trade stat ID for a mod line
+---@param modLine  string
+---@return table[] results Can include more than one result if the results are ambiguous
+---@return number? value Might be nil if the line has no sensible number value
+---@return boolean shouldNegate whether the mod needs to be negated when given to the trade site
+function M.findTradeHash(modLine)
+	modLine = modLine:lower()
+	local resultIds = {}
+	local value
+	local shouldNegate
+	local extraStat
+	-- time-lost jewels don't have proper stat descriptors and need to be handled separately
+	local timeLostJewelLines = {
+		["^notable passive skills in radius also grant "] = "local_jewel_mod_stats_added_to_notable_passives",
+		["^small passive skills in radius also grant "] = "local_jewel_mod_stats_added_to_small_passives",
+	}
+	for pat, stat in pairs(timeLostJewelLines) do
+		if modLine:match(pat) then
+			modLine = modLine:lower():gsub(pat, "")
+			extraStat = stat
+			break
 		end
 	end
-
-	return nil
+	for _, statDescEntry in ipairs(statDescData) do
+		local statDescriptions = statDescEntry[1]
+		if not statDescriptions then
+			goto continue
+		end
+		-- by default, the trade site uses the first form listed in the stat descriptions, but there
+		-- can be a flag that says otherwise
+		-- local canonical_line = 1
+		-- the stat descriptions default to using the first stat for the trade site, but this
+		-- flag can define it to be another one
+		local canonical_stat = 1
+		local canonical_negated = false
+		for statFormIdx, statForm in ipairs(statDescriptions) do
+			local negate = false
+			for _, flag in ipairs(statForm) do
+				if (flag.k == "negate" or flag.k == "negate_and_double") and flag.v == 1 then
+					negate = true
+				end
+				if flag.k == "canonical_stat" then
+					canonical_stat = flag.v
+				end
+				if statFormIdx == 1 or (flag.k == "canonical_line" and flag.v) then
+					-- canonical_line = desc_idx
+					canonical_negated = negate
+				end
+			end
+		end
+		for _, statForm in ipairs(statDescriptions) do
+			local negate = false
+			for _, flag in ipairs(statForm) do
+				if (flag.k == "negate" or flag.k == "negate_and_double") and flag.v == 1 then
+					negate = true
+				end
+			end
+			-- stat has no variables
+			if modLine == statForm.text:lower() then
+				local tradeHash = HashStats(statDescEntry.stats, extraStat)
+				table.insert(resultIds, tradeHash)
+				shouldNegate = false
+				-- it's hard to know the correct value, but many stats have a form with no variables when the chance to do something is 100%. this should assign a value for those
+				value = tonumber(statForm.limit and statForm.limit[1] and statForm.limit[1][1])
+				goto continue
+			end
+			-- ensure no false positives by requiring a full line match. this is not possible in gmatch as it doesn't support ^
+			if modLine:match("^" .. statForm.pat .. "$") then
+				local idx = 1
+				for match in modLine:gmatch(statForm.pat) do
+					-- note that if the desired value isn't the first match and this is a # to #,
+					-- this will break as it contains two values. however, there is only a single
+					-- example where # to # are not the first two values currently
+					local number = tonumber(match) or M.modLineValue(match)
+					if number and idx == canonical_stat then
+						shouldNegate = negate ~= canonical_negated
+						local tradeHash = HashStats(statDescEntry.stats, extraStat)
+						table.insert(resultIds, tradeHash)
+						value = number
+					end
+					idx = idx + 1
+				end
+			end
+		end
+		::continue::
+	end
+	return resultIds, value, shouldNegate
 end
 
 -- Map slot name + item type to (trade API category string, itemCategoryTags key).
 -- queryStr:      e.g. "armour.shield", "weapon.onemace"
 -- categoryLabel: e.g. "Shield", "1HMace", "1HWeapon" (nil for flask / generic jewel / unsupported)
-function M.getTradeCategoryInfo(slotName, item)
+--- @param slotName string
+--- @param item table
+function M.getTradeCategory(slotName, item)
 	if not slotName then return nil, nil end
 	local itemType = item and (item.type or (item.base and item.base.type))
 	if slotName:find("^Weapon %d") then
@@ -200,14 +308,9 @@ function M.getTradeCategoryInfo(slotName, item)
 	end
 end
 
--- Helper: map slot name + item type to trade API category string
-function M.getTradeCategory(slotName, item)
-	if not item or not item.base then return nil end
-	local queryStr = M.getTradeCategoryInfo(slotName, item)
-	return queryStr
-end
 
 -- Helper: get a display-friendly category name from slot name
+--- @param item table
 function M.getTradeCategoryLabel(slotName, item)
 	if not item or not item.base then return "Item" end
 	local baseType = item.base.type or item.type
@@ -216,6 +319,7 @@ end
 
 -- Helper: build a mod comparison map from an item.
 -- Returns a table keyed by template string → { line = original text, value = first number }
+--- @param item table
 function M.buildModMap(item)
 	local modMap = {}
 	if not item then return modMap end
@@ -234,6 +338,8 @@ function M.buildModMap(item)
 end
 
 -- Helper: get diff label string for an item slot comparison
+--- @param pItem table
+--- @param cItem table
 function M.getSlotDiffLabel(pItem, cItem)
 	if not pItem and not cItem then
 		return "^8(both empty)"
@@ -338,7 +444,7 @@ local ITEM_BOX_H = 20
 
 function M.drawCompactSlotRow(drawY, slotLabel, pItem, cItem,
 	colWidth, cursorX, cursorY, maxLabelW, primaryItemsTab, compareItemsTab, pWarn, cWarn, slotMissing,
-	copyBtnW, copyBtnH, buyBtnW, equipBtnW, xOffset)
+	copyBtnW, copyBtnH, buyBtnW, equipBtnW, xOffset, shouldUnderlineLabel)
 
 	xOffset = xOffset or 0
 	local pName = pItem and pItem.name or "(empty)"
@@ -368,7 +474,13 @@ function M.drawCompactSlotRow(drawY, slotLabel, pItem, cItem,
 
 	-- Draw slot label
 	SetDrawColor(1, 1, 1)
-	DrawString(labelX, drawY + 2, "LEFT", 16, "VAR", "^7" .. slotLabel .. ":")
+	local labelText = "^7" .. slotLabel .. ":"
+	DrawString(labelX, drawY + 2, "LEFT", 16, "VAR", labelText)
+
+	if shouldUnderlineLabel then
+		local labelW = DrawStringWidth(16, "VAR", labelText)
+		DrawImage(nil, labelX, drawY + 2 + 16, labelW, 1)
+	end
 
 	-- Draw primary item box
 	local pBorderGray = pHover and 0.5 or 0.33
@@ -417,4 +529,17 @@ function M.drawCompactSlotRow(drawY, slotLabel, pItem, cItem,
 		hoverItem, hoverItemsTab, hoverBoxX, hoverBoxY, hoverBoxW, hoverBoxH
 end
 
+-- Helper: create a numeric EditControl without +/- spinner buttons, and
+-- with a preset changeFunc intended for mod values
+function M.newPlainNumericEdit(anchor, rect, init, prompt, limit, integer, changeFunc)
+	local format = integer and "%D" or "^%d."
+	local ctrl = new("EditControl", anchor, rect, init, prompt, format, limit, changeFunc)
+	-- Remove the +/- spinner buttons that "%D" filter triggers
+	ctrl.isNumeric = false
+	if ctrl.controls then
+		if ctrl.controls.buttonDown then ctrl.controls.buttonDown.shown = false end
+		if ctrl.controls.buttonUp then ctrl.controls.buttonUp.shown = false end
+	end
+	return ctrl
+end
 return M
