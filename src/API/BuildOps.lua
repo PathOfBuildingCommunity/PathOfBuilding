@@ -223,12 +223,22 @@ end
 
 function M.get_config()
   if not build or not build.configTab then return nil, 'build/config not initialized' end
-  local cfg = {
-    bandit = build.configTab.input and build.configTab.input.bandit or build.bandit,
-    pantheonMajorGod = build.configTab.input and build.configTab.input.pantheonMajorGod or build.pantheonMajorGod,
-    pantheonMinorGod = build.configTab.input and build.configTab.input.pantheonMinorGod or build.pantheonMinorGod,
-    enemyLevel = build.configTab.enemyLevel,
-  }
+  local input = build.configTab.input
+  local cfg = {}
+  -- Serialize the full config input table (JSON-encodable values only)
+  if type(input) == 'table' then
+    for k, v in pairs(input) do
+      local vt = type(v)
+      if type(k) == 'string' and (vt == 'string' or vt == 'number' or vt == 'boolean') then
+        cfg[k] = v
+      end
+    end
+  end
+  -- Keep original keys for backward compatibility
+  cfg.bandit = (input and input.bandit) or build.bandit
+  cfg.pantheonMajorGod = (input and input.pantheonMajorGod) or build.pantheonMajorGod
+  cfg.pantheonMinorGod = (input and input.pantheonMinorGod) or build.pantheonMinorGod
+  cfg.enemyLevel = build.configTab.enemyLevel
   return cfg
 end
 
