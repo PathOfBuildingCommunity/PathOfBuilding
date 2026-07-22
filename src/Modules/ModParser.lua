@@ -5279,6 +5279,7 @@ local specialModList = {
 	["attacks with this weapon have added maximum lightning damage equal to (%d+)%% of player'?s? maximum energy shield"] = function(num) return {
 		mod("LightningMax", "BASE", 1, { type = "PercentStat", stat = "EnergyShield" , percent = num, actor = "parent" }, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
 	} end,
+	-- cspell:ignore imum
 	-- Scaling the minimum/maximum roll of a damage type (covers all types, e.g. "maximum lightning damage", "minimum cold damage").
 	-- `(m[ia][xn]imum)` captures the literal words "maximum" or "minimum". These map to the Min<Type>Damage/Max<Type>Damage stats
 	-- consumed by calcDamage in CalcOffence. "more"/"less" apply as MORE:
