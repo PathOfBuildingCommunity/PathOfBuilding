@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from __future__ import annotations
 
 import dataclasses
@@ -40,6 +41,7 @@ NODE_GROUPS = {
     "Saboteur": Point2D(10200, -2200),
     "Ascendant": Point2D(-7800, 7200),
 	"Reliquarian": Point2D(-7800, 8900),
+    "Luminary": Point2D(-6300, 8900),
     "Warden": Point2D(8250, 8350),
     "Primalist": Point2D(7200, 9400),
     "Warlock": Point2D(9300, 7300),
@@ -53,7 +55,10 @@ NODE_GROUPS = {
 	"KingInTheMists": Point2D(3750, 12000),
 	"Olroth": Point2D(5250, 12000),
 	"Oshabi": Point2D(6750, 12000),
+    # League-specific Bloodline ascendancies below can use overlapping locations until becoming permanent
 	"Necromantic": Point2D(8250, 12000),
+    "Abyssal": Point2D(8250, 12000),
+    "Brinerot": Point2D(9750, 12000)
 }
 EXTRA_NODES = {
 	"Necromancer": [{"Node": {"name": "Nine Lives", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Int.png", "isNotable": True, "skill" : 27602}, 
