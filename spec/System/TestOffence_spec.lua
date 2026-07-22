@@ -169,4 +169,38 @@ describe("TestOffence", function()
 		assertNearRelative(baseAvg * (1 + areaChill / 100), build.calcsTab.mainOutput.AverageDamage, 0.005,
 			string.format("base %.2f scaled by %d%% area chill", baseAvg, areaChill))
 	end)
+
+	-- "Base <ailment> Duration is X seconds" overrides the fixed base duration of the damaging ailments
+	for _, case in ipairs({
+		{ ailment = "Ignite", skill = "Fireball", chanceMod = "25% chance to Ignite", gameBase = 4 },
+		{ ailment = "Bleeding", skill = "Double Strike", chanceMod = "25% chance to cause Bleeding on Hit", gameBase = 5, output = "BleedDuration" },
+		{ ailment = "Poison", skill = "Double Strike", chanceMod = "25% chance to Poison on Hit", gameBase = 2 },
+	}) do
+		it("supports base " .. case.ailment .. " duration override", function()
+			local outputName = case.output or (case.ailment .. "Duration")
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			New Item
+			Rusted Sword
+			]])
+			build.itemsTab:AddDisplayItem()
+			build.skillsTab:PasteSocketGroup("Slot: Body Armour\n" .. case.skill .. " 20/0  1\n")
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			New Item
+			Coral Amulet
+			]] .. case.chanceMod)
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+
+			assert.are.equals(case.gameBase, build.calcsTab.mainOutput[outputName])
+
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			New Item
+			Coral Ring
+			Base ]] .. case.ailment .. [[ Duration is 1 second]])
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+
+			assert.are.equals(1, build.calcsTab.mainOutput[outputName])
+		end)
+	end
 end)

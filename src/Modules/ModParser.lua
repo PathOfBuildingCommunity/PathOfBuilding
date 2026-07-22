@@ -3570,6 +3570,15 @@ local specialModList = {
 		mod("Damage", "INC", num, nil, 0, KeywordFlag.Poison, { type = "ActorCondition", actor = "enemy", var = "Poisoned" }, { type = "Condition", var = "Poisoned" }),
 	} end,
 	["ignited enemies burn (%d+)%% faster"] = function(num) return { mod("IgniteBurnFaster", "INC", num) } end,
+	-- Overrides the base duration of a damaging ailment (the only ailments with a fixed base duration
+	-- consumed by the calcs; freeze duration is derived from damage and chill/shock durations are not modelled)
+	["base (%a+) duration is ([%d%.]+) seconds?"] = function(_, ailment, num)
+		local ailmentName = (ailment == "bleeding" or ailment == "bleed") and "Bleed"
+			or (ailment == "ignite" or ailment == "poison") and firstToUpper(ailment)
+		if ailmentName then
+			return { mod(ailmentName.."DurationBase", "OVERRIDE", tonumber(num)) }
+		end
+	end,
 	["ignited enemies burn (%d+)%% slower"] = function(num) return { mod("IgniteBurnSlower", "INC", num) } end,
 	["enemies ignited by an attack burn (%d+)%% faster"] = function(num) return { mod("IgniteBurnFaster", "INC", num, nil, ModFlag.Attack) } end,
 	["ignites you inflict with attacks deal damage (%d+)%% faster"] = function(num) return { mod("IgniteBurnFaster", "INC", num, nil, ModFlag.Attack) } end,
