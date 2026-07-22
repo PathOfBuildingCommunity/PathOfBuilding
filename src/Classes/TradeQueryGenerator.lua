@@ -772,12 +772,12 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 	if self.calcContext.options.includeScourge then
 		self:GenerateModWeights(self.modData["Scourge"])
 	end
-	if self.calcContext.options.includeEldritch ~= "None" and
+	if self.calcContext.options.includeEldritch:find("^Keep") and
 		-- skip weights if we need an influenced item as they can produce really
 		-- bad results due to the filter limit
 		self.calcContext.options.influence1 == 1 and
 		self.calcContext.options.influence2 == 1 then
-		local omitConditional = self.calcContext.options.includeEldritch == "Omit While"
+		local omitConditional = self.calcContext.options.includeEldritch == "Keep regular"
 		local eaterMods = self.modData["Eater"]
 		local exarchMods = self.modData["Exarch"]
 		if omitConditional then
@@ -1122,27 +1122,26 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 
 	-- Implicit mod and enchant behaviour in searching and sorting
 	if isEldritchModSlot then
-		local eldritchTooltip = [[Controls the inclusion of eldritch mod weights in the weighted sum.
-None: no weights are generated.
-All: weights are generated for all eldritch implicit modifiers.
-Omit while: weights are generated, but conditional "While unique/atlas boss" modifiers are skipped.
-It is often not recommended to use "All" as this includes a lot of high power modifiers,
-which will cause other useful modifiers to be left out in the weighted sum.]]
-		controls.includeEldritch = new("DropDownControl", { "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 92, 18 },
-			{ "None", "All", "Omit While" }, function(_state) end, eldritchTooltip)
+		local eldritchTooltip =
+		[[Controls the inclusion of eldritch mod weights in the weighted sum.
+Copy Current: implicits in weights are skipped and augments are replaced with the
+current implicits when possible. Usually the best opinion as this ensures the
+augments make sense for your build.
+
+Keep regular: weights are generated and implicits are kept, but conditional
+"while unique/atlas boss" modifiers are removed from the items.
+
+Keep regular + presence: weights are generated and implicits are kept. Not
+recommended as many of these implicits are impractical and appear powerful
+with default PoB enemy configs.
+
+Remove: eldritch implicits are removed and ignored in the search.]]
+		controls.includeEldritch = new("DropDownControl", { "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 140, 18 },
+			{ "Copy Current", "Keep regular", "Keep regular+presence", "Remove" }, function(_state) end, eldritchTooltip)
 		controls.includeEldritchLabel = new("LabelControl", { "RIGHT", controls.includeEldritch, "LEFT" },
 			{ -4, 0, 80, 16 }, "Eldritch Mods:")
-		controls.includeEldritch:SetSel(self.lastIncludeEldritch or 1)
+		controls.includeEldritch:SelByValue(self.lastIncludeEldritch)
 		updateLastAnchor(controls.includeEldritch)
-
-		local eldritchTooltip = "Replaces the eldritch modifiers on search results with the eldritch modifiers from your currently equipped item."
-		local labelText = "Copy Current Implicits:"
-		controls.copyEldritch = new("CheckBoxControl",
-			{ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" },
-			{ 0, 5, 18, 18 },
-			labelText, function(state) end, eldritchTooltip, false)
-		controls.copyEldritch.state = self.lastCopyEldritch or false
-		updateLastAnchor(controls.copyEldritch)
 	end
 	if isAmuletSlot or isBeltSlot or isWeaponSlot then
 		local term = isWeaponSlot and "enchants" or "anoints"
@@ -1178,10 +1177,10 @@ Remove: %s will be removed from the search results.]], term, term, term)
 	elseif slot and not isAbyssalJewelSlot and context.slotTbl.slotName ~= "Watcher's Eye" then
 		local selFunc = function()
 			-- influenced items can't have eldritch implicits
-			if controls.copyEldritch and isEldritchModSlot then
+			if controls.includeEldritch and isEldritchModSlot then
 				local hasInfluence1 = controls.influence1 and controls.influence1:GetSelValue() ~= "None"
 				local hasInfluence2 = controls.influence2 and controls.influence2:GetSelValue() ~= "None"
-				controls.copyEldritch.enabled = not hasInfluence1 and not hasInfluence2
+				controls.includeEldritch.enabled = not hasInfluence1 and not hasInfluence2
 			end
 		end
 		controls.influence1 = new("DropDownControl", { "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 100, 18 },
@@ -1269,7 +1268,6 @@ Remove: %s will be removed from the search results.]], term, term, term)
 
 		self.tradeTypeIndex = context.controls.tradeTypeSelection.selIndex
 
-		self.lastCopyEldritch = controls.copyEldritch and controls.copyEldritch.state
 		self.lastCopyEnchantMode = controls.copyEnchantMode and controls.copyEnchantMode:GetSelValue()
 
 		if controls.includeMirrored then
@@ -1279,8 +1277,8 @@ Remove: %s will be removed from the search results.]], term, term, term)
 			self.lastIncludeCorrupted, options.includeCorrupted = controls.includeCorrupted.state, controls.includeCorrupted.state
 		end
 		if controls.includeEldritch then
-			self.lastIncludeEldritch, options.includeEldritch = controls.includeEldritch.selIndex,
-			controls.includeEldritch:GetSelValue()
+			self.lastIncludeEldritch, options.includeEldritch = controls.includeEldritch:GetSelValue(),
+				controls.includeEldritch:GetSelValue()
 		end
 		if controls.includeScourge then
 			self.lastIncludeScourge, options.includeScourge = controls.includeScourge.state, controls.includeScourge.state

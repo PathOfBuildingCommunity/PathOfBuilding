@@ -1030,12 +1030,20 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 					local itemsSafe = self:FilterToSafeItems(items, selectedSlot and selectedSlot.slotName)
 					-- replace eldritch mods or enchants if the user requested
 					-- so in TradeQueryGenerator
-					if self.tradeQueryGenerator.lastCopyEldritch or
+					if self.tradeQueryGenerator.lastIncludeEldritch == "Copy Current" or
 						self.tradeQueryGenerator.lastCopyEnchantMode == "Copy Current" then
 						for i, _ in ipairs(itemsSafe) do
 							local item = new("Item", itemsSafe[i].item_string)
 							self.itemsTab:CopyAnointsAndEldritchImplicits(item, true, true, context.slotTbl.slotName)
 							itemsSafe[i].item_string = item:BuildRaw()
+						end
+					elseif self.tradeQueryGenerator.lastIncludeEldritch == "Remove" then
+						for i, _ in ipairs(itemsSafe) do
+							local item = new("Item", itemsSafe[i].item_string)
+							if item.tangle or item.cleansing then
+								item.implicitModLines = {}
+								itemsSafe[i].item_string = item:BuildRaw()
+							end
 						end
 					elseif self.tradeQueryGenerator.lastCopyEnchantMode == "Remove" then
 						for i, _ in ipairs(itemsSafe) do
