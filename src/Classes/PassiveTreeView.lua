@@ -18,6 +18,7 @@ local JEWEL_RADIUS_TINT_NEUTRAL = { 1, 1, 1, 0.7 }
 local JEWEL_RADIUS_TINT_PRIMARY_ONLY = { 1, 0, 0, 0.7 }
 local JEWEL_RADIUS_TINT_COMPARE_ONLY = { 0, 1, 0, 0.7 }
 
+local gemTooltip = LoadModule("Classes/GemTooltip")
 local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.ring = NewImageHandle()
 	self.ring:Load("Assets/ring.png", "CLAMP")
@@ -58,6 +59,7 @@ local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.kalguur2:Load("TreeData/PassiveSkillScreenKalguuranJewelCircle2.png", "CLAMP")
 
 	self.tooltip = new("Tooltip")
+	self.skillTooltip = new("Tooltip")
 
 	self.zoomLevel = 3
 	self.zoom = 1.2 ^ self.zoomLevel
@@ -561,8 +563,9 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		local scrX, scrY = treeToScreen(group.x, group.y)
 		if group.ascendancyName then
 			if group.isAscendancyStart then
-				if group.ascendancyName ~= spec.curAscendClassBaseName and (not spec.curSecondaryAscendClass or group.ascendancyName ~= spec.curSecondaryAscendClass.id) then
-					SetDrawColor(1, 1, 1, 0.25)
+				local isSelectedAscendancy = group.ascendancyName == spec.curAscendClassBaseName or (spec.curSecondaryAscendClass and group.ascendancyName == spec.curSecondaryAscendClass.id)
+				if not isSelectedAscendancy then
+					SetDrawColor(1, 1, 1, 0.50)
 				end
 				self:DrawAsset(tree.assets["Classes"..group.ascendancyName], scrX, scrY, scale)
 
@@ -592,7 +595,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					end
 					if ascendancyData and ascendancyData.flavourTextRect then
 						local rect = ascendancyData.flavourTextRect
-						local textColor = "^x" .. ascendancyData.flavourTextColour
 
 						-- Normal ascendancy images are 1300x1300, bloodline appears to be 1488x1412
 						local offsetX = rect.x - (isAlternateAscendancy and 744 or 650)
@@ -600,7 +602,19 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 						local textX, textY = treeToScreen(group.x + offsetX, group.y + offsetY)
 
-						DrawString(textX, textY, "LEFT", 52 * scale, "FONTIN ITALIC", textColor .. ascendancyData.flavourText)
+						local flavourTextBaseFontSize = 52
+						local flavourTextMinZoom = 2.5
+						if self.zoom >= flavourTextMinZoom then
+							local textColor = "^x" .. ascendancyData.flavourTextColour
+							if not isSelectedAscendancy then
+								local colour = ascendancyData.flavourTextColour
+								textColor = string.format("^x%02X%02X%02X",
+									m_floor(tonumber(colour:sub(1, 2), 16) * 0.5),
+									m_floor(tonumber(colour:sub(3, 4), 16) * 0.5),
+									m_floor(tonumber(colour:sub(5, 6), 16) * 0.5))
+							end
+							DrawString(textX, textY, "LEFT", flavourTextBaseFontSize * scale, "FONTIN ITALIC", textColor .. ascendancyData.flavourText)
+						end
 					end
 				else
 					ConPrintTable(tree.classes)
@@ -993,11 +1007,64 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			-- Draw tooltip
 			SetDrawLayer(nil, 100)
 			local size = m_floor(node.size * scale)
-			if self.tooltip:CheckForUpdate(node, self.showStatDifferences, self.tracePath, launch.devModeAlt, build.outputRevision, self.compareSpec) then
+			if self.tooltip:CheckForUpdate(node, self.showStatDifferences, self.tracePath, launch.devModeAlt, build.outputRevision, build.spec.allocMode) then
 				self:AddNodeTooltip(self.tooltip, node, build)
 			end
 			self.tooltip.center = true
-			self.tooltip:Draw(m_floor(scrX - size), m_floor(scrY - size), size * 2, size * 2, viewPort)
+			local ttWidth, ttHeight = self.tooltip:GetDynamicSize(viewPort)
+			local skillWidth, skillHeight = self.skillTooltip:GetDynamicSize(viewPort)
+
+			local fatSkill = skillWidth > skillHeight * 1.5
+
+			local totalWidth, totalHeight
+			if fatSkill then
+				totalWidth = m_max(ttWidth, (#self.skillTooltip.lines > 0 and skillWidth or 0))
+				totalHeight = ttHeight + (#self.skillTooltip.lines > 0 and skillHeight or 0)
+			else
+				totalWidth = ttWidth + (#self.skillTooltip.lines > 0 and skillWidth or 0)
+				totalHeight = m_max(ttHeight, (#self.skillTooltip.lines > 0 and skillHeight or 0))
+			end
+
+			-- main tooltip is anchored from top left to the node
+			local nodeX = m_floor(scrX + size)
+			local ttX = m_floor(scrX + size)
+			local nodeY = m_floor(scrY - size)
+			local ttY = m_floor(scrY - size)
+
+
+			-- if the right side goes outside the viewport, we adjust by moving to the left
+			local rEdgeX = ttX + totalWidth - viewPort.x
+			local rOverBy = rEdgeX - viewPort.width
+			if rOverBy > 0 then
+				ttX = ttX - rOverBy
+			end
+
+			-- same for bottom edge
+			local btmEdgeY = ttY + totalHeight - viewPort.y
+			local btmOverBy = btmEdgeY - viewPort.height
+			if btmOverBy > 0 then
+				ttY = ttY - btmOverBy
+			end
+
+			SetDrawLayer(nil, 100)
+			-- main tooltip is attached to node, unless it is pushed
+			if fatSkill then
+				self.tooltip:Draw(m_min(nodeX, viewPort.width - ttWidth + viewPort.x), m_max(ttY, viewPort.y), nil, nil,
+					viewPort)
+			else
+				self.tooltip:Draw(m_max(ttX, viewPort.x), m_min(nodeY, viewPort.height - ttHeight + viewPort.y), nil, nil,
+					viewPort)
+			end
+			SetDrawLayer(nil, 99)
+			-- draw below main tooltip
+			if fatSkill then
+				self.skillTooltip:Draw(ttX, ttY + ttHeight, nil, nil,
+					viewPort)
+				-- draw to the right of main tooltip
+			else
+				self.skillTooltip:Draw(ttX + ttWidth + 5, ttY, nil, nil,
+					viewPort)
+			end
 		end
 	end
 
@@ -1355,6 +1422,7 @@ end
 
 function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	local fontSizeBig = main.showFlavourText and 18 or 16
+	self.skillTooltip:Clear()
 	tooltip.center = true
 	tooltip.maxWidth = 800
 	-- Appends the compare spec's jewel tooltip if it has a jewel in this allocated socket.
@@ -1498,6 +1566,27 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		tooltip:AddLine(16, "")
 		for i, line in ipairs(mNode.sd) do
 			addModInfoToTooltip(mNode, i, masteryColor..line)
+		end
+		-- add child tooltip for skills
+		for _, mod in ipairs(mNode.finalModList or mNode.modList or {}) do
+			if mod.name == "ExtraSkill" or mod.name == "ExtraSupport" then
+				local skill = data.skills[mod.value.skillId]
+				if skill then
+					local gem = data.gems[data.gemForSkill[skill]]
+					local options = { }
+					if not gem then
+						gem = { grantedEffect = skill, tags = { } }
+						options.skipRequirements = true
+					end
+					local gemInst = {
+						gemData = gem,
+						level = mod.value.level or 1,
+						quality = 0,
+						grantedEffect = skill
+					}
+					gemTooltip.AddGemTooltip(self.skillTooltip, build, gemInst, options)
+				end
+			end
 		end
 	end
 

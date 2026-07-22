@@ -108,6 +108,17 @@ data = { }
 -- Misc data tables
 LoadModule("Data/Misc", data)
 
+---@alias TransformFunc fun(in: number|string): (number|string)?
+---@class StatTable
+---@field stat? string stat ID
+---@field label string A short description of the stat
+---@field transform TransformFunc?: number|string A function to e.g. invert the value, if the stat represents something where lower is better
+---@field combinedOffDef? boolean
+---@field ignoreForNodes? boolean
+---@field ignoreForItems? boolean
+---@field reverseSort? boolean
+
+---@type StatTable[]
 data.powerStatList = {
 	{ stat=nil, label="Offence/Defence", combinedOffDef=true, ignoreForItems=true },
 	{ stat=nil, label="Name", itemField="Name", ignoreForNodes=true, reverseSort=true, transform=function(value) return value:gsub("^The ","") end},
@@ -160,6 +171,59 @@ data.powerStatList = {
 	{ stat="SpellSuppressionChance", label="Spell Suppression Chance" },
 }
 
+---@param output any Calc output
+---@param statTable StatTable Table with stats as in data.powerStatList
+---@param skipTransform? boolean Whether the stat transform should be skipped. This is useful if you want to e.g. divide two less is better stats
+---@return number
+function data.powerStatList.GetFromOutput(output, statTable, skipTransform)
+	local function getEntry()
+		if statTable.stat == "FullDPS" then
+			if output[statTable.stat] ~= nil then
+				return output[statTable.stat] or 0
+			end
+			-- if the user doesn't have full dps, we default to adding the player and minion dps together
+			return (output.CombinedDPS or 0) + (output.Minion and output.Minion.CombinedDPS or 0)
+		end
+		-- minion-only stats
+		local minionStat = statTable.stat:match("^Minion(.+)")
+		if minionStat then
+			return output.Minion and output.Minion[minionStat] or 0
+		end
+		-- damage stats use a combination of player and minion dps
+		local isDamageStat = statTable.stat == "AverageDamage" or statTable.stat == "TotalDot" or
+			statTable.stat:match("DPS")
+		if isDamageStat then
+			return (output[statTable.stat] or 0) + (output.Minion and output.Minion[statTable.stat] or 0)
+		end
+		return output[statTable.stat] or 0
+	end
+	if statTable.transform and not skipTransform then
+		return statTable.transform(getEntry())
+	end
+	return getEntry()
+end
+
+-- these stats don't exist on minions or generally don't exist on both player and minion
+local minionNonApplicableStats = {
+	AverageDamage = true,
+	TotalDot = true,
+	Str = true,
+	Dex = true,
+	Int = true,
+	Spirit = true,
+	EffectiveLootRarityMod = true,
+}
+for i = 1, #data.powerStatList do
+	local statEntry = data.powerStatList[i]
+	if (not statEntry.stat) or statEntry.stat:match("DPS") or minionNonApplicableStats[statEntry.stat] then
+		goto statContinue
+	end
+	local minionStat = copyTable(statEntry)
+	minionStat.stat = "Minion" .. minionStat.stat
+	minionStat.label = "Minion " .. minionStat.label
+	t_insert(data.powerStatList, minionStat)
+	::statContinue::
+end
 data.misc = { -- magic numbers
 	ServerTickTime = 0.033,
 	ServerTickRate = 1 / 0.033,
@@ -356,6 +420,7 @@ data.nonDamagingAilment = {
 
 -- Used in ModStoreClass:ScaleAddMod(...) to identify high precision modifiers
 data.defaultHighPrecision = 1
+data.modScalability = LoadModule("Data/ModScalability")
 data.highPrecisionMods = {
 	["CritChance"] = {
 		["BASE"] = 2,
@@ -574,7 +639,8 @@ data.describeStats = LoadModule("Modules/StatDescriber")
 -- Load item modifiers
 data.itemMods = {
 	Explicit = LoadModule("Data/ModExplicit"),
-	Implicit = LoadModule("Data/ModImplicit"),
+	-- implicit mods and unique explicit mods
+	ItemExclusive = LoadModule("Data/ModItemExclusive"),
 	Corrupted = LoadModule("Data/ModCorrupted"),
 	Delve = LoadModule("Data/ModDelve"),
 	Synthesis = LoadModule("Data/ModSynthesis"),
@@ -587,6 +653,7 @@ data.itemMods = {
 	JewelAbyss = LoadModule("Data/ModJewelAbyss"),
 	JewelCluster = LoadModule("Data/ModJewelCluster"),
 	JewelCharm = LoadModule("Data/ModJewelCharm"),
+	Foulborn = LoadModule("Data/ModFoulborn"),
 }
 data.masterMods = LoadModule("Data/ModMaster")
 data.enchantments = {
@@ -601,7 +668,7 @@ data.enchantments = {
 
 -- combined table of many mod categories
 data.itemMods.Item = {}
-for _, key in ipairs({ "Explicit", "Implicit", "Corrupted", "Delve", "Synthesis", "Scourge", "Eldritch" }) do
+for _, key in ipairs({ "Explicit", "ItemExclusive", "Corrupted", "Delve", "Synthesis", "Scourge", "Eldritch" }) do
 	local itemData = data.itemMods[key]
 	for k, v in pairs(itemData) do
 		data.itemMods.Item[k] = v
@@ -1164,6 +1231,7 @@ for _, modId in ipairs(sortedMods) do
 		mod = unsortedMods[modId],
 	})
 end
+data.itemMods.WatchersEye = unsortedMods
 LoadModule("Data/Uniques/Special/Generated")
 LoadModule("Data/Uniques/Special/New")
 

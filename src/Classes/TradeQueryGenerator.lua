@@ -9,7 +9,7 @@ local curl = require("lcurl.safe")
 local m_max = math.max
 local s_format = string.format
 local t_insert = table.insert
-local tradeHelpers = LoadModule("Classes/CompareTradeHelpers")
+local tradeHelpers = LoadModule("Classes/TradeHelpers")
 
 -- TODO generate these from data files
 local itemCategoryTags = {
@@ -116,20 +116,6 @@ local TradeQueryGeneratorClass = newClass("TradeQueryGenerator", function(self, 
 	self.lastMaxLevel = nil
 end)
 
-local function fetchStats()
-	local tradeStats = ""
-	local easy = common.curl.easy()
-	easy:setopt_url("https://www.pathofexile.com/api/trade/data/stats")
-	easy:setopt_useragent("Path of Building/" .. launch.versionNumber)
-	easy:setopt_writefunction(function(data)
-		tradeStats = tradeStats..data
-		return true
-	end)
-	easy:perform()
-	easy:close()
-	return tradeStats
-end
-
 local function stripInfluenceSuffix(key)
 	local influenceSuffixPos = nil
 	for _, suffix in ipairs(influenceSuffixes) do
@@ -173,12 +159,13 @@ end
 
 function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, statWeights)
 	local meanStatDiff = 0
+
 	local function ratioModSums(...)
 		local baseModSum = 0
 		local newModSum = 0
 		for _, mod in ipairs({ ... }) do
-			baseModSum = baseModSum + (baseOutput[mod] or 0)
-			newModSum = newModSum + (newOutput[mod] or 0)
+			baseModSum = baseModSum + data.powerStatList.GetFromOutput(baseOutput, mod, true)
+			newModSum = newModSum + data.powerStatList.GetFromOutput(newOutput, mod, true)
 		end
 
 		if baseModSum == math.huge then
@@ -192,10 +179,17 @@ function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, st
 		end
 	end
 	for _, statTable in ipairs(statWeights) do
+		local modSumRatio
 		if statTable.stat == "FullDPS" and not (baseOutput["FullDPS"] and newOutput["FullDPS"]) then
-			meanStatDiff = meanStatDiff + ratioModSums("TotalDPS", "TotalDotDPS", "CombinedDPS") * statTable.weightMult
+			modSumRatio = ratioModSums({ stat = "TotalDPS" }, { stat = "TotalDotDPS" }, { stat = "CombinedDPS" })
+		else
+			modSumRatio = ratioModSums(statTable)
 		end
-		meanStatDiff = meanStatDiff + ratioModSums(statTable.stat) * statTable.weightMult
+		-- some weights, such as damage taken from hit need to be negated as lower is better for them
+		if statTable.transform then
+			modSumRatio = statTable.transform(modSumRatio)
+		end
+		meanStatDiff = meanStatDiff + modSumRatio * statTable.weightMult
 	end
 	return meanStatDiff
 end
@@ -242,31 +236,6 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 			goto continue
 		end
 
-		local function swapInverse(modLine)
-			local priorStr = modLine
-			local inverseKey
-			if modLine:match("increased") then
-				modLine = modLine:gsub("([^ ]+) increased", "-%1 reduced")
-				if modLine ~= priorStr then inverseKey = "increased" end
-			elseif modLine:match("reduced") then
-				modLine = modLine:gsub("([^ ]+) reduced", "-%1 increased")
-				if modLine ~= priorStr then inverseKey = "reduced" end
-			elseif modLine:match("more") then
-				modLine = modLine:gsub("([^ ]+) more", "-%1 less")
-				if modLine ~= priorStr then inverseKey = "more" end
-			elseif modLine:match("less") then
-				modLine = modLine:gsub("([^ ]+) less", "-%1 more")
-				if modLine ~= priorStr then inverseKey = "less" end
-			elseif modLine:match("expires ([^ ]+) slower") then
-				modLine = modLine:gsub("([^ ]+) slower", "-%1 faster")
-				if modLine ~= priorStr then inverseKey = "slower" end
-			elseif modLine:match("expires ([^ ]+) faster") then
-				modLine = modLine:gsub("([^ ]+) faster", "-%1 slower")
-				if modLine ~= priorStr then inverseKey = "faster" end
-			end
-			return modLine, inverseKey
-		end
-
 		local uniqueIndex = tostring(statOrder).."_"..mod.group
 		local inverse = false
 		local inverseKey
@@ -298,7 +267,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 					logToFile("Unable to match %s mod: %s", modType, modLine)
 					goto nextModLine
 				else -- try swapping increased / decreased and signed and other similar mods.
-					modLine, inverseKey = swapInverse(modLine)
+					modLine, inverseKey = tradeHelpers.swapInverse(modLine)
 					inverse = true
 					if inverseKey then
 						goto reparseMod
@@ -312,7 +281,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 			self.modData[modType][uniqueIndex] = { tradeMod = tradeMod, specialCaseData = specialCaseData, inverseKey = inverseKey }
 		elseif self.modData[modType][uniqueIndex].inverseKey and modLine:match(self.modData[modType][uniqueIndex].inverseKey) then
 			inverse = true
-			modLine = swapInverse(modLine)
+			modLine = tradeHelpers.swapInverse(modLine)
 		end
 
 		-- tokenize the numerical variables for this mod and store the sign if there is one
@@ -399,6 +368,48 @@ function TradeQueryGeneratorClass:InitMods()
 		return
 	end
 
+	-- Download stats JSON from GGG API. Do not use launch:DownloadPage here as it is async, and QueryMods.lua must use the freshly downloaded stats.
+	local tradeStats = ""
+	local easy = curl.easy()
+	easy:setopt_url("https://www.pathofexile.com/api/trade/data/stats")
+	easy:setopt_useragent("Path of Building/" .. launch.versionNumber)
+	easy:setopt_writefunction(function(data)
+		tradeStats = tradeStats .. data
+		return true
+	end)
+	local ok = easy:perform()
+	easy:close()
+	if not ok or tradeStats == "" then
+		error("Error while downloading stats.json")
+	end
+	local body = dkjson.decode(tradeStats)
+
+	if body.error then
+		error("Error received from api/trade/data/stats: " .. body.error.message)
+	end
+
+	local f = io.open("./Data/TradeSiteStats.lua", "w")
+	if not f then
+		error("Could not open file for writing trade stat data")
+	end
+
+	for catIdx, _ in ipairs(body.result) do
+		table.sort(body.result[catIdx].entries, function(a, b)
+			if a.text == b.text then
+				return a.id < b.id
+			end
+			return a.text < b.text
+		end)
+	end
+
+	local template = [[-- This file is automatically downloaded, do not edit!
+-- Trade site stat data (c) Grinding Gear Games
+-- https://www.pathofexile.com/api/trade2/data/stats
+-- spell-checker: disable
+return %s
+-- spell-checker: enable]]
+	f:write(s_format(template, stringify(body.result)))
+	f:close()
 	self.modData = {
 		["Explicit"] = { },
 		["Implicit"] = { },
@@ -411,10 +422,7 @@ function TradeQueryGeneratorClass:InitMods()
 		["WatchersEye"] = { },
 	}
 
-	-- originates from: https://www.pathofexile.com/api/trade/data/stats
-	local tradeStats = fetchStats()
-	tradeStats:gsub("\n", " ")
-	local tradeQueryStatsParsed = dkjson.decode(tradeStats)
+	local tradeQueryStatsParsed = body
 
 	-- Create second table only containing local mods this should speedup generation slightly
 	tradeQueryStatsParsed.localResults = { }
@@ -764,7 +772,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 			itemCategoryQueryStr = "jewel"
 		end
 	else
-		itemCategoryQueryStr, itemCategory = tradeHelpers.getTradeCategoryInfo(slot.slotName, existingItem)
+		itemCategoryQueryStr, itemCategory = tradeHelpers.getTradeCategory(slot.slotName, existingItem)
 
 		-- Generic Jewel slot: caller selects the jewel subtype.
 		if slot.slotName:find("Jewel") ~= nil and not slot.slotName:find("Abyssal") then

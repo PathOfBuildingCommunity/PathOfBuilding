@@ -697,7 +697,14 @@ Variant: Fire
 Variant: Cold
 Variant: Lightning
 Variant: Chaos
+Variant: Elemental Weakness
+Variant: Enfeeble
+Variant: Punishment
+Variant: Temporal Chains
 Requires Level 64
+Has Alt Variant: true
+Selected Variant: 5
+Selected Alt Variant: 6
 Implicits: 1
 {tags:attribute}+(10-16) to all Attributes
 {variant:5}(30-40)% increased Damage over Time
@@ -721,6 +728,10 @@ Implicits: 1
 {variant:2}{tags:caster}Flammability has no Reservation if Cast as an Aura
 {variant:3}{tags:caster}Frostbite has no Reservation if Cast as an Aura
 {variant:1}{tags:caster}Vulnerability has no Reservation if Cast as an Aura
+{variant:6}{tags:caster}Elemental Weakness has no Reservation if Cast as an Aura
+{variant:7}{tags:caster}Enfeeble has no Reservation if Cast as an Aura
+{variant:8}{tags:caster}Punishment has no Reservation if Cast as an Aura
+{variant:9}{tags:caster}Temporal Chains has no Reservation if Cast as an Aura
 Gain Maddening Presence for 10 seconds when you Kill a Rare or Unique Enemy
 ]],[[
 Karui Ward

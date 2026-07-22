@@ -9,11 +9,11 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 local s_format = string.format
-local dkjson = require "dkjson"
-local tradeHelpers = LoadModule("Classes/CompareTradeHelpers")
+local tradeHelpers = LoadModule("Classes/TradeHelpers")
 local buySimilar = LoadModule("Classes/CompareBuySimilar")
 local calcsHelpers = LoadModule("Classes/CompareCalcsHelpers")
 local buildListHelpers = LoadModule("Modules/BuildListHelpers")
+local itemSlotHelper = LoadModule("Modules/ItemSlotHelper")
 local configVisibility = LoadModule("Modules/ConfigVisibility")
 
 -- Node IDs below this value are normal passive tree nodes; IDs at or above are cluster jewel nodes
@@ -265,7 +265,9 @@ function CompareTabClass:InitControls()
 	end
 	self.controls.reimportBtn.enabled = function()
 		local importTab = self.primaryBuild.importTab
-		return importTab and importTab.charImportMode == "SELECTCHAR"
+		-- check if either oauth or account name import have a character selected
+		local siteActive = importTab.charImportMode == "SELECTCHAR" and importTab.controls.siteCharSelect:GetSelValue()
+		return importTab.controls.charSelect:GetSelValue() or siteActive
 	end
 
 	-- Remove comparison build button
@@ -344,6 +346,7 @@ function CompareTabClass:InitControls()
 	-- ============================================================
 	self.controls.cmpSkillLabel = new("LabelControl", {"TOPLEFT", self.controls.subTabAnchor, "TOPLEFT"}, {0, -32, 0, 16}, "^7Skill:")
 	self.controls.cmpSkillLabel.shown = setsEnabled
+	self.controls.cmpSkillLabel.anchor.collapse = true
 
 	-- Socket group dropdown
 	self.controls.cmpSocketGroup = new("DropDownControl", {"LEFT", self.controls.cmpSkillLabel, "RIGHT"}, {4, 0, 200, 20}, {}, function(index, value)
@@ -355,6 +358,7 @@ function CompareTabClass:InitControls()
 	self.controls.cmpSocketGroup.shown = setsEnabled
 	self.controls.cmpSocketGroup.maxDroppedWidth = 500
 	self.controls.cmpSocketGroup.enableDroppedWidth = true
+	self.controls.cmpSocketGroup.anchor.collapse = true
 
 	-- Active skill within group
 	self.controls.cmpMainSkill = new("DropDownControl", {"LEFT", self.controls.cmpSocketGroup, "RIGHT"}, {4, 0, 225, 20}, {}, function(index, value)
@@ -368,6 +372,7 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.cmpMainSkill.shown = false
+	self.controls.cmpMainSkill.anchor.collapse = true
 
 	-- Skill part (multi-part skills)
 	self.controls.cmpSkillPart = new("DropDownControl", {"LEFT", self.controls.cmpMainSkill, "RIGHT"}, {4, 0, 200, 20}, {}, function(index, value)
@@ -385,10 +390,12 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.cmpSkillPart.shown = false
+	self.controls.cmpSkillPart.anchor.collapse = true
 
 	-- Stage count
 	self.controls.cmpStageCountLabel = new("LabelControl", {"LEFT", self.controls.cmpSkillPart, "RIGHT"}, {6, 0, 0, 16}, "^7Stages:")
 	self.controls.cmpStageCountLabel.shown = function() return self.controls.cmpStageCount.shown end
+	self.controls.cmpStageCountLabel.anchor.collapse = true
 	self.controls.cmpStageCount = new("EditControl", {"LEFT", self.controls.cmpStageCountLabel, "RIGHT"}, {4, 0, 52, 20}, "", nil, "%D", 5, function(buf)
 		local entry = self:GetActiveCompare()
 		if entry then
@@ -404,10 +411,12 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.cmpStageCount.shown = false
+	self.controls.cmpStageCount.anchor.collapse = true
 
 	-- Mine count
 	self.controls.cmpMineCountLabel = new("LabelControl", {"LEFT", self.controls.cmpStageCount, "RIGHT"}, {6, 0, 0, 16}, "^7Mines:")
 	self.controls.cmpMineCountLabel.shown = function() return self.controls.cmpMineCount.shown end
+	self.controls.cmpMineCountLabel.anchor.collapse = true
 	self.controls.cmpMineCount = new("EditControl", {"LEFT", self.controls.cmpMineCountLabel, "RIGHT"}, {4, 0, 52, 20}, "", nil, "%D", 5, function(buf)
 		local entry = self:GetActiveCompare()
 		if entry then
@@ -423,6 +432,7 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.cmpMineCount.shown = false
+	self.controls.cmpMineCount.anchor.collapse = true
 
 	-- Minion selector
 	self.controls.cmpMinion = new("DropDownControl", {"LEFT", self.controls.cmpMineCount, "RIGHT"}, {6, 0, 140, 20}, {}, function(index, value)
@@ -447,6 +457,7 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.cmpMinion.shown = false
+	self.controls.cmpMinion.anchor.collapse = true
 
 	-- Minion skill selector
 	self.controls.cmpMinionSkill = new("DropDownControl", {"LEFT", self.controls.cmpMinion, "RIGHT"}, {4, 0, 140, 20}, {}, function(index, value)
@@ -464,6 +475,7 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.cmpMinionSkill.shown = false
+	self.controls.cmpMinionSkill.anchor.collapse = true
 
 	-- ============================================================
 	-- Calcs view skill detail controls (per-build, independent of sidebar & regular Calcs tab)
@@ -1231,6 +1243,10 @@ function CompareTabClass:ImportBuild(xmlText, label)
 		t_insert(self.compareEntries, entry)
 		self.activeCompareIndex = #self.compareEntries
 		self:UpdateBuildSelector()
+		-- Restore primary build's window title
+		if self.primaryBuild.spec then
+			self.primaryBuild.spec:SetWindowTitleWithBuildClass()
+		end
 		return true
 	end
 	return false
@@ -1258,6 +1274,12 @@ function CompareTabClass:RemoveBuild(index)
 		if self.activeCompareIndex == 0 and #self.compareEntries > 0 then
 			self.activeCompareIndex = 1
 		end
+		if #self.compareEntries == 0 then
+			for _, control in ipairs({ self.controls.cmpMainSkill, self.controls.cmpSkillPart, self.controls.cmpStageCount,
+				self.controls.cmpMineCount, self.controls.cmpMinion, self.controls.cmpMinionSkill }) do
+				control.shown = false
+			end
+		end
 		self:UpdateBuildSelector()
 	end
 end
@@ -1265,13 +1287,24 @@ end
 -- Re-import primary build using character import (same as Import/Export tab)
 function CompareTabClass:ReimportPrimary()
 	local importTab = self.primaryBuild.importTab
-	-- Set clear checkboxes to true (delete existing jewels, skills, equipment)
-	importTab.controls.charImportTreeClearJewels.state = true
-	importTab.controls.charImportItemsClearSkills.state = true
-	importTab.controls.charImportItemsClearItems.state = true
-	-- Trigger both async imports (passive tree + items/skills)
-	importTab:DownloadPassiveTree()
-	importTab:DownloadItems()
+
+	-- oauth import, if previously selected
+	if importTab.controls.charSelect:GetSelValue() then
+		-- Set clear checkboxes to true (delete existing jewels, skills, equipment)
+		importTab.controls.charImportTreeClearJewels.state = true
+		importTab.controls.charImportItemsClearSkills.state = true
+		importTab.controls.charImportItemsClearItems.state = true
+		-- Trigger both async imports (passive tree + items/skills)
+		importTab.controls.charImportTree:Click()
+		importTab.controls.charImportItems:Click()
+	-- account name import
+	elseif importTab.controls.siteCharSelect:GetSelValue()  then
+		importTab.controls.siteCharImportTreeClearJewels.state = true
+		importTab.controls.siteCharImportItemsClearSkills.state = true
+		importTab.controls.siteCharImportItemsClearItems.state = true
+		importTab.controls.siteCharImportTree:Click()
+		importTab.controls.siteCharImportItems:Click()
+	end
 end
 
 -- Update the build selector dropdown
@@ -1963,7 +1996,11 @@ local function syncControlValue(ctrl, varData, val)
 		ctrl.state = val or false
 	elseif varData.type == "count" or varData.type == "integer"
 			or varData.type == "countAllowZero" or varData.type == "float" then
-		ctrl:SetText(tostring(val or ""))
+		local text = tostring(val or "")
+		-- avoid setting text every time as otherwise this clears user selections on every frame
+		if not ctrl.hasFocus and text ~= ctrl.buf then
+			ctrl:SetText(text)
+		end
 	elseif varData.type == "list" then
 		ctrl:SelByValue(val or (varData.list[1] and varData.list[1].val), "val")
 	end
@@ -2544,10 +2581,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 	end
 
 	-- Get baseline stat value for percentage calculation
-	local baseStatValue = calcBase[powerStat.stat] or 0
-	if powerStat.transform then
-		baseStatValue = powerStat.transform(baseStatValue)
-	end
+	local baseStatValue = data.powerStatList.GetFromOutput(calcBase, powerStat)
 
 	-- Helper to format an impact value and compute percentage
 	local function formatImpact(impact)
@@ -2660,7 +2694,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 				
 				-- if our comparison has abyssal jewels, but the primary build
 				-- doesn't, add those temporarily to the build to work around
-				-- calcfunc not being able to take in multiple items
+				-- calcFunc not being able to take in multiple items
 				local cmpJewels = {}
 				local oldEquipped = {}
 				if newItem.abyssalSocketCount > 0 then
@@ -3423,12 +3457,12 @@ function CompareTabClass:DrawItemExpanded(item, x, startY, colWidth, otherModMap
 	local fontSize = 14
 	local drawY = startY
 	local maxLineW = 0
-	local function emit(lx, ly, align, fs, fstyle, str)
+	local function emit(lx, ly, align, fs, fStyle, str)
 		if measureMode then
-			local w = DrawStringWidth(fs, fstyle, str)
+			local w = DrawStringWidth(fs, fStyle, str)
 			if w > maxLineW then maxLineW = w end
 		else
-			DrawString(lx, ly, align, fs, fstyle, str)
+			DrawString(lx, ly, align, fs, fStyle, str)
 		end
 	end
 
@@ -3798,13 +3832,33 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 			drawY = drawY + maxH + 6
 		else
 			-- === COMPACT MODE ===
+			local slot = self.primaryBuild.itemsTab.slots[equipSlotName]
+			local nodeId = slot and slot.nodeId
+			local shouldUnderline = not not nodeId
 			local pHover, cHover, b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H,
 				rowHoverItem, rowHoverItemsTab, rowHoverX, rowHoverY, rowHoverW, rowHoverH =
 				tradeHelpers.drawCompactSlotRow(drawY, label, pItem, cItem,
 					colWidth, cursorX, cursorY, labelW,
 					self.primaryBuild.itemsTab, compareEntry.itemsTab, pWarn, cWarn, slotMissing,
-					LAYOUT.itemsCopyBtnW, LAYOUT.itemsCopyBtnH, LAYOUT.itemsBuyBtnW, LAYOUT.itemsEquipBtnW, scrollOffsetX)
+					LAYOUT.itemsCopyBtnW, LAYOUT.itemsCopyBtnH, LAYOUT.itemsBuyBtnW, LAYOUT.itemsEquipBtnW, scrollOffsetX,
+					shouldUnderline)
 
+			local labelX = (scrollOffsetX or 0) + 10
+			-- draw passive tree view when hovering over the label, if the slot is a jewel socket
+			if labelX <= cursorX and cursorX <= (labelX + labelW)
+				and drawY < cursorY and cursorY <= (drawY + 20) then
+				if nodeId then
+					local boxSize = 250
+					-- anchor bottom left to label top left, keeping in mind what our viewport was
+					SetViewport()
+					local boxX = vp.x + labelX
+					local boxY = (vp.y + checkboxOffset) + drawY - boxSize
+					itemSlotHelper.DrawViewer(self.primaryBuild.itemsTab, nodeId, boxX, boxY, boxSize,
+						boxSize)
+					-- restore viewport
+					SetViewport(vp.x, vp.y + checkboxOffset, vp.width, scrollViewH)
+				end
+			end
 			if rowHoverItem then
 				hoverItem = rowHoverItem
 				hoverItemsTab = rowHoverItemsTab
