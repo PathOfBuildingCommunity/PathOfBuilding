@@ -1977,6 +1977,26 @@ local function flag(name, ...)
 	return mod(name, "FLAG", true, ...)
 end
 
+-- Returns the DealNo<Type> flags for every damage type except the given one, for the universal
+-- "deal no non-<type> damage" / "cannot deal non-<type> damage" handlers.
+-- "elemental" is not a single type and keeps its own literal entry; unknown types return nil
+-- so the line falls through as unsupported instead of wrongly disabling all damage.
+local dealNoNonDamageTypeList = { "Physical", "Lightning", "Cold", "Fire", "Chaos" }
+local function dealNoNonDamageType(dmgType)
+	local keep = firstToUpper(dmgType)
+	local flags = { }
+	for _, t in ipairs(dealNoNonDamageTypeList) do
+		if t ~= keep then
+			t_insert(flags, flag("DealNo"..t))
+		end
+	end
+	if #flags == #dealNoNonDamageTypeList then
+		-- dmgType didn't match any known damage type
+		return nil
+	end
+	return flags
+end
+
 local gemIdLookup = {
 	["power charge on critical strike"] = "SupportPowerChargeOnCritical",
 }
@@ -2192,7 +2212,6 @@ local specialModList = {
 	["life leeched per second is doubled"] = { mod("LifeLeechRate", "MORE", 100) },
 	["life regeneration has no effect"] = { flag("NoLifeRegen") },
 	["energy shield recharge instead applies to life"] = { flag("EnergyShieldRechargeAppliesToLife") },
-	["deal no non%-fire damage"] = { flag("DealNoPhysical"), flag("DealNoLightning"), flag("DealNoCold"), flag("DealNoChaos") },
 	["blade vortex and blade blast deal no non%-physical damage"] = {
 		flag("DealNoLightning", { type = "SkillName", skillNameList = { "Blade Vortex", "Blade Blast" }, includeTransfigured = true }),
 		flag("DealNoCold", { type = "SkillName", skillNameList = { "Blade Vortex", "Blade Blast" }, includeTransfigured = true }),
@@ -4306,36 +4325,17 @@ local specialModList = {
 		mod("MinionModifier", "LIST", { mod = flag("Condition:DiamondShrine") }, { type = "SkillName", skillName = "Summon Phantasm" }),
 		mod("MinionModifier", "LIST", { mod = flag("Condition:MassiveShrine") }, { type = "SkillName", skillName = "Summon Phantasm" }),
 	},
-	["minions deal no non%-physical damage"] = {
-		mod("MinionModifier", "LIST", { mod = flag("DealNoLightning") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoCold") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoFire") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoChaos") }),
-	},
-	["minions deal no non%-lightning damage"] = {
-		mod("MinionModifier", "LIST", { mod = flag("DealNoPhysical") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoLCold") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoFire") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoChaos") }),
-	},
-	["minions deal no non%-cold damage"] = {
-		mod("MinionModifier", "LIST", { mod = flag("DealNoPhysical") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoLightning") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoFire") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoChaos") }),
-	},
-	["minions deal no non%-fire damage"] = {
-		mod("MinionModifier", "LIST", { mod = flag("DealNoPhysical") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoLightning") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoCold") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoChaos") }),
-	},
-	["minions deal no non%-chaos damage"] = {
-		mod("MinionModifier", "LIST", { mod = flag("DealNoPhysical") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoLightning") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoCold") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoFire") }),
-	},
+	["minions deal no non%-(%a+) damage"] = function(_, dmgType)
+		local flags = dealNoNonDamageType(dmgType)
+		if not flags then
+			return nil
+		end
+		local mods = { }
+		for _, dealNoFlag in ipairs(flags) do
+			t_insert(mods, mod("MinionModifier", "LIST", { mod = dealNoFlag }))
+		end
+		return mods
+	end,
 	["minions convert (%d+)%% of (.+) damage to (.+) damage"] = function(num, _, source, target) return {
 		mod("MinionModifier", "LIST", { mod = mod(source:gsub("^%l", string.upper) .. "DamageConvertTo" .. target:gsub("^%l", string.upper), "BASE", num) })
 	} end,
@@ -5141,9 +5141,8 @@ local specialModList = {
 		flag("DealNoDamage", { type = "SkillType", skillTypeList = { SkillType.SummonsTotem, SkillType.RemoteMined, SkillType.Trapped}, neg = true }, {type = "Condition", var="usedByMirage", neg = true}),
 	},
 	["deal no non%-elemental damage"] = { flag("DealNoPhysical"), flag("DealNoChaos") },
-	["deal no non%-lightning damage"] = { flag("DealNoPhysical"), flag("DealNoCold"), flag("DealNoFire"), flag("DealNoChaos") },
-	["deal no non%-physical damage"] = { flag("DealNoLightning"), flag("DealNoCold"), flag("DealNoFire"), flag("DealNoChaos") },
-	["cannot deal non%-chaos damage"] = { flag("DealNoPhysical"), flag("DealNoCold"), flag("DealNoFire"), flag("DealNoLightning") },
+	["deal no non%-(%a+) damage"] = function(_, dmgType) return dealNoNonDamageType(dmgType) end,
+	["cannot deal non%-(%a+) damage"] = function(_, dmgType) return dealNoNonDamageType(dmgType) end,
 	["deal no physical or elemental damage"] = { flag("DealNoPhysical"), flag("DealNoCold"), flag("DealNoFire"), flag("DealNoLightning") },
 	["deal no damage when not on low life"] = {	flag("DealNoDamage", { type = "Condition", var = "LowLife", neg = true }) },
 	["spell skills deal no damage"] = {	flag("DealNoDamage", { type = "SkillType", skillType = SkillType.Spell }) },
@@ -5269,6 +5268,22 @@ local specialModList = {
 	} end,
 	["attacks with this weapon have added maximum lightning damage equal to (%d+)%% of player'?s? maximum energy shield"] = function(num) return {
 		mod("LightningMax", "BASE", 1, { type = "PercentStat", stat = "EnergyShield" , percent = num, actor = "parent" }, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
+	} end,
+	-- Scaling the minimum/maximum roll of a damage type (covers all types, e.g. "maximum lightning damage", "minimum cold damage").
+	-- `(m[ia][xn]imum)` captures the literal words "maximum" or "minimum". These map to the Min<Type>Damage/Max<Type>Damage stats
+	-- consumed by calcDamage in CalcOffence. "more"/"less" apply as MORE:
+	["(%d+)%% more (m[ia][xn]imum) (%a+) damage"] = function(num, _, minMax, dmgType) return {
+		mod((minMax == "maximum" and "Max" or "Min")..firstToUpper(dmgType).."Damage", "MORE", num),
+	} end,
+	["(%d+)%% less (m[ia][xn]imum) (%a+) damage"] = function(num, _, minMax, dmgType) return {
+		mod((minMax == "maximum" and "Max" or "Min")..firstToUpper(dmgType).."Damage", "MORE", -num),
+	} end,
+	-- ...while "increased"/"reduced" apply as INC:
+	["(%d+)%% increased (m[ia][xn]imum) (%a+) damage"] = function(num, _, minMax, dmgType) return {
+		mod((minMax == "maximum" and "Max" or "Min")..firstToUpper(dmgType).."Damage", "INC", num),
+	} end,
+	["(%d+)%% reduced (m[ia][xn]imum) (%a+) damage"] = function(num, _, minMax, dmgType) return {
+		mod((minMax == "maximum" and "Max" or "Min")..firstToUpper(dmgType).."Damage", "INC", -num),
 	} end,
 	["adds (%d+)%% of your maximum mana as fire damage to attacks with this weapon"] = function(num) return {
 		mod("FireMin", "BASE", 1, { type = "PercentStat", stat = "Mana" , percent = num }, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),

@@ -1,0 +1,137 @@
+describe("TestMinMaxDamageMods", function()
+	before_each(function()
+		newBuild()
+	end)
+
+	teardown(function()
+		-- newBuild() takes care of resetting everything in setup()
+	end)
+
+	it("parses more/less/increased/reduced minimum and maximum damage of every type", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+		New Item
+		Coral Amulet
+		25% more Maximum Lightning Damage
+		50% less Minimum Lightning Damage
+		10% increased Maximum Cold Damage
+		12% reduced Minimum Physical Damage
+		20% more Maximum Chaos Damage
+		30% more Maximum Fire Damage
+		]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		local modDB = build.calcsTab.mainEnv.player.modDB
+
+		-- "more"/"less" -> MORE modifier (More() returns the aggregate multiplier)
+		assert.are.equals(1.25, modDB:More(nil, "MaxLightningDamage"))
+		assert.are.equals(0.5, modDB:More(nil, "MinLightningDamage"))
+		assert.are.equals(1.2, modDB:More(nil, "MaxChaosDamage"))
+		assert.are.equals(1.3, modDB:More(nil, "MaxFireDamage"))
+
+		-- "increased"/"reduced" -> INC modifier
+		assert.are.equals(10, modDB:Sum("INC", nil, "MaxColdDamage"))
+		assert.are.equals(-12, modDB:Sum("INC", nil, "MinPhysicalDamage"))
+
+		-- sanity: these must not have leaked into the wrong stat/type
+		assert.are.equals(1, modDB:More(nil, "MinChaosDamage"))
+		assert.are.equals(0, modDB:Sum("INC", nil, "MaxLightningDamage"))
+	end)
+
+	-- calcDamage rounds each min/max to an integer before our multipliers' effects can be
+	-- observed, so scaling the rounded baseline can differ from the real value by ~1
+	local function assertNear(expected, actual, msg)
+		assert.is_true(math.abs(expected - actual) <= 2, string.format("%s: expected ~%.2f, got %.2f", msg, expected, actual))
+	end
+
+	it("applies min/max damage mods to an actual skill in CalcOffence", function()
+		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nArc 20/0  1\n")
+		runCallback("OnFrame")
+
+		local baseMin = build.calcsTab.calcsOutput.LightningMin
+		local baseMax = build.calcsTab.calcsOutput.LightningMax
+		assert.is_true(baseMax > 0)
+		assert.is_true(baseMin > 0)
+
+		-- MORE path: "more"/"less" scale only the targeted end of the roll
+		build.itemsTab:CreateDisplayItemFromRaw([[
+		New Item
+		Coral Amulet
+		25% more Maximum Lightning Damage
+		50% less Minimum Lightning Damage
+		]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		assertNear(baseMax * 1.25, build.calcsTab.calcsOutput.LightningMax, "25%% more max")
+		assertNear(baseMin * 0.5, build.calcsTab.calcsOutput.LightningMin, "50%% less min")
+
+		-- INC path: "increased" stacks multiplicatively with the MORE factors above
+		build.itemsTab:CreateDisplayItemFromRaw([[
+		New Item
+		Coral Ring
+		40% increased Maximum Lightning Damage
+		100% increased Minimum Lightning Damage
+		]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		assertNear(baseMax * 1.25 * 1.4, build.calcsTab.calcsOutput.LightningMax, "more + increased max")
+		assertNear(baseMin * 0.5 * 2, build.calcsTab.calcsOutput.LightningMin, "less + increased min")
+	end)
+
+	it("parses universal cannot deal/deal no non-<type> damage for player and minions", function()
+		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nArc 20/0  1\n")
+		runCallback("OnFrame")
+		assert.is_true(build.calcsTab.calcsOutput.LightningMax > 0)
+
+		build.itemsTab:CreateDisplayItemFromRaw([[
+		New Item
+		Coral Amulet
+		Cannot deal non-Fire Damage
+		Minions deal no non-Fire Damage
+		]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		local modDB = build.calcsTab.mainEnv.player.modDB
+		assert.truthy(modDB:Flag(nil, "DealNoPhysical"))
+		assert.truthy(modDB:Flag(nil, "DealNoLightning"))
+		assert.truthy(modDB:Flag(nil, "DealNoCold"))
+		assert.truthy(modDB:Flag(nil, "DealNoChaos"))
+		assert.is_true(not (modDB:Flag(nil, "DealNoFire")))
+
+		-- minion wording wraps the same flags in MinionModifier
+		local minionDealNo = { }
+		for _, value in ipairs(modDB:List(nil, "MinionModifier")) do
+			if value.mod and value.mod.name:match("^DealNo") then
+				minionDealNo[value.mod.name] = true
+			end
+		end
+		assert.truthy(minionDealNo["DealNoPhysical"])
+		assert.truthy(minionDealNo["DealNoLightning"])
+		assert.truthy(minionDealNo["DealNoCold"])
+		assert.truthy(minionDealNo["DealNoChaos"])
+		assert.is_true(not (minionDealNo["DealNoFire"]))
+
+		-- Arc is pure lightning, so the player can no longer deal damage with it
+		assert.are.equals(0, build.calcsTab.calcsOutput.LightningMax)
+	end)
+
+	it("keeps deal no non-elemental damage as its own literal", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+		New Item
+		Coral Amulet
+		Deal no non-Elemental Damage
+		]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		local modDB = build.calcsTab.mainEnv.player.modDB
+		assert.truthy(modDB:Flag(nil, "DealNoPhysical"))
+		assert.truthy(modDB:Flag(nil, "DealNoChaos"))
+		assert.is_true(not (modDB:Flag(nil, "DealNoLightning")))
+		assert.is_true(not (modDB:Flag(nil, "DealNoCold")))
+		assert.is_true(not (modDB:Flag(nil, "DealNoFire")))
+	end)
+end)
