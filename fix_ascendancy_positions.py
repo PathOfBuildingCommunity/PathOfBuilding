@@ -55,10 +55,9 @@ NODE_GROUPS = {
 	"KingInTheMists": Point2D(3750, 12000),
 	"Olroth": Point2D(5250, 12000),
 	"Oshabi": Point2D(6750, 12000),
-    # League-specific Bloodline ascendancies below can use overlapping locations until becoming permanent
 	"Necromantic": Point2D(8250, 12000),
-    "Abyssal": Point2D(8250, 12000),
-    "Brinerot": Point2D(9750, 12000)
+    "Abyssal": Point2D(9750, 12000),
+    "Brinerot": Point2D(11250, 12000)
 }
 EXTRA_NODES = {
 	"Necromancer": [{"Node": {"name": "Nine Lives", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Int.png", "isNotable": True, "skill" : 27602}, 
