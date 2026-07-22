@@ -147,9 +147,9 @@ describe("TestOffence", function()
 
 		local baseAvg = build.calcsTab.mainOutput.AverageDamage
 		assert.is_true(baseAvg > 0)
-		-- the chilling area's own chill effect, as computed by CalcOffence
-		local areaChill = build.calcsTab.mainOutput.ChillSourceEffect
-		assert.is_true(areaChill ~= nil and areaChill > 0)
+		-- the chill effect currently applied to the enemy (here, from Vortex's chilling area)
+		local currentChill = build.calcsTab.mainOutput.CurrentChill
+		assert.is_true(currentChill ~= nil and currentChill > 0)
 
 		build.itemsTab:CreateDisplayItemFromRaw([[
 		New Item
@@ -166,8 +166,8 @@ describe("TestOffence", function()
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
 
-		assertNearRelative(baseAvg * (1 + areaChill / 100), build.calcsTab.mainOutput.AverageDamage, 0.005,
-			string.format("base %.2f scaled by %d%% area chill", baseAvg, areaChill))
+		assertNearRelative(baseAvg * (1 + currentChill / 100), build.calcsTab.mainOutput.AverageDamage, 0.005,
+			string.format("base %.2f scaled by %d%% current chill", baseAvg, currentChill))
 	end)
 
 	-- "Base <ailment> Duration is X seconds" overrides the fixed base duration of the damaging ailments
