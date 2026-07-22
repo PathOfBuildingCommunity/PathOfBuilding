@@ -708,6 +708,15 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("Cost", "MORE", -effect, "Fanaticism", ModFlag.Cast)
 			modDB:NewMod("AreaOfEffect", "INC", effect, "Fanaticism", ModFlag.Cast)
 		end
+		if modDB:Flag(nil, "Condition:CanGainSpiritInfusion") then			
+			-- storing tags in local var to avoid repetition
+			local globalEffectTag = { type = "GlobalEffect", effectType = "Buff", effectName = "Spirit Infusion", unscalable = true }
+			local multiplierTag = { type = "Multiplier", var = "SpiritInfusion"--[[ , limitVar = "SpiritInfusionsMax" ]] }
+			
+			modDB:NewMod("EnergyShieldRechargeFaster", "INC", 30 , "Spirit Infusion", multiplierTag, globalEffectTag)
+			modDB:NewMod("Damage", "MORE", 10 , "Spirit Infusion", nil, KeywordFlag.Spell, { type = "SkillType", skillType = SkillType.Channel }, multiplierTag, globalEffectTag)
+			modDB:NewMod("Cost", "MORE", 20 , "Spirit Infusion", nil, KeywordFlag.Spell, { type = "SkillType", skillType = SkillType.Channel }, multiplierTag, globalEffectTag)
+		end
 		if modDB:Flag(nil, "UnholyMight") then
 			local effect = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
 			modDB:NewMod("PhysicalDamageConvertToChaos", "BASE", m_floor(100 * effect), "Unholy Might")
@@ -957,6 +966,7 @@ local function doActorCharges(env, actor)
 	output.AfflictionChargesMax = m_max(modDB:Flag(nil, "MaximumFrenzyChargesEqualsMaximumAfflictionCharges") and output.FrenzyChargesMax or 0, 0)
 	output.BloodChargesMax = m_max(modDB:Sum("BASE", nil, "BloodChargesMax"), 0)
 	output.SpiritChargesMax = m_max(modDB:Sum("BASE", nil, "SpiritChargesMax"), 0)
+	output.SpiritInfusionsMax = modDB:Sum("BASE", nil, "SpiritInfusionsMax") + (modDB:Flag(nil, "Condition:CanGainSpiritInfusion") and 5 or 0)
 
 	-- Initialize Charges
 	output.PowerCharges = 0
@@ -972,6 +982,7 @@ local function doActorCharges(env, actor)
 	output.AfflictionCharges = 0
 	output.BloodCharges = 0
 	output.SpiritCharges = 0
+	output.SpiritInfusions = 0
 
 	-- Conditionally over-write Charge values
 	if modDB:Flag(nil, "MinimumFrenzyChargesIsMaximumFrenzyCharges") then
@@ -1036,6 +1047,8 @@ local function doActorCharges(env, actor)
 	end
 	output.BloodCharges = m_min(modDB:Override(nil, "BloodCharges") or output.BloodChargesMax, output.BloodChargesMax)
 	output.SpiritCharges = m_min(modDB:Override(nil, "SpiritCharges") or 0, output.SpiritChargesMax)
+	output.SpiritInfusions = m_min(modDB:Override(nil, "SpiritInfusion") or 0, output.SpiritInfusionsMax)
+
 
 	output.CrabBarriers = m_min(modDB:Override(nil, "CrabBarriers") or output.CrabBarriersMax, output.CrabBarriersMax)
 	if modDB:Flag(nil, "HaveMaximumPowerCharges") then
@@ -1069,6 +1082,7 @@ local function doActorCharges(env, actor)
 	modDB.multipliers["AfflictionCharge"] = output.AfflictionCharges
 	modDB.multipliers["BloodCharge"] = output.BloodCharges
 	modDB.multipliers["SpiritCharge"] = output.SpiritCharges
+	modDB.multipliers["SpiritInfusion"] = output.SpiritInfusions
 end
 
 function calcs.actionSpeedMod(actor)

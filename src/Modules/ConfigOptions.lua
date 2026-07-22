@@ -1653,6 +1653,9 @@ Huge sets the radius to 11.
 	{ var = "buffFanaticism", type = "check", label = "Do you have Fanaticism?", ifFlag = "Condition:CanGainFanaticism", tooltip = "This will enable the Fanaticism buff itself. (Grants 75% more cast speed, reduced skill cost, and increased area of effect)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Fanaticism", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanGainFanaticism" })
 	end },
+	{ var = "overrideSpiritInfusion", type = "countAllowZero", label = "# of Spirit Infusion stacks:", ifFlag = "Condition:CanGainSpiritInfusion", tooltip = "Each stack of Spirit Infusion grants:\n30% faster start of Energy Shield Recharge, \nChannelling Spells deal 10% more Damage and \nChannelling Spells have 20% more Cost", apply = function(val, modList, enemyModList)
+		modList:NewMod("SpiritInfusion", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" } )
+	end },
 	{ var = "conditionHitsAlwaysStun", type = "check", label = "Do your hits always stun?", ifFlag = "Condition:maceMasteryStunCullSpecced", tooltip = "This enables the conditional culling strike from the mace mastery.", apply = function(val, modList, enemyModList)
 		modList:NewMod("CullPercent", "MAX", 10, "Config", { type = "Condition", var = "Combat" }, {type = "Condition", var = "maceMasteryStunCullSpecced"})
 	end },
