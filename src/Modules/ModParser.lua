@@ -1981,7 +1981,7 @@ end
 -- "deal no non-<type> damage" / "cannot deal non-<type> damage" handlers.
 -- "elemental" is not a single type and keeps its own literal entry; unknown types return nil
 -- so the line falls through as unsupported instead of wrongly disabling all damage.
-local dealNoNonDamageTypeList = { "Physical", "Lightning", "Cold", "Fire", "Chaos" }
+local dealNoNonDamageTypeList = { "Physical", "Cold", "Fire", "Lightning", "Chaos" }
 local function dealNoNonDamageType(dmgType)
 	local keep = firstToUpper(dmgType)
 	local flags = { }
