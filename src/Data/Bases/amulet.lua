@@ -9,6 +9,7 @@ itemBases["Paua Amulet"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(20-30)% increased Mana Regeneration Rate",
 	implicitModTypes = { { "resource", "mana" }, },
+	implicitIds = { "ManaRegenerationImplicitAmulet1", },
 	req = { },
 }
 itemBases["Coral Amulet"] = {
@@ -17,6 +18,7 @@ itemBases["Coral Amulet"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "Regenerate (2-4) Life per second",
 	implicitModTypes = { { "flat_life_regen", "resource", "life" }, },
+	implicitIds = { "LifeRegenerationImplicitAmulet1", },
 	req = { },
 }
 itemBases["Amber Amulet"] = {
@@ -25,6 +27,7 @@ itemBases["Amber Amulet"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "+(20-30) to Strength",
 	implicitModTypes = { { "attribute" }, },
+	implicitIds = { "StrengthImplicitAmulet1", },
 	req = { level = 5, },
 }
 itemBases["Jade Amulet"] = {
@@ -33,6 +36,7 @@ itemBases["Jade Amulet"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "+(20-30) to Dexterity",
 	implicitModTypes = { { "attribute" }, },
+	implicitIds = { "DexterityImplicitAmulet1", },
 	req = { level = 5, },
 }
 itemBases["Lapis Amulet"] = {
@@ -41,6 +45,7 @@ itemBases["Lapis Amulet"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "+(20-30) to Intelligence",
 	implicitModTypes = { { "attribute" }, },
+	implicitIds = { "IntelligenceImplicitAmulet1", },
 	req = { level = 5, },
 }
 itemBases["Gold Amulet"] = {
@@ -49,6 +54,7 @@ itemBases["Gold Amulet"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(12-20)% increased Rarity of Items found",
 	implicitModTypes = { { "drop" }, },
+	implicitIds = { "ItemFoundRarityIncreaseImplicitAmulet1", },
 	req = { level = 8, },
 }
 itemBases["Onyx Amulet"] = {
@@ -57,6 +63,7 @@ itemBases["Onyx Amulet"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "+(10-16) to all Attributes",
 	implicitModTypes = { { "attribute" }, },
+	implicitIds = { "AllAttributesImplicitAmulet1", },
 	req = { level = 20, },
 }
 itemBases["Turquoise Amulet"] = {
@@ -65,6 +72,7 @@ itemBases["Turquoise Amulet"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "+(16-24) to Dexterity and Intelligence",
 	implicitModTypes = { { "attribute" }, },
+	implicitIds = { "HybridDexInt", },
 	req = { level = 16, },
 }
 itemBases["Agate Amulet"] = {
@@ -73,6 +81,7 @@ itemBases["Agate Amulet"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "+(16-24) to Strength and Intelligence",
 	implicitModTypes = { { "attribute" }, },
+	implicitIds = { "HybridStrInt", },
 	req = { level = 16, },
 }
 itemBases["Citrine Amulet"] = {
@@ -81,6 +90,7 @@ itemBases["Citrine Amulet"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "+(16-24) to Strength and Dexterity",
 	implicitModTypes = { { "attribute" }, },
+	implicitIds = { "HybridStrDex", },
 	req = { level = 16, },
 }
 itemBases["Ruby Amulet"] = {
@@ -89,6 +99,7 @@ itemBases["Ruby Amulet"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "+(20-30)% to Fire Resistance",
 	implicitModTypes = { { "elemental", "fire", "resistance" }, },
+	implicitIds = { "FireResistImplicitAmulet1", },
 	req = { },
 }
 itemBases["Unset Amulet"] = {
@@ -97,6 +108,7 @@ itemBases["Unset Amulet"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "Has 1 Socket",
 	implicitModTypes = { {  }, },
+	implicitIds = { "AmuletHasOneSocket", },
 	req = { level = 5, },
 }
 itemBases["Blue Pearl Amulet"] = {
@@ -105,6 +117,7 @@ itemBases["Blue Pearl Amulet"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(48-56)% increased Mana Regeneration Rate",
 	implicitModTypes = { { "resource", "mana" }, },
+	implicitIds = { "ManaRegenerationImplicitAmulet2", },
 	req = { level = 77, },
 }
 itemBases["Marble Amulet"] = {
@@ -113,6 +126,7 @@ itemBases["Marble Amulet"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "Regenerate (1.2-1.6)% of Life per second",
 	implicitModTypes = { { "resource", "life" }, },
+	implicitIds = { "LifeRegenerationImplicitAmulet2", },
 	req = { level = 74, },
 }
 itemBases["Seaglass Amulet"] = {
@@ -121,6 +135,7 @@ itemBases["Seaglass Amulet"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(10-15)% faster start of Energy Shield Recharge",
 	implicitModTypes = { { "defences", "energy_shield" }, },
+	implicitIds = { "ReducedEnergyShieldDelayImplicit1_", },
 	req = { level = 74, },
 }
 itemBases["Astrolabe Amulet"] = {
@@ -129,6 +144,7 @@ itemBases["Astrolabe Amulet"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "Implicit Modifiers Cannot Be Changed\nHas Elder, Shaper and all Conqueror Influences",
 	implicitModTypes = { {  }, {  }, },
+	implicitIds = { "CanHaveEveryInfluenceTypeImplicitE1", },
 	req = { level = 69, },
 }
 itemBases["Simplex Amulet"] = {
@@ -137,6 +153,7 @@ itemBases["Simplex Amulet"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "-2 Prefix Modifiers allowed\n-1 Suffix Modifier allowed\nImplicit Modifiers Cannot Be Changed\n100% increased Explicit Modifier magnitudes",
 	implicitModTypes = { {  }, {  }, {  }, {  }, },
+	implicitIds = { "MaxPrefixMaxSuffixModEffectImplicitE2", },
 	req = { level = 24, },
 }
 itemBases["Focused Amulet"] = {
@@ -145,6 +162,7 @@ itemBases["Focused Amulet"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "-1 Prefix Modifier allowed\n-2 Suffix Modifiers allowed\nImplicit Modifiers Cannot Be Changed\n100% increased Explicit Modifier magnitudes",
 	implicitModTypes = { {  }, {  }, {  }, {  }, },
+	implicitIds = { "MaxPrefixMaxSuffixModEffectImplicitE3", },
 	req = { level = 24, },
 }
 itemBases["Jet Amulet"] = {
@@ -153,6 +171,7 @@ itemBases["Jet Amulet"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "+(8-12)% to all Elemental Resistances",
 	implicitModTypes = { { "elemental", "resistance" }, },
+	implicitIds = { "AllResistancesImplicitVictorAmulet", },
 	req = { level = 12, },
 }
 
@@ -163,6 +182,7 @@ itemBases["Black Maw Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "Has 1 Socket",
 	implicitModTypes = { {  }, },
+	implicitIds = { "TalismanHasOneSocket_", },
 	req = { },
 	flavourText = {
 		"The First Ones stalk with us",
@@ -179,6 +199,7 @@ itemBases["Bonespire Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(20-30)% increased maximum Mana",
 	implicitModTypes = { { "resource", "mana" }, },
+	implicitIds = { "TalismanIncreasedMana", },
 	req = { },
 	flavourText = {
 		"The civilised man must wrestle",
@@ -195,6 +216,7 @@ itemBases["Ashscale Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(20-30)% increased Fire Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire" }, },
+	implicitIds = { "TalismanIncreasedFireDamage", },
 	req = { },
 	flavourText = {
 		"The fire of the hearth is a docile dog,",
@@ -211,6 +233,7 @@ itemBases["Lone Antler Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(20-30)% increased Lightning Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "lightning" }, },
+	implicitIds = { "TalismanIncreasedLightningDamage", },
 	req = { },
 	flavourText = {
 		"The First Ones thundered over Ezomyr",
@@ -227,6 +250,7 @@ itemBases["Deep One Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(20-30)% increased Cold Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "cold" }, },
+	implicitIds = { "TalismanIncreasedColdDamage", },
 	req = { },
 	flavourText = {
 		"We have basked in the cloying warmth of servitude.",
@@ -243,6 +267,7 @@ itemBases["Breakrib Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(20-30)% increased Global Physical Damage",
 	implicitModTypes = { { "physical_damage", "damage", "physical" }, },
+	implicitIds = { "TalismanIncreasedPhysicalDamage", },
 	req = { },
 	flavourText = {
 		"I stood among the stones",
@@ -259,6 +284,7 @@ itemBases["Deadhand Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(19-31)% increased Chaos Damage",
 	implicitModTypes = { { "chaos_damage", "damage", "chaos" }, },
+	implicitIds = { "TalismanIncreasedChaosDamage", },
 	req = { },
 	flavourText = {
 		"The Empire poisons our blood with sweet wine.",
@@ -275,6 +301,7 @@ itemBases["Undying Flesh Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "+1 to maximum number of Raised Zombies",
 	implicitModTypes = { { "minion" }, },
+	implicitIds = { "TalismanAdditionalZombie", },
 	req = { },
 	flavourText = {
 		"'Sleep when you are weary,' our mothers told us.",
@@ -291,6 +318,7 @@ itemBases["Rot Head Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(30-40)% increased Fish Bite Sensitivity",
 	implicitModTypes = { { "green_herring" }, },
+	implicitIds = { "TalismanFishBiteSensitivity", },
 	req = { },
 	flavourText = {
 		"To catch a big fish you need tempting bait.",
@@ -306,6 +334,7 @@ itemBases["Mandible Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(6-10)% increased Attack and Cast Speed",
 	implicitModTypes = { { "attack", "caster", "speed" }, },
+	implicitIds = { "TalismanAttackAndCastSpeed", },
 	req = { },
 	flavourText = {
 		"The First Ones hold us",
@@ -322,6 +351,7 @@ itemBases["Chrysalis Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(20-30)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
+	implicitIds = { "TalismanSpellDamage", },
 	req = { },
 	flavourText = {
 		"The world of the First Ones is harsh;",
@@ -338,6 +368,7 @@ itemBases["Writhing Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(20-30)% increased Attack Damage",
 	implicitModTypes = { { "damage", "attack" }, },
+	implicitIds = { "TalismanAttackDamage", },
 	req = { },
 	flavourText = {
 		"For too long we have crawled in darkness,",
@@ -354,6 +385,7 @@ itemBases["Hexclaw Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(40-50)% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
+	implicitIds = { "TalismanIncreasedCriticalChance", },
 	req = { },
 	flavourText = {
 		"The Hunter faced the First One",
@@ -370,6 +402,7 @@ itemBases["Primal Skull Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "Regenerate 2% of Life per second",
 	implicitModTypes = { { "resource", "life" }, },
+	implicitIds = { "TalismanPercentLifeRegeneration", },
 	req = { },
 	flavourText = {
 		"With the will of the first ones in our sinews",
@@ -386,6 +419,7 @@ itemBases["Wereclaw Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "+(24-36)% to Global Critical Strike Multiplier",
 	implicitModTypes = { { "damage", "critical" }, },
+	implicitIds = { "TalismanIncreasedCriticalStrikeMultiplier_", },
 	req = { },
 	flavourText = {
 		"It's said to be noble to stand one's ground.",
@@ -402,6 +436,7 @@ itemBases["Splitnewt Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(4-6)% chance to Freeze, Shock and Ignite",
 	implicitModTypes = { { "elemental", "fire", "cold", "lightning", "ailment" }, },
+	implicitIds = { "TalismanChanceToFreezeShockIgnite_", },
 	req = { },
 	flavourText = {
 		"From flesh and ferocity,",
@@ -418,6 +453,7 @@ itemBases["Clutching Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(15-25)% increased Global Defences",
 	implicitModTypes = { { "defences" }, },
+	implicitIds = { "TalismanGlobalDefensesPercent", },
 	req = { },
 	flavourText = {
 		"Fear the children of the First Ones.",
@@ -434,6 +470,7 @@ itemBases["Avian Twins Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "50% of Fire Damage from Hits taken as Cold Damage",
 	implicitModTypes = { { "elemental", "fire", "cold" }, },
+	implicitIds = { "TalismanFireTakenAsCold", },
 	req = { },
 	flavourText = {
 		"The first ones live where they can, where they must.",
@@ -450,6 +487,7 @@ itemBases["Avian Twins Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "50% of Fire Damage from Hits taken as Lightning Damage",
 	implicitModTypes = { { "elemental", "fire", "lightning" }, },
+	implicitIds = { "TalismanFireTakenAsLightning", },
 	req = { },
 	flavourText = {
 		"The first ones live where they can, where they must.",
@@ -466,6 +504,7 @@ itemBases["Avian Twins Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "50% of Cold Damage from Hits taken as Fire Damage",
 	implicitModTypes = { { "elemental", "fire", "cold" }, },
+	implicitIds = { "TalismanColdTakenAsFire", },
 	req = { },
 	flavourText = {
 		"The first ones live where they can, where they must.",
@@ -482,6 +521,7 @@ itemBases["Avian Twins Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "50% of Cold Damage from Hits taken as Lightning Damage",
 	implicitModTypes = { { "elemental", "cold", "lightning" }, },
+	implicitIds = { "TalismanColdTakenAsLightning", },
 	req = { },
 	flavourText = {
 		"The first ones live where they can, where they must.",
@@ -498,6 +538,7 @@ itemBases["Avian Twins Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "50% of Lightning Damage from Hits taken as Cold Damage",
 	implicitModTypes = { { "elemental", "cold", "lightning" }, },
+	implicitIds = { "TalismanLightningTakenAsCold", },
 	req = { },
 	flavourText = {
 		"The first ones live where they can, where they must.",
@@ -514,6 +555,7 @@ itemBases["Avian Twins Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "50% of Lightning Damage from Hits taken as Fire Damage",
 	implicitModTypes = { { "elemental", "fire", "lightning" }, },
+	implicitIds = { "TalismanLightningTakenAsFire", },
 	req = { },
 	flavourText = {
 		"The first ones live where they can, where they must.",
@@ -530,6 +572,7 @@ itemBases["Fangjaw Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(8-12)% increased maximum Life",
 	implicitModTypes = { { "resource", "life" }, },
+	implicitIds = { "TalismanIncreasedLife", },
 	req = { },
 	flavourText = {
 		"The First Ones are the forever ones.",
@@ -546,6 +589,7 @@ itemBases["Horned Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "Projectiles Pierce 2 additional Targets",
 	implicitModTypes = { {  }, },
+	implicitIds = { "TalismanAdditionalPierce", },
 	req = { },
 	flavourText = {
 		"The Empire hides lies and falsehoods",
@@ -562,6 +606,7 @@ itemBases["Spinefuse Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "+(12-18)% to Damage over Time Multiplier",
 	implicitModTypes = { { "dot_multi", "damage" }, },
+	implicitIds = { "TalismanGlobalDamageOverTimeMultiplier", },
 	req = { },
 	flavourText = {
 		"We Ezomytes are beasts of burden",
@@ -578,6 +623,7 @@ itemBases["Three Rat Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(12-16)% increased Attributes",
 	implicitModTypes = { { "attribute" }, },
+	implicitIds = { "TalismanIncreasedAllAttributes", },
 	req = { },
 	flavourText = {
 		"When we free ourselves from the shackles",
@@ -594,6 +640,7 @@ itemBases["Monkey Twins Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(5-8)% increased Area of Effect",
 	implicitModTypes = { {  }, },
+	implicitIds = { "TalismanIncreasedAreaOfEffect", },
 	req = { },
 	flavourText = {
 		"The first ones marked their hunting grounds",
@@ -610,6 +657,7 @@ itemBases["Longtooth Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(4-6)% additional Physical Damage Reduction",
 	implicitModTypes = { { "physical" }, },
+	implicitIds = { "TalismanReducedPhysicalDamageTaken_", },
 	req = { },
 	flavourText = {
 		"We grew contemptuous of our past.",
@@ -626,6 +674,7 @@ itemBases["Rotfeather Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(25-35)% increased Damage",
 	implicitModTypes = { { "damage" }, },
+	implicitIds = { "TalismanIncreasedDamage", },
 	req = { },
 	flavourText = {
 		"Death met with the First Ones",
@@ -642,6 +691,7 @@ itemBases["Monkey Paw Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "10% chance to gain a Power Charge on Kill",
 	implicitModTypes = { { "power_charge" }, },
+	implicitIds = { "TalismanPowerChargeOnKill", },
 	req = { },
 	flavourText = {
 		"Look not upon me with fear, my men.",
@@ -658,6 +708,7 @@ itemBases["Monkey Paw Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "10% chance to gain a Frenzy Charge on Kill",
 	implicitModTypes = { { "frenzy_charge" }, },
+	implicitIds = { "TalismanFrenzyChargeOnKill", },
 	req = { },
 	flavourText = {
 		"Look not upon me with fear, my men.",
@@ -674,6 +725,7 @@ itemBases["Monkey Paw Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "10% chance to gain an Endurance Charge on Kill",
 	implicitModTypes = { { "endurance_charge" }, },
+	implicitIds = { "TalismanEnduranceChargeOnKill_", },
 	req = { },
 	flavourText = {
 		"Look not upon me with fear, my men.",
@@ -690,6 +742,7 @@ itemBases["Three Hands Talisman"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "Gain (6-12)% of Physical Damage as Extra Damage of a random Element",
 	implicitModTypes = { { "physical_damage", "elemental_damage", "damage", "physical", "elemental" }, },
+	implicitIds = { "TalismanDamageDealtAddedAsRandomElement", },
 	req = { },
 	flavourText = {
 		"We breed thoughts of single mind,",
@@ -720,6 +773,7 @@ itemBases["Avian Twins Talisman (Fire-To-Cold)"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "50% of Fire Damage from Hits taken as Cold Damage",
 	implicitModTypes = { { "elemental", "fire", "cold" }, },
+	implicitIds = { "TalismanFireTakenAsCold", },
 	req = { },
 	flavourText = {
 		"The first ones live where they can, where they must.",
@@ -736,6 +790,7 @@ itemBases["Avian Twins Talisman (Fire-To-Lightning)"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "50% of Fire Damage from Hits taken as Lightning Damage",
 	implicitModTypes = { { "elemental", "fire", "lightning" }, },
+	implicitIds = { "TalismanFireTakenAsLightning", },
 	req = { },
 	flavourText = {
 		"The first ones live where they can, where they must.",
@@ -752,6 +807,7 @@ itemBases["Avian Twins Talisman (Cold-To-Lightning)"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "50% of Cold Damage from Hits taken as Fire Damage",
 	implicitModTypes = { { "elemental", "fire", "cold" }, },
+	implicitIds = { "TalismanColdTakenAsFire", },
 	req = { },
 	flavourText = {
 		"The first ones live where they can, where they must.",
@@ -768,6 +824,7 @@ itemBases["Avian Twins Talisman (Cold-To-Fire)"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "50% of Cold Damage from Hits taken as Lightning Damage",
 	implicitModTypes = { { "elemental", "cold", "lightning" }, },
+	implicitIds = { "TalismanColdTakenAsLightning", },
 	req = { },
 	flavourText = {
 		"The first ones live where they can, where they must.",
@@ -784,6 +841,7 @@ itemBases["Avian Twins Talisman (Lightning-To-Cold)"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "50% of Lightning Damage from Hits taken as Cold Damage",
 	implicitModTypes = { { "elemental", "cold", "lightning" }, },
+	implicitIds = { "TalismanLightningTakenAsCold", },
 	req = { },
 	flavourText = {
 		"The first ones live where they can, where they must.",
@@ -800,6 +858,7 @@ itemBases["Monkey Paw Talisman (Power)"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "10% chance to gain a Power Charge on Kill",
 	implicitModTypes = { { "power_charge" }, },
+	implicitIds = { "TalismanPowerChargeOnKill", },
 	req = { },
 	flavourText = {
 		"Look not upon me with fear, my men.",
@@ -816,6 +875,7 @@ itemBases["Monkey Paw Talisman (Frenzy)"] = {
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "10% chance to gain a Frenzy Charge on Kill",
 	implicitModTypes = { { "frenzy_charge" }, },
+	implicitIds = { "TalismanFrenzyChargeOnKill", },
 	req = { },
 	flavourText = {
 		"Look not upon me with fear, my men.",

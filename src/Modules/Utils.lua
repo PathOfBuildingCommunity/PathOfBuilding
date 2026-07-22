@@ -16,10 +16,10 @@ local function strSort(a, b)
 	return tostring(a) < tostring(b)
 end
 ---@alias StringifyTypes string | number | boolean | nil | table<StringifyTypes, StringifyTypes>
-local function writeStringify(buf, value, allowNewlines, tabs)
+local function writeStringify(buf, value, allowNewlines, tabs, singleLine)
 	local valType = type(value)
 	if not tabs then
-		tabs = 0
+		tabs = 1
 	end
 	if valType == "string" then
 		local str = allowNewlines and value or value:gsub("\r\n", " "):gsub("[\r\n]", " ")
@@ -27,15 +27,16 @@ local function writeStringify(buf, value, allowNewlines, tabs)
 	elseif valType == "boolean" or valType == "nil" or valType == "number" then
 		buf[#buf + 1] = tostring(value)
 	elseif valType == "table" then
-		buf[#buf + 1] = "{\n"
+		local newLine = (singleLine and " " or "\n")
+		buf[#buf + 1] = "{" .. newLine
 		-- ipairs compatible keys are done first so we can use the array syntax for them
 		local arrayKeys = {}
-		local indent = indentFor(tabs)
+		local indent = singleLine and "" or indentFor(tabs)
 		for k, v in ipairs(value) do
 			arrayKeys[k] = true
 			buf[#buf + 1] = indent
-			writeStringify(buf, v, allowNewlines, tabs + 1)
-			buf[#buf + 1] = ",\n"
+			writeStringify(buf, v, allowNewlines, tabs + 1, singleLine)
+			buf[#buf + 1] = "," .. newLine
 		end
 
 		local mapKeys = {}
@@ -49,12 +50,12 @@ local function writeStringify(buf, value, allowNewlines, tabs)
 
 		for _, k in ipairs(mapKeys) do
 			buf[#buf + 1] = indent .. "["
-			writeStringify(buf, k, allowNewlines, nil)
+			writeStringify(buf, k, allowNewlines, nil, singleLine)
 			buf[#buf + 1] = "] = "
-			writeStringify(buf, value[k], allowNewlines, tabs + 1)
-			buf[#buf + 1] = ",\n"
+			writeStringify(buf, value[k], allowNewlines, tabs + 1, singleLine)
+			buf[#buf + 1] = "," .. newLine
 		end
-		buf[#buf + 1] = indentFor(tabs - 1) .. "}"
+		buf[#buf + 1] = (singleLine and "" or indentFor(tabs - 1)) .. "}"
 	else
 		error("Disallowed stringify type " .. valType)
 	end
@@ -63,10 +64,21 @@ end
 -- syntax when applicable, and will sort other keys.
 --- @param value StringifyTypes
 --- @param allowNewlines boolean? Determines if multi-line strings should be allowed. By default newlines are converted to spaces.
+--- @param tabs number? Amount of tabs to prepend on table lines. Defaults to 1.
 --- @return string
 function M.stringify(value, allowNewlines, tabs)
 	local buf = {}
 	writeStringify(buf, value, allowNewlines, tabs)
+	return table.concat(buf)
+end
+
+-- Converts a table to a string which will be valid Lua. The result will ipairs to utilise the array
+-- syntax when applicable, and will sort other keys. This is similar to stringify(), but does not produce a multi line string.
+--- @param value StringifyTypes
+--- @return string
+function M.stringifyInline(value)
+	local buf = {}
+	writeStringify(buf, value, false, nil, true)
 	return table.concat(buf)
 end
 

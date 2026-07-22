@@ -12,15 +12,25 @@ local t_insert = table.insert
 local tradeHelpers = LoadModule("Classes/TradeHelpers")
 local utils = LoadModule("Modules/Utils")
 
--- a table which tells us what subtypes each category we can search for contains
+-- a table which tells us what subtypes each category we can search for
+-- contains. the commented out lines are type-subtype combinations which don't
+-- exist yet, but might exist in the future
 local tradeCategoryNames = {
 	["Ring"] = { "Ring" },
 	["Amulet"] = { "Amulet" },
 	["Belt"] = { "Belt" },
-	["Chest"] = { "Body Armour", "Body Armour: Armour", "Body Armour: Armour/Energy Shield", "Body Armour: Armour/Evasion", "Body Armour: Armour/Evasion/Energy Shield", "Body Armour: Energy Shield", "Body Armour: Evasion", "Body Armour: Evasion/Energy Shield", "Body Armour: Ward" },
-	["Helmet"] = { "Helmet", "Helmet: Armour", "Helmet: Armour/Energy Shield", "Helmet: Armour/Evasion", "Helmet: Armour/Evasion/Energy Shield", "Helmet: Energy Shield", "Helmet: Evasion", "Helmet: Evasion/Energy Shield", "Helmet: Ward" },
-	["Gloves"] = { "Gloves: Armour", "Gloves: Armour/Energy Shield", "Gloves: Armour/Evasion", "Gloves: Armour/Evasion/Energy Shield", "Gloves: Energy Shield", "Gloves: Evasion", "Gloves: Evasion/Energy Shield", "Gloves: Ward" },
-	["Boots"] = { "Boots", "Boots: Armour", "Boots: Armour/Energy Shield", "Boots: Armour/Evasion", "Boots: Armour/Evasion/Energy Shield", "Boots: Energy Shield", "Boots: Evasion", "Boots: Evasion/Energy Shield", "Boots: Ward" },
+	["Chest"] = { "Body Armour", "Body Armour: Armour", "Body Armour: Armour/Energy Shield", "Body Armour: Armour/Evasion", "Body Armour: Armour/Evasion/Energy Shield", "Body Armour: Energy Shield", "Body Armour: Evasion", "Body Armour: Evasion/Energy Shield",
+		-- "Body Armour: Ward"
+	},
+	["Helmet"] = { "Helmet", "Helmet: Armour", "Helmet: Armour/Energy Shield", "Helmet: Armour/Evasion",
+		-- "Helmet: Armour/Evasion/Energy Shield",
+		"Helmet: Energy Shield", "Helmet: Evasion", "Helmet: Evasion/Energy Shield", "Helmet: Ward" },
+	["Gloves"] = { "Gloves: Armour", "Gloves: Armour/Energy Shield", "Gloves: Armour/Evasion",
+		-- "Gloves: Armour/Evasion/Energy Shield",
+		"Gloves: Energy Shield", "Gloves: Evasion", "Gloves: Evasion/Energy Shield", "Gloves: Ward" },
+	["Boots"] = { "Boots", "Boots: Armour", "Boots: Armour/Energy Shield", "Boots: Armour/Evasion",
+		-- "Boots: Armour/Evasion/Energy Shield",
+		"Boots: Energy Shield", "Boots: Evasion", "Boots: Evasion/Energy Shield", "Boots: Ward" },
 	["Quiver"] = { "Quiver" },
 	["Shield"] = { "Shield", "Shield: Armour", "Shield: Armour/Energy Shield", "Shield: Armour/Evasion", "Shield: Energy Shield", "Shield: Evasion", "Shield: Evasion/Energy Shield" },
 	["1HWeapon"] = { "Claw", "Dagger", "One Handed Axe", "One Handed Mace", "Wand", "Sceptre", "One Handed Sword", "One Handed Sword: Thrusting" },
@@ -45,35 +55,55 @@ local tradeCategoryNames = {
 	["ManaFlask"] = { "Flask: Mana" },
 	["Flask"] = { "Flask: Utility" },
 }
+local basesForType
 
--- Build lists of tags present on a given item category
-local tradeCategoryTags = {}
-for type, bases in pairs(data.itemBaseLists) do
-	for _, base in ipairs(bases) do
-		if not base.hidden then
-			if not tradeCategoryTags[type] then
-				tradeCategoryTags[type] = {}
-			end
-			local baseTags = {}
-			for tag, _ in pairs(base.base.tags) do
-				if tag ~= "default" and tag ~= "demigods" and not tag:match("_basetype") and tag ~= "not_for_sale" then -- filter fluff tags not used on mods.
-					baseTags[tag] = true
+local function canModSpawnForItemCategory(mod, category)
+	-- lazy load type list as it's only required when generating QueryMods.lua
+	if not basesForType then
+		basesForType = {}
+		for _, bases in pairs(data.itemBaseLists) do
+			for _, base in ipairs(bases) do
+				local base = base.base
+				-- gather a table which maps from type: subtype to a list of bases
+				if not base.hidden and base.type then
+					local type = base.type
+					local subType = base.subType
+					if not basesForType[type] then
+						basesForType[type] = {}
+					end
+					table.insert(basesForType[type], base)
+					if subType then
+						if not basesForType[type .. ": " .. subType] then
+							basesForType[type .. ": " .. subType] = {}
+						end
+						table.insert(basesForType[type .. ": " .. subType], base)
+					end
 				end
-			end
-			for _, tag in pairs(base.base.influenceTags or {}) do
-				baseTags[tag] = true
-			end
-			local present = false
-			for i, tags in ipairs(tradeCategoryTags[type]) do
-				if tableDeepEquals(baseTags, tags) then
-					present = true
-				end
-			end
-			if not present then
-				t_insert(tradeCategoryTags[type], baseTags)
 			end
 		end
 	end
+	-- mock item
+	local itemClass = new("Item")
+	local itemObj = {}
+	-- add all influences to fake item
+	for _, curInfluenceInfo in ipairs(itemLib.influenceInfo.all) do
+		itemObj[curInfluenceInfo.key] = true
+	end
+	for _, type in ipairs(tradeCategoryNames[category]) do
+		-- crafted mod
+		if not mod.weightKey then
+			return mod.types[category]
+		else
+			-- test if item can spawn for any base of the given type
+			for _, base in ipairs(basesForType[type] or error("missing bases for type " .. type)) do
+				itemObj.base = base
+				if itemClass.GetModSpawnWeight(itemObj, mod) > 0 then
+					return true
+				end
+			end
+		end
+	end
+	return false
 end
 ---@return table[]? category list of entries for the mod type
 local function getStatEntries(modType)
@@ -131,27 +161,6 @@ local TradeQueryGeneratorClass = newClass("TradeQueryGenerator", function(self, 
 	self.lastMaxLevel = nil
 end)
 
-local function canModSpawnForItemCategory(mod, names)
-	for _, name in pairs(tradeCategoryNames[names]) do
-		-- crafted mod
-		if not mod.weightKey then
-			return mod.types[name]
-		else
-			for _, tags in ipairs(tradeCategoryTags[name] or {}) do
-				for i, key in ipairs(mod.weightKey) do
-					if tags[key] then
-						if mod.affix:find("Elevated") or mod.weightVal[i] > 0 then
-							return true
-						else
-							break
-						end
-					end
-				end
-			end
-		end
-	end
-	return false
-end
 function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, statWeights)
 	local meanStatDiff = 0
 
@@ -476,30 +485,12 @@ function TradeQueryGeneratorClass:InitMods()
 
 	-- implicit mods
 	for _, entry in pairsSortByKey(data.itemBases) do
-		if entry.implicit ~= nil then
-			local mod = { type = "Implicit" }
-			for modLine in string.gmatch(entry.implicit, "([^" .. "\n" .. "]+)") do
-				t_insert(mod, modLine)
-			end
-
-			local found = false
-			for _, modLine in ipairs(mod) do
-				if modLine:find("Grants Level") then
-					goto continue
-				end
-				for _, v in pairs(data.itemMods.ItemExclusive) do
-					if v[1] == modLine then
-						found = true
-						mod = v
-						mod.type = "Implicit"
-						break
-					end
-				end
-			end
-			if not found then
-				ConPrintf("unknown implicit mod: %s", mod[1])
-				goto continue
-			end
+		if entry.type == "Graft" then
+			goto continue
+		end
+		for _, modId in ipairs(entry.implicitIds or {}) do
+			local mod = copyTable(data.itemMods.ItemExclusive[modId] or error("mod id doesn't exist " .. modId))
+			mod.type = "Implicit"
 
 			-- create trade type mask for base type
 			local maskOverride = {}

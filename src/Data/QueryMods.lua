@@ -13641,6 +13641,10 @@ return {
 				["max"] = -24,
 				["min"] = -40,
 			},
+			["Gloves"] = {
+				["max"] = -24,
+				["min"] = -40,
+			},
 			["inverseKey"] = "reduced",
 			["specialCaseData"] = {
 			},
@@ -13651,6 +13655,14 @@ return {
 			},
 		},
 		["10020_ReducedShockEffectOnSelf"] = {
+			["AnyJewel"] = {
+				["max"] = 35,
+				["min"] = 30,
+			},
+			["BaseJewel"] = {
+				["max"] = 35,
+				["min"] = 30,
+			},
 			["Helmet"] = {
 				["max"] = 60,
 				["min"] = 51,
@@ -13689,7 +13701,7 @@ return {
 			},
 			["Gloves"] = {
 				["max"] = 28,
-				["min"] = 25,
+				["min"] = 11,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -13937,6 +13949,10 @@ return {
 				["max"] = 14,
 				["min"] = 10,
 			},
+			["Dagger"] = {
+				["max"] = 7,
+				["min"] = 4,
+			},
 			["Sceptre"] = {
 				["max"] = 7,
 				["min"] = 4,
@@ -14005,6 +14021,14 @@ return {
 			},
 		},
 		["10155_SpellDamagePer16Dexterity"] = {
+			["1HWeapon"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["Dagger"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -14016,6 +14040,10 @@ return {
 		},
 		["10156_SpellDamagePer16Intelligence"] = {
 			["1HWeapon"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["Dagger"] = {
 				["max"] = 1,
 				["min"] = 1,
 			},
@@ -14495,6 +14523,10 @@ return {
 				["max"] = 60,
 				["min"] = 48,
 			},
+			["Dagger"] = {
+				["max"] = 40,
+				["min"] = 28,
+			},
 			["Sceptre"] = {
 				["max"] = 40,
 				["min"] = 28,
@@ -14922,7 +14954,7 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 9,
-				["min"] = 5,
+				["min"] = 8,
 			},
 			["Gloves"] = {
 				["max"] = 5,
@@ -14952,6 +14984,14 @@ return {
 			},
 		},
 		["1139_BlockShieldForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 3,
+				["min"] = 2,
+			},
+			["BaseJewel"] = {
+				["max"] = 3,
+				["min"] = 2,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -14962,6 +15002,14 @@ return {
 			},
 		},
 		["1140_ShieldSpellBlockForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 3,
+				["min"] = 2,
+			},
+			["BaseJewel"] = {
+				["max"] = 3,
+				["min"] = 2,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -15034,11 +15082,11 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 22,
-				["min"] = 5,
+				["min"] = 8,
 			},
 			["Gloves"] = {
 				["max"] = 14,
-				["min"] = 5,
+				["min"] = 3,
 			},
 			["Helmet"] = {
 				["max"] = 14,
@@ -15058,6 +15106,14 @@ return {
 			},
 		},
 		["1144_DualWieldingSpellBlockForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 3,
+				["min"] = 2,
+			},
+			["BaseJewel"] = {
+				["max"] = 3,
+				["min"] = 2,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -15230,7 +15286,7 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 10,
-				["min"] = 6,
+				["min"] = 9,
 			},
 			["Helmet"] = {
 				["max"] = 6,
@@ -15264,6 +15320,14 @@ return {
 			},
 		},
 		["1162_BlockDualWieldingForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 3,
+				["min"] = 2,
+			},
+			["BaseJewel"] = {
+				["max"] = 3,
+				["min"] = 2,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -15308,38 +15372,6 @@ return {
 			},
 		},
 		["1176_AllAttributes"] = {
-			["1HAxe"] = {
-				["max"] = 13,
-				["min"] = 6,
-			},
-			["1HMace"] = {
-				["max"] = 13,
-				["min"] = 6,
-			},
-			["1HSword"] = {
-				["max"] = 13,
-				["min"] = 6,
-			},
-			["1HWeapon"] = {
-				["max"] = 13,
-				["min"] = 6,
-			},
-			["2HAxe"] = {
-				["max"] = 13,
-				["min"] = 6,
-			},
-			["2HMace"] = {
-				["max"] = 13,
-				["min"] = 6,
-			},
-			["2HSword"] = {
-				["max"] = 13,
-				["min"] = 6,
-			},
-			["2HWeapon"] = {
-				["max"] = 13,
-				["min"] = 6,
-			},
 			["Amulet"] = {
 				["max"] = 35,
 				["min"] = 1,
@@ -15352,15 +15384,15 @@ return {
 				["max"] = 13,
 				["min"] = 6,
 			},
-			["Chest"] = {
-				["max"] = 13,
-				["min"] = 6,
-			},
 			["Claw"] = {
 				["max"] = 13,
 				["min"] = 6,
 			},
 			["Dagger"] = {
+				["max"] = 13,
+				["min"] = 6,
+			},
+			["Gloves"] = {
 				["max"] = 13,
 				["min"] = 6,
 			},
@@ -15403,6 +15435,14 @@ return {
 		},
 		["1176_AllAttributesForJewel"] = {
 			["AbyssJewel"] = {
+				["max"] = 8,
+				["min"] = 6,
+			},
+			["AnyJewel"] = {
+				["max"] = 8,
+				["min"] = 6,
+			},
+			["BaseJewel"] = {
 				["max"] = 8,
 				["min"] = 6,
 			},
@@ -15524,7 +15564,7 @@ return {
 		["1177_StrengthAndAvoidIgnite"] = {
 			["Chest"] = {
 				["max"] = 35,
-				["min"] = 10,
+				["min"] = 31,
 			},
 			["Shield"] = {
 				["max"] = 35,
@@ -15576,10 +15616,6 @@ return {
 				["max"] = 55,
 				["min"] = 8,
 			},
-			["1HMace"] = {
-				["max"] = 30,
-				["min"] = 15,
-			},
 			["1HSword"] = {
 				["max"] = 55,
 				["min"] = 8,
@@ -15591,10 +15627,6 @@ return {
 			["2HAxe"] = {
 				["max"] = 55,
 				["min"] = 8,
-			},
-			["2HMace"] = {
-				["max"] = 30,
-				["min"] = 15,
 			},
 			["2HSword"] = {
 				["max"] = 55,
@@ -15680,7 +15712,7 @@ return {
 		["1178_DexterityAndAvoidFreeze"] = {
 			["Chest"] = {
 				["max"] = 35,
-				["min"] = 10,
+				["min"] = 31,
 			},
 			["Shield"] = {
 				["max"] = 35,
@@ -15728,33 +15760,9 @@ return {
 			},
 		},
 		["1179_Intelligence"] = {
-			["1HAxe"] = {
-				["max"] = 30,
-				["min"] = 15,
-			},
-			["1HMace"] = {
-				["max"] = 30,
-				["min"] = 15,
-			},
-			["1HSword"] = {
-				["max"] = 30,
-				["min"] = 15,
-			},
 			["1HWeapon"] = {
 				["max"] = 55,
 				["min"] = 8,
-			},
-			["2HAxe"] = {
-				["max"] = 30,
-				["min"] = 15,
-			},
-			["2HMace"] = {
-				["max"] = 30,
-				["min"] = 15,
-			},
-			["2HSword"] = {
-				["max"] = 30,
-				["min"] = 15,
 			},
 			["2HWeapon"] = {
 				["max"] = 55,
@@ -15836,7 +15844,7 @@ return {
 		["1179_IntelligenceAndAvoidShock"] = {
 			["Chest"] = {
 				["max"] = 35,
-				["min"] = 10,
+				["min"] = 31,
 			},
 			["Shield"] = {
 				["max"] = 35,
@@ -15886,35 +15894,35 @@ return {
 		["1180_LocalAccuracyRatingStrengthDexterity"] = {
 			["1HAxe"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["1HMace"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["1HSword"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["1HWeapon"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["2HAxe"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["2HMace"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["2HSword"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["2HWeapon"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["Bow"] = {
 				["max"] = 28,
@@ -15964,11 +15972,11 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 35,
-				["min"] = 10,
+				["min"] = 31,
 			},
 			["Gloves"] = {
 				["max"] = 35,
-				["min"] = 31,
+				["min"] = 10,
 			},
 			["Helmet"] = {
 				["max"] = 35,
@@ -16020,35 +16028,35 @@ return {
 		["1181_LocalCriticalStrikeChanceStrengthIntelligence"] = {
 			["1HAxe"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["1HMace"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["1HSword"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["1HWeapon"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["2HAxe"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["2HMace"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["2HSword"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["2HWeapon"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["Bow"] = {
 				["max"] = 28,
@@ -16098,11 +16106,11 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 35,
-				["min"] = 10,
+				["min"] = 31,
 			},
 			["Gloves"] = {
 				["max"] = 35,
-				["min"] = 31,
+				["min"] = 10,
 			},
 			["Helmet"] = {
 				["max"] = 35,
@@ -16166,11 +16174,11 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 35,
-				["min"] = 10,
+				["min"] = 31,
 			},
 			["Gloves"] = {
 				["max"] = 35,
-				["min"] = 31,
+				["min"] = 10,
 			},
 			["Helmet"] = {
 				["max"] = 35,
@@ -16222,35 +16230,35 @@ return {
 		["1182_LocalAttackSpeedDexterityIntelligence"] = {
 			["1HAxe"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["1HMace"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["1HSword"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["1HWeapon"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["2HAxe"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["2HMace"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["2HSword"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["2HWeapon"] = {
 				["max"] = 28,
-				["min"] = 15,
+				["min"] = 25,
 			},
 			["Bow"] = {
 				["max"] = 28,
@@ -16293,10 +16301,6 @@ return {
 			["Belt"] = {
 				["max"] = 12,
 				["min"] = 6,
-			},
-			["Chest"] = {
-				["max"] = 6,
-				["min"] = 5,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -16446,6 +16450,14 @@ return {
 			},
 		},
 		["1191_DamageForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 10,
+				["min"] = 8,
+			},
+			["BaseJewel"] = {
+				["max"] = 10,
+				["min"] = 8,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -16548,38 +16560,6 @@ return {
 			},
 		},
 		["1194_TrapDamageOnWeapon"] = {
-			["1HAxe"] = {
-				["max"] = 54,
-				["min"] = 35,
-			},
-			["1HMace"] = {
-				["max"] = 54,
-				["min"] = 35,
-			},
-			["1HSword"] = {
-				["max"] = 54,
-				["min"] = 35,
-			},
-			["1HWeapon"] = {
-				["max"] = 54,
-				["min"] = 35,
-			},
-			["2HAxe"] = {
-				["max"] = 81,
-				["min"] = 52,
-			},
-			["2HMace"] = {
-				["max"] = 81,
-				["min"] = 52,
-			},
-			["2HSword"] = {
-				["max"] = 81,
-				["min"] = 52,
-			},
-			["2HWeapon"] = {
-				["max"] = 81,
-				["min"] = 52,
-			},
 			["Bow"] = {
 				["max"] = 81,
 				["min"] = 52,
@@ -16646,38 +16626,6 @@ return {
 			},
 		},
 		["1196_MineDamageOnWeapon"] = {
-			["1HAxe"] = {
-				["max"] = 54,
-				["min"] = 35,
-			},
-			["1HMace"] = {
-				["max"] = 54,
-				["min"] = 35,
-			},
-			["1HSword"] = {
-				["max"] = 54,
-				["min"] = 35,
-			},
-			["1HWeapon"] = {
-				["max"] = 54,
-				["min"] = 35,
-			},
-			["2HAxe"] = {
-				["max"] = 81,
-				["min"] = 52,
-			},
-			["2HMace"] = {
-				["max"] = 81,
-				["min"] = 52,
-			},
-			["2HSword"] = {
-				["max"] = 81,
-				["min"] = 52,
-			},
-			["2HWeapon"] = {
-				["max"] = 81,
-				["min"] = 52,
-			},
 			["Bow"] = {
 				["max"] = 81,
 				["min"] = 52,
@@ -16768,6 +16716,14 @@ return {
 			},
 		},
 		["1210_DamageOverTimeForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 12,
+				["min"] = 10,
+			},
+			["BaseJewel"] = {
+				["max"] = 12,
+				["min"] = 10,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -16778,38 +16734,6 @@ return {
 			},
 		},
 		["1210_DegenerationDamage"] = {
-			["1HAxe"] = {
-				["max"] = 30,
-				["min"] = 11,
-			},
-			["1HMace"] = {
-				["max"] = 30,
-				["min"] = 11,
-			},
-			["1HSword"] = {
-				["max"] = 30,
-				["min"] = 11,
-			},
-			["1HWeapon"] = {
-				["max"] = 30,
-				["min"] = 11,
-			},
-			["2HAxe"] = {
-				["max"] = 30,
-				["min"] = 11,
-			},
-			["2HMace"] = {
-				["max"] = 30,
-				["min"] = 11,
-			},
-			["2HSword"] = {
-				["max"] = 30,
-				["min"] = 11,
-			},
-			["2HWeapon"] = {
-				["max"] = 30,
-				["min"] = 11,
-			},
 			["Bow"] = {
 				["max"] = 30,
 				["min"] = 11,
@@ -16986,35 +16910,35 @@ return {
 		["1223_SpellDamageAndManaRegenerationRate"] = {
 			["1HAxe"] = {
 				["max"] = 79,
-				["min"] = 36,
+				["min"] = 70,
 			},
 			["1HMace"] = {
 				["max"] = 79,
-				["min"] = 36,
+				["min"] = 70,
 			},
 			["1HSword"] = {
 				["max"] = 79,
-				["min"] = 36,
+				["min"] = 70,
 			},
 			["1HWeapon"] = {
 				["max"] = 79,
-				["min"] = 36,
+				["min"] = 70,
 			},
 			["2HAxe"] = {
 				["max"] = 109,
-				["min"] = 60,
+				["min"] = 100,
 			},
 			["2HMace"] = {
 				["max"] = 109,
-				["min"] = 60,
+				["min"] = 100,
 			},
 			["2HSword"] = {
 				["max"] = 109,
-				["min"] = 60,
+				["min"] = 100,
 			},
 			["2HWeapon"] = {
 				["max"] = 109,
-				["min"] = 60,
+				["min"] = 100,
 			},
 			["Claw"] = {
 				["max"] = 79,
@@ -17048,35 +16972,35 @@ return {
 		["1223_SpellDamageAndNonChaosDamageToAddAsChaosDamage"] = {
 			["1HAxe"] = {
 				["max"] = 69,
-				["min"] = 38,
+				["min"] = 60,
 			},
 			["1HMace"] = {
 				["max"] = 69,
-				["min"] = 38,
+				["min"] = 60,
 			},
 			["1HSword"] = {
 				["max"] = 69,
-				["min"] = 38,
+				["min"] = 60,
 			},
 			["1HWeapon"] = {
 				["max"] = 69,
-				["min"] = 38,
+				["min"] = 60,
 			},
 			["2HAxe"] = {
 				["max"] = 99,
-				["min"] = 53,
+				["min"] = 90,
 			},
 			["2HMace"] = {
 				["max"] = 99,
-				["min"] = 53,
+				["min"] = 90,
 			},
 			["2HSword"] = {
 				["max"] = 99,
-				["min"] = 53,
+				["min"] = 90,
 			},
 			["2HWeapon"] = {
 				["max"] = 99,
-				["min"] = 53,
+				["min"] = 90,
 			},
 			["Claw"] = {
 				["max"] = 69,
@@ -17108,6 +17032,14 @@ return {
 			},
 		},
 		["1223_SpellDamageForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 12,
+				["min"] = 10,
+			},
+			["BaseJewel"] = {
+				["max"] = 12,
+				["min"] = 10,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -17118,18 +17050,6 @@ return {
 			},
 		},
 		["1223_TwoHandWeaponSpellDamage"] = {
-			["2HAxe"] = {
-				["max"] = 99,
-				["min"] = 37,
-			},
-			["2HMace"] = {
-				["max"] = 99,
-				["min"] = 37,
-			},
-			["2HSword"] = {
-				["max"] = 99,
-				["min"] = 37,
-			},
 			["2HWeapon"] = {
 				["max"] = 164,
 				["min"] = 15,
@@ -17182,18 +17102,6 @@ return {
 			},
 		},
 		["1223_WeaponSpellDamage"] = {
-			["1HAxe"] = {
-				["max"] = 66,
-				["min"] = 25,
-			},
-			["1HMace"] = {
-				["max"] = 66,
-				["min"] = 25,
-			},
-			["1HSword"] = {
-				["max"] = 66,
-				["min"] = 25,
-			},
 			["1HWeapon"] = {
 				["max"] = 109,
 				["min"] = 10,
@@ -17203,7 +17111,7 @@ return {
 				["min"] = 10,
 			},
 			["Dagger"] = {
-				["max"] = 94,
+				["max"] = 109,
 				["min"] = 10,
 			},
 			["One Handed Axe"] = {
@@ -17258,6 +17166,10 @@ return {
 				["max"] = 39,
 				["min"] = 5,
 			},
+			["Dagger"] = {
+				["max"] = 39,
+				["min"] = 5,
+			},
 			["Sceptre"] = {
 				["max"] = 39,
 				["min"] = 5,
@@ -17290,6 +17202,10 @@ return {
 				["max"] = 60,
 				["min"] = 45,
 			},
+			["Dagger"] = {
+				["max"] = 60,
+				["min"] = 45,
+			},
 			["Sceptre"] = {
 				["max"] = 60,
 				["min"] = 45,
@@ -17309,6 +17225,10 @@ return {
 		},
 		["1223_WeaponSpellDamageEfficacy"] = {
 			["1HWeapon"] = {
+				["max"] = 60,
+				["min"] = 45,
+			},
+			["Dagger"] = {
 				["max"] = 60,
 				["min"] = 45,
 			},
@@ -17360,6 +17280,14 @@ return {
 			},
 		},
 		["1227_StaffSpellDamageForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
+			["BaseJewel"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -17370,6 +17298,14 @@ return {
 			},
 		},
 		["1229_ShieldSpellDamageForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
+			["BaseJewel"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -17380,6 +17316,14 @@ return {
 			},
 		},
 		["1230_DualWieldingSpellDamageForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
+			["BaseJewel"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -17404,6 +17348,14 @@ return {
 			},
 		},
 		["1231_PhysicalDamageForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
+			["BaseJewel"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -17542,35 +17494,35 @@ return {
 		["1232_LocalIncreasedPhysicalDamageAndBleedChance"] = {
 			["1HAxe"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["1HMace"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["1HSword"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["1HWeapon"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["2HAxe"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["2HMace"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["2HSword"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["2HWeapon"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["Bow"] = {
 				["max"] = 139,
@@ -17608,35 +17560,35 @@ return {
 		["1232_LocalIncreasedPhysicalDamageAndBlindChance"] = {
 			["1HAxe"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["1HMace"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["1HSword"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["1HWeapon"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["2HAxe"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["2HMace"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["2HSword"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["2HWeapon"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["Bow"] = {
 				["max"] = 139,
@@ -17674,35 +17626,35 @@ return {
 		["1232_LocalIncreasedPhysicalDamageAndImpaleChance"] = {
 			["1HAxe"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["1HMace"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["1HSword"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["1HWeapon"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["2HAxe"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["2HMace"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["2HSword"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["2HWeapon"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["Bow"] = {
 				["max"] = 139,
@@ -17740,35 +17692,35 @@ return {
 		["1232_LocalIncreasedPhysicalDamageAndPoisonChance"] = {
 			["1HAxe"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["1HMace"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["1HSword"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["1HWeapon"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["2HAxe"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["2HMace"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["2HSword"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["2HWeapon"] = {
 				["max"] = 139,
-				["min"] = 81,
+				["min"] = 120,
 			},
 			["Bow"] = {
 				["max"] = 139,
@@ -18424,7 +18376,7 @@ return {
 		["1234_MeleeDamageAndMeleeRange"] = {
 			["Gloves"] = {
 				["max"] = 20,
-				["min"] = 13,
+				["min"] = 9,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -18490,6 +18442,14 @@ return {
 				["max"] = 26,
 				["min"] = 7,
 			},
+			["AnyJewel"] = {
+				["max"] = 6,
+				["min"] = 4,
+			},
+			["BaseJewel"] = {
+				["max"] = 6,
+				["min"] = 4,
+			},
 			["Bow"] = {
 				["max"] = 26,
 				["min"] = 7,
@@ -18544,15 +18504,15 @@ return {
 		["1247_PhysicalDamageOverTimeMultiplier"] = {
 			["1HAxe"] = {
 				["max"] = 28,
-				["min"] = 14,
+				["min"] = 24,
 			},
 			["1HMace"] = {
 				["max"] = 28,
-				["min"] = 14,
+				["min"] = 24,
 			},
 			["1HSword"] = {
 				["max"] = 28,
-				["min"] = 14,
+				["min"] = 24,
 			},
 			["1HWeapon"] = {
 				["max"] = 38,
@@ -18560,15 +18520,15 @@ return {
 			},
 			["2HAxe"] = {
 				["max"] = 48,
-				["min"] = 25,
+				["min"] = 44,
 			},
 			["2HMace"] = {
 				["max"] = 48,
-				["min"] = 25,
+				["min"] = 44,
 			},
 			["2HSword"] = {
 				["max"] = 48,
-				["min"] = 25,
+				["min"] = 44,
 			},
 			["2HWeapon"] = {
 				["max"] = 75,
@@ -18577,6 +18537,14 @@ return {
 			["Amulet"] = {
 				["max"] = 25,
 				["min"] = 11,
+			},
+			["AnyJewel"] = {
+				["max"] = 8,
+				["min"] = 6,
+			},
+			["BaseJewel"] = {
+				["max"] = 8,
+				["min"] = 6,
 			},
 			["Bow"] = {
 				["max"] = 28,
@@ -18632,15 +18600,15 @@ return {
 		["1251_FireDamageOverTimeMultiplier"] = {
 			["1HAxe"] = {
 				["max"] = 28,
-				["min"] = 14,
+				["min"] = 24,
 			},
 			["1HMace"] = {
 				["max"] = 28,
-				["min"] = 14,
+				["min"] = 24,
 			},
 			["1HSword"] = {
 				["max"] = 28,
-				["min"] = 14,
+				["min"] = 24,
 			},
 			["1HWeapon"] = {
 				["max"] = 38,
@@ -18648,15 +18616,15 @@ return {
 			},
 			["2HAxe"] = {
 				["max"] = 48,
-				["min"] = 25,
+				["min"] = 44,
 			},
 			["2HMace"] = {
 				["max"] = 48,
-				["min"] = 25,
+				["min"] = 44,
 			},
 			["2HSword"] = {
 				["max"] = 48,
-				["min"] = 25,
+				["min"] = 44,
 			},
 			["2HWeapon"] = {
 				["max"] = 75,
@@ -18665,6 +18633,14 @@ return {
 			["Amulet"] = {
 				["max"] = 25,
 				["min"] = 11,
+			},
+			["AnyJewel"] = {
+				["max"] = 8,
+				["min"] = 6,
+			},
+			["BaseJewel"] = {
+				["max"] = 8,
+				["min"] = 6,
 			},
 			["Bow"] = {
 				["max"] = 28,
@@ -18720,15 +18696,15 @@ return {
 		["1256_ColdDamageOverTimeMultiplier"] = {
 			["1HAxe"] = {
 				["max"] = 28,
-				["min"] = 14,
+				["min"] = 24,
 			},
 			["1HMace"] = {
 				["max"] = 28,
-				["min"] = 14,
+				["min"] = 24,
 			},
 			["1HSword"] = {
 				["max"] = 28,
-				["min"] = 14,
+				["min"] = 24,
 			},
 			["1HWeapon"] = {
 				["max"] = 38,
@@ -18736,19 +18712,19 @@ return {
 			},
 			["2HAxe"] = {
 				["max"] = 48,
-				["min"] = 25,
+				["min"] = 44,
 			},
 			["2HMace"] = {
 				["max"] = 48,
-				["min"] = 25,
+				["min"] = 44,
 			},
 			["2HSword"] = {
 				["max"] = 48,
-				["min"] = 25,
+				["min"] = 44,
 			},
 			["2HWeapon"] = {
 				["max"] = 75,
-				["min"] = 25,
+				["min"] = 26,
 			},
 			["Amulet"] = {
 				["max"] = 25,
@@ -18771,7 +18747,7 @@ return {
 				["min"] = 14,
 			},
 			["Dagger"] = {
-				["max"] = 28,
+				["max"] = 38,
 				["min"] = 14,
 			},
 			["Gloves"] = {
@@ -18802,15 +18778,15 @@ return {
 		["1259_ChaosDamageOverTimeMultiplier"] = {
 			["1HAxe"] = {
 				["max"] = 28,
-				["min"] = 14,
+				["min"] = 24,
 			},
 			["1HMace"] = {
 				["max"] = 28,
-				["min"] = 14,
+				["min"] = 24,
 			},
 			["1HSword"] = {
 				["max"] = 28,
-				["min"] = 14,
+				["min"] = 24,
 			},
 			["1HWeapon"] = {
 				["max"] = 38,
@@ -18818,15 +18794,15 @@ return {
 			},
 			["2HAxe"] = {
 				["max"] = 48,
-				["min"] = 25,
+				["min"] = 44,
 			},
 			["2HMace"] = {
 				["max"] = 48,
-				["min"] = 25,
+				["min"] = 44,
 			},
 			["2HSword"] = {
 				["max"] = 48,
-				["min"] = 25,
+				["min"] = 44,
 			},
 			["2HWeapon"] = {
 				["max"] = 75,
@@ -19030,38 +19006,6 @@ return {
 			},
 		},
 		["1276_LocalAddedPhysicalDamageAndCausesBleeding"] = {
-			["1HAxe"] = {
-				["max"] = 12.5,
-				["min"] = 8.5,
-			},
-			["1HMace"] = {
-				["max"] = 12.5,
-				["min"] = 8.5,
-			},
-			["1HSword"] = {
-				["max"] = 12.5,
-				["min"] = 8.5,
-			},
-			["1HWeapon"] = {
-				["max"] = 12.5,
-				["min"] = 8.5,
-			},
-			["2HAxe"] = {
-				["max"] = 18,
-				["min"] = 13.5,
-			},
-			["2HMace"] = {
-				["max"] = 18,
-				["min"] = 13.5,
-			},
-			["2HSword"] = {
-				["max"] = 18,
-				["min"] = 13.5,
-			},
-			["2HWeapon"] = {
-				["max"] = 18,
-				["min"] = 13.5,
-			},
 			["Bow"] = {
 				["max"] = 18,
 				["min"] = 13.5,
@@ -19273,6 +19217,14 @@ return {
 			},
 		},
 		["1308_IncreasedStaffDamageForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
+			["BaseJewel"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -19283,6 +19235,14 @@ return {
 			},
 		},
 		["1313_IncreasedClawDamageForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
+			["BaseJewel"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -19293,6 +19253,14 @@ return {
 			},
 		},
 		["1319_IncreasedDaggerDamageForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
+			["BaseJewel"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -19303,6 +19271,14 @@ return {
 			},
 		},
 		["1325_IncreasedMaceDamageForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
+			["BaseJewel"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -19313,6 +19289,14 @@ return {
 			},
 		},
 		["1331_IncreasedBowDamageForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
+			["BaseJewel"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -19343,35 +19327,35 @@ return {
 		["1357_FireDamageAndChanceToIgnite"] = {
 			["1HAxe"] = {
 				["max"] = 79,
-				["min"] = 36,
+				["min"] = 70,
 			},
 			["1HMace"] = {
 				["max"] = 79,
-				["min"] = 36,
+				["min"] = 70,
 			},
 			["1HSword"] = {
 				["max"] = 79,
-				["min"] = 36,
+				["min"] = 70,
 			},
 			["1HWeapon"] = {
 				["max"] = 79,
-				["min"] = 36,
+				["min"] = 70,
 			},
 			["2HAxe"] = {
 				["max"] = 109,
-				["min"] = 60,
+				["min"] = 100,
 			},
 			["2HMace"] = {
 				["max"] = 109,
-				["min"] = 60,
+				["min"] = 100,
 			},
 			["2HSword"] = {
 				["max"] = 109,
-				["min"] = 60,
+				["min"] = 100,
 			},
 			["2HWeapon"] = {
 				["max"] = 109,
-				["min"] = 60,
+				["min"] = 100,
 			},
 			["Claw"] = {
 				["max"] = 79,
@@ -19421,37 +19405,13 @@ return {
 			},
 		},
 		["1357_FireDamagePercentage"] = {
-			["1HAxe"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
-			["1HMace"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
-			["1HSword"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
 			["1HWeapon"] = {
 				["max"] = 30,
-				["min"] = 9,
-			},
-			["2HAxe"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
-			["2HMace"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
-			["2HSword"] = {
-				["max"] = 16,
-				["min"] = 9,
+				["min"] = 10,
 			},
 			["2HWeapon"] = {
 				["max"] = 50,
-				["min"] = 9,
+				["min"] = 18,
 			},
 			["Amulet"] = {
 				["max"] = 34,
@@ -19539,18 +19499,6 @@ return {
 			},
 		},
 		["1357_FireDamageWeaponPrefix"] = {
-			["1HAxe"] = {
-				["max"] = 54,
-				["min"] = 25,
-			},
-			["1HMace"] = {
-				["max"] = 54,
-				["min"] = 25,
-			},
-			["1HSword"] = {
-				["max"] = 54,
-				["min"] = 25,
-			},
 			["1HWeapon"] = {
 				["max"] = 109,
 				["min"] = 10,
@@ -19629,18 +19577,6 @@ return {
 			},
 		},
 		["1357_TwoHandFireDamageWeaponPrefix"] = {
-			["2HAxe"] = {
-				["max"] = 81,
-				["min"] = 37,
-			},
-			["2HMace"] = {
-				["max"] = 81,
-				["min"] = 37,
-			},
-			["2HSword"] = {
-				["max"] = 81,
-				["min"] = 37,
-			},
 			["2HWeapon"] = {
 				["max"] = 164,
 				["min"] = 15,
@@ -20036,6 +19972,14 @@ return {
 			},
 		},
 		["1365_FireGemCastSpeedForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
+			["BaseJewel"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -20048,35 +19992,35 @@ return {
 		["1366_ColdDamageAndBaseChanceToFreeze"] = {
 			["1HAxe"] = {
 				["max"] = 79,
-				["min"] = 36,
+				["min"] = 70,
 			},
 			["1HMace"] = {
 				["max"] = 79,
-				["min"] = 36,
+				["min"] = 70,
 			},
 			["1HSword"] = {
 				["max"] = 79,
-				["min"] = 36,
+				["min"] = 70,
 			},
 			["1HWeapon"] = {
 				["max"] = 79,
-				["min"] = 36,
+				["min"] = 70,
 			},
 			["2HAxe"] = {
 				["max"] = 109,
-				["min"] = 60,
+				["min"] = 100,
 			},
 			["2HMace"] = {
 				["max"] = 109,
-				["min"] = 60,
+				["min"] = 100,
 			},
 			["2HSword"] = {
 				["max"] = 109,
-				["min"] = 60,
+				["min"] = 100,
 			},
 			["2HWeapon"] = {
 				["max"] = 109,
-				["min"] = 60,
+				["min"] = 100,
 			},
 			["Claw"] = {
 				["max"] = 79,
@@ -20126,37 +20070,13 @@ return {
 			},
 		},
 		["1366_ColdDamagePercentage"] = {
-			["1HAxe"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
-			["1HMace"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
-			["1HSword"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
 			["1HWeapon"] = {
 				["max"] = 30,
-				["min"] = 9,
-			},
-			["2HAxe"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
-			["2HMace"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
-			["2HSword"] = {
-				["max"] = 16,
-				["min"] = 9,
+				["min"] = 10,
 			},
 			["2HWeapon"] = {
 				["max"] = 50,
-				["min"] = 9,
+				["min"] = 18,
 			},
 			["Amulet"] = {
 				["max"] = 34,
@@ -20226,6 +20146,10 @@ return {
 				["max"] = 60,
 				["min"] = 45,
 			},
+			["Dagger"] = {
+				["max"] = 60,
+				["min"] = 45,
+			},
 			["Wand"] = {
 				["max"] = 60,
 				["min"] = 45,
@@ -20240,18 +20164,6 @@ return {
 			},
 		},
 		["1366_ColdDamageWeaponPrefix"] = {
-			["1HAxe"] = {
-				["max"] = 54,
-				["min"] = 25,
-			},
-			["1HMace"] = {
-				["max"] = 54,
-				["min"] = 25,
-			},
-			["1HSword"] = {
-				["max"] = 54,
-				["min"] = 25,
-			},
 			["1HWeapon"] = {
 				["max"] = 109,
 				["min"] = 10,
@@ -20316,18 +20228,6 @@ return {
 			},
 		},
 		["1366_TwoHandColdDamageWeaponPrefix"] = {
-			["2HAxe"] = {
-				["max"] = 81,
-				["min"] = 37,
-			},
-			["2HMace"] = {
-				["max"] = 81,
-				["min"] = 37,
-			},
-			["2HSword"] = {
-				["max"] = 81,
-				["min"] = 37,
-			},
 			["2HWeapon"] = {
 				["max"] = 164,
 				["min"] = 15,
@@ -20743,6 +20643,14 @@ return {
 			},
 		},
 		["1376_ColdGemCastSpeedForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
+			["BaseJewel"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -20769,35 +20677,35 @@ return {
 		["1377_LightningDamageAndChanceToShock"] = {
 			["1HAxe"] = {
 				["max"] = 79,
-				["min"] = 36,
+				["min"] = 70,
 			},
 			["1HMace"] = {
 				["max"] = 79,
-				["min"] = 36,
+				["min"] = 70,
 			},
 			["1HSword"] = {
 				["max"] = 79,
-				["min"] = 36,
+				["min"] = 70,
 			},
 			["1HWeapon"] = {
 				["max"] = 79,
-				["min"] = 36,
+				["min"] = 70,
 			},
 			["2HAxe"] = {
 				["max"] = 109,
-				["min"] = 60,
+				["min"] = 100,
 			},
 			["2HMace"] = {
 				["max"] = 109,
-				["min"] = 60,
+				["min"] = 100,
 			},
 			["2HSword"] = {
 				["max"] = 109,
-				["min"] = 60,
+				["min"] = 100,
 			},
 			["2HWeapon"] = {
 				["max"] = 109,
-				["min"] = 60,
+				["min"] = 100,
 			},
 			["Claw"] = {
 				["max"] = 79,
@@ -20847,37 +20755,13 @@ return {
 			},
 		},
 		["1377_LightningDamagePercentage"] = {
-			["1HAxe"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
-			["1HMace"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
-			["1HSword"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
 			["1HWeapon"] = {
 				["max"] = 30,
-				["min"] = 9,
-			},
-			["2HAxe"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
-			["2HMace"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
-			["2HSword"] = {
-				["max"] = 16,
-				["min"] = 9,
+				["min"] = 10,
 			},
 			["2HWeapon"] = {
 				["max"] = 50,
-				["min"] = 9,
+				["min"] = 18,
 			},
 			["Amulet"] = {
 				["max"] = 34,
@@ -20947,6 +20831,10 @@ return {
 				["max"] = 60,
 				["min"] = 45,
 			},
+			["Dagger"] = {
+				["max"] = 60,
+				["min"] = 45,
+			},
 			["Sceptre"] = {
 				["max"] = 60,
 				["min"] = 45,
@@ -20965,18 +20853,6 @@ return {
 			},
 		},
 		["1377_LightningDamageWeaponPrefix"] = {
-			["1HAxe"] = {
-				["max"] = 54,
-				["min"] = 25,
-			},
-			["1HMace"] = {
-				["max"] = 54,
-				["min"] = 25,
-			},
-			["1HSword"] = {
-				["max"] = 54,
-				["min"] = 25,
-			},
 			["1HWeapon"] = {
 				["max"] = 109,
 				["min"] = 10,
@@ -21041,18 +20917,6 @@ return {
 			},
 		},
 		["1377_TwoHandLightningDamageWeaponPrefix"] = {
-			["2HAxe"] = {
-				["max"] = 81,
-				["min"] = 37,
-			},
-			["2HMace"] = {
-				["max"] = 81,
-				["min"] = 37,
-			},
-			["2HSword"] = {
-				["max"] = 81,
-				["min"] = 37,
-			},
 			["2HWeapon"] = {
 				["max"] = 164,
 				["min"] = 15,
@@ -21448,6 +21312,14 @@ return {
 			},
 		},
 		["1384_LightningGemCastSpeedForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
+			["BaseJewel"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -21460,35 +21332,35 @@ return {
 		["1385_ChaosDamageAndChaosSkillDuration"] = {
 			["1HAxe"] = {
 				["max"] = 69,
-				["min"] = 35,
+				["min"] = 60,
 			},
 			["1HMace"] = {
 				["max"] = 69,
-				["min"] = 35,
+				["min"] = 60,
 			},
 			["1HSword"] = {
 				["max"] = 69,
-				["min"] = 35,
+				["min"] = 60,
 			},
 			["1HWeapon"] = {
 				["max"] = 69,
-				["min"] = 35,
+				["min"] = 60,
 			},
 			["2HAxe"] = {
 				["max"] = 99,
-				["min"] = 53,
+				["min"] = 90,
 			},
 			["2HMace"] = {
 				["max"] = 99,
-				["min"] = 53,
+				["min"] = 90,
 			},
 			["2HSword"] = {
 				["max"] = 99,
-				["min"] = 53,
+				["min"] = 90,
 			},
 			["2HWeapon"] = {
 				["max"] = 99,
-				["min"] = 53,
+				["min"] = 90,
 			},
 			["Claw"] = {
 				["max"] = 69,
@@ -21520,6 +21392,14 @@ return {
 			},
 		},
 		["1385_ChaosDamageForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 13,
+				["min"] = 9,
+			},
+			["BaseJewel"] = {
+				["max"] = 13,
+				["min"] = 9,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -21530,22 +21410,6 @@ return {
 			},
 		},
 		["1385_ChaosDamageWeaponPrefix"] = {
-			["1HAxe"] = {
-				["max"] = 54,
-				["min"] = 25,
-			},
-			["1HMace"] = {
-				["max"] = 54,
-				["min"] = 25,
-			},
-			["1HSword"] = {
-				["max"] = 54,
-				["min"] = 25,
-			},
-			["1HWeapon"] = {
-				["max"] = 54,
-				["min"] = 25,
-			},
 			["Claw"] = {
 				["max"] = 54,
 				["min"] = 25,
@@ -21586,38 +21450,6 @@ return {
 			},
 		},
 		["1385_IncreasedChaosDamage"] = {
-			["1HAxe"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
-			["1HMace"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
-			["1HSword"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
-			["1HWeapon"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
-			["2HAxe"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
-			["2HMace"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
-			["2HSword"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
-			["2HWeapon"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
 			["AbyssJewel"] = {
 				["max"] = 19,
 				["min"] = 13,
@@ -21734,22 +21566,6 @@ return {
 			},
 		},
 		["1385_TwoHandChaosDamageWeaponPrefix"] = {
-			["2HAxe"] = {
-				["max"] = 81,
-				["min"] = 37,
-			},
-			["2HMace"] = {
-				["max"] = 81,
-				["min"] = 37,
-			},
-			["2HSword"] = {
-				["max"] = 81,
-				["min"] = 37,
-			},
-			["2HWeapon"] = {
-				["max"] = 81,
-				["min"] = 37,
-			},
 			["Staff"] = {
 				["max"] = 81,
 				["min"] = 37,
@@ -21798,6 +21614,10 @@ return {
 		["1387_ChaosDamage"] = {
 			["Amulet"] = {
 				["max"] = 21,
+				["min"] = 10,
+			},
+			["Gloves"] = {
+				["max"] = 13,
 				["min"] = 10,
 			},
 			["Quiver"] = {
@@ -22031,6 +21851,10 @@ return {
 				["max"] = 97.5,
 				["min"] = 56,
 			},
+			["Dagger"] = {
+				["max"] = 60,
+				["min"] = 34,
+			},
 			["Helmet"] = {
 				["max"] = 61,
 				["min"] = 25,
@@ -22091,18 +21915,6 @@ return {
 			},
 		},
 		["1404_SpellAddedFireDamage"] = {
-			["1HAxe"] = {
-				["max"] = 56,
-				["min"] = 17.5,
-			},
-			["1HMace"] = {
-				["max"] = 56,
-				["min"] = 17.5,
-			},
-			["1HSword"] = {
-				["max"] = 56,
-				["min"] = 17.5,
-			},
 			["1HWeapon"] = {
 				["max"] = 90.5,
 				["min"] = 2,
@@ -22113,7 +21925,7 @@ return {
 			},
 			["Dagger"] = {
 				["max"] = 90.5,
-				["min"] = 17.5,
+				["min"] = 2,
 			},
 			["One Handed Axe"] = {
 				["max"] = 90.5,
@@ -22167,6 +21979,10 @@ return {
 				["max"] = 52,
 				["min"] = 12.5,
 			},
+			["Dagger"] = {
+				["max"] = 38.5,
+				["min"] = 9,
+			},
 			["Sceptre"] = {
 				["max"] = 38.5,
 				["min"] = 9,
@@ -22189,18 +22005,6 @@ return {
 			},
 		},
 		["1404_SpellAddedFireDamageTwoHand"] = {
-			["2HAxe"] = {
-				["max"] = 75.5,
-				["min"] = 23.5,
-			},
-			["2HMace"] = {
-				["max"] = 75.5,
-				["min"] = 23.5,
-			},
-			["2HSword"] = {
-				["max"] = 75.5,
-				["min"] = 23.5,
-			},
 			["2HWeapon"] = {
 				["max"] = 121.5,
 				["min"] = 2.5,
@@ -22283,18 +22087,6 @@ return {
 			},
 		},
 		["1405_SpellAddedColdDamage"] = {
-			["1HAxe"] = {
-				["max"] = 45.5,
-				["min"] = 14.5,
-			},
-			["1HMace"] = {
-				["max"] = 45.5,
-				["min"] = 14.5,
-			},
-			["1HSword"] = {
-				["max"] = 45.5,
-				["min"] = 14.5,
-			},
 			["1HWeapon"] = {
 				["max"] = 73.5,
 				["min"] = 1.5,
@@ -22305,7 +22097,7 @@ return {
 			},
 			["Dagger"] = {
 				["max"] = 73.5,
-				["min"] = 14.5,
+				["min"] = 1.5,
 			},
 			["One Handed Axe"] = {
 				["max"] = 73.5,
@@ -22359,6 +22151,10 @@ return {
 				["max"] = 47,
 				["min"] = 11.5,
 			},
+			["Dagger"] = {
+				["max"] = 31.5,
+				["min"] = 7.5,
+			},
 			["Sceptre"] = {
 				["max"] = 31.5,
 				["min"] = 7.5,
@@ -22381,18 +22177,6 @@ return {
 			},
 		},
 		["1405_SpellAddedColdDamageTwoHand"] = {
-			["2HAxe"] = {
-				["max"] = 69,
-				["min"] = 21,
-			},
-			["2HMace"] = {
-				["max"] = 69,
-				["min"] = 21,
-			},
-			["2HSword"] = {
-				["max"] = 69,
-				["min"] = 21,
-			},
 			["2HWeapon"] = {
 				["max"] = 110.5,
 				["min"] = 2,
@@ -22475,18 +22259,6 @@ return {
 			},
 		},
 		["1406_SpellAddedLightningDamage"] = {
-			["1HAxe"] = {
-				["max"] = 60.5,
-				["min"] = 20,
-			},
-			["1HMace"] = {
-				["max"] = 60.5,
-				["min"] = 20,
-			},
-			["1HSword"] = {
-				["max"] = 60.5,
-				["min"] = 20,
-			},
 			["1HWeapon"] = {
 				["max"] = 96.5,
 				["min"] = 2.5,
@@ -22497,7 +22269,7 @@ return {
 			},
 			["Dagger"] = {
 				["max"] = 96.5,
-				["min"] = 11,
+				["min"] = 2.5,
 			},
 			["One Handed Axe"] = {
 				["max"] = 96.5,
@@ -22551,6 +22323,10 @@ return {
 				["max"] = 62,
 				["min"] = 16.5,
 			},
+			["Dagger"] = {
+				["max"] = 41.5,
+				["min"] = 11,
+			},
 			["Sceptre"] = {
 				["max"] = 41.5,
 				["min"] = 11,
@@ -22573,18 +22349,6 @@ return {
 			},
 		},
 		["1406_SpellAddedLightningDamageTwoHand"] = {
-			["2HAxe"] = {
-				["max"] = 90.5,
-				["min"] = 30,
-			},
-			["2HMace"] = {
-				["max"] = 90.5,
-				["min"] = 30,
-			},
-			["2HSword"] = {
-				["max"] = 90.5,
-				["min"] = 30,
-			},
 			["2HWeapon"] = {
 				["max"] = 145,
 				["min"] = 3.5,
@@ -22685,6 +22449,10 @@ return {
 				["max"] = 97.5,
 				["min"] = 56,
 			},
+			["Dagger"] = {
+				["max"] = 60,
+				["min"] = 34,
+			},
 			["Helmet"] = {
 				["max"] = 50,
 				["min"] = 20.5,
@@ -22776,6 +22544,14 @@ return {
 		},
 		["1410_IncreasedAttackSpeedForJewel"] = {
 			["AbyssJewel"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
+			["AnyJewel"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
+			["BaseJewel"] = {
 				["max"] = 5,
 				["min"] = 3,
 			},
@@ -22873,35 +22649,35 @@ return {
 		["1413_LocalAttackSpeedAndLocalDisplayTriggerLevel1BloodRageOnKillChance"] = {
 			["1HAxe"] = {
 				["max"] = 22,
-				["min"] = 8,
+				["min"] = 18,
 			},
 			["1HMace"] = {
 				["max"] = 22,
-				["min"] = 8,
+				["min"] = 18,
 			},
 			["1HSword"] = {
 				["max"] = 22,
-				["min"] = 8,
+				["min"] = 18,
 			},
 			["1HWeapon"] = {
 				["max"] = 22,
-				["min"] = 8,
+				["min"] = 12,
 			},
 			["2HAxe"] = {
 				["max"] = 22,
-				["min"] = 8,
+				["min"] = 18,
 			},
 			["2HMace"] = {
 				["max"] = 22,
-				["min"] = 8,
+				["min"] = 18,
 			},
 			["2HSword"] = {
 				["max"] = 22,
-				["min"] = 8,
+				["min"] = 18,
 			},
 			["2HWeapon"] = {
 				["max"] = 22,
-				["min"] = 8,
+				["min"] = 12,
 			},
 			["Bow"] = {
 				["max"] = 15,
@@ -22951,35 +22727,35 @@ return {
 		["1413_LocalAttackSpeedDexterityIntelligence"] = {
 			["1HAxe"] = {
 				["max"] = 22,
-				["min"] = 8,
+				["min"] = 18,
 			},
 			["1HMace"] = {
 				["max"] = 22,
-				["min"] = 8,
+				["min"] = 18,
 			},
 			["1HSword"] = {
 				["max"] = 22,
-				["min"] = 8,
+				["min"] = 18,
 			},
 			["1HWeapon"] = {
 				["max"] = 22,
-				["min"] = 8,
+				["min"] = 12,
 			},
 			["2HAxe"] = {
 				["max"] = 22,
-				["min"] = 8,
+				["min"] = 18,
 			},
 			["2HMace"] = {
 				["max"] = 22,
-				["min"] = 8,
+				["min"] = 18,
 			},
 			["2HSword"] = {
 				["max"] = 22,
-				["min"] = 8,
+				["min"] = 18,
 			},
 			["2HWeapon"] = {
 				["max"] = 22,
-				["min"] = 8,
+				["min"] = 12,
 			},
 			["Bow"] = {
 				["max"] = 15,
@@ -23258,6 +23034,14 @@ return {
 			},
 		},
 		["1415_AttackSpeedWhileDualWieldingForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 6,
+				["min"] = 4,
+			},
+			["BaseJewel"] = {
+				["max"] = 6,
+				["min"] = 4,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -23340,6 +23124,14 @@ return {
 			},
 		},
 		["1421_StaffAttackSpeedForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 8,
+				["min"] = 6,
+			},
+			["BaseJewel"] = {
+				["max"] = 8,
+				["min"] = 6,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -23350,6 +23142,14 @@ return {
 			},
 		},
 		["1422_ClawAttackSpeedForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 8,
+				["min"] = 6,
+			},
+			["BaseJewel"] = {
+				["max"] = 8,
+				["min"] = 6,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -23360,6 +23160,14 @@ return {
 			},
 		},
 		["1423_DaggerAttackSpeedForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 8,
+				["min"] = 6,
+			},
+			["BaseJewel"] = {
+				["max"] = 8,
+				["min"] = 6,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -23370,6 +23178,14 @@ return {
 			},
 		},
 		["1424_MaceAttackSpeedForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 8,
+				["min"] = 6,
+			},
+			["BaseJewel"] = {
+				["max"] = 8,
+				["min"] = 6,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -23380,6 +23196,14 @@ return {
 			},
 		},
 		["1425_BowAttackSpeedForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 8,
+				["min"] = 6,
+			},
+			["BaseJewel"] = {
+				["max"] = 8,
+				["min"] = 6,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -23408,6 +23232,14 @@ return {
 			},
 		},
 		["1427_WandAttackSpeedForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 8,
+				["min"] = 6,
+			},
+			["BaseJewel"] = {
+				["max"] = 8,
+				["min"] = 6,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -23476,6 +23308,14 @@ return {
 			},
 		},
 		["1434_AccuracyAndCritsForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 10,
+				["min"] = 6,
+			},
+			["BaseJewel"] = {
+				["max"] = 10,
+				["min"] = 6,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -23508,6 +23348,14 @@ return {
 			},
 		},
 		["1434_IncreasedAccuracyPercentForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 14,
+				["min"] = 10,
+			},
+			["BaseJewel"] = {
+				["max"] = 14,
+				["min"] = 10,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -23618,35 +23466,35 @@ return {
 		["1446_CastSpeedAndGainArcaneSurgeOnKillChance"] = {
 			["1HAxe"] = {
 				["max"] = 22,
-				["min"] = 8,
+				["min"] = 18,
 			},
 			["1HMace"] = {
 				["max"] = 22,
-				["min"] = 8,
+				["min"] = 18,
 			},
 			["1HSword"] = {
 				["max"] = 22,
-				["min"] = 8,
+				["min"] = 18,
 			},
 			["1HWeapon"] = {
 				["max"] = 22,
-				["min"] = 8,
+				["min"] = 18,
 			},
 			["2HAxe"] = {
 				["max"] = 31,
-				["min"] = 12,
+				["min"] = 26,
 			},
 			["2HMace"] = {
 				["max"] = 31,
-				["min"] = 12,
+				["min"] = 26,
 			},
 			["2HSword"] = {
 				["max"] = 31,
-				["min"] = 12,
+				["min"] = 26,
 			},
 			["2HWeapon"] = {
 				["max"] = 31,
-				["min"] = 12,
+				["min"] = 26,
 			},
 			["Bow"] = {
 				["max"] = 31,
@@ -23682,33 +23530,9 @@ return {
 			},
 		},
 		["1446_IncreasedCastSpeed"] = {
-			["1HAxe"] = {
-				["max"] = 21,
-				["min"] = 10,
-			},
-			["1HMace"] = {
-				["max"] = 21,
-				["min"] = 10,
-			},
-			["1HSword"] = {
-				["max"] = 21,
-				["min"] = 10,
-			},
 			["1HWeapon"] = {
 				["max"] = 32,
 				["min"] = 5,
-			},
-			["2HAxe"] = {
-				["max"] = 32,
-				["min"] = 15,
-			},
-			["2HMace"] = {
-				["max"] = 32,
-				["min"] = 15,
-			},
-			["2HSword"] = {
-				["max"] = 32,
-				["min"] = 15,
 			},
 			["2HWeapon"] = {
 				["max"] = 49,
@@ -23728,7 +23552,7 @@ return {
 			},
 			["Dagger"] = {
 				["max"] = 32,
-				["min"] = 10,
+				["min"] = 5,
 			},
 			["One Handed Axe"] = {
 				["max"] = 32,
@@ -23802,6 +23626,10 @@ return {
 				["max"] = 20,
 				["min"] = 15,
 			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 15,
+			},
 			["Sceptre"] = {
 				["max"] = 20,
 				["min"] = 15,
@@ -23838,6 +23666,14 @@ return {
 				["max"] = 4,
 				["min"] = 2,
 			},
+			["AnyJewel"] = {
+				["max"] = 4,
+				["min"] = 2,
+			},
+			["BaseJewel"] = {
+				["max"] = 4,
+				["min"] = 2,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -23849,6 +23685,10 @@ return {
 		},
 		["1446_IncreasedCastSpeedSpellEcho"] = {
 			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 15,
+			},
+			["Dagger"] = {
 				["max"] = 20,
 				["min"] = 15,
 			},
@@ -23920,6 +23760,14 @@ return {
 			},
 		},
 		["1447_CastSpeedWhileDualWieldingForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
+			["BaseJewel"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -23930,6 +23778,14 @@ return {
 			},
 		},
 		["1448_CastSpeedWithAShieldForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
+			["BaseJewel"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -23940,6 +23796,14 @@ return {
 			},
 		},
 		["1449_CastSpeedWithAStaffForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
+			["BaseJewel"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -23951,6 +23815,10 @@ return {
 		},
 		["1458_CriticalStrikeChanceSpellsSupported"] = {
 			["1HWeapon"] = {
+				["max"] = 82,
+				["min"] = 60,
+			},
+			["Dagger"] = {
 				["max"] = 82,
 				["min"] = 60,
 			},
@@ -23990,6 +23858,14 @@ return {
 			},
 		},
 		["1458_SpellCritChanceForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 14,
+				["min"] = 10,
+			},
+			["BaseJewel"] = {
+				["max"] = 14,
+				["min"] = 10,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -24000,33 +23876,9 @@ return {
 			},
 		},
 		["1458_SpellCriticalStrikeChance"] = {
-			["1HAxe"] = {
-				["max"] = 69,
-				["min"] = 30,
-			},
-			["1HMace"] = {
-				["max"] = 69,
-				["min"] = 30,
-			},
-			["1HSword"] = {
-				["max"] = 69,
-				["min"] = 30,
-			},
 			["1HWeapon"] = {
 				["max"] = 109,
 				["min"] = 10,
-			},
-			["2HAxe"] = {
-				["max"] = 105,
-				["min"] = 45,
-			},
-			["2HMace"] = {
-				["max"] = 105,
-				["min"] = 45,
-			},
-			["2HSword"] = {
-				["max"] = 105,
-				["min"] = 45,
 			},
 			["2HWeapon"] = {
 				["max"] = 109,
@@ -24042,7 +23894,7 @@ return {
 			},
 			["Dagger"] = {
 				["max"] = 119,
-				["min"] = 30,
+				["min"] = 10,
 			},
 			["One Handed Axe"] = {
 				["max"] = 119,
@@ -24098,6 +23950,14 @@ return {
 			},
 		},
 		["1459_AccuracyAndCritsForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 10,
+				["min"] = 6,
+			},
+			["BaseJewel"] = {
+				["max"] = 10,
+				["min"] = 6,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -24126,6 +23986,14 @@ return {
 				["max"] = 12,
 				["min"] = 8,
 			},
+			["AnyJewel"] = {
+				["max"] = 12,
+				["min"] = 8,
+			},
+			["BaseJewel"] = {
+				["max"] = 12,
+				["min"] = 8,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -24138,7 +24006,7 @@ return {
 		["1459_CriticalChanceAndAddedChaosDamageIfHaveCritRecently"] = {
 			["Gloves"] = {
 				["max"] = 22,
-				["min"] = 20,
+				["min"] = 11,
 			},
 			["Quiver"] = {
 				["max"] = 22,
@@ -24156,7 +24024,7 @@ return {
 		["1459_CriticalChanceAndElementalDamagePercentIfHaveCritRecently"] = {
 			["Gloves"] = {
 				["max"] = 22,
-				["min"] = 20,
+				["min"] = 11,
 			},
 			["Quiver"] = {
 				["max"] = 22,
@@ -24454,35 +24322,35 @@ return {
 		["1464_LocalCriticalStrikeChanceStrengthIntelligence"] = {
 			["1HAxe"] = {
 				["max"] = 32,
-				["min"] = 15,
+				["min"] = 28,
 			},
 			["1HMace"] = {
 				["max"] = 32,
-				["min"] = 15,
+				["min"] = 28,
 			},
 			["1HSword"] = {
 				["max"] = 32,
-				["min"] = 15,
+				["min"] = 28,
 			},
 			["1HWeapon"] = {
 				["max"] = 32,
-				["min"] = 15,
+				["min"] = 28,
 			},
 			["2HAxe"] = {
 				["max"] = 32,
-				["min"] = 15,
+				["min"] = 28,
 			},
 			["2HMace"] = {
 				["max"] = 32,
-				["min"] = 15,
+				["min"] = 28,
 			},
 			["2HSword"] = {
 				["max"] = 32,
-				["min"] = 15,
+				["min"] = 28,
 			},
 			["2HWeapon"] = {
 				["max"] = 32,
-				["min"] = 15,
+				["min"] = 28,
 			},
 			["Bow"] = {
 				["max"] = 32,
@@ -24718,6 +24586,14 @@ return {
 			},
 		},
 		["1484_ElementalCritChanceForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 14,
+				["min"] = 10,
+			},
+			["BaseJewel"] = {
+				["max"] = 14,
+				["min"] = 10,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -24729,6 +24605,14 @@ return {
 		},
 		["1488_CritMultiplierForJewel"] = {
 			["AbyssJewel"] = {
+				["max"] = 12,
+				["min"] = 9,
+			},
+			["AnyJewel"] = {
+				["max"] = 12,
+				["min"] = 9,
+			},
+			["BaseJewel"] = {
 				["max"] = 12,
 				["min"] = 9,
 			},
@@ -24924,6 +24808,14 @@ return {
 			},
 		},
 		["1492_SpellCritMultiplierForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 15,
+				["min"] = 12,
+			},
+			["BaseJewel"] = {
+				["max"] = 15,
+				["min"] = 12,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -25048,6 +24940,14 @@ return {
 			},
 		},
 		["1510_ElementalCritMultiplierForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 15,
+				["min"] = 12,
+			},
+			["BaseJewel"] = {
+				["max"] = 15,
+				["min"] = 12,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -25548,6 +25448,14 @@ return {
 			},
 		},
 		["1541_IncreasedArmourForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 18,
+				["min"] = 14,
+			},
+			["BaseJewel"] = {
+				["max"] = 18,
+				["min"] = 14,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -25578,11 +25486,11 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 28,
-				["min"] = 12,
+				["min"] = 24,
 			},
 			["Gloves"] = {
 				["max"] = 28,
-				["min"] = 24,
+				["min"] = 12,
 			},
 			["Helmet"] = {
 				["max"] = 28,
@@ -25923,6 +25831,14 @@ return {
 			},
 		},
 		["1549_IncreasedEvasionForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 18,
+				["min"] = 14,
+			},
+			["BaseJewel"] = {
+				["max"] = 18,
+				["min"] = 14,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -26016,11 +25932,11 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 28,
-				["min"] = 12,
+				["min"] = 24,
 			},
 			["Gloves"] = {
 				["max"] = 28,
-				["min"] = 24,
+				["min"] = 12,
 			},
 			["Helmet"] = {
 				["max"] = 28,
@@ -26124,11 +26040,11 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 28,
-				["min"] = 12,
+				["min"] = 24,
 			},
 			["Gloves"] = {
 				["max"] = 28,
-				["min"] = 24,
+				["min"] = 12,
 			},
 			["Helmet"] = {
 				["max"] = 28,
@@ -26232,11 +26148,11 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 28,
-				["min"] = 12,
+				["min"] = 24,
 			},
 			["Gloves"] = {
 				["max"] = 28,
-				["min"] = 24,
+				["min"] = 12,
 			},
 			["Helmet"] = {
 				["max"] = 28,
@@ -26340,11 +26256,11 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 28,
-				["min"] = 12,
+				["min"] = 24,
 			},
 			["Gloves"] = {
 				["max"] = 28,
-				["min"] = 24,
+				["min"] = 12,
 			},
 			["Helmet"] = {
 				["max"] = 28,
@@ -26416,6 +26332,10 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 28,
+				["min"] = 24,
+			},
+			["Gloves"] = {
+				["max"] = 21,
 				["min"] = 12,
 			},
 			["Helmet"] = {
@@ -26799,11 +26719,11 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 28,
-				["min"] = 12,
+				["min"] = 24,
 			},
 			["Gloves"] = {
 				["max"] = 28,
-				["min"] = 24,
+				["min"] = 12,
 			},
 			["Helmet"] = {
 				["max"] = 28,
@@ -26854,6 +26774,14 @@ return {
 			},
 		},
 		["1561_EnergyShieldForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 8,
+				["min"] = 6,
+			},
+			["BaseJewel"] = {
+				["max"] = 8,
+				["min"] = 6,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -26908,7 +26836,7 @@ return {
 		["1562_EnergyShieldDelay"] = {
 			["Chest"] = {
 				["max"] = 66,
-				["min"] = 16,
+				["min"] = 27,
 			},
 			["Shield"] = {
 				["max"] = 66,
@@ -26924,6 +26852,14 @@ return {
 			},
 		},
 		["1562_EnergyShieldDelayForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 6,
+				["min"] = 4,
+			},
+			["BaseJewel"] = {
+				["max"] = 6,
+				["min"] = 4,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -26934,6 +26870,14 @@ return {
 			},
 		},
 		["1565_EnergyShieldRechargeRateForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 8,
+				["min"] = 6,
+			},
+			["BaseJewel"] = {
+				["max"] = 8,
+				["min"] = 6,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -26950,7 +26894,7 @@ return {
 			},
 			["Gloves"] = {
 				["max"] = 38,
-				["min"] = 24,
+				["min"] = 9,
 			},
 			["Helmet"] = {
 				["max"] = 38,
@@ -27060,7 +27004,7 @@ return {
 			},
 			["Gloves"] = {
 				["max"] = 60,
-				["min"] = 55,
+				["min"] = 28,
 			},
 			["Helmet"] = {
 				["max"] = 60,
@@ -27084,45 +27028,69 @@ return {
 			},
 		},
 		["1569_IncreasedLife"] = {
+			["1HSword"] = {
+				["max"] = 144,
+				["min"] = 3,
+			},
+			["1HWeapon"] = {
+				["max"] = 144,
+				["min"] = 3,
+			},
+			["2HSword"] = {
+				["max"] = 144,
+				["min"] = 3,
+			},
+			["2HWeapon"] = {
+				["max"] = 144,
+				["min"] = 3,
+			},
 			["Amulet"] = {
-				["max"] = 55,
-				["min"] = 15,
+				["max"] = 129,
+				["min"] = 3,
 			},
 			["Belt"] = {
-				["max"] = 55,
-				["min"] = 15,
+				["max"] = 144,
+				["min"] = 3,
 			},
 			["Body Armour"] = {
 				["max"] = 174,
 				["min"] = 10,
 			},
 			["Boots"] = {
-				["max"] = 105,
-				["min"] = 5,
+				["max"] = 129,
+				["min"] = 3,
 			},
 			["Chest"] = {
 				["max"] = 189,
-				["min"] = 15,
+				["min"] = 3,
 			},
 			["Gloves"] = {
-				["max"] = 105,
-				["min"] = 5,
+				["max"] = 129,
+				["min"] = 3,
 			},
 			["Helmet"] = {
-				["max"] = 105,
-				["min"] = 5,
+				["max"] = 144,
+				["min"] = 3,
+			},
+			["LifeFlask"] = {
+				["max"] = 144,
+				["min"] = 3,
+			},
+			["ManaFlask"] = {
+				["max"] = 144,
+				["min"] = 3,
 			},
 			["Quiver"] = {
-				["max"] = 55,
-				["min"] = 15,
+				["max"] = 144,
+				["min"] = 3,
 			},
 			["Ring"] = {
-				["max"] = 55,
-				["min"] = 15,
+				["max"] = 114,
+				["min"] = 3,
 			},
 			["Shield"] = {
 				["max"] = 159,
-				["min"] = 10,
+				["min"] = 3,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -27326,11 +27294,11 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 26,
-				["min"] = 13,
+				["min"] = 23,
 			},
 			["Gloves"] = {
 				["max"] = 19,
-				["min"] = 17,
+				["min"] = 8,
 			},
 			["Helmet"] = {
 				["max"] = 22,
@@ -27356,11 +27324,11 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 26,
-				["min"] = 13,
+				["min"] = 23,
 			},
 			["Gloves"] = {
 				["max"] = 19,
-				["min"] = 17,
+				["min"] = 8,
 			},
 			["Helmet"] = {
 				["max"] = 22,
@@ -27386,11 +27354,11 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 26,
-				["min"] = 13,
+				["min"] = 23,
 			},
 			["Gloves"] = {
 				["max"] = 19,
-				["min"] = 17,
+				["min"] = 8,
 			},
 			["Helmet"] = {
 				["max"] = 22,
@@ -27416,7 +27384,11 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 26,
-				["min"] = 13,
+				["min"] = 23,
+			},
+			["Gloves"] = {
+				["max"] = 14,
+				["min"] = 8,
 			},
 			["Helmet"] = {
 				["max"] = 16,
@@ -27442,11 +27414,11 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 26,
-				["min"] = 13,
+				["min"] = 23,
 			},
 			["Gloves"] = {
 				["max"] = 19,
-				["min"] = 17,
+				["min"] = 8,
 			},
 			["Helmet"] = {
 				["max"] = 22,
@@ -27472,11 +27444,11 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 26,
-				["min"] = 13,
+				["min"] = 23,
 			},
 			["Gloves"] = {
 				["max"] = 19,
-				["min"] = 17,
+				["min"] = 8,
 			},
 			["Helmet"] = {
 				["max"] = 22,
@@ -27502,11 +27474,11 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 26,
-				["min"] = 13,
+				["min"] = 23,
 			},
 			["Gloves"] = {
 				["max"] = 19,
-				["min"] = 17,
+				["min"] = 8,
 			},
 			["Helmet"] = {
 				["max"] = 22,
@@ -27602,7 +27574,7 @@ return {
 		["1571_PercentageLifeAndMana"] = {
 			["Chest"] = {
 				["max"] = 10,
-				["min"] = 5,
+				["min"] = 9,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -27638,7 +27610,7 @@ return {
 			},
 			["Gloves"] = {
 				["max"] = 33.3,
-				["min"] = 33.3,
+				["min"] = 15,
 			},
 			["Helmet"] = {
 				["max"] = 33.3,
@@ -27662,17 +27634,57 @@ return {
 			},
 		},
 		["1574_LifeRegeneration"] = {
+			["1HSword"] = {
+				["max"] = 128,
+				["min"] = 1,
+			},
+			["1HWeapon"] = {
+				["max"] = 128,
+				["min"] = 1,
+			},
+			["2HSword"] = {
+				["max"] = 128,
+				["min"] = 1,
+			},
+			["2HWeapon"] = {
+				["max"] = 128,
+				["min"] = 1,
+			},
 			["AbyssJewel"] = {
 				["max"] = 20,
 				["min"] = 9,
 			},
 			["Amulet"] = {
-				["max"] = 64,
+				["max"] = 96,
+				["min"] = 1,
+			},
+			["Belt"] = {
+				["max"] = 128,
+				["min"] = 1,
+			},
+			["Boots"] = {
+				["max"] = 96,
 				["min"] = 1,
 			},
 			["Chest"] = {
 				["max"] = 176,
-				["min"] = 128.1,
+				["min"] = 1,
+			},
+			["Gloves"] = {
+				["max"] = 96,
+				["min"] = 1,
+			},
+			["Helmet"] = {
+				["max"] = 128,
+				["min"] = 1,
+			},
+			["LifeFlask"] = {
+				["max"] = 128,
+				["min"] = 1,
+			},
+			["ManaFlask"] = {
+				["max"] = 128,
+				["min"] = 1,
 			},
 			["Ring"] = {
 				["max"] = 64,
@@ -27680,7 +27692,7 @@ return {
 			},
 			["Shield"] = {
 				["max"] = 152,
-				["min"] = 128.1,
+				["min"] = 1,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -27752,7 +27764,7 @@ return {
 			},
 			["Gloves"] = {
 				["max"] = 21,
-				["min"] = 9,
+				["min"] = 5,
 			},
 			["Helmet"] = {
 				["max"] = 21,
@@ -27848,7 +27860,7 @@ return {
 			},
 			["Gloves"] = {
 				["max"] = 60,
-				["min"] = 55,
+				["min"] = 28,
 			},
 			["Helmet"] = {
 				["max"] = 60,
@@ -27872,33 +27884,9 @@ return {
 			},
 		},
 		["1579_IncreasedMana"] = {
-			["1HAxe"] = {
-				["max"] = 74,
-				["min"] = 35,
-			},
-			["1HMace"] = {
-				["max"] = 74,
-				["min"] = 35,
-			},
-			["1HSword"] = {
-				["max"] = 74,
-				["min"] = 35,
-			},
 			["1HWeapon"] = {
 				["max"] = 159,
 				["min"] = 30,
-			},
-			["2HAxe"] = {
-				["max"] = 94,
-				["min"] = 55,
-			},
-			["2HMace"] = {
-				["max"] = 94,
-				["min"] = 55,
-			},
-			["2HSword"] = {
-				["max"] = 94,
-				["min"] = 55,
 			},
 			["2HWeapon"] = {
 				["max"] = 229,
@@ -28192,6 +28180,10 @@ return {
 				["max"] = 45,
 				["min"] = 17,
 			},
+			["Dagger"] = {
+				["max"] = 45,
+				["min"] = 17,
+			},
 			["Sceptre"] = {
 				["max"] = 45,
 				["min"] = 17,
@@ -28304,7 +28296,7 @@ return {
 		["1580_PercentageLifeAndMana"] = {
 			["Chest"] = {
 				["max"] = 10,
-				["min"] = 5,
+				["min"] = 9,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -28337,6 +28329,10 @@ return {
 			["AbyssJewel"] = {
 				["max"] = 0.5,
 				["min"] = 0.5,
+			},
+			["Dagger"] = {
+				["max"] = 0.4,
+				["min"] = 0.3,
 			},
 			["Helmet"] = {
 				["max"] = 0.5,
@@ -28410,7 +28406,7 @@ return {
 			},
 			["Gloves"] = {
 				["max"] = 5.3,
-				["min"] = 5.3,
+				["min"] = 2,
 			},
 			["Helmet"] = {
 				["max"] = 5.3,
@@ -28514,33 +28510,9 @@ return {
 			},
 		},
 		["1584_ManaRegeneration"] = {
-			["1HAxe"] = {
-				["max"] = 40,
-				["min"] = 20,
-			},
-			["1HMace"] = {
-				["max"] = 40,
-				["min"] = 20,
-			},
-			["1HSword"] = {
-				["max"] = 40,
-				["min"] = 20,
-			},
 			["1HWeapon"] = {
 				["max"] = 69,
 				["min"] = 10,
-			},
-			["2HAxe"] = {
-				["max"] = 60,
-				["min"] = 30,
-			},
-			["2HMace"] = {
-				["max"] = 60,
-				["min"] = 30,
-			},
-			["2HSword"] = {
-				["max"] = 60,
-				["min"] = 30,
 			},
 			["2HWeapon"] = {
 				["max"] = 105,
@@ -28612,35 +28584,35 @@ return {
 		["1584_SpellDamageAndManaRegenerationRate"] = {
 			["1HAxe"] = {
 				["max"] = 20,
-				["min"] = 7,
+				["min"] = 18,
 			},
 			["1HMace"] = {
 				["max"] = 20,
-				["min"] = 7,
+				["min"] = 18,
 			},
 			["1HSword"] = {
 				["max"] = 20,
-				["min"] = 7,
+				["min"] = 18,
 			},
 			["1HWeapon"] = {
 				["max"] = 20,
-				["min"] = 7,
+				["min"] = 18,
 			},
 			["2HAxe"] = {
 				["max"] = 40,
-				["min"] = 16,
+				["min"] = 36,
 			},
 			["2HMace"] = {
 				["max"] = 40,
-				["min"] = 16,
+				["min"] = 36,
 			},
 			["2HSword"] = {
 				["max"] = 40,
-				["min"] = 16,
+				["min"] = 36,
 			},
 			["2HWeapon"] = {
 				["max"] = 40,
-				["min"] = 16,
+				["min"] = 36,
 			},
 			["Claw"] = {
 				["max"] = 20,
@@ -28926,6 +28898,10 @@ return {
 				["max"] = 2,
 				["min"] = 1,
 			},
+			["Dagger"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
 			["Sceptre"] = {
 				["max"] = 1,
 				["min"] = 1,
@@ -28954,6 +28930,10 @@ return {
 			},
 			["2HWeapon"] = {
 				["max"] = 3,
+				["min"] = 1,
+			},
+			["Dagger"] = {
+				["max"] = 1,
 				["min"] = 1,
 			},
 			["Sceptre"] = {
@@ -29102,6 +29082,10 @@ return {
 				["max"] = 3,
 				["min"] = 1,
 			},
+			["Dagger"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
 			["Sceptre"] = {
 				["max"] = 1,
 				["min"] = 1,
@@ -29134,6 +29118,10 @@ return {
 			},
 			["2HWeapon"] = {
 				["max"] = 3,
+				["min"] = 1,
+			},
+			["Dagger"] = {
+				["max"] = 1,
 				["min"] = 1,
 			},
 			["Sceptre"] = {
@@ -29170,6 +29158,10 @@ return {
 				["max"] = 3,
 				["min"] = 1,
 			},
+			["Dagger"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
 			["Sceptre"] = {
 				["max"] = 1,
 				["min"] = 1,
@@ -29202,6 +29194,10 @@ return {
 			},
 			["2HWeapon"] = {
 				["max"] = 3,
+				["min"] = 1,
+			},
+			["Dagger"] = {
+				["max"] = 1,
 				["min"] = 1,
 			},
 			["Shield"] = {
@@ -29301,6 +29297,14 @@ return {
 		},
 		["1619_AllResistancesForJewel"] = {
 			["AbyssJewel"] = {
+				["max"] = 10,
+				["min"] = 8,
+			},
+			["AnyJewel"] = {
+				["max"] = 10,
+				["min"] = 8,
+			},
+			["BaseJewel"] = {
 				["max"] = 10,
 				["min"] = 8,
 			},
@@ -30144,6 +30148,14 @@ return {
 				["max"] = 13,
 				["min"] = 7,
 			},
+			["AnyJewel"] = {
+				["max"] = 13,
+				["min"] = 7,
+			},
+			["BaseJewel"] = {
+				["max"] = 13,
+				["min"] = 7,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -30200,6 +30212,14 @@ return {
 			},
 		},
 		["1645_ChillEffectivenessOnSelf"] = {
+			["AnyJewel"] = {
+				["max"] = 35,
+				["min"] = 30,
+			},
+			["BaseJewel"] = {
+				["max"] = 35,
+				["min"] = 30,
+			},
 			["Ring"] = {
 				["max"] = 60,
 				["min"] = 41,
@@ -30239,7 +30259,7 @@ return {
 				["min"] = 0.2,
 			},
 			["Gloves"] = {
-				["max"] = 0.4,
+				["max"] = 0.5,
 				["min"] = 0.2,
 			},
 			["Quiver"] = {
@@ -30260,6 +30280,14 @@ return {
 			},
 		},
 		["1649_LifeLeechPermyriadForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 0.4,
+				["min"] = 0.2,
+			},
+			["BaseJewel"] = {
+				["max"] = 0.4,
+				["min"] = 0.2,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -30784,6 +30812,14 @@ return {
 			},
 		},
 		["1699_ManaLeechPermyriadForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 0.4,
+				["min"] = 0.2,
+			},
+			["BaseJewel"] = {
+				["max"] = 0.4,
+				["min"] = 0.2,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -30844,35 +30880,35 @@ return {
 		["1701_ManaLeechLocalPermyriad"] = {
 			["1HAxe"] = {
 				["max"] = 3.2,
-				["min"] = 2,
+				["min"] = 2.6,
 			},
 			["1HMace"] = {
 				["max"] = 3.2,
-				["min"] = 2,
+				["min"] = 2.6,
 			},
 			["1HSword"] = {
 				["max"] = 3.2,
-				["min"] = 2,
+				["min"] = 2.6,
 			},
 			["1HWeapon"] = {
 				["max"] = 3.2,
-				["min"] = 2,
+				["min"] = 2.6,
 			},
 			["2HAxe"] = {
 				["max"] = 3.2,
-				["min"] = 2,
+				["min"] = 2.6,
 			},
 			["2HMace"] = {
 				["max"] = 3.2,
-				["min"] = 2,
+				["min"] = 2.6,
 			},
 			["2HSword"] = {
 				["max"] = 3.2,
-				["min"] = 2,
+				["min"] = 2.6,
 			},
 			["2HWeapon"] = {
 				["max"] = 3.2,
-				["min"] = 2,
+				["min"] = 2.6,
 			},
 			["Bow"] = {
 				["max"] = 3.2,
@@ -31137,6 +31173,14 @@ return {
 			},
 		},
 		["1740_LifeGainPerTargetForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 3,
+				["min"] = 2,
+			},
+			["BaseJewel"] = {
+				["max"] = 3,
+				["min"] = 2,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -31193,6 +31237,14 @@ return {
 			},
 		},
 		["1744_ManaGainPerTargetForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 2,
+				["min"] = 1,
+			},
+			["BaseJewel"] = {
+				["max"] = 2,
+				["min"] = 1,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -31221,6 +31273,14 @@ return {
 			},
 		},
 		["1747_EnergyShieldGainPerTargetForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 3,
+				["min"] = 2,
+			},
+			["BaseJewel"] = {
+				["max"] = 3,
+				["min"] = 2,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -31525,35 +31585,35 @@ return {
 		["1766_MinionDamageAndMinionMaximumLife"] = {
 			["1HAxe"] = {
 				["max"] = 38,
-				["min"] = 16,
+				["min"] = 34,
 			},
 			["1HMace"] = {
 				["max"] = 38,
-				["min"] = 16,
+				["min"] = 34,
 			},
 			["1HSword"] = {
 				["max"] = 38,
-				["min"] = 16,
+				["min"] = 34,
 			},
 			["1HWeapon"] = {
 				["max"] = 38,
-				["min"] = 16,
+				["min"] = 34,
 			},
 			["2HAxe"] = {
 				["max"] = 59,
-				["min"] = 26,
+				["min"] = 50,
 			},
 			["2HMace"] = {
 				["max"] = 59,
-				["min"] = 26,
+				["min"] = 50,
 			},
 			["2HSword"] = {
 				["max"] = 59,
-				["min"] = 26,
+				["min"] = 50,
 			},
 			["2HWeapon"] = {
 				["max"] = 59,
-				["min"] = 26,
+				["min"] = 50,
 			},
 			["Bow"] = {
 				["max"] = 59,
@@ -31632,6 +31692,14 @@ return {
 		},
 		["1766_MinionLifeForJewel"] = {
 			["AbyssJewel"] = {
+				["max"] = 12,
+				["min"] = 8,
+			},
+			["AnyJewel"] = {
+				["max"] = 12,
+				["min"] = 8,
+			},
+			["BaseJewel"] = {
 				["max"] = 12,
 				["min"] = 8,
 			},
@@ -31970,7 +32038,7 @@ return {
 		["1796_ProjectileDamageAndProjectileSpeed"] = {
 			["Gloves"] = {
 				["max"] = 25,
-				["min"] = 23,
+				["min"] = 10,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -32711,7 +32779,7 @@ return {
 		["1843_AvoidStunAndElementalStatusAilments"] = {
 			["Chest"] = {
 				["max"] = 35,
-				["min"] = 20,
+				["min"] = 30,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -33043,7 +33111,7 @@ return {
 			},
 			["Gloves"] = {
 				["max"] = 50,
-				["min"] = 23,
+				["min"] = 15,
 			},
 			["Helmet"] = {
 				["max"] = 44,
@@ -33065,7 +33133,7 @@ return {
 		["1851_AvoidStunAndElementalStatusAilments"] = {
 			["Chest"] = {
 				["max"] = 35,
-				["min"] = 20,
+				["min"] = 30,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -33491,6 +33559,14 @@ return {
 			},
 		},
 		["1875_ReducedIgniteDurationOnSelf"] = {
+			["AnyJewel"] = {
+				["max"] = 35,
+				["min"] = 30,
+			},
+			["BaseJewel"] = {
+				["max"] = 35,
+				["min"] = 30,
+			},
 			["Ring"] = {
 				["max"] = 60,
 				["min"] = 41,
@@ -33545,6 +33621,14 @@ return {
 			},
 		},
 		["1877_BurningDamageForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["BaseJewel"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -33595,7 +33679,7 @@ return {
 		["1880_AreaDamageAndAreaOfEffect"] = {
 			["Gloves"] = {
 				["max"] = 16,
-				["min"] = 14,
+				["min"] = 6,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -33755,6 +33839,10 @@ return {
 				["max"] = 15,
 				["min"] = 5,
 			},
+			["Dagger"] = {
+				["max"] = 15,
+				["min"] = 5,
+			},
 			["Sceptre"] = {
 				["max"] = 15,
 				["min"] = 5,
@@ -33893,35 +33981,35 @@ return {
 		["1896_ChaosDamageAndChaosSkillDuration"] = {
 			["1HAxe"] = {
 				["max"] = 15,
-				["min"] = 7,
+				["min"] = 13,
 			},
 			["1HMace"] = {
 				["max"] = 15,
-				["min"] = 7,
+				["min"] = 13,
 			},
 			["1HSword"] = {
 				["max"] = 15,
-				["min"] = 7,
+				["min"] = 13,
 			},
 			["1HWeapon"] = {
 				["max"] = 15,
-				["min"] = 7,
+				["min"] = 13,
 			},
 			["2HAxe"] = {
 				["max"] = 30,
-				["min"] = 15,
+				["min"] = 26,
 			},
 			["2HMace"] = {
 				["max"] = 30,
-				["min"] = 15,
+				["min"] = 26,
 			},
 			["2HSword"] = {
 				["max"] = 30,
-				["min"] = 15,
+				["min"] = 26,
 			},
 			["2HWeapon"] = {
 				["max"] = 30,
-				["min"] = 15,
+				["min"] = 26,
 			},
 			["Claw"] = {
 				["max"] = 15,
@@ -33997,38 +34085,6 @@ return {
 			},
 		},
 		["189_LocalIncreaseSocketedSupportGemLevel"] = {
-			["1HAxe"] = {
-				["max"] = 2,
-				["min"] = 1,
-			},
-			["1HMace"] = {
-				["max"] = 2,
-				["min"] = 1,
-			},
-			["1HSword"] = {
-				["max"] = 2,
-				["min"] = 1,
-			},
-			["1HWeapon"] = {
-				["max"] = 2,
-				["min"] = 1,
-			},
-			["2HAxe"] = {
-				["max"] = 2,
-				["min"] = 1,
-			},
-			["2HMace"] = {
-				["max"] = 2,
-				["min"] = 1,
-			},
-			["2HSword"] = {
-				["max"] = 2,
-				["min"] = 1,
-			},
-			["2HWeapon"] = {
-				["max"] = 2,
-				["min"] = 1,
-			},
 			["Bow"] = {
 				["max"] = 2,
 				["min"] = 1,
@@ -34457,38 +34513,6 @@ return {
 			},
 		},
 		["1927_TrapThrowSpeedOnWeapon"] = {
-			["1HAxe"] = {
-				["max"] = 15,
-				["min"] = 9,
-			},
-			["1HMace"] = {
-				["max"] = 15,
-				["min"] = 9,
-			},
-			["1HSword"] = {
-				["max"] = 15,
-				["min"] = 9,
-			},
-			["1HWeapon"] = {
-				["max"] = 15,
-				["min"] = 9,
-			},
-			["2HAxe"] = {
-				["max"] = 23,
-				["min"] = 17,
-			},
-			["2HMace"] = {
-				["max"] = 23,
-				["min"] = 17,
-			},
-			["2HSword"] = {
-				["max"] = 23,
-				["min"] = 17,
-			},
-			["2HWeapon"] = {
-				["max"] = 23,
-				["min"] = 17,
-			},
 			["Bow"] = {
 				["max"] = 23,
 				["min"] = 17,
@@ -34559,38 +34583,6 @@ return {
 			},
 		},
 		["1928_MineLayingSpeedOnWeapon"] = {
-			["1HAxe"] = {
-				["max"] = 15,
-				["min"] = 9,
-			},
-			["1HMace"] = {
-				["max"] = 15,
-				["min"] = 9,
-			},
-			["1HSword"] = {
-				["max"] = 15,
-				["min"] = 9,
-			},
-			["1HWeapon"] = {
-				["max"] = 15,
-				["min"] = 9,
-			},
-			["2HAxe"] = {
-				["max"] = 23,
-				["min"] = 17,
-			},
-			["2HMace"] = {
-				["max"] = 23,
-				["min"] = 17,
-			},
-			["2HSword"] = {
-				["max"] = 23,
-				["min"] = 17,
-			},
-			["2HWeapon"] = {
-				["max"] = 23,
-				["min"] = 17,
-			},
 			["Bow"] = {
 				["max"] = 23,
 				["min"] = 17,
@@ -34899,38 +34891,6 @@ return {
 			},
 		},
 		["1935_PhysicalAddedAsChaos"] = {
-			["1HAxe"] = {
-				["max"] = 8,
-				["min"] = 5,
-			},
-			["1HMace"] = {
-				["max"] = 8,
-				["min"] = 5,
-			},
-			["1HSword"] = {
-				["max"] = 8,
-				["min"] = 5,
-			},
-			["1HWeapon"] = {
-				["max"] = 8,
-				["min"] = 5,
-			},
-			["2HAxe"] = {
-				["max"] = 16,
-				["min"] = 11,
-			},
-			["2HMace"] = {
-				["max"] = 16,
-				["min"] = 11,
-			},
-			["2HSword"] = {
-				["max"] = 16,
-				["min"] = 11,
-			},
-			["2HWeapon"] = {
-				["max"] = 16,
-				["min"] = 11,
-			},
 			["Bow"] = {
 				["max"] = 16,
 				["min"] = 11,
@@ -34979,38 +34939,6 @@ return {
 			},
 		},
 		["1938_LightningAddedAsChaos"] = {
-			["1HAxe"] = {
-				["max"] = 8,
-				["min"] = 5,
-			},
-			["1HMace"] = {
-				["max"] = 8,
-				["min"] = 5,
-			},
-			["1HSword"] = {
-				["max"] = 8,
-				["min"] = 5,
-			},
-			["1HWeapon"] = {
-				["max"] = 8,
-				["min"] = 5,
-			},
-			["2HAxe"] = {
-				["max"] = 16,
-				["min"] = 11,
-			},
-			["2HMace"] = {
-				["max"] = 16,
-				["min"] = 11,
-			},
-			["2HSword"] = {
-				["max"] = 16,
-				["min"] = 11,
-			},
-			["2HWeapon"] = {
-				["max"] = 16,
-				["min"] = 11,
-			},
 			["Bow"] = {
 				["max"] = 16,
 				["min"] = 11,
@@ -35059,38 +34987,6 @@ return {
 			},
 		},
 		["1940_ColdAddedAsChaos"] = {
-			["1HAxe"] = {
-				["max"] = 8,
-				["min"] = 5,
-			},
-			["1HMace"] = {
-				["max"] = 8,
-				["min"] = 5,
-			},
-			["1HSword"] = {
-				["max"] = 8,
-				["min"] = 5,
-			},
-			["1HWeapon"] = {
-				["max"] = 8,
-				["min"] = 5,
-			},
-			["2HAxe"] = {
-				["max"] = 16,
-				["min"] = 11,
-			},
-			["2HMace"] = {
-				["max"] = 16,
-				["min"] = 11,
-			},
-			["2HSword"] = {
-				["max"] = 16,
-				["min"] = 11,
-			},
-			["2HWeapon"] = {
-				["max"] = 16,
-				["min"] = 11,
-			},
 			["Bow"] = {
 				["max"] = 16,
 				["min"] = 11,
@@ -35139,38 +35035,6 @@ return {
 			},
 		},
 		["1941_FireAddedAsChaos"] = {
-			["1HAxe"] = {
-				["max"] = 8,
-				["min"] = 5,
-			},
-			["1HMace"] = {
-				["max"] = 8,
-				["min"] = 5,
-			},
-			["1HSword"] = {
-				["max"] = 8,
-				["min"] = 5,
-			},
-			["1HWeapon"] = {
-				["max"] = 8,
-				["min"] = 5,
-			},
-			["2HAxe"] = {
-				["max"] = 16,
-				["min"] = 11,
-			},
-			["2HMace"] = {
-				["max"] = 16,
-				["min"] = 11,
-			},
-			["2HSword"] = {
-				["max"] = 16,
-				["min"] = 11,
-			},
-			["2HWeapon"] = {
-				["max"] = 16,
-				["min"] = 11,
-			},
 			["Bow"] = {
 				["max"] = 16,
 				["min"] = 11,
@@ -35647,7 +35511,7 @@ return {
 			},
 			["Gloves"] = {
 				["max"] = 45,
-				["min"] = 13,
+				["min"] = 10,
 			},
 			["Helmet"] = {
 				["max"] = 30,
@@ -35669,35 +35533,35 @@ return {
 		["1973_MinionDamageAndMinionMaximumLife"] = {
 			["1HAxe"] = {
 				["max"] = 38,
-				["min"] = 16,
+				["min"] = 34,
 			},
 			["1HMace"] = {
 				["max"] = 38,
-				["min"] = 16,
+				["min"] = 34,
 			},
 			["1HSword"] = {
 				["max"] = 38,
-				["min"] = 16,
+				["min"] = 34,
 			},
 			["1HWeapon"] = {
 				["max"] = 38,
-				["min"] = 16,
+				["min"] = 34,
 			},
 			["2HAxe"] = {
 				["max"] = 59,
-				["min"] = 26,
+				["min"] = 50,
 			},
 			["2HMace"] = {
 				["max"] = 59,
-				["min"] = 26,
+				["min"] = 50,
 			},
 			["2HSword"] = {
 				["max"] = 59,
-				["min"] = 26,
+				["min"] = 50,
 			},
 			["2HWeapon"] = {
 				["max"] = 59,
-				["min"] = 26,
+				["min"] = 50,
 			},
 			["Bow"] = {
 				["max"] = 59,
@@ -35733,6 +35597,14 @@ return {
 			},
 		},
 		["1973_MinionDamageForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
+			["BaseJewel"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -35745,15 +35617,15 @@ return {
 		["1973_MinionDamageOnWeapon"] = {
 			["1HAxe"] = {
 				["max"] = 80,
-				["min"] = 25,
+				["min"] = 30,
 			},
 			["1HMace"] = {
 				["max"] = 80,
-				["min"] = 25,
+				["min"] = 30,
 			},
 			["1HSword"] = {
 				["max"] = 80,
-				["min"] = 25,
+				["min"] = 30,
 			},
 			["1HWeapon"] = {
 				["max"] = 109,
@@ -35761,19 +35633,19 @@ return {
 			},
 			["2HAxe"] = {
 				["max"] = 130,
-				["min"] = 37,
+				["min"] = 51,
 			},
 			["2HMace"] = {
 				["max"] = 130,
-				["min"] = 37,
+				["min"] = 51,
 			},
 			["2HSword"] = {
 				["max"] = 130,
-				["min"] = 37,
+				["min"] = 51,
 			},
 			["2HWeapon"] = {
 				["max"] = 130,
-				["min"] = 37,
+				["min"] = 51,
 			},
 			["AbyssJewel"] = {
 				["max"] = 130,
@@ -36071,6 +35943,14 @@ return {
 			},
 		},
 		["1995_KnockbackChanceForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 6,
+				["min"] = 4,
+			},
+			["BaseJewel"] = {
+				["max"] = 6,
+				["min"] = 4,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -36083,7 +35963,7 @@ return {
 		["1996_ProjectileDamageAndProjectileSpeed"] = {
 			["Gloves"] = {
 				["max"] = 20,
-				["min"] = 17,
+				["min"] = 9,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -36163,38 +36043,6 @@ return {
 			},
 		},
 		["19_ItemGenerationCannotChangePrefixes"] = {
-			["1HAxe"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["1HMace"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["1HSword"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["1HWeapon"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HAxe"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HMace"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HSword"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HWeapon"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
 			["Amulet"] = {
 				["max"] = 1,
 				["min"] = 1,
@@ -36211,15 +36059,15 @@ return {
 				["max"] = 1,
 				["min"] = 1,
 			},
-			["Chest"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
 			["Claw"] = {
 				["max"] = 1,
 				["min"] = 1,
 			},
 			["Dagger"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["Gloves"] = {
 				["max"] = 1,
 				["min"] = 1,
 			},
@@ -36382,35 +36230,35 @@ return {
 		["2024_LocalAccuracyRatingStrengthDexterity"] = {
 			["1HAxe"] = {
 				["max"] = 350,
-				["min"] = 161,
+				["min"] = 311,
 			},
 			["1HMace"] = {
 				["max"] = 350,
-				["min"] = 161,
+				["min"] = 311,
 			},
 			["1HSword"] = {
 				["max"] = 350,
-				["min"] = 161,
+				["min"] = 311,
 			},
 			["1HWeapon"] = {
 				["max"] = 350,
-				["min"] = 161,
+				["min"] = 311,
 			},
 			["2HAxe"] = {
 				["max"] = 350,
-				["min"] = 161,
+				["min"] = 311,
 			},
 			["2HMace"] = {
 				["max"] = 350,
-				["min"] = 161,
+				["min"] = 311,
 			},
 			["2HSword"] = {
 				["max"] = 350,
-				["min"] = 161,
+				["min"] = 311,
 			},
 			["2HWeapon"] = {
 				["max"] = 350,
-				["min"] = 161,
+				["min"] = 311,
 			},
 			["Bow"] = {
 				["max"] = 350,
@@ -36567,35 +36415,35 @@ return {
 		["2026_FireDamageAndChanceToIgnite"] = {
 			["1HAxe"] = {
 				["max"] = 23,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["1HMace"] = {
 				["max"] = 23,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["1HSword"] = {
 				["max"] = 23,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["1HWeapon"] = {
 				["max"] = 23,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["2HAxe"] = {
 				["max"] = 40,
-				["min"] = 21,
+				["min"] = 35,
 			},
 			["2HMace"] = {
 				["max"] = 40,
-				["min"] = 21,
+				["min"] = 35,
 			},
 			["2HSword"] = {
 				["max"] = 40,
-				["min"] = 21,
+				["min"] = 35,
 			},
 			["2HWeapon"] = {
 				["max"] = 40,
-				["min"] = 21,
+				["min"] = 35,
 			},
 			["Claw"] = {
 				["max"] = 23,
@@ -36715,35 +36563,35 @@ return {
 		["2029_ColdDamageAndBaseChanceToFreeze"] = {
 			["1HAxe"] = {
 				["max"] = 23,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["1HMace"] = {
 				["max"] = 23,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["1HSword"] = {
 				["max"] = 23,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["1HWeapon"] = {
 				["max"] = 23,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["2HAxe"] = {
 				["max"] = 40,
-				["min"] = 21,
+				["min"] = 35,
 			},
 			["2HMace"] = {
 				["max"] = 40,
-				["min"] = 21,
+				["min"] = 35,
 			},
 			["2HSword"] = {
 				["max"] = 40,
-				["min"] = 21,
+				["min"] = 35,
 			},
 			["2HWeapon"] = {
 				["max"] = 40,
-				["min"] = 21,
+				["min"] = 35,
 			},
 			["Claw"] = {
 				["max"] = 23,
@@ -36863,35 +36711,35 @@ return {
 		["2033_LightningDamageAndChanceToShock"] = {
 			["1HAxe"] = {
 				["max"] = 23,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["1HMace"] = {
 				["max"] = 23,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["1HSword"] = {
 				["max"] = 23,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["1HWeapon"] = {
 				["max"] = 23,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["2HAxe"] = {
 				["max"] = 40,
-				["min"] = 21,
+				["min"] = 35,
 			},
 			["2HMace"] = {
 				["max"] = 40,
-				["min"] = 21,
+				["min"] = 35,
 			},
 			["2HSword"] = {
 				["max"] = 40,
-				["min"] = 21,
+				["min"] = 35,
 			},
 			["2HWeapon"] = {
 				["max"] = 40,
-				["min"] = 21,
+				["min"] = 35,
 			},
 			["Claw"] = {
 				["max"] = 23,
@@ -36971,7 +36819,7 @@ return {
 		["2035_AreaDamageAndAreaOfEffect"] = {
 			["Gloves"] = {
 				["max"] = 20,
-				["min"] = 17,
+				["min"] = 9,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -36983,6 +36831,14 @@ return {
 			},
 		},
 		["2035_AreaDamageForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 12,
+				["min"] = 10,
+			},
+			["BaseJewel"] = {
+				["max"] = 12,
+				["min"] = 10,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -37145,38 +37001,6 @@ return {
 			},
 		},
 		["2043_AlwaysHits"] = {
-			["1HAxe"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["1HMace"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["1HSword"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["1HWeapon"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HAxe"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HMace"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HSword"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HWeapon"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
 			["Claw"] = {
 				["max"] = 1,
 				["min"] = 1,
@@ -37220,6 +37044,14 @@ return {
 			},
 		},
 		["2046_AttackAndCastSpeedForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 4,
+				["min"] = 2,
+			},
+			["BaseJewel"] = {
+				["max"] = 4,
+				["min"] = 2,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -37258,38 +37090,6 @@ return {
 			},
 		},
 		["204_SocketedGemQuality"] = {
-			["1HAxe"] = {
-				["max"] = 8,
-				["min"] = 6,
-			},
-			["1HMace"] = {
-				["max"] = 8,
-				["min"] = 6,
-			},
-			["1HSword"] = {
-				["max"] = 8,
-				["min"] = 6,
-			},
-			["1HWeapon"] = {
-				["max"] = 8,
-				["min"] = 6,
-			},
-			["2HAxe"] = {
-				["max"] = 8,
-				["min"] = 6,
-			},
-			["2HMace"] = {
-				["max"] = 8,
-				["min"] = 6,
-			},
-			["2HSword"] = {
-				["max"] = 8,
-				["min"] = 6,
-			},
-			["2HWeapon"] = {
-				["max"] = 8,
-				["min"] = 6,
-			},
 			["Bow"] = {
 				["max"] = 8,
 				["min"] = 6,
@@ -38587,6 +38387,14 @@ return {
 			},
 		},
 		["2170_CurseEffectOnYouJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 30,
+				["min"] = 25,
+			},
+			["BaseJewel"] = {
+				["max"] = 30,
+				["min"] = 25,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -38670,6 +38478,14 @@ return {
 			},
 		},
 		["2187_BeltIncreasedFlaskDuration"] = {
+			["AnyJewel"] = {
+				["max"] = 10,
+				["min"] = 6,
+			},
+			["BaseJewel"] = {
+				["max"] = 10,
+				["min"] = 6,
+			},
 			["Belt"] = {
 				["max"] = 33,
 				["min"] = 4,
@@ -38803,6 +38619,14 @@ return {
 			["Amulet"] = {
 				["max"] = 14,
 				["min"] = 4,
+			},
+			["AnyJewel"] = {
+				["max"] = 3,
+				["min"] = 2,
+			},
+			["BaseJewel"] = {
+				["max"] = 3,
+				["min"] = 2,
 			},
 			["Body Armour"] = {
 				["max"] = 10,
@@ -39026,35 +38850,35 @@ return {
 		["2263_LocalIncreasedPhysicalDamageAndBlindChance"] = {
 			["1HAxe"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["1HMace"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["1HSword"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["1HWeapon"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["2HAxe"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["2HMace"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["2HSword"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["2HWeapon"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["Bow"] = {
 				["max"] = 25,
@@ -39152,7 +38976,7 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 8,
-				["min"] = 2,
+				["min"] = 4,
 			},
 			["Quiver"] = {
 				["max"] = 5,
@@ -39252,38 +39076,6 @@ return {
 			},
 		},
 		["23_ItemGenerationCannotChangeSuffixes"] = {
-			["1HAxe"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["1HMace"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["1HSword"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["1HWeapon"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HAxe"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HMace"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HSword"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HWeapon"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
 			["Amulet"] = {
 				["max"] = 1,
 				["min"] = 1,
@@ -39300,15 +39092,15 @@ return {
 				["max"] = 1,
 				["min"] = 1,
 			},
-			["Chest"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
 			["Claw"] = {
 				["max"] = 1,
 				["min"] = 1,
 			},
 			["Dagger"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["Gloves"] = {
 				["max"] = 1,
 				["min"] = 1,
 			},
@@ -39767,38 +39559,6 @@ return {
 			},
 		},
 		["2483_LocalAddedPhysicalDamageAndCausesBleeding"] = {
-			["1HAxe"] = {
-				["max"] = 40,
-				["min"] = 35,
-			},
-			["1HMace"] = {
-				["max"] = 40,
-				["min"] = 35,
-			},
-			["1HSword"] = {
-				["max"] = 40,
-				["min"] = 35,
-			},
-			["1HWeapon"] = {
-				["max"] = 40,
-				["min"] = 35,
-			},
-			["2HAxe"] = {
-				["max"] = 40,
-				["min"] = 35,
-			},
-			["2HMace"] = {
-				["max"] = 40,
-				["min"] = 35,
-			},
-			["2HSword"] = {
-				["max"] = 40,
-				["min"] = 35,
-			},
-			["2HWeapon"] = {
-				["max"] = 40,
-				["min"] = 35,
-			},
 			["Bow"] = {
 				["max"] = 40,
 				["min"] = 35,
@@ -39845,35 +39605,35 @@ return {
 		["2483_LocalIncreasedPhysicalDamageAndBleedChance"] = {
 			["1HAxe"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["1HMace"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["1HSword"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["1HWeapon"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["2HAxe"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["2HMace"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["2HSword"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["2HWeapon"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["Bow"] = {
 				["max"] = 25,
@@ -39993,38 +39753,6 @@ return {
 			},
 		},
 		["24_ItemGenerationCannotRollCasterAffixes"] = {
-			["1HAxe"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["1HMace"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["1HSword"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["1HWeapon"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HAxe"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HMace"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HSword"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HWeapon"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
 			["Amulet"] = {
 				["max"] = 1,
 				["min"] = 1,
@@ -40041,15 +39769,15 @@ return {
 				["max"] = 1,
 				["min"] = 1,
 			},
-			["Chest"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
 			["Claw"] = {
 				["max"] = 1,
 				["min"] = 1,
 			},
 			["Dagger"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["Gloves"] = {
 				["max"] = 1,
 				["min"] = 1,
 			},
@@ -40391,7 +40119,7 @@ return {
 		["2534_MeleeDamageAndMeleeRange"] = {
 			["Gloves"] = {
 				["max"] = 0.4,
-				["min"] = 0.2,
+				["min"] = 0.1,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -40599,38 +40327,6 @@ return {
 			},
 		},
 		["25_ItemGenerationCannotRollAttackAffixes"] = {
-			["1HAxe"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["1HMace"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["1HSword"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["1HWeapon"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HAxe"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HMace"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HSword"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HWeapon"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
 			["Amulet"] = {
 				["max"] = 1,
 				["min"] = 1,
@@ -40647,15 +40343,15 @@ return {
 				["max"] = 1,
 				["min"] = 1,
 			},
-			["Chest"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
 			["Claw"] = {
 				["max"] = 1,
 				["min"] = 1,
 			},
 			["Dagger"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["Gloves"] = {
 				["max"] = 1,
 				["min"] = 1,
 			},
@@ -41159,6 +40855,10 @@ return {
 				["max"] = 20,
 				["min"] = 16,
 			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
 			["Sceptre"] = {
 				["max"] = 20,
 				["min"] = 16,
@@ -41223,38 +40923,6 @@ return {
 			},
 		},
 		["26_ItemGenerationCanHaveMultipleCraftedMods"] = {
-			["1HAxe"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["1HMace"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["1HSword"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["1HWeapon"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HAxe"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HMace"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HSword"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["2HWeapon"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
 			["Amulet"] = {
 				["max"] = 1,
 				["min"] = 1,
@@ -41271,15 +40939,15 @@ return {
 				["max"] = 1,
 				["min"] = 1,
 			},
-			["Chest"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
 			["Claw"] = {
 				["max"] = 1,
 				["min"] = 1,
 			},
 			["Dagger"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["Gloves"] = {
 				["max"] = 1,
 				["min"] = 1,
 			},
@@ -41541,7 +41209,7 @@ return {
 				["max"] = 20,
 				["min"] = 10,
 			},
-			["Chest"] = {
+			["Gloves"] = {
 				["max"] = 20,
 				["min"] = 10,
 			},
@@ -41605,7 +41273,7 @@ return {
 				["max"] = 20,
 				["min"] = 10,
 			},
-			["Chest"] = {
+			["Gloves"] = {
 				["max"] = 20,
 				["min"] = 10,
 			},
@@ -41669,7 +41337,7 @@ return {
 				["max"] = 20,
 				["min"] = 10,
 			},
-			["Chest"] = {
+			["Gloves"] = {
 				["max"] = 20,
 				["min"] = 10,
 			},
@@ -41978,35 +41646,35 @@ return {
 		["2907_MinionAttackAndCastSpeedOnWeapon"] = {
 			["1HAxe"] = {
 				["max"] = 20,
-				["min"] = 10,
+				["min"] = 18,
 			},
 			["1HMace"] = {
 				["max"] = 20,
-				["min"] = 10,
+				["min"] = 18,
 			},
 			["1HSword"] = {
 				["max"] = 20,
-				["min"] = 10,
+				["min"] = 18,
 			},
 			["1HWeapon"] = {
 				["max"] = 20,
-				["min"] = 10,
+				["min"] = 18,
 			},
 			["2HAxe"] = {
 				["max"] = 38,
-				["min"] = 19,
+				["min"] = 34,
 			},
 			["2HMace"] = {
 				["max"] = 38,
-				["min"] = 19,
+				["min"] = 34,
 			},
 			["2HSword"] = {
 				["max"] = 38,
-				["min"] = 19,
+				["min"] = 34,
 			},
 			["2HWeapon"] = {
 				["max"] = 38,
-				["min"] = 19,
+				["min"] = 34,
 			},
 			["Bow"] = {
 				["max"] = 38,
@@ -42066,35 +41734,35 @@ return {
 		["2908_MinionAttackAndCastSpeedOnWeapon"] = {
 			["1HAxe"] = {
 				["max"] = 20,
-				["min"] = 10,
+				["min"] = 18,
 			},
 			["1HMace"] = {
 				["max"] = 20,
-				["min"] = 10,
+				["min"] = 18,
 			},
 			["1HSword"] = {
 				["max"] = 20,
-				["min"] = 10,
+				["min"] = 18,
 			},
 			["1HWeapon"] = {
 				["max"] = 20,
-				["min"] = 10,
+				["min"] = 18,
 			},
 			["2HAxe"] = {
 				["max"] = 38,
-				["min"] = 19,
+				["min"] = 34,
 			},
 			["2HMace"] = {
 				["max"] = 38,
-				["min"] = 19,
+				["min"] = 34,
 			},
 			["2HSword"] = {
 				["max"] = 38,
-				["min"] = 19,
+				["min"] = 34,
 			},
 			["2HWeapon"] = {
 				["max"] = 38,
-				["min"] = 19,
+				["min"] = 34,
 			},
 			["Bow"] = {
 				["max"] = 38,
@@ -42212,6 +41880,14 @@ return {
 				["max"] = 10,
 				["min"] = 6,
 			},
+			["AnyJewel"] = {
+				["max"] = 15,
+				["min"] = 11,
+			},
+			["BaseJewel"] = {
+				["max"] = 15,
+				["min"] = 11,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -42262,6 +41938,14 @@ return {
 			},
 		},
 		["2943_IncreasedWandDamageForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
+			["BaseJewel"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -42543,6 +42227,10 @@ return {
 				["max"] = 7,
 				["min"] = 5,
 			},
+			["Dagger"] = {
+				["max"] = 4,
+				["min"] = 4,
+			},
 			["Sceptre"] = {
 				["max"] = 4,
 				["min"] = 4,
@@ -42683,6 +42371,10 @@ return {
 				["max"] = 7,
 				["min"] = 5,
 			},
+			["Dagger"] = {
+				["max"] = 4,
+				["min"] = 4,
+			},
 			["Sceptre"] = {
 				["max"] = 4,
 				["min"] = 4,
@@ -42822,6 +42514,10 @@ return {
 			["2HWeapon"] = {
 				["max"] = 7,
 				["min"] = 5,
+			},
+			["Dagger"] = {
+				["max"] = 4,
+				["min"] = 4,
 			},
 			["Sceptre"] = {
 				["max"] = 4,
@@ -43059,6 +42755,10 @@ return {
 				["max"] = 43,
 				["min"] = 31,
 			},
+			["Gloves"] = {
+				["max"] = 43,
+				["min"] = 31,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -43089,6 +42789,10 @@ return {
 			},
 			["Belt"] = {
 				["max"] = 40,
+				["min"] = 20,
+			},
+			["Gloves"] = {
+				["max"] = 60,
 				["min"] = 20,
 			},
 			["Ring"] = {
@@ -43212,6 +42916,10 @@ return {
 		},
 		["313_CriticalStrikeChanceSpellsSupported"] = {
 			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Dagger"] = {
 				["max"] = 20,
 				["min"] = 18,
 			},
@@ -43693,35 +43401,35 @@ return {
 		["3199_DamagePerEnduranceCharge"] = {
 			["1HAxe"] = {
 				["max"] = 6,
-				["min"] = 3,
+				["min"] = 5,
 			},
 			["1HMace"] = {
 				["max"] = 6,
-				["min"] = 3,
+				["min"] = 5,
 			},
 			["1HSword"] = {
 				["max"] = 6,
-				["min"] = 3,
+				["min"] = 5,
 			},
 			["1HWeapon"] = {
 				["max"] = 10,
-				["min"] = 3,
+				["min"] = 5,
 			},
 			["2HAxe"] = {
 				["max"] = 8,
-				["min"] = 5,
+				["min"] = 7,
 			},
 			["2HMace"] = {
 				["max"] = 8,
-				["min"] = 5,
+				["min"] = 7,
 			},
 			["2HSword"] = {
 				["max"] = 8,
-				["min"] = 5,
+				["min"] = 7,
 			},
 			["2HWeapon"] = {
 				["max"] = 17,
-				["min"] = 5,
+				["min"] = 7,
 			},
 			["Amulet"] = {
 				["max"] = 6,
@@ -43861,6 +43569,10 @@ return {
 				["max"] = 20,
 				["min"] = 16,
 			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
 			["Sceptre"] = {
 				["max"] = 20,
 				["min"] = 16,
@@ -43913,35 +43625,35 @@ return {
 		["3286_DamagePerFrenzyCharge"] = {
 			["1HAxe"] = {
 				["max"] = 6,
-				["min"] = 3,
+				["min"] = 5,
 			},
 			["1HMace"] = {
 				["max"] = 6,
-				["min"] = 3,
+				["min"] = 5,
 			},
 			["1HSword"] = {
 				["max"] = 6,
-				["min"] = 3,
+				["min"] = 5,
 			},
 			["1HWeapon"] = {
-				["max"] = 6,
-				["min"] = 3,
+				["max"] = 10,
+				["min"] = 5,
 			},
 			["2HAxe"] = {
 				["max"] = 8,
-				["min"] = 5,
+				["min"] = 7,
 			},
 			["2HMace"] = {
 				["max"] = 8,
-				["min"] = 5,
+				["min"] = 7,
 			},
 			["2HSword"] = {
 				["max"] = 8,
-				["min"] = 5,
+				["min"] = 7,
 			},
 			["2HWeapon"] = {
 				["max"] = 8,
-				["min"] = 5,
+				["min"] = 7,
 			},
 			["Amulet"] = {
 				["max"] = 6,
@@ -43956,7 +43668,7 @@ return {
 				["min"] = 3,
 			},
 			["Dagger"] = {
-				["max"] = 6,
+				["max"] = 10,
 				["min"] = 3,
 			},
 			["Sceptre"] = {
@@ -44243,6 +43955,10 @@ return {
 				["max"] = 60,
 				["min"] = 48,
 			},
+			["Dagger"] = {
+				["max"] = 40,
+				["min"] = 28,
+			},
 			["Sceptre"] = {
 				["max"] = 40,
 				["min"] = 28,
@@ -44273,6 +43989,10 @@ return {
 				["max"] = 60,
 				["min"] = 48,
 			},
+			["Dagger"] = {
+				["max"] = 40,
+				["min"] = 28,
+			},
 			["Sceptre"] = {
 				["max"] = 40,
 				["min"] = 28,
@@ -44295,10 +44015,6 @@ return {
 			},
 		},
 		["3362_BannerEffect"] = {
-			["Chest"] = {
-				["max"] = 20,
-				["min"] = 12,
-			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -44316,6 +44032,10 @@ return {
 			["2HWeapon"] = {
 				["max"] = 60,
 				["min"] = 48,
+			},
+			["Dagger"] = {
+				["max"] = 40,
+				["min"] = 28,
 			},
 			["Sceptre"] = {
 				["max"] = 40,
@@ -44688,6 +44408,10 @@ return {
 		},
 		["341_IncreasedCastSpeedSpellEcho"] = {
 			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Dagger"] = {
 				["max"] = 20,
 				["min"] = 18,
 			},
@@ -45287,35 +45011,35 @@ return {
 		["3761_LocalAttackReduceEnemyElementalResistance"] = {
 			["1HAxe"] = {
 				["max"] = 16,
-				["min"] = 6,
+				["min"] = 9,
 			},
 			["1HMace"] = {
 				["max"] = 16,
-				["min"] = 6,
+				["min"] = 9,
 			},
 			["1HSword"] = {
 				["max"] = 16,
-				["min"] = 6,
+				["min"] = 9,
 			},
 			["1HWeapon"] = {
 				["max"] = 16,
-				["min"] = 6,
+				["min"] = 9,
 			},
 			["2HAxe"] = {
 				["max"] = 16,
-				["min"] = 6,
+				["min"] = 9,
 			},
 			["2HMace"] = {
 				["max"] = 16,
-				["min"] = 6,
+				["min"] = 9,
 			},
 			["2HSword"] = {
 				["max"] = 16,
-				["min"] = 6,
+				["min"] = 9,
 			},
 			["2HWeapon"] = {
 				["max"] = 16,
-				["min"] = 6,
+				["min"] = 9,
 			},
 			["AbyssJewel"] = {
 				["max"] = 12,
@@ -45979,6 +45703,10 @@ return {
 				["max"] = 20,
 				["min"] = 16,
 			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
 			["Sceptre"] = {
 				["max"] = 20,
 				["min"] = 16,
@@ -46127,6 +45855,10 @@ return {
 			},
 		},
 		["4082_DamageDuringFlaskEffect"] = {
+			["Gloves"] = {
+				["max"] = 28,
+				["min"] = 19,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -46637,7 +46369,7 @@ return {
 		["4572_PhysicalDamageReductionDuringFocus"] = {
 			["Gloves"] = {
 				["max"] = 15,
-				["min"] = 13,
+				["min"] = 8,
 			},
 			["Helmet"] = {
 				["max"] = 15,
@@ -47438,7 +47170,7 @@ return {
 		["4822_AttackAndCastSpeedWhileFocused"] = {
 			["Gloves"] = {
 				["max"] = 50,
-				["min"] = 45,
+				["min"] = 22,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -47768,35 +47500,35 @@ return {
 		["4900_AttackSpeedPercentIfRareOrUniqueEnemyNearby"] = {
 			["1HAxe"] = {
 				["max"] = 15,
-				["min"] = 7,
+				["min"] = 12,
 			},
 			["1HMace"] = {
 				["max"] = 15,
-				["min"] = 7,
+				["min"] = 12,
 			},
 			["1HSword"] = {
 				["max"] = 15,
-				["min"] = 7,
+				["min"] = 12,
 			},
 			["1HWeapon"] = {
 				["max"] = 15,
-				["min"] = 7,
+				["min"] = 12,
 			},
 			["2HAxe"] = {
 				["max"] = 30,
-				["min"] = 14,
+				["min"] = 27,
 			},
 			["2HMace"] = {
 				["max"] = 30,
-				["min"] = 14,
+				["min"] = 27,
 			},
 			["2HSword"] = {
 				["max"] = 30,
-				["min"] = 14,
+				["min"] = 27,
 			},
 			["2HWeapon"] = {
 				["max"] = 30,
-				["min"] = 14,
+				["min"] = 27,
 			},
 			["Bow"] = {
 				["max"] = 30,
@@ -48052,7 +47784,7 @@ return {
 		["4943_AvoidElementalDamageChanceDuringSoulGainPrevention"] = {
 			["Chest"] = {
 				["max"] = 12,
-				["min"] = 6,
+				["min"] = 10,
 			},
 			["Helmet"] = {
 				["max"] = 12,
@@ -48354,6 +48086,10 @@ return {
 				["max"] = 20,
 				["min"] = 18,
 			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
 			["Sceptre"] = {
 				["max"] = 20,
 				["min"] = 18,
@@ -48450,6 +48186,10 @@ return {
 				["max"] = 20,
 				["min"] = 11,
 			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 11,
+			},
 			["Sceptre"] = {
 				["max"] = 20,
 				["min"] = 11,
@@ -48480,6 +48220,10 @@ return {
 				["max"] = 20,
 				["min"] = 11,
 			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 11,
+			},
 			["Sceptre"] = {
 				["max"] = 20,
 				["min"] = 11,
@@ -48507,6 +48251,10 @@ return {
 				["min"] = 11,
 			},
 			["2HWeapon"] = {
+				["max"] = 20,
+				["min"] = 11,
+			},
+			["Dagger"] = {
 				["max"] = 20,
 				["min"] = 11,
 			},
@@ -48638,6 +48386,10 @@ return {
 		},
 		["513_ColdDamagePrefixColdPenetration"] = {
 			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Dagger"] = {
 				["max"] = 20,
 				["min"] = 16,
 			},
@@ -48806,6 +48558,10 @@ return {
 		},
 		["525_WeaponSpellDamageControlledDestruction"] = {
 			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Dagger"] = {
 				["max"] = 20,
 				["min"] = 16,
 			},
@@ -48997,6 +48753,10 @@ return {
 			["2HWeapon"] = {
 				["max"] = 30,
 				["min"] = 23,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 13,
 			},
 			["Sceptre"] = {
 				["max"] = 20,
@@ -49428,35 +49188,35 @@ return {
 		["5659_DoubleDamageChance"] = {
 			["1HAxe"] = {
 				["max"] = 7,
-				["min"] = 3,
+				["min"] = 6,
 			},
 			["1HMace"] = {
 				["max"] = 7,
-				["min"] = 3,
+				["min"] = 6,
 			},
 			["1HSword"] = {
 				["max"] = 7,
-				["min"] = 3,
+				["min"] = 6,
 			},
 			["1HWeapon"] = {
 				["max"] = 7,
-				["min"] = 3,
+				["min"] = 6,
 			},
 			["2HAxe"] = {
 				["max"] = 14,
-				["min"] = 6,
+				["min"] = 12,
 			},
 			["2HMace"] = {
 				["max"] = 14,
-				["min"] = 6,
+				["min"] = 12,
 			},
 			["2HSword"] = {
 				["max"] = 14,
-				["min"] = 6,
+				["min"] = 12,
 			},
 			["2HWeapon"] = {
 				["max"] = 14,
-				["min"] = 6,
+				["min"] = 12,
 			},
 			["Bow"] = {
 				["max"] = 14,
@@ -49582,35 +49342,35 @@ return {
 		["5666_ChanceToDealDoubleDamageWhileFocused"] = {
 			["1HAxe"] = {
 				["max"] = 20,
-				["min"] = 7,
+				["min"] = 18,
 			},
 			["1HMace"] = {
 				["max"] = 20,
-				["min"] = 7,
+				["min"] = 18,
 			},
 			["1HSword"] = {
 				["max"] = 20,
-				["min"] = 7,
+				["min"] = 18,
 			},
 			["1HWeapon"] = {
 				["max"] = 20,
-				["min"] = 7,
+				["min"] = 18,
 			},
 			["2HAxe"] = {
 				["max"] = 40,
-				["min"] = 16,
+				["min"] = 36,
 			},
 			["2HMace"] = {
 				["max"] = 40,
-				["min"] = 16,
+				["min"] = 36,
 			},
 			["2HSword"] = {
 				["max"] = 40,
-				["min"] = 16,
+				["min"] = 36,
 			},
 			["2HWeapon"] = {
 				["max"] = 40,
-				["min"] = 16,
+				["min"] = 36,
 			},
 			["Bow"] = {
 				["max"] = 40,
@@ -49912,6 +49672,10 @@ return {
 				["max"] = 15,
 				["min"] = 7,
 			},
+			["Dagger"] = {
+				["max"] = 15,
+				["min"] = 7,
+			},
 			["Gloves"] = {
 				["max"] = 10,
 				["min"] = 4,
@@ -50075,11 +49839,11 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 20,
-				["min"] = 9,
+				["min"] = 16,
 			},
 			["Gloves"] = {
 				["max"] = 20,
-				["min"] = 16,
+				["min"] = 9,
 			},
 			["Helmet"] = {
 				["max"] = 20,
@@ -50390,35 +50154,35 @@ return {
 		["5961_CriticalStrikeMultiplierIfRareOrUniqueEnemyNearby"] = {
 			["1HAxe"] = {
 				["max"] = 40,
-				["min"] = 17,
+				["min"] = 36,
 			},
 			["1HMace"] = {
 				["max"] = 40,
-				["min"] = 17,
+				["min"] = 36,
 			},
 			["1HSword"] = {
 				["max"] = 40,
-				["min"] = 17,
+				["min"] = 36,
 			},
 			["1HWeapon"] = {
 				["max"] = 40,
-				["min"] = 17,
+				["min"] = 36,
 			},
 			["2HAxe"] = {
 				["max"] = 60,
-				["min"] = 25,
+				["min"] = 54,
 			},
 			["2HMace"] = {
 				["max"] = 60,
-				["min"] = 25,
+				["min"] = 54,
 			},
 			["2HSword"] = {
 				["max"] = 60,
-				["min"] = 25,
+				["min"] = 54,
 			},
 			["2HWeapon"] = {
 				["max"] = 60,
-				["min"] = 25,
+				["min"] = 54,
 			},
 			["Bow"] = {
 				["max"] = 60,
@@ -50652,35 +50416,35 @@ return {
 		["6066_IncreasedDamagePerPowerCharge"] = {
 			["1HAxe"] = {
 				["max"] = 6,
-				["min"] = 3,
+				["min"] = 5,
 			},
 			["1HMace"] = {
 				["max"] = 6,
-				["min"] = 3,
+				["min"] = 5,
 			},
 			["1HSword"] = {
 				["max"] = 6,
-				["min"] = 3,
+				["min"] = 5,
 			},
 			["1HWeapon"] = {
 				["max"] = 10,
-				["min"] = 3,
+				["min"] = 5,
 			},
 			["2HAxe"] = {
 				["max"] = 8,
-				["min"] = 5,
+				["min"] = 7,
 			},
 			["2HMace"] = {
 				["max"] = 8,
-				["min"] = 5,
+				["min"] = 7,
 			},
 			["2HSword"] = {
 				["max"] = 8,
-				["min"] = 5,
+				["min"] = 7,
 			},
 			["2HWeapon"] = {
 				["max"] = 17,
-				["min"] = 5,
+				["min"] = 7,
 			},
 			["Amulet"] = {
 				["max"] = 6,
@@ -50695,7 +50459,7 @@ return {
 				["min"] = 3,
 			},
 			["Dagger"] = {
-				["max"] = 6,
+				["max"] = 10,
 				["min"] = 3,
 			},
 			["Sceptre"] = {
@@ -50848,7 +50612,7 @@ return {
 			},
 			["Gloves"] = {
 				["max"] = 80,
-				["min"] = 71,
+				["min"] = 30,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -50862,7 +50626,7 @@ return {
 		["6089_DamageRemovedFromManaBeforeLifeWhileFocused"] = {
 			["Chest"] = {
 				["max"] = 22,
-				["min"] = 11,
+				["min"] = 18,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -50930,6 +50694,14 @@ return {
 			},
 		},
 		["6127_FasterAilmentDamageForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 6,
+				["min"] = 4,
+			},
+			["BaseJewel"] = {
+				["max"] = 6,
+				["min"] = 4,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -50957,6 +50729,10 @@ return {
 			["2HWeapon"] = {
 				["max"] = 60,
 				["min"] = 48,
+			},
+			["Dagger"] = {
+				["max"] = 40,
+				["min"] = 28,
 			},
 			["Sceptre"] = {
 				["max"] = 40,
@@ -51040,7 +50816,7 @@ return {
 		["6303_CriticalChanceAndElementalDamagePercentIfHaveCritRecently"] = {
 			["Gloves"] = {
 				["max"] = 30,
-				["min"] = 27,
+				["min"] = 14,
 			},
 			["Quiver"] = {
 				["max"] = 30,
@@ -51074,19 +50850,19 @@ return {
 			},
 			["2HAxe"] = {
 				["max"] = 100,
-				["min"] = 15,
+				["min"] = 19,
 			},
 			["2HMace"] = {
 				["max"] = 100,
-				["min"] = 15,
+				["min"] = 19,
 			},
 			["2HSword"] = {
 				["max"] = 100,
-				["min"] = 15,
+				["min"] = 19,
 			},
 			["2HWeapon"] = {
 				["max"] = 100,
-				["min"] = 15,
+				["min"] = 19,
 			},
 			["Amulet"] = {
 				["max"] = 50,
@@ -51378,7 +51154,7 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 200,
-				["min"] = 90,
+				["min"] = 200,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -51483,7 +51259,7 @@ return {
 		["6488_LifeRegenerationPerEvasionDuringFocus"] = {
 			["Chest"] = {
 				["max"] = 1.5,
-				["min"] = 1,
+				["min"] = 1.5,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -51745,11 +51521,11 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 20,
-				["min"] = 9,
+				["min"] = 16,
 			},
 			["Gloves"] = {
 				["max"] = 20,
-				["min"] = 16,
+				["min"] = 9,
 			},
 			["Helmet"] = {
 				["max"] = 20,
@@ -51973,35 +51749,35 @@ return {
 		["6731_CastSpeedAndGainArcaneSurgeOnKillChance"] = {
 			["1HAxe"] = {
 				["max"] = 15,
-				["min"] = 10,
+				["min"] = 15,
 			},
 			["1HMace"] = {
 				["max"] = 15,
-				["min"] = 10,
+				["min"] = 15,
 			},
 			["1HSword"] = {
 				["max"] = 15,
-				["min"] = 10,
+				["min"] = 15,
 			},
 			["1HWeapon"] = {
 				["max"] = 15,
-				["min"] = 10,
+				["min"] = 15,
 			},
 			["2HAxe"] = {
 				["max"] = 15,
-				["min"] = 10,
+				["min"] = 15,
 			},
 			["2HMace"] = {
 				["max"] = 15,
-				["min"] = 10,
+				["min"] = 15,
 			},
 			["2HSword"] = {
 				["max"] = 15,
-				["min"] = 10,
+				["min"] = 15,
 			},
 			["2HWeapon"] = {
 				["max"] = 15,
-				["min"] = 10,
+				["min"] = 15,
 			},
 			["Bow"] = {
 				["max"] = 15,
@@ -52413,6 +52189,10 @@ return {
 				["max"] = 50,
 				["min"] = 30,
 			},
+			["Dagger"] = {
+				["max"] = 35,
+				["min"] = 25,
+			},
 			["Sceptre"] = {
 				["max"] = 35,
 				["min"] = 25,
@@ -52727,11 +52507,11 @@ return {
 			},
 			["Chest"] = {
 				["max"] = 20,
-				["min"] = 9,
+				["min"] = 16,
 			},
 			["Gloves"] = {
 				["max"] = 20,
-				["min"] = 16,
+				["min"] = 9,
 			},
 			["Helmet"] = {
 				["max"] = 20,
@@ -52890,35 +52670,35 @@ return {
 		["7861_LocalIncreasedPhysicalDamageAndImpaleChance"] = {
 			["1HAxe"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["1HMace"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["1HSword"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["1HWeapon"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["2HAxe"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["2HMace"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["2HSword"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["2HWeapon"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["Bow"] = {
 				["max"] = 25,
@@ -53523,35 +53303,35 @@ return {
 		["792_LocalAttackSpeedAndLocalDisplayTriggerLevel1BloodRageOnKillChance"] = {
 			["1HAxe"] = {
 				["max"] = 15,
-				["min"] = 10,
+				["min"] = 15,
 			},
 			["1HMace"] = {
 				["max"] = 15,
-				["min"] = 10,
+				["min"] = 15,
 			},
 			["1HSword"] = {
 				["max"] = 15,
-				["min"] = 10,
+				["min"] = 15,
 			},
 			["1HWeapon"] = {
 				["max"] = 15,
-				["min"] = 10,
+				["min"] = 15,
 			},
 			["2HAxe"] = {
 				["max"] = 15,
-				["min"] = 10,
+				["min"] = 15,
 			},
 			["2HMace"] = {
 				["max"] = 15,
-				["min"] = 10,
+				["min"] = 15,
 			},
 			["2HSword"] = {
 				["max"] = 15,
-				["min"] = 10,
+				["min"] = 15,
 			},
 			["2HWeapon"] = {
 				["max"] = 15,
-				["min"] = 10,
+				["min"] = 15,
 			},
 			["Bow"] = {
 				["max"] = 15,
@@ -53915,35 +53695,35 @@ return {
 		["8003_LocalIncreasedPhysicalDamageAndPoisonChance"] = {
 			["1HAxe"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["1HMace"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["1HSword"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["1HWeapon"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["2HAxe"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["2HMace"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["2HSword"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["2HWeapon"] = {
 				["max"] = 25,
-				["min"] = 13,
+				["min"] = 21,
 			},
 			["Bow"] = {
 				["max"] = 25,
@@ -54339,6 +54119,10 @@ return {
 			},
 		},
 		["837_FlaskExtraMaxCharges"] = {
+			["Flask"] = {
+				["max"] = 35,
+				["min"] = 16,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -54349,6 +54133,10 @@ return {
 			},
 		},
 		["840_FlaskFullRechargeOnHit"] = {
+			["Flask"] = {
+				["max"] = 3,
+				["min"] = 1,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -54369,6 +54157,10 @@ return {
 			},
 		},
 		["842_FlaskChanceRechargeOnCrit"] = {
+			["Flask"] = {
+				["max"] = 35,
+				["min"] = 11,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -54379,6 +54171,10 @@ return {
 			},
 		},
 		["845_FlaskIncreasedChargesAdded"] = {
+			["Flask"] = {
+				["max"] = 50,
+				["min"] = 16,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -54403,6 +54199,10 @@ return {
 			},
 		},
 		["846_FlaskChargesUsed"] = {
+			["Flask"] = {
+				["max"] = -14,
+				["min"] = -28,
+			},
 			["inverseKey"] = "reduced",
 			["specialCaseData"] = {
 			},
@@ -54844,7 +54644,7 @@ return {
 		["9119_FortifyEffectWhileFocused"] = {
 			["Chest"] = {
 				["max"] = 10,
-				["min"] = 5,
+				["min"] = 10,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -55020,7 +54820,7 @@ return {
 		["9225_CriticalChanceAndAddedChaosDamageIfHaveCritRecently"] = {
 			["Gloves"] = {
 				["max"] = 28.5,
-				["min"] = 25,
+				["min"] = 12,
 			},
 			["Quiver"] = {
 				["max"] = 28.5,
@@ -55464,6 +55264,10 @@ return {
 			},
 		},
 		["9367_MinionsRecoverMaximumLifeWhenYouFocus"] = {
+			["Gloves"] = {
+				["max"] = 100,
+				["min"] = 100,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -55760,35 +55564,35 @@ return {
 		["9489_SpellDamageAndNonChaosDamageToAddAsChaosDamage"] = {
 			["1HAxe"] = {
 				["max"] = 5,
-				["min"] = 2,
+				["min"] = 5,
 			},
 			["1HMace"] = {
 				["max"] = 5,
-				["min"] = 2,
+				["min"] = 5,
 			},
 			["1HSword"] = {
 				["max"] = 5,
-				["min"] = 2,
+				["min"] = 5,
 			},
 			["1HWeapon"] = {
 				["max"] = 5,
-				["min"] = 2,
+				["min"] = 5,
 			},
 			["2HAxe"] = {
 				["max"] = 10,
-				["min"] = 3,
+				["min"] = 9,
 			},
 			["2HMace"] = {
 				["max"] = 10,
-				["min"] = 3,
+				["min"] = 9,
 			},
 			["2HSword"] = {
 				["max"] = 10,
-				["min"] = 3,
+				["min"] = 9,
 			},
 			["2HWeapon"] = {
 				["max"] = 10,
-				["min"] = 3,
+				["min"] = 9,
 			},
 			["Claw"] = {
 				["max"] = 5,
@@ -56066,7 +55870,7 @@ return {
 		["9652_PhysicalDamageReductionRatingDuringSoulGainPrevention"] = {
 			["Chest"] = {
 				["max"] = 4000,
-				["min"] = 1000,
+				["min"] = 3201,
 			},
 			["Shield"] = {
 				["max"] = 4000,
@@ -56212,7 +56016,7 @@ return {
 		["968_FlaskReflectReductionDuringFlaskEffect"] = {
 			["Flask"] = {
 				["max"] = 80,
-				["min"] = 60,
+				["min"] = 45,
 			},
 			["LifeFlask"] = {
 				["max"] = 80,
@@ -56673,7 +56477,7 @@ return {
 		["9925_RestoreManaAndEnergyShieldOnFocus"] = {
 			["Chest"] = {
 				["max"] = 40,
-				["min"] = 23,
+				["min"] = 37,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -56729,6 +56533,14 @@ return {
 			},
 		},
 		["9970_ReducedBleedDuration"] = {
+			["AnyJewel"] = {
+				["max"] = -30,
+				["min"] = -35,
+			},
+			["BaseJewel"] = {
+				["max"] = -30,
+				["min"] = -35,
+			},
 			["inverseKey"] = "reduced",
 			["specialCaseData"] = {
 			},
@@ -56748,6 +56560,14 @@ return {
 			},
 		},
 		["9979_ReducedPoisonDuration"] = {
+			["AnyJewel"] = {
+				["max"] = -30,
+				["min"] = -35,
+			},
+			["BaseJewel"] = {
+				["max"] = -30,
+				["min"] = -35,
+			},
 			["inverseKey"] = "reduced",
 			["specialCaseData"] = {
 			},
@@ -56789,7 +56609,7 @@ return {
 	["Implicit"] = {
 		["10419_TrapSkillEffectDurationTrapCooldownPenalty"] = {
 			["Gloves"] = {
-				["max"] = 15,
+				["max"] = 25,
 				["min"] = 10,
 			},
 			["sign"] = "",
@@ -56902,24 +56722,10 @@ return {
 				["type"] = "implicit",
 			},
 		},
-		["1142_ChanceToSuppressSpellsOld"] = {
-			["Shield"] = {
-				["max"] = 3,
-				["min"] = 3,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_3680664274",
-				["text"] = "+#% chance to Suppress Spell Damage",
-				["type"] = "implicit",
-			},
-		},
 		["1143_ChanceToSuppressSpells"] = {
 			["Shield"] = {
 				["max"] = 5,
-				["min"] = 5,
+				["min"] = 3,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -56984,21 +56790,11 @@ return {
 				["type"] = "implicit",
 			},
 		},
-		["1177_Strength"] = {
+		["1177_StrengthImplicit"] = {
 			["Amulet"] = {
 				["max"] = 30,
 				["min"] = 20,
 			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_4080418644",
-				["text"] = "+# to Strength",
-				["type"] = "implicit",
-			},
-		},
-		["1177_StrengthImplicit"] = {
 			["Belt"] = {
 				["max"] = 35,
 				["min"] = 25,
@@ -57012,7 +56808,7 @@ return {
 				["type"] = "implicit",
 			},
 		},
-		["1178_Dexterity"] = {
+		["1178_DexterityImplicit"] = {
 			["Amulet"] = {
 				["max"] = 30,
 				["min"] = 20,
@@ -57492,9 +57288,17 @@ return {
 			},
 		},
 		["1459_CriticalStrikeChance"] = {
+			["1HWeapon"] = {
+				["max"] = 30,
+				["min"] = 30,
+			},
 			["2HWeapon"] = {
 				["max"] = 100,
 				["min"] = 80,
+			},
+			["Dagger"] = {
+				["max"] = 30,
+				["min"] = 30,
 			},
 			["Ring"] = {
 				["max"] = 30,
@@ -57503,24 +57307,6 @@ return {
 			["Staff"] = {
 				["max"] = 100,
 				["min"] = 80,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_587431675",
-				["text"] = "#% increased Global Critical Strike Chance",
-				["type"] = "implicit",
-			},
-		},
-		["1460_CriticalStrikeChanceDaggerImplicit1"] = {
-			["1HWeapon"] = {
-				["max"] = 30,
-				["min"] = 30,
-			},
-			["Dagger"] = {
-				["max"] = 30,
-				["min"] = 30,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -57623,7 +57409,11 @@ return {
 				["type"] = "implicit",
 			},
 		},
-		["1558_EnergyShield"] = {
+		["1558_EnergyShieldImplicit"] = {
+			["Belt"] = {
+				["max"] = 80,
+				["min"] = 9,
+			},
 			["Ring"] = {
 				["max"] = 25,
 				["min"] = 15,
@@ -57637,27 +57427,13 @@ return {
 				["type"] = "implicit",
 			},
 		},
-		["1558_EnergyShieldImplicit"] = {
-			["Belt"] = {
-				["max"] = 80,
-				["min"] = 9,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_3489782002",
-				["text"] = "+# to maximum Energy Shield",
-				["type"] = "implicit",
-			},
-		},
 		["1558_EnergyShieldLocalDisplaySpendEnergyShieldForCostsBeforeManaForSocketedSkills"] = {
 			["2HWeapon"] = {
-				["max"] = 80,
+				["max"] = 165,
 				["min"] = 66,
 			},
 			["Staff"] = {
-				["max"] = 80,
+				["max"] = 165,
 				["min"] = 66,
 			},
 			["sign"] = "",
@@ -57667,24 +57443,6 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_4052037485",
 				["text"] = "+# to maximum Energy Shield (Local)",
-				["type"] = "implicit",
-			},
-		},
-		["1559_IncreasedEnergyShieldAndStunRecovery"] = {
-			["2HWeapon"] = {
-				["max"] = 120,
-				["min"] = 100,
-			},
-			["Staff"] = {
-				["max"] = 120,
-				["min"] = 100,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_3489782002",
-				["text"] = "+# to maximum Energy Shield",
 				["type"] = "implicit",
 			},
 		},
@@ -57834,6 +57592,34 @@ return {
 				["type"] = "implicit",
 			},
 		},
+		["15_MaxPrefixMaxSuffixImplicit"] = {
+			["Ring"] = {
+				["max"] = 3,
+				["min"] = 1,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_3182714256",
+				["text"] = "+# Prefix Modifier allowed",
+				["type"] = "implicit",
+			},
+		},
+		["15_MaxPrefixMaxSuffixModEffectImplicit"] = {
+			["Amulet"] = {
+				["max"] = 2,
+				["min"] = 1,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_3182714256",
+				["text"] = "+# Prefix Modifier allowed",
+				["type"] = "implicit",
+			},
+		},
 		["1619_AllResistances"] = {
 			["Amulet"] = {
 				["max"] = 12,
@@ -57952,9 +57738,23 @@ return {
 				["type"] = "implicit",
 			},
 		},
-		["1640_MaxChaosResistanceCrushed"] = {
+		["1640_ChayulaBreachRingImplicit"] = {
 			["Ring"] = {
 				["max"] = 2,
+				["min"] = 2,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1301765461",
+				["text"] = "+#% to maximum Chaos Resistance",
+				["type"] = "implicit",
+			},
+		},
+		["1640_MaxChaosResistanceCrushed"] = {
+			["Helmet"] = {
+				["max"] = 4,
 				["min"] = 2,
 			},
 			["sign"] = "",
@@ -57988,31 +57788,13 @@ return {
 				["type"] = "implicit",
 			},
 		},
-		["1647_LifeLeech"] = {
-			["1HWeapon"] = {
-				["max"] = 2,
-				["min"] = 2,
-			},
-			["Claw"] = {
-				["max"] = 2,
-				["min"] = 2,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_3593843976",
-				["text"] = "#% of Physical Attack Damage Leeched as Life",
-				["type"] = "implicit",
-			},
-		},
 		["1651_LifeLeechLocalPermyriad"] = {
 			["1HWeapon"] = {
-				["max"] = 1.6,
+				["max"] = 2,
 				["min"] = 1.6,
 			},
 			["Claw"] = {
-				["max"] = 1.6,
+				["max"] = 2,
 				["min"] = 1.6,
 			},
 			["sign"] = "",
@@ -58022,6 +57804,34 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_55876295",
 				["text"] = "#% of Physical Attack Damage Leeched as Life (Local)",
+				["type"] = "implicit",
+			},
+		},
+		["16_MaxPrefixMaxSuffixImplicit"] = {
+			["Ring"] = {
+				["max"] = 3,
+				["min"] = 1,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_718638445",
+				["text"] = "+# Suffix Modifier allowed",
+				["type"] = "implicit",
+			},
+		},
+		["16_MaxPrefixMaxSuffixModEffectImplicit"] = {
+			["Amulet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_718638445",
+				["text"] = "+# Suffix Modifier allowed",
 				["type"] = "implicit",
 			},
 		},
@@ -58182,6 +57992,20 @@ return {
 				["type"] = "implicit",
 			},
 		},
+		["1867_CurseEffectElementalAilmentDurationOnSelf"] = {
+			["Ring"] = {
+				["max"] = -50,
+				["min"] = -50,
+			},
+			["inverseKey"] = "increased",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1745952865",
+				["text"] = "#% reduced Elemental Ailment Duration on you",
+				["type"] = "implicit",
+			},
+		},
 		["1880_AreaOfEffect"] = {
 			["2HMace"] = {
 				["max"] = 20,
@@ -58203,7 +58027,7 @@ return {
 		["189_SocketedActiveGemLevelSupportGemPenalty"] = {
 			["Helmet"] = {
 				["max"] = 2,
-				["min"] = 2,
+				["min"] = 1,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -58214,27 +58038,9 @@ return {
 				["type"] = "implicit",
 			},
 		},
-		["1902_IncreasedEnergyShieldAndStunRecovery"] = {
-			["2HWeapon"] = {
-				["max"] = 40,
-				["min"] = 30,
-			},
-			["Staff"] = {
-				["max"] = 40,
-				["min"] = 30,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_2511217560",
-				["text"] = "#% increased Stun and Block Recovery",
-				["type"] = "implicit",
-			},
-		},
 		["1902_IncreasedStunRecoveryReducedStunThreshold"] = {
 			["Boots"] = {
-				["max"] = 30,
+				["max"] = 50,
 				["min"] = 30,
 			},
 			["sign"] = "",
@@ -58251,10 +58057,6 @@ return {
 				["max"] = 25,
 				["min"] = 15,
 			},
-			["Boots"] = {
-				["max"] = 50,
-				["min"] = 40,
-			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -58264,24 +58066,10 @@ return {
 				["type"] = "implicit",
 			},
 		},
-		["190_LocalIncreaseSocketedActiveSkillGemLevel"] = {
-			["Helmet"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_524797741",
-				["text"] = "+# to Level of Socketed Skill Gems",
-				["type"] = "implicit",
-			},
-		},
 		["190_SocketedActiveGemLevelSupportGemPenalty"] = {
 			["Helmet"] = {
 				["max"] = 2,
-				["min"] = 2,
+				["min"] = 1,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -58427,7 +58215,7 @@ return {
 				["type"] = "implicit",
 			},
 		},
-		["2170_ReducedCurseEffect"] = {
+		["2170_CurseEffectElementalAilmentDurationOnSelf"] = {
 			["Ring"] = {
 				["max"] = 50,
 				["min"] = 50,
@@ -58446,7 +58234,29 @@ return {
 				["max"] = 1,
 				["min"] = 1,
 			},
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_532463031",
+				["text"] = "Implicit Modifiers Cannot Be Changed",
+				["type"] = "implicit",
+			},
+		},
+		["21_MaxPrefixMaxSuffixImplicit"] = {
 			["Ring"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_532463031",
+				["text"] = "Implicit Modifiers Cannot Be Changed",
+				["type"] = "implicit",
+			},
+		},
+		["21_MaxPrefixMaxSuffixModEffectImplicit"] = {
+			["Amulet"] = {
 				["max"] = 1,
 				["min"] = 1,
 			},
@@ -58914,7 +58724,7 @@ return {
 		},
 		["4996_ChanceToBlockAndDamageTakenFromBlockedHits"] = {
 			["Gloves"] = {
-				["max"] = 20,
+				["max"] = 10,
 				["min"] = 10,
 			},
 			["sign"] = "",
@@ -58937,6 +58747,19 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_170394517",
 				["text"] = "#% more Accuracy Rating",
+				["type"] = "implicit",
+			},
+		},
+		["5269_ChayulaBreachRingImplicit"] = {
+			["Ring"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_3363758458",
+				["text"] = "Cannot roll Modifiers of Non-Chaos Damage Types",
 				["type"] = "implicit",
 			},
 		},
@@ -59034,6 +58857,20 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_1915414884",
 				["text"] = "#% chance when you pay a Skill's Cost to gain that much Mana",
+				["type"] = "implicit",
+			},
+		},
+		["57_MaxPrefixMaxSuffixModEffectImplicit"] = {
+			["Amulet"] = {
+				["max"] = 100,
+				["min"] = 100,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1581907402",
+				["text"] = "#% increased Explicit Modifier magnitudes",
 				["type"] = "implicit",
 			},
 		},
@@ -59185,21 +59022,8 @@ return {
 				["type"] = "implicit",
 			},
 		},
-		["7920_FortifyEffectCrushed"] = {
-			["Helmet"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_846313030",
-				["text"] = "You are Crushed",
-				["type"] = "implicit",
-			},
-		},
 		["7920_MaxChaosResistanceCrushed"] = {
-			["Ring"] = {
+			["Helmet"] = {
 				["max"] = 1,
 				["min"] = 1,
 			},
@@ -59231,10 +59055,6 @@ return {
 		},
 		["7950_HasEveryInfluenceType"] = {
 			["Amulet"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["Ring"] = {
 				["max"] = 1,
 				["min"] = 1,
 			},
@@ -59292,6 +59112,34 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_2763429652",
 				["text"] = "#% chance to Maim on Hit",
+				["type"] = "implicit",
+			},
+		},
+		["8004_MaxPrefixMaxSuffixImplicit"] = {
+			["Ring"] = {
+				["max"] = 50,
+				["min"] = 25,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1794120699",
+				["text"] = "#% increased Prefix Modifier magnitudes",
+				["type"] = "implicit",
+			},
+		},
+		["8031_MaxPrefixMaxSuffixImplicit"] = {
+			["Ring"] = {
+				["max"] = 50,
+				["min"] = 25,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1033086302",
+				["text"] = "#% increased Suffix Modifier magnitudes",
 				["type"] = "implicit",
 			},
 		},
@@ -59376,20 +59224,6 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_538730182",
 				["text"] = "Creates a Smoke Cloud on Use",
-				["type"] = "implicit",
-			},
-		},
-		["9118_FortifyEffectCrushed"] = {
-			["Helmet"] = {
-				["max"] = 3,
-				["min"] = 2,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_335507772",
-				["text"] = "+# to maximum Fortification",
 				["type"] = "implicit",
 			},
 		},
