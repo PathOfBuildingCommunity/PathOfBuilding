@@ -95,7 +95,11 @@ local lineFlags = {
 	["mutated"] = true,
 	["unscalable"] = true,
 	["prefix"] = true,
-	["suffix"] = true
+	["suffix"] = true,
+	-- this is not actually present in advanced copy strings unlike desecration
+	-- in poe2. this is currently only added as a hack for cane of kulemak and
+	-- should be added based on mod tags after matching a mod in the future
+	["unveiled"] = true,
 }
 
 -- Special function to store unique instances of modifier on specific item slots
@@ -1095,6 +1099,14 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			self.requirements.level = self.base.req.level
 		end
 	end
+	-- hack for cane of kulemak
+	if ((self.title and self.title:lower()) == "cane of kulemak") and (self.rarity == "UNIQUE" or self.rarity == "RELIC") and self.advancedCopy then
+		for _, mod in ipairs(self.explicitModLines) do
+			if not mod.line:match("magnitude") then
+				mod.unveiled = true
+			end
+		end
+	end
 	if self.advancedCopy then
 		-- apply mod magnitude boost to matching mods
 		if #self.modMagnitudeMods > 0 then
@@ -1113,7 +1125,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 							tagLookup[curTag] = true;
 						end
 						-- these aren't actual mod tags but do appear in mod magnitude mods
-						for _, lineFlag in ipairs({ "desecrated", "prefix", "suffix" }) do
+						for _, lineFlag in ipairs({ "unveiled", "prefix", "suffix" }) do
 							if mod[lineFlag] then
 								tagLookup[lineFlag] = true
 							end
