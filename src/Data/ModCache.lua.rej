@@ -1,9 +1,0 @@
-diff a/src/Data/ModCache.lua b/src/Data/ModCache.lua	(rejected hunks)
-@@ -2314,7 +2314,6 @@ c["30% chance to Impale on Spell Hit"]={{[1]={flags=2,keywordFlags=0,name="Impal
- c["30% chance to Pierce an Enemy"]={{[1]={flags=0,keywordFlags=0,name="PierceChance",type="BASE",value=30}},nil}
- c["30% chance to Poison on Hit"]={{[1]={flags=0,keywordFlags=0,name="PoisonChance",type="BASE",value=30}},nil}
- c["30% chance to Poison on Hit against Enemies that are not Poisoned"]={{[1]={[1]={actor="enemy",threshold=1,type="MultiplierThreshold",upper=true,var="PoisonStacks"},flags=0,keywordFlags=0,name="PoisonChance",type="BASE",value=30}},nil}
--c["30% chance to Poison on Hit against Enemies that are not Poisoned 80% increased Effect of Poison you inflict on targets that are not Poisoned"]={{[1]={[1]={actor="enemy",threshold=1,type="MultiplierThreshold",upper=true,var="PoisonStacks"},flags=0,keywordFlags=0,name="PoisonChance",type="BASE",value=30}},"  80% increased Effect of Poison you inflict on targets that are not Poisoned"}
- c["30% chance to Poison on Hit with Attacks"]={{[1]={flags=0,keywordFlags=65536,name="PoisonChance",type="BASE",value=30}},nil}
- c["30% chance to inflict Bleeding on Hit"]={{[1]={flags=0,keywordFlags=0,name="BleedChance",type="BASE",value=30}},nil}
- c["30% chance when you Reload a Crossbow to be immediate"]={{[1]={flags=0,keywordFlags=0,name="InstantReloadChance",type="BASE",value=30}},nil}
