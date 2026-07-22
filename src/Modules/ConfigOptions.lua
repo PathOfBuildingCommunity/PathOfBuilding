@@ -875,24 +875,123 @@ Huge sets the radius to 11.
 
 	-- Section: Combat options
 	{ section = "When In Combat", col = 1 },
-	{ var = "usePowerCharges", type = "check", label = "Do you use Power Charges?", apply = function(val, modList, enemyModList)
-		modList:NewMod("UsePowerCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-	end },
-	{ var = "overridePowerCharges", type = "count", label = "# of Power Charges (if not maximum):", ifOption = "usePowerCharges", apply = function(val, modList, enemyModList)
-		modList:NewMod("PowerCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
-	end },
-	{ var = "useFrenzyCharges", type = "check", label = "Do you use Frenzy Charges?", apply = function(val, modList, enemyModList)
-		modList:NewMod("UseFrenzyCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-	end },
-	{ var = "overrideFrenzyCharges", type = "count", label = "# of Frenzy Charges (if not maximum):", ifOption = "useFrenzyCharges", apply = function(val, modList, enemyModList)
-		modList:NewMod("FrenzyCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
-	end },
-	{ var = "useEnduranceCharges", type = "check", label = "Do you use Endurance Charges?", apply = function(val, modList, enemyModList)
-		modList:NewMod("UseEnduranceCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-	end },
-	{ var = "overrideEnduranceCharges", type = "count", label = "# of Endurance Charges (if not maximum):", ifOption = "useEnduranceCharges", apply = function(val, modList, enemyModList)
-		modList:NewMod("EnduranceCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
-	end },
+	-- Charge UI: attribute colors, alt-charge rename (Graven's Secret / etc), max readout, effect tooltips
+	-- labelFunc / chargeMaxOutput / chargeColor / labelWidthHint are consumed by ConfigTab.lua
+	{ var = "usePowerCharges", type = "check",
+		label = "Do you use "..colorCodes.INTELLIGENCE.."Power^7 Charges?",
+		labelWidthHint = "Do you use Absorption Charges?",
+		chargeMaxOutput = "PowerChargesMax", chargeColor = colorCodes.INTELLIGENCE,
+		labelFunc = function(build)
+			local env = build and build.calcsTab and build.calcsTab.mainEnv
+			if env and env.modDB:Flag(nil, "PowerChargesConvertToAbsorptionCharges") then
+				return "Do you use "..colorCodes.INTELLIGENCE.."Absorption^7 Charges?"
+			end
+			return "Do you use "..colorCodes.INTELLIGENCE.."Power^7 Charges?"
+		end,
+		tooltip = function(modList, build)
+			local cc = data.characterConstants
+			local env = build and build.calcsTab and build.calcsTab.mainEnv
+			if env and env.modDB:Flag(nil, "PowerChargesConvertToAbsorptionCharges") then
+				return colorCodes.INTELLIGENCE.."Absorption Charges^7 (from Power Charges)\n"
+					.."Maximum equals Maximum Power Charges.\n"
+					..s_format("%d%% of Elemental Damage taken Recouped as Energy Shield per Absorption Charge", cc["elemental_damage_taken_goes_to_energy_shield_over_4_seconds_%_per_absorption_charge"])
+			end
+			return colorCodes.INTELLIGENCE.."Power Charges^7\n"
+				..s_format("%d%% increased Critical Strike Chance per Power Charge", cc["critical_strike_chance_+%_per_power_charge"])
+		end,
+		apply = function(val, modList, enemyModList)
+			modList:NewMod("UsePowerCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		end },
+	{ var = "overridePowerCharges", type = "count", ifOption = "usePowerCharges",
+		label = "# of "..colorCodes.INTELLIGENCE.."Power^7 Charges (if not maximum):",
+		labelFunc = function(build)
+			local env = build and build.calcsTab and build.calcsTab.mainEnv
+			if env and env.modDB:Flag(nil, "PowerChargesConvertToAbsorptionCharges") then
+				return "# of "..colorCodes.INTELLIGENCE.."Absorption^7 Charges (if not maximum):"
+			end
+			return "# of "..colorCodes.INTELLIGENCE.."Power^7 Charges (if not maximum):"
+		end,
+		apply = function(val, modList, enemyModList)
+			modList:NewMod("PowerCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
+		end },
+	{ var = "useFrenzyCharges", type = "check",
+		label = "Do you use "..colorCodes.DEXTERITY.."Frenzy^7 Charges?",
+		labelWidthHint = "Do you use Affliction Charges?",
+		chargeMaxOutput = "FrenzyChargesMax", chargeColor = colorCodes.DEXTERITY,
+		labelFunc = function(build)
+			local env = build and build.calcsTab and build.calcsTab.mainEnv
+			if env and env.modDB:Flag(nil, "FrenzyChargesConvertToAfflictionCharges") then
+				return "Do you use "..colorCodes.DEXTERITY.."Affliction^7 Charges?"
+			end
+			return "Do you use "..colorCodes.DEXTERITY.."Frenzy^7 Charges?"
+		end,
+		tooltip = function(modList, build)
+			local cc = data.characterConstants
+			local env = build and build.calcsTab and build.calcsTab.mainEnv
+			if env and env.modDB:Flag(nil, "FrenzyChargesConvertToAfflictionCharges") then
+				return colorCodes.DEXTERITY.."Affliction Charges^7 (from Frenzy Charges)\n"
+					.."Maximum equals Maximum Frenzy Charges.\n"
+					..s_format("%d%% more Damage with Ailments per Affliction Charge\n", cc["ailment_damage_+%_final_per_affliction_charge"])
+					..s_format("%d%% more Effect of Non-Damaging Ailments per Affliction Charge", cc["non_damaging_ailment_effect_+%_final_per_affliction_charge"])
+			end
+			return colorCodes.DEXTERITY.."Frenzy Charges^7\n"
+				..s_format("%d%% increased Attack Speed per Frenzy Charge\n", cc["base_attack_speed_+%_per_frenzy_charge"])
+				..s_format("%d%% increased Cast Speed per Frenzy Charge\n", cc["base_cast_speed_+%_per_frenzy_charge"])
+				..s_format("%d%% more Damage per Frenzy Charge", cc["object_inherent_damage_+%_final_per_frenzy_charge"])
+		end,
+		apply = function(val, modList, enemyModList)
+			modList:NewMod("UseFrenzyCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		end },
+	{ var = "overrideFrenzyCharges", type = "count", ifOption = "useFrenzyCharges",
+		label = "# of "..colorCodes.DEXTERITY.."Frenzy^7 Charges (if not maximum):",
+		labelFunc = function(build)
+			local env = build and build.calcsTab and build.calcsTab.mainEnv
+			if env and env.modDB:Flag(nil, "FrenzyChargesConvertToAfflictionCharges") then
+				return "# of "..colorCodes.DEXTERITY.."Affliction^7 Charges (if not maximum):"
+			end
+			return "# of "..colorCodes.DEXTERITY.."Frenzy^7 Charges (if not maximum):"
+		end,
+		apply = function(val, modList, enemyModList)
+			modList:NewMod("FrenzyCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
+		end },
+	{ var = "useEnduranceCharges", type = "check",
+		label = "Do you use "..colorCodes.STRENGTH.."Endurance^7 Charges?",
+		labelWidthHint = "Do you use Endurance Charges?",
+		chargeMaxOutput = "EnduranceChargesMax", chargeColor = colorCodes.STRENGTH,
+		labelFunc = function(build)
+			local env = build and build.calcsTab and build.calcsTab.mainEnv
+			if env and env.modDB:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
+				return "Do you use "..colorCodes.STRENGTH.."Brutal^7 Charges?"
+			end
+			return "Do you use "..colorCodes.STRENGTH.."Endurance^7 Charges?"
+		end,
+		tooltip = function(modList, build)
+			local cc = data.characterConstants
+			local env = build and build.calcsTab and build.calcsTab.mainEnv
+			if env and env.modDB:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
+				return colorCodes.STRENGTH.."Brutal Charges^7 (from Endurance Charges)\n"
+					.."Maximum equals Maximum Endurance Charges.\n"
+					..s_format("%d%% chance to deal Triple Damage per Brutal Charge", cc["chance_to_deal_triple_damage_%_per_brutal_charge"])
+			end
+			return colorCodes.STRENGTH.."Endurance Charges^7\n"
+				..s_format("%d%% additional Physical Damage Reduction per Endurance Charge\n", cc["physical_damage_reduction_%_per_endurance_charge"])
+				..s_format("%d%% additional Elemental Damage Reduction per Endurance Charge", cc["elemental_damage_reduction_%_per_endurance_charge"])
+		end,
+		apply = function(val, modList, enemyModList)
+			modList:NewMod("UseEnduranceCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		end },
+	{ var = "overrideEnduranceCharges", type = "count", ifOption = "useEnduranceCharges",
+		label = "# of "..colorCodes.STRENGTH.."Endurance^7 Charges (if not maximum):",
+		labelFunc = function(build)
+			local env = build and build.calcsTab and build.calcsTab.mainEnv
+			if env and env.modDB:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
+				return "# of "..colorCodes.STRENGTH.."Brutal^7 Charges (if not maximum):"
+			end
+			return "# of "..colorCodes.STRENGTH.."Endurance^7 Charges (if not maximum):"
+		end,
+		apply = function(val, modList, enemyModList)
+			modList:NewMod("EnduranceCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
+		end },
 	{ var = "useSiphoningCharges", type = "check", label = "Do you use Siphoning Charges?", ifMult = "SiphoningCharge", apply = function(val, modList, enemyModList)
 		modList:NewMod("UseSiphoningCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },

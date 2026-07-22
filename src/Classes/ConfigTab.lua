@@ -155,6 +155,14 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self:BuildModList()
 					self.build.buildFlag = true
 				end)
+				if varData.labelFunc then
+					control.label = function()
+						return varData.labelFunc(self.build) or varData.label
+					end
+				end
+				if varData.labelWidthHint then
+					control.labelWidth = DrawStringWidth(control.width - 4, "VAR", varData.labelWidthHint) + 5
+				end
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" or varData.type == "float" then
 				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 90, 18}, "", nil, (varData.type == "integer" and "^%-%d") or (varData.type == "float" and "^%d.") or "%D", 10, function(buf, placeholder)
 					if placeholder then
@@ -521,7 +529,28 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			local labelControl = control
 			if varData.label and varData.type ~= "check" then
 				labelControl = new("LabelControl", {"RIGHT",control,"LEFT"}, {-4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14}, "^7"..varData.label)
+				if varData.labelFunc then
+					labelControl.label = function()
+						return "^7"..(varData.labelFunc(self.build) or varData.label)
+					end
+				end
 				t_insert(self.controls, labelControl)
+			end
+			-- Optional max readout to the right of a checkbox (used by Power / Frenzy / Endurance charges)
+			if varData.chargeMaxOutput and varData.type == "check" then
+				local maxLabel = new("LabelControl", {"LEFT",control,"RIGHT"}, {6, 1, 0, 14}, "")
+				maxLabel.label = function()
+					local out = self.build.calcsTab and self.build.calcsTab.mainOutput
+					local maxVal = out and out[varData.chargeMaxOutput]
+					if not maxVal then
+						return ""
+					end
+					return (varData.chargeColor or "^7").."Max "..maxVal
+				end
+				maxLabel.shown = function()
+					return control:IsShown()
+				end
+				t_insert(self.controls, maxLabel)
 			end
 			if varData.var then
 				self.configSets[self.activeConfigSetId].input[varData.var] = varData.defaultState
