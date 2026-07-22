@@ -7886,7 +7886,7 @@ c["Cannot be Stunned while you have at least 25 Rage"]={{[1]={[1]={threshold=25,
 c["Cannot be used with Chaos Inoculation"]={nil,"Cannot be used with Chaos Inoculation "}
 c["Cannot be used with Chaos Inoculation Reserves 30% of Life"]={nil,"Cannot be used with Chaos Inoculation Reserves 30% of Life "}
 c["Cannot deal Critical Strikes with Attacks"]={{[1]={flags=1,keywordFlags=0,name="NeverCrit",type="FLAG",value=true},[2]={flags=1,keywordFlags=0,name="Condition:NeverCrit",type="FLAG",value=true}},nil}
-c["Cannot deal non-Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="DealNoPhysical",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="DealNoCold",type="FLAG",value=true},[3]={flags=0,keywordFlags=0,name="DealNoFire",type="FLAG",value=true},[4]={flags=0,keywordFlags=0,name="DealNoLightning",type="FLAG",value=true}},nil}
+c["Cannot deal non-Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="DealNoPhysical",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="DealNoLightning",type="FLAG",value=true},[3]={flags=0,keywordFlags=0,name="DealNoCold",type="FLAG",value=true},[4]={flags=0,keywordFlags=0,name="DealNoFire",type="FLAG",value=true}},nil}
 c["Cannot gain Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="CannotGainEnergyShield",type="FLAG",value=true}},nil}
 c["Cannot gain Life during effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="CannotGainLife",type="FLAG",value=true}},nil}
 c["Cannot gain Mana during effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="CannotGainMana",type="FLAG",value=true}},nil}

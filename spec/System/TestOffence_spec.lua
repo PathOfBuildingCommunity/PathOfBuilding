@@ -1,4 +1,4 @@
-describe("TestMinMaxDamageMods", function()
+describe("TestOffence", function()
 	before_each(function()
 		newBuild()
 	end)
@@ -6,6 +6,12 @@ describe("TestMinMaxDamageMods", function()
 	teardown(function()
 		-- newBuild() takes care of resetting everything in setup()
 	end)
+
+	-- Asserts actual is within a relative tolerance of expected, e.g. 0.005 = 0.5%
+	local function assertNearRelative(expected, actual, tolerance, msg)
+		assert.is_true(math.abs(expected - actual) / expected <= tolerance,
+			string.format("%s: expected ~%.2f (within %.1f%%), got %.2f", msg, expected, tolerance * 100, actual))
+	end
 
 	it("parses more/less/increased/reduced minimum and maximum damage of every type", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[
@@ -133,5 +139,34 @@ describe("TestMinMaxDamageMods", function()
 		assert.is_true(not (modDB:Flag(nil, "DealNoLightning")))
 		assert.is_true(not (modDB:Flag(nil, "DealNoCold")))
 		assert.is_true(not (modDB:Flag(nil, "DealNoFire")))
+	end)
+
+	it("enemies in your chilling areas take damage increased by the area's chill effect", function()
+		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nVortex 20/0  1\n")
+		runCallback("OnFrame")
+
+		local baseAvg = build.calcsTab.mainOutput.AverageDamage
+		assert.is_true(baseAvg > 0)
+		-- the chilling area's own chill effect, as computed by CalcOffence
+		local areaChill = build.calcsTab.mainOutput.ChillSourceEffect
+		assert.is_true(areaChill ~= nil and areaChill > 0)
+
+		build.itemsTab:CreateDisplayItemFromRaw([[
+		New Item
+		Coral Amulet
+		Enemies in your Chilling Areas have Damage taken increased by Chill Effect
+		]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		-- config checkbox not ticked -> enemy is not in the area -> no change
+		assert.are.equals(baseAvg, build.calcsTab.mainOutput.AverageDamage)
+
+		build.configTab.input.conditionEnemyInChillingArea = true
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assertNearRelative(baseAvg * (1 + areaChill / 100), build.calcsTab.mainOutput.AverageDamage, 0.005,
+			string.format("base %.2f scaled by %d%% area chill", baseAvg, areaChill))
 	end)
 end)

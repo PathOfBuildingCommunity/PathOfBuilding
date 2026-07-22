@@ -1227,6 +1227,7 @@ function calcs.perform(env, skipEHP)
 	end
 
 	local hasGuaranteedBonechill = false
+	local chillingAreaChillEffect = 0
 	
 	-- Banners
 	if modDB:Flag(nil,"Condition:BannerPlanted") then
@@ -1325,6 +1326,9 @@ function calcs.perform(env, skipEHP)
 			local effect = data.nonDamagingAilment.Chill.default * calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "EnemyChillEffect")
 			modDB:NewMod("ChillOverride", "BASE", effect, activeSkill.activeEffect.grantedEffect.name)
 			enemyDB:NewMod("Condition:Chilled", "FLAG", true, activeSkill.activeEffect.grantedEffect.name)
+			if activeSkill.skillTypes[SkillType.ChillingArea] then
+				chillingAreaChillEffect = m_max(chillingAreaChillEffect, effect)
+			end
 			if activeSkill.skillData.supportBonechill then
 				hasGuaranteedBonechill = true
 			end
@@ -3351,6 +3355,13 @@ function calcs.perform(env, skipEHP)
 					t_insert(mods, modLib.createMod("DamageTaken", "INC", num, "Ahuana's Bite", { type = "Condition", var = "Chilled" }))
 				elseif output.HasBonechill and (hasGuaranteedBonechill or enemyDB:Sum("BASE", nil, "ChillVal") > 0) then
 					t_insert(mods, modLib.createMod("ColdDamageTaken", "INC", num, "Bonechill", { type = "Condition", var = "Chilled" }))
+				end
+				-- Stacks with the above as a separate increase; scales off the chilling area's own
+				-- chill effect rather than the strongest chill applied to the enemy.
+				-- The flag itself is gated on the enemy being in a chilling area (config option).
+				if modDB:Flag(nil, "ChillingAreaIncDamageTaken") and chillingAreaChillEffect > 0 then
+					local areaChill = m_floor(m_min(chillingAreaChillEffect, output.MaximumChill) * (10 ^ ailmentData.Chill.precision)) / (10 ^ ailmentData.Chill.precision)
+					t_insert(mods, modLib.createMod("DamageTaken", "INC", areaChill, "Chilling Area", { type = "Condition", var = "Chilled" }))
 				end
 				if modDB:Flag(nil, "ChillEffectLessDamageDealt") then
 					t_insert(mods, modLib.createMod("Damage", "MORE", -num / 2, "Shaper of Winter", { type = "Condition", var = "Chilled" }))
