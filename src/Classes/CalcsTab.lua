@@ -231,7 +231,7 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 	local maxY = 0
 	for _, section in ipairs(self.sectionList) do
 		section:UpdateSize()
-		if section.enabled then
+		if section.enabled and not section.isOverlay then
 			local col
 			if section.group == 1 then
 				-- Group 1: Offense or 3 wide sections
@@ -280,7 +280,7 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 			colY[c] = m_max(colY[1], colY[2], colY[3])
 		end
 		for _, section in ipairs(self.sectionList) do
-			if section.enabled and (main.portraitMode and section.group == 2 or section.group == 3) then
+			if section.enabled and not section.isOverlay and (main.portraitMode and section.group == 2 or section.group == 3) then
 				local col = 3
 				if colY[col] + section.height + 4 >= m_max(viewPort.y + viewPort.height, maxY) then
 					-- No room in the 4th column, find the highest available location in columns 1-4
@@ -302,9 +302,11 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 	self.controls.scrollBar.height = viewPort.height
 	self.controls.scrollBar:SetContentDimension(maxY - (baseY - 26), viewPort.height)
 	for _, section in ipairs(self.sectionList) do
-		-- Give sections their actual Y position and let them update
-		section.y = section.y - self.controls.scrollBar.offset
-		section:UpdatePos()
+		if not section.isOverlay then
+			-- Give sections their actual Y position and let them update
+			section.y = section.y - self.controls.scrollBar.offset
+			section:UpdatePos()
+		end
 	end
 	
 	self.controls.search.y = 4 - self.controls.scrollBar.offset

@@ -604,6 +604,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	self.skillsTab = new("SkillsTab", self)
 	self.calcsTab = new("CalcsTab", self)
 	self.compareTab = new("CompareTab", self)
+	-- Used for pined calcs panes
+	self.overlayPanes = { }
 
 	-- Load sections from the build file
 	self.savers = {
@@ -1173,6 +1175,29 @@ function buildMode:OnFrame(inputEvents)
 			end
 		end
 	end
+
+	-- Consume mouse events for overlay panes before normal input processing
+	local cursorX, cursorY = GetCursorPos()
+	for i = #inputEvents, 1, -1 do
+		local event = inputEvents[i]
+		if not event then break end
+		if event.type == "KeyDown" and event.key:match("BUTTON") then
+			for _, pane in ipairs(self.overlayPanes) do
+				if pane.isOverlay and pane:IsMouseInOverlay(cursorX, cursorY) then
+					pane:HandleOverlayClick(event.key, cursorX, cursorY)
+					inputEvents[i] = nil
+					break
+				end
+			end
+		elseif event.type == "KeyUp" and event.key:match("BUTTON") then
+			for _, pane in ipairs(self.overlayPanes) do
+				if pane.isOverlay then
+					pane:HandleOverlayRelease(event.key)
+				end
+			end
+		end
+	end
+
 	self:ProcessControlsInput(inputEvents, main.viewPort)
 
 	self.controls.classDrop:SelByValue(self.spec.curClassId, "classId")
@@ -1233,6 +1258,13 @@ function buildMode:OnFrame(inputEvents)
 		self.calcsTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "COMPARE" then
 		self.compareTab:Draw(tabViewPort, inputEvents)
+	end
+
+	-- Draw overlay panes on top of all tab content (last = topmost)
+	for _, pane in ipairs(self.overlayPanes) do
+		if pane.isOverlay then
+			pane:DrawOverlay(main.viewPort, inputEvents)
+		end
 	end
 
 	self.unsaved = self.modFlag or self.notesTab.modFlag or self.partyTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.treeTab.searchFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
