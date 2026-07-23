@@ -153,6 +153,15 @@ describe("TetsItemMods", function()
 
 		build.configTab.input.customMods = [[Gain Elusive on Critical Strike
 		Elusive's Effect on you is increased instead for the first 2 seconds
+		Elusive on you reduces in effect 50% slower
+		Elusive is removed from you at 20% Effect]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.near(244 / 3, build.calcsTab.mainOutput.ElusiveEffectMod, 10 ^ -9)
+
+		build.configTab.input.customMods = [[Gain Elusive on Critical Strike
+		Elusive's Effect on you is increased instead for the first 2 seconds
 		100% increased Elusive Effect
 		Elusive is removed from you at 100% Effect]]
 		build.configTab:BuildModList()
@@ -160,11 +169,11 @@ describe("TetsItemMods", function()
 
 		assert.are.near(1630 / 9, build.calcsTab.mainOutput.ElusiveEffectMod, 10 ^ -9)
 
-		build.configTab.input.overrideBuffElusive = 80
+		build.configTab.input.overrideBuffElusive = 220
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
 
-		assert.are.equals(80, build.calcsTab.mainOutput.ElusiveEffectMod)
+		assert.are.equals(220, build.calcsTab.mainOutput.ElusiveEffectMod)
 	end)
 
 	it("Varunastra works with close combat support", function()
