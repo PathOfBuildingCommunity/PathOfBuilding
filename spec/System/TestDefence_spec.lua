@@ -616,6 +616,58 @@ describe("TestDefence", function()
 		end)
 	end)
 
+	describe("damage taken from allies' life before you", function()
+		for _, ally in ipairs({
+			{ name = "spectres", mod = "takenFromSpectresBeforeYou", life = "TotalSpectreLife", mitigation = "SpectreAllyDamageMitigation", pool = "spectres" },
+			{ name = "totems", mod = "takenFromTotemsBeforeYou", life = "TotalTotemLife", mitigation = "TotemAllyDamageMitigation", pool = "totems" },
+			{ name = "Sentinel of Radiance", mod = "takenFromRadianceSentinelBeforeYou", life = "TotalRadianceSentinelLife", mitigation = "RadianceSentinelAllyDamageMitigation", pool = "radianceSentinel" },
+			{ name = "Void Spawns", mod = "takenFromVoidSpawnBeforeYou", life = "TotalVoidSpawnLife", mitigation = "VoidSpawnAllyDamageMitigation", pool = "voidSpawn" },
+		}) do
+			it("redirects damage to "..ally.name, function()
+				build.configTab:BuildModList()
+				build.configTab.modList:NewMod(ally.mod, "BASE", 20, "Test")
+				build.configTab.modList:NewMod(ally.life, "BASE", 1000, "Test")
+				build.calcsTab:BuildOutput()
+
+				local output = build.calcsTab.mainOutput
+				assert.are.equals(20, output[ally.mitigation])
+				assert.are.equals(1000, output[ally.life])
+				local pools = build.calcsTab.calcs.reducePoolsByDamage(nil, { Physical = 100 }, build.calcsTab.mainEnv.player)
+				assert.are.equals(980, pools.AlliesTakenBeforeYou[ally.pool].remaining)
+			end)
+		end
+
+		it("applies Stone Golem of Safeguarding to melee hits", function()
+			build.skillsTab:PasteSocketGroup("Summon Stone Golem of Safeguarding 20/0  1")
+			build.configTab.input.TotalStoneGolemLife = 1000
+			build.configTab.input.enemyDamageType = "Melee"
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+
+			local output = build.calcsTab.calcsOutput
+			assert.are.equals(15, output.StoneGolemAllyDamageMitigation)
+			assert.are.equals(1000, output.TotalStoneGolemLife)
+			local pools = build.calcsTab.calcs.reducePoolsByDamage(nil, { Physical = 100 }, build.calcsTab.calcsEnv.player)
+			assert.are.equals(985, pools.AlliesTakenBeforeYou.stoneGolem.remaining)
+
+			build.configTab.input.enemyDamageType = "Average"
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			assert.are.equals(3.75, build.calcsTab.calcsOutput.StoneGolemAllyDamageMitigation)
+		end)
+
+		it("does not apply Stone Golem of Safeguarding to non-melee hits", function()
+			build.skillsTab:PasteSocketGroup("Summon Stone Golem of Safeguarding 20/0  1")
+			build.configTab.input.TotalStoneGolemLife = 1000
+			build.configTab.input.enemyDamageType = "Spell"
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+
+			assert.are.equals(0, build.calcsTab.calcsOutput.StoneGolemAllyDamageMitigation)
+			assert.is_nil(build.calcsTab.calcsOutput.TotalStoneGolemLife)
+		end)
+	end)
+
 	local function withinTenPercent(value, otherValue)
 		local ratio = otherValue / value
 		return 0.9 < ratio and ratio < 1.1

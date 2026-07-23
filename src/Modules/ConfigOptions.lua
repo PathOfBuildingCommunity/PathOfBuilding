@@ -798,6 +798,9 @@ Huge sets the radius to 11.
 	{ var = "TotalVoidSpawnLife", type = "integer", label = "Total life pool of Void Spawn", ifMod = "takenFromVoidSpawnBeforeYou", apply = function(val, modList, enemyModList)
 		modList:NewMod("TotalVoidSpawnLife", "BASE", val, "Config")
 	end },
+	{ var = "TotalStoneGolemLife", type = "integer", label = "Total Stone Golem Life:", ifSkill = "Summon Stone Golem of Safeguarding", ifMod = "takenFromStoneGolemBeforeYou", tooltip = "The total life of your Stone Golems of Safeguarding that can be taken before yours", apply = function(val, modList, enemyModList)
+		modList:NewMod("TotalStoneGolemLife", "BASE", val, "Config")
+	end },
 	{ var = "TotalVaalRejuvenationTotemLife", type = "integer", label = "Total Vaal Rejuvenation Totem Life:", ifSkill = { "Vaal Rejuvenation Totem" }, ifMod = "takenFromVaalRejuvenationTotemsBeforeYou", tooltip = "The total life of your Vaal Rejuvenation Totems that can be taken before yours", apply = function(val, modList, enemyModList)
 		modList:NewMod("TotalVaalRejuvenationTotemLife", "BASE", val, "Config")
 	end },

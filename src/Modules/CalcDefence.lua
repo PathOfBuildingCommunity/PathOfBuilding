@@ -28,6 +28,30 @@ local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
 
 local resistTypeList = { "Fire", "Cold", "Lightning", "Chaos" }
 
+local allyLifePoolList = {
+	{ key = "frostShield", life = "FrostShieldLife", mitigation = "FrostShieldDamageMitigation", label = "Frost Shield Life" },
+	{ key = "minion", life = "TotalMinionLife", mitigation = "MinionAllyDamageMitigation", label = "Total Minion Life" },
+	{ key = "spectres", life = "TotalSpectreLife", mitigation = "SpectreAllyDamageMitigation", label = "Total Spectre Life" },
+	{ key = "totems", life = "TotalTotemLife", mitigation = "TotemAllyDamageMitigation", label = "Total Totem Life" },
+	{ key = "vaalRejuvenationTotems", life = "TotalVaalRejuvenationTotemLife", mitigation = "VaalRejuvenationTotemAllyDamageMitigation", label = "Total Vaal Rejuvenation Totem Life" },
+	{ key = "radianceSentinel", life = "TotalRadianceSentinelLife", mitigation = "RadianceSentinelAllyDamageMitigation", label = "Total Sentinel of Radiance Life" },
+	{ key = "voidSpawn", life = "TotalVoidSpawnLife", mitigation = "VoidSpawnAllyDamageMitigation", label = "Total Void Spawn Life" },
+	{ key = "stoneGolem", life = "TotalStoneGolemLife", mitigation = "StoneGolemAllyDamageMitigation", label = "Total Stone Golem Life" },
+	{ key = "soulLink", life = "AlliedEnergyShield", mitigation = "SoulLinkMitigation", label = "Total Allied Energy shield" },
+}
+
+local function buildAllyLifePools(output)
+	local pools = { }
+	for _, ally in ipairs(allyLifePoolList) do
+		local life = output[ally.life]
+		local mitigation = output[ally.mitigation]
+		if life and life > 0 and mitigation and mitigation > 0 then
+			pools[ally.key] = { remaining = life, percent = mitigation / 100 }
+		end
+	end
+	return pools
+end
+
 -- Calculate hit chance
 function calcs.hitChance(evasion, accuracy)
 	if accuracy < 0 then
@@ -173,31 +197,7 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	
 	local alliesTakenBeforeYou = poolTbl.AlliesTakenBeforeYou
 	if not alliesTakenBeforeYou then
-		alliesTakenBeforeYou = {}
-		if output.FrostShieldLife then
-			alliesTakenBeforeYou["frostShield"] = { remaining = output.FrostShieldLife, percent = output.FrostShieldDamageMitigation / 100 }
-		end
-		if output.TotalMinionLife then
-			alliesTakenBeforeYou["minion"] = { remaining = output.TotalMinionLife, percent = output.MinionAllyDamageMitigation / 100 }
-		end
-		if output.TotalSpectreLife then
-			alliesTakenBeforeYou["spectres"] = { remaining = output.TotalSpectreLife, percent = output.SpectreAllyDamageMitigation / 100 }
-		end
-		if output.TotalTotemLife then
-			alliesTakenBeforeYou["totems"] = { remaining = output.TotalTotemLife, percent = output.TotemAllyDamageMitigation / 100 }
-		end
-		if output.TotalVaalRejuvenationTotemLife then
-			alliesTakenBeforeYou["vaalRejuvenationTotems"] = { remaining = output.TotalVaalRejuvenationTotemLife, percent = output.VaalRejuvenationTotemAllyDamageMitigation / 100 }
-		end
-		if output.TotalRadianceSentinelLife then
-			alliesTakenBeforeYou["radianceSentinel"] = { remaining = output.TotalRadianceSentinelLife, percent = output.RadianceSentinelAllyDamageMitigation / 100 }
-		end
-		if output.TotalVoidSpawnLife then
-			alliesTakenBeforeYou["voidSpawn"] = { remaining = output.TotalVoidSpawnLife, percent = output.VoidSpawnAllyDamageMitigation / 100 }
-		end
-		if output.AlliedEnergyShield then
-			alliesTakenBeforeYou["soulLink"] = { remaining = output.AlliedEnergyShield, percent = output.SoulLinkMitigation / 100 }
-		end
+		alliesTakenBeforeYou = buildAllyLifePools(output)
 	end
 	
 	local damageTakenThatCanBeRecouped = poolTbl.damageTakenThatCanBeRecouped or { }
@@ -425,29 +425,12 @@ end
 ---@return table breakdownTable with drained resource list
 local function incomingDamageBreakdown(breakdownTable, poolsRemaining, output)
 	--region Breakdown inserts
-	if output.FrostShieldLife and output.FrostShieldLife > 0 then
-		t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Frost Shield Life ^7(%d remaining)", output.FrostShieldLife - poolsRemaining.AlliesTakenBeforeYou["frostShield"].remaining, poolsRemaining.AlliesTakenBeforeYou["frostShield"].remaining))
-	end
-	if output.TotalMinionLife and output.TotalMinionLife > 0 then
-		t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Minion Life ^7(%d remaining)", output.TotalMinionLife - poolsRemaining.AlliesTakenBeforeYou["minion"].remaining, poolsRemaining.AlliesTakenBeforeYou["minion"].remaining))
-	end
-	if output.TotalSpectreLife and output.TotalSpectreLife > 0 then
-		t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Spectre Life ^7(%d remaining)", output.TotalSpectreLife - poolsRemaining.AlliesTakenBeforeYou["spectres"].remaining, poolsRemaining.AlliesTakenBeforeYou["spectres"].remaining))
-	end
-	if output.TotalTotemLife and output.TotalTotemLife > 0 then
-		t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Totem Life ^7(%d remaining)", output.TotalTotemLife - poolsRemaining.AlliesTakenBeforeYou["totems"].remaining, poolsRemaining.AlliesTakenBeforeYou["totems"].remaining))
-	end
-	if output.TotalVaalRejuvenationTotemLife and output.TotalVaalRejuvenationTotemLife > 0 then
-		t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Vaal Rejuvenation Totem Life ^7(%d remaining)", output.TotalVaalRejuvenationTotemLife - poolsRemaining.AlliesTakenBeforeYou["vaalRejuvenationTotems"].remaining, poolsRemaining.AlliesTakenBeforeYou["vaalRejuvenationTotems"].remaining))
-	end
-	if output.TotalRadianceSentinelLife and output.TotalRadianceSentinelLife > 0 then
-		t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Sentinel of Radiance Life ^7(%d remaining)", output.TotalRadianceSentinelLife - poolsRemaining.AlliesTakenBeforeYou["radianceSentinel"].remaining, poolsRemaining.AlliesTakenBeforeYou["radianceSentinel"].remaining))
-	end
-	if output.TotalVoidSpawnLife and output.TotalVoidSpawnLife > 0 then
-		t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Void Spawn Life ^7(%d remaining)", output.TotalVoidSpawnLife - poolsRemaining.AlliesTakenBeforeYou["voidSpawn"].remaining, poolsRemaining.AlliesTakenBeforeYou["voidSpawn"].remaining))
-	end
-	if output.AlliedEnergyShield and output.AlliedEnergyShield > 0 then
-		t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Allied Energy shield ^7(%d remaining)", output.AlliedEnergyShield - poolsRemaining.AlliesTakenBeforeYou["soulLink"].remaining, poolsRemaining.AlliesTakenBeforeYou["soulLink"].remaining))
+	for _, ally in ipairs(allyLifePoolList) do
+		local pool = poolsRemaining.AlliesTakenBeforeYou[ally.key]
+		if pool then
+			local life = output[ally.life]
+			t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM..ally.label.." ^7(%d remaining)", life - pool.remaining, pool.remaining))
+		end
 	end
 	for _, damageType in ipairs(dmgTypeList) do
 		if poolsRemaining.resourcesLostToTypeDamage[damageType].aegis then
@@ -2501,6 +2484,13 @@ function calcs.buildDefenceEstimations(env, actor)
 		if output["VoidSpawnAllyDamageMitigation"] ~= 0 then
 			output["TotalVoidSpawnLife"] = modDB:Sum("BASE", nil, "TotalVoidSpawnLife")
 		end
+
+		-- from Stone Golem of Safeguarding
+		local stoneGolemMitigation = modDB:Sum("BASE", nil, "takenFromStoneGolemBeforeYou")
+		output["StoneGolemAllyDamageMitigation"] = damageCategoryConfig == "Melee" and stoneGolemMitigation or damageCategoryConfig == "Average" and stoneGolemMitigation / 4 or 0
+		if output["StoneGolemAllyDamageMitigation"] ~= 0 then
+			output["TotalStoneGolemLife"] = modDB:Sum("BASE", nil, "TotalStoneGolemLife")
+		end
 		
 		-- from Allied Energy Shield
 		output["SoulLinkMitigation"] = modDB:Sum("BASE", nil, "TakenFromParentESBeforeYou")
@@ -2588,31 +2578,7 @@ function calcs.buildDefenceEstimations(env, actor)
 			aegis[damageType] = output[damageType.."Aegis"] or 0
 			guard[damageType] = output[damageType.."GuardAbsorb"] or 0
 		end
-		local alliesTakenBeforeYou = {}
-		if output.FrostShieldLife then
-			alliesTakenBeforeYou["frostShield"] = { remaining = output.FrostShieldLife, percent = output.FrostShieldDamageMitigation / 100 }
-		end
-		if output.TotalMinionLife then
-			alliesTakenBeforeYou["minion"] = { remaining = output.TotalMinionLife, percent = output.MinionAllyDamageMitigation / 100 }
-		end
-		if output.TotalSpectreLife then
-			alliesTakenBeforeYou["spectres"] = { remaining = output.TotalSpectreLife, percent = output.SpectreAllyDamageMitigation / 100 }
-		end
-		if output.TotalTotemLife then
-			alliesTakenBeforeYou["totems"] = { remaining = output.TotalTotemLife, percent = output.TotemAllyDamageMitigation / 100 }
-		end
-		if output.TotalVaalRejuvenationTotemLife then
-			alliesTakenBeforeYou["vaalRejuvenationTotems"] = { remaining = output.TotalVaalRejuvenationTotemLife, percent = output.VaalRejuvenationTotemAllyDamageMitigation / 100 }
-		end
-		if output.TotalRadianceSentinelLife then
-			alliesTakenBeforeYou["radianceSentinel"] = { remaining = output.TotalRadianceSentinelLife, percent = output.RadianceSentinelAllyDamageMitigation / 100 }
-		end
-		if output.TotalVoidSpawnLife then
-			alliesTakenBeforeYou["voidSpawn"] = { remaining = output.TotalVoidSpawnLife, percent = output.VoidSpawnAllyDamageMitigation / 100 }
-		end
-		if output.AlliedEnergyShield then
-			alliesTakenBeforeYou["soulLink"] = { remaining = output.AlliedEnergyShield, percent = output.SoulLinkMitigation / 100 }
-		end
+		local alliesTakenBeforeYou = buildAllyLifePools(output)
 		
 		local poolTable = {
 			AlliesTakenBeforeYou = alliesTakenBeforeYou,
@@ -3157,42 +3123,13 @@ function calcs.buildDefenceEstimations(env, actor)
 				end
 			end
 			-- from allies before you
-			-- frost shield
-			if output["FrostShieldLife"] > 0 then
-				local poolProtected = output["FrostShieldLife"] / (output["FrostShieldDamageMitigation"] / 100) * (1 - output["FrostShieldDamageMitigation"] / 100)
-				output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["FrostShieldDamageMitigation"] / 100)
-			end
-			-- minions
-			if output["TotalMinionLife"] and output["TotalMinionLife"] > 0 then
-				local poolProtected = output["TotalMinionLife"] / (output["MinionAllyDamageMitigation"] / 100) * (1 - output["MinionAllyDamageMitigation"] / 100)
-				output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["MinionAllyDamageMitigation"] / 100)
-			end
-			-- spectres
-			if output["TotalSpectreLife"] and output["TotalSpectreLife"] > 0 then
-				local poolProtected = output["TotalSpectreLife"] / (output["SpectreAllyDamageMitigation"] / 100) * (1 - output["SpectreAllyDamageMitigation"] / 100)
-				output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["SpectreAllyDamageMitigation"] / 100)
-			end
-			-- totems
-			if output["TotalTotemLife"] and output["TotalTotemLife"] > 0 then
-				local poolProtected = output["TotalTotemLife"] / (output["TotemAllyDamageMitigation"] / 100) * (1 - output["TotemAllyDamageMitigation"] / 100)
-				output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["TotemAllyDamageMitigation"] / 100)
-			end
-			if output["TotalVaalRejuvenationTotemLife"] and output["TotalVaalRejuvenationTotemLife"] > 0 then
-				local poolProtected = output["TotalVaalRejuvenationTotemLife"] / (output["VaalRejuvenationTotemAllyDamageMitigation"] / 100) * (1 - output["VaalRejuvenationTotemAllyDamageMitigation"] / 100)
-				output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["VaalRejuvenationTotemAllyDamageMitigation"] / 100)
-			end
-			if output["TotalRadianceSentinelLife"] and output["TotalRadianceSentinelLife"] > 0 then
-				local poolProtected = output["TotalRadianceSentinelLife"] / (output["RadianceSentinelAllyDamageMitigation"] / 100) * (1 - output["RadianceSentinelAllyDamageMitigation"] / 100)
-				output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["RadianceSentinelAllyDamageMitigation"] / 100)
-			end
-			if output["TotalVoidSpawnLife"] and output["TotalVoidSpawnLife"] > 0 then
-				local poolProtected = output["TotalVoidSpawnLife"] / (output["VoidSpawnAllyDamageMitigation"] / 100) * (1 - output["VoidSpawnAllyDamageMitigation"] / 100)
-				output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["VoidSpawnAllyDamageMitigation"] / 100)
-			end
-			-- soul link
-			if output["AlliedEnergyShield"] and output["AlliedEnergyShield"] > 0 then
-				local poolProtected = output["AlliedEnergyShield"] / (output["SoulLinkMitigation"] / 100) * (1 - output["SoulLinkMitigation"] / 100)
-				output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["SoulLinkMitigation"] / 100)
+			for _, ally in ipairs(allyLifePoolList) do
+				local life = output[ally.life]
+				local mitigation = output[ally.mitigation]
+				if life and life > 0 and mitigation and mitigation > 0 then
+					local poolProtected = life / (mitigation / 100) * (1 - mitigation / 100)
+					output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - mitigation / 100)
+				end
 			end
 		end
 
@@ -3804,37 +3741,12 @@ function calcs.buildDefenceEstimations(env, actor)
 			t_insert(breakdownTable, s_format("= %.1f", output[damageType.."TakenHit"]))
 
 			t_insert(breakdownTable, "This part of the hit drains the following resources:")
-			if resourcesLost.frostShield then
-				resourcesLostSum = resourcesLostSum + resourcesLost.frostShield
-				t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Frost Shield Life", resourcesLost.frostShield))
-			end
-			if resourcesLost.minion then
-				resourcesLostSum = resourcesLostSum + resourcesLost.minion
-				t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Minion Life", resourcesLost.minion))
-			end
-			if resourcesLost.spectres then
-				resourcesLostSum = resourcesLostSum + resourcesLost.spectres
-				t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Spectre Life", resourcesLost.spectres))
-			end
-			if resourcesLost.totems then
-				resourcesLostSum = resourcesLostSum + resourcesLost.totems
-				t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Totem Life", resourcesLost.totems))
-			end
-			if resourcesLost.vaalRejuvenationTotems then
-				resourcesLostSum = resourcesLostSum + resourcesLost.vaalRejuvenationTotems
-				t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Vaal Rejuvenation Totem Life", resourcesLost.vaalRejuvenationTotems))
-			end
-			if resourcesLost.radianceSentinel then
-				resourcesLostSum = resourcesLostSum + resourcesLost.radianceSentinel
-				t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Sentinel of Radiance Life", resourcesLost.radianceSentinel))
-			end
-			if resourcesLost.voidSpawn then
-				resourcesLostSum = resourcesLostSum + resourcesLost.voidSpawn
-				t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Void Spawn Life", resourcesLost.voidSpawn))
-			end
-			if resourcesLost.soulLink then
-				resourcesLostSum = resourcesLostSum + resourcesLost.soulLink
-				t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM.."Total Allied Energy shield", resourcesLost.soulLink))
+			for _, ally in ipairs(allyLifePoolList) do
+				local lost = resourcesLost[ally.key]
+				if lost then
+					resourcesLostSum = resourcesLostSum + lost
+					t_insert(breakdownTable, s_format("\t%d "..colorCodes.GEM..ally.label, lost))
+				end
 			end
 			if resourcesLost.aegis then
 				resourcesLostSum = resourcesLostSum + resourcesLost.aegis

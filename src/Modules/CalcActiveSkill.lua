@@ -775,15 +775,6 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			if tag.type == "GlobalEffect" then
 				effectType = tag.effectType
 				effectName = tag.effectName or activeGrantedEffect.name
-				if activeSkill.minion and activeSkill.minion.minionData then
-					if effectName:find("{0}", 1, true) then
-						effectName = effectName:gsub("{0}", activeSkill.minion.minionData.name)
-					elseif activeGrantedEffect.minionList and effectName:match("^Companion") then
-						effectName = "Companion: "..activeSkill.minion.minionData.name
-					elseif activeGrantedEffect.minionList and effectName:match("^Spectre") then
-						effectName = "Spectre: "..activeSkill.minion.minionData.name
-					end
-				end
 				effectTag = tag
 				break
 			end
