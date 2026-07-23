@@ -310,6 +310,13 @@ function calcSkillDuration(skillModList, skillCfg, skillData, env, enemyDB)
 	return duration
 end
 
+-- Keep defensive Totem pools in step with the Totem Life shown in the skill calculations.
+function calcs.calcTotemLife(env, activeSkill)
+	local lifeMod = calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "TotemLife")
+	local life = round(m_floor(env.data.monsterAllyLifeTable[activeSkill.skillData.totemLevel] * env.data.totemLifeMult[activeSkill.skillTotemId]) * lifeMod)
+	return life, lifeMod
+end
+
 -- Performs all offensive calculations
 function calcs.offence(env, actor, activeSkill)
 	local modDB = actor.modDB
@@ -1387,8 +1394,7 @@ function calcs.offence(env, actor, activeSkill)
 				"Totems Summoned: "..output.TotemsSummoned..(env.configInput.TotemsSummoned and " ^8(overridden from the Configuration tab)" or " ^8(can be overridden in the Configuration tab)"),
 			}
 		end
-		output.TotemLifeMod = calcLib.mod(skillModList, skillCfg, "TotemLife")
-		output.TotemLife = round(m_floor(env.data.monsterAllyLifeTable[skillData.totemLevel] * env.data.totemLifeMult[activeSkill.skillTotemId]) * output.TotemLifeMod)
+		output.TotemLife, output.TotemLifeMod = calcs.calcTotemLife(env, activeSkill)
 		output.TotemEnergyShield = skillModList:Sum("BASE", skillCfg, "TotemEnergyShield")
 		output.TotemBlockChance = skillModList:Sum("BASE", skillCfg, "TotemBlockChance")
 		output.TotemArmour = skillModList:Sum("BASE", skillCfg, "TotemArmour")

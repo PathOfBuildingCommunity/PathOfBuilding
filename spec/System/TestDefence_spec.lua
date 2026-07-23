@@ -618,6 +618,7 @@ describe("TestDefence", function()
 
 	describe("damage taken from allies' life before you", function()
 		for _, ally in ipairs({
+			{ name = "a minion", mod = "takenFromMinionBeforeYou", life = "TotalMinionLife", mitigation = "MinionAllyDamageMitigation", pool = "minion" },
 			{ name = "spectres", mod = "takenFromSpectresBeforeYou", life = "TotalSpectreLife", mitigation = "SpectreAllyDamageMitigation", pool = "spectres" },
 			{ name = "totems", mod = "takenFromTotemsBeforeYou", life = "TotalTotemLife", mitigation = "TotemAllyDamageMitigation", pool = "totems" },
 			{ name = "Sentinel of Radiance", mod = "takenFromRadianceSentinelBeforeYou", life = "TotalRadianceSentinelLife", mitigation = "RadianceSentinelAllyDamageMitigation", pool = "radianceSentinel" },
@@ -637,18 +638,132 @@ describe("TestDefence", function()
 			end)
 		end
 
-		it("applies Stone Golem of Safeguarding to melee hits", function()
-			build.skillsTab:PasteSocketGroup("Summon Stone Golem of Safeguarding 20/0  1")
-			build.configTab.input.TotalStoneGolemLife = 1000
+		it("calculates the Companionship minion's life automatically", function()
+			build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+			build.skillsTab:PasteSocketGroup("Raise Zombie 20/0  1\nCompanionship 3/0  1")
+			build.mainSocketGroup = 1
+			build.configTab.input.multiplierSummonedMinion = 2
+			build.configTab:BuildModList()
+			-- Keep the pool visible while Companionship is disabled, so both builds use the same secondary-minion path.
+			build.configTab.modList:NewMod("takenFromMinionBeforeYou", "BASE", 1, "Test")
+			build.calcsTab:BuildOutput()
+			local unsupportedLife = build.calcsTab.mainOutput.TotalMinionLife
+
+			newBuild()
+			build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+			build.skillsTab:PasteSocketGroup("Raise Zombie 20/0  1\nCompanionship 3/0  1")
+			build.mainSocketGroup = 1
+			build.configTab.input.multiplierSummonedMinion = 1
+			build.configTab:BuildModList()
+			build.calcsTab:BuildOutput()
+
+			local output = build.calcsTab.mainOutput
+			local minionLife = build.calcsTab.mainEnv.player.allyLifeList.TotalMinionLife[1].life
+			assert.are.equals(15, output.MinionAllyDamageMitigation)
+			assert.are.equals(minionLife, output.TotalMinionLife)
+			assert.are.near(unsupportedLife * 1.6, minionLife, 20)
+		end)
+
+		it("requires exactly one summoned minion for Companionship", function()
+			build.skillsTab:PasteSocketGroup("Raise Zombie 20/0  1\nCompanionship 3/0  1")
+			build.configTab.input.multiplierSummonedMinion = 2
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+
+			assert.are.equals(0, build.calcsTab.calcsOutput.MinionAllyDamageMitigation)
+			assert.is_nil(build.calcsTab.calcsOutput.TotalMinionLife)
+		end)
+
+		it("counts a minion without a limit for Companionship", function()
+			build.skillsTab:PasteSocketGroup("Animate Guardian 20/0  1\nCompanionship 3/0  1")
+			runCallback("OnFrame")
+
+			assert.are.equals(15, build.calcsTab.calcsOutput.MinionAllyDamageMitigation)
+			assert.is_true(build.calcsTab.calcsOutput.TotalMinionLife > 0)
+		end)
+
+		it("counts Companionship's minion outside Combat mode", function()
+			build.skillsTab:PasteSocketGroup("Animate Guardian 20/0  1\nCompanionship 3/0  1")
+			build.configTab.input.multiplierSummonedMinion = 0
+			build.calcsTab.input.misc_buffMode = "BUFFED"
+			runCallback("OnFrame")
+
+			assert.are.equals(15, build.calcsTab.calcsOutput.MinionAllyDamageMitigation)
+			assert.is_true(build.calcsTab.calcsOutput.TotalMinionLife > 0)
+		end)
+
+		it("does not count invulnerable Minions for Companionship", function()
+			build.skillsTab:PasteSocketGroup("Animate Guardian 20/0  1\nCompanionship 3/0  1")
+			build.skillsTab:PasteSocketGroup("Summon Skitterbots 20/0  1")
+			runCallback("OnFrame")
+
+			assert.are.equals(1, build.calcsTab.calcsEnv.player.modDB:Sum("BASE", nil, "Multiplier:SummonedMinion"))
+			assert.are.equals(15, build.calcsTab.calcsOutput.MinionAllyDamageMitigation)
+			assert.is_true(build.calcsTab.calcsOutput.TotalMinionLife > 0)
+		end)
+
+		it("counts the same Minion type from different skills separately", function()
+			build.itemsTab:CreateDisplayItemFromRaw("Test Bow\nShort Bow")
+			build.itemsTab:AddDisplayItem()
+			build.skillsTab:PasteSocketGroup("Blink Arrow 20/0  1\nCompanionship 3/0  1")
+			build.skillsTab:PasteSocketGroup("Mirror Arrow 20/0  1")
+			runCallback("OnFrame")
+
+			assert.are.equals(2, build.calcsTab.calcsEnv.player.modDB:Sum("BASE", nil, "Multiplier:SummonedMinion"))
+			assert.are.equals(0, build.calcsTab.calcsOutput.MinionAllyDamageMitigation)
+		end)
+
+		it("counts Minions added by supports for Companionship's condition", function()
+			build.skillsTab:PasteSocketGroup("Animate Guardian 20/0  1\nCompanionship 3/0  1\nSummon Phantasm 20/0  1")
+			runCallback("OnFrame")
+
+			assert.are.equals(0, build.calcsTab.calcsOutput.MinionAllyDamageMitigation)
+			assert.is_nil(build.calcsTab.calcsOutput.TotalMinionLife)
+		end)
+
+		it("does not count hostile Penance Mark phantasms as your Minions", function()
+			build.skillsTab:PasteSocketGroup("Animate Guardian 20/0  1\nCompanionship 3/0  1")
+			build.itemsTab:CreateDisplayItemFromRaw("Test Item\nIron Ring\nGrants level 20 Penance Mark")
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+
+			assert.are.equals(15, build.calcsTab.calcsOutput.MinionAllyDamageMitigation)
+			assert.is_true(build.calcsTab.calcsOutput.TotalMinionLife > 0)
+		end)
+
+		it("shares Life when Companionship supports an ally with its own redirect", function()
+			build.skillsTab:PasteSocketGroup("Summon Stone Golem of Safeguarding 20/0  1\nCompanionship 3/0  1")
+			build.configTab.input.multiplierSummonedMinion = 1
 			build.configTab.input.enemyDamageType = "Melee"
 			build.configTab:BuildModList()
 			runCallback("OnFrame")
 
 			local output = build.calcsTab.calcsOutput
+			assert.are.equals(30, output.MinionAllyDamageMitigation)
+			assert.are.equals(0, output.StoneGolemAllyDamageMitigation)
+			assert.is_true(output.TotalMinionLife > 0)
+			assert.is_nil(output.TotalStoneGolemLife)
+
+			build.configTab.input.TotalStoneGolemLife = 1000
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			assert.are.equals(1000, build.calcsTab.calcsOutput.TotalMinionLife)
+		end)
+
+		it("applies Stone Golem of Safeguarding to melee hits", function()
+			build.skillsTab:PasteSocketGroup("Summon Stone Golem of Safeguarding 20/0  1")
+			build.configTab.input.enemyDamageType = "Melee"
+			build.configTab:BuildModList()
+			build.configTab.modList:NewMod("ActiveGolemLimit", "BASE", 2, "Test")
+			build.calcsTab:BuildOutput()
+
+			local output = build.calcsTab.mainOutput
 			assert.are.equals(15, output.StoneGolemAllyDamageMitigation)
-			assert.are.equals(1000, output.TotalStoneGolemLife)
-			local pools = build.calcsTab.calcs.reducePoolsByDamage(nil, { Physical = 100 }, build.calcsTab.calcsEnv.player)
-			assert.are.equals(985, pools.AlliesTakenBeforeYou.stoneGolem.remaining)
+			local stoneGolem = build.calcsTab.mainEnv.player.allyLifeList.TotalStoneGolemLife[1]
+			assert.are.equals(1, stoneGolem.count)
+			assert.are.equals(stoneGolem.life, output.TotalStoneGolemLife)
+			local pools = build.calcsTab.calcs.reducePoolsByDamage(nil, { Physical = 100 }, build.calcsTab.mainEnv.player)
+			assert.are.equals(output.TotalStoneGolemLife - 15, pools.AlliesTakenBeforeYou.stoneGolem.remaining)
 
 			build.configTab.input.enemyDamageType = "Average"
 			build.configTab:BuildModList()
@@ -658,13 +773,164 @@ describe("TestDefence", function()
 
 		it("does not apply Stone Golem of Safeguarding to non-melee hits", function()
 			build.skillsTab:PasteSocketGroup("Summon Stone Golem of Safeguarding 20/0  1")
-			build.configTab.input.TotalStoneGolemLife = 1000
 			build.configTab.input.enemyDamageType = "Spell"
 			build.configTab:BuildModList()
 			runCallback("OnFrame")
 
 			assert.are.equals(0, build.calcsTab.calcsOutput.StoneGolemAllyDamageMitigation)
 			assert.is_nil(build.calcsTab.calcsOutput.TotalStoneGolemLife)
+		end)
+
+		it("includes support modifiers when the minion is not the main skill", function()
+			build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+			build.skillsTab:PasteSocketGroup("Summon Stone Golem of Safeguarding 20/0  1")
+			build.mainSocketGroup = 1
+			build.configTab.input.enemyDamageType = "Melee"
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			local unsupportedLife = build.calcsTab.calcsOutput.TotalStoneGolemLife
+
+			newBuild()
+			build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+			build.skillsTab:PasteSocketGroup("Summon Stone Golem of Safeguarding 20/0  1\nMinion Life 20/0  1")
+			build.mainSocketGroup = 1
+			build.configTab.input.enemyDamageType = "Melee"
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+
+			assert.is_true(build.calcsTab.calcsOutput.TotalStoneGolemLife > unsupportedLife)
+		end)
+
+		it("keeps the Necromantic Aegis shield between calculator passes", function()
+			build.spec.allocNodes[45175] = build.spec.nodes[45175]
+			build.itemsTab:CreateDisplayItemFromRaw("Test Shield\nSplintered Tower Shield")
+			build.itemsTab:AddDisplayItem()
+			build.skillsTab:PasteSocketGroup("Animate Guardian 20/0  1")
+			local env = build.calcsTab.calcs.initEnv(build, "CALCULATOR")
+
+			build.calcsTab.calcs.perform(env)
+			local blockChance = env.minion.output.BlockChance
+			assert.is_true(blockChance > 0)
+			build.calcsTab.calcs.perform(env)
+			assert.are.equals(blockChance, env.minion.output.BlockChance)
+		end)
+
+		it("calculates Spectre life automatically and supports an override", function()
+			build.spectreList = { "Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage" }
+			build.skillsTab:PasteSocketGroup("Raise Spectre 20/0  1")
+			build.configTab:BuildModList()
+			build.configTab.modList:NewMod("takenFromSpectresBeforeYou", "BASE", 15, "Test")
+			build.calcsTab:BuildOutput()
+
+			local spectre = build.calcsTab.mainEnv.player.allyLifeList.TotalSpectreLife[1]
+			assert.are.equals(build.calcsTab.mainOutput.ActiveSpectreLimit, spectre.count)
+			assert.are.equals(build.calcsTab.mainEnv.minion.output.Life * spectre.count, spectre.life)
+			assert.are.equals(spectre.life, build.calcsTab.mainOutput.TotalSpectreLife)
+
+			build.configTab.input.multiplierSummonedMinion = 1
+			build.configTab:BuildModList()
+			build.configTab.modList:NewMod("takenFromSpectresBeforeYou", "BASE", 15, "Test")
+			build.calcsTab:BuildOutput()
+			spectre = build.calcsTab.mainEnv.player.allyLifeList.TotalSpectreLife[1]
+			assert.are.equals(1, spectre.count)
+			assert.are.equals(build.calcsTab.mainEnv.minion.output.Life, build.calcsTab.mainOutput.TotalSpectreLife)
+
+			build.configTab.input.TotalSpectreLife = 1000
+			build.configTab:BuildModList()
+			build.configTab.modList:NewMod("takenFromSpectresBeforeYou", "BASE", 15, "Test")
+			build.calcsTab:BuildOutput()
+			assert.are.equals(1000, build.calcsTab.mainOutput.TotalSpectreLife)
+		end)
+
+		it("combines different Spectres without depending on the first one's Life", function()
+			local chieftain = "Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage"
+			local meatsack = "Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieHigh"
+			build.spectreList = { chieftain, meatsack }
+			build.skillsTab:PasteSocketGroup("Raise Spectre 20/0  1")
+			build.skillsTab:PasteSocketGroup("Raise Spectre 20/0  1\nMinion Life 20/0  1")
+			build.skillsTab.socketGroupList[1].gemList[1].skillMinion = chieftain
+			build.skillsTab.socketGroupList[2].gemList[1].skillMinion = meatsack
+			build.configTab:BuildModList()
+			build.configTab.modList:NewMod("takenFromSpectresBeforeYou", "BASE", 15, "Test")
+			build.calcsTab:BuildOutput()
+
+			local spectres = build.calcsTab.mainEnv.player.allyLifeList.TotalSpectreLife
+			assert.are.equals(2, #spectres)
+			assert.are.equals(1, spectres[1].count)
+			assert.are.equals(1, spectres[2].count)
+			assert.are.equals(spectres[1].life + spectres[2].life, build.calcsTab.mainOutput.TotalSpectreLife)
+			assert.are_not.equals(spectres[1].life, spectres[2].life)
+		end)
+
+		it("calculates Totem life automatically", function()
+			build.skillsTab:PasteSocketGroup("Holy Flame Totem 20/0  1")
+			build.configTab.input.conditionHaveTotem = true
+			build.configTab:BuildModList()
+			build.configTab.modList:NewMod("takenFromTotemsBeforeYou", "BASE", 5, "Test")
+			build.calcsTab:BuildOutput()
+
+			assert.are.equals(build.calcsTab.mainOutput.TotemLife, build.calcsTab.mainOutput.TotalTotemLife)
+			assert.are.equals(build.calcsTab.mainOutput.TotemLife, build.calcsTab.mainEnv.player.allyLifeList.TotalTotemLife[1].life)
+		end)
+
+		it("calculates Vaal Rejuvenation Totem life automatically", function()
+			build.skillsTab:PasteSocketGroup("Vaal Rejuvenation Totem 20/0  1")
+			build.configTab:BuildModList()
+			build.configTab.modList:NewMod("takenFromTotemsBeforeYou", "BASE", 5, "Test")
+			build.calcsTab:BuildOutput()
+
+			local output = build.calcsTab.mainOutput
+			local totem = build.calcsTab.mainEnv.player.allyLifeList.TotalVaalRejuvenationTotemLife[1]
+			assert.are.equals(45, output.VaalRejuvenationTotemAllyDamageMitigation)
+			assert.are.equals(0, output.TotemAllyDamageMitigation)
+			assert.are.equals(totem.life, output.TotalVaalRejuvenationTotemLife)
+			assert.is_nil(output.TotalTotemLife)
+		end)
+
+		it("calculates Sentinel of Radiance life automatically", function()
+			build.itemsTab:CreateDisplayItemFromRaw("Test Item\nChainmail Vest\nGrants Level 20 Summon Sentinel of Radiance Skill\n20% of Damage from Hits is taken from your Sentinel of Radiance's Life before you")
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+
+			local sentinel = build.calcsTab.calcsEnv.player.allyLifeList.TotalRadianceSentinelLife[1]
+			assert.are.equals(20, build.calcsTab.calcsOutput.RadianceSentinelAllyDamageMitigation)
+			assert.are.equals(sentinel.life, build.calcsTab.calcsOutput.TotalRadianceSentinelLife)
+		end)
+
+		it("calculates total Void Spawn life automatically", function()
+			build.itemsTab:CreateDisplayItemFromRaw("Servant of Decay\nTorturer Garb\nTrigger Level 20 Summon Void Spawn every 4 seconds\n5% of Damage from Hits is taken from Void Spawns' Life before you per Void Spawn")
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+
+			local voidSpawns = build.calcsTab.calcsEnv.player.allyLifeList.TotalVoidSpawnLife[1]
+			assert.are.equals(4, voidSpawns.count)
+			assert.are.equals(20, build.calcsTab.calcsOutput.VoidSpawnAllyDamageMitigation)
+			assert.are.equals(voidSpawns.life, build.calcsTab.calcsOutput.TotalVoidSpawnLife)
+		end)
+
+		it("handles a full damage redirect without an invalid max hit", function()
+			build.configTab.input.enemyIsBoss = "None"
+			build.configTab:BuildModList()
+			build.configTab.modList:NewMod("takenFromMinionBeforeYou", "BASE", 100, "Test")
+			build.configTab.modList:NewMod("TotalMinionLife", "BASE", 1000, "Test")
+			build.calcsTab:BuildOutput()
+
+			assert.are.equals(1060, build.calcsTab.mainOutput.PhysicalMaximumHitTaken)
+		end)
+
+		it("drains multiple ally pools in a stable order", function()
+			build.configTab.input.enemyIsBoss = "None"
+			build.configTab:BuildModList()
+			build.configTab.modList:NewMod("takenFromMinionBeforeYou", "BASE", 50, "Test")
+			build.configTab.modList:NewMod("TotalMinionLife", "BASE", 10, "Test")
+			build.configTab.modList:NewMod("takenFromSpectresBeforeYou", "BASE", 50, "Test")
+			build.configTab.modList:NewMod("TotalSpectreLife", "BASE", 1000, "Test")
+			build.calcsTab:BuildOutput()
+
+			local pools = build.calcsTab.calcs.reducePoolsByDamage(nil, { Physical = 100 }, build.calcsTab.mainEnv.player)
+			assert.are.equals(0, pools.AlliesTakenBeforeYou.minion.remaining)
+			assert.are.equals(955, pools.AlliesTakenBeforeYou.spectres.remaining)
+			assert.are.equals(130, build.calcsTab.mainOutput.PhysicalMaximumHitTaken)
 		end)
 	end)
 

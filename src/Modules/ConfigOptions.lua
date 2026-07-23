@@ -786,23 +786,26 @@ Huge sets the radius to 11.
 	{ var = "enemyRadius", type = "integer", label = "Enemy radius:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike" }, includeTransfigured = true, tooltip = "Configure the radius of an enemy hitbox to calculate some area overlapping (shotgunning) effects.", apply = function(val, modList, enemyModList)
 		modList:NewMod("EnemyRadius", "OVERRIDE", m_max(val, 1), "Config")
 	end },
-	{ var = "TotalSpectreLife", type = "integer", label = "Total Spectre Life:", ifMod = "takenFromSpectresBeforeYou", ifSkill = "Raise Spectre", includeTransfigured = true, tooltip = "The total life of your Spectres that can be taken before yours (used by jinxed juju)", apply = function(val, modList, enemyModList)
-		modList:NewMod("TotalSpectreLife", "BASE", val, "Config")
+	{ var = "TotalMinionLife", type = "integer", label = "Minion Life override:", ifMod = "takenFromMinionBeforeYou", tooltip = "Overrides the automatically calculated Life of the minion supported by Companionship.", apply = function(val, modList, enemyModList)
+		modList:NewMod("TotalMinionLife", "OVERRIDE", val, "Config")
 	end },
-	{ var = "TotalTotemLife", type = "integer", label = "Total Totem Life:", ifOption = "conditionHaveTotem", ifMod = "takenFromTotemsBeforeYou", tooltip = "The total life of your Totems (excluding Vaal Rejuvenation Totem) that can be taken before yours (used by totem mastery)", apply = function(val, modList, enemyModList)
-		modList:NewMod("TotalTotemLife", "BASE", val, "Config")
+	{ var = "TotalSpectreLife", type = "integer", label = "Total Spectre Life override:", ifMod = "takenFromSpectresBeforeYou", ifSkill = "Raise Spectre", includeTransfigured = true, tooltip = "Overrides the automatically calculated total Life of your Spectres that can be taken before yours (used by Jinxed Juju).", apply = function(val, modList, enemyModList)
+		modList:NewMod("TotalSpectreLife", "OVERRIDE", val, "Config")
 	end },
-	{ var = "TotalRadianceSentinelLife", type = "integer", label = "Total life pool of Sentinel of Radiance", ifMod = "takenFromRadianceSentinelBeforeYou", apply = function(val, modList, enemyModList)
-		modList:NewMod("TotalRadianceSentinelLife", "BASE", val, "Config")
+	{ var = "TotalTotemLife", type = "integer", label = "Nearest Totem Life override:", ifOption = "conditionHaveTotem", ifMod = "takenFromTotemsBeforeYou", tooltip = "Overrides the automatically calculated Life of your nearest Totem (excluding Vaal Rejuvenation Totem) that can be taken before yours (used by Totem Mastery).", apply = function(val, modList, enemyModList)
+		modList:NewMod("TotalTotemLife", "OVERRIDE", val, "Config")
 	end },
-	{ var = "TotalVoidSpawnLife", type = "integer", label = "Total life pool of Void Spawn", ifMod = "takenFromVoidSpawnBeforeYou", apply = function(val, modList, enemyModList)
-		modList:NewMod("TotalVoidSpawnLife", "BASE", val, "Config")
+	{ var = "TotalRadianceSentinelLife", type = "integer", label = "Sentinel of Radiance Life override:", ifMod = "takenFromRadianceSentinelBeforeYou", tooltip = "Overrides the automatically calculated Life of your Sentinel of Radiance that can be taken before yours.", apply = function(val, modList, enemyModList)
+		modList:NewMod("TotalRadianceSentinelLife", "OVERRIDE", val, "Config")
 	end },
-	{ var = "TotalStoneGolemLife", type = "integer", label = "Total Stone Golem Life:", ifSkill = "Summon Stone Golem of Safeguarding", ifMod = "takenFromStoneGolemBeforeYou", tooltip = "The total life of your Stone Golems of Safeguarding that can be taken before yours", apply = function(val, modList, enemyModList)
-		modList:NewMod("TotalStoneGolemLife", "BASE", val, "Config")
+	{ var = "TotalVoidSpawnLife", type = "integer", label = "Total Void Spawn Life override:", ifMod = "takenFromVoidSpawnBeforeYou", tooltip = "Overrides the automatically calculated total Life of your Void Spawns that can be taken before yours.", apply = function(val, modList, enemyModList)
+		modList:NewMod("TotalVoidSpawnLife", "OVERRIDE", val, "Config")
 	end },
-	{ var = "TotalVaalRejuvenationTotemLife", type = "integer", label = "Total Vaal Rejuvenation Totem Life:", ifSkill = { "Vaal Rejuvenation Totem" }, ifMod = "takenFromVaalRejuvenationTotemsBeforeYou", tooltip = "The total life of your Vaal Rejuvenation Totems that can be taken before yours", apply = function(val, modList, enemyModList)
-		modList:NewMod("TotalVaalRejuvenationTotemLife", "BASE", val, "Config")
+	{ var = "TotalStoneGolemLife", type = "integer", label = "Stone Golem Life override:", ifSkill = "Summon Stone Golem of Safeguarding", ifMod = "takenFromStoneGolemBeforeYou", tooltip = "Overrides the automatically calculated Life of your Stone Golem of Safeguarding that can be taken before yours.", apply = function(val, modList, enemyModList)
+		modList:NewMod("TotalStoneGolemLife", "OVERRIDE", val, "Config")
+	end },
+	{ var = "TotalVaalRejuvenationTotemLife", type = "integer", label = "Vaal Rejuvenation Totem Life override:", ifSkill = "Vaal Rejuvenation Totem", ifMod = "takenFromVaalRejuvenationTotemsBeforeYou", tooltip = "Overrides the automatically calculated Life of your Vaal Rejuvenation Totem that can be taken before yours.", apply = function(val, modList, enemyModList)
+		modList:NewMod("TotalVaalRejuvenationTotemLife", "OVERRIDE", val, "Config")
 	end },
 	{ label = "^xAF6025Balance of Terror ^7Curse Disable:", ifCond = { "SelfCastConductivity", "SelfCastDespair", "SelfCastElementalWeakness", "SelfCastEnfeeble", "SelfCastFlammability", "SelfCastFrostbite", "SelfCastPunishment", "SelfCastTemporalChains", "SelfCastVulnerability" } },
 	{ var = "balanceOfTerrorSelfCastConductivity", type = "check", label = "Conductivity self-only", ifSkill = "Conductivity", ifCond = "SelfCastConductivity", tooltip = "Counts Conductivity as self-cast for Balance of Terror without applying it to enemies." },

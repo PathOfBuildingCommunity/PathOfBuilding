@@ -28,16 +28,17 @@ local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
 
 local resistTypeList = { "Fire", "Cold", "Lightning", "Chaos" }
 
+-- Damage is shifted to external allies before Frost Shield, so this is also the order in which pools are drained.
 local allyLifePoolList = {
-	{ key = "frostShield", life = "FrostShieldLife", mitigation = "FrostShieldDamageMitigation", label = "Frost Shield Life" },
-	{ key = "minion", life = "TotalMinionLife", mitigation = "MinionAllyDamageMitigation", label = "Total Minion Life" },
-	{ key = "spectres", life = "TotalSpectreLife", mitigation = "SpectreAllyDamageMitigation", label = "Total Spectre Life" },
-	{ key = "totems", life = "TotalTotemLife", mitigation = "TotemAllyDamageMitigation", label = "Total Totem Life" },
-	{ key = "vaalRejuvenationTotems", life = "TotalVaalRejuvenationTotemLife", mitigation = "VaalRejuvenationTotemAllyDamageMitigation", label = "Total Vaal Rejuvenation Totem Life" },
-	{ key = "radianceSentinel", life = "TotalRadianceSentinelLife", mitigation = "RadianceSentinelAllyDamageMitigation", label = "Total Sentinel of Radiance Life" },
-	{ key = "voidSpawn", life = "TotalVoidSpawnLife", mitigation = "VoidSpawnAllyDamageMitigation", label = "Total Void Spawn Life" },
-	{ key = "stoneGolem", life = "TotalStoneGolemLife", mitigation = "StoneGolemAllyDamageMitigation", label = "Total Stone Golem Life" },
+	{ key = "minion", life = "TotalMinionLife", mitigation = "MinionAllyDamageMitigation", redirect = "takenFromMinionBeforeYou", fallback = "Multiplier:MinionLife", label = "Minion Life" },
+	{ key = "radianceSentinel", life = "TotalRadianceSentinelLife", mitigation = "RadianceSentinelAllyDamageMitigation", redirect = "takenFromRadianceSentinelBeforeYou", label = "Total Sentinel of Radiance Life" },
+	{ key = "spectres", life = "TotalSpectreLife", mitigation = "SpectreAllyDamageMitigation", redirect = "takenFromSpectresBeforeYou", label = "Total Spectre Life" },
+	{ key = "totems", life = "TotalTotemLife", mitigation = "TotemAllyDamageMitigation", redirect = "takenFromTotemsBeforeYou", label = "Nearest Totem Life" },
+	{ key = "vaalRejuvenationTotems", life = "TotalVaalRejuvenationTotemLife", mitigation = "VaalRejuvenationTotemAllyDamageMitigation", redirect = "takenFromVaalRejuvenationTotemsBeforeYou", label = "Total Vaal Rejuvenation Totem Life" },
+	{ key = "voidSpawn", life = "TotalVoidSpawnLife", mitigation = "VoidSpawnAllyDamageMitigation", redirect = "takenFromVoidSpawnBeforeYou", label = "Total Void Spawn Life" },
+	{ key = "stoneGolem", life = "TotalStoneGolemLife", mitigation = "StoneGolemAllyDamageMitigation", redirect = "takenFromStoneGolemBeforeYou", meleeOnly = true, label = "Total Stone Golem Life" },
 	{ key = "soulLink", life = "AlliedEnergyShield", mitigation = "SoulLinkMitigation", label = "Total Allied Energy shield" },
+	{ key = "frostShield", life = "FrostShieldLife", mitigation = "FrostShieldDamageMitigation", label = "Frost Shield Life" },
 }
 
 local function buildAllyLifePools(output)
@@ -46,7 +47,7 @@ local function buildAllyLifePools(output)
 		local life = output[ally.life]
 		local mitigation = output[ally.mitigation]
 		if life and life > 0 and mitigation and mitigation > 0 then
-			pools[ally.key] = { remaining = life, percent = mitigation / 100 }
+			pools[ally.key] = { remaining = life, percent = m_min(mitigation, 100) / 100 }
 		end
 	end
 	return pools
@@ -262,13 +263,14 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	for _, damageType in ipairs(dmgTypeList) do
 		local damageRemainder = damageTable[damageType]
 		if damageRemainder then
-			for ally, allyValues in pairs(alliesTakenBeforeYou) do
-				if not allyValues.damageType or allyValues.damageType == damageType then
+			for _, ally in ipairs(allyLifePoolList) do
+				local allyValues = alliesTakenBeforeYou[ally.key]
+				if allyValues and (not allyValues.damageType or allyValues.damageType == damageType) then
 					if allyValues.remaining > 0 then
 						local tempDamage = m_min(damageRemainder * allyValues.percent, allyValues.remaining)
 						allyValues.remaining = m_floor(allyValues.remaining - tempDamage)
 						damageRemainder = damageRemainder - tempDamage
-						resourcesLostToTypeDamage[damageType][ally] = tempDamage >= 1 and tempDamage or nil
+						resourcesLostToTypeDamage[damageType][ally.key] = tempDamage >= 1 and tempDamage or nil
 					end
 				end
 			end
@@ -2449,47 +2451,63 @@ function calcs.buildDefenceEstimations(env, actor)
 			}
 		end
 		
-		-- from Minion
-		output["MinionAllyDamageMitigation"] = modDB:Sum("BASE", nil, "takenFromMinionBeforeYou")
-		if output["MinionAllyDamageMitigation"] ~= 0 then
-			output["TotalMinionLife"] = modDB:Sum("BASE", nil, "Multiplier:MinionLife")
-		end
-		
-		-- from spectres
-		output["SpectreAllyDamageMitigation"] = modDB:Sum("BASE", nil, "takenFromSpectresBeforeYou")
-		if output["SpectreAllyDamageMitigation"] ~= 0 then
-			output["TotalSpectreLife"] = modDB:Sum("BASE", nil, "TotalSpectreLife")
-		end
-		
-		-- from totems
-		output["TotemAllyDamageMitigation"] = modDB:Sum("BASE", nil, "takenFromTotemsBeforeYou")
-		if output["TotemAllyDamageMitigation"] ~= 0 then
-			output["TotalTotemLife"] = modDB:Sum("BASE", nil, "TotalTotemLife")
-		end
-		
-		-- from VaalRejuveTotem
-		output["VaalRejuvenationTotemAllyDamageMitigation"] = modDB:Sum("BASE", nil, "takenFromVaalRejuvenationTotemsBeforeYou") + output["TotemAllyDamageMitigation"]
-		if output["VaalRejuvenationTotemAllyDamageMitigation"] ~= output["TotemAllyDamageMitigation"] then
-			output["TotalVaalRejuvenationTotemLife"] = modDB:Sum("BASE", nil, "TotalVaalRejuvenationTotemLife")
-		end
-		
-		-- from Sentinel of Radiance
-		output["RadianceSentinelAllyDamageMitigation"] = modDB:Sum("BASE", nil, "takenFromRadianceSentinelBeforeYou")
-		if output["RadianceSentinelAllyDamageMitigation"] ~= 0 then
-			output["TotalRadianceSentinelLife"] = modDB:Sum("BASE", nil, "TotalRadianceSentinelLife")
-		end
-		
-		-- from Void Spawn
-		output["VoidSpawnAllyDamageMitigation"] = modDB:Sum("BASE", nil, "takenFromVoidSpawnBeforeYou")
-		if output["VoidSpawnAllyDamageMitigation"] ~= 0 then
-			output["TotalVoidSpawnLife"] = modDB:Sum("BASE", nil, "TotalVoidSpawnLife")
+		-- Every ally redirect uses the same pool rules; the Safeguarding Golem is the only melee-only case.
+		for _, ally in ipairs(allyLifePoolList) do
+			if ally.redirect then
+				local mitigation = modDB:Sum("BASE", nil, ally.redirect)
+				if ally.meleeOnly then
+					mitigation = damageCategoryConfig == "Melee" and mitigation or damageCategoryConfig == "Average" and mitigation / 4 or 0
+				end
+				output[ally.mitigation] = mitigation
+				if mitigation ~= 0 then
+					local life = modDB:Sum("BASE", nil, ally.life)
+					if life == 0 and ally.fallback then
+						life = modDB:Sum("BASE", nil, ally.fallback)
+					end
+					output[ally.life] = modDB:Override(nil, ally.life) or life
+				end
+			end
 		end
 
-		-- from Stone Golem of Safeguarding
-		local stoneGolemMitigation = modDB:Sum("BASE", nil, "takenFromStoneGolemBeforeYou")
-		output["StoneGolemAllyDamageMitigation"] = damageCategoryConfig == "Melee" and stoneGolemMitigation or damageCategoryConfig == "Average" and stoneGolemMitigation / 4 or 0
-		if output["StoneGolemAllyDamageMitigation"] ~= 0 then
-			output["TotalStoneGolemLife"] = modDB:Sum("BASE", nil, "TotalStoneGolemLife")
+		-- Companionship and an ally-specific redirect can both spend the same minion's Life.
+		local sharedMinionLifeOverride
+		for _, ally in ipairs(allyLifePoolList) do
+			if modDB:Flag(nil, "MinionLifeShares"..ally.life) then
+				local specificOverride = modDB:Override(nil, ally.life)
+				if not modDB:Override(nil, "TotalMinionLife") and specificOverride ~= nil then
+					output.TotalMinionLife = specificOverride
+					sharedMinionLifeOverride = true
+				elseif not output.TotalMinionLife or output.TotalMinionLife == 0 then
+					output.TotalMinionLife = output[ally.life]
+				end
+				output.MinionAllyDamageMitigation = output.MinionAllyDamageMitigation + (output[ally.mitigation] or 0)
+				output[ally.mitigation] = 0
+				output[ally.life] = nil
+			end
+		end
+
+		-- When Vaal Rejuvenation is treated as the nearest Totem, both redirects use its Life.
+		if (output.TotemAllyDamageMitigation or 0) > 0 and (output.TotalTotemLife or 0) == 0 and (output.TotalVaalRejuvenationTotemLife or 0) > 0 then
+			output.VaalRejuvenationTotemAllyDamageMitigation = output.VaalRejuvenationTotemAllyDamageMitigation + output.TotemAllyDamageMitigation
+			output.TotemAllyDamageMitigation = 0
+			output.TotalTotemLife = nil
+		end
+
+		if breakdown then
+			for _, ally in ipairs(allyLifePoolList) do
+				local lifeList = actor.allyLifeList and actor.allyLifeList[ally.life]
+				local override = modDB:Override(nil, ally.life) or ally.life == "TotalMinionLife" and sharedMinionLifeOverride and output.TotalMinionLife
+				if output[ally.life] and (lifeList or override) then
+					breakdown[ally.life] = { }
+					if override then
+						t_insert(breakdown[ally.life], s_format("%d ^8(from config)", output[ally.life]))
+					else
+						for _, entry in ipairs(lifeList) do
+							t_insert(breakdown[ally.life], s_format("%d ^8(%s%s)", entry.life, entry.count and entry.count > 1 and entry.count.."x " or "", entry.name))
+						end
+					end
+				end
+			end
 		end
 		
 		-- from Allied Energy Shield
@@ -3122,13 +3140,19 @@ function calcs.buildDefenceEstimations(env, actor)
 					output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - GuardAbsorbRate / 100)
 				end
 			end
-			-- from allies before you
-			for _, ally in ipairs(allyLifePoolList) do
+			-- Undo the ally pool drains in reverse order to recover the incoming hit.
+			for index = #allyLifePoolList, 1, -1 do
+				local ally = allyLifePoolList[index]
 				local life = output[ally.life]
 				local mitigation = output[ally.mitigation]
 				if life and life > 0 and mitigation and mitigation > 0 then
-					local poolProtected = life / (mitigation / 100) * (1 - mitigation / 100)
-					output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - mitigation / 100)
+					mitigation = m_min(mitigation, 100)
+					if mitigation == 100 then
+						output[damageType.."TotalHitPool"] = output[damageType.."TotalHitPool"] + life
+					else
+						local poolProtected = life / (mitigation / 100) * (1 - mitigation / 100)
+						output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - mitigation / 100)
+					end
 				end
 			end
 		end
