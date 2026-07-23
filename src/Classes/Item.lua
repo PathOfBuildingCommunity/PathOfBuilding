@@ -1134,14 +1134,30 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				end
 				local matchingLines = {}
 				local lineCount = 0
+				local function findMatching(statLine)
+					lineCount = lineCount + 1
+					for _, modLine in ipairs(self.explicitModLines) do
+						if normalise(modLine.line:gsub("\n", " ")) == statLine and
+							self:CheckModLineVariant(modLine) then
+							table.insert(matchingLines, modLine)
+						end
+					end
+				end
 				for _, statDesc in pairs(originalMod.tradeHashes) do
 					local statLine = normalise(table.concat(statDesc, " "))
 					if statLine ~= "" then
-						lineCount = lineCount + 1
-						for _, modLine in ipairs(self.explicitModLines) do
-							if normalise(modLine.line:gsub("\n", " ")) == statLine and
-								self:CheckModLineVariant(modLine) then
-								table.insert(matchingLines, modLine)
+						findMatching(statLine)
+					end
+				end
+				-- if there was no match there's probably an issue where pob
+				-- splits a stat description into multiple mod lines, so
+				-- search for each separately
+				if #matchingLines == 0 then
+					lineCount = 0
+					for _, statDesc in pairs(originalMod.tradeHashes) do
+						for _, descPart in ipairs(statDesc) do
+							if descPart ~= "" then
+								findMatching(normalise(descPart))
 							end
 						end
 					end
