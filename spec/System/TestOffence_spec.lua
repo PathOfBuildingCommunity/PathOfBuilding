@@ -86,6 +86,31 @@ describe("TestOffence", function()
 		assertNear(baseMin * 0.5 * 2, build.calcsTab.calcsOutput.LightningMin, "less + increased min")
 	end)
 
+	it("applies minimum and maximum attack damage mods", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+		New Item
+		Rusted Sword
+		]])
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Double Strike 20/0  1")
+		runCallback("OnFrame")
+
+		local baseMin = build.calcsTab.mainOutput.MainHand.TotalMin
+		local baseMax = build.calcsTab.mainOutput.MainHand.TotalMax
+
+		build.itemsTab:CreateDisplayItemFromRaw([[
+		New Item
+		Coral Amulet
+		50% less Minimum Attack Damage
+		100% more Maximum Attack Damage
+		]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		assertNear(baseMin * 0.5, build.calcsTab.mainOutput.MainHand.TotalMin, "50%% less attack min")
+		assertNear(baseMax * 2, build.calcsTab.mainOutput.MainHand.TotalMax, "100%% more attack max")
+	end)
+
 	it("parses universal cannot deal/deal no non-<type> damage for player and minions", function()
 		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nArc 20/0  1\n")
 		runCallback("OnFrame")

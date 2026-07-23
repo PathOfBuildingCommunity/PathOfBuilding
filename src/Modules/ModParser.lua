@@ -153,6 +153,7 @@ local formList = {
 }
 
 -- Map of modifier names
+local damageTypeList = { "Physical", "Lightning", "Cold", "Fire", "Chaos" }
 local modNameList = {
 	-- Attributes
 	["strength"] = "Str",
@@ -690,7 +691,7 @@ local modNameList = {
 	["physical attack damage"] = { "PhysicalDamage", flags = ModFlag.Attack },
 	["minimum physical attack damage"] = { "MinPhysicalDamage", tag = { type = "SkillType", skillType = SkillType.Attack } },
 	["maximum physical attack damage"] = { "MaxPhysicalDamage", tag = { type = "SkillType", skillType = SkillType.Attack } },
-	["maximum attack damage"] = { "MinDamage", tag = { type = "SkillType", skillType = SkillType.Attack } },
+	["minimum attack damage"] = { "MinDamage", tag = { type = "SkillType", skillType = SkillType.Attack } },
 	["maximum attack damage"] = { "MaxDamage", tag = { type = "SkillType", skillType = SkillType.Attack } },
 	["physical weapon damage"] = { "PhysicalDamage", flags = ModFlag.Weapon },
 	["physical damage with weapons"] = { "PhysicalDamage", flags = ModFlag.Weapon },
@@ -888,6 +889,11 @@ local modNameList = {
 	["resistance shrine buff"] = "Condition:ResistanceShrine",
 	["resonating shrine buff"] = "Condition:ResonatingShrine",
 }
+for _, damageType in ipairs(damageTypeList) do
+	local lowerDamageType = damageType:lower()
+	modNameList["minimum "..lowerDamageType.." damage"] = "Min"..damageType.."Damage"
+	modNameList["maximum "..lowerDamageType.." damage"] = "Max"..damageType.."Damage"
+end
 
 -- List of modifier flags
 local modFlagList = {
@@ -1977,24 +1983,20 @@ local function flag(name, ...)
 	return mod(name, "FLAG", true, ...)
 end
 
--- Returns the DealNo<Type> flags for every damage type except the given one, for the universal
--- "deal no non-<type> damage" / "cannot deal non-<type> damage" handlers.
--- "elemental" is not a single type and keeps its own literal entry; unknown types return nil
--- so the line falls through as unsupported instead of wrongly disabling all damage.
-local dealNoNonDamageTypeList = { "Physical", "Cold", "Fire", "Lightning", "Chaos" }
-local function dealNoNonDamageType(dmgType)
-	local keep = firstToUpper(dmgType)
-	local flags = { }
-	for _, t in ipairs(dealNoNonDamageTypeList) do
-		if t ~= keep then
-			t_insert(flags, flag("DealNo"..t))
+-- Makes the "deal no" modifiers for every damage type except the one being kept.
+local function dealNoNonDamageType(dmgType, forMinion)
+	dmgType = firstToUpper(dmgType)
+	if not isValueInArray(damageTypeList, dmgType) then
+		return
+	end
+	local mods = { }
+	for _, damageType in ipairs(damageTypeList) do
+		if damageType ~= dmgType then
+			local dealNo = flag("DealNo"..damageType)
+			t_insert(mods, forMinion and mod("MinionModifier", "LIST", { mod = dealNo }) or dealNo)
 		end
 	end
-	if #flags == #dealNoNonDamageTypeList then
-		-- dmgType didn't match any known damage type
-		return nil
-	end
-	return flags
+	return mods
 end
 
 local gemIdLookup = {
@@ -4337,17 +4339,7 @@ local specialModList = {
 		mod("MinionModifier", "LIST", { mod = flag("Condition:DiamondShrine") }, { type = "SkillName", skillName = "Summon Phantasm" }),
 		mod("MinionModifier", "LIST", { mod = flag("Condition:MassiveShrine") }, { type = "SkillName", skillName = "Summon Phantasm" }),
 	},
-	["minions deal no non%-(%a+) damage"] = function(_, dmgType)
-		local flags = dealNoNonDamageType(dmgType)
-		if not flags then
-			return nil
-		end
-		local mods = { }
-		for _, dealNoFlag in ipairs(flags) do
-			t_insert(mods, mod("MinionModifier", "LIST", { mod = dealNoFlag }))
-		end
-		return mods
-	end,
+	["minions deal no non%-(%a+) damage"] = function(_, dmgType) return dealNoNonDamageType(dmgType, true) end,
 	["minions convert (%d+)%% of (.+) damage to (.+) damage"] = function(num, _, source, target) return {
 		mod("MinionModifier", "LIST", { mod = mod(source:gsub("^%l", string.upper) .. "DamageConvertTo" .. target:gsub("^%l", string.upper), "BASE", num) })
 	} end,
@@ -5283,23 +5275,6 @@ local specialModList = {
 	} end,
 	["attacks with this weapon have added maximum lightning damage equal to (%d+)%% of player'?s? maximum energy shield"] = function(num) return {
 		mod("LightningMax", "BASE", 1, { type = "PercentStat", stat = "EnergyShield" , percent = num, actor = "parent" }, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
-	} end,
-	-- cspell:ignore imum
-	-- Scaling the minimum/maximum roll of a damage type (covers all types, e.g. "maximum lightning damage", "minimum cold damage").
-	-- `(m[ia][xn]imum)` captures the literal words "maximum" or "minimum". These map to the Min<Type>Damage/Max<Type>Damage stats
-	-- consumed by calcDamage in CalcOffence. "more"/"less" apply as MORE:
-	["(%d+)%% more (m[ia][xn]imum) (%a+) damage"] = function(num, _, minMax, dmgType) return {
-		mod((minMax == "maximum" and "Max" or "Min")..firstToUpper(dmgType).."Damage", "MORE", num),
-	} end,
-	["(%d+)%% less (m[ia][xn]imum) (%a+) damage"] = function(num, _, minMax, dmgType) return {
-		mod((minMax == "maximum" and "Max" or "Min")..firstToUpper(dmgType).."Damage", "MORE", -num),
-	} end,
-	-- ...while "increased"/"reduced" apply as INC:
-	["(%d+)%% increased (m[ia][xn]imum) (%a+) damage"] = function(num, _, minMax, dmgType) return {
-		mod((minMax == "maximum" and "Max" or "Min")..firstToUpper(dmgType).."Damage", "INC", num),
-	} end,
-	["(%d+)%% reduced (m[ia][xn]imum) (%a+) damage"] = function(num, _, minMax, dmgType) return {
-		mod((minMax == "maximum" and "Max" or "Min")..firstToUpper(dmgType).."Damage", "INC", -num),
 	} end,
 	["adds (%d+)%% of your maximum mana as fire damage to attacks with this weapon"] = function(num) return {
 		mod("FireMin", "BASE", 1, { type = "PercentStat", stat = "Mana" , percent = num }, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
