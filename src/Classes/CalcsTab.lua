@@ -369,6 +369,10 @@ function CalcsTabClass:SetDisplayStat(displayData, pin)
 	if not displayData or (not pin and self.displayPinned) then
 		return
 	end
+	if pin and self.displayPinned and self.displayData == displayData then
+		self:ClearDisplayStat()
+		return
+	end
 	self.displayData = displayData
 	self.displayPinned = pin
 	self.controls.breakdown:SetBreakdownData(displayData, pin)
