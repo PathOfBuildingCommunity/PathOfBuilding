@@ -121,6 +121,7 @@ itemBases["Basemetal Treads"] = {
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
 	implicit = "30% increased Stun and Block Recovery\n20% reduced Stun Threshold",
 	implicitModTypes = { {  }, {  }, },
+	implicitIds = { "IncreasedStunRecoveryReducedStunThresholdImplicitR1", },
 	armour = { ArmourBaseMin = 68, ArmourBaseMax = 78, },
 	req = { level = 20, str = 39, },
 }
@@ -132,6 +133,7 @@ itemBases["Darksteel Treads"] = {
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
 	implicit = "40% increased Stun and Block Recovery\n20% reduced Stun Threshold",
 	implicitModTypes = { {  }, {  }, },
+	implicitIds = { "IncreasedStunRecoveryReducedStunThresholdImplicitR2", },
 	armour = { ArmourBaseMin = 164, ArmourBaseMax = 189, },
 	req = { level = 50, str = 89, },
 }
@@ -143,6 +145,7 @@ itemBases["Brimstone Treads"] = {
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
 	implicit = "50% increased Stun and Block Recovery\n20% reduced Stun Threshold",
 	implicitModTypes = { {  }, {  }, },
+	implicitIds = { "IncreasedStunRecoveryReducedStunThresholdImplicitR3", },
 	armour = { ArmourBaseMin = 236, ArmourBaseMax = 271, },
 	req = { level = 80, str = 124, },
 }
@@ -265,6 +268,7 @@ itemBases["Cloudwhisper Boots"] = {
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
 	implicit = "1 to (5-6) Added Attack Lightning Damage per 200 Accuracy Rating\n25% less Accuracy Rating",
 	implicitModTypes = { { "attack" }, { "attack" }, },
+	implicitIds = { "AddedLightningDamagePerAccuracyReducedAccuracyImplicitR1_", },
 	armour = { EvasionBaseMin = 68, EvasionBaseMax = 78, },
 	req = { level = 20, dex = 39, },
 }
@@ -276,6 +280,7 @@ itemBases["Windbreak Boots"] = {
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
 	implicit = "1 to (5-6) Added Attack Lightning Damage per 200 Accuracy Rating\n25% less Accuracy Rating",
 	implicitModTypes = { { "attack" }, { "attack" }, },
+	implicitIds = { "AddedLightningDamagePerAccuracyReducedAccuracyImplicitR2_", },
 	armour = { EvasionBaseMin = 164, EvasionBaseMax = 189, },
 	req = { level = 50, dex = 89, },
 }
@@ -287,6 +292,7 @@ itemBases["Stormrider Boots"] = {
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
 	implicit = "1 to (5-6) Added Attack Lightning Damage per 200 Accuracy Rating\n25% less Accuracy Rating",
 	implicitModTypes = { { "attack" }, { "attack" }, },
+	implicitIds = { "AddedLightningDamagePerAccuracyReducedAccuracyImplicitR3", },
 	armour = { EvasionBaseMin = 236, EvasionBaseMax = 271, },
 	req = { level = 80, dex = 124, },
 }
@@ -409,6 +415,7 @@ itemBases["Duskwalk Slippers"] = {
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
 	implicit = "10% reduced Movement Speed\n(45-50)% increased Cooldown Recovery Rate of Movement Skills",
 	implicitModTypes = { { "speed" }, { "speed" }, },
+	implicitIds = { "MovementSkillCooldownReducedMoveSpeedImplicitR1", },
 	armour = { EnergyShieldBaseMin = 15, EnergyShieldBaseMax = 18, },
 	req = { level = 20, int = 39, },
 }
@@ -420,6 +427,7 @@ itemBases["Nightwind Slippers"] = {
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
 	implicit = "10% reduced Movement Speed\n(45-50)% increased Cooldown Recovery Rate of Movement Skills",
 	implicitModTypes = { { "speed" }, { "speed" }, },
+	implicitIds = { "MovementSkillCooldownReducedMoveSpeedImplicitR2_", },
 	armour = { EnergyShieldBaseMin = 34, EnergyShieldBaseMax = 39, },
 	req = { level = 50, int = 89, },
 }
@@ -431,6 +439,7 @@ itemBases["Dreamquest Slippers"] = {
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
 	implicit = "10% reduced Movement Speed\n(45-50)% increased Cooldown Recovery Rate of Movement Skills",
 	implicitModTypes = { { "speed" }, { "speed" }, },
+	implicitIds = { "MovementSkillCooldownReducedMoveSpeedImplicitR3_", },
 	armour = { EnergyShieldBaseMin = 50, EnergyShieldBaseMax = 57, },
 	req = { level = 80, int = 124, },
 }
@@ -543,6 +552,7 @@ itemBases["Two-Toned Boots (Armour/Evasion)"] = {
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
 	implicit = "+(8-12)% to Fire and Cold Resistances",
 	implicitModTypes = { { "elemental", "fire", "cold", "resistance" }, },
+	implicitIds = { "FireAndColdResistImplicitBoots1_", },
 	armour = { ArmourBaseMin = 126, ArmourBaseMax = 145, EvasionBaseMin = 126, EvasionBaseMax = 145, },
 	req = { level = 70, str = 62, dex = 62, },
 }
@@ -655,6 +665,7 @@ itemBases["Two-Toned Boots (Armour/Energy Shield)"] = {
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
 	implicit = "+(8-12)% to Fire and Lightning Resistances",
 	implicitModTypes = { { "elemental", "fire", "lightning", "resistance" }, },
+	implicitIds = { "FireAndLightningResistImplicitBoots1", },
 	armour = { ArmourBaseMin = 126, ArmourBaseMax = 145, EnergyShieldBaseMin = 26, EnergyShieldBaseMax = 30, },
 	req = { level = 70, str = 62, int = 62, },
 }
@@ -777,6 +788,7 @@ itemBases["Fugitive Boots"] = {
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
 	implicit = "+(13-17)% to Chaos Resistance",
 	implicitModTypes = { { "chaos", "resistance" }, },
+	implicitIds = { "ChaosResistImplicitBoots1", },
 	armour = { EvasionBaseMin = 112, EvasionBaseMax = 129, EnergyShieldBaseMin = 32, EnergyShieldBaseMax = 37, },
 	req = { level = 70, dex = 56, int = 76, },
 }
@@ -788,6 +800,7 @@ itemBases["Two-Toned Boots (Evasion/Energy Shield)"] = {
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
 	implicit = "+(8-12)% to Cold and Lightning Resistances",
 	implicitModTypes = { { "elemental", "cold", "lightning", "resistance" }, },
+	implicitIds = { "ColdAndLightningResistImplicitBoots1", },
 	armour = { EvasionBaseMin = 126, EvasionBaseMax = 145, EnergyShieldBaseMin = 26, EnergyShieldBaseMax = 30, },
 	req = { level = 70, dex = 62, int = 62, },
 }
@@ -830,6 +843,7 @@ itemBases["Golden Caligae"] = {
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
 	implicit = "+(8-16)% to all Elemental Resistances",
 	implicitModTypes = { { "elemental", "resistance" }, },
+	implicitIds = { "AllResistancesImplictBootsDemigods1", },
 	armour = { },
 	req = { level = 12, },
 }
