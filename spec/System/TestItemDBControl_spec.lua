@@ -1,0 +1,54 @@
+describe("ItemDBControl", function()
+	it("sorts lower-is-better stats below zero", function()
+		local function makeItem(name)
+			return {
+				name = name,
+				base = {},
+				enchantModLines = {},
+				implicitModLines = {},
+				explicitModLines = {},
+				baseModList = {},
+			}
+		end
+		local betterItem = makeItem("Better Item")
+		local worseItem = makeItem("Worse Item")
+		local invalidItem = makeItem("Invalid Item")
+		local takenDamage = {
+			[betterItem] = 80,
+			[worseItem] = 120,
+		}
+		local itemsTab = {
+			activeItemSet = { useSecondWeaponSet = false },
+			slots = { ["Body Armour"] = {} },
+			build = {
+				calcsTab = {
+					GetMiscCalculator = function()
+						return function(args)
+							return { PhysicalTakenHit = takenDamage[args.repItem] }
+						end
+					end,
+				},
+			},
+			IsItemValidForSlot = function(_, item)
+				return item ~= invalidItem
+			end,
+		}
+		local control = new("ItemDBControl", nil, { 0, 0, 100, 100 }, itemsTab, {
+			list = { invalidItem, betterItem, worseItem },
+		}, "RARE")
+		control.sortDetail = {
+			stat = "PhysicalTakenHit",
+			transform = function(value) return -value end,
+		}
+		control.sortOrder = { control.sortControl.STAT, control.sortControl.NAME }
+
+		control:ListBuilder()
+
+		assert.are.equal(betterItem, control.list[1])
+		assert.are.equal(worseItem, control.list[2])
+		assert.are.equal(invalidItem, control.list[3])
+		assert.are.equal(-80, betterItem.measuredPower)
+		assert.are.equal(-120, worseItem.measuredPower)
+		assert.are.equal(-math.huge, invalidItem.measuredPower)
+	end)
+end)

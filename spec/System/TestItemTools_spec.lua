@@ -36,6 +36,9 @@ local applyRangeTests = {
 	[{ "+(-25-50)% to Fire Resistance", 1.0, 1.5 }] = "+75% to Fire Resistance",
 	[{ "+(-25-50)% to Fire Resistance", 0.0, 1.0 }] = "-25% to Fire Resistance",
 	[{ "+(-25-50)% to Fire Resistance", 0.0, 1.5 }] = "-37% to Fire Resistance",
+	-- Fallback scaling
+	[{ "+(10-20) to unsupported value", 1.0, 1.0, 1.22 }] = "+24 to unsupported value",
+	[{ "+(10-20) to unsupported value", 1.0, 1.5, 1.22 }] = "+36 to unsupported value",
 }
 
 describe("TestItemTools", function()
@@ -45,6 +48,16 @@ describe("TestItemTools", function()
 			assert.are.equals(expected, result)
 		end)
 	end
+
+	it("detects scalability after resolving ranges", function()
+		assert.is_true(itemLib.isModLineScalable("+(10-20) to maximum Life", 1, 1))
+		assert.is_false(itemLib.isModLineScalable("Your Maximum Resistances are (76-80)%", 1, 1))
+	end)
+
+	it("formats corrupted fixed-value modifiers", function()
+		local modLine = { line = "Adds 1 to 59 Chaos Damage", corruptedRange = 1.22 }
+		assert.are.equals(colorCodes.MAGIC .. "Adds 1 to 72 Chaos Damage", itemLib.formatModLine(modLine))
+	end)
 
 	it("uses the displayed item slot for anoint comparison tooltips", function()
 		if not common.classes.ItemsTab then
