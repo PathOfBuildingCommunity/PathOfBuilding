@@ -836,12 +836,8 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 				return
 			end
 		elseif tag.type == "BaseFlag" then
-			local match = false
-			if cfg and cfg.skillGem and cfg.skillGem.grantedEffect and cfg.skillGem.grantedEffect.statSets and cfg.skillGem.grantedEffect.statSets[1] then
-				match = cfg.skillGem.grantedEffect.statSets[1].baseFlags[tag.baseFlag]
-			else
-				match = cfg and cfg.baseFlags and cfg.baseFlags[tag.baseFlag]
-			end
+			local baseFlags = cfg and ((cfg.skillGrantedEffect and cfg.skillGrantedEffect.baseFlags) or cfg.baseFlags)
+			local match = baseFlags and baseFlags[tag.baseFlag] or false
 			if tag.neg then
 				match = not match
 			end

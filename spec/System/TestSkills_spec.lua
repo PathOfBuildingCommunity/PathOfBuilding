@@ -150,4 +150,25 @@ describe("TestAttacks", function()
 
 		assert.True(preAdrenalineMaxStages < build.calcsTab.mainEnv.player.activeSkillList[1].skillModList:Sum("BASE", nil, "Multiplier:BlightMaxStages"))
 	end)
+
+	it("evaluates BaseFlag tags using PoB 1 skill data", function()
+		build.skillsTab:PasteSocketGroup("Absolution 20/0  1\n")
+		runCallback("OnFrame")
+
+		local durationSkill = build.calcsTab.mainEnv.player.mainSkill
+		durationSkill.skillModList:NewMod("BaseFlagTest", "BASE", 1, "Test", { type = "BaseFlag", baseFlag = "duration" })
+		durationSkill.skillModList:NewMod("NegatedBaseFlagTest", "BASE", 1, "Test", { type = "BaseFlag", baseFlag = "duration", neg = true })
+		assert.are.equals(1, durationSkill.skillModList:Sum("BASE", durationSkill.skillCfg, "BaseFlagTest"))
+		assert.are.equals(0, durationSkill.skillModList:Sum("BASE", durationSkill.skillCfg, "NegatedBaseFlagTest"))
+
+		newBuild()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1\n")
+		runCallback("OnFrame")
+
+		local nonDurationSkill = build.calcsTab.mainEnv.player.mainSkill
+		nonDurationSkill.skillModList:NewMod("BaseFlagTest", "BASE", 1, "Test", { type = "BaseFlag", baseFlag = "duration" })
+		nonDurationSkill.skillModList:NewMod("NegatedBaseFlagTest", "BASE", 1, "Test", { type = "BaseFlag", baseFlag = "duration", neg = true })
+		assert.are.equals(0, nonDurationSkill.skillModList:Sum("BASE", nonDurationSkill.skillCfg, "BaseFlagTest"))
+		assert.are.equals(1, nonDurationSkill.skillModList:Sum("BASE", nonDurationSkill.skillCfg, "NegatedBaseFlagTest"))
+	end)
 end)
