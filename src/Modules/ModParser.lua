@@ -153,7 +153,6 @@ local formList = {
 }
 
 -- Map of modifier names
-local damageTypeList = { "Physical", "Lightning", "Cold", "Fire", "Chaos" }
 local modNameList = {
 	-- Attributes
 	["strength"] = "Str",
@@ -679,10 +678,20 @@ local modNameList = {
 	-- Basic damage types
 	["damage"] = "Damage",
 	["physical damage"] = "PhysicalDamage",
+	["minimum physical damage"] = "MinPhysicalDamage",
+	["maximum physical damage"] = "MaxPhysicalDamage",
 	["lightning damage"] = "LightningDamage",
+	["minimum lightning damage"] = "MinLightningDamage",
+	["maximum lightning damage"] = "MaxLightningDamage",
 	["cold damage"] = "ColdDamage",
+	["minimum cold damage"] = "MinColdDamage",
+	["maximum cold damage"] = "MaxColdDamage",
 	["fire damage"] = "FireDamage",
+	["minimum fire damage"] = "MinFireDamage",
+	["maximum fire damage"] = "MaxFireDamage",
 	["chaos damage"] = "ChaosDamage",
+	["minimum chaos damage"] = "MinChaosDamage",
+	["maximum chaos damage"] = "MaxChaosDamage",
 	["non-chaos damage"] = "NonChaosDamage",
 	["elemental damage"] = "ElementalDamage",
 	-- Other damage forms
@@ -889,11 +898,6 @@ local modNameList = {
 	["resistance shrine buff"] = "Condition:ResistanceShrine",
 	["resonating shrine buff"] = "Condition:ResonatingShrine",
 }
-for _, damageType in ipairs(damageTypeList) do
-	local lowerDamageType = damageType:lower()
-	modNameList["minimum "..lowerDamageType.." damage"] = "Min"..damageType.."Damage"
-	modNameList["maximum "..lowerDamageType.." damage"] = "Max"..damageType.."Damage"
-end
 
 -- List of modifier flags
 local modFlagList = {
@@ -1982,6 +1986,7 @@ local mod = modLib.createMod
 local function flag(name, ...)
 	return mod(name, "FLAG", true, ...)
 end
+local damageTypeList = { "Physical", "Lightning", "Cold", "Fire", "Chaos" }
 
 -- Makes the "deal no" modifiers for every damage type except the one being kept.
 local function dealNoNonDamageType(dmgType, forMinion)
