@@ -312,6 +312,13 @@ function calcSkillDuration(skillModList, skillCfg, skillData, env, enemyDB)
 	return duration
 end
 
+-- Keep defensive Totem pools in step with the Totem Life shown in the skill calculations.
+function calcs.calcTotemLife(env, activeSkill)
+	local lifeMod = calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "TotemLife")
+	local life = round(m_floor(env.data.monsterAllyLifeTable[activeSkill.skillData.totemLevel] * env.data.totemLifeMult[activeSkill.skillTotemId]) * lifeMod)
+	return life, lifeMod
+end
+
 -- Performs all offensive calculations
 function calcs.offence(env, actor, activeSkill)
 	local modDB = actor.modDB
@@ -1389,8 +1396,7 @@ function calcs.offence(env, actor, activeSkill)
 				"Totems Summoned: "..output.TotemsSummoned..(env.configInput.TotemsSummoned and " ^8(overridden from the Configuration tab)" or " ^8(can be overridden in the Configuration tab)"),
 			}
 		end
-		output.TotemLifeMod = calcLib.mod(skillModList, skillCfg, "TotemLife")
-		output.TotemLife = round(m_floor(env.data.monsterAllyLifeTable[skillData.totemLevel] * env.data.totemLifeMult[activeSkill.skillTotemId]) * output.TotemLifeMod)
+		output.TotemLife, output.TotemLifeMod = calcs.calcTotemLife(env, activeSkill)
 		output.TotemEnergyShield = skillModList:Sum("BASE", skillCfg, "TotemEnergyShield")
 		output.TotemBlockChance = skillModList:Sum("BASE", skillCfg, "TotemBlockChance")
 		output.TotemArmour = skillModList:Sum("BASE", skillCfg, "TotemArmour")
@@ -3369,14 +3375,8 @@ function calcs.offence(env, actor, activeSkill)
 							end
 						end
 						local invertChanceEle = m_max(m_min(skillModList:Sum("CHANCE", cfg, "HitsInvertEleResChance"), 1), 0)
-						if isElemental[damageType] and invertChanceEle > 0 then
-							-- resist = (1 - invertChanceEle) * resist + invertChanceEle * (-1 * resist)
-							resist = resist - 2 * invertChanceEle * resist
-						end
 						local invertChanceChaos = m_max(m_min(skillModList:Sum("CHANCE", cfg, "HitsInvertChaosResChance"), 1), 0)
-						if damageType == "Chaos" and invertChanceChaos > 0 then
-							resist = resist - 2 * invertChanceChaos * resist
-						end
+						local invertChance = (isElemental[damageType] and invertChanceEle) or (damageType == "Chaos" and invertChanceChaos) or 0
 						sourceRes = env.modDB:Flag(nil, "Enemy"..sourceRes.."ResistEqualToYours") and "Your "..sourceRes.." Resistance" or (env.partyMembers.modDB:Flag(nil, "Enemy"..sourceRes.."ResistEqualToYours") and "Party Member "..sourceRes.." Resistance" or sourceRes)
 						if skillFlags.projectile then
 							takenInc = takenInc + enemyDB:Sum("INC", nil, "ProjectileDamageTaken")
@@ -3390,10 +3390,17 @@ function calcs.offence(env, actor, activeSkill)
 						local effMult = (1 + takenInc / 100) * takenMore
 						local useResChance = useThisResist(damageType)
 						local useRes = useResChance > 0
+						local effectiveResist = resist
 						if skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
-							effMult = effMult * (1 - resist / 100)
+							effectiveResist = invertChance > 0 and (resist - 2 * invertChance * resist) or resist
+							effMult = effMult * (1 - effectiveResist / 100)
 						elseif useRes then
-							effMult = effMult * (1 - ((resist - pen) * useResChance) / 100)
+							if invertChance > 0 then
+								effectiveResist = ((resist - pen) * (1 - invertChance) + (-resist - pen) * invertChance) * useResChance
+							else
+								effectiveResist = (resist - pen) * useResChance
+							end
+							effMult = effMult * (1 - effectiveResist / 100)
 						end
 						damageTypeHitMin = damageTypeHitMin * effMult
 						damageTypeHitMax = damageTypeHitMax * effMult
@@ -3401,13 +3408,12 @@ function calcs.offence(env, actor, activeSkill)
 						if env.mode == "CALCS" then
 							output[damageType.."EffMult"] = effMult
 						end
-						local invertChance = (isElemental[damageType] and invertChanceEle) or (damageType == "Chaos" and invertChanceChaos) or 0
-						if pass == 2 and breakdown and (effMult ~= 1 or sourceRes ~= damageType) and skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
+						if pass == 2 and breakdown and (effMult ~= 1 or sourceRes ~= damageType or invertChance > 0) and skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
 							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
-							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore, sourceRes, useRes, invertChance)
-						elseif pass == 2 and breakdown and (effMult ~= 1 or sourceRes ~= damageType) then
+							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore, sourceRes, useRes, invertChance, effectiveResist)
+						elseif pass == 2 and breakdown and (effMult ~= 1 or sourceRes ~= damageType or invertChance > 0) then
 							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
-							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, pen, takenInc, effMult, takenMore, sourceRes, useRes, invertChance)
+							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, pen, takenInc, effMult, takenMore, sourceRes, useRes, invertChance, effectiveResist)
 						end
 					end
 					if pass == 2 and breakdown then
@@ -5924,6 +5930,9 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.ImpaleDPS = output.impaleStoredHitAvg * ((output.ImpaleModifier or 1) - 1) * output.HitChance / 100 * skillData.dpsMultiplier
 		end
+		if output.ImpaleDuration <= 0 then
+			output.ImpaleDPS = 0
+		end
 		if skillData.showAverage then
 			output.WithImpaleDPS = output.AverageDamage + output.ImpaleDPS
 			output.CombinedAvg = output.CombinedAvg + output.ImpaleDPS
@@ -5964,6 +5973,9 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		if quantityMultiplier > 1 then
 			t_insert(breakdown.ImpaleDPS, s_format("x %g ^8(quantity multiplier for this skill)", quantityMultiplier))
+		end
+		if output.ImpaleDuration <= 0 then
+			t_insert(breakdown.ImpaleDPS, s_format("x 0 ^8(no Impale Duration)"))
 		end
 		t_insert(breakdown.ImpaleDPS, s_format("= %.1f", output.ImpaleDPS))
 		end
