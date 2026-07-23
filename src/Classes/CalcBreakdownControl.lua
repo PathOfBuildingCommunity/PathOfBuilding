@@ -474,6 +474,8 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 					if not desc then
 						desc = "Skill type: "..(tag.neg and "Not " or "").."?"
 					end
+				elseif tag.type == "BaseFlag" then
+					desc = "Base flag: "..(tag.neg and "Not " or "")..self:FormatModName(tostring(tag.baseFlag))
 				elseif tag.type == "SlotNumber" then
 					desc = "When in slot #"..tag.num
 				elseif tag.type == "GlobalEffect" then

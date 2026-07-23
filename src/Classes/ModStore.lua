@@ -34,6 +34,14 @@ local ModStoreClass = newClass("ModStore", function(self, parent)
 	self.conditions = { }
 end)
 
+local function getActor(self, actorType)
+	if actorType == "player" then
+		return self.actor.player or (self.actor.parent and self.actor.parent.player) or (self.actor.enemy and self.actor.enemy.player)
+	else
+		return self.actor[actorType]
+	end
+end
+
 function ModStoreClass:ScaleAddMod(mod, scale, replace)
 	local unscalable = false
 	for _, effects in ipairs(mod) do
@@ -455,7 +463,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 					limitTotal = limit
 				else
 					mult = m_min(mult, limit)
-				end 
+				end
 			end
 			if type(value) == "table" then
 				value = copyTable(value)
@@ -505,7 +513,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 					limitTotal = limit
 				else
 					mult = m_min(mult, limit)
-				end 
+				end
 			end
 			if type(value) == "table" then
 				value = copyTable(value)
@@ -561,9 +569,9 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 					end
 				end
 			end
-		-- Syntax: { type = "MeleeProximity", ramp = {MaxBonusPct,MinBonusPct} }
-		-- 			Both MaxBonusPct and MinBonusPct are percent in decimal form (1.0 = 100%)
-		-- Example: { type = "MeleeProximity", ramp = {1,0} }   ## Duelist-Slayer: Impact
+			-- Syntax: { type = "MeleeProximity", ramp = {MaxBonusPct,MinBonusPct} }
+			-- 			Both MaxBonusPct and MinBonusPct are percent in decimal form (1.0 = 100%)
+			-- Example: { type = "MeleeProximity", ramp = {1,0} }   ## Duelist-Slayer: Impact
 		elseif tag.type == "MeleeProximity" then
 			if not cfg or not cfg.skillDist then
 				return
@@ -571,7 +579,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			-- Max potency is 0-15 units of distance
 			if cfg.skillDist <= 15 then
 				value = value * tag.ramp[1]
-			-- Reduced potency (linear) until 40 units
+				-- Reduced potency (linear) until 40 units
 			elseif cfg.skillDist >= 16 and cfg.skillDist <= 39 then
 				value = value * (tag.ramp[1] - ((tag.ramp[1] / 25) * (cfg.skillDist - 15)))
 			elseif cfg.skillDist >= 40 then
@@ -720,7 +728,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 					end
 					return false
 				end
-				
+
 				local match = {}
 				if tag.slotName then
 					match["slotName"] = (tag.slotName == cfg.slotName) or false
