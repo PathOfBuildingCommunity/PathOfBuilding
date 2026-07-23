@@ -901,16 +901,20 @@ function TradeQueryGeneratorClass:FinishQuery()
 					type = "weight",
 					value = { min = minWeight },
 					filters = { }
-				},
-				#requiredMods > 0 and {
-					type = "and",
-					filters = {}
 				}
 			}
 		},
 		sort = { ["statgroup.0"] = "desc" },
 		engine = "new"
 	}
+	local requiredModFilters
+	if #requiredMods > 0 then
+		requiredModFilters = {
+			type = "and",
+			filters = {}
+		}
+		t_insert(queryTable.query.stats, requiredModFilters)
+	end
 
 	local options = self.calcContext.options
 
@@ -968,8 +972,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 		end
 	end
 	for _, entry in ipairs(requiredMods) do
-		local filters = queryTable.query.stats[2].filters
-		t_insert(filters, { id = entry.tradeId, value = { min = entry.value } })
+		t_insert(requiredModFilters.filters, { id = entry.tradeId, value = { min = entry.value } })
 	end
 	if not options.includeMirrored then
 		queryTable.query.filters.misc_filters = {
@@ -1325,6 +1328,10 @@ Remove: %s will be removed from the search results.]], term, term, term)
 			options.requiredMods = copyTable(selectedMods)
 		end
 		options.statWeights = statWeights
+		if controls.jewelSlot then
+			slot = controls.jewelSlot:GetSelValue()
+			context.slotTbl.selectedJewelNodeId = slot.nodeId
+		end
 
 		self:StartQuery(slot, options)
 	end)
