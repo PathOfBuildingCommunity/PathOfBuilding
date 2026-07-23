@@ -1095,7 +1095,7 @@ holding Shift will put it in the second.]])
 		self.controls["displayItemStackedRangeLine" .. i] = new("LabelControl", { "LEFT", slider, "RIGHT", true }, { 4, -2, 350, labelFontSize }, function()
 			local modLine = self.displayItem.rangeLineList[i]
 			if self.displayItem and modLine then
-				local colour = modLine.mutateActive and colorCodes.MUTATED or "^7"
+				local colour = modLine.mutated and colorCodes.MUTATED or "^7"
 				local text = table.concat(main:WrapString(modLine.line, labelFontSize, 370), "\n")
 				local _, lineCount = text:gsub("\n", "")
 				self.controls["displayItemStackedRangeLine" .. i].lineCount = lineCount + 1

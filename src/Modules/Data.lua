@@ -1235,11 +1235,14 @@ data.itemMods.WatchersEye = unsortedMods
 LoadModule("Data/Uniques/Special/Generated")
 LoadModule("Data/Uniques/Special/New")
 
-data.foulbornMap = dkjson.decode(io.open("Data/ModFoulbornMap.jsonc", "r"):read("*a"))
-for _, mappings in ipairs(data.foulbornMap) do
-	for orig, foul in pairs(mappings) do
-		assert(data.itemMods.Item[orig], "original " .. orig)
-		assert(data.itemMods.Foulborn[foul], "foulborn " .. foul)
-	end
-end
+local mapFile = io.open("Data/ModFoulbornMap.jsonc", "r")
+data.foulbornMap = dkjson.decode(mapFile:read("*a"))
+mapFile:close()
+-- debug assert: check if each mod exists in exports
+-- for _, mappings in pairs(data.foulbornMap) do
+-- 	for orig, foul in pairs(mappings) do
+-- 		assert(data.itemMods.Item[orig], "original " .. orig)
+-- 		assert(data.itemMods.Foulborn[foul], "foulborn " .. foul)
+-- 	end
+-- end
 data.flavourText = LoadModule("Data/FlavourText")

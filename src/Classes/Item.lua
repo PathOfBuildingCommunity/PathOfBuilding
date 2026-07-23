@@ -92,7 +92,6 @@ local lineFlags = {
 	["synthesis"] = true,
 	["mutated"] = true,
 	["unscalable"] = true,
-	["mutateActive"] = true
 }
 
 -- Special function to store unique instances of modifier on specific item slots
@@ -1127,7 +1126,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	if self.mutatedLines then
 		for origModId, foulModId in pairs(self.mutatedLines) do
 			local function checkMod(modId, newModId, mutated)
-				local originalMod = mutated and data.itemMods.Foulborn[modId] or data.itemMods.Item[modId]
+				local originalMod = mutated and data.itemMods.Foulborn[modId] or data.itemMods.ItemExclusive[modId]
 				if not originalMod then
 					ConPrintf("mod not found while testing mutated mods %s, %s", modId, mutated)
 					return
@@ -1416,13 +1415,6 @@ function ItemClass:BuildRaw()
 		-- ggg tag for cultivated/foulborn mod
 		if modLine.mutated then
 			line = "{mutated}" .. line
-		end
-		-- pob markers for application and removal of mutated mod
-		if modLine.mutateActive then
-			line = "{mutateActive}" .. line
-		end
-		if modLine.originalLine then
-			line = string.format("{originalLine:%s}", modLine.originalLine) .. line
 		end
 		if modLine.fractured then
 			line = "{fractured}" .. line
