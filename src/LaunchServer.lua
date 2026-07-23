@@ -192,7 +192,7 @@ end
 -- attempt to establish a connection at the same time. In the future, this could be refactored to perform non-blocking
 -- IO, so that it can operate concurrently, but hopefully that isn't necessary.
 local attempt = 1
-local stopAt = os.time() + 30
+local stopAt = os.time() + 60
 local errMsg
 local shouldRetry, code, state = true, nil, nil
 while (os.time() < stopAt) and shouldRetry do
