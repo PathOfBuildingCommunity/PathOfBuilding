@@ -4593,6 +4593,9 @@ local specialModList = {
 	["recoup effects instead occur over 3 seconds"] = { flag("3SecondRecoup") },
 	["life recoup effects instead occur over 3 seconds"] = { flag("3SecondLifeRecoup") },
 	["recoup energy shield instead of life"] = { flag("EnergyShieldRecoupInsteadOfLife") },
+	["damage taken recouped as (%a+) is also recouped as energy shield"] = function(_, type) return {
+		flag("Add"..firstToUpper(type).."RecoupToEnergyShieldRecoup"),
+	} end,
 	["([%d%.]+)%% of physical damage prevented from hits in the past (%d+) seconds is regenerated as life per second"] = function(num, _, duration) return { 
 		mod("PhysicalDamageMitigatedLifePseudoRecoup", "BASE", num * duration), 
 		mod("PhysicalDamageMitigatedLifePseudoRecoupDuration", "BASE", duration),

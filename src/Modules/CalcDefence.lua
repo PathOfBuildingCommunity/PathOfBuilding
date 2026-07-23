@@ -1418,6 +1418,11 @@ function calcs.defence(env, actor)
 					end
 				end
 			end
+			local addToEnergyShieldFlag = "Add"..recoupType.."RecoupToEnergyShieldRecoup"
+			if modDB:Flag(nil, addToEnergyShieldFlag) then
+				local flagMod = modDB:Tabulate("FLAG", nil, addToEnergyShieldFlag)[1].mod
+				modDB:ReplaceMod("EnergyShieldRecoup", "BASE", baseRecoup, flagMod.source)
+			end
 		end
 
 		if modDB:Flag(nil, "UsePowerCharges") and modDB:Flag(nil, "PowerChargesConvertToAbsorptionCharges") then
@@ -1429,12 +1434,11 @@ function calcs.defence(env, actor)
 
 		for _, recoupType in ipairs(recoupTypeList) do
 			for _, damageType in ipairs(dmgTypeList) do
+				local recoup = modDB:Sum("BASE", nil, damageType..recoupType.."Recoup")
 				if recoupType == "Life" and modDB:Flag(nil, "EnergyShieldRecoupInsteadOfLife") then
 					output[damageType.."LifeRecoup"] = 0
-					local lifeRecoup = modDB:Sum("BASE", nil, damageType.."LifeRecoup")
-					modDB:NewMod(damageType.."EnergyShieldRecoup", "BASE", lifeRecoup, "Life Recoup Conversion")
+					modDB:NewMod(damageType.."EnergyShieldRecoup", "BASE", recoup, "Life Recoup Conversion")
 				else
-					local recoup = modDB:Sum("BASE", nil, damageType..recoupType.."Recoup")
 					output[damageType..recoupType.."Recoup"] =  recoup * output[recoupType.."RecoveryRateMod"]
 					output["anyRecoup"] = output["anyRecoup"] + output[damageType..recoupType.."Recoup"]
 					if breakdown then
@@ -1448,6 +1452,11 @@ function calcs.defence(env, actor)
 							breakdown[damageType..recoupType.."Recoup"] = { s_format("%d%% over %d seconds", output[damageType..recoupType.."Recoup"], (modDB:Flag(nil, "3Second"..recoupType.."Recoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4) }
 						end
 					end
+				end
+				local addToEnergyShieldFlag = "Add"..recoupType.."RecoupToEnergyShieldRecoup"
+				if modDB:Flag(nil, addToEnergyShieldFlag) then
+					local flagMod = modDB:Tabulate("FLAG", nil, addToEnergyShieldFlag)[1].mod
+					modDB:ReplaceMod(damageType.."EnergyShieldRecoup", "BASE", recoup, flagMod.source)
 				end
 			end
 		end

@@ -612,4 +612,19 @@ describe("TetsItemMods", function()
 		assert.are.equals(baseFrenzyChargesMax + 1, build.calcsTab.calcsOutput.FrenzyChargesMax)
 		assert.are.equals(baseEnduranceChargesMax + 1, build.calcsTab.calcsOutput.EnduranceChargesMax)
 	end)
+
+	it("adds life recoup to energy shield recoup", function()
+		build.configTab.input.customMods = [[
+			20% of Damage taken Recouped as Life
+			10% of Physical Damage taken Recouped as Life
+			Damage taken Recouped as Life is also Recouped as Energy Shield
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(20, build.calcsTab.calcsOutput.LifeRecoup)
+		assert.are.equals(20, build.calcsTab.calcsOutput.EnergyShieldRecoup)
+		assert.are.equals(10, build.calcsTab.calcsOutput.PhysicalLifeRecoup)
+		assert.are.equals(10, build.calcsTab.calcsOutput.PhysicalEnergyShieldRecoup)
+	end)
 end)
