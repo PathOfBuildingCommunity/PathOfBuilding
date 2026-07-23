@@ -678,10 +678,20 @@ local modNameList = {
 	-- Basic damage types
 	["damage"] = "Damage",
 	["physical damage"] = "PhysicalDamage",
+	["minimum physical damage"] = "MinPhysicalDamage",
+	["maximum physical damage"] = "MaxPhysicalDamage",
 	["lightning damage"] = "LightningDamage",
+	["minimum lightning damage"] = "MinLightningDamage",
+	["maximum lightning damage"] = "MaxLightningDamage",
 	["cold damage"] = "ColdDamage",
+	["minimum cold damage"] = "MinColdDamage",
+	["maximum cold damage"] = "MaxColdDamage",
 	["fire damage"] = "FireDamage",
+	["minimum fire damage"] = "MinFireDamage",
+	["maximum fire damage"] = "MaxFireDamage",
 	["chaos damage"] = "ChaosDamage",
+	["minimum chaos damage"] = "MinChaosDamage",
+	["maximum chaos damage"] = "MaxChaosDamage",
 	["non-chaos damage"] = "NonChaosDamage",
 	["elemental damage"] = "ElementalDamage",
 	-- Other damage forms
@@ -690,7 +700,7 @@ local modNameList = {
 	["physical attack damage"] = { "PhysicalDamage", flags = ModFlag.Attack },
 	["minimum physical attack damage"] = { "MinPhysicalDamage", tag = { type = "SkillType", skillType = SkillType.Attack } },
 	["maximum physical attack damage"] = { "MaxPhysicalDamage", tag = { type = "SkillType", skillType = SkillType.Attack } },
-	["maximum attack damage"] = { "MinDamage", tag = { type = "SkillType", skillType = SkillType.Attack } },
+	["minimum attack damage"] = { "MinDamage", tag = { type = "SkillType", skillType = SkillType.Attack } },
 	["maximum attack damage"] = { "MaxDamage", tag = { type = "SkillType", skillType = SkillType.Attack } },
 	["physical weapon damage"] = { "PhysicalDamage", flags = ModFlag.Weapon },
 	["physical damage with weapons"] = { "PhysicalDamage", flags = ModFlag.Weapon },
@@ -1976,6 +1986,23 @@ local mod = modLib.createMod
 local function flag(name, ...)
 	return mod(name, "FLAG", true, ...)
 end
+local damageTypeList = { "Physical", "Lightning", "Cold", "Fire", "Chaos" }
+
+-- Makes the "deal no" modifiers for every damage type except the one being kept.
+local function dealNoNonDamageType(dmgType, forMinion)
+	dmgType = firstToUpper(dmgType)
+	if not isValueInArray(damageTypeList, dmgType) then
+		return
+	end
+	local mods = { }
+	for _, damageType in ipairs(damageTypeList) do
+		if damageType ~= dmgType then
+			local dealNo = flag("DealNo"..damageType)
+			t_insert(mods, forMinion and mod("MinionModifier", "LIST", { mod = dealNo }) or dealNo)
+		end
+	end
+	return mods
+end
 
 local gemIdLookup = {
 	["power charge on critical strike"] = "SupportPowerChargeOnCritical",
@@ -2192,7 +2219,6 @@ local specialModList = {
 	["life leeched per second is doubled"] = { mod("LifeLeechRate", "MORE", 100) },
 	["life regeneration has no effect"] = { flag("NoLifeRegen") },
 	["energy shield recharge instead applies to life"] = { flag("EnergyShieldRechargeAppliesToLife") },
-	["deal no non%-fire damage"] = { flag("DealNoPhysical"), flag("DealNoLightning"), flag("DealNoCold"), flag("DealNoChaos") },
 	["blade vortex and blade blast deal no non%-physical damage"] = {
 		flag("DealNoLightning", { type = "SkillName", skillNameList = { "Blade Vortex", "Blade Blast" }, includeTransfigured = true }),
 		flag("DealNoCold", { type = "SkillName", skillNameList = { "Blade Vortex", "Blade Blast" }, includeTransfigured = true }),
@@ -3560,6 +3586,15 @@ local specialModList = {
 		mod("Damage", "INC", num, nil, 0, KeywordFlag.Poison, { type = "ActorCondition", actor = "enemy", var = "Poisoned" }, { type = "Condition", var = "Poisoned" }),
 	} end,
 	["ignited enemies burn (%d+)%% faster"] = function(num) return { mod("IgniteBurnFaster", "INC", num) } end,
+	-- Overrides the base duration of a damaging ailment (the only ailments with a fixed base duration
+	-- consumed by the calcs; freeze duration is derived from damage and chill/shock durations are not modelled)
+	["base (%a+) duration is ([%d%.]+) seconds?"] = function(_, ailment, num)
+		local ailmentName = (ailment == "bleeding" or ailment == "bleed") and "Bleed"
+			or (ailment == "ignite" or ailment == "poison") and firstToUpper(ailment)
+		if ailmentName then
+			return { mod(ailmentName.."DurationBase", "OVERRIDE", tonumber(num)) }
+		end
+	end,
 	["ignited enemies burn (%d+)%% slower"] = function(num) return { mod("IgniteBurnSlower", "INC", num) } end,
 	["enemies ignited by an attack burn (%d+)%% faster"] = function(num) return { mod("IgniteBurnFaster", "INC", num, nil, ModFlag.Attack) } end,
 	["ignites you inflict with attacks deal damage (%d+)%% faster"] = function(num) return { mod("IgniteBurnFaster", "INC", num, nil, ModFlag.Attack) } end,
@@ -3709,6 +3744,8 @@ local specialModList = {
 		flag("SpellSuppressionAppliesToChanceToDefendWithArmour"),
 	} end,
 	["enemies chilled by your hits have damage taken increased by chill effect"] = { flag("ChillEffectIncDamageTaken") },
+	["enemies chilled by your hits have cold damage taken increased by chill effect"] = { flag("ChillEffectIncColdDamageTaken") },
+	["enemies in your chilling areas have cold damage taken increased by chill effect"] = { flag("ChillingAreaIncColdDamageTaken", { type = "ActorCondition", actor = "enemy", var = "InChillingArea" }) },
 	["left ring slot: your chilling skitterbot's aura applies socketed h?e?x? ?curse instead"] = { flag("SkitterbotsCannotChill", { type = "SlotNumber", num = 1 }) },
 	["right ring slot: your shocking skitterbot's aura applies socketed h?e?x? ?curse instead"] = { flag("SkitterbotsCannotShock", { type = "SlotNumber", num = 2 }) },
 	["summon skitterbots also summons a scorching skitterbot"] = { flag("ScorchingSkitterbot") },
@@ -4315,36 +4352,7 @@ local specialModList = {
 		mod("MinionModifier", "LIST", { mod = flag("Condition:DiamondShrine") }, { type = "SkillName", skillName = "Summon Phantasm" }),
 		mod("MinionModifier", "LIST", { mod = flag("Condition:MassiveShrine") }, { type = "SkillName", skillName = "Summon Phantasm" }),
 	},
-	["minions deal no non%-physical damage"] = {
-		mod("MinionModifier", "LIST", { mod = flag("DealNoLightning") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoCold") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoFire") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoChaos") }),
-	},
-	["minions deal no non%-lightning damage"] = {
-		mod("MinionModifier", "LIST", { mod = flag("DealNoPhysical") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoLCold") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoFire") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoChaos") }),
-	},
-	["minions deal no non%-cold damage"] = {
-		mod("MinionModifier", "LIST", { mod = flag("DealNoPhysical") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoLightning") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoFire") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoChaos") }),
-	},
-	["minions deal no non%-fire damage"] = {
-		mod("MinionModifier", "LIST", { mod = flag("DealNoPhysical") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoLightning") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoCold") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoChaos") }),
-	},
-	["minions deal no non%-chaos damage"] = {
-		mod("MinionModifier", "LIST", { mod = flag("DealNoPhysical") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoLightning") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoCold") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoFire") }),
-	},
+	["minions deal no non%-(%a+) damage"] = function(_, dmgType) return dealNoNonDamageType(dmgType, true) end,
 	["minions convert (%d+)%% of (.+) damage to (.+) damage"] = function(num, _, source, target) return {
 		mod("MinionModifier", "LIST", { mod = mod(source:gsub("^%l", string.upper) .. "DamageConvertTo" .. target:gsub("^%l", string.upper), "BASE", num) })
 	} end,
@@ -5153,9 +5161,8 @@ local specialModList = {
 		flag("DealNoDamage", { type = "SkillType", skillTypeList = { SkillType.SummonsTotem, SkillType.RemoteMined, SkillType.Trapped}, neg = true }, {type = "Condition", var="usedByMirage", neg = true}),
 	},
 	["deal no non%-elemental damage"] = { flag("DealNoPhysical"), flag("DealNoChaos") },
-	["deal no non%-lightning damage"] = { flag("DealNoPhysical"), flag("DealNoCold"), flag("DealNoFire"), flag("DealNoChaos") },
-	["deal no non%-physical damage"] = { flag("DealNoLightning"), flag("DealNoCold"), flag("DealNoFire"), flag("DealNoChaos") },
-	["cannot deal non%-chaos damage"] = { flag("DealNoPhysical"), flag("DealNoCold"), flag("DealNoFire"), flag("DealNoLightning") },
+	["deal no non%-(%a+) damage"] = function(_, dmgType) return dealNoNonDamageType(dmgType) end,
+	["cannot deal non%-(%a+) damage"] = function(_, dmgType) return dealNoNonDamageType(dmgType) end,
 	["deal no physical or elemental damage"] = { flag("DealNoPhysical"), flag("DealNoCold"), flag("DealNoFire"), flag("DealNoLightning") },
 	["deal no damage when not on low life"] = {	flag("DealNoDamage", { type = "Condition", var = "LowLife", neg = true }) },
 	["spell skills deal no damage"] = {	flag("DealNoDamage", { type = "SkillType", skillType = SkillType.Spell }) },

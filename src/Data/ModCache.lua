@@ -4510,9 +4510,7 @@ c["25% more Critical Strike chance while affected by Precision"]={{[1]={[1]={typ
 c["25% more Damage while there is at most one Rare or Unique Enemy nearby"]={{[1]={[1]={type="Condition",var="AtMostOneNearbyRareOrUniqueEnemy"},flags=0,keywordFlags=0,name="Damage",type="MORE",value=25}},nil}
 c["25% more Damage with Hits against Enemies that cannot have Life Leeched from them"]={{[1]={flags=0,keywordFlags=262144,name="Damage",type="MORE",value=25}},"   against Enemies that cannot have Life Leeched from them "}
 c["25% more Maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="MORE",value=25}},nil}
-c["25% more Maximum Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamage",type="MORE",value=25}}," Maximum  "}
-c["25% more Maximum Lightning Damage 50% less Minimum Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamage",type="MORE",value=25}}," Maximum  50% less Minimum Lightning Damage "}
-c["25% more Maximum Lightning Damage 50% less Minimum Lightning Damage Cannot deal non-Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamage",type="MORE",value=25}}," Maximum  50% less Minimum Lightning Damage Cannot deal non-Lightning Damage "}
+c["25% more Maximum Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="MaxLightningDamage",type="MORE",value=25}},nil}
 c["25% more Melee Critical Strike Chance while Blinded"]={{[1]={[1]={type="Condition",var="Blinded"},[2]={neg=true,type="Condition",var="CannotBeBlinded"},flags=256,keywordFlags=0,name="CritChance",type="MORE",value=25}},nil}
 c["25% more Melee Physical Damage during effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=256,keywordFlags=0,name="PhysicalDamage",type="MORE",value=25}},nil}
 c["25% more Physical and Chaos Damage Taken while Sane"]={{[1]={[1]={neg=true,type="Condition",var="Insane"},flags=0,keywordFlags=0,name="PhysicalDamageTaken",type="MORE",value=25},[2]={[1]={neg=true,type="Condition",var="Insane"},flags=0,keywordFlags=0,name="ChaosDamageTaken",type="MORE",value=25}},nil}
@@ -5832,8 +5830,7 @@ c["50% less Impale Duration"]={{[1]={flags=0,keywordFlags=0,name="ImpaleDuration
 c["50% less Life Recovery from Flasks"]={{[1]={flags=0,keywordFlags=0,name="FlaskLifeRecovery",type="MORE",value=-50}},nil}
 c["50% less Life Regeneration Rate"]={{[1]={flags=0,keywordFlags=0,name="LifeRegen",type="MORE",value=-50}},nil}
 c["50% less Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningResist",type="MORE",value=-50}},nil}
-c["50% less Minimum Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamage",type="MORE",value=-50}}," Minimum  "}
-c["50% less Minimum Lightning Damage Cannot deal non-Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamage",type="MORE",value=-50}}," Minimum  Cannot deal non-Lightning Damage "}
+c["50% less Minimum Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="MinLightningDamage",type="MORE",value=-50}},nil}
 c["50% less Poison Duration"]={{[1]={flags=0,keywordFlags=0,name="EnemyPoisonDuration",type="MORE",value=-50}},nil}
 c["50% less maximum Total Life Recovery per Second from Leech"]={{[1]={flags=0,keywordFlags=0,name="MaxLifeLeechRate",type="MORE",value=-50}},nil}
 c["50% more Accuracy Rating against Marked Enemy"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Marked"},flags=0,keywordFlags=0,name="AccuracyVsEnemy",type="MORE",value=50}},nil}
@@ -7734,9 +7731,7 @@ c["Banner Skills have 8% increased Duration"]={{[1]={[1]={skillType=99,type="Ski
 c["Banner Skills have no Reservation"]={{[1]={[1]={skillType=99,type="SkillType"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="manaReservationPercent",value=0}},[2]={[1]={skillType=99,type="SkillType"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="lifeReservationPercent",value=0}}},nil}
 c["Banners also grant +5% to all Elemental Resistances to you and Allies"]={{[1]={[1]={skillType=99,type="SkillType"},flags=0,keywordFlags=0,name="ExtraAuraEffect",type="LIST",value={mod={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=5}}}},nil}
 c["Base Critical Strike Chance for Attacks with Weapons is 8%"]={{[1]={flags=0,keywordFlags=0,name="WeaponBaseCritChance",type="OVERRIDE",value=8}},nil}
-c["Base Ignite Duration is 1 second"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteDuration",type="OVERRIDE",value=1}},"Base  second "}
-c["Base Ignite Duration is 1 second 25% less Damage with Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteDuration",type="OVERRIDE",value=1}},"Base  second 25% less Damage with Ignite "}
-c["Base Ignite Duration is 1 second 25% less Damage with Ignite Cannot deal non-Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteDuration",type="OVERRIDE",value=1}},"Base  second 25% less Damage with Ignite Cannot deal non-Fire Damage "}
+c["Base Ignite Duration is 1 second"]={{[1]={flags=0,keywordFlags=0,name="IgniteDurationBase",type="OVERRIDE",value=1}},nil}
 c["Base Spell Critical Strike Chance of Spells is equal to that of Main Hand Weapon"]={{[1]={flags=2,keywordFlags=0,name="BaseCritFromMainHand",type="FLAG",value=true}},nil}
 c["Bathed in the blood of 4050 sacrificed in the name of Ahuana"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id="2_v2",type="vaal"},id=4050}}}},nil}
 c["Bathed in the blood of 8000 sacrificed in the name of Ahuana"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id="2_v2",type="vaal"},id=8000}}}},nil}
@@ -7922,10 +7917,10 @@ c["Cannot be Stunned while you have at least 25 Rage"]={{[1]={[1]={threshold=25,
 c["Cannot be used with Chaos Inoculation"]={nil,"Cannot be used with Chaos Inoculation "}
 c["Cannot be used with Chaos Inoculation Reserves 30% of Life"]={nil,"Cannot be used with Chaos Inoculation Reserves 30% of Life "}
 c["Cannot deal Critical Strikes with Attacks"]={{[1]={flags=1,keywordFlags=0,name="NeverCrit",type="FLAG",value=true},[2]={flags=1,keywordFlags=0,name="Condition:NeverCrit",type="FLAG",value=true}},nil}
-c["Cannot deal non-Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="DealNoPhysical",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="DealNoCold",type="FLAG",value=true},[3]={flags=0,keywordFlags=0,name="DealNoFire",type="FLAG",value=true},[4]={flags=0,keywordFlags=0,name="DealNoLightning",type="FLAG",value=true}},nil}
-c["Cannot deal non-Cold Damage"]={nil,"Cannot deal non-Cold Damage "}
-c["Cannot deal non-Fire Damage"]={nil,"Cannot deal non-Fire Damage "}
-c["Cannot deal non-Lightning Damage"]={nil,"Cannot deal non-Lightning Damage "}
+c["Cannot deal non-Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="DealNoPhysical",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="DealNoLightning",type="FLAG",value=true},[3]={flags=0,keywordFlags=0,name="DealNoCold",type="FLAG",value=true},[4]={flags=0,keywordFlags=0,name="DealNoFire",type="FLAG",value=true}},nil}
+c["Cannot deal non-Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="DealNoPhysical",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="DealNoLightning",type="FLAG",value=true},[3]={flags=0,keywordFlags=0,name="DealNoFire",type="FLAG",value=true},[4]={flags=0,keywordFlags=0,name="DealNoChaos",type="FLAG",value=true}},nil}
+c["Cannot deal non-Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="DealNoPhysical",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="DealNoLightning",type="FLAG",value=true},[3]={flags=0,keywordFlags=0,name="DealNoCold",type="FLAG",value=true},[4]={flags=0,keywordFlags=0,name="DealNoChaos",type="FLAG",value=true}},nil}
+c["Cannot deal non-Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="DealNoPhysical",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="DealNoCold",type="FLAG",value=true},[3]={flags=0,keywordFlags=0,name="DealNoFire",type="FLAG",value=true},[4]={flags=0,keywordFlags=0,name="DealNoChaos",type="FLAG",value=true}},nil}
 c["Cannot gain Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="CannotGainEnergyShield",type="FLAG",value=true}},nil}
 c["Cannot gain Life during effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="CannotGainLife",type="FLAG",value=true}},nil}
 c["Cannot gain Mana during effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="CannotGainMana",type="FLAG",value=true}},nil}
@@ -8390,9 +8385,7 @@ c["Enemies Cannot Leech Mana From you"]={nil,"Enemies Cannot Leech Mana From you
 c["Enemies Cannot Leech Mana From you 10% of Damage taken Recouped as Mana"]={nil,"Enemies Cannot Leech Mana From you 10% of Damage taken Recouped as Mana "}
 c["Enemies Chilled by your Hits can be Shattered as though Frozen"]={nil,"your Hits can be Shattered as though Frozen "}
 c["Enemies Chilled by your Hits can be Shattered as though Frozen Enemies Chilled by your Hits lessen their Damage dealt by half of Chill Effect"]={nil,"your Hits can be Shattered as though Frozen Enemies Chilled by your Hits lessen their Damage dealt by half of Chill Effect "}
-c["Enemies Chilled by your Hits have Cold Damage taken increased by Chill Effect"]={nil,"your Hits have Cold Damage taken increased by Chill Effect "}
-c["Enemies Chilled by your Hits have Cold Damage taken increased by Chill Effect Enemies in your Chilling Areas have Cold Damage taken increased by Chill Effect"]={nil,"your Hits have Cold Damage taken increased by Chill Effect Enemies in your Chilling Areas have Cold Damage taken increased by Chill Effect "}
-c["Enemies Chilled by your Hits have Cold Damage taken increased by Chill Effect Enemies in your Chilling Areas have Cold Damage taken increased by Chill Effect Cannot deal non-Cold Damage"]={nil,"your Hits have Cold Damage taken increased by Chill Effect Enemies in your Chilling Areas have Cold Damage taken increased by Chill Effect Cannot deal non-Cold Damage "}
+c["Enemies Chilled by your Hits have Cold Damage taken increased by Chill Effect"]={{[1]={flags=0,keywordFlags=0,name="ChillEffectIncColdDamageTaken",type="FLAG",value=true}},nil}
 c["Enemies Chilled by your Hits have Damage taken increased by Chill Effect"]={{[1]={flags=0,keywordFlags=0,name="ChillEffectIncDamageTaken",type="FLAG",value=true}},nil}
 c["Enemies Chilled by your Hits lessen their Damage dealt by half of Chill Effect"]={{[1]={flags=0,keywordFlags=0,name="ChillEffectLessDamageDealt",type="FLAG",value=true}},nil}
 c["Enemies Cursed by you are Hindered if 25% of Curse Duration expired"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={threshold=25,type="MultiplierThreshold",var="CurseExpired"},[2]={type="ActorCondition",var="Cursed"},flags=0,keywordFlags=0,name="Condition:Hindered",type="FLAG",value=true}}}},nil}
@@ -8445,8 +8438,7 @@ c["Enemies affected by your Spider's Webs deal 10% reduced Damage"]={{[1]={flags
 c["Enemies affected by your Spider's Webs have -10% to All Resistances"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={threshold=1,type="MultiplierThreshold",var="Spider's WebStack"},flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=-10}}},[2]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={threshold=1,type="MultiplierThreshold",var="Spider's WebStack"},flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=-10}}}},nil}
 c["Enemies display their Monster Category"]={nil,"Enemies display their Monster Category "}
 c["Enemies display their Monster Category 120% increased Evasion and Energy Shield"]={nil,"Enemies display their Monster Category 120% increased Evasion and Energy Shield "}
-c["Enemies in your Chilling Areas have Cold Damage taken increased by Chill Effect"]={nil,"Enemies in your Chilling Areas have Cold Damage taken increased by Chill Effect "}
-c["Enemies in your Chilling Areas have Cold Damage taken increased by Chill Effect Cannot deal non-Cold Damage"]={nil,"Enemies in your Chilling Areas have Cold Damage taken increased by Chill Effect Cannot deal non-Cold Damage "}
+c["Enemies in your Chilling Areas have Cold Damage taken increased by Chill Effect"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="InChillingArea"},flags=0,keywordFlags=0,name="ChillingAreaIncColdDamageTaken",type="FLAG",value=true}},nil}
 c["Enemies in your Chilling Areas take 30% increased Lightning Damage"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="InChillingArea"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="LightningDamageTaken",type="INC",value=30}}}},nil}
 c["Enemies in your Chilling Areas take 35% increased Lightning Damage"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="InChillingArea"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="LightningDamageTaken",type="INC",value=35}}}},nil}
 c["Enemies in your Link Beams cannot apply Elemental Ailments"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="BetweenYouAndLinkedTarget"},flags=0,keywordFlags=0,name="ElementalAilmentImmune",type="FLAG",value=true}},nil}
