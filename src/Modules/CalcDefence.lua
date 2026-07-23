@@ -1418,6 +1418,11 @@ function calcs.defence(env, actor)
 					end
 				end
 			end
+			local addToEnergyShieldFlag = "Add"..recoupType.."RecoupToEnergyShieldRecoup"
+			if modDB:Flag(nil, addToEnergyShieldFlag) then
+				local flagMod = modDB:Tabulate("FLAG", nil, addToEnergyShieldFlag)[1].mod
+				modDB:ReplaceMod("EnergyShieldRecoup", "BASE", baseRecoup, flagMod.source)
+			end
 		end
 
 		if modDB:Flag(nil, "UsePowerCharges") and modDB:Flag(nil, "PowerChargesConvertToAbsorptionCharges") then
@@ -1429,12 +1434,11 @@ function calcs.defence(env, actor)
 
 		for _, recoupType in ipairs(recoupTypeList) do
 			for _, damageType in ipairs(dmgTypeList) do
+				local recoup = modDB:Sum("BASE", nil, damageType..recoupType.."Recoup")
 				if recoupType == "Life" and modDB:Flag(nil, "EnergyShieldRecoupInsteadOfLife") then
 					output[damageType.."LifeRecoup"] = 0
-					local lifeRecoup = modDB:Sum("BASE", nil, damageType.."LifeRecoup")
-					modDB:NewMod(damageType.."EnergyShieldRecoup", "BASE", lifeRecoup, "Life Recoup Conversion")
+					modDB:NewMod(damageType.."EnergyShieldRecoup", "BASE", recoup, "Life Recoup Conversion")
 				else
-					local recoup = modDB:Sum("BASE", nil, damageType..recoupType.."Recoup")
 					output[damageType..recoupType.."Recoup"] =  recoup * output[recoupType.."RecoveryRateMod"]
 					output["anyRecoup"] = output["anyRecoup"] + output[damageType..recoupType.."Recoup"]
 					if breakdown then
@@ -1449,9 +1453,13 @@ function calcs.defence(env, actor)
 						end
 					end
 				end
+				local addToEnergyShieldFlag = "Add"..recoupType.."RecoupToEnergyShieldRecoup"
+				if modDB:Flag(nil, addToEnergyShieldFlag) then
+					local flagMod = modDB:Tabulate("FLAG", nil, addToEnergyShieldFlag)[1].mod
+					modDB:ReplaceMod(damageType.."EnergyShieldRecoup", "BASE", recoup, flagMod.source)
+				end
 			end
 		end
-		
 		-- pseudo recoup (eg %physical damage prevented from hits regenerated)
 		for _, resource in ipairs(recoupTypeList) do
 			if not modDB:Flag(nil, "No"..resource.."Regen") and not modDB:Flag(nil, "CannotGain"..resource) then
@@ -2681,7 +2689,9 @@ function calcs.buildDefenceEstimations(env, actor)
 			end
 			iterationMultiplier = 1
 			-- to speed it up, run recursively but accelerated
-			local speedUp = data.misc.ehpCalcSpeedUp
+			-- MoM/life-loss-prevention mechanics can collapse too many hits into one
+			-- resulting in eHP jumps so we slow the acceleration.
+			local speedUp = DamageIn["LimitEHPSpeedup"] and 4 or data.misc.ehpCalcSpeedUp
 			DamageIn["cyclesRan"] = DamageIn["cyclesRan"] or false
 			local wardAvoidBreakActive = wardAvoidBreakChance < 1 and (poolTable.WardActiveChance or 0) > 0.01
 			if not DamageIn["cyclesRan"] and not wardAvoidBreakActive and poolTable.Life > 0 and DamageIn["iterations"] < maxIterations then
@@ -2689,6 +2699,7 @@ function calcs.buildDefenceEstimations(env, actor)
 				for _, damageType in ipairs(dmgTypeList) do
 					Damage[damageType] = DamageIn[damageType] * speedUp
 				end
+				Damage["LimitEHPSpeedup"] = DamageIn["LimitEHPSpeedup"]
 				if DamageIn.GainWhenHit then
 					Damage.GainWhenHit = true
 					Damage.LifeWhenHit = DamageIn.LifeWhenHit
@@ -2740,6 +2751,7 @@ function calcs.buildDefenceEstimations(env, actor)
 			for _, damageType in ipairs(dmgTypeList) do
 				DamageIn[damageType] = output[damageType.."TakenHit"]
 			end
+			DamageIn["LimitEHPSpeedup"] = output["preventedLifeLossTotal"] > 0
 			output["NumberOfDamagingHits"] = numberOfHitsToDie(DamageIn)
 		end
 
@@ -2834,6 +2846,7 @@ function calcs.buildDefenceEstimations(env, actor)
 				output["LifeLossLostOverTime"] = 0
 				output["LifeBelowHalfLossLostOverTime"] = 0
 			end
+			DamageIn["LimitEHPSpeedup"] = DamageIn["TrackRecoupable"] or DamageIn["TrackLifeLossOverTime"] or DamageIn.GainWhenHit
 			averageAvoidChance = averageAvoidChance / 5
 			output["ConfiguredDamageChance"] = 100 * (blockEffect * suppressionEffect * (1 - averageAvoidChance / 100))
 			output["NumberOfMitigatedDamagingHits"] = (output["ConfiguredDamageChance"] ~= 100 or DamageIn["TrackRecoupable"] or DamageIn["TrackLifeLossOverTime"] or DamageIn.GainWhenHit) and numberOfHitsToDie(DamageIn) or output["NumberOfDamagingHits"]

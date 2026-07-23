@@ -612,4 +612,34 @@ describe("TetsItemMods", function()
 		assert.are.equals(baseFrenzyChargesMax + 1, build.calcsTab.calcsOutput.FrenzyChargesMax)
 		assert.are.equals(baseEnduranceChargesMax + 1, build.calcsTab.calcsOutput.EnduranceChargesMax)
 	end)
+
+	it("adds life recoup to energy shield recoup", function()
+		build.configTab.input.customMods = [[
+			20% of Damage taken Recouped as Life
+			10% of Physical Damage taken Recouped as Life
+			Damage taken Recouped as Life is also Recouped as Energy Shield
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(20, build.calcsTab.calcsOutput.LifeRecoup)
+		assert.are.equals(20, build.calcsTab.calcsOutput.EnergyShieldRecoup)
+		assert.are.equals(10, build.calcsTab.calcsOutput.PhysicalLifeRecoup)
+		assert.are.equals(10, build.calcsTab.calcsOutput.PhysicalEnergyShieldRecoup)
+	end)
+	
+	it("shows a fallback tooltip when an item's base is no longer supported", function()
+		local item = new("Item", [[
+			Rarity: Unique
+			Legacy Item
+			Removed Base
+		]])
+		local tooltip = new("Tooltip")
+
+		assert.has_no.errors(function()
+			build.itemsTab:AddItemTooltip(tooltip, item)
+		end)
+		assert.is_truthy(tooltip.lines[#tooltip.lines].text:find("Item base is not supported", 1, true))
+	end)
+
 end)
