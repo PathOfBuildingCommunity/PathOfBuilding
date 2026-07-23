@@ -1083,6 +1083,127 @@ function calcs.actionSpeedMod(actor)
 	return actionSpeedMod
 end
 
+-- Build the same modifier database for the selected minion and any minion used as a defensive Life pool.
+local function initMinionModDB(env, activeSkill, output)
+	local modDB = env.modDB
+	local minion = activeSkill.minion
+	minion.output = output or { }
+	minion.modDB.multipliers["Level"] = minion.level
+	calcs.initModDB(env, minion.modDB)
+	local baseLife = minion.lifeTable[minion.level] * minion.minionData.life
+	if minion.hostile then
+		baseLife = baseLife * (env.data.mapLevelLifeMult[env.enemyLevel] or 1)
+	end
+	minion.modDB:NewMod("Life", "BASE", m_floor(baseLife), "Base")
+	if minion.minionData.energyShield then
+		local esTable = minion.hostile and minion.lifeTable or env.data.monsterAllyLifeTable
+		local baseES = esTable[minion.level] * minion.minionData.life * minion.minionData.energyShield
+		if minion.hostile then
+			baseES = baseES * (env.data.mapLevelLifeMult[env.enemyLevel] or 1)
+		end
+		minion.modDB:NewMod("EnergyShield", "BASE", m_floor(baseES), "Base")
+	end
+	minion.modDB:NewMod("Armour", "BASE", round(env.data.monsterArmourTable[minion.level] * (minion.minionData.armour or 1)), "Base")
+	minion.modDB:NewMod("Evasion", "BASE", round(env.data.monsterEvasionTable[minion.level] * (minion.minionData.evasion or 1)), "Base")
+	if modDB:Flag(nil, "MinionAccuracyEqualsAccuracy") then
+		minion.modDB:NewMod("Accuracy", "BASE", calcLib.val(modDB, "Accuracy") + calcLib.val(modDB, "Dex") * (modDB:Override(nil, "DexAccBonusOverride") or data.misc.AccuracyPerDexBase), "Player")
+	else
+		minion.modDB:NewMod("CannotBeEvaded", "FLAG", 1, "Minion Attacks always hit")
+	end
+	minion.modDB:NewMod("CritMultiplier", "BASE", env.data.monsterConstants["base_critical_strike_multiplier"] - 100, "Base")
+	minion.modDB:NewMod("DotMultiplier", "BASE", env.data.monsterConstants["critical_ailment_dot_multiplier_+"], "Base", { type = "Condition", var = "CriticalStrike" })
+	minion.modDB:NewMod("FireResist", "BASE", minion.minionData.fireResist, "Base")
+	minion.modDB:NewMod("ColdResist", "BASE", minion.minionData.coldResist, "Base")
+	minion.modDB:NewMod("LightningResist", "BASE", minion.minionData.lightningResist, "Base")
+	minion.modDB:NewMod("ChaosResist", "BASE", minion.minionData.chaosResist, "Base")
+	minion.modDB:NewMod("CritChance", "INC", env.data.monsterConstants["critical_strike_chance_+%_per_power_charge"], "Base", { type = "Multiplier", var = "PowerCharge" })
+	minion.modDB:NewMod("Speed", "INC", env.data.monsterConstants["base_attack_speed_+%_per_frenzy_charge"], "Base", ModFlag.Attack, { type = "Multiplier", var = "FrenzyCharge" })
+	minion.modDB:NewMod("Speed", "INC", env.data.monsterConstants["base_cast_speed_+%_per_frenzy_charge"], "Base", ModFlag.Cast, { type = "Multiplier", var = "FrenzyCharge" })
+	minion.modDB:NewMod("Damage", "MORE", env.data.monsterConstants["object_inherent_damage_+%_final_per_frenzy_charge"], "Base", { type = "Multiplier", var = "FrenzyCharge" })
+	minion.modDB:NewMod("PhysicalDamageReduction", "BASE", env.data.monsterConstants["physical_damage_reduction_%_per_endurance_charge"], "Base", { type = "Multiplier", var = "EnduranceCharge" })
+	minion.modDB:NewMod("ElementalDamageReduction", "BASE", env.data.monsterConstants["elemental_damage_reduction_%_per_endurance_charge_if_player_minion"], "Base", { type = "Multiplier", var = "EnduranceCharge" })
+	minion.modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
+	minion.modDB:NewMod("MaximumFortification", "BASE", env.data.monsterConstants["base_max_fortification"], "Base")
+	minion.modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" })
+	for _, mod in ipairs(minion.minionData.modList) do
+		minion.modDB:AddMod(mod)
+	end
+	for _, mod in ipairs(activeSkill.extraSkillModList) do
+		minion.modDB:AddMod(mod)
+	end
+	if env.aegisModList then
+		minion.itemList["Weapon 3"] = env.aegisItem
+		minion.modDB:AddList(env.aegisModList)
+	end
+	if env.theIronMass and minion.type == "RaisedSkeleton" then
+		minion.modDB:AddList(env.theIronMass)
+	end
+	if activeSkill.skillData.minionUseBowAndQuiver then
+		if env.player.weaponData1.type == "Bow" then
+			minion.modDB:AddList(env.player.itemList["Weapon 1"].slotModList[1])
+		end
+		if env.player.itemList["Weapon 2"] and env.player.itemList["Weapon 2"].type == "Quiver" then
+			minion.modDB:ScaleAddList(env.player.itemList["Weapon 2"].modList, m_max(modDB:Sum("BASE", nil, "WidowHailMultiplier"), 1))
+		end
+		if modDB:Flag(nil, "BlinkAndMirrorUseGloves") and env.player.itemList["Gloves"] then
+			minion.modDB:AddList(env.player.itemList["Gloves"].modList)
+		end
+	end
+	if activeSkill.skillData.minionUseMainHandWeapon then
+		minion.modDB:AddList(env.player.itemList["Weapon 1"].slotModList[1])
+	end
+	if minion.itemSet or minion.uses then
+		for slotName, slot in pairs(env.build.itemsTab.slots) do
+			if minion.uses[slotName] then
+				local item
+				if minion.itemSet then
+					if slot.weaponSet == 1 and minion.itemSet.useSecondWeaponSet then
+						slotName = slotName .. " Swap"
+					end
+					item = env.build.itemsTab.items[minion.itemSet[slotName].selItemId]
+				else
+					item = env.player.itemList[slotName]
+				end
+				if item then
+					minion.itemList[slotName] = item
+					minion.modDB:AddList(item.modList or item.slotModList[slot.slotNum])
+				end
+			end
+		end
+	end
+	if modDB:Sum("BASE", nil, "StrengthAddedToMinions") > 0 then
+		minion.modDB:NewMod("Str", "BASE", round(calcLib.val(modDB, "Str") * modDB:Sum("BASE", nil, "StrengthAddedToMinions") / 100), "Player")
+	end
+end
+
+-- Add modifiers granted to the minion by its skill or an active buff.
+local function addMinionModifiers(modList, skillCfg, minion)
+	for _, value in ipairs(modList:List(skillCfg, "MinionModifier")) do
+		if not value.type or minion.type == value.type then
+			minion.modDB:AddMod(value.mod)
+		end
+	end
+end
+
+-- These are the minions whose Life can be spent before the player's.
+local minionLifePoolBySkill = {
+	["Summon Sentinel of Radiance"] = { life = "TotalRadianceSentinelLife", redirect = "takenFromRadianceSentinelBeforeYou", source = "Sentinel of Radiance" },
+	["Summon Void Spawn"] = { life = "TotalVoidSpawnLife", redirect = "takenFromVoidSpawnBeforeYou", source = "Void Spawns", limit = "ActiveVoidSpawnLimit" },
+	["Summon Stone Golem of Safeguarding"] = { life = "TotalStoneGolemLife", redirect = "takenFromStoneGolemBeforeYou", source = "Stone Golem" },
+}
+local spectreLifePool = { life = "TotalSpectreLife", redirect = "takenFromSpectresBeforeYou", source = "Spectres", limit = "ActiveSpectreLimit" }
+local companionshipLifePool = { life = "TotalMinionLife", redirect = "takenFromMinionBeforeYou", source = "Minion" }
+local totemLifePoolByStat = {
+	TotalTotemLife = { redirect = "takenFromTotemsBeforeYou", source = "Totem" },
+	TotalVaalRejuvenationTotemLife = { redirect = "takenFromVaalRejuvenationTotemsBeforeYou", source = "Vaal Rejuvenation Totem" },
+}
+local allyLifeRedirects = { spectreLifePool.redirect, companionshipLifePool.redirect }
+for _, lifePools in pairs({ minionLifePoolBySkill, totemLifePoolByStat }) do
+	for _, pool in pairs(lifePools) do
+		t_insert(allyLifeRedirects, pool.redirect)
+	end
+end
+
 -- Finalises the environment and performs the stat calculations:
 -- 1. Merges keystone modifiers
 -- 2. Initialises minion skills
@@ -1122,100 +1243,13 @@ function calcs.perform(env, skipEHP)
 	env.player.partyMembers = env.partyMembers
 	local partyTabEnableExportBuffs = env.build.partyTab.enableExportBuffs and env.mode ~= "CALCULATOR"
 
+	-- Calculator passes reuse the environment after the player's shield has been removed.
+	env.aegisItem = env.aegisModList and (env.player.itemList["Weapon 2"] or env.aegisItem)
 	env.minion = env.player.mainSkill.minion
 	if env.minion then
 		-- Initialise minion modifier database
 		output.Minion = { }
-		env.minion.output = output.Minion
-		env.minion.modDB.multipliers["Level"] = env.minion.level
-		calcs.initModDB(env, env.minion.modDB)
-		local baseLife = env.minion.lifeTable[env.minion.level] * env.minion.minionData.life
-		if env.minion.hostile then
-			baseLife = baseLife * (env.data.mapLevelLifeMult[env.enemyLevel] or 1)
-		end
-		env.minion.modDB:NewMod("Life", "BASE", m_floor(baseLife), "Base")
-		if env.minion.minionData.energyShield then
-			local esTable = env.minion.hostile and env.minion.lifeTable or env.data.monsterAllyLifeTable
-			local baseES = esTable[env.minion.level] * env.minion.minionData.life * env.minion.minionData.energyShield
-			if env.minion.hostile then
-				baseES = baseES * (env.data.mapLevelLifeMult[env.enemyLevel] or 1)
-			end
-			env.minion.modDB:NewMod("EnergyShield", "BASE", m_floor(baseES), "Base")
-		end
-		--Armour formula is math.floor((10 + 2 * level) * 1.067 ^ level)
-		env.minion.modDB:NewMod("Armour", "BASE", round(env.data.monsterArmourTable[env.minion.level] * (env.minion.minionData.armour or 1)), "Base")
-		--Evasion formula is math.floor((50 + 16 * level + 16 * level * (MonsterType.Evasion / 100)) * (1.0212 ^ level)
-		env.minion.modDB:NewMod("Evasion", "BASE", round(env.data.monsterEvasionTable[env.minion.level] * (env.minion.minionData.evasion or 1)), "Base")
-		if modDB:Flag(nil, "MinionAccuracyEqualsAccuracy") then
-			env.minion.modDB:NewMod("Accuracy", "BASE", calcLib.val(modDB, "Accuracy") + calcLib.val(modDB, "Dex") * (modDB:Override(nil, "DexAccBonusOverride") or data.misc.AccuracyPerDexBase), "Player")
-		else
-			-- Minion Attacks now inherently always hit (Patch 3.27)
-			env.minion.modDB:NewMod("CannotBeEvaded", "FLAG", 1, "Minion Attacks always hit")
-		end
-		env.minion.modDB:NewMod("CritMultiplier", "BASE", env.data.monsterConstants["base_critical_strike_multiplier"] - 100, "Base")
-		env.minion.modDB:NewMod("DotMultiplier", "BASE", env.data.monsterConstants["critical_ailment_dot_multiplier_+"], "Base", { type = "Condition", var = "CriticalStrike" })
-		env.minion.modDB:NewMod("FireResist", "BASE", env.minion.minionData.fireResist, "Base")
-		env.minion.modDB:NewMod("ColdResist", "BASE", env.minion.minionData.coldResist, "Base")
-		env.minion.modDB:NewMod("LightningResist", "BASE", env.minion.minionData.lightningResist, "Base")
-		env.minion.modDB:NewMod("ChaosResist", "BASE", env.minion.minionData.chaosResist, "Base")
-		env.minion.modDB:NewMod("CritChance", "INC", env.data.monsterConstants["critical_strike_chance_+%_per_power_charge"], "Base", { type = "Multiplier", var = "PowerCharge" })
-		env.minion.modDB:NewMod("Speed", "INC", env.data.monsterConstants["base_attack_speed_+%_per_frenzy_charge"], "Base", ModFlag.Attack, { type = "Multiplier", var = "FrenzyCharge" })
-		env.minion.modDB:NewMod("Speed", "INC", env.data.monsterConstants["base_cast_speed_+%_per_frenzy_charge"], "Base", ModFlag.Cast, { type = "Multiplier", var = "FrenzyCharge" })
-		env.minion.modDB:NewMod("Damage", "MORE", env.data.monsterConstants["object_inherent_damage_+%_final_per_frenzy_charge"], "Base", { type = "Multiplier", var = "FrenzyCharge" })
-		env.minion.modDB:NewMod("PhysicalDamageReduction", "BASE", env.data.monsterConstants["physical_damage_reduction_%_per_endurance_charge"], "Base", { type = "Multiplier", var = "EnduranceCharge" })
-		env.minion.modDB:NewMod("ElementalDamageReduction", "BASE", env.data.monsterConstants["elemental_damage_reduction_%_per_endurance_charge_if_player_minion"], "Base", { type = "Multiplier", var = "EnduranceCharge" })
-		env.minion.modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
-		env.minion.modDB:NewMod("MaximumFortification", "BASE", env.data.monsterConstants["base_max_fortification"], "Base")
-		env.minion.modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" })
-		for _, mod in ipairs(env.minion.minionData.modList) do
-			env.minion.modDB:AddMod(mod)
-		end
-		for _, mod in ipairs(env.player.mainSkill.extraSkillModList) do
-			env.minion.modDB:AddMod(mod)
-		end
-		if env.aegisModList then
-			env.minion.itemList["Weapon 3"] = env.player.itemList["Weapon 2"]
-			env.minion.modDB:AddList(env.aegisModList)
-		end
-		if env.theIronMass and env.minion.type == "RaisedSkeleton" then
-			env.minion.modDB:AddList(env.theIronMass)
-		end
-		if env.player.mainSkill.skillData.minionUseBowAndQuiver then
-			if env.player.weaponData1.type == "Bow" then
-				env.minion.modDB:AddList(env.player.itemList["Weapon 1"].slotModList[1])
-			end
-			if env.player.itemList["Weapon 2"] and env.player.itemList["Weapon 2"].type == "Quiver" then
-				env.minion.modDB:ScaleAddList(env.player.itemList["Weapon 2"].modList, m_max(modDB:Sum("BASE", nil, "WidowHailMultiplier"), 1))
-			end
-			if modDB:Flag(nil, "BlinkAndMirrorUseGloves") and env.player.itemList["Gloves"] then
-				env.minion.modDB:AddList(env.player.itemList["Gloves"].modList)
-			end
-		end
-		if env.player.mainSkill.skillData.minionUseMainHandWeapon then
-			env.minion.modDB:AddList(env.player.itemList["Weapon 1"].slotModList[1])
-		end
-		if env.minion.itemSet or env.minion.uses then
-			for slotName, slot in pairs(env.build.itemsTab.slots) do
-				if env.minion.uses[slotName] then
-					local item
-					if env.minion.itemSet then
-						if slot.weaponSet == 1 and env.minion.itemSet.useSecondWeaponSet then
-							slotName = slotName .. " Swap"
-						end
-						item = env.build.itemsTab.items[env.minion.itemSet[slotName].selItemId]
-					else
-						item = env.player.itemList[slotName]
-					end
-					if item then
-						env.minion.itemList[slotName] = item
-						env.minion.modDB:AddList(item.modList or item.slotModList[slot.slotNum])
-					end
-				end
-			end
-		end
-		if modDB:Sum("BASE", nil, "StrengthAddedToMinions") > 0 then
-			env.minion.modDB:NewMod("Str", "BASE", round(calcLib.val(modDB, "Str") * modDB:Sum("BASE", nil, "StrengthAddedToMinions") / 100), "Player")
-		end
+		initMinionModDB(env, env.player.mainSkill, output.Minion)
 	end
 	if env.aegisModList then
 		env.player.itemList["Weapon 2"] = nil
@@ -1249,7 +1283,7 @@ function calcs.perform(env, skipEHP)
 		applyEnemyModifiers(env.minion, true)
 	end
 	applyEnemyModifiers(env.enemy, true)
-	local minionCount = {}
+	local minionCounts = { }
 
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		if activeSkill.skillTypes[SkillType.Brand] then
@@ -1329,16 +1363,26 @@ function calcs.perform(env, skipEHP)
 				hasGuaranteedBonechill = true
 			end
 		end
-		if activeSkill.minion and activeSkill.minion.minionData and activeSkill.minion.minionData.limit then
-			local limit = m_floor(modDB:Override(nil, activeSkill.minion.minionData.limit) or (calcLib.val(activeSkill.skillModList, activeSkill.minion.minionData.limit) * activeSkill.skillModList:More(activeSkill.skillCfg, "ActiveMinionLimit")))
-			output[activeSkill.minion.minionData.limit] = m_max(limit, output[activeSkill.minion.minionData.limit] or 0)
-			if not minionCount[activeSkill.minion.minionData.limit] then
-				env.player.modDB:NewMod("Multiplier:SummonedMinion", "BASE", output[activeSkill.minion.minionData.limit], "Config", { type = "Condition", var = "Combat" })
-				if not activeSkill.skillTypes[SkillType.Vaal] then
-					env.player.modDB:NewMod("Multiplier:NonVaalSummonedMinion", "BASE", output[activeSkill.minion.minionData.limit], "Config", { type = "Condition", var = "Combat" })
+		-- Count active, damageable minions. Skills without a limit contribute one minion.
+		local minionList = activeSkill.minionList
+		if not activeSkill.skillFlags.disable and not activeSkill.skillTypes[SkillType.MinionsAreUndamagable] and minionList and minionList[1] then
+			local grantedEffect = activeSkill.activeEffect.grantedEffect
+			for _, minionType in ipairs(minionList) do
+				local minionData = env.data.minions[minionType]
+				if minionData and not minionData.hostile then
+					local key = minionData.limit or grantedEffect.id..":"..minionType
+					local count = 1
+					if minionData.limit then
+						count = m_floor(modDB:Override(nil, minionData.limit) or (calcLib.val(activeSkill.skillModList, minionData.limit) * activeSkill.skillModList:More(activeSkill.skillCfg, "ActiveMinionLimit")))
+						output[minionData.limit] = m_max(count, output[minionData.limit] or 0)
+					end
+					local counts = minionCounts[key] or { }
+					counts.total = m_max(count, counts.total or 0)
+					if not activeSkill.skillTypes[SkillType.Vaal] then
+						counts.nonVaal = m_max(count, counts.nonVaal or 0)
+					end
+					minionCounts[key] = counts
 				end
-				minionCount[activeSkill.minion.minionData.limit] = true
-				t_insert(minionCount, activeSkill.minion.minionData.limit)
 			end
 		end
 		if activeSkill.skillTypes[SkillType.CreatesMinion] and not activeSkill.skillTypes[SkillType.MinionsAreUndamagable] then
@@ -1371,9 +1415,19 @@ function calcs.perform(env, skipEHP)
 		end
 	end
 
-	if #minionCount == 1 then
-		modDB.conditions["OnlyMinion"] = true
+	local summonedMinions = 0
+	for _, counts in pairs(minionCounts) do
+		summonedMinions = summonedMinions + counts.total
+		modDB:NewMod("Multiplier:SummonedMinion", "BASE", counts.total, "Config", { type = "Condition", var = "Combat" })
+		if counts.nonVaal then
+			modDB:NewMod("Multiplier:NonVaalSummonedMinion", "BASE", counts.nonVaal, "Config", { type = "Condition", var = "Combat" })
+		end
 	end
+
+	-- Companionship only works while exactly one Minion is summoned.
+	local summonedMinionOverride = env.configInput.multiplierSummonedMinion
+	summonedMinionOverride = summonedMinionOverride ~= 0 and summonedMinionOverride or nil
+	modDB.conditions["OnlyMinion"] = (summonedMinionOverride or summonedMinions) == 1
 
 	-- Special Rarity / Quantity Calc for Bisco's
 	local lootQuantityNormalEnemies = modDB:Sum("INC", nil, "LootQuantityNormalEnemies")
@@ -1820,11 +1874,7 @@ function calcs.perform(env, skipEHP)
 			end
 		end
 		if not env.minion.hostile then
-			for _, value in ipairs(env.player.mainSkill.skillModList:List(env.player.mainSkill.skillCfg, "MinionModifier")) do
-				if not value.type or env.minion.type == value.type then
-					env.minion.modDB:AddMod(value.mod)
-				end
-			end
+			addMinionModifiers(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, env.minion)
 			for _, name in ipairs(env.minion.modDB:List(nil, "Keystone")) do
 				if env.spec.tree.keystoneMap[name] then
 					env.minion.modDB:AddList(env.spec.tree.keystoneMap[name].modList)
@@ -3195,11 +3245,7 @@ function calcs.perform(env, skipEHP)
 			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
 		end
 		if env.minion then
-			for _, value in ipairs(modList:List(env.player.mainSkill.skillCfg, "MinionModifier")) do
-				if not value.type or env.minion.type == value.type then
-					env.minion.modDB:AddMod(value.mod)
-				end
-			end
+			addMinionModifiers(modList, env.player.mainSkill.skillCfg, env.minion)
 		end
 	end
 	if env.minion then
@@ -3495,6 +3541,130 @@ function calcs.perform(env, skipEHP)
 	if enemyDB:Flag(nil, "Condition:OnConsecratedGround") then
 		local effect = 1 + modDB:Sum("INC", nil, "ConsecratedGroundEffect") / 100
 		enemyDB:NewMod("DamageTaken", "INC", m_floor(enemyDB:Sum("INC", nil, "DamageTakenConsecratedGround") * effect), "Consecrated Ground")
+	end
+
+	-- Full DPS and builds without a supported redirect do not need ally Life.
+	local needsAllyLife = not skipEHP and modDB:Sum("BASE", nil, unpack(allyLifeRedirects)) ~= 0
+	env.player.allyLifeList = { }
+	if needsAllyLife then
+		local calculatedLifePool = { }
+		local spectreCount = 0
+		local firstSpectre
+		local spectreLimit = m_min(output.ActiveSpectreLimit or 0, summonedMinionOverride or m_huge)
+		for _, activeSkill in ipairs(env.player.activeSkillList) do
+			local minion = activeSkill.minion
+			if minion and not activeSkill.skillFlags.disable and not activeSkill.skillTypes[SkillType.MinionsAreUndamagable] then
+				local skillPool = activeSkill.skillFlags.spectre and spectreLifePool or minionLifePoolBySkill[activeSkill.activeEffect.grantedEffect.name]
+				local pools = skillPool and { skillPool } or { }
+
+				-- Companionship is stored on the supported skill, which identifies the one minion it affects.
+				local hasCompanionship
+				for _, buff in ipairs(activeSkill.buffList) do
+					for _, mod in ipairs(buff.modList) do
+						if mod.name == companionshipLifePool.redirect then
+							hasCompanionship = true
+							break
+						end
+					end
+					if hasCompanionship then
+						break
+					end
+				end
+				if hasCompanionship then
+					t_insert(pools, companionshipLifePool)
+					if skillPool and modDB:Sum("BASE", nil, skillPool.redirect) ~= 0 and modDB:Sum("BASE", nil, companionshipLifePool.redirect) ~= 0 then
+						-- Both redirects spend the same minion's Life, so they must share one pool.
+						pools = { companionshipLifePool }
+						modDB:NewMod("MinionLifeShares"..skillPool.life, "FLAG", true, "Companionship")
+					end
+				end
+
+				local minionLife
+				for _, pool in ipairs(pools) do
+					local canAdd = ((pool == spectreLifePool and spectreCount < spectreLimit)
+						or (pool ~= spectreLifePool and not calculatedLifePool[pool.life]))
+						and modDB:Sum("BASE", nil, pool.redirect) ~= 0 and not modDB:Override(nil, pool.life)
+					if canAdd then
+						if not minionLife then
+							if minion ~= env.minion then
+								initMinionModDB(env, activeSkill)
+								addMinionModifiers(activeSkill.skillModList, activeSkill.skillCfg, minion)
+								for _, modList in pairs(buffs) do
+									addMinionModifiers(modList, activeSkill.skillCfg, minion)
+								end
+								for _, modList in pairs(minionBuffs) do
+									minion.modDB:AddList(modList)
+								end
+								for _, name in ipairs(minion.modDB:List(nil, "Keystone")) do
+									if env.spec.tree.keystoneMap[name] then
+										minion.modDB:AddList(env.spec.tree.keystoneMap[name].modList)
+									end
+								end
+								doActorAttribsConditions(env, minion)
+							else
+								doActorLifeMana(minion)
+							end
+							minionLife = minion.output.Life
+						end
+
+						-- Void Spawn redirects scale from their summon limit, so their Life pool uses that same limit.
+						local count = pool.limit and (output[pool.limit] or calcLib.val(activeSkill.skillModList, pool.limit)) or 1
+						if pool == spectreLifePool then
+							count = 1
+							spectreCount = spectreCount + 1
+						end
+						local life = minionLife * count
+						modDB:NewMod(pool.life, "BASE", life, pool.source)
+						env.player.allyLifeList[pool.life] = env.player.allyLifeList[pool.life] or { }
+						local entry = { name = minion.minionData.name, life = life, count = count }
+						t_insert(env.player.allyLifeList[pool.life], entry)
+						if pool == spectreLifePool then
+							firstSpectre = firstSpectre or { life = minionLife, entry = entry }
+						else
+							calculatedLifePool[pool.life] = true
+						end
+					end
+				end
+			end
+		end
+		if firstSpectre and spectreCount < spectreLimit then
+			-- Each Raise Spectre group represents one Spectre; the first group fills any slots left over.
+			local count = spectreLimit - spectreCount
+			local life = firstSpectre.life * count
+			firstSpectre.entry.count = firstSpectre.entry.count + count
+			firstSpectre.entry.life = firstSpectre.entry.life + life
+			modDB:NewMod(spectreLifePool.life, "BASE", life, spectreLifePool.source)
+		end
+
+		local normalTotem
+		local vaalRejuvenationTotem
+		for _, activeSkill in ipairs(env.player.activeSkillList) do
+			if activeSkill.skillFlags.totem and not activeSkill.skillFlags.disable and activeSkill.skillData.totemLevel and activeSkill.skillTotemId then
+				local life = calcs.calcTotemLife(env, activeSkill)
+				local totem = { name = activeSkill.activeEffect.grantedEffect.name, life = life }
+				if totem.name == "Vaal Rejuvenation Totem" then
+					vaalRejuvenationTotem = totem
+				elseif not normalTotem or life > normalTotem.life then
+					normalTotem = totem
+				end
+			end
+		end
+
+		-- PoB cannot know which Totem is nearest, so use the eligible type with the most Life.
+		local nearestTotem = vaalRejuvenationTotem and (not normalTotem or vaalRejuvenationTotem.life > normalTotem.life) and vaalRejuvenationTotem or normalTotem
+		local totemPool = totemLifePoolByStat.TotalTotemLife
+		local vaalPool = totemLifePoolByStat.TotalVaalRejuvenationTotemLife
+		local totemLifeOverride = modDB:Override(nil, "TotalTotemLife")
+		local totemRedirect = modDB:Sum("BASE", nil, totemPool.redirect)
+		local nearestIsVaal = nearestTotem and nearestTotem == vaalRejuvenationTotem and not totemLifeOverride
+		if nearestTotem and not nearestIsVaal and totemRedirect ~= 0 and not totemLifeOverride then
+			modDB:NewMod("TotalTotemLife", "BASE", nearestTotem.life, totemPool.source)
+			env.player.allyLifeList.TotalTotemLife = { nearestTotem }
+		end
+		if vaalRejuvenationTotem and (modDB:Sum("BASE", nil, vaalPool.redirect) ~= 0 or nearestIsVaal and totemRedirect ~= 0) and not modDB:Override(nil, "TotalVaalRejuvenationTotemLife") then
+			modDB:NewMod("TotalVaalRejuvenationTotemLife", "BASE", vaalRejuvenationTotem.life, vaalPool.source)
+			env.player.allyLifeList.TotalVaalRejuvenationTotemLife = { vaalRejuvenationTotem }
+		end
 	end
 
 	-- Defence/offence calculations

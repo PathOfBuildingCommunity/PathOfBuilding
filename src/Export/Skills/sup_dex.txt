@@ -184,7 +184,7 @@ local skills, mod, flag, skill = ...
 			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "Condition", var = "OnlyMinion" }),
 		},
 		["damage_removed_from_minions_before_life_or_es_%_if_only_one_minion"] = {
-			mod("takenFromMinionBeforeYou", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("takenFromMinionBeforeYou", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Condition", var = "OnlyMinion" }),
 		},
 	},
 #mods
