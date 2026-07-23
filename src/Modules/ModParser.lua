@@ -5508,6 +5508,8 @@ local specialModList = {
 	["gain a random shrine buff every (%d+) seconds"] = { flag("Condition:CanHaveRegularShrines") },
 	["gain a random shrine buff for (%d+) seconds when you kill a rare or unique enemy"] = { flag("Condition:CanHaveRegularShrines") },
 	["(%d+)%% chance to gain elusive when you block while dual wielding"] = { flag("Condition:CanBeElusive", { type = "Condition", var = "DualWielding" }) },
+	["elusive on you reduces in effect (%d+)%% slower"] = function(num) return { mod("ElusiveEffectLossSlower", "INC", num) } end,
+	["elusive's effect on you is increased instead for the first (%d+) seconds"] = function(num) return { mod("ElusiveEffectIncreaseDuration", "BASE", num) } end,
 	["elusive is removed from you at (%d+)%% effect"] = function(num) return { mod("ElusiveEffectMinThreshold", "OVERRIDE", num) } end,
 	["nearby enemies have (%a+) resistance equal to yours"] = function(_, res) return { flag("Enemy"..(res:gsub("^%l", string.upper)).."ResistEqualToYours") } end,
 	["for each nearby corpse, regenerate ([%d%.]+)%% life per second, up to ([%d%.]+)%%"] = function(num, _, limit) return { mod("LifeRegenPercent", "BASE", num, { type = "Multiplier", var = "NearbyCorpse", limit = tonumber(limit), limitTotal = true }) } end,

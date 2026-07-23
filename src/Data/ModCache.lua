@@ -8377,10 +8377,8 @@ c["Elusive also grants +40% to Critical Strike Multiplier for Skills Supported b
 c["Elusive has 50% chance to be removed from you at 100% effect"]={nil,"Elusive has 50% chance to be removed from you at 100% effect "}
 c["Elusive has 50% chance to be removed from you at 100% effect 50% increased Effect of your Marks while Elusive"]={nil,"Elusive has 50% chance to be removed from you at 100% effect 50% increased Effect of your Marks while Elusive "}
 c["Elusive is removed from you at 20% effect"]={{[1]={flags=0,keywordFlags=0,name="ElusiveEffectMinThreshold",type="OVERRIDE",value=20}},nil}
-c["Elusive on you reduces in effect 50% slower"]={nil,"Elusive on you reduces in effect 50% slower "}
-c["Elusive on you reduces in effect 50% slower Elusive is removed from you at 20% effect"]={nil,"Elusive on you reduces in effect 50% slower Elusive is removed from you at 20% effect "}
-c["Elusive's Effect on you is increased instead for the first 2 seconds"]={nil,"Elusive's Effect on you is increased instead for the first 2 seconds "}
-c["Elusive's Effect on you is increased instead for the first 2 seconds Limited to 1 Runegraft of the Agile"]={nil,"Elusive's Effect on you is increased instead for the first 2 seconds Limited to 1 Runegraft of the Agile "}
+c["Elusive on you reduces in effect 50% slower"]={{[1]={flags=0,keywordFlags=0,name="ElusiveEffectLossSlower",type="INC",value=50}},nil}
+c["Elusive's Effect on you is increased instead for the first 2 seconds"]={{[1]={flags=0,keywordFlags=0,name="ElusiveEffectIncreaseDuration",type="BASE",value=2}},nil}
 c["Endurance, Frenzy and Power Charges as you"]={nil,"Endurance, Frenzy and Power Charges as you "}
 c["Enemies Become Chilled as they Unfreeze, causing 30% reduced Action Speed"]={nil,"Enemies Become Chilled as they Unfreeze, causing 30% reduced Action Speed "}
 c["Enemies Become Chilled as they Unfreeze, causing 30% reduced Action Speed 30% chance to Freeze Enemies which are Chilled"]={nil,"Enemies Become Chilled as they Unfreeze, causing 30% reduced Action Speed 30% chance to Freeze Enemies which are Chilled "}
