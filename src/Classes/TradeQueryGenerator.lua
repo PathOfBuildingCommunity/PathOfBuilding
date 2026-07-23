@@ -91,9 +91,9 @@ local function canModSpawnForItemCategory(mod, category)
 	end
 	for _, type in ipairs(tradeCategoryNames[category]) do
 		-- crafted mod
-		if not mod.weightKey then
-			return mod.types[category]
-		else
+		if mod.types and mod.types[type] then
+			return true
+		elseif mod.weightKey then
 			-- test if item can spawn for any base of the given type
 			for _, base in ipairs(basesForType[type] or error("missing bases for type " .. type)) do
 				itemObj.base = base
@@ -902,7 +902,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 					value = { min = minWeight },
 					filters = { }
 				},
-				requiredMods and {
+				#requiredMods > 0 and {
 					type = "and",
 					filters = {}
 				}
