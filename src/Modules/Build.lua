@@ -1591,31 +1591,23 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal, colorOverride)
 	end
 	
 	local valStr
-
-	if val == m_huge or val == -m_huge then
-		valStr = s_format("%"..statData.fmt, val)
-	elseif statData.compactValue and main.useCompactValues then
+	if statData.compactValue and main.useCompactValues and val ~= m_huge and val ~= -m_huge then
 		local absVal = m_abs(val)
-
 		if absVal >= 1000000000 then
 			valStr = s_format("%.1fB", val / 1000000000)
 		elseif absVal >= 1000000 then
 			valStr = s_format("%.1fM", val / 1000000)
 		elseif absVal >= 10000 then
 			valStr = s_format("%.1fK", val / 1000)
-		else
-			valStr = formatNumSep(s_format("%"..statData.fmt, val))
 		end
-	else
+	end
+	if not valStr then
 		valStr = s_format("%"..statData.fmt, val)
 		local number, suffix = valStr:match("^([%+%-]?%d+%.%d+)(%D*)$")
 		if number then
 			valStr = number:gsub("0+$", ""):gsub("%.$", "") .. suffix
 		end
-		valStr = formatNumSep(valStr)
-end
-
-valStr = color .. valStr
+	end
 	valStr = color .. formatNumSep(valStr)
 
 	if overCapStatVal and overCapStatVal > 0 then
@@ -1646,7 +1638,6 @@ function buildMode:AddDisplayStatList(statList, actor)
 				end
 				if statVal and ((statData.condFunc and statData.condFunc(statVal,actor.output)) or (not statData.condFunc and statVal ~= 0)) then
 					local overCapStatVal = actor.output[statData.overCapStat] or nil
-					-- Allow stats to suppress numeric overcap display in special cases, such as Chaos Inoculation.
 					if overCapStatVal and statData.overCapStatCondFunc and not statData.overCapStatCondFunc(statVal, actor.output) then
 						overCapStatVal = nil
 					end
@@ -1688,11 +1679,15 @@ function buildMode:AddDisplayStatList(statList, actor)
 						if actor.output[statData.stat.."Warning"] or (statData.warnFunc and statData.warnFunc(statVal, actor.output) and statData.warnColor) then
 							colorOverride = colorCodes.NEGATIVE
 						end
-						-- Optional gray parenthetical text after a formatted stat, e.g. "100% (Immune)" or "2,759 (Guard)".
-						-- condFunc controls row visibility; suffixCondFunc only controls the suffix.
 						local formattedStat = self:FormatStat(statData, statVal, overCapStatVal, colorOverride)
 						if statData.suffix and (not statData.suffixCondFunc or statData.suffixCondFunc(statVal, actor.output)) then
-							formattedStat = formattedStat .. "^x808080" .. " (" .. statData.suffix .. ")"
+							local suffix = statData.suffix
+							if type(suffix) == "function" then
+								suffix = suffix(statVal, actor.output)
+							end
+							if suffix then
+								formattedStat = formattedStat .. "^x808080 (" .. suffix .. ")"
+							end
 						end
 						t_insert(statBoxList, {
 							height = 16,

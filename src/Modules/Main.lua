@@ -103,7 +103,7 @@ function main:Init()
 	self.colorNegative = defaultColorCodes.NEGATIVE
 	self.colorHighlight = defaultColorCodes.HIGHLIGHT
 	self.showThousandsSeparators = true
-	self.useCompactValues = true
+	self.useCompactValues = false
 	self.edgeSearchHighlight = true
 	self.thousandsSeparator = ","
 	self.decimalSeparator = "."
@@ -1048,11 +1048,10 @@ function main:OpenOptionsPopup(savedState)
 	controls.showThousandsSeparators.state = self.showThousandsSeparators
 
 	nextRow()
-	controls.useCompactValues = new("CheckBoxControl", { "TOPLEFT", controls.sectionAnchor, "TOPLEFT" }, { currentX + defaultLabelPlacementX, currentY, 20 }, "^7Compact Large #'s (e.g. 1.2K):", function(state)
-	self.useCompactValues = state
+	controls.useCompactValues = new("CheckBoxControl", { "TOPLEFT", controls.sectionAnchor, "TOPLEFT" }, { currentX + defaultLabelPlacementX, currentY, 20 }, "^7Compact large numbers (e.g. 12.3K):", function(state)
+		self.useCompactValues = state
 	end)
 	controls.useCompactValues.state = self.useCompactValues
-
 
 	nextRow()
 	controls.thousandsSeparator = new("EditControl", { "TOPLEFT", controls.sectionAnchor, "TOPLEFT" }, { currentX + defaultLabelPlacementX, currentY, 30, 20 }, self.thousandsSeparator, nil, "%w", 1, function(buf)
