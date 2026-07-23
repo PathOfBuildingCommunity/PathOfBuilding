@@ -11017,7 +11017,7 @@ skills["KineticFusillade"] = {
 				-- Average multiplier: sum of (0, X, 2X, 3X, ..., (n-1)X) / n
 				-- This equals: X * (0 + 1 + 2 + ... + (n-1)) / n = X * n(n-1)/2 / n = X * (n-1)/2
 				local avgMoreMult = moreDamagePerProj * (output.ProjectileCount - 1) / 2
-				activeSkill.skillModList:NewMod("Damage", "MORE", avgMoreMult, "Skill:KineticFusillade", 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment))
+				activeSkill.skillModList:NewMod("Damage", "MORE", avgMoreMult, "Skill:KineticFusillade")
 
 				-- Store the average multiplier for display
 				output.KineticFusilladeAvgMoreMult = avgMoreMult
@@ -11235,7 +11235,7 @@ skills["KineticFusilladeAltX"] = {
 				-- Average multiplier: sum of (0, X, 2X, 3X, ..., (n-1)X) / n
 				-- This equals: X * (0 + 1 + 2 + ... + (n-1)) / n = X * n(n-1)/2 / n = X * (n-1)/2
 				local avgMoreMult = moreDamagePerProj * (output.ProjectileCount - 1) / 2
-				activeSkill.skillModList:NewMod("Damage", "MORE", avgMoreMult, "Skill:KineticFusilladeAltX", 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment))
+				activeSkill.skillModList:NewMod("Damage", "MORE", avgMoreMult, "Skill:KineticFusilladeAltX")
 
 				-- Store the average multiplier for display
 				output.KineticFusilladeAvgMoreMult = avgMoreMult
