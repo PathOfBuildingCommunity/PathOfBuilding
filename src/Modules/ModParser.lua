@@ -3309,6 +3309,13 @@ local specialModList = {
 	["increases and reductions to cast speed apply to attack speed at (%d+)%% of their value"] =  function(num) return { flag("CastSpeedAppliesToAttacks"), mod("ImprovedCastSpeedAppliesToAttacks", "MAX", num) } end,
 	["increases and reductions to cast speed apply to attack speed"] =  function(num) return { flag("CastSpeedAppliesToAttacks") } end,
 	["increases and reductions to spell damage also apply to attacks"] = { flag("SpellDamageAppliesToAttacks") },
+	["arcane might"] = { flag("SpellDamageAppliesToAttacks") },
+	["(%d+)%% arcane might"] = function(num) return { flag("SpellDamageAppliesToAttacks"), mod("ImprovedSpellDamageAppliesToAttacks", "MAX", num) } end,
+	["(%d+)%% arcane might with retaliation skills"] = function(num) return {
+		flag("SpellDamageAppliesToAttacks", { type = "SkillType", skillType = SkillType.Retaliation }),
+		mod("ImprovedSpellDamageAppliesToAttacks", "MAX", num, { type = "SkillType", skillType = SkillType.Retaliation })
+	} end,
+	["arcane might while wielding a wand"] = { flag("SpellDamageAppliesToAttacks", { type = "Condition", var = "UsingWand" }) },
 	["increases and reductions to spell damage also apply to attacks at (%d+)%% of their value"] = function(num) return { flag("SpellDamageAppliesToAttacks"), mod("ImprovedSpellDamageAppliesToAttacks", "MAX", num) } end,
 	["increases and reductions to spell damage also apply to attack damage with retaliation skills at (%d+)%% of their value"] = function(num) return {
 		flag("SpellDamageAppliesToAttacks", { type = "SkillType", skillType = SkillType.Retaliation }),
