@@ -5933,6 +5933,9 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.ImpaleDPS = output.impaleStoredHitAvg * ((output.ImpaleModifier or 1) - 1) * output.HitChance / 100 * skillData.dpsMultiplier
 		end
+		if output.ImpaleDuration <= 0 then
+			output.ImpaleDPS = 0
+		end
 		if skillData.showAverage then
 			output.WithImpaleDPS = output.AverageDamage + output.ImpaleDPS
 			output.CombinedAvg = output.CombinedAvg + output.ImpaleDPS
@@ -5973,6 +5976,9 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		if quantityMultiplier > 1 then
 			t_insert(breakdown.ImpaleDPS, s_format("x %g ^8(quantity multiplier for this skill)", quantityMultiplier))
+		end
+		if output.ImpaleDuration <= 0 then
+			t_insert(breakdown.ImpaleDPS, s_format("x 0 ^8(no Impale Duration)"))
 		end
 		t_insert(breakdown.ImpaleDPS, s_format("= %.1f", output.ImpaleDPS))
 		end
