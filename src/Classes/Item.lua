@@ -1007,19 +1007,20 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					if rangedLine:lower():find(pattern) then
 						local rangedLine = itemLib.applyRange(line, modLine.range or main.defaultItemAffixQuality or 1, catalystScalar, modLine.corruptedRange)
 						local amount, increaseOrDecrease, modTagsString = rangedLine:lower():match(pattern)
+						local multiplier
 						-- "are doubled" format -> swap variables
 						if amount and not (increaseOrDecrease or modTagsString) then
 							modTagsString = amount
 							amount = 100
 							increaseOrDecrease = "increased"
+							multiplier = 2
 						end
 						if amount and modTagsString and (increaseOrDecrease == "increased" or increaseOrDecrease == "reduced") then
 							local modTags = {}
 							local modType
 							local quality = increaseOrDecrease == "increased" and tonumber(amount) or -tonumber(amount)
-							if modTagsString == "physical and chaos damage" then
-								table.insert(self.modMagnitudeMods, { tags = { "physical", "damage" }, quality = quality, modType = modType })
-								table.insert(self.modMagnitudeMods, { tags = { "chaos", "damage" }, quality = quality, modType = modType })
+							if modTagsString == "explicit physical and chaos damage" then
+								table.insert(self.modMagnitudeMods, { tags = { "damage" }, anyTags = { "physical", "chaos" }, quality = quality, modType = "explicit" })
 							else
 								-- explicit elemental damage -> tags = {elemental, damage}, modType = explicit
 								for word in (modTagsString .. " "):gmatch("%S+") do
@@ -1031,7 +1032,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 										table.insert(modTags, word)
 									end
 								end
-								table.insert(self.modMagnitudeMods, { tags = modTags, quality = quality, modType = modType })
+								table.insert(self.modMagnitudeMods, { tags = modTags, quality = quality, multiplier = multiplier, modType = modType })
 							end
 							break
 						end
@@ -1136,8 +1137,15 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 								match = false
 							end
 						end
-						if match then
-							mod.valueScalar = (mod.valueScalar or 1) + (modMagnitudeMod.quality / 100)
+						if modMagnitudeMod.anyTags and not (tagLookup[modMagnitudeMod.anyTags[1]] or tagLookup[modMagnitudeMod.anyTags[2]]) then
+							match = false
+						end
+						if match and not mod.unscalable then
+							if modMagnitudeMod.multiplier then
+								mod.valueScalar = (mod.valueScalar or 1) * modMagnitudeMod.multiplier
+							else
+								mod.valueScalar = (mod.valueScalar or 1) + (modMagnitudeMod.quality / 100)
+							end
 						end
 						if mod.valueScalar and mod.valueScalar ~= 1 then
 							local rangedLine = itemLib.applyRange(mod.line, mod.range, mod.valueScalar, 1)

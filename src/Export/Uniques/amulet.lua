@@ -432,6 +432,8 @@ Eyes of the Greatwolf
 Greatwolf Talisman
 Requires Level 52
 Has Alt Variant: true
+Selected Variant: 11
+Selected Alt Variant: 19
 Variant: Attributes
 Variant: Global Defences
 Variant: Chaos Damage
@@ -465,40 +467,40 @@ Variant: Lightning taken as Fire
 Variant: Gain Physical as random Element
 Variant: Extra Pierces
 Variant: Damage over Time Multiplier
-Implicits: 32
-{variant:1}TalismanIncreasedAllAttributes[24,32]
-{variant:2}TalismanGlobalDefensesPercent[30,50]
-{variant:3}TalismanIncreasedChaosDamage[38,62]
-{variant:4}TalismanAttackDamage[40,60]
-{variant:5}TalismanIncreasedColdDamage[40,60]
-{variant:6}TalismanIncreasedFireDamage[40,60]
-{variant:7}TalismanIncreasedLightningDamage[40,60]
-{variant:8}TalismanSpellDamage[40,60]
-{variant:9}TalismanIncreasedPhysicalDamage[40,60]
-{variant:10}TalismanIncreasedMana[40,60]
-{variant:11}TalismanIncreasedDamage[50,70]
-{variant:12}TalismanReducedPhysicalDamageTaken_[8,12]
-{variant:13}TalismanChanceToFreezeShockIgnite_[8,12]
-{variant:14}TalismanIncreasedCriticalChance[80,100]
-{variant:15}TalismanIncreasedAreaOfEffect[10,16]
-{variant:16}TalismanAttackAndCastSpeed[12,20]
-{variant:17}TalismanIncreasedItemQuantity[12,20]
-{variant:18}TalismanIncreasedLife[16,24]
-{variant:19}TalismanIncreasedCriticalStrikeMultiplier_[48,72]
-{variant:20}TalismanAdditionalZombie[2,2]
-{variant:21}TalismanFrenzyChargeOnKill[20,20]
-{variant:22}TalismanPowerChargeOnKill[20,20]
-{variant:23}TalismanEnduranceChargeOnKill_[20,20]
-{variant:24}TalismanPercentLifeRegeneration[240,240]
-{variant:25}TalismanColdTakenAsFire[100,100]
-{variant:26}TalismanColdTakenAsLightning[100,100]
-{variant:27}TalismanFireTakenAsCold[100,100]
-{variant:28}TalismanFireTakenAsLightning[100,100]
-{variant:29}TalismanLightningTakenAsCold[100,100]
-{variant:30}TalismanLightningTakenAsFire[100,100]
-{variant:31}TalismanDamageDealtAddedAsRandomElement[12,24]
-{variant:32}TalismanAdditionalPierce[4,4]
-{variant:33}TalismanGlobalDamageOverTimeMultiplier[24,36]
+Implicits: 33
+{variant:1}TalismanIncreasedAllAttributes
+{variant:2}TalismanGlobalDefensesPercent
+{variant:3}TalismanIncreasedChaosDamage
+{variant:4}TalismanAttackDamage
+{variant:5}TalismanIncreasedColdDamage
+{variant:6}TalismanIncreasedFireDamage
+{variant:7}TalismanIncreasedLightningDamage
+{variant:8}TalismanSpellDamage
+{variant:9}TalismanIncreasedPhysicalDamage
+{variant:10}TalismanIncreasedMana
+{variant:11}TalismanIncreasedDamage
+{variant:12}TalismanReducedPhysicalDamageTaken_
+{variant:13}TalismanChanceToFreezeShockIgnite_
+{variant:14}TalismanIncreasedCriticalChance
+{variant:15}TalismanIncreasedAreaOfEffect
+{variant:16}TalismanAttackAndCastSpeed
+{variant:17}TalismanIncreasedItemQuantity
+{variant:18}TalismanIncreasedLife
+{variant:19}TalismanIncreasedCriticalStrikeMultiplier_
+{variant:20}TalismanAdditionalZombie
+{variant:21}TalismanFrenzyChargeOnKill
+{variant:22}TalismanPowerChargeOnKill
+{variant:23}TalismanEnduranceChargeOnKill_
+{variant:24}TalismanPercentLifeRegeneration
+{variant:25}TalismanColdTakenAsFire
+{variant:26}TalismanColdTakenAsLightning
+{variant:27}TalismanFireTakenAsCold
+{variant:28}TalismanFireTakenAsLightning
+{variant:29}TalismanLightningTakenAsCold
+{variant:30}TalismanLightningTakenAsFire
+{variant:31}TalismanDamageDealtAddedAsRandomElement
+{variant:32}TalismanAdditionalPierce
+{variant:33}TalismanGlobalDamageOverTimeMultiplier
 LocalDoubleImplicitMods
 ]],[[
 The Felbog Fang

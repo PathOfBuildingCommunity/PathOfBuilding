@@ -434,6 +434,8 @@ Eyes of the Greatwolf
 Greatwolf Talisman
 Requires Level 52
 Has Alt Variant: true
+Selected Variant: 11
+Selected Alt Variant: 19
 Variant: Attributes
 Variant: Global Defences
 Variant: Chaos Damage
@@ -467,40 +469,40 @@ Variant: Lightning taken as Fire
 Variant: Gain Physical as random Element
 Variant: Extra Pierces
 Variant: Damage over Time Multiplier
-Implicits: 32
-{variant:1}{tags:attribute}(24-32)% increased Attributes
-{variant:11}(50-70)% increased Damage
-{variant:4}{tags:attack}(40-60)% increased Attack Damage
-{variant:8}{tags:caster}(40-60)% increased Spell Damage
-{variant:9}{tags:physical_damage}(40-60)% increased Global Physical Damage
-{variant:6}{tags:elemental_damage}(40-60)% increased Fire Damage
-{variant:5}{tags:elemental_damage}(40-60)% increased Cold Damage
-{variant:7}{tags:elemental_damage}(40-60)% increased Lightning Damage
-{variant:3}{tags:chaos_damage}(38-62)% increased Chaos Damage
-{variant:14}{tags:critical}(80-100)% increased Global Critical Strike Chance
-{variant:19}{tags:critical}+(48-72)% to Global Critical Strike Multiplier
-{variant:18}{tags:resource}(16-24)% increased maximum Life
-{variant:10}{tags:resource}(40-60)% increased maximum Mana
-{variant:17}(12-20)% increased Quantity of Items found
-{variant:32}Projectiles Pierce 4 additional Targets
-{variant:15}(10-16)% increased Area of Effect
-{variant:24}{tags:resource}Regenerate 4% of Life per second
-{variant:16}{tags:attack,caster,speed}(12-20)% increased Attack and Cast Speed
-{variant:20}+2 to maximum number of Raised Zombies
-{variant:12}(8-12)% additional Physical Damage Reduction
-{variant:23}20% chance to gain an Endurance Charge on Kill
-{variant:21}20% chance to gain a Frenzy Charge on Kill
-{variant:22}20% chance to gain a Power Charge on Kill
-{variant:13}(8-12)% chance to Freeze, Shock and Ignite
-{variant:2}{tags:defences}(30-50)% increased Global Defences
-{variant:31}{tags:physical_damage,elemental_damage}Gain (12-24)% of Physical Damage as Extra Damage of a random Element
-{variant:27}100% of Fire Damage from Hits taken as Cold Damage
-{variant:28}100% of Fire Damage from Hits taken as Lightning Damage
-{variant:25}100% of Cold Damage from Hits taken as Fire Damage
-{variant:26}100% of Cold Damage from Hits taken as Lightning Damage
-{variant:30}100% of Lightning Damage from Hits taken as Fire Damage
-{variant:29}100% of Lightning Damage from Hits taken as Cold Damage
-{variant:33}+(24-36)% to Damage over Time Multiplier
+Implicits: 33
+{variant:1}{tags:attribute}(12-16)% increased Attributes
+{variant:11}(25-35)% increased Damage
+{variant:4}{tags:attack}(20-30)% increased Attack Damage
+{variant:8}{tags:caster}(20-30)% increased Spell Damage
+{variant:9}{tags:physical_damage}(20-30)% increased Global Physical Damage
+{variant:6}{tags:elemental_damage}(20-30)% increased Fire Damage
+{variant:5}{tags:elemental_damage}(20-30)% increased Cold Damage
+{variant:7}{tags:elemental_damage}(20-30)% increased Lightning Damage
+{variant:3}{tags:chaos_damage}(19-31)% increased Chaos Damage
+{variant:14}{tags:critical}(40-50)% increased Global Critical Strike Chance
+{variant:19}{tags:critical}+(24-36)% to Global Critical Strike Multiplier
+{variant:18}{tags:resource}(8-12)% increased maximum Life
+{variant:10}{tags:resource}(20-30)% increased maximum Mana
+{variant:17}(6-10)% increased Quantity of Items found
+{variant:32}Projectiles Pierce 2 additional Targets
+{variant:15}(5-8)% increased Area of Effect
+{variant:24}{tags:resource}Regenerate 2% of Life per second
+{variant:16}{tags:attack,caster,speed}(6-10)% increased Attack and Cast Speed
+{variant:20}+1 to maximum number of Raised Zombies
+{variant:12}(4-6)% additional Physical Damage Reduction
+{variant:23}10% chance to gain an Endurance Charge on Kill
+{variant:21}10% chance to gain a Frenzy Charge on Kill
+{variant:22}10% chance to gain a Power Charge on Kill
+{variant:13}(4-6)% chance to Freeze, Shock and Ignite
+{variant:2}{tags:defences}(15-25)% increased Global Defences
+{variant:31}{tags:physical_damage,elemental_damage}Gain (6-12)% of Physical Damage as Extra Damage of a random Element
+{variant:27}50% of Fire Damage from Hits taken as Cold Damage
+{variant:28}50% of Fire Damage from Hits taken as Lightning Damage
+{variant:25}50% of Cold Damage from Hits taken as Fire Damage
+{variant:26}50% of Cold Damage from Hits taken as Lightning Damage
+{variant:30}50% of Lightning Damage from Hits taken as Fire Damage
+{variant:29}50% of Lightning Damage from Hits taken as Cold Damage
+{variant:33}+(12-18)% to Damage over Time Multiplier
 Implicit Modifier magnitudes are doubled
 ]],[[
 The Felbog Fang
@@ -697,14 +699,7 @@ Variant: Fire
 Variant: Cold
 Variant: Lightning
 Variant: Chaos
-Variant: Elemental Weakness
-Variant: Enfeeble
-Variant: Punishment
-Variant: Temporal Chains
 Requires Level 64
-Has Alt Variant: true
-Selected Variant: 5
-Selected Alt Variant: 6
 Implicits: 1
 {tags:attribute}+(10-16) to all Attributes
 {variant:5}(30-40)% increased Damage over Time
@@ -728,10 +723,6 @@ Implicits: 1
 {variant:2}{tags:caster}Flammability has no Reservation if Cast as an Aura
 {variant:3}{tags:caster}Frostbite has no Reservation if Cast as an Aura
 {variant:1}{tags:caster}Vulnerability has no Reservation if Cast as an Aura
-{variant:6}{tags:caster}Elemental Weakness has no Reservation if Cast as an Aura
-{variant:7}{tags:caster}Enfeeble has no Reservation if Cast as an Aura
-{variant:8}{tags:caster}Punishment has no Reservation if Cast as an Aura
-{variant:9}{tags:caster}Temporal Chains has no Reservation if Cast as an Aura
 Gain Maddening Presence for 10 seconds when you Kill a Rare or Unique Enemy
 ]],[[
 Karui Ward

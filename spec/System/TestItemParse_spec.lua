@@ -706,21 +706,21 @@ describe("TestAdvancedItemParse #item", function()
 		end)
 
 		it("scales properly using old Eyes of the Greatwolf line", function()
-			-- 130% * 1.7 = 221
 			build.itemsTab:CreateDisplayItemFromRaw([[
-			Rarity: RARE
-			Test Subject
-			Void Sceptre
+			Rarity: UNIQUE
+			Eyes of the Greatwolf
+			Greatwolf Talisman
+			Quality (Caster Modifiers): +20% (augmented)
 			LevelReq: 60
 			Implicits: 1
-			{range:0.5}(100-160)% increased Chaos Damage
+			{tags:caster}{range:0.5}(100-160)% increased Spell Damage
 			{range:0.5}Implicit Modifier magnitudes are doubled
 		]])
 			local item = build.itemsTab.displayItem
 			assert.is_true(item.advancedCopy)
 			build.itemsTab:AddDisplayItem()
 			runCallback("OnFrame")
-			assert.are.equals(260, chaosDamageInc())
+			assert.are.equals(312, spellDamage())
 		end)
 
 		it("scales properly using new Eyes of the Greatwolf line", function()
@@ -800,7 +800,7 @@ describe("TestAdvancedItemParse #item", function()
 			{tags:chaos,damage}{range:0.5}(100-160)% increased Chaos Damage
 			{tags:physical,damage}{range:0.5}+(20-40)% to Chaos Resistance
 			{tags:caster,damage}{range:0.5}(10-30)% increased spell damage
-			{range:0.5}100% increased physical and chaos damage modifier magnitudes
+			{range:0.5}100% increased Explicit Physical and Chaos Damage Modifier magnitudes
 		]])
 			build.itemsTab:AddDisplayItem()
 			runCallback("OnFrame")
@@ -823,6 +823,37 @@ describe("TestAdvancedItemParse #item", function()
 			build.itemsTab:AddDisplayItem()
 			runCallback("OnFrame")
 			assert.are.equals(0, chaosResist())
+			assert.are.equals(130, chaosDamageInc())
+		end)
+
+		it("handles explicit physical and chaos modifier magnitudes", function()
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			Test Subject
+			Void Sceptre
+			LevelReq: 60
+			Implicits: 1
+			{tags:chaos,damage}{range:0.5}(100-160)% increased Chaos Damage
+			{tags:physical,chaos,damage}{range:0.5}(100-160)% increased Chaos Damage
+			{range:0.5}10% increased Explicit Physical and Chaos Damage Modifier magnitudes
+		]])
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+			assert.are.equals(273, chaosDamageInc())
+		end)
+
+		it("does not scale unscalable modifiers", function()
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			Test Subject
+			Void Sceptre
+			LevelReq: 60
+			Implicits: 0
+			{tags:chaos,damage}{range:0.5}(100-160)% increased Chaos Damage — Unscalable Value
+			{range:0.5}100% increased Explicit Modifier magnitudes
+		]])
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
 			assert.are.equals(130, chaosDamageInc())
 		end)
 
