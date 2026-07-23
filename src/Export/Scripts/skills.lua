@@ -41,6 +41,22 @@ do
 	end
 end
 
+local function cleanAndSplit(str) -- Same as in Flavour Text exporter.
+	-- Normalize newlines
+	str = str:gsub("\r\n", "\n")
+
+	local lines = {}
+	for line in str:gmatch("[^\n]+") do
+		line = line:match("^%s*(.-)%s*$") -- trim each line
+		if line ~= "" then
+			-- Escape quotes
+			line = line:gsub('"', '\\"')
+			table.insert(lines, line)
+		end
+	end
+
+	return lines
+end
 local gems = { }
 local trueGemNames = { }
 
@@ -119,6 +135,13 @@ directiveTable.skill = function(state, args, out)
 		end
 		out:write('\tname = "', displayName, '",\n')
 		out:write('\thidden = true,\n')
+	end
+	if skillGem and skillGem.BaseItemType and skillGem.BaseItemType.FlavourTextKey then
+		out:write('\tflavourText = {')
+		for _, line in ipairs(cleanAndSplit(skillGem.BaseItemType.FlavourTextKey.Text)) do
+			out:write('"', line, '", ')
+		end
+		out:write('},\n')
 	end
 	state.noGem = false
 	skill.baseFlags = { }

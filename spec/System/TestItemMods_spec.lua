@@ -627,4 +627,19 @@ describe("TetsItemMods", function()
 		assert.are.equals(10, build.calcsTab.calcsOutput.PhysicalLifeRecoup)
 		assert.are.equals(10, build.calcsTab.calcsOutput.PhysicalEnergyShieldRecoup)
 	end)
+	
+	it("shows a fallback tooltip when an item's base is no longer supported", function()
+		local item = new("Item", [[
+			Rarity: Unique
+			Legacy Item
+			Removed Base
+		]])
+		local tooltip = new("Tooltip")
+
+		assert.has_no.errors(function()
+			build.itemsTab:AddItemTooltip(tooltip, item)
+		end)
+		assert.is_truthy(tooltip.lines[#tooltip.lines].text:find("Item base is not supported", 1, true))
+	end)
+
 end)
