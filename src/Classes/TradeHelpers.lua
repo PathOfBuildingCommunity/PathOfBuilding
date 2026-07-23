@@ -302,7 +302,7 @@ function M.getTradeCategory(slotName, item)
 	elseif slotName == "Ring 1" or slotName == "Ring 2" or slotName == "Ring 3" then return "accessory.ring", "Ring"
 	elseif slotName == "Belt" then return "accessory.belt", "Belt"
 	elseif slotName:find("Abyssal") then return "jewel.abyss", "AbyssJewel"
-	elseif slotName:find("Jewel") then return "jewel", nil
+	elseif slotName:find("Jewel") then return "jewel", "Jewel"
 	elseif slotName:find("Flask") then return "flask", "Flask"
 	else return nil, nil
 	end

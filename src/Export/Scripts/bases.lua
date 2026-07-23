@@ -1,6 +1,7 @@
 if not loadStatFile then
 	dofile("statdesc.lua")
 end
+local utils = LoadModule("../Modules/Utils")
 loadStatFile("tincture_stat_descriptions.txt")
 
 local s_format = string.format
@@ -148,12 +149,16 @@ directiveTable.base = function(state, args, out)
 		out:write(' },\n')
 	end
 	local implicitLines = { }
-	local implicitModTypes = { }
+	local implicitModTypes = {}
+	local implicitModIds = {}
 	for _, mod in ipairs(baseItemType.ImplicitMods) do
 		local modDesc = describeMod(mod)
 		for _, line in ipairs(modDesc) do
 			table.insert(implicitLines, line)
 			table.insert(implicitModTypes, modDesc.modTags)
+		end
+		if #modDesc > 0 then
+			table.insert(implicitModIds, mod.Id)
 		end
 	end
 	if #implicitLines > 0 then
@@ -164,6 +169,10 @@ directiveTable.base = function(state, args, out)
 		out:write('{ ', implicitModTypes[i], ' }, ')
 	end
 	out:write('},\n')
+	if #implicitModIds > 0 then
+		local modIdLine = string.format('\timplicitIds = %s,\n', utils.stringifyInline(implicitModIds))
+		out:write(modIdLine)
+	end
 	local itemValueSum = 0
 	local weaponType = dat("WeaponTypes"):GetRow("BaseItemType", baseItemType)
 	if weaponType then
