@@ -1368,7 +1368,7 @@ Remove: %s will be removed from the search results.]], term, term, term)
 	getModList = function()
 		local _, itemCategory = tradeHelpers.getTradeCategory(slot.slotName, slot and self.itemsTab.items[slot.selItemId])
 		-- add radius/base as they have different mods
-		if controls.jewelType then
+		if controls.jewelType and itemCategory == "Jewel" then
 			itemCategory = controls.jewelType:GetSelValue() .. itemCategory
 		end
 		local mods = { { label = "^7+ Add Required Stat" } }
