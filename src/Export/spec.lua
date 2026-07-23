@@ -11085,6 +11085,13 @@ return {
 			refTo="PassiveSkills",
 			type="Key",
 			width=150
+		},
+		[14]={
+			list=true,
+			name="BlockingPassive",
+			refTo="PassiveSkills",
+			type="Key",
+			width=280
 		}
 	},
 	passiveskilloverridetypes={
