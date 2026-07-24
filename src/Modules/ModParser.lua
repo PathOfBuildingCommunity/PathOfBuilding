@@ -3029,11 +3029,7 @@ local specialModList = {
 	["lose all rage on reaching maximum rage and gain wild savagery for 1 second per 10 rage lost this way"] = { flag("WildSavagery") },
 	-- Velka Bloodline
 	["inflict barnacles on nearby enemies every second"] = { flag("CanInflictBarnacles") },
-	["drop brine ground while moving, lasting 4 seconds"] = { 
-		flag("Condition:CreateBrineGround"),
-		mod("ExtraAura", "LIST", { mod = mod("PhysicalDamageGainAsCold", "BASE", 10, { type = "Condition", var = "OnBrineGround" }) }),
-		mod("ExtraAura", "LIST", { mod = mod("PhysicalDamageGainAsLightning", "BASE", 10, { type = "Condition", var = "OnBrineGround" }) }),
-	},
+	["drop brine ground while moving, lasting 4 seconds"] = { flag("CanCreateBrineGround"), },
 	-- Item local modifiers
 	["has no sockets"] = { flag("NoSockets") },
 	["reflects your o[tp][hp][eo][rs]i?t?e? ring"] = {

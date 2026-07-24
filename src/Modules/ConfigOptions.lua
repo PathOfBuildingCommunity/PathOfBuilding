@@ -1136,11 +1136,15 @@ Huge sets the radius to 11.
 	{ var = "minionConditionOnProfaneGround", type = "check", label = "Minion on Profane Ground?", ifMinionCond = "OnProfaneGround", apply = function(val, modList, enemyModList)
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:OnProfaneGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) })
 	end },
-	{ var = "conditionOnBrineGround", type = "check", label = "Are you on Brine Ground?", ifCond = "OnBrineGround", tooltip = "Allies on your Brine Ground gain 10% of Physical Damage as extra Cold Damage and as extra Lightning Damage", apply = function(val, modList, enemyModList)
+	{ var = "conditionOnBrineGround", type = "check", label = "Are you on Brine Ground?", ifFlag = "CanCreateBrineGround", tooltip = "Allies on your Brine Ground gain 10% of Physical Damage as extra Cold Damage and as extra Lightning Damage", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:OnBrineGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("PhysicalDamageGainAsCold", "BASE", 10, "Config", { type = "Condition", var = "OnBrineGround" })
+		modList:NewMod("PhysicalDamageGainAsLightning", "BASE", 10, "Config", { type = "Condition", var = "OnBrineGround" })
 	end },
-	{ var = "minionConditionOnBrineGround", type = "check", label = "Minion on Brine Ground?", ifMinionCond = "OnBrineGround", tooltip = "Allies on your Brine Ground gain 10% of Physical Damage as extra Cold Damage and as extra Lightning Damage", apply = function(val, modList, enemyModList)
+	{ var = "minionConditionOnBrineGround", type = "check", label = "Minion on Brine Ground?", ifFlag = "CanCreateBrineGround", tooltip = "Allies on your Brine Ground gain 10% of Physical Damage as extra Cold Damage and as extra Lightning Damage", apply = function(val, modList, enemyModList)
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:OnBrineGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) })
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("PhysicalDamageGainAsCold", "BASE", 10, "Config", { type = "Condition", var = "OnBrineGround" }) })
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("PhysicalDamageGainAsLightning", "BASE", 10, "Config", { type = "Condition", var = "OnBrineGround" }) })
 	end },
 	{ var = "conditionOnCausticGround", type = "check", label = "Are you on Caustic Ground?", ifCond = "OnCausticGround", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:OnCausticGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1988,7 +1992,7 @@ Huge sets the radius to 11.
 	{ var = "conditionEnemyOnFungalGround", type = "check", label = "Is the enemy on Fungal Ground?", ifCond = { "OnFungalGround", "CreateFungalGround" }, tooltip = "Enemies on your Fungal Ground have -10% to all Resistances", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnFungalGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyOnBrineGround", type = "check", label = "Is the enemy on Brine Ground?", ifFlag = { "Condition:CreateBrineGround" }, tooltip = "Enemies on your Brine Ground have \n30% increased effect of Lightning and Cold Ailments on them and \nhave 25% reduced Armour and Evasion Rating.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyOnBrineGround", type = "check", label = "Is the enemy on Brine Ground?", ifFlag = "CanCreateBrineGround", tooltip = "Enemies on your Brine Ground have \n30% increased effect of Lightning and Cold Ailments on them and \nhave 25% reduced Armour and Evasion Rating.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnBrineGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("SelfChillEffect", "INC", 30, "Config", { type = "Condition", var = "OnBrineGround" })
 		enemyModList:NewMod("SelfBrittleEffect", "INC", 30, "Config", { type = "Condition", var = "OnBrineGround" })
