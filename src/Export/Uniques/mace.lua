@@ -905,9 +905,6 @@ IntelligenceUnique__5
 {variant:2,3,4}LocalAddedPhysicalDamageUnique__26
 {variant:1,2,3}IncreasedPhysicalDamagePerEnduranceChargeUnique__1
 {variant:4}GainBrineChargesUnique__1
-{variant:4}Gain 4% of Physical Damage as Extra Cold Damage per Brine Charge
-{variant:4}Gain 4% of Physical Damage as Extra Lightning Damage per Brine Charge
-{variant:4}Maximum Brine Charges is equal to Maximum Endurance Charges
 StunThresholdReductionUnique__1___
 ]],[[
 Trypanon

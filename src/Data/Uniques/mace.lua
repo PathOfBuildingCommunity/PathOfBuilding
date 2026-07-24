@@ -914,9 +914,6 @@ Socketed Gems are Supported by Level 20 Endurance Charge on Melee Stun
 {variant:1,2,3}10% increased Physical Damage per Endurance Charge
 (20-30)% reduced Enemy Stun Threshold with this Weapon
 {variant:4}50% chance to gain a Brine Charge instead of an Endurance Charge
-{variant:4}Gain 4% of Physical Damage as Extra Cold Damage per Brine Charge
-{variant:4}Gain 4% of Physical Damage as Extra Lightning Damage per Brine Charge
-{variant:4}Maximum Brine Charges is equal to Maximum Endurance Charges
 ]],[[
 Trypanon
 Great Mallet

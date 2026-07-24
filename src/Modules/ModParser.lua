@@ -4202,7 +4202,6 @@ local specialModList = {
 	["maximum brutal charges is equal to maximum endurance charges"] = { flag("MaximumEnduranceChargesEqualsMaximumBrutalCharges") },
 	["maximum affliction charges is equal to maximum frenzy charges"] = { flag("MaximumFrenzyChargesEqualsMaximumAfflictionCharges") },
 	["maximum absorption charges is equal to maximum power charges"] = { flag("MaximumPowerChargesEqualsMaximumAbsorptionCharges") },
-	["maximum brine charges is equal to maximum endurance charges"] = { flag("MaximumEnduranceChargesEqualsMaximumBrineCharges") },
 	["(%d+)%% chance to gain a brine charge instead of an endurance charge"] = function(num) return { flag("CanGainBrineCharges"), mod("BrineChargeGainChance", "BASE", num) } end,
 	["gain brutal charges instead of endurance charges"] = { flag("EnduranceChargesConvertToBrutalCharges") },
 	["gain affliction charges instead of frenzy charges"] = { flag("FrenzyChargesConvertToAfflictionCharges") },
