@@ -3614,6 +3614,7 @@ c["175% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="Physical
 c["175% increased Skeleton Duration"]={{[1]={[1]={includeTransfigured=true,skillName="Summon Skeletons",type="SkillName"},flags=0,keywordFlags=0,name="Duration",type="INC",value=175}},nil}
 c["175% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=175}},nil}
 c["175% increased Stun and Block Recovery"]={{[1]={flags=0,keywordFlags=0,name="StunRecovery",type="INC",value=175}},nil}
+c["176% increased Explicit Modifier magnitudes"]={{},nil}
 c["18 to 347 Added Lightning Damage with Wand Attacks"]={{[1]={flags=8388612,keywordFlags=0,name="LightningMin",type="BASE",value=18},[2]={flags=8388612,keywordFlags=0,name="LightningMax",type="BASE",value=347}},nil}
 c["18% Chance to Block Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=18}},nil}
 c["18% chance to Freeze, Shock and Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=18},[2]={flags=0,keywordFlags=0,name="EnemyShockChance",type="BASE",value=18},[3]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=18}},nil}
@@ -8060,6 +8061,7 @@ c["Cannot have Minions other than Summoned Skeletons"]={nil,"Cannot have Minions
 c["Cannot have Minions other than Summoned Skeletons Maximum number of Summoned Spectral Wolves is Doubled"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={globalLimit=100,globalLimitKey="ActiveWolfLimitDoubledLimit",type="Multiplier",var="ActiveWolfLimitDoubled"},flags=0,keywordFlags=0,name="ActiveWolfLimit",type="MORE",value=100}}},[2]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Multiplier:ActiveWolfLimitDoubled",type="OVERRIDE",value=1}}}},"Cannot have s other than Summoned Skeletons   "}
 c["Cannot have Minions other than Summoned Spectral Wolves"]={nil,"Cannot have Minions other than Summoned Spectral Wolves "}
 c["Cannot have Minions other than Summoned Spectral Wolves Maximum number of Living Lightning is Doubled"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={globalLimit=100,globalLimitKey="ActiveLivingLightningLimitDoubledLimit",type="Multiplier",var="ActiveLivingLightningLimitDoubled"},flags=0,keywordFlags=0,name="ActiveLivingLightningLimit",type="MORE",value=100}}},[2]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Multiplier:ActiveLivingLightningLimitDoubled",type="OVERRIDE",value=1}}}},"Cannot have s other than Summoned Spectral Wolves   "}
+c["Cannot have non-Abyssal sockets"]={nil,"Cannot have non-Abyssal sockets "}
 c["Cannot inflict Freeze or Chill"]={{[1]={flags=0,keywordFlags=0,name="CannotFreeze",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="CannotChill",type="FLAG",value=true}},nil}
 c["Cannot inflict Ignite"]={{[1]={flags=0,keywordFlags=0,name="CannotIgnite",type="FLAG",value=true}},nil}
 c["Cannot inflict Shock"]={{[1]={flags=0,keywordFlags=0,name="CannotShock",type="FLAG",value=true}},nil}
@@ -9335,6 +9337,7 @@ c["Guard Skills have 40% increased Duration"]={{[1]={[1]={skillType=89,type="Ski
 c["Guard Skills have 6% increased Duration"]={{[1]={[1]={skillType=89,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=6}},nil}
 c["Half of your Strength is added to your Minions"]={{[1]={flags=0,keywordFlags=0,name="StrengthAddedToMinions",type="BASE",value=50}},nil}
 c["Hallowing Flame you inflict has 1% increased magnitude per 2% Attack Block chance"]={nil,"Hallowing Flame you inflict has 1% increased magnitude per 2% Attack Block chance "}
+c["Has 0 Abyssal Sockets"]={{[1]={flags=0,keywordFlags=0,name="AbyssalSocketCount",type="BASE",value=0}},nil}
 c["Has 1 Abyssal Socket"]={{[1]={flags=0,keywordFlags=0,name="AbyssalSocketCount",type="BASE",value=1}},nil}
 c["Has 1 Socket"]={{[1]={flags=0,keywordFlags=0,name="SocketCount",type="BASE",value=1}},nil}
 c["Has 2 Abyssal Sockets"]={{[1]={flags=0,keywordFlags=0,name="AbyssalSocketCount",type="BASE",value=2}},nil}
@@ -10386,6 +10389,8 @@ c["On Killing a Poisoned Enemy, Enemies within 3 metres are Poisoned and nearby 
 c["On Killing a Rare monster, a random Linked Minion gains its Modifiers for 60 seconds"]={nil,"On Killing a Rare monster, a random Linked Minion gains its Modifiers for 60 seconds "}
 c["On non-channelling Attack, set a Life Flask with greater than 50% of maximum Charges remaining to 50%"]={nil,"On non-channelling Attack, set a Life Flask with greater than 50% of maximum Charges remaining to 50% "}
 c["On non-channelling Attack, set a Life Flask with greater than 50% of maximum Charges remaining to 50% For each Charge removed this way, that Attack gains +2% to Damage over time Multiplier"]={{[1]={[1]={floor=true,percent=50,stat="LifeFlaskCharges",type="PercentStat"},[2]={neg=true,skillType=57,type="SkillType"},[3]={skillType=1,type="SkillType"},flags=0,keywordFlags=0,name="DotMultiplier",type="BASE",value=2}},nil}
+c["One modifier from Consumed Jewels will be retained"]={nil,"One modifier from Consumed Jewels will be retained "}
+c["One modifier from Consumed Jewels will be retained Cannot have non-Abyssal sockets"]={nil,"One modifier from Consumed Jewels will be retained Cannot have non-Abyssal sockets "}
 c["Only affects Passives in Large Ring"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="radiusIndex",value=8}}},nil}
 c["Only affects Passives in Massive Ring"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="radiusIndex",value=10}}},nil}
 c["Only affects Passives in Medium Ring"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="radiusIndex",value=7}}},nil}
@@ -12004,6 +12009,8 @@ c["Socketed Projectile Spells fire Projectiles in a circle"]={nil,"Projectiles i
 c["Socketed Projectile Spells fire Projectiles in a circle Socketed Projectile Spells have 80% less Skill Effect Duration"]={nil,"Projectiles in a circle Socketed Projectile Spells have 80% less Skill Effect Duration "}
 c["Socketed Projectile Spells have +4 seconds to Cooldown"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},[2]={skillType=3,type="SkillType"},[3]={skillType=2,type="SkillType"},flags=0,keywordFlags=0,name="CooldownRecovery",type="BASE",value=4}},nil}
 c["Socketed Projectile Spells have 80% less Skill Effect Duration"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={[1]={skillType=3,type="SkillType"},[2]={skillType=2,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="MORE",value=-80}}}},nil}
+c["Socketed Rare Abyssal Jewels will be Consumed"]={nil,"Socketed Rare Abyssal Jewels will be Consumed "}
+c["Socketed Rare Abyssal Jewels will be Consumed One modifier from Consumed Jewels will be retained"]={nil,"Socketed Rare Abyssal Jewels will be Consumed One modifier from Consumed Jewels will be retained "}
 c["Socketed Red Gems get 10% Physical Damage as Extra Fire Damage"]={{[1]={[1]={keyword="strength",slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="PhysicalDamageGainAsFire",type="BASE",value=10}}}},nil}
 c["Socketed Skill Gems get a 80% Cost & Reservation Multiplier"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="SupportManaMultiplier",type="MORE",value=-20}}}},nil}
 c["Socketed Skills deal Double Damage"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="DoubleDamageChance",type="BASE",value=100}}}},nil}
@@ -13017,6 +13024,8 @@ c["Zealotry has 50% increased Mana Reservation Efficiency"]={{[1]={[1]={includeT
 c["Zealotry has no Reservation"]={{[1]={[1]={skillId="Zealotry",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="manaReservationFlat",value=0}},[2]={[1]={skillId="Zealotry",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="lifeReservationFlat",value=0}},[3]={[1]={skillId="Zealotry",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="manaReservationPercent",value=0}},[4]={[1]={skillId="Zealotry",type="SkillId"},[2]={neg=true,skillType=119,type="SkillType"},flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="lifeReservationPercent",value=0}}},nil}
 c["Zombies' Slam Attack has 100% increased Cooldown Recovery Rate"]={nil,"Zombies' Slam Attack has 100% increased Cooldown Recovery Rate "}
 c["Zombies' Slam Attack has 100% increased Cooldown Recovery Rate With at least 40 Intelligence in Radius, Raised Zombies' Slam"]={nil,"Zombies' Slam Attack has 100% increased Cooldown Recovery Rate With at least 40 Intelligence in Radius, Raised Zombies' Slam "}
+c["[0-4 consumed abyssal jewel modifiers]"]={nil,"[0-4 consumed abyssal jewel modifiers] "}
+c["[0-4 consumed abyssal jewel modifiers] Socketed Rare Abyssal Jewels will be Consumed"]={nil,"[0-4 consumed abyssal jewel modifiers] Socketed Rare Abyssal Jewels will be Consumed "}
 c["affected by Purity of Elements"]={nil,"affected by Purity of Elements "}
 c["affected by Purity of Elements 12% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Elements"]={nil,"affected by Purity of Elements 12% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Elements "}
 c["also grant an equal chance to gain a Frenzy Charge on Kill"]={nil,"also grant an equal chance to gain a Frenzy Charge on Kill "}
