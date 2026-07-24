@@ -337,24 +337,28 @@ Adds (13-18) to (26-32) Physical Damage to Attacks
 Voidfletcher
 {variant:1,2}Penetrating Arrow Quiver
 {variant:3}Primal Arrow Quiver
+{variant:4}Ornate Quiver
 Shaper Item
 Elder Item
 Variant: Pre 3.5.0
 Variant: Pre 3.17.0
+Variant: Pre 3.29.0
 Variant: Current
 Source: Drops from unique{The Elder} (Uber)
 {variant:1,2}LevelReq: 64
 Implicits: 2
 {variant:1,2}Arrows Pierce an additional Target
 {variant:3}(20-30)% increased Elemental Damage with Attack Skills
+{variant:4}Has 1 Socket
+{variant:4}Has 2 Sockets
 Consumes a Void Charge to Trigger Level 20 Void Shot when you fire Arrows with a Non-Triggered Skill
 Adds (30-40) to (80-100) Cold Damage to Attacks
 +(80-120) to maximum Energy Shield
 +(20-30)% to Cold Resistance
-Gain (20-40) Mana per Enemy Killed
-30% increased Projectile Speed
-{variant:1}5 Maximum Void Charges
-{variant:1}Gain a Void Charge every second
+{variant:1,2,3}Gain (20-40) Mana per Enemy Killed
+{variant:1,2,3}30% increased Projectile Speed
+{variant:1,4}5 Maximum Void Charges
+{variant:1,4}Gain a Void Charge every second
 {variant:2,3}5 Maximum Void Charges
 {variant:2,3}Gain a Void Charge every 0.5 seconds
 ]],[[

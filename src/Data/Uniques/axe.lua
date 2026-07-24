@@ -188,9 +188,12 @@ Gain (40-60)% of Weapon Physical Damage as Extra Damage of a random Element
 The Grey Wind
 Spectral Axe
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 33, 85 Str, 37 Dex
 (30-50)% increased Fire Damage
-Attacks with this Weapon have Added Fire Damage equal to (8-12)% of Player's Maximum Life
+{variant:1}Attacks with this Weapon have Added Fire Damage equal to (8-12)% of Player's Maximum Life
+{variant:2}Attacks with this Weapon have Added Fire Damage equal to (6-10)% of Player's Maximum Life
 Each Rage also grants +2% to Fire Damage Over Time Multiplier
 Nearby Enemies have Fire Exposure while at maximum Rage
 +(-5-5) to Maximum Rage

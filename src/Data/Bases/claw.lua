@@ -9,6 +9,7 @@ itemBases["Nailed Fist"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 3 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
+	implicitIds = { "LifeGainPerTargetImplicit2Claw1", },
 	weapon = { PhysicalMin = 4, PhysicalMax = 11, CritChanceBase = 7.3, AttackRateBase = 1.6, Range = 11, },
 	req = { dex = 11, int = 11, },
 }
@@ -19,6 +20,7 @@ itemBases["Sharktooth Claw"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 6 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
+	implicitIds = { "LifeGainPerTargetImplicit2Claw2", },
 	weapon = { PhysicalMin = 6, PhysicalMax = 17, CritChanceBase = 8, AttackRateBase = 1.5, Range = 11, },
 	req = { level = 7, dex = 14, int = 20, },
 }
@@ -29,6 +31,7 @@ itemBases["Awl"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 7 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
+	implicitIds = { "LifeGainPerTargetImplicit2Claw3", },
 	weapon = { PhysicalMin = 7, PhysicalMax = 23, CritChanceBase = 7.5, AttackRateBase = 1.55, Range = 11, },
 	req = { level = 12, dex = 25, int = 25, },
 }
@@ -39,6 +42,7 @@ itemBases["Cat's Paw"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 8 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
+	implicitIds = { "LifeGainPerTargetImplicit2Claw3_1", },
 	weapon = { PhysicalMin = 12, PhysicalMax = 22, CritChanceBase = 7, AttackRateBase = 1.6, Range = 11, },
 	req = { level = 17, dex = 39, int = 27, },
 }
@@ -49,6 +53,7 @@ itemBases["Blinder"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 12 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
+	implicitIds = { "LifeGainPerTargetImplicit2Claw4", },
 	weapon = { PhysicalMin = 12, PhysicalMax = 31, CritChanceBase = 7.5, AttackRateBase = 1.55, Range = 11, },
 	req = { level = 22, dex = 41, int = 41, },
 }
@@ -59,6 +64,7 @@ itemBases["Timeworn Claw"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 19 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
+	implicitIds = { "LifeGainPerTargetImplicit2Claw4_1", },
 	weapon = { PhysicalMin = 16, PhysicalMax = 43, CritChanceBase = 8, AttackRateBase = 1.3, Range = 11, },
 	req = { level = 26, dex = 39, int = 56, },
 }
@@ -69,6 +75,7 @@ itemBases["Sparkling Claw"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 15 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
+	implicitIds = { "LifeGainPerTargetImplicit2Claw5", },
 	weapon = { PhysicalMin = 14, PhysicalMax = 38, CritChanceBase = 7, AttackRateBase = 1.6, Range = 11, },
 	req = { level = 30, dex = 64, int = 44, },
 }
@@ -79,6 +86,7 @@ itemBases["Fright Claw"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 20 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
+	implicitIds = { "LifeGainPerTargetImplicit2Claw5_1", },
 	weapon = { PhysicalMin = 12, PhysicalMax = 46, CritChanceBase = 7.5, AttackRateBase = 1.5, Range = 11, },
 	req = { level = 34, dex = 61, int = 61, },
 }
@@ -89,6 +97,7 @@ itemBases["Double Claw"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 15 Life per Enemy Hit\nGrants 6 Mana per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "mana", "attack" }, { "resource", "life", "mana", "attack" }, },
+	implicitIds = { "LifeAndManaOnHitSeparatedImplicitMarakethClaw1", },
 	weapon = { PhysicalMin = 15, PhysicalMax = 44, CritChanceBase = 7.5, AttackRateBase = 1.5, Range = 11, },
 	req = { level = 36, dex = 67, int = 67, },
 }
@@ -99,6 +108,7 @@ itemBases["Thresher Claw"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 25 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
+	implicitIds = { "LifeGainPerTargetImplicit2Claw6", },
 	weapon = { PhysicalMin = 20, PhysicalMax = 53, CritChanceBase = 8, AttackRateBase = 1.3, Range = 11, },
 	req = { level = 37, dex = 53, int = 77, },
 }
@@ -109,6 +119,7 @@ itemBases["Gouger"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 24 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
+	implicitIds = { "LifeGainPerTargetImplicit2Claw7", },
 	weapon = { PhysicalMin = 15, PhysicalMax = 51, CritChanceBase = 7.5, AttackRateBase = 1.5, Range = 11, },
 	req = { level = 40, dex = 70, int = 70, },
 }
@@ -119,6 +130,7 @@ itemBases["Tiger's Paw"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "1.6% of Physical Attack Damage Leeched as Life",
 	implicitModTypes = { { "resource", "life", "physical", "attack" }, },
+	implicitIds = { "LifeLeechPermyriadImplicitClaw1", },
 	weapon = { PhysicalMin = 23, PhysicalMax = 43, CritChanceBase = 7, AttackRateBase = 1.6, Range = 11, },
 	req = { level = 43, dex = 88, int = 61, },
 }
@@ -129,6 +141,7 @@ itemBases["Gut Ripper"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 44 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
+	implicitIds = { "LifeGainPerTargetImplicit2Claw8", },
 	weapon = { PhysicalMin = 20, PhysicalMax = 53, CritChanceBase = 7.5, AttackRateBase = 1.5, Range = 11, },
 	req = { level = 46, dex = 80, int = 80, },
 }
@@ -139,6 +152,7 @@ itemBases["Prehistoric Claw"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "2% of Physical Attack Damage Leeched as Life",
 	implicitModTypes = { { "resource", "life", "physical", "attack" }, },
+	implicitIds = { "LifeLeechPermyriadImplicitClaw2", },
 	weapon = { PhysicalMin = 26, PhysicalMax = 68, CritChanceBase = 8, AttackRateBase = 1.3, Range = 11, },
 	req = { level = 49, dex = 69, int = 100, },
 }
@@ -149,6 +163,7 @@ itemBases["Noble Claw"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 40 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
+	implicitIds = { "LifeGainPerTargetImplicit2Claw9_", },
 	weapon = { PhysicalMin = 21, PhysicalMax = 56, CritChanceBase = 7, AttackRateBase = 1.6, Range = 11, },
 	req = { level = 52, dex = 105, int = 73, },
 }
@@ -159,6 +174,7 @@ itemBases["Eagle Claw"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "2% of Physical Attack Damage Leeched as Life",
 	implicitModTypes = { { "resource", "life", "physical", "attack" }, },
+	implicitIds = { "LifeLeechPermyriadImplicitClaw2", },
 	weapon = { PhysicalMin = 17, PhysicalMax = 69, CritChanceBase = 7.5, AttackRateBase = 1.5, Range = 11, },
 	req = { level = 55, dex = 94, int = 94, },
 }
@@ -169,6 +185,7 @@ itemBases["Twin Claw"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 28 Life per Enemy Hit\nGrants 10 Mana per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "mana", "attack" }, { "resource", "life", "mana", "attack" }, },
+	implicitIds = { "LifeAndManaOnHitSeparatedImplicitMarakethClaw2", },
 	weapon = { PhysicalMin = 21, PhysicalMax = 64, CritChanceBase = 7.5, AttackRateBase = 1.5, Range = 11, },
 	req = { level = 57, dex = 103, int = 103, },
 }
@@ -179,6 +196,7 @@ itemBases["Great White Claw"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 46 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
+	implicitIds = { "LifeGainPerTargetImplicit2Claw10", },
 	weapon = { PhysicalMin = 30, PhysicalMax = 78, CritChanceBase = 8, AttackRateBase = 1.3, Range = 11, },
 	req = { level = 58, dex = 81, int = 117, },
 }
@@ -189,6 +207,7 @@ itemBases["Throat Stabber"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 40 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
+	implicitIds = { "LifeGainPerTargetImplicit2Claw11_", },
 	weapon = { PhysicalMin = 21, PhysicalMax = 73, CritChanceBase = 7.5, AttackRateBase = 1.5, Range = 11, },
 	req = { level = 60, dex = 113, int = 113, },
 }
@@ -199,6 +218,7 @@ itemBases["Hellion's Paw"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "1.6% of Physical Attack Damage Leeched as Life",
 	implicitModTypes = { { "resource", "life", "physical", "attack" }, },
+	implicitIds = { "LifeLeechPermyriadImplicitClaw1", },
 	weapon = { PhysicalMin = 29, PhysicalMax = 55, CritChanceBase = 7, AttackRateBase = 1.6, Range = 11, },
 	req = { level = 62, dex = 131, int = 95, },
 }
@@ -209,6 +229,7 @@ itemBases["Eye Gouger"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 50 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
+	implicitIds = { "LifeGainPerTargetImplicit2Claw12", },
 	weapon = { PhysicalMin = 26, PhysicalMax = 68, CritChanceBase = 7.5, AttackRateBase = 1.5, Range = 11, },
 	req = { level = 64, dex = 113, int = 113, },
 }
@@ -219,6 +240,7 @@ itemBases["Vaal Claw"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "2% of Physical Attack Damage Leeched as Life",
 	implicitModTypes = { { "resource", "life", "physical", "attack" }, },
+	implicitIds = { "LifeLeechPermyriadImplicitClaw2", },
 	weapon = { PhysicalMin = 29, PhysicalMax = 76, CritChanceBase = 8, AttackRateBase = 1.3, Range = 11, },
 	req = { level = 66, dex = 95, int = 131, },
 }
@@ -229,6 +251,7 @@ itemBases["Imperial Claw"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 46 Life per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "attack" }, },
+	implicitIds = { "LifeGainPerTargetImplicit2Claw13", },
 	weapon = { PhysicalMin = 25, PhysicalMax = 65, CritChanceBase = 7, AttackRateBase = 1.6, Range = 11, },
 	req = { level = 68, dex = 131, int = 95, },
 }
@@ -239,6 +262,7 @@ itemBases["Terror Claw"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "2% of Physical Attack Damage Leeched as Life",
 	implicitModTypes = { { "resource", "life", "physical", "attack" }, },
+	implicitIds = { "LifeLeechPermyriadImplicitClaw2", },
 	weapon = { PhysicalMin = 18, PhysicalMax = 71, CritChanceBase = 7.5, AttackRateBase = 1.5, Range = 11, },
 	req = { level = 70, dex = 113, int = 113, },
 }
@@ -249,6 +273,7 @@ itemBases["Gemini Claw"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Grants 38 Life per Enemy Hit\nGrants 14 Mana per Enemy Hit",
 	implicitModTypes = { { "resource", "life", "mana", "attack" }, { "resource", "life", "mana", "attack" }, },
+	implicitIds = { "LifeAndManaOnHitSeparatedImplicitMarakethClaw3", },
 	weapon = { PhysicalMin = 23, PhysicalMax = 68, CritChanceBase = 7.5, AttackRateBase = 1.5, Range = 11, },
 	req = { level = 72, dex = 121, int = 121, },
 }
@@ -259,6 +284,7 @@ itemBases["Shadow Fangs"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Adds (26-38) to (52-70) Chaos Damage",
 	implicitModTypes = { { "chaos_damage", "damage", "chaos", "attack" }, },
+	implicitIds = { "LocalAddedChaosDamageImplicitE1", },
 	weapon = { PhysicalMin = 13, PhysicalMax = 24, CritChanceBase = 7, AttackRateBase = 1.6, Range = 11, },
 	req = { level = 30, dex = 54, int = 54, },
 }
@@ -269,6 +295,7 @@ itemBases["Malign Fangs"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Adds (43-55) to (81-104) Chaos Damage",
 	implicitModTypes = { { "chaos_damage", "damage", "chaos", "attack" }, },
+	implicitIds = { "LocalAddedChaosDamageImplicitE2", },
 	weapon = { PhysicalMin = 20, PhysicalMax = 37, CritChanceBase = 7, AttackRateBase = 1.6, Range = 11, },
 	req = { level = 50, dex = 86, int = 86, },
 }
@@ -279,6 +306,7 @@ itemBases["Void Fangs"] = {
 	influenceTags = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", cleansing = "claw_cleansing", tangle = "claw_tangle" },
 	implicit = "Adds (46-63) to (92-113) Chaos Damage",
 	implicitModTypes = { { "chaos_damage", "damage", "chaos", "attack" }, },
+	implicitIds = { "LocalAddedChaosDamageImplicitE3_", },
 	weapon = { PhysicalMin = 22, PhysicalMax = 41, CritChanceBase = 7, AttackRateBase = 1.6, Range = 11, },
 	req = { level = 70, dex = 113, int = 113, },
 }

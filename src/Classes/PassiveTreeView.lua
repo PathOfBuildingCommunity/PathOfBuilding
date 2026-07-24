@@ -1547,15 +1547,17 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		local lineCount = 0
 		for n, effect in ipairs(mNode.masteryEffects) do
 			local existingMastery = isValueInTable(build.spec.masterySelections, effect.effect)
-			if not existingMastery then
-				effect = build.spec.tree.masteryEffects[effect.effect]
-				for _, line in ipairs(effect.sd) do
-					lineCount = lineCount + 1
+			local effectData = build.spec.tree.masteryEffects[effect.effect]
+			-- Must step through every mod, and filter out already allocated mods later 
+			-- Otherwise red not supported text applies to the wrong indexes
+			for _, line in ipairs(effectData.sd) do
+				lineCount = lineCount + 1
+				if not existingMastery then
 					addModInfoToTooltip(mNode, lineCount, line)
 				end
-				if n < #mNode.masteryEffects then
-					tooltip:AddLine(6, "")
-				end
+			end
+			if not existingMastery and n < #mNode.masteryEffects then
+				tooltip:AddLine(6, "")
 			end
 		end
 		tooltip:AddSeparator(14)

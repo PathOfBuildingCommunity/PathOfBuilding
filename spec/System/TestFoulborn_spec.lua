@@ -49,6 +49,18 @@ describe("TestFoulborn", function()
 		assert.is_falsy(modLine.mutated)
 	end)
 
+	it("offers convertible mods in the item modifier controls", function()
+		local item = vollsDevotion()
+		local modLine = findByLine(item, powerBase)
+		local found
+		for _, rangeLine in ipairs(item.rangeLineList) do
+			if rangeLine == modLine then
+				found = true
+			end
+		end
+		assert.is_true(found)
+	end)
+
 	it("does not mark non-convertible mods", function()
 		local item = vollsDevotion()
 		local plainMod = findByLine(item, "Gain an Endurance Charge when you lose a Power Charge")

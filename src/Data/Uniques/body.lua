@@ -1348,10 +1348,13 @@ Has 6 Abyssal Sockets
 Stasis Prison
 Carnal Armour
 Source: Drops in Unrelenting Domain of Timeless Conflict
+Variant: Pre 3.29.0
+Variant: Current
 Implicits: 1
 +(20-25) to maximum Mana
 (140-160)% increased Evasion and Energy Shield
-+(80-100) to maximum Life
+{variant:1}+(80-100) to maximum Life
+{variant:2}(80-100)% increased Implicit Modifier magnitudes
 Temporal Rift has no Reservation
 (80-100)% of Damage taken Recouped as Life
 Debuffs on you expire (80-100)% faster

@@ -666,4 +666,281 @@ describe("TestAdvancedItemParse #item", function()
 			Note: ~b/o 2 chaos
 		]])
 	end)
+	describe("mod magnitude scaling", function()
+		before_each(function()
+			newBuild()
+			runCallback("onFrame")
+		end)
+		local function chaosDamageInc()
+			return build.calcsTab.mainEnv.modDB:Sum("INC", nil, "ChaosDamage")
+		end
+
+		local function chaosResist()
+			return build.calcsTab.mainEnv.modDB:Sum("BASE", nil, "ChaosResist")
+		end
+
+		local function spellCrit()
+			return build.calcsTab.mainEnv.modDB:Sum("INC", { flags = ModFlag.Spell }, "CritChance")
+		end
+
+		local function spellDamage()
+			return build.calcsTab.mainEnv.modDB:Sum("INC", { flags = ModFlag.Spell }, "Damage")
+		end
+
+		it("scales matching implicit mods by modifier magnitude", function()
+			-- 130% * 1.7 = 221
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			Test Subject
+			Void Sceptre
+			LevelReq: 60
+			Implicits: 1
+			{range:0.5}(100-160)% increased Chaos Damage
+			{range:0.5}70% increased implicit Modifier magnitudes
+		]])
+			local item = build.itemsTab.displayItem
+			assert.is_true(item.advancedCopy)
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+			assert.are.equals(221, chaosDamageInc())
+		end)
+
+		it("scales properly using old Eyes of the Greatwolf line", function()
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: UNIQUE
+			Eyes of the Greatwolf
+			Greatwolf Talisman
+			Quality (Caster Modifiers): +20% (augmented)
+			LevelReq: 60
+			Implicits: 1
+			{tags:caster}{range:0.5}(100-160)% increased Spell Damage
+			{range:0.5}Implicit Modifier magnitudes are doubled
+		]])
+			local item = build.itemsTab.displayItem
+			assert.is_true(item.advancedCopy)
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+			assert.are.equals(312, spellDamage())
+		end)
+
+		it("scales properly using new Eyes of the Greatwolf line", function()
+			-- 130% * 1.7 = 221
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			Test Subject
+			Void Sceptre
+			LevelReq: 60
+			Implicits: 1
+			{range:0.5}{crafted}(100-160)% increased Chaos Damage
+			{range:0.5}(50-100)% increased Enchantment Modifier magnitudes
+		]])
+			local item = build.itemsTab.displayItem
+			assert.is_true(item.advancedCopy)
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+			assert.are.equals(227, chaosDamageInc())
+		end)
+		it("does not rescale old format (baked) copies", function()
+			-- magnitude already baked in, so no rescale
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			Baked Subject
+			Imperial Staff
+			LevelReq: 60
+			Implicits: 0
+			{tags:chaos,damage}130% increased Chaos Damage
+			70% increased Chaos Modifier magnitudes
+		]])
+			local item = build.itemsTab.displayItem
+			assert.is_false(item.advancedCopy)
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+			assert.are.equals(130, chaosDamageInc())
+		end)
+
+		it("only scales mods that share the magnitude mod's tags", function()
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			Test Subject
+			Sapphire Ring
+			LevelReq: 20
+			Implicits: 0
+			{tags:chaos,damage}{range:0.5}(100-160)% increased Chaos Damage
+			{tags:resistance}{range:0.5}+(20-40)% to Chaos Resistance
+			{range:0.5}100% increased resistance modifier magnitudes
+		]])
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+			assert.are.equals(0, chaosResist())
+			assert.are.equals(130, chaosDamageInc())
+			newBuild()
+
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			Test Subject
+			Sapphire Ring
+			LevelReq: 20
+			Implicits: 0
+			{tags:chaos,damage}{range:0.5}(100-160)% increased Chaos Damage
+			{tags:defences}{range:0.5}+(20-40)% to Chaos Resistance
+			{range:0.5}100% increased defence modifier magnitudes
+		]])
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+			assert.are.equals(0, chaosResist())
+			assert.are.equals(130, chaosDamageInc())
+			newBuild()
+
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			Test Subject
+			Sapphire Ring
+			LevelReq: 20
+			Implicits: 0
+			{tags:chaos,damage}{range:0.5}(100-160)% increased Chaos Damage
+			{tags:physical,damage}{range:0.5}+(20-40)% to Chaos Resistance
+			{tags:caster,damage}{range:0.5}(10-30)% increased spell damage
+			{range:0.5}100% increased Explicit Physical and Chaos Damage Modifier magnitudes
+		]])
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+			assert.are.equals(0, chaosResist())
+			assert.are.equals(260, chaosDamageInc())
+			assert.are.equals(20, spellDamage())
+		end)
+
+		it("only scales the modifier type named by the magnitude mod", function()
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			Test Subject
+			Sapphire Ring
+			LevelReq: 20
+			Implicits: 1
+			{range:0.5}(100-160)% increased Chaos Damage
+			{range:0.5}+(20-40)% to Chaos Resistance
+			{range:0.5}100% increased explicit modifier magnitudes
+		]])
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+			assert.are.equals(0, chaosResist())
+			assert.are.equals(130, chaosDamageInc())
+		end)
+
+		it("handles explicit physical and chaos modifier magnitudes", function()
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			Test Subject
+			Void Sceptre
+			LevelReq: 60
+			Implicits: 1
+			{tags:chaos,damage}{range:0.5}(100-160)% increased Chaos Damage
+			{tags:physical,chaos,damage}{range:0.5}(100-160)% increased Chaos Damage
+			{range:0.5}10% increased Explicit Physical and Chaos Damage Modifier magnitudes
+		]])
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+			assert.are.equals(273, chaosDamageInc())
+		end)
+
+		it("does not scale unscalable modifiers", function()
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			Test Subject
+			Void Sceptre
+			LevelReq: 60
+			Implicits: 0
+			{tags:chaos,damage}{range:0.5}(100-160)% increased Chaos Damage — Unscalable Value
+			{range:0.5}100% increased Explicit Modifier magnitudes
+		]])
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+			assert.are.equals(130, chaosDamageInc())
+		end)
+
+		it("reduces the modifier magnitude correctly", function()
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			Test Subject
+			Sapphire Ring
+			LevelReq: 20
+			Implicits: 0
+			{range:0.5}(100-160)% increased Chaos Damage
+			{range:0.5}+(20-40)% to Chaos Resistance
+			{range:0.5}50% reduced explicit modifier magnitudes
+		]])
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+			assert.are.equals(-45, chaosResist())
+			assert.are.equals(65, chaosDamageInc())
+		end)
+		it("scales only prefixes for increased effect of prefixes", function()
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			Test Subject
+			Sapphire Ring
+			LevelReq: 20
+			Implicits: 0
+			{prefix}{range:0.5}(100-160)% increased Chaos Damage
+			{suffix}{range:0.5}+(20-40)% to Chaos Resistance
+			{range:0.5}50% increased effect of prefixes
+		]])
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+			assert.are.equals(-30, chaosResist())
+			assert.are.equals(195, chaosDamageInc())
+		end)
+
+		-- actually a ring so we don't have to allocate a socket
+		local realJewel = [[
+				Rarity: Rare
+				Pandemonium Desire
+				Ruby Ring
+				--------
+				Quality (Caster Modifiers): +20% (augmented)
+				--------
+				Item Level: 80
+				--------
+				{ Corruption Enhancement — Elemental, Cold, Resistance }
+				+7(5-10)% to Cold Resistance
+				{ Corruption Enhancement — Attribute }
+				+6(4-6) to Intelligence
+				--------
+				{ Fractured Crafted Prefix Modifier "" }
+				60(40-60)% increased Effect of Suffixes — Unscalable Value
+				{ Prefix Modifier "Mystic" (Tier: 1) — Damage, Caster — 20% Increased }
+				7(5-15)% increased Spell Damage
+				{ Suffix Modifier "of Unmaking" (Tier: 1) — Damage, Caster, Critical — 80% Increased }
+				20(10-20)% increased Critical Spell Damage Bonus
+				{ Desecrated Suffix Modifier "of Annihilating" (Tier: 1) — Caster, Critical — 80% Increased }
+				15(5-15)% increased Critical Hit Chance for Spells
+				{ Suffix Modifier "of Potency" (Tier: 1) — Damage, Critical — 60% Increased }
+				20(10-20)% increased Critical Strike Multiplier
+				--------
+				Place into an allocated Jewel Socket on the Passive Skill Tree. Right click to remove from the Socket.
+				--------
+				Twice Corrupted
+				--------
+				Fractured Item
+				--------
+				Note: ~b/o 1 mirror
+		]]
+		it("scales only prefixes for increased effect of prefixes for advanced copy format", function()
+			assert.equal(0, spellCrit())
+			local item = new("Item", realJewel)
+			build.itemsTab:AddItem(item)
+			build.itemsTab:EquipItemInSet(item, build.itemsTab.activeItemSetId)
+			runCallback("OnFrame")
+			assert.equal(27, spellCrit())
+			assert.equal(8, spellDamage())
+		end)
+
+		it("does not apply scaling twice when saving and loading", function()
+			local item = new("Item", new("Item", realJewel):BuildRaw())
+			build.itemsTab:AddItem(item)
+			build.itemsTab:EquipItemInSet(item, build.itemsTab.activeItemSetId)
+			runCallback("OnFrame")
+			assert.equal(27, spellCrit())
+			assert.equal(8, spellDamage())
+		end)
+	end)
 end)

@@ -115,6 +115,8 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 	local genericMoreMaxDamage = skillModList:More(cfg, "MaxDamage")
 	local moreMinDamage = skillModList:More(cfg, "Min"..damageType.."Damage")
 	local moreMaxDamage = skillModList:More(cfg, "Max"..damageType.."Damage")
+	local incMinDamage = 1 + skillModList:Sum("INC", cfg, "Min"..damageType.."Damage") / 100
+	local incMaxDamage = 1 + skillModList:Sum("INC", cfg, "Max"..damageType.."Damage") / 100
 
 	if breakdown then
 		t_insert(breakdown.damageTypes, {
@@ -129,8 +131,8 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 		})
 	end
 
-	return 	round(((baseMin * inc * more) * genericMoreMinDamage + addMin) * moreMinDamage),
-			round(((baseMax * inc * more) * genericMoreMaxDamage + addMax) * moreMaxDamage)
+	return 	round(((baseMin * inc * more) * genericMoreMinDamage + addMin) * moreMinDamage * incMinDamage),
+			round(((baseMax * inc * more) * genericMoreMaxDamage + addMax) * moreMaxDamage * incMaxDamage)
 end
 
 local function calcAilmentSourceDamage(activeSkill, output, cfg, breakdown, damageType, typeFlags)
@@ -308,6 +310,13 @@ function calcSkillDuration(skillModList, skillCfg, skillData, env, enemyDB)
 		duration = duration * debuffDurationMult
 	end
 	return duration
+end
+
+-- Keep defensive Totem pools in step with the Totem Life shown in the skill calculations.
+function calcs.calcTotemLife(env, activeSkill)
+	local lifeMod = calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "TotemLife")
+	local life = round(m_floor(env.data.monsterAllyLifeTable[activeSkill.skillData.totemLevel] * env.data.totemLifeMult[activeSkill.skillTotemId]) * lifeMod)
+	return life, lifeMod
 end
 
 -- Performs all offensive calculations
@@ -1387,8 +1396,7 @@ function calcs.offence(env, actor, activeSkill)
 				"Totems Summoned: "..output.TotemsSummoned..(env.configInput.TotemsSummoned and " ^8(overridden from the Configuration tab)" or " ^8(can be overridden in the Configuration tab)"),
 			}
 		end
-		output.TotemLifeMod = calcLib.mod(skillModList, skillCfg, "TotemLife")
-		output.TotemLife = round(m_floor(env.data.monsterAllyLifeTable[skillData.totemLevel] * env.data.totemLifeMult[activeSkill.skillTotemId]) * output.TotemLifeMod)
+		output.TotemLife, output.TotemLifeMod = calcs.calcTotemLife(env, activeSkill)
 		output.TotemEnergyShield = skillModList:Sum("BASE", skillCfg, "TotemEnergyShield")
 		output.TotemBlockChance = skillModList:Sum("BASE", skillCfg, "TotemBlockChance")
 		output.TotemArmour = skillModList:Sum("BASE", skillCfg, "TotemArmour")
@@ -4201,7 +4209,7 @@ function calcs.offence(env, actor, activeSkill)
 			local maxStacks = skillModList:Override(cfg, "BleedStacksMax") or skillModList:Sum("BASE", cfg, "BleedStacksMax")
 			local overrideStackPotential = skillModList:Override(nil, "BleedStackPotentialOverride") and skillModList:Override(nil, "BleedStackPotentialOverride") / maxStacks
 			globalOutput.BleedStacksMax = maxStacks
-			local durationBase = skillData.bleedDurationIsSkillDuration and skillData.duration or data.misc.BleedDurationBase
+			local durationBase = skillModList:Override(dotCfg, "BleedDurationBase") or (skillData.bleedDurationIsSkillDuration and skillData.duration) or data.misc.BleedDurationBase
 			local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyBleedDuration", "EnemyAilmentDuration", "DamagingAilmentDuration", skillData.bleedIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfBleedDuration", "SelfAilmentDuration") / calcLib.mod(enemyDB, dotCfg, "BleedExpireRate")
 			durationMod = m_max(durationMod, 0)
 			local rateMod = calcLib.mod(skillModList, cfg, "BleedFaster") + enemyDB:Sum("INC", nil, "SelfBleedFaster")  / 100
@@ -4473,12 +4481,7 @@ function calcs.offence(env, actor, activeSkill)
 				breakdown.PoisonChaos = { damageTypes = { } }
 			end
 			local rateMod = calcLib.mod(skillModList, cfg, "PoisonFaster") + enemyDB:Sum("INC", nil, "SelfPoisonFaster")  / 100
-			local durationBase
-			if skillData.poisonDurationIsSkillDuration then
-				durationBase = skillData.duration
-			else
-				durationBase = data.misc.PoisonDurationBase
-			end
+			local durationBase = skillModList:Override(dotCfg, "PoisonDurationBase") or (skillData.poisonDurationIsSkillDuration and skillData.duration) or data.misc.PoisonDurationBase
 			local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyPoisonDuration", "EnemyAilmentDuration", "DamagingAilmentDuration", skillData.poisonIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfPoisonDuration", "SelfAilmentDuration")
 			durationMod = m_max(durationMod, 0)
 			globalOutput.PoisonDuration = durationBase * durationMod / rateMod * debuffDurationMult
@@ -4794,7 +4797,7 @@ function calcs.offence(env, actor, activeSkill)
 			globalOutput.IgniteStacksMax = maxStacks
 
 			local rateMod = (calcLib.mod(skillModList, cfg, "IgniteBurnFaster") + enemyDB:Sum("INC", nil, "SelfIgniteBurnFaster") / 100)  / calcLib.mod(skillModList, cfg, "IgniteBurnSlower")
-			local durationBase = data.misc.IgniteDurationBase
+			local durationBase = skillModList:Override(dotCfg, "IgniteDurationBase") or data.misc.IgniteDurationBase
 			local durationMod = m_max(calcLib.mod(skillModList, dotCfg, "EnemyIgniteDuration", "EnemyAilmentDuration", "EnemyElementalAilmentDuration", "DamagingAilmentDuration") * calcLib.mod(enemyDB, nil, "SelfIgniteDuration", "SelfAilmentDuration", "SelfElementalAilmentDuration"), 0)
 			durationMod = m_max(durationMod, 0)
 			globalOutput.IgniteDuration = durationBase * durationMod / rateMod * debuffDurationMult
@@ -5927,6 +5930,9 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.ImpaleDPS = output.impaleStoredHitAvg * ((output.ImpaleModifier or 1) - 1) * output.HitChance / 100 * skillData.dpsMultiplier
 		end
+		if output.ImpaleDuration <= 0 then
+			output.ImpaleDPS = 0
+		end
 		if skillData.showAverage then
 			output.WithImpaleDPS = output.AverageDamage + output.ImpaleDPS
 			output.CombinedAvg = output.CombinedAvg + output.ImpaleDPS
@@ -5967,6 +5973,9 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		if quantityMultiplier > 1 then
 			t_insert(breakdown.ImpaleDPS, s_format("x %g ^8(quantity multiplier for this skill)", quantityMultiplier))
+		end
+		if output.ImpaleDuration <= 0 then
+			t_insert(breakdown.ImpaleDPS, s_format("x 0 ^8(no Impale Duration)"))
 		end
 		t_insert(breakdown.ImpaleDPS, s_format("= %.1f", output.ImpaleDPS))
 		end
