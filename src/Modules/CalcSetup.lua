@@ -1188,12 +1188,23 @@ function calcs.initEnv(build, mode, override, specEnv)
 					local slotEmptySocketsCount = { R = 0, G = 0, B = 0, W = 0}	
 					local slotGemSocketsCount = 0
 					local socketedGems = 0
+					local socketedColours = { R = 0, G = 0, B = 0, any = 0 }
 					-- Loop through socket groups to calculate number of socketed gems
 					for _, socketGroup in pairs(env.build.skillsTab.socketGroupList) do
 						if (not socketGroup.source and socketGroup.enabled and socketGroup.slot and socketGroup.slot == slotName and socketGroup.gemList) then
 							for _, gem in pairs(socketGroup.gemList) do
 								if (gem.gemData and gem.enabled) then
-									socketedGems = socketedGems + 1
+									socketedColours.any = socketedColours.any + 1
+									local tags = gem.gemData.tags
+									if tags and tags.strength then
+										socketedColours.R = socketedColours.R + 1
+									end
+									if tags and tags.dexterity then
+										socketedColours.G = socketedColours.G + 1
+									end
+									if tags and tags.intelligence then
+										socketedColours.B = socketedColours.B + 1
+									end
 								end
 							end
 						end
@@ -1203,18 +1214,26 @@ function calcs.initEnv(build, mode, override, specEnv)
 						if socket.color == 'R' or socket.color == 'B' or socket.color == 'G' or socket.color == 'W' then
 							slotGemSocketsCount = slotGemSocketsCount + 1
 							-- loop through sockets indexes that are greater than number of socketed gems
-							if i > socketedGems then
+							if i > socketedColours.any then
 								slotEmptySocketsCount[socket.color] = slotEmptySocketsCount[socket.color] + 1
 							end
 						end
 					end
-					env.itemModDB.multipliers["SocketedGemsIn"..slotName] = (env.itemModDB.multipliers["SocketedGemsIn"..slotName] or 0) + math.min(slotGemSocketsCount, socketedGems)
+					local multipliers = {
+						SocketedGemsIn = socketedColours.any,
+						SocketedRedGemsIn = socketedColours.R,
+						SocketedGreenGemsIn = socketedColours.G,
+						SocketedBlueGemsIn = socketedColours.B,
+					}
+					for multiplier, count in pairs(multipliers) do
+						env.itemModDB.multipliers[multiplier .. slotName] = (env.itemModDB.multipliers[multiplier .. slotName] or 0) + math.min(slotGemSocketsCount, count)
+					end
 					env.itemModDB.multipliers.EmptyRedSocketsInAnySlot = (env.itemModDB.multipliers.EmptyRedSocketsInAnySlot or 0) + slotEmptySocketsCount.R
 					env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot = (env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot or 0) + slotEmptySocketsCount.G
 					env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot = (env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot or 0) + slotEmptySocketsCount.B
 					env.itemModDB.multipliers.EmptyWhiteSocketsInAnySlot = (env.itemModDB.multipliers.EmptyWhiteSocketsInAnySlot or 0) + slotEmptySocketsCount.W
 					-- Warn if socketed gems over socket limit
-					if socketedGems > slotGemSocketsCount then
+					if socketedColours.any > slotGemSocketsCount then
 						env.itemWarnings.socketLimitWarning = env.itemWarnings.socketLimitWarning or { }
 						t_insert(env.itemWarnings.socketLimitWarning, slotName)
 					end

@@ -1432,6 +1432,9 @@ local modTagList = {
 	["for each empty blue socket on any equipped item"] = { tag = { type = "Multiplier", var = "EmptyBlueSocketsInAnySlot" } },
 	["for each empty white socket on any equipped item"] = { tag = { type = "Multiplier", var = "EmptyWhiteSocketsInAnySlot" } },
 	["per socketed gem"] = { tag = { type = "Multiplier", var = "SocketedGemsIn{SlotName}"}},
+	["per socketed red gem"] = { tag = { type = "Multiplier", var = "SocketedRedGemsIn{SlotName}" } },
+	["per socketed green gem"] = { tag = { type = "Multiplier", var = "SocketedGreenGemsIn{SlotName}" } },
+	["per socketed blue gem"] = { tag = { type = "Multiplier", var = "SocketedBlueGemsIn{SlotName}" } },
 	["for each impale on enemy"] = { tag = { type = "Multiplier", var = "ImpaleStacks", actor = "enemy" } },
 	["per impale on enemy"] = { tag = { type = "Multiplier", var = "ImpaleStacks", actor = "enemy" } },
 	["per grasping vine"] = { tag =  { type = "Multiplier", var = "GraspingVinesCount" } },
@@ -4375,6 +4378,14 @@ local specialModList = {
 	["minions convert (%d+)%% of (.+) damage to (.+) damage per (.+) socket"] = function(num, _, source, target, socketColor) return {
 		mod("MinionModifier", "LIST", { mod = mod(source:gsub("^%l", string.upper) .. "DamageConvertTo" .. target:gsub("^%l", string.upper), "BASE", num) }, { type = "Multiplier", var = socketColor:gsub("^%l", string.upper) .. "SocketIn{SlotName}" })
 	} end,
+	["minions convert (%d+)%% of (.+) damage to (.+) damage per socketed (%a+) gem"] = function(num, _, source, target, colour)
+		if colour == "red" or colour == "green" or colour == "blue" then
+			local var = string.format("Socketed%sGemsIn{SlotName}", colour:gsub("^%l", string.upper))
+			return {
+				mod("MinionModifier", "LIST", { mod = mod(source:gsub("^%l", string.upper) .. "DamageConvertTo" .. target:gsub("^%l", string.upper), "BASE", num) }, { type = "Multiplier", var = var })
+			}
+		end
+	end,
 	["minions have a (%d+)%% chance to impale on hit with attacks"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("ImpaleChance", "BASE", num ) }) } end,
 	["minions from herald skills deal (%d+)%% more damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", num) }, { type = "SkillType", skillType = SkillType.Herald }) } end,
 	["minions have (%d+)%% increased movement speed for each herald affecting you"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", num, { type = "Multiplier", var = "Herald", actor = "parent" }) }) } end,
