@@ -51,4 +51,28 @@ describe("ItemDBControl", function()
 		assert.are.equal(-120, worseItem.measuredPower)
 		assert.are.equal(-math.huge, invalidItem.measuredPower)
 	end)
+
+	it("searches Foulborn modifier text without case sensitivity", function()
+		local item = new("Item", [[
+			Rarity: Unique
+			Kitava's Thirst
+			Zealot Helmet
+			Variant: Pre 3.11.0
+			Variant: Current
+			Selected Variant: 2
+			50% chance to Trigger Socketed Spells when you Spend at least 100 Mana on an
+			Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown
+		]])
+		local control = new("ItemDBControl", nil, { 0, 0, 100, 100 }, {
+			build = {
+				characterLevel = 100,
+			},
+		}, {
+			list = { item },
+		}, "UNIQUE")
+		control.controls.search.buf = "life on an upfront cost"
+		control.controls.searchMode.selIndex = 3
+
+		assert.is_true(control:DoesItemMatchFilters(item))
+	end)
 end)

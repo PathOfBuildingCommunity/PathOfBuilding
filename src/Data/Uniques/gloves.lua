@@ -1083,7 +1083,9 @@ Requires Level 31, 25 Dex, 25 Int
 {variant:2}+(25-45)% to Global Critical Strike Multiplier
 {variant:3}+(20-30)% to Global Critical Strike Multiplier
 (100-130)% increased Evasion and Energy Shield
-0.2% of Physical Attack Damage Leeched as Mana
+{variant:1}0.2% of Physical Attack Damage Leeched as Mana
+{variant:2}0.2% of Physical Attack Damage Leeched as Mana
+{variant:3}0.2% of Attack Damage Leeched as Mana
 Creates a Smoke Cloud on Rampage
 Gain Unholy Might for 3 seconds on Rampage
 Rampage
