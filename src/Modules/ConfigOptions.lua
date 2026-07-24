@@ -1136,6 +1136,12 @@ Huge sets the radius to 11.
 	{ var = "minionConditionOnProfaneGround", type = "check", label = "Minion on Profane Ground?", ifMinionCond = "OnProfaneGround", apply = function(val, modList, enemyModList)
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:OnProfaneGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) })
 	end },
+	{ var = "conditionOnBrineGround", type = "check", label = "Are you on Brine Ground?", ifCond = "OnBrineGround", tooltip = "Allies on your Brine Ground gain 10% of Physical Damage as extra Cold Damage and as extra Lightning Damage", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:OnBrineGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "minionConditionOnBrineGround", type = "check", label = "Minion on Brine Ground?", ifMinionCond = "OnBrineGround", tooltip = "Allies on your Brine Ground gain 10% of Physical Damage as extra Cold Damage and as extra Lightning Damage", apply = function(val, modList, enemyModList)
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:OnBrineGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) })
+	end },
 	{ var = "conditionOnCausticGround", type = "check", label = "Are you on Caustic Ground?", ifCond = "OnCausticGround", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:OnCausticGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -1979,8 +1985,18 @@ Huge sets the radius to 11.
 	{ var = "multiplierEnemyAffectedByGraspingVines", type = "count", label = "# of Grasping Vines affecting enemy:", ifMult = "GraspingVinesAffectingEnemy", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:GraspingVinesAffectingEnemy", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyOnFungalGround", type = "check", label = "Is the enemy on Fungal Ground?", ifCond = { "OnFungalGround", "CreateFungalGround" }, tooltip = "Enemies on your Fungal Ground have -10% to all Resistances.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyOnFungalGround", type = "check", label = "Is the enemy on Fungal Ground?", ifCond = { "OnFungalGround", "CreateFungalGround" }, tooltip = "Enemies on your Fungal Ground have -10% to all Resistances", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnFungalGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "conditionEnemyOnBrineGround", type = "check", label = "Is the enemy on Brine Ground?", ifFlag = { "Condition:CreateBrineGround" }, tooltip = "Enemies on your Brine Ground have \n30% increased effect of Lightning and Cold Ailments on them and \nhave 25% reduced Armour and Evasion Rating.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:OnBrineGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+		enemyModList:NewMod("SelfChillEffect", "INC", 30, "Config", { type = "Condition", var = "OnBrineGround" })
+		enemyModList:NewMod("SelfBrittleEffect", "INC", 30, "Config", { type = "Condition", var = "OnBrineGround" })
+		enemyModList:NewMod("SelfShockEffect", "INC", 30, "Config", { type = "Condition", var = "OnBrineGround" })
+		enemyModList:NewMod("SelfSapEffect", "INC", 30, "Config", { type = "Condition", var = "OnBrineGround" })
+		enemyModList:NewMod("Armour", "INC", -25, "Config", { type = "Condition", var = "OnBrineGround" })
+		enemyModList:NewMod("Evasion", "INC", -25, "Config", { type = "Condition", var = "OnBrineGround" })
+
 	end },
 	{ var = "conditionEnemyInChillingArea", type = "check", label = "Is the enemy in a ^x3F6DB3Chilling ^7area?", ifEnemyCond = "InChillingArea", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:InChillingArea", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
