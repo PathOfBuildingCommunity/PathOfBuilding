@@ -1088,6 +1088,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" or (gameModeStage == "FINDIMPLICIT" and (not data.itemBases[line]) and not (self.name == line) and not line:find("Two%-Toned") and not (self.base and (line == self.base.type or self.base.subType and line == self.base.subType .. " " .. self.base.type))) then
 						modLine.modList = { }
 						modLine.extra = line
+						modLine.range = main.defaultItemAffixQuality
 						t_insert(modLines, modLine)
 					elseif gameModeStage == "FINDEXPLICIT" then
 						gameModeStage = "DONE"
