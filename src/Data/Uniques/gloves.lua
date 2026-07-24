@@ -841,12 +841,12 @@ Variant: Current
 Requires Level 32, 26 Str, 26 Int
 (80-120)% increased Armour and Energy Shield
 {variant:1}Minions convert 25% of Physical Damage to Fire Damage per Red Socket
-{variant:2}Minions convert 25% of Physical Damage to Fire Damage per Socketed Red Gem
 {variant:1}Minions convert 25% of Physical Damage to Cold Damage per Green Socket
-{variant:2}Minions convert 25% of Physical Damage to Cold Damage per Socketed Green Gem
 {variant:1}Minions convert 25% of Physical Damage to Lightning Damage per Blue Socket
-{variant:2}Minions convert 25% of Physical Damage to Lightning Damage per Socketed Blue Gem
 {variant:1}Minions convert 25% of Physical Damage to Chaos Damage per White Socket
+{variant:2}Minions convert 25% of Physical Damage to Fire Damage per Socketed Red Gem
+{variant:2}Minions convert 25% of Physical Damage to Cold Damage per Socketed Green Gem
+{variant:2}Minions convert 25% of Physical Damage to Lightning Damage per Socketed Blue Gem
 {variant:2}Minions convert 25% of Physical Damage to Chaos Damage per Socketed White Gem
 Minions have (5-10)% chance to Freeze, Shock and Ignite
 ]],[[
