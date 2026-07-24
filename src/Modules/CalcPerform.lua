@@ -3264,6 +3264,7 @@ function calcs.perform(env, skipEHP)
 		modDB.conditions["AffectedBy"..guard.name:gsub(" ","")] = true
 		mergeBuff(guard.modList, buffs, guard.name)
 	end
+	output.GuardSkillActive = modDB.conditions["AffectedByGuardSkill"] or false
 
 	-- Apply buff/debuff modifiers
 	for _, modList in pairs(buffs) do

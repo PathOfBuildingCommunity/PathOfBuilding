@@ -10,6 +10,7 @@ local t_insert = table.insert
 local t_sort = table.sort
 local m_min = math.min
 local m_max = math.max
+local m_huge = math.huge
 local m_floor = math.floor
 local m_abs = math.abs
 local s_format = string.format
@@ -1206,6 +1207,9 @@ function buildMode:OnFrame(inputEvents)
 	if main.thousandsSeparator ~= self.lastShowThousandsSeparator then
 		self:RefreshStatList()
 	end
+	if main.useCompactValues ~= self.lastUseCompactValues then
+		self:RefreshStatList()
+	end
 	if main.decimalSeparator ~= self.lastShowDecimalSeparator then
 		self:RefreshStatList()
 	end
@@ -1215,7 +1219,6 @@ function buildMode:OnFrame(inputEvents)
 
 	-- Update contents of main skill dropdowns
 	self:RefreshSkillSelectControls(self.controls, self.mainSocketGroup, "")
-
 	-- Draw contents of current tab
 	local sideBarWidth = 312
 	local tabViewPort = {
@@ -1598,10 +1601,23 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal, colorOverride)
 		color = colorCodes.NEGATIVE
 	end
 	
-	local valStr = s_format("%"..statData.fmt, val)
-	local number, suffix = valStr:match("^([%+%-]?%d+%.%d+)(%D*)$")
-	if number then
-		valStr = number:gsub("0+$", ""):gsub("%.$", "") .. suffix
+	local valStr
+	if statData.compactValue and main.useCompactValues and val ~= m_huge and val ~= -m_huge then
+		local absVal = m_abs(val)
+		if absVal >= 1000000000 then
+			valStr = s_format("%.1fB", val / 1000000000)
+		elseif absVal >= 1000000 then
+			valStr = s_format("%.1fM", val / 1000000)
+		elseif absVal >= 10000 then
+			valStr = s_format("%.1fK", val / 1000)
+		end
+	end
+	if not valStr then
+		valStr = s_format("%"..statData.fmt, val)
+		local number, suffix = valStr:match("^([%+%-]?%d+%.%d+)(%D*)$")
+		if number then
+			valStr = number:gsub("0+$", ""):gsub("%.$", "") .. suffix
+		end
 	end
 	valStr = color .. formatNumSep(valStr)
 
@@ -1612,6 +1628,7 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal, colorOverride)
 	self.lastShowThousandsSeparator = main.thousandsSeparator
 	self.lastShowDecimalSeparator = main.decimalSeparator
 	self.lastShowTitlebarName = main.showTitlebarName
+	self.lastUseCompactValues = main.useCompactValues
 	return valStr
 end
 
@@ -1632,6 +1649,9 @@ function buildMode:AddDisplayStatList(statList, actor)
 				end
 				if statVal and ((statData.condFunc and statData.condFunc(statVal,actor.output)) or (not statData.condFunc and statVal ~= 0)) then
 					local overCapStatVal = actor.output[statData.overCapStat] or nil
+					if overCapStatVal and statData.overCapStatCondFunc and not statData.overCapStatCondFunc(statVal, actor.output) then
+						overCapStatVal = nil
+					end
 					if statData.stat == "SkillDPS" then
 						labelColor = colorCodes.CUSTOM
 						table.sort(actor.output.SkillDPS, function(a,b) return (a.dps * a.count) > (b.dps * b.count) end)
@@ -1647,7 +1667,7 @@ function buildMode:AddDisplayStatList(statList, actor)
 							t_insert(statBoxList, {
 								height = 16,
 								lhsString,
-								self:FormatStat({fmt = "1.f"}, skillData.dps * skillData.count, overCapStatVal),
+								self:FormatStat({ fmt = ".1f", compactValue = statData.compactValue }, skillData.dps * skillData.count, overCapStatVal),
 							})
 							if skillData.skillPart then
 								t_insert(statBoxList, {
@@ -1670,10 +1690,20 @@ function buildMode:AddDisplayStatList(statList, actor)
 						if actor.output[statData.stat.."Warning"] or (statData.warnFunc and statData.warnFunc(statVal, actor.output) and statData.warnColor) then
 							colorOverride = colorCodes.NEGATIVE
 						end
+						local formattedStat = self:FormatStat(statData, statVal, overCapStatVal, colorOverride)
+						if statData.suffix and (not statData.suffixCondFunc or statData.suffixCondFunc(statVal, actor.output)) then
+							local suffix = statData.suffix
+							if type(suffix) == "function" then
+								suffix = suffix(statVal, actor.output)
+							end
+							if suffix then
+								formattedStat = formattedStat .. "^x808080 (" .. suffix .. ")"
+							end
+						end
 						t_insert(statBoxList, {
 							height = 16,
 							labelColor..statData.label..":",
-							self:FormatStat(statData, statVal, overCapStatVal, colorOverride),
+							formattedStat,
 						})
 					end
 				end
