@@ -440,7 +440,3 @@ skills["GuardianSentinelFireAura"] = {
 #skill HolyStrikeMinionAttack
 #flags attack melee
 #mods
-
-#skill MeleeAtAnimationSpeedComboCold
-#flags attack melee
-#mods

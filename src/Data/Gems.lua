@@ -8242,8 +8242,8 @@ return {
 		naturalMaxLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemDarkPact"] = {
-		name = "Dark Pact",
-		baseTypeName = "Dark Pact",
+		name = "Dark Bargain",
+		baseTypeName = "Dark Bargain",
 		gameId = "Metadata/Items/Gems/SkillGemDarkPact",
 		variantId = "DarkPact",
 		grantedEffectId = "DarkPact",
@@ -8264,8 +8264,8 @@ return {
 		naturalMaxLevel = 20,
 	},
 	["Metadata/Items/Gems/SkillGemDarkPactAltX"] = {
-		name = "Dark Pact of Trarthus",
-		baseTypeName = "Dark Pact of Trarthus",
+		name = "Dark Bargain of Trarthus",
+		baseTypeName = "Dark Bargain of Trarthus",
 		gameId = "Metadata/Items/Gems/SkillGemDarkPact",
 		variantId = "DarkPactAltX",
 		grantedEffectId = "DarkPactAltX",
@@ -15728,7 +15728,7 @@ return {
 		naturalMaxLevel = 3,
 	},
 	["Metadata/Items/Gems/SkillGemSupportMinionPact"] = {
-		name = "Minion Pact",
+		name = "Communion",
 		gameId = "Metadata/Items/Gems/SupportGemMinionPact",
 		variantId = "SupportMinionPact",
 		grantedEffectId = "SupportMinionPact",
