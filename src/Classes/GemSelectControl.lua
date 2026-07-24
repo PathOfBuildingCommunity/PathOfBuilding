@@ -412,6 +412,9 @@ function GemSelectClass:DPSBuilder()
 			if #self.searchStr == 0 then
 				self:SortGemList(self.list)
 			end
+			if self.dpsBuilderCallback then
+				self.dpsBuilderCallback(m_floor(index/#pending*100))
+			end
 			coroutine.yield()
 			start = now
 		end
@@ -473,9 +476,13 @@ function GemSelectClass:IsMouseOver()
 end
 
 function GemSelectClass:Draw(viewPort, noTooltip)
+	self.sortPercentage = self.sortPercentage or ""
 	if self.dpsBuildFlag then
 		self.dpsBuildFlag = false
 		self.dpsBuilder = coroutine.create(self.DPSBuilder)
+		self.dpsBuilderCallback = function(percentage)
+			self.sortPercentage = ("%d%%"):format(percentage)
+		end
 	end
 	if self.dpsBuilder then
 		local res, errMsg = coroutine.resume(self.dpsBuilder, self)
@@ -506,9 +513,8 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 	if self.dropped then
 		SetDrawLayer(nil, 5)
 		if self.dpsBuilder then
-			local dots = ("."):rep((math.floor(GetTime() / 500) % 3) + 1)
 			SetDrawColor(0.75, 0.75, 0.75)
-			DrawString(x + width - 80, y, "LEFT", height - 2, "VAR", "Sorting" .. dots)
+			DrawString(x + width - 4, y, "RIGHT_X", height - 2, "VAR", "Sorting " .. self.sortPercentage)
 		end
 		local cursorX, cursorY = GetCursorPos()
 		self.hoverSel = mOverComp == "DROP" and math.floor((cursorY - y - height + scrollBar.offset) / (height - 4)) + 1
