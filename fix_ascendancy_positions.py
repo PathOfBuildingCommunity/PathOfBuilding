@@ -6,6 +6,7 @@ import json
 import logging
 import os
 import pathlib
+import re
 
 logging.basicConfig(level=logging.INFO)
 
@@ -97,6 +98,13 @@ EXTRA_NODES_STATS = { # these should not be hardcoded here, but should be insert
 }
 
 
+def escapeGGGString(text: str) -> str:
+    """Remove GGG keyword popup tags while preserving their displayed text."""
+    text = re.sub(r"<[^>]+>{([^}]+)}", r"\1", text)
+    text = re.sub(r"\[([^|\]]+)\]", r"\1", text)
+    return re.sub(r"\[[^|]+[|]([^|]+)\]", r"\1", text)
+
+
 def fix_ascendancy_positions(path: os.PathLike) -> None:
     """Normalise the relative positions of ascendancy nodes on the passive skill tree.
 
@@ -110,6 +118,10 @@ def fix_ascendancy_positions(path: os.PathLike) -> None:
     """
     with open(path, "rb") as f:
         data = json.load(f)
+    for node in data["nodes"].values():
+        for field in ("stats", "reminderText"):
+            if field in node:
+                node[field] = [escapeGGGString(line) for line in node[field]]
     ascendancy_groups = [
         (data["nodes"][group["nodes"][0]]["ascendancyName"], group)
         for group in data["groups"].values()

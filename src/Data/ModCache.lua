@@ -9083,6 +9083,7 @@ c["Gain Shaper's Presence for 10 seconds when you kill a Rare or Unique Enemy"]=
 c["Gain Soul Eater during any Flask Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="Condition:CanHaveSoulEater",type="FLAG",value=true}},nil}
 c["Gain Soul Eater for 10 seconds when you use a Vaal Skill"]={{[1]={[1]={type="Condition",var="UsedVaalSkillRecently"},flags=0,keywordFlags=0,name="Condition:CanHaveSoulEater",type="FLAG",value=true}},nil}
 c["Gain Soul Eater for 20 seconds when you use a Vaal Skill"]={{[1]={[1]={type="Condition",var="UsedVaalSkillRecently"},flags=0,keywordFlags=0,name="Condition:CanHaveSoulEater",type="FLAG",value=true}},nil}
+c["Gain Spirit Infusion every 0.5 seconds while Channelling a Spell"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainSpiritInfusion",type="FLAG",value=true}},nil}
 c["Gain Unholy Might for 3 seconds on Rampage"]={{[1]={flags=0,keywordFlags=0,name="Condition:UnholyMight",type="FLAG",value=true}},"  on  "}
 c["Gain Unholy Might for 3 seconds on Rampage Rampage"]={{[1]={flags=0,keywordFlags=0,name="Condition:UnholyMight",type="FLAG",value=true}},"  on  Rampage "}
 c["Gain Unholy Might for 4 seconds on Critical Strike"]={{[1]={[1]={type="Condition",var="CriticalStrike"},flags=0,keywordFlags=0,name="Condition:UnholyMight",type="FLAG",value=true}},nil}
@@ -9162,7 +9163,6 @@ c["Gain up to your maximum number of Frenzy and Endurance Charges when you gain 
 c["Gain up to your maximum number of Frenzy and Endurance Charges when you gain Cat's Agility You have Onslaught while you have Cat's Agility"]={{[1]={[1]={type="Condition",var="AffectedByCat'sAgility"},[2]={includeTransfigured=true,skillName="Frenzy",type="SkillName"},flags=0,keywordFlags=0,name="Condition:Onslaught",type="FLAG",value=true}},"up to your maximum number ofand Endurance Charges when you gain Cat's Agility You have   "}
 c["Gain up to your maximum number of Frenzy and Power Charges when you gain Cat's Stealth"]={nil,"up to your maximum number of Frenzy and Power Charges when you gain Cat's Stealth "}
 c["Gain up to your maximum number of Frenzy and Power Charges when you gain Cat's Stealth You have Phasing while you have Cat's Stealth"]={{[1]={[1]={type="Condition",var="AffectedByCat'sStealth"},[2]={includeTransfigured=true,skillName="Frenzy",type="SkillName"},flags=0,keywordFlags=0,name="Condition:Phasing",type="FLAG",value=true}},"up to your maximum number ofand Power Charges when you gain Cat's Stealth You have   "}
-c["Gain {SpiritInfusion|Spirit Infusion} every 0.5 seconds while Channelling a Spell"]={nil,"{SpiritInfusion|Spirit Infusion} every 0.5 seconds  a Spell "}
 c["Gains no Charges during Effect"]={nil,"Gains no Charges during Effect "}
 c["Gains no Charges during Effect 23% reduced Duration"]={nil,"Gains no Charges during Effect 23% reduced Duration "}
 c["Gains no Charges during Effect Creates a Smoke Cloud on Use"]={nil,"Gains no Charges during Effect Creates a Smoke Cloud on Use "}
@@ -12038,8 +12038,7 @@ c["Sockets cannot be modified +2 to Level of Socketed Gems"]={nil,"Sockets canno
 c["Solipsism"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Solipsism"}},nil}
 c["Spectres do not travel between Areas"]={nil,"Spectres do not travel between Areas "}
 c["Spectres do not travel between Areas Corrupted"]={nil,"Spectres do not travel between Areas Corrupted "}
-c["Spell Critical Strike Chance {BifurcatedCrit|Bifurcates}"]={nil,"Spell Critical Strike Chance {BifurcatedCrit|Bifurcates} "}
-c["Spell Critical Strike Chance {BifurcatedCrit|Bifurcates} 30% less Spell Critical Strike Chance"]={nil,"Spell Critical Strike Chance {BifurcatedCrit|Bifurcates} 30% less Spell Critical Strike Chance "}
+c["Spell Critical Strike Chance Bifurcates"]={{[1]={flags=2,keywordFlags=0,name="BifurcateCrit",type="FLAG",value=true}},nil}
 c["Spell Skills always deal Critical Strikes on final Repeat"]={{[1]={flags=2,keywordFlags=0,name="SpellSkillsAlwaysDealCriticalStrikesOnFinalRepeat",type="FLAG",value=true}},nil}
 c["Spell Skills cannot deal Critical Strikes except on final Repeat"]={{[1]={flags=2,keywordFlags=0,name="SpellSkillsCannotDealCriticalStrikesExceptOnFinalRepeat",type="FLAG",value=true},[2]={[1]={type="Condition",var="alwaysFinalRepeat"},flags=0,keywordFlags=0,name="",type="FLAG",value=true}},nil}
 c["Spell Skills deal no Damage"]={{[1]={[1]={skillType=2,type="SkillType"},flags=0,keywordFlags=0,name="DealNoDamage",type="FLAG",value=true}},nil}

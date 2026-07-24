@@ -44515,7 +44515,7 @@ return {
             ["isNotable"]= true,
             ["ascendancyName"]= "Occultist",
             ["stats"]= {
-                "Gain {SpiritInfusion|Spirit Infusion} every 0.5 seconds while Channelling a Spell"
+                "Gain Spirit Infusion every 0.5 seconds while Channelling a Spell"
             },
             ["group"]= 367,
             ["orbit"]= 4,
@@ -83379,7 +83379,7 @@ return {
             ["isNotable"]= true,
             ["ascendancyName"]= "Assassin",
             ["stats"]= {
-                "Spell Critical Strike Chance {BifurcatedCrit|Bifurcates}",
+                "Spell Critical Strike Chance Bifurcates",
                 "30% less Spell Critical Strike Chance"
             },
             ["group"]= 792,
