@@ -1178,16 +1178,24 @@ function buildMode:OnFrame(inputEvents)
 
 	-- Consume mouse events for overlay panes before normal input processing
 	local cursorX, cursorY = GetCursorPos()
+	local breakdown = self.calcsTab.controls.breakdown
+	local overlayBreakdown = self.calcsTab.displayPinned and self.calcsTab.displayData
+		and self.calcsTab.displayData.calcSection and self.calcsTab.displayData.calcSection.isOverlay
 	for i = #inputEvents, 1, -1 do
 		local event = inputEvents[i]
 		if not event then break end
 		if event.type == "KeyDown" and event.key:match("BUTTON") then
-			for _, pane in ipairs(self.overlayPanes) do
+			for paneIndex = #self.overlayPanes, 1, -1 do
+				local pane = self.overlayPanes[paneIndex]
 				if pane.isOverlay and pane:IsMouseInOverlay(cursorX, cursorY) then
 					pane:HandleOverlayClick(event.key, cursorX, cursorY)
 					inputEvents[i] = nil
 					break
 				end
+			end
+			if inputEvents[i] and overlayBreakdown and breakdown:IsMouseOver() then
+				self.overlayBreakdownControl = breakdown:OnKeyDown(event.key, event.doubleClick)
+				inputEvents[i] = nil
 			end
 		elseif event.type == "KeyUp" and event.key:match("BUTTON") then
 			for _, pane in ipairs(self.overlayPanes) do
@@ -1195,6 +1203,15 @@ function buildMode:OnFrame(inputEvents)
 					pane:HandleOverlayRelease(event.key)
 				end
 			end
+			if self.overlayBreakdownControl then
+				self.overlayBreakdownControl:OnKeyUp(event.key)
+				self.overlayBreakdownControl = nil
+				inputEvents[i] = nil
+			end
+		elseif event.type == "KeyUp" and overlayBreakdown and breakdown:IsMouseOver()
+			and (breakdown.controls.scrollBar:IsScrollDownKey(event.key) or breakdown.controls.scrollBar:IsScrollUpKey(event.key)) then
+			breakdown:OnKeyUp(event.key)
+			inputEvents[i] = nil
 		end
 	end
 

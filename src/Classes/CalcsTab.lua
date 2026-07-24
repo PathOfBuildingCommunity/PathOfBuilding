@@ -341,7 +341,15 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 		self.displayData = nil
 	end
 
+	local breakdown = self.controls.breakdown
+	local overlayBreakdown = breakdown.sourceData and breakdown.sourceData.calcSection and breakdown.sourceData.calcSection.isOverlay
+	if overlayBreakdown then
+		breakdown.shown = false
+	end
 	self:DrawControls(viewPort, self.selControl)
+	if overlayBreakdown then
+		breakdown.shown = true
+	end
 
 	if self.displayData then
 		if self.displayPinned and not self.selControl then

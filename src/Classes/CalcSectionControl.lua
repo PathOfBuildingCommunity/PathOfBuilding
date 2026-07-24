@@ -4,6 +4,8 @@
 -- Section control used in the Calcs tab
 --
 local t_insert = table.insert
+local m_max = math.max
+local m_min = math.min
 
 local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost", function(self, calcsTab, width, id, group, colour, subSection, updateFunc)
 	self.Control(calcsTab, {0, 0, width, 0})
@@ -23,7 +25,9 @@ local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost"
 
 		for _, data in ipairs(subSec.data) do
 			for _, colData in ipairs(data) do
+				colData.calcSection = self
 				if colData.control then
+					self.hasControls = true
 					-- Add control to the section's control list and set show/hide function
 					self.controls[colData.controlName] = colData.control
 					colData.control.shown = function()
@@ -53,7 +57,7 @@ local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost"
 		self:ToggleOverlay()
 	end)
 	self.controls.popOut.shown = function()
-		return self.enabled and not self.isOverlay
+		return self.enabled and not self.isOverlay and not self.hasControls
 	end
 	self.isOverlay = false
 	self.overlayX = 320
@@ -220,8 +224,8 @@ function CalcSectionClass:ToggleOverlay()
 	self.isOverlay = not self.isOverlay
 	if self.isOverlay then
 		local x, y = self:GetPos()
-		self.overlayX = self.calcsTab.x + x
-		self.overlayY = self.calcsTab.y + y
+		self.overlayX = x
+		self.overlayY = y
 		t_insert(self.calcsTab.build.overlayPanes, self)
 	else
 		local panes = self.calcsTab.build.overlayPanes
@@ -251,19 +255,26 @@ function CalcSectionClass:IsMouseInOverlay(cursorX, cursorY)
 	local x = self.overlayX
 	local y = self.overlayY
 	if cursorX < x or cursorX > x + self.width or cursorY < y then return false end
-	local h = 28
+	return cursorY < y + self:GetOverlayHeight()
+end
+
+function CalcSectionClass:GetOverlayHeight()
+	local height = 28
+	local enabled = self.calcsTab.calcsEnv and self.calcsTab:CheckFlag(self)
 	for i, subSec in ipairs(self.subSection) do
-		h = h + 22
-		if not subSec.collapsed and self.calcsTab:CheckFlag(self) then
+		height = height + 22
+		if not subSec.collapsed and enabled then
 			for _, rowData in ipairs(subSec.data) do
 				if self.calcsTab:CheckFlag(rowData) then
-					h = h + 18
+					height = height + 18
 				end
 			end
-			h = h + 2
+			height = height + 2
+		elseif i == 1 then
+			break
 		end
 	end
-	return cursorY < y + h
+	return height
 end
 
 function CalcSectionClass:HandleOverlayClick(key, cursorX, cursorY)
@@ -294,6 +305,7 @@ function CalcSectionClass:HandleOverlayClick(key, cursorX, cursorY)
 			local toggleY = lineY + 3
 			if cursorX >= toggleX and cursorX <= toggleX + 14 and cursorY >= toggleY and cursorY <= toggleY + 16 then
 				subSec.collapsed = not subSec.collapsed
+				self.overlayRevision = nil
 				self.calcsTab.modFlag = true
 				return
 			end
@@ -346,10 +358,18 @@ function CalcSectionClass:DrawOverlay(viewPort, inputEvents)
 	local cursorX, cursorY = GetCursorPos()
 	self.overlayBreakdownCell = nil
 
+	if self.overlayRevision ~= self.calcsTab.build.outputRevision then
+		self:UpdateSize()
+		self.overlayRevision = self.calcsTab.build.outputRevision
+	end
+
 	if self.dragging then
 		self.overlayX = cursorX - self.dragOffX
 		self.overlayY = cursorY - self.dragOffY
 	end
+
+	self.overlayX = m_max(viewPort.x, m_min(self.overlayX, viewPort.x + viewPort.width - self.width))
+	self.overlayY = m_max(viewPort.y, m_min(self.overlayY, viewPort.y + viewPort.height - 24))
 
 	local x = self.overlayX
 	local y = self.overlayY
@@ -357,18 +377,7 @@ function CalcSectionClass:DrawOverlay(viewPort, inputEvents)
 	local actor = self.calcsTab.calcsEnv and (self.calcsTab.input.showMinion and self.calcsTab.calcsEnv.minion or self.calcsTab.calcsEnv.player)
 
 	-- Calculate content height
-	local totalHeight = 28
-	for i, subSec in ipairs(self.subSection) do
-		totalHeight = totalHeight + 22
-		if actor and not subSec.collapsed and self.calcsTab:CheckFlag(self) then
-			for _, rowData in ipairs(subSec.data) do
-				if actor and self.calcsTab:CheckFlag(rowData) then
-					totalHeight = totalHeight + 18
-				end
-			end
-			totalHeight = totalHeight + 2
-		end
-	end
+	local totalHeight = self:GetOverlayHeight()
 
 	-- Ensure it's above most other controls
 	SetDrawLayer(12)
@@ -401,7 +410,7 @@ function CalcSectionClass:DrawOverlay(viewPort, inputEvents)
 	self:DrawContent(x, y + 26, overlayWidth, actor, viewPort, true)
 
 	-- Draw stat breakdown
-	if self.calcsTab.displayData and (self.overlayBreakdownCell or self.calcsTab.displayPinned) then
+	if self.calcsTab.displayData and (self.overlayBreakdownCell or (self.calcsTab.displayPinned and self.calcsTab.displayData.calcSection == self)) then
 		local cd = self.calcsTab.displayData
 		local origX, origY = cd.x, cd.y
 		cd.x = x + (cd.xOffset or 134)
