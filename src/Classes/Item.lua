@@ -1314,6 +1314,22 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			self:NormaliseQuality()
 		end
 	end
+	if self.base and self.base.enchant and #self.enchantModLines == 0 then
+		local enchantIndex = 1
+		for line in self.base.enchant:gmatch("[^\n]+") do
+			local modList, extra = modLib.parseMod(line)
+			t_insert(self.enchantModLines, {
+				line = line,
+				crafted = true,
+				implicit = true,
+				enchant = true,
+				extra = extra,
+				modList = modList or { },
+				modTags = self.base.enchantModTypes and self.base.enchantModTypes[enchantIndex] or { },
+			})
+			enchantIndex = enchantIndex + 1
+		end
+	end
 	self:BuildModList()
 	if deferJewelRadiusIndexAssignment then
 		self.jewelRadiusIndex = self.jewelData.radiusIndex
@@ -1514,6 +1530,9 @@ function ItemClass:BuildRaw()
 		end
 		if modLine.crafted then
 			line = "{crafted}" .. line
+		end
+		if modLine.enchant then
+			line = "{enchant}" .. line
 		end
 		if modLine.custom then
 			line = "{custom}" .. line

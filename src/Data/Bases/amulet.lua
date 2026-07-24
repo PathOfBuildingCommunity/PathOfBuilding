@@ -747,6 +747,9 @@ itemBases["Chieftain Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "16% increased Area of Effect",
+	enchantModTypes = { {  }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"I know where we found our belief in",
@@ -761,6 +764,9 @@ itemBases["Gargantuan Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "15% increased maximum Life",
+	enchantModTypes = { { "resource", "life" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"We held our trust in the First Ones long",
@@ -774,6 +780,9 @@ itemBases["Goliath Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "Projectiles Pierce 3 additional Targets",
+	enchantModTypes = { {  }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"This land was always harsh and brutal,",
@@ -788,6 +797,9 @@ itemBases["Rhoa Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "Gain 15% of Maximum Life as Extra Armour",
+	enchantModTypes = { { "defences" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"A great rift formed, between clans,",
@@ -802,6 +814,9 @@ itemBases["Blood Viper Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "20% increased Cooldown Recovery Rate",
+	enchantModTypes = { {  }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"Those that departed sought the way of",
@@ -816,6 +831,9 @@ itemBases["Chimeral Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "30% increased Projectile Speed",
+	enchantModTypes = { { "speed" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"When they set out to find and build",
@@ -830,6 +848,9 @@ itemBases["Squid Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "30% increased maximum Mana",
+	enchantModTypes = { { "resource", "mana" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"Lysanda of Myr was but a girl on that exodus.",
@@ -844,6 +865,9 @@ itemBases["Sand Spitter Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "12% increased Movement Speed",
+	enchantModTypes = { { "speed" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"It turned out, Lysanda made for an excellent",
@@ -858,6 +882,9 @@ itemBases["Shield Crab Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "30% increased Global Defences",
+	enchantModTypes = { { "defences" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"Those that swore loyalty to Lysanda, that",
@@ -872,6 +899,9 @@ itemBases["Goatman Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "Hits ignore Enemy Physical Damage Reduction",
+	enchantModTypes = { { "physical" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"Lysanda and her Knights brought the",
@@ -886,6 +916,9 @@ itemBases["Devourer Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "Damage Penetrates 15% Fire Resistance",
+	enchantModTypes = { { "elemental_damage", "damage", "elemental", "fire" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"A great headless monstrosity with arms like",
@@ -900,6 +933,9 @@ itemBases["Plagued Arachnid Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "35% increased Effect of Withered",
+	enchantModTypes = { { "chaos" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"With the headless beast incinerated, the",
@@ -914,6 +950,9 @@ itemBases["Watcher Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "Damage Penetrates 15% Lightning Resistance",
+	enchantModTypes = { { "elemental_damage", "damage", "elemental", "lightning" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"The clans had travelled to their new home",
@@ -928,6 +967,9 @@ itemBases["Savage Crab Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "Damage Penetrates 15% Cold Resistance",
+	enchantModTypes = { { "elemental_damage", "damage", "elemental", "cold" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"The journey was over, the land was being",
@@ -942,6 +984,9 @@ itemBases["Flame Hellion Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "+4% to maximum Fire Resistance",
+	enchantModTypes = { { "elemental", "fire", "resistance" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"Against the Winter Curse, only the forges of",
@@ -956,6 +1001,9 @@ itemBases["Frost Hellion Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "+4% to maximum Cold Resistance",
+	enchantModTypes = { { "elemental", "cold", "resistance" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"And still the Winter Curse raged in through",
@@ -970,6 +1018,9 @@ itemBases["Lynx Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "+4% to maximum Lightning Resistance",
+	enchantModTypes = { { "elemental", "lightning", "resistance" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"The night refused to end, and the Winter Curse",
@@ -984,6 +1035,9 @@ itemBases["Ape Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "+1 to Minimum Endurance, Frenzy and Power Charges",
+	enchantModTypes = { { "endurance_charge", "power_charge", "frenzy_charge" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"The Druids emerged from the forests to greet",
@@ -998,6 +1052,9 @@ itemBases["Wolf Alpha Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "+40% to Global Critical Strike Multiplier",
+	enchantModTypes = { { "damage", "critical" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"With the Winter Curse held at bay, Lysanda",
@@ -1012,6 +1069,9 @@ itemBases["Magma Hound Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "Unaffected by Ignite",
+	enchantModTypes = { {  }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"They bound the Hag of the Winter Curse",
@@ -1026,6 +1086,9 @@ itemBases["Pitbull Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "Warcries Exert 1 additional Attack",
+	enchantModTypes = { {  }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"Lysanda roared, and hacked the Hag apart",
@@ -1040,6 +1103,9 @@ itemBases["Ursa Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "30% increased Effect of your Marks",
+	enchantModTypes = { { "caster", "curse" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"With the Hag's daughters easing the climate,",
@@ -1054,6 +1120,9 @@ itemBases["Taurus Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "+1 to Maximum Endurance Charges",
+	enchantModTypes = { { "endurance_charge" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"The first city was completed, and others sprouted.",
@@ -1068,6 +1137,9 @@ itemBases["Retch Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "+1 to Maximum Power Charges",
+	enchantModTypes = { { "power_charge" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"As the Ezomytes of Myr prospered, they",
@@ -1082,6 +1154,9 @@ itemBases["Cobra Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "+1 to Maximum Frenzy Charges",
+	enchantModTypes = { { "frenzy_charge" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"Each new valley, each new grove, held new",
@@ -1096,6 +1171,9 @@ itemBases["Carrion Queen Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "+1 to maximum number of Spectres",
+	enchantModTypes = { { "minion" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"Romance never interested Queen Lysanda,",
@@ -1110,6 +1188,9 @@ itemBases["Scrabbler Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "+2 to Level of all Herald Skill Gems",
+	enchantModTypes = { { "gem" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"Queen Lysanda's spiteful choice of Consort",
@@ -1124,6 +1205,9 @@ itemBases["Black Widow Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "Utility Flasks gain 2 Charges every 3 seconds",
+	enchantModTypes = { {  }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"The Royal Wedding of Lysanda of Myr",
@@ -1138,6 +1222,9 @@ itemBases["Scorpion Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "+20% to Damage over Time Multiplier",
+	enchantModTypes = { { "dot_multi", "damage" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"But there were some who could not forget",
@@ -1152,6 +1239,9 @@ itemBases["Tiger Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "8% increased Action Speed",
+	enchantModTypes = { { "speed" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"There followed a time of fear and fire.",
@@ -1166,6 +1256,9 @@ itemBases["Vulture Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "Skills fire an additional Projectile",
+	enchantModTypes = { {  }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"In the years that followed, Queen Lysanda",
@@ -1180,6 +1273,9 @@ itemBases["Rhex Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "100% of Cold and Lightning Damage from Hits taken as Fire Damage",
+	enchantModTypes = { { "elemental", "fire", "cold", "lightning" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"There began an eternal summer, as the",
@@ -1194,6 +1290,9 @@ itemBases["Hybrid Arachnid Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "Minions have +30% to Damage over Time Multiplier",
+	enchantModTypes = { { "damage", "minion" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"Twenty-two years into Lysanda's reign, the",
@@ -1208,6 +1307,9 @@ itemBases["Octopus Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "20% chance to Freeze Enemies for 1 second when they Hit you",
+	enchantModTypes = { {  }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"The Blue Knight stood against the swarm,",
@@ -1222,6 +1324,9 @@ itemBases["Spider Crab Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "+15% to Quality of all Skill Gems",
+	enchantModTypes = { { "gem" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"As deadly and dangerous creatures were",
@@ -1236,6 +1341,9 @@ itemBases["Great Maw Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "15% increased Attributes",
+	enchantModTypes = { { "attribute" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"Decades into Lysanda's reign, the",
@@ -1250,6 +1358,9 @@ itemBases["Croaker Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "+1 to Level of all Skill Gems",
+	enchantModTypes = { { "gem" }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"Ezomyr grew on a foundation of",
@@ -1264,6 +1375,9 @@ itemBases["Craicic Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "100% increased Aspect of the Crab Buff Effect",
+	enchantModTypes = { {  }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"The sea calmed, and contact was",
@@ -1278,6 +1392,9 @@ itemBases["Fenumal Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "100% increased Aspect of the Spider Debuff Effect",
+	enchantModTypes = { {  }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"The Spiders that had been driven",
@@ -1292,6 +1409,9 @@ itemBases["Saqawine Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "100% increased Aspect of the Avian Buff Effect",
+	enchantModTypes = { {  }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"The skies were clear and blue, yet",
@@ -1306,6 +1426,9 @@ itemBases["Farric Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "100% increased Aspect of the Cat Buff Effect",
+	enchantModTypes = { {  }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"Forty-six years into her reign, Lysanda",
@@ -1321,6 +1444,9 @@ itemBases["Greatwolf Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "44% increased Damage per Moon Rite completed",
+	enchantModTypes = { {  }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"The wolf greeted the king,",
@@ -1335,6 +1461,9 @@ itemBases["Black Maw Talisman"] = {
 	tags = { amulet = true, default = true, talisman = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicitModTypes = { },
+	enchant = "Has 1 Socket",
+	enchantModTypes = { {  }, },
+	cannotBeAnointed = true,
 	req = { },
 	flavourText = {
 		"\"There are some stories that may never",

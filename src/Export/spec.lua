@@ -2029,7 +2029,7 @@ return {
 		},
 		[36]={
 			list=true,
-			name="TalismanMods",
+			name="EnchantMods",
 			refTo="Mods",
 			type="Key",
 			width=150
