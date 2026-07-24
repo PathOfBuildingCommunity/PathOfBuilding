@@ -954,7 +954,7 @@ Huge sets the radius to 11.
 	{ var = "overrideSpiritCharges", type = "countAllowZero", label = "# of Spirit Charges:", ifMult = "SpiritCharge", apply = function(val, modList, enemyModList)
 		modList:NewMod("SpiritCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "overrideSpiritInfusion", type = "countAllowZero", label = "# of Spirit Infusions:", ifFlag = "Condition:CanGainSpiritInfusion", tooltip = "Each stack of Spirit Infusion grants:\n30% faster start of Energy Shield Recharge, \nChannelling Spells deal 10% more Damage and \nChannelling Spells have 20% more Cost", apply = function(val, modList, enemyModList)
+	{ var = "overrideSpiritInfusion", type = "countAllowZero", label = "# of Spirit Infusions:", ifFlag = "Condition:CanGainSpiritInfusion", tooltip = "Each stack of Spirit Infusion grants:\n15% faster start of Energy Shield Recharge, \nChannelling Spells deal 5% more Damage and \nChannelling Spells have 10% more Cost\nMaximum 10 stacks", apply = function(val, modList, enemyModList)
 		modList:NewMod("SpiritInfusion", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" } )
 	end },
 	{ var = "minionsUsePowerCharges", type = "check", label = "Do your Minions use Power Charges?", ifFlag = "haveMinion", apply = function(val, modList, enemyModList)
