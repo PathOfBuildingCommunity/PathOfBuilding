@@ -896,6 +896,11 @@ data.timelessJewelSeedMin = {
 	[4] = 2000,
 	[5] = 2000 / 20,
 	[6] = 100,
+	[7] = 100,
+	[8] = 100,
+	[9] = 100,
+	[10] = 100,
+	[11] = 100,
 }
 data.timelessJewelSeedMax = {
 	[1] = 8000,
@@ -904,9 +909,14 @@ data.timelessJewelSeedMax = {
 	[4] = 10000,
 	[5] = 160000 / 20,
 	[6] = 8000,
+	[7] = 8000,
+	[8] = 8000,
+	[9] = 8000,
+	[10] = 8000,
+	[11] = 8000,
 }
 data.timelessJewelTradeIDs = LoadModule("Data/TimelessJewelData/LegionTradeIds")
-data.timelessJewelAdditions = 96 -- #legionAdditions
+data.timelessJewelAdditions = 337 -- #legionAdditions
 data.nodeIDList = LoadModule("Data/TimelessJewelData/NodeIndexMapping")
 data.timelessJewelLUTs = { }
 data.readLUT, data.repairLUTs = LoadModule("Modules/DataLegionLookUpTableHelper")

@@ -1171,6 +1171,16 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				jewelType = 4
 			elseif conqueredBy.conqueror.type == "kalguur" then
 				jewelType = 6
+			elseif conqueredBy.conqueror.type == "abyssTecrod" then
+				jewelType = 7
+			elseif conqueredBy.conqueror.type == "abyssUlaman" then
+				jewelType = 8
+			elseif conqueredBy.conqueror.type == "abyssKurgal" then
+				jewelType = 9
+			elseif conqueredBy.conqueror.type == "abyssAmanamu" then
+				jewelType = 10
+			elseif conqueredBy.conqueror.type == "abyssZorath" then
+				jewelType = 11
 			end
 			local seed = conqueredBy.id
 			if jewelType == 5 then
