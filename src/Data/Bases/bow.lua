@@ -45,6 +45,7 @@ itemBases["Recurve Bow"] = {
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "+(15-25)% to Global Critical Strike Multiplier",
 	implicitModTypes = { { "damage", "critical" }, },
+	implicitIds = { "CriticalMultiplierImplicitBow1", },
 	weapon = { PhysicalMin = 15, PhysicalMax = 45, CritChanceBase = 6.7, AttackRateBase = 1.25, Range = 120, },
 	req = { level = 18, dex = 65, },
 }
@@ -64,6 +65,7 @@ itemBases["Royal Bow"] = {
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "(20-24)% increased Elemental Damage with Attack Skills",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "attack" }, },
+	implicitIds = { "WeaponElementalDamageImplicitBow1", },
 	weapon = { PhysicalMin = 14, PhysicalMax = 56, CritChanceBase = 5, AttackRateBase = 1.45, Range = 120, },
 	req = { level = 28, dex = 95, },
 }
@@ -74,6 +76,7 @@ itemBases["Death Bow"] = {
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "(30-50)% increased Critical Strike Chance",
 	implicitModTypes = { { "attack", "critical" }, },
+	implicitIds = { "LocalCriticalStrikeChanceImplicitBow1", },
 	weapon = { PhysicalMin = 28, PhysicalMax = 73, CritChanceBase = 5, AttackRateBase = 1.2, Range = 120, },
 	req = { level = 32, dex = 107, },
 }
@@ -84,6 +87,7 @@ itemBases["Reflex Bow"] = {
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "6% increased Movement Speed",
 	implicitModTypes = { { "speed" }, },
+	implicitIds = { "MovementVelocityMarakethBowImplicit1", },
 	weapon = { PhysicalMin = 37, PhysicalMax = 56, CritChanceBase = 5.5, AttackRateBase = 1.4, Range = 120, },
 	req = { level = 36, dex = 124, },
 }
@@ -121,6 +125,7 @@ itemBases["Sniper Bow"] = {
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "+(15-25)% to Global Critical Strike Multiplier",
 	implicitModTypes = { { "damage", "critical" }, },
+	implicitIds = { "CriticalMultiplierImplicitBow1", },
 	weapon = { PhysicalMin = 32, PhysicalMax = 96, CritChanceBase = 6.7, AttackRateBase = 1.25, Range = 120, },
 	req = { level = 44, dex = 143, },
 }
@@ -140,6 +145,7 @@ itemBases["Highborn Bow"] = {
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "(20-24)% increased Elemental Damage with Attack Skills",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "attack" }, },
+	implicitIds = { "WeaponElementalDamageImplicitBow1", },
 	weapon = { PhysicalMin = 24, PhysicalMax = 94, CritChanceBase = 5, AttackRateBase = 1.45, Range = 120, },
 	req = { level = 50, dex = 161, },
 }
@@ -150,6 +156,7 @@ itemBases["Decimation Bow"] = {
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "(30-50)% increased Critical Strike Chance",
 	implicitModTypes = { { "attack", "critical" }, },
+	implicitIds = { "LocalCriticalStrikeChanceImplicitBow1", },
 	weapon = { PhysicalMin = 44, PhysicalMax = 116, CritChanceBase = 5, AttackRateBase = 1.2, Range = 120, },
 	req = { level = 53, dex = 170, },
 }
@@ -160,6 +167,7 @@ itemBases["Steelwood Bow"] = {
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "6% increased Movement Speed",
 	implicitModTypes = { { "speed" }, },
+	implicitIds = { "MovementVelocityMarakethBowImplicit1", },
 	weapon = { PhysicalMin = 58, PhysicalMax = 86, CritChanceBase = 5.5, AttackRateBase = 1.4, Range = 120, },
 	req = { level = 57, dex = 190, },
 }
@@ -197,6 +205,7 @@ itemBases["Assassin Bow"] = {
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "+(15-25)% to Global Critical Strike Multiplier",
 	implicitModTypes = { { "damage", "critical" }, },
+	implicitIds = { "CriticalMultiplierImplicitBow1", },
 	weapon = { PhysicalMin = 43, PhysicalMax = 130, CritChanceBase = 6.7, AttackRateBase = 1.25, Range = 120, },
 	req = { level = 62, dex = 212, },
 }
@@ -216,6 +225,7 @@ itemBases["Imperial Bow"] = {
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "(20-24)% increased Elemental Damage with Attack Skills",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "attack" }, },
+	implicitIds = { "WeaponElementalDamageImplicitBow1", },
 	weapon = { PhysicalMin = 29, PhysicalMax = 117, CritChanceBase = 5, AttackRateBase = 1.45, Range = 120, },
 	req = { level = 66, dex = 212, },
 }
@@ -226,6 +236,7 @@ itemBases["Harbinger Bow"] = {
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "(30-50)% increased Critical Strike Chance",
 	implicitModTypes = { { "attack", "critical" }, },
+	implicitIds = { "LocalCriticalStrikeChanceImplicitBow1", },
 	weapon = { PhysicalMin = 50, PhysicalMax = 133, CritChanceBase = 5, AttackRateBase = 1.2, Range = 120, },
 	req = { level = 68, dex = 212, },
 }
@@ -236,6 +247,7 @@ itemBases["Maraketh Bow"] = {
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "10% increased Movement Speed",
 	implicitModTypes = { { "speed" }, },
+	implicitIds = { "MovementVelocityMarakethBowImplicit2", },
 	weapon = { PhysicalMin = 61, PhysicalMax = 92, CritChanceBase = 5.5, AttackRateBase = 1.4, Range = 120, },
 	req = { level = 71, dex = 222, },
 }
@@ -246,6 +258,7 @@ itemBases["Hedron Bow"] = {
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "Adds (46-55) to (69-83) Fire Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
+	implicitIds = { "LocalAddedFireDamageImplicitE1_", },
 	weapon = { PhysicalMin = 9, PhysicalMax = 13, CritChanceBase = 5.5, AttackRateBase = 1.3, Range = 120, },
 	req = { level = 30, dex = 101, },
 }
@@ -256,6 +269,7 @@ itemBases["Foundry Bow"] = {
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "Adds (80-97) to (126-144) Fire Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
+	implicitIds = { "LocalAddedFireDamageImplicitE2_", },
 	weapon = { PhysicalMin = 13, PhysicalMax = 20, CritChanceBase = 5.5, AttackRateBase = 1.3, Range = 120, },
 	req = { level = 50, dex = 161, },
 }
@@ -266,6 +280,7 @@ itemBases["Solarine Bow"] = {
 	influenceTags = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", cleansing = "bow_cleansing", tangle = "bow_tangle" },
 	implicit = "Adds (121-133) to (184-197) Fire Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
+	implicitIds = { "LocalAddedFireDamageImplicitE3_", },
 	weapon = { PhysicalMin = 16, PhysicalMax = 24, CritChanceBase = 5.5, AttackRateBase = 1.3, Range = 120, },
 	req = { level = 70, dex = 212, },
 }

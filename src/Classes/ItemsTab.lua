@@ -673,12 +673,13 @@ holding Shift will put it in the second.]])
 	end)
 
 	-- Section: Affix Selection
+	local maxModCount = 9
 	self.controls.displayItemSectionAffix = new("Control", {"TOPLEFT",self.controls.displayItemSectionClusterJewel,"BOTTOMLEFT"}, {0, 0, 0, function()
 		if not self.displayItem or not self.displayItem.crafted then
 			return 0
 		end
 		local h = 6
-		for i = 1, 6 do
+		for i = 1, maxModCount do
 			if self.controls["displayItemAffix"..i]:IsShown() then
 				h = h + 24
 				if self.controls["displayItemAffixRange"..i]:IsShown() then
@@ -688,7 +689,7 @@ holding Shift will put it in the second.]])
 		end
 		return h
 	end})
-	for i = 1, 6 do
+	for i = 1, maxModCount do
 		local prev = self.controls["displayItemAffix"..(i-1)] or self.controls.displayItemSectionAffix
 		local drop, slider
 		local function verifyRange(range, index, drop) -- flips range if it will form discontinuous values
@@ -3954,6 +3955,13 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 	tooltip.foilType = item.foilType
 	tooltip.center = true
 	tooltip.color = rarityCode
+	-- Shared items can use old base names that no longer exist. Add a tooltip so they can be copied or removed without causing a crash.
+	if not item.base or not item.baseName then
+		tooltip:AddLine(fontSizeTitle, rarityCode..(item.title or item.name or "Unknown Item"), "FONTIN SC")
+		tooltip:AddSeparator(30)
+		tooltip:AddLine(fontSizeTitle, colorCodes.NEGATIVE.."Item base is not supported by the current version.", "FONTIN SC")
+		return
+	end
 	self:SetTooltipHeaderInfluence(tooltip, item)
 	-- Item name
 	if item.title then

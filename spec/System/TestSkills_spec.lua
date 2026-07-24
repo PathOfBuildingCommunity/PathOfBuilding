@@ -150,6 +150,22 @@ describe("TestAttacks", function()
 
 		assert.True(preAdrenalineMaxStages < build.calcsTab.mainEnv.player.activeSkillList[1].skillModList:Sum("BASE", nil, "Multiplier:BlightMaxStages"))
 	end)
+
+	it("averages inverted elemental resistance after penetration", function()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+		build.configTab.input.enemyIsBoss = "None"
+		build.configTab.input.enemyFireResist = 50
+		build.configTab.input.customMods = "Hits have 50% chance to treat Enemy Monster Elemental Resistance values as inverted\nDamage Penetrates 50% of Enemy Fire Resistance"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		-- Unlike PoE 2, PoE 1 penetration can lower resistance below zero:
+		-- 50% of hits use 0% resistance and 50% use -100% resistance.
+		assert.are.equals(1.5, build.calcsTab.calcsOutput.FireEffMult)
+		local breakdownText = table.concat(build.calcsTab.calcsEnv.player.breakdown.FireEffMult, "\n")
+		assert.is_truthy(breakdownText:match("inverted hit"))
+		assert.is_truthy(breakdownText:match("weighted average"))
+	end)
 	it("Test cost efficiency modifiers", function()
 		-- Test Mana Cost Efficiency
 		build.skillsTab:PasteSocketGroup("Ball Lightning 1/0  1\n")
@@ -211,5 +227,26 @@ describe("TestAttacks", function()
 
 		local finalCost = build.calcsTab.mainOutput.ManaCost
 		assert.are.equals(7, round(finalCost))
+	end)
+
+	it("evaluates BaseFlag tags using PoB 1 skill data", function()
+		build.skillsTab:PasteSocketGroup("Absolution 20/0  1\n")
+		runCallback("OnFrame")
+
+		local durationSkill = build.calcsTab.mainEnv.player.mainSkill
+		durationSkill.skillModList:NewMod("BaseFlagTest", "BASE", 1, "Test", { type = "BaseFlag", baseFlag = "duration" })
+		durationSkill.skillModList:NewMod("NegatedBaseFlagTest", "BASE", 1, "Test", { type = "BaseFlag", baseFlag = "duration", neg = true })
+		assert.are.equals(1, durationSkill.skillModList:Sum("BASE", durationSkill.skillCfg, "BaseFlagTest"))
+		assert.are.equals(0, durationSkill.skillModList:Sum("BASE", durationSkill.skillCfg, "NegatedBaseFlagTest"))
+
+		newBuild()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1\n")
+		runCallback("OnFrame")
+
+		local nonDurationSkill = build.calcsTab.mainEnv.player.mainSkill
+		nonDurationSkill.skillModList:NewMod("BaseFlagTest", "BASE", 1, "Test", { type = "BaseFlag", baseFlag = "duration" })
+		nonDurationSkill.skillModList:NewMod("NegatedBaseFlagTest", "BASE", 1, "Test", { type = "BaseFlag", baseFlag = "duration", neg = true })
+		assert.are.equals(0, nonDurationSkill.skillModList:Sum("BASE", nonDurationSkill.skillCfg, "BaseFlagTest"))
+		assert.are.equals(1, nonDurationSkill.skillModList:Sum("BASE", nonDurationSkill.skillCfg, "NegatedBaseFlagTest"))
 	end)
 end)

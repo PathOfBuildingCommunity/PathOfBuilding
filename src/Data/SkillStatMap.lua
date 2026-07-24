@@ -2081,6 +2081,9 @@ return {
 	value = 100,
 },
 --Golem
+["stone_golem_grants_melee_damage_removed_from_stone_golem_before_life_or_es_%"] = {
+	mod("takenFromStoneGolemBeforeYou", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+},
 ["golem_buff_effect_+%"] = {
 	mod("BuffEffect", "INC", nil, 0, 0)
 },

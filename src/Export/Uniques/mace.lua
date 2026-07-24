@@ -398,7 +398,7 @@ Implicits: 2
 {variant:6,7,8,9,10,11}GlobalChanceToBlindOnHitUniqueSceptre8
 {variant:1,2}ManaGainedOnEnemyDeathPerLevelUniqueSceptre8
 {variant:1,2}EnergyShieldGainedOnEnemyDeathPerLevelUniqueSceptre8
-BlindImmunityUnique__1
+BlindDoesNotAffectHitChanceUnique__1
 MaledictionOnBlindWhileBlindedUnique__1
 {variant:4,5,7,8}EnergyShieldPerLevelUnique__1[1,1]
 {variant:10,11}EnergyShieldPerLevelUnique__1

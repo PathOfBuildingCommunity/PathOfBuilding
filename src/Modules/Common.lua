@@ -1042,6 +1042,16 @@ function ImportBuild(importLink, callback)
 	end
 end
 
+---@param text string
+---@return string line
+-- Removes GGG string tags used for keyword popups. E.g. "[Critical|Critical Hit]" -> "Critical Hit"
+function escapeGGGString(text)
+	local line = text
+		:gsub("<[^>]+>{([^}]+)}", "%1")
+		:gsub("%[([^|%]]+)%]", "%1")
+		:gsub("%[[^|]+|([^|]+)%]", "%1")
+	return line
+end
 -- Returns virtual screen size
 function GetVirtualScreenSize()
 	local width, height = GetScreenSize()
