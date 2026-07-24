@@ -205,6 +205,19 @@ Implicits: 3
 10% increased Cast Speed
 10% chance to Blind Enemies on hit
 ]],[[
+Mystic Refractor
+Pagan Wand
+Variant: Pre 3.29.0
+Variant: Current
+Requires Level 34, 118 Int
+Implicits: 1
+10% increased Cast Speed
+Skills fire (2-3) additional Projectiles
+{variant:1}(10-20)% increased Projectile Speed
+{variant:2}(10-50)% increased Projectile Speed
+(30-50)% increased Projectile Damage
+Projectiles cannot continue after colliding with targets
+]],[[
 Obliteration
 {variant:1,2,3,4}Demon's Horn
 {variant:5}Imbued Wand
@@ -452,6 +465,17 @@ Implicits: 2
 (20-40)% increased Critical Strike Chance
 Attacks fire an additional Projectile
 ]],[[
+Unlight Extant
+Sage Wand
+Requires Level 30, 119 Int
+Implicits: 1
+(17-21)% increased Spell Damage
+(31-43)% increased Chaos Damage
+(7-13)% increased Cast Speed
++1 to Level of all Chaos Spell Skill Gems
+Chaos Skills inflict up to 15 Withered Debuffs on Hit for (5-7) seconds
+Cannot Inflict Wither on targets that are not on Full Life
+]],[[
 Void Battery
 Prophecy Wand
 Variant: Pre 2.3.0
@@ -469,30 +493,5 @@ Implicits: 2
 +1 to Maximum Power Charges
 {variant:1,2}25% increased Spell Damage per Power Charge
 {variant:3}(10-15)% increased Spell Damage per Power Charge
-]],[[
-Mystic Refractor
-Pagan Wand
-Variant: Pre 3.29.0
-Variant: Current
-Requires Level 34, 118 Int
-Implicits: 1
-10% increased Cast Speed
-Skills fire (2-3) additional Projectiles
-{variant:1}(10-20)% increased Projectile Speed
-{variant:2}(10-50)% increased Projectile Speed
-(30-50)% increased Projectile Damage
-Projectiles cannot continue after colliding with targets
-]],
-[[
-Unlight Extant
-Sage Wand
-Requires Level 30, 119 Int
-Implicits: 1
-(17-21)% increased Spell Damage
-(31-43)% increased Chaos Damage
-(7-13)% increased Cast Speed
-+1 to Level of all Chaos Spell Skill Gems
-Chaos Skills inflict up to 15 Withered Debuffs on Hit for (5-7) seconds
-Cannot Inflict Wither on targets that are not on Full Life
 ]],
 }

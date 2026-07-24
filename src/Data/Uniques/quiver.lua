@@ -357,11 +357,10 @@ Adds (30-40) to (80-100) Cold Damage to Attacks
 +(20-30)% to Cold Resistance
 {variant:1,2,3}Gain (20-40) Mana per Enemy Killed
 {variant:1,2,3}30% increased Projectile Speed
-{variant:1}5 Maximum Void Charges
-{variant:1}Gain a Void Charge every second
-{variant:2,3,4}5 Maximum Void Charges
+{variant:1,4}5 Maximum Void Charges
+{variant:1,4}Gain a Void Charge every second
+{variant:2,3}5 Maximum Void Charges
 {variant:2,3}Gain a Void Charge every 0.5 seconds
-{variant:4}Gain a Void Charge every second
 ]],[[
 The Poised Prism
 Primal Arrow Quiver

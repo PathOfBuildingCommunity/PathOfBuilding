@@ -920,6 +920,7 @@ Implicits: 1
 The Pariah
 Unset Ring
 Variant: Pre 3.25.0
+Variant: Pre 3.29.0
 Variant: Current
 League: Warbands
 Requires Level 60
@@ -927,11 +928,14 @@ Implicits: 1
 Has 1 Socket
 +2 to Level of Socketed Gems
 {tags:attack,caster,speed}(5-10)% increased Attack and Cast Speed
-{tags:resource}+100 to Maximum Life per Red Socket
-{tags:resource}+100 to Maximum Mana per Green Socket
-{tags:defences}+100 to Maximum Energy Shield per Blue Socket
+{variant:1,2}{tags:resource}+100 to Maximum Life per Red Socket
+{variant:3}{tags:resource}+(100-200) to Maximum Life per Red Socket
+{variant:1,2}{tags:resource}+100 to Maximum Mana per Green Socket
+{variant:3}{tags:resource}+(100-200) to Maximum Mana per Green Socket
+{variant:1,2}{tags:defences}+100 to Maximum Energy Shield per Blue Socket
+{variant:3}{tags:defences}+(100-200) to Maximum Energy Shield per Blue Socket
 {variant:1}15% increased Item Quantity per White Socket
-{variant:2}60% increased Item Rarity per White Socket
+{variant:2,3}60% increased Item Rarity per White Socket
 ]],[[
 Perandus Signet
 Paua Ring

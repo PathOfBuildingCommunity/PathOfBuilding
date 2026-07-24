@@ -616,7 +616,6 @@ Implicits: 2
 {variant:1}5% increased Experience gain
 {variant:2,3}3% increased Experience gain
 {variant:1,2,3}20% increased Elemental Damage
-
 ]],[[
 Yaomac's Accord
 Vaal Sceptre

@@ -849,10 +849,12 @@ Trigger Level 20 Shield Shatter when you Block
 ]],[[
 The Squire
 Elegant Round Shield
+Variant: Pre 3.29.0
+Variant: Current
 Implicits: 1
 120% increased Block Recovery
 Has 3 Sockets
-All Sockets are White
+{variant:1}All Sockets are White
 +(5-8)% to Quality of Socketed Support Gems
 Socketed Support Gems can also Support Skills from your Main Hand
 (100-150)% increased Armour and Evasion

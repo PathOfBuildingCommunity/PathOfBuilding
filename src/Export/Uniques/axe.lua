@@ -188,9 +188,12 @@ WeaponPhysicalDamageAddedAsRandomElementUnique__2
 The Grey Wind
 Spectral Axe
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 33, 85 Str, 37 Dex
 FireDamagePercentUnique__14
-LocalFireDamageFromLifePercentUnique_1
+{variant:1}LocalFireDamageFromLifePercentUnique_1[8,12]
+{variant:2}LocalFireDamageFromLifePercentUnique_1
 FireDoTMultiPerRageUnique_1
 NearbyEnemiesHaveFireExposureWhileAtMaxRageUnique_1
 MaximumRageUnique__3

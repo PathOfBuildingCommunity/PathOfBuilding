@@ -444,6 +444,45 @@ Implicits: 4
 +1 to Maximum Power Charges
 10% chance to gain a Power Charge if you Knock an Enemy Back with Melee Damage
 ]],[[
+Jiquani's Potential
+Imperial Staff
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Variant: Pre 3.29.0
+Variant: Current
+Requires Level 66, 113 Str, 113 Dex
+Implicits: 1
++25% Chance to Block Spell Damage while wielding a Staff
+(1-7)% increased Intelligence
+(-17-17)% reduced maximum Life
++(-1-1) to Level of all Spell Skill Gems
+31% increased Cost of Skills
+{variant:1}1 to (31-53) Spell Lightning Damage per 10 Intelligence
+{variant:2}Adds 1 to (24-35) Lightning Damage to Spells per 10 Intelligence
+Blood Magic
+]],[[
+Legacy of the Rose
+Judgement Staff
+Variant: Shaper's Despair
+Variant: Shaper's Ire
+Variant: Shaper's Devastation
+Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
+Requires Level 68, 113 Str, 113 Int
+Implicits: 1
++25% Chance to Block Attack Damage while wielding a Staff
+{variant:1}Grants Level 20 Summon Shaper Memory
+{variant:1}Grants Level 20 Shaper's Despair, which will be used by Shaper Memory
+{variant:2}Grants Level 20 Summon Shaper Memory
+{variant:2}Grants Level 20 Shaper's Ire, which will be used by Shaper Memory
+{variant:3}Grants Level 20 Summon Shaper Memory
+{variant:3}Grants Level 20 Shaper's Devastation, which will be used by Shaper Memory
+(200-300)% increased Physical Damage
+(25-40)% increased Cast Speed
++(3-5) to Level of all Spell Skill Gems
+Gain 1 Remembrance when you spend a total of 200 Energy
+Shield with no Shaper Memory Summoned
+Maximum 10 Remembrance
+Eldritch Battery
+]],[[
 Martyr of Innocence
 Highborn Staff
 Variant: Pre 3.5.0
@@ -463,7 +502,7 @@ Implicits: 2
 {variant:3,4,5}Adds (315-360) to (450-540) Fire Damage
 Damage Penetrates 15% of Fire Resistance if you have Blocked Recently
 Immune to Freeze and Chill while Ignited
-{variant:1,2,3,4,5}Battlemage
+Battlemage
 ]],[[
 Pillar of the Caged God
 Iron Staff
@@ -543,22 +582,25 @@ Adds (10-15) to (20-25) Cold Damage
 ]],[[
 The Searing Touch
 {variant:1}Long Staff
-{variant:2,3,4,5,6}Lathi
+{variant:2,3,4,5,6,7}Lathi
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.8.0
 Variant: Pre 3.25.0
+Variant: Pre 3.29.0
 Variant: Current
 Implicits: 3
 {variant:1,2}+12% Chance to Block Attack Damage while wielding a Staff
 {variant:3,4,5}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:6}+25% Chance to Block Attack Damage while wielding a Staff
+{variant:6,7}+25% Chance to Block Attack Damage while wielding a Staff
 {variant:1,2,3}(30-50)% increased Spell Damage
-{variant:5,6}+(40-60)% to Fire Damage over Time Multiplier
+{variant:5,6,7}+(40-60)% to Fire Damage over Time Multiplier
 {variant:1,2,3}(20-40)% increased Fire Damage
-{variant:4,5,6}(70-90)% increased Fire Damage
-10% increased Cast Speed
+{variant:4,5,6,7}(70-90)% increased Fire Damage
+{variant:1,2,3,4,5,6}10% increased Cast Speed
+{variant:7}(20-40)% increased Cast Speed
+{variant:7}Voracious Flame
 +2 to Level of all Fire Spell Skill Gems
 {variant:1,2,3,4}70% increased Burning Damage
 ]],[[
@@ -650,6 +692,7 @@ Implicits: 3
 {variant:4,5}+25% Chance to Block Attack Damage while wielding a Staff
 {variant:1}(40-50)% increased Spell Damage
 {variant:2,3,4}(50-60)% increased Spell Damage
+{variant:5}Bitter Frost
 {variant:1,2,3,4}(40-50)% increased Cold Damage
 {variant:5}(80-140)% increased Cold Damage
 (10-20)% increased Cast Speed
@@ -742,45 +785,5 @@ Implicits: 2
 Reflects 1 to 150 Lightning Damage to Melee Attackers
 {variant:1,2}20% chance for Energy Shield Recharge to start when you Block
 {variant:3}(25-35)% chance for Energy Shield Recharge to start when you Block
-]],[[
-Legacy of the Rose
-Judgement Staff
-Variant: Shaper's Despair
-Variant: Shaper's Ire
-Variant: Shaper's Devastation
-Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
-Requires Level 68, 113 Str, 113 Int
-Implicits: 1
-+25% Chance to Block Attack Damage while wielding a Staff
-{variant:1}Grants Level 20 Summon Shaper Memory
-{variant:1}Grants Level 20 Shaper's Despair, which will be used by Shaper Memory
-{variant:2}Grants Level 20 Summon Shaper Memory
-{variant:2}Grants Level 20 Shaper's Ire, which will be used by Shaper Memory
-{variant:3}Grants Level 20 Summon Shaper Memory
-{variant:3}Grants Level 20 Shaper's Devastation, which will be used by Shaper Memory
-(200-300)% increased Physical Damage
-(25-40)% increased Cast Speed
-+(3-5) to Level of all Spell Skill Gems
-Gain 1 Remembrance when you spend a total of 200 Energy
-Shield with no Shaper Memory Summoned
-Maximum 10 Remembrance
-Eldritch Battery
-]],
-[[
-Jiquani's Potential
-Imperial Staff
-Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
-Variant: Pre 3.29.0
-Variant: Current
-Requires Level 66, 113 Str, 113 Dex
-Implicits: 1
-+25% Chance to Block Spell Damage while wielding a Staff
-(1-7)% increased Intelligence
-(-17-17)% reduced maximum Life
-+(-1-1) to Level of all Spell Skill Gems
-31% increased Cost of Skills
-{variant:1}1 to (31-53) Spell Lightning Damage per 10 Intelligence
-{variant:2}Adds 1 to (24-35) Lightning Damage to Spells per 10 Intelligence
-Blood Magic
 ]],
 }
