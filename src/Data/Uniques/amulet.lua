@@ -252,19 +252,22 @@ Implicits: 1
 Blightwell
 Clutching Talisman
 Variant: Pre 3.16.0
+Variant: Pre 3.29.0
 Variant: Current
 League: Talisman Hardcore
 Talisman Tier: 2
 Requires Level 28
 Implicits: 1
 {tags:defences}(15-25)% increased Global Defences
-{tags:defences}+(20-30) to maximum Energy Shield
+{variant:1,2}{tags:defences}+(20-30) to maximum Energy Shield
+{variant:3}{tags:defences}+(50-100) to maximum Energy Shield
 {tags:resistance}+(15-30)% to Fire Resistance
 {tags:resistance}+(15-30)% to Lightning Resistance
 {variant:1}{tags:defences}30% slower start of Energy Shield Recharge during any Flask Effect
-{variant:2}{tags:defences}50% slower start of Energy Shield Recharge during any Flask Effect
+{variant:2,3}{tags:defences}50% slower start of Energy Shield Recharge during any Flask Effect
 {variant:1}{tags:defences}400% increased Energy Shield Recharge Rate during any Flask Effect
-{variant:2}{tags:defences}(150-200)% increased Energy Shield Recharge Rate during any Flask Effect
+{variant:2,3}{tags:defences}(150-200)% increased Energy Shield Recharge Rate during any Flask Effect
+{variant:3}(10-15)% increased Flask Effect Duration
 Corrupted
 ]],[[
 Blood of Corruption
@@ -364,6 +367,8 @@ Implicits: 1
 ]],[[
 The Untouched Soul
 Gold Amulet
+Variant: Pre 3.29.0
+Variant: Current
 League: Affliction
 Requires Level 48
 Implicits: 1
@@ -371,7 +376,8 @@ Implicits: 1
 {tags:resource}+40 to maximum Life for each Empty Red Socket on any Equipped Item
 {tags:attack}+225 to Accuracy Rating for each Empty Green Socket on any Equipped Item
 {tags:resource}+40 to maximum Mana for each Empty Blue Socket on any Equipped Item
-{tags:resistance}+18% to all Elemental Resistances for each Empty White Socket on any Equipped Item
+{variant:1}{tags:resistance}+18% to all Elemental Resistances for each Empty White Socket on any Equipped Item
+{variant:2}{tags:resistance}+12% to all Elemental Resistances for each Empty White Socket on any Equipped Item
 ]],[[
 Doedre's Tongue
 Lapis Amulet
@@ -830,16 +836,18 @@ Implicits: 1
 ]],[[
 Natural Hierarchy
 Rotfeather Talisman
+Variant: Pre 3.29.0
+Variant: Current
 League: Talisman Standard, Talisman Hardcore
 Talisman Tier: 3
 Requires Level 44
 Implicits: 1
 (25-35)% increased Damage
-{tags:physical_damage}(10-15)% increased Global Physical Damage
-{tags:elemental_damage}(25-30)% increased Fire Damage
-{tags:elemental_damage}(20-25)% increased Cold Damage
-{tags:elemental_damage}(15-20)% increased Lightning Damage
-{tags:chaos_damage}(30-35)% increased Chaos Damage
+{variant:1}{tags:physical_damage}(10-15)% increased Global Physical Damage
+{variant:1}{tags:elemental_damage}(25-30)% increased Fire Damage
+{variant:1}{tags:elemental_damage}(20-25)% increased Cold Damage
+{variant:1}{tags:elemental_damage}(15-20)% increased Lightning Damage
+{variant:1}{tags:chaos_damage}(30-35)% increased Chaos Damage
 Corrupted
 ]],[[
 Night's Hold
@@ -919,13 +927,15 @@ Rigwald's Curse
 Wereclaw Talisman
 League: Talisman Standard
 Variant: Pre 2.2.0
+Variant: Pre 3.29.0
 Variant: Current
 Talisman Tier: 2
 Requires Level 28
 Implicits: 2
 {variant:1}{tags:critical}+(16-24)% to Global Critical Strike Multiplier
-{variant:2}{tags:critical}+(24-36)% to Global Critical Strike Multiplier
-{tags:critical}+7% to Unarmed Melee Attack Critical Strike Chance
+{variant:2,3}{tags:critical}+(24-36)% to Global Critical Strike Multiplier
+{variant:1,2}{tags:critical}+7% to Unarmed Melee Attack Critical Strike Chance
+{variant:3}{tags:critical}+(5-10)% to Unarmed Melee Attack Critical Strike Chance
 {tags:attack}Modifiers to Claw Damage also apply to Unarmed Attack Damage with Melee Skills
 {tags:attack,speed}Modifiers to Claw Attack Speed also apply to Unarmed Attack Speed with Melee Skills
 {tags:attack,critical}Modifiers to Claw Critical Strike Chance also apply to Unarmed Critical Strike Chance with Melee Skills

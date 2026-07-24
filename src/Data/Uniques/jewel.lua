@@ -1933,9 +1933,10 @@ Variant: Duration of Curses
 Variant: Minion Attack and Cast Speed
 Variant: Minions Accuracy Rating
 Variant: Mana Regen
-Variant: Skill Cost
+Variant: Skill Cost (Pre 3.29.0)
 Variant: Non-Curse Aura Effect
 Variant: Defences from Shield
+Variant: Skill Cost
 Radius: Large
 Implicits: 0
 {variant:1}Carved to glorify (2000-10000) new faithful converted by High Templar Avarius
@@ -1947,6 +1948,7 @@ Implicits: 0
 {variant:9}4% increased Elemental Damage per 10 Devotion
 {variant:10}+2% to all Elemental Resistances per 10 Devotion
 {variant:17}1% reduced Mana Cost of Skills per 10 Devotion
+{variant:20}3% increased Mana Cost Efficiency per 10 Devotion
 {variant:16}Regenerate 0.6 Mana per Second per 10 Devotion
 {variant:15}Minions have +60 to Accuracy Rating per 10 Devotion
 {variant:14}1% increased Minion Attack and Cast Speed per 10 Devotion

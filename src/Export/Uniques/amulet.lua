@@ -250,19 +250,22 @@ ItemFoundRarityIncreaseImplicitAmulet1
 Blightwell
 Clutching Talisman
 Variant: Pre 3.16.0
+Variant: Pre 3.29.0
 Variant: Current
 League: Talisman Hardcore
 Talisman Tier: 2
 Requires Level 28
 Implicits: 1
 TalismanGlobalDefensesPercent
-IncreasedEnergyShieldUniqueAmulet14
+{variant:1,2}IncreasedEnergyShieldUniqueAmulet14
+{variant:3}{tags:defences}+(50-100) to maximum Energy Shield
 FireResistUnique__2
 LightningResistUnique__1
 {variant:1}EnergyShieldDelayDuringFlaskEffect__1[-30,-30]
-{variant:2}EnergyShieldDelayDuringFlaskEffect__1
+{variant:2,3}EnergyShieldDelayDuringFlaskEffect__1
 {variant:1}ESRechargeRateDuringFlaskEffect__1[400,400]
-{variant:2}ESRechargeRateDuringFlaskEffect__1
+{variant:2,3}ESRechargeRateDuringFlaskEffect__1
+{variant:3}(10-15)% increased Flask Effect Duration
 Corrupted
 ]],[[
 Blood of Corruption
@@ -362,6 +365,8 @@ PowerChargeDurationFinalUnique__1__
 ]],[[
 The Untouched Soul
 Gold Amulet
+Variant: Pre 3.29.0
+Variant: Current
 League: Affliction
 Requires Level 48
 Implicits: 1
@@ -369,7 +374,8 @@ ItemFoundRarityIncreaseImplicitAmulet1
 IncreasedLifeEmptyRedSocketUnique__1
 IncreasedAccuracyEmptyGreenSocketUnique__1
 IncreasedManaEmptyBlueSocketUnique__1
-AllResistEmptyWhiteSocketUnique__1
+{variant:1}AllResistEmptyWhiteSocketUnique__1[18,18]
+{variant:2}AllResistEmptyWhiteSocketUnique__1
 ]],[[
 Doedre's Tongue
 Lapis Amulet
@@ -827,16 +833,22 @@ CullingCriticalStrikes
 ]],[[
 Natural Hierarchy
 Rotfeather Talisman
+Variant: Pre 3.29.0
+Variant: Current
 League: Talisman Standard, Talisman Hardcore
 Talisman Tier: 3
 Requires Level 44
 Implicits: 1
 TalismanIncreasedDamage
-IncreasedPhysicalDamagePercentUnique__3
-FireDamagePercentUnique__4
-ColdDamagePercentUnique__6
-LightningDamagePercentUnique__2
-IncreasedChaosDamageUnique__1
+{variant:1}IncreasedPhysicalDamagePercentUnique__3
+{variant:1}FireDamagePercentUnique__4
+{variant:1}ColdDamagePercentUnique__6
+{variant:1}LightningDamagePercentUnique__2
+{variant:1}IncreasedChaosDamageUnique__1
+{variant:2}Gain (10-15)% of Physical Damage as Extra Lightning Damage
+{variant:2}Gain (15-20)% of Lightning Damage as Extra Cold Damage
+{variant:2}Gain (20-25)% of Cold Damage as Extra Fire Damage
+{variant:2}Gain (25-30)% of Fire Damage as Extra Chaos Damage
 Corrupted
 ]],[[
 Night's Hold
@@ -916,6 +928,7 @@ Rigwald's Curse
 Wereclaw Talisman
 League: Talisman Standard
 Variant: Pre 2.2.0
+Variant: Pre 3.29.0
 Variant: Current
 Talisman Tier: 2
 Requires Level 28
@@ -923,6 +936,7 @@ Implicits: 2
 {variant:1}TalismanIncreasedCriticalStrikeMultiplier_[16,24]
 {variant:2}TalismanIncreasedCriticalStrikeMultiplier_
 BaseUnarmedCriticalStrikeChanceUnique__1
+{variant:3}{tags:critical}+(5-10)% to Unarmed Melee Attack Critical Strike Chance
 ClawDamageModsAlsoAffectUnarmedUnique__1
 ClawAttackSpeedModsAlsoAffectUnarmed__1
 ClawCritModsAlsoAffectUnarmed__1
