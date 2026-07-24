@@ -1187,7 +1187,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 					-- Calculate socket counts
 					local slotEmptySocketsCount = { R = 0, G = 0, B = 0, W = 0}	
 					local slotGemSocketsCount = 0
-					local socketedGems = 0
 					local socketedColours = { R = 0, G = 0, B = 0, any = 0 }
 					-- Loop through socket groups to calculate number of socketed gems
 					for _, socketGroup in pairs(env.build.skillsTab.socketGroupList) do
@@ -1225,9 +1224,14 @@ function calcs.initEnv(build, mode, override, specEnv)
 						SocketedGreenGemsIn = socketedColours.G,
 						SocketedBlueGemsIn = socketedColours.B,
 					}
+					-- only the first #sockets gems contribute to multipliers
+					local availableSocketCounter = slotGemSocketsCount
 					for multiplier, count in pairs(multipliers) do
-						env.itemModDB.multipliers[multiplier .. slotName] = (env.itemModDB.multipliers[multiplier .. slotName] or 0) + math.min(slotGemSocketsCount, count)
+						local filledSockets = math.min(availableSocketCounter, count)
+						env.itemModDB.multipliers[multiplier .. slotName] = filledSockets
+						availableSocketCounter = availableSocketCounter - filledSockets
 					end
+					env.itemModDB.multipliers["EmptySocketIn" .. slotName] = math.min(slotGemSocketsCount, slotEmptySocketsCount.R + slotEmptySocketsCount.G + slotEmptySocketsCount.B + slotEmptySocketsCount.W)
 					env.itemModDB.multipliers.EmptyRedSocketsInAnySlot = (env.itemModDB.multipliers.EmptyRedSocketsInAnySlot or 0) + slotEmptySocketsCount.R
 					env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot = (env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot or 0) + slotEmptySocketsCount.G
 					env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot = (env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot or 0) + slotEmptySocketsCount.B

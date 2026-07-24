@@ -829,13 +829,13 @@ Variant: Current
 Requires Level 32, 26 Str, 26 Int
 LocalIncreasedArmourAndEnergyShieldUnique__16
 {variant:1}MinionPhysicalToFirePerRedSocket
-{variant:2}Minions convert 25% of Physical Damage to Fire Damage per Socketed Red Gem
 {variant:1}MinionPhysicalToColdPerGreenSocket_
-{variant:2}Minions convert 25% of Physical Damage to Cold Damage per Socketed Green Gem
 {variant:1}MinionPhysicalToLightningPerBlueSocket
+{variant:1}MinionPhysicalToChaosPerWhiteSockett
+{variant:2}Minions convert 25% of Physical Damage to Fire Damage per Socketed Red Gem
+{variant:2}Minions convert 25% of Physical Damage to Cold Damage per Socketed Green Gem
 {variant:2}Minions convert 25% of Physical Damage to Lightning Damage per Socketed Blue Gem
-{variant:1}MinionPhysicalToChaosPerWhiteSocket
-{variant:2}Minions convert 25% of Physical Damage to Chaos Damage per Socketed White Gem
+{variant:2}Minions convert 25% of Physical Damage to Chaos Damage per Empty Socket
 MinionChanceToFreezeShockIgnite
 ]],[[
 Volkuur's Guidance
