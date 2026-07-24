@@ -248,7 +248,8 @@ ItemFoundRarityIncreaseImplicitAmulet1
 {variant:3}NormalMonsterItemQuantityUnique__1
 ]],[[
 Blightwell
-Clutching Talisman
+{variant:1,2}Clutching Talisman
+{variant:3}Shield Crab Talisman
 Variant: Pre 3.16.0
 Variant: Pre 3.29.0
 Variant: Current
@@ -256,17 +257,17 @@ League: Talisman Hardcore
 Talisman Tier: 2
 Requires Level 28
 Implicits: 1
-TalismanGlobalDefensesPercent
+{variant:1,2}TalismanGlobalDefensesPercent
 {variant:1,2}IncreasedEnergyShieldUniqueAmulet14
-{variant:3}{tags:defences}+(50-100) to maximum Energy Shield
+{variant:3}IncreasedEnergyShieldUnique___1
 FireResistUnique__2
 LightningResistUnique__1
 {variant:1}EnergyShieldDelayDuringFlaskEffect__1[-30,-30]
 {variant:2,3}EnergyShieldDelayDuringFlaskEffect__1
 {variant:1}ESRechargeRateDuringFlaskEffect__1[400,400]
 {variant:2,3}ESRechargeRateDuringFlaskEffect__1
-{variant:3}(10-15)% increased Flask Effect Duration
-Corrupted
+{variant:3}IncreasedFlaskDurationUnique__2
+{variant:1,2}Corrupted
 ]],[[
 Blood of Corruption
 Amber Amulet
@@ -507,7 +508,7 @@ Implicits: 33
 {variant:31}TalismanDamageDealtAddedAsRandomElement
 {variant:32}TalismanAdditionalPierce
 {variant:33}TalismanGlobalDamageOverTimeMultiplier
-LocalDoubleImplicitMods
+LocalEnchantStatMagnitudeUnique__1
 ]],[[
 The Felbog Fang
 Citrine Amulet
@@ -832,24 +833,25 @@ LightRadiusUniqueAmulet17
 CullingCriticalStrikes
 ]],[[
 Natural Hierarchy
-Rotfeather Talisman
+{variant:1}Rotfeather Talisman
+{variant:2}Rhex Talisman
 Variant: Pre 3.29.0
 Variant: Current
 League: Talisman Standard, Talisman Hardcore
 Talisman Tier: 3
 Requires Level 44
 Implicits: 1
-TalismanIncreasedDamage
+{variant:1}TalismanIncreasedDamage
 {variant:1}IncreasedPhysicalDamagePercentUnique__3
 {variant:1}FireDamagePercentUnique__4
 {variant:1}ColdDamagePercentUnique__6
 {variant:1}LightningDamagePercentUnique__2
 {variant:1}IncreasedChaosDamageUnique__1
-{variant:2}Gain (10-15)% of Physical Damage as Extra Lightning Damage
-{variant:2}Gain (15-20)% of Lightning Damage as Extra Cold Damage
-{variant:2}Gain (20-25)% of Cold Damage as Extra Fire Damage
-{variant:2}Gain (25-30)% of Fire Damage as Extra Chaos Damage
-Corrupted
+{variant:2}LightningDamageAsPortionOfDamageUniqueTalisman3
+{variant:2}LightningAddedAsColdUniqueTalisman3
+{variant:2}ColdAddedAsFireUniqueTalisman3
+{variant:2}ChaosDamageAsPortionOfFireDamageUniqueTalisman3
+{variant:1}Corrupted
 ]],[[
 Night's Hold
 Black Maw Talisman
@@ -925,7 +927,8 @@ BlindReflectedToSelfUnique__1
 {variant:2}FrenzyChargeOnHitBlindedUnique__1
 ]],[[
 Rigwald's Curse
-Wereclaw Talisman
+{variant:1,2}Wereclaw Talisman
+{variant:3} Wolf Alpha Talisman
 League: Talisman Standard
 Variant: Pre 2.2.0
 Variant: Pre 3.29.0
@@ -935,12 +938,12 @@ Requires Level 28
 Implicits: 2
 {variant:1}TalismanIncreasedCriticalStrikeMultiplier_[16,24]
 {variant:2}TalismanIncreasedCriticalStrikeMultiplier_
-BaseUnarmedCriticalStrikeChanceUnique__1
-{variant:3}{tags:critical}+(5-10)% to Unarmed Melee Attack Critical Strike Chance
+{variant:1,2}BaseUnarmedCriticalStrikeChanceUnique__1[700,700]
+{variant:3}BaseUnarmedCriticalStrikeChanceUnique__1
 ClawDamageModsAlsoAffectUnarmedUnique__1
 ClawAttackSpeedModsAlsoAffectUnarmed__1
 ClawCritModsAlsoAffectUnarmed__1
-Corrupted
+{variant:1,2}Corrupted
 ]],[[
 Sacrificial Heart
 Paua Amulet

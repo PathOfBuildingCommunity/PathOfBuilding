@@ -538,7 +538,7 @@ Implicits: 1
 {tags:resource}+(20-30) to maximum Mana
 {tags:attribute}+(20-40) to Intelligence
 {tags:caster,speed}Curse Skills have (8-12)% increased Cast Speed
-Non-Aura Hexes expire upon reaching (180-220)% of base Effect
+Non-Aura Hexes expire upon reaching 200% of base Effect
 Non-Aura Hexes gain 20% increased Effect per second
 ]],[[
 Gifts from Above
@@ -1166,22 +1166,14 @@ Implicits: 1
 {variant:1}(20-40)% increased Rarity of Items found
 {variant:2,3,4,5}(10-20)% reduced Rarity of Items found
 {tags:elemental_damage,attack}(20-30)% increased Elemental Damage with Attack Skills
-{variant:1,2}Left ring slot: 30% of Elemental Hit Damage from you and
-{variant:1,2}your Minions cannot be Reflected
-{variant:3}Left ring slot: 40% of Elemental Hit Damage from you and
-{variant:3}your Minions cannot be Reflected
-{variant:4}Left ring slot: 80% of Elemental Hit Damage from you and
-{variant:4}your Minions cannot be Reflected
-{variant:5}Left ring slot: 100% of Elemental Hit Damage from you and
-{variant:5}your Minions cannot be Reflected
-{variant:1,2}Right ring slot: 30% of Physical Hit Damage from you and
-{variant:1,2}your Minions cannot be Reflected
-{variant:3}Right ring slot: 40% of Physical Hit Damage from you and
-{variant:3}your Minions cannot be Reflected
-{variant:4}Right ring slot: 80% of Physical Hit Damage from you and
-{variant:4}your Minions cannot be Reflected
-{variant:5}Right ring slot: 100% of Physical Hit Damage from you and
-{variant:5}your Minions cannot be Reflected
+{variant:1,2}Left ring slot: you and your Minions prevent +30% of Reflected Elemental Damage
+{variant:3}Left ring slot: you and your Minions prevent +40% of Reflected Elemental Damage
+{variant:4}Left ring slot: you and your Minions prevent +80% of Reflected Elemental Damage
+{variant:5}Left ring slot: you and your Minions prevent +100% of Reflected Elemental Damage
+{variant:1,2}Right ring slot: you and your Minions prevent +30% of Reflected Physical Damage
+{variant:3}Right ring slot: you and your Minions prevent +40% of Reflected Physical Damage
+{variant:4}Right ring slot: you and your Minions prevent +80% of Reflected Physical Damage
+{variant:5}Right ring slot: you and your Minions prevent +100% of Reflected Physical Damage
 ]],[[
 Snakepit
 Sapphire Ring
@@ -1303,8 +1295,8 @@ Variant: Current
 Implicits: 1
 {tags:defences}+(15-25) to maximum Energy Shield
 {tags:caster}(30-40)% increased Spell Damage
-{tags:resource}+(60-80) to maximum Mana
 {variant:2}{tags:defences}+(60-80) to maximum Energy Shield
+{tags:resource}+(60-80) to maximum Mana
 (5-10)% chance to Freeze, Shock and Ignite
 {tags:defences,caster}Spells cause you to gain Energy Shield equal to their Upfront
 {tags:defences,caster}Cost every third time you Pay it

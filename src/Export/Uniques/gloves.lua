@@ -113,7 +113,7 @@ Requires Level 47, 68 Str
 SupportedByRageUnique__1__
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__23
 {variant:1}ReducedRageCostUnique__1
-{variant:2}(20-40)% increased Rage Cost Efficiency
+{variant:2}RageCostEfficiencyUnique__1
 VaalAttacksUseRageInsteadOfSoulsUnique__1_
 CannotGainRageDuringSoulGainPreventionUnique__1__
 ]],[[
@@ -661,7 +661,7 @@ ItemActsAsConcentratedAOESupportUnique__1
 LocalIncreasedArmourAndEvasionUnique__1
 IncreasedLifeUniqueGlovesStrDex4
 {variant:1}ReduceManaCostPerEnduranceChargeUnique__1
-{variant:2}10% increased Mana Cost Efficiency per Endurance Charge
+{variant:2}ManaCostEfficiencyPerEnduranceChargeUnique__1
 RampageWhileAtMaxEnduranceChargesUnique__1
 LoseEnduranceChargesOnRampageEndUnique___1
 ]],[[
@@ -829,13 +829,13 @@ Variant: Current
 Requires Level 32, 26 Str, 26 Int
 LocalIncreasedArmourAndEnergyShieldUnique__16
 {variant:1}MinionPhysicalToFirePerRedSocket
-{variant:2}Minions convert 25% of Physical Damage to Fire Damage per Socketed Red Gem
 {variant:1}MinionPhysicalToColdPerGreenSocket_
-{variant:2}Minions convert 25% of Physical Damage to Cold Damage per Socketed Green Gem
 {variant:1}MinionPhysicalToLightningPerBlueSocket
-{variant:2}Minions convert 25% of Physical Damage to Lightning Damage per Socketed Blue Gem
 {variant:1}MinionPhysicalToChaosPerWhiteSocket
-{variant:2}Minions convert 25% of Physical Damage to Chaos Damage per Socketed White Gem
+{variant:2}MinionPhysicalToFirePerSocketedRedGemUnique__1
+{variant:2}MinionPhysicalToColdPerSocketedGreenGemUnique__1
+{variant:2}MinionPhysicalToLightningPerSocketedBlueGemUnique__1
+{variant:2}MinionPhysicalToChaosPerEmptySocketUnique__1
 MinionChanceToFreezeShockIgnite
 ]],[[
 Volkuur's Guidance
@@ -1069,7 +1069,8 @@ CriticalStrikeChanceUniqueGlovesDexInt6
 {variant:2}CriticalMultiplierUniqueGlovesDexInt6_[25,45]
 {variant:3}CriticalMultiplierUniqueGlovesDexInt6_
 LocalIncreasedEvasionAndEnergyShieldUniqueGlovesDexInt6
-ManaLeechPermyriadUnique__1
+{variant:1,2}ManaLeechPermyriadUnique__1
+{variant:3}ManaLeechPermyriadUniqueGlovesDexInt6
 GroundSmokeOnRampageUniqueGlovesDexInt6
 UnholyMightOnRampageUniqueGlovesDexInt6
 SimulatedRampageDexInt6

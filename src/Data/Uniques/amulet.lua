@@ -250,7 +250,8 @@ Implicits: 1
 {variant:3}(35-50)% increased Quantity of Items Dropped by Slain Normal Enemies
 ]],[[
 Blightwell
-Clutching Talisman
+{variant:1,2}Clutching Talisman
+{variant:3}Shield Crab Talisman
 Variant: Pre 3.16.0
 Variant: Pre 3.29.0
 Variant: Current
@@ -258,17 +259,17 @@ League: Talisman Hardcore
 Talisman Tier: 2
 Requires Level 28
 Implicits: 1
-{tags:defences}(15-25)% increased Global Defences
+{variant:1,2}{tags:defences}(15-25)% increased Global Defences
 {variant:1,2}{tags:defences}+(20-30) to maximum Energy Shield
 {variant:3}{tags:defences}+(50-100) to maximum Energy Shield
 {tags:resistance}+(15-30)% to Fire Resistance
 {tags:resistance}+(15-30)% to Lightning Resistance
+{variant:3}(15-30)% increased Flask Effect Duration
 {variant:1}{tags:defences}30% slower start of Energy Shield Recharge during any Flask Effect
 {variant:2,3}{tags:defences}50% slower start of Energy Shield Recharge during any Flask Effect
 {variant:1}{tags:defences}400% increased Energy Shield Recharge Rate during any Flask Effect
 {variant:2,3}{tags:defences}(150-200)% increased Energy Shield Recharge Rate during any Flask Effect
-{variant:3}(10-15)% increased Flask Effect Duration
-Corrupted
+{variant:1,2}Corrupted
 ]],[[
 Blood of Corruption
 Amber Amulet
@@ -481,6 +482,7 @@ Implicits: 33
 {variant:4}{tags:attack}(20-30)% increased Attack Damage
 {variant:8}{tags:caster}(20-30)% increased Spell Damage
 {variant:9}{tags:physical_damage}(20-30)% increased Global Physical Damage
+{variant:33}+(12-18)% to Damage over Time Multiplier
 {variant:6}{tags:elemental_damage}(20-30)% increased Fire Damage
 {variant:5}{tags:elemental_damage}(20-30)% increased Cold Damage
 {variant:7}{tags:elemental_damage}(20-30)% increased Lightning Damage
@@ -508,8 +510,7 @@ Implicits: 33
 {variant:26}50% of Cold Damage from Hits taken as Lightning Damage
 {variant:30}50% of Lightning Damage from Hits taken as Fire Damage
 {variant:29}50% of Lightning Damage from Hits taken as Cold Damage
-{variant:33}+(12-18)% to Damage over Time Multiplier
-Implicit Modifier magnitudes are doubled
+(50-100)% increased Enchantment Modifier magnitudes
 ]],[[
 The Felbog Fang
 Citrine Amulet
@@ -835,20 +836,25 @@ Implicits: 1
 {tags:critical}Critical Strikes have Culling Strike
 ]],[[
 Natural Hierarchy
-Rotfeather Talisman
+{variant:1}Rotfeather Talisman
+{variant:2}Rhex Talisman
 Variant: Pre 3.29.0
 Variant: Current
 League: Talisman Standard, Talisman Hardcore
 Talisman Tier: 3
 Requires Level 44
 Implicits: 1
-(25-35)% increased Damage
+{variant:1}(25-35)% increased Damage
 {variant:1}{tags:physical_damage}(10-15)% increased Global Physical Damage
 {variant:1}{tags:elemental_damage}(25-30)% increased Fire Damage
 {variant:1}{tags:elemental_damage}(20-25)% increased Cold Damage
 {variant:1}{tags:elemental_damage}(15-20)% increased Lightning Damage
 {variant:1}{tags:chaos_damage}(30-35)% increased Chaos Damage
-Corrupted
+{variant:2}{tags:physical_damage,elemental_damage}Gain (10-15)% of Physical Damage as Extra Lightning Damage
+{variant:2}{tags:elemental_damage}Gain (15-20)% of Lightning Damage as Extra Cold Damage
+{variant:2}{tags:elemental_damage}Gain (20-25)% of Cold Damage as Extra Fire Damage
+{variant:2}{tags:elemental_damage,chaos_damage}Gain (25-30)% of Fire Damage as Extra Chaos Damage
+{variant:1}Corrupted
 ]],[[
 Night's Hold
 Black Maw Talisman
@@ -924,7 +930,8 @@ Blind you inflict is Reflected to you
 {variant:2}(10-20)% chance to gain a Frenzy Charge on Hit while Blinded
 ]],[[
 Rigwald's Curse
-Wereclaw Talisman
+{variant:1,2}Wereclaw Talisman
+{variant:3} Wolf Alpha Talisman
 League: Talisman Standard
 Variant: Pre 2.2.0
 Variant: Pre 3.29.0
@@ -933,13 +940,13 @@ Talisman Tier: 2
 Requires Level 28
 Implicits: 2
 {variant:1}{tags:critical}+(16-24)% to Global Critical Strike Multiplier
-{variant:2,3}{tags:critical}+(24-36)% to Global Critical Strike Multiplier
+{variant:2}{tags:critical}+(24-36)% to Global Critical Strike Multiplier
 {variant:1,2}{tags:critical}+7% to Unarmed Melee Attack Critical Strike Chance
 {variant:3}{tags:critical}+(5-10)% to Unarmed Melee Attack Critical Strike Chance
 {tags:attack}Modifiers to Claw Damage also apply to Unarmed Attack Damage with Melee Skills
 {tags:attack,speed}Modifiers to Claw Attack Speed also apply to Unarmed Attack Speed with Melee Skills
 {tags:attack,critical}Modifiers to Claw Critical Strike Chance also apply to Unarmed Critical Strike Chance with Melee Skills
-Corrupted
+{variant:1,2}Corrupted
 ]],[[
 Sacrificial Heart
 Paua Amulet

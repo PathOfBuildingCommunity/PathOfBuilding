@@ -210,7 +210,7 @@ Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptre3
 {variant:2}ReplicaNebulisImplicitModifierMagnitudeUnique_1
-IncreasedCastSpeedUnique__14
+IncreasedCastSpeedUnique__16
 {variant:1}ColdDamagePerMissingColdResistanceUnique__1
 {variant:2}ElementalDamagePerMissingResistanceUnique_1
 {variant:1}FireDamagePerMissingFireResistanceUnique__1
@@ -340,8 +340,8 @@ LocalIncreasedPhysicalDamagePercentUnique__16
 {variant:1}IncreasedChaosDamageUnique__2[60,80]
 {variant:2}IncreasedChaosDamageUnique__2[80,100]
 {variant:3}IncreasedChaosDamageUnique__2
-{variant:1,2}AreaOfEffectImplicitTwoHandMace1__[10,10]
-{variant:3}AreaOfEffectImplicitTwoHandMace1__
+{variant:1,2}AreaOfEffectUnique_9[10,10]
+{variant:3}AreaOfEffectUnique_9
 {variant:1,2}ChaosSkillEffectDurationUnique__1[40,40]
 {variant:3}ChaosSkillEffectDurationUnique__1
 ]],[[
@@ -375,8 +375,8 @@ Requires Level 47, 81 Str, 81 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew13
 SpellDamageUnique__9
-{variant:1}IncreasedCastSpeedUnique__11__[15,20]
-{variant:2}IncreasedCastSpeedUnique__11__
+{variant:1}IncreasedCastSpeedUnique__14[15,20]
+{variant:2}IncreasedCastSpeedUnique__14
 LifeLeechFromSpellsWith30BlockOnShieldUnique__1_
 EnergyShieldPerArmourOnShieldUnique__1
 ArmourPerEvasionRatingOnShieldUnique__1
@@ -625,7 +625,7 @@ VaalSkillDamageUnique__1
 VaalSoulGainPreventionUnique__1__
 GainRandomChargeOnVaalSkillUseUnique__1_
 KeystoneShepherdOfSoulsUnique__1
-{variant:2}+(1-2) to Level of all Vaal Skill Gems
+{variant:2}GlobalVaalGemsLevelUnique__1
 ]],[[
 Cadigan's Authority
 Platinum Sceptre
@@ -904,7 +904,7 @@ IntelligenceUnique__5
 {variant:1}LocalAddedPhysicalDamageUnique__26[60,70][300,350]
 {variant:2,3,4}LocalAddedPhysicalDamageUnique__26
 {variant:1,2,3}IncreasedPhysicalDamagePerEnduranceChargeUnique__1
-{variant:4}50% chance to gain a Brine Charge instead of an Endurance Charge
+{variant:4}GainBrineChargesUnique__1
 {variant:4}Gain 4% of Physical Damage as Extra Cold Damage per Brine Charge
 {variant:4}Gain 4% of Physical Damage as Extra Lightning Damage per Brine Charge
 {variant:4}Maximum Brine Charges is equal to Maximum Endurance Charges

@@ -443,7 +443,7 @@ Requires Level 69, 154 Int
 -30% to Fire Resistance
 (0.4-0.8)% of Attack Damage Leeched as Life
 (0.2-0.4)% of Attack Damage Leeched as Mana
-Increases and Reductions to Spell Damage also apply to Attacks at 150% of their value
+Attacks have 150% Arcane Might
 ]],[[
 Crown of Thorns
 Vine Circlet
@@ -1111,10 +1111,10 @@ Variant: Current
 League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
 Requires Level 58, 64 Str, 64 Int
-{variant:1}+(7-9)% Chance to Block Spell Damage
-{variant:2}+(4-6)% Chance to Block Spell Damage
 (140-180)% increased Armour and Energy Shield
 (4-7)% increased maximum Life
+{variant:1}+(7-9)% Chance to Block Spell Damage
+{variant:2}+(4-6)% Chance to Block Spell Damage
 Cannot lose Crab Barriers if you have lost Crab Barriers Recently
 +3% Chance to Block Attack Damage while you have at least 5 Crab Barriers
 +5% Chance to Block Attack Damage while you have at least 10 Crab Barriers
@@ -1193,8 +1193,8 @@ Requires Level 12, 16 Str, 16 Int
 {variant:1}+(10-20)% to all Elemental Resistances
 {variant:1}+20% to all Elemental Resistances while on Low Life
 {variant:2,3}(10-20)% reduced Mana Cost of Skills
-{variant:4}(30-50)% increased Mana Cost Efficiency
 {variant:1}20% reduced Mana Cost of Skills when on Low Life
+{variant:4}(30-50)% increased Mana Cost Efficiency
 ]],[[
 Kitava's Thirst
 Zealot Helmet
@@ -1306,8 +1306,8 @@ Implicits: 1
 Minions deal (15-20)% increased Damage
 Grants Level 20 Death Wish Skill
 +(45-65) to maximum Life
-{variant:1}(20-30)% reduced Mana Cost of Minion Skills
 {variant:2}(40-60)% increased Mana Cost Efficiency of Minion Skills
+{variant:1}(20-30)% reduced Mana Cost of Minion Skills
 Minions are Aggressive
 ]],[[
 Memory Vault

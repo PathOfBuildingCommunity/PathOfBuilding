@@ -301,7 +301,7 @@ Variant: Current
 Requires Level 70, 150 Dex
 {variant:1}IncreasedAccuracyUnique__4[300,500]
 {variant:2}IncreasedAccuracyUnique__4
-LocalIncreasedEvasionRatingPercentUnique__10
+LocalIncreasedEvasionRatingPercentUnique__3
 IncreasedLifeUnique__23
 IncreaseProjectileAttackDamagePerAccuracyUnique__1
 ]],[[
@@ -1160,7 +1160,7 @@ Requires Level 12, 16 Str, 16 Int
 {variant:1}AllResistancesUniqueHelmetStrInt1
 {variant:1}ElementalResistsOnLowLifeUniqueHelmetStrInt1
 {variant:2,3}ManaCostReductionUnique__2_
-{variant:4}(30-50)% increased Mana Cost Efficiency
+{variant:4}ManaCostEffiencyUnique__2
 {variant:1}ReducedManaCostOnLowLifeUniqueHelmetStrInt1
 ]],[[
 Kitava's Thirst
@@ -1271,7 +1271,8 @@ Implicits: 1
 MinionDamageImplicitHelmet1
 GrantsDeathWishUnique__1__
 IncreasedLifeUnique__109_
-MinionSkillManaCostUnique__2
+{variant:1}MinionSkillManaCostUnique__2
+{variant:2}MinionSkillManaCostEfficiencyUnique__1
 MinionLargerAggroRadiusUnique__1
 ]],[[
 Memory Vault
@@ -1281,8 +1282,7 @@ LocalIncreasedEnergyShieldUnique__15
 IncreasedManaUnique__26
 ManaRegenerationUnique__6
 FireResistUniqueDexHelmet2
-{variant:1}IncreasedManaReservationsCostUnique__2
-{variant:2}(40-60)% increased Mana Cost Efficiency of Minion Skills
+IncreasedManaReservationsCostUnique__2
 GainArmourEqualToManaReservedUnique__1
 ]],[[
 Mindspiral
@@ -1484,7 +1484,7 @@ LocalIncreasedEvasionAndEnergyShieldUniqueHelmetDexInt3
 {variant:3,4}LocalIncreasedEnergyShieldUnique__11
 {variant:2,3,4}IncreasedLifeUnique__120
 {variant:1}IncreasedManaUniqueHelmetDexInt3
-{variant:2,3}ColdResistUnique__16
+{variant:2,3,4}ColdResistUnique__16
 {variant:1}LifeGainedFromEnemyDeathUniqueHelmetDexInt3
 {variant:1}EnergyShieldGainedFromEnemyDeathUniqueHelmetDexInt3
 {variant:1,2,3}ShrineBuffEffectUniqueHelmetDexInt3[75,75]

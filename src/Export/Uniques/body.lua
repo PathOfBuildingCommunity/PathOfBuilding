@@ -1344,7 +1344,7 @@ Implicits: 1
 IncreasedManaImplicitArmour1
 LocalIncreasedEvasionAndEnergyShieldUnique__33
 {variant:1}IncreasedLifeUniqueBodyStrInt7
-{variant:2}(80-100)% increased Implicit Modifier magnitudes
+{variant:2}ImplicitModifierMagnitudeUnique_2
 ChronomanceReservesNoMana
 DamageTakenGainedAsLifeUnique__2
 DebuffTimePassedUnique__2

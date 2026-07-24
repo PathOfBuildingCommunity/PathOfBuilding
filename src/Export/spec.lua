@@ -2032,7 +2032,7 @@ return {
 			name="EnchantMods",
 			refTo="Mods",
 			type="Key",
-			width=150
+			width=300
 		}
 	},
 	battlepasses={

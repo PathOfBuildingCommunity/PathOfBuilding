@@ -124,9 +124,9 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 68, 120 Str
 Has no Sockets
-Cannot be Knocked Back
 {variant:1}+(120-150) to maximum Life
 {variant:2}+(150-200) to maximum Life
+Cannot be Knocked Back
 {variant:2}Action Speed cannot be modified to below Base Value
 Unwavering Stance
 ]],[[

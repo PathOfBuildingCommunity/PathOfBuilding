@@ -593,13 +593,13 @@ Sage's Robe
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
-Gems can be Socketed in this Item ignoring Socket Colour
 {variant:1}Gems Socketed in Red Sockets have +1 to Level
 {variant:2}Gems Socketed in Red Sockets have +2 to Level
 {variant:1}Gems Socketed in Green Sockets have +10% to Quality
-{variant:2}Gems Socketed in Green Sockets have +30% to Quality
+{variant:2}Gems Socketed in Green Sockets have +20% to Quality
 {variant:1}Gems Socketed in Blue Sockets gain 25% increased Experience
 {variant:2}Gems Socketed in Blue Sockets gain 100% increased Experience
+Gems Socketed always have the Quality bonus from Socket Colour
 Has no Attribute Requirements
 ]],[[
 Doedre's Skin
@@ -1352,9 +1352,9 @@ Variant: Pre 3.29.0
 Variant: Current
 Implicits: 1
 +(20-25) to maximum Mana
+{variant:2}(80-100)% increased Implicit Modifier magnitudes
 (140-160)% increased Evasion and Energy Shield
 {variant:1}+(80-100) to maximum Life
-{variant:2}(80-100)% increased Implicit Modifier magnitudes
 Temporal Rift has no Reservation
 (80-100)% of Damage taken Recouped as Life
 Debuffs on you expire (80-100)% faster
