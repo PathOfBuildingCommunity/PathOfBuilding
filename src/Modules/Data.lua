@@ -1237,5 +1237,10 @@ end
 data.itemMods.WatchersEye = unsortedMods
 LoadModule("Data/Uniques/Special/Generated")
 LoadModule("Data/Uniques/Special/New")
-
+data.foulbornUniques = { }
+for _, type in pairs(itemTypes) do
+	data.foulbornUniques[type] = LoadModule("Data/Uniques/Foulborn/"..type)
+end
+data.foulbornUniqueMods = { }
+LoadModule("Data/Uniques/Foulborn/Special/Generated")
 data.flavourText = LoadModule("Data/FlavourText")
