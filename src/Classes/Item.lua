@@ -400,9 +400,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.requirements.dex = 0
 	self.requirements.int = 0
 	self.baseLines = { }
-	-- assume the item is not foulborn. if it is, this will be set to true when
-	-- a mod has the mutated tag
 	self.foulborn = false
+	self.mutatedLines = nil
 	local importedLevelReq
 	local flaskBuffLines
 	local tinctureBuffLines
@@ -497,7 +496,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				for flag in possibleLineFlags:gmatch("%a+") do
 					local flagLower = flag:lower()
 					if lineFlags[flagLower] then
-						linePrefix = linePrefix .. "{" .. flag:lower() .. "}"
+						linePrefix = linePrefix .. "{" .. flagLower .. "}"
 					end
 				end
 			end
@@ -723,8 +722,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						for tag in val:gmatch("[%a_]+") do
 							t_insert(modLine.modTags, tag)
 						end
-					elseif k == "originalLine" then
-						modLine.originalLine = val
+					elseif k == "modGroup" then
+						modLine.modGroup = val
 					elseif k == "range" then
 						self.advancedCopy = true
 						modLine.range = tonumber(val)
@@ -813,7 +812,6 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 							-- approach
 							and not self.title:lower():find("might of the meek") then
 							self.mutatedLines = data.foulbornMap[self.title:gsub("^[Ff]oulborn ", "")]
-
 						end
 						self.type = base.type
 						self.base = base
@@ -933,7 +931,11 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				end
 				local rangedLine = itemLib.applyRange(line, 1, catalystScalar, modLine.corruptedRange)
 				local modList, extra = modLib.parseMod(rangedLine)
-				if (not modList or extra) and self.rawLines[l + 1] then
+				local nextModGroup = self.rawLines[l + 1]
+					and self.rawLines[l + 1]:match("{modGroup:([^}]+)}")
+				-- Only combine generated lines that came from the same modifier.
+				if (not modList or extra) and self.rawLines[l + 1]
+					and modLine.modGroup == nextModGroup then
 					-- Try to combine it with the next line
 					local nextLine = self.rawLines[l+1]:gsub("%b{}", ""):gsub(" ?%(%l+%)","")
 					local combLine = line.." "..nextLine
@@ -1241,15 +1243,13 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			self.variantAlt5 = m_min(#self.variantList, self.variantAlt5 or #self.variantList)
 		end
 	end
-	local function normalise(line)
-		return line:gsub("%d+%.?%d*", "#")
-			:gsub("%(%-?#%-#%)", "#"):lower()
-			:gsub("\n", " ")
-	end
-	-- iterate through mutated mod transformations for this item. both sides of
-	-- the transformation are used to mark mod lines which match lines on the
-	-- modifier
 	if self.mutatedLines then
+		local function normalise(line)
+			return line:gsub("%d+%.?%d*", "#")
+				:gsub("%(%-?#%-#%)", "#"):lower()
+				:gsub("\n", " ")
+		end
+		-- Match both sides so the same checkbox can apply or revert the transformation.
 		for origModId, foulModId in pairs(self.mutatedLines) do
 			local function checkMod(modId, newModId, mutated)
 				local originalMod = mutated and data.itemMods.Foulborn[modId] or data.itemMods.ItemExclusive[modId]
@@ -1257,37 +1257,27 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					ConPrintf("mod not found while testing mutated mods %s, %s", modId, mutated)
 					return
 				end
-				local matchingLines = {}
-				local lineCount = 0
-				local function findMatching(statLine)
-					lineCount = lineCount + 1
-					for _, modLine in ipairs(self.explicitModLines) do
-						if normalise(modLine.line:gsub("\n", " ")) == statLine and
-							self:CheckModLineVariant(modLine) then
-							table.insert(matchingLines, modLine)
-						end
-					end
-				end
-				for _, statDesc in pairs(originalMod.tradeHashes) do
-					local statLine = normalise(table.concat(statDesc, " "))
-					if statLine ~= "" then
-						findMatching(statLine)
-					end
-				end
-				-- if there was no match there's probably an issue where pob
-				-- splits a stat description into multiple mod lines, so
-				-- search for each separately
-				if #matchingLines == 0 then
-					lineCount = 0
-					for _, statDesc in pairs(originalMod.tradeHashes) do
-						for _, descPart in ipairs(statDesc) do
-							if descPart ~= "" then
-								findMatching(normalise(descPart))
+				local function findMatchingLines(lines)
+					local matchingLines = {}
+					local matchedLines = {}
+					for _, line in ipairs(lines) do
+						local statLine = normalise(line)
+						for _, modLine in ipairs(self.explicitModLines) do
+							if not matchedLines[modLine]
+								and normalise(modLine.line:gsub("\n", " ")) == statLine
+								and self:CheckModLineVariant(modLine) then
+								matchedLines[modLine] = true
+								t_insert(matchingLines, modLine)
+								break
 							end
 						end
 					end
+					return #lines == #matchingLines and matchingLines
 				end
-				if lineCount == #matchingLines then
+				-- Some modifier descriptions are represented by separate lines in PoB.
+				local matchingLines = findMatchingLines({ table.concat(originalMod, " ") })
+					or findMatchingLines(originalMod)
+				if matchingLines then
 					for _, modLine in ipairs(matchingLines) do
 						modLine.modId = modId
 						modLine.newModId = newModId
@@ -1355,17 +1345,13 @@ function ItemClass:MutateMod(modId, newModId, mutatedValue)
 			i = i + 1
 		end
 	end
-	for _, line in pairs(newMod.tradeHashes) do
-		local lineString = table.concat(line, " ")
-		if lineString ~= "" then
-			local modLine        = { line = lineString, modTags = newMod.modTags, variantList = variantList, mutated = mutatedValue }
-			local rangedLine     = itemLib.applyRange(lineString, main.defaultItemAffixQuality, 1)
-			local modList, extra = modLib.parseMod(rangedLine)
-			modLine.modList      = modList
-			modLine.extra        = extra
-			table.insert(self.explicitModLines, insertIdx, modLine)
-		end
-	end
+	table.insert(self.explicitModLines, insertIdx, {
+		line = table.concat(newMod, "\n"),
+		modTags = newMod.modTags,
+		variantList = variantList,
+		mutated = mutatedValue,
+		modGroup = newModId,
+	})
 	self:BuildAndParseRaw()
 end
 function ItemClass:NormaliseQuality()
@@ -1541,6 +1527,10 @@ function ItemClass:BuildRaw()
 		-- ggg tag for cultivated/foulborn mod
 		if modLine.mutated then
 			line = "{mutated}" .. line
+		end
+		if modLine.modGroup then
+			local modGroup = "{modGroup:" .. modLine.modGroup .. "}"
+			line = modGroup .. line:gsub("\n", "\n" .. modGroup)
 		end
 		if modLine.fractured then
 			line = "{fractured}" .. line

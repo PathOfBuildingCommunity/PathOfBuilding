@@ -229,4 +229,58 @@ describe("TestFoulborn", function()
 		assert.is_nil(findByLine(item, "+700 Strength Requirement"))
 		assert.is_false(hasMod(item, "TripleDamageChance"))
 	end)
+
+	it("keeps Kitava's Thirst transformations reversible", function()
+		local item = new("Item", [[
+			Rarity: Unique
+			Kitava's Thirst
+			Zealot Helmet
+			Variant: Pre 3.11.0
+			Variant: Current
+			Selected Variant: 2
+			50% chance to Trigger Socketed Spells when you Spend at least 100 Mana on an
+			Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown
+		]])
+		local baseId = "ChanceToCastOnManaSpentUnique__1"
+		local foulbornId = "MutatedUniqueHelmetStrInt6ChanceToCastOnManaSpent"
+		local base = linesAllByModId(item, baseId)[1]
+
+		toggle(item, base)
+
+		local transformed = linesAllByModId(item, foulbornId)
+		assert.are.equals(1, #transformed)
+		assert.are.equals(baseId, transformed[1].newModId)
+
+		toggle(item, transformed[1])
+		assert.are.equals(1, #linesAllByModId(item, baseId))
+	end)
+
+	it("keeps Foulborn lines separate from unsupported modifiers", function()
+		local item = new("Item", [[
+			Rarity: Unique
+			The Green Nightmare
+			Viridian Jewel
+			Variant: Pre 3.16.0
+			Variant: Pre 3.21.0
+			Variant: Current
+			Selected Variant: 1
+			Radius: Large
+			{variant:1,2}Passives granting Cold Resistance or all Elemental Resistances in Radius
+			{variant:1,2}also grant an equal chance to gain a Frenzy Charge on Kill
+			{variant:1}Passives granting Cold Resistance or all Elemental Resistances in Radius
+			{variant:1}also grant Chance to Suppress Spell Damage at 35% of its value
+		]])
+		local baseId = "ColdResistConvertedToDodgeChanceScaledJewelUnique__1"
+		local foulbornId = "MutatedUniqueJewel88UniqueJewelColdResistAlsoGrantsConvertColdToChaos"
+		local base = linesAllByModId(item, baseId)[1]
+
+		toggle(item, base)
+
+		local transformed = linesAllByModId(item, foulbornId)
+		assert.are.equals(1, #transformed)
+		assert.are.equals(baseId, transformed[1].newModId)
+
+		toggle(item, transformed[1])
+		assert.are.equals(1, #linesAllByModId(item, baseId))
+	end)
 end)

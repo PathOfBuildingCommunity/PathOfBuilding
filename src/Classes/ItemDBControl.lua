@@ -166,11 +166,11 @@ function ItemDBClass:DoesItemMatchFilters(item)
 				end
 			end
 			for _, line in pairs(item.explicitModLines) do
-				-- concatenate alternate lines for mutated items
+				-- Include the other side of Foulborn transformations in modifier searches.
 				local newMod = line.newModId and (data.itemMods.ItemExclusive[line.newModId] or data.itemMods.Foulborn[line.newModId])
 				local searchLine = line.line:lower()
 				if newMod then
-					searchLine = searchLine .. table.concat(newMod)
+					searchLine = searchLine .. table.concat(newMod, " "):lower()
 				end
 				local err, match = PCall(string.matchOrPattern, searchLine, searchStr)
 				if not err and match then
