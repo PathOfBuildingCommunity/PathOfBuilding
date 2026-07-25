@@ -42,7 +42,7 @@ VERSION[2.66.0][2026/07/25]
 * Add support for Sinistral and Dextral Catalysts (Peechey)
 * Add support to auto calculate minion count for mods on Bonemeld and Farrul Bloodline (LocalIdentity)
 * Add support for Companionship Support (LocalIdentity)
-* Add support for Cast on Ward Break + Celestial Mathmatics + Ward bypass / chance to not break Bloodline nodes (LocalIdentity)
+* Add support for Cast on Ward Break + Celestial Mathematics + Ward bypass / chance to not break Bloodline nodes (LocalIdentity)
 * Add alt aura variant for Impresence (vaisest)
 * Add support for Loyalty/damage taken from Companion's Life before you (ltogniolli)
 * Add support for Runegraft of the Agile (czarandy)
@@ -91,7 +91,7 @@ VERSION[2.66.0][2026/07/25]
 * Fix Brutal Restraint missing Balbala variant (The Traitor) (Sentinent)
 * Fix parsing Vaal Unique modifiers on items (vaisest)
 * Fix searching for Low Life in Config tab (Blitz54)
-* Fix mods that were "Not Supported"  in mastery losing poisition when assigning masteries (soratidus999)
+* Fix mods that were "Not Supported"  in mastery losing position when assigning masteries (soratidus999)
 
 VERSION[2.65.0][2026/04/20]
 
