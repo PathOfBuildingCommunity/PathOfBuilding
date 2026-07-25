@@ -2788,7 +2788,7 @@ function calcs.offence(env, actor, activeSkill)
 			if activeSkill.skillTypes[SkillType.Spell] and not activeSkill.skillTypes[SkillType.Instant] and not activeSkill.skillTypes[SkillType.Brand] then
 				for index, value in ipairs(actor.activeSkillList) do
 					if not activeSkill.skillTypes[SkillType.Vaal] then
-						if value.activeEffect.grantedEffect.name == "Pact of Beidat" and not globalOutput.PactofBeidatCalculated and not value.skillFlags.disable
+						if value.activeEffect.grantedEffect.name == "Pact of Beidat" and not globalOutput.PactOfBeidatCalculated and not value.skillFlags.disable
 								and (skillFlags.projectile or skillFlags.area or skillFlags.chaining) and not activeSkill.skillTypes[SkillType.Channel] then
 							globalOutput.CreatePactOffensiveCalcSection = true
 							globalOutput.PactOfBeidatDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
@@ -2816,9 +2816,9 @@ function calcs.offence(env, actor, activeSkill)
 								local beidatUptime = skillModList:Flag(nil, "Condition:PactMaxHit") and 100 or globalOutput.BeidatUpTimeRatio
 								skillModList:NewMod("Damage", "MORE", beidatDamage * beidatUptime / 100, "Uptime Scaled Pact of Beidat", ModFlag.Spell, bor(KeywordFlag.Hit, KeywordFlag.Ailment))
 							end
-							globalOutput.PactofBeidatCalculated = true
+							globalOutput.PactOfBeidatCalculated = true
 						end
-						if value.activeEffect.grantedEffect.name == "Pact of Ghorr" and not globalOutput.PactofGhorrCalculated and not value.skillFlags.disable
+						if value.activeEffect.grantedEffect.name == "Pact of Ghorr" and not globalOutput.PactOfGhorrCalculated and not value.skillFlags.disable
 								and activeSkill.skillTypes[SkillType.DamageOverTime] then
 							globalOutput.CreatePactOffensiveCalcSection = true
 							globalOutput.PactOfGhorrDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
@@ -2841,14 +2841,14 @@ function calcs.offence(env, actor, activeSkill)
 								t_insert(globalBreakdown.GhorrUpTimeRatio, s_format("* %d ^8(stored uses)", storedUses))
 								t_insert(globalBreakdown.GhorrUpTimeRatio, s_format("= %d%%", globalOutput.GhorrUpTimeRatio))
 							end
-							local GhorrDamage = modDB:Sum("BASE", nil, "GhorrPactDamage")
-							if GhorrDamage > 0 then
-								local GhorrUptime = skillModList:Flag(nil, "Condition:PactMaxHit") and 100 or globalOutput.GhorrUpTimeRatio
-								skillModList:NewMod("Damage", "MORE", GhorrDamage * GhorrUptime / 100, "Uptime Scaled Pact of Ghorr", ModFlag.Dot)
+							local ghorrDamage = modDB:Sum("BASE", nil, "GhorrPactDamage")
+							if ghorrDamage > 0 then
+								local ghorrUptime = skillModList:Flag(nil, "Condition:PactMaxHit") and 100 or globalOutput.GhorrUpTimeRatio
+								skillModList:NewMod("Damage", "MORE", ghorrDamage * ghorrUptime / 100, "Uptime Scaled Pact of Ghorr", ModFlag.Dot)
 							end
-							globalOutput.PactofGhorrCalculated = true
+							globalOutput.PactOfGhorrCalculated = true
 						end
-						if value.activeEffect.grantedEffect.name == "Pact of Lycia" and not globalOutput.PactofLyciaCalculated and not value.skillFlags.disable
+						if value.activeEffect.grantedEffect.name == "Pact of Lycia" and not globalOutput.PactOfLyciaCalculated and not value.skillFlags.disable
 								and activeSkill.skillTypes[SkillType.Channel] then
 							globalOutput.CreatePactOffensiveCalcSection = true
 							globalOutput.PactOfLyciaDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
@@ -2871,15 +2871,15 @@ function calcs.offence(env, actor, activeSkill)
 								t_insert(globalBreakdown.LyciaUpTimeRatio, s_format("* %d ^8(stored uses)", storedUses))
 								t_insert(globalBreakdown.LyciaUpTimeRatio, s_format("= %d%%", globalOutput.LyciaUpTimeRatio))
 							end
-							local LyciaDamage = modDB:Sum("BASE", nil, "LyciaPactDamage")
-							if LyciaDamage > 0 then
-								local LyciaUptime = skillModList:Flag(nil, "Condition:PactMaxHit") and 100 or globalOutput.LyciaUpTimeRatio
-								skillModList:NewMod("Damage", "MORE", LyciaDamage * LyciaUptime / 100, "Uptime Scaled Pact of Lycia", ModFlag.Spell)
+							local lyciaDamage = modDB:Sum("BASE", nil, "LyciaPactDamage")
+							if lyciaDamage > 0 then
+								local lyciaUptime = skillModList:Flag(nil, "Condition:PactMaxHit") and 100 or globalOutput.LyciaUpTimeRatio
+								skillModList:NewMod("Damage", "MORE", lyciaDamage * lyciaUptime / 100, "Uptime Scaled Pact of Lycia", ModFlag.Spell)
 							end
-							globalOutput.PactofLyciaCalculated = true
+							globalOutput.PactOfLyciaCalculated = true
 						end
 					else
-						if value.activeEffect.grantedEffect.name == "Pact of K'Tash" and not globalOutput.PactofKtashCalculated and not value.skillFlags.disable then
+						if value.activeEffect.grantedEffect.name == "Pact of K'Tash" and not globalOutput.PactOfKtashCalculated and not value.skillFlags.disable then
 							globalOutput.CreatePactOffensiveCalcSection = true
 							globalOutput.PactOfKtashDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
 							globalOutput.PactOfKtashCooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
@@ -2901,15 +2901,15 @@ function calcs.offence(env, actor, activeSkill)
 								t_insert(globalBreakdown.KtashUpTimeRatio, s_format("* %d ^8(stored uses)", storedUses))
 								t_insert(globalBreakdown.KtashUpTimeRatio, s_format("= %d%%", globalOutput.KtashUpTimeRatio))
 							end
-							local KtashDamage = modDB:Sum("BASE", nil, "KtashPactDamage")
-							local KtashSoulGainPrevention = modDB:Sum("BASE", nil, "KtashPactSoulGainPrevention")
-							if KtashDamage > 0 then
-								local KtashUptime = skillModList:Flag(nil, "Condition:PactMaxHit") and 100 or globalOutput.KtashUpTimeRatio
-								skillModList:NewMod("Damage", "MORE", KtashDamage * KtashUptime / 100, "Uptime Scaled Pact of Ktash", ModFlag.Spell)
+							local ktashDamage = modDB:Sum("BASE", nil, "KtashPactDamage")
+							local ktashSoulGainPrevention = modDB:Sum("BASE", nil, "KtashPactSoulGainPrevention")
+							if ktashDamage > 0 then
+								local ktashUptime = skillModList:Flag(nil, "Condition:PactMaxHit") and 100 or globalOutput.KtashUpTimeRatio
+								skillModList:NewMod("Damage", "MORE", ktashDamage * ktashUptime / 100, "Uptime Scaled Pact of Ktash", ModFlag.Spell)
 								-- happens too late, duration is calculated earlier
 								-- skillModList:NewMod("SoulGainPreventionDuration", "MORE", KtashSoulGainPrevention * KtashUptime / 100, "Uptime Scaled Pact of Ktash")
 							end
-							globalOutput.PactofKtashCalculated = true
+							globalOutput.PactOfKtashCalculated = true
 						end
 					end
 				end
