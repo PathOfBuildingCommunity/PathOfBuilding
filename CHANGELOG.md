@@ -1,5 +1,18 @@
 # Changelog
 
+## [v2.66.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.66.2) (2026/07/25)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.66.1...v2.66.2)
+
+
+## What's Changed
+### Fixed Crashes
+- Fix Warden import crash [\#10002](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10002) ([vaisest](https://github.com/vaisest))
+### Fixed Calculations
+- Fix Cost efficiency math and add mods to breakdown [\#10004](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10004) ([vaisest](https://github.com/vaisest))
+
+
+
 ## [v2.66.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.66.1) (2026/07/25)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.66.0...v2.66.1)
