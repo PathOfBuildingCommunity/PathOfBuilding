@@ -1652,12 +1652,13 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap)
 	if itemData.explicitMods then
 		for _, itemMod in ipairs(itemData.explicitMods) do
 			local modLine = itemMod.description or itemMod
+			local flags = itemMod.flags or itemMod
 			for line in modLine:gmatch("[^\n]+") do
 				local modList, extra = modLib.parseMod(line)
 				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { },
-					fractured = itemMod.fractured,
-					crafted = itemMod.crafted,
-					mutated = itemMod.mutated })
+					fractured = flags.fractured,
+					crafted = flags.crafted,
+					mutated = flags.mutated })
 			end
 		end
 	end
