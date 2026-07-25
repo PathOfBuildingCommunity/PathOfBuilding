@@ -46,6 +46,7 @@ VERSION[2.66.0][2026/07/25]
 
 --- Fixed Crashes ---
 * Fix crash on hovering over legacy shared items (LocalIdentity)
+* Fix missing range on item mod causing errors (Wires77)
 
 --- User Interface ---
 * Render Ascendancy flavour text only at higher zoom levels (JustinStitt)
@@ -86,9 +87,6 @@ VERSION[2.66.0][2026/07/25]
 * Fix parsing Vaal Unique modifiers on items (vaisest)
 * Fix searching for Low Life in Config tab (Blitz54)
 * Fix mods that were "Not Supported"  in mastery losing poisition when assigning masteries (soratidus999)
-
---- Fixed Bugs ---
-* Fix missing range on item mod causing errors (Wires77)
 
 VERSION[2.65.0][2026/04/20]
 

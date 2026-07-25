@@ -50,6 +50,7 @@
 - Allocate Ascendancy Nodes through Custom Modifiers [\#9895](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9895) ([Mar1cX](https://github.com/Mar1cX))
 ### Fixed Crashes
 - Fix crash on hovering over legacy shared items [\#9901](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9901) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix crash from missing range on item mod [\#9989](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9989) ([Wires77](https://github.com/Wires77))
 ### User Interface
 - Render Ascendancy flavour text only at higher zoom levels [\#9944](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9944) ([JustinStitt](https://github.com/JustinStitt))
 - Change border size to be 1 px [\#9904](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9904) ([vaisest](https://github.com/vaisest))
@@ -86,8 +87,6 @@
 - Fix parsing Vaal Unique modifiers on items [\#9933](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9933) ([vaisest](https://github.com/vaisest))
 - Fix searching for Low Life in Config tab [\#9914](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9914) ([Blitz54](https://github.com/Blitz54))
 - Fix mods that were "Not Supported"  in mastery losing poisition when assigning masteries [\#9893](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9893) ([soratidus999](https://github.com/soratidus999))
-### Fixed Bugs
-- Fix missing range on item mod causing errors [\#9989](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9989) ([Wires77](https://github.com/Wires77))
 
 
 ## [v2.65.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.65.0) (2026/04/20)
