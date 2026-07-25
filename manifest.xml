@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <PoBVersion>
-	<Version number="2.66.0" />
+	<Version number="2.66.1" />
 	<Source part="default" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
 	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime/" />
 	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
-	<File name="changelog.txt" part="default" sha1="805e2db6ad2196ecfcaab49e5064b98fc8aabe93" />
+	<File name="changelog.txt" part="default" sha1="0bfd8c46e017acde5718cc4ce55aa5a262677998" />
 	<File name="help.txt" part="default" sha1="e486cb63a78f5ca355430b67fa23e02fd30f5771" />
 	<File name="LICENSE.md" part="default" sha1="c77635aa1ba0a2ffe8eb72f93b3376e3a3d2041a" />
 	<File name="Assets/ascendancypassiveheaderleft.png" part="program" sha1="6a65683dcc3b14382dc083198fe9361454e91b15" />
@@ -183,11 +183,11 @@
 	<File name="Classes/TimelessJewelSocketControl.lua" part="program" sha1="07de3a54c591ba767a644050a27a9767ca621bf1" />
 	<File name="Classes/Tooltip.lua" part="program" sha1="5528ed47d8dd21adb9109a94002255a37fc07e3d" />
 	<File name="Classes/TooltipHost.lua" part="program" sha1="c9854fd295d8305b0d2b1a31ac28b44a53ec791d" />
-	<File name="Classes/TradeHelpers.lua" part="program" sha1="2fd5abf105ed23dd148ad7fc8a1f1daf5aee33e5" />
+	<File name="Classes/TradeHelpers.lua" part="program" sha1="6efdc5a361173c97268a1dd45b2884fe2228ab7a" />
 	<File name="Classes/TradeQuery.lua" part="program" sha1="a22283eb0f83964dce64193b36eae5333ac1d442" />
 	<File name="Classes/TradeQueryGenerator.lua" part="program" sha1="3d5c83f41a5134d5d928940ebb94d82305dfc3cd" />
 	<File name="Classes/TradeQueryRateLimiter.lua" part="program" sha1="d7c4f5655b36e911ccf4597e8ab6a3c1e3a27ec5" />
-	<File name="Classes/TradeQueryRequests.lua" part="program" sha1="b4c53e77e73e72f76cdbb345c5a1db487d5a097a" />
+	<File name="Classes/TradeQueryRequests.lua" part="program" sha1="9eec4f54f56fa33b019e86cab740377e7bcecb27" />
 	<File name="Classes/TradeStatWeightMultiplierListControl.lua" part="program" sha1="df442a192fcaf26558e7485b9c31d2b4e79dc6fc" />
 	<File name="Classes/TreeTab.lua" part="program" sha1="2d93723a838c57290945690ee1c7bccd886ab69c" />
 	<File name="Classes/UndoHandler.lua" part="program" sha1="ce4835c384c834da0de47b0302b1e774c8300c6b" />

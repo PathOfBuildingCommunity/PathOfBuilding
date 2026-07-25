@@ -1,5 +1,16 @@
 # Changelog
 
+## [v2.66.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.66.1) (2026/07/25)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.66.0...v2.66.1)
+
+
+## What's Changed
+### Fixed Crashes
+- Fix crash when using trade search [\#9790](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9996) ([czarandy](https://github.com/czarandy))
+
+
+
 ## [v2.66.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.66.0) (2026/07/25)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.65.0...v2.66.0)
