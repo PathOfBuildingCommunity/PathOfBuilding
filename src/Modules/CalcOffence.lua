@@ -5154,8 +5154,10 @@ function calcs.offence(env, actor, activeSkill)
 			skillFlags.chill = true
 			local incChill = skillModList:Sum("INC", cfg, "EnemyChillEffect")
 			local moreChill = skillModList:More(cfg, "EnemyChillEffect")
-			output.ChillEffectMod = (1 + incChill / 100) * moreChill
-			output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration", "EnemyAilmentDuration", "EnemyElementalAilmentDuration") / 100
+			output.ChillEffectMod = (1 + incChill / 100) * moreChill * calcLib.mod(enemyDB, nil, "SelfChillEffect")
+			local incChillDuration = skillModList:Sum("INC", cfg, "EnemyChillDuration", "EnemyAilmentDuration", "EnemyElementalAilmentDuration") + enemyDB:Sum("INC", nil, "SelfChillDuration", "SelfAilmentDuration", "SelfElementalAilmentDuration")
+			local moreChillDuration = skillModList:More(cfg, "EnemyChillDuration", "EnemyAilmentDuration", "EnemyElementalAilmentDuration") * enemyDB:More(nil, "SelfChillDuration", "SelfAilmentDuration", "SelfElementalAilmentDuration")
+			output.ChillDurationMod = (1 + incChillDuration / 100) * moreChillDuration
 			output.ChillSourceEffect = m_min(skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max, m_floor(ailmentData.Chill.default * output.ChillEffectMod))
 			if breakdown then
 				breakdown.DotChill = { }
@@ -5208,7 +5210,7 @@ function calcs.offence(env, actor, activeSkill)
 					local moreDur = skillModList:More(cfg, "Enemy"..ailment.."Duration", "EnemyElementalAilmentDuration", "EnemyAilmentDuration") * enemyDB:More(nil, "Self"..ailment.."Duration", "SelfElementalAilmentDuration", "SelfAilmentDuration")
 					output[ailment.."Duration"] = ailmentData[ailment].duration * (1 + incDur / 100) * moreDur * debuffDurationMult
 					-- Line Controls Crit Conditional for Crit Mastery
-					output[ailment.."EffectMod"] = calcLib.mod(skillModList, cfg, "Enemy"..ailment.."Effect")
+					output[ailment.."EffectMod"] = calcLib.mod(skillModList, cfg, "Enemy"..ailment.."Effect") * calcLib.mod(enemyDB, nil, "Self"..ailment.."Effect")
 					if breakdown then
 						local maximum = globalOutput["Maximum"..ailment] or ailmentData[ailment].max
 						local current = m_max(m_min(globalOutput["Current"..ailment] or 0, maximum), 0)

@@ -1882,10 +1882,10 @@ Huge sets the radius to 11.
 		enemyModList:NewMod("HoarfrostFreezeDuration", "INC", val * 20, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "multiplierBarnacleStacks", type = "count", label = "^x3F6DB3Barnacle ^7Stacks", ifFlag = "CanInflictBarnacles", tooltip = "Amount of stacks of ^x3F6DB3Barnacle ^7applied to the enemy.\n\n^8(Enemies affected by Barnacles Convert 5% of Physical Damage to Cold and have 5% increased duration of Chill and Freeze on them.\nEach instance of Barnacles lasts 30 seconds and can be inflicted up to 10 times)", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:BarnacleStack", "BASE", m_min(val, 10), "Config", { type = "Condition", var = "Effective" })
-		modList:NewMod("EnemyFreezeDuration", "INC", 5, "Config", { type = "Multiplier", var = "BarnacleStack" }, { type = "Condition", var = "Effective" } )
-		modList:NewMod("EnemyChillDuration", "INC", 5, "Config", { type = "Multiplier", var = "BarnacleStack" }, { type = "Condition", var = "Effective" } )
-		enemyModList:NewMod("PhysicalDamageConvertToCold", "BASE", 5, "Config", { type = "Multiplier", var = "BarnacleStack", actor = "enemy" }, { type = "Condition", var = "Effective" } )
+		enemyModList:NewMod("Multiplier:BarnacleStack", "BASE", m_min(val, 10), "Config", { type = "Condition", var = "Effective" })
+		enemyModList:NewMod("SelfFreezeDuration", "INC", 5, "Config", { type = "Multiplier", var = "BarnacleStack" }, { type = "Condition", var = "Effective" } )
+		enemyModList:NewMod("SelfChillDuration", "INC", 5, "Config", { type = "Multiplier", var = "BarnacleStack" }, { type = "Condition", var = "Effective" } )
+		enemyModList:NewMod("PhysicalDamageConvertToCold", "BASE", 5, "Config", { type = "Multiplier", var = "BarnacleStack" }, { type = "Condition", var = "Effective" } )
 	end },
 	{ var = "conditionEnemyFrozen", type = "check", label = "Is the enemy ^x3F6DB3Frozen?", ifEnemyCond = "Frozen", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Frozen", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
