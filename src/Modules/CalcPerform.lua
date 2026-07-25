@@ -3497,10 +3497,11 @@ function calcs.perform(env, skipEHP)
 			for _, value in ipairs(modDB:Tabulate("BASE", nil, ailment.."Base", ailment.."Override", ailment.."Minimum")) do
 				local mod = value.mod
 				local effect = mod.value
+				local scalesWithSource = mod.name == ailment.."Base" or mod.name == ailment.."Minimum"
 				if mod.name == ailment.."Override" then
 					enemyDB:NewMod("Condition:"..val.condition, "FLAG", true, mod.source)
 				end
-				if mod.name == ailment.."Base" or mod.name == ailment.."Minimum" then
+				if scalesWithSource then
 					-- If the main skill can inflict the ailment, the ailment is inflicted with a hit, and we have a node allocated that checks what our highest damage is, then
 					-- use the skill's ailment modifiers
 					-- if not, use the generic modifiers
@@ -3510,6 +3511,9 @@ function calcs.perform(env, skipEHP)
 					else
 						effect = effect * calcLib.mod(modDB, nil, "Enemy"..ailment.."Effect")
 					end
+				end
+				effect = effect * calcLib.mod(enemyDB, nil, "Self"..ailment.."Effect")
+				if scalesWithSource then
 					modDB:NewMod(ailment.."Override", "BASE", effect, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 					if mod.name == ailment.."Minimum" then
 						minimum = minimum + effect

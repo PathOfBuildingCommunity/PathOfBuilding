@@ -1136,6 +1136,16 @@ Huge sets the radius to 11.
 	{ var = "minionConditionOnProfaneGround", type = "check", label = "Minion on Profane Ground?", ifMinionCond = "OnProfaneGround", apply = function(val, modList, enemyModList)
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:OnProfaneGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) })
 	end },
+	{ var = "conditionOnBrineGround", type = "check", label = "Are you on Brine Ground?", ifFlag = "CanCreateBrineGround", tooltip = "Allies on your Brine Ground gain 10% of Physical Damage as extra Cold Damage and as extra Lightning Damage", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:OnBrineGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("PhysicalDamageGainAsCold", "BASE", 10, "Config", { type = "Condition", var = "OnBrineGround" })
+		modList:NewMod("PhysicalDamageGainAsLightning", "BASE", 10, "Config", { type = "Condition", var = "OnBrineGround" })
+	end },
+	{ var = "minionConditionOnBrineGround", type = "check", label = "Minion on Brine Ground?", ifFlag = "CanCreateBrineGround", tooltip = "Allies on your Brine Ground gain 10% of Physical Damage as extra Cold Damage and as extra Lightning Damage", apply = function(val, modList, enemyModList)
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:OnBrineGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) })
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("PhysicalDamageGainAsCold", "BASE", 10, "Config", { type = "Condition", var = "OnBrineGround" }) })
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("PhysicalDamageGainAsLightning", "BASE", 10, "Config", { type = "Condition", var = "OnBrineGround" }) })
+	end },
 	{ var = "conditionOnCausticGround", type = "check", label = "Are you on Caustic Ground?", ifCond = "OnCausticGround", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:OnCausticGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -1871,6 +1881,12 @@ Huge sets the radius to 11.
 	{ var = "HoarfrostStacks", type = "count", label = "^x3F6DB3Hoarfrost ^7Stacks", ifFlag = "HitsCanInflictHoarfrost", tooltip = "Amount of stacks of ^x3F6DB3Hoarfrost ^7applied to the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("HoarfrostFreezeDuration", "INC", val * 20, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "multiplierBarnacleStacks", type = "count", label = "^x3F6DB3Barnacle ^7Stacks", ifFlag = "CanInflictBarnacles", tooltip = "Amount of stacks of ^x3F6DB3Barnacle ^7applied to the enemy.\n\n^8(Enemies affected by Barnacles Convert 5% of Physical Damage to Cold and have 5% increased duration of Chill and Freeze on them.\nEach instance of Barnacles lasts 30 seconds and can be inflicted up to 10 times)", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Multiplier:BarnacleStack", "BASE", m_min(val, 10), "Config", { type = "Condition", var = "Effective" })
+		enemyModList:NewMod("SelfFreezeDuration", "INC", 5, "Config", { type = "Multiplier", var = "BarnacleStack" }, { type = "Condition", var = "Effective" } )
+		enemyModList:NewMod("SelfChillDuration", "INC", 5, "Config", { type = "Multiplier", var = "BarnacleStack" }, { type = "Condition", var = "Effective" } )
+		enemyModList:NewMod("PhysicalDamageConvertToCold", "BASE", 5, "Config", { type = "Multiplier", var = "BarnacleStack" }, { type = "Condition", var = "Effective" } )
+	end },
 	{ var = "conditionEnemyFrozen", type = "check", label = "Is the enemy ^x3F6DB3Frozen?", ifEnemyCond = "Frozen", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Frozen", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
@@ -1973,8 +1989,18 @@ Huge sets the radius to 11.
 	{ var = "multiplierEnemyAffectedByGraspingVines", type = "count", label = "# of Grasping Vines affecting enemy:", ifMult = "GraspingVinesAffectingEnemy", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:GraspingVinesAffectingEnemy", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyOnFungalGround", type = "check", label = "Is the enemy on Fungal Ground?", ifCond = { "OnFungalGround", "CreateFungalGround" }, tooltip = "Enemies on your Fungal Ground have -10% to all Resistances.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyOnFungalGround", type = "check", label = "Is the enemy on Fungal Ground?", ifCond = { "OnFungalGround", "CreateFungalGround" }, tooltip = "Enemies on your Fungal Ground have -10% to all Resistances", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnFungalGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "conditionEnemyOnBrineGround", type = "check", label = "Is the enemy on Brine Ground?", ifFlag = "CanCreateBrineGround", tooltip = "Enemies on your Brine Ground have \n30% increased effect of Lightning and Cold Ailments on them and \nhave 25% reduced Armour and Evasion Rating.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:OnBrineGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+		enemyModList:NewMod("SelfChillEffect", "INC", 30, "Config", { type = "Condition", var = "OnBrineGround" })
+		enemyModList:NewMod("SelfBrittleEffect", "INC", 30, "Config", { type = "Condition", var = "OnBrineGround" })
+		enemyModList:NewMod("SelfShockEffect", "INC", 30, "Config", { type = "Condition", var = "OnBrineGround" })
+		enemyModList:NewMod("SelfSapEffect", "INC", 30, "Config", { type = "Condition", var = "OnBrineGround" })
+		enemyModList:NewMod("Armour", "INC", -25, "Config", { type = "Condition", var = "OnBrineGround" })
+		enemyModList:NewMod("Evasion", "INC", -25, "Config", { type = "Condition", var = "OnBrineGround" })
+
 	end },
 	{ var = "conditionEnemyInChillingArea", type = "check", label = "Is the enemy in a ^x3F6DB3Chilling ^7area?", ifEnemyCond = "InChillingArea", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:InChillingArea", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
