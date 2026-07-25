@@ -216,6 +216,42 @@ describe("TestAttacks", function()
 		assert.True(math.abs(finalCost - 12) < 0.1) -- floor(12 * 1.5) / 1.5
 	end)
 
+	it("Test flat cost is added before cost efficiency", function()
+		-- In-game order is ((base cost * multipliers) + flat cost) / (1 + cost efficiency)
+		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
+
+		-- Hydrosphere 12 base mana cost
+		build.configTab.input.customMods = "+10 to Total Mana Cost\n50% increased Mana Cost Efficiency"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		local finalCost = build.calcsTab.mainOutput.ManaCost
+		-- (12 + 10) / 1.5 = 14.667
+		assert.True(math.abs(finalCost - 22 / 1.5) < 0.001)
+	end)
+	it("Test flat cost is added before cost efficiency for life costs", function()
+		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
+
+		-- Convert Hydrosphere's 12 base cost to life, then add +10 flat and 50% efficiency
+		build.configTab.input.customMods = "Skills Cost Life instead of Mana\n+10 to Total Cost\n50% increased Cost Efficiency"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		-- (12 + 10) / 1.5 = 14.667
+		assert.True(math.abs(build.calcsTab.mainOutput.LifeCost - 22 / 1.5) < 0.001)
+	end)
+
+	it("Test flat cost is added before cost efficiency for energy shield costs (#10003)", function()
+		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
+
+		-- Convert Hydrosphere's 12 base cost to ES, then add +10 flat and 50% efficiency
+		build.configTab.input.customMods = "Skills Cost Energy Shield instead of Mana or Life\n+10 to Total Cost\n50% increased Cost Efficiency"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		-- (12 + 10) / 1.5 = 14.667
+		assert.True(math.abs(build.calcsTab.mainOutput.ESCost - 22 / 1.5) < 0.001)
+	end)
 	it("Test mana cost efficiency with support gems", function()
 		-- Test interaction between cost efficiency and cost multipliers
 		build.skillsTab:PasteSocketGroup("Contagion 6/0  1\nMagnified Area I 1/0  1")

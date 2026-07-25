@@ -1,5 +1,18 @@
 # Changelog
 
+## [v2.66.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.66.2) (2026/07/25)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.66.1...v2.66.2)
+
+
+## What's Changed
+### Fixed Crashes
+- Fix Warden import crash [\#10002](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10002) ([vaisest](https://github.com/vaisest))
+### Fixed Calculations
+- Fix Cost efficiency math and add mods to breakdown [\#10004](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10004) ([vaisest](https://github.com/vaisest))
+
+
+
 ## [v2.66.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.66.1) (2026/07/25)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.66.0...v2.66.1)
@@ -53,7 +66,7 @@
 - Add support for Sinistral and Dextral Catalysts [\#9811](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9811) ([Peechey](https://github.com/Peechey))
 - Add support to auto calculate minion count for mods on Bonemeld and Farrul Bloodline [\#9832](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9832) ([LocalIdentity](https://github.com/LocalIdentity))
 - Add support for Companionship Support [\#9833](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9833) ([LocalIdentity](https://github.com/LocalIdentity))
-- Add support for Cast on Ward Break + Celestial Mathmatics + Ward bypass / chance to not break Bloodline nodes [\#9831](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9831) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for Cast on Ward Break + Celestial Mathematics + Ward bypass / chance to not break Bloodline nodes [\#9831](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9831) ([LocalIdentity](https://github.com/LocalIdentity))
 - Add alt aura variant for Impresence [\#9937](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9937) ([vaisest](https://github.com/vaisest))
 - Add support for Loyalty/damage taken from Companion's Life before you [\#9922](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9922) ([ltogniolli](https://github.com/ltogniolli))
 - Add support for Runegraft of the Agile [\#9963](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9963) ([czarandy](https://github.com/czarandy))
@@ -97,7 +110,7 @@
 - Fix Brutal Restraint missing Balbala variant (The Traitor) [\#9890](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9890) ([Sentinent](https://github.com/Sentinent))
 - Fix parsing Vaal Unique modifiers on items [\#9933](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9933) ([vaisest](https://github.com/vaisest))
 - Fix searching for Low Life in Config tab [\#9914](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9914) ([Blitz54](https://github.com/Blitz54))
-- Fix mods that were "Not Supported"  in mastery losing poisition when assigning masteries [\#9893](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9893) ([soratidus999](https://github.com/soratidus999))
+- Fix mods that were "Not Supported"  in mastery losing position when assigning masteries [\#9893](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/9893) ([soratidus999](https://github.com/soratidus999))
 
 
 ## [v2.65.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.65.0) (2026/04/20)
