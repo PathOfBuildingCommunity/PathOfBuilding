@@ -40,6 +40,18 @@ local fireConvert = {
 	"FireDamageConvertToChaos", "ElementalDamageConvertToChaos", "NonChaosDamageConvertToChaos", 
 	"FireDamageGainAsChaos", "ElementalDamageGainAsChaos", "NonChaosDamageGainAsChaos"
 }
+local manaCost = {
+	"ManaCost", "Cost", "ManaCostNoMult", "ManaCostEfficiency", "CostEfficiency"
+}
+local lifeCost = {
+	"LifeCost", "Cost", "LifeCostNoMult", "LifeCostEfficiency", "CostEfficiency"
+}
+local ESCost = {
+	"ESCost", "Cost", "ESCostNoMult", "ESCostEfficiency", "CostEfficiency"
+}
+local rageCost = {
+	"RageCost", "Cost", "RageNoMult", "RageCostEfficiency", "CostEfficiency"
+}
 
 -- format {width, id, group, color, subsection:{default hidden, label, data:{}}}
 return {
@@ -619,20 +631,20 @@ return {
 { 1, "SkillTypeStats", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Skill type-specific Stats", data = {
 	{ label = "Gem Level", haveOutput = "GemHasLevel", { format = "{0:output:GemLevel}", { breakdown = "GemLevel" }, { modName = { "GemLevel" }, cfg = "skill" },{ modName = { "GemSupportLevel" }, cfg = "skill" }, { modName = { "GemItemLevel" }, cfg = "skill" }, }, },
 	{ label = "Gem Quality", haveOutput = "GemHasQuality", { format = "{0:output:GemQuality}", { breakdown = "GemQuality" }, { modName = { "GemQuality" }, cfg = "skill" },{ modName = { "GemSupportQuality" }, cfg = "skill" }, { modName = { "GemItemQuality" }, cfg = "skill" }, }, },
-	{ label = "Mana Cost", color = colorCodes.MANA, haveOutput = "ManaHasCost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = { "ManaCost", "Cost", "ManaCostNoMult" }, cfg = "skill" }, }, },
-	{ label = "Mana % Cost", color = colorCodes.MANA, haveOutput = "ManaPercentHasCost", { format = "{0:output:ManaPercentCost}", { breakdown = "ManaPercentCost" }, { modName = { "ManaCost", "Cost", "ManaCostNoMult" }, cfg = "skill" }, }, },
-	{ label = "Mana per second", color = colorCodes.MANA, haveOutput = "ManaPerSecondHasCost", { format = "{2:output:ManaPerSecondCost}", { breakdown = "ManaPerSecondCost" }, { modName = { "ManaCost", "Cost", "ManaCostNoMult" }, cfg = "skill" }, }, },
-	{ label = "Mana % per second", color = colorCodes.MANA, haveOutput = "ManaPercentPerSecondHasCost", { format = "{2:output:ManaPercentPerSecondCost}", { breakdown = "ManaPercentPerSecondCost" }, { modName = { "ManaCost", "Cost", "ManaCostNoMult" }, cfg = "skill" }, }, },
-	{ label = "Life Cost", color = colorCodes.LIFE, haveOutput = "LifeHasCost", { format = "{0:output:LifeCost}", { breakdown = "LifeCost" }, { modName = { "LifeCost", "Cost", "LifeCostNoMult" }, cfg = "skill" }, }, },
-	{ label = "Life % Cost", color = colorCodes.LIFE, haveOutput = "LifePercentHasCost", { format = "{0:output:LifePercentCost}", { breakdown = "LifePercentCost" }, { modName = { "LifeCost", "Cost", "LifeCostNoMult" }, cfg = "skill" }, }, },
-	{ label = "Life per second", color = colorCodes.LIFE, haveOutput = "LifePerSecondHasCost", { format = "{2:output:LifePerSecondCost}", { breakdown = "LifePerSecondCost" }, { modName = { "LifeCost", "Cost", "LifeCostNoMult" }, cfg = "skill" }, }, },
-	{ label = "Life % per second", color = colorCodes.LIFE, haveOutput = "LifePercentPerSecondHasCost", { format = "{2:output:LifePercentPerSecondCost}", { breakdown = "LifePercentPerSecondCost" }, { modName = { "LifeCost", "Cost", "LifeCostNoMult" }, cfg = "skill" }, }, },
-	{ label = "ES Cost", color = colorCodes.ES, haveOutput = "ESHasCost", { format = "{0:output:ESCost}", { breakdown = "ESCost" }, { modName = { "ESCost", "Cost", "ESCostNoMult" }, cfg = "skill" }, }, },
-	{ label = "ES per second", color = colorCodes.ES, haveOutput = "ESPerSecondHasCost", { format = "{2:output:ESPerSecondCost}", { breakdown = "ESPerSecondCost" }, { modName = { "ESCost", "Cost", "ESCostNoMult" }, cfg = "skill" }, }, },
-	{ label = "ES % per second", color = colorCodes.ES, haveOutput = "ESPercentPerSecondHasCost", { format = "{2:output:ESPercentPerSecondCost}", { breakdown = "ESPercentPerSecondCost" }, { modName = { "ESCost", "Cost", "ESCostNoMult" }, cfg = "skill" }, }, },
-	{ label = "Rage Cost", color = colorCodes.RAGE, haveOutput = "RageHasCost", { format = "{0:output:RageCost}", { breakdown = "RageCost" }, { modName = { "RageCost", "Cost", "RageNoMult" }, cfg = "skill" }, }, },
-	{ label = "Rage per second", color = colorCodes.RAGE, haveOutput = "RagePerSecondHasCost", { format = "{2:output:RagePerSecondCost}", { breakdown = "RagePerSecondCost" }, { modName = { "RageCost", "Cost", "RageNoMult" }, cfg = "skill" }, }, },
-	{ label = "Soul Cost", color = colorCodes.RAGE, haveOutput = "SoulHasCost", { format = "{0:output:SoulCost}", { breakdown = "SoulCost" }, { modName = { "SoulCost" }, cfg = "skill" }, }, },
+	{ label = "Mana Cost", color = colorCodes.MANA, haveOutput = "ManaHasCost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = manaCost, cfg = "skill" }, }, },
+	{ label = "Mana % Cost", color = colorCodes.MANA, haveOutput = "ManaPercentHasCost", { format = "{0:output:ManaPercentCost}", { breakdown = "ManaPercentCost" }, { modName = manaCost, cfg = "skill" }, }, },
+	{ label = "Mana per second", color = colorCodes.MANA, haveOutput = "ManaPerSecondHasCost", { format = "{2:output:ManaPerSecondCost}", { breakdown = "ManaPerSecondCost" }, { modName = manaCost, cfg = "skill" }, }, },
+	{ label = "Mana % per second", color = colorCodes.MANA, haveOutput = "ManaPercentPerSecondHasCost", { format = "{2:output:ManaPercentPerSecondCost}", { breakdown = "ManaPercentPerSecondCost" }, { modName = manaCost, cfg = "skill" }, }, },
+	{ label = "Life Cost", color = colorCodes.LIFE, haveOutput = "LifeHasCost", { format = "{0:output:LifeCost}", { breakdown = "LifeCost" }, { modName = lifeCost, cfg = "skill" }, }, },
+	{ label = "Life % Cost", color = colorCodes.LIFE, haveOutput = "LifePercentHasCost", { format = "{0:output:LifePercentCost}", { breakdown = "LifePercentCost" }, { modName = lifeCost, cfg = "skill" }, }, },
+	{ label = "Life per second", color = colorCodes.LIFE, haveOutput = "LifePerSecondHasCost", { format = "{2:output:LifePerSecondCost}", { breakdown = "LifePerSecondCost" }, { modName = lifeCost, cfg = "skill" }, }, },
+	{ label = "Life % per second", color = colorCodes.LIFE, haveOutput = "LifePercentPerSecondHasCost", { format = "{2:output:LifePercentPerSecondCost}", { breakdown = "LifePercentPerSecondCost" }, { modName = lifeCost, cfg = "skill" }, }, },
+	{ label = "ES Cost", color = colorCodes.ES, haveOutput = "ESHasCost", { format = "{0:output:ESCost}", { breakdown = "ESCost" }, { modName = ESCost, cfg = "skill" }, }, },
+	{ label = "ES per second", color = colorCodes.ES, haveOutput = "ESPerSecondHasCost", { format = "{2:output:ESPerSecondCost}", { breakdown = "ESPerSecondCost" }, { modName = ESCost, cfg = "skill" }, }, },
+	{ label = "ES % per second", color = colorCodes.ES, haveOutput = "ESPercentPerSecondHasCost", { format = "{2:output:ESPercentPerSecondCost}", { breakdown = "ESPercentPerSecondCost" }, { modName = ESCost, cfg = "skill" }, }, },
+	{ label = "Rage Cost", color = colorCodes.RAGE, haveOutput = "RageHasCost", { format = "{0:output:RageCost}", { breakdown = "RageCost" }, { modName = rageCost, cfg = "skill" }, }, },
+	{ label = "Rage per second", color = colorCodes.RAGE, haveOutput = "RagePerSecondHasCost", { format = "{2:output:RagePerSecondCost}", { breakdown = "RagePerSecondCost" }, { modName = rageCost, cfg = "skill" }, }, },
+	{ label = "Soul Cost", color = colorCodes.RAGE, haveOutput = "SoulHasCost", { format = "{0:output:SoulCost}", { breakdown = "SoulCost" }, { modName = { "SoulCost", "SoulCostEfficiency" }, cfg = "skill" }, }, },
 	{ label = "Active Minion Limit", haveOutput = "ActiveMinionLimit", { format = "{0:output:ActiveMinionLimit}" } },
 	{ label = "Quantity Multiplier", haveOutput = "QuantityMultiplier", { format = "{0:output:QuantityMultiplier}",
 	    { breakdown = "QuantityMultiplier" },
