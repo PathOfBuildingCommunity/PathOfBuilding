@@ -290,6 +290,8 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 			end
 			local items = {}
 			for _, trade_entry in pairs(response.result) do
+				local pseudoMod = trade_entry.item.pseudoMods and trade_entry.item.pseudoMods[1]
+				local pseudoModLine = pseudoMod and (pseudoMod.description or pseudoMod)
 				table.insert(items, {
 					amount = trade_entry.listing.price.amount,
 					currency = trade_entry.listing.price.currency,
@@ -297,7 +299,7 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 					item_string = escapeGGGString(common.base64.decode(trade_entry.item.extended.text)),
 					whisper = trade_entry.listing.whisper,
 					trader = trade_entry.listing.account.name,
-					weight = trade_entry.item.pseudoMods and trade_entry.item.pseudoMods[1]:match("Sum: (.+)") or "0",
+					weight = pseudoModLine and pseudoModLine:match("Sum: (.+)") or "0",
 					id = trade_entry.id
 				})
 			end

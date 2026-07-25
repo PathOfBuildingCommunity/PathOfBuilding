@@ -1,4 +1,5 @@
 describe("TradeQueryRequests", function()
+	local dkjson = require "dkjson"
 	local mock_limiter = {
 		NextRequestTime = function()
 			return os.time()
@@ -189,6 +190,51 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 			end, {})
 			requests.PerformSearch = orig_perform
 			requests.FetchResultBlock = orig_fetchBlock
+		end)
+	end)
+
+	describe("FetchResultBlock", function()
+		it("reads weighted sums from current and legacy pseudo mods", function()
+			local function makeTradeEntry(id, pseudoMods)
+				return {
+					id = id,
+					listing = {
+						price = { amount = 1, currency = "chaos", type = "~price" },
+						whisper = "hi",
+						account = { name = "seller" },
+					},
+					item = {
+						extended = { text = "VGVzdCBJdGVt" },
+						pseudoMods = pseudoMods,
+					},
+				}
+			end
+			local response = dkjson.encode({
+				result = {
+					makeTradeEntry("current", { { description = "Sum: 178", domain = "pseudo", hash = "stat.statgroup.0" } }),
+					makeTradeEntry("legacy", { "Sum: 42" }),
+					makeTradeEntry("empty", { }),
+				},
+			})
+			local fetchedItems
+			local callbackError
+			requests.requestQueue.fetch = { }
+			requests:FetchResultBlock("test", function(items, errMsg)
+				fetchedItems = items
+				callbackError = errMsg
+			end)
+
+			local request = table.remove(requests.requestQueue.fetch, 1)
+			request.callback(response)
+
+			local itemsById = { }
+			for _, item in ipairs(fetchedItems) do
+				itemsById[item.id] = item
+			end
+			assert.is_nil(callbackError)
+			assert.are.equal("178", itemsById.current.weight)
+			assert.are.equal("42", itemsById.legacy.weight)
+			assert.are.equal("0", itemsById.empty.weight)
 		end)
 	end)
 
