@@ -745,6 +745,57 @@ local skills, mod, flag, skill = ...
 #baseMod skill("debuff", true)
 #mods
 
+#skill PactOfBeidat
+#flags spell pact
+	statMap = {
+		["skill_empowers_next_x_spells_cast"] = {
+			mod("BeidatEmpoweredSpells", "BASE", nil),
+		},
+		["pact_skill_damage_+%_final_with_hits_and_ailments_to_grant"] = {
+			mod("BeidatPactDamage", "BASE", nil),
+		},
+	},
+#mods
+
+#skill PactOfGhorr
+#flags spell pact duration
+	statMap = {
+		["skill_empowers_next_x_spells_cast"] = {
+			mod("GhorrEmpoweredSpells", "BASE", nil),
+		},
+		["pact_skill_grant_damage_over_time_+%_final_to_spells"] = {
+			mod("GhorrPactDamage", "BASE", nil),
+		},
+	},
+#mods
+
+#skill PactOfKtash
+#flags spell pact
+	statMap = {
+		["skill_empowers_next_x_spells_cast"] = {
+			mod("KtashEmpoweredSpells", "BASE", nil),
+		},
+		["pact_skill_grant_damage_+%_final_to_exerted_skills"] = {
+			mod("KtashPactDamage", "BASE", nil),
+		},
+		["active_skill_osm_vaal_skill_soul_gain_prevention_+%_final_to_grant"] = {
+			mod("KtashPactSoulGainPrevention", "BASE", nil),
+		},
+	},
+#mods
+
+#skill PactOfLycia
+#flags spell pact
+	statMap = {
+		["skill_empowers_next_x_spells_cast"] = {
+			mod("LyciaEmpoweredSpells", "BASE", nil),
+		},
+		["pact_skill_grant_damage_+%_final_to_exerted_skills"] = {
+			mod("LyciaPactDamage", "BASE", nil),
+		},
+	},
+#mods
+
 #skill Ravenous
 #flags spell
 	fromTree = true,

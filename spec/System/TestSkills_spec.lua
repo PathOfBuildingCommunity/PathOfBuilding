@@ -1,4 +1,4 @@
-describe("TestAttacks", function()
+describe("TestSkills", function()
 	before_each(function()
 		newBuild()
 	end)
@@ -248,5 +248,74 @@ describe("TestAttacks", function()
 		nonDurationSkill.skillModList:NewMod("NegatedBaseFlagTest", "BASE", 1, "Test", { type = "BaseFlag", baseFlag = "duration", neg = true })
 		assert.are.equals(0, nonDurationSkill.skillModList:Sum("BASE", nonDurationSkill.skillCfg, "BaseFlagTest"))
 		assert.are.equals(1, nonDurationSkill.skillModList:Sum("BASE", nonDurationSkill.skillCfg, "NegatedBaseFlagTest"))
+	end)
+
+	it("Test Empowered Spells - Pact of Beidat", function()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+		runCallback("OnFrame")
+		local baseDPS = build.calcsTab.calcsOutput.TotalDPS
+
+		build.skillsTab:PasteSocketGroup("Pact of Beidat 1/0  1")
+		runCallback("OnFrame")
+		assert.True(build.calcsTab.calcsOutput.BeidatUpTimeRatio > 0)
+		assert.True(build.calcsTab.calcsOutput.TotalDPS > baseDPS)
+
+		newBuild()
+		build.skillsTab:PasteSocketGroup("Vaal Arc 20/0  1\nPact of Beidat 1/0  1")
+		runCallback("OnFrame")
+		assert.True(build.calcsTab.calcsOutput.BeidatUpTimeRatio == nil)
+	end)
+
+	it("Test Empowered Spells - Pact of Ghorr", function()
+		build.skillsTab:PasteSocketGroup("Creeping Frost 20/0  1")
+		runCallback("OnFrame")
+		local baseDPS = build.calcsTab.calcsOutput.TotalDotDPS
+
+		build.skillsTab:PasteSocketGroup("Pact of Ghorr 1/0  1")
+		runCallback("OnFrame")
+		assert.True(build.calcsTab.calcsOutput.GhorrUpTimeRatio > 0)
+		assert.True(build.calcsTab.calcsOutput.TotalDotDPS > baseDPS)
+
+		newBuild()
+		build.skillsTab:PasteSocketGroup("Vaal Arc 20/0  1\n Pact of Ghorr 1/0  1")
+		runCallback("OnFrame")
+		assert.True(build.calcsTab.calcsOutput.GhorrUpTimeRatio == nil)
+	end)
+
+	it("Test Empowered Spells - Pact of K'Tash", function()
+		build.skillsTab:PasteSocketGroup("Vaal Arc 20/0  1")
+		runCallback("OnFrame")
+		local baseDPS = build.calcsTab.calcsOutput.TotalDPS
+
+		build.skillsTab:PasteSocketGroup("Pact of K'Tash 1/0  1")
+		runCallback("OnFrame")
+		assert.True(build.calcsTab.calcsOutput.KtashUpTimeRatio > 0)
+		assert.True(build.calcsTab.calcsOutput.TotalDPS > baseDPS)
+
+		newBuild()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1\nPact of K'Tash 1/0  1")
+		runCallback("OnFrame")
+		assert.True(build.calcsTab.calcsOutput.KtashUpTimeRatio == nil)
+	end)
+
+	it("Test Empowered Spells - Pact of Lycia", function()
+		build.skillsTab:PasteSocketGroup("Lightning Tendrils 20/0  1")
+		runCallback("OnFrame")
+		local baseDPS = build.calcsTab.calcsOutput.TotalDPS
+
+		build.skillsTab:PasteSocketGroup("Pact of Lycia 1/0  1")
+		runCallback("OnFrame")
+		assert.True(build.calcsTab.calcsOutput.LyciaUpTimeRatio > 0)
+		assert.True(build.calcsTab.calcsOutput.TotalDPS > baseDPS)
+
+		newBuild()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1\nPact of Lycia 1/0  1")
+		runCallback("OnFrame")
+		assert.True(build.calcsTab.calcsOutput.LyciaUpTimeRatio == nil)
+
+		newBuild()
+		build.skillsTab:PasteSocketGroup("Vaal Arc 20/0  1\nPact of Lycia 1/0  1")
+		runCallback("OnFrame")
+		assert.True(build.calcsTab.calcsOutput.LyciaUpTimeRatio == nil)
 	end)
 end)

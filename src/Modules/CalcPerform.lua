@@ -1430,6 +1430,26 @@ function calcs.perform(env, skipEHP)
 				modDB:NewMod("SeismicActive", "FLAG", true) -- Prevents effect from applying multiple times
 			end
 		end
+		local function calcCastTime(baseSpeed, skillModList, skillCfg, actor)
+			local castTime = baseSpeed / (calcLib.mod(skillModList, skillCfg, "Speed") * calcs.actionSpeedMod(actor))
+			castTime = m_min(castTime, data.misc.ServerTickRate)
+			return castTime
+		end
+		if env.mode_buffs and activeSkill.skillFlags.pact then
+			for _, pactName in ipairs({ "Beidat", "Ghorr", "Ktash", "Lycia" }) do
+				if (activeSkill.activeEffect.grantedEffect.name == (("Pact of "..pactName)) or
+					activeSkill.activeEffect.grantedEffect.name == "Pact of K'Tash" and pactName == "Ktash")
+				and not modDB:Flag(nil, pactName.."Active") then
+					env.player.modDB:NewMod(pactName.."PactDamage", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, pactName.."PactDamage"))
+					env.player.modDB:NewMod(pactName.."EmpoweredSpells", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, pactName.."EmpoweredSpells"))
+					env.player.modDB:NewMod(pactName.."BaseCastTime", "BASE", calcCastTime(activeSkill.activeEffect.grantedEffect.castTime, activeSkill.skillModList, activeSkill.skillCfg, env.player))
+					if pactName == "Ktash" then
+						env.player.modDB:NewMod("KtashPactSoulGainPrevention", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "KtashPactSoulGainPrevention"))
+					end
+					modDB:NewMod(pactName.."Active", "FLAG", true) -- Prevents effect from applying multiple times
+				end
+			end
+		end
 		if activeSkill.skillData.triggeredOnDeath and not activeSkill.skillFlags.minion then
 			activeSkill.skillData.triggered = true
 			for _, value in ipairs(activeSkill.skillModList:Tabulate("INC", env.player.mainSkill.skillCfg, "TriggeredDamage")) do
