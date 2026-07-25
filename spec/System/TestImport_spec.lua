@@ -70,6 +70,38 @@ describe("TestImport", function()
 		isEquipped(4, "Fulgent Bliss, Small Cluster Jewel")
 	end)
 
+	it("imports modifier flags from the 3.29 item API", function()
+		build.importTab:ImportItem({
+			id = "test-item-mod-flags",
+			frameType = 2,
+			name = "Test Grip",
+			typeLine = "Rawhide Gloves",
+			inventoryId = "Gloves",
+			ilvl = 10,
+			properties = { },
+			implicitMods = {
+				{ description = "+20 to maximum Life" },
+			},
+			explicitMods = {
+				{ description = "+10 to maximum Life", flags = { crafted = true } },
+				{ description = "+11 to maximum Mana", flags = { fractured = true } },
+				{ description = "+12 to Strength", flags = { mutated = true } },
+			},
+		})
+
+		local itemId = build.itemsTab.slots.Gloves.selItemId
+		local item = build.itemsTab.items[itemId]
+		local explicitMods = { }
+		for _, modLine in ipairs(item.explicitModLines) do
+			explicitMods[modLine.line] = modLine
+		end
+
+		assert.are.equal("+20 to maximum Life", item.implicitModLines[1].line)
+		assert.is_true(explicitMods["+10 to maximum Life"].crafted)
+		assert.is_true(explicitMods["+11 to maximum Mana"].fractured)
+		assert.is_true(explicitMods["+12 to Strength"].mutated)
+	end)
+
 	function importAndReimportWithOldJewel(shouldDelete)
 		local oldJewel = new("Item", [[Rarity: RARE
 TEST JEWEL
