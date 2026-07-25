@@ -1338,10 +1338,13 @@ AbyssJewelSocketUnique__14
 Stasis Prison
 Carnal Armour
 Source: Drops in Unrelenting Domain of Timeless Conflict
+Variant: Pre 3.29.0
+Variant: Current
 Implicits: 1
 IncreasedManaImplicitArmour1
 LocalIncreasedEvasionAndEnergyShieldUnique__33
-IncreasedLifeUniqueBodyStrInt7
+{variant:1}IncreasedLifeUniqueBodyStrInt7
+{variant:2}ImplicitModifierMagnitudeUnique_2
 ChronomanceReservesNoMana
 DamageTakenGainedAsLifeUnique__2
 DebuffTimePassedUnique__2

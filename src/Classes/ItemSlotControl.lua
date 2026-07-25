@@ -7,6 +7,7 @@ local pairs = pairs
 local t_insert = table.insert
 local m_min = math.min
 
+local itemSlotHelper = LoadModule("Modules/ItemSlotHelper")
 local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl", function(self, anchor, x, y, itemsTab, slotName, slotLabel, nodeId)
 	self.DropDownControl(anchor, {x, y, 310, 20}, { }, function(index, value)
 		if self.items[index] ~= self.selItemId then
@@ -49,7 +50,7 @@ local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl", function(se
 		-- not selControl.ListControl allows hover when All Items or Unique/Rare DB Sections are in focus
 		if main.popups[1] or mode == "OUT" or not item or (not self.dropped and itemsTab.selControl and itemsTab.selControl ~= self.controls.activate and not itemsTab.selControl.ListControl) then
 			tooltip:Clear(true)
-		elseif tooltip:CheckForUpdate(item, launch.devModeAlt, itemsTab.build.outputRevision) then
+		elseif tooltip:CheckForUpdate(item, launch.devModeAlt, itemsTab.build.outputRevision, IsKeyDown("SHIFT")) then
 			itemsTab:AddItemTooltip(tooltip, item, self)
 		end
 	end
@@ -102,6 +103,11 @@ function ItemSlotClass:Populate()
 	end
 	for i, abyssalSocket in ipairs(self.abyssalSocketList) do
 		abyssalSocket.inactive = i > abyssalSocketCount
+		if abyssalSocket.inactive then
+			-- this can be inconvenient, but otherwise it is possible to double
+			-- equip jewels by moving the jewel while the socket is inactive
+			abyssalSocket:SetSelItemId(0)
+		end
 	end
 end
 
@@ -130,30 +136,15 @@ function ItemSlotClass:Draw(viewPort)
 	self.DropDownControl:Draw(viewPort)
 	self:DrawControls(viewPort)
 	if not main.popups[1] and self.nodeId and (self.dropped or (self:IsMouseOver() and (self.otherDragSource or not self.itemsTab.selControl))) then
-		SetDrawLayer(nil, 15)
+		local width = 308
+		local height = 280
 		local viewerY
 		if self.DropDownControl.dropUp and self.DropDownControl.dropped then
 			viewerY = y + 20
 		else
-			viewerY = m_min(y - 300 - 5, viewPort.y + viewPort.height - 304)
+			viewerY = m_min(y - height - 4, viewPort.y + viewPort.height - height)
 		end
-		local viewerX = x
-		SetDrawColor(1, 1, 1)
-		DrawImage(nil, viewerX, viewerY, 304, 304)
-		local viewer = self.itemsTab.socketViewer
-		local node = self.itemsTab.build.spec.nodes[self.nodeId]
-		viewer.zoom = 5
-		local scale = self.itemsTab.build.spec.tree.size / 1500
-		viewer.zoomX = -node.x / scale
-		viewer.zoomY = -node.y / scale
-		SetViewport(viewerX + 2, viewerY + 2, 300, 300)
-		viewer:Draw(self.itemsTab.build, { x = 0, y = 0, width = 300, height = 300 }, { })
-		SetDrawLayer(nil, 30)
-		SetDrawColor(1, 1, 1, 0.2)
-		DrawImage(nil, 149, 0, 2, 300)
-		DrawImage(nil, 0, 149, 300, 2)
-		SetViewport()
-		SetDrawLayer(nil, 0)
+		itemSlotHelper.DrawViewer(self.itemsTab, self.nodeId, x, viewerY, width, height)
 	end
 end
 

@@ -335,24 +335,28 @@ MaximumLifeLeechRateUnique__1
 Voidfletcher
 {variant:1,2}Penetrating Arrow Quiver
 {variant:3}Primal Arrow Quiver
+{variant:4}Ornate Quiver
 Shaper Item
 Elder Item
 Variant: Pre 3.5.0
 Variant: Pre 3.17.0
+Variant: Pre 3.29.0
 Variant: Current
 Source: Drops from unique{The Elder} (Uber)
 {variant:1,2}LevelReq: 64
 Implicits: 2
 {variant:1,2}AdditionalArrowPierceImplicitQuiver12_
 {variant:3}WeaponElementalDamageImplicitQuiver13New
+{variant:4}QuiverHasOneSocket
+{variant:4}HasTwoSocketsUnique__2
 VoidShotOnSkillUseUnique__1_
 AddedColdDamageUnique__7
 IncreasedEnergyShieldUnique__7
 ColdResistUnique__1
-ManaGainedFromEnemyDeathUnique__2
-ProjectileSpeedUnique__2
-{variant:1}MaximumVoidArrowsUnique__1[5,5][1000,1000]
-{variant:2,3}MaximumVoidArrowsUnique__1
+{variant:1,2,3}ManaGainedFromEnemyDeathUnique__2
+{variant:1,2,3}ProjectileSpeedUnique__2
+{variant:1,4}MaximumVoidArrowsUnique__1
+{variant:2,3}MaximumVoidArrowsUnique__1[5,5][500,500]
 ]],[[
 The Poised Prism
 Primal Arrow Quiver

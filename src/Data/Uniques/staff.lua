@@ -10,9 +10,9 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 66, 158 Str, 113 Int
 Implicits: 3
-{variant:3}+25% Chance to Block Spell Damage while wielding a Staff
-{variant:1}+12% Chance to Block Attack Damage while wielding a Staff
-{variant:2}+18% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+12% Chance to Block Attack Damage
+{variant:2}+18% Chance to Block Attack Damage
+{variant:3}+25% Chance to Block Spell Damage
 40% increased Strength Requirement
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
@@ -28,9 +28,9 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 66, 158 Str, 113 Int
 Implicits: 3
-{variant:3}+25% Chance to Block Spell Damage while wielding a Staff
-{variant:1}+12% Chance to Block Attack Damage while wielding a Staff
-{variant:2}+18% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+12% Chance to Block Attack Damage
+{variant:2}+18% Chance to Block Attack Damage
+{variant:3}+25% Chance to Block Spell Damage
 40% increased Strength Requirement
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
@@ -46,9 +46,9 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 66, 158 Str, 113 Int
 Implicits: 3
-{variant:3}+25% Chance to Block Spell Damage while wielding a Staff
-{variant:1}+12% Chance to Block Attack Damage while wielding a Staff
-{variant:2}+18% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+12% Chance to Block Attack Damage
+{variant:2}+18% Chance to Block Attack Damage
+{variant:3}+25% Chance to Block Spell Damage
 40% increased Strength Requirement
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
@@ -64,9 +64,9 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 66, 158 Str, 113 Int
 Implicits: 3
-{variant:3}+25% Chance to Block Spell Damage while wielding a Staff
-{variant:1}+12% Chance to Block Attack Damage while wielding a Staff
-{variant:2}+18% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+12% Chance to Block Attack Damage
+{variant:2}+18% Chance to Block Attack Damage
+{variant:3}+25% Chance to Block Spell Damage
 40% increased Strength Requirement
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
@@ -82,23 +82,25 @@ Variant: Current
 Source: Drops from unique{The Searing Exarch} (Uber)
 Requires Level 68, 78 Str, 78 Int
 Implicits: 2
-{variant:2}+22% Chance to Block Spell Damage while wielding a Staff
-{variant:1}+18% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+18% Chance to Block Attack Damage
+{variant:2}+22% Chance to Block Spell Damage
 (60-70)% reduced Elemental Resistances
 Deal Triple Damage with Elemental Skills
 ]],[[
 Atziri's Rule
 Judgement Staff
 Variant: Pre 3.25.0
+Variant: Pre 3.29.0
 Variant: Current
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
 Requires Level 68, 113 Str, 113 Int
 Implicits: 2
-{variant:1}+20% Chance to Block Spell Damage while wielding a Staff
-{variant:2}+25% Chance to Block Attack Damage while wielding a Staff
+{variant:2,3}+25% Chance to Block Attack Damage
+{variant:1}+20% Chance to Block Spell Damage
 Grants Level 20 Queen's Demand Skill
 Queen's Demand can Trigger Level 20 Flames of Judgement
 Queen's Demand can Trigger Level 20 Storm of Judgement
+{variant:3}(100-300)% increased Spell Critical Strike Chance
 Cannot be Stunned
 Damage cannot be Reflected
 ]],[[
@@ -110,8 +112,8 @@ Variant: Current
 League: Sanctum
 Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}
 Implicits: 2
-{variant:1}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:2,3}+22% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+18% Chance to Block Attack Damage
+{variant:2,3}+22% Chance to Block Attack Damage
 (700-800)% increased Physical Damage
 {variant:1,2}+100% to Global Critical Strike Multiplier
 {variant:3}+(100-150)% to Global Critical Strike Multiplier
@@ -126,9 +128,9 @@ Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
 Implicits: 3
-{variant:3}+20% Chance to Block Spell Damage while wielding a Staff
-{variant:1}+12% Chance to Block Attack Damage while wielding a Staff
-{variant:2}+18% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+12% Chance to Block Attack Damage
+{variant:2}+18% Chance to Block Attack Damage
+{variant:3}+20% Chance to Block Spell Damage
 +12% Chance to Block Attack Damage while wielding a Staff
 100% increased Physical Damage
 (5-10)% increased Attack Speed
@@ -142,10 +144,10 @@ Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 2
-{variant:2}+20% Chance to Block Spell Damage while wielding a Staff
-{variant:1}+18% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+18% Chance to Block Attack Damage
+{variant:2}+20% Chance to Block Spell Damage
 +12% Chance to Block Attack Damage while wielding a Staff
-100% increased Fire Damage
+(100-200)% increased Fire Damage
 (5-10)% increased Attack Speed
 Curse Enemies with Flammability on Block
 Reflects (22-44) Fire Damage to Attackers on Block
@@ -155,19 +157,23 @@ Ezomyte Staff
 Variant: Pre 3.5.0
 Variant: Pre 3.11.0
 Variant: Pre 3.25.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level: 60, 113 Str, 113 Int
 Implicits: 3
-{variant:1,2}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:3}+20% Chance to Block Attack Damage while wielding a Staff
-{variant:4}+25% Chance to Block Attack Damage while wielding a Staff
-{variant:2,3,4}+(40-55)% to Chaos Damage over Time Multiplier
+{variant:1,2}+18% Chance to Block Attack Damage
+{variant:3}+20% Chance to Block Attack Damage
+{variant:4,5}+25% Chance to Block Attack Damage
+{variant:2,3,4,5}+(40-55)% to Chaos Damage over Time Multiplier
 {variant:1}(60-80)% increased Chaos Damage
 {variant:2,3,4}(20-30)% increased Chaos Damage
-2% increased Cast Speed per Power Charge
 +2 to Level of all Chaos Spell Skill Gems
+{variant:5}+1 to Maximum Power Charges
+{variant:1,2,3,4}2% increased Cast Speed per Power Charge
+{variant:5}5% increased Cast Speed per Power Charge
+{variant:1,2,3,4}Regenerate 2 Mana per Second per Power Charge
+{variant:5}Regenerate 5 Mana per Second per Power Charge
 Gain a Power Charge after Spending a total of 200 Mana
-Regenerate 2 Mana per Second per Power Charge
 ]],[[
 Disintegrator
 Maelstrom Staff
@@ -177,22 +183,25 @@ Source: Drops from unique{The Elder} (Uber)
 Variant: Pre 3.7.0
 Variant: Pre 3.11.0
 Variant: Pre 3.13.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 64, 113 Str, 113 Int
 Implicits: 2
-{variant:1,2}+20% Chance to Block Attack Damage while wielding a Staff
-{variant:3,4}+25% Chance to Block Attack Damage while wielding a Staff
+{variant:1,2}+20% Chance to Block Attack Damage
+{variant:3,4,5}+25% Chance to Block Attack Damage
 {variant:1}Adds (270-300) to (340-380) Physical Damage
 {variant:2}Adds (250-280) to (315-355) Physical Damage
-{variant:3,4}Adds (220-240) to (270-300) Physical Damage
+{variant:3,4,5}Adds (220-240) to (270-300) Physical Damage
 +1 to Maximum Siphoning Charges per Elder or Shaper Item Equipped
 25% chance to gain a Siphoning Charge when you use a Skill
-Adds (12-14) to (15-16) Physical Damage to Attacks and Spells per Siphoning Charge
+{variant:1,2,3,4}Adds (12-14) to (15-16) Physical Damage to Attacks and Spells per Siphoning Charge
+{variant:5}Adds (20-23) to (26-30) Physical Damage to Attacks and Spells per Siphoning Charge
 Gain 4% of Non-Chaos Damage as extra Chaos Damage per Siphoning Charge
-1% additional Physical Damage Reduction from Hits per Siphoning Charge
+{variant:1,2,3,4}1% additional Physical Damage Reduction from Hits per Siphoning Charge
+{variant:5}2% additional Physical Damage Reduction from Hits per Siphoning Charge
 0.2% of Damage Leeched as Life per Siphoning Charge
 Take 150 Physical Damage per Second per Siphoning Charge if you've used a Skill Recently
-{variant:1,2,3,4}Battlemage
+{variant:1,2,3,4,5}Battlemage
 ]],[[
 Duskdawn
 Maelström Staff
@@ -200,14 +209,16 @@ Source: Vendor Recipe
 Variant: Pre 2.6.0
 Variant: Pre 3.5.0
 Variant: Pre 3.11.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 64, 113 Str, 113 Int
 Implicits: 3
-{variant:1}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:2,3}+20% Chance to Block Attack Damage while wielding a Staff
-{variant:4}+25% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+18% Chance to Block Attack Damage
+{variant:2,3}+20% Chance to Block Attack Damage
+{variant:4,5}+25% Chance to Block Attack Damage
 {variant:1,2}+4% Chance to Block Attack Damage while wielding a Staff
 {variant:3,4}+10% Chance to Block Attack Damage while wielding a Staff
+{variant:5}+(20-30)% Chance to Block Attack Damage while wielding a Staff
 (60-80)% increased Spell Critical Strike Chance
 Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 +1% to Critical Strike Multiplier per 1% Chance to Block Attack Damage
@@ -219,10 +230,13 @@ Replica Duskdawn
 Maelström Staff
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 64, 113 Str, 113 Int
 Implicits: 1
-+25% Chance to Block Attack Damage while wielding a Staff
-+10% Chance to Block Attack Damage while wielding a Staff
++25% Chance to Block Attack Damage
+{variant:1}+10% Chance to Block Attack Damage while wielding a Staff
+{variant:2}+(20-30)% Chance to Block Attack Damage while wielding a Staff
 (40-50)% increased Critical Strike Chance
 Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 +1% to Critical Strike Multiplier per 1% Chance to Block Attack Damage
@@ -236,8 +250,8 @@ Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
 Implicits: 2
-{variant:1,2}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:3}+20% Chance to Block Attack Damage while wielding a Staff
+{variant:1,2}+18% Chance to Block Attack Damage
+{variant:3}+20% Chance to Block Attack Damage
 18% increased Cast Speed
 18% increased maximum Mana
 18% increased Area of Effect of Aura Skills
@@ -257,8 +271,8 @@ Variant: Pre 3.26.0
 Variant: Current
 Requires Level 66, 113 Str, 113 Int
 Implicits: 2
-{variant:3,4}+25% Chance to Block Spell Damage while wielding a Staff
-{variant:2}+18% Chance to Block Attack Damage while wielding a Staff
+{variant:2}+18% Chance to Block Attack Damage
+{variant:3,4}+25% Chance to Block Spell Damage
 {variant:1}Socketed Gems are supported by Level 10 Life Leech
 {variant:2,3,4}Socketed Gems are supported by Level 1 Chance to Bleed
 Grants Summon Harbinger of Brutality Skill
@@ -278,8 +292,8 @@ League: Harvest
 Source: Upgraded from unique{The Enmity Divine} via currency{Haemocombustion Scroll}
 Requires Level 66, 113 Str, 113 Int
 Implicits: 2
-{variant:2,3}+25% Chance to Block Spell Damage while wielding a Staff
-{variant:1}+18% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+18% Chance to Block Attack Damage
+{variant:2,3}+25% Chance to Block Spell Damage
 Socketed Gems are supported by Level 1 Chance to Bleed
 Grants Summon Greater Harbinger of Brutality Skill
 +5% Chance to Block Attack Damage while wielding a Staff
@@ -297,9 +311,9 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 58, 99 Str, 99 Int
 Implicits: 3
-{variant:4}+25% Chance to Block Spell Damage while wielding a Staff
-{variant:1}+12% Chance to Block Attack Damage while wielding a Staff
-{variant:2,3}+18% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+12% Chance to Block Attack Damage
+{variant:2,3}+18% Chance to Block Attack Damage
+{variant:4}+25% Chance to Block Spell Damage
 +2 to Level of Socketed Minion Gems
 {variant:3,4}Minions deal (60-80)% increased Damage
 {variant:1,2}Minions Regenerate (1.5-2.5)% of Life per second
@@ -317,9 +331,9 @@ Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
 Implicits: 3
-{variant:3}+20% Chance to Block Spell Damage while wielding a Staff
-{variant:1}+12% Chance to Block Attack Damage while wielding a Staff
-{variant:2}+18% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+12% Chance to Block Attack Damage
+{variant:2}+18% Chance to Block Attack Damage
+{variant:3}+20% Chance to Block Spell Damage
 Socketed Gems are Supported by Level 8 Trap
 (40-50)% increased Global Damage
 (10-20)% increased maximum Life
@@ -332,8 +346,8 @@ Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 2
-{variant:2}+20% Chance to Block Spell Damage while wielding a Staff
-{variant:1}+18% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+18% Chance to Block Attack Damage
+{variant:2}+20% Chance to Block Spell Damage
 Socketed Gems are Supported by Level 1 Multiple Totems
 (40-50)% increased Global Damage
 (10-20)% increased maximum Life
@@ -346,8 +360,8 @@ Variant: Current
 League: Affliction
 Requires Level 58, 99 Str, 99 Int
 Implicits: 2
-{variant:2}+25% Chance to Block Spell Damage while wielding a Staff
-{variant:1}+18% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+18% Chance to Block Attack Damage
+{variant:2}+25% Chance to Block Spell Damage
 Socketed Gems are Supported by Level 1 Lifetap
 (20-30)% increased Cast Speed
 Lose 500 Life per second
@@ -361,8 +375,8 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 60, 113 Str, 113 Int
 Implicits: 2
-{variant:1}+20% Chance to Block Attack Damage while wielding a Staff
-{variant:2}+25% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+20% Chance to Block Attack Damage
+{variant:2}+25% Chance to Block Attack Damage
 (140-180)% increased Physical Damage
 (0-50)% of Physical Damage Converted to Fire Damage
 (0-50)% of Physical Damage Converted to Cold Damage
@@ -379,8 +393,8 @@ Variant: Current
 Source: No longer obtainable
 Requires Level 32
 Implicits: 2
-{variant:2}+20% Chance to Block Spell Damage while wielding a Staff
-{variant:1}+18% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+18% Chance to Block Attack Damage
+{variant:2}+20% Chance to Block Spell Damage
 Socketed Gems are Supported by Level 16 Trap
 Socketed Gems are Supported by Level 16 Cluster Trap
 Socketed Gems are Supported by Level 16 Trap And Mine Damage
@@ -392,16 +406,20 @@ The Grey Spire
 Judgement Staff
 Variant: Pre 3.11.0
 Variant: Pre 3.25.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 68, 113 Str, 113 Int
 Implicits: 3
-{variant:2}+20% Chance to Block Spell Damage while wielding a Staff
-{variant:1}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:3}+25% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+18% Chance to Block Attack Damage
+{variant:3,4}+25% Chance to Block Attack Damage
+{variant:2}+20% Chance to Block Spell Damage
 Has no Sockets
-(250-300)% increased Global Damage
+{variant:1,2,3}(250-300)% increased Global Damage
+{variant:4}(300-400)% increased Global Damage
 (20-30)% increased Attack Speed
-+(1-4)% to all maximum Resistances
+{variant:1,2,3}+(1-4)% to all maximum Resistances
+{variant:4}+(1-5)% to all maximum Resistances
+{variant:4}Implicit Modifier magnitudes are doubled
 ]],[[
 Hegemony's Era
 Judgement Staff
@@ -412,10 +430,10 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 68, 113 Str, 113 Int
 Implicits: 4
-{variant:4}+20% Chance to Block Spell Damage while wielding a Staff
-{variant:1}+12% Chance to Block Attack Damage while wielding a Staff
-{variant:2,3}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:5}+25% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+12% Chance to Block Attack Damage
+{variant:2,3}+18% Chance to Block Attack Damage
+{variant:5}+25% Chance to Block Attack Damage
+{variant:4}+20% Chance to Block Spell Damage
 +6% Chance to Block Attack Damage while wielding a Staff
 {variant:1,2}Adds (180-190) to (190-220) Physical Damage
 {variant:3}Adds (165-175) to (185-205) Physical Damage
@@ -426,23 +444,65 @@ Implicits: 4
 +1 to Maximum Power Charges
 10% chance to gain a Power Charge if you Knock an Enemy Back with Melee Damage
 ]],[[
+Jiquani's Potential
+Imperial Staff
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Variant: Pre 3.29.0
+Variant: Current
+Requires Level 66, 113 Str, 113 Dex
+Implicits: 1
++25% Chance to Block Spell Damage
+(1-7)% increased Intelligence
+(-17-17)% reduced maximum Life
++(-1-1) to Level of all Spell Skill Gems
+31% increased Cost of Skills
+{variant:1}Adds 1 to (32-53) Lightning Damage to Spells per 10 Intelligence
+{variant:2}Adds 1 to (24-35) Lightning Damage to Spells per 10 Intelligence
+Blood Magic
+]],[[
+Legacy of the Rose
+Judgement Staff
+Variant: Shaper's Despair
+Variant: Shaper's Ire
+Variant: Shaper's Devastation
+Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
+Requires Level 68, 113 Str, 113 Int
+Implicits: 1
++25% Chance to Block Attack Damage
+{variant:1}Grants Level 20 Summon Shaper Memory
+{variant:1}Grants Level 20 Shaper's Despair, which will be used by Shaper Memory
+{variant:2}Grants Level 20 Summon Shaper Memory
+{variant:2}Grants Level 20 Shaper's Ire, which will be used by Shaper Memory
+{variant:3}Grants Level 20 Summon Shaper Memory
+{variant:3}Grants Level 20 Shaper's Devastation, which will be used by Shaper Memory
+(200-300)% increased Physical Damage
+(25-40)% increased Cast Speed
++(3-5) to Level of all Spell Skill Gems
+Gain 1 Remembrance when you spend a total of 200 Energy
+Shield with no Shaper Memory Summoned
+Maximum 10 Remembrance
+Eldritch Battery
+]],[[
 Martyr of Innocence
 Highborn Staff
 Variant: Pre 3.5.0
 Variant: Pre 3.13.0
 Variant: Pre 3.25.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 52, 89 Str, 89 Int
 Implicits: 2
-{variant:4}+22% Chance to Block Spell Damage while wielding a Staff
-{variant:1,2,3}+18% Chance to Block Attack Damage while wielding a Staff
-+(12-16)% Chance to Block Attack Damage while wielding a Staff
+{variant:1,2,3}+18% Chance to Block Attack Damage
+{variant:4}+22% Chance to Block Spell Damage
+{variant:1,2,3,4}+(12-16)% Chance to Block Attack Damage while wielding a Staff
+{variant:5}+(20-25)% Chance to Block Attack Damage while wielding a Staff
 {variant:1,2,3,4}100% increased Fire Damage
+{variant:5}100% increased Fire Damage
 {variant:1,2}Adds (350-400) to (500-600) Fire Damage
-{variant:3,4}Adds (315-360) to (450-540) Fire Damage
+{variant:3,4,5}Adds (315-360) to (450-540) Fire Damage
 Damage Penetrates 15% of Fire Resistance if you have Blocked Recently
 Immune to Freeze and Chill while Ignited
-{variant:1,2,3,4}Battlemage
+Battlemage
 ]],[[
 Pillar of the Caged God
 Iron Staff
@@ -451,9 +511,9 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 13, 27 Str, 27 Int
 Implicits: 3
-{variant:1}+12% Chance to Block Attack Damage while wielding a Staff
-{variant:2}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:3}+20% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+12% Chance to Block Attack Damage
+{variant:2}+18% Chance to Block Attack Damage
+{variant:3}+20% Chance to Block Attack Damage
 1% increased Area of Effect per 20 Intelligence
 1% increased Attack Speed per 10 Dexterity
 16% increased Physical Weapon Damage per 10 Strength
@@ -470,10 +530,10 @@ Variant: Pre 3.28.0
 Variant: Current
 Requires Level 68, 113 Str, 113 Int
 Implicits: 4
-{variant:3,4}+20% Chance to Block Spell Damage while wielding a Staff
-{variant:1}+12% Chance to Block Attack Damage while wielding a Staff
-{variant:2}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:5,6}+25% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+12% Chance to Block Attack Damage
+{variant:2}+18% Chance to Block Attack Damage
+{variant:5,6}+25% Chance to Block Attack Damage
+{variant:3,4}+20% Chance to Block Spell Damage
 {variant:1,2,3,4,5}Socketed Gems are Supported by Level 1 Greater Spell Echo
 {variant:6}Socketed Gems are Supported by Level 1 Greater Spell Echo
 (120-160)% increased Spell Damage
@@ -485,14 +545,17 @@ Realmshaper
 Iron Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.25.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 18, 35 Str, 35 Int
 Implicits: 3
-{variant:1}+12% Chance to Block Attack Damage while wielding a Staff
-{variant:2}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:3}+20% Chance to Block Attack Damage while wielding a Staff
-+1 to Level of Socketed Fire Gems
-+1 to Level of Socketed Cold Gems
+{variant:1}+12% Chance to Block Attack Damage
+{variant:2}+18% Chance to Block Attack Damage
+{variant:3,4}+20% Chance to Block Attack Damage
+{variant:1,2,3}+1 to Level of Socketed Fire Gems
+{variant:4}+2 to Level of Socketed Fire Gems
+{variant:1,2,3}+1 to Level of Socketed Cold Gems
+{variant:4}+2 to Level of Socketed Cold Gems
 Socketed Gems are Supported by Level 5 Cold to Fire
 Adds (10-15) to (20-25) Fire Damage
 Adds (10-15) to (20-25) Cold Damage
@@ -506,11 +569,11 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 40, 35 Str, 35 Int
 Implicits: 3
-{variant:1}+12% Chance to Block Attack Damage while wielding a Staff
-{variant:2}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:3}+20% Chance to Block Attack Damage while wielding a Staff
-+1 to Level of Socketed Fire Gems
-+1 to Level of Socketed Cold Gems
+{variant:1}+12% Chance to Block Attack Damage
+{variant:2}+18% Chance to Block Attack Damage
+{variant:3}+20% Chance to Block Attack Damage
++2 to Level of Socketed Fire Gems
++2 to Level of Socketed Cold Gems
 +2 to Level of Socketed Elemental Gems
 Socketed Gems are Supported by Level 5 Cold to Fire
 Adds (10-15) to (20-25) Fire Damage
@@ -519,24 +582,27 @@ Adds (10-15) to (20-25) Cold Damage
 ]],[[
 The Searing Touch
 {variant:1}Long Staff
-{variant:2,3,4,5,6}Lathi
+{variant:2,3,4,5,6,7}Lathi
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.8.0
 Variant: Pre 3.25.0
+Variant: Pre 3.29.0
 Variant: Current
 Implicits: 3
-{variant:1,2}+12% Chance to Block Attack Damage while wielding a Staff
-{variant:3,4,5}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:6}+25% Chance to Block Attack Damage while wielding a Staff
+{variant:1,2}+12% Chance to Block Attack Damage
+{variant:3,4,5}+18% Chance to Block Attack Damage
+{variant:6,7}+25% Chance to Block Attack Damage
 {variant:1,2,3}(30-50)% increased Spell Damage
-{variant:5,6}+(40-60)% to Fire Damage over Time Multiplier
+{variant:5,6,7}+(40-60)% to Fire Damage over Time Multiplier
 {variant:1,2,3}(20-40)% increased Fire Damage
-{variant:4,5,6}(70-90)% increased Fire Damage
-10% increased Cast Speed
+{variant:4,5,6,7}(70-90)% increased Fire Damage
+{variant:1,2,3,4,5,6}10% increased Cast Speed
+{variant:7}(20-40)% increased Cast Speed
 +2 to Level of all Fire Spell Skill Gems
 {variant:1,2,3,4}70% increased Burning Damage
+{variant:7}Voracious Flame
 ]],[[
 Sire of Shards
 Serpentine Staff
@@ -545,9 +611,9 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 49, 85 Str, 85 Int
 Implicits: 3
-{variant:1}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:2}+20% Chance to Block Attack Damage while wielding a Staff
-{variant:3}+22% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+18% Chance to Block Attack Damage
+{variant:2}+20% Chance to Block Attack Damage
+{variant:3}+22% Chance to Block Attack Damage
 Socketed Gems fire 4 additional Projectiles
 Socketed Gems fire Projectiles in a circle
 +(15-20) to all Attributes
@@ -564,9 +630,9 @@ Variant: Pre 3.26.0
 Variant: Current
 Requires Level 62, 113 Str, 113 Int
 Implicits: 3
-{variant:1}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:2}+20% Chance to Block Attack Damage while wielding a Staff
-{variant:3,4}+25% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+18% Chance to Block Attack Damage
+{variant:2}+20% Chance to Block Attack Damage
+{variant:3,4}+25% Chance to Block Attack Damage
 {variant:1,2,3}Trigger Level 20 Summon Phantasm Skill when you Consume a corpse
 {variant:4}Trigger Level 25 Summon Phantasm Skill when you Consume a corpse
 (100-140)% increased Spell Damage
@@ -583,9 +649,9 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 28, 51 Str, 51 Int
 Implicits: 3
-{variant:3}+20% Chance to Block Spell Damage while wielding a Staff
-{variant:1}+12% Chance to Block Attack Damage while wielding a Staff
-{variant:2}+18% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+12% Chance to Block Attack Damage
+{variant:2}+18% Chance to Block Attack Damage
+{variant:3}+20% Chance to Block Spell Damage
 (80-100)% increased Physical Damage
 Adds (25-35) to (45-60) Cold Damage
 Adds (1-10) to (70-90) Lightning Damage
@@ -601,8 +667,8 @@ Variant: Current
 Source: No longer obtainable
 Requires Level 60, 51 Str, 51 Int
 Implicits: 2
-{variant:2}+20% Chance to Block Spell Damage while wielding a Staff
-{variant:1}+18% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+18% Chance to Block Attack Damage
+{variant:2}+20% Chance to Block Spell Damage
 +15% Chance to Block Attack Damage while wielding a Staff
 Adds (242-260) to (268-285) Physical Damage
 (20-35)% increased Critical Strike Chance
@@ -617,20 +683,25 @@ Maelström Staff
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 64, 113 Str, 113 Int
 Implicits: 3
-{variant:1,2}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:3}+20% Chance to Block Attack Damage while wielding a Staff
-{variant:4}+25% Chance to Block Attack Damage while wielding a Staff
+{variant:1,2}+18% Chance to Block Attack Damage
+{variant:3}+20% Chance to Block Attack Damage
+{variant:4,5}+25% Chance to Block Attack Damage
 {variant:1}(40-50)% increased Spell Damage
 {variant:2,3,4}(50-60)% increased Spell Damage
-(40-50)% increased Cold Damage
+{variant:1,2,3,4}(40-50)% increased Cold Damage
+{variant:5}(80-140)% increased Cold Damage
 (10-20)% increased Cast Speed
 {variant:1,2}+1 to Level of all Cold Spell Skill Gems
 {variant:3,4}+2 to Level of all Cold Spell Skill Gems
-8% chance to Freeze
+{variant:5}+(2-4) to Level of all Cold Spell Skill Gems
+{variant:1,2,3,4}8% chance to Freeze
+{variant:5}(25-50)% chance to Freeze
 Enemies Frozen by you take 20% increased Damage
+{variant:5}Bitter Frost
 ]],[[
 Tremor Rod
 Military Staff
@@ -640,9 +711,9 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 45, 78 Str, 78 Int
 Implicits: 3
-{variant:1}+12% Chance to Block Attack Damage while wielding a Staff
-{variant:2,3}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:4}+22% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+12% Chance to Block Attack Damage
+{variant:2,3}+18% Chance to Block Attack Damage
+{variant:4}+22% Chance to Block Attack Damage
 {variant:3,4}+2 to Level of Socketed Spell Gems
 {variant:1,2,3,4}Socketed Gems are Supported by Level 10 Blastchain Mine
 {variant:1,2}35% less Mine Damage
@@ -658,9 +729,9 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 33, 59 Str, 59 Int
 Implicits: 3
-{variant:1}+12% Chance to Block Attack Damage while wielding a Staff
-{variant:2}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:3}+20% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+12% Chance to Block Attack Damage
+{variant:2}+18% Chance to Block Attack Damage
+{variant:3}+20% Chance to Block Attack Damage
 +1 to Level of Socketed Support Gems
 Grants Level 1 Icestorm Skill
 (14-18)% increased Intelligence
@@ -675,8 +746,8 @@ League: Harvest
 Source: Drops from unique{Oshabi, Avatar of the Grove}
 Requires Level 68, 89 Str, 89 Int
 Implicits: 2
-{variant:2}+22% Chance to Block Spell Damage while wielding a Staff
-{variant:1}+18% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+18% Chance to Block Attack Damage
+{variant:2}+22% Chance to Block Spell Damage
 Grants Level 20 Brandsurge Skill
 Brand Skills have (50-100)% increased Duration
 ]],[[
@@ -686,8 +757,8 @@ Variant: Pre 3.25.0
 Variant: Current
 League: Crucible
 Implicits: 2
-{variant:1}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:2}+22% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+18% Chance to Block Attack Damage
+{variant:2}+22% Chance to Block Attack Damage
 Has 1 Socket
 (150-200)% increased Spell Damage
 (80-120)% increased Spell Critical Strike Chance
@@ -714,42 +785,5 @@ Implicits: 2
 Reflects 1 to 150 Lightning Damage to Melee Attackers
 {variant:1,2}20% chance for Energy Shield Recharge to start when you Block
 {variant:3}(25-35)% chance for Energy Shield Recharge to start when you Block
-]],[[
-Legacy of the Rose
-Judgement Staff
-Variant: Shaper's Despair
-Variant: Shaper's Ire
-Variant: Shaper's Devastation
-Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
-Requires Level 68, 113 Str, 113 Int
-Implicits: 1
-+25% Chance to Block Attack Damage while wielding a Staff
-{variant:1}Grants Level 20 Summon Shaper Memory
-{variant:1}Grants Level 20 Shaper's Despair, which will be used by Shaper Memory
-{variant:2}Grants Level 20 Summon Shaper Memory
-{variant:2}Grants Level 20 Shaper's Ire, which will be used by Shaper Memory
-{variant:3}Grants Level 20 Summon Shaper Memory
-{variant:3}Grants Level 20 Shaper's Devastation, which will be used by Shaper Memory
-(200-300)% increased Physical Damage
-(25-40)% increased Cast Speed
-+(3-5) to Level of all Spell Skill Gems
-Gain 1 Remembrance when you spend a total of 200 Energy
-Shield with no Shaper Memory Summoned
-Maximum 10 Remembrance
-Eldritch Battery
-]],
-[[
-Jiquani's Potential
-Imperial Staff
-Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
-Requires Level 66, 113 Str, 113 Dex
-Implicits: 1
-+25% Chance to Block Spell Damage while wielding a Staff
-(1-7)% increased Intelligence
-(-17-17)% reduced maximum Life
-+(-1-1) to Level of all Spell Skill Gems
-31% increased Cost of Skills
-1 to (31-53) Spell Lightning Damage per 10 Intelligence
-Blood Magic
 ]],
 }

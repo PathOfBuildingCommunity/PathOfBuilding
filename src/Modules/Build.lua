@@ -10,6 +10,7 @@ local t_insert = table.insert
 local t_sort = table.sort
 local m_min = math.min
 local m_max = math.max
+local m_huge = math.huge
 local m_floor = math.floor
 local m_abs = math.abs
 local s_format = string.format
@@ -188,7 +189,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	end
 	self.controls.pointDisplay = new("Control", {"LEFT",self.anchorTopBarRight,"RIGHT"}, {function() return getPointDisplayX() end, 0, 0, 20})
 	self.controls.pointDisplay.width = function(control)
-		control.str, control.req = self:EstimatePlayerProgress()
 		return DrawStringWidth(16, "FIXED", control.str) + 8
 	end
 	self.controls.pointDisplay.Draw = function(control)
@@ -434,6 +434,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 
 	self.controls.modeImport = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, {0, 0, 134, 20}, "Import/Export Build", function()
 		self.viewMode = "IMPORT"
+		self.importTab:TryFetchCharacterList()
 	end)
 	self.controls.modeImport.locked = function() return self.viewMode == "IMPORT" end
 	self.controls.modeNotes = new("ButtonControl", {"LEFT",self.controls.modeImport,"RIGHT"}, {4, 0, 58, 20}, "Notes", function()
@@ -603,6 +604,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	self.skillsTab = new("SkillsTab", self)
 	self.calcsTab = new("CalcsTab", self)
 	self.compareTab = new("CompareTab", self)
+	-- Used for pined calcs panes
+	self.overlayPanes = { }
 
 	-- Load sections from the build file
 	self.savers = {
@@ -667,6 +670,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	end
 
 	-- Build calculation output tables
+	wipeGlobalCache()
 	self.outputRevision = 1
 	self.calcsTab:BuildOutput()
 	self:RefreshStatList()
@@ -872,38 +876,48 @@ function buildMode:SyncLoadouts()
 end
 
 function buildMode:EstimatePlayerProgress()
-	local PointsUsed, AscUsed, SecondaryAscUsed = self.spec:CountAllocNodes()
-	local extra = self.calcsTab.mainOutput and self.calcsTab.mainOutput.ExtraPoints or 0
-	local usedMax, ascMax, secondaryAscMax, level, act = 99 + 23 + extra, 8, 8, 1, 0
+	if self.spec then
+		local PointsUsed, AscUsed, SecondaryAscUsed = self.spec:CountAllocNodes()
+		local extra = self.calcsTab.mainOutput and self.calcsTab.mainOutput.ExtraPoints or 0
+		local usedMax, ascMax, secondaryAscMax, level, act = 99 + 23 + extra, 8, 8, 1, 0
 
-	-- Find estimated act and level based on points used
-	repeat
-		act = act + 1
-		level = m_min(m_max(PointsUsed + 1 - acts[act].questPoints - actExtra(act, extra), acts[act].level), 100)
-	until act == 11 or level <= acts[act + 1].level
-	
-	if self.characterLevelAutoMode and self.characterLevel ~= level then
-		self.characterLevel = level
-		self.controls.characterLevel:SetText(self.characterLevel)
-		self.configTab:BuildModList()
+		-- Find estimated act and level based on points used
+		repeat
+			act = act + 1
+			level = m_min(m_max(PointsUsed + 1 - acts[act].questPoints - actExtra(act, extra), acts[act].level), 100)
+		until act == 11 or level <= acts[act + 1].level
+
+		if self.characterLevelAutoMode and self.characterLevel ~= level then
+			self.characterLevel = level
+			self.controls.characterLevel:SetText(self.characterLevel)
+			self.configTab:BuildModList()
+		end
+
+		-- Ascendancy points for lab
+		-- this is a recommendation for beginners who are using Path of Building for the first time and trying to map out progress in PoB
+		local labSuggest = level < 33 and ""
+			or level < 55 and "\nLabyrinth: Normal Lab"
+			or level < 68 and "\nLabyrinth: Cruel Lab"
+			or level < 75 and "\nLabyrinth: Merciless Lab"
+			or level < 90 and "\nLabyrinth: Uber Lab"
+			or ""
+
+		if PointsUsed > usedMax then InsertIfNew(self.controls.warnings.lines, "You have too many passive points allocated") end
+		if AscUsed > ascMax then InsertIfNew(self.controls.warnings.lines, "You have too many ascendancy points allocated") end
+		if SecondaryAscUsed > secondaryAscMax then InsertIfNew(self.controls.warnings.lines, "You have too many secondary ascendancy points allocated") end
+		self.Act = level < 90 and act <= 10 and act or "Endgame"
+		
+		self.controls.pointDisplay.str = string.format("%s%3d / %3d   %s%d / %d",
+			PointsUsed > usedMax and colorCodes.NEGATIVE or "^7",
+			PointsUsed, usedMax,
+			AscUsed > ascMax and colorCodes.NEGATIVE or "^7",
+			AscUsed, ascMax
+		)
+		self.controls.pointDisplay.req = string.format(
+			"Required Level: %d\nEstimated Progress:\nAct: %s\nQuestpoints: %d\nExtra Skillpoints: %d%s",
+			level, self.Act, acts[act].questPoints, actExtra(act, extra), labSuggest
+		)		
 	end
-
-	-- Ascendancy points for lab
-	-- this is a recommendation for beginners who are using Path of Building for the first time and trying to map out progress in PoB
-	local labSuggest = level < 33 and ""
-		or level < 55 and "\nLabyrinth: Normal Lab"
-		or level < 68 and "\nLabyrinth: Cruel Lab"
-		or level < 75 and "\nLabyrinth: Merciless Lab"
-		or level < 90 and "\nLabyrinth: Uber Lab"
-		or ""
-	
-	if PointsUsed > usedMax then InsertIfNew(self.controls.warnings.lines, "You have too many passive points allocated") end
-	if AscUsed > ascMax then InsertIfNew(self.controls.warnings.lines, "You have too many ascendancy points allocated") end
-	if SecondaryAscUsed > secondaryAscMax then InsertIfNew(self.controls.warnings.lines, "You have too many secondary ascendancy points allocated") end
-	self.Act = level < 90 and act <= 10 and act or "Endgame"
-	
-	return string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and colorCodes.NEGATIVE or "^7", PointsUsed, usedMax, AscUsed > ascMax and colorCodes.NEGATIVE or "^7", AscUsed, ascMax),
-		"Required Level: "..level.."\nEstimated Progress:\nAct: "..self.Act.."\nQuestpoints: "..acts[act].questPoints.."\nExtra Skillpoints: "..actExtra(act, extra)..labSuggest
 end
 
 function buildMode:CanExit(mode)
@@ -1171,6 +1185,46 @@ function buildMode:OnFrame(inputEvents)
 			end
 		end
 	end
+
+	-- Consume mouse events for overlay panes before normal input processing
+	local cursorX, cursorY = GetCursorPos()
+	local breakdown = self.calcsTab.controls.breakdown
+	local overlayBreakdown = self.calcsTab.displayPinned and self.calcsTab.displayData
+		and self.calcsTab.displayData.calcSection and self.calcsTab.displayData.calcSection.isOverlay
+	for i = #inputEvents, 1, -1 do
+		local event = inputEvents[i]
+		if not event then break end
+		if event.type == "KeyDown" and event.key:match("BUTTON") then
+			for paneIndex = #self.overlayPanes, 1, -1 do
+				local pane = self.overlayPanes[paneIndex]
+				if pane.isOverlay and pane:IsMouseInOverlay(cursorX, cursorY) then
+					pane:HandleOverlayClick(event.key, cursorX, cursorY)
+					inputEvents[i] = nil
+					break
+				end
+			end
+			if inputEvents[i] and overlayBreakdown and breakdown:IsMouseOver() then
+				self.overlayBreakdownControl = breakdown:OnKeyDown(event.key, event.doubleClick)
+				inputEvents[i] = nil
+			end
+		elseif event.type == "KeyUp" and event.key:match("BUTTON") then
+			for _, pane in ipairs(self.overlayPanes) do
+				if pane.isOverlay then
+					pane:HandleOverlayRelease(event.key)
+				end
+			end
+			if self.overlayBreakdownControl then
+				self.overlayBreakdownControl:OnKeyUp(event.key)
+				self.overlayBreakdownControl = nil
+				inputEvents[i] = nil
+			end
+		elseif event.type == "KeyUp" and overlayBreakdown and breakdown:IsMouseOver()
+			and (breakdown.controls.scrollBar:IsScrollDownKey(event.key) or breakdown.controls.scrollBar:IsScrollUpKey(event.key)) then
+			breakdown:OnKeyUp(event.key)
+			inputEvents[i] = nil
+		end
+	end
+
 	self:ProcessControlsInput(inputEvents, main.viewPort)
 
 	self.controls.classDrop:SelByValue(self.spec.curClassId, "classId")
@@ -1195,6 +1249,9 @@ function buildMode:OnFrame(inputEvents)
 	if main.thousandsSeparator ~= self.lastShowThousandsSeparator then
 		self:RefreshStatList()
 	end
+	if main.useCompactValues ~= self.lastUseCompactValues then
+		self:RefreshStatList()
+	end
 	if main.decimalSeparator ~= self.lastShowDecimalSeparator then
 		self:RefreshStatList()
 	end
@@ -1204,7 +1261,6 @@ function buildMode:OnFrame(inputEvents)
 
 	-- Update contents of main skill dropdowns
 	self:RefreshSkillSelectControls(self.controls, self.mainSocketGroup, "")
-
 	-- Draw contents of current tab
 	local sideBarWidth = 312
 	local tabViewPort = {
@@ -1231,6 +1287,13 @@ function buildMode:OnFrame(inputEvents)
 		self.calcsTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "COMPARE" then
 		self.compareTab:Draw(tabViewPort, inputEvents)
+	end
+
+	-- Draw overlay panes on top of all tab content (last = topmost)
+	for _, pane in ipairs(self.overlayPanes) do
+		if pane.isOverlay then
+			pane:DrawOverlay(main.viewPort, inputEvents)
+		end
 	end
 
 	self.unsaved = self.modFlag or self.notesTab.modFlag or self.partyTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.treeTab.searchFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
@@ -1587,10 +1650,23 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal, colorOverride)
 		color = colorCodes.NEGATIVE
 	end
 	
-	local valStr = s_format("%"..statData.fmt, val)
-	local number, suffix = valStr:match("^([%+%-]?%d+%.%d+)(%D*)$")
-	if number then
-		valStr = number:gsub("0+$", ""):gsub("%.$", "") .. suffix
+	local valStr
+	if statData.compactValue and main.useCompactValues and val ~= m_huge and val ~= -m_huge then
+		local absVal = m_abs(val)
+		if absVal >= 1000000000 then
+			valStr = s_format("%.1fB", val / 1000000000)
+		elseif absVal >= 1000000 then
+			valStr = s_format("%.1fM", val / 1000000)
+		elseif absVal >= 10000 then
+			valStr = s_format("%.1fK", val / 1000)
+		end
+	end
+	if not valStr then
+		valStr = s_format("%"..statData.fmt, val)
+		local number, suffix = valStr:match("^([%+%-]?%d+%.%d+)(%D*)$")
+		if number then
+			valStr = number:gsub("0+$", ""):gsub("%.$", "") .. suffix
+		end
 	end
 	valStr = color .. formatNumSep(valStr)
 
@@ -1601,6 +1677,7 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal, colorOverride)
 	self.lastShowThousandsSeparator = main.thousandsSeparator
 	self.lastShowDecimalSeparator = main.decimalSeparator
 	self.lastShowTitlebarName = main.showTitlebarName
+	self.lastUseCompactValues = main.useCompactValues
 	return valStr
 end
 
@@ -1621,6 +1698,9 @@ function buildMode:AddDisplayStatList(statList, actor)
 				end
 				if statVal and ((statData.condFunc and statData.condFunc(statVal,actor.output)) or (not statData.condFunc and statVal ~= 0)) then
 					local overCapStatVal = actor.output[statData.overCapStat] or nil
+					if overCapStatVal and statData.overCapStatCondFunc and not statData.overCapStatCondFunc(statVal, actor.output) then
+						overCapStatVal = nil
+					end
 					if statData.stat == "SkillDPS" then
 						labelColor = colorCodes.CUSTOM
 						table.sort(actor.output.SkillDPS, function(a,b) return (a.dps * a.count) > (b.dps * b.count) end)
@@ -1636,7 +1716,7 @@ function buildMode:AddDisplayStatList(statList, actor)
 							t_insert(statBoxList, {
 								height = 16,
 								lhsString,
-								self:FormatStat({fmt = "1.f"}, skillData.dps * skillData.count, overCapStatVal),
+								self:FormatStat({ fmt = ".1f", compactValue = statData.compactValue }, skillData.dps * skillData.count, overCapStatVal),
 							})
 							if skillData.skillPart then
 								t_insert(statBoxList, {
@@ -1659,10 +1739,20 @@ function buildMode:AddDisplayStatList(statList, actor)
 						if actor.output[statData.stat.."Warning"] or (statData.warnFunc and statData.warnFunc(statVal, actor.output) and statData.warnColor) then
 							colorOverride = colorCodes.NEGATIVE
 						end
+						local formattedStat = self:FormatStat(statData, statVal, overCapStatVal, colorOverride)
+						if statData.suffix and (not statData.suffixCondFunc or statData.suffixCondFunc(statVal, actor.output)) then
+							local suffix = statData.suffix
+							if type(suffix) == "function" then
+								suffix = suffix(statVal, actor.output)
+							end
+							if suffix then
+								formattedStat = formattedStat .. "^x808080 (" .. suffix .. ")"
+							end
+						end
 						t_insert(statBoxList, {
 							height = 16,
 							labelColor..statData.label..":",
-							self:FormatStat(statData, statVal, overCapStatVal, colorOverride),
+							formattedStat,
 						})
 					end
 				end
@@ -1777,6 +1867,7 @@ function buildMode:RefreshStatList()
 	end
 	self:AddDisplayStatList(self.displayStats, self.calcsTab.mainEnv.player)
 	self:InsertItemWarnings()
+	self:EstimatePlayerProgress()
 end
 
 function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compareOutput, header, nodeCount)

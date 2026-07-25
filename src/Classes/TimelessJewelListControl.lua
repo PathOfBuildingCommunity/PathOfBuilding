@@ -41,6 +41,12 @@ function TimelessJewelListControlClass:SetHighlightColor(index, value)
 	return false
 end
 
+function TimelessJewelListControlClass:ScrollToIndex(index)
+	if self.scroll then
+		self.controls.scrollBarV:SetOffset((index - 1) * self.rowHeight)
+	end
+end
+
 function TimelessJewelListControlClass:OverrideSelectIndex(index)
 	if IsKeyDown("SHIFT") and self.selIndex then
 		self.highlightIndex = index
@@ -102,7 +108,7 @@ Limited to: 1 Historic
 Variant: Vorana (Black Scythe Training)
 Variant: Uhtred (Celestial Mathematics)
 Variant: Medved (The Unbreaking Circle)
-Selected Variant:  ]] .. variant .. "\n" .. [[
+Selected Variant: ]] .. variant .. "\n" .. [[
 Radius: Large
 Implicits: 0
 {variant:1}Remembrancing ]] .. data.seed .. [[ songworthy deeds by the line of Vorana
@@ -231,7 +237,7 @@ Limited to: 1 Historic
 Variant: Cadiro (Supreme Decadence)
 Variant: Victario (Supreme Grandstanding)
 Variant: Caspiro (Supreme Ostentation)
-Selected Variant:  ]] .. variant .. "\n" .. [[
+Selected Variant: ]] .. variant .. "\n" .. [[
 Radius: Large
 Implicits: 0
 {variant:1}Commissioned ]] .. data.seed .. [[ coins to commemorate Cadiro

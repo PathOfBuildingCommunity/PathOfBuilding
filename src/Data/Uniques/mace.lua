@@ -189,16 +189,18 @@ Skills Chain +1 times
 Nebulis
 Void Sceptre
 Variant: Pre 3.27.0
+Variant: Pre 3.29.0
 Variant: Current
 League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex} (Uber)
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 40% increased Elemental Damage
-{variant:2}(60-120)% increased Implicit Modifier magnitudes
+{variant:2,3}(60-120)% increased Implicit Modifier magnitudes
 (15-20)% increased Cast Speed
 {variant:1}(15-20)% increased Cold Damage per 1% Cold Resistance above 75%
 {variant:2}(5-10)% increased Elemental Damage per 1% Fire, Cold, or Lightning Resistance above 75%
+{variant:3}(6-8)% increased Elemental Damage per 1% Fire, Cold, or Lightning Resistance above 75%
 {variant:1}(15-20)% increased Lightning Damage per 1% Lightning Resistance above 75%
 ]],[[
 Replica Nebulis
@@ -333,6 +335,7 @@ Each Summoned Phantasm grants you Phantasmal Might
 Breath of the Council
 Carnal Sceptre
 Variant: Pre 3.0.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 66, 113 Str, 113 Int
 Implicits: 1
@@ -340,8 +343,11 @@ Implicits: 1
 (260-310)% increased Physical Damage
 {variant:1}(60-80)% increased Chaos Damage
 {variant:2}(80-100)% increased Chaos Damage
-10% increased Area of Effect
-Chaos Skills have 40% increased Skill Effect Duration
+{variant:3}(80-120)% increased Chaos Damage
+{variant:1,2}10% increased Area of Effect
+{variant:3}(10-20)% increased Area of Effect
+{variant:1,2}Chaos Skills have 40% increased Skill Effect Duration
+{variant:3}Chaos Skills have (40-80)% increased Skill Effect Duration
 ]],[[
 Brutus' Lead Sprinkler
 Ritual Sceptre
@@ -367,11 +373,14 @@ Cerberus Limb
 Blood Sceptre
 League: Delve
 Source: Drops from unique{Ahuatotli, the Blind}
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 47, 81 Str, 81 Int
 Implicits: 1
 24% increased Elemental Damage
 (70-100)% increased Spell Damage
-(15-20)% increased Cast Speed
+{variant:1}(15-20)% increased Cast Speed
+{variant:2}(20-40)% increased Cast Speed
 0.5% of Spell Damage Leeched as Life if Equipped Shield has at least 30% Chance to Block
 +1 to Maximum Energy Shield per 5 Armour on Equipped Shield
 +5 to Armour per 5 Evasion Rating on Equipped Shield
@@ -402,7 +411,6 @@ Implicits: 2
 {variant:6,7,8,9,10,11}10% Global chance to Blind Enemies on hit
 {variant:1,2}Gain 1 Mana on Kill per Level
 {variant:1,2}Gain 1 Energy Shield on Kill per Level
-Cannot be Blinded
 Enemies Blinded by you have Malediction
 {variant:4,5,7,8}+1 Maximum Energy Shield per Level
 {variant:10,11}+(1-2) Maximum Energy Shield per Level
@@ -410,6 +418,7 @@ Enemies Blinded by you have Malediction
 {variant:9,10}+(1-2) Maximum Life per Level
 {variant:3,5,6,8}+1 Maximum Mana per Level
 {variant:9,11}+(1-2) Maximum Mana per Level
+Unaffected by Blind
 ]],[[
 Death's Hand
 Karui Sceptre
@@ -556,18 +565,20 @@ Singularity
 Platinum Sceptre
 Variant: Pre 2.3.0
 Variant: Pre 3.19.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 62, 113 Str, 113 Int
 Implicits: 2
 {variant:1}10% increased Elemental Damage
-{variant:2,3}30% increased Elemental Damage
+{variant:2,3,4}30% increased Elemental Damage
 {variant:1,2}Adds (30-40) to (60-70) Lightning Damage to Spells
-{variant:3}Adds (1-10) to (150-200) Lightning Damage to Spells
+{variant:3,4}Adds (1-10) to (150-200) Lightning Damage to Spells
 (14-18)% increased Cast Speed
-(6-8)% reduced Mana Cost of Skills
+{variant:1,2,3}(6-8)% reduced Mana Cost of Skills
 Nearby Enemies are Hindered, with 25% reduced Movement Speed
 {variant:1,2}(60-80)% increased Damage with Hits and Ailments against Hindered Enemies
-{variant:3}100% increased Damage with Hits and Ailments against Hindered Enemies
+{variant:3,4}100% increased Damage with Hits and Ailments against Hindered Enemies
+{variant:4}(15-25)% increased Mana Cost Efficiency
 ]],[[
 Spine of the First Claimant
 Iron Sceptre
@@ -605,18 +616,20 @@ Implicits: 2
 {variant:1}5% increased Experience gain
 {variant:2,3}3% increased Experience gain
 {variant:1,2,3}20% increased Elemental Damage
-
 ]],[[
 Yaomac's Accord
 Vaal Sceptre
 League: Ultimatum
 Source: Drops from unique{The Trialmaster}
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 64, 113 Str, 113 Int
 Implicits: 1
 32% increased Elemental Damage
 (80-120)% increased Damage with Vaal Skills
 (6-8)% reduced Soul Gain Prevention Duration
 Gain an Endurance Charge, Frenzy Charge, and Power Charge when you use a Vaal Skill
+{variant:2}+(1-2) to Level of all Vaal Skill Gems
 Shepherd of Souls
 ]],[[
 Cadigan's Authority
@@ -888,17 +901,19 @@ Tidebreaker
 Imperial Maul
 Variant: Pre 3.5.0
 Variant: Pre 3.11.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 65, 212 Str
 Implicits: 2
-{variant:3}10% increased Strength
+{variant:3,4}10% increased Strength
 {variant:1,2}30% increased Stun Duration on Enemies
 Socketed Gems are Supported by Level 20 Endurance Charge on Melee Stun
 +40 to Intelligence
 {variant:1}Adds (60-70) to (300-350) Physical Damage
-{variant:2,3}Adds (70-80) to (340-375) Physical Damage
-10% increased Physical Damage per Endurance Charge
+{variant:2,3,4}Adds (70-80) to (340-375) Physical Damage
+{variant:1,2,3}10% increased Physical Damage per Endurance Charge
 (20-30)% reduced Enemy Stun Threshold with this Weapon
+{variant:4}50% chance to gain a Brine Charge instead of an Endurance Charge
 ]],[[
 Trypanon
 Great Mallet

@@ -92,15 +92,17 @@ Pinnacle Tower Shield
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.16.0
+Variant: Pre 3.29.0
 Variant: Current
 Implicits: 1
-{variant:3,4}IncreasedLifeImplicitShield2
+{variant:3,4,5}IncreasedLifeImplicitShield2
 {variant:1,2,3}LocalIncreasedArmourPercentAndStunRecoveryUniqueShieldStr1[200,250][20,20]
-{variant:4}LocalIncreasedArmourPercentAndStunRecoveryUniqueShieldStr1
+{variant:4,5}LocalIncreasedArmourPercentAndStunRecoveryUniqueShieldStr1
 {variant:1}IncreasedLifeUniqueShieldStr1[80,100]
-{variant:2,3,4}IncreasedLifeUniqueShieldStr1
+{variant:2,3,4,5}IncreasedLifeUniqueShieldStr1
 MovementVelocityUniqueShieldStr1
-RangedAttackDamageReducedUniqueShieldStr1
+{variant:1,2,3,4}RangedAttackDamageReducedUniqueShieldStr1[-25,-25]
+{variant:5}RangedAttackDamageReducedUniqueShieldStr1
 AdditionalBlockChanceUniqueShieldDex1
 ]],[[
 Lycosidae
@@ -195,24 +197,29 @@ LifeRegenerationRatePercentUniqueShieldStr5
 Tukohama's Fortress
 Ebony Tower Shield
 Variant: Pre 3.0.0
+Variant: Pre 3.29.0
 Variant: Current
 Implicits: 1
-{variant:2}IncreasedLifeImplicitShield2
+{variant:2,3}IncreasedLifeImplicitShield2
 TotemDamageUnique__1_
 IncreasedLifeUnique__82
 AdditionalTotemsUnique__1
-ArmourPerTotemUnique__1
+{variant:1,2}ArmourPerTotemUnique__1[300,300]
+{variant:3}ArmourPerTotemUnique__1
 KeystoneBloodMagicUnique__1_
 ]],[[
 Replica Tukohama's Fortress
 Ebony Tower Shield
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
+Variant: Pre 3.29.0
+Variant: Current
 Implicits: 1
 IncreasedLifeImplicitShield2
 IncreasedLifeUnique__90
 AdditionalBrandUnique__1
-CriticalStrikeChancePerBrandUnique__1___
+{variant:1}CriticalStrikeChancePerBrandUnique__1___[20,20]
+{variant:2}CriticalStrikeChancePerBrandUnique__1___
 BrandDamageUnique__1
 BloodMagic
 ]],
@@ -707,20 +714,23 @@ League: Legion
 Variant: Pre 3.4.0
 Variant: Pre 3.7.0
 Variant: 3.19.0
+Variant: Pre 3.29.0
 Variant: Current
 Implicits: 0
 {variant:1}SpellBlockPercentageUnique__1[12,18]
-{variant:2,3,4}SpellBlockPercentageUnique__1[10,15]
+{variant:2,3,4,5}SpellBlockPercentageUnique__1[10,15]
 {variant:1,2}SpellDamageUniqueShieldInt1
 LocalIncreasedEnergyShieldPercent___3
 MaximumLifeShieldInt1
 {variant:1,2}LightningResistUniqueShieldInt1
 {variant:3}SacrificeLifeOnSpellSkillUnique__1[4,4]
-{variant:4}SacrificeLifeOnSpellSkillUnique__1
+{variant:4,5}SacrificeLifeOnSpellSkillUnique__1
 {variant:3}SpellCriticalStrikeChancePerLifeUnique__1[2,2][100,100]
-{variant:4}SpellCriticalStrikeChancePerLifeUnique__1
+{variant:4}SpellCriticalStrikeChancePerLifeUnique__1[5,5][100,100]
+{variant:5}SpellCriticalStrikeChancePerLifeUnique__1
 {variant:3}SpellDamagePerLifeUnique__1[2,2][100,100]
-{variant:4}SpellDamagePerLifeUnique__1
+{variant:4}SpellDamagePerLifeUnique__1[5,5][100,100]
+{variant:5}SpellDamagePerLifeUnique__1
 ]],[[
 The Scales of Justice
 Chiming Spirit Shield
@@ -835,10 +845,12 @@ AdditionalBlockChanceUnique__7__
 ]],[[
 The Squire
 Elegant Round Shield
+Variant: Pre 3.29.0
+Variant: Current
 Implicits: 1
 BlockRecoveryImplicitShield2
 HasThreeSocketsUnique__1_
-AllSocketsAreWhiteUniqueShieldStrDex7_
+{variant:1}AllSocketsAreWhiteUniqueShieldStrDex7_
 IncreaseSocketedSupportGemQualityUnique__1___
 SupportGemsSocketedInOffHandAlsoSupportMainHandSkills
 LocalIncreasedArmourAndEvasionUniqueShieldStrDex4
@@ -1146,7 +1158,7 @@ Implicits: 2
 {variant:1}AttackerTakesDamageShieldImplicit3
 {variant:2}ChanceToDodgeImplicitShield2
 LocalIncreasedEvasionAndEnergyShieldUnique__1
-IncreasedEnergyShieldUnique___1
+LocalIncreasedEnergyShieldUnique__6
 IncreasedLifeUniqueShieldStr2
 ItemFoundRarityIncreaseUnique__1
 ChanceToAvoidFireDamageUnique__1

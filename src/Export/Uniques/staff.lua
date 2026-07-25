@@ -90,17 +90,19 @@ ElementalSkillsTripleDamageUnique__1
 Atziri's Rule
 Judgement Staff
 Variant: Pre 3.25.0
+Variant: Pre 3.29.0
 Variant: Current
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
 Requires Level 68, 113 Str, 113 Int
 Implicits: 2
 {variant:1}StaffSpellBlockPercentImplicitStaff__1
-{variant:2}StaffBlockPercentImplicitStaff3
+{variant:2,3}StaffBlockPercentImplicitStaff3
 UniqueStaffGrantQueensDemand___
 UniqueStaffTriggerAtziriStormFlameblast__1
 UniqueStaffTriggerAtziriStormCall__1____
 CannotBeStunned
 DamageCannotBeReflectedUnique__1
+{variant:3}SpellCriticalStrikeChanceUnique__6
 ]],[[
 The Winds of Fate
 Foul Staff
@@ -155,19 +157,23 @@ Ezomyte Staff
 Variant: Pre 3.5.0
 Variant: Pre 3.11.0
 Variant: Pre 3.25.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level: 60, 113 Str, 113 Int
 Implicits: 3
 {variant:1,2}StaffBlockPercentImplicitStaff3[18,18]
 {variant:3}StaffBlockPercentImplicitStaff3[20,20]
-{variant:4}StaffBlockPercentImplicitStaff3
-{variant:2,3,4}ChaosNonAilmentDamageOverTimeMultiplierUnique__1
+{variant:4,5}StaffBlockPercentImplicitStaff3
+{variant:2,3,4,5}ChaosNonAilmentDamageOverTimeMultiplierUnique__1
 {variant:1}IncreasedChaosDamageUnique__4_2[60,80]
 {variant:2,3,4}IncreasedChaosDamageUnique__4_2
-IncreasedCastSpeedPerPowerChargeUnique__1
+{variant:5}IncreasedMaximumPowerChargesUniqueStaff7
+{variant:1,2,3,4}IncreasedCastSpeedPerPowerChargeUnique__1[2,2]
+{variant:5}IncreasedCastSpeedPerPowerChargeUnique__1
 LocalIncreaseSocketedChaosGemLevelUnique__1
 PowerChargeOnManaSpentUnique__1
-ManaRegeneratedPerSecondPerPowerChargeUnique__1
+{variant:1,2,3,4}ManaRegeneratedPerSecondPerPowerChargeUnique__1[120,120]
+{variant:5}ManaRegeneratedPerSecondPerPowerChargeUnique__1
 ]],[[
 Disintegrator
 Maelstrom Staff
@@ -177,22 +183,25 @@ Source: Drops from unique{The Elder} (Uber)
 Variant: Pre 3.7.0
 Variant: Pre 3.11.0
 Variant: Pre 3.13.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 64, 113 Str, 113 Int
 Implicits: 2
 {variant:1,2}StaffBlockPercentImplicitStaff3[20,20]
-{variant:3,4}StaffBlockPercentImplicitStaff3
+{variant:3,4,5}StaffBlockPercentImplicitStaff3
 {variant:1}LocalAddedPhysicalDamageUnique__31[270,300][340,380]
 {variant:2}LocalAddedPhysicalDamageUnique__31[250,280][315,355]
-{variant:3,4}LocalAddedPhysicalDamageUnique__31
+{variant:3,4,5}LocalAddedPhysicalDamageUnique__31
 MaximumSiphoningChargePerElderOrShaperItemUnique__1
 SiphoningChargeOnSkillUseUnique__1
-PhysicalDamageToAttacksPerSiphoningChargeUnique__1
+{variant:1,2,3,4}PhysicalDamageToAttacksPerSiphoningChargeUnique__1[12,14][15,16]
+{variant:5}PhysicalDamageToAttacksPerSiphoningChargeUnique__1
 NonChaosDamageAddedAsChaosPerSiphoningChargeUnique__1
-AdditionalPhysicalDamageReductionPerSiphoningChargeUnique__1
+{variant:1,2,3,4}AdditionalPhysicalDamageReductionPerSiphoningChargeUnique__1[1,1]
+{variant:5}AdditionalPhysicalDamageReductionPerSiphoningChargeUnique__1
 LifeLeechPerSiphoningChargeUnique__1
 DamageTakenPerSiphoningChargeOnSkillUseUnique__1
-{variant:1,2,3,4}BattlemageKeystoneUnique__5
+{variant:1,2,3,4,5}BattlemageKeystoneUnique__5
 ]],[[
 Duskdawn
 Maelström Staff
@@ -200,14 +209,16 @@ Source: Vendor Recipe
 Variant: Pre 2.6.0
 Variant: Pre 3.5.0
 Variant: Pre 3.11.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 64, 113 Str, 113 Int
 Implicits: 3
 {variant:1}StaffBlockPercentImplicitStaff2[18,18]
 {variant:2,3}StaffBlockPercentImplicitStaff2[20,20]
-{variant:4}StaffBlockPercentImplicitStaff3[25,25]
+{variant:4,5}StaffBlockPercentImplicitStaff3
 {variant:1,2}StaffBlockPercentUnique__2_[4,4]
-{variant:3,4}StaffBlockPercentUnique__2_
+{variant:3,4}StaffBlockPercentUnique__2_[10,10]
+{variant:5}StaffBlockPercentUnique__2_
 SpellCriticalStrikeChanceUnique__2
 ElementalDamagePercentAddedAsChaosUnique__2
 CriticalMultiplierPerBlockChanceUnique__1
@@ -219,10 +230,13 @@ Replica Duskdawn
 Maelström Staff
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 64, 113 Str, 113 Int
 Implicits: 1
 StaffBlockPercentImplicitStaff3
-StaffBlockPercentUnique__2_
+{variant:1}StaffBlockPercentUnique__2_[10,10]
+{variant:2}StaffBlockPercentUnique__2_
 LocalCriticalStrikeChanceUnique__19
 ElementalDamagePercentAddedAsChaosUnique__1
 CriticalMultiplierPerBlockChanceUnique__1
@@ -392,16 +406,20 @@ The Grey Spire
 Judgement Staff
 Variant: Pre 3.11.0
 Variant: Pre 3.25.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 68, 113 Str, 113 Int
 Implicits: 3
 {variant:2}StaffSpellBlockPercentImplicitStaff__1
 {variant:1}StaffBlockPercentImplicitStaff3[18,18]
-{variant:3}StaffBlockPercentImplicitStaff3
+{variant:3,4}StaffBlockPercentImplicitStaff3
+{variant:4}LocalDoubleImplicitMods
 HasNoSockets
-AllDamageUnique__3
+{variant:1,2,3}AllDamageUnique__3[250,300]
+{variant:4}AllDamageUnique__3
 LocalIncreasedAttackSpeedUnique__44
-IncreasedMaximumResistsUnique__1
+{variant:1,2,3}IncreasedMaximumResistsUnique__1[1,4]
+{variant:4}IncreasedMaximumResistsUnique__1
 ]],[[
 Hegemony's Era
 Judgement Staff
@@ -426,23 +444,61 @@ LocalIncreasedAttackSpeedUniqueStaff7
 IncreasedMaximumPowerChargesUniqueStaff7
 PowerChargeOnKnockbackUniqueStaff7
 ]],[[
+Jiquani's Potential
+Imperial Staff
+Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Variant: Pre 3.29.0
+Variant: Current
+Requires Level 66, 113 Str, 113 Dex
+Implicits: 1
+StaffSpellBlockPercent3
+PercentageIntelligenceUnique__5
+MaximumLifeUnique__26
+GlobalSpellGemsLevelUniqueStaff_2
+IncreasedSkillCostUnique_1
+{variant:1}SpellLightningDamagePerIntelligenceUnique__1[1,1][32,53]
+{variant:2}SpellLightningDamagePerIntelligenceUnique__1
+BloodMagic
+]],[[
+Legacy of the Rose
+Judgement Staff
+Variant: Shaper's Despair
+Variant: Shaper's Ire
+Variant: Shaper's Devastation
+Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
+Requires Level 68, 113 Str, 113 Int
+Implicits: 1
+StaffBlockPercentImplicitStaff3
+{variant:1}GrantShaperSkill_1[3,3]
+{variant:2}GrantShaperSkill_1[2,2]
+{variant:3}GrantShaperSkill_1[1,1]
+LocalIncreasedPhysicalDamagePercentUnique__51
+IncreasedCastSpeedUniqueStaff_1
+GlobalSpellGemsLevelUniqueStaff_1
+RemembranceGainedPerEnergyShieldUnique_1
+MaximumRemembranceUnique_1
+KeystoneEldritchBatteryUnique__2
+]],[[
 Martyr of Innocence
 Highborn Staff
 Variant: Pre 3.5.0
 Variant: Pre 3.13.0
 Variant: Pre 3.25.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 52, 89 Str, 89 Int
 Implicits: 2
 {variant:4}StaffSpellBlockPercent2
 {variant:1,2,3}StaffBlockPercentImplicitStaff1[18,18]
-StaffBlockPercentUnique__3
-{variant:1,2,3,4}FireDamagePercentUnique__12___
+{variant:1,2,3,4}StaffBlockPercentUnique__3[12,16]
+{variant:5}StaffBlockPercentUnique__3
+{variant:1,2,3,4}FireDamagePercentUnique__12___[100,100]
+{variant:5}FireDamagePercentUnique__12___
 {variant:1,2}LocalAddedFireDamageUnique__3[350,400][500,600]
-{variant:3,4}LocalAddedFireDamageUnique__3
+{variant:3,4,5}LocalAddedFireDamageUnique__3
 FirePenetrationIfBlockedRecentlyUnique__1
 ImmuneToFreezeAndChillWhileIgnitedUnique__1
-{variant:1,2,3,4}BattlemageKeystoneUnique__4
+BattlemageKeystoneUnique__4
 ]],[[
 Pillar of the Caged God
 Iron Staff
@@ -485,14 +541,17 @@ Realmshaper
 Iron Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.25.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 18, 35 Str, 35 Int
 Implicits: 3
 {variant:1}StaffBlockPercentImplicitStaff1[12,12]
 {variant:2}StaffBlockPercentImplicitStaff1[18,18]
-{variant:3}StaffBlockPercentImplicitStaff1
-LocalIncreaseSocketedFireGemLevelUniqueStaff13
-LocalIncreaseSocketedColdGemLevelUniqueStaff13
+{variant:3,4}StaffBlockPercentImplicitStaff1
+{variant:1,2,3}LocalIncreaseSocketedFireGemLevelUniqueStaff13[1,1]
+{variant:4}LocalIncreaseSocketedFireGemLevelUniqueStaff13
+{variant:1,2,3}LocalIncreaseSocketedColdGemLevelUniqueStaff13[1,1]
+{variant:4}LocalIncreaseSocketedColdGemLevelUniqueStaff13
 ItemActsAsColdToFireSupportUniqueStaff13
 LocalAddedFireDamageUniqueStaff13
 LocalAddedColdDamageUniqueStaff13
@@ -519,22 +578,25 @@ ElementalDamageUniqueStaff13
 ]],[[
 The Searing Touch
 {variant:1}Long Staff
-{variant:2,3,4,5,6}Lathi
+{variant:2,3,4,5,6,7}Lathi
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.8.0
 Variant: Pre 3.25.0
+Variant: Pre 3.29.0
 Variant: Current
 Implicits: 3
 {variant:1,2}StaffBlockPercentImplicitStaff3[12,12]
 {variant:3,4,5}StaffBlockPercentImplicitStaff3[18,18]
-{variant:6}StaffBlockPercentImplicitStaff3
+{variant:6,7}StaffBlockPercentImplicitStaff3
 {variant:1,2,3}SpellDamageUnique__10
-{variant:5,6}FireDamageOverTimeMultiplierUnique__1
+{variant:5,6,7}FireDamageOverTimeMultiplierUnique__1
 {variant:1,2,3}FireDamagePercentUniqueStaff1_[20,40]
-{variant:4,5,6}FireDamagePercentUniqueStaff1_
-IncreasedCastSpeedUniqueStaff1
+{variant:4,5,6,7}FireDamagePercentUniqueStaff1_
+{variant:1,2,3,4,5,6}IncreasedCastSpeedUniqueStaff1[10,10]
+{variant:7}IncreasedCastSpeedUniqueStaff1
+{variant:7}KeystoneFirePuristUnique__1
 LocalIncreaseSocketedFireGemLevelUniqueStaff1
 {variant:1,2,3,4}BurnDamageUniqueStaff1
 ]],[[
@@ -617,19 +679,24 @@ Maelström Staff
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 64, 113 Str, 113 Int
 Implicits: 3
 {variant:1,2}StaffBlockPercentImplicitStaff3[18,18]
 {variant:3}StaffBlockPercentImplicitStaff3[20,20]
-{variant:4}StaffBlockPercentImplicitStaff3
+{variant:4,5}StaffBlockPercentImplicitStaff3
 {variant:1}SpellDamageUniqueStaff2[40,50]
 {variant:2,3,4}SpellDamageUniqueStaff2
-ColdDamagePercentUniqueStaff2
+{variant:5}Bitter Frost
+{variant:1,2,3,4}ColdDamagePercentUniqueStaff2[40,50]
+{variant:5}ColdDamagePercentUniqueStaff2
 IncreasedCastSpeedUniqueStaff2
 {variant:1,2}LocalIncreaseSocketedColdGemLevelUniqueStaff2[1,1]
-{variant:3,4}LocalIncreaseSocketedColdGemLevelUniqueStaff2
-ChanceToFreezeUniqueStaff2
+{variant:3,4}LocalIncreaseSocketedColdGemLevelUniqueStaff2[2,2]
+{variant:5}LocalIncreaseSocketedColdGemLevelUniqueStaff2
+{variant:1,2,3,4}ChanceToFreezeUniqueStaff2[8,8]
+{variant:5}ChanceToFreezeUniqueStaff2
 FrozenMonstersTakeIncreasedDamageUnique__1
 ]],[[
 Tremor Rod
@@ -713,38 +780,5 @@ LocalIncreaseSocketedGemLevelUnique___3
 AttackerTakesLightningDamageUnique___1
 {variant:1,2}EnergyShieldRechargeOnBlockUnique__1[20,20]
 {variant:3}EnergyShieldRechargeOnBlockUnique__1
-]],[[
-Legacy of the Rose
-Judgement Staff
-Variant: Shaper's Despair
-Variant: Shaper's Ire
-Variant: Shaper's Devastation
-Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
-Requires Level 68, 113 Str, 113 Int
-Implicits: 1
-StaffBlockPercentImplicitStaff3
-{variant:1}GrantShaperSkill_1[3,3]
-{variant:2}GrantShaperSkill_1[2,2]
-{variant:3}GrantShaperSkill_1[1,1]
-LocalIncreasedPhysicalDamagePercentUnique__51
-IncreasedCastSpeedUniqueStaff_1
-GlobalSpellGemsLevelUniqueStaff_1
-RemembranceGainedPerEnergyShieldUnique_1
-MaximumRemembranceUnique_1
-KeystoneEldritchBatteryUnique__2
-]],
-[[
-Jiquani's Potential
-Imperial Staff
-Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
-Requires Level 66, 113 Str, 113 Dex
-Implicits: 1
-StaffSpellBlockPercent3
-PercentageIntelligenceUnique__5
-MaximumLifeUnique__26
-GlobalSpellGemsLevelUniqueStaff_2
-IncreasedSkillCostUnique_1
-SpellLightningDamagePerIntelligenceUnique__1
-BloodMagic
 ]],
 }

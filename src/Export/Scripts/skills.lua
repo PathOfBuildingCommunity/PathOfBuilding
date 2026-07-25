@@ -41,6 +41,22 @@ do
 	end
 end
 
+local function cleanAndSplit(str) -- Same as in Flavour Text exporter.
+	-- Normalize newlines
+	str = str:gsub("\r\n", "\n")
+
+	local lines = {}
+	for line in str:gmatch("[^\n]+") do
+		line = line:match("^%s*(.-)%s*$") -- trim each line
+		if line ~= "" then
+			-- Escape quotes
+			line = line:gsub('"', '\\"')
+			table.insert(lines, line)
+		end
+	end
+
+	return lines
+end
 local gems = { }
 local trueGemNames = { }
 
@@ -106,7 +122,7 @@ directiveTable.skill = function(state, args, out)
 		if granted.IsSupport then
 			out:write('\tname = "', fullNameGems[skillGem.BaseItemType.Id] and skillGem.BaseItemType.Name or skillGem.BaseItemType.Name:gsub(" Support",""), '",\n')
 			if #gemEffect.Description > 0 then
-				out:write('\tdescription = "', gemEffect.Description:gsub('"','\\"'):gsub('\r',''):gsub('\n','\\n'), '",\n')
+				out:write('\tdescription = "', escapeGGGString(gemEffect.Description:gsub('"','\\"'):gsub('\r',''):gsub('\n','\\n')), '",\n')
 			end
 		else
 			out:write('\tname = "', secondaryEffect and granted.ActiveSkill.DisplayName or trueGemNames[gemEffect.Id] or granted.ActiveSkill.DisplayName, '",\n')
@@ -119,6 +135,13 @@ directiveTable.skill = function(state, args, out)
 		end
 		out:write('\tname = "', displayName, '",\n')
 		out:write('\thidden = true,\n')
+	end
+	if skillGem and skillGem.BaseItemType and skillGem.BaseItemType.FlavourTextKey then
+		out:write('\tflavourText = {')
+		for _, line in ipairs(cleanAndSplit(skillGem.BaseItemType.FlavourTextKey.Text)) do
+			out:write('"', line, '", ')
+		end
+		out:write('},\n')
 	end
 	state.noGem = false
 	skill.baseFlags = { }
@@ -189,7 +212,7 @@ directiveTable.skill = function(state, args, out)
 		out:write('\tstatDescriptionScope = "gem_stat_descriptions",\n')
 	else
 		if #granted.ActiveSkill.Description > 0 then
-			out:write('\tdescription = "', granted.ActiveSkill.Description:gsub('"','\\"'):gsub('\r',''):gsub('\n','\\n'), '",\n')
+			out:write('\tdescription = "', escapeGGGString(granted.ActiveSkill.Description:gsub('"','\\"'):gsub('\r',''):gsub('\n','\\n')), '",\n')
 		end
 		out:write('\tskillTypes = { ')
 		for _, type in ipairs(granted.ActiveSkill.SkillTypes) do
@@ -548,6 +571,7 @@ for skillGem in dat("SkillGems"):Rows() do
 			local tagNames = { }
 			out:write('\t\ttags = {\n')
 			for _, tag in ipairs(gemEffect.Tags) do
+				tag.Name = escapeGGGString(tag.Name) --Remove the words in brackets e.g. [DurationSkill|Duration] -> Duration
 				out:write('\t\t\t', tag.Id, ' = true,\n')
 				if #tag.Name > 0 then
 					table.insert(tagNames, tag.Name)

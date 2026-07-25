@@ -482,34 +482,41 @@ Ruby Ring
 Variant: Pre 3.0.0
 Variant: Pre 3.9.0
 Variant: Pre 3.16.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 16
 Implicits: 1
 FireResistImplicitRing1
 {variant:1}FireDamagePercentUniqueRing38[15,25]
-{variant:2,3,4}FireDamagePercentUniqueRing38
-IncreasedCastSpeedUniqueRing38
+{variant:2,3,4,5}FireDamagePercentUniqueRing38
+{variant:1,2,3,4}IncreasedCastSpeedUniqueRing38[5,10]
+{variant:5}IncreasedCastSpeedUniqueRing38
 {variant:1}ChanceToIgniteUniqueRing38[5,5]
-{variant:2,3,4}ChanceToIgniteUniqueRing38
+{variant:2,3,4,5}ChanceToIgniteUniqueRing38
 CanInflictMultipleIgnitesUniqueRing38
 {variant:1}NoBonusesFromCriticalStrikes
 {variant:1}EmberwakeLessBurningDamageUniqueRing38[80,80]
 {variant:2}EmberwakeLessBurningDamageUniqueRing38[65,65]
 {variant:3}EmberwakeLessBurningDamageUniqueRing38[65,50]
-{variant:4}EmberwakeLessBurningDamageUnique__1
+{variant:4}EmberwakeLessBurningDamageUnique__1[-40,-40]
+{variant:5}EmberwakeLessBurningDamageUnique__1
 ]],[[
 Replica Emberwake
 Ruby Ring
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 16
 Implicits: 1
 FireResistImplicitRing1
 FireDamagePercentUniqueRing38
-IncreasedCastSpeedUniqueRing38
+{variant:1}IncreasedCastSpeedUniqueRing38[5,10]
+{variant:2}IncreasedCastSpeedUniqueRing38
 IgniteDurationUnique__2
 ChanceToIgniteUniqueRing38
-FasterIgniteDamageUnique__1
+{variant:1}FasterIgniteDamageUnique__1[35,45]
+{variant:2}FasterIgniteDamageUnique__1
 ]],[[
 Essence Worm
 Unset Ring
@@ -556,7 +563,7 @@ Requires Level 64
 Implicits: 1
 CriticalStrikeChanceImplicitRing1
 IncreasedAttackSpeedUniqueRing37
-IncreasedCastSpeedUniqueRing38
+IncreasedCastSpeedUnique__15_
 IncreasedEnergyShieldUnique__13
 IncreasedLifeUnique__15
 AttackCriticalStrikesUnnerveUnique__1
@@ -879,6 +886,7 @@ Ruby Ring
 League: Bloodlines
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 29
 Implicits: 1
@@ -886,12 +894,13 @@ FireResistImplicitRing1
 StrengthUniqueRing31__
 {variant:1}AddedFireDamageUniqueRing31[8,10][12,14]
 {variant:2}AddedFireDamageUniqueRing31[8,10][12,14]
-{variant:3}AddedFireDamageUniqueRing31
+{variant:3,4}AddedFireDamageUniqueRing31
+{variant:4}IncreasedPhysicalDamageReductionRatingUnique__12
 {variant:1}LifeGainOnHitVsIgnitedEnemiesUniqueRing31
 BurnDurationUniqueRing31
 {variant:1}IncreasedChanceToIgniteUniqueRing31[5,5]
-{variant:2,3}IncreasedChanceToIgniteUniqueRing31
-{variant:2,3}GainLifeOnIgnitingEnemyUnique__2
+{variant:2,3,4}IncreasedChanceToIgniteUniqueRing31
+{variant:2,3,4}GainLifeOnIgnitingEnemyUnique__2
 ]],[[
 Original Sin
 Amethyst Ring
@@ -906,6 +915,7 @@ NearbyEnemyZeroChaosDamageResistanceUnique__1
 The Pariah
 Unset Ring
 Variant: Pre 3.25.0
+Variant: Pre 3.29.0
 Variant: Current
 League: Warbands
 Requires Level 60
@@ -913,11 +923,14 @@ Implicits: 1
 RingHasOneSocket
 LocalIncreaseSocketedGemLevelUniqueRing39
 AttackAndCastSpeedUniqueRing39
-LifePerRedSocketUniqueRing39
-EnergyShieldPerBlueSocketUniqueRing39
-ManaPerGreenSocketUniqueRing39
+{variant:1,2}LifePerRedSocketUniqueRing39[100,100]
+{variant:3}LifePerRedSocketUniqueRing39
+{variant:1,2}EnergyShieldPerBlueSocketUniqueRing39[100,100]
+{variant:3}EnergyShieldPerBlueSocketUniqueRing39
+{variant:1,2}ManaPerGreenSocketUniqueRing39[100,100]
+{variant:3}ManaPerGreenSocketUniqueRing39
 {variant:1}ItemQuantityPerWhiteSocketUniqueRing39_
-{variant:2}ItemRarityPerWhiteSocketUniqueRing39
+{variant:2,3}ItemRarityPerWhiteSocketUniqueRing39
 ]],[[
 Perandus Signet
 Paua Ring
@@ -948,6 +961,8 @@ RightRingCoveredInFrostUnique__1
 ]],[[
 Praxis
 Paua Ring
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 22
 Implicits: 1
 IncreasedManaImplicitRing1
@@ -955,6 +970,7 @@ IncreasedManaUnique__8
 AddedManaRegenerationUnique__1
 ReduceGlobalFlatManaCostUnique__1
 PercentDamageGoesToManaUnique__1
+{variant:2}ManaCostEfficiencyUnique__1
 ]],[[
 Profane Proxy
 Unset Ring
@@ -1161,7 +1177,7 @@ Implicits: 1
 ColdResistImplicitRing1
 {variant:1}ColdDamagePercentUnique__9
 {variant:2}SpellDamageUnique__11
-IncreasedCastSpeedUniqueRing38
+IncreasedCastSpeedUnique__15_
 {variant:1}AdditionalSpellProjectilesUnique__1
 {variant:2}LeftRingSpellProjectilesCannotChainUnique__1
 {variant:2}LeftRingSpellProjectilesForkUnique__1_
@@ -1183,6 +1199,7 @@ LinkLoseNoExperienceUnique__1
 Stormfire
 Opal Ring
 Variant: Pre 3.17.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 80
 Implicits: 1
@@ -1190,8 +1207,9 @@ ElementalDamagePercentImplicitAtlasRing_
 ManaRegenerationUnique__8
 FireAndLightningResistUnique__2
 {variant:1}BurningDamagePerEnemyShockedRecentlyUnique__1_[4,6][120,120]
-{variant:2}BurningDamagePerEnemyShockedRecentlyUnique__1_
-AddedLightningDamageAgainstIgnitedEnemiesUnique__1
+{variant:2,3}BurningDamagePerEnemyShockedRecentlyUnique__1_
+{variant:1,2}AddedLightningDamageAgainstIgnitedEnemiesUnique__1[1,3][62,70]
+{variant:3}AddedLightningDamageAgainstIgnitedEnemiesUnique__1
 LightningDamageCanIgniteUnique__1
 ]],[[
 Storm Secret
@@ -1262,11 +1280,15 @@ AddedColdDamageAgainstFrozenEnemiesUnique__2
 ]],[[
 Tawhanuku's Timing
 Moonstone Ring
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 1
 IncreasedEnergyShieldImplicitRing1
 SpellDamageUnique__16
 IncreasedManaUnique__27
+{variant:2}IncreasedEnergyShieldUnique__14
 ChanceToFreezeShockIgniteUnique__3
-ChanceToCastOnManaSpentUnique__1
+GainSpellCostAsESUnique__1
 ]],[[
 Thief's Torment
 Prismatic Ring
@@ -1411,19 +1433,21 @@ Topaz Ring
 League: Bloodlines
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 38
 Implicits: 1
 LightningResistImplicitRing1
 {variant:1}IncreasedDamageToShockedTargetsUniqueRing29[15,15]
-{variant:2,3}IncreasedDamageToShockedTargetsUniqueRing29
+{variant:2,3,4}IncreasedDamageToShockedTargetsUniqueRing29
 LightningDamagePercentUniqueRing29
-IncreasedManaUniqueRing29
+{variant:1,2,3}IncreasedManaUniqueRing29[20,40]
+{variant:4}IncreasedManaUniqueRing29
 {variant:1,2}LifeLeechPermyriadVsShockedEnemiesUniqueRing29[200,200]
-{variant:3}LifeLeechPermyriadVsShockedEnemiesUniqueRing29
+{variant:3,4}LifeLeechPermyriadVsShockedEnemiesUniqueRing29
 {variant:1}ChanceToShockUniqueRing29[5,5]
 {variant:2}ChanceToShockUniqueRing29[10,10]
-{variant:3}ChanceToShockUniqueRing29
+{variant:3,4}ChanceToShockUniqueRing29
 ]],[[
 Valyrium
 Moonstone Ring

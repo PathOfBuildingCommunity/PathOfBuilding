@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from __future__ import annotations
 
 import dataclasses
@@ -5,6 +6,7 @@ import json
 import logging
 import os
 import pathlib
+import re
 
 logging.basicConfig(level=logging.INFO)
 
@@ -40,6 +42,7 @@ NODE_GROUPS = {
     "Saboteur": Point2D(10200, -2200),
     "Ascendant": Point2D(-7800, 7200),
 	"Reliquarian": Point2D(-7800, 8900),
+    "Luminary": Point2D(-7800, 10600),
     "Warden": Point2D(8250, 8350),
     "Primalist": Point2D(7200, 9400),
     "Warlock": Point2D(9300, 7300),
@@ -53,7 +56,9 @@ NODE_GROUPS = {
 	"KingInTheMists": Point2D(3750, 12000),
 	"Olroth": Point2D(5250, 12000),
 	"Oshabi": Point2D(6750, 12000),
-	"Necromantic": Point2D(8250, 12000),
+	"Necromantic": Point2D(9750, 12000),
+    "Abyssal": Point2D(-750, 13600),
+    "Brinerot": Point2D(750, 13600)
 }
 EXTRA_NODES = {
 	"Necromancer": [{"Node": {"name": "Nine Lives", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Int.png", "isNotable": True, "skill" : 27602}, 
@@ -93,6 +98,13 @@ EXTRA_NODES_STATS = { # these should not be hardcoded here, but should be insert
 }
 
 
+def escapeGGGString(text: str) -> str:
+    """Remove GGG keyword popup tags while preserving their displayed text."""
+    text = re.sub(r"<[^>]+>{([^}]+)}", r"\1", text)
+    text = re.sub(r"\[([^|\]]+)\]", r"\1", text)
+    return re.sub(r"\[[^|]+[|]([^|]+)\]", r"\1", text)
+
+
 def fix_ascendancy_positions(path: os.PathLike) -> None:
     """Normalise the relative positions of ascendancy nodes on the passive skill tree.
 
@@ -106,6 +118,10 @@ def fix_ascendancy_positions(path: os.PathLike) -> None:
     """
     with open(path, "rb") as f:
         data = json.load(f)
+    for node in data["nodes"].values():
+        for field in ("stats", "reminderText"):
+            if field in node:
+                node[field] = [escapeGGGString(line) for line in node[field]]
     ascendancy_groups = [
         (data["nodes"][group["nodes"][0]]["ascendancyName"], group)
         for group in data["groups"].values()

@@ -92,17 +92,19 @@ Pinnacle Tower Shield
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.16.0
+Variant: Pre 3.29.0
 Variant: Current
 Implicits: 1
-{variant:3,4}+(20-30) to maximum Life
+{variant:3,4,5}+(20-30) to maximum Life
 {variant:1,2,3}(200-250)% increased Armour
 {variant:1,2,3}20% increased Stun and Block Recovery
-{variant:4}(180-220)% increased Armour
-{variant:4}20% increased Stun and Block Recovery
+{variant:4,5}(180-220)% increased Armour
+{variant:4,5}20% increased Stun and Block Recovery
 {variant:1}+(80-100) to maximum Life
-{variant:2,3,4}+(160-180) to maximum Life
+{variant:2,3,4,5}+(160-180) to maximum Life
 5% reduced Movement Speed
--25 Physical Damage taken from Projectile Attacks
+{variant:1,2,3,4}-25 Physical Damage taken from Projectile Attacks
+{variant:5}-150 Physical Damage taken from Projectile Attacks
 +5% Chance to Block
 ]],[[
 Lycosidae
@@ -197,24 +199,29 @@ You and your Totems Regenerate 0.5% of Life per second for each Summoned Totem
 Tukohama's Fortress
 Ebony Tower Shield
 Variant: Pre 3.0.0
+Variant: Pre 3.29.0
 Variant: Current
 Implicits: 1
-{variant:2}+(20-30) to maximum Life
+{variant:2,3}+(20-30) to maximum Life
 40% increased Totem Damage
 +(80-100) to maximum Life
 +1 to maximum number of Summoned Totems
-+300 Armour per Summoned Totem
+{variant:1,2}+300 Armour per Summoned Totem
+{variant:3}+500 Armour per Summoned Totem
 Blood Magic
 ]],[[
 Replica Tukohama's Fortress
 Ebony Tower Shield
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
+Variant: Pre 3.29.0
+Variant: Current
 Implicits: 1
 +(20-30) to maximum Life
 +(80-100) to maximum Life
 You can Cast an additional Brand
-20% increased Critical Strike Chance per Brand
+{variant:1}20% increased Critical Strike Chance per Brand
+{variant:2}30% increased Critical Strike Chance per Brand
 40% increased Brand Damage
 Blood Magic
 ]],
@@ -365,7 +372,7 @@ Implicits: 1
 (120-150)% increased Evasion Rating
 10% increased Movement Speed
 +(10-20)% to Fire and Cold Resistances
-+(8-15)% chance to Avoid Elemental Damage from Hits while Phasing
++(8-15)% chance to Avoid Damage of each Element from Hits while Phasing
 You are at Maximum Chance to Block Attack Damage if you have not Blocked Recently
 You have Phasing if you have Blocked Recently
 ]],[[
@@ -711,20 +718,23 @@ League: Legion
 Variant: Pre 3.4.0
 Variant: Pre 3.7.0
 Variant: 3.19.0
+Variant: Pre 3.29.0
 Variant: Current
 Implicits: 0
-{variant:1}+(12-18)% Chance to Block Spell Damage
-{variant:2,3,4}+(10-15)% Chance to Block Spell Damage
 {variant:1,2}(40-60)% increased Spell Damage
 (120-160)% increased Energy Shield
 10% increased maximum Life
 {variant:1,2}+25% to Lightning Resistance
+{variant:1}+(12-18)% Chance to Block Spell Damage
+{variant:2,3,4,5}+(10-15)% Chance to Block Spell Damage
 {variant:3}Sacrifice 4% of your Life when you Use or Trigger a Spell Skill
-{variant:4}Sacrifice 10% of your Life when you Use or Trigger a Spell Skill
+{variant:4,5}Sacrifice 10% of your Life when you Use or Trigger a Spell Skill
 {variant:3}2% increased Spell Critical Strike Chance per 100 Player Maximum Life
 {variant:4}5% increased Spell Critical Strike Chance per 100 Player Maximum Life
+{variant:5}3% increased Spell Critical Strike Chance per 100 Player Maximum Life
 {variant:3}2% increased Spell Damage per 100 Player Maximum Life
 {variant:4}5% increased Spell Damage per 100 Player Maximum Life
+{variant:5}3% increased Spell Damage per 100 Player Maximum Life
 ]],[[
 The Scales of Justice
 Chiming Spirit Shield
@@ -839,10 +849,12 @@ Trigger Level 20 Shield Shatter when you Block
 ]],[[
 The Squire
 Elegant Round Shield
+Variant: Pre 3.29.0
+Variant: Current
 Implicits: 1
 120% increased Block Recovery
 Has 3 Sockets
-All Sockets are White
+{variant:1}All Sockets are White
 +(5-8)% to Quality of Socketed Support Gems
 Socketed Support Gems can also Support Skills from your Main Hand
 (100-150)% increased Armour and Evasion

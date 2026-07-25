@@ -483,34 +483,41 @@ Ruby Ring
 Variant: Pre 3.0.0
 Variant: Pre 3.9.0
 Variant: Pre 3.16.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 16
 Implicits: 1
 {tags:resistance}+(20-30)% to Fire Resistance
 {variant:1}{tags:elemental_damage}(15-25)% increased Fire Damage
-{variant:2,3,4}{tags:elemental_damage}(30-40)% increased Fire Damage
-{tags:caster,speed}(5-10)% increased Cast Speed
+{variant:2,3,4,5}{tags:elemental_damage}(30-40)% increased Fire Damage
+{variant:1,2,3,4}{tags:caster,speed}(5-10)% increased Cast Speed
+{variant:5}{tags:caster,speed}(10-20)% increased Cast Speed
 {variant:1}5% chance to Ignite
-{variant:2,3,4}10% chance to Ignite
+{variant:2,3,4,5}10% chance to Ignite
 {variant:1}{tags:elemental_damage}Ignited Enemies Burn 80% slower
 {variant:2}{tags:elemental_damage}Ignited Enemies Burn 65% slower
 {variant:3}{tags:elemental_damage}Ignited Enemies Burn (65-50)% slower
 {variant:1}{tags:critical}Your Critical Strikes do not deal extra Damage
 {variant:4}{tags:elemental_damage}40% less Burning Damage
+{variant:5}{tags:elemental_damage}35% less Burning Damage
 You can inflict an additional Ignite on each Enemy
 ]],[[
 Replica Emberwake
 Ruby Ring
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 16
 Implicits: 1
 {tags:resistance}+(20-30)% to Fire Resistance
 {tags:elemental_damage}(30-40)% increased Fire Damage
-{tags:caster,speed}(5-10)% increased Cast Speed
+{variant:1}{tags:caster,speed}(5-10)% increased Cast Speed
+{variant:2}{tags:caster,speed}(10-20)% increased Cast Speed
 90% reduced Ignite Duration on Enemies
 10% chance to Ignite
-{tags:elemental_damage}Ignites you inflict deal Damage (35-45)% faster
+{variant:1}{tags:elemental_damage}Ignites you inflict deal Damage (35-45)% faster
+{variant:2}{tags:elemental_damage}Ignites you inflict deal Damage (40-60)% faster
 ]],[[
 Essence Worm
 Unset Ring
@@ -531,7 +538,7 @@ Implicits: 1
 {tags:resource}+(20-30) to maximum Mana
 {tags:attribute}+(20-40) to Intelligence
 {tags:caster,speed}Curse Skills have (8-12)% increased Cast Speed
-Non-Aura Hexes expire upon reaching (180-220)% of base Effect
+Non-Aura Hexes expire upon reaching 200% of base Effect
 Non-Aura Hexes gain 20% increased Effect per second
 ]],[[
 Gifts from Above
@@ -884,6 +891,7 @@ Ruby Ring
 League: Bloodlines
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 29
 Implicits: 1
@@ -891,12 +899,13 @@ Implicits: 1
 {tags:attribute}+(15-25) to Strength
 {variant:1}{tags:elemental_damage,attack,caster}Adds (8-10) to (12-14) Fire Damage to Spells and Attacks
 {variant:2}{tags:elemental_damage,attack,caster}Adds (8-10) to (12-14) Fire Damage to Spells and Attacks
-{variant:3}{tags:elemental_damage,attack,caster}Adds (20-25) to (30-35) Fire Damage to Spells and Attacks
+{variant:3,4}{tags:elemental_damage,attack,caster}Adds (20-25) to (30-35) Fire Damage to Spells and Attacks
+{variant:4}{tags:defences}+(400-600) to Armour
 {variant:1}{tags:resource}Gain (4-5) Life for each Ignited Enemy hit with Attacks
 15% increased Ignite Duration on Enemies
 {variant:1}5% chance to Ignite
-{variant:2,3}10% chance to Ignite
-{variant:2,3}{tags:resource}Recover (20-30) Life when you Ignite an Enemy
+{variant:2,3,4}10% chance to Ignite
+{variant:2,3,4}{tags:resource}Recover (20-30) Life when you Ignite an Enemy
 ]],[[
 Original Sin
 Amethyst Ring
@@ -911,6 +920,7 @@ Implicits: 1
 The Pariah
 Unset Ring
 Variant: Pre 3.25.0
+Variant: Pre 3.29.0
 Variant: Current
 League: Warbands
 Requires Level 60
@@ -918,11 +928,14 @@ Implicits: 1
 Has 1 Socket
 +2 to Level of Socketed Gems
 {tags:attack,caster,speed}(5-10)% increased Attack and Cast Speed
-{tags:resource}+100 to Maximum Life per Red Socket
-{tags:resource}+100 to Maximum Mana per Green Socket
-{tags:defences}+100 to Maximum Energy Shield per Blue Socket
+{variant:1,2}{tags:resource}+100 to Maximum Life per Red Socket
+{variant:3}{tags:resource}+(100-200) to Maximum Life per Red Socket
+{variant:1,2}{tags:resource}+100 to Maximum Mana per Green Socket
+{variant:3}{tags:resource}+(100-200) to Maximum Mana per Green Socket
+{variant:1,2}{tags:defences}+100 to Maximum Energy Shield per Blue Socket
+{variant:3}{tags:defences}+(100-200) to Maximum Energy Shield per Blue Socket
 {variant:1}15% increased Item Quantity per White Socket
-{variant:2}60% increased Item Rarity per White Socket
+{variant:2,3}60% increased Item Rarity per White Socket
 ]],[[
 Perandus Signet
 Paua Ring
@@ -953,6 +966,8 @@ Right Ring slot: Cover Enemies in Frost for 5 seconds when you Freeze them
 ]],[[
 Praxis
 Paua Ring
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 22
 Implicits: 1
 {tags:resource}+(20-30) to maximum Mana
@@ -960,6 +975,7 @@ Implicits: 1
 {tags:resource}Regenerate (3-6) Mana per second
 {tags:resource}-(8-4) to Total Mana Cost of Skills
 {tags:resource}8% of Damage taken Recouped as Mana
+{variant:2}{tags:resource}(20-30)% increased Mana Cost Efficiency
 ]],[[
 Profane Proxy
 Unset Ring
@@ -1150,22 +1166,14 @@ Implicits: 1
 {variant:1}(20-40)% increased Rarity of Items found
 {variant:2,3,4,5}(10-20)% reduced Rarity of Items found
 {tags:elemental_damage,attack}(20-30)% increased Elemental Damage with Attack Skills
-{variant:1,2}Left ring slot: 30% of Elemental Hit Damage from you and
-{variant:1,2}your Minions cannot be Reflected
-{variant:3}Left ring slot: 40% of Elemental Hit Damage from you and
-{variant:3}your Minions cannot be Reflected
-{variant:4}Left ring slot: 80% of Elemental Hit Damage from you and
-{variant:4}your Minions cannot be Reflected
-{variant:5}Left ring slot: 100% of Elemental Hit Damage from you and
-{variant:5}your Minions cannot be Reflected
-{variant:1,2}Right ring slot: 30% of Physical Hit Damage from you and
-{variant:1,2}your Minions cannot be Reflected
-{variant:3}Right ring slot: 40% of Physical Hit Damage from you and
-{variant:3}your Minions cannot be Reflected
-{variant:4}Right ring slot: 80% of Physical Hit Damage from you and
-{variant:4}your Minions cannot be Reflected
-{variant:5}Right ring slot: 100% of Physical Hit Damage from you and
-{variant:5}your Minions cannot be Reflected
+{variant:1,2}Left ring slot: you and your Minions prevent +30% of Reflected Elemental Damage
+{variant:3}Left ring slot: you and your Minions prevent +40% of Reflected Elemental Damage
+{variant:4}Left ring slot: you and your Minions prevent +80% of Reflected Elemental Damage
+{variant:5}Left ring slot: you and your Minions prevent +100% of Reflected Elemental Damage
+{variant:1,2}Right ring slot: you and your Minions prevent +30% of Reflected Physical Damage
+{variant:3}Right ring slot: you and your Minions prevent +40% of Reflected Physical Damage
+{variant:4}Right ring slot: you and your Minions prevent +80% of Reflected Physical Damage
+{variant:5}Right ring slot: you and your Minions prevent +100% of Reflected Physical Damage
 ]],[[
 Snakepit
 Sapphire Ring
@@ -1198,6 +1206,7 @@ Lose no Experience when you die because a Linked target died
 Stormfire
 Opal Ring
 Variant: Pre 3.17.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 80
 Implicits: 1
@@ -1205,8 +1214,9 @@ Implicits: 1
 {tags:resource}(40-45)% increased Mana Regeneration Rate
 {tags:resistance}+(20-30)% to Fire and Lightning Resistances
 {variant:1}{tags:elemental_damage}(4-6)% increased Burning Damage for each time you have Shocked a Non-Shocked Enemy Recently, up to a maximum of 120%
-{variant:2}{tags:elemental_damage}(8-12)% increased Burning Damage for each time you have Shocked a Non-Shocked Enemy Recently, up to a maximum of 120%
-{tags:elemental_damage}Adds (1-3) to (62-70) Lightning Damage to Hits against Ignited Enemies
+{variant:2,3}{tags:elemental_damage}(8-12)% increased Burning Damage for each time you have Shocked a Non-Shocked Enemy Recently, up to a maximum of 120%
+{variant:1,2}{tags:elemental_damage}Adds (1-3) to (62-70) Lightning Damage to Hits against Ignited Enemies
+{variant:3}{tags:elemental_damage}Adds (1-3) to (125-145) Lightning Damage to Hits against Ignited Enemies
 Your Lightning Damage can Ignite
 ]],[[
 Storm Secret
@@ -1280,12 +1290,16 @@ Immune to Chill
 ]],[[
 Tawhanuku's Timing
 Moonstone Ring
-{tags:caster}50% chance to Trigger Socketed Spells when you Spend at least 100 Mana on an
-{tags:caster}Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown
-{tags:caster}(30-40)% increased Spell Damage
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 1
 {tags:defences}+(15-25) to maximum Energy Shield
+{tags:caster}(30-40)% increased Spell Damage
+{variant:2}{tags:defences}+(60-80) to maximum Energy Shield
 {tags:resource}+(60-80) to maximum Mana
 (5-10)% chance to Freeze, Shock and Ignite
+{tags:defences,caster}Spells cause you to gain Energy Shield equal to their Upfront
+{tags:defences,caster}Cost every third time you Pay it
 ]],[[
 Thief's Torment
 Prismatic Ring
@@ -1430,19 +1444,21 @@ Topaz Ring
 League: Bloodlines
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 38
 Implicits: 1
 {tags:resistance}+(20-30)% to Lightning Resistance
 {variant:1}15% increased Damage with Hits against Shocked Enemies
-{variant:2,3}40% increased Damage with Hits against Shocked Enemies
+{variant:2,3,4}40% increased Damage with Hits against Shocked Enemies
 {tags:elemental_damage}20% increased Lightning Damage
-{tags:resource}+(20-40) to maximum Mana
+{variant:1,2,3}{tags:resource}+(20-40) to maximum Mana
+{variant:4}{tags:resource}+(100-150) to maximum Mana
 {variant:1,2}{tags:resource}2% of Damage Leeched as Life against Shocked Enemies
-{variant:3}{tags:resource}1% of Damage Leeched as Life against Shocked Enemies
+{variant:3,4}{tags:resource}1% of Damage Leeched as Life against Shocked Enemies
 {variant:1}5% chance to Shock
 {variant:2}10% chance to Shock
-{variant:3}25% chance to Shock
+{variant:3,4}25% chance to Shock
 ]],[[
 Valyrium
 Moonstone Ring

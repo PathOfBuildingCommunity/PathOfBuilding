@@ -107,10 +107,13 @@ Hateforge
 Ancient Gauntlets
 League: Ultimatum
 Source: Drops from unique{The Trialmaster}
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 47, 68 Str
 SupportedByRageUnique__1__
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__23
-ReducedRageCostUnique__1
+{variant:1}ReducedRageCostUnique__1
+{variant:2}RageCostEfficiencyUnique__1
 VaalAttacksUseRageInsteadOfSoulsUnique__1_
 CannotGainRageDuringSoulGainPreventionUnique__1__
 ]],[[
@@ -651,11 +654,14 @@ IncreasedLifeUniqueGlovesInt3
 ]],[[
 Wyrmsign
 Wyrmscale Gauntlets
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 49, 38 Str, 38 Dex
 ItemActsAsConcentratedAOESupportUnique__1
 LocalIncreasedArmourAndEvasionUnique__1
 IncreasedLifeUniqueGlovesStrDex4
-ReduceManaCostPerEnduranceChargeUnique__1
+{variant:1}ReduceManaCostPerEnduranceChargeUnique__1
+{variant:2}ManaCostEfficiencyPerEnduranceChargeUnique__1
 RampageWhileAtMaxEnduranceChargesUnique__1
 LoseEnduranceChargesOnRampageEndUnique___1
 ]],[[
@@ -818,12 +824,18 @@ CanOnlyKillFrozenEnemiesUniqueGlovesStrInt3
 ]],[[
 Triad Grip
 Mesh Gloves
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 32, 26 Str, 26 Int
 LocalIncreasedArmourAndEnergyShieldUnique__16
-MinionPhysicalToFirePerRedSocket
-MinionPhysicalToColdPerGreenSocket_
-MinionPhysicalToLightningPerBlueSocket
-MinionPhysicalToChaosPerWhiteSocket
+{variant:1}MinionPhysicalToFirePerRedSocket
+{variant:1}MinionPhysicalToColdPerGreenSocket_
+{variant:1}MinionPhysicalToLightningPerBlueSocket
+{variant:1}MinionPhysicalToChaosPerWhiteSocket
+{variant:2}MinionPhysicalToFirePerSocketedRedGemUnique__1
+{variant:2}MinionPhysicalToColdPerSocketedGreenGemUnique__1
+{variant:2}MinionPhysicalToLightningPerSocketedBlueGemUnique__1
+{variant:2}MinionPhysicalToChaosPerEmptySocketUnique__1
 MinionChanceToFreezeShockIgnite
 ]],[[
 Volkuur's Guidance
@@ -1057,7 +1069,8 @@ CriticalStrikeChanceUniqueGlovesDexInt6
 {variant:2}CriticalMultiplierUniqueGlovesDexInt6_[25,45]
 {variant:3}CriticalMultiplierUniqueGlovesDexInt6_
 LocalIncreasedEvasionAndEnergyShieldUniqueGlovesDexInt6
-ManaLeechPermyriadUnique__1
+{variant:1,2}ManaLeechPermyriadUnique__1
+{variant:3}ManaLeechPermyriadUniqueGlovesDexInt6
 GroundSmokeOnRampageUniqueGlovesDexInt6
 UnholyMightOnRampageUniqueGlovesDexInt6
 SimulatedRampageDexInt6

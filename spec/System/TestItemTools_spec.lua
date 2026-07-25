@@ -36,6 +36,9 @@ local applyRangeTests = {
 	[{ "+(-25-50)% to Fire Resistance", 1.0, 1.5 }] = "+75% to Fire Resistance",
 	[{ "+(-25-50)% to Fire Resistance", 0.0, 1.0 }] = "-25% to Fire Resistance",
 	[{ "+(-25-50)% to Fire Resistance", 0.0, 1.5 }] = "-37% to Fire Resistance",
+	-- Fallback scaling
+	[{ "+(10-20) to unsupported value", 1.0, 1.0, 1.22 }] = "+24 to unsupported value",
+	[{ "+(10-20) to unsupported value", 1.0, 1.5, 1.22 }] = "+36 to unsupported value",
 }
 
 describe("TestItemTools", function()
@@ -45,4 +48,72 @@ describe("TestItemTools", function()
 			assert.are.equals(expected, result)
 		end)
 	end
+
+	it("detects scalability after resolving ranges", function()
+		assert.is_true(itemLib.isModLineScalable("+(10-20) to maximum Life", 1, 1))
+		assert.is_false(itemLib.isModLineScalable("Your Maximum Resistances are (76-80)%", 1, 1))
+	end)
+
+	it("formats corrupted fixed-value modifiers", function()
+		local modLine = { line = "Adds 1 to 59 Chaos Damage", corruptedRange = 1.22 }
+		assert.are.equals(colorCodes.MAGIC .. "Adds 1 to 72 Chaos Damage", itemLib.formatModLine(modLine))
+	end)
+
+	it("uses the displayed item slot for anoint comparison tooltips", function()
+		if not common.classes.ItemsTab then
+			LoadModule("Classes/ItemsTab")
+		end
+		local item = new("Item", [[
+Rarity: Rare
+Dire Thread
+Cord Belt
+Can be Anointed
+]])
+		local overrides = { }
+		local fakeItemsTab = setmetatable({
+			displayItem = item,
+			build = {
+				spec = { allocNodes = { } },
+				calcsTab = {
+					GetMiscCalculator = function()
+						return function(override)
+							table.insert(overrides, override)
+							return { }
+						end
+					end,
+				},
+				AddStatComparesToTooltip = function()
+					return 1
+				end,
+			},
+		}, common.classes.ItemsTab)
+		local tooltip = {
+			AddLine = function() end,
+		}
+
+		fakeItemsTab:AppendAnointTooltip(tooltip, { id = 1, dn = "Acrimony" })
+
+		assert.are.equals("Belt", overrides[1].repSlotName)
+		assert.are.equals("Belt", overrides[2].repSlotName)
+	end)
+
+	it("does not report missing anoints for non-anointable talisman bases", function()
+		if not common.classes.ItemsTab then
+			LoadModule("Classes/ItemsTab")
+		end
+		local fakeItemsTab = setmetatable({ }, common.classes.ItemsTab)
+		local item = {
+			base = {
+				type = "Amulet",
+				cannotBeAnointed = true,
+			},
+			enchantModLines = { },
+			scourgeModLines = { },
+			implicitModLines = { },
+			explicitModLines = { },
+			crucibleModLines = { },
+		}
+
+		assert.are.equals(0, fakeItemsTab:getMissingAnointCount(item))
+	end)
 end)
