@@ -50,7 +50,7 @@ local ESCost = {
 	"ESCost", "Cost", "ESCostNoMult", "ESCostEfficiency", "CostEfficiency"
 }
 local rageCost = {
-	"RageCost", "Cost", "RageNoMult", "RageCostEfficiency", "CostEfficiency"
+	"RageCost", "Cost", "RageCostNoMult", "RageCostEfficiency", "CostEfficiency"
 }
 
 -- format {width, id, group, color, subsection:{default hidden, label, data:{}}}
