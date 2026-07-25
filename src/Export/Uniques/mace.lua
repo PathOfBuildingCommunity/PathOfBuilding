@@ -570,7 +570,7 @@ Implicits: 2
 {variant:3,4}SpellAddedLightningDamageUnique__2
 IncreasedCastSpeedUnique__2
 {variant:1,2,3}ManaCostReductionUnique__1
-{variant:4}(10-20)% increased Mana Cost Efficiency
+{variant:4}ManaCostEffiencyUnique__1
 DisplayNearbyEnemiesAreSlowedUnique__1
 {variant:1,2}DamageAgainstNearEnemiesUnique__1[60,80]
 {variant:3,4}DamageAgainstNearEnemiesUnique__1

@@ -578,7 +578,7 @@ Implicits: 2
 Nearby Enemies are Hindered, with 25% reduced Movement Speed
 {variant:1,2}(60-80)% increased Damage with Hits and Ailments against Hindered Enemies
 {variant:3,4}100% increased Damage with Hits and Ailments against Hindered Enemies
-{variant:4}(10-20)% increased Mana Cost Efficiency
+{variant:4}(15-25)% increased Mana Cost Efficiency
 ]],[[
 Spine of the First Claimant
 Iron Sceptre
